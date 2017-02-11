@@ -1,54 +1,55 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-ua0-x242.google.com (mail-ua0-x242.google.com
- [IPv6:2607:f8b0:400c:c08::242])
+Received: from mail-vk0-x242.google.com (mail-vk0-x242.google.com
+ [IPv6:2607:f8b0:400c:c05::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vKx7743byzDqBW
- for <openbmc@lists.ozlabs.org>; Sat, 11 Feb 2017 13:47:31 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vKxDz6CNRzDqBW
+ for <openbmc@lists.ozlabs.org>; Sat, 11 Feb 2017 13:52:35 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="K++0MgaZ"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="sXS3dcHE"; 
  dkim-atps=neutral
-Received: by mail-ua0-x242.google.com with SMTP id d5so4394662uag.0
- for <openbmc@lists.ozlabs.org>; Fri, 10 Feb 2017 18:47:31 -0800 (PST)
+Received: by mail-vk0-x242.google.com with SMTP id t8so4002211vke.0
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Feb 2017 18:52:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=5m9OSYkc1yb44azEwyFcKW67imYp8Qdkl8MbVYx/WsM=;
- b=K++0MgaZNI/Q2f4yPC0kuI97xZqeQCQyNozk05ZWP26qFanQh3hh7h3ekw/+8rUgfG
- eK8idtN+4ll6NoYWtkmHlQnMTzJZvt5EoXwJd/ZnKT7HHJPoVB71wDWl4UfcqDXObX8C
- A7DK1yt6GejGrpLXVGW3CDxieWYLQWzn3WvikcxjzwRxNNdnUBjpskNwk2XQb0o+32Zi
- K3bWUnO3aPxvf3plb9Y3DSYtNk61OzWFPS9ddAVCsShfplOjndLHhEVQbMZWiTxWLLEc
- QPfCWQ+MCUxyv6woYno2xjPfs7TBAAaCSrikFsfefY3KTwwYvgzVBBVstLaAfaFfEUZw
- gBpA==
+ bh=RbxBFsUntTP1UwdqU0Jg1h1nxwSDDeygMPfr/O+MIJQ=;
+ b=sXS3dcHEVbJLAbUFMMus0KQJMay02BaHEoACA6/dlSoz1qgeF1Jfv5/y5u7qA1LF+a
+ WtWqfUKiFxnU4ZSC/uT6tj6a6CVfm5MeYySISLCXzRKz/cTR1ObERe5aiWWBlbffVGFL
+ pCk+qxRPZBcuyhEeTXvuIILGj7M5tx+tOzhP32LrBXFtrzOaXbCoJsrgiATCtIAhI5Nm
+ 0g4wI4Zz3e4/ezusELByFJ4Z8fDwz2VvQ0vVcxqAK2tbphJ5uuFnAZ5iinh9iXFdiaG+
+ fpQ6NkFeP5smtZaZh8IN19K8qSXbTScEeGuw7cqZpdOOFMz/WghVBRliEsEqDMXjzuMG
+ LSaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=5m9OSYkc1yb44azEwyFcKW67imYp8Qdkl8MbVYx/WsM=;
- b=I3w1vdXeFg+qcCplNVaND87S+7/NtlY3tSvk9/qz5eyC/OYgtWWPWpebgtl92oYbVW
- QFaH/QM7gi+YI96FLp1S3J1Nb/GNZTEuQZGMltUi+xR3XI14gaIlh63+UX/6RtKjVq5f
- 2BF73SzcBIyzzeVQlCCDTETx7f4Oy2G1gLGl5EMR1rafibjFhqwH6N2R01nt0uKHM50d
- pawvMp+WI0ZeCxvD9ERpoG201wWhZ56QIyhFVK1jyKExCyypguXF+qTyKdSqVZ28VH35
- kQfKgoibhrIRG/Jd3T88sgfxxyTKwyzt3xjj5i3vXmnm2K6z4SM7UJMkNOSP0EXIvKjq
- ETJQ==
-X-Gm-Message-State: AMke39mTGfoZz7xFTh7WLLXDLbFoy65B+q8RKZQXFzigV5HzZRiSugH0PcJnZutj4gbsAg8BP/amK0C7f9im8g==
-X-Received: by 10.159.49.25 with SMTP id m25mr6537845uab.87.1486781248928;
- Fri, 10 Feb 2017 18:47:28 -0800 (PST)
+ bh=RbxBFsUntTP1UwdqU0Jg1h1nxwSDDeygMPfr/O+MIJQ=;
+ b=PSNpohyz1AB6t+qXnIfMwFPAA1vCE6Yq/v4XRZfCqaRfZ9zCiY12qEbXoFlZaTkHSD
+ 5heumocsHScH2yvKGa2Wpv/nbO4oH9/LcE3GlyIGA3blu2XciaL0uWszOA9HICXZ5tIt
+ uwERYXpGm/9DAo7VF1bgpvAHwG/w7U0AXZYM5sxfWb/fw7DwGfsG8wsY1ijR/kP/tUKe
+ FiJBn1lx90OebS+Po5gtKZ95kG1xEQP98pHQMtV7AflL57keD6jW6Oqveegin64reYDt
+ rv3ia3r5LJHiJZptovCLc3lnje+4PRAVBI6WzOMDgQN+StmOpcC+h17k59ZJAOBqKolB
+ cERw==
+X-Gm-Message-State: AMke39lnSlWXgXKZuL3UR5o1aiiYcApOd8B58gTqpWXclXXI6aZ0QNXHTCagkjwqi/dGimStM6gfrjO1572QcA==
+X-Received: by 10.31.6.69 with SMTP id 66mr3547528vkg.149.1486781553034; Fri,
+ 10 Feb 2017 18:52:33 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.176.92.150 with HTTP; Fri, 10 Feb 2017 18:47:08 -0800 (PST)
-In-Reply-To: <1486760074-17019-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1486760074-17019-1-git-send-email-eajames@linux.vnet.ibm.com>
+Received: by 10.176.92.150 with HTTP; Fri, 10 Feb 2017 18:52:12 -0800 (PST)
+In-Reply-To: <20170210143012.GB18321@kroah.com>
+References: <20170207234247.19425-1-cyrilbur@gmail.com>
+ <20170210143012.GB18321@kroah.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Sat, 11 Feb 2017 13:17:08 +1030
-X-Google-Sender-Auth: WnCRFmNKwZm94B0QZQnazMJUV2g
-Message-ID: <CACPK8XeTC4fyXiAs1yDtO5XoRUP3ZyQXyudqXOMu=aHuU0G_LQ@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7 v3] dts: aspeed: witherspoon: Enable FSI
- master
-To: Eddie James <eajames@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- "Edward A. James" <eajames@us.ibm.com>, 
- Alistair Popple <alistair@popple.id.au>
+Date: Sat, 11 Feb 2017 13:22:12 +1030
+X-Google-Sender-Auth: 7BhokybGLNzA9TXirjN0KQRzquA
+Message-ID: <CACPK8Xczd8R0BsQ3HMjDhp8okr9VVMx38PTvHYinCTM=N=LQtw@mail.gmail.com>
+Subject: Re: [PATCH v4] drivers/misc: Add Aspeed LPC control driver
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: Cyril Bur <cyrilbur@gmail.com>, linux-kernel@vger.kernel.org, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Michael Neuling <mikey@neuling.org>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -61,51 +62,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 11 Feb 2017 02:47:32 -0000
+X-List-Received-Date: Sat, 11 Feb 2017 02:52:36 -0000
 
-On Sat, Feb 11, 2017 at 7:24 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
-> From: "Edward A. James" <eajames@us.ibm.com>
+Hey Greg,
+
+On Sat, Feb 11, 2017 at 1:00 AM, Greg KH <gregkh@linuxfoundation.org> wrote:
+> On Wed, Feb 08, 2017 at 10:42:47AM +1100, Cyril Bur wrote:
+>> In order to manage server systems, there is typically another processor
+>> known as a BMC (Baseboard Management Controller) which is responsible
+>> for powering the server and other various elements, sometimes fans,
+>> often the system flash.
 >
-> set status to "okay"
+> Without some other reviewed-by: or at least tested-by lines here, I'm
+> not going to take this.  Go poke your fellow ppc people to do some work
+> here, it shouldn't be up to me to do it for them :(
 
-Did you successfully boot a p9 with this?
+We're on it. Thanks for your review so far.
 
-I found that it did work, but we have two separate bits of software
-poking at FSI - pdbg via /dev/mem, and the kernel driver. So it's a
-bit of luck that it still works.
-
-In order to not have this, pdbg needs to use the kernel driver. I
-started doing this work but hit the issues that you and Chris have
-been debugging for us.
-
-On Monday I will re-test pdbg with your fixes, and if that works, we
-can push the pdbg OpenFSI backend and at that point change the device
-tree to bind to the driver. We will need to make sure we can use the
-kernel driver to perform the DD1 workarounds on both p9 sockets.
+By the way, this is a driver for an ARM SoC, not a PPC chip.
+Nevertheless I'm sure those PPC people will still give us a review or
+two.
 
 Cheers,
 
 Joel
-
->
-> Signed-off-by: Edward A. James <eajames@us.ibm.com>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> index 4b2d8aa..e532737 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> @@ -50,7 +50,7 @@
->         fsi-master {
->                 compatible = "ibm,fsi-master", "ibm,fsi-master-gpio";
->
-> -               status = "disabled";
-> +               status = "okay";
->
->                 clock-gpios = <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
->                 data-gpios = <&gpio ASPEED_GPIO(E, 0) GPIO_ACTIVE_HIGH>;
-> --
-> 1.8.3.1
->
