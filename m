@@ -1,58 +1,56 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x243.google.com (mail-yw0-x243.google.com
+ [IPv6:2607:f8b0:4002:c05::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vMf315sXlzDqBW
- for <openbmc@lists.ozlabs.org>; Tue, 14 Feb 2017 08:34:53 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="JTkS5CdJ"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="ONBtI16c"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id B4D2D208D4;
- Mon, 13 Feb 2017 16:34:51 -0500 (EST)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Mon, 13 Feb 2017 16:34:51 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=0M6e9B/Nm2eri725+PKaWJUfG1U=; b=JTkS5C
- dJrRT8vr6IyQ1oCuOWQqVOdtItcbdOeL/ggQ/fDgu58sYp6+ylOSfAoZx1exbrKg
- tLI9Kl8r6ftBLkEDqcNCmFu1BYTNHAp3uZsdbLxcsYj4GWePpxLZIu9BhrYibscS
- xQ66jJH5v4FqJi90ajFScqPwlQHUgS80IuLzA=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=0M6e9B/Nm2eri7
- 25+PKaWJUfG1U=; b=ONBtI16cqjF2WOYumj9CKaVLWEnLm8B/EgBTCxHRYmfdtM
- zgIFF7jouiNrWGX6AcjQHBkUIA3axHuqE9vJDohzT07Ea5wytox8e5wY/A1k67Eh
- ba5moVOHtGtN6Fc3w/n6X9Ruq2ydrwMvc8AlvGF14wrMn5WDaJOcqHhp8XVmE=
-X-ME-Sender: <xms:eyaiWHKZK3YCH4GGkaObaZEHVXfyYUc_C7Nijw1uHwIjmQBBEK4v4A>
-X-Sasl-enc: MyAkmFNihtdCDv6o49dY5TYgBrt9qRHTgA+iZM+xK72X 1487021690
-Received: from [172.16.172.59] (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id 67A9F7E06B;
- Mon, 13 Feb 2017 16:34:49 -0500 (EST)
-Message-ID: <1487021685.3661.26.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.7 1/3] ARM: dts: aspeed-g5: Add SoC Display
- Controller node
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Rick Altherr <raltherr@google.com>
-Cc: Patrick Williams <patrick@stwcx.xyz>, Joel Stanley <joel@jms.id.au>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, Xo Wang <xow@google.com>
-Date: Tue, 14 Feb 2017 08:04:45 +1030
-In-Reply-To: <CAPLgG=kOBYuKTnZAbZtwDyZoXrUiwivyHAEzcG-tn-jmkxGZhQ@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vMgtP6PZkzDq8t
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Feb 2017 09:57:33 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="rowROGOV"; 
+ dkim-atps=neutral
+Received: by mail-yw0-x243.google.com with SMTP id l16so8413869ywb.2
+ for <openbmc@lists.ozlabs.org>; Mon, 13 Feb 2017 14:57:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=cAsQlD/OqDf/Sakvv+hmTywBj8KM5FsHiKUXaFdQ7as=;
+ b=rowROGOVndVW82ouk4nA9sTA39xPfqJtJcCjkRXWLTCbMAsDcbzLWAa/sxFUIaB0AB
+ pCM0iQ7ZCt1BKh6aNBUK/9WtSBgPR5xhPwjahWYJL195KUTaJIuA4foMPbK4UBYHsTIL
+ x0EHStaI+ci6mEZq3vqwIHUxZVyqq1tIL7Nd0duCkeIBi8GRDmDGjJllSHym41bG+INk
+ 0T1jDo3I/jwzoudLj5IGswP1MmXPT8sxCSNxvrF1R3ZTEeQtEvkkICC6DPOINraEjalP
+ H5gCPn4YV79+7+of5fmG2m77eeEc2sEPvgtRb3ESS9RqoqEfHR8J+ZQB9AZ+BT/qOpM/
+ R0nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=cAsQlD/OqDf/Sakvv+hmTywBj8KM5FsHiKUXaFdQ7as=;
+ b=jJqReeQ1y/loyIEsr9QuzR6CSB0hAuWgNrhvO8bUpfU8RANfd8TdMRdPXA5l1VycEN
+ CeEhxl8L6rHOrtfIVM+/H4yCGFVoy8e+ToDNLTN4HMa9hJTDoK5pkq14RmRs1OhXNOcI
+ yb1ZhtZeBpWfF4Dtc1cmLMjDk4f9fI7JvpwJctlyaYvpc0KCSaXcw3vS6NBG5QUpS2eu
+ llq2Hs3Rd3M3XrlVDEUSS5hSJ6ktb8rmSTK26MyLU0nv4s+W06WLcoAhpJMdTGFrgjAn
+ vBCMwVSmoTeeglxoU6XfVLrsgJWugOgn4Xr4N4F7V9pcA9qFGYYPOhvddoFEe7QoJ+80
+ miFA==
+X-Gm-Message-State: AMke39lsUqj8ikmSubKJahf7PTB2HQBisI8ukblJtdSVdPWyhqLpnX62PtVw8TxbVmxknhdL/eDUUhL039CYXQ==
+X-Received: by 10.129.91.194 with SMTP id p185mr18309063ywb.50.1487026651388; 
+ Mon, 13 Feb 2017 14:57:31 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.170.41 with HTTP; Mon, 13 Feb 2017 14:57:10 -0800 (PST)
+In-Reply-To: <20170213172440.lrqaf5v7jk66denq@asimov>
 References: <20170213025851.6051-1-andrew@aj.id.au>
  <20170213025851.6051-2-andrew@aj.id.au>
  <20170213172440.lrqaf5v7jk66denq@asimov>
- <1487021173.3661.24.camel@aj.id.au>
- <CAPLgG=kOBYuKTnZAbZtwDyZoXrUiwivyHAEzcG-tn-jmkxGZhQ@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-o0d27K01tlzQg2Psqj35"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 14 Feb 2017 09:27:10 +1030
+X-Google-Sender-Auth: 5WY3eweQG6ocPlF5a6cbt4wC1u0
+Message-ID: <CACPK8XetG6q3OLLMVOAhJVyL5jrm0JnOO1d8JwFAtJg+MicKxA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7 1/3] ARM: dts: aspeed-g5: Add SoC Display
+ Controller node
+To: Patrick Williams <patrick@stwcx.xyz>
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, Xo Wang <xow@google.com>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -64,46 +62,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Feb 2017 21:34:54 -0000
+X-List-Received-Date: Mon, 13 Feb 2017 22:57:34 -0000
 
+On Tue, Feb 14, 2017 at 3:54 AM, Patrick Williams <patrick@stwcx.xyz> wrote:
+> On Mon, Feb 13, 2017 at 01:28:49PM +1030, Andrew Jeffery wrote:
+>> diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+>> index e1994c9e38c3..5ce0a7a65e77 100644
+>> --- a/arch/arm/boot/dts/aspeed-g5.dtsi
+>> +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+>> @@ -1005,6 +1005,12 @@
+>>                               reg = <0x1e6e202c 0x4>;
+>>                       };
+>>
+>> +                     gfx: display@1e6e6000 {
+>> +                             compatible = "aspeed,ast2500-gfx", "syscon";
+>> +                             reg = <0x1e6e6000 0x1000>;
+>> +                             reg-io-width = <4>;
+>> +                     };
+>> +
+>
+> Is this valid to add on all G5 chips?  I believe Zaius is using a
+> variant of the 2500 that does not have the graphics engine.
 
---=-o0d27K01tlzQg2Psqj35
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Andrew, do we need to fix this now? If so, can you please re-spin with
+this set to disabled, and enabling it in the .dts?
 
-On Mon, 2017-02-13 at 13:31 -0800, Rick Altherr wrote:
-> The AST2500 datasheet I have covers both 2500 and 2520.=C2=A0 The table o=
-f
-> contents has many peripherals that have (AST2520 Excluded) next to
-> them.
+How does this affect your pinmux driver? Can we still mux all of the
+pins on the 2510?
 
-Wow - so it turns out I use Evince's Outline side-pane exclusively for
-moving around the datasheet and I never stopped to look at the ToC in
-detail.
+Cheers,
 
-Thanks for pointing that out.
-
-Andrew
---=-o0d27K01tlzQg2Psqj35
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJYoiZ1AAoJEJ0dnzgO5LT5/KgQAIo0KZqx5KhiADGWpdExF/Sl
-64QIYnUh0nkJ2JpSd8XwviTi0ZYznPfpfc3+ew+TxUVLQLUFiO9+I85gL1cTwhjJ
-q/BO1iuc41kbAp4LUDGBsPYixT5ytdyfOdGWoJu8JUWqFIEMT3hoI8SZf3bDtAiW
-PQmKKVBcqthWFpIieUq7gOdVCejSkcBv5N7kVR/fvp8hScvp+h2tOO59lWkIRA4+
-uWEyV7Hdi4HzI8rNywzT2QLRdFGN9oIUSmbPVcgYufHANMFYd7NS6kyhIbFauL+D
-XRPJH33SJ19u3Y7YQ+fH77wr8X4uj2vPBXZeHQEC1p0qf82HlkoOqIJ1TZmafQAt
-zZpMMewROW6ZRLJ+FEVMPvzB6kmqQ5j/sSpsw2l/gYK2OOI2uh3NZRW/eOzM6Ul5
-o+kB+zZqqjvqBW/16ySvsU32kGUyyoYHPCAfNMAp4P0MZ7AvWyw8rmJltLc5tRc1
-sE8mJIcIBXbuVV41ocSAaM6pnoZKdzZXKwX9zJgmcF0GNqs0tdfYv2U5SXyF+QJN
-K64EfSF5AD1DVgbLB7oN9r47vitLWP/QnuDw46so4tmw27DlMrsODn6Nj/Gc84Jr
-Fy6b8f5zB95R5dqp8wPzJQzjVd4zXvrOBPcSAQuFvsNtN8FDfjvAaVxyAnTrAZWD
-FwHSwYjZCyiffRELo7Im
-=Phk9
------END PGP SIGNATURE-----
-
---=-o0d27K01tlzQg2Psqj35--
+Joel
