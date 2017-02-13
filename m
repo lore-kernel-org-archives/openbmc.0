@@ -1,55 +1,54 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-vk0-x242.google.com (mail-vk0-x242.google.com
- [IPv6:2607:f8b0:400c:c05::242])
+Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
+ [IPv6:2607:f8b0:4002:c05::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vKxDz6CNRzDqBW
- for <openbmc@lists.ozlabs.org>; Sat, 11 Feb 2017 13:52:35 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vM82T4XCbzDqBW
+ for <openbmc@lists.ozlabs.org>; Mon, 13 Feb 2017 13:02:41 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="sXS3dcHE"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="cnpjQhMj"; 
  dkim-atps=neutral
-Received: by mail-vk0-x242.google.com with SMTP id t8so4002211vke.0
- for <openbmc@lists.ozlabs.org>; Fri, 10 Feb 2017 18:52:35 -0800 (PST)
+Received: by mail-yw0-x244.google.com with SMTP id q71so6275983ywg.3
+ for <openbmc@lists.ozlabs.org>; Sun, 12 Feb 2017 18:02:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=RbxBFsUntTP1UwdqU0Jg1h1nxwSDDeygMPfr/O+MIJQ=;
- b=sXS3dcHEVbJLAbUFMMus0KQJMay02BaHEoACA6/dlSoz1qgeF1Jfv5/y5u7qA1LF+a
- WtWqfUKiFxnU4ZSC/uT6tj6a6CVfm5MeYySISLCXzRKz/cTR1ObERe5aiWWBlbffVGFL
- pCk+qxRPZBcuyhEeTXvuIILGj7M5tx+tOzhP32LrBXFtrzOaXbCoJsrgiATCtIAhI5Nm
- 0g4wI4Zz3e4/ezusELByFJ4Z8fDwz2VvQ0vVcxqAK2tbphJ5uuFnAZ5iinh9iXFdiaG+
- fpQ6NkFeP5smtZaZh8IN19K8qSXbTScEeGuw7cqZpdOOFMz/WghVBRliEsEqDMXjzuMG
- LSaA==
+ bh=sa80OvV03Qkjhbj8sbZSd7EEn5xkdjb3AenZcqqY8vI=;
+ b=cnpjQhMjhQLFxcteePetxXrhM0rreyClAz3bDsmfRRGYMIgpFWBblTzvcXSGIQlunq
+ hkO69U4wsAv015QmhLxtioaS4oUjBf5NlGi2ftR4hN+Y4Z1I+59s6mO/gTM+vcZ3qJNa
+ O24Xl7/67b/OEKTR8HsEHsZp98SCq16mDenaflVkRMnBpavKILMdRQGIEb5U1HA8RFDF
+ kHLdthql7m4hXWam/cdLxXmIWwHr6UZCxvKShhEAD8jiTSCA5PrX2QvSA3e6BirTbvZL
+ g0mUTJ6s0TtkYUtE1gJv5rXvkkPLOVf5FAtRBXZRDJNTfDB0eLVbtMgTYgG3Js7EPt+f
+ TwRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=RbxBFsUntTP1UwdqU0Jg1h1nxwSDDeygMPfr/O+MIJQ=;
- b=PSNpohyz1AB6t+qXnIfMwFPAA1vCE6Yq/v4XRZfCqaRfZ9zCiY12qEbXoFlZaTkHSD
- 5heumocsHScH2yvKGa2Wpv/nbO4oH9/LcE3GlyIGA3blu2XciaL0uWszOA9HICXZ5tIt
- uwERYXpGm/9DAo7VF1bgpvAHwG/w7U0AXZYM5sxfWb/fw7DwGfsG8wsY1ijR/kP/tUKe
- FiJBn1lx90OebS+Po5gtKZ95kG1xEQP98pHQMtV7AflL57keD6jW6Oqveegin64reYDt
- rv3ia3r5LJHiJZptovCLc3lnje+4PRAVBI6WzOMDgQN+StmOpcC+h17k59ZJAOBqKolB
- cERw==
-X-Gm-Message-State: AMke39lnSlWXgXKZuL3UR5o1aiiYcApOd8B58gTqpWXclXXI6aZ0QNXHTCagkjwqi/dGimStM6gfrjO1572QcA==
-X-Received: by 10.31.6.69 with SMTP id 66mr3547528vkg.149.1486781553034; Fri,
- 10 Feb 2017 18:52:33 -0800 (PST)
+ bh=sa80OvV03Qkjhbj8sbZSd7EEn5xkdjb3AenZcqqY8vI=;
+ b=qEWYzJxJNVQEB1wU5en2cB1nwlzpjQeT/bN1QyeOUmnjf+WLZs2WclID7DZSrmGfOy
+ x04NB4rT84S+gXgKykL5d9gfzbq56IwBMikcq+1FPuKSufSsg5b8GOu//u/QuDVBB37R
+ lT5t/lmqsKx/XEL6BenqXwpC7IaNbjBKMc/W7xlL9cnRNF5i+IESlCWzqzZGhliuNenX
+ kFJwVuG7Pmn9VQ0T5KLxugzNWEko0Q4mKO0dOn+0SfJGSxDKBR1wIllhiWzync7Rctw9
+ yQLnJgGi7bkc95t90KZIS7CZKZjtfAAolPP72vVAvq6iLDC6Mv8dH/xbA8f+59k5NSjj
+ CJeQ==
+X-Gm-Message-State: AMke39k2BXvl92HXB63Tv7SSrLJ8m2J0pc7hlvbekHonzPUONCcjuH48Wle319StlbLG7z2Cd0F/V4Ce/1omZw==
+X-Received: by 10.129.73.65 with SMTP id w62mr14561395ywa.288.1486951359204;
+ Sun, 12 Feb 2017 18:02:39 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.176.92.150 with HTTP; Fri, 10 Feb 2017 18:52:12 -0800 (PST)
-In-Reply-To: <20170210143012.GB18321@kroah.com>
-References: <20170207234247.19425-1-cyrilbur@gmail.com>
- <20170210143012.GB18321@kroah.com>
+Received: by 10.37.170.41 with HTTP; Sun, 12 Feb 2017 18:02:18 -0800 (PST)
+In-Reply-To: <1486745362-7790-3-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1486745362-7790-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <1486745362-7790-3-git-send-email-eajames@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Sat, 11 Feb 2017 13:22:12 +1030
-X-Google-Sender-Auth: 7BhokybGLNzA9TXirjN0KQRzquA
-Message-ID: <CACPK8Xczd8R0BsQ3HMjDhp8okr9VVMx38PTvHYinCTM=N=LQtw@mail.gmail.com>
-Subject: Re: [PATCH v4] drivers/misc: Add Aspeed LPC control driver
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Cyril Bur <cyrilbur@gmail.com>, linux-kernel@vger.kernel.org, 
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Michael Neuling <mikey@neuling.org>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Mon, 13 Feb 2017 12:32:18 +1030
+X-Google-Sender-Auth: iWBury3pFtC20KqEi9gTzwix66E
+Message-ID: <CACPK8XdtxH9-MW0ryO0SeDsHhGc825Af1Cwy-KXewOVbGsjKTQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7 v2 2/2] drivers: fsi: i2c fix ports
+To: Eddie James <eajames@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Christopher Bostic <cbostic@linux.vnet.ibm.com>,
+ "Edward A. James" <eajames@us.ibm.com>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -62,27 +61,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 11 Feb 2017 02:52:36 -0000
+X-List-Received-Date: Mon, 13 Feb 2017 02:02:42 -0000
 
-Hey Greg,
-
-On Sat, Feb 11, 2017 at 1:00 AM, Greg KH <gregkh@linuxfoundation.org> wrote:
-> On Wed, Feb 08, 2017 at 10:42:47AM +1100, Cyril Bur wrote:
->> In order to manage server systems, there is typically another processor
->> known as a BMC (Baseboard Management Controller) which is responsible
->> for powering the server and other various elements, sometimes fans,
->> often the system flash.
+On Sat, Feb 11, 2017 at 3:19 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+> From: "Edward A. James" <eajames@us.ibm.com>
 >
-> Without some other reviewed-by: or at least tested-by lines here, I'm
-> not going to take this.  Go poke your fellow ppc people to do some work
-> here, it shouldn't be up to me to do it for them :(
+> missing a couple of ports
+>
+> Signed-off-by: Edward A. James <eajames@us.ibm.com>
 
-We're on it. Thanks for your review so far.
-
-By the way, this is a driver for an ARM SoC, not a PPC chip.
-Nevertheless I'm sure those PPC people will still give us a review or
-two.
+Applied to dev-4.7 with some fixes to the commit message.
 
 Cheers,
 
 Joel
+
+> ---
+>  drivers/fsi/i2c/iic-fsi.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/fsi/i2c/iic-fsi.c b/drivers/fsi/i2c/iic-fsi.c
+> index 6d5b045..9c70e38 100644
+> --- a/drivers/fsi/i2c/iic-fsi.c
+> +++ b/drivers/fsi/i2c/iic-fsi.c
+> @@ -281,7 +281,7 @@ int iic_del_ports(iic_eng_t* eng, uint64_t ports)
+>         return 0;
+>  }
+>
+> -#define IIC_FSI_PORTS  0xFFFULL
+> +#define IIC_FSI_PORTS  0x7FFFULL
+>  /*
+>   * Called when an FSI IIC engine is plugged in.
+>   * Causes creation of the /dev entry.
+> --
+> 1.8.3.1
+>
