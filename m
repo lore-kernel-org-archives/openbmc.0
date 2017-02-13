@@ -3,45 +3,45 @@ Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vM9Hj0x6tzDqBQ
- for <openbmc@lists.ozlabs.org>; Mon, 13 Feb 2017 13:59:13 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vM9Hl3jJTzDqGW
+ for <openbmc@lists.ozlabs.org>; Mon, 13 Feb 2017 13:59:15 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="C9jW1ecx"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="PzqDXAYN"; 
  dkim=pass (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="IxTZD7KI"; dkim-atps=neutral
+ header.b="POnkXG/S"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 0AD87206EA;
- Sun, 12 Feb 2017 21:59:11 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id 6DD8420692;
+ Sun, 12 Feb 2017 21:59:13 -0500 (EST)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Sun, 12 Feb 2017 21:59:11 -0500
+ by compute4.internal (MEProxy); Sun, 12 Feb 2017 21:59:13 -0500
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
  :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=lkF
- /AhMGperrybd8h5Hba2WGABk=; b=C9jW1ecxq857ljZ9Gvz/kpfbHkPcQx0rV35
- IKJr2NX2Rnpeo2X90DvEK0PJNd0gWon4a28rFqk4IFme2K482gb67diQI0l4vKVM
- lLGpiAlWds6lbFFhbi4hhXP0xzqlm5qNnxqbz/X3+l0RGnGlLS+4c+pR+LWbt5M/
- 7PS0xhJA=
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=qlk
+ ZKMVUIFo94ht0VU61/s/EB1U=; b=PzqDXAYN5TlVHRSjgFlz1FCW6gtnAHNow+s
+ Q17tKlQhG5CHd+b2zoL9kVYNDYg93LSRDbErLv8U5AdfEwKEqj0+c+c2ceOmkF7R
+ RMm1U6EmKd7OlI0xT8cJH6F/gMU+43ObOWuH/CtmbUWEtkIlZYPbDrY6E1pqqsTE
+ JmG8tPHU=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:date:from:in-reply-to:message-id
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=smtpout; bh=lkF/AhMGperrybd8h5Hba2WGABk=; b=IxTZD
- 7KIh2TkOtOpqCu3+sMpO0+rXg+wulFYrucnvl/2Z9HF+jF5j8bPX+80nQIbUei6Z
- 8D7s72/Xa1fzZwxWS8t/oDyEABPVO6wcQIcI8dSyG25uFO8ugPFDfM5CFwrNMI4G
- Ea0/HULii/naXklqZLXIv4Vp3ZfSQFXrt2kBKA=
-X-ME-Sender: <xms:_iChWJhm1qEm-oswnjBGT6rSBDBbXMaiZK5vSey_ZCMO-gLitbdQaA>
-X-Sasl-enc: 71dbzYZz+2ZNWMvbsu/QGya2v95yvhwPoBmcjxbdZOBa 1486954750
+ :x-sasl-enc; s=smtpout; bh=qlkZKMVUIFo94ht0VU61/s/EB1U=; b=POnkX
+ G/STRE0pqeZ7vEpcra0kmdcMVj/BHlX5wEg3cjnLpDVB0er5u273PyVdD8QUaDc5
+ AByfwTfPLS78/SHmFIQwJMkZFJajl8NNLyOTs03KxnfJGG/s5Fc70g5dxM59YZG9
+ rLsTaL72vOZB76jgv3TWP+o01eWO0p4BMEA6iM=
+X-ME-Sender: <xms:ASGhWNRCFZlIxlx6GwUhXLiEiav4T9fzNedygayKHhcaHe5HfU8qiA>
+X-Sasl-enc: k0Zr8x1nRS7qSX1G72cJpGsYyZ7h1OTRmgkoOXO0ODim 1486954752
 Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id DCF02241D7;
- Sun, 12 Feb 2017 21:59:08 -0500 (EST)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 8B9DF241D7;
+ Sun, 12 Feb 2017 21:59:11 -0500 (EST)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Joel Stanley <joel@jms.id.au>
 Cc: Andrew Jeffery <andrew@aj.id.au>,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: [PATCH linux dev-4.7 2/3] ARM: dts: aspeed-g5: Add LPC Host
- Controller node to LPC
-Date: Mon, 13 Feb 2017 13:28:50 +1030
-Message-Id: <20170213025851.6051-3-andrew@aj.id.au>
+Subject: [PATCH linux dev-4.7 3/3] ARM: dts: aspeed-g5: Give pinctrl phandles
+ for gfx and lhc
+Date: Mon, 13 Feb 2017 13:28:51 +1030
+Message-Id: <20170213025851.6051-4-andrew@aj.id.au>
 X-Mailer: git-send-email 2.9.3
 In-Reply-To: <20170213025851.6051-1-andrew@aj.id.au>
 References: <20170213025851.6051-1-andrew@aj.id.au>
@@ -56,34 +56,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Feb 2017 02:59:13 -0000
+X-List-Received-Date: Mon, 13 Feb 2017 02:59:15 -0000
 
-Required for pinmux, which tests some bits in the LHC's IO space.
+The g5's pinctrl reported:
+
+[    0.750000] aspeed-g5-pinctrl 1e6e2000.syscon:pinctrl@1e6e2000: No GFX phandle found, some mux configurations may fail
+[    0.750000] aspeed-g5-pinctrl 1e6e2000.syscon:pinctrl@1e6e2000: No LHC phandle found, some mux configurations may fail
+
+as the aspeed,external-nodes property was missing from the pinctrl
+node. Fix the mux capability by adding the required phandles.
 
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 ---
 
-This is extracted from commit cec822f89ec19b181dc02e2a0c6441d107d8b4d9 in the
+This is extracted from commit b590c8d2eed5748dfe52c4fc13df6cadb1b56d58 in the
 ARM next/dt tree.
 
- arch/arm/boot/dts/aspeed-g5.dtsi | 5 +++++
- 1 file changed, 5 insertions(+)
+ arch/arm/boot/dts/aspeed-g5.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index 5ce0a7a65e77..fcbaa759d523 100644
+index fcbaa759d523..cff11868a136 100644
 --- a/arch/arm/boot/dts/aspeed-g5.dtsi
 +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -117,6 +117,11 @@
- 					status = "disabled";
- 				};
+@@ -174,6 +174,7 @@
  
-+				lhc: lhc@20 {
-+					compatible = "aspeed,ast2500-lhc";
-+					reg = <0x20 0x24 0x48 0x8>;
-+				};
-+
- 				mbox: mbox@180 {
- 					compatible = "aspeed,ast2500-mbox";
- 					reg = <0x180 0x5c>;
+ 				pinctrl: pinctrl@1e6e2000 {
+ 					compatible = "aspeed,g5-pinctrl";
++					aspeed,external-nodes = <&gfx &lhc>;
+ 
+ 					pinctrl_acpi_default: acpi_default {
+ 						function = "ACPI";
 -- 
 2.9.3
