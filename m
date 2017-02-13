@@ -1,29 +1,67 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vMXVw6N4ZzDqBQ
- for <openbmc@lists.ozlabs.org>; Tue, 14 Feb 2017 04:25:11 +1100 (AEDT)
-Received: from localhost (32.97.110.56 [32.97.110.56]) by mx.zohomail.com
- with SMTPS id 1487006686711543.9124964795362;
- Mon, 13 Feb 2017 09:24:46 -0800 (PST)
-Date: Mon, 13 Feb 2017 11:24:40 -0600
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Xo Wang <xow@google.com>
-Subject: Re: [PATCH linux dev-4.7 1/3] ARM: dts: aspeed-g5: Add SoC Display
- Controller node
-Message-ID: <20170213172440.lrqaf5v7jk66denq@asimov>
-References: <20170213025851.6051-1-andrew@aj.id.au>
- <20170213025851.6051-2-andrew@aj.id.au>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="stsa72csl2hacipy"
-Content-Disposition: inline
-In-Reply-To: <20170213025851.6051-2-andrew@aj.id.au>
-User-Agent: Mutt/1.6.2 (2016-06-11)
-X-Zoho-Virus-Status: 1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vMc6x3mrCzDqBQ
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Feb 2017 07:08:09 +1100 (AEDT)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v1DJs1j5139953
+ for <openbmc@lists.ozlabs.org>; Mon, 13 Feb 2017 15:08:06 -0500
+Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 28kc78m9g6-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 13 Feb 2017 15:08:05 -0500
+Received: from localhost
+ by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Mon, 13 Feb 2017 13:08:05 -0700
+Received: from d03dlp03.boulder.ibm.com (9.17.202.179)
+ by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Mon, 13 Feb 2017 13:08:02 -0700
+Received: from b03cxnp08027.gho.boulder.ibm.com
+ (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
+ by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id 6B03E19D803F;
+ Mon, 13 Feb 2017 13:07:15 -0700 (MST)
+Received: from b03ledav006.gho.boulder.ibm.com
+ (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v1DK82p79437574; Mon, 13 Feb 2017 13:08:02 -0700
+Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 41E30C603C;
+ Mon, 13 Feb 2017 13:08:02 -0700 (MST)
+Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
+ by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id EAC70C6037;
+ Mon, 13 Feb 2017 13:08:01 -0700 (MST)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, cbostic@linux.vnet.ibm.com,
+ "Edward A. James" <eajames@us.ibm.com>
+Subject: [PATCH linux dev-4.7 0/2] drivers: fsi: Improve driver cleanup
+Date: Mon, 13 Feb 2017 14:07:58 -0600
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 17021320-0024-0000-0000-000015EC20D0
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006610; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000203; SDB=6.00821471; UDB=6.00401769; IPR=6.00598924; 
+ BA=6.00005133; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014270; XFM=3.00000011;
+ UTC=2017-02-13 20:08:04
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17021320-0025-0000-0000-000048BEB36C
+Message-Id: <1487016480-17700-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-02-13_10:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=1
+ spamscore=1 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
+ definitions=main-1702130191
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -35,58 +73,21 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Feb 2017 17:25:14 -0000
+X-List-Received-Date: Mon, 13 Feb 2017 20:08:10 -0000
 
+From: "Edward A. James" <eajames@us.ibm.com>
 
---stsa72csl2hacipy
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Need to delete the fsi device during the "unscan" process. Also add remove
+function for scom client driver, otherwise we end up with bad files in
+/dev.
 
-On Mon, Feb 13, 2017 at 01:28:49PM +1030, Andrew Jeffery wrote:
-> diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-=
-g5.dtsi
-> index e1994c9e38c3..5ce0a7a65e77 100644
-> --- a/arch/arm/boot/dts/aspeed-g5.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-> @@ -1005,6 +1005,12 @@
->  				reg =3D <0x1e6e202c 0x4>;
->  			};
-> =20
-> +			gfx: display@1e6e6000 {
-> +				compatible =3D "aspeed,ast2500-gfx", "syscon";
-> +				reg =3D <0x1e6e6000 0x1000>;
-> +				reg-io-width =3D <4>;
-> +			};
-> +
+Edward A. James (2):
+  drivers: fsi: delete device on unscan
+  drivers: fsi: scom: Add remove function
 
-Is this valid to add on all G5 chips?  I believe Zaius is using a
-variant of the 2500 that does not have the graphics engine.
+ drivers/fsi/fsi-core.c |  1 +
+ drivers/fsi/fsi-scom.c | 16 ++++++++++++++++
+ 2 files changed, 17 insertions(+)
 
-
---=20
-Patrick Williams
-
---stsa72csl2hacipy
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJYoevYAAoJEKsDR8wtAMEZ+pkP/3B+kGyEY/xNVGZgX1blPElL
-O5PO4w2U07Q0/r7JoIo0FTrR7aa180t9DRnNO0kaBi8km9L/pvfXE0BiwgceZjQ5
-MhWg7BU69OLJY6Mp6aZ8x+VoD6sbI+V3spzJkWPMIR1/UbXxlG1++JvaoZVLMMz5
-P3j58bVtpNsdANX7cGqD5VSrrgvdArexwNV8nchFj2dnwCWdG8eqN0LjWakCY331
-JKGRQnNUBD/fX+jznHCCNuj89a5Nfoqf00fXvjBlhal/HqhEBrRJyLD3hf9MFu89
-KOe/O6Da4oywqmmVwwOgu0jt8vIr4SHNWlYqr9uPBA2pZ8p/ePuDp3abpb8W3K3I
-quZypU+/W9kGs8zHbcRx5T03oW1yAG47P/SGwdLJlCS90P/ZMX8l4Luw3aEqf+D0
-PpUJ6B2tjHJiVoxs+9HwGi1S6IqAM3cWpFPeFR/gs5J3VpfMRE7Re6zI8FHeTQFj
-GWJcFv7esvoQOy+M6RnYIOzep6amFKdjusCE5LRSjEQaEniHN03jYWGjmoEG37iE
-e9OGIGU6OeCl7F9KMi0jYlPQfmz64f8dKcuuiGVe64hgvP2bRKfQ/ZdSlptGuv0V
-39KzfP13sH2AjnfsrzwQgv6zQYY1imyDfzd8d/7gAVfWLgoTnvjUB7HwUaBoGThM
-scsNnF2+k+k/ACkoD60s
-=9ueL
------END PGP SIGNATURE-----
-
---stsa72csl2hacipy--
+-- 
+1.8.3.1
