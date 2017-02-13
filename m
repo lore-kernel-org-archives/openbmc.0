@@ -3,45 +3,45 @@ Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vM9Hd5TPhzDqBW
- for <openbmc@lists.ozlabs.org>; Mon, 13 Feb 2017 13:59:09 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vM9Hj0x6tzDqBQ
+ for <openbmc@lists.ozlabs.org>; Mon, 13 Feb 2017 13:59:13 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="SyYq+EKa"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="C9jW1ecx"; 
  dkim=pass (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="LstTzlRh"; dkim-atps=neutral
+ header.b="IxTZD7KI"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id A72EC2083F;
- Sun, 12 Feb 2017 21:59:07 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id 0AD87206EA;
+ Sun, 12 Feb 2017 21:59:11 -0500 (EST)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Sun, 12 Feb 2017 21:59:07 -0500
+ by compute4.internal (MEProxy); Sun, 12 Feb 2017 21:59:11 -0500
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
  :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=lyH
- QwJpT3L91oXsYk/B+ANF+aCA=; b=SyYq+EKa6FImf3BluOpHNPSBXROB7ObhpCY
- e1UjwEtglIBcCrgUl8N0tiJYLEwsHbKColNGWEM2zXyG5mzC3XxC9tQwZFi3sA60
- 2X5I6WTfSVfINKCUgLAO/AelBf1dLv5VWNAyxhnx70TcElmqLsJE0ShK0Pn6F+sK
- pIUzm8Qw=
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=lkF
+ /AhMGperrybd8h5Hba2WGABk=; b=C9jW1ecxq857ljZ9Gvz/kpfbHkPcQx0rV35
+ IKJr2NX2Rnpeo2X90DvEK0PJNd0gWon4a28rFqk4IFme2K482gb67diQI0l4vKVM
+ lLGpiAlWds6lbFFhbi4hhXP0xzqlm5qNnxqbz/X3+l0RGnGlLS+4c+pR+LWbt5M/
+ 7PS0xhJA=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:date:from:in-reply-to:message-id
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=smtpout; bh=lyHQwJpT3L91oXsYk/B+ANF+aCA=; b=LstTz
- lRh5GvWwpLQykFFGGEkVyFVip6Sz9DfhaUVPUby6HKGCZ3zfAGXfPXBHP1Q4zNqK
- UQ5TBnbXp6abMTbPrlqiJf0U4kYYTOQaV5gldcrdMlDyT4KRqjEedCOIJaqSb8TS
- ZpsX587wB2pmox7kQJAsA/IvikpmMNNpLkKRYA=
-X-ME-Sender: <xms:-yChWPpbL82wYQiOti1YfKc548xUFj_ux0bENS__2cV9Pf48dVtPFg>
-X-Sasl-enc: EwOfn3jRXh6qEe2GSzjJEfq9WMpyPg/HUacuCviFMIZN 1486954746
+ :x-sasl-enc; s=smtpout; bh=lkF/AhMGperrybd8h5Hba2WGABk=; b=IxTZD
+ 7KIh2TkOtOpqCu3+sMpO0+rXg+wulFYrucnvl/2Z9HF+jF5j8bPX+80nQIbUei6Z
+ 8D7s72/Xa1fzZwxWS8t/oDyEABPVO6wcQIcI8dSyG25uFO8ugPFDfM5CFwrNMI4G
+ Ea0/HULii/naXklqZLXIv4Vp3ZfSQFXrt2kBKA=
+X-ME-Sender: <xms:_iChWJhm1qEm-oswnjBGT6rSBDBbXMaiZK5vSey_ZCMO-gLitbdQaA>
+X-Sasl-enc: 71dbzYZz+2ZNWMvbsu/QGya2v95yvhwPoBmcjxbdZOBa 1486954750
 Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id AFB80241E9;
- Sun, 12 Feb 2017 21:59:05 -0500 (EST)
+ by mail.messagingengine.com (Postfix) with ESMTPA id DCF02241D7;
+ Sun, 12 Feb 2017 21:59:08 -0500 (EST)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Joel Stanley <joel@jms.id.au>
 Cc: Andrew Jeffery <andrew@aj.id.au>,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: [PATCH linux dev-4.7 1/3] ARM: dts: aspeed-g5: Add SoC Display
- Controller node
-Date: Mon, 13 Feb 2017 13:28:49 +1030
-Message-Id: <20170213025851.6051-2-andrew@aj.id.au>
+Subject: [PATCH linux dev-4.7 2/3] ARM: dts: aspeed-g5: Add LPC Host
+ Controller node to LPC
+Date: Mon, 13 Feb 2017 13:28:50 +1030
+Message-Id: <20170213025851.6051-3-andrew@aj.id.au>
 X-Mailer: git-send-email 2.9.3
 In-Reply-To: <20170213025851.6051-1-andrew@aj.id.au>
 References: <20170213025851.6051-1-andrew@aj.id.au>
@@ -56,31 +56,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Feb 2017 02:59:10 -0000
+X-List-Received-Date: Mon, 13 Feb 2017 02:59:13 -0000
+
+Required for pinmux, which tests some bits in the LHC's IO space.
 
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-Signed-off-by: Joel Stanley <joel@jms.id.au>
-(cherry picked from commit daf042580a0dacd894a3825dd6f048364fd66770)
 ---
- arch/arm/boot/dts/aspeed-g5.dtsi | 6 ++++++
- 1 file changed, 6 insertions(+)
+
+This is extracted from commit cec822f89ec19b181dc02e2a0c6441d107d8b4d9 in the
+ARM next/dt tree.
+
+ arch/arm/boot/dts/aspeed-g5.dtsi | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index e1994c9e38c3..5ce0a7a65e77 100644
+index 5ce0a7a65e77..fcbaa759d523 100644
 --- a/arch/arm/boot/dts/aspeed-g5.dtsi
 +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -1005,6 +1005,12 @@
- 				reg = <0x1e6e202c 0x4>;
- 			};
+@@ -117,6 +117,11 @@
+ 					status = "disabled";
+ 				};
  
-+			gfx: display@1e6e6000 {
-+				compatible = "aspeed,ast2500-gfx", "syscon";
-+				reg = <0x1e6e6000 0x1000>;
-+				reg-io-width = <4>;
-+			};
++				lhc: lhc@20 {
++					compatible = "aspeed,ast2500-lhc";
++					reg = <0x20 0x24 0x48 0x8>;
++				};
 +
- 			sram@1e720000 {
- 				compatible = "mmio-sram";
- 				reg = <0x1e720000 0x9000>;	// 36K
+ 				mbox: mbox@180 {
+ 					compatible = "aspeed,ast2500-mbox";
+ 					reg = <0x180 0x5c>;
 -- 
 2.9.3
