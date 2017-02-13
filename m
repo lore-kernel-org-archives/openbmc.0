@@ -1,53 +1,58 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-it0-x22d.google.com (mail-it0-x22d.google.com
- [IPv6:2607:f8b0:4001:c0b::22d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vMdyp64RzzDqBQ
- for <openbmc@lists.ozlabs.org>; Tue, 14 Feb 2017 08:31:14 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="lo9+ksIN"; 
- dkim-atps=neutral
-Received: by mail-it0-x22d.google.com with SMTP id c7so4365944itd.1
- for <openbmc@lists.ozlabs.org>; Mon, 13 Feb 2017 13:31:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=e3VckC+5UyFRM0rcQH/9QrdjzzuOVyaftslOu6oDq24=;
- b=lo9+ksINN4OEbXzTowzlJFbU9dS5YaPsCWuy4QW+Vjx8/tdxRmzpPvPjW4pZU8AJW+
- pOAr/F17Y9Lsrpf86Cp9/x5iqYC9KwR/D7V+IYMEEBJxX9IZRJM2pAM/pQmsNs1Yf9gc
- 9ahwSSULUeM73j6uGfoceSDCt/7BU+SEDtQH1e1nb57o7yvLePBdZ3sIjd/AEaGCMWqz
- JssqoCHCaPH2EEo3J/oWHaYLuLDTw1kZWLcJfZ8oHHmcU8Mc42VTc5dAUXFqk0KgXNFN
- H+LJLXaDAVSAvLWNF+YmtIFuTFfELdQ7boZnULeXnDU2FG0MCVyiVV+ePbWRs9W0mEOs
- YyaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=e3VckC+5UyFRM0rcQH/9QrdjzzuOVyaftslOu6oDq24=;
- b=uAG+AcXFXLVA/97OkFvfvFekClFzn2Y9eBw1/mDvFM6LfGXpr+bsXcA3OO/OjAM8D5
- rOtcLSvSregAEax/Lj+9dL+WsYf27ruNIPpOFJ4+QdHUe4GXfTh2kr6y5MOHn5XsN9qn
- I9vN2DQBb8KhoKEf9Bjq1LtTJTew3Dc6bU+aIrV0VDN4SZ4ZDmHLydmtR7hFeMP3OkcK
- NuLv/D5rBDYUu7w6Hb7ImH39E0NH7siabxKDwnbiqxjMzc7pvjrVf8TrrK7fT8ZIohX/
- 2smd8xJ0amJUZ5tgCLXjUlgASrefRZeexQg6TmiDWkxMqRrTHt/kCSHdgl70+CG6P9te
- Nfmg==
-X-Gm-Message-State: AMke39kDjTQsrfL46CqElJOatT1oCWy+awq7W7/BqMZK5FIR2bJEtWFfvLDR6eGK6Pb1F0AuP3gR39SE597/6X2h
-X-Received: by 10.107.12.88 with SMTP id w85mr22397156ioi.96.1487021472659;
- Mon, 13 Feb 2017 13:31:12 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.64.133.226 with HTTP; Mon, 13 Feb 2017 13:31:12 -0800 (PST)
-In-Reply-To: <1487021173.3661.24.camel@aj.id.au>
-References: <20170213025851.6051-1-andrew@aj.id.au>
- <20170213025851.6051-2-andrew@aj.id.au>
- <20170213172440.lrqaf5v7jk66denq@asimov> <1487021173.3661.24.camel@aj.id.au>
-From: Rick Altherr <raltherr@google.com>
-Date: Mon, 13 Feb 2017 13:31:12 -0800
-Message-ID: <CAPLgG=kOBYuKTnZAbZtwDyZoXrUiwivyHAEzcG-tn-jmkxGZhQ@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vMf315sXlzDqBW
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Feb 2017 08:34:53 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="JTkS5CdJ"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="ONBtI16c"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id B4D2D208D4;
+ Mon, 13 Feb 2017 16:34:51 -0500 (EST)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Mon, 13 Feb 2017 16:34:51 -0500
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=mesmtp; bh=0M6e9B/Nm2eri725+PKaWJUfG1U=; b=JTkS5C
+ dJrRT8vr6IyQ1oCuOWQqVOdtItcbdOeL/ggQ/fDgu58sYp6+ylOSfAoZx1exbrKg
+ tLI9Kl8r6ftBLkEDqcNCmFu1BYTNHAp3uZsdbLxcsYj4GWePpxLZIu9BhrYibscS
+ xQ66jJH5v4FqJi90ajFScqPwlQHUgS80IuLzA=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=0M6e9B/Nm2eri7
+ 25+PKaWJUfG1U=; b=ONBtI16cqjF2WOYumj9CKaVLWEnLm8B/EgBTCxHRYmfdtM
+ zgIFF7jouiNrWGX6AcjQHBkUIA3axHuqE9vJDohzT07Ea5wytox8e5wY/A1k67Eh
+ ba5moVOHtGtN6Fc3w/n6X9Ruq2ydrwMvc8AlvGF14wrMn5WDaJOcqHhp8XVmE=
+X-ME-Sender: <xms:eyaiWHKZK3YCH4GGkaObaZEHVXfyYUc_C7Nijw1uHwIjmQBBEK4v4A>
+X-Sasl-enc: MyAkmFNihtdCDv6o49dY5TYgBrt9qRHTgA+iZM+xK72X 1487021690
+Received: from [172.16.172.59] (ppp203-122-213-247.static.internode.on.net
+ [203.122.213.247])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 67A9F7E06B;
+ Mon, 13 Feb 2017 16:34:49 -0500 (EST)
+Message-ID: <1487021685.3661.26.camel@aj.id.au>
 Subject: Re: [PATCH linux dev-4.7 1/3] ARM: dts: aspeed-g5: Add SoC Display
  Controller node
-To: Andrew Jeffery <andrew@aj.id.au>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Rick Altherr <raltherr@google.com>
 Cc: Patrick Williams <patrick@stwcx.xyz>, Joel Stanley <joel@jms.id.au>, 
  OpenBMC Maillist <openbmc@lists.ozlabs.org>, Xo Wang <xow@google.com>
-Content-Type: multipart/alternative; boundary=001a113e012aa720f20548702aea
+Date: Tue, 14 Feb 2017 08:04:45 +1030
+In-Reply-To: <CAPLgG=kOBYuKTnZAbZtwDyZoXrUiwivyHAEzcG-tn-jmkxGZhQ@mail.gmail.com>
+References: <20170213025851.6051-1-andrew@aj.id.au>
+ <20170213025851.6051-2-andrew@aj.id.au>
+ <20170213172440.lrqaf5v7jk66denq@asimov>
+ <1487021173.3661.24.camel@aj.id.au>
+ <CAPLgG=kOBYuKTnZAbZtwDyZoXrUiwivyHAEzcG-tn-jmkxGZhQ@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-o0d27K01tlzQg2Psqj35"
+X-Mailer: Evolution 3.22.1-0ubuntu2 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,128 +64,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Feb 2017 21:31:15 -0000
+X-List-Received-Date: Mon, 13 Feb 2017 21:34:54 -0000
 
---001a113e012aa720f20548702aea
-Content-Type: text/plain; charset=UTF-8
 
-The AST2500 datasheet I have covers both 2500 and 2520.  The table of
-contents has many peripherals that have (AST2520 Excluded) next to them.
-
-On Mon, Feb 13, 2017 at 1:26 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
-
-> On Mon, 2017-02-13 at 11:24 -0600, Patrick Williams wrote:
-> > On Mon, Feb 13, 2017 at 01:28:49PM +1030, Andrew Jeffery wrote:
-> > > diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi
-> b/arch/arm/boot/dts/aspeed-g5.dtsi
-> > > index e1994c9e38c3..5ce0a7a65e77 100644
-> > > --- a/arch/arm/boot/dts/aspeed-g5.dtsi
-> > > +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-> > > @@ -1005,6 +1005,12 @@
-> > > > >                                 reg = <0x1e6e202c 0x4>;
-> > > > >                         };
-> > >
-> > > > > > > +                   gfx: display@1e6e6000 {
-> > > > > +                               compatible = "aspeed,ast2500-gfx",
-> "syscon";
-> > > > > +                               reg = <0x1e6e6000 0x1000>;
-> > > > > +                               reg-io-width = <4>;
-> > > > > +                       };
-> > > +
-> >
->
->
-> >   I believe Zaius is using a
-> > variant of the 2500 that does not have the graphics engine.
->
-> According to Rick, Zaius is using the AST2500 for the EVT but in the
-> future they will be looking at moving to a chip without the graphics
-> engine.
->
-> > Is this valid to add on all G5 chips?
->
-> Not on the AST2520 according to the marketing material[1]. I would
-> prefer to use the datasheet for the SoC as a reference though, and I
-> don't have an AST2520 datasheet.
->
-> The fix *should* just be a matter of a small change to the pinctrl
-> bindings, and we can do this when we come to support the AST2520.
->
-> Andrew
->
-> [1] https://www.aspeedtech.com/products.php?fPath=20&rId=456
->
->
-> >
-
---001a113e012aa720f20548702aea
-Content-Type: text/html; charset=UTF-8
+--=-o0d27K01tlzQg2Psqj35
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">The AST2500 datasheet I have covers both 2500 and 2520.=C2=
-=A0 The table of contents has many peripherals that have (AST2520 Excluded)=
- next to them.</div><div class=3D"gmail_extra"><br><div class=3D"gmail_quot=
-e">On Mon, Feb 13, 2017 at 1:26 PM, Andrew Jeffery <span dir=3D"ltr">&lt;<a=
- href=3D"mailto:andrew@aj.id.au" target=3D"_blank">andrew@aj.id.au</a>&gt;<=
-/span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8=
-ex;border-left:1px #ccc solid;padding-left:1ex"><span class=3D"">On Mon, 20=
-17-02-13 at 11:24 -0600, Patrick Williams wrote:<br>
-&gt; On Mon, Feb 13, 2017 at 01:28:49PM +1030, Andrew Jeffery wrote:<br>
-&gt; &gt; diff --git a/arch/arm/boot/dts/aspeed-g5.<wbr>dtsi b/arch/arm/boo=
-t/dts/aspeed-g5.<wbr>dtsi<br>
-&gt; &gt; index e1994c9e38c3..5ce0a7a65e77 100644<br>
-&gt; &gt; --- a/arch/arm/boot/dts/aspeed-g5.<wbr>dtsi<br>
-&gt; &gt; +++ b/arch/arm/boot/dts/aspeed-g5.<wbr>dtsi<br>
-&gt; &gt; @@ -1005,6 +1005,12 @@<br>
-&gt; &gt; &gt; &gt; =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0reg =3D &lt;0=
-x1e6e202c 0x4&gt;;<br>
-&gt; &gt; &gt; &gt; =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
-&gt; &gt; =C2=A0<br>
-&gt; &gt; &gt; &gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0gfx: display@1e6e6000 {<br>
-&gt; &gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0compatible =3D &=
-quot;aspeed,ast2500-gfx&quot;, &quot;syscon&quot;;<br>
-&gt; &gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0reg =3D &lt;0x1e=
-6e6000 0x1000&gt;;<br>
-&gt; &gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0reg-io-width =3D=
- &lt;4&gt;;<br>
-&gt; &gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
-&gt; &gt; +<br>
-&gt;<br>
-<br>
-<br>
-</span><span class=3D"">&gt;=C2=A0=C2=A0=C2=A0I believe Zaius is using a<br=
->
-&gt; variant of the 2500 that does not have the graphics engine.<br>
-<br>
-</span>According to Rick, Zaius is using the AST2500 for the EVT but in the=
-<br>
-future they will be looking at moving to a chip without the graphics<br>
-engine.<br>
-<span class=3D""><br>
-&gt; Is this valid to add on all G5 chips?<br>
-<br>
-</span>Not on the AST2520 according to the marketing material[1]. I would<b=
-r>
-prefer to use the datasheet for the SoC as a reference though, and I<br>
-don&#39;t have an AST2520 datasheet.<br>
-<br>
-The fix *should* just be a matter of a small change to the pinctrl<br>
-bindings, and we can do this when we come to support the AST2520.<br>
-<br>
-Andrew<br>
-<br>
-[1] <a href=3D"https://www.aspeedtech.com/products.php?fPath=3D20&amp;rId=
-=3D456" rel=3D"noreferrer" target=3D"_blank">https://www.aspeedtech.com/<wb=
-r>products.php?fPath=3D20&amp;rId=3D456</a><br>
-<br>
-<br>
-&gt; </blockquote></div><br></div>
+On Mon, 2017-02-13 at 13:31 -0800, Rick Altherr wrote:
+> The AST2500 datasheet I have covers both 2500 and 2520.=C2=A0 The table o=
+f
+> contents has many peripherals that have (AST2520 Excluded) next to
+> them.
 
---001a113e012aa720f20548702aea--
+Wow - so it turns out I use Evince's Outline side-pane exclusively for
+moving around the datasheet and I never stopped to look at the ToC in
+detail.
+
+Thanks for pointing that out.
+
+Andrew
+--=-o0d27K01tlzQg2Psqj35
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJYoiZ1AAoJEJ0dnzgO5LT5/KgQAIo0KZqx5KhiADGWpdExF/Sl
+64QIYnUh0nkJ2JpSd8XwviTi0ZYznPfpfc3+ew+TxUVLQLUFiO9+I85gL1cTwhjJ
+q/BO1iuc41kbAp4LUDGBsPYixT5ytdyfOdGWoJu8JUWqFIEMT3hoI8SZf3bDtAiW
+PQmKKVBcqthWFpIieUq7gOdVCejSkcBv5N7kVR/fvp8hScvp+h2tOO59lWkIRA4+
+uWEyV7Hdi4HzI8rNywzT2QLRdFGN9oIUSmbPVcgYufHANMFYd7NS6kyhIbFauL+D
+XRPJH33SJ19u3Y7YQ+fH77wr8X4uj2vPBXZeHQEC1p0qf82HlkoOqIJ1TZmafQAt
+zZpMMewROW6ZRLJ+FEVMPvzB6kmqQ5j/sSpsw2l/gYK2OOI2uh3NZRW/eOzM6Ul5
+o+kB+zZqqjvqBW/16ySvsU32kGUyyoYHPCAfNMAp4P0MZ7AvWyw8rmJltLc5tRc1
+sE8mJIcIBXbuVV41ocSAaM6pnoZKdzZXKwX9zJgmcF0GNqs0tdfYv2U5SXyF+QJN
+K64EfSF5AD1DVgbLB7oN9r47vitLWP/QnuDw46so4tmw27DlMrsODn6Nj/Gc84Jr
+Fy6b8f5zB95R5dqp8wPzJQzjVd4zXvrOBPcSAQuFvsNtN8FDfjvAaVxyAnTrAZWD
+FwHSwYjZCyiffRELo7Im
+=Phk9
+-----END PGP SIGNATURE-----
+
+--=-o0d27K01tlzQg2Psqj35--
