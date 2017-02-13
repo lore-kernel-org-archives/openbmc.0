@@ -1,50 +1,29 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vM9Hl3jJTzDqGW
- for <openbmc@lists.ozlabs.org>; Mon, 13 Feb 2017 13:59:15 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="PzqDXAYN"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="POnkXG/S"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 6DD8420692;
- Sun, 12 Feb 2017 21:59:13 -0500 (EST)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Sun, 12 Feb 2017 21:59:13 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=qlk
- ZKMVUIFo94ht0VU61/s/EB1U=; b=PzqDXAYN5TlVHRSjgFlz1FCW6gtnAHNow+s
- Q17tKlQhG5CHd+b2zoL9kVYNDYg93LSRDbErLv8U5AdfEwKEqj0+c+c2ceOmkF7R
- RMm1U6EmKd7OlI0xT8cJH6F/gMU+43ObOWuH/CtmbUWEtkIlZYPbDrY6E1pqqsTE
- JmG8tPHU=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:in-reply-to:message-id
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=smtpout; bh=qlkZKMVUIFo94ht0VU61/s/EB1U=; b=POnkX
- G/STRE0pqeZ7vEpcra0kmdcMVj/BHlX5wEg3cjnLpDVB0er5u273PyVdD8QUaDc5
- AByfwTfPLS78/SHmFIQwJMkZFJajl8NNLyOTs03KxnfJGG/s5Fc70g5dxM59YZG9
- rLsTaL72vOZB76jgv3TWP+o01eWO0p4BMEA6iM=
-X-ME-Sender: <xms:ASGhWNRCFZlIxlx6GwUhXLiEiav4T9fzNedygayKHhcaHe5HfU8qiA>
-X-Sasl-enc: k0Zr8x1nRS7qSX1G72cJpGsYyZ7h1OTRmgkoOXO0ODim 1486954752
-Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 8B9DF241D7;
- Sun, 12 Feb 2017 21:59:11 -0500 (EST)
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>
-Cc: Andrew Jeffery <andrew@aj.id.au>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: [PATCH linux dev-4.7 3/3] ARM: dts: aspeed-g5: Give pinctrl phandles
- for gfx and lhc
-Date: Mon, 13 Feb 2017 13:28:51 +1030
-Message-Id: <20170213025851.6051-4-andrew@aj.id.au>
-X-Mailer: git-send-email 2.9.3
-In-Reply-To: <20170213025851.6051-1-andrew@aj.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vMXVw6N4ZzDqBQ
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Feb 2017 04:25:11 +1100 (AEDT)
+Received: from localhost (32.97.110.56 [32.97.110.56]) by mx.zohomail.com
+ with SMTPS id 1487006686711543.9124964795362;
+ Mon, 13 Feb 2017 09:24:46 -0800 (PST)
+Date: Mon, 13 Feb 2017 11:24:40 -0600
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Xo Wang <xow@google.com>
+Subject: Re: [PATCH linux dev-4.7 1/3] ARM: dts: aspeed-g5: Add SoC Display
+ Controller node
+Message-ID: <20170213172440.lrqaf5v7jk66denq@asimov>
 References: <20170213025851.6051-1-andrew@aj.id.au>
+ <20170213025851.6051-2-andrew@aj.id.au>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="stsa72csl2hacipy"
+Content-Disposition: inline
+In-Reply-To: <20170213025851.6051-2-andrew@aj.id.au>
+User-Agent: Mutt/1.6.2 (2016-06-11)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,36 +35,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Feb 2017 02:59:15 -0000
+X-List-Received-Date: Mon, 13 Feb 2017 17:25:14 -0000
 
-The g5's pinctrl reported:
 
-[    0.750000] aspeed-g5-pinctrl 1e6e2000.syscon:pinctrl@1e6e2000: No GFX phandle found, some mux configurations may fail
-[    0.750000] aspeed-g5-pinctrl 1e6e2000.syscon:pinctrl@1e6e2000: No LHC phandle found, some mux configurations may fail
+--stsa72csl2hacipy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-as the aspeed,external-nodes property was missing from the pinctrl
-node. Fix the mux capability by adding the required phandles.
+On Mon, Feb 13, 2017 at 01:28:49PM +1030, Andrew Jeffery wrote:
+> diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-=
+g5.dtsi
+> index e1994c9e38c3..5ce0a7a65e77 100644
+> --- a/arch/arm/boot/dts/aspeed-g5.dtsi
+> +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+> @@ -1005,6 +1005,12 @@
+>  				reg =3D <0x1e6e202c 0x4>;
+>  			};
+> =20
+> +			gfx: display@1e6e6000 {
+> +				compatible =3D "aspeed,ast2500-gfx", "syscon";
+> +				reg =3D <0x1e6e6000 0x1000>;
+> +				reg-io-width =3D <4>;
+> +			};
+> +
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
+Is this valid to add on all G5 chips?  I believe Zaius is using a
+variant of the 2500 that does not have the graphics engine.
 
-This is extracted from commit b590c8d2eed5748dfe52c4fc13df6cadb1b56d58 in the
-ARM next/dt tree.
 
- arch/arm/boot/dts/aspeed-g5.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+--=20
+Patrick Williams
 
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index fcbaa759d523..cff11868a136 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -174,6 +174,7 @@
- 
- 				pinctrl: pinctrl@1e6e2000 {
- 					compatible = "aspeed,g5-pinctrl";
-+					aspeed,external-nodes = <&gfx &lhc>;
- 
- 					pinctrl_acpi_default: acpi_default {
- 						function = "ACPI";
--- 
-2.9.3
+--stsa72csl2hacipy
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJYoevYAAoJEKsDR8wtAMEZ+pkP/3B+kGyEY/xNVGZgX1blPElL
+O5PO4w2U07Q0/r7JoIo0FTrR7aa180t9DRnNO0kaBi8km9L/pvfXE0BiwgceZjQ5
+MhWg7BU69OLJY6Mp6aZ8x+VoD6sbI+V3spzJkWPMIR1/UbXxlG1++JvaoZVLMMz5
+P3j58bVtpNsdANX7cGqD5VSrrgvdArexwNV8nchFj2dnwCWdG8eqN0LjWakCY331
+JKGRQnNUBD/fX+jznHCCNuj89a5Nfoqf00fXvjBlhal/HqhEBrRJyLD3hf9MFu89
+KOe/O6Da4oywqmmVwwOgu0jt8vIr4SHNWlYqr9uPBA2pZ8p/ePuDp3abpb8W3K3I
+quZypU+/W9kGs8zHbcRx5T03oW1yAG47P/SGwdLJlCS90P/ZMX8l4Luw3aEqf+D0
+PpUJ6B2tjHJiVoxs+9HwGi1S6IqAM3cWpFPeFR/gs5J3VpfMRE7Re6zI8FHeTQFj
+GWJcFv7esvoQOy+M6RnYIOzep6amFKdjusCE5LRSjEQaEniHN03jYWGjmoEG37iE
+e9OGIGU6OeCl7F9KMi0jYlPQfmz64f8dKcuuiGVe64hgvP2bRKfQ/ZdSlptGuv0V
+39KzfP13sH2AjnfsrzwQgv6zQYY1imyDfzd8d/7gAVfWLgoTnvjUB7HwUaBoGThM
+scsNnF2+k+k/ACkoD60s
+=9ueL
+-----END PGP SIGNATURE-----
+
+--stsa72csl2hacipy--
