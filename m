@@ -1,56 +1,55 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yb0-x243.google.com (mail-yb0-x243.google.com
+ [IPv6:2607:f8b0:4002:c09::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vMhdk3Y6PzDq8t
- for <openbmc@lists.ozlabs.org>; Tue, 14 Feb 2017 10:31:38 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ZKeeV5Af"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="JgUhnr/2"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 1AB1C2074E;
- Mon, 13 Feb 2017 18:31:36 -0500 (EST)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Mon, 13 Feb 2017 18:31:36 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=6uaTFTtLNiaVv6dpjBbPHKVzPAU=; b=ZKeeV5
- AfyvgKLHrZ1Tqokdj0iv64VlEGxOBSvusLCliXOulvaNpJgI9VISW09WhscE7QaE
- jdDBCaWBtFtsxcp7ovehz6Qun4QACC97/FXfatLZQK6WwQdmxur2RYZKtqJU6uYw
- z9uBTI+iAuVSX5VqVNQZ6/eHqjo84mz1qm918=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=6uaTFTtLNiaVv6
- dpjBbPHKVzPAU=; b=JgUhnr/2w/KkCAE8C4PzwUEhywDHWkIIn4U5x0VEPVfYap
- wAXSNeGHswcyKNYHUUIqsNKih6DT0Jb9zalQW7bpFKchgCSeOQloqGfcVcfFwGNv
- qbNYmEbTQ4FsR7ADQvfBB9d6FS414w1hMoUVKdrCNTsQOZjgTaxQTLGOJRG6Y=
-X-ME-Sender: <xms:2EGiWIo9p4cRxUhiIvD5FwzAOcSEpySWd1mHVIoQN6B3kidfQr_rBQ>
-X-Sasl-enc: lWYK08L3qzHM8OSihQrkBM79Kf2sLnWefISdzqPIersD 1487028695
-Received: from [172.16.172.59] (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id 02F1524354;
- Mon, 13 Feb 2017 18:31:33 -0500 (EST)
-Message-ID: <1487028687.3661.28.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.7 1/3] ARM: dts: aspeed-g5: Add SoC Display
- Controller node
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>, Patrick Williams <patrick@stwcx.xyz>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Xo Wang <xow@google.com>
-Date: Tue, 14 Feb 2017 10:01:27 +1030
-In-Reply-To: <CACPK8XetG6q3OLLMVOAhJVyL5jrm0JnOO1d8JwFAtJg+MicKxA@mail.gmail.com>
-References: <20170213025851.6051-1-andrew@aj.id.au>
- <20170213025851.6051-2-andrew@aj.id.au>
- <20170213172440.lrqaf5v7jk66denq@asimov>
- <CACPK8XetG6q3OLLMVOAhJVyL5jrm0JnOO1d8JwFAtJg+MicKxA@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-4N+8WMTSUIWUfkaMDGdX"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vMjhb6csnzDq8t
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Feb 2017 11:19:11 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="rZCBj5FE"; 
+ dkim-atps=neutral
+Received: by mail-yb0-x243.google.com with SMTP id w194so4716553ybe.1
+ for <openbmc@lists.ozlabs.org>; Mon, 13 Feb 2017 16:19:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=KZzsO8nJ6clgwnSdEBPBEb2rCkGjZuO+/vv3ZQrAKEM=;
+ b=rZCBj5FEoG8JTfSztRlX8N7BMPgkfDu47+Hume8Js09vg5xkR+8Hs+Ns72d+CUCesZ
+ BZ7aUXcVO78Phd985KsfHnpuzvZDX3rGZFpfcyMbSzIPKPeOGMLLFUiDw7DiJ8Gdzpov
+ INsfzyHci4HPYd+ilE8PtW9C+kV47cCduh9u9y+kTkD7ydgs2vTXq6H5ApbB7wYviS6m
+ h3Mss4CLMbV+y1VpEWqNi4lMye7ZblnfFGBm/oNaKJUtHGtW5MQf3Wsfx17M1Ow4KTfE
+ rC2Byw28XnmjVojrenfMtyV0Dfc7mJEgnmvjpUoUoC2cDxWTnfY/bCv0MMVqgLvFqPIu
+ tnHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=KZzsO8nJ6clgwnSdEBPBEb2rCkGjZuO+/vv3ZQrAKEM=;
+ b=Wc6AkQnNnKduergc5mK9xWXQAFpxHgSRbVScT1qwnLKTN/yU8FuimgYjhMdZddBbWa
+ nggqogHHzcntn9IOmlyS184oHNKS0zbnF2S+AqzcB5nYvPyapTOLFVMlfwaOFZ9hYwxQ
+ y8cZKzGUCcWlEMoSNKLLi0UXiMJxesVdRfT7lVD2OaYJ7z5CmO2naqhagcJ+vkXWBFQ7
+ 5pZMAXKGKh2Eyz4kbJYxdHBIuZojpdDh+i4Ky9oHBMYkY6V01XX1Amlhm5hawpoSZPJO
+ yqwy54hLeFCXRk9RNKsr2bJUszbSDA5RYHXOzIdwygk3VmcbLYfNez2ffggqpY75t/xT
+ vrXQ==
+X-Gm-Message-State: AMke39m8aG6v2E5jUeCh2qJFrL1uFj8VBJloDvQK0iGTEr7NrKp4jsgU5SajWiRA8BptIhmf47pSeomz0JWlng==
+X-Received: by 10.37.70.66 with SMTP id t63mr19575364yba.196.1487031549339;
+ Mon, 13 Feb 2017 16:19:09 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.170.41 with HTTP; Mon, 13 Feb 2017 16:18:48 -0800 (PST)
+In-Reply-To: <1487016480-17700-2-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1487016480-17700-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <1487016480-17700-2-git-send-email-eajames@linux.vnet.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 14 Feb 2017 10:48:48 +1030
+X-Google-Sender-Auth: iz92mJdK1nz1h8GyhMGX8ZcjPjk
+Message-ID: <CACPK8Xfx_uhrXkUgOAh7R=j+Tux5vBGvJ47XYZTLxJskar3Xug@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7 1/2] drivers: fsi: delete device on unscan
+To: Eddie James <eajames@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Christopher Bostic <cbostic@linux.vnet.ibm.com>,
+ "Edward A. James" <eajames@us.ibm.com>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,108 +61,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Feb 2017 23:31:39 -0000
+X-List-Received-Date: Tue, 14 Feb 2017 00:19:12 -0000
+
+On Tue, Feb 14, 2017 at 6:37 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+> From: "Edward A. James" <eajames@us.ibm.com>
+>
+> need to delete device so that client driver "remove" is called.
+>
+> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+> ---
+>  drivers/fsi/fsi-core.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
+> index 1e9c5a2..e8a3618 100644
+> --- a/drivers/fsi/fsi-core.c
+> +++ b/drivers/fsi/fsi-core.c
+> @@ -512,6 +512,7 @@ static void fsi_master_unscan(struct fsi_master *master)
+>                 list_for_each_entry_safe(fsi_dev, fsi_dev_tmp,
+>                                         &slave->my_engines, link) {
+>                         list_del(&fsi_dev->link);
+> +                       device_del(&fsi_dev->dev);
+>                         put_device(&fsi_dev->dev);
+
+put_device calls kobject_put, but device_del has already called
+kobject_del. Are you sure this is what you want to do here?
 
 
---=-4N+8WMTSUIWUfkaMDGdX
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, 2017-02-14 at 09:27 +1030, Joel Stanley wrote:
-> > On Tue, Feb 14, 2017 at 3:54 AM, Patrick Williams <patrick@stwcx.xyz> w=
-rote:
-> > On Mon, Feb 13, 2017 at 01:28:49PM +1030, Andrew Jeffery wrote:
-> > > diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/asp=
-eed-g5.dtsi
-> > > index e1994c9e38c3..5ce0a7a65e77 100644
-> > > --- a/arch/arm/boot/dts/aspeed-g5.dtsi
-> > > +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-> > > @@ -1005,6 +1005,12 @@
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0reg =3D <0x1e6e202c 0x4>;
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0};
-> > >=20
-> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0gfx: disp=
-lay@1e6e6000 {
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0compatible =3D "aspeed,ast2500-gfx", "sysc=
-on";
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0reg =3D <0x1e6e6000 0x1000>;
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0reg-io-width =3D <4>;
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0};
-> > > +
-> >=20
-> > Is this valid to add on all G5 chips?=C2=A0=C2=A0I believe Zaius is usi=
-ng a
-> > variant of the 2500 that does not have the graphics engine.
->=20
-> Andrew, do we need to fix this now? If so, can you please re-spin with
-> this set to disabled, and enabling it in the .dts?
-
-We should do that regardless. I'll resend. We should also fix that
-upstream.
-
->=20
-> How does this affect your pinmux driver?=20
-
-I scanned the first two pages of the pinmux tables comparing the 2510
-to the 2500: Many functions have been deleted for the 2510, but the
-pinmux configuration remains the same. Further evidence for the
-controller being the same is the 2510 claims to be pin compatible with
-the 2500.
-
-It appears that other chips are subsets of the 2500's functionality, so
-in the easy case we just need a small mod to the bindings and to the
-driver so we can selectively register phandles relevant to the hardware
-(e.g. only the lhc phandle in the case of the 2520, which doesn't have
-gfx).
-
-If you want to make the driver more tedious but arguably more correct,
-you could also advertise a restricted set of mux functions depending on
-the matched compatible string. Given you need to know your hardware to
-mux functions to begin with, I'd argue if you want to foot-gun by
-muxing functions that don't exist in the SoC at hand, then go ahead.
-
-> Can we still mux all of the
-> pins on the 2510?
-
-The way it works is you can enable deleted functions in the pinmux and
-effectively disable the use of a pin as the function doesn't exist.
-There shouldn't be any other side-effects.
-
->=20
-> Cheers,
->=20
-> Joel
---=-4N+8WMTSUIWUfkaMDGdX
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJYokHPAAoJEJ0dnzgO5LT5EUgP/3mOwJeB0zsK4p6uNgL+qApy
-MjYMM82/rnirqsXV0qERrlI2sXRSb1Cdf1gStjWCyMMvJdUa09L23evRkxL8P5Ys
-Awbr7lA9Oouu+UJLgQp6kgrRxCtiWoPv7LwJm085sw9MyCEt5UN5PHEz8wIaTQnt
-lL+vednFph0zk7xUsmmdOTonEzdACc3FaWgdQZ4it+rfZx+Tcsa5mTln/M/+0oFI
-reWB2ROEPqWy7LD0BO3eAT6wNZG+CBY+wEdvPBWRzQiW0VzRERKFSmNEGkj4SBP8
-mHJq47tqhL95U/WkHh0Kcxqq/c913c6aknfP2RPz+nDRb0i1QQYc2NL8MJa8kdM+
-Li62ZbTErsOT5P3K62bRTSFeEFL5n2zD55GSQ/lCa2ZcX4DnLfk1TUUsW1M4YT+L
-iP5PXnWZZYTTHxhPa6nuv3TokYyRPd6ppAH/WdN+UJRZhtIABk8o8eVV2Guu4Uvz
-ue+EUfOxFuq+WMQUNPVB2uHPL9AkFM2PmD6ChW2CBOqt+i4YJPyol7PPBnESxfDZ
-wbYDSf1bi2hCwWGclalXdXDaTTVbH/1S1Fgmi545CdMwzgoAMKgC0W1hWfHDEcja
-ZRqCnqyVCzEGVFQCatCxBUArn13e/UYgnSDXifmydNLWWtQk3IsbzCNN8iXLJyxM
-M44f823C0ZAi6BKyuoDi
-=/0iH
------END PGP SIGNATURE-----
-
---=-4N+8WMTSUIWUfkaMDGdX--
+>                 }
+>                 device_unregister(&slave->dev);
+> --
+> 1.8.3.1
+>
