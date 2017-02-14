@@ -1,50 +1,76 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-it0-x236.google.com (mail-it0-x236.google.com
- [IPv6:2607:f8b0:4001:c0b::236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vMnv765fQzDq5x
- for <openbmc@lists.ozlabs.org>; Tue, 14 Feb 2017 14:28:34 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="nXqabOql"; 
- dkim-atps=neutral
-Received: by mail-it0-x236.google.com with SMTP id c7so16450058itd.1
- for <openbmc@lists.ozlabs.org>; Mon, 13 Feb 2017 19:28:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=MQRhs4P+PsmEXSVA+9+JQnTjHtiMoNbjLUfCDyNU+nA=;
- b=nXqabOqlfVBpVQwO7/Sk8efJ39tOm1Py6CNZWOWf9bTY1cnA0VnnvfEGYpGNMuacdD
- OZzj5SkUICpIMnpXcxUYRsnDayil9tkrifdnpealQzH0jQSHui03DkTGUKr1E3zNrOVa
- aEESH3RF93pvw3SjwirPHIsdKTVPSwdy/61li5KQVAgXtRv0/7RX/IMu5qg3v4eQakAo
- lXsCArzyJ/j/WKz5nYhnIWcYHNKfKuq5UuuHcvmJHrWImrJ5YLe+JzjAV7ES57uCYM+d
- 9gZ2ywJfuiiyl5w+xutABqYtA2pd10oyu+dMKatyDnBgpslDH3+0l+7BmQpRMZXpH/VA
- rryA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=MQRhs4P+PsmEXSVA+9+JQnTjHtiMoNbjLUfCDyNU+nA=;
- b=Fa3w7dPn0zMeeTFOHd65bB03jU9Ynuiuc249cHCOXBoffoqWVWjjlQTYGpe0cIdDwp
- A8tFLrLLr++uliLibGijAEI7Hm81kIC1U0HMxBERtD9j5j/fMEDcgkAwtaZRtVehQ+Uk
- gP/eVtHwCIxHf4iwssqfNRxoKLX5L0vWCO5lxC3/xU8anJRE4X+HG85R+kK7KrKFczQA
- ez1ryljF0dZEV03wv1sIyRytK6Vc5mTY1CrDItP3w0uNi7Ecw95I/JUw1dRiv1pck8f1
- UuQ38cdBJ7zGNYp+KZxNMNB3iWeRgtBSx2g6Rzz4znaTRhLGIN+nCP5xmhjZuj/0jkli
- 41Tw==
-X-Gm-Message-State: AMke39lHQ0prCZ+myfORTzUFWg7ueX+ur6dVwyw2YJmRxTjtS249wHB+RI0ew1vZg/Ejnkhmy4MzkTBYPwugVQo4
-X-Received: by 10.36.64.70 with SMTP id n67mr1561192ita.21.1487042912763; Mon,
- 13 Feb 2017 19:28:32 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.64.133.226 with HTTP; Mon, 13 Feb 2017 19:28:32 -0800 (PST)
-Received: by 10.64.133.226 with HTTP; Mon, 13 Feb 2017 19:28:32 -0800 (PST)
-In-Reply-To: <CACPK8XcTyap7kRPzd5MUYsbzFsrD7i97XDk4NBeM0pwfr6uE4g@mail.gmail.com>
-References: <CACPK8XcTyap7kRPzd5MUYsbzFsrD7i97XDk4NBeM0pwfr6uE4g@mail.gmail.com>
-From: Rick Altherr <raltherr@google.com>
-Date: Mon, 13 Feb 2017 19:28:32 -0800
-Message-ID: <CAPLgG==CENXhFJAw-_hJ_Y2CWN4OT0kUdNdv5dVVyMyUhqo5zw@mail.gmail.com>
-Subject: Re: Booting FIT kernels
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vMpsC2qBwzDqBn
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Feb 2017 15:11:59 +1100 (AEDT)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v1E49xvI123951
+ for <openbmc@lists.ozlabs.org>; Mon, 13 Feb 2017 23:11:57 -0500
+Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 28kjhysf59-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 13 Feb 2017 23:11:57 -0500
+Received: from localhost
+ by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Mon, 13 Feb 2017 21:11:56 -0700
+Received: from d03dlp01.boulder.ibm.com (9.17.202.177)
+ by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Mon, 13 Feb 2017 21:11:53 -0700
+Received: from b01cxnp23032.gho.pok.ibm.com (b01cxnp23032.gho.pok.ibm.com
+ [9.57.198.27])
+ by d03dlp01.boulder.ibm.com (Postfix) with ESMTP id A19041FF001F;
+ Mon, 13 Feb 2017 21:11:30 -0700 (MST)
+Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
+ [9.57.199.110])
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v1E4Bqjh15794636; Tue, 14 Feb 2017 04:11:52 GMT
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 5C41FAE052;
+ Mon, 13 Feb 2017 23:11:51 -0500 (EST)
+Received: from oc3016140333.ibm.com (unknown [9.85.155.32])
+ by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP id 03292AE054;
+ Mon, 13 Feb 2017 23:11:50 -0500 (EST)
+Subject: Re: [PATCH linux dev-4.7 1/2] drivers: fsi: delete device on unscan
 To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=001a1135a57a952bd30548752889
+References: <1487016480-17700-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <1487016480-17700-2-git-send-email-eajames@linux.vnet.ibm.com>
+ <CACPK8Xfx_uhrXkUgOAh7R=j+Tux5vBGvJ47XYZTLxJskar3Xug@mail.gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Christopher Bostic <cbostic@linux.vnet.ibm.com>,
+ "Edward A. James" <eajames@us.ibm.com>
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Mon, 13 Feb 2017 22:11:51 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.6.0
+MIME-Version: 1.0
+In-Reply-To: <CACPK8Xfx_uhrXkUgOAh7R=j+Tux5vBGvJ47XYZTLxJskar3Xug@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 17021404-0024-0000-0000-000015ECE415
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006612; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000203; SDB=6.00821632; UDB=6.00401866; IPR=6.00599085; 
+ BA=6.00005133; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014273; XFM=3.00000011;
+ UTC=2017-02-14 04:11:54
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17021404-0025-0000-0000-000048C12523
+Message-Id: <d7155853-8eff-d6f0-add3-bd8a468789e6@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-02-14_02:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
+ definitions=main-1702140043
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,95 +82,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 Feb 2017 03:28:36 -0000
+X-List-Received-Date: Tue, 14 Feb 2017 04:11:59 -0000
 
---001a1135a57a952bd30548752889
-Content-Type: text/plain; charset=UTF-8
 
-Note that OpenBMC's Yocto builds put the .its used by the build system in
-the deploy folder.
 
-On Feb 13, 2017 7:06 PM, "Joel Stanley" <joel@jms.id.au> wrote:
+On 02/13/2017 06:18 PM, Joel Stanley wrote:
+> On Tue, Feb 14, 2017 at 6:37 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+>> From: "Edward A. James" <eajames@us.ibm.com>
+>>
+>> need to delete device so that client driver "remove" is called.
+>>
+>> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+>> ---
+>>   drivers/fsi/fsi-core.c | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
+>> index 1e9c5a2..e8a3618 100644
+>> --- a/drivers/fsi/fsi-core.c
+>> +++ b/drivers/fsi/fsi-core.c
+>> @@ -512,6 +512,7 @@ static void fsi_master_unscan(struct fsi_master *master)
+>>                  list_for_each_entry_safe(fsi_dev, fsi_dev_tmp,
+>>                                          &slave->my_engines, link) {
+>>                          list_del(&fsi_dev->link);
+>> +                       device_del(&fsi_dev->dev);
+>>                          put_device(&fsi_dev->dev);
+> put_device calls kobject_put, but device_del has already called
+> kobject_del. Are you sure this is what you want to do here?
 
-> Hello,
->
-> I've switched my kernel development workflow to use a FIT image
-> containing the machine's dtb, initramfs and kenrel. By copying this
-> over with tftp and booting it, I can test my changes with a real
-> openbmc rootfs, but the changes go away once someone else reboots.
->
-> This example uses witherspoon. Put the files in the root of your
-> kernel object tree.
->
-> 1. Download obmc-phosphor-initramfs-witherspoon.cpio.lzma[1]
-> 2. Download http://ozlabs.org/~joel/openbmc.its
-> 3. Build your kernel with `make`
-> 4. Build your fit with `mkimgage -f openbmc.its myimage`
->
-> You now have a FIT image called myimage. Copy it across to your tftp
-> server and on a u-boot prompt as follows:
->
-> ast > setenv serverip <tftp server>
-> ast > tftp 0x83000000 myimage
-> ast > bootm 0x83000000
->
-> And off it goes! The magic was mostly working out where to find the
-> .its file. In the future we could include this in the kernel tree and
-> have a makefile rule that does the FIT-ing for us.
->
-> Cheers,
->
-> Joel
->
-> [1] https://openpower.xyz/job/openbmc-build/distro=ubuntu,
-> target=witherspoon/lastSuccessfulBuild/artifact/images/witherspoon/
->
+Hmm, I was just doing what device_unregister() does. We manually call 
+device_add() for these devices, so I understand from the documentation 
+that device_del() should be called, but I think device_unregister would 
+work as well. I can confirm this works and doesn't throw any warnings 
+after repeated fsi scans.
 
---001a1135a57a952bd30548752889
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto">Note that OpenBMC&#39;s Yocto builds put the .its used by=
- the build system in the deploy folder.</div><div class=3D"gmail_extra"><br=
-><div class=3D"gmail_quote">On Feb 13, 2017 7:06 PM, &quot;Joel Stanley&quo=
-t; &lt;<a href=3D"mailto:joel@jms.id.au">joel@jms.id.au</a>&gt; wrote:<br t=
-ype=3D"attribution"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0=
- .8ex;border-left:1px #ccc solid;padding-left:1ex">Hello,<br>
-<br>
-I&#39;ve switched my kernel development workflow to use a FIT image<br>
-containing the machine&#39;s dtb, initramfs and kenrel. By copying this<br>
-over with tftp and booting it, I can test my changes with a real<br>
-openbmc rootfs, but the changes go away once someone else reboots.<br>
-<br>
-This example uses witherspoon. Put the files in the root of your<br>
-kernel object tree.<br>
-<br>
-1. Download obmc-phosphor-initramfs-<wbr>witherspoon.cpio.lzma[1]<br>
-2. Download <a href=3D"http://ozlabs.org/~joel/openbmc.its" rel=3D"noreferr=
-er" target=3D"_blank">http://ozlabs.org/~joel/<wbr>openbmc.its</a><br>
-3. Build your kernel with `make`<br>
-4. Build your fit with `mkimgage -f openbmc.its myimage`<br>
-<br>
-You now have a FIT image called myimage. Copy it across to your tftp<br>
-server and on a u-boot prompt as follows:<br>
-<br>
-ast &gt; setenv serverip &lt;tftp server&gt;<br>
-ast &gt; tftp 0x83000000 myimage<br>
-ast &gt; bootm 0x83000000<br>
-<br>
-And off it goes! The magic was mostly working out where to find the<br>
-.its file. In the future we could include this in the kernel tree and<br>
-have a makefile rule that does the FIT-ing for us.<br>
-<br>
-Cheers,<br>
-<br>
-Joel<br>
-<br>
-[1] <a href=3D"https://openpower.xyz/job/openbmc-build/distro=3Dubuntu,targ=
-et=3Dwitherspoon/lastSuccessfulBuild/artifact/images/witherspoon/" rel=3D"n=
-oreferrer" target=3D"_blank">https://openpower.xyz/job/<wbr>openbmc-build/d=
-istro=3Dubuntu,<wbr>target=3Dwitherspoon/<wbr>lastSuccessfulBuild/artifact/=
-<wbr>images/witherspoon/</a><br>
-</blockquote></div></div>
-
---001a1135a57a952bd30548752889--
+>
+>
+>>                  }
+>>                  device_unregister(&slave->dev);
+>> --
+>> 1.8.3.1
+>>
