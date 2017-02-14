@@ -1,76 +1,57 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <jaghu@google.com>
+Received: from mail-vk0-x230.google.com (mail-vk0-x230.google.com
+ [IPv6:2607:f8b0:400c:c05::230])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vMpsC2qBwzDqBn
- for <openbmc@lists.ozlabs.org>; Tue, 14 Feb 2017 15:11:59 +1100 (AEDT)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v1E49xvI123951
- for <openbmc@lists.ozlabs.org>; Mon, 13 Feb 2017 23:11:57 -0500
-Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
- by mx0a-001b2d01.pphosted.com with ESMTP id 28kjhysf59-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 13 Feb 2017 23:11:57 -0500
-Received: from localhost
- by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Mon, 13 Feb 2017 21:11:56 -0700
-Received: from d03dlp01.boulder.ibm.com (9.17.202.177)
- by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 13 Feb 2017 21:11:53 -0700
-Received: from b01cxnp23032.gho.pok.ibm.com (b01cxnp23032.gho.pok.ibm.com
- [9.57.198.27])
- by d03dlp01.boulder.ibm.com (Postfix) with ESMTP id A19041FF001F;
- Mon, 13 Feb 2017 21:11:30 -0700 (MST)
-Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
- [9.57.199.110])
- by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v1E4Bqjh15794636; Tue, 14 Feb 2017 04:11:52 GMT
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 5C41FAE052;
- Mon, 13 Feb 2017 23:11:51 -0500 (EST)
-Received: from oc3016140333.ibm.com (unknown [9.85.155.32])
- by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP id 03292AE054;
- Mon, 13 Feb 2017 23:11:50 -0500 (EST)
-Subject: Re: [PATCH linux dev-4.7 1/2] drivers: fsi: delete device on unscan
-To: Joel Stanley <joel@jms.id.au>
-References: <1487016480-17700-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1487016480-17700-2-git-send-email-eajames@linux.vnet.ibm.com>
- <CACPK8Xfx_uhrXkUgOAh7R=j+Tux5vBGvJ47XYZTLxJskar3Xug@mail.gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Christopher Bostic <cbostic@linux.vnet.ibm.com>,
- "Edward A. James" <eajames@us.ibm.com>
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Mon, 13 Feb 2017 22:11:51 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.6.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vMsXL1y6vzDq5x
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Feb 2017 17:12:33 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="ATllhX/J"; 
+ dkim-atps=neutral
+Received: by mail-vk0-x230.google.com with SMTP id k127so74372746vke.0
+ for <openbmc@lists.ozlabs.org>; Mon, 13 Feb 2017 22:12:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=8Sf2mW7IuyR635gTUpc5dyArMqepQ4fbTF/IMCyENfw=;
+ b=ATllhX/JrFz5JcZKgaVW74HMLH88sjbLNYMGzF5ClSjRccpS3MB9mMG+A3paRgIYfL
+ Hvnu02ZjfmTS1SW6EA24MgCsBdrzSmg/PjFmOXoXJXrYUN6uaoB+/UnpGlnDxPjxngMY
+ UOyVttUxkf0Z0qI+d9Ooa22dDR9UzmyswfHPF68qK/xmOsgMBjCxKQikIxAI6Fv/BY7u
+ 64+CTTleNQo51WbpqNcRIxF0NR2Y25Qid+UhBMuzJWwrKLorrGtdenL58gcTAXcdKWGK
+ L/hRzzpF9zjnPb6WCP9sohlHtCRKnut0RX2os+KhIjgisleBXt1SC3KL6nNUMHjXI1jb
+ fbYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=8Sf2mW7IuyR635gTUpc5dyArMqepQ4fbTF/IMCyENfw=;
+ b=HhpQI3MaqGVEoz69yE0lm5ld+EwDQHd1tEA9YczGfNyZ0AYTCLtBZ69brhRweQ2zqG
+ /hhIgVsmVC2qKXYaHB/yLwdhICWMW4jysMYNmZ+j7O3Amr24MuSTCzPYWFu5TQpgkG7u
+ LDCOVVi+IPQeEBEkynUKWegqda96lMIQS6AN2nBIpvhaNX3rI8a3RF4VLhlsOkTcA+1P
+ ajdeHFMVOfxuv14DDf7n1YjKUgCqjWiUr7gG8KjvwnbbJUv0FYRwVmwqA4H/tU2rXLkw
+ xJ40g2bFo/j8SexQQZPr15yU8D9O6cKb6UGT72KUWHrJz0JZXkpYki7ONKulsfRSgDPS
+ QfJg==
+X-Gm-Message-State: AMke39kl6WwUdKvS5l5d9i0eQCsRkuRqMsL55TsVgVlEjbm6c72HSYrWixk67n6ZaGL4d60l+vDGmIGdN7pnco5Z
+X-Received: by 10.31.254.198 with SMTP id l189mr13274374vki.86.1487052751251; 
+ Mon, 13 Feb 2017 22:12:31 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <CACPK8Xfx_uhrXkUgOAh7R=j+Tux5vBGvJ47XYZTLxJskar3Xug@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17021404-0024-0000-0000-000015ECE415
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006612; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000203; SDB=6.00821632; UDB=6.00401866; IPR=6.00599085; 
- BA=6.00005133; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014273; XFM=3.00000011;
- UTC=2017-02-14 04:11:54
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17021404-0025-0000-0000-000048C12523
-Message-Id: <d7155853-8eff-d6f0-add3-bd8a468789e6@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-02-14_02:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
- definitions=main-1702140043
+Received: by 10.31.107.77 with HTTP; Mon, 13 Feb 2017 22:12:10 -0800 (PST)
+In-Reply-To: <20170201145837.ybfqvz4rdpaiw323@rob-hp-laptop>
+References: <20170127093400.28904-1-jaghu@google.com>
+ <20170127093400.28904-2-jaghu@google.com>
+ <20170201145837.ybfqvz4rdpaiw323@rob-hp-laptop>
+From: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
+Date: Mon, 13 Feb 2017 22:12:10 -0800
+Message-ID: <CANsWYUUXbQFsZsKwdXvQoeboO5U0QJJfz-Z-s3ymJ8a4n3hD0w@mail.gmail.com>
+Subject: Re: [PATCH linux v2 1/2] Documentation: dt-bindings: Document
+ bindings for ASPEED AST2400/AST2500 PWM and Fan tach controller device driver
+To: Rob Herring <robh@kernel.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Guenter Roeck <linux@roeck-us.net>, 
+ Joel Stanley <joel@jms.id.au>, jdelvare@suse.com, linux-hwmon@vger.kernel.org, 
+ Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
+ mark.rutland@arm.com, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -82,44 +63,95 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 Feb 2017 04:11:59 -0000
+X-List-Received-Date: Tue, 14 Feb 2017 06:12:35 -0000
 
+On Wed, Feb 1, 2017 at 6:58 AM, Rob Herring <robh@kernel.org> wrote:
+> On Fri, Jan 27, 2017 at 01:33:59AM -0800, Jaghathiswari Rankappagounder Natarajan wrote:
+>> This binding provides interface for adding values related to ASPEED
+>> AST2400/2500 PWM and Fan tach controller support.
+>> The PWM controller can support upto 8 PWM output ports.
+>> The Fan tach controller can support upto 16 tachometer inputs.
+>> Types M, N and 0 are three types just to have three independent
+>> PWM/Fan Tach related settings.
+>
+> This still looks overly complicated to me and very specific to ASpeed.
+> You need to define a common structure that works for fans. To start
+> with, define a node for the fans themselves. This should use the
+> PWM binding and a -gpios property for the tach (when connected to a
+> GPIO).
+>
+> Something like this:
+>
+> ctrl: fan-controller@1234 {
+>         ...
+>         #pwm-cells = <3>;
+>         fan@0 {
+>                 reg = <0>; /* 'Channel' of the controller */
+>                 pwms = <&ctrl 0 ...>;
+>                 tach-gpios = <&gpio 1>;
+>                 vcc-supply = <&reg_12V>;
+>         };
+> };
+>
+> We already have a pwm-fan binding. This should build on or possibly
+> replace that.
+>
+I have rewritten the structure to be more common and sent the updated patch.
+There can be upto 8 fans. Each fan can have 1 PWM source and 1/2 Fan
+tach inputs.
+I think the pwm-binding may not be very relevant. The pwm-binding
+indicates that there can be a unique period value for each pwm(ie
+500000 in pwms = <&ctrl 0 500000>).
+But here each pwm can't have a unique period value.
+There can be only 3 settings (type m, type n, type o). Each setting
+includes values like pwm period,
+fan_tach_period, etc
+Each fan can be configured with one of the three settings.  So the pwm
+and the fan tach associated
+with the fan will inherit some values from the setting which the fan used.
+In the updated patch, I have used a default setting(type m) for the fans.
 
-
-On 02/13/2017 06:18 PM, Joel Stanley wrote:
-> On Tue, Feb 14, 2017 at 6:37 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
->> From: "Edward A. James" <eajames@us.ibm.com>
 >>
->> need to delete device so that client driver "remove" is called.
->>
->> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+>> Signed-off-by: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
 >> ---
->>   drivers/fsi/fsi-core.c | 1 +
->>   1 file changed, 1 insertion(+)
+>> v2:
+>> - Removed '_' in node or property names
+>> - Gave some explanation for the properties used.
 >>
->> diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
->> index 1e9c5a2..e8a3618 100644
->> --- a/drivers/fsi/fsi-core.c
->> +++ b/drivers/fsi/fsi-core.c
->> @@ -512,6 +512,7 @@ static void fsi_master_unscan(struct fsi_master *master)
->>                  list_for_each_entry_safe(fsi_dev, fsi_dev_tmp,
->>                                          &slave->my_engines, link) {
->>                          list_del(&fsi_dev->link);
->> +                       device_del(&fsi_dev->dev);
->>                          put_device(&fsi_dev->dev);
-> put_device calls kobject_put, but device_del has already called
-> kobject_del. Are you sure this is what you want to do here?
-
-Hmm, I was just doing what device_unregister() does. We manually call 
-device_add() for these devices, so I understand from the documentation 
-that device_del() should be called, but I think device_unregister would 
-work as well. I can confirm this works and doesn't throw any warnings 
-after repeated fsi scans.
-
->
->
->>                  }
->>                  device_unregister(&slave->dev);
->> --
->> 1.8.3.1
+>>  .../devicetree/bindings/hwmon/aspeed-pwm-tacho.txt | 178 +++++++++++++++++++++
+>>  1 file changed, 178 insertions(+)
+>>  create mode 100644 Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
 >>
+>> diff --git a/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt b/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
+>> new file mode 100644
+>> index 000000000000..290122bfe170
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
+>> @@ -0,0 +1,178 @@
+>> +ASPEED AST2400/AST2500 PWM and Fan Tacho controller device driver
+>> +
+>> +The ASPEED PWM controller can support upto 8 PWM outputs. The ASPEED Fan Tacho
+>> +controller can support upto 16 tachometer inputs.
+>
+> AIUI, each fan has a PWM and a tach input. How would you use more than 8
+> tach inputs?
+>
+Each fan can have 1 PWM source and 1/2 Fan tach inputs.
+>> +
+>> +There are three different types M, N, O. These three types are just to have
+>> +different PWM and Fan Tach settings. Each type can have the following settings:
+>> +     PWM related:
+>> +             1) PWM period
+>> +             2) PWM clock division high
+>> +             3) PWM clock division low
+>> +     Fan Tach related:
+>> +             1) Fan Tach type enable
+>> +             2) Fan Tach clock division
+>> +             3) Fan Tach mode selection
+>> +             4) Fan Tach period
+>> +
+>> +Each PWM port should be assigned a type which can be type M, N or O.
+>
+> What is the definition of M, N, and O?
+>
+> Rob
