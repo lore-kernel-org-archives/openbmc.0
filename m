@@ -1,48 +1,51 @@
-Return-Path: <mine260309@gmail.com>
-Received: from mail-it0-x242.google.com (mail-it0-x242.google.com
- [IPv6:2607:f8b0:4001:c0b::242])
+Return-Path: <raltherr@google.com>
+Received: from mail-pf0-x230.google.com (mail-pf0-x230.google.com
+ [IPv6:2607:f8b0:400e:c00::230])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vMvGy3N7vzDqBV
- for <openbmc@lists.ozlabs.org>; Tue, 14 Feb 2017 18:31:06 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vNTQ71g3dzDqCc
+ for <openbmc@lists.ozlabs.org>; Wed, 15 Feb 2017 17:09:19 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Liv5JTDy"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="QBCOuzac"; 
  dkim-atps=neutral
-Received: by mail-it0-x242.google.com with SMTP id r141so3679649ita.1
- for <openbmc@lists.ozlabs.org>; Mon, 13 Feb 2017 23:31:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+Received: by mail-pf0-x230.google.com with SMTP id 189so28928398pfu.3
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Feb 2017 22:09:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=from:to:cc:subject:date:message-id;
- bh=kv+E/hEUv1L96Ux70C7caBJBz8aXZc2GfMer7U7xgSU=;
- b=Liv5JTDyhmoLIgjDpxwRD1lHt79QzyhodyWZ2c1Dy61lZi3mdcSG7WYrmb8OwBWYgD
- o+h7xszmi0Z4bbCTH3I7ZdIZIf0pUqGP7Ko7jpkFLem/WQxY545xe4xDr5PiLCnaq8zI
- QHHtPz69jUErIrRjGyICguQZq2KLTz/ZQvKg8f/c2uLrqV/VkyZRx7LqCqg86RWuRdFM
- I2b/aBRwJk7arp/Jz0wJ1+6xLbv0T3yOSZ6hcSbLrc7Mgsgk8nIdIfVnadjGImlMingb
- 8GveUHk7OPb2NCIAQPXkCusJjJ5zu7mf1uV2zPp6aqRAZXy+hyp7sMIKyDdrj99wd2RZ
- o7vQ==
+ bh=iLlgMP/++3VizEc7ua2kVYNY5U/WrQkNP7lfzUlKYuo=;
+ b=QBCOuzacNtjoQ/qZZngJAKAZYsUhOlZ1sNVgorh2xsg2et1NoEYu8FxQVpBmrUei/v
+ D5kbWX3WRfzXNfJZ1tfYM28inzjzVYDvkpHtwJKvZ/WB93lNhrEWaHpRn+LAWaeXmVZv
+ ga8WJy/aF8540ayCHWLdrOytttBImp6LCecSCX1x8Sg3YRMBf6939S1u85T4NU2qzS8O
+ qfWd2CqUrY5l72K1AB9QqrPm8LeG/dpAW972dnR+fzlYbd7SLDhjQ4O2ocPwsdlegfIg
+ DuqedX4LYqzU4KGbQg3O8OZqtQEVjqMYWsUOkiAOfqch5xJcskFidbZmXDGg4TxRjmxU
+ cAmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=kv+E/hEUv1L96Ux70C7caBJBz8aXZc2GfMer7U7xgSU=;
- b=IXXFpKmSyqkUfultKBvoeIbzdYcHvi/sX+A8xEVpy/My66A70OLbTrnvFIpVkAW3j9
- CXLymgx4elsVont0+yU3MQy4eawPXhp1lBL1ulKGZrlrEymfLuRhx9DHZnyFoK4QS4+f
- JtbtSx3Fs02QiKBBI5UTVWTGckc697S+hlMere5E3yYNB9DrnKVRpNYHmIrgchvQRk18
- WHq3SxmqdbxYFgNFtLIwIdK8jEQEm/STBz4b8msyWu4rIKWZJBbmUDLGjRVB+eDHjs/c
- OAJyPGMblEW8ogMwIPrzvRYMe7gUGvwHjVRrJE3P19w6g9hIZ2yJD1Wq3ktDzEvpGRRq
- x0ag==
-X-Gm-Message-State: AMke39mjnTf/fiK/6+50p2EUOdUMh+Vk93PRQ5yezZ2oa49emt6AfHDoaL1PWBwd3BeIYw==
-X-Received: by 10.99.164.18 with SMTP id c18mr31472115pgf.40.1487057464266;
- Mon, 13 Feb 2017 23:31:04 -0800 (PST)
-Received: from localhost ([159.203.222.251])
- by smtp.gmail.com with ESMTPSA id s3sm18702563pgn.55.2017.02.13.23.31.03
- (version=TLS1_2 cipher=AES128-SHA bits=128/128);
- Mon, 13 Feb 2017 23:31:03 -0800 (PST)
-From: Lei YU <mine260309@gmail.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.7 2/3] ARM: dts: aspeed: romulus: Add fsi-master
- GPIO bindings
-Date: Tue, 14 Feb 2017 15:30:09 +0800
-Message-Id: <1487057409-19872-1-git-send-email-mine260309@gmail.com>
-X-Mailer: git-send-email 1.9.1
+ bh=iLlgMP/++3VizEc7ua2kVYNY5U/WrQkNP7lfzUlKYuo=;
+ b=W+stgdRInpizQmjX95izkh48gucWClrmECkwsPIwmIdPSpuP24CqPubrW3nowX7czt
+ 2PYnG+GEDlbV1p95W80iglVIRwJCbLZp4nHM7WLKxkhJNCSrghHL6ynDU2m53SBwbj8H
+ BWLnVISDUDWFe8T6H3zVGUgZ+OeVVKU0hR90eXzirmyNl7l8wNCVoWtRA2uXcm4rFAWU
+ rOI1WLK++NI4hr6ADTx37V1mQDES+V/qLSa1CEEXCtMd/NrrsWYyJahxQCsrhC8RqoEt
+ esD2SG8EVrAaXs7Sy++wRp2m2ZeZRmxunS9sTkWX6taDnynyitVGw3whVh4SK6Mx2W6+
+ bKbg==
+X-Gm-Message-State: AMke39lTE3Nbkn0ih8IwoCSymGoVAeXsszfiXVhLByyLdnXTr3k34v5U9RxZfsRVzsvu2AKi
+X-Received: by 10.84.176.100 with SMTP id u91mr41365713plb.112.1487138956448; 
+ Tue, 14 Feb 2017 22:09:16 -0800 (PST)
+Received: from raltherr-linux.svl.corp.google.com ([100.123.242.49])
+ by smtp.gmail.com with ESMTPSA id z70sm4657837pff.26.2017.02.14.22.09.15
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Tue, 14 Feb 2017 22:09:15 -0800 (PST)
+From: Rick Altherr <raltherr@google.com>
+To: linux-kernel@vger.kernel.org,
+	openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au,
+	andrew@aj.id.au
+Subject: [PATCH linux] aspeed: pinctrl: Allow disabling Port D and Port E
+ loopback mode
+Date: Tue, 14 Feb 2017 22:09:14 -0800
+Message-Id: <20170215060914.5952-1-raltherr@google.com>
+X-Mailer: git-send-email 2.11.0.483.g087da7b7c-goog
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,45 +57,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 Feb 2017 07:31:07 -0000
+X-List-Received-Date: Wed, 15 Feb 2017 06:09:19 -0000
 
-Define the pins used on Romulus by the FSI GPIO master.
+Port D and port E GPIO loopback modes are commonly enabled via hardware
+straps for use with front-panel buttons.  When the BMC is powered
+off or fails to boot, the front-panel buttons are directly connected to
+the host chipset via the loopback to allow direct power-on and reset
+control. Once the BMC has booted, the loopback mode must be disabled for
+the BMC to take over control of host power-on and reset.
 
-Signed-off-by: Lei YU <mine260309@gmail.com>
+Disabling these loopback modes requires writing to the hardware strap
+register which violates the current design of assuming the system
+designer chose the strap settings for a specific reason and they should
+be treated as read-only. Only the two bits of the strap register related
+to these loopback modes are allowed to be written and comments have been
+added to explain why.
+
+Signed-off-by: Rick Altherr <raltherr@google.com>
 ---
- arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ drivers/pinctrl/aspeed/pinctrl-aspeed.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-index f47eb63..bc13ad9 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-@@ -1,7 +1,7 @@
- /dts-v1/;
- 
- #include "aspeed-g5.dtsi"
--#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/gpio/aspeed-gpio.h>
- 
- / {
- 	model = "Romulus BMC";
-@@ -31,6 +31,17 @@
- 		};
- 	};
- 
-+	fsi-master {
-+		compatible = "ibm,fsi-master", "ibm,fsi-master-gpio";
+diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed.c b/drivers/pinctrl/aspeed/pinctrl-aspeed.c
+index 76f62bd45f02..5b49952e5fad 100644
+--- a/drivers/pinctrl/aspeed/pinctrl-aspeed.c
++++ b/drivers/pinctrl/aspeed/pinctrl-aspeed.c
+@@ -198,9 +198,19 @@ static int aspeed_sig_expr_set(const struct aspeed_sig_expr *expr,
+ 		 * them. This may mean that certain functions cannot be
+ 		 * deconfigured and is the reason we re-evaluate after writing
+ 		 * all descriptor bits.
++		 *
++		 * Port D and port E GPIO loopback modes are the only exception
++		 * as those are commonly used with front-panel buttons to allow
++		 * normal operation of the host when the BMC is powered off or
++		 * fails to boot. Once the BMC has booted, the loopback mode
++		 * must be disabled for the BMC to control host power-on and
++		 * reset.
+ 		 */
+-		if ((desc->reg == HW_STRAP1 || desc->reg == HW_STRAP2) &&
+-				desc->ip == ASPEED_IP_SCU)
++		if (desc->ip == ASPEED_IP_SCU && desc->reg == HW_STRAP1 &&
++		    !(desc->mask & (BIT(21) | BIT(22))))
++			continue;
 +
-+		status = "disabled";
-+
-+		clock-gpios = <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
-+		data-gpios = <&gpio ASPEED_GPIO(AA, 2) GPIO_ACTIVE_HIGH>;
-+		mux-gpios = <&gpio ASPEED_GPIO(A, 6) GPIO_ACTIVE_HIGH>;
-+		enable-gpios = <&gpio ASPEED_GPIO(D, 0) GPIO_ACTIVE_HIGH>;
-+		trans-gpios = <&gpio ASPEED_GPIO(R, 2) GPIO_ACTIVE_HIGH>;
-+	};
- };
++		if (desc->ip == ASPEED_IP_SCU && desc->reg == HW_STRAP2)
+ 			continue;
  
- &fmc {
+ 		ret = regmap_update_bits(maps[desc->ip], desc->reg,
 -- 
-1.9.1
+2.11.0.483.g087da7b7c-goog
