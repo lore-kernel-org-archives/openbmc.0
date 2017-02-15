@@ -1,50 +1,49 @@
 Return-Path: <raltherr@google.com>
-Received: from mail-pf0-x230.google.com (mail-pf0-x230.google.com
- [IPv6:2607:f8b0:400e:c00::230])
+Received: from mail-pf0-x22d.google.com (mail-pf0-x22d.google.com
+ [IPv6:2607:f8b0:400e:c00::22d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vNTQ71g3dzDqCc
- for <openbmc@lists.ozlabs.org>; Wed, 15 Feb 2017 17:09:19 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vNVRC4CrszDqBs
+ for <openbmc@lists.ozlabs.org>; Wed, 15 Feb 2017 17:55:18 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="QBCOuzac"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="cWjIKTP8"; 
  dkim-atps=neutral
-Received: by mail-pf0-x230.google.com with SMTP id 189so28928398pfu.3
- for <openbmc@lists.ozlabs.org>; Tue, 14 Feb 2017 22:09:18 -0800 (PST)
+Received: by mail-pf0-x22d.google.com with SMTP id 202so26201362pfx.2
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Feb 2017 22:55:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
+ h=from:to:subject:date:message-id;
  bh=iLlgMP/++3VizEc7ua2kVYNY5U/WrQkNP7lfzUlKYuo=;
- b=QBCOuzacNtjoQ/qZZngJAKAZYsUhOlZ1sNVgorh2xsg2et1NoEYu8FxQVpBmrUei/v
- D5kbWX3WRfzXNfJZ1tfYM28inzjzVYDvkpHtwJKvZ/WB93lNhrEWaHpRn+LAWaeXmVZv
- ga8WJy/aF8540ayCHWLdrOytttBImp6LCecSCX1x8Sg3YRMBf6939S1u85T4NU2qzS8O
- qfWd2CqUrY5l72K1AB9QqrPm8LeG/dpAW972dnR+fzlYbd7SLDhjQ4O2ocPwsdlegfIg
- DuqedX4LYqzU4KGbQg3O8OZqtQEVjqMYWsUOkiAOfqch5xJcskFidbZmXDGg4TxRjmxU
- cAmQ==
+ b=cWjIKTP8tL+FRRFhdEHXCYm7X4EpCC3dpk7dLPbMsoAl/tsJIWncURMYEEqjJSn7Vh
+ iQRzwdHqC/zhfwdwrK856t9TGsRBMWWX9bzv7ib6BbEpMq2b/fxeO6axVurVO5+5/4tz
+ Ai2npdTG5q7J87VTOwajwzsJexa7afeXbr5M+viqEX2YB7s+vkczZ44iSL7ZZKsiKViH
+ PclKfOz2y+FzXqfG5V7ziEJAcoaaQRbdcHZRjtjEol54j869efiXkDe3RYoxVc1FlaKw
+ FYQMB6DhJx2ZhwWB8W49WQPgAF2JGB1SCnXAAp8pvI4Kyn0ldVaVhg0hkR8SS5KtXi3n
+ sK0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ h=x-gm-message-state:from:to:subject:date:message-id;
  bh=iLlgMP/++3VizEc7ua2kVYNY5U/WrQkNP7lfzUlKYuo=;
- b=W+stgdRInpizQmjX95izkh48gucWClrmECkwsPIwmIdPSpuP24CqPubrW3nowX7czt
- 2PYnG+GEDlbV1p95W80iglVIRwJCbLZp4nHM7WLKxkhJNCSrghHL6ynDU2m53SBwbj8H
- BWLnVISDUDWFe8T6H3zVGUgZ+OeVVKU0hR90eXzirmyNl7l8wNCVoWtRA2uXcm4rFAWU
- rOI1WLK++NI4hr6ADTx37V1mQDES+V/qLSa1CEEXCtMd/NrrsWYyJahxQCsrhC8RqoEt
- esD2SG8EVrAaXs7Sy++wRp2m2ZeZRmxunS9sTkWX6taDnynyitVGw3whVh4SK6Mx2W6+
- bKbg==
-X-Gm-Message-State: AMke39lTE3Nbkn0ih8IwoCSymGoVAeXsszfiXVhLByyLdnXTr3k34v5U9RxZfsRVzsvu2AKi
-X-Received: by 10.84.176.100 with SMTP id u91mr41365713plb.112.1487138956448; 
- Tue, 14 Feb 2017 22:09:16 -0800 (PST)
+ b=NKw5d1KxFLswsfAl6sxoahgWoRjUHqLLMnYBWC1P7cpQ2yqnmjnZYjCOuYpMbeCjO/
+ huCnMOevz2VRRcbDesOCtWZpAtHl+W5AosseMwP08tsN2e9CtJoBFuF57hPOR7PMXyzs
+ Ruk9A9onoaXDJSPYtpP8XR27NHW0aEbX9U4cj3CLfPsf5EK5o/o2VLb0TUJ8x/A//9wz
+ fKnCWQA5AhJpZf6XBjdXC42V/QqmHYbLaUmB3a6wA9aoXoR/aiz4oIzcA/EX3UMv/2J5
+ ni/UNhQEAGsBy3EirlNut08K8mzjumXx5/b+J6xVPyiftLyfOL7kD0lmPjd+UCN8jybs
+ CgPQ==
+X-Gm-Message-State: AMke39laDodJq65Jc9IeWHHmLWKFPuhO/uDUS/9bd0/JMGKYUeov3e/pEq9n/MeQdBk2mI6U
+X-Received: by 10.98.91.131 with SMTP id p125mr35832629pfb.165.1487141716649; 
+ Tue, 14 Feb 2017 22:55:16 -0800 (PST)
 Received: from raltherr-linux.svl.corp.google.com ([100.123.242.49])
- by smtp.gmail.com with ESMTPSA id z70sm4657837pff.26.2017.02.14.22.09.15
+ by smtp.gmail.com with ESMTPSA id p26sm5000751pfj.23.2017.02.14.22.55.15
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Tue, 14 Feb 2017 22:09:15 -0800 (PST)
+ Tue, 14 Feb 2017 22:55:16 -0800 (PST)
 From: Rick Altherr <raltherr@google.com>
-To: linux-kernel@vger.kernel.org,
-	openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au,
-	andrew@aj.id.au
-Subject: [PATCH linux] aspeed: pinctrl: Allow disabling Port D and Port E
- loopback mode
-Date: Tue, 14 Feb 2017 22:09:14 -0800
-Message-Id: <20170215060914.5952-1-raltherr@google.com>
+To: linus.walleij@linaro.org, andrew@aj.id.au, joel@jms.id.au, arnd@arndb.de,
+ linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org
+Subject: [RESEND PATCH linux] aspeed: pinctrl: Allow disabling Port D and Port
+ E loopback mode
+Date: Tue, 14 Feb 2017 22:55:14 -0800
+Message-Id: <20170215065514.16673-1-raltherr@google.com>
 X-Mailer: git-send-email 2.11.0.483.g087da7b7c-goog
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -57,7 +56,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 15 Feb 2017 06:09:19 -0000
+X-List-Received-Date: Wed, 15 Feb 2017 06:55:20 -0000
 
 Port D and port E GPIO loopback modes are commonly enabled via hardware
 straps for use with front-panel buttons.  When the BMC is powered
