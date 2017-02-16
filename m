@@ -1,67 +1,31 @@
-Return-Path: <anoo@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <bradleyb@fuzziesquirrel.com>
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vPTtZ5blpzDq60
- for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 08:33:58 +1100 (AEDT)
-Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v1GLXf0w005866
- for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 16:33:55 -0500
-Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
- by mx0b-001b2d01.pphosted.com with ESMTP id 28ndpj9802-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 16:33:55 -0500
-Received: from localhost
- by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <anoo@linux.vnet.ibm.com>;
- Thu, 16 Feb 2017 14:33:54 -0700
-Received: from d03dlp01.boulder.ibm.com (9.17.202.177)
- by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 16 Feb 2017 14:33:53 -0700
-Received: from b03cxnp08026.gho.boulder.ibm.com
- (b03cxnp08026.gho.boulder.ibm.com [9.17.130.18])
- by d03dlp01.boulder.ibm.com (Postfix) with ESMTP id 042B31FF0021
- for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 14:33:30 -0700 (MST)
-Received: from b03ledav004.gho.boulder.ibm.com
- (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
- by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v1GLXqw211207166; Thu, 16 Feb 2017 14:33:52 -0700
-Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 52FD578038;
- Thu, 16 Feb 2017 14:33:52 -0700 (MST)
-Received: from habcap11p1.aus.stglabs.ibm.com (unknown [9.41.164.53])
- by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP id 27DB57804D;
- Thu, 16 Feb 2017 14:33:52 -0700 (MST)
-From: Adriana Kobylak <anoo@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Subject: Re: [PATCH v2] arm: configs: aspeed: Add UBI support
-Date: Thu, 16 Feb 2017 15:33:49 -0600
-X-Mailer: git-send-email 2.1.4
-In-Reply-To: <4B1B4C78-9D2F-4631-BBF1-526BC6F47E6C@fuzziesquirrel.com>
-References: <4B1B4C78-9D2F-4631-BBF1-526BC6F47E6C@fuzziesquirrel.com>
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17021621-0020-0000-0000-00000B660EE4
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006629; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000203; SDB=6.00822939; UDB=6.00402650; IPR=6.00600385; 
- BA=6.00005146; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014312; XFM=3.00000011;
- UTC=2017-02-16 21:33:53
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17021621-0021-0000-0000-00005A2E48F0
-Message-Id: <1487280829-23509-1-git-send-email-anoo@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-02-16_14:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
- definitions=main-1702160201
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vPVC14D8PzDq60
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 08:48:13 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Sender: bradleyb@fuzziesquirrel.com
+Content-Type: text/plain; charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 10.2 \(3259\))
+Subject: Re: Users of SBE FIFO kernel driver
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <9eac83a7-bf3b-961f-2777-39dd33862c90@linux.vnet.ibm.com>
+Date: Thu, 16 Feb 2017 16:48:08 -0500
+Cc: Patrick Williams <patrick@stwcx.xyz>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <7041DA70-983A-47AE-BFC5-B2584BEDCF73@fuzziesquirrel.com>
+References: <edb6e9b2-a7a1-d706-5eb6-5966c06b1113@linux.vnet.ibm.com>
+ <CACPK8XdQ2LezJKXzT1Z9=09=XGv=G2ncVxY-LKj7LZ7BFQWaKA@mail.gmail.com>
+ <0a7745db-75d8-43b5-acf6-6f789964bdc0@linux.vnet.ibm.com>
+ <526fd16f-3edb-ba7e-9694-9e832c426499@linux.vnet.ibm.com>
+ <e73eeb5f-2bae-2c37-1a73-8890cbfb29c9@linux.vnet.ibm.com>
+ <20170209211659.flmbka7zmtopandl@asimov>
+ <9eac83a7-bf3b-961f-2777-39dd33862c90@linux.vnet.ibm.com>
+To: Venkatesh Sainath <vsainath@linux.vnet.ibm.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -73,75 +37,85 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Feb 2017 21:33:59 -0000
+X-List-Received-Date: Thu, 16 Feb 2017 21:48:14 -0000
 
-Add UBI support to aspeed_g4_defconfig and aspeed_g5_defconfig
+Trying to keep this discussion going.
 
-Signed-off-by: Adriana Kobylak <anoo@linux.vnet.ibm.com>
----
- arch/arm/configs/aspeed_g4_defconfig | 7 +++++++
- arch/arm/configs/aspeed_g5_defconfig | 7 +++++++
- 2 files changed, 14 insertions(+)
+> On Feb 10, 2017, at 1:58 AM, Venkatesh Sainath =
+<vsainath@linux.vnet.ibm.com> wrote:
+>=20
+>=20
+>=20
+> On 10/02/17 2:46 AM, Patrick Williams wrote:
+>> On Sat, Feb 04, 2017 at 04:35:30PM +0530, Venkatesh Sainath wrote:
+>>>> Where do we stand with the sbei protocol device driver?  Who owns =
+this
+>>>> and is it complete?
+>>>>=20
+>>> The plan was to port the sbei protocol driver developed on FSP based
+>>> systems. Chris: I believe Dhruvaraj discussed with you about this =
+driver
+>>> when he was in Austin. I can share the latest version of this =
+driver.
+>> Is this "driver" really a driver in the Linux sense or is it a shared
+>> library that is used in FSP userspace?  Whatever code we end up using =
+we
+>> eventually need it to be upstream-able into the real Linux kernel.
+> This is not really a driver in the Linux sense. It is a shared lib in =
+FSP user space. As the OCC driver has to use this SBEI protocol, we  =
+have to implement this as a Linux driver in OpenBMC
+>> Is this something that Dhruv can take on or is this going to be left =
+to
+>> Chris?  How do we handle divergence between the open-source code and =
+the
+>> IBM proprietary version (the one direction is an IBM-internal =
+problem,
+>> but I have concern that future development will only be happening on
+>> the proprietary one and we'll have to keep playing catch up).
+>>=20
+> The SBE interfaces are open-sourced and there may not be any =
+proprietary implementation here. However, the code architecture between =
+FSP and OpenBMC is different ( FSP - user space and OpenBMC - Linux =
+driver ) and hence we will have to maintain two streams. The HWSV team =
+can implement  it as a Linux driver in OpenBMC and deliver it in stages. =
+Any defect fixes in future can be done by the same team on both streams. =
+I will ask Sachin Gupta to sync up with Chris. As of now, we need only =
+Get/Put Memory, Get/Put Scom and Get/Put SRAM for enabling OCC and HW =
+access.
 
-diff --git a/arch/arm/configs/aspeed_g4_defconfig b/arch/arm/configs/aspeed_g4_defconfig
-index 2edad5c..fdc331a 100644
---- a/arch/arm/configs/aspeed_g4_defconfig
-+++ b/arch/arm/configs/aspeed_g4_defconfig
-@@ -10,6 +10,7 @@ CONFIG_BLK_DEV_INITRD=y
- # CONFIG_RD_BZIP2 is not set
- # CONFIG_RD_LZO is not set
- # CONFIG_RD_LZ4 is not set
-+CONFIG_LZO=y
- CONFIG_CC_OPTIMIZE_FOR_SIZE=y
- CONFIG_BPF_SYSCALL=y
- # CONFIG_AIO is not set
-@@ -57,7 +58,9 @@ CONFIG_DEVTMPFS_MOUNT=y
- # CONFIG_PREVENT_FIRMWARE_BUILD is not set
- CONFIG_MTD=y
- CONFIG_MTD_BLOCK=y
-+CONFIG_MTD_DEVICE=y
- CONFIG_MTD_PARTITIONED_MASTER=y
-+CONFIG_MTD_PARTITIONS=y
- CONFIG_MTD_SPI_NOR=y
- CONFIG_ASPEED_FLASH_SPI=y
- CONFIG_BLK_DEV_RAM=y
-@@ -163,3 +166,7 @@ CONFIG_DEBUG_SET_MODULE_RONX=y
- # CONFIG_XZ_DEC_POWERPC is not set
- # CONFIG_XZ_DEC_IA64 is not set
- # CONFIG_XZ_DEC_SPARC is not set
-+CONFIG_CMD_MTDPARTS=y
-+CONFIG_CMD_UBI=y
-+CONFIG_CMD_UBIFS=y
-+CONFIG_RBTREE=y
-diff --git a/arch/arm/configs/aspeed_g5_defconfig b/arch/arm/configs/aspeed_g5_defconfig
-index a5c6ddb..19c37ea 100644
---- a/arch/arm/configs/aspeed_g5_defconfig
-+++ b/arch/arm/configs/aspeed_g5_defconfig
-@@ -10,6 +10,7 @@ CONFIG_BLK_DEV_INITRD=y
- # CONFIG_RD_BZIP2 is not set
- # CONFIG_RD_LZO is not set
- # CONFIG_RD_LZ4 is not set
-+CONFIG_LZO=y
- CONFIG_CC_OPTIMIZE_FOR_SIZE=y
- CONFIG_BPF_SYSCALL=y
- # CONFIG_AIO is not set
-@@ -59,7 +60,9 @@ CONFIG_DEVTMPFS_MOUNT=y
- # CONFIG_PREVENT_FIRMWARE_BUILD is not set
- CONFIG_MTD=y
- CONFIG_MTD_BLOCK=y
-+CONFIG_MTD_DEVICE=y
- CONFIG_MTD_PARTITIONED_MASTER=y
-+CONFIG_MTD_PARTITIONS=y
- CONFIG_MTD_SPI_NOR=y
- CONFIG_ASPEED_FLASH_SPI=y
- CONFIG_BLK_DEV_RAM=y
-@@ -167,3 +170,7 @@ CONFIG_DEBUG_SET_MODULE_RONX=y
- # CONFIG_XZ_DEC_POWERPC is not set
- # CONFIG_XZ_DEC_IA64 is not set
- # CONFIG_XZ_DEC_SPARC is not set
-+CONFIG_CMD_MTDPARTS=y
-+CONFIG_CMD_UBI=y
-+CONFIG_CMD_UBIFS=y
-+CONFIG_RBTREE=y
--- 
-1.8.2.2
+Are these things what were referred to previously in the thread as =
+=E2=80=98chip-ops=E2=80=99 ?
+
+If they are, then an SBEI protocol device driver sounds to me like =
+chip-ops in the kernel but previously there were a number of statements =
+from multiple people along these lines:
+
+> However we certainly don't want to put chip-ops directly in the =
+kernel.
+> Agreed. This driver is to control access to the FIFO. We don't want to =
+have to modify the kernel every time a new operation is required.
+> The programs sending the messages will know how to encode their own =
+operations, such as pdbg, the occ hwmon driver, etc.
+
+Venkatesh - What role do you see the SBEI protocol driver serving?
+
+Joel/Alistair/Ben - So far for in-kernel users we have scom and OCC.  =
+I=E2=80=99m assuming that list will grow somewhat.  Obviously the =
+sbescom driver will need to encode scom operations=E2=80=A6but so does =
+the occ driver.  If both drivers encode their own operations, won=E2=80=99=
+t they be writing the same code twice?  Isn=E2=80=99t that going to =
+happen over and over?
+
+Everyone - please poke holes.
+
+thx
+
+-brad
+
+
+
+
+> We can add the remaining interfaces subsequently. As a user of this =
+SBEI protocol driver, we need OCC driver changes, Rest API to call OCC =
+driver, SCOM drivers and user space app (Rest API / ??) to call the SCOM =
+driver.
