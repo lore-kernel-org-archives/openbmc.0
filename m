@@ -1,57 +1,51 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x244.google.com (mail-yb0-x244.google.com
- [IPv6:2607:f8b0:4002:c09::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vNxsR5NtkzDqBW
- for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 11:31:07 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="lg8m7osR"; 
- dkim-atps=neutral
-Received: by mail-yb0-x244.google.com with SMTP id o65so84442ybo.3
- for <openbmc@lists.ozlabs.org>; Wed, 15 Feb 2017 16:31:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=stFC4hjHJV34soh8DqdfKn1DUYLng0t/ZSOovvZM4BI=;
- b=lg8m7osRC5z3I8y+kK+Ota/E2aAY/1JOvuG4rZPD3NruQzw+5plG3zN/oxUuq43Jxg
- DzmZDJsy09cVIbXtuxgB214WW9K4bAJsT3LuS0gQSj02Mkp1bEbKfVR8ztfnScKJ8j7U
- SCos6RUEEedCThQiWQhlcc1V4EtuqPMKWrEIOsZOH3ogEC8JE7RSEkGFb9zE4Al0nNM6
- nIcy5wyBHCwSAAngy76lJNKJ1h7AihOfiaiQX1t4+vqEIFKQeIUBg9OSMvIowAcqaJfw
- GbNqzLfOoe/fcvr4sVF61C8xOmTSQu+a8YfmTS4dgi0X0yjBPO2+ciq9Y3OsDrXDoCsP
- fXrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=stFC4hjHJV34soh8DqdfKn1DUYLng0t/ZSOovvZM4BI=;
- b=QiJcOsFY77wkzLEZBh9P1KqoRB1SszHsqL33GLVuPB6Eokj+JPby2m3+6uPKA8klR7
- wnQhPE8xZGkA/tL3vvYGYC8aGQznggZqMTRboj44HMxl6WGd5pV1aCOB+DOJkG5h2Zch
- 9ZacWxuxJJelRyBgmso/RrSEHQW/rq99+T/YaO3Sp/deV19cT59LXjZIVOoL6SODGy3w
- t0sxcAF4s6Ba8uRzpKSPy4LJdM519YHqvArXVepNDh4GS6aMVZpD9dckEP25j5eb6LYu
- 6Tijd4+M8tpC/Ph1YNCO1miIki+JrldWVwgmjpLzNjXGDBrXYcw8Vc2nUp7B0gl7dFwr
- WKaw==
-X-Gm-Message-State: AMke39nDCyqkqYNpDycE+nEW9qtAHhWfp2BPcM5loDnQo7+rirodiqXzKYyGR8gbIKSrX//95ebwGwCaaWS9+g==
-X-Received: by 10.37.170.33 with SMTP id s30mr26605070ybi.153.1487205065622;
- Wed, 15 Feb 2017 16:31:05 -0800 (PST)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.170.41 with HTTP; Wed, 15 Feb 2017 16:30:45 -0800 (PST)
-In-Reply-To: <d7155853-8eff-d6f0-add3-bd8a468789e6@linux.vnet.ibm.com>
-References: <1487016480-17700-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1487016480-17700-2-git-send-email-eajames@linux.vnet.ibm.com>
- <CACPK8Xfx_uhrXkUgOAh7R=j+Tux5vBGvJ47XYZTLxJskar3Xug@mail.gmail.com>
- <d7155853-8eff-d6f0-add3-bd8a468789e6@linux.vnet.ibm.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 16 Feb 2017 11:00:45 +1030
-X-Google-Sender-Auth: grA-LM8eRA-BAwFn_L7wR8Y8uJo
-Message-ID: <CACPK8XecYW58ZXC_DDLZDfQaouKEb1EfM395wMONoZQAeCi-Jg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7 1/2] drivers: fsi: delete device on unscan
-To: Eddie James <eajames@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Christopher Bostic <cbostic@linux.vnet.ibm.com>,
- "Edward A. James" <eajames@us.ibm.com>
-Content-Type: text/plain; charset=UTF-8
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vNynF3X1VzDq60
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 12:12:33 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="XSbt/TfH"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="MtlkmLrl"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 1B4F8206EB;
+ Wed, 15 Feb 2017 20:12:27 -0500 (EST)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Wed, 15 Feb 2017 20:12:27 -0500
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
+ content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=mesmtp; bh=EYVrTEHX5SL/5jbAHc2oH5T07WA=; b=XSbt/T
+ fHpNspNsaS2aPVz8VCoI/oIRup6a6MyXK0b7a5hhxf8/N+B8H82bWWb1PWMSJAh4
+ SG542yUm8wNue4KVT4eSNn/4v0CELzPZ4iyEWA4kDmRmfEISBM82oKyjBAJ1Akk4
+ 4++lOJjMGg4qcOMWf7QLz/0vIk6vqxMSixKwA=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=EYVrTEHX5SL/5j
+ bAHc2oH5T07WA=; b=MtlkmLrlhkhdBTKmGmXMkEx/n0cb7UuREuVirnl77+bNOp
+ aiJS96qiMlvgvrduuengmRFxw76lPMvldgzR65y2c2df1ZgYQwkyK3vd4UxQf+Ui
+ HMhDJh3H2PJF+JIuigG0+cuBrrxIskQgfdTPupmzIJHneg0uGQzeUU9ZjJKTE=
+X-ME-Sender: <xms:e_ykWMgtZDUUfVSOgACFUs1sq70xAjsSLHOI7npqq-O2fmcMVlTuBA>
+X-Sasl-enc: FWdomeFtnoTmjM6kb0t+1Bexm4EPjrDbqnFlSfJGaJpe 1487207546
+Received: from [10.104.0.15] (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id BB3DE7E033;
+ Wed, 15 Feb 2017 20:12:25 -0500 (EST)
+Message-ID: <1487207539.3661.30.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.7 1/3] ARM: dts: aspeed-bmc-opp-romulus:
+ Enable mailbox and LPC control nodes
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Lei YU <mine260309@gmail.com>, openbmc@lists.ozlabs.org
+Date: Thu, 16 Feb 2017 11:42:19 +1030
+In-Reply-To: <1487057115-14622-1-git-send-email-mine260309@gmail.com>
+References: <1487057115-14622-1-git-send-email-mine260309@gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-NoD24HNFgDZh4+L1ejTO"
+X-Mailer: Evolution 3.22.1-0ubuntu2 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,34 +57,95 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Feb 2017 00:31:08 -0000
+X-List-Received-Date: Thu, 16 Feb 2017 01:12:34 -0000
 
-On Tue, Feb 14, 2017 at 2:41 PM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
-> On 02/13/2017 06:18 PM, Joel Stanley wrote:
->>> @@ -512,6 +512,7 @@ static void fsi_master_unscan(struct fsi_master
->>> *master)
->>>                  list_for_each_entry_safe(fsi_dev, fsi_dev_tmp,
->>>                                          &slave->my_engines, link) {
->>>                          list_del(&fsi_dev->link);
->>> +                       device_del(&fsi_dev->dev);
->>>                          put_device(&fsi_dev->dev);
->>
->> put_device calls kobject_put, but device_del has already called
->> kobject_del. Are you sure this is what you want to do here?
->
->
-> Hmm, I was just doing what device_unregister() does. We manually call
-> device_add() for these devices, so I understand from the documentation that
-> device_del() should be called, but I think device_unregister would work as
-> well. I can confirm this works and doesn't throw any warnings after repeated
-> fsi scans.
 
-Thanks for looking into this.
+--=-NoD24HNFgDZh4+L1ejTO
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-I will merge this patch as-is, but please work with Chris to get this
-change added to his upstream FSI patchset. The fix should be folded
-into his series for his next submission (v4).
+Hi Lei,
 
-Cheers,
+On Tue, 2017-02-14 at 15:25 +0800, Lei YU wrote:
+> Also add the reserved-memory node needed by the LPC
+> control driver.
+>=20
+> > Signed-off-by: Lei YU <mine260309@gmail.com>
+> ---
+> =C2=A0arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 22 +++++++++++++++++=
++++++
+> =C2=A01 file changed, 22 insertions(+)
+>=20
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot=
+/dts/aspeed-bmc-opp-romulus.dts
+> index c23627e..f47eb63 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+> @@ -19,6 +19,18 @@
+> > =C2=A0	memory {
+> > =C2=A0		reg =3D <0x80000000 0x40000000>;
+> > =C2=A0	};
+> +
+> > +	reserved-memory {
+> > +		#address-cells =3D <1>;
+> > +		#size-cells =3D <1>;
+> > +		ranges;
+> +
+> > > +		flash_memory: region@94000000 {
+> > +			no-map;
+> +			reg =3D <0x94000000 0x04000000>; /* 64M */
 
-Joel
+So these values are also used in the zaius dts. Why are we reserving
+64M 128M down from the top of the RAM address space? Is the top 64M
+meant to be reserved for anything as well? Why not reserve the top 64M?
+
+> +		};
+> > +	};
+> +
+> =C2=A0};
+> =C2=A0
+> =C2=A0&fmc {
+> @@ -44,6 +56,16 @@
+> > =C2=A0	};
+> =C2=A0};
+> =C2=A0
+> +&lpc_ctrl {
+> > +	status =3D "okay";
+> > +	memory-region =3D <&flash_memory>;
+> > +	flash =3D <&spi1>;
+> +};
+> +
+> +&mbox {
+> > +	status =3D "okay";
+> +};
+
+This looks fine.
+
+Andrew
+> +
+> =C2=A0&uart5 {
+> > =C2=A0	status =3D "okay";
+> =C2=A0};
+--=-NoD24HNFgDZh4+L1ejTO
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJYpPxzAAoJEJ0dnzgO5LT5QUYP/2LmXtwbAtcGSdv3Bi+Of4i7
+CL0HrJPlZZmQR5Tqyl7iVJpD40vi8mZrU/CDJ/ma8+MbHz6or24zQCzY5pteIQPG
+cUKc3DzKhmcB7LGQGKOksUNcotfg4f7BALeVUlap7T3+48TOOW0acxZUCb103whz
+sg4XhxcMCjPxoGUFMI23wX7i980rLuvpYen6f3i+NFI3C1o8M3Y0YISLfVEduVDg
+uTeYSLEKw0Pr/UxnXlgO1wD2cQwJzdon8Itg1IyWvSQTBQ8Pf9Jgm5vuMZS7ndM9
+rSPv0eAqUK8jWZ4ssRGXRmVm58Uc+QFdYVxLpmeqJ8x7OXPGDLnhQ41nzHPfOiJN
+Zf5wNxVXj7lh78IPuJSkQTPix6AVPFezlSkaaY8QPMwH4+jk8oVNX2IMP594uXyl
+k+Gv7xzI5TAtgKtIfyMT2PnBQP7z4l7R6+8z50FBqLUJs4jgsXvxgnoG8M7tBwrH
+Ahhi5aS2X3BI36HJrvsn4Q7Cvo56+NZnZBpie8wxWbOLDQDE/dnssNB73QT5+MpJ
+TqDqPksIv7KJr/GSYdjHCIAADXFO8ZbCwThfQ+Nrz6wELcL1V1I9tG5rTH2uC9Ra
+prUjGaL2U9hbA0guJbWGY/fOr1xAEi2MlRazf394lV16DRm/SJw9oi7yhSyDxdu5
+1VqLIFIEu5tKsWc5ZVPR
+=z3gF
+-----END PGP SIGNATURE-----
+
+--=-NoD24HNFgDZh4+L1ejTO--
