@@ -1,51 +1,55 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yb0-x244.google.com (mail-yb0-x244.google.com
+ [IPv6:2607:f8b0:4002:c09::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vNyzV6jtDzDq60
- for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 12:21:26 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ZqXV1eRd"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="d23ngYsa"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id D882A20989;
- Wed, 15 Feb 2017 20:21:24 -0500 (EST)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Wed, 15 Feb 2017 20:21:24 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
- content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=E5SQYWRMA6aakXZNRwcUcwSHESQ=; b=ZqXV1e
- RdlBfGUhq6tr+ljVFFX4MK6NckDMi15XILtXBFI70vIoLJ+pMkfFMEkbz+xpeXhL
- eDHarc2kuDy7Ev5aSU1CUKwwhVh/dDm5Em6U6iDoJaDtb5dy6ZQCEEPV3rNdFtYK
- 7vX8L3vY5CmlqzRuUgPrl/VHx1rPyG3WPeU+Y=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=E5SQYWRMA6aakX
- ZNRwcUcwSHESQ=; b=d23ngYsaql5BBl5hE22av6SNo8PBMqSxyvbW1pVvL4WxgF
- sy+KeraMrOX3KH0IQpKHCym2TMG+Bzy+ORBuNn4tLhzi9W+MNZ8touOw7bsTWrUk
- Sv2+b6aDgmsme/McIBAdhiVbOB2Xwi57junWno95U3fUQHo0HbGPFbUvaj7lM=
-X-ME-Sender: <xms:lP6kWMgM5moaBUp8sFvuszbheXFPMjM88eRlNE3hM-6MDn1KU1K8DA>
-X-Sasl-enc: QZyk8ss5aJu1RBXWIPrp7Z9erN78yiWiPHYuvwuKQcM7 1487208084
-Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 5E82C7E033;
- Wed, 15 Feb 2017 20:21:22 -0500 (EST)
-Message-ID: <1487208079.3661.32.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.7 2/3] ARM: dts: aspeed: romulus: Add
- fsi-master GPIO bindings
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Lei YU <mine260309@gmail.com>, openbmc@lists.ozlabs.org
-Date: Thu, 16 Feb 2017 11:51:19 +1030
-In-Reply-To: <1487057409-19872-1-git-send-email-mine260309@gmail.com>
-References: <1487057409-19872-1-git-send-email-mine260309@gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-jkf7K+MeU4ogFtNR3GZ5"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vNz060BgyzDq60
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 12:21:58 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="CQFqUgzj"; 
+ dkim-atps=neutral
+Received: by mail-yb0-x244.google.com with SMTP id 123so119992ybe.0
+ for <openbmc@lists.ozlabs.org>; Wed, 15 Feb 2017 17:21:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=F/Z+q3+3LsB87ZcC1fcYKOZ4Kk2UEWpqAFs6ke7WvOs=;
+ b=CQFqUgzjmlpw6LMvO3McnryS1GDciLUY7DpwrXI5oITg/E62tmPRL9B9wKojOHiXY4
+ rpLW4Ed/HNCl8dlTHVWqjEMMAbpDiNleoONJjeIXZ1QY6KuRy81gDEpwQ9vLC8C5aikm
+ PTU+t1LF0qCHLNXtPycZ7ACXFpsgGD4ONMvFIcoUbSY+9rpyZ2c3tTfCTBsUeK3w3a+N
+ 4Cd8Tp1Uv9h5QCAxi+Lo3gqkTKU0mFyw9WKW/+0qM8XNvjdHUoAlzB1v3CRgHxhgwZDq
+ KZ9w+ARcjdodzJ5cewGwhtwOWpdgMmd1yCvRAnPI8oh+Ss0zfGOhEVK/T4EdPyq/+c4h
+ ZA/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=F/Z+q3+3LsB87ZcC1fcYKOZ4Kk2UEWpqAFs6ke7WvOs=;
+ b=KdHdRFevdUae6nRIemjr01nXjcA6BEtFq7T26rduoDr/bNgJSN1Xc6y8YwAMuVrvks
+ +D52W43SiACU9Jxtst3u/pvply5pUBEpfNb5Hs/Pf4RFXygP1GRz+yqww2oCZYwYaH7z
+ N46nJsCWHAS5tPnCqyjSFKMZezHL8wUQ9N8//oHU91di4r1GKifvg+D2Rle/yzEEeARG
+ PFZoUA2xKITg3m6z9Df2w94K61Fw4Ecdmac5rcgzZ0ZKl6KuiB47lCUGSiek2io32bXa
+ vs/Lwxu7fWbMh6dlCEZ65n/jw/MT7RbxJQbAn0ohNENML5/RLY6I3jNmiiYtjlxI7NBr
+ W7hA==
+X-Gm-Message-State: AMke39lmGkFjwVRgcYVqswHnWXjTLdx4SPAfJVcGQJ1SFHJ53ies1KEKGgzaDAaFgvyQMXTHBm8FEgdFhotKBw==
+X-Received: by 10.37.194.5 with SMTP id s5mr26267752ybf.136.1487208115681;
+ Wed, 15 Feb 2017 17:21:55 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.170.41 with HTTP; Wed, 15 Feb 2017 17:21:35 -0800 (PST)
+In-Reply-To: <20170215065514.16673-1-raltherr@google.com>
+References: <20170215065514.16673-1-raltherr@google.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 16 Feb 2017 11:51:35 +1030
+X-Google-Sender-Auth: HeVvNlAqmytSOYCC0Z3NZBHGXI4
+Message-ID: <CACPK8XeaWAcMANFcYMSo_-_s2Hh0oiTRW=EP+Ah+9GVy0qasOA@mail.gmail.com>
+Subject: Re: [RESEND PATCH linux] aspeed: pinctrl: Allow disabling Port D and
+ Port E loopback mode
+To: Rick Altherr <raltherr@google.com>
+Cc: Linus Walleij <linus.walleij@linaro.org>, Andrew Jeffery <andrew@aj.id.au>,
+ Arnd Bergmann <arnd@arndb.de>, linux-gpio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,88 +61,67 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Feb 2017 01:21:27 -0000
+X-List-Received-Date: Thu, 16 Feb 2017 01:21:58 -0000
 
+On Wed, Feb 15, 2017 at 5:25 PM, Rick Altherr <raltherr@google.com> wrote:
+> Port D and port E GPIO loopback modes are commonly enabled via hardware
+> straps for use with front-panel buttons.  When the BMC is powered
+> off or fails to boot, the front-panel buttons are directly connected to
+> the host chipset via the loopback to allow direct power-on and reset
+> control. Once the BMC has booted, the loopback mode must be disabled for
+> the BMC to take over control of host power-on and reset.
+>
+> Disabling these loopback modes requires writing to the hardware strap
+> register which violates the current design of assuming the system
+> designer chose the strap settings for a specific reason and they should
+> be treated as read-only. Only the two bits of the strap register related
+> to these loopback modes are allowed to be written and comments have been
+> added to explain why.
 
---=-jkf7K+MeU4ogFtNR3GZ5
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+I had to clarify this on IRC. The Aspeed soc is flexible if you want
+no-passthrough when powered off and want to enable it at  runtime with
+normal SCU registers.
+However if you want passthrough when powered off, and then disable it
+at runtime, you need to change the strap. Hence the patch.
 
-Hi Lei,
+> Signed-off-by: Rick Altherr <raltherr@google.com>
 
-On Tue, 2017-02-14 at 15:30 +0800, Lei YU wrote:
-> Define the pins used on Romulus by the FSI GPIO master.
->=20
-> > Signed-off-by: Lei YU <mine260309@gmail.com>
+Acked-by: Joel Stanley <joel@jms.id.au>
+
+Cheers,
+
+Joel
+
 > ---
-> =C2=A0arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 13 ++++++++++++-
-> =C2=A01 file changed, 12 insertions(+), 1 deletion(-)
->=20
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot=
-/dts/aspeed-bmc-opp-romulus.dts
-> index f47eb63..bc13ad9 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> @@ -1,7 +1,7 @@
-> =C2=A0/dts-v1/;
-> =C2=A0
-> =C2=A0#include "aspeed-g5.dtsi"
-> -#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/gpio/aspeed-gpio.h>
-> =C2=A0
-> =C2=A0/ {
-> > =C2=A0	model =3D "Romulus BMC";
-> @@ -31,6 +31,17 @@
-> > =C2=A0		};
-> > =C2=A0	};
-> =C2=A0
-> > +	fsi-master {
-> > +		compatible =3D "ibm,fsi-master", "ibm,fsi-master-gpio";
+>  drivers/pinctrl/aspeed/pinctrl-aspeed.c | 14 ++++++++++++--
+>  1 file changed, 12 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed.c b/drivers/pinctrl/aspeed/pinctrl-aspeed.c
+> index 76f62bd45f02..5b49952e5fad 100644
+> --- a/drivers/pinctrl/aspeed/pinctrl-aspeed.c
+> +++ b/drivers/pinctrl/aspeed/pinctrl-aspeed.c
+> @@ -198,9 +198,19 @@ static int aspeed_sig_expr_set(const struct aspeed_sig_expr *expr,
+>                  * them. This may mean that certain functions cannot be
+>                  * deconfigured and is the reason we re-evaluate after writing
+>                  * all descriptor bits.
+> +                *
+> +                * Port D and port E GPIO loopback modes are the only exception
+> +                * as those are commonly used with front-panel buttons to allow
+> +                * normal operation of the host when the BMC is powered off or
+> +                * fails to boot. Once the BMC has booted, the loopback mode
+> +                * must be disabled for the BMC to control host power-on and
+> +                * reset.
+>                  */
+> -               if ((desc->reg == HW_STRAP1 || desc->reg == HW_STRAP2) &&
+> -                               desc->ip == ASPEED_IP_SCU)
+> +               if (desc->ip == ASPEED_IP_SCU && desc->reg == HW_STRAP1 &&
+> +                   !(desc->mask & (BIT(21) | BIT(22))))
+> +                       continue;
 > +
-> > +		status =3D "disabled";
-> +
-> +		clock-gpios =3D <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
-
-This looks okay
-
-> +		data-gpios =3D <&gpio ASPEED_GPIO(AA, 2) GPIO_ACTIVE_HIGH>;
-
-According to my Romulus datasheet, FSI_SOFT_DAT is GPIOE0 and GPIOAA2
-doesn't appear to be connected. Am I looking at an out-of-date
-datasheet? Did something change here?
-
-> +		mux-gpios =3D <&gpio ASPEED_GPIO(A, 6) GPIO_ACTIVE_HIGH>;
-> > +		enable-gpios =3D <&gpio ASPEED_GPIO(D, 0) GPIO_ACTIVE_HIGH>;
-> +		trans-gpios =3D <&gpio ASPEED_GPIO(R, 2) GPIO_ACTIVE_HIGH>;
-
-These three also look okay to me.
-
-Andrew
-
-> +	};
-> =C2=A0};
-> =C2=A0
-> =C2=A0&fmc {
---=-jkf7K+MeU4ogFtNR3GZ5
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJYpP6PAAoJEJ0dnzgO5LT5dGoP/1sOfKkuFn3632IKn+Uu9Evc
-RNA/GWu3KrV9Ituqa6xR6OJPwUDo/I0LLl8VRyjWnzdwVm+NBXzHlU3BKg6LEJn5
-uUZCEcwJCuRb0vH6nThy1f6SujSqMCVnKx6XN+eScvUmoFq4L+e4BowDdh5WYSV2
-znWOclwWXeYqevd2KKRmsZDJezwJe/uu0IpETmN+4wRh2lox4hv1agAVxdvieW3W
-eUuHyR78VbLSS0B2AUMozDwLZVbSWO6y8h3rQ29CKb37nIDdt/DdTBfDMVzgLiS+
-24oEhBM3PQfMOS11L0Chmsbt7arsvIHqN2pUwxV0WHiQpaTLRiQzb3R3JAfQ1sLa
-sH4rKrFu15yM/MU49XciYjRw42nDKUqELcuHPf5MkzRATx+h+J3I9TYvloiuibuy
-FC96hb7rC/0V98qHSh5fen4Kv137LAn7tfNrkN51dNa1HGfxgIr8bH8nSNTT6Yk4
-9DIIVxmH0XuKDZ3JjTf+qfGJB4t32WRGD9Nhmuwmc8H55yn471J2ucE2EUP9q6EJ
-+8v0flAXIcRarInaj3a7fSKxwi6W1d9FKNq4Qr0qRTFNVwPkKSKgMYkBqQAqFIL+
-tbh0CjU3uZRF4xZIGTvHed2fqirOKX85oMQvMgz5W9IMtx2kSz3sIaCDA0r8dO4l
-3Q1zPlemN155qD6ytWBl
-=xf4s
------END PGP SIGNATURE-----
-
---=-jkf7K+MeU4ogFtNR3GZ5--
+> +               if (desc->ip == ASPEED_IP_SCU && desc->reg == HW_STRAP2)
+>                         continue;
+>
+>                 ret = regmap_update_bits(maps[desc->ip], desc->reg,
+> --
+> 2.11.0.483.g087da7b7c-goog
+>
