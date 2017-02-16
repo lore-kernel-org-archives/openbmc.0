@@ -3,65 +3,65 @@ Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vPWv95qJ5zDq8X
- for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 10:04:37 +1100 (AEDT)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vPWzY3mMtzDq8X
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 10:08:25 +1100 (AEDT)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v1GN450L056950
- for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 18:04:35 -0500
-Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
- by mx0a-001b2d01.pphosted.com with ESMTP id 28nkym391b-1
+ v1GN45xN061041
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 18:08:23 -0500
+Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 28nkwq3mhj-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 18:04:35 -0500
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 18:08:23 -0500
 Received: from localhost
- by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 16 Feb 2017 18:04:34 -0500
+ Thu, 16 Feb 2017 18:08:22 -0500
 Received: from d01dlp02.pok.ibm.com (9.56.250.167)
- by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
+ by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Thu, 16 Feb 2017 18:04:31 -0500
-Received: from b01cxnp22035.gho.pok.ibm.com (b01cxnp22035.gho.pok.ibm.com
- [9.57.198.25])
- by d01dlp02.pok.ibm.com (Postfix) with ESMTP id DF20B6E803C;
- Thu, 16 Feb 2017 18:04:01 -0500 (EST)
-Received: from b01ledav03.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
- [9.57.199.108])
- by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v1GN4Uag61800590; Thu, 16 Feb 2017 23:04:30 GMT
-Received: from b01ledav03.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C691EB2058;
- Thu, 16 Feb 2017 18:04:29 -0500 (EST)
+ Thu, 16 Feb 2017 18:08:18 -0500
+Received: from b01cxnp23033.gho.pok.ibm.com (b01cxnp23033.gho.pok.ibm.com
+ [9.57.198.28])
+ by d01dlp02.pok.ibm.com (Postfix) with ESMTP id 697576E801D;
+ Thu, 16 Feb 2017 18:07:49 -0500 (EST)
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v1GN8IZ419071440; Thu, 16 Feb 2017 23:08:18 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 79D8A112054;
+ Thu, 16 Feb 2017 18:08:17 -0500 (EST)
 Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b01ledav03.gho.pok.ibm.com (Postfix) with ESMTP id 78D1DB204D;
- Thu, 16 Feb 2017 18:04:29 -0500 (EST)
-Subject: Re: [PATCH linux dev-4.7 1/5] drivers/fsi: Add MFSI a.k.a. hub master
- device driver
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id 2137D112034;
+ Thu, 16 Feb 2017 18:08:17 -0500 (EST)
+Subject: Re: [PATCH linux dev-4.7 2/5] drivers/fsi: Initialize hub master
+ engine
 To: Christopher Bostic <cbostic@linux.vnet.ibm.com>, joel@jms.id.au
 References: <20170216220434.79474-1-cbostic@linux.vnet.ibm.com>
- <20170216220434.79474-2-cbostic@linux.vnet.ibm.com>
+ <20170216220434.79474-3-cbostic@linux.vnet.ibm.com>
 Cc: openbmc@lists.ozlabs.org
 From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Thu, 16 Feb 2017 17:04:24 -0600
+Date: Thu, 16 Feb 2017 17:08:17 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
  Thunderbird/45.6.0
 MIME-Version: 1.0
-In-Reply-To: <20170216220434.79474-2-cbostic@linux.vnet.ibm.com>
+In-Reply-To: <20170216220434.79474-3-cbostic@linux.vnet.ibm.com>
 Content-Type: text/plain; charset=windows-1252; format=flowed
 Content-Transfer-Encoding: 7bit
 X-TM-AS-GCONF: 00
 X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17021623-0044-0000-0000-00000295182E
+x-cbid: 17021623-0040-0000-0000-000002A62114
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00006629; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000203; SDB=6.00822969; UDB=6.00402668; IPR=6.00600416; 
+ PH=3.00000004; SC=3.00000203; SDB=6.00822971; UDB=6.00402669; IPR=6.00600417; 
  BA=6.00005146; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014312; XFM=3.00000011;
- UTC=2017-02-16 23:04:32
+ UTC=2017-02-16 23:08:20
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17021623-0045-0000-0000-000006C219FC
-Message-Id: <901b80f7-468d-dbb8-039e-0a75e3fbd92c@linux.vnet.ibm.com>
+x-cbparentid: 17021623-0041-0000-0000-000006994077
+Message-Id: <97752420-74eb-993a-999d-2c7a88f3cb4d@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-02-16_14:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -80,120 +80,461 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Feb 2017 23:04:38 -0000
+X-List-Received-Date: Thu, 16 Feb 2017 23:08:25 -0000
 
 Acked-by: Eddie James <eajames@linux.vnet.ibm.com>
 
 
 On 02/16/2017 04:04 PM, Christopher Bostic wrote:
-> Add the basic hub master device driver.  Registers with the
-> FSI core to be notified of its engine device and its link devices.
+> Define hub master probe and add definitions for general
+> master registers and bitfields.
 >
 > Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 > ---
->   drivers/fsi/Kconfig          |  9 ++++++
->   drivers/fsi/Makefile         |  1 +
->   drivers/fsi/fsi-master-hub.c | 65 ++++++++++++++++++++++++++++++++++++++++++++
->   3 files changed, 75 insertions(+)
->   create mode 100644 drivers/fsi/fsi-master-hub.c
+>   drivers/fsi/fsi-core.c        |  44 ++++++++++--
+>   drivers/fsi/fsi-master-gpio.c |   7 ++
+>   drivers/fsi/fsi-master-hub.c  | 154 ++++++++++++++++++++++++++++++++++++++++++
+>   drivers/fsi/fsi-master.h      |  64 ++++++++++++++++++
+>   include/linux/fsi.h           |   6 ++
+>   5 files changed, 269 insertions(+), 6 deletions(-)
 >
-> diff --git a/drivers/fsi/Kconfig b/drivers/fsi/Kconfig
-> index c78b9b6e..bb7c5d5 100644
-> --- a/drivers/fsi/Kconfig
-> +++ b/drivers/fsi/Kconfig
-> @@ -18,6 +18,15 @@ config FSI_MASTER_GPIO
->   	---help---
->   	This option enables a FSI master driver using GPIO lines.
+> diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
+> index 1e9c5a2..843389e 100644
+> --- a/drivers/fsi/fsi-core.c
+> +++ b/drivers/fsi/fsi-core.c
+> @@ -48,13 +48,19 @@ static unsigned int fsi_ipoll_period_ms = 100;
 >
-> +config FSI_MASTER_HUB
-> +	tristate "Hub FSI master"
-> +	depends on FSI
-> +	---help---
-> +	This option enables a hub FSI master. Hub masters extend the
-> +	address space of the primary master and allow chaining of
-> +	multiple devices. Chaining FSI links from one hub to another
-> +	allows for very high device fan out.
+>   static atomic_t master_idx = ATOMIC_INIT(-1);
+>
+> +static uint32_t set_smode_defaults(struct fsi_master *master);
+> +static int fsi_slave_set_smode(struct fsi_master *master, int link, int id);
+> +static int fsi_master_break(struct fsi_master *master, int link);
 > +
->   config FSI_SCOM
->   	tristate "SCOM FSI client device driver"
->   	depends on FSI
-> diff --git a/drivers/fsi/Makefile b/drivers/fsi/Makefile
-> index 3a106ba..37b5f5e 100644
-> --- a/drivers/fsi/Makefile
-> +++ b/drivers/fsi/Makefile
-> @@ -3,3 +3,4 @@ obj-$(CONFIG_FSI) += fsi-core.o
->   obj-$(CONFIG_FSI_MASTER_GPIO) += fsi-master-gpio.o
->   obj-$(CONFIG_FSI_SCOM) += fsi-scom.o
->   obj-$(CONFIG_FSI_I2C) += i2c/
-> +obj-$(CONFIG_FSI_MASTER_HUB) += fsi-master-hub.o
+>   struct fsi_slave {
+>   	struct list_head	list_link;	/* Master's list of slaves */
+>   	struct list_head	my_engines;
+>   	struct device		dev;
+> -	struct fsi_master	*master;
+> +	struct fsi_master	*master;	/* Upstream master */
+> +	struct fsi_master	*next_master;	/* Downstream master */
+>   	int			link;
+>   	uint8_t			id;
+> +	uint32_t		base;		/* Base address */
+>   };
+>
+>   #define to_fsi_slave(d) container_of(d, struct fsi_slave, dev)
+> @@ -112,6 +118,11 @@ int fsi_device_write(struct fsi_device *dev, uint32_t addr, const void *val,
+>   }
+>   EXPORT_SYMBOL_GPL(fsi_device_write);
+>
+> +struct fsi_master *fsi_get_master(struct fsi_device *fsi_dev)
+> +{
+> +	return fsi_dev->slave->master;
+> +}
+> +
+>   int fsi_device_peek(struct fsi_device *dev, void *val)
+>   {
+>   	uint32_t addr = FSI_PEEK_BASE + ((dev->unit - 2) * sizeof(uint32_t));
+> @@ -192,14 +203,14 @@ static int fsi_slave_read(struct fsi_slave *slave, uint32_t addr,
+>   			void *val, size_t size)
+>   {
+>   	return slave->master->read(slave->master, slave->link,
+> -			slave->id, addr, val, size);
+> +			slave->id, slave->base + addr, val, size);
+>   }
+>
+>   static int fsi_slave_write(struct fsi_slave *slave, uint32_t addr,
+>   			const void *val, size_t size)
+>   {
+>   	return slave->master->write(slave->master, slave->link,
+> -			slave->id, addr, val, size);
+> +			slave->id, slave->base + addr, val, size);
+>   }
+>
+>   static int fsi_slave_scan(struct fsi_slave *slave)
+> @@ -251,7 +262,7 @@ static int fsi_slave_scan(struct fsi_slave *slave)
+>   		 * Unused address areas are marked by a zero type value; this
+>   		 * skips the defined address areas
+>   		 */
+> -		if (type != 0 && slots != 0) {
+> +		if (type != 0) {
+>
+>   			/* create device */
+>   			dev = fsi_create_device(slave);
+> @@ -413,6 +424,7 @@ static int fsi_slave_init(struct fsi_master *master,
+>   	slave->id = slave_id;
+>   	slave->dev.parent = master->dev;
+>   	slave->dev.release = fsi_slave_release;
+> +	slave->base = link * master->link_size;
+>
+>   	dev_set_name(&slave->dev, "slave@%02x:%02x", link, slave_id);
+>   	rc = device_register(&slave->dev);
+> @@ -519,6 +531,24 @@ static void fsi_master_unscan(struct fsi_master *master)
+>   	master->slave_list = false;
+>   }
+>
+> +struct fsi_master *fsi_get_link_master(struct fsi_device *fsi_dev)
+> +{
+> +	if (fsi_dev && fsi_dev->slave)
+> +		return fsi_dev->slave->next_master;
+> +	return NULL;
+> +}
+> +EXPORT_SYMBOL_GPL(fsi_get_link_master);
+> +
+> +int fsi_set_next_master(struct fsi_device *fsi_dev, struct fsi_master *master)
+> +{
+> +	if (fsi_dev && fsi_dev->slave) {
+> +		fsi_dev->slave->next_master = master;
+> +		return 0;
+> +	}
+> +	return -EINVAL;
+> +}
+> +EXPORT_SYMBOL_GPL(fsi_set_next_master);
+> +
+>   static void fsi_master_irq(struct fsi_master *master, int link, uint32_t si1s)
+>   {
+>   	struct fsi_slave *slave;
+> @@ -595,7 +625,7 @@ DEVICE_ATTR(fsi_ipoll_period, S_IRUGO | S_IWUSR, fsi_ipoll_period_show,
+>
+>   int fsi_master_register(struct fsi_master *master)
+>   {
+> -	if (!master || !master->dev)
+> +	if (!master)
+>   		return -EINVAL;
+>
+>   	master->idx = atomic_inc_return(&master_idx);
+> @@ -657,8 +687,10 @@ static int fsi_bus_match(struct device *dev, struct device_driver *drv)
+>   		if (id->engine_type != fsi_dev->engine_type)
+>   			continue;
+>   		if (id->version == FSI_VERSION_ANY ||
+> -				id->version == fsi_dev->version)
+> +				id->version == fsi_dev->version) {
+> +			fsi_dev->id = id;
+>   			return 1;
+> +		}
+>   	}
+>
+>   	return 0;
+> diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
+> index 91bdbf2..92af53d 100644
+> --- a/drivers/fsi/fsi-master-gpio.c
+> +++ b/drivers/fsi/fsi-master-gpio.c
+> @@ -13,6 +13,8 @@
+>
+>   #include "fsi-master.h"
+>
+> +#define	FSI_MASTER_GPIO_TYPE	0x1
+> +
+>   #define	FSI_GPIO_STD_DLY	1	/* Standard pin delay in nS */
+>   #define	FSI_ECHO_DELAY_CLOCKS	16	/* Number clocks for echo delay */
+>   #define	FSI_PRE_BREAK_CLOCKS	50	/* Number clocks to prep for break */
+> @@ -63,6 +65,8 @@
+>   #define	FSI_GPIO_MSG_RESPID_SIZE	2
+>   #define	FSI_GPIO_PRIME_SLAVE_CLOCKS	100
+>
+> +#define	FSI_MASTER_GPIO_LINK_SIZE	0x00800000
+> +
+>   static DEFINE_SPINLOCK(fsi_gpio_cmd_lock);	/* lock around fsi commands */
+>
+>   struct fsi_master_gpio {
+> @@ -512,11 +516,14 @@ static int fsi_master_gpio_probe(struct platform_device *pdev)
+>   	else
+>   		master->gpio_mux = gpio;
+>
+> +	master->master.type = FSI_MASTER_GPIO_TYPE;
+>   	master->master.n_links = 1;
+> +	master->master.link_size = FSI_MASTER_GPIO_LINK_SIZE;
+>   	master->master.read = fsi_master_gpio_read;
+>   	master->master.write = fsi_master_gpio_write;
+>   	master->master.send_break = fsi_master_gpio_break;
+>   	master->master.link_enable = fsi_master_gpio_link_enable;
+> +	master->master.dev = &pdev->dev;
+>   	platform_set_drvdata(pdev, master);
+>
+>   	return device_create_file(&pdev->dev, &dev_attr_scan);
 > diff --git a/drivers/fsi/fsi-master-hub.c b/drivers/fsi/fsi-master-hub.c
-> new file mode 100644
-> index 0000000..19b7c77
-> --- /dev/null
+> index 19b7c77..e8c0726 100644
+> --- a/drivers/fsi/fsi-master-hub.c
 > +++ b/drivers/fsi/fsi-master-hub.c
-> @@ -0,0 +1,65 @@
-> +/*
-> + * Hub Master FSI Client device driver
-> + *
-> + * Copyright (C) IBM Corporation 2017
-> + *
-> + * This program is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License version 2 as
-> + * published by the Free Software Foundation.
-> + *
-> + * This program is distributed in the hope that it will be useful,
-> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> + * MERGCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> + * GNU General Public License for more details.
-> + */
+> @@ -18,14 +18,168 @@
+>   #include <linux/cdev.h>
+>   #include <linux/fs.h>
+>   #include <linux/uaccess.h>
+> +#include <linux/slab.h>
+> +#include <linux/delay.h>
+>
+>   #include "fsi-master.h"
+>
+> +#define FSI_MASTER_HUB_TYPE             0x02
 > +
-> +#include <linux/fsi.h>
-> +#include <linux/module.h>
-> +#include <linux/cdev.h>
-> +#include <linux/fs.h>
-> +#include <linux/uaccess.h>
+> +#define FSI_MASTER_HUB_MAX_LINKS        8
+> +#define FSI_MASTER_HUB_LINK_SIZE        0x00080000
 > +
-> +#include "fsi-master.h"
-> +
-> +#define FSI_ENGID_HUB_MASTER	0x1C
-> +#define FSI_ENGID_HUB_LINK	0x1D
-> +
-> +static int hub_master_probe(struct device *dev)
+>   #define FSI_ENGID_HUB_MASTER	0x1C
+>   #define FSI_ENGID_HUB_LINK	0x1D
+>
+> +int hub_master_read(struct fsi_master *master, int linkno, uint8_t slave,
+> +			uint32_t addr, void *val, size_t size)
 > +{
 > +	return 0;
 > +}
 > +
-> +static struct fsi_device_id hub_master_ids[] = {
-> +	{
-> +		.engine_type = FSI_ENGID_HUB_MASTER,
-> +		.version = FSI_VERSION_ANY,
-> +	},
-> +	{
-> +		.engine_type = FSI_ENGID_HUB_LINK,
-> +		.version = FSI_VERSION_ANY,
-> +	},
-> +	{ 0 }
-> +};
+> +int hub_master_write(struct fsi_master *master, int linkno, uint8_t slave,
+> +			uint32_t addr, const void *val, size_t size)
+> +{
+> +	return 0;
+> +}
 > +
-> +static struct fsi_driver hub_master_drv = {
-> +	.id_table = hub_master_ids,
-> +	.drv = {
-> +		.name = "hub_master",
-> +		.bus = &fsi_bus_type,
-> +		.probe = hub_master_probe,
+> +int hub_master_break(struct fsi_master *master, int linkno)
+> +{
+> +	return 0;
+> +}
+> +
+> +int hub_master_link_enable(struct fsi_master *master, int link)
+> +{
+> +	return 0;
+> +}
+> +
+>   static int hub_master_probe(struct device *dev)
+>   {
+> +	struct fsi_device *fsi_dev = to_fsi_dev(dev);
+> +	struct fsi_master *master;
+> +	int rc = 0;
+> +	uint32_t mver;
+> +
+> +	master = fsi_get_master(fsi_dev);
+> +
+> +	/* Two Hub masters in communication chain not allowed */
+> +	if (master->type == FSI_MASTER_HUB_TYPE)
+> +		return 0;
+> +
+> +	if (master && (master->n_links >= FSI_MASTER_HUB_MAX_LINKS * 2))
+> +		return 0;
+> +
+> +	if (fsi_dev->id->engine_type == FSI_ENGID_HUB_MASTER) {
+> +		master = devm_kzalloc(dev, sizeof(*master), GFP_KERNEL);
+> +		if (!master)
+> +			return -ENOMEM;
+> +
+> +		fsi_dev->master = master;
+> +
+> +		/* TODO: can use master->dev to get at the engine possibly */
+> +		master->engine = fsi_dev;
+> +		master->read = hub_master_read;
+> +		master->write = hub_master_write;
+> +		master->send_break = hub_master_break;
+> +		master->link_enable = hub_master_link_enable;
+> +		master->link_size = FSI_MASTER_HUB_LINK_SIZE;
+> +		rc = fsi_set_next_master(fsi_dev, master);
+> +
+> +		/* Initialize the MFSI (hub master) engine */
+> +		rc = fsi_device_read(master->engine, FSI_MVER, &mver,
+> +					sizeof(mver));
+> +		if (rc)
+> +			return rc;
+> +
+> +		mver = FSI_MRESP_RST_ALL_MASTER | FSI_MRESP_RST_ALL_LINK
+> +				| FSI_MRESP_RST_MCR | FSI_MRESP_RST_PYE;
+> +		rc = fsi_device_write(master->engine, FSI_MRESP0, &mver,
+> +					sizeof(mver));
+> +		if (rc)
+> +			return rc;
+> +
+> +		mver = FSI_MECTRL_EOAE | FSI_MECTRL_P8_AUTO_TERM;
+> +		rc = fsi_device_write(master->engine, FSI_MECTRL, &mver,
+> +					sizeof(mver));
+> +		if (rc)
+> +			return rc;
+> +
+> +		mver = FSI_MMODE_EIP | FSI_MMODE_ECRC | FSI_MMODE_EPC
+> +			| fsi_mmode_crs0(1) | fsi_mmode_crs1(1)
+> +			| FSI_MMODE_P8_TO_LSB;
+> +		rc = fsi_device_write(master->engine, FSI_MMODE, &mver,
+> +					sizeof(mver));
+> +		if (rc)
+> +			return rc;
+> +
+> +		mver = 0xffff0000;
+> +		rc = fsi_device_write(master->engine, FSI_MDLYR, &mver,
+> +					sizeof(mver));
+> +		if (rc)
+> +			return rc;
+> +
+> +		mver = ~0;
+> +		rc = fsi_device_write(master->engine, FSI_MSENP0, &mver,
+> +					sizeof(mver));
+> +		if (rc)
+> +			return rc;
+> +
+> +		/* Leave enabled long enough for master logic to set up */
+> +		udelay(1000);
+> +
+> +		rc = fsi_device_write(master->engine, FSI_MCENP0, &mver,
+> +					sizeof(mver));
+> +		if (rc)
+> +			return rc;
+> +
+> +		rc = fsi_device_read(master->engine, FSI_MAEB, &mver,
+> +					sizeof(mver));
+> +		if (rc)
+> +			return rc;
+> +
+> +		mver = FSI_MRESP_RST_ALL_MASTER | FSI_MRESP_RST_ALL_LINK;
+> +		rc = fsi_device_write(master->engine, FSI_MRESP0, &mver,
+> +					sizeof(mver));
+> +		if (rc)
+> +			return rc;
+> +
+> +		rc = fsi_device_read(master->engine, FSI_MLEVP0, &mver,
+> +					sizeof(mver));
+> +		if (rc)
+> +			return rc;
+> +
+> +		/* Reset the master bridge */
+> +		mver = FSI_MRESB_RST_GEN;
+> +		rc = fsi_device_write(master->engine, FSI_MRESB0, &mver,
+> +					sizeof(mver));
+> +		if (rc)
+> +			return rc;
+> +
+> +		mver = FSI_MRESB_RST_ERR;
+> +		rc = fsi_device_write(master->engine, FSI_MRESB0, &mver,
+> +					sizeof(mver));
+> +		if (rc)
+> +			return rc;
+> +	} else {
+> +		/*
+> +		 * A hub link device.
+> +		 */
+> +		master = fsi_get_link_master(fsi_dev);
+> +		if (!master)
+> +			return -ENODEV;
+> +
+> +		if (master->n_links == 0) {
+> +			/*
+> +			 * CFAM Config space doesn't list correct size
+> +			 * for hub links, fix this.
+> +			 */
+> +			fsi_dev->size = fsi_dev->addr *
+> +					FSI_MASTER_HUB_MAX_LINKS;
+> +			master->link = fsi_dev;
+> +		}
+> +		master->n_links++;
 > +	}
-> +};
 > +
-> +static int hub_master_init(void)
+>   	return 0;
+>   }
+>
+> diff --git a/drivers/fsi/fsi-master.h b/drivers/fsi/fsi-master.h
+> index 3737404..367b8d9 100644
+> --- a/drivers/fsi/fsi-master.h
+> +++ b/drivers/fsi/fsi-master.h
+> @@ -17,8 +17,57 @@
+>   #ifndef DRIVERS_FSI_MASTER_H
+>   #define DRIVERS_FSI_MASTER_H
+>
+> +#include <linux/fsi.h>
+>   #include <linux/device.h>
+>
+> +#define FSI_BREAK			0xc0de0000
+> +
+> +/* Control Registers */
+> +#define FSI_MMODE		0x0		/* R/W: mode */
+> +#define FSI_MDLYR		0x4		/* R/W: delay */
+> +#define FSI_MCRSP		0x8		/* R/W: clock rate */
+> +#define FSI_MENP0		0x10		/* R/W: enable */
+> +#define FSI_MLEVP0		0x18		/* R: plug detect */
+> +#define FSI_MSENP0		0x18		/* S: Set enable */
+> +#define FSI_MCENP0		0x20		/* C: Clear enable */
+> +#define FSI_MAEB		0x70		/* R: Error address */
+> +#define FSI_MVER		0x74		/* R: master version/type */
+> +#define FSI_MRESP0		0xd0		/* W: Port reset */
+> +#define FSI_MESRB0		0x1d0		/* R: Master error status */
+> +#define FSI_MRESB0		0x1d0		/* W: Reset bridge */
+> +#define FSI_MECTRL		0x2e0		/* W: Error control */
+> +
+> +/* MMODE: Mode control */
+> +#define FSI_MMODE_EIP		0x80000000	/* Enable interrupt polling */
+> +#define FSI_MMODE_ECRC		0x40000000	/* Enable error recovery */
+> +#define FSI_MMODE_EPC		0x10000000	/* Enable parity checking */
+> +#define FSI_MMODE_P8_TO_LSB	0x00000010	/* Timeout value LSB */
+> +						/* Rolf Fritz Nov 20, 2013: */
+> +						/*   MSB=1, LSB=0 is 0.8 ms */
+> +						/*   MSB=0, LSB=1 is 0.9 ms */
+> +#define FSI_MMODE_CRS0SHFT	18		/* Clk rate selection 0 shift */
+> +#define FSI_MMODE_CRS0MASK	0x3ff		/* Clk rate selection 0 mask */
+> +#define FSI_MMODE_CRS1SHFT	8		/* Clk rate selection 1 shift */
+> +#define FSI_MMODE_CRS1MASK	0x3ff		/* Clk rate selection 1 mask */
+> +
+> +/* MRESB: Reset brindge */
+> +#define FSI_MRESB_RST_GEN	0x80000000	/* General reset */
+> +#define FSI_MRESB_RST_ERR	0x40000000	/* Error Reset */
+> +
+> +/* MRESB: Reset port */
+> +#define FSI_MRESP_RST_ALL_MASTER 0x20000000	/* Reset all FSI masters */
+> +#define FSI_MRESP_RST_ALL_LINK	0x10000000	/* Reset all FSI port contr. */
+> +#define FSI_MRESP_RST_MCR	0x08000000	/* Reset FSI master reg. */
+> +#define FSI_MRESP_RST_PYE	0x04000000	/* Reset FSI parity error */
+> +#define FSI_MRESP_RST_ALL	0xfc000000	/* Reset any error */
+> +
+> +/* MECTRL: Error control */
+> +#define FSI_MECTRL_EOAE		0x8000		/* Enable machine check when */
+> +						/* master 0 in error */
+> +#define FSI_MECTRL_P8_AUTO_TERM	0x4000		/* Auto terminate */
+> +
+> +#define L_MSB_MASK(x)		(0x80000000 >> (x))
+> +
+>   struct fsi_master {
+>   	struct list_head my_slaves;
+>   	bool		slave_list;
+> @@ -26,6 +75,10 @@ struct fsi_master {
+>   	int		idx;
+>   	int		n_links;
+>   	uint32_t	ipoll;
+> +	struct fsi_device *engine;
+> +	struct fsi_device *link;
+> +	uint8_t		type;
+> +	uint32_t	link_size;
+>   	int		(*read)(struct fsi_master *, int link,
+>   				uint8_t slave, uint32_t addr,
+>   				void *val, size_t size);
+> @@ -61,4 +114,15 @@ extern int fsi_master_start_ipoll(struct fsi_master *master);
+>    */
+>   uint8_t fsi_crc4(uint8_t c, uint64_t x, int bits);
+>
+> +/* mmode encoders */
+> +static inline u32 fsi_mmode_crs0(u32 x)
 > +{
-> +	return fsi_driver_register(&hub_master_drv);
+> +	return (x & FSI_MMODE_CRS0MASK) << FSI_MMODE_CRS0SHFT;
 > +}
 > +
-> +static void hub_master_exit(void)
+> +static inline u32 fsi_mmode_crs1(u32 x)
 > +{
-> +	fsi_driver_unregister(&hub_master_drv);
+> +	return (x & FSI_MMODE_CRS1MASK) << FSI_MMODE_CRS1SHFT;
 > +}
 > +
-> +module_init(hub_master_init);
-> +module_exit(hub_master_exit);
-> +MODULE_LICENSE("GPL");
+>   #endif /* DRIVERS_FSI_MASTER_H */
+> diff --git a/include/linux/fsi.h b/include/linux/fsi.h
+> index d22d0c5..9bf0b06 100644
+> --- a/include/linux/fsi.h
+> +++ b/include/linux/fsi.h
+> @@ -20,6 +20,8 @@
+>   struct fsi_device {
+>   	struct list_head	link;	/* for slave's list */
+>   	struct device		dev;
+> +	const struct fsi_device_id *id;
+> +	struct fsi_master	*master;
+>   	u8			engine_type;
+>   	u8			version;
+>   	u8			unit;
+> @@ -71,6 +73,10 @@ extern void fsi_driver_unregister(struct fsi_driver *);
+>
+>   extern struct bus_type fsi_bus_type;
+>
+> +extern struct fsi_master *fsi_get_link_master(struct fsi_device *dev);
+> +extern int fsi_set_next_master(struct fsi_device *dev,
+> +				struct fsi_master *master);
+> +extern struct fsi_master *fsi_get_master(struct fsi_device *dev);
+>   extern int fsi_enable_irq(struct fsi_device *dev);
+>   extern void fsi_disable_irq(struct fsi_device *dev);
+>
