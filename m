@@ -1,54 +1,56 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yb0-x243.google.com (mail-yb0-x243.google.com
+ [IPv6:2607:f8b0:4002:c09::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vP1tj5SNYzDq60
- for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 14:32:29 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="X+bQBlxk"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="sag0subF"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 7A1DD20780;
- Wed, 15 Feb 2017 22:32:27 -0500 (EST)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Wed, 15 Feb 2017 22:32:27 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=tqfFc464GfSLNkel+w+LDwHU9cU=; b=X+bQBl
- xkv7JqNF+jgpTXALOBYD4+v3+A9ZilX8bod8x0Il47lgCkgjMg4aETtCNfV2a+PO
- MgIBaFi2Vyvfn6LVTS9RRDV3oAzyGJoWziO89pAbkY4R+k1WMDBb+kl4WSnDqkjF
- 4c4fCTBFfFZu+KefuHV8AWl52ncpthwsjU5n0=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=tqfFc464GfSLNk
- el+w+LDwHU9cU=; b=sag0subFHPI09TRhEpqxR7XHEISo3vDFvzfeZC0eZf6Hw6
- afVbh/TsdaJly1PBcTk8PG1iNwuyP447Y7qdO5yM9vcjM1ZVYB28WdNQb9qIywY9
- pcKKeZdLIlUMZuvRlvTWPNjlZ9cavwgsNb7Z5GKVYOpW9eCZzlvW586vXyptk=
-X-ME-Sender: <xms:Sx2lWKbqp8vB1j2XMoFOllYYu5PjAtuVN0XR61tvt9LzO-O-ogGzfA>
-X-Sasl-enc: FtgVmsi6DgHNxb0Fujut5qp+5xCX/WbOj9pgAbfHMXcs 1487215946
-Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id E257F7E16E;
- Wed, 15 Feb 2017 22:32:25 -0500 (EST)
-Message-ID: <1487215937.3661.36.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.7 2/3] ARM: dts: aspeed: romulus: Add
- fsi-master GPIO bindings
-From: Andrew Jeffery <andrew@aj.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vP4571LdCzDq60
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 16:11:39 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="N4N5UwS3"; 
+ dkim-atps=neutral
+Received: by mail-yb0-x243.google.com with SMTP id o65so254214ybo.3
+ for <openbmc@lists.ozlabs.org>; Wed, 15 Feb 2017 21:11:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=KHzxfWCHTksBZoUYK4wEGcZ3aGZd2iK6qXtkP+Gu6fU=;
+ b=N4N5UwS3YIMLOWmTC9IkF8n913z6iNB62JKVtIOgl7diWFJ8cPfkzERxnivXNzrOef
+ huxjulCW7CsLCnZARyXjl24KH6GFFOr8x2LxTtnLcnFlBNfOvBOQ1Gcjbq14hsodWrIu
+ ThxKuvOhAebNGbkbFd0kYg6xVuhgphGKfEPj7OLVjOQYItISdKWpUwc6qQgshbeyTwbl
+ XWGrcsrEKmSDvbvjjXw9fOpGqWVeUKpvXSOGVytbu+CfqtRnAF3qwWL10u46s/s7PBKt
+ 2f1piSCHgqhVrEipqRNyK1ZC2yYcQeRqp7bacu+op4HwSIscMuG0/tq5/UDpyOcMe159
+ bIyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=KHzxfWCHTksBZoUYK4wEGcZ3aGZd2iK6qXtkP+Gu6fU=;
+ b=Zs/v5uxb+/0UyIWQichvs5w/Ck5zacmjFe/6mOEfgu4yAED07zZgxEar1lhgO6dQTq
+ DOBY/KhWXggvrBjJqp+WMWZFXbHwwhzBJwcgpebYiN6QgTvTEu5fVgq0a8dLodJbXSyR
+ 8QZQl/6ltK9T2ci8nMMeGbL5jK4WVZJqYV6pOB8wjjggrR75G1MG+IWZWKu0cpvDeCEh
+ yX06I4OBuWfFYRvfsXqqhnjce2vQBzlGrreK6UPZ67zn1H9S2NELhJnur/ut0r/Svsiy
+ MDa+hNc0A9ktwgcrZCk19j5zSMm93GNiDXQc/8KJ4YWAPAUpw1eppo823UOOGtpf1sPb
+ 68Qw==
+X-Gm-Message-State: AMke39mw4RAthasDgJe9EefGMYweAADCxqyPNZjwJrst2BwD1psSR0PT9YTitk1Yg5zWKpaCvPYvtIgaFggyPQ==
+X-Received: by 10.37.70.66 with SMTP id t63mr274923yba.196.1487221896644; Wed,
+ 15 Feb 2017 21:11:36 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.170.41 with HTTP; Wed, 15 Feb 2017 21:11:15 -0800 (PST)
+In-Reply-To: <CAARXrtksFuxQ7ZvYpm6bTLvn7DMFAJ1b1uPvyW_8dEDbSd9JzQ@mail.gmail.com>
+References: <1487057115-14622-1-git-send-email-mine260309@gmail.com>
+ <1487207539.3661.30.camel@aj.id.au>
+ <CAARXrtksFuxQ7ZvYpm6bTLvn7DMFAJ1b1uPvyW_8dEDbSd9JzQ@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 16 Feb 2017 15:41:15 +1030
+X-Google-Sender-Auth: qyaZ4k0fuSOUJIWaGM-0CxEtYeY
+Message-ID: <CACPK8XecYgUYOb-aZub71GDBTediTDcN+CP+OG29K_8ivd2WgQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7 1/3] ARM: dts: aspeed-bmc-opp-romulus:
+ Enable mailbox and LPC control nodes
 To: Mine <mine260309@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Thu, 16 Feb 2017 14:02:17 +1030
-In-Reply-To: <CAARXrtmEEajwOp4p6bNE4Qummj_M9nxP7R-UOmNXSQKA2UCv_w@mail.gmail.com>
-References: <1487057409-19872-1-git-send-email-mine260309@gmail.com>
- <1487208079.3661.32.camel@aj.id.au>
- <CAARXrtmEEajwOp4p6bNE4Qummj_M9nxP7R-UOmNXSQKA2UCv_w@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-JoTuV8HvesbBcwE8FZWK"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,53 +62,64 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Feb 2017 03:32:31 -0000
+X-List-Received-Date: Thu, 16 Feb 2017 05:11:39 -0000
 
+On Thu, Feb 16, 2017 at 2:02 PM, Mine <mine260309@gmail.com> wrote:
+> Hi Andrew,
+>
+> On Thu, Feb 16, 2017 at 9:12 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+>> Hi Lei,
+>>
+>> On Tue, 2017-02-14 at 15:25 +0800, Lei YU wrote:
+>>> Also add the reserved-memory node needed by the LPC
+>>> control driver.
+>>>
+>>> > Signed-off-by: Lei YU <mine260309@gmail.com>
+>>> ---
+>>>  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 22 ++++++++++++++++++++++
+>>>  1 file changed, 22 insertions(+)
+>>>
+>>> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+>>> index c23627e..f47eb63 100644
+>>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+>>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+>>> @@ -19,6 +19,18 @@
+>>> >     memory {
+>>> >             reg = <0x80000000 0x40000000>;
+>>> >     };
+>>> +
+>>> > +   reserved-memory {
+>>> > +           #address-cells = <1>;
+>>> > +           #size-cells = <1>;
+>>> > +           ranges;
+>>> +
+>>> > > +         flash_memory: region@94000000 {
+>>> > +                   no-map;
+>>> +                     reg = <0x94000000 0x04000000>; /* 64M */
+>>
+>> So these values are also used in the zaius dts. Why are we reserving
+>> 64M 128M down from the top of the RAM address space? Is the top 64M
+>> meant to be reserved for anything as well? Why not reserve the top 64M?
 
---=-JoTuV8HvesbBcwE8FZWK
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The top 64MB is for the host VGA framebuffer.
 
-On Thu, 2017-02-16 at 11:28 +0800, Mine wrote:
-> > According to my Romulus datasheet, FSI_SOFT_DAT is GPIOE0 and GPIOAA2
-> > doesn't appear to be connected. Am I looking at an out-of-date
-> > datasheet? Did something change here?
->=20
+$ python3 -c "print(((0x80000000 + 0x40000000) - (0x94000000 +
+0x04000000)) /1024./1024.)"
+640.0
 
-s/datasheet/schematic/, pre caffeine.
+There was a mistake made due to not knowing the size of Zaius' DRAM,
+so things are 512MB lower than they should be.
 
-> Romulus FSI_SOFT_DAT is always GPIOAA2 (from GPIO Romulus 20161102.xls
-> to GPIO Romulus 20170112.xls,=20
+> This is a good question, but honestly I just copied this part from Witherspoon,
+> and this is just the same as Zaius.
 
-The schematic I have has 20160811 in the title, so it's probably a long
-way out of date.
+> Maybe Joel has some comments on this?
 
-> and I confirm that FSI is working with
-> this config.
+The intent was to leave a 64MB window for the host framebuffer, and
+then put the 64MB buffer for mbox below.
 
-I'll trust you :)
+Can you please fix up this patch and also send one to fix Zaius?
 
-Acked-by: Andrew Jeffery <andrew@aj.id.au>
---=-JoTuV8HvesbBcwE8FZWK
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Cheers,
 
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJYpR1BAAoJEJ0dnzgO5LT5N/AP/0lmvzU8t4yn23V0eaywfhsm
-wUq+ZHoFSNN2JuP0ofEWtp4myU0+x1y/mWicA1SOdHinU8jGNd16p4ADX43ycqDE
-HHhcsRi3qFEEJThZ5IBhWyL7sYMs5iR19q0WdELZkDXLLa+wIXFhILpnYFWgRy22
-+W07BU/Evs/JNGTFWyUaal5uOLqB+ZuiFxP97kjOpQM1yKyDWFL71UrWFgjJ8TYx
-i+mRWDug9pdhvVegRd8gzL+LIOxHp8wJ3O6LONoIcC8zZ7g567+nE6KyLcldAyjp
-/SA9RdzwD4sFzXxHK+0ZqBWv9x14ySH+Vu9akhqJnJE7j+eQM0Z79QWTXNxEMoov
-/K5A/G2EEIrmJN/VwPPkrg9c+IewmfBwcqYi35tIDdtuaMKNB0ZuG6fuGmdZ6JKs
-a2VjhWE8HaWswDFGvYbCr9MbIEmybUDHiBHHFjwHO7bnmIDZCCYc6L84Q9N9gJII
-2DP5XCXon3DZen5mnTqjTqNm0yWaecQxSbCD02VeJ+/wFG5w1jCr9IjggELX92zq
-bj6r8R3J6MDvzZr3SRXuEXcRjO7NnAVbh0eRwKW1scpGeSaDJupLyv2fz/0p4KFl
-cM4LbV7wrzk4Ir7Z/IGX8dAxzYHoqqlLTmzjRXdntRo4Upds3qGVUo7v9gZJC+AH
-/0uv8MhzPcX24WSHJPcE
-=2ae8
------END PGP SIGNATURE-----
-
---=-JoTuV8HvesbBcwE8FZWK--
+Joel
