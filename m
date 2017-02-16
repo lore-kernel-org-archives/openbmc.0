@@ -3,47 +3,47 @@ Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vNynF3X1VzDq60
- for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 12:12:33 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vNyzV6jtDzDq60
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 12:21:26 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="XSbt/TfH"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ZqXV1eRd"; 
  dkim=pass (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="MtlkmLrl"; dkim-atps=neutral
+ header.b="d23ngYsa"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 1B4F8206EB;
- Wed, 15 Feb 2017 20:12:27 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id D882A20989;
+ Wed, 15 Feb 2017 20:21:24 -0500 (EST)
 Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Wed, 15 Feb 2017 20:12:27 -0500
+ by compute4.internal (MEProxy); Wed, 15 Feb 2017 20:21:24 -0500
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
  content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=EYVrTEHX5SL/5jbAHc2oH5T07WA=; b=XSbt/T
- fHpNspNsaS2aPVz8VCoI/oIRup6a6MyXK0b7a5hhxf8/N+B8H82bWWb1PWMSJAh4
- SG542yUm8wNue4KVT4eSNn/4v0CELzPZ4iyEWA4kDmRmfEISBM82oKyjBAJ1Akk4
- 4++lOJjMGg4qcOMWf7QLz/0vIk6vqxMSixKwA=
+ :x-sasl-enc; s=mesmtp; bh=E5SQYWRMA6aakXZNRwcUcwSHESQ=; b=ZqXV1e
+ RdlBfGUhq6tr+ljVFFX4MK6NckDMi15XILtXBFI70vIoLJ+pMkfFMEkbz+xpeXhL
+ eDHarc2kuDy7Ev5aSU1CUKwwhVh/dDm5Em6U6iDoJaDtb5dy6ZQCEEPV3rNdFtYK
+ 7vX8L3vY5CmlqzRuUgPrl/VHx1rPyG3WPeU+Y=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
  messagingengine.com; h=content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=EYVrTEHX5SL/5j
- bAHc2oH5T07WA=; b=MtlkmLrlhkhdBTKmGmXMkEx/n0cb7UuREuVirnl77+bNOp
- aiJS96qiMlvgvrduuengmRFxw76lPMvldgzR65y2c2df1ZgYQwkyK3vd4UxQf+Ui
- HMhDJh3H2PJF+JIuigG0+cuBrrxIskQgfdTPupmzIJHneg0uGQzeUU9ZjJKTE=
-X-ME-Sender: <xms:e_ykWMgtZDUUfVSOgACFUs1sq70xAjsSLHOI7npqq-O2fmcMVlTuBA>
-X-Sasl-enc: FWdomeFtnoTmjM6kb0t+1Bexm4EPjrDbqnFlSfJGaJpe 1487207546
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=E5SQYWRMA6aakX
+ ZNRwcUcwSHESQ=; b=d23ngYsaql5BBl5hE22av6SNo8PBMqSxyvbW1pVvL4WxgF
+ sy+KeraMrOX3KH0IQpKHCym2TMG+Bzy+ORBuNn4tLhzi9W+MNZ8touOw7bsTWrUk
+ Sv2+b6aDgmsme/McIBAdhiVbOB2Xwi57junWno95U3fUQHo0HbGPFbUvaj7lM=
+X-ME-Sender: <xms:lP6kWMgM5moaBUp8sFvuszbheXFPMjM88eRlNE3hM-6MDn1KU1K8DA>
+X-Sasl-enc: QZyk8ss5aJu1RBXWIPrp7Z9erN78yiWiPHYuvwuKQcM7 1487208084
 Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id BB3DE7E033;
- Wed, 15 Feb 2017 20:12:25 -0500 (EST)
-Message-ID: <1487207539.3661.30.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.7 1/3] ARM: dts: aspeed-bmc-opp-romulus:
- Enable mailbox and LPC control nodes
+ by mail.messagingengine.com (Postfix) with ESMTPA id 5E82C7E033;
+ Wed, 15 Feb 2017 20:21:22 -0500 (EST)
+Message-ID: <1487208079.3661.32.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.7 2/3] ARM: dts: aspeed: romulus: Add
+ fsi-master GPIO bindings
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Lei YU <mine260309@gmail.com>, openbmc@lists.ozlabs.org
-Date: Thu, 16 Feb 2017 11:42:19 +1030
-In-Reply-To: <1487057115-14622-1-git-send-email-mine260309@gmail.com>
-References: <1487057115-14622-1-git-send-email-mine260309@gmail.com>
+Date: Thu, 16 Feb 2017 11:51:19 +1030
+In-Reply-To: <1487057409-19872-1-git-send-email-mine260309@gmail.com>
+References: <1487057409-19872-1-git-send-email-mine260309@gmail.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-NoD24HNFgDZh4+L1ejTO"
+ protocol="application/pgp-signature"; boundary="=-jkf7K+MeU4ogFtNR3GZ5"
 X-Mailer: Evolution 3.22.1-0ubuntu2 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -57,95 +57,88 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Feb 2017 01:12:34 -0000
+X-List-Received-Date: Thu, 16 Feb 2017 01:21:27 -0000
 
 
---=-NoD24HNFgDZh4+L1ejTO
+--=-jkf7K+MeU4ogFtNR3GZ5
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 Hi Lei,
 
-On Tue, 2017-02-14 at 15:25 +0800, Lei YU wrote:
-> Also add the reserved-memory node needed by the LPC
-> control driver.
+On Tue, 2017-02-14 at 15:30 +0800, Lei YU wrote:
+> Define the pins used on Romulus by the FSI GPIO master.
 >=20
 > > Signed-off-by: Lei YU <mine260309@gmail.com>
 > ---
-> =C2=A0arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 22 +++++++++++++++++=
-+++++
-> =C2=A01 file changed, 22 insertions(+)
+> =C2=A0arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 13 ++++++++++++-
+> =C2=A01 file changed, 12 insertions(+), 1 deletion(-)
 >=20
 > diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot=
 /dts/aspeed-bmc-opp-romulus.dts
-> index c23627e..f47eb63 100644
+> index f47eb63..bc13ad9 100644
 > --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
 > +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> @@ -19,6 +19,18 @@
-> > =C2=A0	memory {
-> > =C2=A0		reg =3D <0x80000000 0x40000000>;
+> @@ -1,7 +1,7 @@
+> =C2=A0/dts-v1/;
+> =C2=A0
+> =C2=A0#include "aspeed-g5.dtsi"
+> -#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/gpio/aspeed-gpio.h>
+> =C2=A0
+> =C2=A0/ {
+> > =C2=A0	model =3D "Romulus BMC";
+> @@ -31,6 +31,17 @@
+> > =C2=A0		};
 > > =C2=A0	};
+> =C2=A0
+> > +	fsi-master {
+> > +		compatible =3D "ibm,fsi-master", "ibm,fsi-master-gpio";
 > +
-> > +	reserved-memory {
-> > +		#address-cells =3D <1>;
-> > +		#size-cells =3D <1>;
-> > +		ranges;
+> > +		status =3D "disabled";
 > +
-> > > +		flash_memory: region@94000000 {
-> > +			no-map;
-> +			reg =3D <0x94000000 0x04000000>; /* 64M */
+> +		clock-gpios =3D <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
 
-So these values are also used in the zaius dts. Why are we reserving
-64M 128M down from the top of the RAM address space? Is the top 64M
-meant to be reserved for anything as well? Why not reserve the top 64M?
+This looks okay
 
-> +		};
-> > +	};
-> +
+> +		data-gpios =3D <&gpio ASPEED_GPIO(AA, 2) GPIO_ACTIVE_HIGH>;
+
+According to my Romulus datasheet, FSI_SOFT_DAT is GPIOE0 and GPIOAA2
+doesn't appear to be connected. Am I looking at an out-of-date
+datasheet? Did something change here?
+
+> +		mux-gpios =3D <&gpio ASPEED_GPIO(A, 6) GPIO_ACTIVE_HIGH>;
+> > +		enable-gpios =3D <&gpio ASPEED_GPIO(D, 0) GPIO_ACTIVE_HIGH>;
+> +		trans-gpios =3D <&gpio ASPEED_GPIO(R, 2) GPIO_ACTIVE_HIGH>;
+
+These three also look okay to me.
+
+Andrew
+
+> +	};
 > =C2=A0};
 > =C2=A0
 > =C2=A0&fmc {
-> @@ -44,6 +56,16 @@
-> > =C2=A0	};
-> =C2=A0};
-> =C2=A0
-> +&lpc_ctrl {
-> > +	status =3D "okay";
-> > +	memory-region =3D <&flash_memory>;
-> > +	flash =3D <&spi1>;
-> +};
-> +
-> +&mbox {
-> > +	status =3D "okay";
-> +};
-
-This looks fine.
-
-Andrew
-> +
-> =C2=A0&uart5 {
-> > =C2=A0	status =3D "okay";
-> =C2=A0};
---=-NoD24HNFgDZh4+L1ejTO
+--=-jkf7K+MeU4ogFtNR3GZ5
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJYpPxzAAoJEJ0dnzgO5LT5QUYP/2LmXtwbAtcGSdv3Bi+Of4i7
-CL0HrJPlZZmQR5Tqyl7iVJpD40vi8mZrU/CDJ/ma8+MbHz6or24zQCzY5pteIQPG
-cUKc3DzKhmcB7LGQGKOksUNcotfg4f7BALeVUlap7T3+48TOOW0acxZUCb103whz
-sg4XhxcMCjPxoGUFMI23wX7i980rLuvpYen6f3i+NFI3C1o8M3Y0YISLfVEduVDg
-uTeYSLEKw0Pr/UxnXlgO1wD2cQwJzdon8Itg1IyWvSQTBQ8Pf9Jgm5vuMZS7ndM9
-rSPv0eAqUK8jWZ4ssRGXRmVm58Uc+QFdYVxLpmeqJ8x7OXPGDLnhQ41nzHPfOiJN
-Zf5wNxVXj7lh78IPuJSkQTPix6AVPFezlSkaaY8QPMwH4+jk8oVNX2IMP594uXyl
-k+Gv7xzI5TAtgKtIfyMT2PnBQP7z4l7R6+8z50FBqLUJs4jgsXvxgnoG8M7tBwrH
-Ahhi5aS2X3BI36HJrvsn4Q7Cvo56+NZnZBpie8wxWbOLDQDE/dnssNB73QT5+MpJ
-TqDqPksIv7KJr/GSYdjHCIAADXFO8ZbCwThfQ+Nrz6wELcL1V1I9tG5rTH2uC9Ra
-prUjGaL2U9hbA0guJbWGY/fOr1xAEi2MlRazf394lV16DRm/SJw9oi7yhSyDxdu5
-1VqLIFIEu5tKsWc5ZVPR
-=z3gF
+iQIcBAABCgAGBQJYpP6PAAoJEJ0dnzgO5LT5dGoP/1sOfKkuFn3632IKn+Uu9Evc
+RNA/GWu3KrV9Ituqa6xR6OJPwUDo/I0LLl8VRyjWnzdwVm+NBXzHlU3BKg6LEJn5
+uUZCEcwJCuRb0vH6nThy1f6SujSqMCVnKx6XN+eScvUmoFq4L+e4BowDdh5WYSV2
+znWOclwWXeYqevd2KKRmsZDJezwJe/uu0IpETmN+4wRh2lox4hv1agAVxdvieW3W
+eUuHyR78VbLSS0B2AUMozDwLZVbSWO6y8h3rQ29CKb37nIDdt/DdTBfDMVzgLiS+
+24oEhBM3PQfMOS11L0Chmsbt7arsvIHqN2pUwxV0WHiQpaTLRiQzb3R3JAfQ1sLa
+sH4rKrFu15yM/MU49XciYjRw42nDKUqELcuHPf5MkzRATx+h+J3I9TYvloiuibuy
+FC96hb7rC/0V98qHSh5fen4Kv137LAn7tfNrkN51dNa1HGfxgIr8bH8nSNTT6Yk4
+9DIIVxmH0XuKDZ3JjTf+qfGJB4t32WRGD9Nhmuwmc8H55yn471J2ucE2EUP9q6EJ
++8v0flAXIcRarInaj3a7fSKxwi6W1d9FKNq4Qr0qRTFNVwPkKSKgMYkBqQAqFIL+
+tbh0CjU3uZRF4xZIGTvHed2fqirOKX85oMQvMgz5W9IMtx2kSz3sIaCDA0r8dO4l
+3Q1zPlemN155qD6ytWBl
+=xf4s
 -----END PGP SIGNATURE-----
 
---=-NoD24HNFgDZh4+L1ejTO--
+--=-jkf7K+MeU4ogFtNR3GZ5--
