@@ -1,28 +1,45 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <nolan.hergert@gmail.com>
+Received: from mail-ot0-x230.google.com (mail-ot0-x230.google.com
+ [IPv6:2607:f8b0:4003:c0f::230])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vPHxG0cLLzDqBs
- for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 01:05:37 +1100 (AEDT)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1487253925055204.09115029000202;
- Thu, 16 Feb 2017 06:05:25 -0800 (PST)
-Date: Thu, 16 Feb 2017 08:05:24 -0600
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Cyril Bur <cyrilbur@gmail.com>
-Cc: joel@jms.id.au, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH] ARM: dts: aspeed: Update reserved memory nodes for zaius
- and witherspoon
-Message-ID: <20170216140524.GA5077@heinlein.lan>
-References: <20170216054922.19722-1-cyrilbur@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vPQWh2yyWzDq60
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 06:02:24 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="H65sFe0w"; 
+ dkim-atps=neutral
+Received: by mail-ot0-x230.google.com with SMTP id 32so17502643oth.3
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 11:02:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=RhT1kHjB0bUOK082/FyW4GlxuFLQdKq/YYbG+zug4CI=;
+ b=H65sFe0wW26AeJjIakg2fGJOa+pEQhPkE3muASzzdUOMRgrP59Yf61wVtZJ90ZWyrm
+ FpqP6+990ESIHtWZsg4QTJ9LjCVG8muQar0Q7zIKOf20aRV6iGOu+M7sNrNLsjK8iIMk
+ CQHT9OKStaDrBHilz7Xne+WjmivY/SH0qWF3+i08bQvRHVUKKcN5g75uP0QuLsK3DO1C
+ dJeSv/LawxOYQARppqVgqoYPnc8OlOSyGA2rAA52XGXpdaUOABW6Bp4QGEkSpe8vc7eP
+ nFb7osdcGKSx/AcMsRN4BiWUOxYIh+ZBvPnWb5E0flsrXVSbC6y9pE/ZNl9MyY6byIcb
+ 2Kww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=RhT1kHjB0bUOK082/FyW4GlxuFLQdKq/YYbG+zug4CI=;
+ b=kQHir4AHP85TRMioEPMqYv9oL9A2vEdsBaUSseD8N16m/PMeSsucl5Zkw7M/OvbbG0
+ PTXAKElO1e2JFeR140y3Q07APk7Tzq1uDC48k3RiJGpOja7FHg82q8gi4MPg00bvtmq2
+ v8VbSLW5HeIHP++w9d4MWbtDAIi2HdG8QFH4EjNccMvaeVZLUHikw9YigDBHI4j1ZjOS
+ cKahmtCNe/SrzmBPSkAkTY2IPj0BW76RBenVqaAOemdwYdMQAcWbbGD0/Zt8+ziZXqMA
+ ux/BF7o1f9+ks1wMmo79auLSh863tcIxIaPUwTrwuX6A1Lym0Wq4/IWSJOKn6Hp+Mb5N
+ AO4g==
+X-Gm-Message-State: AMke39lzTxrAT63yeGUKhu+p/Fb5KJHws2+wpS1ArSuMLn2HJvLHCepWk5Sj3UWIQJPWCcW3c975+beHnp4D6g==
+X-Received: by 10.157.7.133 with SMTP id 5mr2293095oto.264.1487271742007; Thu,
+ 16 Feb 2017 11:02:22 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="y0ulUmNC+osPPQO6"
-Content-Disposition: inline
-In-Reply-To: <20170216054922.19722-1-cyrilbur@gmail.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
+Received: by 10.157.45.169 with HTTP; Thu, 16 Feb 2017 11:01:51 -0800 (PST)
+From: Nolan Hergert <nolan.hergert@gmail.com>
+Date: Thu, 16 Feb 2017 11:01:51 -0800
+Message-ID: <CALQ6q7Zf=OHFaZFxDVR0W6y0GxmnXddK0px2M69muY10guQMvA@mail.gmail.com>
+Subject: AST2500 Watchdog Timer Device Tree Entry
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary=94eb2c0470baddef820548aa6fb2
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -34,53 +51,75 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Feb 2017 14:05:38 -0000
+X-List-Received-Date: Thu, 16 Feb 2017 19:02:25 -0000
+
+--94eb2c0470baddef820548aa6fb2
+Content-Type: text/plain; charset=UTF-8
+
+To Joel in particular,
+
+Thanks for making a WDT driver for the Aspeed chips already! It makes
+diving into these things a lot easier.
+
+I didn't understand some of the things in the aspeed-g5.dtsi file though:
+
+wdt1: wdt@1e785000 {
+compatible = "aspeed,ast2500-wdt";
+reg = <0x1e785000 0x1c>;
+};
+
+wdt2: wdt@1e785020 {
+compatible = "aspeed,ast2500-wdt";
+reg = <0x1e785020 0x1c>;
+status = "disabled";
+};
+
+wdt3: wdt@1e785040 {
+compatible = "aspeed,wdt";
+reg = <0x1e785074 0x1c>;
+status = "disabled";
+};
 
 
---y0ulUmNC+osPPQO6
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+  * Register lengths are 0x1C instead of 0x20. The skipped register in the
+datasheet for AST2500 is determining which hw modules to reset, which
+sounds like something we'd want to configure.
+  * wdt3 compatible string is different.
+  * wdt3 register offset appears wrong.
+
+Looking to get some feedback. Thanks!
+
+Nolan
+
+--94eb2c0470baddef820548aa6fb2
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Feb 16, 2017 at 04:49:22PM +1100, Cyril Bur wrote:
-> -		flash_memory: region@94000000 {
-> +		flash_memory: region@98000000 {
->  			no-map;
-> -			reg =3D <0x94000000 0x04000000>; /* 64M */
-> +			reg =3D <0x98000000 0x04000000>; /* 64M */
-> +		};
-> +
-> +		vga_memory: framebuffer@9c000000 {
-> +			no-map;
-> +			reg =3D <0x9c000000 0x04000000>; /* 64MB */
+<div dir=3D"ltr">To Joel in particular,<div><br></div><div>Thanks for makin=
+g a WDT driver for the Aspeed chips already! It makes diving into these thi=
+ngs a lot easier.=C2=A0</div><div><br></div><div>I didn&#39;t understand so=
+me of the things in the aspeed-g5.dtsi file though:</div><div><br></div><di=
+v><div>wdt1: wdt@1e785000 {</div><div><span class=3D"gmail-Apple-tab-span" =
+style=3D"white-space:pre">	</span>compatible =3D &quot;aspeed,ast2500-wdt&q=
+uot;;</div><div><span class=3D"gmail-Apple-tab-span" style=3D"white-space:p=
+re">	</span>reg =3D &lt;0x1e785000 0x1c&gt;;</div><div>};</div><div><br></d=
+iv><div>wdt2: wdt@1e785020 {</div><div><span class=3D"gmail-Apple-tab-span"=
+ style=3D"white-space:pre">	</span>compatible =3D &quot;aspeed,ast2500-wdt&=
+quot;;</div><div><span class=3D"gmail-Apple-tab-span" style=3D"white-space:=
+pre">	</span>reg =3D &lt;0x1e785020 0x1c&gt;;</div><div><span class=3D"gmai=
+l-Apple-tab-span" style=3D"white-space:pre">	</span>status =3D &quot;disabl=
+ed&quot;;</div><div>};</div><div><br></div><div>wdt3: wdt@1e785040 {</div><=
+div><span class=3D"gmail-Apple-tab-span" style=3D"white-space:pre">	</span>=
+compatible =3D &quot;aspeed,wdt&quot;;</div><div><span class=3D"gmail-Apple=
+-tab-span" style=3D"white-space:pre">	</span>reg =3D &lt;0x1e785074 0x1c&gt=
+;;</div><div><span class=3D"gmail-Apple-tab-span" style=3D"white-space:pre"=
+>	</span>status =3D &quot;disabled&quot;;</div><div>};</div></div><div><br>=
+</div><div><br></div><div><div>=C2=A0 * Register lengths are 0x1C instead o=
+f 0x20. The skipped register in the datasheet for AST2500 is determining wh=
+ich hw modules to reset, which sounds like something we&#39;d want to confi=
+gure.</div><div>=C2=A0 * wdt3 compatible string is different.=C2=A0</div><d=
+iv>=C2=A0 * wdt3 register offset appears wrong.</div></div><div><br></div><=
+div>Looking to get some feedback. Thanks!</div><div><br></div><div>Nolan</d=
+iv><div><br></div></div>
 
-Do we really have to allocate 64MB to a VGA framebuffer?  We can store a
-4K resolution monitor with 32bit color in 32MB, so why is it required to
-reserve this much memory?  Between this and the PNOR memory region, now
-1/4th of the BMCs memory is reserved.
-
---=20
-Patrick Williams
-
---y0ulUmNC+osPPQO6
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAEBCAAGBQJYpbGhAAoJEKsDR8wtAMEZF1QP/1N7yHsVqBCaYjp97X4g4L0i
-VZM7DgCHJ9Bf+i0Y9stNjQoyT4WjWWUlRIe59jOW9szsIKg3Cko9ampwxthMP2sU
-BeCTKIZJGyeG9X8ypE4BBM/WhBanIi4FEZFAz07nsqCWYdYflEYwHnAaLiRUcDnW
-caVOqmh/97OSdfy6mbAKUg5Yzp7hut6HptHsV14UA1C2kkto7k7DqVkCZDHVi0ht
-O1pOb6gC1GyT9UWJkHHTZ5F9IMMsPh5hrCDbL+hhw4OMZrZphL/oVMOqVDavqNgx
-hJdvqHnK16yMbSDO0awrqws+pRROQ8iB34+/yENoPKmc6bl0cAhYMadtgqJjmjYA
-BirmbNeyhbzjxll9oaayriZYN2/c9SwX8eOvbYqazO6StHSmagYXNK1Vg7sFnoRs
-a98JOuRz6gmfkcY8KZkdta9AT4EPZEQi3EL/xlzMDo18OsGPda3HCreGba9j8L6y
-WL1KnyYty/uQ+7KuaVZnwPzhDmy92a9ipcqgjkO9RxCCBKPPmTlIpVLa1H09UHeh
-hQfS/Wdepxa0maKO1VIuDK0EM90jt4xTTBTdBJku0KNvbvVjlxC4mO2w3/G8MOkE
-APJ2QMm1XB/e8hft7PEoeHJ3l0121D75kwulIO1yEwqCkl6l4HPwP1nSGnIbFyln
-aVRwT+5BFvDbcGLfy03U
-=XDzd
------END PGP SIGNATURE-----
-
---y0ulUmNC+osPPQO6--
+--94eb2c0470baddef820548aa6fb2--
