@@ -1,53 +1,51 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <mine260309@gmail.com>
+Received: from mail-qk0-x242.google.com (mail-qk0-x242.google.com
+ [IPv6:2607:f8b0:400d:c09::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vNzDR6g4ZzDq60
- for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 12:32:39 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="W1slMUeI"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="PptiizeO"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 0B09C207DA;
- Wed, 15 Feb 2017 20:32:37 -0500 (EST)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Wed, 15 Feb 2017 20:32:37 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
- content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=s9Ao/ET3lV0jMUMnoYZA/3KIjY8=; b=W1slMU
- eIVXuy582q1zlbYgSusser2sX6EWBxYipxiKLa/MpJO0DfP+0duW0Hge3Uu+l8Xs
- AXDbOJ2bHs4Ajnc67AdvU4aq2gSA6f9ZHxO7wxwn+0RG2fQ8mB1K847JdFHUxaPT
- Q/UIj5da1sCOnXsoVcF935a+ilamWJzkPy9FY=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=s9Ao/ET3lV0jMU
- MnoYZA/3KIjY8=; b=PptiizeOTxC63VAA5YAfWkxvbnakfoWPFVQP7Rte79Gt8O
- PH+o5DkUSqXHndPaKPjSXQbYmGEkCrrIUenJCWTwKM+Gdru7uBr9LnF30HsmKcD5
- hl+FLy5vINUvgIboJwejbFzV85IhmtR1zkHpcmJ1M9eyKkdh5iDR3q1NC7FQE=
-X-ME-Sender: <xms:NAGlWMiOKBSNiHRdI2tmPv8DzGUsStwMgFqZZfyRMLJpM1rEYSu0GA>
-X-Sasl-enc: l5bgW+TdRz6M5KzRwCxZGV0fK0yzrnUThlEzPZCl9Gc9 1487208756
-Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 30E6B7E050;
- Wed, 15 Feb 2017 20:32:33 -0500 (EST)
-Message-ID: <1487208750.3661.34.camel@aj.id.au>
-Subject: Re: [RESEND PATCH linux] aspeed: pinctrl: Allow disabling Port D
- and Port E loopback mode
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Rick Altherr <raltherr@google.com>, linus.walleij@linaro.org, 
- joel@jms.id.au, arnd@arndb.de, linux-gpio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
-Date: Thu, 16 Feb 2017 12:02:30 +1030
-In-Reply-To: <20170215065514.16673-1-raltherr@google.com>
-References: <20170215065514.16673-1-raltherr@google.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-s7ddElXhuJh8TxBf6Zs0"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vP1nz125tzDq60
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 14:28:23 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="XQXN2qH2"; 
+ dkim-atps=neutral
+Received: by mail-qk0-x242.google.com with SMTP id p22so757146qka.3
+ for <openbmc@lists.ozlabs.org>; Wed, 15 Feb 2017 19:28:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=mMeKS3pctPEYSCkiuaz5rGFQBzqMyl8CIjO7PirTXIQ=;
+ b=XQXN2qH2Nzni+wScIQCfDecdlF+5SUdz9OS8I7X76FmdT/H3M3jIygZX+bHmb5iRMS
+ c3z0s6XgjoDPZIoejjfaaQu28H/1MX8mAI+ptR9y3toxFvpHoTL8I8gh5cPTBgaLDCj3
+ xVa8yygAfCdxga0K//HINfBUkbTt7v7cl3NeupmA9OgqYGZpiPVcdovwuagMTEczqm/+
+ OgHBjhfZp58tz46dgSPq8flRSBhF5mjY4x8p986UzCji/QboeIF+kIAkLpzVQD0Zodsf
+ IjbTdBR6KvNZtw/AYAt3OxSY8skpSWQb5ZfoaqxrD44zfJv9xJYhbd5BGPfwp50jKzVz
+ H52A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=mMeKS3pctPEYSCkiuaz5rGFQBzqMyl8CIjO7PirTXIQ=;
+ b=SBXunzhGPzScWd0g/eG/EFdbRigrXIqDfL0ZqU/SMSsu/Pm3A4xpyL1zMILwe2WMYJ
+ pT9Woxlo0139Us8YQJ8NvpL3qU2yR4i/LkrXKSDz+JhI5tecdQh3ZJPqPbp56jSbWN4v
+ /1rlKRkeCN+oiRA9Y9D13Ii78biVZKIcCKKcldvPxROZkCN+BGO/DMIg+LOmhAkPEznt
+ t5sMjSDapfuHRHedx014ObPY3ysJ3RfomBdRqjOF9r34s9+YIOIuE+EvRHuomJpJTwX1
+ 7JV3hr7me9tscLEMDDHG1lwWfV9bveNlbDucyLdApQtNTAegykkDs0dM4qN9yzSLVGzP
+ mMwQ==
+X-Gm-Message-State: AMke39nZV1IvONFg7dpWI0F319Em7RTIAKPpJzAiov/6Hbq+IQEL5veDeOc8aA5BEQW6vgSRvzMyFQ9rz2Yp/w==
+X-Received: by 10.55.220.199 with SMTP id v190mr98898qki.42.1487215700430;
+ Wed, 15 Feb 2017 19:28:20 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.12.137.122 with HTTP; Wed, 15 Feb 2017 19:28:20 -0800 (PST)
+In-Reply-To: <1487208079.3661.32.camel@aj.id.au>
+References: <1487057409-19872-1-git-send-email-mine260309@gmail.com>
+ <1487208079.3661.32.camel@aj.id.au>
+From: Mine <mine260309@gmail.com>
+Date: Thu, 16 Feb 2017 11:28:20 +0800
+Message-ID: <CAARXrtmEEajwOp4p6bNE4Qummj_M9nxP7R-UOmNXSQKA2UCv_w@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7 2/3] ARM: dts: aspeed: romulus: Add
+ fsi-master GPIO bindings
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,94 +57,68 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Feb 2017 01:32:40 -0000
+X-List-Received-Date: Thu, 16 Feb 2017 03:28:23 -0000
 
+Hi Andrew,
 
---=-s7ddElXhuJh8TxBf6Zs0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Thu, Feb 16, 2017 at 9:21 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> Hi Lei,
+>
+> On Tue, 2017-02-14 at 15:30 +0800, Lei YU wrote:
+>> Define the pins used on Romulus by the FSI GPIO master.
+>>
+>> > Signed-off-by: Lei YU <mine260309@gmail.com>
+>> ---
+>>  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 13 ++++++++++++-
+>>  1 file changed, 12 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+>> index f47eb63..bc13ad9 100644
+>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+>> @@ -1,7 +1,7 @@
+>>  /dts-v1/;
+>>
+>>  #include "aspeed-g5.dtsi"
+>> -#include <dt-bindings/gpio/gpio.h>
+>> +#include <dt-bindings/gpio/aspeed-gpio.h>
+>>
+>>  / {
+>> >     model = "Romulus BMC";
+>> @@ -31,6 +31,17 @@
+>> >             };
+>> >     };
+>>
+>> > +   fsi-master {
+>> > +           compatible = "ibm,fsi-master", "ibm,fsi-master-gpio";
+>> +
+>> > +           status = "disabled";
+>> +
+>> +             clock-gpios = <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
+>
+> This looks okay
+>
+>> +             data-gpios = <&gpio ASPEED_GPIO(AA, 2) GPIO_ACTIVE_HIGH>;
+>
+> According to my Romulus datasheet, FSI_SOFT_DAT is GPIOE0 and GPIOAA2
+> doesn't appear to be connected. Am I looking at an out-of-date
+> datasheet? Did something change here?
 
-On Tue, 2017-02-14 at 22:55 -0800, Rick Altherr wrote:
-> Port D and port E GPIO loopback modes are commonly enabled via hardware
-> straps for use with front-panel buttons.=C2=A0=C2=A0When the BMC is power=
-ed
-> off or fails to boot, the front-panel buttons are directly connected to
-> the host chipset via the loopback to allow direct power-on and reset
-> control. Once the BMC has booted, the loopback mode must be disabled for
-> the BMC to take over control of host power-on and reset.
->=20
-> Disabling these loopback modes requires writing to the hardware strap
-> register which violates the current design of assuming the system
-> designer chose the strap settings for a specific reason and they should
-> be treated as read-only. Only the two bits of the strap register related
-> to these loopback modes are allowed to be written and comments have been
-> added to explain why.
->=20
-> Signed-off-by: Rick Altherr <raltherr@google.com>
+Romulus FSI_SOFT_DAT is always GPIOAA2 (from GPIO Romulus 20161102.xls
+to GPIO Romulus 20170112.xls, and I confirm that FSI is working with
+this config.
+Maybe you were referring Witherspoon's GPIO, where FSI_SOFT_DAT is GPIOE0?
 
-For the record this is one of at least two awkward cases. The other is
-runtime switching between the using the SoC as an SPI master, and
-simply performing SPI pass-through for an external controller (e.g. to
-allow either the BMC or the host to reprogram the host BIOS image).
-
-If the list of exceptions continues to grow we should pull the tests
-out to a separate function so we can keep the condition readable.
-
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
-
-> ---
-> =C2=A0drivers/pinctrl/aspeed/pinctrl-aspeed.c | 14 ++++++++++++--
-> =C2=A01 file changed, 12 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed.c b/drivers/pinctrl/as=
-peed/pinctrl-aspeed.c
-> index 76f62bd45f02..5b49952e5fad 100644
-> --- a/drivers/pinctrl/aspeed/pinctrl-aspeed.c
-> +++ b/drivers/pinctrl/aspeed/pinctrl-aspeed.c
-> @@ -198,9 +198,19 @@ static int aspeed_sig_expr_set(const struct aspeed_s=
-ig_expr *expr,
-> > =C2=A0		=C2=A0* them. This may mean that certain functions cannot be
-> > =C2=A0		=C2=A0* deconfigured and is the reason we re-evaluate after wri=
-ting
-> > =C2=A0		=C2=A0* all descriptor bits.
-> > +		=C2=A0*
-> > +		=C2=A0* Port D and port E GPIO loopback modes are the only exception
-> > +		=C2=A0* as those are commonly used with front-panel buttons to allow
-> > +		=C2=A0* normal operation of the host when the BMC is powered off or
-> > +		=C2=A0* fails to boot. Once the BMC has booted, the loopback mode
-> > +		=C2=A0* must be disabled for the BMC to control host power-on and
-> > +		=C2=A0* reset.
-> > =C2=A0		=C2=A0*/
-> > -		if ((desc->reg =3D=3D HW_STRAP1 || desc->reg =3D=3D HW_STRAP2) &&
-> > -				desc->ip =3D=3D ASPEED_IP_SCU)
-> > +		if (desc->ip =3D=3D ASPEED_IP_SCU && desc->reg =3D=3D HW_STRAP1 &&
-> > +		=C2=A0=C2=A0=C2=A0=C2=A0!(desc->mask & (BIT(21) | BIT(22))))
-> > +			continue;
-> +
-> > +		if (desc->ip =3D=3D ASPEED_IP_SCU && desc->reg =3D=3D HW_STRAP2)
-> > =C2=A0			continue;
-> =C2=A0
-> > =C2=A0		ret =3D regmap_update_bits(maps[desc->ip], desc->reg,
---=-s7ddElXhuJh8TxBf6Zs0
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJYpQEuAAoJEJ0dnzgO5LT5XAsP/3fexO6vNuUV9WJRJWuAc6az
-TVz6UVyUZ3Wb+SZ0UQiLy8WhXOvGtR0lh0Yqsff/bDzJYzMPw4QvYMwH/a2uM7od
-ckxTXPuI2PytSbF5TdtuAjamSyyflVTWST5Cx3GV8wFcNF0dYZfskOGBspdiSVAA
-Ki/VHsE8NOfZ1SZbiNpWLeZimfvTWcZdFc8Y+9/IORlgKv4f+3eFTApk6ulwQDwm
-V5mORhy0H0D3534i/H2W6ofR/d05UqYrSVYlmT0aQjs3sAGwEpg9nPs5S4nfUDj8
-WMUZZZl4xSKbNoba9mn8IPPHTFQkCfGIeQ7VHN/4FDlxJqudWyfKxp0WSusI4tm2
-FwtaKPX5K8ORVx4RzAtNN6+4cu/1b1RetRg939aVqqxJQABRrLCse4gRjfcGaKdV
-kfHCZaxxCPQQr3IuxB9Sx+iCe+yY84RWnG9v2pfb+fwLqqWqnHJqwmctvLujvcaT
-T4tV9D9ff6j1ueW1ycbWuXYff3PNSJQmPjaO8MTP9IOI28TfEL95TBTczCFJADWP
-Y1DIKEWaj27rE9aAKQDr34SOVNMQPmM/1DuTwFG1ZaREhzPOd9UFKtN8BHUx59Ho
-iAuN/yw+SUeGUgamiREowEOPzy3NRKDp8Trw0El1lpSOwI6yPr/SQvi/pjcrJCN9
-SoItf5AguuOvNGvYxtNs
-=K6Y+
------END PGP SIGNATURE-----
-
---=-s7ddElXhuJh8TxBf6Zs0--
+>
+>> +             mux-gpios = <&gpio ASPEED_GPIO(A, 6) GPIO_ACTIVE_HIGH>;
+>> > +           enable-gpios = <&gpio ASPEED_GPIO(D, 0) GPIO_ACTIVE_HIGH>;
+>> +             trans-gpios = <&gpio ASPEED_GPIO(R, 2) GPIO_ACTIVE_HIGH>;
+>
+> These three also look okay to me.
+>
+> Andrew
+>
+>> +     };
+>>  };
+>>
+>>  &fmc {
