@@ -1,51 +1,54 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x22f.google.com (mail-yb0-x22f.google.com
- [IPv6:2607:f8b0:4002:c09::22f])
+Received: from mail-yb0-x241.google.com (mail-yb0-x241.google.com
+ [IPv6:2607:f8b0:4002:c09::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vPcZT57JVzDq5x
- for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 13:35:29 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vPckm04wzzDqBW
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 13:42:40 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="N9u7qRRN"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="A7kLhUsR"; 
  dkim-atps=neutral
-Received: by mail-yb0-x22f.google.com with SMTP id o65so9323879ybo.2
- for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 18:35:28 -0800 (PST)
+Received: by mail-yb0-x241.google.com with SMTP id 123so1313329ybe.0
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 18:42:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=chqml4IoQaXbk27KE7oPVB4YqVnghM/LnmEjVOKBXlw=;
- b=N9u7qRRNH2RTVuMPAMpTROj4P3HQoCh3nckSFQD63uFRJ4nLC1XrWcbqkaKv4T5fuE
- R0Qeez8zAsHhuff2do8Y6ZKqBmVc8+ZG3dDbNapjwL7Sx4+T77BzmJp6crnw0aAtbPQI
- yO1jfMKZnldEwipU4Yv3Lya7GVgvZe9EWaLyBmA6ECl2XE1GUwAgvqLmM36lXhoXPnRQ
- N3tBAHnvQrOwN17GBIrM2CwVc9l7SMKdrX1sCiQ/z5/tSpIIk6LAP9slUv9Atbcwb7lA
- 0fK7cpNLx7z6cP3MvM2o7Ttdl6XPjclngmbf0lXIhShN5Ta7ZuB1PxMtA05tne/I2d3N
- lzvg==
+ bh=uNEIHVtsEFSjqtjqS1QMIm9qjHdZIFfpUnmUoBHjQTU=;
+ b=A7kLhUsRNEIomNd57zuHBm50wlRxOB0oiZBwrG9BNwrzy7uJwgPMT5IWUsQzrbKGwO
+ +GaPXReAbHyZzB6BVTWrF5pxfJg8Dqev5NFCye8RScgHeGemWc/NXq25aK65KFYWiW9v
+ HX8Kh/mOm12KDhZU288un/R6ZVO6rmWZw6ZTrElCNyulU2qZsBPlPyISLeeHmF9znbIb
+ SzXKUCXPbALoQ4hIgMzP4izWN3LtWBL3JRihBV2o1YTweZBst4cI01SThmLQev/KOSh7
+ aI4cVT6Wb5RLebzjAwH5mPzVbFBkl9m9fbC34ENFV1iyRWNWGCbx0BMUBtqHE0T0LJrC
+ Kn5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=chqml4IoQaXbk27KE7oPVB4YqVnghM/LnmEjVOKBXlw=;
- b=QCZjszBplT9YZ5tbudKedWgwly337dQRcqycmnBV6TxUnYIE17R/JMSxr8jfT9f/P4
- T8Pv0koWmLVYN8pd+rGWwmSeBpU1Hen9FD6ccgyNxSIxhUuywIY2VqMBImrd20eQ2MZM
- Ey6rQjRJBc+ZJxBH7WeQ0pclRTvWjL3lnld/MudRwQJ7b5Jx6VI7JqyvcmYklO41hsEe
- 88wbT6cpeyWMS9/0H/qWsVaVSJBJqKXZZ72K6qqIwOcGuy+3/4Drw2Nd7CRjmisbmaC1
- FEgmJ9YhNPVP848hLTMEKJdzcpEUVUEUgRzux9/wOJTL1fjyj2nTw49siWS42RswSdl3
- xqBw==
-X-Gm-Message-State: AMke39mwHmA5oUs4kZsCK8QCl32PycTGhSkM7zQJE6vTymoyQsxQW5s/hNrvScSzoDBH8TzfzRIVUhWITC7cTg==
-X-Received: by 10.37.70.66 with SMTP id t63mr4204189yba.196.1487298925773;
- Thu, 16 Feb 2017 18:35:25 -0800 (PST)
+ bh=uNEIHVtsEFSjqtjqS1QMIm9qjHdZIFfpUnmUoBHjQTU=;
+ b=PCrYqQ5V4mIyREuACeIZutymeca4hhl666FvkyZYlbEswgz8pqXWd3omZiYPiHhunq
+ of0TwqA1CRkNVXTeFme5o3ePiGVNisqI4seGuDsPnZz+FgHgcsonlVxqw/4su+dn3v55
+ Q/C5WhW+mO97D5RWbEhkjLaF6VQDQu9YxMEKb9CnzdQ8YcnOa6UnyWaRXOd7wUmNfjeW
+ tHZYlIIeQMO3tNLOzJMJ5HqFlHaKKEYzlQqrKma8mrYFgeHwuKGbgxrSS0oOEwQ0IwFu
+ I5XPuBlGDVOK/X7Ah2rR+OJxB3ibzdlXQg0EUPDoayK/XFUxs8SBkCDHTYaLSf8c/syH
+ mPUw==
+X-Gm-Message-State: AMke39lwUHuoRVFU7K0gX+LFcu5lLmfbNk18nQ3tFCn4DuywzdSjs6LRmkF8Ffj9kHHrmiZuzSTfFOr9/hkQeg==
+X-Received: by 10.37.3.132 with SMTP id 126mr4075268ybd.15.1487299357577; Thu,
+ 16 Feb 2017 18:42:37 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.170.41 with HTTP; Thu, 16 Feb 2017 18:35:05 -0800 (PST)
-In-Reply-To: <CALQ6q7Zf=OHFaZFxDVR0W6y0GxmnXddK0px2M69muY10guQMvA@mail.gmail.com>
-References: <CALQ6q7Zf=OHFaZFxDVR0W6y0GxmnXddK0px2M69muY10guQMvA@mail.gmail.com>
+Received: by 10.37.170.41 with HTTP; Thu, 16 Feb 2017 18:42:17 -0800 (PST)
+In-Reply-To: <20170214063000.23692-1-cyrilbur@gmail.com>
+References: <20170214063000.23692-1-cyrilbur@gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 17 Feb 2017 13:05:05 +1030
-X-Google-Sender-Auth: qrVLOMeofnYXMi3lEu3x-kTyCO4
-Message-ID: <CACPK8XdN-RT-v8M8jf=Pk-PTMM5jZeVwn_j0A3AxGw7-PkcHJQ@mail.gmail.com>
-Subject: Re: AST2500 Watchdog Timer Device Tree Entry
-To: Nolan Hergert <nolan.hergert@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Fri, 17 Feb 2017 13:12:17 +1030
+X-Google-Sender-Auth: D95330-_pp8KjKZO2HRIC_dhQhA
+Message-ID: <CACPK8XcNXOL6620QYB1oJeKP05eqhnWyQovLGzVy3ZY=w=ndKg@mail.gmail.com>
+Subject: Re: [PATCH v5] drivers/misc: Add Aspeed LPC control driver
+To: Cyril Bur <cyrilbur@gmail.com>
+Cc: Greg KH <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Michael Neuling <mikey@neuling.org>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -58,65 +61,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Feb 2017 02:35:30 -0000
+X-List-Received-Date: Fri, 17 Feb 2017 02:42:40 -0000
 
-Hey Nolan,
+On Tue, Feb 14, 2017 at 5:00 PM, Cyril Bur <cyrilbur@gmail.com> wrote:
+> diff --git a/drivers/misc/aspeed-lpc-ctrl.c b/drivers/misc/aspeed-lpc-ctrl.c
+> new file mode 100644
+> index 000000000000..9b51548e9d81
+> --- /dev/null
+> +++ b/drivers/misc/aspeed-lpc-ctrl.c
 
-On Fri, Feb 17, 2017 at 5:31 AM, Nolan Hergert <nolan.hergert@gmail.com> wrote:
-> To Joel in particular,
+> +static long aspeed_lpc_ctrl_ioctl(struct file *file, unsigned int cmd,
+> +               unsigned long param)
+> +{
+> +       struct aspeed_lpc_ctrl *lpc_ctrl = file_aspeed_lpc_ctrl(file);
+> +       void __user *p = (void __user *)param;
+> +       struct aspeed_lpc_ctrl_mapping map;
+> +       u32 addr;
+> +       u32 size;
+> +       long rc;
+> +
+> +       if (copy_from_user(&map, p, sizeof(map)))
+> +               return -EFAULT;
 
-Feel free to put me in To if you want my attention. Your email bubbles
-up the to of my to-read list when you do so.
+The structure you pass has a flags field that is currently unused. You
+should check the value of map->flags here and reject non-zero values.
 
-> Thanks for making a WDT driver for the Aspeed chips already! It makes diving
-> into these things a lot easier.
-
-No worries :) I'm glad our hard work is paying off.
->
-> I didn't understand some of the things in the aspeed-g5.dtsi file though:
->
-> wdt1: wdt@1e785000 {
-> compatible = "aspeed,ast2500-wdt";
-> reg = <0x1e785000 0x1c>;
-> };
->
-> wdt2: wdt@1e785020 {
-> compatible = "aspeed,ast2500-wdt";
-> reg = <0x1e785020 0x1c>;
-> status = "disabled";
-> };
->
-> wdt3: wdt@1e785040 {
-> compatible = "aspeed,wdt";
-> reg = <0x1e785074 0x1c>;
-> status = "disabled";
-> };
->
->
->   * Register lengths are 0x1C instead of 0x20. The skipped register in the
-> datasheet for AST2500 is determining which hw modules to reset, which sounds
-> like something we'd want to configure.'
-
-You're correct. We are ignoring this feature of the ast2500 watchdog
-IP with the current driver. I believe this an oversight; we should add
-the functionality when matching against the "aspeed,ast2500-wdt"
-compatible string.
-
->   * wdt3 compatible string is different.
->   * wdt3 register offset appears wrong.
-
-That's for picking these up. I suspect no one has tried to enable WDT3
-so we have not hit the issue. These are both bugs in the device tree.
-
-If you're in a position to contribute fixes to any of these issues I
-encourage you to submit patches. The fixes should go upstream first,
-and then we can backport the patches to the openbmc tree.
-
-I've got some documentation about how our kernel development process
-works. Please have a read. Any and all feedback is welcome!
-
- https://github.com/openbmc/linux/wiki/DevelopmentProcess
- https://github.com/openbmc/linux/wiki/SubmittingPatches
+Once you fix that I think it's in good shape.
 
 Cheers,
 
