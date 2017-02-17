@@ -1,55 +1,56 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yb0-x241.google.com (mail-yb0-x241.google.com
+ [IPv6:2607:f8b0:4002:c09::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vPdyw4PlhzDqBn
- for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 14:38:16 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="OctuMlr0"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="mts8nJlA"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 090C4206F1;
- Thu, 16 Feb 2017 22:38:13 -0500 (EST)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Thu, 16 Feb 2017 22:38:13 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=dZsPMQU0hGI+USy0K5fzlK+DeVw=; b=OctuMl
- r058hZCsbug7Z/LSSiVbnR+Vcg6GZy4LLvaTT+Hwx5mbu3yEhTsvju2Q93f+2qV1
- IWktC+4qa39tIyAYt6HEhtM/ktOP5oigOGuyYXalHn5Z1KFd/sLi9hQj9tKsLGyT
- ttXaYZu3yY+4UPGdiQq0SrmrmS/bS0WDzai4Q=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=dZsPMQU0hGI+US
- y0K5fzlK+DeVw=; b=mts8nJlAK/LVvpjEB1s7sxqzYPNOxaWN/71kpBvFaHgLQX
- vhjiCTRIOhHcsQwrsFMbbi3Ki9GTI3Nmr1QJT6aT05P6BuoWkddh9iAvLpVwvhRZ
- 7qPQTxdv9uhRjWy/NEldAzVOh+jDGSROiEc/EXecWdX5QJkTP0dtpYEXblllo=
-X-ME-Sender: <xms:JHCmWEUmjAsBujEY8HMPU61xniLJ1k9hlYvfcIbD44P6jFcjwDkjVw>
-X-Sasl-enc: Mq2y1qW7W8qsM8HvE1H3IxT1zsr3ZHJwF9W9navyHnSP 1487302692
-Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 063B17E0D2;
- Thu, 16 Feb 2017 22:38:10 -0500 (EST)
-Message-ID: <1487302684.3661.40.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.7 v2 2/3] ARM: dts: aspeed-g5: Add LPC Host
- Controller node to LPC
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>
-Cc: Patrick Williams <patrick@stwcx.xyz>, Rick Altherr
- <raltherr@google.com>,  OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Fri, 17 Feb 2017 14:08:04 +1030
-In-Reply-To: <CACPK8XfM6seGAO_Qfj5gM_G=D2cbVTbHLQXA034eerpPC7BFPQ@mail.gmail.com>
-References: <20170214005104.11940-1-andrew@aj.id.au>
- <20170214005104.11940-3-andrew@aj.id.au>
- <CACPK8XfM6seGAO_Qfj5gM_G=D2cbVTbHLQXA034eerpPC7BFPQ@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-YQ+0q3LfhSIE5Zqy/POz"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vPf2B73mYzDqHW
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 14:41:06 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Jc46rIGW"; 
+ dkim-atps=neutral
+Received: by mail-yb0-x241.google.com with SMTP id o65so1342582ybo.3
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 19:41:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=026rKbGWsa2yuvzwJ0eeR2gJQibPPk3Ue2BNC/dp5cg=;
+ b=Jc46rIGWJt4JfT6YRX/lSeUZz1/aVygWQ1VaozKS1Y+YUiokPx6CQNV/VuAH6n8c45
+ TLw17Bvw2XKJKfigMV9hF03M8c1wzw918EAyXo7iyXszk6QJWN5ZjKpAPhEnJ+wJBk+F
+ Ee9iLUyrxarSETVVDnQJ77hPWHpRcbe2jv9VIfxCsEVxRd6wc+nkp8DnAJaq2g4iO3Sn
+ 0G3bZJ0DC8KZiGeQ9uhM+BqofJLkIEfapvSWQiO80M3OqCGMYsRGnkIetCmnVf8DV4+0
+ kX4hr5c55xj7RpuQhHTTkCVvWmbswpLzr9ZqXuQ1Y94uIzHzrbZd/LO1SaUWEWGZ4nN3
+ VMlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=026rKbGWsa2yuvzwJ0eeR2gJQibPPk3Ue2BNC/dp5cg=;
+ b=Mr163YHW7o9k42jab5TB7wonavlcamzBC30SSbAtK0iFAP9at2YXz8UBKlOU0UOX6Y
+ VGeDtjFyOvdWlEyiroL7+xSZWX1mvNww1ieT/ox9mhsyW4EY5HMtUxFgBECXqIz9R9in
+ Ga+oSuik3HO9yl00P8PCv8GwUXqOILUMFQWkNogYA77yearRSedbIFE/IUgqmIq3mfzX
+ 8WxYZJWITFAXnSVTO87lf+GCqR7WcFcIlY3CS00+RYqj/qkvL6Pdz++bscIRREP74lbE
+ +1fMFeWIQBVeOF80AiAP02Fb5q3O0wgZNakh2knNmoyfDKhhIh9eiEmnA0rXTZKoFGdt
+ PIAg==
+X-Gm-Message-State: AMke39kIunRED/lD3i9JgtXf/6VfMT0BTq9MIU08kbwvXddadR2Q1qHjs2Zi93pElrN7Ut0WB8LikQ8QKsUYoA==
+X-Received: by 10.37.194.5 with SMTP id s5mr3982742ybf.136.1487302864858; Thu,
+ 16 Feb 2017 19:41:04 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.170.41 with HTTP; Thu, 16 Feb 2017 19:40:44 -0800 (PST)
+In-Reply-To: <CAPLgG=kFuyyZoX=g4_sZQgMG=r+dk-AjKADYBof0mwhH8Q5JZQ@mail.gmail.com>
+References: <20170217031230.12800-1-cyrilbur@gmail.com>
+ <CAPLgG==cyh05UMqj3VD1cTjQX9ycuG36ECGumT84MKo5sO+MAg@mail.gmail.com>
+ <CAPLgG=kMbxDs32dw6uGwabVsGevv5w7g42E+KtHERToowM5HKg@mail.gmail.com>
+ <CAPLgG=kFuyyZoX=g4_sZQgMG=r+dk-AjKADYBof0mwhH8Q5JZQ@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 17 Feb 2017 14:10:44 +1030
+X-Google-Sender-Auth: wTD9bNAxFqGdi7qFDx-ZMMrW-b0
+Message-ID: <CACPK8XfUiToyMDdP0+SzpJrtxJg+6tnk1Jp-ZShmr2-P99VDgg@mail.gmail.com>
+Subject: Re: [PATCH v2] ARM: dts: aspeed: Update reserved memory nodes for
+ zaius and witherspoon
+To: Rick Altherr <raltherr@google.com>
+Cc: Cyril Bur <cyrilbur@gmail.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,69 +62,91 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Feb 2017 03:38:18 -0000
+X-List-Received-Date: Fri, 17 Feb 2017 03:41:07 -0000
+
+On Fri, Feb 17, 2017 at 2:03 PM, Rick Altherr <raltherr@google.com> wrote:
+> Current Zaius and Barreleye G2 boards have AST2500 which has VGA support.
+> Google hasn't tried the VGA but it is there. We plan to switch to 2520 later
+> for our own designs but it's only a BOM option to switch between the two.
+
+I think detecting the board revision GPIOs in u-boot and performing a
+fixup of the device tree is a good way to handle these kind of things.
+
+Perhaps we will end up having different device trees if the systems
+end up with vastly different configurations, or configs that aren't
+detectable from software.
 
 
---=-YQ+0q3LfhSIE5Zqy/POz
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-
-T24gRnJpLCAyMDE3LTAyLTE3IGF0IDE0OjAyICsxMDMwLCBKb2VsIFN0YW5sZXkgd3JvdGU6Cj4g
-T24gVHVlLCBGZWIgMTQsIDIwMTcgYXQgMTE6MjEgQU0sIEFuZHJldyBKZWZmZXJ5IDxhbmRyZXdA
-YWouaWQuYXU+Cj4gd3JvdGU6Cj4gPiBSZXF1aXJlZCBmb3IgcGlubXV4LCB3aGljaCB0ZXN0cyBz
-b21lIGJpdHMgaW4gdGhlIExIQydzIElPIHNwYWNlLgo+ID4gCj4gPiBTaWduZWQtb2ZmLWJ5OiBB
-bmRyZXcgSmVmZmVyeSA8YW5kcmV3QGFqLmlkLmF1Pgo+IAo+IExhcmdlIEhhZHJvbiBDb2xsaWRl
-ciEKPiAKPiBEb2VzIHRoZSBhc3QyNDAwIHdhbnQgdG8ga25vdyBhYm91dCBpdCdzIHBhcnRpY2xl
-IGFjY2VsZXJhdG9yIHRvbz8KCk5haCwgdGhlIGFzdDI0MDAgZG9lc24ndCByZXF1aXJlIGEgcGFy
-dGljbGUgYWNjZWxlcmF0b3IgZm9yIHBpbmN0cmwsCmFuZCBJIGRvbid0IHRoaW5rIHdlIGhhdmUg
-YW55IG90aGVyIHJlYXNvbiB0byBuZWVkIGl0ICh5ZXQpLgoKQW5kcmV3Cgo+IAo+IEFja2VkLWJ5
-OiBKb2VsIFN0YW5sZXkgPGpvZWxAam1zLmlkLmF1Pgo+IAo+ID4gLS0tCj4gPiAKPiA+IFRoaXMg
-aXMgZXh0cmFjdGVkIGZyb20gY29tbWl0Cj4gPiBjZWM4MjJmODllYzE5YjE4MWRjMDJlMmEwYzY0
-NDFkMTA3ZDhiNGQ5IGluIHRoZQo+ID4gQVJNIG5leHQvZHQgdHJlZS4KPiA+IAo+ID4gwqBhcmNo
-L2FybS9ib290L2R0cy9hc3BlZWQtZzUuZHRzaSB8IDUgKysrKysKPiA+IMKgMSBmaWxlIGNoYW5n
-ZWQsIDUgaW5zZXJ0aW9ucygrKQo+ID4gCj4gPiBkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vYm9vdC9k
-dHMvYXNwZWVkLWc1LmR0c2kKPiA+IGIvYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWc1LmR0c2kK
-PiA+IGluZGV4IGI3MzUwM2M4NjZhYS4uN2MwOWEyNmVlYTZlIDEwMDY0NAo+ID4gLS0tIGEvYXJj
-aC9hcm0vYm9vdC9kdHMvYXNwZWVkLWc1LmR0c2kKPiA+ICsrKyBiL2FyY2gvYXJtL2Jvb3QvZHRz
-L2FzcGVlZC1nNS5kdHNpCj4gPiBAQCAtMTE3LDYgKzExNywxMSBAQAo+ID4gwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqBzdGF0dXMgPSAiZGlzYWJsZWQiOwo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoH07Cj4gPiAKPiA+ICvC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoGxoYzogbGhjQDIwIHsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBjb21wYXRpYmxlID0K
-PiA+ICJhc3BlZWQsYXN0MjUwMC1saGMiOwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJlZyA9
-IDwweDIwIDB4MjQgMHg0OCAweDg+Owo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgfTsKPiA+ICsKPiA+IMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBtYm94
-OiBtYm94QDE4MCB7Cj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGNvbXBhdGlibGUgPQo+ID4g
-ImFzcGVlZCxhc3QyNTAwLW1ib3giOwo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqByZWcgPSA8
-MHgxODAgMHg1Yz47Cj4gPiAtLQo+ID4gMi45LjMKPiA+IA==
-
-
---=-YQ+0q3LfhSIE5Zqy/POz
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJYpnAdAAoJEJ0dnzgO5LT5+BcP/ibJGQTxU0V2OEXHMUjaw/gC
-IOzt02J2TXwDI5QFgpWJDCUL8WmOvgE0yHvoZ49dkG8YHTzkh0c39rdsOnKm/vs2
-HwnT8gq7+YzQcetcGa1ffc0+zexeNCviGeiuowtRrGiZvYck+h6k2o4rmD3NCG+2
-s+MUloJRczPONxOU2bFrAU+VOWXL8JEkyJ4PpmU4wH9CkOItEoz6pXzg1yA1nJ92
-/B5LwqyYGUyzFWG2OyJg6riXa61GpQr4pFLHRGvH1R1Nzxz3viI33HGsQegd4JcE
-BC4f9p2kSPtR6QkuUeo0WCwyXkkG/pT4oYAd85mK6u30TCHAgjf6CS8RRMGy0saQ
-eA1NtmHGk8Jf3pz1/Bv7/v3Z4qeegq8wcbk+oQXKtBV6gb8HBKgIqS7aeVIgbOMn
-x+iUO+grlTzPoN0CCbKlsSVxxBK21GWo1PDeFXhiV7w0eCYT2tFPEBx8OSMGCZoz
-9mh5hoXrhpQo9K5eGG1aXE6F1i8iTIASKBpZvnBbpgbJcJgyp2CnO60hHHR8APjy
-Ly+9efTJ8NgE0SW9myP1wDktsyTm3rij6nKTu9K22T7vEHt8c5KFFgjONyw5Nb5K
-sDMHaEbP3XciQqTu3UvIaWV4WQ9rj3nZC/LtPZlRet5ipNJNO4lfFiu7hU+bvqWH
-EqEOA3IDVROngR4ks8n4
-=w57R
------END PGP SIGNATURE-----
-
---=-YQ+0q3LfhSIE5Zqy/POz--
+>
+> On Feb 16, 2017 7:15 PM, "Cyril Bur" <cyrilbur@gmail.com> wrote:
+>
+> Zaius platform doesn't use VGA so don't reserve that memory
+>
+> Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
+> ---
+> v2: Drop reserving the framebuffer on Zaius
+>     Both platforms have 1GB not 512MB - adjust numbers
+>     Add comment requested by Joel.
+>
+>  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 15 +++++++++++++--
+>  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts       | 12 ++++++++++--
+>  2 files changed, 23 insertions(+), 4 deletions(-)
+>
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> index 4b2d8aa8abb6..b79cadb2f6d7 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> @@ -25,9 +25,20 @@
+>                 #size-cells = <1>;
+>                 ranges;
+>
+> -               flash_memory: region@94000000 {
+> +               /*
+> +                * The addreses for the flash_memory reserved range are the
+> +                * highest allowable for the size of the mapping (ie, the
+> +                * address has no set bits greater than the size)
+> +                */
+> +
+> +               flash_memory: region@b8000000 {
+> +                       no-map;
+> +                       reg = <0xb8000000 0x04000000>; /* 64M */
+> +               };
+> +
+> +               vga_memory: framebuffer@bc000000 {
+>                         no-map;
+> -                       reg = <0x94000000 0x04000000>; /* 64M */
+> +                       reg = <0xbc000000 0x04000000>; /* 64M */
+>                 };
+>         };
+>
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> index e1c9b3f4fe44..5a06da43801b 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> @@ -25,10 +25,18 @@
+>                 #size-cells = <1>;
+>                 ranges;
+>
+> -               flash_memory: region@94000000 {
+> +               /*
+> +                * The addreses for the flash_memory reserved range are the
+> +                * highest allowable for the size of the mapping (ie, the
+> +                * address has no set bits greater than the size)
+> +                */
+> +
+> +               flash_memory: region@bc000000 {
+>                         no-map;
+> -                       reg = <0x94000000 0x04000000>; /* 64M */
+> +                       reg = <0xbc000000 0x04000000>; /* 64M */
+>                 };
+> +
+> +               /* Zaius doesn't use VGA so don't reserve VGA buffer */
+>         };
+>
+>         onewire0 {
+> --
+> 2.11.1
+>
+>
