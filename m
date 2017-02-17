@@ -1,65 +1,56 @@
-Return-Path: <cyrilbur@gmail.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x242.google.com (mail-yw0-x242.google.com
+ [IPv6:2607:f8b0:4002:c05::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vPdSN18pFzDqBn
- for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 14:15:15 +1100 (AEDT)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v1H3E18n073504
- for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 22:15:12 -0500
-Received: from e23smtp06.au.ibm.com (e23smtp06.au.ibm.com [202.81.31.148])
- by mx0a-001b2d01.pphosted.com with ESMTP id 28nqfstyck-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 22:15:12 -0500
-Received: from localhost
- by e23smtp06.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cyrilbur@gmail.com>;
- Fri, 17 Feb 2017 13:15:09 +1000
-Received: from d23dlp03.au.ibm.com (202.81.31.214)
- by e23smtp06.au.ibm.com (202.81.31.212) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Fri, 17 Feb 2017 13:15:08 +1000
-Received: from d23relay10.au.ibm.com (d23relay10.au.ibm.com [9.190.26.77])
- by d23dlp03.au.ibm.com (Postfix) with ESMTP id BD7473578052
- for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 14:15:07 +1100 (EST)
-Received: from d23av04.au.ibm.com (d23av04.au.ibm.com [9.190.235.139])
- by d23relay10.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v1H3ExbE7209206
- for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 14:15:07 +1100
-Received: from d23av04.au.ibm.com (localhost [127.0.0.1])
- by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- v1H3EZ9f025625
- for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 14:14:35 +1100
-Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
- by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- v1H3EZU7024863; Fri, 17 Feb 2017 14:14:35 +1100
-Received: from camb691.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
- (using TLSv1.2 with cipher DHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by ozlabs.au.ibm.com (Postfix) with ESMTPSA id A7315A00BE;
- Fri, 17 Feb 2017 14:14:10 +1100 (AEDT)
-From: Cyril Bur <cyrilbur@gmail.com>
-To: joel@jms.id.au, openbmc@lists.ozlabs.org
-Subject: [PATCH v2] ARM: dts: aspeed: Update reserved memory nodes for zaius
- and witherspoon
-Date: Fri, 17 Feb 2017 14:12:30 +1100
-X-Mailer: git-send-email 2.11.1
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17021703-0040-0000-0000-000002F08E35
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17021703-0041-0000-0000-00000C420031
-Message-Id: <20170217031230.12800-1-cyrilbur@gmail.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-02-17_02:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
- definitions=main-1702170031
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vPdnP6r1bzDqBn
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 14:30:01 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="dhdrjP5n"; 
+ dkim-atps=neutral
+Received: by mail-yw0-x242.google.com with SMTP id v73so2539881ywg.1
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 19:30:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=Pltq27k/u2dxR8p0Gjefobu1vTKBfZUmYewRGJxONG8=;
+ b=dhdrjP5nP/o+LzrKkfYCDszvVdEIBydGZCnA5CfsOFiLSDy7AHTmEduu7iXvjfEI3B
+ witnRIwS8mRBapYy2qDi2uciZdibd9fySUum/o2ATUg4DDzuVysjT4kk7ODbjg+by1yf
+ OIjb9RGooe/JW+VmkNGv9xf4mrOnvSS/pLXW/kAd1RGLwCvya3VLZc53P9KshfQhJY/0
+ BTMkhXtESf+Ks6VwnID/XstYfvxv/1uCMIKaTvlL+0wzHFNb6etI2rdyj30tnM4AlRd/
+ 1zt+5twWpqjH9II59OQjlR7paRHfSrTMZqaaYoEQQix9/GachOBvyu/l68Vb1XB7A3ZI
+ HCfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=Pltq27k/u2dxR8p0Gjefobu1vTKBfZUmYewRGJxONG8=;
+ b=PoELu93tdAvjK6opbYmPOd2zQ0g/s3gotE74QerxHtkSYuIKuYxs1uMZpbS7hObeez
+ cXljelouWEdGIdRlMatBxvNHl/bz0UW+xbLOQWiS+Xf3I1lcOW2ClaZRrD+cXZ7KHFj1
+ pFFozR8X3qdlCRh5TR7HS2/CSP13c0qk0Kz0Yqc3rKsetAkZTBBUkjNA42GmlKQ258TL
+ z78IyVyZkkTK4onIT/aWCignn4pQXn/skPLJSauT1UIYvcl/MlsH9ky8IlvmVxZ3obsP
+ nPRLYELr3WsrmYq7bwG6sMwB1qRBj49NgHyjlbKlzz/MR5xPMJRibA01yLEUiE4pBeKB
+ xr9g==
+X-Gm-Message-State: AMke39mR+2JQ0GUxi9p2KMf6WhrXBBdcbHeMQcb3Y7rUPoWdQLqaQNEXYokbLrPMOVCzX+AOxGMQFqvHaGKRKw==
+X-Received: by 10.13.247.134 with SMTP id h128mr4971518ywf.56.1487302199480;
+ Thu, 16 Feb 2017 19:29:59 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.170.41 with HTTP; Thu, 16 Feb 2017 19:29:39 -0800 (PST)
+In-Reply-To: <20170214005104.11940-2-andrew@aj.id.au>
+References: <20170214005104.11940-1-andrew@aj.id.au>
+ <20170214005104.11940-2-andrew@aj.id.au>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 17 Feb 2017 13:59:39 +1030
+X-Google-Sender-Auth: vGrNP0kpubVGQ3EFps_w2SGIm3E
+Message-ID: <CACPK8XfNP560Koh=TCCEu7rWkFU0pFuBBN7J2bB3-0PYo2atyg@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7 v2 1/3] ARM: dts: aspeed-g5: Add SoC Display
+ Controller node
+To: Andrew Jeffery <andrew@aj.id.au>, Xo Wang <xow@google.com>,
+ Lei YU <mine260309@gmail.com>, Matthew Conolly <mattconolly@fb.com>
+Cc: Patrick Williams <patrick@stwcx.xyz>, Rick Altherr <raltherr@google.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -71,71 +62,116 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Feb 2017 03:15:16 -0000
+X-List-Received-Date: Fri, 17 Feb 2017 03:30:02 -0000
 
-Zaius platform doesn't use VGA so don't reserve that memory
+On Tue, Feb 14, 2017 at 11:21 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
+> (cherry picked from commit daf042580a0dacd894a3825dd6f048364fd66770)
+> [AJ: Reworked to disable GFX in the dtsi, as it is missing from the 2520]
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 
-Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
----
-v2: Drop reserving the framebuffer on Zaius
-    Both platforms have 1GB not 512MB - adjust numbers
-    Add comment requested by Joel.
+Acked-by: Joel Stanley <joel@jms.id.au>
 
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 15 +++++++++++++--
- arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts       | 12 ++++++++++--
- 2 files changed, 23 insertions(+), 4 deletions(-)
+Xo, can we get your ack for the Zaius change.
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-index 4b2d8aa8abb6..b79cadb2f6d7 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -25,9 +25,20 @@
- 		#size-cells = <1>;
- 		ranges;
- 
--		flash_memory: region@94000000 {
-+		/*
-+		 * The addreses for the flash_memory reserved range are the
-+		 * highest allowable for the size of the mapping (ie, the
-+		 * address has no set bits greater than the size)
-+		 */
-+
-+		flash_memory: region@b8000000 {
-+			no-map;
-+			reg = <0xb8000000 0x04000000>; /* 64M */
-+		};
-+
-+		vga_memory: framebuffer@bc000000 {
- 			no-map;
--			reg = <0x94000000 0x04000000>; /* 64M */
-+			reg = <0xbc000000 0x04000000>; /* 64M */
- 		};
- 	};
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-index e1c9b3f4fe44..5a06da43801b 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-@@ -25,10 +25,18 @@
- 		#size-cells = <1>;
- 		ranges;
- 
--		flash_memory: region@94000000 {
-+		/*
-+		 * The addreses for the flash_memory reserved range are the
-+		 * highest allowable for the size of the mapping (ie, the
-+		 * address has no set bits greater than the size)
-+		 */
-+
-+		flash_memory: region@bc000000 {
- 			no-map;
--			reg = <0x94000000 0x04000000>; /* 64M */
-+			reg = <0xbc000000 0x04000000>; /* 64M */
- 		};
-+
-+		/* Zaius doesn't use VGA so don't reserve VGA buffer */
- 	};
- 
- 	onewire0 {
--- 
-2.11.1
+Lei, please review for Romulus.
+
+Matthew, please review for the Facebook board.
+
+Cheers,
+
+Joel
+
+> ---
+>  arch/arm/boot/dts/aspeed-ast2500-evb.dts         | 4 ++++
+>  arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts    | 4 ++++
+>  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     | 4 ++++
+>  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 4 ++++
+>  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts       | 4 ++++
+>  arch/arm/boot/dts/aspeed-g5.dtsi                 | 9 +++++++++
+>  6 files changed, 29 insertions(+)
+>
+> diff --git a/arch/arm/boot/dts/aspeed-ast2500-evb.dts b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
+> index 9d88f3aadbc6..1999a06eec80 100644
+> --- a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
+> +++ b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
+> @@ -79,3 +79,7 @@
+>                 reg = <0x4d>;
+>         };
+>  };
+> +
+> +&gfx {
+> +       status = "okay";
+> +};
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
+> index e6d61c3abd80..9e48c4a1313c 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
+> @@ -198,3 +198,7 @@
+>         status = "okay";
+>         /* CPLD at reg = <3E> */
+>  };
+> +
+> +&gfx {
+> +       status = "okay";
+> +};
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+> index c23627ec5e84..947cfeb02457 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+> @@ -155,3 +155,7 @@
+>  &vuart {
+>         status = "okay";
+>  };
+> +
+> +&gfx {
+> +       status = "okay";
+> +};
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> index 4b2d8aa8abb6..76b738dd0c6b 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> @@ -273,3 +273,7 @@
+>  &vuart {
+>         status = "okay";
+>  };
+> +
+> +&gfx {
+> +       status = "okay";
+> +};
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> index e1c9b3f4fe44..e22701bfe5fc 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> @@ -343,3 +343,7 @@
+>  &vuart {
+>         status = "okay";
+>  };
+> +
+> +&gfx {
+> +       status = "okay";
+> +};
+> diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+> index e1994c9e38c3..b73503c866aa 100644
+> --- a/arch/arm/boot/dts/aspeed-g5.dtsi
+> +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+> @@ -1005,6 +1005,15 @@
+>                                 reg = <0x1e6e202c 0x4>;
+>                         };
+>
+> +                       gfx: display@1e6e6000 {
+> +                               compatible = "aspeed,ast2500-gfx", "syscon";
+> +                               reg = <0x1e6e6000 0x1000>;
+> +                               reg-io-width = <4>;
+> +
+> +                               /* AST2520 doesn't have GFX, so disable */
+> +                               status = "disabled";
+> +                       };
+> +
+>                         sram@1e720000 {
+>                                 compatible = "mmio-sram";
+>                                 reg = <0x1e720000 0x9000>;      // 36K
+> --
+> 2.9.3
+>
