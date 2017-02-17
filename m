@@ -1,51 +1,25 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <benh@kernel.crashing.org>
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vPjKp57cNzDqBn
- for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 17:09:50 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="SJw/qoa3"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="NFx5C80W"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 05FDD20998;
- Fri, 17 Feb 2017 01:09:47 -0500 (EST)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Fri, 17 Feb 2017 01:09:47 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
- content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=IwDVEY2Q9AJ17Kn8pAMevQdw/yU=; b=SJw/qo
- a3Y2bKbcx8sAOFnN2aieBcqbujNxK+0SPqOjpS684PFu593BmGAxiAK7DpkOy11t
- eoN820Lmz7wY/RjTr9tRP1VIPEZai8bpslNd7exGJ798KuTads/RuQs5hfDLuq6u
- vciDwtXtPaNgt6mW+5k9BBVwAiMoogfyIAWMk=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=IwDVEY2Q9AJ17K
- n8pAMevQdw/yU=; b=NFx5C80WJDCFy8En1fJQtb+KSNqviLmhzQuz3zq/HB6cbk
- G7ndoE7j73CehfDt7irKHd00rQBXNvD+gRkfZaIrAEgDDPbIFvba/jzYlt5Cb89e
- LcuHFT0+DqIXk5vIRp2W7l82Lz/x0D97Oe80eyajq9aYBf6632TnE/EF8SMbQ=
-X-ME-Sender: <xms:qpOmWGvd3uN9asYo70WJcifGlwIUfEBceLgnvkdy1qUooLW7_tcFqQ>
-X-Sasl-enc: qJbVoTIv9YwFxjpP0AP9sCXPQVB5awmjBqSJv+hT1Lrm 1487311786
-Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id BA22B7E0F1;
- Fri, 17 Feb 2017 01:09:44 -0500 (EST)
-Message-ID: <1487311780.3661.43.camel@aj.id.au>
-Subject: Re: [PATCH linux] dts: aspeed: Enable MAC1 on Quanta Q71L BMC
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Rick Altherr <raltherr@google.com>, joel@jms.id.au, 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vPk6c3gzZzDqD0
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 17:45:12 +1100 (AEDT)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+ by gate.crashing.org (8.14.1/8.13.8) with ESMTP id v1H6iwlZ004361;
+ Fri, 17 Feb 2017 00:44:58 -0600
+Message-ID: <1487313897.23576.122.camel@kernel.crashing.org>
+Subject: Re: [PATCH v6] drivers/misc: Add Aspeed LPC control driver
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: Cyril Bur <cyrilbur@gmail.com>, gregkh@linuxfoundation.org
+Cc: linux-kernel@vger.kernel.org, mikey@neuling.org, joel@jms.id.au,
  openbmc@lists.ozlabs.org
-Date: Fri, 17 Feb 2017 16:39:40 +1030
-In-Reply-To: <20170217042603.25864-1-raltherr@google.com>
-References: <20170217042603.25864-1-raltherr@google.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-rKvWpOlb0MuAMhKuP8B8"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
+Date: Fri, 17 Feb 2017 17:44:57 +1100
+In-Reply-To: <20170217032849.23994-1-cyrilbur@gmail.com>
+References: <20170217032849.23994-1-cyrilbur@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.22.4 (3.22.4-2.fc25) 
 Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,61 +31,61 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Feb 2017 06:09:51 -0000
+X-List-Received-Date: Fri, 17 Feb 2017 06:45:13 -0000
 
+On Fri, 2017-02-17 at 14:28 +1100, Cyril Bur wrote:
+> In order to manage server systems, there is typically another
+> processor
+> known as a BMC (Baseboard Management Controller) which is responsible
+> for powering the server and other various elements, sometimes fans,
+> often the system flash.
 
---=-rKvWpOlb0MuAMhKuP8B8
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ .../...
 
-On Thu, 2017-02-16 at 20:26 -0800, Rick Altherr wrote:
-> Signed-off-by: Rick Altherr <raltherr@google.com>
+> It is important to note that due to the way the Aspeed chip lets the
+> kernel configure the mapping between host LPC addresses and BMC ram
+> addresses the offset within the window must be a multiple of size.
+> Not doing so will fragment the accessible space rather than simply
+> moving 'zero' upwards. This is caused by the nature of HICR8 being a
+> mask and the way host LPC addresses are translated.
+> 
+> Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
 
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+Reviewed-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 
-> ---
-> =C2=A0arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts | 7 +++++++
-> =C2=A01 file changed, 7 insertions(+)
->=20
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot=
-/dts/aspeed-bmc-quanta-q71l.dts
-> index 229764c091dd..713246090906 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-> @@ -75,6 +75,13 @@
-> > =C2=A0	no-hw-checksum;
-> =C2=A0};
-> =C2=A0
-> +&mac1 {
-> > +	status =3D "okay";
-> +
-> > +	pinctrl-names =3D "default";
-> > +	pinctrl-0 =3D <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
-> +};
-> +
-> =C2=A0&uart5 {
-> > =C2=A0	status =3D "okay";
-> =C2=A0};
---=-rKvWpOlb0MuAMhKuP8B8
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Greg, quick Q for you:
 
------BEGIN PGP SIGNATURE-----
+We will need to also add a mechanism to poke at a few registers
+in the same LPC controllers from userspace.
 
-iQIcBAABCgAGBQJYppOlAAoJEJ0dnzgO5LT5TMwQAK0oYQUCSTu2W2ufr7WlLCTn
-lNuVnH2+zhDp0DaVjh+VKHpRyWK2m9dFobY9swI1xTWLenReOsubqh+ANUrst8Ql
-1DmAHAidn6QVtINq/jTCxWKeSSB9u7dbAEUGBIHmzJJb80VcCPnmOR6XiAw6KPfS
-VXXaFjgr74hna3aulZoK/u8qfpEdAFDH+f2ENNJpxlF0Vpl+5ri/8rrGP3l5JvPW
-j/KIN3WPaHcrcwYx/QmjazhXZi/wiSkf7dmOEOrum9IIg1Sld3UDFadCeUCUPJRm
-KqFDns9DU3ef5xOHVfbL9Cbm7ofCaL1jf5zroRLThJo3mFXOOxMvS65iv3/UCUtT
-zzS7oyO5uiSsJeHjHJkzRCRnE3lNiEzPP20yus8M9WmD2RmP61q930/Tf1/QgI/8
-g8/PQi3vH+Wt20+2kmGnXFTNQNhkNupozaWUcyHpPD1uIOOX5fQHbsNY+onwfTSw
-rCqFsbbtzNxt7xB7yGWnWyQJSaGWdLgnF1jv9XhAnJ5o41W6RdBgH/4B4NyqaQY5
-EEawgOCjn4ofirgxTVlnh87lWvt0+eFj8Kyfewmte2mZQbrGZoqWTBe7noFNGh29
-GL7CXvi33AP3OSj6xAJEphl6JffEyUAdV45Xqla1Idq4C+QhlYt2tq3cuUpyip9q
-g6rVpSRx33W6zBstzfeZ
-=dhqm
------END PGP SIGNATURE-----
+Mostly those are "scratch" registers that the BMC is supposed to set to
+specific values to indicates features it supports etc... (or to enable 
+the host BIOS to run in some kind of verbose debug mode).
 
---=-rKvWpOlb0MuAMhKuP8B8--
+Think of it as a communication channel between the BMC and the BIOS
+running on the host.
+
+The BMC userspace needs to set them to various platform specific
+values as appropriate for a given vendor/system (userspace policy
+from the BMC perspective) during boot and/or change them as the result
+of some user actions (enable debug mode) etc...
+
+The question here is read/write or sysfs files attached to the
+sysfs node ?
+
+The former means userspace needs to "seek" to the right magic
+offset to write to one of them which is non-trivial to do from
+simple shell scripts but is a more natural interface.
+
+It also means the owner/permissions of the /dev entry as set
+by uboot apply which can be nice.
+
+The latter can expose each register by its name which provides
+a nice way to echo in/out of them from a shell script.
+
+The drawback is that pretty much restricts access to root.
+
+What do you recommend ?
+
+Cheers,
+Ben.
