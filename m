@@ -3,51 +3,52 @@ Received: from mail-pg0-x242.google.com (mail-pg0-x242.google.com
  [IPv6:2607:f8b0:400e:c05::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vPcvT6d4mzDqBW
- for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 13:50:13 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vPcyB1ZmhzDqBW
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 13:52:34 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="aDcEhe4I"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ehAQUaT2"; 
  dkim-atps=neutral
-Received: by mail-pg0-x242.google.com with SMTP id y6so2466017pgy.2
- for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 18:50:13 -0800 (PST)
+Received: by mail-pg0-x242.google.com with SMTP id v184so3579793pgv.1
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 18:52:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=message-id:subject:from:to:cc:date:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=Jp7PsGnvRXXFIESKutsWnvtso+M9gweGbKpZvYdfk74=;
- b=aDcEhe4IHuVY2VLu69zQmQdBvj+pdzYofJOAtEu/cLI2kgeCgm8vqAIt+0IFD7lZUQ
- e4C+TlQju/nIG8O8voEmh5uhZtOKftnDTJGyCXKe0jcb/Wn/mx+VwMC4h+V6bZp5NG6q
- N9VT0OhlvRZoUhQYszsnKjrygCZK9gYZN5jLjKS5Olw9s30MJuG1XQMCQagiBnJHH4nf
- A3p1c0hpy4o2OZrgttsoDZPcyyZu7EY45SLlbeCxjbnwaFzoZqSrBPBxbapuaTVuE8np
- KrQe1oiiR3nwt1MuVG1fDFFUqdfx3ErEjNZ01iErWZsizE9u1O8UWRbVx0iosHDoAwM3
- h1IA==
+ bh=lnLn+Sp6EQ4V4Qi6oFAwufCLNj1ymHwBu7esS+jvPOA=;
+ b=ehAQUaT2X4U9L6aHASGMyolZ/ZAa1GV3/eHNvSWB6nRhZjvwgZm9G3RW97Y4BNiQtL
+ U6hYi9Y2T/nsyl2RiyS0MjmEoQEZOKkvnBpaLcW/Y9U2jcY/+0lnHe0Nvq29krT+sUAE
+ p/CErNkg7Ny18IYiJ3JjlTszI4kvS+yKadbvC0yTd/iYjICQMzdMdu+Aiiwfg1+c8je0
+ I5fslfytxtMK7PVWEBXaFOirgajizzjY6e/0Q8FGVMFVW34Z2/L0V18/rMAEX8/9U+p9
+ XJOkupbSo/8jiSFMfQpZGaNXQzxxbprH8EfgyZC79bP+Xjpr5agQQf4+EgC9SKJfhZKK
+ /NRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Jp7PsGnvRXXFIESKutsWnvtso+M9gweGbKpZvYdfk74=;
- b=Lgtaibim1lgueXvG4en4/jzp5yTWdwaCIZHjqgtpzvchhRioeZf9yogSlhhHn3eb/Y
- HJ2VtdkRmFx35yQ0+aM3kHMAyIhDLJq3UnT4nVRge0F/qpwiFnCv1bRGvM9c3iTVcimj
- OA9p+el1nHSY3aQe8dsdpizQN6hzu/R3oRut1L7xR0/TruZx/PoFtAva0/tOWTOZRFzp
- eA5wVYQZbCMjO88Ax1pICJnPiEXlC3SYxpTYtMJi7ijZSri6WsSgybNudOOD8i5qVGF0
- G5yYl8KCfJRk7zcINNFxUoO6Uadd9BxbKtuGKJsvJ5qfd4+UYZ3LO5UF7Y0DLfJXbX5/
- 3E4g==
-X-Gm-Message-State: AMke39nqAyh7Bd1Bh69Uasf76A+AgkoF9afXAQUjjevNfcLkUtb4cnkAkCJkX3ARoHBCpQ==
-X-Received: by 10.99.131.74 with SMTP id h71mr2004579pge.226.1487299812294;
- Thu, 16 Feb 2017 18:50:12 -0800 (PST)
+ bh=lnLn+Sp6EQ4V4Qi6oFAwufCLNj1ymHwBu7esS+jvPOA=;
+ b=ZKrApJI+fdkqA4p7OdWkUsO3j2edqp5GkVrUP1UqBqcf/tR7qyp0XSjcxl/urfdt/f
+ JDrhDLd7yOZHAFlekVH+Yzh5HdJh0wvlH9kqH9xLZf2NuQ2VEkrlf+YxlWKargf7DFIq
+ D71AzobQG6e7x7T8UGc2GyLGdMT3I4AXDHsYy5s83D6iqAQVrQqSJ5o3jRGxSBYG3y08
+ +5VYA3zatgR/gkUdBg2JUCzHKsoHGaPRXbetE5dPfsLmicOfUCdxf2CUBOP6HR32MnEN
+ nzJkr9weIKB4Pq3XqQaMx5OmD3/nRMPAaA/+XENeyod3lLVvrPnPRfYlcIlG8PKHK/GX
+ D+Hw==
+X-Gm-Message-State: AMke39m98148RVXosTxOl0HVjKx7qtZUJFZpwV9P0d/5tCSae1t6Bc+Q4gl3wwoa4c0Z8Q==
+X-Received: by 10.98.163.23 with SMTP id s23mr6584586pfe.60.1487299952600;
+ Thu, 16 Feb 2017 18:52:32 -0800 (PST)
 Received: from camb691.ozlabs.ibm.com ([122.99.82.10])
- by smtp.googlemail.com with ESMTPSA id u82sm15975339pfd.7.2017.02.16.18.50.09
+ by smtp.googlemail.com with ESMTPSA id
+ x65sm15848594pfx.115.2017.02.16.18.52.30
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 16 Feb 2017 18:50:11 -0800 (PST)
-Message-ID: <1487299721.16373.2.camel@gmail.com>
+ Thu, 16 Feb 2017 18:52:31 -0800 (PST)
+Message-ID: <1487299862.16373.4.camel@gmail.com>
 Subject: Re: [PATCH] ARM: dts: aspeed: Update reserved memory nodes for
  zaius and witherspoon
 From: Cyril Bur <cyrilbur@gmail.com>
-To: Patrick Williams <patrick@stwcx.xyz>
-Cc: joel@jms.id.au, openbmc@lists.ozlabs.org
-Date: Fri, 17 Feb 2017 13:48:41 +1100
-In-Reply-To: <20170216140524.GA5077@heinlein.lan>
+To: Mine <mine260309@gmail.com>
+Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Fri, 17 Feb 2017 13:51:02 +1100
+In-Reply-To: <CAARXrtm=xGhKQrngbjx2qZZhOx8tq-S3f948n+TnxGjkgb14Gg@mail.gmail.com>
 References: <20170216054922.19722-1-cyrilbur@gmail.com>
- <20170216140524.GA5077@heinlein.lan>
+ <CAARXrtm=xGhKQrngbjx2qZZhOx8tq-S3f948n+TnxGjkgb14Gg@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailer: Evolution 3.22.5 
 Mime-Version: 1.0
@@ -63,33 +64,83 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Feb 2017 02:50:14 -0000
+X-List-Received-Date: Fri, 17 Feb 2017 02:52:34 -0000
 
-On Thu, 2017-02-16 at 08:05 -0600, Patrick Williams wrote:
-> On Thu, Feb 16, 2017 at 04:49:22PM +1100, Cyril Bur wrote:
-> > -		flash_memory: region@94000000 {
-> > +		flash_memory: region@98000000 {
-> >  			no-map;
-> > -			reg = <0x94000000 0x04000000>; /* 64M */
-> > +			reg = <0x98000000 0x04000000>; /* 64M */
-> > +		};
-> > +
-> > +		vga_memory: framebuffer@9c000000 {
-> > +			no-map;
-> > +			reg = <0x9c000000 0x04000000>; /* 64MB */
+On Thu, 2017-02-16 at 14:14 +0800, Mine wrote:
+> Hi Cyril,
 > 
-> Do we really have to allocate 64MB to a VGA framebuffer?  We can store a
-> 4K resolution monitor with 32bit color in 32MB, so why is it required to
-> reserve this much memory?  Between this and the PNOR memory region, now
-> 1/4th of the BMCs memory is reserved.
+> On Thu, Feb 16, 2017 at 1:49 PM, Cyril Bur <cyrilbur@gmail.com> wrote:
+> > Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
+> > ---
+> >  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 9 +++++++--
+> >  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts       | 9 +++++++--
+> >  2 files changed, 14 insertions(+), 4 deletions(-)
+> > 
+> > diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> > index 4b2d8aa8abb6..2d76bfee1262 100644
+> > --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> > +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> > @@ -25,9 +25,14 @@
+> >                 #size-cells = <1>;
+> >                 ranges;
+> > 
+> > -               flash_memory: region@94000000 {
+> > +               flash_memory: region@98000000 {
+> >                         no-map;
+> > -                       reg = <0x94000000 0x04000000>; /* 64M */
+> > +                       reg = <0x98000000 0x04000000>; /* 64M */
+> > +               };
+> > +
+> > +               vga_memory: framebuffer@9c000000 {
+> > +                       no-map;
+> > +                       reg = <0x9c000000 0x04000000>; /* 64MB */
+> 
+> This assumes that Witherspoon has 512MiB RAM, then why the memory part
+> indicates it has 1GiB?
+> ```
+>         memory {
+>                 reg = <0x80000000 0x40000000>;
+>         };
+> ```
 
-The reservation of 64MB is because the hardware is capable of using
-64MB, therefore the host can use that region of memory. We're playing
-it safe here by ensuring the BMC doesn't use any of it to avoid any
-possibility of the host corrupting BMC memory. This is the most generic
-dts for the platform so we've gone with stability over performance.
+Oops, you're correct. I'll adjust the numbers.
 
+> 
+> >                 };
+> >         };
+> > 
+> > diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> > index e1c9b3f4fe44..f30288f735bc 100644
+> > --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> > +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> > @@ -25,9 +25,14 @@
+> >                 #size-cells = <1>;
+> >                 ranges;
+> > 
+> > -               flash_memory: region@94000000 {
+> > +               flash_memory: region@98000000 {
+> >                         no-map;
+> > -                       reg = <0x94000000 0x04000000>; /* 64M */
+> > +                       reg = <0x98000000 0x04000000>; /* 64M */
+> > +               };
+> > +
+> > +               vga_memory: framebuffer@9c000000 {
+> > +                       no-map;
+> > +                       reg = <0x9c000000 0x04000000>; /* 64MB */
+> 
+> As I know Google decides to not support VGA on Zaius, so maybe
+> vga_memory is not needed to Zaius at all.
+> 
+
+Happy to drop that if there won't be any VGA on the platform.
+
+Thanks,
 
 Cyril
 
-> 
+> >                 };
+> >         };
+> > 
+> > --
+> > 2.11.1
+> > 
