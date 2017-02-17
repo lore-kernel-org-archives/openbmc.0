@@ -1,55 +1,56 @@
 Return-Path: <raltherr@google.com>
-Received: from mail-it0-x22a.google.com (mail-it0-x22a.google.com
- [IPv6:2607:f8b0:4001:c0b::22a])
+Received: from mail-it0-x22f.google.com (mail-it0-x22f.google.com
+ [IPv6:2607:f8b0:4001:c0b::22f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vPfDz6WpWzDqBr
- for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 14:50:27 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vPfG76Ds8zDqBr
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 14:51:27 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="vjcDxb8X"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="VjJgyuW6"; 
  dkim-atps=neutral
-Received: by mail-it0-x22a.google.com with SMTP id h10so5489879ith.1
- for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 19:50:27 -0800 (PST)
+Received: by mail-it0-x22f.google.com with SMTP id h10so5508393ith.1
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 19:51:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=uVaJ0iiJI1RCZsQ8fDiXrmwim8mAkelRV5ZwlmvXFSg=;
- b=vjcDxb8XN7G3gn4Uet6sECzx44smGX6M9mDTiNTkjkktnqzLieVyhk5C8y6iA1MQfZ
- deS2wDCYBlolvqQCUQQxwLNlknDgisW4F4J3ARaLR4gqxia/QaDe5AxmjrLAbaSUZzBP
- 3ElPWvl3NZhtru5gGdJF7lCQMF3oKkbNZj5lGnjAREnfclHCAY61F97vIMB0PqdkWvSo
- +NQQj3FQF2lUeQsML19Gujlxbrlm66FxTXQVg/7a6S9/kDYHn/OcpFrGOVsf3R0msLcO
- pRJMgpEaeAcWk8Ehd/f/IQMes+cs1LaBX/6qaXBloXSI4c9ptbuMbpZiS0JIJXZgKTfX
- Z47A==
+ :cc; bh=wvwpjwNT7IABmYHfHKEZKgjgYRjCRADYmTWvpxL8gQo=;
+ b=VjJgyuW6Ad9IiWU4ES4Rx9HpERpQbRNAKb5x9ti36RUi4mAo0N7MkaX7odLbK+Dn7b
+ bpcqUdj8dMJSOGOpQ9knICM33ESHwtTq/BxNCxFov51HyXyvyrmjgRUFUG/4X9DsWDlM
+ R39bCkD9w2JG/qhQaebbKptDRgSqDKjNWyS+zxcImRCBDJIYRoo+2XzewCaSNEbDIQZH
+ IfU/uRc40Yaa1ypeWzElfZEvYlEu3mJ62mkwHOS21Nlw6IYpg+IbaDJQUZACJSlMR5+2
+ xlF4d+yPifmALYpUVGpZis+xa7OfA4Ontg7TiqoMF5lCg1z+MA0L+jMmNuqLJEzpMRRW
+ 7vDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=uVaJ0iiJI1RCZsQ8fDiXrmwim8mAkelRV5ZwlmvXFSg=;
- b=k0rwhL/f11lZVbOZkMtkroFkjl79tbFpVpgOUyRaBgXgvzkQgOXJN3Di4uB5eBnoKV
- 73M6vWJLelQJNM+ToiPPIVcHvoFc480WdqaK5c4Ktfl1v1qR15Xjgz8BA/QSeNmGmDu9
- iC+0NgCSOLLRoJAc+V/VNKjbkRPe73ocjiwLeehxslnICnLTYuXoSLybVV77sY+kGJcQ
- NAwtSq3kNqCPhcEWTrz/dDKmt4nfg5VI8ocY5Hsl8ucHBsix6f897hH5t/eYrasy8SRq
- XA0ArKgaa2Qj+oG2fgFK6LtBIVnXX5CiuWjWPkUMc5p+DqY9pnehgLNXigZY4Xr4cW6B
- 3bhg==
-X-Gm-Message-State: AMke39nntn8jHsqkTANFv7INCLrTwsixLQq4vMkROL6M+Zz2MNPRLAeOU5bbqVToo9LFPp9+DYgFR+pVekejMKtm
-X-Received: by 10.36.254.66 with SMTP id w63mr1028372ith.28.1487303425460;
- Thu, 16 Feb 2017 19:50:25 -0800 (PST)
+ bh=wvwpjwNT7IABmYHfHKEZKgjgYRjCRADYmTWvpxL8gQo=;
+ b=HUPZZiodhvpFgq9HPngbusCVjOY9mhGugsc0Rb9pZwjiqdnQX3eAXg55HHGHj2H0/c
+ BdEPXhT7wWGgbwd4qkwnFjnEcGoZYiJxU9ZtCLWDNERtu+R8qjZRp5Y/eCflHh3S3p3n
+ Sk8xO8txh+jyNkaykyeLtz4GBme+7mOD1hBSycr35tx+TNtBlVwAhhZayRI1gX2ow7Zj
+ mkkc3ExEQnz0HNkR5NOL2sceWj8e1SnceJmxNJDOHJ8QEgn2hKVthJYBFxFssNSlHyra
+ nV6kNbTWVVDtP4+LgAPisAE4WZjVa/vbon8Imq3F8V9hXOKxS6UarE0rPBntolKnQSTm
+ g8OQ==
+X-Gm-Message-State: AMke39mqsp1ugNue7Gq0bg3pbwo0/fj4Tp5aH0DCq+DBpXmUB5K+w11mw5BF6LhhQF3Osn/ezEb1cxOiBBZyyZXP
+X-Received: by 10.36.64.70 with SMTP id n67mr891897ita.21.1487303485292; Thu,
+ 16 Feb 2017 19:51:25 -0800 (PST)
 MIME-Version: 1.0
-Received: by 10.64.133.226 with HTTP; Thu, 16 Feb 2017 19:50:24 -0800 (PST)
-Received: by 10.64.133.226 with HTTP; Thu, 16 Feb 2017 19:50:24 -0800 (PST)
-In-Reply-To: <CACPK8XfUiToyMDdP0+SzpJrtxJg+6tnk1Jp-ZShmr2-P99VDgg@mail.gmail.com>
-References: <20170217031230.12800-1-cyrilbur@gmail.com>
- <CAPLgG==cyh05UMqj3VD1cTjQX9ycuG36ECGumT84MKo5sO+MAg@mail.gmail.com>
- <CAPLgG=kMbxDs32dw6uGwabVsGevv5w7g42E+KtHERToowM5HKg@mail.gmail.com>
- <CAPLgG=kFuyyZoX=g4_sZQgMG=r+dk-AjKADYBof0mwhH8Q5JZQ@mail.gmail.com>
- <CACPK8XfUiToyMDdP0+SzpJrtxJg+6tnk1Jp-ZShmr2-P99VDgg@mail.gmail.com>
+Received: by 10.64.133.226 with HTTP; Thu, 16 Feb 2017 19:51:24 -0800 (PST)
+Received: by 10.64.133.226 with HTTP; Thu, 16 Feb 2017 19:51:24 -0800 (PST)
+In-Reply-To: <CACPK8Xf-M-J838adk7Yre==y4PF_-6xHyfacs=WWy+NY8XpQPA@mail.gmail.com>
+References: <20170214005104.11940-1-andrew@aj.id.au>
+ <20170214005104.11940-3-andrew@aj.id.au>
+ <CACPK8XfM6seGAO_Qfj5gM_G=D2cbVTbHLQXA034eerpPC7BFPQ@mail.gmail.com>
+ <1487302684.3661.40.camel@aj.id.au>
+ <CACPK8Xf-M-J838adk7Yre==y4PF_-6xHyfacs=WWy+NY8XpQPA@mail.gmail.com>
 From: Rick Altherr <raltherr@google.com>
-Date: Thu, 16 Feb 2017 19:50:24 -0800
-Message-ID: <CAPLgG=ni2WL-mjHS8g7eePoSS9=82T6=KB5kE73=zUFrrVrHHA@mail.gmail.com>
-Subject: Re: [PATCH v2] ARM: dts: aspeed: Update reserved memory nodes for
- zaius and witherspoon
+Date: Thu, 16 Feb 2017 19:51:24 -0800
+Message-ID: <CAPLgG==q9uh-pEDX+Ji5g0Aw0Ae4Ro3TvWY1qFh62UUoGGKM5Q@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7 v2 2/3] ARM: dts: aspeed-g5: Add LPC Host
+ Controller node to LPC
 To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Cyril Bur <cyrilbur@gmail.com>
-Content-Type: multipart/alternative; boundary=94eb2c030bc659be140548b1d022
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Patrick Williams <patrick@stwcx.xyz>, Andrew Jeffery <andrew@aj.id.au>
+Content-Type: multipart/alternative; boundary=001a1135a57aea7d6f0548b1d3bf
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,235 +62,78 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Feb 2017 03:50:28 -0000
+X-List-Received-Date: Fri, 17 Feb 2017 03:51:28 -0000
 
---94eb2c030bc659be140548b1d022
+--001a1135a57aea7d6f0548b1d3bf
 Content-Type: text/plain; charset=UTF-8
 
-Sounds good to me.
+I believe mbox is needed on AST2400 for Quanta Q71L.
 
-On Feb 16, 2017 7:41 PM, "Joel Stanley" <joel@jms.id.au> wrote:
+On Feb 16, 2017 7:42 PM, "Joel Stanley" <joel@jms.id.au> wrote:
 
-> On Fri, Feb 17, 2017 at 2:03 PM, Rick Altherr <raltherr@google.com> wrote:
-> > Current Zaius and Barreleye G2 boards have AST2500 which has VGA support.
-> > Google hasn't tried the VGA but it is there. We plan to switch to 2520
-> later
-> > for our own designs but it's only a BOM option to switch between the two.
+> On Fri, Feb 17, 2017 at 2:08 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> > On Fri, 2017-02-17 at 14:02 +1030, Joel Stanley wrote:
+> >> On Tue, Feb 14, 2017 at 11:21 AM, Andrew Jeffery <andrew@aj.id.au>
+> >> wrote:
+> >> > Required for pinmux, which tests some bits in the LHC's IO space.
+> >> >
+> >> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> >>
+> >> Large Hadron Collider!
+> >>
+> >> Does the ast2400 want to know about it's particle accelerator too?
+> >
+> > Nah, the ast2400 doesn't require a particle accelerator for pinctrl,
+> > and I don't think we have any other reason to need it (yet).
 >
-> I think detecting the board revision GPIOs in u-boot and performing a
-> fixup of the device tree is a good way to handle these kind of things.
+> I think we need it for mbox, assuming we end up enabling ast2400
+> platforms with that functionality.
 >
-> Perhaps we will end up having different device trees if the systems
-> end up with vastly different configurations, or configs that aren't
-> detectable from software.
+> Cross that bridge when we get to it.
 >
+> Cheers,
 >
-> >
-> > On Feb 16, 2017 7:15 PM, "Cyril Bur" <cyrilbur@gmail.com> wrote:
-> >
-> > Zaius platform doesn't use VGA so don't reserve that memory
-> >
-> > Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
-> > ---
-> > v2: Drop reserving the framebuffer on Zaius
-> >     Both platforms have 1GB not 512MB - adjust numbers
-> >     Add comment requested by Joel.
-> >
-> >  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 15 +++++++++++++--
-> >  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts       | 12 ++++++++++--
-> >  2 files changed, 23 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> > b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> > index 4b2d8aa8abb6..b79cadb2f6d7 100644
-> > --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> > +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> > @@ -25,9 +25,20 @@
-> >                 #size-cells = <1>;
-> >                 ranges;
-> >
-> > -               flash_memory: region@94000000 {
-> > +               /*
-> > +                * The addreses for the flash_memory reserved range are
-> the
-> > +                * highest allowable for the size of the mapping (ie, the
-> > +                * address has no set bits greater than the size)
-> > +                */
-> > +
-> > +               flash_memory: region@b8000000 {
-> > +                       no-map;
-> > +                       reg = <0xb8000000 0x04000000>; /* 64M */
-> > +               };
-> > +
-> > +               vga_memory: framebuffer@bc000000 {
-> >                         no-map;
-> > -                       reg = <0x94000000 0x04000000>; /* 64M */
-> > +                       reg = <0xbc000000 0x04000000>; /* 64M */
-> >                 };
-> >         };
-> >
-> > diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> > b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> > index e1c9b3f4fe44..5a06da43801b 100644
-> > --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> > +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> > @@ -25,10 +25,18 @@
-> >                 #size-cells = <1>;
-> >                 ranges;
-> >
-> > -               flash_memory: region@94000000 {
-> > +               /*
-> > +                * The addreses for the flash_memory reserved range are
-> the
-> > +                * highest allowable for the size of the mapping (ie, the
-> > +                * address has no set bits greater than the size)
-> > +                */
-> > +
-> > +               flash_memory: region@bc000000 {
-> >                         no-map;
-> > -                       reg = <0x94000000 0x04000000>; /* 64M */
-> > +                       reg = <0xbc000000 0x04000000>; /* 64M */
-> >                 };
-> > +
-> > +               /* Zaius doesn't use VGA so don't reserve VGA buffer */
-> >         };
-> >
-> >         onewire0 {
-> > --
-> > 2.11.1
-> >
-> >
+> Joel
 >
 
---94eb2c030bc659be140548b1d022
+--001a1135a57aea7d6f0548b1d3bf
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"auto">Sounds good to me.</div><div class=3D"gmail_extra"><br><d=
-iv class=3D"gmail_quote">On Feb 16, 2017 7:41 PM, &quot;Joel Stanley&quot; =
-&lt;<a href=3D"mailto:joel@jms.id.au">joel@jms.id.au</a>&gt; wrote:<br type=
-=3D"attribution"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8=
-ex;border-left:1px #ccc solid;padding-left:1ex">On Fri, Feb 17, 2017 at 2:0=
-3 PM, Rick Altherr &lt;<a href=3D"mailto:raltherr@google.com">raltherr@goog=
-le.com</a>&gt; wrote:<br>
-&gt; Current Zaius and Barreleye G2 boards have AST2500 which has VGA suppo=
-rt.<br>
-&gt; Google hasn&#39;t tried the VGA but it is there. We plan to switch to =
-2520 later<br>
-&gt; for our own designs but it&#39;s only a BOM option to switch between t=
-he two.<br>
+<div dir=3D"auto">I believe mbox is needed on AST2400 for Quanta Q71L. =C2=
+=A0</div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Feb 1=
+6, 2017 7:42 PM, &quot;Joel Stanley&quot; &lt;<a href=3D"mailto:joel@jms.id=
+.au">joel@jms.id.au</a>&gt; wrote:<br type=3D"attribution"><blockquote clas=
+s=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;pad=
+ding-left:1ex">On Fri, Feb 17, 2017 at 2:08 PM, Andrew Jeffery &lt;<a href=
+=3D"mailto:andrew@aj.id.au">andrew@aj.id.au</a>&gt; wrote:<br>
+&gt; On Fri, 2017-02-17 at 14:02 +1030, Joel Stanley wrote:<br>
+&gt;&gt; On Tue, Feb 14, 2017 at 11:21 AM, Andrew Jeffery &lt;<a href=3D"ma=
+ilto:andrew@aj.id.au">andrew@aj.id.au</a>&gt;<br>
+&gt;&gt; wrote:<br>
+&gt;&gt; &gt; Required for pinmux, which tests some bits in the LHC&#39;s I=
+O space.<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; Signed-off-by: Andrew Jeffery &lt;<a href=3D"mailto:andrew@aj=
+.id.au">andrew@aj.id.au</a>&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; Large Hadron Collider!<br>
+&gt;&gt;<br>
+&gt;&gt; Does the ast2400 want to know about it&#39;s particle accelerator =
+too?<br>
+&gt;<br>
+&gt; Nah, the ast2400 doesn&#39;t require a particle accelerator for pinctr=
+l,<br>
+&gt; and I don&#39;t think we have any other reason to need it (yet).<br>
 <br>
-I think detecting the board revision GPIOs in u-boot and performing a<br>
-fixup of the device tree is a good way to handle these kind of things.<br>
+I think we need it for mbox, assuming we end up enabling ast2400<br>
+platforms with that functionality.<br>
 <br>
-Perhaps we will end up having different device trees if the systems<br>
-end up with vastly different configurations, or configs that aren&#39;t<br>
-detectable from software.<br>
+Cross that bridge when we get to it.<br>
 <br>
+Cheers,<br>
 <br>
-&gt;<br>
-&gt; On Feb 16, 2017 7:15 PM, &quot;Cyril Bur&quot; &lt;<a href=3D"mailto:c=
-yrilbur@gmail.com">cyrilbur@gmail.com</a>&gt; wrote:<br>
-&gt;<br>
-&gt; Zaius platform doesn&#39;t use VGA so don&#39;t reserve that memory<br=
->
-&gt;<br>
-&gt; Signed-off-by: Cyril Bur &lt;<a href=3D"mailto:cyrilbur@gmail.com">cyr=
-ilbur@gmail.com</a>&gt;<br>
-&gt; ---<br>
-&gt; v2: Drop reserving the framebuffer on Zaius<br>
-&gt;=C2=A0 =C2=A0 =C2=A0Both platforms have 1GB not 512MB - adjust numbers<=
-br>
-&gt;=C2=A0 =C2=A0 =C2=A0Add comment requested by Joel.<br>
-&gt;<br>
-&gt;=C2=A0 arch/arm/boot/dts/aspeed-bmc-<wbr>opp-witherspoon.dts | 15 +++++=
-++++++++--<br>
-&gt;=C2=A0 arch/arm/boot/dts/aspeed-bmc-<wbr>opp-zaius.dts=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0| 12 ++++++++++--<br>
-&gt;=C2=A0 2 files changed, 23 insertions(+), 4 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/arch/arm/boot/dts/aspeed-<wbr>bmc-opp-witherspoon.dts<br>
-&gt; b/arch/arm/boot/dts/aspeed-<wbr>bmc-opp-witherspoon.dts<br>
-&gt; index 4b2d8aa8abb6..b79cadb2f6d7 100644<br>
-&gt; --- a/arch/arm/boot/dts/aspeed-<wbr>bmc-opp-witherspoon.dts<br>
-&gt; +++ b/arch/arm/boot/dts/aspeed-<wbr>bmc-opp-witherspoon.dts<br>
-&gt; @@ -25,9 +25,20 @@<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0#size-cel=
-ls =3D &lt;1&gt;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ranges;<b=
-r>
-&gt;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0flash_memory: =
-region@94000000 {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/*<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * The addrese=
-s for the flash_memory reserved range are the<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * highest all=
-owable for the size of the mapping (ie, the<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * address has=
- no set bits greater than the size)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0flash_memory: =
-region@b8000000 {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0no-map;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0reg =3D &lt;0xb8000000 0x04000000&gt;; /* 64M */<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0vga_memory: fr=
-amebuffer@bc000000 {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0no-map;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0reg =3D &lt;0x94000000 0x04000000&gt;; /* 64M */<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0reg =3D &lt;0xbc000000 0x04000000&gt;; /* 64M */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
-&gt;<br>
-&gt; diff --git a/arch/arm/boot/dts/aspeed-<wbr>bmc-opp-zaius.dts<br>
-&gt; b/arch/arm/boot/dts/aspeed-<wbr>bmc-opp-zaius.dts<br>
-&gt; index e1c9b3f4fe44..5a06da43801b 100644<br>
-&gt; --- a/arch/arm/boot/dts/aspeed-<wbr>bmc-opp-zaius.dts<br>
-&gt; +++ b/arch/arm/boot/dts/aspeed-<wbr>bmc-opp-zaius.dts<br>
-&gt; @@ -25,10 +25,18 @@<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0#size-cel=
-ls =3D &lt;1&gt;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ranges;<b=
-r>
-&gt;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0flash_memory: =
-region@94000000 {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/*<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * The addrese=
-s for the flash_memory reserved range are the<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * highest all=
-owable for the size of the mapping (ie, the<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * address has=
- no set bits greater than the size)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0flash_memory: =
-region@bc000000 {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0no-map;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0reg =3D &lt;0x94000000 0x04000000&gt;; /* 64M */<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0reg =3D &lt;0xbc000000 0x04000000&gt;; /* 64M */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Zaius doesn=
-&#39;t use VGA so don&#39;t reserve VGA buffer */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0onewire0 {<br>
-&gt; --<br>
-&gt; 2.11.1<br>
-&gt;<br>
-&gt;<br>
+Joel<br>
 </blockquote></div></div>
 
---94eb2c030bc659be140548b1d022--
+--001a1135a57aea7d6f0548b1d3bf--
