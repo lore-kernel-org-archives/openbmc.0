@@ -1,76 +1,67 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <dthompson@mellanox.com>
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur01on0044.outbound.protection.outlook.com [104.47.2.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vQ16S34yrzDq5x
- for <openbmc@lists.ozlabs.org>; Sat, 18 Feb 2017 05:01:04 +1100 (AEDT)
-Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v1HHsGrL122409
- for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 13:01:02 -0500
-Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
- by mx0a-001b2d01.pphosted.com with ESMTP id 28p4c3vb85-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 13:01:01 -0500
-Received: from localhost
- by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Fri, 17 Feb 2017 11:01:00 -0700
-Received: from d03dlp03.boulder.ibm.com (9.17.202.179)
- by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Fri, 17 Feb 2017 11:00:57 -0700
-Received: from b03cxnp07029.gho.boulder.ibm.com
- (b03cxnp07029.gho.boulder.ibm.com [9.17.130.16])
- by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id 0C83319D806B;
- Fri, 17 Feb 2017 11:00:09 -0700 (MST)
-Received: from b03ledav001.gho.boulder.ibm.com
- (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v1HI0uTj10682694; Fri, 17 Feb 2017 11:00:56 -0700
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 54A3F6E04A;
- Fri, 17 Feb 2017 11:00:56 -0700 (MST)
-Received: from christophersmbp.austin.ibm.com (unknown [9.41.174.103])
- by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP id 11A676E041;
- Fri, 17 Feb 2017 11:00:55 -0700 (MST)
-Subject: Re: [PATCH linux dev-4.7 2/5] drivers/fsi: Initialize hub master
- engine
-To: Jeremy Kerr <jk@ozlabs.org>, joel@jms.id.au
-References: <20170216220434.79474-1-cbostic@linux.vnet.ibm.com>
- <20170216220434.79474-3-cbostic@linux.vnet.ibm.com>
- <f0976d5f-bd57-6ec3-9fec-1235429e9d9b@ozlabs.org>
- <51fcb28c-72c9-13d2-92a1-2b007cfe0cf9@linux.vnet.ibm.com>
-Cc: openbmc@lists.ozlabs.org
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Fri, 17 Feb 2017 12:00:55 -0600
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
- Gecko/20100101 Thunderbird/45.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vQ45q240WzDq5x
+ for <openbmc@lists.ozlabs.org>; Sat, 18 Feb 2017 07:15:42 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b="t3V1ZRgY";
+ dkim-atps=neutral
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
+ s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=8JAgFdQzehRJobzGIMxV6vH0r71Y0Wpb8PVdIY9CjZk=;
+ b=t3V1ZRgYtLcxfxPWQLf/sVPE39IIvkgDVQm9K5lqIHZyRzchIEk6ZK0thGCaARdKHvEof66itbaQ/aH2xQ0u112ExLo8jenYJtZ4RqhiTWC4A4pRlLuDRqZEQRepRfxAkD64caSjAD0mZfXM+sCAoILCbr+3EIUzghNu4Ph9Hhk=
+Received: from VI1PR0502MB3021.eurprd05.prod.outlook.com (10.175.21.23) by
+ VI1PR0502MB3023.eurprd05.prod.outlook.com (10.175.22.8) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id
+ 15.1.888.16; Fri, 17 Feb 2017 20:15:37 +0000
+Received: from VI1PR0502MB3021.eurprd05.prod.outlook.com ([10.175.21.23]) by
+ VI1PR0502MB3021.eurprd05.prod.outlook.com ([10.175.21.23]) with mapi id
+ 15.01.0919.013; Fri, 17 Feb 2017 20:15:37 +0000
+From: David Thompson <dthompson@mellanox.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: DSTREAM/DS-5 use on AST2500 EVB
+Thread-Topic: DSTREAM/DS-5 use on AST2500 EVB
+Thread-Index: AdKJWgUa+yXsGS5zQPaB+0rOhKg7dw==
+Date: Fri, 17 Feb 2017 20:15:37 +0000
+Message-ID: <VI1PR0502MB30211D216F237DA5240F6FF9DD5D0@VI1PR0502MB3021.eurprd05.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=dthompson@mellanox.com; 
+x-originating-ip: [173.76.53.114]
+x-ms-office365-filtering-correlation-id: d4388de3-604a-41db-8cd3-08d45771bce8
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: UriScan:; BCL:0; PCL:0; RULEID:(22001)(48565401081);
+ SRVR:VI1PR0502MB3023; 
+x-microsoft-exchange-diagnostics: 1; VI1PR0502MB3023;
+ 7:sJpICIbVDQIM9gH7l0UgGiidA8MTR+p2d49yy3QIntDPuFpSjK2He3POSdc/slatSQ8rAk3yyhlFAgSLOmhEg4Yr1En34nsMZPgGCphJ67PiBHVk4xWop+5Tp1dXocb3SU02bqClqjEXp7o61k/bjEpgheFE3VSpcUmJ6xlQppT9pNo1I2uI+EUF649aFMFH/oDH4Fe5nHNNBq6xCR7yQfPlYlaIm/8Zqi/AcynD4a7IZBjGrbB3XCCGEM+a7iYv97F4pzr2DjN/ZyDddNaDwrUijNk6d+wwVFGwvOVLjvtMBJMHkQ1oyuXc24I8w/gONXVtuCnkOCk0w4QWr5zT1Q==
+x-microsoft-antispam-prvs: <VI1PR0502MB30237E78DCF206119671A399DD5D0@VI1PR0502MB3023.eurprd05.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(21748063052155);
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(6040375)(601004)(2401047)(5005006)(8121501046)(3002001)(10201501046)(6055026)(6041248)(20161123558025)(20161123562025)(20161123560025)(20161123564025)(20161123555025)(6072148);
+ SRVR:VI1PR0502MB3023; BCL:0; PCL:0; RULEID:; SRVR:VI1PR0502MB3023; 
+x-forefront-prvs: 02213C82F8
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(6009001)(7916002)(39450400003)(39410400002)(39840400002)(39850400002)(199003)(504964003)(189002)(2351001)(68736007)(9686003)(790700001)(102836003)(6306002)(3846002)(5660300001)(54896002)(8936002)(1730700003)(8676002)(105586002)(7696004)(6116002)(81166006)(2906002)(66066001)(81156014)(106356001)(7736002)(74316002)(110136004)(122556002)(38730400002)(450100001)(189998001)(99286003)(77096006)(54356999)(101416001)(2501003)(86362001)(33656002)(6436002)(6916009)(50986999)(97736004)(55016002)(2900100001)(3280700002)(6506006)(3660700001)(25786008)(92566002)(53936002)(5640700003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR0502MB3023;
+ H:VI1PR0502MB3021.eurprd05.prod.outlook.com; FPR:; SPF:None; PTR:InfoNoRecords;
+ A:1; MX:1; LANG:en; 
+received-spf: None (protection.outlook.com: mellanox.com does not designate
+ permitted sender hosts)
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: multipart/alternative;
+ boundary="_000_VI1PR0502MB30211D216F237DA5240F6FF9DD5D0VI1PR0502MB3021_"
 MIME-Version: 1.0
-In-Reply-To: <51fcb28c-72c9-13d2-92a1-2b007cfe0cf9@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17021718-0008-0000-0000-00000742841F
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006634; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000203; SDB=6.00823349; UDB=6.00402895; IPR=6.00600794; 
- BA=6.00005148; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014326; XFM=3.00000011;
- UTC=2017-02-17 18:00:58
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17021718-0009-0000-0000-0000400014D6
-Message-Id: <5c55008c-431c-11a7-675c-0d632eb2a8d7@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-02-17_14:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
- definitions=main-1702170166
+X-OriginatorOrg: Mellanox.com
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Feb 2017 20:15:37.6589 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0502MB3023
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -82,149 +73,121 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Feb 2017 18:01:04 -0000
+X-List-Received-Date: Fri, 17 Feb 2017 20:15:45 -0000
+
+--_000_VI1PR0502MB30211D216F237DA5240F6FF9DD5D0VI1PR0502MB3021_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Does anyone utilize tools like DSTREAM & DS-5 for
+development and debug of OpenBMC software on
+the AST2500 EVB?   I'm actively looking to create,
+or acquire, the required DSTREAM/DS-5 platform
+configuration files for the AST2500 EVB platform.
+
+Does anyone have these configuration files, including
+the flash programming algorithm file, or know where
+I could acquire them?  I have already posted to the
+ARM community boards, but no luck there.
+
+Thank you in advance,
+Dave
+
+David Thompson
+Sr. Staff Engineer, System SW
+Mellanox Technologies
+1900 West Park Drive, Suite 290
+Westborough MA USA 01581
+Direct: 508-983-6439
 
 
+--_000_VI1PR0502MB30211D216F237DA5240F6FF9DD5D0VI1PR0502MB3021_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 2/17/17 11:24 AM, Christopher Bostic wrote:
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
->
-> On 2/17/17 1:42 AM, Jeremy Kerr wrote:
->> Hi Chris,
->>
->>> Define hub master probe and add definitions for general
->>> master registers and bitfields.
->> I think some background on what a hub master is (and how it differs from
->> a cascaded master) would be useful - either here or in Documentation/.
->
-> Hi Jeremy,
->
-> Ok will add some details here.
->>>   struct fsi_slave {
->>>       struct list_head    list_link;    /* Master's list of slaves */
->>>       struct list_head    my_engines;
->>>       struct device        dev;
->>> -    struct fsi_master    *master;
->>> +    struct fsi_master    *master;    /* Upstream master */
->>> +    struct fsi_master    *next_master;    /* Downstream master */
->>>       int            link;
->>>       uint8_t            id;
->>> +    uint32_t        base;        /* Base address */
->>>   };
->> [...]
->>
->>> @@ -26,6 +75,10 @@ struct fsi_master {
->>>       int        idx;
->>>       int        n_links;
->>>       uint32_t    ipoll;
->>> +    struct fsi_device *engine;
->>> +    struct fsi_device *link;
->>> +    uint8_t        type;
->>> +    uint32_t    link_size;
->>>       int        (*read)(struct fsi_master *, int link,
->>>                   uint8_t slave, uint32_t addr,
->>>                   void *val, size_t size);
->> It seems to me that you've added a lot of hub-specific definitions to
->> multiple parts of the generic FSI core code. I would much rather see
->> this contained to code that supports just the hub.
->>
->> However, the hub functionality doesn't seem to fit within the
->> slave-engine device model - as a slave-engine driver (binding on the
->> 0x1c/0x1d entries in the configuration table), the hub driver violates
->> the device model in that it performs accesses to addresses *way* outside
->> of the allocations described in the configuration table.
->>
->> [that's why you've altered fsi_dev->size in the master driver, and can
->> potentially lead to conflicts with other drivers in future]
-> I altered the dev size due to the incorrect size of hMFSI links/ports 
-> in the config table.  More on that below.
->
->>  From what I can glean from the docs, the hub master has a couple of
->> interfaces:
->>
->>   - the control register set described in the slave configuration table
->>     as type 0x1d
->>   - a description of the links, as entries in the slave configuration
->>     table as type 0x1c
->
-> I think 0x1d and 0x1c types are swapped in the overall discussion.
->>
->>   - the actual FSI master address space, provided underneath a *slave*
->>     (and not a *slave engine* - that distinction is important).
->>
->> To me, it sounds like we should not make this a slave engine driver, but
->> a part of the core *slave* code, because the hub masters are attached
->> directly to the slaves. This would involve:
->>
->>    - struct fsi_master_hub {
->>          struct fsi_master master;
->>          struct fsi_slave *slave;
->>     uint32_t          control_regs;  /* slave-relative addr of regs */
->>     uint32_t          base;          /* slave-relative addr of
->>                         master address space */
->>      }
->>
->>    - in fsi_slave_scan():
->>
->>       - suppressing the 0x1c and 0x1d devices from creating slave 
->> engines
->>
->>       - if we find an 0x1d type in the configuration table:
->>          - struct fsi_master_hub *hub = kzalloc(...);
->>       hub->base = /* pre-defined */
->>       hub->control_regs = /* parsed from config table */
->>       hub->slave = slave;
->>
->>       - if (hub) {
->>            use a count of the 0x1c types to populate n_links
->>       fsi_master_register(&hub->master);
->>         }
->>
->>    - the read() and write() callbacks of fsi_master_hub just pass 
->> through
->>      to the slave (at offset ->base), and the enable/break will 
->> access the
->>      control_regs.
->>
->> This means that we keep the hub code encapsulated, and the hub
->> implementation doesn't leak out to the core fsi_master or fsi_slave
->> structs.
->
-> Good idea, will implement that.
->> For cascaded masters, we can probably keep this model of using a slave
->> engine driver, but I just don't think it's suitable for the hubs.
->
-> There isn't much difference conceptually between a cMFSI master and 
-> hub hMFSI master.   Only things that vary between the two are number 
-> of links/ports that might be supported off of them and what size 
-> address space their links/ports span.  The cMFSI master on P9 has a 
-> 0x8000 byte addressable window per link/port  whereas hMFSI accesses 
-> 0x80000 per link.
->
-> The P9 CFAM configuration space does not list the hMFSI port size 
-> correctly.  Each link/port is listed as size *0*.
-> The cMFSI link/port size is correct, 0x20 1k pages.
->
-> Given their similarities it would make sense to me to use the 
-> refactored approach you describe above for both hMFSI and and in the 
-> future, cMFSI.
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Does anyone utilize tools like DSTREAM &amp; DS-5 fo=
+r<o:p></o:p></p>
+<p class=3D"MsoNormal">development and debug of OpenBMC software on<o:p></o=
+:p></p>
+<p class=3D"MsoNormal">the AST2500 EVB?&nbsp;&nbsp; I&#8217;m actively look=
+ing to create,<o:p></o:p></p>
+<p class=3D"MsoNormal">or acquire, the required DSTREAM/DS-5 platform <o:p>=
+</o:p></p>
+<p class=3D"MsoNormal">configuration files for the AST2500 EVB platform.<o:=
+p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Does anyone have these configuration files, includin=
+g<o:p></o:p></p>
+<p class=3D"MsoNormal">the flash programming algorithm file, or know where<=
+o:p></o:p></p>
+<p class=3D"MsoNormal">I could acquire them?&nbsp; I have already posted to=
+ the <o:p></o:p></p>
+<p class=3D"MsoNormal">ARM community boards, but no luck there.<o:p></o:p><=
+/p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thank you in advance,<o:p></o:p></p>
+<p class=3D"MsoNormal">Dave<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">David Thompson<o:p></o:p></p>
+<p class=3D"MsoNormal">Sr. Staff Engineer, System SW<o:p></o:p></p>
+<p class=3D"MsoNormal">Mellanox Technologies<o:p></o:p></p>
+<p class=3D"MsoNormal">1900 West Park Drive, Suite 290<o:p></o:p></p>
+<p class=3D"MsoNormal">Westborough MA USA 01581<o:p></o:p></p>
+<p class=3D"MsoNormal">Direct: 508-983-6439<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
 
-Hi Jeremy,
-
-Since the hMFSI link type does have a number of 1k slots like cMFSI 
-would this influence your proposed changes?
-Sounded like you were inclined to keep the slave engine driver model for 
-cMFSI.
-
-Thanks,
-> Thanks for your input,
->
-> Chris
->
->>
->> Regards,
->>
->>
->> Jeremy
->>
->
+--_000_VI1PR0502MB30211D216F237DA5240F6FF9DD5D0VI1PR0502MB3021_--
