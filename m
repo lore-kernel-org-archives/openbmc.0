@@ -1,67 +1,68 @@
-Return-Path: <dthompson@mellanox.com>
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur01on0044.outbound.protection.outlook.com [104.47.2.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vQ45q240WzDq5x
- for <openbmc@lists.ozlabs.org>; Sat, 18 Feb 2017 07:15:42 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b="t3V1ZRgY";
- dkim-atps=neutral
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
- s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=8JAgFdQzehRJobzGIMxV6vH0r71Y0Wpb8PVdIY9CjZk=;
- b=t3V1ZRgYtLcxfxPWQLf/sVPE39IIvkgDVQm9K5lqIHZyRzchIEk6ZK0thGCaARdKHvEof66itbaQ/aH2xQ0u112ExLo8jenYJtZ4RqhiTWC4A4pRlLuDRqZEQRepRfxAkD64caSjAD0mZfXM+sCAoILCbr+3EIUzghNu4Ph9Hhk=
-Received: from VI1PR0502MB3021.eurprd05.prod.outlook.com (10.175.21.23) by
- VI1PR0502MB3023.eurprd05.prod.outlook.com (10.175.22.8) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id
- 15.1.888.16; Fri, 17 Feb 2017 20:15:37 +0000
-Received: from VI1PR0502MB3021.eurprd05.prod.outlook.com ([10.175.21.23]) by
- VI1PR0502MB3021.eurprd05.prod.outlook.com ([10.175.21.23]) with mapi id
- 15.01.0919.013; Fri, 17 Feb 2017 20:15:37 +0000
-From: David Thompson <dthompson@mellanox.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: DSTREAM/DS-5 use on AST2500 EVB
-Thread-Topic: DSTREAM/DS-5 use on AST2500 EVB
-Thread-Index: AdKJWgUa+yXsGS5zQPaB+0rOhKg7dw==
-Date: Fri, 17 Feb 2017 20:15:37 +0000
-Message-ID: <VI1PR0502MB30211D216F237DA5240F6FF9DD5D0@VI1PR0502MB3021.eurprd05.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=dthompson@mellanox.com; 
-x-originating-ip: [173.76.53.114]
-x-ms-office365-filtering-correlation-id: d4388de3-604a-41db-8cd3-08d45771bce8
-x-ms-office365-filtering-ht: Tenant
-x-microsoft-antispam: UriScan:; BCL:0; PCL:0; RULEID:(22001)(48565401081);
- SRVR:VI1PR0502MB3023; 
-x-microsoft-exchange-diagnostics: 1; VI1PR0502MB3023;
- 7:sJpICIbVDQIM9gH7l0UgGiidA8MTR+p2d49yy3QIntDPuFpSjK2He3POSdc/slatSQ8rAk3yyhlFAgSLOmhEg4Yr1En34nsMZPgGCphJ67PiBHVk4xWop+5Tp1dXocb3SU02bqClqjEXp7o61k/bjEpgheFE3VSpcUmJ6xlQppT9pNo1I2uI+EUF649aFMFH/oDH4Fe5nHNNBq6xCR7yQfPlYlaIm/8Zqi/AcynD4a7IZBjGrbB3XCCGEM+a7iYv97F4pzr2DjN/ZyDddNaDwrUijNk6d+wwVFGwvOVLjvtMBJMHkQ1oyuXc24I8w/gONXVtuCnkOCk0w4QWr5zT1Q==
-x-microsoft-antispam-prvs: <VI1PR0502MB30237E78DCF206119671A399DD5D0@VI1PR0502MB3023.eurprd05.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:(21748063052155);
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(6040375)(601004)(2401047)(5005006)(8121501046)(3002001)(10201501046)(6055026)(6041248)(20161123558025)(20161123562025)(20161123560025)(20161123564025)(20161123555025)(6072148);
- SRVR:VI1PR0502MB3023; BCL:0; PCL:0; RULEID:; SRVR:VI1PR0502MB3023; 
-x-forefront-prvs: 02213C82F8
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(6009001)(7916002)(39450400003)(39410400002)(39840400002)(39850400002)(199003)(504964003)(189002)(2351001)(68736007)(9686003)(790700001)(102836003)(6306002)(3846002)(5660300001)(54896002)(8936002)(1730700003)(8676002)(105586002)(7696004)(6116002)(81166006)(2906002)(66066001)(81156014)(106356001)(7736002)(74316002)(110136004)(122556002)(38730400002)(450100001)(189998001)(99286003)(77096006)(54356999)(101416001)(2501003)(86362001)(33656002)(6436002)(6916009)(50986999)(97736004)(55016002)(2900100001)(3280700002)(6506006)(3660700001)(25786008)(92566002)(53936002)(5640700003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR0502MB3023;
- H:VI1PR0502MB3021.eurprd05.prod.outlook.com; FPR:; SPF:None; PTR:InfoNoRecords;
- A:1; MX:1; LANG:en; 
-received-spf: None (protection.outlook.com: mellanox.com does not designate
- permitted sender hosts)
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: multipart/alternative;
- boundary="_000_VI1PR0502MB30211D216F237DA5240F6FF9DD5D0VI1PR0502MB3021_"
-MIME-Version: 1.0
-X-OriginatorOrg: Mellanox.com
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Feb 2017 20:15:37.6589 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0502MB3023
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vQ5785hrhzDq5x
+ for <openbmc@lists.ozlabs.org>; Sat, 18 Feb 2017 08:01:56 +1100 (AEDT)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v1HKx4BI066836
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 16:01:54 -0500
+Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 28p4sm13kb-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 16:01:53 -0500
+Received: from localhost
+ by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Fri, 17 Feb 2017 16:01:52 -0500
+Received: from d01dlp01.pok.ibm.com (9.56.250.166)
+ by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Fri, 17 Feb 2017 16:01:50 -0500
+Received: from b01cxnp23034.gho.pok.ibm.com (b01cxnp23034.gho.pok.ibm.com
+ [9.57.198.29])
+ by d01dlp01.pok.ibm.com (Postfix) with ESMTP id 3450638C804F;
+ Fri, 17 Feb 2017 16:01:51 -0500 (EST)
+Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
+ [9.57.199.107])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v1HL1ntv61997304; Fri, 17 Feb 2017 21:01:50 GMT
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 3A37C12403D;
+ Fri, 17 Feb 2017 16:01:49 -0500 (EST)
+Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
+ by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP id E231612404C;
+ Fri, 17 Feb 2017 16:01:48 -0500 (EST)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, cbostic@linux.vnet.ibm.com,
+ "Edward A. James" <eajames@us.ibm.com>
+Subject: [PATCH linux dev-4.7 v2] drivers: fsi: Use kernel ida to manage
+ device indexes
+Date: Fri, 17 Feb 2017 15:01:47 -0600
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 17021721-0040-0000-0000-000002A813CB
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006634; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000203; SDB=6.00823409; UDB=6.00402931; IPR=6.00600855; 
+ BA=6.00005148; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014329; XFM=3.00000011;
+ UTC=2017-02-17 21:01:51
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17021721-0041-0000-0000-0000069B34B1
+Message-Id: <1487365307-25662-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-02-17_18:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
+ definitions=main-1702170193
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -73,121 +74,123 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Feb 2017 20:15:45 -0000
+X-List-Received-Date: Fri, 17 Feb 2017 21:01:57 -0000
 
---_000_VI1PR0502MB30211D216F237DA5240F6FF9DD5D0VI1PR0502MB3021_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+From: "Edward A. James" <eajames@us.ibm.com>
 
-Does anyone utilize tools like DSTREAM & DS-5 for
-development and debug of OpenBMC software on
-the AST2500 EVB?   I'm actively looking to create,
-or acquire, the required DSTREAM/DS-5 platform
-configuration files for the AST2500 EVB platform.
+Fixes bad device indexes and duplicates after fsi rescan
 
-Does anyone have these configuration files, including
-the flash programming algorithm file, or know where
-I could acquire them?  I have already posted to the
-ARM community boards, but no luck there.
+since v1:
+ * don't use the unsafe atomic counter
 
-Thank you in advance,
-Dave
+Signed-off-by: Edward A. James <eajames@us.ibm.com>
+---
+ drivers/fsi/fsi-core.c        | 10 ++++++++--
+ drivers/fsi/fsi-master-gpio.c |  1 +
+ drivers/fsi/fsi-scom.c        | 10 ++++++++--
+ 3 files changed, 17 insertions(+), 4 deletions(-)
 
-David Thompson
-Sr. Staff Engineer, System SW
-Mellanox Technologies
-1900 West Park Drive, Suite 290
-Westborough MA USA 01581
-Direct: 508-983-6439
-
-
---_000_VI1PR0502MB30211D216F237DA5240F6FF9DD5D0VI1PR0502MB3021_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Does anyone utilize tools like DSTREAM &amp; DS-5 fo=
-r<o:p></o:p></p>
-<p class=3D"MsoNormal">development and debug of OpenBMC software on<o:p></o=
-:p></p>
-<p class=3D"MsoNormal">the AST2500 EVB?&nbsp;&nbsp; I&#8217;m actively look=
-ing to create,<o:p></o:p></p>
-<p class=3D"MsoNormal">or acquire, the required DSTREAM/DS-5 platform <o:p>=
-</o:p></p>
-<p class=3D"MsoNormal">configuration files for the AST2500 EVB platform.<o:=
-p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Does anyone have these configuration files, includin=
-g<o:p></o:p></p>
-<p class=3D"MsoNormal">the flash programming algorithm file, or know where<=
-o:p></o:p></p>
-<p class=3D"MsoNormal">I could acquire them?&nbsp; I have already posted to=
- the <o:p></o:p></p>
-<p class=3D"MsoNormal">ARM community boards, but no luck there.<o:p></o:p><=
-/p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Thank you in advance,<o:p></o:p></p>
-<p class=3D"MsoNormal">Dave<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">David Thompson<o:p></o:p></p>
-<p class=3D"MsoNormal">Sr. Staff Engineer, System SW<o:p></o:p></p>
-<p class=3D"MsoNormal">Mellanox Technologies<o:p></o:p></p>
-<p class=3D"MsoNormal">1900 West Park Drive, Suite 290<o:p></o:p></p>
-<p class=3D"MsoNormal">Westborough MA USA 01581<o:p></o:p></p>
-<p class=3D"MsoNormal">Direct: 508-983-6439<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-</body>
-</html>
-
---_000_VI1PR0502MB30211D216F237DA5240F6FF9DD5D0VI1PR0502MB3021_--
+diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
+index e8a3618..d63a892 100644
+--- a/drivers/fsi/fsi-core.c
++++ b/drivers/fsi/fsi-core.c
+@@ -15,6 +15,7 @@
+ 
+ #include <linux/device.h>
+ #include <linux/fsi.h>
++#include <linux/idr.h>
+ #include <linux/kthread.h>
+ #include <linux/module.h>
+ #include <linux/slab.h>
+@@ -46,7 +47,7 @@ static const int engine_page_size = 0x400;
+ static struct task_struct *master_ipoll;
+ static unsigned int fsi_ipoll_period_ms = 100;
+ 
+-static atomic_t master_idx = ATOMIC_INIT(-1);
++static DEFINE_IDA(master_ida);
+ 
+ struct fsi_slave {
+ 	struct list_head	list_link;	/* Master's list of slaves */
+@@ -599,7 +600,7 @@ int fsi_master_register(struct fsi_master *master)
+ 	if (!master || !master->dev)
+ 		return -EINVAL;
+ 
+-	master->idx = atomic_inc_return(&master_idx);
++	master->idx = ida_simple_get(&master_ida, 0, INT_MAX, GFP_KERNEL);
+ 	master->slave_list = false;
+ 	get_device(master->dev);
+ 	fsi_master_scan(master);
+@@ -610,6 +611,11 @@ EXPORT_SYMBOL_GPL(fsi_master_register);
+ 
+ void fsi_master_unregister(struct fsi_master *master)
+ {
++	if (master->idx >= 0) {
++		ida_simple_remove(&master_ida, master->idx);
++		master->idx = -1;
++	}
++
+ 	device_remove_file(master->dev, &dev_attr_fsi_ipoll_period);
+ 	fsi_master_unscan(master);
+ 	put_device(master->dev);
+diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
+index 91bdbf2..3ed82ea 100644
+--- a/drivers/fsi/fsi-master-gpio.c
++++ b/drivers/fsi/fsi-master-gpio.c
+@@ -512,6 +512,7 @@ static int fsi_master_gpio_probe(struct platform_device *pdev)
+ 	else
+ 		master->gpio_mux = gpio;
+ 
++	master->master.idx = -1;
+ 	master->master.n_links = 1;
+ 	master->master.read = fsi_master_gpio_read;
+ 	master->master.write = fsi_master_gpio_write;
+diff --git a/drivers/fsi/fsi-scom.c b/drivers/fsi/fsi-scom.c
+index a439a5e..ff8267b 100644
+--- a/drivers/fsi/fsi-scom.c
++++ b/drivers/fsi/fsi-scom.c
+@@ -22,6 +22,7 @@
+ #include <linux/slab.h>
+ #include <linux/miscdevice.h>
+ #include <linux/list.h>
++#include <linux/idr.h>
+ 
+ #define FSI_ENGID_SCOM		0x5
+ 
+@@ -41,12 +42,14 @@ struct scom_device {
+ 	struct fsi_device *fsi_dev;
+ 	struct miscdevice mdev;
+ 	char	name[32];
++	int idx;
+ };
+ 
+ #define to_scom_dev(x)		container_of((x), struct scom_device, mdev)
+ 
+ static struct list_head scom_devices;
+-static atomic_t scom_idx = ATOMIC_INIT(0);
++
++static DEFINE_IDA(scom_ida);
+ 
+ static int put_scom(struct scom_device *scom_dev, uint64_t value,
+ 			uint32_t addr)
+@@ -187,8 +190,9 @@ static int scom_probe(struct device *dev)
+ 	if (!scom)
+ 		return -ENOMEM;
+ 
++	scom->idx = ida_simple_get(&scom_ida, 1, INT_MAX, GFP_KERNEL);
+ 	snprintf(scom->name, sizeof(scom->name),
+-			"scom%d", atomic_inc_return(&scom_idx));
++			"scom%d", scom->idx);
+ 	scom->fsi_dev = fsi_dev;
+ 	scom->mdev.minor = MISC_DYNAMIC_MINOR;
+ 	scom->mdev.fops = &scom_fops;
+@@ -211,6 +215,8 @@ static int scom_remove(struct device *dev)
+ 		}
+ 	}
+ 
++	ida_simple_remove(&scom_ida, scom->idx);
++
+ 	return 0;
+ }
+ 
+-- 
+1.8.3.1
