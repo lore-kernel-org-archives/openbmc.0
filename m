@@ -1,68 +1,68 @@
 Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vQ5785hrhzDq5x
- for <openbmc@lists.ozlabs.org>; Sat, 18 Feb 2017 08:01:56 +1100 (AEDT)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v1HKx4BI066836
- for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 16:01:54 -0500
-Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
- by mx0a-001b2d01.pphosted.com with ESMTP id 28p4sm13kb-1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vQ5wz1RWszDq5x
+ for <openbmc@lists.ozlabs.org>; Sat, 18 Feb 2017 08:38:10 +1100 (AEDT)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v1HLT1GZ065896
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 16:38:08 -0500
+Received: from e38.co.us.ibm.com (e38.co.us.ibm.com [32.97.110.159])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 28p6a3pbpd-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 16:01:53 -0500
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 16:38:07 -0500
 Received: from localhost
- by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e38.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Fri, 17 Feb 2017 16:01:52 -0500
-Received: from d01dlp01.pok.ibm.com (9.56.250.166)
- by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
+ Fri, 17 Feb 2017 14:38:07 -0700
+Received: from d03dlp01.boulder.ibm.com (9.17.202.177)
+ by e38.co.us.ibm.com (192.168.1.138) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Fri, 17 Feb 2017 16:01:50 -0500
-Received: from b01cxnp23034.gho.pok.ibm.com (b01cxnp23034.gho.pok.ibm.com
- [9.57.198.29])
- by d01dlp01.pok.ibm.com (Postfix) with ESMTP id 3450638C804F;
- Fri, 17 Feb 2017 16:01:51 -0500 (EST)
-Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
- [9.57.199.107])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v1HL1ntv61997304; Fri, 17 Feb 2017 21:01:50 GMT
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3A37C12403D;
- Fri, 17 Feb 2017 16:01:49 -0500 (EST)
+ Fri, 17 Feb 2017 14:38:05 -0700
+Received: from b01cxnp22034.gho.pok.ibm.com (b01cxnp22034.gho.pok.ibm.com
+ [9.57.198.24])
+ by d03dlp01.boulder.ibm.com (Postfix) with ESMTP id A978B1FF0026;
+ Fri, 17 Feb 2017 14:37:42 -0700 (MST)
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v1HLc49M42729684; Fri, 17 Feb 2017 21:38:04 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 35B72112040;
+ Fri, 17 Feb 2017 16:38:04 -0500 (EST)
 Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP id E231612404C;
- Fri, 17 Feb 2017 16:01:48 -0500 (EST)
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id CBA0411205F;
+ Fri, 17 Feb 2017 16:38:03 -0500 (EST)
 From: Eddie James <eajames@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, cbostic@linux.vnet.ibm.com,
  "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.7 v2] drivers: fsi: Use kernel ida to manage
+Subject: [PATCH linux dev-4.7 v3] drivers: fsi: Use kernel ida to manage
  device indexes
-Date: Fri, 17 Feb 2017 15:01:47 -0600
+Date: Fri, 17 Feb 2017 15:38:02 -0600
 X-Mailer: git-send-email 1.8.3.1
 X-TM-AS-GCONF: 00
 X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17021721-0040-0000-0000-000002A813CB
+x-cbid: 17021721-0028-0000-0000-0000071420C1
 X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006634; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000203; SDB=6.00823409; UDB=6.00402931; IPR=6.00600855; 
+X-IBM-SpamModules-Versions: BY=3.00006635; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000203; SDB=6.00823421; UDB=6.00402938; IPR=6.00600867; 
  BA=6.00005148; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014329; XFM=3.00000011;
- UTC=2017-02-17 21:01:51
+ UTC=2017-02-17 21:38:07
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17021721-0041-0000-0000-0000069B34B1
-Message-Id: <1487365307-25662-1-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 17021721-0029-0000-0000-000033AB5A58
+Message-Id: <1487367482-24868-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-02-17_18:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  spamscore=0 suspectscore=1
  malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
  adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
- definitions=main-1702170193
+ definitions=main-1702170198
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -74,21 +74,18 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Feb 2017 21:01:57 -0000
+X-List-Received-Date: Fri, 17 Feb 2017 21:38:11 -0000
 
 From: "Edward A. James" <eajames@us.ibm.com>
 
 Fixes bad device indexes and duplicates after fsi rescan
 
-since v1:
- * don't use the unsafe atomic counter
-
 Signed-off-by: Edward A. James <eajames@us.ibm.com>
 ---
  drivers/fsi/fsi-core.c        | 10 ++++++++--
  drivers/fsi/fsi-master-gpio.c |  1 +
- drivers/fsi/fsi-scom.c        | 10 ++++++++--
- 3 files changed, 17 insertions(+), 4 deletions(-)
+ drivers/fsi/fsi-scom.c        |  9 +++++++--
+ 3 files changed, 16 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
 index e8a3618..d63a892 100644
@@ -145,7 +142,7 @@ index 91bdbf2..3ed82ea 100644
  	master->master.read = fsi_master_gpio_read;
  	master->master.write = fsi_master_gpio_write;
 diff --git a/drivers/fsi/fsi-scom.c b/drivers/fsi/fsi-scom.c
-index a439a5e..ff8267b 100644
+index a439a5e..2874ea0 100644
 --- a/drivers/fsi/fsi-scom.c
 +++ b/drivers/fsi/fsi-scom.c
 @@ -22,6 +22,7 @@
@@ -183,14 +180,13 @@ index a439a5e..ff8267b 100644
  	scom->fsi_dev = fsi_dev;
  	scom->mdev.minor = MISC_DYNAMIC_MINOR;
  	scom->mdev.fops = &scom_fops;
-@@ -211,6 +215,8 @@ static int scom_remove(struct device *dev)
+@@ -207,6 +211,7 @@ static int scom_remove(struct device *dev)
+ 	list_for_each_entry_safe(scom, scom_tmp, &scom_devices, link) {
+ 		if (scom->fsi_dev == fsi_dev) {
+ 			list_del(&scom->link);
++			ida_simple_remove(&scom_ida, scom->idx);
+ 			misc_deregister(&scom->mdev);
  		}
  	}
- 
-+	ida_simple_remove(&scom_ida, scom->idx);
-+
- 	return 0;
- }
- 
 -- 
 1.8.3.1
