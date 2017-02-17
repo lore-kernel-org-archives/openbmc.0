@@ -1,25 +1,54 @@
-Return-Path: <benh@kernel.crashing.org>
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
+ [IPv6:2607:f8b0:4002:c05::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vPk6c3gzZzDqD0
- for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 17:45:12 +1100 (AEDT)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.13.8) with ESMTP id v1H6iwlZ004361;
- Fri, 17 Feb 2017 00:44:58 -0600
-Message-ID: <1487313897.23576.122.camel@kernel.crashing.org>
-Subject: Re: [PATCH v6] drivers/misc: Add Aspeed LPC control driver
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Cyril Bur <cyrilbur@gmail.com>, gregkh@linuxfoundation.org
-Cc: linux-kernel@vger.kernel.org, mikey@neuling.org, joel@jms.id.au,
- openbmc@lists.ozlabs.org
-Date: Fri, 17 Feb 2017 17:44:57 +1100
-In-Reply-To: <20170217032849.23994-1-cyrilbur@gmail.com>
-References: <20170217032849.23994-1-cyrilbur@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.22.4 (3.22.4-2.fc25) 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vPkF11ZZ2zDq5x
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 17:50:45 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="unnh8ROv"; 
+ dkim-atps=neutral
+Received: by mail-yw0-x244.google.com with SMTP id q71so2724765ywg.3
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 22:50:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=jaFzmS5pSNwdywIpAVAoo99hIDn0hKx7D3xuOgRlKU0=;
+ b=unnh8ROvs5oQFBCl+YICPcK8kMWxbZ4vjYTcbpWJCeiSp/WMLdKsDTAkkYTPvDLrVV
+ YbqI1jER0TfLhGZCnJi4wbOdmUT1ZduqcfXUfQiLMaYlkKo6gU+ybxR++coXqd66L4qM
+ LjXfd7cbJRPh6Ezt+zjWdbUnUTvSxQzizURK2m75aEPZz4Z3YFdPrHaRLKusCjvc/seI
+ MCtaKdJHK6Js3ycEUtF4eZTSgziK2p1yY+K8taJ/iQ6aEtgc/dqUO22DyrOfuc18H57s
+ heAhnFxir21PE5y+2Q73J0y/dFMiAK4/pUZ7+wUCbdA2rysnvYj7hRINGfKFGkpbDcIK
+ eEQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=jaFzmS5pSNwdywIpAVAoo99hIDn0hKx7D3xuOgRlKU0=;
+ b=D/RQotBlE104p/DTisfY64iFGAUmWCP0CwSPvRw0+oepzW2hVdjB9KyvA98DJcapPJ
+ DcIUBYKTDn3WAMVwDEZ/1SqZeegkrr3qzhPDNCA/OlB1/b5Zh3b6XymfkoWjKxh72pso
+ egEN3fo5hzQ31UEFxNUmUhFd4pGIvW0igU40PeZq4pyWpX1Llqb1IxLWnpWFgzxjdvz3
+ 2fjn6E0eeEP8rAGaxmbrqx3r8GU305taUndHGIOKbT9jSSn3RfPWE1UVr33C7UhD5okq
+ mu4R2PgW09oouaG9lSSsggC1MPp0+nx12kahBjRGEfXxL0GuNsvgkeCSYSBihwdqHY/+
+ z22A==
+X-Gm-Message-State: AMke39nyiDKTDvwUF88uesPNJdLJ2NgiT6Fehxci5+cYU5snRNPHxhGwF1RAODAhcYyZ/DkOyYOcVrsNOU3n+g==
+X-Received: by 10.129.91.194 with SMTP id p185mr4624813ywb.50.1487314242869;
+ Thu, 16 Feb 2017 22:50:42 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.170.41 with HTTP; Thu, 16 Feb 2017 22:50:22 -0800 (PST)
+In-Reply-To: <1487311780.3661.43.camel@aj.id.au>
+References: <20170217042603.25864-1-raltherr@google.com>
+ <1487311780.3661.43.camel@aj.id.au>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 17 Feb 2017 17:20:22 +1030
+X-Google-Sender-Auth: vEDkNKEojHP4boP7A9aZzfji2sM
+Message-ID: <CACPK8Xf7J-pJZfKFT0eiUVmCLenAP4GOnoQ_cjkSYFceyfqi=g@mail.gmail.com>
+Subject: Re: [PATCH linux] dts: aspeed: Enable MAC1 on Quanta Q71L BMC
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Rick Altherr <raltherr@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -31,61 +60,16 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Feb 2017 06:45:13 -0000
+X-List-Received-Date: Fri, 17 Feb 2017 06:50:46 -0000
 
-On Fri, 2017-02-17 at 14:28 +1100, Cyril Bur wrote:
-> In order to manage server systems, there is typically another
-> processor
-> known as a BMC (Baseboard Management Controller) which is responsible
-> for powering the server and other various elements, sometimes fans,
-> often the system flash.
+On Fri, Feb 17, 2017 at 4:39 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> On Thu, 2017-02-16 at 20:26 -0800, Rick Altherr wrote:
+>> Signed-off-by: Rick Altherr <raltherr@google.com>
+>
+> Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 
- .../...
-
-> It is important to note that due to the way the Aspeed chip lets the
-> kernel configure the mapping between host LPC addresses and BMC ram
-> addresses the offset within the window must be a multiple of size.
-> Not doing so will fragment the accessible space rather than simply
-> moving 'zero' upwards. This is caused by the nature of HICR8 being a
-> mask and the way host LPC addresses are translated.
-> 
-> Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
-
-Reviewed-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-
-Greg, quick Q for you:
-
-We will need to also add a mechanism to poke at a few registers
-in the same LPC controllers from userspace.
-
-Mostly those are "scratch" registers that the BMC is supposed to set to
-specific values to indicates features it supports etc... (or to enable 
-the host BIOS to run in some kind of verbose debug mode).
-
-Think of it as a communication channel between the BMC and the BIOS
-running on the host.
-
-The BMC userspace needs to set them to various platform specific
-values as appropriate for a given vendor/system (userspace policy
-from the BMC perspective) during boot and/or change them as the result
-of some user actions (enable debug mode) etc...
-
-The question here is read/write or sysfs files attached to the
-sysfs node ?
-
-The former means userspace needs to "seek" to the right magic
-offset to write to one of them which is non-trivial to do from
-simple shell scripts but is a more natural interface.
-
-It also means the owner/permissions of the /dev entry as set
-by uboot apply which can be nice.
-
-The latter can expose each register by its name which provides
-a nice way to echo in/out of them from a shell script.
-
-The drawback is that pretty much restricts access to root.
-
-What do you recommend ?
+Applied to dev-4.7.
 
 Cheers,
-Ben.
+
+Joel
