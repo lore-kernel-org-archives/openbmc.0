@@ -1,55 +1,57 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x241.google.com (mail-yb0-x241.google.com
- [IPv6:2607:f8b0:4002:c09::241])
+Return-Path: <cyrilbur@gmail.com>
+Received: from mail-pg0-x242.google.com (mail-pg0-x242.google.com
+ [IPv6:2607:f8b0:400e:c05::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vPckm04wzzDqBW
- for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 13:42:40 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vPcvT6d4mzDqBW
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 13:50:13 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="A7kLhUsR"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="aDcEhe4I"; 
  dkim-atps=neutral
-Received: by mail-yb0-x241.google.com with SMTP id 123so1313329ybe.0
- for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 18:42:39 -0800 (PST)
+Received: by mail-pg0-x242.google.com with SMTP id y6so2466017pgy.2
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Feb 2017 18:50:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=uNEIHVtsEFSjqtjqS1QMIm9qjHdZIFfpUnmUoBHjQTU=;
- b=A7kLhUsRNEIomNd57zuHBm50wlRxOB0oiZBwrG9BNwrzy7uJwgPMT5IWUsQzrbKGwO
- +GaPXReAbHyZzB6BVTWrF5pxfJg8Dqev5NFCye8RScgHeGemWc/NXq25aK65KFYWiW9v
- HX8Kh/mOm12KDhZU288un/R6ZVO6rmWZw6ZTrElCNyulU2qZsBPlPyISLeeHmF9znbIb
- SzXKUCXPbALoQ4hIgMzP4izWN3LtWBL3JRihBV2o1YTweZBst4cI01SThmLQev/KOSh7
- aI4cVT6Wb5RLebzjAwH5mPzVbFBkl9m9fbC34ENFV1iyRWNWGCbx0BMUBtqHE0T0LJrC
- Kn5Q==
+ h=message-id:subject:from:to:cc:date:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=Jp7PsGnvRXXFIESKutsWnvtso+M9gweGbKpZvYdfk74=;
+ b=aDcEhe4IHuVY2VLu69zQmQdBvj+pdzYofJOAtEu/cLI2kgeCgm8vqAIt+0IFD7lZUQ
+ e4C+TlQju/nIG8O8voEmh5uhZtOKftnDTJGyCXKe0jcb/Wn/mx+VwMC4h+V6bZp5NG6q
+ N9VT0OhlvRZoUhQYszsnKjrygCZK9gYZN5jLjKS5Olw9s30MJuG1XQMCQagiBnJHH4nf
+ A3p1c0hpy4o2OZrgttsoDZPcyyZu7EY45SLlbeCxjbnwaFzoZqSrBPBxbapuaTVuE8np
+ KrQe1oiiR3nwt1MuVG1fDFFUqdfx3ErEjNZ01iErWZsizE9u1O8UWRbVx0iosHDoAwM3
+ h1IA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=uNEIHVtsEFSjqtjqS1QMIm9qjHdZIFfpUnmUoBHjQTU=;
- b=PCrYqQ5V4mIyREuACeIZutymeca4hhl666FvkyZYlbEswgz8pqXWd3omZiYPiHhunq
- of0TwqA1CRkNVXTeFme5o3ePiGVNisqI4seGuDsPnZz+FgHgcsonlVxqw/4su+dn3v55
- Q/C5WhW+mO97D5RWbEhkjLaF6VQDQu9YxMEKb9CnzdQ8YcnOa6UnyWaRXOd7wUmNfjeW
- tHZYlIIeQMO3tNLOzJMJ5HqFlHaKKEYzlQqrKma8mrYFgeHwuKGbgxrSS0oOEwQ0IwFu
- I5XPuBlGDVOK/X7Ah2rR+OJxB3ibzdlXQg0EUPDoayK/XFUxs8SBkCDHTYaLSf8c/syH
- mPUw==
-X-Gm-Message-State: AMke39lwUHuoRVFU7K0gX+LFcu5lLmfbNk18nQ3tFCn4DuywzdSjs6LRmkF8Ffj9kHHrmiZuzSTfFOr9/hkQeg==
-X-Received: by 10.37.3.132 with SMTP id 126mr4075268ybd.15.1487299357577; Thu,
- 16 Feb 2017 18:42:37 -0800 (PST)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.170.41 with HTTP; Thu, 16 Feb 2017 18:42:17 -0800 (PST)
-In-Reply-To: <20170214063000.23692-1-cyrilbur@gmail.com>
-References: <20170214063000.23692-1-cyrilbur@gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 17 Feb 2017 13:12:17 +1030
-X-Google-Sender-Auth: D95330-_pp8KjKZO2HRIC_dhQhA
-Message-ID: <CACPK8XcNXOL6620QYB1oJeKP05eqhnWyQovLGzVy3ZY=w=ndKg@mail.gmail.com>
-Subject: Re: [PATCH v5] drivers/misc: Add Aspeed LPC control driver
-To: Cyril Bur <cyrilbur@gmail.com>
-Cc: Greg KH <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org, 
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Michael Neuling <mikey@neuling.org>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=Jp7PsGnvRXXFIESKutsWnvtso+M9gweGbKpZvYdfk74=;
+ b=Lgtaibim1lgueXvG4en4/jzp5yTWdwaCIZHjqgtpzvchhRioeZf9yogSlhhHn3eb/Y
+ HJ2VtdkRmFx35yQ0+aM3kHMAyIhDLJq3UnT4nVRge0F/qpwiFnCv1bRGvM9c3iTVcimj
+ OA9p+el1nHSY3aQe8dsdpizQN6hzu/R3oRut1L7xR0/TruZx/PoFtAva0/tOWTOZRFzp
+ eA5wVYQZbCMjO88Ax1pICJnPiEXlC3SYxpTYtMJi7ijZSri6WsSgybNudOOD8i5qVGF0
+ G5yYl8KCfJRk7zcINNFxUoO6Uadd9BxbKtuGKJsvJ5qfd4+UYZ3LO5UF7Y0DLfJXbX5/
+ 3E4g==
+X-Gm-Message-State: AMke39nqAyh7Bd1Bh69Uasf76A+AgkoF9afXAQUjjevNfcLkUtb4cnkAkCJkX3ARoHBCpQ==
+X-Received: by 10.99.131.74 with SMTP id h71mr2004579pge.226.1487299812294;
+ Thu, 16 Feb 2017 18:50:12 -0800 (PST)
+Received: from camb691.ozlabs.ibm.com ([122.99.82.10])
+ by smtp.googlemail.com with ESMTPSA id u82sm15975339pfd.7.2017.02.16.18.50.09
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Thu, 16 Feb 2017 18:50:11 -0800 (PST)
+Message-ID: <1487299721.16373.2.camel@gmail.com>
+Subject: Re: [PATCH] ARM: dts: aspeed: Update reserved memory nodes for
+ zaius and witherspoon
+From: Cyril Bur <cyrilbur@gmail.com>
+To: Patrick Williams <patrick@stwcx.xyz>
+Cc: joel@jms.id.au, openbmc@lists.ozlabs.org
+Date: Fri, 17 Feb 2017 13:48:41 +1100
+In-Reply-To: <20170216140524.GA5077@heinlein.lan>
+References: <20170216054922.19722-1-cyrilbur@gmail.com>
+ <20170216140524.GA5077@heinlein.lan>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.22.5 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,33 +63,33 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Feb 2017 02:42:40 -0000
+X-List-Received-Date: Fri, 17 Feb 2017 02:50:14 -0000
 
-On Tue, Feb 14, 2017 at 5:00 PM, Cyril Bur <cyrilbur@gmail.com> wrote:
-> diff --git a/drivers/misc/aspeed-lpc-ctrl.c b/drivers/misc/aspeed-lpc-ctrl.c
-> new file mode 100644
-> index 000000000000..9b51548e9d81
-> --- /dev/null
-> +++ b/drivers/misc/aspeed-lpc-ctrl.c
+On Thu, 2017-02-16 at 08:05 -0600, Patrick Williams wrote:
+> On Thu, Feb 16, 2017 at 04:49:22PM +1100, Cyril Bur wrote:
+> > -		flash_memory: region@94000000 {
+> > +		flash_memory: region@98000000 {
+> >  			no-map;
+> > -			reg = <0x94000000 0x04000000>; /* 64M */
+> > +			reg = <0x98000000 0x04000000>; /* 64M */
+> > +		};
+> > +
+> > +		vga_memory: framebuffer@9c000000 {
+> > +			no-map;
+> > +			reg = <0x9c000000 0x04000000>; /* 64MB */
+> 
+> Do we really have to allocate 64MB to a VGA framebuffer?  We can store a
+> 4K resolution monitor with 32bit color in 32MB, so why is it required to
+> reserve this much memory?  Between this and the PNOR memory region, now
+> 1/4th of the BMCs memory is reserved.
 
-> +static long aspeed_lpc_ctrl_ioctl(struct file *file, unsigned int cmd,
-> +               unsigned long param)
-> +{
-> +       struct aspeed_lpc_ctrl *lpc_ctrl = file_aspeed_lpc_ctrl(file);
-> +       void __user *p = (void __user *)param;
-> +       struct aspeed_lpc_ctrl_mapping map;
-> +       u32 addr;
-> +       u32 size;
-> +       long rc;
-> +
-> +       if (copy_from_user(&map, p, sizeof(map)))
-> +               return -EFAULT;
+The reservation of 64MB is because the hardware is capable of using
+64MB, therefore the host can use that region of memory. We're playing
+it safe here by ensuring the BMC doesn't use any of it to avoid any
+possibility of the host corrupting BMC memory. This is the most generic
+dts for the platform so we've gone with stability over performance.
 
-The structure you pass has a flags field that is currently unused. You
-should check the value of map->flags here and reject non-zero values.
 
-Once you fix that I think it's in good shape.
+Cyril
 
-Cheers,
-
-Joel
+> 
