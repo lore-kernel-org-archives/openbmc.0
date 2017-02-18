@@ -1,31 +1,47 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (ozlabs.org [103.22.144.67])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vQCL03L8QzDq5W
- for <openbmc@lists.ozlabs.org>; Sat, 18 Feb 2017 12:41:44 +1100 (AEDT)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+Return-Path: <mine260309@gmail.com>
+Received: from mail-pg0-x243.google.com (mail-pg0-x243.google.com
+ [IPv6:2607:f8b0:400e:c05::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by ozlabs.org (Postfix) with ESMTPSA id 3vQCKz1D4lz9s8c;
- Sat, 18 Feb 2017 12:41:43 +1100 (AEDT)
-Subject: Re: [PATCH linux dev-4.7 2/5] drivers/fsi: Initialize hub master
- engine
-To: Christopher Bostic <cbostic@linux.vnet.ibm.com>, joel@jms.id.au
-References: <20170216220434.79474-1-cbostic@linux.vnet.ibm.com>
- <20170216220434.79474-3-cbostic@linux.vnet.ibm.com>
- <f0976d5f-bd57-6ec3-9fec-1235429e9d9b@ozlabs.org>
- <51fcb28c-72c9-13d2-92a1-2b007cfe0cf9@linux.vnet.ibm.com>
-Cc: openbmc@lists.ozlabs.org
-From: Jeremy Kerr <jk@ozlabs.org>
-Message-ID: <b17345e1-bcd1-a043-c5e0-304c72be3d6a@ozlabs.org>
-Date: Sat, 18 Feb 2017 09:41:25 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.7.0
-MIME-Version: 1.0
-In-Reply-To: <51fcb28c-72c9-13d2-92a1-2b007cfe0cf9@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vQW9M3s1zzDq5W
+ for <openbmc@lists.ozlabs.org>; Sun, 19 Feb 2017 00:35:19 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="WLiolM3Z"; 
+ dkim-atps=neutral
+Received: by mail-pg0-x243.google.com with SMTP id 5so7376487pgj.0
+ for <openbmc@lists.ozlabs.org>; Sat, 18 Feb 2017 05:35:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=YSWe3xVZ6KFJTq0LfoV2oF3HQDyydlJZk/a8FkW0f6A=;
+ b=WLiolM3Zv3UMIeqmVRLwgwW8LEjA+MHlHuqHbPXg4xm3N89UxXFqWwj8j+jDGW/XsB
+ Ww9RPrYKqlt8jvA+4FnU3jtjSOeEANw/XcRlknmgM1YXeEA2CwOXKgLJW0zqbBpEpjCn
+ y+gEKiZ8I2m7PRuIM4rmvBBIkFIGnAM3vvf3oPZxNt1uKKwT52UsiyFXUS0bk6TCzOaX
+ JbtYsSepxu98BkqMSBfJDV0zI3XFg7Ql3GbCMkMXDc4a5sDe7yBc5lV9fuGw6i9jllgK
+ zuaazY5Nbm9rMyj5Wndgt2N8rK9+pYj65Pok2k9wxV9H+bwLn+WfqCeO4+Tx6CkRpOWc
+ oGCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=YSWe3xVZ6KFJTq0LfoV2oF3HQDyydlJZk/a8FkW0f6A=;
+ b=Mh3K4bnJfeeX0F/Wu6BAto3qYk/5e6g37jw1yshd0n8UR1sHFJ5OLTu1cCbL4c4/Bq
+ cUb5W2qn5cMIrvnE1npQwMEb/eDL+BAc26vl76TpjmCHQPPvHF8KBKCdW5FPMtdlKCPZ
+ NdG2g/afBPbm2UFM5XKFeCsMnBWjNlGFAdE2lHL/Hc6YtmCo8pgaxcU7AWzquss9+PqH
+ MGVv99AvjNi28VrM8+IPQic8B3inl84puMT7agc68Ng9YMzVcKtsc7BwmgVp616EvefB
+ HyPNMxC3kSxV4SB8YZyu5tTY/wopoGOT4bGsWTaulckmxVxUY+UJv8u8Sg970D3EPC3j
+ PA9g==
+X-Gm-Message-State: AMke39l0+mTS9duuHlpp4AbT5emjhvOsQMUMxHwh38iXnEtpvgngKf44kYItOkzsWWaBlg==
+X-Received: by 10.99.65.1 with SMTP id o1mr16203469pga.93.1487424917716;
+ Sat, 18 Feb 2017 05:35:17 -0800 (PST)
+Received: from localhost ([159.203.222.251])
+ by smtp.gmail.com with ESMTPSA id i73sm25592259pgc.62.2017.02.18.05.35.16
+ (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+ Sat, 18 Feb 2017 05:35:17 -0800 (PST)
+From: Lei YU <mine260309@gmail.com>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.7] arm: aspeed: romulus: Do common setup
+Date: Sat, 18 Feb 2017 21:33:30 +0800
+Message-Id: <1487424810-1469-1-git-send-email-mine260309@gmail.com>
+X-Mailer: git-send-email 1.9.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -37,80 +53,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 18 Feb 2017 01:41:44 -0000
+X-List-Received-Date: Sat, 18 Feb 2017 13:35:20 -0000
 
-Hi Chris,
+Call do_common_setup for romulus.
+No other romulus specific setup is needed.
+Consider moving do_common_setup() to a common place.
 
->> [that's why you've altered fsi_dev->size in the master driver, and can
->> potentially lead to conflicts with other drivers in future]
-> I altered the dev size due to the incorrect size of hMFSI links/ports in 
-> the config table.  More on that below.
+Signed-off-by: Lei YU <mine260309@gmail.com>
+---
+ arch/arm/mach-aspeed/aspeed.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-But I don't think the sizes are incorrect, if the HW appears as is
-described in the docs. More on that below too.
-
->>  From what I can glean from the docs, the hub master has a couple of
->> interfaces:
->>
->>   - the control register set described in the slave configuration table
->>     as type 0x1d
->>   - a description of the links, as entries in the slave configuration
->>     table as type 0x1c
-> 
-> I think 0x1d and 0x1c types are swapped in the overall discussion.
-
-Yep, I'd realised that after I sent it, sorry!
-
->> For cascaded masters, we can probably keep this model of using a slave
->> engine driver, but I just don't think it's suitable for the hubs.
-> 
-> There isn't much difference conceptually between a cMFSI master and hub 
-> hMFSI master.
-
-There is one critical difference for a driver implementation:
-
- - cMFSI: the master's address space is contained entirely within the
-   slave engine (ie, the address and size described in the upstream
-   configuration table)
-
- - hMFSI: the master's address space is entirely *outside* the slave
-   engine. The slave engine's address range only describes the
-   configuration registers.
-
-> Only things that vary between the two are number of 
-> links/ports that might be supported off of them and what size address 
-> space their links/ports span.  The cMFSI master on P9 has a 0x8000 byte 
-> addressable window per link/port  whereas hMFSI accesses 0x80000 per link.
-> 
-> The P9 CFAM configuration space does not list the hMFSI port size 
-> correctly.  Each link/port is listed as size *0*.
-> The cMFSI link/port size is correct, 0x20 1k pages.
-
-I disagree that it's incorrect: the link/port entries in the
-configuration table *should* have a zero size, as they do not describe
-any address range allocated to a *slave engine*.
-
-[from above: the address range for a hMFSI is not within a slave engine]
-
-What they do give us is the count of links, so we should use them for
-that.
-
-Because we know that there's a 0x80000-byte range per link, the link
-count does tell us how much of the *slave* address space to allocate,
-but that's not what the configuration table size field is intended to
-describe.
-
-> Given their similarities it would make sense to me to use the refactored 
-> approach you describe above for both hMFSI and and in the future, cMFSI.
-
-The difference above means that cMFSI can be implemented as a
-slave-engine driver, because its accesses are all within a slave
-engine's allocated address space.
-
-We can probably share a lot of code between the two, because of the
-shared control register set. But let's focus on one at a time for now :)
-
-Cheers,
-
-
-Jeremy
+diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+index 2a11c2e..726b8fa 100644
+--- a/arch/arm/mach-aspeed/aspeed.c
++++ b/arch/arm/mach-aspeed/aspeed.c
+@@ -218,6 +218,11 @@ static void __init do_witherspoon_setup(void)
+ 	writel(0x68600000, AST_IO(AST_BASE_SPI | 0x30));
+ }
+ 
++static void __init do_romulus_setup(void)
++{
++	do_common_setup();
++}
++
+ #define SCU_PASSWORD	0x1688A8A8
+ 
+ static void __init aspeed_init_early(void)
+@@ -253,6 +258,8 @@ static void __init aspeed_init_early(void)
+ 		do_zaius_setup();
+ 	if (of_machine_is_compatible("ibm,witherspoon-bmc"))
+ 		do_witherspoon_setup();
++	if (of_machine_is_compatible("ibm,romulus-bmc"))
++		do_romulus_setup();
+ }
+ 
+ static void __init aspeed_map_io(void)
+-- 
+1.9.1
