@@ -1,68 +1,53 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x236.google.com (mail-yw0-x236.google.com
+ [IPv6:2607:f8b0:4002:c05::236])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vQ60b3M2PzDq5x
- for <openbmc@lists.ozlabs.org>; Sat, 18 Feb 2017 08:41:19 +1100 (AEDT)
-Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v1HLd5mL026131
- for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 16:41:17 -0500
-Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
- by mx0b-001b2d01.pphosted.com with ESMTP id 28p96j06q7-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 16:41:16 -0500
-Received: from localhost
- by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Fri, 17 Feb 2017 16:41:16 -0500
-Received: from d01dlp03.pok.ibm.com (9.56.250.168)
- by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Fri, 17 Feb 2017 16:41:14 -0500
-Received: from b01cxnp22036.gho.pok.ibm.com (b01cxnp22036.gho.pok.ibm.com
- [9.57.198.26])
- by d01dlp03.pok.ibm.com (Postfix) with ESMTP id D986AC90043;
- Fri, 17 Feb 2017 16:40:54 -0500 (EST)
-Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
- [9.57.199.110])
- by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v1HLfD1155640194; Fri, 17 Feb 2017 21:41:13 GMT
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0AE0CAE03B;
- Fri, 17 Feb 2017 16:41:12 -0500 (EST)
-Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP id 9CF99AE052;
- Fri, 17 Feb 2017 16:41:11 -0500 (EST)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, cbostic@linux.vnet.ibm.com,
- "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.7] drivers: fsi: scom: Add reset functionality and
- sysfs interface
-Date: Fri, 17 Feb 2017 15:41:11 -0600
-X-Mailer: git-send-email 1.8.3.1
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17021721-0040-0000-0000-000002A825AF
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006635; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000203; SDB=6.00823422; UDB=6.00402939; IPR=6.00600868; 
- BA=6.00005148; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014329; XFM=3.00000011;
- UTC=2017-02-17 21:41:15
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17021721-0041-0000-0000-0000069B469F
-Message-Id: <1487367671-26077-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-02-17_18:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
- definitions=main-1702170199
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vQBSs4LLtzDq5W
+ for <openbmc@lists.ozlabs.org>; Sat, 18 Feb 2017 12:02:37 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="gbG3fI0y"; 
+ dkim-atps=neutral
+Received: by mail-yw0-x236.google.com with SMTP id u68so30651102ywg.0
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 17:02:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=jk+Rsqwey/JBTEsy7R2QYGCQ2H8cFxqh9vEiQtBnkfo=;
+ b=gbG3fI0y2UGXJvPW6Mr2pBuvYKLFVQNQtmvTBXIcQbRDdcMqh0aXFhUPbn/I90NAVO
+ UPUZ1LEvjWQq3pw2ovu6UrykFSo+iPNBBQnrjpX1yHdmtXijBg1XU3gpFFQCfE8A7Clj
+ 9EJ1uEuCA9NNzCXRMeTx70yxAoYAXqBqQsimaO7n1V1CHQvm0ckpGGIiN25Ox8qW0lJ/
+ 6X1QbqFIMYrWfbAr7dPtcgT52fD34FekXCowhKXRZgH3tDJKXFYcN6rtA99/8r80kiKw
+ zdJ5eM8fFmYVL/4alKBcsaAlXBUHl2tKL1vd3WwP0/Ff90eedrCAZVMZ9d+5mipD2PXo
+ KN2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=jk+Rsqwey/JBTEsy7R2QYGCQ2H8cFxqh9vEiQtBnkfo=;
+ b=miLM9oxhLAgP3iNNU8pcGllddA9eedaXA6TK0VS1IMRaLJhfWEiXCs3xcL8gbX+ilr
+ ahOEbs8H26rkgjHHKjrAIYf7z8YlNIQ2UEFiIYaHCywioWqeaUK0nZ3BjUfey7QpfK8X
+ A3XlAuZcGh4Me8+hNkwiJ6xDEEjaKaoeJdhwzbZf/ARTmYhYS5YY2Nj3PPTzVRs2u79F
+ NnCQpZyYFFxuduZW1wXmM4ySbeTC1Qkj8OdIbMcOdqmXWqQN7UbXBZeHEatSc90vw2nj
+ Zd9krWPgsCArTmtVC8FJ6p3ZGm6kbVoFGG345K2t1kFV4rb4RRs8ROzIO/pvreXxpAA3
+ mLAQ==
+X-Gm-Message-State: AMke39ll/zLVpC5uHra0libsudmNRoGyF3UMpOqUDfCdzWEIVXDamDJlb15i3ck1VxQRVS+HYP9hyuHE0Hb71A==
+X-Received: by 10.129.91.194 with SMTP id p185mr7939091ywb.50.1487379754945;
+ Fri, 17 Feb 2017 17:02:34 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.170.41 with HTTP; Fri, 17 Feb 2017 17:02:14 -0800 (PST)
+In-Reply-To: <VI1PR0502MB30211D216F237DA5240F6FF9DD5D0@VI1PR0502MB3021.eurprd05.prod.outlook.com>
+References: <VI1PR0502MB30211D216F237DA5240F6FF9DD5D0@VI1PR0502MB3021.eurprd05.prod.outlook.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Sat, 18 Feb 2017 11:32:14 +1030
+X-Google-Sender-Auth: jFCZaSseavtYO2gPwz0IYUGDymQ
+Message-ID: <CACPK8XdnwsbcJ7nJ4QWXXGnmvhswBaHsnjajAKSURbiZN7ZnUw@mail.gmail.com>
+Subject: Re: DSTREAM/DS-5 use on AST2500 EVB
+To: David Thompson <dthompson@mellanox.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -74,107 +59,68 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Feb 2017 21:41:20 -0000
+X-List-Received-Date: Sat, 18 Feb 2017 01:02:38 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
+Hello David,
 
-full reset only
+On Sat, Feb 18, 2017 at 6:45 AM, David Thompson <dthompson@mellanox.com> wr=
+ote:
+> Does anyone utilize tools like DSTREAM & DS-5 for
+> development and debug of OpenBMC software on
+> the AST2500 EVB?   I=E2=80=99m actively looking to create,
+> or acquire, the required DSTREAM/DS-5 platform
+> configuration files for the AST2500 EVB platform.
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
----
- drivers/fsi/fsi-scom.c | 51 +++++++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 50 insertions(+), 1 deletion(-)
+I had to search for DSTREAM. Is this what you are referring to?
 
-diff --git a/drivers/fsi/fsi-scom.c b/drivers/fsi/fsi-scom.c
-index ff8267b..c73bd91 100644
---- a/drivers/fsi/fsi-scom.c
-+++ b/drivers/fsi/fsi-scom.c
-@@ -32,7 +32,10 @@
- #define SCOM_DATA0_REG		0x00
- #define SCOM_DATA1_REG		0x04
- #define SCOM_CMD_REG		0x08
-+#define SCOM_FSI2PIB_RESET_REG	0x18
- #define SCOM_RESET_REG		0x1C
-+#define SCOM_COMP_MASK_REG	0x30
-+#define SCOM_TRUE_MASK_REG	0x34
- 
- #define SCOM_RESET_CMD		0x80000000
- #define SCOM_WRITE_CMD		0x80000000
-@@ -156,7 +159,7 @@ static ssize_t scom_write(struct file *filep, const char __user *buf,
- 	if (rc)
- 		dev_dbg(dev, "put_scom failed with:%d\n", rc);
- 
--	return rc;
-+	return rc ? rc : len;
- }
- 
- static loff_t scom_llseek(struct file *file, loff_t offset, int whence)
-@@ -181,6 +184,48 @@ static const struct file_operations scom_fops = {
- 	.write	= scom_write,
- };
- 
-+static int scom_reset_fsi2pib(struct fsi_device *fsi_dev)
-+{
-+	int rc;
-+	u32 dummy = 0xFFFFFFFF;
-+
-+	rc = fsi_device_write(fsi_dev, SCOM_FSI2PIB_RESET_REG, &dummy,
-+			      sizeof(u32));
-+	if (rc)
-+		dev_dbg(&fsi_dev->dev,
-+			"failed to write fsi2pib reset register rc:%d\n", rc);
-+
-+	return rc;
-+}
-+
-+static int scom_full_reset(struct fsi_device *fsi_dev)
-+{
-+	int rc = 0;
-+	u32 dummy = 0xFFFFFFFF;
-+
-+	rc = fsi_device_write(fsi_dev, SCOM_RESET_REG, &dummy, sizeof(u32));
-+	if (rc) {
-+		dev_dbg(&fsi_dev->dev,
-+			"failed to write scom reset register rc:%d\n", rc);
-+		return rc;
-+	}
-+
-+	return scom_reset_fsi2pib(fsi_dev);
-+}
-+
-+static ssize_t store_reset_register(struct device *dev,
-+				    struct device_attribute *attr,
-+				    const char *buf, size_t count)
-+{
-+	int rc;
-+	struct fsi_device *fsi_dev = to_fsi_dev(dev);
-+
-+	rc = scom_full_reset(fsi_dev);
-+
-+	return rc ? rc : count;
-+}
-+DEVICE_ATTR(reset, 0200, NULL, store_reset_register);
-+
- static int scom_probe(struct device *dev)
- {
- 	struct fsi_device *fsi_dev = to_fsi_dev(dev);
-@@ -200,6 +245,8 @@ static int scom_probe(struct device *dev)
- 	scom->mdev.parent = dev;
- 	list_add(&scom->link, &scom_devices);
- 
-+	device_create_file(dev, &dev_attr_reset);
-+
- 	return misc_register(&scom->mdev);
- }
- 
-@@ -207,6 +254,8 @@ static int scom_remove(struct device *dev)
- {
- 	struct scom_device *scom, *scom_tmp;
- 	struct fsi_device *fsi_dev = to_fsi_dev(dev);
-+
-+	device_remove_file(dev, &dev_attr_reset);
- 	
- 	list_for_each_entry_safe(scom, scom_tmp, &scom_devices, link) {
- 		if (scom->fsi_dev == fsi_dev) {
--- 
-1.8.3.1
+ https://developer.arm.com/products/software-development-tools/debug-probes=
+-and-adapters/dstream
+
+No, we have not used any ICE or JTAG in our development. We have not
+used DS-5 either. Perhaps try to contact Aspeed directly?
+
+Those of us working on the low level software has stuck to open source
+tools. We haven't had a requirement for any hardware debugging.
+
+Our Qemu model of the ast2500 and ast2400 SoCs is quite detailed. Most
+of the code is upstream, but if you want the latest then take a look
+at our repository:
+
+ https://github.com/openbmc/qemu
+
+Cheers,
+
+Joel
+
+>
+>
+>
+> Does anyone have these configuration files, including
+>
+> the flash programming algorithm file, or know where
+>
+> I could acquire them?  I have already posted to the
+>
+> ARM community boards, but no luck there.
+>
+>
+>
+> Thank you in advance,
+>
+> Dave
+>
+>
+>
+> David Thompson
+>
+> Sr. Staff Engineer, System SW
+>
+> Mellanox Technologies
+>
+> 1900 West Park Drive, Suite 290
+>
+> Westborough MA USA 01581
+>
+> Direct: 508-983-6439
+>
+>
