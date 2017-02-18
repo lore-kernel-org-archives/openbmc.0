@@ -1,53 +1,31 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x236.google.com (mail-yw0-x236.google.com
- [IPv6:2607:f8b0:4002:c05::236])
+Return-Path: <jk@ozlabs.org>
+Received: from ozlabs.org (ozlabs.org [103.22.144.67])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vQCL03L8QzDq5W
+ for <openbmc@lists.ozlabs.org>; Sat, 18 Feb 2017 12:41:44 +1100 (AEDT)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vQBSs4LLtzDq5W
- for <openbmc@lists.ozlabs.org>; Sat, 18 Feb 2017 12:02:37 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="gbG3fI0y"; 
- dkim-atps=neutral
-Received: by mail-yw0-x236.google.com with SMTP id u68so30651102ywg.0
- for <openbmc@lists.ozlabs.org>; Fri, 17 Feb 2017 17:02:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=jk+Rsqwey/JBTEsy7R2QYGCQ2H8cFxqh9vEiQtBnkfo=;
- b=gbG3fI0y2UGXJvPW6Mr2pBuvYKLFVQNQtmvTBXIcQbRDdcMqh0aXFhUPbn/I90NAVO
- UPUZ1LEvjWQq3pw2ovu6UrykFSo+iPNBBQnrjpX1yHdmtXijBg1XU3gpFFQCfE8A7Clj
- 9EJ1uEuCA9NNzCXRMeTx70yxAoYAXqBqQsimaO7n1V1CHQvm0ckpGGIiN25Ox8qW0lJ/
- 6X1QbqFIMYrWfbAr7dPtcgT52fD34FekXCowhKXRZgH3tDJKXFYcN6rtA99/8r80kiKw
- zdJ5eM8fFmYVL/4alKBcsaAlXBUHl2tKL1vd3WwP0/Ff90eedrCAZVMZ9d+5mipD2PXo
- KN2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=jk+Rsqwey/JBTEsy7R2QYGCQ2H8cFxqh9vEiQtBnkfo=;
- b=miLM9oxhLAgP3iNNU8pcGllddA9eedaXA6TK0VS1IMRaLJhfWEiXCs3xcL8gbX+ilr
- ahOEbs8H26rkgjHHKjrAIYf7z8YlNIQ2UEFiIYaHCywioWqeaUK0nZ3BjUfey7QpfK8X
- A3XlAuZcGh4Me8+hNkwiJ6xDEEjaKaoeJdhwzbZf/ARTmYhYS5YY2Nj3PPTzVRs2u79F
- NnCQpZyYFFxuduZW1wXmM4ySbeTC1Qkj8OdIbMcOdqmXWqQN7UbXBZeHEatSc90vw2nj
- Zd9krWPgsCArTmtVC8FJ6p3ZGm6kbVoFGG345K2t1kFV4rb4RRs8ROzIO/pvreXxpAA3
- mLAQ==
-X-Gm-Message-State: AMke39ll/zLVpC5uHra0libsudmNRoGyF3UMpOqUDfCdzWEIVXDamDJlb15i3ck1VxQRVS+HYP9hyuHE0Hb71A==
-X-Received: by 10.129.91.194 with SMTP id p185mr7939091ywb.50.1487379754945;
- Fri, 17 Feb 2017 17:02:34 -0800 (PST)
+ by ozlabs.org (Postfix) with ESMTPSA id 3vQCKz1D4lz9s8c;
+ Sat, 18 Feb 2017 12:41:43 +1100 (AEDT)
+Subject: Re: [PATCH linux dev-4.7 2/5] drivers/fsi: Initialize hub master
+ engine
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>, joel@jms.id.au
+References: <20170216220434.79474-1-cbostic@linux.vnet.ibm.com>
+ <20170216220434.79474-3-cbostic@linux.vnet.ibm.com>
+ <f0976d5f-bd57-6ec3-9fec-1235429e9d9b@ozlabs.org>
+ <51fcb28c-72c9-13d2-92a1-2b007cfe0cf9@linux.vnet.ibm.com>
+Cc: openbmc@lists.ozlabs.org
+From: Jeremy Kerr <jk@ozlabs.org>
+Message-ID: <b17345e1-bcd1-a043-c5e0-304c72be3d6a@ozlabs.org>
+Date: Sat, 18 Feb 2017 09:41:25 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.7.0
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.170.41 with HTTP; Fri, 17 Feb 2017 17:02:14 -0800 (PST)
-In-Reply-To: <VI1PR0502MB30211D216F237DA5240F6FF9DD5D0@VI1PR0502MB3021.eurprd05.prod.outlook.com>
-References: <VI1PR0502MB30211D216F237DA5240F6FF9DD5D0@VI1PR0502MB3021.eurprd05.prod.outlook.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Sat, 18 Feb 2017 11:32:14 +1030
-X-Google-Sender-Auth: jFCZaSseavtYO2gPwz0IYUGDymQ
-Message-ID: <CACPK8XdnwsbcJ7nJ4QWXXGnmvhswBaHsnjajAKSURbiZN7ZnUw@mail.gmail.com>
-Subject: Re: DSTREAM/DS-5 use on AST2500 EVB
-To: David Thompson <dthompson@mellanox.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <51fcb28c-72c9-13d2-92a1-2b007cfe0cf9@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,68 +37,80 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 18 Feb 2017 01:02:38 -0000
+X-List-Received-Date: Sat, 18 Feb 2017 01:41:44 -0000
 
-Hello David,
+Hi Chris,
 
-On Sat, Feb 18, 2017 at 6:45 AM, David Thompson <dthompson@mellanox.com> wr=
-ote:
-> Does anyone utilize tools like DSTREAM & DS-5 for
-> development and debug of OpenBMC software on
-> the AST2500 EVB?   I=E2=80=99m actively looking to create,
-> or acquire, the required DSTREAM/DS-5 platform
-> configuration files for the AST2500 EVB platform.
+>> [that's why you've altered fsi_dev->size in the master driver, and can
+>> potentially lead to conflicts with other drivers in future]
+> I altered the dev size due to the incorrect size of hMFSI links/ports in 
+> the config table.  More on that below.
 
-I had to search for DSTREAM. Is this what you are referring to?
+But I don't think the sizes are incorrect, if the HW appears as is
+described in the docs. More on that below too.
 
- https://developer.arm.com/products/software-development-tools/debug-probes=
--and-adapters/dstream
+>>  From what I can glean from the docs, the hub master has a couple of
+>> interfaces:
+>>
+>>   - the control register set described in the slave configuration table
+>>     as type 0x1d
+>>   - a description of the links, as entries in the slave configuration
+>>     table as type 0x1c
+> 
+> I think 0x1d and 0x1c types are swapped in the overall discussion.
 
-No, we have not used any ICE or JTAG in our development. We have not
-used DS-5 either. Perhaps try to contact Aspeed directly?
+Yep, I'd realised that after I sent it, sorry!
 
-Those of us working on the low level software has stuck to open source
-tools. We haven't had a requirement for any hardware debugging.
+>> For cascaded masters, we can probably keep this model of using a slave
+>> engine driver, but I just don't think it's suitable for the hubs.
+> 
+> There isn't much difference conceptually between a cMFSI master and hub 
+> hMFSI master.
 
-Our Qemu model of the ast2500 and ast2400 SoCs is quite detailed. Most
-of the code is upstream, but if you want the latest then take a look
-at our repository:
+There is one critical difference for a driver implementation:
 
- https://github.com/openbmc/qemu
+ - cMFSI: the master's address space is contained entirely within the
+   slave engine (ie, the address and size described in the upstream
+   configuration table)
+
+ - hMFSI: the master's address space is entirely *outside* the slave
+   engine. The slave engine's address range only describes the
+   configuration registers.
+
+> Only things that vary between the two are number of 
+> links/ports that might be supported off of them and what size address 
+> space their links/ports span.  The cMFSI master on P9 has a 0x8000 byte 
+> addressable window per link/port  whereas hMFSI accesses 0x80000 per link.
+> 
+> The P9 CFAM configuration space does not list the hMFSI port size 
+> correctly.  Each link/port is listed as size *0*.
+> The cMFSI link/port size is correct, 0x20 1k pages.
+
+I disagree that it's incorrect: the link/port entries in the
+configuration table *should* have a zero size, as they do not describe
+any address range allocated to a *slave engine*.
+
+[from above: the address range for a hMFSI is not within a slave engine]
+
+What they do give us is the count of links, so we should use them for
+that.
+
+Because we know that there's a 0x80000-byte range per link, the link
+count does tell us how much of the *slave* address space to allocate,
+but that's not what the configuration table size field is intended to
+describe.
+
+> Given their similarities it would make sense to me to use the refactored 
+> approach you describe above for both hMFSI and and in the future, cMFSI.
+
+The difference above means that cMFSI can be implemented as a
+slave-engine driver, because its accesses are all within a slave
+engine's allocated address space.
+
+We can probably share a lot of code between the two, because of the
+shared control register set. But let's focus on one at a time for now :)
 
 Cheers,
 
-Joel
 
->
->
->
-> Does anyone have these configuration files, including
->
-> the flash programming algorithm file, or know where
->
-> I could acquire them?  I have already posted to the
->
-> ARM community boards, but no luck there.
->
->
->
-> Thank you in advance,
->
-> Dave
->
->
->
-> David Thompson
->
-> Sr. Staff Engineer, System SW
->
-> Mellanox Technologies
->
-> 1900 West Park Drive, Suite 290
->
-> Westborough MA USA 01581
->
-> Direct: 508-983-6439
->
->
+Jeremy
