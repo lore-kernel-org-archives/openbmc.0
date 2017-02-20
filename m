@@ -1,76 +1,54 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vRn7X2lxgzDqC0
- for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 02:08:08 +1100 (AEDT)
-Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v1KF3dnU055785
- for <openbmc@lists.ozlabs.org>; Mon, 20 Feb 2017 10:08:05 -0500
-Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
- by mx0b-001b2d01.pphosted.com with ESMTP id 28qyr10ee7-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 20 Feb 2017 10:08:05 -0500
-Received: from localhost
- by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Mon, 20 Feb 2017 08:08:03 -0700
-Received: from d03dlp01.boulder.ibm.com (9.17.202.177)
- by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 20 Feb 2017 08:08:02 -0700
-Received: from b03cxnp08028.gho.boulder.ibm.com
- (b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
- by d03dlp01.boulder.ibm.com (Postfix) with ESMTP id CF2B31FF0023;
- Mon, 20 Feb 2017 08:07:38 -0700 (MST)
-Received: from b03ledav002.gho.boulder.ibm.com
- (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
- by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v1KF81Il15663488; Mon, 20 Feb 2017 08:08:01 -0700
-Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 42C9813604E;
- Mon, 20 Feb 2017 08:08:01 -0700 (MST)
-Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id D8EE6136048;
- Mon, 20 Feb 2017 08:08:00 -0700 (MST)
-Subject: Re: [PATCH linux dev-4.7] drivers: fsi: scom: Add reset functionality
- and sysfs interface
-To: Joel Stanley <joel@jms.id.au>
-References: <1487367671-26077-1-git-send-email-eajames@linux.vnet.ibm.com>
- <CACPK8XfGCTpk5S22kwOFE1cOLgFbg4Wkx3p5bCA8A3Vb1MFGbg@mail.gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Christopher Bostic <cbostic@linux.vnet.ibm.com>,
- "Edward A. James" <eajames@us.ibm.com>
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Mon, 20 Feb 2017 09:08:00 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.6.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vRnTW26HXzDqBv
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 02:23:43 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="GftpdZC+"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="M3G+tmPd"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id B2CC420685;
+ Mon, 20 Feb 2017 10:23:40 -0500 (EST)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Mon, 20 Feb 2017 10:23:40 -0500
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=mesmtp; bh=4qVDuAMSEF59FN+C3dzJvek38sk=; b=GftpdZ
+ C+p4H2lkgE3Ng3ztq2A1GlcERKNHah5tZz2bj31tCHOJfcQtl0hGlijOeNbyTYp6
+ 76C9CooDNnQ9Yz9J0OwxIJoAY5FRSndHrwUZ/R/VKiPkO1td1rTpsUtpoLKS3KIn
+ MqxvboxpkToQq9MllvBTAZA0s7zhwlBZBHrWA=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:message-id:mime-version:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=4qVDuAMSEF59FN
+ +C3dzJvek38sk=; b=M3G+tmPd8kDFncocnb8W82BMBhjO0M3+P3X8Tmy9yoCiVm
+ +t3Z/ix7aWHajN5Tvy5xzoc4KENbMTENemDaFq43HO/60ZYvsjlOICGhTZ2+4khn
+ LpdyqTnr9UwNLG6ghgpdvXaolrznIhzpr/gfrEKG5sEsMR0QDm3KTtHFaQfZE=
+X-ME-Sender: <xms:_AmrWACCiRl7AT9tBwtFhzRk-LlMzU7-aFujyw1Jm_T79iQneD9C-A>
+X-Sasl-enc: MaKiKZf/wOsEuJhwb1XmejN7ReatdDI8yrs/216BLwvE 1487604219
+Received: from keelia.au.ibm.com (ppp203-122-213-247.static.internode.on.net
+ [203.122.213.247])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 460CF24377;
+ Mon, 20 Feb 2017 10:23:36 -0500 (EST)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Corey Minyard <minyard@acm.org>
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+ =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>,
+ Joel Stanley <joel@jms.id.au>, openipmi-developer@lists.sourceforge.net,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org
+Subject: [PATCH v2] ipmi: bt-bmc: Use a regmap for register access
+Date: Tue, 21 Feb 2017 01:53:00 +1030
+Message-Id: <20170220152300.3422-1-andrew@aj.id.au>
+X-Mailer: git-send-email 2.9.3
 MIME-Version: 1.0
-In-Reply-To: <CACPK8XfGCTpk5S22kwOFE1cOLgFbg4Wkx3p5bCA8A3Vb1MFGbg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17022015-0004-0000-0000-000011A2DBE9
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006651; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000204; SDB=6.00824578; UDB=6.00403656; IPR=6.00602034; 
- BA=6.00005157; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014360; XFM=3.00000011;
- UTC=2017-02-20 15:08:03
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17022015-0005-0000-0000-00007D384C44
-Message-Id: <e07df5e1-96a5-49d9-5eb2-d4c74e237962@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-02-20_13:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
- definitions=main-1702200148
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -82,138 +60,213 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Feb 2017 15:08:08 -0000
+X-List-Received-Date: Mon, 20 Feb 2017 15:23:43 -0000
 
+The registers for the bt-bmc device live under the Aspeed LPC
+controller. Devicetree bindings have recently been introduced for the
+LPC controller where the "host" portion of the LPC register space is
+described as a syscon device. Future devicetrees describing the bt-bmc
+device should nest its node under the appropriate "simple-mfd", "syscon"
+compatible node.
 
+This change allows the bt-bmc driver to function with both syscon and
+non-syscon- based devicetree descriptions by always using a regmap for
+register access, either retrieved from the parent syscon device or
+instantiated if none exists.
 
-On 02/19/2017 11:42 PM, Joel Stanley wrote:
-> On Sat, Feb 18, 2017 at 8:11 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
->> From: "Edward A. James" <eajames@us.ibm.com>
->>
->> full reset only
-> The commit message needs some work. Use full sentences, explain why
-> the patch is required.
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+Reviewed-by: Cédric Le Goater <clg@kaod.org>
+---
 
-Ok.
+v2: Address Joel's review with some minor cleanups
 
->
->> Signed-off-by: Edward A. James <eajames@us.ibm.com>
->> ---
->>   drivers/fsi/fsi-scom.c | 51 +++++++++++++++++++++++++++++++++++++++++++++++++-
->>   1 file changed, 50 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/fsi/fsi-scom.c b/drivers/fsi/fsi-scom.c
->> index ff8267b..c73bd91 100644
->> --- a/drivers/fsi/fsi-scom.c
->> +++ b/drivers/fsi/fsi-scom.c
->> @@ -32,7 +32,10 @@
->>   #define SCOM_DATA0_REG         0x00
->>   #define SCOM_DATA1_REG         0x04
->>   #define SCOM_CMD_REG           0x08
->> +#define SCOM_FSI2PIB_RESET_REG 0x18
->>   #define SCOM_RESET_REG         0x1C
->> +#define SCOM_COMP_MASK_REG     0x30
->> +#define SCOM_TRUE_MASK_REG     0x34
->>
->>   #define SCOM_RESET_CMD         0x80000000
->>   #define SCOM_WRITE_CMD         0x80000000
->> @@ -156,7 +159,7 @@ static ssize_t scom_write(struct file *filep, const char __user *buf,
->>          if (rc)
->>                  dev_dbg(dev, "put_scom failed with:%d\n", rc);
->>
->> -       return rc;
->> +       return rc ? rc : len;
-> This looks like an unrelated fix.
+* Add '|| COMPILE_TEST' to Kconfig depends
+* Const-ify the regmap configuration struct
+* Remove some redundant output from the WARN formatting
 
-Yes, I guess a separate patch is in order.
+Propagating regmap_{read,write}() failures makes the change more invasive than
+I would like, so I have favoured keeping the WARN()s
 
->
->>   }
->>
->>   static loff_t scom_llseek(struct file *file, loff_t offset, int whence)
->> @@ -181,6 +184,48 @@ static const struct file_operations scom_fops = {
->>          .write  = scom_write,
->>   };
->>
->> +static int scom_reset_fsi2pib(struct fsi_device *fsi_dev)
->> +{
->> +       int rc;
->> +       u32 dummy = 0xFFFFFFFF;
->> +
->> +       rc = fsi_device_write(fsi_dev, SCOM_FSI2PIB_RESET_REG, &dummy,
->> +                             sizeof(u32));
->> +       if (rc)
->> +               dev_dbg(&fsi_dev->dev,
->> +                       "failed to write fsi2pib reset register rc:%d\n", rc);
-> Is this expected behaviour? If not, use dev_err.
-The rest of the driver uses dev_dbg even in error situations, so I tried 
-to follow suit here.
->
->> +
->> +       return rc;
->> +}
->> +
->> +static int scom_full_reset(struct fsi_device *fsi_dev)
->> +{
->> +       int rc = 0;
->> +       u32 dummy = 0xFFFFFFFF;
->> +
->> +       rc = fsi_device_write(fsi_dev, SCOM_RESET_REG, &dummy, sizeof(u32));
-> sizeof(dummy)
->
->> +       if (rc) {
->> +               dev_dbg(&fsi_dev->dev,
->> +                       "failed to write scom reset register rc:%d\n", rc);
->> +               return rc;
->> +       }
->> +
->> +       return scom_reset_fsi2pib(fsi_dev);
->> +}
->> +
->> +static ssize_t store_reset_register(struct device *dev,
->> +                                   struct device_attribute *attr,
->> +                                   const char *buf, size_t count)
->> +{
->> +       int rc;
->> +       struct fsi_device *fsi_dev = to_fsi_dev(dev);
->> +
->> +       rc = scom_full_reset(fsi_dev);
->> +
->> +       return rc ? rc : count;
->> +}
->> +DEVICE_ATTR(reset, 0200, NULL, store_reset_register);
->> +
->>   static int scom_probe(struct device *dev)
->>   {
->>          struct fsi_device *fsi_dev = to_fsi_dev(dev);
->> @@ -200,6 +245,8 @@ static int scom_probe(struct device *dev)
->>          scom->mdev.parent = dev;
->>          list_add(&scom->link, &scom_devices);
->>
->> +       device_create_file(dev, &dev_attr_reset);
->> +
-> What is the expected behaviour if two different userspace programs
-> have the reset and chardev open?
+ drivers/char/ipmi/Kconfig  |  3 +-
+ drivers/char/ipmi/bt-bmc.c | 80 ++++++++++++++++++++++++++++++++++------------
+ 2 files changed, 61 insertions(+), 22 deletions(-)
 
-Probably a bus error or some sort of scom error if you write reset while 
-you have a getscom/putscom operation going. Could add some locking?
-
-Thanks,
-Eddie
-
->
->>          return misc_register(&scom->mdev);
->>   }
->>
->> @@ -207,6 +254,8 @@ static int scom_remove(struct device *dev)
->>   {
->>          struct scom_device *scom, *scom_tmp;
->>          struct fsi_device *fsi_dev = to_fsi_dev(dev);
->> +
->> +       device_remove_file(dev, &dev_attr_reset);
->>
->>          list_for_each_entry_safe(scom, scom_tmp, &scom_devices, link) {
->>                  if (scom->fsi_dev == fsi_dev) {
->> --
->> 1.8.3.1
->>
+diff --git a/drivers/char/ipmi/Kconfig b/drivers/char/ipmi/Kconfig
+index 7f816655cbbf..90f3edffb067 100644
+--- a/drivers/char/ipmi/Kconfig
++++ b/drivers/char/ipmi/Kconfig
+@@ -78,7 +78,8 @@ config IPMI_POWEROFF
+ endif # IPMI_HANDLER
+ 
+ config ASPEED_BT_IPMI_BMC
+-	depends on ARCH_ASPEED
++	depends on ARCH_ASPEED || COMPILE_TEST
++       depends on REGMAP && REGMAP_MMIO && MFD_SYSCON
+ 	tristate "BT IPMI bmc driver"
+ 	help
+ 	  Provides a driver for the BT (Block Transfer) IPMI interface
+diff --git a/drivers/char/ipmi/bt-bmc.c b/drivers/char/ipmi/bt-bmc.c
+index fc9e8891eae3..d6f5d9eb102d 100644
+--- a/drivers/char/ipmi/bt-bmc.c
++++ b/drivers/char/ipmi/bt-bmc.c
+@@ -12,10 +12,13 @@
+ #include <linux/errno.h>
+ #include <linux/interrupt.h>
+ #include <linux/io.h>
++#include <linux/mfd/syscon.h>
+ #include <linux/miscdevice.h>
+ #include <linux/module.h>
++#include <linux/of.h>
+ #include <linux/platform_device.h>
+ #include <linux/poll.h>
++#include <linux/regmap.h>
+ #include <linux/sched.h>
+ #include <linux/timer.h>
+ 
+@@ -60,7 +63,8 @@
+ struct bt_bmc {
+ 	struct device		dev;
+ 	struct miscdevice	miscdev;
+-	void __iomem		*base;
++	struct regmap		*map;
++	int			offset;
+ 	int			irq;
+ 	wait_queue_head_t	queue;
+ 	struct timer_list	poll_timer;
+@@ -69,14 +73,29 @@ struct bt_bmc {
+ 
+ static atomic_t open_count = ATOMIC_INIT(0);
+ 
++static const struct regmap_config bt_regmap_cfg = {
++	.reg_bits = 32,
++	.val_bits = 32,
++	.reg_stride = 4,
++};
++
+ static u8 bt_inb(struct bt_bmc *bt_bmc, int reg)
+ {
+-	return ioread8(bt_bmc->base + reg);
++	uint32_t val = 0;
++	int rc;
++
++	rc = regmap_read(bt_bmc->map, bt_bmc->offset + reg, &val);
++	WARN(rc != 0, "regmap_read() failed: %d\n", rc);
++
++	return rc == 0 ? (u8) val : 0;
+ }
+ 
+ static void bt_outb(struct bt_bmc *bt_bmc, u8 data, int reg)
+ {
+-	iowrite8(data, bt_bmc->base + reg);
++	int rc;
++
++	rc = regmap_write(bt_bmc->map, bt_bmc->offset + reg, data);
++	WARN(rc != 0, "regmap_write() failed: %d\n", rc);
+ }
+ 
+ static void clr_rd_ptr(struct bt_bmc *bt_bmc)
+@@ -367,14 +386,18 @@ static irqreturn_t bt_bmc_irq(int irq, void *arg)
+ {
+ 	struct bt_bmc *bt_bmc = arg;
+ 	u32 reg;
++	int rc;
++
++	rc = regmap_read(bt_bmc->map, bt_bmc->offset + BT_CR2, &reg);
++	if (rc)
++		return IRQ_NONE;
+ 
+-	reg = ioread32(bt_bmc->base + BT_CR2);
+ 	reg &= BT_CR2_IRQ_H2B | BT_CR2_IRQ_HBUSY;
+ 	if (!reg)
+ 		return IRQ_NONE;
+ 
+ 	/* ack pending IRQs */
+-	iowrite32(reg, bt_bmc->base + BT_CR2);
++	regmap_write(bt_bmc->map, bt_bmc->offset + BT_CR2, reg);
+ 
+ 	wake_up(&bt_bmc->queue);
+ 	return IRQ_HANDLED;
+@@ -384,7 +407,6 @@ static int bt_bmc_config_irq(struct bt_bmc *bt_bmc,
+ 			     struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+-	u32 reg;
+ 	int rc;
+ 
+ 	bt_bmc->irq = platform_get_irq(pdev, 0);
+@@ -405,18 +427,17 @@ static int bt_bmc_config_irq(struct bt_bmc *bt_bmc,
+ 	 * will be cleared (along with B2H) when we can write the next
+ 	 * message to the BT buffer
+ 	 */
+-	reg = ioread32(bt_bmc->base + BT_CR1);
+-	reg |= BT_CR1_IRQ_H2B | BT_CR1_IRQ_HBUSY;
+-	iowrite32(reg, bt_bmc->base + BT_CR1);
++	rc = regmap_update_bits(bt_bmc->map, bt_bmc->offset + BT_CR1,
++				(BT_CR1_IRQ_H2B | BT_CR1_IRQ_HBUSY),
++				(BT_CR1_IRQ_H2B | BT_CR1_IRQ_HBUSY));
+ 
+-	return 0;
++	return rc;
+ }
+ 
+ static int bt_bmc_probe(struct platform_device *pdev)
+ {
+ 	struct bt_bmc *bt_bmc;
+ 	struct device *dev;
+-	struct resource *res;
+ 	int rc;
+ 
+ 	if (!pdev || !pdev->dev.of_node)
+@@ -431,10 +452,27 @@ static int bt_bmc_probe(struct platform_device *pdev)
+ 
+ 	dev_set_drvdata(&pdev->dev, bt_bmc);
+ 
+-	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	bt_bmc->base = devm_ioremap_resource(&pdev->dev, res);
+-	if (IS_ERR(bt_bmc->base))
+-		return PTR_ERR(bt_bmc->base);
++	bt_bmc->map = syscon_node_to_regmap(pdev->dev.parent->of_node);
++	if (IS_ERR(bt_bmc->map)) {
++		struct resource *res;
++		void __iomem *base;
++
++		/*
++		 * Assume it's not the MFD-based devicetree description, in
++		 * which case generate a regmap ourselves
++		 */
++		res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++		base = devm_ioremap_resource(&pdev->dev, res);
++		if (IS_ERR(base))
++			return PTR_ERR(base);
++
++		bt_bmc->map = devm_regmap_init_mmio(dev, base, &bt_regmap_cfg);
++		bt_bmc->offset = 0;
++	} else {
++		rc = of_property_read_u32(dev->of_node, "reg", &bt_bmc->offset);
++		if (rc)
++			return rc;
++	}
+ 
+ 	mutex_init(&bt_bmc->mutex);
+ 	init_waitqueue_head(&bt_bmc->queue);
+@@ -461,12 +499,12 @@ static int bt_bmc_probe(struct platform_device *pdev)
+ 		add_timer(&bt_bmc->poll_timer);
+ 	}
+ 
+-	iowrite32((BT_IO_BASE << BT_CR0_IO_BASE) |
+-		  (BT_IRQ << BT_CR0_IRQ) |
+-		  BT_CR0_EN_CLR_SLV_RDP |
+-		  BT_CR0_EN_CLR_SLV_WRP |
+-		  BT_CR0_ENABLE_IBT,
+-		  bt_bmc->base + BT_CR0);
++	regmap_write(bt_bmc->map, bt_bmc->offset + BT_CR0,
++		     (BT_IO_BASE << BT_CR0_IO_BASE) |
++		     (BT_IRQ << BT_CR0_IRQ) |
++		     BT_CR0_EN_CLR_SLV_RDP |
++		     BT_CR0_EN_CLR_SLV_WRP |
++		     BT_CR0_ENABLE_IBT);
+ 
+ 	clr_b_busy(bt_bmc);
+ 
+-- 
+2.9.3
