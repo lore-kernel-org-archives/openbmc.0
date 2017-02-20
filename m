@@ -1,56 +1,52 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
- [IPv6:2607:f8b0:4002:c05::244])
+Received: from mail-yb0-x242.google.com (mail-yb0-x242.google.com
+ [IPv6:2607:f8b0:4002:c09::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vS04L10BjzDqH4
- for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 10:21:06 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vS05Z16wlzDqD2
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 10:22:10 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="gsYKdyJY"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="XEiIRxdt"; 
  dkim-atps=neutral
-Received: by mail-yw0-x244.google.com with SMTP id 2so3050261ywn.3
- for <openbmc@lists.ozlabs.org>; Mon, 20 Feb 2017 15:21:06 -0800 (PST)
+Received: by mail-yb0-x242.google.com with SMTP id d128so1349853ybh.3
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Feb 2017 15:22:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=Z58I3NaPeNzkQm0bheIGd0kW8EMxvnnvR1YSn9Rg2KA=;
- b=gsYKdyJYrE4XcREHCq7f2YsgTnOQEsbVtwZcwYAxG+Ydp3ntrT3PyQKFYpJD6nN0kw
- IIoZF1vZ9RSB6aE3o15MEaqsICkPeo3nH0PfSD+ugGJKSjgpOMJa/dVrj/MVhn46//ii
- zHQjuGf0tJCpKqc0F6eFDev8c2YC5R/HtbM0otNaYc5j+/e24P77TvfQW90lrFkfjc5V
- rfqeO/tdPbYkzS06X+ab+8hPh7JHHz7O1UY5SGeNPpKSb9K+fWbZ5LLQ0F86czNrrppf
- wXZGDvbOsV+zgeYXbd6/swwUMXoSHa+cWxvcb/3ajMUt1nUn0JjxXR8d9hecwEwQA/wZ
- tA3Q==
+ bh=wWOWB3+ogsaS3ngGbqZJAkKUGiaAOMmSrBtrGP0idwE=;
+ b=XEiIRxdtvQzbQOjYaH8FwfGBFkgK/prRb7+SyVxt+k/G8GfAnN/rhvDfXDoZDuxcfv
+ dc23sHNKTVb0sFUsl2QtC7d1ADeQOZGPMzZnVJ/dZ5QH7J3iB7P6Wk9RuuXS7hRsuXMF
+ c3uJxUIERlfHa6lU4MgaHC4B82WwqwM8HokUh0nFFwdJiNW/hZ3Geq81o5oDeLf34nOY
+ ETzHuttyrlWETY9pgmtEFTPgdCEc/aAkXosmKVfT8pOKafXXmiGq2jn3ed7h3h3ZqWWM
+ kE6Grolx32XK7ooTBEmdObUYF2AyeQrvUD7CpWb8o6wOs7ARImrao+JDlY1+j/UrM3qE
+ 9kKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=Z58I3NaPeNzkQm0bheIGd0kW8EMxvnnvR1YSn9Rg2KA=;
- b=D/ZEcGJsV6PM0yNTsQrMGfTVrjnqNNaRIBm8OykCHjOrNrfLSkfnU6MmW0V6eaYMQG
- mSbvG94KKhd9ddZkq0AWpcPFr1iBV4wxKf955PHQXcrApNRO2lmL6laXhE0n7xMrG2Wo
- zx+qEAF2Ud57iwdNMom/3jQ8bWelyLnnZm2oPJFemPZ2skcAqqV7OIHd9kUgxHe13gEb
- XXZlCtxmbe2gqTSwiu/R+cOhOdkQl4tnhRprJ1nsIq+qqNLRIxsj06nl5G8HYcsEaaXJ
- uXNceL+SBJrNXrIcdsDF99XINJjkXRB+vfpLejwTbRMAtAzTKIZ2KQwIDh9zr2r5fBRp
- yyjw==
-X-Gm-Message-State: AMke39kaMmGJ2FrTqOjDdS9SOxFDbS+DKp1ygIK6jo+4HQYazzBlCc58En8GIrdbzE6X0zp76HFKiFJ/vf/3ng==
-X-Received: by 10.13.247.134 with SMTP id h128mr20666335ywf.56.1487632864055; 
- Mon, 20 Feb 2017 15:21:04 -0800 (PST)
+ bh=wWOWB3+ogsaS3ngGbqZJAkKUGiaAOMmSrBtrGP0idwE=;
+ b=Tziqv9pxNaUNDsVOu6p5YNfHDvC0z5kXMRHaXQw6FrZp0psKe8AwjCQmD3hO8WRUPG
+ FV4WptyMcbmqDCfQrA0687FD67M1MNLjQ/rpLioprkl4wFHDIed9ZbOh/VR1ujZVl2BI
+ 6Lr3rAXvd6IYiJvwRI14OZLgyo39h2JXqioWYIXJh7XpZ5HqQRzpukCFInMLzrF2o4FZ
+ HQ0+gP9AgBVzQgtfu8LNXN3+Pj06m4Z7DhghJjkBqthiE1FR6ijsYmym7AF4Zbe+wxT0
+ cANfDOAecPVSe4jQhAXTL+2Cks82GNjOh5AdQriSEcY4/nRtxGrTrLarQ41z+akTOkh0
+ +LAQ==
+X-Gm-Message-State: AMke39milPE6alLHR1EwqJ7xTm2+tQ5akFchYUQ7WKscbq42IEnRdI0aWJwyAsVspZ+YRp6Gmp3m5zpLw9EfCg==
+X-Received: by 10.37.170.143 with SMTP id t15mr4235893ybi.153.1487632927829;
+ Mon, 20 Feb 2017 15:22:07 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.27.133 with HTTP; Mon, 20 Feb 2017 15:20:43 -0800 (PST)
-In-Reply-To: <258d17ec-a52e-0706-bd84-cd972780bbf6@ozlabs.org>
-References: <1487367482-24868-1-git-send-email-eajames@linux.vnet.ibm.com>
- <258d17ec-a52e-0706-bd84-cd972780bbf6@ozlabs.org>
+Received: by 10.37.27.133 with HTTP; Mon, 20 Feb 2017 15:21:47 -0800 (PST)
+In-Reply-To: <1487621986-23229-1-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1487621986-23229-1-git-send-email-eajames@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 21 Feb 2017 09:50:43 +1030
-X-Google-Sender-Auth: hwgnS7dCH1FJsJBj5C_tNYuPl2Y
-Message-ID: <CACPK8Xf3CSFMrcNU8buQjzOAZNhFREodWcn4uwQRoxzyjVNkZw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7 v3] drivers: fsi: Use kernel ida to manage
- device indexes
-To: Jeremy Kerr <jk@ozlabs.org>
-Cc: Eddie James <eajames@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- "Edward A. James" <eajames@us.ibm.com>,
- Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Date: Tue, 21 Feb 2017 09:51:47 +1030
+X-Google-Sender-Auth: LAZa1kvXVbSG6GZWsJONuAx3ZXg
+Message-ID: <CACPK8Xe1p9BfZyNu45RBBDyxAQOGGx6D3eOcOMwXE2fYVRqUOQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7] dts: aspeed: zaius: Enable FSI master
+To: Eddie James <eajames@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ "Edward A. James" <eajames@us.ibm.com>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -63,27 +59,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Feb 2017 23:21:06 -0000
+X-List-Received-Date: Mon, 20 Feb 2017 23:22:10 -0000
 
-On Mon, Feb 20, 2017 at 5:26 PM, Jeremy Kerr <jk@ozlabs.org> wrote:
-> Hi Eddie,
+On Tue, Feb 21, 2017 at 6:49 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+> From: "Edward A. James" <eajames@us.ibm.com>
 >
->> Fixes bad device indexes and duplicates after fsi rescan
->
-> Looks good to me - much cooler than the existing atomic counter.
->
-> Acked-by: Jeremy Kerr <jk@ozlabs.org>
+> set status to "okay" instead of "disabled"
 
-Thanks for taking a look Jeremy.
-
-Applied to dev-4.7.
+Can we get away with doing this for machines one by one? I expect we
+should switch all P9 machines at once.
 
 Cheers,
 
 Joel
 
 >
-> Cheers,
+> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+> ---
+>  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> index e1c9b3f..8f563dd 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> @@ -78,7 +78,7 @@
+>         fsi-master {
+>                 compatible = "ibm,fsi-master", "ibm,fsi-master-gpio";
 >
-> Jeremy
+> -               status = "disabled";
+> +               status = "okay";
+>
+>                 clock-gpios = <&gpio ASPEED_GPIO(C, 3) GPIO_ACTIVE_HIGH>;
+>                 data-gpios = <&gpio ASPEED_GPIO(C, 2) GPIO_ACTIVE_HIGH>;
+> --
+> 1.8.3.1
+>
