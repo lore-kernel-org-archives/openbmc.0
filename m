@@ -1,48 +1,74 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vRmWS1lLSzDqBv
- for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 01:40:20 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="VvV2/D7q"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Sh4WHa1N"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 2F377207A3;
- Mon, 20 Feb 2017 09:40:18 -0500 (EST)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Mon, 20 Feb 2017 09:40:18 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:message-id:subject:to:x-me-sender:x-me-sender
- :x-sasl-enc:x-sasl-enc; s=mesmtp; bh=HJHMmUhuKpQhC5lk5kzfi8vWBxw
- =; b=VvV2/D7qPfJpcWbEBaZmfLQe/Keg5FxmQKaWm56PRK8KvEfo079DkxmKE5x
- xMawiRZmxeATE9GOM5ajO2JVjAg+uXJ+aZQ7xbYlzXvsQGEE4po7Ya9ZDGVX0P8d
- 6G6oMrPS1bjl3GkPrk2/QJ6Zbjh0wZhgOG7cqAqO+14rakCM=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=HJ
- HMmUhuKpQhC5lk5kzfi8vWBxw=; b=Sh4WHa1NItaa+DMsXJxkSafD1xJa/W4LtD
- MqBlrmxP3cR4N4pDNPcu9aM6ZGpgK9rwv0+Jx47HxDfy/qqUaoY8djkFXjB+bdvY
- t7z+IuW5Bpb7MhN/u9RpIcnUEK+zVCgEeD+dOSUkC6nUQMo+0grJlhX4aj9CgZFS
- 2qtDmnQGU=
-X-ME-Sender: <xms:0v-qWENL5JuKfeXbyksqe4ybp52CrvbRgkyzpZfMa1FhoELbZiRpIQ>
-X-Sasl-enc: Phz1QmFdAOsOp32XLvzooUnj89o2i9A/n8CopHJe1Fy4 1487601616
-Received: from keelia.au.ibm.com (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id BDBDB7E033;
- Mon, 20 Feb 2017 09:40:14 -0500 (EST)
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Linus Walleij <linus.walleij@linaro.org>
-Cc: Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>,
- Alexandre Courbot <gnurou@gmail.com>, linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
-Subject: [PATCH] gpio: aspeed: Add debounce support
-Date: Tue, 21 Feb 2017 01:10:04 +1030
-Message-Id: <20170220144004.10809-1-andrew@aj.id.au>
-X-Mailer: git-send-email 2.9.3
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vRmxx3f8kzDqBv
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 01:59:49 +1100 (AEDT)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v1KEwqRa078787
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Feb 2017 09:59:47 -0500
+Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 28qvbygfqd-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Feb 2017 09:59:47 -0500
+Received: from localhost
+ by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Mon, 20 Feb 2017 07:59:46 -0700
+Received: from d03dlp03.boulder.ibm.com (9.17.202.179)
+ by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Mon, 20 Feb 2017 07:59:43 -0700
+Received: from b03cxnp07029.gho.boulder.ibm.com
+ (b03cxnp07029.gho.boulder.ibm.com [9.17.130.16])
+ by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id CD07C19D8041;
+ Mon, 20 Feb 2017 07:58:54 -0700 (MST)
+Received: from b03ledav004.gho.boulder.ibm.com
+ (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
+ by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v1KExg6313304170; Mon, 20 Feb 2017 07:59:42 -0700
+Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 7571C78041;
+ Mon, 20 Feb 2017 07:59:42 -0700 (MST)
+Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
+ by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP id 2596078037;
+ Mon, 20 Feb 2017 07:59:42 -0700 (MST)
+Subject: Re: [PATCH linux dev-4.7] drivers: fsi: scom: Add reset functionality
+ and sysfs interface
+To: Jeremy Kerr <jk@ozlabs.org>, openbmc@lists.ozlabs.org
+References: <1487367671-26077-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <4b59fa39-65c2-cb33-07aa-3fe7a1c7fe21@ozlabs.org>
+Cc: "Edward A. James" <eajames@us.ibm.com>, cbostic@linux.vnet.ibm.com
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Mon, 20 Feb 2017 08:59:36 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.6.0
+MIME-Version: 1.0
+In-Reply-To: <4b59fa39-65c2-cb33-07aa-3fe7a1c7fe21@ozlabs.org>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 17022014-0008-0000-0000-000007473CA1
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006651; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000204; SDB=6.00824575; UDB=6.00403654; IPR=6.00602031; 
+ BA=6.00005157; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014360; XFM=3.00000011;
+ UTC=2017-02-20 14:59:44
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17022014-0009-0000-0000-0000400FBEB0
+Message-Id: <8f716407-6cdb-7f49-6ba6-39a5224a19ac@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-02-20_13:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
+ definitions=main-1702200147
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,394 +80,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Feb 2017 14:40:21 -0000
+X-List-Received-Date: Mon, 20 Feb 2017 14:59:50 -0000
 
-Each GPIO in the Aspeed GPIO controller can choose one of four input
-debounce states: to not debounce an input or to select from one of three
-programmable debounce timer values. Each GPIO in a four-bank-set is
-assigned one bit in each of two debounce configuration registers
-dedicated to the set, and selects a debounce state by configuring the
-two bits to select one of the four options.
 
-The limitation on debounce timer values is managed by mapping offsets
-onto a configured timer value and keeping count of the number of users
-a timer has. Timer values are configured on a first-come-first-served
-basis.
 
-A small twist in the hardware design is that the debounce configuration
-register numbering is reversed with respect to the binary representation
-of the debounce timer of interest (i.e. debounce register 1 represents
-bit 1, and debounce register 2 represents bit 0 of the timer numbering).
+On 02/20/2017 12:54 AM, Jeremy Kerr wrote:
+> Hi Eddie,
+>
+> The changelog doesn't have much context, so a bit of a question:
+>
+>> +static ssize_t store_reset_register(struct device *dev,
+>> +				    struct device_attribute *attr,
+>> +				    const char *buf, size_t count)
+>> +{
+>> +	int rc;
+>> +	struct fsi_device *fsi_dev = to_fsi_dev(dev);
+>> +
+>> +	rc = scom_full_reset(fsi_dev);
+>> +
+>> +	return rc ? rc : count;
+>> +}
+>> +DEVICE_ATTR(reset, 0200, NULL, store_reset_register);
+>> +
+> How does this interact with the scom read/write operations? Having
+> different interfaces access methods (file for one, sysfs interface for
+> another)for both seems like an invitation for trouble - would this make
+> more sense as an ioctl on the existing fd?
 
-Open-drain/open-source support also introduced, but merely by deferring
-to the gpiolib emulation (as per the datasheet).
+It would, but I was under the impression ioctls were frowned upon for 
+some reason? Since we only have one option (reset), I felt a sysfs entry 
+made more sense for now? It doesn't interact at all with the read/write 
+operations, though I suppose if you wrote reset while in the middle of a 
+getscom/putscom, you'd probably end up with a bus error. I'd classify 
+that as user error. We could add some sort of locking.
 
-Tested on an AST2500EVB.
-
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- drivers/gpio/gpio-aspeed.c | 244 ++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 239 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpio/gpio-aspeed.c b/drivers/gpio/gpio-aspeed.c
-index fb16cc771c0d..164a75272151 100644
---- a/drivers/gpio/gpio-aspeed.c
-+++ b/drivers/gpio/gpio-aspeed.c
-@@ -9,14 +9,17 @@
-  * 2 of the License, or (at your option) any later version.
-  */
- 
--#include <linux/module.h>
--#include <linux/kernel.h>
-+#include <asm/div64.h>
-+#include <linux/clk.h>
-+#include <linux/gpio/driver.h>
-+#include <linux/hashtable.h>
- #include <linux/init.h>
- #include <linux/io.h>
--#include <linux/spinlock.h>
--#include <linux/platform_device.h>
--#include <linux/gpio/driver.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
- #include <linux/pinctrl/consumer.h>
-+#include <linux/platform_device.h>
-+#include <linux/spinlock.h>
- 
- struct aspeed_bank_props {
- 	unsigned int bank;
-@@ -29,59 +32,81 @@ struct aspeed_gpio_config {
- 	const struct aspeed_bank_props *props;
- };
- 
-+struct aspeed_debounce_timer {
-+	unsigned int offset;
-+	unsigned int timer;
-+	struct hlist_node node;
-+};
-+
- struct aspeed_gpio {
- 	struct gpio_chip chip;
- 	spinlock_t lock;
- 	void __iomem *base;
- 	int irq;
- 	const struct aspeed_gpio_config *config;
-+
-+	/* Debouncing */
-+	DECLARE_HASHTABLE(offset_timer, 5);
-+	unsigned int timer_users[3];
-+	struct clk *clk;
- };
- 
- struct aspeed_gpio_bank {
- 	uint16_t	val_regs;
- 	uint16_t	irq_regs;
-+	uint16_t	debounce_regs;
- 	const char	names[4][3];
- };
- 
-+static const int debounce_timers[3] = { 0x50, 0x54, 0x58 };
-+
- static const struct aspeed_gpio_bank aspeed_gpio_banks[] = {
- 	{
- 		.val_regs = 0x0000,
- 		.irq_regs = 0x0008,
-+		.debounce_regs = 0x0040,
- 		.names = { "A", "B", "C", "D" },
- 	},
- 	{
- 		.val_regs = 0x0020,
- 		.irq_regs = 0x0028,
-+		.debounce_regs = 0x0048,
- 		.names = { "E", "F", "G", "H" },
- 	},
- 	{
- 		.val_regs = 0x0070,
- 		.irq_regs = 0x0098,
-+		.debounce_regs = 0x00b0,
- 		.names = { "I", "J", "K", "L" },
- 	},
- 	{
- 		.val_regs = 0x0078,
- 		.irq_regs = 0x00e8,
-+		.debounce_regs = 0x0100,
- 		.names = { "M", "N", "O", "P" },
- 	},
- 	{
- 		.val_regs = 0x0080,
- 		.irq_regs = 0x0118,
-+		.debounce_regs = 0x0130,
- 		.names = { "Q", "R", "S", "T" },
- 	},
- 	{
- 		.val_regs = 0x0088,
- 		.irq_regs = 0x0148,
-+		.debounce_regs = 0x0160,
- 		.names = { "U", "V", "W", "X" },
- 	},
- 	{
- 		.val_regs = 0x01E0,
- 		.irq_regs = 0x0178,
-+		.debounce_regs = 0x0190,
- 		.names = { "Y", "Z", "AA", "AB" },
- 	},
- 	{
- 		.val_regs = 0x01E8,
- 		.irq_regs = 0x01A8,
-+		.debounce_regs = 0x01c0,
- 		.names = { "AC", "", "", "" },
- 	},
- };
-@@ -99,6 +124,13 @@ static const struct aspeed_gpio_bank aspeed_gpio_banks[] = {
- #define GPIO_IRQ_TYPE2	0x0c
- #define GPIO_IRQ_STATUS	0x10
- 
-+#define GPIO_DEBOUNCE_SEL1 0x00
-+#define GPIO_DEBOUNCE_SEL2 0x04
-+
-+#define _GPIO_SET_DEBOUNCE(t, o, i) ((!!((t + 1) & BIT(i))) << GPIO_OFFSET(o))
-+#define GPIO_SET_DEBOUNCE1(t, o) _GPIO_SET_DEBOUNCE(t, o, 1)
-+#define GPIO_SET_DEBOUNCE2(t, o) _GPIO_SET_DEBOUNCE(t, o, 0)
-+
- static const struct aspeed_gpio_bank *to_bank(unsigned int offset)
- {
- 	unsigned int bank = GPIO_BANK(offset);
-@@ -144,6 +176,7 @@ static inline bool have_input(struct aspeed_gpio *gpio, unsigned int offset)
- }
- 
- #define have_irq(g, o) have_input((g), (o))
-+#define have_debounce(g, o) have_input((g), (o))
- 
- static inline bool have_output(struct aspeed_gpio *gpio, unsigned int offset)
- {
-@@ -506,6 +539,200 @@ static void aspeed_gpio_free(struct gpio_chip *chip, unsigned int offset)
- 	pinctrl_free_gpio(chip->base + offset);
- }
- 
-+static inline void __iomem *bank_debounce_reg(struct aspeed_gpio *gpio,
-+		const struct aspeed_gpio_bank *bank,
-+		unsigned int reg)
-+{
-+	return gpio->base + bank->debounce_regs + reg;
-+}
-+
-+static inline int usecs_to_cycles(struct aspeed_gpio *gpio, unsigned long usecs,
-+		u32 *cycles)
-+{
-+	u64 rate;
-+	u64 n;
-+
-+	rate = clk_get_rate(gpio->clk);
-+	if (!rate)
-+		return -ENODEV;
-+
-+	n = rate * usecs;
-+	do_div(n, 1000000);
-+
-+	if (n >= U32_MAX)
-+		return -ERANGE;
-+
-+	/* At least as long as the requested time */
-+	*cycles = n + 1;
-+
-+	return 0;
-+}
-+
-+static int aspeed_gpio_set_debounce(struct gpio_chip *chip, unsigned int offset,
-+				    unsigned long usecs)
-+{
-+	const struct aspeed_gpio_bank *bank = to_bank(offset);
-+	struct aspeed_gpio *gpio = gpiochip_get_data(chip);
-+	const u32 mask = GPIO_BIT(offset);
-+	unsigned long flags;
-+	void __iomem *addr;
-+	u32 val;
-+	int rc;
-+
-+	if (!have_debounce(gpio, offset))
-+		return -ENOTSUPP;
-+
-+	if (usecs) {
-+		struct aspeed_debounce_timer *dt, *newdt;
-+		u32 requested_cycles;
-+		int i;
-+
-+		/*
-+		 * TODO: Look at improving these:
-+		 *
-+		 * - we always delete users of timers even if the call is for a
-+		 *   duplicate debounce period for an offset
-+		 * - we don't reuse struct aspeed_debounce_timer allocations if
-+		 *   the offset is already using a timer
-+		 */
-+
-+		rc = usecs_to_cycles(gpio, usecs, &requested_cycles);
-+		if (rc < 0)
-+			return rc;
-+
-+		newdt = devm_kmalloc(chip->parent, sizeof(*dt), GFP_KERNEL);
-+		if (!newdt)
-+			return -ENOMEM;
-+
-+		spin_lock_irqsave(&gpio->lock, flags);
-+
-+		/* Check if the @offset is already using a timer */
-+		hash_for_each_possible(gpio->offset_timer, dt, node, offset) {
-+			if (offset == dt->offset) {
-+				hash_del(&dt->node);
-+				WARN_ON(!gpio->timer_users[dt->timer]);
-+				gpio->timer_users[dt->timer]--;
-+				devm_kfree(chip->parent, dt);
-+				break;
-+			}
-+		}
-+
-+		/*
-+		 * Check if a timer is already configured for the requested
-+		 * debounce period. If so, just add @offset as a user of this
-+		 * timer
-+		 */
-+		for (i = 0; i < ARRAY_SIZE(debounce_timers); i++) {
-+			u32 cycles;
-+
-+			addr = gpio->base + debounce_timers[i];
-+			cycles = ioread32(addr);
-+
-+			if (requested_cycles == cycles)
-+				break;
-+		}
-+
-+		/* Otherwise, allocate a timer */
-+		if (i == ARRAY_SIZE(debounce_timers)) {
-+			for (i = 0; i < ARRAY_SIZE(gpio->timer_users); i++) {
-+				if (gpio->timer_users[i] == 0)
-+					break;
-+			}
-+
-+			/* We have run out of timers */
-+			if (i == ARRAY_SIZE(gpio->timer_users)) {
-+				dev_warn(chip->parent,
-+						"Debounce timers exhausted, cannot debounce for period %luus\n",
-+						usecs);
-+				rc = -EPERM;
-+				goto err;
-+			}
-+
-+			/* Timer update */
-+			addr = gpio->base + debounce_timers[i];
-+			iowrite32(requested_cycles, addr);
-+		}
-+
-+		/* Register @offset as a user of timer i */
-+		newdt->offset = offset;
-+		newdt->timer = i;
-+		hash_add(gpio->offset_timer, &newdt->node, offset);
-+
-+		WARN_ON(gpio->timer_users[i] == UINT_MAX);
-+		gpio->timer_users[i]++;
-+
-+		/* Configure @offset to use timer i */
-+		addr = bank_debounce_reg(gpio, bank, GPIO_DEBOUNCE_SEL1);
-+		val = ioread32(addr);
-+		iowrite32((val & ~mask) | GPIO_SET_DEBOUNCE1(i, offset), addr);
-+
-+		addr = bank_debounce_reg(gpio, bank, GPIO_DEBOUNCE_SEL2);
-+		val = ioread32(addr);
-+		iowrite32((val & ~mask) | GPIO_SET_DEBOUNCE2(i, offset), addr);
-+
-+		spin_unlock_irqrestore(&gpio->lock, flags);
-+	} else {
-+		struct aspeed_debounce_timer *dt;
-+
-+		spin_lock_irqsave(&gpio->lock, flags);
-+
-+		/* Unregister any record of timer use by @offset */
-+		hash_for_each_possible(gpio->offset_timer, dt, node, offset) {
-+			if (offset == dt->offset) {
-+				WARN_ON(!gpio->timer_users[dt->timer]);
-+
-+				gpio->timer_users[dt->timer]--;
-+				hash_del(&dt->node);
-+				devm_kfree(chip->parent, dt);
-+				break;
-+			}
-+		}
-+
-+		addr = bank_debounce_reg(gpio, bank, GPIO_DEBOUNCE_SEL1);
-+		val = ioread32(addr);
-+		iowrite32((val & ~mask), addr);
-+
-+		addr = bank_debounce_reg(gpio, bank, GPIO_DEBOUNCE_SEL2);
-+		val = ioread32(addr);
-+		iowrite32((val & ~mask), addr);
-+
-+		spin_unlock_irqrestore(&gpio->lock, flags);
-+	}
-+
-+	return rc;
-+
-+err:
-+	spin_unlock_irqrestore(&gpio->lock, flags);
-+
-+	return rc;
-+}
-+
-+static int aspeed_gpio_set_config(struct gpio_chip *chip, unsigned int offset,
-+				  unsigned long config)
-+{
-+	unsigned long param = pinconf_to_config_param(config);
-+	u32 arg = pinconf_to_config_argument(config);
-+	int rc;
-+
-+	switch (param) {
-+	case PIN_CONFIG_INPUT_DEBOUNCE:
-+		rc = aspeed_gpio_set_debounce(chip, offset, arg);
-+		break;
-+	case PIN_CONFIG_BIAS_DISABLE:
-+	case PIN_CONFIG_BIAS_PULL_DOWN:
-+	case PIN_CONFIG_DRIVE_STRENGTH:
-+		rc = pinctrl_gpio_set_config(offset, config);
-+		break;
-+	case PIN_CONFIG_DRIVE_OPEN_DRAIN:
-+	case PIN_CONFIG_DRIVE_OPEN_SOURCE:
-+		/* Fallthrough for emulation, as per datasheet */
-+	default:
-+		rc = -ENOTSUPP;
-+	}
-+
-+	return rc;
-+}
-+
- /*
-  * Any banks not specified in a struct aspeed_bank_props array are assumed to
-  * have the properties:
-@@ -560,13 +787,19 @@ static int __init aspeed_gpio_probe(struct platform_device *pdev)
- 		return PTR_ERR(gpio->base);
- 
- 	spin_lock_init(&gpio->lock);
-+	hash_init(gpio->offset_timer);
- 
- 	gpio_id = of_match_node(aspeed_gpio_of_table, pdev->dev.of_node);
- 	if (!gpio_id)
- 		return -EINVAL;
- 
-+	gpio->clk = of_clk_get(pdev->dev.of_node, 0);
-+	if (IS_ERR(gpio->clk))
-+		return PTR_ERR(gpio->clk);
-+
- 	gpio->config = gpio_id->data;
- 
-+	gpio->chip.parent = &pdev->dev;
- 	gpio->chip.ngpio = gpio->config->nr_gpios;
- 	gpio->chip.parent = &pdev->dev;
- 	gpio->chip.direction_input = aspeed_gpio_dir_in;
-@@ -576,6 +809,7 @@ static int __init aspeed_gpio_probe(struct platform_device *pdev)
- 	gpio->chip.free = aspeed_gpio_free;
- 	gpio->chip.get = aspeed_gpio_get;
- 	gpio->chip.set = aspeed_gpio_set;
-+	gpio->chip.set_config = aspeed_gpio_set_config;
- 	gpio->chip.label = dev_name(&pdev->dev);
- 	gpio->chip.base = -1;
- 	gpio->chip.irq_need_valid_mask = true;
--- 
-2.9.3
+>
+> Cheers,
+>
+>
+> Jeremy
+>
