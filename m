@@ -1,48 +1,77 @@
-Return-Path: <geissonator@gmail.com>
-Received: from mail-it0-x232.google.com (mail-it0-x232.google.com
- [IPv6:2607:f8b0:4001:c0b::232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vRykd6vLtzDqHV
- for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 09:20:41 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="q7HG9h4G"; 
- dkim-atps=neutral
-Received: by mail-it0-x232.google.com with SMTP id y135so31778614itc.1
- for <openbmc@lists.ozlabs.org>; Mon, 20 Feb 2017 14:20:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to
- :content-transfer-encoding;
- bh=qJ2ckqdlQhrSMauAlF90AUcdXOUgDb38hLmXaacX2zk=;
- b=q7HG9h4GqYYCjijxPMk/z4kLrUcbXmahmpdIYskHsfiiFPUiwx9nSV97X4nhMDnIol
- bBz+5yvBosPvB5ayoAdDEuv0hepwoIb7P2cpyjbTF1zu7Qr/DQwiB+2dyGH3s/XMPzkK
- C+gD+1KVygFWMZDMUrGTis2QOcDJblIoOq+FJpKRpfC8fyxvPesZ1yAkNAZKrZn1pRzQ
- 7eBeSzjuJ3t82fVat5FnrBH5mdB7MXZCaQWqsGiEcm4tnRCVLsJ5WOWpxinAasP5uiKw
- ULbKaHJrZq2aXuDDeSKUCL2xWOgBAn1ZCsEx6kehMLPVb/7VbVZxgL+X2mzlpNlXj7vT
- OMrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to
- :content-transfer-encoding;
- bh=qJ2ckqdlQhrSMauAlF90AUcdXOUgDb38hLmXaacX2zk=;
- b=EhX3UwBGu+P1SNzU5LuRrj14kbhOlUVcH/UwOYg2re1xca8qeZa7VVfpcwYewaFjCi
- TRX0tOXOD8nR3qUmEjnyBK+6vvpId8ymohrJPnpYL68MnPrxr2vBXjeZ738pkVBxM7Jm
- S8GSDGWcYW3dfp09SelqmQSHLfXhaEpm7xLWBXVcOU3zI3CkSS8fhwEGCzFbREVIU9hz
- yEhMSlJT2Dcw2SL2oErCQjjxhIDgyECnKGpzo0nqZtcTO9Q2zXFX40ZeRSlsJ5NznThw
- orc49dnzF7g1GMA9yF4svMM5EMPe/5Ncv6LqbxiRxIGaWNrtK8v2OTBBugdQSg0eY2Q6
- mj9Q==
-X-Gm-Message-State: AMke39nfvt+Oq/J0pcnOe8NylbDlg3/DqlwKjypcsT/4PiTX0H5G+vqYAY6iGoDzIoo5Vd5phakytW7Fwp8cnw==
-X-Received: by 10.36.85.196 with SMTP id e187mr13894896itb.33.1487629239831;
- Mon, 20 Feb 2017 14:20:39 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vRyrb4JtDzDqGp
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 09:25:51 +1100 (AEDT)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v1KMJ5Ec039569
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Feb 2017 17:25:48 -0500
+Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 28r62yes3e-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Feb 2017 17:25:48 -0500
+Received: from localhost
+ by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Mon, 20 Feb 2017 17:25:48 -0500
+Received: from d01dlp03.pok.ibm.com (9.56.250.168)
+ by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Mon, 20 Feb 2017 17:25:44 -0500
+Received: from b01cxnp23034.gho.pok.ibm.com (b01cxnp23034.gho.pok.ibm.com
+ [9.57.198.29])
+ by d01dlp03.pok.ibm.com (Postfix) with ESMTP id 0BEA2C9003E;
+ Mon, 20 Feb 2017 17:25:25 -0500 (EST)
+Received: from b01ledav03.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
+ [9.57.199.108])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v1KMPiCH22085780; Mon, 20 Feb 2017 22:25:44 GMT
+Received: from b01ledav03.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 16478B204E;
+ Mon, 20 Feb 2017 17:25:43 -0500 (EST)
+Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
+ by b01ledav03.gho.pok.ibm.com (Postfix) with ESMTP id BC78DB2050;
+ Mon, 20 Feb 2017 17:25:42 -0500 (EST)
+Subject: Re: [PATCH linux dev-4.7] drivers: fsi: scom: Add reset functionality
+ and sysfs interface
+To: Joel Stanley <joel@jms.id.au>
+References: <1487367671-26077-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <CACPK8XfGCTpk5S22kwOFE1cOLgFbg4Wkx3p5bCA8A3Vb1MFGbg@mail.gmail.com>
+ <e07df5e1-96a5-49d9-5eb2-d4c74e237962@linux.vnet.ibm.com>
+Cc: "Edward A. James" <eajames@us.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Christopher Bostic <cbostic@linux.vnet.ibm.com>
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Mon, 20 Feb 2017 16:25:38 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.6.0
 MIME-Version: 1.0
-Received: by 10.107.9.155 with HTTP; Mon, 20 Feb 2017 14:20:39 -0800 (PST)
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Mon, 20 Feb 2017 16:20:39 -0600
-Message-ID: <CALLMt=r62pSsVx+5DRsyxRThX0WahOO8wk5ENcc+t7ZfyoPoVw@mail.gmail.com>
-Subject: Target name refactoring
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <e07df5e1-96a5-49d9-5eb2-d4c74e237962@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 17022022-0040-0000-0000-000002AC0BAB
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006653; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000204; SDB=6.00824723; UDB=6.00403744; IPR=6.00602179; 
+ BA=6.00005158; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014363; XFM=3.00000011;
+ UTC=2017-02-20 22:25:46
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17022022-0041-0000-0000-0000069F2F85
+Message-Id: <062da9a4-d526-b434-58fb-42784d9eab5f@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-02-20_18:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
+ definitions=main-1702200206
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,42 +83,158 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Feb 2017 22:20:42 -0000
+X-List-Received-Date: Mon, 20 Feb 2017 22:25:52 -0000
 
-Some design decisions came out of my last set of changes in the
-OpenBMC state area.  There was a proposal to rename our targets
-responsible for booting and powering on/off the system.
+I'm abandoning this. The reset procedure is simple enough to do from the 
+cronus ADAL layer. In FSP code it had a bunch of checks for cfam type, 
+so I thought it would continue to make sense in the driver. But we don't 
+need that here.
 
-Currently we have this:
-- PowerOn: obmc-power-chassis-on.target    obmc-chassis-start.target
-- PowerOff: obmc-power-chassis-off.target    obmc-chassis-stop.target
-  obmc-stop-host.target
+Thanks,
 
-The obmc-power-chassis-*.targets are responsible for doing whatever is
-required to apply pgood to the chassis.
-The obmc-chassis-*.targets are responsible for starting and stopping
-all host related services
-The obmc-stop-host.target is where we have the soft power off service
-(notify host of shutdown, wait for host to shutdown gracefully)
+Eddie
 
-Refactoring Proposal:
-- First the chassis-start and chassis-stop target names don=E2=80=99t make
-sense anymore with the new bmc, chassis, and host state break down=E2=80=99=
-s
-so:
-  - Rename obmc-chassis-start.target to obmc-start-host.target
-  - Rename obmc-chassis-stop.target to obmc-stop-host.target
-  - Rename the current obmc-stop-host.target to obmc-shutdown-host.target
 
-The target relationships are then the following:
-
-obmc-host-start.target requires obmc-power-chassis-on.target
-obmc-shutdown-host.target requires obmc-stop-host.target requires
-obmc-power-chassis-off.target
-
-When a system goes to the quiesce target, the host state manager will
-call the obmc-stop-host.target.  Otherwise, the host state service
-will call the obmc-shutdown-host.target when power off is requested.
-
-Thoughts/Comments?
-Andrew
+On 02/20/2017 09:08 AM, Eddie James wrote:
+>
+>
+> On 02/19/2017 11:42 PM, Joel Stanley wrote:
+>> On Sat, Feb 18, 2017 at 8:11 AM, Eddie James 
+>> <eajames@linux.vnet.ibm.com> wrote:
+>>> From: "Edward A. James" <eajames@us.ibm.com>
+>>>
+>>> full reset only
+>> The commit message needs some work. Use full sentences, explain why
+>> the patch is required.
+>
+> Ok.
+>
+>>
+>>> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+>>> ---
+>>>   drivers/fsi/fsi-scom.c | 51 
+>>> +++++++++++++++++++++++++++++++++++++++++++++++++-
+>>>   1 file changed, 50 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/fsi/fsi-scom.c b/drivers/fsi/fsi-scom.c
+>>> index ff8267b..c73bd91 100644
+>>> --- a/drivers/fsi/fsi-scom.c
+>>> +++ b/drivers/fsi/fsi-scom.c
+>>> @@ -32,7 +32,10 @@
+>>>   #define SCOM_DATA0_REG         0x00
+>>>   #define SCOM_DATA1_REG         0x04
+>>>   #define SCOM_CMD_REG           0x08
+>>> +#define SCOM_FSI2PIB_RESET_REG 0x18
+>>>   #define SCOM_RESET_REG         0x1C
+>>> +#define SCOM_COMP_MASK_REG     0x30
+>>> +#define SCOM_TRUE_MASK_REG     0x34
+>>>
+>>>   #define SCOM_RESET_CMD         0x80000000
+>>>   #define SCOM_WRITE_CMD         0x80000000
+>>> @@ -156,7 +159,7 @@ static ssize_t scom_write(struct file *filep, 
+>>> const char __user *buf,
+>>>          if (rc)
+>>>                  dev_dbg(dev, "put_scom failed with:%d\n", rc);
+>>>
+>>> -       return rc;
+>>> +       return rc ? rc : len;
+>> This looks like an unrelated fix.
+>
+> Yes, I guess a separate patch is in order.
+>
+>>
+>>>   }
+>>>
+>>>   static loff_t scom_llseek(struct file *file, loff_t offset, int 
+>>> whence)
+>>> @@ -181,6 +184,48 @@ static const struct file_operations scom_fops = {
+>>>          .write  = scom_write,
+>>>   };
+>>>
+>>> +static int scom_reset_fsi2pib(struct fsi_device *fsi_dev)
+>>> +{
+>>> +       int rc;
+>>> +       u32 dummy = 0xFFFFFFFF;
+>>> +
+>>> +       rc = fsi_device_write(fsi_dev, SCOM_FSI2PIB_RESET_REG, &dummy,
+>>> +                             sizeof(u32));
+>>> +       if (rc)
+>>> +               dev_dbg(&fsi_dev->dev,
+>>> +                       "failed to write fsi2pib reset register 
+>>> rc:%d\n", rc);
+>> Is this expected behaviour? If not, use dev_err.
+> The rest of the driver uses dev_dbg even in error situations, so I 
+> tried to follow suit here.
+>>
+>>> +
+>>> +       return rc;
+>>> +}
+>>> +
+>>> +static int scom_full_reset(struct fsi_device *fsi_dev)
+>>> +{
+>>> +       int rc = 0;
+>>> +       u32 dummy = 0xFFFFFFFF;
+>>> +
+>>> +       rc = fsi_device_write(fsi_dev, SCOM_RESET_REG, &dummy, 
+>>> sizeof(u32));
+>> sizeof(dummy)
+>>
+>>> +       if (rc) {
+>>> +               dev_dbg(&fsi_dev->dev,
+>>> +                       "failed to write scom reset register 
+>>> rc:%d\n", rc);
+>>> +               return rc;
+>>> +       }
+>>> +
+>>> +       return scom_reset_fsi2pib(fsi_dev);
+>>> +}
+>>> +
+>>> +static ssize_t store_reset_register(struct device *dev,
+>>> +                                   struct device_attribute *attr,
+>>> +                                   const char *buf, size_t count)
+>>> +{
+>>> +       int rc;
+>>> +       struct fsi_device *fsi_dev = to_fsi_dev(dev);
+>>> +
+>>> +       rc = scom_full_reset(fsi_dev);
+>>> +
+>>> +       return rc ? rc : count;
+>>> +}
+>>> +DEVICE_ATTR(reset, 0200, NULL, store_reset_register);
+>>> +
+>>>   static int scom_probe(struct device *dev)
+>>>   {
+>>>          struct fsi_device *fsi_dev = to_fsi_dev(dev);
+>>> @@ -200,6 +245,8 @@ static int scom_probe(struct device *dev)
+>>>          scom->mdev.parent = dev;
+>>>          list_add(&scom->link, &scom_devices);
+>>>
+>>> +       device_create_file(dev, &dev_attr_reset);
+>>> +
+>> What is the expected behaviour if two different userspace programs
+>> have the reset and chardev open?
+>
+> Probably a bus error or some sort of scom error if you write reset 
+> while you have a getscom/putscom operation going. Could add some locking?
+>
+> Thanks,
+> Eddie
+>
+>>
+>>>          return misc_register(&scom->mdev);
+>>>   }
+>>>
+>>> @@ -207,6 +254,8 @@ static int scom_remove(struct device *dev)
+>>>   {
+>>>          struct scom_device *scom, *scom_tmp;
+>>>          struct fsi_device *fsi_dev = to_fsi_dev(dev);
+>>> +
+>>> +       device_remove_file(dev, &dev_attr_reset);
+>>>
+>>>          list_for_each_entry_safe(scom, scom_tmp, &scom_devices, 
+>>> link) {
+>>>                  if (scom->fsi_dev == fsi_dev) {
+>>> -- 
+>>> 1.8.3.1
+>>>
+>
