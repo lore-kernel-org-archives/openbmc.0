@@ -1,51 +1,77 @@
-Return-Path: <mine260309@gmail.com>
-Received: from mail-qt0-x244.google.com (mail-qt0-x244.google.com
- [IPv6:2607:f8b0:400d:c0d::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <vsainath@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vRV503rT3zDq8X
- for <openbmc@lists.ozlabs.org>; Mon, 20 Feb 2017 14:49:55 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="hBXC12Fi"; 
- dkim-atps=neutral
-Received: by mail-qt0-x244.google.com with SMTP id x35so1972598qtc.1
- for <openbmc@lists.ozlabs.org>; Sun, 19 Feb 2017 19:49:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=1GWRTMlNvKC7xhl+j6TSe5mmrwCr/LsWlb5CSAgT4tk=;
- b=hBXC12FiwmsZtdakSk9Vy0h40I3/E5LGwCd1mNM09Y9MvEPTb9hL5y/tyYfGKWE/gS
- QHHIMMvl98/atoxsAs+BvntD0MKc7ujeKRZu4+wwiKAB6cLoJhaVlrIGA2ydHjljsOLs
- tMow+e1AqyzQagvJkXfkmHkpruQxSNK/iebI5VyhaR2CMWy6u5yt/tl/vYUFYVf3Brm4
- ZPnu2rhxNuAwc51KCLp7Z85qaS5nMUc8TCWsZllXch+yIZCUD4O2I/LCZmB2q9Eh9fdw
- cGTfV4RvnaT4ddS/UWdDuv/wmeJfgPLeDaoe6RSH3tNoNbtnLz8e25imhOf+HUbVJuM7
- pPDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=1GWRTMlNvKC7xhl+j6TSe5mmrwCr/LsWlb5CSAgT4tk=;
- b=qa4Nqjlwp1FZl1Y+HzjlaF4+ksuhP5AgMBJURRI4YvXPMLlhn7reHBxx/NSHdVIRqD
- CK1pxMF4x7lOMMSCWXl/KnKDZx3sNFEDjRSd9Xe7UKS296wE+A8iaKoUVlbT47ymQ/bR
- 60TyE4/GkaLMmu/yBu6e/IRq1KDMT0HyCFXyWXKy4StzNrv3sNB6RlzIg1j6DJ0RVdSW
- poW6SkfzmBiELtmZDkKnpKVxNd+fFiG3Kw4LBKgRyqPAvybWahA7VEgoE3TXNrqUnj61
- bFvQZoOP9E9ZsCouyRHHTzXr2zHDjPgWeiJGSKzy4/UmUlsOe3TKXsC2sGrKpts04m27
- LIoQ==
-X-Gm-Message-State: AMke39nopgkH74xH7GVSoZBbUpzhEvIPOdgtuFkKthxgqvuoo5pRbvmgDFz5YNmQxoYSt4hq3FYQko/VikTguA==
-X-Received: by 10.237.48.105 with SMTP id 96mr7348374qte.121.1487562592485;
- Sun, 19 Feb 2017 19:49:52 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.12.137.9 with HTTP; Sun, 19 Feb 2017 19:49:52 -0800 (PST)
-In-Reply-To: <CACPK8Xf5AgsKPMVuA8KUjrTrGc1j_2r4kMOC8kmX33wNRxGAFg@mail.gmail.com>
-References: <1487424810-1469-1-git-send-email-mine260309@gmail.com>
- <CAARXrtmp_dhz_7jTTDh2+tKK_dOniWzz=KB0Lt9-pAOc-Wt80Q@mail.gmail.com>
- <CACPK8Xf5AgsKPMVuA8KUjrTrGc1j_2r4kMOC8kmX33wNRxGAFg@mail.gmail.com>
-From: Mine <mine260309@gmail.com>
-Date: Mon, 20 Feb 2017 11:49:52 +0800
-Message-ID: <CAARXrtmY=y4Wc+9EA8zNW3fCueBBRhFm=2608qGAo=+58SL+3g@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7] arm: aspeed: romulus: Do common setup
-To: Joel Stanley <joel@jms.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vRWmT6n6lzDq8X
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Feb 2017 16:05:45 +1100 (AEDT)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v1K53hfs099611
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Feb 2017 00:05:43 -0500
+Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 28qca3h2sf-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Feb 2017 00:05:43 -0500
+Received: from localhost
+ by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <vsainath@linux.vnet.ibm.com>;
+ Mon, 20 Feb 2017 00:05:42 -0500
+Received: from d01dlp02.pok.ibm.com (9.56.250.167)
+ by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Mon, 20 Feb 2017 00:05:40 -0500
+Received: from b01cxnp22035.gho.pok.ibm.com (b01cxnp22035.gho.pok.ibm.com
+ [9.57.198.25])
+ by d01dlp02.pok.ibm.com (Postfix) with ESMTP id 019826E803C;
+ Mon, 20 Feb 2017 00:05:11 -0500 (EST)
+Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
+ [9.57.199.110])
+ by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v1K55dgf59572260; Mon, 20 Feb 2017 05:05:39 GMT
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 6A5B5AE04B;
+ Mon, 20 Feb 2017 00:05:37 -0500 (EST)
+Received: from Venkateshs-MacBook-Pro.local (unknown [9.199.66.188])
+ by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP id BD963AE03B;
+ Mon, 20 Feb 2017 00:05:34 -0500 (EST)
+Subject: Re: sbefifo userspace api
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>, Jeremy Kerr <jk@ozlabs.org>,
+ Christopher Bostic <cbostic@linux.vnet.ibm.com>, eajames.ibm@gmail.com,
+ Joel Stanley <joel@jms.id.au>, Alistair Popple <alistair@popple.id.au>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>
+References: <9AF20EDE-4CE2-430F-882A-4DB86BBD89BF@fuzziesquirrel.com>
+ <8d23fb00-29ae-dc69-46d6-27b48ab3dfa4@ozlabs.org>
+ <06896367-F28B-4BDE-8EDC-7AC3AAE8766D@fuzziesquirrel.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+From: Venkatesh Sainath <vsainath@linux.vnet.ibm.com>
+Date: Mon, 20 Feb 2017 10:35:43 +0530
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:45.0)
+ Gecko/20100101 Thunderbird/45.7.1
+MIME-Version: 1.0
+In-Reply-To: <06896367-F28B-4BDE-8EDC-7AC3AAE8766D@fuzziesquirrel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 17022005-0040-0000-0000-000002AA8919
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006648; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000203; SDB=6.00824377; UDB=6.00403536; IPR=6.00601833; 
+ BA=6.00005154; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014352; XFM=3.00000011;
+ UTC=2017-02-20 05:05:42
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17022005-0041-0000-0000-0000069DAC27
+Message-Id: <63a66b91-f17c-2501-5f96-cd8b03a0b3cb@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-02-20_03:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
+ definitions=main-1702200051
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,91 +83,82 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Feb 2017 03:49:57 -0000
+X-List-Received-Date: Mon, 20 Feb 2017 05:05:46 -0000
 
-Hi Joel,
+Hi Brad,
 
-On Mon, Feb 20, 2017 at 8:15 AM, Joel Stanley <joel@jms.id.au> wrote:
-> Hi Lei,
->
-> On Sun, Feb 19, 2017 at 12:06 AM, Mine <mine260309@gmail.com> wrote:
->> I thought do_common_setup() is called by default, but actually it's not.
->> So Romulus needs to call do_common_setup() as well.
->
-> We don't need most of what this is doing on any platform.
->
->>        /* Enable LPC FWH cycles, Enable LPC to AHB bridge */
->>        writel(0x00000500, AST_IO(AST_BASE_LPC | 0x80));
->
-> This is performed by the LPC driver that Cyril has written.
->
->>        /* Set UART routing */
->>        writel(0x00000000, AST_IO(AST_BASE_LPC | 0x9c));
->
-> This is the default. If we need to change it in the future we might
-> write a pinmux driver, but for now we could omit this.
->
->>        /* Setup scratch registers */
->>        writel(0x00000042, AST_IO(AST_BASE_LPC | 0x170));
->>        writel(0x00008000, AST_IO(AST_BASE_LPC | 0x174));
->
-> We don't have a driver for this. Andrew was thinking about a UIO
-> driver. Ben started a discussion[1] upstream about the preferred
-> approach.
+  I am not sure why we need a user-space api for SBE FIFO driver. Even 
+the pdbg and cronus apps have to go through the SBEI protocol driver in 
+order to construct the packets according to the SBEI interface spec 
+which is done by the SBEI protocol driver only. I think only an 
+in-kernel api is sufficient for the SBE FIFO driver.
 
-It means for now they are needed, before the UIO driver is implemented, is it?
-So I assume Romulus will need do_common_setup() anyway, at least for
-the current kernel.
-Otherwise I'm afraid the VUART may not work since it requires register 0x174 to
-be set to 0x00008000.
+  However, for the SBEI protocol driver, we would need both in-kernel ( 
+for use by OCC hwmon ) and user-space api ( for use by pdbg, cronus and 
+rest apis ).
 
+Thanks
+
+With regards
+Venkatesh
+
+On 20/02/17 8:17 AM, Brad Bishop wrote:
+> Thanks Jeremy for the reply.  I’ve added participants from this thread:
 >
-> [1] https://lkml.org/lkml/2017/2/17/30
+> https://lists.ozlabs.org/pipermail/openbmc/2017-February/006563.html
 >
-> Cheers,
+> in an attempt to consolidate the whole sbefifo design discussion to a single thread.
 >
-> Joel
->
+>> Hi Brad,
 >>
->> --
->> BRs,
->> Lei YU
+>>> Looking to start a discussion around possible user space and kernel
+>>> APIs for the POWER9 sbefifo driver.
+>>>
+>>> There exists today an “alternate" sbefifo driver :-) that provides a
+>>> single submit ioctl.  Applications submit a request and get a reply in
+>>> single system call.
+>>>
+>>> Is something like that the best approach for an upstream driver?  Or
+>>> should we try something more "pipe like" with read/write interfaces?
+>> It probably depends on the functionality there; ioctl() is useful in
+>> that (as you say) we can handle request and response in a single
+>> syscall, read() / write() may be more appropriate if ordering can be
+>> handled in userspace.
 >>
->> On Sat, Feb 18, 2017 at 9:33 PM, Lei YU <mine260309@gmail.com> wrote:
->>> Call do_common_setup for romulus.
->>> No other romulus specific setup is needed.
->>> Consider moving do_common_setup() to a common place.
->>>
->>> Signed-off-by: Lei YU <mine260309@gmail.com>
->>> ---
->>>  arch/arm/mach-aspeed/aspeed.c | 7 +++++++
->>>  1 file changed, 7 insertions(+)
->>>
->>> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
->>> index 2a11c2e..726b8fa 100644
->>> --- a/arch/arm/mach-aspeed/aspeed.c
->>> +++ b/arch/arm/mach-aspeed/aspeed.c
->>> @@ -218,6 +218,11 @@ static void __init do_witherspoon_setup(void)
->>>         writel(0x68600000, AST_IO(AST_BASE_SPI | 0x30));
->>>  }
->>>
->>> +static void __init do_romulus_setup(void)
->>> +{
->>> +       do_common_setup();
->>> +}
->>> +
->>>  #define SCU_PASSWORD   0x1688A8A8
->>>
->>>  static void __init aspeed_init_early(void)
->>> @@ -253,6 +258,8 @@ static void __init aspeed_init_early(void)
->>>                 do_zaius_setup();
->>>         if (of_machine_is_compatible("ibm,witherspoon-bmc"))
->>>                 do_witherspoon_setup();
->>> +       if (of_machine_is_compatible("ibm,romulus-bmc"))
->>> +               do_romulus_setup();
->>>  }
->>>
->>>  static void __init aspeed_map_io(void)
->>> --
->>> 1.9.1
->>>
+>> Can you add a little description about the functionality we're exposing?
+>> That may suggest a particular API.
+> In terms of hardware its pretty simple.  sbefifo is just two 8-word queues for sending/receiving messages to/from the SBE.  Each queue entry has a single ‘end of transfer’ flag to let the other side know the message is done.
+>
+> In terms of data flowing through it, there is an SBEI protocol that covers encoding operations (like getscom, getmem, etc.. aka chip-ops) and the SBE response.
+>
+> For users there seems to be two classes:
+>
+> 1 - user space wanting to do chip-ops (pdbg, cronus).
+> 2 - device drivers wanting to do chip-ops (occ-hwmon).
+>
+> If it weren’t for occ-hwmon, it doesn’t seem like there would be any need for the kernel to have any knowledge of the data flowing through the fifo (at the moment anyway).  An sbe-scom driver has been suggested but I wonder what the point of that driver would be, if userspace could simply encode a get/putscom chip-op and use the fifo directly.
+>
+>>> Would the in-kernel API be the same as the user space API?
+>> Probably not :)
+> I realize they wouldn’t be _exactly_ the same if thats why I got the smiley face :-) ...
+>
+> But I would have figured they’d at least be similar - meaning if we were go the ‘submit’ route for a UAPI..the kernel
+> would probably not have a split read/write API or vise versa.
+>
+> So to rephrase the question - would the chardev fops implementation simply be something like this:
+>
+> sbe-uapi-fops(chardev)
+>     data = copy to/from user space;
+>     sbedev = from_chardev(chardev);
+>     kernel-api(sbedev, data);
+>
+> Or are the other things to consider here?
+>
+> -thx
+>
+> brad
+>
+>> Cheers,
+>>
+>>
+>> Jeremy
