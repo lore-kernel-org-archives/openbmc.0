@@ -1,54 +1,50 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x242.google.com (mail-yb0-x242.google.com
- [IPv6:2607:f8b0:4002:c09::242])
+Return-Path: <mine260309@gmail.com>
+Received: from mail-qk0-x241.google.com (mail-qk0-x241.google.com
+ [IPv6:2607:f8b0:400d:c09::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vS9SR1fkvzDqBV
- for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 17:24:07 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vSBGB6vrXzDqBV
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 18:00:18 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Jo8e7QBP"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Xch0ysxr"; 
  dkim-atps=neutral
-Received: by mail-yb0-x242.google.com with SMTP id i66so2325067yba.1
- for <openbmc@lists.ozlabs.org>; Mon, 20 Feb 2017 22:24:07 -0800 (PST)
+Received: by mail-qk0-x241.google.com with SMTP id x71so8183558qkb.0
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Feb 2017 23:00:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=OR8V28yF5WmseTeSFMbot+7yxMCh84C+YZVSmEgt9/w=;
- b=Jo8e7QBPFu3ntVzcMLNST3qw4BfwaLjTnmK9tbAIcdc6WvcmgF/wX1ITJXdSwy2vp9
- S4Iy64myLct0gDTcSKz8+10OWzLXZcWTtzwxuCR7w2m0M5NRVgxp62Ci0fcplH0upVd7
- Siy50fbdNgdvZlUzgTdQMf9Wg0aLdV4HqWSNT89vuW0YS9bEeWjLBuyWDTwfzrMmzvwz
- 3KrmhSzpSTb+gfXgekhqt0KTmIvQ8V5mBeSAYiSvkly7Iul/oEd951e5RZO05Px3qDpb
- ex4mZanmXpwzTl/5YcYQc+k0U8cW/vbWhbuF05Q8JuoHIJB6/v3L4s4j+Ac9s0tkXT/w
- ydYA==
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=IFKg4baW5a9WMVBqi7Bl8qngL5WKlvpB82Tnh9wKKM4=;
+ b=Xch0ysxro3Y5U9BBFI//wHOGjtu54Ee1enSife45Dyq6PQjWt44nSk1x8XVnxiV7xb
+ mqJU6+3Om1zHOOehvYKzdJnnD9+taNAjiSo8OboXB+E8BgByKo4FlrkdaMDRpvi3rGWE
+ 8F3r8y7BmMT0m8IgD56QyHM1TKNHTrYgQEAl34ujDxNr/K5sc1Mr/W0fkDbxA/RD/NwV
+ hdM0D+pfllmlXH1LnMUmMXj9iCBhhxSBr0gOlPEnCcHO4148Lqpkfp20Di7zdrASDNzt
+ H2BLt1Tr32gfxX7rJfMbjaLjn8c/9gLliYDwCqNjt1BtCG0o0L2oOfHtWf00R7lMUrVV
+ VY+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=OR8V28yF5WmseTeSFMbot+7yxMCh84C+YZVSmEgt9/w=;
- b=g5BS1hFR06nqq5r1eqdGyV4GDN0URPOQviDzd5fKVBivM4BFcsGqVutrcp4GwHEnBR
- nYR6/dvi4ZApb0vjZrqtZtxyreaF7GhBcUWP0N3po4kQgTHqQst85G9W6se5mDHDifDh
- CyOscY+YRwFpAccgqO9PXAXhoFIFOUDnBshaoxj9qkUlUMykvNGy7BmyWj8MmqBBFsMO
- vx50rLd9+e1P4RGxH+/ZPbLRe2ECYJeVE8Xl+RdMLwloWT/LUklFJacWwNZWGMEIft5F
- S/uq6qLulURkiebdplQvGZBuOrjszlfW5aje2MAUPl2/txwT+t0H31JKcF2o91pxBCm3
- eC5Q==
-X-Gm-Message-State: AMke39mn0BFxEkAZqKkA2pnxMJiE1lrwwFo6VtOvCcff5lVjKG4o47uUICL1p9xxRF0T+icOSNrEHOxNTO7pIA==
-X-Received: by 10.37.70.66 with SMTP id t63mr19302721yba.196.1487658245026;
- Mon, 20 Feb 2017 22:24:05 -0800 (PST)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=IFKg4baW5a9WMVBqi7Bl8qngL5WKlvpB82Tnh9wKKM4=;
+ b=mLR8Oczq9AffHmi1g9kmxZpPZqe5c+jCCP/IxEyeqBufx0Ca8Pc5Im1H9laPBAPhZM
+ WGe3FJROnhKqgBDjA9OmRQihjLnWGYPNCeSU+EZMoBZlXAlU2SJbhjBFuj+gJqTSzznV
+ 2sP1D0kVMmM16QE9M8YgdWupJt3m2HYdn9q8prtPR4VseT4mDxBjrXCP/rTZA8vbbeaW
+ 5PiEHE1m1zoBfNoeaXtImzMbda5AKeWaXcjRqYNLHOfClnA7ybPdOXEwJxx0lwAeNZ2B
+ MgL+EfvqiCfHglLpe4iJwSQw45DgoVztDjxjn+qKnx2wsYvWCNfjYO3GpERk9bY3f4JT
+ MBlg==
+X-Gm-Message-State: AMke39mIXgXi3fA4NExD1YqkV5Th7tD1z04n11x0CeWq0qVPqi1Xhlhmsr+CM+xikgMmaJoJGuWvf9+zPny0TA==
+X-Received: by 10.55.210.135 with SMTP id f129mr22387124qkj.184.1487660416747; 
+ Mon, 20 Feb 2017 23:00:16 -0800 (PST)
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.27.133 with HTTP; Mon, 20 Feb 2017 22:23:44 -0800 (PST)
-In-Reply-To: <CAARXrtmY=y4Wc+9EA8zNW3fCueBBRhFm=2608qGAo=+58SL+3g@mail.gmail.com>
-References: <1487424810-1469-1-git-send-email-mine260309@gmail.com>
- <CAARXrtmp_dhz_7jTTDh2+tKK_dOniWzz=KB0Lt9-pAOc-Wt80Q@mail.gmail.com>
- <CACPK8Xf5AgsKPMVuA8KUjrTrGc1j_2r4kMOC8kmX33wNRxGAFg@mail.gmail.com>
- <CAARXrtmY=y4Wc+9EA8zNW3fCueBBRhFm=2608qGAo=+58SL+3g@mail.gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 21 Feb 2017 16:53:44 +1030
-X-Google-Sender-Auth: f139rZzqyWOozDylsayIy4CCoVA
-Message-ID: <CACPK8XfeyNqZNpkwBUy3MG8C6XHvMSb0uswfp0pigbFb9E9iRQ@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7] arm: aspeed: romulus: Do common setup
-To: Mine <mine260309@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Received: by 10.12.137.9 with HTTP; Mon, 20 Feb 2017 23:00:16 -0800 (PST)
+In-Reply-To: <20170221051259.18383-1-joel@jms.id.au>
+References: <20170221051259.18383-1-joel@jms.id.au>
+From: Mine <mine260309@gmail.com>
+Date: Tue, 21 Feb 2017 15:00:16 +0800
+Message-ID: <CAARXrt=B9UiGqNcRxhrnetRo6fAA3mYG+acOf71sovJxXVBauQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7 1/2] ARM: dts: aspeed: Fix RAM size in
+ Romulus and Witherspoon
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Cyril Bur <cyrilbur@gmail.com>,
+ Xo Wang <xow@google.com>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -61,101 +57,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Feb 2017 06:24:07 -0000
+X-List-Received-Date: Tue, 21 Feb 2017 07:00:19 -0000
 
-On Mon, Feb 20, 2017 at 2:19 PM, Mine <mine260309@gmail.com> wrote:
-> Hi Joel,
+Acked-by: Lei YU <mine260309@gmail.com>
+
+I think Zaius uses 512MiB RAM as well.
+Xo Wang could you help to confirm?
+
+On Tue, Feb 21, 2017 at 1:12 PM, Joel Stanley <joel@jms.id.au> wrote:
+> They both contain 512M of RAM. Early bringup Witherspoons did have 1G,
+> but all machines we are using now have 512M.
 >
-> On Mon, Feb 20, 2017 at 8:15 AM, Joel Stanley <joel@jms.id.au> wrote:
->> Hi Lei,
->>
->> On Sun, Feb 19, 2017 at 12:06 AM, Mine <mine260309@gmail.com> wrote:
->>> I thought do_common_setup() is called by default, but actually it's not.
->>> So Romulus needs to call do_common_setup() as well.
->>
->> We don't need most of what this is doing on any platform.
->>
->>>        /* Enable LPC FWH cycles, Enable LPC to AHB bridge */
->>>        writel(0x00000500, AST_IO(AST_BASE_LPC | 0x80));
->>
->> This is performed by the LPC driver that Cyril has written.
->>
->>>        /* Set UART routing */
->>>        writel(0x00000000, AST_IO(AST_BASE_LPC | 0x9c));
->>
->> This is the default. If we need to change it in the future we might
->> write a pinmux driver, but for now we could omit this.
->>
->>>        /* Setup scratch registers */
->>>        writel(0x00000042, AST_IO(AST_BASE_LPC | 0x170));
->>>        writel(0x00008000, AST_IO(AST_BASE_LPC | 0x174));
->>
->> We don't have a driver for this. Andrew was thinking about a UIO
->> driver. Ben started a discussion[1] upstream about the preferred
->> approach.
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
+> ---
+>  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     | 2 +-
+>  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
 >
-> It means for now they are needed, before the UIO driver is implemented, is it?
-> So I assume Romulus will need do_common_setup() anyway, at least for
-> the current kernel.
-> Otherwise I'm afraid the VUART may not work since it requires register 0x174 to
-> be set to 0x00008000.
-
-Okay. We can include this one for now while the UIO driver is developed.
-
-Applied to dev-4.7.
-
-Cheers,
-
-Joel
-
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+> index 85e545110be6..58baf87454e2 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+> @@ -17,7 +17,7 @@
+>         };
 >
->>
->> [1] https://lkml.org/lkml/2017/2/17/30
->>
->> Cheers,
->>
->> Joel
->>
->>>
->>> --
->>> BRs,
->>> Lei YU
->>>
->>> On Sat, Feb 18, 2017 at 9:33 PM, Lei YU <mine260309@gmail.com> wrote:
->>>> Call do_common_setup for romulus.
->>>> No other romulus specific setup is needed.
->>>> Consider moving do_common_setup() to a common place.
->>>>
->>>> Signed-off-by: Lei YU <mine260309@gmail.com>
->>>> ---
->>>>  arch/arm/mach-aspeed/aspeed.c | 7 +++++++
->>>>  1 file changed, 7 insertions(+)
->>>>
->>>> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
->>>> index 2a11c2e..726b8fa 100644
->>>> --- a/arch/arm/mach-aspeed/aspeed.c
->>>> +++ b/arch/arm/mach-aspeed/aspeed.c
->>>> @@ -218,6 +218,11 @@ static void __init do_witherspoon_setup(void)
->>>>         writel(0x68600000, AST_IO(AST_BASE_SPI | 0x30));
->>>>  }
->>>>
->>>> +static void __init do_romulus_setup(void)
->>>> +{
->>>> +       do_common_setup();
->>>> +}
->>>> +
->>>>  #define SCU_PASSWORD   0x1688A8A8
->>>>
->>>>  static void __init aspeed_init_early(void)
->>>> @@ -253,6 +258,8 @@ static void __init aspeed_init_early(void)
->>>>                 do_zaius_setup();
->>>>         if (of_machine_is_compatible("ibm,witherspoon-bmc"))
->>>>                 do_witherspoon_setup();
->>>> +       if (of_machine_is_compatible("ibm,romulus-bmc"))
->>>> +               do_romulus_setup();
->>>>  }
->>>>
->>>>  static void __init aspeed_map_io(void)
->>>> --
->>>> 1.9.1
->>>>
+>         memory {
+> -               reg = <0x80000000 0x40000000>;
+> +               reg = <0x80000000 0x20000000>;
+>         };
+>
+>         fsi-master {
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> index 4b2d8aa8abb6..2cbdeba88908 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> @@ -17,7 +17,7 @@
+>         };
+>
+>         memory {
+> -               reg = <0x80000000 0x40000000>;
+> +               reg = <0x80000000 0x20000000>;
+>         };
+>
+>         reserved-memory {
+> --
+> 2.11.0
+>
