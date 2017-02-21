@@ -1,30 +1,54 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (ozlabs.org [103.22.144.67])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vS5q71SPGzDq5s
- for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 14:40:03 +1100 (AEDT)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+Return-Path: <eajames.ibm@gmail.com>
+Received: from mail-qk0-x244.google.com (mail-qk0-x244.google.com
+ [IPv6:2607:f8b0:400d:c09::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by ozlabs.org (Postfix) with ESMTPSA id 3vS5q65ldDz9ryj;
- Tue, 21 Feb 2017 14:40:02 +1100 (AEDT)
-Subject: Re: [PATCH linux dev-4.7] drivers: fsi: scom: Add reset functionality
- and sysfs interface
-To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-References: <1487367671-26077-1-git-send-email-eajames@linux.vnet.ibm.com>
- <4b59fa39-65c2-cb33-07aa-3fe7a1c7fe21@ozlabs.org>
- <8f716407-6cdb-7f49-6ba6-39a5224a19ac@linux.vnet.ibm.com>
-Cc: "Edward A. James" <eajames@us.ibm.com>, cbostic@linux.vnet.ibm.com
-From: Jeremy Kerr <jk@ozlabs.org>
-Message-ID: <874c97f1-5b18-6a3e-cfb6-a6e8b7b02a38@ozlabs.org>
-Date: Tue, 21 Feb 2017 11:40:02 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vS6b81VKGzDq5s
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 15:14:44 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="m5FvvjVd"; 
+ dkim-atps=neutral
+Received: by mail-qk0-x244.google.com with SMTP id p22so17995666qka.3
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Feb 2017 20:14:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=clEcVCIz1oSvUGgSPnntSWfL94AyU8AEll920tYQfKo=;
+ b=m5FvvjVdvRi795j7iF4ipx0xZ13Sf/Px/AQYq6maxOPFRybchtu7/71MbdBP3XodUk
+ XkcjhcOPjLWoe8zUNBFDvOyQ+7iEw7KDaMEF4/pPh7a9j/GOzxl0phfQKp8Try++03OQ
+ O22TbgKow2iP1Xk/9AT7L1Fx9hdoLVxw84QBP9cztzf1r7uAwTqmqUvY96Zcd6QhHUCZ
+ 5GIsskRVjhGiqtMAPTdLAKiNWyS2Kukp2TytBL+xAbNQf49Y0aCdN5b8QveyLWRAmIIH
+ MvyXD/U/9Z4TPxQd73rlWGhlPX+KG6SLS8rZSa90TMfCkjsSS4Sfb98ip3kIuC7WcnrT
+ WQ1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=clEcVCIz1oSvUGgSPnntSWfL94AyU8AEll920tYQfKo=;
+ b=mqAya5073EEoJiEiqd2emYjcadgBEIN1yqxtcnE1s1OA+e0WfykxcOUG2O5wMrHbiv
+ 0rPrAo/MghCAWMCUdgDxCwDXSU/8Zrs69ZEowQfb910brQEN6CWqDkkeWwMLzF9vBzIN
+ ZIFs8IJcFcbdz3BjNZqGrp81ueKUeX8S2/qEnULs6kZ0E+GLs/NvYkDpe7wxDYYtxhTN
+ tqoYfYDzVsDRYI4ICheYvLXRxZ3rOAboFaz9S+zPUnJRgFeT8HuHxBvpQd4a1N9wV7Jp
+ 7+B3UHEO7G/4qe4EUGSwBIStDcMHtY+54bLsCDvAWxHYBOd9gBMKdUhpzZgGOAbM8/XG
+ xHNQ==
+X-Gm-Message-State: AMke39kzx9ZDgS+woRGVzBJ8J5XoJIE+wxrqyjTDI6KhKbpzaZ4Xp2+xphKuSZyFVYDYHdse8teO8ozz5ki9zA==
+X-Received: by 10.55.21.225 with SMTP id 94mr22086294qkv.237.1487650481798;
+ Mon, 20 Feb 2017 20:14:41 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <8f716407-6cdb-7f49-6ba6-39a5224a19ac@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
+Received: by 10.140.98.35 with HTTP; Mon, 20 Feb 2017 20:14:41 -0800 (PST)
+In-Reply-To: <CACPK8Xfk-QQ-00wPTfM_DfT=U1XZL8pK+e7j_m=BrjC=VGjqMA@mail.gmail.com>
+References: <1487625445-11892-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <CACPK8Xfk-QQ-00wPTfM_DfT=U1XZL8pK+e7j_m=BrjC=VGjqMA@mail.gmail.com>
+From: Eddie James <eajames.ibm@gmail.com>
+Date: Mon, 20 Feb 2017 22:14:41 -0600
+Message-ID: <CALpMbdnFrWjPKCSYGThXZ9bA1HYvHV4DBLpKMvSeo8oe6hiN1w@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7] drivers: fsi: scom: Fix return code for
+ putscom
+To: Joel Stanley <joel@jms.id.au>
+Cc: Eddie James <eajames@linux.vnet.ibm.com>,
+ "Edward A. James" <eajames@us.ibm.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -36,44 +60,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Feb 2017 03:40:03 -0000
+X-List-Received-Date: Tue, 21 Feb 2017 04:14:44 -0000
 
-Hi Eddie,
+Yes, looks good, thanks!
 
->>> +static ssize_t store_reset_register(struct device *dev,
->>> +                    struct device_attribute *attr,
->>> +                    const char *buf, size_t count)
->>> +{
->>> +    int rc;
->>> +    struct fsi_device *fsi_dev = to_fsi_dev(dev);
->>> +
->>> +    rc = scom_full_reset(fsi_dev);
->>> +
->>> +    return rc ? rc : count;
->>> +}
->>> +DEVICE_ATTR(reset, 0200, NULL, store_reset_register);
->>> +
->> How does this interact with the scom read/write operations? Having
->> different interfaces access methods (file for one, sysfs interface for
->> another)for both seems like an invitation for trouble - would this make
->> more sense as an ioctl on the existing fd?
-> 
-> It would, but I was under the impression ioctls were frowned upon for
-> some reason?
-
-The downside of an ioctl is that it needs a new definition in kernel
-headers (ie, the ioctl number and any structures required for
-input/output data).
-
-However, I think it's entirely suitable in this case - we have the usual
-flow of data (the scoms) over read()/write(), and control operations
-(reset) using an ioctl.
-
-However, that assumes that the reset is something that a user may want
-to issue in normal operation, rather than a debug or diagnosis event. Is
-that the case here?
-
-Cheers,
-
-
-Jeremy
+On Mon, Feb 20, 2017 at 5:39 PM, Joel Stanley <joel@jms.id.au> wrote:
+> On Tue, Feb 21, 2017 at 7:47 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+>> From: "Edward A. James" <eajames@us.ibm.com>
+>>
+>> Read/write calls should return the number of bytes read/written on
+>> success.
+>>
+>> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+>> ---
+>>  drivers/fsi/fsi-scom.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/fsi/fsi-scom.c b/drivers/fsi/fsi-scom.c
+>> index 2874ea0..51b3dc3 100644
+>> --- a/drivers/fsi/fsi-scom.c
+>> +++ b/drivers/fsi/fsi-scom.c
+>> @@ -156,7 +156,7 @@ static ssize_t scom_write(struct file *filep, const char __user *buf,
+>>         if (rc)
+>>                 dev_dbg(dev, "put_scom failed with:%d\n", rc);
+>>
+>> -       return rc;
+>> +       return rc ? rc : len;
+>
+> I refactored this to be:
+>
+>  if (rc) {
+>      dev_dbg(dev, "put_scom failed with:%d\n", rc);
+>      return rc;
+>  }
+>
+> return len;
+>
+> Are you ok with that?
+>
+>
+>>  }
+>>
+>>  static loff_t scom_llseek(struct file *file, loff_t offset, int whence)
+>> --
+>> 1.8.3.1
+>>
