@@ -1,58 +1,30 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x242.google.com (mail-yw0-x242.google.com
- [IPv6:2607:f8b0:4002:c05::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vS6cG6GPPzDqBV
- for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 15:15:42 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Tsyvyp09"; 
- dkim-atps=neutral
-Received: by mail-yw0-x242.google.com with SMTP id 2so3375876ywn.3
- for <openbmc@lists.ozlabs.org>; Mon, 20 Feb 2017 20:15:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=JdF1aUDi39v1now6xQ7qfXuqmcsOjIQ5WCYEmehzSok=;
- b=Tsyvyp09lvcHgaUd0CmBgGzucOjT8G+1E8nM9T3p2APsg0fk7Jruiy2pRGdMjItfZ/
- 5XhrQGlVhH3+2K5Sd3urzgXvg54m29As81ovkJ0V9QMSRMWPu0UeHq2Jff9dSRxDG4VE
- UTiG9wMUHIPcxcIfkh7hTRyM8oag/ICpgDcBWkwNoh08a0ykaC4U6jqKnw2frv3Tg40t
- tUjl7J9Mh9R7DnrfeS3cB1hh2qkCTyFcdYFa8Zt9OLJJ4OaOW4w8tv8ONPmI3UqZFUKv
- Tfle5xG3xWXRKy1giXtgVcE9xjFaugq0QA19g4td0XgaNkDWWiM9NttkT2umk2+juoF3
- 3WGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=JdF1aUDi39v1now6xQ7qfXuqmcsOjIQ5WCYEmehzSok=;
- b=VSoEg2GEHr6yWDt+WbopzdPjOVcLR6v9O5OwPc4gRQBfXBwrnAbYHbVn0dwOlk77jh
- DcRVka9uIzkSEcolv2Lql27R1j5T0+qaRBRsPJzMI8GZQXWgLtmvzyx9Hvuk4uJZV9gd
- 8E/la1j2G2hnbIgwcsapt8snQytIouhFnFKNilDu9YBem6OVedfMRV75MVRYV5WFEfVb
- r79OKlD8awM3fCUnzVmpBrTcIlyy3Q6n3wpHc9OJKrb9ewxVVTi+zAeTUKx9MSStmg0S
- 2360C/iE2TqZjKGV45oLCLcWj483cjL/HmMRsxZUTcFrXrC8nDgyL+gZov6JJWb8KimY
- rvGQ==
-X-Gm-Message-State: AMke39ngtG9DEPQvU7IUJyKwPsprQUZoUInfCAipuwhEox5AIuSbgM2EGAAGuPi7bb+gmlOtR+muu1beb8CDXQ==
-X-Received: by 10.129.118.82 with SMTP id j18mr18516083ywk.10.1487650540523;
- Mon, 20 Feb 2017 20:15:40 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vS6dv5CS6zDqBV
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 15:17:07 +1100 (AEDT)
+Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
+ [76.250.84.236]) by mx.zohomail.com
+ with SMTPS id 1487650614400780.9255262642076;
+ Mon, 20 Feb 2017 20:16:54 -0800 (PST)
+Date: Mon, 20 Feb 2017 22:16:53 -0600
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Cyril Bur <cyrilbur@gmail.com>
+Cc: joel@jms.id.au, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH] ARM: dts: aspeed: Update reserved memory nodes for zaius
+ and witherspoon
+Message-ID: <20170221041653.GA21380@heinlein.lan>
+References: <20170216054922.19722-1-cyrilbur@gmail.com>
+ <20170216140524.GA5077@heinlein.lan>
+ <1487299721.16373.2.camel@gmail.com>
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.27.133 with HTTP; Mon, 20 Feb 2017 20:15:20 -0800 (PST)
-In-Reply-To: <CALpMbdnFrWjPKCSYGThXZ9bA1HYvHV4DBLpKMvSeo8oe6hiN1w@mail.gmail.com>
-References: <1487625445-11892-1-git-send-email-eajames@linux.vnet.ibm.com>
- <CACPK8Xfk-QQ-00wPTfM_DfT=U1XZL8pK+e7j_m=BrjC=VGjqMA@mail.gmail.com>
- <CALpMbdnFrWjPKCSYGThXZ9bA1HYvHV4DBLpKMvSeo8oe6hiN1w@mail.gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 21 Feb 2017 14:45:20 +1030
-X-Google-Sender-Auth: cbr427s0MB33GCKxiDORRoIIZ94
-Message-ID: <CACPK8XfRNZO-vLQFdVoYXXx30pwS_3wjicveo9T=ZTthSAzhMw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7] drivers: fsi: scom: Fix return code for
- putscom
-To: Eddie James <eajames.ibm@gmail.com>
-Cc: Eddie James <eajames@linux.vnet.ibm.com>,
- "Edward A. James" <eajames@us.ibm.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="HlL+5n6rz5pIUxbD"
+Content-Disposition: inline
+In-Reply-To: <1487299721.16373.2.camel@gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -64,56 +36,66 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Feb 2017 04:15:43 -0000
+X-List-Received-Date: Tue, 21 Feb 2017 04:17:08 -0000
 
-On Tue, Feb 21, 2017 at 2:44 PM, Eddie James <eajames.ibm@gmail.com> wrote:
-> Yes, looks good, thanks!
 
-Cool, I applied it to dev-4.7.
+--HlL+5n6rz5pIUxbD
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Cheers,
+On Fri, Feb 17, 2017 at 01:48:41PM +1100, Cyril Bur wrote:
+> On Thu, 2017-02-16 at 08:05 -0600, Patrick Williams wrote:
+> > On Thu, Feb 16, 2017 at 04:49:22PM +1100, Cyril Bur wrote:
+> > > -		flash_memory: region@94000000 {
+> > > +		flash_memory: region@98000000 {
+> > >  			no-map;
+> > > -			reg =3D <0x94000000 0x04000000>; /* 64M */
+> > > +			reg =3D <0x98000000 0x04000000>; /* 64M */
+> > > +		};
+> > > +
+> > > +		vga_memory: framebuffer@9c000000 {
+> > > +			no-map;
+> > > +			reg =3D <0x9c000000 0x04000000>; /* 64MB */
+> >=20
+> > Do we really have to allocate 64MB to a VGA framebuffer?  We can store a
+> > 4K resolution monitor with 32bit color in 32MB, so why is it required to
+> > reserve this much memory?  Between this and the PNOR memory region, now
+> > 1/4th of the BMCs memory is reserved.
+>=20
+> The reservation of 64MB is because the hardware is capable of using
+> 64MB, therefore the host can use that region of memory. We're playing
+> it safe here by ensuring the BMC doesn't use any of it to avoid any
+> possibility of the host corrupting BMC memory. This is the most generic
+> dts for the platform so we've gone with stability over performance.
 
-Joel
+Is there anything the BMC can do to restrict how big of a memory map the
+host side of the VGA can open up?  If there isn't we're going to have to
+allocate this much on all systems because we can't trust the host to
+"behave".
 
->
-> On Mon, Feb 20, 2017 at 5:39 PM, Joel Stanley <joel@jms.id.au> wrote:
->> On Tue, Feb 21, 2017 at 7:47 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
->>> From: "Edward A. James" <eajames@us.ibm.com>
->>>
->>> Read/write calls should return the number of bytes read/written on
->>> success.
->>>
->>> Signed-off-by: Edward A. James <eajames@us.ibm.com>
->>> ---
->>>  drivers/fsi/fsi-scom.c | 2 +-
->>>  1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/fsi/fsi-scom.c b/drivers/fsi/fsi-scom.c
->>> index 2874ea0..51b3dc3 100644
->>> --- a/drivers/fsi/fsi-scom.c
->>> +++ b/drivers/fsi/fsi-scom.c
->>> @@ -156,7 +156,7 @@ static ssize_t scom_write(struct file *filep, const char __user *buf,
->>>         if (rc)
->>>                 dev_dbg(dev, "put_scom failed with:%d\n", rc);
->>>
->>> -       return rc;
->>> +       return rc ? rc : len;
->>
->> I refactored this to be:
->>
->>  if (rc) {
->>      dev_dbg(dev, "put_scom failed with:%d\n", rc);
->>      return rc;
->>  }
->>
->> return len;
->>
->> Are you ok with that?
->>
->>
->>>  }
->>>
->>>  static loff_t scom_llseek(struct file *file, loff_t offset, int whence)
->>> --
->>> 1.8.3.1
->>>
+--=20
+Patrick Williams
+
+--HlL+5n6rz5pIUxbD
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAEBCAAGBQJYq78zAAoJEKsDR8wtAMEZfjcP/RXq/cgMBn4EmPBTbwa6glIH
+U8fhC1kN/BmlpFd2bjqhtDWzGBKFTXk7UFo9ZVCfvWbFLP/+8QuK2PUvH3E1cvin
+I0ic1s+HdLABOX1KRoN9I5rD6fbA1Bilv5GWqk0mBph6zOEVByQrKw/LuPzV8ZhE
+wxeSbMsrnBvuSdrGFCKlMVKV1AOTqxfCB7DNjdyol1tzeBZ/d9RnbS4F9oFgY8Bt
+EbO0ynHE6NFuj0e7nxGpONqVKVomiklm+JWvhA82U/O2IifRiXkJPnVdfYwUmxKo
+D/PmnryFib9WMXwLS0E3inolR3+F4z0wORSDl1UtwJaXaTPGCT14KMsuLmsYGna0
+dLCbVArgrdTv3jTNZWlwgX/jungOC0WIyakgj69KyJhKUYkTOyeG1p9qWg6AKmzE
+jHd+PwJQMSdeqiFivrmHjKetUQk6VCYX5DmrfyaN8dJr1NwIE+J13XPPuRR6dZtW
+W5wL88WYcJg+8RUznWtPmCeHtyKwfbXOWWqltFhuHiIiUsr+AS0n5+DDfGMCwBYR
+hZ8Rhp/5S+qa8FXWPE02G0/tgE7JpugLwvfYKQFx78/diIDNji1Q+ZPjJto0GLAj
+qLTr2qojqGzKAivNEirjYZb4F+ZnHzY7NskRUwuQFS7LE7TQCjc4xt6pQfibhoDQ
+AJD+4C2RgK7lYQlu5N9Z
+=j/bG
+-----END PGP SIGNATURE-----
+
+--HlL+5n6rz5pIUxbD--
