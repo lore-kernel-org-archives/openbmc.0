@@ -3,52 +3,50 @@ Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
  [IPv6:2607:f8b0:4002:c05::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vS9MX5T0NzDqBV
- for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 17:19:52 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vS9PC53CMzDqBV
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 17:21:19 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="C2wf2pqp"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="EYaAnpVM"; 
  dkim-atps=neutral
-Received: by mail-yw0-x244.google.com with SMTP id l16so9130393ywb.2
- for <openbmc@lists.ozlabs.org>; Mon, 20 Feb 2017 22:19:52 -0800 (PST)
+Received: by mail-yw0-x244.google.com with SMTP id 2so3495843ywn.3
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Feb 2017 22:21:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=mBEzReo0BlnAearXknbRFFaYELZyCAc3uhzMqCAAXXI=;
- b=C2wf2pqpcTghJtX3xBI/YK3lm9dRJzTwSOiu5JUuWQtQnesy2hQIBPO/zwb2e3ZXEL
- xuhzRX8/A5vjvUfzjhjEV/jHmFBJcZbaqOxDEM1P5P87UTn6oysGyyFxGXSmNOSrca3+
- sKIoMySmueJRnZgbtJ1iDhT+uS0uPgmuvsF4XysBpe3VU6gRDBti+VSdMAioMiwHb4PD
- d2Fl97uhk15Bp57pHQiuNIvDjc9eW/wdNnXKvXpYooy7eD2gpdq+BTyYJFkQBBbAThpZ
- lCFuW4T6MgI+Ws55htgnCGCFxIJW4bktL5zzc4LYARrMkhw6B/r3jbfopWvCiZOTmiY7
- Wc1w==
+ bh=Zt2AJzicGtDwuP3OusuwmcC7mM+B3k7ntYBQx9R/0/E=;
+ b=EYaAnpVMAmZlfxOy1J9btsFBn1POp/bRyndM2eGAxobvTqodXjLOe7PZdWQt/Uak1V
+ uoVbC2Zbi0eUKRaFtwrfYpvSEKQrMDg5sR7n1zGYRvnfPvwlMpLdm1NviRyy2RjcKg+u
+ m0xxxtoYk04Tc1e6oPicimKa8AqwZYKKa9louDvn5KV6/+r8G2RhyHu5LEG0zTbxgS2e
+ FQYeLKSds1CxgplNiaoRtaa5ce6bYwKIrnv1q+VVJiZamsu5heugFAv8pfXed246f36r
+ Oqw+uYAZJun2Qh1MfQMe0IDM2EQG5zGM3Hr1jXqilXpJGWnuIhOilo5YvKGeDxQYV0np
+ ihpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=mBEzReo0BlnAearXknbRFFaYELZyCAc3uhzMqCAAXXI=;
- b=KGABipWkO3+jXkHoGKZ1aorTYyX05s3sAMo/sgBCmbz4xUgCxuMaPIagyyNJnVZjvA
- x7UqzcUegqxeLuE97fGTqdMWvrWQ8UJ9tVedCJXR7867Aa+DCauKDD9A20WfiKRc0oSr
- Ws4hLvt5Zsg/uWuCufKGAOuDWfTfuPQ+/tC2VLo3+IU8OikYnUliUrTb9arvtdeoBWTu
- YF2U2A+lOKR9eJ3n6H095lVixNWIFNNcmVLR5ZZ0S2yauvinOfgI0oeQe1bqEYnkMJ9Z
- EW9LVK4yUA3tfQuGg5gln/HuaEQt+XmDUd/t0e5aKB14ShUoxnmYVLJ+5muDaN5DhH2G
- dcSA==
-X-Gm-Message-State: AMke39kJo8R2BwYTtEphY8poEOItnuPIrIr3IEriJbMomydwd/5jtiZapC5sH+QHKhLjeGEl9aQdMqfym1in8A==
-X-Received: by 10.129.118.82 with SMTP id j18mr18746174ywk.10.1487657990352;
- Mon, 20 Feb 2017 22:19:50 -0800 (PST)
+ bh=Zt2AJzicGtDwuP3OusuwmcC7mM+B3k7ntYBQx9R/0/E=;
+ b=lKZ3XRHPBbRXVJtmxM2ZtB6ufXP4K++jeSVbPgnpag/WR9RAnsxifcLt3tNsKvgv+k
+ 2VHnXOWxE+yAiXuWMX65sSnQ+pqT/UNTny5/dvUd80Gs8KQtZFQPDfigrApJTU9jrmye
+ PBNgLUSlj9H5d73hEfSXNczIj7Jbli0pjVExrrhHGAgU35D+rNQdyDjkk/aHudaHQl4G
+ 9zypPsLIKVuX1uPzaGrkQ2aOC8OzDgulYJ2o6ND5AyR8BRiM4WdeVj/XjgW7tSwZhxqq
+ SXYq1H1JOZUKuva+iKUCSaX5KgciN7sE92H5lL0hnQRO6MFWgsAnDeii7E//CtLHtJwV
+ kJQg==
+X-Gm-Message-State: AMke39mLW9kHxfTRZMNQMReqZ2RsTqjdi3dv3wOfheMvN16cg1LMUv9H9jiCpSLlD1EvCF9erS64B/u+GnOapw==
+X-Received: by 10.129.91.194 with SMTP id p185mr18713231ywb.50.1487658077586; 
+ Mon, 20 Feb 2017 22:21:17 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.27.133 with HTTP; Mon, 20 Feb 2017 22:19:29 -0800 (PST)
-In-Reply-To: <CACPK8XfNP560Koh=TCCEu7rWkFU0pFuBBN7J2bB3-0PYo2atyg@mail.gmail.com>
+Received: by 10.37.27.133 with HTTP; Mon, 20 Feb 2017 22:20:57 -0800 (PST)
+In-Reply-To: <20170214005104.11940-4-andrew@aj.id.au>
 References: <20170214005104.11940-1-andrew@aj.id.au>
- <20170214005104.11940-2-andrew@aj.id.au>
- <CACPK8XfNP560Koh=TCCEu7rWkFU0pFuBBN7J2bB3-0PYo2atyg@mail.gmail.com>
+ <20170214005104.11940-4-andrew@aj.id.au>
 From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 21 Feb 2017 16:49:29 +1030
-X-Google-Sender-Auth: X1YDlp77N0HSS9ja9lQntAWmHvE
-Message-ID: <CACPK8XePTmdNj8cUQvUpH_HywzaozbDOX_AUZebStj6vCOYwHg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7 v2 1/3] ARM: dts: aspeed-g5: Add SoC Display
- Controller node
-To: Andrew Jeffery <andrew@aj.id.au>, Xo Wang <xow@google.com>,
- Lei YU <mine260309@gmail.com>, Matthew Conolly <mattconolly@fb.com>
+Date: Tue, 21 Feb 2017 16:50:57 +1030
+X-Google-Sender-Auth: bDiU_41Ae4e_6KzX08t_mmB-U1I
+Message-ID: <CACPK8XfyuM-mx2=XBH4nJH76oDuSHJ+aQyZSigfut6KwdhXaew@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7 v2 3/3] ARM: dts: aspeed-g5: Give pinctrl
+ phandles for gfx and lhc
+To: Andrew Jeffery <andrew@aj.id.au>
 Cc: Patrick Williams <patrick@stwcx.xyz>, Rick Altherr <raltherr@google.com>, 
  OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
@@ -63,120 +61,104 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Feb 2017 06:19:53 -0000
+X-List-Received-Date: Tue, 21 Feb 2017 06:21:20 -0000
 
-On Fri, Feb 17, 2017 at 1:59 PM, Joel Stanley <joel@jms.id.au> wrote:
-> On Tue, Feb 14, 2017 at 11:21 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
->> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
->> Signed-off-by: Joel Stanley <joel@jms.id.au>
->> (cherry picked from commit daf042580a0dacd894a3825dd6f048364fd66770)
->> [AJ: Reworked to disable GFX in the dtsi, as it is missing from the 2520]
->> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+On Tue, Feb 14, 2017 at 11:21 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> The g5's pinctrl reported:
 >
-> Acked-by: Joel Stanley <joel@jms.id.au>
+> [    0.750000] aspeed-g5-pinctrl 1e6e2000.syscon:pinctrl@1e6e2000: No GFX phandle found, some mux configurations may fail
+> [    0.750000] aspeed-g5-pinctrl 1e6e2000.syscon:pinctrl@1e6e2000: No LHC phandle found, some mux configurations may fail
 >
-> Xo, can we get your ack for the Zaius change.
+> as the aspeed,external-nodes property was missing from the pinctrl
+> node. Fix the mux capability by adding the required phandles in the
+> AST2500-based board files, as the AST2520 from the g5 family doesn't
+> have a GFX IP block.
 >
-> Lei, please review for Romulus.
->
-> Matthew, please review for the Facebook board.
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 
-There was no objection so I've gone ahead and merged this patch to dev-4.7.
+Applied to dev-4.7.
 
 Cheers,
 
 Joel
 
+> ---
 >
->> ---
->>  arch/arm/boot/dts/aspeed-ast2500-evb.dts         | 4 ++++
->>  arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts    | 4 ++++
->>  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     | 4 ++++
->>  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 4 ++++
->>  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts       | 4 ++++
->>  arch/arm/boot/dts/aspeed-g5.dtsi                 | 9 +++++++++
->>  6 files changed, 29 insertions(+)
->>
->> diff --git a/arch/arm/boot/dts/aspeed-ast2500-evb.dts b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
->> index 9d88f3aadbc6..1999a06eec80 100644
->> --- a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
->> +++ b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
->> @@ -79,3 +79,7 @@
->>                 reg = <0x4d>;
->>         };
->>  };
->> +
->> +&gfx {
->> +       status = "okay";
->> +};
->> diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
->> index e6d61c3abd80..9e48c4a1313c 100644
->> --- a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
->> +++ b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
->> @@ -198,3 +198,7 @@
->>         status = "okay";
->>         /* CPLD at reg = <3E> */
->>  };
->> +
->> +&gfx {
->> +       status = "okay";
->> +};
->> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
->> index c23627ec5e84..947cfeb02457 100644
->> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
->> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
->> @@ -155,3 +155,7 @@
->>  &vuart {
->>         status = "okay";
->>  };
->> +
->> +&gfx {
->> +       status = "okay";
->> +};
->> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
->> index 4b2d8aa8abb6..76b738dd0c6b 100644
->> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
->> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
->> @@ -273,3 +273,7 @@
->>  &vuart {
->>         status = "okay";
->>  };
->> +
->> +&gfx {
->> +       status = "okay";
->> +};
->> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
->> index e1c9b3f4fe44..e22701bfe5fc 100644
->> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
->> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
->> @@ -343,3 +343,7 @@
->>  &vuart {
->>         status = "okay";
->>  };
->> +
->> +&gfx {
->> +       status = "okay";
->> +};
->> diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
->> index e1994c9e38c3..b73503c866aa 100644
->> --- a/arch/arm/boot/dts/aspeed-g5.dtsi
->> +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
->> @@ -1005,6 +1005,15 @@
->>                                 reg = <0x1e6e202c 0x4>;
->>                         };
->>
->> +                       gfx: display@1e6e6000 {
->> +                               compatible = "aspeed,ast2500-gfx", "syscon";
->> +                               reg = <0x1e6e6000 0x1000>;
->> +                               reg-io-width = <4>;
->> +
->> +                               /* AST2520 doesn't have GFX, so disable */
->> +                               status = "disabled";
->> +                       };
->> +
->>                         sram@1e720000 {
->>                                 compatible = "mmio-sram";
->>                                 reg = <0x1e720000 0x9000>;      // 36K
->> --
->> 2.9.3
->>
+> The commit is *very* loosely based on b590c8d2eed5748dfe52c4fc13df6cadb1b56d58
+> in the ARM next/dt tree.
+>
+> Since v1:
+>
+> * Push assignment of phandles to the aspeed,external-nodes property out to the
+>   board dts. I expect eventually we'll want to do this in an ast2500.dtsi
+>
+>  arch/arm/boot/dts/aspeed-ast2500-evb.dts         | 4 ++++
+>  arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts    | 4 ++++
+>  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     | 4 ++++
+>  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 4 ++++
+>  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts       | 4 ++++
+>  5 files changed, 20 insertions(+)
+>
+> diff --git a/arch/arm/boot/dts/aspeed-ast2500-evb.dts b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
+> index 1999a06eec80..40f2184f9fe7 100644
+> --- a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
+> +++ b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
+> @@ -83,3 +83,7 @@
+>  &gfx {
+>         status = "okay";
+>  };
+> +
+> +&pinctrl {
+> +       aspeed,external-nodes = <&gfx &lhc>;
+> +};
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
+> index 9e48c4a1313c..8df116ea8594 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
+> @@ -202,3 +202,7 @@
+>  &gfx {
+>         status = "okay";
+>  };
+> +
+> +&pinctrl {
+> +       aspeed,external-nodes = <&gfx &lhc>;
+> +};
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+> index 947cfeb02457..f4060551a874 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+> @@ -159,3 +159,7 @@
+>  &gfx {
+>         status = "okay";
+>  };
+> +
+> +&pinctrl {
+> +       aspeed,external-nodes = <&gfx &lhc>;
+> +};
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> index 76b738dd0c6b..c067fb78d491 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> @@ -277,3 +277,7 @@
+>  &gfx {
+>         status = "okay";
+>  };
+> +
+> +&pinctrl {
+> +       aspeed,external-nodes = <&gfx &lhc>;
+> +};
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> index e22701bfe5fc..d9f63d7752dd 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> @@ -347,3 +347,7 @@
+>  &gfx {
+>         status = "okay";
+>  };
+> +
+> +&pinctrl {
+> +       aspeed,external-nodes = <&gfx &lhc>;
+> +};
+> --
+> 2.9.3
+>
