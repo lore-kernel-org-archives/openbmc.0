@@ -1,36 +1,68 @@
-Return-Path: <s.kachkin@yadro.com>
-X-Greylist: delayed 327 seconds by postgrey-1.36 at bilbo;
- Wed, 22 Feb 2017 02:15:38 AEDT
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="uMxi8bTc"; 
- dkim-atps=neutral
-Received: from mx3.yadro.com (mx3.yadro.com [89.207.88.220])
- by lists.ozlabs.org (Postfix) with ESMTP id 3vSPFk5yvbzDqBV
- for <openbmc@lists.ozlabs.org>; Wed, 22 Feb 2017 02:15:38 +1100 (AEDT)
-Received: from mx0.yadro.com (unknown [172.17.0.6])
- by mx3.yadro.com (Postfix) with ESMTP id 7497717617
- for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 18:10:01 +0300 (MSK)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mx3.yadro.com 7497717617
-Authentication-Results: mx3.yadro.com;
- dkim=fail reason="key not found in DNS" (0-bit key) header.d=yadro.com
- header.i=@yadro.com header.b=uMxi8bTc
+Return-Path: <eajames@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vSYJ25VMCzDqBv
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Feb 2017 08:18:09 +1100 (AEDT)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v1LL8u3s003269
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 16:18:05 -0500
+Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 28rqk8rd37-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 16:18:05 -0500
+Received: from localhost
+ by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Tue, 21 Feb 2017 16:18:04 -0500
+Received: from d01dlp02.pok.ibm.com (9.56.250.167)
+ by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Tue, 21 Feb 2017 16:18:01 -0500
+Received: from b01cxnp23033.gho.pok.ibm.com (b01cxnp23033.gho.pok.ibm.com
+ [9.57.198.28])
+ by d01dlp02.pok.ibm.com (Postfix) with ESMTP id 134D46E8040;
+ Tue, 21 Feb 2017 16:17:32 -0500 (EST)
+Received: from b01ledav03.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
+ [9.57.199.108])
+ by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v1LLI0r928311594; Tue, 21 Feb 2017 21:18:00 GMT
+Received: from b01ledav03.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id ACDB2B204D;
+ Tue, 21 Feb 2017 16:17:59 -0500 (EST)
+Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
+ by b01ledav03.gho.pok.ibm.com (Postfix) with ESMTP id 5C212B2050;
+ Tue, 21 Feb 2017 16:17:59 -0500 (EST)
+From: Eddie James <eajames@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
-DKIM-Filter: OpenDKIM Filter v2.10.3 mx0.yadro.com 3340A281198F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yadro.com; s=mx0;
- t=1487689801; bh=1hbI28BrwFtIaz3Y4NASjEow8EPXE55VkAAFfl5ja3g=;
- h=From:Subject:Date:From;
- b=uMxi8bTcYiVsA3mKZVgysQrmgm+fZpe9onNnZ+KQwhJNkdrLeaSRnemL9s8F7ru4R
- 3N3PFRdbfiJzxzqvgTSjs7ua4k/0loW72ryilMCOhg2MnpTPy6uHY/JvsDZnSpP6tV
- 6zWmQNAly1fZMGdfl6IrAc4dQVpdGI6kuUzYIfsg=
-From: Sergey Kachkin <s.kachkin@yadro.com>
-Subject: IPMI implementation and OpenBMC timeline question
-Message-ID: <85f0bd73-6044-5257-3e40-9a3a4526b525@yadro.com>
-Date: Tue, 21 Feb 2017 18:10:00 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.7.0
-Content-Type: multipart/alternative;
- boundary="------------05ED2AD0416C02879A45ECB8"
-X-Mailman-Approved-At: Wed, 22 Feb 2017 07:45:01 +1100
+Cc: joel@jms.id.au, cbostic@linux.vnet.ibm.com,
+ "Edward A. James" <eajames@us.ibm.com>
+Subject: [PATCH linux dev-4.7] drivers: fsi: Fix FSI core size checking user
+ interfaces
+Date: Tue, 21 Feb 2017 15:17:59 -0600
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 17022121-0044-0000-0000-0000029DA4AF
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006658; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000204; SDB=6.00825180; UDB=6.00404009; IPR=6.00602635; 
+ BA=6.00005161; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014381; XFM=3.00000011;
+ UTC=2017-02-21 21:18:03
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17022121-0045-0000-0000-000006CAA8A8
+Message-Id: <1487711879-15542-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-02-21_18:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
+ definitions=main-1702210196
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -42,164 +74,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Feb 2017 15:15:42 -0000
+X-List-Received-Date: Tue, 21 Feb 2017 21:18:11 -0000
 
-This is a multi-part message in MIME format.
---------------05ED2AD0416C02879A45ECB8
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: "Edward A. James" <eajames@us.ibm.com>
 
-Hi team,
+Some potential for integer overflow and not checking signed offsets.
 
-i've read many issues at OpenBmc github but still have few questions. 
-I'm wondering if this PDL is the right place for such questions or may 
-be you can point me to right resource:
+Signed-off-by: Edward A. James <eajames@us.ibm.com>
+---
+ drivers/fsi/fsi-core.c | 14 ++++----------
+ 1 file changed, 4 insertions(+), 10 deletions(-)
 
-1.  i can see many efforts to implement new functionality into OpenBMC. 
-Is there any schedule/timeline  to 'stabilize' the project to get 
-production level stability? What 'Phase 5' label means in term of timeline?
-
-2. we are interested in IPMI protocol and i would like to figure out 
-what features are being developed by OpenBMC contributors to avoid 
-re-inventing the wheel.
-So far i found following open issues:
-
-- sdr and sensors https://github.com/openbmc/openbmc/issues/441
-- fru https://github.com/openbmc/openbmc/issues/442
-- sol https://github.com/openbmc/openbmc/issues/432
--user accounts management: 
-https://github.com/openbmc/openbmc/issues/446https://github.com/openbmc/openbmc/issues/431
-- chassis control: https://github.com/openbmc/openbmc/issues/440
-- dcmihttps://github.com/openbmc/openbmc/issues/445 
-<https://github.com/openbmc/openbmc/issues/445>
-    btw is this dcmi still on schedule?
-
-The issues above are labeled as "Phase 5" but i do not see any timelines 
-or assignees for these issues.
-Is someone working on the issues above?
-
-Also am i correct that other IPMI features that enables 'mc' , 
-'session'  (for example)  ipmitool commands working are not being 
-developped?
-
-thanks in advance,
-
-regards,
-Sergey
-
---------------05ED2AD0416C02879A45ECB8
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: base64
-
-PGh0bWw+CiAgPGhlYWQ+CgogICAgPG1ldGEgaHR0cC1lcXVpdj0iY29udGVudC10eXBlIiBj
-b250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9dXRmLTgiPgogIDwvaGVhZD4KICA8Ym9keSBi
-Z2NvbG9yPSIjRkZGRkZGIiB0ZXh0PSIjMDAwMDAwIj4KICAgIEhpIHRlYW0sIDxicj4KICAg
-IDxicj4KICAgIGkndmUgcmVhZCBtYW55IGlzc3VlcyBhdCBPcGVuQm1jIGdpdGh1YiBidXQg
-c3RpbGwgaGF2ZSBmZXcKICAgIHF1ZXN0aW9ucy4gSSdtIHdvbmRlcmluZyBpZiB0aGlzIFBE
-TCBpcyB0aGUgcmlnaHQgcGxhY2UgZm9yIHN1Y2gKICAgIHF1ZXN0aW9ucyBvciBtYXkgYmUg
-eW91IGNhbiBwb2ludCBtZSB0byByaWdodCByZXNvdXJjZTo8YnI+CiAgICA8YnI+CiAgICAx
-LsKgIGkgY2FuIHNlZSBtYW55IGVmZm9ydHMgdG8gaW1wbGVtZW50IG5ldyBmdW5jdGlvbmFs
-aXR5IGludG8KICAgIE9wZW5CTUMuIElzIHRoZXJlIGFueSBzY2hlZHVsZS90aW1lbGluZcKg
-IHRvICdzdGFiaWxpemUnIHRoZSBwcm9qZWN0CiAgICB0byBnZXQgcHJvZHVjdGlvbiBsZXZl
-bCBzdGFiaWxpdHk/IFdoYXQgJ1BoYXNlIDUnIGxhYmVsIG1lYW5zIGluCiAgICB0ZXJtIG9m
-IHRpbWVsaW5lPyA8YnI+CiAgICA8YnI+CiAgICAyLiB3ZSBhcmUgaW50ZXJlc3RlZCBpbiBJ
-UE1JIHByb3RvY29sIGFuZCBpIHdvdWxkIGxpa2UgdG8gZmlndXJlIG91dAogICAgd2hhdCBm
-ZWF0dXJlcyBhcmUgYmVpbmcgZGV2ZWxvcGVkIGJ5IE9wZW5CTUMgY29udHJpYnV0b3JzIHRv
-IGF2b2lkCiAgICByZS1pbnZlbnRpbmcgdGhlIHdoZWVsLiA8YnI+CiAgICBTbyBmYXIgaSBm
-b3VuZCBmb2xsb3dpbmcgb3BlbiBpc3N1ZXM6IDxicj4KICAgIMKgPGJyPgogICAgLSBzZHIg
-YW5kIHNlbnNvcnMKICAgIDxtZXRhIGh0dHAtZXF1aXY9ImNvbnRlbnQtdHlwZSIgY29udGVu
-dD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4KICAgIDxhIGhyZWY9Imh0dHBzOi8vZ2l0
-aHViLmNvbS9vcGVuYm1jL29wZW5ibWMvaXNzdWVzLzQ0MSIgZGF0YS1tY2UtaHJlZj0iaHR0
-cHM6Ly9naXRodWIuY29tL29wZW5ibWMvb3BlbmJtYy9pc3N1ZXMvNDQxIiBzdHlsZT0iY29s
-b3I6IHJnYig1MywgMTE0LCAxNzYpOyB0ZXh0LWRlY29yYXRpb246IG5vbmU7IGZvbnQtZmFt
-aWx5OiBBcmlhbCwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxNHB4OyBmb250LXN0eWxlOiBu
-b3JtYWw7IGZvbnQtdmFyaWFudC1saWdhdHVyZXM6IG5vcm1hbDsgZm9udC12YXJpYW50LWNh
-cHM6IG5vcm1hbDsgZm9udC13ZWlnaHQ6IG5vcm1hbDsgbGV0dGVyLXNwYWNpbmc6IG5vcm1h
-bDsgb3JwaGFuczogMjsgdGV4dC1hbGlnbjogbGVmdDsgdGV4dC1pbmRlbnQ6IDBweDsgdGV4
-dC10cmFuc2Zvcm06IG5vbmU7IHdoaXRlLXNwYWNlOiBwcmUtd3JhcDsgd2lkb3dzOiAyOyB3
-b3JkLXNwYWNpbmc6IDBweDsgLXdlYmtpdC10ZXh0LXN0cm9rZS13aWR0aDogMHB4OyBiYWNr
-Z3JvdW5kLWNvbG9yOiByZ2IoMjU1LCAyNTUsIDI1NSk7Ij5odHRwczovL2dpdGh1Yi5jb20v
-b3BlbmJtYy9vcGVuYm1jL2lzc3Vlcy80NDE8L2E+PGJyPgogICAgLSBmcnUKICAgIDxtZXRh
-IGh0dHAtZXF1aXY9ImNvbnRlbnQtdHlwZSIgY29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0
-PXV0Zi04Ij4KICAgIDxhIGhyZWY9Imh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL29wZW5i
-bWMvaXNzdWVzLzQ0MiIgZGF0YS1tY2UtaHJlZj0iaHR0cHM6Ly9naXRodWIuY29tL29wZW5i
-bWMvb3BlbmJtYy9pc3N1ZXMvNDQyIiBzdHlsZT0iY29sb3I6IHJnYig1MywgMTE0LCAxNzYp
-OyB0ZXh0LWRlY29yYXRpb246IG5vbmU7IGZvbnQtZmFtaWx5OiBBcmlhbCwgc2Fucy1zZXJp
-ZjsgZm9udC1zaXplOiAxNHB4OyBmb250LXN0eWxlOiBub3JtYWw7IGZvbnQtdmFyaWFudC1s
-aWdhdHVyZXM6IG5vcm1hbDsgZm9udC12YXJpYW50LWNhcHM6IG5vcm1hbDsgZm9udC13ZWln
-aHQ6IG5vcm1hbDsgbGV0dGVyLXNwYWNpbmc6IG5vcm1hbDsgb3JwaGFuczogMjsgdGV4dC1h
-bGlnbjogbGVmdDsgdGV4dC1pbmRlbnQ6IDBweDsgdGV4dC10cmFuc2Zvcm06IG5vbmU7IHdo
-aXRlLXNwYWNlOiBwcmUtd3JhcDsgd2lkb3dzOiAyOyB3b3JkLXNwYWNpbmc6IDBweDsgLXdl
-YmtpdC10ZXh0LXN0cm9rZS13aWR0aDogMHB4OyBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjU1
-LCAyNTUsIDI1NSk7Ij5odHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9vcGVuYm1jL2lzc3Vl
-cy80NDI8L2E+PGJyPgogICAgLSBzb2wKICAgIDxtZXRhIGh0dHAtZXF1aXY9ImNvbnRlbnQt
-dHlwZSIgY29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4KICAgIDxhIGhyZWY9
-Imh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL29wZW5ibWMvaXNzdWVzLzQzMiIgZGF0YS1t
-Y2UtaHJlZj0iaHR0cHM6Ly9naXRodWIuY29tL29wZW5ibWMvb3BlbmJtYy9pc3N1ZXMvNDMy
-IiBzdHlsZT0iY29sb3I6IHJnYig1MywgMTE0LCAxNzYpOyB0ZXh0LWRlY29yYXRpb246IG5v
-bmU7IGZvbnQtZmFtaWx5OiBBcmlhbCwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxNHB4OyBm
-b250LXN0eWxlOiBub3JtYWw7IGZvbnQtdmFyaWFudC1saWdhdHVyZXM6IG5vcm1hbDsgZm9u
-dC12YXJpYW50LWNhcHM6IG5vcm1hbDsgZm9udC13ZWlnaHQ6IG5vcm1hbDsgbGV0dGVyLXNw
-YWNpbmc6IG5vcm1hbDsgb3JwaGFuczogMjsgdGV4dC1hbGlnbjogbGVmdDsgdGV4dC1pbmRl
-bnQ6IDBweDsgdGV4dC10cmFuc2Zvcm06IG5vbmU7IHdoaXRlLXNwYWNlOiBwcmUtd3JhcDsg
-d2lkb3dzOiAyOyB3b3JkLXNwYWNpbmc6IDBweDsgLXdlYmtpdC10ZXh0LXN0cm9rZS13aWR0
-aDogMHB4OyBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjU1LCAyNTUsIDI1NSk7Ij5odHRwczov
-L2dpdGh1Yi5jb20vb3BlbmJtYy9vcGVuYm1jL2lzc3Vlcy80MzI8L2E+PGJyPgogICAgLXVz
-ZXIgYWNjb3VudHMgbWFuYWdlbWVudDoKICAgIDxtZXRhIGh0dHAtZXF1aXY9ImNvbnRlbnQt
-dHlwZSIgY29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4KICAgIDxhIGhyZWY9
-Imh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL29wZW5ibWMvaXNzdWVzLzQ0NiIgZGF0YS1t
-Y2UtaHJlZj0iaHR0cHM6Ly9naXRodWIuY29tL29wZW5ibWMvb3BlbmJtYy9pc3N1ZXMvNDQ2
-IiBzdHlsZT0iY29sb3I6IHJnYig1MywgMTE0LCAxNzYpOyB0ZXh0LWRlY29yYXRpb246IHVu
-ZGVybGluZTsgZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0
-cHg7IGZvbnQtc3R5bGU6IG5vcm1hbDsgZm9udC12YXJpYW50LWxpZ2F0dXJlczogbm9ybWFs
-OyBmb250LXZhcmlhbnQtY2Fwczogbm9ybWFsOyBmb250LXdlaWdodDogbm9ybWFsOyBsZXR0
-ZXItc3BhY2luZzogbm9ybWFsOyBvcnBoYW5zOiAyOyB0ZXh0LWFsaWduOiBsZWZ0OyB0ZXh0
-LWluZGVudDogMHB4OyB0ZXh0LXRyYW5zZm9ybTogbm9uZTsgd2hpdGUtc3BhY2U6IHByZS13
-cmFwOyB3aWRvd3M6IDI7IHdvcmQtc3BhY2luZzogMHB4OyAtd2Via2l0LXRleHQtc3Ryb2tl
-LXdpZHRoOiAwcHg7IGJhY2tncm91bmQtY29sb3I6IHJnYigyNTUsIDI1NSwgMjU1KTsiPmh0
-dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL29wZW5ibWMvaXNzdWVzLzQ0NjwvYT48c3BhbiBz
-dHlsZT0iY29sb3I6IHJnYig1MSwgNTEsIDUxKTsgZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5z
-LXNlcmlmOyBmb250LXNpemU6IDE0cHg7IGZvbnQtc3R5bGU6IG5vcm1hbDsgZm9udC12YXJp
-YW50LWxpZ2F0dXJlczogbm9ybWFsOyBmb250LXZhcmlhbnQtY2Fwczogbm9ybWFsOyBmb250
-LXdlaWdodDogbm9ybWFsOyBsZXR0ZXItc3BhY2luZzogbm9ybWFsOyBvcnBoYW5zOiAyOyB0
-ZXh0LWFsaWduOiBsZWZ0OyB0ZXh0LWluZGVudDogMHB4OyB0ZXh0LXRyYW5zZm9ybTogbm9u
-ZTsgd2hpdGUtc3BhY2U6IHByZS13cmFwOyB3aWRvd3M6IDI7IHdvcmQtc3BhY2luZzogMHB4
-OyAtd2Via2l0LXRleHQtc3Ryb2tlLXdpZHRoOiAwcHg7IGJhY2tncm91bmQtY29sb3I6IHJn
-YigyNTUsIDI1NSwgMjU1KTsgZGlzcGxheTogaW5saW5lICFpbXBvcnRhbnQ7IGZsb2F0OiBu
-b25lOyI+ICA8L3NwYW4+PGEgaHJlZj0iaHR0cHM6Ly9naXRodWIuY29tL29wZW5ibWMvb3Bl
-bmJtYy9pc3N1ZXMvNDMxIiBkYXRhLW1jZS1ocmVmPSJodHRwczovL2dpdGh1Yi5jb20vb3Bl
-bmJtYy9vcGVuYm1jL2lzc3Vlcy80MzEiIHN0eWxlPSJjb2xvcjogcmdiKDUzLCAxMTQsIDE3
-Nik7IHRleHQtZGVjb3JhdGlvbjogbm9uZTsgZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNl
-cmlmOyBmb250LXNpemU6IDE0cHg7IGZvbnQtc3R5bGU6IG5vcm1hbDsgZm9udC12YXJpYW50
-LWxpZ2F0dXJlczogbm9ybWFsOyBmb250LXZhcmlhbnQtY2Fwczogbm9ybWFsOyBmb250LXdl
-aWdodDogbm9ybWFsOyBsZXR0ZXItc3BhY2luZzogbm9ybWFsOyBvcnBoYW5zOiAyOyB0ZXh0
-LWFsaWduOiBsZWZ0OyB0ZXh0LWluZGVudDogMHB4OyB0ZXh0LXRyYW5zZm9ybTogbm9uZTsg
-d2hpdGUtc3BhY2U6IHByZS13cmFwOyB3aWRvd3M6IDI7IHdvcmQtc3BhY2luZzogMHB4OyAt
-d2Via2l0LXRleHQtc3Ryb2tlLXdpZHRoOiAwcHg7IGJhY2tncm91bmQtY29sb3I6IHJnYigy
-NTUsIDI1NSwgMjU1KTsiPmh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL29wZW5ibWMvaXNz
-dWVzLzQzMTwvYT48YnI+CiAgICAtIGNoYXNzaXMgY29udHJvbDogPGEgY2xhc3M9Im1vei10
-eHQtbGluay1mcmVldGV4dCIgaHJlZj0iaHR0cHM6Ly9naXRodWIuY29tL29wZW5ibWMvb3Bl
-bmJtYy9pc3N1ZXMvNDQwIj5odHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9vcGVuYm1jL2lz
-c3Vlcy80NDA8L2E+PGJyPgogICAgLSBkY21pPGEgaHJlZj0iaHR0cHM6Ly9naXRodWIuY29t
-L29wZW5ibWMvb3BlbmJtYy9pc3N1ZXMvNDQ1IiBkYXRhLW1jZS1ocmVmPSJodHRwczovL2dp
-dGh1Yi5jb20vb3BlbmJtYy9vcGVuYm1jL2lzc3Vlcy80NDUiIHN0eWxlPSJjb2xvcjogcmdi
-KDUzLCAxMTQsIDE3Nik7IHRleHQtZGVjb3JhdGlvbjogdW5kZXJsaW5lOyBmb250LWZhbWls
-eTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTRweDsgZm9udC1zdHlsZTogbm9y
-bWFsOyBmb250LXZhcmlhbnQtbGlnYXR1cmVzOiBub3JtYWw7IGZvbnQtdmFyaWFudC1jYXBz
-OiBub3JtYWw7IGZvbnQtd2VpZ2h0OiBub3JtYWw7IGxldHRlci1zcGFjaW5nOiBub3JtYWw7
-IG9ycGhhbnM6IDI7IHRleHQtYWxpZ246IGxlZnQ7IHRleHQtaW5kZW50OiAwcHg7IHRleHQt
-dHJhbnNmb3JtOiBub25lOyB3aGl0ZS1zcGFjZTogcHJlLXdyYXA7IHdpZG93czogMjsgd29y
-ZC1zcGFjaW5nOiAwcHg7IC13ZWJraXQtdGV4dC1zdHJva2Utd2lkdGg6IDBweDsgYmFja2dy
-b3VuZC1jb2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpOyI+ICBodHRwczovL2dpdGh1Yi5jb20v
-b3BlbmJtYy9vcGVuYm1jL2lzc3Vlcy80NDU8L2E+PGJyPgogICAgwqDCoCBidHcgaXMgdGhp
-cyBkY21pIHN0aWxsIG9uIHNjaGVkdWxlPyA8YnIKICAgICAgY2xhc3M9IkFwcGxlLWludGVy
-Y2hhbmdlLW5ld2xpbmUiPgogICAgPGJyPgogICAgVGhlIGlzc3VlcyBhYm92ZSBhcmUgbGFi
-ZWxlZCBhcyAiUGhhc2UgNSIgYnV0IGkgZG8gbm90IHNlZSBhbnnCoAogICAgdGltZWxpbmVz
-IG9yIGFzc2lnbmVlcyBmb3IgdGhlc2UgaXNzdWVzLiA8YnI+CiAgICBJcyBzb21lb25lIHdv
-cmtpbmcgb24gdGhlIGlzc3VlcyBhYm92ZT8gPGJyPgogICAgPGJyPgogICAgQWxzbyBhbSBp
-IGNvcnJlY3QgdGhhdCBvdGhlciBJUE1JIGZlYXR1cmVzIHRoYXQgZW5hYmxlcyAnbWMnICzC
-oAogICAgJ3Nlc3Npb24nwqAgKGZvciBleGFtcGxlKcKgIGlwbWl0b29sIGNvbW1hbmRzIHdv
-cmtpbmcgYXJlIG5vdCBiZWluZwogICAgZGV2ZWxvcHBlZD88YnI+CiAgICA8YnI+CiAgICB0
-aGFua3MgaW4gYWR2YW5jZSwgPGJyPgogICAgPGJyPgogICAgcmVnYXJkcyw8YnI+CiAgICBT
-ZXJnZXkgPGJyPgogIDwvYm9keT4KPC9odG1sPgo=
---------------05ED2AD0416C02879A45ECB8--
+diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
+index d63a892..e13774f 100644
+--- a/drivers/fsi/fsi-core.c
++++ b/drivers/fsi/fsi-core.c
+@@ -90,10 +90,7 @@ static int fsi_slave_write(struct fsi_slave *slave, uint32_t addr,
+ int fsi_device_read(struct fsi_device *dev, uint32_t addr, void *val,
+ 		size_t size)
+ {
+-	if (addr > dev->size)
+-		return -EINVAL;
+-
+-	if (addr + size > dev->size)
++	if (addr > dev->size || size > dev->size || addr > dev->size - size)
+ 		return -EINVAL;
+ 
+ 	return fsi_slave_read(dev->slave, dev->addr + addr, val, size);
+@@ -103,10 +100,7 @@ EXPORT_SYMBOL_GPL(fsi_device_read);
+ int fsi_device_write(struct fsi_device *dev, uint32_t addr, const void *val,
+ 		size_t size)
+ {
+-	if (addr > dev->size)
+-		return -EINVAL;
+-
+-	if (addr + size > dev->size)
++	if (addr > dev->size || size > dev->size || addr > dev->size - size)
+ 		return -EINVAL;
+ 
+ 	return fsi_slave_write(dev->slave, dev->addr + addr, val, size);
+@@ -328,7 +322,7 @@ static ssize_t fsi_slave_sysfs_raw_read(struct file *file,
+ 	if (count != 4 || off & 0x3)
+ 		return -EINVAL;
+ 
+-	if (off > 0xffffffff)
++	if (off > 0xfffffffc || off < 0)
+ 		return -EINVAL;
+ 
+ 	rc = fsi_slave_read(slave, off, buf, 4);
+@@ -346,7 +340,7 @@ static ssize_t fsi_slave_sysfs_raw_write(struct file *file,
+ 	if (count != 4 || off & 0x3)
+ 		return -EINVAL;
+ 
+-	if (off > 0xffffffff)
++	if (off > 0xfffffffc || off < 0)
+ 		return -EINVAL;
+ 
+ 	rc = fsi_slave_write(slave, off, buf, 4);
+-- 
+1.8.3.1
