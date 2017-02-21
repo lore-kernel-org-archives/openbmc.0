@@ -1,51 +1,67 @@
-Return-Path: <mine260309@gmail.com>
-Received: from mail-qk0-x241.google.com (mail-qk0-x241.google.com
- [IPv6:2607:f8b0:400d:c09::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vSBGB6vrXzDqBV
- for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 18:00:18 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Xch0ysxr"; 
- dkim-atps=neutral
-Received: by mail-qk0-x241.google.com with SMTP id x71so8183558qkb.0
- for <openbmc@lists.ozlabs.org>; Mon, 20 Feb 2017 23:00:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=IFKg4baW5a9WMVBqi7Bl8qngL5WKlvpB82Tnh9wKKM4=;
- b=Xch0ysxro3Y5U9BBFI//wHOGjtu54Ee1enSife45Dyq6PQjWt44nSk1x8XVnxiV7xb
- mqJU6+3Om1zHOOehvYKzdJnnD9+taNAjiSo8OboXB+E8BgByKo4FlrkdaMDRpvi3rGWE
- 8F3r8y7BmMT0m8IgD56QyHM1TKNHTrYgQEAl34ujDxNr/K5sc1Mr/W0fkDbxA/RD/NwV
- hdM0D+pfllmlXH1LnMUmMXj9iCBhhxSBr0gOlPEnCcHO4148Lqpkfp20Di7zdrASDNzt
- H2BLt1Tr32gfxX7rJfMbjaLjn8c/9gLliYDwCqNjt1BtCG0o0L2oOfHtWf00R7lMUrVV
- VY+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=IFKg4baW5a9WMVBqi7Bl8qngL5WKlvpB82Tnh9wKKM4=;
- b=mLR8Oczq9AffHmi1g9kmxZpPZqe5c+jCCP/IxEyeqBufx0Ca8Pc5Im1H9laPBAPhZM
- WGe3FJROnhKqgBDjA9OmRQihjLnWGYPNCeSU+EZMoBZlXAlU2SJbhjBFuj+gJqTSzznV
- 2sP1D0kVMmM16QE9M8YgdWupJt3m2HYdn9q8prtPR4VseT4mDxBjrXCP/rTZA8vbbeaW
- 5PiEHE1m1zoBfNoeaXtImzMbda5AKeWaXcjRqYNLHOfClnA7ybPdOXEwJxx0lwAeNZ2B
- MgL+EfvqiCfHglLpe4iJwSQw45DgoVztDjxjn+qKnx2wsYvWCNfjYO3GpERk9bY3f4JT
- MBlg==
-X-Gm-Message-State: AMke39mIXgXi3fA4NExD1YqkV5Th7tD1z04n11x0CeWq0qVPqi1Xhlhmsr+CM+xikgMmaJoJGuWvf9+zPny0TA==
-X-Received: by 10.55.210.135 with SMTP id f129mr22387124qkj.184.1487660416747; 
- Mon, 20 Feb 2017 23:00:16 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.12.137.9 with HTTP; Mon, 20 Feb 2017 23:00:16 -0800 (PST)
-In-Reply-To: <20170221051259.18383-1-joel@jms.id.au>
-References: <20170221051259.18383-1-joel@jms.id.au>
-From: Mine <mine260309@gmail.com>
-Date: Tue, 21 Feb 2017 15:00:16 +0800
-Message-ID: <CAARXrt=B9UiGqNcRxhrnetRo6fAA3mYG+acOf71sovJxXVBauQ@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7 1/2] ARM: dts: aspeed: Fix RAM size in
- Romulus and Witherspoon
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Cyril Bur <cyrilbur@gmail.com>,
- Xo Wang <xow@google.com>
-Content-Type: text/plain; charset=UTF-8
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vSRcs4hjhzDqBV
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Feb 2017 04:02:20 +1100 (AEDT)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v1LGwXs8007318
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 12:02:17 -0500
+Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 28rpdd1t7u-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 12:02:17 -0500
+Received: from localhost
+ by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Tue, 21 Feb 2017 10:02:16 -0700
+Received: from d03dlp02.boulder.ibm.com (9.17.202.178)
+ by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Tue, 21 Feb 2017 10:02:13 -0700
+Received: from b03cxnp08027.gho.boulder.ibm.com
+ (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
+ by d03dlp02.boulder.ibm.com (Postfix) with ESMTP id 28E433E40041;
+ Tue, 21 Feb 2017 10:02:13 -0700 (MST)
+Received: from b03ledav001.gho.boulder.ibm.com
+ (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v1LH2Dot9241062; Tue, 21 Feb 2017 10:02:13 -0700
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id ECAA26E044;
+ Tue, 21 Feb 2017 10:02:12 -0700 (MST)
+Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP id 9CA1F6E03A;
+ Tue, 21 Feb 2017 10:02:12 -0700 (MST)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, cbostic@linux.vnet.ibm.com,
+ "Edward A. James" <eajames@us.ibm.com>
+Subject: [PATCH linux dev-4.7] drivers: fsi: scom: Zero out user buffer first
+Date: Tue, 21 Feb 2017 11:02:10 -0600
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 17022117-0012-0000-0000-000013B8882E
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006657; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000204; SDB=6.00825095; UDB=6.00403958; IPR=6.00602550; 
+ BA=6.00005161; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014376; XFM=3.00000011;
+ UTC=2017-02-21 17:02:15
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17022117-0013-0000-0000-00004B9BE7E4
+Message-Id: <1487696530-27256-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-02-21_13:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
+ definitions=main-1702210160
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,49 +73,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Feb 2017 07:00:19 -0000
+X-List-Received-Date: Tue, 21 Feb 2017 17:02:23 -0000
 
-Acked-by: Lei YU <mine260309@gmail.com>
+From: "Edward A. James" <eajames@us.ibm.com>
 
-I think Zaius uses 512MiB RAM as well.
-Xo Wang could you help to confirm?
+Scom data is just bit-wise OR'd with the user buffer, so it needs to be
+set to 0 first.
 
-On Tue, Feb 21, 2017 at 1:12 PM, Joel Stanley <joel@jms.id.au> wrote:
-> They both contain 512M of RAM. Early bringup Witherspoons did have 1G,
-> but all machines we are using now have 512M.
->
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     | 2 +-
->  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> index 85e545110be6..58baf87454e2 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> @@ -17,7 +17,7 @@
->         };
->
->         memory {
-> -               reg = <0x80000000 0x40000000>;
-> +               reg = <0x80000000 0x20000000>;
->         };
->
->         fsi-master {
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> index 4b2d8aa8abb6..2cbdeba88908 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> @@ -17,7 +17,7 @@
->         };
->
->         memory {
-> -               reg = <0x80000000 0x40000000>;
-> +               reg = <0x80000000 0x20000000>;
->         };
->
->         reserved-memory {
-> --
-> 2.11.0
->
+Signed-off-by: Edward A. James <eajames@us.ibm.com>
+---
+ drivers/fsi/fsi-scom.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/fsi/fsi-scom.c b/drivers/fsi/fsi-scom.c
+index 51b3dc3..ed3b98e 100644
+--- a/drivers/fsi/fsi-scom.c
++++ b/drivers/fsi/fsi-scom.c
+@@ -85,6 +85,7 @@ static int get_scom(struct scom_device *scom_dev, uint64_t *value,
+ 	uint32_t result, data;
+ 	int rc;
+ 
++	*value = 0ULL;
+ 	data = addr;
+ 	rc = fsi_device_write(scom_dev->fsi_dev, SCOM_CMD_REG, &data,
+ 				sizeof(uint32_t));
+-- 
+1.8.3.1
