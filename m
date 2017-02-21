@@ -1,57 +1,53 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x22f.google.com (mail-yb0-x22f.google.com
- [IPv6:2607:f8b0:4002:c09::22f])
+Received: from mail-pg0-x241.google.com (mail-pg0-x241.google.com
+ [IPv6:2607:f8b0:400e:c05::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vS7H93QGCzDqHQ
- for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 15:45:57 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vS7tZ2dGbzDqGc
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 16:13:10 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="kj9xQI9B"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="hP4J1xjg"; 
  dkim-atps=neutral
-Received: by mail-yb0-x22f.google.com with SMTP id u130so14077596ybb.0
- for <openbmc@lists.ozlabs.org>; Mon, 20 Feb 2017 20:45:57 -0800 (PST)
+Received: by mail-pg0-x241.google.com with SMTP id a123so13458803pgc.3
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Feb 2017 21:13:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=yZalW1wJthO/L0hz3EDKtC4XG8gUNL+0NrybRhAO1tY=;
- b=kj9xQI9BUjvye9wcwI77BDgwDoJ/CA8RagP0rlPNpxz26WTnyJAsEtTrL10OtLyhqO
- Dk7rsDQoLVZfnL3XwRAX5uh/3TIfCXhFHvJsyBroolh/99OkA21tQUHU6H4UsJDDn3ey
- ATPmR6FmdRZCrp8a42KJLTA/7euixyUA96gECyjN1APdXKakaEJZI0sJU2OtEczmu9Hh
- YVIy8viOdUKQ4Tpo9AZMCqOl6iDH6lEMqMa61cFlYI5EubNF6I2XsWwr3DEPfJeB1DBK
- vAI0TRSUOIC6BDInrVka/PUS73G3HCMAfGni+0p6mQCwl8trkBeFH80cnJtxoevMrjzA
- AIVg==
+ h=sender:from:to:cc:subject:date:message-id;
+ bh=nRaPZQcVJZ4Bdf+vWUVXULrxPB+A//+aRBxqyPu6PGM=;
+ b=hP4J1xjgBxaiB73dgYBgw0/w+xRtGyXLiS4hKjJci1R8mBvBMZU437iUp3vzIwi18b
+ XpMjIhAp3vWyCXm+iuVIF+/QxETcFnrDFLG1g0UFQP/4PsS0zfRpled+neKtiZWVgR+7
+ N8L/m3dui3nMeE1/27XdmuqEyzkAvgYfKfJ828UdqBqSS5Q4Qr4OURz5uLBx+sKNshWf
+ dG58f17kCsn7Wd5MYN5Jsw2PuqGDVAvNm5zeMD9hOSxcQqEBOZzSmpoxUVkK94ZJ09v8
+ Xzk4vKJ3qRabqIAUHwmlTxQvm6WhZDwZZgijHx/PVMw/ElmuwaNIMwdDLH7DmAe7nM4J
+ 9rSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=yZalW1wJthO/L0hz3EDKtC4XG8gUNL+0NrybRhAO1tY=;
- b=It6F11WYhJHsWr2arX18dDLc3zSMR/qwNFgUj75wKJaTG5L/BVsUte67h4e0bJVOE4
- sbbusP+NDznVNE5DvRQQ+n4r1GskMKpskNQFjUQxMaJlay0dRwpq8mNhHTZUBaGmmsbM
- 0GIDCPJs7+bvY45XbSKdHJIK+sK50RaK0MNN1IJUS9mN0eUcbe48aBxHQqmWoCfCg3h+
- fyT2xrHpGEEKRTFBtVg+RolcL92ZByXxsVF58TGG2g1I4Nomy1QU96FslZYXkaS1YbLC
- XfeWWcaxC56ofp5meFaPqySAdvvF4U9ODZrRdFxQn2xzQQ68qg9KyaWIrRCCo7+ksfUf
- f6Gg==
-X-Gm-Message-State: AMke39nyEijNTkIM/7hkb4ftogyJcZmOCiDG+YhW0ZTYZba3ToR2yhUGq/+6/XXdEumBMWJjEypFbZNL9QHGrg==
-X-Received: by 10.37.70.66 with SMTP id t63mr19107747yba.196.1487652354906;
- Mon, 20 Feb 2017 20:45:54 -0800 (PST)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.27.133 with HTTP; Mon, 20 Feb 2017 20:45:34 -0800 (PST)
-In-Reply-To: <20170221041653.GA21380@heinlein.lan>
-References: <20170216054922.19722-1-cyrilbur@gmail.com>
- <20170216140524.GA5077@heinlein.lan>
- <1487299721.16373.2.camel@gmail.com> <20170221041653.GA21380@heinlein.lan>
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
+ bh=nRaPZQcVJZ4Bdf+vWUVXULrxPB+A//+aRBxqyPu6PGM=;
+ b=op2uvjczBALb2hc5FZpstpnayo/w5CESYCBSa2wxteIDv2FjBSEPpjdcLmsqKlzwwt
+ /yfBZxIP31ZmtofjH40/Rtrc4yAIqnjZla/3mR019zMBgpOXezZt6COlvYYV0PqtdH3/
+ dcjf/s6kV44+O8Epan33jeLu3ozyFclITu6S94AtCKGR4aCQ2lqJIMr5LtwBpFNzzYcW
+ 3xjaVlATfyvsmAuH6zxg1okBK1rLi56SeTX+x3DPB6Qg128cDIuiQXQTvolK6S0arGKm
+ rbKbz8n+G+ZL2f9IJSaxF0gA4Szt8nmIL4qQ9cfIgw3qv1cfINF7e5/zoAdd1xu4cfVZ
+ 7O5A==
+X-Gm-Message-State: AMke39mgai86ZiB5OC5PYY2KNcjzcW5ezBPtMgL7wedGpkZMyNrTKBfR6wPWQyrvmMUZiA==
+X-Received: by 10.84.218.1 with SMTP id q1mr37333323pli.104.1487653988223;
+ Mon, 20 Feb 2017 21:13:08 -0800 (PST)
+Received: from aurora.jms.id.au ([203.0.153.9])
+ by smtp.gmail.com with ESMTPSA id l25sm37913287pfb.24.2017.02.20.21.13.04
+ (version=TLS1 cipher=AES128-SHA bits=128/128);
+ Mon, 20 Feb 2017 21:13:07 -0800 (PST)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+Received: by aurora.jms.id.au (sSMTP sendmail emulation);
+ Tue, 21 Feb 2017 15:43:01 +1030
 From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 21 Feb 2017 15:15:34 +1030
-X-Google-Sender-Auth: JJD5-KQfV7sycOj72_7Xi-JIiEw
-Message-ID: <CACPK8XdiK4p_YkQJdroQjDtAgf89uO0dOtnMF8N2g8OspEFacw@mail.gmail.com>
-Subject: Re: [PATCH] ARM: dts: aspeed: Update reserved memory nodes for zaius
- and witherspoon
-To: Patrick Williams <patrick@stwcx.xyz>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
- Jeremy Kerr <jk@ozlabs.org>
-Cc: Cyril Bur <cyrilbur@gmail.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+To: openbmc@lists.ozlabs.org
+Cc: Cyril Bur <cyrilbur@gmail.com>, Lei YU <mine260309@gmail.com>,
+ Xo Wang <xow@google.com>
+Subject: [PATCH linux dev-4.7 1/2] ARM: dts: aspeed: Fix RAM size in Romulus
+ and Witherspoon
+Date: Tue, 21 Feb 2017 15:42:58 +1030
+Message-Id: <20170221051259.18383-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,42 +59,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Feb 2017 04:45:58 -0000
+X-List-Received-Date: Tue, 21 Feb 2017 05:13:11 -0000
 
-On Tue, Feb 21, 2017 at 2:46 PM, Patrick Williams <patrick@stwcx.xyz> wrote:
-> On Fri, Feb 17, 2017 at 01:48:41PM +1100, Cyril Bur wrote:
->> On Thu, 2017-02-16 at 08:05 -0600, Patrick Williams wrote:
->> > On Thu, Feb 16, 2017 at 04:49:22PM +1100, Cyril Bur wrote:
->> > > -         flash_memory: region@94000000 {
->> > > +         flash_memory: region@98000000 {
->> > >                   no-map;
->> > > -                 reg = <0x94000000 0x04000000>; /* 64M */
->> > > +                 reg = <0x98000000 0x04000000>; /* 64M */
->> > > +         };
->> > > +
->> > > +         vga_memory: framebuffer@9c000000 {
->> > > +                 no-map;
->> > > +                 reg = <0x9c000000 0x04000000>; /* 64MB */
->> >
->> > Do we really have to allocate 64MB to a VGA framebuffer?  We can store a
->> > 4K resolution monitor with 32bit color in 32MB, so why is it required to
->> > reserve this much memory?  Between this and the PNOR memory region, now
->> > 1/4th of the BMCs memory is reserved.
->>
->> The reservation of 64MB is because the hardware is capable of using
->> 64MB, therefore the host can use that region of memory. We're playing
->> it safe here by ensuring the BMC doesn't use any of it to avoid any
->> possibility of the host corrupting BMC memory. This is the most generic
->> dts for the platform so we've gone with stability over performance.
->
-> Is there anything the BMC can do to restrict how big of a memory map the
-> host side of the VGA can open up?  If there isn't we're going to have to
-> allocate this much on all systems because we can't trust the host to
-> "behave".
+They both contain 512M of RAM. Early bringup Witherspoons did have 1G,
+but all machines we are using now have 512M.
 
-Ben and Jeremy have been enhancing the host driver to be smarter. Ben,
-what's the state of play?
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     | 2 +-
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Cheers,
-
-Joel
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+index 85e545110be6..58baf87454e2 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+@@ -17,7 +17,7 @@
+ 	};
+ 
+ 	memory {
+-		reg = <0x80000000 0x40000000>;
++		reg = <0x80000000 0x20000000>;
+ 	};
+ 
+ 	fsi-master {
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index 4b2d8aa8abb6..2cbdeba88908 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -17,7 +17,7 @@
+ 	};
+ 
+ 	memory {
+-		reg = <0x80000000 0x40000000>;
++		reg = <0x80000000 0x20000000>;
+ 	};
+ 
+ 	reserved-memory {
+-- 
+2.11.0
