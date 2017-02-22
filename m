@@ -1,73 +1,53 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
+ [IPv6:2607:f8b0:4002:c05::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vSjW74DyRzDq60
- for <openbmc@lists.ozlabs.org>; Wed, 22 Feb 2017 14:28:19 +1100 (AEDT)
-Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v1M3NVdK002676
- for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 22:28:17 -0500
-Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
- by mx0a-001b2d01.pphosted.com with ESMTP id 28rwnhsyta-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 22:28:16 -0500
-Received: from localhost
- by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Tue, 21 Feb 2017 20:28:15 -0700
-Received: from d03dlp02.boulder.ibm.com (9.17.202.178)
- by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Tue, 21 Feb 2017 20:28:13 -0700
-Received: from b03cxnp07029.gho.boulder.ibm.com
- (b03cxnp07029.gho.boulder.ibm.com [9.17.130.16])
- by d03dlp02.boulder.ibm.com (Postfix) with ESMTP id 1FD253E40044
- for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 20:28:13 -0700 (MST)
-Received: from b03ledav006.gho.boulder.ibm.com
- (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v1M3SCRB15925730; Tue, 21 Feb 2017 20:28:12 -0700
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 8B315C6037;
- Tue, 21 Feb 2017 20:28:12 -0700 (MST)
-Received: from Christophers-MacBook-Pro.local (unknown [9.83.4.51])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id EF60CC603E;
- Tue, 21 Feb 2017 20:28:10 -0700 (MST)
-Subject: Re: [PATCH linux dev-4.7] drivers: fsi: scom: Zero out user buffer
- first
-To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-References: <1487696530-27256-1-git-send-email-eajames@linux.vnet.ibm.com>
-Cc: "Edward A. James" <eajames@us.ibm.com>
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Tue, 21 Feb 2017 21:28:08 -0600
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
- Gecko/20100101 Thunderbird/45.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vSjm969vRzDq60
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Feb 2017 14:39:37 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="lzko3lZe"; 
+ dkim-atps=neutral
+Received: by mail-yw0-x244.google.com with SMTP id 203so6752395ywz.1
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 19:39:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=ab9odDjfKhLM+8M5R1BFP/O5lCCkj4hBFCcjWjTvClI=;
+ b=lzko3lZeqDIEO7WtaHtrD+23VHnxqJffCb4fCAUaCgDM0H9YLHtWFES/r4eBW/I2Bz
+ enlu8gaPv40SrSIJyj16loXlC1kUxXv+Wptvvs9r2BDJe2BnAo9SBGKbwsWbuEX3vIDC
+ YFNieKJcxFTxKMro/44Bc/4Z63cKqRPiiG2SLEZ5R9fOOcbt0Am40lOjVRYEuJoG1w0s
+ Pw0opvm9L+T3+RuKS7pAWYgYnsp3H6DZUFcNQ40OZCRuMr1CK3eu2efSIwP3kaj+tgsX
+ 2fxLmdlll226NIigAHHmh4Aq7l4/HoM9EvVH+zDGR8y+QzYXMDl2uHlvTmh69IddN8c8
+ umNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=ab9odDjfKhLM+8M5R1BFP/O5lCCkj4hBFCcjWjTvClI=;
+ b=b5Xb4/Lagar1PQhI/leFS41awAH0sHRqqXJ2C6eZR/HOZ+tjR47nUqreH+tZMMurqe
+ mgQWUcurYMprzRJkdbVbyN3rUHL1tswF7FMELCi9ML/E6GCf9ghw8v2kJWQQmKLrPKK9
+ 36VMrlJ/ThGauJ4u2+iYigZCTPRDZCV9WenNRqwAD36PY35duZaxi36UNKH4A5cCY3qm
+ 0CoiWt/mUMBDk6uMyYYRLXNg0ZEy5XaNzw9X2itBvDCpTlGoRvCdrcFDnr571BsXxwxy
+ zK1dwB8zRCOlhgOdqIZ8ISKs88Yp+AQugMHiIdggMWQr+5WNkMMoXpLUDxJh9aUlFABL
+ 6Fug==
+X-Gm-Message-State: AMke39kYMzps5tyGFk6V/sUSwww+e1KHO0Yh27gvlCWbT1eMKVgZBx5FPWoBx9s0yZFoBe3pKzp8Xnf9/fxHmA==
+X-Received: by 10.129.73.65 with SMTP id w62mr21937243ywa.288.1487734775324;
+ Tue, 21 Feb 2017 19:39:35 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <1487696530-27256-1-git-send-email-eajames@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17022203-8235-0000-0000-00000B060236
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006660; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000204; SDB=6.00825303; UDB=6.00404083; IPR=6.00602759; 
- BA=6.00005161; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014383; XFM=3.00000011;
- UTC=2017-02-22 03:28:14
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17022203-8236-0000-0000-000039CC82E8
-Message-Id: <65a53432-633b-c08c-d3d8-2405f54aec8d@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-02-22_01:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
- definitions=main-1702220035
+Sender: joel.stan@gmail.com
+Received: by 10.37.27.133 with HTTP; Tue, 21 Feb 2017 19:39:14 -0800 (PST)
+In-Reply-To: <20170220143850.10723-1-andrew@aj.id.au>
+References: <20170220143850.10723-1-andrew@aj.id.au>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 22 Feb 2017 14:09:14 +1030
+X-Google-Sender-Auth: VA3bmD2tdhidhuK_TMqkU4AL5ak
+Message-ID: <CACPK8XeXW_YjGkV0S5OJj2b814DA1tT33o-_0ToNvJ7UM4sy7w@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: aspeed: Add initial pinconf support
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Linus Walleij <linus.walleij@linaro.org>, linux-gpio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -79,30 +59,122 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Feb 2017 03:28:20 -0000
+X-List-Received-Date: Wed, 22 Feb 2017 03:39:38 -0000
 
-On 2/21/17 11:02 AM, Eddie James wrote:
+On Tue, Feb 21, 2017 at 1:08 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> Several pinconf parameters have a fairly straight-forward mapping onto
+> the Aspeed pin controller. These include management of pull-down bias,
+> drive-strength, and some debounce configuration.
+>
+> Pin biasing largely is managed on a per-GPIO-bank basis, aside from the
+> ADC and RMII/RGMII pins. As the bias configuration for each pin in a
+> bank maps onto a single per-bank bit, configuration tables are
+> introduced to describe the ranges of pins and the supported pinconf
+> parameter. The use of tables also helps with the sparse support of
+> pinconf properties, and the fact that not all GPIO banks support
+> biasing or drive-strength configuration.
+>
+> Further, as the pin controller uses a consistent approach for bias and
+> drive strength configuration at the register level, a second table is
+> defined for looking up the the bit-state required to enable or query the
+> provided configuration.
+>
+> Testing for pinctrl-aspeed-g4 was performed on an OpenPOWER Palmetto
+> system, and pinctrl-aspeed-g5 on an AST2500EVB. The test method was to
+> set the appropriate bits via devmem and verify the result through the
+> controller's pinconf-pins debugfs file. This simultaneously validates
+> the get() path and half of the set() path. The remainder of the set()
+> path was validated by configuring a handful of pins via the devicetree
+> with the supported pinconf properties and verifying the appropriate
+> registers were touched.
+>
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 
-> From: "Edward A. James" <eajames@us.ibm.com>
->
-> Scom data is just bit-wise OR'd with the user buffer, so it needs to be
-> set to 0 first.
->
-> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+Looks good. I assume the bindings are generic and don't need any
+update for this. Perhaps an update to the example would be helpful.
+
+Some minor comments below.
+
 > ---
->   drivers/fsi/fsi-scom.c | 1 +
->   1 file changed, 1 insertion(+)
+>  drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c | 117 +++++++++++++++-
+>  drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c | 153 ++++++++++++++++++++-
+>  drivers/pinctrl/aspeed/pinctrl-aspeed.c    | 207 +++++++++++++++++++++++++++++
+>  drivers/pinctrl/aspeed/pinctrl-aspeed.h    |  28 ++++
+>  4 files changed, 503 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/fsi/fsi-scom.c b/drivers/fsi/fsi-scom.c
-> index 51b3dc3..ed3b98e 100644
-> --- a/drivers/fsi/fsi-scom.c
-> +++ b/drivers/fsi/fsi-scom.c
-> @@ -85,6 +85,7 @@ static int get_scom(struct scom_device *scom_dev, uint64_t *value,
->   	uint32_t result, data;
->   	int rc;
+> diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
+> index 7de596e2b9d4..3e8625110136 100644
+> --- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
+> +++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
+> @@ -2234,6 +2234,110 @@ static const struct aspeed_pin_function aspeed_g4_functions[] = {
+>         ASPEED_PINCTRL_FUNC(WDTRST2),
+>  };
 >
-> +	*value = 0ULL;
->   	data = addr;
->   	rc = fsi_device_write(scom_dev->fsi_dev, SCOM_CMD_REG, &data,
->   				sizeof(uint32_t));
-Reviewed-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+> +static struct aspeed_pin_config aspeed_g4_configs[] = {
+
+I think this could be const.
+
+> +       /* GPIO banks ranges [A, B], [D, J], [M, R] */
+> +       { PIN_CONFIG_BIAS_PULL_DOWN, { D6,  D5  }, SCU8C, BIT(16) },
+> +       { PIN_CONFIG_BIAS_DISABLE,   { D6,  D5  }, SCU8C, BIT(16) },
+> +       { PIN_CONFIG_BIAS_PULL_DOWN, { J21, E18 }, SCU8C, BIT(17) },
+> +       { PIN_CONFIG_BIAS_DISABLE,   { J21, E18 }, SCU8C, BIT(17) },
+
+I didn't verify every definition is correct. I wondered why we skipped
+bit 18, but it is reserved by the looks.
+
+> +       { PIN_CONFIG_BIAS_PULL_DOWN, { A18, E15 }, SCU8C, BIT(19) },
+> +       { PIN_CONFIG_BIAS_DISABLE,   { A18, E15 }, SCU8C, BIT(19) },
+> +       { PIN_CONFIG_BIAS_PULL_DOWN, { D15, B14 }, SCU8C, BIT(20) },
+> +       { PIN_CONFIG_BIAS_DISABLE,   { D15, B14 }, SCU8C, BIT(20) },
+
+> diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
+> index 43221a3c7e23..b22523bdd79b 100644
+> --- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
+> +++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
+
+>  static struct pinmux_ops aspeed_g5_pinmux_ops = {
+> @@ -2308,16 +2450,25 @@ static struct pinctrl_ops aspeed_g5_pinctrl_ops = {
+>         .get_group_name = aspeed_pinctrl_get_group_name,
+>         .get_group_pins = aspeed_pinctrl_get_group_pins,
+>         .pin_dbg_show = aspeed_pinctrl_pin_dbg_show,
+> -       .dt_node_to_map = pinconf_generic_dt_node_to_map_pin,
+> +       .dt_node_to_map = pinconf_generic_dt_node_to_map_all,
+>         .dt_free_map = pinctrl_utils_free_map,
+>  };
+>
+> +static struct pinconf_ops aspeed_g5_conf_ops = {
+
+const here too?
+
+> +       .is_generic = true,
+> +       .pin_config_get = aspeed_pin_config_get,
+> +       .pin_config_set = aspeed_pin_config_set,
+> +       .pin_config_group_get = aspeed_pin_config_group_get,
+> +       .pin_config_group_set = aspeed_pin_config_group_set,
+> +};
+
+> --- a/drivers/pinctrl/aspeed/pinctrl-aspeed.h
+> +++ b/drivers/pinctrl/aspeed/pinctrl-aspeed.h
+> @@ -514,6 +514,20 @@ struct aspeed_pin_desc {
+>         SIG_EXPR_LIST_DECL_SINGLE(gpio, gpio); \
+>         MS_PIN_DECL_(pin, SIG_EXPR_LIST_PTR(gpio))
+>
+> +/**
+> + * @param The pinconf parameter type
+> + * @pins The pin range this config struct covers, [low, high]
+> + * @reg The register housing the configuration bits
+> + * @mask The mask to select the bits of interest in @reg
+> + */
+> +struct aspeed_pin_config {
+> +       enum pin_config_param param;
+> +       unsigned int pins[2];
+> +       unsigned int reg;
+> +       u32 mask;
+> +       u32 value;
+
+Can we save some space by making these smaller types. pins could be
+u16 at least.
+
+> +};
+> +
