@@ -1,55 +1,54 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
- [IPv6:2607:f8b0:4002:c05::244])
+Received: from mail-yw0-x242.google.com (mail-yw0-x242.google.com
+ [IPv6:2607:f8b0:4002:c05::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vSzHr21LBzDq60
- for <openbmc@lists.ozlabs.org>; Thu, 23 Feb 2017 00:49:28 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vSzR60T8xzDqM2
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Feb 2017 00:55:46 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="oVAFIavn"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="vUDdpNTL"; 
  dkim-atps=neutral
-Received: by mail-yw0-x244.google.com with SMTP id 203so222925ywz.1
- for <openbmc@lists.ozlabs.org>; Wed, 22 Feb 2017 05:49:28 -0800 (PST)
+Received: by mail-yw0-x242.google.com with SMTP id 2so228692ywn.3
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Feb 2017 05:55:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=C83GhRNiM9K4UjnnA28Pbc+4/25gOMjbfmiahabBZCM=;
- b=oVAFIavn138PepSMff+/8BZj5UZoRuzgo5kLbGwjdJhVK553n+nxUhLdSyjoWW8gxT
- Hw2ZIkAMaOj0Rz5sL4kWqA7o01kfQgbMo2mcoA1ZgMGeYTZex4zpm2uONoW/dRUUQJTy
- hMWxQDaNgKaFRXGSLFFGmo0yP4/mRihfdcCjZN1Bbm2FjfJZJPo+j5DP7QU/uI1/CSkl
- q94dAZXW8aso2Cd18N6X8XVcrhMY9isKn19nzR1M33TTFwKhr0MDsBj+SpBF8vxValqU
- KELeZcJhWWiQGxh45E5o6qvMm5WiFWVJcht6iGQyKGD6XsXnbsWBIYNHbqor7woMvO7F
- H6gA==
+ bh=Myao1KQ1CcXj2DazOINyaRViF+i5MAZ7s8wo4PlxaNo=;
+ b=vUDdpNTLWpIFftYTNTR+neybz8UybjwguVaygYM0P+BMak3vc4Z6DFULbJIgazsmf+
+ x3azmXXHG6asdSo3hbQYEGISkKoL0Z0SWMiya/jvABLoJ+qhwlZEuF4wdfpOR28pcDBX
+ 5bLAomrhTSXeTQbN7dN7Uo3Vi7ecTvfCugBV/HQt4X0W41c33MHQkymCRy+88sYhN3RA
+ 40zb1g49zyV0AwjQbz6fb4zzU19bZNwe2AoDusk3tSMbukhwCX59FOLtOyaa4p/r77Is
+ n8Q7udavp6vGWsMsQa/yrJL8pFo4KXeUVfbdEPCvsmpi79ajogzlTOvWSto2cnblenkO
+ xRjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=C83GhRNiM9K4UjnnA28Pbc+4/25gOMjbfmiahabBZCM=;
- b=HmmBTzFzjtyZEuL56iHje2z9/ec2Bd1gBL471YXqk7AQq/qhO24jDrdkwKOdRui5mL
- 7cz+UyIVGmB8iBrEcPMXgFITS7bzPLjtqtp+Y7+kK7H834QqQdoWjRlyEt8iWcpSnWOF
- FpmP1NIR39zdd3c4SdfVOxGVxn1yROYnXkTLURYPs2q4v35VqqTZbJsIIq057U6aV+lL
- 72uP1bkoCInF265cI7n+nyErje/sRkmWe8x3VTBKQwaBuduGf/6HUtFOCVKsdTFEPdaX
- jRBLvN/Z3YlFbf/f5TcX8G/NlazD0JD7VIwIFF7nz3E5Aq9HzgdL9zueZex4sg0nla1V
- cLXg==
-X-Gm-Message-State: AMke39kFqSdMm6z1aPZ0P5zQyuykVLVusfWirRMXppJuE2ILcu1hlPEFBoPNrUrSiemyOqefB5NVMJrKJl6qrw==
-X-Received: by 10.13.247.134 with SMTP id h128mr27694694ywf.56.1487771366107; 
- Wed, 22 Feb 2017 05:49:26 -0800 (PST)
+ bh=Myao1KQ1CcXj2DazOINyaRViF+i5MAZ7s8wo4PlxaNo=;
+ b=gpZ2MFEYo8IWO4jywg1LsV8w8htPJjtsd0WgRPGMsAdiVg0mu+GfBQfaa+lLPjXhO2
+ G+adjRP1RIjWfeDpZKT/z9LFXWCUu7SEl0wpNNHqU/r0dsMiQbM/I5d2FTQi2gpd51+f
+ xhJl1YHANRFXO+6El+mn5bbXMUSHmBGuz6lVagdKDAI5QgkL+9KO+ApNdQuvOa9s/gdU
+ k6m5ZIaOPk2zxHUlytA8VgJHkBf4kiwqCbgraR2/kia4+DaOWIvHpmOYYMDhEUpCN4Ss
+ kD+41xywRuhDmXMWguX6A5p6BqCnTPoMYCbNlT+VZmL+svg9042zdl3Ggt5+cgfJSFhA
+ kPCw==
+X-Gm-Message-State: AMke39kAx5b3Kzs58gj7X9XEwGgACMs3OU8cvKfmDd8EJL5kl99tlm3nkmHskwcPpqxzBmRg7gdla8cSvOLFpA==
+X-Received: by 10.129.91.194 with SMTP id p185mr23828397ywb.50.1487771743470; 
+ Wed, 22 Feb 2017 05:55:43 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.27.133 with HTTP; Wed, 22 Feb 2017 05:49:05 -0800 (PST)
-In-Reply-To: <CACPK8XeJ0fgYZbBGcfGGaRsbqfeH5ZUbrHq3PvHE1DhM3fCQxA@mail.gmail.com>
-References: <20170220144004.10809-1-andrew@aj.id.au>
- <CACPK8XeJ0fgYZbBGcfGGaRsbqfeH5ZUbrHq3PvHE1DhM3fCQxA@mail.gmail.com>
+Received: by 10.37.27.133 with HTTP; Wed, 22 Feb 2017 05:55:23 -0800 (PST)
+In-Reply-To: <CAARXrt=B9UiGqNcRxhrnetRo6fAA3mYG+acOf71sovJxXVBauQ@mail.gmail.com>
+References: <20170221051259.18383-1-joel@jms.id.au>
+ <CAARXrt=B9UiGqNcRxhrnetRo6fAA3mYG+acOf71sovJxXVBauQ@mail.gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 23 Feb 2017 00:19:05 +1030
-X-Google-Sender-Auth: lVC8m8OwDugj7dr3AsgiQIyMtoo
-Message-ID: <CACPK8XcvoS=UJ37OG1EMeOydQP0k4edte_G4h8AZZsAg2u+rmQ@mail.gmail.com>
-Subject: Re: [PATCH] gpio: aspeed: Add debounce support
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Linus Walleij <linus.walleij@linaro.org>,
- Alexandre Courbot <gnurou@gmail.com>, 
- linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Thu, 23 Feb 2017 00:25:23 +1030
+X-Google-Sender-Auth: bm5ZowIl2URr-Uy69R5t3-LUiWE
+Message-ID: <CACPK8XdQVj=TeFFKOH0Rn8j0ykEvuEmUet1Y7RtXFOJdWRex+w@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7 1/2] ARM: dts: aspeed: Fix RAM size in
+ Romulus and Witherspoon
+To: Mine <mine260309@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Cyril Bur <cyrilbur@gmail.com>,
+ Xo Wang <xow@google.com>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -62,63 +61,64 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Feb 2017 13:49:29 -0000
+X-List-Received-Date: Wed, 22 Feb 2017 13:55:46 -0000
 
-On Wed, Feb 22, 2017 at 2:46 PM, Joel Stanley <joel@jms.id.au> wrote:
->> +               /*
->> +                * Check if a timer is already configured for the requested
->> +                * debounce period. If so, just add @offset as a user of this
->> +                * timer
->> +                */
->> +               for (i = 0; i < ARRAY_SIZE(debounce_timers); i++) {
->> +                       u32 cycles;
->> +
->> +                       addr = gpio->base + debounce_timers[i];
->> +                       cycles = ioread32(addr);
->> +
->> +                       if (requested_cycles == cycles)
->> +                               break;
->> +               }
->> +
->> +               /* Otherwise, allocate a timer */
->
-> Is "otherwise" in reference to the check above? Is the break above
-> supposed to be a goto?
+On Tue, Feb 21, 2017 at 5:30 PM, Mine <mine260309@gmail.com> wrote:
+> Acked-by: Lei YU <mine260309@gmail.com>
 
-I realised later that the if i == ARRAY_SIZE test below will always be
-false when the break was hit, so in effect we are doing a goto
-"Register @offset as a user of timer i".
+Thanks for the ack Lei. Applied to dev-4.7.
 
-I think adding a goto would make it easier to read.
+> I think Zaius uses 512MiB RAM as well.
+> Xo Wang could you help to confirm?
 
-If you're not a fan then perhaps tweak the comment?
+Zaius currently has 1GB. It may drop down to 512MB with future
+revisions, but we will handle that from u-boot.
+
+As it currently stands u-boot is updating the device tree for us so
+the number we're putting in here is only used when eg. booting from
+Qemu without u-boot.
 
 Cheers,
 
 Joel
 
 >
->> +               if (i == ARRAY_SIZE(debounce_timers)) {
->> +                       for (i = 0; i < ARRAY_SIZE(gpio->timer_users); i++) {
->> +                               if (gpio->timer_users[i] == 0)
->> +                                       break;
->> +                       }
->> +
->> +                       /* We have run out of timers */
->> +                       if (i == ARRAY_SIZE(gpio->timer_users)) {
->> +                               dev_warn(chip->parent,
->> +                                               "Debounce timers exhausted, cannot debounce for period %luus\n",
->> +                                               usecs);
->> +                               rc = -EPERM;
->> +                               goto err;
->> +                       }
->> +
->> +                       /* Timer update */
->> +                       addr = gpio->base + debounce_timers[i];
->> +                       iowrite32(requested_cycles, addr);
->> +               }
->> +
->> +               /* Register @offset as a user of timer i */
->> +               newdt->offset = offset;
->> +               newdt->timer = i;
->> +               hash_add(gpio->offset_timer, &newdt->node, offset);
+> On Tue, Feb 21, 2017 at 1:12 PM, Joel Stanley <joel@jms.id.au> wrote:
+>> They both contain 512M of RAM. Early bringup Witherspoons did have 1G,
+>> but all machines we are using now have 512M.
+>>
+>> Signed-off-by: Joel Stanley <joel@jms.id.au>
+>> ---
+>>  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     | 2 +-
+>>  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 2 +-
+>>  2 files changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+>> index 85e545110be6..58baf87454e2 100644
+>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+>> @@ -17,7 +17,7 @@
+>>         };
+>>
+>>         memory {
+>> -               reg = <0x80000000 0x40000000>;
+>> +               reg = <0x80000000 0x20000000>;
+>>         };
+>>
+>>         fsi-master {
+>> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+>> index 4b2d8aa8abb6..2cbdeba88908 100644
+>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+>> @@ -17,7 +17,7 @@
+>>         };
+>>
+>>         memory {
+>> -               reg = <0x80000000 0x40000000>;
+>> +               reg = <0x80000000 0x20000000>;
+>>         };
+>>
+>>         reserved-memory {
+>> --
+>> 2.11.0
+>>
