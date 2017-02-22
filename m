@@ -1,25 +1,27 @@
 Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
+Received: from ozlabs.org (ozlabs.org [103.22.144.67])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vSfPH3RV5zDq5g
- for <openbmc@lists.ozlabs.org>; Wed, 22 Feb 2017 12:08:03 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vSfX84NDVzDq5g
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Feb 2017 12:14:00 +1100 (AEDT)
 Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by ozlabs.org (Postfix) with ESMTPSA id 3vSfPH0x3gz9s7C;
- Wed, 22 Feb 2017 12:08:03 +1100 (AEDT)
-Subject: Re: [PATCH linux dev-4.7 v2 0/7] drivers/fsi: Add hub master
+ by ozlabs.org (Postfix) with ESMTPSA id 3vSfX821gQz9s7C;
+ Wed, 22 Feb 2017 12:14:00 +1100 (AEDT)
+Subject: Re: [PATCH linux dev-4.7 v2 5/7] drivers/fsi: Add retry on bus error
+ detect
 To: Christopher Bostic <cbostic@linux.vnet.ibm.com>, joel@jms.id.au
 References: <20170221215032.79282-1-cbostic@linux.vnet.ibm.com>
-Cc: openbmc@lists.ozlabs.org
+ <20170221215032.79282-6-cbostic@linux.vnet.ibm.com>
 From: Jeremy Kerr <jk@ozlabs.org>
-Message-ID: <aa5f0e25-26fd-b8cf-b387-741caea00604@ozlabs.org>
-Date: Wed, 22 Feb 2017 09:08:02 +0800
+Cc: openbmc@lists.ozlabs.org
+Message-ID: <a16b4705-f6d8-67cc-9bd1-a3d10df050bd@ozlabs.org>
+Date: Wed, 22 Feb 2017 09:13:59 +0800
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
  Thunderbird/45.7.0
 MIME-Version: 1.0
-In-Reply-To: <20170221215032.79282-1-cbostic@linux.vnet.ibm.com>
+In-Reply-To: <20170221215032.79282-6-cbostic@linux.vnet.ibm.com>
 Content-Type: text/plain; charset=windows-1252
 Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -33,29 +35,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Feb 2017 01:08:03 -0000
+X-List-Received-Date: Wed, 22 Feb 2017 01:14:00 -0000
 
 Hi Chris,
 
-> Adds the FSI hub master functionality to the OpenFSI device driver.
-> Hub master is a FSI client device driver that registers with the
-> core and is notified when devices it wants, hub master engine and
-> links, are discovered.
-> 
-> v2: Restructured to move hub into the core instead of a separate
->     slave device driver.
-> 
-> Christopher Bostic (7):
->   drivers/fsi: Add hub master scan detect
->   drivers/fsi: Initialize hub master
->   drivers/fsi: Define hub master callbacks
->   drivers/fsi: Move common read write ops into single function
->   drivers/fsi: Add retry on bus error detect
->   drivers/fsi: Cleanup bus errors
->   tools/testing/selftests: Add fsi command line tool
+> --- a/drivers/fsi/fsi-master-gpio.c
+> +++ b/drivers/fsi/fsi-master-gpio.c
+> @@ -381,7 +381,17 @@ static int fsi_master_gpio_read(struct fsi_master *_master, int link,
+>  		return -ENODEV;
+>  
+>  	build_abs_ar_command(&cmd, FSI_GPIO_CMD_READ, slave, addr, size, NULL);
+> -	return send_command(master, &cmd, FSI_GPIO_RESP_ACKD, size, val);
+> +	rc = send_command(master, &cmd, FSI_GPIO_RESP_ACKD, size, val);
+> +	if (rc) {
+> +		fsi_master_handle_error(&master->master, addr);
+> +
+> +		/* Try again */
+> +		rc = send_command(master, &cmd, FSI_GPIO_RESP_ACKD, size, val);
+> +		if (rc)
+> +			fsi_master_handle_error(&master->master, addr);
+> +	}
+> +
+> +	return rc;
 
-This changeset seems to add both the hub master, and the generic error
-handing. Could this be split into two series?
+Lets avoid the repeated code:
+
+	const static int master_retries = 2;
+
+	[...]
+
+	for (retries = 0; retries < master_retries; retries++) {
+		rc = send_command(master, &cmd, FSI_GPIO_RESP_ACKD, size, val);
+		if (!rc)
+			break;
+		fsi_master_handle_error(&master->master, addr);
+	}
+
+	return rc;
+
+[or even better, we may want to put this in a helper, for use by both
+call sites]
+
+Also, is there any condition where fsi_master_handle_error() knows that
+the FSI bus is totally hosed, and there's no point retrying?
 
 Cheers,
 
