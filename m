@@ -1,53 +1,67 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x235.google.com (mail-yw0-x235.google.com
- [IPv6:2607:f8b0:4002:c05::235])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <anoo@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vShvd3WfPzDq60
- for <openbmc@lists.ozlabs.org>; Wed, 22 Feb 2017 14:01:01 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="aO20eKja"; 
- dkim-atps=neutral
-Received: by mail-yw0-x235.google.com with SMTP id v200so73692953ywc.3
- for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 19:01:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=fvkBoflTpt8Il3s33Ay9DELSKarmwbDlzhZMlHm/2a8=;
- b=aO20eKjaWB2IQvGIWn9SU3RmRShy2Irpug9HALaLOV/nrkSXoJU/gRBqIA63z5yCDE
- 0ElN0A0aYs8IQgwgmB4p5VKldiMXEYmMEJsW/gxA+xy+KLHgsnVAv9BfMJN5IkdGWezu
- 1MWHTgPN3FJBB+4geggdBDU7URJu6N3wl+nOuoOs3J8c0/dTazNDZa4DbDrrsJG8c3U6
- YAM+qBGdU8Fx8sxu2dxyLW8+IbgsixmKEnzFY34qL2kAWq6rKnPCnzGJk97E01OqSwz/
- 7bF80XP2dXX7RvZQISaoT/Xi7TDMI9ZS51gl1CvE3Wra9q26mRxZtrs+DrwTKA9Wm++M
- uBrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=fvkBoflTpt8Il3s33Ay9DELSKarmwbDlzhZMlHm/2a8=;
- b=IBfWjv3E0Zvx4x/5SP/Lepb5fuSMFe0rvKP0YX+rXNmS+4WBvnvF1SsD8BRbtkjci2
- k5XV09sJqb7VSfCuY4JKrZs10ynmI/uVXgbWLWhu3ADxPH6k1wA+CcBZLtWEMb2H5Wk8
- WxX40jGb7SECBkTww4mBo6GWiaq/Qm+2QmAMWQfnldDc2A/sAO22VpSShoPXDiloko8A
- 6NoG+7v6NX9GMwD09/qzk8IH9dxliAjgbNJloWG0JbS2RKyvrNHZV3/CxlnV18DmmHRG
- 0k377w0BeOn67saZLoyo08wnZFAclvDh6aAm8nD4E4ls/ftK2vtm5kE5WLrE9I1/UWg9
- k0IQ==
-X-Gm-Message-State: AMke39kNoHLc3EeBHRunjbB1VuIPXPhpssLZp/01ZtkkCS3zUVSlaoCMNv4u31OL4fykdhwkUkfOWS05axr2vg==
-X-Received: by 10.13.202.69 with SMTP id m66mr10646715ywd.11.1487732458524;
- Tue, 21 Feb 2017 19:00:58 -0800 (PST)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.27.133 with HTTP; Tue, 21 Feb 2017 19:00:38 -0800 (PST)
-In-Reply-To: <CALLMt=r62pSsVx+5DRsyxRThX0WahOO8wk5ENcc+t7ZfyoPoVw@mail.gmail.com>
-References: <CALLMt=r62pSsVx+5DRsyxRThX0WahOO8wk5ENcc+t7ZfyoPoVw@mail.gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 22 Feb 2017 13:30:38 +1030
-X-Google-Sender-Auth: UI2SDBhSNsOZo-ziNZMK5LheL1Q
-Message-ID: <CACPK8XfDvDi_fUEzFo2vBHU2O=djucY1t27gqY-=RgoJQo3LWQ@mail.gmail.com>
-Subject: Re: Target name refactoring
-To: Andrew Geissler <geissonator@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vSj6k2cc1zDq60
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Feb 2017 14:10:38 +1100 (AEDT)
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v1M39BJS118936
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 22:10:35 -0500
+Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 28rsq9bvg5-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 22:10:35 -0500
+Received: from localhost
+ by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <anoo@linux.vnet.ibm.com>;
+ Tue, 21 Feb 2017 20:10:34 -0700
+Received: from d03dlp02.boulder.ibm.com (9.17.202.178)
+ by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Tue, 21 Feb 2017 20:10:32 -0700
+Received: from b03cxnp08025.gho.boulder.ibm.com
+ (b03cxnp08025.gho.boulder.ibm.com [9.17.130.17])
+ by d03dlp02.boulder.ibm.com (Postfix) with ESMTP id 9E5603E40044
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Feb 2017 20:10:31 -0700 (MST)
+Received: from b03ledav001.gho.boulder.ibm.com
+ (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
+ by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v1M3AVEs11338046; Tue, 21 Feb 2017 20:10:31 -0700
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 7A2566E038;
+ Tue, 21 Feb 2017 20:10:31 -0700 (MST)
+Received: from habcap11p1.aus.stglabs.ibm.com (unknown [9.41.164.53])
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP id 4815F6E03A;
+ Tue, 21 Feb 2017 20:10:31 -0700 (MST)
+From: Adriana Kobylak <anoo@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v3] arm: configs: aspeed: Add UBI support
+Date: Tue, 21 Feb 2017 21:10:28 -0600
+X-Mailer: git-send-email 2.1.4
+In-Reply-To: <CACPK8XdKabfxbMt2NZFZ8ShuKzynDqoyke2QEGTnADGqaw8+Jg@mail.gmail.com>
+References: <CACPK8XdKabfxbMt2NZFZ8ShuKzynDqoyke2QEGTnADGqaw8+Jg@mail.gmail.com>
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 17022203-0004-0000-0000-000011A74212
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006660; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000204; SDB=6.00825297; UDB=6.00404080; IPR=6.00602753; 
+ BA=6.00005161; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014383; XFM=3.00000011;
+ UTC=2017-02-22 03:10:32
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17022203-0005-0000-0000-00007D45069E
+Message-Id: <1487733028-77391-1-git-send-email-anoo@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-02-22_01:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
+ definitions=main-1702220032
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,63 +73,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Feb 2017 03:01:02 -0000
+X-List-Received-Date: Wed, 22 Feb 2017 03:10:39 -0000
 
-On Tue, Feb 21, 2017 at 8:50 AM, Andrew Geissler <geissonator@gmail.com> wr=
-ote:
-> Some design decisions came out of my last set of changes in the
-> OpenBMC state area.  There was a proposal to rename our targets
-> responsible for booting and powering on/off the system.
->
-> Currently we have this:
-> - PowerOn: obmc-power-chassis-on.target    obmc-chassis-start.target
-> - PowerOff: obmc-power-chassis-off.target    obmc-chassis-stop.target
->   obmc-stop-host.target
->
-> The obmc-power-chassis-*.targets are responsible for doing whatever is
-> required to apply pgood to the chassis.
-> The obmc-chassis-*.targets are responsible for starting and stopping
-> all host related services
-> The obmc-stop-host.target is where we have the soft power off service
-> (notify host of shutdown, wait for host to shutdown gracefully)
->
-> Refactoring Proposal:
-> - First the chassis-start and chassis-stop target names don=E2=80=99t mak=
-e
-> sense anymore with the new bmc, chassis, and host state break down=E2=80=
-=99s
-> so:
->   - Rename obmc-chassis-start.target to obmc-start-host.target
->   - Rename obmc-chassis-stop.target to obmc-stop-host.target
->   - Rename the current obmc-stop-host.target to obmc-shutdown-host.target
+Add UBI support to aspeed_g4_defconfig and aspeed_g5_defconfig
 
-Can I suggest putting the host before the action?
+Signed-off-by: Adriana Kobylak <anoo@linux.vnet.ibm.com>
+---
+ arch/arm/configs/aspeed_g4_defconfig | 3 +++
+ arch/arm/configs/aspeed_g5_defconfig | 3 +++
+ 2 files changed, 6 insertions(+)
 
-obmc-host-stop
-obmc-host-start
-obmc-host-shutdown
-
->
-> The target relationships are then the following:
->
-> obmc-host-start.target requires obmc-power-chassis-on.target
-> obmc-shutdown-host.target requires obmc-stop-host.target requires
-> obmc-power-chassis-off.target
-
-obmc-host-start requires obmc-chassis-poweron
-
-obmc-host-shutdown requires obmc-host-stop requires obmc-chassis-poweroff
-
-I think the rest of your proposal sounds good, from what I understand.
-
-Cheers,
-
-Joel
-
->
-> When a system goes to the quiesce target, the host state manager will
-> call the obmc-stop-host.target.  Otherwise, the host state service
-> will call the obmc-shutdown-host.target when power off is requested.
->
-> Thoughts/Comments?
-> Andrew
+diff --git a/arch/arm/configs/aspeed_g4_defconfig b/arch/arm/configs/aspeed_g4_defconfig
+index 2edad5c..4ba778d 100644
+--- a/arch/arm/configs/aspeed_g4_defconfig
++++ b/arch/arm/configs/aspeed_g4_defconfig
+@@ -60,6 +60,8 @@ CONFIG_MTD_BLOCK=y
+ CONFIG_MTD_PARTITIONED_MASTER=y
+ CONFIG_MTD_SPI_NOR=y
+ CONFIG_ASPEED_FLASH_SPI=y
++CONFIG_MTD_UBI=y
++CONFIG_MTD_UBI_BLOCK=y
+ CONFIG_BLK_DEV_RAM=y
+ CONFIG_ASPEED_LPC_CTRL=y
+ CONFIG_EEPROM_AT24=y
+@@ -133,6 +135,7 @@ CONFIG_OVERLAY_FS=y
+ CONFIG_TMPFS=y
+ CONFIG_JFFS2_FS=y
+ CONFIG_JFFS2_FS_WBUF_VERIFY=y
++CONFIG_UBIFS_FS=y
+ CONFIG_SQUASHFS=y
+ CONFIG_SQUASHFS_XZ=y
+ CONFIG_PRINTK_TIME=y
+diff --git a/arch/arm/configs/aspeed_g5_defconfig b/arch/arm/configs/aspeed_g5_defconfig
+index a5c6ddb..d02139d 100644
+--- a/arch/arm/configs/aspeed_g5_defconfig
++++ b/arch/arm/configs/aspeed_g5_defconfig
+@@ -62,6 +62,8 @@ CONFIG_MTD_BLOCK=y
+ CONFIG_MTD_PARTITIONED_MASTER=y
+ CONFIG_MTD_SPI_NOR=y
+ CONFIG_ASPEED_FLASH_SPI=y
++CONFIG_MTD_UBI=y
++CONFIG_MTD_UBI_BLOCK=y
+ CONFIG_BLK_DEV_RAM=y
+ CONFIG_ASPEED_LPC_CTRL=y
+ CONFIG_EEPROM_AT24=y
+@@ -136,6 +138,7 @@ CONFIG_OVERLAY_FS=y
+ CONFIG_TMPFS=y
+ CONFIG_JFFS2_FS=y
+ CONFIG_JFFS2_FS_WBUF_VERIFY=y
++CONFIG_UBIFS_FS=y
+ CONFIG_SQUASHFS=y
+ CONFIG_SQUASHFS_XZ=y
+ CONFIG_PRINTK_TIME=y
+-- 
+1.8.2.2
