@@ -1,49 +1,75 @@
-Return-Path: <geissonator@gmail.com>
-Received: from mail-io0-x241.google.com (mail-io0-x241.google.com
- [IPv6:2607:f8b0:4001:c06::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <cbostic@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vT2l93P6CzDq60
- for <openbmc@lists.ozlabs.org>; Thu, 23 Feb 2017 03:24:53 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="oGf+IRQd"; 
- dkim-atps=neutral
-Received: by mail-io0-x241.google.com with SMTP id q20so746143ioi.3
- for <openbmc@lists.ozlabs.org>; Wed, 22 Feb 2017 08:24:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=t37wOtrYg3ECnjLjRNSM4hywGxBz4dhAyxT7l+mewng=;
- b=oGf+IRQd6+fEyzL3Z/dphNCq1kmyUwdk5+hLD7AGMN9unzVmD7tzxGDA5jqWOZ51UD
- +x8KRzh23tFrdItO4K3P92VTi9gu+13+G9f7H7TgzFtzQEKbRXp0eTQT2g9fOVoAIQd7
- ePNU7TciTkR5riHxVwTYcPnlEEFaLObjSzrHTwbdxlwIMHV0bV+gFNuvdxbK9NoaNTg9
- sW3o1NUjIgvazS5CpEjgXSzf+tZ3yyp0kal2DOizNKNrhJq9Z7HeyrYGRGN/ccgzpvE0
- YxdeLMFMntqSEFy5WrWsxfa2HOK1o1cmJ3UVSQ4SsQZSGxKugMS/X4+LfvyEHXVFAQcx
- KYMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=t37wOtrYg3ECnjLjRNSM4hywGxBz4dhAyxT7l+mewng=;
- b=iYjayDiO2HV5wvAsgDZHxq9Zfd7EW6+8HXRxsKteRaOnp8jovBbZCYV40ax5NKQDZ5
- qZsVuUbJw111zhN7ODJ29iioDnwQj69+V23/8lIjr5szKAn2H7Abi8NCQTFZtSD0fWWZ
- ptvULvQ2UHHruoebCbTluRzADOtQ49TlfV2yKROqFZYtFIHjauvVz7R84qZqwr0QGx9g
- k2vXx+VInTSGEXB6ZehmGCW9Q0q9lZK/HZH/79p7b8uh70p19ih4EkcpZKaGwos9sFUo
- pfLFz59v6EgenZcXc6bhAW35ZwwRTxm6k9O5AQSyOTAdTf8dVPpZ8YctphkYWl4KwQUx
- oCLA==
-X-Gm-Message-State: AMke39lzmV4dPRKOP9CObKgugWqlLB14bG/bnEVcqBr0RfjhWNG5vaCew0x1N07XeBjG2qVuyMEM1E1mZoyJ+w==
-X-Received: by 10.107.128.68 with SMTP id b65mr25173564iod.113.1487780690786; 
- Wed, 22 Feb 2017 08:24:50 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.107.9.155 with HTTP; Wed, 22 Feb 2017 08:24:50 -0800 (PST)
-In-Reply-To: <20170221215032.79282-1-cbostic@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vT2wl4LwlzDq60
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Feb 2017 03:33:11 +1100 (AEDT)
+Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v1MGSl23035724
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Feb 2017 11:33:09 -0500
+Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 28ruy0vjtr-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Feb 2017 11:33:09 -0500
+Received: from localhost
+ by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Wed, 22 Feb 2017 11:33:06 -0500
+Received: from d01dlp02.pok.ibm.com (9.56.250.167)
+ by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 22 Feb 2017 11:33:03 -0500
+Received: from b01cxnp22036.gho.pok.ibm.com (b01cxnp22036.gho.pok.ibm.com
+ [9.57.198.26])
+ by d01dlp02.pok.ibm.com (Postfix) with ESMTP id CEB4D6E803C;
+ Wed, 22 Feb 2017 11:32:33 -0500 (EST)
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v1MGWxTo55509148; Wed, 22 Feb 2017 16:33:02 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id E11532803F;
+ Wed, 22 Feb 2017 11:33:01 -0500 (EST)
+Received: from christophersmbp.austin.ibm.com (unknown [9.41.174.103])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id 9C2DE28046;
+ Wed, 22 Feb 2017 11:33:01 -0500 (EST)
+Subject: Re: [PATCH linux dev-4.7 v2 3/7] drivers/fsi: Define hub master
+ callbacks
+To: Jeremy Kerr <jk@ozlabs.org>, joel@jms.id.au
 References: <20170221215032.79282-1-cbostic@linux.vnet.ibm.com>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Wed, 22 Feb 2017 10:24:50 -0600
-Message-ID: <CALLMt=qf_+-JR2gSz8mAHBLwuZ2sV7iz+4gVG9ZcGzxifU1Tag@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7 v2 0/7] drivers/fsi: Add hub master
-To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+ <20170221215032.79282-4-cbostic@linux.vnet.ibm.com>
+ <dc340299-0b3c-f262-153d-a9ee5787b786@ozlabs.org>
+Cc: openbmc@lists.ozlabs.org
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Date: Wed, 22 Feb 2017 10:33:03 -0600
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
+ Gecko/20100101 Thunderbird/45.7.0
+MIME-Version: 1.0
+In-Reply-To: <dc340299-0b3c-f262-153d-a9ee5787b786@ozlabs.org>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 17022216-0044-0000-0000-0000029FD992
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006663; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000204; SDB=6.00825565; UDB=6.00404240; IPR=6.00603020; 
+ BA=6.00005166; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014395; XFM=3.00000011;
+ UTC=2017-02-22 16:33:04
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17022216-0045-0000-0000-000006CCDE5B
+Message-Id: <f891d19b-21f9-321f-595a-dd38ccf6e5c4@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-02-22_10:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
+ definitions=main-1702220154
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,36 +81,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Feb 2017 16:24:54 -0000
+X-List-Received-Date: Wed, 22 Feb 2017 16:33:12 -0000
 
-On Tue, Feb 21, 2017 at 3:50 PM, Christopher Bostic
-<cbostic@linux.vnet.ibm.com> wrote:
-> Adds the FSI hub master functionality to the OpenFSI device driver.
-> Hub master is a FSI client device driver that registers with the
-> core and is notified when devices it wants, hub master engine and
-> links, are discovered.
->
-> v2: Restructured to move hub into the core instead of a separate
->     slave device driver.
->
-> Christopher Bostic (7):
->   drivers/fsi: Add hub master scan detect
->   drivers/fsi: Initialize hub master
->   drivers/fsi: Define hub master callbacks
->   drivers/fsi: Move common read write ops into single function
->   drivers/fsi: Add retry on bus error detect
->   drivers/fsi: Cleanup bus errors
->   tools/testing/selftests: Add fsi command line tool
->
->
-> --
-> 1.8.2.2
->
 
-Do I need to respond that I tested to all commits in this series?
-I'll just do this one for now.
 
-I built all patches into an image and we verified all is looking good
-on Witherspoon and Zaius.
+On 2/21/17 7:06 PM, Jeremy Kerr wrote:
+> Hi Chris,
+>
+>> Define hub master read, write, link enable, and break ops.
+> Now that we have things more contained, you may want to add the complete
+> hub functionality in one patch.
+Hi Jeremy,
 
-Tested-by: Andrew Geissler <geissonator@gmail.com>
+OK will add all in one patch.
+
+> However:
+>
+>> @@ -571,6 +598,7 @@ static int fsi_slave_init(struct fsi_master *master,
+>>   	slave->id = slave_id;
+>>   	slave->dev.parent = master->dev;
+>>   	slave->dev.release = fsi_slave_release;
+>> +	slave->link = link;
+>>   
+>>   	dev_set_name(&slave->dev, "slave@%02x:%02x", link, slave_id);
+>>   	rc = device_register(&slave->dev);
+> This looks like a generally-useful fix, for more than just the hub code.
+
+This was uncovered in hub link testing.  Will treat it as a separate
+patch from hub  and error handling.
+
+Thanks
+
+
+> Otherwise, looks good.
+>
+> Cheers,
+>
+>
+> Jeremy
+>
