@@ -1,29 +1,28 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <jk@ozlabs.org>
+Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vSZCh3mqmzDqBv
- for <openbmc@lists.ozlabs.org>; Wed, 22 Feb 2017 08:59:28 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Sender: bradleyb@fuzziesquirrel.com
-Content-Type: text/plain; charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 10.2 \(3259\))
-Subject: Re: sbefifo userspace api
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <20170221214916.365zogt3siz2ybi2@asimov>
-Date: Tue, 21 Feb 2017 16:59:23 -0500
-Cc: Alistair Popple <alistair@popple.id.au>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Venkatesh Sainath <vsainath@linux.vnet.ibm.com>,
- Christopher Bostic <cbostic@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vSdtZ0pSGzDq60
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Feb 2017 11:44:54 +1100 (AEDT)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.org (Postfix) with ESMTPSA id 3vSdtY5BBFz9s7C;
+ Wed, 22 Feb 2017 11:44:53 +1100 (AEDT)
+Subject: Re: [PATCH linux dev-4.7] drivers: fsi: Fix FSI core size checking
+ user interfaces
+To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+References: <1487711879-15542-1-git-send-email-eajames@linux.vnet.ibm.com>
+Cc: "Edward A. James" <eajames@us.ibm.com>, cbostic@linux.vnet.ibm.com
+From: Jeremy Kerr <jk@ozlabs.org>
+Message-ID: <cb927b0d-adbb-1568-1040-4f1456c7ae80@ozlabs.org>
+Date: Wed, 22 Feb 2017 08:44:53 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.7.0
+MIME-Version: 1.0
+In-Reply-To: <1487711879-15542-1-git-send-email-eajames@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=windows-1252
 Content-Transfer-Encoding: 7bit
-Message-Id: <653FA956-68B2-41B4-8233-4A31C57E1E67@fuzziesquirrel.com>
-References: <9AF20EDE-4CE2-430F-882A-4DB86BBD89BF@fuzziesquirrel.com>
- <63a66b91-f17c-2501-5f96-cd8b03a0b3cb@linux.vnet.ibm.com>
- <B3299ABE-85F1-4062-B15B-3C530C5651EF@fuzziesquirrel.com>
- <2536438.YnoCRmC1BK@new-mexico> <20170221214916.365zogt3siz2ybi2@asimov>
-To: Patrick Williams <patrick@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -35,27 +34,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Feb 2017 21:59:28 -0000
+X-List-Received-Date: Wed, 22 Feb 2017 00:44:54 -0000
+
+Hi Eddie,
+
+> Some potential for integer overflow and not checking signed offsets.
+
+[...]
+
+>  int fsi_device_read(struct fsi_device *dev, uint32_t addr, void *val,
+>  		size_t size)
+>  {
+> -	if (addr > dev->size)
+> -		return -EINVAL;
+> -
+> -	if (addr + size > dev->size)
+> +	if (addr > dev->size || size > dev->size || addr > dev->size - size)
+>  		return -EINVAL;
+
+I liked the split conditional statements, but that's only personal
+preference. Regardless, LGTM.
+
+Acked-by: Jeremy Kerr <jk@ozlabs.org>
+
+Cheers,
 
 
-> On Feb 21, 2017, at 4:49 PM, Patrick Williams <patrick@stwcx.xyz> wrote:
-> 
-> On Tue, Feb 21, 2017 at 02:34:18AM +1100, Alistair Popple wrote:
->> I would also be interested in the answer to the inverse - why put them
->> in the kernel? There's the OCC hwmon driver - what chip-ops does that
->> need? Just get/putscom? If that's the case I thought we were already
->> exposing scom chip-op operations via an OpenFSI master?
-> 
-> When the P9 chip has security enabled, you cannot even issue SCOM
-> operations without going through the SBE FIFO.  The SBE provides a
-> white-list filtering system that prevents the majority of the SCOM space
-> from being accessed.  We will need a "SCOM over FIFO" driver on top of
-> FSI.
-
-Well, we need a way to do scoms over sbe.  Not sure that equals being
-a device driver.  As it stands if it were a driver, it would just be
-very thin wrapper around the sbefifo driver.
-
-> 
-> -- 
-> Patrick Williams
+Jeremy
