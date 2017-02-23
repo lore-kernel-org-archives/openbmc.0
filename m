@@ -1,74 +1,74 @@
 Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vTmm01vybzDqKJ
- for <openbmc@lists.ozlabs.org>; Fri, 24 Feb 2017 07:58:08 +1100 (AEDT)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v1NKra8p078034
- for <openbmc@lists.ozlabs.org>; Thu, 23 Feb 2017 15:58:05 -0500
-Received: from e38.co.us.ibm.com (e38.co.us.ibm.com [32.97.110.159])
- by mx0b-001b2d01.pphosted.com with ESMTP id 28t39t2ruq-1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vTpJS2CrWzDq5W
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Feb 2017 09:07:50 +1100 (AEDT)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v1NLwiSb053008
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Feb 2017 17:07:47 -0500
+Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 28t61r57mh-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 23 Feb 2017 15:58:05 -0500
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Feb 2017 17:07:47 -0500
 Received: from localhost
- by e38.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 23 Feb 2017 13:58:04 -0700
-Received: from d03dlp02.boulder.ibm.com (9.17.202.178)
- by e38.co.us.ibm.com (192.168.1.138) with IBM ESMTP SMTP Gateway: Authorized
+ Thu, 23 Feb 2017 15:07:47 -0700
+Received: from d03dlp03.boulder.ibm.com (9.17.202.179)
+ by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Thu, 23 Feb 2017 13:58:03 -0700
-Received: from b03cxnp08027.gho.boulder.ibm.com
- (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
- by d03dlp02.boulder.ibm.com (Postfix) with ESMTP id EE2193E40041;
- Thu, 23 Feb 2017 13:58:02 -0700 (MST)
-Received: from b03ledav004.gho.boulder.ibm.com
- (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v1NKw2d110748252; Thu, 23 Feb 2017 13:58:02 -0700
-Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id CA85E78051;
- Thu, 23 Feb 2017 13:58:02 -0700 (MST)
+ Thu, 23 Feb 2017 15:07:44 -0700
+Received: from b01cxnp23032.gho.pok.ibm.com (b01cxnp23032.gho.pok.ibm.com
+ [9.57.198.27])
+ by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id 9A33119D8040;
+ Thu, 23 Feb 2017 15:06:55 -0700 (MST)
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
+ [9.57.199.111])
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v1NM7hek26607668; Thu, 23 Feb 2017 22:07:43 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 84727AC041;
+ Thu, 23 Feb 2017 17:07:40 -0500 (EST)
 Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP id 93B1078038;
- Thu, 23 Feb 2017 13:58:02 -0700 (MST)
-Subject: Re: [PATCH linux dev-4.7 v3 1/2] drivers/fsi: Move common read/write
- code into shared utility
+ by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id 37710AC048;
+ Thu, 23 Feb 2017 17:07:40 -0500 (EST)
+Subject: Re: [PATCH linux dev-4.7 v3 2/2] drivers/fsi: Cleanup and retry op on
+ error
 To: Christopher Bostic <cbostic@linux.vnet.ibm.com>, joel@jms.id.au
 References: <20170223195837.82098-1-cbostic@linux.vnet.ibm.com>
- <20170223195837.82098-2-cbostic@linux.vnet.ibm.com>
+ <20170223195837.82098-3-cbostic@linux.vnet.ibm.com>
 Cc: openbmc@lists.ozlabs.org
 From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Thu, 23 Feb 2017 14:57:57 -0600
+Date: Thu, 23 Feb 2017 16:07:42 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
  Thunderbird/45.6.0
 MIME-Version: 1.0
-In-Reply-To: <20170223195837.82098-2-cbostic@linux.vnet.ibm.com>
+In-Reply-To: <20170223195837.82098-3-cbostic@linux.vnet.ibm.com>
 Content-Type: text/plain; charset=windows-1252; format=flowed
 Content-Transfer-Encoding: 7bit
 X-TM-AS-GCONF: 00
 X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17022320-0028-0000-0000-0000071FD8DE
+x-cbid: 17022322-0008-0000-0000-00000750F1A1
 X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006670; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000204; SDB=6.00826131; UDB=6.00404581; IPR=6.00603583; 
+X-IBM-SpamModules-Versions: BY=3.00006671; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000204; SDB=6.00826155; UDB=6.00404595; IPR=6.00603606; 
  BA=6.00005168; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014415; XFM=3.00000011;
- UTC=2017-02-23 20:58:04
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014416; XFM=3.00000011;
+ UTC=2017-02-23 22:07:45
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17022320-0029-0000-0000-000033D2FF3E
-Message-Id: <116aca21-6ead-919a-599a-32778a38fc0c@linux.vnet.ibm.com>
+x-cbparentid: 17022322-0009-0000-0000-0000402C52F6
+Message-Id: <1bf32372-d627-fd51-c145-1a62765b8704@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-02-23_13:, , signatures=0
+ definitions=2017-02-23_14:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  spamscore=0 suspectscore=0
  malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
  adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
- definitions=main-1702230185
+ definitions=main-1702230196
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -80,46 +80,111 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Feb 2017 20:58:08 -0000
-
-Looks good.
+X-List-Received-Date: Thu, 23 Feb 2017 22:07:52 -0000
 
 Acked-by: Eddie James <eajames@linux.vnet.ibm.com>
 
+
 On 02/23/2017 01:58 PM, Christopher Bostic wrote:
-> Move common code shared between fsi_master_gpio_read/write into
-> send utility.
+> On detect of FSI bus error clean up the bus and then retry
+> the original operation.
 >
 > Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 >
-> ---
+> v3 - Move comon read/write code into a retry utility
 >
-> v2 - Separate this patch from a collection of other changes in the
->       v1 related patch.
-> ---
->   drivers/fsi/fsi-master-gpio.c | 38 ++++++++++++++++++--------------------
->   1 file changed, 18 insertions(+), 20 deletions(-)
+>     - Add comment on why trying again
 >
-> diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
-> index 8c8a8f4..b6feec1 100644
-> --- a/drivers/fsi/fsi-master-gpio.c
-> +++ b/drivers/fsi/fsi-master-gpio.c
-> @@ -354,26 +354,33 @@ static void build_abs_ar_command(struct fsi_gpio_msg *cmd, uint64_t mode,
->   	cmd->msg >>= (64 - cmd->bits);
+>     - Change nested error check from atomic bit type to atomic_t
+>
+>     - loop on retry instead of duplicating the same code
+> ---
+>   drivers/fsi/fsi-core.c        | 30 ++++++++++++++++++++++++++++++
+>   drivers/fsi/fsi-master-gpio.c | 28 ++++++++++++++++++++++++++--
+>   drivers/fsi/fsi-master.h      |  1 +
+>   3 files changed, 57 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
+> index 02ca3c0..a7b705d 100644
+> --- a/drivers/fsi/fsi-core.c
+> +++ b/drivers/fsi/fsi-core.c
+> @@ -42,6 +42,9 @@
+>
+>   #define FSI_PEEK_BASE			0x410
+>   #define	FSI_SLAVE_BASE			0x800
+> +#define	FSI_HUB_CONTROL			0x3400
+> +
+> +#define	FSI_SLAVE_SMODE_DFLT		0xa0ff0100
+>
+>   #define FSI_IPOLL_PERIOD		msecs_to_jiffies(fsi_ipoll_period_ms)
+>
+> @@ -55,6 +58,7 @@ static const int engine_page_size = 0x400;
+>   static struct task_struct *master_ipoll;
+>   static unsigned int fsi_ipoll_period_ms = 100;
+>   struct class *hub_master_class;
+> +static atomic_t in_err_cleanup = ATOMIC_INIT(-1);
+>
+>   static DEFINE_IDA(master_ida);
+>
+> @@ -653,6 +657,32 @@ static int fsi_master_break(struct fsi_master *master, int link)
+>   	return 0;
 >   }
 >
-> +static int send_command(struct fsi_master_gpio *master,
-> +			struct fsi_gpio_msg *cmd, uint8_t expected,
-> +			size_t size, void *val)
+> +void fsi_master_handle_error(struct fsi_master *master, uint32_t addr)
 > +{
-> +	unsigned long flags;
+> +	uint32_t smode = FSI_SLAVE_SMODE_DFLT;
+> +
+> +	if (!atomic_inc_and_test(&in_err_cleanup))
+> +		return;
+> +
+> +	fsi_master_break(master, 0);
+> +	udelay(200);
+> +	master->write(master, 0, 0, FSI_SLAVE_BASE + FSI_SMODE, &smode,
+> +			sizeof(smode));
+> +	smode = FSI_MRESB_RST_GEN | FSI_MRESB_RST_ERR;
+> +	master->write(master, 0, 0, FSI_HUB_CONTROL + FSI_MRESB0, &smode,
+> +		sizeof(smode));
+> +
+> +	if (addr > FSI_HUB_LINK_OFFSET) {
+> +		smode = FSI_BREAK;
+> +		master->write(master, 0, 0, 0x100004, &smode, sizeof(smode));
+> +		smode = FSI_SLAVE_SMODE_DFLT;
+> +		master->write(master, 0, 0, 0x100800, &smode, sizeof(smode));
+> +	}
+> +
+> +	atomic_set(&in_err_cleanup, -1);
+> +}
+> +EXPORT_SYMBOL(fsi_master_handle_error);
+> +
+>   static int fsi_master_scan(struct fsi_master *master)
+>   {
+>   	int link, slave_id, rc;
+> diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
+> index b6feec1..c5f4f9c 100644
+> --- a/drivers/fsi/fsi-master-gpio.c
+> +++ b/drivers/fsi/fsi-master-gpio.c
+> @@ -370,6 +370,28 @@ static int send_command(struct fsi_master_gpio *master,
+>   	return rc;
+>   }
+>
+> +static int fsi_master_gpio_send(struct fsi_master_gpio *master,
+> +				struct fsi_gpio_msg *cmd, uint8_t expected,
+> +				uint32_t addr, size_t size, void *val)
+> +{
+> +	static const int master_retries = 2;
+> +	uint8_t retries;
 > +	int rc;
 > +
-> +	spin_lock_irqsave(&fsi_gpio_cmd_lock, flags);
-> +	serial_out(master, cmd);
-> +	echo_delay(master);
-> +	rc = poll_for_response(master, expected, size, val);
-> +	spin_unlock_irqrestore(&fsi_gpio_cmd_lock, flags);
+> +	/*
+> +	 * In case the FSI bus is in a bad state a retry may help
+> +	 * the operation to complete successfully
+> +	 */
+> +	for (retries = 0; retries < master_retries; retries++) {
+> +		rc = send_command(master, cmd, expected, size, val);
+> +		if (!rc)
+> +			break;
+> +		fsi_master_handle_error(&master->master, addr);
+> +	}
 > +
 > +	return rc;
 > +}
@@ -127,47 +192,35 @@ On 02/23/2017 01:58 PM, Christopher Bostic wrote:
 >   static int fsi_master_gpio_read(struct fsi_master *_master, int link,
 >   		uint8_t slave, uint32_t addr, void *val, size_t size)
 >   {
->   	struct fsi_master_gpio *master = to_fsi_master_gpio(_master);
->   	struct fsi_gpio_msg cmd;
-> -	int rc;
-> -	unsigned long flags;
->
->   	if (link != 0)
+> @@ -380,7 +402,8 @@ static int fsi_master_gpio_read(struct fsi_master *_master, int link,
 >   		return -ENODEV;
 >
 >   	build_abs_ar_command(&cmd, FSI_GPIO_CMD_READ, slave, addr, size, NULL);
-> -
-> -	spin_lock_irqsave(&fsi_gpio_cmd_lock, flags);
-> -	serial_out(master, &cmd);
-> -	echo_delay(master);
-> -	rc = poll_for_response(master, FSI_GPIO_RESP_ACKD, size, val);
-> -	spin_unlock_irqrestore(&fsi_gpio_cmd_lock, flags);
-> -
-> -	return rc;
-> +	return send_command(master, &cmd, FSI_GPIO_RESP_ACKD, size, val);
+> -	return send_command(master, &cmd, FSI_GPIO_RESP_ACKD, size, val);
+> +	return fsi_master_gpio_send(master, &cmd, FSI_GPIO_RESP_ACKD, addr,
+> +				size, val);
 >   }
 >
 >   static int fsi_master_gpio_write(struct fsi_master *_master, int link,
-> @@ -381,21 +388,12 @@ static int fsi_master_gpio_write(struct fsi_master *_master, int link,
->   {
->   	struct fsi_master_gpio *master = to_fsi_master_gpio(_master);
->   	struct fsi_gpio_msg cmd;
-> -	int rc;
-> -	unsigned long flags;
->
->   	if (link != 0)
+> @@ -393,7 +416,8 @@ static int fsi_master_gpio_write(struct fsi_master *_master, int link,
 >   		return -ENODEV;
 >
 >   	build_abs_ar_command(&cmd, FSI_GPIO_CMD_WRITE, slave, addr, size, val);
-> -
-> -	spin_lock_irqsave(&fsi_gpio_cmd_lock, flags);
-> -	serial_out(master, &cmd);
-> -	echo_delay(master);
-> -	rc = poll_for_response(master, FSI_GPIO_RESP_ACK, size, NULL);
-> -	spin_unlock_irqrestore(&fsi_gpio_cmd_lock, flags);
-> -
-> -	return rc;
-> +	return send_command(master, &cmd, FSI_GPIO_RESP_ACK, size, NULL);
+> -	return send_command(master, &cmd, FSI_GPIO_RESP_ACK, size, NULL);
+> +	return fsi_master_gpio_send(master, &cmd, FSI_GPIO_RESP_ACK, addr,
+> +				size, NULL);
 >   }
 >
 >   /*
+> diff --git a/drivers/fsi/fsi-master.h b/drivers/fsi/fsi-master.h
+> index 4a3176b..54723a7 100644
+> --- a/drivers/fsi/fsi-master.h
+> +++ b/drivers/fsi/fsi-master.h
+> @@ -85,6 +85,7 @@ struct fsi_master {
+>   extern int fsi_master_register(struct fsi_master *master);
+>   extern void fsi_master_unregister(struct fsi_master *master);
+>   extern int fsi_master_start_ipoll(struct fsi_master *master);
+> +extern void fsi_master_handle_error(struct fsi_master *master, uint32_t addr);
+>
+>   /**
+>    * crc4 helper: Given a starting crc4 state @c, calculate the crc4 vaue of @x,
