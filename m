@@ -1,48 +1,52 @@
-Return-Path: <linus.walleij@linaro.org>
-Received: from mail-it0-x229.google.com (mail-it0-x229.google.com
- [IPv6:2607:f8b0:4001:c0b::229])
+Return-Path: <xow@google.com>
+Received: from mail-qk0-x234.google.com (mail-qk0-x234.google.com
+ [IPv6:2607:f8b0:400d:c09::234])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vTcVd73n4zDq5x
- for <openbmc@lists.ozlabs.org>; Fri, 24 Feb 2017 01:46:01 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.b="PLtENBGG"; 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vTjcm1hF1zDqGW
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Feb 2017 05:36:39 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="X6hzuIfy"; 
  dkim-atps=neutral
-Received: by mail-it0-x229.google.com with SMTP id 203so1651449ith.0
- for <openbmc@lists.ozlabs.org>; Thu, 23 Feb 2017 06:46:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+Received: by mail-qk0-x234.google.com with SMTP id n127so39891442qkf.0
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Feb 2017 10:36:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=85IkaoUMGDd6HN4RRIp8wwMWXU5wXPTYzw0B3Y0O42A=;
- b=PLtENBGGgtrLuSgHde5F2gM+GNg+aIr47lkDwANew8ewnCJ6usGXVh/fKKXwKgFpYa
- PEfcCo1/+MaxDTE0QkosNG/bm+VHEtdjzTswNQLm8dOc+xv8satBD7VDjttrd129xkaW
- l/fXvbARBvUIcpa+UPJGmCmhonW4CVxOTib6k=
+ :cc; bh=JkK5buB2yRe6a60ghnxy6hM3R9EuxRPezrBi361oeC4=;
+ b=X6hzuIfyQspSJUTyC/T6Jy1wmuGuPTewB4wsWZkOcbHbH/AT4Ev9Gv9yzqZFHqX5MQ
+ GIKnpJC4CNa8lMGJ+Z5oeIMWoilIKmP07uNcMyvYoqTMJqjWN+IIDj9x7Ww5Qq9cPDv1
+ zo8DDBELl5bzfv4Wtk1cJ8xbgWFcxTksCxuwxQAtL1zW3srFm4HH+FTxrSB88ea3Iylr
+ B9y+EP9zjUW9W6zsLYwhW6IifplTi2i0YM2VLdLBUjFvOb3aWyXD1zxpbzoLjYlmOd66
+ E1+5umGoYSBMWaSTp8S/SulO2pVtAKUAc82g4j/b4hS4MTmzKNyyI3GU9COvOn0Nr8/K
+ 917A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=85IkaoUMGDd6HN4RRIp8wwMWXU5wXPTYzw0B3Y0O42A=;
- b=la25fO0Z59UCOJibr5+6alaByL7kLFeWPwCT2M+H8aUVxI04k4fhtLtSSN84NLfIqf
- VE92a/CrdcDT/vyAscRSMWMfSTikfXA1Ztk/A+9sjsz784ny1HcINOl4KeqrbSPai85G
- WjGq888Q/Af7HrEWQO6vukkQrdMFflZf6clCTbEPt3/+ycIb6CSJkorzf+GJVLENEEwd
- 0bVXxmOl7WwbB+nm+mVJ2/GdzMHlDd9zzg3Wi/tQsh3r72Zsl3RBzfrp5eKY2HLpmDkT
- xmbONXmCJNGYsoixYMDlqdU11G2X7WhavZxweIjwSiNoQoyvYSQ1yTn8XSvUek70DQk/
- /vJw==
-X-Gm-Message-State: AMke39k1V0qKgzGp3fL3AtLB851bo3ryLeS4dupt35MZE5Me6pVAFmP0qLrHs1c3ch2bSAjPti6HaQcYke+3lgKO
-X-Received: by 10.36.83.209 with SMTP id n200mr4210415itb.9.1487861156741;
- Thu, 23 Feb 2017 06:45:56 -0800 (PST)
+ bh=JkK5buB2yRe6a60ghnxy6hM3R9EuxRPezrBi361oeC4=;
+ b=atcgCKfg80ell7cZmugqpr/fUsIGM4GXQgHpp7SDgE9ZP2yqQoic8BqdfDrcZ77w0K
+ VDzTbnO2GoPyvwSCce4qJNiMk838Up3PKXegh1ke1CFEZndLoEar37msg2CtXOEK5dNw
+ AMqV83UrMzEolvQXOw4Y31DUzBp+eTlENam+Z+C16N/KPbF0ZGOiMfAWI2SQM57pnC0e
+ D3h+q6mWnsBtiAnywJn2a0Vnv8egAW3oz1Cv0Y9BlHOx5Ysm7ToGmlp1L2IWw8lgGtnl
+ x3sGeauIZGcCm7ciXPH0va6AmenOjqn6xPnY4feBxtvOaL9TY9nTflQg5BN0uq757c3g
+ GJGQ==
+X-Gm-Message-State: AMke39l9OutcVuZsLj9vjRzhO7Jjx0gU7JAzjpUYTnSjdxOvXMC3o389fMWO8wMe/KCEdmWL6f5mQ0sBwn2CajWv
+X-Received: by 10.55.192.153 with SMTP id v25mr36430492qkv.305.1487874996971; 
+ Thu, 23 Feb 2017 10:36:36 -0800 (PST)
 MIME-Version: 1.0
-Received: by 10.79.169.75 with HTTP; Thu, 23 Feb 2017 06:45:55 -0800 (PST)
-In-Reply-To: <20170215060914.5952-1-raltherr@google.com>
-References: <20170215060914.5952-1-raltherr@google.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 23 Feb 2017 15:45:55 +0100
-Message-ID: <CACRpkdZRnANEETxRijAiGYdsoEAv0uk3h1+LOPPH6qjwdStJfg@mail.gmail.com>
-Subject: Re: [PATCH linux] aspeed: pinctrl: Allow disabling Port D and Port E
- loopback mode
-To: Rick Altherr <raltherr@google.com>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>, 
- Andrew Jeffery <andrew@aj.id.au>
+Received: by 10.140.21.116 with HTTP; Thu, 23 Feb 2017 10:36:36 -0800 (PST)
+In-Reply-To: <CAARXrt=dKRZh0AczANUee4asj-KxxU4zKqMhWd+_CiO7CQ75BQ@mail.gmail.com>
+References: <20170221051259.18383-1-joel@jms.id.au>
+ <20170221051259.18383-2-joel@jms.id.au>
+ <CAARXrt=dKRZh0AczANUee4asj-KxxU4zKqMhWd+_CiO7CQ75BQ@mail.gmail.com>
+From: Xo Wang <xow@google.com>
+Date: Thu, 23 Feb 2017 10:36:36 -0800
+Message-ID: <CAPH-5w6F_P9z6JgQcTOp3Brqt3jw7T1m5NYZJqUuo4Fz9rZPrQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7 2/2] ARM: dts: aspeed: Reserve memory on all
+ P9 machines
+To: Mine <mine260309@gmail.com>
+Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Cyril Bur <cyrilbur@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -55,27 +59,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Feb 2017 14:46:03 -0000
+X-List-Received-Date: Thu, 23 Feb 2017 18:36:40 -0000
 
-On Wed, Feb 15, 2017 at 7:09 AM, Rick Altherr <raltherr@google.com> wrote:
+Hi Mine,
 
-> Port D and port E GPIO loopback modes are commonly enabled via hardware
-> straps for use with front-panel buttons.  When the BMC is powered
-> off or fails to boot, the front-panel buttons are directly connected to
-> the host chipset via the loopback to allow direct power-on and reset
-> control. Once the BMC has booted, the loopback mode must be disabled for
-> the BMC to take over control of host power-on and reset.
+On Wed, Feb 22, 2017 at 7:34 PM, Mine <mine260309@gmail.com> wrote:
+>> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+>> index e1c9b3f4fe44..c3a6a8656b3e 100644
+>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+>> @@ -25,9 +25,9 @@
+>>                 #size-cells = <1>;
+>>                 ranges;
+>>
+>> -               flash_memory: region@94000000 {
+>> +               flash_memory: region@bc000000 {
+>>                         no-map;
+>> -                       reg = <0x94000000 0x04000000>; /* 64M */
+>> +                       reg = <0xbc000000 0x04000000>; /* 64M */
 >
-> Disabling these loopback modes requires writing to the hardware strap
-> register which violates the current design of assuming the system
-> designer chose the strap settings for a specific reason and they should
-> be treated as read-only. Only the two bits of the strap register related
-> to these loopback modes are allowed to be written and comments have been
-> added to explain why.
->
-> Signed-off-by: Rick Altherr <raltherr@google.com>
+> For Zaius with 512MiB RAM (what I saw in Foxconn), the memory size
+> will be adjusted by Uboot,
+> which is OK.
+> Will this reserved memory be adjusted from 0xbc000000 to 0x9c000000?
 
-Patch applied with the ACKs for v4.12.
+We have no plans to use RAM size other than 1 GiB for Zaius BMC. Can
+you please explain what you saw at Foxconn?
 
-Yours,
-Linus Walleij
+thanks
+xo
