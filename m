@@ -1,74 +1,72 @@
 Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vTpJS2CrWzDq5W
- for <openbmc@lists.ozlabs.org>; Fri, 24 Feb 2017 09:07:50 +1100 (AEDT)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v1NLwiSb053008
- for <openbmc@lists.ozlabs.org>; Thu, 23 Feb 2017 17:07:47 -0500
-Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
- by mx0a-001b2d01.pphosted.com with ESMTP id 28t61r57mh-1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vTpdJ06mXzDq5W
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Feb 2017 09:22:27 +1100 (AEDT)
+Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v1NMJlpp126378
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Feb 2017 17:22:25 -0500
+Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 28t6wn3e8n-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 23 Feb 2017 17:07:47 -0500
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Feb 2017 17:22:25 -0500
 Received: from localhost
- by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 23 Feb 2017 15:07:47 -0700
-Received: from d03dlp03.boulder.ibm.com (9.17.202.179)
- by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
+ Thu, 23 Feb 2017 15:22:23 -0700
+Received: from d03dlp02.boulder.ibm.com (9.17.202.178)
+ by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Thu, 23 Feb 2017 15:07:44 -0700
-Received: from b01cxnp23032.gho.pok.ibm.com (b01cxnp23032.gho.pok.ibm.com
- [9.57.198.27])
- by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id 9A33119D8040;
- Thu, 23 Feb 2017 15:06:55 -0700 (MST)
-Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
- [9.57.199.111])
- by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v1NM7hek26607668; Thu, 23 Feb 2017 22:07:43 GMT
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 84727AC041;
- Thu, 23 Feb 2017 17:07:40 -0500 (EST)
+ Thu, 23 Feb 2017 15:22:21 -0700
+Received: from b01cxnp23034.gho.pok.ibm.com (b01cxnp23034.gho.pok.ibm.com
+ [9.57.198.29])
+ by d03dlp02.boulder.ibm.com (Postfix) with ESMTP id 6B9A93E4003F;
+ Thu, 23 Feb 2017 15:22:20 -0700 (MST)
+Received: from b01ledav03.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
+ [9.57.199.108])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v1NMMJcx23330846; Thu, 23 Feb 2017 22:22:19 GMT
+Received: from b01ledav03.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A024FB204D;
+ Thu, 23 Feb 2017 17:22:18 -0500 (EST)
 Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id 37710AC048;
- Thu, 23 Feb 2017 17:07:40 -0500 (EST)
-Subject: Re: [PATCH linux dev-4.7 v3 2/2] drivers/fsi: Cleanup and retry op on
- error
+ by b01ledav03.gho.pok.ibm.com (Postfix) with ESMTP id 4AADCB2052;
+ Thu, 23 Feb 2017 17:22:18 -0500 (EST)
+Subject: Re: [PATCH linux dev-4.7 v3] drivers/fsi: Add hub master support
 To: Christopher Bostic <cbostic@linux.vnet.ibm.com>, joel@jms.id.au
-References: <20170223195837.82098-1-cbostic@linux.vnet.ibm.com>
- <20170223195837.82098-3-cbostic@linux.vnet.ibm.com>
+References: <20170223195417.81894-1-cbostic@linux.vnet.ibm.com>
 Cc: openbmc@lists.ozlabs.org
 From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Thu, 23 Feb 2017 16:07:42 -0600
+Date: Thu, 23 Feb 2017 16:22:14 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
  Thunderbird/45.6.0
 MIME-Version: 1.0
-In-Reply-To: <20170223195837.82098-3-cbostic@linux.vnet.ibm.com>
+In-Reply-To: <20170223195417.81894-1-cbostic@linux.vnet.ibm.com>
 Content-Type: text/plain; charset=windows-1252; format=flowed
 Content-Transfer-Encoding: 7bit
 X-TM-AS-GCONF: 00
 X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17022322-0008-0000-0000-00000750F1A1
+x-cbid: 17022322-0020-0000-0000-00000B767093
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00006671; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000204; SDB=6.00826155; UDB=6.00404595; IPR=6.00603606; 
+ PH=3.00000004; SC=3.00000204; SDB=6.00826159; UDB=6.00404598; IPR=6.00603611; 
  BA=6.00005168; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014416; XFM=3.00000011;
- UTC=2017-02-23 22:07:45
+ UTC=2017-02-23 22:22:21
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17022322-0009-0000-0000-0000402C52F6
-Message-Id: <1bf32372-d627-fd51-c145-1a62765b8704@linux.vnet.ibm.com>
+x-cbparentid: 17022322-0021-0000-0000-00005A6055F3
+Message-Id: <234528f3-692c-6bd4-232d-4d85cc77fdea@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-02-23_14:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  spamscore=0 suspectscore=0
  malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
  adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
- definitions=main-1702230196
+ definitions=main-1702230199
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -80,147 +78,385 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Feb 2017 22:07:52 -0000
+X-List-Received-Date: Thu, 23 Feb 2017 22:22:28 -0000
 
 Acked-by: Eddie James <eajames@linux.vnet.ibm.com>
 
 
-On 02/23/2017 01:58 PM, Christopher Bostic wrote:
-> On detect of FSI bus error clean up the bus and then retry
-> the original operation.
+On 02/23/2017 01:54 PM, Christopher Bostic wrote:
+> Scan for links off of the mFSI master on CFAM. Add any devices
+> detected to the existing list of FSI devices and notify any
+> clients.
 >
 > Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 >
-> v3 - Move comon read/write code into a retry utility
->
->     - Add comment on why trying again
->
->     - Change nested error check from atomic bit type to atomic_t
->
->     - loop on retry instead of duplicating the same code
 > ---
->   drivers/fsi/fsi-core.c        | 30 ++++++++++++++++++++++++++++++
->   drivers/fsi/fsi-master-gpio.c | 28 ++++++++++++++++++++++++++--
->   drivers/fsi/fsi-master.h      |  1 +
->   3 files changed, 57 insertions(+), 2 deletions(-)
+>
+> v3 - Squash all patches in series related to hub master into one
+>       patch.
+>
+>     - fsi_slave_scan  refactor if/else to switch on type
+>
+>     - Add device for hub master dev field
+>
+>     - Update method of setting master->n_links for hub
+>
+> v2 - Refactor hub master structures, hub no longer a slave engine
+>
+>     - Add description of what a hub master is and how it differs
+>       from a cascaded master
+> ---
+>   drivers/fsi/fsi-core.c   | 215 +++++++++++++++++++++++++++++++++++++++++++++--
+>   drivers/fsi/fsi-master.h |  57 +++++++++++++
+>   2 files changed, 267 insertions(+), 5 deletions(-)
 >
 > diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
-> index 02ca3c0..a7b705d 100644
+> index e13774f..02ca3c0 100644
 > --- a/drivers/fsi/fsi-core.c
 > +++ b/drivers/fsi/fsi-core.c
-> @@ -42,6 +42,9 @@
+> @@ -20,12 +20,14 @@
+>   #include <linux/module.h>
+>   #include <linux/slab.h>
+>   #include <linux/jiffies.h>
+> +#include <linux/delay.h>
 >
->   #define FSI_PEEK_BASE			0x410
->   #define	FSI_SLAVE_BASE			0x800
-> +#define	FSI_HUB_CONTROL			0x3400
-> +
-> +#define	FSI_SLAVE_SMODE_DFLT		0xa0ff0100
+>   #include "fsi-master.h"
+>
+>   #define DEBUG
+>
+>   #define FSI_N_SLAVES	4
+> +#define FSI_BREAK	0xc0de0000
+>
+>   #define FSI_SLAVE_CONF_NEXT_MASK	0x80000000
+>   #define FSI_SLAVE_CONF_SLOTS_MASK	0x00ff0000
+> @@ -43,9 +45,16 @@
 >
 >   #define FSI_IPOLL_PERIOD		msecs_to_jiffies(fsi_ipoll_period_ms)
 >
-> @@ -55,6 +58,7 @@ static const int engine_page_size = 0x400;
+> +#define	FSI_ENGID_HUB_MASTER		0x1c
+> +#define	FSI_ENGID_HUB_LINK		0x1d
+> +#define	FSI_HUB_LINK_OFFSET		0x80000
+> +#define	FSI_MASTER_HUB_LINK_SIZE	0x80000
+> +#define	FSI_HUB_MASTER_MAX_LINKS	8
+> +
+>   static const int engine_page_size = 0x400;
 >   static struct task_struct *master_ipoll;
 >   static unsigned int fsi_ipoll_period_ms = 100;
->   struct class *hub_master_class;
-> +static atomic_t in_err_cleanup = ATOMIC_INIT(-1);
+> +struct class *hub_master_class;
 >
 >   static DEFINE_IDA(master_ida);
 >
-> @@ -653,6 +657,32 @@ static int fsi_master_break(struct fsi_master *master, int link)
->   	return 0;
+> @@ -58,6 +67,15 @@ struct fsi_slave {
+>   	uint8_t			id;
+>   };
+>
+> +struct fsi_master_hub {
+> +	struct fsi_master	master;
+> +	struct fsi_slave	*slave;
+> +	uint32_t		control_regs;	/* slave-relative addr regs */
+> +	uint32_t		base;		/* slave-relative addr of */
+> +						/* master address space */
+> +};
+> +
+> +#define to_fsi_master_hub(d) container_of(d, struct fsi_master_hub, master)
+>   #define to_fsi_slave(d) container_of(d, struct fsi_slave, dev)
+>
+>   static int fsi_slave_read(struct fsi_slave *slave, uint32_t addr,
+> @@ -197,12 +215,156 @@ static int fsi_slave_write(struct fsi_slave *slave, uint32_t addr,
+>   			slave->id, addr, val, size);
 >   }
 >
-> +void fsi_master_handle_error(struct fsi_master *master, uint32_t addr)
+> +/*
+> + * FSI hub master support
+> + *
+> + * A hub master increases the number of potential target devices that the
+> + * primary FSI master can access.  For each link a primary master supports
+> + * each of those links can in turn be chained to a hub master with multiple
+> + * hub links of its own.  Hubs differ from cascaded masters (cMFSI) in the
+> + * total addressable range per link -hubs having address ranges that are much
+> + * larger.
+> + */
+> +int hub_master_read(struct fsi_master *master, int linkno, uint8_t slave,
+> +			uint32_t addr, void *val, size_t size)
 > +{
-> +	uint32_t smode = FSI_SLAVE_SMODE_DFLT;
+> +	struct fsi_master_hub *hub = to_fsi_master_hub(master);
 > +
-> +	if (!atomic_inc_and_test(&in_err_cleanup))
-> +		return;
-> +
-> +	fsi_master_break(master, 0);
-> +	udelay(200);
-> +	master->write(master, 0, 0, FSI_SLAVE_BASE + FSI_SMODE, &smode,
-> +			sizeof(smode));
-> +	smode = FSI_MRESB_RST_GEN | FSI_MRESB_RST_ERR;
-> +	master->write(master, 0, 0, FSI_HUB_CONTROL + FSI_MRESB0, &smode,
-> +		sizeof(smode));
-> +
-> +	if (addr > FSI_HUB_LINK_OFFSET) {
-> +		smode = FSI_BREAK;
-> +		master->write(master, 0, 0, 0x100004, &smode, sizeof(smode));
-> +		smode = FSI_SLAVE_SMODE_DFLT;
-> +		master->write(master, 0, 0, 0x100800, &smode, sizeof(smode));
-> +	}
-> +
-> +	atomic_set(&in_err_cleanup, -1);
+> +	addr += (linkno * FSI_MASTER_HUB_LINK_SIZE) + hub->base;
+> +	return fsi_slave_read(hub->slave, addr, val, size);
 > +}
-> +EXPORT_SYMBOL(fsi_master_handle_error);
 > +
->   static int fsi_master_scan(struct fsi_master *master)
->   {
->   	int link, slave_id, rc;
-> diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
-> index b6feec1..c5f4f9c 100644
-> --- a/drivers/fsi/fsi-master-gpio.c
-> +++ b/drivers/fsi/fsi-master-gpio.c
-> @@ -370,6 +370,28 @@ static int send_command(struct fsi_master_gpio *master,
->   	return rc;
->   }
->
-> +static int fsi_master_gpio_send(struct fsi_master_gpio *master,
-> +				struct fsi_gpio_msg *cmd, uint8_t expected,
-> +				uint32_t addr, size_t size, void *val)
+> +int hub_master_write(struct fsi_master *master, int linkno, uint8_t slave,
+> +			uint32_t addr, const void *val, size_t size)
 > +{
-> +	static const int master_retries = 2;
-> +	uint8_t retries;
+> +	struct fsi_master_hub *hub = to_fsi_master_hub(master);
+> +
+> +	addr += (linkno * FSI_MASTER_HUB_LINK_SIZE) + hub->base;
+> +	return fsi_slave_write(hub->slave, addr, val, size);
+> +}
+> +
+> +int hub_master_break(struct fsi_master *master, int linkno)
+> +{
+> +	struct fsi_master_hub *hub = to_fsi_master_hub(master);
+> +	uint32_t command;
+> +	uint32_t break_offset = 0x4; /* hw workaround */
+> +	uint32_t addr;
+> +
+> +	command = FSI_BREAK;
+> +	addr = (linkno * FSI_MASTER_HUB_LINK_SIZE) + hub->base;
+> +	return fsi_slave_write(hub->slave, addr + break_offset, &command,
+> +			sizeof(command));
+> +}
+> +
+> +int hub_master_link_enable(struct fsi_master *master, int linkno)
+> +{
+> +	struct fsi_master_hub *hub = to_fsi_master_hub(master);
+> +	uint32_t menp = L_MSB_MASK(linkno);
 > +	int rc;
 > +
-> +	/*
-> +	 * In case the FSI bus is in a bad state a retry may help
-> +	 * the operation to complete successfully
-> +	 */
-> +	for (retries = 0; retries < master_retries; retries++) {
-> +		rc = send_command(master, cmd, expected, size, val);
-> +		if (!rc)
-> +			break;
-> +		fsi_master_handle_error(&master->master, addr);
-> +	}
+> +	rc = fsi_slave_write(hub->slave, hub->control_regs + FSI_MSENP0, &menp,
+> +				sizeof(menp));
+> +
+> +	/* Wait for hw to finish enable */
+> +	mdelay(10);
 > +
 > +	return rc;
 > +}
 > +
->   static int fsi_master_gpio_read(struct fsi_master *_master, int link,
->   		uint8_t slave, uint32_t addr, void *val, size_t size)
+> +static int hub_master_init(struct fsi_master_hub *hub)
+> +{
+> +	int rc;
+> +	uint32_t mver;
+> +	struct fsi_master *master = &hub->master;
+> +
+> +	master->read = hub_master_read;
+> +	master->write = hub_master_write;
+> +	master->send_break = hub_master_break;
+> +	master->link_enable = hub_master_link_enable;
+> +
+> +	/* Initialize the MFSI (hub master) engine */
+> +	rc = fsi_slave_read(hub->slave, hub->control_regs + FSI_MVER, &mver,
+> +				sizeof(mver));
+> +	if (rc)
+> +		return rc;
+> +
+> +	mver = FSI_MRESP_RST_ALL_MASTER | FSI_MRESP_RST_ALL_LINK
+> +			| FSI_MRESP_RST_MCR | FSI_MRESP_RST_PYE;
+> +	rc = fsi_slave_write(hub->slave, hub->control_regs + FSI_MRESP0, &mver,
+> +				sizeof(mver));
+> +	if (rc)
+> +		return rc;
+> +
+> +	mver = FSI_MECTRL_EOAE | FSI_MECTRL_P8_AUTO_TERM;
+> +	rc = fsi_slave_write(hub->slave, hub->control_regs + FSI_MECTRL, &mver,
+> +				sizeof(mver));
+> +	if (rc)
+> +		return rc;
+> +
+> +	mver = FSI_MMODE_EIP | FSI_MMODE_ECRC | FSI_MMODE_EPC
+> +			| fsi_mmode_crs0(1) | fsi_mmode_crs1(1)
+> +			| FSI_MMODE_P8_TO_LSB;
+> +	rc = fsi_slave_write(hub->slave, hub->control_regs + FSI_MMODE, &mver,
+> +				sizeof(mver));
+> +	if (rc)
+> +		return rc;
+> +
+> +	mver = 0xffff0000;
+> +	rc = fsi_slave_write(hub->slave, hub->control_regs + FSI_MDLYR, &mver,
+> +				sizeof(mver));
+> +	if (rc)
+> +		return rc;
+> +
+> +	mver = ~0;
+> +	rc = fsi_slave_write(hub->slave, hub->control_regs + FSI_MSENP0, &mver,
+> +				sizeof(mver));
+> +	if (rc)
+> +		return rc;
+> +
+> +	/* Leave enabled long enough for master logic to set up */
+> +	udelay(1000);
+> +
+> +	rc = fsi_slave_write(hub->slave, hub->control_regs + FSI_MCENP0, &mver,
+> +				sizeof(mver));
+> +	if (rc)
+> +		return rc;
+> +
+> +	rc = fsi_slave_read(hub->slave, hub->control_regs + FSI_MAEB, &mver,
+> +				sizeof(mver));
+> +	if (rc)
+> +		return rc;
+> +
+> +	mver = FSI_MRESP_RST_ALL_MASTER | FSI_MRESP_RST_ALL_LINK;
+> +	rc = fsi_slave_write(hub->slave, hub->control_regs + FSI_MRESP0, &mver,
+> +				sizeof(mver));
+> +	if (rc)
+> +		return rc;
+> +
+> +	rc = fsi_slave_read(hub->slave, hub->control_regs + FSI_MLEVP0, &mver,
+> +				sizeof(mver));
+> +	if (rc)
+> +		return rc;
+> +
+> +	/* Reset the master bridge */
+> +	mver = FSI_MRESB_RST_GEN;
+> +	rc = fsi_slave_write(hub->slave, hub->control_regs + FSI_MRESB0, &mver,
+> +				sizeof(mver));
+> +	if (rc)
+> +		return rc;
+> +
+> +	mver = FSI_MRESB_RST_ERR;
+> +	return fsi_slave_write(hub->slave, hub->control_regs + FSI_MRESB0,
+> +				&mver, sizeof(mver));
+> +}
+> +
+>   static int fsi_slave_scan(struct fsi_slave *slave)
 >   {
-> @@ -380,7 +402,8 @@ static int fsi_master_gpio_read(struct fsi_master *_master, int link,
->   		return -ENODEV;
+>   	uint32_t engine_addr;
+>   	uint32_t conf;
+>   	int rc, i;
+>   	uint8_t si1s_bit = 1;
+> +	uint8_t conf_link_count = 0;
+> +	struct fsi_master_hub *hub;
 >
->   	build_abs_ar_command(&cmd, FSI_GPIO_CMD_READ, slave, addr, size, NULL);
-> -	return send_command(master, &cmd, FSI_GPIO_RESP_ACKD, size, val);
-> +	return fsi_master_gpio_send(master, &cmd, FSI_GPIO_RESP_ACKD, addr,
-> +				size, val);
+>   	INIT_LIST_HEAD(&slave->my_engines);
+>
+> @@ -242,12 +404,50 @@ static int fsi_slave_scan(struct fsi_slave *slave)
+>   		type = (conf & FSI_SLAVE_CONF_TYPE_MASK)
+>   			>> FSI_SLAVE_CONF_TYPE_SHIFT;
+>
+> -		/*
+> -		 * Unused address areas are marked by a zero type value; this
+> -		 * skips the defined address areas
+> -		 */
+> -		if (type != 0 && slots != 0) {
+> +		switch (type) {
+> +		case 0:
+> +			/*
+> +			 * Unused address areas are marked by a zero type
+> +			 * value; this skips the defined address areas
+> +			 */
+> +			break;
+> +
+> +		case FSI_ENGID_HUB_MASTER:
+> +			hub_master_class = class_create(THIS_MODULE,
+> +								"hub-master");
+> +			if (!hub_master_class)
+> +				return -ENODEV;
+> +
+> +			hub = kzalloc(sizeof(*hub), GFP_KERNEL);
+> +			if (!hub)
+> +				return -ENOMEM;
+>
+> +			hub->master.dev = device_create(hub_master_class, NULL,
+> +						0, hub, (const char *)"%s",
+> +						"hub");
+> +			if (!hub->master.dev)
+> +				return -ENODEV;
+> +
+> +			device_initialize(hub->master.dev);
+> +			dev_set_name(hub->master.dev, "%02x",
+> +						hub->master.idx);
+> +			rc = device_add(hub->master.dev);
+> +			if (rc)
+> +				return rc;
+> +
+> +			hub->base = FSI_HUB_LINK_OFFSET;
+> +			hub->control_regs = engine_addr;
+> +			hub->slave = slave;
+> +			rc = hub_master_init(hub);
+> +
+> +			break;
+> +
+> +		case FSI_ENGID_HUB_LINK:
+> +			conf_link_count++;
+> +
+> +			break;
+> +
+> +		default:
+>   			/* create device */
+>   			dev = fsi_create_device(slave);
+>   			if (!dev)
+> @@ -286,6 +486,11 @@ static int fsi_slave_scan(struct fsi_slave *slave)
+>   			break;
+>   	}
+>
+> +	if (hub) {
+> +		hub->master.n_links = conf_link_count / 2;
+> +		fsi_master_register(&hub->master);
+> +	}
+> +
+>   	return 0;
 >   }
 >
->   static int fsi_master_gpio_write(struct fsi_master *_master, int link,
-> @@ -393,7 +416,8 @@ static int fsi_master_gpio_write(struct fsi_master *_master, int link,
->   		return -ENODEV;
->
->   	build_abs_ar_command(&cmd, FSI_GPIO_CMD_WRITE, slave, addr, size, val);
-> -	return send_command(master, &cmd, FSI_GPIO_RESP_ACK, size, NULL);
-> +	return fsi_master_gpio_send(master, &cmd, FSI_GPIO_RESP_ACK, addr,
-> +				size, NULL);
->   }
->
->   /*
 > diff --git a/drivers/fsi/fsi-master.h b/drivers/fsi/fsi-master.h
-> index 4a3176b..54723a7 100644
+> index 3737404..4a3176b 100644
 > --- a/drivers/fsi/fsi-master.h
 > +++ b/drivers/fsi/fsi-master.h
-> @@ -85,6 +85,7 @@ struct fsi_master {
->   extern int fsi_master_register(struct fsi_master *master);
->   extern void fsi_master_unregister(struct fsi_master *master);
->   extern int fsi_master_start_ipoll(struct fsi_master *master);
-> +extern void fsi_master_handle_error(struct fsi_master *master, uint32_t addr);
+> @@ -19,6 +19,52 @@
 >
->   /**
->    * crc4 helper: Given a starting crc4 state @c, calculate the crc4 vaue of @x,
+>   #include <linux/device.h>
+>
+> +/* Control Registers */
+> +#define FSI_MMODE		0x0		/* R/W: mode */
+> +#define FSI_MDLYR		0x4		/* R/W: delay */
+> +#define FSI_MCRSP		0x8		/* R/W: clock rate */
+> +#define FSI_MENP0		0x10		/* R/W: enable */
+> +#define FSI_MLEVP0		0x18		/* R: plug detect */
+> +#define FSI_MSENP0		0x18		/* S: Set enable */
+> +#define FSI_MCENP0		0x20		/* C: Clear enable */
+> +#define FSI_MAEB		0x70		/* R: Error address */
+> +#define FSI_MVER		0x74		/* R: master version/type */
+> +#define FSI_MRESP0		0xd0		/* W: Port reset */
+> +#define FSI_MESRB0		0x1d0		/* R: Master error status */
+> +#define FSI_MRESB0		0x1d0		/* W: Reset bridge */
+> +#define FSI_MECTRL		0x2e0		/* W: Error control */
+> +
+> +/* MMODE: Mode control */
+> +#define FSI_MMODE_EIP		0x80000000	/* Enable interrupt polling */
+> +#define FSI_MMODE_ECRC		0x40000000	/* Enable error recovery */
+> +#define FSI_MMODE_EPC		0x10000000	/* Enable parity checking */
+> +#define FSI_MMODE_P8_TO_LSB	0x00000010	/* Timeout value LSB */
+> +						/* Rolf Fritz Nov 20, 2013: */
+> +						/*   MSB=1, LSB=0 is 0.8 ms */
+> +						/*   MSB=0, LSB=1 is 0.9 ms */
+> +#define FSI_MMODE_CRS0SHFT	18		/* Clk rate selection 0 shift */
+> +#define FSI_MMODE_CRS0MASK	0x3ff		/* Clk rate selection 0 mask */
+> +#define FSI_MMODE_CRS1SHFT	8		/* Clk rate selection 1 shift */
+> +#define FSI_MMODE_CRS1MASK	0x3ff		/* Clk rate selection 1 mask */
+> +
+> +/* MRESB: Reset brindge */
+> +#define FSI_MRESB_RST_GEN	0x80000000	/* General reset */
+> +#define FSI_MRESB_RST_ERR	0x40000000	/* Error Reset */
+> +
+> +/* MRESB: Reset port */
+> +#define FSI_MRESP_RST_ALL_MASTER 0x20000000	/* Reset all FSI masters */
+> +#define FSI_MRESP_RST_ALL_LINK	0x10000000	/* Reset all FSI port contr. */
+> +#define FSI_MRESP_RST_MCR	0x08000000	/* Reset FSI master reg. */
+> +#define FSI_MRESP_RST_PYE	0x04000000	/* Reset FSI parity error */
+> +#define FSI_MRESP_RST_ALL	0xfc000000	/* Reset any error */
+> +
+> +/* MECTRL: Error control */
+> +#define FSI_MECTRL_EOAE		0x8000		/* Enable machine check when */
+> +						/* master 0 in error */
+> +#define FSI_MECTRL_P8_AUTO_TERM	0x4000		/* Auto terminate */
+> +
+> +#define L_MSB_MASK(x)		(0x80000000 >> (x))
+> +
+>   struct fsi_master {
+>   	struct list_head my_slaves;
+>   	bool		slave_list;
+> @@ -61,4 +107,15 @@ extern int fsi_master_start_ipoll(struct fsi_master *master);
+>    */
+>   uint8_t fsi_crc4(uint8_t c, uint64_t x, int bits);
+>
+> +/* mmode encoders */
+> +static inline u32 fsi_mmode_crs0(u32 x)
+> +{
+> +	return (x & FSI_MMODE_CRS0MASK) << FSI_MMODE_CRS0SHFT;
+> +}
+> +
+> +static inline u32 fsi_mmode_crs1(u32 x)
+> +{
+> +	return (x & FSI_MMODE_CRS1MASK) << FSI_MMODE_CRS1SHFT;
+> +}
+> +
+>   #endif /* DRIVERS_FSI_MASTER_H */
