@@ -1,52 +1,53 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x244.google.com (mail-yb0-x244.google.com
- [IPv6:2607:f8b0:4002:c09::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vTzrL1g8fzDqGn
- for <openbmc@lists.ozlabs.org>; Fri, 24 Feb 2017 16:17:38 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ud50ccQ8"; 
- dkim-atps=neutral
-Received: by mail-yb0-x244.google.com with SMTP id n76so469090ybg.0
- for <openbmc@lists.ozlabs.org>; Thu, 23 Feb 2017 21:17:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=yD8vTh3lV1wqDBRJmMfRrn5QQqdl+UnMNC+8eRXMXLQ=;
- b=Ud50ccQ8IpCAe3xW/LAwiib09OqAarPoPvOFfmOtpR/dnPEqzXUJl6Xsgbh4x0mt+L
- tWbY4jg7ZQplvdGiv3L4g+edyv2svuuV8QD36LA/sX/MPeHiGWZGY/y3DTj/xATz4Gnp
- GxrjEkBinPN3VEMQtDuvO9ZcjtdCc11PXIMoBlGlzEdfkX+3UaWpdA2pT+ErOl/8lKyE
- qqWQ8dbNmzEGH9BSdJ+oTx++YJHmH/kL5IqPVsRMWhzKM+u3en+gXf86apWoPrP1Gq2v
- S1UcAnwXQpKwORFVC+Nl/IvWp+CoEEOjs4KA+TYxwC+ig+U6YhFx3BHGZ200/nu8CXOp
- AQVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=yD8vTh3lV1wqDBRJmMfRrn5QQqdl+UnMNC+8eRXMXLQ=;
- b=rnPaRCDxb/4olr/a62aC3THxy8UbYLgcKdUcQ6ZRcWvLoHM9WLSB+MzkIEEW4PdoN4
- 9jv2ilq/S5Jom52ats/QHkIBKjioyO75jKbAWspwXguANd6Z0ViqPAvvnD8oXR6TxWY+
- S85kaXQGGRwLo5LSUCT9joJW+edNjREOXwkxtQM3y0055eZHvLLSxLAI6FQtCX5/Be+N
- jEga5JHl9Hdf3U0oTkmpcG/WKP5XMFe5o1v/VbdwMm5/jcA2BOSb8nw40kdBI5VpodW6
- 6MkwF4ZuOTJ3jSC5QtJdjiUVUfi4dbaMJuvD94P2TTX4anIXn/e+cCon7oit7F+Z/fBB
- Rjhw==
-X-Gm-Message-State: AMke39mzqdb+mjnvODOBajtcJ2WS7bQ6oFMAepu55fOa3QswWBBCIGpxObeZq/RHuc/UOtcdDqdA+4Gcffp4jA==
-X-Received: by 10.37.16.214 with SMTP id 205mr502164ybq.17.1487913455865; Thu,
- 23 Feb 2017 21:17:35 -0800 (PST)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.27.133 with HTTP; Thu, 23 Feb 2017 21:17:15 -0800 (PST)
-In-Reply-To: <20170224051556.16432-1-joel@jms.id.au>
-References: <20170224051556.16432-1-joel@jms.id.au>
-From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 24 Feb 2017 15:47:15 +1030
-X-Google-Sender-Auth: qN6tehKIDQlTReWbHLiNyMmu_9s
-Message-ID: <CACPK8XfKE5wb+iMosjKe2wuU_THV5nEEJ8X3ZwP8DqWx9cqFgw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7] i2c: aspeed: drop the locks
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Cc: Andrew Jeffery <andrew@aj.id.au>
-Content-Type: text/plain; charset=UTF-8
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vTzvh0JnQzDqH6
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Feb 2017 16:20:31 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="LVd70UlO"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="US4fQrNl"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id CABA320922;
+ Fri, 24 Feb 2017 00:20:29 -0500 (EST)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Fri, 24 Feb 2017 00:20:29 -0500
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=mesmtp; bh=MoUYqYx0VVn7s27TnXRzLOobYlA=; b=LVd70U
+ lO+BxTFZOe7T4bui102j8OijtoUsAyC26lG+0egqlCjytVuNelu4dD1zyWJ+R4AR
+ xoofDa+mpPjrlUGt7bwSxPlfB+5dQPK7BHF4vGDZf03aSZ65H79vLXZY0425GnOh
+ NNN6Xicv2NeurWUxwMF4Yna6nf5YhqxfgQJHg=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=MoUYqYx0VVn7s2
+ 7TnXRzLOobYlA=; b=US4fQrNlw6/LGT1Jp+KxLkaYae8atdG21NZs/ssz7qbhNQ
+ FQwS6ES5eVx9vzhegrDLVQwrIEbfbO7+El3HQbWd94t7qPlpFWiCkiWIOOPPidyN
+ D1ud/M8wRlkDP2bhHu3B2d9QhCStzvmlRJw9waopK1LcRd6fVBbEZLTW+HwXk=
+X-ME-Sender: <xms:ncKvWNKWNHzRvxiw7utaRrRHpz1e_zIRI0Dg7vrnXEMkMv66j7LQ2g>
+X-Sasl-enc: lB9GwdNO4HQchdEgjZcw726YN+vUFQjuQ3YhD95vcw2U 1487913629
+Received: from [10.104.0.15] (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 1F1677E12B;
+ Fri, 24 Feb 2017 00:20:27 -0500 (EST)
+Message-ID: <1487913621.755.0.camel@aj.id.au>
+Subject: Re: Target name refactoring
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Andrew Geissler <geissonator@gmail.com>, Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Fri, 24 Feb 2017 15:50:21 +1030
+In-Reply-To: <CALLMt=pAbfD-wUdi2QA=q3Tt_Kv7GXasmDMLY3kJA+83Vh+Vow@mail.gmail.com>
+References: <CALLMt=r62pSsVx+5DRsyxRThX0WahOO8wk5ENcc+t7ZfyoPoVw@mail.gmail.com>
+ <CACPK8XfDvDi_fUEzFo2vBHU2O=djucY1t27gqY-=RgoJQo3LWQ@mail.gmail.com>
+ <CALLMt=pAbfD-wUdi2QA=q3Tt_Kv7GXasmDMLY3kJA+83Vh+Vow@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-qaLqXNvsBvNOPvLip8kT"
+X-Mailer: Evolution 3.22.1-0ubuntu2 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,177 +59,116 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 24 Feb 2017 05:17:38 -0000
+X-List-Received-Date: Fri, 24 Feb 2017 05:20:33 -0000
 
-On Fri, Feb 24, 2017 at 3:45 PM, Joel Stanley <joel@jms.id.au> wrote:
-> The i2c core code provides i2c_lock_bus. This gives all i2c buses a
-> per-adapter lock, so the locking we perform in the driver is redundant.
->
-> Tested on Zaius by using the UDC and EEPROM which are on the same i2c bus.
->
-> Suggested-by: Andrew Jeffery <andrew@aj.id.au>
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-> ---
->  drivers/i2c/busses/i2c-aspeed.c | 27 ++-------------------------
->  1 file changed, 2 insertions(+), 25 deletions(-)
->
-> diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
-> index ece5aa3ecfd1..61da89407895 100644
-> --- a/drivers/i2c/busses/i2c-aspeed.c
-> +++ b/drivers/i2c/busses/i2c-aspeed.c
-> @@ -252,9 +252,6 @@ struct ast_i2c_bus {
->         struct clk      *pclk;
->         int             irq;
->
-> -       /* i2c transfer state. this is accessed from both process and IRQ
-> -        * context, so is protected by cmd_lock */
-> -       spinlock_t      cmd_lock;
->         bool            send_start;
->         bool            send_stop;      /* last message of an xfer? */
->         bool            query_len;
-> @@ -358,10 +355,8 @@ static void ast_i2c_issue_cmd(struct ast_i2c_bus *bus, u32 cmd)
->
->  static int ast_i2c_issue_oob_command(struct ast_i2c_bus *bus, u32 cmd)
->  {
-> -       spin_lock_irq(&bus->cmd_lock);
->         init_completion(&bus->cmd_complete);
->         ast_i2c_issue_cmd(bus, cmd);
-> -       spin_unlock_irq(&bus->cmd_lock);
->         return wait_for_completion_interruptible_timeout(&bus->cmd_complete,
->                                               bus->adap.timeout*HZ);
->  }
-> @@ -539,8 +534,9 @@ static void ast_i2c_master_xfer_done(struct ast_i2c_bus *bus)
->         /* queue the next message. If there's none left, we notify the
->          * waiter */
->         next_msg_queued = ast_i2c_do_byte_xfer(bus);
-> -       if (!next_msg_queued)
-> +       if (!next_msg_queued) {
->                 complete(&bus->cmd_complete);
-> +       }
 
-This is obviously unrelated and unnecessary.
+--=-qaLqXNvsBvNOPvLip8kT
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
->  }
->
->  #if IS_ENABLED(CONFIG_I2C_SLAVE)
-> @@ -554,7 +550,6 @@ static bool ast_i2c_slave_irq(struct ast_i2c_bus *bus)
->         enum i2c_slave_event event;
->         struct i2c_client *slave = bus->slave;
->
-> -       spin_lock(&bus->cmd_lock);
->         if (!slave) {
->                 irq_handled = false;
->                 goto out;
-> @@ -635,7 +630,6 @@ static bool ast_i2c_slave_irq(struct ast_i2c_bus *bus)
->         ast_i2c_write(bus, status_ack, I2C_INTR_STS_REG);
->
->  out:
-> -       spin_unlock(&bus->cmd_lock);
->         return irq_handled;
->  }
->  #endif
-> @@ -649,7 +643,6 @@ static bool ast_i2c_master_irq(struct ast_i2c_bus *bus)
->                 AST_I2CD_INTR_TX_NAK;
->         u32 sts, cmd;
->
-> -       spin_lock(&bus->cmd_lock);
->
->         cmd = ast_i2c_read(bus, I2C_CMD_REG);
->         sts = ast_i2c_read(bus, I2C_INTR_STS_REG);
-> @@ -708,8 +701,6 @@ static bool ast_i2c_master_irq(struct ast_i2c_bus *bus)
->                                 bus->msg, bus->cmd_pending);
->         }
->
-> -       spin_unlock(&bus->cmd_lock);
-> -
->         return true;
->  }
->
-> @@ -734,13 +725,11 @@ static irqreturn_t ast_i2c_bus_irq(int irq, void *dev_id)
->  static int ast_i2c_do_msgs_xfer(struct ast_i2c_bus *bus,
->                                 struct i2c_msg *msgs, int num)
->  {
-> -       unsigned long flags;
->         int i, ret = 0;
->         u32 err, cmd;
->
->         for (i = 0; i < num; i++) {
->
-> -               spin_lock_irqsave(&bus->cmd_lock, flags);
->                 bus->msg = &msgs[i];
->                 bus->msg_pos = 0;
->                 bus->query_len = bus->msg->flags & I2C_M_RECV_LEN;
-> @@ -749,18 +738,15 @@ static int ast_i2c_do_msgs_xfer(struct ast_i2c_bus *bus,
->                 init_completion(&bus->cmd_complete);
->
->                 ast_i2c_do_byte_xfer(bus);
-> -               spin_unlock_irqrestore(&bus->cmd_lock, flags);
->
->                 ret = wait_for_completion_interruptible_timeout(
->                                         &bus->cmd_complete,
->                                         bus->adap.timeout * HZ);
->
-> -               spin_lock_irqsave(&bus->cmd_lock, flags);
->                 err = bus->cmd_err;
->                 cmd = bus->cmd_sent;
->                 bus->cmd_sent = 0;
->                 bus->msg = NULL;
-> -               spin_unlock_irqrestore(&bus->cmd_lock, flags);
->
->                 if (!ret) {
->                         dev_dbg(bus->dev, "controller timed out\n");
-> @@ -831,14 +817,11 @@ static u32 ast_i2c_functionality(struct i2c_adapter *adap)
->  static int ast_i2c_reg_slave(struct i2c_client *client)
->  {
->         struct ast_i2c_bus *bus;
-> -       unsigned long flags;
->         u32 addr_reg_val;
->         u32 func_ctrl_reg_val;
->
->         bus = client->adapter->algo_data;
-> -       spin_lock_irqsave(&bus->cmd_lock, flags);
->         if (bus->slave) {
-> -               spin_unlock_irqrestore(&bus->cmd_lock, flags);
->                 return -EINVAL;
->         }
->
-> @@ -856,20 +839,16 @@ static int ast_i2c_reg_slave(struct i2c_client *client)
->
->         bus->slave = client;
->         bus->slave_state = AST_I2C_SLAVE_STOP;
-> -       spin_unlock_irqrestore(&bus->cmd_lock, flags);
->         return 0;
->  }
->
->  static int ast_i2c_unreg_slave(struct i2c_client *client)
->  {
->         struct ast_i2c_bus *bus = client->adapter->algo_data;
-> -       unsigned long flags;
->         u32 addr_reg_val;
->         u32 func_ctrl_reg_val;
->
-> -       spin_lock_irqsave(&bus->cmd_lock, flags);
->         if (!bus->slave) {
-> -               spin_unlock_irqrestore(&bus->cmd_lock, flags);
->                 return -EINVAL;
->         }
->
-> @@ -880,7 +859,6 @@ static int ast_i2c_unreg_slave(struct i2c_client *client)
->         ast_i2c_write(bus, func_ctrl_reg_val, I2C_FUN_CTRL_REG);
->
->         bus->slave = NULL;
-> -       spin_unlock_irqrestore(&bus->cmd_lock, flags);
->         return 0;
->  }
->  #endif
-> @@ -933,7 +911,6 @@ static int ast_i2c_probe_bus(struct platform_device *pdev)
->         }
->
->         /* Initialize the I2C adapter */
-> -       spin_lock_init(&bus->cmd_lock);
->         bus->adap.nr = bus_num;
->         bus->adap.owner = THIS_MODULE;
->         bus->adap.retries = 0;
-> --
-> 2.11.0
->
+On Thu, 2017-02-23 at 22:05 -0600, Andrew Geissler wrote:
+> > On Tue, Feb 21, 2017 at 9:00 PM, Joel Stanley <joel@jms.id.au> wrote:
+> > On Tue, Feb 21, 2017 at 8:50 AM, Andrew Geissler <geissonator@gmail.com=
+> wrote:
+> > > Some design decisions came out of my last set of changes in the
+> > > OpenBMC state area.=C2=A0=C2=A0There was a proposal to rename our tar=
+gets
+> > > responsible for booting and powering on/off the system.
+> > >=20
+> > > Currently we have this:
+> > > - PowerOn: obmc-power-chassis-on.target=C2=A0=C2=A0=C2=A0=C2=A0obmc-c=
+hassis-start.target
+> > > - PowerOff: obmc-power-chassis-off.target=C2=A0=C2=A0=C2=A0=C2=A0obmc=
+-chassis-stop.target
+> > > =C2=A0 obmc-stop-host.target
+> > >=20
+> > > The obmc-power-chassis-*.targets are responsible for doing whatever i=
+s
+> > > required to apply pgood to the chassis.
+> > > The obmc-chassis-*.targets are responsible for starting and stopping
+> > > all host related services
+> > > The obmc-stop-host.target is where we have the soft power off service
+> > > (notify host of shutdown, wait for host to shutdown gracefully)
+> > >=20
+> > > Refactoring Proposal:
+> > > - First the chassis-start and chassis-stop target names don=E2=80=99t=
+ make
+> > > sense anymore with the new bmc, chassis, and host state break down=E2=
+=80=99s
+> > > so:
+> > > =C2=A0 - Rename obmc-chassis-start.target to obmc-start-host.target
+> > > =C2=A0 - Rename obmc-chassis-stop.target to obmc-stop-host.target
+> > > =C2=A0 - Rename the current obmc-stop-host.target to obmc-shutdown-ho=
+st.target
+> >=20
+> > Can I suggest putting the host before the action?
+> >=20
+> > obmc-host-stop
+> > obmc-host-start
+> > obmc-host-shutdown
+> >=20
+>=20
+> I believe Brad has a naming convention he's shooting for where the
+> verb comes second.=C2=A0=C2=A0I'm somewhat agnostic on this but we just w=
+ant to
+> be consistent.=C2=A0=C2=A0With your proposal I'd probably have to rename =
+the
+> chassis one's from obmc-power-chassis-on to obmc-chassis-power-on.
+>=20
+> Thoughts Brad?
+
+Whatever the case, ack from me on your general proposal, so long as the
+names are consistent.
+
+Andrew
+
+>=20
+> > >=20
+> > > The target relationships are then the following:
+> > >=20
+> > > obmc-host-start.target requires obmc-power-chassis-on.target
+> > > obmc-shutdown-host.target requires obmc-stop-host.target requires
+> > > obmc-power-chassis-off.target
+> >=20
+> > obmc-host-start requires obmc-chassis-poweron
+> >=20
+> > obmc-host-shutdown requires obmc-host-stop requires obmc-chassis-powero=
+ff
+> >=20
+> > I think the rest of your proposal sounds good, from what I understand.
+> >=20
+> > Cheers,
+> >=20
+> > Joel
+> >=20
+> > >=20
+> > > When a system goes to the quiesce target, the host state manager will
+> > > call the obmc-stop-host.target.=C2=A0=C2=A0Otherwise, the host state =
+service
+> > > will call the obmc-shutdown-host.target when power off is requested.
+> > >=20
+> > > Thoughts/Comments?
+> > > Andrew
+--=-qaLqXNvsBvNOPvLip8kT
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJYr8KVAAoJEJ0dnzgO5LT5yWMP/Rr1ZhMrAxvdKA6/MACaLfzV
+XjeCusb/bxSRhA5PsrImSjbwRPMdYc+qJENZlTZLb5WaxRVjKAdJFbuSDKjwDGr9
+YRPiCyRoXkYtIAbWnPpZnPhxAAWmfpWN+FWEaqw7gGQqHR2g8zDKcwoaqNBjc+/C
+IY8K6FrBqC4cbw8sOYCEt9vbHh5BsHMn6RGARceKAgnjSIeK/5QOVfzrNSnJdr7e
+Son+aqF7bY5Uz39OvojkrVESbMCcflCNXagbuqS9+tHk0jbQFvUEisLoTEMNYkyg
+zaRBlgt2oW4d086JscRFf9LSiW0huz9p5x3fIsHMsoDuGO0xpykUG47K9YPpuOVF
+3CIjjidurejK0Ii8JBv5mKbLBt0dbZbbeHGvsrxTTgEZ3iXNq8O8D8BuE4nYkUr1
+8BencZzTVr+YH3H8F4K+chKhlvtcJ5vOQHE6KWOhlc0zqCl3ZJyu3Qn5wnhiEzeq
+JX7sT+hsVpHnjFW03wCuvxNS9FThYnAcjdM/HENcX4IXWSLt0HyNg+i23OlPF5eB
+v9VMkcC8MvHxA7jO7gC25snLYLmohiP1I604rhm1gnVOK6wR7yalQrrVEg4j7x0K
+upVrMPXiN+C1K3lccqKdsTikupWJeKlAYq+EWND2vF/8ttSoRQ8Ov+klvQPNYN0b
+srxrBHLHqCQFBG8o3eUJ
+=NUNB
+-----END PGP SIGNATURE-----
+
+--=-qaLqXNvsBvNOPvLip8kT--
