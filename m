@@ -1,51 +1,51 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x243.google.com (mail-yb0-x243.google.com
- [IPv6:2607:f8b0:4002:c09::243])
+Received: from mail-yw0-x242.google.com (mail-yw0-x242.google.com
+ [IPv6:2607:f8b0:4002:c05::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vTsYm4N03zDqC0
- for <openbmc@lists.ozlabs.org>; Fri, 24 Feb 2017 11:34:36 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vTscT3T1HzDqGG
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Feb 2017 11:36:57 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="s7B8lseW"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Pnk7UDu3"; 
  dkim-atps=neutral
-Received: by mail-yb0-x243.google.com with SMTP id a5so280667ybb.3
- for <openbmc@lists.ozlabs.org>; Thu, 23 Feb 2017 16:34:36 -0800 (PST)
+Received: by mail-yw0-x242.google.com with SMTP id l16so537193ywb.2
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Feb 2017 16:36:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=8vzN6q85Dc5+b0iNVJDxITbAQ3yUkfrF5pQcvT59S2s=;
- b=s7B8lseWiucAiQKD6pboGbyJ6HT/HMGHTcH+PfQv4We6sWFf19JBih+Wkwnn4viI4q
- LeKjuiZ1NhV8eXkwdGvTvUVV0jmimVOfRzy2VyqJ8+a41bfIkEbb7Z4sryb+9YjWyehj
- 15/OcdGY9a9Rvzax6Z1FFyU/e6l4dz+3XfsZSbM8E6EIIlGWqMds6yb21x/neYFBA6So
- mHZ+S+NC3iEoqVI+LikeIUN9I6/8MIc7RcAxEJ+8QadUHZWTqvRvXqZGZsmuk2Da4al7
- CmBnDGvbUYFt9PQytEFw6rBsjdlapMnOLdRgerPz4zt4nSOp7MyGcrhWsmLmK64v2drT
- kTyw==
+ bh=t9uHfhBVY5fHi347E+2aprv29y9463mqO6d+ZRHRscc=;
+ b=Pnk7UDu3s+p+qXZQtP2uwuOd8FXj7jJ7xwTGWvKXOFP9bmoHSu5SaZKiy8XfnttOXC
+ 1ED5qHdxpK6Pqqo1+4Zd1tFV1FCP1wMEmKlehufAg0pdFzSVvlAc5ljjsPUboLO6s+JC
+ E14D/xDJjaHA7s0fqKrBmpz5Sdk3HQ3Mz+2MNFonuoDBbsLH9Y2I2Edw6UbcK9jgGnSu
+ ZONLvXTmwgA562tCgG5IK/I+lE5vBiQ1zx/F0Idw4iA1RNLBY4cth9vYh6AxMN9jHVWA
+ Rb+29v6pCfhGbcQ+cjYGzTI8G6ZWS+v/fdEmaFCnFlSc/iHMBR5RvA5c5Rakd9JHdEeR
+ dc8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=8vzN6q85Dc5+b0iNVJDxITbAQ3yUkfrF5pQcvT59S2s=;
- b=jkfzdK3U19x5AyAwq2AbK4K2ycN4UtGW+R+Ma9lQAsAntUGqxlGms1fKlpZAsP+qH4
- knFYWNYsP3AjkUmiv4bSME01S7kaLFKU/gt6oRxZaENfrLcjlgsnXLINE2wMskrSBQI8
- Ez9WJXudhkKu7vJOVNuuZ8uZW5/YhXx1jTt09Kj1nGKGrF+krwOOXLr+Ovld7zH45co0
- +zp6MRDVTAxmK5kVSvtPtSQliIHGeGvLyvMMqckjSM1VbhtQi990ZEEJ/T5EmYdN+SCj
- 7tSzYYu0WGZTzuH5yLvJdnOj/tg7vGzlf3rsT8aPoBsWs1eWV0Wqw77NfQE3IiDRNpUT
- lUqQ==
-X-Gm-Message-State: AMke39kzK0rQSyG0qktsDIYrCusRnvy0ku4Umqmwk0otb/e0S53oC/86iedWYOYKjNQvQcYxub0u/eAOeU/ftg==
-X-Received: by 10.37.194.5 with SMTP id s5mr27645605ybf.136.1487896474164;
- Thu, 23 Feb 2017 16:34:34 -0800 (PST)
+ bh=t9uHfhBVY5fHi347E+2aprv29y9463mqO6d+ZRHRscc=;
+ b=AvAQaXu8HBjB/Negw8qTwhy4UtLV2XvZGrm+HUJ1xaf8t0kbCYSGvNfUFp5WrAlsOh
+ TYh2jz4e9hq/xucqd/jZ9st4+7dpi+g33Z2UiSbiGZOorYvVNqmmcpLjhevt+Pt4cGFJ
+ g2cmWrOP74MoVkjxADOUOGmAWJHYb2szicP2J6rkhnaLWL+Bp5si4+lrHeZHgY9MdKXd
+ J3TjaXoo1swryUNxFWfK2WWfT6nnpu7dehBkH6zBDjMBCHrOpf7gQpLZ1kMWXWQXuk3w
+ QO+YQDRqNTs2mDMWlN97emwlEmPECXxS6gQ/Ggik0Eh7jsWBB/T9bCFkg5ANeuhTrga0
+ Sspw==
+X-Gm-Message-State: AMke39mo13BfZ2mQWD/JW64rKTMmlckDasQxe0ad7O1CBsAPAR476tfEdGH5ZrodxWMDwwI5gy9RAClZg7tCZA==
+X-Received: by 10.129.116.4 with SMTP id p4mr34361081ywc.268.1487896615003;
+ Thu, 23 Feb 2017 16:36:55 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.27.133 with HTTP; Thu, 23 Feb 2017 16:34:13 -0800 (PST)
-In-Reply-To: <20170223195837.82098-2-cbostic@linux.vnet.ibm.com>
+Received: by 10.37.27.133 with HTTP; Thu, 23 Feb 2017 16:36:34 -0800 (PST)
+In-Reply-To: <20170223195837.82098-3-cbostic@linux.vnet.ibm.com>
 References: <20170223195837.82098-1-cbostic@linux.vnet.ibm.com>
- <20170223195837.82098-2-cbostic@linux.vnet.ibm.com>
+ <20170223195837.82098-3-cbostic@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 24 Feb 2017 11:04:13 +1030
-X-Google-Sender-Auth: tOvqIIuLBPBwIpiNzxgltdhBRMk
-Message-ID: <CACPK8Xc3D9C10kr861etrCSsdTci7MD7oiLZM7FMz9D5QDwHvw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7 v3 1/2] drivers/fsi: Move common read/write
- code into shared utility
+Date: Fri, 24 Feb 2017 11:06:34 +1030
+X-Google-Sender-Auth: QNeZcGfg5ozofb2z7mn7H9HXfI0
+Message-ID: <CACPK8XdPKSDM+3WOMYW1+xCQvwvor+fhwb2oFZm05+guz0cErA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7 v3 2/2] drivers/fsi: Cleanup and retry op on
+ error
 To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
@@ -60,55 +60,123 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 24 Feb 2017 00:34:37 -0000
-
-Hi Chris,
+X-List-Received-Date: Fri, 24 Feb 2017 00:36:58 -0000
 
 On Fri, Feb 24, 2017 at 6:28 AM, Christopher Bostic
 <cbostic@linux.vnet.ibm.com> wrote:
-> Move common code shared between fsi_master_gpio_read/write into
-> send utility.
+> On detect of FSI bus error clean up the bus and then retry
+> the original operation.
 >
 > Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 >
-> ---
+> v3 - Move comon read/write code into a retry utility
 >
-> v2 - Separate this patch from a collection of other changes in the
->      v1 related patch.
+>    - Add comment on why trying again
+>
+>    - Change nested error check from atomic bit type to atomic_t
+>
+>    - loop on retry instead of duplicating the same code
 
-This patch is unchanged from when I acked the previous revision. You
-should include the tags from your reviewers when you re-send.
+Thanks for including the changelog. As I mentioned on the list to
+Eddie yesterday, the convention is to place the review comments below
+the --- on the next line:
 
-Reviewed-by: Joel Stanley <joel@jms.id.au>
-
-Cheers,
-
-Joel
 
 > ---
->  drivers/fsi/fsi-master-gpio.c | 38 ++++++++++++++++++--------------------
->  1 file changed, 18 insertions(+), 20 deletions(-)
+>  drivers/fsi/fsi-core.c        | 30 ++++++++++++++++++++++++++++++
+>  drivers/fsi/fsi-master-gpio.c | 28 ++++++++++++++++++++++++++--
+>  drivers/fsi/fsi-master.h      |  1 +
+>  3 files changed, 57 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
-> index 8c8a8f4..b6feec1 100644
-> --- a/drivers/fsi/fsi-master-gpio.c
-> +++ b/drivers/fsi/fsi-master-gpio.c
-> @@ -354,26 +354,33 @@ static void build_abs_ar_command(struct fsi_gpio_msg *cmd, uint64_t mode,
->         cmd->msg >>= (64 - cmd->bits);
+> diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
+> index 02ca3c0..a7b705d 100644
+> --- a/drivers/fsi/fsi-core.c
+> +++ b/drivers/fsi/fsi-core.c
+> @@ -42,6 +42,9 @@
+>
+>  #define FSI_PEEK_BASE                  0x410
+>  #define        FSI_SLAVE_BASE                  0x800
+> +#define        FSI_HUB_CONTROL                 0x3400
+> +
+> +#define        FSI_SLAVE_SMODE_DFLT            0xa0ff0100
+>
+>  #define FSI_IPOLL_PERIOD               msecs_to_jiffies(fsi_ipoll_period_ms)
+>
+> @@ -55,6 +58,7 @@ static const int engine_page_size = 0x400;
+>  static struct task_struct *master_ipoll;
+>  static unsigned int fsi_ipoll_period_ms = 100;
+>  struct class *hub_master_class;
+> +static atomic_t in_err_cleanup = ATOMIC_INIT(-1);
+
+As I said in my initial review:
+
+"Instead use a atomic type for in_err_cleanup, declared in the scope
+of fsi_master_gpio_handle_error."
+
+The variable should be declared inside fsi_master_handle_error.
+
+>
+>  static DEFINE_IDA(master_ida);
+>
+> @@ -653,6 +657,32 @@ static int fsi_master_break(struct fsi_master *master, int link)
+>         return 0;
 >  }
 >
-> +static int send_command(struct fsi_master_gpio *master,
-> +                       struct fsi_gpio_msg *cmd, uint8_t expected,
-> +                       size_t size, void *val)
+> +void fsi_master_handle_error(struct fsi_master *master, uint32_t addr)
 > +{
-> +       unsigned long flags;
+> +       uint32_t smode = FSI_SLAVE_SMODE_DFLT;
+> +
+> +       if (!atomic_inc_and_test(&in_err_cleanup))
+> +               return;
+> +
+> +       fsi_master_break(master, 0);
+> +       udelay(200);
+> +       master->write(master, 0, 0, FSI_SLAVE_BASE + FSI_SMODE, &smode,
+> +                       sizeof(smode));
+> +       smode = FSI_MRESB_RST_GEN | FSI_MRESB_RST_ERR;
+> +       master->write(master, 0, 0, FSI_HUB_CONTROL + FSI_MRESB0, &smode,
+> +               sizeof(smode));
+> +
+> +       if (addr > FSI_HUB_LINK_OFFSET) {
+> +               smode = FSI_BREAK;
+> +               master->write(master, 0, 0, 0x100004, &smode, sizeof(smode));
+> +               smode = FSI_SLAVE_SMODE_DFLT;
+> +               master->write(master, 0, 0, 0x100800, &smode, sizeof(smode));
+> +       }
+> +
+> +       atomic_set(&in_err_cleanup, -1);
+> +}
+> +EXPORT_SYMBOL(fsi_master_handle_error);
+> +
+>  static int fsi_master_scan(struct fsi_master *master)
+>  {
+>         int link, slave_id, rc;
+> diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
+> index b6feec1..c5f4f9c 100644
+> --- a/drivers/fsi/fsi-master-gpio.c
+> +++ b/drivers/fsi/fsi-master-gpio.c
+> @@ -370,6 +370,28 @@ static int send_command(struct fsi_master_gpio *master,
+>         return rc;
+>  }
+>
+> +static int fsi_master_gpio_send(struct fsi_master_gpio *master,
+> +                               struct fsi_gpio_msg *cmd, uint8_t expected,
+> +                               uint32_t addr, size_t size, void *val)
+> +{
+> +       static const int master_retries = 2;
+> +       uint8_t retries;
 > +       int rc;
 > +
-> +       spin_lock_irqsave(&fsi_gpio_cmd_lock, flags);
-> +       serial_out(master, cmd);
-> +       echo_delay(master);
-> +       rc = poll_for_response(master, expected, size, val);
-> +       spin_unlock_irqrestore(&fsi_gpio_cmd_lock, flags);
+> +       /*
+> +        * In case the FSI bus is in a bad state a retry may help
+> +        * the operation to complete successfully
+> +        */
+> +       for (retries = 0; retries < master_retries; retries++) {
+> +               rc = send_command(master, cmd, expected, size, val);
+> +               if (!rc)
+> +                       break;
+> +               fsi_master_handle_error(&master->master, addr);
+> +       }
 > +
 > +       return rc;
 > +}
@@ -116,50 +184,38 @@ Joel
 >  static int fsi_master_gpio_read(struct fsi_master *_master, int link,
 >                 uint8_t slave, uint32_t addr, void *val, size_t size)
 >  {
->         struct fsi_master_gpio *master = to_fsi_master_gpio(_master);
->         struct fsi_gpio_msg cmd;
-> -       int rc;
-> -       unsigned long flags;
->
->         if (link != 0)
+> @@ -380,7 +402,8 @@ static int fsi_master_gpio_read(struct fsi_master *_master, int link,
 >                 return -ENODEV;
 >
 >         build_abs_ar_command(&cmd, FSI_GPIO_CMD_READ, slave, addr, size, NULL);
-> -
-> -       spin_lock_irqsave(&fsi_gpio_cmd_lock, flags);
-> -       serial_out(master, &cmd);
-> -       echo_delay(master);
-> -       rc = poll_for_response(master, FSI_GPIO_RESP_ACKD, size, val);
-> -       spin_unlock_irqrestore(&fsi_gpio_cmd_lock, flags);
-> -
-> -       return rc;
-> +       return send_command(master, &cmd, FSI_GPIO_RESP_ACKD, size, val);
+> -       return send_command(master, &cmd, FSI_GPIO_RESP_ACKD, size, val);
+> +       return fsi_master_gpio_send(master, &cmd, FSI_GPIO_RESP_ACKD, addr,
+> +                               size, val);
 >  }
 >
 >  static int fsi_master_gpio_write(struct fsi_master *_master, int link,
-> @@ -381,21 +388,12 @@ static int fsi_master_gpio_write(struct fsi_master *_master, int link,
->  {
->         struct fsi_master_gpio *master = to_fsi_master_gpio(_master);
->         struct fsi_gpio_msg cmd;
-> -       int rc;
-> -       unsigned long flags;
->
->         if (link != 0)
+> @@ -393,7 +416,8 @@ static int fsi_master_gpio_write(struct fsi_master *_master, int link,
 >                 return -ENODEV;
 >
 >         build_abs_ar_command(&cmd, FSI_GPIO_CMD_WRITE, slave, addr, size, val);
-> -
-> -       spin_lock_irqsave(&fsi_gpio_cmd_lock, flags);
-> -       serial_out(master, &cmd);
-> -       echo_delay(master);
-> -       rc = poll_for_response(master, FSI_GPIO_RESP_ACK, size, NULL);
-> -       spin_unlock_irqrestore(&fsi_gpio_cmd_lock, flags);
-> -
-> -       return rc;
-> +       return send_command(master, &cmd, FSI_GPIO_RESP_ACK, size, NULL);
+> -       return send_command(master, &cmd, FSI_GPIO_RESP_ACK, size, NULL);
+> +       return fsi_master_gpio_send(master, &cmd, FSI_GPIO_RESP_ACK, addr,
+> +                               size, NULL);
 >  }
 >
 >  /*
+> diff --git a/drivers/fsi/fsi-master.h b/drivers/fsi/fsi-master.h
+> index 4a3176b..54723a7 100644
+> --- a/drivers/fsi/fsi-master.h
+> +++ b/drivers/fsi/fsi-master.h
+> @@ -85,6 +85,7 @@ struct fsi_master {
+>  extern int fsi_master_register(struct fsi_master *master);
+>  extern void fsi_master_unregister(struct fsi_master *master);
+>  extern int fsi_master_start_ipoll(struct fsi_master *master);
+> +extern void fsi_master_handle_error(struct fsi_master *master, uint32_t addr);
+>
+>  /**
+>   * crc4 helper: Given a starting crc4 state @c, calculate the crc4 vaue of @x,
 > --
 > 1.8.2.2
 >
