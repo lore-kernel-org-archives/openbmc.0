@@ -1,28 +1,45 @@
-Return-Path: <paulepanter@users.sourceforge.net>
-X-Greylist: delayed 2158 seconds by postgrey-1.36 at bilbo;
- Mon, 27 Feb 2017 06:25:44 AEDT
-Received: from mail.gw90.de (mail.gw90.de [IPv6:2a01:4f8:100:7463::3])
+Return-Path: <mine260309@gmail.com>
+Received: from mail-qk0-x235.google.com (mail-qk0-x235.google.com
+ [IPv6:2607:f8b0:400d:c09::235])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vWZZ01QbXzDqGg
- for <openbmc@lists.ozlabs.org>; Mon, 27 Feb 2017 06:25:44 +1100 (AEDT)
-Received: from [2a02:8109:8ac0:9e5:359a:aa34:45ca:e8f4] (helo=mattotaupa)
- by mail.gw90.de with esmtpsa (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.84_2) (envelope-from <paulepanter@users.sourceforge.net>)
- id 1ci3sx-0007qC-7d; Sun, 26 Feb 2017 18:49:31 +0000
-Message-ID: <1488134962.2850.11.camel@users.sourceforge.net>
-Subject: OT: Crowdfunding to port OpenBMC to Asus KGPE-D16
-From: Paul Menzel <paulepanter@users.sourceforge.net>
-To: openbmc@lists.ozlabs.org
-Cc: Timothy Pearson <tpearson@raptorengineeringinc.com>, Martin Roth
- <gaumless@gmail.com>, linux-kernel@vger.kernel.org
-Date: Sun, 26 Feb 2017 19:49:22 +0100
-Content-Type: multipart/signed; micalg="pgp-sha1";
- protocol="application/pgp-signature"; 
- boundary="=-fzs9ygHh65UPmajn4vDk"
-X-Mailer: Evolution 3.22.5-1 
-Mime-Version: 1.0
-X-Mailman-Approved-At: Mon, 27 Feb 2017 09:57:18 +1100
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vWxKP2DCPzDqC0
+ for <openbmc@lists.ozlabs.org>; Mon, 27 Feb 2017 20:31:05 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="V76OxN/Y"; 
+ dkim-atps=neutral
+Received: by mail-qk0-x235.google.com with SMTP id n127so88252288qkf.0
+ for <openbmc@lists.ozlabs.org>; Mon, 27 Feb 2017 01:31:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=z6F85ZCWXstiFnraPSDJgcsFKw0R/K+8/6JUpFpkgUQ=;
+ b=V76OxN/YmQ9EfewuXnsuct3dOyvWgsmPIAps3cc/4Ry7Qq6p+B0O47fS2paROmOZeU
+ HWqqEvxDPjgevD3mgUYd4/YEoJhKf2C1q2WDqZLD/a1vmtyBRD019mNZGkcIGLP0uB9I
+ Fuh7EAfIINs/DTHRtOm0T9zEzb9TdnILUREvv1YuACKImaPjTLpsc5GbSASVjCeELZuN
+ eQpUJbJjDCnwbbYCuXWtblFwl1k/bOKKI0MAvFRynh2dZNDV6xXUnHhL+D4HSO+tronl
+ 6H5aAhha84pBPcDdzalTfwJP0XHQabkt1rA24d0yzTF7cTG8osumLkXiCqBTcEVWk8X+
+ +1KQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=z6F85ZCWXstiFnraPSDJgcsFKw0R/K+8/6JUpFpkgUQ=;
+ b=iy0pWWF9pGTGryPdHBW7PJw854Do788aqUvkgTy999M8FWLi0pLBYO8wl476RqQnyr
+ 9bSEg+34j3xhJaTDMwyhXysYFIutovfoavmkgpeEO7ZeTucl/0EDtYrs5WKKn9riTxfc
+ jCXJtwCWxEKBgKgSOLzD7LLRg4u848NXcpcH16ydf65bee8DG0/4iyvNzNX5GrA0NCXP
+ Lg6qKvYL4zhhDxMp9TjruQBIznmu5WZQw1PSE+JCw+Vi8Do3kvY9BTmPm1kIqEF0hwSX
+ 9JD+UeMkN8islWp5JI346iNXOeWqTiBkd7CdAPfzXgK/pL5CkzpPLhxbhPQwCqiPRZHz
+ 47ag==
+X-Gm-Message-State: AMke39nRNlodqJ30VsJPpctu2NXEZUIabS6O1t+g+FNIo4bQ8cZSv63INEZdYz6nIsH3Gr3A62sIZ+LFS7uFTw==
+X-Received: by 10.55.180.5 with SMTP id d5mr14132133qkf.266.1488187862534;
+ Mon, 27 Feb 2017 01:31:02 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.12.137.9 with HTTP; Mon, 27 Feb 2017 01:31:02 -0800 (PST)
+From: Lei YU <mine260309@gmail.com>
+Date: Mon, 27 Feb 2017 17:31:02 +0800
+Message-ID: <CAARXrtm8E4z0zBjVhLTExfei+6grmZ2e39nx5=F6BAk0FZUUaQ@mail.gmail.com>
+Subject: RFC: Propose to make a common utils repo for OpenBMC (or phosphor-xxx)
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -34,72 +51,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 26 Feb 2017 19:25:44 -0000
+X-List-Received-Date: Mon, 27 Feb 2017 09:31:06 -0000
 
+Hi All,
 
---=-fzs9ygHh65UPmajn4vDk
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This email is to propose to make a new separated repo of common code for
+OpenBMC, or at least for phohphor-xxx repos.
 
-[Please CC me, as I am not subscribed.]
+During the code review, we can see several duplicated code in different repos.
+E.g.
+1. Both phosphor-watchdog and phosphor-host-ipmid uses timer related functions.
+   They both have similar code using `sd_event_source_set_enabled()` and
+   `sd_event_source_set_time()`
+2. phosphor-time-mamanger, phosphor-watchdog, and phosphor-host-ipmid all have
+   similar code to retrieve the current system time.
+3. I believe there are similar code in many repos about operations on
+   `std::string`, e.g. find sub string, convert from/to other types, etc.
 
-Dear OpenBMC people,
+Is it a good idea to have a repo that collecting the common code and make it a
+library for other repos to use?
+E.g. if we have `phosphor-common-utils` and built in SDK, we can provide a
+consistent interfaces of util functions that will make other apps' code more
+clean and less errors.
 
+Feedback are welcome!
+Thanks!
 
-If you haven=E2=80=99t heard yet, there is a crowdfunding campaign going on=
- to
-fund a port of OpenBMC to the Asus KGPE-D16 [1].
-
-The free firmware coreboot [2] runs on that board, and no BLOBs have to
-be used with it. Having OpenBMC run on that board, would be the last
-step, to have a fully free, owner-controlled server mainboard. I am
-citing a message from Timothy to the coreboot mailing list below from
-February 6th, 2017 [3].
-
-> As of today, we have $10,250 pledged out of $20,000 required to start
-> work on the OpenBMC support for KGPE-D16 systems using coreboot.  Raptor
-> is, as before, contributing an additional $25,000+ toward development
-> should the $20,000 community goal be reached.
->=20
-> If you would like to help get this port started, please contact Martin
-> Roth (gaumless@gmail.com) with information on what you would like to
-> pledge.  This offer is time limited; we are looking to end the offer in
-> the next month or so, so if this is something you would like to see
-> please step up and contribute something to this goal!
->=20
-> As a general reminder, the KGPE-D16 is the last, most powerful
-> owner-controllable X86 workstation / server class machine available.  It
-> is still in production along with its Opteron CPUs, so it occupies a
-> unique position in coreboot's tree.  Providing a libre BMC for this
-> system could help adoption of coreboot in server environments,
-> strengthening its position some in the market.
-
-As of today there are still $6,000 USD missing. As the coreboot
-community does not seem big enough to fund such a project, I am kindly
-asking you for support. If you can=E2=80=99t or don=E2=80=99t want to spend=
- money, it=E2=80=99d
-be great if you could spread the word (Twitter message [4]).
-
-
-Thanks,
-
-Paul
-
-
-[1] https://www.raptorengineering.com/coreboot/kgpe-d16-bmc-port-offer.php
-[2] https://www.coreboot.org/
-[3] https://www.coreboot.org/pipermail/coreboot/2017-February/083176.html
-[4]=C2=A0https://twitter.com/RaptorEng/status/833738989840584704
---=-fzs9ygHh65UPmajn4vDk
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQQ8+w9d414FAVARIpk9fVorbA4dWAUCWLMjMgAKCRA9fVorbA4d
-WOa4AJoDZtv1VL/XP7zFlAoFeThdxu93TgCfY03NOnzC6pmGzl5KP6PJcHGuIIg=
-=+duc
------END PGP SIGNATURE-----
-
---=-fzs9ygHh65UPmajn4vDk--
+--
+BRs,
+Lei YU
