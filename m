@@ -1,54 +1,53 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x241.google.com (mail-yw0-x241.google.com
- [IPv6:2607:f8b0:4002:c05::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vXKLf5KbYzDq8M
- for <openbmc@lists.ozlabs.org>; Tue, 28 Feb 2017 11:33:30 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="UFIQlY7h"; 
- dkim-atps=neutral
-Received: by mail-yw0-x241.google.com with SMTP id l16so7456609ywb.2
- for <openbmc@lists.ozlabs.org>; Mon, 27 Feb 2017 16:33:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=UumA+0SZJCkR99bOq7fe/uuAeUkOC+vLDGgE1zjxx/U=;
- b=UFIQlY7hORS+vORu++inuXviSPuBiOLt1xrZaaV+YUdK+AbuhRPQskfDkbEVIqfyID
- JD60gTm78Y+lQHuwDIJys2jyfqNdm7T4OafN5a0k7RghzEEPCkTn7bRJlVoB9VLGjG6r
- Hxsyru8457T1nZJQYWl1BfDb/MxUZbCSxALTYzDB4Ek+W4QtUX4EzCHbulizR/p5ew1O
- UOvrfTxevp5Awm4DhODzgLzc62kSI23xbWKm+Hyrx2/UelShygc61Pu1jlb+XvXnDWpq
- 5m7AMdmCH0qWDQl07hJef6ZaViQps4F4RpwuPGgzCoa6C7ZopPx4ODVngJyaGQr3lnuZ
- Vflg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=UumA+0SZJCkR99bOq7fe/uuAeUkOC+vLDGgE1zjxx/U=;
- b=rp9hN7DGFXdoG7+o/OCNBKgZ9Wpb+zLzK0EFgvy7RivY1A8WK0Y6w4lJXfVWoxtUaO
- NlCpQCoZMbAHRe/gVCmy0UAQvVPmrCF7lYXEZkfT7RyVjOQVg65DwA6gU9QvOl9cDxOp
- rQKHvNvV63HFOQE2c1CPgW/Yqa/Hre/+4l0e4W3yN2pviQo6f68M84M1KrQlSuu57Vvi
- gIuSylYRm2I5KdeLSYEnyO5Vq2/ZVPEWPFVkEa4kBwrAdLCD1xEpIgwRKuY/4+xQLZJs
- ceQ6N5T36MZqn1mlC/Enc/c0A0sdDg4wFabMIoIlDL2lWJwAvzh02HBufdEOhc7b57IB
- SxOg==
-X-Gm-Message-State: AMke39mV1RyjEVOcjaI2h1F+ptiMe2PgZW35rEnKTOywDu97o+KAIYZx7BYNxAlkgGD1DM6I20BbFN7VHFve/A==
-X-Received: by 10.129.71.10 with SMTP id u10mr14063303ywa.174.1488242007179;
- Mon, 27 Feb 2017 16:33:27 -0800 (PST)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.27.133 with HTTP; Mon, 27 Feb 2017 16:33:06 -0800 (PST)
-In-Reply-To: <OF0AB1CC1B.32E73912-ON002580D4.007C5341-002580D4.007D7856@notes.na.collabserv.com>
-References: <OF0AB1CC1B.32E73912-ON002580D4.007C5341-002580D4.007D7856@notes.na.collabserv.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 28 Feb 2017 11:03:06 +1030
-X-Google-Sender-Auth: zDUzdDA4YPPAAK4N8BVq_a18liE
-Message-ID: <CACPK8XcrzLyjbxKv89WJyOwidfKb=9Y-+0GASkrgEseAwKXkng@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vXKXd40JJzDq8M
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Feb 2017 11:42:08 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Ny2nIPd4"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="gvt8PRxn"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 16A302085B;
+ Mon, 27 Feb 2017 19:42:05 -0500 (EST)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Mon, 27 Feb 2017 19:42:05 -0500
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=mesmtp; bh=iSHQnbbsK25RKo8FsPaTAxDVAJU=; b=Ny2nIP
+ d4lgA3Wv3PsNZwjwv1oTPy5p4TjV1eCpEivXIitI927NcWGSobo+w9x5uG7VWlsa
+ R63jzuAJGeeVKpiCqvBT7ygzF/NooL2PNwRNz/6T5lFIj4rNrU8/1TMkwABOPB0j
+ KAcIZFXF2WWrKDu6TE/Yn/sy6R6hEpYVdDLnw=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=iSHQnbbsK25RKo
+ 8FsPaTAxDVAJU=; b=gvt8PRxnJoivtBtNMQbJKDuD2b0D+4jlZo1LxKfRJUMod6
+ ojPfPScdkp43YEMiB31EIAbkXqssfEGWyW0cuh80d7Q7iU7ZDinCNKAEFG9Hf1NC
+ rHIrXyjzy/CJVd7wfn/urJyculwFupuxoBDSoRSmJXZOtv+o1IIMtR8RHgjcY=
+X-ME-Sender: <xms:Xce0WGpyQsugVMtTF1-AmCaSJhydQctXMtOHi9sYK6iKVj1WzAif0Q>
+X-Sasl-enc: Y8XTV6OTtarZbTaEfoEawBNPWdkROtYh1GiC/D+nRGYj 1488242524
+Received: from [10.104.0.15] (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id C452B240A5;
+ Mon, 27 Feb 2017 19:42:02 -0500 (EST)
+Message-ID: <1488242516.4258.1.camel@aj.id.au>
 Subject: Re: New GPIO API from upstream
-To: Edward James <eajames@us.ibm.com>
-Cc: Bradley W Bishop <bradleyb@us.ibm.com>, Matt Spinler <spinler@us.ibm.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Andrew Jeffery <andrew@aj.id.au>
-Content-Type: text/plain; charset=UTF-8
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Joel Stanley <joel@jms.id.au>, Edward James <eajames@us.ibm.com>
+Cc: Bradley W Bishop <bradleyb@us.ibm.com>, Matt Spinler
+ <spinler@us.ibm.com>,  OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Tue, 28 Feb 2017 11:11:56 +1030
+In-Reply-To: <CACPK8XcrzLyjbxKv89WJyOwidfKb=9Y-+0GASkrgEseAwKXkng@mail.gmail.com>
+References: <OF0AB1CC1B.32E73912-ON002580D4.007C5341-002580D4.007D7856@notes.na.collabserv.com>
+ <CACPK8XcrzLyjbxKv89WJyOwidfKb=9Y-+0GASkrgEseAwKXkng@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-46LXat7tI5YGHkDQgIOn"
+X-Mailer: Evolution 3.22.1-0ubuntu2 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,60 +59,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Feb 2017 00:33:31 -0000
+X-List-Received-Date: Tue, 28 Feb 2017 00:42:10 -0000
 
-Hey Eddie,
 
-On Tue, Feb 28, 2017 at 9:20 AM, Edward James <eajames@us.ibm.com> wrote:
-> I think we have some people interested in using the new GPIO chardev API
-> (Matt? Not sure who else).
+--=-46LXat7tI5YGHkDQgIOn
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Great!
+On Tue, 2017-02-28 at 11:03 +1030, Joel Stanley wrote:
+> > The new API provides some useful stuff like
+> > triggering events when a gpio line changes, etc.
+>=20
+> Triggering from GPIO line changes is also possible with the sysfs API
+> - you can poll() on the sysfs file as described in the documentation:
+>=20
+> =C2=A0https://www.kernel.org/doc/Documentation/gpio/sysfs.txt
+>=20
+> When we're dealing with inputs, another useful interface we can use
+> from the kernel is input events. We use the device tree to bind the
+> gpio-keys driver to the GPIO, and this gives us an input device to
+> read from:
+>=20
+> =C2=A0https://www.kernel.org/doc/Documentation/devicetree/bindings/input/=
+gpio-keys.txt
 
-I did some experimentation with the chardev API a few months ago -
-attempting to replace the GPIO utilities in skeleton that use sysfs
-with a the chardev API. As you know sysfs is great for bash scripts,
-but is clunky to use from C or C++. However I didn't find it much of a
-win.
+This is primarily useful if you want to apply pinconf settings to the
+GPIO, e.g. debounce periods. It does require that you assign a keycode
+to the GPIO, which will then become part of the system's kernel ABI.
+That's a bit of a detraction, so your use-case will play an important
+role in determining whether this is the best approach.
 
-That said, I am happy to support anyone who wants to give it a go.
+Andrew
+--=-46LXat7tI5YGHkDQgIOn
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-> The new API provides some useful stuff like
-> triggering events when a gpio line changes, etc.
+-----BEGIN PGP SIGNATURE-----
 
-Triggering from GPIO line changes is also possible with the sysfs API
-- you can poll() on the sysfs file as described in the documentation:
+iQIcBAABCgAGBQJYtMdUAAoJEJ0dnzgO5LT5iz4P/jnI+crEGRwrI4Coaqqokl5V
+o3G+26yt44xEQTi08gj/m8LIePPNpeuHpslGO4Dk63R7asDKQmDDkTelTn8IOgAg
++O+Xlt+xVOyU6w3uAoMzDrLT3USPjDAZbqWRMm39M4LQhU0yYTxKkCJ9RsR3kVeh
+2cBX+fXO+4/zt1vudzEiRlWJrtgQdzaMGxasmLJaLGIsl7Oic7vWu75JR1ccM7P+
+kovTfQmFi4FXBuptrPVm/bHFISVCHrVGZTLTnHUEK4blWbYxsyxS51jUTTG+VdL5
+GHjBbTr3xwJTHEvtTPwjROnfS+LVXnePQoZeV1nDWb76mxMFYMvzaRpmPGeShUeh
+b0tXirgZGXlO5qaz2/GkEvSZWVxA021NnI+asPS6j+fU+zUMoQ1V4XaWtA3yFA8r
+VGUceTK3w2EWsldMrCmgzItOSGS+0oOQmikqERsfEnnxNZyzRIdzcoHUTPEWU70Z
+V3GbMeFlk2B2sGsdANLeWNuXzf2i1REbWnSm7iP/2xM3JupG2ssA1BhHiIoBUBXE
+UKcvaJQWAs69DlGobjbMjOBQQ4AcM1tpYiLkKu1bkwVZG+qANuQmWhfnNWNSAgSl
+M6cOjr5lL4QUGYb/XnvkqiXdS3rQyjw6j13qHy+hxsKhkQOU3ZiGHc1/R8Bpx5Aj
+pcl1sEMdEmt6RHcwq/mv
+=i7AI
+-----END PGP SIGNATURE-----
 
- https://www.kernel.org/doc/Documentation/gpio/sysfs.txt
-
-When we're dealing with inputs, another useful interface we can use
-from the kernel is input events. We use the device tree to bind the
-gpio-keys driver to the GPIO, and this gives us an input device to
-read from:
-
- https://www.kernel.org/doc/Documentation/devicetree/bindings/input/gpio-keys.txt
-
-> Problem is these changes are new since we branched off for dev-4.7. I have a
-> list of commits I think we'd need, it's non-trivial, and I think there are
-> some later commits that do some additional ioctl input checking.
-
-> What do you think we should do? Hold off on any work using the new API until
-> you rebase us to a later kernel release? Or do you want to patch dev-4.7?
-
-I intended to move us to a 4.10 based tree last week. Due to our push
-to get OpenFSI working, and other urgent tasks, that hasn't happened
-yet. I hope to publish the tree this week.
-
-I recommend that you start writing against the 4.10 APIs now. By the
-time you have code ready to go we should be fine.
-
-This will require solving a long-standing issue with userspace kernel
-headers in our Yocto build. We build the userspace against the 4.4
-kernel that Yocto ships, so you will lack the headers required to use
-this API. I recommend we move openbmc to building against the compiler
-and therefore the userspace headers against the same version of the
-kernel as we use to boot the system.
-
-Cheers,
-
-Joel
+--=-46LXat7tI5YGHkDQgIOn--
