@@ -1,36 +1,54 @@
-Return-Path: <s.kachkin@yadro.com>
-Received: from mx3.yadro.com (mx3.yadro.com [89.207.88.220])
- by lists.ozlabs.org (Postfix) with ESMTP id 3vXcNS3J3yzDqHJ
- for <openbmc@lists.ozlabs.org>; Tue, 28 Feb 2017 22:51:04 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="bTcQkfMw"; 
+Return-Path: <mine260309@gmail.com>
+Received: from mail-qk0-x243.google.com (mail-qk0-x243.google.com
+ [IPv6:2607:f8b0:400d:c09::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vXdBl580bzDqHG
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Feb 2017 23:27:43 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="DY6oOIEB"; 
  dkim-atps=neutral
-Received: from mx0.yadro.com (unknown [172.17.0.6])
- by mx3.yadro.com (Postfix) with ESMTP id D7D1217613
- for <openbmc@lists.ozlabs.org>; Tue, 28 Feb 2017 14:50:59 +0300 (MSK)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mx3.yadro.com D7D1217613
-Authentication-Results: mx3.yadro.com;
- dkim=fail reason="key not found in DNS" (0-bit key) header.d=yadro.com
- header.i=@yadro.com header.b=bTcQkfMw
-Subject: IPMI implementation and OpenBMC timeline question
-DKIM-Filter: OpenDKIM Filter v2.10.3 mx0.yadro.com AC4F928144AA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yadro.com; s=mx0;
- t=1488282659; bh=0DMPLjaP/dfuBW4D2O+rpNvQDKngA/Pi0gsPCoUG16E=;
- h=References:To:From:Date:In-Reply-To:From;
- b=bTcQkfMwI37DlGKWS025aVZXcE1vq4gKRXl/uSF/IBHhsa9JyWumfPLg2qGcUTOVJ
- lM7BfRtCyn/fB5aEDcSclLPsdUwGSoAsvuZmvRCeAwnHqQqHcFAa5bzRqOVpLJQ7hW
- lo/F8/BGBgwmRf/C6CtflrT3ZMIPKZ4be+86IH5Y=
-References: <85f0bd73-6044-5257-3e40-9a3a4526b525@yadro.com>
-To: openbmc@lists.ozlabs.org
-From: Sergey Kachkin <s.kachkin@yadro.com>
-X-Forwarded-Message-Id: <85f0bd73-6044-5257-3e40-9a3a4526b525@yadro.com>
-Message-ID: <55adda54-467e-3865-cf0d-cf64d1fa62a7@yadro.com>
-Date: Tue, 28 Feb 2017 14:50:59 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.7.0
-In-Reply-To: <85f0bd73-6044-5257-3e40-9a3a4526b525@yadro.com>
-Content-Type: multipart/alternative;
- boundary="------------51B4228170C6832B1DC166B5"
+Received: by mail-qk0-x243.google.com with SMTP id n127so2291884qkf.2
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Feb 2017 04:27:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=VOKdCb9ulrluqhRX6yq8D6XA/9NwFTnjnv6VzRju4KE=;
+ b=DY6oOIEBrlct1goEeUD2AhouirEDhSoiVEC1TWjLNi7JeB91DfprhR7QBfl7RTn37t
+ 4Uj9BLycx0aaGHekAnZnrEisUKi66VmOFedmPYfeXF3mHZZU0Sr0J2Wq0WWWRPPD9QqG
+ PXtAE9ng7533Etj9wr8ZfjvSucsvOcK0Dav1QuknOCzgmycL9MuEcL1ZRr87Em1MmyLB
+ aKvsVwc8AjWFOi5TdIDYTbD7XgA6bb+r+Q0KVac40H91gyAmrF4dUnKgcXGuIqXk9csQ
+ gnyKK+FZFZQqk6fSEuA0dx9+jEPb4osyC7X9vd8wB4szi3EQZnh7YKsKIOClAtNO/bhJ
+ kLFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=VOKdCb9ulrluqhRX6yq8D6XA/9NwFTnjnv6VzRju4KE=;
+ b=uWBOjaH7Uue+xyEg8ah3D8wA+OC/C0MyUB7v4CzZNyHSHdsI/JCRpqM0gNH0OQtpfW
+ 7oTYc4u2HVgbjddpDmANYuwrTNl+RKWRH7nhJ2QOq14QZnntJajhtsbAcMa0XIhWnguY
+ 2Ctzsax9jAXMWkU/+FhDiVssFp0rK+5i8N6Z/iYhxl+S0nL6qbU8uvjEYbW2JjD7iG3c
+ GMXw6txDuBRlnfHp5sV9UP+Sfh4EGQXdvmqy/5bFImklZ5AOnXcG0Jq6dpvMYOI3tdmw
+ +EEXSUdBRjDwx6y9xWUMKb2YCgCqYilrIEXSwQ3a+Pl6a+UZRQwJhBZudQt/wzKTGus5
+ umMQ==
+X-Gm-Message-State: AMke39kBmJHBw+XJBGIxM94D87DVIkjvdGqKkMy8Ys6Z9bMy0yXWkXaE3RlGj/9oBNNcNzF3Swxbz/Ca+wToMg==
+X-Received: by 10.237.36.172 with SMTP id t41mr2002731qtc.142.1488284861559;
+ Tue, 28 Feb 2017 04:27:41 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.12.137.9 with HTTP; Tue, 28 Feb 2017 04:27:41 -0800 (PST)
+In-Reply-To: <1488280599.2423183.895344368.6877EADC@webmail.messagingengine.com>
+References: <1488266280-28755-1-git-send-email-mine260309@gmail.com>
+ <CACPK8XdHH1Yrr+TaD-joq0uFgj+epg_dQu2QHhSfFv9i0LNkDQ@mail.gmail.com>
+ <1488280599.2423183.895344368.6877EADC@webmail.messagingengine.com>
+From: Lei YU <mine260309@gmail.com>
+Date: Tue, 28 Feb 2017 20:27:41 +0800
+Message-ID: <CAARXrtmw2FmhuO2WU8A4F4X=i5JD0CPTV_N6Oztm8zzs7diKuA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7] arm: aspped: romulus: Set PNOR SPI address
+ mapping
+To: Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Cyril Bur <cyrilbur@gmail.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Suraj Jitindar Singh <sjitindarsingh@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -42,169 +60,106 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Feb 2017 11:51:06 -0000
+X-List-Received-Date: Tue, 28 Feb 2017 12:27:44 -0000
 
-This is a multi-part message in MIME format.
---------------51B4228170C6832B1DC166B5
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Hi Andrew, Joel,
 
-  Hi team,
+This patch is for issue https://github.com/openbmc/openbmc/issues/1214
 
-i've read many issues at OpenBmc github but still have few questions. 
-I'm wondering if this PDL is the right place for such questions or may 
-be you can point me to right resource:
+Here's what I have tested:
+1. rom1-19 with updated OpenBMC (c85f23e1), which has mboxd enabled;
+2. Do a power cycle;
+3. Once BMC is ready, check the registers by devmem:
+   ```
+   root@romulus:/tmp# devmem 0x1e630034
+   0x70640000        <== Wrong, expect 0x70680000
+   root@romulus:/tmp# devmem 0x1e630030
+   0x64600000        <== Wrong, expect 0x68600000
+   ```
+I can see the two registers have the unexpected value.
 
-1.  i can see many efforts to implement new functionality into OpenBMC. 
-Is there any schedule/timeline  to 'stabilize' the project to get 
-production level stability? What 'Phase 5' label means in term of timeline?
+Without manually setting the two registers, `obmcutil poweron` results in
+no output at all in host console.
 
-2. we are interested in IPMI protocol and i would like to figure out 
-what features are being developed by OpenBMC contributors to avoid 
-re-inventing the wheel.
-So far i can see several IPMI related open issues:
+That's why I send this patch to initialize the registers.
 
-- sdr and sensors https://github.com/openbmc/openbmc/issues/441
-- fru https://github.com/openbmc/openbmc/issues/442
-- sol https://github.com/openbmc/openbmc/issues/432
--user accounts management: 
-https://github.com/openbmc/openbmc/issues/446https://github.com/openbmc/openbmc/issues/431
-- chassis control: https://github.com/openbmc/openbmc/issues/440
-- dcmihttps://github.com/openbmc/openbmc/issues/445 
-<https://github.com/openbmc/openbmc/issues/445>
-    btw is this dcmi still on schedule?
+Note: I think the lines
++       writel(0x30000C00, AST_IO(AST_BASE_LPC | 0x88));
++       writel(0xFC0003FF, AST_IO(AST_BASE_LPC | 0x8C));
+are not necessary since they are having the expected value without this patch.
 
-The issues above are labeled as "Phase 5" but i do not see any timelines 
-or assignees for these issues.
-Is someone working on the issues above? Any schedule?
+But below changes are necessary:
++       /* Set SPI1 CE1 decoding window to 0x34000000 */
++       writel(0x70680000, AST_IO(AST_BASE_SPI | 0x34));
++
++       /* Set SPI1 CE0 decoding window to 0x30000000 */
++       writel(0x68600000, AST_IO(AST_BASE_SPI | 0x30));
 
-Also am i correct that other IPMI features like 'mc' ,  'session' (for 
-example)  ipmitool commands are not being developped at the moment?
+--
+BRs,
+Lei YU
 
-thanks in advance,
-
-regards,
-Sergey
-
---------------51B4228170C6832B1DC166B5
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: base64
-
-PGh0bWw+CiAgPGhlYWQ+CgogICAgPG1ldGEgaHR0cC1lcXVpdj0iY29udGVudC10eXBlIiBj
-b250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9dXRmLTgiPgogIDwvaGVhZD4KICA8Ym9keSBi
-Z2NvbG9yPSIjRkZGRkZGIiB0ZXh0PSIjMDAwMDAwIj4KICAgIMKgSGkgdGVhbSwgPGJyPgog
-ICAgPGRpdiBjbGFzcz0ibW96LWZvcndhcmQtY29udGFpbmVyIj4gPGJyPgogICAgICBpJ3Zl
-IHJlYWQgbWFueSBpc3N1ZXMgYXQgT3BlbkJtYyBnaXRodWIgYnV0IHN0aWxsIGhhdmUgZmV3
-CiAgICAgIHF1ZXN0aW9ucy4gSSdtIHdvbmRlcmluZyBpZiB0aGlzIFBETCBpcyB0aGUgcmln
-aHQgcGxhY2UgZm9yIHN1Y2gKICAgICAgcXVlc3Rpb25zIG9yIG1heSBiZSB5b3UgY2FuIHBv
-aW50IG1lIHRvIHJpZ2h0IHJlc291cmNlOjxicj4KICAgICAgPGJyPgogICAgICAxLsKgIGkg
-Y2FuIHNlZSBtYW55IGVmZm9ydHMgdG8gaW1wbGVtZW50IG5ldyBmdW5jdGlvbmFsaXR5IGlu
-dG8KICAgICAgT3BlbkJNQy4gSXMgdGhlcmUgYW55IHNjaGVkdWxlL3RpbWVsaW5lwqAgdG8g
-J3N0YWJpbGl6ZScgdGhlCiAgICAgIHByb2plY3QgdG8gZ2V0IHByb2R1Y3Rpb24gbGV2ZWwg
-c3RhYmlsaXR5PyBXaGF0ICdQaGFzZSA1JyBsYWJlbAogICAgICBtZWFucyBpbiB0ZXJtIG9m
-IHRpbWVsaW5lPyA8YnI+CiAgICAgIDxicj4KICAgICAgMi4gd2UgYXJlIGludGVyZXN0ZWQg
-aW4gSVBNSSBwcm90b2NvbCBhbmQgaSB3b3VsZCBsaWtlIHRvIGZpZ3VyZQogICAgICBvdXQg
-d2hhdCBmZWF0dXJlcyBhcmUgYmVpbmcgZGV2ZWxvcGVkIGJ5IE9wZW5CTUMgY29udHJpYnV0
-b3JzIHRvCiAgICAgIGF2b2lkIHJlLWludmVudGluZyB0aGUgd2hlZWwuIDxicj4KICAgICAg
-U28gZmFyIGkgY2FuIHNlZSBzZXZlcmFsIElQTUkgcmVsYXRlZCBvcGVuIGlzc3VlczogPGJy
-PgogICAgICDCoDxicj4KICAgICAgLSBzZHIgYW5kIHNlbnNvcnMKICAgICAgPG1ldGEgaHR0
-cC1lcXVpdj0iY29udGVudC10eXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9dXRm
-LTgiPgogICAgICA8YSBtb3otZG8tbm90LXNlbmQ9InRydWUiIGhyZWY9Imh0dHBzOi8vZ2l0
-aHViLmNvbS9vcGVuYm1jL29wZW5ibWMvaXNzdWVzLzQ0MSIgZGF0YS1tY2UtaHJlZj0iaHR0
-cHM6Ly9naXRodWIuY29tL29wZW5ibWMvb3BlbmJtYy9pc3N1ZXMvNDQxIiBzdHlsZT0iY29s
-b3I6IHJnYig1MywgMTE0LCAxNzYpOyB0ZXh0LWRlY29yYXRpb246IG5vbmU7IGZvbnQtZmFt
-aWx5OiBBcmlhbCwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxNHB4OyBmb250LXN0eWxlOiBu
-b3JtYWw7IGZvbnQtdmFyaWFudC1saWdhdHVyZXM6IG5vcm1hbDsgZm9udC12YXJpYW50LWNh
-cHM6IG5vcm1hbDsgZm9udC13ZWlnaHQ6IG5vcm1hbDsgbGV0dGVyLXNwYWNpbmc6IG5vcm1h
-bDsgb3JwaGFuczogMjsgdGV4dC1hbGlnbjogbGVmdDsgdGV4dC1pbmRlbnQ6IDBweDsgdGV4
-dC10cmFuc2Zvcm06IG5vbmU7IHdoaXRlLXNwYWNlOiBwcmUtd3JhcDsgd2lkb3dzOiAyOyB3
-b3JkLXNwYWNpbmc6IDBweDsgLXdlYmtpdC10ZXh0LXN0cm9rZS13aWR0aDogMHB4OyBiYWNr
-Z3JvdW5kLWNvbG9yOiByZ2IoMjU1LCAyNTUsIDI1NSk7Ij5odHRwczovL2dpdGh1Yi5jb20v
-b3BlbmJtYy9vcGVuYm1jL2lzc3Vlcy80NDE8L2E+PGJyPgogICAgICAtIGZydQogICAgICA8
-bWV0YSBodHRwLWVxdWl2PSJjb250ZW50LXR5cGUiIGNvbnRlbnQ9InRleHQvaHRtbDsgY2hh
-cnNldD11dGYtOCI+CiAgICAgIDxhIG1vei1kby1ub3Qtc2VuZD0idHJ1ZSIgaHJlZj0iaHR0
-cHM6Ly9naXRodWIuY29tL29wZW5ibWMvb3BlbmJtYy9pc3N1ZXMvNDQyIiBkYXRhLW1jZS1o
-cmVmPSJodHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9vcGVuYm1jL2lzc3Vlcy80NDIiIHN0
-eWxlPSJjb2xvcjogcmdiKDUzLCAxMTQsIDE3Nik7IHRleHQtZGVjb3JhdGlvbjogbm9uZTsg
-Zm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0cHg7IGZvbnQt
-c3R5bGU6IG5vcm1hbDsgZm9udC12YXJpYW50LWxpZ2F0dXJlczogbm9ybWFsOyBmb250LXZh
-cmlhbnQtY2Fwczogbm9ybWFsOyBmb250LXdlaWdodDogbm9ybWFsOyBsZXR0ZXItc3BhY2lu
-Zzogbm9ybWFsOyBvcnBoYW5zOiAyOyB0ZXh0LWFsaWduOiBsZWZ0OyB0ZXh0LWluZGVudDog
-MHB4OyB0ZXh0LXRyYW5zZm9ybTogbm9uZTsgd2hpdGUtc3BhY2U6IHByZS13cmFwOyB3aWRv
-d3M6IDI7IHdvcmQtc3BhY2luZzogMHB4OyAtd2Via2l0LXRleHQtc3Ryb2tlLXdpZHRoOiAw
-cHg7IGJhY2tncm91bmQtY29sb3I6IHJnYigyNTUsIDI1NSwgMjU1KTsiPmh0dHBzOi8vZ2l0
-aHViLmNvbS9vcGVuYm1jL29wZW5ibWMvaXNzdWVzLzQ0MjwvYT48YnI+CiAgICAgIC0gc29s
-CiAgICAgIDxtZXRhIGh0dHAtZXF1aXY9ImNvbnRlbnQtdHlwZSIgY29udGVudD0idGV4dC9o
-dG1sOyBjaGFyc2V0PXV0Zi04Ij4KICAgICAgPGEgbW96LWRvLW5vdC1zZW5kPSJ0cnVlIiBo
-cmVmPSJodHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9vcGVuYm1jL2lzc3Vlcy80MzIiIGRh
-dGEtbWNlLWhyZWY9Imh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL29wZW5ibWMvaXNzdWVz
-LzQzMiIgc3R5bGU9ImNvbG9yOiByZ2IoNTMsIDExNCwgMTc2KTsgdGV4dC1kZWNvcmF0aW9u
-OiBub25lOyBmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTRw
-eDsgZm9udC1zdHlsZTogbm9ybWFsOyBmb250LXZhcmlhbnQtbGlnYXR1cmVzOiBub3JtYWw7
-IGZvbnQtdmFyaWFudC1jYXBzOiBub3JtYWw7IGZvbnQtd2VpZ2h0OiBub3JtYWw7IGxldHRl
-ci1zcGFjaW5nOiBub3JtYWw7IG9ycGhhbnM6IDI7IHRleHQtYWxpZ246IGxlZnQ7IHRleHQt
-aW5kZW50OiAwcHg7IHRleHQtdHJhbnNmb3JtOiBub25lOyB3aGl0ZS1zcGFjZTogcHJlLXdy
-YXA7IHdpZG93czogMjsgd29yZC1zcGFjaW5nOiAwcHg7IC13ZWJraXQtdGV4dC1zdHJva2Ut
-d2lkdGg6IDBweDsgYmFja2dyb3VuZC1jb2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpOyI+aHR0
-cHM6Ly9naXRodWIuY29tL29wZW5ibWMvb3BlbmJtYy9pc3N1ZXMvNDMyPC9hPjxicj4KICAg
-ICAgLXVzZXIgYWNjb3VudHMgbWFuYWdlbWVudDoKICAgICAgPG1ldGEgaHR0cC1lcXVpdj0i
-Y29udGVudC10eXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9dXRmLTgiPgogICAg
-ICA8YSBtb3otZG8tbm90LXNlbmQ9InRydWUiIGhyZWY9Imh0dHBzOi8vZ2l0aHViLmNvbS9v
-cGVuYm1jL29wZW5ibWMvaXNzdWVzLzQ0NiIgZGF0YS1tY2UtaHJlZj0iaHR0cHM6Ly9naXRo
-dWIuY29tL29wZW5ibWMvb3BlbmJtYy9pc3N1ZXMvNDQ2IiBzdHlsZT0iY29sb3I6IHJnYig1
-MywgMTE0LCAxNzYpOyB0ZXh0LWRlY29yYXRpb246IHVuZGVybGluZTsgZm9udC1mYW1pbHk6
-IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0cHg7IGZvbnQtc3R5bGU6IG5vcm1h
-bDsgZm9udC12YXJpYW50LWxpZ2F0dXJlczogbm9ybWFsOyBmb250LXZhcmlhbnQtY2Fwczog
-bm9ybWFsOyBmb250LXdlaWdodDogbm9ybWFsOyBsZXR0ZXItc3BhY2luZzogbm9ybWFsOyBv
-cnBoYW5zOiAyOyB0ZXh0LWFsaWduOiBsZWZ0OyB0ZXh0LWluZGVudDogMHB4OyB0ZXh0LXRy
-YW5zZm9ybTogbm9uZTsgd2hpdGUtc3BhY2U6IHByZS13cmFwOyB3aWRvd3M6IDI7IHdvcmQt
-c3BhY2luZzogMHB4OyAtd2Via2l0LXRleHQtc3Ryb2tlLXdpZHRoOiAwcHg7IGJhY2tncm91
-bmQtY29sb3I6IHJnYigyNTUsIDI1NSwgMjU1KTsiPmh0dHBzOi8vZ2l0aHViLmNvbS9vcGVu
-Ym1jL29wZW5ibWMvaXNzdWVzLzQ0NjwvYT48c3BhbiBzdHlsZT0iY29sb3I6IHJnYig1MSwg
-NTEsIDUxKTsgZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0
-cHg7IGZvbnQtc3R5bGU6IG5vcm1hbDsgZm9udC12YXJpYW50LWxpZ2F0dXJlczogbm9ybWFs
-OyBmb250LXZhcmlhbnQtY2Fwczogbm9ybWFsOyBmb250LXdlaWdodDogbm9ybWFsOyBsZXR0
-ZXItc3BhY2luZzogbm9ybWFsOyBvcnBoYW5zOiAyOyB0ZXh0LWFsaWduOiBsZWZ0OyB0ZXh0
-LWluZGVudDogMHB4OyB0ZXh0LXRyYW5zZm9ybTogbm9uZTsgd2hpdGUtc3BhY2U6IHByZS13
-cmFwOyB3aWRvd3M6IDI7IHdvcmQtc3BhY2luZzogMHB4OyAtd2Via2l0LXRleHQtc3Ryb2tl
-LXdpZHRoOiAwcHg7IGJhY2tncm91bmQtY29sb3I6IHJnYigyNTUsIDI1NSwgMjU1KTsgZGlz
-cGxheTogaW5saW5lICFpbXBvcnRhbnQ7IGZsb2F0OiBub25lOyI+ICA8L3NwYW4+PGEgbW96
-LWRvLW5vdC1zZW5kPSJ0cnVlIiBocmVmPSJodHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9v
-cGVuYm1jL2lzc3Vlcy80MzEiIGRhdGEtbWNlLWhyZWY9Imh0dHBzOi8vZ2l0aHViLmNvbS9v
-cGVuYm1jL29wZW5ibWMvaXNzdWVzLzQzMSIgc3R5bGU9ImNvbG9yOiByZ2IoNTMsIDExNCwg
-MTc2KTsgdGV4dC1kZWNvcmF0aW9uOiBub25lOyBmb250LWZhbWlseTogQXJpYWwsIHNhbnMt
-c2VyaWY7IGZvbnQtc2l6ZTogMTRweDsgZm9udC1zdHlsZTogbm9ybWFsOyBmb250LXZhcmlh
-bnQtbGlnYXR1cmVzOiBub3JtYWw7IGZvbnQtdmFyaWFudC1jYXBzOiBub3JtYWw7IGZvbnQt
-d2VpZ2h0OiBub3JtYWw7IGxldHRlci1zcGFjaW5nOiBub3JtYWw7IG9ycGhhbnM6IDI7IHRl
-eHQtYWxpZ246IGxlZnQ7IHRleHQtaW5kZW50OiAwcHg7IHRleHQtdHJhbnNmb3JtOiBub25l
-OyB3aGl0ZS1zcGFjZTogcHJlLXdyYXA7IHdpZG93czogMjsgd29yZC1zcGFjaW5nOiAwcHg7
-IC13ZWJraXQtdGV4dC1zdHJva2Utd2lkdGg6IDBweDsgYmFja2dyb3VuZC1jb2xvcjogcmdi
-KDI1NSwgMjU1LCAyNTUpOyI+aHR0cHM6Ly9naXRodWIuY29tL29wZW5ibWMvb3BlbmJtYy9p
-c3N1ZXMvNDMxPC9hPjxicj4KICAgICAgLSBjaGFzc2lzIGNvbnRyb2w6IDxhIG1vei1kby1u
-b3Qtc2VuZD0idHJ1ZSIKICAgICAgICBjbGFzcz0ibW96LXR4dC1saW5rLWZyZWV0ZXh0Igog
-ICAgICAgIGhyZWY9Imh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL29wZW5ibWMvaXNzdWVz
-LzQ0MCI+aHR0cHM6Ly9naXRodWIuY29tL29wZW5ibWMvb3BlbmJtYy9pc3N1ZXMvNDQwPC9h
-Pjxicj4KICAgICAgLSBkY21pPGEgbW96LWRvLW5vdC1zZW5kPSJ0cnVlIiBocmVmPSJodHRw
-czovL2dpdGh1Yi5jb20vb3BlbmJtYy9vcGVuYm1jL2lzc3Vlcy80NDUiIGRhdGEtbWNlLWhy
-ZWY9Imh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL29wZW5ibWMvaXNzdWVzLzQ0NSIgc3R5
-bGU9ImNvbG9yOiByZ2IoNTMsIDExNCwgMTc2KTsgdGV4dC1kZWNvcmF0aW9uOiB1bmRlcmxp
-bmU7IGZvbnQtZmFtaWx5OiBBcmlhbCwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxNHB4OyBm
-b250LXN0eWxlOiBub3JtYWw7IGZvbnQtdmFyaWFudC1saWdhdHVyZXM6IG5vcm1hbDsgZm9u
-dC12YXJpYW50LWNhcHM6IG5vcm1hbDsgZm9udC13ZWlnaHQ6IG5vcm1hbDsgbGV0dGVyLXNw
-YWNpbmc6IG5vcm1hbDsgb3JwaGFuczogMjsgdGV4dC1hbGlnbjogbGVmdDsgdGV4dC1pbmRl
-bnQ6IDBweDsgdGV4dC10cmFuc2Zvcm06IG5vbmU7IHdoaXRlLXNwYWNlOiBwcmUtd3JhcDsg
-d2lkb3dzOiAyOyB3b3JkLXNwYWNpbmc6IDBweDsgLXdlYmtpdC10ZXh0LXN0cm9rZS13aWR0
-aDogMHB4OyBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjU1LCAyNTUsIDI1NSk7Ij4gIGh0dHBz
-Oi8vZ2l0aHViLmNvbS9vcGVuYm1jL29wZW5ibWMvaXNzdWVzLzQ0NTwvYT48YnI+CiAgICAg
-IMKgwqAgYnR3IGlzIHRoaXMgZGNtaSBzdGlsbCBvbiBzY2hlZHVsZT8gPGJyCiAgICAgICAg
-Y2xhc3M9IkFwcGxlLWludGVyY2hhbmdlLW5ld2xpbmUiPgogICAgICA8YnI+CiAgICAgIFRo
-ZSBpc3N1ZXMgYWJvdmUgYXJlIGxhYmVsZWQgYXMgIlBoYXNlIDUiIGJ1dCBpIGRvIG5vdCBz
-ZWUgYW55wqAKICAgICAgdGltZWxpbmVzIG9yIGFzc2lnbmVlcyBmb3IgdGhlc2UgaXNzdWVz
-LiA8YnI+CiAgICAgIElzIHNvbWVvbmUgd29ya2luZyBvbiB0aGUgaXNzdWVzIGFib3ZlPyBB
-bnkgc2NoZWR1bGU/IDxicj4KICAgICAgPGJyPgogICAgICBBbHNvIGFtIGkgY29ycmVjdCB0
-aGF0IG90aGVyIElQTUkgZmVhdHVyZXMgbGlrZSAnbWMnICzCoCAnc2Vzc2lvbifCoAogICAg
-ICAoZm9yIGV4YW1wbGUpwqAgaXBtaXRvb2wgY29tbWFuZHMgYXJlIG5vdCBiZWluZyBkZXZl
-bG9wcGVkIGF0IHRoZQogICAgICBtb21lbnQ/PGJyPgogICAgICA8YnI+CiAgICAgIHRoYW5r
-cyBpbiBhZHZhbmNlLCA8YnI+CiAgICAgIDxicj4KICAgICAgcmVnYXJkcyw8YnI+CiAgICAg
-IFNlcmdleSA8YnI+CiAgICA8L2Rpdj4KICA8L2JvZHk+CjwvaHRtbD4K
---------------51B4228170C6832B1DC166B5--
+On Tue, Feb 28, 2017 at 7:16 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> On Tue, Feb 28, 2017, at 20:10, Joel Stanley wrote:
+>
+>
+>
+> On 28 Feb 2017 17:49, "Lei YU" <mine260309@gmail.com> wrote:
+>
+> The PNOR SPI address mapping is the same as Witherspoon.
+>
+>
+> This should be handled by the device drivers we now have.
+>
+> Mbox brains trust, any idea why we would still need this?
+>
+>
+> I was going to say NAK for the same reason.
+>
+> Lei: are you absolutely positive you need this? If you do something has gone
+> wrong. Is mboxd integrated into the romulus image? If not we need a yocto
+> patch rather than a kernel patch.
+>
+> Andrew
+>
+> Cheers,
+>
+> Joel
+>
+>
+> Signed-off-by: Lei YU <mine260309@gmail.com>
+> ---
+>  arch/arm/mach-aspeed/aspeed.c | 18 ++++++++++++++++++
+>  1 file changed, 18 insertions(+)
+>
+> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+> index 726b8fa..ec9eecf 100644
+> --- a/arch/arm/mach-aspeed/aspeed.c
+> +++ b/arch/arm/mach-aspeed/aspeed.c
+> @@ -221,6 +221,24 @@ static void __init do_witherspoon_setup(void)
+>  static void __init do_romulus_setup(void)
+>  {
+>         do_common_setup();
+> +
+> +       /* Setup PNOR address mapping for 64M flash
+> +        *
+> +        *   ADRBASE: 0x3000 (0x30000000)
+> +        *   HWMBASE: 0x0C00 (0x0C000000)
+> +        *  ADDRMASK: 0xFC00 (0xFC000000)
+> +        *   HWNCARE: 0x03FF (0x03FF0000)
+> +        *
+> +        * Mapping appears at 0x60300fc000000 on the host
+> +        */
+> +       writel(0x30000C00, AST_IO(AST_BASE_LPC | 0x88));
+> +       writel(0xFC0003FF, AST_IO(AST_BASE_LPC | 0x8C));
+> +
+> +       /* Set SPI1 CE1 decoding window to 0x34000000 */
+> +       writel(0x70680000, AST_IO(AST_BASE_SPI | 0x34));
+> +
+> +       /* Set SPI1 CE0 decoding window to 0x30000000 */
+> +       writel(0x68600000, AST_IO(AST_BASE_SPI | 0x30));
+>  }
+>
+>  #define SCU_PASSWORD   0x1688A8A8
+> --
+> 1.9.1
