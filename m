@@ -1,44 +1,55 @@
-Return-Path: <clg@kaod.org>
-X-Greylist: delayed 321 seconds by postgrey-1.36 at bilbo;
- Thu, 02 Mar 2017 19:02:48 AEDT
-Received: from 7.mo68.mail-out.ovh.net (7.mo68.mail-out.ovh.net
- [46.105.63.230])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <xow@google.com>
+Received: from mail-qk0-x22a.google.com (mail-qk0-x22a.google.com
+ [IPv6:2607:f8b0:400d:c09::22a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vYlD84lZKzDq66
- for <openbmc@lists.ozlabs.org>; Thu,  2 Mar 2017 19:02:47 +1100 (AEDT)
-Received: from player763.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo68.mail-out.ovh.net (Postfix) with ESMTP id 785EF41407
- for <openbmc@lists.ozlabs.org>; Thu,  2 Mar 2017 08:57:23 +0100 (CET)
-Received: from zorba.kaod.org (LFbn-1-10647-27.w90-89.abo.wanadoo.fr
- [90.89.233.27]) (Authenticated sender: postmaster@kaod.org)
- by player763.ha.ovh.net (Postfix) with ESMTPSA id B76A03C0098;
- Thu,  2 Mar 2017 08:57:16 +0100 (CET)
-Subject: Re: [PATCH linux dev-4.7] arm: aspped: romulus: Set PNOR SPI address
- mapping
-To: Andrew Jeffery <andrew@aj.id.au>, Lei YU <mine260309@gmail.com>,
- Joel Stanley <joel@jms.id.au>
-References: <1488266280-28755-1-git-send-email-mine260309@gmail.com>
- <CACPK8XdHH1Yrr+TaD-joq0uFgj+epg_dQu2QHhSfFv9i0LNkDQ@mail.gmail.com>
- <1488280599.2423183.895344368.6877EADC@webmail.messagingengine.com>
- <CAARXrtmw2FmhuO2WU8A4F4X=i5JD0CPTV_N6Oztm8zzs7diKuA@mail.gmail.com>
- <1488285610.4258.3.camel@aj.id.au> <1488337524.4258.9.camel@aj.id.au>
- <9f4dc608-fe29-10bc-08d5-d9fd4f36d167@kaod.org>
- <1488423338.4258.11.camel@aj.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Cyril Bur <cyrilbur@gmail.com>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <c976c62c-c97b-061b-a57e-dc76ad7b6238@kaod.org>
-Date: Thu, 2 Mar 2017 08:57:11 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vZ0RV50k0zDqWK
+ for <openbmc@lists.ozlabs.org>; Fri,  3 Mar 2017 04:58:30 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="d3DQDUjq"; 
+ dkim-atps=neutral
+Received: by mail-qk0-x22a.google.com with SMTP id s186so135911152qkb.1
+ for <openbmc@lists.ozlabs.org>; Thu, 02 Mar 2017 09:58:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=dxLHfRPEySpz7T95nQX2LCeFtg1Sbp71C8XM7Jwz/SA=;
+ b=d3DQDUjq928xTCBIQkdszLPwkAp5ptb0/baovE6sgkZ/TvCZMYg7fyPdE8u8e4x5ms
+ GNaqDk41p6KIgf+tLS2w1SgAXS8QeqCJkyw2RlX4+bPjN/KWLjnVHL+2f0RcFLpzpHsy
+ NB+jG+ImOIXhhmZABUX5IzPNLad6una/HsOphKk7H3XB/N3i5I24XemTop0xbtFTpzaf
+ 0sdyipKqZEilLTVjuYCw1n/wVDkiU00hsESUXyj0JrPialhKLTkBmaJjwXUyu+CQAkBv
+ 5agEGW2gZ9rMpEc6McBVaJPAGxOya2VWhxGXTrx1CKQcVKEKdKRg3GD96Xpmg9bEn5sr
+ mTOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=dxLHfRPEySpz7T95nQX2LCeFtg1Sbp71C8XM7Jwz/SA=;
+ b=sNUf9QE+C/nWfBof6lXJxThM9dOhmny2Uf+FdBmxaGkBA18QENXupIIzlGuETE2RrA
+ 0tD73l81ruWUfm+deLjilcFX0KuDJxOmJ7npC4iCCDuCzPBaZXOk8OqV+8HmfOmKl5J+
+ +2RvgrfCOrLxYPqNcwop5KkCZ+rypkaeKqknnERyHydbzOsKVEqJPprPqGzoZESiAXxs
+ 0l7vxqIgEHlPVH5RRXq7BryXC696GR2Zaf53fe4asQpWpgb5o5jUV6PIGon35g1MjvDD
+ MKwM0cIXUUm2PTCpRnqRyHbHo2w590Sou54cD1QkGnBwBemXxGRQaF4umbHvdeWgGcWf
+ WqDQ==
+X-Gm-Message-State: AMke39kgcoC/a8f0Vm/B1zPe6np7nWWxy4f13o8Wp2cEWeRjum43Z+ajM3hG/MDf+YsqlpADR+Je7cBjxBZlEP62
+X-Received: by 10.200.56.248 with SMTP id g53mr18455836qtc.172.1488477506143; 
+ Thu, 02 Mar 2017 09:58:26 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <1488423338.4258.11.camel@aj.id.au>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 15015564109480233859
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelhedrfedugdduudelucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+Received: by 10.140.21.116 with HTTP; Thu, 2 Mar 2017 09:58:25 -0800 (PST)
+In-Reply-To: <CACPK8Xdx4cmCLp7TkVGCyk3ghGAET1WwW5yM871suNY-19cEzA@mail.gmail.com>
+References: <20170301200526.GB837@heinlein.lan>
+ <20170301224312.21540-1-emilyshaffer@google.com>
+ <CACPK8Xec0vTCd7sqjGegzfbk5y+ote+MtLe2g=ZZpBR-EemLbA@mail.gmail.com>
+ <CACPK8Xdx4cmCLp7TkVGCyk3ghGAET1WwW5yM871suNY-19cEzA@mail.gmail.com>
+From: Xo Wang <xow@google.com>
+Date: Thu, 2 Mar 2017 09:58:25 -0800
+Message-ID: <CAPH-5w7qxK6J6KsQQk6CVQt0eg6X2zfWDTPsTD09vFrpdh6UxQ@mail.gmail.com>
+Subject: Re: [PATCH v2] ARM: dts: aspeed: zaius add reg field to pca9541a i2c
+ mux
+To: Joel Stanley <joel@jms.id.au>
+Cc: Emily Shaffer <emilyshaffer@google.com>,
+ Patrick Williams <patrick@stwcx.xyz>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -50,152 +61,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Mar 2017 08:02:49 -0000
+X-List-Received-Date: Thu, 02 Mar 2017 17:58:31 -0000
 
-On 03/02/2017 03:55 AM, Andrew Jeffery wrote:
-> On Wed, 2017-03-01 at 08:26 +0100, Cédric Le Goater wrote:
->> On 03/01/2017 04:05 AM, Andrew Jeffery wrote:
->>> Replying to myself again... I think I've learnt the lesson not to email
->>> whilst in bed.
->>>
->>> I've done some further investigation after jumping on a Romulus
->>> machine:
->>>
->>> On Tue, 2017-02-28 at 23:10 +1030, Andrew Jeffery wrote:
->>>> On Tue, 2017-02-28 at 20:27 +0800, Lei YU wrote:
->>>>> Hi Andrew, Joel,
->>>>>
->>>>> This patch is for issue https://github.com/openbmc/openbmc/issues/1214
->>>>>
->>>>> Here's what I have tested:
->>>>> 1. rom1-19 with updated OpenBMC (c85f23e1), which has mboxd enabled;
->>>>> 2. Do a power cycle;
->>>>> 3. Once BMC is ready, check the registers by devmem:
->>>>>    ```
->>>>>>    root@romulus:/tmp# devmem 0x1e630034
->>>>>
->>>>>    0x70640000        <== Wrong, expect 0x70680000
->>>>>>    root@romulus:/tmp# devmem 0x1e630030
->>>>>
->>>>>    0x64600000        <== Wrong, expect 0x68600000
->>>>>    ```
->>>>> I can see the two registers have the unexpected value.
->>
->> These are the default values : 
->>
->> SPIR30: SPI1 CE0 Address Decoding Range Register Init = 0x6460 0000
->> SPIR34: SPI1 CE1 Address Decoding Range Register Init = 0x7064 0000
->>
->> We should let the driver configure these values I think.
->> see below.
->>
-> 
-> Agreed.
-> 
->>>
->>> Looking at the driver[1] the only time we touch the segment register is
->>> to read the window start, we don't ever write the segment mapping
->>> configuration.
->>
->> yes, not in 4.7 yet. It is a little "complex" to configure the 
->> segments up to 5 chips handling the possible overlaps, the 
->> different chip sizes, which might be bigger than the maximum 
->> window size, and the HW bugs. AST2500 SPI controller has a bug 
->> when the CE0 chip size exceeds 120MB.
-> 
-> Yeah, I appreciate it's a finicky problem.
-> 
->>
->> Also the controller only really makes use of them in command 
->> mode. In user mode, the start address is mostly used to 
->> identify the chip when writing commands on the AHB Bus.    
->>
->>> Cédric: Have you looked into supporting configuration of the segment
->>> mapping?
->>
->> yes. QEMU (openbmc and mainline) supports them already. 
->>
->> As for the kernel, here is an initial commit :
->>
->>    https://github.com/legoater/linux/commit/c08765882b4091cb1b9998d872415c072ecfe8af
->>
->> which I will send with a bunch of improvements when we switch 
->> to linux 4.10. I can eventually rebase on 4.7 but I would have
->> preferred not maintaining too much branches.
-> 
-> That's fair enough. If we apply Lei's patch to 4.7 as a hack it means
-> that we can ignore the issue from then on. Any new systems will be
-> based on at least 4.10, which should have your improvements.
->
->>
->>> We could configure the mapping if we know the chip sizes, however
->>> looking at the device's bindings documentation[2] we find:
->>>
->>>     ...
->>>     Required properties:
->>>     ...
->>>      - #size-cells : must be 0 corresponding to chip select child binding
->>>
->>> and
->>>
->>>     ...
->>>     Child node required properties:
->>>       - reg : must contain chip select number in first cell of address, must
->>>     be 1 tuple long
->>>     ...
->>>
->>> I think we need #size-cells to be 1 in the parent so we can define the
->>> mapping ranges. I don't know that its going to be an easy change to
->>> make though given the bindings are already upstream. Thoughts?
->>
->> In the aspeed-smc bindings, the mapping range is for the overall 
->> AHB window. This is a HW constant you can not change. 
->>
->> As for the settings of the each chip window, I would let the 
->> driver discover and configure them as you can ruin the controller 
->> behavior in command mode if they are wrong. 
-> 
-> I wasn't concerned about the overall AHB window so much as the chip
-> windows. Letting the driver discover and configure them was what I was
-> hoping for, and was investigating providing the information via the DT.
+It looks like this issue is fixed in v4.9: https://lkml.org/lkml/2016/8/15/569
 
-Well, we possibly could but given that we can change the 
-chip (and possibly their size), it is better to try to 
-detect them I think.
+The cover letter to that patchset also mentions adding an unused "reg"
+property as a workaround. I had probably copied and pasted the pca9541
+bindings without "reg" to the Zaius dts without reading the rest of
+the notes. Oops.
 
-> If we have an alternative approach (querying the chip?) that would be
-> great.
+Should we backport that patchset and/or wait for the next OpenBMC kernel rebase?
 
-That is what my branch is trying to do but it still needs 
-a couple of improvements. All segments should be configured, 
-even those for which there are no chips. Lei just reminded 
-me of that problem.    
+Emily: can you test whether the "reg" property is still necessary if
+you backport those patches?
 
->> What is the specific need ? Is it to have a window covering all 
->> the SPI CEx chips ? 
-> 
-> In this case it was to have CE0 window cover 64MB rather than 32MB.
-> Supporting more than one chip would be a nice-to-have rather than
-> something Lei needs as far as I understand.
-
-There is still that segment overlap problem to cover even if
-there are no chips.
-
->> If so, my tree should have that support 
->> already. But, please note that the HW is broken for chips > 128MB, 
->> on witherspoon for instance.
->>
-> 
-> I guess the question is about what support is going to be in which
-> branch of openbmc/linux. As it stands it looks like dev-4.7 will not
-> have chip window configuration support in the driver, and dev-4.10
-> will.
-
-Unless we start using what's in my branch which has a backport 
-of the 4.11 driver on openbmc 4.7. It should be fine I think. 
-I just need to cover the above case, moving the start address 
-of the next segment should be it, plus a couple of checks.
-
-Cheers,
-
-C. 
+cheers
+xo
