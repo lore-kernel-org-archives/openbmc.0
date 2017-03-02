@@ -1,57 +1,58 @@
-Return-Path: <cyrilbur@gmail.com>
-Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
- [IPv6:2607:f8b0:400e:c00::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vYYvx21JQzDqKL
- for <openbmc@lists.ozlabs.org>; Thu,  2 Mar 2017 12:03:09 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="tWsTltcG"; 
- dkim-atps=neutral
-Received: by mail-pf0-x241.google.com with SMTP id j5so5012399pfb.3
- for <openbmc@lists.ozlabs.org>; Wed, 01 Mar 2017 17:03:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=message-id:subject:from:to:cc:date:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=VsYFhTeVvUep56JU/UszoaPetLVlvQSkFWnBLAmGWNI=;
- b=tWsTltcGhlpm90jfwrfYL0aJmZMi6miRBTovsKSIqLyEs51hH9OBlIXKxyLCAWUDz9
- VU7g6g9HH0IfeDX3v0VQVS01wRcGZkovN7T3M3R5i+jaQVJRWQYSkVVAFxhLv1EMc0aq
- iLAwq329b2w1Hz2e+ubHk+0C2ZRCUiypMpmdlcpWTSTm/oBeyqaRK0xtUHUZvaYa6SgI
- 5RzYJbBSZdovGKXRdAmQiZWYB+vP+D430eaAjY26VWC7WKrAI0ppF9TTn5gd5HN6pwNt
- siEtPwv4+fA0gF/eD7e0L1EWhe1YQDT906zxiFwo05FwX3vDRizzDSpxGZzMMsRW4flg
- XoPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=VsYFhTeVvUep56JU/UszoaPetLVlvQSkFWnBLAmGWNI=;
- b=csjGAZkd/ou+zcrp+J8z5/LLJ5z0vRuxt8KitosVQ2Oz7OFpZuYQbvr8msLhSLJhU2
- yKi/XhnN6uz57uheBCdhWfdkCMTruzLmBmgf0oJc7CNTqPqIZrhU9SLGXlwZW7wqKYKI
- nrIM0UvOCwRDn5GwYjc/EM+dWJ1QMdPFAIAggIn3mXPMtGte9Ms1iRudxUnL+WtsZ36K
- +Mot/g++XD3MwXfaO36jPSn9bmXmxdB06L1Z23gna6eDh9cbM4/MWnIQrAAM3w+XtV4H
- dmCO8F3TedVkg//Vl9oo4pJYgQ6omPaRL54WQ8kN7gJf2VhJm3dsvRcjpL2bjUszwCD4
- 4ZMQ==
-X-Gm-Message-State: AMke39kIT2Bo2r9uvm4w99eeMKTLf61p883ttGo50UwHhlPzAfFPR8KOZm4DLqFguZmHXw==
-X-Received: by 10.99.39.70 with SMTP id n67mr12125118pgn.203.1488416587181;
- Wed, 01 Mar 2017 17:03:07 -0800 (PST)
-Received: from camb691.ozlabs.ibm.com ([122.99.82.10])
- by smtp.googlemail.com with ESMTPSA id e13sm12867261pgf.48.2017.03.01.17.03.04
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 01 Mar 2017 17:03:06 -0800 (PST)
-Message-ID: <1488416483.5221.2.camel@gmail.com>
-Subject: Re: [PATCH v6] drivers/misc: Add Aspeed LPC control driver
-From: Cyril Bur <cyrilbur@gmail.com>
-To: Suraj Jitindar Singh <sjitindarsingh@gmail.com>, 
- gregkh@linuxfoundation.org
-Cc: openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Date: Thu, 02 Mar 2017 12:01:23 +1100
-In-Reply-To: <1487740314.2140.25.camel@gmail.com>
-References: <20170217032849.23994-1-cyrilbur@gmail.com>
- <1487740314.2140.25.camel@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.22.5 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vYcPy4bhkzDqMG
+ for <openbmc@lists.ozlabs.org>; Thu,  2 Mar 2017 13:55:49 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="QzQr8ua1"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="RUL82ZAU"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id B885620834;
+ Wed,  1 Mar 2017 21:55:47 -0500 (EST)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Wed, 01 Mar 2017 21:55:47 -0500
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=mesmtp; bh=QSFIU+O5FEwkVhZJ8FsdM/HTCZE=; b=QzQr8u
+ a1nFGue0/EKy7LWQAvWpLOD6VztTzHe3ZIGR1PlSXLExBI7Eo7GFm3tORNl1Zkqo
+ mgJrThpOMSdstcUMXR8Ct/+w4hRKpZKpa5qFmMg/vBYMKN5GUJ6fL7uzGzfJp0kN
+ 8JfuEmd0+Kg4K197qwyQoDNdQyyKZDdtpsylg=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=QSFIU+O5FEwkVh
+ ZJ8FsdM/HTCZE=; b=RUL82ZAUv2Vi9iT1Q1lUxQVn57rNpbhLhlAWp2RmIOtero
+ IEhWPcPWZtYfpYl505MJzRUim/8HzTopd/5h3Koaq82NFp+vdwftItQj3DKTS6H7
+ DorfhSXfQNyV0u9pwkO2OHs+pVY5pUYA1mEMrB7I8X8iPgdBA43c4tqv1baT0=
+X-ME-Sender: <xms:s4m3WLXYcU0Kctvg6eLIQASUWQOn4zT3v7V_ZXVTidNIp9mfatzQVw>
+X-Sasl-enc: w/00ZFenhRjn1fbQcnVQuU99vJiHluu0uXo0aVkpITsI 1488423346
+Received: from [10.104.0.15] (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 253A724242;
+ Wed,  1 Mar 2017 21:55:44 -0500 (EST)
+Message-ID: <1488423338.4258.11.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.7] arm: aspped: romulus: Set PNOR SPI
+ address mapping
+From: Andrew Jeffery <andrew@aj.id.au>
+To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, Lei YU
+ <mine260309@gmail.com>, Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Cyril Bur <cyrilbur@gmail.com>
+Date: Thu, 02 Mar 2017 13:25:38 +1030
+In-Reply-To: <9f4dc608-fe29-10bc-08d5-d9fd4f36d167@kaod.org>
+References: <1488266280-28755-1-git-send-email-mine260309@gmail.com>
+ <CACPK8XdHH1Yrr+TaD-joq0uFgj+epg_dQu2QHhSfFv9i0LNkDQ@mail.gmail.com>
+ <1488280599.2423183.895344368.6877EADC@webmail.messagingengine.com>
+ <CAARXrtmw2FmhuO2WU8A4F4X=i5JD0CPTV_N6Oztm8zzs7diKuA@mail.gmail.com>
+ <1488285610.4258.3.camel@aj.id.au> <1488337524.4258.9.camel@aj.id.au>
+ <9f4dc608-fe29-10bc-08d5-d9fd4f36d167@kaod.org>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-4JOn71DkkXtenH49whTR"
+X-Mailer: Evolution 3.22.1-0ubuntu2 
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,597 +64,169 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Mar 2017 01:03:10 -0000
+X-List-Received-Date: Thu, 02 Mar 2017 02:55:51 -0000
 
-On Wed, 2017-02-22 at 16:11 +1100, Suraj Jitindar Singh wrote:
-> On Fri, 2017-02-17 at 14:28 +1100, Cyril Bur wrote:
-> 
-> I may be too late, but see below...
-> > In order to manage server systems, there is typically another
-> > processor
-> > known as a BMC (Baseboard Management Controller) which is responsible
-> > for powering the server and other various elements, sometimes fans,
-> > often the system flash.
-> > 
-> > The Aspeed BMC family which is what is used on OpenPOWER machines and
-> > a
-> > number of x86 as well is typically connected to the host via an LPC
-> > (Low Pin Count) bus (among others).
-> > 
-> > The LPC bus is an ISA bus on steroids. It's generally used by the
-> > BMC chip to provide the host with access to the system flash (via
-> > MEM/FW
-> > cycles) that contains the BIOS or other host firmware along with a
-> > number of SuperIO-style IOs (via IO space) such as UARTs, IPMI
-> > controllers.
-> > 
-> > On the BMC chip side, this is all configured via a bunch of registers
-> > whose content is related to a given policy of what devices are
-> > exposed
-> > at a per system level, which is system/vendor specific, so we don't
-> > want
-> > to bolt that into the BMC kernel. This started with a need to provide
-> > something nicer than /dev/mem for user space to configure these
-> > things.
-> > 
-> > One important aspect of the configuration is how the MEM/FW space is
-> > exposed to the host (ie, the x86 or POWER). Some registers in that
-> > bridge can define a window remapping all or portion of the LPC MEM/FW
-> > space to a portion of the BMC internal bus, with no specific limits
-> > imposed in HW.
-> > 
-> > I think it makes sense to ensure that this window is configured by a
-> > kernel driver that can apply some serious sanity checks on what it is
-> > configured to map.
-> > 
-> > In practice, user space wants to control this by flipping the mapping
-> > between essentially two types of portions of the BMC address space:
-> > 
-> >    - The flash space. This is a region of the BMC MMIO space that
-> > more/less directly maps the system flash (at least for reads, writes
-> > are somewhat more complicated).
-> > 
-> >    - One (or more) reserved area(s) of the BMC physical memory.
-> > 
-> > The latter is needed for a number of things, such as avoiding letting
-> > the host manipulate the innards of the BMC flash controller via some
-> > evil backdoor, we want to do flash updates by routing the window to a
-> > portion of memory (under control of a mailbox protocol via some
-> > separate set of registers) which the host can use to write new data
-> > in
-> > bulk and then request the BMC to flash it. There are other uses, such
-> > as allowing the host to boot from an in-memory flash image rather
-> > than
-> > the one in flash (very handy for continuous integration and test, the
-> > BMC can just download new images).
-> > 
-> > It is important to note that due to the way the Aspeed chip lets the
-> > kernel configure the mapping between host LPC addresses and BMC ram
-> > addresses the offset within the window must be a multiple of size.
-> > Not doing so will fragment the accessible space rather than simply
-> > moving 'zero' upwards. This is caused by the nature of HICR8 being a
-> > mask and the way host LPC addresses are translated.
-> > 
-> > Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
-> > ---
-> > v2:
-> >    Removed unused functions
-> >    Removed use of access_ok()
-> >    All input is evil
-> >    Reworked the interface as per Benjamin Herrenschmidts vision
-> > v3:
-> >    Removed 'default y' from Kconfig
-> >    Reordered ioctl() struct fields
-> >    Reworeded some comments
-> > v4:
-> >    Reorder ioctl() struct fields (again)
-> > v5:
-> >    Style cleanups
-> >    Use of_address_to_resource()
-> >    Document ioctl structure fields
-> > v6:
-> >    Check and fail ioctl() if flags field non-zero
-> > 
-> >  drivers/misc/Kconfig                 |   8 ++
-> >  drivers/misc/Makefile                |   1 +
-> >  drivers/misc/aspeed-lpc-ctrl.c       | 267
-> > +++++++++++++++++++++++++++++++++++
-> >  include/uapi/linux/aspeed-lpc-ctrl.h |  60 ++++++++
-> >  4 files changed, 336 insertions(+)
-> >  create mode 100644 drivers/misc/aspeed-lpc-ctrl.c
-> >  create mode 100644 include/uapi/linux/aspeed-lpc-ctrl.h
-> > 
-> > diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-> > index 64971baf11fa..7dc4c369012f 100644
-> > --- a/drivers/misc/Kconfig
-> > +++ b/drivers/misc/Kconfig
-> > @@ -766,6 +766,14 @@ config PANEL_BOOT_MESSAGE
-> >  	  An empty message will only clear the display at driver
-> > init time. Any other
-> >  	  printf()-formatted message is valid with newline and
-> > escape codes.
-> >  
-> > +config ASPEED_LPC_CTRL
-> > +	depends on (ARCH_ASPEED || COMPILE_TEST) && REGMAP &&
-> > MFD_SYSCON
-> > +	tristate "Aspeed ast2400/2500 HOST LPC to BMC bridge
-> > control"
-> > +	---help---
-> > +	  Control Aspeed ast2400/2500 HOST LPC to BMC mappings
-> > through
-> > +	  ioctl()s, the driver also provides a read/write interface
-> > to a BMC ram
-> > +	  region where the host LPC read/write region can be
-> > buffered.
-> > +
-> >  source "drivers/misc/c2port/Kconfig"
-> >  source "drivers/misc/eeprom/Kconfig"
-> >  source "drivers/misc/cb710/Kconfig"
-> > diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
-> > index 31983366090a..de1925a9c80b 100644
-> > --- a/drivers/misc/Makefile
-> > +++ b/drivers/misc/Makefile
-> > @@ -53,6 +53,7 @@ obj-$(CONFIG_ECHO)		+= echo/
-> >  obj-$(CONFIG_VEXPRESS_SYSCFG)	+= vexpress-syscfg.o
-> >  obj-$(CONFIG_CXL_BASE)		+= cxl/
-> >  obj-$(CONFIG_PANEL)             += panel.o
-> > +obj-$(CONFIG_ASPEED_LPC_CTRL)	+= aspeed-lpc-ctrl.o
-> >  
-> >  lkdtm-$(CONFIG_LKDTM)		+= lkdtm_core.o
-> >  lkdtm-$(CONFIG_LKDTM)		+= lkdtm_bugs.o
-> > diff --git a/drivers/misc/aspeed-lpc-ctrl.c b/drivers/misc/aspeed-
-> > lpc-ctrl.c
-> > new file mode 100644
-> > index 000000000000..f6acbe1d9378
-> > --- /dev/null
-> > +++ b/drivers/misc/aspeed-lpc-ctrl.c
-> > @@ -0,0 +1,267 @@
-> > +/*
-> > + * Copyright 2017 IBM Corporation
-> > + *
-> > + * This program is free software; you can redistribute it and/or
-> > + * modify it under the terms of the GNU General Public License
-> > + * as published by the Free Software Foundation; either version
-> > + * 2 of the License, or (at your option) any later version.
-> > + */
-> > +
-> > +#include <linux/mfd/syscon.h>
-> > +#include <linux/miscdevice.h>
-> > +#include <linux/mm.h>
-> > +#include <linux/module.h>
-> > +#include <linux/of_address.h>
-> > +#include <linux/platform_device.h>
-> > +#include <linux/poll.h>
-> > +#include <linux/regmap.h>
-> > +
-> > +#include <linux/aspeed-lpc-ctrl.h>
-> > +
-> > +#define DEVICE_NAME	"aspeed-lpc-ctrl"
-> > +
-> > +#define HICR7 0x8
-> > +#define HICR8 0xc
-> > +
-> > +struct aspeed_lpc_ctrl {
-> > +	struct miscdevice	miscdev;
-> > +	struct regmap		*regmap;
-> > +	phys_addr_t		mem_base;
-> > +	resource_size_t		mem_size;
-> > +	u32		pnor_size;
-> > +	u32		pnor_base;
-> > +};
-> > +
-> > +static struct aspeed_lpc_ctrl *file_aspeed_lpc_ctrl(struct file
-> > *file)
-> > +{
-> > +	return container_of(file->private_data, struct
-> > aspeed_lpc_ctrl,
-> > +			miscdev);
-> > +}
-> > +
-> > +static int aspeed_lpc_ctrl_mmap(struct file *file, struct
-> > vm_area_struct *vma)
-> > +{
-> > +	struct aspeed_lpc_ctrl *lpc_ctrl =
-> > file_aspeed_lpc_ctrl(file);
-> > +	unsigned long vsize = vma->vm_end - vma->vm_start;
-> > +	pgprot_t prot = vma->vm_page_prot;
-> > +
-> > +	if (vma->vm_pgoff + vsize > lpc_ctrl->mem_base + lpc_ctrl-
-> > > mem_size)
-> > 
-> > +		return -EINVAL;
-> > +
-> > +	/* ast2400/2500 AHB accesses are not cache coherent */
-> > +	prot = pgprot_dmacoherent(prot);
-> > +
-> > +	if (remap_pfn_range(vma, vma->vm_start,
-> > +		(lpc_ctrl->mem_base >> PAGE_SHIFT) + vma->vm_pgoff,
-> > +		vsize, prot))
-> > +		return -EAGAIN;
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static long aspeed_lpc_ctrl_ioctl(struct file *file, unsigned int
-> > cmd,
-> > +		unsigned long param)
-> > +{
-> > +	struct aspeed_lpc_ctrl *lpc_ctrl =
-> > file_aspeed_lpc_ctrl(file);
-> > +	void __user *p = (void __user *)param;
-> > +	struct aspeed_lpc_ctrl_mapping map;
-> > +	u32 addr;
-> > +	u32 size;
-> > +	long rc;
-> > +
-> > +	if (copy_from_user(&map, p, sizeof(map)))
-> > +		return -EFAULT;
-> > +
-> > +	if (map.flags != 0)
-> > +		return -EINVAL;
-> > +
-> > +	switch (cmd) {
-> > +	case ASPEED_LPC_CTRL_IOCTL_GET_SIZE:
-> > +		/* The flash windows don't report their size */
-> > +		if (map.window_type !=
-> > ASPEED_LPC_CTRL_WINDOW_MEMORY)
-> > +			return -EINVAL;
-> > +
-> > +		/* Support more than one window id in the future */
-> > +		if (map.window_id != 0)
-> > +			return -EINVAL;
-> > +
-> > +		map.size = lpc_ctrl->mem_size;
-> > +
-> > +		return copy_to_user(p, &map, sizeof(map)) ? -EFAULT
-> > : 0;
-> > +	case ASPEED_LPC_CTRL_IOCTL_MAP:
-> > +
-> > +		/*
-> > +		 * The top half of HICR7 is the MSB of the BMC
-> > address of the
-> > +		 * mapping.
-> 
 
-Hi Suraj,
+--=-4JOn71DkkXtenH49whTR
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-I'm all for writing this out as many times as possible to be sure
-everyone understands it. I think a visual diagram would be fantastic,
-I'd love to do one in my infinite spare time. It may be useful to link
-to Benhs comments in skiboot for another wording of how these two
-registers work skiboot/hw/ast-bmc/ast-io.c.
+On Wed, 2017-03-01 at 08:26 +0100, C=C3=A9dric Le Goater wrote:
+> On 03/01/2017 04:05 AM, Andrew Jeffery wrote:
+> > Replying to myself again... I think I've learnt the lesson not to email
+> > whilst in bed.
+> >=20
+> > I've done some further investigation after jumping on a Romulus
+> > machine:
+> >=20
+> > On Tue, 2017-02-28 at 23:10 +1030, Andrew Jeffery wrote:
+> > > On Tue, 2017-02-28 at 20:27 +0800, Lei YU wrote:
+> > > > Hi Andrew, Joel,
+> > > >=20
+> > > > This patch is for issue https://github.com/openbmc/openbmc/issues/1=
+214
+> > > >=20
+> > > > Here's what I have tested:
+> > > > 1. rom1-19 with updated OpenBMC (c85f23e1), which has mboxd enabled=
+;
+> > > > 2. Do a power cycle;
+> > > > 3. Once BMC is ready, check the registers by devmem:
+> > > > =C2=A0=C2=A0=C2=A0```
+> > > > > =C2=A0=C2=A0=C2=A0root@romulus:/tmp# devmem 0x1e630034
+> > > >=20
+> > > > =C2=A0=C2=A0=C2=A00x70640000=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0<=3D=3D Wrong, expect 0x70680000
+> > > > > =C2=A0=C2=A0=C2=A0root@romulus:/tmp# devmem 0x1e630030
+> > > >=20
+> > > > =C2=A0=C2=A0=C2=A00x64600000=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0<=3D=3D Wrong, expect 0x68600000
+> > > > =C2=A0=C2=A0=C2=A0```
+> > > > I can see the two registers have the unexpected value.
+>=20
+> These are the default values :=C2=A0
+>=20
+> SPIR30: SPI1 CE0 Address Decoding Range Register Init =3D 0x6460 0000
+> SPIR34: SPI1 CE1 Address Decoding Range Register Init =3D 0x7064 0000
+>=20
+> We should let the driver configure these values I think.
+> see below.
+>=20
 
-> How about: HICR7[31:16] is the [offset into BMC memory/most significant
-> two bytes fo the BMC address] of the mapping.
-> > +		 * The bottom half of HICR7 is
-> > the MSB of the HOST LPC
-> 
-> HICR7[15:0] is the [offset on the HOST LPC firmware address space/most
-> fisnificant two bytes of the HOST LPC firmware address space] of the
-> mapping
+Agreed.
 
-Yes, this appears correct.
+> >=20
+> > Looking at the driver[1] the only time we touch the segment register is
+> > to read the window start, we don't ever write the segment mapping
+> > configuration.
+>=20
+> yes, not in 4.7 yet. It is a little "complex" to configure the=C2=A0
+> segments up to 5 chips handling the possible overlaps, the=C2=A0
+> different chip sizes, which might be bigger than the maximum=C2=A0
+> window size, and the HW bugs. AST2500 SPI controller has a bug=C2=A0
+> when the CE0 chip size exceeds 120MB.
 
-> > +		 * firmware space address of the mapping.
-> > +		 *
-> > +		 * The 1 bits in the top of half of HICR8 represent
-> > the bits
-> > +		 * (in the requested address) that should be ignored
+Yeah, I appreciate it's a finicky problem.
+
+>=20
+> Also the controller only really makes use of them in command=C2=A0
+> mode. In user mode, the start address is mostly used to=C2=A0
+> identify the chip when writing commands on the AHB Bus.=C2=A0=C2=A0=C2=A0=
+=C2=A0
+>=20
+> > C=C3=A9dric: Have you looked into supporting configuration of the segme=
+nt
+> > mapping?
+>=20
+> yes. QEMU (openbmc and mainline) supports them already.=C2=A0
+>=20
+> As for the kernel, here is an initial commit :
+>=20
+> =C2=A0=C2=A0=C2=A0https://github.com/legoater/linux/commit/c08765882b4091=
+cb1b9998d872415c072ecfe8af
+>=20
+> which I will send with a bunch of improvements when we switch=C2=A0
+> to linux 4.10. I can eventually rebase on 4.7 but I would have
+> preferred not maintaining too much branches.
+
+That's fair enough. If we apply Lei's patch to 4.7 as a hack it means
+that we can ignore the issue from then on. Any new systems will be
+based on at least 4.10, which should have your improvements.
+
+>=20
+> > We could configure the mapping if we know the chip sizes, however
+> > looking at the device's bindings documentation[2] we find:
+> >=20
+> > =C2=A0=C2=A0=C2=A0=C2=A0...
+> > =C2=A0=C2=A0=C2=A0=C2=A0Required properties:
+> > =C2=A0=C2=A0=C2=A0=C2=A0...
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- #size-cells : must be 0 corresponding t=
+o chip select child binding
+> >=20
 > > and
-> > +		 * replaced with those from the top half of HICR7.
-> 
-> HICR8[31:16] represents a mask of the bits which should be taken from
-> HICR7[31:16] and placed in the BMC address.
+> >=20
+> > =C2=A0=C2=A0=C2=A0=C2=A0...
+> > =C2=A0=C2=A0=C2=A0=C2=A0Child node required properties:
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- reg : must contain chip select nu=
+mber in first cell of address, must
+> > =C2=A0=C2=A0=C2=A0=C2=A0be 1 tuple long
+> > =C2=A0=C2=A0=C2=A0=C2=A0...
+> >=20
+> > I think we need #size-cells to be 1 in the parent so we can define the
+> > mapping ranges. I don't know that its going to be an easy change to
+> > make though given the bindings are already upstream. Thoughts?
+>=20
+> In the aspeed-smc bindings, the mapping range is for the overall=C2=A0
+> AHB window. This is a HW constant you can not change.=C2=A0
+>=20
+> As for the settings of the each chip window, I would let the=C2=A0
+> driver discover and configure them as you can ruin the controller=C2=A0
+> behavior in command mode if they are wrong.=C2=A0
 
-Yes.
+I wasn't concerned about the overall AHB window so much as the chip
+windows. Letting the driver discover and configure them was what I was
+hoping for, and was investigating providing the information via the DT.
+If we have an alternative approach (querying the chip?) that would be
+great.
 
-> > +		 * The 1 bits in the bottom half of HICR8 represent
-> > the bits
-> > +		 * (in the requested address) that should be kept
-> > and pass
-> > +		 * into the BMC address space.
-> 
-> HICR8[15:0] represents a mask of the bits which should be taken from
-> LPC_ADDR[31:16] and placed in the BMC address.
-> 
-> If I understand correctly, we basically end up with:
-> 
-> BMC_ADDR[31:0] = (BMC_OFFSET + LPC_OFFSET + INDEX) << 16 + OFFSET
-> where:
-> BMC_OFFSET = HICR7[31:16] & HICR8[31:16] - The offset into bmc memory
-> of where the window is.
-> LPC_OFFSET = LPC_ADDR[31:16] - HICR7[15:0] - The offset on the lpc bus
-> of where we created the window.
-> INDEX = LPC_ADDR[31:16] & HICR8[15:0] - High bits of the lpc address
-> which we use in the bmc address.
-> OFFSET = LPC_ADDR[15:0] - Low bits of the lpc address which we use in
-> the bmc address.
-> > +		 */
+> =C2=A0
+> What is the specific need ? Is it to have a window covering all=C2=A0
+> the SPI CEx chips ?=20
 
-This sounds right to me.
+In this case it was to have CE0 window cover 64MB rather than 32MB.
+Supporting more than one chip would be a nice-to-have rather than
+something Lei needs as far as I understand.
 
-> > +
-> > +		/*
-> > +		 * It doesn't make sense to talk about a size or
-> > offset with
-> > +		 * low 16 bits set. Both HICR7 and HICR8 talk about
-> > the top 16
-> > +		 * bits of addresses and sizes.
-> > +		 */
-> > +
-> > +		if ((map.size & 0x0000ffff) || (map.offset &
-> > 0x0000ffff))
-> > +			return -EINVAL;
-> 
-> Am I missing something? Are you checking anywhere that map.size is
-> power-of-2 aligned?
-> > +
+> If so, my tree should have that support=C2=A0
+> already. But, please note that the HW is broken for chips > 128MB,=C2=A0
+> on witherspoon for instance.
+>=20
 
-Not explicitly - I didn't want to be too restrictive. The conditions
-only protect against exploits. Any other values should *work* but
-produce interesting results. For example, it would be possible to map
-the same 64K BMC region to multiple 64K regions on the host - why one
-would do that I have no idea but you can.
+I guess the question is about what support is going to be in which
+branch of openbmc/linux. As it stands it looks like dev-4.7 will not
+have chip window configuration support in the driver, and dev-4.10
+will.
 
-> > +		/*
-> > +		 * Because of the way the masks work in HICR8 offset
-> > has to
-> > +		 * be a multiple of size.
-> > +		 */
-> > +		if (map.offset & (map.size - 1))
-> > +			return -EINVAL;
-> > +
-> > +		if (map.window_type == ASPEED_LPC_CTRL_WINDOW_FLASH)
-> > {
-> > +			addr = lpc_ctrl->pnor_base;
-> > +			size = lpc_ctrl->pnor_size;
-> > +		} else if (map.window_type ==
-> > ASPEED_LPC_CTRL_WINDOW_MEMORY) {
-> > +			addr = lpc_ctrl->mem_base;
-> > +			size = lpc_ctrl->mem_size;
-> > +		} else {
-> > +			return -EINVAL;
-> > +		}
-> > +
-> > +		/* Check overflow first! */
-> > +		if (map.offset + map.size < map.offset ||
-> > +			map.offset + map.size > size)
-> > +			return -EINVAL;
-> > +
-> > +		if (map.size == 0 || map.size > size)
-> > +			return -EINVAL;
-> > +
-> > +		addr += map.offset;
-> > +
-> > +		/*
-> > +		 * addr (host lpc address) is safe regardless of
-> > values. This
-> > +		 * simply changes the address the host has to
-> > request on its
-> > +		 * side of the LPC bus. This cannot impact the hosts
-> > own
-> > +		 * memory space by surprise as LPC specific
-> > accessors are
-> > +		 * required. The only strange thing that could be
-> > done is
-> > +		 * setting the lower 16 bits but the shift takes
-> > care of that.
-> > +		 */
-> 
-> Don't you have to explicitly check that the bits 15:0 of map.addr
-> aren't set? Otherwise something could ask to map LPC address 0x1234
-> (map.addr = 0x1234), you will set HICR7[15:0] = 0 (map.addr >> 16). So
-> when address 0x1234 is accessed on the lpc bus, this will map to bmc
-> address 0x1234 instead of the expected 0x0 (since this is the base lpc
-> address)?
-> 
+Andrew
+--=-4JOn71DkkXtenH49whTR
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-Yeah I didn't check, as you say the 0x1234 get thrown away by the
-shift. It appears I forgot to explicitly say that that the smallest
-valid value is 64K, I did say that about the size. I'd be surprised if
-a user didn't know this already but if you feel strongly about it I can
-resend with an error condition for it.
+-----BEGIN PGP SIGNATURE-----
 
-Thanks,
+iQIcBAABCgAGBQJYt4mrAAoJEJ0dnzgO5LT5GWsP/jXXXrWj5zHk5Z8CnmptjB3J
+JiMY6k3tc+LPdJ8R3/gsboXU09ZaeJChK9Q9pf4UY4Lwts/pVATvwLR3bqpR+SqK
+5++d7oNki0tzjH4na+gyq+bxOXT7Wp/H4waRJZdM5GXACw63k7QgwZ9bkJ8qaUCT
+gMjaYVOkuwjnMx5nIDaE5PDYG0sNRJYNZJGyQIxfTA5FEPpWMISlztGpsbeNWHky
+Z66UkVD9u06huXmdKJiVkhLoivq2koditbeYO1hgKHAYAGtHe+SLRW7Nwp9ZxSI4
+TdbVUXhvQRoO/f57ay22iq2exT5uzSzzyITWnOoA2gfHY7Q1sjbVw50h26KMZpwo
+UaiRLc4d5QCfp/QE3oIjjSAHtQLPPZMDZdqzqZWzIpTLUvU6+VdHGvDCvbp+Fk+U
+S7QXM+IFBqZP9/2u6IRuPpTgk7J+PZ/0hWcWYD+Qel0Bu+8JBtCsUBu0C3CaDt5M
+NncWE4XW6QgCLOONOFm5H38ZYwhcx9DA0StDa5TIYJcbCmnB/OzDVH3in5d1kHuI
+xouX6bWwrRgsf/4t2Z/l4a58crJXoc2GwcPJw9fVO2/UTqmjKIO6O23oCA9RmyhU
+M4d5xi5oSW0262HRec2hgySmjk9SuP6YlD8Hq0aadl61RI0xnaS1sZtYS7TmLsxU
+tJYFHSupw9vOG3l8Yi/F
+=IBCV
+-----END PGP SIGNATURE-----
 
-Cyril
-
-> Or do we preclude the low 16 bits of map.addr from being set somewhere
-> else?
-> > +
-> > +		rc = regmap_write(lpc_ctrl->regmap, HICR7,
-> > +				(addr | (map.addr >> 16)));
-> > +		if (rc)
-> > +			return rc;
-> > +
-> > +		return regmap_write(lpc_ctrl->regmap, HICR8,
-> > +			(~(map.size - 1)) | ((map.size >> 16) - 1));
-> > +	}
-> > +
-> > +	return -EINVAL;
-> > +}
-> > +
-> > +static const struct file_operations aspeed_lpc_ctrl_fops = {
-> > +	.owner		= THIS_MODULE,
-> > +	.mmap		= aspeed_lpc_ctrl_mmap,
-> > +	.unlocked_ioctl	= aspeed_lpc_ctrl_ioctl,
-> > +};
-> > +
-> > +static int aspeed_lpc_ctrl_probe(struct platform_device *pdev)
-> > +{
-> > +	struct aspeed_lpc_ctrl *lpc_ctrl;
-> > +	struct device_node *node;
-> > +	struct resource resm;
-> > +	struct device *dev;
-> > +	int rc;
-> > +
-> > +	dev = &pdev->dev;
-> > +
-> > +	lpc_ctrl = devm_kzalloc(dev, sizeof(*lpc_ctrl), GFP_KERNEL);
-> > +	if (!lpc_ctrl)
-> > +		return -ENOMEM;
-> > +
-> > +	node = of_parse_phandle(dev->of_node, "flash", 0);
-> > +	if (!node) {
-> > +		dev_err(dev, "Didn't find host pnor flash node\n");
-> > +		return -ENODEV;
-> > +	}
-> > +
-> > +	rc = of_address_to_resource(node, 1, &resm);
-> > +	of_node_put(node);
-> > +	if (rc) {
-> > +		dev_err(dev, "Couldn't address to resource for
-> > flash\n");
-> > +		return rc;
-> > +	}
-> > +
-> > +	lpc_ctrl->pnor_size = resource_size(&resm);
-> > +	lpc_ctrl->pnor_base = resm.start;
-> > +
-> > +	dev_set_drvdata(&pdev->dev, lpc_ctrl);
-> > +
-> > +	node = of_parse_phandle(dev->of_node, "memory-region", 0);
-> > +	if (!node) {
-> > +		dev_err(dev, "Didn't find reserved memory\n");
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	rc = of_address_to_resource(node, 0, &resm);
-> > +	of_node_put(node);
-> > +	if (rc) {
-> > +		dev_err(dev, "Couldn't address to resource for
-> > reserved memory\n");
-> > +		return -ENOMEM;
-> > +	}
-> > +
-> > +	lpc_ctrl->mem_size = resource_size(&resm);
-> > +	lpc_ctrl->mem_base = resm.start;
-> > +
-> > +	lpc_ctrl->regmap = syscon_node_to_regmap(
-> > +			pdev->dev.parent->of_node);
-> > +	if (IS_ERR(lpc_ctrl->regmap)) {
-> > +		dev_err(dev, "Couldn't get regmap\n");
-> > +		return -ENODEV;
-> > +	}
-> > +
-> > +	lpc_ctrl->miscdev.minor = MISC_DYNAMIC_MINOR;
-> > +	lpc_ctrl->miscdev.name = DEVICE_NAME;
-> > +	lpc_ctrl->miscdev.fops = &aspeed_lpc_ctrl_fops;
-> > +	lpc_ctrl->miscdev.parent = dev;
-> > +	rc = misc_register(&lpc_ctrl->miscdev);
-> > +	if (rc)
-> > +		dev_err(dev, "Unable to register device\n");
-> > +	else
-> > +		dev_info(dev, "Loaded at 0x%08x (0x%08x)\n",
-> > +			lpc_ctrl->mem_base, lpc_ctrl->mem_size);
-> > +
-> > +	return rc;
-> > +}
-> > +
-> > +static int aspeed_lpc_ctrl_remove(struct platform_device *pdev)
-> > +{
-> > +	struct aspeed_lpc_ctrl *lpc_ctrl = dev_get_drvdata(&pdev-
-> > > dev);
-> > 
-> > +
-> > +	misc_deregister(&lpc_ctrl->miscdev);
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static const struct of_device_id aspeed_lpc_ctrl_match[] = {
-> > +	{ .compatible = "aspeed,ast2400-lpc-ctrl" },
-> > +	{ .compatible = "aspeed,ast2500-lpc-ctrl" },
-> > +	{ },
-> > +};
-> > +
-> > +static struct platform_driver aspeed_lpc_ctrl_driver = {
-> > +	.driver = {
-> > +		.name		= DEVICE_NAME,
-> > +		.of_match_table = aspeed_lpc_ctrl_match,
-> > +	},
-> > +	.probe = aspeed_lpc_ctrl_probe,
-> > +	.remove = aspeed_lpc_ctrl_remove,
-> > +};
-> > +
-> > +module_platform_driver(aspeed_lpc_ctrl_driver);
-> > +
-> > +MODULE_DEVICE_TABLE(of, aspeed_lpc_ctrl_match);
-> > +MODULE_LICENSE("GPL");
-> > +MODULE_AUTHOR("Cyril Bur <cyrilbur@gmail.com>");
-> > +MODULE_DESCRIPTION("Control for aspeed 2400/2500 LPC HOST to BMC
-> > mappings");
-> > diff --git a/include/uapi/linux/aspeed-lpc-ctrl.h
-> > b/include/uapi/linux/aspeed-lpc-ctrl.h
-> > new file mode 100644
-> > index 000000000000..f96fa995a3f0
-> > --- /dev/null
-> > +++ b/include/uapi/linux/aspeed-lpc-ctrl.h
-> > @@ -0,0 +1,60 @@
-> > +/*
-> > + * Copyright 2017 IBM Corp.
-> > + *
-> > + * This program is free software; you can redistribute it and/or
-> > + * modify it under the terms of the GNU General Public License
-> > + * as published by the Free Software Foundation; either version
-> > + * 2 of the License, or (at your option) any later version.
-> > + */
-> > +
-> > +#ifndef _UAPI_LINUX_ASPEED_LPC_CTRL_H
-> > +#define _UAPI_LINUX_ASPEED_LPC_CTRL_H
-> > +
-> > +#include <linux/ioctl.h>
-> > +
-> > +/* Window types */
-> > +#define ASPEED_LPC_CTRL_WINDOW_FLASH	1
-> > +#define ASPEED_LPC_CTRL_WINDOW_MEMORY	2
-> > +
-> > +/*
-> > + * This driver provides a window for the host to access a BMC
-> > resource
-> > + * across the BMC <-> Host LPC bus.
-> > + *
-> > + * window_type: The BMC resource that the host will access through
-> > the
-> > + * window. BMC flash and BMC RAM.
-> > + *
-> > + * window_id: For each window type there may be multiple windows,
-> > + * these are referenced by ID.
-> > + *
-> > + * flags: Reserved for future use, this field is expected to be
-> > + * zeroed.
-> > + *
-> > + * addr: Address on the host LPC bus that the specified window
-> > should
-> > + * be mapped. This address must be power of two aligned.
-> 
-> If I understand correctly -> AND a multiple of size?
-> > + *
-> > + * offset: Offset into the BMC window that should be mapped to the
-> > + * host (at addr). This must be a multiple of size.
-> > + *
-> > + * size: The size of the mapping. The smallest possible size is 64K.
-> > + * This must be power of two aligned.
-> > + *
-> > + */
-> > +
-> > +struct aspeed_lpc_ctrl_mapping {
-> > +	__u8	window_type;
-> > +	__u8	window_id;
-> > +	__u16	flags;
-> > +	__u32	addr;
-> > +	__u32	offset;
-> > +	__u32	size;
-> > +};
-> > +
-> > +#define __ASPEED_LPC_CTRL_IOCTL_MAGIC	0xb2
-> > +
-> > +#define ASPEED_LPC_CTRL_IOCTL_GET_SIZE	_IOWR(__ASPEED_LPC_CTR
-> > L_IOCTL_MAGIC, \
-> > +		0x00, struct aspeed_lpc_ctrl_mapping)
-> > +
-> > +#define ASPEED_LPC_CTRL_IOCTL_MAP	_IOW(__ASPEED_LPC_CTRL_IOCT
-> > L_MAGIC, \
-> > +		0x01, struct aspeed_lpc_ctrl_mapping)
-> > +
-> > +#endif /* _UAPI_LINUX_ASPEED_LPC_CTRL_H */
+--=-4JOn71DkkXtenH49whTR--
