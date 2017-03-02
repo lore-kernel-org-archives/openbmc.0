@@ -1,53 +1,54 @@
-Return-Path: <xow@google.com>
-Received: from mail-yw0-x236.google.com (mail-yw0-x236.google.com
- [IPv6:2607:f8b0:4002:c05::236])
+Return-Path: <emilyshaffer@google.com>
+Received: from mail-io0-x235.google.com (mail-io0-x235.google.com
+ [IPv6:2607:f8b0:4001:c06::235])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vZ0Zx4w3BzDqGj
- for <openbmc@lists.ozlabs.org>; Fri,  3 Mar 2017 05:04:57 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vZ1fD4wYyzDqGv
+ for <openbmc@lists.ozlabs.org>; Fri,  3 Mar 2017 05:52:51 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="kphNBKwx"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="L25y5zJF"; 
  dkim-atps=neutral
-Received: by mail-yw0-x236.google.com with SMTP id d1so64064404ywd.2
- for <openbmc@lists.ozlabs.org>; Thu, 02 Mar 2017 10:04:57 -0800 (PST)
+Received: by mail-io0-x235.google.com with SMTP id f84so58659914ioj.0
+ for <openbmc@lists.ozlabs.org>; Thu, 02 Mar 2017 10:52:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=sv56ywbshgFHwPr7dbgbeei3UtxI9yETQG5WKYIpv5Y=;
- b=kphNBKwxoIvqVgGwACqZQ8M4CSJTD1aGH7RikGLPsVkrLPbMYsT/q91Lho5BguxRa2
- DuYYtn5vt6o1LAyFii5m6DVTlB6mgpZPKNnJpm9mYd+MNSpe7gmKLQbMx61SA9laZ9Vx
- vlDKbjSfAFG+7vaZduBsQ+XNi/lsHGD2W+7Hj/eGGdNsefOU8B80TTZedeSZb/iuCme0
- PJCRIFWYuZGLyQX8Z9QK9PnuHHYh4MDwFTtIaul6kphKBY0iZK2sbWZ6Zfn0k+nmTSaF
- MV9qPbBXtybrJlNxaqUZZBtJjLrBlyrRaTtvrO104y80B9SISftlMguTn6VHQI7ah9rN
- PfMw==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=CP2iBk5M+c8uACmtY75Ax4/Tk/UsPLzjhOGz3Ddq/ps=;
+ b=L25y5zJFSWMxW3+CgoIKHJDZms8Ml6MYzFPGULzmVG70hvYSP6vw4S9Wbey3PAB1uS
+ SyUVXNklELHY5UJX3S5fRjs20ZmF5iye6drI+FV4hVG5Tx5JdVqiK9ZmhaERSV3bPuYC
+ cA13IxRge4AAOaQ5xSzDZBr54e1a2qO/eU40Xkkp3zbRpa3EoE4skclVHiZbWot1Z0TQ
+ XXuzNHQzVnFuhzt/PwzYITzfWe5uZgOAV7hw7jvAgPhck7jJkNmpn7e14LyW5nuXQj1j
+ AakCEXpurOZ+7sgnrNTW1kdntLkiaQuzvzxykGZMbDPZs5fjYrpHaYsXYo4qe3cKN3Wq
+ e/mQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=sv56ywbshgFHwPr7dbgbeei3UtxI9yETQG5WKYIpv5Y=;
- b=cclxw6CtbS5Qik4Z2fS4DiebPbUAEKInHuUKCwK+hnUkX4bTltke2Wx6qw2SII/vNG
- 17wHHTuiTT56xd3+701PubLtd+b6lDQgw3o71bZwsmVqeDJ//vwldai2Q+C+gqsVqFAg
- 7MUzSiV2Y+tGXP7DPuM0FBoksA4swxLArIR2fAtNLf2qgE70/Dy1G9EVG7OkZzptPl5n
- tmmpMYPaUxtH4L8yCzGaYZ3NUC6z+RsvOij5hfHWfvK8TZoVFJyomPeaTMAGDgcxO368
- +CB4s+BhIz43Szwft1qx5GvJJJK4ecSPfZKZk7onGjU/bo7buV1bA246+gRKms1FZyMe
- Agow==
-X-Gm-Message-State: AMke39nGErwfizs0dBR0HxbY1A7YvumPBvofKhXGtVoj2PKPkKINmt8izFQDIkXXnQ7z6tKyymZP6AwG47uVdOcA
-X-Received: by 10.237.34.125 with SMTP id o58mr18220935qtc.108.1488477895191; 
- Thu, 02 Mar 2017 10:04:55 -0800 (PST)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=CP2iBk5M+c8uACmtY75Ax4/Tk/UsPLzjhOGz3Ddq/ps=;
+ b=gAhIb2LdBXLcV+f2D1U3BOkx1nW5RQBHtQAFWV0vg/dL8v4aVbgsJWC1Ly69AQsD2h
+ kOZ4ZvuYdNb7XljOJV95pFumDnf0rZKdTT/qnY0AXA5gloub4PSBRJ2qwwt7KbAzMJwy
+ ME+7PB8Dk8vTulA+Or8QDhd4wdkX4YAYitxJJuDfiuCmyk7N0WluYbZIAqpZopdB4AjH
+ lT54oaE71xJsc1iwACWDFai7ew0zPyQ9ZT9XDk96riyKAwBhXA3Hc2SCV/a0HnrNqGKJ
+ BlV5r/Bq+siQT7vegoim/Dv6ncLeY7WwubL3M64yRtmjJ9S9LIdXAaBYYOveB/Hhgk6m
+ YwSg==
+X-Gm-Message-State: AMke39knQZsok8aH11G2vegxbrdj7OMvUKvvnszIot7wJTMbeI5nuBb6/zi4wti7Yj5HQUw4P7UiLUuF9Ov0NXPF
+X-Received: by 10.107.134.36 with SMTP id i36mr17529795iod.192.1488480769334; 
+ Thu, 02 Mar 2017 10:52:49 -0800 (PST)
 MIME-Version: 1.0
-Received: by 10.140.21.116 with HTTP; Thu, 2 Mar 2017 10:04:54 -0800 (PST)
-In-Reply-To: <CACPK8XcYE3Ysb8QdK-=+XV1vSpe63m6CTz3pdy5rTRT-NYfBsA@mail.gmail.com>
-References: <CALLMt=pFzj+_RWoTo52Q_U+Ca5sH2FsSLOC1aRnJHOek2aZrQQ@mail.gmail.com>
- <CACPK8XcYE3Ysb8QdK-=+XV1vSpe63m6CTz3pdy5rTRT-NYfBsA@mail.gmail.com>
-From: Xo Wang <xow@google.com>
-Date: Thu, 2 Mar 2017 10:04:54 -0800
-Message-ID: <CAPH-5w7WoBtQP7hDtGS23+4S2YqckYsEVVajcj9hjTA+dOM19A@mail.gmail.com>
-Subject: Re: Handling BMC Reboots when Host is Running
-To: Joel Stanley <joel@jms.id.au>
-Cc: Andrew Geissler <geissonator@gmail.com>,
+References: <20170301200526.GB837@heinlein.lan>
+ <20170301224312.21540-1-emilyshaffer@google.com>
+ <CACPK8Xec0vTCd7sqjGegzfbk5y+ote+MtLe2g=ZZpBR-EemLbA@mail.gmail.com>
+ <CACPK8Xdx4cmCLp7TkVGCyk3ghGAET1WwW5yM871suNY-19cEzA@mail.gmail.com>
+ <CAPH-5w7qxK6J6KsQQk6CVQt0eg6X2zfWDTPsTD09vFrpdh6UxQ@mail.gmail.com>
+In-Reply-To: <CAPH-5w7qxK6J6KsQQk6CVQt0eg6X2zfWDTPsTD09vFrpdh6UxQ@mail.gmail.com>
+From: Emily Shaffer <emilyshaffer@google.com>
+Date: Thu, 02 Mar 2017 18:52:38 +0000
+Message-ID: <CAJoAoZmWVWiAVxH4tHObCTtwxo_6JnjvmN-4zwM+GtxKhmOTew@mail.gmail.com>
+Subject: Re: [PATCH v2] ARM: dts: aspeed: zaius add reg field to pca9541a i2c
+ mux
+To: Xo Wang <xow@google.com>, Joel Stanley <joel@jms.id.au>
+Cc: Patrick Williams <patrick@stwcx.xyz>,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/alternative; boundary=001a113ece488359210549c3ef6a
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,104 +60,70 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Mar 2017 18:04:58 -0000
+X-List-Received-Date: Thu, 02 Mar 2017 18:52:53 -0000
 
-On Wed, Mar 1, 2017 at 5:01 PM, Joel Stanley <joel@jms.id.au> wrote:
-> On Wed, Mar 1, 2017 at 3:33 AM, Andrew Geissler <geissonator@gmail.com> w=
-rote:
->> My story this sprint, https://github.com/openbmc/openbmc/issues/1094,
->> is to allow the BMC to be rebooted while the host is up and running.
->
-> Cool. In addition to this work, we need to make sure the required bits
-> of the Aspeed hardware are not reset to a default state, either by the
-> SoC's reset mechanism, or by the loading of drivers.
->
-> GPIOs are a good example of this. When we know that the host is
-> already up, any access should read the current state of the GPIO and
-> before it does any toggling. Another is the operation of flash (which
-> will now need to be handled by mboxd).
+--001a113ece488359210549c3ef6a
+Content-Type: text/plain; charset=UTF-8
 
-FYI, we have an internal bug about Zaius-specific behavior with our
-board-level latches (between BMC and power sequencer) being set
-transparent prior to reading the host power state. This kills power to
-the host every time that the BMC resets.
+I'm going to give a try with those patches backported, no luck getting rid
+of the warning.
 
-I'm currently working on this and it looks like a bug with my earlier
-changes to the glib-based power control daemon.
+Incidentally, is there a way to turn on warnings as errors with bitbake? I
+was unaware of those warnings until Joel pointed them out.
 
->
-> I realise this is outside the scope of your "lets get the targets
-> sorted" work. I thought I'd mention it now so we can be on the look
-> out for strange behaviour as you do your rework.
->
-> Cheers,
->
-> Joel
->
->> After the BMC reboot, we need to keep the host running and also get to
->> the appropriate systemd target states to represent this.   The
->> challenge here is that if we just re-ran the existing targets and
->> services, we would do things like run P9 vcs workarounds, bit bang the
->> FSI bus, and even potentially toggle pgood.  We obviously need to
->> avoid this in order to keep the host up and running.  This divides our
->> services started during a obmc-host-start.target into 2 categories,
->> services required to boot the system, and services which are required
->> to support the host running.  We only want to run the latter in a
->> situation where the BMC is reset while the host is up and running.
->>
->> Requirements:
->>
->> - The applications should have no knowledge of Host state
->>   - i.e. the service starting or not starting is where we control what r=
-uns
->>
->> - Must handle being able to start and not start any arbitrary service
->> within the host power on targets
->>   - Lots of services have dependencies on each other and
->> synchronization targets, this design has to handle starting services
->> that depend on other services or targets that may not be required when
->> the host is running
->>
->> - The obmc-host-start.target needs to get to the running state when
->> the host is already running after a BMC reset
->>   - This will ensure that any re-starts of this target do not harm the
->> system and that the power off targets will work as expected
->>
->> Proposal:
->>
->> Use the ConditionPathExists=3D systemd unit feature.
->>
->> From the man page: "Before starting a unit, verify that the specified
->> condition is true. If it is not true, the starting of the unit will be
->> (mostly silently) skipped, however all ordering dependencies of it are
->> still respected. A failing condition will not result in the unit being
->> moved into a failure state. The condition is checked at the time the
->> queued start job is to be executed. Use condition expressions in order
->> to silently skip units that do not apply to the local running system,
->> for example because the kernel or runtime environment doesn't require
->> its functionality. "
->>
->> This will be put in the service files that we do not want to run in
->> this reset scenario (services required to boot the system).  The first
->> service we will run on a power on, is a service that detects whether
->> the host is already running.  If the host is running, then this
->> service will create a file which will then be used to determine
->> whether the boot services are run or not.
->>
->> The nice part about ConditionPathExists=3D is that it doesn=E2=80=99t ex=
-ecute
->> the application in the services, but it allows dependencies on that
->> service to be satisfied so systemd will still start the dependent
->> services and reach the dependent synchronization targets.
->>
->> This proposal has not gone off as well as I would have hoped
->> internally here :)  There=E2=80=99s definitely a desire to not have this=
- at
->> the service level, but rather at the target level.  I have not found a
->> solution in this area though that satisfies the above requirements.
->> Thoughts/ideas are definitely appreciated.
->>
->> Andrew
+On Thu, Mar 2, 2017 at 9:58 AM Xo Wang <xow@google.com> wrote:
 
-cheers
-xo
+> It looks like this issue is fixed in v4.9:
+> https://lkml.org/lkml/2016/8/15/569
+>
+> The cover letter to that patchset also mentions adding an unused "reg"
+> property as a workaround. I had probably copied and pasted the pca9541
+> bindings without "reg" to the Zaius dts without reading the rest of
+> the notes. Oops.
+>
+> Should we backport that patchset and/or wait for the next OpenBMC kernel
+> rebase?
+>
+> Emily: can you test whether the "reg" property is still necessary if
+> you backport those patches?
+>
+> cheers
+> xo
+>
+
+--001a113ece488359210549c3ef6a
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">I&#39;m going to give a try with those patches backported,=
+ no luck getting rid of the warning.<div><br></div><div>Incidentally, is th=
+ere a way to turn on warnings as errors with bitbake? I was unaware of thos=
+e warnings until Joel pointed them out.</div></div><br><div class=3D"gmail_=
+quote"><div dir=3D"ltr">On Thu, Mar 2, 2017 at 9:58 AM Xo Wang &lt;<a href=
+=3D"mailto:xow@google.com">xow@google.com</a>&gt; wrote:<br></div><blockquo=
+te class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc so=
+lid;padding-left:1ex">It looks like this issue is fixed in v4.9: <a href=3D=
+"https://lkml.org/lkml/2016/8/15/569" rel=3D"noreferrer" class=3D"gmail_msg=
+" target=3D"_blank">https://lkml.org/lkml/2016/8/15/569</a><br class=3D"gma=
+il_msg">
+<br class=3D"gmail_msg">
+The cover letter to that patchset also mentions adding an unused &quot;reg&=
+quot;<br class=3D"gmail_msg">
+property as a workaround. I had probably copied and pasted the pca9541<br c=
+lass=3D"gmail_msg">
+bindings without &quot;reg&quot; to the Zaius dts without reading the rest =
+of<br class=3D"gmail_msg">
+the notes. Oops.<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+Should we backport that patchset and/or wait for the next OpenBMC kernel re=
+base?<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+Emily: can you test whether the &quot;reg&quot; property is still necessary=
+ if<br class=3D"gmail_msg">
+you backport those patches?<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+cheers<br class=3D"gmail_msg">
+xo<br class=3D"gmail_msg">
+</blockquote></div>
+
+--001a113ece488359210549c3ef6a--
