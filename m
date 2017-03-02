@@ -1,52 +1,44 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <clg@kaod.org>
+X-Greylist: delayed 321 seconds by postgrey-1.36 at bilbo;
+ Thu, 02 Mar 2017 19:02:48 AEDT
+Received: from 7.mo68.mail-out.ovh.net (7.mo68.mail-out.ovh.net
+ [46.105.63.230])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vYcl96YcqzDqMG
- for <openbmc@lists.ozlabs.org>; Thu,  2 Mar 2017 14:10:45 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="eeDeiLxG"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="DBap33NR"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 6139F20834;
- Wed,  1 Mar 2017 22:10:42 -0500 (EST)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Wed, 01 Mar 2017 22:10:42 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=/0sOqz88accJxZGJhiyL4gbuG/c=; b=eeDeiL
- xGjC3we3MTSwYTGW/NGzVGRSj6ls1vMm0nwsqLjje6z/uL2W7gZoQuR6qLQzMnBn
- Jgrk8eKoKAed7T1SQIdxa6oalauLgWL1Zb5e4YqdgstSpGRhN5Q6FlWuk0aftVT2
- jy6UegQmlQsZCAV5XSqfZru7UeVacZtM2rxe4=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=/0sOqz88accJxZ
- GJhiyL4gbuG/c=; b=DBap33NR6z8WON3sjbGlW2evsst2wzRp/0HNYVO1dtUaY7
- dbsOiGoOSbpB/CxoOUt1R1tMlJoLtiGo5k4hfhDR6Qnbv5iDoqK35Gp3XCKlBdhK
- 5o8jn2Ats1GPz9TPGhzBkzIHNILgxHSEzi5bi03zEhIYlI6kF//RztXsR+wDk=
-X-ME-Sender: <xms:Mo23WH-ImeQRP_RNWJ_cqViuMiRYK9Pjshf42u7C4htPJZ84iy_vbg>
-X-Sasl-enc: RNSOc6thjW95Rdgq++9JbRFveZS754g48HozvtXsNMuG 1488424241
-Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id C6CAC7E325;
- Wed,  1 Mar 2017 22:10:40 -0500 (EST)
-Message-ID: <1488424236.4258.13.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.7 v2] arm: aspped: romulus: Set PNOR SPI
- address mapping
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Lei YU <mine260309@gmail.com>, openbmc@lists.ozlabs.org
-Date: Thu, 02 Mar 2017 13:40:36 +1030
-In-Reply-To: <1488338990-2365-1-git-send-email-mine260309@gmail.com>
-References: <1488337524.4258.9.camel@aj.id.au>
- <1488338990-2365-1-git-send-email-mine260309@gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-HdlpiofuGuZ4ByzQFMRq"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vYlD84lZKzDq66
+ for <openbmc@lists.ozlabs.org>; Thu,  2 Mar 2017 19:02:47 +1100 (AEDT)
+Received: from player763.ha.ovh.net (b9.ovh.net [213.186.33.59])
+ by mo68.mail-out.ovh.net (Postfix) with ESMTP id 785EF41407
+ for <openbmc@lists.ozlabs.org>; Thu,  2 Mar 2017 08:57:23 +0100 (CET)
+Received: from zorba.kaod.org (LFbn-1-10647-27.w90-89.abo.wanadoo.fr
+ [90.89.233.27]) (Authenticated sender: postmaster@kaod.org)
+ by player763.ha.ovh.net (Postfix) with ESMTPSA id B76A03C0098;
+ Thu,  2 Mar 2017 08:57:16 +0100 (CET)
+Subject: Re: [PATCH linux dev-4.7] arm: aspped: romulus: Set PNOR SPI address
+ mapping
+To: Andrew Jeffery <andrew@aj.id.au>, Lei YU <mine260309@gmail.com>,
+ Joel Stanley <joel@jms.id.au>
+References: <1488266280-28755-1-git-send-email-mine260309@gmail.com>
+ <CACPK8XdHH1Yrr+TaD-joq0uFgj+epg_dQu2QHhSfFv9i0LNkDQ@mail.gmail.com>
+ <1488280599.2423183.895344368.6877EADC@webmail.messagingengine.com>
+ <CAARXrtmw2FmhuO2WU8A4F4X=i5JD0CPTV_N6Oztm8zzs7diKuA@mail.gmail.com>
+ <1488285610.4258.3.camel@aj.id.au> <1488337524.4258.9.camel@aj.id.au>
+ <9f4dc608-fe29-10bc-08d5-d9fd4f36d167@kaod.org>
+ <1488423338.4258.11.camel@aj.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Cyril Bur <cyrilbur@gmail.com>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <c976c62c-c97b-061b-a57e-dc76ad7b6238@kaod.org>
+Date: Thu, 2 Mar 2017 08:57:11 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.7.0
+MIME-Version: 1.0
+In-Reply-To: <1488423338.4258.11.camel@aj.id.au>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 15015564109480233859
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelhedrfedugdduudelucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,62 +50,152 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Mar 2017 03:10:47 -0000
+X-List-Received-Date: Thu, 02 Mar 2017 08:02:49 -0000
 
+On 03/02/2017 03:55 AM, Andrew Jeffery wrote:
+> On Wed, 2017-03-01 at 08:26 +0100, Cédric Le Goater wrote:
+>> On 03/01/2017 04:05 AM, Andrew Jeffery wrote:
+>>> Replying to myself again... I think I've learnt the lesson not to email
+>>> whilst in bed.
+>>>
+>>> I've done some further investigation after jumping on a Romulus
+>>> machine:
+>>>
+>>> On Tue, 2017-02-28 at 23:10 +1030, Andrew Jeffery wrote:
+>>>> On Tue, 2017-02-28 at 20:27 +0800, Lei YU wrote:
+>>>>> Hi Andrew, Joel,
+>>>>>
+>>>>> This patch is for issue https://github.com/openbmc/openbmc/issues/1214
+>>>>>
+>>>>> Here's what I have tested:
+>>>>> 1. rom1-19 with updated OpenBMC (c85f23e1), which has mboxd enabled;
+>>>>> 2. Do a power cycle;
+>>>>> 3. Once BMC is ready, check the registers by devmem:
+>>>>>    ```
+>>>>>>    root@romulus:/tmp# devmem 0x1e630034
+>>>>>
+>>>>>    0x70640000        <== Wrong, expect 0x70680000
+>>>>>>    root@romulus:/tmp# devmem 0x1e630030
+>>>>>
+>>>>>    0x64600000        <== Wrong, expect 0x68600000
+>>>>>    ```
+>>>>> I can see the two registers have the unexpected value.
+>>
+>> These are the default values : 
+>>
+>> SPIR30: SPI1 CE0 Address Decoding Range Register Init = 0x6460 0000
+>> SPIR34: SPI1 CE1 Address Decoding Range Register Init = 0x7064 0000
+>>
+>> We should let the driver configure these values I think.
+>> see below.
+>>
+> 
+> Agreed.
+> 
+>>>
+>>> Looking at the driver[1] the only time we touch the segment register is
+>>> to read the window start, we don't ever write the segment mapping
+>>> configuration.
+>>
+>> yes, not in 4.7 yet. It is a little "complex" to configure the 
+>> segments up to 5 chips handling the possible overlaps, the 
+>> different chip sizes, which might be bigger than the maximum 
+>> window size, and the HW bugs. AST2500 SPI controller has a bug 
+>> when the CE0 chip size exceeds 120MB.
+> 
+> Yeah, I appreciate it's a finicky problem.
+> 
+>>
+>> Also the controller only really makes use of them in command 
+>> mode. In user mode, the start address is mostly used to 
+>> identify the chip when writing commands on the AHB Bus.    
+>>
+>>> Cédric: Have you looked into supporting configuration of the segment
+>>> mapping?
+>>
+>> yes. QEMU (openbmc and mainline) supports them already. 
+>>
+>> As for the kernel, here is an initial commit :
+>>
+>>    https://github.com/legoater/linux/commit/c08765882b4091cb1b9998d872415c072ecfe8af
+>>
+>> which I will send with a bunch of improvements when we switch 
+>> to linux 4.10. I can eventually rebase on 4.7 but I would have
+>> preferred not maintaining too much branches.
+> 
+> That's fair enough. If we apply Lei's patch to 4.7 as a hack it means
+> that we can ignore the issue from then on. Any new systems will be
+> based on at least 4.10, which should have your improvements.
+>
+>>
+>>> We could configure the mapping if we know the chip sizes, however
+>>> looking at the device's bindings documentation[2] we find:
+>>>
+>>>     ...
+>>>     Required properties:
+>>>     ...
+>>>      - #size-cells : must be 0 corresponding to chip select child binding
+>>>
+>>> and
+>>>
+>>>     ...
+>>>     Child node required properties:
+>>>       - reg : must contain chip select number in first cell of address, must
+>>>     be 1 tuple long
+>>>     ...
+>>>
+>>> I think we need #size-cells to be 1 in the parent so we can define the
+>>> mapping ranges. I don't know that its going to be an easy change to
+>>> make though given the bindings are already upstream. Thoughts?
+>>
+>> In the aspeed-smc bindings, the mapping range is for the overall 
+>> AHB window. This is a HW constant you can not change. 
+>>
+>> As for the settings of the each chip window, I would let the 
+>> driver discover and configure them as you can ruin the controller 
+>> behavior in command mode if they are wrong. 
+> 
+> I wasn't concerned about the overall AHB window so much as the chip
+> windows. Letting the driver discover and configure them was what I was
+> hoping for, and was investigating providing the information via the DT.
 
---=-HdlpiofuGuZ4ByzQFMRq
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Well, we possibly could but given that we can change the 
+chip (and possibly their size), it is better to try to 
+detect them I think.
 
-On Wed, 2017-03-01 at 11:29 +0800, Lei YU wrote:
-> The PNOR SPI address mapping is the same as Witherspoon.
->=20
-> Signed-off-by: Lei YU <mine260309@gmail.com>
+> If we have an alternative approach (querying the chip?) that would be
+> great.
 
-Acked-by: Andrew Jeffery <andrew@aj.id.au>
+That is what my branch is trying to do but it still needs 
+a couple of improvements. All segments should be configured, 
+even those for which there are no chips. Lei just reminded 
+me of that problem.    
 
-> ---
-> =C2=A0arch/arm/mach-aspeed/aspeed.c | 6 ++++++
-> =C2=A01 file changed, 6 insertions(+)
->=20
-> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.=
-c
-> index 726b8fa..7ac006a 100644
-> --- a/arch/arm/mach-aspeed/aspeed.c
-> +++ b/arch/arm/mach-aspeed/aspeed.c
-> @@ -221,6 +221,12 @@ static void __init do_witherspoon_setup(void)
-> =C2=A0static void __init do_romulus_setup(void)
-> =C2=A0{
-> > =C2=A0	do_common_setup();
-> +
-> > +	/* Set SPI1 CE1 decoding window to 0x34000000 */
-> +	writel(0x70680000, AST_IO(AST_BASE_SPI | 0x34));
-+
-> > +	/* Set SPI1 CE0 decoding window to 0x30000000 */
-> > +	writel(0x68600000, AST_IO(AST_BASE_SPI | 0x30));
-> =C2=A0}
-> =C2=A0
-> > =C2=A0#define SCU_PASSWORD	0x1688A8A8
---=-HdlpiofuGuZ4ByzQFMRq
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+>> What is the specific need ? Is it to have a window covering all 
+>> the SPI CEx chips ? 
+> 
+> In this case it was to have CE0 window cover 64MB rather than 32MB.
+> Supporting more than one chip would be a nice-to-have rather than
+> something Lei needs as far as I understand.
 
------BEGIN PGP SIGNATURE-----
+There is still that segment overlap problem to cover even if
+there are no chips.
 
-iQIcBAABCgAGBQJYt40sAAoJEJ0dnzgO5LT5SlcP+wZ/wL9zY/0/aTbjdKH3GzLc
-gWpId3Jc9W3APCHnDLGmqxDCqK9tXjgEFh89/ZUTJ4UMmH/AbLunxjs7rxbPZIed
-Nz4QjtysAjytWoma+f6E8/oAGryY3wTOz6Me0DGIJxoyu2o9cm8VtniPm2VaWNtj
-IwPwwuSuyiCqUgSDtO6ajiFYWEBk7FUfuN0lVH6lioqZYU8Li1AHKS0FVB9YE7ty
-ZIIwW0Mp4RWe2sNn8IKgjh6isLItv1yxnn9Zez4uuXnDZoil2Y6MQ5gmrEBoXHt6
-240Vd5esBn/pn6mhHtQAByrXBlhSy1O5l8ZtJ3zjXnpX5+PzU8/vAEEm6PIRMVEx
-PBmf3PmVk7l1LOmoaS3BjfZNQiiAHMiECLeccU6gKAYFCDqh9sKaAU3q7qI5XiK8
-xAZLhU4PbpLyGetYhztdiKfCGYUuFeVWS6pVU2Q6qP5kYFoSGZCoxH/3KUH/6JYc
-TggEJWEXg2gISaF+zhxmCXf2AR8jpQ0bvwH0fwxIpehQP52Nstxo4IX7PzN4PbDw
-wtzEZPwwI8XGv502YHytDNQDO2ElEL+t9vCNWegXpToS7dS8BhZsQxajX1aWoyn5
-5aQ4kll7E45tsRw5GwxYR+qlUX112X29LjOyg+GN/lO9kibNL4V+ucy1rKnAKLwJ
-DWfcuyZxi+gaUCJluUSZ
-=79Fs
------END PGP SIGNATURE-----
+>> If so, my tree should have that support 
+>> already. But, please note that the HW is broken for chips > 128MB, 
+>> on witherspoon for instance.
+>>
+> 
+> I guess the question is about what support is going to be in which
+> branch of openbmc/linux. As it stands it looks like dev-4.7 will not
+> have chip window configuration support in the driver, and dev-4.10
+> will.
 
---=-HdlpiofuGuZ4ByzQFMRq--
+Unless we start using what's in my branch which has a backport 
+of the 4.11 driver on openbmc 4.7. It should be fine I think. 
+I just need to cover the above case, moving the start address 
+of the next segment should be it, plus a couple of checks.
+
+Cheers,
+
+C. 
