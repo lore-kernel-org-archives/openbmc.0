@@ -1,51 +1,66 @@
-Return-Path: <xow@google.com>
-Received: from mail-pg0-x236.google.com (mail-pg0-x236.google.com
- [IPv6:2607:f8b0:400e:c05::236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <cbostic@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vZhPq2lr5zDq5x
- for <openbmc@lists.ozlabs.org>; Sat,  4 Mar 2017 07:59:26 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="Rm8FGZHZ"; 
- dkim-atps=neutral
-Received: by mail-pg0-x236.google.com with SMTP id 77so3321268pgc.1
- for <openbmc@lists.ozlabs.org>; Fri, 03 Mar 2017 12:59:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=UJ19E9oRVla9i2dPPhR7yez6OMkCtyH7UX/tL0AMqEI=;
- b=Rm8FGZHZ+24scDq5ocT1zcGE6QRpYsfE6Mcmv3DWIkowG3lc+/1m3CcPSw09AixHPY
- cTPVxh8AWRjJ8IaaGTrjA4ZK2SMAMfZa5Z+JCkyMs8McYwiJth0N2Awqln/i+xn8jQyx
- 2QG3BBwcktvC3HkfBd0p0EfGGi1nXtFR9CLzL//OzGAQOra/a/FMOAqfKZw0257fiscB
- uDetGFnpCyI8NpVB3kfcbXTg7ysmz1xC8Vp+N7bHrTfEwlULT3XC6OvsX+jhvwGyezgM
- CgzX0aci1EDS7OSc01r6U/yZp9odC/HySZkjCiECMxj6SLkR0FfzPjWt4MxJl2HqoZhA
- k6+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=UJ19E9oRVla9i2dPPhR7yez6OMkCtyH7UX/tL0AMqEI=;
- b=Ag4Pf73sIOySEcCPzPA0B5W8320JufjFAgxxYeERKAE+b09d0KFAu9Y3ra//xsbsNL
- R8QN42bNDTwmmYNHlMrE+KIai7zCjr0jMSmXJ6VGHmdzVg3IiwYC8UOYj790G6iRHwfd
- zrik9f5CXv5EzcgRZZRGCpBlCfYjhp3F6MbxVLzEdsOlRKcOnEStUUQsXawlBs141C7Z
- 4LFby+bpxnriRA8vT33T046+R0BtyP8PuKvbf7TLMNFQ12M4D7RbwrvXPIDAs+H17SOF
- olTl2qwPn4cMX+c84jBu2rQ1+2EQj/DSmMH7NTYRIatBHgbvFLOSmzQtW4LVUxibcfXf
- A7dQ==
-X-Gm-Message-State: AMke39kso+/fWc0kE76Nkg7aWg0ScqSSLinqy5Bp1Wxq1gnEsgoIAKQ/eWfqfLXqziETtOJ2
-X-Received: by 10.99.129.200 with SMTP id t191mr5814690pgd.41.1488574763992;
- Fri, 03 Mar 2017 12:59:23 -0800 (PST)
-Received: from pewter.svl.corp.google.com ([100.123.242.121])
- by smtp.gmail.com with ESMTPSA id x65sm25075426pfx.115.2017.03.03.12.59.23
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Fri, 03 Mar 2017 12:59:23 -0800 (PST)
-From: Xo Wang <xow@google.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux] ARM: dts: aspeed: zaius: Enable NC-SI mux
-Date: Fri,  3 Mar 2017 12:59:20 -0800
-Message-Id: <20170303205920.146751-1-xow@google.com>
-X-Mailer: git-send-email 2.12.0.rc1.440.g5b76565f74-goog
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vZjGK3My6zDq5x
+ for <openbmc@lists.ozlabs.org>; Sat,  4 Mar 2017 08:38:01 +1100 (AEDT)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v23LXicO016721
+ for <openbmc@lists.ozlabs.org>; Fri, 3 Mar 2017 16:37:58 -0500
+Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 28xs8euh5g-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 03 Mar 2017 16:37:58 -0500
+Received: from localhost
+ by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Fri, 3 Mar 2017 14:37:57 -0700
+Received: from d03dlp01.boulder.ibm.com (9.17.202.177)
+ by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Fri, 3 Mar 2017 14:37:55 -0700
+Received: from b01cxnp23033.gho.pok.ibm.com (b01cxnp23033.gho.pok.ibm.com
+ [9.57.198.28])
+ by d03dlp01.boulder.ibm.com (Postfix) with ESMTP id 4F0C61FF001E;
+ Fri,  3 Mar 2017 14:37:32 -0700 (MST)
+Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
+ [9.57.199.110])
+ by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v23Lbquw31785172; Fri, 3 Mar 2017 21:37:55 GMT
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 1A74BAE056;
+ Fri,  3 Mar 2017 16:37:50 -0500 (EST)
+Received: from Christophers-MacBook-Pro.local.com (unknown [9.81.210.11])
+ by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP id D607CAE043;
+ Fri,  3 Mar 2017 16:37:47 -0500 (EST)
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+To: joel@jms.id.au
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.7] drivers/fsi: Set I/O to standby values on unbind
+Date: Fri,  3 Mar 2017 15:37:47 -0600
+X-Mailer: git-send-email 2.10.1 (Apple Git-78)
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 17030321-0020-0000-0000-00000B8C5D93
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006717; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000206; SDB=6.00829691; UDB=6.00406787; IPR=6.00607188; 
+ BA=6.00005186; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014514; XFM=3.00000012;
+ UTC=2017-03-03 21:37:56
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17030321-0021-0000-0000-00005A9F4758
+Message-Id: <20170303213747.97313-1-cbostic@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-03-03_16:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
+ definitions=main-1703030190
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,41 +72,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Mar 2017 20:59:28 -0000
+X-List-Received-Date: Fri, 03 Mar 2017 21:38:01 -0000
 
-The Zaius motherboard has muxes for the RMII lines from the BMC to:
-  - BCM5719 LAN on motherboard (LOM)
-  - OCP mezzanine connector
-  - HDMI form factor connector
+On unbind send a break command to reset any connected slave
+and put bus in a good state. Next set each FSI pin to standby
+state, '0' except for SDA (data) which is negative active so set
+it to a '1'.
 
-Assert the active-low enable line for the muxes. Due to the AST2500
-default internal pull-down resistors, the muxes selection lines will
-be low. This implicitly selects the LOM for NC-SI.
-
-The NC-SI interface will show up as network interface eth0.
-
-Signed-off-by: Xo Wang <xow@google.com>
+Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 ---
- arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/fsi/fsi-master-gpio.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-index dc0546869886..3bd70ed810af 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-@@ -325,6 +325,13 @@
- 		line-name = "iso_u164_en";
- 	};
+diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
+index 49f3399..c923846 100644
+--- a/drivers/fsi/fsi-master-gpio.c
++++ b/drivers/fsi/fsi-master-gpio.c
+@@ -557,14 +557,24 @@ static int fsi_master_gpio_remove(struct platform_device *pdev)
+ {
+ 	struct fsi_master_gpio *master = platform_get_drvdata(pdev);
  
-+	ncsi_mux_en_n {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(P, 0) GPIO_ACTIVE_HIGH>;
-+		output-low;
-+		line-name = "ncsi_mux_en_n";
-+	};
++	fsi_master_gpio_break(&master->master, 0);
 +
- 	line_bmc_i2c2_sw_rst_n {
- 		gpio-hog;
- 		gpios = <ASPEED_GPIO(P, 1) GPIO_ACTIVE_HIGH>;
++	gpiod_set_value(master->gpio_clk, 0);
+ 	devm_gpiod_put(&pdev->dev, master->gpio_clk);
++	gpiod_set_value(master->gpio_data, 1);
+ 	devm_gpiod_put(&pdev->dev, master->gpio_data);
+-	if (master->gpio_trans)
++	if (master->gpio_trans) {
++		gpiod_set_value(master->gpio_trans, 0);
+ 		devm_gpiod_put(&pdev->dev, master->gpio_trans);
+-	if (master->gpio_enable)
++	}
++	if (master->gpio_enable) {
++		gpiod_set_value(master->gpio_enable, 0);
+ 		devm_gpiod_put(&pdev->dev, master->gpio_enable);
+-	if (master->gpio_mux)
++	}
++	if (master->gpio_mux) {
++		gpiod_set_value(master->gpio_mux, 0);
+ 		devm_gpiod_put(&pdev->dev, master->gpio_mux);
++	}
+ 	fsi_master_unregister(&master->master);
+ 
+ 	return 0;
 -- 
-2.12.0.rc1.440.g5b76565f74-goog
+1.8.2.2
