@@ -1,52 +1,51 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x243.google.com (mail-yw0-x243.google.com
- [IPv6:2607:f8b0:4002:c05::243])
+Return-Path: <xow@google.com>
+Received: from mail-pg0-x236.google.com (mail-pg0-x236.google.com
+ [IPv6:2607:f8b0:400e:c05::236])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vZLwz05jwzDq5x
- for <openbmc@lists.ozlabs.org>; Fri,  3 Mar 2017 18:51:46 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vZhPq2lr5zDq5x
+ for <openbmc@lists.ozlabs.org>; Sat,  4 Mar 2017 07:59:26 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="B/U8qobG"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="Rm8FGZHZ"; 
  dkim-atps=neutral
-Received: by mail-yw0-x243.google.com with SMTP id l16so9195985ywb.2
- for <openbmc@lists.ozlabs.org>; Thu, 02 Mar 2017 23:51:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=VrYXt60x869nwPKDXp93Pdmxo4AcMciz8mrwZ2m++FY=;
- b=B/U8qobGA1oxXGBXE2cZMSqyQ9h90F0G2kzkLAgr4QSBezzT1Riq/uUdjHqbO6INPG
- 7srjYxnTQLpZMKB1EvQEowx/S94Nd3aNlgEzoP15rAHIMkYFGCf/pRxnRFOGooB6dCNA
- /laAif6NMwEuM/xm8ag01TimX+uukUxfTxMjIFOYEkr1zA6GF8NgqynH/IAfx7TBR6mE
- +9cBcIgyqb1QJoJsgSTLaRfO5Smsn6g9J2+KACsCxN+EDrJc4epJ4F3OFEwQ7v4cqi73
- iKnNTYk/dRzbxk7dRsAZCFbh5Ya+F2MvvGX3hSk+naoBMdBVVevUZGH5mCitQ9njPGlY
- 5GSg==
+Received: by mail-pg0-x236.google.com with SMTP id 77so3321268pgc.1
+ for <openbmc@lists.ozlabs.org>; Fri, 03 Mar 2017 12:59:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=UJ19E9oRVla9i2dPPhR7yez6OMkCtyH7UX/tL0AMqEI=;
+ b=Rm8FGZHZ+24scDq5ocT1zcGE6QRpYsfE6Mcmv3DWIkowG3lc+/1m3CcPSw09AixHPY
+ cTPVxh8AWRjJ8IaaGTrjA4ZK2SMAMfZa5Z+JCkyMs8McYwiJth0N2Awqln/i+xn8jQyx
+ 2QG3BBwcktvC3HkfBd0p0EfGGi1nXtFR9CLzL//OzGAQOra/a/FMOAqfKZw0257fiscB
+ uDetGFnpCyI8NpVB3kfcbXTg7ysmz1xC8Vp+N7bHrTfEwlULT3XC6OvsX+jhvwGyezgM
+ CgzX0aci1EDS7OSc01r6U/yZp9odC/HySZkjCiECMxj6SLkR0FfzPjWt4MxJl2HqoZhA
+ k6+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=VrYXt60x869nwPKDXp93Pdmxo4AcMciz8mrwZ2m++FY=;
- b=S80iI6jYyb1DmqZDxmZ2F7HElandAmcVxJjTx7cwHuYtIowkoWtsrPLRDO+joGFz6d
- 7Wii60j8IrCRcfae1O1ErMoEC8zBtZ2aEBpKvbpvbcyWikDpWfYhxUguXFNKMsAQBZZU
- iUJ3ndyGHvU1o/9S0LbAECxAQBe5OI+NVkf2+vPQIPNHc3lLqaRESa+FGFlrdb2MKzVR
- pLpeH85po/JL8KIKMO4xPDlFqVlScArdmBW8uHi+JRDRdum92cmPGox4TMbctGZqw0CP
- 2up6e9evCBWmWubm05H0XLUcCAtC3shaOp1CdfeYWkMQXCDF9ruYkc5Zhtb29vMPLeTZ
- Se3Q==
-X-Gm-Message-State: AMke39nCFK4OAkNqPBb/R4FmterhXi9m209UP47uYe5T9gg8BGfmkbrrvXqt+z5xY6BeBsB0emOCJ6BcYv/vAQ==
-X-Received: by 10.129.118.82 with SMTP id j18mr781825ywk.10.1488527504115;
- Thu, 02 Mar 2017 23:51:44 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=UJ19E9oRVla9i2dPPhR7yez6OMkCtyH7UX/tL0AMqEI=;
+ b=Ag4Pf73sIOySEcCPzPA0B5W8320JufjFAgxxYeERKAE+b09d0KFAu9Y3ra//xsbsNL
+ R8QN42bNDTwmmYNHlMrE+KIai7zCjr0jMSmXJ6VGHmdzVg3IiwYC8UOYj790G6iRHwfd
+ zrik9f5CXv5EzcgRZZRGCpBlCfYjhp3F6MbxVLzEdsOlRKcOnEStUUQsXawlBs141C7Z
+ 4LFby+bpxnriRA8vT33T046+R0BtyP8PuKvbf7TLMNFQ12M4D7RbwrvXPIDAs+H17SOF
+ olTl2qwPn4cMX+c84jBu2rQ1+2EQj/DSmMH7NTYRIatBHgbvFLOSmzQtW4LVUxibcfXf
+ A7dQ==
+X-Gm-Message-State: AMke39kso+/fWc0kE76Nkg7aWg0ScqSSLinqy5Bp1Wxq1gnEsgoIAKQ/eWfqfLXqziETtOJ2
+X-Received: by 10.99.129.200 with SMTP id t191mr5814690pgd.41.1488574763992;
+ Fri, 03 Mar 2017 12:59:23 -0800 (PST)
+Received: from pewter.svl.corp.google.com ([100.123.242.121])
+ by smtp.gmail.com with ESMTPSA id x65sm25075426pfx.115.2017.03.03.12.59.23
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Fri, 03 Mar 2017 12:59:23 -0800 (PST)
+From: Xo Wang <xow@google.com>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux] ARM: dts: aspeed: zaius: Enable NC-SI mux
+Date: Fri,  3 Mar 2017 12:59:20 -0800
+Message-Id: <20170303205920.146751-1-xow@google.com>
+X-Mailer: git-send-email 2.12.0.rc1.440.g5b76565f74-goog
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.27.133 with HTTP; Thu, 2 Mar 2017 23:51:23 -0800 (PST)
-In-Reply-To: <20170302214625.69263-1-cbostic@linux.vnet.ibm.com>
-References: <20170302214625.69263-1-cbostic@linux.vnet.ibm.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 3 Mar 2017 18:21:23 +1030
-X-Google-Sender-Auth: Y3eyOC5wRuo_9lPqy99B24ud4q8
-Message-ID: <CACPK8Xd1Mgn8r05sJ2Y7qxoVc6Laq-RQJR48+ynRO6nZ+Lm26w@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7 v2] drivers/fsi: Change hub sysfs name
-To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,46 +57,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Mar 2017 07:51:47 -0000
+X-List-Received-Date: Fri, 03 Mar 2017 20:59:28 -0000
 
-On Fri, Mar 3, 2017 at 8:16 AM, Christopher Bostic
-<cbostic@linux.vnet.ibm.com> wrote:
-> Fix duplicate "hub@00" naming bug when two or more hubs are
-> detected during scan. Each hub was assigned id '00'. Duplicate
-> hub device names were causing kernel warnings to console on
-> every scan.  Create a unique name by using the upstream master's
-> idx field. i.e. hub@00, hub@01, ...
->
-> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-> ---
-> v2:
->     Add more description for the change.
+The Zaius motherboard has muxes for the RMII lines from the BMC to:
+  - BCM5719 LAN on motherboard (LOM)
+  - OCP mezzanine connector
+  - HDMI form factor connector
 
-Much better commit message. Thanks for the explanation.
+Assert the active-low enable line for the muxes. Due to the AST2500
+default internal pull-down resistors, the muxes selection lines will
+be low. This implicitly selects the LOM for NC-SI.
 
-Applied to dev-4.7.
+The NC-SI interface will show up as network interface eth0.
 
-Cheers,
+Signed-off-by: Xo Wang <xow@google.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Joel
-
-> ---
->  drivers/fsi/fsi-core.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
-> index 542544e..b9573c5 100644
-> --- a/drivers/fsi/fsi-core.c
-> +++ b/drivers/fsi/fsi-core.c
-> @@ -437,7 +437,7 @@ static int fsi_slave_scan(struct fsi_slave *slave)
->                                 return -ENOMEM;
->
->                         device_initialize(&hub->dev);
-> -                       dev_set_name(&hub->dev, "hub@%02x", hub->master.idx);
-> +                       dev_set_name(&hub->dev, "hub@%02x", slave->master->idx);
->                         hub->dev.release = hub_master_release;
->                         rc = device_add(&hub->dev);
->                         if (rc)
-> --
-> 1.8.2.2
->
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+index dc0546869886..3bd70ed810af 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+@@ -325,6 +325,13 @@
+ 		line-name = "iso_u164_en";
+ 	};
+ 
++	ncsi_mux_en_n {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(P, 0) GPIO_ACTIVE_HIGH>;
++		output-low;
++		line-name = "ncsi_mux_en_n";
++	};
++
+ 	line_bmc_i2c2_sw_rst_n {
+ 		gpio-hog;
+ 		gpios = <ASPEED_GPIO(P, 1) GPIO_ACTIVE_HIGH>;
+-- 
+2.12.0.rc1.440.g5b76565f74-goog
