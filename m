@@ -1,66 +1,56 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <emilyshaffer@google.com>
+Received: from mail-io0-x230.google.com (mail-io0-x230.google.com
+ [IPv6:2607:f8b0:4001:c06::230])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vZjGK3My6zDq5x
- for <openbmc@lists.ozlabs.org>; Sat,  4 Mar 2017 08:38:01 +1100 (AEDT)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v23LXicO016721
- for <openbmc@lists.ozlabs.org>; Fri, 3 Mar 2017 16:37:58 -0500
-Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
- by mx0a-001b2d01.pphosted.com with ESMTP id 28xs8euh5g-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 03 Mar 2017 16:37:58 -0500
-Received: from localhost
- by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Fri, 3 Mar 2017 14:37:57 -0700
-Received: from d03dlp01.boulder.ibm.com (9.17.202.177)
- by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Fri, 3 Mar 2017 14:37:55 -0700
-Received: from b01cxnp23033.gho.pok.ibm.com (b01cxnp23033.gho.pok.ibm.com
- [9.57.198.28])
- by d03dlp01.boulder.ibm.com (Postfix) with ESMTP id 4F0C61FF001E;
- Fri,  3 Mar 2017 14:37:32 -0700 (MST)
-Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
- [9.57.199.110])
- by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v23Lbquw31785172; Fri, 3 Mar 2017 21:37:55 GMT
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 1A74BAE056;
- Fri,  3 Mar 2017 16:37:50 -0500 (EST)
-Received: from Christophers-MacBook-Pro.local.com (unknown [9.81.210.11])
- by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP id D607CAE043;
- Fri,  3 Mar 2017 16:37:47 -0500 (EST)
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-To: joel@jms.id.au
-Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.7] drivers/fsi: Set I/O to standby values on unbind
-Date: Fri,  3 Mar 2017 15:37:47 -0600
-X-Mailer: git-send-email 2.10.1 (Apple Git-78)
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17030321-0020-0000-0000-00000B8C5D93
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006717; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000206; SDB=6.00829691; UDB=6.00406787; IPR=6.00607188; 
- BA=6.00005186; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014514; XFM=3.00000012;
- UTC=2017-03-03 21:37:56
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17030321-0021-0000-0000-00005A9F4758
-Message-Id: <20170303213747.97313-1-cbostic@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-03-03_16:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
- definitions=main-1703030190
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vZlhn6mVYzDqBV
+ for <openbmc@lists.ozlabs.org>; Sat,  4 Mar 2017 10:27:37 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="KXyvlocO"; 
+ dkim-atps=neutral
+Received: by mail-io0-x230.google.com with SMTP id f84so83561991ioj.0
+ for <openbmc@lists.ozlabs.org>; Fri, 03 Mar 2017 15:27:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=r9D/1ceGaT58kFUdTQlZ5zpj494S6ashQ4zB7gIXKLA=;
+ b=KXyvlocO0yNmf8Qq/3z9E5KyxYvBZ7oUKOsnWvZ4WTL7jU6JF7BwHLUF8jaE1sat8i
+ tBrBmMMtcZinkSamP1lveyCz88LERn8xLb/YMgvpymqHL7MyWzWUvLpHsRaMHfl/LA1d
+ rdPNKR1HaDF2YvXmXTlN+j19gkciKxJrfFrIgdSGnM3YP2rqLA1SA4nQH77t6PgG5LxK
+ BRzRRC22PgxwTMDB5ia3vZ1N+indD1oOsQWsyvFWIShLiWA+YTTwiO9OunvFPbeoP7At
+ X8R2ZUtfU7NYuwwmHjlMIbj3hjsmq8s9cfX7ldZNocxkxl94GJFVFEb8oPXXkOijkuQ0
+ h4LQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=r9D/1ceGaT58kFUdTQlZ5zpj494S6ashQ4zB7gIXKLA=;
+ b=mHWY1PIAH3689DQJq+9Pk9jF3yWCP++sHg8KqsDVHHyGHMhYmUCeY2OHCtk7bff6WA
+ tsa+Zxd6h2sc787IRISld0IkFmPy1UTGyMf96Vn6g7K90uPW75wD/+iUYz0YGIsicnv8
+ 5H3ZxKcy2oQf65BzdTTcwp0fYsoxrex552qa80/bBDdXUmIBSroAJ8kBkbH5ACTxR9p6
+ /55q2sLHpzBadNYWoLAKgETTALclkYtfSqL3wo7YyCk5IGDaxhZof23ax8G05HZXg/UQ
+ OgdzuDPSjy5LzjukFq5XPLgupDluA2hIHg5Jhlr12w3OPJb64Z11+9NAbB3LX5+o9d+i
+ yA+Q==
+X-Gm-Message-State: AMke39mWQ8uqcs4wXQVYChl6Tt522qYd+n9moKnobpig2RIIY/wf20fCY5R7d+UoGWDzPdQhGRvBX3FcVq0mt0pt
+X-Received: by 10.107.10.21 with SMTP id u21mr5711485ioi.139.1488583654025;
+ Fri, 03 Mar 2017 15:27:34 -0800 (PST)
+MIME-Version: 1.0
+References: <20170301200526.GB837@heinlein.lan>
+ <20170301224312.21540-1-emilyshaffer@google.com>
+ <CACPK8Xec0vTCd7sqjGegzfbk5y+ote+MtLe2g=ZZpBR-EemLbA@mail.gmail.com>
+ <CACPK8Xdx4cmCLp7TkVGCyk3ghGAET1WwW5yM871suNY-19cEzA@mail.gmail.com>
+ <CAPH-5w7qxK6J6KsQQk6CVQt0eg6X2zfWDTPsTD09vFrpdh6UxQ@mail.gmail.com>
+ <CAJoAoZmWVWiAVxH4tHObCTtwxo_6JnjvmN-4zwM+GtxKhmOTew@mail.gmail.com>
+ <CAPLgG==uUMey8Ka3rF3ceGctjJLiKah8Jt8CfFdVMABu8s=hSg@mail.gmail.com>
+In-Reply-To: <CAPLgG==uUMey8Ka3rF3ceGctjJLiKah8Jt8CfFdVMABu8s=hSg@mail.gmail.com>
+From: Emily Shaffer <emilyshaffer@google.com>
+Date: Fri, 03 Mar 2017 23:27:23 +0000
+Message-ID: <CAJoAoZmR-CURL97wsiYg+1LgQo_6ah0e0HrAHzi21b36t0bZ9Q@mail.gmail.com>
+Subject: Re: [PATCH v2] ARM: dts: aspeed: zaius add reg field to pca9541a i2c
+ mux
+To: Rick Altherr <raltherr@google.com>
+Cc: Xo Wang <xow@google.com>, Joel Stanley <joel@jms.id.au>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary=001a113ed766eb0c410549dbe3e6
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -72,49 +62,117 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Mar 2017 21:38:01 -0000
+X-List-Received-Date: Fri, 03 Mar 2017 23:27:38 -0000
 
-On unbind send a break command to reset any connected slave
-and put bus in a good state. Next set each FSI pin to standby
-state, '0' except for SDA (data) which is negative active so set
-it to a '1'.
+--001a113ed766eb0c410549dbe3e6
+Content-Type: text/plain; charset=UTF-8
 
-Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
----
- drivers/fsi/fsi-master-gpio.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+Xo, with those backports the LM5066I works out of the box - no code change
+needed from me.
 
-diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
-index 49f3399..c923846 100644
---- a/drivers/fsi/fsi-master-gpio.c
-+++ b/drivers/fsi/fsi-master-gpio.c
-@@ -557,14 +557,24 @@ static int fsi_master_gpio_remove(struct platform_device *pdev)
- {
- 	struct fsi_master_gpio *master = platform_get_drvdata(pdev);
- 
-+	fsi_master_gpio_break(&master->master, 0);
-+
-+	gpiod_set_value(master->gpio_clk, 0);
- 	devm_gpiod_put(&pdev->dev, master->gpio_clk);
-+	gpiod_set_value(master->gpio_data, 1);
- 	devm_gpiod_put(&pdev->dev, master->gpio_data);
--	if (master->gpio_trans)
-+	if (master->gpio_trans) {
-+		gpiod_set_value(master->gpio_trans, 0);
- 		devm_gpiod_put(&pdev->dev, master->gpio_trans);
--	if (master->gpio_enable)
-+	}
-+	if (master->gpio_enable) {
-+		gpiod_set_value(master->gpio_enable, 0);
- 		devm_gpiod_put(&pdev->dev, master->gpio_enable);
--	if (master->gpio_mux)
-+	}
-+	if (master->gpio_mux) {
-+		gpiod_set_value(master->gpio_mux, 0);
- 		devm_gpiod_put(&pdev->dev, master->gpio_mux);
-+	}
- 	fsi_master_unregister(&master->master);
- 
- 	return 0;
--- 
-1.8.2.2
+Joel, can we pull in the patchset Xo linked (
+https://lkml.org/lkml/2016/8/15/569)?  I didn't have any conflicts locally
+with this, should be straightforward.
+
+Thanks,
+Emily
+
+On Thu, Mar 2, 2017 at 10:57 AM Rick Altherr <raltherr@google.com> wrote:
+
+> Not that I've found.  Best I've been able to work out is grepping the
+> build log
+> (tmp/work/zaius-openbmc-linux-gnueabi/linux-obmc/4.7+git999-r0/temp/log.do_compile)
+> for "warning".
+>
+> On Thu, Mar 2, 2017 at 10:52 AM, Emily Shaffer <emilyshaffer@google.com>
+> wrote:
+> > I'm going to give a try with those patches backported, no luck getting
+> rid
+> > of the warning.
+> >
+> > Incidentally, is there a way to turn on warnings as errors with bitbake?
+> I
+> > was unaware of those warnings until Joel pointed them out.
+> >
+> > On Thu, Mar 2, 2017 at 9:58 AM Xo Wang <xow@google.com> wrote:
+> >>
+> >> It looks like this issue is fixed in v4.9:
+> >> https://lkml.org/lkml/2016/8/15/569
+> >>
+> >> The cover letter to that patchset also mentions adding an unused "reg"
+> >> property as a workaround. I had probably copied and pasted the pca9541
+> >> bindings without "reg" to the Zaius dts without reading the rest of
+> >> the notes. Oops.
+> >>
+> >> Should we backport that patchset and/or wait for the next OpenBMC kernel
+> >> rebase?
+> >>
+> >> Emily: can you test whether the "reg" property is still necessary if
+> >> you backport those patches?
+> >>
+> >> cheers
+> >> xo
+>
+
+--001a113ed766eb0c410549dbe3e6
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Xo, with those backports the LM5066I works out of the box =
+- no code change needed from me.<div><br></div><div>Joel, can we pull in th=
+e patchset Xo linked (<a href=3D"https://lkml.org/lkml/2016/8/15/569" rel=
+=3D"noreferrer" class=3D"gmail_msg" target=3D"_blank">https://lkml.org/lkml=
+/2016/8/15/569</a>)?=C2=A0 I didn&#39;t have any conflicts locally with thi=
+s, should be straightforward.</div><div><br></div><div>Thanks,</div><div>Em=
+ily</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Thu, Mar =
+2, 2017 at 10:57 AM Rick Altherr &lt;<a href=3D"mailto:raltherr@google.com"=
+>raltherr@google.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quo=
+te" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"=
+>Not that I&#39;ve found.=C2=A0 Best I&#39;ve been able to work out is grep=
+ping the<br class=3D"gmail_msg">
+build log (tmp/work/zaius-openbmc-linux-gnueabi/linux-obmc/4.7+git999-r0/te=
+mp/log.do_compile)<br class=3D"gmail_msg">
+for &quot;warning&quot;.<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+On Thu, Mar 2, 2017 at 10:52 AM, Emily Shaffer &lt;<a href=3D"mailto:emilys=
+haffer@google.com" class=3D"gmail_msg" target=3D"_blank">emilyshaffer@googl=
+e.com</a>&gt; wrote:<br class=3D"gmail_msg">
+&gt; I&#39;m going to give a try with those patches backported, no luck get=
+ting rid<br class=3D"gmail_msg">
+&gt; of the warning.<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt; Incidentally, is there a way to turn on warnings as errors with bitbak=
+e? I<br class=3D"gmail_msg">
+&gt; was unaware of those warnings until Joel pointed them out.<br class=3D=
+"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt; On Thu, Mar 2, 2017 at 9:58 AM Xo Wang &lt;<a href=3D"mailto:xow@googl=
+e.com" class=3D"gmail_msg" target=3D"_blank">xow@google.com</a>&gt; wrote:<=
+br class=3D"gmail_msg">
+&gt;&gt;<br class=3D"gmail_msg">
+&gt;&gt; It looks like this issue is fixed in v4.9:<br class=3D"gmail_msg">
+&gt;&gt; <a href=3D"https://lkml.org/lkml/2016/8/15/569" rel=3D"noreferrer"=
+ class=3D"gmail_msg" target=3D"_blank">https://lkml.org/lkml/2016/8/15/569<=
+/a><br class=3D"gmail_msg">
+&gt;&gt;<br class=3D"gmail_msg">
+&gt;&gt; The cover letter to that patchset also mentions adding an unused &=
+quot;reg&quot;<br class=3D"gmail_msg">
+&gt;&gt; property as a workaround. I had probably copied and pasted the pca=
+9541<br class=3D"gmail_msg">
+&gt;&gt; bindings without &quot;reg&quot; to the Zaius dts without reading =
+the rest of<br class=3D"gmail_msg">
+&gt;&gt; the notes. Oops.<br class=3D"gmail_msg">
+&gt;&gt;<br class=3D"gmail_msg">
+&gt;&gt; Should we backport that patchset and/or wait for the next OpenBMC =
+kernel<br class=3D"gmail_msg">
+&gt;&gt; rebase?<br class=3D"gmail_msg">
+&gt;&gt;<br class=3D"gmail_msg">
+&gt;&gt; Emily: can you test whether the &quot;reg&quot; property is still =
+necessary if<br class=3D"gmail_msg">
+&gt;&gt; you backport those patches?<br class=3D"gmail_msg">
+&gt;&gt;<br class=3D"gmail_msg">
+&gt;&gt; cheers<br class=3D"gmail_msg">
+&gt;&gt; xo<br class=3D"gmail_msg">
+</blockquote></div>
+
+--001a113ed766eb0c410549dbe3e6--
