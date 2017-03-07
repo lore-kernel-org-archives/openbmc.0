@@ -1,67 +1,45 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <peterh@google.com>
+Received: from mail-io0-x229.google.com (mail-io0-x229.google.com
+ [IPv6:2607:f8b0:4001:c06::229])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vcbgC55gdzDq9T
- for <openbmc@lists.ozlabs.org>; Tue,  7 Mar 2017 10:32:39 +1100 (AEDT)
-Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v26NSlhV131736
- for <openbmc@lists.ozlabs.org>; Mon, 6 Mar 2017 18:32:32 -0500
-Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
- by mx0a-001b2d01.pphosted.com with ESMTP id 291cqw4515-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 06 Mar 2017 18:32:31 -0500
-Received: from localhost
- by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Mon, 6 Mar 2017 18:32:31 -0500
-Received: from d01dlp03.pok.ibm.com (9.56.250.168)
- by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 6 Mar 2017 18:32:29 -0500
-Received: from b01cxnp22034.gho.pok.ibm.com (b01cxnp22034.gho.pok.ibm.com
- [9.57.198.24])
- by d01dlp03.pok.ibm.com (Postfix) with ESMTP id 1FC1FC90041;
- Mon,  6 Mar 2017 18:32:09 -0500 (EST)
-Received: from b01ledav03.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
- [9.57.199.108])
- by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v26NWQvT41156622; Mon, 6 Mar 2017 23:32:28 GMT
-Received: from b01ledav03.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 54E34B2058;
- Mon,  6 Mar 2017 18:32:26 -0500 (EST)
-Received: from Christophers-MacBook-Pro.local.com (unknown [9.83.5.17])
- by b01ledav03.gho.pok.ibm.com (Postfix) with ESMTP id 17CD7B204D;
- Mon,  6 Mar 2017 18:32:23 -0500 (EST)
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-To: joel@jms.id.au
-Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.7] drivers/fsi: Reorder hub devices so that parent
- is set before add
-Date: Mon,  6 Mar 2017 17:32:19 -0600
-X-Mailer: git-send-email 2.10.1 (Apple Git-78)
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17030623-0044-0000-0000-000002BB9BED
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006735; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000206; SDB=6.00830946; UDB=6.00407627; IPR=6.00608537; 
- BA=6.00005190; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014533; XFM=3.00000012;
- UTC=2017-03-06 23:32:30
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17030623-0045-0000-0000-000006E9A401
-Message-Id: <20170306233219.29789-1-cbostic@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-03-06_23:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
- definitions=main-1703060187
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vccrQ1NjfzDq8g
+ for <openbmc@lists.ozlabs.org>; Tue,  7 Mar 2017 11:25:40 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="UydK/KTz"; 
+ dkim-atps=neutral
+Received: by mail-io0-x229.google.com with SMTP id l7so125595208ioe.3
+ for <openbmc@lists.ozlabs.org>; Mon, 06 Mar 2017 16:25:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=1G1Cz3Eu0i3ImEQ8odpLbGdTF2ZXHQ1Se9uEXiW0llE=;
+ b=UydK/KTzRUSjVRg1Ti/XhzUI7OJe3X6fvtGip8JWVWvU5RbPPhGZf5SuLmlv0MlDVo
+ ILk0DwcP6jj7y4MHRqiUK5lztklaOhm4fgIzNzwgEROT2W3XGkpBCerg3a19G3zOy9hZ
+ AMI3xI9kCm0w7yaR5zavfyJS5dEiw3MIiYOHeH6LFPASiS2c/TpKws1CYTGWBM+QZrj0
+ USi2LRJAuQMQdG/efe31Qns9aojGRhLZbPJUZBQbbJb4O/9/r5z/ftK7/RY+EdEemRSQ
+ yP4a5pnWOl2uemVQboI318Hjfealj5VVfTfnQV6yQx6CMomubGxlQu/2bQjckmcPJSHT
+ ojeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=1G1Cz3Eu0i3ImEQ8odpLbGdTF2ZXHQ1Se9uEXiW0llE=;
+ b=VvA9Nq4eGytK9VO5p0IK5gjEJCKFZL0XtGrKHLBjpVBlOfrpun43fAW3chxqBLErN5
+ Adru1o5xhtx4aNd/HB7eRlC9j/NzHQCvi70vShS0aQdqgfKn0S1G7V2ByuVGB8aJ1gH9
+ kOxP8lq2esW8Fop02eZ/jm7xCSRWrJfdzM+MkKxZvwqYv4bsHQud4MAbfrbDJMJIP+TS
+ y5bqWrwJiSS3eu8pWr0pALhXRK3/B+CbF8TQ0gWx4R7/LLq13jk4SpNY2lg4ux3uCDnU
+ vrhqBUeLMg3XfL8JCmz2CbKI2OCX9Z7mn5U0Q9LsK/ZevDufpxRVZccuVcBYgAul8QRl
+ DSBw==
+X-Gm-Message-State: AMke39kX1gG16pQ3brq8tVw2ik7fm3zNnrAwy7TFMQx5ILKf1jeXAheOMQJgzvk8wDEPcYuUhuJdJg/Z0pwOdeVp
+X-Received: by 10.107.180.145 with SMTP id d139mr17950950iof.101.1488846338116; 
+ Mon, 06 Mar 2017 16:25:38 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.107.170.22 with HTTP; Mon, 6 Mar 2017 16:25:37 -0800 (PST)
+From: Peter Hanson <peterh@google.com>
+Date: Mon, 6 Mar 2017 16:25:37 -0800
+Message-ID: <CAPozSNrAzFnZpP9PgTXUtPvDtF6Ag6dijOqYhMn4f8OQs2OqFg@mail.gmail.com>
+Subject: Zaius can use a backport of pmbus device support
+To: openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -73,34 +51,13 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 06 Mar 2017 23:32:40 -0000
+X-List-Received-Date: Tue, 07 Mar 2017 00:25:42 -0000
 
-Hub device parent needs to be set before device_add otherwise it
-isn't saved.
+Device support added to 4.9 can be used to support the Zaius power brick.
 
-Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
----
- drivers/fsi/fsi-core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+The relevant commit is cc00decf0e280953e9067e938ad331f93bda8b40
+also available as https://patchwork.kernel.org/patch/9245427/
 
-diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
-index b9573c5..bd57b41 100644
---- a/drivers/fsi/fsi-core.c
-+++ b/drivers/fsi/fsi-core.c
-@@ -439,12 +439,12 @@ static int fsi_slave_scan(struct fsi_slave *slave)
- 			device_initialize(&hub->dev);
- 			dev_set_name(&hub->dev, "hub@%02x", slave->master->idx);
- 			hub->dev.release = hub_master_release;
-+			hub->master.dev = &hub->dev;
-+			hub->master.dev->parent = &slave->dev;
- 			rc = device_add(&hub->dev);
- 			if (rc)
- 				return rc;
- 
--			hub->master.dev = &hub->dev;
--			hub->master.dev->parent = &slave->dev;
- 			hub->base = FSI_HUB_LINK_OFFSET;
- 			hub->control_regs = engine_addr;
- 			hub->slave = slave;
--- 
-1.8.2.2
+Tested the patch - it works. Suggesting to backport that commit.
+
+Of course, pulling ahead to 4.10 would work too...
