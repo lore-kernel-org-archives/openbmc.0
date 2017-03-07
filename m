@@ -1,50 +1,48 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x231.google.com (mail-yw0-x231.google.com
- [IPv6:2607:f8b0:4002:c05::231])
+Return-Path: <peterh@google.com>
+Received: from mail-io0-x235.google.com (mail-io0-x235.google.com
+ [IPv6:2607:f8b0:4001:c06::235])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vcf5n2k5FzDqYQ
- for <openbmc@lists.ozlabs.org>; Tue,  7 Mar 2017 12:22:21 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vcfRc0vT2zDq5W
+ for <openbmc@lists.ozlabs.org>; Tue,  7 Mar 2017 12:37:47 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="F6jBRMjn"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="mF4XLeCB"; 
  dkim-atps=neutral
-Received: by mail-yw0-x231.google.com with SMTP id v198so49196402ywc.2
- for <openbmc@lists.ozlabs.org>; Mon, 06 Mar 2017 17:22:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=FIYDWXmwC/V39zx132HtlXPJ2uhZTFR8zRWwag7MHIw=;
- b=F6jBRMjnw9zzcgUgloZD8F1Ysmc81+63FrSDu2TX+YEROH1gct1MRm6d+OQH9uFYqP
- 3T21YolTXFiWJLXIXmSEuXYoEfI/UEjCbW+4nCk+MKXCV5f/g5MImyUzC4sDINAZn7dM
- ugIPBBLttiL8M5kYOpSXiPuQp3py/4nMIrFWp5sB9H3KYuR6EmeCCu7rOCLJ4/sxxxUH
- yVEQOOJlV8hZosnh0rzEJsTFlEtZps6wshvKJTkyBCKOA2V9tF8rRfcFTr4PS/ysmFOg
- BSoo0KNksJ3+GzWY2R8J/j19oud4WyhWWpJTcvRz34ux9UuFg+XhHdfQ80xbfUO48nHD
- PfZw==
+Received: by mail-io0-x235.google.com with SMTP id g6so7134311ioj.1
+ for <openbmc@lists.ozlabs.org>; Mon, 06 Mar 2017 17:37:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=Sn/GKj3R/dym4SOF8LryjTZ2JVusLF3sds5stOHvZZM=;
+ b=mF4XLeCBsfEr1s7MiM4XnlY4HGHhuTckb413UISgoMg57o0Ue44FEmxlXrHdSU/S7Q
+ tev/5YR8fOJT0nw+DKCtqfe2UUoXYgPjWFzKNgXpBS7XmvGuo7guY1mKwElKcrX3Yy5V
+ 2tIiyqRvX4GnZpt/2O2IqUpxM6DM5+k0RMLpGVQgAWan3yB/b0bYovDLcfdzIKRLrvRF
+ SUGBEOUVY1zpfIO9Q6e98yhHXVtebsS4pOP3zPTxGyx0X1yOUwg45wicNtsNmH07zBvi
+ 4fc128aQ7ZbFocw+rep5iokQwr5ldScRB1JzLCilMjKqdqMxLt58v1AD9MGDb+ZH/Beh
+ plNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=FIYDWXmwC/V39zx132HtlXPJ2uhZTFR8zRWwag7MHIw=;
- b=ARz9abx11SdL6ZNm1EJrWDWpT/HHPQA0tfYNaxX1hVACUcQRghIWRbc5ccUIDKvs3d
- 4J89KvXc96ecJljBflufPpXM1cSU/90Uyrv0IbQuMZBZRdUmywWKzfLUrlpnjZXH0kxs
- SY2QpYQJuJ9EP+hqejbxYIdifk+V9Yro6ntZjd3r+CsErgVCYmYPZfPca5oheHqAGTAl
- EVL5qMeHQRUkfpVCQhGc3UzqMoJpgE81TGY3eXr8LSaXj20lPFNmkGh2sevnERv/mDFv
- SDrOlluiRwICGlrCINg8+H+fX0xiUWWP6ea55rssgNIsxSK6yYIRKQaT4cQWKWW9tGUU
- kXgw==
-X-Gm-Message-State: AMke39nb3a6AKlLuK8+YHRvn1X+jIrXFMBjlp/6p+4Wt7niTbrpETi4Y1u0mwhXZGnD0jCczDZo5GHuFQ/YFkQ==
-X-Received: by 10.129.71.198 with SMTP id u189mr14430074ywa.174.1488849738592; 
- Mon, 06 Mar 2017 17:22:18 -0800 (PST)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=Sn/GKj3R/dym4SOF8LryjTZ2JVusLF3sds5stOHvZZM=;
+ b=QQaiiEAoyWEz9jpkIWxkH+V0Qk2kC40VuoAGyU/m0WIAhZbmEhX/YoyVeX8VCtgP9E
+ ym7YxUVGWEg1YskQ4o+ghJ7wGf4PljBw/9S4yJG9U2G83hJA0m5P1En2UGHzsj+GAk7G
+ 4kK9ohLhj1jVFVEtPX4IrRa0ikh0/8SxU5uXr9b/0K5yoEqcIIWV57k4eie8WwaHowEF
+ H6A2ddu0q/OKRVazf+UB+c/cr7g8nvbXY7QvBvoaH9h1QsCqXqu+DQI2wMwkC82zUdlt
+ Rk+e6n+KuoyLmGdyEJvMFWQNBqDvtpbCUbBYW7OFHL7y+j625FMu/ct1ow0fYpyGmBlt
+ x9uw==
+X-Gm-Message-State: AMke39l5DaaRbT5K6JKMWRVDfh0guHd9R7rAw5a8fE3lY0qNcagwOMrVt8/d87CiLfR/I06W0kr2B59dw5gnDdUb
+X-Received: by 10.107.6.211 with SMTP id f80mr16402131ioi.96.1488850663938;
+ Mon, 06 Mar 2017 17:37:43 -0800 (PST)
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.42.133 with HTTP; Mon, 6 Mar 2017 17:21:58 -0800 (PST)
-In-Reply-To: <CAPozSNrAzFnZpP9PgTXUtPvDtF6Ag6dijOqYhMn4f8OQs2OqFg@mail.gmail.com>
+Received: by 10.107.170.22 with HTTP; Mon, 6 Mar 2017 17:37:43 -0800 (PST)
+In-Reply-To: <CACPK8XebaQ6qTQG5mm3nW2bLdwgZjDpg_Kfkt_786k6==m7L9Q@mail.gmail.com>
 References: <CAPozSNrAzFnZpP9PgTXUtPvDtF6Ag6dijOqYhMn4f8OQs2OqFg@mail.gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 7 Mar 2017 11:51:58 +1030
-X-Google-Sender-Auth: 05ozDzwSLEo8_50kwcWKg0gt3fw
-Message-ID: <CACPK8XebaQ6qTQG5mm3nW2bLdwgZjDpg_Kfkt_786k6==m7L9Q@mail.gmail.com>
+ <CACPK8XebaQ6qTQG5mm3nW2bLdwgZjDpg_Kfkt_786k6==m7L9Q@mail.gmail.com>
+From: Peter Hanson <peterh@google.com>
+Date: Mon, 6 Mar 2017 17:37:43 -0800
+Message-ID: <CAPozSNpoJ134FYXwOjrr9TGRFmBnkT3867g2S8v=qQbWHVZkxA@mail.gmail.com>
 Subject: Re: Zaius can use a backport of pmbus device support
-To: Peter Hanson <peterh@google.com>
+To: Joel Stanley <joel@jms.id.au>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -58,29 +56,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Mar 2017 01:22:22 -0000
+X-List-Received-Date: Tue, 07 Mar 2017 01:37:48 -0000
 
-Hello Peter,
+Yes, I first noticed it in Linus' 4.10 tree, so that should cover it.
 
-Welcome to the project!
+Was advised by yuenn to create https://github.com/openbmc/openbmc/issues/1260
+but I agree: at this point, it may be just another reason to keep up with head.
 
-On Tue, Mar 7, 2017 at 10:55 AM, Peter Hanson <peterh@google.com> wrote:
-> Device support added to 4.9 can be used to support the Zaius power brick.
+On Mon, Mar 6, 2017 at 5:21 PM, Joel Stanley <joel@jms.id.au> wrote:
+> Hello Peter,
 >
-> The relevant commit is cc00decf0e280953e9067e938ad331f93bda8b40
-> also available as https://patchwork.kernel.org/patch/9245427/
+> Welcome to the project!
 >
-> Tested the patch - it works. Suggesting to backport that commit.
+> On Tue, Mar 7, 2017 at 10:55 AM, Peter Hanson <peterh@google.com> wrote:
+>> Device support added to 4.9 can be used to support the Zaius power brick.
+>>
+>> The relevant commit is cc00decf0e280953e9067e938ad331f93bda8b40
+>> also available as https://patchwork.kernel.org/patch/9245427/
+>>
+>> Tested the patch - it works. Suggesting to backport that commit.
+>>
+>> Of course, pulling ahead to 4.10 would work too...
 >
-> Of course, pulling ahead to 4.10 would work too...
-
-I've started testing a 4.10 tree. We're looking good on the ast2400,
-and I will do some ast2500 testing over the coming days.
-
-I'd put a tentative ETA on switching of next week. I'll let you decide
-if you want to do the backport now, or if you can wait until we rebase
-on 4.10.
-
-Cheers,
-
-Joel
+> I've started testing a 4.10 tree. We're looking good on the ast2400,
+> and I will do some ast2500 testing over the coming days.
+>
+> I'd put a tentative ETA on switching of next week. I'll let you decide
+> if you want to do the backport now, or if you can wait until we rebase
+> on 4.10.
+>
+> Cheers,
+>
+> Joel
