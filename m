@@ -1,75 +1,36 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Return-Path: <clg@kaod.org>
+Received: from 2.mo68.mail-out.ovh.net (2.mo68.mail-out.ovh.net
+ [46.105.52.162])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vchSF1y63zDqY1
- for <openbmc@lists.ozlabs.org>; Tue,  7 Mar 2017 14:08:28 +1100 (AEDT)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v2733WdZ012130
- for <openbmc@lists.ozlabs.org>; Mon, 6 Mar 2017 22:08:19 -0500
-Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2917gnvmu2-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 06 Mar 2017 22:08:19 -0500
-Received: from localhost
- by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Mon, 6 Mar 2017 20:08:18 -0700
-Received: from d03dlp02.boulder.ibm.com (9.17.202.178)
- by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 6 Mar 2017 20:08:15 -0700
-Received: from b03cxnp07028.gho.boulder.ibm.com
- (b03cxnp07028.gho.boulder.ibm.com [9.17.130.15])
- by d03dlp02.boulder.ibm.com (Postfix) with ESMTP id AE4453E40041;
- Mon,  6 Mar 2017 20:08:14 -0700 (MST)
-Received: from b03ledav001.gho.boulder.ibm.com
- (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v2738Atb16515578; Mon, 6 Mar 2017 20:08:14 -0700
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 8BD2C6E048;
- Mon,  6 Mar 2017 20:08:14 -0700 (MST)
-Received: from Christophers-MacBook-Pro.local (unknown [9.83.5.17])
- by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP id 9CF336E03F;
- Mon,  6 Mar 2017 20:08:12 -0700 (MST)
-Subject: Re: [PATCH linux dev-4.7] drivers/fsi: Remove hub devices during
- master unregister
-To: Joel Stanley <joel@jms.id.au>, Brad Bishop <bradleyb@fuzziesquirrel.com>, 
- Patrick Williams <patrick@stwcx.xyz>
-References: <20170307005551.33957-1-cbostic@linux.vnet.ibm.com>
- <CACPK8Xe6nNEw4gYBmChq9eJ38PBa4ft-Ytc7tF51Bru2XnTLwQ@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vcn5g0T8szDq8g
+ for <openbmc@lists.ozlabs.org>; Tue,  7 Mar 2017 17:37:42 +1100 (AEDT)
+Received: from player750.ha.ovh.net (b7.ovh.net [213.186.33.57])
+ by mo68.mail-out.ovh.net (Postfix) with ESMTP id 1CCAB40B2F
+ for <openbmc@lists.ozlabs.org>; Tue,  7 Mar 2017 06:18:52 +0100 (CET)
+Received: from zorba.kaod.org (LFbn-1-10647-27.w90-89.abo.wanadoo.fr
+ [90.89.233.27]) (Authenticated sender: postmaster@kaod.org)
+ by player750.ha.ovh.net (Postfix) with ESMTPSA id 32035180073;
+ Tue,  7 Mar 2017 06:18:49 +0100 (CET)
+Subject: Re: [PATCH linux dev-4.7] ARM: dts: aspeed: romulus: remove second
+ BMC flash
+To: Joel Stanley <joel@jms.id.au>
+References: <1488787487-12257-1-git-send-email-clg@kaod.org>
+ <CACPK8Xeia=yG3LqkZq_RSS9z=dm+xkmtcCdxQQKL1VE17rpCDA@mail.gmail.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Mon, 6 Mar 2017 21:08:10 -0600
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
- Gecko/20100101 Thunderbird/45.7.0
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <2bcbeb33-5799-52eb-2910-4354ac468c25@kaod.org>
+Date: Tue, 7 Mar 2017 06:18:49 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.7.0
 MIME-Version: 1.0
-In-Reply-To: <CACPK8Xe6nNEw4gYBmChq9eJ38PBa4ft-Ytc7tF51Bru2XnTLwQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <CACPK8Xeia=yG3LqkZq_RSS9z=dm+xkmtcCdxQQKL1VE17rpCDA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17030703-0016-0000-0000-0000065E2FB3
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006736; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000206; SDB=6.00831018; UDB=6.00407670; IPR=6.00608609; 
- BA=6.00005190; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014535; XFM=3.00000012;
- UTC=2017-03-07 03:08:16
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17030703-0017-0000-0000-000037FE9906
-Message-Id: <e246ab83-4459-c471-c059-d94f21b65b79@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-03-07_02:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
- definitions=main-1703070023
+X-Ovh-Tracer-Id: 4808718505856436994
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelhedrgedugdekfecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -81,48 +42,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Mar 2017 03:08:29 -0000
+X-List-Received-Date: Tue, 07 Mar 2017 06:37:43 -0000
 
+On 03/07/2017 03:23 AM, Joel Stanley wrote:
+> On Mon, Mar 6, 2017 at 6:34 PM, Cédric Le Goater <clg@kaod.org> wrote:
+>> Romulus systems have only one MX25L25635 (32768 Kbytes) flash module
+>> for the BMC firmware and other MT25QL512A (65536 Kbytes) for the host.
+>>
+>> Signed-off-by: Cédric Le Goater <clg@kaod.org>
+>> ---
+>>  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts |    5 -----
+>>  1 file changed, 5 deletions(-)
+>>
+>> Index: linux-openbmc-4.7.git/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+>> ===================================================================
+>> --- linux-openbmc-4.7.git.orig/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+>> +++ linux-openbmc-4.7.git/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+>> @@ -51,11 +51,6 @@
+>>                 m25p,fast-read;
+>>  #include "aspeed-bmc-opp-flash-layout.dtsi"
+>>         };
+>> -       flash@1 {
+>> -               status = "okay";
+>> -               label = "alt";
+>> -               m25p,fast-read;
+>> -       };
+> 
+> I think this patch was against a different tree; we don't have the
+> fast-read properties in 4.7.
 
+Ah yes. Sorry about that.
 
-On 3/6/17 8:37 PM, Joel Stanley wrote:
-> On Tue, Mar 7, 2017 at 11:25 AM, Christopher Bostic
-> <cbostic@linux.vnet.ibm.com> wrote:
->> +static int fsi_unregister_hubs(struct device *dev, void *data)
->> +{
->> +       struct fsi_master_hub *hub =
->> +                               (struct fsi_master_hub *)dev_get_drvdata(dev);
->> +
->> +       if (!hub)
->> +               return 0;
->> +
->> +       device_del(dev);
->> +       fsi_master_unscan(&hub->master);
->> +}
-> This introduces a warning:
->
-> drivers/fsi/fsi-core.c: In function ‘fsi_unregister_hubs’:
-> drivers/fsi/fsi-core.c:754:1: warning: control reaches end of non-void
-> function [-Wreturn-type]
->   }
->   ^
->
-> Did you build test this patch?
-I did build but didn't see the warning. Wasn't looking close enough 
-apparently -will correct.
+> I fixed it up and committed to dev-4.7.
 
-> Have you boot tested it?
+Thanks,
 
-I did boot it.
-> What runtime testing did you perform?
-I ran multiple scans without rebooting to verify the removal and 
-creation of sysfs files was done properly.
-Also verified no further sysfs warnings attempting to create duplicate 
-file names.
-
-
-
-> Cheers,
->
-> Joel
->
+C.
