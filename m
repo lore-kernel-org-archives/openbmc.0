@@ -3,52 +3,51 @@ Received: from mail-yw0-x242.google.com (mail-yw0-x242.google.com
  [IPv6:2607:f8b0:4002:c05::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vcgSY2CpwzDqY0
- for <openbmc@lists.ozlabs.org>; Tue,  7 Mar 2017 13:23:40 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vcgXj10vhzDqY1
+ for <openbmc@lists.ozlabs.org>; Tue,  7 Mar 2017 13:27:17 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="WnMveX3O"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="VszhzOd/"; 
  dkim-atps=neutral
-Received: by mail-yw0-x242.google.com with SMTP id h11so209313ywa.2
- for <openbmc@lists.ozlabs.org>; Mon, 06 Mar 2017 18:23:40 -0800 (PST)
+Received: by mail-yw0-x242.google.com with SMTP id o4so3522614ywd.1
+ for <openbmc@lists.ozlabs.org>; Mon, 06 Mar 2017 18:27:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=TpROzgXczmDrEsPU2RSYqcCCrkUx3IMwF+NFoYpaS6c=;
- b=WnMveX3Og9KhFh+6ibe9RRdqGx3Fr5w+7/qwToJjgDd5GvEY8EtaaLq8KurkJ4VVT0
- MzKvwYzesWwVidZEMV5nuhVoPZ4Qah0k8pxFu8Ar6I147DYoggH6zWL0qPJnVRCaSRg6
- aMJym/W+kVYyQwLNyQvqEclqxp1Vrn3v7x6rUni4+UczF9SXpYzZzmGKhQFFTMF6AvIc
- e5XdPRpf1zI1Aox2VTMB8PUT7e6lO/gf03sJxoISjDtTKRC6FfmAGw3UzF+1DmVmHGUx
- iexuSejmpZuqBD7a+T0maPXSfYe4RQYRFbCWVT97m+J5ajIR3mfteH9PdehyZfXnZYie
- qyEQ==
+ :subject:to:cc;
+ bh=uWP//K8VGZpHvUggZ59IT1NZHLFfCXw/UXUZPfUuRBo=;
+ b=VszhzOd/ZSD4FeCP9l6wlnV/UGb+76949m3W0FeTDBsKW5vVQb7IigsaJDoum5YvSS
+ NHQoAcDqmREzFiSkEuG7xE43n0D/Pwb/KeiJEgqtVq0XD6sr5yBs/6Yw4cXRgsfH9r7P
+ mMCfD4SzN0MOqH3jVGx7Ne7MpGu5tIQ3o2bzF18Ppas0Xut6Or5ZPH1MleTdo5KLqdbr
+ yHJOFEw24tvoZGGK6Vm8TX0NQLwiQ/iofl5/pI/4vpUzmA/L2HJ8Ccbxm9xbm4hA1Pep
+ GVBEnCde45FZfX1KY0Dl7Fak5r02vboxYkYW2uu/RY/PTNW18iJwzJFqs1nS+cz4FJSc
+ 1Wgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=TpROzgXczmDrEsPU2RSYqcCCrkUx3IMwF+NFoYpaS6c=;
- b=Ti3Qmz/XbjJnZEUt/iFQ8hw7GQpWrIZBXBCIHySYFsALYES8i2m6igdF1I5NKkXtiw
- GP2EvNWHgslcISByiVynCpxQF0dl/ptpIHrdTXa1rDt84+P/zu66U/9ARcVhw+t9Dv5E
- H0MSvYFwXrs1ut7zzyxfT6eRJZK2Gbesj8BQ757HMZPChprZFHbdH3MXub2bdKapzcs+
- C3yffPq1NYq710bFvmHwFatzgov683O/05vrKhAvJNTejH4oYBwcl3SAhnKC5gMUKxob
- +se5EfoM//13bjvs8nPaNrNGpLHsFHEAozaU/jhUv92iSbGIjDJ9x73lxQbSD7OVmH71
- o+xA==
-X-Gm-Message-State: AMke39msbkCsHU9L453zl6CMEu7Tz/J2VTosEbMRiF7tHg1p16r0aKKBxJ3sFiiWqNINg3swzINxMd5DPDypdQ==
-X-Received: by 10.129.101.195 with SMTP id z186mr13223025ywb.11.1488853418016; 
- Mon, 06 Mar 2017 18:23:38 -0800 (PST)
+ :date:message-id:subject:to:cc;
+ bh=uWP//K8VGZpHvUggZ59IT1NZHLFfCXw/UXUZPfUuRBo=;
+ b=rgEfYX/8EWz24fLoHcFlvM9qaeHqWRCE4b98nahBG1v1jK9j4xWEBtW5pm7lqfHL98
+ VXFrlto7BmC4oqgAz1P9YndIqoj0wC1oOg5wFnVG5ApXGIKqDoOS+eh93EgK64FDKQoS
+ O57+TDopxkngFKZhY3a2lK0MYe9M+xV+kSEM4HpnIMJ0fobJ5T2Jj/0W+hAhJov51jgs
+ G8NnJ7zFDiuXB2BKi/1fvyfAFFBXb5j2Ha841svuDACm8ayiwDQ+si1PwRr4/icf6tvD
+ Zo3gP46CF0aNvcBrUrbKo6V4wBd+nb/2FQsjqg2+JvvY3TkH+MPh6gr51WkweOZ6ts/a
+ 85cQ==
+X-Gm-Message-State: AMke39nP5KsihnCwO+3s3CXUmCVqf7cz4cd2cPveoGgfoWo9UR0ExH0LCaFPH0v/YrV5MtJASoPIBbASb7xy+Q==
+X-Received: by 10.37.70.66 with SMTP id t63mr14208053yba.196.1488853634773;
+ Mon, 06 Mar 2017 18:27:14 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.42.133 with HTTP; Mon, 6 Mar 2017 18:23:17 -0800 (PST)
-In-Reply-To: <1488787487-12257-1-git-send-email-clg@kaod.org>
-References: <1488787487-12257-1-git-send-email-clg@kaod.org>
+Received: by 10.37.42.133 with HTTP; Mon, 6 Mar 2017 18:26:54 -0800 (PST)
+In-Reply-To: <20170303213747.97313-1-cbostic@linux.vnet.ibm.com>
+References: <20170303213747.97313-1-cbostic@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 7 Mar 2017 12:53:17 +1030
-X-Google-Sender-Auth: Ul6qeCTgwXD26qJi25WGojHl8nI
-Message-ID: <CACPK8Xeia=yG3LqkZq_RSS9z=dm+xkmtcCdxQQKL1VE17rpCDA@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7] ARM: dts: aspeed: romulus: remove second
- BMC flash
-To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Date: Tue, 7 Mar 2017 12:56:54 +1030
+X-Google-Sender-Auth: D63z6zUHDmGZcKsTJ9d3gK4yApQ
+Message-ID: <CACPK8Xdzj8rK6a4rGTWAneCLWCK5jo+iyXcELS4Rm-vk8h_JPA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7] drivers/fsi: Set I/O to standby values on
+ unbind
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,39 +59,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Mar 2017 02:23:42 -0000
+X-List-Received-Date: Tue, 07 Mar 2017 02:27:17 -0000
 
-On Mon, Mar 6, 2017 at 6:34 PM, C=C3=A9dric Le Goater <clg@kaod.org> wrote:
-> Romulus systems have only one MX25L25635 (32768 Kbytes) flash module
-> for the BMC firmware and other MT25QL512A (65536 Kbytes) for the host.
->
-> Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts |    5 -----
->  1 file changed, 5 deletions(-)
->
-> Index: linux-openbmc-4.7.git/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> --- linux-openbmc-4.7.git.orig/arch/arm/boot/dts/aspeed-bmc-opp-romulus.d=
-ts
-> +++ linux-openbmc-4.7.git/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> @@ -51,11 +51,6 @@
->                 m25p,fast-read;
->  #include "aspeed-bmc-opp-flash-layout.dtsi"
->         };
-> -       flash@1 {
-> -               status =3D "okay";
-> -               label =3D "alt";
-> -               m25p,fast-read;
-> -       };
+On Sat, Mar 4, 2017 at 8:07 AM, Christopher Bostic
+<cbostic@linux.vnet.ibm.com> wrote:
+> On unbind send a break command to reset any connected slave
+> and put bus in a good state. Next set each FSI pin to standby
+> state, '0' except for SDA (data) which is negative active so set
+> it to a '1'.
 
-I think this patch was against a different tree; we don't have the
-fast-read properties in 4.7.
+I recommend  you investigate fixing the device tree node so the data
+line is configured as active-low.
 
-I fixed it up and committed to dev-4.7.
+I've applied this as-is to dev-4.7.
 
 Cheers,
 
 Joel
+
+>
+> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+> ---
+>  drivers/fsi/fsi-master-gpio.c | 16 +++++++++++++---
+>  1 file changed, 13 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
+> index 49f3399..c923846 100644
+> --- a/drivers/fsi/fsi-master-gpio.c
+> +++ b/drivers/fsi/fsi-master-gpio.c
+> @@ -557,14 +557,24 @@ static int fsi_master_gpio_remove(struct platform_device *pdev)
+>  {
+>         struct fsi_master_gpio *master = platform_get_drvdata(pdev);
+>
+> +       fsi_master_gpio_break(&master->master, 0);
+> +
+> +       gpiod_set_value(master->gpio_clk, 0);
+>         devm_gpiod_put(&pdev->dev, master->gpio_clk);
+> +       gpiod_set_value(master->gpio_data, 1);
+>         devm_gpiod_put(&pdev->dev, master->gpio_data);
+> -       if (master->gpio_trans)
+> +       if (master->gpio_trans) {
+> +               gpiod_set_value(master->gpio_trans, 0);
+>                 devm_gpiod_put(&pdev->dev, master->gpio_trans);
+> -       if (master->gpio_enable)
+> +       }
+> +       if (master->gpio_enable) {
+> +               gpiod_set_value(master->gpio_enable, 0);
+>                 devm_gpiod_put(&pdev->dev, master->gpio_enable);
+> -       if (master->gpio_mux)
+> +       }
+> +       if (master->gpio_mux) {
+> +               gpiod_set_value(master->gpio_mux, 0);
+>                 devm_gpiod_put(&pdev->dev, master->gpio_mux);
+> +       }
+>         fsi_master_unregister(&master->master);
+>
+>         return 0;
+> --
+> 1.8.2.2
+>
