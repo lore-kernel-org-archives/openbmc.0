@@ -1,62 +1,49 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <raltherr@google.com>
+Received: from mail-it0-x234.google.com (mail-it0-x234.google.com
+ [IPv6:2607:f8b0:4001:c0b::234])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vd2c84fqrzDq8g
- for <openbmc@lists.ozlabs.org>; Wed,  8 Mar 2017 03:46:32 +1100 (AEDT)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v27GiDGn028431
- for <openbmc@lists.ozlabs.org>; Tue, 7 Mar 2017 11:46:22 -0500
-Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2920ags46w-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 07 Mar 2017 11:46:21 -0500
-Received: from localhost
- by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Tue, 7 Mar 2017 11:46:20 -0500
-Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
- by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Tue, 7 Mar 2017 11:46:19 -0500
-Received: from b01ledav03.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
- [9.57.199.108])
- by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v27GkJjn31522918; Tue, 7 Mar 2017 16:46:19 GMT
-Received: from b01ledav03.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id DB3BFB2046;
- Tue,  7 Mar 2017 11:46:15 -0500 (EST)
-Received: from christophersmbp.austin.ibm.com (unknown [9.83.5.17])
- by b01ledav03.gho.pok.ibm.com (Postfix) with ESMTP id D0047B2054;
- Tue,  7 Mar 2017 11:46:13 -0500 (EST)
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-To: joel@jms.id.au
-Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.7 v2] drivers/fsi: Remove hub devices during
- master unregister
-Date: Tue,  7 Mar 2017 10:46:10 -0600
-X-Mailer: git-send-email 2.10.1 (Apple Git-78)
-X-TM-AS-GCONF: 00
-x-cbid: 17030716-0052-0000-0000-0000018D7F79
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006739; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000206; SDB=6.00831290; UDB=6.00407834; IPR=6.00608882; 
- BA=6.00005194; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014544; XFM=3.00000012;
- UTC=2017-03-07 16:46:20
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17030716-0053-0000-0000-00004EE5C6D0
-Message-Id: <20170307164610.78174-1-cbostic@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-03-07_11:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
- definitions=main-1703070133
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vd8X96r9jzDq5x
+ for <openbmc@lists.ozlabs.org>; Wed,  8 Mar 2017 08:13:29 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="Oj5x5v87"; 
+ dkim-atps=neutral
+Received: by mail-it0-x234.google.com with SMTP id m27so13995497iti.1
+ for <openbmc@lists.ozlabs.org>; Tue, 07 Mar 2017 13:13:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=ih90YKk4OeqMeCKeT0B/1C00IlxDyVZWSbdjBACeb2k=;
+ b=Oj5x5v87mngzrIOeKgY3RWp5ax119TwN3cIKYEqLIvxZQiat2Y9SQ0l5tj00vSa6Db
+ iDuPAcEQoSd3C/dELq7KoKYXXQW2yffEG8EQlpAHVU0CSJTV18FV/oxk78WOGS9gipJj
+ EcFlgonFJQbTjH2fPb0+BD0frHrYGvMpZ7jcpi1rCcaz5Tcao4VTP9wxzU8Q1pFJ+Lf3
+ wEKNeso3CP8CrvynQfwFXVkMfqJsxMtb2BWsATjjp//FxtTopBmrfWSh1wa/Vr79Fp8H
+ Ief3szmuOuUaiXGlxZ474k+H64qboWBa4OHa3yWydaJ5DQAeVUeuD7Xr9nUC2X/UzpZh
+ zGUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=ih90YKk4OeqMeCKeT0B/1C00IlxDyVZWSbdjBACeb2k=;
+ b=IkF40xBEddoH3DCNwnQNk+0wwSh6seyf3hKGZIOfo1UfEEx6aakpRxUtwznMJbGbv4
+ 2pRZ9JjwykVNl1QuA4LvrxLltDG+TUzxzAmwVo8dalJnzP3/xrRbP7FG/ZC91pWBDZhY
+ wu4cAUb4NahioKk5SpmjTDk4KSMQemG6+UXEL36t2fL2pOqll21yFNsqiS8BgELCUhQG
+ ozgW+R0pbxk0/rCXuBdBa6wXqUEbBGdZDvREJNLc2z1UfMq1DaLOONH28ENxMT300lET
+ Sppdatff+OQpHcnVUorb7+Arf65kYzSL40stmt0Pu9Ag6Ntg7E4oZ6KHbh5QrRGaHpOq
+ efUA==
+X-Gm-Message-State: AMke39lSmJl5HUL40K/PmwJ7R7mUgmFw6X7Bq1VMIEeqPhqv0h7BC4MIOr7qhbzUyrfDcP/Kiu1zF1XXSAW0K3p4
+X-Received: by 10.36.73.135 with SMTP id e7mr3049483itd.105.1488921206490;
+ Tue, 07 Mar 2017 13:13:26 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.64.25.109 with HTTP; Tue, 7 Mar 2017 13:13:26 -0800 (PST)
+In-Reply-To: <20170303205920.146751-1-xow@google.com>
+References: <20170303205920.146751-1-xow@google.com>
+From: Rick Altherr <raltherr@google.com>
+Date: Tue, 7 Mar 2017 13:13:26 -0800
+Message-ID: <CAPLgG==-CnHNe14H9SV2ZCfJu9ZQ_Xc7ayXfkKbQY+_ZmVPubA@mail.gmail.com>
+Subject: Re: [PATCH linux] ARM: dts: aspeed: zaius: Enable NC-SI mux
+To: Xo Wang <xow@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,69 +55,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Mar 2017 16:46:33 -0000
+X-List-Received-Date: Tue, 07 Mar 2017 21:13:30 -0000
 
-All hub devices must be removed when the primary FSI master
-is being unregistered.  This ensures that the system is in
-a clean state when another scan is attempted.  Failure to do so
-will result in duplicate /sys device name errors.
+Why is Linux doing this instead of U-Boot?
 
-Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
----
-v2: Fix missing return in non void function warning
----
- drivers/fsi/fsi-core.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
-
-diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
-index bd57b41..bbdf6b8 100644
---- a/drivers/fsi/fsi-core.c
-+++ b/drivers/fsi/fsi-core.c
-@@ -84,6 +84,7 @@ struct fsi_master_hub {
- #define to_fsi_master_hub(d) container_of(d, struct fsi_master_hub, master)
- #define to_fsi_slave(d) container_of(d, struct fsi_slave, dev)
- 
-+static void fsi_master_unscan(struct fsi_master *master);
- static int fsi_slave_read(struct fsi_slave *slave, uint32_t addr,
- 		void *val, size_t size);
- static int fsi_slave_write(struct fsi_slave *slave, uint32_t addr,
-@@ -441,6 +442,7 @@ static int fsi_slave_scan(struct fsi_slave *slave)
- 			hub->dev.release = hub_master_release;
- 			hub->master.dev = &hub->dev;
- 			hub->master.dev->parent = &slave->dev;
-+			dev_set_drvdata(&hub->dev, hub);
- 			rc = device_add(&hub->dev);
- 			if (rc)
- 				return rc;
-@@ -739,6 +741,20 @@ static int fsi_master_scan(struct fsi_master *master)
- 	return 0;
- }
- 
-+static int fsi_unregister_hubs(struct device *dev, void *data)
-+{
-+	struct fsi_master_hub *hub =
-+				(struct fsi_master_hub *)dev_get_drvdata(dev);
-+
-+	if (!hub)
-+		return 0;
-+
-+	device_del(dev);
-+	fsi_master_unscan(&hub->master);
-+
-+	return 0;
-+}
-+
- static void fsi_master_unscan(struct fsi_master *master)
- {
- 	struct fsi_slave *slave, *slave_tmp;
-@@ -756,6 +772,8 @@ static void fsi_master_unscan(struct fsi_master *master)
- 			device_del(&fsi_dev->dev);
- 			put_device(&fsi_dev->dev);
- 		}
-+		/* Remove any hub masters */
-+		device_for_each_child(&slave->dev, NULL, fsi_unregister_hubs);
- 		device_unregister(&slave->dev);
- 	}
- 	master->slave_list = false;
--- 
-1.8.2.2
+On Fri, Mar 3, 2017 at 12:59 PM, Xo Wang <xow@google.com> wrote:
+> The Zaius motherboard has muxes for the RMII lines from the BMC to:
+>   - BCM5719 LAN on motherboard (LOM)
+>   - OCP mezzanine connector
+>   - HDMI form factor connector
+>
+> Assert the active-low enable line for the muxes. Due to the AST2500
+> default internal pull-down resistors, the muxes selection lines will
+> be low. This implicitly selects the LOM for NC-SI.
+>
+> The NC-SI interface will show up as network interface eth0.
+>
+> Signed-off-by: Xo Wang <xow@google.com>
+> ---
+>  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> index dc0546869886..3bd70ed810af 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> @@ -325,6 +325,13 @@
+>                 line-name = "iso_u164_en";
+>         };
+>
+> +       ncsi_mux_en_n {
+> +               gpio-hog;
+> +               gpios = <ASPEED_GPIO(P, 0) GPIO_ACTIVE_HIGH>;
+> +               output-low;
+> +               line-name = "ncsi_mux_en_n";
+> +       };
+> +
+>         line_bmc_i2c2_sw_rst_n {
+>                 gpio-hog;
+>                 gpios = <ASPEED_GPIO(P, 1) GPIO_ACTIVE_HIGH>;
+> --
+> 2.12.0.rc1.440.g5b76565f74-goog
+>
