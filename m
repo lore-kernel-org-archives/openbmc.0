@@ -1,23 +1,53 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yb0-x244.google.com (mail-yb0-x244.google.com
+ [IPv6:2607:f8b0:4002:c09::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vdyG86qcczDqXh
- for <openbmc@lists.ozlabs.org>; Thu,  9 Mar 2017 15:34:08 +1100 (AEDT)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1489034043090283.90344191055146;
- Wed, 8 Mar 2017 20:34:03 -0800 (PST)
-Date: Wed, 8 Mar 2017 22:33:57 -0600
-From: Patrick Williams <patrick@stwcx.xyz>
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: DHCP client behavior
-Message-ID: <20170309043357.GA26189@heinlein.lan>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vf6cT4rjfzDqXh
+ for <openbmc@lists.ozlabs.org>; Thu,  9 Mar 2017 21:50:33 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="kK97I5pi"; 
+ dkim-atps=neutral
+Received: by mail-yb0-x244.google.com with SMTP id d88so245879ybi.2
+ for <openbmc@lists.ozlabs.org>; Thu, 09 Mar 2017 02:50:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=CzMYwZn7hN6FYktK7oqIkzxsy9lKKQ37/j6VCIEeLac=;
+ b=kK97I5piNw0KkL2fExHsS+Ya3iiq5hoh/sFqqz1tNSScNKS0eyX3gINYNz03SIaXBC
+ ZTMdCUzkkSg++qmDwVT3nh2wMc9aJjlP7RJl+TfE19xv5TBcRu6fnEMxW3l6g4Dm8YBR
+ U54zhEE6YooPlZCxUXhClUszapnTeJgUiW/QMl7ObEsaHHSN4KoAwU5Y7y839QsigWfk
+ Hrmkr9+I2gCasBFy6dgsdHoeSE0iqxCeKbZuSRSnv5FgPFW+mF7Om0k8vQuT/hPc7XKt
+ GWUyhymShqhdcB2EU61CAdIj5T3j8Ef5s9RAoN/aJOD3QyYN1G8CBm6Xax7qlWBKG28P
+ Omuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=CzMYwZn7hN6FYktK7oqIkzxsy9lKKQ37/j6VCIEeLac=;
+ b=kC3yJvdAFdrA2xW4p7MhG8HZdhkWcCUiqIVtdJz8AWPwSsmrSiGQkeZgygNDyLCUuZ
+ IgMFkU6TaKLqGTtuanL5VSM/7L0NTth4klSWCie/iJahkZxE8zFOoVxOC35udiILAQo2
+ 3mSP+0zjwgcbMmNj30kg6gNfEWG17P5CaHh/qyvSNPMf778Mc6KWtXReLzLDvZMutmws
+ nYv4Sf7yAkMof67vqY1HAJNnA/sC46b1wkWWvTT0+YEp78sDWpz9rRPV/gLYbwaVfK6v
+ 1kD9daj/vNjuqF9vC6R7DdvVe4ogeTw2EcrSzBUmPeJc2gVe3hYpWzLafnOy85qx89yW
+ ICwA==
+X-Gm-Message-State: AMke39lF4lg52RKsQ8R8JPRfnxG18nCK9XraHTUL9pCjZ/tjZb80WZMJxGZzmV8Q6RoB0w/nSciANC/lBXJnag==
+X-Received: by 10.37.70.66 with SMTP id t63mr3332477yba.196.1489056629532;
+ Thu, 09 Mar 2017 02:50:29 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="d6Gm4EdcadzBjdND"
-Content-Disposition: inline
-User-Agent: Mutt/1.5.24 (2015-08-30)
+Sender: joel.stan@gmail.com
+Received: by 10.37.42.133 with HTTP; Thu, 9 Mar 2017 02:50:09 -0800 (PST)
+In-Reply-To: <20170308195606.11618-1-cbostic@linux.vnet.ibm.com>
+References: <20170308195606.11618-1-cbostic@linux.vnet.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 9 Mar 2017 21:20:09 +1030
+X-Google-Sender-Auth: _JH2NYcnqdjHaWTDHRKa-1BZFWc
+Message-ID: <CACPK8XdTiDztehaeFSpKDNhL4Gw75Fyb=+h4cQ3RiPXoqDy4mQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7] drivers/fsi: Free up allocated resources on
+ fsi-master unbind
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -29,66 +59,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Mar 2017 04:34:09 -0000
+X-List-Received-Date: Thu, 09 Mar 2017 10:50:34 -0000
 
+On Thu, Mar 9, 2017 at 6:26 AM, Christopher Bostic
+<cbostic@linux.vnet.ibm.com> wrote:
+> In order to allow repeated bind/unbind operations on fsi-master
+> the resources allocated during bind must be freed. Specifically
+> the scan file and dynamic memory.  Also check for valid pointers
+> during unregister which is the path taken during unbind.
+>
+> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 
---d6Gm4EdcadzBjdND
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This patch does not apply to dev-4.7. Can you please rebase it?
 
-All,
+a4a89c237856e2ee3b00db7cd5febf075b695760 is the tip of dev-4.7 at the moment.
 
-I'm looking for feedback from any networking experts.  We had an issue
-reported by Witherspoon system manufacturing that our DHCP client was
-not sending MAC addresses as part of the DHCP request as legacy systems
-did.  I tracked this down to newer behavior in DHCP clients called
-'DUID's, which are intended to be system-specific rather than
-interface-specific identifiers (MACs would be interface-specific).
-
-There are three options for IPv4 DHCP clients and two for IPv6:
-    * MAC address based client IDs (legacy behavior, IPv4 only).
-    * System UUID based DUIDs (single ID per system).
-    * IPv6 'link-layer' based DUIDs (single ID per interface?)
-
-I'm curious if anyone has a perspective on how data-centers would like
-a BMC to act based on the three options for IPv4.  IPv6 we will need to
-decide between system or interface based IDs.  (ie. what should be our
-default configuration; individual vendors can always change.)
-
-I have created an issue on Github to track the long-term decision and
-as a temporary solution I forced IPv4 to MAC.
-
-Original issue is at [1], follow up for this assessment is at [2], "fix"
-in Gerrit is at [3].
-
-
-[1] https://github.com/openbmc/openbmc/issues/1272
-[2] https://github.com/openbmc/openbmc/issues/1280
-[3] https://gerrit.openbmc-project.xyz/#/c/2933/
-
---=20
-Patrick Williams
-
---d6Gm4EdcadzBjdND
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAEBCAAGBQJYwNszAAoJEKsDR8wtAMEZQqkP/RtpruG9U+oHAjrrkGvClgkQ
-m1hcn6kZq6HdNHXjYc1gjLwCv6lgzc7g/ojVJLrOppgopM3lroj5vTq1l+dPcnsI
-68Z0pCSsfhIBAN6P/IM5BTMmlqKxWLrZ0ditTPGFvFyZ1EJdgCpPLEPZMDU7HMnI
-9kFJieWB8R45iyXyDgtatxBEfLYPZt4sEohtiYIgfLQoe1B/rRhw8yRwhQRdVw7s
-8svUYkO+6EIqEMdXT1p08KDjLZks04NvKVLHW00LaDle6DIIclX/RkkRIUW0uEAC
-MmyQa96JxEG72CYSYHIUgXqezAEAJyemDRU1MCBHn/c7/d1wwBGSbMZeAKsenMe0
-W4rjft/DDv0pCcKFloP58NGRzrqQPIaDAAmbJXTbZsmFETdh8yffCfHYZsYTF0UK
-v216LC/f/ZzQyv99ze0dsHmjwxhykc2npzX1HjszqlNvJtgvv4M4Y3JtBBWqeeXf
-fht3lI3DjgjEe+rWAk5A5EfCMvOtAFtn23iKTGVPbOV9JoF1kB5UUyP16vxQwHDf
-jD1pbaD18dDdfn2UJBw7U3Kw1pGjvbaPtbQfpVJL5qg1LT/RUK9FPqEB0cG9hsQq
-MmSM/xkhMCSJrUCCTttjP6p1HvpZZ7S2B8Xe/Ip5R1+6j+128sDRi3w3ILwS7LFU
-Xru76oGt+iqhjCfqaOkN
-=JnEB
------END PGP SIGNATURE-----
-
---d6Gm4EdcadzBjdND--
+> ---
+>  drivers/fsi/fsi-core.c        | 8 ++++----
+>  drivers/fsi/fsi-master-gpio.c | 2 ++
+>  2 files changed, 6 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
+> index bbdf6b8..751c767 100644
+> --- a/drivers/fsi/fsi-core.c
+> +++ b/drivers/fsi/fsi-core.c
+> @@ -869,11 +869,11 @@ EXPORT_SYMBOL_GPL(fsi_master_register);
+>
+>  void fsi_master_unregister(struct fsi_master *master)
+>  {
+> -       if (master->idx >= 0) {
+> -               ida_simple_remove(&master_ida, master->idx);
+> -               master->idx = -1;
+> -       }
+> +       if (!master || !master->dev || master->idx < 0)
+> +               return;
+>
+> +       ida_simple_remove(&master_ida, master->idx);
+> +       master->idx = -1;
+>         device_remove_file(master->dev, &dev_attr_fsi_ipoll_period);
+>         fsi_master_unscan(master);
+>         put_device(master->dev);
+> diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
+> index 49f3399..3693b3d 100644
+> --- a/drivers/fsi/fsi-master-gpio.c
+> +++ b/drivers/fsi/fsi-master-gpio.c
+> @@ -566,6 +566,8 @@ static int fsi_master_gpio_remove(struct platform_device *pdev)
+>         if (master->gpio_mux)
+>                 devm_gpiod_put(&pdev->dev, master->gpio_mux);
+>         fsi_master_unregister(&master->master);
+> +       device_remove_file(&pdev->dev, &dev_attr_scan);
+> +       devm_kfree(&pdev->dev, master);
+>
+>         return 0;
+>  }
+> --
+> 1.8.2.2
+>
