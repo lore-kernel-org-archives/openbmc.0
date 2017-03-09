@@ -1,50 +1,51 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x241.google.com (mail-yb0-x241.google.com
- [IPv6:2607:f8b0:4002:c09::241])
+Received: from mail-yw0-x243.google.com (mail-yw0-x243.google.com
+ [IPv6:2607:f8b0:4002:c05::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vf6j42jynzDqfn
- for <openbmc@lists.ozlabs.org>; Thu,  9 Mar 2017 21:54:32 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vf6jQ0dT6zDqZc
+ for <openbmc@lists.ozlabs.org>; Thu,  9 Mar 2017 21:54:50 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="gR875wE8"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Lxvg5BmT"; 
  dkim-atps=neutral
-Received: by mail-yb0-x241.google.com with SMTP id a5so245025ybb.3
- for <openbmc@lists.ozlabs.org>; Thu, 09 Mar 2017 02:54:32 -0800 (PST)
+Received: by mail-yw0-x243.google.com with SMTP id 2so812690ywn.3
+ for <openbmc@lists.ozlabs.org>; Thu, 09 Mar 2017 02:54:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=DLrcixqpGsxE0oDeZDSNGHLjNSFGDRIYVVVLO1Kcxc8=;
- b=gR875wE8TGehq2EbOAxiPLLBBWLa0+gNm/pUOq+7GA6zEbqUaUceCe3V/51HpQrvb5
- 4lUV8rhr1pVA+HLPi/s+GqJN+ERJmdM9movZW9DLkXvi8u0b8XJU5AZsdSiyl188WNE0
- /2+4jV8mZurwMN/Ded9wyeFUdCXi61Tc1FCPILDRAx4xMSz/6mqPVV1ur0z43osLPgsY
- +A8evYlj3J5+DDTn6cqQ/9ZGeYineDOUOcn3dJlkB443t8pXM4ReiErRQOKy49g66J92
- b+h/5C65twOzaVippbm0rKFD/mlm8Bb8ov6rEHUBgDrnk8dKgBdUk9M0gvb/X47d9tMn
- zXSQ==
+ bh=lP5wTnd9S3OSnjXVpkHEoB01sdzsQFyXcVxIH0USqKA=;
+ b=Lxvg5BmT/UGgVxo7EWA1C2sIyC6iSvPSqgtYfPrlJpJe2G8vPtO9Vyq2lTA7rJjLn1
+ /155dYBzkP8UOMtegaFScE04jsdsk6ry93TFCjhNEIa0m+iLlBDTFChgiSot+QemN4CR
+ D149T+hSkuHPmrsDN2GggE5S5T721szbN90mP26mATH/4LMTBULTc07rQToh9fvpayx+
+ luplnrwhjP7cBJ6x6A5mQOpbg8GxLhaAS14s5//2cVh62BoqkQ0WrQHHfgoZ9W6DB47S
+ g1RycOdvBpBDvWoKjZFGYwHmEz5Ppd9A6FRTK8ZR6x7oCRChk1qDt0hNbHkvTX5++oTL
+ YX7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=DLrcixqpGsxE0oDeZDSNGHLjNSFGDRIYVVVLO1Kcxc8=;
- b=qVzHrEABgl2b7MG8/KaUpEomUWj+chQoXzDsDrL88V2QHNrGOTZFl8/ZUes0UlbbWJ
- ipaipYmgdge/azrxSlNa+PHXOhjGXM1eYn8wo3fD/S0Li0lsBmLrGbZuUbgAMkxU0zvk
- epIB/SZP0PYUCKfhnjIi975mG1gBPb45MJU2nyDKgjCqDw3SUMawEY/hKbBFSdcNl/qt
- ZP1Rry3hagk0QDlzN9eR2tAwb7M7xYYU+xZua1lLq8yiearKv2XBcMl+nFplNpfGPNaZ
- CrS9G+iw6C84s1K+nGAd9raZ7mk3qGwQX4fqEoLeJeXooOjoD1KQHapGpb+/5NV5RTRA
- SIgA==
-X-Gm-Message-State: AMke39nFOnwedBUYMDpijovMTL8/gkuoUGyDa/1U/DKuYEOMH78NwfUzfT+R8jGcWS1umHBguhIY/wDmex9Wiw==
-X-Received: by 10.37.194.5 with SMTP id s5mr2982162ybf.136.1489056869942; Thu,
- 09 Mar 2017 02:54:29 -0800 (PST)
+ bh=lP5wTnd9S3OSnjXVpkHEoB01sdzsQFyXcVxIH0USqKA=;
+ b=kL+clqus4dAa67HphD/IklBhfBPdWCE0skSe8Mbjax9/zv4uC/yv2V/lVdA3SekiuU
+ mtBkrSK0wOWRKT4jdCVcZjUesIFZvzEIIKkcKfWlDFr0BVxorzTJtdi/EEVprIh7qQGE
+ xz5P1ubz1cceP/BlmQ4zm/ejCLeHhpGhwFr4XW+dRLX81jaY2WZTguRV+2GFd8EgsNAa
+ sRy3iLn8MGjqm0TJkspgwCm7L7rXVttFIzu1pgZtgqHr7pBe1CKNba3izCC+fXiPV642
+ r20gNeqEW05cA55nkpFwzfsr0+pWTUGYLuquWF6ycraVgfiVLy2fcAi6XydE6goy+Ta7
+ u0BA==
+X-Gm-Message-State: AMke39mAqDZsEOZhlyHhuGr1Unlev4UpoR3ug+fBTuliUAInfo7r/nCIbreYcDUmGJhzfAPzzoDKF6wKyUfW8w==
+X-Received: by 10.129.73.65 with SMTP id w62mr3185463ywa.288.1489056887622;
+ Thu, 09 Mar 2017 02:54:47 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.42.133 with HTTP; Thu, 9 Mar 2017 02:54:09 -0800 (PST)
-In-Reply-To: <20170307164610.78174-1-cbostic@linux.vnet.ibm.com>
-References: <20170307164610.78174-1-cbostic@linux.vnet.ibm.com>
+Received: by 10.37.42.133 with HTTP; Thu, 9 Mar 2017 02:54:27 -0800 (PST)
+In-Reply-To: <CACPK8XdTiDztehaeFSpKDNhL4Gw75Fyb=+h4cQ3RiPXoqDy4mQ@mail.gmail.com>
+References: <20170308195606.11618-1-cbostic@linux.vnet.ibm.com>
+ <CACPK8XdTiDztehaeFSpKDNhL4Gw75Fyb=+h4cQ3RiPXoqDy4mQ@mail.gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 9 Mar 2017 21:24:09 +1030
-X-Google-Sender-Auth: Bz7Cc7iQHRl3EQOhvRU-4zT4bPs
-Message-ID: <CACPK8XfX24uzvxgjdNYyiKD+8BWdJW9=7Owd8yVtQO3VxXm54w@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7 v2] drivers/fsi: Remove hub devices during
- master unregister
+Date: Thu, 9 Mar 2017 21:24:27 +1030
+X-Google-Sender-Auth: f91rwZAuOEq53Q_2U06E5ZxIKRc
+Message-ID: <CACPK8XdtGo2nAOYXGuUEW4A8mYc5PfhcxWQHm+GiboS6=f6m+g@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7] drivers/fsi: Free up allocated resources on
+ fsi-master unbind
 To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
@@ -59,79 +60,63 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Mar 2017 10:54:32 -0000
+X-List-Received-Date: Thu, 09 Mar 2017 10:54:50 -0000
 
-On Wed, Mar 8, 2017 at 3:16 AM, Christopher Bostic
-<cbostic@linux.vnet.ibm.com> wrote:
-> All hub devices must be removed when the primary FSI master
-> is being unregistered.  This ensures that the system is in
-> a clean state when another scan is attempted.  Failure to do so
-> will result in duplicate /sys device name errors.
+On Thu, Mar 9, 2017 at 9:20 PM, Joel Stanley <joel@jms.id.au> wrote:
+> On Thu, Mar 9, 2017 at 6:26 AM, Christopher Bostic
+> <cbostic@linux.vnet.ibm.com> wrote:
+>> In order to allow repeated bind/unbind operations on fsi-master
+>> the resources allocated during bind must be freed. Specifically
+>> the scan file and dynamic memory.  Also check for valid pointers
+>> during unregister which is the path taken during unbind.
+>>
+>> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 >
-> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-> ---
-> v2: Fix missing return in non void function warning
-> ---
->  drivers/fsi/fsi-core.c | 18 ++++++++++++++++++
->  1 file changed, 18 insertions(+)
+> This patch does not apply to dev-4.7. Can you please rebase it?
 >
-> diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
-> index bd57b41..bbdf6b8 100644
-> --- a/drivers/fsi/fsi-core.c
-> +++ b/drivers/fsi/fsi-core.c
-> @@ -84,6 +84,7 @@ struct fsi_master_hub {
->  #define to_fsi_master_hub(d) container_of(d, struct fsi_master_hub, master)
->  #define to_fsi_slave(d) container_of(d, struct fsi_slave, dev)
+> a4a89c237856e2ee3b00db7cd5febf075b695760 is the tip of dev-4.7 at the moment.
+
+That should read e97a91f178e55719b08d48af7f592b18cfd4da91.
+
 >
-> +static void fsi_master_unscan(struct fsi_master *master);
->  static int fsi_slave_read(struct fsi_slave *slave, uint32_t addr,
->                 void *val, size_t size);
->  static int fsi_slave_write(struct fsi_slave *slave, uint32_t addr,
-> @@ -441,6 +442,7 @@ static int fsi_slave_scan(struct fsi_slave *slave)
->                         hub->dev.release = hub_master_release;
->                         hub->master.dev = &hub->dev;
->                         hub->master.dev->parent = &slave->dev;
-> +                       dev_set_drvdata(&hub->dev, hub);
->                         rc = device_add(&hub->dev);
->                         if (rc)
->                                 return rc;
-> @@ -739,6 +741,20 @@ static int fsi_master_scan(struct fsi_master *master)
->         return 0;
->  }
->
-> +static int fsi_unregister_hubs(struct device *dev, void *data)
-> +{
-> +       struct fsi_master_hub *hub =
-> +                               (struct fsi_master_hub *)dev_get_drvdata(dev);
-
-dev_get_drvdata returns a void *, so there is no need to cast.
-
-I fixed this up when applying.
-
-> +       if (!hub)
-> +               return 0;
-
-Is this expected? Should it return an error?
-
-> +
-> +       device_del(dev);
-> +       fsi_master_unscan(&hub->master);
-> +
-> +       return 0;
-> +}
-> +
->  static void fsi_master_unscan(struct fsi_master *master)
->  {
->         struct fsi_slave *slave, *slave_tmp;
-> @@ -756,6 +772,8 @@ static void fsi_master_unscan(struct fsi_master *master)
->                         device_del(&fsi_dev->dev);
->                         put_device(&fsi_dev->dev);
->                 }
-> +               /* Remove any hub masters */
-> +               device_for_each_child(&slave->dev, NULL, fsi_unregister_hubs);
->                 device_unregister(&slave->dev);
->         }
->         master->slave_list = false;
-> --
-> 1.8.2.2
->
+>> ---
+>>  drivers/fsi/fsi-core.c        | 8 ++++----
+>>  drivers/fsi/fsi-master-gpio.c | 2 ++
+>>  2 files changed, 6 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
+>> index bbdf6b8..751c767 100644
+>> --- a/drivers/fsi/fsi-core.c
+>> +++ b/drivers/fsi/fsi-core.c
+>> @@ -869,11 +869,11 @@ EXPORT_SYMBOL_GPL(fsi_master_register);
+>>
+>>  void fsi_master_unregister(struct fsi_master *master)
+>>  {
+>> -       if (master->idx >= 0) {
+>> -               ida_simple_remove(&master_ida, master->idx);
+>> -               master->idx = -1;
+>> -       }
+>> +       if (!master || !master->dev || master->idx < 0)
+>> +               return;
+>>
+>> +       ida_simple_remove(&master_ida, master->idx);
+>> +       master->idx = -1;
+>>         device_remove_file(master->dev, &dev_attr_fsi_ipoll_period);
+>>         fsi_master_unscan(master);
+>>         put_device(master->dev);
+>> diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
+>> index 49f3399..3693b3d 100644
+>> --- a/drivers/fsi/fsi-master-gpio.c
+>> +++ b/drivers/fsi/fsi-master-gpio.c
+>> @@ -566,6 +566,8 @@ static int fsi_master_gpio_remove(struct platform_device *pdev)
+>>         if (master->gpio_mux)
+>>                 devm_gpiod_put(&pdev->dev, master->gpio_mux);
+>>         fsi_master_unregister(&master->master);
+>> +       device_remove_file(&pdev->dev, &dev_attr_scan);
+>> +       devm_kfree(&pdev->dev, master);
+>>
+>>         return 0;
+>>  }
+>> --
+>> 1.8.2.2
+>>
