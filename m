@@ -1,50 +1,50 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x244.google.com (mail-yb0-x244.google.com
- [IPv6:2607:f8b0:4002:c09::244])
+Received: from mail-yw0-x241.google.com (mail-yw0-x241.google.com
+ [IPv6:2607:f8b0:4002:c05::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vf6cT4rjfzDqXh
- for <openbmc@lists.ozlabs.org>; Thu,  9 Mar 2017 21:50:33 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vf6f91kf2zDqZ6
+ for <openbmc@lists.ozlabs.org>; Thu,  9 Mar 2017 21:52:01 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="kK97I5pi"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="TNqiezZl"; 
  dkim-atps=neutral
-Received: by mail-yb0-x244.google.com with SMTP id d88so245879ybi.2
- for <openbmc@lists.ozlabs.org>; Thu, 09 Mar 2017 02:50:33 -0800 (PST)
+Received: by mail-yw0-x241.google.com with SMTP id h11so808366ywa.2
+ for <openbmc@lists.ozlabs.org>; Thu, 09 Mar 2017 02:52:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=CzMYwZn7hN6FYktK7oqIkzxsy9lKKQ37/j6VCIEeLac=;
- b=kK97I5piNw0KkL2fExHsS+Ya3iiq5hoh/sFqqz1tNSScNKS0eyX3gINYNz03SIaXBC
- ZTMdCUzkkSg++qmDwVT3nh2wMc9aJjlP7RJl+TfE19xv5TBcRu6fnEMxW3l6g4Dm8YBR
- U54zhEE6YooPlZCxUXhClUszapnTeJgUiW/QMl7ObEsaHHSN4KoAwU5Y7y839QsigWfk
- Hrmkr9+I2gCasBFy6dgsdHoeSE0iqxCeKbZuSRSnv5FgPFW+mF7Om0k8vQuT/hPc7XKt
- GWUyhymShqhdcB2EU61CAdIj5T3j8Ef5s9RAoN/aJOD3QyYN1G8CBm6Xax7qlWBKG28P
- Omuw==
+ bh=h5hbG6SoYsOxMzt0Bt5MesGwqFRoVGgiDQ/IW9QUiWk=;
+ b=TNqiezZlqZpP/L5wiY5obJSGKxAWgTmCJVa4beBdLnigUSCxa0EHry/XTVCPfc2ZYo
+ 2FQL0pkxg1nKNkxVCwhwuGzCadpARpVIyO/ilTFjm+h66U6YMl0MUY5VxhJM1cDmfc+e
+ k5zr3k1IemrMJ/GduuPuNtn1Y0HLfdmzEiRkKK7N43+QZQI6Pe4ng1aK1U5TKpOkCvwJ
+ u0FGhpUfRsM5dSNZTTmRSGmyEpCFwjo4qQp9JqtGVLMaPJVu4SFEhL9/CjZ+/WXe6MY5
+ H/w068ytYwW6TNRzY1w8KM0l23WrDug4vXNdPKLzGEc8XDkOjkUIwlHHHPgqklmVaQRG
+ uE2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=CzMYwZn7hN6FYktK7oqIkzxsy9lKKQ37/j6VCIEeLac=;
- b=kC3yJvdAFdrA2xW4p7MhG8HZdhkWcCUiqIVtdJz8AWPwSsmrSiGQkeZgygNDyLCUuZ
- IgMFkU6TaKLqGTtuanL5VSM/7L0NTth4klSWCie/iJahkZxE8zFOoVxOC35udiILAQo2
- 3mSP+0zjwgcbMmNj30kg6gNfEWG17P5CaHh/qyvSNPMf778Mc6KWtXReLzLDvZMutmws
- nYv4Sf7yAkMof67vqY1HAJNnA/sC46b1wkWWvTT0+YEp78sDWpz9rRPV/gLYbwaVfK6v
- 1kD9daj/vNjuqF9vC6R7DdvVe4ogeTw2EcrSzBUmPeJc2gVe3hYpWzLafnOy85qx89yW
- ICwA==
-X-Gm-Message-State: AMke39lF4lg52RKsQ8R8JPRfnxG18nCK9XraHTUL9pCjZ/tjZb80WZMJxGZzmV8Q6RoB0w/nSciANC/lBXJnag==
-X-Received: by 10.37.70.66 with SMTP id t63mr3332477yba.196.1489056629532;
- Thu, 09 Mar 2017 02:50:29 -0800 (PST)
+ bh=h5hbG6SoYsOxMzt0Bt5MesGwqFRoVGgiDQ/IW9QUiWk=;
+ b=cXRZ4mJ8ofNCnIwbNsjFthNAoW6aSQUjL9kgehzCemnqPnR2l8Nc/nX8D0uaqXs60S
+ cHTITgkJJXFQDJsZ/gyUWzYqtNCxdLpJ56bEB+SmLabM3fSMq61SLVoAmLQnCag3COQN
+ bUZIApitjlZw1nDmfRpq82ErkZoEc3/2EVaXBvB5W0zD0KMnaWKfh8PKntSSJ+wEoaUS
+ iRxEdVXNsr1o3dwYo3OgiRCzpdz3e2IcjA7yanLgdHNASQ/hUTngoKVP71hT9IA/sFCl
+ gjXPx7aIHUeDhgpwabLh+B4CpMQMJqvSgB2218eF18laegMufsEtMEeo66rtq/wxiXel
+ +Ekg==
+X-Gm-Message-State: AMke39n/Lmipz8HO9HGJLOyUWLhtJURSwEtX5ijKjNhJqlIFyRetwdhm6f6YkuknN1qApiqlr87G/2krZEcbiQ==
+X-Received: by 10.129.91.194 with SMTP id p185mr3101961ywb.50.1489056717788;
+ Thu, 09 Mar 2017 02:51:57 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.42.133 with HTTP; Thu, 9 Mar 2017 02:50:09 -0800 (PST)
-In-Reply-To: <20170308195606.11618-1-cbostic@linux.vnet.ibm.com>
-References: <20170308195606.11618-1-cbostic@linux.vnet.ibm.com>
+Received: by 10.37.42.133 with HTTP; Thu, 9 Mar 2017 02:51:37 -0800 (PST)
+In-Reply-To: <20170309000213.20262-1-cbostic@linux.vnet.ibm.com>
+References: <20170309000213.20262-1-cbostic@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 9 Mar 2017 21:20:09 +1030
-X-Google-Sender-Auth: _JH2NYcnqdjHaWTDHRKa-1BZFWc
-Message-ID: <CACPK8XdTiDztehaeFSpKDNhL4Gw75Fyb=+h4cQ3RiPXoqDy4mQ@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7] drivers/fsi: Free up allocated resources on
- fsi-master unbind
+Date: Thu, 9 Mar 2017 21:21:37 +1030
+X-Google-Sender-Auth: uM_w-GDQmkyhbrGw07jCnE_-PTw
+Message-ID: <CACPK8XeqJ47Sj+X1ZpPKRUBFrmwaZzT1YDNwUBHRvxzZcAXQOg@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7] drivers/fsi: Flag FSI bus errors with
+ dev_err( )
 To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
@@ -59,59 +59,69 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Mar 2017 10:50:34 -0000
+X-List-Received-Date: Thu, 09 Mar 2017 10:52:01 -0000
 
-On Thu, Mar 9, 2017 at 6:26 AM, Christopher Bostic
+On Thu, Mar 9, 2017 at 10:32 AM, Christopher Bostic
 <cbostic@linux.vnet.ibm.com> wrote:
-> In order to allow repeated bind/unbind operations on fsi-master
-> the resources allocated during bind must be freed. Specifically
-> the scan file and dynamic memory.  Also check for valid pointers
-> during unregister which is the path taken during unbind.
+> Currently not seeing details of any FSI bus errors that may
+> occur.  Send info via dev_err so that the type of FSI bus fail
+> can be determined.
+
+Are these really errors for normal users of the system?
+
+I think these will only be useful for FSI developers. Use the dynamic
+debug system for having developer errors.
+
 >
 > Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-
-This patch does not apply to dev-4.7. Can you please rebase it?
-
-a4a89c237856e2ee3b00db7cd5febf075b695760 is the tip of dev-4.7 at the moment.
-
 > ---
->  drivers/fsi/fsi-core.c        | 8 ++++----
->  drivers/fsi/fsi-master-gpio.c | 2 ++
->  2 files changed, 6 insertions(+), 4 deletions(-)
+>  drivers/fsi/fsi-master-gpio.c | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
 >
-> diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
-> index bbdf6b8..751c767 100644
-> --- a/drivers/fsi/fsi-core.c
-> +++ b/drivers/fsi/fsi-core.c
-> @@ -869,11 +869,11 @@ EXPORT_SYMBOL_GPL(fsi_master_register);
->
->  void fsi_master_unregister(struct fsi_master *master)
->  {
-> -       if (master->idx >= 0) {
-> -               ida_simple_remove(&master_ida, master->idx);
-> -               master->idx = -1;
-> -       }
-> +       if (!master || !master->dev || master->idx < 0)
-> +               return;
->
-> +       ida_simple_remove(&master_ida, master->idx);
-> +       master->idx = -1;
->         device_remove_file(master->dev, &dev_attr_fsi_ipoll_period);
->         fsi_master_unscan(master);
->         put_device(master->dev);
 > diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
-> index 49f3399..3693b3d 100644
+> index 49f3399..c2f2fe2 100644
 > --- a/drivers/fsi/fsi-master-gpio.c
 > +++ b/drivers/fsi/fsi-master-gpio.c
-> @@ -566,6 +566,8 @@ static int fsi_master_gpio_remove(struct platform_device *pdev)
->         if (master->gpio_mux)
->                 devm_gpiod_put(&pdev->dev, master->gpio_mux);
->         fsi_master_unregister(&master->master);
-> +       device_remove_file(&pdev->dev, &dev_attr_scan);
-> +       devm_kfree(&pdev->dev, master);
+> @@ -218,8 +218,8 @@ static int poll_for_response(struct fsi_master_gpio *master, uint8_t expected,
+>                                 break;
+>                 }
+>                 if (i >= FSI_GPIO_MTOE_COUNT) {
+> -                       dev_dbg(master->master.dev,
+> -                               "Master time out waiting for response\n");
+> +                       dev_err(master->master.dev,
+> +                               "MTOE: Master time out waiting for response\n");
+>                         drain_response(master);
+>                         fsi_master_gpio_error(master, FSI_GPIO_MTOE);
+>                         return -EIO;
+> @@ -257,8 +257,8 @@ static int poll_for_response(struct fsi_master_gpio *master, uint8_t expected,
 >
->         return 0;
->  }
+>                 case FSI_GPIO_RESP_ERRA:
+>                 case FSI_GPIO_RESP_ERRC:
+> -                       dev_dbg(master->master.dev, "ERR received: %d\n",
+> -                               (int)response.msg);
+> +                       dev_err(master->master.dev, "ERRA/C received: %d\n",
+> +                               response_id);
+>                         /*
+>                          * todo: Verify crc from slave and in general
+>                          * only act on any response if crc is correct
+> @@ -283,7 +283,7 @@ static int poll_for_response(struct fsi_master_gpio *master, uint8_t expected,
+>                 /* Read in the crc and check it */
+>                 serial_in(master, &response, FSI_GPIO_CRC_SIZE);
+>                 if (crc_in != response.msg) {
+> -                       dev_dbg(master->master.dev, "ERR response CRC\n");
+> +                       dev_err(master->master.dev, "ERR response CRC\n");
+>                         fsi_master_gpio_error(master, FSI_GPIO_CRC_INVAL);
+>                         return -EIO;
+>                 }
+> @@ -293,7 +293,7 @@ static int poll_for_response(struct fsi_master_gpio *master, uint8_t expected,
+>
+>         } while (busy_count++ < FSI_GPIO_MAX_BUSY);
+>
+> -       dev_dbg(master->master.dev, "ERR slave is stuck in busy state\n");
+> +       dev_err(master->master.dev, "ERR slave is stuck in busy state\n");
+>         fsi_master_gpio_error(master, FSI_GPIO_ERR_BUSY);
+>
+>         return -EIO;
 > --
 > 1.8.2.2
 >
