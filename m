@@ -1,56 +1,63 @@
-Return-Path: <xow@google.com>
-Received: from mail-qk0-x231.google.com (mail-qk0-x231.google.com
- [IPv6:2607:f8b0:400d:c09::231])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vg0V130BQzDqGk
- for <openbmc@lists.ozlabs.org>; Sat, 11 Mar 2017 08:18:00 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="d0RZvIhl"; 
- dkim-atps=neutral
-Received: by mail-qk0-x231.google.com with SMTP id 1so186787115qkl.3
- for <openbmc@lists.ozlabs.org>; Fri, 10 Mar 2017 13:18:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=8dR1u6bsI8hELMoyEqoty1IRKW+TmTBDq8UT28AUz+k=;
- b=d0RZvIhltv68zR3Xo6+sHkB9ZLv0LawcGYXQWky57fqOKHXtp1fThoyKHQKMkf9Nfj
- HqqlnjsfOwtnjkA7GAOJKWoMNfQiC6viz6P7XMqP675Hxx5CF7Gv2dnptkdckOKeQw3k
- rMimGHo5ItDt7NHR6EdEdUG1YJgEH4CDrxlbhmNVkZbHVGhhh8aJHmLEFRDxuD9QV1du
- JpYSsKGN17VJKfluKd4PvJPmRPo/Q1NLpaacbVXsrc4jRzopDIJGhHCHSgry26aP+v8s
- S8RY73e0I32NA99R1nFT7hW3CHpwXMNBbAmGnxbbuysNL2QcgCTieNWPoszknCVlQH0x
- M17w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=8dR1u6bsI8hELMoyEqoty1IRKW+TmTBDq8UT28AUz+k=;
- b=Q7DbN/AnP059YGEgcmkvJsuZOBFa300O0yayV60GXSC4s+ji4wVcgjMiMspIVxLX5u
- vsTl/xW8wRRxok+EHDRbBM9CXzgVd//6UJJJO7w1Zg7tEwvkcqNxXoLSqewjyNWCZ9+5
- f7wsnV10GWGLLXlY3NfSSaC5MxPkiqihHSdhAv6ge/11aDW4jnMaG4TliwRiB2TdHmfe
- c9bLZZQuzX/4Da2zB7EMKITqpwZRKRYqWIU/ncqw2ez6WmAD2GUcmI+zWRVuYH2RI1L8
- meOgOHGMD7XGF+ED2rIY8tZStRhcEPSoVEEn+BST7gMqDUprPSvr+XckmMIv/92CUK76
- YwAw==
-X-Gm-Message-State: AFeK/H1mTEphWGqeNZl+YNAhXEKCm56HvALLMiFLlc7rsk6H5QiEyhIaPBOh/5kQ0BcsWZcJDw8iZvf1rg+2k9xV
-X-Received: by 10.55.65.70 with SMTP id o67mr20741470qka.254.1489180676979;
- Fri, 10 Mar 2017 13:17:56 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.140.17.56 with HTTP; Fri, 10 Mar 2017 13:17:56 -0800 (PST)
-In-Reply-To: <5dbd1db7-f1a0-f070-add0-c16d5b658f5a@kaod.org>
-References: <20170310122135.29827-1-andrew@aj.id.au>
- <1e540c49-0053-087b-0021-3ca259d2ca32@kaod.org>
- <5dbd1db7-f1a0-f070-add0-c16d5b658f5a@kaod.org>
-From: Xo Wang <xow@google.com>
-Date: Fri, 10 Mar 2017 13:17:56 -0800
-Message-ID: <CAPH-5w5i0O=CAWw97_LGAJUShBHM6CK=_aN42UgQ-ANZzu71Ww@mail.gmail.com>
-Subject: Re: [PATCH] i2c-core: Expand buffers used in i2c_smbus_xfer_emulated()
-To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
-Cc: Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>,
- miltonm@us.ibm.com, 
- wghoffa@us.ibm.com, Patrick Williams <patrick@stwcx.xyz>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vg19J5WbxzDqGk
+ for <openbmc@lists.ozlabs.org>; Sat, 11 Mar 2017 08:48:36 +1100 (AEDT)
+Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v2ALY4sD006062
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Mar 2017 16:48:33 -0500
+Received: from e13.ny.us.ibm.com (e13.ny.us.ibm.com [129.33.205.203])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 293p3b5mwr-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Mar 2017 16:48:32 -0500
+Received: from localhost
+ by e13.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Fri, 10 Mar 2017 16:48:31 -0500
+Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
+ by e13.ny.us.ibm.com (146.89.104.200) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Fri, 10 Mar 2017 16:48:29 -0500
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v2ALmTFO44630040; Fri, 10 Mar 2017 21:48:29 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id E0D4F11204B;
+ Fri, 10 Mar 2017 16:48:27 -0500 (EST)
+Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id 840A8112040;
+ Fri, 10 Mar 2017 16:48:27 -0500 (EST)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: cbostic@linux.vnet.ibm.com, joel@jms.id.au,
+ "Edward A. James" <eajames@us.ibm.com>
+Subject: [RFC linux dev-4.7 0/4] drivers: i2c: FSI-attached I2C master
+ algorithm
+Date: Fri, 10 Mar 2017 15:48:21 -0600
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+x-cbid: 17031021-0008-0000-0000-000001B78DCD
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006759; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000206; SDB=6.00832829; UDB=6.00408758; IPR=6.00610416; 
+ BA=6.00005202; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014600; XFM=3.00000013;
+ UTC=2017-03-10 21:48:30
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17031021-0009-0000-0000-000033B5C5FC
+Message-Id: <1489182506-20505-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-03-10_15:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=1
+ spamscore=1 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
+ definitions=main-1703100168
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,42 +69,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Mar 2017 21:18:02 -0000
+X-List-Received-Date: Fri, 10 Mar 2017 21:48:37 -0000
 
-On Fri, Mar 10, 2017 at 6:20 AM, C=C3=A9dric Le Goater <clg@kaod.org> wrote=
-:
-> On 03/10/2017 02:38 PM, C=C3=A9dric Le Goater wrote:
->> On 03/10/2017 01:21 PM, Andrew Jeffery wrote:
->>> Protect against suspect hardware causing the bus to read off more data
->>> than defined in the SMBus specification.
->>>
->>> Some investigation that suggests that the DEVICE_ID command (0xfd) to
->>> a UCD9000 occasionally returns all 0xff, causing the bus driver to
->>> overrun the 34-byte data buffer provided by the I2C core with a 255-byt=
-e
->>> broken response. This patch should prevent trashing the stack and also
->>> cause the UCD9000's probe to fail.
->>>
+From: "Edward A. James" <eajames@us.ibm.com>
 
-Excellent. We tracked down failures to the same error, that the
-occasional 0xff from the UCD is interpreted as SMBus block length.
-However, the symptom we observed for the overrun is a kernel panic:
+This patch series adds an I2C bus algorithm to drive the I2C master located on
+POWER CPUs. The master is accessed over FSI bus from the service processor.
 
-Kernel panic - not syncing: stack-protector: Kernel stack is corrupted
-in: 802e5e38
+The driver is functional for some basic read/write ops. There are a couple of
+details regarding the device tree and chardev entries that need working out.
 
-CPU: 0 PID: 1559 Comm: zaius_vcs.sh Not tainted
-4.7.10-f26558191540830589fe03932d05577957670b8d #2
-Hardware name: ASpeed SoC
-[<801072f8>] (unwind_backtrace) from [<80105558>] (show_stack+0x10/0x14)
-[<80105558>] (show_stack) from [<8016d06c>] (panic+0xb8/0x248)
-[<8016d06c>] (panic) from [<80110df4>] (__stack_chk_fail+0x10/0x14)
-[<80110df4>] (__stack_chk_fail) from [<802e5e38>] (i2c_smbus_xfer+0x508/0x5=
-4c)
-[<802e5e38>] (i2c_smbus_xfer) from [<ffffffff>] (0xffffffff)
+Mainly, do we want a char device for each port? There are 15 ports off one P9
+master, so that'll be a lot of /dev/i2c-<x> entries. One issue is that
+i2c_add_adapter always names it's device i2c-%d, regardless of adapter name.
+Furthermore, you can specify the number to label it with
+i2c_add_numbered_adapter, but how to prevent collisions with regular i2c
+devices?
 
-I'm not sure that the UCD probe failures are totally related to the
-bug that this patch fixes.
+The driver will currently set up one chardev for each master (each proc).
+The port is then specified by hacking the addr field of i2c_msg. It works,
+but not a clean solution.
 
-cheers
-xo
+FSI clocking details are not defined in the device tree, so FSI clock is
+hardcoded for now.
+
+Edward A. James (4):
+  drivers: fsi: Add function to get FSI clock rate
+  drivers: i2c: Add FSI-attached I2C master algorithm
+  drivers: i2c: Add transfer implementation for FSI algorithm
+  drivers: i2c: Add bus recovery for FSI algorithm
+
+ drivers/Makefile             |   2 +-
+ drivers/fsi/fsi-core.c       |   7 +
+ drivers/i2c/busses/Kconfig   |  11 +
+ drivers/i2c/busses/Makefile  |   1 +
+ drivers/i2c/busses/i2c-fsi.c | 608 +++++++++++++++++++++++++++++++++++++++++++
+ include/linux/fsi.h          |   1 +
+ 6 files changed, 629 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/i2c/busses/i2c-fsi.c
+
+-- 
+1.8.3.1
