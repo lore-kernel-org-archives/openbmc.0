@@ -1,38 +1,56 @@
-Return-Path: <clg@kaod.org>
-X-Greylist: delayed 418 seconds by postgrey-1.36 at bilbo;
- Sat, 11 Mar 2017 01:28:07 AEDT
-Received: from 10.mo68.mail-out.ovh.net (10.mo68.mail-out.ovh.net
- [46.105.79.203])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <xow@google.com>
+Received: from mail-qk0-x231.google.com (mail-qk0-x231.google.com
+ [IPv6:2607:f8b0:400d:c09::231])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vfqP36vdzzDqXx
- for <openbmc@lists.ozlabs.org>; Sat, 11 Mar 2017 01:28:07 +1100 (AEDT)
-Received: from player789.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo68.mail-out.ovh.net (Postfix) with ESMTP id C1B10451B4
- for <openbmc@lists.ozlabs.org>; Fri, 10 Mar 2017 15:21:04 +0100 (CET)
-Received: from zorba.kaod.org (LFbn-1-10647-27.w90-89.abo.wanadoo.fr
- [90.89.233.27]) (Authenticated sender: postmaster@kaod.org)
- by player789.ha.ovh.net (Postfix) with ESMTPSA id 59E0C260097;
- Fri, 10 Mar 2017 15:20:58 +0100 (CET)
-Subject: Re: [PATCH] i2c-core: Expand buffers used in i2c_smbus_xfer_emulated()
-To: Andrew Jeffery <andrew@aj.id.au>, joel@jms.id.au
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vg0V130BQzDqGk
+ for <openbmc@lists.ozlabs.org>; Sat, 11 Mar 2017 08:18:00 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="d0RZvIhl"; 
+ dkim-atps=neutral
+Received: by mail-qk0-x231.google.com with SMTP id 1so186787115qkl.3
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Mar 2017 13:18:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=8dR1u6bsI8hELMoyEqoty1IRKW+TmTBDq8UT28AUz+k=;
+ b=d0RZvIhltv68zR3Xo6+sHkB9ZLv0LawcGYXQWky57fqOKHXtp1fThoyKHQKMkf9Nfj
+ HqqlnjsfOwtnjkA7GAOJKWoMNfQiC6viz6P7XMqP675Hxx5CF7Gv2dnptkdckOKeQw3k
+ rMimGHo5ItDt7NHR6EdEdUG1YJgEH4CDrxlbhmNVkZbHVGhhh8aJHmLEFRDxuD9QV1du
+ JpYSsKGN17VJKfluKd4PvJPmRPo/Q1NLpaacbVXsrc4jRzopDIJGhHCHSgry26aP+v8s
+ S8RY73e0I32NA99R1nFT7hW3CHpwXMNBbAmGnxbbuysNL2QcgCTieNWPoszknCVlQH0x
+ M17w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=8dR1u6bsI8hELMoyEqoty1IRKW+TmTBDq8UT28AUz+k=;
+ b=Q7DbN/AnP059YGEgcmkvJsuZOBFa300O0yayV60GXSC4s+ji4wVcgjMiMspIVxLX5u
+ vsTl/xW8wRRxok+EHDRbBM9CXzgVd//6UJJJO7w1Zg7tEwvkcqNxXoLSqewjyNWCZ9+5
+ f7wsnV10GWGLLXlY3NfSSaC5MxPkiqihHSdhAv6ge/11aDW4jnMaG4TliwRiB2TdHmfe
+ c9bLZZQuzX/4Da2zB7EMKITqpwZRKRYqWIU/ncqw2ez6WmAD2GUcmI+zWRVuYH2RI1L8
+ meOgOHGMD7XGF+ED2rIY8tZStRhcEPSoVEEn+BST7gMqDUprPSvr+XckmMIv/92CUK76
+ YwAw==
+X-Gm-Message-State: AFeK/H1mTEphWGqeNZl+YNAhXEKCm56HvALLMiFLlc7rsk6H5QiEyhIaPBOh/5kQ0BcsWZcJDw8iZvf1rg+2k9xV
+X-Received: by 10.55.65.70 with SMTP id o67mr20741470qka.254.1489180676979;
+ Fri, 10 Mar 2017 13:17:56 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.140.17.56 with HTTP; Fri, 10 Mar 2017 13:17:56 -0800 (PST)
+In-Reply-To: <5dbd1db7-f1a0-f070-add0-c16d5b658f5a@kaod.org>
 References: <20170310122135.29827-1-andrew@aj.id.au>
  <1e540c49-0053-087b-0021-3ca259d2ca32@kaod.org>
-Cc: miltonm@us.ibm.com, wghoffa@us.ibm.com, patrick@stwcx.xyz,
- xow@google.com, openbmc@lists.ozlabs.org
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <5dbd1db7-f1a0-f070-add0-c16d5b658f5a@kaod.org>
-Date: Fri, 10 Mar 2017 15:20:58 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.7.0
-MIME-Version: 1.0
-In-Reply-To: <1e540c49-0053-087b-0021-3ca259d2ca32@kaod.org>
+ <5dbd1db7-f1a0-f070-add0-c16d5b658f5a@kaod.org>
+From: Xo Wang <xow@google.com>
+Date: Fri, 10 Mar 2017 13:17:56 -0800
+Message-ID: <CAPH-5w5i0O=CAWw97_LGAJUShBHM6CK=_aN42UgQ-ANZzu71Ww@mail.gmail.com>
+Subject: Re: [PATCH] i2c-core: Expand buffers used in i2c_smbus_xfer_emulated()
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Cc: Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>,
+ miltonm@us.ibm.com, 
+ wghoffa@us.ibm.com, Patrick Williams <patrick@stwcx.xyz>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 13137000113829546754
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelhedrgeekgdeivdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -44,215 +62,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Mar 2017 14:28:08 -0000
+X-List-Received-Date: Fri, 10 Mar 2017 21:18:02 -0000
 
-On 03/10/2017 02:38 PM, Cédric Le Goater wrote:
-> On 03/10/2017 01:21 PM, Andrew Jeffery wrote:
->> Protect against suspect hardware causing the bus to read off more data
->> than defined in the SMBus specification.
->>
->> Some investigation that suggests that the DEVICE_ID command (0xfd) to
->> a UCD9000 occasionally returns all 0xff, causing the bus driver to
->> overrun the 34-byte data buffer provided by the I2C core with a 255-byte
->> broken response. This patch should prevent trashing the stack and also
->> cause the UCD9000's probe to fail.
->>
->> The I2C core doesn't help itself in this case as it does not provide any
->> means for the bus driver to sanity check the caller-provided
->> response-buffer length against the device-provided payload length. At
->> the point where we perform the I2C transfers for the SMBus protocol
->> we've lost the information about what type of transaction is being
->> performed (i.e. that we're performing an SMBus block transfer), so we
->> cannot in general make assumptions about the buffer size based on the
->> protocol (i2c, SMBus, PMBus).  Further, struct i2c_msg is defined in the
->> uapi headers so no further members (e.g. a length field) can be added
->> without breaking userspace.
->>
->> Instead, let's expand the buffers such that they will fit any payload
->> length reported by the bus.
->>
->> The patch has been tested on a Zaius system, consecutively unbinding and
->> binding the UCD9000 driver over 1000 times. Whilst errors were reported
->> during probe in some cases ("ucd9000: probe of 0-0064 failed with error
->> -74"), the BMC remained stable and did not reboot. Triggering the bug
->> without the patch typically at most requires in the order of 100
->> unbind/bind attempts, often significantly less.
-> 
-> I could not reproduce the issue on a witherspoon after a 1000 unbind/bind
-> but there were some errors still :
+On Fri, Mar 10, 2017 at 6:20 AM, C=C3=A9dric Le Goater <clg@kaod.org> wrote=
+:
+> On 03/10/2017 02:38 PM, C=C3=A9dric Le Goater wrote:
+>> On 03/10/2017 01:21 PM, Andrew Jeffery wrote:
+>>> Protect against suspect hardware causing the bus to read off more data
+>>> than defined in the SMBus specification.
+>>>
+>>> Some investigation that suggests that the DEVICE_ID command (0xfd) to
+>>> a UCD9000 occasionally returns all 0xff, causing the bus driver to
+>>> overrun the 34-byte data buffer provided by the I2C core with a 255-byt=
+e
+>>> broken response. This patch should prevent trashing the stack and also
+>>> cause the UCD9000's probe to fail.
+>>>
 
-It failed after 1720 unbind/bind ... So I applied the patch but with it, the 
-device as a weird id :  
+Excellent. We tracked down failures to the same error, that the
+occasional 0xff from the UCD is interpreted as SMBus block length.
+However, the symptom we observed for the overrun is a kernel panic:
 
-[  165.830000] ucd9000 11-0064: Device ID �
-[  165.830000] ucd9000 11-0064: Unsupported device
+Kernel panic - not syncing: stack-protector: Kernel stack is corrupted
+in: 802e5e38
 
-C.
- 
-> 	ucd9000 11-0064: Device ID UCD90160|2.3.4.0000|110603
-> 	ucd9000 11-0064: Failed to read number of active pages
-> 	ucd9000: probe of 11-0064 failed with error -74
-> 	ucd9000 11-0064: Device ID UCD90160|2.3.4.0000|110603
-> 	...
-> 	ucd9000 11-0064: Device ID UCD90160|2.3.4.0000|110603
-> 	ucd9000 11-0064: Device ID UCD90160|2.3.4.0000|110603
-> 	ucd9000 11-0064: Device ID UCD90160|2.3.4.0000|110603
-> 	i2c_aspeed i2c-11: Invalid state (msg   (null), pending 0)?
-> 	i2c_aspeed i2c-11: Invalid state (msg   (null), pending 0)?
-> 	i2c_aspeed i2c-11: Invalid state (msg   (null), pending 0)?
-> 	i2c i2c-11: i2c_ast: timeout waiting for bus free
-> 	i2c_aspeed i2c-11: Invalid state (msg   (null), pending 0)?
-> 	i2c_aspeed i2c-11: Invalid state (msg   (null), pending 0)?
-> 	i2c i2c-11: i2c_ast: timeout waiting for bus free
-> 
-> The last ones suggest that there is an issue with bus recovery. 
-> 
-> Do All the systems have a UCD90160 ? 
-> 
-> Thanks,
-> 
-> C.
-> 
-> 
->> Finally, the host was successfully powered up immediately after the 1000
->> unbind/bind attempts.
->>
->> Suggested-by: Joel Stanley <joel@jms.id.au>
->> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
->> ---
->>  drivers/i2c/i2c-core.c | 61 ++++++++++++++++++++++++++++++++++++--------------
->>  1 file changed, 44 insertions(+), 17 deletions(-)
->>
->> diff --git a/drivers/i2c/i2c-core.c b/drivers/i2c/i2c-core.c
->> index af11b658984d..072fd82920a2 100644
->> --- a/drivers/i2c/i2c-core.c
->> +++ b/drivers/i2c/i2c-core.c
->> @@ -2894,16 +2894,26 @@ static s32 i2c_smbus_xfer_emulated(struct i2c_adapter *adapter, u16 addr,
->>  				   char read_write, u8 command, int size,
->>  				   union i2c_smbus_data *data)
->>  {
->> -	/* So we need to generate a series of msgs. In the case of writing, we
->> -	  need to use only one message; when reading, we need two. We initialize
->> -	  most things with sane defaults, to keep the code below somewhat
->> -	  simpler. */
->> -	unsigned char msgbuf0[I2C_SMBUS_BLOCK_MAX+3];
->> -	unsigned char msgbuf1[I2C_SMBUS_BLOCK_MAX+2];
->> +	/*
->> +	 * So we need to generate a series of msgs. In the case of writing, we
->> +	 * need to use only one message; when reading, we need two. We initialize
->> +	 * most things with sane defaults, to keep the code below somewhat
->> +	 * simpler.
->> +	 *
->> +	 * Also, allocate 256 byte buffers as protection against suspect
->> +	 * hardware like the UCD90xx, where on occasion the returned block
->> +	 * length is 0xff[1].
->> +	 *
->> +	 * [1] https://github.com/openbmc/openbmc/issues/998
->> +	 */
->> +	unsigned char *msgbuf0 = kmalloc(0x100, GFP_KERNEL);
->> +	unsigned char *msgbuf1 = kmalloc(0x100, GFP_KERNEL);
->>  	int num = read_write == I2C_SMBUS_READ ? 2 : 1;
->> -	int i;
->>  	u8 partial_pec = 0;
->>  	int status;
->> +	s32 ret;
->> +	int i;
->> +
->>  	struct i2c_msg msg[2] = {
->>  		{
->>  			.addr = addr,
->> @@ -2918,6 +2928,9 @@ static s32 i2c_smbus_xfer_emulated(struct i2c_adapter *adapter, u16 addr,
->>  		},
->>  	};
->>  
->> +	if (!(msgbuf0 && msgbuf1))
->> +		return -ENOMEM;
->> +
->>  	msgbuf0[0] = command;
->>  	switch (size) {
->>  	case I2C_SMBUS_QUICK:
->> @@ -2970,7 +2983,8 @@ static s32 i2c_smbus_xfer_emulated(struct i2c_adapter *adapter, u16 addr,
->>  				dev_err(&adapter->dev,
->>  					"Invalid block write size %d\n",
->>  					data->block[0]);
->> -				return -EINVAL;
->> +				ret = -EINVAL;
->> +				goto out;
->>  			}
->>  			for (i = 1; i < msg[0].len; i++)
->>  				msgbuf0[i] = data->block[i-1];
->> @@ -2983,7 +2997,8 @@ static s32 i2c_smbus_xfer_emulated(struct i2c_adapter *adapter, u16 addr,
->>  			dev_err(&adapter->dev,
->>  				"Invalid block write size %d\n",
->>  				data->block[0]);
->> -			return -EINVAL;
->> +			ret = -EINVAL;
->> +			goto out;
->>  		}
->>  		msg[0].len = data->block[0] + 2;
->>  		for (i = 1; i < msg[0].len; i++)
->> @@ -3001,7 +3016,8 @@ static s32 i2c_smbus_xfer_emulated(struct i2c_adapter *adapter, u16 addr,
->>  				dev_err(&adapter->dev,
->>  					"Invalid block write size %d\n",
->>  					data->block[0]);
->> -				return -EINVAL;
->> +				ret = -EINVAL;
->> +				goto out;
->>  			}
->>  			for (i = 1; i <= data->block[0]; i++)
->>  				msgbuf0[i] = data->block[i];
->> @@ -3009,7 +3025,8 @@ static s32 i2c_smbus_xfer_emulated(struct i2c_adapter *adapter, u16 addr,
->>  		break;
->>  	default:
->>  		dev_err(&adapter->dev, "Unsupported transaction %d\n", size);
->> -		return -EOPNOTSUPP;
->> +		ret = -EOPNOTSUPP;
->> +		goto out;
->>  	}
->>  
->>  	i = ((flags & I2C_CLIENT_PEC) && size != I2C_SMBUS_QUICK
->> @@ -3028,14 +3045,18 @@ static s32 i2c_smbus_xfer_emulated(struct i2c_adapter *adapter, u16 addr,
->>  	}
->>  
->>  	status = i2c_transfer(adapter, msg, num);
->> -	if (status < 0)
->> -		return status;
->> +	if (status < 0) {
->> +		ret = status;
->> +		goto out;
->> +	}
->>  
->>  	/* Check PEC if last message is a read */
->>  	if (i && (msg[num-1].flags & I2C_M_RD)) {
->>  		status = i2c_smbus_check_pec(partial_pec, &msg[num-1]);
->> -		if (status < 0)
->> -			return status;
->> +		if (status < 0) {
->> +			ret = status;
->> +			goto out;
->> +		}
->>  	}
->>  
->>  	if (read_write == I2C_SMBUS_READ)
->> @@ -3056,11 +3077,17 @@ static s32 i2c_smbus_xfer_emulated(struct i2c_adapter *adapter, u16 addr,
->>  			break;
->>  		case I2C_SMBUS_BLOCK_DATA:
->>  		case I2C_SMBUS_BLOCK_PROC_CALL:
->> -			for (i = 0; i < msgbuf1[0] + 1; i++)
->> +			for (i = 0;
->> +			     i < min((size_t)(msgbuf1[0] + 1), sizeof(*data));
->> +			     i++)
->>  				data->block[i] = msgbuf1[i];
->>  			break;
->>  		}
->> -	return 0;
->> +out:
->> +	kfree(msgbuf0);
->> +	kfree(msgbuf1);
->> +
->> +	return ret;
->>  }
->>  
->>  /**
->>
-> 
+CPU: 0 PID: 1559 Comm: zaius_vcs.sh Not tainted
+4.7.10-f26558191540830589fe03932d05577957670b8d #2
+Hardware name: ASpeed SoC
+[<801072f8>] (unwind_backtrace) from [<80105558>] (show_stack+0x10/0x14)
+[<80105558>] (show_stack) from [<8016d06c>] (panic+0xb8/0x248)
+[<8016d06c>] (panic) from [<80110df4>] (__stack_chk_fail+0x10/0x14)
+[<80110df4>] (__stack_chk_fail) from [<802e5e38>] (i2c_smbus_xfer+0x508/0x5=
+4c)
+[<802e5e38>] (i2c_smbus_xfer) from [<ffffffff>] (0xffffffff)
+
+I'm not sure that the UCD probe failures are totally related to the
+bug that this patch fixes.
+
+cheers
+xo
