@@ -1,39 +1,45 @@
-Return-Path: <clg@kaod.org>
-X-Greylist: delayed 8388 seconds by postgrey-1.36 at bilbo;
- Sat, 11 Mar 2017 22:40:54 AEDT
-Received: from 6.mo1.mail-out.ovh.net (6.mo1.mail-out.ovh.net [46.105.43.205])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vgMdf34k7zDqXf
- for <openbmc@lists.ozlabs.org>; Sat, 11 Mar 2017 22:40:53 +1100 (AEDT)
-Received: from player730.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo1.mail-out.ovh.net (Postfix) with ESMTP id C6BD65FD45
- for <openbmc@lists.ozlabs.org>; Sat, 11 Mar 2017 09:02:05 +0100 (CET)
-Received: from zorba.kaod.org (LFbn-1-10647-27.w90-89.abo.wanadoo.fr
- [90.89.233.27]) (Authenticated sender: postmaster@kaod.org)
- by player730.ha.ovh.net (Postfix) with ESMTPSA id 61B8344006E;
- Sat, 11 Mar 2017 09:01:57 +0100 (CET)
-Subject: Re: [PATCH] i2c-core: Expand buffers used in i2c_smbus_xfer_emulated()
-To: Andrew Jeffery <andrew@aj.id.au>, joel@jms.id.au
-References: <20170310122135.29827-1-andrew@aj.id.au>
- <1e540c49-0053-087b-0021-3ca259d2ca32@kaod.org>
- <5dbd1db7-f1a0-f070-add0-c16d5b658f5a@kaod.org>
- <1489183143.26468.7.camel@aj.id.au>
-Cc: miltonm@us.ibm.com, wghoffa@us.ibm.com, patrick@stwcx.xyz,
- xow@google.com, openbmc@lists.ozlabs.org
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <5265babd-dbe9-9e05-fd14-585f6478ba2a@kaod.org>
-Date: Sat, 11 Mar 2017 09:01:56 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.7.0
+Return-Path: <geissonator@gmail.com>
+Received: from mail-io0-x235.google.com (mail-io0-x235.google.com
+ [IPv6:2607:f8b0:4001:c06::235])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vhrDz6f2dzDqXf
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Mar 2017 08:13:07 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="TQWsUdyy"; 
+ dkim-atps=neutral
+Received: by mail-io0-x235.google.com with SMTP id l7so92568053ioe.3
+ for <openbmc@lists.ozlabs.org>; Mon, 13 Mar 2017 14:13:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=2/H0ZMw59e1n9VDuXAx658b7G3RJL0EViXVq9RVLtrk=;
+ b=TQWsUdyyPWpZ2zv+bEAAR0mKCxMlUJFSCM3c975IkW66xDgcDg0BIkwWGNeAg+T5U1
+ nvgjPGlC5lgyVIlG4BKaWK5dTb4dRtcsxoS7tYu/lJiQ2gERuTLcTaYvNUl8Hw+VoguI
+ /hSvCDYrdcLjLHS6ewC8ELJXyH0N9LAnrdPg+rWNcvK3UO4kAD1z/+yVjJzjxvFspfAr
+ ANSccsa365hcZ0usCZ1pmJS61L10UgF0s6f9Et8DObdEalB42MylG/42ypmvDXhAHWJU
+ BcpyyXOQ4qFXJQ7VqnOLrviq4cGE/zQPdx2h4xM5h/rPI2mplwHpJ9O/Re9oOGTFU3OV
+ 33Pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=2/H0ZMw59e1n9VDuXAx658b7G3RJL0EViXVq9RVLtrk=;
+ b=IfMu/bFpN7mWqEIn65sFF7ZLkgEIr6FazWRBXcghNBRwV9fD2QwtJLWrnHwPEYE9rC
+ ZxioMcAZjaFBn1VrWWF0W0FF6Ybr29GgPNIQImOJlUeWDIP8cpnFCX8ByayxkepVSRf2
+ WrO3S86Lif23+m76bPcOB4LWZoiHBJRtccvCxeMFbVpydrUh6TFP/dSSDf/M8BWLRa+4
+ /rWo7UEO90eiNkG2nk5nG9etACZ6KI3rGvKRWCHrr4vGYuJhVGlXYtiwCFR7SZxz1fwZ
+ nvtaa6NgaIPwhn/oi6DbmYy3IN9MEgXrnZ2y0v1tenvTaag8kvFYLU8toRVBKdF8rdkp
+ 2f9Q==
+X-Gm-Message-State: AFeK/H1orfX4Wq2X8YSRac85g9mqsxHrwamQOpulkH2mhn2U6RkMa6+Box6fQixBp5fuyo1Lh4ZulwWo7MRijw==
+X-Received: by 10.107.171.135 with SMTP id u129mr1336443ioe.102.1489439584949; 
+ Mon, 13 Mar 2017 14:13:04 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1489183143.26468.7.camel@aj.id.au>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 12609234532422224642
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelhedrgeelgdduudehucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+Received: by 10.107.53.91 with HTTP; Mon, 13 Mar 2017 14:13:04 -0700 (PDT)
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Mon, 13 Mar 2017 16:13:04 -0500
+Message-ID: <CALLMt=rCfv4pLqKr+bgh-6HF3OTSP8qyM9XKVOsEG0yCmBhffA@mail.gmail.com>
+Subject: determining host state after a bmc reset
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -45,69 +51,21 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 11 Mar 2017 11:40:54 -0000
+X-List-Received-Date: Mon, 13 Mar 2017 21:13:08 -0000
 
-On 03/10/2017 10:59 PM, Andrew Jeffery wrote:
-> On Fri, 2017-03-10 at 15:20 +0100, Cédric Le Goater wrote:
->> On 03/10/2017 02:38 PM, Cédric Le Goater wrote:
->>> On 03/10/2017 01:21 PM, Andrew Jeffery wrote:
->>>> Protect against suspect hardware causing the bus to read off more data
->>>> than defined in the SMBus specification.
->>>>
->>>> Some investigation that suggests that the DEVICE_ID command (0xfd) to
->>>> a UCD9000 occasionally returns all 0xff, causing the bus driver to
->>>> overrun the 34-byte data buffer provided by the I2C core with a 255-byte
->>>> broken response. This patch should prevent trashing the stack and also
->>>> cause the UCD9000's probe to fail.
->>>>
->>>> The I2C core doesn't help itself in this case as it does not provide any
->>>> means for the bus driver to sanity check the caller-provided
->>>> response-buffer length against the device-provided payload length. At
->>>> the point where we perform the I2C transfers for the SMBus protocol
->>>> we've lost the information about what type of transaction is being
->>>> performed (i.e. that we're performing an SMBus block transfer), so we
->>>> cannot in general make assumptions about the buffer size based on the
->>>> protocol (i2c, SMBus, PMBus).  Further, struct i2c_msg is defined in the
->>>> uapi headers so no further members (e.g. a length field) can be added
->>>> without breaking userspace.
->>>>
->>>> Instead, let's expand the buffers such that they will fit any payload
->>>> length reported by the bus.
->>>>
->>>> The patch has been tested on a Zaius system, consecutively unbinding and
->>>> binding the UCD9000 driver over 1000 times. Whilst errors were reported
->>>> during probe in some cases ("ucd9000: probe of 0-0064 failed with error
->>>> -74"), the BMC remained stable and did not reboot. Triggering the bug
->>>> without the patch typically at most requires in the order of 100
->>>> unbind/bind attempts, often significantly less.
->>>
->>> I could not reproduce the issue on a witherspoon after a 1000 unbind/bind
->>> but there were some errors still :
->>
->> It failed after 1720 unbind/bind ... So I applied the patch but with it, the 
->> device as a weird id :  
->>
->> [  165.830000] ucd9000 11-0064: Device ID �
->> [  165.830000] ucd9000 11-0064: Unsupported device
-> 
-> A couple of notes were missing from the commit message - the warning of
->  stack corruption and stack trace that Xo mentioned, and that the
-> driver will produce this message when we see the failure that the patch
-> is working around. If the kernel didn't panic/reboot after seeing this
-> then the workaround was successful.
-> 
-> The bus driver can't determine whether the buffer is invalid or not at
-> the point of assembling the response, and so can't error out. Instead,
-> we pass the buffer back out to the ucd9000, which errors out during
-> probe as the response is not what it was expecting.
-> 
-> I can send again with an updated commit message if there's no other
-> feedback.
+Any thoughts out there on a good way to determine if the host is up
+and in a good state after a BMC reset?  This of course is without
+persisting anything into the filesystem about the host state, I'd like
+to just discover it.
 
-No. It looks good to me.
+I'm currently going down a path where I'm going to first look at
+pgood, and if it's on, I'll use the SMS attention path to 'ping' the
+host and verify it's running.
 
-Reviewed-by: Cédric Le Goater <clg@kaod.org>
+I'll need to fix up the SMS attention path (currently openbmc hard
+codes the SMS attention and response to the host to tell it to do a
+soft power off).  I'll change things around a bit to do the SMS, and
+then when the host responds, to do nothing except mark a ticky that
+says it responded.
 
-Thanks,
-
-C. 
+Andrew
