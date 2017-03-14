@@ -1,48 +1,61 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-it0-x235.google.com (mail-it0-x235.google.com
- [IPv6:2607:f8b0:4001:c0b::235])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <cbostic@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vjLQM0brgzDqY5
- for <openbmc@lists.ozlabs.org>; Wed, 15 Mar 2017 03:52:58 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="tkICZtz0"; 
- dkim-atps=neutral
-Received: by mail-it0-x235.google.com with SMTP id w124so34484588itb.1
- for <openbmc@lists.ozlabs.org>; Tue, 14 Mar 2017 09:52:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to;
- bh=cHe5k2fWtZk7gSW0RncVqOTz1bJsEtCXGdFxY9cv7aI=;
- b=tkICZtz0OVBcePuZM1tHWTmwxLcDAWUIxWAzbkRCWMiBcpcdo1xtEwrnAnDvuK78lc
- y4uxPxUa1V6Sp99fH4YJ5eW6+xhun0/QvB6DrzeXEQp6dTQJBO0KbhKnQ/JOWXCsKRns
- toNhwlpWTUU900qkQLWNwK9o+kWWUPO5r4Nh9oEBkJ2flxfAjEtQEAshMiuQaFh6RRdL
- TdwM6wvNZq2Ar02/lX0gECJEhj27EwwQgPLdQ0b23aEBfqxOIGr9a4gOalGiAxlifX5b
- he6G46DboLNwZRlE9EW0nD0gojxqDk8qOv880ckU+kevvBcRt5NZ1vGDThkGn433e7Eu
- VH4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to;
- bh=cHe5k2fWtZk7gSW0RncVqOTz1bJsEtCXGdFxY9cv7aI=;
- b=kXsHgZu0ORCIO3/e/I75QftRMLsi/aEFBOurleq4DcFXHAGFjMfeKR7sTiNSn8d/aP
- gT3vxOZdNUJvryC6VKQl4yDYy1wNBaBgFDfqZDyoPyW7xtU+iW8Fzu39RLb4Z0wZuDj/
- RHaFtTpsV7rrkwU6Zx5uv1cuMB9pGzfzXJofoPdHPfOY7hPboO7d8ZarOJcGp9juliwQ
- gilX3XRf31RrVxf4UtiZBWyxjS7OMGJs16vA1KGVJuq9hmARf+24wBtQg9dyY1UOqrRt
- 3j6RWP1c1mH2KeXqYTIPw/kwgpqSJEG7sOzRq+N5xTPMoV2upJov356+SDkffR+Ae6Yb
- tnwg==
-X-Gm-Message-State: AFeK/H17u3OTIP+PYOyaw703JiggcjvCQm582NcY7D0JuvCgYYhWiCcU/nsQyRvWdnbbqmMlhUgC1GarBMlV578w
-X-Received: by 10.36.62.132 with SMTP id s126mr17643333its.28.1489510375407;
- Tue, 14 Mar 2017 09:52:55 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.64.25.109 with HTTP; Tue, 14 Mar 2017 09:52:54 -0700 (PDT)
-In-Reply-To: <20170313180242.GN19897@bill-the-cat>
-References: <20170313180242.GN19897@bill-the-cat>
-From: Rick Altherr <raltherr@google.com>
-Date: Tue, 14 Mar 2017 09:52:54 -0700
-Message-ID: <CAPLgG==JGZEMT1X5AjQbwYFA+fpaAAbRhbBVAVGrVknbbBAtzQ@mail.gmail.com>
-Subject: Fwd: [U-Boot] [ANN] U-Boot v2017.03 is released
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/mixed; boundary=001a113fe526d163ca054ab3a86e
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vjSHV171TzDqGk
+ for <openbmc@lists.ozlabs.org>; Wed, 15 Mar 2017 08:17:25 +1100 (AEDT)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v2ELDowZ126385
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Mar 2017 17:17:15 -0400
+Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 296nfvyhub-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Mar 2017 17:17:15 -0400
+Received: from localhost
+ by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Tue, 14 Mar 2017 17:17:14 -0400
+Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
+ by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Tue, 14 Mar 2017 17:17:13 -0400
+Received: from b03ledav003.gho.boulder.ibm.com
+ (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
+ by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v2ELHCeb14221588; Tue, 14 Mar 2017 14:17:12 -0700
+Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 3E60B6A041;
+ Tue, 14 Mar 2017 15:17:12 -0600 (MDT)
+Received: from christophersmbp.austin.ibm.com (unknown [9.41.174.103])
+ by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP id 0841B6A03C;
+ Tue, 14 Mar 2017 15:17:11 -0600 (MDT)
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+To: joel@jms.id.au
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.7] drivers/fsi: Set enable line to '1' on unbind
+Date: Tue, 14 Mar 2017 16:17:10 -0500
+X-Mailer: git-send-email 2.10.1 (Apple Git-78)
+X-TM-AS-GCONF: 00
+x-cbid: 17031421-2213-0000-0000-0000015DC266
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006782; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000206; SDB=6.00833854; UDB=6.00409434; IPR=6.00611511; 
+ BA=6.00005210; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014648; XFM=3.00000013;
+ UTC=2017-03-14 21:17:13
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17031421-2214-0000-0000-000054AA845E
+Message-Id: <20170314211710.44250-1-cbostic@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-03-14_11:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
+ definitions=main-1703140163
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,64 +67,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 Mar 2017 16:52:59 -0000
+X-List-Received-Date: Tue, 14 Mar 2017 21:17:26 -0000
 
---001a113fe526d163ca054ab3a86e
-Content-Type: text/plain; charset=UTF-8
+Configure I/O for non OpenFSI users of the FSI enable line by
+setting value to to '1' on unbind prior to releasing use of pin.
 
-AST2500 base support is now released.
+Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+---
+ drivers/fsi/fsi-master-gpio.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-
----------- Forwarded message ----------
-From: Tom Rini <trini@konsulko.com>
-Date: Mon, Mar 13, 2017 at 11:02 AM
-Subject: [U-Boot] [ANN] U-Boot v2017.03 is released
-To: u-boot@lists.denx.de
-
-
-Hey all,
-
-I've released v2017.03 and it's now live on git and FTP and ACD (along
-with PGP sig file).
-
-So, some biggish news.  As things stand today, this is the last release
-where the Blackfin and SPARC, unless a new maintainer wants to step in.
-The currently listed maintainers haven't gotten back to me of late.
-
-At the high level, what I want to focus on is that I believe we're
-making good progress on Kconfig migration.  The above architectures will
-help bring down the number of outstanding options, and there's a few
-other patches available that will further the progress here.
-
-Thanks again everyone!
-
---
-Tom
-
-_______________________________________________
-U-Boot mailing list
-U-Boot@lists.denx.de
-https://lists.denx.de/listinfo/u-boot
-
---001a113fe526d163ca054ab3a86e
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Disposition: attachment; filename="signature.asc"
-Content-Transfer-Encoding: base64
-X-Attachment-Id: ccd8443ea8d18c1d_0.0.1
-
-LS0tLS1CRUdJTiBQR1AgU0lHTkFUVVJFLS0tLS0NClZlcnNpb246IEdudVBHIHYxDQoNCmlRSWNC
-QUVCQWdBR0JRSll4dDdDQUFvSkVJZjU5alhUSFhaU2hja1AvaTZqQVVEWGxMOVZ5WUJmVERqaFVj
-UGMNClVZYWxqLytVdnUzYVVUYnRQaDhOckRndG1BOC92NHNvUzJHVGRSVEx1alVwZGRjSTdyUFFw
-TUtNTkI0d2R3YmQNCitJNUpaR1c4dUF2YWFFRU1wWHQ0VkVKNjZPM2lKVW1BV1R4TDI1NU0reURt
-ZFNZOEVqc3l1aWZPNEJERGIvdlUNCnJIVGIrRkQvcTRBanVJYjNCOHZCOWJ2dGVaQ3Y1Z01ZcTZP
-dThFWjZJZmM1NDdLSGhpeGNvQUZjS2llWk1Pa1ANCkcxOTRJTVg2VEkvbnNDZytQTzNWRXZLZXBH
-a2JVQjNwSFlqRGYzOWpyOVk0ZzlDNHJmM0VNWFdWb2hBNW1XTEMNCnFxRGU5cE1zZUx2d0pCLzkr
-MWp1M2wramptajBsYjdRd0dqYUxJVUdhOTBtZDh6V1Y0NXhHQlJvY0wyNm5mU28NCjZvK3pLdDNy
-bTNYbGxwMjVPbjZwdk9FYTlZek85S3ZMQnVMM1pDckV2RzZzcFVRbm1SQ2x5RjJxeEJZc1QzUG4N
-Clc4bW4ybFNuS3B6dkV1VzcyTE8rbTE5b3dnSWQ3T0NFNjdVeTBHVG5xQWl3cXJKeUhvdjNHREJQ
-MUFzY2FEUFMNCjQvTXpMRHQ2dk5Ka2F4amJBK051MkkxSXlWMEdaeHVVbUFwTnR5RG05MzRLZ3dt
-SytlL1ZFY3R2a1Q2MkZqMysNCnY4eHdqUDNhZEtONkVGTXI1NTVhdnRvbTNxYjFQWEVWMnQ0NTc2
-eGNudnIvOXdKRVliRU9zek84YTBvNkg1Y24NCjNFcm5kd0JSWnFPeWdnSHc3MC9TUWFNUDhkY2wv
-WHhmOHI3Ykc3RWRPQ2tRQnBKYW9CS3FOZmp1ZDc1OFFFT0kNClRlcnNxVjJJd1FrcS9EOHE4bUFR
-DQo9MDk3bw0KLS0tLS1FTkQgUEdQIFNJR05BVFVSRS0tLS0tDQo=
---001a113fe526d163ca054ab3a86e--
+diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
+index e3431c4..a8976d5 100644
+--- a/drivers/fsi/fsi-master-gpio.c
++++ b/drivers/fsi/fsi-master-gpio.c
+@@ -568,7 +568,7 @@ static int fsi_master_gpio_remove(struct platform_device *pdev)
+ 		devm_gpiod_put(&pdev->dev, master->gpio_trans);
+ 	}
+ 	if (master->gpio_enable) {
+-		gpiod_set_value(master->gpio_enable, 0);
++		gpiod_set_value(master->gpio_enable, 1);
+ 		devm_gpiod_put(&pdev->dev, master->gpio_enable);
+ 	}
+ 	if (master->gpio_mux) {
+-- 
+1.8.2.2
