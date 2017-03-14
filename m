@@ -1,55 +1,56 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x242.google.com (mail-yw0-x242.google.com
- [IPv6:2607:f8b0:4002:c05::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vj3Fk5Fz4zDqGb
- for <openbmc@lists.ozlabs.org>; Tue, 14 Mar 2017 16:29:30 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="EawZZrTs"; 
- dkim-atps=neutral
-Received: by mail-yw0-x242.google.com with SMTP id o4so11827058ywd.1
- for <openbmc@lists.ozlabs.org>; Mon, 13 Mar 2017 22:29:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=zN5/W777EeQVT0mSbc7jXSkzk1vS8rJ4NOhYzu1Tj4A=;
- b=EawZZrTs4BZUCfvm1Qn3laA+eDOBp6pMq0NEv3pQ/TJHQmEmXz4EabQUt44WqUJxQT
- qfu4qndShAfKB7PLRmHLMTmqIfRM5oPXUlPAsoQbzsvCwseou8ZjknsgrbVmur3o3Q5S
- avJ/oAfZ9QjrTjYZk703dzXgM2FzYd+MWrY5GdR/ucoDj4E1ZgEhXmgoWe/P1zcia5Fu
- D1hPCluAuGPwwCqWlzXwolxV7NJlKLiajQNZX5Xu9v95yEsyV2/LuGxaiMFx+mopjrZu
- Wm/S1VzhDZlwk2Jks2CjxDyyR3OZ7ctrICEqxTUq8q9thFlJ04imp99HZy6Muy0iH8sG
- i/YA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=zN5/W777EeQVT0mSbc7jXSkzk1vS8rJ4NOhYzu1Tj4A=;
- b=rDhMZoDSKLqshbeutjjHV5iw5rs+iyb62web8pceblU640iYUxgu8xUb6AlZCQmw1X
- LdmqmexmZTXFMKS5I91AOVqiokew3Me08V/D8YivxEaR9Be9nU/tUc9fCx9KvzKRPmmo
- b9YjFmL4a2tcqNc9XIYxuqkUVH0hsTUH3VaJL4LyYN7MOh80YRtvl8blhqlFvQQheot0
- 9hpXjAcJHxCDXJ2LSUmUuyvs+ov5rerns5ln0yvXR6xCgjeABX48wxVqW9HHFm9j1wnz
- muJ4jbYy+uLxPMKiEso+VHXRp9OrnfciKBegc6/qByQiW96XT7u0MO/Njj7B2xqWHuUL
- ZJBw==
-X-Gm-Message-State: AMke39k+4hwoCQD/m1i7aUDnCUelIvOD1n9vp62A0sEAHfK+73TlerO+QJbRep5hpfCzIgC5S38kjYZ/JXP6Mg==
-X-Received: by 10.37.70.66 with SMTP id t63mr21036070yba.196.1489469368049;
- Mon, 13 Mar 2017 22:29:28 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.42.133 with HTTP; Mon, 13 Mar 2017 22:29:07 -0700 (PDT)
-In-Reply-To: <20170310122135.29827-1-andrew@aj.id.au>
-References: <20170310122135.29827-1-andrew@aj.id.au>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 14 Mar 2017 15:59:07 +1030
-X-Google-Sender-Auth: L0-QGrMQT-uwZkL3Fdw_zQI_aDs
-Message-ID: <CACPK8Xdso8w25fUhRWH3Ww87Gjv+tGKvYu0K9VGpTJVi62kiwg@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vj4Ry40hXzDqZF
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Mar 2017 17:23:26 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="BjRSJlGI"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="aW8g3QFI"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id B129B208A2;
+ Tue, 14 Mar 2017 02:23:23 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Tue, 14 Mar 2017 02:23:23 -0400
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=mesmtp; bh=QS6+b/JHOhysJ/XMyLBMMUvA+QQ=; b=BjRSJl
+ GIQH2InoyIJmtLntXsIHkI1jaCdoeE6v6N+JWPg/KQCx7NEv6mh9XYcAML99WvuC
+ jZhcYt54yGUDVRk6OJ4mipaXdzDriiHuhEJTjRmHcpWSdf2UEUGWC4sa14txBJey
+ i/NyHWUf+HnBHElRPOQttaDev/jhNU6/MXNG8=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=QS6+b/JHOhysJ/
+ XMyLBMMUvA+QQ=; b=aW8g3QFIhabmcT8fpwPjM9JOoKX3BWtkDK2NsITvPpHlNG
+ WBrD9ABQpFuy4T0uthL/TXcvYFkCTQ1O2H7OiRf7+p/lVtUMjkmW+3hp+9RjDNis
+ 31O6WlS6CCh2jj+tQsgpqTNBwMlqDREBIfWx4a0N+d03ulS6JIibjJBoPki5E=
+X-ME-Sender: <xms:W4zHWBHOH-2eQ9D9DYoDlO-wEqg1KxETvrWiHZzwDTUyz3U0mbXuGg>
+X-Sasl-enc: 45RUp8BPj2gyL/VKbATu8djTWC9ykLuFA57LvImehm/g 1489472602
+Received: from [172.16.172.59] (ppp203-122-213-247.static.internode.on.net
+ [203.122.213.247])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 943367E74E;
+ Tue, 14 Mar 2017 02:23:20 -0400 (EDT)
+Message-ID: <1489472593.3847.1.camel@aj.id.au>
 Subject: Re: [PATCH] i2c-core: Expand buffers used in i2c_smbus_xfer_emulated()
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
- Milton Miller II <miltonm@us.ibm.com>, wghoffa@us.ibm.com, 
- Patrick Williams <patrick@stwcx.xyz>, Xo Wang <xow@google.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Joel Stanley <joel@jms.id.au>
+Cc: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, Milton Miller II
+ <miltonm@us.ibm.com>, wghoffa@us.ibm.com, Patrick Williams
+ <patrick@stwcx.xyz>,  Xo Wang <xow@google.com>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>
+Date: Tue, 14 Mar 2017 16:53:13 +1030
+In-Reply-To: <CACPK8Xdso8w25fUhRWH3Ww87Gjv+tGKvYu0K9VGpTJVi62kiwg@mail.gmail.com>
+References: <20170310122135.29827-1-andrew@aj.id.au>
+ <CACPK8Xdso8w25fUhRWH3Ww87Gjv+tGKvYu0K9VGpTJVi62kiwg@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-vQDGgNS1MOUYRky6hLp/"
+X-Mailer: Evolution 3.22.1-0ubuntu2 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,64 +62,101 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 Mar 2017 05:29:31 -0000
-
-On Fri, Mar 10, 2017 at 10:51 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> --- a/drivers/i2c/i2c-core.c
-> +++ b/drivers/i2c/i2c-core.c
-> @@ -2894,16 +2894,26 @@ static s32 i2c_smbus_xfer_emulated(struct i2c_adapter *adapter, u16 addr,
->                                    char read_write, u8 command, int size,
->                                    union i2c_smbus_data *data)
->  {
-> -       /* So we need to generate a series of msgs. In the case of writing, we
-> -         need to use only one message; when reading, we need two. We initialize
-> -         most things with sane defaults, to keep the code below somewhat
-> -         simpler. */
-> -       unsigned char msgbuf0[I2C_SMBUS_BLOCK_MAX+3];
-> -       unsigned char msgbuf1[I2C_SMBUS_BLOCK_MAX+2];
-> +       /*
-> +        * So we need to generate a series of msgs. In the case of writing, we
-> +        * need to use only one message; when reading, we need two. We initialize
-> +        * most things with sane defaults, to keep the code below somewhat
-> +        * simpler.
-> +        *
-> +        * Also, allocate 256 byte buffers as protection against suspect
-> +        * hardware like the UCD90xx, where on occasion the returned block
-> +        * length is 0xff[1].
-> +        *
-> +        * [1] https://github.com/openbmc/openbmc/issues/998
-> +        */
-> +       unsigned char *msgbuf0 = kmalloc(0x100, GFP_KERNEL);
-> +       unsigned char *msgbuf1 = kmalloc(0x100, GFP_KERNEL);
-
-kzalloc?
+X-List-Received-Date: Tue, 14 Mar 2017 06:23:28 -0000
 
 
-> @@ -3056,11 +3077,17 @@ static s32 i2c_smbus_xfer_emulated(struct i2c_adapter *adapter, u16 addr,
->                         break;
->                 case I2C_SMBUS_BLOCK_DATA:
->                 case I2C_SMBUS_BLOCK_PROC_CALL:
-> -                       for (i = 0; i < msgbuf1[0] + 1; i++)
-> +                       for (i = 0;
-> +                            i < min((size_t)(msgbuf1[0] + 1), sizeof(*data));
-> +                            i++)
+--=-vQDGgNS1MOUYRky6hLp/
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
-Lets assume msgbuf1[0] + 1 > sizeof(*data) means junk in the buffer
-and return an error instead of a buffer of junk.
+SW4gYWRkaXRpb24gdG8geW91ciBjb21tZW50cyB0aGVyZSdzIGFsc28gYSBidWcsIHJldCBuZWVk
+cyB0byBiZQppbml0aWFsaXNlZCB0byB6ZXJvLiBJIGhhZCB0aGUgY2hhbmdlIGxvY2FsbHkgYW5k
+IGhhZCB0ZXN0ZWQgaXQsIGJ1dApoYWQgZm9yZ290dGVuIHRvIGFtZW5kIHRoZSBjb21taXQuCgpP
+biBUdWUsIDIwMTctMDMtMTQgYXQgMTU6NTkgKzEwMzAsIEpvZWwgU3RhbmxleSB3cm90ZToKPiA+
+IE9uIEZyaSwgTWFyIDEwLCAyMDE3IGF0IDEwOjUxIFBNLCBBbmRyZXcgSmVmZmVyeSA8YW5kcmV3
+QGFqLmlkLmF1PiB3cm90ZToKPiA+IC0tLSBhL2RyaXZlcnMvaTJjL2kyYy1jb3JlLmMKPiA+ICsr
+KyBiL2RyaXZlcnMvaTJjL2kyYy1jb3JlLmMKPiA+IEBAIC0yODk0LDE2ICsyODk0LDI2IEBAIHN0
+YXRpYyBzMzIgaTJjX3NtYnVzX3hmZXJfZW11bGF0ZWQoc3RydWN0IGkyY19hZGFwdGVyICphZGFw
+dGVyLCB1MTYgYWRkciwKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBjaGFyIHJlYWRfd3JpdGUsIHU4IGNvbW1h
+bmQsIGludCBzaXplLAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHVuaW9uIGkyY19zbWJ1c19kYXRhICpkYXRh
+KQo+ID4gwqB7Cj4gPiAtwqDCoMKgwqDCoMKgwqAvKiBTbyB3ZSBuZWVkIHRvIGdlbmVyYXRlIGEg
+c2VyaWVzIG9mIG1zZ3MuIEluIHRoZSBjYXNlIG9mIHdyaXRpbmcsIHdlCj4gPiAtwqDCoMKgwqDC
+oMKgwqDCoMKgbmVlZCB0byB1c2Ugb25seSBvbmUgbWVzc2FnZTsgd2hlbiByZWFkaW5nLCB3ZSBu
+ZWVkIHR3by4gV2UgaW5pdGlhbGl6ZQo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoG1vc3QgdGhpbmdz
+IHdpdGggc2FuZSBkZWZhdWx0cywgdG8ga2VlcCB0aGUgY29kZSBiZWxvdyBzb21ld2hhdAo+ID4g
+LcKgwqDCoMKgwqDCoMKgwqDCoHNpbXBsZXIuICovCj4gPiAtwqDCoMKgwqDCoMKgwqB1bnNpZ25l
+ZCBjaGFyIG1zZ2J1ZjBbSTJDX1NNQlVTX0JMT0NLX01BWCszXTsKPiA+IC3CoMKgwqDCoMKgwqDC
+oHVuc2lnbmVkIGNoYXIgbXNnYnVmMVtJMkNfU01CVVNfQkxPQ0tfTUFYKzJdOwo+ID4gK8KgwqDC
+oMKgwqDCoMKgLyoKPiA+ICvCoMKgwqDCoMKgwqDCoMKgKiBTbyB3ZSBuZWVkIHRvIGdlbmVyYXRl
+IGEgc2VyaWVzIG9mIG1zZ3MuIEluIHRoZSBjYXNlIG9mIHdyaXRpbmcsIHdlCj4gPiArwqDCoMKg
+wqDCoMKgwqDCoCogbmVlZCB0byB1c2Ugb25seSBvbmUgbWVzc2FnZTsgd2hlbiByZWFkaW5nLCB3
+ZSBuZWVkIHR3by4gV2UgaW5pdGlhbGl6ZQo+ID4gK8KgwqDCoMKgwqDCoMKgwqAqIG1vc3QgdGhp
+bmdzIHdpdGggc2FuZSBkZWZhdWx0cywgdG8ga2VlcCB0aGUgY29kZSBiZWxvdyBzb21ld2hhdAo+
+ID4gK8KgwqDCoMKgwqDCoMKgwqAqIHNpbXBsZXIuCj4gPiArwqDCoMKgwqDCoMKgwqDCoCoKPiA+
+ICvCoMKgwqDCoMKgwqDCoMKgKiBBbHNvLCBhbGxvY2F0ZSAyNTYgYnl0ZSBidWZmZXJzIGFzIHBy
+b3RlY3Rpb24gYWdhaW5zdCBzdXNwZWN0Cj4gPiArwqDCoMKgwqDCoMKgwqDCoCogaGFyZHdhcmUg
+bGlrZSB0aGUgVUNEOTB4eCwgd2hlcmUgb24gb2NjYXNpb24gdGhlIHJldHVybmVkIGJsb2NrCj4g
+PiArwqDCoMKgwqDCoMKgwqDCoCogbGVuZ3RoIGlzIDB4ZmZbMV0uCj4gPiArwqDCoMKgwqDCoMKg
+wqDCoCoKPiA+ICvCoMKgwqDCoMKgwqDCoMKgKiBbMV0gaHR0cHM6Ly9naXRodWIuY29tL29wZW5i
+bWMvb3BlbmJtYy9pc3N1ZXMvOTk4Cj4gPiArwqDCoMKgwqDCoMKgwqDCoCovCj4gPiArwqDCoMKg
+wqDCoMKgwqB1bnNpZ25lZCBjaGFyICptc2didWYwID0ga21hbGxvYygweDEwMCwgR0ZQX0tFUk5F
+TCk7Cj4gPiArwqDCoMKgwqDCoMKgwqB1bnNpZ25lZCBjaGFyICptc2didWYxID0ga21hbGxvYygw
+eDEwMCwgR0ZQX0tFUk5FTCk7Cj4gCj4ga3phbGxvYz8KCkFyZ3VhYmx5IG5vdCByZXF1aXJlZCBh
+cyBpbiB0aGUgdmFsaWQgcmVzcG9uc2UgY2FzZSB3ZSByZWFkIG9mZiB0aGUKY29ycmVjdCBudW1i
+ZXIgb2YgYnl0ZXMsIGFuZCBpbiB0aGUgaW52YWxpZCByZXNwb25zZSBjYXNlIHdlJ3JlIGdvaW5n
+CnRvIHJldHVybiBhbiBlcnJvci4KCj4gCj4gCj4gPiBAQCAtMzA1NiwxMSArMzA3NywxNyBAQCBz
+dGF0aWMgczMyIGkyY19zbWJ1c194ZmVyX2VtdWxhdGVkKHN0cnVjdCBpMmNfYWRhcHRlciAqYWRh
+cHRlciwgdTE2IGFkZHIsCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqBicmVhazsKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgY2Fz
+ZSBJMkNfU01CVVNfQkxPQ0tfREFUQToKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgY2FzZSBJMkNfU01CVVNfQkxPQ0tfUFJPQ19DQUxMOgo+ID4gLcKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBmb3IgKGkgPSAwOyBpIDwgbXNnYnVmMVswXSAr
+IDE7IGkrKykKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgZm9yIChpID0gMDsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoGkgPCBtaW4oKHNpemVfdCkobXNnYnVmMVswXSArIDEpLCBzaXpl
+b2YoKmRhdGEpKTsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoGkrKykKPiAKPiBMZXRzIGFzc3VtZSBtc2didWYxWzBdICsgMSA+IHNp
+emVvZigqZGF0YSkgbWVhbnMganVuayBpbiB0aGUgYnVmZmVyCj4gYW5kIHJldHVybiBhbiBlcnJv
+ciBpbnN0ZWFkIG9mIGEgYnVmZmVyIG9mIGp1bmsuCj4gCj4gSWYgeW91IHdhbnQgdG8gcHJpbnQg
+YSBkZWJ1ZyBtZXNzYWdlIHRoZXJlIGl0IG1pZ2h0IGJlIHVzZWZ1bCBmb3IKPiBmdXR1cmUgZGVi
+dWdnaW5nLgoKSSdsbCBkbyBib3RoLgoKPiAKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBkYXRhLT5ibG9ja1tpXSA9IG1z
+Z2J1ZjFbaV07Cj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqBicmVhazsKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgfQo+ID4gLcKg
+wqDCoMKgwqDCoMKgcmV0dXJuIDA7Cj4gPiArb3V0Ogo+ID4gK8KgwqDCoMKgwqDCoMKga2ZyZWUo
+bXNnYnVmMCk7Cj4gPiArwqDCoMKgwqDCoMKgwqBrZnJlZShtc2didWYxKTsKPiAKPiBEbyB3ZSBj
+bGVhbnVwIGluIGFsbCBwYXRocz8gCgpJIHNlYXJjaGVkICdyZXR1cm4nIGFuZCByZXBsYWNlZCBp
+dCB3aXRoIGdvdG8gaW4gZWFjaCBpbnN0YW5jZS4gU28gYXMKbG9uZyBhcyB0aGF0J3MgZ29vZCBl
+bm91Z2gsIHllcy4KCj4gSXMgdGhlcmUgYW55IHZhbHVlIGluIHVzaW5nIGRldm1fIGFwaXM/CgpO
+byB2YWx1ZSBpbiBkZXZtXyBhcyB3ZSBkb24ndCB3YW50IHRoZSBtZW1vcnkgdG8gaGFuZyBhcm91
+bmQgdW50aWwKdW5iaW5kLgoKVW5sZXNzIHdlIGRvIHVzZSBkZXZtXyBhbmQgc3Rhc2ggdGhlIHBv
+aW50ZXJzIHNvbWV3aGVyZSBpbiB0aGUgYWRhcHRlcj8KVGhhdCB3b3VsZCBhbW9ydGlzZSB0aGUg
+YWxsb2NhdGlvbiBjb3N0LCBidXQgaXQncyBtb3JlIGNoYW5nZXMgdG8gdGhlCmNvcmUuCgpBbmRy
+ZXcKCj4gCj4gQ2hlZXJzLAo+IAo+IEpvZWw=
 
-If you want to print a debug message there it might be useful for
-future debugging.
 
->                                 data->block[i] = msgbuf1[i];
->                         break;
->                 }
-> -       return 0;
-> +out:
-> +       kfree(msgbuf0);
-> +       kfree(msgbuf1);
+--=-vQDGgNS1MOUYRky6hLp/
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-Do we cleanup in all paths? Is there any value in using devm_ apis?
+-----BEGIN PGP SIGNATURE-----
 
-Cheers,
+iQIcBAABCgAGBQJYx4xRAAoJEJ0dnzgO5LT5o7sP/jd7HidyxLqUsxoxL5FrCgtA
+/9udHrSrkrnO2fUicafho7WNOnmXeNGivbljOnnLeX5djKf/7WbkaLRfC8dWa74x
+5u5Mip5PipnyQEJEakFcDs7BvOFbhXqYfY7SbxQISVG4qayyMqgiuPSYvEuMoSdi
+vMw4Ism6Qto7JZnUE82aCHdsHT+HPkGqOzoYICLjQqkq6taxBbmEDPOnQq/dThnp
+XA3SP9VVZTVrRT/AazILfIQHOjHdDpdzKT42QY/nFWLZ2Wci8maU7qqwbc9M8w48
+/3Xwt+2CAQseMGZc6fQAI9EjAOCysrR1DF/UhPjPTvsfUqJj1tlvsXCNA80CPP09
+2a55B6Y9UVTRCiPyPY4Q9/9mbA0Qajk4TTP2At27v7QpdmYFYfm7WXZfWytA8HLQ
+GcsOGu8hiJKSd+Bkfefjy0QfjQVFw+nxa14AabG2Hy4uTTvSDFJzhOdw3AFuRpUh
+LSIRroA3jFpqGAt6eBR2lyLmaQmCLNR+lr9qck93fKSHrg6JZKjPPYmQIRth3yGc
+1z2mbXfKeRomr0lbZb7lxevzImeXQ/CXO/hSU1mXokQsW16Q5n/GfJ6x2azMFoah
+u6wr5kth27CXJpaxoC9f5gL+KziFgRJKCqr2+XTJeqP3DAKbA8XAVBCcqPN1kAyT
+rQzLJXqW43pXTkZMO24Y
+=uv/O
+-----END PGP SIGNATURE-----
 
-Joel
+--=-vQDGgNS1MOUYRky6hLp/--
