@@ -1,48 +1,62 @@
-Return-Path: <mine260309@gmail.com>
-Received: from mail-pg0-x243.google.com (mail-pg0-x243.google.com
- [IPv6:2607:f8b0:400e:c05::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <cbostic@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vjjYg4ZDZzDqGk
- for <openbmc@lists.ozlabs.org>; Wed, 15 Mar 2017 18:15:35 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="rO7JmGYT"; 
- dkim-atps=neutral
-Received: by mail-pg0-x243.google.com with SMTP id g2so1293445pge.2
- for <openbmc@lists.ozlabs.org>; Wed, 15 Mar 2017 00:15:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=Ai3J6rN2dSpg480/zGSUmoPagukz3foeeJwD1mDmX88=;
- b=rO7JmGYTYeeeEtQL4Cv/ApsKyOrkxW/sA0TnYk3xp2j1Qlg8TFz6GmS6s1ouumWBli
- U7V2Z8F25pGleA7nNmGFKKanGZI/78dbJyW1C6t6YBsHOGU9SB5KVcUfcLJCbAHcpwqE
- 3XOU0whzu9qsbPXenCP8QQq/EF83bDbtBbhjsCOM8Xf5mGt9U8XQ1E6T8FGBHiQyWjuB
- +O+oBGngQkziMi6gRn0lTmttTaBEXBRgN0zeYqoFWLgTASei1z9QN6TWk7mKtWspRcpL
- p+WnIV5kY4RT+WVA/YxHQ9+xKI6TfPS67uhibSns5GjJKZ42DSq8clEt32y6ZsyT3cnX
- rskA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=Ai3J6rN2dSpg480/zGSUmoPagukz3foeeJwD1mDmX88=;
- b=gwVrvobxGOPuHXJgQSiJ0KrhxxOFZG7gWXSlAhatF2sdRh4go7pk4rGquIlS29GgYB
- ZunzACLb0nukJwl3vfLswHcPxr2tcDEGDoL9q53OHJkPCRWLQxw4GaoNUGg61VM51uej
- P+fqcKYb7hJQYa4psVCTLIfrIo+rPxFG7VcOtV5XenEghLCZ78N1yUHc/pztxExO1rYz
- B7Yvx6k8WTHskHFEa/jjbX0TYiPYBAV307NRbQ8e7xSwWsDH5XIEUVUYB+ytwoc7nUyv
- d3XLcZP4FiZNi84/B0Z/C2H+unP+gQrZjM5ISqcPuikVvrvyBvo3H55yTyxf02PyRnNa
- PNog==
-X-Gm-Message-State: AFeK/H0vIwxp0mkJ64diL+1GeaO0NaI1pC5pXQfAzIEBoCEv7kxt222aZNwtYJIs+Qb+BA==
-X-Received: by 10.99.152.10 with SMTP id q10mr1985977pgd.192.1489562133845;
- Wed, 15 Mar 2017 00:15:33 -0700 (PDT)
-Received: from localhost ([159.203.222.251])
- by smtp.gmail.com with ESMTPSA id x15sm2046904pgc.16.2017.03.15.00.15.32
- (version=TLS1_2 cipher=AES128-SHA bits=128/128);
- Wed, 15 Mar 2017 00:15:33 -0700 (PDT)
-From: Lei YU <mine260309@gmail.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.7] ARM: dts: aspeed: romulus: Add GPIO hogs for
- nic_mode_func
-Date: Wed, 15 Mar 2017 15:13:48 +0800
-Message-Id: <1489562028-22480-1-git-send-email-mine260309@gmail.com>
-X-Mailer: git-send-email 1.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vk4Qw395nzDqYK
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Mar 2017 08:25:59 +1100 (AEDT)
+Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v2FLNYTb004481
+ for <openbmc@lists.ozlabs.org>; Wed, 15 Mar 2017 17:25:57 -0400
+Received: from e16.ny.us.ibm.com (e16.ny.us.ibm.com [129.33.205.206])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 296ng022by-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 15 Mar 2017 17:25:56 -0400
+Received: from localhost
+ by e16.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Wed, 15 Mar 2017 17:25:56 -0400
+Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
+ by e16.ny.us.ibm.com (146.89.104.203) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 15 Mar 2017 17:25:54 -0400
+Received: from b03ledav002.gho.boulder.ibm.com
+ (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
+ by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v2FLPrgr9699786; Wed, 15 Mar 2017 14:25:53 -0700
+Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 499F2136040;
+ Wed, 15 Mar 2017 15:25:53 -0600 (MDT)
+Received: from christophersmbp.austin.ibm.com (unknown [9.41.174.103])
+ by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id 07ABD13603A;
+ Wed, 15 Mar 2017 15:25:52 -0600 (MDT)
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+To: joel@jms.id.au
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.7] drivers/fsi: Add more time between clocking and
+ data sampling
+Date: Wed, 15 Mar 2017 16:25:50 -0500
+X-Mailer: git-send-email 2.10.1 (Apple Git-78)
+X-TM-AS-GCONF: 00
+x-cbid: 17031521-0024-0000-0000-00000216A3B6
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006788; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000206; SDB=6.00834337; UDB=6.00409724; IPR=6.00611993; 
+ BA=6.00005214; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014664; XFM=3.00000013;
+ UTC=2017-03-15 21:25:55
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17031521-0025-0000-0000-000042956300
+Message-Id: <20170315212550.65964-1-cbostic@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-03-15_09:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
+ definitions=main-1703150162
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,42 +68,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 15 Mar 2017 07:15:36 -0000
+X-List-Received-Date: Wed, 15 Mar 2017 21:26:00 -0000
 
-GPIOD3/D4 are the "NIC_FUNC_MODE_0/1" pins connected to Broadcom
-5719 which control the PCIe functions.
-Add GPIO hogs to pull down GPIOD3/D4 to use that function.
+Under high work loads the ARM core can occasionaly hit invalid
+timings between the FSI clock and data lines which leads to
+data crc errors.  Add further delay between clock switch and
+data line changes.
 
-Signed-off-by: Lei YU <mine260309@gmail.com>
+Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 ---
- arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ drivers/fsi/fsi-master-gpio.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-index b8b2d7f..2266c85 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-@@ -181,6 +181,21 @@
- 	status = "disabled";
- };
+diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
+index a8976d5..a93453f 100644
+--- a/drivers/fsi/fsi-master-gpio.c
++++ b/drivers/fsi/fsi-master-gpio.c
+@@ -13,7 +13,7 @@
  
-+&gpio {
-+    nic_func_mode0 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(D, 3) GPIO_ACTIVE_HIGH>;
-+		output-low;
-+		line-name = "nic_func_mode0";
-+    };
-+    nic_func_mode1 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(D, 4) GPIO_ACTIVE_HIGH>;
-+		output-low;
-+		line-name = "nic_func_mode1";
-+    };
-+};
-+
- &vuart {
- 	status = "okay";
- };
+ #include "fsi-master.h"
+ 
+-#define	FSI_GPIO_STD_DLY	1	/* Standard pin delay in nS */
++#define	FSI_GPIO_STD_DLY	1	/* Standard pin delay in uS */
+ #define	FSI_ECHO_DELAY_CLOCKS	16	/* Number clocks for echo delay */
+ #define	FSI_PRE_BREAK_CLOCKS	50	/* Number clocks to prep for break */
+ #define	FSI_BREAK_CLOCKS	256	/* Number of clocks to issue break */
+@@ -86,9 +86,9 @@ static void clock_toggle(struct fsi_master_gpio *master, int count)
+ 	int i;
+ 
+ 	for (i = 0; i < count; i++) {
+-		ndelay(FSI_GPIO_STD_DLY);
++		udelay(FSI_GPIO_STD_DLY);
+ 		gpiod_set_value(master->gpio_clk, 0);
+-		ndelay(FSI_GPIO_STD_DLY);
++		udelay(FSI_GPIO_STD_DLY);
+ 		gpiod_set_value(master->gpio_clk, 1);
+ 	}
+ }
+@@ -97,7 +97,7 @@ static int sda_in(struct fsi_master_gpio *master)
+ {
+ 	int in;
+ 
+-	ndelay(FSI_GPIO_STD_DLY);
++	udelay(FSI_GPIO_STD_DLY);
+ 	in = gpiod_get_value(master->gpio_data);
+ 	return in ? 1 : 0;
+ }
 -- 
-1.9.1
+1.8.2.2
