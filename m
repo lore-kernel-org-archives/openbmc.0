@@ -1,70 +1,56 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-lf0-x243.google.com (mail-lf0-x243.google.com
+ [IPv6:2a00:1450:4010:c07::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vk4rw6zmrzDqYG
- for <openbmc@lists.ozlabs.org>; Thu, 16 Mar 2017 08:45:04 +1100 (AEDT)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v2FLi2j0030867
- for <openbmc@lists.ozlabs.org>; Wed, 15 Mar 2017 17:44:56 -0400
-Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2978fhetvd-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 15 Mar 2017 17:44:55 -0400
-Received: from localhost
- by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Wed, 15 Mar 2017 17:44:54 -0400
-Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
- by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Wed, 15 Mar 2017 17:44:51 -0400
-Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
- [9.57.199.107])
- by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v2FLiqkO38666336; Wed, 15 Mar 2017 21:44:52 GMT
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3A369124037;
- Wed, 15 Mar 2017 17:44:47 -0400 (EDT)
-Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP id D1E15124035;
- Wed, 15 Mar 2017 17:44:46 -0400 (EDT)
-Subject: Re: [RFC linux dev-4.7 0/4] drivers: i2c: FSI-attached I2C master
- algorithm
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-References: <1489182506-20505-1-git-send-email-eajames@linux.vnet.ibm.com>
- <57A4FEEE-E09F-443A-B7AB-226457C39D25@fuzziesquirrel.com>
-Cc: "Edward A. James" <eajames@us.ibm.com>, openbmc@lists.ozlabs.org,
- cbostic@linux.vnet.ibm.com
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Wed, 15 Mar 2017 16:44:45 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vk7GK2ZtYzDqYX
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Mar 2017 10:33:45 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="rabj2FGS"; 
+ dkim-atps=neutral
+Received: by mail-lf0-x243.google.com with SMTP id g70so2208911lfh.3
+ for <openbmc@lists.ozlabs.org>; Wed, 15 Mar 2017 16:33:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=nFv1N1BDmRo+jaiC8D1MKQDYlhRgr7dzggOKuoMtoKQ=;
+ b=rabj2FGShDiut3wjRoUIZt4iqrCbcJ31lle2EO+E8Ud/xAAfN3peS7fYIIfBt3IvBR
+ 5cg+9in+gHqm0by/GkZHR2PntwtEZVU8+II9y7OCVFio5l1hDNTDv+An4LQ9D9+4kswt
+ P9UR3hjOxG8kWcLIwX3UAP54kEbtTZ/VqaPar5ma7ZGc5PB2hPZTqebMOrQrqjqo2CDZ
+ CzlWp7kx3bKmDxaHdqpDlnGhf+fOpl6O5p4zED8RvAv1tw/PQRYXyAyDitQwyPy/n+tn
+ Il5E6V9QTSpAVHmOne6FwDAgVPhicQh0IH8VzAmeyxh+OzLihK9WvOxw0av+IheyqyO/
+ D/IQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=nFv1N1BDmRo+jaiC8D1MKQDYlhRgr7dzggOKuoMtoKQ=;
+ b=aT2USVA8dp0ry8lfn6eWYx1rhxLJk86LXYtMXDtQqzuZ6Dxp2H5Z1r6dmsWXiCbbn+
+ NYPeMzSqTk2LLwTD+pKlxAH3wQAm9gET+nP4fnLQo1DcQNUU8r/XWcM70HYgJ1ehkik3
+ bg3BMkaFOrSqsQA4zmsqcCBekFmOBpqxhfMsOLRqSHoOBgU8bAH0IGepjwNkoO/RttRZ
+ TeFCpss+7CBxAPash25AsdE469gxRKvIA0TsbqEbAZti8ZGaRA4qyVuMqR2FqydIbWlN
+ GOsBBfAHR1uU9nIuuciKV7qD4/XWfh8IWRgEgGGWfkcgL79sPrXZjFSvPPnc1GQA4liy
+ rBNA==
+X-Gm-Message-State: AFeK/H3/abU6vxJbkTDT+AR/0hsH53ejl3Je81dj2XBn8hW/9nMxRHb8KLcRhCDaZGOSQ6FQ2eE8G8tX2UJe/g==
+X-Received: by 10.46.7.80 with SMTP id i16mr2024852ljd.129.1489620821812; Wed,
+ 15 Mar 2017 16:33:41 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <57A4FEEE-E09F-443A-B7AB-226457C39D25@fuzziesquirrel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-x-cbid: 17031521-0052-0000-0000-000001A7AD36
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006788; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000206; SDB=6.00834343; UDB=6.00409727; IPR=6.00611999; 
- BA=6.00005214; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014664; XFM=3.00000013;
- UTC=2017-03-15 21:44:52
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17031521-0053-0000-0000-00004F2A7ED7
-Message-Id: <c3ddbdde-02ba-425d-a75a-bec7dce2b714@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-03-15_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
- definitions=main-1703150165
+Sender: joel.stan@gmail.com
+Received: by 10.25.56.13 with HTTP; Wed, 15 Mar 2017 16:33:21 -0700 (PDT)
+In-Reply-To: <1489182506-20505-2-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1489182506-20505-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <1489182506-20505-2-git-send-email-eajames@linux.vnet.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 16 Mar 2017 10:03:21 +1030
+X-Google-Sender-Auth: efCT2V2PWNRDCuPCxZ7nZJW7ZYU
+Message-ID: <CACPK8XfjE+v-N1gYeBTA1Fea14U+ottm-bh_fvEWM92GicOuww@mail.gmail.com>
+Subject: Re: [RFC linux dev-4.7 1/5] drivers: fsi: Add function to get FSI
+ clock rate
+To: Eddie James <eajames@linux.vnet.ibm.com>, Jeremy Kerr <jk@ozlabs.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Christopher Bostic <cbostic@linux.vnet.ibm.com>,
+ "Edward A. James" <eajames@us.ibm.com>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -76,69 +62,71 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 15 Mar 2017 21:45:05 -0000
+X-List-Received-Date: Wed, 15 Mar 2017 23:33:46 -0000
 
-
-
-On 03/10/2017 08:16 PM, Brad Bishop wrote:
->> On Mar 10, 2017, at 4:48 PM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
->>
->> From: "Edward A. James" <eajames@us.ibm.com>
->>
->> This patch series adds an I2C bus algorithm to drive the I2C master located on
->> POWER CPUs. The master is accessed over FSI bus from the service processor.
->>
->> The driver is functional for some basic read/write ops. There are a couple of
->> details regarding the device tree and chardev entries that need working out.
->>
->> Mainly, do we want a char device for each port?  There are 15 ports off one P9
->> master, so that'll be a lot of /dev/i2c-<x> entries.
-> IMHO I don’t see this being a problem.
+On Sat, Mar 11, 2017 at 8:18 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+> From: "Edward A. James" <eajames@us.ibm.com>
 >
->> One issue is that
->> i2c_add_adapter always names it's device i2c-%d, regardless of adapter name.
-> One can always add udev rules to get alternate naming schemes.
->
->> Furthermore, you can specify the number to label it with
->> i2c_add_numbered_adapter, but how to prevent collisions with regular i2c
->> devices?
-> I think this is also probably solvable with udev.
->
->> The driver will currently set up one chardev for each master (each proc).
->> The port is then specified by hacking the addr field of i2c_msg. It works,
->> but not a clean solution.
-> I’d say we just go with one chardev per port, unless others have experience
-> that recommends otherwise.
+> client drivers (I2C, etc) may need to know FSI bus clock rate.
 
-Thought of a potential issue with this approach. This will require some 
-custom bus locking solution, as we need to prevent multiple transfers 
-from setting the master regs at the same time. Obviously the kernel i2c 
-driver handles locking on each chardev to prevent simultaneous access, 
-but since we will have multiple chardevs that have to lock each other 
-out, we need to do it ourselves.
+We need to make sure the device tree bindings expose this.
 
-I think having our own locking is pretty do-able, I just wonder if the 
-kernel guys will not be happy with it?
+Are we able to discover the clock rate through reading some registers?
+Or is it hardcoded on all systems?
 
-Eddie
+I suggest you put something like this in the device tree under the FSI
+node your testing:
+
+                 fsi_clock {
+                        #clock-cells = <0>;
+                        compatible = "fixed-clock";
+                        clock-frequency = <8333333>;
+                };
+
+And retrieve the clock from there. This way when we add the code for
+determining the clock rate your driver won't need to change.
+
+Cheers,
+
+Joel
+
 >
->> FSI clocking details are not defined in the device tree, so FSI clock is
->> hardcoded for now.
->>
->> Edward A. James (4):
->>   drivers: fsi: Add function to get FSI clock rate
->>   drivers: i2c: Add FSI-attached I2C master algorithm
->>   drivers: i2c: Add transfer implementation for FSI algorithm
->>   drivers: i2c: Add bus recovery for FSI algorithm
->>
->> drivers/Makefile             |   2 +-
->> drivers/fsi/fsi-core.c       |   7 +
->> drivers/i2c/busses/Kconfig   |  11 +
->> drivers/i2c/busses/Makefile  |   1 +
->> drivers/i2c/busses/i2c-fsi.c | 608 +++++++++++++++++++++++++++++++++++++++++++
->> include/linux/fsi.h          |   1 +
->> 6 files changed, 629 insertions(+), 1 deletion(-)
->> create mode 100644 drivers/i2c/busses/i2c-fsi.c
->>
->> -- 
->> 1.8.3.1
+> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+> ---
+>  drivers/fsi/fsi-core.c | 7 +++++++
+>  include/linux/fsi.h    | 1 +
+>  2 files changed, 8 insertions(+)
+>
+> diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
+> index 3d382e6..492c9e9 100644
+> --- a/drivers/fsi/fsi-core.c
+> +++ b/drivers/fsi/fsi-core.c
+> @@ -139,6 +139,13 @@ int fsi_device_peek(struct fsi_device *dev, void *val)
+>         return fsi_slave_read(dev->slave, addr, val, sizeof(uint32_t));
+>  }
+>
+> +unsigned long fsi_device_get_clk_rate(struct fsi_device *dev)
+> +{
+> +       /* TODO: get clk from dts */
+> +       return 8333333;
+> +}
+> +EXPORT_SYMBOL_GPL(fsi_device_get_clk_rate);
+> +
+>  static void fsi_device_release(struct device *_device)
+>  {
+>         struct fsi_device *device = to_fsi_dev(_device);
+> diff --git a/include/linux/fsi.h b/include/linux/fsi.h
+> index d22d0c5..57c8fdb 100644
+> --- a/include/linux/fsi.h
+> +++ b/include/linux/fsi.h
+> @@ -35,6 +35,7 @@ extern int fsi_device_read(struct fsi_device *dev, uint32_t addr,
+>  extern int fsi_device_write(struct fsi_device *dev, uint32_t addr,
+>                 const void *val, size_t size);
+>  extern int fsi_device_peek(struct fsi_device *dev, void *val);
+> +extern unsigned long fsi_device_get_clk_rate(struct fsi_device *dev);
+>
+>  struct fsi_device_id {
+>         u8      engine_type;
+> --
+> 1.8.3.1
+>
