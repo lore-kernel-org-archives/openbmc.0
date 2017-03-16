@@ -1,27 +1,40 @@
-Return-Path: <gregkh@linuxfoundation.org>
-Received: from mail.linuxfoundation.org (mail.linuxfoundation.org
- [140.211.169.12])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <d.mueller@elsoft.ch>
+X-Greylist: delayed 639 seconds by postgrey-1.36 at bilbo;
+ Thu, 16 Mar 2017 19:16:06 AEDT
+Received: from mail.hostpark.net (mail.hostpark.net [212.243.197.30])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vkLhP3TnDzDqZ7
- for <openbmc@lists.ozlabs.org>; Thu, 16 Mar 2017 19:08:37 +1100 (AEDT)
-Received: from localhost (unknown [183.98.136.252])
- by mail.linuxfoundation.org (Postfix) with ESMTPSA id 86D718A6;
- Thu, 16 Mar 2017 08:08:34 +0000 (UTC)
-Date: Thu, 16 Mar 2017 17:08:21 +0900
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Cc: Cyril Bur <cyrilbur@gmail.com>, linux-kernel@vger.kernel.org,
- mikey@neuling.org, joel@jms.id.au, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH v6] drivers/misc: Add Aspeed LPC control driver
-Message-ID: <20170316080821.GA32044@kroah.com>
-References: <20170217032849.23994-1-cyrilbur@gmail.com>
- <1487313897.23576.122.camel@kernel.crashing.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vkLs24GtPzDqXf
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Mar 2017 19:16:05 +1100 (AEDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.hostpark.net (Postfix) with ESMTP id 8B2F516544;
+ Thu, 16 Mar 2017 09:05:22 +0100 (CET)
+X-Virus-Scanned: by Hostpark/NetZone Mailprotection at hostpark.net
+Received: from mail.hostpark.net ([127.0.0.1])
+ by localhost (mail1.hostpark.net [127.0.0.1]) (amavisd-new, port 10124)
+ with ESMTP id JUlZhkUDDFXc; Thu, 16 Mar 2017 09:05:22 +0100 (CET)
+Received: from [192.168.11.10] (80-219-76-43.dclient.hispeed.ch [80.219.76.43])
+ by mail.hostpark.net (Postfix) with ESMTPA id 877651672F;
+ Thu, 16 Mar 2017 09:05:19 +0100 (CET)
+Subject: Re: [PATCH linux v4 1/2] Documentation: dt-bindings: Document
+ bindings for ASPEED AST2400/AST2500 PWM and Fan tach controller device driver
+To: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>,
+ joel@jms.id.au, jdelvare@suse.com, linux@roeck-us.net,
+ linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org, corbet@lwn.net, linux-doc@vger.kernel.org,
+ robh+dt@kernel.org, mark.rutland@arm.com, devicetree@vger.kernel.org
+References: <20170311015351.23092-1-jaghu@google.com>
+ <20170311015351.23092-2-jaghu@google.com>
+From: =?UTF-8?Q?David_M=c3=bcller_=28ELSOFT_AG=29?= <d.mueller@elsoft.ch>
+Organization: ELSOFT AG
+Message-ID: <6c028b76-ccc3-46ba-7a41-fa1b7b4a5b77@elsoft.ch>
+Date: Thu, 16 Mar 2017 09:05:31 +0100
+User-Agent: Mozilla/5.0 (X11; Linux i686; rv:49.0) Gecko/20100101 Firefox/49.0
+ SeaMonkey/2.46
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1487313897.23576.122.camel@kernel.crashing.org>
-User-Agent: Mutt/1.8.0 (2017-02-23)
+In-Reply-To: <20170311015351.23092-2-jaghu@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -33,66 +46,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Mar 2017 08:08:37 -0000
+X-List-Received-Date: Thu, 16 Mar 2017 08:16:07 -0000
 
-On Fri, Feb 17, 2017 at 05:44:57PM +1100, Benjamin Herrenschmidt wrote:
-> On Fri, 2017-02-17 at 14:28 +1100, Cyril Bur wrote:
-> > In order to manage server systems, there is typically another
-> > processor
-> > known as a BMC (Baseboard Management Controller) which is responsible
-> > for powering the server and other various elements, sometimes fans,
-> > often the system flash.
-> 
->  .../...
-> 
-> > It is important to note that due to the way the Aspeed chip lets the
-> > kernel configure the mapping between host LPC addresses and BMC ram
-> > addresses the offset within the window must be a multiple of size.
-> > Not doing so will fragment the accessible space rather than simply
-> > moving 'zero' upwards. This is caused by the nature of HICR8 being a
-> > mask and the way host LPC addresses are translated.
-> > 
-> > Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
-> 
-> Reviewed-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-> 
-> Greg, quick Q for you:
-> 
-> We will need to also add a mechanism to poke at a few registers
-> in the same LPC controllers from userspace.
-> 
-> Mostly those are "scratch" registers that the BMC is supposed to set to
-> specific values to indicates features it supports etc... (or to enable 
-> the host BIOS to run in some kind of verbose debug mode).
-> 
-> Think of it as a communication channel between the BMC and the BIOS
-> running on the host.
-> 
-> The BMC userspace needs to set them to various platform specific
-> values as appropriate for a given vendor/system (userspace policy
-> from the BMC perspective) during boot and/or change them as the result
-> of some user actions (enable debug mode) etc...
-> 
-> The question here is read/write or sysfs files attached to the
-> sysfs node ?
-> 
-> The former means userspace needs to "seek" to the right magic
-> offset to write to one of them which is non-trivial to do from
-> simple shell scripts but is a more natural interface.
-> 
-> It also means the owner/permissions of the /dev entry as set
-> by uboot apply which can be nice.
-> 
-> The latter can expose each register by its name which provides
-> a nice way to echo in/out of them from a shell script.
-> 
-> The drawback is that pretty much restricts access to root.
-> 
-> What do you recommend ?
+Hello
 
-That wasn't a quick question :)
+Jaghathiswari Rankappagounder Natarajan wrote:
 
-I really have no idea, sorry, try some things out and see what seems to
-work.
+> +- compatible : should be "aspeed,aspeed2400-pwm-tacho" for AST2400
+> or +	       "aspeed,aspeed2500-pwm-tacho" for AST2500.
 
-greg k-h
+Shouldn't this be "aspeed,ast2400-pwm-tacho" and
+"aspeed,ast2500-pwm-tacho", as this is the naming scheme used for all
+the other AST2x00 devices currently present in "aspeed-g[45].dtsi"?
+
+Dave
