@@ -1,50 +1,50 @@
 Return-Path: <maxims@google.com>
-Received: from mail-pg0-x22c.google.com (mail-pg0-x22c.google.com
- [IPv6:2607:f8b0:400e:c05::22c])
+Received: from mail-pg0-x22b.google.com (mail-pg0-x22b.google.com
+ [IPv6:2607:f8b0:400e:c05::22b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vkhd22B69zDqZ7
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vkhd257y8zDqZD
  for <openbmc@lists.ozlabs.org>; Fri, 17 Mar 2017 08:36:54 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="QsqEMfmf"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="e3Eg03xK"; 
  dkim-atps=neutral
-Received: by mail-pg0-x22c.google.com with SMTP id g2so30990500pge.3
+Received: by mail-pg0-x22b.google.com with SMTP id 141so31060363pgd.1
  for <openbmc@lists.ozlabs.org>; Thu, 16 Mar 2017 14:36:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=Rc/CWVIs0bVtGtDETo4u+tG7IOPcjVn3IbrJYk811/M=;
- b=QsqEMfmfQYuB3ZVBRtE6JPtNwKgVZoPZWYiFuvPwQWGo4nshiVmA0zDeAdQ9xhbl/Y
- 33khFTwIeGcCtgGb6hZtjPBma+O77ZIvYFF3RxsvvLKf66kqUbjGyaYsst4wKZZEGVJ+
- JWOTIzXkotR4RD2R7Ci87PUmLXnebW4y2UX3BCT062Au48YsNVGHGAcWUvTAghheQFaX
- Wiw2bnT0dcPlsfNlzNS7YXYSl67TqNjsa/QwAbBDmjqgJs/R/ctay6Q5lrd4C0e2ZuAK
- 4Fi2WYssnQPRinso2XH81KEM2ZT1Mu/HHcsWTfMkQd4zmcDIkZP4Fw/RETyiAqu09UeW
- 5+mw==
+ bh=YRRSDnDDdw5LToTr0uMIqCnGg+EZFH6LvUznP9aWtA0=;
+ b=e3Eg03xKBu/YvVMmSuWdgTU+3qZeZamNiSPLmH8+lNPgamJLI/feFcZZGCQQtAXite
+ D9AVcnjBTzPXYyuVhqbDxFMrdXwhnwVVuQU9GJfhtF6CLqjABrZ8anocNbKUYZxKWm84
+ /HlYMkzb3zFTD9pqdXLBZgIPTq59xAaGN4VIZH6+A9m8J+o9ToxaOIUd3pM1A7rxa4Ez
+ E3LkjstQHGYjb1w7iuN+Wd1OaA7JzeJBMgIKqIc2IoAQU+mXkaVBqa6JqDpGQH0UBrjE
+ RYbgooKGK5XTYG+cwO30ahEJOH4vgf4iT5lR6z7FZNV/UEg5OMokWkamBCbgkFni251W
+ gZew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=Rc/CWVIs0bVtGtDETo4u+tG7IOPcjVn3IbrJYk811/M=;
- b=Bcvoap4GiELvd1DBr68zi711tsU21xuAIcqWrizD9HIcJsFrz5vPZ3wvauA9f8w7WI
- XrQhq+ubcJjJaYkjCuV8fmdTkbMntDwqOZYUCc6fhwk7XMcnUv0QC+bR+oguPEJJJYUZ
- eLsMVmEsJ5+7zy2Aer38cziT64sglpJ1dxzEML1KeyoyQrITo9jqREvszrnyhIweOn+C
- S0YXI+qaA9Rp4FzrHorkomGnfdA0OugbWipnza5hd9WMuKdlh4JbYMHv3vomEuWaAtE2
- ySXL0oA7xvzN9d0mAlGxuCzIr2ULNOS0dAHbogk+7UgfJRx0mqcWP+//pcg+M1dimrd6
- nQTA==
-X-Gm-Message-State: AFeK/H0euP/BFoaDtf7KhMOEfvyuBHA9UES0Fy5RTdIxd3TMbCIo2hegw4XiIDBeU4AVHpgL
-X-Received: by 10.98.82.216 with SMTP id g207mr12791703pfb.139.1489700212471; 
- Thu, 16 Mar 2017 14:36:52 -0700 (PDT)
-Received: from mxsl.svl.corp.google.com ([100.123.242.80])
- by smtp.gmail.com with ESMTPSA id v17sm2191375pgc.20.2017.03.16.14.36.51
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ bh=YRRSDnDDdw5LToTr0uMIqCnGg+EZFH6LvUznP9aWtA0=;
+ b=WNkrjGkSPhrIBoSpoeQ8qD7h55z1ZfgNHz6xtvIQLUq2m0myFB0Uf6mYy9XAXgUFNN
+ Y15KT8cMYbMDjxAk6lk5V3AM57Nl+CTXT20RYUMpx9qXWhy0ux5s6SC0UdmJnbW55e5u
+ 3a1j4sbRqMypa/f0Hp88Bycsd+j8BuQehG8kq66dGnqGTqdrh5Hb/bGestfTMKp8/amF
+ xzuoEpAUSRlX/fR52/6Ikoqw2Eole/NVr8lqMnltX8H0Q+KHDJ8XbsuwEiM7xChfojk7
+ WF2C2R2GMdIaJxpI0fw0FKxSmZ4rR+EcY0dbehPcIYfGLwa1KZxlJEmNY+NspBWJEJ2Y
+ Fvdg==
+X-Gm-Message-State: AFeK/H2cxkbxsy96Wkol+mxIERFRqhK9wD0sjpp8AoLPxef0w0D0mneIy3RNaLuPC+ThE7U3
+X-Received: by 10.84.218.2 with SMTP id q2mr37806pli.141.1489700211559;
  Thu, 16 Mar 2017 14:36:51 -0700 (PDT)
+Received: from mxsl.svl.corp.google.com ([100.123.242.80])
+ by smtp.gmail.com with ESMTPSA id v17sm2191375pgc.20.2017.03.16.14.36.50
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Thu, 16 Mar 2017 14:36:50 -0700 (PDT)
 From: Maxim Sloyko <maxims@google.com>
 To: u-boot@lists.denx.de,
 	Simon Glass <sjg@chromium.org>
 Cc: openbmc@lists.ozlabs.org, Maxim Sloyko <maxims@google.com>,
- Albert Aribaud <albert.u.boot@aribaud.net>
-Subject: [PATCH 17/17] aspeed: Network Driver configuration for EVB
-Date: Thu, 16 Mar 2017 14:36:24 -0700
-Message-Id: <20170316213624.140344-18-maxims@google.com>
+ Joe Hershberger <joe.hershberger@ni.com>
+Subject: [PATCH 16/17] aspeed: Add AST2500/AST2400 compatible NIC Driver
+Date: Thu, 16 Mar 2017 14:36:23 -0700
+Message-Id: <20170316213624.140344-17-maxims@google.com>
 X-Mailer: git-send-email 2.12.0.367.g23dc2f6d3c-goog
 In-Reply-To: <20170316213624.140344-1-maxims@google.com>
 References: <20170316213624.140344-1-maxims@google.com>
@@ -61,57 +61,842 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Thu, 16 Mar 2017 21:36:55 -0000
 
-Enable Network Driver along with network related commands -- ping, dhcp,
-mii -- in ast2500 Eval Board's defconfig.
-
-Add MAC devices' configuration to Eval Board Device Tree.
+The device that Aspeed uses is basically Faraday FTGMAC100, but with
+some differences here and there. Since I don't have access to a properly
+implemented FTGMAC100 though, I can't really test it and so I don't
+feel comfortable claiming compatibility, even though I reused a lot of
+FTGMAC100 driver code.
 
 Signed-off-by: Maxim Sloyko <maxims@google.com>
-
 ---
 
+ drivers/net/Kconfig   |   8 +
+ drivers/net/Makefile  |   1 +
+ drivers/net/ast_nic.c | 584 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ drivers/net/ast_nic.h | 198 +++++++++++++++++
+ 4 files changed, 791 insertions(+)
+ create mode 100644 drivers/net/ast_nic.c
+ create mode 100644 drivers/net/ast_nic.h
 
----
- arch/arm/dts/ast2500-evb.dts  | 14 ++++++++++++++
- configs/evb-ast2500_defconfig |  7 +++++++
- 2 files changed, 21 insertions(+)
-
-diff --git a/arch/arm/dts/ast2500-evb.dts b/arch/arm/dts/ast2500-evb.dts
-index 723941ac0b..c47ad684a5 100644
---- a/arch/arm/dts/ast2500-evb.dts
-+++ b/arch/arm/dts/ast2500-evb.dts
-@@ -36,3 +36,17 @@
- 	u-boot,dm-pre-reloc;
- 	status = "okay";
- };
+diff --git a/drivers/net/Kconfig b/drivers/net/Kconfig
+index 70e36611ea..6de8b35d9f 100644
+--- a/drivers/net/Kconfig
++++ b/drivers/net/Kconfig
+@@ -208,4 +208,12 @@ config GMAC_ROCKCHIP
+ 	  This driver provides Rockchip SoCs network support based on the
+ 	  Synopsys Designware driver.
+ 
++config AST_NIC
++	bool "Support Aspeed ast2500/ast2400 NIC"
++	depends on DM_ETH
++	help
++	  This driver provides support for ast2500/ast2400 network devices.
++	  It uses Driver Model and so can support multiple devices on the same SoC.
++	  The device itself is basically a variation of Faraday FTGMAC100.
 +
-+&mac0 {
-+	compatible = "aspeed,ast2500-nic";
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_mac1link_default>, <&pinctrl_mdio1_default>;
+ endif # NETDEVICES
+diff --git a/drivers/net/Makefile b/drivers/net/Makefile
+index 2493a48b88..792bebb9cc 100644
+--- a/drivers/net/Makefile
++++ b/drivers/net/Makefile
+@@ -78,3 +78,4 @@ obj-$(CONFIG_FSL_MEMAC) += fm/memac_phy.o
+ obj-$(CONFIG_VSC9953) += vsc9953.o
+ obj-$(CONFIG_PIC32_ETH) += pic32_mdio.o pic32_eth.o
+ obj-$(CONFIG_DWC_ETH_QOS) += dwc_eth_qos.o
++obj-$(CONFIG_AST_NIC) += ast_nic.o
+diff --git a/drivers/net/ast_nic.c b/drivers/net/ast_nic.c
+new file mode 100644
+index 0000000000..881d20151c
+--- /dev/null
++++ b/drivers/net/ast_nic.c
+@@ -0,0 +1,584 @@
++/*
++ * (C) Copyright 2009 Faraday Technology
++ * Po-Yu Chuang <ratbert@faraday-tech.com>
++ *
++ * (C) Copyright 2010 Andes Technology
++ * Macpaul Lin <macpaul@andestech.com>
++ *
++ * Copyright 2017 Google Inc
++ *
++ * SPDX-License-Identifier:	GPL-2.0+
++ */
++
++/*
++ * This device is basically Faraday FTGMAC100, with some differences,
++ * which do not seem to be very big, but are in very random places, like
++ * some registers removed and completely different ones put in their place.
++ */
++
++#include <common.h>
++#include <dm.h>
++#include <clk.h>
++#if defined(CONFIG_MII) || defined(CONFIG_CMD_MII)
++#include <miiphy.h>
++#endif
++#include <net.h>
++#include <asm/io.h>
++#include <linux/mii.h>
++#include "ast_nic.h"
++
++#define ETH_ZLEN	60
++#define RBSR_DEFAULT_VALUE	0x640
++
++#define PKTBUFSTX	4
++
++#define MAX_PHY_ADDR 32
++
++struct ast_nic_xdes {
++	u32 des[4];
++} __aligned(16);
++
++struct ast_nic_xdes ast_txdes[PKTBUFSTX];
++struct ast_nic_xdes ast_rxdes[PKTBUFSRX];
++
++struct ast_nic_priv {
++	struct ast_nic_xdes *txdes;
++	struct ast_nic_xdes *rxdes;
++	struct ast_nic_regs *regs;
++	int tx_index;
++	int rx_index;
++	int phy_addr;
 +};
 +
-+&mac1 {
-+	compatible = "aspeed,ast2500-nic";
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_mac2link_default>, <&pinctrl_mdio2_default>;
++static int ast_nic_ofdata_to_platdata(struct udevice *dev)
++{
++	struct ast_nic_priv *priv = dev_get_priv(dev);
++	struct eth_pdata *platdata = dev_get_platdata(dev);
++
++	priv->regs = dev_get_addr_ptr(dev);
++	priv->txdes = ast_txdes;
++	priv->rxdes = ast_rxdes;
++	platdata->iobase = (phys_addr_t)priv->regs;
++
++	return 0;
++}
++
++static void ast_nic_reset(struct udevice *dev)
++{
++	struct ast_nic_priv *priv = dev_get_priv(dev);
++
++	setbits_le32(&priv->regs->maccr, MAC_MACCR_SW_RST);
++	while (readl(&priv->regs->maccr) & MAC_MACCR_SW_RST)
++		;
++	/*
++	 * Only needed for ast2400, for ast2500 this is the no-op,
++	 * because the register is marked read-only.
++	 */
++	setbits_le32(&priv->regs->fear0, MAC_FEAR_NEW_MD_IFACE);
++}
++
++static int ast_nic_phy_read(struct udevice *dev, int phy_addr,
++			    int regnum, u16 *value)
++{
++	struct ast_nic_priv *priv = dev_get_priv(dev);
++	int phycr;
++	int i;
++
++	phycr = MAC_PHYCR_FIRE | MAC_PHYCR_ST_22 | MAC_PHYCR_READ |
++	    (phy_addr << MAC_PHYCR_PHYAD_SHIFT) |
++	    (regnum << MAC_PHYCR_REGAD_SHIFT);
++
++	writel(phycr, &priv->regs->phycr);
++
++	for (i = 0; i < 10; i++) {
++		phycr = readl(&priv->regs->phycr);
++
++		if ((phycr & MAC_PHYCR_FIRE) == 0) {
++			int data;
++
++			data = readl(&priv->regs->phydata);
++			*value = (data & MAC_PHYDATA_MIIRDATA_MASK) >>
++			    MAC_PHYDATA_MIIRDATA_SHIFT;
++
++			return 0;
++		}
++
++		mdelay(10);
++	}
++
++	debug("mdio read timed out\n");
++	return -ETIMEDOUT;
++}
++
++static int ast_nic_phy_write(struct udevice *dev, int phy_addr,
++	int regnum, u16 value)
++{
++	struct ast_nic_priv *priv = dev_get_priv(dev);
++	int phycr;
++	int i;
++
++	phycr = (value << MAC_PHYDATA_MIIWDATA_SHIFT) |
++			MAC_PHYCR_FIRE | MAC_PHYCR_ST_22 |
++			MAC_PHYCR_WRITE |
++			(phy_addr << MAC_PHYCR_PHYAD_SHIFT) |
++			(regnum << MAC_PHYCR_REGAD_SHIFT);
++
++	writel(phycr, &priv->regs->phycr);
++
++	for (i = 0; i < 10; i++) {
++		phycr = readl(&priv->regs->phycr);
++
++		if ((phycr & MAC_PHYCR_FIRE) == 0) {
++			debug("(phycr & MAC_PHYCR_MIIWR) == 0: phy_addr: %x\n",
++			      phy_addr);
++			return 0;
++		}
++
++		mdelay(10);
++	}
++
++	debug("mdio write timed out\n");
++
++	return -ETIMEDOUT;
++}
++
++#if defined(CONFIG_MII) || defined(CONFIG_CMD_MII)
++static int ast_nic_reg_read(struct mii_dev *bus, int addr, int devad, int reg)
++{
++	struct udevice *dev = eth_get_dev_by_name(bus->name);
++	u16 value;
++
++	ast_nic_phy_read(dev, addr, reg, &value);
++
++	return value;
++}
++
++static int ast_nic_reg_write(struct mii_dev *bus, int addr, int devad, int reg,
++			     u16 value)
++{
++	struct udevice *dev = eth_get_dev_by_name(bus->name);
++
++	return ast_nic_phy_write(dev, addr, reg, value);
++}
++#endif
++
++static int ast_nic_probe(struct udevice *dev)
++{
++	struct clk mac_clk;
++	struct clk d2pll_clk;
++	int ret;
++
++	debug("%s()\n", __func__);
++
++	ret = clk_get_by_index(dev, 0, &mac_clk);
++	if (ret) {
++		debug("%s(): get_clk_by_index failed: %d\n", __func__, ret);
++		return ret;
++	}
++
++	clk_enable(&mac_clk);
++
++	ret = clk_get_by_index(dev, 1, &d2pll_clk);
++	if (ret) {
++		debug("%s(): get_clk_by_index failed: %d\n", __func__, ret);
++		return ret;
++	}
++
++	clk_enable(&d2pll_clk);
++
++#if defined(CONFIG_MII) || defined(CONFIG_CMD_MII)
++	struct mii_dev *mdiodev = mdio_alloc();
++	if (!mdiodev)
++		return -ENOMEM;
++	strncpy(mdiodev->name, dev->name, MDIO_NAME_LEN);
++	mdiodev->read = ast_nic_reg_read;
++	mdiodev->write = ast_nic_reg_write;
++
++	ret = mdio_register(mdiodev);
++	if (ret < 0)
++		return ret;
++#endif
++
++	ast_nic_reset(dev);
++
++	return 0;
++}
++
++static int ast_nic_phy_reset(struct udevice *dev)
++{
++	struct ast_nic_priv *priv = dev_get_priv(dev);
++	int i;
++	u16 status, adv;
++
++	adv = ADVERTISE_CSMA | ADVERTISE_ALL;
++
++	ast_nic_phy_write(dev, priv->phy_addr, MII_ADVERTISE, adv);
++
++	printf("%s: Starting autonegotiation...\n", dev->name);
++
++	ast_nic_phy_write(dev, priv->phy_addr,
++			  MII_BMCR, (BMCR_ANENABLE | BMCR_ANRESTART));
++
++	for (i = 0; i < 1000; i++) {
++		ast_nic_phy_read(dev, priv->phy_addr, MII_BMSR, &status);
++
++		if (status & BMSR_ANEGCOMPLETE)
++			break;
++		mdelay(1);
++	}
++
++	if (status & BMSR_ANEGCOMPLETE) {
++		printf("%s: Autonegotiation complete\n", dev->name);
++	} else {
++		printf("%s: Autonegotiation timed out (status=0x%04x)\n",
++		       dev->name, status);
++		return -ETIMEDOUT;
++	}
++
++	return 0;
++}
++
++static int ast_nic_phy_init(struct udevice *dev)
++{
++	struct ast_nic_priv *priv = dev_get_priv(dev);
++	int phy_addr;
++	u16 phy_id, status, adv, lpa, stat_ge;
++	int media, speed, duplex;
++	int i;
++
++	/* Check if the PHY is up to snuff... */
++	for (phy_addr = 0; phy_addr < MAX_PHY_ADDR; phy_addr++) {
++		ast_nic_phy_read(dev, phy_addr, MII_PHYSID1, &phy_id);
++
++		/*
++		 * When it is unable to found PHY,
++		 * the interface usually return 0xffff or 0x0000
++		 */
++		if (phy_id != 0xffff && phy_id != 0x0) {
++			debug("%s: found PHY at 0x%02x\n", dev->name, phy_addr);
++			priv->phy_addr = phy_addr;
++			break;
++		}
++	}
++
++	if (phy_id == 0xffff || phy_id == 0x0) {
++		debug("%s: no PHY present\n", dev->name);
++		return -ENODEV;
++	}
++
++	ast_nic_phy_read(dev, priv->phy_addr, MII_BMSR, &status);
++
++	if (!(status & BMSR_LSTATUS)) {
++		/* Try to re-negotiate if we don't have link already. */
++		ast_nic_phy_reset(dev);
++
++		for (i = 0; i < 100000 / 100; i++) {
++			ast_nic_phy_read(dev, priv->phy_addr,
++					 MII_BMSR, &status);
++			if (status & BMSR_LSTATUS)
++				break;
++			udelay(100);
++		}
++	}
++
++	if (!(status & BMSR_LSTATUS)) {
++		printf("%s: link down\n", dev->name);
++		return -ENOLINK;
++	}
++
++	/* 1000 Base-T Status Register */
++	ast_nic_phy_read(dev, priv->phy_addr, MII_STAT1000, &stat_ge);
++
++	speed = (stat_ge & (LPA_1000FULL | LPA_1000HALF)
++		 ? 1 : 0);
++
++	duplex = ((stat_ge & LPA_1000FULL)
++		  ? 1 : 0);
++
++	if (speed) {		/* Speed is 1000 */
++		debug("%s: link up, 1000bps %s-duplex\n",
++		      dev->name, duplex ? "full" : "half");
++		return 0;
++	}
++
++	ast_nic_phy_read(dev, priv->phy_addr, MII_ADVERTISE, &adv);
++	ast_nic_phy_read(dev, priv->phy_addr, MII_LPA, &lpa);
++
++	media = mii_nway_result(lpa & adv);
++	speed = (media & (ADVERTISE_100FULL | ADVERTISE_100HALF) ? 1 : 0);
++	duplex = (media & ADVERTISE_FULL) ? 1 : 0;
++
++	debug("%s: link up, %sMbps %s-duplex\n",
++	      dev->name, speed ? "100" : "10", duplex ? "full" : "half");
++
++	return 0;
++}
++
++static int ast_nic_update_link_speed(struct udevice *dev)
++{
++	struct ast_nic_priv *priv = dev_get_priv(dev);
++	u16 stat_fe;
++	u16 stat_ge;
++	u32 maccr;
++
++	/* 1000 Base-T Status Register */
++	ast_nic_phy_read(dev, priv->phy_addr, MII_STAT1000, &stat_ge);
++	ast_nic_phy_read(dev, priv->phy_addr, MII_BMSR, &stat_fe);
++
++	if (!(stat_fe & BMSR_LSTATUS))	/* link status up? */
++		return -EIO;
++
++	/* read MAC control register and clear related bits */
++	maccr = readl(&priv->regs->maccr) &
++		~(MAC_MACCR_GIGA_MODE |
++		  MAC_MACCR_FAST_MODE |
++		  MAC_MACCR_FULLDUP);
++
++	if (stat_ge & LPA_1000FULL) {
++		/* set gmac for 1000BaseTX and Full Duplex */
++		maccr |= MAC_MACCR_GIGA_MODE | MAC_MACCR_FULLDUP;
++	}
++
++	if (stat_ge & LPA_1000HALF) {
++		/* set gmac for 1000BaseTX and Half Duplex */
++		maccr |= MAC_MACCR_GIGA_MODE;
++	}
++
++	if (stat_fe & BMSR_100FULL) {
++		/* set MII for 100BaseTX and Full Duplex */
++		maccr |= MAC_MACCR_FAST_MODE | MAC_MACCR_FULLDUP;
++	}
++
++	if (stat_fe & BMSR_10FULL) {
++		/* set MII for 10BaseT and Full Duplex */
++		maccr |= MAC_MACCR_FULLDUP;
++	}
++
++	if (stat_fe & BMSR_100HALF) {
++		/* set MII for 100BaseTX and Half Duplex */
++		maccr |= MAC_MACCR_FAST_MODE;
++	}
++
++	if (stat_fe & BMSR_10HALF) {
++		/* set MII for 10BaseT and Half Duplex */
++		/* we have already clear these bits, do nothing */
++		;
++	}
++
++	/* update MII config into maccr */
++	writel(maccr, &priv->regs->maccr);
++
++	return 0;
++}
++
++static int ast_nic_start(struct udevice *dev)
++{
++	struct ast_nic_priv *priv = dev_get_priv(dev);
++	struct ast_nic_xdes *txdes = priv->txdes;
++	struct ast_nic_xdes *rxdes = priv->rxdes;
++	u32 maccr;
++	int i;
++
++	debug("%s()\n", __func__);
++
++	ast_nic_reset(dev);
++
++	/* disable all interrupts */
++	writel(0, &priv->regs->ier);
++
++	/* initialize descriptors */
++	priv->tx_index = 0;
++	priv->rx_index = 0;
++
++	txdes[PKTBUFSTX - 1].des[0]	= cpu_to_le32(MAC_TXDES0_EDOTR);
++	rxdes[PKTBUFSRX - 1].des[0]	= cpu_to_le32(MAC_RXDES0_EDORR);
++
++	for (i = 0; i < PKTBUFSTX; i++) {
++		/* TXBUF_BADR */
++		txdes[i].des[3] = 0;
++		txdes[i].des[1] = 0;
++	}
++
++	for (i = 0; i < PKTBUFSRX; i++) {
++		/* RXBUF_BADR */
++		rxdes[i].des[3] = (u32)net_rx_packets[i];
++
++		rxdes[i].des[0] &= ~MAC_RXDES0_RXPKT_RDY;
++	}
++
++	/* transmit ring */
++	writel((u32)txdes, &priv->regs->txr_badr);
++
++	/* receive ring */
++	writel((u32)rxdes, &priv->regs->rxr_badr);
++
++	/* poll receive descriptor automatically */
++	writel((1 << MAC_APTC_RXPOLL_CNT_SHIFT), &priv->regs->aptc);
++
++	/* config receive buffer size register */
++	writel(RBSR_DEFAULT_VALUE, &priv->regs->rbsr);
++
++	/* enable transmitter, receiver */
++	maccr = MAC_MACCR_TXMAC_EN |
++		MAC_MACCR_RXMAC_EN |
++		MAC_MACCR_TXDMA_EN |
++		MAC_MACCR_RXDMA_EN |
++		MAC_MACCR_FULLDUP |
++		MAC_MACCR_CRC_APD |
++		MAC_MACCR_RX_RUNT |
++		MAC_MACCR_RX_BROADPKT;
++
++	writel(maccr, &priv->regs->maccr);
++
++	ast_nic_phy_init(dev);
++
++	return ast_nic_update_link_speed(dev);
++}
++
++static void ast_nic_stop(struct udevice *dev)
++{
++	struct ast_nic_priv *priv = dev_get_priv(dev);
++
++	debug("%s()\n", __func__);
++
++	clrbits_le32(&priv->regs->maccr,
++		     MAC_MACCR_TXDMA_EN | MAC_MACCR_RXDMA_EN |
++		     MAC_MACCR_TXMAC_EN | MAC_MACCR_RXMAC_EN);
++}
++
++static int ast_nic_send(struct udevice *dev, void *packet, int length)
++{
++	struct ast_nic_priv *priv = dev_get_priv(dev);
++	struct ast_nic_xdes *curr_des = &priv->txdes[priv->tx_index];
++	unsigned long start;
++	unsigned long now;
++	unsigned long diff_time;
++
++	if (curr_des->des[0] & MAC_TXDES0_TXDMA_OWN) {
++		debug("%s(): no TX descriptor available\n", __func__);
++		return -EIO;
++	}
++
++	debug("%s(%x, %x)\n", __func__, (int)packet, length);
++
++	length = (length < ETH_ZLEN) ? ETH_ZLEN : length;
++
++	/* initiate a transmit sequence */
++	curr_des->des[3] = (u32) packet;	/* TXBUF_BADR */
++
++	curr_des->des[0] &= MAC_TXDES0_EDOTR;
++
++	curr_des->des[0] |= (MAC_TXDES0_FTS |
++			     MAC_TXDES0_LTS |
++			     ((length << MAC_TXDES0_TXBUF_SIZE_SHIFT) &
++			      MAC_TXDES0_TXBUF_SIZE_MASK) |
++			     MAC_TXDES0_TXDMA_OWN);
++
++	/* start transmit */
++	writel(1, &priv->regs->txpd);
++	invalidate_dcache_range((u32) curr_des,
++				(u32) curr_des + sizeof(*curr_des));
++
++	/* wait for transfer to succeed */
++	start = get_timer(0);
++
++	while (curr_des->des[0] & MAC_TXDES0_TXDMA_OWN) {
++		now = get_timer(0);
++		if (now < start)
++			now += 0xffffffff;
++		diff_time = now - start;
++		if (diff_time >= 5000) {
++			debug("%s(): timed out\n", __func__);
++			return -ETIMEDOUT;
++		}
++	}
++
++	debug("%s(): packet sent\n", __func__);
++
++	priv->tx_index = (priv->tx_index + 1) % PKTBUFSTX;
++
++	return 0;
++}
++
++static int ast_nic_recv(struct udevice *dev, int flags, uchar **packetp)
++{
++	struct ast_nic_priv *priv = dev_get_priv(dev);
++	struct ast_nic_xdes *curr_des;
++	unsigned short rxlen;
++
++	curr_des = &priv->rxdes[priv->rx_index];
++
++	invalidate_dcache_range((u32) curr_des,
++				(u32) curr_des + sizeof(*curr_des));
++
++	if (!(curr_des->des[0] & MAC_RXDES0_RXPKT_RDY))
++		return -ENOMSG;
++
++	if (curr_des->des[0] & (MAC_RXDES0_RX_ERR |
++				MAC_RXDES0_CRC_ERR |
++				MAC_RXDES0_FTL |
++				MAC_RXDES0_RUNT | MAC_RXDES0_RX_ODD_NB)) {
++		return -EIO;
++	}
++
++	rxlen =
++	    (curr_des->des[0] >> MAC_RXDES0_VDBC_SHIFT) & MAC_RXDES0_VDBC_MASK;
++
++	debug("%s(): RX buffer %d, %x received\n",
++	      __func__, priv->rx_index, rxlen);
++
++	invalidate_dcache_range((u32) curr_des->des[3],
++				(u32) curr_des->des[3] + rxlen);
++
++	/* pass the packet up to the protocol layers. */
++	net_process_received_packet((void *)curr_des->des[3], rxlen);
++
++	curr_des->des[0] &= ~MAC_RXDES0_RXPKT_RDY;
++
++	priv->rx_index = (priv->rx_index + 1) % PKTBUFSRX;
++
++	return 0;
++}
++
++static int ast_nic_write_hwaddr(struct udevice *dev)
++{
++	struct ast_nic_priv *priv = dev_get_priv(dev);
++	struct eth_pdata *platdata = dev_get_platdata(dev);
++	u32 madr, ladr;
++
++	debug("%s(%pM)\n", __func__, platdata->enetaddr);
++
++	madr = platdata->enetaddr[0] << 8 | platdata->enetaddr[1];
++	ladr = platdata->enetaddr[2] << 24 | platdata->enetaddr[3] << 16
++	    | platdata->enetaddr[4] << 8 | platdata->enetaddr[5];
++
++	writel(madr, &priv->regs->mac_madr);
++	writel(ladr, &priv->regs->mac_ladr);
++
++	return 0;
++}
++
++static const struct eth_ops ast_nic_ops = {
++	.start = ast_nic_start,
++	.send = ast_nic_send,
++	.recv = ast_nic_recv,
++	.stop = ast_nic_stop,
++	.write_hwaddr = ast_nic_write_hwaddr,
 +};
-diff --git a/configs/evb-ast2500_defconfig b/configs/evb-ast2500_defconfig
-index 08b5f85a34..d1548f7f3c 100644
---- a/configs/evb-ast2500_defconfig
-+++ b/configs/evb-ast2500_defconfig
-@@ -21,3 +21,10 @@ CONFIG_PINCTRL=y
- CONFIG_DM_I2C=y
- CONFIG_SYS_I2C_ASPEED=y
- CONFIG_CMD_I2C=y
-+CONFIG_DM_ETH=y
-+CONFIG_AST_NIC=y
-+CONFIG_CMD_NET=y
-+CONFIG_CMD_PING=y
-+CONFIG_CMD_DHCP=y
-+CONFIG_MII=y
-+CONFIG_CMD_MII=y
++
++static const struct udevice_id ast_nic_ids[] = {
++	{ .compatible = "aspeed,ast2500-nic" },
++	{ .compatible = "aspeed,ast2400-nic" },
++	{ }
++};
++
++U_BOOT_DRIVER(ast_nic) = {
++	.name	= "ast_nic",
++	.id	= UCLASS_ETH,
++	.of_match = ast_nic_ids,
++	.probe	= ast_nic_probe,
++	.ops	= &ast_nic_ops,
++	.ofdata_to_platdata = ast_nic_ofdata_to_platdata,
++	.priv_auto_alloc_size = sizeof(struct ast_nic_priv),
++	.platdata_auto_alloc_size = sizeof(struct eth_pdata),
++};
+diff --git a/drivers/net/ast_nic.h b/drivers/net/ast_nic.h
+new file mode 100644
+index 0000000000..0d4332bd95
+--- /dev/null
++++ b/drivers/net/ast_nic.h
+@@ -0,0 +1,198 @@
++/*
++ * (C) Copyright 2010 Faraday Technology
++ * Po-Yu Chuang <ratbert@faraday-tech.com>
++ *
++ * (C) Copyright 2010 Andes Technology
++ * Macpaul Lin <macpaul@andestech.com>
++ *
++ * Copyright 2017 Google Inc
++ *
++ * SPDX-License-Identifier:	GPL-2.0+
++ */
++
++#ifndef __AST_NIC_H
++#define __AST_NIC_H
++
++struct ast_nic_regs {
++	u32	isr;		/* 0x00 */
++	u32	ier;		/* 0x04 */
++	u32	mac_madr;	/* 0x08 */
++	u32	mac_ladr;	/* 0x0c */
++	u32	maht0;		/* 0x10 */
++	u32	maht1;		/* 0x14 */
++	u32	txpd;		/* 0x18 */
++	u32	rxpd;		/* 0x1c */
++	u32	txr_badr;	/* 0x20 */
++	u32	rxr_badr;	/* 0x24 */
++	u32	hptxpd;		/* 0x28 */
++	u32	hptxpd_badr;	/* 0x2c */
++	u32	itc;		/* 0x30 */
++	u32	aptc;		/* 0x34 */
++	u32	dblac;		/* 0x38 */
++	u32	dmafifos;	/* 0x3c */
++	u32	fear0;		/* 0x40 */
++	u32	fear1;		/* 0x44 */
++	u32	tpafcr;		/* 0x48 */
++	u32	rbsr;		/* 0x4c */
++	u32	maccr;		/* 0x50 */
++	u32	macsr;		/* 0x54 */
++	u32	tm;		/* 0x58 */
++	u32	physts;		/* 0x5c */
++	u32	phycr;		/* 0x60 */
++	u32	phydata;	/* 0x64 */
++	u32	fcr;		/* 0x68 */
++	u32	bpr;		/* 0x6c */
++	u32	wolcr;		/* 0x70 */
++	u32	wolsr;		/* 0x74 */
++	u32	wfbm1m;		/* 0x78 */
++	u32	wfbm1l;		/* 0x7c */
++	u32	wfbm2m;		/* 0x80 */
++	u32	wfbm2l;		/* 0x84 */
++	u32	wfbm3m;		/* 0x88 */
++	u32	wfbm3l;		/* 0x8c */
++	u32	nptxr_ptr;	/* 0x90 */
++	u32	hptxr_ptr;	/* 0x94 */
++	u32	rxr_ptr;	/* 0x98 */
++	u32	resv3;		/* 0x9c */
++	u32	tx;		/* 0xa0 */
++	u32	tx_mcol_scol;	/* 0xa4 */
++	u32	tx_ecol_fail;	/* 0xa8 */
++	u32	tx_lcol_und;	/* 0xac */
++	u32	rx;		/* 0xb0 */
++	u32	rx_bc;		/* 0xb4 */
++	u32	rx_mc;		/* 0xb8 */
++	u32	rx_pf_aep;	/* 0xbc */
++	u32	rx_runt;	/* 0xc0 */
++	u32	rx_crcer_ftl;	/* 0xc4 */
++	u32	rx_col_lost;	/* 0xc8 */
++};
++
++/*
++ * Interrupt status register & interrupt enable register
++ */
++#define MAC_INT_RPKT_BUF		(1 << 0)
++#define MAC_INT_RPKT_FIFO		(1 << 1)
++#define MAC_INT_NO_RXBUF		(1 << 2)
++#define MAC_INT_RPKT_LOST		(1 << 3)
++#define MAC_INT_XPKT_ETH		(1 << 4)
++#define MAC_INT_XPKT_FIFO		(1 << 5)
++#define MAC_INT_NO_NPTXBUF	(1 << 6)
++#define MAC_INT_XPKT_LOST		(1 << 7)
++#define MAC_INT_AHB_ERR		(1 << 8)
++#define MAC_INT_PHYSTS_CHG	(1 << 9)
++#define MAC_INT_NO_HPTXBUF	(1 << 10)
++#define MAC_INT_PHY_CHG		(1 << 28)
++#define MAC_INT_PHY_TIMEOUT	(1 << 29)
++#define MAC_INT_FLAG_ACK		(1 << 30)
++#define MAC_INT_FLAG_REQ		(1 << 31)
++
++/*
++ * MAC control register
++ */
++#define MAC_MACCR_TXDMA_EN	(1 << 0)
++#define MAC_MACCR_RXDMA_EN	(1 << 1)
++#define MAC_MACCR_TXMAC_EN	(1 << 2)
++#define MAC_MACCR_RXMAC_EN	(1 << 3)
++#define MAC_MACCR_RM_VLAN		(1 << 4)
++#define MAC_MACCR_HPTXR_EN	(1 << 5)
++#define MAC_MACCR_LOOP_EN		(1 << 6)
++#define MAC_MACCR_ENRX_IN_HALFTX	(1 << 7)
++#define MAC_MACCR_FULLDUP		(1 << 8)
++#define MAC_MACCR_GIGA_MODE	(1 << 9)
++#define MAC_MACCR_CRC_APD		(1 << 10)
++#define MAC_MACCR_LOW_SEN		(1 << 11)
++#define MAC_MACCR_RX_RUNT		(1 << 12)
++#define MAC_MACCR_JUMBO_LF	(1 << 13)
++#define MAC_MACCR_RX_ALL		(1 << 14)
++#define MAC_MACCR_HT_MULTI_EN	(1 << 15)
++#define MAC_MACCR_RX_MULTIPKT	(1 << 16)
++#define MAC_MACCR_RX_BROADPKT	(1 << 17)
++#define MAC_MACCR_DISCARD_CRCERR	(1 << 18)
++#define MAC_MACCR_FAST_MODE	(1 << 19)
++#define MAC_MACCR_SW_RST		(1 << 31)
++
++/*
++ * Feature Enable Register
++ */
++#define MAC_FEAR_NEW_MD_IFACE		(1 << 31)
++#define MAC_FEAR_LOOPBACK			(1 << 30)
++
++/*
++ * Automatic polling timer control register
++ */
++#define MAC_APTC_RXPOLL_CNT_SHIFT	0
++#define MAC_APTC_RXPOLL_CNT_MASK	0xf
++#define MAC_APTC_RXPOLL_TIME_SEL	(1 << 4)
++#define MAC_APTC_TXPOLL_CNT_SHIFT	8
++#define MAC_APTC_TXPOLL_CNT_MASK	(0xf << MAC_APTC_TXPOLL_CNT_SHIFT)
++#define MAC_APTC_TXPOLL_TIME_SEL	(1 << 12)
++
++/*
++ * Receive buffer size register
++ */
++#define MAC_RBSR_SIZE_MASK		0x3fff
++
++/*
++ * PHY control register
++ */
++#define MAC_PHYCR_FIRE		(1 << 15)
++#define MAC_PHYCR_ST_22		(1 << 12)
++#define MAC_PHYCR_WRITE		(1 << 10)
++#define MAC_PHYCR_READ		(2 << 10)
++#define MAC_PHYCR_PHYAD_SHIFT	5
++#define MAC_PHYCR_PHYAD_MASK	(0x1f << MAC_PHYCR_PHYAD_SHIFT)
++#define MAC_PHYCR_REGAD_SHIFT	0
++#define MAC_PHYCR_REGAD_MASK	(0x1f << MAC_PHYCR_REGAD_SHIFT)
++
++/*
++ * PHY data register
++ */
++#define MAC_PHYDATA_MIIRDATA_SHIFT	0
++#define MAC_PHYDATA_MIIRDATA_MASK	(0xffff << MAC_PHYDATA_MIIRDATA_SHIFT)
++#define MAC_PHYDATA_MIIWDATA_SHIFT	16
++#define MAC_PHYDATA_MIIWDATA_MASK	(0xffff << MAC_PHYDATA_MIIWDATA_SHIFT)
++
++#define MAC_TXDES0_TXBUF_SIZE_SHIFT	0
++#define MAC_TXDES0_TXBUF_SIZE_MASK	0x3fff
++#define MAC_TXDES0_CRC_ERR	(1 << 19)
++#define MAC_TXDES0_LTS		(1 << 28)
++#define MAC_TXDES0_FTS		(1 << 29)
++#define MAC_TXDES0_EDOTR		(1 << 30)
++#define MAC_TXDES0_TXDMA_OWN	(1 << 31)
++
++#define MAC_TXDES1_INS_VLANTAG	(1 << 16)
++#define MAC_TXDES1_LLC		(1 << 22)
++#define MAC_TXDES1_TX2FIC		(1 << 30)
++#define MAC_TXDES1_TXIC		(1 << 31)
++
++#define MAC_RXDES0_VDBC_SHIFT	0
++#define MAC_RXDES0_VDBC_MASK	0x3fff
++#define MAC_RXDES0_MULTICAST	(1 << 16)
++#define MAC_RXDES0_BROADCAST	(1 << 17)
++#define MAC_RXDES0_RX_ERR		(1 << 18)
++#define MAC_RXDES0_CRC_ERR	(1 << 19)
++#define MAC_RXDES0_FTL		(1 << 20)
++#define MAC_RXDES0_RUNT		(1 << 21)
++#define MAC_RXDES0_RX_ODD_NB	(1 << 22)
++#define MAC_RXDES0_FIFO_FULL	(1 << 23)
++#define MAC_RXDES0_PAUSE_OPCODE	(1 << 24)
++#define MAC_RXDES0_PAUSE_FRAME	(1 << 25)
++#define MAC_RXDES0_LRS		(1 << 28)
++#define MAC_RXDES0_FRS		(1 << 29)
++#define MAC_RXDES0_EDORR		(1 << 30)
++#define MAC_RXDES0_RXPKT_RDY	(1 << 31)
++
++#define MAC_RXDES1_VLANTAG_CI	0xffff
++#define MAC_RXDES1_PROT_MASK	(0x3 << 20)
++#define MAC_RXDES1_PROT_NONIP	(0x0 << 20)
++#define MAC_RXDES1_PROT_IP	(0x1 << 20)
++#define MAC_RXDES1_PROT_TCPIP	(0x2 << 20)
++#define MAC_RXDES1_PROT_UDPIP	(0x3 << 20)
++#define MAC_RXDES1_LLC		(1 << 22)
++#define MAC_RXDES1_DF		(1 << 23)
++#define MAC_RXDES1_VLANTAG_AVAIL	(1 << 24)
++#define MAC_RXDES1_TCP_CHKSUM_ERR	(1 << 25)
++#define MAC_RXDES1_UDP_CHKSUM_ERR	(1 << 26)
++#define MAC_RXDES1_IP_CHKSUM_ERR	(1 << 27)
++
++#endif  /* __AST_NIC_H */
 -- 
 2.12.0.367.g23dc2f6d3c-goog
