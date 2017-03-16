@@ -1,50 +1,50 @@
 Return-Path: <maxims@google.com>
-Received: from mail-pf0-x235.google.com (mail-pf0-x235.google.com
- [IPv6:2607:f8b0:400e:c00::235])
+Received: from mail-pg0-x233.google.com (mail-pg0-x233.google.com
+ [IPv6:2607:f8b0:400e:c05::233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vkhcm1vsgzDqY5
- for <openbmc@lists.ozlabs.org>; Fri, 17 Mar 2017 08:36:40 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vkhcn2YhczDqY5
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Mar 2017 08:36:41 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="RcN8qiPD"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="rZ/mrJoa"; 
  dkim-atps=neutral
-Received: by mail-pf0-x235.google.com with SMTP id o126so30112909pfb.3
- for <openbmc@lists.ozlabs.org>; Thu, 16 Mar 2017 14:36:40 -0700 (PDT)
+Received: by mail-pg0-x233.google.com with SMTP id n190so31126997pga.0
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Mar 2017 14:36:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=dXhmAoFIWwfIC2XtE1M6uaSzNL4HEa5yBeJ1jgMXGJQ=;
- b=RcN8qiPDLOtzLRcJxQcf6Nhw80spvJqh1+twYXnNrkUHayMoD/77urRUqiNv6Jjzyq
- dA82U3xmQdRZK8G10GCv6g5CA6aaIbyRmBuo/G2SYR45VKEXPzBtpACIGTJ9a0NoQa8N
- 4vMVS/G2Q4a8kB02uXgM8Xg0g4rzp4d43muu4hJa3t/JBuKSNDU6nFwweov8zdORK0i6
- 83NVKpFtJeCscCGgYw3V4KV1wmDzcKV2goRn3ND3AGgeOd5mBGBnVMsRGRygkxwO4PZc
- IKb/k3LSPz9Lu/qZ81UXVLXcfLDdH4AUU0BfJqegQu6Gt8boNvRcrE2TAxj8Qq5JuehJ
- mC+A==
+ bh=SHuXvieCzQqH2F4BXhD8gcli8yN/VwJz8RfHK8udV3k=;
+ b=rZ/mrJoadiy8Saa99el2XxNj9nzcAutvt/nXopEnrpUlVWsj27BgWBkuZBmDqqvXbV
+ slwDw26XvNy6W0KcCWeScYHuUz+8gZNotJVNxVpERo7kEgcJwZ1QDe2LAdCTfOc46jnh
+ 5loD5KYtkMLi06dVVJmKORAplqIimR6JMbjKQf4wHDqGIKEP7ad7LV0D8iaUnvyddRbz
+ +LK9t49f5q2lq9wvcsuyUXbsaRGPYol4TDaWnMkS9Hi7Uq/UfMY35PLfa67d4xFIFhnU
+ N95rVSoySRFd+phJYRFe9s7RZ3lr3uZnLqJ/Hf9uh6YJDyS324e8Kgl7hNNsGLDV8Clu
+ moag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=dXhmAoFIWwfIC2XtE1M6uaSzNL4HEa5yBeJ1jgMXGJQ=;
- b=Tu7AhR6KnBGH4bFfSgMTPmRUfmxFYWd61vQsfQ+bRJqJ5tUcxXzGS2oaH0HKnmWq17
- w9EVq7jH7lutj1WOHEiM7uCGIqrF4M4fJyO2RwYLWFiR4HeqWdBpuWfEI1ioUSTM9lOZ
- A0gzreQFoXcBuNQrksbex1MX0QMCdrxGXCndMWnShnJqL3wES6CGkcbEq9oaN2hB7+vS
- 16UBO0V3EO6rEVmGjti78Xf5cvdduajaB/Cs32kOlSg8ECxqqgYQUfQw2UpbsSFYECWW
- wSTIiblF3rtiJyXYLbg9xzO9ChCg1z7Wxr9GttYaVo5sFOp9Nc5jE7zX/f2mvnNf/ZeK
- lbrg==
-X-Gm-Message-State: AFeK/H0xypTC5o3rVtCuVgumvWVJvIdle85zAGvCuy1xEWhhp3ASaqxlDbPTAwnr8nN7/Iup
-X-Received: by 10.84.138.1 with SMTP id 1mr15208849plo.29.1489700198103;
- Thu, 16 Mar 2017 14:36:38 -0700 (PDT)
+ bh=SHuXvieCzQqH2F4BXhD8gcli8yN/VwJz8RfHK8udV3k=;
+ b=cozRmFCix/SvvwiP7yvpFRJV1+5cZFjP7cq+8Pk8ROz9JUNDVZXlcwKsQDCJp1QIce
+ mJAnoWaeYgujurXfdRkm28qj2mzlxZbHddzlqoA+6RCLDvq/InWpzvEFJAklUSeiC7DN
+ +B92NWfnoM3aDiakbUI6pQkEPVud+yyjWrGIdBgA7dlMkcz1y4uF4JtT5kFAwmf+soTw
+ botduEDPlTSJAzgE5Nw4olRmXPzp+Bp5uOMSB9EK4YoAMnDouefojAANalilxvqlg4Bd
+ 69cc4KSWnMv8A/wqy1kwIzdDhhygFM1Z6mx0CkUn+Iix69hWhI5YqW69vegH1wx6fMle
+ 693A==
+X-Gm-Message-State: AFeK/H3y8Yq8FcaQbYa3o3y5a0Gm+9fW7fqrqIB9hEfxb1vmGSI/mZmdic11wweVZqQ7SGFV
+X-Received: by 10.84.216.91 with SMTP id f27mr15311495plj.10.1489700199019;
+ Thu, 16 Mar 2017 14:36:39 -0700 (PDT)
 Received: from mxsl.svl.corp.google.com ([100.123.242.80])
- by smtp.gmail.com with ESMTPSA id v17sm2191375pgc.20.2017.03.16.14.36.37
+ by smtp.gmail.com with ESMTPSA id v17sm2191375pgc.20.2017.03.16.14.36.38
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Thu, 16 Mar 2017 14:36:37 -0700 (PDT)
+ Thu, 16 Mar 2017 14:36:38 -0700 (PDT)
 From: Maxim Sloyko <maxims@google.com>
 To: u-boot@lists.denx.de,
 	Simon Glass <sjg@chromium.org>
-Cc: openbmc@lists.ozlabs.org,
-	Maxim Sloyko <maxims@google.com>
-Subject: [PATCH 02/17] dm: Simple Watchdog uclass
-Date: Thu, 16 Mar 2017 14:36:09 -0700
-Message-Id: <20170316213624.140344-3-maxims@google.com>
+Cc: openbmc@lists.ozlabs.org, Maxim Sloyko <maxims@google.com>,
+ Albert Aribaud <albert.u.boot@aribaud.net>
+Subject: [PATCH 03/17] aspeed: Watchdog Timer Driver
+Date: Thu, 16 Mar 2017 14:36:10 -0700
+Message-Id: <20170316213624.140344-4-maxims@google.com>
 X-Mailer: git-send-email 2.12.0.367.g23dc2f6d3c-goog
 In-Reply-To: <20170316213624.140344-1-maxims@google.com>
 References: <20170316213624.140344-1-maxims@google.com>
@@ -59,56 +59,190 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Mar 2017 21:36:40 -0000
+X-List-Received-Date: Thu, 16 Mar 2017 21:36:42 -0000
 
-This is a simple uclass for Watchdog Timers. It has four operations:
-start, restart, reset, stop. Drivers must implement start, restart and
-stop operations, while implementing reset is optional: It's default
-implementation expires watchdog timer in one clock tick.
+This driver supports ast2500 and ast2400 SoCs.
+Only ast2500 supports reset_mask and thus the option of resettting
+individual peripherals using WDT.
 
 Signed-off-by: Maxim Sloyko <maxims@google.com>
 ---
 
- drivers/watchdog/Kconfig      | 11 +++++
- drivers/watchdog/Makefile     |  1 +
- drivers/watchdog/wdt-uclass.c | 79 +++++++++++++++++++++++++++++++++++
- include/dm/uclass-id.h        |  1 +
- include/wdt.h                 | 97 +++++++++++++++++++++++++++++++++++++++++++
- 5 files changed, 189 insertions(+)
- create mode 100644 drivers/watchdog/wdt-uclass.c
- create mode 100644 include/wdt.h
+ arch/arm/include/asm/arch-aspeed/wdt.h |  53 ++++++++++++--
+ arch/arm/mach-aspeed/ast_wdt.c         |  40 ++++++++---
+ drivers/watchdog/Kconfig               |  13 ++++
+ drivers/watchdog/Makefile              |   1 +
+ drivers/watchdog/ast_wdt.c             | 125 +++++++++++++++++++++++++++++++++
+ 5 files changed, 219 insertions(+), 13 deletions(-)
+ create mode 100644 drivers/watchdog/ast_wdt.c
 
+diff --git a/arch/arm/include/asm/arch-aspeed/wdt.h b/arch/arm/include/asm/arch-aspeed/wdt.h
+index b292a0e67b..981fa05a56 100644
+--- a/arch/arm/include/asm/arch-aspeed/wdt.h
++++ b/arch/arm/include/asm/arch-aspeed/wdt.h
+@@ -67,15 +67,60 @@ struct ast_wdt {
+ 	u32 timeout_status;
+ 	u32 clr_timeout_status;
+ 	u32 reset_width;
+-#ifdef CONFIG_ASPEED_AST2500
++	/* On pre-ast2500 SoCs this register is reserved. */
+ 	u32 reset_mask;
+-#else
+-	u32 reserved0;
+-#endif
+ };
+ 
++/**
++ * Given flags parameter passed to wdt_reset or wdt_start uclass functions,
++ * gets Reset Mode value from it.
++ *
++ * @flags: flags parameter passed into wdt_reset or wdt_start
++ * @return Reset Mode value
++ */
++u32 ast_reset_mode_from_flags(ulong flags);
++
++/**
++ * Given flags parameter passed to wdt_reset or wdt_start uclass functions,
++ * gets Reset Mask value from it. Reset Mask is only supported on ast2500
++ *
++ * @flags: flags parameter passed into wdt_reset or wdt_start
++ * @return Reset Mask value
++ */
++u32 ast_reset_mask_from_flags(ulong flags);
++
++/**
++ * Given Reset Mask and Reset Mode values, converts them to flags,
++ * suitable for passing into wdt_start or wdt_reset uclass functions.
++ *
++ * On ast2500 Reset Mask is 25 bits wide and Reset Mode is 2 bits wide, so they
++ * can both be packed into single 32 bits wide value.
++ *
++ * @reset_mode: Reset Mode
++ * @reset_mask: Reset Mask
++ */
++ulong ast_flags_from_reset_mode_mask(u32 reset_mode, u32 reset_mask);
++
++#ifndef CONFIG_WDT
++/**
++ * Stop WDT
++ *
++ * @wdt: watchdog to stop
++ *
++ * When using driver model this function has different signature
++ */
+ void wdt_stop(struct ast_wdt *wdt);
++
++/**
++ * Stop WDT
++ *
++ * @wdt: watchdog to start
++ * @timeout	watchdog timeout in number of clock ticks
++ *
++ * When using driver model this function has different signature
++ */
+ void wdt_start(struct ast_wdt *wdt, u32 timeout);
++#endif  /* CONFIG_WDT */
+ 
+ /**
+  * Reset peripherals specified by mask
+diff --git a/arch/arm/mach-aspeed/ast_wdt.c b/arch/arm/mach-aspeed/ast_wdt.c
+index 22481ab7ea..895fba3366 100644
+--- a/arch/arm/mach-aspeed/ast_wdt.c
++++ b/arch/arm/mach-aspeed/ast_wdt.c
+@@ -9,6 +9,27 @@
+ #include <asm/arch/wdt.h>
+ #include <linux/err.h>
+ 
++u32 ast_reset_mode_from_flags(ulong flags)
++{
++	return flags & WDT_CTRL_RESET_MASK;
++}
++
++u32 ast_reset_mask_from_flags(ulong flags)
++{
++	return flags >> 2;
++}
++
++ulong ast_flags_from_reset_mode_mask(u32 reset_mode, u32 reset_mask)
++{
++	ulong ret = reset_mode & WDT_CTRL_RESET_MASK;
++
++	if (ret == WDT_CTRL_RESET_SOC)
++		ret |= (reset_mask << 2);
++
++	return ret;
++}
++
++#ifndef CONFIG_WDT
+ void wdt_stop(struct ast_wdt *wdt)
+ {
+ 	clrbits_le32(&wdt->ctrl, WDT_CTRL_EN);
+@@ -26,15 +47,7 @@ void wdt_start(struct ast_wdt *wdt, u32 timeout)
+ 	setbits_le32(&wdt->ctrl,
+ 		     WDT_CTRL_EN | WDT_CTRL_RESET | WDT_CTRL_CLK1MHZ);
+ }
+-
+-struct ast_wdt *ast_get_wdt(u8 wdt_number)
+-{
+-	if (wdt_number > CONFIG_WDT_NUM - 1)
+-		return ERR_PTR(-EINVAL);
+-
+-	return (struct ast_wdt *)(WDT_BASE +
+-				  sizeof(struct ast_wdt) * wdt_number);
+-}
++#endif  /* CONFIG_WDT */
+ 
+ int ast_wdt_reset_masked(struct ast_wdt *wdt, u32 mask)
+ {
+@@ -57,3 +70,12 @@ int ast_wdt_reset_masked(struct ast_wdt *wdt, u32 mask)
+ 	return -EINVAL;
+ #endif
+ }
++
++struct ast_wdt *ast_get_wdt(u8 wdt_number)
++{
++	if (wdt_number > CONFIG_WDT_NUM - 1)
++		return ERR_PTR(-EINVAL);
++
++	return (struct ast_wdt *)(WDT_BASE +
++				  sizeof(struct ast_wdt) * wdt_number);
++}
 diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
-index e69de29bb2..0d7366f3df 100644
+index 0d7366f3df..10f34f5efa 100644
 --- a/drivers/watchdog/Kconfig
 +++ b/drivers/watchdog/Kconfig
-@@ -0,0 +1,11 @@
-+menu "Watchdog Timer Support"
+@@ -9,3 +9,16 @@ config WDT
+ 	  start, restart, stop and reset (expire immediately).
+ 	  What exactly happens when the timer expires is up to a particular
+ 	  device/driver.
 +
-+config WDT
-+	bool "Enable driver model for watchdog timer drivers"
-+	depends on DM
++config WDT_ASPEED
++	bool "Aspeed ast2400/ast2500 watchdog timer support"
++	depends on WDT
++	default y if ARCH_ASPEED
 +	help
-+	  Enable driver model for watchdog timer. At the moment the API
-+	  is very simple and only supports four operations:
-+	  start, restart, stop and reset (expire immediately).
-+	  What exactly happens when the timer expires is up to a particular
-+	  device/driver.
++	  Select this to enable watchdog timer for Aspeed ast2500/ast2400 devices.
++	  The watchdog timer is stopped when initialized. It performs reset, either
++	  full SoC reset or CPU or just some peripherals, based on the flags.
++	  It currently does not support Boot Flash Addressing Mode Detection or
++	  Second Boot.
++
++endmenu
 diff --git a/drivers/watchdog/Makefile b/drivers/watchdog/Makefile
-index a007ae8234..1aabcb97ae 100644
+index 1aabcb97ae..1d779a8446 100644
 --- a/drivers/watchdog/Makefile
 +++ b/drivers/watchdog/Makefile
-@@ -15,3 +15,4 @@ obj-$(CONFIG_XILINX_TB_WATCHDOG) += xilinx_tb_wdt.o
- obj-$(CONFIG_BFIN_WATCHDOG)  += bfin_wdt.o
+@@ -16,3 +16,4 @@ obj-$(CONFIG_BFIN_WATCHDOG)  += bfin_wdt.o
  obj-$(CONFIG_OMAP_WATCHDOG) += omap_wdt.o
  obj-$(CONFIG_DESIGNWARE_WATCHDOG) += designware_wdt.o
-+obj-$(CONFIG_WDT) += wdt-uclass.o
-diff --git a/drivers/watchdog/wdt-uclass.c b/drivers/watchdog/wdt-uclass.c
+ obj-$(CONFIG_WDT) += wdt-uclass.o
++obj-$(CONFIG_WDT_ASPEED) += ast_wdt.o
+diff --git a/drivers/watchdog/ast_wdt.c b/drivers/watchdog/ast_wdt.c
 new file mode 100644
-index 0000000000..98a8b529f9
+index 0000000000..d53aada332
 --- /dev/null
-+++ b/drivers/watchdog/wdt-uclass.c
-@@ -0,0 +1,79 @@
++++ b/drivers/watchdog/ast_wdt.c
+@@ -0,0 +1,125 @@
 +/*
 + * Copyright 2017 Google, Inc
 + *
@@ -119,189 +253,120 @@ index 0000000000..98a8b529f9
 +#include <dm.h>
 +#include <errno.h>
 +#include <wdt.h>
-+#include <dm/lists.h>
-+#include <dm/device-internal.h>
++#include <asm/io.h>
++#include <asm/arch/wdt.h>
++
++#define WDT_AST2500	2500
++#define WDT_AST2400	2400
 +
 +DECLARE_GLOBAL_DATA_PTR;
 +
-+/*
-+ * Implement a simple watchdog uclass. Watchdog is basically a timer that
-+ * is used to detect or recover from malfunction. During normal operation
-+ * the watchdog would be regularly reset to prevent it from timing out.
-+ * If, due to a hardware fault or program error, the computer fails to reset
-+ * the watchdog, the timer will elapse and generate a timeout signal.
-+ * The timeout signal is used to initiate corrective action or actions,
-+ * which typically include placing the system in a safe, known state.
-+ */
++struct ast_wdt_priv {
++	struct ast_wdt *regs;
++};
 +
-+int wdt_start(struct udevice *dev, u64 timeout, ulong flags)
++static int ast_wdt_start(struct udevice *dev, u64 timeout, ulong flags)
 +{
-+	const struct wdt_ops *ops = device_get_ops(dev);
++	struct ast_wdt_priv *priv = dev_get_priv(dev);
++	ulong driver_data = dev_get_driver_data(dev);
++	u32 reset_mode = ast_reset_mode_from_flags(flags);
 +
-+	if (!ops->start)
-+		return -ENOSYS;
++	clrsetbits_le32(&priv->regs->ctrl,
++			WDT_CTRL_RESET_MASK << WDT_CTRL_RESET_MODE_SHIFT,
++			reset_mode << WDT_CTRL_RESET_MODE_SHIFT);
 +
-+	return ops->start(dev, timeout, flags);
-+}
++	if (driver_data >= WDT_AST2500 && reset_mode == WDT_CTRL_RESET_SOC)
++		writel(ast_reset_mask_from_flags(flags),
++		       &priv->regs->reset_mask);
 +
-+int wdt_stop(struct udevice *dev)
-+{
-+	const struct wdt_ops *ops = device_get_ops(dev);
-+
-+	if (!ops->stop)
-+		return -ENOSYS;
-+
-+	return ops->stop(dev);
-+}
-+
-+int wdt_restart(struct udevice *dev)
-+{
-+	const struct wdt_ops *ops = device_get_ops(dev);
-+
-+	if (!ops->restart)
-+		return -ENOSYS;
-+
-+	return ops->restart(dev);
-+}
-+
-+int wdt_reset(struct udevice *dev, ulong flags)
-+{
-+	const struct wdt_ops *ops;
-+
-+	debug("WDT Resettting: %lu\n", flags);
-+	ops = device_get_ops(dev);
-+	if (ops->reset) {
-+		return ops->reset(dev, flags);
-+	} else {
-+		if (!ops->start)
-+			return -ENOSYS;
-+
-+		ops->start(dev, 1, flags);
-+		while (1)
-+			;
-+	}
++	writel((u32) timeout, &priv->regs->counter_reload_val);
++	writel(WDT_COUNTER_RESTART_VAL, &priv->regs->counter_restart);
++	/*
++	 * Setting CLK1MHZ bit is just for compatibility with ast2400 part.
++	 * On ast2500 watchdog timer clock is fixed at 1MHz and the bit is
++	 * read-only
++	 */
++	setbits_le32(&priv->regs->ctrl,
++		     WDT_CTRL_EN | WDT_CTRL_RESET | WDT_CTRL_CLK1MHZ);
 +
 +	return 0;
 +}
 +
-+UCLASS_DRIVER(wdt) = {
-+	.id		= UCLASS_WDT,
-+	.name		= "wdt",
-+};
-diff --git a/include/dm/uclass-id.h b/include/dm/uclass-id.h
-index 8c92d0b030..b73a7fd436 100644
---- a/include/dm/uclass-id.h
-+++ b/include/dm/uclass-id.h
-@@ -83,6 +83,7 @@ enum uclass_id {
- 	UCLASS_VIDEO,		/* Video or LCD device */
- 	UCLASS_VIDEO_BRIDGE,	/* Video bridge, e.g. DisplayPort to LVDS */
- 	UCLASS_VIDEO_CONSOLE,	/* Text console driver for video device */
-+	UCLASS_WDT,		/* Watchdot Timer driver */
- 
- 	UCLASS_COUNT,
- 	UCLASS_INVALID = -1,
-diff --git a/include/wdt.h b/include/wdt.h
-new file mode 100644
-index 0000000000..1da5a962df
---- /dev/null
-+++ b/include/wdt.h
-@@ -0,0 +1,97 @@
-+/*
-+ * Copyright 2017 Google, Inc
-+ *
-+ * SPDX-License-Identifier:	GPL-2.0+
-+ */
++static int ast_wdt_stop(struct udevice *dev)
++{
++	struct ast_wdt_priv *priv = dev_get_priv(dev);
 +
-+#ifndef _WDT_H_
-+#define _WDT_H_
++	clrbits_le32(&priv->regs->ctrl, WDT_CTRL_EN);
 +
-+/*
-+ * Start the timer
-+ *
-+ * @dev: WDT Device
-+ * @timeout: Number of ticks before timer expires
-+ * @flags: Driver specific flags. This might be used to specify
-+ * which action needs to be executed when the timer expires
-+ * @return: 0 if OK, -ve on error
-+ */
-+int wdt_start(struct udevice *dev, u64 timeout, ulong flags);
++	return 0;
++}
 +
-+/*
-+ * Stop the timer
-+ *
-+ * @dev: WDT Device
-+ * @return: 0 if OK, -ve on error
-+ */
-+int wdt_stop(struct udevice *dev);
++static int ast_wdt_restart(struct udevice *dev)
++{
++	struct ast_wdt_priv *priv = dev_get_priv(dev);
 +
-+/*
-+ * Restart the timer, typically restoring the counter to
-+ * the value configured by start()
-+ *
-+ * @dev: WDT Device
-+ * @return: 0 if OK, -ve on error
-+ */
-+int wdt_restart(struct udevice *dev);
++	writel(WDT_COUNTER_RESTART_VAL, &priv->regs->counter_restart);
 +
-+/*
-+ * Expire the timer, thus executing its action immediately
-+ *
-+ * Will either use chosen wdt, based on reset-wdt
-+ * chosen property, or the first one available.
-+ *
-+ * @flags: Driver specific flags
-+ * @return 0 if OK -ve on error. If wdt action is system reset,
-+ * this function may never return.
-+ */
-+int wdt_reset(struct udevice *dev, ulong flags);
++	return 0;
++}
 +
-+/*
-+ * struct wdt_ops - Driver model wdt operations
-+ *
-+ * The uclass interface is implemented by all wdt devices which use
-+ * driver model.
-+ */
-+struct wdt_ops {
-+	/*
-+	 * Start the timer
-+	 *
-+	 * @dev: WDT Device
-+	 * @timeout: Number of ticks before the timer expires
-+	 * @flags: Driver specific flags. This might be used to specify
-+	 * which action needs to be executed when the timer expires
-+	 * @return: 0 if OK, -ve on error
-+	 */
-+	int (*start)(struct udevice *dev, u64 timeout, ulong flags);
-+	/*
-+	 * Stop the timer
-+	 *
-+	 * @dev: WDT Device
-+	 * @return: 0 if OK, -ve on error
-+	 */
-+	int (*stop)(struct udevice *dev);
-+	/*
-+	 * Restart the timer, typically restoring the counter to
-+	 * the value configured by start()
-+	 *
-+	 * @dev: WDT Device
-+	 * @return: 0 if OK, -ve on error
-+	 */
-+	int (*restart)(struct udevice *dev);
-+	/*
-+	 * Expire the timer, thus executing the action immediately (optional)
-+	 *
-+	 * If this function is not provided, default implementation
-+	 * will be used for wdt_reset(), which is set the counter to 1
-+	 * and wait forever. This is good enough for system level
-+	 * reset, but not good enough for resetting peripherals.
-+	 *
-+	 * @dev: WDT Device
-+	 * @flags: Driver specific flags
-+	 * @return 0 if OK -ve on error. May not return.
-+	 */
-+	int (*reset)(struct udevice *dev, ulong flags);
++static int ast_wdt_reset(struct udevice *dev, ulong flags)
++{
++	struct ast_wdt_priv *priv = dev_get_priv(dev);
++	int ret;
++
++	ret = ast_wdt_start(dev, 1, flags);
++	if (ret)
++		return ret;
++
++	while (readl(&priv->regs->ctrl) & WDT_CTRL_EN)
++		;
++
++	return ast_wdt_stop(dev);
++}
++
++static int ast_wdt_ofdata_to_platdata(struct udevice *dev)
++{
++	struct ast_wdt_priv *priv = dev_get_priv(dev);
++
++	priv->regs = dev_get_addr_ptr(dev);
++	if (IS_ERR(priv->regs))
++		return PTR_ERR(priv->regs);
++
++	return 0;
++}
++
++static const struct wdt_ops ast_wdt_ops = {
++	.start = ast_wdt_start,
++	.restart = ast_wdt_restart,
++	.stop = ast_wdt_stop,
++	.reset = ast_wdt_reset,
 +};
 +
-+#endif  /* _WDT_H_ */
++static const struct udevice_id ast_wdt_ids[] = {
++	{ .compatible = "aspeed,wdt", .data = WDT_AST2500 },
++	{ .compatible = "aspeed,ast2500-wdt", .data = WDT_AST2500 },
++	{ .compatible = "aspeed,ast2400-wdt", .data = WDT_AST2400 },
++	{}
++};
++
++static int ast_wdt_probe(struct udevice *dev)
++{
++	debug("%s() wdt%u\n", __func__, dev->seq);
++	ast_wdt_stop(dev);
++
++	return 0;
++}
++
++U_BOOT_DRIVER(ast_wdt) = {
++	.name = "ast_wdt",
++	.id = UCLASS_WDT,
++	.of_match = ast_wdt_ids,
++	.probe = ast_wdt_probe,
++	.priv_auto_alloc_size = sizeof(struct ast_wdt_priv),
++	.ofdata_to_platdata = ast_wdt_ofdata_to_platdata,
++	.ops = &ast_wdt_ops,
++	.flags = DM_FLAG_PRE_RELOC,
++};
 -- 
 2.12.0.367.g23dc2f6d3c-goog
