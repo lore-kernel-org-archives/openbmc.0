@@ -1,53 +1,60 @@
 Return-Path: <maxims@google.com>
-Received: from mail-pg0-x22b.google.com (mail-pg0-x22b.google.com
- [IPv6:2607:f8b0:400e:c05::22b])
+Received: from mail-pf0-x233.google.com (mail-pf0-x233.google.com
+ [IPv6:2607:f8b0:400e:c00::233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vkhcq6056zDqYd
- for <openbmc@lists.ozlabs.org>; Fri, 17 Mar 2017 08:36:43 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vkhcl28YhzDqY5
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Mar 2017 08:36:38 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="vpAuyDdY"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="v6OLTPdy"; 
  dkim-atps=neutral
-Received: by mail-pg0-x22b.google.com with SMTP id b129so31022203pgc.2
- for <openbmc@lists.ozlabs.org>; Thu, 16 Mar 2017 14:36:43 -0700 (PDT)
+Received: by mail-pf0-x233.google.com with SMTP id x63so24676777pfx.2
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Mar 2017 14:36:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=9ti/LBqmxxT/3UUqgR+/dr15EX2qCl/l/Mo7UFrgbC8=;
- b=vpAuyDdYUyyhAAEnXoZMK2PiiViyIv4twLOQOijAF+4betaBVyXe20aPT3p4Ib0lbe
- nB+iTP0h65NX9xB2jafD6OBiaXd1RPZzTu3W4JhWjPNhqudq+Dz7mVzoEGCtoiD1aenJ
- O1pkP03LW7gD7NlYJjuIlqc1V9jfzGDziF0r3m4lEW7PZxBW9RP2Y0gVZwQvy/yFaNVR
- Q4O69zACM8IYImgFAujapL24BUY/AxmJvNk3RJcZcmPvwp1FoRgE1BLJrFUD8g/lNvrQ
- Z37PN6iImMFrqozjKAKytVpswjHOZtb2/9xCOt6T5RqB8sZfcDFj0/lFtXts7nAmMj7S
- T42Q==
+ h=from:to:cc:subject:date:message-id;
+ bh=0merasIJ/Z6fow3Dwt5TAYovpOrX2AjSLa1pxQIpcBI=;
+ b=v6OLTPdywQqylNg3360n7O00/NTUPgPd4PcYO6ojXg1+pVPXy6oTTWOtaFuvOONqBW
+ YwxkGQmJ6hXuZiAbhq1P3ti9tHqOL4vRBAjIW0WiOWTXgYaglbbBSGy+eH1UPyXp+VUy
+ xp+K4R2NF4EGYBNf45Tw4mBX+22BKowkSdTPAWGqTTFfvPRWdd7b8KvG6nHhfBgN8loa
+ Ya4dRMOSPsYcd4KWiPUZVXjrREcS3dfnDeCekFL7PTAJag6kcr13yVVlMsiqQhpgi3qw
+ +PCvv30gWufJ/gUzRX6BxyZexL59TH0fAHe/AnMVqQVqqre++A87x7PrJpmzmXON0NjE
+ YVOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=9ti/LBqmxxT/3UUqgR+/dr15EX2qCl/l/Mo7UFrgbC8=;
- b=NMAmCIqSnFL/rgzCFf/1XslFtSt7eN2T3y84g7fXC+Gdh8BugnxPnFNOndUay8gELg
- QWTiM26MC2fYMj9vhxH0MxFM1LdKaFB8LOlxf8M/Uhd2exzO+AADNhkqplBRBAxTu32q
- 7ZCpg4ezReo50XHhp9wBZW5KvrXRwTHYp5XBIm8XrOmxnVJIgyMyWt4Gw5lDmwyxBLvA
- eKQovpsHiVavOBhd8uFC+sKsoyRNgEFDar9nktt08R6ysv8TTh8K/lNxJxS4wz1xpBHb
- GvRa0ATE7bWOKh2e3izJf2pQMXfq8rvCDulg2bZcuLUt+WPkAdWUx05CBYACTN9XwyMt
- qo9Q==
-X-Gm-Message-State: AFeK/H1tZTM3TR5UKELTCHRnOChwxe8x/gG0WKfHhl4Wuhpf1xEjW8l35xUjgLJGVJDjXtlr
-X-Received: by 10.98.153.198 with SMTP id t67mr12984254pfk.1.1489700201832;
- Thu, 16 Mar 2017 14:36:41 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=0merasIJ/Z6fow3Dwt5TAYovpOrX2AjSLa1pxQIpcBI=;
+ b=UG3Y1QvWXZ9AINatE4e6/rrxVGlpqwMqRlJzSjvYuV33OrIFvmOdNijmd7VxywCuRp
+ D/3U4l9OoG9ACwKCi7cl9xmWrHNM5doWph3eqGmvZf16+hwqgh0/KduRI83VMsD5D7aO
+ G0gU8ZAOOlWeUCbQi9Pwo0GSR3PMNwJoirUf3MGDgyTNz7jU0mRXE/FxEOiia+C6uaQa
+ gpUzOoTHllPHgzcVOpZO2I58M8CQkUx0UEEPQ05Slih9RQUJTQk8GZ+qvO7GrGdFu5JP
+ djDYEhJUq0+Htvklv2Nmf4dw37GE/YP4HGIEXLub0J5007zn8ICcLswl1jBNFphRFasw
+ NMtQ==
+X-Gm-Message-State: AFeK/H2WLMBXpdUaGEaxx8qCYu6jZuvW0OMJolG/c8qJHam/I/a5SDBEctJHebwTKmL3ZEN9
+X-Received: by 10.84.141.129 with SMTP id 1mr15205168plv.166.1489700196217;
+ Thu, 16 Mar 2017 14:36:36 -0700 (PDT)
 Received: from mxsl.svl.corp.google.com ([100.123.242.80])
- by smtp.gmail.com with ESMTPSA id v17sm2191375pgc.20.2017.03.16.14.36.40
+ by smtp.gmail.com with ESMTPSA id v17sm2191375pgc.20.2017.03.16.14.36.34
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Thu, 16 Mar 2017 14:36:41 -0700 (PDT)
+ Thu, 16 Mar 2017 14:36:35 -0700 (PDT)
 From: Maxim Sloyko <maxims@google.com>
 To: u-boot@lists.denx.de,
 	Simon Glass <sjg@chromium.org>
 Cc: openbmc@lists.ozlabs.org, Maxim Sloyko <maxims@google.com>,
- Albert Aribaud <albert.u.boot@aribaud.net>
-Subject: [PATCH 06/17] aspeed: Device Tree configuration for Reset Driver
-Date: Thu, 16 Mar 2017 14:36:13 -0700
-Message-Id: <20170316213624.140344-7-maxims@google.com>
+ Heiko Schocher <hs@denx.de>, Konstantin Porotchkin <kostap@marvell.com>,
+ Masahiro Yamada <yamada.masahiro@socionext.com>,
+ Tom Warren <twarren@nvidia.com>, Thomas Abraham <thomas.ab@samsung.com>,
+ Wills Wang <wills.wang@live.com>, Kever Yang <kever.yang@rock-chips.com>,
+ Joe Hershberger <joe.hershberger@ni.com>,
+ Albert Aribaud <albert.u.boot@aribaud.net>,
+ Beniamino Galvani <b.galvani@gmail.com>, Stefan Roese <sr@denx.de>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Minkyu Kang <mk7.kang@samsung.com>,
+ Daniel Schwierzeck <daniel.schwierzeck@gmail.com>,
+ Wenyou Yang <wenyou.yang@atmel.com>, Stephen Warren <swarren@nvidia.com>
+Subject: [PATCH 00/17] Expand Aspeed AST2500 Support
+Date: Thu, 16 Mar 2017 14:36:07 -0700
+Message-Id: <20170316213624.140344-1-maxims@google.com>
 X-Mailer: git-send-email 2.12.0.367.g23dc2f6d3c-goog
-In-Reply-To: <20170316213624.140344-1-maxims@google.com>
-References: <20170316213624.140344-1-maxims@google.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,125 +66,94 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Mar 2017 21:36:44 -0000
+X-List-Received-Date: Thu, 16 Mar 2017 21:36:39 -0000
+X-List-Received-Date: Thu, 16 Mar 2017 21:36:39 -0000
+X-List-Received-Date: Thu, 16 Mar 2017 21:36:39 -0000
 
-Add Reset Driver configuration to ast2500 SoC Device Tree and bindings
-for various reset signals
+This series expands support for Aspeed AST2500 SoC, commonly used as
+Board Management Controller in many servers, to the point where it can
+actually be useful.
 
-Signed-off-by: Maxim Sloyko <maxims@google.com>
----
+The main goal of this series is I2C and Network drivers, the rest are
+either cleanups or supporting patches. Most notable among them is
+addition of Watchdog Uclass, so that watchdog drivers can now use Driver
+Model.
 
- arch/arm/dts/ast2500-evb.dts              | 15 +++++++++++
- arch/arm/dts/ast2500-u-boot.dtsi          | 10 +++++++
- include/dt-bindings/reset/ast2500-reset.h | 45 +++++++++++++++++++++++++++++++
- 3 files changed, 70 insertions(+)
+One notable thing that is *missing* from this series is Device Tree
+configuration for I2C driver. The Linux Kernel I2C driver is still under
+review and it may affect the details of how devices need to be
+configured in the Device Tree. So, I decided to wait until it will show
+up in Linux Kernel DT and then pull it into U-Boot.
+
+
+Maxim Sloyko (17):
+  aspeed: Update ast2500 Device Tree
+  dm: Simple Watchdog uclass
+  aspeed: Watchdog Timer Driver
+  aspeed: Make SCU lock/unlock functions part of SCU API
+  aspeed: Reset Driver
+  aspeed: Device Tree configuration for Reset Driver
+  aspeed: Refactor AST2500 RAM Driver and Sysreset Driver
+  aspeed: AST2500 Pinctrl Driver
+  aspeed: Enable Pinctrl Driver in AST2500 EVB
+  aspeed: Add P-Bus clock in ast2500 clock driver
+  aspeed: Add I2C Driver
+  aspeed: Enable I2C in EVB defconfig
+  aspeed: Add support for Clocks needed by MACs
+  aspeed: Refactor SCU to use consistent mask & shift
+  aspeed: Cleanup ast2500-u-boot.dtsi Device Tree
+  aspeed: Add AST2500/AST2400 compatible NIC Driver
+  aspeed: Network Driver configuration for EVB
+
+ arch/arm/dts/ast2500-evb.dts                   |  29 +
+ arch/arm/dts/ast2500-u-boot.dtsi               |  59 +-
+ arch/arm/dts/ast2500.dtsi                      | 881 ++++++++++++++++++++++++-
+ arch/arm/include/asm/arch-aspeed/pinctrl.h     |  52 ++
+ arch/arm/include/asm/arch-aspeed/scu_ast2500.h | 132 +++-
+ arch/arm/include/asm/arch-aspeed/wdt.h         |  38 +-
+ arch/arm/mach-aspeed/Kconfig                   |   8 +-
+ arch/arm/mach-aspeed/ast2500/clk_ast2500.c     |  15 +
+ arch/arm/mach-aspeed/ast2500/sdram_ast2500.c   |  17 +-
+ arch/arm/mach-aspeed/ast_wdt.c                 |  47 +-
+ configs/evb-ast2500_defconfig                  |  13 +
+ drivers/clk/aspeed/clk_ast2500.c               | 321 +++++++--
+ drivers/i2c/Kconfig                            |   9 +
+ drivers/i2c/Makefile                           |   1 +
+ drivers/i2c/ast_i2c.c                          | 355 ++++++++++
+ drivers/i2c/ast_i2c.h                          | 132 ++++
+ drivers/net/Kconfig                            |   8 +
+ drivers/net/Makefile                           |   1 +
+ drivers/net/ast_nic.c                          | 584 ++++++++++++++++
+ drivers/net/ast_nic.h                          | 198 ++++++
+ drivers/pinctrl/Kconfig                        |   9 +
+ drivers/pinctrl/Makefile                       |   1 +
+ drivers/pinctrl/aspeed/Makefile                |   1 +
+ drivers/pinctrl/aspeed/pinctrl_ast2500.c       | 127 ++++
+ drivers/reset/Kconfig                          |  10 +
+ drivers/reset/Makefile                         |   1 +
+ drivers/reset/ast2500-reset.c                  | 109 +++
+ drivers/sysreset/sysreset_ast.c                |  24 +-
+ drivers/watchdog/Kconfig                       |  24 +
+ drivers/watchdog/Makefile                      |   2 +
+ drivers/watchdog/ast_wdt.c                     | 125 ++++
+ drivers/watchdog/wdt-uclass.c                  |  79 +++
+ include/dm/uclass-id.h                         |   1 +
+ include/dt-bindings/clock/ast2500-scu.h        |   2 +
+ include/dt-bindings/reset/ast2500-reset.h      |  45 ++
+ include/wdt.h                                  |  97 +++
+ 36 files changed, 3390 insertions(+), 167 deletions(-)
+ create mode 100644 arch/arm/include/asm/arch-aspeed/pinctrl.h
+ create mode 100644 drivers/i2c/ast_i2c.c
+ create mode 100644 drivers/i2c/ast_i2c.h
+ create mode 100644 drivers/net/ast_nic.c
+ create mode 100644 drivers/net/ast_nic.h
+ create mode 100644 drivers/pinctrl/aspeed/Makefile
+ create mode 100644 drivers/pinctrl/aspeed/pinctrl_ast2500.c
+ create mode 100644 drivers/reset/ast2500-reset.c
+ create mode 100644 drivers/watchdog/ast_wdt.c
+ create mode 100644 drivers/watchdog/wdt-uclass.c
  create mode 100644 include/dt-bindings/reset/ast2500-reset.h
+ create mode 100644 include/wdt.h
 
-diff --git a/arch/arm/dts/ast2500-evb.dts b/arch/arm/dts/ast2500-evb.dts
-index dc13952fb8..723941ac0b 100644
---- a/arch/arm/dts/ast2500-evb.dts
-+++ b/arch/arm/dts/ast2500-evb.dts
-@@ -21,3 +21,18 @@
- &sdrammc {
- 	clock-frequency = <400000000>;
- };
-+
-+&wdt1 {
-+	u-boot,dm-pre-reloc;
-+	status = "okay";
-+};
-+
-+&wdt2 {
-+	u-boot,dm-pre-reloc;
-+	status = "okay";
-+};
-+
-+&wdt3 {
-+	u-boot,dm-pre-reloc;
-+	status = "okay";
-+};
-diff --git a/arch/arm/dts/ast2500-u-boot.dtsi b/arch/arm/dts/ast2500-u-boot.dtsi
-index c95a7ba835..faeeec1be4 100644
---- a/arch/arm/dts/ast2500-u-boot.dtsi
-+++ b/arch/arm/dts/ast2500-u-boot.dtsi
-@@ -1,4 +1,5 @@
- #include <dt-bindings/clock/ast2500-scu.h>
-+#include <dt-bindings/reset/ast2500-reset.h>
- 
- #include "ast2500.dtsi"
- 
-@@ -11,12 +12,21 @@
- 		#reset-cells = <1>;
- 	};
- 
-+	rst: reset-controller {
-+		u-boot,dm-pre-reloc;
-+		compatible = "aspeed,ast2500-reset";
-+		aspeed,wdt = <&wdt1>;
-+		#reset-cells = <1>;
-+	};
-+
- 	sdrammc: sdrammc@1e6e0000 {
- 		u-boot,dm-pre-reloc;
- 		compatible = "aspeed,ast2500-sdrammc";
- 		reg = <0x1e6e0000 0x174
- 			0x1e6e0200 0x1d4 >;
-+		#reset-cells = <1>;
- 		clocks = <&scu PLL_MPLL>;
-+		resets = <&rst AST_RESET_SDRAM>;
- 	};
- 
- 	ahb {
-diff --git a/include/dt-bindings/reset/ast2500-reset.h b/include/dt-bindings/reset/ast2500-reset.h
-new file mode 100644
-index 0000000000..eb5e1db97b
---- /dev/null
-+++ b/include/dt-bindings/reset/ast2500-reset.h
-@@ -0,0 +1,45 @@
-+/*
-+ * Copyright 2017 Google, Inc
-+ *
-+ * SPDX-License-Identifier: GPL-2.0+
-+ */
-+
-+#ifndef _ABI_MACH_ASPEED_AST2500_RESET_H_
-+#define _ABI_MACH_ASPEED_AST2500_RESET_H_
-+
-+/*
-+ * The values are intentionally layed out as flags in
-+ * WDT reset parameter.
-+ */
-+
-+#define AST_RESET_SOC			0
-+#define AST_RESET_CHIP			1
-+#define AST_RESET_CPU			(1 << 1)
-+#define AST_RESET_ARM			(1 << 2)
-+#define AST_RESET_COPROC		(1 << 3)
-+#define AST_RESET_SDRAM			(1 << 4)
-+#define AST_RESET_AHB			(1 << 5)
-+#define AST_RESET_I2C			(1 << 6)
-+#define AST_RESET_MAC1			(1 << 7)
-+#define AST_RESET_MAC2			(1 << 8)
-+#define AST_RESET_GCRT			(1 << 9)
-+#define AST_RESET_USB20			(1 << 10)
-+#define AST_RESET_USB11_HOST		(1 << 11)
-+#define AST_RESET_USB11_HID		(1 << 12)
-+#define AST_RESET_VIDEO			(1 << 13)
-+#define AST_RESET_HAC			(1 << 14)
-+#define AST_RESET_LPC			(1 << 15)
-+#define AST_RESET_SDIO			(1 << 16)
-+#define AST_RESET_MIC			(1 << 17)
-+#define AST_RESET_CRT2D			(1 << 18)
-+#define AST_RESET_PWM			(1 << 19)
-+#define AST_RESET_PECI			(1 << 20)
-+#define AST_RESET_JTAG			(1 << 21)
-+#define AST_RESET_ADC			(1 << 22)
-+#define AST_RESET_GPIO			(1 << 23)
-+#define AST_RESET_MCTP			(1 << 24)
-+#define AST_RESET_XDMA			(1 << 25)
-+#define AST_RESET_SPI			(1 << 26)
-+#define AST_RESET_MISC			(1 << 27)
-+
-+#endif  /* _ABI_MACH_ASPEED_AST2500_RESET_H_ */
 -- 
 2.12.0.367.g23dc2f6d3c-goog
