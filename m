@@ -1,71 +1,50 @@
-Return-Path: <stewart@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <geissonator@gmail.com>
+Received: from mail-it0-x244.google.com (mail-it0-x244.google.com
+ [IPv6:2607:f8b0:4001:c0b::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vkj1n4ZCNzDqYN
- for <openbmc@lists.ozlabs.org>; Fri, 17 Mar 2017 08:54:53 +1100 (AEDT)
-Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v2GLs48n151387
- for <openbmc@lists.ozlabs.org>; Thu, 16 Mar 2017 17:54:48 -0400
-Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
- by mx0b-001b2d01.pphosted.com with ESMTP id 297wd073xm-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 16 Mar 2017 17:54:47 -0400
-Received: from localhost
- by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
- Thu, 16 Mar 2017 17:54:47 -0400
-Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
- by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 16 Mar 2017 17:54:44 -0400
-Received: from b03ledav003.gho.boulder.ibm.com
- (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
- by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v2GLsh9e11665874; Thu, 16 Mar 2017 14:54:43 -0700
-Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id BFDEA6A03C;
- Thu, 16 Mar 2017 15:54:43 -0600 (MDT)
-Received: from birb.localdomain (unknown [9.81.212.159])
- by b03ledav003.gho.boulder.ibm.com (Postfix) with SMTP id 1D9746A04C;
- Thu, 16 Mar 2017 15:54:41 -0600 (MDT)
-Received: by birb.localdomain (Postfix, from userid 1000)
- id 82100228D8D6; Fri, 17 Mar 2017 08:54:39 +1100 (AEDT)
-From: Stewart Smith <stewart@linux.vnet.ibm.com>
-To: Patrick Williams <patrick@stwcx.xyz>,
- Ananth N Mavinakayanahalli <ananth@linux.vnet.ibm.com>
-Cc: mahesh@linux.vnet.ibm.com, openbmc@lists.ozlabs.org,
- vsainath@linux.vnet.ibm.com
-Subject: Re: Out-of-band SRESET
-In-Reply-To: <20170316153756.j7zqd7ldhrfwqvii@asimov>
-References: <20170316080252.GB24841@in.ibm.com>
- <20170316153756.j7zqd7ldhrfwqvii@asimov>
-User-Agent: Notmuch/0.21+24~gbceb651 (http://notmuchmail.org) Emacs/25.1.1
- (x86_64-redhat-linux-gnu)
-Date: Fri, 17 Mar 2017 08:54:39 +1100
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vkm0Z1WF3zDqZH
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Mar 2017 11:09:02 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZiNdBhGE"; 
+ dkim-atps=neutral
+Received: by mail-it0-x244.google.com with SMTP id u69so1188836ita.3
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Mar 2017 17:09:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=F2vrV7J7zKeI0qP6FgudlGCNbMRB+dOH+46x0ibd9wk=;
+ b=ZiNdBhGEdRqAqRB5oNWfwzWerbXrD3sQFB0sMDZg5ONpjhfxIArYMVtxvNloR8zv8P
+ gB89z3zyPpgSpPcszqf/htUYD1FaZ6u/u4GuoPUxyCQ0NTL6J458MxiFaK31mXno4kto
+ oMYnB/B/bF1ZTUBCFaf1YALqsOQMQ+YEC8aEXJvlBzR2FpGpZ/b4hXmMiVGx29E082J0
+ dbycovway41r3RsZE/HaAOu+xPsuc1/nu7FH7nUnrI1q54XWxxeqHgYZ3OvCqSxEIAoe
+ CnHjWkGUVHk0psW45hrJw40lK1h3NsvVjYDCyiAuafEkjtkAfYbKNksa8/kWM8ZoRSs4
+ E7BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=F2vrV7J7zKeI0qP6FgudlGCNbMRB+dOH+46x0ibd9wk=;
+ b=DkWuHLDpYlUVGfXSBP2V5J0y0dGj4tXhVaExZlSn5Ku/NNPob543WdSgg9/j+0Y/pL
+ y2HHmHnLlqVyz1VjyQYtH9VWbza7AF7tYqjqeXSNUEoKeIjLvaztl3QqbgxmQafyf5lK
+ DQ1rq6LCCgsJKQBfrkaNrgOFu4mbMy/Fho3YEgLnNYoePCZRqqAM4OTcFc77cOPZVn5b
+ e9LcMxKjJn/G8/Tx/J6ho4iz9cgrz5At7aHGF7Eg6yXU8Y0FDK+OPYIzbnlBBRdhHfjQ
+ yBKvkwLWPzx3JFRVZv40ZPai19dVjIC1U23MKDmG6MdwY3LBu7Pon/L1WWwqCPUxo8iN
+ oi6w==
+X-Gm-Message-State: AFeK/H2TSl0FDmrZ5SU9deZNun+KEVM2MX8Q/F4/DdGzt38WQwBy3ngWgU1LXaB5/CMH5T7gbz5Z0iJPvEReaA==
+X-Received: by 10.36.116.7 with SMTP id o7mr460659itc.31.1489709340426; Thu,
+ 16 Mar 2017 17:09:00 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-AS-GCONF: 00
-x-cbid: 17031621-2213-0000-0000-00000165282A
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006794; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000206; SDB=6.00834822; UDB=6.00410016; IPR=6.00612477; 
- BA=6.00005215; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014680; XFM=3.00000013;
- UTC=2017-03-16 21:54:46
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17031621-2214-0000-0000-000054BDC207
-Message-Id: <87d1dgyjj4.fsf@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-03-16_16:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
- definitions=main-1703160167
+Received: by 10.107.53.91 with HTTP; Thu, 16 Mar 2017 17:09:00 -0700 (PDT)
+In-Reply-To: <20170315212550.65964-1-cbostic@linux.vnet.ibm.com>
+References: <20170315212550.65964-1-cbostic@linux.vnet.ibm.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Thu, 16 Mar 2017 19:09:00 -0500
+Message-ID: <CALLMt=qPEK9YbTBz2jhLSTk2J7FaMiH-fcoChqN_JmxYoUrq6w@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7] drivers/fsi: Add more time between clocking
+ and data sampling
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -77,44 +56,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Mar 2017 21:54:54 -0000
+X-List-Received-Date: Fri, 17 Mar 2017 00:09:03 -0000
 
-Patrick Williams <patrick@stwcx.xyz> writes:
-> On Thu, Mar 16, 2017 at 01:32:52PM +0530, Ananth N Mavinakayanahalli wrote:
->> Hi,
->> 
->> One requirement from a OpenPOWER service point-of-view is to be able to
->> trigger an out-of-band SRESET on a unresponsive system. We can then have
->> the necessary plumbing in the host Linux kernel to either drop the
->> machine into a debugger or trigger a dump capture, if configured.
->> 
->> On P9, this would translate to a series of SCOM operations for the SBE
->> It would be good to have a REST API defined to cater to this specific
->> purpose.
->> 
->> The API should cater to:
->> - SRESET a core
->> - SRESET a chip
->> - SRESET all cores
->> 
->> Thoughts?
->> 
->> Regards,
->> Ananth
->> 
+On Wed, Mar 15, 2017 at 4:25 PM, Christopher Bostic
+<cbostic@linux.vnet.ibm.com> wrote:
+> Under high work loads the ARM core can occasionaly hit invalid
+> timings between the FSI clock and data lines which leads to
+> data crc errors.  Add further delay between clock switch and
+> data line changes.
 >
-> Ananth,
+> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+> ---
+>  drivers/fsi/fsi-master-gpio.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 >
-> I understand the desire from your end with respect to debugging the
-> host.  Is there something we can do to model this better from a REST
-> perspective to make this less Power-specific?  Do other architectures
-> also have a "send debug interrupt"?
+> diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
+> index a8976d5..a93453f 100644
+> --- a/drivers/fsi/fsi-master-gpio.c
+> +++ b/drivers/fsi/fsi-master-gpio.c
+> @@ -13,7 +13,7 @@
+>
+>  #include "fsi-master.h"
+>
+> -#define        FSI_GPIO_STD_DLY        1       /* Standard pin delay in nS */
+> +#define        FSI_GPIO_STD_DLY        1       /* Standard pin delay in uS */
+>  #define        FSI_ECHO_DELAY_CLOCKS   16      /* Number clocks for echo delay */
+>  #define        FSI_PRE_BREAK_CLOCKS    50      /* Number clocks to prep for break */
+>  #define        FSI_BREAK_CLOCKS        256     /* Number of clocks to issue break */
+> @@ -86,9 +86,9 @@ static void clock_toggle(struct fsi_master_gpio *master, int count)
+>         int i;
+>
+>         for (i = 0; i < count; i++) {
+> -               ndelay(FSI_GPIO_STD_DLY);
+> +               udelay(FSI_GPIO_STD_DLY);
+>                 gpiod_set_value(master->gpio_clk, 0);
+> -               ndelay(FSI_GPIO_STD_DLY);
+> +               udelay(FSI_GPIO_STD_DLY);
+>                 gpiod_set_value(master->gpio_clk, 1);
+>         }
+>  }
+> @@ -97,7 +97,7 @@ static int sda_in(struct fsi_master_gpio *master)
+>  {
+>         int in;
+>
+> -       ndelay(FSI_GPIO_STD_DLY);
+> +       udelay(FSI_GPIO_STD_DLY);
+>         in = gpiod_get_value(master->gpio_data);
+>         return in ? 1 : 0;
+>  }
+> --
+> 1.8.2.2
+>
 
-on x86 there's the NMI, which can be sent via "ipmitool power diag"
-
-It also exists in RedFish as a type of restart (on, forceoff,
-gracefulrestart, nmi etc)
-
--- 
-Stewart Smith
-OPAL Architect, IBM.
+Acked-by: Andrew Geissler <geissonator@gmail.com>
