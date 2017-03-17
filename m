@@ -1,50 +1,44 @@
-Return-Path: <geissonator@gmail.com>
-Received: from mail-it0-x243.google.com (mail-it0-x243.google.com
- [IPv6:2607:f8b0:4001:c0b::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <lukma@denx.de>
+X-Greylist: delayed 384 seconds by postgrey-1.36 at bilbo;
+ Fri, 17 Mar 2017 19:48:05 AEDT
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+ (using TLSv1 with cipher DHE-RSA-CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vmdv15c2kzDq5g
- for <openbmc@lists.ozlabs.org>; Mon, 20 Mar 2017 12:40:45 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="qezoXLHG"; 
- dkim-atps=neutral
-Received: by mail-it0-x243.google.com with SMTP id 190so3822086itm.3
- for <openbmc@lists.ozlabs.org>; Sun, 19 Mar 2017 18:40:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=ZL4o10gdAJ7vJoqwLydG67EWCKCWdil2B0Lk3ULdPcY=;
- b=qezoXLHGeEFrRzbK6PH8GwByK1/8//47xQvMkd3u3GncmEVDdkmarSvA7YuV4Y1SLG
- C1tVsiQK0/X5hw0SGaB6afbCFMeQ0fjyIQqKAob6DEwTTT0OIBHHpKz4BA/l3bJUCJrP
- F3UWk5O1IPVjTE4yrG/dklMlbC+rdlC9ZM8uqeGbW8VoqsAr677c3Dk0Lm7l47e0G8rQ
- gHZGApiw5mwR9dQivmP1763zfJD2Dq6u2FUXHMIy48blGIEkqG44GThDMJ5R+7kbuFYJ
- 6SzfjYGCu7UoNgMGDKIvu5tO6v8ORJmx0C3rDt45EC/+6MLJo9N/CagSgzS4HCpsDBrk
- I2rA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=ZL4o10gdAJ7vJoqwLydG67EWCKCWdil2B0Lk3ULdPcY=;
- b=YaACUbnJMf2P319RPrguo7WuMnc26YNT7hEgQQb2kOH7JlIbqK54HUEXecrCXM3vW8
- 5BmDnobPHvXSf1kCTsUbhP0mwp1li8YKTggvP7R6M2lnb0FAw9pLYv3C5O7GjlwZ9Pgx
- F4Lh1MqPUyOZq89mKODqnP/ZotEJWCvcMi+wn0KNe1iWx62LP+WPPPd36bmmrIA/T5ab
- IHkPKlUDTr0zyZ4cRLntdH7JoW4CCgVSz8mKjujFKFgk0V1QnNO54/NPwBBmJdVHSZB9
- QDd+9Pei3uQG1C4uMqk75nUlVV2JnfvyhvpQ6fOhO9p+qX4etiMXLHlsY0LpXrkyu3nA
- 0FFw==
-X-Gm-Message-State: AFeK/H2OL6B7QAqzwAY/+prlf0CoOuWpmNaxgihkZfDSqBynKkyzNrEGY41hCiiNns1heuxdAnCWGoRqICnvoQ==
-X-Received: by 10.107.166.207 with SMTP id p198mr24528368ioe.15.1489974043694; 
- Sun, 19 Mar 2017 18:40:43 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vkzWT4rBkzDqZJ
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Mar 2017 19:48:05 +1100 (AEDT)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 3vkzMk59y8z3hmlj;
+ Fri, 17 Mar 2017 09:41:22 +0100 (CET)
+Received: from localhost (dynscan01.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 3vkzMk47B6z3hhV7;
+ Fri, 17 Mar 2017 09:41:22 +0100 (CET)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan01.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id T5i7gnuO4iDp; Fri, 17 Mar 2017 09:41:19 +0100 (CET)
+X-Auth-Info: S9lpLv/ohI0e1zTbDQe0nG7Emfm2CSCFeMiia56w2RY=
+Received: from jawa (89-77-92-62.dynamic.chello.pl [89.77.92.62])
+ (using TLSv1 with cipher DHE-RSA-CAMELLIA256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Fri, 17 Mar 2017 09:41:19 +0100 (CET)
+Date: Fri, 17 Mar 2017 09:41:18 +0100
+From: Lukasz Majewski <lukma@denx.de>
+To: Maxim Sloyko <maxims@google.com>
+Cc: u-boot@lists.denx.de, Simon Glass <sjg@chromium.org>,
+ openbmc@lists.ozlabs.org
+Subject: Re: [U-Boot] [PATCH 02/17] dm: Simple Watchdog uclass
+Message-ID: <20170317094118.76279295@jawa>
+In-Reply-To: <20170316213624.140344-3-maxims@google.com>
+References: <20170316213624.140344-1-maxims@google.com>
+ <20170316213624.140344-3-maxims@google.com>
+Organization: denx.de
+X-Mailer: Claws Mail 3.11.1 (GTK+ 2.24.25; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Received: by 10.107.53.156 with HTTP; Sun, 19 Mar 2017 18:40:43 -0700 (PDT)
-In-Reply-To: <20170317211836.63576-1-cbostic@linux.vnet.ibm.com>
-References: <20170317211836.63576-1-cbostic@linux.vnet.ibm.com>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Sun, 19 Mar 2017 20:40:43 -0500
-Message-ID: <CALLMt=pk0a1JUPWc=zP-Zb9oqT9bKyZ3dHVof6BqdSvrL_WUAg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7 v2] drivers/fsi: Add delay before sampling
- input on SDA
-To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Mon, 20 Mar 2017 13:51:35 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,45 +50,276 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Mar 2017 01:40:46 -0000
+X-List-Received-Date: Fri, 17 Mar 2017 08:48:06 -0000
 
-On Fri, Mar 17, 2017 at 4:18 PM, Christopher Bostic
-<cbostic@linux.vnet.ibm.com> wrote:
-> During high cpu loads the SDA in line can shift relative to the
-> clock signal which can corrupt the received input data.  Slow
-> down the time to sample input to account for this.
->
-> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-> ---
-> v2 - Increase delay for SDA in sampling only.
->    - Decrease the original delay for SDA sampling from 1us to 200ns
-> ---
->  drivers/fsi/fsi-master-gpio.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
-> index a8976d5..8e832e0 100644
-> --- a/drivers/fsi/fsi-master-gpio.c
-> +++ b/drivers/fsi/fsi-master-gpio.c
-> @@ -14,6 +14,7 @@
->  #include "fsi-master.h"
->
->  #define        FSI_GPIO_STD_DLY        1       /* Standard pin delay in nS */
-> +#define        FSI_GPIO_SDA_IN_DLY     200     /* Wait to sample SDA line, in nS */
->  #define        FSI_ECHO_DELAY_CLOCKS   16      /* Number clocks for echo delay */
->  #define        FSI_PRE_BREAK_CLOCKS    50      /* Number clocks to prep for break */
->  #define        FSI_BREAK_CLOCKS        256     /* Number of clocks to issue break */
-> @@ -97,7 +98,7 @@ static int sda_in(struct fsi_master_gpio *master)
->  {
->         int in;
->
-> -       ndelay(FSI_GPIO_STD_DLY);
-> +       ndelay(FSI_GPIO_SDA_IN_DLY);
->         in = gpiod_get_value(master->gpio_data);
->         return in ? 1 : 0;
->  }
-> --
-> 1.8.2.2
->
+Hi Maxim,
 
-Acked-by: Andrew Geissler <geissonator@gmail.com>
+> This is a simple uclass for Watchdog Timers. It has four operations:
+> start, restart, reset, stop. Drivers must implement start, restart and
+> stop operations, while implementing reset is optional: It's default
+> implementation expires watchdog timer in one clock tick.
+> 
+> Signed-off-by: Maxim Sloyko <maxims@google.com>
+
+Reviewed-by: Lukasz Majewski <lukma@denx.de>
+
+> ---
+> 
+>  drivers/watchdog/Kconfig      | 11 +++++
+>  drivers/watchdog/Makefile     |  1 +
+>  drivers/watchdog/wdt-uclass.c | 79
+> +++++++++++++++++++++++++++++++++++ include/dm/uclass-id.h        |
+> 1 + include/wdt.h                 | 97
+> +++++++++++++++++++++++++++++++++++++++++++ 5 files changed, 189
+> insertions(+) create mode 100644 drivers/watchdog/wdt-uclass.c
+>  create mode 100644 include/wdt.h
+> 
+> diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
+> index e69de29bb2..0d7366f3df 100644
+> --- a/drivers/watchdog/Kconfig
+> +++ b/drivers/watchdog/Kconfig
+> @@ -0,0 +1,11 @@
+> +menu "Watchdog Timer Support"
+> +
+> +config WDT
+> +	bool "Enable driver model for watchdog timer drivers"
+> +	depends on DM
+> +	help
+> +	  Enable driver model for watchdog timer. At the moment the
+> API
+> +	  is very simple and only supports four operations:
+> +	  start, restart, stop and reset (expire immediately).
+> +	  What exactly happens when the timer expires is up to a
+> particular
+> +	  device/driver.
+> diff --git a/drivers/watchdog/Makefile b/drivers/watchdog/Makefile
+> index a007ae8234..1aabcb97ae 100644
+> --- a/drivers/watchdog/Makefile
+> +++ b/drivers/watchdog/Makefile
+> @@ -15,3 +15,4 @@ obj-$(CONFIG_XILINX_TB_WATCHDOG) += xilinx_tb_wdt.o
+>  obj-$(CONFIG_BFIN_WATCHDOG)  += bfin_wdt.o
+>  obj-$(CONFIG_OMAP_WATCHDOG) += omap_wdt.o
+>  obj-$(CONFIG_DESIGNWARE_WATCHDOG) += designware_wdt.o
+> +obj-$(CONFIG_WDT) += wdt-uclass.o
+> diff --git a/drivers/watchdog/wdt-uclass.c
+> b/drivers/watchdog/wdt-uclass.c new file mode 100644
+> index 0000000000..98a8b529f9
+> --- /dev/null
+> +++ b/drivers/watchdog/wdt-uclass.c
+> @@ -0,0 +1,79 @@
+> +/*
+> + * Copyright 2017 Google, Inc
+> + *
+> + * SPDX-License-Identifier:	GPL-2.0+
+> + */
+> +
+> +#include <common.h>
+> +#include <dm.h>
+> +#include <errno.h>
+> +#include <wdt.h>
+> +#include <dm/lists.h>
+> +#include <dm/device-internal.h>
+> +
+> +DECLARE_GLOBAL_DATA_PTR;
+> +
+> +/*
+> + * Implement a simple watchdog uclass. Watchdog is basically a timer
+> that
+> + * is used to detect or recover from malfunction. During normal
+> operation
+> + * the watchdog would be regularly reset to prevent it from timing
+> out.
+> + * If, due to a hardware fault or program error, the computer fails
+> to reset
+> + * the watchdog, the timer will elapse and generate a timeout signal.
+> + * The timeout signal is used to initiate corrective action or
+> actions,
+> + * which typically include placing the system in a safe, known state.
+> + */
+> +
+> +int wdt_start(struct udevice *dev, u64 timeout, ulong flags)
+> +{
+> +	const struct wdt_ops *ops = device_get_ops(dev);
+> +
+> +	if (!ops->start)
+> +		return -ENOSYS;
+> +
+> +	return ops->start(dev, timeout, flags);
+> +}
+> +
+> +int wdt_stop(struct udevice *dev)
+> +{
+> +	const struct wdt_ops *ops = device_get_ops(dev);
+> +
+> +	if (!ops->stop)
+> +		return -ENOSYS;
+> +
+> +	return ops->stop(dev);
+> +}
+> +
+> +int wdt_restart(struct udevice *dev)
+> +{
+> +	const struct wdt_ops *ops = device_get_ops(dev);
+> +
+> +	if (!ops->restart)
+> +		return -ENOSYS;
+> +
+> +	return ops->restart(dev);
+> +}
+> +
+> +int wdt_reset(struct udevice *dev, ulong flags)
+> +{
+> +	const struct wdt_ops *ops;
+> +
+> +	debug("WDT Resettting: %lu\n", flags);
+> +	ops = device_get_ops(dev);
+> +	if (ops->reset) {
+> +		return ops->reset(dev, flags);
+> +	} else {
+> +		if (!ops->start)
+> +			return -ENOSYS;
+> +
+> +		ops->start(dev, 1, flags);
+> +		while (1)
+> +			;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +UCLASS_DRIVER(wdt) = {
+> +	.id		= UCLASS_WDT,
+> +	.name		= "wdt",
+> +};
+> diff --git a/include/dm/uclass-id.h b/include/dm/uclass-id.h
+> index 8c92d0b030..b73a7fd436 100644
+> --- a/include/dm/uclass-id.h
+> +++ b/include/dm/uclass-id.h
+> @@ -83,6 +83,7 @@ enum uclass_id {
+>  	UCLASS_VIDEO,		/* Video or LCD device */
+>  	UCLASS_VIDEO_BRIDGE,	/* Video bridge, e.g.
+> DisplayPort to LVDS */ UCLASS_VIDEO_CONSOLE,	/* Text console
+> driver for video device */
+> +	UCLASS_WDT,		/* Watchdot Timer driver */
+>  
+>  	UCLASS_COUNT,
+>  	UCLASS_INVALID = -1,
+> diff --git a/include/wdt.h b/include/wdt.h
+> new file mode 100644
+> index 0000000000..1da5a962df
+> --- /dev/null
+> +++ b/include/wdt.h
+> @@ -0,0 +1,97 @@
+> +/*
+> + * Copyright 2017 Google, Inc
+> + *
+> + * SPDX-License-Identifier:	GPL-2.0+
+> + */
+> +
+> +#ifndef _WDT_H_
+> +#define _WDT_H_
+> +
+> +/*
+> + * Start the timer
+> + *
+> + * @dev: WDT Device
+> + * @timeout: Number of ticks before timer expires
+> + * @flags: Driver specific flags. This might be used to specify
+> + * which action needs to be executed when the timer expires
+> + * @return: 0 if OK, -ve on error
+> + */
+> +int wdt_start(struct udevice *dev, u64 timeout, ulong flags);
+> +
+> +/*
+> + * Stop the timer
+> + *
+> + * @dev: WDT Device
+> + * @return: 0 if OK, -ve on error
+> + */
+> +int wdt_stop(struct udevice *dev);
+> +
+> +/*
+> + * Restart the timer, typically restoring the counter to
+> + * the value configured by start()
+> + *
+> + * @dev: WDT Device
+> + * @return: 0 if OK, -ve on error
+> + */
+> +int wdt_restart(struct udevice *dev);
+> +
+> +/*
+> + * Expire the timer, thus executing its action immediately
+> + *
+> + * Will either use chosen wdt, based on reset-wdt
+> + * chosen property, or the first one available.
+> + *
+> + * @flags: Driver specific flags
+> + * @return 0 if OK -ve on error. If wdt action is system reset,
+> + * this function may never return.
+> + */
+> +int wdt_reset(struct udevice *dev, ulong flags);
+> +
+> +/*
+> + * struct wdt_ops - Driver model wdt operations
+> + *
+> + * The uclass interface is implemented by all wdt devices which use
+> + * driver model.
+> + */
+> +struct wdt_ops {
+> +	/*
+> +	 * Start the timer
+> +	 *
+> +	 * @dev: WDT Device
+> +	 * @timeout: Number of ticks before the timer expires
+> +	 * @flags: Driver specific flags. This might be used to
+> specify
+> +	 * which action needs to be executed when the timer expires
+> +	 * @return: 0 if OK, -ve on error
+> +	 */
+> +	int (*start)(struct udevice *dev, u64 timeout, ulong flags);
+> +	/*
+> +	 * Stop the timer
+> +	 *
+> +	 * @dev: WDT Device
+> +	 * @return: 0 if OK, -ve on error
+> +	 */
+> +	int (*stop)(struct udevice *dev);
+> +	/*
+> +	 * Restart the timer, typically restoring the counter to
+> +	 * the value configured by start()
+> +	 *
+> +	 * @dev: WDT Device
+> +	 * @return: 0 if OK, -ve on error
+> +	 */
+> +	int (*restart)(struct udevice *dev);
+> +	/*
+> +	 * Expire the timer, thus executing the action immediately
+> (optional)
+> +	 *
+> +	 * If this function is not provided, default implementation
+> +	 * will be used for wdt_reset(), which is set the counter to
+> 1
+> +	 * and wait forever. This is good enough for system level
+> +	 * reset, but not good enough for resetting peripherals.
+> +	 *
+> +	 * @dev: WDT Device
+> +	 * @flags: Driver specific flags
+> +	 * @return 0 if OK -ve on error. May not return.
+> +	 */
+> +	int (*reset)(struct udevice *dev, ulong flags);
+> +};
+> +
+> +#endif  /* _WDT_H_ */
+
+
+
+
+Best regards,
+
+Lukasz Majewski
+
+--
+
+DENX Software Engineering GmbH,      Managing Director: Wolfgang Denk
+HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
