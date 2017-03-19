@@ -1,43 +1,57 @@
-Return-Path: <lukma@denx.de>
-X-Greylist: delayed 384 seconds by postgrey-1.36 at bilbo;
- Fri, 17 Mar 2017 19:48:05 AEDT
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
- (using TLSv1 with cipher DHE-RSA-CAMELLIA256-SHA (256/256 bits))
+Return-Path: <trini@konsulko.com>
+Received: from mail-qt0-x235.google.com (mail-qt0-x235.google.com
+ [IPv6:2607:f8b0:400d:c0d::235])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vkzWT4rBkzDqZJ
- for <openbmc@lists.ozlabs.org>; Fri, 17 Mar 2017 19:48:05 +1100 (AEDT)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 3vkzMk59y8z3hmlj;
- Fri, 17 Mar 2017 09:41:22 +0100 (CET)
-Received: from localhost (dynscan01.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 3vkzMk47B6z3hhV7;
- Fri, 17 Mar 2017 09:41:22 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan01.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id T5i7gnuO4iDp; Fri, 17 Mar 2017 09:41:19 +0100 (CET)
-X-Auth-Info: S9lpLv/ohI0e1zTbDQe0nG7Emfm2CSCFeMiia56w2RY=
-Received: from jawa (89-77-92-62.dynamic.chello.pl [89.77.92.62])
- (using TLSv1 with cipher DHE-RSA-CAMELLIA256-SHA (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Fri, 17 Mar 2017 09:41:19 +0100 (CET)
-Date: Fri, 17 Mar 2017 09:41:18 +0100
-From: Lukasz Majewski <lukma@denx.de>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vmPxC2Ml7zDqY7
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Mar 2017 03:41:50 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=konsulko.com header.i=@konsulko.com header.b="Foq2RMTz";
+ dkim-atps=neutral
+Received: by mail-qt0-x235.google.com with SMTP id x35so92286050qtc.2
+ for <openbmc@lists.ozlabs.org>; Sun, 19 Mar 2017 09:41:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=konsulko.com; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=KmRtK+cH1IHuWJKDKoTuUOsW2duIqWJIquVxXt62lVY=;
+ b=Foq2RMTzDuvGi7nKZY8QtzoR4m0SoV7sJEK6/eHX2LH45S+0GX+9a85AyHAzl/puZy
+ 0ycvhqAPiC7idlGGXMh10N5VVs+NZy/As5V1ZxrOlDDe+BAQGlePPuNSrWVoswXKBxdT
+ Jml2AdK4w0Y4lmtZ+MiPfx8nJOOAbQVY8zWXQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=KmRtK+cH1IHuWJKDKoTuUOsW2duIqWJIquVxXt62lVY=;
+ b=sMsz5zxdeJjRcFFHSaXlSM1tMTncOZH0Q6foH/AOEPD+Q/Y/BG05KX8q2ohjTxYuTr
+ fllC7Ue+QnxsL4mTFzwm8Yx6ePLlByU4kW3aQ3Pyu/BcAYVFLbDyHAJp+APGR7Q0P1v3
+ sxFhQL+94BoiuXkdwCu46PUffc3E85ABc13CNSZFQa7yyHPMjg9YcrQXEYxqQ7g+L8oZ
+ LWwAYwmAWsPn56FNqVplunvM6qeO1/yNt+nRiRoBM6pxSpIj6vV8gGfcRnxp/QgCMNnH
+ kJlm8q470Ga/rZ0WDJA3yGmhw+RPfojdrL93jFi+qRe6iaTg33ROJFi/+//Hi9fX2b7s
+ FpXg==
+X-Gm-Message-State: AFeK/H06o/OKhVqRu3esBnkxNZZfGOhlSnuRUqVZfTv8bPagqQPjGINSfjEhAWi7j52etg==
+X-Received: by 10.200.4.168 with SMTP id s40mr25289381qtg.283.1489941707706;
+ Sun, 19 Mar 2017 09:41:47 -0700 (PDT)
+Received: from bill-the-cat (cpe-75-180-228-133.ec.res.rr.com.
+ [75.180.228.133])
+ by smtp.gmail.com with ESMTPSA id f56sm10581114qta.14.2017.03.19.09.41.46
+ (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+ Sun, 19 Mar 2017 09:41:46 -0700 (PDT)
+Date: Sun, 19 Mar 2017 12:42:17 -0400
+From: Tom Rini <trini@konsulko.com>
 To: Maxim Sloyko <maxims@google.com>
 Cc: u-boot@lists.denx.de, Simon Glass <sjg@chromium.org>,
  openbmc@lists.ozlabs.org
-Subject: Re: [U-Boot] [PATCH 02/17] dm: Simple Watchdog uclass
-Message-ID: <20170317094118.76279295@jawa>
-In-Reply-To: <20170316213624.140344-3-maxims@google.com>
+Subject: Re: [U-Boot] [PATCH 13/17] aspeed: Add support for Clocks needed by
+ MACs
+Message-ID: <20170319164217.GN19897@bill-the-cat>
 References: <20170316213624.140344-1-maxims@google.com>
- <20170316213624.140344-3-maxims@google.com>
-Organization: denx.de
-X-Mailer: Claws Mail 3.11.1 (GTK+ 2.24.25; x86_64-pc-linux-gnu)
+ <20170316213624.140344-14-maxims@google.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ protocol="application/pgp-signature"; boundary="2wfF2MdYkZlaSnkI"
+Content-Disposition: inline
+In-Reply-To: <20170316213624.140344-14-maxims@google.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
 X-Mailman-Approved-At: Mon, 20 Mar 2017 13:51:35 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -50,276 +64,84 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Mar 2017 08:48:06 -0000
+X-List-Received-Date: Sun, 19 Mar 2017 16:41:52 -0000
 
-Hi Maxim,
 
-> This is a simple uclass for Watchdog Timers. It has four operations:
-> start, restart, reset, stop. Drivers must implement start, restart and
-> stop operations, while implementing reset is optional: It's default
-> implementation expires watchdog timer in one clock tick.
-> 
+--2wfF2MdYkZlaSnkI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Mar 16, 2017 at 02:36:20PM -0700, Maxim Sloyko wrote:
+> Add support for clocks needed by MACs to ast2500 clock driver.
+> The clocks are D2-PLL, which is used by both MACs and PCLK_MAC1 and
+> PCLK_MAC2 for MAC1 and MAC2 respectively.
+>=20
+> The rate of D2-PLL is hardcoded to 250MHz -- the value used in Aspeed
+> SDK. It is not entirely clear from the datasheet how this clock is used
+> by MACs, so not clear if the rate would ever need to be different. So,
+> for now, hardcoding it is probably safer.
+>=20
+> The rate of PCLK_MAC{1,2} is chosen based on MAC speed selected through
+> hardware strapping.
+>=20
+> So, the network driver would only need to enable these clocks, no need
+> to configure the rate.
+>=20
 > Signed-off-by: Maxim Sloyko <maxims@google.com>
-
-Reviewed-by: Lukasz Majewski <lukma@denx.de>
-
 > ---
-> 
->  drivers/watchdog/Kconfig      | 11 +++++
->  drivers/watchdog/Makefile     |  1 +
->  drivers/watchdog/wdt-uclass.c | 79
-> +++++++++++++++++++++++++++++++++++ include/dm/uclass-id.h        |
-> 1 + include/wdt.h                 | 97
-> +++++++++++++++++++++++++++++++++++++++++++ 5 files changed, 189
-> insertions(+) create mode 100644 drivers/watchdog/wdt-uclass.c
->  create mode 100644 include/wdt.h
-> 
-> diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
-> index e69de29bb2..0d7366f3df 100644
-> --- a/drivers/watchdog/Kconfig
-> +++ b/drivers/watchdog/Kconfig
-> @@ -0,0 +1,11 @@
-> +menu "Watchdog Timer Support"
+>=20
+>  arch/arm/dts/ast2500-u-boot.dtsi               |   8 +
+>  arch/arm/include/asm/arch-aspeed/scu_ast2500.h |  62 +++++-
+>  drivers/clk/aspeed/clk_ast2500.c               | 265 +++++++++++++++++++=
++++---
+>  include/dt-bindings/clock/ast2500-scu.h        |   2 +
+>  4 files changed, 304 insertions(+), 33 deletions(-)
+>=20
+> diff --git a/arch/arm/dts/ast2500-u-boot.dtsi b/arch/arm/dts/ast2500-u-bo=
+ot.dtsi
+> index faeeec1be4..f826646095 100644
+> --- a/arch/arm/dts/ast2500-u-boot.dtsi
+> +++ b/arch/arm/dts/ast2500-u-boot.dtsi
+> @@ -61,3 +61,11 @@
+>  		};
+>  	};
+>  };
 > +
-> +config WDT
-> +	bool "Enable driver model for watchdog timer drivers"
-> +	depends on DM
-> +	help
-> +	  Enable driver model for watchdog timer. At the moment the
-> API
-> +	  is very simple and only supports four operations:
-> +	  start, restart, stop and reset (expire immediately).
-> +	  What exactly happens when the timer expires is up to a
-> particular
-> +	  device/driver.
-> diff --git a/drivers/watchdog/Makefile b/drivers/watchdog/Makefile
-> index a007ae8234..1aabcb97ae 100644
-> --- a/drivers/watchdog/Makefile
-> +++ b/drivers/watchdog/Makefile
-> @@ -15,3 +15,4 @@ obj-$(CONFIG_XILINX_TB_WATCHDOG) += xilinx_tb_wdt.o
->  obj-$(CONFIG_BFIN_WATCHDOG)  += bfin_wdt.o
->  obj-$(CONFIG_OMAP_WATCHDOG) += omap_wdt.o
->  obj-$(CONFIG_DESIGNWARE_WATCHDOG) += designware_wdt.o
-> +obj-$(CONFIG_WDT) += wdt-uclass.o
-> diff --git a/drivers/watchdog/wdt-uclass.c
-> b/drivers/watchdog/wdt-uclass.c new file mode 100644
-> index 0000000000..98a8b529f9
-> --- /dev/null
-> +++ b/drivers/watchdog/wdt-uclass.c
-> @@ -0,0 +1,79 @@
-> +/*
-> + * Copyright 2017 Google, Inc
-> + *
-> + * SPDX-License-Identifier:	GPL-2.0+
-> + */
-> +
-> +#include <common.h>
-> +#include <dm.h>
-> +#include <errno.h>
-> +#include <wdt.h>
-> +#include <dm/lists.h>
-> +#include <dm/device-internal.h>
-> +
-> +DECLARE_GLOBAL_DATA_PTR;
-> +
-> +/*
-> + * Implement a simple watchdog uclass. Watchdog is basically a timer
-> that
-> + * is used to detect or recover from malfunction. During normal
-> operation
-> + * the watchdog would be regularly reset to prevent it from timing
-> out.
-> + * If, due to a hardware fault or program error, the computer fails
-> to reset
-> + * the watchdog, the timer will elapse and generate a timeout signal.
-> + * The timeout signal is used to initiate corrective action or
-> actions,
-> + * which typically include placing the system in a safe, known state.
-> + */
-> +
-> +int wdt_start(struct udevice *dev, u64 timeout, ulong flags)
-> +{
-> +	const struct wdt_ops *ops = device_get_ops(dev);
-> +
-> +	if (!ops->start)
-> +		return -ENOSYS;
-> +
-> +	return ops->start(dev, timeout, flags);
-> +}
-> +
-> +int wdt_stop(struct udevice *dev)
-> +{
-> +	const struct wdt_ops *ops = device_get_ops(dev);
-> +
-> +	if (!ops->stop)
-> +		return -ENOSYS;
-> +
-> +	return ops->stop(dev);
-> +}
-> +
-> +int wdt_restart(struct udevice *dev)
-> +{
-> +	const struct wdt_ops *ops = device_get_ops(dev);
-> +
-> +	if (!ops->restart)
-> +		return -ENOSYS;
-> +
-> +	return ops->restart(dev);
-> +}
-> +
-> +int wdt_reset(struct udevice *dev, ulong flags)
-> +{
-> +	const struct wdt_ops *ops;
-> +
-> +	debug("WDT Resettting: %lu\n", flags);
-> +	ops = device_get_ops(dev);
-> +	if (ops->reset) {
-> +		return ops->reset(dev, flags);
-> +	} else {
-> +		if (!ops->start)
-> +			return -ENOSYS;
-> +
-> +		ops->start(dev, 1, flags);
-> +		while (1)
-> +			;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +UCLASS_DRIVER(wdt) = {
-> +	.id		= UCLASS_WDT,
-> +	.name		= "wdt",
-> +};
-> diff --git a/include/dm/uclass-id.h b/include/dm/uclass-id.h
-> index 8c92d0b030..b73a7fd436 100644
-> --- a/include/dm/uclass-id.h
-> +++ b/include/dm/uclass-id.h
-> @@ -83,6 +83,7 @@ enum uclass_id {
->  	UCLASS_VIDEO,		/* Video or LCD device */
->  	UCLASS_VIDEO_BRIDGE,	/* Video bridge, e.g.
-> DisplayPort to LVDS */ UCLASS_VIDEO_CONSOLE,	/* Text console
-> driver for video device */
-> +	UCLASS_WDT,		/* Watchdot Timer driver */
->  
->  	UCLASS_COUNT,
->  	UCLASS_INVALID = -1,
-> diff --git a/include/wdt.h b/include/wdt.h
-> new file mode 100644
-> index 0000000000..1da5a962df
-> --- /dev/null
-> +++ b/include/wdt.h
-> @@ -0,0 +1,97 @@
-> +/*
-> + * Copyright 2017 Google, Inc
-> + *
-> + * SPDX-License-Identifier:	GPL-2.0+
-> + */
-> +
-> +#ifndef _WDT_H_
-> +#define _WDT_H_
-> +
-> +/*
-> + * Start the timer
-> + *
-> + * @dev: WDT Device
-> + * @timeout: Number of ticks before timer expires
-> + * @flags: Driver specific flags. This might be used to specify
-> + * which action needs to be executed when the timer expires
-> + * @return: 0 if OK, -ve on error
-> + */
-> +int wdt_start(struct udevice *dev, u64 timeout, ulong flags);
-> +
-> +/*
-> + * Stop the timer
-> + *
-> + * @dev: WDT Device
-> + * @return: 0 if OK, -ve on error
-> + */
-> +int wdt_stop(struct udevice *dev);
-> +
-> +/*
-> + * Restart the timer, typically restoring the counter to
-> + * the value configured by start()
-> + *
-> + * @dev: WDT Device
-> + * @return: 0 if OK, -ve on error
-> + */
-> +int wdt_restart(struct udevice *dev);
-> +
-> +/*
-> + * Expire the timer, thus executing its action immediately
-> + *
-> + * Will either use chosen wdt, based on reset-wdt
-> + * chosen property, or the first one available.
-> + *
-> + * @flags: Driver specific flags
-> + * @return 0 if OK -ve on error. If wdt action is system reset,
-> + * this function may never return.
-> + */
-> +int wdt_reset(struct udevice *dev, ulong flags);
-> +
-> +/*
-> + * struct wdt_ops - Driver model wdt operations
-> + *
-> + * The uclass interface is implemented by all wdt devices which use
-> + * driver model.
-> + */
-> +struct wdt_ops {
-> +	/*
-> +	 * Start the timer
-> +	 *
-> +	 * @dev: WDT Device
-> +	 * @timeout: Number of ticks before the timer expires
-> +	 * @flags: Driver specific flags. This might be used to
-> specify
-> +	 * which action needs to be executed when the timer expires
-> +	 * @return: 0 if OK, -ve on error
-> +	 */
-> +	int (*start)(struct udevice *dev, u64 timeout, ulong flags);
-> +	/*
-> +	 * Stop the timer
-> +	 *
-> +	 * @dev: WDT Device
-> +	 * @return: 0 if OK, -ve on error
-> +	 */
-> +	int (*stop)(struct udevice *dev);
-> +	/*
-> +	 * Restart the timer, typically restoring the counter to
-> +	 * the value configured by start()
-> +	 *
-> +	 * @dev: WDT Device
-> +	 * @return: 0 if OK, -ve on error
-> +	 */
-> +	int (*restart)(struct udevice *dev);
-> +	/*
-> +	 * Expire the timer, thus executing the action immediately
-> (optional)
-> +	 *
-> +	 * If this function is not provided, default implementation
-> +	 * will be used for wdt_reset(), which is set the counter to
-> 1
-> +	 * and wait forever. This is good enough for system level
-> +	 * reset, but not good enough for resetting peripherals.
-> +	 *
-> +	 * @dev: WDT Device
-> +	 * @flags: Driver specific flags
-> +	 * @return 0 if OK -ve on error. May not return.
-> +	 */
-> +	int (*reset)(struct udevice *dev, ulong flags);
+> +&mac0 {
+> +	clocks =3D <&scu PCLK_MAC1>, <&scu PLL_D2PLL>;
 > +};
 > +
-> +#endif  /* _WDT_H_ */
+> +&mac1 {
+> +	clocks =3D <&scu PCLK_MAC2>, <&scu PLL_D2PLL>;
+> +};
 
+Why is this here and not in the main dts file?  The -u-boot.dtsi is for
+stuff that's not appropriate in the upstream dts file.  Thanks!
 
+--=20
+Tom
 
+--2wfF2MdYkZlaSnkI
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
 
-Best regards,
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
 
-Lukasz Majewski
+iQIcBAEBAgAGBQJYzrTpAAoJEIf59jXTHXZSBD0P/0zjqdUb5eQHAI3J1B6EcXwu
+raFK5UYoMeQAR7nm3BIwpiXky4QTH7ae46RPispQZDT62PuiHzj3gFfAt/fY0E8H
++egmYO097FrZkKENdy20t18AZ39GOQ/OmERE/XlAwOCJNQ+/ypPYiUkduDiyRiYo
+QqmLmVJtKVtLrtjm1Lx2gHsNpLyRTSO7Q2BTemseFWkCif5LVdLdpYtD3zTFI4qx
+HUoOWAGWuB7XViJCYmPs8EkLcOWhjxlEoQa//9vhV1tef1UnyitR9IHDa3h97UmD
+AUky5lpU7rFFRPKwz+i2dgdNaj/ypTWR4MVYRYceXt/i2/EDwmWVlzbrYkJ9QBOy
+f9dYYOeuLGBfXaPIFavIe6WwPbdyDboi9IrqVqGToLk5w0ooBGmquChl9P5KURSW
+7Ab2SD5AtbOlI+eShX8rGiG2OA/AUUEYAf2iM9HnutAtFtraGTnhfYvkdTcGnG6d
+JERvZRdItBMpTxCA5eid7+hFh0Gg3tX1OmdynpMaQIZO97wuWvt41HW+NJe5vlJJ
+V5AD1X0toqEfn0omO9G3XuMRHbwyq7osnyaJ/YoQ++BMtBztrQ8FxTuEHx7fslFU
+xCKwtE/n3emP02X4CGqU9Z+ABOlWr5xw/D4oILijQ5UmrJR5vUIq3SS07DVenH/M
+kEB6JKTtlaOtAtRA45cb
+=PXT4
+-----END PGP SIGNATURE-----
 
---
-
-DENX Software Engineering GmbH,      Managing Director: Wolfgang Denk
-HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
-Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
+--2wfF2MdYkZlaSnkI--
