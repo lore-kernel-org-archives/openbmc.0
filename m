@@ -1,67 +1,57 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <maxims@google.com>
+Received: from mail-io0-x232.google.com (mail-io0-x232.google.com
+ [IPv6:2607:f8b0:4001:c06::232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vn81h5mXkzDqZR
- for <openbmc@lists.ozlabs.org>; Tue, 21 Mar 2017 08:18:16 +1100 (AEDT)
-Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v2KLDw0Y089157
- for <openbmc@lists.ozlabs.org>; Mon, 20 Mar 2017 17:18:06 -0400
-Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
- by mx0b-001b2d01.pphosted.com with ESMTP id 29af6esbnn-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 20 Mar 2017 17:18:05 -0400
-Received: from localhost
- by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Mon, 20 Mar 2017 17:18:05 -0400
-Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
- by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 20 Mar 2017 17:18:04 -0400
-Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
- [9.57.199.110])
- by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v2KLI3en40697868; Mon, 20 Mar 2017 21:18:03 GMT
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0B7B0AE051;
- Mon, 20 Mar 2017 17:17:56 -0400 (EDT)
-Received: from Christophers-MacBook-Pro.local (unknown [9.83.0.205])
- by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP id 8E2CAAE043;
- Mon, 20 Mar 2017 17:17:52 -0400 (EDT)
-Subject: Re: [PATCH linux dev-4.7] fsi: i2c: Remove noisy printks
-To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
-References: <20170317023411.13045-1-joel@jms.id.au>
-Cc: "Edward A . James" <eajames@linux.vnet.ibm.com>
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Mon, 20 Mar 2017 16:17:58 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
- Gecko/20100101 Thunderbird/45.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vn9mY19BRzDq5g
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Mar 2017 09:37:01 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="UIY+KANT"; 
+ dkim-atps=neutral
+Received: by mail-io0-x232.google.com with SMTP id f84so38869895ioj.0
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Mar 2017 15:37:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=DSov6OuGz1lcI2qvt3exHDgVLI5szvSPa0gOn9ZdpQU=;
+ b=UIY+KANTh97vB1jaltaIH0/AP+Y5Vr4fhDd/2uAJpNCdg9JAjj5+ARuKIhyfLNVbuE
+ EDjjKeBKKI9a9ep9HgCq3+edJRm3zAKt0X5vr57RLiJZS+6AoAPhCRgoX/Zr1m5/k9ST
+ qB/sU06goo3yfeabBBsU56RdJX4SVbrdkZLZXyKVyA0CDkOWaKYwm69nRlcnGfbmUkjq
+ DkU5zGA8qT+9r6DrU2jQskZllwhh2FJ/oGVDmiSgOG5b7eTyEO6/Bvf1mjmfW4UBbagQ
+ OnSc0OJGxDeOcbn2kdNBGtIvQrW0vFFHO0R9uKt65x1oQCcBF76eZTLD1G6ArUgBdGdA
+ YUlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=DSov6OuGz1lcI2qvt3exHDgVLI5szvSPa0gOn9ZdpQU=;
+ b=BFiTE9L/6L5lgNTmWJkB6jD6wHN6KrooO60um9q/SQ2uCZ+jp/P8hSlIVfqJa2twrU
+ Ox6g9QOZbxR/TL+9Blyusrn/2S+ZGgR/TcYZ847+not1pp+GpN6URN5HTuDT4/8XtK5Q
+ Khdp907QMzM3OLL/7HqOyDyUbN0h426lUUdwaVMWbD2gp84pryTkGfhcawGvDZwf0ARm
+ LVbkqfhpJESmGR9BmOksPhkjP0g1S9hLkKtsGrpnRincysVIq/dPKB4fKArFhXBx2k4b
+ cPIzPIkArBP5sBEFKN3BCkjFatlZghefyjROp/udFnKIila8EL1Jc/K6hze2asSVawpC
+ 0S/w==
+X-Gm-Message-State: AFeK/H0Ms8CNU70WjqXH7wmxTaL7xn3EeMpUtYEsXTlTl3WkiArjJeK6SAhW1crrCnEYtloDvP5K0AlmIHj6/zO+
+X-Received: by 10.107.32.199 with SMTP id g190mr6263590iog.117.1490049418348; 
+ Mon, 20 Mar 2017 15:36:58 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20170317023411.13045-1-joel@jms.id.au>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 17032021-2213-0000-0000-0000016A6110
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006818; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000206; SDB=6.00836515; UDB=6.00411139; IPR=6.00614285; 
- BA=6.00005224; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014731; XFM=3.00000013;
- UTC=2017-03-20 21:18:05
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17032021-2214-0000-0000-000054D50A9C
-Message-Id: <30268faa-5c95-4295-35ba-f5bc4ccff68a@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-03-20_15:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
- definitions=main-1703200180
+Received: by 10.107.135.225 with HTTP; Mon, 20 Mar 2017 15:36:57 -0700 (PDT)
+In-Reply-To: <20170320194821.GY19897@bill-the-cat>
+References: <20170316213624.140344-1-maxims@google.com>
+ <20170316213624.140344-14-maxims@google.com>
+ <20170319164217.GN19897@bill-the-cat>
+ <CAFR_W8qO-hP880NMdyHgGuwq_agsMXcPyfJWt9C8Hot-sW2e6w@mail.gmail.com>
+ <20170320173034.GX19897@bill-the-cat>
+ <CAFR_W8q_mPwTU9NH1vhf7rQuBQ1JLxdHjSS7me_QWqh1878hTg@mail.gmail.com>
+ <20170320194821.GY19897@bill-the-cat>
+From: Maxim Sloyko <maxims@google.com>
+Date: Mon, 20 Mar 2017 15:36:57 -0700
+Message-ID: <CAFR_W8oqKeLwbZLLj6rrNo8jgyGKW2Lbw5XdnE=7XTLUWoPkBw@mail.gmail.com>
+Subject: Re: [U-Boot] [PATCH 13/17] aspeed: Add support for Clocks needed by
+ MACs
+To: Tom Rini <trini@konsulko.com>
+Cc: Simon Glass <sjg@chromium.org>, U-Boot Mailing List <u-boot@lists.denx.de>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -73,193 +63,113 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Mar 2017 21:18:17 -0000
+X-List-Received-Date: Mon, 20 Mar 2017 22:37:01 -0000
+
+On Mon, Mar 20, 2017 at 12:48 PM, Tom Rini <trini@konsulko.com> wrote:
+>
+> On Mon, Mar 20, 2017 at 10:52:12AM -0700, Maxim Sloyko wrote:
+> > On Mon, Mar 20, 2017 at 10:30 AM, Tom Rini <trini@konsulko.com> wrote:
+> >
+> > > On Mon, Mar 20, 2017 at 10:24:20AM -0700, Maxim Sloyko wrote:
+> > > > On Sun, Mar 19, 2017 at 9:42 AM, Tom Rini <trini@konsulko.com> wrote:
+> > > >
+> > > > > On Thu, Mar 16, 2017 at 02:36:20PM -0700, Maxim Sloyko wrote:
+> > > > > > Add support for clocks needed by MACs to ast2500 clock driver.
+> > > > > > The clocks are D2-PLL, which is used by both MACs and PCLK_MAC1 and
+> > > > > > PCLK_MAC2 for MAC1 and MAC2 respectively.
+> > > > > >
+> > > > > > The rate of D2-PLL is hardcoded to 250MHz -- the value used in Aspeed
+> > > > > > SDK. It is not entirely clear from the datasheet how this clock is
+> > > used
+> > > > > > by MACs, so not clear if the rate would ever need to be different.
+> > > So,
+> > > > > > for now, hardcoding it is probably safer.
+> > > > > >
+> > > > > > The rate of PCLK_MAC{1,2} is chosen based on MAC speed selected
+> > > through
+> > > > > > hardware strapping.
+> > > > > >
+> > > > > > So, the network driver would only need to enable these clocks, no
+> > > need
+> > > > > > to configure the rate.
+> > > > > >
+> > > > > > Signed-off-by: Maxim Sloyko <maxims@google.com>
+> > > > > > ---
+> > > > > >
+> > > > > >  arch/arm/dts/ast2500-u-boot.dtsi               |   8 +
+> > > > > >  arch/arm/include/asm/arch-aspeed/scu_ast2500.h |  62 +++++-
+> > > > > >  drivers/clk/aspeed/clk_ast2500.c               | 265
+> > > > > ++++++++++++++++++++++---
+> > > > > >  include/dt-bindings/clock/ast2500-scu.h        |   2 +
+> > > > > >  4 files changed, 304 insertions(+), 33 deletions(-)
+> > > > > >
+> > > > > > diff --git a/arch/arm/dts/ast2500-u-boot.dtsi
+> > > > > b/arch/arm/dts/ast2500-u-boot.dtsi
+> > > > > > index faeeec1be4..f826646095 100644
+> > > > > > --- a/arch/arm/dts/ast2500-u-boot.dtsi
+> > > > > > +++ b/arch/arm/dts/ast2500-u-boot.dtsi
+> > > > > > @@ -61,3 +61,11 @@
+> > > > > >               };
+> > > > > >       };
+> > > > > >  };
+> > > > > > +
+> > > > > > +&mac0 {
+> > > > > > +     clocks = <&scu PCLK_MAC1>, <&scu PLL_D2PLL>;
+> > > > > > +};
+> > > > > > +
+> > > > > > +&mac1 {
+> > > > > > +     clocks = <&scu PCLK_MAC2>, <&scu PLL_D2PLL>;
+> > > > > > +};
+> > > > >
+> > > > > Why is this here and not in the main dts file?  The -u-boot.dtsi is for
+> > > > > stuff that's not appropriate in the upstream dts file.  Thanks!
+> > > >
+> > > > There is no clock driver for this part in mainline Linux Kernel yet and I
+> > > > don't know how it will end up being configured. I suspect that they might
+> > > > not use the same bindings though.
+> > > >
+> > > > Should I put this into board specific dts?
+> > >
+> > > So this applies to a lot of parts of the series here.  What we don't
+> > > want to do is have places where the DTS here diverges from the Linux
+> > > kernel DTS and we don't reconcile them.  If the relevant Linux drivers
+> > > are not in mainline, are they at least in linux-next or otherwise
+> > > submitted to the relevant subtrees?
+> > >
+> >
+> > No, as far as I know, maybe Rick (cc'ed) knows what is the plan there.
+> >
+> > I'm not really working on the linux driver and it's outside of my control.
+> >
+> > I can change network driver, so that it does not use this DT configuration
+> > and either hard code clock config into it, or configure it's clocks in
+> > board specific file -- would that be more acceptable?
+>
+> For all the cases where you don't have the DT portion itself upstream
+> yet, go with platdata instead for now.  Unless I'm mis-recalling things
+> that is.
+
+
+Sorry, I don't quite follow.
+
+My understanding is that platdata is supposed to be used as a
+substitute for DT nodes, but in this case there is a node for MAC
+present in upstream linux device tree, it's just that one specific
+option that needs to be different. Is there an overwrite mechanism
+that is platdata based?
+
+What I was thinking about is changing the driver so that instead of
+reading the clock configuration from DT it would use clock ids based
+on device's sequence number, i.e. mac0 would use PCLK_MAC0, mac1 would
+use PCLK_MAC1. Same for I2C.
+
+>
+>
+> --
+> Tom
 
 
 
-On 3/16/17 9:34 PM, Joel Stanley wrote:
-> These create a lot of noise in the kernel log. Hide them behind dev_dbg.
->
->    PROBE    eng[00f5112c]
->    Adding ports[0x0000000000007fff] to eng[0x00f5112c]
->    bus[0000000f] created
->    bus[00000010] created
->    bus[00000011] created
->    bus[00000012] created
->    bus[00000013] created
->    bus[00000014] created
->    bus[00000015] created
->    bus[00000016] created
->    bus[00000017] created
->    bus[00000018] created
->    bus[00000019] created
->    bus[0000001a] created
->    bus[0000001b] created
->    bus[0000001c] created
->    bus[0000001d] created
->    RESUME   eng[00f5112c]
->    iic_boe_reset
->    iic_boe_eng_init: P8/Z7PLUS mode
->    clean port busy port_busy[0001ffff]
->    iic_boe_eng_init: P8/Z7PLUS mode
->
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-> ---
->
-> Tested on Romulus
->
->   drivers/fsi/i2c/iic-boe.c  | 12 ++++++------
->   drivers/fsi/i2c/iic-fsi.c  | 12 ++++++------
->   drivers/fsi/i2c/iic-mstr.c |  6 ++----
->   3 files changed, 14 insertions(+), 16 deletions(-)
->
-> diff --git a/drivers/fsi/i2c/iic-boe.c b/drivers/fsi/i2c/iic-boe.c
-> index e7196c0115b1..5b90a856c4fd 100644
-> --- a/drivers/fsi/i2c/iic-boe.c
-> +++ b/drivers/fsi/i2c/iic-boe.c
-> @@ -697,23 +697,23 @@ int iic_boe_eng_init(iic_eng_t* eng, iic_ffdc_t** ffdc)
->   	clk_div = IIC_BOE_HZ2DIV(eng->bus_speed, IIC_BOE_DFLT_SPEED);
->   	if(!clk_div)
->   	{
-> -		IFLDi(2, "eng[%08x], max speed = %ld\n",
-> +		dev_dbg(eng->dev, "eng[%08x], max speed = %ld\n",
->   				eng->id, eng->bus_speed / 5);
->   	}
->   	if(clk_div & ~IIC_BOE_MAX_CLKDIV)
->   		clk_div = IIC_BOE_MAX_CLKDIV;
-> -	IFLDd(3, "eng[%08x] speed[%ld] divisor[%ld]\n", eng->id,
-> +	dev_dbg(eng->dev, "eng[%08x] speed[%ld] divisor[%ld]\n", eng->id,
->   			IIC_BOE_DIV2HZ(eng->bus_speed, clk_div), clk_div);
->
->   	if(test_bit(IIC_ENG_Z7PLUS, &eng->flags) ||
->   	   test_bit(IIC_ENG_P8_Z8_CENTAUR, &eng->flags))
->   	{
-> -		IFLDi(0, "iic_boe_eng_init: P8/Z7PLUS mode\n");
-> +		dev_dbg(eng->dev, "iic_boe_eng_init: P8/Z7PLUS mode\n");
->   		mode = IIC_BOE_Z7_MK_CLKDIV(clk_div);
->   	}
->   	else
->   	{
-> -		IFLDi(0, "iic_boe_eng_init: Normal mode\n");
-> +		dev_dbg(eng->dev, "iic_boe_eng_init: Normal mode\n");
->   		mode = IIC_BOE_MK_CLKDIV(clk_div);
->   	}
->
-> @@ -1362,7 +1362,7 @@ int iic_boe_reset(iic_eng_t* eng, int type, iic_ffdc_t** ffdc)
->
->   	IENTER();
->   	/* issue an immediate reset i2c command */
-> -	IFLDi(0, "iic_boe_reset\n");
-> +	dev_dbg(eng->dev, "iic_boe_reset\n");
->   	rc = iic_writew(eng, IIC_BOE_RESET_I2C, 0, ffdc);
->   	if(rc)
->   		goto exit;
-> @@ -1413,7 +1413,7 @@ int iic_boe_reset(iic_eng_t* eng, int type, iic_ffdc_t** ffdc)
->   				ffdc);
->   		if (rc)
->   			goto exit;
-> -		IFLDi(1, "clean port busy port_busy[%08lx]\n", port_busy);
-> +		dev_dbg(eng->dev, "clean port busy port_busy[%08lx]\n", port_busy);
->   	}
->
->   	/* Test for stuck lines */
-> diff --git a/drivers/fsi/i2c/iic-fsi.c b/drivers/fsi/i2c/iic-fsi.c
-> index 1f85e91232fd..5592a1441c54 100644
-> --- a/drivers/fsi/i2c/iic-fsi.c
-> +++ b/drivers/fsi/i2c/iic-fsi.c
-> @@ -195,7 +195,7 @@ int iic_add_ports(iic_eng_t* eng, uint64_t ports)
->
->   	IENTER();
->
-> -	IFLDi(3, "Adding ports[0x%08x%08x] to eng[0x%08x]\n",
-> +	dev_dbg(eng->dev, "Adding ports[0x%08x%08x] to eng[0x%08x]\n",
->   	      (uint32_t)(ports >> 32),
->   	      (uint32_t)ports,
->   	      eng->id);
-> @@ -271,7 +271,7 @@ int iic_del_ports(iic_eng_t* eng, uint64_t ports)
->
->   	IENTER();
->
-> -	IFLDi(3, "removing ports[0x%08x%08x] from eng[0x%08x]",
-> +	dev_dbg(eng->dev, "removing ports[0x%08x%08x] from eng[0x%08x]",
->   	      (uint32_t)(ports >> 32),
->   	      (uint32_t)ports,
->   	      eng->id);
-> @@ -333,7 +333,7 @@ int iic_fsi_probe(struct device *dev)
->   	set_bit(IIC_ENG_BLOCK, &eng->flags); //block until resumed
->   	eng->id = 0x00F5112C;
->   	eng->idx = ida_simple_get(&iic_ida, 1, INT_MAX, GFP_KERNEL);
-> -	IFLDi(1, "PROBE    eng[%08x]\n", eng->id);
-> +	dev_dbg(dev, "PROBE    eng[%08x]\n", eng->id);
->   	eng->ra = &fsi_reg_access;
->   	IFLDd(1, "vaddr=%#08lx\n", eng->base);
->   	eng->dev = dev;
-> @@ -414,7 +414,7 @@ int iic_fsi_remove(struct device* dev)
->
->   	iic_fsi_suspend(dev); //ignore rc
->
-> -	IFLDi(1, "REMOVE   eng[%08x]\n", eng->id);
-> +	dev_dbg(dev, "REMOVE   eng[%08x]\n", eng->id);
->
->   	/* Clean up device files immediately, don't wait for ref count */
->   	iic_del_ports(eng, IIC_FSI_PORTS);
-> @@ -451,7 +451,7 @@ int iic_fsi_suspend(struct device *dev)
->   		goto error;
->   	}
->
-> -	IFLDi(2, "SUSPEND  eng[%08x]\n", eng->id);
-> +	dev_dbg(dev,"SUSPEND  eng[%08x]\n", eng->id);
->
->   	/* Prohibit new engine operations until resumed*/
->   	set_bit(IIC_ENG_BLOCK, &eng->flags);
-> @@ -504,7 +504,7 @@ int iic_fsi_resume(struct device *dev)
->   		goto error;
->   	}
->
-> -	IFLDi(1, "RESUME   eng[%08x]\n", eng->id);
-> +	dev_dbg(eng->dev, "RESUME   eng[%08x]\n", eng->id);
->
->   	eng->bus_speed = 20833333;
->   	IFLDd(1, "eng->bus_speed=%ld\n", eng->bus_speed);
-> diff --git a/drivers/fsi/i2c/iic-mstr.c b/drivers/fsi/i2c/iic-mstr.c
-> index f968c2040dc3..a5881fb795f4 100644
-> --- a/drivers/fsi/i2c/iic-mstr.c
-> +++ b/drivers/fsi/i2c/iic-mstr.c
-> @@ -2157,7 +2157,7 @@ iic_bus_t*  iic_create_bus(struct class* classp, iic_eng_t* eng,
->   		goto exit_class_add;
->   	}
->
-> -	IFLDi(1, "bus[%08lx] created\n", bus->bus_id);
-> +	dev_dbg(bus->class_dev, "bus[%08lx] created\n", bus->bus_id);
->   	goto exit;
->
->   	device_destroy(classp, bus->devnum);
-> @@ -2180,7 +2180,7 @@ void iic_delete_bus(struct class* classp, iic_bus_t* bus)
->   	{
->   		goto exit;
->   	}
-> -	IFLDi(1, "cleanup bus[%08lx]\n", bus->bus_id);
-> +	dev_dbg(bus->class_dev, "cleanup bus[%08lx]\n", bus->bus_id);
->   	device_destroy(classp, bus->devnum);
->   	cdev_del(&bus->cdev);
->   	kfree(bus);
-> @@ -2195,7 +2195,6 @@ static int __init iic_init(void)
->   	int rc = 0;
->
->   	IENTER();
-> -	printk("IIC: base support loaded  ver. %s\n", iic_mstr_version);
->   	IEXIT(rc);
->   	return rc;
->   }
-> @@ -2203,7 +2202,6 @@ static int __init iic_init(void)
->   static void __exit iic_exit(void)
->   {
->   	IENTER();
-> -	printk("IIC: base support unloaded.\n");
->   	IEXIT(0);
->   }
-Hi Joel,
 
-Looks good - thanks
-
-Acked-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+-- 
+Maxim Sloyko
