@@ -1,55 +1,62 @@
-Return-Path: <maxims@google.com>
-Received: from mail-it0-x234.google.com (mail-it0-x234.google.com
- [IPv6:2607:f8b0:4001:c0b::234])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <cbostic@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vn3Rz6p0QzDqZV
- for <openbmc@lists.ozlabs.org>; Tue, 21 Mar 2017 04:52:15 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="hJwyg3Zl"; 
- dkim-atps=neutral
-Received: by mail-it0-x234.google.com with SMTP id 190so1393359itm.0
- for <openbmc@lists.ozlabs.org>; Mon, 20 Mar 2017 10:52:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=igYRX6OZxDYx+wfYJK+kjehMpRuToZ3ByD3YiVHsTK0=;
- b=hJwyg3ZlrKId5dPCbDlXti9CVStrkOm3F1991eVChyaeYFewPYsLQrrx77tnJvkzdn
- QEMo2b1QHHXyPOUvNz8XzEltHOga69SdfecxRs1/jV33PlvVzMj4BdWEEt5R7Glgsyaw
- gpb2+UwaoppblqnS4nOv1pR1A79EVlXOSaqzDUbs+9ms2fUoYactxDqYdTZJ7MFbdnNI
- BnEELt20c5Lg4DZzw3fUBS88Nq3eb3SwNscD7f7jdJTSjFiVxdmpr152buuvEvtjX59T
- h58vZ6laJAs462NLkbmyVr0vOZ+xKiSpV6ww70Ta+pgSliID6p+csoC7vxskKnUSSN/K
- RdQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=igYRX6OZxDYx+wfYJK+kjehMpRuToZ3ByD3YiVHsTK0=;
- b=Kt8lYZr7oFG/I1c+e3Razbut5zXMlCabLYiCJ1N22Zuy77jL1jpEH3s1xnoN2Ktc5S
- vCSUYJW6Mimt3tGeBcBMGRUo2FlEhNqSiMnc4K636tKMp1dtnMHLW46qjUfMRvT+VyBE
- DaABErUNqu2bcL/WwgOsrDhkCKtRolOvXIgbBLNOq1X5a3grW6zclRN6yvylRt8/rdyu
- zkzejVT2Y8fGMinIT8FoBVPv28Cov7l7niyPvb80lmmEu3F82TGZspuDao6Si9QKG0ll
- n1K5NGHyaYY7+p3kKH1eyuUmbUvYO2U0uN9pXVVSQj0NcVGtPE9BWtkX1Xj4Q3ThC54S
- uPQQ==
-X-Gm-Message-State: AFeK/H29S3BeAQ6WiDIoHe5Y6s+n3zix5N2C2bUi/1dT7bDWAnskRiTE+bSmHVgFhr6n7gzrdT7ksRO8ut9XWFW+
-X-Received: by 10.107.150.201 with SMTP id y192mr32744613iod.33.1490032332640; 
- Mon, 20 Mar 2017 10:52:12 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.107.135.225 with HTTP; Mon, 20 Mar 2017 10:52:12 -0700 (PDT)
-In-Reply-To: <20170320173034.GX19897@bill-the-cat>
-References: <20170316213624.140344-1-maxims@google.com>
- <20170316213624.140344-14-maxims@google.com>
- <20170319164217.GN19897@bill-the-cat>
- <CAFR_W8qO-hP880NMdyHgGuwq_agsMXcPyfJWt9C8Hot-sW2e6w@mail.gmail.com>
- <20170320173034.GX19897@bill-the-cat>
-From: Maxim Sloyko <maxims@google.com>
-Date: Mon, 20 Mar 2017 10:52:12 -0700
-Message-ID: <CAFR_W8q_mPwTU9NH1vhf7rQuBQ1JLxdHjSS7me_QWqh1878hTg@mail.gmail.com>
-Subject: Re: [U-Boot] [PATCH 13/17] aspeed: Add support for Clocks needed by
- MACs
-To: Tom Rini <trini@konsulko.com>
-Cc: U-Boot Mailing List <u-boot@lists.denx.de>, Simon Glass <sjg@chromium.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, Rick Altherr <raltherr@google.com>
-Content-Type: multipart/alternative; boundary=001a1140ed34e463d4054b2d2fca
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vn3m634vTzDqZc
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Mar 2017 05:06:13 +1100 (AEDT)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v2KHwdXx140767
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Mar 2017 14:06:02 -0400
+Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 29aj6pxkmy-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Mar 2017 14:06:02 -0400
+Received: from localhost
+ by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Mon, 20 Mar 2017 12:06:00 -0600
+Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
+ by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Mon, 20 Mar 2017 12:05:58 -0600
+Received: from b03ledav004.gho.boulder.ibm.com
+ (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
+ by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v2KI5vPt17170756; Mon, 20 Mar 2017 11:05:57 -0700
+Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 8AE1E7804D;
+ Mon, 20 Mar 2017 12:05:57 -0600 (MDT)
+Received: from Christophers-MacBook-Pro.local.com (unknown [9.83.0.205])
+ by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP id C2D1278037;
+ Mon, 20 Mar 2017 12:05:55 -0600 (MDT)
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+To: joel@jms.id.au
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.7 v3] drivers/fsi: Increase delay before sampling
+ input on SDA
+Date: Mon, 20 Mar 2017 13:05:49 -0500
+X-Mailer: git-send-email 2.10.1 (Apple Git-78)
+X-TM-AS-GCONF: 00
+x-cbid: 17032018-0004-0000-0000-000011CF68EE
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006817; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000206; SDB=6.00836452; UDB=6.00411100; IPR=6.00614221; 
+ BA=6.00005224; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014729; XFM=3.00000013;
+ UTC=2017-03-20 18:05:59
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17032018-0005-0000-0000-00007DF5BBD7
+Message-Id: <20170320180549.21903-1-cbostic@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-03-20_13:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
+ definitions=main-1703200154
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,206 +68,191 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Mar 2017 17:52:16 -0000
+X-List-Received-Date: Mon, 20 Mar 2017 18:06:15 -0000
 
---001a1140ed34e463d4054b2d2fca
-Content-Type: text/plain; charset=UTF-8
+During high cpu loads the SDA in line can shift relative to the
+clock signal which can corrupt the received input data.  Slow
+down the time to sample input to account for this.
 
-On Mon, Mar 20, 2017 at 10:30 AM, Tom Rini <trini@konsulko.com> wrote:
+Add sysfs files to adjust the three main openfsi protocol timing
+values: clock delay; sample delay; clock off time.
 
-> On Mon, Mar 20, 2017 at 10:24:20AM -0700, Maxim Sloyko wrote:
-> > On Sun, Mar 19, 2017 at 9:42 AM, Tom Rini <trini@konsulko.com> wrote:
-> >
-> > > On Thu, Mar 16, 2017 at 02:36:20PM -0700, Maxim Sloyko wrote:
-> > > > Add support for clocks needed by MACs to ast2500 clock driver.
-> > > > The clocks are D2-PLL, which is used by both MACs and PCLK_MAC1 and
-> > > > PCLK_MAC2 for MAC1 and MAC2 respectively.
-> > > >
-> > > > The rate of D2-PLL is hardcoded to 250MHz -- the value used in Aspeed
-> > > > SDK. It is not entirely clear from the datasheet how this clock is
-> used
-> > > > by MACs, so not clear if the rate would ever need to be different.
-> So,
-> > > > for now, hardcoding it is probably safer.
-> > > >
-> > > > The rate of PCLK_MAC{1,2} is chosen based on MAC speed selected
-> through
-> > > > hardware strapping.
-> > > >
-> > > > So, the network driver would only need to enable these clocks, no
-> need
-> > > > to configure the rate.
-> > > >
-> > > > Signed-off-by: Maxim Sloyko <maxims@google.com>
-> > > > ---
-> > > >
-> > > >  arch/arm/dts/ast2500-u-boot.dtsi               |   8 +
-> > > >  arch/arm/include/asm/arch-aspeed/scu_ast2500.h |  62 +++++-
-> > > >  drivers/clk/aspeed/clk_ast2500.c               | 265
-> > > ++++++++++++++++++++++---
-> > > >  include/dt-bindings/clock/ast2500-scu.h        |   2 +
-> > > >  4 files changed, 304 insertions(+), 33 deletions(-)
-> > > >
-> > > > diff --git a/arch/arm/dts/ast2500-u-boot.dtsi
-> > > b/arch/arm/dts/ast2500-u-boot.dtsi
-> > > > index faeeec1be4..f826646095 100644
-> > > > --- a/arch/arm/dts/ast2500-u-boot.dtsi
-> > > > +++ b/arch/arm/dts/ast2500-u-boot.dtsi
-> > > > @@ -61,3 +61,11 @@
-> > > >               };
-> > > >       };
-> > > >  };
-> > > > +
-> > > > +&mac0 {
-> > > > +     clocks = <&scu PCLK_MAC1>, <&scu PLL_D2PLL>;
-> > > > +};
-> > > > +
-> > > > +&mac1 {
-> > > > +     clocks = <&scu PCLK_MAC2>, <&scu PLL_D2PLL>;
-> > > > +};
-> > >
-> > > Why is this here and not in the main dts file?  The -u-boot.dtsi is for
-> > > stuff that's not appropriate in the upstream dts file.  Thanks!
-> >
-> > There is no clock driver for this part in mainline Linux Kernel yet and I
-> > don't know how it will end up being configured. I suspect that they might
-> > not use the same bindings though.
-> >
-> > Should I put this into board specific dts?
->
-> So this applies to a lot of parts of the series here.  What we don't
-> want to do is have places where the DTS here diverges from the Linux
-> kernel DTS and we don't reconcile them.  If the relevant Linux drivers
-> are not in mainline, are they at least in linux-next or otherwise
-> submitted to the relevant subtrees?
->
+Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+---
+v3 - Add sysfs files to adjust protocol timings
 
-No, as far as I know, maybe Rick (cc'ed) knows what is the plan there.
+v2 - Increase delay for SDA in sampling only.
 
-I'm not really working on the linux driver and it's outside of my control.
+   - Decrease the original delay for SDA sampling from 1us to 200ns
+---
+ drivers/fsi/fsi-master-gpio.c | 107 ++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 103 insertions(+), 4 deletions(-)
 
-I can change network driver, so that it does not use this DT configuration
-and either hard code clock config into it, or configure it's clocks in
-board specific file -- would that be more acceptable?
-
-
->
-> --
-> Tom
->
-
-
-
+diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
+index a8976d5..0907977 100644
+--- a/drivers/fsi/fsi-master-gpio.c
++++ b/drivers/fsi/fsi-master-gpio.c
+@@ -14,6 +14,7 @@
+ #include "fsi-master.h"
+ 
+ #define	FSI_GPIO_STD_DLY	1	/* Standard pin delay in nS */
++#define	FSI_GPIO_SDA_IN_DLY	200	/* Wait to sample SDA line, in nS */
+ #define	FSI_ECHO_DELAY_CLOCKS	16	/* Number clocks for echo delay */
+ #define	FSI_PRE_BREAK_CLOCKS	50	/* Number clocks to prep for break */
+ #define	FSI_BREAK_CLOCKS	256	/* Number of clocks to issue break */
+@@ -65,6 +66,10 @@
+ 
+ static DEFINE_SPINLOCK(fsi_gpio_cmd_lock);	/* lock around fsi commands */
+ 
++static int clock_delay = FSI_GPIO_STD_DLY;
++static int clock_off_time = FSI_GPIO_STD_DLY;
++static int sample_delay = FSI_GPIO_SDA_IN_DLY;
++
+ struct fsi_master_gpio {
+ 	struct fsi_master	master;
+ 	struct gpio_desc	*gpio_clk;
+@@ -86,9 +91,11 @@ static void clock_toggle(struct fsi_master_gpio *master, int count)
+ 	int i;
+ 
+ 	for (i = 0; i < count; i++) {
+-		ndelay(FSI_GPIO_STD_DLY);
++		udelay(clock_delay / 1000);
++		ndelay(clock_delay % 1000);
+ 		gpiod_set_value(master->gpio_clk, 0);
+-		ndelay(FSI_GPIO_STD_DLY);
++		udelay(clock_off_time / 1000);
++		ndelay(clock_off_time % 1000);
+ 		gpiod_set_value(master->gpio_clk, 1);
+ 	}
+ }
+@@ -97,7 +104,8 @@ static int sda_in(struct fsi_master_gpio *master)
+ {
+ 	int in;
+ 
+-	ndelay(FSI_GPIO_STD_DLY);
++	udelay(sample_delay / 1000);
++	ndelay(sample_delay % 1000);
+ 	in = gpiod_get_value(master->gpio_data);
+ 	return in ? 1 : 0;
+ }
+@@ -497,10 +505,77 @@ static ssize_t store_scan(struct device *dev,
+ 
+ static DEVICE_ATTR(scan, 0200, NULL, store_scan);
+ 
++static ssize_t clock_delay_show(struct device *dev,
++				struct device_attribute *attr, char *buf)
++{
++	return snprintf(buf, PAGE_SIZE - 1, "%u\n", clock_delay);
++}
++
++static ssize_t clock_delay_store(struct device *dev,
++				struct device_attribute *attr,
++				const char *buf, size_t count)
++{
++	int rc;
++	unsigned long val = 0;
++
++	rc = kstrtoul(buf, 0, &val);
++	clock_delay = val;
++
++	return count;
++}
++
++DEVICE_ATTR(clock_delay, S_IRUGO | S_IWUSR, clock_delay_show,
++		clock_delay_store);
++
++static ssize_t clock_off_time_show(struct device *dev,
++				struct device_attribute *attr, char *buf)
++{
++	return snprintf(buf, PAGE_SIZE - 1, "%u\n", clock_off_time);
++}
++
++static ssize_t clock_off_time_store(struct device *dev,
++				struct device_attribute *attr,
++				const char *buf, size_t count)
++{
++	int rc;
++	unsigned long val = 0;
++
++	rc = kstrtoul(buf, 0, &val);
++	clock_off_time = val;
++
++	return count;
++}
++
++DEVICE_ATTR(clock_off_time, S_IRUGO | S_IWUSR, clock_off_time_show,
++		clock_off_time_store);
++
++static ssize_t sample_delay_show(struct device *dev,
++				struct device_attribute *attr, char *buf)
++{
++	return snprintf(buf, PAGE_SIZE - 1, "%u\n", sample_delay);
++}
++
++static ssize_t sample_delay_store(struct device *dev,
++				struct device_attribute *attr,
++				const char *buf, size_t count)
++{
++	int rc;
++	unsigned long val = 0;
++
++	rc = kstrtoul(buf, 0, &val);
++	sample_delay = val;
++
++	return count;
++}
++
++DEVICE_ATTR(sample_delay, S_IRUGO | S_IWUSR, sample_delay_show,
++		sample_delay_store);
++
+ static int fsi_master_gpio_probe(struct platform_device *pdev)
+ {
+ 	struct fsi_master_gpio *master;
+ 	struct gpio_desc *gpio;
++	int rc;
+ 
+ 	master = devm_kzalloc(&pdev->dev, sizeof(*master), GFP_KERNEL);
+ 	if (!master)
+@@ -548,8 +623,29 @@ static int fsi_master_gpio_probe(struct platform_device *pdev)
+ 	master->master.send_break = fsi_master_gpio_break;
+ 	master->master.link_enable = fsi_master_gpio_link_enable;
+ 	platform_set_drvdata(pdev, master);
++	rc = device_create_file(&pdev->dev, &dev_attr_clock_off_time);
++	if (rc)
++		goto done;
++	rc = device_create_file(&pdev->dev, &dev_attr_clock_delay);
++	if (rc)
++		goto rem_clock_off;
++	rc = device_create_file(&pdev->dev, &dev_attr_sample_delay);
++	if (rc)
++		goto rem_clock_delay;
++	rc = device_create_file(&pdev->dev, &dev_attr_scan);
++	if (rc)
++		goto rem_sample_delay;
+ 
+-	return device_create_file(&pdev->dev, &dev_attr_scan);
++	return rc;
++
++rem_sample_delay:
++	device_remove_file(&pdev->dev, &dev_attr_sample_delay);
++rem_clock_delay:
++	device_remove_file(&pdev->dev, &dev_attr_clock_delay);
++rem_clock_off:
++	device_remove_file(&pdev->dev, &dev_attr_clock_off_time);
++done:
++	return rc;
+ }
+ 
+ 
+@@ -576,6 +672,9 @@ static int fsi_master_gpio_remove(struct platform_device *pdev)
+ 		devm_gpiod_put(&pdev->dev, master->gpio_mux);
+ 	}
+ 	fsi_master_unregister(&master->master);
++	device_remove_file(&pdev->dev, &dev_attr_clock_off_time);
++	device_remove_file(&pdev->dev, &dev_attr_clock_delay);
++	device_remove_file(&pdev->dev, &dev_attr_sample_delay);
+ 	device_remove_file(&pdev->dev, &dev_attr_scan);
+ 
+ 	return 0;
 -- 
-*M*axim *S*loyko
-
---001a1140ed34e463d4054b2d2fca
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><br><div class=3D"gmail_extra"><br><div class=3D"gmail_quo=
-te">On Mon, Mar 20, 2017 at 10:30 AM, Tom Rini <span dir=3D"ltr">&lt;<a hre=
-f=3D"mailto:trini@konsulko.com" target=3D"_blank">trini@konsulko.com</a>&gt=
-;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 =
-.8ex;border-left:1px #ccc solid;padding-left:1ex"><div class=3D"HOEnZb"><di=
-v class=3D"h5">On Mon, Mar 20, 2017 at 10:24:20AM -0700, Maxim Sloyko wrote=
-:<br>
-&gt; On Sun, Mar 19, 2017 at 9:42 AM, Tom Rini &lt;<a href=3D"mailto:trini@=
-konsulko.com">trini@konsulko.com</a>&gt; wrote:<br>
-&gt;<br>
-&gt; &gt; On Thu, Mar 16, 2017 at 02:36:20PM -0700, Maxim Sloyko wrote:<br>
-&gt; &gt; &gt; Add support for clocks needed by MACs to ast2500 clock drive=
-r.<br>
-&gt; &gt; &gt; The clocks are D2-PLL, which is used by both MACs and PCLK_M=
-AC1 and<br>
-&gt; &gt; &gt; PCLK_MAC2 for MAC1 and MAC2 respectively.<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; The rate of D2-PLL is hardcoded to 250MHz -- the value used =
-in Aspeed<br>
-&gt; &gt; &gt; SDK. It is not entirely clear from the datasheet how this cl=
-ock is used<br>
-&gt; &gt; &gt; by MACs, so not clear if the rate would ever need to be diff=
-erent. So,<br>
-&gt; &gt; &gt; for now, hardcoding it is probably safer.<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; The rate of PCLK_MAC{1,2} is chosen based on MAC speed selec=
-ted through<br>
-&gt; &gt; &gt; hardware strapping.<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; So, the network driver would only need to enable these clock=
-s, no need<br>
-&gt; &gt; &gt; to configure the rate.<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; Signed-off-by: Maxim Sloyko &lt;<a href=3D"mailto:maxims@goo=
-gle.com">maxims@google.com</a>&gt;<br>
-&gt; &gt; &gt; ---<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt;=C2=A0 arch/arm/dts/ast2500-u-boot.<wbr>dtsi=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A08 +<br>
-&gt; &gt; &gt;=C2=A0 arch/arm/include/asm/arch-<wbr>aspeed/scu_ast2500.h |=
-=C2=A0 62 +++++-<br>
-&gt; &gt; &gt;=C2=A0 drivers/clk/aspeed/clk_<wbr>ast2500.c=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 265<br>
-&gt; &gt; ++++++++++++++++++++++---<br>
-&gt; &gt; &gt;=C2=A0 include/dt-bindings/clock/<wbr>ast2500-scu.h=C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A02 +<br>
-&gt; &gt; &gt;=C2=A0 4 files changed, 304 insertions(+), 33 deletions(-)<br=
->
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; diff --git a/arch/arm/dts/ast2500-u-boot.<wbr>dtsi<br>
-&gt; &gt; b/arch/arm/dts/ast2500-u-boot.<wbr>dtsi<br>
-&gt; &gt; &gt; index faeeec1be4..f826646095 100644<br>
-&gt; &gt; &gt; --- a/arch/arm/dts/ast2500-u-boot.<wbr>dtsi<br>
-&gt; &gt; &gt; +++ b/arch/arm/dts/ast2500-u-boot.<wbr>dtsi<br>
-&gt; &gt; &gt; @@ -61,3 +61,11 @@<br>
-&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
-&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
-&gt; &gt; &gt;=C2=A0 };<br>
-&gt; &gt; &gt; +<br>
-&gt; &gt; &gt; +&amp;mac0 {<br>
-&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0clocks =3D &lt;&amp;scu PCLK_MAC1&gt;, =
-&lt;&amp;scu PLL_D2PLL&gt;;<br>
-&gt; &gt; &gt; +};<br>
-&gt; &gt; &gt; +<br>
-&gt; &gt; &gt; +&amp;mac1 {<br>
-&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0clocks =3D &lt;&amp;scu PCLK_MAC2&gt;, =
-&lt;&amp;scu PLL_D2PLL&gt;;<br>
-&gt; &gt; &gt; +};<br>
-&gt; &gt;<br>
-&gt; &gt; Why is this here and not in the main dts file?=C2=A0 The -u-boot.=
-dtsi is for<br>
-&gt; &gt; stuff that&#39;s not appropriate in the upstream dts file.=C2=A0 =
-Thanks!<br>
-&gt;<br>
-&gt; There is no clock driver for this part in mainline Linux Kernel yet an=
-d I<br>
-&gt; don&#39;t know how it will end up being configured. I suspect that the=
-y might<br>
-&gt; not use the same bindings though.<br>
-&gt;<br>
-&gt; Should I put this into board specific dts?<br>
-<br>
-</div></div>So this applies to a lot of parts of the series here.=C2=A0 Wha=
-t we don&#39;t<br>
-want to do is have places where the DTS here diverges from the Linux<br>
-kernel DTS and we don&#39;t reconcile them.=C2=A0 If the relevant Linux dri=
-vers<br>
-are not in mainline, are they at least in linux-next or otherwise<br>
-submitted to the relevant subtrees?<br></blockquote><div><br></div><div>No,=
- as far as I know, maybe Rick (cc&#39;ed) knows what is the plan there.</di=
-v><div><br></div><div>I&#39;m not really working on the linux driver and it=
-&#39;s outside of my control.</div><div><br></div><div>I can change network=
- driver, so that it does not use this DT configuration and either hard code=
- clock config into it, or configure it&#39;s clocks in board specific file =
--- would that be more acceptable?</div><div>=C2=A0</div><blockquote class=
-=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
-ing-left:1ex">
-<span class=3D"HOEnZb"><font color=3D"#888888"><br>
---<br>
-Tom<br>
-</font></span></blockquote></div><br><br clear=3D"all"><div><br></div>-- <b=
-r><div class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div><b=
->M</b>axim <b>S</b>loyko</div></div>
-</div></div>
-
---001a1140ed34e463d4054b2d2fca--
+1.8.2.2
