@@ -1,51 +1,53 @@
-Return-Path: <robherring2@gmail.com>
-Received: from mail-oi0-f66.google.com (mail-oi0-f66.google.com
- [209.85.218.66])
+Return-Path: <maxims@google.com>
+Received: from mail-it0-x22c.google.com (mail-it0-x22c.google.com
+ [IPv6:2607:f8b0:4001:c0b::22c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vn1JQ4zBDzDqZY
- for <openbmc@lists.ozlabs.org>; Tue, 21 Mar 2017 03:15:34 +1100 (AEDT)
-Received: by mail-oi0-f66.google.com with SMTP id a94so4266830oic.0
- for <openbmc@lists.ozlabs.org>; Mon, 20 Mar 2017 09:15:34 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vn2qq1QKVzDqZW
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Mar 2017 04:24:23 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="Un4aZnSY"; 
+ dkim-atps=neutral
+Received: by mail-it0-x22c.google.com with SMTP id y18so43763667itc.1
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Mar 2017 10:24:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=XiKZmKcFmXOe/uj7/tsKLWgl8vUiKKvonCGxjuZrlC0=;
+ b=Un4aZnSY+s5zRb/0nlMNrYT6gUsflh+Shprsc0EbxKA6z+ERGnsmxKIZn2HcXtnBZf
+ P7C5esFy6BdkXwaw9xmPw/8aWit4axtqTFhFcBvX5Xlm0nA8BdZSpUS0VylrDKy2pT9z
+ BUpXb2sdLYoPl6Qcw3GInuHagGGo7poh0G0KjlPxqRC6NF12iclkRNRBrShLEKKM3IUf
+ HLK1Fo/KqLXsph6aUa3cxGrsmN8oMh8RLuVcDFOwPKdvurKPqJS6Ea5X6htB4A9T424U
+ b9bSL6+nfBw2/6Y3+v5Tem0c2KUm3UI/Bje7rEqCeztd+tN6Ha7aao+IVMw5dc4rITUo
+ W62w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to:user-agent;
- bh=wALBvqpZuqg8+qSWYDPiqUhBuyFiYnGm1feXqB6Twjc=;
- b=PXYCrNznayRAEzLDjZduKoaXWZawjlTa+SOaclZyPPIVMoXqsV8au/7BEsiIJoLbXO
- f20w/TK7c7oqyvhq5FYVNCvMEWuxo2JyjanNFL6QXSY8N+fNB2TmYopd/ofLgbK3LVzM
- WgAr0ruJ7Gi1uY3HFYEAhnyXOggllA0q7VQJtnf3NLTGeP2STu8Q9uEVDsImwRuD4gO1
- CAvXdmBxrSM4hP8VkTzXLy+sPDCQ9XWvEBryO2jGE/1ptSg/Lt4aFLmN0H7JThSZLUrH
- TQ69AUefOFTxStjcaGgUwvrLrAN0+VRZe5rPmcaHl99nlds5CGBKqQG/FQZ5EodUe/tM
- eEpw==
-X-Gm-Message-State: AFeK/H3/KE3FGqHrDnw6/zr1dduPewmXT3njmFnkZttwaucTTtKw+N/fY0prjVO+evJCFw==
-X-Received: by 10.202.218.134 with SMTP id r128mr13415199oig.2.1490026532466; 
- Mon, 20 Mar 2017 09:15:32 -0700 (PDT)
-Received: from localhost (66-90-148-125.dyn.grandenetworks.net.
- [66.90.148.125])
- by smtp.gmail.com with ESMTPSA id x133sm7632596oif.33.2017.03.20.09.15.31
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 20 Mar 2017 09:15:31 -0700 (PDT)
-Date: Mon, 20 Mar 2017 11:15:31 -0500
-From: Rob Herring <robh@kernel.org>
-To: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
-Cc: joel@jms.id.au, jdelvare@suse.com, linux@roeck-us.net,
- linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org, corbet@lwn.net, linux-doc@vger.kernel.org,
- mark.rutland@arm.com, devicetree@vger.kernel.org
-Subject: Re: [PATCH linux v4 1/2] Documentation: dt-bindings: Document
- bindings for ASPEED AST2400/AST2500 PWM and Fan tach controller device
- driver
-Message-ID: <20170320161531.ob65adnqch47dvyi@rob-hp-laptop>
-References: <20170311015351.23092-1-jaghu@google.com>
- <20170311015351.23092-2-jaghu@google.com>
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=XiKZmKcFmXOe/uj7/tsKLWgl8vUiKKvonCGxjuZrlC0=;
+ b=PMQDvoL8F/LhwguHwTlXs1S+v9/AT2c020Rr2C5xSo7KVoWrWf1GLr/0h0xWoBTMyA
+ qaTDEFDoxFBsG7AkpmcX6NCySup3MN4OJ2CTDFOZGZcu4fpeaErU4Os7Jv+QoYQhsU/6
+ Vue2quR5WvKLQQSgt2uDEHCOkIUyRj+6kd20H8CijBs7LibG9W3K+kqn9By8sWgYGpSd
+ wqCh+9j5Ci/OWAmx0oD03Yk0wxaLilsKTiB1T5neTbgLIGoScgmTYSc5x+OMlOPZ0Ej8
+ vORKS9u3jermHSUwO5L15yWojfSS4NqjzyirCc2uTBKOWtTY/134QfZNt6vxAWw3lYRM
+ SvlA==
+X-Gm-Message-State: AFeK/H11XMNeMZQwZfjrK5T9idnDXicBO8XRmRAPEm48isf3hVxds1L1ImHy0M+aI1uKRrBW2BlZlhqGGaVgJuHu
+X-Received: by 10.107.150.201 with SMTP id y192mr32606753iod.33.1490030661056; 
+ Mon, 20 Mar 2017 10:24:21 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20170311015351.23092-2-jaghu@google.com>
-User-Agent: Mutt/1.6.2-neo (2016-08-21)
+Received: by 10.107.135.225 with HTTP; Mon, 20 Mar 2017 10:24:20 -0700 (PDT)
+In-Reply-To: <20170319164217.GN19897@bill-the-cat>
+References: <20170316213624.140344-1-maxims@google.com>
+ <20170316213624.140344-14-maxims@google.com>
+ <20170319164217.GN19897@bill-the-cat>
+From: Maxim Sloyko <maxims@google.com>
+Date: Mon, 20 Mar 2017 10:24:20 -0700
+Message-ID: <CAFR_W8qO-hP880NMdyHgGuwq_agsMXcPyfJWt9C8Hot-sW2e6w@mail.gmail.com>
+Subject: Re: [U-Boot] [PATCH 13/17] aspeed: Add support for Clocks needed by
+ MACs
+To: Tom Rini <trini@konsulko.com>
+Cc: U-Boot Mailing List <u-boot@lists.denx.de>, Simon Glass <sjg@chromium.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary=001a1140ed34420572054b2cccb8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,141 +59,159 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Mar 2017 16:15:35 -0000
+X-List-Received-Date: Mon, 20 Mar 2017 17:24:24 -0000
 
-On Fri, Mar 10, 2017 at 05:53:50PM -0800, Jaghathiswari Rankappagounder Natarajan wrote:
-> This binding provides interface for adding values related to ASPEED
-> AST2400/2500 PWM and Fan tach controller support.
-> The PWM controller can support upto 8 PWM output ports.
-> The Fan tach controller can support upto 16 tachometer inputs.
-> 
-> Signed-off-by: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
-> ---
->  v4:
-> - Used 'reg'
-> 
->  v3:
-> - Made the structure more common
-> 
->  v2:
-> - Removed '_' in node and property names
-> - Gave some explanation for the properties used
-> 
->  .../devicetree/bindings/hwmon/aspeed-pwm-tacho.txt | 86 ++++++++++++++++++++++
->  1 file changed, 86 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
-> 
-> diff --git a/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt b/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
-> new file mode 100644
-> index 000000000000..0dfd2841ace3
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
-> @@ -0,0 +1,86 @@
-> +ASPEED AST2400/AST2500 PWM and Fan Tacho controller device driver
-> +
-> +The ASPEED PWM controller can support upto 8 PWM outputs. The ASPEED Fan Tacho
-> +controller can support upto 16 Fan tachometer inputs.
-> +
-> +There can be upto 8 fans supported. Each fan can have one PWM output and
-> +one/two Fan tach inputs.
-> +
-> +Required properties for pwm-tacho node:
-> +- #address-cells : should be 1.
-> +
-> +- #size-cells : should be 1.
-> +
-> +- reg : address and length of the register set for the device.
-> +
-> +- pinctrl-names : a pinctrl state named "default" must be defined.
-> +
-> +- pinctrl-0 : phandle referencing pin configuration of the PWM ports.
-> +
-> +- compatible : should be "aspeed,aspeed2400-pwm-tacho" for AST2400 or
-> +	       "aspeed,aspeed2500-pwm-tacho" for AST2500.
-> +
-> +- clocks : a fixed clock providing input clock frequency(PWM
-> +	   and Fan Tach clock)
-> +
-> +fan subnode format:
-> +===================
-> +Under fan subnode there can upto 8 child nodes, with each child node
-> +representing a fan. If there are 8 fans each fan can have one PWM port and
-> +one/two Fan tach inputs.
-> +
-> +Required properties for each child node:
-> +- reg : should specify PWM source port.
-> +	integer value in the range 0 to 7 with 0 indicating PWM port A and
-> +	7 indicating PWM port H.
-> +
-> +  Atleast one tach subnode is required. Each tach subnode represents a fan
-> +  tach input.
-> +  tach subnode format:
-> +  --------------------
-> +  Required properties for each child node:
-> +  - fan-ctrl-gpios : should specify the tachometer input GPIO pin on the hardware.
-> +             	     Fan Tachometer function can only work when GPIO is in
-> +		     ”input mode”.
+--001a1140ed34420572054b2cccb8
+Content-Type: text/plain; charset=UTF-8
 
-As I mentioned on the last version, this sounds like pin-muxing, not 
-actual GPIO usage.
+On Sun, Mar 19, 2017 at 9:42 AM, Tom Rini <trini@konsulko.com> wrote:
 
-> +
-> +  - fan-tach-ch : should specify the Fan tach input channel.
-> +	          integer value in the range 0 through 15, with 0 indicating
-> +		  Fan tach channel 0 and 15 indicating Fan tach channel 15.
+> On Thu, Mar 16, 2017 at 02:36:20PM -0700, Maxim Sloyko wrote:
+> > Add support for clocks needed by MACs to ast2500 clock driver.
+> > The clocks are D2-PLL, which is used by both MACs and PCLK_MAC1 and
+> > PCLK_MAC2 for MAC1 and MAC2 respectively.
+> >
+> > The rate of D2-PLL is hardcoded to 250MHz -- the value used in Aspeed
+> > SDK. It is not entirely clear from the datasheet how this clock is used
+> > by MACs, so not clear if the rate would ever need to be different. So,
+> > for now, hardcoding it is probably safer.
+> >
+> > The rate of PCLK_MAC{1,2} is chosen based on MAC speed selected through
+> > hardware strapping.
+> >
+> > So, the network driver would only need to enable these clocks, no need
+> > to configure the rate.
+> >
+> > Signed-off-by: Maxim Sloyko <maxims@google.com>
+> > ---
+> >
+> >  arch/arm/dts/ast2500-u-boot.dtsi               |   8 +
+> >  arch/arm/include/asm/arch-aspeed/scu_ast2500.h |  62 +++++-
+> >  drivers/clk/aspeed/clk_ast2500.c               | 265
+> ++++++++++++++++++++++---
+> >  include/dt-bindings/clock/ast2500-scu.h        |   2 +
+> >  4 files changed, 304 insertions(+), 33 deletions(-)
+> >
+> > diff --git a/arch/arm/dts/ast2500-u-boot.dtsi
+> b/arch/arm/dts/ast2500-u-boot.dtsi
+> > index faeeec1be4..f826646095 100644
+> > --- a/arch/arm/dts/ast2500-u-boot.dtsi
+> > +++ b/arch/arm/dts/ast2500-u-boot.dtsi
+> > @@ -61,3 +61,11 @@
+> >               };
+> >       };
+> >  };
+> > +
+> > +&mac0 {
+> > +     clocks = <&scu PCLK_MAC1>, <&scu PLL_D2PLL>;
+> > +};
+> > +
+> > +&mac1 {
+> > +     clocks = <&scu PCLK_MAC2>, <&scu PLL_D2PLL>;
+> > +};
+>
+> Why is this here and not in the main dts file?  The -u-boot.dtsi is for
+> stuff that's not appropriate in the upstream dts file.  Thanks!
+>
 
-These 2 also need aspeed vendor prefixes.
+There is no clock driver for this part in mainline Linux Kernel yet and I
+don't know how it will end up being configured. I suspect that they might
+not use the same bindings though.
 
-This could become a property under the fan node as a list of tach 
-channels if fan-ctrl-gpios goes away.
+Should I put this into board specific dts?
 
-> +
-> +Examples:
-> +
-> +pwmtachofixedclk: fixedclk {
-> +	compatible = "fixed-clock";
-> +	#clock-cells = <0>;
-> +	clock-frequency = <24000000>;
-> +}
-> +
-> +pwmtacho: pwmtachocontroller@1e786000 {
-> +	#address-cells = <1>;
-> +	#size-cells = <1>;
-> +	reg = <0x1E786000 0x1000>;
-> +	compatible = "aspeed,aspeed2500-pwm-tacho";
-> +	clocks = <&pwmtachofixedclk>;
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
-> +
-> +	fan0 {
 
-fan@0
-
-> +		reg = /bits/ 8 <0x00>;
-
-reg is 32-bits.
-
-> +		tach0 {
-> +			fan-ctrl-gpios = <&gpio ASPEED_GPIO(O, 0) GPIO_ACTIVE_HIGH>;
-> +			fan-tach-ch = /bits/ 8 <0x00>;
-> +		};
-> +	};
-> +
-> +	fan1 {
-
-fan@1
-
-> +		reg = /bits/ 8 <0x01>;
-> +		tach0 {
-> +			fan-ctrl-gpios = <&gpio ASPEED_GPIO(O, 1) GPIO_ACTIVE_HIGH>;
-> +			fan-tach-ch = /bits/ 8 <0x01>;
-> +		};
-> +		tach1 {
-> +			fan-ctrl-gpios = <&gpio ASPEED_GPIO(O, 2) GPIO_ACTIVE_HIGH>;
-> +			fan-tach-ch = /bits/ 8 <0x02>;
-> +		};
-> +	};
-> +};
+>
 > --
-> 2.12.0.246.ga2ecc84866-goog
-> 
+> Tom
+>
+
+
+
+-- 
+*M*axim *S*loyko
+
+--001a1140ed34420572054b2cccb8
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><br><div class=3D"gmail_extra"><br><div class=3D"gmail_quo=
+te">On Sun, Mar 19, 2017 at 9:42 AM, Tom Rini <span dir=3D"ltr">&lt;<a href=
+=3D"mailto:trini@konsulko.com" target=3D"_blank">trini@konsulko.com</a>&gt;=
+</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .=
+8ex;border-left:1px #ccc solid;padding-left:1ex"><div class=3D"HOEnZb"><div=
+ class=3D"h5">On Thu, Mar 16, 2017 at 02:36:20PM -0700, Maxim Sloyko wrote:=
+<br>
+&gt; Add support for clocks needed by MACs to ast2500 clock driver.<br>
+&gt; The clocks are D2-PLL, which is used by both MACs and PCLK_MAC1 and<br=
+>
+&gt; PCLK_MAC2 for MAC1 and MAC2 respectively.<br>
+&gt;<br>
+&gt; The rate of D2-PLL is hardcoded to 250MHz -- the value used in Aspeed<=
+br>
+&gt; SDK. It is not entirely clear from the datasheet how this clock is use=
+d<br>
+&gt; by MACs, so not clear if the rate would ever need to be different. So,=
+<br>
+&gt; for now, hardcoding it is probably safer.<br>
+&gt;<br>
+&gt; The rate of PCLK_MAC{1,2} is chosen based on MAC speed selected throug=
+h<br>
+&gt; hardware strapping.<br>
+&gt;<br>
+&gt; So, the network driver would only need to enable these clocks, no need=
+<br>
+&gt; to configure the rate.<br>
+&gt;<br>
+&gt; Signed-off-by: Maxim Sloyko &lt;<a href=3D"mailto:maxims@google.com">m=
+axims@google.com</a>&gt;<br>
+&gt; ---<br>
+&gt;<br>
+&gt;=C2=A0 arch/arm/dts/ast2500-u-boot.<wbr>dtsi=C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A08 +<br>
+&gt;=C2=A0 arch/arm/include/asm/arch-<wbr>aspeed/scu_ast2500.h |=C2=A0 62 +=
+++++-<br>
+&gt;=C2=A0 drivers/clk/aspeed/clk_<wbr>ast2500.c=C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0| 265 ++++++++++++++++++++++---<br>
+&gt;=C2=A0 include/dt-bindings/clock/<wbr>ast2500-scu.h=C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 |=C2=A0 =C2=A02 +<br>
+&gt;=C2=A0 4 files changed, 304 insertions(+), 33 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/arch/arm/dts/ast2500-u-boot.<wbr>dtsi b/arch/arm/dts/ast2=
+500-u-boot.<wbr>dtsi<br>
+&gt; index faeeec1be4..f826646095 100644<br>
+&gt; --- a/arch/arm/dts/ast2500-u-boot.<wbr>dtsi<br>
+&gt; +++ b/arch/arm/dts/ast2500-u-boot.<wbr>dtsi<br>
+&gt; @@ -61,3 +61,11 @@<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
+&gt;=C2=A0 };<br>
+&gt; +<br>
+&gt; +&amp;mac0 {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0clocks =3D &lt;&amp;scu PCLK_MAC1&gt;, &lt;&amp;s=
+cu PLL_D2PLL&gt;;<br>
+&gt; +};<br>
+&gt; +<br>
+&gt; +&amp;mac1 {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0clocks =3D &lt;&amp;scu PCLK_MAC2&gt;, &lt;&amp;s=
+cu PLL_D2PLL&gt;;<br>
+&gt; +};<br>
+<br>
+</div></div>Why is this here and not in the main dts file?=C2=A0 The -u-boo=
+t.dtsi is for<br>
+stuff that&#39;s not appropriate in the upstream dts file.=C2=A0 Thanks!<br=
+></blockquote><div><br></div><div>There is no clock driver for this part in=
+ mainline Linux Kernel yet and I don&#39;t know how it will end up being co=
+nfigured. I suspect that they might not use the same bindings though.</div>=
+<div><br></div><div>Should I put this into board specific dts?</div><div>=
+=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bo=
+rder-left:1px #ccc solid;padding-left:1ex">
+<span class=3D"HOEnZb"><font color=3D"#888888"><br>
+--<br>
+Tom<br>
+</font></span></blockquote></div><br><br clear=3D"all"><div><br></div>-- <b=
+r><div class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div><b=
+>M</b>axim <b>S</b>loyko</div></div>
+</div></div>
+
+--001a1140ed34420572054b2cccb8--
