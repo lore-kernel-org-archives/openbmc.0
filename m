@@ -1,45 +1,67 @@
-Return-Path: <hs@denx.de>
-X-Greylist: delayed 510 seconds by postgrey-1.36 at bilbo;
- Mon, 20 Mar 2017 17:44:17 AEDT
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
- (using TLSv1 with cipher DHE-RSA-CAMELLIA256-SHA (256/256 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vmmdF50nKzDq5g
- for <openbmc@lists.ozlabs.org>; Mon, 20 Mar 2017 17:44:17 +1100 (AEDT)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 3vmmRM3KV2z3hjm1;
- Mon, 20 Mar 2017 07:35:43 +0100 (CET)
-Received: from localhost (dynscan01.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 3vmmRM209Hz3jgXw;
- Mon, 20 Mar 2017 07:35:43 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan01.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id IdWey_fMKOuc; Mon, 20 Mar 2017 07:35:41 +0100 (CET)
-X-Auth-Info: tBMZ+47uXLQlpsW4o2SyzGLUUKGiqZY6jl8MQ6TL+V8=
-Received: from localhost.localdomain (82.131.206.51.pool.invitel.hu
- [82.131.206.51])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Mon, 20 Mar 2017 07:35:41 +0100 (CET)
-Reply-To: hs@denx.de
-Subject: Re: [PATCH 11/17] aspeed: Add I2C Driver
-References: <20170316213624.140344-1-maxims@google.com>
- <20170316213624.140344-12-maxims@google.com>
-To: Maxim Sloyko <maxims@google.com>
-Cc: u-boot@lists.denx.de, Simon Glass <sjg@chromium.org>,
- openbmc@lists.ozlabs.org
-From: Heiko Schocher <hs@denx.de>
-Message-ID: <58CF783C.20009@denx.de>
-Date: Mon, 20 Mar 2017 07:35:40 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
- Thunderbird/38.1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vmxrs4sC8zDqYB
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Mar 2017 00:39:56 +1100 (AEDT)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v2KDcxYP096061
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Mar 2017 09:39:52 -0400
+Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 29911qncf1-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Mar 2017 09:39:51 -0400
+Received: from localhost
+ by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Mon, 20 Mar 2017 07:39:50 -0600
+Received: from b03cxnp08026.gho.boulder.ibm.com (9.17.130.18)
+ by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Mon, 20 Mar 2017 07:39:48 -0600
+Received: from b03ledav005.gho.boulder.ibm.com
+ (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
+ by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v2KDdmRh4719030; Mon, 20 Mar 2017 06:39:48 -0700
+Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 2114BBE039;
+ Mon, 20 Mar 2017 07:39:48 -0600 (MDT)
+Received: from oc3016140333.ibm.com (unknown [9.85.146.62])
+ by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP id 67C46BE03A;
+ Mon, 20 Mar 2017 07:39:47 -0600 (MDT)
+Subject: Re: [PATCH linux dev-4.7] fsi: i2c: Remove noisy printks
+To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org,
+ Christopher Bostic <cbostic@linux.vnet.ibm.com>
+References: <20170317023411.13045-1-joel@jms.id.au>
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Mon, 20 Mar 2017 08:39:44 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.7.0
 MIME-Version: 1.0
-In-Reply-To: <20170316213624.140344-12-maxims@google.com>
-Content-Type: text/plain; charset=iso-8859-15; format=flowed
+In-Reply-To: <20170317023411.13045-1-joel@jms.id.au>
+Content-Type: text/plain; charset=windows-1252; format=flowed
 Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+x-cbid: 17032013-0020-0000-0000-00000B9AE990
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006816; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000206; SDB=6.00836363; UDB=6.00411048; IPR=6.00614132; 
+ BA=6.00005224; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014726; XFM=3.00000013;
+ UTC=2017-03-20 13:39:49
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17032013-0021-0000-0000-00005B008C67
+Message-Id: <674d9408-a72b-726f-8c77-8d35daa8e154@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-03-20_09:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
+ definitions=main-1703200120
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -51,327 +73,192 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Mar 2017 06:44:18 -0000
+X-List-Received-Date: Mon, 20 Mar 2017 13:39:58 -0000
 
-Hello Maxim,
+On 03/16/2017 09:34 PM, Joel Stanley wrote:
 
-Am 16.03.2017 um 22:36 schrieb Maxim Sloyko:
-> Add Device Model based I2C driver for ast2500/ast2400 SoCs.
-> The driver is very limited, it only supports master mode and
-> synchronous byte-by-byte reads/writes, no DMA or Pool Buffers.
+> These create a lot of noise in the kernel log. Hide them behind dev_dbg.
 >
-> Signed-off-by: Maxim Sloyko <maxims@google.com>
+>    PROBE    eng[00f5112c]
+>    Adding ports[0x0000000000007fff] to eng[0x00f5112c]
+>    bus[0000000f] created
+>    bus[00000010] created
+>    bus[00000011] created
+>    bus[00000012] created
+>    bus[00000013] created
+>    bus[00000014] created
+>    bus[00000015] created
+>    bus[00000016] created
+>    bus[00000017] created
+>    bus[00000018] created
+>    bus[00000019] created
+>    bus[0000001a] created
+>    bus[0000001b] created
+>    bus[0000001c] created
+>    bus[0000001d] created
+>    RESUME   eng[00f5112c]
+>    iic_boe_reset
+>    iic_boe_eng_init: P8/Z7PLUS mode
+>    clean port busy port_busy[0001ffff]
+>    iic_boe_eng_init: P8/Z7PLUS mode
+>
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
 > ---
 >
->   drivers/i2c/Kconfig   |   9 ++
->   drivers/i2c/Makefile  |   1 +
->   drivers/i2c/ast_i2c.c | 355 ++++++++++++++++++++++++++++++++++++++++++++++++++
->   drivers/i2c/ast_i2c.h | 132 +++++++++++++++++++
->   4 files changed, 497 insertions(+)
->   create mode 100644 drivers/i2c/ast_i2c.c
->   create mode 100644 drivers/i2c/ast_i2c.h
+> Tested on Romulus
+>
+>   drivers/fsi/i2c/iic-boe.c  | 12 ++++++------
+>   drivers/fsi/i2c/iic-fsi.c  | 12 ++++++------
+>   drivers/fsi/i2c/iic-mstr.c |  6 ++----
+>   3 files changed, 14 insertions(+), 16 deletions(-)
+>
+> diff --git a/drivers/fsi/i2c/iic-boe.c b/drivers/fsi/i2c/iic-boe.c
+> index e7196c0115b1..5b90a856c4fd 100644
+> --- a/drivers/fsi/i2c/iic-boe.c
+> +++ b/drivers/fsi/i2c/iic-boe.c
+> @@ -697,23 +697,23 @@ int iic_boe_eng_init(iic_eng_t* eng, iic_ffdc_t** ffdc)
+>   	clk_div = IIC_BOE_HZ2DIV(eng->bus_speed, IIC_BOE_DFLT_SPEED);
+>   	if(!clk_div)
+>   	{
+> -		IFLDi(2, "eng[%08x], max speed = %ld\n",
+> +		dev_dbg(eng->dev, "eng[%08x], max speed = %ld\n",
+>   				eng->id, eng->bus_speed / 5);
+>   	}
+>   	if(clk_div & ~IIC_BOE_MAX_CLKDIV)
+>   		clk_div = IIC_BOE_MAX_CLKDIV;
+> -	IFLDd(3, "eng[%08x] speed[%ld] divisor[%ld]\n", eng->id,
+> +	dev_dbg(eng->dev, "eng[%08x] speed[%ld] divisor[%ld]\n", eng->id,
+>   			IIC_BOE_DIV2HZ(eng->bus_speed, clk_div), clk_div);
+>
+>   	if(test_bit(IIC_ENG_Z7PLUS, &eng->flags) ||
+>   	   test_bit(IIC_ENG_P8_Z8_CENTAUR, &eng->flags))
+>   	{
+> -		IFLDi(0, "iic_boe_eng_init: P8/Z7PLUS mode\n");
+> +		dev_dbg(eng->dev, "iic_boe_eng_init: P8/Z7PLUS mode\n");
+>   		mode = IIC_BOE_Z7_MK_CLKDIV(clk_div);
+>   	}
+>   	else
+>   	{
+> -		IFLDi(0, "iic_boe_eng_init: Normal mode\n");
+> +		dev_dbg(eng->dev, "iic_boe_eng_init: Normal mode\n");
+>   		mode = IIC_BOE_MK_CLKDIV(clk_div);
+>   	}
+>
+> @@ -1362,7 +1362,7 @@ int iic_boe_reset(iic_eng_t* eng, int type, iic_ffdc_t** ffdc)
+>
+>   	IENTER();
+>   	/* issue an immediate reset i2c command */
+> -	IFLDi(0, "iic_boe_reset\n");
+> +	dev_dbg(eng->dev, "iic_boe_reset\n");
+>   	rc = iic_writew(eng, IIC_BOE_RESET_I2C, 0, ffdc);
+>   	if(rc)
+>   		goto exit;
+> @@ -1413,7 +1413,7 @@ int iic_boe_reset(iic_eng_t* eng, int type, iic_ffdc_t** ffdc)
+>   				ffdc);
+>   		if (rc)
+>   			goto exit;
+> -		IFLDi(1, "clean port busy port_busy[%08lx]\n", port_busy);
+> +		dev_dbg(eng->dev, "clean port busy port_busy[%08lx]\n", port_busy);
+>   	}
+>
+>   	/* Test for stuck lines */
+> diff --git a/drivers/fsi/i2c/iic-fsi.c b/drivers/fsi/i2c/iic-fsi.c
+> index 1f85e91232fd..5592a1441c54 100644
+> --- a/drivers/fsi/i2c/iic-fsi.c
+> +++ b/drivers/fsi/i2c/iic-fsi.c
+> @@ -195,7 +195,7 @@ int iic_add_ports(iic_eng_t* eng, uint64_t ports)
+>
+>   	IENTER();
+>
+> -	IFLDi(3, "Adding ports[0x%08x%08x] to eng[0x%08x]\n",
+> +	dev_dbg(eng->dev, "Adding ports[0x%08x%08x] to eng[0x%08x]\n",
+>   	      (uint32_t)(ports >> 32),
+>   	      (uint32_t)ports,
+>   	      eng->id);
+> @@ -271,7 +271,7 @@ int iic_del_ports(iic_eng_t* eng, uint64_t ports)
+>
+>   	IENTER();
+>
+> -	IFLDi(3, "removing ports[0x%08x%08x] from eng[0x%08x]",
+> +	dev_dbg(eng->dev, "removing ports[0x%08x%08x] from eng[0x%08x]",
+>   	      (uint32_t)(ports >> 32),
+>   	      (uint32_t)ports,
+>   	      eng->id);
+> @@ -333,7 +333,7 @@ int iic_fsi_probe(struct device *dev)
+>   	set_bit(IIC_ENG_BLOCK, &eng->flags); //block until resumed
+>   	eng->id = 0x00F5112C;
+>   	eng->idx = ida_simple_get(&iic_ida, 1, INT_MAX, GFP_KERNEL);
+> -	IFLDi(1, "PROBE    eng[%08x]\n", eng->id);
+> +	dev_dbg(dev, "PROBE    eng[%08x]\n", eng->id);
+>   	eng->ra = &fsi_reg_access;
+>   	IFLDd(1, "vaddr=%#08lx\n", eng->base);
+>   	eng->dev = dev;
+> @@ -414,7 +414,7 @@ int iic_fsi_remove(struct device* dev)
+>
+>   	iic_fsi_suspend(dev); //ignore rc
+>
+> -	IFLDi(1, "REMOVE   eng[%08x]\n", eng->id);
+> +	dev_dbg(dev, "REMOVE   eng[%08x]\n", eng->id);
+>
+>   	/* Clean up device files immediately, don't wait for ref count */
+>   	iic_del_ports(eng, IIC_FSI_PORTS);
+> @@ -451,7 +451,7 @@ int iic_fsi_suspend(struct device *dev)
+>   		goto error;
+>   	}
+>
+> -	IFLDi(2, "SUSPEND  eng[%08x]\n", eng->id);
+> +	dev_dbg(dev,"SUSPEND  eng[%08x]\n", eng->id);
+>
+>   	/* Prohibit new engine operations until resumed*/
+>   	set_bit(IIC_ENG_BLOCK, &eng->flags);
+> @@ -504,7 +504,7 @@ int iic_fsi_resume(struct device *dev)
+>   		goto error;
+>   	}
+>
+> -	IFLDi(1, "RESUME   eng[%08x]\n", eng->id);
+> +	dev_dbg(eng->dev, "RESUME   eng[%08x]\n", eng->id);
+>
+>   	eng->bus_speed = 20833333;
+>   	IFLDd(1, "eng->bus_speed=%ld\n", eng->bus_speed);
+> diff --git a/drivers/fsi/i2c/iic-mstr.c b/drivers/fsi/i2c/iic-mstr.c
+> index f968c2040dc3..a5881fb795f4 100644
+> --- a/drivers/fsi/i2c/iic-mstr.c
+> +++ b/drivers/fsi/i2c/iic-mstr.c
+> @@ -2157,7 +2157,7 @@ iic_bus_t*  iic_create_bus(struct class* classp, iic_eng_t* eng,
+>   		goto exit_class_add;
+>   	}
+>
+> -	IFLDi(1, "bus[%08lx] created\n", bus->bus_id);
+> +	dev_dbg(bus->class_dev, "bus[%08lx] created\n", bus->bus_id);
+>   	goto exit;
+>
+>   	device_destroy(classp, bus->devnum);
+> @@ -2180,7 +2180,7 @@ void iic_delete_bus(struct class* classp, iic_bus_t* bus)
+>   	{
+>   		goto exit;
+>   	}
+> -	IFLDi(1, "cleanup bus[%08lx]\n", bus->bus_id);
+> +	dev_dbg(bus->class_dev, "cleanup bus[%08lx]\n", bus->bus_id);
+>   	device_destroy(classp, bus->devnum);
+>   	cdev_del(&bus->cdev);
+>   	kfree(bus);
+> @@ -2195,7 +2195,6 @@ static int __init iic_init(void)
+>   	int rc = 0;
+>
+>   	IENTER();
+> -	printk("IIC: base support loaded  ver. %s\n", iic_mstr_version);
+>   	IEXIT(rc);
+>   	return rc;
+>   }
+> @@ -2203,7 +2202,6 @@ static int __init iic_init(void)
+>   static void __exit iic_exit(void)
+>   {
+>   	IENTER();
+> -	printk("IIC: base support unloaded.\n");
+>   	IEXIT(0);
+>   }
+>
 
-Thanks for this patch. Just nitpick:
+Looks good, thanks Joel.
 
-[...]
-> diff --git a/drivers/i2c/ast_i2c.c b/drivers/i2c/ast_i2c.c
-> new file mode 100644
-> index 0000000000..0b60b08cf2
-> --- /dev/null
-> +++ b/drivers/i2c/ast_i2c.c
-> @@ -0,0 +1,355 @@
-> +/*
-> + * Copyright (C) 2012-2020  ASPEED Technology Inc.
-> + * Copyright 2016 IBM Corporation
-> + * Copyright 2017 Google, Inc.
-> + *
-> + * SPDX-License-Identifier:	GPL-2.0+
-> + */
-> +
-> +#include <common.h>
-> +#include <clk.h>
-> +#include <dm.h>
-> +#include <errno.h>
-> +#include <fdtdec.h>
-> +#include <i2c.h>
-> +#include <asm/io.h>
-> +#include <asm/arch/scu_ast2500.h>
-> +
-> +#include "ast_i2c.h"
-> +
-> +#define I2C_TIMEOUT_US 100000
-> +#define I2C_SLEEP_STEP_US 20
-> +
-> +#define HIGHSPEED_TTIMEOUT		3
-> +
-> +DECLARE_GLOBAL_DATA_PTR;
-> +
-> +/*
-> + * Device private data
-> + */
-> +struct ast_i2c_priv {
-> +	/* This device's clock */
-> +	struct clk clk;
-> +	/* Device registers */
-> +	struct ast_i2c_regs *regs;
-> +	/* I2C speed in Hz */
-> +	int speed;
-> +};
-> +
-> +/*
-> + * Given desired divider ratio, return the value that needs to be set
-> + * in Clock and AC Timing Control register
-> + */
-> +static u32 get_clk_reg_val(ulong divider_ratio)
-> +{
-> +	ulong inc = 0, div;
-> +	ulong scl_low, scl_high, data;
-> +
-> +	for (div = 0; divider_ratio >= 16; div++) {
-> +		inc |= (divider_ratio & 1);
-> +		divider_ratio >>= 1;
-> +	}
-> +	divider_ratio += inc;
-> +	scl_low = (divider_ratio >> 1) - 1;
-> +	scl_high = divider_ratio - scl_low - 2;
-> +	data = I2CD_CACTC_BASE
-> +			| (scl_high << I2CD_TCKHIGH_SHIFT)
-> +			| (scl_low << I2CD_TCKLOW_SHIFT)
-> +			| (div << I2CD_BASE_DIV_SHIFT);
-> +
-> +	return data;
-> +}
-> +
-> +static void ast_i2c_clear_interrupts(struct udevice *dev)
-> +{
-> +	struct ast_i2c_priv *priv = dev_get_priv(dev);
-> +
-> +	writel(~0, &priv->regs->isr);
-> +}
-> +
-> +static void ast_i2c_init_bus(struct udevice *dev)
-> +{
-> +	struct ast_i2c_priv *priv = dev_get_priv(dev);
-> +
-> +	/* Reset device */
-> +	writel(0, &priv->regs->fcr);
-> +	/* Enable Master Mode. Assuming single-master */
-> +	writel(I2CD_MASTER_EN
-> +	       | I2CD_M_SDA_LOCK_EN
-> +	       | I2CD_MULTI_MASTER_DIS | I2CD_M_SCL_DRIVE_EN,
-> +	       &priv->regs->fcr);
-> +	/* Enable Interrupts */
-> +	writel(I2CD_INTR_TX_ACK
-> +	       | I2CD_INTR_TX_NAK
-> +	       | I2CD_INTR_RX_DONE
-> +	       | I2CD_INTR_BUS_RECOVER_DONE
-> +	       | I2CD_INTR_NORMAL_STOP
-> +	       | I2CD_INTR_ABNORMAL, &priv->regs->icr);
-> +}
-> +
-> +static int ast_i2c_ofdata_to_platdata(struct udevice *dev)
-> +{
-> +	struct ast_i2c_priv *priv = dev_get_priv(dev);
-> +	int ret;
-> +
-> +	priv->regs = dev_get_addr_ptr(dev);
-> +	if (IS_ERR(priv->regs))
-> +		return PTR_ERR(priv->regs);
-> +
-> +	ret = clk_get_by_index(dev, 0, &priv->clk);
-> +	if (ret < 0) {
-> +		debug("%s: Can't get clock for %s: %d\n", __func__, dev->name,
-> +		      ret);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int ast_i2c_probe(struct udevice *dev)
-> +{
-> +	struct ast2500_scu *scu;
-> +
-> +	debug("Enabling I2C%u\n", dev->seq);
-> +
-> +	/*
-> +	 * Get all I2C devices out of Reset.
-> +	 * Only needs to be done once, but doing it for every
-> +	 * device does not hurt.
-> +	 */
-> +	scu = ast_get_scu();
-> +	ast_scu_unlock(scu);
-> +	clrbits_le32(&scu->sysreset_ctrl1, SCU_SYSRESET_I2C);
-> +	ast_scu_lock(scu);
-> +
-> +	ast_i2c_init_bus(dev);
-> +
-> +	return 0;
-> +}
-> +
-> +static int ast_i2c_wait_isr(struct udevice *dev, u32 flag)
-> +{
-> +	struct ast_i2c_priv *priv = dev_get_priv(dev);
-> +	int timeout = I2C_TIMEOUT_US;
-> +
-> +	while (!(readl(&priv->regs->isr) & flag) && timeout > 0) {
-> +		udelay(I2C_SLEEP_STEP_US);
-> +		timeout -= I2C_SLEEP_STEP_US;
-> +	}
-> +
-> +	ast_i2c_clear_interrupts(dev);
-> +	if (timeout <= 0)
-> +		return -ETIMEDOUT;
-> +
-> +	return 0;
-> +}
-> +
-> +static int ast_i2c_send_stop(struct udevice *dev)
-> +{
-> +	struct ast_i2c_priv *priv = dev_get_priv(dev);
-> +
-> +	writel(I2CD_M_STOP_CMD, &priv->regs->csr);
-> +
-> +	return ast_i2c_wait_isr(dev, I2CD_INTR_NORMAL_STOP);
-> +}
-> +
-> +static int ast_i2c_wait_tx(struct udevice *dev)
-> +{
-> +	struct ast_i2c_priv *priv = dev_get_priv(dev);
-> +	int timeout = I2C_TIMEOUT_US;
-> +	u32 flag = I2CD_INTR_TX_ACK | I2CD_INTR_TX_NAK;
-> +	u32 status = readl(&priv->regs->isr) & flag;
-> +	int ret = 0;
-> +
-> +	while (!status && timeout > 0) {
-> +		status = readl(&priv->regs->isr) & flag;
-> +		udelay(I2C_SLEEP_STEP_US);
-> +		timeout -= I2C_SLEEP_STEP_US;
-> +	}
-> +
-> +	if (status == I2CD_INTR_TX_NAK)
-> +		ret = -EREMOTEIO;
-> +
-> +	if (timeout <= 0)
-> +		ret = -ETIMEDOUT;
-> +
-> +	ast_i2c_clear_interrupts(dev);
-> +
-> +	return ret;
-> +}
-> +
-> +static int ast_i2c_start_txn(struct udevice *dev, uint devaddr)
-> +{
-> +	struct ast_i2c_priv *priv = dev_get_priv(dev);
-
-add an empty line here please.
-
-> +	/* Start and Send Device Address */
-> +	writel(devaddr, &priv->regs->trbbr);
-> +	writel(I2CD_M_START_CMD | I2CD_M_TX_CMD, &priv->regs->csr);
-> +
-> +	return ast_i2c_wait_tx(dev);
-> +}
-> +
-> +static int ast_i2c_read_data(struct udevice *dev, u8 chip_addr, u8 *buffer,
-> +			     size_t len, bool send_stop)
-> +{
-> +	struct ast_i2c_priv *priv = dev_get_priv(dev);
-> +	u32 i2c_cmd = I2CD_M_RX_CMD;
-> +	int ret;
-> +
-> +	ret = ast_i2c_start_txn(dev, (chip_addr << 1) | I2C_M_RD);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	for (; len > 0; len--, buffer++) {
-> +		if (len == 1)
-> +			i2c_cmd |= I2CD_M_S_RX_CMD_LAST;
-> +		writel(i2c_cmd, &priv->regs->csr);
-> +		ret = ast_i2c_wait_isr(dev, I2CD_INTR_RX_DONE);
-> +		if (ret < 0)
-> +			return ret;
-> +		*buffer = (readl(&priv->regs->trbbr) & I2CD_RX_DATA_MASK)
-> +				>> I2CD_RX_DATA_SHIFT;
-> +	}
-> +	ast_i2c_clear_interrupts(dev);
-> +
-> +	if (send_stop)
-> +		return ast_i2c_send_stop(dev);
-> +
-> +	return 0;
-> +}
-> +
-> +static int ast_i2c_write_data(struct udevice *dev, u8 chip_addr, u8
-> +			      *buffer, size_t len, bool send_stop)
-> +{
-> +	struct ast_i2c_priv *priv = dev_get_priv(dev);
-> +	int ret;
-> +
-> +	ret = ast_i2c_start_txn(dev, (chip_addr << 1));
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	for (; len > 0; len--, buffer++) {
-> +		writel(*buffer, &priv->regs->trbbr);
-> +		writel(I2CD_M_TX_CMD, &priv->regs->csr);
-> +		ret = ast_i2c_wait_tx(dev);
-> +		if (ret < 0)
-> +			return ret;
-> +	}
-> +
-> +	if (send_stop)
-> +		return ast_i2c_send_stop(dev);
-> +
-> +	return 0;
-> +}
-> +
-> +static int ast_i2c_deblock(struct udevice *dev)
-> +{
-> +	struct ast_i2c_priv *priv = dev_get_priv(dev);
-> +	struct ast_i2c_regs *regs = priv->regs;
-> +	u32 csr = readl(&regs->csr);
-> +	bool sda_high = csr & I2CD_SDA_LINE_STS;
-> +	bool scl_high = csr & I2CD_SCL_LINE_STS;
-> +	int ret = 0;
-> +
-> +	if (sda_high && scl_high) {
-> +		/* Bus is idle, no deblocking needed. */
-> +		return 0;
-> +	} else if (sda_high) {
-> +		/* Send stop command */
-> +		debug("Unterminated TXN in (%x), sending stop\n", csr);
-> +		ret = ast_i2c_send_stop(dev);
-> +	} else if (scl_high) {
-> +		/* Possibly stuck slave */
-> +		debug("Bus stuck (%x), attempting recovery\n", csr);
-> +		writel(I2CD_BUS_RECOVER_CMD, &regs->csr);
-> +		ret = ast_i2c_wait_isr(dev, I2CD_INTR_BUS_RECOVER_DONE);
-> +	} else {
-> +		/* Just try to reinit the device. */
-> +		ast_i2c_init_bus(dev);
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +static int ast_i2c_xfer(struct udevice *dev, struct i2c_msg *msg, int nmsgs)
-> +{
-> +	int ret;
-> +
-> +	ret = ast_i2c_deblock(dev);
-> +	if (ret < 0)
-> +		return ret;
-
-here too.
-
-Beside of this, as this patch is in a patchserie which goes not
-through i2c tree, you can add my:
-
-Acked-by: Heiko Schocher <hs@denx.de>
-
-bye,
-Heiko
--- 
-DENX Software Engineering GmbH,      Managing Director: Wolfgang Denk
-HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+Acked-by: Eddie James <eajames@linux.vnet.ibm.com>
