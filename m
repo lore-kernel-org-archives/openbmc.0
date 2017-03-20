@@ -1,69 +1,51 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <robherring2@gmail.com>
+Received: from mail-oi0-f66.google.com (mail-oi0-f66.google.com
+ [209.85.218.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vmy4V03FtzDq5g
- for <openbmc@lists.ozlabs.org>; Tue, 21 Mar 2017 00:50:01 +1100 (AEDT)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v2KDn9jE097350
- for <openbmc@lists.ozlabs.org>; Mon, 20 Mar 2017 09:49:50 -0400
-Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
- by mx0a-001b2d01.pphosted.com with ESMTP id 298wsgk5s7-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 20 Mar 2017 09:49:49 -0400
-Received: from localhost
- by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Mon, 20 Mar 2017 07:49:48 -0600
-Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
- by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 20 Mar 2017 07:49:46 -0600
-Received: from b03ledav004.gho.boulder.ibm.com
- (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
- by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v2KDngQI11665782; Mon, 20 Mar 2017 06:49:45 -0700
-Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 4D33E78051;
- Mon, 20 Mar 2017 07:49:45 -0600 (MDT)
-Received: from Christophers-MacBook-Pro.local (unknown [9.83.0.205])
- by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP id AFBB878037;
- Mon, 20 Mar 2017 07:49:43 -0600 (MDT)
-Subject: Re: [PATCH linux dev-4.7 v2] drivers/fsi: Add delay before sampling
- input on SDA
-To: Jeremy Kerr <jk@ozlabs.org>, joel@jms.id.au
-References: <20170317211836.63576-1-cbostic@linux.vnet.ibm.com>
- <5abc5b5b-d431-94c1-00f3-42d2d595b278@ozlabs.org>
-Cc: openbmc@lists.ozlabs.org
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Mon, 20 Mar 2017 08:49:41 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
- Gecko/20100101 Thunderbird/45.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vn1JQ4zBDzDqZY
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Mar 2017 03:15:34 +1100 (AEDT)
+Received: by mail-oi0-f66.google.com with SMTP id a94so4266830oic.0
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Mar 2017 09:15:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to:user-agent;
+ bh=wALBvqpZuqg8+qSWYDPiqUhBuyFiYnGm1feXqB6Twjc=;
+ b=PXYCrNznayRAEzLDjZduKoaXWZawjlTa+SOaclZyPPIVMoXqsV8au/7BEsiIJoLbXO
+ f20w/TK7c7oqyvhq5FYVNCvMEWuxo2JyjanNFL6QXSY8N+fNB2TmYopd/ofLgbK3LVzM
+ WgAr0ruJ7Gi1uY3HFYEAhnyXOggllA0q7VQJtnf3NLTGeP2STu8Q9uEVDsImwRuD4gO1
+ CAvXdmBxrSM4hP8VkTzXLy+sPDCQ9XWvEBryO2jGE/1ptSg/Lt4aFLmN0H7JThSZLUrH
+ TQ69AUefOFTxStjcaGgUwvrLrAN0+VRZe5rPmcaHl99nlds5CGBKqQG/FQZ5EodUe/tM
+ eEpw==
+X-Gm-Message-State: AFeK/H3/KE3FGqHrDnw6/zr1dduPewmXT3njmFnkZttwaucTTtKw+N/fY0prjVO+evJCFw==
+X-Received: by 10.202.218.134 with SMTP id r128mr13415199oig.2.1490026532466; 
+ Mon, 20 Mar 2017 09:15:32 -0700 (PDT)
+Received: from localhost (66-90-148-125.dyn.grandenetworks.net.
+ [66.90.148.125])
+ by smtp.gmail.com with ESMTPSA id x133sm7632596oif.33.2017.03.20.09.15.31
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 20 Mar 2017 09:15:31 -0700 (PDT)
+Date: Mon, 20 Mar 2017 11:15:31 -0500
+From: Rob Herring <robh@kernel.org>
+To: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
+Cc: joel@jms.id.au, jdelvare@suse.com, linux@roeck-us.net,
+ linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org, corbet@lwn.net, linux-doc@vger.kernel.org,
+ mark.rutland@arm.com, devicetree@vger.kernel.org
+Subject: Re: [PATCH linux v4 1/2] Documentation: dt-bindings: Document
+ bindings for ASPEED AST2400/AST2500 PWM and Fan tach controller device
+ driver
+Message-ID: <20170320161531.ob65adnqch47dvyi@rob-hp-laptop>
+References: <20170311015351.23092-1-jaghu@google.com>
+ <20170311015351.23092-2-jaghu@google.com>
 MIME-Version: 1.0
-In-Reply-To: <5abc5b5b-d431-94c1-00f3-42d2d595b278@ozlabs.org>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 17032013-0020-0000-0000-00000B9AEF76
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006816; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000206; SDB=6.00836366; UDB=6.00411049; IPR=6.00614135; 
- BA=6.00005224; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014726; XFM=3.00000013;
- UTC=2017-03-20 13:49:47
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17032013-0021-0000-0000-00005B00A101
-Message-Id: <f3991ff8-7584-23c3-488d-17bdd4efb1ae@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-03-20_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
- definitions=main-1703200121
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20170311015351.23092-2-jaghu@google.com>
+User-Agent: Mutt/1.6.2-neo (2016-08-21)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -75,45 +57,141 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Mar 2017 13:50:02 -0000
+X-List-Received-Date: Mon, 20 Mar 2017 16:15:35 -0000
 
+On Fri, Mar 10, 2017 at 05:53:50PM -0800, Jaghathiswari Rankappagounder Natarajan wrote:
+> This binding provides interface for adding values related to ASPEED
+> AST2400/2500 PWM and Fan tach controller support.
+> The PWM controller can support upto 8 PWM output ports.
+> The Fan tach controller can support upto 16 tachometer inputs.
+> 
+> Signed-off-by: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
+> ---
+>  v4:
+> - Used 'reg'
+> 
+>  v3:
+> - Made the structure more common
+> 
+>  v2:
+> - Removed '_' in node and property names
+> - Gave some explanation for the properties used
+> 
+>  .../devicetree/bindings/hwmon/aspeed-pwm-tacho.txt | 86 ++++++++++++++++++++++
+>  1 file changed, 86 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
+> 
+> diff --git a/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt b/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
+> new file mode 100644
+> index 000000000000..0dfd2841ace3
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
+> @@ -0,0 +1,86 @@
+> +ASPEED AST2400/AST2500 PWM and Fan Tacho controller device driver
+> +
+> +The ASPEED PWM controller can support upto 8 PWM outputs. The ASPEED Fan Tacho
+> +controller can support upto 16 Fan tachometer inputs.
+> +
+> +There can be upto 8 fans supported. Each fan can have one PWM output and
+> +one/two Fan tach inputs.
+> +
+> +Required properties for pwm-tacho node:
+> +- #address-cells : should be 1.
+> +
+> +- #size-cells : should be 1.
+> +
+> +- reg : address and length of the register set for the device.
+> +
+> +- pinctrl-names : a pinctrl state named "default" must be defined.
+> +
+> +- pinctrl-0 : phandle referencing pin configuration of the PWM ports.
+> +
+> +- compatible : should be "aspeed,aspeed2400-pwm-tacho" for AST2400 or
+> +	       "aspeed,aspeed2500-pwm-tacho" for AST2500.
+> +
+> +- clocks : a fixed clock providing input clock frequency(PWM
+> +	   and Fan Tach clock)
+> +
+> +fan subnode format:
+> +===================
+> +Under fan subnode there can upto 8 child nodes, with each child node
+> +representing a fan. If there are 8 fans each fan can have one PWM port and
+> +one/two Fan tach inputs.
+> +
+> +Required properties for each child node:
+> +- reg : should specify PWM source port.
+> +	integer value in the range 0 to 7 with 0 indicating PWM port A and
+> +	7 indicating PWM port H.
+> +
+> +  Atleast one tach subnode is required. Each tach subnode represents a fan
+> +  tach input.
+> +  tach subnode format:
+> +  --------------------
+> +  Required properties for each child node:
+> +  - fan-ctrl-gpios : should specify the tachometer input GPIO pin on the hardware.
+> +             	     Fan Tachometer function can only work when GPIO is in
+> +		     ”input mode”.
 
+As I mentioned on the last version, this sounds like pin-muxing, not 
+actual GPIO usage.
 
-On 3/20/17 12:33 AM, Jeremy Kerr wrote:
-> Hi Chris,
->
->> During high cpu loads the SDA in line can shift relative to the
->> clock signal which can corrupt the received input data.  Slow
->> down the time to sample input to account for this.
-> This looks much better than the previous patch, but do you know why high
-> CPU loads affect this? All of the GPIO interactions are performed with
-> the single spinlock held, so CPU load should have no bearing on the
-> timing of the bit-banging - the driver has exclusive use of the CPU
-> during a FSI transaction.
-> Can you elaborate on the symptoms of this?
-Hi Jeremy,
+> +
+> +  - fan-tach-ch : should specify the Fan tach input channel.
+> +	          integer value in the range 0 through 15, with 0 indicating
+> +		  Fan tach channel 0 and 15 indicating Fan tach channel 15.
 
-Yes that's true, cpu load shouldn't be a factor in this case then. The 
-failure mode is during the sampling of input data during the slave 
-response phase of the command.  CRC received does not match the CRC 
-calculated due to bit flips
-related to sampling/clocking timing issues.  This problem only appears 
-when hostboot is accessing the BMC.  Increasing delay does correct the 
-issue.  I don't have a good explanation for why this timing behavior 
-occurs given its not cpu load related.
-> One thing that looks a little suspicious to me is that you're running
-> the clock during the echo delay time, so you're potentially feeding
-> random data to the slave...
->
-> Cheers,
-The echo delay in the driver clocks '1's on the line so as long as the 
-echo_delay() utility is used there is no risk of random data in this 
-phase.   Clocking during this phase also gives the slave more clocks to 
-process the newly sent command so the entire time for processing a 
-single command and generating a response takes less follow on clocks.
+These 2 also need aspeed vendor prefixes.
 
-Thanks,
-Chris
->
-> Jeremy
->
+This could become a property under the fan node as a list of tach 
+channels if fan-ctrl-gpios goes away.
+
+> +
+> +Examples:
+> +
+> +pwmtachofixedclk: fixedclk {
+> +	compatible = "fixed-clock";
+> +	#clock-cells = <0>;
+> +	clock-frequency = <24000000>;
+> +}
+> +
+> +pwmtacho: pwmtachocontroller@1e786000 {
+> +	#address-cells = <1>;
+> +	#size-cells = <1>;
+> +	reg = <0x1E786000 0x1000>;
+> +	compatible = "aspeed,aspeed2500-pwm-tacho";
+> +	clocks = <&pwmtachofixedclk>;
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
+> +
+> +	fan0 {
+
+fan@0
+
+> +		reg = /bits/ 8 <0x00>;
+
+reg is 32-bits.
+
+> +		tach0 {
+> +			fan-ctrl-gpios = <&gpio ASPEED_GPIO(O, 0) GPIO_ACTIVE_HIGH>;
+> +			fan-tach-ch = /bits/ 8 <0x00>;
+> +		};
+> +	};
+> +
+> +	fan1 {
+
+fan@1
+
+> +		reg = /bits/ 8 <0x01>;
+> +		tach0 {
+> +			fan-ctrl-gpios = <&gpio ASPEED_GPIO(O, 1) GPIO_ACTIVE_HIGH>;
+> +			fan-tach-ch = /bits/ 8 <0x01>;
+> +		};
+> +		tach1 {
+> +			fan-ctrl-gpios = <&gpio ASPEED_GPIO(O, 2) GPIO_ACTIVE_HIGH>;
+> +			fan-tach-ch = /bits/ 8 <0x02>;
+> +		};
+> +	};
+> +};
+> --
+> 2.12.0.246.ga2ecc84866-goog
+> 
