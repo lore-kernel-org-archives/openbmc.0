@@ -1,62 +1,50 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <geissonator@gmail.com>
+Received: from mail-it0-x243.google.com (mail-it0-x243.google.com
+ [IPv6:2607:f8b0:4001:c0b::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vlJ9j6xn0zDqZJ
- for <openbmc@lists.ozlabs.org>; Sat, 18 Mar 2017 08:18:49 +1100 (AEDT)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v2HLDwWm106742
- for <openbmc@lists.ozlabs.org>; Fri, 17 Mar 2017 17:18:44 -0400
-Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
- by mx0a-001b2d01.pphosted.com with ESMTP id 298qcq0dum-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 17 Mar 2017 17:18:43 -0400
-Received: from localhost
- by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Fri, 17 Mar 2017 17:18:42 -0400
-Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
- by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Fri, 17 Mar 2017 17:18:39 -0400
-Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
- [9.57.199.111])
- by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v2HLIfRc37421232; Fri, 17 Mar 2017 21:18:41 GMT
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 9C278AC03F;
- Fri, 17 Mar 2017 17:18:32 -0400 (EDT)
-Received: from christophersmbp.austin.ibm.com (unknown [9.41.174.103])
- by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id 52B9DAC03A;
- Fri, 17 Mar 2017 17:18:32 -0400 (EDT)
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-To: joel@jms.id.au
-Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.7 v2] drivers/fsi: Add delay before sampling input
- on SDA
-Date: Fri, 17 Mar 2017 16:18:36 -0500
-X-Mailer: git-send-email 2.10.1 (Apple Git-78)
-X-TM-AS-GCONF: 00
-x-cbid: 17031721-0040-0000-0000-000002EC2971
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006800; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000206; SDB=6.00835290; UDB=6.00410298; IPR=6.00612945; 
- BA=6.00005216; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014700; XFM=3.00000013;
- UTC=2017-03-17 21:18:41
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17031721-0041-0000-0000-000006E02B17
-Message-Id: <20170317211836.63576-1-cbostic@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-03-17_17:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
- definitions=main-1703170177
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vmdv15c2kzDq5g
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Mar 2017 12:40:45 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="qezoXLHG"; 
+ dkim-atps=neutral
+Received: by mail-it0-x243.google.com with SMTP id 190so3822086itm.3
+ for <openbmc@lists.ozlabs.org>; Sun, 19 Mar 2017 18:40:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=ZL4o10gdAJ7vJoqwLydG67EWCKCWdil2B0Lk3ULdPcY=;
+ b=qezoXLHGeEFrRzbK6PH8GwByK1/8//47xQvMkd3u3GncmEVDdkmarSvA7YuV4Y1SLG
+ C1tVsiQK0/X5hw0SGaB6afbCFMeQ0fjyIQqKAob6DEwTTT0OIBHHpKz4BA/l3bJUCJrP
+ F3UWk5O1IPVjTE4yrG/dklMlbC+rdlC9ZM8uqeGbW8VoqsAr677c3Dk0Lm7l47e0G8rQ
+ gHZGApiw5mwR9dQivmP1763zfJD2Dq6u2FUXHMIy48blGIEkqG44GThDMJ5R+7kbuFYJ
+ 6SzfjYGCu7UoNgMGDKIvu5tO6v8ORJmx0C3rDt45EC/+6MLJo9N/CagSgzS4HCpsDBrk
+ I2rA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=ZL4o10gdAJ7vJoqwLydG67EWCKCWdil2B0Lk3ULdPcY=;
+ b=YaACUbnJMf2P319RPrguo7WuMnc26YNT7hEgQQb2kOH7JlIbqK54HUEXecrCXM3vW8
+ 5BmDnobPHvXSf1kCTsUbhP0mwp1li8YKTggvP7R6M2lnb0FAw9pLYv3C5O7GjlwZ9Pgx
+ F4Lh1MqPUyOZq89mKODqnP/ZotEJWCvcMi+wn0KNe1iWx62LP+WPPPd36bmmrIA/T5ab
+ IHkPKlUDTr0zyZ4cRLntdH7JoW4CCgVSz8mKjujFKFgk0V1QnNO54/NPwBBmJdVHSZB9
+ QDd+9Pei3uQG1C4uMqk75nUlVV2JnfvyhvpQ6fOhO9p+qX4etiMXLHlsY0LpXrkyu3nA
+ 0FFw==
+X-Gm-Message-State: AFeK/H2OL6B7QAqzwAY/+prlf0CoOuWpmNaxgihkZfDSqBynKkyzNrEGY41hCiiNns1heuxdAnCWGoRqICnvoQ==
+X-Received: by 10.107.166.207 with SMTP id p198mr24528368ioe.15.1489974043694; 
+ Sun, 19 Mar 2017 18:40:43 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.107.53.156 with HTTP; Sun, 19 Mar 2017 18:40:43 -0700 (PDT)
+In-Reply-To: <20170317211836.63576-1-cbostic@linux.vnet.ibm.com>
+References: <20170317211836.63576-1-cbostic@linux.vnet.ibm.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Sun, 19 Mar 2017 20:40:43 -0500
+Message-ID: <CALLMt=pk0a1JUPWc=zP-Zb9oqT9bKyZ3dHVof6BqdSvrL_WUAg@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7 v2] drivers/fsi: Add delay before sampling
+ input on SDA
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,40 +56,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Mar 2017 21:18:50 -0000
+X-List-Received-Date: Mon, 20 Mar 2017 01:40:46 -0000
 
-During high cpu loads the SDA in line can shift relative to the
-clock signal which can corrupt the received input data.  Slow
-down the time to sample input to account for this.
+On Fri, Mar 17, 2017 at 4:18 PM, Christopher Bostic
+<cbostic@linux.vnet.ibm.com> wrote:
+> During high cpu loads the SDA in line can shift relative to the
+> clock signal which can corrupt the received input data.  Slow
+> down the time to sample input to account for this.
+>
+> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+> ---
+> v2 - Increase delay for SDA in sampling only.
+>    - Decrease the original delay for SDA sampling from 1us to 200ns
+> ---
+>  drivers/fsi/fsi-master-gpio.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
+> index a8976d5..8e832e0 100644
+> --- a/drivers/fsi/fsi-master-gpio.c
+> +++ b/drivers/fsi/fsi-master-gpio.c
+> @@ -14,6 +14,7 @@
+>  #include "fsi-master.h"
+>
+>  #define        FSI_GPIO_STD_DLY        1       /* Standard pin delay in nS */
+> +#define        FSI_GPIO_SDA_IN_DLY     200     /* Wait to sample SDA line, in nS */
+>  #define        FSI_ECHO_DELAY_CLOCKS   16      /* Number clocks for echo delay */
+>  #define        FSI_PRE_BREAK_CLOCKS    50      /* Number clocks to prep for break */
+>  #define        FSI_BREAK_CLOCKS        256     /* Number of clocks to issue break */
+> @@ -97,7 +98,7 @@ static int sda_in(struct fsi_master_gpio *master)
+>  {
+>         int in;
+>
+> -       ndelay(FSI_GPIO_STD_DLY);
+> +       ndelay(FSI_GPIO_SDA_IN_DLY);
+>         in = gpiod_get_value(master->gpio_data);
+>         return in ? 1 : 0;
+>  }
+> --
+> 1.8.2.2
+>
 
-Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
----
-v2 - Increase delay for SDA in sampling only.
-   - Decrease the original delay for SDA sampling from 1us to 200ns
----
- drivers/fsi/fsi-master-gpio.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
-index a8976d5..8e832e0 100644
---- a/drivers/fsi/fsi-master-gpio.c
-+++ b/drivers/fsi/fsi-master-gpio.c
-@@ -14,6 +14,7 @@
- #include "fsi-master.h"
- 
- #define	FSI_GPIO_STD_DLY	1	/* Standard pin delay in nS */
-+#define	FSI_GPIO_SDA_IN_DLY	200	/* Wait to sample SDA line, in nS */
- #define	FSI_ECHO_DELAY_CLOCKS	16	/* Number clocks for echo delay */
- #define	FSI_PRE_BREAK_CLOCKS	50	/* Number clocks to prep for break */
- #define	FSI_BREAK_CLOCKS	256	/* Number of clocks to issue break */
-@@ -97,7 +98,7 @@ static int sda_in(struct fsi_master_gpio *master)
- {
- 	int in;
- 
--	ndelay(FSI_GPIO_STD_DLY);
-+	ndelay(FSI_GPIO_SDA_IN_DLY);
- 	in = gpiod_get_value(master->gpio_data);
- 	return in ? 1 : 0;
- }
--- 
-1.8.2.2
+Acked-by: Andrew Geissler <geissonator@gmail.com>
