@@ -1,71 +1,54 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <raltherr@google.com>
+Received: from mail-pf0-x22a.google.com (mail-pf0-x22a.google.com
+ [IPv6:2607:f8b0:400e:c00::22a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vnfZM4dxFzDq7c
- for <openbmc@lists.ozlabs.org>; Wed, 22 Mar 2017 04:14:51 +1100 (AEDT)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v2LHDfae123902
- for <openbmc@lists.ozlabs.org>; Tue, 21 Mar 2017 13:14:45 -0400
-Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
- by mx0a-001b2d01.pphosted.com with ESMTP id 29b532b7ux-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 21 Mar 2017 13:14:44 -0400
-Received: from localhost
- by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Tue, 21 Mar 2017 13:14:43 -0400
-Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
- by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Tue, 21 Mar 2017 13:14:41 -0400
-Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
- [9.57.199.110])
- by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v2LHEc7D40435760; Tue, 21 Mar 2017 17:14:40 GMT
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 4A56BAE051;
- Tue, 21 Mar 2017 13:14:33 -0400 (EDT)
-Received: from christophersmbp.austin.ibm.com (unknown [9.83.0.205])
- by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP id 29AC9AE03C;
- Tue, 21 Mar 2017 13:14:30 -0400 (EDT)
-Subject: Re: [PATCH linux dev-4.7 v2] drivers/fsi: Add delay before sampling
- input on SDA
-To: Jeremy Kerr <jk@ozlabs.org>, joel@jms.id.au
-References: <20170317211836.63576-1-cbostic@linux.vnet.ibm.com>
- <5abc5b5b-d431-94c1-00f3-42d2d595b278@ozlabs.org>
- <f3991ff8-7584-23c3-488d-17bdd4efb1ae@linux.vnet.ibm.com>
- <fa128d63-338c-84c3-ed54-ce0bc3107556@ozlabs.org>
-Cc: openbmc@lists.ozlabs.org
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Tue, 21 Mar 2017 12:14:35 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
- Gecko/20100101 Thunderbird/45.7.0
-MIME-Version: 1.0
-In-Reply-To: <fa128d63-338c-84c3-ed54-ce0bc3107556@ozlabs.org>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 17032117-0040-0000-0000-000002F0A60C
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006823; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000206; SDB=6.00836913; UDB=6.00411379; IPR=6.00614680; 
- BA=6.00005227; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014745; XFM=3.00000013;
- UTC=2017-03-21 17:14:43
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17032117-0041-0000-0000-000006E4AB83
-Message-Id: <fdb520e7-e8c3-dec9-feff-9f0f46347973@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-03-21_14:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
- definitions=main-1703210148
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vnlK04JwlzDq7c
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Mar 2017 07:48:36 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="dMgrnN5B"; 
+ dkim-atps=neutral
+Received: by mail-pf0-x22a.google.com with SMTP id 20so36729648pfk.2
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Mar 2017 13:48:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=9m8mlVGrWSaULzYhiFwm4OlGVeWNloaM6yi8eEM8FE8=;
+ b=dMgrnN5BqjJm8gPuZUlSv2Bo1nDqlDoZuixLyZkZ3buXNXZSCfYncQOuDT1CBhUJaZ
+ flacpAxqpiLdMTvd6cEW47SSYhX9s4UmQ3FpJi6aU1C+hHrzkC4DbkKfW3HIqybRvMIZ
+ jmPRtLdw1Xl4l5TpU0bj15TiOSB7CdngzDP5QvrgxGswlQ/lUzESC4mnCO84Ibd2vQlL
+ J1pw6WmjpFWKxuOx/ymMWjhYHm71hMlw5ZwmFQBx+C5nfCMkfiAC5mAn4At3kItm003Z
+ 9vvHeX27u2+Y8aui90HOvVOy2Krib5acV7KGMcoQitRXUYkutLAmjOQxPRk+7RgYfXot
+ sjfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=9m8mlVGrWSaULzYhiFwm4OlGVeWNloaM6yi8eEM8FE8=;
+ b=GhmNta+KRYTCA+vkfodg7hMgJaKmANc1urODVeqUzgg+ggAIHL3k/UiDcfAvOH2KAv
+ G30Z4OCIP44kxummOh9s5xd9JiU1qYBCafzx3Dw+1wEBYE1q0b2SMjuQwVps6fBxy6IJ
+ 9K6tuM22uH4MEoTJQKd/uWNIdgKtzawhrIPp1w9Kagt1j4V/RCi51OS7hT/UFAvoxAZS
+ nSX1zRh4wdHfHZaIdVEUCJtouDnBxOXCy++u+mbP3RLoJkEe21YVmuGWj+KZcMfzgjsJ
+ 0x5InjUJ+PNo9PRD83zaOYbr1yDqLtpkuTVFNuE/q9mXxz9pC0LOzVeAS3ikjRi+BSJd
+ NE7w==
+X-Gm-Message-State: AFeK/H0E7zlDvfrJYx9jEsx6vzZjvkmSrf3J9prHkEeNmfTi/dNuzsZsSoCkdTBBn1U7Yvan
+X-Received: by 10.84.210.167 with SMTP id a36mr50702712pli.40.1490129311937;
+ Tue, 21 Mar 2017 13:48:31 -0700 (PDT)
+Received: from raltherr-linux.svl.corp.google.com ([100.123.242.49])
+ by smtp.gmail.com with ESMTPSA id c22sm41622939pgn.43.2017.03.21.13.48.30
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Tue, 21 Mar 2017 13:48:30 -0700 (PDT)
+From: Rick Altherr <raltherr@google.com>
+To: openbmc@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, linux-iio@vger.kernel.org,
+ Hartmut Knaack <knaack.h@gmx.de>, Rob Herring <robh+dt@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, Mark Rutland <mark.rutland@arm.com>,
+ Jonathan Cameron <jic23@kernel.org>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>
+Subject: [PATCH v2 1/2] Documentation: dt-bindings: Document bindings for
+ Aspeed AST2400/AST2500 ADC
+Date: Tue, 21 Mar 2017 13:48:27 -0700
+Message-Id: <20170321204828.31303-1-raltherr@google.com>
+X-Mailer: git-send-email 2.12.1.500.gab5fba24ee-goog
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -77,47 +60,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Mar 2017 17:14:52 -0000
+X-List-Received-Date: Tue, 21 Mar 2017 20:48:37 -0000
 
+Signed-off-by: Rick Altherr <raltherr@google.com>
+---
 
+Changes in v2:
+- Rewritten as an IIO ADC device
 
-On 3/20/17 7:57 PM, Jeremy Kerr wrote:
-> Hi Chris,
->
->> The echo delay in the driver clocks '1's on the line so as long as the
->> echo_delay() utility is used there is no risk of random data in this
->> phase.
-> Ah, I'd missed the set_sda_output(1), there. That should be fine then.
->
->> Yes that's true, cpu load shouldn't be a factor in this case then. The
->> failure mode is during the sampling of input data during the slave
->> response phase of the command.  CRC received does not match the CRC
->> calculated due to bit flips
->> related to sampling/clocking timing issues.  This problem only appears
->> when hostboot is accessing the BMC.  Increasing delay does correct the
->> issue.  I don't have a good explanation for why this timing behavior
->> occurs given its not cpu load related.
-> My concern here is that with such a dramatic change in timing there
-> (200x), and not knowing what the underlying problem is, we're just
-> making the issue less likely to occur, rather than fixing it.
-Hi Jeremy,
+ .../devicetree/bindings/iio/adc/aspeed_adc.txt       | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/aspeed_adc.txt
 
-I understand your concern here.  I agree we need to understand the
-root cause.  I'll open up an issue to track this.
->
-> Do you know if we have access to HW folks to scope the data & clock? We
-> could set a GPIO when we see a CRC error, to use as an external
-> trigger...
-I'll ask around and see what can be done.  Taking a snap shot at time
-of recreate should be enough to see what's going on in clock and
-data timing when we fail, seems to be fairly consistent under some
-hostboot access of PNOR conditions.
-
-Thanks,
-Chris
->
-> Cheers,
->
->
-> Jeremy
->
+diff --git a/Documentation/devicetree/bindings/iio/adc/aspeed_adc.txt b/Documentation/devicetree/bindings/iio/adc/aspeed_adc.txt
+new file mode 100644
+index 000000000000..7748c2c2ad0c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/adc/aspeed_adc.txt
+@@ -0,0 +1,20 @@
++Aspeed AST2400/2500 ADC
++
++This device is a 10-bit converter for 16 voltage channels.  All inputs are
++single ended.
++
++Required properties:
++- compatible: Should be "aspeed,ast2400-adc" or "aspeed,ast2500-adc"
++- reg: memory window mapping address and length
++- clocks: Input clock used to derive the sample clock. Expected to be the
++          SoC's APB clock.
++- #io-channel-cells: Must be set to <1> to indicate channels are selected
++                     by index.
++
++Example:
++	adc@1e6e9000 {
++		compatible = "aspeed,ast2400-adc";
++		reg = <0x1e6e9000 0xB0>;
++		clocks = <&clk_apb>;
++		#io-channel-cells = <1>;
++	};
+-- 
+2.12.1.500.gab5fba24ee-goog
