@@ -1,59 +1,60 @@
 Return-Path: <sjg@google.com>
-Received: from mail-vk0-x236.google.com (mail-vk0-x236.google.com
- [IPv6:2607:f8b0:400c:c05::236])
+Received: from mail-vk0-x229.google.com (mail-vk0-x229.google.com
+ [IPv6:2607:f8b0:400c:c05::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vnpkm5k9wzDqZf
- for <openbmc@lists.ozlabs.org>; Wed, 22 Mar 2017 10:22:40 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vnpks31bbzDqZR
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Mar 2017 10:22:45 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="ej93tN4Q"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="Bs4AVgqC"; 
  dkim=pass (1024-bit key;
- unprotected) header.d=chromium.org header.i=@chromium.org header.b="M87zJ/Wm";
+ unprotected) header.d=chromium.org header.i=@chromium.org header.b="D+kDtb8q";
  dkim-atps=neutral
-Received: by mail-vk0-x236.google.com with SMTP id z204so53494046vkd.1
- for <openbmc@lists.ozlabs.org>; Tue, 21 Mar 2017 16:22:40 -0700 (PDT)
+Received: by mail-vk0-x229.google.com with SMTP id z204so53495266vkd.1
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Mar 2017 16:22:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=YvpuWzR872Gf87pQE2T4jBiR+J1OEXY86ppxciNKQ9M=;
- b=ej93tN4QuKLaCWI6fcE80HAq3uMNYM2RKPR1o2L8xjkUDVsezEb/0wJRMZT0GEyGbK
- 9xvIJj5UZJq2q8Orc+BUcsnNQxB/XRJoCLqWq9fmdqhywOPVXC+z/qbNv3/+6Pf5MV6w
- beH69R9OianSCs055uP2uZXEb8qklJsSZgFOCmLlG+Mt5UHAHJSp/rkA5ICEmwctpifw
- BiO2iA4lhW7Nh2+IXQPy0FlsCfxsQny40rXgL5LTvXbN/mS9DKZzKRFuYZQdcVLWI/6a
- aPUC9xBRlgBwPkLP+VErJD4q47btkr5FTyWMcAfyoVFr6aYqZIJ9Cyad7yHSh5cmII8v
- n6DA==
+ bh=CvBZMtJ7OS4jp+A1rptnuCjBOGMeqEtdRF2+Y6a36D4=;
+ b=Bs4AVgqC0wCjCWnU3mIPJUZhEEzNuZ0z3xFan610Q/1taRuTum3mCFY0vijSJMcXsx
+ SEshs6r8W9PmDqk7a1cDU6r9cVmrTE1+CFUUJoNzlixLxgMcfcq6rFCOkVr3ZeKNFUYc
+ i6C+2GuK2RvE7/V0+1lscNFkd5QhJAGx0ZwAkFUJ7s44GtSNchAXer+Eojgj3Y89ed0P
+ KNJZsV4VcFagDWivNcqX+3M+9ZEueudOES1YZGjywPjLalQbP/zCieq+1nEQUNc4yqEY
+ QuXei2Bq23RaapAvQYcj/jVvobz1rGWV9lt9eU78e7bc6j43qijAmgXEcEKnjDQBt9m0
+ WtVA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=YvpuWzR872Gf87pQE2T4jBiR+J1OEXY86ppxciNKQ9M=;
- b=M87zJ/WmmQz7jKVtNNDUz04sfBMyGpucebE+mX8P8S2dVNVdjUsnFzmPoJ7mRHHeW1
- Kc2QEbQPjanDlCHsUx1nM8HWMA0xAKs7h3/uPzdXMPPF6CNRFnyZLQwc4VAn+nu5nvkn
- 5qIAXEr8Pt2q9nnN2aJYSOomUVsNRzGATvuSI=
+ bh=CvBZMtJ7OS4jp+A1rptnuCjBOGMeqEtdRF2+Y6a36D4=;
+ b=D+kDtb8qEghqAKoTghsX4tJlTWL7lplBlvzaRcpbIgnuEQSETGELlgpz2/P8K1mBP5
+ 4TOUnaYFBVsEJr5BHJ6Qzmgak+KEkjwdK2TSqCJfSBkVzcvw4wMZVvKuP20yM4yOBHXu
+ QMLRkEHPPkkNBgm0puNpkEWlCy69aX9TI5NK8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=YvpuWzR872Gf87pQE2T4jBiR+J1OEXY86ppxciNKQ9M=;
- b=ON2wIOdnthbY4fDG+JC14s+xC71G7gK+7SmHCnnOP97Q6whWGbRZqEXuCDDkiDA+S4
- +7Sp9Iiy2q4oJWa0vujEGsP+B1wcxIz6MgED+duG6cdpceH5IsDoj/EvAK1pDGt73GHF
- 5ZOoQos5CS9D5uoIIw/A68Anf4DdT7b4fYYcv9G7mRiterokCYQI7RI5E/YfqZ8bhfBC
- eTlstLRVzdfIpGfkg7kk3Wt1oMwKWBXPPkZfwBHCwDHuJaEvRu7FrPXjP1hjco3VwT/C
- Q5xYQ2W2GqVRjRaNYjSm2bkc32Z/cieAyUO66bKmgHMHyATWHXU31STSZO/UDLMpyjca
- dbjQ==
-X-Gm-Message-State: AFeK/H0e7FfuNJzm4GyEAbSwvFZ5V3IVIYze91yyXUFN6mcfrQdYOTe4CVsjilZmdbXUw1cqHGvP7pfLQADuFolV
-X-Received: by 10.31.228.193 with SMTP id b184mr15709403vkh.77.1490138558563; 
- Tue, 21 Mar 2017 16:22:38 -0700 (PDT)
+ bh=CvBZMtJ7OS4jp+A1rptnuCjBOGMeqEtdRF2+Y6a36D4=;
+ b=Yc8C3o/aFbWRjlK0+hrqBVP7x06oq2BezkMFUcQ9NW63trv1Q1Xxk81wrEnVKLHZFn
+ 9NMn9Fkzjpi8JFbz86F9oBGWPyFuc0TSZuFUofOuBstAetRMfmlZmslorXMAeOK1lQi0
+ JuHqL8UoQmljCc6ZudjAB/+4QFNZkoDeHa5117FIRwqQEfk8VMUQ8BLCrVDrW4pa+6gq
+ It782wGN10C9/TqdAjQMQ4vUVJFdq7t+6TDfT1KxUTFZyGbQMBW1Ag8P02djXX24tr9k
+ 9LCQJmG4ev2YMTbNMHx0DC04gVHiOKnO8oYP+coHZxtpK+k6YkIQjQPtHW+avr7iFzOy
+ unAw==
+X-Gm-Message-State: AFeK/H3bBB7t1XxOQ9pn+rmw8nIz65H34s72pfkqIVxERwJnKIE7HB9DUcoWGmhg/hjQNtjokTHsNNvri939eHOV
+X-Received: by 10.31.114.79 with SMTP id n76mr12285658vkc.30.1490138563153;
+ Tue, 21 Mar 2017 16:22:43 -0700 (PDT)
 MIME-Version: 1.0
 Sender: sjg@google.com
-Received: by 10.159.35.108 with HTTP; Tue, 21 Mar 2017 16:22:17 -0700 (PDT)
-In-Reply-To: <20170316213624.140344-7-maxims@google.com>
+Received: by 10.159.35.108 with HTTP; Tue, 21 Mar 2017 16:22:20 -0700 (PDT)
+In-Reply-To: <20170316213624.140344-8-maxims@google.com>
 References: <20170316213624.140344-1-maxims@google.com>
- <20170316213624.140344-7-maxims@google.com>
+ <20170316213624.140344-8-maxims@google.com>
 From: Simon Glass <sjg@chromium.org>
-Date: Tue, 21 Mar 2017 17:22:17 -0600
-X-Google-Sender-Auth: UYV7E88x0qLXEKtEdHotM6nX1kU
-Message-ID: <CAPnjgZ02N5q7SVb07MTrtbbBRmD5rBv3tYf0buxwXCbt9s6ZzQ@mail.gmail.com>
-Subject: Re: [PATCH 06/17] aspeed: Device Tree configuration for Reset Driver
+Date: Tue, 21 Mar 2017 17:22:20 -0600
+X-Google-Sender-Auth: ZTWopjrTMC_kppfMfuCpL3s2hBo
+Message-ID: <CAPnjgZ369b7rV2asMMitEqCALEih7Af7soNkAraMCaaPuX9Mtg@mail.gmail.com>
+Subject: Re: [PATCH 07/17] aspeed: Refactor AST2500 RAM Driver and Sysreset
+ Driver
 To: Maxim Sloyko <maxims@google.com>
 Cc: U-Boot Mailing List <u-boot@lists.denx.de>,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
@@ -70,19 +71,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Mar 2017 23:22:41 -0000
+X-List-Received-Date: Tue, 21 Mar 2017 23:22:45 -0000
+
+Hi Maxim,
 
 On 16 March 2017 at 15:36, Maxim Sloyko <maxims@google.com> wrote:
-> Add Reset Driver configuration to ast2500 SoC Device Tree and bindings
-> for various reset signals
+> This change switches all existing users of ast2500 Watchdog to Driver
+> Model based Watchdog driver.
+>
+> To perform system reset Sysreset Driver uses first Watchdog device found
+> via uclass_first_device call. Since the system is going to be reset
+> anyway it does not make much difference which watchdog is used.
+>
+> Instead of using Watchdog to reset itself, SDRAM driver now uses Reset
+> driver to do that.
+>
+> These were the only users of the old Watchdog API, so that API is
+> removed.
+>
+> This all is done in one change to avoid having to maintain dual API for
+> watchdog in between.
 >
 > Signed-off-by: Maxim Sloyko <maxims@google.com>
 > ---
 >
->  arch/arm/dts/ast2500-evb.dts              | 15 +++++++++++
->  arch/arm/dts/ast2500-u-boot.dtsi          | 10 +++++++
->  include/dt-bindings/reset/ast2500-reset.h | 45 +++++++++++++++++++++++++++++++
->  3 files changed, 70 insertions(+)
->  create mode 100644 include/dt-bindings/reset/ast2500-reset.h
+>  arch/arm/include/asm/arch-aspeed/wdt.h       | 39 ---------------------
+>  arch/arm/mach-aspeed/Kconfig                 |  8 +----
+>  arch/arm/mach-aspeed/ast2500/sdram_ast2500.c | 12 +++++--
+>  arch/arm/mach-aspeed/ast_wdt.c               | 51 ----------------------------
+>  configs/evb-ast2500_defconfig                |  2 ++
+>  drivers/sysreset/sysreset_ast.c              | 24 ++++++-------
+>  6 files changed, 24 insertions(+), 112 deletions(-)
 
 Reviewed-by: Simon Glass <sjg@chromium.org>
+
+OK, ignore my earlier comment on removing ast_wdt.c as I see you do it here.
+
+Regards,
+Simon
