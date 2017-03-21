@@ -1,71 +1,62 @@
 Return-Path: <sjg@google.com>
-Received: from mail-vk0-x232.google.com (mail-vk0-x232.google.com
- [IPv6:2607:f8b0:400c:c05::232])
+Received: from mail-vk0-x22a.google.com (mail-vk0-x22a.google.com
+ [IPv6:2607:f8b0:400c:c05::22a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vnpkv3nnwzDq93
- for <openbmc@lists.ozlabs.org>; Wed, 22 Mar 2017 10:22:47 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vnpkz6b5LzDqZl
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Mar 2017 10:22:51 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="cTwcLWKB"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="MBl4GbH8"; 
  dkim=pass (1024-bit key;
- unprotected) header.d=chromium.org header.i=@chromium.org header.b="Xx2wuYqe";
+ unprotected) header.d=chromium.org header.i=@chromium.org header.b="HFkQ7cbA";
  dkim-atps=neutral
-Received: by mail-vk0-x232.google.com with SMTP id r69so314700vke.2
- for <openbmc@lists.ozlabs.org>; Tue, 21 Mar 2017 16:22:47 -0700 (PDT)
+Received: by mail-vk0-x22a.google.com with SMTP id d188so110271882vka.0
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Mar 2017 16:22:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=JlAjKcx6Z3ft0hgxW8AWPcEoZZioKm1cjrfkkuvjAXo=;
- b=cTwcLWKBzqKhUhfxt95oJuC4TGjMF7CWArv3sbbXTBRMlx4N6sJhagrwUQhW7RhS89
- BbhPUhmw4eoX95Wv6K6xz1xmQFfBTxnvNgHKrYD0twkDTxiaQ5ZC2WPtYLbmR40pObL2
- Tju4EmHXvxCFsQKZO8HIgnEvEgaZU8xXtMICsSTfnzyC8SU4pB24N8qZBAmXExXFmTD1
- eZroenVqINSrrgHGbWXzhKZVh8PdOafGpxGLN3r+yYmwRfUsfOmcbxa2hYmShujGPMw6
- mNML1lLHkOKm6WsFouV5UdFz0I2KrcwS31MQAa8ytH8biQ5bn374pWM8gXEPRcbgOeNY
- XwRQ==
+ bh=jv7Mn51PlwOIYnJ9G3cWXTPMsUhMtuhFImMunckYVDM=;
+ b=MBl4GbH8H5SY9BpQHwcjHjUdql+DYD9jiUEHB2re6WyM2gx4vbtE60en9NEkugYCy7
+ TzchH9V/8uZYILOXEu4ZoqVYC/WIkK6K/E8fNLP+JyhkHznqWSvMyKcaUK0wT7nKPTei
+ MKjGx4qSyPaZDXDT0rGvRO9fvK+tTy0lHzsXL5U1n2i0uPP1vqsmaxCSLXdp/m+zUjQq
+ 9IKQgyGTIHGh2tpXKqJ/XiANIdesB9G8wjJ+vz3IS4CrGheqNHd13usdNDxvgMxqr0Y5
+ cryUU+Wh872g4Ncgc/wMQXHNXhag3munriDtBlnQCFEVIEO1CgR5XgY2jgUbZB2h6rOU
+ 83Gw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=JlAjKcx6Z3ft0hgxW8AWPcEoZZioKm1cjrfkkuvjAXo=;
- b=Xx2wuYqeu9i8YdYMWy3fNaLfZHktij8nsS3o1/z3h0frdn3Bh+OSK5tfH+CTCzNwNS
- CuCUYqyaYqlFvH0RK9sjBaz7MGumpEK9b1ZJXmTvZBBnO3kRPuHYQYWKkIqeovRvPD7N
- E/jaCrQJomFcEdSwycs2WHwVK1dqcrTZf8YJw=
+ bh=jv7Mn51PlwOIYnJ9G3cWXTPMsUhMtuhFImMunckYVDM=;
+ b=HFkQ7cbAwTgZgcd3k6JUmg3zxiuSNgvHLClPElj5C08Im22ED5F+wiSNh9HDabZH2U
+ E87fNWB+jOLh7a+hUV4T3v0UwuhZqrMbqsUmAw1ELD0dAAZjHNzB8u9c5RayEBIkaVoQ
+ CvE+tiMY2GhKM7h11Sy9RzEYfNy/Nm9wWLIzQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=JlAjKcx6Z3ft0hgxW8AWPcEoZZioKm1cjrfkkuvjAXo=;
- b=DfERMX3DuG5z5W7ywnXtKeBtlf5tOY8oxjbaGPOxW94aapA5G4JqcT0m02dIYx81MT
- NB2KDYR2dUUiutjw+vnuvvAte0zzFQgdxCU06lAvJKaEi5ZIC+Hmz2mJge5Vueijt3r+
- yj0dhgDlzj8EJSV9SWDrt2lsTdtBImCjhg3UD9f3QjlpAWnOL2kPLILPbxTYesYtrh1Y
- /DH2PtZ72Dak/zf712m4r3HD99dAhM+vDnpWnOwsZ8RyRMGVsUmG8eFEKQftd+unDBju
- X67uWpmquEMTRRE+oD0AliOp4rnVJDEMIfhvC/IXENrijob19+jfUfTQste8oQKZpxnA
- 9Yeg==
-X-Gm-Message-State: AFeK/H0vlAE5X0j9Vg9xhZX7xTVkZwxn7D7xvtIngO6moLOPEU7tVkZ3ldYTTeSZuYLEQe8SOHSpblTFDXTFjTAF
-X-Received: by 10.31.96.69 with SMTP id u66mr12802053vkb.80.1490138565116;
- Tue, 21 Mar 2017 16:22:45 -0700 (PDT)
+ bh=jv7Mn51PlwOIYnJ9G3cWXTPMsUhMtuhFImMunckYVDM=;
+ b=BKIjborbXk1cbNjoI/A9T1Rjh6a+6AdOFHKiS1203BtR0qnk+tpgrNoMRf2slakwjA
+ CyoLR+EHH5EOCzXOfelyVEj9gLdt//GdlOSgDbQBWkjYqIAVDfeo0dpSaJxtL6+er496
+ Q3nYgxQ9c0HmA6zPX2vHSBJA0kaZ2rmXv85ykdGm/td0kzsmUzZoxZLvL/F3TNb8bj6B
+ JAOswe4fAZ9B4qhd2bjw8LNS5RWfPjWxOr69GsAbCuh7msexGTJ5NBnITqDklPFVuuMh
+ q/jSoynOp2YrP6ugLXmBsrIG8qqNp4ciBuhbE5qU+YrQ6cHr+z/1I5uksul53641rPLr
+ 6fiQ==
+X-Gm-Message-State: AFeK/H0tvBFXvUQ3T0nBuJN3vdqfYLbLDggWIgA+kPeBYNV1gSrZFfeqq3ugp/YpmtP6Kme9O5RXkhhCstsDuSmh
+X-Received: by 10.176.6.233 with SMTP id g96mr16306343uag.68.1490138569650;
+ Tue, 21 Mar 2017 16:22:49 -0700 (PDT)
 MIME-Version: 1.0
 Sender: sjg@google.com
-Received: by 10.159.35.108 with HTTP; Tue, 21 Mar 2017 16:22:24 -0700 (PDT)
-In-Reply-To: <20170316213624.140344-9-maxims@google.com>
+Received: by 10.159.35.108 with HTTP; Tue, 21 Mar 2017 16:22:29 -0700 (PDT)
+In-Reply-To: <20170316213624.140344-10-maxims@google.com>
 References: <20170316213624.140344-1-maxims@google.com>
- <20170316213624.140344-9-maxims@google.com>
+ <20170316213624.140344-10-maxims@google.com>
 From: Simon Glass <sjg@chromium.org>
-Date: Tue, 21 Mar 2017 17:22:24 -0600
-X-Google-Sender-Auth: CdbeKX9imqBV8T-swsDJYSpS9YY
-Message-ID: <CAPnjgZ36BqPSTuPg9YyCuo94uZs9K80CF-bYL-Q2AQAkr7mi0A@mail.gmail.com>
-Subject: Re: [PATCH 08/17] aspeed: AST2500 Pinctrl Driver
+Date: Tue, 21 Mar 2017 17:22:29 -0600
+X-Google-Sender-Auth: vi4z0E6wntyZnYV1rRaaHSjG1jw
+Message-ID: <CAPnjgZ07ALGii19aTG72Qyhx8i6cG72Eg3d8RYXbqBRptsF89Q@mail.gmail.com>
+Subject: Re: [PATCH 09/17] aspeed: Enable Pinctrl Driver in AST2500 EVB
 To: Maxim Sloyko <maxims@google.com>
 Cc: U-Boot Mailing List <u-boot@lists.denx.de>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Thomas Abraham <thomas.ab@samsung.com>,
- Konstantin Porotchkin <kostap@marvell.com>, 
- Wills Wang <wills.wang@live.com>, Kever Yang <kever.yang@rock-chips.com>, 
- Albert Aribaud <albert.u.boot@aribaud.net>,
- Beniamino Galvani <b.galvani@gmail.com>, 
- Stefan Roese <sr@denx.de>, =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Minkyu Kang <mk7.kang@samsung.com>,
- Daniel Schwierzeck <daniel.schwierzeck@gmail.com>, 
- Wenyou Yang <wenyou.yang@atmel.com>
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -78,30 +69,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Mar 2017 23:22:47 -0000
+X-List-Received-Date: Tue, 21 Mar 2017 23:22:52 -0000
 
 On 16 March 2017 at 15:36, Maxim Sloyko <maxims@google.com> wrote:
-> This driver uses Generic Pinctrl framework and is compatible with
-> the Linux driver for ast2500: it uses the same device tree
-> configuration.
->
-> Not all pins are supported by the driver at the moment, so it actually
-> compatible with ast2400. In general, however, there are differences that
-> in the future would be easier to maintain separately.
+> Enable Pinctrl Driver in AST2500 Eval Board's defconfig
 >
 > Signed-off-by: Maxim Sloyko <maxims@google.com>
 > ---
 >
->  arch/arm/include/asm/arch-aspeed/pinctrl.h     |  52 ++++++++++
->  arch/arm/include/asm/arch-aspeed/scu_ast2500.h |  19 ++++
->  drivers/pinctrl/Kconfig                        |   9 ++
->  drivers/pinctrl/Makefile                       |   1 +
->  drivers/pinctrl/aspeed/Makefile                |   1 +
->  drivers/pinctrl/aspeed/pinctrl_ast2500.c       | 127 +++++++++++++++++++++++++
->  6 files changed, 209 insertions(+)
->  create mode 100644 arch/arm/include/asm/arch-aspeed/pinctrl.h
->  create mode 100644 drivers/pinctrl/aspeed/Makefile
->  create mode 100644 drivers/pinctrl/aspeed/pinctrl_ast2500.c
->
+>  configs/evb-ast2500_defconfig | 1 +
+>  1 file changed, 1 insertion(+)
 
 Reviewed-by: Simon Glass <sjg@chromium.org>
