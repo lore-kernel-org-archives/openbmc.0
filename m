@@ -1,46 +1,53 @@
-Return-Path: <quentin.schulz@free-electrons.com>
-Received: from mail.free-electrons.com (mail.free-electrons.com [62.4.15.54])
- by lists.ozlabs.org (Postfix) with ESMTP id 3vp1MG6pd8zDq7Z
- for <openbmc@lists.ozlabs.org>; Wed, 22 Mar 2017 18:21:30 +1100 (AEDT)
-Received: by mail.free-electrons.com (Postfix, from userid 110)
- id 3479520826; Wed, 22 Mar 2017 08:21:27 +0100 (CET)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- mail.free-electrons.com
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=5.0 tests=ALL_TRUSTED,SHORTCIRCUIT,
- URIBL_BLOCKED shortcircuit=ham autolearn=disabled version=3.4.0
-Received: from [192.168.1.48] (LStLambert-657-1-97-87.w90-63.abo.wanadoo.fr
- [90.63.216.87])
- by mail.free-electrons.com (Postfix) with ESMTPSA id B9E9220763;
- Wed, 22 Mar 2017 08:21:26 +0100 (CET)
-Subject: Re: [PATCH v2 2/2] iio: Aspeed AST2400/AST2500 ADC
-To: Rick Altherr <raltherr@google.com>, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
-References: <20170321204828.31303-1-raltherr@google.com>
- <20170321204828.31303-2-raltherr@google.com>
-Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- William Breathitt Gray <vilhelm.gray@gmail.com>,
- Andreas Klinger <ak@it-klinger.de>, Rob Herring <robh@kernel.org>,
- linux-iio@vger.kernel.org, Hartmut Knaack <knaack.h@gmx.de>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Marek Vasut <marek.vasut+renesas@gmail.com>,
- Matt Ranostay <mranostay@gmail.com>, Lars-Peter Clausen <lars@metafoo.de>,
- Crestez Dan Leonard <leonard.crestez@intel.com>,
- Akinobu Mita <akinobu.mita@gmail.com>,
- Fabrice Gasnier <fabrice.gasnier@st.com>, Jonathan Cameron
- <jic23@kernel.org>, Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
- Maxime Ripard <maxime.ripard@free-electrons.com>,
- Jacopo Mondi <jacopo@jmondi.org>
-From: Quentin Schulz <quentin.schulz@free-electrons.com>
-Message-ID: <5f245e55-4d4a-b744-3351-e8215432c315@free-electrons.com>
-Date: Wed, 22 Mar 2017 08:21:27 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.7.0
+Return-Path: <geissonator@gmail.com>
+Received: from mail-it0-x235.google.com (mail-it0-x235.google.com
+ [IPv6:2607:f8b0:4001:c0b::235])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vpMTK1qF4zDq7Z
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 07:57:57 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="FaPXOGtJ"; 
+ dkim-atps=neutral
+Received: by mail-it0-x235.google.com with SMTP id w124so30055318itb.1
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Mar 2017 13:57:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=OgqJ19s24KoCfjtDDbnmvmraKglodbOSAEWvaRSxtjk=;
+ b=FaPXOGtJWE/jsI3YUKsFO+DugwbFXM8g3rd4UEzJ+jAk912lNSlfKj/yFqx5337IpB
+ Y/pSyeORZ7+Xv68fw4Y3nJirZ6Vu3YuS32ojJKwdc0apEA005GmYaV/DTcymPySialnf
+ UHmpeM9phcOTmOriZNHtoVuOQXvZcE/gL72WEvmzZ/qA0Q9de2l0eUkcqlYaiFAMlk/F
+ XfFDJrbtSkhLBbp4C4GgwVCFrbnU9ApY/E/h5iSMIcV2zw3ZrxcmCL7QW4R9x3pbv2Bu
+ IiTPrZvLp9yh3Qaa6XFsYRAtUUJ8YIIirjgUSaPi3qNmJOCHUSxUswBAbg3zyfWwrkcj
+ rxWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=OgqJ19s24KoCfjtDDbnmvmraKglodbOSAEWvaRSxtjk=;
+ b=mXzDafJTQVczwzEJGHfQNMu58fUG6rVaRWDYPJivIovP3dmXY24DoOq9HnHan5xm4E
+ 0r8tp2t2pUBJ59rHeB5II2JPxThS4JlhtmIEGNqH/cRqqQOVh36MJhnP5Ec9ETM3ylR3
+ K6z2824M6DwrukykpxTIKnfeWxgKR1g+eNKr56199szwxV9pdh9xTd87gZ0+P49HPJ7M
+ ktMaDr3JTIDNHFWkzamzWw05WIKa5WNetGZGVyObLWndD3yBNvsLY5yVmIGnI5HDrgng
+ pwwgu1pQg6sQK5pVa5xkWeF7MNOFsZx4GFiIbmrdT8caPtM2zkcWn9mk8GwOOhUA+X/N
+ dOZQ==
+X-Gm-Message-State: AFeK/H1z2cVOePW7lXczpA+S17QnZvbIIvLQJl9ktAiSiqSB3afghL7omAfXuOb55M24ExOmxZfVcqkBLjaM9g==
+X-Received: by 10.36.58.207 with SMTP id m198mr10468767itm.31.1490216275117;
+ Wed, 22 Mar 2017 13:57:55 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20170321204828.31303-2-raltherr@google.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 23 Mar 2017 01:21:21 +1100
+Received: by 10.107.53.156 with HTTP; Wed, 22 Mar 2017 13:57:54 -0700 (PDT)
+In-Reply-To: <CAPH-5w7WoBtQP7hDtGS23+4S2YqckYsEVVajcj9hjTA+dOM19A@mail.gmail.com>
+References: <CALLMt=pFzj+_RWoTo52Q_U+Ca5sH2FsSLOC1aRnJHOek2aZrQQ@mail.gmail.com>
+ <CACPK8XcYE3Ysb8QdK-=+XV1vSpe63m6CTz3pdy5rTRT-NYfBsA@mail.gmail.com>
+ <CAPH-5w7WoBtQP7hDtGS23+4S2YqckYsEVVajcj9hjTA+dOM19A@mail.gmail.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Wed, 22 Mar 2017 15:57:54 -0500
+Message-ID: <CALLMt=oTeWFqyqkFeWBMYtCdCWC=UsrpV6Ftagw15G-zvQ_Yxw@mail.gmail.com>
+Subject: Re: Handling BMC Reboots when Host is Running
+To: Xo Wang <xow@google.com>
+Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -52,167 +59,190 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Mar 2017 07:21:31 -0000
+X-List-Received-Date: Wed, 22 Mar 2017 20:57:58 -0000
 
-Hi,
+A few updates for everyone on this.  The initial chassis code went in
+via this commit and it's 2 next one's -
+https://gerrit.openbmc-project.xyz/#/c/2817/
 
-On 21/03/2017 21:48, Rick Altherr wrote:
-> Aspeed AST2400/AST2500 BMC SoCs include a 16 channel, 10-bit ADC. Low
-> and high threshold interrupts are supported by the hardware but are not
-> currently implemented.
-> 
-> Signed-off-by: Rick Altherr <raltherr@google.com>
-> ---
-> 
-> Changes in v2:
-> - Rewritten as an IIO device
-> - Renamed register macros to describe the register's purpose
-> - Replaced awkward reading of 16-bit data registers with readw()
-> - Added Kconfig dependency on COMPILE_TEST
-> 
-[...]
-> +struct aspeed_adc_data {
-> +	struct device	*dev;
-> +	void __iomem	*base;
-> +
+I've been working this sprint on refactoring host ipmid a bit to be
+able to send up different commands (currently our only communication
+up to the host is a hard coded soft reboot).  The host interface
+proposal is out here - https://gerrit.openbmc-project.xyz/#/c/3098/.
+We need this so there's a way to discover if the host is running after
+a bmc reboot.
 
-Useless empty line?
+One thing I didn=E2=80=99t really like (and neither did anyone else) with
+handling bmc reboots while the chassis is on or if the host is running
+is that we have a target fail in the journal when they are not on or
+running.  See https://github.com/openbmc/openbmc/issues/1337
 
-> +	spinlock_t	clk_lock;
-> +	struct clk_hw	*clk_prescaler;
-> +	struct clk_hw	*clk_scaler;
-> +};
-> +
-> +#define ASPEED_ADC_CHAN(_idx, _addr) {				\
-> +	.type = IIO_VOLTAGE,					\
-> +	.indexed = 1,						\
-> +	.channel = (_idx),					\
-> +	.address = (_addr),					\
-> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),		\
-> +	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE) |	\
-> +				BIT(IIO_CHAN_INFO_SAMP_FREQ),	\
-> +}
-> +
-> +static const struct iio_chan_spec aspeed_adc_iio_channels[] = {
-> +	ASPEED_ADC_CHAN(0, 0x10),
-> +	ASPEED_ADC_CHAN(1, 0x12),
-> +	ASPEED_ADC_CHAN(2, 0x14),
-> +	ASPEED_ADC_CHAN(3, 0x16),
-> +	ASPEED_ADC_CHAN(4, 0x18),
-> +	ASPEED_ADC_CHAN(5, 0x1A),
-> +	ASPEED_ADC_CHAN(6, 0x1C),
-> +	ASPEED_ADC_CHAN(7, 0x1E),
-> +	ASPEED_ADC_CHAN(8, 0x20),
-> +	ASPEED_ADC_CHAN(9, 0x22),
-> +	ASPEED_ADC_CHAN(10, 0x24),
-> +	ASPEED_ADC_CHAN(11, 0x26),
-> +	ASPEED_ADC_CHAN(12, 0x28),
-> +	ASPEED_ADC_CHAN(13, 0x2A),
-> +	ASPEED_ADC_CHAN(14, 0x2C),
-> +	ASPEED_ADC_CHAN(15, 0x2E),
+Here=E2=80=99s what I did:
+Action Target: obmc-chassis-reset.target
+  Requires: op-reset-pgood-check.service (check for pgood, service
+success if so, fail otherwise)
+  Requires: op-reset-set-power-on.service (runs after pgood-check,
+creates file indicating pgood on)
+  Requires: op-reset-chasiss-on.service (runs after set-power-on,
+starts chassis power on target)
 
-It would make sense to name the registers (the _addr parameter of your
-macro) so it's easier to understand what it refers to.
+There was also a synchronization target, obmc-power-reset-on.target,
+which indicated power was on (pgood-check service a success).
 
-[...]
-> +static int aspeed_adc_probe(struct platform_device *pdev)
-> +{
-> +	struct iio_dev *indio_dev;
-> +	struct aspeed_adc_data *data;
-> +	struct resource *res;
-> +	const char *clk_parent_name;
-> +	int ret;
-> +	u32 adc_engine_control_reg_val;
-> +
-> +	indio_dev = devm_iio_device_alloc(&pdev->dev, sizeof(*data));
-> +	if (!indio_dev) {
-> +		dev_err(&pdev->dev, "Failed allocating iio device\n");
-> +		return -ENOMEM;
-> +	}
-> +
-> +	data = iio_priv(indio_dev);
-> +
-> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +	data->base = devm_ioremap_resource(&pdev->dev, res);
-> +	if (IS_ERR(data->base)) {
-> +		dev_err(&pdev->dev, "Failed allocating device resources\n");
-> +		ret = PTR_ERR(data->base);
-> +		goto resource_error;
-> +	}
-> +
-> +	/* Register ADC clock prescaler with source specified by device tree. */
-> +	spin_lock_init(&data->clk_lock);
-> +	clk_parent_name = of_clk_get_parent_name(pdev->dev.of_node, 0);
-> +
-> +	data->clk_prescaler = clk_hw_register_divider(
-> +				&pdev->dev, "prescaler", clk_parent_name, 0,
-> +				data->base + ASPEED_ADC_REG_CLOCK_CONTROL,
-> +				17, 15, 0, &data->clk_lock);
-> +	if (IS_ERR(data->clk_prescaler)) {
-> +		dev_err(&pdev->dev, "Failed allocating prescaler clock\n");
-> +		ret = PTR_ERR(data->clk_prescaler);
-> +		goto prescaler_error;
-> +	}
-> +
-> +	/*
-> +	 * Register ADC clock scaler downstream from the prescaler. Allow rate
-> +	 * setting to adjust the prescaler as well.
-> +	 */
-> +	data->clk_scaler = clk_hw_register_divider(
-> +				&pdev->dev, "scaler", "prescaler",
-> +				CLK_SET_RATE_PARENT,
-> +				data->base + ASPEED_ADC_REG_CLOCK_CONTROL,
-> +				0, 10, 0, &data->clk_lock);
-> +	if (IS_ERR(data->clk_scaler)) {
-> +		dev_err(&pdev->dev, "Failed allocating scaler clock\n");
-> +		ret = PTR_ERR(data->clk_scaler);
-> +		goto scaler_error;
-> +	}
-> +
-> +	/* Start all channels in normal mode. */
-> +	clk_prepare_enable(data->clk_scaler->clk);
-> +	adc_engine_control_reg_val = GENMASK(31, 16) |
-> +		ASPEED_ADC_OPERATION_MODE_NORMAL | ASPEED_ADC_ENGINE_ENABLE;
-> +	writel(adc_engine_control_reg_val,
-> +		data->base + ASPEED_ADC_REG_ENGINE_CONTROL);
-> +
-> +	indio_dev->name = dev_name(&pdev->dev);
+If pgood was not on, then the pgood-check service would fail, causing
+the other services to not run and the obmc-chassis-reset.target to
+fail.  No harm, but confusing to see a target fail in the journal on
+the way to BMC_READY.  The cool part was this was all contained to
+targets and services with no applications needed.  You could easily
+add other services that help determine if the chassis is =E2=80=9Con=E2=80=
+=9D and
+other services once it was found that power was on.
 
-This isn't good practice (cf.: https://lkml.org/lkml/2017/1/28/145 end
-of the mail in the probe function). Better name it aspeed-adc or even
-better to have a different name per compatible: ast2400-adc or ast2500-adc.
 
-> +	indio_dev->dev.parent = &pdev->dev;
-> +	indio_dev->info = &aspeed_adc_iio_info;
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +	indio_dev->channels = aspeed_adc_iio_channels;
-> +	indio_dev->num_channels = ARRAY_SIZE(aspeed_adc_iio_channels);
-> +
-> +	ret = iio_device_register(indio_dev);
-> +	if (ret) {
-> +		dev_err(&pdev->dev, "Could't register the device.\n");
-> +		goto iio_register_error;
-> +	}
-> +
-> +	return 0;
-> +
-> +iio_register_error:
-> +	writel(0x0, data->base + ASPEED_ADC_REG_ENGINE_CONTROL);
-> +	clk_disable_unprepare(data->clk_scaler->clk);
-> +	clk_hw_unregister_divider(data->clk_scaler);
-> +
-> +scaler_error:
-> +	clk_hw_unregister_divider(data->clk_prescaler);
-> +
-> +prescaler_error:
-> +resource_error:
-> +	return ret;
-> +}
-[...]
+Here=E2=80=99s my new proposal:
+Action Target: obmc-chassis-reset.target
+   Requires: op-reset-power-check.service - a shell script that
+verifies power is on, and creates the file if so
 
-Thanks,Quentin
+this service always return success (pgood on or off) unless it hits a
+real failure
+   Requires: op-reset-chassis-on.service     - start the chassis
+target - setup service file to only run if =E2=80=9Cpower on=E2=80=9D file =
+created.
 
--- 
-Quentin Schulz, Free Electrons
-Embedded Linux and Kernel engineering
-http://free-electrons.com
+We have to write a shell script, and we=E2=80=99re not quite as dynamic wit=
+h
+plug and play of services, but we now won=E2=80=99t have a target fail and =
+it
+simplifies the process a bit.
+
+With this proposal in mind, I=E2=80=99d like to do something similar with h=
+ost function
+
+Action Target: obmc-host-reset.target:
+   Requires: obmc-chassis-reset.target
+   Requires: op-reset-host-check.service - Service runs after the
+op-reset-chassis-on.service
+                                                                    An
+application that only runs if the chassis power service created the
+=E2=80=9Cpower on=E2=80=9D file.
+
+This issues the heartbeat command to the host and if the host
+responds, it creates the
+
+=E2=80=9Chost on=E2=80=9D file.  This will need to be an application since =
+dbus signal
+monitoring is required.
+
+   Requires: op-reset-host-on.service       - start the host start
+target - only run if =E2=80=9Chost on=E2=80=9D file created
+
+Xo, wondering if the Zaius issue could be related to what we see on
+Witherspoon, https://github.com/openbmc/openbmc/issues/1322?  Either
+way we seem to have a similar problem on witherspoon so all of this
+above code is moot until we get that figured out.  Testing on
+barreleye has been fine though.
+
+Thoughts/Ideas always appreciated,
+Andrew
+
+On Thu, Mar 2, 2017 at 12:04 PM, Xo Wang <xow@google.com> wrote:
+> On Wed, Mar 1, 2017 at 5:01 PM, Joel Stanley <joel@jms.id.au> wrote:
+>> On Wed, Mar 1, 2017 at 3:33 AM, Andrew Geissler <geissonator@gmail.com> =
+wrote:
+>>> My story this sprint, https://github.com/openbmc/openbmc/issues/1094,
+>>> is to allow the BMC to be rebooted while the host is up and running.
+>>
+>> Cool. In addition to this work, we need to make sure the required bits
+>> of the Aspeed hardware are not reset to a default state, either by the
+>> SoC's reset mechanism, or by the loading of drivers.
+>>
+>> GPIOs are a good example of this. When we know that the host is
+>> already up, any access should read the current state of the GPIO and
+>> before it does any toggling. Another is the operation of flash (which
+>> will now need to be handled by mboxd).
+>
+> FYI, we have an internal bug about Zaius-specific behavior with our
+> board-level latches (between BMC and power sequencer) being set
+> transparent prior to reading the host power state. This kills power to
+> the host every time that the BMC resets.
+>
+> I'm currently working on this and it looks like a bug with my earlier
+> changes to the glib-based power control daemon.
+>
+>>
+>> I realise this is outside the scope of your "lets get the targets
+>> sorted" work. I thought I'd mention it now so we can be on the look
+>> out for strange behaviour as you do your rework.
+>>
+>> Cheers,
+>>
+>> Joel
+>>
+>>> After the BMC reboot, we need to keep the host running and also get to
+>>> the appropriate systemd target states to represent this.   The
+>>> challenge here is that if we just re-ran the existing targets and
+>>> services, we would do things like run P9 vcs workarounds, bit bang the
+>>> FSI bus, and even potentially toggle pgood.  We obviously need to
+>>> avoid this in order to keep the host up and running.  This divides our
+>>> services started during a obmc-host-start.target into 2 categories,
+>>> services required to boot the system, and services which are required
+>>> to support the host running.  We only want to run the latter in a
+>>> situation where the BMC is reset while the host is up and running.
+>>>
+>>> Requirements:
+>>>
+>>> - The applications should have no knowledge of Host state
+>>>   - i.e. the service starting or not starting is where we control what =
+runs
+>>>
+>>> - Must handle being able to start and not start any arbitrary service
+>>> within the host power on targets
+>>>   - Lots of services have dependencies on each other and
+>>> synchronization targets, this design has to handle starting services
+>>> that depend on other services or targets that may not be required when
+>>> the host is running
+>>>
+>>> - The obmc-host-start.target needs to get to the running state when
+>>> the host is already running after a BMC reset
+>>>   - This will ensure that any re-starts of this target do not harm the
+>>> system and that the power off targets will work as expected
+>>>
+>>> Proposal:
+>>>
+>>> Use the ConditionPathExists=3D systemd unit feature.
+>>>
+>>> From the man page: "Before starting a unit, verify that the specified
+>>> condition is true. If it is not true, the starting of the unit will be
+>>> (mostly silently) skipped, however all ordering dependencies of it are
+>>> still respected. A failing condition will not result in the unit being
+>>> moved into a failure state. The condition is checked at the time the
+>>> queued start job is to be executed. Use condition expressions in order
+>>> to silently skip units that do not apply to the local running system,
+>>> for example because the kernel or runtime environment doesn't require
+>>> its functionality. "
+>>>
+>>> This will be put in the service files that we do not want to run in
+>>> this reset scenario (services required to boot the system).  The first
+>>> service we will run on a power on, is a service that detects whether
+>>> the host is already running.  If the host is running, then this
+>>> service will create a file which will then be used to determine
+>>> whether the boot services are run or not.
+>>>
+>>> The nice part about ConditionPathExists=3D is that it doesn=E2=80=99t e=
+xecute
+>>> the application in the services, but it allows dependencies on that
+>>> service to be satisfied so systemd will still start the dependent
+>>> services and reach the dependent synchronization targets.
+>>>
+>>> This proposal has not gone off as well as I would have hoped
+>>> internally here :)  There=E2=80=99s definitely a desire to not have thi=
+s at
+>>> the service level, but rather at the target level.  I have not found a
+>>> solution in this area though that satisfies the above requirements.
+>>> Thoughts/ideas are definitely appreciated.
+>>>
+>>> Andrew
+>
+> cheers
+> xo
