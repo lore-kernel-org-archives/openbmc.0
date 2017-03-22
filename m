@@ -1,42 +1,68 @@
-Return-Path: <pmeerw@pmeerw.net>
-X-Greylist: delayed 469 seconds by postgrey-1.36 at bilbo;
- Wed, 22 Mar 2017 08:23:08 AEDT
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=pmeerw.net header.i=@pmeerw.net header.b="en7yJt69"; 
- dkim-atps=neutral
-Received: from vps.pmeerw.net (ns.pmeerw.net
- [IPv6:2001:1b60:2:23:1033:103:0:1])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x242.google.com (mail-yw0-x242.google.com
+ [IPv6:2607:f8b0:4002:c05::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vnm4r73QgzDq95
- for <openbmc@lists.ozlabs.org>; Wed, 22 Mar 2017 08:23:08 +1100 (AEDT)
-Received: by vps.pmeerw.net (Postfix, from userid 1000)
- id 61E8CE2284; Tue, 21 Mar 2017 22:14:58 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=pmeerw.net; s=mail;
- t=1490130898; bh=GHCv5OGr82Ofq8BEflYVv9Bi0FgpFzVb+Mj2zMskUAQ=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=en7yJt69aMGICWiYCxbEQvd+iAOKZ7pGTyJ9YreYy58Bt9861xrbBphk25e7rvf8r
- 9ZiOR64tPR0WSM/FQDBeN9WVwOX9/UuiIgLWvjQmPiWNqEvp2QyiG5LqtzMrYinU5N
- /FMjzSALT+0R/HpWlUNp7ekETXbebVSRiX2aRD1w=
-Received: from localhost (localhost [127.0.0.1])
- by vps.pmeerw.net (Postfix) with ESMTP id 51F22E026C;
- Tue, 21 Mar 2017 22:14:58 +0100 (CET)
-Date: Tue, 21 Mar 2017 22:14:58 +0100 (CET)
-From: Peter Meerwald-Stadler <pmeerw@pmeerw.net>
-To: Rick Altherr <raltherr@google.com>
-cc: openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- linux-iio@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>, 
- Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [PATCH v2 2/2] iio: Aspeed AST2400/AST2500 ADC
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vp4bq4zlqzDq7Z
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Mar 2017 20:47:35 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="bNGEC9JG"; 
+ dkim-atps=neutral
+Received: by mail-yw0-x242.google.com with SMTP id d191so1937016ywe.1
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Mar 2017 02:47:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=uwfujEggxGkuoVCDfRbKuQbHWxUR59o82pcKMVxsgIM=;
+ b=bNGEC9JG9pt3NVUNlZqimKLO2VuucAnS8tpekFlmFZSCgqlgMcWamXaDQnsw8FHJLC
+ ycCBxWPG6CteHngaEL4N7TikARl0TiOHXf9kKISVc+mYWAPm0vJkxmQVq1aybegc2MH4
+ OiM41Hkk4/YWoRd2Qs0X1f63myHz0gs3LuD8t9Mq78rKZyQ9ErGY+sP5dVbZ9u7YDfB8
+ qzLnlaYIddrsLw9FEO6PxY7QM1hvFIqYj9B3kF4O4wEahpQeX0aNgzUV7aGQSEwi24fo
+ SVlHfYMAnvurQLNEwIniO8re9sKl2tkOEjLVd15tAPoTjmBF4cfFrFfuLuhOQI5y/3cT
+ IX5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=uwfujEggxGkuoVCDfRbKuQbHWxUR59o82pcKMVxsgIM=;
+ b=WWL10m7NY+5bgcoEhfBJc8mrNJZ+LsnbyIvgOrK7AsdQvaUj6IoHVwo0RcapkeJD/Y
+ oY0UrBnEB/R47KAJJm7t4OZcLY77jXr7LhFzArfJEG3qs6BH1KAeCP4U/dLsOVZCPIGk
+ d1hlT8wsX+Zpx/RqclhdUy3nXWhqysPecNi6ViCa0Mdy2FJiancu642d980TmpUbcTHr
+ ZWiG9qQzpNxdju7GRVE06GVk1KomTkh+dlTOdr0sOQMCc511U2i7KirZandRSyb2s4NO
+ aRcgYbR2J1Ssrfik+YPmWzDBMbvsdvTN/GOcs9AxTXCDxyse+VQoh/oQXzjGEaeHj/MS
+ U4Kg==
+X-Gm-Message-State: AFeK/H2u6uSAoElGuZHvJSNZfH2UXF0TgU1zyhinPsjkdBCC3e7Ktfwe5iSv4bthGn/DWlU2hJ6DQzSGU3049w==
+X-Received: by 10.13.237.5 with SMTP id w5mr5828397ywe.56.1490176052917; Wed,
+ 22 Mar 2017 02:47:32 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.37.197 with HTTP; Wed, 22 Mar 2017 02:47:12 -0700 (PDT)
 In-Reply-To: <20170321204828.31303-2-raltherr@google.com>
-Message-ID: <alpine.DEB.2.20.1703212202090.26011@vps.pmeerw.net>
 References: <20170321204828.31303-1-raltherr@google.com>
  <20170321204828.31303-2-raltherr@google.com>
-User-Agent: Alpine 2.20 (DEB 67 2015-01-07)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-X-Mailman-Approved-At: Wed, 22 Mar 2017 16:22:32 +1100
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 22 Mar 2017 20:17:12 +1030
+X-Google-Sender-Auth: 8WqGEOQcEjjTGc3Ui4a9Lo2t-is
+Message-ID: <CACPK8XeR=mDhJgGSO04jLAjdOH_oFuvbYC9Ge7J6HQuiLZ4MZQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] iio: Aspeed AST2400/AST2500 ADC
+To: Rick Altherr <raltherr@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ William Breathitt Gray <vilhelm.gray@gmail.com>,
+ Andreas Klinger <ak@it-klinger.de>, Rob Herring <robh@kernel.org>, 
+ linux-iio@vger.kernel.org, Hartmut Knaack <knaack.h@gmx.de>, 
+ Quentin Schulz <quentin.schulz@free-electrons.com>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Marek Vasut <marek.vasut+renesas@gmail.com>, 
+ Matt Ranostay <mranostay@gmail.com>, Lars-Peter Clausen <lars@metafoo.de>, 
+ Crestez Dan Leonard <leonard.crestez@intel.com>,
+ Akinobu Mita <akinobu.mita@gmail.com>, 
+ Fabrice Gasnier <fabrice.gasnier@st.com>, Jonathan Cameron <jic23@kernel.org>, 
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ Maxime Ripard <maxime.ripard@free-electrons.com>, 
+ Jacopo Mondi <jacopo@jmondi.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -48,364 +74,367 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Mar 2017 21:23:09 -0000
+X-List-Received-Date: Wed, 22 Mar 2017 09:47:36 -0000
 
-
+On Wed, Mar 22, 2017 at 7:18 AM, Rick Altherr <raltherr@google.com> wrote:
 > Aspeed AST2400/AST2500 BMC SoCs include a 16 channel, 10-bit ADC. Low
 > and high threshold interrupts are supported by the hardware but are not
 > currently implemented.
-
-comments below
-link to a datasheet would be nice
- 
+>
 > Signed-off-by: Rick Altherr <raltherr@google.com>
+
+Looks good Rick. I gave it a review from the perspective of the Aspeed
+soc. I also gave it a spin on the Aspeed AST2500 EVB which mostly
+worked, but uncovered some things that need addressing.
+
+My device tree additions looked like this:
+
+  adc: adc@1e6e9000 {
+          compatible = "aspeed,ast2500-adc";
+          reg = <0x1e6e9000 0xb0>;
+          clocks = <&clk_apb>;
+          #io-channel-cells = <1>;
+
+          pinctrl-names = "default";
+          pinctrl-0 = <&pinctrl_adc0_default>;
+  };
+
+  iio-hwmon {
+          compatible = "iio-hwmon";
+          io-channels = <&adc 0>;
+  };
+
+I got this output from lm-sensors when booted:
+
+iio_hwmon-isa-0000
+Adapter: ISA adapter
+in1:          +1.28 V
+
+I then wired up ADC0 to ADC_12V_TW on the EVB. The above changed to:
+
+ iio_hwmon-isa-0000
+Adapter: ISA adapter
+in1:          +1.80 V
+
+ADC_12V_TW is the 12V rail sampled through a voltage divider. The
+voltage should be: 12 * 680 / ( 5600 + 680) = 1.299
+
+cat /sys/bus/iio/devices/iio:device0/in_voltage1_raw
+738
+
+738 / 1023 * 1.8 = 1.2975
+
+Looks like the first channel is working! However our reference is
+incorrect. Your driver has ASPEED_ADC_REF_VOLTAGE but doesn't use it.
+It does hardcode 2500 in the aspeed_adc_read_raw callback:
+
+          case IIO_CHAN_INFO_SCALE:
+                  *val = 2500; // mV
+                  *val2 = 10;
+                  return IIO_VAL_FRACTIONAL_LOG2;
+
+Should this value the the constant you define?
+
+Regardless, I don't think the reference voltage should be a constant.
+This is going to vary from system to system. Can we put it in the
+device tree? I notice other devices have vref-supply in their
+bindings.
+
+I noticed that in_voltage_scale is writable. However, it did not
+accept any of the values I give it. Is this because we do not handle
+it in aspeed_adc_write_raw?
+
+I suggest we add the reference in the device tree bindings, and also
+allow the value to be updated from userspace.
+
 > ---
-> 
+>
 > Changes in v2:
 > - Rewritten as an IIO device
 > - Renamed register macros to describe the register's purpose
 > - Replaced awkward reading of 16-bit data registers with readw()
 > - Added Kconfig dependency on COMPILE_TEST
-> 
+>
 >  drivers/iio/adc/Kconfig      |  10 ++
 >  drivers/iio/adc/Makefile     |   1 +
 >  drivers/iio/adc/aspeed_adc.c | 271 +++++++++++++++++++++++++++++++++++++++++++
 >  3 files changed, 282 insertions(+)
 >  create mode 100644 drivers/iio/adc/aspeed_adc.c
-> 
+>
 > diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
 > index 2268a6fb9865..9672d799a3fb 100644
 > --- a/drivers/iio/adc/Kconfig
 > +++ b/drivers/iio/adc/Kconfig
 > @@ -130,6 +130,16 @@ config AD799X
->  	  To compile this driver as a module, choose M here: the module will be
->  	  called ad799x.
->  
+>           To compile this driver as a module, choose M here: the module will be
+>           called ad799x.
+>
 > +config ASPEED_ADC
-> +	tristate "Aspeed AST2400/AST2500 ADC"
-> +	depends on ARCH_ASPEED || COMPILE_TEST
-> +	help
-> +	  If you say yes here you get support for the Aspeed AST2400/AST2500
-> +	  ADC.
+> +       tristate "Aspeed AST2400/AST2500 ADC"
+
+You could just say Aspeed ADC to save us having to update it when the
+ast2600 comes out.
+
+> +       depends on ARCH_ASPEED || COMPILE_TEST
+> +       help
+> +         If you say yes here you get support for the Aspeed AST2400/AST2500
+> +         ADC.
 > +
-> +	  To compile this driver as a module, choose M here: the module will be
-> +	  called aspeed_adc.
-> +
->  config AT91_ADC
->  	tristate "Atmel AT91 ADC"
->  	depends on ARCH_AT91
-> diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
-> index 73dbe399f894..306f10ffca74 100644
-> --- a/drivers/iio/adc/Makefile
-> +++ b/drivers/iio/adc/Makefile
-> @@ -14,6 +14,7 @@ obj-$(CONFIG_AD7791) += ad7791.o
->  obj-$(CONFIG_AD7793) += ad7793.o
->  obj-$(CONFIG_AD7887) += ad7887.o
->  obj-$(CONFIG_AD799X) += ad799x.o
-> +obj-$(CONFIG_ASPEED_ADC) += aspeed_adc.o
->  obj-$(CONFIG_AT91_ADC) += at91_adc.o
->  obj-$(CONFIG_AT91_SAMA5D2_ADC) += at91-sama5d2_adc.o
->  obj-$(CONFIG_AXP288_ADC) += axp288_adc.o
+> +         To compile this driver as a module, choose M here: the module will be
+> +         called aspeed_adc.
+
+Don't forget to test compiling as a module.
+
+
 > diff --git a/drivers/iio/adc/aspeed_adc.c b/drivers/iio/adc/aspeed_adc.c
 > new file mode 100644
 > index 000000000000..9220909aefd4
 > --- /dev/null
-> +++ b/drivers/iio/adc/aspeed_adc.c
-> @@ -0,0 +1,271 @@
-> +/*
-> + * Aspeed AST2400/2500 ADC
-> + *
-> + * Copyright (C) 2017 Google, Inc.
-> + *
-> + * This program is free software; you can redistribute it and/or modify it
-> + * under the terms and conditions of the GNU General Public License,
-> + * version 2, as published by the Free Software Foundation.
-> + *
-> + */
-> +
-> +#include <asm/io.h>
-> +#include <linux/clk.h>
-> +#include <linux/clk-provider.h>
-> +#include <linux/err.h>
-> +#include <linux/errno.h>
-> +#include <linux/module.h>
-> +#include <linux/of_platform.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/spinlock.h>
-> +#include <linux/types.h>
-> +
-> +#include <linux/iio/iio.h>
-> +#include <linux/iio/driver.h>
-> +
-> +#define ASPEED_ADC_NUM_CHANNELS			16
 
-_NUM_CHANNELS is not used, remove
+> +#define ASPEED_ADC_NUM_CHANNELS                        16
+> +#define ASPEED_ADC_REF_VOLTAGE                 2500 /* millivolts */
+> +#define ASPEED_ADC_RESOLUTION_BITS             10
+> +#define ASPEED_ADC_MIN_SAMP_RATE               10000
+> +#define ASPEED_ADC_MAX_SAMP_RATE               500000
+> +#define ASPEED_ADC_CLOCKS_PER_SAMPLE           12
+> +
+> +#define ASPEED_ADC_REG_ENGINE_CONTROL          0x00
+> +#define ASPEED_ADC_REG_INTERRUPT_CONTROL       0x04
+> +#define ASPEED_ADC_REG_VGA_DETECT_CONTROL      0x08
+> +#define ASPEED_ADC_REG_CLOCK_CONTROL           0x0C
+> +#define ASPEED_ADC_REG_MAX                     0xC0
+> +
+> +#define ASPEED_ADC_OPERATION_MODE_POWER_DOWN   (0x0 << 1)
+> +#define ASPEED_ADC_OPERATION_MODE_STANDBY      (0x1 << 1)
+> +#define ASPEED_ADC_OPERATION_MODE_NORMAL       (0x7 << 1)
+> +
+> +#define ASPEED_ADC_ENGINE_ENABLE       BIT(0)
 
-> +#define ASPEED_ADC_REF_VOLTAGE			2500 /* millivolts */
+Nit: You could chose to label these with a shorter prefix. Drop the
+aspeed or adc, or both.
 
-should be used below
-
-> +#define ASPEED_ADC_RESOLUTION_BITS		10
-
-should be used below
-
-> +#define ASPEED_ADC_MIN_SAMP_RATE		10000
-> +#define ASPEED_ADC_MAX_SAMP_RATE		500000
-> +#define ASPEED_ADC_CLOCKS_PER_SAMPLE		12
-> +
-> +#define ASPEED_ADC_REG_ENGINE_CONTROL		0x00
-> +#define ASPEED_ADC_REG_INTERRUPT_CONTROL	0x04
-> +#define ASPEED_ADC_REG_VGA_DETECT_CONTROL	0x08
-> +#define ASPEED_ADC_REG_CLOCK_CONTROL		0x0C
-> +#define ASPEED_ADC_REG_MAX			0xC0
-> +
-> +#define ASPEED_ADC_OPERATION_MODE_POWER_DOWN	(0x0 << 1)
-> +#define ASPEED_ADC_OPERATION_MODE_STANDBY	(0x1 << 1)
-> +#define ASPEED_ADC_OPERATION_MODE_NORMAL	(0x7 << 1)
-> +
-> +#define ASPEED_ADC_ENGINE_ENABLE	BIT(0)
-> +
-> +struct aspeed_adc_data {
-> +	struct device	*dev;
-> +	void __iomem	*base;
-> +
-> +	spinlock_t	clk_lock;
-> +	struct clk_hw	*clk_prescaler;
-> +	struct clk_hw	*clk_scaler;
-> +};
-> +
-> +#define ASPEED_ADC_CHAN(_idx, _addr) {				\
-> +	.type = IIO_VOLTAGE,					\
-> +	.indexed = 1,						\
-> +	.channel = (_idx),					\
-> +	.address = (_addr),					\
-> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),		\
-> +	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE) |	\
-> +				BIT(IIO_CHAN_INFO_SAMP_FREQ),	\
-> +}
-> +
-> +static const struct iio_chan_spec aspeed_adc_iio_channels[] = {
-> +	ASPEED_ADC_CHAN(0, 0x10),
-> +	ASPEED_ADC_CHAN(1, 0x12),
-> +	ASPEED_ADC_CHAN(2, 0x14),
-> +	ASPEED_ADC_CHAN(3, 0x16),
-> +	ASPEED_ADC_CHAN(4, 0x18),
-> +	ASPEED_ADC_CHAN(5, 0x1A),
-> +	ASPEED_ADC_CHAN(6, 0x1C),
-> +	ASPEED_ADC_CHAN(7, 0x1E),
-> +	ASPEED_ADC_CHAN(8, 0x20),
-> +	ASPEED_ADC_CHAN(9, 0x22),
-> +	ASPEED_ADC_CHAN(10, 0x24),
-> +	ASPEED_ADC_CHAN(11, 0x26),
-> +	ASPEED_ADC_CHAN(12, 0x28),
-> +	ASPEED_ADC_CHAN(13, 0x2A),
-> +	ASPEED_ADC_CHAN(14, 0x2C),
-> +	ASPEED_ADC_CHAN(15, 0x2E),
-> +};
 > +
 > +static int aspeed_adc_read_raw(struct iio_dev *indio_dev,
-> +			       struct iio_chan_spec const *chan,
-> +			       int *val, int *val2, long mask)
+> +                              struct iio_chan_spec const *chan,
+> +                              int *val, int *val2, long mask)
 > +{
-> +	struct aspeed_adc_data *data = iio_priv(indio_dev);
+> +       struct aspeed_adc_data *data = iio_priv(indio_dev);
 > +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		*val = readw(data->base + chan->address);
-> +		return IIO_VAL_INT;
+> +       switch (mask) {
+> +       case IIO_CHAN_INFO_RAW:
+> +               *val = readw(data->base + chan->address);
+> +               return IIO_VAL_INT;
 > +
-> +	case IIO_CHAN_INFO_SCALE:
-> +		*val = 2500; // mV
+> +       case IIO_CHAN_INFO_SCALE:
+> +               *val = 2500; // mV
+> +               *val2 = 10;
 
-REF_VOLTAGE?
+What does 10 mean?
 
-> +		*val2 = 10;
-> +		return IIO_VAL_FRACTIONAL_LOG2;
+> +               return IIO_VAL_FRACTIONAL_LOG2;
 > +
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		*val = clk_get_rate(data->clk_scaler->clk) /
-> +				ASPEED_ADC_CLOCKS_PER_SAMPLE;
-> +		return IIO_VAL_INT;
+> +       case IIO_CHAN_INFO_SAMP_FREQ:
+> +               *val = clk_get_rate(data->clk_scaler->clk) /
+> +                               ASPEED_ADC_CLOCKS_PER_SAMPLE;
+> +               return IIO_VAL_INT;
 > +
-> +	default:
-> +		return -EINVAL;
-> +	}
+> +       default:
+> +               return -EINVAL;
+> +       }
 > +}
 > +
 > +static int aspeed_adc_write_raw(struct iio_dev *indio_dev,
-> +				struct iio_chan_spec const *chan,
-> +				int val, int val2, long mask)
+> +                               struct iio_chan_spec const *chan,
+> +                               int val, int val2, long mask)
 > +{
-> +	struct aspeed_adc_data *data = iio_priv(indio_dev);
+> +       struct aspeed_adc_data *data = iio_priv(indio_dev);
 > +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		if (val < ASPEED_ADC_MIN_SAMP_RATE ||
-> +		    val > ASPEED_ADC_MAX_SAMP_RATE)
-> +			return -EINVAL;
+> +       switch (mask) {
+
+Handle IIO_CHAN_INFO_SCALE here too.
+
+> +       case IIO_CHAN_INFO_SAMP_FREQ:
+> +               if (val < ASPEED_ADC_MIN_SAMP_RATE ||
+> +                   val > ASPEED_ADC_MAX_SAMP_RATE)
+> +                       return -EINVAL;
 > +
-> +		clk_set_rate(data->clk_scaler->clk,
-> +				val * ASPEED_ADC_CLOCKS_PER_SAMPLE);
-> +		return 0;
+> +               clk_set_rate(data->clk_scaler->clk,
+> +                               val * ASPEED_ADC_CLOCKS_PER_SAMPLE);
+> +               return 0;
 > +
-> +	default:
-> +		return -EINVAL;
-> +	}
+> +       default:
+> +               return -EINVAL;
+> +       }
 > +}
 > +
 > +static int aspeed_adc_reg_access(struct iio_dev *indio_dev,
-> +				 unsigned int reg, unsigned int writeval,
-> +				 unsigned int *readval)
+> +                                unsigned int reg, unsigned int writeval,
+> +                                unsigned int *readval)
 > +{
-> +	struct aspeed_adc_data *data = iio_priv(indio_dev);
+> +       struct aspeed_adc_data *data = iio_priv(indio_dev);
 > +
-> +	if (!readval || reg % 4 || reg > ASPEED_ADC_REG_MAX)
-> +		return -EINVAL;
+> +       if (!readval || reg % 4 || reg > ASPEED_ADC_REG_MAX)
+> +               return -EINVAL;
 > +
-> +	*readval = readl(data->base + reg);
-> +	return 0;
+> +       *readval = readl(data->base + reg);
+> +       return 0;
 > +}
 > +
 > +static const struct iio_info aspeed_adc_iio_info = {
-> +	.driver_module = THIS_MODULE,
-> +	.read_raw = &aspeed_adc_read_raw,
-
-without & (matter of taste)
-
-> +	.write_raw = &aspeed_adc_write_raw,
-> +	.debugfs_reg_access = &aspeed_adc_reg_access,
+> +       .driver_module = THIS_MODULE,
+> +       .read_raw = &aspeed_adc_read_raw,
+> +       .write_raw = &aspeed_adc_write_raw,
+> +       .debugfs_reg_access = &aspeed_adc_reg_access,
 > +};
 > +
 > +static int aspeed_adc_probe(struct platform_device *pdev)
 > +{
-> +	struct iio_dev *indio_dev;
-> +	struct aspeed_adc_data *data;
-> +	struct resource *res;
-> +	const char *clk_parent_name;
-> +	int ret;
-> +	u32 adc_engine_control_reg_val;
+> +       struct iio_dev *indio_dev;
+> +       struct aspeed_adc_data *data;
+> +       struct resource *res;
+> +       const char *clk_parent_name;
+> +       int ret;
+> +       u32 adc_engine_control_reg_val;
 > +
-> +	indio_dev = devm_iio_device_alloc(&pdev->dev, sizeof(*data));
-> +	if (!indio_dev) {
-> +		dev_err(&pdev->dev, "Failed allocating iio device\n");
-> +		return -ENOMEM;
-> +	}
+> +       indio_dev = devm_iio_device_alloc(&pdev->dev, sizeof(*data));
+> +       if (!indio_dev) {
+> +               dev_err(&pdev->dev, "Failed allocating iio device\n");
+> +               return -ENOMEM;
+> +       }
 > +
-> +	data = iio_priv(indio_dev);
+> +       data = iio_priv(indio_dev);
 > +
-> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +	data->base = devm_ioremap_resource(&pdev->dev, res);
-> +	if (IS_ERR(data->base)) {
-> +		dev_err(&pdev->dev, "Failed allocating device resources\n");
-> +		ret = PTR_ERR(data->base);
-> +		goto resource_error;
+> +       res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> +       data->base = devm_ioremap_resource(&pdev->dev, res);
+> +       if (IS_ERR(data->base)) {
+> +               dev_err(&pdev->dev, "Failed allocating device resources\n");
 
-just return here?
+The function you're calling will do that for you
 
-> +	}
-> +
-> +	/* Register ADC clock prescaler with source specified by device tree. */
-> +	spin_lock_init(&data->clk_lock);
-> +	clk_parent_name = of_clk_get_parent_name(pdev->dev.of_node, 0);
-> +
-> +	data->clk_prescaler = clk_hw_register_divider(
-> +				&pdev->dev, "prescaler", clk_parent_name, 0,
-> +				data->base + ASPEED_ADC_REG_CLOCK_CONTROL,
-> +				17, 15, 0, &data->clk_lock);
-> +	if (IS_ERR(data->clk_prescaler)) {
-> +		dev_err(&pdev->dev, "Failed allocating prescaler clock\n");
-> +		ret = PTR_ERR(data->clk_prescaler);
-> +		goto prescaler_error;
+http://lxr.free-electrons.com/source/lib/devres.c?v=4.10#L134
 
-just return here?
+Just return the error here. I'd consider dropping the dev_errs for the
+other cases in the probe. We still get a reasonable error message
+without printing something ourselves. For example, when bailing out
+with ENOMEM:
 
-> +	}
-> +
-> +	/*
-> +	 * Register ADC clock scaler downstream from the prescaler. Allow rate
-> +	 * setting to adjust the prescaler as well.
-> +	 */
-> +	data->clk_scaler = clk_hw_register_divider(
-> +				&pdev->dev, "scaler", "prescaler",
-> +				CLK_SET_RATE_PARENT,
-> +				data->base + ASPEED_ADC_REG_CLOCK_CONTROL,
-> +				0, 10, 0, &data->clk_lock);
-> +	if (IS_ERR(data->clk_scaler)) {
-> +		dev_err(&pdev->dev, "Failed allocating scaler clock\n");
-> +		ret = PTR_ERR(data->clk_scaler);
-> +		goto scaler_error;
-> +	}
-> +
-> +	/* Start all channels in normal mode. */
-> +	clk_prepare_enable(data->clk_scaler->clk);
-> +	adc_engine_control_reg_val = GENMASK(31, 16) |
-> +		ASPEED_ADC_OPERATION_MODE_NORMAL | ASPEED_ADC_ENGINE_ENABLE;
-> +	writel(adc_engine_control_reg_val,
-> +		data->base + ASPEED_ADC_REG_ENGINE_CONTROL);
-> +
-> +	indio_dev->name = dev_name(&pdev->dev);
-> +	indio_dev->dev.parent = &pdev->dev;
-> +	indio_dev->info = &aspeed_adc_iio_info;
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +	indio_dev->channels = aspeed_adc_iio_channels;
-> +	indio_dev->num_channels = ARRAY_SIZE(aspeed_adc_iio_channels);
-> +
-> +	ret = iio_device_register(indio_dev);
-> +	if (ret) {
-> +		dev_err(&pdev->dev, "Could't register the device.\n");
+[    5.510000] aspeed_adc: probe of 1e6e9000.adc failed with error -12
 
-Couldn't
 
-> +		goto iio_register_error;
-> +	}
+> +               ret = PTR_ERR(data->base);
+> +               goto resource_error;
+> +       }
 > +
-> +	return 0;
+> +       /* Register ADC clock prescaler with source specified by device tree. */
+> +       spin_lock_init(&data->clk_lock);
+> +       clk_parent_name = of_clk_get_parent_name(pdev->dev.of_node, 0);
+> +
+> +       data->clk_prescaler = clk_hw_register_divider(
+> +                               &pdev->dev, "prescaler", clk_parent_name, 0,
+> +                               data->base + ASPEED_ADC_REG_CLOCK_CONTROL,
+> +                               17, 15, 0, &data->clk_lock);
+
+I couldn't see any other drivers that use these functions outside of
+drivers/clk. I like what you've done here, but someone who understands
+the clock framework should take a look.
+
+
+> +       if (IS_ERR(data->clk_prescaler)) {
+> +               dev_err(&pdev->dev, "Failed allocating prescaler clock\n");
+> +               ret = PTR_ERR(data->clk_prescaler);
+> +               goto prescaler_error;
+> +       }
+> +
+> +       /*
+> +        * Register ADC clock scaler downstream from the prescaler. Allow rate
+> +        * setting to adjust the prescaler as well.
+> +        */
+> +       data->clk_scaler = clk_hw_register_divider(
+> +                               &pdev->dev, "scaler", "prescaler",
+> +                               CLK_SET_RATE_PARENT,
+> +                               data->base + ASPEED_ADC_REG_CLOCK_CONTROL,
+> +                               0, 10, 0, &data->clk_lock);
+> +       if (IS_ERR(data->clk_scaler)) {
+> +               dev_err(&pdev->dev, "Failed allocating scaler clock\n");
+> +               ret = PTR_ERR(data->clk_scaler);
+> +               goto scaler_error;
+> +       }
+> +
+> +       /* Start all channels in normal mode. */
+> +       clk_prepare_enable(data->clk_scaler->clk);
+> +       adc_engine_control_reg_val = GENMASK(31, 16) |
+> +               ASPEED_ADC_OPERATION_MODE_NORMAL | ASPEED_ADC_ENGINE_ENABLE;
+> +       writel(adc_engine_control_reg_val,
+> +               data->base + ASPEED_ADC_REG_ENGINE_CONTROL);
+> +
+> +       indio_dev->name = dev_name(&pdev->dev);
+> +       indio_dev->dev.parent = &pdev->dev;
+> +       indio_dev->info = &aspeed_adc_iio_info;
+> +       indio_dev->modes = INDIO_DIRECT_MODE;
+> +       indio_dev->channels = aspeed_adc_iio_channels;
+> +       indio_dev->num_channels = ARRAY_SIZE(aspeed_adc_iio_channels);
+
+Should we be able to enable just the channels that we want? Perhaps
+only the ones that are requested through the device tree?
+
+> +
+> +       ret = iio_device_register(indio_dev);
+> +       if (ret) {
+> +               dev_err(&pdev->dev, "Could't register the device.\n");
+> +               goto iio_register_error;
+> +       }
+> +
+> +       return 0;
 > +
 > +iio_register_error:
-> +	writel(0x0, data->base + ASPEED_ADC_REG_ENGINE_CONTROL);
-> +	clk_disable_unprepare(data->clk_scaler->clk);
-> +	clk_hw_unregister_divider(data->clk_scaler);
+> +       writel(0x0, data->base + ASPEED_ADC_REG_ENGINE_CONTROL);
+
+Should this be done in remove as well?
+
+> +       clk_disable_unprepare(data->clk_scaler->clk);
+> +       clk_hw_unregister_divider(data->clk_scaler);
 > +
 > +scaler_error:
-> +	clk_hw_unregister_divider(data->clk_prescaler);
+> +       clk_hw_unregister_divider(data->clk_prescaler);
 > +
 > +prescaler_error:
 > +resource_error:
-> +	return ret;
+> +       return ret;
+
+You could just return from the error where it happens in the case
+where no cleanup is required.
+
 > +}
 > +
 > +static int aspeed_adc_remove(struct platform_device *pdev)
 > +{
-> +	struct iio_dev *indio_dev = platform_get_drvdata(pdev);
-> +	struct aspeed_adc_data *data = iio_priv(indio_dev);
+> +       struct iio_dev *indio_dev = platform_get_drvdata(pdev);
+> +       struct aspeed_adc_data *data = iio_priv(indio_dev);
 > +
-> +	iio_device_unregister(indio_dev);
-
-writel(0x0, data->base + ASPEED_ADC_REG_ENGINE_CONTROL);
-I guess this power off the device?
-
-the MODE #defines are now used (powerdown, normal, etc.)
-
-> +	clk_disable_unprepare(data->clk_scaler->clk);
-> +	clk_hw_unregister_divider(data->clk_scaler);
-> +	clk_hw_unregister_divider(data->clk_prescaler);
+> +       iio_device_unregister(indio_dev);
+> +       clk_disable_unprepare(data->clk_scaler->clk);
+> +       clk_hw_unregister_divider(data->clk_scaler);
+> +       clk_hw_unregister_divider(data->clk_prescaler);
 > +
-> +	return 0;
+> +       return 0;
 > +}
 > +
 > +const struct of_device_id aspeed_adc_matches[] = {
-> +	{ .compatible = "aspeed,ast2400-adc" },
-> +	{ .compatible = "aspeed,ast2500-adc" },
+> +       { .compatible = "aspeed,ast2400-adc" },
+> +       { .compatible = "aspeed,ast2500-adc" },
 > +};
+
+This is missing a null entry to terminate.
+
 > +MODULE_DEVICE_TABLE(of, aspeed_adc_matches);
 > +
 > +static struct platform_driver aspeed_adc_driver = {
-> +	.probe = aspeed_adc_probe,
-> +	.remove = aspeed_adc_remove,
-> +	.driver = {
-> +		.name = KBUILD_MODNAME,
-> +		.of_match_table = aspeed_adc_matches,
-> +	}
+> +       .probe = aspeed_adc_probe,
+> +       .remove = aspeed_adc_remove,
+> +       .driver = {
+> +               .name = KBUILD_MODNAME,
+> +               .of_match_table = aspeed_adc_matches,
+> +       }
 > +};
 > +
 > +module_platform_driver(aspeed_adc_driver);
@@ -413,9 +442,6 @@ the MODE #defines are now used (powerdown, normal, etc.)
 > +MODULE_AUTHOR("Rick Altherr <raltherr@google.com>");
 > +MODULE_DESCRIPTION("Aspeed AST2400/2500 ADC Driver");
 > +MODULE_LICENSE("GPL");
-> 
-
--- 
-
-Peter Meerwald-Stadler
-Mobile: +43 664 24 44 418
+> --
+> 2.12.1.500.gab5fba24ee-goog
+>
