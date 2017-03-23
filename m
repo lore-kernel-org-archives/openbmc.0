@@ -3,55 +3,55 @@ Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vq0T14LS5zDqZf
- for <openbmc@lists.ozlabs.org>; Fri, 24 Mar 2017 08:44:53 +1100 (AEDT)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vq0T81QwRzDqb7
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Mar 2017 08:45:00 +1100 (AEDT)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v2NLhkvK054215
- for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 17:44:46 -0400
-Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
- by mx0a-001b2d01.pphosted.com with ESMTP id 29cffkeuj5-1
+ v2NLhjjY125572
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 17:44:58 -0400
+Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 29c4ywwwkt-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 17:44:46 -0400
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 17:44:58 -0400
 Received: from localhost
- by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 23 Mar 2017 15:44:45 -0600
-Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
- by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
+ Thu, 23 Mar 2017 15:44:57 -0600
+Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
+ by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Thu, 23 Mar 2017 15:44:44 -0600
+ Thu, 23 Mar 2017 15:44:55 -0600
 Received: from b03ledav004.gho.boulder.ibm.com
  (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v2NLihg015925578; Thu, 23 Mar 2017 14:44:43 -0700
+ by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v2NLissX13893950; Thu, 23 Mar 2017 14:44:54 -0700
 Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 889F878037;
- Thu, 23 Mar 2017 15:44:43 -0600 (MDT)
+ by IMSVA (Postfix) with ESMTP id 92AE878038;
+ Thu, 23 Mar 2017 15:44:54 -0600 (MDT)
 Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP id 46B8778038;
- Thu, 23 Mar 2017 15:44:43 -0600 (MDT)
+ by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP id 5ACF678056;
+ Thu, 23 Mar 2017 15:44:54 -0600 (MDT)
 From: Eddie James <eajames@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [RFC linux dev-4.7 1/7] drivers: fsi: Add function to get FSI clock
- rate
-Date: Thu, 23 Mar 2017 16:44:33 -0500
+Subject: [RFC linux dev-4.7 6/7] drivers: i2c: Add bus recovery for FSI
+ algorithm
+Date: Thu, 23 Mar 2017 16:44:38 -0500
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1490305479-17065-1-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1490305479-17065-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-TM-AS-GCONF: 00
-x-cbid: 17032321-0016-0000-0000-0000066E4854
+x-cbid: 17032321-0004-0000-0000-000011D548CD
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00006837; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000206; SDB=6.00837963; UDB=6.00412008; IPR=6.00615726; 
+ PH=3.00000004; SC=3.00000206; SDB=6.00837962; UDB=6.00412009; IPR=6.00615725; 
  BA=6.00005234; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014782; XFM=3.00000013;
- UTC=2017-03-23 21:44:45
+ UTC=2017-03-23 21:44:55
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17032321-0017-0000-0000-000038694B9D
-Message-Id: <1490305479-17065-2-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 17032321-0005-0000-0000-00007E0E2D84
+Message-Id: <1490305479-17065-7-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-03-23_19:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -70,115 +70,115 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Mar 2017 21:44:54 -0000
+X-List-Received-Date: Thu, 23 Mar 2017 21:45:00 -0000
 
 From: "Edward A. James" <eajames@us.ibm.com>
 
-client drivers (I2C, etc) may need to know FSI bus clock rate.
+Bus recovery should reset the engine and force clock the bus 9 times
+to recover most situations.
 
 Signed-off-by: Edward A. James <eajames@us.ibm.com>
 ---
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts |  6 ++++++
- drivers/fsi/fsi-core.c                           | 20 ++++++++++++++++++++
- drivers/fsi/fsi-master.h                         |  1 +
- include/linux/fsi.h                              |  1 +
- 4 files changed, 28 insertions(+)
+ drivers/i2c/busses/i2c-fsi.c | 82 ++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 82 insertions(+)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-index 4d26d47..6772b53 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -57,6 +57,12 @@
- 		mux-gpios = <&gpio ASPEED_GPIO(A, 6) GPIO_ACTIVE_HIGH>;
- 		enable-gpios = <&gpio ASPEED_GPIO(D, 0) GPIO_ACTIVE_HIGH>;
- 		trans-gpios = <&gpio ASPEED_GPIO(R, 2) GPIO_ACTIVE_HIGH>;
-+
-+		fsi_clock {
-+			#clock-cells = <0>;
-+			compatible = "fixed-clock";
-+			clock-frequency = <8333333>;
-+		};
- 	};
- };
- 
-diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
-index 3d382e6..43c8636 100644
---- a/drivers/fsi/fsi-core.c
-+++ b/drivers/fsi/fsi-core.c
-@@ -18,6 +18,7 @@
- #include <linux/idr.h>
- #include <linux/kthread.h>
- #include <linux/module.h>
-+#include <linux/of.h>
- #include <linux/slab.h>
- #include <linux/jiffies.h>
- #include <linux/delay.h>
-@@ -26,6 +27,7 @@
- 
- #define DEBUG
- 
-+#define FSI_DEFAULT_CLK	8333333
- #define FSI_N_SLAVES	4
- #define FSI_BREAK	0xc0de0000
- 
-@@ -139,6 +141,12 @@ int fsi_device_peek(struct fsi_device *dev, void *val)
- 	return fsi_slave_read(dev->slave, addr, val, sizeof(uint32_t));
+diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
+index 1d16440..73931ee 100644
+--- a/drivers/i2c/busses/i2c-fsi.c
++++ b/drivers/i2c/busses/i2c-fsi.c
+@@ -457,11 +457,93 @@ static u32 fsi_i2c_functionality(struct i2c_adapter *adap)
+ 	return I2C_FUNC_I2C | I2C_FUNC_PROTOCOL_MANGLING | I2C_FUNC_10BIT_ADDR;
  }
  
-+unsigned long fsi_device_get_clk_rate(struct fsi_device *dev)
++static int fsi_i2c_low_level_recover_bus(struct fsi_i2c_master *i2c)
 +{
-+	return dev->slave->master->clk;
-+}
-+EXPORT_SYMBOL_GPL(fsi_device_get_clk_rate);
++	int i, rc;
++	u32 mode, dummy = 0;
 +
- static void fsi_device_release(struct device *_device)
- {
- 	struct fsi_device *device = to_fsi_dev(_device);
-@@ -854,9 +862,21 @@ DEVICE_ATTR(fsi_ipoll_period, S_IRUGO | S_IWUSR, fsi_ipoll_period_show,
- 
- int fsi_master_register(struct fsi_master *master)
- {
-+	struct device_node *np;
-+	u32 clk;
++	rc = fsi_device_read(i2c->fsi, I2C_FSI_MODE, &mode, sizeof(mode));
++	if (rc)
++		return rc;
 +
- 	if (!master || !master->dev)
- 		return -EINVAL;
- 
-+	master->clk = FSI_DEFAULT_CLK;
++	mode |= I2C_MODE_DIAG;
++	rc = fsi_device_write(i2c->fsi, I2C_FSI_MODE, &mode, sizeof(mode));
++	if (rc)
++		return rc;
 +
-+	for_each_child_of_node(master->dev->of_node, np) {
-+		if (of_device_is_compatible(np, "fixed_clock")) {
-+			if (!of_property_read_u32(np, "clock-frequency", &clk))
-+				master->clk = clk;
-+		}
++	for (i = 0; i < 9; ++i) {
++		rc = fsi_device_write(i2c->fsi, I2C_FSI_RESET_SCL, &dummy,
++				      sizeof(dummy));
++		if (rc)
++			return rc;
++
++		rc = fsi_device_write(i2c->fsi, I2C_FSI_SET_SCL, &dummy,
++				      sizeof(dummy));
++		if (rc)
++			return rc;
 +	}
 +
- 	master->idx = ida_simple_get(&master_ida, 0, INT_MAX, GFP_KERNEL);
- 	master->slave_list = false;
- 	get_device(master->dev);
-diff --git a/drivers/fsi/fsi-master.h b/drivers/fsi/fsi-master.h
-index 54723a7..f187269 100644
---- a/drivers/fsi/fsi-master.h
-+++ b/drivers/fsi/fsi-master.h
-@@ -72,6 +72,7 @@ struct fsi_master {
- 	int		idx;
- 	int		n_links;
- 	uint32_t	ipoll;
-+	unsigned long	clk;
- 	int		(*read)(struct fsi_master *, int link,
- 				uint8_t slave, uint32_t addr,
- 				void *val, size_t size);
-diff --git a/include/linux/fsi.h b/include/linux/fsi.h
-index d22d0c5..57c8fdb 100644
---- a/include/linux/fsi.h
-+++ b/include/linux/fsi.h
-@@ -35,6 +35,7 @@ extern int fsi_device_read(struct fsi_device *dev, uint32_t addr,
- extern int fsi_device_write(struct fsi_device *dev, uint32_t addr,
- 		const void *val, size_t size);
- extern int fsi_device_peek(struct fsi_device *dev, void *val);
-+extern unsigned long fsi_device_get_clk_rate(struct fsi_device *dev);
++	rc = fsi_device_write(i2c->fsi, I2C_FSI_RESET_SCL, &dummy,
++			      sizeof(dummy));
++	if (rc)
++		return rc;
++
++	rc = fsi_device_write(i2c->fsi, I2C_FSI_RESET_SDA, &dummy,
++			      sizeof(dummy));
++	if (rc)
++		return rc;
++
++	rc = fsi_device_write(i2c->fsi, I2C_FSI_SET_SCL, &dummy,
++			      sizeof(dummy));
++	if (rc)
++		return rc;
++
++	rc = fsi_device_write(i2c->fsi, I2C_FSI_SET_SDA, &dummy,
++			      sizeof(dummy));
++	if (rc)
++		return rc;
++
++	mode &= ~I2C_MODE_DIAG;
++	rc = fsi_device_write(i2c->fsi, I2C_FSI_MODE, &mode, sizeof(mode));
++
++	return rc;
++}
++
++static int fsi_i2c_recover_bus(struct i2c_adapter *adap)
++{
++	int rc;
++	u32 dummy = 0;
++	struct fsi_i2c_port *port = adap->algo_data;
++	struct fsi_i2c_master *i2c = port->master;
++
++	rc = fsi_device_write(i2c->fsi, I2C_FSI_RESET_I2C, &dummy,
++			      sizeof(dummy));
++	if (rc)
++		return rc;
++
++	rc = fsi_i2c_dev_init(i2c);
++	if (rc)
++		return rc;
++
++	rc = fsi_i2c_low_level_recover_bus(i2c);
++	if (rc)
++		return rc;
++
++	rc = fsi_device_write(i2c->fsi, I2C_FSI_RESET_ERR, &dummy,
++			      sizeof(dummy));
++
++	return rc;
++}
++
+ static const struct i2c_algorithm fsi_i2c_algorithm = {
+ 	.master_xfer = fsi_i2c_xfer,
+ 	.functionality = fsi_i2c_functionality,
+ };
  
- struct fsi_device_id {
- 	u8	engine_type;
++static struct i2c_bus_recovery_info fsi_i2c_bus_recovery_info = {
++	.recover_bus = fsi_i2c_recover_bus,
++};
++
+ static const char *compatible_strings[] = {
+ 	"ibm,power8-i2cm",
+ 	"ibm,power9-i2cm",
 -- 
 1.8.3.1
