@@ -1,67 +1,54 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <xow@google.com>
+Received: from mail-qt0-x22b.google.com (mail-qt0-x22b.google.com
+ [IPv6:2607:f8b0:400d:c0d::22b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vpz2530tKzDq93
- for <openbmc@lists.ozlabs.org>; Fri, 24 Mar 2017 07:39:57 +1100 (AEDT)
-Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v2NKcnJP049216
- for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 16:39:54 -0400
-Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
- by mx0a-001b2d01.pphosted.com with ESMTP id 29bt5dtmsu-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 16:39:54 -0400
-Received: from localhost
- by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Thu, 23 Mar 2017 16:39:54 -0400
-Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
- by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 23 Mar 2017 16:39:51 -0400
-Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
- [9.57.199.107])
- by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v2NKdpVc43778120; Thu, 23 Mar 2017 20:39:51 GMT
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 19F4A124037;
- Thu, 23 Mar 2017 16:39:47 -0400 (EDT)
-Received: from Christophers-MacBook-Pro.local (unknown [9.83.3.195])
- by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP id 602A612403D;
- Thu, 23 Mar 2017 16:39:43 -0400 (EDT)
-Subject: Re: Upstream work for OpenFSI patches
-To: Jeremy Kerr <jk@ozlabs.org>, openbmc@lists.ozlabs.org,
- Christopher Bostic <christopher.lee.bostic@gmail.com>
-References: <05efd2cd-b928-96eb-433e-49ff451eaaf3@ozlabs.org>
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Thu, 23 Mar 2017 15:39:45 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
- Gecko/20100101 Thunderbird/45.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vpzRl2d6fzDq93
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Mar 2017 07:58:43 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="QYV3jVfz"; 
+ dkim-atps=neutral
+Received: by mail-qt0-x22b.google.com with SMTP id x35so186274017qtc.2
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 13:58:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=EsMe8mskfteOW90+NJCJPjQdHJvZ1SscfKOdANMhNQQ=;
+ b=QYV3jVfzcc0OT6u/HN5gcFXNWNRVZ3p1DNsxwH598k/lEdMfQMOURVK0KS24D7r0Ut
+ BAl1HsMc7Mjr11hy98BeQWtiQqL0zk5i6ODXDGJ+rnOh3++/R5D7ATPGUHpRK28PI/5q
+ v/M2T6KzbolW62tb/7D/kqwdl/nZ/Xt4G/tA63LIfhMhlerFCqkMHY4EEIUAn8fIonqD
+ NTeQIL3E3brZrk6O5lXpBDE4ksjwlwlvfcp5A/nvDBVczm/0OZxli4202vjrYH6tVr+8
+ a0qhi9Saw8ZlGLiKb9qyBhqwL62CWTth8qr5So/iB7pqciX3A65xkyILsAzLiT7keuzq
+ qMqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=EsMe8mskfteOW90+NJCJPjQdHJvZ1SscfKOdANMhNQQ=;
+ b=tP2AGr6j80+As7vS2kEhGXBpDK/TLuu/giDslzAtgrD4m/p8tkOskGbWEqBpaTi6I4
+ ft6PHES4DSBohcJfcdsLW18ifdeIIN3HBMyE8J3clvcCBcGKcRt577SfC24aVbXaEj3N
+ rN9dOUwLVBcb/VbuW9Uali4LAgNgUdaVPfRDFi7nEzTN1cf/H82DYKY2Ky8zfCrzTVnp
+ pCnvfdYeKo8oaHoSJDX5IVb5Axjcgxc0r2LaDeaZxR92ZboI+Q1K+pj5qCisvCNE1Gzg
+ WaZQUg/fBLCgKYL5HhavsUl/HL4S0lmTGYLBgwN1ON/PGvWMmn2jUKcP5gY+sC35LX4M
+ Loqg==
+X-Gm-Message-State: AFeK/H23irXwXpWoSgLGDQGe94BD/UWQfxWmmABZwmDuiK2lvyzeHSqyR6Tts6NYu6/xAzcQl8qgwhSgwf172gOl
+X-Received: by 10.200.3.230 with SMTP id z38mr4731716qtg.181.1490302720520;
+ Thu, 23 Mar 2017 13:58:40 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <05efd2cd-b928-96eb-433e-49ff451eaaf3@ozlabs.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 17032320-0052-0000-0000-000001B63F26
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006836; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000206; SDB=6.00837941; UDB=6.00411996; IPR=6.00615704; 
- BA=6.00005234; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014782; XFM=3.00000013;
- UTC=2017-03-23 20:39:53
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17032320-0053-0000-0000-00004F622E52
-Message-Id: <00baa1b7-d784-b73a-d396-e132bea3057b@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-03-23_19:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
- definitions=main-1703230175
+Received: by 10.140.17.56 with HTTP; Thu, 23 Mar 2017 13:58:40 -0700 (PDT)
+In-Reply-To: <CALLMt=oTeWFqyqkFeWBMYtCdCWC=UsrpV6Ftagw15G-zvQ_Yxw@mail.gmail.com>
+References: <CALLMt=pFzj+_RWoTo52Q_U+Ca5sH2FsSLOC1aRnJHOek2aZrQQ@mail.gmail.com>
+ <CACPK8XcYE3Ysb8QdK-=+XV1vSpe63m6CTz3pdy5rTRT-NYfBsA@mail.gmail.com>
+ <CAPH-5w7WoBtQP7hDtGS23+4S2YqckYsEVVajcj9hjTA+dOM19A@mail.gmail.com>
+ <CALLMt=oTeWFqyqkFeWBMYtCdCWC=UsrpV6Ftagw15G-zvQ_Yxw@mail.gmail.com>
+From: Xo Wang <xow@google.com>
+Date: Thu, 23 Mar 2017 13:58:40 -0700
+Message-ID: <CAPH-5w41yzbu_HYitrDwMMWfv_gVXD+ZxnBFV7GFux09ZsNruw@mail.gmail.com>
+Subject: Re: Handling BMC Reboots when Host is Running
+To: Andrew Geissler <geissonator@gmail.com>
+Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -73,128 +60,208 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Mar 2017 20:39:57 -0000
+X-List-Received-Date: Thu, 23 Mar 2017 20:58:44 -0000
 
+Hi Andrew,
 
+On Wed, Mar 22, 2017 at 1:57 PM, Andrew Geissler <geissonator@gmail.com> wr=
+ote:
+> A few updates for everyone on this.  The initial chassis code went in
+> via this commit and it's 2 next one's -
+> https://gerrit.openbmc-project.xyz/#/c/2817/
+>
+> I've been working this sprint on refactoring host ipmid a bit to be
+> able to send up different commands (currently our only communication
+> up to the host is a hard coded soft reboot).  The host interface
+> proposal is out here - https://gerrit.openbmc-project.xyz/#/c/3098/.
+> We need this so there's a way to discover if the host is running after
+> a bmc reboot.
+>
+> One thing I didn=E2=80=99t really like (and neither did anyone else) with
+> handling bmc reboots while the chassis is on or if the host is running
+> is that we have a target fail in the journal when they are not on or
+> running.  See https://github.com/openbmc/openbmc/issues/1337
+>
+> Here=E2=80=99s what I did:
+> Action Target: obmc-chassis-reset.target
+>   Requires: op-reset-pgood-check.service (check for pgood, service
+> success if so, fail otherwise)
+>   Requires: op-reset-set-power-on.service (runs after pgood-check,
+> creates file indicating pgood on)
+>   Requires: op-reset-chasiss-on.service (runs after set-power-on,
+> starts chassis power on target)
+>
+> There was also a synchronization target, obmc-power-reset-on.target,
+> which indicated power was on (pgood-check service a success).
+>
+> If pgood was not on, then the pgood-check service would fail, causing
+> the other services to not run and the obmc-chassis-reset.target to
+> fail.  No harm, but confusing to see a target fail in the journal on
+> the way to BMC_READY.  The cool part was this was all contained to
+> targets and services with no applications needed.  You could easily
+> add other services that help determine if the chassis is =E2=80=9Con=E2=
+=80=9D and
+> other services once it was found that power was on.
+>
+>
+> Here=E2=80=99s my new proposal:
+> Action Target: obmc-chassis-reset.target
+>    Requires: op-reset-power-check.service - a shell script that
+> verifies power is on, and creates the file if so
+>
+> this service always return success (pgood on or off) unless it hits a
+> real failure
+>    Requires: op-reset-chassis-on.service     - start the chassis
+> target - setup service file to only run if =E2=80=9Cpower on=E2=80=9D fil=
+e created.
+>
+> We have to write a shell script, and we=E2=80=99re not quite as dynamic w=
+ith
+> plug and play of services, but we now won=E2=80=99t have a target fail an=
+d it
+> simplifies the process a bit.
+>
+> With this proposal in mind, I=E2=80=99d like to do something similar with=
+ host function
+>
+> Action Target: obmc-host-reset.target:
+>    Requires: obmc-chassis-reset.target
+>    Requires: op-reset-host-check.service - Service runs after the
+> op-reset-chassis-on.service
+>                                                                     An
+> application that only runs if the chassis power service created the
+> =E2=80=9Cpower on=E2=80=9D file.
+>
+> This issues the heartbeat command to the host and if the host
+> responds, it creates the
+>
+> =E2=80=9Chost on=E2=80=9D file.  This will need to be an application sinc=
+e dbus signal
+> monitoring is required.
+>
+>    Requires: op-reset-host-on.service       - start the host start
+> target - only run if =E2=80=9Chost on=E2=80=9D file created
+>
+> Xo, wondering if the Zaius issue could be related to what we see on
+> Witherspoon, https://github.com/openbmc/openbmc/issues/1322?  Either
+> way we seem to have a similar problem on witherspoon so all of this
+> above code is moot until we get that figured out.  Testing on
+> barreleye has been fine though.
 
-On 3/23/17 7:14 AM, Jeremy Kerr wrote:
-> Hi Chris & all,
->
-> Over the last week or so, I've (re-)started our upstreaming efforts for
-> the fsi patches, by addressing the reviews we've had so far, and
-> settling some of the open items we've had that effect the future
-> userspace ABI of the FSI code.
->
-> I think the patches at a point where we're ready to resubmit upstream,
-> so I've pushed a branch here:
->
->    https://github.com/jk-ozlabs/linux/commits/openbmc/fsi
->
-> - this is currently based on the OpenBMC 4.10 tree, but will be easily
-> applicable to vanilla upstream. I've kept the "DEBUG" patches at the top
-> of the tree, but these are not intended to be upstreamed (unless someone
-> convinces us otherwise!). This tree may be rebased as development
-> continues, and I'll likely start a branch which is based on mainline.
->
-> There are some fairly significant changes from our first submission,
-> notably:
->
->   - endianness: the _read() and _write() APIs are now all *bus endian*,
->     so will be the same on all platforms (the previous fsi patches
->     exposed as (BMC/FSP) CPU endian, which is variable).
->
->     This includes the sysfs raw file, so the byte ordering matches what's
->     transferred on the bus, regardless of CPU endianness:
->
->        # hexdump -n 4 -C fsi0/slave@00:00/raw
->        00000000  c0 01 0d 12                        |....|
->        00000004
->
->     This will likely mean that drivers and accesses to 'raw' from
->     userspace may need to convert to bus endian.
->
->   - device tree: I've removed the "ibm," prefix for the fsi core and GPIO
->     master compatibility strings, as they're not describing IBM-specific
->     hardware. I've also fixed some errors with our proposed binding
->     specification.
->
->   - device model: we now create separate struct devices for each FSI
->     master, which fits better with the Linux device model, and allows us
->     to add sysfs attributes that are implemented by the fsi core
->
->   - sysfs: there are now sysfs facilities for break and term, and the raw
->     file supports reads and writes of arbitrary sizes.
->
->   - GPIO master: I've split the xfer() logic out a little, so that the
->     response handling & DPOLL retry mechanism is more obvious
->
->   - GPIO master: simplifications for message construction
->
->   - GPIO master: fixes for some CRC calculations
->
->   - GPIO master: we now issue TERM in response to DPOLL busy-loops
->
->   - Error handling: rather than handle errors on (potentially) an entire
->     cascaded read or write, the error handling is now down on a per-slave
->     basis, where we try to reestablish communication in a more "gradual"
->     manner, rather than sending a break immediately.
->
->     (we may need to add a hook to percolate error recovery up to a
->     slave's master, but I haven't seen any need for that at present)
+The issue I described of "power control daemon setting the latch
+transparent shuts off power" is probably unique to Zaius since that's
+the only board with latches between BMC and power sequencer.
 
-Hi Jeremy,
+However, GPIO glitches across BMC reboot would affect Zaius as well.
+That's why we designed in those latches in the first place. It appears
+that after some moving some logic around
+(https://gerrit.openbmc-project.xyz/#/c/2837/), BMC reset no longer
+brings down the host power on Zaius.
 
-Have you run much testing on bad bus accesses to verify recovery from 
-errors?
->   - Hub master: this is now implemented as a fsi engine driver, as the
->     fsi_slave_{read,write}() functions are exported (and the port count
->     is available in the hMFSI configuration register)
-I noticed you moved the FSI master control register definitions into 
-fsi-master-hub.c   Though its not presently used, the cmFSI engine also 
-shares a common control register setup for the most part and its 
-possible there could be other implementations using the same scheme in 
-the future.   Would it be preferable to move these into fsi-master.h or 
-some other common master code?
->     This means we need fewer special-cases in the fsi core.
 >
->   - Tracepoints: I've added tracepoints for FSI core read & write, and
->     another set for low-level GPIO in/out operations.
+> Thoughts/Ideas always appreciated,
+> Andrew
 >
-> I've kept the original authorship attribution on each patch, but do let
-> me know if anything seems amiss.
->
-> I've tested on one-core (heavily) and two-core (lightly) p9 platforms,
-> and all seems to look okay so far.
->
-> There are a couple of pending items, but those shouldn't need to hold us
-> up:
->
->   - IRQ support needs more work, but there doesn't seem to be any
->     consumers of that so far
-As long as we migrate to the final IIC driver solution before switching 
-over to your new code then there is no interrupt support required.  
-Otherwise we'll need to consider when your changes are phased in.
->   - tests for unbind/rebind
->   - updating MAINTAINERS
->
-> So, please take a look at the series and let me know if there is
-> anything that still needs doing (particularly fixes that have come in
-> since the first series), and we can work out our plan for upstream
-> progression.
-The community had wanted crc calculations moved from drivers/fsi to the 
-kernel/lib path on a previous patch set submission I sent out. Do you 
-think this is something that will be required in your changes?
+> On Thu, Mar 2, 2017 at 12:04 PM, Xo Wang <xow@google.com> wrote:
+>> On Wed, Mar 1, 2017 at 5:01 PM, Joel Stanley <joel@jms.id.au> wrote:
+>>> On Wed, Mar 1, 2017 at 3:33 AM, Andrew Geissler <geissonator@gmail.com>=
+ wrote:
+>>>> My story this sprint, https://github.com/openbmc/openbmc/issues/1094,
+>>>> is to allow the BMC to be rebooted while the host is up and running.
+>>>
+>>> Cool. In addition to this work, we need to make sure the required bits
+>>> of the Aspeed hardware are not reset to a default state, either by the
+>>> SoC's reset mechanism, or by the loading of drivers.
+>>>
+>>> GPIOs are a good example of this. When we know that the host is
+>>> already up, any access should read the current state of the GPIO and
+>>> before it does any toggling. Another is the operation of flash (which
+>>> will now need to be handled by mboxd).
+>>
+>> FYI, we have an internal bug about Zaius-specific behavior with our
+>> board-level latches (between BMC and power sequencer) being set
+>> transparent prior to reading the host power state. This kills power to
+>> the host every time that the BMC resets.
+>>
+>> I'm currently working on this and it looks like a bug with my earlier
+>> changes to the glib-based power control daemon.
+>>
+>>>
+>>> I realise this is outside the scope of your "lets get the targets
+>>> sorted" work. I thought I'd mention it now so we can be on the look
+>>> out for strange behaviour as you do your rework.
+>>>
+>>> Cheers,
+>>>
+>>> Joel
+>>>
+>>>> After the BMC reboot, we need to keep the host running and also get to
+>>>> the appropriate systemd target states to represent this.   The
+>>>> challenge here is that if we just re-ran the existing targets and
+>>>> services, we would do things like run P9 vcs workarounds, bit bang the
+>>>> FSI bus, and even potentially toggle pgood.  We obviously need to
+>>>> avoid this in order to keep the host up and running.  This divides our
+>>>> services started during a obmc-host-start.target into 2 categories,
+>>>> services required to boot the system, and services which are required
+>>>> to support the host running.  We only want to run the latter in a
+>>>> situation where the BMC is reset while the host is up and running.
+>>>>
+>>>> Requirements:
+>>>>
+>>>> - The applications should have no knowledge of Host state
+>>>>   - i.e. the service starting or not starting is where we control what=
+ runs
+>>>>
+>>>> - Must handle being able to start and not start any arbitrary service
+>>>> within the host power on targets
+>>>>   - Lots of services have dependencies on each other and
+>>>> synchronization targets, this design has to handle starting services
+>>>> that depend on other services or targets that may not be required when
+>>>> the host is running
+>>>>
+>>>> - The obmc-host-start.target needs to get to the running state when
+>>>> the host is already running after a BMC reset
+>>>>   - This will ensure that any re-starts of this target do not harm the
+>>>> system and that the power off targets will work as expected
+>>>>
+>>>> Proposal:
+>>>>
+>>>> Use the ConditionPathExists=3D systemd unit feature.
+>>>>
+>>>> From the man page: "Before starting a unit, verify that the specified
+>>>> condition is true. If it is not true, the starting of the unit will be
+>>>> (mostly silently) skipped, however all ordering dependencies of it are
+>>>> still respected. A failing condition will not result in the unit being
+>>>> moved into a failure state. The condition is checked at the time the
+>>>> queued start job is to be executed. Use condition expressions in order
+>>>> to silently skip units that do not apply to the local running system,
+>>>> for example because the kernel or runtime environment doesn't require
+>>>> its functionality. "
+>>>>
+>>>> This will be put in the service files that we do not want to run in
+>>>> this reset scenario (services required to boot the system).  The first
+>>>> service we will run on a power on, is a service that detects whether
+>>>> the host is already running.  If the host is running, then this
+>>>> service will create a file which will then be used to determine
+>>>> whether the boot services are run or not.
+>>>>
+>>>> The nice part about ConditionPathExists=3D is that it doesn=E2=80=99t =
+execute
+>>>> the application in the services, but it allows dependencies on that
+>>>> service to be satisfied so systemd will still start the dependent
+>>>> services and reach the dependent synchronization targets.
+>>>>
+>>>> This proposal has not gone off as well as I would have hoped
+>>>> internally here :)  There=E2=80=99s definitely a desire to not have th=
+is at
+>>>> the service level, but rather at the target level.  I have not found a
+>>>> solution in this area though that satisfies the above requirements.
+>>>> Thoughts/ideas are definitely appreciated.
+>>>>
+>>>> Andrew
+>>
+>> cheers
+>> xo
 
-The community also didn't want the fake FSI master driver included.   Is 
-this something we should keep?
-
-All else looks good.
-Thanks,
-
-Chris
->
-> Cheers,
->
->
-> Jeremy
->
+cheers
+xo
