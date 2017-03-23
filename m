@@ -1,49 +1,52 @@
-Return-Path: <peterh@google.com>
-Received: from mail-pg0-x22e.google.com (mail-pg0-x22e.google.com
- [IPv6:2607:f8b0:400e:c05::22e])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x241.google.com (mail-yw0-x241.google.com
+ [IPv6:2607:f8b0:4002:c05::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vpS7C2TjvzDq7N
- for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 11:27:34 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vpSRk1zZFzDq7N
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 11:41:54 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="Kwsrt9oJ"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="mApshFEF"; 
  dkim-atps=neutral
-Received: by mail-pg0-x22e.google.com with SMTP id w20so11854276pgc.0
- for <openbmc@lists.ozlabs.org>; Wed, 22 Mar 2017 17:27:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=+ufUSLvbtA/LocJkDalcuE5E2Sh7r9Wl4SFQ2FQFbHc=;
- b=Kwsrt9oJI2dykkgf5CXspHFF2LalZiYCW2bif+nG+7W7g5OGR7isklKVx0eAiDVx4q
- U2T8y+kNOCaQw322IHBPoKIgyrGvI9MlFwyulsat9OgnM1ceRFxV8cIaIxF5rq4VI4dI
- iqvGWWbmxuBOi2Hl1HVg1TGNnG2/3prfsiJ8B8iXvaPBBF2UF0Ja347zujjhU6o1jXqF
- KECYze/6wxsGQi20ozxQaTPoEHqU3jCfwujGw23qnm2bKT/Adxpo7ta5TmKvmbQqavEe
- pU2hbvVs5IhXN+Phe+/88UgC970urRD+7V1Qjp4h+vu7gLlFQaKzgaz7KY7nudmYewET
- nbdg==
+Received: by mail-yw0-x241.google.com with SMTP id p77so21927247ywg.0
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Mar 2017 17:41:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=rpQhkRn805rB92xxCHnNwGQZBfIgS4t3zt5DkHcdtOQ=;
+ b=mApshFEFdUxliHOVfQJ/tOXUOBBQB9hVF4abeWVLMQCAOqzADMXzUWLSpqoasDy0Wt
+ taBn7kvcM0rV/dGUGEAh/1HarmsDkoUgR0EmNddQbW9TQvQ11ec6NohLCoJOxYpHUkmB
+ 6y+eiQA8SpK+GMlN0QkuHt4Qlylpte1QcUIc7HS7Q31h0FGLuSl7aeKZypMQSo59cjYa
+ 9Sk0IqFByhoKx/Vcr3LdAl4ap6+7qseiSE8uBA+Nx308Eix2aaC3twGm7iBqh7PsPo6s
+ Twlq8579bMxZKfvkzeuMKiKbGAFmNrV/dc+FFEkhC8sr27BWT30HVFbQIvEP7LaLybCo
+ x+nQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=+ufUSLvbtA/LocJkDalcuE5E2Sh7r9Wl4SFQ2FQFbHc=;
- b=LemAOMO0MF9wWwvOtA8Xq1HL1vbwjRvOBW5xqvMhroBZhnXOebZbd7zR6jTqepW9qP
- WhTM4dZ8i5eqYJhhOohqZtLhqYCIpOkLM+H6ztzgP67A7ds0P+r7vur+M0j3H/oY0MOL
- 8WOMbkA1kn/nXvLJz5zjt6bBVRW+5DILDMf1TC5fWikiFTwM5EIWs1KGc21nHVuD18zo
- 2nsGLMD+YCzawqX6L9j/mDSQVXq4jC9umA7CATMm40SHAtkoji0zFXRjvy+Q1lFUoT2H
- YehYDxCPzRQPzX8BOJkBD8GSIl1JauOZbGJVhPdzKbiNq6Mk58dhIAXubi7peo9suXXr
- g7og==
-X-Gm-Message-State: AFeK/H1pxeFNpCl6qUp1thNZB8h/VbOpsMxh5ha9oeOoAcn2Uq7BIrm6FprPMHX1YBCEQXQz
-X-Received: by 10.98.204.25 with SMTP id a25mr48186696pfg.6.1490228851975;
- Wed, 22 Mar 2017 17:27:31 -0700 (PDT)
-Received: from ouranos.svl.corp.google.com ([100.123.242.122])
- by smtp.gmail.com with ESMTPSA id l29sm6028639pfb.118.2017.03.22.17.27.30
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Wed, 22 Mar 2017 17:27:30 -0700 (PDT)
-From: Peter Hanson <peterh@google.com>
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC <openbmc@lists.ozlabs.org>, Xo Wang <xow@google.com>,
- Peter Hanson <peterh@google.com>
-Subject: [PATCH] ARM: dts: aspeed: zaius: Enable 12V Delta Power Brick.
-Date: Wed, 22 Mar 2017 17:27:27 -0700
-Message-Id: <20170323002727.117666-1-peterh@google.com>
-X-Mailer: git-send-email 2.12.1.500.gab5fba24ee-goog
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=rpQhkRn805rB92xxCHnNwGQZBfIgS4t3zt5DkHcdtOQ=;
+ b=Pkpm0vpt/hiFV5v7LVsDM2d3PwwxNEH8RrSpg15WzNV2OPx1GF0ZFVkhkgIMDYn6xf
+ noJSnn4nSJvYTXdvf3R0fAbhTUycQEhsMav/E+sqU5AH+afJ8npFBgrb6MuAcEZ+7hQv
+ JWFNAV5MhHxjvigptvEP8Wh8GR/0Vl0vhPq1iR0iml5anCMk8pVQNsAm6qpx7FbemDry
+ zcRyvOYGs9UeoeWXqIVI59eqsJM8SjNizW23J6DE2XWkIZgJP7kRlno+B2N20g3v82ZX
+ Q/2p4Urz+SGoCeG2gaQZ1RR0w8NwukJXOEN5LvT+iTeF9W5RmzD5gvCxm46HvDbqZA6a
+ SA0g==
+X-Gm-Message-State: AFeK/H0jZ1YR4eVg9HIJmmhGBDPHnbsFT4tDifeRz6LSwg/+wr9tT9Kue0zOPt7HaI4c56R5/WcjGvSSNXSItA==
+X-Received: by 10.37.194.5 with SMTP id s5mr27973184ybf.136.1490229711263;
+ Wed, 22 Mar 2017 17:41:51 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.37.197 with HTTP; Wed, 22 Mar 2017 17:41:30 -0700 (PDT)
+In-Reply-To: <20170323002727.117666-1-peterh@google.com>
+References: <20170323002727.117666-1-peterh@google.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 23 Mar 2017 11:11:30 +1030
+X-Google-Sender-Auth: x_bllAJx9yvxb7XiwCGz8kylg9c
+Message-ID: <CACPK8Xc2jfaxO5yXMj=vHOt6sRmrcDa8-YcKbC3ptEwN9LCSGA@mail.gmail.com>
+Subject: Re: [PATCH] ARM: dts: aspeed: zaius: Enable 12V Delta Power Brick.
+To: Peter Hanson <peterh@google.com>
+Cc: OpenBMC <openbmc@lists.ozlabs.org>, Xo Wang <xow@google.com>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,31 +58,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Mar 2017 00:27:36 -0000
+X-List-Received-Date: Thu, 23 Mar 2017 00:41:54 -0000
 
-Signed-off-by: Peter Hanson <peterh@google.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+Hello Peter,
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-index 3bd70ed810af..4fd27617bb3a 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-@@ -269,7 +269,13 @@
- 	/* Master selector PCA9541A @70h (other master: CPU0)
- 	 *   LM5066I PMBUS @10h
- 	 */
--	/* 12V SMPS Q54SH12050NNDH @61h */
-+
-+	/* 12V SMPS Q54SJ12050 @61h */
-+	q54sj12050@61 {
-+		compatible = "delta,dps800";
-+		reg = <0x61>;
-+	};
-+
- 	/* CPU0 VR ISL68137 0.7V, 0.96V PMBUS @64h */
- 	/* CPU0 VR ISL68137 1.2V CH03 PMBUS @40h */
- 	/* CPU0 VR ISL68137 0.8V PMBUS @60h */
--- 
-2.12.1.500.gab5fba24ee-goog
+Welcome to the project. Congrats on your success with the git tools,
+v2 looks much better. There's some tips and tricks on the wiki for
+next time:
+
+ https://github.com/openbmc/linux/wiki/SubmittingPatches#use-the-git-tools
+
+On Thu, Mar 23, 2017 at 10:57 AM, Peter Hanson <peterh@google.com> wrote:
+> Signed-off-by: Peter Hanson <peterh@google.com>
+> ---
+>  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+>
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> index 3bd70ed810af..4fd27617bb3a 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> @@ -269,7 +269,13 @@
+>         /* Master selector PCA9541A @70h (other master: CPU0)
+>          *   LM5066I PMBUS @10h
+>          */
+> -       /* 12V SMPS Q54SH12050NNDH @61h */
+> +
+> +       /* 12V SMPS Q54SJ12050 @61h */
+> +       q54sj12050@61 {
+
+This is an interesting name. I assume it means something to you? My
+favourite search engine came up empty.
+
+You're free to use whatever name you think is appropriate for the
+node, so if you want to make it name like "power-brick" you could.
+
+If you're happy with this name then that's fine too. I'll wait for
+Xo's ack and apply it.
+
+Cheers,
+
+Joel
+
+> +               compatible = "delta,dps800";
+> +               reg = <0x61>;
+> +       };
+> +
+>         /* CPU0 VR ISL68137 0.7V, 0.96V PMBUS @64h */
+>         /* CPU0 VR ISL68137 1.2V CH03 PMBUS @40h */
+>         /* CPU0 VR ISL68137 0.8V PMBUS @60h */
+> --
+> 2.12.1.500.gab5fba24ee-goog
+>
