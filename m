@@ -1,48 +1,46 @@
-Return-Path: <mine260309@gmail.com>
-Received: from mail-pg0-x243.google.com (mail-pg0-x243.google.com
- [IPv6:2607:f8b0:400e:c05::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vpcV403K9zDq5W
- for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 17:44:28 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Rrthwhyt"; 
- dkim-atps=neutral
-Received: by mail-pg0-x243.google.com with SMTP id 81so26204240pgh.3
- for <openbmc@lists.ozlabs.org>; Wed, 22 Mar 2017 23:44:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=6T7KXK4zu1cyzXjRdNEGW3o66xe60XWQ0h/cgw+p1Y0=;
- b=RrthwhytYvD3K+1tlTJYwZTfSQMSS7SbMifOhv1m3IoPvgsJMvZT5RuA+xcZqjGUxA
- qQIpmiR5IwdX1sTWszTEpEI8s17Ha/AbB5NX20NoO2JqMlDjHd2n27h7AC59pzPPQKY4
- +YZg9md1bdmpLNXynIEJsmDMtuvZm9YKrVnhCP0KjAtI/AxG7SiXUp14k3281ggXrXQX
- zDhExDxhJkn8RvdLMX0n4t6SHnpsE3Fpn8a7H028Yj7E1HLdnfpFAfI1jh8YxMXHkp5M
- 0s8Ij0TZnXX1ibU4MnMPnm91C6SVMSEyPHkiDO/ku8zInGq5wpGYkx5Hqx8NjWduNcw/
- a+IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=6T7KXK4zu1cyzXjRdNEGW3o66xe60XWQ0h/cgw+p1Y0=;
- b=eZXqm/JtJvWntMdu8xx6di6d/HTOl0J+lMYlgh8wS3h3lt71qwCIhzZ+iW1FoISGX2
- F8H8HAVmmbVTKNI/LQ5tP8Mg0Vw32oQOiGhTMVmwuApoFEgy7Wk0bwSYuIaEvFn+EAoK
- 78HHXvfWtEWbQltZ4zn/FezYUtGAm/G6nulyouoeL+rq9DQXafbpxb6w8dv3XvXh6TTr
- Ci4rXvE7oppn14zEbEY+/tGWrC6jaENxkV4752Cehha2hbhNuuCfhGKUif4LqMI03LvA
- OcoG8xFkejbBWuwz+3UifVR+Y3B3yFjEM+fzzvBueuygCkNNjh6u/C4/mn896eXB2nqi
- bKcA==
-X-Gm-Message-State: AFeK/H1l+raCNthTv5RMgCdY2D1d0hNY6Se7Gc6yEWNnBCZw5iHasOJs+UjYw6+qSzZavw==
-X-Received: by 10.84.130.66 with SMTP id 60mr1386951plc.115.1490251466345;
- Wed, 22 Mar 2017 23:44:26 -0700 (PDT)
-Received: from localhost ([159.203.222.251])
- by smtp.gmail.com with ESMTPSA id e67sm7645166pfa.87.2017.03.22.23.44.25
- (version=TLS1_2 cipher=AES128-SHA bits=128/128);
- Wed, 22 Mar 2017 23:44:25 -0700 (PDT)
-From: Lei YU <mine260309@gmail.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.7 2/2] arm: aspeed: romulus: Disable LPC reset for
- UART1
-Date: Thu, 23 Mar 2017 14:44:02 +0800
-Message-Id: <1490251442-6538-1-git-send-email-mine260309@gmail.com>
-X-Mailer: git-send-email 1.9.1
+Return-Path: <quentin.schulz@free-electrons.com>
+Received: from mail.free-electrons.com (mail.free-electrons.com [62.4.15.54])
+ by lists.ozlabs.org (Postfix) with ESMTP id 3vpf0q0LSpzDq5g
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 18:52:42 +1100 (AEDT)
+Received: by mail.free-electrons.com (Postfix, from userid 110)
+ id 4EFC820F4F; Thu, 23 Mar 2017 08:52:38 +0100 (CET)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ mail.free-electrons.com
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=5.0 tests=ALL_TRUSTED,SHORTCIRCUIT,
+ URIBL_BLOCKED shortcircuit=ham autolearn=disabled version=3.4.0
+Received: from [192.168.1.48] (LStLambert-657-1-97-87.w90-63.abo.wanadoo.fr
+ [90.63.216.87])
+ by mail.free-electrons.com (Postfix) with ESMTPSA id CF76120F3F;
+ Thu, 23 Mar 2017 08:52:37 +0100 (CET)
+Subject: Re: [PATCH v2 2/2] iio: Aspeed AST2400/AST2500 ADC
+To: Rick Altherr <raltherr@google.com>, openbmc@lists.ozlabs.org,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20170321204828.31303-1-raltherr@google.com>
+ <20170321204828.31303-2-raltherr@google.com>
+ <5f245e55-4d4a-b744-3351-e8215432c315@free-electrons.com>
+ <CAPLgG=kVsNake71fFLc2NsoMtrtG0_6Fb6XHep3dQKVuRgOmbA@mail.gmail.com>
+From: Quentin Schulz <quentin.schulz@free-electrons.com>
+Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ William Breathitt Gray <vilhelm.gray@gmail.com>,
+ Andreas Klinger <ak@it-klinger.de>, Rob Herring <robh@kernel.org>,
+ "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+ "knaack.h@gmx.de" <knaack.h@gmx.de>, geert@linux-m68k.org,
+ marek.vasut+renesas@gmail.com, Matt Ranostay <mranostay@gmail.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, leonard.crestez@intel.com,
+ Akinobu Mita <akinobu.mita@gmail.com>,
+ Fabrice Gasnier <fabrice.gasnier@st.com>, Jonathan Cameron
+ <jic23@kernel.org>, Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ Maxime Ripard <maxime.ripard@free-electrons.com>,
+ Jacopo Mondi <jacopo@jmondi.org>
+Message-ID: <aee01198-3af6-6218-7f3e-9558adcdf526@free-electrons.com>
+Date: Thu, 23 Mar 2017 08:52:38 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.7.0
+MIME-Version: 1.0
+In-Reply-To: <CAPLgG=kVsNake71fFLc2NsoMtrtG0_6Fb6XHep3dQKVuRgOmbA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,43 +52,91 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Mar 2017 06:44:28 -0000
+X-List-Received-Date: Thu, 23 Mar 2017 07:52:43 -0000
 
-This follows Zaius's fix, that clear the LPC block control bit that
-enables LPCRST# as a reset source for UART1, making UART1
-immediately useful in that it won't discard bytes.
+Hi,
 
-Signed-off-by: Lei YU <mine260309@gmail.com>
----
- arch/arm/mach-aspeed/aspeed.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+On 22/03/2017 21:46, Rick Altherr wrote:
+> On Wed, Mar 22, 2017 at 12:21 AM, Quentin Schulz
+> <quentin.schulz@free-electrons.com> wrote:
+>> Hi,
+>>
+>> On 21/03/2017 21:48, Rick Altherr wrote:
+>>> Aspeed AST2400/AST2500 BMC SoCs include a 16 channel, 10-bit ADC. Low
+>>> and high threshold interrupts are supported by the hardware but are not
+>>> currently implemented.
+>>>
+>>> Signed-off-by: Rick Altherr <raltherr@google.com>
+>>> ---
+>>>
+>>> Changes in v2:
+>>> - Rewritten as an IIO device
+>>> - Renamed register macros to describe the register's purpose
+>>> - Replaced awkward reading of 16-bit data registers with readw()
+>>> - Added Kconfig dependency on COMPILE_TEST
+>>>
+[...]
+>>> +#define ASPEED_ADC_CHAN(_idx, _addr) {                               \
+>>> +     .type = IIO_VOLTAGE,                                    \
+>>> +     .indexed = 1,                                           \
+>>> +     .channel = (_idx),                                      \
+>>> +     .address = (_addr),                                     \
+>>> +     .info_mask_separate = BIT(IIO_CHAN_INFO_RAW),           \
+>>> +     .info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE) |  \
+>>> +                             BIT(IIO_CHAN_INFO_SAMP_FREQ),   \
+>>> +}
+>>> +
+>>> +static const struct iio_chan_spec aspeed_adc_iio_channels[] = {
+>>> +     ASPEED_ADC_CHAN(0, 0x10),
+>>> +     ASPEED_ADC_CHAN(1, 0x12),
+>>> +     ASPEED_ADC_CHAN(2, 0x14),
+>>> +     ASPEED_ADC_CHAN(3, 0x16),
+>>> +     ASPEED_ADC_CHAN(4, 0x18),
+>>> +     ASPEED_ADC_CHAN(5, 0x1A),
+>>> +     ASPEED_ADC_CHAN(6, 0x1C),
+>>> +     ASPEED_ADC_CHAN(7, 0x1E),
+>>> +     ASPEED_ADC_CHAN(8, 0x20),
+>>> +     ASPEED_ADC_CHAN(9, 0x22),
+>>> +     ASPEED_ADC_CHAN(10, 0x24),
+>>> +     ASPEED_ADC_CHAN(11, 0x26),
+>>> +     ASPEED_ADC_CHAN(12, 0x28),
+>>> +     ASPEED_ADC_CHAN(13, 0x2A),
+>>> +     ASPEED_ADC_CHAN(14, 0x2C),
+>>> +     ASPEED_ADC_CHAN(15, 0x2E),
+>>
+>> It would make sense to name the registers (the _addr parameter of your
+>> macro) so it's easier to understand what it refers to.
+>>
+> 
+> I agree with Joel on this.  There isn't really a better name than
+> ADC_CHAN_0_DATA.  I'll change the macro parameter to _data_reg_addr to
+> make that clearer.
+> 
 
-diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
-index 7ac006a..a7b03a0 100644
---- a/arch/arm/mach-aspeed/aspeed.c
-+++ b/arch/arm/mach-aspeed/aspeed.c
-@@ -220,6 +220,7 @@ static void __init do_witherspoon_setup(void)
- 
- static void __init do_romulus_setup(void)
- {
-+	unsigned long reg;
- 	do_common_setup();
- 
- 	/* Set SPI1 CE1 decoding window to 0x34000000 */
-@@ -227,6 +228,14 @@ static void __init do_romulus_setup(void)
- 
- 	/* Set SPI1 CE0 decoding window to 0x30000000 */
- 	writel(0x68600000, AST_IO(AST_BASE_SPI | 0x30));
-+
-+    /* Disable default behavior of UART1 being held in reset by LPCRST#.
-+     * By releasing UART1 from being controlled by LPC reset, it becomes
-+     * immediately available regardless of the host being up.
-+     */
-+    reg = readl(AST_IO(AST_BASE_LPC | 0x98));
-+    /* Clear "Enable UART1 reset source from LPC" */
-+    writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC | 0x98));
- }
- 
- #define SCU_PASSWORD	0x1688A8A8
+Is it the name in the datasheet?
+
+[...]
+>>> +     indio_dev->name = dev_name(&pdev->dev);
+>>
+>> This isn't good practice (cf.: https://lkml.org/lkml/2017/1/28/145 end
+>> of the mail in the probe function). Better name it aspeed-adc or even
+>> better to have a different name per compatible: ast2400-adc or ast2500-adc.
+> 
+> Ack.  Will use aspeed-adc to avoid parsing the compatible match and
+> stripping the 'aspeed,' prefix.
+> 
+
+You don't need to parse the compatible match. You could use the data
+void pointer in your struct of_device_id
+(http://lxr.free-electrons.com/source/include/linux/mod_devicetable.h#L234)
+like it's done here: https://lkml.org/lkml/2017/3/21/675
+(sun4i_gpadc_of_id).
+
+Note: please reply to all :)
+
+Quentin
+
 -- 
-1.9.1
+Quentin Schulz, Free Electrons
+Embedded Linux and Kernel engineering
+http://free-electrons.com
