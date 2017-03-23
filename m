@@ -1,34 +1,34 @@
 Return-Path: <clg@kaod.org>
-X-Greylist: delayed 585 seconds by postgrey-1.36 at bilbo;
- Thu, 23 Mar 2017 19:52:47 AEDT
-Received: from 8.mo177.mail-out.ovh.net (8.mo177.mail-out.ovh.net
- [46.105.61.98])
+X-Greylist: delayed 595 seconds by postgrey-1.36 at bilbo;
+ Thu, 23 Mar 2017 19:52:51 AEDT
+Received: from 3.mo177.mail-out.ovh.net (3.mo177.mail-out.ovh.net
+ [46.105.36.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vpgL75zL6zDq5g
- for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 19:52:47 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vpgLC5qqPzDq5g
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 19:52:51 +1100 (AEDT)
 Received: from player688.ha.ovh.net (b6.ovh.net [213.186.33.56])
- by mo177.mail-out.ovh.net (Postfix) with ESMTP id 382B140A04
- for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 09:42:56 +0100 (CET)
+ by mo177.mail-out.ovh.net (Postfix) with ESMTP id 56F0F40BC7
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 09:42:59 +0100 (CET)
 Received: from zorba.kaod.org.com (LFbn-1-10647-27.w90-89.abo.wanadoo.fr
  [90.89.233.27]) (Authenticated sender: clg@kaod.org)
- by player688.ha.ovh.net (Postfix) with ESMTPSA id 1D5F4200B0;
- Thu, 23 Mar 2017 09:42:53 +0100 (CET)
+ by player688.ha.ovh.net (Postfix) with ESMTPSA id 3A39F2007A;
+ Thu, 23 Mar 2017 09:42:56 +0100 (CET)
 From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
 To: openbmc@lists.ozlabs.org
 Cc: Joel Stanley <joel@jms.id.au>,
  =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-Subject: [PATCH linux dev-4.10 2/3] mtd: spi-nor: aspeed: fix physical base
- address of chip
-Date: Thu, 23 Mar 2017 09:42:36 +0100
-Message-Id: <1490258557-16803-3-git-send-email-clg@kaod.org>
+Subject: [PATCH linux dev-4.10 3/3] mtd: spi-nor: aspeed: configure chip
+ window on AHB bus
+Date: Thu, 23 Mar 2017 09:42:37 +0100
+Message-Id: <1490258557-16803-4-git-send-email-clg@kaod.org>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1490258557-16803-1-git-send-email-clg@kaod.org>
 References: <1490258557-16803-1-git-send-email-clg@kaod.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 9984480376188537602
+X-Ovh-Tracer-Id: 9985324800581143298
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
 X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelhedrjedvgddugedtucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
@@ -43,29 +43,189 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Mar 2017 08:52:48 -0000
+X-List-Received-Date: Thu, 23 Mar 2017 08:52:52 -0000
 
-The phys_base address is used to trigger DMAs on a chip and to address
-the correct CS, it should take into account the offset of the chip in
-the AHB bus window.
+This tries to configure the segment registers of each chip depending
+on the size of the flash device and depending on the previous segment
+settings, in order to have a contiguous window across multiple
+chip.
+
+Unfortunately, the AST2500 SPI controller has a bug and it is not
+possible to configure a full 128MB window for a chip of the same
+size. The window size needs to be restricted to 120MB. This issue only
+applies to CE0.
 
 Signed-off-by: Cédric Le Goater <clg@kaod.org>
 ---
- drivers/mtd/spi-nor/aspeed-smc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/mtd/spi-nor/aspeed-smc.c | 121 ++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 118 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspeed-smc.c
-index d5d8b2d6e06b..b3c8cfe29765 100644
+index b3c8cfe29765..9807ebb05bde 100644
 --- a/drivers/mtd/spi-nor/aspeed-smc.c
 +++ b/drivers/mtd/spi-nor/aspeed-smc.c
-@@ -693,7 +693,7 @@ static int aspeed_smc_chip_setup_init(struct aspeed_smc_chip *chip,
+@@ -104,6 +104,7 @@ struct aspeed_smc_chip {
+ 	struct aspeed_smc_controller *controller;
+ 	void __iomem *ctl;			/* control register */
+ 	void __iomem *ahb_base;			/* base of chip window */
++	u32 ahb_window_size;			/* chip window size */
+ 	unsigned long phys_base;		/* physical address of window */
+ 	u32 ctl_val[smc_max];			/* control settings */
+ 	enum aspeed_smc_flash_type type;	/* what type of flash */
+@@ -218,6 +219,10 @@ struct aspeed_smc_controller {
+ #define SEGMENT_ADDR_REG0		0x30
+ #define SEGMENT_ADDR_START(_r)		((((_r) >> 16) & 0xFF) << 23)
+ #define SEGMENT_ADDR_END(_r)		((((_r) >> 24) & 0xFF) << 23)
++#define SEGMENT_ADDR_VALUE(start, end)					\
++	(((((start) >> 23) & 0xFF) << 16) | ((((end) >> 23) & 0xFF) << 24))
++#define SEGMENT_ADDR_REG(ctrl, cs)	\
++	((controller)->regs + SEGMENT_ADDR_REG0 + (cs) * 4)
+ 
+ /* DMA Registers */
+ #define DMA_CONTROL_REG			0x80
+@@ -604,8 +609,7 @@ static void __iomem *aspeed_smc_chip_base(struct aspeed_smc_chip *chip,
+ 	u32 reg;
+ 
+ 	if (controller->info->nce > 1) {
+-		reg = readl(controller->regs + SEGMENT_ADDR_REG0 +
+-			    chip->cs * 4);
++		reg = readl(SEGMENT_ADDR_REG(controller, chip->cs));
+ 
+ 		if (SEGMENT_ADDR_START(reg) >= SEGMENT_ADDR_END(reg))
+ 			return NULL;
+@@ -616,6 +620,108 @@ static void __iomem *aspeed_smc_chip_base(struct aspeed_smc_chip *chip,
+ 	return controller->ahb_base + offset;
+ }
+ 
++static u32 chip_set_segment(struct aspeed_smc_chip *chip, u32 cs, u32 start,
++			    u32 size)
++{
++	struct aspeed_smc_controller *controller = chip->controller;
++	void __iomem *seg_reg;
++	u32 oldval, newval, val0, start0, end;
++
++	val0 = readl(SEGMENT_ADDR_REG(controller, 0));
++	start0 = SEGMENT_ADDR_START(val0);
++
++	seg_reg = SEGMENT_ADDR_REG(controller, cs);
++	oldval = readl(seg_reg);
++
++	/* If the chip size is not specified, use the default segment
++	 * size, but take into account the possible overlap with the
++	 * previous segment
++	 */
++	if (!size)
++		size = SEGMENT_ADDR_END(oldval) - start;
++
++	/* The segment cannot exceed the maximum window size of the
++	 * controller.
++	 */
++	if (start + size > start0 + controller->info->maxsize) {
++		size = start0 + controller->info->maxsize - start;
++		dev_warn(chip->nor.dev, "CE%d window resized to %dMB",
++			 cs, size >> 20);
++	}
++
++	end = start + size;
++	newval = SEGMENT_ADDR_VALUE(start, end);
++	writel(newval, seg_reg);
++
++	/* Restore default value if something goes wrong. */
++	if (newval != readl(seg_reg)) {
++		dev_err(chip->nor.dev, "CE%d window invalid", cs);
++		writel(oldval, seg_reg);
++		start = SEGMENT_ADDR_START(oldval);
++		end = SEGMENT_ADDR_END(oldval);
++		size = end - start;
++	}
++
++	dev_info(chip->nor.dev, "CE%d window [ 0x%.8x- 0x%.8x ] %dMB",
++		 cs, start, end, size >> 20);
++
++	return size;
++}
++
++/*
++ * This is expected to be called in increasing CE order
++ */
++static u32 aspeed_smc_chip_set_segment(struct aspeed_smc_chip *chip)
++{
++	struct aspeed_smc_controller *controller = chip->controller;
++	u32  val0, start0, start;
++	u32 size = chip->nor.mtd.size;
++
++	/* The AST2500 SPI controller has a bug when the CE0 chip size
++	 * exceeds 120MB.
++	 */
++	if (chip->cs == 0 && controller->info == &spi_2500_info &&
++	    size == (128 << 20)) {
++		size = 120 << 20;
++		dev_info(chip->nor.dev,
++			 "CE%d window resized to %dMB (AST2500 HW quirk)",
++			 chip->cs, size >> 20);
++	}
++
++	val0 = readl(SEGMENT_ADDR_REG(controller, 0));
++	start0 = SEGMENT_ADDR_START(val0);
++
++	/* As a start address for the current segment, use the default
++	 * start address if we are handling CE0 or use the previous
++	 * segment ending address
++	 */
++	if (chip->cs) {
++		u32 prev = readl(SEGMENT_ADDR_REG(controller, chip->cs - 1));
++
++		start = SEGMENT_ADDR_END(prev);
++	} else
++		start = start0;
++
++	size = chip_set_segment(chip, chip->cs, start, size);
++
++	/* Update chip base address on the AHB bus */
++	chip->ahb_base = controller->ahb_base + (start - start0);
++
++	if (size < chip->nor.mtd.size)
++		dev_warn(chip->nor.dev,
++			 "CE%d window too small for chip %dMB",
++			 chip->cs, (u32) chip->nor.mtd.size >> 20);
++
++	/* Make sure the next segment does not overlap with the
++	 * current one we just configured even if there is no
++	 * available chip. That could break access in Command Mode.
++	 */
++	if (chip->cs < controller->info->nce - 1)
++		chip_set_segment(chip, chip->cs + 1, start + size, 0);
++
++	return size;
++}
++
+ static void aspeed_smc_chip_enable_write(struct aspeed_smc_chip *chip)
+ {
+ 	struct aspeed_smc_controller *controller = chip->controller;
+@@ -689,7 +795,7 @@ static int aspeed_smc_chip_setup_init(struct aspeed_smc_chip *chip,
+ 	 */
+ 	chip->ahb_base = aspeed_smc_chip_base(chip, res);
+ 	if (!chip->ahb_base) {
+-		dev_warn(chip->nor.dev, "CE segment window closed.\n");
++		dev_warn(chip->nor.dev, "CE%d window closed", chip->cs);
  		return -EINVAL;
  	}
  
--	chip->phys_base = res->start;
-+	chip->phys_base = res->start + (chip->ahb_base - controller->ahb_base);
+@@ -738,6 +844,15 @@ static int aspeed_smc_chip_setup_finish(struct aspeed_smc_chip *chip)
+ 	if (chip->nor.addr_width == 4 && info->set_4b)
+ 		info->set_4b(chip);
  
++	/* This is for direct AHB access when using Command Mode. For
++	 * the AST2400 SPI controller which only handles one chip,
++	 * let's use the full window.
++	 */
++	if (controller->info->nce == 1)
++		chip->ahb_window_size = info->maxsize;
++	else
++		chip->ahb_window_size = aspeed_smc_chip_set_segment(chip);
++
  	/*
- 	 * Get value of the inherited control register. U-Boot usually
+ 	 * base mode has not been optimized yet. use it for writes.
+ 	 */
 -- 
 2.7.4
