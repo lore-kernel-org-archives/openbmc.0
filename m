@@ -1,25 +1,65 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (ozlabs.org [103.22.144.67])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vplpv3XgzzDq5g
- for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 23:14:31 +1100 (AEDT)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+Return-Path: <raltherr@google.com>
+Received: from mail-wm0-x22b.google.com (mail-wm0-x22b.google.com
+ [IPv6:2a00:1450:400c:c09::22b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by ozlabs.org (Postfix) with ESMTPSA id 3vplpv14rqz9s2x;
- Thu, 23 Mar 2017 23:14:31 +1100 (AEDT)
-To: openbmc@lists.ozlabs.org,
- Christopher Bostic <christopher.lee.bostic@gmail.com>
-From: Jeremy Kerr <jk@ozlabs.org>
-Subject: Upstream work for OpenFSI patches
-Message-ID: <05efd2cd-b928-96eb-433e-49ff451eaaf3@ozlabs.org>
-Date: Thu, 23 Mar 2017 20:14:30 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vpt1d0NkdzDq5g
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Mar 2017 03:54:12 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="R9U9D5s0"; 
+ dkim-atps=neutral
+Received: by mail-wm0-x22b.google.com with SMTP id u132so66682762wmg.0
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 09:54:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=rQqQmsV8ItI5knkFcWKCOQEDLC6ARD9mRvkHSzq+8w4=;
+ b=R9U9D5s0SSnnHSED3roj2XO/SssHR6nuvd0UuZ1cWLV3tdGdMJZFFuskhmUP4Evhln
+ wVXUySKQFJ5m4XDGcG1kmq+wQqoQ4aVkF3ha9CfiZAKju4v002zbUwICRIsk92E2kelK
+ rUwnu3480jLfn1s2mCioy83994WNIqP4SnT+INVUYgVlQaOJGKUAnWfGIgrNj3+J2zlA
+ 9eR2PHty3ZrSe8CNT9Ggr34U2C5pos6FU0F1wB1cHKUQcOK1+8gXse4VwfOcxXUP8zLf
+ HqpqEOHFb1FovfQ3o8VLtjG553BQq3Erv8rgxJoScThVMdi1mvz13O5ZHXYJL+B5vswG
+ 3BqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=rQqQmsV8ItI5knkFcWKCOQEDLC6ARD9mRvkHSzq+8w4=;
+ b=p9wmCHMFpm/UBd5tUDUuiJtTCeX3GVyrRfcfRxTnkG2sUlTVBeiDf3RhYiYYGC5LMF
+ g5Cv7/2lZ2oFMamiqmiUTbMQspzSXht24yVIDendZbFHX9i4fzeuzPGF+4PM00Wvj8K+
+ cMR6I3wV0tSuaX4Y+sGGyKM+O4Qg7foSXPPl0z3Jv0U4L/A5gFAoGMzwiwrBqv4oPLjj
+ xLYDsR2gDmCzuYKABXyQ8n4bG9WyJVBh4xKXKAe+UKcFP3DPGdGBocm7pQ30BANS4E+J
+ 7VftijD0z8877ymUOxUljrH09gIHLVfo4C9o1ECz3SmDvaf62p9rdesNTZrFiRwoT/vd
+ 6UPw==
+X-Gm-Message-State: AFeK/H2/k34RC6/0nlkjh1WM5/DlL1LFfC/ZZE9sn8HGfYksBQ/w+B53Odc1p4mI3AEhOs6A846zxRtiHBjqcjz2
+X-Received: by 10.28.199.132 with SMTP id x126mr3696399wmf.37.1490288048961;
+ Thu, 23 Mar 2017 09:54:08 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Received: by 10.28.169.8 with HTTP; Thu, 23 Mar 2017 09:54:08 -0700 (PDT)
+In-Reply-To: <CAPLgG=kVewvVzcrWMzK+XyNWLjiEs6nr_hykfC2bbdpeLsf4aw@mail.gmail.com>
+References: <20170321204828.31303-1-raltherr@google.com>
+ <20170321204828.31303-2-raltherr@google.com>
+ <alpine.DEB.2.20.1703212202090.26011@vps.pmeerw.net>
+ <CAPLgG=kVewvVzcrWMzK+XyNWLjiEs6nr_hykfC2bbdpeLsf4aw@mail.gmail.com>
+From: Rick Altherr <raltherr@google.com>
+Date: Thu, 23 Mar 2017 09:54:08 -0700
+Message-ID: <CAPLgG=k9Kznp=ZxNBiNUNvsXMiReDK98p+3RvBT-xi6WAA8-LA@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] iio: Aspeed AST2400/AST2500 ADC
+To: Peter Meerwald-Stadler <pmeerw@pmeerw.net>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ William Breathitt Gray <vilhelm.gray@gmail.com>,
+ Andreas Klinger <ak@it-klinger.de>, Rob Herring <robh@kernel.org>, 
+ linux-iio@vger.kernel.org, Hartmut Knaack <knaack.h@gmx.de>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Marek Vasut <marek.vasut+renesas@gmail.com>, 
+ Matt Ranostay <mranostay@gmail.com>, Lars-Peter Clausen <lars@metafoo.de>, 
+ Crestez Dan Leonard <leonard.crestez@intel.com>,
+ Akinobu Mita <akinobu.mita@gmail.com>, 
+ Fabrice Gasnier <fabrice.gasnier@st.com>, Jonathan Cameron <jic23@kernel.org>, 
+ Maxime Ripard <maxime.ripard@free-electrons.com>,
+ Jacopo Mondi <jacopo@jmondi.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -31,101 +71,412 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Mar 2017 12:14:31 -0000
+X-List-Received-Date: Thu, 23 Mar 2017 16:54:14 -0000
 
-Hi Chris & all,
+Restoring the list after an accidental direct reply.
 
-Over the last week or so, I've (re-)started our upstreaming efforts for
-the fsi patches, by addressing the reviews we've had so far, and
-settling some of the open items we've had that effect the future
-userspace ABI of the FSI code.
-
-I think the patches at a point where we're ready to resubmit upstream,
-so I've pushed a branch here:
-
-  https://github.com/jk-ozlabs/linux/commits/openbmc/fsi
-
-- this is currently based on the OpenBMC 4.10 tree, but will be easily
-applicable to vanilla upstream. I've kept the "DEBUG" patches at the top
-of the tree, but these are not intended to be upstreamed (unless someone
-convinces us otherwise!). This tree may be rebased as development
-continues, and I'll likely start a branch which is based on mainline.
-
-There are some fairly significant changes from our first submission,
-notably:
-
- - endianness: the _read() and _write() APIs are now all *bus endian*,
-   so will be the same on all platforms (the previous fsi patches
-   exposed as (BMC/FSP) CPU endian, which is variable).
-
-   This includes the sysfs raw file, so the byte ordering matches what's
-   transferred on the bus, regardless of CPU endianness:
-
-      # hexdump -n 4 -C fsi0/slave@00:00/raw
-      00000000  c0 01 0d 12                        |....|
-      00000004
-
-   This will likely mean that drivers and accesses to 'raw' from
-   userspace may need to convert to bus endian.
-
- - device tree: I've removed the "ibm," prefix for the fsi core and GPIO
-   master compatibility strings, as they're not describing IBM-specific
-   hardware. I've also fixed some errors with our proposed binding
-   specification.
-
- - device model: we now create separate struct devices for each FSI
-   master, which fits better with the Linux device model, and allows us
-   to add sysfs attributes that are implemented by the fsi core
-
- - sysfs: there are now sysfs facilities for break and term, and the raw
-   file supports reads and writes of arbitrary sizes.
-
- - GPIO master: I've split the xfer() logic out a little, so that the
-   response handling & DPOLL retry mechanism is more obvious
-
- - GPIO master: simplifications for message construction
-
- - GPIO master: fixes for some CRC calculations
-
- - GPIO master: we now issue TERM in response to DPOLL busy-loops
-
- - Error handling: rather than handle errors on (potentially) an entire
-   cascaded read or write, the error handling is now down on a per-slave
-   basis, where we try to reestablish communication in a more "gradual"
-   manner, rather than sending a break immediately.
-
-   (we may need to add a hook to percolate error recovery up to a
-   slave's master, but I haven't seen any need for that at present)
-
- - Hub master: this is now implemented as a fsi engine driver, as the
-   fsi_slave_{read,write}() functions are exported (and the port count
-   is available in the hMFSI configuration register)
-
-   This means we need fewer special-cases in the fsi core.
-
- - Tracepoints: I've added tracepoints for FSI core read & write, and
-   another set for low-level GPIO in/out operations.
-
-I've kept the original authorship attribution on each patch, but do let
-me know if anything seems amiss.
-
-I've tested on one-core (heavily) and two-core (lightly) p9 platforms,
-and all seems to look okay so far.
-
-There are a couple of pending items, but those shouldn't need to hold us
-up:
-
- - IRQ support needs more work, but there doesn't seem to be any
-   consumers of that so far
- - tests for unbind/rebind
- - updating MAINTAINERS
-
-So, please take a look at the series and let me know if there is
-anything that still needs doing (particularly fixes that have come in
-since the first series), and we can work out our plan for upstream
-progression.
-
-Cheers,
-
-
-Jeremy
+On Wed, Mar 22, 2017 at 1:30 PM, Rick Altherr <raltherr@google.com> wrote:
+> On Tue, Mar 21, 2017 at 2:14 PM, Peter Meerwald-Stadler
+> <pmeerw@pmeerw.net> wrote:
+>>
+>>> Aspeed AST2400/AST2500 BMC SoCs include a 16 channel, 10-bit ADC. Low
+>>> and high threshold interrupts are supported by the hardware but are not
+>>> currently implemented.
+>>
+>> comments below
+>> link to a datasheet would be nice
+>>
+>
+> No public datasheet is available.  I've tried.
+>
+>>> Signed-off-by: Rick Altherr <raltherr@google.com>
+>>> ---
+>>>
+>>> Changes in v2:
+>>> - Rewritten as an IIO device
+>>> - Renamed register macros to describe the register's purpose
+>>> - Replaced awkward reading of 16-bit data registers with readw()
+>>> - Added Kconfig dependency on COMPILE_TEST
+>>>
+>>>  drivers/iio/adc/Kconfig      |  10 ++
+>>>  drivers/iio/adc/Makefile     |   1 +
+>>>  drivers/iio/adc/aspeed_adc.c | 271 +++++++++++++++++++++++++++++++++++++++++++
+>>>  3 files changed, 282 insertions(+)
+>>>  create mode 100644 drivers/iio/adc/aspeed_adc.c
+>>>
+>>> diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+>>> index 2268a6fb9865..9672d799a3fb 100644
+>>> --- a/drivers/iio/adc/Kconfig
+>>> +++ b/drivers/iio/adc/Kconfig
+>>> @@ -130,6 +130,16 @@ config AD799X
+>>>         To compile this driver as a module, choose M here: the module will be
+>>>         called ad799x.
+>>>
+>>> +config ASPEED_ADC
+>>> +     tristate "Aspeed AST2400/AST2500 ADC"
+>>> +     depends on ARCH_ASPEED || COMPILE_TEST
+>>> +     help
+>>> +       If you say yes here you get support for the Aspeed AST2400/AST2500
+>>> +       ADC.
+>>> +
+>>> +       To compile this driver as a module, choose M here: the module will be
+>>> +       called aspeed_adc.
+>>> +
+>>>  config AT91_ADC
+>>>       tristate "Atmel AT91 ADC"
+>>>       depends on ARCH_AT91
+>>> diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
+>>> index 73dbe399f894..306f10ffca74 100644
+>>> --- a/drivers/iio/adc/Makefile
+>>> +++ b/drivers/iio/adc/Makefile
+>>> @@ -14,6 +14,7 @@ obj-$(CONFIG_AD7791) += ad7791.o
+>>>  obj-$(CONFIG_AD7793) += ad7793.o
+>>>  obj-$(CONFIG_AD7887) += ad7887.o
+>>>  obj-$(CONFIG_AD799X) += ad799x.o
+>>> +obj-$(CONFIG_ASPEED_ADC) += aspeed_adc.o
+>>>  obj-$(CONFIG_AT91_ADC) += at91_adc.o
+>>>  obj-$(CONFIG_AT91_SAMA5D2_ADC) += at91-sama5d2_adc.o
+>>>  obj-$(CONFIG_AXP288_ADC) += axp288_adc.o
+>>> diff --git a/drivers/iio/adc/aspeed_adc.c b/drivers/iio/adc/aspeed_adc.c
+>>> new file mode 100644
+>>> index 000000000000..9220909aefd4
+>>> --- /dev/null
+>>> +++ b/drivers/iio/adc/aspeed_adc.c
+>>> @@ -0,0 +1,271 @@
+>>> +/*
+>>> + * Aspeed AST2400/2500 ADC
+>>> + *
+>>> + * Copyright (C) 2017 Google, Inc.
+>>> + *
+>>> + * This program is free software; you can redistribute it and/or modify it
+>>> + * under the terms and conditions of the GNU General Public License,
+>>> + * version 2, as published by the Free Software Foundation.
+>>> + *
+>>> + */
+>>> +
+>>> +#include <asm/io.h>
+>>> +#include <linux/clk.h>
+>>> +#include <linux/clk-provider.h>
+>>> +#include <linux/err.h>
+>>> +#include <linux/errno.h>
+>>> +#include <linux/module.h>
+>>> +#include <linux/of_platform.h>
+>>> +#include <linux/platform_device.h>
+>>> +#include <linux/spinlock.h>
+>>> +#include <linux/types.h>
+>>> +
+>>> +#include <linux/iio/iio.h>
+>>> +#include <linux/iio/driver.h>
+>>> +
+>>> +#define ASPEED_ADC_NUM_CHANNELS                      16
+>>
+>> _NUM_CHANNELS is not used, remove
+>
+> Ack
+>
+>>
+>>> +#define ASPEED_ADC_REF_VOLTAGE                       2500 /* millivolts */
+>>
+>> should be used below
+>
+> Ack
+>
+>>
+>>> +#define ASPEED_ADC_RESOLUTION_BITS           10
+>>
+>> should be used below
+>
+> Ack
+>
+>>
+>>> +#define ASPEED_ADC_MIN_SAMP_RATE             10000
+>>> +#define ASPEED_ADC_MAX_SAMP_RATE             500000
+>>> +#define ASPEED_ADC_CLOCKS_PER_SAMPLE         12
+>>> +
+>>> +#define ASPEED_ADC_REG_ENGINE_CONTROL                0x00
+>>> +#define ASPEED_ADC_REG_INTERRUPT_CONTROL     0x04
+>>> +#define ASPEED_ADC_REG_VGA_DETECT_CONTROL    0x08
+>>> +#define ASPEED_ADC_REG_CLOCK_CONTROL         0x0C
+>>> +#define ASPEED_ADC_REG_MAX                   0xC0
+>>> +
+>>> +#define ASPEED_ADC_OPERATION_MODE_POWER_DOWN (0x0 << 1)
+>>> +#define ASPEED_ADC_OPERATION_MODE_STANDBY    (0x1 << 1)
+>>> +#define ASPEED_ADC_OPERATION_MODE_NORMAL     (0x7 << 1)
+>>> +
+>>> +#define ASPEED_ADC_ENGINE_ENABLE     BIT(0)
+>>> +
+>>> +struct aspeed_adc_data {
+>>> +     struct device   *dev;
+>>> +     void __iomem    *base;
+>>> +
+>>> +     spinlock_t      clk_lock;
+>>> +     struct clk_hw   *clk_prescaler;
+>>> +     struct clk_hw   *clk_scaler;
+>>> +};
+>>> +
+>>> +#define ASPEED_ADC_CHAN(_idx, _addr) {                               \
+>>> +     .type = IIO_VOLTAGE,                                    \
+>>> +     .indexed = 1,                                           \
+>>> +     .channel = (_idx),                                      \
+>>> +     .address = (_addr),                                     \
+>>> +     .info_mask_separate = BIT(IIO_CHAN_INFO_RAW),           \
+>>> +     .info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE) |  \
+>>> +                             BIT(IIO_CHAN_INFO_SAMP_FREQ),   \
+>>> +}
+>>> +
+>>> +static const struct iio_chan_spec aspeed_adc_iio_channels[] = {
+>>> +     ASPEED_ADC_CHAN(0, 0x10),
+>>> +     ASPEED_ADC_CHAN(1, 0x12),
+>>> +     ASPEED_ADC_CHAN(2, 0x14),
+>>> +     ASPEED_ADC_CHAN(3, 0x16),
+>>> +     ASPEED_ADC_CHAN(4, 0x18),
+>>> +     ASPEED_ADC_CHAN(5, 0x1A),
+>>> +     ASPEED_ADC_CHAN(6, 0x1C),
+>>> +     ASPEED_ADC_CHAN(7, 0x1E),
+>>> +     ASPEED_ADC_CHAN(8, 0x20),
+>>> +     ASPEED_ADC_CHAN(9, 0x22),
+>>> +     ASPEED_ADC_CHAN(10, 0x24),
+>>> +     ASPEED_ADC_CHAN(11, 0x26),
+>>> +     ASPEED_ADC_CHAN(12, 0x28),
+>>> +     ASPEED_ADC_CHAN(13, 0x2A),
+>>> +     ASPEED_ADC_CHAN(14, 0x2C),
+>>> +     ASPEED_ADC_CHAN(15, 0x2E),
+>>> +};
+>>> +
+>>> +static int aspeed_adc_read_raw(struct iio_dev *indio_dev,
+>>> +                            struct iio_chan_spec const *chan,
+>>> +                            int *val, int *val2, long mask)
+>>> +{
+>>> +     struct aspeed_adc_data *data = iio_priv(indio_dev);
+>>> +
+>>> +     switch (mask) {
+>>> +     case IIO_CHAN_INFO_RAW:
+>>> +             *val = readw(data->base + chan->address);
+>>> +             return IIO_VAL_INT;
+>>> +
+>>> +     case IIO_CHAN_INFO_SCALE:
+>>> +             *val = 2500; // mV
+>>
+>> REF_VOLTAGE?
+>
+> Ack
+>
+>>
+>>> +             *val2 = 10;
+>>> +             return IIO_VAL_FRACTIONAL_LOG2;
+>>> +
+>>> +     case IIO_CHAN_INFO_SAMP_FREQ:
+>>> +             *val = clk_get_rate(data->clk_scaler->clk) /
+>>> +                             ASPEED_ADC_CLOCKS_PER_SAMPLE;
+>>> +             return IIO_VAL_INT;
+>>> +
+>>> +     default:
+>>> +             return -EINVAL;
+>>> +     }
+>>> +}
+>>> +
+>>> +static int aspeed_adc_write_raw(struct iio_dev *indio_dev,
+>>> +                             struct iio_chan_spec const *chan,
+>>> +                             int val, int val2, long mask)
+>>> +{
+>>> +     struct aspeed_adc_data *data = iio_priv(indio_dev);
+>>> +
+>>> +     switch (mask) {
+>>> +     case IIO_CHAN_INFO_SAMP_FREQ:
+>>> +             if (val < ASPEED_ADC_MIN_SAMP_RATE ||
+>>> +                 val > ASPEED_ADC_MAX_SAMP_RATE)
+>>> +                     return -EINVAL;
+>>> +
+>>> +             clk_set_rate(data->clk_scaler->clk,
+>>> +                             val * ASPEED_ADC_CLOCKS_PER_SAMPLE);
+>>> +             return 0;
+>>> +
+>>> +     default:
+>>> +             return -EINVAL;
+>>> +     }
+>>> +}
+>>> +
+>>> +static int aspeed_adc_reg_access(struct iio_dev *indio_dev,
+>>> +                              unsigned int reg, unsigned int writeval,
+>>> +                              unsigned int *readval)
+>>> +{
+>>> +     struct aspeed_adc_data *data = iio_priv(indio_dev);
+>>> +
+>>> +     if (!readval || reg % 4 || reg > ASPEED_ADC_REG_MAX)
+>>> +             return -EINVAL;
+>>> +
+>>> +     *readval = readl(data->base + reg);
+>>> +     return 0;
+>>> +}
+>>> +
+>>> +static const struct iio_info aspeed_adc_iio_info = {
+>>> +     .driver_module = THIS_MODULE,
+>>> +     .read_raw = &aspeed_adc_read_raw,
+>>
+>> without & (matter of taste)
+>
+> Ack
+>
+>>
+>>> +     .write_raw = &aspeed_adc_write_raw,
+>>> +     .debugfs_reg_access = &aspeed_adc_reg_access,
+>>> +};
+>>> +
+>>> +static int aspeed_adc_probe(struct platform_device *pdev)
+>>> +{
+>>> +     struct iio_dev *indio_dev;
+>>> +     struct aspeed_adc_data *data;
+>>> +     struct resource *res;
+>>> +     const char *clk_parent_name;
+>>> +     int ret;
+>>> +     u32 adc_engine_control_reg_val;
+>>> +
+>>> +     indio_dev = devm_iio_device_alloc(&pdev->dev, sizeof(*data));
+>>> +     if (!indio_dev) {
+>>> +             dev_err(&pdev->dev, "Failed allocating iio device\n");
+>>> +             return -ENOMEM;
+>>> +     }
+>>> +
+>>> +     data = iio_priv(indio_dev);
+>>> +
+>>> +     res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+>>> +     data->base = devm_ioremap_resource(&pdev->dev, res);
+>>> +     if (IS_ERR(data->base)) {
+>>> +             dev_err(&pdev->dev, "Failed allocating device resources\n");
+>>> +             ret = PTR_ERR(data->base);
+>>> +             goto resource_error;
+>>
+>> just return here?
+>
+> Ack
+>
+>>
+>>> +     }
+>>> +
+>>> +     /* Register ADC clock prescaler with source specified by device tree. */
+>>> +     spin_lock_init(&data->clk_lock);
+>>> +     clk_parent_name = of_clk_get_parent_name(pdev->dev.of_node, 0);
+>>> +
+>>> +     data->clk_prescaler = clk_hw_register_divider(
+>>> +                             &pdev->dev, "prescaler", clk_parent_name, 0,
+>>> +                             data->base + ASPEED_ADC_REG_CLOCK_CONTROL,
+>>> +                             17, 15, 0, &data->clk_lock);
+>>> +     if (IS_ERR(data->clk_prescaler)) {
+>>> +             dev_err(&pdev->dev, "Failed allocating prescaler clock\n");
+>>> +             ret = PTR_ERR(data->clk_prescaler);
+>>> +             goto prescaler_error;
+>>
+>> just return here?
+>
+> Ack
+>
+>>
+>>> +     }
+>>> +
+>>> +     /*
+>>> +      * Register ADC clock scaler downstream from the prescaler. Allow rate
+>>> +      * setting to adjust the prescaler as well.
+>>> +      */
+>>> +     data->clk_scaler = clk_hw_register_divider(
+>>> +                             &pdev->dev, "scaler", "prescaler",
+>>> +                             CLK_SET_RATE_PARENT,
+>>> +                             data->base + ASPEED_ADC_REG_CLOCK_CONTROL,
+>>> +                             0, 10, 0, &data->clk_lock);
+>>> +     if (IS_ERR(data->clk_scaler)) {
+>>> +             dev_err(&pdev->dev, "Failed allocating scaler clock\n");
+>>> +             ret = PTR_ERR(data->clk_scaler);
+>>> +             goto scaler_error;
+>>> +     }
+>>> +
+>>> +     /* Start all channels in normal mode. */
+>>> +     clk_prepare_enable(data->clk_scaler->clk);
+>>> +     adc_engine_control_reg_val = GENMASK(31, 16) |
+>>> +             ASPEED_ADC_OPERATION_MODE_NORMAL | ASPEED_ADC_ENGINE_ENABLE;
+>>> +     writel(adc_engine_control_reg_val,
+>>> +             data->base + ASPEED_ADC_REG_ENGINE_CONTROL);
+>>> +
+>>> +     indio_dev->name = dev_name(&pdev->dev);
+>>> +     indio_dev->dev.parent = &pdev->dev;
+>>> +     indio_dev->info = &aspeed_adc_iio_info;
+>>> +     indio_dev->modes = INDIO_DIRECT_MODE;
+>>> +     indio_dev->channels = aspeed_adc_iio_channels;
+>>> +     indio_dev->num_channels = ARRAY_SIZE(aspeed_adc_iio_channels);
+>>> +
+>>> +     ret = iio_device_register(indio_dev);
+>>> +     if (ret) {
+>>> +             dev_err(&pdev->dev, "Could't register the device.\n");
+>>
+>> Couldn't
+>
+> Ack
+>
+>>
+>>> +             goto iio_register_error;
+>>> +     }
+>>> +
+>>> +     return 0;
+>>> +
+>>> +iio_register_error:
+>>> +     writel(0x0, data->base + ASPEED_ADC_REG_ENGINE_CONTROL);
+>>> +     clk_disable_unprepare(data->clk_scaler->clk);
+>>> +     clk_hw_unregister_divider(data->clk_scaler);
+>>> +
+>>> +scaler_error:
+>>> +     clk_hw_unregister_divider(data->clk_prescaler);
+>>> +
+>>> +prescaler_error:
+>>> +resource_error:
+>>> +     return ret;
+>>> +}
+>>> +
+>>> +static int aspeed_adc_remove(struct platform_device *pdev)
+>>> +{
+>>> +     struct iio_dev *indio_dev = platform_get_drvdata(pdev);
+>>> +     struct aspeed_adc_data *data = iio_priv(indio_dev);
+>>> +
+>>> +     iio_device_unregister(indio_dev);
+>>
+>> writel(0x0, data->base + ASPEED_ADC_REG_ENGINE_CONTROL);
+>> I guess this power off the device?
+>
+> Yes.  You're right that it makes sense to do that during removal as well.
+>
+>>
+>> the MODE #defines are now used (powerdown, normal, etc.)
+>
+> NORMAL is used in probe().  I'll use powerdown here.
+>
+>>
+>>> +     clk_disable_unprepare(data->clk_scaler->clk);
+>>> +     clk_hw_unregister_divider(data->clk_scaler);
+>>> +     clk_hw_unregister_divider(data->clk_prescaler);
+>>> +
+>>> +     return 0;
+>>> +}
+>>> +
+>>> +const struct of_device_id aspeed_adc_matches[] = {
+>>> +     { .compatible = "aspeed,ast2400-adc" },
+>>> +     { .compatible = "aspeed,ast2500-adc" },
+>>> +};
+>>> +MODULE_DEVICE_TABLE(of, aspeed_adc_matches);
+>>> +
+>>> +static struct platform_driver aspeed_adc_driver = {
+>>> +     .probe = aspeed_adc_probe,
+>>> +     .remove = aspeed_adc_remove,
+>>> +     .driver = {
+>>> +             .name = KBUILD_MODNAME,
+>>> +             .of_match_table = aspeed_adc_matches,
+>>> +     }
+>>> +};
+>>> +
+>>> +module_platform_driver(aspeed_adc_driver);
+>>> +
+>>> +MODULE_AUTHOR("Rick Altherr <raltherr@google.com>");
+>>> +MODULE_DESCRIPTION("Aspeed AST2400/2500 ADC Driver");
+>>> +MODULE_LICENSE("GPL");
+>>>
+>>
+>> --
+>>
+>> Peter Meerwald-Stadler
+>> Mobile: +43 664 24 44 418
