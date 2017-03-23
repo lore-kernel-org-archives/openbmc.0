@@ -1,68 +1,62 @@
-Return-Path: <stewart@linux.vnet.ibm.com>
+Return-Path: <cyrilbur@gmail.com>
 Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
  [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vpWXL53QGzDq5g
- for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 14:01:06 +1100 (AEDT)
-Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vpYZD2SVyzDr2S
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 15:32:52 +1100 (AEDT)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v2N2wrfi067608
- for <openbmc@lists.ozlabs.org>; Wed, 22 Mar 2017 23:01:01 -0400
-Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
- by mx0a-001b2d01.pphosted.com with ESMTP id 29bv3hj4ca-1
+ v2N4SXbP030755
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 00:32:38 -0400
+Received: from e23smtp06.au.ibm.com (e23smtp06.au.ibm.com [202.81.31.148])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 29bt5cdh68-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 22 Mar 2017 23:01:01 -0400
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 00:32:37 -0400
 Received: from localhost
- by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e23smtp06.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
- Wed, 22 Mar 2017 21:01:00 -0600
-Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
- by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Wed, 22 Mar 2017 21:00:57 -0600
-Received: from b03ledav005.gho.boulder.ibm.com
- (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v2N30uSh8061374; Wed, 22 Mar 2017 20:00:56 -0700
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C8668BE03A;
- Wed, 22 Mar 2017 21:00:56 -0600 (MDT)
-Received: from birb.localdomain (unknown [9.83.1.34])
- by b03ledav005.gho.boulder.ibm.com (Postfix) with SMTP id 85B7FBE03E;
- Wed, 22 Mar 2017 21:00:55 -0600 (MDT)
-Received: by birb.localdomain (Postfix, from userid 1000)
- id 50B43228D8D6; Thu, 23 Mar 2017 14:00:50 +1100 (AEDT)
-From: Stewart Smith <stewart@linux.vnet.ibm.com>
-To: Chris Austen <austenc@us.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: possible hackathon
-In-Reply-To: <OF3D2CC421.3C763A88-ON862580EB.006DE8D6-862580EB.0078D20E@notes.na.collabserv.com>
-References: <OF3D2CC421.3C763A88-ON862580EB.006DE8D6-862580EB.0078D20E@notes.na.collabserv.com>
-User-Agent: Notmuch/0.21+24~gbceb651 (http://notmuchmail.org) Emacs/25.1.1
- (x86_64-redhat-linux-gnu)
-Date: Thu, 23 Mar 2017 14:00:50 +1100
-MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-AS-GCONF: 00
-x-cbid: 17032303-0020-0000-0000-00000B9FBB99
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006832; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000206; SDB=6.00837588; UDB=6.00411784; IPR=6.00615355; 
- BA=6.00005232; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014768; XFM=3.00000013;
- UTC=2017-03-23 03:00:59
+ for <openbmc@lists.ozlabs.org> from <cyrilbur@gmail.com>;
+ Thu, 23 Mar 2017 14:32:34 +1000
+Received: from d23relay10.au.ibm.com (202.81.31.229)
+ by e23smtp06.au.ibm.com (202.81.31.212) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Thu, 23 Mar 2017 14:32:33 +1000
+Received: from d23av04.au.ibm.com (d23av04.au.ibm.com [9.190.235.139])
+ by d23relay10.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v2N4WORS27394266
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 15:32:32 +1100
+Received: from d23av04.au.ibm.com (localhost [127.0.0.1])
+ by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ v2N4VxA1010658
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 15:32:00 +1100
+Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
+ by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ v2N4VwBW010343; Thu, 23 Mar 2017 15:31:59 +1100
+Received: from camb691.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
+ (using TLSv1.2 with cipher DHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 835FFA01A5;
+ Thu, 23 Mar 2017 15:31:34 +1100 (AEDT)
+From: Cyril Bur <cyrilbur@gmail.com>
+To: greg@kroah.com
+Cc: openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, joel@jms.id.au,
+ benh@kernel.crashing.org, sfr@canb.auug.org.au, linux-next@vger.kernel.org
+Subject: [PATCH] drivers/misc: Aspeed LPC control fix format string warning
+Date: Thu, 23 Mar 2017 15:29:05 +1100
+X-Mailer: git-send-email 2.12.1
+X-TM-AS-MML: disable
+x-cbid: 17032304-0040-0000-0000-00000300783B
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17032303-0021-0000-0000-00005B1474E2
-Message-Id: <87y3vwu271.fsf@linux.vnet.ibm.com>
+x-cbparentid: 17032304-0041-0000-0000-00000C7746BC
+Message-Id: <20170323042905.10354-1-cyrilbur@gmail.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-03-23_01:, , signatures=0
+ definitions=2017-03-23_03:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
+ spamscore=0 suspectscore=1
  malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
  adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
- definitions=main-1703230027
+ definitions=main-1703230041
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -74,36 +68,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Mar 2017 03:01:07 -0000
+X-List-Received-Date: Thu, 23 Mar 2017 04:32:52 -0000
 
-Chris Austen <austenc@us.ibm.com> writes:
-> I'm not saying there is, but if there was a possibility for a hackathon are
-> there any ideas out there that would be of interest?  Some things off the
-> top of my head would be...
->
-> Updated simulation model
-> remote python scripts to collect thermal data from the host
-> Redfish dbus discovery
-> bmc swarm... talk dbus over multiple BMCs
-> System XML builder
-> OpenStack Ironic pluggin
+resource_size_t is a derivative of phys_addr_t and should also be
+printed with %pap:
+    drivers/misc/aspeed-lpc-ctrl.c:232:17: warning: format '%x' expects
+    argument of type 'unsigned int', but argument 4 has type
+    'resource_size_t {aka long long unsigned int}' [-Wformat=] dev_info(dev,
+    "Loaded at %pap (0x%08x)\n",
 
-op-test-framework integration.
+Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
+Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
+---
+ drivers/misc/aspeed-lpc-ctrl.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-I have the most basic of basic bits of OpenBMC support:
-https://github.com/open-power/op-test-framework/blob/master/common/OpTestOpenBMC.py
-
-but it lacks support for literally everything except getting access to
-host console.
-
-The reality is, if we're going to ship OpenBMC based OpenPOWER machines,
-we need to be able to test them with our automated tests, which means
-either the current REST API has to be consumed, or something like
-RedFish needs to happen (and be consumed).
-
-It could be helpful to have the OPAL test teams work alongside OpenBMC
-dev on this and a good view into the world of living with OpenBMC?
-
+diff --git a/drivers/misc/aspeed-lpc-ctrl.c b/drivers/misc/aspeed-lpc-ctrl.c
+index c654651a7b6d..2f6bb2244be5 100644
+--- a/drivers/misc/aspeed-lpc-ctrl.c
++++ b/drivers/misc/aspeed-lpc-ctrl.c
+@@ -229,8 +229,8 @@ static int aspeed_lpc_ctrl_probe(struct platform_device *pdev)
+ 	if (rc)
+ 		dev_err(dev, "Unable to register device\n");
+ 	else
+-		dev_info(dev, "Loaded at %pap (0x%08x)\n",
+-			&lpc_ctrl->mem_base, lpc_ctrl->mem_size);
++		dev_info(dev, "Loaded at %pap (%pap)\n",
++			&lpc_ctrl->mem_base, &lpc_ctrl->mem_size);
+ 
+ 	return rc;
+ }
 -- 
-Stewart Smith
-OPAL Architect, IBM.
+2.12.1
