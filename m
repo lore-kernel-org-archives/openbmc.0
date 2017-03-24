@@ -1,69 +1,53 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x241.google.com (mail-yw0-x241.google.com
+ [IPv6:2607:f8b0:4002:c05::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vq7Hp0hyXzDq7d
- for <openbmc@lists.ozlabs.org>; Fri, 24 Mar 2017 13:52:21 +1100 (AEDT)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v2O2mTqQ089152
- for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 22:52:19 -0400
-Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
- by mx0a-001b2d01.pphosted.com with ESMTP id 29cp84twmf-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 22:52:19 -0400
-Received: from localhost
- by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Thu, 23 Mar 2017 22:52:18 -0400
-Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
- by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 23 Mar 2017 22:52:16 -0400
-Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
- [9.57.199.109])
- by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v2O2qFqe61800486; Fri, 24 Mar 2017 02:52:15 GMT
-Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 00BC4112056;
- Thu, 23 Mar 2017 22:52:14 -0400 (EDT)
-Received: from Christophers-MacBook-Pro.local (unknown [9.83.3.195])
- by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id E2828112047;
- Thu, 23 Mar 2017 22:52:11 -0400 (EDT)
-Subject: Re: Upstream work for OpenFSI patches
-To: Jeremy Kerr <jk@ozlabs.org>, openbmc@lists.ozlabs.org,
- Christopher Bostic <christopher.lee.bostic@gmail.com>
-References: <05efd2cd-b928-96eb-433e-49ff451eaaf3@ozlabs.org>
- <00baa1b7-d784-b73a-d396-e132bea3057b@linux.vnet.ibm.com>
- <7b2e265a-dba1-5dc3-47f8-d17383bbeca3@ozlabs.org>
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Thu, 23 Mar 2017 21:52:10 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
- Gecko/20100101 Thunderbird/45.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vq7QY2RmQzDqBv
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Mar 2017 13:58:13 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="fcmavUs8"; 
+ dkim-atps=neutral
+Received: by mail-yw0-x241.google.com with SMTP id p77so246517ywg.0
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 19:58:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=iTB+iZjKBlPrznzGI9awFInxyM8zL3NTSGlbDIUCFZI=;
+ b=fcmavUs8uXB0RfJABdml4Rb4e2KAwGDVKlcamH+daM8LoAgCx0Sp8AU4KxZSYvFLBF
+ dIpl6L+DFrnUx8DaU/PhBBX6DpH+ctTwNJUuyvt2+TcCg4XybSg0j8/XuY3J7/CgfbZ+
+ MMIk4YOfW2/LyXKiwB8ehImIv/TS2Ti0QWDpvgPTUWrcd81H/1yHkFCakFhEM17hTSWR
+ mlf2wOQndnDnU1URiMYMZqUxYfeuoEuEpUnY+lAOSa9TtNKveEXQwm40GNWSKYrniVyf
+ T3RGiRlFgWBmTtIgfiaS76cKdXs+WiblCTLGLZyGkCW5wORwduw+54r2jaHaQExdVT4M
+ aTLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=iTB+iZjKBlPrznzGI9awFInxyM8zL3NTSGlbDIUCFZI=;
+ b=VZbeG2ElbsPUd6xyiCkwiamchL8RClBp6M8PMhKhi1bIcm5kvNXIwaj/FPC5V4KhI0
+ /yynO+heIZuam+toT1+juGlLh4hdQu3ZHvClS/UlZf/HT7MmtUZ/mUc83fUCxCOLNb46
+ Z90RaosoCAwMbxU4ZmqoX34qu8Sb+ssGCdpscvMUQBa4V1mrGmkDxHHiO4Dgt88hgT4o
+ lDXZN5YMqWkT9NMYB633KMUxv2v/V2EbIBbcJAaU+P9n51qx13s8RUWUN1+PVrhbIde9
+ pJngOYuiVFLtIcxFeQgoDpkf4n7AkgfspTqqbpYfnAhptZUn3BqHClkqWarXhaxDi6Np
+ 6/PQ==
+X-Gm-Message-State: AFeK/H1/Nx+uwMkg7Lc5SG2h8s+W4yiQgccjzoWfPhJ5JvbSRxOLJo9qHHMvpHTaGwzsb8bNbh72iIQKaaqbbA==
+X-Received: by 10.37.165.67 with SMTP id h61mr4138739ybi.153.1490324289501;
+ Thu, 23 Mar 2017 19:58:09 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <7b2e265a-dba1-5dc3-47f8-d17383bbeca3@ozlabs.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 17032402-0052-0000-0000-000001B6B101
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006838; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000206; SDB=6.00838065; UDB=6.00412070; IPR=6.00615828; 
- BA=6.00005234; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014786; XFM=3.00000013;
- UTC=2017-03-24 02:52:17
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17032402-0053-0000-0000-00004F63E76D
-Message-Id: <f248f96b-6c63-7651-34ba-33f90f9a5ae0@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-03-24_02:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
- definitions=main-1703240024
+Sender: joel.stan@gmail.com
+Received: by 10.37.37.197 with HTTP; Thu, 23 Mar 2017 19:57:49 -0700 (PDT)
+In-Reply-To: <20170324011322.31837-1-andrew@aj.id.au>
+References: <20170324011322.31837-1-andrew@aj.id.au>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 24 Mar 2017 13:27:49 +1030
+X-Google-Sender-Auth: BDhXjTUXt7fiAvFvUmyvRBGN1Z4
+Message-ID: <CACPK8XdsV27QNNp+Sf=j8RvBAyYecspu3-wjmpTmouBum6SLWQ@mail.gmail.com>
+Subject: Re: [PATCH] ARM: aspeed: Disable UCD90160 in the Witherspoon
+ devicetree
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -75,32 +59,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 24 Mar 2017 02:52:22 -0000
+X-List-Received-Date: Fri, 24 Mar 2017 02:58:14 -0000
 
-
-
-On 3/23/17 9:39 PM, Jeremy Kerr wrote:
-> Hi Chris,
+On Fri, Mar 24, 2017 at 11:43 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> This is a work-around for [1]. Binding the UCD9000 driver to the device (and
+> possibly the sequence of unbinding, poking the UCD90160 via i2cset, then
+> re-binding the UCD9000 driver) appears to have some negative effects.
+> Instrumenting the transactions with reads of the PMBus status tree lead to
+> the following observations under "normal" operation.
 >
-> One other thing:
+> [1] https://github.com/openbmc/openbmc/issues/832
 >
->>> I've kept the original authorship attribution on each patch, but do let
->>> me know if anything seems amiss.
-> You have commits using both of your email addresses. Would you like me
-> to change those to just one? If so, which would you prefer? And what
-> address should I use for the MAINTAINERS entry?
-Hi Jeremy,
+> Reduce our problems by communicating with the UCD90160 as little as possible.
+> With the associated userspace change, the only communication will be applying
+> the VCS work-around.
+>
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 
-I'll be using my linux.vnet.ibm.com for everything going forward so if 
-you could update to that for maintainers and authorship it would be 
-appreciated.
+Applied to dev-4.7 with the above commit message, and a Tested-by from Uma.
 
-Thanks,
-Chris
+Cheers,
 
+Joel
+
+> ---
+>  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 1 +
+>  1 file changed, 1 insertion(+)
 >
-> Cheers,
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> index 4d26d4702a34..69d5897dbfde 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> @@ -253,6 +253,7 @@
+>         };
 >
->
-> Jeremy
+>         ucd90160@64 {
+> +               status = "disabled";
+>                 compatible = "ti,ucd90160";
+>                 reg = <0x64>;
+>         };
+> --
+> 2.9.3
 >
