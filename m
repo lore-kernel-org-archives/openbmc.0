@@ -1,64 +1,56 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <maxims@google.com>
+Received: from mail-io0-x234.google.com (mail-io0-x234.google.com
+ [IPv6:2607:f8b0:4001:c06::234])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vq0Tb5HP8zDqb0
- for <openbmc@lists.ozlabs.org>; Fri, 24 Mar 2017 08:45:23 +1100 (AEDT)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v2NLhkL8015302
- for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 17:45:13 -0400
-Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
- by mx0a-001b2d01.pphosted.com with ESMTP id 29btm73nd5-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 17:45:13 -0400
-Received: from localhost
- by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 23 Mar 2017 15:45:12 -0600
-Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
- by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 23 Mar 2017 15:44:57 -0600
-Received: from b03ledav004.gho.boulder.ibm.com
- (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v2NLivxi9634216; Thu, 23 Mar 2017 14:44:57 -0700
-Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id DE36478043;
- Thu, 23 Mar 2017 15:44:56 -0600 (MDT)
-Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP id A5E027803F;
- Thu, 23 Mar 2017 15:44:56 -0600 (MDT)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [RFC linux dev-4.7 7/7] dts: aspeed: witherspoon: Add an I2C master
- as FSI device child
-Date: Thu, 23 Mar 2017 16:44:39 -0500
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1490305479-17065-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1490305479-17065-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-TM-AS-GCONF: 00
-x-cbid: 17032321-0020-0000-0000-00000BA1483E
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006837; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000206; SDB=6.00837963; UDB=6.00412008; IPR=6.00615726; 
- BA=6.00005234; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014782; XFM=3.00000013;
- UTC=2017-03-23 21:45:11
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17032321-0021-0000-0000-00005B1AE5A1
-Message-Id: <1490305479-17065-8-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-03-23_19:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
- definitions=main-1703230184
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vq4Q26jHkzDq7c
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Mar 2017 11:42:34 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="lkVMvE2G"; 
+ dkim-atps=neutral
+Received: by mail-io0-x234.google.com with SMTP id b140so8225558iof.1
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 17:42:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=t9VpfU46iRrd2RpEwP5HFPiFe43IEh8vnhDCJV1WMXo=;
+ b=lkVMvE2GnZhOKEm9wWM0cxYXqHajjQaJcVhgdxQbuTl/Po+Gc9f/lzxzVaC2wOIQKR
+ lk+lTIG/RY/86HXKb1XHk1IcnhhF1K9kdTWQdBvL4nqDQ8CBR9guuJgDZxE1Lw6mvJ10
+ eeFJgeu4XuFOIQhcffmXfDXC+zOjDQRdmUf+BffONPWKwlv9qF909dHaBVHRYc5JbqUP
+ 7yMOTwL53o8Y1F1vSMqdx+S8UCRR94AnGAwvVZlzylzsvvR/FByz3kRduGZ9lyLSLjJa
+ x3lcQqSAKdUhsnaP0/D1wyOyiAA1P+qZbgfXVGYPGaqouBnXIAX8IMjjbAM+FVwQtkyX
+ Bsmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=t9VpfU46iRrd2RpEwP5HFPiFe43IEh8vnhDCJV1WMXo=;
+ b=F16uExBmwmkNCYSzxpGAAehx944fRxLUDl4QpGc2K3KRwQhxD/EsjxqsyKZGa9ne5Y
+ VLiQuvD+dyDKAnK954Bo/XCOTrn+j0kObe12ZXVKWmYX/7R6nIw8aVTzRehPywgONd/n
+ 1Vd9QbcIQn8NiFe99LtHaMZLTJq4Crrca0m0rILNZ2txRYjI/sOcxCBAoPBZX+ysqzXr
+ goQ/86mwX3y1EhaR7w0eVCZ3iH2qQ8xFtBN/txnrmM3tTIw/zGSe/jpzAGmSjDi7UwMp
+ OGxe0XR7YhNqWwrnpyxSNVWk5xfWOWPmHqsR6yHRkK0EZa+efLFMk7rbCe+oyIP2pGwS
+ JgmQ==
+X-Gm-Message-State: AFeK/H3bpPGh5xfJAMdriH1R8UXsNxqNRaGw8+z6bkxi5+kP8HDM5l3c/jZmm3qg0X3EHd02CW9VFArdNYl7wPRS
+X-Received: by 10.107.200.139 with SMTP id y133mr6148403iof.147.1490316152719; 
+ Thu, 23 Mar 2017 17:42:32 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.107.135.225 with HTTP; Thu, 23 Mar 2017 17:42:32 -0700 (PDT)
+In-Reply-To: <CAPnjgZ2E0QdRPN+CJrCgfXWA0bkAZLeOLST2BeWDQkcGUM-C+Q@mail.gmail.com>
+References: <20170316213624.140344-1-maxims@google.com>
+ <20170316213624.140344-17-maxims@google.com>
+ <CANr=Z=bMy9v0G-DAHB4LJZnHB1W3rqubY8-EK5Mn4W3dqQOk3g@mail.gmail.com>
+ <CAFR_W8rqa+WeBkafcFu-hv1Oohvj4DfO4YSw5S0XXNpOAg8dKA@mail.gmail.com>
+ <CAPnjgZ2E0QdRPN+CJrCgfXWA0bkAZLeOLST2BeWDQkcGUM-C+Q@mail.gmail.com>
+From: Maxim Sloyko <maxims@google.com>
+Date: Thu, 23 Mar 2017 17:42:32 -0700
+Message-ID: <CAFR_W8pJXYGHFyiAJJ-YnaFZgyO36XO9M-_BmNSMDcW_h=kouA@mail.gmail.com>
+Subject: Re: [U-Boot] [PATCH 16/17] aspeed: Add AST2500/AST2400 compatible NIC
+ Driver
+To: Simon Glass <sjg@chromium.org>
+Cc: Joe Hershberger <joe.hershberger@gmail.com>, u-boot <u-boot@lists.denx.de>,
+ Joe Hershberger <joe.hershberger@ni.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary=94eb2c0bfd54e335a4054b6f446e
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -70,155 +62,136 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Mar 2017 21:45:24 -0000
+X-List-Received-Date: Fri, 24 Mar 2017 00:42:35 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
+--94eb2c0bfd54e335a4054b6f446e
+Content-Type: text/plain; charset=UTF-8
 
-Also add port devices under the I2C master.
+On Wed, Mar 22, 2017 at 6:06 AM, Simon Glass <sjg@chromium.org> wrote:
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 128 +++++++++++++++++++++++
- 1 file changed, 128 insertions(+)
+> Hi Maxim,
+>
+> On 21 March 2017 at 17:44, Maxim Sloyko <maxims@google.com> wrote:
+> > Hi Joe,
+> >
+> > Please see responses inline, simply ACK'ed comments will be addressed
+> > in the next version.
+> >
+> > On Tue, Mar 21, 2017 at 12:32 PM, Joe Hershberger
+> > <joe.hershberger@gmail.com> wrote:
+> >> On Thu, Mar 16, 2017 at 4:36 PM, Maxim Sloyko <maxims@google.com>
+> wrote:
+> >>> The device that Aspeed uses is basically Faraday FTGMAC100, but with
+> >>> some differences here and there. Since I don't have access to a
+> properly
+> >>> implemented FTGMAC100 though, I can't really test it and so I don't
+> >>> feel comfortable claiming compatibility, even though I reused a lot of
+> >>> FTGMAC100 driver code.
+> >>
+> >> I think it would be better to attempt to integrate this driver with
+> >> the FTGMAC driver and ask others on the list who have that HW to test
+> >> your changes to ensure no regressions. I prefer we have fewer drivers
+> >> to maintain.
+> >
+> > One concern: this driver also performs its clock configuration, which
+> > I believe is very specific to the SoC, so to have that compatibility
+> > clock configuration needs to be externalized somehow. I don't know
+> > what is the best way to do it.
+>
+> Generally the clock is defined by a DT property in the node, so this
+> should work out OK.
+>
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-index 6772b53..698f2e7 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -63,6 +63,134 @@
- 			compatible = "fixed-clock";
- 			clock-frequency = <8333333>;
- 		};
-+
-+		i2cm@1800 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			compatible = "ibm,power9-i2cm";
-+			reg = <0x00001800>;
-+
-+			i2c-bus@0 {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				compatible = "ibm,power9-i2c-port";
-+				reg = <0>;
-+			};
-+
-+			i2c-bus@1 {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				compatible = "ibm,power9-i2c-port";
-+				reg = <1>;
-+			};
-+
-+			i2c-bus@2 {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				compatible = "ibm,power9-i2c-port";
-+				reg = <2>;
-+			};
-+
-+			i2c-bus@3 {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				compatible = "ibm,power9-i2c-port";
-+				reg = <3>;
-+			};
-+
-+			i2c-bus@4 {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				compatible = "ibm,power9-i2c-port";
-+				reg = <4>;
-+			};
-+
-+			i2c-bus@5 {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				compatible = "ibm,power9-i2c-port";
-+				reg = <5>;
-+			};
-+
-+			i2c-bus@6 {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				compatible = "ibm,power9-i2c-port";
-+				reg = <6>;
-+			};
-+
-+			i2c-bus@7 {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				compatible = "ibm,power9-i2c-port";
-+				reg = <7>;
-+			};
-+
-+			i2c-bus@8 {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				compatible = "ibm,power9-i2c-port";
-+				reg = <8>;
-+			};
-+
-+			i2c-bus@9 {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				compatible = "ibm,power9-i2c-port";
-+				reg = <9>;
-+			};
-+
-+			i2c-bus@10 {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				compatible = "ibm,power9-i2c-port";
-+				reg = <10>;
-+			};
-+
-+			i2c-bus@11 {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				compatible = "ibm,power9-i2c-port";
-+				reg = <11>;
-+			};
-+
-+			i2c-bus@12 {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				compatible = "ibm,power9-i2c-port";
-+				reg = <12>;
-+			};
-+
-+			i2c-bus@13 {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				compatible = "ibm,power9-i2c-port";
-+				reg = <13>;
-+			};
-+
-+			i2c-bus@14 {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				compatible = "ibm,power9-i2c-port";
-+				reg = <14>;
-+			};
-+		};
- 	};
- };
- 
+Well, this device on this SoC needs two different clocks configured, one
+for all devices and one device specific. The device speed is also hardware
+strapped, so it reads the unrelated register to figure out which rate to
+enable. Not to mention, it's still unclear how it's going to be done in
+Linux, so somewhere else in this review Tom actually suggested to go non-DT
+way with this.
+
+Anyway, I'm going to drop this driver from this series and work this out
+separately, just to keep things moving, because it looks like it raises the
+largest number of concerns.
+
+
+>
+> Regards,
+> Simon
+>
+
+
+
 -- 
-1.8.3.1
+*M*axim *S*loyko
+
+--94eb2c0bfd54e335a4054b6f446e
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><br><div class=3D"gmail_extra"><br><div class=3D"gmail_quo=
+te">On Wed, Mar 22, 2017 at 6:06 AM, Simon Glass <span dir=3D"ltr">&lt;<a h=
+ref=3D"mailto:sjg@chromium.org" target=3D"_blank">sjg@chromium.org</a>&gt;<=
+/span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8=
+ex;border-left:1px #ccc solid;padding-left:1ex">Hi Maxim,<br>
+<span class=3D""><br>
+On 21 March 2017 at 17:44, Maxim Sloyko &lt;<a href=3D"mailto:maxims@google=
+.com">maxims@google.com</a>&gt; wrote:<br>
+&gt; Hi Joe,<br>
+&gt;<br>
+&gt; Please see responses inline, simply ACK&#39;ed comments will be addres=
+sed<br>
+&gt; in the next version.<br>
+&gt;<br>
+&gt; On Tue, Mar 21, 2017 at 12:32 PM, Joe Hershberger<br>
+&gt; &lt;<a href=3D"mailto:joe.hershberger@gmail.com">joe.hershberger@gmail=
+.com</a>&gt; wrote:<br>
+&gt;&gt; On Thu, Mar 16, 2017 at 4:36 PM, Maxim Sloyko &lt;<a href=3D"mailt=
+o:maxims@google.com">maxims@google.com</a>&gt; wrote:<br>
+&gt;&gt;&gt; The device that Aspeed uses is basically Faraday FTGMAC100, bu=
+t with<br>
+&gt;&gt;&gt; some differences here and there. Since I don&#39;t have access=
+ to a properly<br>
+&gt;&gt;&gt; implemented FTGMAC100 though, I can&#39;t really test it and s=
+o I don&#39;t<br>
+&gt;&gt;&gt; feel comfortable claiming compatibility, even though I reused =
+a lot of<br>
+&gt;&gt;&gt; FTGMAC100 driver code.<br>
+&gt;&gt;<br>
+&gt;&gt; I think it would be better to attempt to integrate this driver wit=
+h<br>
+&gt;&gt; the FTGMAC driver and ask others on the list who have that HW to t=
+est<br>
+&gt;&gt; your changes to ensure no regressions. I prefer we have fewer driv=
+ers<br>
+&gt;&gt; to maintain.<br>
+&gt;<br>
+&gt; One concern: this driver also performs its clock configuration, which<=
+br>
+&gt; I believe is very specific to the SoC, so to have that compatibility<b=
+r>
+&gt; clock configuration needs to be externalized somehow. I don&#39;t know=
+<br>
+&gt; what is the best way to do it.<br>
+<br>
+</span>Generally the clock is defined by a DT property in the node, so this=
+<br>
+should work out OK.<br></blockquote><div><br></div><div>Well, this device o=
+n this SoC needs two different clocks configured, one for all devices and o=
+ne device specific. The device speed is also hardware strapped, so it reads=
+ the unrelated register to figure out which rate to enable. Not to mention,=
+ it&#39;s still unclear how it&#39;s going to be done in Linux, so somewher=
+e else in this review Tom actually suggested to go non-DT way with this.</d=
+iv><div><br></div><div>Anyway, I&#39;m going to drop this driver from this =
+series and work this out separately, just to keep things moving, because it=
+ looks like it raises the largest number of concerns.</div><div>=C2=A0</div=
+><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1=
+px #ccc solid;padding-left:1ex">
+<br>
+Regards,<br>
+Simon<br>
+</blockquote></div><br><br clear=3D"all"><div><br></div>-- <br><div class=
+=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div><b>M</b>axim <=
+b>S</b>loyko</div></div>
+</div></div>
+
+--94eb2c0bfd54e335a4054b6f446e--
