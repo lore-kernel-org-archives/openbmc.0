@@ -1,48 +1,50 @@
 Return-Path: <xow@google.com>
-Received: from mail-qk0-x22b.google.com (mail-qk0-x22b.google.com
- [IPv6:2607:f8b0:400d:c09::22b])
+Received: from mail-qt0-x22a.google.com (mail-qt0-x22a.google.com
+ [IPv6:2607:f8b0:400d:c0d::22a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vqZJH631mzDqdX
- for <openbmc@lists.ozlabs.org>; Sat, 25 Mar 2017 07:09:19 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vqbKS5zQtzDqgK
+ for <openbmc@lists.ozlabs.org>; Sat, 25 Mar 2017 07:55:24 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="qS/m4EPz"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="g/Bc2usn"; 
  dkim-atps=neutral
-Received: by mail-qk0-x22b.google.com with SMTP id p22so586127qka.3
- for <openbmc@lists.ozlabs.org>; Fri, 24 Mar 2017 13:09:18 -0700 (PDT)
+Received: by mail-qt0-x22a.google.com with SMTP id i34so1506060qtc.0
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Mar 2017 13:55:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=4AntDfA4FPIJn2aERBA0lYu7K1SHooObAI2FMqxQmHo=;
- b=qS/m4EPzrLbUlQgWcKoFe2BvcFlYJVkA6bAOsikx8nsQ7kwGoGc5ws3z8jgGqXa4vs
- qrXF6XmDTO2+hPqyyRKj92Nd5/vUyL3Zf3KMLfJOFOCC4AX9FAFYV78y++xUrFjiK7Vv
- HSUykSTax3+i0lMMBrO4AywF2GAbLE9xvFdiUlwGHkvMJhNnk0dHV6gLyGZiPSOExsNv
- rBkBaHbSMNuCeJcs8VVlqVmCDz+UXWAgU3wYAbvh6PeuF4kFMyqK9Wo/N8sXAT/xUKeO
- oYqVfO9F4jK0IAkY8RgNaMxwbM2COF5mDUNRXNYjBhgH1CfEU31e1qFAl+Yeu5zLv2R1
- tdZg==
+ :cc; bh=eqbgNZkjaqzkTYsk5VefJpljBcUlyMHpH7LB1fB3kGM=;
+ b=g/Bc2usnLSnPVJdY3ysMuIQ6/Q/D0M5MlK0xVdkOoENB9/8xRMvMFvTG6cBRffN3lw
+ i1PpA2VVHvPM2vxXeKfZkwuvPGkBD0+xfO9tr3TusSQtxPr8kc8am1omwPrSOwBS6tO0
+ 3dKVar95vFm5PQGSyMNUe5ArWruBBo/jV1OAmkZlHjqd15WW3IiR3iygr+d7UDetBJYd
+ OZtRG/1NB5cMJBFvKGW4tdH2sq6vCH3bbKQNCTcEZq5Fks9duHA9NGbjN2WSeliaGs0v
+ e1daAAnM4JgcxfaAtXTFb8WE61PLPc5+pBBkM/pYOFRsfo8x9Xdt/LLkxWmY9qLCtrEL
+ pLYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=4AntDfA4FPIJn2aERBA0lYu7K1SHooObAI2FMqxQmHo=;
- b=JOPwAjaPscqgeeNelbgZ1/irQSYj864O/bDM9hJxCIOYz6LlYDiqo5fCBrGUnvvkfF
- UOlMylKtyF+BPCLmmM28iX4ROEZKx86Z3YTpq4zsAdNs9fayEvmBMPfZZYZaIv8zBifV
- ZdqTANYNPYUPJOWJph418Yt+lNzm8pYXp37QUAJGKjCjQOcmZr9P5HWmk48rRllyn/CQ
- d729lriHCMSRLUe5AeGwlApxXyI0wbeAmwnpdqtaMo7t46Igic4yGen5MUYCuzBCIKzB
- SOauiawLq8/F7dec9QpmRNfyY/HBCg+D/FdUVcex75q1dKQTcMsst1y3051rSaM7BBsA
- Uolg==
-X-Gm-Message-State: AFeK/H0smtc9wLUC1pWUINFW+VlvuusduTQAqcfuVdlc1onDGFgFDXdWmq8T4IB+z70pozoNvTTkVI1a9MT6EWZ7
-X-Received: by 10.55.212.193 with SMTP id s62mr2901755qks.254.1490386156418;
- Fri, 24 Mar 2017 13:09:16 -0700 (PDT)
+ bh=eqbgNZkjaqzkTYsk5VefJpljBcUlyMHpH7LB1fB3kGM=;
+ b=oVUDeO1xkpRyq+tk2U2XxWLRPiS60fQMUHnRVZI3/OMoNYKC0ndGwsKOiMY/v0PSSR
+ wfA4nl82Wui+dgm91FGstVr0UWY+BB9KIq702Owk2Q4AJA9UUbgRwwvgGo5LNL7g/Hcr
+ L6rEuos4RfMsydId8KzdMMCx3FhIZLvegaqHN0FwFkEQlSbca2lFPz8kHP4TLZjNFG+1
+ NeT1t4QjfVpbH7+dKIVopYTdEVKZ0a1VaVsroULj3W6ToAxy426v70k7gN1Yfy0Zv9F8
+ hE1QYWehAN13P2f5jEWXkX8QQq2maHJzcB6Pno7zRZBv+AAkmzmIgbHA9E2ybH+/EDn8
+ ct0Q==
+X-Gm-Message-State: AFeK/H2gTs/uO1zhwFzouz7wbbJCFrLLcJtpJPWeT7l0aPitFUnu7qS4kQoprKLYxH0oO3JV5dygU3oSYY4lMWFY
+X-Received: by 10.200.3.230 with SMTP id z38mr10427200qtg.181.1490388921231;
+ Fri, 24 Mar 2017 13:55:21 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.140.17.56 with HTTP; Fri, 24 Mar 2017 13:09:15 -0700 (PDT)
-In-Reply-To: <20170323011926.176272-1-peterh@google.com>
-References: <20170323011926.176272-1-peterh@google.com>
+Received: by 10.140.17.56 with HTTP; Fri, 24 Mar 2017 13:55:20 -0700 (PDT)
+In-Reply-To: <1490321135.3847.6.camel@aj.id.au>
+References: <20170324011322.31837-1-andrew@aj.id.au>
+ <1490321135.3847.6.camel@aj.id.au>
 From: Xo Wang <xow@google.com>
-Date: Fri, 24 Mar 2017 13:09:15 -0700
-Message-ID: <CAPH-5w6apyUNVAVPqCXmPF_sBGSd_+=Y=kSHusXm8KJhx_7cCg@mail.gmail.com>
-Subject: Re: [PATCH] ARM: dts: aspeed: zaius: Enable 12V Delta Power Brick.
-To: Peter Hanson <peterh@google.com>
-Cc: Joel Stanley <joel@jms.id.au>, OpenBMC <openbmc@lists.ozlabs.org>
+Date: Fri, 24 Mar 2017 13:55:20 -0700
+Message-ID: <CAPH-5w7Ac9tw0+Q8XvLspENjPuMczewKOT9dMeGLYs1nB2ZVWw@mail.gmail.com>
+Subject: Re: [PATCH] ARM: aspeed: Disable UCD90160 in the Witherspoon
+ devicetree
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -55,35 +57,93 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 24 Mar 2017 20:09:20 -0000
+X-List-Received-Date: Fri, 24 Mar 2017 20:55:25 -0000
 
-On Wed, Mar 22, 2017 at 6:19 PM, Peter Hanson <peterh@google.com> wrote:
-> Signed-off-by: Peter Hanson <peterh@google.com>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> index 3bd70ed810af..dfd0dd7c16e4 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> @@ -269,7 +269,13 @@
->         /* Master selector PCA9541A @70h (other master: CPU0)
->          *   LM5066I PMBUS @10h
->          */
-> -       /* 12V SMPS Q54SH12050NNDH @61h */
-> +
-> +       /* 12V Quarter Brick DC/DC Converter Q54SJ12050 @61h */
-> +       power-brick@61 {
-> +               compatible = "delta,dps800";
-> +               reg = <0x61>;
-> +       };
-> +
->         /* CPU0 VR ISL68137 0.7V, 0.96V PMBUS @64h */
->         /* CPU0 VR ISL68137 1.2V CH03 PMBUS @40h */
->         /* CPU0 VR ISL68137 0.8V PMBUS @60h */
-> --
-> 2.12.1.500.gab5fba24ee-goog
+On Thu, Mar 23, 2017 at 7:05 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> Xo: Adding you in case you've seen any issues with Zaius that may
+> benefit from a similar work-around in the short term.
 >
 
-Reviewed-by: Xo Wang <xow@google.com>
+Thanks for the copy. I haven't seen the unsupported command errors
+from the UCD90160 on Zaius. I suspect it's because we perform less
+i2c-get/-set on our UCD, since it is already programmed to treat the
+UCD rails' control pins as output GPIOs.
+
+Do those errors you see always come after a UCD9000 driver bind operation?
+
+> The associated userspace changes for Witherspoon are here:
+>
+> https://gerrit.openbmc-project.xyz/#/q/topic:unbound-ucd+status:open
+>
+> Andrew
+>
+> On Fri, 2017-03-24 at 11:43 +1030, Andrew Jeffery wrote:
+>> This is a work-around for [1]. Binding the UCD9000 driver to the device (and
+>> possibly the sequence of unbinding, poking the UCD90160 via i2cset, then
+>> re-binding the UCD9000 driver) appears to have some negative effects.
+>> Instrumenting the transactions with reads of the PMBus status tree lead to
+>> the following observations under "normal" operation.
+>>
+>> [1] https://github.com/openbmc/openbmc/issues/832
+>>
+>> UCD9000/PMBus core sending unsupported commands:
+>>
+>>          Jan 24 06:42:50 witherspoon kernel: ucd9000 11-0064: Device ID UCD90160|2.3.4.0000|110603
+>>          Jan 24 06:42:50 witherspoon kernel: i2c i2c-11: Status byte indicates error: 0x3
+>>          Jan 24 06:42:50 witherspoon kernel: i2c i2c-11: Unknown error
+>>          Jan 24 06:42:50 witherspoon kernel: i2c i2c-11: CML status: 0x80
+>>          Jan 24 06:42:50 witherspoon kernel: i2c i2c-11: Invalid Or Unsupported Command Received
+>>          Jan 24 06:42:50 witherspoon kernel: i2c i2c-11: Transfer failed: -5, status was 0x3
+>>          Jan 24 06:42:50 witherspoon kernel: i2c i2c-11: Aborting retries after 1 attempts, returning error -5
+>>
+>> Reading the status bytes off the UCD90160 gives -EBADMSG:
+>>
+>>          Jan 24 06:43:21 witherspoon kernel: i2c i2c-11: Error reading PMBUS_STATUS_BYTE: -74
+>>          ...
+>>          Jan 24 06:43:56 witherspoon kernel: i2c i2c-11: Error reading PMBUS_STATUS_CML: -74
+>>
+>> "Other comms fault" errors:
+>>
+>>          Jan 24 06:43:56 witherspoon kernel: i2c i2c-11: Status byte indicates error: 0x3
+>>          Jan 24 06:43:56 witherspoon kernel: i2c i2c-11: Unknown error
+>>          Jan 24 06:43:56 witherspoon kernel: i2c i2c-11: CML status: 0x82
+>>          Jan 24 06:43:56 witherspoon kernel: i2c i2c-11: Other comms fault
+>>          Jan 24 06:43:56 witherspoon kernel: i2c i2c-11: Invalid Or Unsupported Command Received
+>>          Jan 24 06:43:56 witherspoon kernel: i2c i2c-11: Transfer failed: -5, status was 0x3
+>>          Jan 24 06:43:56 witherspoon kernel: i2c i2c-11: Retrying transfer (attempt 1)
+>>          Jan 24 06:43:57 witherspoon kernel: i2c i2c-11: Status byte indicates error: 0x3
+>>          Jan 24 06:43:57 witherspoon kernel: i2c i2c-11: Unknown error
+>>          Jan 24 06:43:57 witherspoon kernel: i2c i2c-11: CML status: 0x2
+>>          Jan 24 06:43:57 witherspoon kernel: i2c i2c-11: Other comms fault
+>>          Jan 24 06:43:57 witherspoon kernel: i2c i2c-11: Retrying transfer (attempt 1)
+>>          Jan 24 06:43:59 witherspoon kernel: i2c i2c-11: Status byte indicates error: 0x3
+>>          Jan 24 06:43:59 witherspoon kernel: i2c i2c-11: Unknown error
+>>          Jan 24 06:43:59 witherspoon kernel: i2c i2c-11: CML status: 0x80
+>>          Jan 24 06:43:59 witherspoon kernel: i2c i2c-11: Invalid Or Unsupported Command Received
+>>          Jan 24 06:43:59 witherspoon kernel: i2c i2c-11: Transfer failed: -5, status was 0x3
+>>          Jan 24 06:43:59 witherspoon kernel: i2c i2c-11: Aborting retries after 1 attempts, returning error -5
+>>
+>> Reduce our problems by communicating with the UCD90160 as little as possible.
+>> With the associated userspace change, the only communication will be applying
+>> the VCS work-around.
+>>
+>> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+>> ---
+>>  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 1 +
+>>  1 file changed, 1 insertion(+)
+>>
+>> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+>> index 4d26d4702a34..69d5897dbfde 100644
+>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+>> @@ -253,6 +253,7 @@
+>> >     };
+>>
+>> >     ucd90160@64 {
+>> > +           status = "disabled";
+>> >             compatible = "ti,ucd90160";
+>> >             reg = <0x64>;
+>> >     };
+
+cheers
+xo
