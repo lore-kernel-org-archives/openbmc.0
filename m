@@ -1,58 +1,51 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x243.google.com (mail-yw0-x243.google.com
- [IPv6:2607:f8b0:4002:c05::243])
+Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
+ [IPv6:2607:f8b0:4002:c05::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vq8wj4gPYzDq7d
- for <openbmc@lists.ozlabs.org>; Fri, 24 Mar 2017 15:05:56 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vq97v3Mm0zDq7d
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Mar 2017 15:15:38 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="rf/fAlDS"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="CwAzh6uu"; 
  dkim-atps=neutral
-Received: by mail-yw0-x243.google.com with SMTP id d191so347146ywe.1
- for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 21:05:56 -0700 (PDT)
+Received: by mail-yw0-x244.google.com with SMTP id i203so354550ywc.3
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 21:15:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=qOT32RyBLLJb+HhyAf29DXqKLGXVz7CNEpXT4fxfiVI=;
- b=rf/fAlDSuLKxnZSNZFdZzPVZ8VmySoGuu6qdlqKkZPawjNuKDXkdggHcpkxbbfSm5y
- hWWzJLjD4+Tjw1uNP2nZ8Y84rMMZUNLBbCsJkPY7yi4cWEuvCUTjV+55ImwNEqL3fhx1
- qB3iPhtSu/hgZaandgQRCuuagtK3w1tiqpCOElPJOcSWVEESY8Th1J+/8IYHdJibKCQ4
- LhbBGBnVlLCsGv0C8RCYHzWRImqh10kELmxz76Pa8MK5KexELYOa5beX6cXS9mDznNDL
- vS6KxwyRvQf0Z3xHC+tcGUZuScuwI9et17ZJS/OVoZ41vSvvsYKk6DhCeu0AN/DjZUTe
- mAxg==
+ bh=xMycUHDuaau/vmphYvYMZh40/5L+HeS0wnPm2i0jLuI=;
+ b=CwAzh6uulJBpVhrBoJFePUwIYJx4S7dB6Ldd6N0ZmnNJuQ03nEdprrHTn/+ygTs12/
+ iZkGm/Xc9KyaksmKNyFw8bhb2Zx1h2of3ogCvnMfrX+gP0KeB8qZrxtW5KddjGknbsFK
+ Em7EhZ7pL20w83Ceuz9XCaJsBZZGh9UZywtJe90jR3yPR22TTbOTFdHVXDbVcx+iPdEd
+ /122PD7eUqqT1Wy9yv7Dv69Aw5RfMU8PsLnG3F3GnD2VkZ4kDC5pHk4T+5zMY/iz++r7
+ bP9Zxa/J9H0cVKABjU2teQwKif/DHcXK/0Knz6L517KsHbeRB0i1eRnW/XgNcTJ+1xSW
+ svSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=qOT32RyBLLJb+HhyAf29DXqKLGXVz7CNEpXT4fxfiVI=;
- b=Hedh55Vl4o5P8j0FyKOMzFugqI9ffuid2bWTQI4BPdR0OBXE5xgr5tsK/19ZvbIkcP
- CAOzTXzgdqGzd5pcByG2w2Wl7ykJgzVYW9mrUdTpQCSFYCmrEmm67hPsJp3YbzcX+STg
- BXjxgVnjmozIwcf+94MSy/dOqkkowTqxmKy6SweKub9jvCQkzZMFbkxymwFCNB3yZGT2
- hHVXLZd1sfBLYnA/npIuMHxWzd3butWRnLsBHw5wBgs+wtCjhBbUtDybYgsvwaUt4j1W
- 1T/b8I+zuKCXqXqT35gNZq73qcNLHkr1+rg27zDQZEm1l5/5Xn6XSCxBf32MK9+GWyYq
- T4dg==
-X-Gm-Message-State: AFeK/H0e8iCXFOk4KiLVHplv32v1o7LupUtO2HiiBIMR8+ZlTlK3OTBhWg2uO6Ie/r/gm8WUh3ogMrR4rzdIYQ==
-X-Received: by 10.129.91.86 with SMTP id p83mr4318958ywb.50.1490328354507;
- Thu, 23 Mar 2017 21:05:54 -0700 (PDT)
+ bh=xMycUHDuaau/vmphYvYMZh40/5L+HeS0wnPm2i0jLuI=;
+ b=HS3qTccUpurVwQVhPKecLtQAo54SfTkd2Rm7rkOaDytQC91QqGZrXcHmfNG/VehKB7
+ 0C05DFRr/d+hJHwYgHhnM8nAqV09kYMZUfBvJoRokPiJczrzJ5kVg2aDyDQEePT1KMKG
+ aoT4LqrnlgXtHlq+G1Yzq+j1rKGq0iUzTN9kSsDn54p3iFBb40+Hqrny56R5MpTGilSq
+ Z/7xpmuIU62gUVEAEcPvC1EeNRF6HKY1gf4PAr/Hm0GALFmWcYenxamvOIh9Pl+ok6DM
+ pPQpFSRgVk99NL3N9owX2T3VrWQbY4K9mr2Knp87C2I4DAWUP2Ag3tyXxL4h3hFwtsi2
+ gjxA==
+X-Gm-Message-State: AFeK/H2zZgw5HVLe9LUHGsCQyJIaVff/nNZZ213CleutI4n7w7ULYyEkK9FZADPRuNOvkxCFPY9GCXJaDL3/AA==
+X-Received: by 10.13.194.70 with SMTP id e67mr4425826ywd.10.1490328936439;
+ Thu, 23 Mar 2017 21:15:36 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.37.197 with HTTP; Thu, 23 Mar 2017 21:05:34 -0700 (PDT)
-In-Reply-To: <20170323184136.7349-1-raltherr@google.com>
-References: <20170323184136.7349-1-raltherr@google.com>
+Received: by 10.37.37.197 with HTTP; Thu, 23 Mar 2017 21:15:16 -0700 (PDT)
+In-Reply-To: <1490251369-6481-1-git-send-email-mine260309@gmail.com>
+References: <1490251369-6481-1-git-send-email-mine260309@gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 24 Mar 2017 14:35:34 +1030
-X-Google-Sender-Auth: 1QfGmKVI5Q7VytqqEh7w1WrGXuk
-Message-ID: <CACPK8XfCH0jLDncU4ZtxV_Xxe9k=9y-gf4OvZc5opmNNKdTiCQ@mail.gmail.com>
-Subject: Re: [PATCH v4 1/2] Documentation: dt-bindings: Document bindings for
- Aspeed ADC
-To: Rick Altherr <raltherr@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- devicetree@vger.kernel.org, 
- linux-iio@vger.kernel.org, Hartmut Knaack <knaack.h@gmx.de>, 
- Rob Herring <robh+dt@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>, 
- Mark Rutland <mark.rutland@arm.com>, Jonathan Cameron <jic23@kernel.org>, 
- Peter Meerwald-Stadler <pmeerw@pmeerw.net>
+Date: Fri, 24 Mar 2017 14:45:16 +1030
+X-Google-Sender-Auth: oJg0ANNeaVGVRfJ17ex1iIaYoYA
+Message-ID: <CACPK8Xdr=8JwQ8GCi1e8sidEz7oBfO_HytDfWB6LOwMCqRsKPg@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7 1/2] ARM: dts: aspeed: romulus: Add UART1
+To: Lei YU <mine260309@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -65,61 +58,50 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 24 Mar 2017 04:05:58 -0000
+X-List-Received-Date: Fri, 24 Mar 2017 04:15:40 -0000
 
-On Fri, Mar 24, 2017 at 5:11 AM, Rick Altherr <raltherr@google.com> wrote:
-> Signed-off-by: Rick Altherr <raltherr@google.com>
-> ---
+On Thu, Mar 23, 2017 at 5:12 PM, Lei YU <mine260309@gmail.com> wrote:
+> Romulus has a RS-232 connection on the back of chassis, add UART1 to use
+> this connection.
 >
-> Changes in v4: None
-> Changes in v3:
-> - Consistently write hex contstants with lowercase letters
-> - Drop model numbers from description as same IP is used in every generation
->
-> Changes in v2:
-> - Rewritten as an IIO ADC device
->
->  .../devicetree/bindings/iio/adc/aspeed_adc.txt       | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/adc/aspeed_adc.txt
->
-> diff --git a/Documentation/devicetree/bindings/iio/adc/aspeed_adc.txt b/Documentation/devicetree/bindings/iio/adc/aspeed_adc.txt
-> new file mode 100644
-> index 000000000000..674e133b7cd7
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/aspeed_adc.txt
-> @@ -0,0 +1,20 @@
-> +Aspeed ADC
-> +
-> +This device is a 10-bit converter for 16 voltage channels.  All inputs are
-> +single ended.
+> Signed-off-by: Lei YU <mine260309@gmail.com>
 
-You could mention that the vref is a fixed depending on the SoC generation.
-
-Otherwise, lgtm.
-
-Acked-by: Joel Stanley <joel@jms.id.au>
+Applied to dev-4.7.
 
 Cheers,
 
 Joel
 
+> ---
+>  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
+>
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+> index 2266c85..65be964 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+> @@ -73,6 +73,21 @@
+>         status = "okay";
+>  };
+>
+> +&uart1 {
+> +       /* Rear RS-232 connector */
+> +       status = "okay";
 > +
-> +Required properties:
-> +- compatible: Should be "aspeed,ast2400-adc" or "aspeed,ast2500-adc"
-> +- reg: memory window mapping address and length
-> +- clocks: Input clock used to derive the sample clock. Expected to be the
-> +          SoC's APB clock.
-> +- #io-channel-cells: Must be set to <1> to indicate channels are selected
-> +                     by index.
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&pinctrl_txd1_default
+> +                       &pinctrl_rxd1_default
+> +                       &pinctrl_nrts1_default
+> +                       &pinctrl_ndtr1_default
+> +                       &pinctrl_ndsr1_default
+> +                       &pinctrl_ncts1_default
+> +                       &pinctrl_ndcd1_default
+> +                       &pinctrl_nri1_default>;
+> +};
 > +
-> +Example:
-> +       adc@1e6e9000 {
-> +               compatible = "aspeed,ast2400-adc";
-> +               reg = <0x1e6e9000 0xb0>;
-> +               clocks = <&clk_apb>;
-> +               #io-channel-cells = <1>;
-> +       };
+>  &uart5 {
+>         status = "okay";
+>  };
 > --
-> 2.12.1.500.gab5fba24ee-goog
+> 1.9.1
 >
