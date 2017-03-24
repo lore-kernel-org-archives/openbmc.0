@@ -1,50 +1,58 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
- [IPv6:2607:f8b0:400e:c00::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vq5gd6WflzDq5W
- for <openbmc@lists.ozlabs.org>; Fri, 24 Mar 2017 12:39:25 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vq6G5043dzDq5W
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Mar 2017 13:05:48 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Y9lP5N9j"; 
- dkim-atps=neutral
-Received: by mail-pf0-x241.google.com with SMTP id p189so158083pfp.0
- for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 18:39:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id;
- bh=TW7n2PpQF2V1fnrecfqnFfcG5wORUBhTCQkfokV3rsQ=;
- b=Y9lP5N9jbHzb3oFsPop4t7OgjAPMJ2+YQ1OgoS0yXfGNMPmfTBtcjiYW7jhQaugZ0g
- mFwIlW+dYSIiPxdfLXJQTXYoxTJihq8CcE9+ZdBIFavxm4k/dNyvJ1a/UvGS3ulTRMVN
- /n7r3WLEFXiFw/az28N5By0FwuCuvRiuF26v0xakqsiUz2P8CoX/9rOsv6toJFGiyUHm
- yCoysaEQXIJYbP3SdrpkmXDtybek0sX0jqrDE3QVaeqnk6BVUoN77vpYJaG41DUuIFAD
- xtmIw9vQQrbFSHX+t4rqq+ksA5lVqs8/49ItsxgWdPEg1oNzxcFjzcjyxxvi0TlnzOHs
- W/Ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
- bh=TW7n2PpQF2V1fnrecfqnFfcG5wORUBhTCQkfokV3rsQ=;
- b=hS86ThXrOS6ZoHlXBqB8jxpiNh/RR9BX2tJ2i4e0RBj9cjiZomn5JDVJqM7zKtS7vm
- zunj0s4Nva5RkbPw9EuVV9uaNbiRp9/cSVicmp0N8bTQbOwm0wUn7nb8p09bg/Xfa1B8
- FtWSblVcNNr5AQCGAncuaXI5CeovpKD2o4stcfq+MzgLcXvovg6WlH5IopDitG+38N8O
- IJynQDGlr3P29VaXJpdduukdNyg4RoAqsuMOqtLTYsIJkgNFkeYpnb4f18SDwR+/Px87
- GVbcBAC5/HrC9fvl3uUykFYcHHnPF5fkwOVK1eH/4+1rI3nSS4BYtOiDy2jEQ9CWotIC
- +s+w==
-X-Gm-Message-State: AFeK/H2MfMp4SALQQZ8gT7YPI2BEQKo3rLd4A7CQaSIr5YlAWCQQ3RtiP6NpolV00Lsu6Q==
-X-Received: by 10.98.62.219 with SMTP id y88mr6111197pfj.62.1490319563434;
- Thu, 23 Mar 2017 18:39:23 -0700 (PDT)
-Received: from aurora.jms.id.au ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id a21sm418015pfc.36.2017.03.23.18.39.19
- (version=TLS1 cipher=AES128-SHA bits=128/128);
- Thu, 23 Mar 2017 18:39:22 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Fri, 24 Mar 2017 12:09:14 +1030
-From: Joel Stanley <joel@jms.id.au>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.7] tty: aspeed-vuart: Add IRQF_SHARED to flags
-Date: Fri, 24 Mar 2017 12:09:06 +1030
-Message-Id: <20170324013906.24050-1-joel@jms.id.au>
-X-Mailer: git-send-email 2.11.0
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="omqslS9w"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="ZxqwEdJX"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 6137E20CEA;
+ Thu, 23 Mar 2017 22:05:46 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Thu, 23 Mar 2017 22:05:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=j11ZIpKB8rbRXw9rpfiBUEjIkFWIoYHoX5eNol1Hp
+ Ho=; b=omqslS9wH4gaZxj51+ie2YzYwneDDyZiuY9lSrssaBWjRG+iKh5JX807W
+ KYObEHa+L1ZVtd/gpYUnzS703rxLlsKDJFJyi1mUM7yc6eEwxwDnSbGWgzkvfrvv
+ gSeLavZ5wgBiLqabw7s5mkVTg9ZwQrh2jHpZ4yzKQ4NwwpujgI3kX8OsbHC9QQqx
+ 8r/78MtME1JQrfDQRysRNX1v46c8GM3ugGtrV5I5XkUnIO20sjcqarC8QCW1mX/x
+ 1PKv/ohIlbO3CkUvsmS5P8pb2XMX39pbeUjh6robPjrh91z2rjeQRmNbSTn5fis8
+ 4R1bTd5XmuAIv3mho5Np1MwzxA1SA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=j11ZIpKB8rbRXw9rpf
+ iBUEjIkFWIoYHoX5eNol1HpHo=; b=ZxqwEdJXIUBjBtovZ6OEgIwMTXkgFvgTgZ
+ ivCs6wIH3h+foYnGIapJZxbwF8NpDXMAribJgF4stdMiJUElZma2z8GBoFDm+MMa
+ wJqaZluCghzAHB0f23jdqJ+8zQP8Stg5RztdrlE014dzgbQ4EWW0xCV+plvV32Ul
+ 10rySgU/HduB7k2MDKbUdCl8DV3AOdkZj1v31Fy06Fz9Dti5RUTg0M7jPjZ3rzQR
+ Rd1dnsi2xghPjVE0NetBJCUc6lJMdF9vHfkb7Z8BreLYBbg/H1j+K1aCXWqx5JLm
+ +J8SNkDsvbySncZMdouad9zomFiYfkeudgjaTvSE4JrVfEFsJiNA==
+X-ME-Sender: <xms:-n7UWOcJuwwuKWlO3FO1zlOw-bUiAFkI-n8K5ind5Zk3hKSDnFZ4hA>
+X-Sasl-enc: iyFOvP/28qwHJRSoVzmTmhwx8k5sJD5MltevQSGEfdi9 1490321145
+Received: from [10.104.0.15] (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id BA7D9244DA;
+ Thu, 23 Mar 2017 22:05:44 -0400 (EDT)
+Message-ID: <1490321135.3847.6.camel@aj.id.au>
+Subject: Re: [PATCH] ARM: aspeed: Disable UCD90160 in the Witherspoon
+ devicetree
+From: Andrew Jeffery <andrew@aj.id.au>
+To: joel@jms.id.au, Xo Wang <xow@google.com>
+Cc: openbmc@lists.ozlabs.org
+Date: Fri, 24 Mar 2017 12:35:35 +1030
+In-Reply-To: <20170324011322.31837-1-andrew@aj.id.au>
+References: <20170324011322.31837-1-andrew@aj.id.au>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-I+lJX52pgWZp+PNN4YD+"
+X-Mailer: Evolution 3.22.1-0ubuntu2 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,32 +64,143 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 24 Mar 2017 01:39:26 -0000
+X-List-Received-Date: Fri, 24 Mar 2017 02:05:49 -0000
 
-All of the LPC devices share an IRQ line. When other LPC devices (such
-as the BT) have enabled IRQs we receive them unexpectedly in the vuart
-driver before it is ready.
 
-And the IRQF_SHARED flag to the vuart driver so we ignore interrupts
-until we are ready to handle them.
+--=-I+lJX52pgWZp+PNN4YD+
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Reported-by: Anton Blanchard <anton@samba.org>
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- drivers/tty/serial/aspeed-vuart.c | 1 +
- 1 file changed, 1 insertion(+)
+Xo: Adding you in case you've seen any issues with Zaius that may
+benefit from a similar work-around in the short term.
 
-diff --git a/drivers/tty/serial/aspeed-vuart.c b/drivers/tty/serial/aspeed-vuart.c
-index 020c8159d25d..42ccb380af41 100644
---- a/drivers/tty/serial/aspeed-vuart.c
-+++ b/drivers/tty/serial/aspeed-vuart.c
-@@ -238,6 +238,7 @@ static int ast_vuart_probe(struct platform_device *pdev)
- 		port.port.line = rc;
- 
- 	port.port.irq = irq_of_parse_and_map(np, 0);
-+	port.port.irqflags = IRQF_SHARED;
- 	port.port.iotype = UPIO_MEM;
- 	if (of_property_read_u32(np, "reg-io-width", &prop) == 0) {
- 		switch (prop) {
--- 
-2.11.0
+The associated userspace changes for Witherspoon are here:
+
+https://gerrit.openbmc-project.xyz/#/q/topic:unbound-ucd+status:open
+
+Andrew
+
+On Fri, 2017-03-24 at 11:43 +1030, Andrew Jeffery wrote:
+> This is a work-around for [1]. Binding the UCD9000 driver to the device (=
+and
+> possibly the sequence of unbinding, poking the UCD90160 via i2cset, then
+> re-binding the UCD9000 driver) appears to have some negative effects.
+> Instrumenting the transactions with reads of the PMBus status tree lead t=
+o
+> the following observations under "normal" operation.
+>=20
+> [1] https://github.com/openbmc/openbmc/issues/832
+>=20
+> UCD9000/PMBus core sending unsupported commands:
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:42:50 wit=
+herspoon kernel: ucd9000 11-0064: Device ID UCD90160|2.3.4.0000|110603
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:42:50 wit=
+herspoon kernel: i2c i2c-11: Status byte indicates error: 0x3
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:42:50 wit=
+herspoon kernel: i2c i2c-11: Unknown error
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:42:50 wit=
+herspoon kernel: i2c i2c-11: CML status: 0x80
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:42:50 wit=
+herspoon kernel: i2c i2c-11: Invalid Or Unsupported Command Received
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:42:50 wit=
+herspoon kernel: i2c i2c-11: Transfer failed: -5, status was 0x3
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:42:50 wit=
+herspoon kernel: i2c i2c-11: Aborting retries after 1 attempts, returning e=
+rror -5
+>=20
+> Reading the status bytes off the UCD90160 gives -EBADMSG:
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:21 wit=
+herspoon kernel: i2c i2c-11: Error reading PMBUS_STATUS_BYTE: -74
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0...
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:56 wit=
+herspoon kernel: i2c i2c-11: Error reading PMBUS_STATUS_CML: -74
+>=20
+> "Other comms fault" errors:
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:56 wit=
+herspoon kernel: i2c i2c-11: Status byte indicates error: 0x3
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:56 wit=
+herspoon kernel: i2c i2c-11: Unknown error
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:56 wit=
+herspoon kernel: i2c i2c-11: CML status: 0x82
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:56 wit=
+herspoon kernel: i2c i2c-11: Other comms fault
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:56 wit=
+herspoon kernel: i2c i2c-11: Invalid Or Unsupported Command Received
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:56 wit=
+herspoon kernel: i2c i2c-11: Transfer failed: -5, status was 0x3
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:56 wit=
+herspoon kernel: i2c i2c-11: Retrying transfer (attempt 1)
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:57 wit=
+herspoon kernel: i2c i2c-11: Status byte indicates error: 0x3
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:57 wit=
+herspoon kernel: i2c i2c-11: Unknown error
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:57 wit=
+herspoon kernel: i2c i2c-11: CML status: 0x2
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:57 wit=
+herspoon kernel: i2c i2c-11: Other comms fault
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:57 wit=
+herspoon kernel: i2c i2c-11: Retrying transfer (attempt 1)
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:59 wit=
+herspoon kernel: i2c i2c-11: Status byte indicates error: 0x3
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:59 wit=
+herspoon kernel: i2c i2c-11: Unknown error
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:59 wit=
+herspoon kernel: i2c i2c-11: CML status: 0x80
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:59 wit=
+herspoon kernel: i2c i2c-11: Invalid Or Unsupported Command Received
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:59 wit=
+herspoon kernel: i2c i2c-11: Transfer failed: -5, status was 0x3
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:59 wit=
+herspoon kernel: i2c i2c-11: Aborting retries after 1 attempts, returning e=
+rror -5
+>=20
+> Reduce our problems by communicating with the UCD90160 as little as possi=
+ble.
+> With the associated userspace change, the only communication will be appl=
+ying
+> the VCS work-around.
+>=20
+> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> ---
+> =C2=A0arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 1 +
+> =C2=A01 file changed, 1 insertion(+)
+>=20
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/=
+boot/dts/aspeed-bmc-opp-witherspoon.dts
+> index 4d26d4702a34..69d5897dbfde 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> @@ -253,6 +253,7 @@
+> > =C2=A0	};
+> =C2=A0
+> > =C2=A0	ucd90160@64 {
+> > +		status =3D "disabled";
+> > =C2=A0		compatible =3D "ti,ucd90160";
+> > =C2=A0		reg =3D <0x64>;
+> > =C2=A0	};
+--=-I+lJX52pgWZp+PNN4YD+
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJY1H7vAAoJEJ0dnzgO5LT5QJgQALiJcezOA1c3w9ueOga1Vt65
+23SNaCVrqcjGriozftln6R//Yn8IneKuvp8u+dYHiezAB2/YNvyCBq3/xoOz87fF
+pDQ8dycfOMUVvLJudC3TyCOLpHIbJugoNjBKCvwjlEckWzdup4rADAh/Fk4AKuWr
+GSeq6UnVIrWTSqSUE7rwVM1X1Je9kWgo5ljO5mpbRF1oHzcAqJqs6Ak1PRfIlSz6
+JCmkZ7zpetpDzuEW6mDxmyHgjtp1FxWoWQDYVjN1ALwXxgmOW5VCvZlYIeSE6NpW
+8S8JIK28wTmOZRr7vIBcU3XIlRXVCg7heIplLJb5iuP3gsaCirfPU0yYVdQJEL15
+2mCopuGrkdrRa6iX6jaGLaImfPBPGVb78VDhvYWqqcJY0GUjPJIDjWcMReyFr70C
+gRKo90kBg60jHQc4fhpso+11sAI9MgTgwJ4dwwYnpn45ih199FguYwWS+3sTBpLI
+b2BiO0RkkeHrTU6EkEim0ES91c4xEE5l3LbUQmhNV9d+Ac6q3VPN+sibz6wTr1nF
+Vmf9atJQ1+ej/YuAByiWPNFDbdAB0hLRRqZHjBCkgkDTOahGGRitf7hf7vZ1L8OO
+raQ8+rLTbOl+by69MJ8JmYZWyTXf6sZ1xsXFAE3/fyZYbPQFBUKXmAWgnycCMVVn
+muwMdHq+xnEs839bcb6H
+=qrBP
+-----END PGP SIGNATURE-----
+
+--=-I+lJX52pgWZp+PNN4YD+--
