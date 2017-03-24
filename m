@@ -1,29 +1,32 @@
 Return-Path: <clg@kaod.org>
-Received: from 16.mo7.mail-out.ovh.net (16.mo7.mail-out.ovh.net
- [46.105.72.216])
+Received: from 12.mo7.mail-out.ovh.net (12.mo7.mail-out.ovh.net
+ [178.33.107.167])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vqRKf4jwQzDqZn
- for <openbmc@lists.ozlabs.org>; Sat, 25 Mar 2017 01:55:01 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vqRfs5X3rzDq95
+ for <openbmc@lists.ozlabs.org>; Sat, 25 Mar 2017 02:09:57 +1100 (AEDT)
 Received: from player788.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo7.mail-out.ovh.net (Postfix) with ESMTP id ED00C4608F
- for <openbmc@lists.ozlabs.org>; Fri, 24 Mar 2017 15:44:56 +0100 (CET)
+ by mo7.mail-out.ovh.net (Postfix) with ESMTP id AF5374678F
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Mar 2017 15:45:02 +0100 (CET)
 Received: from zorba.kaod.org.com (LFbn-1-10647-27.w90-89.abo.wanadoo.fr
  [90.89.233.27]) (Authenticated sender: clg@kaod.org)
- by player788.ha.ovh.net (Postfix) with ESMTPSA id CFBF71800B2;
- Fri, 24 Mar 2017 15:44:52 +0100 (CET)
+ by player788.ha.ovh.net (Postfix) with ESMTPSA id 91C5318007F;
+ Fri, 24 Mar 2017 15:44:59 +0100 (CET)
 From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
 To: openbmc@lists.ozlabs.org
 Cc: Joel Stanley <joel@jms.id.au>,
  =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-Subject: [PATCH linux dev-4.10 0/6] Aspeed SMC enhancements
-Date: Fri, 24 Mar 2017 15:44:37 +0100
-Message-Id: <1490366683-23401-1-git-send-email-clg@kaod.org>
+Subject: [PATCH linux dev-4.10 2/6] mtd: spi-nor: aspeed: fix physical base
+ address of chip
+Date: Fri, 24 Mar 2017 15:44:39 +0100
+Message-Id: <1490366683-23401-3-git-send-email-clg@kaod.org>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1490366683-23401-1-git-send-email-clg@kaod.org>
+References: <1490366683-23401-1-git-send-email-clg@kaod.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 3524066710062336770
+X-Ovh-Tracer-Id: 3525755561905130242
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
 X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelhedrjeehgdeijecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
@@ -38,40 +41,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 24 Mar 2017 14:55:03 -0000
+X-List-Received-Date: Fri, 24 Mar 2017 15:09:58 -0000
 
-Hi,
+The phys_base address is used to trigger DMAs on a chip and to address
+the correct CS, it should take into account the offset of the chip in
+the AHB bus window.
 
-Here is a series providing a couple of fixes and enhancements on the
-SMC driver, among which :
+Signed-off-by: Cédric Le Goater <clg@kaod.org>
+Reviewed-by: Joel Stanley <joel@jms.id.au>
+---
+ drivers/mtd/spi-nor/aspeed-smc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- - support of the segment registers which are needed to set the
-   mapping windows of the chips on the AHB bus.
- - command mode support 
- - detection of the best HCLK settings for reads (adapted from pflash)
-
-The full tree can be found here:
-
-     https://github.com/legoater/linux/commits/openbmc-4.10
-
-Tested on the palmetto, ast2500 evb and witherspoon platforms.
-
-Thanks,
-
-C. 
-
-Cédric Le Goater (6):
-  mtd: spi-nor: aspeed: fix the AST2400 SMC window size
-  mtd: spi-nor: aspeed: fix physical base address of chip
-  mtd: spi-nor: aspeed: configure chip window on AHB bus
-  mtd: spi-nor: aspeed: use command mode for reads
-  mtd: spi-nor: aspeed: link controller with the ahb clock
-  mtd: spi-nor: aspeed: optimize read mode
-
- arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts |   4 +
- arch/arm/boot/dts/aspeed-g5.dtsi              |   6 +
- drivers/mtd/spi-nor/aspeed-smc.c              | 362 +++++++++++++++++++++++++-
- 3 files changed, 358 insertions(+), 14 deletions(-)
-
+diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspeed-smc.c
+index d5d8b2d6e06b..b3c8cfe29765 100644
+--- a/drivers/mtd/spi-nor/aspeed-smc.c
++++ b/drivers/mtd/spi-nor/aspeed-smc.c
+@@ -693,7 +693,7 @@ static int aspeed_smc_chip_setup_init(struct aspeed_smc_chip *chip,
+ 		return -EINVAL;
+ 	}
+ 
+-	chip->phys_base = res->start;
++	chip->phys_base = res->start + (chip->ahb_base - controller->ahb_base);
+ 
+ 	/*
+ 	 * Get value of the inherited control register. U-Boot usually
 -- 
 2.7.4
