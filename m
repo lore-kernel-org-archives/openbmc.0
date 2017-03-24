@@ -1,55 +1,47 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x242.google.com (mail-yw0-x242.google.com
- [IPv6:2607:f8b0:4002:c05::242])
+Received: from mail-yw0-x229.google.com (mail-yw0-x229.google.com
+ [IPv6:2607:f8b0:4002:c05::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vqBPr0rhFzDqZJ
- for <openbmc@lists.ozlabs.org>; Fri, 24 Mar 2017 16:12:48 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vqC1Q4R4mzDqY6
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Mar 2017 16:40:10 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="bpS7APS2"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="juiOrpGN"; 
  dkim-atps=neutral
-Received: by mail-yw0-x242.google.com with SMTP id d191so447024ywe.1
- for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 22:12:48 -0700 (PDT)
+Received: by mail-yw0-x229.google.com with SMTP id p77so2825397ywg.1
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 22:40:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=wtY2o363vFIMNcw3BzO1JrWQgaG5TIhdT6JqLwOP0P0=;
- b=bpS7APS2ZKkzGNjDvPE3fSAuQsWCJbdnjx5cqgQ3BL2EgvR8FcbIFgrZDaCtqM8XRk
- gijUP9oYp9XtJ0K3SNOw5zj5k8HUPZ/ET216F5O+5ScTRgGkKN5zwObgxn2ZXgpid1wt
- EhgdZkLMLY9RtWQo7ENgXfOgsAaUwGfLX3SRqeNpDzVpiC9s+gKxFZzMbxAS1JPWnoTd
- B3TKy7PzIupz76SSQyBXibYuucX2lbuDTLQIPZlaaEOecoE71iulNcxej6QtkTI7QNx4
- Q/TMwljO3QuPnfWAVXPqWwhEEF+wZ2NG0eOslJP1Qb/P5IYuvqLAzifwWwvq9iIq4Tcs
- P5XQ==
+ h=mime-version:sender:from:date:message-id:subject:to;
+ bh=wyi7PUPRL4G08H9XYDkmx4/rvPoBAEMaXg9coE4mrUY=;
+ b=juiOrpGNTVXIgVdidP+RfLL/D2CteR/hy5H/5aWoDWvNDghnAdFYHb3s6TunpKARJz
+ 92kNDKhZUjPjJuDsZGkymzj1JYLkpGChjxTRc6kbDxAJP6b0A9HomscLkkEzox6kqRxN
+ dD/kpmz7GV55H19EqZjDI/ot/47urc/T7oWJ4nCE/kORAF/+xG7IRljoLXTuq8ashINM
+ ZWqL8lpNeQ+pmYor8dwz6RjVRJQAj+tMq7hEQR0DBv1RUP79nbHvqNarXmsCoDDLydA7
+ pd4ykxQZ7WszTfrSKzw0oM6Mhh5huSUycJIOh0x/5BQmW4TP5n1KQfzIbMOhn3/+Ti9f
+ kCHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=wtY2o363vFIMNcw3BzO1JrWQgaG5TIhdT6JqLwOP0P0=;
- b=MnHHELjaIkj/bGNGI5P8tEgSQmNbkDrtmXIV+2QJYPmJkY3zK/oboAgJr4zkXQxyqv
- j/n0eW4h2eF1vqQnj4473tdb5vMmSDXTiVPDqG85B0KbJUwbH9U7/DBHUmmLsWa9GabY
- qP7aACqKfnkHpzc+6eA6iI1hrF0ZmrxZesittPhpG3yNXzCaaAYlVGwdlnw2gQYDCMc2
- jkN4F5cRmd7MPe6OEhot2sS9OrQ/p1D7kpKOl5vTyieLpTqdEM7ryRFZGwU7jd6h9zZP
- G2wWiko/HABUfvOOhBmXAzAcEpiLG8UtOtoMazvqKRvnjKnz1tftfIHbqu39ZqJdIF3K
- /EAw==
-X-Gm-Message-State: AFeK/H3j7pFxqWK6XDz/1JIxKMNOuyC57sXnr1UMkictJjNzGuFpnqUyq5ZYD8ULi9m4sJt0u+mo2Mw9AO1B4w==
-X-Received: by 10.129.101.195 with SMTP id z186mr4330544ywb.11.1490332366050; 
- Thu, 23 Mar 2017 22:12:46 -0700 (PDT)
+ h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
+ :to; bh=wyi7PUPRL4G08H9XYDkmx4/rvPoBAEMaXg9coE4mrUY=;
+ b=p+GQAEtNMwIaFTOD+wEzl9mENBUFnTvXOAuDcajvuqjt7pWWKiNY05cqz3zXekKKBi
+ VleLdQnh6WOfkDy7E6QdtoLgXbZuRBShYV+j7EUzzguL3ZrTCBlzV4ALkZRN/alVp8dL
+ gmHU+Nu+QLUxpObrUSYsM05RzFN911hVL2KBR1ANLg8PLMCgVzwPQtQyB0DzLgfVgrcD
+ tiMqY02l9+v4APewC1DsKCIf3FH66zvq7DgFnNFv8NieVl9v17XvFUdGUO43TLE6CBfB
+ oximmGLZLjaeWthIm7YK6j+GXPn8eHjtb5ld3I04H/50F5+FoT7kBn6z79bipWL7rBb+
+ pHoA==
+X-Gm-Message-State: AFeK/H0fFydZsaXMj9pukrnGPQjWl2uNbIYhZq+AUuRpceswfa1/rwOxSjNVJh35okx+U8LtwjB6nOuaALTngQ==
+X-Received: by 10.129.116.214 with SMTP id p205mr5186920ywc.268.1490334007764; 
+ Thu, 23 Mar 2017 22:40:07 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.37.197 with HTTP; Thu, 23 Mar 2017 22:12:25 -0700 (PDT)
-In-Reply-To: <1490258557-16803-3-git-send-email-clg@kaod.org>
-References: <1490258557-16803-1-git-send-email-clg@kaod.org>
- <1490258557-16803-3-git-send-email-clg@kaod.org>
+Received: by 10.37.37.197 with HTTP; Thu, 23 Mar 2017 22:39:47 -0700 (PDT)
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 24 Mar 2017 15:42:25 +1030
-X-Google-Sender-Auth: arzew73usgMb5BVMytm5wDRy6Ac
-Message-ID: <CACPK8Xc16C1JpCj1jhzB6YwKzM8RC+xHJaG_9pS=FKyOx59rbw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 2/3] mtd: spi-nor: aspeed: fix physical
- base address of chip
-To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Fri, 24 Mar 2017 16:09:47 +1030
+X-Google-Sender-Auth: sxwcevfoYlTfBbCNPhnB4hehEuY
+Message-ID: <CACPK8XdVODAk47U1OgQzzW5eoK1Rv2SVyxhbhMYjNACpnvaV6g@mail.gmail.com>
+Subject: dev-4.10 kernel tree published to github
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,38 +53,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 24 Mar 2017 05:12:48 -0000
+X-List-Received-Date: Fri, 24 Mar 2017 05:40:11 -0000
 
-On Thu, Mar 23, 2017 at 7:12 PM, C=C3=A9dric Le Goater <clg@kaod.org> wrote=
-:
-> The phys_base address is used to trigger DMAs on a chip and to address
-> the correct CS, it should take into account the offset of the chip in
-> the AHB bus window.
->
-> Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
+Hello developers,
 
-Reviewed-by: Joel Stanley <joel@jms.id.au>
+I've pushed a Linux 4.10 based tree to the OpenBMC Github repository.
 
-> ---
->  drivers/mtd/spi-nor/aspeed-smc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspee=
-d-smc.c
-> index d5d8b2d6e06b..b3c8cfe29765 100644
-> --- a/drivers/mtd/spi-nor/aspeed-smc.c
-> +++ b/drivers/mtd/spi-nor/aspeed-smc.c
-> @@ -693,7 +693,7 @@ static int aspeed_smc_chip_setup_init(struct aspeed_s=
-mc_chip *chip,
->                 return -EINVAL;
->         }
->
-> -       chip->phys_base =3D res->start;
-> +       chip->phys_base =3D res->start + (chip->ahb_base - controller->ah=
-b_base);
->
->         /*
->          * Get value of the inherited control register. U-Boot usually
-> --
-> 2.7.4
->
+Based on 4.10 plus the latest stable release (4.10.5). Drivers that
+were merged since 4.7:
+
+ - clocksource
+ - IRQ controller
+ - GPIO
+ - Pinmux
+ - IPMI BT
+
+The tree also contains backports from 4.11:
+
+ - Device tree updates for LPC, syscon, gpio, framebuffer and pinmux
+ - GPIO driver additions supporting all pins in the ast2500
+ - Pinctrl driver additions
+ - spi-nor MTD driver
+
+Backports from linux-next (commits that will appear in 4.12):
+
+ - LPC host interface controller (HICR)
+
+Drivers that are not upstream, but are included in the tree according
+to the new development process rules:
+
+ - aspeed clk
+ - LPC mailbox
+ - spi-nor DMA support and other enhancements
+ - i2c
+ - rtc
+ - vuart
+
+A summary is provided on the wiki at
+https://github.com/openbmc/linux/wiki/PatchState
+
+If you want our out of tree driver included, please submit to the
+mailing list patches against the dev-4.10 tree with the "linux
+dev-4.7" subject line. I'm hoping to see PWM, ADC, OCC and 7-segment
+drivers coming in.
+
+  https://github.com/openbmc/linux/wiki/DevelopmentProcess
+
+If the code is in an upstream maintainer's tree, then send me the Git
+SHAs and I will pull it in.
+
+Once we have the latest FSI code in we can start testing integration
+with OpenBMC userspace and move systems over to this tree.
+
+Cheers,
+
+Joel
