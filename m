@@ -1,52 +1,50 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
+ [IPv6:2607:f8b0:400e:c00::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vq55r4m2WzDq95
- for <openbmc@lists.ozlabs.org>; Fri, 24 Mar 2017 12:13:36 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vq5gd6WflzDq5W
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Mar 2017 12:39:25 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="jGyx0Q/I"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Y4DUsvAW"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id B39E220970;
- Thu, 23 Mar 2017 21:13:33 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Thu, 23 Mar 2017 21:13:33 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:message-id:subject:to:x-me-sender:x-me-sender
- :x-sasl-enc:x-sasl-enc; s=fm1; bh=zPffN9W9VIFDhpF5C4X+W1R5PMaboq
- 1EWYem+Vtl8G4=; b=jGyx0Q/IwyciMGx4CrP8s40ysuNy1fjJ7HdjVkO/tR5lxE
- 7n6Tkh0Qfom7DG6zdwhgPHHMwtBctlaZK3roHd5JYMwE7zEsvMsDBqPHcYj0bYt8
- lYywFnIyfG4dm0xutlhG8uT/AUinI8/fI4+CcEW3d2SdsSrcOKlU2k5nUyn8rLoc
- DS+9kXtfYLBElRYpoJNav8GKvxGyhqwgfldvbTKDHzhtswcAUa2y6sZGbZ7ymgUU
- /a2+nJQcW57qy88XAw7vLgmxikz+srtj0fhC0KpZURYCblGY2I0DoPGZAGy3Ul6r
- of5Q3Es494Ln0SbmqNPZPOcpwE7TQJoIbNlnRnMQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=zPffN9
- W9VIFDhpF5C4X+W1R5PMaboq1EWYem+Vtl8G4=; b=Y4DUsvAWCDJjEwbNoknqip
- lJ6cDo3aKX0zPLO0Nz5/9BEFl6dGPjUxhdE7DI0uxMKDraUZ7++XBeq/1Y7S7yzh
- GhWyBX5YmgUD/6PP28EGf+Dz9C+32PaKwW3qnv88Qbvyt9B415kTvEt39vERIGwN
- 8saJZ4+qDgJlcIKlTS++kH2dHmlLjG+ViglJzqwSoj5fj4ZVvNYvrVyBbQK2WGpS
- a3rcozlP4xDsz70D4bKDJ1+zC+1FWyhMXPmIm3VMhLlt5FiA3+AM+9f7qPuMRQBd
- CVEU/UvOk8J/+mSh/uhTl3RljJZlYU+NnU41jdCTZ36DijGvKNwPcCBfPqI6V9iQ
- ==
-X-ME-Sender: <xms:vXLUWJAqpp0SzpEIip7zlUtZIuK0IuF12LsQgC0_gGrLsievDPhF0A>
-X-Sasl-enc: k9udqfo3N+vGxFkxMKEfzD5jQCY9B5k4nAv4cNEeFrtx 1490318012
-Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id E70307E033;
- Thu, 23 Mar 2017 21:13:31 -0400 (EDT)
-From: Andrew Jeffery <andrew@aj.id.au>
-To: joel@jms.id.au
-Cc: openbmc@lists.ozlabs.org,
-	Andrew Jeffery <andrew@aj.id.au>
-Subject: [PATCH] ARM: aspeed: Disable UCD90160 in the Witherspoon devicetree
-Date: Fri, 24 Mar 2017 11:43:22 +1030
-Message-Id: <20170324011322.31837-1-andrew@aj.id.au>
-X-Mailer: git-send-email 2.9.3
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Y9lP5N9j"; 
+ dkim-atps=neutral
+Received: by mail-pf0-x241.google.com with SMTP id p189so158083pfp.0
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Mar 2017 18:39:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:from:to:cc:subject:date:message-id;
+ bh=TW7n2PpQF2V1fnrecfqnFfcG5wORUBhTCQkfokV3rsQ=;
+ b=Y9lP5N9jbHzb3oFsPop4t7OgjAPMJ2+YQ1OgoS0yXfGNMPmfTBtcjiYW7jhQaugZ0g
+ mFwIlW+dYSIiPxdfLXJQTXYoxTJihq8CcE9+ZdBIFavxm4k/dNyvJ1a/UvGS3ulTRMVN
+ /n7r3WLEFXiFw/az28N5By0FwuCuvRiuF26v0xakqsiUz2P8CoX/9rOsv6toJFGiyUHm
+ yCoysaEQXIJYbP3SdrpkmXDtybek0sX0jqrDE3QVaeqnk6BVUoN77vpYJaG41DUuIFAD
+ xtmIw9vQQrbFSHX+t4rqq+ksA5lVqs8/49ItsxgWdPEg1oNzxcFjzcjyxxvi0TlnzOHs
+ W/Ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
+ bh=TW7n2PpQF2V1fnrecfqnFfcG5wORUBhTCQkfokV3rsQ=;
+ b=hS86ThXrOS6ZoHlXBqB8jxpiNh/RR9BX2tJ2i4e0RBj9cjiZomn5JDVJqM7zKtS7vm
+ zunj0s4Nva5RkbPw9EuVV9uaNbiRp9/cSVicmp0N8bTQbOwm0wUn7nb8p09bg/Xfa1B8
+ FtWSblVcNNr5AQCGAncuaXI5CeovpKD2o4stcfq+MzgLcXvovg6WlH5IopDitG+38N8O
+ IJynQDGlr3P29VaXJpdduukdNyg4RoAqsuMOqtLTYsIJkgNFkeYpnb4f18SDwR+/Px87
+ GVbcBAC5/HrC9fvl3uUykFYcHHnPF5fkwOVK1eH/4+1rI3nSS4BYtOiDy2jEQ9CWotIC
+ +s+w==
+X-Gm-Message-State: AFeK/H2MfMp4SALQQZ8gT7YPI2BEQKo3rLd4A7CQaSIr5YlAWCQQ3RtiP6NpolV00Lsu6Q==
+X-Received: by 10.98.62.219 with SMTP id y88mr6111197pfj.62.1490319563434;
+ Thu, 23 Mar 2017 18:39:23 -0700 (PDT)
+Received: from aurora.jms.id.au ([203.0.153.9])
+ by smtp.gmail.com with ESMTPSA id a21sm418015pfc.36.2017.03.23.18.39.19
+ (version=TLS1 cipher=AES128-SHA bits=128/128);
+ Thu, 23 Mar 2017 18:39:22 -0700 (PDT)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+Received: by aurora.jms.id.au (sSMTP sendmail emulation);
+ Fri, 24 Mar 2017 12:09:14 +1030
+From: Joel Stanley <joel@jms.id.au>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.7] tty: aspeed-vuart: Add IRQF_SHARED to flags
+Date: Fri, 24 Mar 2017 12:09:06 +1030
+Message-Id: <20170324013906.24050-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,73 +56,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 24 Mar 2017 01:13:39 -0000
+X-List-Received-Date: Fri, 24 Mar 2017 01:39:26 -0000
 
-This is a work-around for [1]. Binding the UCD9000 driver to the device (and
-possibly the sequence of unbinding, poking the UCD90160 via i2cset, then
-re-binding the UCD9000 driver) appears to have some negative effects.
-Instrumenting the transactions with reads of the PMBus status tree lead to
-the following observations under "normal" operation.
+All of the LPC devices share an IRQ line. When other LPC devices (such
+as the BT) have enabled IRQs we receive them unexpectedly in the vuart
+driver before it is ready.
 
-[1] https://github.com/openbmc/openbmc/issues/832
+And the IRQF_SHARED flag to the vuart driver so we ignore interrupts
+until we are ready to handle them.
 
-UCD9000/PMBus core sending unsupported commands:
-
-         Jan 24 06:42:50 witherspoon kernel: ucd9000 11-0064: Device ID UCD90160|2.3.4.0000|110603
-         Jan 24 06:42:50 witherspoon kernel: i2c i2c-11: Status byte indicates error: 0x3
-         Jan 24 06:42:50 witherspoon kernel: i2c i2c-11: Unknown error
-         Jan 24 06:42:50 witherspoon kernel: i2c i2c-11: CML status: 0x80
-         Jan 24 06:42:50 witherspoon kernel: i2c i2c-11: Invalid Or Unsupported Command Received
-         Jan 24 06:42:50 witherspoon kernel: i2c i2c-11: Transfer failed: -5, status was 0x3
-         Jan 24 06:42:50 witherspoon kernel: i2c i2c-11: Aborting retries after 1 attempts, returning error -5
-
-Reading the status bytes off the UCD90160 gives -EBADMSG:
-
-         Jan 24 06:43:21 witherspoon kernel: i2c i2c-11: Error reading PMBUS_STATUS_BYTE: -74
-         ...
-         Jan 24 06:43:56 witherspoon kernel: i2c i2c-11: Error reading PMBUS_STATUS_CML: -74
-
-"Other comms fault" errors:
-
-         Jan 24 06:43:56 witherspoon kernel: i2c i2c-11: Status byte indicates error: 0x3
-         Jan 24 06:43:56 witherspoon kernel: i2c i2c-11: Unknown error
-         Jan 24 06:43:56 witherspoon kernel: i2c i2c-11: CML status: 0x82
-         Jan 24 06:43:56 witherspoon kernel: i2c i2c-11: Other comms fault
-         Jan 24 06:43:56 witherspoon kernel: i2c i2c-11: Invalid Or Unsupported Command Received
-         Jan 24 06:43:56 witherspoon kernel: i2c i2c-11: Transfer failed: -5, status was 0x3
-         Jan 24 06:43:56 witherspoon kernel: i2c i2c-11: Retrying transfer (attempt 1)
-         Jan 24 06:43:57 witherspoon kernel: i2c i2c-11: Status byte indicates error: 0x3
-         Jan 24 06:43:57 witherspoon kernel: i2c i2c-11: Unknown error
-         Jan 24 06:43:57 witherspoon kernel: i2c i2c-11: CML status: 0x2
-         Jan 24 06:43:57 witherspoon kernel: i2c i2c-11: Other comms fault
-         Jan 24 06:43:57 witherspoon kernel: i2c i2c-11: Retrying transfer (attempt 1)
-         Jan 24 06:43:59 witherspoon kernel: i2c i2c-11: Status byte indicates error: 0x3
-         Jan 24 06:43:59 witherspoon kernel: i2c i2c-11: Unknown error
-         Jan 24 06:43:59 witherspoon kernel: i2c i2c-11: CML status: 0x80
-         Jan 24 06:43:59 witherspoon kernel: i2c i2c-11: Invalid Or Unsupported Command Received
-         Jan 24 06:43:59 witherspoon kernel: i2c i2c-11: Transfer failed: -5, status was 0x3
-         Jan 24 06:43:59 witherspoon kernel: i2c i2c-11: Aborting retries after 1 attempts, returning error -5
-
-Reduce our problems by communicating with the UCD90160 as little as possible.
-With the associated userspace change, the only communication will be applying
-the VCS work-around.
-
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+Reported-by: Anton Blanchard <anton@samba.org>
+Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 1 +
+ drivers/tty/serial/aspeed-vuart.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-index 4d26d4702a34..69d5897dbfde 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -253,6 +253,7 @@
- 	};
+diff --git a/drivers/tty/serial/aspeed-vuart.c b/drivers/tty/serial/aspeed-vuart.c
+index 020c8159d25d..42ccb380af41 100644
+--- a/drivers/tty/serial/aspeed-vuart.c
++++ b/drivers/tty/serial/aspeed-vuart.c
+@@ -238,6 +238,7 @@ static int ast_vuart_probe(struct platform_device *pdev)
+ 		port.port.line = rc;
  
- 	ucd90160@64 {
-+		status = "disabled";
- 		compatible = "ti,ucd90160";
- 		reg = <0x64>;
- 	};
+ 	port.port.irq = irq_of_parse_and_map(np, 0);
++	port.port.irqflags = IRQF_SHARED;
+ 	port.port.iotype = UPIO_MEM;
+ 	if (of_property_read_u32(np, "reg-io-width", &prop) == 0) {
+ 		switch (prop) {
 -- 
-2.9.3
+2.11.0
