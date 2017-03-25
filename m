@@ -1,61 +1,49 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
+Return-Path: <jic23@kernel.org>
+X-Greylist: delayed 464 seconds by postgrey-1.36 at bilbo;
+ Sun, 26 Mar 2017 04:19:40 AEDT
+Received: from saturn.retrosnub.co.uk (saturn.retrosnub.co.uk [178.18.118.26])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vqfWn6S0gzDq7d
- for <openbmc@lists.ozlabs.org>; Sat, 25 Mar 2017 10:19:33 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="DxbRVKnU"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="H/1QSANt"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 0BB0620DBF;
- Fri, 24 Mar 2017 19:19:30 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Fri, 24 Mar 2017 19:19:30 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=tsU2gZFwtby8k9WXKetzCjBLCC/tWtt0taurNiyjr
- 5g=; b=DxbRVKnUkbeKPlXi9hjCdHKDAd3wl0122OYRX5rBQeCCcPpx34TA/B8Vq
- Z5TbZwACbB+0cEXh37CUhJFnZb/Yc0ftUZ3kWJIhVtj+iRKiWIoMqBeWRb9n38tp
- +58MBDvwG3VrUj6Re50+hoa4d5lyf1p853wX2EFaOqKq5ZpssWvi6cdqRCyY+DJ4
- bs8BMsGvYMretnilCp8hkmmyNxCqeZSGsZVX5dUM1XRQLDKgKtVyijSF+9c+X301
- IH14D6PURWXFTCMDgB9f3A2ZSdHXzeAePitzgQ0Hm+HHWF1vJimclsH5lwMiZcX4
- hXxL3g04TGGlNuiC11Ok6L01ORABA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=tsU2gZFwtby8k9WXKe
- tzCjBLCC/tWtt0taurNiyjr5g=; b=H/1QSANtzA3lGMCFckp0ZZU+KvqqEd5jk9
- SwBo3dhj/7wF0yxmsoCeUg96ZO6gFJe+ontNvJb9JDJcAqfffu7f11ugJABeAWDC
- ouFc96n82MkV1NaCvGC4xn2qF9Cv5vOwMvtfrlmWM1ebd1wp41VV3lLoCBl0Xh4M
- 0pbrQoXsVOdXFKLpX4KQX4ACc3I6p05OQfGNgXUnxAnLUpCFYc7YelLAE7AMoojg
- M+mzZPEcIKRHFhLnYWbhgUUPYdUB2tNSGYXovFSnADLDb6LxkBRc2t2YB4KXK5cj
- CEePZcZuX3ZN0iwEr5RWxTn5hBe63rG8omirUSPgg4+lyt41hWpA==
-X-ME-Sender: <xms:ganVWPcvbASvDX3EEROBQtkHX6bAyGCyiHLEFR6zMxwWvppFzoBRhA>
-X-Sasl-enc: miB9e+2bCPLVJdLxvY5fp5wci/ZGMWuvK+iJSqsmcRaO 1490397569
-Received: from [172.16.172.59] (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id 3D3D02400E;
- Fri, 24 Mar 2017 19:19:27 -0400 (EDT)
-Message-ID: <1490397560.3847.10.camel@aj.id.au>
-Subject: Re: [PATCH] ARM: aspeed: Disable UCD90160 in the Witherspoon
- devicetree
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Xo Wang <xow@google.com>
-Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Sat, 25 Mar 2017 09:49:20 +1030
-In-Reply-To: <CAPH-5w7Ac9tw0+Q8XvLspENjPuMczewKOT9dMeGLYs1nB2ZVWw@mail.gmail.com>
-References: <20170324011322.31837-1-andrew@aj.id.au>
- <1490321135.3847.6.camel@aj.id.au>
- <CAPH-5w7Ac9tw0+Q8XvLspENjPuMczewKOT9dMeGLYs1nB2ZVWw@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-hLASLsXMXCM0ZuVTAi9x"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vr6V447G5zDq7Z
+ for <openbmc@lists.ozlabs.org>; Sun, 26 Mar 2017 04:19:40 +1100 (AEDT)
+Received: from localhost.localdomain
+ (cpc91196-cmbg18-2-0-cust659.5-4.cable.virginm.net [81.96.234.148])
+ by saturn.retrosnub.co.uk (Postfix;
+ Retrosnub mail submission) with ESMTPSA id D56404076D; 
+ Sat, 25 Mar 2017 17:11:48 +0000 (GMT)
+Subject: Re: [PATCH v2 2/2] iio: Aspeed AST2400/AST2500 ADC
+To: Joel Stanley <joel@jms.id.au>,
+ Quentin Schulz <quentin.schulz@free-electrons.com>
+References: <20170321204828.31303-1-raltherr@google.com>
+ <20170321204828.31303-2-raltherr@google.com>
+ <5f245e55-4d4a-b744-3351-e8215432c315@free-electrons.com>
+ <CACPK8XcoQGo4uErK71aeUhmcJ-6Yt0k41q8N7wsemz6HLRSL4w@mail.gmail.com>
+Cc: Rick Altherr <raltherr@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ William Breathitt Gray <vilhelm.gray@gmail.com>,
+ Andreas Klinger <ak@it-klinger.de>, Rob Herring <robh@kernel.org>,
+ linux-iio@vger.kernel.org, Hartmut Knaack <knaack.h@gmx.de>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Marek Vasut <marek.vasut+renesas@gmail.com>,
+ Matt Ranostay <mranostay@gmail.com>, Lars-Peter Clausen <lars@metafoo.de>,
+ Crestez Dan Leonard <leonard.crestez@intel.com>,
+ Akinobu Mita <akinobu.mita@gmail.com>,
+ Fabrice Gasnier <fabrice.gasnier@st.com>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ Maxime Ripard <maxime.ripard@free-electrons.com>,
+ Jacopo Mondi <jacopo@jmondi.org>
+From: Jonathan Cameron <jic23@kernel.org>
+Message-ID: <866cabad-d151-a54f-e316-201aa05cbbf5@kernel.org>
+Date: Sat, 25 Mar 2017 17:11:48 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.8.0
+MIME-Version: 1.0
+In-Reply-To: <CACPK8XcoQGo4uErK71aeUhmcJ-6Yt0k41q8N7wsemz6HLRSL4w@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Sun, 26 Mar 2017 13:16:54 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,186 +55,93 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 24 Mar 2017 23:19:36 -0000
+X-List-Received-Date: Sat, 25 Mar 2017 17:19:41 -0000
 
+On 22/03/17 10:08, Joel Stanley wrote:
+> Hello Quentin,
+> 
+> On Wed, Mar 22, 2017 at 5:51 PM, Quentin Schulz
+> <quentin.schulz@free-electrons.com> wrote:
+> 
+>>> +
+>>> +#define ASPEED_ADC_CHAN(_idx, _addr) {                               \
+>>> +     .type = IIO_VOLTAGE,                                    \
+>>> +     .indexed = 1,                                           \
+>>> +     .channel = (_idx),                                      \
+>>> +     .address = (_addr),                                     \
+>>> +     .info_mask_separate = BIT(IIO_CHAN_INFO_RAW),           \
+>>> +     .info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE) |  \
+>>> +                             BIT(IIO_CHAN_INFO_SAMP_FREQ),   \
+>>> +}
+>>> +
+>>> +static const struct iio_chan_spec aspeed_adc_iio_channels[] = {
+>>> +     ASPEED_ADC_CHAN(0, 0x10),
+>>> +     ASPEED_ADC_CHAN(1, 0x12),
+>>> +     ASPEED_ADC_CHAN(2, 0x14),
+>>> +     ASPEED_ADC_CHAN(3, 0x16),
+>>> +     ASPEED_ADC_CHAN(4, 0x18),
+>>> +     ASPEED_ADC_CHAN(5, 0x1A),
+>>> +     ASPEED_ADC_CHAN(6, 0x1C),
+>>> +     ASPEED_ADC_CHAN(7, 0x1E),
+>>> +     ASPEED_ADC_CHAN(8, 0x20),
+>>> +     ASPEED_ADC_CHAN(9, 0x22),
+>>> +     ASPEED_ADC_CHAN(10, 0x24),
+>>> +     ASPEED_ADC_CHAN(11, 0x26),
+>>> +     ASPEED_ADC_CHAN(12, 0x28),
+>>> +     ASPEED_ADC_CHAN(13, 0x2A),
+>>> +     ASPEED_ADC_CHAN(14, 0x2C),
+>>> +     ASPEED_ADC_CHAN(15, 0x2E),
+>>
+>> It would make sense to name the registers (the _addr parameter of your
+>> macro) so it's easier to understand what it refers to.
+> 
+> I appreciate the desire to not have magic values. However, I think
+> these are okay. We don't use them anywhere else, and it is obvious
+> from reading that they are the registers containing the ADC values for
+> each channel.
+> 
+> The alternative would look like this:
+> 
+> +     ASPEED_ADC_CHAN(14, ASPEED_ADC_CHAN_14_DATA),
+> +     ASPEED_ADC_CHAN(15, ASPEED_ADC_CHAN_15_DATA),
+> 
+> Which doesn't really help me as someone reading the code.
+> 
+>>> +     /* Start all channels in normal mode. */
+>>> +     clk_prepare_enable(data->clk_scaler->clk);
+>>> +     adc_engine_control_reg_val = GENMASK(31, 16) |
+>>> +             ASPEED_ADC_OPERATION_MODE_NORMAL | ASPEED_ADC_ENGINE_ENABLE;
+>>> +     writel(adc_engine_control_reg_val,
+>>> +             data->base + ASPEED_ADC_REG_ENGINE_CONTROL);
+>>> +
+>>> +     indio_dev->name = dev_name(&pdev->dev);
+>>
+>> This isn't good practice (cf.: https://lkml.org/lkml/2017/1/28/145 end
+>> of the mail in the probe function). Better name it aspeed-adc or even
+>> better to have a different name per compatible: ast2400-adc or ast2500-adc.
+> 
+> The label comes out as "adc.1e6e9000". This is the reg property and
+> the node name from the device tree, which seems sensible, even if it
+> is a bit strange to be grabbing the name of the parent device for it
+The intent is this provides the part number rather than a device tree
+handle.  The devicetree handle is available via other routes if desired.
 
---=-hLASLsXMXCM0ZuVTAi9x
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+.
+> 
+> Could the iio core fill in a sensible name for us here? Rick is the
+> 31st person to make this mistake, so it would be nice to fix properly.
+It's not easy to actually generate it.  Quite a few drivers do it by
+querying the hardware to get precise model numbers.  Manufacturers
+of certain devices have an irritating habit of switching 'compatiblish'
+chips without bothering to update device tree blobs.
 
-On Fri, 2017-03-24 at 13:55 -0700, Xo Wang wrote:
-> > On Thu, Mar 23, 2017 at 7:05 PM, Andrew Jeffery <andrew@aj.id.au> wrote=
-:
-> > Xo: Adding you in case you've seen any issues with Zaius that may
-> > benefit from a similar work-around in the short term.
-> >=20
->=20
-> Thanks for the copy. I haven't seen the unsupported command errors
-> from the UCD90160 on Zaius.=20
-
-Right - to clarify a bit here: The PMBus core does check the status
-bytes, but only on certain operations. I hacked i2c-core's smbus
-emulation to query the status byte(s) after every operation[1], and the
-excerpts in the commit message were observed as a results. Further, not
-all operations generate errors, only some.
-
-[1] https://github.com/amboar/linux/commit/d0ff1707c094168641ab4f687b00c6fc=
-4d772bda
-
-> I suspect it's because we perform less
-> i2c-get/-set on our UCD, since it is already programmed to treat the
-> UCD rails' control pins as output GPIOs.
-
-Possibly, though some testing indicates that leaving the kernel driver
-unbound and only doing i2c{g,s}et operations doesn't appear to lead to
-problems booting (pgood timeout, due to corrupt UCD configuration[2]).
-
-[2] https://github.com/openbmc/openbmc/issues/832
-
->=20
-> Do those errors you see always come after a UCD9000 driver bind operation=
-?
-
-Well, due to the fact that it gets bound, yes. But they're not
-necessarily related.
-
-Andrew
-
->=20
-> > The associated userspace changes for Witherspoon are here:
-> >=20
-> > https://gerrit.openbmc-project.xyz/#/q/topic:unbound-ucd+status:open
-> >=20
-> > Andrew
-> >=20
-> > On Fri, 2017-03-24 at 11:43 +1030, Andrew Jeffery wrote:
-> > > This is a work-around for [1]. Binding the UCD9000 driver to the devi=
-ce (and
-> > > possibly the sequence of unbinding, poking the UCD90160 via i2cset, t=
-hen
-> > > re-binding the UCD9000 driver) appears to have some negative effects.
-> > > Instrumenting the transactions with reads of the PMBus status tree le=
-ad to
-> > > the following observations under "normal" operation.
-> > >=20
-> > > [1] https://github.com/openbmc/openbmc/issues/832
-> > >=20
-> > > UCD9000/PMBus core sending unsupported commands:
-> > >=20
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:42:50=
- witherspoon kernel: ucd9000 11-0064: Device ID UCD90160|2.3.4.0000|110603
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:42:50=
- witherspoon kernel: i2c i2c-11: Status byte indicates error: 0x3
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:42:50=
- witherspoon kernel: i2c i2c-11: Unknown error
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:42:50=
- witherspoon kernel: i2c i2c-11: CML status: 0x80
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:42:50=
- witherspoon kernel: i2c i2c-11: Invalid Or Unsupported Command Received
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:42:50=
- witherspoon kernel: i2c i2c-11: Transfer failed: -5, status was 0x3
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:42:50=
- witherspoon kernel: i2c i2c-11: Aborting retries after 1 attempts, returni=
-ng error -5
-> > >=20
-> > > Reading the status bytes off the UCD90160 gives -EBADMSG:
-> > >=20
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:21=
- witherspoon kernel: i2c i2c-11: Error reading PMBUS_STATUS_BYTE: -74
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0...
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:56=
- witherspoon kernel: i2c i2c-11: Error reading PMBUS_STATUS_CML: -74
-> > >=20
-> > > "Other comms fault" errors:
-> > >=20
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:56=
- witherspoon kernel: i2c i2c-11: Status byte indicates error: 0x3
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:56=
- witherspoon kernel: i2c i2c-11: Unknown error
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:56=
- witherspoon kernel: i2c i2c-11: CML status: 0x82
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:56=
- witherspoon kernel: i2c i2c-11: Other comms fault
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:56=
- witherspoon kernel: i2c i2c-11: Invalid Or Unsupported Command Received
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:56=
- witherspoon kernel: i2c i2c-11: Transfer failed: -5, status was 0x3
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:56=
- witherspoon kernel: i2c i2c-11: Retrying transfer (attempt 1)
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:57=
- witherspoon kernel: i2c i2c-11: Status byte indicates error: 0x3
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:57=
- witherspoon kernel: i2c i2c-11: Unknown error
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:57=
- witherspoon kernel: i2c i2c-11: CML status: 0x2
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:57=
- witherspoon kernel: i2c i2c-11: Other comms fault
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:57=
- witherspoon kernel: i2c i2c-11: Retrying transfer (attempt 1)
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:59=
- witherspoon kernel: i2c i2c-11: Status byte indicates error: 0x3
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:59=
- witherspoon kernel: i2c i2c-11: Unknown error
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:59=
- witherspoon kernel: i2c i2c-11: CML status: 0x80
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:59=
- witherspoon kernel: i2c i2c-11: Invalid Or Unsupported Command Received
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:59=
- witherspoon kernel: i2c i2c-11: Transfer failed: -5, status was 0x3
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jan 24 06:43:59=
- witherspoon kernel: i2c i2c-11: Aborting retries after 1 attempts, returni=
-ng error -5
-> > >=20
-> > > Reduce our problems by communicating with the UCD90160 as little as p=
-ossible.
-> > > With the associated userspace change, the only communication will be =
-applying
-> > > the VCS work-around.
-> > >=20
-> > > > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> > >=20
-> > > ---
-> > > =C2=A0arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 1 +
-> > > =C2=A01 file changed, 1 insertion(+)
-> > >=20
-> > > diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/=
-arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> > > index 4d26d4702a34..69d5897dbfde 100644
-> > > --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> > > +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> > > @@ -253,6 +253,7 @@
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0};
-> > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0ucd90160@64 {
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-status =3D "disabled";
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0compatible =3D "ti,ucd90160";
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0reg =3D <0x64>;
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0};
->=20
-> cheers
-> xo
---=-hLASLsXMXCM0ZuVTAi9x
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJY1al4AAoJEJ0dnzgO5LT5+TIP/0MqQmtV8curOx/9xxKTkXim
-/eYz7LXnXTpu5viem6qpaZv4W0qkZkxRnhMAsa9qCfSBgqf51PVtHEZu5/gtNJky
-Vsq+QL7corU9UJ9iF5n8NdM+ZUsqtoy4R8lCbR7k6WXzgASBRiHO+pjuKHm3R23v
-I00RfK+ntdkJ+Np+MaiD7bxnND1tBPvbyVhJXXtaZY1EYUbsChqns0PfYScneml2
-euE/QihBAdL5kXDBTEyD/s/SvNtwhvTrvH4bhGDs+isMMD04jMQNcUUDKY/16ON6
-Qz2TuzT/KUpbvpuijh/xeoGdv5O931jySAOeUD/M1cwLm04uRTTTxUp5v4/x4i5x
-f9pOqWdlPfUgDOt1lL5W4EsyoRHaGU3Vj2zehK5TUAeO+QqYAXA/KZtRLwPR0vui
-Jgsm3jkCo/69UuIFCkM2T+oxjykqFhdOgY1pXVu5kt6YSo7HSNG5iujdlF3e2M6y
-61uTic2aVXUd0M5xezE0hKIq3EdZtNtu3p3kMLIp7AVBV73ZrUPYPD5Zh9kfbzFI
-gETcGGJ4jOrBgaHjW1Mp1T2qSXGab146BdUzUJPFQNm4+FHDho5qbrZ8ZwEeHqW4
-xKVDg1CiKTXAYru0oZ8DZJ9iTq1RTXC66sUCl6DkNIKxltYUf6ODpgWvF+LhS39s
-ik5UY6naAiYjVQtZXf81
-=9jao
------END PGP SIGNATURE-----
-
---=-hLASLsXMXCM0ZuVTAi9x--
+Jonathan
+> 
+> Cheers,
+> 
+> Joel
+> --
+> To unsubscribe from this list: send the line "unsubscribe linux-iio" in
+> the body of a message to majordomo@vger.kernel.org
+> More majordomo info at  http://vger.kernel.org/majordomo-info.html
+> 
