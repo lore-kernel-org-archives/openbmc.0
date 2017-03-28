@@ -1,32 +1,35 @@
-Return-Path: <benh@kernel.crashing.org>
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vsp350WxdzDq93
- for <openbmc@lists.ozlabs.org>; Tue, 28 Mar 2017 22:05:36 +1100 (AEDT)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.13.8) with ESMTP id v2S9Ctdr017194;
- Tue, 28 Mar 2017 04:12:57 -0500
-Message-ID: <1490692375.3177.119.camel@kernel.crashing.org>
-Subject: Re: [PATCH v6 2/5] irqchip/aspeed-i2c-ic: Add I2C IRQ controller
- for Aspeed
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Marc Zyngier <marc.zyngier@arm.com>, Brendan Higgins
- <brendanhiggins@google.com>, wsa@the-dreams.de,
+Return-Path: <marc.zyngier@arm.com>
+Received: from foss.arm.com (foss.arm.com [217.140.101.70])
+ by lists.ozlabs.org (Postfix) with ESMTP id 3vskf44xy6zDqZS
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Mar 2017 19:32:11 +1100 (AEDT)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.72.51.249])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3E34A2B;
+ Tue, 28 Mar 2017 01:32:08 -0700 (PDT)
+Received: from [10.1.207.16] (usa-sjc-imap-foss1.foss.arm.com [10.72.51.249])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id
+ 03FC33F220; Tue, 28 Mar 2017 01:32:03 -0700 (PDT)
+Subject: Re: [PATCH v6 2/5] irqchip/aspeed-i2c-ic: Add I2C IRQ controller for
+ Aspeed
+To: Brendan Higgins <brendanhiggins@google.com>, wsa@the-dreams.de,
  robh+dt@kernel.org, mark.rutland@arm.com, tglx@linutronix.de,
  jason@lakedaemon.net, joel@jms.id.au, vz@mleia.com, mouse@mayc.ru,
  clg@kaod.org
-Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
-Date: Tue, 28 Mar 2017 20:12:55 +1100
-In-Reply-To: <49a13bbc-aec3-a349-4323-3c8d2728c62f@arm.com>
 References: <20170328051226.21677-1-brendanhiggins@google.com>
  <20170328051226.21677-3-brendanhiggins@google.com>
- <49a13bbc-aec3-a349-4323-3c8d2728c62f@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.22.6 (3.22.6-1.fc25) 
-Mime-Version: 1.0
+Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
+ benh@kernel.crashing.org
+From: Marc Zyngier <marc.zyngier@arm.com>
+Organization: ARM Ltd
+Message-ID: <49a13bbc-aec3-a349-4323-3c8d2728c62f@arm.com>
+Date: Tue, 28 Mar 2017 09:32:02 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Icedove/45.6.0
+MIME-Version: 1.0
+In-Reply-To: <20170328051226.21677-3-brendanhiggins@google.com>
+Content-Type: text/plain; charset=windows-1252
 Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Tue, 28 Mar 2017 22:33:42 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -38,26 +41,114 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Mar 2017 11:05:37 -0000
+X-List-Received-Date: Tue, 28 Mar 2017 08:32:13 -0000
 
-On Tue, 2017-03-28 at 09:32 +0100, Marc Zyngier wrote:
-> I'm a bit concerned by this. It means that you can't even mask an
-> interrupt. Is that really what you intend to do? Or all that the HW can
-> do? If you cannot mask an interrupt, you're at the mercy of a screaming
-> device...
+Hi Brendan,
 
-This is not really an interrupt controller. It's a "summary" register
-that reflects the state of the 14 i2c controller interrupts.
+On 28/03/17 06:12, Brendan Higgins wrote:
+> The Aspeed 24XX/25XX chips share a single hardware interrupt across 14
+> separate I2C busses. This adds a dummy irqchip which maps the single
+> hardware interrupt to software interrupts for each of the busses.
+> 
+> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+> ---
+> Added in v6:
+>   - Pulled "aspeed_i2c_controller" out into a interrupt controller since that is
+>     what it actually does.
+> ---
+>  drivers/irqchip/Makefile            |   2 +-
+>  drivers/irqchip/irq-aspeed-i2c-ic.c | 102 ++++++++++++++++++++++++++++++++++++
+>  2 files changed, 103 insertions(+), 1 deletion(-)
+>  create mode 100644 drivers/irqchip/irq-aspeed-i2c-ic.c
+> 
+> diff --git a/drivers/irqchip/Makefile b/drivers/irqchip/Makefile
+> index 152bc40b6762..c136c2bd1761 100644
+> --- a/drivers/irqchip/Makefile
+> +++ b/drivers/irqchip/Makefile
+> @@ -74,6 +74,6 @@ obj-$(CONFIG_MVEBU_ODMI)		+= irq-mvebu-odmi.o
+>  obj-$(CONFIG_MVEBU_PIC)			+= irq-mvebu-pic.o
+>  obj-$(CONFIG_LS_SCFG_MSI)		+= irq-ls-scfg-msi.o
+>  obj-$(CONFIG_EZNPS_GIC)			+= irq-eznps.o
+> -obj-$(CONFIG_ARCH_ASPEED)		+= irq-aspeed-vic.o
+> +obj-$(CONFIG_ARCH_ASPEED)		+= irq-aspeed-vic.o irq-aspeed-i2c-ic.o
+>  obj-$(CONFIG_STM32_EXTI) 		+= irq-stm32-exti.o
+>  obj-$(CONFIG_QCOM_IRQ_COMBINER)		+= qcom-irq-combiner.o
+> diff --git a/drivers/irqchip/irq-aspeed-i2c-ic.c b/drivers/irqchip/irq-aspeed-i2c-ic.c
+> new file mode 100644
+> index 000000000000..59c50b28dec0
+> --- /dev/null
+> +++ b/drivers/irqchip/irq-aspeed-i2c-ic.c
+> @@ -0,0 +1,102 @@
+> +/*
+> + *  Aspeed 24XX/25XX I2C Interrupt Controller.
+> + *
+> + *  Copyright (C) 2012-2017 ASPEED Technology Inc.
+> + *  Copyright 2017 IBM Corporation
+> + *  Copyright 2017 Google, Inc.
+> + *
+> + *  This program is free software; you can redistribute it and/or modify
+> + *  it under the terms of the GNU General Public License version 2 as
+> + *  published by the Free Software Foundation.
+> + */
+> +
+> +#include <linux/irq.h>
+> +#include <linux/irqchip.h>
+> +#include <linux/irqchip/chained_irq.h>
+> +#include <linux/irqdomain.h>
+> +#include <linux/of_address.h>
+> +#include <linux/of_irq.h>
+> +#include <linux/io.h>
+> +
+> +
+> +#define ASPEED_I2C_IC_NUM_BUS 14
+> +
+> +struct aspeed_i2c_ic {
+> +	void __iomem		*base;
+> +	int			parent_irq;
+> +	struct irq_domain	*irq_domain;
+> +};
+> +
+> +/*
+> + * The aspeed chip provides a single hardware interrupt for all of the I2C
+> + * busses, so we use a dummy interrupt chip to translate this single interrupt
+> + * into multiple interrupts, each associated with a single I2C bus.
+> + */
+> +static void aspeed_i2c_ic_irq_handler(struct irq_desc *desc)
+> +{
+> +	struct aspeed_i2c_ic *i2c_ic = irq_desc_get_handler_data(desc);
+> +	struct irq_chip *chip = irq_desc_get_chip(desc);
+> +	unsigned long bit, status;
+> +	unsigned int bus_irq;
+> +
+> +	chained_irq_enter(chip, desc);
+> +	status = readl(i2c_ic->base);
+> +	for_each_set_bit(bit, &status, ASPEED_I2C_IC_NUM_BUS) {
+> +		bus_irq = irq_find_mapping(i2c_ic->irq_domain, bit);
+> +		generic_handle_irq(bus_irq);
+> +	}
+> +	chained_irq_exit(chip, desc);
+> +}
+> +
+> +/*
+> + * Set simple handler and mark IRQ as valid. Nothing interesting to do here
+> + * since we are using a dummy interrupt chip.
+> + */
+> +static int aspeed_i2c_ic_map_irq_domain(struct irq_domain *domain,
+> +					unsigned int irq, irq_hw_number_t hwirq)
+> +{
+> +	irq_set_chip_and_handler(irq, &dummy_irq_chip, handle_simple_irq);
+> +	irq_set_chip_data(irq, domain->host_data);
+> +
+> +	return 0;
+> +}
 
-This approach does have the advantage of providing separate counters in
-/proc/interrupts which is rather nice, but it does have overhead. On
-those shittly little ARMv9 400Mhz cores it can be significant.
+I'm a bit concerned by this. It means that you can't even mask an
+interrupt. Is that really what you intend to do? Or all that the HW can
+do? If you cannot mask an interrupt, you're at the mercy of a screaming
+device...
 
-I would personally have some kind of trick to register a single
-interrupt handler that calls directly the handlers of the respective
-i2c busses via a simple indirection for speed, maybe adding my custom
-sysfs or debugfs statistics. But that's just me trying to suck the last
-cycle out of the bloody thing ;-)
+Thanks,
 
-Cheers,
-Ben.
+	M.
+-- 
+Jazz is not dead. It just smells funny...
