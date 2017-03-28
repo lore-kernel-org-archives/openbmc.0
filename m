@@ -1,46 +1,49 @@
-Return-Path: <mine260309@gmail.com>
-Received: from mail-it0-x243.google.com (mail-it0-x243.google.com
- [IPv6:2607:f8b0:4001:c0b::243])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x232.google.com (mail-yw0-x232.google.com
+ [IPv6:2607:f8b0:4002:c05::232])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vscJq0LP0zDqY6
- for <openbmc@lists.ozlabs.org>; Tue, 28 Mar 2017 14:46:50 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vscq35pfmzDqY6
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Mar 2017 15:09:35 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Xk/JZUpL"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="OVfoRJGN"; 
  dkim-atps=neutral
-Received: by mail-it0-x243.google.com with SMTP id 190so1081993itm.3
- for <openbmc@lists.ozlabs.org>; Mon, 27 Mar 2017 20:46:50 -0700 (PDT)
+Received: by mail-yw0-x232.google.com with SMTP id p77so45427379ywg.1
+ for <openbmc@lists.ozlabs.org>; Mon, 27 Mar 2017 21:09:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=KQuNiJvXreIwBHY8l4KA0B/anXXdUfycAuSmdNHGLh0=;
- b=Xk/JZUpLx5BsAlshje5wsQ7qIosvSnG3IExNFjFAZ5wtKcaIaRd46XiobsnKrFN4lg
- 58/52N3hmSGCV4uADQ0VoOHl+JV86tdRztQI03Y/l/3iELpGKA2xe9lHKG8hUSrNJLTb
- m3NIeVJCpeCnW42Zugm9cOpFehWrrzsTgz61tbKogUotMq+bVFISKuzQdx0V2ZgUzwri
- vmYsQjaKVO3uaE0OXpnSni8oRLCcqW1IKcpHJ+r1NOo9h40kdCebKWtTq1I30GTJnMn7
- 0vEwDZh1H4aqLLsEZph0I+kJKv9feJs3q/KzlGM0f1GPtiuLmkbnQ8hVpFHALW2yCBkI
- DuAQ==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=nCxODGeyGr5x4/h4BKX+h4maPfZ7a+7ohhCqTTIAEJM=;
+ b=OVfoRJGNwF2Ebh8E6x+jI98p0+h15r1gcLNnAY8/ZvOKqPTNjX03uInRnlXfoBrVGn
+ +RMq/pewsOlP9QcdkYGbbGrCzkj31a15WN07VDXD0c1iDEL1/oBzMz+4blptKgd/GNcl
+ SC1jS0CZAgosQF4D0YqHU8FS3eMN+mniju0gCK5in2f6QSoShqh1FZGb/j1vdX+cquaw
+ dG08k0Ardz1fY5hbSgZfgnxyCdmrw+j0jg+T1rML1QUvYRvHzxvVRsXXuqMcT/Sy3Qzj
+ I2fpuxW8i6Ogd4BiUiD8nF/2MaKpuQlMM1nlVdGLWtYCPlyCt72IP1zT16vnBA9z9ygO
+ 6Oew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=KQuNiJvXreIwBHY8l4KA0B/anXXdUfycAuSmdNHGLh0=;
- b=pglRxp+EagTRJnXOQmuM/mruJGevW9Gt8yTr6QOMaV1di/L/n93OqjpZfkRJbs8tK2
- /HAw7Y9mQGeDQCRmk1vDXMurN2bmyEnkC+8XMCIWVggJklgnUxDlVil4O0swJtF6GYmg
- tsaRLecsJ818v+27q9MbXZBZADmWUuYAeUBhuEX1xco9jX+nMwK5VTkYSr8cdROz1xAR
- IdEwlQC9t3dW3HXoy/YTacCfazKNmANkXqkbiwLWiG9pLgd3kktzlwZcXackgSdV17jT
- 8FsRhdBkylIIGD0Aw7gaslM5bJrlSbPcbkqzqlDGgamHT5E/o0iS8Z2W/FFPqrxESiRC
- MAKw==
-X-Gm-Message-State: AFeK/H2w7xnRToL76oF97gtjpBAY5he7zbmiDRRS4f2xgwrousmy2ov5nZ1DQQtYel/h5PvNVBt2oPMRlxC79Q==
-X-Received: by 10.107.19.222 with SMTP id 91mr26716965iot.211.1490672808357;
- Mon, 27 Mar 2017 20:46:48 -0700 (PDT)
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=nCxODGeyGr5x4/h4BKX+h4maPfZ7a+7ohhCqTTIAEJM=;
+ b=OqdSjcEAb6kd+aBk/v1tspDjdPLl49fj8RBBxEC83MQKaIyOGYIvbIgJH+5tBn2XeS
+ vf1FmgvWO1GpsJUtO4Um6TuOzAFUKx4sOSxL7TE2wnTQ7vNPLAmF/DQnm1JLrVsOFYEk
+ hEio5mlM/oPL0rbse1a8K5dbPxfqi3Z2Tmnim+7yaKO8lPngJcEoXqiZOzMkhlphWc7y
+ uC8JhCaczsIXXhCbS0KxpK1PEHAYjdTBe73HDjEei0KojlbSANlr7V6Qafmwz4Q68Vk2
+ CfkaUjGgYdE59hRzSy0+OIEooBlwH/pRkm1h52hpz+r5FOfhO/J+LMZ/XXeGuklnZPNY
+ Ce0g==
+X-Gm-Message-State: AFeK/H0GUUqm/oXMRWBwY+bOuQkTBc8n01UGrLPJJrCimuTFZEzKre4Ij1GKK+MZ0/Z8iTT1NU8+0VnH5L+5NA==
+X-Received: by 10.13.237.5 with SMTP id w5mr22529583ywe.56.1490674173591; Mon,
+ 27 Mar 2017 21:09:33 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.79.33.70 with HTTP; Mon, 27 Mar 2017 20:46:47 -0700 (PDT)
+Sender: joel.stan@gmail.com
+Received: by 10.37.59.17 with HTTP; Mon, 27 Mar 2017 21:09:13 -0700 (PDT)
 In-Reply-To: <1490611143.3177.76.camel@kernel.crashing.org>
 References: <OF3D2CC421.3C763A88-ON862580EB.006DE8D6-862580EB.0078D20E@notes.na.collabserv.com>
  <1490611143.3177.76.camel@kernel.crashing.org>
-From: Lei YU <mine260309@gmail.com>
-Date: Tue, 28 Mar 2017 11:46:47 +0800
-Message-ID: <CAARXrtk0WCV92OaeYWZkwzbL-6aPoGcFQHeTJ7gohkRm58p97w@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 28 Mar 2017 14:39:13 +1030
+X-Google-Sender-Auth: jGN7Febb9x91ca8e5a8SUkZ6rrI
+Message-ID: <CACPK8XfedDuBHRcxAF130-5ahHwrV6==2pbpZb0gf-bQiddUcw@mail.gmail.com>
 Subject: Re: possible hackathon
 To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 Cc: Chris Austen <austenc@us.ibm.com>,
@@ -57,14 +60,9 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Mar 2017 03:46:51 -0000
+X-List-Received-Date: Tue, 28 Mar 2017 04:09:36 -0000
 
-I have a one-line-command util to upload and update OBMC image, which
-needs to be
-refactored so it fits different usages and handles different errors.
-I can work on this during the "possible" hackathon.
-
-On Mon, Mar 27, 2017 at 6:39 PM, Benjamin Herrenschmidt
+On Mon, Mar 27, 2017 at 9:09 PM, Benjamin Herrenschmidt
 <benh@kernel.crashing.org> wrote:
 > On Wed, 2017-03-22 at 15:59 -0600, Chris Austen wrote:
 >> I'm not saying there is, but if there was a possibility for a
@@ -86,6 +84,15 @@ On Mon, Mar 27, 2017 at 6:39 PM, Benjamin Herrenschmidt
 >  - Video capture
 >  - Framebuffer via drmfb
 >  - etc...
+
+Thanks. I added your suggestions to the list here:
+
+ https://github.com/openbmc/linux/wiki/UpstreamHistory
+
+Cheers,
+
+Joel
+
 >
 >> Ideas wouldn't need to be limited to the BMC ofcourse any
 >> interactions with the host firmware would also be candidate
