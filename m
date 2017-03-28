@@ -2,25 +2,25 @@ Return-Path: <benh@kernel.crashing.org>
 Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vsky94b7DzDqZS
- for <openbmc@lists.ozlabs.org>; Tue, 28 Mar 2017 19:46:09 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vsl3210K8zDqZV
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Mar 2017 19:50:21 +1100 (AEDT)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.13.8) with ESMTP id v2S8jp9Z015039;
- Tue, 28 Mar 2017 03:45:53 -0500
-Message-ID: <1490690751.3177.106.camel@kernel.crashing.org>
-Subject: Re: [PATCH] net/ftgmac100: Rewrite the driver
+ by gate.crashing.org (8.14.1/8.13.8) with ESMTP id v2S8nfYx015223;
+ Tue, 28 Mar 2017 03:49:42 -0500
+Message-ID: <1490690980.3177.108.camel@kernel.crashing.org>
+Subject: Re: [PATCH v6 1/5] irqchip/aspeed-i2c-ic: binding docs for Aspeed
+ I2C Interrupt Controller
 From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>
-Date: Tue, 28 Mar 2017 19:45:51 +1100
-In-Reply-To: <33bfcaea-ad18-3a19-5eb5-2f9e28bb6704@kaod.org>
-References: <1490610516.3177.72.camel@kernel.crashing.org>
- <8034ac73-e5ee-fd0f-cfd9-9b552e4d5ec8@kaod.org>
- <1490649293.3177.84.camel@kernel.crashing.org>
- <f5146202-a82d-17b3-2e23-7b8954aa4092@kaod.org>
- <1490682729.3177.105.camel@kernel.crashing.org>
- <ac565241-2806-67dc-fc34-7fdcc08d8a2a@kaod.org>
- <33bfcaea-ad18-3a19-5eb5-2f9e28bb6704@kaod.org>
+To: Brendan Higgins <brendanhiggins@google.com>, wsa@the-dreams.de,
+ robh+dt@kernel.org, mark.rutland@arm.com, tglx@linutronix.de,
+ jason@lakedaemon.net, marc.zyngier@arm.com, joel@jms.id.au,
+ vz@mleia.com, mouse@mayc.ru, clg@kaod.org
+Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+Date: Tue, 28 Mar 2017 19:49:40 +1100
+In-Reply-To: <20170328051226.21677-2-brendanhiggins@google.com>
+References: <20170328051226.21677-1-brendanhiggins@google.com>
+ <20170328051226.21677-2-brendanhiggins@google.com>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailer: Evolution 3.22.6 (3.22.6-1.fc25) 
 Mime-Version: 1.0
@@ -36,16 +36,71 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Mar 2017 08:46:10 -0000
+X-List-Received-Date: Tue, 28 Mar 2017 08:50:22 -0000
 
-On Tue, 2017-03-28 at 08:59 +0200, Cédric Le Goater wrote:
-> > Sigh. is it that bad :/ OK. Let's do some tuning.  I will tell you
-> > what I get.
-> 
-> so, with a large cleanup under "Kernel hacking", we get close to
-> 400Mbit on the 2500.
+On Mon, 2017-03-27 at 22:12 -0700, Brendan Higgins wrote:
+> Added device tree binding documentation for Aspeed I2C Interrupt
+> Controller.
 
-I get that too with 4.7 but I'm down to about 320 with 4.10
+It's a little bit overkill ... It's not so much an interrupt controller
+than a single "summary" register that reflects the state of the
+interrupts of all the i2c controllers ;-) It can't do anything with
+them, no individual masking or acking or similar.
+
+In fact to be honest I wouldn't even have bothered making it an
+irq_domain in the first place though it *is* nice I admit to see the
+interrupt counts per bus in /proc/interrupts as a result.
 
 Cheers,
 Ben.
+
+> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+> ---
+> Added in v6:
+>   - Pulled "aspeed_i2c_controller" out into a interrupt controller
+> since that is
+>     what it actually does.
+> ---
+>  .../interrupt-controller/aspeed,ast2400-i2c-ic.txt | 25
+> ++++++++++++++++++++++
+>  1 file changed, 25 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/interrupt-
+> controller/aspeed,ast2400-i2c-ic.txt
+> 
+> diff --git a/Documentation/devicetree/bindings/interrupt-
+> controller/aspeed,ast2400-i2c-ic.txt
+> b/Documentation/devicetree/bindings/interrupt-
+> controller/aspeed,ast2400-i2c-ic.txt
+> new file mode 100644
+> index 000000000000..033cc82e5684
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/interrupt-
+> controller/aspeed,ast2400-i2c-ic.txt
+> @@ -0,0 +1,25 @@
+> +Device tree configuration for the I2C Interrupt Controller on the
+> AST24XX and
+> +AST25XX SoCs.
+> +
+> +Required Properties:
+> +- #address-cells	: should be 1
+> +- #size-cells 		: should be 1
+> +- #interrupt-cells 	: should be 1
+> +- compatible 		: should be "aspeed,ast2400-i2c-ic"
+> +			  or "aspeed,ast2500-i2c-ic"
+> +- reg			: address start and range of controller
+> +- interrupts		: interrupt number
+> +- interrupt-controller	: denotes that the controller receives
+> and fires
+> +			  new interrupts for child busses
+> +
+> +Example:
+> +
+> +i2c_ic: interrupt-controller@0 {
+> +	#address-cells = <1>;
+> +	#size-cells = <1>;
+> +	#interrupt-cells = <1>;
+> +	compatible = "aspeed,ast2400-i2c-ic";
+> +	reg = <0x0 0x40>;
+> +	interrupts = <12>;
+> +	interrupt-controller;
+> +};
