@@ -3,18 +3,15 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vsrqZ6b1DzDqY4
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vsrqZ6VMCzDqC2
  for <openbmc@lists.ozlabs.org>; Wed, 29 Mar 2017 00:10:50 +1100 (AEDT)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
 Sender: bradleyb@bajor.fuzziesquirrel.com
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.7 1/2] ARM: configs: aspeed: Enable hwmon-iio
- bridge
-Date: Tue, 28 Mar 2017 09:10:37 -0400
-Message-Id: <1490706638-5782-2-git-send-email-bradleyb@fuzziesquirrel.com>
-In-Reply-To: <1490706638-5782-1-git-send-email-bradleyb@fuzziesquirrel.com>
-References: <1490706638-5782-1-git-send-email-bradleyb@fuzziesquirrel.com>
+Subject: [PATCH linux dev-4.7 0/2] ARM: enable bmp280-iio
+Date: Tue, 28 Mar 2017 09:10:36 -0400
+Message-Id: <1490706638-5782-1-git-send-email-bradleyb@fuzziesquirrel.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -28,38 +25,18 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Tue, 28 Mar 2017 13:10:51 -0000
 
-Some OpenBMC systems will be using iio-hwmon so enable it
-in our configs.
+Enable the bmp280 IIO driver.
+Enable the hwmon-iio bridge.
+Use them on the Witherspoon system.
 
-Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
----
- arch/arm/configs/aspeed_g4_defconfig | 1 +
- arch/arm/configs/aspeed_g5_defconfig | 1 +
- 2 files changed, 2 insertions(+)
+Brad Bishop (2):
+  ARM: configs: aspeed: Enable hwmon-iio bridge
+  ARM: dts: Use IIO version of bmp180 on Witherspoon
 
-diff --git a/arch/arm/configs/aspeed_g4_defconfig b/arch/arm/configs/aspeed_g4_defconfig
-index 45dee41..552297b 100644
---- a/arch/arm/configs/aspeed_g4_defconfig
-+++ b/arch/arm/configs/aspeed_g4_defconfig
-@@ -127,6 +127,7 @@ CONFIG_I2C_ASPEED=y
- CONFIG_W1=y
- CONFIG_W1_MASTER_GPIO=y
- CONFIG_W1_SLAVE_THERM=y
-+CONFIG_SENSORS_IIO_HWMON=y
- CONFIG_SENSORS_MAX31785=y
- CONFIG_SENSORS_LM75=y
- CONFIG_SENSORS_NCT7904=y
-diff --git a/arch/arm/configs/aspeed_g5_defconfig b/arch/arm/configs/aspeed_g5_defconfig
-index 69d51f2..c5e7295 100644
---- a/arch/arm/configs/aspeed_g5_defconfig
-+++ b/arch/arm/configs/aspeed_g5_defconfig
-@@ -126,6 +126,7 @@ CONFIG_I2C_ASPEED=y
- CONFIG_W1=y
- CONFIG_W1_MASTER_GPIO=y
- CONFIG_W1_SLAVE_THERM=y
-+CONFIG_SENSORS_IIO_HWMON=y
- CONFIG_SENSORS_MAX31785=y
- CONFIG_SENSORS_LM75=y
- CONFIG_SENSORS_NCT7904=y
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 10 ++++++++--
+ arch/arm/configs/aspeed_g4_defconfig             |  1 +
+ arch/arm/configs/aspeed_g5_defconfig             |  1 +
+ 3 files changed, 10 insertions(+), 2 deletions(-)
+
 -- 
 1.8.3.1
