@@ -1,65 +1,36 @@
-Return-Path: <mspinler@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vswDw3ry9zDqY4
- for <openbmc@lists.ozlabs.org>; Wed, 29 Mar 2017 02:44:32 +1100 (AEDT)
-Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v2SFXsNs113830
- for <openbmc@lists.ozlabs.org>; Tue, 28 Mar 2017 11:44:24 -0400
-Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
- by mx0b-001b2d01.pphosted.com with ESMTP id 29ft6f9w2a-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 28 Mar 2017 11:44:24 -0400
-Received: from localhost
- by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
- Tue, 28 Mar 2017 09:44:24 -0600
-Received: from b03cxnp08028.gho.boulder.ibm.com (9.17.130.20)
- by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Tue, 28 Mar 2017 09:44:21 -0600
-Received: from b03ledav006.gho.boulder.ibm.com
- (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v2SFiKLv15728986
- for <openbmc@lists.ozlabs.org>; Tue, 28 Mar 2017 08:44:20 -0700
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 98A9FC603E
- for <openbmc@lists.ozlabs.org>; Tue, 28 Mar 2017 09:44:20 -0600 (MDT)
-Received: from [9.10.222.239] (unknown [9.10.222.239])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id 7512BC6037
- for <openbmc@lists.ozlabs.org>; Tue, 28 Mar 2017 09:44:20 -0600 (MDT)
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: Matt Spinler <mspinler@linux.vnet.ibm.com>
-Subject: OpenBMC commands for interacting with Cronus
-Date: Tue, 28 Mar 2017 10:44:21 -0500
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101
+Return-Path: <clg@kaod.org>
+Received: from 5.mo2.mail-out.ovh.net (5.mo2.mail-out.ovh.net [87.98.181.248])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vsxW21hsvzDqC2
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Mar 2017 03:41:49 +1100 (AEDT)
+Received: from player718.ha.ovh.net (b7.ovh.net [213.186.33.57])
+ by mo2.mail-out.ovh.net (Postfix) with ESMTP id F00D47818D
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Mar 2017 18:41:45 +0200 (CEST)
+Received: from zorba.kaod.org (LFbn-1-10647-27.w90-89.abo.wanadoo.fr
+ [90.89.233.27]) (Authenticated sender: postmaster@kaod.org)
+ by player718.ha.ovh.net (Postfix) with ESMTPSA id 80EB04E0070;
+ Tue, 28 Mar 2017 18:41:42 +0200 (CEST)
+Subject: Re: [PATCH] net/ftgmac100: Rewrite the driver
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <1490610516.3177.72.camel@kernel.crashing.org>
+ <8034ac73-e5ee-fd0f-cfd9-9b552e4d5ec8@kaod.org>
+ <1490649293.3177.84.camel@kernel.crashing.org>
+ <f5146202-a82d-17b3-2e23-7b8954aa4092@kaod.org>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <5b1b8621-c20d-f100-0875-8f2264d70e8e@kaod.org>
+Date: Tue, 28 Mar 2017 18:41:41 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
  Thunderbird/45.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <f5146202-a82d-17b3-2e23-7b8954aa4092@kaod.org>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 17032815-0016-0000-0000-00000674A80D
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006865; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000206; SDB=6.00839983; UDB=6.00413326; IPR=6.00617887; 
- BA=6.00005245; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014840; XFM=3.00000013;
- UTC=2017-03-28 15:44:22
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17032815-0017-0000-0000-000038861392
-Message-Id: <f68f2225-89ac-ab66-9f5b-2895f8f86785@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-03-28_13:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
- definitions=main-1703280132
+X-Ovh-Tracer-Id: 10540956406694382338
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelhedrkeehgdeffecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -71,50 +42,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Mar 2017 15:44:33 -0000
-
-As part of issue 1178, I added some new services to allow users to put 
-the system into a mode that the cronus tool can run.
-
-Here's the summary:
-
-systemctl start obmc-power-chassis-on@0.target
-
-     * Just power on a system and not start the SBE
+X-List-Received-Date: Tue, 28 Mar 2017 16:41:51 -0000
 
 
-systemctl stop host-failure-reboots@0.service
+>>>> It does that by, among other things, rewriting the receive and
+>>>> transmit code, to both simplify the fast path as much as possible,
+>>>> avoid flushing of the caches (the aspeed chips have really slow
+>>>> little ARM cores), implementing support for fragmented sends,
+>>>> fixing HW checksum generation (AST2500 only), etc...
+>>>>
+>>>> In addition, I've added netpoll support, tx timeout recovery,
+>>>> better handling of link speed changes, multicast filter
+>>>> and promisc support, various ethtool config additions etc...
+>>>
+>>> Nice. So I will need to update the QEMU model as it is quite 
+>>> basic for the moment.
+>>
+>> You will need to support fragmented sends yes ;-)
+> 
+> among other things yes ... I will add that on the TODO list. Anyhow
+> the model needed some cleanups. 
 
-     * Turns off automatic reboots on checkstops and watchdog timeouts, 
-though the BMC will still go to quiesced state.
+The fragmented tx was not taking into account the full size of 
+the frame ... That is fixed now and I also added cksum offload 
+support for the AST2500. So the new and old n/w drivers are now
+supported in QEMU, in a very basic way. no nifty tuning.
 
-     * Reboots get enabled again on a BMC reset
+I reworked a bit the way the rx queue is flushed but this is not 
+enough to support iperf yet. it needs more work to sustain high 
+throughput. U-Boot support would be nice also but I think we will 
+need a more complete NCSI model. 
 
-     * Can also enable again by starting the service
+Cheers,
 
-
-systemctl start fsi-disable.service
-
-     * Unbinds the FSI driver, and switches the GPIOs for external 
-cronus use
-
-     * Do this any time after power on
-
-     * Will need to do this each power on, as the act of powering on 
-requires FSI for the VCS workaround
-
-
-systemctl start fsi-enable.service
-
-     *  Loads the BMC's FSI Driver again
-
-     * A power cycle will also load the drivers
-
-
-Outstanding issues:
-
-     *  #1397: Switch back to synchronous FSI clocks after unbinding the 
-FSI driver
-
-     * #1396:  For Zaius, some services need to be moved under the 
-obmc-power-chassis-on@0.target target
+C. 
+ 
