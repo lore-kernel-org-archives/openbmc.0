@@ -1,52 +1,56 @@
 Return-Path: <brendanhiggins@google.com>
-Received: from mail-pg0-x22f.google.com (mail-pg0-x22f.google.com
- [IPv6:2607:f8b0:400e:c05::22f])
+Received: from mail-pg0-x229.google.com (mail-pg0-x229.google.com
+ [IPv6:2607:f8b0:400e:c05::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vsfD10gX1zDqZk
- for <openbmc@lists.ozlabs.org>; Tue, 28 Mar 2017 16:12:49 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vsfD66M4bzDqbC
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Mar 2017 16:12:54 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="uONm+xtv"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="rJRNrkXi"; 
  dkim-atps=neutral
-Received: by mail-pg0-x22f.google.com with SMTP id 81so46897347pgh.2
- for <openbmc@lists.ozlabs.org>; Mon, 27 Mar 2017 22:12:48 -0700 (PDT)
+Received: by mail-pg0-x229.google.com with SMTP id 21so61431245pgg.1
+ for <openbmc@lists.ozlabs.org>; Mon, 27 Mar 2017 22:12:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=nGfAkbklk1F2d3ov73vw6UNiHw+vQ0SEPC5pCxk2dNA=;
- b=uONm+xtvwGQNTyEGEIfbC4/FDFTrIz+w8FcjxuvVyPireaDEBAO9lv0hI4pFCgg1w+
- nM+MHE4npFOmUCmLUr/MXACwxW08Hrd1lBVrcVHDjjis0uOq1Bi4CIOCgN/qTrXVWxcU
- VBSS804uvbCJhnZvdU+SYBAn1fa6YLgknGjvsgVmXXHTdKD6opplLxR0VG7Ba72+V3dX
- gmXCbKkNXTYB8vpSzrF+EXEHVEqMADEKTW87tSPlSoAB5s5OmlovxYZaithI5RcHhVAu
- e2hSEYGvkr55lu8J2H2hc0aZoJEyTJ5k7s+TzYRR3OyLq1GC0xuAmVUW+loFwkd/rlHL
- 6l6Q==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=XOCpHlfjC0Otp4kutqaghMDBWvwYp4vkYf0NrWq1D7M=;
+ b=rJRNrkXi3KrVO90fbgjjSVmnBOjOTo1RBizhL7i8D+jDRUgFMDnxY11BCPvimA9ST+
+ ipvKYeVV/dqAdlDFjqos/xgmNV3b5VZ7Me36TBzweAArVhBBMOUj2dB4z+1348FpJeZ5
+ zTQXamW7bWW+kd1AGCpmUxiirWWUBuItgjCrEsUOdXwhQorTokq2UeT2C4ZSVpMkfuk4
+ 0DAvwkMT+J+imZK1vrrZ/xy0pHAwLB7VQv0aFWlR9C33h2S1jhkioz1Y7R3QlNvLstir
+ pbit0t6KagzGFFqiBT9WiDyUMoGFRyg+vcPf8QBAnofNhYI6v3sGiv5S+FKpcU57g137
+ ckyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=nGfAkbklk1F2d3ov73vw6UNiHw+vQ0SEPC5pCxk2dNA=;
- b=ouvw1Z17nVnbOc7EaTqIWmEUDEHuOyhThBpFrEw3v0DrgMuLYc5VpM216nUvXB5p2m
- FQYZcgF9hSH8RfoJy2uMGxaDXMziDShWecMUdcn7q2tjPpCc9dqaiNvce2e7T6KcJ89y
- qTwrXiQO2FMix+Ef4YCxV5nQFXSMs+wHcy1Fx5O4z5eTAXrvLgbOP+TRQEgvFrkbJjoW
- OPtvqXSlZ1lrVkPo9tst8usG8WJdjdtaORhOrY6/0+xzq3BhR227cyMqF8TftM3yFIKL
- AZE9pzUKpu6GqeSisYD2jJrBExlddQYFWJn/y/1+5sSu6qtNwUro4zmYZw1DtJg9pirs
- 2QlQ==
-X-Gm-Message-State: AFeK/H2lNyZIHEwoA9VwySaCnM+l0mzWPK+8zY2cCGL1bljySulXtoBAYEoQMPlDe0nS2b6G
-X-Received: by 10.84.241.139 with SMTP id b11mr26968371pll.107.1490677967166; 
- Mon, 27 Mar 2017 22:12:47 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=XOCpHlfjC0Otp4kutqaghMDBWvwYp4vkYf0NrWq1D7M=;
+ b=bok7ZV0kjNCU6rDjgKjaKT/3wU4H7Oof3nI9MUVTZM/QWUFstrTXrBua7+1CiHUO40
+ qzpr8NVeO8FdqKFmko/SSnTsfS0n/+j2CZebIeMPcdxNDm24RfFvIjd19vjk2yRGWGTb
+ 4b05z1zJtYolIulBw1KuEkMhWwj/IBffpdClC8tfu8+q0cNJoRv1p7co+lJoo2YVjm8z
+ yLAiUerDbsR8gjb8+/JZiIAZ6YHY77NIaPQeNSCZSOONqq95HYMdVv54wCB3JHwfM2m0
+ +AQaGfZCz9M/5ZGwcB3/Vy+C4/asH7wE89TuxOoCqrqheLdx+ZG/d1zMHaJl/F5VX5Jn
+ 5ibw==
+X-Gm-Message-State: AFeK/H0snw3bVnkj4lng92hOzbrd5atTzTFXGi75AtnypONWX8dK0PB4LP67sPams1KDlzP8
+X-Received: by 10.98.209.25 with SMTP id z25mr29706429pfg.200.1490677973029;
+ Mon, 27 Mar 2017 22:12:53 -0700 (PDT)
 Received: from mactruck.svl.corp.google.com ([100.123.242.94])
- by smtp.gmail.com with ESMTPSA id p19sm368233pfl.15.2017.03.27.22.12.46
+ by smtp.gmail.com with ESMTPSA id p19sm368233pfl.15.2017.03.27.22.12.52
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Mon, 27 Mar 2017 22:12:46 -0700 (PDT)
+ Mon, 27 Mar 2017 22:12:52 -0700 (PDT)
 From: Brendan Higgins <brendanhiggins@google.com>
 To: wsa@the-dreams.de, robh+dt@kernel.org, mark.rutland@arm.com,
  tglx@linutronix.de, jason@lakedaemon.net, marc.zyngier@arm.com,
  joel@jms.id.au, vz@mleia.com, mouse@mayc.ru, clg@kaod.org
 Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
- benh@kernel.crashing.org
-Subject: [PATCH v6 0/5] i2c: aspeed: added driver for Aspeed I2C
-Date: Mon, 27 Mar 2017 22:12:21 -0700
-Message-Id: <20170328051226.21677-1-brendanhiggins@google.com>
+ benh@kernel.crashing.org, Brendan Higgins <brendanhiggins@google.com>
+Subject: [PATCH v6 1/5] irqchip/aspeed-i2c-ic: binding docs for Aspeed I2C
+ Interrupt Controller
+Date: Mon, 27 Mar 2017 22:12:22 -0700
+Message-Id: <20170328051226.21677-2-brendanhiggins@google.com>
 X-Mailer: git-send-email 2.12.2.564.g063fe858b8-goog
+In-Reply-To: <20170328051226.21677-1-brendanhiggins@google.com>
+References: <20170328051226.21677-1-brendanhiggins@google.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,39 +62,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Mar 2017 05:12:49 -0000
+X-List-Received-Date: Tue, 28 Mar 2017 05:12:55 -0000
 
-Sorry for the delay, I went on a long vacation prior to receiving feedback and
-got back in the middle of a hardware bring up that consumed all of my attention
-for an extended period of time. I will try to plan upstream submissions around
-my other responsibilities better in the future.
+Added device tree binding documentation for Aspeed I2C Interrupt
+Controller.
 
-Addressed comments from:
-  - Vladimir in: https://www.spinics.net/lists/linux-i2c/msg27387.html
-    and: https://www.spinics.net/lists/linux-i2c/msg27386.html
-  - Wolfram in: https://www.spinics.net/lists/linux-i2c/msg27476.html
-    and: https://www.spinics.net/lists/linux-i2c/msg27483.html
+Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+---
+Added in v6:
+  - Pulled "aspeed_i2c_controller" out into a interrupt controller since that is
+    what it actually does.
+---
+ .../interrupt-controller/aspeed,ast2400-i2c-ic.txt | 25 ++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/interrupt-controller/aspeed,ast2400-i2c-ic.txt
 
-Changes since previous update:
-  - No longer arbitrarily restrict bus to be slave xor master.
-  - Pulled out "struct aspeed_i2c_controller" as a interrupt controller.
-  - Pulled out slave support into its own commit.
-  - Rewrote code that sets clock divider register because the original version
-    set it incorrectly.
-  - Discovered and fixed issue in implementation that caused certain slave
-    devices to misbehave; the cause was that the master IRQ handler would return
-    control to the requesting thread after the last RX or TX command was handled
-    such that the requesting thread would issue either a repeated start or stop.
-    This was incorrect because the time taken to complete the completion was too
-    great. I fixed this by rewriting the master IRQ handler so that it now
-    manages the entire transaction only returning control to the requesting
-    thread once the entire transaction is complete.
-  - Rewrote the aspeed_i2c_master_irq handler because the old method of
-    completing a completion in between restarts was too slow causing devices to
-    misbehave.
-  - Added support for I2C_M_RECV_LEN which I had incorrectly said was supported
-    before.
-  - Addressed other comments from Vladimir.
-
-Changes have been tested on the Aspeed 2500 evaluation board, as before, and now
-on a real platform with an Aspeed 2520.
+diff --git a/Documentation/devicetree/bindings/interrupt-controller/aspeed,ast2400-i2c-ic.txt b/Documentation/devicetree/bindings/interrupt-controller/aspeed,ast2400-i2c-ic.txt
+new file mode 100644
+index 000000000000..033cc82e5684
+--- /dev/null
++++ b/Documentation/devicetree/bindings/interrupt-controller/aspeed,ast2400-i2c-ic.txt
+@@ -0,0 +1,25 @@
++Device tree configuration for the I2C Interrupt Controller on the AST24XX and
++AST25XX SoCs.
++
++Required Properties:
++- #address-cells	: should be 1
++- #size-cells 		: should be 1
++- #interrupt-cells 	: should be 1
++- compatible 		: should be "aspeed,ast2400-i2c-ic"
++			  or "aspeed,ast2500-i2c-ic"
++- reg			: address start and range of controller
++- interrupts		: interrupt number
++- interrupt-controller	: denotes that the controller receives and fires
++			  new interrupts for child busses
++
++Example:
++
++i2c_ic: interrupt-controller@0 {
++	#address-cells = <1>;
++	#size-cells = <1>;
++	#interrupt-cells = <1>;
++	compatible = "aspeed,ast2400-i2c-ic";
++	reg = <0x0 0x40>;
++	interrupts = <12>;
++	interrupt-controller;
++};
+-- 
+2.12.2.564.g063fe858b8-goog
