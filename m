@@ -1,59 +1,27 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-pg0-x242.google.com (mail-pg0-x242.google.com
- [IPv6:2607:f8b0:400e:c05::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <benh@kernel.crashing.org>
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vsfyD7407zDqfb
- for <openbmc@lists.ozlabs.org>; Tue, 28 Mar 2017 16:45:56 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="hTuCXSko"; 
- dkim-atps=neutral
-Received: by mail-pg0-x242.google.com with SMTP id g2so18543264pge.2
- for <openbmc@lists.ozlabs.org>; Mon, 27 Mar 2017 22:45:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=4MoiCsF4Grq2ddfz1ON5cp/phNOUjVqaIs8DzwtaVOo=;
- b=hTuCXSko/F3RIeq/BsCiQzFUBji0dGYcPpX9x5fPFTVkpUgnk3Z5+7TG0lTDMjDnik
- t9zVbLwE8MMR3VdNuK/V/OVHyMMh8cclsLgwL4cOTGx9Cn3rXtUVrtMiowj70KOumRK8
- vqvw1S0iUcSmFvZ2DLlYWhS/Fhzzqj3M3mkIT4FGhiw3EO/InZjZPAvMG0Nt3KBARXEk
- kbLHghr8EOmnfDLXkSz19PVKR3j3slOWdte3N0Qnc5T8Ys27CybiouL6eef+lIkdI4UU
- 7DkE0HXvqKdh2l4jIUmtegwTO2XXJnu/0jUbm39PWOqKtw22PToOPzeqpZU19PKtcLU7
- sbiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
- :in-reply-to:references;
- bh=4MoiCsF4Grq2ddfz1ON5cp/phNOUjVqaIs8DzwtaVOo=;
- b=mD8nxhApHUx9JjAZ2v4bfN2pTGlMlYJ6Vzu3xY3YpWvUlqBYYIcnCNZrF8x7DCvn81
- MbxX8x6//j6ec0B9vTZTMOYTBFEqbWDWnQ60Tl3w6AdF+TAdBGwal30ViIlTzGH2MwTU
- 1w1pQvjFNK7v+WjciEv+Fr09VPaTUAquDLI0hqtZZDxpsIa4CrsA/XYHWen87sv0i8LF
- IVxKYapXfg07f0SYmKZdBzzFIiF0tTI0S+G6Vgcjm/HwmRPR1c0RWnZYJA40nP8Yq+g7
- HWJftDPaPXeG7xKzUSdGZiT16QjhvzcNwTSs/MlO1zigEr44dI5IOoWWNKpWWfcfcebl
- zIkA==
-X-Gm-Message-State: AFeK/H0ZQJa0dpvlaTSzoZa3zoKW/vE40FRw+BrXEM/X67e5JKPCGo7ThG+RqAk2EbYp3A==
-X-Received: by 10.98.206.78 with SMTP id y75mr30135419pfg.108.1490679955049;
- Mon, 27 Mar 2017 22:45:55 -0700 (PDT)
-Received: from aurora.jms.id.au ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id 11sm4451710pgf.28.2017.03.27.22.45.45
- (version=TLS1 cipher=AES128-SHA bits=128/128);
- Mon, 27 Mar 2017 22:45:54 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Tue, 28 Mar 2017 16:15:39 +1030
-From: Joel Stanley <joel@jms.id.au>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jslaby@suse.com>, Mark Rutland <mark.rutland@arm.com>,
- Rob Herring <robh+dt@kernel.org>
-Cc: Jeremy Kerr <jk@ozlabs.org>, linux-serial@vger.kernel.org,
- linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
- devicetree@vger.kernel.org,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Subject: [PATCH 2/2] drivers/serial: Add driver for Aspeed virtual UART
-Date: Tue, 28 Mar 2017 16:14:58 +1030
-Message-Id: <20170328054458.29341-3-joel@jms.id.au>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20170328054458.29341-1-joel@jms.id.au>
-References: <20170328054458.29341-1-joel@jms.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vsgzy6TBdzDqZQ
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Mar 2017 17:32:30 +1100 (AEDT)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+ by gate.crashing.org (8.14.1/8.13.8) with ESMTP id v2S6WAfF007441;
+ Tue, 28 Mar 2017 01:32:11 -0500
+Message-ID: <1490682729.3177.105.camel@kernel.crashing.org>
+Subject: Re: [PATCH] net/ftgmac100: Rewrite the driver
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>
+Date: Tue, 28 Mar 2017 17:32:09 +1100
+In-Reply-To: <f5146202-a82d-17b3-2e23-7b8954aa4092@kaod.org>
+References: <1490610516.3177.72.camel@kernel.crashing.org>
+ <8034ac73-e5ee-fd0f-cfd9-9b552e4d5ec8@kaod.org>
+ <1490649293.3177.84.camel@kernel.crashing.org>
+ <f5146202-a82d-17b3-2e23-7b8954aa4092@kaod.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.22.6 (3.22.6-1.fc25) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -65,419 +33,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Mar 2017 05:45:57 -0000
+X-List-Received-Date: Tue, 28 Mar 2017 06:32:31 -0000
 
-From: Jeremy Kerr <jk@ozlabs.org>
+On Tue, 2017-03-28 at 08:28 +0200, Cédric Le Goater wrote:
+> Simply, 'iperf -s' on the BMC  and 'iperf -c' on some other machine.
+> 
+> Your v3 fixed the issue and iperf now finds :
+> 
+>         ~76 Mbits/sec on the AST2500 
+>         ~32 Mbits/sec on the AST2400.
 
-This change adds a driver for the 16550-based Aspeed virtual UART
-device. We use a similar process to the of_serial driver for device
-probe, but expose some VUART-specific functions through sysfs too.
+Remove all the stupid debug options in your kernel config, and you'll
+get >400Mbit on the 2500 :-) I get about 200 on a Firestone with a
+2400 (after manually hacking the RGMII clock delays to make it work
+at 1000bT).
 
-OpenPOWER host firmware doesn't like it when the host-side of the
-VUART's FIFO is not drained. This driver only disables host TX discard
-mode when the port is in use. We set the VUART enabled bit when we bind
-to the device, and clear it on unbind.
+I'll post a rebase to 4.10 tomorrow. Sadly 4.10 loses another 100Mbit
+probably due to kernel bloat.
 
-We don't want to do this on open/release, as the host may be using this
-bit to configure serial output modes, which is independent of whether
-the devices has been opened by BMC userspace.
-
-Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- Documentation/devicetree/bindings/serial/8250.txt |   2 +
- drivers/tty/serial/Kconfig                        |  10 +
- drivers/tty/serial/Makefile                       |   1 +
- drivers/tty/serial/aspeed-vuart.c                 | 335 ++++++++++++++++++++++
- 4 files changed, 348 insertions(+)
- create mode 100644 drivers/tty/serial/aspeed-vuart.c
-
-diff --git a/Documentation/devicetree/bindings/serial/8250.txt b/Documentation/devicetree/bindings/serial/8250.txt
-index f86bb06c39e9..a12e9277ac5d 100644
---- a/Documentation/devicetree/bindings/serial/8250.txt
-+++ b/Documentation/devicetree/bindings/serial/8250.txt
-@@ -19,6 +19,8 @@ Required properties:
- 	- "altr,16550-FIFO128"
- 	- "fsl,16550-FIFO64"
- 	- "fsl,ns16550"
-+	- "aspeed,ast2400-vuart"
-+	- "aspeed,ast2500-vuart"
- 	- "serial" if the port type is unknown.
- - reg : offset and length of the register set for the device.
- - interrupts : should contain uart interrupt.
-diff --git a/drivers/tty/serial/Kconfig b/drivers/tty/serial/Kconfig
-index e9cf5b67f1b7..758b69a51078 100644
---- a/drivers/tty/serial/Kconfig
-+++ b/drivers/tty/serial/Kconfig
-@@ -1129,6 +1129,16 @@ config SERIAL_NETX_CONSOLE
- 	  If you have enabled the serial port on the Hilscher NetX SoC
- 	  you can make it the console by answering Y to this option.
- 
-+config SERIAL_ASPEED_VUART
-+	tristate "Aspeed Virtual UART"
-+	depends on OF
-+	depends on SERIAL_8250
-+	help
-+	  If you want to use the virtual UART (VUART) device on Aspeed
-+	  BMC platforms, enable this option. This enables the 16550A-
-+	  compatible device on the local LPC bus, giving a UART device
-+	  with no physical RS232 connections.
-+
- config SERIAL_OMAP
- 	tristate "OMAP serial port support"
- 	depends on ARCH_OMAP2PLUS
-diff --git a/drivers/tty/serial/Makefile b/drivers/tty/serial/Makefile
-index 2d6288bc4554..5b97b0fa29e2 100644
---- a/drivers/tty/serial/Makefile
-+++ b/drivers/tty/serial/Makefile
-@@ -22,6 +22,7 @@ obj-$(CONFIG_SERIAL_8250) += 8250/
- 
- obj-$(CONFIG_SERIAL_AMBA_PL010) += amba-pl010.o
- obj-$(CONFIG_SERIAL_AMBA_PL011) += amba-pl011.o
-+obj-$(CONFIG_SERIAL_ASPEED_VUART) += aspeed-vuart.o
- obj-$(CONFIG_SERIAL_CLPS711X) += clps711x.o
- obj-$(CONFIG_SERIAL_PXA_NON8250) += pxa.o
- obj-$(CONFIG_SERIAL_PNX8XXX) += pnx8xxx_uart.o
-diff --git a/drivers/tty/serial/aspeed-vuart.c b/drivers/tty/serial/aspeed-vuart.c
-new file mode 100644
-index 000000000000..fc6fa6d243c8
---- /dev/null
-+++ b/drivers/tty/serial/aspeed-vuart.c
-@@ -0,0 +1,335 @@
-+/*
-+ *  Serial Port driver for Aspeed VUART device
-+ *
-+ *    Copyright (C) 2016 Jeremy Kerr <jk@ozlabs.org>, IBM Corp.
-+ *    Copyright (C) 2006 Arnd Bergmann <arnd@arndb.de>, IBM Corp.
-+ *
-+ *  This program is free software; you can redistribute it and/or
-+ *  modify it under the terms of the GNU General Public License
-+ *  as published by the Free Software Foundation; either version
-+ *  2 of the License, or (at your option) any later version.
-+ *
-+ */
-+#include <linux/device.h>
-+#include <linux/module.h>
-+#include <linux/of_address.h>
-+#include <linux/of_irq.h>
-+#include <linux/of_platform.h>
-+#include <linux/clk.h>
-+
-+#include "8250/8250.h"
-+
-+#define AST_VUART_GCRA		0x20
-+#define AST_VUART_GCRA_VUART_EN		0x01
-+#define AST_VUART_GCRA_HOST_TX_DISCARD	0x20
-+#define AST_VUART_GCRB		0x24
-+#define AST_VUART_GCRB_HOST_SIRQ_MASK	0xf0
-+#define AST_VUART_GCRB_HOST_SIRQ_SHIFT	4
-+#define AST_VUART_ADDRL		0x28
-+#define AST_VUART_ADDRH		0x2c
-+
-+struct ast_vuart {
-+	struct platform_device *pdev;
-+	void __iomem		*regs;
-+	struct clk		*clk;
-+	int			line;
-+};
-+
-+static ssize_t ast_vuart_show_addr(struct device *dev,
-+		struct device_attribute *attr, char *buf)
-+{
-+	struct ast_vuart *vuart = dev_get_drvdata(dev);
-+	u16 addr;
-+
-+	addr = (readb(vuart->regs + AST_VUART_ADDRH) << 8) |
-+		(readb(vuart->regs + AST_VUART_ADDRL));
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "0x%x\n", addr);
-+}
-+
-+static ssize_t ast_vuart_set_addr(struct device *dev,
-+		struct device_attribute *attr,
-+		const char *buf, size_t count)
-+{
-+	struct ast_vuart *vuart = dev_get_drvdata(dev);
-+	unsigned long val;
-+	int err;
-+
-+	err = kstrtoul(buf, 0, &val);
-+	if (err)
-+		return err;
-+
-+	writeb((val >> 8) & 0xff, vuart->regs + AST_VUART_ADDRH);
-+	writeb((val >> 0) & 0xff, vuart->regs + AST_VUART_ADDRL);
-+
-+	return count;
-+}
-+
-+static DEVICE_ATTR(lpc_address, 0664,
-+		ast_vuart_show_addr, ast_vuart_set_addr);
-+
-+static ssize_t ast_vuart_show_sirq(struct device *dev,
-+		struct device_attribute *attr, char *buf)
-+{
-+	struct ast_vuart *vuart = dev_get_drvdata(dev);
-+	u8 reg;
-+
-+	reg = readb(vuart->regs + AST_VUART_GCRB);
-+	reg &= AST_VUART_GCRB_HOST_SIRQ_MASK;
-+	reg >>= AST_VUART_GCRB_HOST_SIRQ_SHIFT;
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%u\n", reg);
-+}
-+
-+static ssize_t ast_vuart_set_sirq(struct device *dev,
-+		struct device_attribute *attr,
-+		const char *buf, size_t count)
-+{
-+	struct ast_vuart *vuart = dev_get_drvdata(dev);
-+	unsigned long val;
-+	int err;
-+	u8 reg;
-+
-+	err = kstrtoul(buf, 0, &val);
-+	if (err)
-+		return err;
-+
-+	val <<= AST_VUART_GCRB_HOST_SIRQ_SHIFT;
-+	val &= AST_VUART_GCRB_HOST_SIRQ_MASK;
-+
-+	reg = readb(vuart->regs + AST_VUART_GCRB);
-+	reg &= ~AST_VUART_GCRB_HOST_SIRQ_MASK;
-+	reg |= val;
-+	writeb(reg, vuart->regs + AST_VUART_GCRB);
-+
-+	return count;
-+}
-+
-+static DEVICE_ATTR(sirq, 0664,
-+		ast_vuart_show_sirq, ast_vuart_set_sirq);
-+
-+static void ast_vuart_set_enabled(struct ast_vuart *vuart, bool enabled)
-+{
-+	u8 reg;
-+
-+	reg = readb(vuart->regs + AST_VUART_GCRA);
-+	reg &= ~AST_VUART_GCRA_VUART_EN;
-+	if (enabled)
-+		reg |= AST_VUART_GCRA_VUART_EN;
-+	writeb(reg, vuart->regs + AST_VUART_GCRA);
-+}
-+
-+static void ast_vuart_set_host_tx_discard(struct ast_vuart *vuart, bool discard)
-+{
-+	u8 reg;
-+
-+	reg = readb(vuart->regs + AST_VUART_GCRA);
-+
-+	/* if the HOST_TX_DISCARD bit is set, discard is *disabled* */
-+	reg &= ~AST_VUART_GCRA_HOST_TX_DISCARD;
-+	if (!discard)
-+		reg |= AST_VUART_GCRA_HOST_TX_DISCARD;
-+
-+	writeb(reg, vuart->regs + AST_VUART_GCRA);
-+}
-+
-+static int ast_vuart_startup(struct uart_port *uart_port)
-+{
-+	struct uart_8250_port *uart_8250_port = up_to_u8250p(uart_port);
-+	struct ast_vuart *vuart = uart_8250_port->port.private_data;
-+	int rc;
-+
-+	rc = serial8250_do_startup(uart_port);
-+	if (rc)
-+		return rc;
-+
-+	ast_vuart_set_host_tx_discard(vuart, false);
-+
-+	return 0;
-+}
-+
-+static void ast_vuart_shutdown(struct uart_port *uart_port)
-+{
-+	struct uart_8250_port *uart_8250_port = up_to_u8250p(uart_port);
-+	struct ast_vuart *vuart = uart_8250_port->port.private_data;
-+
-+	ast_vuart_set_host_tx_discard(vuart, true);
-+
-+	serial8250_do_shutdown(uart_port);
-+}
-+
-+
-+/**
-+ * The device tree parsing code here is heavily based on that of the of_serial
-+ * driver, but we have a few core differences, as we need to use our own
-+ * ioremapping for extra register support
-+ */
-+static int ast_vuart_probe(struct platform_device *pdev)
-+{
-+	struct uart_8250_port port;
-+	struct resource resource;
-+	struct ast_vuart *vuart;
-+	struct device_node *np;
-+	u32 clk, prop;
-+	int rc;
-+
-+	np = pdev->dev.of_node;
-+
-+	vuart = devm_kzalloc(&pdev->dev, sizeof(*vuart), GFP_KERNEL);
-+	if (!vuart)
-+		return -ENOMEM;
-+
-+	vuart->pdev = pdev;
-+	rc = of_address_to_resource(np, 0, &resource);
-+	if (rc) {
-+		dev_warn(&pdev->dev, "invalid address\n");
-+		return rc;
-+	}
-+
-+	/* create our own mapping for VUART-specific registers */
-+	vuart->regs = devm_ioremap_resource(&pdev->dev, &resource);
-+	if (IS_ERR(vuart->regs)) {
-+		dev_warn(&pdev->dev, "failed to map registers\n");
-+		return PTR_ERR(vuart->regs);
-+	}
-+
-+	memset(&port, 0, sizeof(port));
-+	port.port.private_data = vuart;
-+	port.port.membase = vuart->regs;
-+	port.port.mapbase = resource.start;
-+	port.port.mapsize = resource_size(&resource);
-+	port.port.startup = ast_vuart_startup;
-+	port.port.shutdown = ast_vuart_shutdown;
-+
-+	if (of_property_read_u32(np, "clock-frequency", &clk)) {
-+		vuart->clk = devm_clk_get(&pdev->dev, NULL);
-+		if (IS_ERR(vuart->clk)) {
-+			dev_warn(&pdev->dev,
-+				"clk or clock-frequency not defined\n");
-+			return PTR_ERR(vuart->clk);
-+		}
-+
-+		rc = clk_prepare_enable(vuart->clk);
-+		if (rc < 0)
-+			return rc;
-+
-+		clk = clk_get_rate(vuart->clk);
-+	}
-+
-+	/* If current-speed was set, then try not to change it. */
-+	if (of_property_read_u32(np, "current-speed", &prop) == 0)
-+		port.port.custom_divisor = clk / (16 * prop);
-+
-+	/* Check for shifted address mapping */
-+	if (of_property_read_u32(np, "reg-offset", &prop) == 0)
-+		port.port.mapbase += prop;
-+
-+	/* Check for registers offset within the devices address range */
-+	if (of_property_read_u32(np, "reg-shift", &prop) == 0)
-+		port.port.regshift = prop;
-+
-+	/* Check for fifo size */
-+	if (of_property_read_u32(np, "fifo-size", &prop) == 0)
-+		port.port.fifosize = prop;
-+
-+	/* Check for a fixed line number */
-+	rc = of_alias_get_id(np, "serial");
-+	if (rc >= 0)
-+		port.port.line = rc;
-+
-+	port.port.irq = irq_of_parse_and_map(np, 0);
-+	port.port.irqflags = IRQF_SHARED;
-+	port.port.iotype = UPIO_MEM;
-+	if (of_property_read_u32(np, "reg-io-width", &prop) == 0) {
-+		switch (prop) {
-+		case 1:
-+			port.port.iotype = UPIO_MEM;
-+			break;
-+		case 4:
-+			port.port.iotype = of_device_is_big_endian(np) ?
-+				       UPIO_MEM32BE : UPIO_MEM32;
-+			break;
-+		default:
-+			dev_warn(&pdev->dev, "unsupported reg-io-width (%d)\n",
-+				 prop);
-+			rc = -EINVAL;
-+			goto err_clk_disable;
-+		}
-+	}
-+
-+	port.port.type = PORT_16550A;
-+	port.port.uartclk = clk;
-+	port.port.flags = UPF_SHARE_IRQ | UPF_BOOT_AUTOCONF
-+		| UPF_FIXED_PORT | UPF_FIXED_TYPE | UPF_NO_THRE_TEST;
-+
-+	if (of_find_property(np, "no-loopback-test", NULL))
-+		port.port.flags |= UPF_SKIP_TEST;
-+
-+	port.port.dev = &pdev->dev;
-+
-+	if (port.port.fifosize)
-+		port.capabilities = UART_CAP_FIFO;
-+
-+	if (of_property_read_bool(pdev->dev.of_node,
-+				  "auto-flow-control"))
-+		port.capabilities |= UART_CAP_AFE;
-+
-+	rc = serial8250_register_8250_port(&port);
-+	if (rc < 0)
-+		goto err_clk_disable;
-+
-+
-+	vuart->line = rc;
-+	ast_vuart_set_enabled(vuart, true);
-+	ast_vuart_set_host_tx_discard(vuart, true);
-+	platform_set_drvdata(pdev, vuart);
-+
-+	/* extra sysfs control */
-+	rc = device_create_file(&pdev->dev, &dev_attr_lpc_address);
-+	if (rc)
-+		dev_warn(&pdev->dev, "can't create lpc_address file\n");
-+	rc = device_create_file(&pdev->dev, &dev_attr_sirq);
-+	if (rc)
-+		dev_warn(&pdev->dev, "can't create sirq file\n");
-+
-+	return 0;
-+
-+err_clk_disable:
-+	if (vuart->clk)
-+		clk_disable_unprepare(vuart->clk);
-+
-+	irq_dispose_mapping(port.port.irq);
-+	return rc;
-+}
-+
-+static int ast_vuart_remove(struct platform_device *pdev)
-+{
-+	struct ast_vuart *vuart = platform_get_drvdata(pdev);
-+
-+	ast_vuart_set_enabled(vuart, false);
-+
-+	if (vuart->clk)
-+		clk_disable_unprepare(vuart->clk);
-+	return 0;
-+}
-+
-+static const struct of_device_id ast_vuart_table[] = {
-+	{ .compatible = "aspeed,ast2400-vuart" },
-+	{ .compatible = "aspeed,ast2500-vuart" },
-+	{ },
-+};
-+
-+static struct platform_driver ast_vuart_driver = {
-+	.driver = {
-+		.name = "aspeed-vuart",
-+		.of_match_table = ast_vuart_table,
-+	},
-+	.probe = ast_vuart_probe,
-+	.remove = ast_vuart_remove,
-+};
-+
-+module_platform_driver(ast_vuart_driver);
-+
-+MODULE_AUTHOR("Jeremy Kerr <jk@ozlabs.org>");
-+MODULE_LICENSE("GPL");
-+MODULE_DESCRIPTION("Driver for Aspeed VUART device");
--- 
-2.11.0
+Cheers,
+Ben.
