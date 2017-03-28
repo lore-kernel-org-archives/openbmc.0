@@ -1,56 +1,52 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x243.google.com (mail-yw0-x243.google.com
- [IPv6:2607:f8b0:4002:c05::243])
+Return-Path: <brendanhiggins@google.com>
+Received: from mail-pg0-x22f.google.com (mail-pg0-x22f.google.com
+ [IPv6:2607:f8b0:400e:c05::22f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vsf6N72RJzDqZX
- for <openbmc@lists.ozlabs.org>; Tue, 28 Mar 2017 16:07:56 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vsfD10gX1zDqZk
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Mar 2017 16:12:49 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="o1cGcCZO"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="uONm+xtv"; 
  dkim-atps=neutral
-Received: by mail-yw0-x243.google.com with SMTP id i203so8297655ywc.3
- for <openbmc@lists.ozlabs.org>; Mon, 27 Mar 2017 22:07:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=wZsRurwO1REviPGTmub30tz5Wuhdi5ChQNTrq0JfrBg=;
- b=o1cGcCZOihlKurh00QvOQOdbfOP+BEfzIutloBYMFc8ioZyJSQacHFqHDOBuDStSsY
- MrX7MNoK3xqPUz185CWRMzakTecjcCVyUkBB7WVmF98ZGb1+f7H2j3hb7gE6aReXpAdq
- sEc7VESj+Vul/Ow+JC/9FrIMoHZWPV1zqJzQ5NtV3uhOeJFZfm8vkULy6c/y9XT5ajSz
- R5T2aqALhcKW9ldxzMYxVfkh3Iu4nHMZzOlcn4Tw4bh98nMoDCE3Ysscxrinc+eLRu/V
- vGs5wH2zRu2iMjYEEAZwdQc+yA2jfn5P/3/HgTtx64LBambID4RZGLsC9LECw44/+9WP
- 7HQg==
+Received: by mail-pg0-x22f.google.com with SMTP id 81so46897347pgh.2
+ for <openbmc@lists.ozlabs.org>; Mon, 27 Mar 2017 22:12:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=nGfAkbklk1F2d3ov73vw6UNiHw+vQ0SEPC5pCxk2dNA=;
+ b=uONm+xtvwGQNTyEGEIfbC4/FDFTrIz+w8FcjxuvVyPireaDEBAO9lv0hI4pFCgg1w+
+ nM+MHE4npFOmUCmLUr/MXACwxW08Hrd1lBVrcVHDjjis0uOq1Bi4CIOCgN/qTrXVWxcU
+ VBSS804uvbCJhnZvdU+SYBAn1fa6YLgknGjvsgVmXXHTdKD6opplLxR0VG7Ba72+V3dX
+ gmXCbKkNXTYB8vpSzrF+EXEHVEqMADEKTW87tSPlSoAB5s5OmlovxYZaithI5RcHhVAu
+ e2hSEYGvkr55lu8J2H2hc0aZoJEyTJ5k7s+TzYRR3OyLq1GC0xuAmVUW+loFwkd/rlHL
+ 6l6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=wZsRurwO1REviPGTmub30tz5Wuhdi5ChQNTrq0JfrBg=;
- b=FkcK+LCi7kLQ/9DruWSCI1so5cH8PhoOD2ZuMxujXWY/Yg8LPbL7gRVkdxMXeszKT1
- 4GckSafiQF3PyUyHVAOySr1CIKiRm4cBW7E06hn2ScuSk04MbH1lZtSfzHGV8+xFH0bi
- uDi2bF8ugxhJ2azRLSe6ySjWcUv7fEJt06czaobxyJ3qe3qmiaDMGq6iD1Qly3vnrs1D
- /ggGL5lhGxMjrWL6ihpttTM+EM4qNRy4YfnU43FRB9Iiw6wShPabMvsh18SOT1r913eg
- 08suugQy/bdjz9GuR96K+H7n6jUWhHtQBP9Y7mT+tT/J6QyJLiP/VEtSepdViOISKVEb
- +2lw==
-X-Gm-Message-State: AFeK/H1JW4jK+aso1YMnHzsaKCntu3DQthi867Y021aJzUixucCQtpDK+iBGH7SkSxWqiJ9Bno+LxBWd4lVLtA==
-X-Received: by 10.129.116.214 with SMTP id p205mr22101223ywc.268.1490677674663; 
- Mon, 27 Mar 2017 22:07:54 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.59.17 with HTTP; Mon, 27 Mar 2017 22:07:34 -0700 (PDT)
-In-Reply-To: <6f0fa72d-2070-8677-13c3-371a311021f1@linux.vnet.ibm.com>
-References: <1490637256-10584-1-git-send-email-eajames@linux.vnet.ibm.com>
- <6f0fa72d-2070-8677-13c3-371a311021f1@linux.vnet.ibm.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 28 Mar 2017 15:37:34 +1030
-X-Google-Sender-Auth: H-ug83P9hNcYLZN7om8qs18IOuM
-Message-ID: <CACPK8Xem5yJmoxpix=zxm9JGtL9CB4yb8Tt6dx9G58fJLgorXg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7] drivers: fsi: scom: Remove scom reset
- before every putscom
-To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Cc: Eddie James <eajames@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- "Edward A. James" <eajames@us.ibm.com>
-Content-Type: text/plain; charset=UTF-8
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=nGfAkbklk1F2d3ov73vw6UNiHw+vQ0SEPC5pCxk2dNA=;
+ b=ouvw1Z17nVnbOc7EaTqIWmEUDEHuOyhThBpFrEw3v0DrgMuLYc5VpM216nUvXB5p2m
+ FQYZcgF9hSH8RfoJy2uMGxaDXMziDShWecMUdcn7q2tjPpCc9dqaiNvce2e7T6KcJ89y
+ qTwrXiQO2FMix+Ef4YCxV5nQFXSMs+wHcy1Fx5O4z5eTAXrvLgbOP+TRQEgvFrkbJjoW
+ OPtvqXSlZ1lrVkPo9tst8usG8WJdjdtaORhOrY6/0+xzq3BhR227cyMqF8TftM3yFIKL
+ AZE9pzUKpu6GqeSisYD2jJrBExlddQYFWJn/y/1+5sSu6qtNwUro4zmYZw1DtJg9pirs
+ 2QlQ==
+X-Gm-Message-State: AFeK/H2lNyZIHEwoA9VwySaCnM+l0mzWPK+8zY2cCGL1bljySulXtoBAYEoQMPlDe0nS2b6G
+X-Received: by 10.84.241.139 with SMTP id b11mr26968371pll.107.1490677967166; 
+ Mon, 27 Mar 2017 22:12:47 -0700 (PDT)
+Received: from mactruck.svl.corp.google.com ([100.123.242.94])
+ by smtp.gmail.com with ESMTPSA id p19sm368233pfl.15.2017.03.27.22.12.46
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Mon, 27 Mar 2017 22:12:46 -0700 (PDT)
+From: Brendan Higgins <brendanhiggins@google.com>
+To: wsa@the-dreams.de, robh+dt@kernel.org, mark.rutland@arm.com,
+ tglx@linutronix.de, jason@lakedaemon.net, marc.zyngier@arm.com,
+ joel@jms.id.au, vz@mleia.com, mouse@mayc.ru, clg@kaod.org
+Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
+ benh@kernel.crashing.org
+Subject: [PATCH v6 0/5] i2c: aspeed: added driver for Aspeed I2C
+Date: Mon, 27 Mar 2017 22:12:21 -0700
+Message-Id: <20170328051226.21677-1-brendanhiggins@google.com>
+X-Mailer: git-send-email 2.12.2.564.g063fe858b8-goog
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,32 +58,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Mar 2017 05:07:57 -0000
+X-List-Received-Date: Tue, 28 Mar 2017 05:12:49 -0000
 
-On Tue, Mar 28, 2017 at 4:35 AM, Christopher Bostic
-<cbostic@linux.vnet.ibm.com> wrote:
->
->
-> On 3/27/17 12:54 PM, Eddie James wrote:
->>
->> From: "Edward A. James" <eajames@us.ibm.com>
->>
->> Reset was causing PIB I2C master issues.
->>
->> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+Sorry for the delay, I went on a long vacation prior to receiving feedback and
+got back in the middle of a hardware bring up that consumed all of my attention
+for an extended period of time. I will try to plan upstream submissions around
+my other responsibilities better in the future.
 
-> Looks good to me.
->
-> Acked by Christopher Bostic <cbostic@linux.vnet.ibm.com>
->
+Addressed comments from:
+  - Vladimir in: https://www.spinics.net/lists/linux-i2c/msg27387.html
+    and: https://www.spinics.net/lists/linux-i2c/msg27386.html
+  - Wolfram in: https://www.spinics.net/lists/linux-i2c/msg27476.html
+    and: https://www.spinics.net/lists/linux-i2c/msg27483.html
 
-For patchwork to recognise your review, it needs to be in the form
-"Acked-by: ". Otherwise it ignores it.
+Changes since previous update:
+  - No longer arbitrarily restrict bus to be slave xor master.
+  - Pulled out "struct aspeed_i2c_controller" as a interrupt controller.
+  - Pulled out slave support into its own commit.
+  - Rewrote code that sets clock divider register because the original version
+    set it incorrectly.
+  - Discovered and fixed issue in implementation that caused certain slave
+    devices to misbehave; the cause was that the master IRQ handler would return
+    control to the requesting thread after the last RX or TX command was handled
+    such that the requesting thread would issue either a repeated start or stop.
+    This was incorrect because the time taken to complete the completion was too
+    great. I fixed this by rewriting the master IRQ handler so that it now
+    manages the entire transaction only returning control to the requesting
+    thread once the entire transaction is complete.
+  - Rewrote the aspeed_i2c_master_irq handler because the old method of
+    completing a completion in between restarts was too slow causing devices to
+    misbehave.
+  - Added support for I2C_M_RECV_LEN which I had incorrectly said was supported
+    before.
+  - Addressed other comments from Vladimir.
 
-I fixed it up for you this time.
-
-Applied to dev-4.7.
-
-Cheers,
-
-Joel
+Changes have been tested on the Aspeed 2500 evaluation board, as before, and now
+on a real platform with an Aspeed 2520.
