@@ -1,52 +1,54 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-pf0-x243.google.com (mail-pf0-x243.google.com
- [IPv6:2607:f8b0:400e:c00::243])
+Received: from mail-yw0-x243.google.com (mail-yw0-x243.google.com
+ [IPv6:2607:f8b0:4002:c05::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vtFgc5WdpzDqGp
- for <openbmc@lists.ozlabs.org>; Wed, 29 Mar 2017 15:50:20 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vtG2r25p9zDqGp
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Mar 2017 16:07:00 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="HlGtug4g"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="UjaVxh0z"; 
  dkim-atps=neutral
-Received: by mail-pf0-x243.google.com with SMTP id n11so459367pfg.2
- for <openbmc@lists.ozlabs.org>; Tue, 28 Mar 2017 21:50:20 -0700 (PDT)
+Received: by mail-yw0-x243.google.com with SMTP id p77so516630ywg.0
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Mar 2017 22:07:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id;
- bh=ygJv+nNLrnNmq1Sio09DIwJuCl+/8yryOpZFijcGtfk=;
- b=HlGtug4grQzhw++nSSB0lwzJvG3Ot05OUCBxAkdYVSashxcDB4VGTYRiVupFSZQd8z
- tPQZzSXrepEZt7NXRZNZFCfxrCLnKvokaka7qSjXzk92diVDokXu7XH76AAlP+xSIXbw
- WXvnMnnjEc/T8NTGOXzqObQozYx3mQbvP7+iIWASHZ4Npsv2jRbB3SNDtL+6xgQzg1Xh
- kiBtQ+03XsVZw4v0mp1kLAsN3WAVSQl6usRHDslXs+pV0TucuHnESvfkSrsb9sqiBph0
- ULmHRKoQKSHQO47maXFOK7Tt381cG2lE68aXHrBXADDhk8wA9y05YNXolXRxQatswuom
- zUiw==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=hIsP9dC4Uz+LKAItcUSSzxdb6WfqH5riUYIC8FEfa+o=;
+ b=UjaVxh0zvTuTrq1ggIInvnlQmdgt97lmNd9ocgmkUDzI+mwo6I9f1l5x3Gunmcg8Xe
+ bUwdPWn3R65vk1cxtnh6pF5vV6MjrGVRlLP/rYpwLI21lIm+jMGo+ydK6rs1dk6uH8zE
+ Zfrzg95OWlJs4XfV4sufdUHRQpR0/MBTZK8YElEIZscHEd0obhlhE/gDpi+SO9CD8CmQ
+ ceCi6fgN7YxpOy3ytAu3L/u4UJrnrRoWYO5PdgOK34+nF3hxH//JuMbDc2sd8+CQcFkQ
+ 5VjzudcOtJ/7LzEVMcy620qq0ls3txxrFyiVTIekOMSB7BFrJgVvnQktqSGbLTdttPeZ
+ SHkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
- bh=ygJv+nNLrnNmq1Sio09DIwJuCl+/8yryOpZFijcGtfk=;
- b=bDw+9loElkbjwPv9BMjC6jMwhoMNX1UgYCdM2EX4hiC4gx+KjMMHkP/X6a3ac5tJMS
- iwzkP7aM8mx5FIqV+TxkVX3Oa5soNL5ecpL2bzd2jATDtKOc/FuLfvZToDL+txIgVPH/
- 61qo+tVzYulQGkQjSQ/WK+6b93UEf0yFuJEqYUIv+P7MOa4OKpWpTFTHFFyO1ISr2IYJ
- dckiR39Jw1I0jKZhbxUD4Z7Ul6dlVGh9rK6wzXUyeGwRKwgAMkAagnKF2zG82D+H60HO
- lD+T035ozbnRSd0K+/1rWi8YqVH5UTH/rx6KNQWGdJ7KBmXkRcsgJGiKrPfbt7yL8mn/
- +LiA==
-X-Gm-Message-State: AFeK/H141hdU3y3JxDcB+vrp27okRbcjoa1kemsAdPzOYaLX/CJWrXXKxB0RJTA/4CFoIQ==
-X-Received: by 10.99.177.4 with SMTP id r4mr17275336pgf.16.1490763018459;
- Tue, 28 Mar 2017 21:50:18 -0700 (PDT)
-Received: from aurora.jms.id.au ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id d10sm10280853pfl.59.2017.03.28.21.50.13
- (version=TLS1 cipher=AES128-SHA bits=128/128);
- Tue, 28 Mar 2017 21:50:17 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Wed, 29 Mar 2017 15:20:08 +1030
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=hIsP9dC4Uz+LKAItcUSSzxdb6WfqH5riUYIC8FEfa+o=;
+ b=Jy/bSiJkkCKaZIsQ6vObUV40GifYkgKmGBtd3Wrcer0rXbfeuii0kA+w9I9ZlPppNu
+ rRfAw3EyLzRLrNc/Li1vjbEcL2wR5H1SLAuftX2MDg6vuQDPJcuyz18ZqsTx1rgpeIP0
+ J4TNMK6hMSVxLXbtVVyFLxzLyoPIevtZGNodbwdBx8Hk+SBfZ/3PMIvPCnRCUWfJnLPQ
+ HOhCBsy4pIrv+6z48oYdz2SPe3O52BiY5CL1zoloxGSQG2sAfvR8d1UDbSJ4olhhMW9U
+ OkOfu+AjWSCuvvz4z86nZepEeTwp6lTQO1/vomYNblDqBL/pe8/L+YqKe7d1CD985XYC
+ OXOA==
+X-Gm-Message-State: AFeK/H2p+VCGBvJOhFu/ZJFSArTWD2ay4d//lW95zJAyzhA81EIwjNKnGQGzj2aYq5LJfAE1Zuw7mSwqG50KiQ==
+X-Received: by 10.129.116.214 with SMTP id p205mr26810048ywc.268.1490764017536; 
+ Tue, 28 Mar 2017 22:06:57 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.59.17 with HTTP; Tue, 28 Mar 2017 22:06:37 -0700 (PDT)
+In-Reply-To: <1490759331.3177.161.camel@kernel.crashing.org>
+References: <1490759331.3177.161.camel@kernel.crashing.org>
 From: Joel Stanley <joel@jms.id.au>
-To: openbmc@lists.ozlabs.org
-Cc: Ken Chen <chen.kenyy@inventec.com>, Lei YU <mine260309@gmail.com>,
- Joel Stanley <joel@jms.id.au>
-Subject: [PATCH linux dev-4.7] ARM: dts: aspeed: Add Langyang BMC device tree
-Date: Wed, 29 Mar 2017 15:19:53 +1030
-Message-Id: <20170329044953.25308-1-joel@jms.id.au>
-X-Mailer: git-send-email 2.11.0
+Date: Wed, 29 Mar 2017 15:36:37 +1030
+X-Google-Sender-Auth: urux8Gcm5NJbrEBwc55E--ixaeU
+Message-ID: <CACPK8Xehr+6=RRkMqSqpnrw8m01POG=zMUDAChhQJypPu9zmCw@mail.gmail.com>
+Subject: Re: [PATCH] net/ftgmac100: Expose pause frames support and add
+ comment about RGMII
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,356 +60,79 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Mar 2017 04:50:21 -0000
+X-List-Received-Date: Wed, 29 Mar 2017 05:07:01 -0000
 
-From: Ken Chen <chen.kenyy@inventec.com>
+On Wed, Mar 29, 2017 at 2:18 PM, Benjamin Herrenschmidt
+<benh@kernel.crashing.org> wrote:
+> Expose to the phydev that we support Pause frame and add a comment
+> mentioning how we handle RGMII clock delays via u-boot.
+>
+> Signed-off-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 
-Langyang is an OpenPower Power9 system made by Inventec.
+I made a small fix to the comment about phy.txt and applied to dev-4.10.
 
-Signed-off-by: Ken Chen <chen.kenyy@inventec.com>
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- arch/arm/boot/dts/Makefile                   |   1 +
- arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts | 319 +++++++++++++++++++++++++++
- 2 files changed, 320 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
+Cheers,
 
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index ff647a08fe41..ba0e018e3275 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -897,6 +897,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb \
- 	aspeed-bmc-opp-witherspoon.dtb \
- 	aspeed-bmc-opp-zaius.dtb \
- 	aspeed-bmc-opp-romulus.dtb \
-+	aspeed-bmc-opp-lanyang.dtb \
- 	aspeed-bmc-facebook-cmm.dtb \
- 	aspeed-ast2500-evb.dtb
- endif
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
-new file mode 100644
-index 000000000000..176e4b449339
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
-@@ -0,0 +1,319 @@
-+/dts-v1/;
-+
-+#include "aspeed-g5.dtsi"
-+#include <dt-bindings/gpio/aspeed-gpio.h>
-+
-+/ {
-+	model = "Lanyang BMC";
-+	compatible = "inventec,lanyang-bmc", "aspeed,ast2500";
-+
-+	aliases {
-+		serial4 = &uart5;
-+	};
-+
-+	chosen {
-+		stdout-path = &uart5;
-+		bootargs = "console=ttyS4,115200 earlyprintk";
-+	};
-+
-+	memory {
-+		reg = <0x80000000 0x40000000>;
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		flash_memory: region@94000000 {
-+			no-map;
-+			reg = <0x94000000 0x04000000>; /* 64M */
-+		};
-+	};
-+
-+	onewire0 {
-+		compatible = "w1-gpio";
-+		gpios = <&gpio ASPEED_GPIO(D, 1) GPIO_ACTIVE_HIGH>;
-+	};
-+
-+	onewire1 {
-+		compatible = "w1-gpio";
-+		gpios = <&gpio ASPEED_GPIO(D, 2) GPIO_ACTIVE_HIGH>;
-+	};
-+
-+	onewire2 {
-+		compatible = "w1-gpio";
-+		gpios = <&gpio ASPEED_GPIO(D, 3) GPIO_ACTIVE_HIGH>;
-+	};
-+
-+	onewire3 {
-+		compatible = "w1-gpio";
-+		gpios = <&gpio ASPEED_GPIO(D, 4) GPIO_ACTIVE_HIGH>;
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		sys_boot_status {
-+			label = "System_boot_status";
-+			gpios = <&gpio ASPEED_GPIO(B, 6) GPIO_ACTIVE_LOW>;
-+		};
-+
-+		attention {
-+			label = "Attention_locator";
-+			gpios = <&gpio ASPEED_GPIO(B, 7) GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		plt_fault {
-+			label = "Platform_fault";
-+			gpios = <&gpio ASPEED_GPIO(B, 1) GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		hdd_fault {
-+			label = "Onboard_drive_fault";
-+			gpios = <&gpio ASPEED_GPIO(B, 3) GPIO_ACTIVE_HIGH>;
-+		};
-+		bmc_err {
-+			lable = "BMC_fault";
-+			gpios = <&gpio ASPEED_GPIO(H, 6) GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		sys_err {
-+			lable = "Sys_fault";
-+			gpios = <&gpio ASPEED_GPIO(H, 7) GPIO_ACTIVE_HIGH>;
-+		};
-+	};
-+
-+	fsi-master {
-+		compatible = "ibm,fsi-master", "ibm,fsi-master-gpio";
-+
-+		status = "okay";
-+
-+		clock-gpios = <&gpio ASPEED_GPIO(J, 0) GPIO_ACTIVE_HIGH>;
-+		data-gpios = <&gpio ASPEED_GPIO(J, 1) GPIO_ACTIVE_HIGH>;
-+		trans-gpios = <&gpio ASPEED_GPIO(D, 5) GPIO_ACTIVE_HIGH>;
-+		enable-gpios = <&gpio ASPEED_GPIO(D, 0) GPIO_ACTIVE_HIGH>;
-+		mux-gpios = <&gpio ASPEED_GPIO(H, 2) GPIO_ACTIVE_HIGH>;
-+	};
-+};
-+
-+&fmc {
-+	status = "okay";
-+	flash@0 {
-+		status = "okay";
-+#include "aspeed-bmc-opp-flash-layout.dtsi"
-+	};
-+};
-+
-+&spi1 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_spi1_default>;
-+
-+	flash@0 {
-+		status = "okay";
-+		label = "pnor";
-+	};
-+};
-+
-+&spi2 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_spi2ck_default
-+		     &pinctrl_spi2cs0_default
-+		     &pinctrl_spi2cs1_default
-+		     &pinctrl_spi2miso_default
-+		     &pinctrl_spi2mosi_default>;
-+
-+	flash@0 {
-+		status = "okay";
-+	};
-+};
-+
-+&uart1 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_txd1_default
-+		     &pinctrl_rxd1_default>;
-+};
-+
-+&lpc_ctrl {
-+	status = "okay";
-+	memory-region = <&flash_memory>;
-+	flash = <&spi1>;
-+};
-+
-+&mbox {
-+	status = "okay";
-+};
-+
-+&uart5 {
-+	status = "okay";
-+};
-+
-+&mac0 {
-+	status = "okay";
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rmii1_default>;
-+	use-ncsi;
-+};
-+
-+&mac1 {
-+	status = "okay";
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
-+};
-+
-+&i2c0 {
-+	status = "okay";
-+
-+	rtc@68 {
-+		compatible = "dallas,ds3231";
-+		reg = <0x68>;
-+	};
-+
-+	/* RTC DS3231 @68h	 */
-+};
-+
-+&i2c1 {
-+	status = "disable";
-+
-+	/* APSS
-+	 * BCM5719
-+	 */
-+};
-+
-+&i2c2 {
-+	status = "okay";
-+
-+	/* AT24C64 @55h */
-+	eeprom@55 {
-+		compatible = "atmel,24c64";
-+		reg = <0x55>;
-+		pagesize = <32>;
-+	};
-+
-+	/*
-+	 * PCA9546 @75h
-+	 *		bus0	48V MON LM5058 @41h
-+	 *				48V H-SWAP LM5058 @40h
-+	 *		bus1	P0 0V8 MON LM5058 @40h
-+	 *				P1 0V8 MON LM5058 @41h
-+	 *		bus2	P0 0V7 MON LM5058 @40h
-+	 *				P1 0V7 MON LM5058 @41h
-+	 *		bus3	P0 VDDQ0 MON LM5058 @40h
-+	 *				P0 VDDQ1 MON LM5058 @41h
-+	 *				P1 VDDQ0 MON LM5058 @42h
-+	 *				P1 VDDQ1 MON LM5058 @43h
-+	 */
-+	i2c-switch@75 {
-+		compatible = "nxp,pca9546";
-+		reg = <0x75>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+	};
-+};
-+
-+&i2c3 {
-+	status = "okay";
-+
-+	/* Power sequencer UCD90160 PMBUS @64h */
-+	ucd90160@64 {
-+		compatible = "ti,ucd90160";
-+		reg = <0x6B>;
-+	};
-+};
-+
-+&i2c4 {
-+	status = "disabled";
-+
-+	/* P0 FSP connecter */
-+};
-+
-+&i2c5 {
-+	status = "okay";
-+
-+	/* CPU0 0V96 IR38063 @41h */
-+	/* CPU1 0V96 IR38063 @42h */
-+	/* CPU0 1V0 IR38063 @40h */
-+	/* CPU1 1V0 IR38063 @43h */
-+};
-+
-+&i2c6 {
-+	status = "disabled";
-+
-+	/* P1 FSP connecter */
-+};
-+
-+&i2c7 {
-+	status = "okay";
-+
-+	/* CLK BUFF 9DBL0452 @6Dh */
-+	/* CLK GEN 9FGS9092 @6Bh */
-+};
-+
-+&i2c8 {
-+	status = "okay";
-+
-+};
-+
-+&i2c9 {
-+	status = "okay";
-+
-+	/* T-SENSOR TMP75 @48h */
-+	tmp75@48 {
-+		compatible = "ti,tmp75";
-+		reg = <0x48>;
-+	};
-+
-+	/* T-SENSOR TMP75 @49h */
-+	tmp75@49 {
-+		compatible = "ti,tmp75";
-+		reg = <0x49>;
-+	};
-+
-+	/* T-SENSOR TMP75 @4Ah */
-+	tmp75@4A {
-+		compatible = "ti,tmp75";
-+		reg = <0x4A>;
-+	};
-+
-+	/* 12V Brick Q54SJ12050 @96h(TBD) */
-+};
-+
-+&i2c10 {
-+	status = "disabled";
-+};
-+
-+&i2c11 {
-+	status = "disabled";
-+
-+	/* TPM connector @57h */
-+};
-+
-+&i2c12 {
-+	status = "disabled";
-+};
-+
-+&i2c13 {
-+	status = "disabled";
-+};
-+
-+&gpio {
-+	line_apss_reset {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(E, 4) GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "BMC_APSS_RESET_N";
-+	};
-+};
-+
-+&vuart {
-+	status = "okay";
-+};
-+
-+&pinctrl {
-+	aspeed,external-nodes = <&gfx &lhc>;
-+};
--- 
-2.11.0
+Joel
+
+> ---
+>
+> This is the diff between v3 that was merged and v4 that I posted
+> shortly afterward.
+>
+>  drivers/net/ethernet/faraday/ftgmac100.c | 25 +++++++++++++++++++++++--
+>  1 file changed, 23 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
+> index d42489c..5fe2827 100644
+> --- a/drivers/net/ethernet/faraday/ftgmac100.c
+> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
+> @@ -111,8 +111,8 @@ struct ftgmac100 {
+>         bool rx_pause;
+>         bool aneg_pause;
+>
+> -       uint32_t rxdes0_edorr_mask;
+> -       uint32_t txdes0_edotr_mask;
+> +       u32 rxdes0_edorr_mask;
+> +       u32 txdes0_edotr_mask;
+>  };
+>
+>  static int ftgmac100_alloc_rx_buf(struct ftgmac100 *priv,
+> @@ -1390,6 +1390,12 @@ static int ftgmac100_mii_probe(struct ftgmac100 *priv, phy_interface_t intf)
+>                 return PTR_ERR(phydev);
+>         }
+>
+> +       /*
+> +        * Indicate that we support PAUSE frames (see comment in
+> +        * Documentation/networking/phy.txt as of v4.10
+> +        */
+> +       phydev->supported |= SUPPORTED_Pause | SUPPORTED_Asym_Pause;
+> +
+>         phydev->advertising = phydev->supported;
+>         phy_attached_info(phydev);
+>
+> @@ -1490,6 +1496,21 @@ static int ftgmac100_setup_mdio(struct net_device *ndev)
+>                 iowrite32(reg, priv->base + FTGMAC100_OFFSET_REVR);
+>         }
+>
+> +       /*
+> +        * Note: When using RGMII mode, we simply pass "RGMII" to the
+> +        *       PHY and assume that u-boot will have configured the
+> +        *       clock delays appropriately for the system.
+> +        *
+> +        *       The implementation of the MAC in the Aspeed chips
+> +        *       supports sub-ns programable delays that need to be
+> +        *       configured in the SCU while the MAC IP block is in
+> +        *       reset.
+> +        *
+> +        *       If needed in the future, we can support configuring this
+> +        *       here based on device-tree properties but unless absolutely
+> +        *       needed I'd rather avoid poking at the SCU registers from
+> +        *       this driver.
+> +        */
+>         if (np)
+>                 intf_prop = of_get_property(np, "phy-interface", NULL);
+>         if (intf_prop) {
+> --
+> 2.9.
+>
