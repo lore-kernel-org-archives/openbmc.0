@@ -1,40 +1,62 @@
-Return-Path: <marc.zyngier@arm.com>
-Received: from foss.arm.com (foss.arm.com [217.140.101.70])
- by lists.ozlabs.org (Postfix) with ESMTP id 3vtPmr4jKSzDqH3
- for <openbmc@lists.ozlabs.org>; Wed, 29 Mar 2017 21:55:24 +1100 (AEDT)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.72.51.249])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 32D3A344;
- Wed, 29 Mar 2017 03:55:21 -0700 (PDT)
-Received: from [10.1.207.16] (usa-sjc-imap-foss1.foss.arm.com [10.72.51.249])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id
- 9F5493F23B; Wed, 29 Mar 2017 03:55:18 -0700 (PDT)
-Subject: Re: [PATCH v6 2/5] irqchip/aspeed-i2c-ic: Add I2C IRQ controller for
- Aspeed
-To: Brendan Higgins <brendanhiggins@google.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x241.google.com (mail-yw0-x241.google.com
+ [IPv6:2607:f8b0:4002:c05::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vtPs75hzTzDqKT
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Mar 2017 21:59:07 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="AanP42hX"; 
+ dkim-atps=neutral
+Received: by mail-yw0-x241.google.com with SMTP id d191so1147765ywe.1
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Mar 2017 03:59:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=So0Vk1nVqYHvBDYu+DYjC8Aq2YTOXIdtd3pExrwGxkA=;
+ b=AanP42hXRstuEuW15U3fnCTE2l9e4wDiT1COIBIzegBHSFzzQfP0svk/m27Ajwvkhr
+ uo7bdZFJ1yL1DRWWnq/eYjCKAPhl69zBZOUGlvEUw6a1AkwN2RbNmZjDX4+aGdVPiqJv
+ XeUn6QhOu6zbS+AN9o9TAxBFVlIZ4Z6QpYroykBIbP+xSQ/ApIPdDBFFq00imgRbe5f7
+ w4JBMJJncrzkSBboCtbCVCp+DqPz3aKj7lms+gVkdgo+f0L/kQTmg3VaemOMF6PzRiRh
+ uEVlorh4+C6ZajC3q4oWIRZh+ZzQgWoS/6MZW+sNiKQb3TzNrGkvZDQ6sHabffhhHO5p
+ cTjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=So0Vk1nVqYHvBDYu+DYjC8Aq2YTOXIdtd3pExrwGxkA=;
+ b=KagG70yarXwuVCFrMJQKW5cQ8NTLs+yUKkPJPaNxUCvM0NDuIQ6Q6LAIc/gO16Dpyl
+ /aW9QATSkOoAbtmo9jsFaChjuNf35QQFB9pZvcKi2POO4/p2hH2A2Zl5K6FbiZo+utHg
+ ajY5hP6e6n7LNbcrwFP5J/Ey6GT0tjXGeuYjjxaCIIA56cLR00oIN/NssejikGndXo17
+ CgpgtafID2+xMibOizIX0YUjyXkXV/Jc7VpsgNnuxPBPmcuTdKRdsaai1jEH7dgUdii0
+ hm5D3wFL1u4M6wAy0c9t3VZrWRpbxlwc3jujZ+qALJreHDYtheG+s4CEl3l1Clb0jFJM
+ mZzw==
+X-Gm-Message-State: AFeK/H1j8HuPn506/K/Ub7ujm71QwKrkEPYFgdvqWkoVuGaEWG+pBviAeIuusqOrn9UC5rEyXgJthtrkM4/DLQ==
+X-Received: by 10.129.73.65 with SMTP id w62mr24275132ywa.288.1490785145406;
+ Wed, 29 Mar 2017 03:59:05 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.59.17 with HTTP; Wed, 29 Mar 2017 03:58:44 -0700 (PDT)
+In-Reply-To: <20170328051226.21677-3-brendanhiggins@google.com>
 References: <20170328051226.21677-1-brendanhiggins@google.com>
  <20170328051226.21677-3-brendanhiggins@google.com>
- <49a13bbc-aec3-a349-4323-3c8d2728c62f@arm.com>
- <1490692375.3177.119.camel@kernel.crashing.org>
- <91936f1a-0a0d-4091-b981-976503a6f7cd@arm.com>
- <1490734216.3177.140.camel@kernel.crashing.org>
- <CAFd5g46TAGHWtH7p1o=AJqy8_SygpJZ4RJkJpUwDD3nKxpB5YQ@mail.gmail.com>
-Cc: Wolfram Sang <wsa@the-dreams.de>, robh+dt@kernel.org,
- mark.rutland@arm.com, tglx@linutronix.de, jason@lakedaemon.net,
- Joel Stanley <joel@jms.id.au>, Vladimir Zapolskiy <vz@mleia.com>,
- Kachalov Anton <mouse@mayc.ru>, =?UTF-8?Q?C=c3=a9dric_Le_Goater?=
- <clg@kaod.org>, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: Marc Zyngier <marc.zyngier@arm.com>
-Organization: ARM Ltd
-Message-ID: <75ef2cc1-44d7-0137-96e5-77ba68ee071f@arm.com>
-Date: Wed, 29 Mar 2017 11:55:17 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Icedove/45.6.0
-MIME-Version: 1.0
-In-Reply-To: <CAFd5g46TAGHWtH7p1o=AJqy8_SygpJZ4RJkJpUwDD3nKxpB5YQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 29 Mar 2017 21:28:44 +1030
+X-Google-Sender-Auth: opqcDzveee8d06tSWRHzRIIHGss
+Message-ID: <CACPK8XdYNi2mna=aBbYvMroujLOPbVkPdU-DeYGrevjRBjHodQ@mail.gmail.com>
+Subject: Re: [PATCH v6 2/5] irqchip/aspeed-i2c-ic: Add I2C IRQ controller for
+ Aspeed
+To: Brendan Higgins <brendanhiggins@google.com>
+Cc: Wolfram Sang <wsa@the-dreams.de>, Rob Herring <robh+dt@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Thomas Gleixner <tglx@linutronix.de>, 
+ Jason Cooper <jason@lakedaemon.net>, Marc Zyngier <marc.zyngier@arm.com>,
+ vz@mleia.com, mouse@mayc.ru, 
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, linux-i2c@vger.kernel.org, 
+ devicetree@vger.kernel.org, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -46,44 +68,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Mar 2017 10:55:24 -0000
+X-List-Received-Date: Wed, 29 Mar 2017 10:59:08 -0000
 
-On 29/03/17 10:59, Brendan Higgins wrote:
-> The main reason I took this approach is just because I thought it was
-> cleaner from the perspective of the busses which are totally
-> independent (except for the fact that they share a single hardware
-> interrupt).
-> 
-> I did not make any measurements, so I doubt that I have anything to
-> add that you don't already know. I saw other usages of chained
-> interrupts that do the same thing (scan a "status" register and use
-> them to make software interrupts) and I thought that is basically what
-> the dummy irq chip code is for. The only thing I thought I was doing
-> that was novel was actually breaking out the dummy irqchip into its
-> own driver; it is not my idea, but I do think makes it a lot cleaner.
-> Nevertheless, it should be cheap in terms of number of instructions;
-> the most expensive part looks like looking up the mapping. In any
-> case, I think the low hanging fruit here is supporting buffering or
-> DMA, like Ben suggested.
-> 
-> To address the comment on being over engineered: outside of the init
-> function (which would exist regardless of how we do this, if not here
-> then in the I2C driver); the code is actually pretty small and
-> generic.
-> 
-> All that being said, it would not be very hard to do this without
-> using the dummy irqchip code and it would definitely be smaller in
-> terms of indirection and space used, but I think the code would
-> actually be more complicated to read. We would be going back to having
-> an I2C controller along with the I2C busses; where all the I2C
-> controller does is read the IRQ register and then call the appropriate
-> bus irq handler, which looks a lot like a dummy irqchip.
+On Tue, Mar 28, 2017 at 3:42 PM, Brendan Higgins
+<brendanhiggins@google.com> wrote:
+> +static int __init aspeed_i2c_ic_of_init(struct device_node *node,
+> +                                       struct device_node *parent)
+> +{
+> +       struct aspeed_i2c_ic *i2c_ic;
+> +
+> +       i2c_ic = kzalloc(sizeof(*i2c_ic), GFP_KERNEL);
+> +       if (!i2c_ic)
+> +               return -ENOMEM;
+> +
+> +       i2c_ic->base = of_iomap(node, 0);
+> +       if (IS_ERR(i2c_ic->base))
+> +               return PTR_ERR(i2c_ic->base);
+> +
+> +       i2c_ic->parent_irq = irq_of_parse_and_map(node, 0);
+> +       if (i2c_ic->parent_irq < 0)
+> +               return i2c_ic->parent_irq;
+> +
+> +       i2c_ic->irq_domain = irq_domain_add_linear(
+> +                       node, ASPEED_I2C_IC_NUM_BUS,
+> +                       &aspeed_i2c_ic_irq_domain_ops, NULL);
+> +       if (!i2c_ic->irq_domain)
+> +               return -ENOMEM;
+> +
+> +       i2c_ic->irq_domain->name = "ast-i2c-domain";
 
-As long as you're happy with the performance and the restrictions that
-come attached to the HW, I'm happy to take the irqchip patches.
+Nit: Make this aspeed-i2c-domain to make this consistent with the
+other Aspeed drivers in the kernel tree.
 
-Thanks,
+Could this irq code be embedded in the i2c driver? We took a similar
+approach for the Aspeed GPIO driver, which has a similar IRQ structure
+of one hardware IRQ that tells the driver to check status registers
+for the precise irq source. The upside being all of the i2c code is in
+the same place in the kernel tree.
 
-	M.
--- 
-Jazz is not dead. It just smells funny...
+Cheers,
+
+Joel
