@@ -1,62 +1,34 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x241.google.com (mail-yw0-x241.google.com
- [IPv6:2607:f8b0:4002:c05::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <benh@kernel.crashing.org>
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vtPs75hzTzDqKT
- for <openbmc@lists.ozlabs.org>; Wed, 29 Mar 2017 21:59:07 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="AanP42hX"; 
- dkim-atps=neutral
-Received: by mail-yw0-x241.google.com with SMTP id d191so1147765ywe.1
- for <openbmc@lists.ozlabs.org>; Wed, 29 Mar 2017 03:59:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=So0Vk1nVqYHvBDYu+DYjC8Aq2YTOXIdtd3pExrwGxkA=;
- b=AanP42hXRstuEuW15U3fnCTE2l9e4wDiT1COIBIzegBHSFzzQfP0svk/m27Ajwvkhr
- uo7bdZFJ1yL1DRWWnq/eYjCKAPhl69zBZOUGlvEUw6a1AkwN2RbNmZjDX4+aGdVPiqJv
- XeUn6QhOu6zbS+AN9o9TAxBFVlIZ4Z6QpYroykBIbP+xSQ/ApIPdDBFFq00imgRbe5f7
- w4JBMJJncrzkSBboCtbCVCp+DqPz3aKj7lms+gVkdgo+f0L/kQTmg3VaemOMF6PzRiRh
- uEVlorh4+C6ZajC3q4oWIRZh+ZzQgWoS/6MZW+sNiKQb3TzNrGkvZDQ6sHabffhhHO5p
- cTjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=So0Vk1nVqYHvBDYu+DYjC8Aq2YTOXIdtd3pExrwGxkA=;
- b=KagG70yarXwuVCFrMJQKW5cQ8NTLs+yUKkPJPaNxUCvM0NDuIQ6Q6LAIc/gO16Dpyl
- /aW9QATSkOoAbtmo9jsFaChjuNf35QQFB9pZvcKi2POO4/p2hH2A2Zl5K6FbiZo+utHg
- ajY5hP6e6n7LNbcrwFP5J/Ey6GT0tjXGeuYjjxaCIIA56cLR00oIN/NssejikGndXo17
- CgpgtafID2+xMibOizIX0YUjyXkXV/Jc7VpsgNnuxPBPmcuTdKRdsaai1jEH7dgUdii0
- hm5D3wFL1u4M6wAy0c9t3VZrWRpbxlwc3jujZ+qALJreHDYtheG+s4CEl3l1Clb0jFJM
- mZzw==
-X-Gm-Message-State: AFeK/H1j8HuPn506/K/Ub7ujm71QwKrkEPYFgdvqWkoVuGaEWG+pBviAeIuusqOrn9UC5rEyXgJthtrkM4/DLQ==
-X-Received: by 10.129.73.65 with SMTP id w62mr24275132ywa.288.1490785145406;
- Wed, 29 Mar 2017 03:59:05 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.59.17 with HTTP; Wed, 29 Mar 2017 03:58:44 -0700 (PDT)
-In-Reply-To: <20170328051226.21677-3-brendanhiggins@google.com>
-References: <20170328051226.21677-1-brendanhiggins@google.com>
- <20170328051226.21677-3-brendanhiggins@google.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 29 Mar 2017 21:28:44 +1030
-X-Google-Sender-Auth: opqcDzveee8d06tSWRHzRIIHGss
-Message-ID: <CACPK8XdYNi2mna=aBbYvMroujLOPbVkPdU-DeYGrevjRBjHodQ@mail.gmail.com>
-Subject: Re: [PATCH v6 2/5] irqchip/aspeed-i2c-ic: Add I2C IRQ controller for
- Aspeed
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vtRTt10J7zDqHJ
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Mar 2017 23:12:33 +1100 (AEDT)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+ by gate.crashing.org (8.14.1/8.13.8) with ESMTP id v2TCBjAl032359;
+ Wed, 29 Mar 2017 07:11:47 -0500
+Message-ID: <1490789505.3177.184.camel@kernel.crashing.org>
+Subject: Re: [PATCH v6 1/5] irqchip/aspeed-i2c-ic: binding docs for Aspeed
+ I2C Interrupt Controller
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 To: Brendan Higgins <brendanhiggins@google.com>
-Cc: Wolfram Sang <wsa@the-dreams.de>, Rob Herring <robh+dt@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, Thomas Gleixner <tglx@linutronix.de>, 
- Jason Cooper <jason@lakedaemon.net>, Marc Zyngier <marc.zyngier@arm.com>,
- vz@mleia.com, mouse@mayc.ru, 
- =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, linux-i2c@vger.kernel.org, 
- devicetree@vger.kernel.org, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Content-Type: text/plain; charset=UTF-8
+Cc: Wolfram Sang <wsa@the-dreams.de>, robh+dt@kernel.org, mark.rutland@arm.com,
+ tglx@linutronix.de, jason@lakedaemon.net, Marc
+ Zyngier <marc.zyngier@arm.com>, Joel Stanley <joel@jms.id.au>, Vladimir
+ Zapolskiy <vz@mleia.com>, Kachalov Anton <mouse@mayc.ru>,
+ =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>,
+ linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Wed, 29 Mar 2017 23:11:45 +1100
+In-Reply-To: <CAFd5g47Pij6TxkmS6akWoAL0FZ2WLh+FWUrr099RiabWn+pneQ@mail.gmail.com>
+References: <20170328051226.21677-1-brendanhiggins@google.com>
+ <20170328051226.21677-2-brendanhiggins@google.com>
+ <1490690980.3177.108.camel@kernel.crashing.org>
+ <CAFd5g47Pij6TxkmS6akWoAL0FZ2WLh+FWUrr099RiabWn+pneQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.22.6 (3.22.6-1.fc25) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,44 +40,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Mar 2017 10:59:08 -0000
+X-List-Received-Date: Wed, 29 Mar 2017 12:12:34 -0000
 
-On Tue, Mar 28, 2017 at 3:42 PM, Brendan Higgins
-<brendanhiggins@google.com> wrote:
-> +static int __init aspeed_i2c_ic_of_init(struct device_node *node,
-> +                                       struct device_node *parent)
-> +{
-> +       struct aspeed_i2c_ic *i2c_ic;
-> +
-> +       i2c_ic = kzalloc(sizeof(*i2c_ic), GFP_KERNEL);
-> +       if (!i2c_ic)
-> +               return -ENOMEM;
-> +
-> +       i2c_ic->base = of_iomap(node, 0);
-> +       if (IS_ERR(i2c_ic->base))
-> +               return PTR_ERR(i2c_ic->base);
-> +
-> +       i2c_ic->parent_irq = irq_of_parse_and_map(node, 0);
-> +       if (i2c_ic->parent_irq < 0)
-> +               return i2c_ic->parent_irq;
-> +
-> +       i2c_ic->irq_domain = irq_domain_add_linear(
-> +                       node, ASPEED_I2C_IC_NUM_BUS,
-> +                       &aspeed_i2c_ic_irq_domain_ops, NULL);
-> +       if (!i2c_ic->irq_domain)
-> +               return -ENOMEM;
-> +
-> +       i2c_ic->irq_domain->name = "ast-i2c-domain";
+On Wed, 2017-03-29 at 03:34 -0700, Brendan Higgins wrote:
+> I think I addressed this on the other email with the actual driver.
+> Anyway, I thought that this is pretty much the dummy irqchip code is
+> for; I have seen some other drivers do the same thing. It is true
+> that
+> this is a really basic "interrupt controller;" it cannot mask on its
+> own, etc; nevertheless, I think you will pretty much end up with the
+> same code for an "I2C controller;" it just won't use an irq_domain.
 
-Nit: Make this aspeed-i2c-domain to make this consistent with the
-other Aspeed drivers in the kernel tree.
+Don't worry too much about this. As I think I mention it's not a huge
+deal at this stage, I just wanted to make sure you were aware of the
+compromise(s) involved.
 
-Could this irq code be embedded in the i2c driver? We took a similar
-approach for the Aspeed GPIO driver, which has a similar IRQ structure
-of one hardware IRQ that tells the driver to check status registers
-for the precise irq source. The upside being all of the i2c code is in
-the same place in the kernel tree.
+Regarding the other comment about the "fast mode", my main worry here
+is that somebody might come up with a 2Mhz capable device, we'll hit
+your 1Mhz test, enable fast mode, and shoot it with 3.4Mhz which it
+might not be happy at all about...
+
+I think the cut-off for switching to the "fast" mode should basically
+be the fast speed mode frequency (which isn't clear from the spec but
+seems to be 3.4Mhz). Otherwise people will end up with higher speeds
+than what they asked for and that's bad.
 
 Cheers,
-
-Joel
+Ben.
