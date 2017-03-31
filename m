@@ -1,105 +1,50 @@
-Return-Path: <miltonm@us.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <maxims@google.com>
+Received: from mail-it0-x22a.google.com (mail-it0-x22a.google.com
+ [IPv6:2607:f8b0:4001:c0b::22a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vvqzs6jPZzDqH8
- for <openbmc@lists.ozlabs.org>; Sat,  1 Apr 2017 05:39:53 +1100 (AEDT)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v2VIaQA1028171
- for <openbmc@lists.ozlabs.org>; Fri, 31 Mar 2017 14:39:45 -0400
-Received: from e19.ny.us.ibm.com (e19.ny.us.ibm.com [129.33.205.209])
- by mx0a-001b2d01.pphosted.com with ESMTP id 29hvhng30e-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 31 Mar 2017 14:39:44 -0400
-Received: from localhost
- by e19.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <miltonm@us.ibm.com>;
- Fri, 31 Mar 2017 14:39:43 -0400
-Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
- by e19.ny.us.ibm.com (146.89.104.206) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Fri, 31 Mar 2017 14:39:41 -0400
-Received: from b01ledav03.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
- [9.57.199.108])
- by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v2VIdebe44499170
- for <openbmc@lists.ozlabs.org>; Fri, 31 Mar 2017 18:39:40 GMT
-Received: from b01ledav03.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 38DD5B2054
- for <openbmc@lists.ozlabs.org>; Fri, 31 Mar 2017 14:39:36 -0400 (EDT)
-Received: from d50lp03.ny.us.ibm.com (unknown [146.89.104.211])
- by b01ledav03.gho.pok.ibm.com (Postfix) with ESMTPS id 243AEB204D
- for <openbmc@lists.ozlabs.org>; Fri, 31 Mar 2017 14:39:36 -0400 (EDT)
-Received: from localhost
- by d50lp03.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <miltonm@us.ibm.com>;
- Fri, 31 Mar 2017 14:39:40 -0400
-Received: from smtp.notes.na.collabserv.com (192.155.248.67)
- by d50lp03.ny.us.ibm.com (158.87.18.22) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128/128)
- Fri, 31 Mar 2017 14:39:37 -0400
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <miltonm@us.ibm.com>;
- Fri, 31 Mar 2017 18:39:36 -0000
-Received: from us1a3-smtp08.a3.dal06.isc4sb.com (10.146.103.57)
- by smtp.notes.na.collabserv.com (10.106.227.16) with
- smtp.notes.na.collabserv.com ESMTP; Fri, 31 Mar 2017 18:39:34 -0000
-Received: from us1a3-mail79.a3.dal09.isc4sb.com ([10.142.3.136])
- by us1a3-smtp08.a3.dal06.isc4sb.com
- with ESMTP id 2017033118393369-360159 ;
- Fri, 31 Mar 2017 18:39:33 +0000 
-In-Reply-To: <CAFR_W8or0O0BADTKkF9=PA1GMHQx-_a2GkqLB5+F3nMKHaM4_g@mail.gmail.com>
-Subject: Re: iface is not coming back up fully after ifdown
-From: "Milton Miller II" <miltonm@us.ibm.com>
-To: Maxim Sloyko <maxims@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Fri, 31 Mar 2017 18:39:33 +0000
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vvtBs0VQPzDqHG
+ for <openbmc@lists.ozlabs.org>; Sat,  1 Apr 2017 07:19:32 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="kLAEruwh"; 
+ dkim-atps=neutral
+Received: by mail-it0-x22a.google.com with SMTP id y18so18165411itc.1
+ for <openbmc@lists.ozlabs.org>; Fri, 31 Mar 2017 13:19:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=kg4rHLUy4qD/kaib6pCn2xwE05tI4Fk3VjGTxkGpLTA=;
+ b=kLAEruwhptsbx2/UZv5oD9br4rMfA23SGPDTpDW8h4HzCtOyqQx0yo8kJQFVXl0nVx
+ gpanyjiwwR/7gG8bfkykYUitCWxcdpLiU3kZ1uuvrAXkOVILW2rg/M6FdIgyPGQBchGq
+ z1zeZ7VIJqBNlm6MepqLkvBUoqsbm4H1AdQFaLs1eZxYSajZu6AqRnNUSpQIUffA+hwY
+ 4a2Mra/hRcLjJIM++YtTp2PEo5ltkzyCcu8vE/8bWSthe1vQ6awxx6XaopZfHiPbbM5+
+ v9XF+ESsXAxwQjbyFvx0iGWK/e5bXNzASpfVsH3VMGKIOZZI108uzioemw486X7mCdo1
+ ka6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=kg4rHLUy4qD/kaib6pCn2xwE05tI4Fk3VjGTxkGpLTA=;
+ b=Pj25W4jL5MIGtcpC1p/DFVGK5cciXRYYEDJEcNxlgFKKP3dY8hkt+NJTa7eqOwTk2R
+ CQTgpNjdJqrZRm3YRN7OD66OTh2oFi8rED0wku0EBfjhJCPl6H8avqDqUqwFSzixrvpA
+ xGarIDfIwu8L0Iz9aG3K90fg10604QtMIZ6BQGDEGhJxqvYP9o+0xfhG5Ra5FnQLutF8
+ D+cI3JZ441BpFpWtVj/EXIJ1VttoWik74b/pASmdlcOKku/skaUtjiTpPm2pZCiDi2ke
+ NAsE9PzVyfcPcyoF+5NT8Gj8U4jCbBbx6cOrY0jVx8GI9OuFuGEHznejKP9D8LLT4ogU
+ saJA==
+X-Gm-Message-State: AFeK/H1oq90IPa9V9iopi2LiX8pR73c3oJ3wriEA77XDJ5u90l0SKkTCSXrYjHIUtz8uqTmIrIKs2482fe70K8B8
+X-Received: by 10.36.76.11 with SMTP id a11mr6592297itb.60.1490991569525; Fri,
+ 31 Mar 2017 13:19:29 -0700 (PDT)
 MIME-Version: 1.0
-Sensitivity: 
-Importance: Normal
-X-Priority: 3 (Normal)
+Received: by 10.107.135.225 with HTTP; Fri, 31 Mar 2017 13:19:29 -0700 (PDT)
+In-Reply-To: <OF3061F1E4.F0B01FFC-ON002580F4.00667FD2-002580F4.00667FD7@notes.na.collabserv.com>
 References: <CAFR_W8or0O0BADTKkF9=PA1GMHQx-_a2GkqLB5+F3nMKHaM4_g@mail.gmail.com>
-X-Mailer: IBM iNotes ($HaikuForm 927.1) | IBM Domino Build
- SCN_20170321T1353_FP5 March 28, 2017 at 09:53
-X-LLNOutbound: False
-X-Disclaimed: 9363
-X-TNEFEvaluated: 1
-Content-Transfer-Encoding: quoted-printable
+ <OF3061F1E4.F0B01FFC-ON002580F4.00667FD2-002580F4.00667FD7@notes.na.collabserv.com>
+From: Maxim Sloyko <maxims@google.com>
+Date: Fri, 31 Mar 2017 13:19:29 -0700
+Message-ID: <CAFR_W8oEdqPvwaE1Vn3ZbUx_8xAh_LR4QwbwdqAsJo9NEdMCcw@mail.gmail.com>
+Subject: Re: iface is not coming back up fully after ifdown
+To: Milton Miller II <miltonm@us.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
-x-cbid: 17033118-0056-0000-0000-00000327CA16
-X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.40962; ST=0; TS=0; UL=0; ISC=; MB=0.185646
-X-IBM-SpamModules-Versions: BY=3.00006875; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000207; SDB=6.00841312; UDB=6.00414220; IPR=6.00619377; 
- BA=6.00005249; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014874; XFM=3.00000013;
- UTC=2017-03-31 18:39:35
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2017-03-31 18:02:00 - 6.00006528
-x-cbparentid: 17033118-0328-0000-0000-00000370A5EB
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-X-TM-AS-GCONF: 00
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006875; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000207; SDB=6.00841312; UDB=6.00414221; IPR=6.00619377; 
- BA=6.00005249; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014874; XFM=3.00000013;
- UTC=2017-03-31 18:39:42
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-Message-Id: <OF3061F1E4.F0B01FFC-ON002580F4.00667FD2-002580F4.00667FD7@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-03-31_15:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
- definitions=main-1703310171
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -111,39 +56,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 31 Mar 2017 18:39:54 -0000
+X-List-Received-Date: Fri, 31 Mar 2017 20:19:33 -0000
 
-On  03/31/2017 around 12:25PM in some timezone, Maxim Sloyko wrote:
-
->I ran into what I think is a bug with networking interface, but I'm
->not sure what exactly is broken.
+On Fri, Mar 31, 2017 at 11:39 AM, Milton Miller II <miltonm@us.ibm.com> wrote:
+> On  03/31/2017 around 12:25PM in some timezone, Maxim Sloyko wrote:
 >
->If you bring the interface down (ifconfig eth1 down) and then try to
->bring it up (ifconfig eth1 up) it does not fully recover. That is, it
->shows up as RUNNING in ifconfig, you can set up ip/netmask/gw and try
->sending packets, but nothing ever shows up at the other end of the
->wire.
+>>I ran into what I think is a bug with networking interface, but I'm
+>>not sure what exactly is broken.
+>>
+>>If you bring the interface down (ifconfig eth1 down) and then try to
+>>bring it up (ifconfig eth1 up) it does not fully recover. That is, it
+>>shows up as RUNNING in ifconfig, you can set up ip/netmask/gw and try
+>>sending packets, but nothing ever shows up at the other end of the
+>>wire.
+>>
+>>If you unplug the ethernet cable and then plug it back in (thus
+>>resetting the phy, I believe?), the interface starts working again. I
+>>tried this with Zaius and  EVB (which have different PHYs) and it's
+>>broken like this on both.
+>>
+>>I suspect that as part of IFF_UP flag handling the kernel (drivier?)
+>>needs to also reconfigure the link with PHY, but it's not doing that.
+>>I don't know how this works in the kernel though, so I would
+>>appreciate any pointers to where I should start digging.
+>>
 >
->If you unplug the ethernet cable and then plug it back in (thus
->resetting the phy, I believe?), the interface starts working again. I
->tried this with Zaius and  EVB (which have different PHYs) and it's
->broken like this on both.
+> Is this with a real PHY or an NC-SI channel?
+
+This is with a real PHY, I haven't tried this with NC-SI yet.
+
 >
->I suspect that as part of IFF=5FUP flag handling the kernel (drivier?)
->needs to also reconfigure the link with PHY, but it's not doing that.
->I don't know how this works in the kernel though, so I would
->appreciate any pointers to where I should start digging.
+> Do you see messages showing the link coming up after ifconfig up?
+
+Yes, after I run "ifconfig eth1 .... up" I see these messages:
+
+IPv6: ADDRCONF(NETDEV_UP): eth1: link is not ready
+root@zaius:~# IPv6: ADDRCONF(NETDEV_CHANGE): eth1: link becomes ready
+
+
+>
+> Be aware that for NC-SI attached, the kernel always enables the
+> state to running to be able to send and receive MAC frames to
+> manage the connection, and there is a secondary interface or
+> interface state that reflects the true link state.
+>
+> Sorry I don't have the experience or resources to help further.
+>
+> milton
 >
 
-Is this with a real PHY or an NC-SI channel?
 
-Do you see messages showing the link coming up after ifconfig up?
 
-Be aware that for NC-SI attached, the kernel always enables the
-state to running to be able to send and receive MAC frames to
-manage the connection, and there is a secondary interface or
-interface state that reflects the true link state.
-
-Sorry I don't have the experience or resources to help further.
-
-milton
+-- 
+Maxim Sloyko
