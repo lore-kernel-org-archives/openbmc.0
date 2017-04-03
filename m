@@ -1,34 +1,51 @@
-Return-Path: <karthik.t@incedoinc.com>
-Received: from IPout.ibtechnology.com (ipout.ibtechnology.com [14.141.217.210])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <raltherr@google.com>
+Received: from mail-yb0-x22e.google.com (mail-yb0-x22e.google.com
+ [IPv6:2607:f8b0:4002:c09::22e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vxhQZ2TK4zDqGr
- for <openbmc@lists.ozlabs.org>; Tue,  4 Apr 2017 05:05:57 +1000 (AEST)
-X-IronPort-AV: E=Sophos;i="5.36,271,1486405800"; d="scan'208,217";a="16644189"
-Received: from unknown (HELO TS-GGN-CAS001.ibtechnology.com) ([10.11.200.226])
- by IPout.ibtechnology.com with ESMTP; 04 Apr 2017 00:35:35 +0530
-Received: from TS-GGN-MBX002.ibtechnology.com ([169.254.2.57]) by
- TS-GGN-CAS001.ibtechnology.com ([10.11.200.226]) with mapi id 14.03.0123.003; 
- Tue, 4 Apr 2017 00:35:35 +0530
-From: "Karthik BalaGuru  T" <karthik.t@incedoinc.com>
-To: Rick Altherr <raltherr@google.com>
-CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: RE: OpenBMC and DHCP server
-Thread-Topic: OpenBMC and DHCP server
-Thread-Index: AdKsmjakUzkWWxlXQBGpITG8XdLxi///rtWA//+ZltA=
-Date: Mon, 3 Apr 2017 19:05:34 +0000
-Message-ID: <E41D83B2B2E8CB42AC13E92B4C3FABD3B602B7@TS-GGN-MBX002.ibtechnology.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vxj4Q2N3bzDq7Z
+ for <openbmc@lists.ozlabs.org>; Tue,  4 Apr 2017 05:35:18 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="Oi7X1/pv"; 
+ dkim-atps=neutral
+Received: by mail-yb0-x22e.google.com with SMTP id l201so31832097ybf.0
+ for <openbmc@lists.ozlabs.org>; Mon, 03 Apr 2017 12:35:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=SUKVGkggENMMPCD0hrfFYDJUbBLL2ZZ2Vgrg8hWlwQU=;
+ b=Oi7X1/pvqybFlvBGIaWW3ZXKfhnpcUV8ZjGIN82t4ugC8Nq9XGwQVLbWbuyjy8o/Ih
+ QBYKkL909auWJfopKaaw70wZSBwnzAaga9RTiXD2J5iKftdh1EbucLUCWUP8ViPW06kb
+ EknRE/TBxkDEGQphu6vm/ZV5VcnoWaRckGno3B2YQT/7ZpMPEMTWDbKo6ewu7htxn1W4
+ 6SWFkhfNIvjqMYz9Emrjfh6f3olGkZbPS34m0vejE/o7r8Dd8lU+8E/6UNchg+FbuBoW
+ n7w7pzNVXQHzj6sPegiZ9sXBzliRmxz5QycvZ0razaHMiJwyoCcdv5vKZSRbxsPhoKvY
+ Dzcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=SUKVGkggENMMPCD0hrfFYDJUbBLL2ZZ2Vgrg8hWlwQU=;
+ b=UUM5REUeV8G9LuTZr+EIGZmxcRZ8p6qINDe5mJEoW6BIxEP1rkXYMLGgpSDGQW7LHz
+ PAyVMkZZwAgvV0DMmRTMCbyLJ/Olh4OgS6JqOg0mNZvhLVShdzCJWQZOXMGr2p2xPKTG
+ ySx4D/25aWxNVU2/vekVqoZajVgLSAda36NjT08V5gDx8VdImzcIKEze+CdELujo04Gb
+ kJ8xvNLgmwrzGuUsAT31EyNaSAPRv34wSA+QiOG8ywLJXINXYD94GZEuqd04Ggdfi/uG
+ HCvmqYmKBqbSPiPsvDGQeyvYIfUAD2/8KYttoexuTXJsvw6KxFe15xxNZ5CtK6CeUnpO
+ d4zw==
+X-Gm-Message-State: AFeK/H3qUayxa91eGkElTy1RXxUUlorrvM+4os/1LPukTbZzPw6MBvMyxwXJ/VyQd7QjqF5mDayN2WHD1QuBF/Qc
+X-Received: by 10.37.126.199 with SMTP id z190mr11870663ybc.143.1491248115511; 
+ Mon, 03 Apr 2017 12:35:15 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.37.209.200 with HTTP; Mon, 3 Apr 2017 12:35:14 -0700 (PDT)
+In-Reply-To: <E41D83B2B2E8CB42AC13E92B4C3FABD3B602B7@TS-GGN-MBX002.ibtechnology.com>
 References: <E41D83B2B2E8CB42AC13E92B4C3FABD3B6026B@TS-GGN-MBX002.ibtechnology.com>
  <CAPLgG=k4aLLywcRe_Ds-jhjbt4kcfM8FBb5whHBXvWga029deg@mail.gmail.com>
-In-Reply-To: <CAPLgG=k4aLLywcRe_Ds-jhjbt4kcfM8FBb5whHBXvWga029deg@mail.gmail.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [40.139.113.66]
-Content-Type: multipart/alternative;
- boundary="_000_E41D83B2B2E8CB42AC13E92B4C3FABD3B602B7TSGGNMBX002ibtech_"
-MIME-Version: 1.0
+ <E41D83B2B2E8CB42AC13E92B4C3FABD3B602B7@TS-GGN-MBX002.ibtechnology.com>
+From: Rick Altherr <raltherr@google.com>
+Date: Mon, 3 Apr 2017 12:35:14 -0700
+Message-ID: <CAPLgG=kRa9JwPWL_RFRoO0p0C0oTKF5+L7mjWS_OqgeUi=Hd1Q@mail.gmail.com>
+Subject: Re: OpenBMC and DHCP server
+To: Karthik BalaGuru T <karthik.t@incedoinc.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary=001a114e5a4232f37c054c48426e
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -40,182 +57,220 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Apr 2017 19:06:00 -0000
+X-List-Received-Date: Mon, 03 Apr 2017 19:35:19 -0000
 
---_000_E41D83B2B2E8CB42AC13E92B4C3FABD3B602B7TSGGNMBX002ibtech_
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
+--001a114e5a4232f37c054c48426e
+Content-Type: text/plain; charset=UTF-8
 
-VGhhbmtzIFJpY2suDQoNClRoYW5rcyBmb3IgY29uZmlybWluZyB0aGF0IGl0IGNhbiBydW4gYSBE
-SENQIHNlcnZlciBhbmQgdGhhdCB0aGUgZGVmYXVsdCBjb25maWd1cmF0aW9ucyBkbyBub3QgaGF2
-ZSBESENQIHNlcnZlci4NCg0KWWVhaCwganVzdCB3YW50ZWQgdG8ga25vdyB3aGV0aGVyIHRoZSBs
-aW51eCBkaXN0cmlidXRpb24gaGFzIGJlZW4gc3RyaXBwZWQgYW5kIGN1c3RvbWl6ZWQgdmVyc2lv
-biB3LnIudCBCTUMuDQpJdCBpcyBmb3IgdGhlIGJsYWRlIGNoYXNzaXMgY29uZmlndXJhdGlvbi4N
-Cg0KUmVnYXJkcywNCkthcnRoaWsgQmFsYWd1cnUNCg0KRnJvbTogUmljayBBbHRoZXJyIFttYWls
-dG86cmFsdGhlcnJAZ29vZ2xlLmNvbV0NClNlbnQ6IE1vbmRheSwgQXByaWwgMDMsIDIwMTcgMTA6
-MjkgQU0NClRvOiBLYXJ0aGlrIEJhbGFHdXJ1IFQNCkNjOiBvcGVuYm1jQGxpc3RzLm96bGFicy5v
-cmcNClN1YmplY3Q6IFJlOiBPcGVuQk1DIGFuZCBESENQIHNlcnZlcg0KDQpPcGVuQk1DIGlzIGEg
-bGludXggZGlzdHJpYnV0aW9uIGFuZCBhcyBzdWNoIGNhbiBydW4gYSBESENQIHNlcnZlci4gIFRo
-ZSBkZWZhdWx0IGNvbmZpZ3VyYXRpb25zIHByb3ZpZGVkIGRvIG5vdCBkbyBzbywgbm9yIGlzIHRo
-ZXJlIGEgZGVmaW5lZCBJUE1JIG9yIFJFU1QgaW50ZXJmYWNlIGZvciBkb2luZyBzby4gIEFyZSB5
-b3UgcGxhbm5pbmcgdG8gdXNlIEFTVDEyNTAgYmVoaW5kIEFTVDI1MjAgaW4gYSBibGFkZSBjaGFz
-c2lzIGNvbmZpZ3VyYXRpb24/DQoNClJpY2sNCg0KT24gTW9uLCBBcHIgMywgMjAxNyBhdCAxMDox
-MCBBTSwgS2FydGhpayBCYWxhR3VydSBUIDxrYXJ0aGlrLnRAaW5jZWRvaW5jLmNvbTxtYWlsdG86
-a2FydGhpay50QGluY2Vkb2luYy5jb20+PiB3cm90ZToNCkhpLA0KDQpJIGFtIGFuYWx5emluZyBm
-ZXcgcGFydHMgb2YgT3BlbkJNQyBmb3IgYW4gYXJjaGl0ZWN0dXJlLg0KS2luZGx5IGxldCBtZSBr
-bm93IHdoZXRoZXIgT3BlbkJNQyBvZiBBU1QxMjUwIGFuZCBBU1QyNTIwIGFsbG93IHNldHRpbmcg
-b2YgREhDUCBzZXJ2ZXIgc28gdGhhdCBpdCBjYW4gc2VydmUgSVAgYWRkcmVzc2VzIHRvIHRoZSBj
-b25uZWN0ZWQgY2xpZW50cy4NCg0KVGhhbmtzIGluIGFkdmFuY2UsDQpLYXJ0aGlrIEJhbGFndXJ1
-DQpEaXNjbGFpbWVyIDoNClRoaXMgZW1haWwgY29tbXVuaWNhdGlvbiBtYXkgY29udGFpbiBwcml2
-aWxlZ2VkIGFuZCBjb25maWRlbnRpYWwgaW5mb3JtYXRpb24gYW5kIGlzIGludGVuZGVkIGZvciB0
-aGUgdXNlIG9mIHRoZSBhZGRyZXNzZWUgb25seS4gSWYgeW91IGFyZSBub3QgYW4gaW50ZW5kZWQg
-cmVjaXBpZW50IHlvdSBhcmUgcmVxdWVzdGVkIG5vdCB0byByZXByb2R1Y2UsIGNvcHkgZGlzc2Vt
-aW5hdGUgb3IgaW4gYW55IG1hbm5lciBkaXN0cmlidXRlIHRoaXMgZW1haWwgY29tbXVuaWNhdGlv
-biBhcyB0aGUgc2FtZSBpcyBzdHJpY3RseSBwcm9oaWJpdGVkLiBJZiB5b3UgaGF2ZSByZWNlaXZl
-ZCB0aGlzIGVtYWlsIGluIGVycm9yLCBwbGVhc2Ugbm90aWZ5IHRoZSBzZW5kZXIgaW1tZWRpYXRl
-bHkgYnkgcmV0dXJuIGUtbWFpbCBhbmQgZGVsZXRlIHRoZSBjb21tdW5pY2F0aW9uIHNlbnQgaW4g
-ZXJyb3IuIEVtYWlsIGNvbW11bmljYXRpb25zIGNhbm5vdCBiZSBndWFyYW50ZWVkIHRvIGJlIHNl
-Y3VyZSAmIGVycm9yIGZyZWUgYW5kIEluY2VkbyBJbmMuIGlzIG5vdCBsaWFibGUgZm9yIGFueSBl
-cnJvcnMgaW4gdGhlIGVtYWlsIGNvbW11bmljYXRpb24gb3IgZm9yIHRoZSBwcm9wZXIsIHRpbWVs
-eSBhbmQgY29tcGxldGUgdHJhbnNtaXNzaW9uIHRoZXJlb2YuDQoNCkRpc2NsYWltZXIgOiANClRo
-aXMgZW1haWwgY29tbXVuaWNhdGlvbiBtYXkgY29udGFpbiBwcml2aWxlZ2VkIGFuZCBjb25maWRl
-bnRpYWwgaW5mb3JtYXRpb24gYW5kIGlzIGludGVuZGVkIGZvciB0aGUgdXNlIG9mIHRoZSBhZGRy
-ZXNzZWUgb25seS4gSWYgeW91IGFyZSBub3QgYW4gaW50ZW5kZWQgcmVjaXBpZW50IHlvdSBhcmUg
-cmVxdWVzdGVkIG5vdCB0byByZXByb2R1Y2UsIGNvcHkgZGlzc2VtaW5hdGUgb3IgaW4gYW55IG1h
-bm5lciBkaXN0cmlidXRlIHRoaXMgZW1haWwgY29tbXVuaWNhdGlvbiBhcyB0aGUgc2FtZSBpcyBz
-dHJpY3RseSBwcm9oaWJpdGVkLiBJZiB5b3UgaGF2ZSByZWNlaXZlZCB0aGlzIGVtYWlsIGluIGVy
-cm9yLCBwbGVhc2Ugbm90aWZ5IHRoZSBzZW5kZXIgaW1tZWRpYXRlbHkgYnkgcmV0dXJuIGUtbWFp
-bCBhbmQgZGVsZXRlIHRoZSBjb21tdW5pY2F0aW9uIHNlbnQgaW4gZXJyb3IuIEVtYWlsIGNvbW11
-bmljYXRpb25zIGNhbm5vdCBiZSBndWFyYW50ZWVkIHRvIGJlIHNlY3VyZSAmIGVycm9yIGZyZWUg
-YW5kIEluY2VkbyBJbmMuIGlzIG5vdCBsaWFibGUgZm9yIGFueSBlcnJvcnMgaW4gdGhlIGVtYWls
-IGNvbW11bmljYXRpb24gb3IgZm9yIHRoZSBwcm9wZXIsIHRpbWVseSBhbmQgY29tcGxldGUgdHJh
-bnNtaXNzaW9uIHRoZXJlb2YuCg==
+OpenBMC is based on Yocto.  Both are designed to allow you to generate
+customized images based on your needs.
 
---_000_E41D83B2B2E8CB42AC13E92B4C3FABD3B602B7TSGGNMBX002ibtech_
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
+On Mon, Apr 3, 2017 at 12:05 PM, Karthik BalaGuru T <karthik.t@incedoinc.com
+> wrote:
 
-PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
-bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
-YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
-cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
-VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
-Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
-ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTQgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
-PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
-Q2FsaWJyaTsNCglwYW5vc2UtMToyIDE1IDUgMiAyIDIgNCAzIDIgNDt9DQpAZm9udC1mYWNlDQoJ
-e2ZvbnQtZmFtaWx5OlRhaG9tYTsNCglwYW5vc2UtMToyIDExIDYgNCAzIDUgNCA0IDIgNDt9DQov
-KiBTdHlsZSBEZWZpbml0aW9ucyAqLw0KcC5Nc29Ob3JtYWwsIGxpLk1zb05vcm1hbCwgZGl2Lk1z
-b05vcm1hbA0KCXttYXJnaW46MGluOw0KCW1hcmdpbi1ib3R0b206LjAwMDFwdDsNCglmb250LXNp
-emU6MTIuMHB0Ow0KCWZvbnQtZmFtaWx5OiJUaW1lcyBOZXcgUm9tYW4iLCJzZXJpZiI7fQ0KYTps
-aW5rLCBzcGFuLk1zb0h5cGVybGluaw0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6
-Ymx1ZTsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30NCmE6dmlzaXRlZCwgc3Bhbi5Nc29I
-eXBlcmxpbmtGb2xsb3dlZA0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6cHVycGxl
-Ow0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0Kc3Bhbi5FbWFpbFN0eWxlMTcNCgl7bXNv
-LXN0eWxlLXR5cGU6cGVyc29uYWwtcmVwbHk7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLCJzYW5z
-LXNlcmlmIjsNCgljb2xvcjojMUY0OTdEO30NCi5Nc29DaHBEZWZhdWx0DQoJe21zby1zdHlsZS10
-eXBlOmV4cG9ydC1vbmx5Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIiwic2Fucy1zZXJpZiI7fQ0K
-QHBhZ2UgV29yZFNlY3Rpb24xDQoJe3NpemU6OC41aW4gMTEuMGluOw0KCW1hcmdpbjoxLjBpbiAx
-LjBpbiAxLjBpbiAxLjBpbjt9DQpkaXYuV29yZFNlY3Rpb24xDQoJe3BhZ2U6V29yZFNlY3Rpb24x
-O30NCi0tPjwvc3R5bGU+PCEtLVtpZiBndGUgbXNvIDldPjx4bWw+DQo8bzpzaGFwZWRlZmF1bHRz
-IHY6ZXh0PSJlZGl0IiBzcGlkbWF4PSIxMDI2IiAvPg0KPC94bWw+PCFbZW5kaWZdLS0+PCEtLVtp
-ZiBndGUgbXNvIDldPjx4bWw+DQo8bzpzaGFwZWxheW91dCB2OmV4dD0iZWRpdCI+DQo8bzppZG1h
-cCB2OmV4dD0iZWRpdCIgZGF0YT0iMSIgLz4NCjwvbzpzaGFwZWxheW91dD48L3htbD48IVtlbmRp
-Zl0tLT4NCjwvaGVhZD4NCjxib2R5IGxhbmc9IkVOLVVTIiBsaW5rPSJibHVlIiB2bGluaz0icHVy
-cGxlIj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0aW9uMSI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48
-c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1
-b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6IzFGNDk3RCI+VGhhbmtzIFJpY2suPG86
-cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZv
-bnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5z
-LXNlcmlmJnF1b3Q7O2NvbG9yOiMxRjQ5N0QiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4N
-CjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQt
-ZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjoj
-MUY0OTdEIj5UaGFua3MgZm9yIGNvbmZpcm1pbmcgdGhhdCBpdCBjYW4gcnVuIGEgREhDUCBzZXJ2
-ZXIgYW5kIHRoYXQgdGhlIGRlZmF1bHQgY29uZmlndXJhdGlvbnMgZG8gbm90IGhhdmUgREhDUCBz
-ZXJ2ZXIuPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4g
-c3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90Oywm
-cXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOiMxRjQ5N0QiPjxvOnA+Jm5ic3A7PC9vOnA+PC9z
-cGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEu
-MHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90
-Oztjb2xvcjojMUY0OTdEIj5ZZWFoLCBqdXN0IHdhbnRlZCB0byBrbm93IHdoZXRoZXIgdGhlIGxp
-bnV4IGRpc3RyaWJ1dGlvbiBoYXMgYmVlbiBzdHJpcHBlZCBhbmQgY3VzdG9taXplZCB2ZXJzaW9u
-IHcuci50IEJNQy48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48
-c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1
-b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6IzFGNDk3RCI+SXQgaXMgZm9yIHRoZSBi
-bGFkZSBjaGFzc2lzIGNvbmZpZ3VyYXRpb24uPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xh
-c3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6
-JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOiMxRjQ5N0Qi
-PjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFu
-IHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDss
-JnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjojMUY0OTdEIj5SZWdhcmRzLDxvOnA+PC9vOnA+
-PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6
-MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZx
-dW90Oztjb2xvcjojMUY0OTdEIj5LYXJ0aGlrIEJhbGFndXJ1PG86cD48L286cD48L3NwYW4+PC9w
-Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9u
-dC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9y
-OiMxRjQ5N0QiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3Jt
-YWwiPjxiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTAuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O1Rh
-aG9tYSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7Ij5Gcm9tOjwvc3Bhbj48L2I+PHNwYW4g
-c3R5bGU9ImZvbnQtc2l6ZToxMC4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7VGFob21hJnF1b3Q7LCZx
-dW90O3NhbnMtc2VyaWYmcXVvdDsiPiBSaWNrIEFsdGhlcnIgW21haWx0bzpyYWx0aGVyckBnb29n
-bGUuY29tXQ0KPGJyPg0KPGI+U2VudDo8L2I+IE1vbmRheSwgQXByaWwgMDMsIDIwMTcgMTA6Mjkg
-QU08YnI+DQo8Yj5Ubzo8L2I+IEthcnRoaWsgQmFsYUd1cnUgVDxicj4NCjxiPkNjOjwvYj4gb3Bl
-bmJtY0BsaXN0cy5vemxhYnMub3JnPGJyPg0KPGI+U3ViamVjdDo8L2I+IFJlOiBPcGVuQk1DIGFu
-ZCBESENQIHNlcnZlcjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
-PjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPk9wZW5C
-TUMgaXMgYSBsaW51eCBkaXN0cmlidXRpb24gYW5kIGFzIHN1Y2ggY2FuIHJ1biBhIERIQ1Agc2Vy
-dmVyLiZuYnNwOyBUaGUgZGVmYXVsdCBjb25maWd1cmF0aW9ucyBwcm92aWRlZCBkbyBub3QgZG8g
-c28sIG5vciBpcyB0aGVyZSBhIGRlZmluZWQgSVBNSSBvciBSRVNUIGludGVyZmFjZSBmb3IgZG9p
-bmcgc28uJm5ic3A7IEFyZSB5b3UgcGxhbm5pbmcgdG8gdXNlIEFTVDEyNTAgYmVoaW5kIEFTVDI1
-MjAgaW4gYSBibGFkZQ0KIGNoYXNzaXMgY29uZmlndXJhdGlvbj88bzpwPjwvbzpwPjwvcD4NCjxk
-aXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjwvZGl2Pg0K
-PGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPlJpY2s8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0K
-PC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+
-DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+T24gTW9uLCBBcHIgMywgMjAxNyBhdCAxMDox
-MCBBTSwgS2FydGhpayBCYWxhR3VydSBUICZsdDs8YSBocmVmPSJtYWlsdG86a2FydGhpay50QGlu
-Y2Vkb2luYy5jb20iIHRhcmdldD0iX2JsYW5rIj5rYXJ0aGlrLnRAaW5jZWRvaW5jLmNvbTwvYT4m
-Z3Q7IHdyb3RlOjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+SGksPGJyPg0K
-PGJyPg0KSSBhbSBhbmFseXppbmcgZmV3IHBhcnRzIG9mIE9wZW5CTUMgZm9yIGFuIGFyY2hpdGVj
-dHVyZS48YnI+DQpLaW5kbHkgbGV0IG1lIGtub3cgd2hldGhlciBPcGVuQk1DIG9mIEFTVDEyNTAg
-YW5kIEFTVDI1MjAgYWxsb3cgc2V0dGluZyBvZiBESENQIHNlcnZlciBzbyB0aGF0IGl0IGNhbiBz
-ZXJ2ZSBJUCBhZGRyZXNzZXMgdG8gdGhlIGNvbm5lY3RlZCBjbGllbnRzLjxicj4NCjxicj4NClRo
-YW5rcyBpbiBhZHZhbmNlLDxicj4NCkthcnRoaWsgQmFsYWd1cnU8YnI+DQpEaXNjbGFpbWVyIDo8
-YnI+DQpUaGlzIGVtYWlsIGNvbW11bmljYXRpb24gbWF5IGNvbnRhaW4gcHJpdmlsZWdlZCBhbmQg
-Y29uZmlkZW50aWFsIGluZm9ybWF0aW9uIGFuZCBpcyBpbnRlbmRlZCBmb3IgdGhlIHVzZSBvZiB0
-aGUgYWRkcmVzc2VlIG9ubHkuIElmIHlvdSBhcmUgbm90IGFuIGludGVuZGVkIHJlY2lwaWVudCB5
-b3UgYXJlIHJlcXVlc3RlZCBub3QgdG8gcmVwcm9kdWNlLCBjb3B5IGRpc3NlbWluYXRlIG9yIGlu
-IGFueSBtYW5uZXIgZGlzdHJpYnV0ZSB0aGlzIGVtYWlsDQogY29tbXVuaWNhdGlvbiBhcyB0aGUg
-c2FtZSBpcyBzdHJpY3RseSBwcm9oaWJpdGVkLiBJZiB5b3UgaGF2ZSByZWNlaXZlZCB0aGlzIGVt
-YWlsIGluIGVycm9yLCBwbGVhc2Ugbm90aWZ5IHRoZSBzZW5kZXIgaW1tZWRpYXRlbHkgYnkgcmV0
-dXJuIGUtbWFpbCBhbmQgZGVsZXRlIHRoZSBjb21tdW5pY2F0aW9uIHNlbnQgaW4gZXJyb3IuIEVt
-YWlsIGNvbW11bmljYXRpb25zIGNhbm5vdCBiZSBndWFyYW50ZWVkIHRvIGJlIHNlY3VyZSAmYW1w
-OyBlcnJvciBmcmVlDQogYW5kIEluY2VkbyBJbmMuIGlzIG5vdCBsaWFibGUgZm9yIGFueSBlcnJv
-cnMgaW4gdGhlIGVtYWlsIGNvbW11bmljYXRpb24gb3IgZm9yIHRoZSBwcm9wZXIsIHRpbWVseSBh
-bmQgY29tcGxldGUgdHJhbnNtaXNzaW9uIHRoZXJlb2YuPG86cD48L286cD48L3A+DQo8L2Rpdj4N
-CjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPC9kaXY+DQo8L2Rp
-dj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJNQVJHSU46IDBjbSAwY20gMHB0Ij48c3Bh
-biBsYW5nPSJFTi1VUyIgc3R5bGU9IkZPTlQtU0laRTogMTBwdDsgQkFDS0dST1VORDogd2hpdGU7
-IENPTE9SOiBibGFjazsgRk9OVC1GQU1JTFk6ICdTZWdvZSBVSScsJ3NhbnMtc2VyaWYnOyBtc28t
-YW5zaS1sYW5ndWFnZTogRU4tVVMiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTogVGFob21hOyI+
-RGlzY2xhaW1lciA6PHNwYW4gY2xhc3M9ImFwcGxlLWNvbnZlcnRlZC1zcGFjZSI+Jm5ic3A7PC9z
-cGFuPjwvc3Bhbj48L3NwYW4+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJGT05ULVNJWkU6IDEw
-cHQ7IENPTE9SOiBibGFjazsgRk9OVC1GQU1JTFk6ICdTZWdvZSBVSScsJ3NhbnMtc2VyaWYnOyBt
-c28tYW5zaS1sYW5ndWFnZTogRU4tVVMiPjxicj48c3BhbiBzdHlsZT0iQkFDS0dST1VORDogd2hp
-dGUiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTogVGFob21hOyI+VGhpcyBlbWFpbCBjb21tdW5p
-Y2F0aW9uIG1heSBjb250YWluIHByaXZpbGVnZWQgYW5kIGNvbmZpZGVudGlhbCBpbmZvcm1hdGlv
-biBhbmQgaXMgaW50ZW5kZWQgZm9yIHRoZSB1c2Ugb2YgdGhlIGFkZHJlc3NlZSBvbmx5LiBJZiB5
-b3UgYXJlIG5vdCBhbiBpbnRlbmRlZCByZWNpcGllbnQgeW91IGFyZSByZXF1ZXN0ZWQgbm90IHRv
-IHJlcHJvZHVjZSwgY29weSBkaXNzZW1pbmF0ZSBvciBpbiBhbnkgbWFubmVyIGRpc3RyaWJ1dGUg
-dGhpcyBlbWFpbCBjb21tdW5pY2F0aW9uIGFzIHRoZSBzYW1lIGlzIHN0cmljdGx5IHByb2hpYml0
-ZWQuIElmIHlvdSBoYXZlIHJlY2VpdmVkIHRoaXMgZW1haWwgaW4gZXJyb3IsIHBsZWFzZSBub3Rp
-ZnkgdGhlIHNlbmRlciBpbW1lZGlhdGVseSBieSByZXR1cm4gZS1tYWlsIGFuZCBkZWxldGUgdGhl
-IGNvbW11bmljYXRpb24gc2VudCBpbiBlcnJvci4gRW1haWwgY29tbXVuaWNhdGlvbnMgY2Fubm90
-IGJlIGd1YXJhbnRlZWQgdG8gYmUgc2VjdXJlICZhbXA7IGVycm9yIGZyZWUgYW5kIDxzcGFuIHN0
-eWxlPSJ0ZXh0LWRlY29yYXRpb246IHVuZGVybGluZTsiPkluY2VkbyBJbmMuPC9zcGFuPiZuYnNw
-O2lzIG5vdCBsaWFibGUgZm9yIGFueSBlcnJvcnMgaW4gdGhlIGVtYWlsIGNvbW11bmljYXRpb24g
-b3IgZm9yIHRoZSBwcm9wZXIsIHRpbWVseSBhbmQgY29tcGxldGUgdHJhbnNtaXNzaW9uIHRoZXJl
-b2YuPC9zcGFuPjwvc3Bhbj48L3NwYW4+PC9wPjwvYm9keT4NCjwvaHRtbD4NCg==
+> Thanks Rick.
+>
+>
+>
+> Thanks for confirming that it can run a DHCP server and that the default
+> configurations do not have DHCP server.
+>
+>
+>
+> Yeah, just wanted to know whether the linux distribution has been stripped
+> and customized version w.r.t BMC.
+>
+> It is for the blade chassis configuration.
+>
+>
+>
+> Regards,
+>
+> Karthik Balaguru
+>
+>
+>
+> *From:* Rick Altherr [mailto:raltherr@google.com]
+> *Sent:* Monday, April 03, 2017 10:29 AM
+> *To:* Karthik BalaGuru T
+> *Cc:* openbmc@lists.ozlabs.org
+> *Subject:* Re: OpenBMC and DHCP server
+>
+>
+>
+> OpenBMC is a linux distribution and as such can run a DHCP server.  The
+> default configurations provided do not do so, nor is there a defined IPMI
+> or REST interface for doing so.  Are you planning to use AST1250 behind
+> AST2520 in a blade chassis configuration?
+>
+>
+>
+> Rick
+>
+>
+>
+> On Mon, Apr 3, 2017 at 10:10 AM, Karthik BalaGuru T <
+> karthik.t@incedoinc.com> wrote:
+>
+> Hi,
+>
+> I am analyzing few parts of OpenBMC for an architecture.
+> Kindly let me know whether OpenBMC of AST1250 and AST2520 allow setting of
+> DHCP server so that it can serve IP addresses to the connected clients.
+>
+> Thanks in advance,
+> Karthik Balaguru
+> Disclaimer :
+> This email communication may contain privileged and confidential
+> information and is intended for the use of the addressee only. If you are
+> not an intended recipient you are requested not to reproduce, copy
+> disseminate or in any manner distribute this email communication as the
+> same is strictly prohibited. If you have received this email in error,
+> please notify the sender immediately by return e-mail and delete the
+> communication sent in error. Email communications cannot be guaranteed to
+> be secure & error free and Incedo Inc. is not liable for any errors in the
+> email communication or for the proper, timely and complete transmission
+> thereof.
+>
+>
+>
+> Disclaimer :
+> This email communication may contain privileged and confidential
+> information and is intended for the use of the addressee only. If you are
+> not an intended recipient you are requested not to reproduce, copy
+> disseminate or in any manner distribute this email communication as the
+> same is strictly prohibited. If you have received this email in error,
+> please notify the sender immediately by return e-mail and delete the
+> communication sent in error. Email communications cannot be guaranteed to
+> be secure & error free and Incedo Inc. is not liable for any errors in
+> the email communication or for the proper, timely and complete transmission
+> thereof.
+>
 
---_000_E41D83B2B2E8CB42AC13E92B4C3FABD3B602B7TSGGNMBX002ibtech_--
+--001a114e5a4232f37c054c48426e
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">OpenBMC is based on Yocto.=C2=A0 Both are designed to allo=
+w you to generate customized images based on your needs.</div><div class=3D=
+"gmail_extra"><br><div class=3D"gmail_quote">On Mon, Apr 3, 2017 at 12:05 P=
+M, Karthik BalaGuru  T <span dir=3D"ltr">&lt;<a href=3D"mailto:karthik.t@in=
+cedoinc.com" target=3D"_blank">karthik.t@incedoinc.com</a>&gt;</span> wrote=
+:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-le=
+ft:1px #ccc solid;padding-left:1ex">
+
+
+
+
+
+<div lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"m_-1724430824804092994WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d">Thanks Rick.<u></u><u></u=
+></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d"><u></u>=C2=A0<u></u></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d">Thanks for confirming tha=
+t it can run a DHCP server and that the default configurations do not have =
+DHCP server.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d"><u></u>=C2=A0<u></u></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d">Yeah, just wanted to know=
+ whether the linux distribution has been stripped and customized version w.=
+r.t BMC.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d">It is for the blade chass=
+is configuration.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d"><u></u>=C2=A0<u></u></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d">Regards,<u></u><u></u></s=
+pan></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d">Karthik Balaguru<u></u><u=
+></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d"><u></u>=C2=A0<u></u></spa=
+n></p>
+<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
+;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
+ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> Rick Alt=
+herr [mailto:<a href=3D"mailto:raltherr@google.com" target=3D"_blank">ralth=
+err@google.com</a>]
+<br>
+<b>Sent:</b> Monday, April 03, 2017 10:29 AM<br>
+<b>To:</b> Karthik BalaGuru T<br>
+<b>Cc:</b> <a href=3D"mailto:openbmc@lists.ozlabs.org" target=3D"_blank">op=
+enbmc@lists.ozlabs.org</a><br>
+<b>Subject:</b> Re: OpenBMC and DHCP server<u></u><u></u></span></p><div><d=
+iv class=3D"h5">
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<div>
+<p class=3D"MsoNormal">OpenBMC is a linux distribution and as such can run =
+a DHCP server.=C2=A0 The default configurations provided do not do so, nor =
+is there a defined IPMI or REST interface for doing so.=C2=A0 Are you plann=
+ing to use AST1250 behind AST2520 in a blade
+ chassis configuration?<u></u><u></u></p>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Rick<u></u><u></u></p>
+</div>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<div>
+<p class=3D"MsoNormal">On Mon, Apr 3, 2017 at 10:10 AM, Karthik BalaGuru T =
+&lt;<a href=3D"mailto:karthik.t@incedoinc.com" target=3D"_blank">karthik.t@=
+incedoinc.com</a>&gt; wrote:<u></u><u></u></p>
+<p class=3D"MsoNormal">Hi,<br>
+<br>
+I am analyzing few parts of OpenBMC for an architecture.<br>
+Kindly let me know whether OpenBMC of AST1250 and AST2520 allow setting of =
+DHCP server so that it can serve IP addresses to the connected clients.<br>
+<br>
+Thanks in advance,<br>
+Karthik Balaguru<br>
+Disclaimer :<br>
+This email communication may contain privileged and confidential informatio=
+n and is intended for the use of the addressee only. If you are not an inte=
+nded recipient you are requested not to reproduce, copy disseminate or in a=
+ny manner distribute this email
+ communication as the same is strictly prohibited. If you have received thi=
+s email in error, please notify the sender immediately by return e-mail and=
+ delete the communication sent in error. Email communications cannot be gua=
+ranteed to be secure &amp; error free
+ and Incedo Inc. is not liable for any errors in the email communication or=
+ for the proper, timely and complete transmission thereof.<u></u><u></u></p=
+>
+</div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+</div></div></div><div><div class=3D"h5">
+<p class=3D"MsoNormal" style=3D"MARGIN:0cm 0cm 0pt"><span lang=3D"EN-US" st=
+yle=3D"FONT-SIZE:10pt;BACKGROUND:white;COLOR:black;FONT-FAMILY:&#39;Segoe U=
+I&#39;,&#39;sans-serif&#39;"><span style=3D"font-family:Tahoma">Disclaimer =
+:<span class=3D"m_-1724430824804092994apple-converted-space">=C2=A0</span><=
+/span></span><span lang=3D"EN-US" style=3D"FONT-SIZE:10pt;COLOR:black;FONT-=
+FAMILY:&#39;Segoe UI&#39;,&#39;sans-serif&#39;"><br><span style=3D"BACKGROU=
+ND:white"><span style=3D"font-family:Tahoma">This email communication may c=
+ontain privileged and confidential information and is intended for the use =
+of the addressee only. If you are not an intended recipient you are request=
+ed not to reproduce, copy disseminate or in any manner distribute this emai=
+l communication as the same is strictly prohibited. If you have received th=
+is email in error, please notify the sender immediately by return e-mail an=
+d delete the communication sent in error. Email communications cannot be gu=
+aranteed to be secure &amp; error free and <span style=3D"text-decoration:u=
+nderline">Incedo Inc.</span>=C2=A0is not liable for any errors in the email=
+ communication or for the proper, timely and complete transmission thereof.=
+</span></span></span></p></div></div></div>
+
+</blockquote></div><br></div>
+
+--001a114e5a4232f37c054c48426e--
