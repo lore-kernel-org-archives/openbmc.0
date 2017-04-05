@@ -1,53 +1,60 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x243.google.com (mail-yw0-x243.google.com
- [IPv6:2607:f8b0:4002:c05::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <vishwa@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vyY3V6T9jzDqH6
- for <openbmc@lists.ozlabs.org>; Wed,  5 Apr 2017 14:37:26 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="O8wc2lpb"; 
- dkim-atps=neutral
-Received: by mail-yw0-x243.google.com with SMTP id d191so129569ywe.1
- for <openbmc@lists.ozlabs.org>; Tue, 04 Apr 2017 21:37:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=S04a3rogCvHZNlc6icrtD5A5/BI1FUxLFpI6232C4Fk=;
- b=O8wc2lpb1e6IqU31M49AXBUVKDpz6fAvqCcyHsSKEp39X9W4kvNEWLQ8FyW+m70CYt
- uwTS0PcWVKg/L9kvs+QDKfTDpNOQHpZZuNI4YTYjT67GrvV2mOHHwFohG3ZsCs49E4PH
- DeIcJMavJvWJ7iz6zxhFAobO4RiSR3Vmrb1pk8utOUBtw8qhEhEfQlfwiWqi4qsC+nqC
- QcZd1a8o8h2LDRqQwUkswBVJIsrzXozMp8mtFJsEh+X90jG6efr6oGLLL0hTcT4LFEAh
- MfNEeAZ2pZ2nAJm0rB8dMbDA3HndvDkim58r8Wdf70VfjzoD4Lu0pTURejGKDL8j+PTc
- 66iQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=S04a3rogCvHZNlc6icrtD5A5/BI1FUxLFpI6232C4Fk=;
- b=NRNQ3d/By7QfQCNUSuXRUgJJNxSoI+e1Ap3WY805tyXdo6K14/iI4KPBjWiavi2iWS
- u+6PnjZkXSoq9ocB2fufOBJaJZabF+atu2jRZ60PscmWR7nQweylvYforsdIgf/aahtx
- 0yNREB0yp96P5NmbgPwvMAGCdLzp5OuZq0BVu9eUWmdx3xqbOqtGoY2+9ITr42ZwEWUC
- 5E0b4r6ziey8uPTvsMHCRdq4HceyPh3guEgvEJcNdzPRMev62qipDrLJNvGNj0nC1Vp2
- OqWqZIXrFnS4E+tv4Q4/zTzL3VLTPqORKwMK9CV/YL7yVvSCBk+pDEvQ1EIOV3wNHQTU
- eTeg==
-X-Gm-Message-State: AFeK/H0giV2+bg+ZfikZOJ2VcJ2B1uKLb7GwBy+i0OiuIeIJH5ORR89cQGPNCsmdLDVT57gN63RboLhoOqkonw==
-X-Received: by 10.129.73.65 with SMTP id w62mr17071087ywa.288.1491367044334;
- Tue, 04 Apr 2017 21:37:24 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vyf6Q0sbmzDqGv
+ for <openbmc@lists.ozlabs.org>; Wed,  5 Apr 2017 18:25:17 +1000 (AEST)
+Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v358NZDe190469
+ for <openbmc@lists.ozlabs.org>; Wed, 5 Apr 2017 04:25:05 -0400
+Received: from e28smtp02.in.ibm.com (e28smtp02.in.ibm.com [125.16.236.2])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 29mv9xsysr-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 05 Apr 2017 04:25:04 -0400
+Received: from localhost
+ by e28smtp02.in.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <vishwa@linux.vnet.ibm.com>;
+ Wed, 5 Apr 2017 13:55:01 +0530
+Received: from d28relay05.in.ibm.com (9.184.220.62)
+ by e28smtp02.in.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Wed, 5 Apr 2017 13:54:59 +0530
+Received: from d28av08.in.ibm.com (d28av08.in.ibm.com [9.184.220.148])
+ by d28relay05.in.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v358OraU12583122
+ for <openbmc@lists.ozlabs.org>; Wed, 5 Apr 2017 13:54:53 +0530
+Received: from d28av08.in.ibm.com (localhost [127.0.0.1])
+ by d28av08.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ v358OwCe031001
+ for <openbmc@lists.ozlabs.org>; Wed, 5 Apr 2017 13:54:58 +0530
+Received: from [9.193.99.239] (vishwa.in.ibm.com [9.193.99.239])
+ by d28av08.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ v358OwHJ030998
+ for <openbmc@lists.ozlabs.org>; Wed, 5 Apr 2017 13:54:58 +0530
+From: vishwa <vishwa@linux.vnet.ibm.com>
+Subject: Discussion on GPIO monitoring and design thoughts.
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Wed, 5 Apr 2017 13:56:26 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.7.0
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.20.87 with HTTP; Tue, 4 Apr 2017 21:37:03 -0700 (PDT)
-In-Reply-To: <20170404215329.14823-1-raltherr@google.com>
-References: <20170404215329.14823-1-raltherr@google.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 5 Apr 2017 14:07:03 +0930
-X-Google-Sender-Auth: ChPuojLGK-XxewpLWRJHqOZVRp4
-Message-ID: <CACPK8XdzrTzMc0-bD6WgZDo+yLB=KguiWaMTp5mh4xS5vA0K-w@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7 v1] dts: aspeed: Add hardware RNG to
- aspeed-g4 and aspeed-g5
-To: Rick Altherr <raltherr@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-MML: disable
+x-cbid: 17040508-0004-0000-0000-000005627E2C
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17040508-0005-0000-0000-0000136090CF
+Message-Id: <3ca9e8a5-4135-8fa3-cbf5-62543a89a491@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-04-05_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=2
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
+ definitions=main-1704050075
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,67 +66,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Apr 2017 04:37:27 -0000
+X-List-Received-Date: Wed, 05 Apr 2017 08:25:19 -0000
 
-Hi Rick,
+We had a technical discussion on HOWTO and what is the right thing to do 
+handling the GPIO assertion and here is the gist.
 
-I tried to apply this and got the following:
+1) Use gpio-keys and utilize libevdev wrappers ( 
+https://www.freedesktop.org/software/libevdev/doc/latest/ ) to watch for 
+data in /dev/input/event.
 
-Applying patch #746973 using 'git am -s'
-Description: [linux,dev-4.7,v1] dts: aspeed: Add hardware RNG to
-aspeed-g4 and aspeed-g5
-Applying: dts: aspeed: Add hardware RNG to aspeed-g4 and aspeed-g5
-error: corrupt patch at line 42
-Patch failed at 0001 dts: aspeed: Add hardware RNG to aspeed-g4 and aspeed-g5
+2) Define a target with set of services that would be called into by the 
+GPIO monitor application when the GPIO state changes to what is expected.
 
-Can you try sending again?
+  - 2.1) Another option was to just broadcast a signal that interested 
+parties could catch and act but then it was not chosen because there 
+would be no guarantee that the signal would ever be delivered / caught 
+by needed parties.
 
-Cheers,
+  - 2.2 ) Also going the signal way demands a service that just needs to 
+watch for that.
 
-Joel
+*) The services that are part of the target will then own complete 
+handling of the condition instead of the application that monitored the 
+GPIO.
 
-On Wed, Apr 5, 2017 at 7:23 AM, Rick Altherr <raltherr@google.com> wrote:
-> Signed-off-by: Rick Altherr <raltherr@google.com>
-> ---
->
->  arch/arm/boot/dts/aspeed-g4.dtsi |  6 ++++++
->  arch/arm/boot/dts/aspeed-g5.dtsi | 12 ++++++++++++
->  2 files changed, 18 insertions(+)
->
-> diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-> index e5be87076a6b..ee735e92c3d9 100644
-> --- a/arch/arm/boot/dts/aspeed-g4.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-> @@ -840,6 +840,12 @@
->                                 reg = <0x1e6e202c 0x4>;
->                         };
->
-> +                       hwrng@1e6e2078 {
-> +                               compatible = "timeriomem_rng";
-> +                               reg = <0x1e6e2078 0x4>;
-> +                               period = <1>;
-> +                       };
-> +
->                         adc: adc@1e6e9000 {
->                                 compatible = "aspeed,ast2400-adc";
->                                 reg = <0x1e6e9000 0xB0>;
-> diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-> index 48fd068251d6..4f29dcfcc134 100644
-> --- a/arch/arm/boot/dts/aspeed-g5.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-> @@ -1009,6 +1009,18 @@
->                                 reg = <0x1e6e202c 0x4>;
->                         };
->
-> +                       hwrng@1e6e2078 {
-> +                               compatible = "timeriomem_rng";
-> +                               reg = <0x1e6e2078 0x4>;
-> +                               period = <1>;
-> +                       };
-> +
->                         gfx: display@1e6e6000 {
->                                 compatible = "aspeed,ast2500-gfx", "syscon";
->                                 reg = <0x1e6e6000 0x1000>;
-> --
-> 2.12.2.715.g7642488e1d-goog
->
+---------
+
+Here is an example of application that handles the GPIO assertion that 
+happens when host does a checkstop.
+
+1) Application's arguments need /dev/input/event<$number> and the 
+expected GPIO state as indicated by linux,code in :
+
+http://lxr.free-electrons.com/source/Documentation/devicetree/bindings/input/gpio-keys.txt
+
+2) Call this app after reaching `Host-Running` state thus avoiding any 
+checks to see current state.
+
+2) App will then use libevdev wrappers to watch for the state
+
+3) On seeing the expected state change, app calls into the configured 
+target.
+
+4) Configured target right now has 2 services.
+
+   - 4.1 ) Service that Creates an errorlog indicating the checkstop
+   - 4.2 ) Service that will start the Quiesce target
+
+--------
+
+This design direction helps decouple applications that monitor and 
+analyze the conditions.
+
+Please let me know your thoughts on this.
+
+Thanks.
+
+!! Vishwa !!
