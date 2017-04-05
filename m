@@ -1,49 +1,54 @@
 Return-Path: <raltherr@google.com>
-Received: from mail-pg0-x235.google.com (mail-pg0-x235.google.com
- [IPv6:2607:f8b0:400e:c05::235])
+Received: from mail-wr0-x22e.google.com (mail-wr0-x22e.google.com
+ [IPv6:2a00:1450:400c:c0c::22e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vyrYs6GCVzDqHK
- for <openbmc@lists.ozlabs.org>; Thu,  6 Apr 2017 02:16:17 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vyrjL0xn2zDqHK
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Apr 2017 02:22:45 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="v+ZBNqxV"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="OoknHatj"; 
  dkim-atps=neutral
-Received: by mail-pg0-x235.google.com with SMTP id g2so10246723pge.3
- for <openbmc@lists.ozlabs.org>; Wed, 05 Apr 2017 09:16:17 -0700 (PDT)
+Received: by mail-wr0-x22e.google.com with SMTP id t20so22318282wra.1
+ for <openbmc@lists.ozlabs.org>; Wed, 05 Apr 2017 09:22:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=lY8vGvH/JbPVh+gWhWmKihl23RzqWrSkHV6PLZTvHQI=;
- b=v+ZBNqxVEmdgPZ8CqQFqWwpzxVuiOpFHWKkJuh4eqScgAhiOoOVchbdObRT7UsyybD
- YPdyZqPl7htuHRMLqrHmDtUXmS+Io7jwZsjNMhOfN2QlOlm1aLSbiQd765u+DzX/IABT
- VXV0lUwKC+z5WfpDsAHdEFnebw/B5iwhIIVrnVqlpIHHZbbNLhsOkOW4qvlIjO2YOfgU
- wNU5Xn2r0ugMgSPcxE0r1X5bf0dFLxFAI4bFrDbcYGHbAn+Vq0RM0U1IkDX1HsazEm3g
- oq4PTyhSS1BrkfWis29/u8hZuvN1YRdM3OT/FwwBUhR7mpBWbR1BQnLzqPzgoJUXkhpi
- 0eAw==
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=xuN+pOIkXfTGDVPS1XPDkyEBbkjkSrMaTR3+lQXa94o=;
+ b=OoknHatjsWEP4gp2seYQV0McEU8238zHS9j+jowaX22VLP73KnzKdjh8C3Aw7gB/tw
+ iGsRpxRrh1eJi00gbZ6Q8BE2rn1pbihwNabzUV/myGl6iZRkuPP4KS+DtJ/E6Y3hjrot
+ 5svRzh+rLG9h8n/ezYEuezUpWBnixu0fa+2KACbVJgC36gtdJqQsMruhYtA6xH7H6VDA
+ JueLQ2+Q0/zpa/vYcM6jYbGB9hKOovPEB+kh3+uMfUkdx+BlKdswJ/IEW0D63YIC9u7h
+ t66tyWrHYJe6XhNPlXRzdPOKt85I9q4K4e4yk4xZll1v1Ir5fWfSJxlYujINb3xRmGkf
+ p9eA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=lY8vGvH/JbPVh+gWhWmKihl23RzqWrSkHV6PLZTvHQI=;
- b=X6Pb8yCNbUtXrKECF5zaElRBjQo/87KoEdq0oOCQN2sW9IUKIzL+S5W87Ye9KYHdX7
- h9Vx9qwHr25fPpLaj8nwPV+yfGyJteYhTkV8frdRAnuY5uPDvecUWYUhHRvx1GGGDMKo
- mTQifJ71cP+hQKeWhLcxc6U0NbVKtbLVkXrsvVSd4pj+yzNvc737+2ALTPYzlFSvaXJg
- keG88a4vxOnNoF74qHuoOWLnZws3kukvEKDRdz/t7e0WKMQqA1GRU/KGF9Am/NIEL3oC
- iyHoYeIousKrJrQN4dNi5Pmg/Tv+QN6r/xoeWUz2wchLUXhw6FKmUFi5QmAwyX6cFThO
- FrWQ==
-X-Gm-Message-State: AFeK/H1lxj/5tlLfL1xq1Kwv5ABlRtg2Z0r5F/ql1unAmOwD6SCfhvfnnLHQ28IosVSzLQQK
-X-Received: by 10.98.112.134 with SMTP id l128mr30577534pfc.110.1491408974933; 
- Wed, 05 Apr 2017 09:16:14 -0700 (PDT)
-Received: from raltherr-linux.svl.corp.google.com ([100.123.242.49])
- by smtp.gmail.com with ESMTPSA id x30sm5087071pgc.2.2017.04.05.09.16.13
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Wed, 05 Apr 2017 09:16:13 -0700 (PDT)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=xuN+pOIkXfTGDVPS1XPDkyEBbkjkSrMaTR3+lQXa94o=;
+ b=DiNbHgWq53SMVtcV13kQz8doa5OJ04+6CyUCz36eQwEYa4jtgKlk3AVrHgemwv1uS2
+ jllpnQtGABH1luTdnkhC/2Cx0y+dF0FH/Wtf+UqErlFu4WIfdKm8QO51tNsVVvoEUpwq
+ HD8swoxab+QUZiIIZ0gcRwMFld3D+V/ukpDa3qbXGqrqFqY5ddDXD2LhhrJaYNEYLrf1
+ RIiObR5nEU1lFjICs5DrSQUkEuH/Cyv3uHnVZ1Sldeg24i4FBkiRcqpWlMgmKp1yz/Fb
+ wSVP1lrMeaOWBU7/l4CDSyYPB7Sj+VoTLgv9Hzt/lRgmlUpZc4fAENdeh+vicSpKYOXa
+ IgCQ==
+X-Gm-Message-State: AFeK/H2LOT1oMUZAnbt1vU/zA3L4W9DJ1vQOhu9md0hCYe9pgtesivlMAmoFCeD3kZxc1so4SEs2zlOTZXv99eZX
+X-Received: by 10.223.136.246 with SMTP id g51mr25354957wrg.83.1491409361954; 
+ Wed, 05 Apr 2017 09:22:41 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.28.169.8 with HTTP; Wed, 5 Apr 2017 09:22:41 -0700 (PDT)
+In-Reply-To: <20170405125717.GB26558@gondor.apana.org.au>
+References: <20170404214307.7748-1-raltherr@google.com>
+ <20170405125717.GB26558@gondor.apana.org.au>
 From: Rick Altherr <raltherr@google.com>
-To: Joel Stanley <joel@jms.id.au>
-Cc: openbmc@lists.ozlabs.org
-Subject: [RESEND PATCH linux dev-4.7 v1] dts: aspeed: Add hardware RNG to
- aspeed-g4 and aspeed-g5
-Date: Wed,  5 Apr 2017 09:16:11 -0700
-Message-Id: <20170405161611.22659-1-raltherr@google.com>
-X-Mailer: git-send-email 2.12.2.715.g7642488e1d-goog
+Date: Wed, 5 Apr 2017 09:22:41 -0700
+Message-ID: <CAPLgG==p8W0vvWXMF7-9k_q482F7f9H1OJA_ZNbnV69tgYVZJw@mail.gmail.com>
+Subject: Re: [PATCH v1] hw_random: Fix timeriomem_rng for sub-jiffie update
+ periods
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Alexander Clouter <alex@digriz.org.uk>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Matt Mackall <mpm@selenic.com>, linux-crypto@vger.kernel.org, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Content-Type: multipart/alternative; boundary=001a11491b603c41bb054c6dcd92
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,48 +60,93 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Apr 2017 16:16:18 -0000
+X-List-Received-Date: Wed, 05 Apr 2017 16:22:46 -0000
 
-Signed-off-by: Rick Altherr <raltherr@google.com>
----
+--001a11491b603c41bb054c6dcd92
+Content-Type: text/plain; charset=UTF-8
 
- arch/arm/boot/dts/aspeed-g4.dtsi | 6 ++++++
- arch/arm/boot/dts/aspeed-g5.dtsi | 6 ++++++
- 2 files changed, 12 insertions(+)
+On Wed, Apr 5, 2017 at 5:57 AM, Herbert Xu <herbert@gondor.apana.org.au>
+wrote:
 
-diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-index e5be87076a6b..ee735e92c3d9 100644
---- a/arch/arm/boot/dts/aspeed-g4.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-@@ -840,6 +840,12 @@
- 				reg = <0x1e6e202c 0x4>;
- 			};
- 
-+			hwrng@1e6e2078 {
-+				compatible = "timeriomem_rng";
-+				reg = <0x1e6e2078 0x4>;
-+				period = <1>;
-+			};
-+
- 			adc: adc@1e6e9000 {
- 				compatible = "aspeed,ast2400-adc";
- 				reg = <0x1e6e9000 0xB0>;
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index 48fd068251d6..df2712caa36d 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -1009,6 +1009,12 @@
- 				reg = <0x1e6e202c 0x4>;
- 			};
- 
-+			hwrng@1e6e2078 {
-+				compatible = "timeriomem_rng";
-+				reg = <0x1e6e2078 0x4>;
-+				period = <1>;
-+			};
-+
- 			gfx: display@1e6e6000 {
- 				compatible = "aspeed,ast2500-gfx", "syscon";
- 				reg = <0x1e6e6000 0x1000>;
--- 
-2.12.2.715.g7642488e1d-goog
+> On Tue, Apr 04, 2017 at 02:43:07PM -0700, Rick Altherr wrote:
+> > Some hardware RNGs provide a single register for obtaining random data.
+> > Instead of signaling when new data is available, the reader must wait a
+> > fixed amount of time between reads for new data to be generated.
+> > timeriomem_rng implements this scheme with the period specified in
+> > platform data or device tree.  While the period is specified in
+> > microseconds, the implementation used a standard timer which has a
+> > minimum delay of 1 jiffie and caused a significant bottleneck for
+> > devices that can update at 1us.  By switching to an hrtimer, 1us periods
+> > now only delay at most 2us per read.
+> >
+> > Migrated to new hw_random API while I in this driver.
+> >
+> > Signed-off-by: Rick Altherr <raltherr@google.com>
+>
+> Thanks Rick.  Could you split this into two patches? One doing
+> the API conversion and the other one doing the substantive change
+> to the entropy gathering?
+>
+> That way if there is a problem it'll be easier to track down.
+>
+>
+Will do.
+
+
+> Thanks,
+> --
+> Email: Herbert Xu <herbert@gondor.apana.org.au>
+> Home Page: http://gondor.apana.org.au/~herbert/
+> PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+>
+
+--001a11491b603c41bb054c6dcd92
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><br><div class=3D"gmail_extra"><br><div class=3D"gmail_quo=
+te">On Wed, Apr 5, 2017 at 5:57 AM, Herbert Xu <span dir=3D"ltr">&lt;<a hre=
+f=3D"mailto:herbert@gondor.apana.org.au" target=3D"_blank">herbert@gondor.a=
+pana.org.au</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><span c=
+lass=3D"">On Tue, Apr 04, 2017 at 02:43:07PM -0700, Rick Altherr wrote:<br>
+&gt; Some hardware RNGs provide a single register for obtaining random data=
+.<br>
+&gt; Instead of signaling when new data is available, the reader must wait =
+a<br>
+&gt; fixed amount of time between reads for new data to be generated.<br>
+&gt; timeriomem_rng implements this scheme with the period specified in<br>
+&gt; platform data or device tree.=C2=A0 While the period is specified in<b=
+r>
+&gt; microseconds, the implementation used a standard timer which has a<br>
+&gt; minimum delay of 1 jiffie and caused a significant bottleneck for<br>
+&gt; devices that can update at 1us.=C2=A0 By switching to an hrtimer, 1us =
+periods<br>
+&gt; now only delay at most 2us per read.<br>
+&gt;<br>
+&gt; Migrated to new hw_random API while I in this driver.<br>
+&gt;<br>
+&gt; Signed-off-by: Rick Altherr &lt;<a href=3D"mailto:raltherr@google.com"=
+>raltherr@google.com</a>&gt;<br>
+<br>
+</span>Thanks Rick.=C2=A0 Could you split this into two patches? One doing<=
+br>
+the API conversion and the other one doing the substantive change<br>
+to the entropy gathering?<br>
+<br>
+That way if there is a problem it&#39;ll be easier to track down.<br>
+<br></blockquote><div><br></div><div>Will do.</div><div>=C2=A0</div><blockq=
+uote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc =
+solid;padding-left:1ex">
+Thanks,<br>
+<span class=3D"HOEnZb"><font color=3D"#888888">--<br>
+Email: Herbert Xu &lt;<a href=3D"mailto:herbert@gondor.apana.org.au">herber=
+t@gondor.apana.org.au</a>&gt;<br>
+Home Page: <a href=3D"http://gondor.apana.org.au/~herbert/" rel=3D"noreferr=
+er" target=3D"_blank">http://gondor.apana.org.au/~<wbr>herbert/</a><br>
+PGP Key: <a href=3D"http://gondor.apana.org.au/~herbert/pubkey.txt" rel=3D"=
+noreferrer" target=3D"_blank">http://gondor.apana.org.au/~<wbr>herbert/pubk=
+ey.txt</a><br>
+</font></span></blockquote></div><br></div></div>
+
+--001a11491b603c41bb054c6dcd92--
