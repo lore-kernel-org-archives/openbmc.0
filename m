@@ -1,49 +1,55 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-pg0-x22c.google.com (mail-pg0-x22c.google.com
- [IPv6:2607:f8b0:400e:c05::22c])
+Return-Path: <jaghu@google.com>
+Received: from mail-pf0-x233.google.com (mail-pf0-x233.google.com
+ [IPv6:2607:f8b0:400e:c00::233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vyN5V6BsGzDq7c
- for <openbmc@lists.ozlabs.org>; Wed,  5 Apr 2017 07:53:34 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vyS4K6nl3zDqHH
+ for <openbmc@lists.ozlabs.org>; Wed,  5 Apr 2017 10:52:49 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="H4Ua4Xv4"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="GIlE8RQm"; 
  dkim-atps=neutral
-Received: by mail-pg0-x22c.google.com with SMTP id 81so164371352pgh.2
- for <openbmc@lists.ozlabs.org>; Tue, 04 Apr 2017 14:53:34 -0700 (PDT)
+Received: by mail-pf0-x233.google.com with SMTP id 197so14725095pfv.1
+ for <openbmc@lists.ozlabs.org>; Tue, 04 Apr 2017 17:52:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=cUBR881XsdcihsKwHsKNri8a9UHtFMxQbkBz6FlqmTE=;
- b=H4Ua4Xv4nfaH9Lnc+rmwJu+HcWf3IEy2Tt6UdWL2bdjsKpygFVQsyzUmLPcVXVx3v8
- GGn+LGvEwuNWOcYmhnHt5xJAnUsFqEPwHUaUzc4YZCuL0P3OzAEEpo1HMBkE2AfGG4rh
- dKU3rXgENJGxeN3f3n5ya1+d6SR09aS64CXnzR7T3PMzF2xRn+vnUwtB9W2U8ehrsAxs
- s4NVCj/x7BdLPcmpT1WJBSw4g5/s+Ea8XJlo9xjOErrtBYAc0Qn5qptqmHyN3gONvJ43
- xzS/0ajMVEoCi5a0AMy/XMBMeFdC/79Mz1jNVqyXQBQ8k5wkJOqaiXrYjXnTeEIB4QjP
- QHsw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=PCA+afEwEScEQTrMI/yXGmCSPK/Tk7tVTFb9+IPwFu4=;
+ b=GIlE8RQmRzaWJgXxauGJoU32Q+UmpBBF7wphXcmBXzqSDEQ7BzBpvekLKi0DcRfB2v
+ +9Ij8tpaeBnVTINXqtDSDzrVjGUTCacYadmLgNXuI8I8SzhyZdtPg1ax2pvyssro5vm7
+ 5I1yDXlbhawLrIaRgS+Tk8T/wwmuRJkNWAs+IWgky7EXbByq3qutca5XweBnYbtf/P+4
+ VhEsPmd4+6HqwD2rjrQkJuOlXyLHBe3eUK/baLlxJAOmhhAIDMURcsKIZSBLkdXKZ9JL
+ PYH+4tabj1AN61QXV1MgUEbcOfc+eOHZgw74EjGDP+Hc8cXmvX7mFjKXFfJeTI2ZKx5T
+ Pxvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=cUBR881XsdcihsKwHsKNri8a9UHtFMxQbkBz6FlqmTE=;
- b=r7n0FXkG9ru/GUB0NrxDMlepX5iySRFHOhXMYUnuBS0ljIt63rvka1DH/AnrwSAWyH
- WhLalkONUqFsTIAYO5M6PIRdKs+blEugW4y2fock8skE5VZc+6BNtG6gh6/3ThpzgJGD
- Yk9ohMGl3VLbUFLOk3D3PPLAaDKzRfLOtiw+ZsoTrphd8oFNAde2of5DHhV3NxvmRzoh
- 5nSjjGR/sFkcnYzlnHzs/PEW8c6zPI4zPuqIE0ViMPfeL43Qr8EEwU0ggEVkHGmkkZZC
- O3kvhUKCP3Pi8qsoVfwYe5pqx8l1kQaXqPpb9gpibL/NmM1U3cWyF8kIQLJ6Jdrch6Ki
- KcOg==
-X-Gm-Message-State: AFeK/H3cqsPobTqAkjR81IA1g1E6umh4AT/JW6FrzqNx1b5PkRmR7Bmj/eF04bXMiuApzB1/
-X-Received: by 10.99.232.21 with SMTP id s21mr26584266pgh.67.1491342812193;
- Tue, 04 Apr 2017 14:53:32 -0700 (PDT)
-Received: from raltherr-linux.svl.corp.google.com ([100.123.242.49])
- by smtp.gmail.com with ESMTPSA id l126sm33500036pfl.56.2017.04.04.14.53.30
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=PCA+afEwEScEQTrMI/yXGmCSPK/Tk7tVTFb9+IPwFu4=;
+ b=obr4SbH4hI+DN6oje7DjLn9NcxtiG/bgvHvaEqFX+/58Qe++EQkl+5RZO00kdOxa/f
+ bTG1kwaEMOGau9bqQiII3p42l1UjpefwINhre07RXFzQNLdxaeysanewnGs4KASniOTp
+ uSMURR8EV/GKFel8H9AUwyoh+Ba3E929Yf0AcQ5BPqyFb1ZPE5QAxanqSarMWXSycJ38
+ ZRQy67VeUqiDMvlSqtQTMTbzivstfnRLf/fYjkjMMi6o0pjFFamaBULdgO6utH5Z99DX
+ nOfsyHPcvUEvHveolyBqkoOb3tJ3Efi4Bf6JJ5QEAUuXu4UDYIKTqGvpb/Ps7gD+TS1H
+ yqdA==
+X-Gm-Message-State: AFeK/H1s+FC09MsDNXXOq9LS80ZMrQuOZKffDIAHyqSgjS1r45jpFBJQKEDNusrTiy7jSSz3
+X-Received: by 10.98.33.28 with SMTP id h28mr12877063pfh.248.1491353567122;
+ Tue, 04 Apr 2017 17:52:47 -0700 (PDT)
+Received: from jaghu22.svl.corp.google.com ([100.123.242.38])
+ by smtp.gmail.com with ESMTPSA id y186sm33746960pfg.52.2017.04.04.17.52.46
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Tue, 04 Apr 2017 14:53:31 -0700 (PDT)
-From: Rick Altherr <raltherr@google.com>
-To: Joel Stanley <joel@jms.id.au>
-Cc: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.7 v1] dts: aspeed: Add hardware RNG to aspeed-g4
- and aspeed-g5
-Date: Tue,  4 Apr 2017 14:53:29 -0700
-Message-Id: <20170404215329.14823-1-raltherr@google.com>
+ Tue, 04 Apr 2017 17:52:46 -0700 (PDT)
+From: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
+To: joel@jms.id.au, jdelvare@suse.com, linux@roeck-us.net,
+ linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org, corbet@lwn.net, linux-doc@vger.kernel.org,
+ robh+dt@kernel.org, mark.rutland@arm.com, devicetree@vger.kernel.org
+Cc: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
+Subject: [PATCH linux v7 1/2] Documentation: dt-bindings: Document bindings
+ for ASPEED AST2400/AST2500 PWM and Fan tach controller device driver
+Date: Tue,  4 Apr 2017 17:52:40 -0700
+Message-Id: <20170405005241.8794-2-jaghu@google.com>
 X-Mailer: git-send-email 2.12.2.715.g7642488e1d-goog
+In-Reply-To: <20170405005241.8794-1-jaghu@google.com>
+References: <20170405005241.8794-1-jaghu@google.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,48 +61,116 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 04 Apr 2017 21:53:35 -0000
+X-List-Received-Date: Wed, 05 Apr 2017 00:52:50 -0000
 
-Signed-off-by: Rick Altherr <raltherr@google.com>
+This binding provides interface for adding values related to ASPEED
+AST2400/2500 PWM and Fan tach controller support.
+The PWM controller can support upto 8 PWM output ports.
+The Fan tach controller can support upto 16 tachometer inputs.
+
+Signed-off-by: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
+Acked-by: Rob Herring <robh@kernel.org>
 ---
+ v7:
+- Added a semicolon at the end of pwm_tacho_fixed_clk node in Examples section
 
- arch/arm/boot/dts/aspeed-g4.dtsi |  6 ++++++
- arch/arm/boot/dts/aspeed-g5.dtsi | 12 ++++++++++++
- 2 files changed, 18 insertions(+)
+ v6:
+- Changed to aspeed,fan-tach-ch
 
-diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-index e5be87076a6b..ee735e92c3d9 100644
---- a/arch/arm/boot/dts/aspeed-g4.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-@@ -840,6 +840,12 @@
- 				reg = <0x1e6e202c 0x4>;
- 			};
- 
-+			hwrng@1e6e2078 {
-+				compatible = "timeriomem_rng";
-+				reg = <0x1e6e2078 0x4>;
-+				period = <1>;
-+			};
+ v5:
+- Changed the naming scheme to aspeed,ast2400/2500-pwm-tacho
+- Removed gpio pin muxing
+- Added aspeed vendor prefix for fan-tach-ch
+- Changed to fan@0/1
+- Changed reg to 32 bits
+
+ v4:
+- Used 'reg'
+
+ v3:
+- Made the structure more common
+
+ v2:
+- Removed '_' in node and property names
+- Gave some explanation for the properties used
+
+ .../devicetree/bindings/hwmon/aspeed-pwm-tacho.txt | 68 ++++++++++++++++++++++
+ 1 file changed, 68 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
+
+diff --git a/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt b/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
+new file mode 100644
+index 000000000000..cf4460564adb
+--- /dev/null
++++ b/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
+@@ -0,0 +1,68 @@
++ASPEED AST2400/AST2500 PWM and Fan Tacho controller device driver
 +
- 			adc: adc@1e6e9000 {
- 				compatible = "aspeed,ast2400-adc";
- 				reg = <0x1e6e9000 0xB0>;
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index 48fd068251d6..4f29dcfcc134 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -1009,6 +1009,18 @@
- 				reg = <0x1e6e202c 0x4>;
- 			};
- 
-+			hwrng@1e6e2078 {
-+				compatible = "timeriomem_rng";
-+				reg = <0x1e6e2078 0x4>;
-+				period = <1>;
-+			};
++The ASPEED PWM controller can support upto 8 PWM outputs. The ASPEED Fan Tacho
++controller can support upto 16 Fan tachometer inputs.
 +
- 			gfx: display@1e6e6000 {
- 				compatible = "aspeed,ast2500-gfx", "syscon";
- 				reg = <0x1e6e6000 0x1000>;
--- 
++There can be upto 8 fans supported. Each fan can have one PWM output and
++one/two Fan tach inputs.
++
++Required properties for pwm-tacho node:
++- #address-cells : should be 1.
++
++- #size-cells : should be 1.
++
++- reg : address and length of the register set for the device.
++
++- pinctrl-names : a pinctrl state named "default" must be defined.
++
++- pinctrl-0 : phandle referencing pin configuration of the PWM ports.
++
++- compatible : should be "aspeed,ast2400-pwm-tacho" for AST2400 and
++	       "aspeed,ast2500-pwm-tacho" for AST2500.
++
++- clocks : a fixed clock providing input clock frequency(PWM
++	   and Fan Tach clock)
++
++fan subnode format:
++===================
++Under fan subnode there can upto 8 child nodes, with each child node
++representing a fan. If there are 8 fans each fan can have one PWM port and
++one/two Fan tach inputs.
++
++Required properties for each child node:
++- reg : should specify PWM source port.
++	integer value in the range 0 to 7 with 0 indicating PWM port A and
++	7 indicating PWM port H.
++
++- aspeed,fan-tach-ch : should specify the Fan tach input channel.
++                integer value in the range 0 through 15, with 0 indicating
++		Fan tach channel 0 and 15 indicating Fan tach channel 15.
++		Atleast one Fan tach input channel is required.
++
++Examples:
++
++pwm_tacho_fixed_clk: fixedclk {
++	compatible = "fixed-clock";
++	#clock-cells = <0>;
++	clock-frequency = <24000000>;
++};
++
++pwm_tacho: pwmtachocontroller@1e786000 {
++	#address-cells = <1>;
++	#size-cells = <1>;
++	reg = <0x1E786000 0x1000>;
++	compatible = "aspeed,ast2500-pwm-tacho";
++	clocks = <&pwm_tacho_fixed_clk>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
++
++	fan@0 {
++		reg = <0x00>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
++	};
++
++	fan@1 {
++		reg = <0x01>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x01 0x02>;
++	};
++};
+--
 2.12.2.715.g7642488e1d-goog
