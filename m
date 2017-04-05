@@ -1,60 +1,58 @@
-Return-Path: <vishwa@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andy.shevchenko@gmail.com>
+Received: from mail-qt0-x244.google.com (mail-qt0-x244.google.com
+ [IPv6:2607:f8b0:400d:c0d::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vyf6Q0sbmzDqGv
- for <openbmc@lists.ozlabs.org>; Wed,  5 Apr 2017 18:25:17 +1000 (AEST)
-Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v358NZDe190469
- for <openbmc@lists.ozlabs.org>; Wed, 5 Apr 2017 04:25:05 -0400
-Received: from e28smtp02.in.ibm.com (e28smtp02.in.ibm.com [125.16.236.2])
- by mx0b-001b2d01.pphosted.com with ESMTP id 29mv9xsysr-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 05 Apr 2017 04:25:04 -0400
-Received: from localhost
- by e28smtp02.in.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <vishwa@linux.vnet.ibm.com>;
- Wed, 5 Apr 2017 13:55:01 +0530
-Received: from d28relay05.in.ibm.com (9.184.220.62)
- by e28smtp02.in.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Wed, 5 Apr 2017 13:54:59 +0530
-Received: from d28av08.in.ibm.com (d28av08.in.ibm.com [9.184.220.148])
- by d28relay05.in.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v358OraU12583122
- for <openbmc@lists.ozlabs.org>; Wed, 5 Apr 2017 13:54:53 +0530
-Received: from d28av08.in.ibm.com (localhost [127.0.0.1])
- by d28av08.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- v358OwCe031001
- for <openbmc@lists.ozlabs.org>; Wed, 5 Apr 2017 13:54:58 +0530
-Received: from [9.193.99.239] (vishwa.in.ibm.com [9.193.99.239])
- by d28av08.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- v358OwHJ030998
- for <openbmc@lists.ozlabs.org>; Wed, 5 Apr 2017 13:54:58 +0530
-From: vishwa <vishwa@linux.vnet.ibm.com>
-Subject: Discussion on GPIO monitoring and design thoughts.
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Wed, 5 Apr 2017 13:56:26 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vyj1l6ww6zDqGv
+ for <openbmc@lists.ozlabs.org>; Wed,  5 Apr 2017 20:36:27 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="bE3dEXLe"; 
+ dkim-atps=neutral
+Received: by mail-qt0-x244.google.com with SMTP id r45so1027465qte.0
+ for <openbmc@lists.ozlabs.org>; Wed, 05 Apr 2017 03:36:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=GsV6cAilbb3X5VpzEL8UaJ4dGheI8v2fSMDmGt9aYH0=;
+ b=bE3dEXLerEorjkCSHvDtyEzasXZhTLOcpOFDDvtDajs7F0N4mH4guKfYZ5Fi9k9+n7
+ lysA6dWNrHfguDtQHO6O4saiDz5D4FOq6JPLogVUj0/hJO8QGJhtVQuyPBwBvvBHbvxD
+ E5zzJuU8IQ5hFnRV4wqxD9903VDPa3OQkD2OZwyAB8Dy6k5Mv9Kv58NSjH81Qu7DGUQD
+ gt4LozBdipV8pdlVctzP4rayEA+yNkIC2lJkcmDbEHCW8kv9bXFrjH5W9nhSOzuep8dv
+ 97dgqv/b+mMpZcCNiG5oHcovwMRHlw1/abr/Z22vmkAkrArI1BqrFptO/QsYF1hQr9yu
+ 9mfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=GsV6cAilbb3X5VpzEL8UaJ4dGheI8v2fSMDmGt9aYH0=;
+ b=XLwg2lCuRUXfz3BuSMSCuLrN8zNCb+YpQ2Xwh45RrVq+VwKYcQyJ+GnO8HbxGb0vKS
+ pIIUq4cjhgLFWlUQsJVa7Dxr3ibtKS/AnCWKBKZVRkiR95hvUK4KiQ8rEI0AJv1W5D1U
+ 2IR0rHNEfhFqgjGulb+rr/jtowaB42Mb+xtLp3sf1XwFIjK3uWRcLPZVbNn8GkdOWjLb
+ t3pkt0PY7Jc48L59zEmwhOEVkfr6iedvlHwIE0zBfhV2fUKvMUaxL/+rcfUZ4eGXaRc9
+ XHq8CYGLfBK5l7dxjq0k5+xApSB78+BNy/pNxendnGSOrKc4YcH1AidAosTet9pT7pcE
+ es5g==
+X-Gm-Message-State: AFeK/H1kjL5cBGzvvo0llUhvxye2uoXF+qTPSA9e6kjC7WHdRWq54HyAsMnpqqt6OZza4U0owmBdwm8LLaWJPQ==
+X-Received: by 10.200.43.17 with SMTP id 17mr26051822qtu.199.1491388584856;
+ Wed, 05 Apr 2017 03:36:24 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-MML: disable
-x-cbid: 17040508-0004-0000-0000-000005627E2C
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17040508-0005-0000-0000-0000136090CF
-Message-Id: <3ca9e8a5-4135-8fa3-cbf5-62543a89a491@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-04-05_07:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=2
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
- definitions=main-1704050075
+Received: by 10.12.153.93 with HTTP; Wed, 5 Apr 2017 03:36:24 -0700 (PDT)
+In-Reply-To: <20170405040352.5661-2-joel@jms.id.au>
+References: <20170405040352.5661-1-joel@jms.id.au>
+ <20170405040352.5661-2-joel@jms.id.au>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Wed, 5 Apr 2017 13:36:24 +0300
+Message-ID: <CAHp75VcynBwkdiq+Cu1pRG3z3qDLfSx+P=wFrdo4Oqyw9jfBQg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] serial: 8250: Add flag so drivers can avoid THRE
+ probe
+To: Joel Stanley <joel@jms.id.au>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jslaby@suse.com>, 
+ Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh+dt@kernel.org>, 
+ "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ devicetree <devicetree@vger.kernel.org>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>, Jeremy Kerr <jk@ozlabs.org>,
+ openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -66,60 +64,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Apr 2017 08:25:19 -0000
+X-List-Received-Date: Wed, 05 Apr 2017 10:36:29 -0000
 
-We had a technical discussion on HOWTO and what is the right thing to do 
-handling the GPIO assertion and here is the gist.
+On Wed, Apr 5, 2017 at 7:03 AM, Joel Stanley <joel@jms.id.au> wrote:
+> The probing of THRE irq behaviour assumes the other end will be reading
+> bytes out of the buffer in order to probe the port at driver init. In
+> some cases the other end cannot be relied upon to read these bytes, so
+> provide a flag for them to skip this step.
+>
 
-1) Use gpio-keys and utilize libevdev wrappers ( 
-https://www.freedesktop.org/software/libevdev/doc/latest/ ) to watch for 
-data in /dev/input/event.
+> Bit 16 was chosen as the flags are a int and the top bits are taken.
 
-2) Define a target with set of services that would be called into by the 
-GPIO monitor application when the GPIO state changes to what is expected.
+19 ?
 
-  - 2.1) Another option was to just broadcast a signal that interested 
-parties could catch and act but then it was not chosen because there 
-would be no guarantee that the signal would ever be delivered / caught 
-by needed parties.
+>
+> Acked-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
+> ---
+>  drivers/tty/serial/8250/8250_port.c | 2 +-
+>  include/linux/serial_core.h         | 1 +
+>  2 files changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
+> index 6119516ef5fc..60a6c247340f 100644
+> --- a/drivers/tty/serial/8250/8250_port.c
+> +++ b/drivers/tty/serial/8250/8250_port.c
+> @@ -2229,7 +2229,7 @@ int serial8250_do_startup(struct uart_port *port)
+>                 }
+>         }
+>
+> -       if (port->irq) {
+> +       if (port->irq && !(up->port.flags & UPF_NO_THRE_TEST)) {
+>                 unsigned char iir1;
+>                 /*
+>                  * Test for UARTs that do not reassert THRE when the
+> diff --git a/include/linux/serial_core.h b/include/linux/serial_core.h
+> index 58484fb35cc8..260245deec94 100644
+> --- a/include/linux/serial_core.h
+> +++ b/include/linux/serial_core.h
+> @@ -195,6 +195,7 @@ struct uart_port {
+>  #define UPF_NO_TXEN_TEST       ((__force upf_t) (1 << 15))
+>  #define UPF_MAGIC_MULTIPLIER   ((__force upf_t) ASYNC_MAGIC_MULTIPLIER /* 16 */ )
+>
+> +#define UPF_NO_THRE_TEST       ((__force upf_t) (1 << 19))
+>  /* Port has hardware-assisted h/w flow control */
+>  #define UPF_AUTO_CTS           ((__force upf_t) (1 << 20))
+>  #define UPF_AUTO_RTS           ((__force upf_t) (1 << 21))
+> --
+> 2.11.0
+>
 
-  - 2.2 ) Also going the signal way demands a service that just needs to 
-watch for that.
 
-*) The services that are part of the target will then own complete 
-handling of the condition instead of the application that monitored the 
-GPIO.
 
----------
-
-Here is an example of application that handles the GPIO assertion that 
-happens when host does a checkstop.
-
-1) Application's arguments need /dev/input/event<$number> and the 
-expected GPIO state as indicated by linux,code in :
-
-http://lxr.free-electrons.com/source/Documentation/devicetree/bindings/input/gpio-keys.txt
-
-2) Call this app after reaching `Host-Running` state thus avoiding any 
-checks to see current state.
-
-2) App will then use libevdev wrappers to watch for the state
-
-3) On seeing the expected state change, app calls into the configured 
-target.
-
-4) Configured target right now has 2 services.
-
-   - 4.1 ) Service that Creates an errorlog indicating the checkstop
-   - 4.2 ) Service that will start the Quiesce target
-
---------
-
-This design direction helps decouple applications that monitor and 
-analyze the conditions.
-
-Please let me know your thoughts on this.
-
-Thanks.
-
-!! Vishwa !!
+-- 
+With Best Regards,
+Andy Shevchenko
