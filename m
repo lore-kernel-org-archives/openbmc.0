@@ -1,57 +1,59 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-pf0-x242.google.com (mail-pf0-x242.google.com
- [IPv6:2607:f8b0:400e:c00::242])
+Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
+ [IPv6:2607:f8b0:400e:c00::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vyXL20yVKzDqH6
- for <openbmc@lists.ozlabs.org>; Wed,  5 Apr 2017 14:04:58 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vyXLL1jw2zDqH6
+ for <openbmc@lists.ozlabs.org>; Wed,  5 Apr 2017 14:05:14 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="rD3OguQV"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="CfnPjP5P"; 
  dkim-atps=neutral
-Received: by mail-pf0-x242.google.com with SMTP id o126so311813pfb.1
- for <openbmc@lists.ozlabs.org>; Tue, 04 Apr 2017 21:04:57 -0700 (PDT)
+Received: by mail-pf0-x241.google.com with SMTP id n11so308482pfg.2
+ for <openbmc@lists.ozlabs.org>; Tue, 04 Apr 2017 21:05:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id;
- bh=T2DMXjMDt2TdPL9ko/CO2v7mE0QGLmyxFO30xm/hwIA=;
- b=rD3OguQVMS1SRvRoLgV0Lb4U2ZmxZZfDYWgO7F3KI/b69hSgY2prCkiwuhK06GQCZe
- 49wYcctzq1wtSz98BZLY/OgcYyy7A3zHPet9bgQupzDdwlC1eCY09xDYzdF1hF34M7lc
- TSSKoSFVt+oeWAhSgPD2JJRUMgtbgko4KIt/hYe1oA5d9pVvU165wPleLF672y97fCnr
- /+os4OJNUtlOJqaI1Qm53QJ68EZXYFmfzd6Tvb/cjiU2krfTkig4nEw8sL3XjY6gotov
- IGIZMrCjOGRmPcQhf9Jz+SQP/gXCIFvMu0CiIGbAL48dHT4T7FE9MhEmLnHAoqbm2vkB
- KLpg==
+ h=sender:from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=G2nSPwbs8cI5H5NfsY4TrCLlKQZ6Q+Idx3xuEj4wz7w=;
+ b=CfnPjP5PS4Meg9R3+8xFg+j1SNJFvLK9K3epZKmSVVQXnl014CmVUj05x0hsBk7+Cg
+ cpJz17Z1zJSfl3Ytz5nFnNqAsRhyTjc6+uS2taYxwVeAR1uMqhY2TlGF6p03CeRvDJkh
+ 66NSsTuThVTRy1tZM4QZYo3/sVn0O8QKmoClOpgptkLzkXRwilBvlDZ9Yf5GxsfxWUTa
+ oPyGmvz8IjIByo+HkaAdxkX2B5vaZNqVe7ahmQZlSbZsZ3RnF6Mmw60kQs9rR562gArp
+ HuDNwAHhz5eU34jC3A7bDYhdI61OdDLGjlNLN7Y42hdkWZ7caQfnCynAMYZAViOSKeZD
+ Jucw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
- bh=T2DMXjMDt2TdPL9ko/CO2v7mE0QGLmyxFO30xm/hwIA=;
- b=qi/VmtmHqJovpX9aNG0Gm6m+fSXH7Qw6dVlj/7MrDy/Kmf9DCXgTsIXTdawkgMkoDX
- 2Y7oa+VuIARaOICsPDJaBcxo+puFPr2TNYQbr9O9V4+A+r2uPKkAZNjUZom2QysCieYg
- 8tarrIU33zT7+Y6n29/jUPqOEMSm82uMSePG5bihaD5PQr85QuPRVoZzbk7+L+Yph3a/
- EH3/klE6OgJXkTFoSGgBahH2BHMZPECoWGb93b9jBJ2OJbASb/jOrGLObyKtZEY0q+gT
- +Z07E35MwfVvIJ7MJMkKl70JbN4RwZMYXhNwiZIPqNd1AmnTQ01Z2XRdkLvg6smJ9phH
- 2g/A==
-X-Gm-Message-State: AFeK/H1PySX6Rjt9WGwtvO2TdtK3gLTSS8YF779hpieOep8czhvepPQJeJJVFtYCtIKrfQ==
-X-Received: by 10.98.212.91 with SMTP id u27mr27143282pfl.117.1491365095764;
- Tue, 04 Apr 2017 21:04:55 -0700 (PDT)
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+ :in-reply-to:references;
+ bh=G2nSPwbs8cI5H5NfsY4TrCLlKQZ6Q+Idx3xuEj4wz7w=;
+ b=Fio0Z7wwX1AIhRps3xKmw5sJpAdGVkuG5f12f0iX/1rLqHLTg6KgJzlSczssHpuBe1
+ /wlaWBzze2Npzmv98bhB1NjxiDwHe/S0Vb4n5BvjDTHVKJKd6Kusr4G4kyND1891tsNE
+ 1yR4gdZiVnOqWYU7n2d/tLNNwQ8MA+RpVs7MH0XYZMuD28Nf3C5OqbewwGTrG0y/z3zs
+ Td9RHraj2gIqYDy/Hilfxg/hfYVhg56X085ln2fY6a7hvZpQt6IRoxuTUUcQ4CoYjTVq
+ bRGAtBGhM9kfoqBxQWnlFeOO7lmP7lplahWSjriTgX9Mjn25BTzadLKGJtd3J5xefpr8
+ InLw==
+X-Gm-Message-State: AFeK/H1B/Hv7LLo3s9GJNrhLbXOUmX5rqgOMnvV8rYthkp9EtBXnjG6arvwluLfuYHEabQ==
+X-Received: by 10.98.217.67 with SMTP id s64mr27199798pfg.119.1491365110311;
+ Tue, 04 Apr 2017 21:05:10 -0700 (PDT)
 Received: from aurora.jms.id.au ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id r82sm27544754pfl.108.2017.04.04.21.04.49
+ by smtp.gmail.com with ESMTPSA id i15sm34250314pfj.51.2017.04.04.21.05.03
  (version=TLS1 cipher=AES128-SHA bits=128/128);
- Tue, 04 Apr 2017 21:04:54 -0700 (PDT)
+ Tue, 04 Apr 2017 21:05:09 -0700 (PDT)
 Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
 Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Wed, 05 Apr 2017 13:34:45 +0930
+ Wed, 05 Apr 2017 13:35:00 +0930
 From: Joel Stanley <joel@jms.id.au>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Jiri Slaby <jslaby@suse.com>, Mark Rutland <mark.rutland@arm.com>,
  Rob Herring <robh+dt@kernel.org>
 Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, openbmc@lists.ozlabs.org,
- Andy Shevchenko <andy.shevchenko@gmail.com>,
+ devicetree@vger.kernel.org, Andy Shevchenko <andy.shevchenko@gmail.com>,
  Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Jeremy Kerr <jk@ozlabs.org>
-Subject: [PATCH v2 0/2] drivers: serial: Aspeed VUART driver
-Date: Wed,  5 Apr 2017 13:33:50 +0930
-Message-Id: <20170405040352.5661-1-joel@jms.id.au>
+ Jeremy Kerr <jk@ozlabs.org>, openbmc@lists.ozlabs.org
+Subject: [PATCH v2 1/2] serial: 8250: Add flag so drivers can avoid THRE probe
+Date: Wed,  5 Apr 2017 13:33:51 +0930
+Message-Id: <20170405040352.5661-2-joel@jms.id.au>
 X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20170405040352.5661-1-joel@jms.id.au>
+References: <20170405040352.5661-1-joel@jms.id.au>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,41 +65,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Apr 2017 04:04:59 -0000
+X-List-Received-Date: Wed, 05 Apr 2017 04:05:14 -0000
 
-This is v2 of a driver for the Aspeed VUART. This version addresses feedback
-from Andy and Greg, and adds Rob's ack for the bindings change.
+The probing of THRE irq behaviour assumes the other end will be reading
+bytes out of the buffer in order to probe the port at driver init. In
+some cases the other end cannot be relied upon to read these bytes, so
+provide a flag for them to skip this step.
 
-The VUART is a serial device on the BMC side of the LPC bus that connects a BMC
-to it's host processor.
+Bit 16 was chosen as the flags are a int and the top bits are taken.
 
-We add a flag to the serial core to allow the driver to skip probing of the
-THRE irq behaviour, which could hang due to the host not reading bytes out of
-the buffer.
+Acked-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+---
+ drivers/tty/serial/8250/8250_port.c | 2 +-
+ include/linux/serial_core.h         | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-We've been using this on systems for over a year, so it has seen a good amount
-of testing.
-
-Cheers,
-
-Joel
-
-Jeremy Kerr (1):
-  drivers/serial: Add driver for Aspeed virtual UART
-
-Joel Stanley (1):
-  serial: 8250: Add flag so drivers can avoid THRE probe
-
- Documentation/ABI/stable/sysfs-driver-aspeed-vuart |  15 +
- Documentation/devicetree/bindings/serial/8250.txt  |   2 +
- drivers/tty/serial/8250/8250_port.c                |   2 +-
- drivers/tty/serial/8250/Kconfig                    |  10 +
- drivers/tty/serial/8250/Makefile                   |   1 +
- drivers/tty/serial/8250/aspeed-vuart.c             | 341 +++++++++++++++++++++
- include/linux/serial_core.h                        |   1 +
- 7 files changed, 371 insertions(+), 1 deletion(-)
- create mode 100644 Documentation/ABI/stable/sysfs-driver-aspeed-vuart
- create mode 100644 drivers/tty/serial/8250/aspeed-vuart.c
-
+diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
+index 6119516ef5fc..60a6c247340f 100644
+--- a/drivers/tty/serial/8250/8250_port.c
++++ b/drivers/tty/serial/8250/8250_port.c
+@@ -2229,7 +2229,7 @@ int serial8250_do_startup(struct uart_port *port)
+ 		}
+ 	}
+ 
+-	if (port->irq) {
++	if (port->irq && !(up->port.flags & UPF_NO_THRE_TEST)) {
+ 		unsigned char iir1;
+ 		/*
+ 		 * Test for UARTs that do not reassert THRE when the
+diff --git a/include/linux/serial_core.h b/include/linux/serial_core.h
+index 58484fb35cc8..260245deec94 100644
+--- a/include/linux/serial_core.h
++++ b/include/linux/serial_core.h
+@@ -195,6 +195,7 @@ struct uart_port {
+ #define UPF_NO_TXEN_TEST	((__force upf_t) (1 << 15))
+ #define UPF_MAGIC_MULTIPLIER	((__force upf_t) ASYNC_MAGIC_MULTIPLIER /* 16 */ )
+ 
++#define UPF_NO_THRE_TEST	((__force upf_t) (1 << 19))
+ /* Port has hardware-assisted h/w flow control */
+ #define UPF_AUTO_CTS		((__force upf_t) (1 << 20))
+ #define UPF_AUTO_RTS		((__force upf_t) (1 << 21))
 -- 
 2.11.0
