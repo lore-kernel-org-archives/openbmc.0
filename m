@@ -1,26 +1,79 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Return-Path: <sboyd@codeaurora.org>
+Received: from smtp.codeaurora.org (smtp.codeaurora.org [198.145.29.96])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vzZdK6KnxzDqHV
- for <openbmc@lists.ozlabs.org>; Fri,  7 Apr 2017 06:51:49 +1000 (AEST)
-Received: from localhost (32.97.110.50 [32.97.110.50]) by mx.zohomail.com
- with SMTPS id 149151190488740.98155025863366;
- Thu, 6 Apr 2017 13:51:44 -0700 (PDT)
-Date: Thu, 6 Apr 2017 15:51:38 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: Release v1.99.4
-Message-ID: <20170406205138.zqxr4ljgp775wohx@asimov>
-References: <20170406203333.y44jjya7zmb4hg4h@asimov>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vzdYY31rNzDqHW
+ for <openbmc@lists.ozlabs.org>; Fri,  7 Apr 2017 09:03:45 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=codeaurora.org header.i=@codeaurora.org
+ header.b="AWGSpfgC"; 
+ dkim=pass (1024-bit key) header.d=codeaurora.org header.i=@codeaurora.org
+ header.b="ElDRgPLX"; dkim-atps=neutral
+Received: by smtp.codeaurora.org (Postfix, from userid 1000)
+ id 4D2B760D6E; Thu,  6 Apr 2017 23:03:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=codeaurora.org;
+ s=default; t=1491519823;
+ bh=d4zDOw0zZ43N3B6iS58zRDizBC1MinZnFvYN/rCOAjs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=AWGSpfgCnepoTAE6z6VrfmdUd96EecYcrBBQVi6sdCUBgb/mQPu8YEsnqmE7qGb7u
+ nej/C/LuFao+6CM9598bEamRxAdjISsnbyclWJO1QE6XePN3LbZLtOEsOKTxVbBDeL
+ 1zOL0/GIbOsILNORNFrfTKoUDoZHcf3hXCBv9+KM=
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ pdx-caf-mail.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.8 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ DKIM_SIGNED,T_DKIM_INVALID autolearn=no autolearn_force=no version=3.4.0
+Received: from localhost (i-global254.qualcomm.com [199.106.103.254])
+ (using TLSv1.2 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: sboyd@smtp.codeaurora.org)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id A5E4060CA2;
+ Thu,  6 Apr 2017 23:03:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=codeaurora.org;
+ s=default; t=1491519821;
+ bh=d4zDOw0zZ43N3B6iS58zRDizBC1MinZnFvYN/rCOAjs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ElDRgPLXQFccqVzacwj+jvmhvsbHM2gkcn1h4gEE1gsQrqqvTrEBgJz/I/BeVBxwr
+ MxfesLqFohk9+bLNgibMkN686egwrYOuZ/d+p2/cI/ucgvHCZMTN0LJ4IEl41F1ex+
+ wVYxJu7Va1OGLyKB5ckcNRDP7VwWlmHrjw3Tlpig=
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org A5E4060CA2
+Authentication-Results: pdx-caf-mail.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: pdx-caf-mail.web.codeaurora.org;
+ spf=none smtp.mailfrom=sboyd@codeaurora.org
+Date: Thu, 6 Apr 2017 16:03:41 -0700
+From: Stephen Boyd <sboyd@codeaurora.org>
+To: Rick Altherr <raltherr@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-iio@vger.kernel.org,
+ Quentin Schulz <quentin.schulz@free-electrons.com>,
+ David Lechner <david@lechnology.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ William Breathitt Gray <vilhelm.gray@gmail.com>,
+ linux-clk@vger.kernel.org, Andreas Klinger <ak@it-klinger.de>,
+ Marek Vasut <marek.vasut+renesas@gmail.com>,
+ Jonathan Cameron <jic23@kernel.org>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Alison Schofield <amsfield22@gmail.com>,
+ Fabrice Gasnier <fabrice.gasnier@st.com>, Hartmut Knaack <knaack.h@gmx.de>,
+ Lars-Peter Clausen <lars@metafoo.de>,
+ Akinobu Mita <akinobu.mita@gmail.com>, Matt Ranostay <mranostay@gmail.com>
+Subject: Re: [PATCH v4 2/2] iio: Aspeed ADC
+Message-ID: <20170406230341.GR7065@codeaurora.org>
+References: <20170323184136.7349-1-raltherr@google.com>
+ <20170323184136.7349-2-raltherr@google.com>
+ <20170405202744.GB7065@codeaurora.org>
+ <CAPLgG=nYnVuwRZOdXuFCaFy9P0cx_zqfk0f9orBv+8+HxcnqKQ@mail.gmail.com>
+ <20170406011003.GP7065@codeaurora.org>
+ <CAPLgG=mVG1iayk-m5Bu4QRZbMDaxXRTM-mJPQzTwgbOjGKwDpQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="w5jow6d7tzbopf5u"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20170406203333.y44jjya7zmb4hg4h@asimov>
-User-Agent: Mutt/1.6.2 (2016-06-11)
-X-Zoho-Virus-Status: 1
-X-ZohoMailClient: External
+In-Reply-To: <CAPLgG=mVG1iayk-m5Bu4QRZbMDaxXRTM-mJPQzTwgbOjGKwDpQ@mail.gmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -32,46 +85,137 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Apr 2017 20:51:50 -0000
+X-List-Received-Date: Thu, 06 Apr 2017 23:03:46 -0000
 
+On 04/06, Rick Altherr wrote:
+> On Wed, Apr 5, 2017 at 6:10 PM, Stephen Boyd <sboyd@codeaurora.org> wrote:
+> > On 04/05, Rick Altherr wrote:
+> >> On Wed, Apr 5, 2017 at 1:27 PM, Stephen Boyd <sboyd@codeaurora.org> wrote:
+> >> > On 03/23, Rick Altherr wrote:
+> >> >> +
+> >> >> +static int aspeed_adc_probe(struct platform_device *pdev)
+> >> >> +{
+> >> >> +     struct iio_dev *indio_dev;
+> >> >> +     struct aspeed_adc_data *data;
+> >> >> +     const struct aspeed_adc_model_data *model_data;
+> >> >> +     struct resource *res;
+> >> >> +     const char *clk_parent_name;
+> >> >> +     int ret;
+> >> >> +     u32 adc_engine_control_reg_val;
+> >> >> +
+> >> >> +     indio_dev = devm_iio_device_alloc(&pdev->dev, sizeof(*data));
+> >> >> +     if (!indio_dev)
+> >> >> +             return -ENOMEM;
+> >> >> +
+> >> >> +     data = iio_priv(indio_dev);
+> >> >> +     data->dev = &pdev->dev;
+> >> >> +
+> >> >> +     res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> >> >> +     data->base = devm_ioremap_resource(&pdev->dev, res);
+> >> >> +     if (IS_ERR(data->base))
+> >> >> +             return PTR_ERR(data->base);
+> >> >> +
+> >> >> +     /* Register ADC clock prescaler with source specified by device tree. */
+> >> >> +     spin_lock_init(&data->clk_lock);
+> >> >> +     clk_parent_name = of_clk_get_parent_name(pdev->dev.of_node, 0);
+> >> >
+> >> > What if the parent clk is not registered yet? Or if we're not
+> >> > always using DT in this driver? Put another way, this code is
+> >> > fragile. But I guess it probably works well enough for now so no
+> >> > big deal, just pointing out my fear.
+> >>
+> >> I'm not terribly worried about not using DT for this driver as it is
+> >> for an ARM SoC's built-in ADC which is only supported via DT.  I take
+> >> your point though.  What's the right way to do this?  Use clk_get() to
+> >> request by name and clock-names in the DT?
+> >
+> > Yes that will work. When we add probe defer to clk_get() things
+> > will work better. Presumably the clocks property already exists
+> > for this device so that of_clk_get_parent_name() works so it's
+> > not a binding change?
+> 
+> The bindings include clocks but not clock-names.  In this case,
+> clk_register_divider() only has variants that take a parent clock
+> name.  I can't see what I'd do with the result of clk_get().  If the
+> bindings provide clock-names, I can provide a fixed string for the
+> parent name instead of relying on of_clk_get_parent_name().  The
+> removes an explicit driver dependency on DT.  I'm unclear if it
+> resolves your concerns about registration ordering.
 
---w5jow6d7tzbopf5u
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+We have __clk_get_name() as a helper in clk-provider.h to assist
+drivers in finding parent names of clks they get through
+clk_get(). Eventually we want to get rid of that function, but
+using it at least helps us find it later.
 
-On Thu, Apr 06, 2017 at 03:33:33PM -0500, Patrick Williams wrote:
->     * Upgrade from Yocto 2.2 to Yocto 2.1.
->         - This was a major change in Yocto/Bitbake.  They upgraded
->           all bitbake scripts from python2 to python3.
+Aside: This is a problem we've had for a while. You're an
+innocent bystander here. The usage of strings for clk tree
+description is not working well and we really need to move away
+from it. So far we have no solution so all I can say is sorry you
+tripped up on this.
 
-This should have read:
+> 
+> >
+> >>
+> >> >
+> >> >> +
+> >> >> +     data->clk_prescaler = clk_hw_register_divider(
+> >> >> +                             &pdev->dev, "prescaler", clk_parent_name, 0,
+> >> >> +                             data->base + ASPEED_REG_CLOCK_CONTROL,
+> >> >> +                             17, 15, 0, &data->clk_lock);
+> >> >> +     if (IS_ERR(data->clk_prescaler))
+> >> >> +             return PTR_ERR(data->clk_prescaler);
+> >> >> +
+> >> >> +     /*
+> >> >> +      * Register ADC clock scaler downstream from the prescaler. Allow rate
+> >> >> +      * setting to adjust the prescaler as well.
+> >> >> +      */
+> >> >> +     data->clk_scaler = clk_hw_register_divider(
+> >> >> +                             &pdev->dev, "scaler", "prescaler",
+> >> >> +                             CLK_SET_RATE_PARENT,
+> >> >> +                             data->base + ASPEED_REG_CLOCK_CONTROL,
+> >> >> +                             0, 10, 0, &data->clk_lock);
+> >> >> +     if (IS_ERR(data->clk_scaler)) {
+> >> >> +             ret = PTR_ERR(data->clk_scaler);
+> >> >> +             goto scaler_error;
+> >> >> +     }
+> >> >> +
+> >> >> +     /* Start all channels in normal mode. */
+> >> >> +     clk_prepare_enable(data->clk_scaler->clk);
+> >> >
+> >> > Eventually we'd like to get rid of hw->clk pointer so that users
+> >> > have to call some sort of clk_get() API and then we get warm
+> >> > fuzzies from knowing who is consuming a clk structure. Can you
+> >> > change this to register a clk provider and call clk_get()? I
+> >> > think a device that references itself should be OK in DT still,
+> >> > and would properly reflect what's going on.
+> >>
+> >> Do you mean call of_clk_add_hw_provider with of_clk_hw_simple_get or
+> >> something else?  I'm still wrapping my head around the distinction
+> >> between clk, clk_hw, and a clk provider.
+> >>
+> >
+> > Yes. Unless you don't want to expose these details in DT because
+> > it's all internal to the device?
+> >
+> 
+> There's no reason to expose the scaler or prescaler in DT.  These are
+> clocks that internal to the ADC and have no way for other devices to
+> use them.  I only used the clock framework to avoid reinventing the
+> wheel on calculating divider values for a desired clock rate.
+> 
+> > In that case we need to go merge that patch on the clk list to
+> > have clk_hw_create_clk() or something like that, so we can turn a
+> > clk_hw structure into a clk pointer without directly referencing
+> > the clk member of clk_hw.
+> 
+> This makes the most sense to me.
+> 
 
-    * Upgrade to Yocto 2.2 from Yocto 2.1.
+Ok. Let me see what I can do to merge that patch now. I should be
+able to put it on its own branch that could be pulled into the
+tree for this driver. Or a merge window can pass and things fixed
+then.
 
---=20
-Patrick Williams
-
---w5jow6d7tzbopf5u
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJY5qpaAAoJEKsDR8wtAMEZ+BYP/jN0jgy6f7A6HiMKdERCf5zP
-A7DxJXYAPoOpocUrc/nq1RtigvJI7cDDblj+AJ+NGngNz1tPjM0Kbc7BAhdE0j/c
-czuiVm7o75OyqQ1Z9yrbc6uWFWoLcuEvlAEc8TaUqUaIygWqs4Rdh7FLiMGr8I5b
-uJD7EAJC34g82E/LKRBcHQU2qnDqDiU4kZtBXnz9kAJeNCzLoq2xtdEu4Zs63bhp
-BVQPPKUZ9kOXjYWEFuCak0jhZ8Xlex00Lv3n9gLwe1CjNQa9UtILvoUjfsUw3pWX
-YOims2KzuWLiI4aB3UHe9J2QyV0gr+hsEDGjgtWnUDNm5vpf3gQtOZi20m4UyYZf
-BE/GgcKZSxXdcLQaOZGz2eBZkg5nn9ld5f5UAdRWqFbAc6+iA90QmMHjXxMllKMh
-9vxMEGylDDCSuRghaew8srmSjSGrPN7N/UbPE3gkXM2/6nfbGU/GKu4d1GX9gjvq
-vN+cxpzqffUHM7RwAH2BwMaK7I2ifKRcxH8DjeGmeG+kX+hJEBncXpxrVEAicQ+c
-xQ0fRVKp0r/5u0U1rqa5kxSs02Ej1MJUaWay8PhVDUsxfzhrxoBviZoz+4RrK1Te
-HOTbxKugJL3DDDUb3ehe5P1r4GA1tIiGLIhKibmDsH5D9xZai8qhEQ/1NMFb6unL
-Q5G6fJW8QEb/i6DlrHke
-=buWG
------END PGP SIGNATURE-----
-
---w5jow6d7tzbopf5u--
+-- 
+Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+a Linux Foundation Collaborative Project
