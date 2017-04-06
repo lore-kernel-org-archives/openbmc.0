@@ -1,78 +1,45 @@
-Return-Path: <sboyd@codeaurora.org>
-Received: from smtp.codeaurora.org (smtp.codeaurora.org [198.145.29.96])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <peterh@google.com>
+Received: from mail-io0-x22f.google.com (mail-io0-x22f.google.com
+ [IPv6:2607:f8b0:4001:c06::22f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vz4Pq3GgwzDqKP
- for <openbmc@lists.ozlabs.org>; Thu,  6 Apr 2017 11:10:07 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=codeaurora.org header.i=@codeaurora.org
- header.b="m2TS7VZm"; 
- dkim=pass (1024-bit key) header.d=codeaurora.org header.i=@codeaurora.org
- header.b="Nqvg86bw"; dkim-atps=neutral
-Received: by smtp.codeaurora.org (Postfix, from userid 1000)
- id 47A5560DD3; Thu,  6 Apr 2017 01:10:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=codeaurora.org;
- s=default; t=1491441005;
- bh=Z97cB2E2xpKmvb3YTLNHrQ5Tli4xf7kX4FWDts6nFuM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=m2TS7VZmUb+rQx4TR51S6tuS2H65s3zRvBVm29dQQL4RvsqlkR0mfTFud1jB5rqhc
- uevpYSFWysqIRivY5VljUCOtjDOqw2vM8faZYDp6XGMoP10BJRDTx/oIKCMyCYbkAw
- I3e+qjDGmO43B+PvlQSno1rkG4adGVe5TuKYJxIU=
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- pdx-caf-mail.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.8 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- DKIM_SIGNED,T_DKIM_INVALID autolearn=no autolearn_force=no version=3.4.0
-Received: from localhost (i-global254.qualcomm.com [199.106.103.254])
- (using TLSv1.2 with cipher DHE-RSA-AES128-SHA (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: sboyd@smtp.codeaurora.org)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id A3AEA60DA6;
- Thu,  6 Apr 2017 01:10:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=codeaurora.org;
- s=default; t=1491441003;
- bh=Z97cB2E2xpKmvb3YTLNHrQ5Tli4xf7kX4FWDts6nFuM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Nqvg86bwLNAq+Huy+6cwjPTZiqD7zuWXr2RzKxJMH1Nw7vpkmrRGz9yAjOJ9/Uw4G
- bcYUYIn4Ye8Pbbe5KF4d4eRWEGVTdBt7rXsQGjwC5dhmC5Be8/UeOvGfT24sUZeu09
- 0lrw13B0rTcCn3FgTAHzWWFZs8Y8tT7WZElj9qWs=
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org A3AEA60DA6
-Authentication-Results: pdx-caf-mail.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: pdx-caf-mail.web.codeaurora.org;
- spf=none smtp.mailfrom=sboyd@codeaurora.org
-Date: Wed, 5 Apr 2017 18:10:03 -0700
-From: Stephen Boyd <sboyd@codeaurora.org>
-To: Rick Altherr <raltherr@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-iio@vger.kernel.org,
- Quentin Schulz <quentin.schulz@free-electrons.com>,
- David Lechner <david@lechnology.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- William Breathitt Gray <vilhelm.gray@gmail.com>,
- linux-clk@vger.kernel.org, Andreas Klinger <ak@it-klinger.de>,
- Marek Vasut <marek.vasut+renesas@gmail.com>,
- Jonathan Cameron <jic23@kernel.org>,
- Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh@kernel.org>,
- Alison Schofield <amsfield22@gmail.com>,
- Fabrice Gasnier <fabrice.gasnier@st.com>, Hartmut Knaack <knaack.h@gmx.de>,
- Lars-Peter Clausen <lars@metafoo.de>,
- Crestez Dan Leonard <leonard.crestez@intel.com>,
- Akinobu Mita <akinobu.mita@gmail.com>, Matt Ranostay <mranostay@gmail.com>
-Subject: Re: [PATCH v4 2/2] iio: Aspeed ADC
-Message-ID: <20170406011003.GP7065@codeaurora.org>
-References: <20170323184136.7349-1-raltherr@google.com>
- <20170323184136.7349-2-raltherr@google.com>
- <20170405202744.GB7065@codeaurora.org>
- <CAPLgG=nYnVuwRZOdXuFCaFy9P0cx_zqfk0f9orBv+8+HxcnqKQ@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vz54n10QBzDqKL
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Apr 2017 11:40:25 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="RQUPsB5C"; 
+ dkim-atps=neutral
+Received: by mail-io0-x22f.google.com with SMTP id f84so21179063ioj.0
+ for <openbmc@lists.ozlabs.org>; Wed, 05 Apr 2017 18:40:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=Lsmuj/dO15YjWW/cVCDfHZ2EbxmjLSUrUe57PB5SKvw=;
+ b=RQUPsB5CcuSjjtJUg8N2Tf295QUy5AuP7WkA/iEhSP4zyaxbcPTgEdmBK7+g+kwxm0
+ FK45HIgvmqSS2CxRV+aky3YZxifKVJZyGbBTS34ODgxV3TDkbK/2vbTDJZTHwrQ9lhLk
+ UaxtYUVLLTgfAy0SpsVi2ttUtKUtIfFOV1o2niSModTChCkXV9rkVEroBYr48F7GUdv5
+ sAOADaVu2R97sWoBSihZUu0GC42Je06ToQKrDTVHRuaExamZptO+iyzsdfPKPckSCWVK
+ 0w7NomGH5SXHW8MldfTcrNT5pFAWKweOZR0AuYL4/8f4jesfrFB9eZm1djv484EAceqs
+ zfPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=Lsmuj/dO15YjWW/cVCDfHZ2EbxmjLSUrUe57PB5SKvw=;
+ b=msDTykfxTPdevZINGoPtAfdl3rAIWhQSjkW6eVIcMtZg1JDyxSIGovAQF2g9D1q5Cu
+ hwyp+KPFHpggcoBGnSAGcn6g3PjMJ5qFnCJF8Q80Yat9LholhBCiWxcIMZF79xaT/1To
+ sr9yuP2riQNGGVrTSB+23T2KyYF2xHtHwwmT4AeNRyKBhcZFqWgaJ2LCWEbJYJSFto/z
+ recMLXWf5L5ffv/+0PZtxIbh4g3spX+dwC2Dh5kj/wtaGq5DbtuWpDkXKHRccFUjw1aW
+ +00ApsPTOOOhqd4e2sLrk0vIcZT5vOlik6xOkOYDaPd+eVDNYOy81V432sl1rMtKsKGg
+ UNCQ==
+X-Gm-Message-State: AFeK/H166UuDlmPca5Aefa/A31Y0dpewMCDEfIHj2NwGp/eT8nRSFFVwwkWTLzGyOeN5Atm+RCXHSl4rSOSSIcsK
+X-Received: by 10.107.6.13 with SMTP id 13mr30981825iog.72.1491442822141; Wed,
+ 05 Apr 2017 18:40:22 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAPLgG=nYnVuwRZOdXuFCaFy9P0cx_zqfk0f9orBv+8+HxcnqKQ@mail.gmail.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
+Received: by 10.36.84.202 with HTTP; Wed, 5 Apr 2017 18:40:21 -0700 (PDT)
+From: Peter Hanson <peterh@google.com>
+Date: Wed, 5 Apr 2017 18:40:21 -0700
+Message-ID: <CAPozSNp_S_-N8YV=ruAzYVxWy4FgcJvyK27HFb0YL-mNYP22xA@mail.gmail.com>
+Subject: Plans for BMC i2c to host bridge via IPMI
+To: OpenBMC <openbmc@lists.ozlabs.org>, gBMC <gbmc-team@google.com>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -84,100 +51,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Apr 2017 01:10:08 -0000
+X-List-Received-Date: Thu, 06 Apr 2017 01:40:25 -0000
 
-On 04/05, Rick Altherr wrote:
-> On Wed, Apr 5, 2017 at 1:27 PM, Stephen Boyd <sboyd@codeaurora.org> wrote:
-> > On 03/23, Rick Altherr wrote:
-> >> +
-> >> +static int aspeed_adc_probe(struct platform_device *pdev)
-> >> +{
-> >> +     struct iio_dev *indio_dev;
-> >> +     struct aspeed_adc_data *data;
-> >> +     const struct aspeed_adc_model_data *model_data;
-> >> +     struct resource *res;
-> >> +     const char *clk_parent_name;
-> >> +     int ret;
-> >> +     u32 adc_engine_control_reg_val;
-> >> +
-> >> +     indio_dev = devm_iio_device_alloc(&pdev->dev, sizeof(*data));
-> >> +     if (!indio_dev)
-> >> +             return -ENOMEM;
-> >> +
-> >> +     data = iio_priv(indio_dev);
-> >> +     data->dev = &pdev->dev;
-> >> +
-> >> +     res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> >> +     data->base = devm_ioremap_resource(&pdev->dev, res);
-> >> +     if (IS_ERR(data->base))
-> >> +             return PTR_ERR(data->base);
-> >> +
-> >> +     /* Register ADC clock prescaler with source specified by device tree. */
-> >> +     spin_lock_init(&data->clk_lock);
-> >> +     clk_parent_name = of_clk_get_parent_name(pdev->dev.of_node, 0);
-> >
-> > What if the parent clk is not registered yet? Or if we're not
-> > always using DT in this driver? Put another way, this code is
-> > fragile. But I guess it probably works well enough for now so no
-> > big deal, just pointing out my fear.
-> 
-> I'm not terribly worried about not using DT for this driver as it is
-> for an ARM SoC's built-in ADC which is only supported via DT.  I take
-> your point though.  What's the right way to do this?  Use clk_get() to
-> request by name and clock-names in the DT?
+Ave!
 
-Yes that will work. When we add probe defer to clk_get() things
-will work better. Presumably the clocks property already exists
-for this device so that of_clk_get_parent_name() works so it's
-not a binding change?
+This email captures proposed actions from an exchange earlier today on
+the #openbmc IRC channel.
 
-> 
-> >
-> >> +
-> >> +     data->clk_prescaler = clk_hw_register_divider(
-> >> +                             &pdev->dev, "prescaler", clk_parent_name, 0,
-> >> +                             data->base + ASPEED_REG_CLOCK_CONTROL,
-> >> +                             17, 15, 0, &data->clk_lock);
-> >> +     if (IS_ERR(data->clk_prescaler))
-> >> +             return PTR_ERR(data->clk_prescaler);
-> >> +
-> >> +     /*
-> >> +      * Register ADC clock scaler downstream from the prescaler. Allow rate
-> >> +      * setting to adjust the prescaler as well.
-> >> +      */
-> >> +     data->clk_scaler = clk_hw_register_divider(
-> >> +                             &pdev->dev, "scaler", "prescaler",
-> >> +                             CLK_SET_RATE_PARENT,
-> >> +                             data->base + ASPEED_REG_CLOCK_CONTROL,
-> >> +                             0, 10, 0, &data->clk_lock);
-> >> +     if (IS_ERR(data->clk_scaler)) {
-> >> +             ret = PTR_ERR(data->clk_scaler);
-> >> +             goto scaler_error;
-> >> +     }
-> >> +
-> >> +     /* Start all channels in normal mode. */
-> >> +     clk_prepare_enable(data->clk_scaler->clk);
-> >
-> > Eventually we'd like to get rid of hw->clk pointer so that users
-> > have to call some sort of clk_get() API and then we get warm
-> > fuzzies from knowing who is consuming a clk structure. Can you
-> > change this to register a clk provider and call clk_get()? I
-> > think a device that references itself should be OK in DT still,
-> > and would properly reflect what's going on.
-> 
-> Do you mean call of_clk_add_hw_provider with of_clk_hw_simple_get or
-> something else?  I'm still wrapping my head around the distinction
-> between clk, clk_hw, and a clk provider.
-> 
+Basic goal is to reach devices on a BMC I2C bus from IPMI commandline at host.
 
-Yes. Unless you don't want to expose these details in DT because
-it's all internal to the device?
+I2C commands and responses to be carried as OEM extension messages,
+i.e., Network Function Codes 2Eh / 2Fh in the Intel specification.
+Those message forms require a three byte IANA Enterprise Number, and
+our original plan used Google's code.
 
-In that case we need to go merge that patch on the clk list to
-have clk_hw_create_clk() or something like that, so we can turn a
-clk_hw structure into a clk pointer without directly referencing
-the clk member of clk_hw.
+We would like to carry the feature in OpenBmc, so I wanted to confirm
+if this is acceptable, and/or what modifications would be needed.
 
--- 
-Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
-a Linux Foundation Collaborative Project
+Decisions:
+
+1. Ok to use OEM extensions. Patrick noted that OpenBmc already uses
+some, albeit under the IBM IANA Enterprise Number.
+
+2. Switch to OpenBmc IANA Enterprise Number when available.
+
+3. Patrick proposed to create a new phosphor-ipmi-oemproviders repo to
+hold the code, message documentation, etc.
+
+4. All uses of the OpenBmc IANA shall be enumerated in place - almost
+certainly an include file in the new repo - so we don't end up with
+conflicting uses.
+
+Actions:
+
+A1. peterh: send this email to the mailing list.
+A2. stwcx: request IANA Enterprise Number.
+A3. stwcx: create new phosphor-ipmi-oemproviders repo.
+A4. peterh+brendanhiggins: propose detailed message designs.
+A5. peterh: {net-ipmid,host-ipmi} += support for these commands.
+
+A key point of this email is to reap your collective wisdom, so please
+if you have something to contribute, please do. In particular,
+Patrick, please correct anything I misunderstood or incorrectly
+extrapolated from the chat.
+
+  -- peterh
