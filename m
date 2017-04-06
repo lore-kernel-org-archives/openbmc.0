@@ -1,79 +1,57 @@
-Return-Path: <sboyd@codeaurora.org>
-Received: from smtp.codeaurora.org (smtp.codeaurora.org [198.145.29.96])
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vzdYY31rNzDqHW
- for <openbmc@lists.ozlabs.org>; Fri,  7 Apr 2017 09:03:45 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=codeaurora.org header.i=@codeaurora.org
- header.b="AWGSpfgC"; 
- dkim=pass (1024-bit key) header.d=codeaurora.org header.i=@codeaurora.org
- header.b="ElDRgPLX"; dkim-atps=neutral
-Received: by smtp.codeaurora.org (Postfix, from userid 1000)
- id 4D2B760D6E; Thu,  6 Apr 2017 23:03:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=codeaurora.org;
- s=default; t=1491519823;
- bh=d4zDOw0zZ43N3B6iS58zRDizBC1MinZnFvYN/rCOAjs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=AWGSpfgCnepoTAE6z6VrfmdUd96EecYcrBBQVi6sdCUBgb/mQPu8YEsnqmE7qGb7u
- nej/C/LuFao+6CM9598bEamRxAdjISsnbyclWJO1QE6XePN3LbZLtOEsOKTxVbBDeL
- 1zOL0/GIbOsILNORNFrfTKoUDoZHcf3hXCBv9+KM=
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- pdx-caf-mail.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.8 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- DKIM_SIGNED,T_DKIM_INVALID autolearn=no autolearn_force=no version=3.4.0
-Received: from localhost (i-global254.qualcomm.com [199.106.103.254])
- (using TLSv1.2 with cipher DHE-RSA-AES128-SHA (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: sboyd@smtp.codeaurora.org)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id A5E4060CA2;
- Thu,  6 Apr 2017 23:03:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=codeaurora.org;
- s=default; t=1491519821;
- bh=d4zDOw0zZ43N3B6iS58zRDizBC1MinZnFvYN/rCOAjs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ElDRgPLXQFccqVzacwj+jvmhvsbHM2gkcn1h4gEE1gsQrqqvTrEBgJz/I/BeVBxwr
- MxfesLqFohk9+bLNgibMkN686egwrYOuZ/d+p2/cI/ucgvHCZMTN0LJ4IEl41F1ex+
- wVYxJu7Va1OGLyKB5ckcNRDP7VwWlmHrjw3Tlpig=
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org A5E4060CA2
-Authentication-Results: pdx-caf-mail.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: pdx-caf-mail.web.codeaurora.org;
- spf=none smtp.mailfrom=sboyd@codeaurora.org
-Date: Thu, 6 Apr 2017 16:03:41 -0700
-From: Stephen Boyd <sboyd@codeaurora.org>
-To: Rick Altherr <raltherr@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-iio@vger.kernel.org,
- Quentin Schulz <quentin.schulz@free-electrons.com>,
- David Lechner <david@lechnology.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- William Breathitt Gray <vilhelm.gray@gmail.com>,
- linux-clk@vger.kernel.org, Andreas Klinger <ak@it-klinger.de>,
- Marek Vasut <marek.vasut+renesas@gmail.com>,
- Jonathan Cameron <jic23@kernel.org>,
- Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh@kernel.org>,
- Alison Schofield <amsfield22@gmail.com>,
- Fabrice Gasnier <fabrice.gasnier@st.com>, Hartmut Knaack <knaack.h@gmx.de>,
- Lars-Peter Clausen <lars@metafoo.de>,
- Akinobu Mita <akinobu.mita@gmail.com>, Matt Ranostay <mranostay@gmail.com>
-Subject: Re: [PATCH v4 2/2] iio: Aspeed ADC
-Message-ID: <20170406230341.GR7065@codeaurora.org>
-References: <20170323184136.7349-1-raltherr@google.com>
- <20170323184136.7349-2-raltherr@google.com>
- <20170405202744.GB7065@codeaurora.org>
- <CAPLgG=nYnVuwRZOdXuFCaFy9P0cx_zqfk0f9orBv+8+HxcnqKQ@mail.gmail.com>
- <20170406011003.GP7065@codeaurora.org>
- <CAPLgG=mVG1iayk-m5Bu4QRZbMDaxXRTM-mJPQzTwgbOjGKwDpQ@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAPLgG=mVG1iayk-m5Bu4QRZbMDaxXRTM-mJPQzTwgbOjGKwDpQ@mail.gmail.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vzfMc1jv0zDqHg
+ for <openbmc@lists.ozlabs.org>; Fri,  7 Apr 2017 09:40:12 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="JBLp5j1j"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="oPVlOi0Z"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 1886A20C1B;
+ Thu,  6 Apr 2017 19:40:10 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Thu, 06 Apr 2017 19:40:10 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=ubCowkjncQisXoc5+Ag9umVKc2pIxlpvQX/qf0npt
+ 1o=; b=JBLp5j1j0hEKtAiahRmlSJhr8DLCsrf1KKZgmqY1g5B9uVXNVwPrSYnDt
+ 9Ctwz1NcxinRk2aUWXLaOq6tn7dJHScoBY3d4wzLagRY48uu3plR9BEm82VqcfdY
+ P2YGEoCwrVMNqRjmnXbMNn8nkY0Gx/KMwxqkHf95v5hqFZuA5beatv7OLSX2f+Ce
+ vUK9lA+gN2KvAtqe6ET4oM6EooRc77tWJ+LCQODb/9s9zJ5e8pfA80+0GefNRkVh
+ kZXGt4rDeUe7gTOao6Q8Ny5pf04BHPq9fy26NCcLiuBRjxl2oRNkTSpE31H02xTW
+ ExlBdzADmFp9dmqWVcFEG2Ais5IVA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=ubCowkjncQisXoc5+A
+ g9umVKc2pIxlpvQX/qf0npt1o=; b=oPVlOi0ZtXaG+Gv8PtAvjIaH/8c86h7aL5
+ +eSSjJvgviKARV5Dlh0b8C4BWWbL+gB8vaZ43NfMVw/GHf6V749DyJMD9fzsifNI
+ MvCTWK0Y7V7Rr6KLqNXE3HEDy+NqiSsetlFympHV944EYlSHpGyOt3C8QwFzwpwR
+ 5bqGZ6KwqkO0NPdK5KYbSLSqEIedpY11xqSvwDpeAyzyCpzz8z4SLvPy8LJDZuWW
+ y/u3fX7UWaRNF0pzVv7BrGasqvcHfRSOTmyQavW0R69Tt1YYysh1S/9IvZ3M5J6w
+ azrVnvWFxUAWWGrMq/IYE1UOP2RRnJeDN6ckVnu8/WUh3XbI29KQ==
+X-ME-Sender: <xms:2tHmWCHPaxKeMmP-Oa2iDUzOQczCCL9gmnrg5TpYefB3cEqRssuawg>
+X-Sasl-enc: PEPlS2moTKIqBnp/O3KZmBqiiOc/u4xRnR4R7pE0qbSV 1491522009
+Received: from [10.104.0.15] (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 602BC2436B;
+ Thu,  6 Apr 2017 19:40:08 -0400 (EDT)
+Message-ID: <1491522001.5817.6.camel@aj.id.au>
+Subject: Re: Release v1.99.4
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Patrick Williams <patrick@stwcx.xyz>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>
+Date: Fri, 07 Apr 2017 09:10:01 +0930
+In-Reply-To: <20170406203333.y44jjya7zmb4hg4h@asimov>
+References: <20170406203333.y44jjya7zmb4hg4h@asimov>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-PJbdsU7irGeFqIiamVSb"
+X-Mailer: Evolution 3.22.3-0ubuntu0.1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -85,137 +63,87 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Apr 2017 23:03:46 -0000
+X-List-Received-Date: Thu, 06 Apr 2017 23:40:14 -0000
 
-On 04/06, Rick Altherr wrote:
-> On Wed, Apr 5, 2017 at 6:10 PM, Stephen Boyd <sboyd@codeaurora.org> wrote:
-> > On 04/05, Rick Altherr wrote:
-> >> On Wed, Apr 5, 2017 at 1:27 PM, Stephen Boyd <sboyd@codeaurora.org> wrote:
-> >> > On 03/23, Rick Altherr wrote:
-> >> >> +
-> >> >> +static int aspeed_adc_probe(struct platform_device *pdev)
-> >> >> +{
-> >> >> +     struct iio_dev *indio_dev;
-> >> >> +     struct aspeed_adc_data *data;
-> >> >> +     const struct aspeed_adc_model_data *model_data;
-> >> >> +     struct resource *res;
-> >> >> +     const char *clk_parent_name;
-> >> >> +     int ret;
-> >> >> +     u32 adc_engine_control_reg_val;
-> >> >> +
-> >> >> +     indio_dev = devm_iio_device_alloc(&pdev->dev, sizeof(*data));
-> >> >> +     if (!indio_dev)
-> >> >> +             return -ENOMEM;
-> >> >> +
-> >> >> +     data = iio_priv(indio_dev);
-> >> >> +     data->dev = &pdev->dev;
-> >> >> +
-> >> >> +     res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> >> >> +     data->base = devm_ioremap_resource(&pdev->dev, res);
-> >> >> +     if (IS_ERR(data->base))
-> >> >> +             return PTR_ERR(data->base);
-> >> >> +
-> >> >> +     /* Register ADC clock prescaler with source specified by device tree. */
-> >> >> +     spin_lock_init(&data->clk_lock);
-> >> >> +     clk_parent_name = of_clk_get_parent_name(pdev->dev.of_node, 0);
-> >> >
-> >> > What if the parent clk is not registered yet? Or if we're not
-> >> > always using DT in this driver? Put another way, this code is
-> >> > fragile. But I guess it probably works well enough for now so no
-> >> > big deal, just pointing out my fear.
-> >>
-> >> I'm not terribly worried about not using DT for this driver as it is
-> >> for an ARM SoC's built-in ADC which is only supported via DT.  I take
-> >> your point though.  What's the right way to do this?  Use clk_get() to
-> >> request by name and clock-names in the DT?
-> >
-> > Yes that will work. When we add probe defer to clk_get() things
-> > will work better. Presumably the clocks property already exists
-> > for this device so that of_clk_get_parent_name() works so it's
-> > not a binding change?
-> 
-> The bindings include clocks but not clock-names.  In this case,
-> clk_register_divider() only has variants that take a parent clock
-> name.  I can't see what I'd do with the result of clk_get().  If the
-> bindings provide clock-names, I can provide a fixed string for the
-> parent name instead of relying on of_clk_get_parent_name().  The
-> removes an explicit driver dependency on DT.  I'm unclear if it
-> resolves your concerns about registration ordering.
 
-We have __clk_get_name() as a helper in clk-provider.h to assist
-drivers in finding parent names of clks they get through
-clk_get(). Eventually we want to get rid of that function, but
-using it at least helps us find it later.
+--=-PJbdsU7irGeFqIiamVSb
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Aside: This is a problem we've had for a while. You're an
-innocent bystander here. The usage of strings for clk tree
-description is not working well and we really need to move away
-from it. So far we have no solution so all I can say is sorry you
-tripped up on this.
+A few points and queries:
 
-> 
-> >
-> >>
-> >> >
-> >> >> +
-> >> >> +     data->clk_prescaler = clk_hw_register_divider(
-> >> >> +                             &pdev->dev, "prescaler", clk_parent_name, 0,
-> >> >> +                             data->base + ASPEED_REG_CLOCK_CONTROL,
-> >> >> +                             17, 15, 0, &data->clk_lock);
-> >> >> +     if (IS_ERR(data->clk_prescaler))
-> >> >> +             return PTR_ERR(data->clk_prescaler);
-> >> >> +
-> >> >> +     /*
-> >> >> +      * Register ADC clock scaler downstream from the prescaler. Allow rate
-> >> >> +      * setting to adjust the prescaler as well.
-> >> >> +      */
-> >> >> +     data->clk_scaler = clk_hw_register_divider(
-> >> >> +                             &pdev->dev, "scaler", "prescaler",
-> >> >> +                             CLK_SET_RATE_PARENT,
-> >> >> +                             data->base + ASPEED_REG_CLOCK_CONTROL,
-> >> >> +                             0, 10, 0, &data->clk_lock);
-> >> >> +     if (IS_ERR(data->clk_scaler)) {
-> >> >> +             ret = PTR_ERR(data->clk_scaler);
-> >> >> +             goto scaler_error;
-> >> >> +     }
-> >> >> +
-> >> >> +     /* Start all channels in normal mode. */
-> >> >> +     clk_prepare_enable(data->clk_scaler->clk);
-> >> >
-> >> > Eventually we'd like to get rid of hw->clk pointer so that users
-> >> > have to call some sort of clk_get() API and then we get warm
-> >> > fuzzies from knowing who is consuming a clk structure. Can you
-> >> > change this to register a clk provider and call clk_get()? I
-> >> > think a device that references itself should be OK in DT still,
-> >> > and would properly reflect what's going on.
-> >>
-> >> Do you mean call of_clk_add_hw_provider with of_clk_hw_simple_get or
-> >> something else?  I'm still wrapping my head around the distinction
-> >> between clk, clk_hw, and a clk provider.
-> >>
-> >
-> > Yes. Unless you don't want to expose these details in DT because
-> > it's all internal to the device?
-> >
-> 
-> There's no reason to expose the scaler or prescaler in DT.  These are
-> clocks that internal to the ADC and have no way for other devices to
-> use them.  I only used the clock framework to avoid reinventing the
-> wheel on calculating divider values for a desired clock rate.
-> 
-> > In that case we need to go merge that patch on the clk list to
-> > have clk_hw_create_clk() or something like that, so we can turn a
-> > clk_hw structure into a clk pointer without directly referencing
-> > the clk member of clk_hw.
-> 
-> This makes the most sense to me.
-> 
+On Thu, 2017-04-06 at 15:33 -0500, Patrick Williams wrote:
+> I released a tag v1.99.4 as our next development milestone towards
+> v2.0.=C2=A0=C2=A0There are 209 commits between v1.99.4 and v1.99.3, plus =
+the
+> usual many more commits in sub-repositories we manage.
+>=20
+> Big changes in this tag:
+> =C2=A0=C2=A0=C2=A0=C2=A0* Upgrade from Yocto 2.2 to Yocto 2.1.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- This was a major change=
+ in Yocto/Bitbake.=C2=A0=C2=A0They upgraded
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0all bitbake s=
+cripts from python2 to python3.
 
-Ok. Let me see what I can do to merge that patch now. I should be
-able to put it on its own branch that could be pulled into the
-tree for this driver. Or a merge window can pass and things fixed
-then.
+Building OpenBMC on "small" systems (e.g. systems with less than 8GiB
+of RAM) may fail, as we hit a libstdc++ bug as a result of the upgrade:
 
--- 
-Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
-a Linux Foundation Collaborative Project
+https://gcc.gnu.org/bugzilla/show_bug.cgi?id=3D80290
+
+> =C2=A0=C2=A0=C2=A0=C2=A0* Power9 systems use OpenFSI and compiled applica=
+tion for processor
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0control instead of shell scripts.
+
+As a note, pdbg has been "moved" to the debug tarball and is no-longer
+available on the system out-of-the-box.
+
+> =C2=A0=C2=A0=C2=A0=C2=A0* Elimination of "debug mode" in favor of systemd=
+ targets:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- External FSI control fo=
+r Cronus is done by systemd targets.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- Automatic reboot of the=
+ host can be disabled independently
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0by systemd ta=
+rgets.=C2=A0=C2=A0This leaves the system in quiesce state
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0when the host=
+-watchdog fail or checkstop detection occurs.
+
+Patrick: Do you have a link to documentation of these targets? Ideally
+these announcements would also provide these pointers.
+
+> =C2=A0=C2=A0=C2=A0=C2=A0* LED management is refactored out of 'skeleton' =
+and old
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/org/openbmc interfaces are removed.
+> =C2=A0=C2=A0=C2=A0=C2=A0* Soft power-off should be supported.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- This allows the host OS=
+ to gracefully shutdown on a power-off
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0request.
+
+Again, is there documentation?
+
+Cheers,
+
+Andrew
+--=-PJbdsU7irGeFqIiamVSb
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJY5tHRAAoJEJ0dnzgO5LT5qCUQAJleFVYS565xMZ8EE2t4Lbdm
++mTDtFQBoQym0T8JQ3u88oUEGnmqufQssYVAW+P2IC9WxbP/nF6wdKVDgQqHEEAT
+v2vtQgD3mvhcG+vW5lpMEDaqotMJj2b9qvzAAn01Jh4MuvYa3lWxz6/s9nP94t3k
+9Pazr13o5oPXXfRwZhG8fx6XXunqige5J3DSyqm+wtphbbunJNowUHIs3M7k6duj
+4oNCwKlfhv9d8+pqwMBrIZs+vxrXjFkMbae7V8WwEUMWh4d28055ZrJRrZveDGCf
+9smD8G82u1jdacoiXR/DysxZpLG1waoXmktCmH3Lw2gSLMjVExb6vX7lODeQu37V
+mnBZlBW3K5qnjTHZRaIGiBIngFlNg4SnwhNYS1rEdcFmzDYu92TnCHaoDXrvcl6r
+IeomIk8aP5MXWPDyQjoklHOPkq0/5hBorN7GAZTvGwWqg88aZfJ6FmOw1BLW/l/5
+vij/Kh31NrTwQ101EGN5ndsc8eccZNkjaXqOBHNdjBomOgmrRSw36Mh4YHN1wTsn
+b3a28PkrvB32kF/4Vi1uRS8EkTYMM2bmRE048caEl/Hgy+1q9KB/QfkSVT1YPkYA
+s3X2Fo0kGGIgek/3Nrlo/QWBNvWjOfae6FveiJJWp5mVa2/CpAF0pg/a4q2vGBZ1
+clc0XpvFfJGRLjtmmzmD
+=Afms
+-----END PGP SIGNATURE-----
+
+--=-PJbdsU7irGeFqIiamVSb--
