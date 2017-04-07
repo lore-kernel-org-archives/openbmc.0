@@ -1,59 +1,61 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <cbostic@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3w00626rBDzDqJh
- for <openbmc@lists.ozlabs.org>; Fri,  7 Apr 2017 22:59:38 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="C/Hy+taA"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="sD6bbTX+"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id D4D8420B23;
- Fri,  7 Apr 2017 08:59:36 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Fri, 07 Apr 2017 08:59:36 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=YRa4Iy
- 39H6d7GxiiFHxcfcdkIUfrFzIqUldPKBGQaVY=; b=C/Hy+taAB7DibwDFu5XbAc
- n6GEV+HPz+8yT85OlKAuXFvtJt/uNzI5ZQJbQmv4X5w/bgNIrxryebnxRpH2LIaK
- JEdLyffY/er4yPn6CYYQH896MrA8gzmW+zdCbATHv3KIWpv1HiXE/HnyR6mpmwmU
- /D2xWWcPzQDXTKQGAa+HM39kgnKOWr8EmFZA94UO/K3DZ0vg9LfiMwYk32oUpWwP
- kKeYHuIRS7wqP5ERl5TwEPRP8K8/pG9akA3j/an7tgLnZ4B3H3sf/7+MZ3o8ROnm
- NT5clQngULydr6mYGqA9z8AkJ2KLUUbK0CIy4gemiK8FpoMrErCnWG02NjbM1lJA
- ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:in-reply-to:message-id
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=YRa4Iy39H6d7GxiiFHxcfcdkIUfrFzIqUldPKBGQa
- VY=; b=sD6bbTX+v4ggFf9M+YGa9uZzIG+Q06Dm17ucKLmb2836fSz51fSF72FN/
- Mf2gqsilaneDWHrp/sDk1y9g+tNheQf76duSqnRrcBnK69LRnlOrTuMJE7vg7Oz2
- 8CPkv1M9tqmi4AsfIpI5G0p49I4rSlTWz0cX6eaojMfJ+FyQin0H1F+cCVY8YddC
- xOnWelCh6Pg95MbkCpRifUtyOKMj1p4DjSaVx2MvJj49/HBoJm3Mlrpvfni7Hfuw
- FNhCDwgBpY3tAZSlmVFa08AsPfBKVPSWfy3uAiiVuMdoumLLW+BMmaElhVLW+YDe
- gyMmSEKuFGlL8i3MUdzYDihkwW99A==
-X-ME-Sender: <xms:OI3nWDztMgEMuzY_eWpgaHZT9gwu-8fRa5PHZRseqEwsfXIdNBFUuQ>
-X-Sasl-enc: WMlcn5nuH0ozQqp4aaPOZ/ArGvaLPVVH/VNupSlvcnqO 1491569975
-Received: from keelia.au.ibm.com (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id 87D827E6A3;
- Fri,  7 Apr 2017 08:59:32 -0400 (EDT)
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Linus Walleij <linus.walleij@linaro.org>
-Cc: Andrew Jeffery <andrew@aj.id.au>, Rob Herring <robh+dt@kernel.org>,
- Joel Stanley <joel@jms.id.au>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
-Subject: [PATCH v2 4/4] gpio: aspeed: Add open-source and open-drain support
-Date: Fri,  7 Apr 2017 22:29:02 +0930
-Message-Id: <20170407125902.15960-5-andrew@aj.id.au>
-X-Mailer: git-send-email 2.9.3
-In-Reply-To: <20170407125902.15960-1-andrew@aj.id.au>
-References: <20170407125902.15960-1-andrew@aj.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3w01HF5mTJzDqHW
+ for <openbmc@lists.ozlabs.org>; Fri,  7 Apr 2017 23:52:41 +1000 (AEST)
+Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v37Dmn54039636
+ for <openbmc@lists.ozlabs.org>; Fri, 7 Apr 2017 09:52:37 -0400
+Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 29pbb0tm20-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 07 Apr 2017 09:52:36 -0400
+Received: from localhost
+ by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Fri, 7 Apr 2017 07:52:35 -0600
+Received: from b03cxnp08026.gho.boulder.ibm.com (9.17.130.18)
+ by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Fri, 7 Apr 2017 07:52:32 -0600
+Received: from b03ledav002.gho.boulder.ibm.com
+ (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
+ by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v37DqWw85898664; Fri, 7 Apr 2017 06:52:32 -0700
+Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 4E8D913603C;
+ Fri,  7 Apr 2017 07:52:32 -0600 (MDT)
+Received: from Christophers-MacBook-Pro.local.com (unknown [9.83.2.23])
+ by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id 8653413603A;
+ Fri,  7 Apr 2017 07:52:30 -0600 (MDT)
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+To: joel@jms.id.au
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.7 0/4] Add FSI interrupt support for hub
+Date: Fri,  7 Apr 2017 08:52:21 -0500
+X-Mailer: git-send-email 2.10.1 (Apple Git-78)
+X-TM-AS-GCONF: 00
+x-cbid: 17040713-0016-0000-0000-00000684B8F5
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006893; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000208; SDB=6.00844289; UDB=6.00416159; IPR=6.00622587; 
+ BA=6.00005275; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014951; XFM=3.00000013;
+ UTC=2017-04-07 13:52:33
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17040713-0017-0000-0000-000038CBF5DB
+Message-Id: <20170407135225.20387-1-cbostic@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-04-07_12:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
+ definitions=main-1704070117
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -65,34 +67,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Apr 2017 12:59:39 -0000
+X-List-Received-Date: Fri, 07 Apr 2017 13:52:42 -0000
 
-As per the datasheet, manage the IO and value states to implement
-open-source/open-drain, but do this by falling back to gpiolib's
-emulation.
+Allow interrupt processing of client devices behind hub master.
+Manage enable/disable of IRQ enables along the IRQ path including
+primary slave Si1s, SRSIS; hub master MSIEP, MMODE i-poll; hub slave
+Si1s.
 
-This commit simply makes the behaviour explicit for clarity, rather than
-relying on the implicit return of -ENOTSUPP to trigger the emulation.
+Christopher Bostic (4):
+  drivers/fsi: Change interrupt handler device traversal.
+  drivers/fsi: Look for Hub sourced IRQs
+  drivers/fsi: Scan for hub link IRQ sources
+  drivers/fsi: Set IRQ masks along hub path
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- drivers/gpio/gpio-aspeed.c | 4 ++++
- 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpio/gpio-aspeed.c b/drivers/gpio/gpio-aspeed.c
-index 3327a48df862..ccea609676ee 100644
---- a/drivers/gpio/gpio-aspeed.c
-+++ b/drivers/gpio/gpio-aspeed.c
-@@ -761,6 +761,10 @@ static int aspeed_gpio_set_config(struct gpio_chip *chip, unsigned int offset,
- 			param == PIN_CONFIG_BIAS_PULL_DOWN ||
- 			param == PIN_CONFIG_DRIVE_STRENGTH)
- 		return pinctrl_gpio_set_config(offset, config);
-+	else if (param == PIN_CONFIG_DRIVE_OPEN_DRAIN ||
-+			param == PIN_CONFIG_DRIVE_OPEN_SOURCE)
-+		/* Return -ENOTSUPP to trigger emulation, as per datasheet */
-+		return -ENOTSUPP;
- 
- 	return -ENOTSUPP;
- }
 -- 
-2.9.3
+1.8.2.2
