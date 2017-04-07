@@ -3,55 +3,54 @@ Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3w01HQ69DGzDqKL
- for <openbmc@lists.ozlabs.org>; Fri,  7 Apr 2017 23:52:50 +1000 (AEST)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3w01HV4HlPzDqJl
+ for <openbmc@lists.ozlabs.org>; Fri,  7 Apr 2017 23:52:54 +1000 (AEST)
+Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v37DmlNE105848
- for <openbmc@lists.ozlabs.org>; Fri, 7 Apr 2017 09:52:40 -0400
-Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
- by mx0a-001b2d01.pphosted.com with ESMTP id 29p7c3qw57-1
+ v37Dmn5X083784
+ for <openbmc@lists.ozlabs.org>; Fri, 7 Apr 2017 09:52:46 -0400
+Received: from e38.co.us.ibm.com (e38.co.us.ibm.com [32.97.110.159])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 29paef6fp3-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 07 Apr 2017 09:52:39 -0400
+ for <openbmc@lists.ozlabs.org>; Fri, 07 Apr 2017 09:52:46 -0400
 Received: from localhost
- by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e38.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Fri, 7 Apr 2017 07:52:39 -0600
-Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
- by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
+ Fri, 7 Apr 2017 07:52:45 -0600
+Received: from b03cxnp08028.gho.boulder.ibm.com (9.17.130.20)
+ by e38.co.us.ibm.com (192.168.1.138) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Fri, 7 Apr 2017 07:52:36 -0600
+ Fri, 7 Apr 2017 07:52:43 -0600
 Received: from b03ledav002.gho.boulder.ibm.com
  (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
- by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v37DqZgi10486120; Fri, 7 Apr 2017 06:52:35 -0700
+ by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v37DqgWp15270166; Fri, 7 Apr 2017 06:52:42 -0700
 Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C867F136050;
- Fri,  7 Apr 2017 07:52:35 -0600 (MDT)
+ by IMSVA (Postfix) with ESMTP id C8A96136046;
+ Fri,  7 Apr 2017 07:52:42 -0600 (MDT)
 Received: from Christophers-MacBook-Pro.local.com (unknown [9.83.2.23])
- by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id 0B36A136046;
- Fri,  7 Apr 2017 07:52:33 -0600 (MDT)
+ by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id 0A7E4136043;
+ Fri,  7 Apr 2017 07:52:40 -0600 (MDT)
 From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 To: joel@jms.id.au
 Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.7 1/4] drivers/fsi: Change interrupt handler
- device traversal.
-Date: Fri,  7 Apr 2017 08:52:22 -0500
+Subject: [PATCH linux dev-4.7 3/4] drivers/fsi: Scan for hub link IRQ sources
+Date: Fri,  7 Apr 2017 08:52:24 -0500
 X-Mailer: git-send-email 2.10.1 (Apple Git-78)
 In-Reply-To: <20170407135225.20387-1-cbostic@linux.vnet.ibm.com>
 References: <20170407135225.20387-1-cbostic@linux.vnet.ibm.com>
 X-TM-AS-GCONF: 00
-x-cbid: 17040713-8235-0000-0000-00000B45B64A
+x-cbid: 17040713-0028-0000-0000-0000075DB8D9
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00006893; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000208; SDB=6.00844289; UDB=6.00416159; IPR=6.00622587; 
+ PH=3.00000004; SC=3.00000208; SDB=6.00844290; UDB=6.00416159; IPR=6.00622587; 
  BA=6.00005275; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014950; XFM=3.00000013;
- UTC=2017-04-07 13:52:37
+ UTC=2017-04-07 13:52:45
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17040713-8236-0000-0000-00003AF4FD35
-Message-Id: <20170407135225.20387-2-cbostic@linux.vnet.ibm.com>
+x-cbparentid: 17040713-0029-0000-0000-000034EB9A84
+Message-Id: <20170407135225.20387-4-cbostic@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-04-07_12:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -70,65 +69,195 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Apr 2017 13:52:51 -0000
+X-List-Received-Date: Fri, 07 Apr 2017 13:52:55 -0000
 
-Traverse the slave device list and master slave list using the
-kernel utility device_for_each_child instead of using internally
-managed linked lists.
+Look for the hub link that may have sourced the IRQ being handled.
+Clear out hub link interrupting conditions that are latched in
+hardware after FSI client handler has been dispatched.
 
 Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 ---
- drivers/fsi/fsi-core.c | 34 ++++++++++++++++++++++------------
- 1 file changed, 22 insertions(+), 12 deletions(-)
+ drivers/fsi/fsi-core.c | 129 +++++++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 124 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
-index 3d382e6..36dde94 100644
+index 45e1171..72f3a35 100644
 --- a/drivers/fsi/fsi-core.c
 +++ b/drivers/fsi/fsi-core.c
-@@ -778,22 +778,32 @@ static void fsi_master_unscan(struct fsi_master *master)
+@@ -96,6 +96,10 @@ static int fsi_slave_write(struct fsi_slave *slave, uint32_t addr,
+ #define	FSI_SMODE		0x0	/* R/W: Mode register */
+ #define FSI_SI1M		0x18	/* R/W: IRQ mask */
+ #define FSI_SI1S		0x1C	/* R: IRQ status */
++#define FSI_SRSIC0		0x68	/* R/W: Remote IRQ condition 0 */
++#define FSI_SRSIC1		0x6C	/* R/W: Remote IRQ condition 1 */
++#define FSI_SRSIM0		0x70	/* R/W: Remote IRQ mask 0 */
++#define FSI_SRSIS0		0x78	/* R: Remote IRQ status 0 */
+ 
+ /*
+  * SI1S, SI1M fields
+@@ -116,6 +120,13 @@ static int fsi_slave_write(struct fsi_slave *slave, uint32_t addr,
+ #define	FSI_SMODE_LBCRR_SHIFT	8		/* Clk ratio shift */
+ #define	FSI_SMODE_LBCRR_MASK	0xf		/* Clk ratio mask */
+ 
++/*
++ * SRSIS, SRSIM, SRSIC fields
++ */
++#define	FSI_SRSIX_IRQ1_MASK	0x00aaaaaa	/* SI1 IRQ sources */
++#define	FSI_SRSIX_BITS_PER_LINK	8
++
++
+ /* FSI endpoint-device support */
+ int fsi_device_read(struct fsi_device *dev, uint32_t addr, void *val,
+ 		size_t size)
+@@ -584,6 +595,21 @@ static struct bin_attribute fsi_slave_raw_attr = {
+ 	.write = fsi_slave_sysfs_raw_write,
+ };
+ 
++static int fsi_slave_irq_clear(struct fsi_slave *slave)
++{
++	uint32_t clear = ~0;
++	int rc;
++
++	rc = fsi_slave_write(slave, FSI_SLAVE_BASE + FSI_SRSIC0, &clear,
++				sizeof(clear));
++	if (rc) {
++		dev_dbg(&slave->dev, "Failed on write to SRSIC0\n");
++		return rc;
++	}
++	return fsi_slave_write(slave, FSI_SLAVE_BASE + FSI_SRSIC1, &clear,
++				sizeof(clear));
++}
++
+ static int fsi_slave_init(struct fsi_master *master,
+ 		int link, uint8_t slave_id)
+ {
+@@ -649,8 +675,11 @@ static int fsi_slave_init(struct fsi_master *master,
+ 		dev_warn(&slave->dev, "failed to create raw attr: %d\n", rc);
+ 
+ 	list_add(&slave->list_link, &master->my_slaves);
+-	fsi_slave_scan(slave);
+-	return 0;
++	rc = fsi_slave_scan(slave);
++	if (rc)
++		return rc;
++
++	return fsi_slave_irq_clear(slave);
+ }
+ 
+ /* FSI master support */
+@@ -783,10 +812,62 @@ static void fsi_master_unscan(struct fsi_master *master)
  	master->slave_list = false;
  }
  
--static void fsi_master_irq(struct fsi_master *master, int link, uint32_t si1s)
-+static int __fsi_dev_irq(struct device *dev, void *data)
- {
--	struct fsi_slave *slave;
--	struct fsi_device *fsi_dev;
--
--	if (list_empty(&master->my_slaves))
--		return;
-+	uint32_t *si1s = data;
-+	struct fsi_device *fsi_dev = to_fsi_dev(dev);
- 
--	slave = list_first_entry(&master->my_slaves, struct fsi_slave,
--				list_link);
-+	if (!fsi_dev || !si1s) {
-+		dev_dbg(dev, "Invalid input: %p %p\n", fsi_dev, si1s);
++/* TODO: Add support for hub links 4-7 */
++static int next_hublink_source(struct fsi_slave *slave, uint32_t srsis)
++{
++	int index;
++
++	if (!slave)
++		return -EINVAL;
++
++	if (!(srsis & FSI_SRSIX_IRQ1_MASK)) {
++		dev_dbg(&slave->dev, "Unexpected IRQ source SRSIS:0x%08x\n",
++			srsis);
 +		return -EINVAL;
 +	}
++
++	/*
++	 * TODO: add a fair scheduler to ensure we don't favor lower
++	 * hublink IRQ sources over others
++	 */
++	index = __clz(srsis);
++	dev_dbg(&slave->dev, "SRSIS:0x%08x index:%d\n", srsis, index);
++	return index / FSI_SRSIX_BITS_PER_LINK;
++}
++
++static int __fsi_dev_irq(struct device *dev, void *data);
++
++static int __fsi_hub_slave_irq(struct device *dev, void *data)
++{
++	int rc;
++	struct fsi_slave *hub_slave = to_fsi_slave(dev);
++	uint32_t si1s;
++
++	if (!hub_slave) {
++		dev_dbg(dev, "Could not find hub slave\n");
++		return -ENODEV;
++	}
++
++	rc = fsi_slave_read(hub_slave, FSI_SLAVE_BASE + FSI_SI1S, &si1s,
++			sizeof(si1s));
++	if (rc) {
++		dev_dbg(dev, "Fail on read of hub slave si1s\n");
++		return rc;
++	}
++
++	if (!si1s)
++		return 0;
++
++	return device_for_each_child(dev, &si1s, __fsi_dev_irq);
++}
++
+ static int __fsi_dev_irq(struct device *dev, void *data)
+ {
+-	uint32_t *si1s = data;
++	uint32_t *si1s = data, srsis;
+ 	struct fsi_device *fsi_dev = to_fsi_dev(dev);
++	struct fsi_slave *slave;
++	struct fsi_master_hub *hub;
++	int rc, hublink;
  
--	list_for_each_entry(fsi_dev, &slave->my_engines, link) {
--		if (si1s & (0x80000000 >> fsi_dev->si1s_bit) &&
--		    fsi_dev->irq_handler)
--			fsi_dev->irq_handler(0, &fsi_dev->dev);
-+	if (*si1s & (0x80000000 >> fsi_dev->si1s_bit) && fsi_dev->irq_handler) {
-+		fsi_dev->irq_handler(0, &fsi_dev->dev);
-+		return 1;
+ 	if (!fsi_dev || !si1s) {
+ 		dev_dbg(dev, "Invalid input: %p %p\n", fsi_dev, si1s);
+@@ -803,9 +884,47 @@ static int __fsi_dev_irq(struct device *dev, void *data)
+ 		return 0;
  	}
+ 
+-	/* TODO: handle hub sourced IRQ */
++	hub = dev_get_drvdata(dev);
++	if (!hub) {
++		dev_dbg(dev, "Not a hub device\n");
++		return 0;
++	}
+ 
+-	return 0;
++	/* Scan the hub links for the source of IRQ */
++	slave = to_fsi_slave(dev->parent);
++	if (!slave) {
++		dev_dbg(dev, "Could not retrieve device's slave\n");
++		return -ENODEV;
++	}
 +
-+	return 0;
-+}
++	rc = fsi_slave_read(slave, FSI_SLAVE_BASE + FSI_SRSIS0, &srsis,
++			sizeof(srsis));
++	if (rc) {
++		dev_dbg(&slave->dev, "Failed to read SRSIS0\n");
++		return rc;
++	}
++	if (srsis) {
++		hublink = next_hublink_source(slave, srsis);
 +
-+static int __fsi_slave_irq(struct device *dev, void *data)
-+{
-+	return device_for_each_child(dev, data, __fsi_dev_irq);
-+}
++		if (!hub->master.dev)
++			return 0;
 +
-+static void fsi_master_irq(struct fsi_master *master, int link, uint32_t si1s)
-+{
-+	device_for_each_child(master->dev, &si1s, __fsi_slave_irq);
++		device_for_each_child(dev, &hublink, __fsi_hub_slave_irq);
++
++		/* Clear out the interrupting condition */
++		srsis = 0xff000000 >> (hublink * FSI_SRSIX_BITS_PER_LINK);
++		rc =  fsi_slave_write(slave, FSI_SLAVE_BASE + FSI_SRSIC0,
++					&srsis, sizeof(srsis));
++		if (rc) {
++			dev_dbg(&slave->dev, "Failed to clear out SRSIC\n");
++			return rc;
++		}
++	} else {
++		dev_dbg(&slave->dev, "SI1S HUB src but no SRSIS0 bits!\n");
++		return -EINVAL;
++	}
++
++	return 1;
  }
  
- static int fsi_master_ipoll(void *data)
+ static int __fsi_slave_irq(struct device *dev, void *data)
 -- 
 1.8.2.2
