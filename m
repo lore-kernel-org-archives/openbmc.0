@@ -1,52 +1,29 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-wm0-x232.google.com (mail-wm0-x232.google.com
- [IPv6:2a00:1450:400c:c09::232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3w03ww0bvPzDqHl
- for <openbmc@lists.ozlabs.org>; Sat,  8 Apr 2017 01:51:59 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="fCl+3N14"; 
- dkim-atps=neutral
-Received: by mail-wm0-x232.google.com with SMTP id w64so1891426wma.0
- for <openbmc@lists.ozlabs.org>; Fri, 07 Apr 2017 08:51:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=SaBNjHrtntCdfHpGBuU51ALT/DCEN7y4Op2be0WQnig=;
- b=fCl+3N14PgeVty17/4iFuWmBVU/a/Y0Rl/GZyeGUAStMPwCl4+ImrPZeMX00N8W0VD
- ibsY1pve/hKTlCdDti0Y3y7LH18IoV6GtbmeFaIIkaHUeJDsFdNAoqXS+fhLQEZh7KhP
- Wn/u+XlaFKcZu2f7jDYQAbZwvV6y48wH22iMIWuCduUylViLq7cW1bVD0b5PF8xKKehG
- G4XUJ36cl91trPceXINmhXUvkTDT03ytzsrjjhAyrcgZF2a5CrnB63WZgI0brZ/miA+2
- vpanJTnz2FJSqGBZ/nTPm8R5r/YpZ9GY1qrG5KyLNzSEleZbIubXA8ST0NItKKtOLql6
- bCgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=SaBNjHrtntCdfHpGBuU51ALT/DCEN7y4Op2be0WQnig=;
- b=UkMRFBK90jx5Cn84pOQtVYPZfTWK2Bfpm1VtdpFyWfo/ZCM9PxsaUGRMDv1WWhecl5
- HsiO8H3Llhou/aIlDmOt/RAGv4mtB63sSjuB7f01YL33H6VONfvn8CG5+Bwj3yUpE0Eb
- 716FII5hRXMW6QbIrjfzKrTXzk7M8EnEwvrhC4DjZQeVdkEWJnH9SKCNjZiyMejsRLn/
- EypsuF5VIv6m79zGmvmXwijDZK4mdlO8NyaeEulwy9x289c3iSZ2unznAZ7fSTt6B3Yn
- HYhLdSBzcXUPxj0oYhxa1pZyWaKC8VXQzBwF03V7UmyYEsom1fyxi+o3O/o83qwFrsh2
- 4GFg==
-X-Gm-Message-State: AN3rC/4H+59vIgZMWJPnS8dbnkcGRXhK66+O+Kh2wN9rnsYvKeqbcuvo
- YA3PLbK62Ye0glXpumX7/EYMY0zN/mvw
-X-Received: by 10.28.45.212 with SMTP id t203mr29510wmt.37.1491580316697; Fri,
- 07 Apr 2017 08:51:56 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3w06YY5JxZzDqHq
+ for <openbmc@lists.ozlabs.org>; Sat,  8 Apr 2017 03:50:24 +1000 (AEST)
+Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
+ [76.250.84.236]) by mx.zohomail.com
+ with SMTPS id 1491587418546436.82300465341075;
+ Fri, 7 Apr 2017 10:50:18 -0700 (PDT)
+Date: Fri, 7 Apr 2017 12:50:12 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: Release v1.99.4
+Message-ID: <20170407175012.GA10151@heinlein.lan>
+References: <20170406203333.y44jjya7zmb4hg4h@asimov>
+ <1491522001.5817.6.camel@aj.id.au>
 MIME-Version: 1.0
-Received: by 10.28.169.8 with HTTP; Fri, 7 Apr 2017 08:51:56 -0700 (PDT)
-In-Reply-To: <CACPK8XfnZN6j85b+YfNMvh4RkiT3mtMxw5GHX5Javo4-ZBXbuQ@mail.gmail.com>
-References: <CACPK8XfnZN6j85b+YfNMvh4RkiT3mtMxw5GHX5Javo4-ZBXbuQ@mail.gmail.com>
-From: Rick Altherr <raltherr@google.com>
-Date: Fri, 7 Apr 2017 08:51:56 -0700
-Message-ID: <CAPLgG==Z9O2AQvx8vAok0vJg_A_2T+jAGFTwP1ZOG9yBa1xnxQ@mail.gmail.com>
-Subject: Re: Aspeed for-next pushed for 4.12
-To: Joel Stanley <joel@jms.id.au>
-Cc: Andrew Jeffery <andrew@aj.id.au>,
- =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="nFreZHaLTZJo0R7j"
+Content-Disposition: inline
+In-Reply-To: <1491522001.5817.6.camel@aj.id.au>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
+X-ZohoMailClient: External
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,31 +35,78 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Apr 2017 15:52:00 -0000
+X-List-Received-Date: Fri, 07 Apr 2017 17:50:26 -0000
 
-Changes look good.  Regarding AHB reset for the ADC to work, I also
-see that 1e6e2004 has a bit to hold the ADC in reset.  I didn't do
-anything in the ADC driver to take it out of reset.  Do we do that in
-aspeed_init_early as well?
 
-On Fri, Apr 7, 2017 at 3:28 AM, Joel Stanley <joel@jms.id.au> wrote:
-> Here's a merge of the changes I will be sending to the arm maintainers for
-> inclusion in 4.12.
->
-> https://git.kernel.org/pub/scm/linux/kernel/git/joel/aspeed.git/log/?h=for-next
->
-> I've done plenty of testing of this merged into linux-next. Feel free to
-> take a look and/or use it in your testing.
->
-> If you're booting this kernel from a cold power on, note that the ADC driver
-> won't work without resetting the AHB bridge:
->
-> devmem 0x1e6e200c 32 0x2
->
-> On the dev- kernels we have a reset in the aspeed_init_early code path. We
-> need to work out why that's the case, and add it to upstream if it's
-> required.
->
-> Cheers,
->
-> Joel
+--nFreZHaLTZJo0R7j
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Apr 07, 2017 at 09:10:01AM +0930, Andrew Jeffery wrote:
+> A few points and queries:
+>=20
+> > =A0=A0=A0=A0* Elimination of "debug mode" in favor of systemd targets:
+> > =A0=A0=A0=A0=A0=A0=A0=A0- External FSI control for Cronus is done by sy=
+stemd targets.
+> > =A0=A0=A0=A0=A0=A0=A0=A0- Automatic reboot of the host can be disabled =
+independently
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0by systemd targets.=A0=A0This leaves the =
+system in quiesce state
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0when the host-watchdog fail or checkstop =
+detection occurs.
+>=20
+> Patrick: Do you have a link to documentation of these targets? Ideally
+> these announcements would also provide these pointers.
+
+This was posted to the mailing list recently.
+
+https://lists.ozlabs.org/pipermail/openbmc/2017-March/007103.html
+
+Matt Spinler, can you put a commit into openbmc/docs to permanently
+document?
+
+>=20
+> > =A0=A0=A0=A0* LED management is refactored out of 'skeleton' and old
+> > =A0=A0=A0=A0=A0=A0/org/openbmc interfaces are removed.
+> > =A0=A0=A0=A0* Soft power-off should be supported.
+> > =A0=A0=A0=A0=A0=A0=A0=A0- This allows the host OS to gracefully shutdow=
+n on a power-off
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0request.
+>=20
+> Again, is there documentation?
+
+https://github.com/openbmc/phosphor-dbus-interfaces is the starting
+point for all dbus interfaces now. State-management is pretty well
+documented: https://github.com/openbmc/phosphor-dbus-interfaces/tree/master=
+/xyz/openbmc_project/State
+
+Your specific question about soft power-off, this is the default now for
+the host object.  If you want to simply pull power (hard power-off) you
+operate on the chassis object.
+
+--=20
+Patrick Williams
+
+--nFreZHaLTZJo0R7j
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAljn0VIACgkQqwNHzC0A
+wRlNCg/9F2vjOZ+wpsOxTkQULquV+lkqfijIrEt87PodY1CKlFMkSLPgNZRSokb6
+UKuePYtuVey2BtvrVtRnIOi52m7k7TmnM/yQ0asH1XoY0/rw2k9sukifs9JiPdc7
+H67QDkZXatIr8vFGGOGWscklj9Q7HAS/qFu8rtKQ6MAcgo0KO1nGPzRTKdaRZAXG
+3O3tqCDBxGwGb9IuoAWt2s1ddSlNM+lZy+cdBXEnSi+2aLTDMECa1bORRTR2r4lf
+12cmMDx6yKnWA2AclqO76tG0u4i3oqDl4Jy61BdAvv992m5HcbjJUE2PZtKIqRZr
+Y85wy7MwBb8x7E8U6+AX7QLLkgYza9i3mTzphG9LJet3gwkoU00g1tL04oPC5Lp3
+tXNRNz7wEwc9xIXTM5vaVkV7wkBpcMTFxtIwB0T1XhqCPNV0tXmcypelXxuHpbVw
+mTgCU4wM52iF9eFnnwgapGz4EN6jv+ZCmJ9JWNbgPGRhhJ9p2aIgG/89ToBIhJMm
+AAcu8wab4q7fgWB29i5KKLaUMdCubY3JiRb8j/CntHc5rLvvF9o8KEAKnnhJUwG6
+W2txGvYnZgdL9jT/AfPcFTLTIMryY1EQ83QFoxgb6N11VZ0ib9VvXCMj72Wvzdmm
+j03nVHOv6bI9KyafgL47YIRlUlwgtgO/EkA4osg/rtFm6qurRoM=
+=J6jt
+-----END PGP SIGNATURE-----
+
+--nFreZHaLTZJo0R7j--
