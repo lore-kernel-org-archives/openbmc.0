@@ -3,53 +3,53 @@ Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vzfMc1jv0zDqHg
- for <openbmc@lists.ozlabs.org>; Fri,  7 Apr 2017 09:40:12 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vzg7D5nNHzDqHg
+ for <openbmc@lists.ozlabs.org>; Fri,  7 Apr 2017 10:14:32 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="JBLp5j1j"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="hxsy7yHP"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="oPVlOi0Z"; dkim-atps=neutral
+ header.b="GVY6r/u+"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 1886A20C1B;
- Thu,  6 Apr 2017 19:40:10 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id F09AB20ABD;
+ Thu,  6 Apr 2017 20:14:29 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Thu, 06 Apr 2017 19:40:10 -0400
+ by compute4.internal (MEProxy); Thu, 06 Apr 2017 20:14:29 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
  content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=ubCowkjncQisXoc5+Ag9umVKc2pIxlpvQX/qf0npt
- 1o=; b=JBLp5j1j0hEKtAiahRmlSJhr8DLCsrf1KKZgmqY1g5B9uVXNVwPrSYnDt
- 9Ctwz1NcxinRk2aUWXLaOq6tn7dJHScoBY3d4wzLagRY48uu3plR9BEm82VqcfdY
- P2YGEoCwrVMNqRjmnXbMNn8nkY0Gx/KMwxqkHf95v5hqFZuA5beatv7OLSX2f+Ce
- vUK9lA+gN2KvAtqe6ET4oM6EooRc77tWJ+LCQODb/9s9zJ5e8pfA80+0GefNRkVh
- kZXGt4rDeUe7gTOao6Q8Ny5pf04BHPq9fy26NCcLiuBRjxl2oRNkTSpE31H02xTW
- ExlBdzADmFp9dmqWVcFEG2Ais5IVA==
+ :x-sasl-enc; s=fm1; bh=Gq5QXE21lI0+8CJ62DAF89tZh5yX/AOkxKFf4HtLD
+ aM=; b=hxsy7yHPWUP9wjRWM2IXrKiiyFaGcPX2pRv5AQtiov4nkHiVSAmaTKO1R
+ Y3hgVcUbRdl4ZbSxXg0J2LjnpmMd2bULA6XD9XhL75rE9UAKzEo0tEf0iF1BfPzH
+ 8FBI5eUWA8Hkt4D/Ilz/AwYI9rHjeiqlNbJ70HDMG81+JqZGFU5gpWWqYzoTQ4Ti
+ NDIXggVqboOwZtZX5S+eFUnG/Pm4k8wTs2CpdJV9MWnLF4IsqdqUJSDeUuPGdReD
+ Q6rDPVFdU5g7bnAblQDg0xsoH9HuN8npu0XNlA9owMG6tvvwd0ywAfzlhNx7TCx5
+ ssaM8R5ydS41mS0lMM+QYTYtNiASA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=ubCowkjncQisXoc5+A
- g9umVKc2pIxlpvQX/qf0npt1o=; b=oPVlOi0ZtXaG+Gv8PtAvjIaH/8c86h7aL5
- +eSSjJvgviKARV5Dlh0b8C4BWWbL+gB8vaZ43NfMVw/GHf6V749DyJMD9fzsifNI
- MvCTWK0Y7V7Rr6KLqNXE3HEDy+NqiSsetlFympHV944EYlSHpGyOt3C8QwFzwpwR
- 5bqGZ6KwqkO0NPdK5KYbSLSqEIedpY11xqSvwDpeAyzyCpzz8z4SLvPy8LJDZuWW
- y/u3fX7UWaRNF0pzVv7BrGasqvcHfRSOTmyQavW0R69Tt1YYysh1S/9IvZ3M5J6w
- azrVnvWFxUAWWGrMq/IYE1UOP2RRnJeDN6ckVnu8/WUh3XbI29KQ==
-X-ME-Sender: <xms:2tHmWCHPaxKeMmP-Oa2iDUzOQczCCL9gmnrg5TpYefB3cEqRssuawg>
-X-Sasl-enc: PEPlS2moTKIqBnp/O3KZmBqiiOc/u4xRnR4R7pE0qbSV 1491522009
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=Gq5QXE21lI0+8CJ62D
+ AF89tZh5yX/AOkxKFf4HtLDaM=; b=GVY6r/u+WZ1Fca/uy0L0oz3CowI7pVMAe6
+ 3463CzgrC0rZKAiH5+aaKOBxDlxOQapO34vaQWFPZ9wwuCNd3RdWJ5gd+d1QcBUS
+ kuih04mfiKrHW3OaUBvfhQALyGGn33Omufaib0QWHT41Mv4pkhthTvbnFjfjMaBK
+ fRphsntNPiQJMNkDM3Rdya3zSVWBntl00UKj8BjPp4/NOCbyP1YyaMLKcQqF90mw
+ Nn+kIzOk7GcguJuHF/UgdQ1wbBwcrWljWwtmzqv00zrKijxTWKV9gilYIOKd+3SQ
+ Mo4rufVqyXlqQgU53AHt9lNx0mzedKEmGsP3XcqCRnuskopyrPOQ==
+X-ME-Sender: <xms:5dnmWFpYXTne5887dgKPqp48J51tYb1SDKOk6YzL9A31Q0W2PUEgSQ>
+X-Sasl-enc: ZL7VsMk9bx1eb2H0csnsPJ9AzlWImnZ8nCBob0FpjVFF 1491524068
 Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 602BC2436B;
- Thu,  6 Apr 2017 19:40:08 -0400 (EDT)
-Message-ID: <1491522001.5817.6.camel@aj.id.au>
-Subject: Re: Release v1.99.4
+ by mail.messagingengine.com (Postfix) with ESMTPA id B561824457;
+ Thu,  6 Apr 2017 20:14:27 -0400 (EDT)
+Message-ID: <1491524060.5817.8.camel@aj.id.au>
+Subject: Re: Discussion on GPIO monitoring and design thoughts.
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Patrick Williams <patrick@stwcx.xyz>, OpenBMC Maillist
+To: vishwa <vishwa@linux.vnet.ibm.com>, OpenBMC Maillist
  <openbmc@lists.ozlabs.org>
-Date: Fri, 07 Apr 2017 09:10:01 +0930
-In-Reply-To: <20170406203333.y44jjya7zmb4hg4h@asimov>
-References: <20170406203333.y44jjya7zmb4hg4h@asimov>
+Date: Fri, 07 Apr 2017 09:44:20 +0930
+In-Reply-To: <3ca9e8a5-4135-8fa3-cbf5-62543a89a491@linux.vnet.ibm.com>
+References: <3ca9e8a5-4135-8fa3-cbf5-62543a89a491@linux.vnet.ibm.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-PJbdsU7irGeFqIiamVSb"
+ protocol="application/pgp-signature"; boundary="=-qPJqadywvtcUxHPsWRGg"
 X-Mailer: Evolution 3.22.3-0ubuntu0.1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -63,87 +63,161 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Apr 2017 23:40:14 -0000
+X-List-Received-Date: Fri, 07 Apr 2017 00:14:33 -0000
 
 
---=-PJbdsU7irGeFqIiamVSb
+--=-qPJqadywvtcUxHPsWRGg
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-A few points and queries:
+Hi Vishwa,
 
-On Thu, 2017-04-06 at 15:33 -0500, Patrick Williams wrote:
-> I released a tag v1.99.4 as our next development milestone towards
-> v2.0.=C2=A0=C2=A0There are 209 commits between v1.99.4 and v1.99.3, plus =
-the
-> usual many more commits in sub-repositories we manage.
+I have some queries below. Apologies if they appear curt, but I'm
+trying to cut to the point in each case.
+
+On Wed, 2017-04-05 at 13:56 +0530, vishwa wrote:
+> We had a technical discussion on HOWTO and what is the right thing to do=
+=C2=A0
+> handling the GPIO assertion and here is the gist.
 >=20
-> Big changes in this tag:
-> =C2=A0=C2=A0=C2=A0=C2=A0* Upgrade from Yocto 2.2 to Yocto 2.1.
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- This was a major change=
- in Yocto/Bitbake.=C2=A0=C2=A0They upgraded
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0all bitbake s=
-cripts from python2 to python3.
+> 1) Use gpio-keys and utilize libevdev wrappers (=C2=A0
+> https://www.freedesktop.org/software/libevdev/doc/latest/ ) to watch for=
+=C2=A0
+> data in /dev/input/event.
 
-Building OpenBMC on "small" systems (e.g. systems with less than 8GiB
-of RAM) may fail, as we hit a libstdc++ bug as a result of the upgrade:
+Okay, I'd like you to step back and detail what problem you're actually
+trying to solve here. Going from wanting to handle GPIO interrupts to
+using gpio-keys everywhere needs some explanation. We have at least two
+other interfaces that would appear to be sufficient: GPIO chardev and
+sysfs.
 
-https://gcc.gnu.org/bugzilla/show_bug.cgi?id=3D80290
+What you've described reads to me like a case of the X-Y problem. This
+link is rather blunt, but it illustrates the issue:=C2=A0
 
-> =C2=A0=C2=A0=C2=A0=C2=A0* Power9 systems use OpenFSI and compiled applica=
-tion for processor
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0control instead of shell scripts.
+http://mywiki.wooledge.org/XyProblem
 
-As a note, pdbg has been "moved" to the debug tarball and is no-longer
-available on the system out-of-the-box.
+>=20
+> 2) Define a target with set of services that would be called into by the=
+=C2=A0
+> GPIO monitor application when the GPIO state changes to what is expected.
+>=20
+> =C2=A0 - 2.1) Another option was to just broadcast a signal that interest=
+ed=C2=A0
+> parties could catch and act
 
-> =C2=A0=C2=A0=C2=A0=C2=A0* Elimination of "debug mode" in favor of systemd=
- targets:
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- External FSI control fo=
-r Cronus is done by systemd targets.
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- Automatic reboot of the=
- host can be disabled independently
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0by systemd ta=
-rgets.=C2=A0=C2=A0This leaves the system in quiesce state
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0when the host=
--watchdog fail or checkstop detection occurs.
+I assume this is on D-Bus?
 
-Patrick: Do you have a link to documentation of these targets? Ideally
-these announcements would also provide these pointers.
+>  but then it was not chosen because there=C2=A0
+> would be no guarantee that the signal would ever be delivered / caught=C2=
+=A0
+> by needed parties.
 
-> =C2=A0=C2=A0=C2=A0=C2=A0* LED management is refactored out of 'skeleton' =
-and old
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/org/openbmc interfaces are removed.
-> =C2=A0=C2=A0=C2=A0=C2=A0* Soft power-off should be supported.
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- This allows the host OS=
- to gracefully shutdown on a power-off
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0request.
+Isn't this what systemd is for?
 
-Again, is there documentation?
+Isn't this what you gain by decoupling the monitoring from the
+handling? For instance if we're talking in abstract terms, the current
+system policy might be to not care about the state change.
+
+>=20
+> =C2=A0 - 2.2 ) Also going the signal way demands a service that just need=
+s to=C2=A0
+> watch for that.
+
+Is that the case? Can't we have one service handling multiple signals?
+Whether that's a good idea is another question.
+
+>=20
+> *) The services that are part of the target will then own complete=C2=A0
+> handling of the condition instead of the application that monitored the=
+=C2=A0
+> GPIO.
+
+Why are we decoupling the handler services from the GPIO? What is the
+advantage?
+
+The disadvantage is the behaviour of the system is much harder to
+understand. If we go this route, what tooling will be in place to debug
+failures of interactions between components?
+
+I would argue that this is already a significant hurdle in
+understanding integration failures on the BMC, and I would prefer not
+to add to the problems.
+
+>=20
+> ---------
+>=20
+> Here is an example of application that handles the GPIO assertion that=C2=
+=A0
+> happens when host does a checkstop.
+>=20
+> 1) Application's arguments need /dev/input/event<$number> and the=C2=A0
+> expected GPIO state as indicated by linux,code in :
+>=20
+> http://lxr.free-electrons.com/source/Documentation/devicetree/bindings/in=
+put/gpio-keys.txt
+
+There is a downside in that you will be creating a kernel ABI by
+mapping GPIO events to a keycode. This choice appears to me to be
+arbitrary, and from the kernel's perspective we don't know how
+userspace is going to treat the value so we lose the flexibility to
+change it if it's not. This isn't a show-stopper, but it sure feels
+like a wart that doesn't need to exist.
+
+>=20
+> 2) Call this app after reaching `Host-Running` state thus avoiding any=C2=
+=A0
+> checks to see current state.
+>=20
+> 2) App will then use libevdev wrappers to watch for the state
+
+It bothers me that we'd be invoking libevdev to catch an interrupt on a
+GPIO. It seems unnecessarily complex in general.
+
+>=20
+> 3) On seeing the expected state change, app calls into the configured=C2=
+=A0
+> target.
+>=20
+> 4) Configured target right now has 2 services.
+>=20
+> =C2=A0=C2=A0=C2=A0- 4.1 ) Service that Creates an errorlog indicating the=
+ checkstop
+> =C2=A0=C2=A0=C2=A0- 4.2 ) Service that will start the Quiesce target
+>=20
+> --------
+>=20
+> This design direction helps decouple applications that monitor and=C2=A0
+> analyze the conditions.
+
+Sure. But you need to describe the advantage of decoupling these
+concepts. Why do we need the abstraction? I need something more than
+"decoupling is good", because as described above it can lead to a lot
+of overhead trying to track down bugs. Sometimes it's a balancing act,
+and we need to understand what we're trading off.
 
 Cheers,
 
 Andrew
---=-PJbdsU7irGeFqIiamVSb
+--=-qPJqadywvtcUxHPsWRGg
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJY5tHRAAoJEJ0dnzgO5LT5qCUQAJleFVYS565xMZ8EE2t4Lbdm
-+mTDtFQBoQym0T8JQ3u88oUEGnmqufQssYVAW+P2IC9WxbP/nF6wdKVDgQqHEEAT
-v2vtQgD3mvhcG+vW5lpMEDaqotMJj2b9qvzAAn01Jh4MuvYa3lWxz6/s9nP94t3k
-9Pazr13o5oPXXfRwZhG8fx6XXunqige5J3DSyqm+wtphbbunJNowUHIs3M7k6duj
-4oNCwKlfhv9d8+pqwMBrIZs+vxrXjFkMbae7V8WwEUMWh4d28055ZrJRrZveDGCf
-9smD8G82u1jdacoiXR/DysxZpLG1waoXmktCmH3Lw2gSLMjVExb6vX7lODeQu37V
-mnBZlBW3K5qnjTHZRaIGiBIngFlNg4SnwhNYS1rEdcFmzDYu92TnCHaoDXrvcl6r
-IeomIk8aP5MXWPDyQjoklHOPkq0/5hBorN7GAZTvGwWqg88aZfJ6FmOw1BLW/l/5
-vij/Kh31NrTwQ101EGN5ndsc8eccZNkjaXqOBHNdjBomOgmrRSw36Mh4YHN1wTsn
-b3a28PkrvB32kF/4Vi1uRS8EkTYMM2bmRE048caEl/Hgy+1q9KB/QfkSVT1YPkYA
-s3X2Fo0kGGIgek/3Nrlo/QWBNvWjOfae6FveiJJWp5mVa2/CpAF0pg/a4q2vGBZ1
-clc0XpvFfJGRLjtmmzmD
-=Afms
+iQIcBAABCgAGBQJY5tncAAoJEJ0dnzgO5LT5mkcP/2RULL7mkiqhMzIJ3jZE+7PC
+mZzkhL2f0MOkpQF6q5Vtpvf+2+mF72tagRTyvH+Atcjlw0b6vVu7vxhYz+5G9+Nc
+njwb40/nB98HwCotV20Za667y4g7AGgMXzg3VZWIfnzDo0FgbGP8mwMpBQg73Pgv
+ph86wPmwkxE0La9FY/jUXQUf/px89Xie+WVyv9m1VsfDSCB1hfW3E/WJ/XcMAxcb
+FIsbmYYKO2k+9jA8IIUMRiDsntw35buwYGDP5zMsLGOzzCY6UAGEiLrf7Oh9416W
+KBCd0rYTDEl+PYLNiLWEvV+GsHttadLJuKlsDFlBuUjNDrRDX+DGFBWlBgcC6ARC
+K27AlBscj8AdSztABgYXcsihppMctQL+Y+7o5JYr6RxH8/xXIedAPymxzCtFj5GR
+kBT8fB9xzE8KZNs4eb1R7tiPDcDSYyMhkzr8lo7Ezf4kw5OYFS2e0RzW03cQheXl
+RkJ0GTUi05in61YJG23OGQPXVPQKi02AwELWtZa9Ak36dYektEg8h8IqAFWDfb20
+Gx9C/i1URd27zfs9b7zUh19kmIfgaDljk/XgI5OcctklCLOwBIe7qjtTAJcuOg3y
+niRlkIGkteL25XpaHm/KhgXSRCzWCFiQEh7EHRrdyFitfhviJkJETADe/d7lSLp5
+e0m90am/BSTIAaVFEX7E
+=/0l9
 -----END PGP SIGNATURE-----
 
---=-PJbdsU7irGeFqIiamVSb--
+--=-qPJqadywvtcUxHPsWRGg--
