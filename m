@@ -1,51 +1,56 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x229.google.com (mail-yb0-x229.google.com
- [IPv6:2607:f8b0:4002:c09::229])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vzwmW5KSdzDqHl
- for <openbmc@lists.ozlabs.org>; Fri,  7 Apr 2017 20:29:15 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3w003Z50X6zDqJX
+ for <openbmc@lists.ozlabs.org>; Fri,  7 Apr 2017 22:57:30 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="FLDaXJbU"; 
- dkim-atps=neutral
-Received: by mail-yb0-x229.google.com with SMTP id f204so16025091ybc.2
- for <openbmc@lists.ozlabs.org>; Fri, 07 Apr 2017 03:29:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:from:date:message-id:subject:to:cc;
- bh=4wdGpply6VoCVDD9E/FTfRdj9N73X+NWI7s0xQIZAm8=;
- b=FLDaXJbUGENOXJImy2h1wN2w09OOOuAHRz66+wdVr++QGWA3Qtm9lR4RXfyXyI99ub
- djCm437dHN08Pgfo9wptBAMUkE2McSHCVBOcuYDipYUKe5Fh/dM48H5KZEo/UqkApjqm
- CDd8XElDD7S7bN5MxNT4EE6YMHpD7S+siHjXCom8MatJsDXH3AxJ99c8pWPlWHB87cqP
- aGtcxPNi/vK5Mq6WkUp/RX4o0eesxV3EaKwGa/ZtAAti9QDw9JjAKQ8nZZBWkp9lNPc7
- +Xzm86gmsUVwQPIqLZiPsh+x36O+60KU2row2UEqwDc9MgDVz625IW3x9tHQfP5vd0li
- l1LA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
- :to:cc;
- bh=4wdGpply6VoCVDD9E/FTfRdj9N73X+NWI7s0xQIZAm8=;
- b=ll+FlsIRpwH37XC8JO1xIlH8mnQUDQPKptn+8KV57V3VOi52LYRLNLtOdM+Lf7MUL3
- Lvw1QppYtguEedoyMcp9zrWpsiTIh4DYXuICG8Ca0XOin/JsYbOLFACfR7aMwkAxKNau
- yL4UpwzZNW1KE+CLG5Ykz+KoX9hoSSOd+ylnx9KgtPbRoKB0kRbYB74n07U7bXoP5HBb
- U8yA6GqZiy4JpmHctVDWKRBqSl6czyRrEB6LwtCDpUWWGn7A56Tcz38/OaBwp/57Xcnm
- i0EXtj0Uc5HMCNGQNEv/3JL4UK2xlguQxXL+l5xyw4rY48ZzWUmbTWFcuHYWJnLbhP8U
- DH4g==
-X-Gm-Message-State: AFeK/H0cFoqClqOJvpiA0oR15+E7yHsGa8tIpELtoeaXByHUdqugjdX0FMX3pl6imMfI6DMFLLh/61tsgCBBvA==
-X-Received: by 10.37.70.66 with SMTP id t63mr25626053yba.196.1491560953068;
- Fri, 07 Apr 2017 03:29:13 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.20.87 with HTTP; Fri, 7 Apr 2017 03:28:52 -0700 (PDT)
-From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 7 Apr 2017 19:58:52 +0930
-X-Google-Sender-Auth: 31tp9wJkI9ZNH83a6jvCBAg6xVU
-Message-ID: <CACPK8XfnZN6j85b+YfNMvh4RkiT3mtMxw5GHX5Javo4-ZBXbuQ@mail.gmail.com>
-Subject: Aspeed for-next pushed for 4.12
-To: Andrew Jeffery <andrew@aj.id.au>,
- =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
- Rick Altherr <raltherr@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=001a113c3dfec4f560054c91180f
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="saXJ7/d7"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="aB9aD3p1"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 8E05F206FC;
+ Fri,  7 Apr 2017 08:57:28 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Fri, 07 Apr 2017 08:57:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :date:from:message-id:subject:to:x-me-sender:x-me-sender
+ :x-sasl-enc:x-sasl-enc; s=fm1; bh=3FJ8eqItLI1WfcGC1aBOpxnTnpYPP2
+ aV+ckgbxyy1N8=; b=saXJ7/d7LvkR7dGAPqIn4pVvbi+PxEcFGZ/AkQG92NIYc+
+ IAfrNy1McgHDz/dljKA3hJNGlXQZHYgOXo5zQLqOrdjYrSQei3LHNDD1zJZtiNWh
+ NZaMYhY5sFklNtz0ITFO6SLcio/dYNbYo88BuC52NFQpSepp/PaS09VAKA6cRlV6
+ /hXMyLPzM0E4vfB2rNBNbdf+k6AnoAxY6EauItM/kfQDPzsvx/1DC3ukeCrzahFr
+ Sw8Wm4+UCAgY8l4m3H2pt5HcZhMHpGxXHR0Acdyp3ZPSjVFgrFUcPrYEUUII7M3n
+ cKXI3uVsDMGDktp4PA9M0nJALtGHZxS1B9WuMVVA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=3FJ8eq
+ ItLI1WfcGC1aBOpxnTnpYPP2aV+ckgbxyy1N8=; b=aB9aD3p1cV210tA3JsSPPv
+ HP+MipYxwBojd6OWfSKDcw4Q42G+7PgvxIzWFOs+FV1YWAZ+lCP0fMj2Aha/8Hx8
+ mm3DSD8az4Yh0NWO4Fhnjj09WyiPVkQ0vivvk57arqyPOsKiSbT4Xg1yhc0XrLSo
+ oLsGYjPzodqEvOlyTLgagbRfUss4hIeOwqqpfx0sC1sKB1/qDykiABA460pekRUQ
+ 47hw2YvA+7hxZSedYNGLBolungkAlUUu70Wbn9rHM49AdDWGJv9qao4lvlMu8m3z
+ ewnSpiqHpHrzyyphh31bE49OKCYdKEDqei5jlmPNrrDfCsfgabpOtSyCycd+x+/A
+ ==
+X-ME-Sender: <xms:uIznWGZ39CHOy7eC0XNbVDZIOPnNO3flirTENDMPKDz_DKaPaNPnVQ>
+X-Sasl-enc: QEgb9VxJ2nXUO48E61a2swYvskArbQiIWtS4Bh8Li774 1491569847
+Received: from keelia.au.ibm.com (ppp203-122-213-247.static.internode.on.net
+ [203.122.213.247])
+ by mail.messagingengine.com (Postfix) with ESMTPA id D2E977E669;
+ Fri,  7 Apr 2017 08:57:24 -0400 (EDT)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Linus Walleij <linus.walleij@linaro.org>
+Cc: Andrew Jeffery <andrew@aj.id.au>, Rob Herring <robh+dt@kernel.org>,
+ Joel Stanley <joel@jms.id.au>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+Subject: [PATCH v2 0/4] pinctrl: aspeed: Add initial pinconf support
+Date: Fri,  7 Apr 2017 22:27:09 +0930
+Message-Id: <20170407125713.15678-1-andrew@aj.id.au>
+X-Mailer: git-send-email 2.9.3
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,50 +62,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Apr 2017 10:29:16 -0000
+X-List-Received-Date: Fri, 07 Apr 2017 12:57:32 -0000
 
---001a113c3dfec4f560054c91180f
-Content-Type: text/plain; charset=UTF-8
+Hi Linus,
 
-Here's a merge of the changes I will be sending to the arm maintainers for
-inclusion in 4.12.
+v2 breaks the pinconf patch for the Aspeed pin controller out into a series,
+adding explicit documentation to the devicetree bindings and breaking out
+changes to the core from those to the SoC drivers.
 
-https://git.kernel.org/pub/scm/linux/kernel/git/joel/aspeed.git/log/?h=for-next
-
-I've done plenty of testing of this merged into linux-next. Feel free to
-take a look and/or use it in your testing.
-
-If you're booting this kernel from a cold power on, note that the ADC
-driver won't work without resetting the AHB bridge:
-
-devmem 0x1e6e200c 32 0x2
-
-On the dev- kernels we have a reset in the aspeed_init_early code path. We
-need to work out why that's the case, and add it to upstream if it's
-required.
+The changes also address review comments from Joel.
 
 Cheers,
 
-Joel
+Andrew
 
---001a113c3dfec4f560054c91180f
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Andrew Jeffery (4):
+  pinctrl: aspeed: Document pinconf in devicetree bindings
+  pinctrl: aspeed: Add core pinconf support
+  pinctrl: aspeed: g4: Add pinconf support
+  pinctrl: aspeed: g5: Add pinconf support
 
-<div dir=3D"ltr"><div dir=3D"auto">Here&#39;s a merge of the changes I will=
- be sending to the arm maintainers for inclusion in 4.12.<div dir=3D"auto">=
-<br></div><div dir=3D"auto"><a href=3D"https://git.kernel.org/pub/scm/linux=
-/kernel/git/joel/aspeed.git/log/?h=3Dfor-next">https://git.kernel.org/pub/s=
-cm/linux/kernel/git/joel/aspeed.git/log/?h=3Dfor-next</a><br></div><div dir=
-=3D"auto"><br></div><div>I&#39;ve done plenty of testing of this merged int=
-o linux-next. Feel free to take a look and/or use it in your testing.</div>=
-<div><br></div><div>If you&#39;re booting this kernel from a cold power on,=
- note that the ADC driver won&#39;t work without resetting the AHB bridge:<=
-/div><div><br></div><div>devmem 0x1e6e200c 32 0x2</div><div><br></div><div>=
-On the dev- kernels we have a reset in the aspeed_init_early code path. We =
-need to work out why that&#39;s the case, and add it to upstream if it&#39;=
-s required.</div><div><br></div><div>Cheers,</div><div><br></div><div>Joel<=
-/div></div>
-</div>
+ .../devicetree/bindings/pinctrl/pinctrl-aspeed.txt |  40 +++-
+ drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c         | 117 +++++++++++-
+ drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c         | 153 ++++++++++++++-
+ drivers/pinctrl/aspeed/pinctrl-aspeed.c            | 211 +++++++++++++++++++++
+ drivers/pinctrl/aspeed/pinctrl-aspeed.h            |  28 +++
+ 5 files changed, 538 insertions(+), 11 deletions(-)
 
---001a113c3dfec4f560054c91180f--
+-- 
+2.9.3
