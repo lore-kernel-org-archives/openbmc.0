@@ -1,27 +1,44 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Return-Path: <jic23@kernel.org>
+Received: from saturn.retrosnub.co.uk (saturn.retrosnub.co.uk [178.18.118.26])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3w06Zc4zDNzDqJh
- for <openbmc@lists.ozlabs.org>; Sat,  8 Apr 2017 03:51:20 +1000 (AEST)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1491587477044667.9477498995046;
- Fri, 7 Apr 2017 10:51:17 -0700 (PDT)
-Date: Fri, 7 Apr 2017 12:51:16 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: Release v1.99.4
-Message-ID: <20170407175116.GB10151@heinlein.lan>
-References: <20170406203333.y44jjya7zmb4hg4h@asimov>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3w0hPk0VpPzDqHq
+ for <openbmc@lists.ozlabs.org>; Sun,  9 Apr 2017 02:15:38 +1000 (AEST)
+Received: from localhost.localdomain
+ (cpc91196-cmbg18-2-0-cust659.5-4.cable.virginm.net [81.96.234.148])
+ by saturn.retrosnub.co.uk (Postfix;
+ Retrosnub mail submission) with ESMTPSA id 4951940621; 
+ Sat,  8 Apr 2017 17:15:30 +0100 (BST)
+Subject: Re: [PATCH v5 2/2] iio: Aspeed ADC
+To: Stephen Boyd <sboyd@codeaurora.org>
+References: <20170328215259.31622-1-raltherr@google.com>
+ <20170328215259.31622-2-raltherr@google.com>
+ <d05cadfe-e3d3-f4e8-129f-19dcd2f637da@kernel.org>
+ <20170405215046.GE7065@codeaurora.org>
+Cc: Rick Altherr <raltherr@google.com>, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, William Breathitt Gray
+ <vilhelm.gray@gmail.com>, Michael Turquette <mturquette@baylibre.com>,
+ Andreas Klinger <ak@it-klinger.de>, Rob Herring <robh@kernel.org>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ Quentin Schulz <quentin.schulz@free-electrons.com>,
+ linux-iio@vger.kernel.org, Zhiyong Tao <zhiyong.tao@mediatek.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Lars-Peter Clausen <lars@metafoo.de>,
+ Raveendra Padasalagi <raveendra.padasalagi@broadcom.com>,
+ Scott Branden <scott.branden@broadcom.com>,
+ Crestez Dan Leonard <leonard.crestez@intel.com>,
+ Akinobu Mita <akinobu.mita@gmail.com>,
+ Fabrice Gasnier <fabrice.gasnier@st.com>, Hartmut Knaack <knaack.h@gmx.de>,
+ linux-clk@vger.kernel.org
+From: Jonathan Cameron <jic23@kernel.org>
+Message-ID: <b1919652-4db7-0373-278b-483357968e7e@kernel.org>
+Date: Sat, 8 Apr 2017 17:15:29 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.8.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="8GpibOaaTibBMecb"
-Content-Disposition: inline
-In-Reply-To: <20170406203333.y44jjya7zmb4hg4h@asimov>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
-X-ZohoMailClient: External
+In-Reply-To: <20170405215046.GE7065@codeaurora.org>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -33,46 +50,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Apr 2017 17:51:21 -0000
+X-List-Received-Date: Sat, 08 Apr 2017 16:15:38 -0000
 
+On 05/04/17 22:50, Stephen Boyd wrote:
+> On 04/01, Jonathan Cameron wrote:
+>> On 28/03/17 22:52, Rick Altherr wrote:
+>>> Aspeed BMC SoCs include a 16 channel, 10-bit ADC. Low and high threshold
+>>> interrupts are supported by the hardware but are not currently implemented.
+>>>
+>>> Signed-off-by: Rick Altherr <raltherr@google.com>
+>> Two really trivial things inline. I'll fix them whilst applying rather than
+>> having you do a v6 - please do sanity check I haven't messed it up though!
+>>
+>> Applied to the togreg branch of iio.git and pushed out as testing for
+>> the autobuilders to play with it.
+>>
+> 
+> Oh I was too late. Blame work. Anyway, I made some comments on
+> v4. If they're fixed in a later patch or discussed on list that's
+> fine. No worries on my end.
+> 
+Oops. I went a bit quick on this one I guess.
 
---8GpibOaaTibBMecb
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Anyhow, from a quick read of your comments I'm not sure if any of
+them are such that we should revert.  Perhaps we Rick can prepare
+a follow up patch covering them?  I got a little lost so am not
+sure but if there is anything effecting bindings Rick, please
+get this through asap or let me know if we need to revert for now.
+Even if it is a case of adding a bit of binding and following up
+with the code using it a bit later.
 
-On Thu, Apr 06, 2017 at 03:33:33PM -0500, Patrick Williams wrote:
->     * Support BMC reboot while Host is kept running.
->         - The systemd target support for this was completed, but some
->           systems may still have trouble successfully coming out of a
->           reboot.
+I'd asked for input on the clock stuff then forgot all about it on
+the later version. Sorry about that!
 
-As I reviewed some commits still in Gerrit today, I realized this might
-not be as complete as I thought it was.  Look for this to be fully baked
-in v1.99.5.
-
---=20
-Patrick Williams
-
---8GpibOaaTibBMecb
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAljn0ZQACgkQqwNHzC0A
-wRkr8Q/+PlVUahV1+Swbe7lPfjvaBkNGeyXlHo8FgpzyGcHYrysjekAX9QyKAoqs
-4Vz9V2nMn2lohAV2NxS/UE4dqPhDYIbYGVotxMkHdkHN1SLe+5f3wExGTL6wCTSd
-p26y9PDLNEyynWtdc5UN1Ll2mF4wqawnJO9IVMNRBgV9/Njj/jAoojFqQhdToki1
-Q9Vz0QYuTWAEboNBsU1zXse/XEFNl3hvShgXGFCPrk5lYcJ1f0VvtOlLyD9GV8H3
-B7KInNrvbLipPiQve6sfaqcN75mw0d5HApKokrMe7YOEH6kKektl5qhewjQx4pBN
-nxoI4saQHoYJuB2kyM84GUwGDHeahmVIxBTMm70vncKBwm3xvYRFNUE26gdqG8MG
-iF4PnLdWVt3zLwsNHmLx5S2sd6hVE3sr2ZNOm4eH5ZLtZVLKjFCLbAgE+hpQfcM8
-/NCdscCeD+NT6ZvX8PmeSmk3LkY0mxFlaBiX9IVSptgVYSic10Y+2Nht4CH2j0SD
-R4jjoHYHX3Nd4U4Iz6cQtJI3sRN2nVzeThQIfQxTRVJYfcbALJGs2Drs/ioBExH1
-1gSOTb0ykXqkebgYf6y1kDOxGeWloM12JNHq1lUrUOxS2tfzzXmWkAR8God1AbLX
-IF0TVwGfsbv0dgpAirAsI2fKvayuATeibP9MVUqs4rTRZaZU644=
-=Dyta
------END PGP SIGNATURE-----
-
---8GpibOaaTibBMecb--
+Jonathan
