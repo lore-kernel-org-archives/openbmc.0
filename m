@@ -1,44 +1,62 @@
-Return-Path: <jic23@kernel.org>
-Received: from saturn.retrosnub.co.uk (saturn.retrosnub.co.uk [178.18.118.26])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yb0-x242.google.com (mail-yb0-x242.google.com
+ [IPv6:2607:f8b0:4002:c09::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3w0hPk0VpPzDqHq
- for <openbmc@lists.ozlabs.org>; Sun,  9 Apr 2017 02:15:38 +1000 (AEST)
-Received: from localhost.localdomain
- (cpc91196-cmbg18-2-0-cust659.5-4.cable.virginm.net [81.96.234.148])
- by saturn.retrosnub.co.uk (Postfix;
- Retrosnub mail submission) with ESMTPSA id 4951940621; 
- Sat,  8 Apr 2017 17:15:30 +0100 (BST)
-Subject: Re: [PATCH v5 2/2] iio: Aspeed ADC
-To: Stephen Boyd <sboyd@codeaurora.org>
-References: <20170328215259.31622-1-raltherr@google.com>
- <20170328215259.31622-2-raltherr@google.com>
- <d05cadfe-e3d3-f4e8-129f-19dcd2f637da@kernel.org>
- <20170405215046.GE7065@codeaurora.org>
-Cc: Rick Altherr <raltherr@google.com>, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, William Breathitt Gray
- <vilhelm.gray@gmail.com>, Michael Turquette <mturquette@baylibre.com>,
- Andreas Klinger <ak@it-klinger.de>, Rob Herring <robh@kernel.org>,
- Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
- Quentin Schulz <quentin.schulz@free-electrons.com>,
- linux-iio@vger.kernel.org, Zhiyong Tao <zhiyong.tao@mediatek.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Lars-Peter Clausen <lars@metafoo.de>,
- Raveendra Padasalagi <raveendra.padasalagi@broadcom.com>,
- Scott Branden <scott.branden@broadcom.com>,
- Crestez Dan Leonard <leonard.crestez@intel.com>,
- Akinobu Mita <akinobu.mita@gmail.com>,
- Fabrice Gasnier <fabrice.gasnier@st.com>, Hartmut Knaack <knaack.h@gmx.de>,
- linux-clk@vger.kernel.org
-From: Jonathan Cameron <jic23@kernel.org>
-Message-ID: <b1919652-4db7-0373-278b-483357968e7e@kernel.org>
-Date: Sat, 8 Apr 2017 17:15:29 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.8.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3w1ZrN2XYlzDq7Z
+ for <openbmc@lists.ozlabs.org>; Mon, 10 Apr 2017 13:08:19 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="rkqt81RK"; 
+ dkim-atps=neutral
+Received: by mail-yb0-x242.google.com with SMTP id k6so4541677ybk.2
+ for <openbmc@lists.ozlabs.org>; Sun, 09 Apr 2017 20:08:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=l5FotMJY3oQ2ABxKdvsaWfyd5Z2ei4tPZKyUop8Qmtg=;
+ b=rkqt81RK2T8DG0kX/JfsJNITPXWlTIqWjRmD+JCzG0m8LbCn3IqqJtKMySlWVQSW4q
+ Sm2nC3ShBKP/v3aTpZwol3pIFH1OdD8uvFIVNfF+MWBv+1zczy5Nd4Q7i2U0eM+SxJrJ
+ yeIyp15bGIYSEPTU2Ytmv1UEoHABYKBqUVuFwl//JUA/dKcWTkYzEl0as0DWP9AJc7JY
+ h8hYnOY4BiV1VhJRf5aW2d+mL8wjxnlQlspi1pzv3VXSESHBuBqXZEsuUMxiltw+FLMQ
+ MlUSTC6qaV49/8UOswo/Dapz6oUJY9/5qNr6aLqvhNTcjgnn69LZUKLR1NnmFSwcp5f+
+ xT+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=l5FotMJY3oQ2ABxKdvsaWfyd5Z2ei4tPZKyUop8Qmtg=;
+ b=bB8BclEm1p+IoegYhZnfMxYDQGFxVrPjxXxJO7DfI2MtzwLbpQOzFm+zE15L/L7LYq
+ fKkn01ViUuI2cr4tu/Vis273EQW4dtudzdW9NM0D1GBTi+RLi3d2J3V5yY6t5NqRnuR1
+ HRZUvqQExMe27Xgm3jNzNcxU+rnf+IhNx5QMQIq515MCeKJzqakSZRurR7Y7A3l1Xnli
+ ADWF0mYRIneBxwmaBBCwq2dugln/UOi+FaFbc0WN9qLP24M5Sp4YgaEcb1+AJXvn3T4j
+ 6Ne/HRwqJnIyP/AwJOmBYFaBZokEg6dUwh2baPFjkDZMZVBU0J++iIdCUZ8JCO7erXYP
+ NVeA==
+X-Gm-Message-State: AFeK/H2ZaIuQFOIEc+uVgAehxNUWJieyUQU30xMSnLpQNAoBKDHZ7UceAE5k9C8bThOrJKrZtRchccECo4NB8w==
+X-Received: by 10.129.71.198 with SMTP id u189mr37103116ywa.174.1491793697430; 
+ Sun, 09 Apr 2017 20:08:17 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20170405215046.GE7065@codeaurora.org>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
+Sender: joel.stan@gmail.com
+Received: by 10.37.20.87 with HTTP; Sun, 9 Apr 2017 20:07:57 -0700 (PDT)
+In-Reply-To: <CAHp75VckYiBccVN+_K+Tm38kcdC10=sekQZg7Uz_HwS4xyW2UA@mail.gmail.com>
+References: <20170405040352.5661-1-joel@jms.id.au>
+ <20170405040352.5661-3-joel@jms.id.au>
+ <CAHp75VckYiBccVN+_K+Tm38kcdC10=sekQZg7Uz_HwS4xyW2UA@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 10 Apr 2017 12:37:57 +0930
+X-Google-Sender-Auth: VFrmANaBLewtXxTatZ3a2a-iIJc
+Message-ID: <CACPK8XfJT-sGuTwDDSxevm50DLzh5qJ3+qa4qiA6f3enC6r_iw@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] drivers/serial: Add driver for Aspeed virtual UART
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jslaby@suse.com>, 
+ Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh+dt@kernel.org>,
+ Jeremy Kerr <jk@ozlabs.org>, 
+ "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ devicetree <devicetree@vger.kernel.org>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -50,37 +68,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 08 Apr 2017 16:15:38 -0000
+X-List-Received-Date: Mon, 10 Apr 2017 03:08:21 -0000
 
-On 05/04/17 22:50, Stephen Boyd wrote:
-> On 04/01, Jonathan Cameron wrote:
->> On 28/03/17 22:52, Rick Altherr wrote:
->>> Aspeed BMC SoCs include a 16 channel, 10-bit ADC. Low and high threshold
->>> interrupts are supported by the hardware but are not currently implemented.
->>>
->>> Signed-off-by: Rick Altherr <raltherr@google.com>
->> Two really trivial things inline. I'll fix them whilst applying rather than
->> having you do a v6 - please do sanity check I haven't messed it up though!
->>
->> Applied to the togreg branch of iio.git and pushed out as testing for
->> the autobuilders to play with it.
->>
-> 
-> Oh I was too late. Blame work. Anyway, I made some comments on
-> v4. If they're fixed in a later patch or discussed on list that's
-> fine. No worries on my end.
-> 
-Oops. I went a bit quick on this one I guess.
+On Wed, Apr 5, 2017 at 8:24 PM, Andy Shevchenko
+<andy.shevchenko@gmail.com> wrote:
+> On Wed, Apr 5, 2017 at 7:03 AM, Joel Stanley <joel@jms.id.au> wrote:
+>
+>> +       port.port.irq = irq_of_parse_and_map(np, 0);
+>
+> Isn't better to get this via platform_get_irq() ?
 
-Anyhow, from a quick read of your comments I'm not sure if any of
-them are such that we should revert.  Perhaps we Rick can prepare
-a follow up patch covering them?  I got a little lost so am not
-sure but if there is anything effecting bindings Rick, please
-get this through asap or let me know if we need to revert for now.
-Even if it is a case of adding a bit of binding and following up
-with the code using it a bit later.
+I can't see the benefit.
 
-I'd asked for input on the clock stuff then forgot all about it on
-the later version. Sorry about that!
+>
+>> +       port.port.irqflags = IRQF_SHARED;
+>> +       port.port.iotype = UPIO_MEM;
+>
+>> +       if (of_property_read_u32(np, "reg-io-width", &prop) == 0) {
+>
+> I would still go with usual pattern.
+>
+>> +               switch (prop) {
+>> +               case 1:
+>> +                       port.port.iotype = UPIO_MEM;
+>> +                       break;
+>> +               case 4:
+>
+>> +                       port.port.iotype = of_device_is_big_endian(np) ?
+>> +                                      UPIO_MEM32BE : UPIO_MEM32;
+>
+> Hmm... And this one is not in align with IO accessors used in this
+> driver. (readx()/writex() are little endian IO accessors).
 
-Jonathan
+We only perform readb/writeb, however you raise a good point that
+we're assuming LE in the register layout. I will remove checking of this
+optional property.
+
+I will send v3 with the other cleanups you mentioned.
+
+Cheers,
+
+Joel
+
+>
+>> +                       break;
+>> +               default:
+>> +                       dev_warn(&pdev->dev, "unsupported reg-io-width (%d)\n",
+>> +                                prop);
+>> +                       rc = -EINVAL;
+>> +                       goto err_clk_disable;
+>> +               }
+>> +       }
+>> +
