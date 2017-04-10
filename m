@@ -1,68 +1,62 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-wr0-x229.google.com (mail-wr0-x229.google.com
- [IPv6:2a00:1450:400c:c0c::229])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <cbostic@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3w1wkk4HNfzDq5b
- for <openbmc@lists.ozlabs.org>; Tue, 11 Apr 2017 02:34:37 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="XH/IZm+/"; 
- dkim-atps=neutral
-Received: by mail-wr0-x229.google.com with SMTP id l28so23244258wre.0
- for <openbmc@lists.ozlabs.org>; Mon, 10 Apr 2017 09:34:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=0TsIWBoNPmVC9QNXbk920MHMtb+mu/2tXcsVFYyuaLE=;
- b=XH/IZm+/FApnmp1dxeGhW8sMMUymA0CGb9YokZAgH6U/Xn7ZXmIh4pRVelelXyfP0D
- UL87ZdTKXTXjgMaogZwhZxBK8oyqQAq6udD00q7cFRWp1zmjdRVZY09jrjG7kcEaoKj5
- +IZ/4MZXJ58/0NQiQh82mqfuktONVxZCDySq+W09fn1h/EUcndBcoJde+VfyTvHHuy7x
- ey1WYG6qPfamPWgS/jK+tpaGAjd9e3jhOZEPweT2m6ey3EqA7tKPynNnFk+D9GkG56Tv
- vO0uSRn4ZbbkFRdMqFwRDj4/3XNLj+RbQ3YniOdQjAqqO2zQofs8CUCegsOK/04jKxXm
- Uo6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=0TsIWBoNPmVC9QNXbk920MHMtb+mu/2tXcsVFYyuaLE=;
- b=DGVASkRB/RqMqHU2Yi6GnOtOIExDANfc4Flc1pBTZJP95LRDm6pBYfCv7oaiPIX1vx
- 2gd4nWXINqwJs2VDSsDikdO/qeCSJlBLzNG2rYQzNdVQEEb3ivlsyJemOO1kPvaEtey4
- OhtZOZcCyguHYrTXxGr6vlmChJPN337BxgYnaILRtRq+WNiEK9NHs8HcRCsFcLA/GGTE
- YvdrmqXkxEXniz5tOcDUqyDas+tBgzV7OTVeINLtRVO/JQZvK5DHWxYc5OYz++VBY78d
- izeY7LjeHYdlYdekMExOpGHT7cftg6qHW0b4zVxJJo5B1An4swoF18OsKq20cSxms9+k
- F1Lg==
-X-Gm-Message-State: AN3rC/4jR/MzJmYmnonF2bdrxblgfDGSla1i5Q4jddvRrI5iNG7aeK6n40KmKdLk9NaDQXsjkmMWjz5Ub6p7ed/1
-X-Received: by 10.223.161.222 with SMTP id v30mr16075242wrv.132.1491842074795; 
- Mon, 10 Apr 2017 09:34:34 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.28.184.195 with HTTP; Mon, 10 Apr 2017 09:34:33 -0700 (PDT)
-In-Reply-To: <b1919652-4db7-0373-278b-483357968e7e@kernel.org>
-References: <20170328215259.31622-1-raltherr@google.com>
- <20170328215259.31622-2-raltherr@google.com>
- <d05cadfe-e3d3-f4e8-129f-19dcd2f637da@kernel.org>
- <20170405215046.GE7065@codeaurora.org>
- <b1919652-4db7-0373-278b-483357968e7e@kernel.org>
-From: Rick Altherr <raltherr@google.com>
-Date: Mon, 10 Apr 2017 09:34:33 -0700
-Message-ID: <CAPLgG=kQ-ZaG5W46A8sdtMdOGk7-8jpqTtFNTE_OwfnsYXhC9A@mail.gmail.com>
-Subject: Re: [PATCH v5 2/2] iio: Aspeed ADC
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Stephen Boyd <sboyd@codeaurora.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- William Breathitt Gray <vilhelm.gray@gmail.com>,
- Michael Turquette <mturquette@baylibre.com>, 
- Andreas Klinger <ak@it-klinger.de>, Rob Herring <robh@kernel.org>, 
- Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
- Quentin Schulz <quentin.schulz@free-electrons.com>, 
- linux-iio@vger.kernel.org, Zhiyong Tao <zhiyong.tao@mediatek.com>, 
- Geert Uytterhoeven <geert@linux-m68k.org>, Lars-Peter Clausen <lars@metafoo.de>,
- Raveendra Padasalagi <raveendra.padasalagi@broadcom.com>, 
- Scott Branden <scott.branden@broadcom.com>, 
- Crestez Dan Leonard <leonard.crestez@intel.com>,
- Akinobu Mita <akinobu.mita@gmail.com>, 
- Fabrice Gasnier <fabrice.gasnier@st.com>, Hartmut Knaack <knaack.h@gmx.de>,
- linux-clk@vger.kernel.org
-Content-Type: multipart/alternative; boundary=f403045f155eee357f054cd28c53
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3w1yWy2xBdzDq5b
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Apr 2017 03:55:26 +1000 (AEST)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v3AHsMFi073917
+ for <openbmc@lists.ozlabs.org>; Mon, 10 Apr 2017 13:55:18 -0400
+Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 29rbx8rn3m-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 10 Apr 2017 13:55:18 -0400
+Received: from localhost
+ by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Mon, 10 Apr 2017 11:55:17 -0600
+Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
+ by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Mon, 10 Apr 2017 11:55:15 -0600
+Received: from b03ledav003.gho.boulder.ibm.com
+ (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
+ by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v3AHtEE611010474; Mon, 10 Apr 2017 10:55:14 -0700
+Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 806866A03F;
+ Mon, 10 Apr 2017 11:55:14 -0600 (MDT)
+Received: from Christophers-MacBook-Pro.local.com (unknown [9.83.2.23])
+ by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP id B85706A03D;
+ Mon, 10 Apr 2017 11:55:12 -0600 (MDT)
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+To: joel@jms.id.au
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.7] drivers/fsi: FSI protocol updates to improve
+ reliability
+Date: Mon, 10 Apr 2017 12:55:06 -0500
+X-Mailer: git-send-email 2.10.1 (Apple Git-78)
+X-TM-AS-GCONF: 00
+x-cbid: 17041017-0008-0000-0000-000007966AB8
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006912; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000208; SDB=6.00845652; UDB=6.00417035; IPR=6.00624086; 
+ BA=6.00005281; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014995; XFM=3.00000013;
+ UTC=2017-04-10 17:55:15
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17041017-0009-0000-0000-0000415E987C
+Message-Id: <20170410175506.62007-1-cbostic@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-04-10_14:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
+ definitions=main-1704100141
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -74,111 +68,87 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Apr 2017 16:34:39 -0000
+X-List-Received-Date: Mon, 10 Apr 2017 17:55:27 -0000
 
---f403045f155eee357f054cd28c53
-Content-Type: text/plain; charset=UTF-8
+Re-order delays in the clock toggle from: delay clock 0, delay,
+clock 1 to clock 0, delay, clock 1, delay.  Allows removal of
+delay added just prior to sampling SDA line for SDA input.
 
-I don't believe there are any bindings changes or a need to revert.
-Stephen's suggested changes are small improvements that make the driver
-suitable for non-DT platforms (not an issue anytime soon) and help with a
-planned refactor of the clk_hw structure.  I'll send out follow-up changes
-when Stephen and I have reached consensus on how to resolve the latter
-improvement.
+Slow down the delay period from 1ns to 3us.  The original 1ns
+delay was actually 1-2 us based on real time measurements so
+this isn't a factor of 3000x slowdown.
 
-On Sat, Apr 8, 2017 at 9:15 AM, Jonathan Cameron <jic23@kernel.org> wrote:
+Removed echo delay on send command as its not needed.
 
-> On 05/04/17 22:50, Stephen Boyd wrote:
-> > On 04/01, Jonathan Cameron wrote:
-> >> On 28/03/17 22:52, Rick Altherr wrote:
-> >>> Aspeed BMC SoCs include a 16 channel, 10-bit ADC. Low and high
-> threshold
-> >>> interrupts are supported by the hardware but are not currently
-> implemented.
-> >>>
-> >>> Signed-off-by: Rick Altherr <raltherr@google.com>
-> >> Two really trivial things inline. I'll fix them whilst applying rather
-> than
-> >> having you do a v6 - please do sanity check I haven't messed it up
-> though!
-> >>
-> >> Applied to the togreg branch of iio.git and pushed out as testing for
-> >> the autobuilders to play with it.
-> >>
-> >
-> > Oh I was too late. Blame work. Anyway, I made some comments on
-> > v4. If they're fixed in a later patch or discussed on list that's
-> > fine. No worries on my end.
-> >
-> Oops. I went a bit quick on this one I guess.
->
-> Anyhow, from a quick read of your comments I'm not sure if any of
-> them are such that we should revert.  Perhaps we Rick can prepare
-> a follow up patch covering them?  I got a little lost so am not
-> sure but if there is anything effecting bindings Rick, please
-> get this through asap or let me know if we need to revert for now.
-> Even if it is a case of adding a bit of binding and following up
-> with the code using it a bit later.
->
-> I'd asked for input on the clock stuff then forgot all about it on
-> the later version. Sorry about that!
->
-> Jonathan
->
+Removed the 100x prime clocks after command and now send 50x
+clocks prior to command as is done by the pdbg tool.
 
---f403045f155eee357f054cd28c53
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+---
+ drivers/fsi/fsi-master-gpio.c | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
 
-<div dir=3D"ltr">I don&#39;t believe there are any bindings changes or a ne=
-ed to revert.=C2=A0 Stephen&#39;s suggested changes are small improvements =
-that make the driver suitable for non-DT platforms (not an issue anytime so=
-on) and help with a planned refactor of the clk_hw structure.=C2=A0 I&#39;l=
-l send out follow-up changes when Stephen and I have reached consensus on h=
-ow to resolve the latter improvement.</div><div class=3D"gmail_extra"><br><=
-div class=3D"gmail_quote">On Sat, Apr 8, 2017 at 9:15 AM, Jonathan Cameron =
-<span dir=3D"ltr">&lt;<a href=3D"mailto:jic23@kernel.org" target=3D"_blank"=
->jic23@kernel.org</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote=
-" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><=
-span class=3D"">On 05/04/17 22:50, Stephen Boyd wrote:<br>
-&gt; On 04/01, Jonathan Cameron wrote:<br>
-&gt;&gt; On 28/03/17 22:52, Rick Altherr wrote:<br>
-&gt;&gt;&gt; Aspeed BMC SoCs include a 16 channel, 10-bit ADC. Low and high=
- threshold<br>
-&gt;&gt;&gt; interrupts are supported by the hardware but are not currently=
- implemented.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; Signed-off-by: Rick Altherr &lt;<a href=3D"mailto:raltherr@goo=
-gle.com">raltherr@google.com</a>&gt;<br>
-&gt;&gt; Two really trivial things inline. I&#39;ll fix them whilst applyin=
-g rather than<br>
-&gt;&gt; having you do a v6 - please do sanity check I haven&#39;t messed i=
-t up though!<br>
-&gt;&gt;<br>
-&gt;&gt; Applied to the togreg branch of iio.git and pushed out as testing =
-for<br>
-&gt;&gt; the autobuilders to play with it.<br>
-&gt;&gt;<br>
-&gt;<br>
-&gt; Oh I was too late. Blame work. Anyway, I made some comments on<br>
-&gt; v4. If they&#39;re fixed in a later patch or discussed on list that&#3=
-9;s<br>
-&gt; fine. No worries on my end.<br>
-&gt;<br>
-</span>Oops. I went a bit quick on this one I guess.<br>
-<br>
-Anyhow, from a quick read of your comments I&#39;m not sure if any of<br>
-them are such that we should revert.=C2=A0 Perhaps we Rick can prepare<br>
-a follow up patch covering them?=C2=A0 I got a little lost so am not<br>
-sure but if there is anything effecting bindings Rick, please<br>
-get this through asap or let me know if we need to revert for now.<br>
-Even if it is a case of adding a bit of binding and following up<br>
-with the code using it a bit later.<br>
-<br>
-I&#39;d asked for input on the clock stuff then forgot all about it on<br>
-the later version. Sorry about that!<br>
-<span class=3D"HOEnZb"><font color=3D"#888888"><br>
-Jonathan<br>
-</font></span></blockquote></div><br></div>
-
---f403045f155eee357f054cd28c53--
+diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
+index a8976d5..1517c21 100644
+--- a/drivers/fsi/fsi-master-gpio.c
++++ b/drivers/fsi/fsi-master-gpio.c
+@@ -13,7 +13,7 @@
+ 
+ #include "fsi-master.h"
+ 
+-#define	FSI_GPIO_STD_DLY	1	/* Standard pin delay in nS */
++#define	FSI_GPIO_STD_DLY	3	/* Standard pin delay in uS */
+ #define	FSI_ECHO_DELAY_CLOCKS	16	/* Number clocks for echo delay */
+ #define	FSI_PRE_BREAK_CLOCKS	50	/* Number clocks to prep for break */
+ #define	FSI_BREAK_CLOCKS	256	/* Number of clocks to issue break */
+@@ -61,7 +61,6 @@
+ #define	FSI_GPIO_CRC_SIZE	4
+ #define	FSI_GPIO_MSG_ID_SIZE		2
+ #define	FSI_GPIO_MSG_RESPID_SIZE	2
+-#define	FSI_GPIO_PRIME_SLAVE_CLOCKS	100
+ 
+ static DEFINE_SPINLOCK(fsi_gpio_cmd_lock);	/* lock around fsi commands */
+ 
+@@ -86,10 +85,10 @@ static void clock_toggle(struct fsi_master_gpio *master, int count)
+ 	int i;
+ 
+ 	for (i = 0; i < count; i++) {
+-		ndelay(FSI_GPIO_STD_DLY);
+ 		gpiod_set_value(master->gpio_clk, 0);
+-		ndelay(FSI_GPIO_STD_DLY);
++		udelay(FSI_GPIO_STD_DLY);
+ 		gpiod_set_value(master->gpio_clk, 1);
++		udelay(FSI_GPIO_STD_DLY);
+ 	}
+ }
+ 
+@@ -97,7 +96,6 @@ static int sda_in(struct fsi_master_gpio *master)
+ {
+ 	int in;
+ 
+-	ndelay(FSI_GPIO_STD_DLY);
+ 	in = gpiod_get_value(master->gpio_data);
+ 	return in ? 1 : 0;
+ }
+@@ -287,8 +285,6 @@ static int poll_for_response(struct fsi_master_gpio *master, uint8_t expected,
+ 			fsi_master_gpio_error(master, FSI_GPIO_CRC_INVAL);
+ 			return -EIO;
+ 		}
+-		/* Clock the slave enough to be ready for next operation */
+-		clock_toggle(master, FSI_GPIO_PRIME_SLAVE_CLOCKS);
+ 		return 0;
+ 
+ 	} while (busy_count++ < FSI_GPIO_MAX_BUSY);
+@@ -362,8 +358,9 @@ static int send_command(struct fsi_master_gpio *master,
+ 	int rc;
+ 
+ 	spin_lock_irqsave(&fsi_gpio_cmd_lock, flags);
++	set_sda_output(master, 1);
++	clock_toggle(master, 50);
+ 	serial_out(master, cmd);
+-	echo_delay(master);
+ 	rc = poll_for_response(master, expected, size, val);
+ 	spin_unlock_irqrestore(&fsi_gpio_cmd_lock, flags);
+ 
+-- 
+1.8.2.2
