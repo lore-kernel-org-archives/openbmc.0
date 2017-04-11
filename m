@@ -1,52 +1,50 @@
-Return-Path: <jic23@jic23.retrosnub.co.uk>
-X-Greylist: delayed 549 seconds by postgrey-1.36 at bilbo;
- Tue, 11 Apr 2017 04:20:08 AEST
-Received: from saturn.retrosnub.co.uk (saturn.retrosnub.co.uk
- [IPv6:2a01:8000:1ffa:f003:bc9d:1dff:fe9b:7466])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <linus.walleij@linaro.org>
+Received: from mail-io0-x234.google.com (mail-io0-x234.google.com
+ [IPv6:2607:f8b0:4001:c06::234])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3w1z4S6B2bzDq5b
- for <openbmc@lists.ozlabs.org>; Tue, 11 Apr 2017 04:20:06 +1000 (AEST)
-Received: from [192.168.0.4]
- (cpc91196-cmbg18-2-0-cust659.5-4.cable.virginm.net [81.96.234.148])
- by saturn.retrosnub.co.uk (Postfix;
- Retrosnub mail submission) with ESMTPSA id 8B6634060F; 
- Mon, 10 Apr 2017 19:10:44 +0100 (BST)
-Date: Mon, 10 Apr 2017 19:10:41 +0100
-User-Agent: K-9 Mail for Android
-In-Reply-To: <CAPLgG=kQ-ZaG5W46A8sdtMdOGk7-8jpqTtFNTE_OwfnsYXhC9A@mail.gmail.com>
-References: <20170328215259.31622-1-raltherr@google.com>
- <20170328215259.31622-2-raltherr@google.com>
- <d05cadfe-e3d3-f4e8-129f-19dcd2f637da@kernel.org>
- <20170405215046.GE7065@codeaurora.org>
- <b1919652-4db7-0373-278b-483357968e7e@kernel.org>
- <CAPLgG=kQ-ZaG5W46A8sdtMdOGk7-8jpqTtFNTE_OwfnsYXhC9A@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3w2K0w3WtqzDq5x
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Apr 2017 17:48:15 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=linaro.org header.i=@linaro.org header.b="LkWlncGX"; 
+ dkim-atps=neutral
+Received: by mail-io0-x234.google.com with SMTP id t68so94293609iof.0
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Apr 2017 00:48:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=uadi/FMr1sigLgrkVij1JYpbiieVBPAgN+QmYQWovfo=;
+ b=LkWlncGXRxrMXEcjl9du/kuL5tQJnVI3gh5lN3gVCi7fHpdS/U1TqR1S2KGPzjInsP
+ RgrEQlFLXoB7Px0aAazX252LX7ZrjuKw44EXw63qECh2m/P79XkRCVrydNklwYIrLoEk
+ AoB3uNOYq8rK6ln8y5YHrcsa9LPl/uopWjgJU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=uadi/FMr1sigLgrkVij1JYpbiieVBPAgN+QmYQWovfo=;
+ b=Gitev4817QfX9TNNXsjLL2T1fCCLKIrw+zhi/ND7znY6wcg2ej8mk5BZzyyJyLe7q4
+ nfOpM+I7iK5Ql7OA5Vibpl4/aJU+7YyeWwKE17LsJl/SvLfBspW4p3jtzCd1BC+8vMh1
+ Xa0WHwNceQXisGdpXF4jNS4aMbQAbJY8DSsH9WpkmLwDBiLDWFwhuO6gLutsKpLN5YEc
+ 7j2j5AP7pY6BBvnAXZo6UuWjL1Km4+UFh6Hpv/9oK19Dt5QyPceBq5WENj7jFEMS2UwT
+ 2fInVs2d643SnAHTsMBWyIRVk0aA2HzphuqkSDuBLKuWXVGOIKIt6/9RkfMi8ROBf/i+
+ Znhg==
+X-Gm-Message-State: AN3rC/6LtVD9F6i2MAdl6cnLTwt3GmaLm8JVH33qn0EmIfCHvsUvpRw0Q9Gyn3JqX8gqaF/9vrQW/ik2qPmjaLKy
+X-Received: by 10.36.69.16 with SMTP id y16mr15662786ita.25.1491896893009;
+ Tue, 11 Apr 2017 00:48:13 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v5 2/2] iio: Aspeed ADC
-To: Rick Altherr <raltherr@google.com>,Jonathan Cameron <jic23@kernel.org>
-CC: Stephen Boyd <sboyd@codeaurora.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- William Breathitt Gray <vilhelm.gray@gmail.com>,
- Michael Turquette <mturquette@baylibre.com>,
- Andreas Klinger <ak@it-klinger.de>, Rob Herring <robh@kernel.org>,
- Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
- Quentin Schulz <quentin.schulz@free-electrons.com>, linux-iio@vger.kernel.org,
- Zhiyong Tao <zhiyong.tao@mediatek.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Lars-Peter Clausen <lars@metafoo.de>,
- Raveendra Padasalagi <raveendra.padasalagi@broadcom.com>,
- Scott Branden <scott.branden@broadcom.com>,
- Crestez Dan Leonard <leonard.crestez@intel.com>,
- Akinobu Mita <akinobu.mita@gmail.com>,
- Fabrice Gasnier <fabrice.gasnier@st.com>, Hartmut Knaack <knaack.h@gmx.de>,
- linux-clk@vger.kernel.org
-From: Jonathan Cameron <jic23@jic23.retrosnub.co.uk>
-Message-ID: <010B362C-9A21-4C6B-B810-59C02BB8097C@jic23.retrosnub.co.uk>
-X-Mailman-Approved-At: Tue, 11 Apr 2017 12:13:56 +1000
+Received: by 10.79.122.7 with HTTP; Tue, 11 Apr 2017 00:48:11 -0700 (PDT)
+In-Reply-To: <20170407125817.15834-1-andrew@aj.id.au>
+References: <20170407125817.15834-1-andrew@aj.id.au>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Tue, 11 Apr 2017 09:48:11 +0200
+Message-ID: <CACRpkdb2qm_uL-xRdjnft68QwF7xxnO8NmzUwxQYME_Uc5QH1A@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: aspeed: Fix unused-const-variable warnings
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Joel Stanley <joel@jms.id.au>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
+ "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,65 +56,16 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Apr 2017 18:20:11 -0000
+X-List-Received-Date: Tue, 11 Apr 2017 07:48:18 -0000
 
+On Fri, Apr 7, 2017 at 2:58 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
 
-
-On 10 April 2017 17:34:33 BST, Rick Altherr <raltherr@google=2Ecom> wrote:
->I don't believe there are any bindings changes or a need to revert=2E
->Stephen's suggested changes are small improvements that make the driver
->suitable for non-DT platforms (not an issue anytime soon) and help with
->a
->planned refactor of the clk_hw structure=2E  I'll send out follow-up
->changes
->when Stephen and I have reached consensus on how to resolve the latter
->improvement=2E
-Cool=2E Thanks
-
-Jonathan
+> Three video input signals suffered from a search/replace failure in
+> some copied code.
 >
->On Sat, Apr 8, 2017 at 9:15 AM, Jonathan Cameron <jic23@kernel=2Eorg>
->wrote:
->
->> On 05/04/17 22:50, Stephen Boyd wrote:
->> > On 04/01, Jonathan Cameron wrote:
->> >> On 28/03/17 22:52, Rick Altherr wrote:
->> >>> Aspeed BMC SoCs include a 16 channel, 10-bit ADC=2E Low and high
->> threshold
->> >>> interrupts are supported by the hardware but are not currently
->> implemented=2E
->> >>>
->> >>> Signed-off-by: Rick Altherr <raltherr@google=2Ecom>
->> >> Two really trivial things inline=2E I'll fix them whilst applying
->rather
->> than
->> >> having you do a v6 - please do sanity check I haven't messed it up
->> though!
->> >>
->> >> Applied to the togreg branch of iio=2Egit and pushed out as testing
->for
->> >> the autobuilders to play with it=2E
->> >>
->> >
->> > Oh I was too late=2E Blame work=2E Anyway, I made some comments on
->> > v4=2E If they're fixed in a later patch or discussed on list that's
->> > fine=2E No worries on my end=2E
->> >
->> Oops=2E I went a bit quick on this one I guess=2E
->>
->> Anyhow, from a quick read of your comments I'm not sure if any of
->> them are such that we should revert=2E  Perhaps we Rick can prepare
->> a follow up patch covering them?  I got a little lost so am not
->> sure but if there is anything effecting bindings Rick, please
->> get this through asap or let me know if we need to revert for now=2E
->> Even if it is a case of adding a bit of binding and following up
->> with the code using it a bit later=2E
->>
->> I'd asked for input on the clock stuff then forgot all about it on
->> the later version=2E Sorry about that!
->>
->> Jonathan
->>
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 
---=20
-Sent from my Android device with K-9 Mail=2E Please excuse my brevity=2E
+Patch applied.
+
+Yours,
+Linus Walleij
