@@ -1,45 +1,67 @@
-Return-Path: <maxims@google.com>
-Received: from mail-io0-x230.google.com (mail-io0-x230.google.com
- [IPv6:2607:f8b0:4001:c06::230])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <msbarth@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3w39j30ms0zDq7h
- for <openbmc@lists.ozlabs.org>; Thu, 13 Apr 2017 03:22:30 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="B6JQWvtF"; 
- dkim-atps=neutral
-Received: by mail-io0-x230.google.com with SMTP id l7so49152734ioe.3
- for <openbmc@lists.ozlabs.org>; Wed, 12 Apr 2017 10:22:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=lnlBA9qGIbGO2LTP/FtYAhAcUhwrrcCMirNiP6CRsxs=;
- b=B6JQWvtFYRslukgsB/37tueQYQyaUgdu/lBdYw+3Cv6Hu/6Rhsaf354e/KC3N+zYto
- aaI2GXh1BGHIpIpETiL7KFHHLs6l8QNc+Mt17+a6DpuDhbV4IjtFer8ZgUJvX+HxvV6d
- 3XTAkTh1+8jKENBTWDx56F/AlsAY3g7SipaDxXw2bzkQ33zxhz4/ISkPsH9hcX0CGlmX
- tZ65F0X9rukjHzjPhDD6d9DLKBoJ3v30awSmBaQpwkBldpMF3vXejQPhdsB8xOlitmbs
- OMKgIbpD/Q4s0ru6l4gpBQA3TzfLnzJ6yYoZvql0XNuQn9q7JifBQAyy6wq9fh9HdjqK
- CPdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=lnlBA9qGIbGO2LTP/FtYAhAcUhwrrcCMirNiP6CRsxs=;
- b=uOUV0qHaZeSIu79HQ2+4bhjFfg0rG/DkyoZypleu+U7+2SRuO0hpm2LIBs5Eu8hL2Q
- 5f30zQPyulI/LRyV8ehff9Jxvc93nLXmdwJdpYO3wIv/m9mjovKEa7t4ECTiHkXBSjX6
- gw7iiAQ13qT8h1A4QJWWOquHAs0IJWgrfPLRSwsXv4GMziEqiP2cPB4rBL09yk/o5S60
- bGFInUEwXX6Ire/WImwzI36NyFmigvidTXsKTwLJHaLVq8Ke9+TV3AfdID6mrrZAqYVu
- HNTxKb4j7t9XXVYMA2LQWH4RFYjf0c0v4ZGF4q6gNw0m0/QkWhRu1JjRadmx+1+SBu37
- Fw3w==
-X-Gm-Message-State: AN3rC/6NbMyMUcrIf5hx2W/wxuAgsN4qhGDQ9YCPfnr5Ja2Eu6prmxM+jmyZLciRHmhqc/SWulTbgV6u+yOzILKp
-X-Received: by 10.36.115.12 with SMTP id y12mr23334350itb.24.1492017748068;
- Wed, 12 Apr 2017 10:22:28 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3w3BWw39jpzDq9H
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Apr 2017 03:59:40 +1000 (AEST)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v3CHwhd5139942
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Apr 2017 13:59:26 -0400
+Received: from e16.ny.us.ibm.com (e16.ny.us.ibm.com [129.33.205.206])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 29srxsreku-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Apr 2017 13:59:25 -0400
+Received: from localhost
+ by e16.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <msbarth@linux.vnet.ibm.com>;
+ Wed, 12 Apr 2017 13:59:24 -0400
+Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
+ by e16.ny.us.ibm.com (146.89.104.203) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 12 Apr 2017 13:59:23 -0400
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
+ [9.57.199.111])
+ by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v3CHxMKc43581614; Wed, 12 Apr 2017 17:59:22 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 66A93AC03F;
+ Wed, 12 Apr 2017 13:59:12 -0400 (EDT)
+Received: from [9.10.255.46] (unknown [9.10.255.46])
+ by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id 47DF5AC041;
+ Wed, 12 Apr 2017 13:59:12 -0400 (EDT)
+Subject: Re: Running tests
+To: Maxim Sloyko <maxims@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <CAFR_W8po-K8Jjfd=qHzA=hO88stnQQDWEbNz2htm6b2DBqyHAg@mail.gmail.com>
+From: Matthew Barth <msbarth@linux.vnet.ibm.com>
+Date: Wed, 12 Apr 2017 12:59:22 -0500
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101
+ Thunderbird/45.8.0
 MIME-Version: 1.0
-Received: by 10.107.185.7 with HTTP; Wed, 12 Apr 2017 10:22:27 -0700 (PDT)
-From: Maxim Sloyko <maxims@google.com>
-Date: Wed, 12 Apr 2017 10:22:27 -0700
-Message-ID: <CAFR_W8po-K8Jjfd=qHzA=hO88stnQQDWEbNz2htm6b2DBqyHAg@mail.gmail.com>
-Subject: Running tests
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <CAFR_W8po-K8Jjfd=qHzA=hO88stnQQDWEbNz2htm6b2DBqyHAg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+x-cbid: 17041217-0024-0000-0000-0000024435A7
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006924; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000208; SDB=6.00846610; UDB=6.00417612; IPR=6.00625047; 
+ BA=6.00005286; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015023; XFM=3.00000013;
+ UTC=2017-04-12 17:59:24
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17041217-0025-0000-0000-00004350F012
+Message-Id: <57675cff-8d30-e550-0b45-d810f3c64426@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-04-12_14:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
+ definitions=main-1704120148
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -51,23 +73,33 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Apr 2017 17:22:31 -0000
+X-List-Received-Date: Wed, 12 Apr 2017 17:59:41 -0000
 
-Hi all,
+On 04/12/17 12:22 PM, Maxim Sloyko wrote:
+> Hi all,
+>
+> I'm looking into ways to automate test execution for ... well ... as
+> many things as possible. I see that some repos, like
+> openbmc/phosphor-event for example, have tests in them, but the
+> problem is, I can't build and run that project individually, because
+> of missing dependencies (my libsystemd is too old).
+You can use bitbake to populate and install a x86_64 SDK environment 
+that you
+would be able to source into allowing you to build the project and run 
+the tests.
+There is a configure flag (--enable-oe-sdk) that must be given to the 
+configure script
+to setup some additional environment variables within the x86_64 SDK
+environment. Here's a link with info on deploying an SDK:
 
-I'm looking into ways to automate test execution for ... well ... as
-many things as possible. I see that some repos, like
-openbmc/phosphor-event for example, have tests in them, but the
-problem is, I can't build and run that project individually, because
-of missing dependencies (my libsystemd is too old).
+https://github.com/openbmc/docs/blob/master/cheatsheet.md
 
-So, my question is, is there a way to build and run those tests from
-bitbake, so that they would use the version of systemd from yocto,
-rather than the one installed on my machine?
-
-Hope this question makes some sense.
-
-Thank you!
-
--- 
-Maxim Sloyko
+Matt
+> So, my question is, is there a way to build and run those tests from
+> bitbake, so that they would use the version of systemd from yocto,
+> rather than the one installed on my machine?
+>
+> Hope this question makes some sense.
+>
+> Thank you!
+>
