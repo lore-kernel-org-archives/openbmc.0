@@ -1,67 +1,67 @@
-Return-Path: <msbarth@linux.vnet.ibm.com>
+Return-Path: <tomjose@linux.vnet.ibm.com>
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3w3BWw39jpzDq9H
- for <openbmc@lists.ozlabs.org>; Thu, 13 Apr 2017 03:59:40 +1000 (AEST)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3w3F0z4rZszDq5W
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Apr 2017 05:51:31 +1000 (AEST)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v3CHwhd5139942
- for <openbmc@lists.ozlabs.org>; Wed, 12 Apr 2017 13:59:26 -0400
-Received: from e16.ny.us.ibm.com (e16.ny.us.ibm.com [129.33.205.206])
- by mx0a-001b2d01.pphosted.com with ESMTP id 29srxsreku-1
+ v3CJnVfg037748
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Apr 2017 15:51:23 -0400
+Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 29sstvapes-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 12 Apr 2017 13:59:25 -0400
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Apr 2017 15:51:23 -0400
 Received: from localhost
- by e16.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <msbarth@linux.vnet.ibm.com>;
- Wed, 12 Apr 2017 13:59:24 -0400
-Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
- by e16.ny.us.ibm.com (146.89.104.203) with IBM ESMTP SMTP Gateway: Authorized
+ for <openbmc@lists.ozlabs.org> from <tomjose@linux.vnet.ibm.com>;
+ Wed, 12 Apr 2017 15:51:21 -0400
+Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
+ by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Wed, 12 Apr 2017 13:59:23 -0400
-Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
- [9.57.199.111])
- by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v3CHxMKc43581614; Wed, 12 Apr 2017 17:59:22 GMT
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 66A93AC03F;
- Wed, 12 Apr 2017 13:59:12 -0400 (EDT)
-Received: from [9.10.255.46] (unknown [9.10.255.46])
- by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id 47DF5AC041;
- Wed, 12 Apr 2017 13:59:12 -0400 (EDT)
-Subject: Re: Running tests
-To: Maxim Sloyko <maxims@google.com>,
+ Wed, 12 Apr 2017 15:51:20 -0400
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v3CJpJGh43253826; Wed, 12 Apr 2017 19:51:19 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id E471B2804A;
+ Wed, 12 Apr 2017 15:51:14 -0400 (EDT)
+Received: from [9.79.209.239] (unknown [9.79.209.239])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id DADEB28048;
+ Wed, 12 Apr 2017 15:51:13 -0400 (EDT)
+From: tomjose <tomjose@linux.vnet.ibm.com>
+Subject: Re: Plans for BMC i2c to host bridge via IPMI
+To: Peter Hanson <peterh@google.com>,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>
-References: <CAFR_W8po-K8Jjfd=qHzA=hO88stnQQDWEbNz2htm6b2DBqyHAg@mail.gmail.com>
-From: Matthew Barth <msbarth@linux.vnet.ibm.com>
-Date: Wed, 12 Apr 2017 12:59:22 -0500
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101
- Thunderbird/45.8.0
+References: <CAPozSNp_S_-N8YV=ruAzYVxWy4FgcJvyK27HFb0YL-mNYP22xA@mail.gmail.com>
+Date: Thu, 13 Apr 2017 01:21:10 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
+ Thunderbird/38.8.0
 MIME-Version: 1.0
-In-Reply-To: <CAFR_W8po-K8Jjfd=qHzA=hO88stnQQDWEbNz2htm6b2DBqyHAg@mail.gmail.com>
+In-Reply-To: <CAPozSNp_S_-N8YV=ruAzYVxWy4FgcJvyK27HFb0YL-mNYP22xA@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-TM-AS-GCONF: 00
-x-cbid: 17041217-0024-0000-0000-0000024435A7
+x-cbid: 17041219-0052-0000-0000-000001D472D3
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00006924; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000208; SDB=6.00846610; UDB=6.00417612; IPR=6.00625047; 
+ PH=3.00000004; SC=3.00000208; SDB=6.00846647; UDB=6.00417634; IPR=6.00625085; 
  BA=6.00005286; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015023; XFM=3.00000013;
- UTC=2017-04-12 17:59:24
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015025; XFM=3.00000013;
+ UTC=2017-04-12 19:51:21
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17041217-0025-0000-0000-00004350F012
-Message-Id: <57675cff-8d30-e550-0b45-d810f3c64426@linux.vnet.ibm.com>
+x-cbparentid: 17041219-0053-0000-0000-00004FE5F546
+Message-Id: <58EE852E.8010005@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-04-12_14:, , signatures=0
+ definitions=2017-04-12_15:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  spamscore=0 suspectscore=0
  malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
  adjust=0 reason=mlx scancount=1 engine=8.0.1-1702020001
- definitions=main-1704120148
+ definitions=main-1704120162
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -73,33 +73,74 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Apr 2017 17:59:41 -0000
+X-List-Received-Date: Wed, 12 Apr 2017 19:51:32 -0000
 
-On 04/12/17 12:22 PM, Maxim Sloyko wrote:
-> Hi all,
->
-> I'm looking into ways to automate test execution for ... well ... as
-> many things as possible. I see that some repos, like
-> openbmc/phosphor-event for example, have tests in them, but the
-> problem is, I can't build and run that project individually, because
-> of missing dependencies (my libsystemd is too old).
-You can use bitbake to populate and install a x86_64 SDK environment 
-that you
-would be able to source into allowing you to build the project and run 
-the tests.
-There is a configure flag (--enable-oe-sdk) that must be given to the 
-configure script
-to setup some additional environment variables within the x86_64 SDK
-environment. Here's a link with info on deploying an SDK:
+Hello Peter,
 
-https://github.com/openbmc/docs/blob/master/cheatsheet.md
+As i understand you would be leveraging the BT(Block Transfer) interface 
+to route commands from host to BMC.
 
-Matt
-> So, my question is, is there a way to build and run those tests from
-> bitbake, so that they would use the version of systemd from yocto,
-> rather than the one installed on my machine?
+ From the IPMI specification it looks like this can be a generic one 
+implementation instead of implementing
+OEM commands.
+
+Implementing the IPMB interface (Section 7) in the IPMI specification 
+would probably suit your requirement.
+The following commands should help us achieve the goal: Master 
+Write-Read command, Get Message command
+and Send message command.
+
+I am thinking that IPMB interface could be a dbus service which parses 
+host IPMI commands and maps to an I2C read/write.
+
+Let me know your thoughts.
+
+Regards,
+Tom
+
+
+On Thursday 06 April 2017 07:10 AM, Peter Hanson wrote:
+> Ave!
 >
-> Hope this question makes some sense.
+> This email captures proposed actions from an exchange earlier today on
+> the #openbmc IRC channel.
 >
-> Thank you!
+> Basic goal is to reach devices on a BMC I2C bus from IPMI commandline at host.
+>
+> I2C commands and responses to be carried as OEM extension messages,
+> i.e., Network Function Codes 2Eh / 2Fh in the Intel specification.
+> Those message forms require a three byte IANA Enterprise Number, and
+> our original plan used Google's code.
+>
+> We would like to carry the feature in OpenBmc, so I wanted to confirm
+> if this is acceptable, and/or what modifications would be needed.
+>
+> Decisions:
+>
+> 1. Ok to use OEM extensions. Patrick noted that OpenBmc already uses
+> some, albeit under the IBM IANA Enterprise Number.
+>
+> 2. Switch to OpenBmc IANA Enterprise Number when available.
+>
+> 3. Patrick proposed to create a new phosphor-ipmi-oemproviders repo to
+> hold the code, message documentation, etc.
+>
+> 4. All uses of the OpenBmc IANA shall be enumerated in place - almost
+> certainly an include file in the new repo - so we don't end up with
+> conflicting uses.
+>
+> Actions:
+>
+> A1. peterh: send this email to the mailing list.
+> A2. stwcx: request IANA Enterprise Number.
+> A3. stwcx: create new phosphor-ipmi-oemproviders repo.
+> A4. peterh+brendanhiggins: propose detailed message designs.
+> A5. peterh: {net-ipmid,host-ipmi} += support for these commands.
+>
+> A key point of this email is to reap your collective wisdom, so please
+> if you have something to contribute, please do. In particular,
+> Patrick, please correct anything I misunderstood or incorrectly
+> extrapolated from the chat.
+>
+>    -- peterh
 >
