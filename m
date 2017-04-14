@@ -1,55 +1,58 @@
-Return-Path: <kunyi@google.com>
-Received: from mail-lf0-x235.google.com (mail-lf0-x235.google.com
- [IPv6:2a00:1450:4010:c07::235])
+Return-Path: <mine260309@gmail.com>
+Received: from mail-io0-x229.google.com (mail-io0-x229.google.com
+ [IPv6:2607:f8b0:4001:c06::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3w3xjG3dlgzDq5x
- for <openbmc@lists.ozlabs.org>; Fri, 14 Apr 2017 09:25:22 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3w44zp03fDzDq7c
+ for <openbmc@lists.ozlabs.org>; Fri, 14 Apr 2017 14:53:24 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="o8TTAANw"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="WAAzcORU"; 
  dkim-atps=neutral
-Received: by mail-lf0-x235.google.com with SMTP id h125so36224472lfe.0
- for <openbmc@lists.ozlabs.org>; Thu, 13 Apr 2017 16:25:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+Received: by mail-io0-x229.google.com with SMTP id k87so81760187ioi.0
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Apr 2017 21:53:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=uvvYzZcbDV2LtkbGBP2tvFK1oxAZcVJOlI053XiTeDk=;
- b=o8TTAANwrx7OjOb1KCZXA5f8HLjGR3W3Z8wUck2K6Oyljy8v/7t8aKU2Cl68YSz18+
- y4/cY9NUcY+Vh5bUjJmuqwJXxDgGxuedNqDRT/7SyJTUTP6Y8IZ59mOFaqpo2yauKa8D
- NRaE82E5CZiYyAYy2ujQ9UTtU5rH29FsiMXQA2q/CD+qD4T0rmG0bbMnGvdeUwcMSSKc
- l69ztekOHF7hpLZBqzWFE7NSBsIfNfmNbRkfy7BqBE3Culzt0C+LA5h1Qirf0owi5IT/
- ZJmBiJ3XAHho05tnyvj/BYBhss5Gr25vDFkFsHuQAKVTeuVKZyJH4BsxtkkCX5x51LT/
- MP/A==
+ :cc:content-transfer-encoding;
+ bh=9FFPmM04uzYOLIf/Tncenl2IsVEZGRLBMj8NySRD+Xs=;
+ b=WAAzcORUO3ThRt3u6jSJGRc8zYxx7JkzDOfD2f9m+IaGP+pQjMgKp4KSAZemYZY0JY
+ lWtD7AS6c1Dfr3jUhXq8XDW8AN1k86DR5zFmnA61sURXShD0jgVGsofHsla45yFJL4RJ
+ eFQeCiO4OrLpiZdTzqdsMqvXwy1iubgLPDHJwACsiga7MAdddS1jC8upkV7AzHCjNIHL
+ xxFbkKZbOcJyOudA3dTPcdwFyq8UCbHLkMNAthhkmFiCuosj5mcual/OQBhGYT8vCqMD
+ AfMvzeyMusmSlrafLwarHI+bsTngVGIx+RxCFuWoZHis+hNelZysdQpdlH1kjd7I6j8v
+ wbqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=uvvYzZcbDV2LtkbGBP2tvFK1oxAZcVJOlI053XiTeDk=;
- b=IlhgpM+V63V/HkQ0rNYpM7WG/aXQktaNlEncXHbE5rHHZp69tY21f2IKnl5z8s5Pvk
- vNkoL8QKrScdggSbWYenWuwf/PCXWxOhcgBXA16/CEjfCpyyetQJVlCpQ8t8wwSvwxyV
- frH4FdMx9vG6l+vdivOku6wQY1CNEsCG46setPc13/dYxRzBP9BqSkOzt1xUl/3SRwN1
- QSJ4rrkt7U2AL5z9gQrSKM+IQr0pIO+K0fZogHbXu6wQrI6pz0FIXMAuytAI32hPklLV
- Bq5hlCkyKDhX8+SkKR1Z+1G/sDcK1MY+J77U+9wprgLJa4MLioyOgkMcoNBAzA2iFV1m
- f2gQ==
-X-Gm-Message-State: AN3rC/7s5fq4lHCKFGFzEzZpuXvCR1Qay8juqgUwn40mFn0KKdFJ8M8n
- q5txWTmfXENr3F2HQ2CnTEg690Op/Gwp
-X-Received: by 10.25.213.140 with SMTP id m134mr1970730lfg.171.1492125918209; 
- Thu, 13 Apr 2017 16:25:18 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=9FFPmM04uzYOLIf/Tncenl2IsVEZGRLBMj8NySRD+Xs=;
+ b=HX5lWrIr9HZImlPpD9Vp4R4sj5mWKwRXVaLOJIIkLQOy/1UpyA+EqWaFvDIKikV8lB
+ DcX49bUfmR9vMXKhcygaxGp+7c04lnyUAvpl/nxny7uttsHzolUbYKx4zxio5sIX8EZ7
+ T7z6nY2dLKz/i+2rVKqf0cE5nMy/DzpuRN7W5eTLQevRVKQOQjD3HDY74MBNCU6zDfIG
+ u6q2hBTEJEvWRbOEstii1PxURmZV5tb8wOiyXzdQsFg6n6bRjXbR3m+xMUfNIIp6TdRT
+ TmW1sNNSntQdY/LHJSflM8JON3D76RHKUti0yChW19bOEgCjLl/o7B4cRV+Cpw+lMgSK
+ oEXw==
+X-Gm-Message-State: AN3rC/6ltLmJsS9pTJjI+TDEmIHYgRu3C/8j+TPzqGMDq1otsX6WyOHD
+ 2GeX6+MGJsKePTHGtdCsDAx74baIJA==
+X-Received: by 10.107.9.221 with SMTP id 90mr8281092ioj.191.1492145601815;
+ Thu, 13 Apr 2017 21:53:21 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.25.33.143 with HTTP; Thu, 13 Apr 2017 16:24:47 -0700 (PDT)
-In-Reply-To: <1491793973.3829.2.camel@aj.id.au>
-References: <3ca9e8a5-4135-8fa3-cbf5-62543a89a491@linux.vnet.ibm.com>
- <1491524060.5817.8.camel@aj.id.au>
- <7459b361-8c6f-aeb8-e434-f3725549adf3@linux.vnet.ibm.com>
- <1491793973.3829.2.camel@aj.id.au>
-From: Kun Yi <kunyi@google.com>
-Date: Thu, 13 Apr 2017 16:24:47 -0700
-Message-ID: <CAGMNF6VXasVL65b4G4vmBGSLvMD5QkgA3nomKLp0Ed8f3GWA+g@mail.gmail.com>
-Subject: Re: Discussion on GPIO monitoring and design thoughts.
-To: Andrew Jeffery <andrew@aj.id.au>
+Received: by 10.79.13.206 with HTTP; Thu, 13 Apr 2017 21:53:21 -0700 (PDT)
+In-Reply-To: <CAFR_W8pr6i4q0kma2eLTkGNG+Jzha6_pAFUqsnt5a+jJ0e7y_g@mail.gmail.com>
+References: <CAFR_W8po-K8Jjfd=qHzA=hO88stnQQDWEbNz2htm6b2DBqyHAg@mail.gmail.com>
+ <57675cff-8d30-e550-0b45-d810f3c64426@linux.vnet.ibm.com>
+ <CAFR_W8pc_AkHDxC_Tkr1ziShFDzCG2Ew_F-Ei-CquPPZmJGmWQ@mail.gmail.com>
+ <CAARXrtmFhWN3FhXnWD0AH6U1pDZcLM_K66L28PMZWQKF1J3j1A@mail.gmail.com>
+ <0a092fda-9523-b33c-8879-314cfabc7a3c@linux.vnet.ibm.com>
+ <CAFR_W8pr6i4q0kma2eLTkGNG+Jzha6_pAFUqsnt5a+jJ0e7y_g@mail.gmail.com>
+From: Lei YU <mine260309@gmail.com>
+Date: Fri, 14 Apr 2017 12:53:21 +0800
+Message-ID: <CAARXrtmOu49PO4kHb8O8fMTnVXMRyQHNT6RtK+s2VsW_+PzUqA@mail.gmail.com>
+Subject: Re: Running tests
+To: Maxim Sloyko <maxims@google.com>
 Cc: vishwa <vishwa@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Brad Bishop <bradleyb@fuzziesquirrel.com>
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,153 +64,155 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Apr 2017 23:25:23 -0000
+X-List-Received-Date: Fri, 14 Apr 2017 04:53:27 -0000
 
-What about applications that need to monitor and set GPIOs rather than
-monitoring them only? gpio-keys won't be suitable, and new cdev
-interface doesn't support writing to GPIOs yet.
-Also could someone point me to 'libgpio' interfaces mentioned here?
-I'm interested whether it provides a good read/write/interrupt trigger
-etc. interface.
+Hi Maxim,
 
-Thanks,
-Kun
+The SDK you installed is armv5e, it can be used to build targets for
+armv5, but it=E2=80=99s not for running tests on your host.
 
-On Sun, Apr 9, 2017 at 8:12 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> On Fri, 2017-04-07 at 12:11 +0530, vishwa wrote:
->> > On Wed, 2017-04-05 at 13:56 +0530, vishwa wrote:
->> > > We had a technical discussion on HOWTO and what is the right thing to do
->> > > handling the GPIO assertion and here is the gist.
->> > >
->> > > 1) Use gpio-keys and utilize libevdev wrappers (
->> > > https://www.freedesktop.org/software/libevdev/doc/latest/ ) to watch for
->> > > data in /dev/input/event.
->> >
->> > Okay, I'd like you to step back and detail what problem you're actually
->> > trying to solve here. Going from wanting to handle GPIO interrupts to
->> > using gpio-keys everywhere needs some explanation. We have at least two
->> > other interfaces that would appear to be sufficient: GPIO chardev and
->> > sysfs.
->>
->> Sure. I realize I should have put the use-case here than at the end.
->>
->> Problem: When the host check-stops, we need a way to detect that.
->> The existing mechanism will assert a configured GPIO when that happens.
->> Firmware code needs a way of knowing that it has happened and that is why this application.
->>
->> I was told that /sysfs is being deprecated and that we use the chardev. We had 2 options then.
->>
->> 1/. Use the gpio-keys
->> 2/. Use libgpio ( the support is not in yet in 4.7 per the discussion )
->>
->> Brad Bishop recommended that gpio-keys be used over libgpio due to the debouncing support built into gpio-keys implementation.
->> Since I am not an expert in this area, I suggest you please talk to Brad if you see there are better ideas.
->
-> I've since had a chat with Brad and Vishwa. There's currently no
-> perfect fit solution to the problem, so given:
->
-> 1. We're only dealing with input GPIOs
-> 2. gpio-keys enables the description of debounce periods (through
-> devicetree)
-> 3. At least *some* GPIOs need debouncing
->
-> I'm okay if we proceed this way.
->
-> Considering the current state of the kernel and alternatives to the
-> above, if 1. weren't the case then we would have a weird split between
-> /dev/input and either the GPIO chardev interface or sysfs, so given 1.
-> we've at least got consistency. Similarly for 2. and 3. we will
-> probably run into issues if we split input GPIOs between gpio-keys and
-> the alternative interfaces, as we may in the future find we need to
-> enable debouncing on a GPIO which would trigger user-space breaking
-> migration from one approach to the other.
->
-> We do have the downside of assigning keycodes to GPIOs. This could be
-> an arbitrary (e.g. linear, as-needed) assignment, or we could do
-> something like set the keycode to the GPIO line's index (e.g. GPIOA0 =
-> 0, GPIOZ7 = 215, etc). This would at least give some meaning to the
-> values and so we hopefully have no reason to change them in the future.
-> I don't think there are any limitations to the keycode value we can use
-> (e.g. max 255), so even if the Aspeed chips expand the number of
-> available GPIOs in the future we should be okay.
->
-> As to why we can't configure debounce periods via say the chardev
-> interface, this is something I will ask upstream about.
->
->> >
->> > > *) The services that are part of the target will then own complete
->> > > handling of the condition instead of the application that monitored the
->> > > GPIO.
->> >
->> > Why are we decoupling the handler services from the GPIO? What is the
->> > advantage?
->> >
->> > The disadvantage is the behaviour of the system is much harder to
->> > understand. If we go this route, what tooling will be in place to debug
->> > failures of interactions between components?
->> >
->> > I would argue that this is already a significant hurdle in
->> > understanding integration failures on the BMC, and I would prefer not
->> > to add to the problems.
->> >
->>
->> I am not following the argument here. Why is the behavior harder to understand when you have defined systemd targets doing what they are
->> required to do. Its the job of applications that get into that target to do the right thing of collecting what is necessary to understand
->> one specific problem.
->
-> I apologise, I had a misunderstand stemming from your description in
-> 2.1. Sorry for that - you weren't planning on doing what I thought.
->
->> > > ---------
->> > >
->> > > Here is an example of application that handles the GPIO assertion that
->> > > happens when host does a checkstop.
->> > >
->> > > 1) Application's arguments need /dev/input/event<$number> and the
->> > > expected GPIO state as indicated by linux,code in :
->> > >
->> > > http://lxr.free-electrons.com/source/Documentation/devicetree/bindings/input/gpio-keys.txt
->> >
->> > There is a downside in that you will be creating a kernel ABI by
->> > mapping GPIO events to a keycode. This choice appears to me to be
->> > arbitrary, and from the kernel's perspective we don't know how
->> > userspace is going to treat the value so we lose the flexibility to
->> > change it if it's not. This isn't a show-stopper, but it sure feels
->> > like a wart that doesn't need to exist.
->> >
->>
->> Is it not expected that the binding always pass the input_event struct ?. What kind of changes are you thinking ?
->>
->> Are you saying for instance you will change these values and applications may go crazy ?
->>
->> > #define KEY_UP                      103
->> #define KEY_DOWN              108
->
-> As you pointed out we need to specify these values in your gpio-keys
-> subnode via the linux,code property. We mustn't assume anything about
-> how userspace behaves, e.g. it may very well care about these values
-> and could react negatively if the value were changed.
->
-> You mention above /dev/input/event<$number> - were you planning on
-> having one or multiple gpio-keys entries in the devicetree? If
-> multiple, what was your planned strategy for grouping the keys into
-> gpio-keys nodes?
->
-> One approach would be to have one gpio-keys node for each GPIO line.
-> This would enable userspace not to care about what value was assigned
-> to linux,code at the cost of knowing *which* /dev/input/event* file to
-> open. I'm not suggesting this is a good idea (I don't think it is), but
-> it is possible. It also doesn't change the fact that userspace may
-> still care about the value regardless. Further, knowing which device to
-> open may still be a problem anyway if someone plugs in say a USB
-> keyboard. We probably need more investigation here.
->
-> Cheers,
->
-> Andrew
+To build and install host SDK:
 
+TEMPLATECONF=3D . oe-init-build-env # Set default build target
+# Manually edit `conf/local.conf` to
+MACHINE ??=3D "qemux86-64"  # x86-64 SDK
+# or
+MACHINE ??=3D "qemux86"  # x86 SDK
+# Build SDK
+bitbake -c populate_sdk obmc-phosphor-image
+# Then you get ./tmp/deploy/sdk/openbmc-phosphor-glibc-x86_64-obmc-phosphor=
+-image-core2-64-toolchain-2.2.sh
 
+After you installed the x86 host SDK, you can run tests on host as my
+previous mail.
 
--- 
-Regards,
-Kun
+Thanks!
+
+=E2=80=94
+BRs,
+Lei YU
+
+On Fri, Apr 14, 2017 at 12:53 AM, Maxim Sloyko <maxims@google.com> wrote:
+> So, I installed the SDK (by running the shell script
+> tmp/deploy/sdk/openbmc-phosphor-glibc-x86_64-obmc-phosphor-image-armv5e-t=
+oolchain-2.2.sh),
+> but I don't see anything named
+> environment-setup-core2-64-openbmc-linux (or something similar) in it.
+> The script that I have is named
+> environment-setup-armv5e-openbmc-linux-gnueabi, which I suspect is
+> what the problem is, because it sets up vars like
+>
+> export CC=3D"arm-openbmc-linux-gnueabi-gcc  -march=3Darmv5e -marm
+> --sysroot=3D$SDKTARGETSYSROOT"
+> export CXX=3D"arm-openbmc-linux-gnueabi-g++  -march=3Darmv5e -marm
+> --sysroot=3D$SDKTARGETSYSROOT"
+> export CPP=3D"arm-openbmc-linux-gnueabi-gcc -E  -march=3Darmv5e -marm
+> --sysroot=3D$SDKTARGETSYSROOT"
+>
+> and this does not look like what I want it to be.
+>
+> On Wed, Apr 12, 2017 at 11:04 PM, vishwa <vishwa@linux.vnet.ibm.com> wrot=
+e:
+>> Lei has already explained the crux. Adding little bit more to what Lei
+>> already suggested, I see that your are missing on executing that script
+>>
+>> I would do bash
+>> /tmp/deploy/sdk/openbmc-phosphor-glibc-x86_64-obmc-phosphor-image-armv5e=
+-toolchain-2.1.sh
+>>
+>> and then give it a location and then do the rest what Lei pointed out.
+>>
+>> !! Vishwa !!
+>>
+>>
+>> On 04/13/2017 07:10 AM, Lei YU wrote:
+>>>
+>>> Hi Maxim,
+>>>
+>>> After the SDK is installed, you need source the env:
+>>>
+>>> # E.g. if SDK is installed in default localtion
+>>> . /opt/openbmc-phosphor/2.1/environment-setup-core2-64-openbmc-linux
+>>>
+>>> And then
+>>>
+>>> ./bootstrap.sh
+>>> ./configure --enable-oe-sdk
+>>> make test
+>>>
+>>> =E2=80=94
+>>> BRs,
+>>> Lei YU
+>>>
+>>> On Thu, Apr 13, 2017 at 6:51 AM, Maxim Sloyko <maxims@google.com> wrote=
+:
+>>>>
+>>>> Hi Matt, thank you for your reply.
+>>>>
+>>>> So, I've done "Building the OpenBMC SDK" step from the cheatsheet:
+>>>>
+>>>> $ bitbake -c populate_sdk obmc-phosphor-image
+>>>> $
+>>>> ./tmp/deploy/sdk/openbmc-phosphor-glibc-x86_64-obmc-phosphor-image-arm=
+v5e-toolchain-2.1.sh
+>>>>
+>>>> Now when I do
+>>>>
+>>>> ./configure --enable-oe-sdk
+>>>>
+>>>> I get this error:
+>>>>
+>>>> checking whether we are cross compiling... configure: error: in
+>>>> `/usr/local/google/home/maxims/nong3-dev/phosphor-event':
+>>>> configure: error: cannot run C++ compiled programs.
+>>>>
+>>>> What am I doing wrong?
+>>>>
+>>>> On Wed, Apr 12, 2017 at 10:59 AM, Matthew Barth
+>>>> <msbarth@linux.vnet.ibm.com> wrote:
+>>>>>
+>>>>> On 04/12/17 12:22 PM, Maxim Sloyko wrote:
+>>>>>>
+>>>>>> Hi all,
+>>>>>>
+>>>>>> I'm looking into ways to automate test execution for ... well ... as
+>>>>>> many things as possible. I see that some repos, like
+>>>>>> openbmc/phosphor-event for example, have tests in them, but the
+>>>>>> problem is, I can't build and run that project individually, because
+>>>>>> of missing dependencies (my libsystemd is too old).
+>>>>>
+>>>>> You can use bitbake to populate and install a x86_64 SDK environment
+>>>>> that
+>>>>> you
+>>>>> would be able to source into allowing you to build the project and ru=
+n
+>>>>> the
+>>>>> tests.
+>>>>> There is a configure flag (--enable-oe-sdk) that must be given to the
+>>>>> configure script
+>>>>> to setup some additional environment variables within the x86_64 SDK
+>>>>> environment. Here's a link with info on deploying an SDK:
+>>>>>
+>>>>> https://github.com/openbmc/docs/blob/master/cheatsheet.md
+>>>>>
+>>>>> Matt
+>>>>>
+>>>>>> So, my question is, is there a way to build and run those tests from
+>>>>>> bitbake, so that they would use the version of systemd from yocto,
+>>>>>> rather than the one installed on my machine?
+>>>>>>
+>>>>>> Hope this question makes some sense.
+>>>>>>
+>>>>>> Thank you!
+>>>>>>
+>>>>
+>>>>
+>>>> --
+>>>> Maxim Sloyko
+>>
+>>
+>
+>
+>
+> --
+> Maxim Sloyko
