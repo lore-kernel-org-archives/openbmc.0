@@ -1,53 +1,61 @@
-Return-Path: <saqibkhan@utexas.edu>
-Received: from mail-qt0-x243.google.com (mail-qt0-x243.google.com
- [IPv6:2607:f8b0:400d:c0d::243])
+Return-Path: <maxims@google.com>
+Received: from mail-pf0-x22d.google.com (mail-pf0-x22d.google.com
+ [IPv6:2607:f8b0:400e:c00::22d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3w6CD21FjxzDq5x
- for <openbmc@lists.ozlabs.org>; Tue, 18 Apr 2017 01:41:20 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3w6HfD2PNfzDq5x
+ for <openbmc@lists.ozlabs.org>; Tue, 18 Apr 2017 05:00:51 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=utexas-edu.20150623.gappssmtp.com
- header.i=@utexas-edu.20150623.gappssmtp.com header.b="C6VE5V00"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="TBZozFNS"; 
  dkim-atps=neutral
-Received: by mail-qt0-x243.google.com with SMTP id c45so19101938qtb.0
- for <openbmc@lists.ozlabs.org>; Mon, 17 Apr 2017 08:41:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=utexas-edu.20150623.gappssmtp.com; s=20150623;
+Received: by mail-pf0-x22d.google.com with SMTP id 194so30288027pfv.3
+ for <openbmc@lists.ozlabs.org>; Mon, 17 Apr 2017 12:00:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=from:to:cc:subject:date:message-id;
- bh=uAWCdXvIYjr2eQ/MoAyZHze9aelDh9LABb/R1Tt0X0E=;
- b=C6VE5V0018Xt4HnknFwOrw8/BjtH7ktdjyO19q2+DNpDVi3HzwnCyp/aCWkGsvG2cA
- QV6GXLx5NCLslItP4JPuVKXYPNh7g0Hg74DAQ1RIyhcBkUcqhWb0Is9EDaikseuTsx0I
- DilbXZ5hOR5SpD3BoaZ/uR7WBWeQw8GhcwnugEA72lfG9+LdqtTmNcs/uRV2pBYI9T77
- m6fXFg9BYGlkJyAOo+hW5Pm6BK5x7WNWcwsGfb+EX/rI16WXL7UoMGYxVbiP3UlODQIF
- 39aSCrPHSHGgsvne2jwZPvOYOL6dqHj+tS4rBCpPSwnPUP6f1oN2PCVFCSQuG+ZF59Hm
- d2ag==
+ bh=hmUbzoiDN9p6cilzJgf99F4laFZVqzW67c4AMntT3y8=;
+ b=TBZozFNS9z1mvCcW3f/P+QLAgIqbGocTQlfzWRycLrkv4NKOkKPAjhlorL+OFXli3L
+ dqCs/rIuv2P4vSY1Cyl4r6GjdKCsvKcwh9JriET7yMCgm8Ez2OjivUneE965rM4KQnKi
+ SMjL1JLTE58siB5AZT0T1pSwXfgUKbTCf3hTzbu3Z9VwmI+Z7Txa0ex2FpCn65z/Ukmo
+ G5DYDhJ0dbTJoSooJlGRLEJRaSK6LR6I5U1OC/c/Idku0xNjzZ+fKxSknluB/x9FWVHO
+ dSM1175mt88w0NQLwj1Hwxn07Y0kyqaQSq18tOZYA3ZCqzZ7hQkj7/ryOCIBlke0HreB
+ V48Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=uAWCdXvIYjr2eQ/MoAyZHze9aelDh9LABb/R1Tt0X0E=;
- b=ZFuWA0ZssyKmHSDcLkq76lSnILb4MaPKDDZaCEJyJ2Fu6z0DiVfbNtxCdRcxw8ar4w
- IHbvazTfOO/fI9PydP8rKj1LetduoHCmTgMTm4cXkBohMxArGO9tRlND1vTASxOdkv9V
- vud9NE9yBK62D9myTrjFkjd2Y0sGWt1f1TSn3P2AiM7vFIyh+ZkznZF3P4kte10Fg1CD
- xTM1DGCJColWwtcIqCnnuqoprnOV/yHx3KXkaaDwAIMi0FZcFR6dp5Y6i0vsITTo1FZU
- 41paT1orM0S7sLOGSwGKzmZy+i8MvRryMIlW0IOa+rJIRbtVTA0pt8RWMVcHgSRo8amI
- GAkQ==
-X-Gm-Message-State: AN3rC/5lks+6DGB58pI1THCgfQgQtTkZrBohQ2KWCGd2DiDNPPXbN2s3
- Abzaldpb4oist9W4
-X-Received: by 10.237.37.215 with SMTP id y23mr9075077qtc.241.1492443678470;
- Mon, 17 Apr 2017 08:41:18 -0700 (PDT)
-Received: from saqib-VirtualBox.austin.ibm.com ([32.97.110.55])
- by smtp.gmail.com with ESMTPSA id y52sm7484524qty.60.2017.04.17.08.41.17
+ bh=hmUbzoiDN9p6cilzJgf99F4laFZVqzW67c4AMntT3y8=;
+ b=ivb6bZdItC+7GQjB5ws2jDSqPcK5EfOpz2LIAGR38yy49EkUekeENJcGF7dLMC3/wL
+ smRT4i12TqW8blCEsbjxkS2eGwKZJ1J2GRhLy+0UAVLzr5KxeEMIyYyFqhFGvwXdfxU/
+ ndJytHQoHfH3mX5BRZxRDh3Bg6MgdPRdDUy1QUDxoPWE1uc85CV0sA8SHXLLykbDvWJH
+ ZKZqtjkNxUB7pyQGtnUl2OgzT4EkBAzVBzIv4vwiu6NcHEKci9JJs2I5skoutpsW0dgb
+ e8oDn+O3DGoBkYwAb3FV4kz+v135MZ7yxOo6XMm3H9HqmqmODtMzojKb3DmwYkt+ei0C
+ 2dDQ==
+X-Gm-Message-State: AN3rC/6B6HiTKIiAXb1gg5bqMTG5nhZR05NJq9y8dhu54BiJtX/yTr8W
+ ARD+yviAY9Wlrpmu
+X-Received: by 10.99.174.69 with SMTP id e5mr13899352pgp.161.1492455649828;
+ Mon, 17 Apr 2017 12:00:49 -0700 (PDT)
+Received: from mxsl.svl.corp.google.com ([100.123.242.80])
+ by smtp.gmail.com with ESMTPSA id p80sm19526121pfk.50.2017.04.17.12.00.48
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Mon, 17 Apr 2017 08:41:18 -0700 (PDT)
-From: saqibkhan@utexas.edu
-To: openbmc@lists.ozlabs.org,
-	joel@jms.id.au
-Cc: Saqib Khan <khansa@us.ibm.com>
-Subject: [PATCH linux dev-4.7] Correct spelling of "barreleye"
-Date: Mon, 17 Apr 2017 10:41:45 -0500
-Message-Id: <1492443705-24309-1-git-send-email-saqibkhan@utexas.edu>
-X-Mailer: git-send-email 1.9.1
-X-Mailman-Approved-At: Tue, 18 Apr 2017 02:23:13 +1000
+ Mon, 17 Apr 2017 12:00:48 -0700 (PDT)
+From: Maxim Sloyko <maxims@google.com>
+To: u-boot@lists.denx.de,
+	Simon Glass <sjg@chromium.org>
+Cc: openbmc@lists.ozlabs.org, Maxim Sloyko <maxims@google.com>,
+ Heiko Schocher <hs@denx.de>, Thomas Abraham <thomas.ab@samsung.com>,
+ Masahiro Yamada <yamada.masahiro@socionext.com>,
+ Tom Warren <twarren@nvidia.com>, Wills Wang <wills.wang@live.com>,
+ Kever Yang <kever.yang@rock-chips.com>,
+ Konstantin Porotchkin <kostap@marvell.com>,
+ Albert Aribaud <albert.u.boot@aribaud.net>,
+ Beniamino Galvani <b.galvani@gmail.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Minkyu Kang <mk7.kang@samsung.com>,
+ Daniel Schwierzeck <daniel.schwierzeck@gmail.com>,
+ Wenyou Yang <wenyou.yang@atmel.com>, Stephen Warren <swarren@nvidia.com>
+Subject: [PATCH v1 00/15] Expand Aspeed AST2500 Support
+Date: Mon, 17 Apr 2017 12:00:19 -0700
+Message-Id: <20170417190034.71945-1-maxims@google.com>
+X-Mailer: git-send-email 2.12.2.762.g0e3151a226-goog
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,29 +67,108 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Apr 2017 15:41:23 -0000
+X-List-Received-Date: Mon, 17 Apr 2017 19:00:53 -0000
 
-From: Saqib Khan <khansa@us.ibm.com>
+This series expands support for Aspeed AST2500 SoC, commonly used as
+Board Management Controller in many servers.
 
-Note:"barreleye" mispelled in /sys/firmware/devicetree/base/model
+The main goal of this series is I2C driver, the rest are
+either cleanups or supporting patches. Most notable among them is
+addition of Watchdog uclass, so that watchdog drivers can now use Driver
+Model.
 
-Signed-off-by: Saqib Khan <khansa@us.ibm.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+One notable thing that is *missing* from this series is Device Tree
+configuration for I2C driver. The Linux Kernel I2C driver is still under
+review and it may affect the details of how devices need to be
+configured in the Device Tree. So, I decided to wait until it will show
+up in Linux Kernel DT and then pull it into U-Boot.
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-index 9dc3e67..f638bda 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-@@ -4,7 +4,7 @@
- #include <dt-bindings/gpio/aspeed-gpio.h>
- 
- / {
--	model = "Barrelye BMC";
-+	model = "Barreleye BMC";
- 	compatible = "rackspace,barreleye-bmc", "aspeed,ast2400";
- 
- 	aliases {
+I removed Network driver from this series. I will work on it separately
+and will make it compatible with existing Faraday devices, but that is a
+work better done outside of this already long series.
+
+Changes in v1:
+- Added link to the original version to commit message
+- Rename wdt_reset to wdt_expire_now
+- Rename wdt_restart to wdt_reset
+- Clarified function documentation in few cases
+- Add Sandbox WDT driver and unit tests
+- Rename reset to expire_now
+- Rename restart to reset
+- Remove unnecessary check for error in dev_get_priv
+- Fix comment
+- Rename wdt_reset call to wdt_expire_now
+- Rename wdt_reset call to wdt_expire_now
+- Style fixes
+
+Maxim Sloyko (15):
+  aspeed: Update ast2500 Device Tree
+  dm: Simple Watchdog uclass
+  aspeed: Watchdog Timer Driver
+  aspeed: Make SCU lock/unlock functions part of SCU API
+  aspeed: Reset Driver
+  aspeed: Device Tree configuration for Reset Driver
+  aspeed: Refactor AST2500 RAM Driver and Sysreset Driver
+  aspeed: AST2500 Pinctrl Driver
+  aspeed: Enable Pinctrl Driver in AST2500 EVB
+  aspeed: Add P-Bus clock in ast2500 clock driver
+  aspeed: Add I2C Driver
+  aspeed: Enable I2C in EVB defconfig
+  aspeed: Add support for Clocks needed by MACs
+  aspeed: Refactor SCU to use consistent mask & shift
+  aspeed: Cleanup ast2500-u-boot.dtsi Device Tree
+
+ arch/arm/dts/ast2500-evb.dts                   |  15 +
+ arch/arm/dts/ast2500-u-boot.dtsi               |  59 +-
+ arch/arm/dts/ast2500.dtsi                      | 881 ++++++++++++++++++++++++-
+ arch/arm/include/asm/arch-aspeed/pinctrl.h     |  52 ++
+ arch/arm/include/asm/arch-aspeed/scu_ast2500.h | 132 +++-
+ arch/arm/include/asm/arch-aspeed/wdt.h         |  38 +-
+ arch/arm/mach-aspeed/Kconfig                   |   8 +-
+ arch/arm/mach-aspeed/ast2500/clk_ast2500.c     |  15 +
+ arch/arm/mach-aspeed/ast2500/sdram_ast2500.c   |  17 +-
+ arch/arm/mach-aspeed/ast_wdt.c                 |  47 +-
+ arch/sandbox/dts/test.dts                      |   4 +
+ arch/sandbox/include/asm/state.h               |   9 +
+ configs/evb-ast2500_defconfig                  |   6 +
+ configs/sandbox_defconfig                      |   2 +
+ drivers/clk/aspeed/clk_ast2500.c               | 321 +++++++--
+ drivers/i2c/Kconfig                            |   9 +
+ drivers/i2c/Makefile                           |   1 +
+ drivers/i2c/ast_i2c.c                          | 357 ++++++++++
+ drivers/i2c/ast_i2c.h                          | 132 ++++
+ drivers/pinctrl/Kconfig                        |   9 +
+ drivers/pinctrl/Makefile                       |   1 +
+ drivers/pinctrl/aspeed/Makefile                |   1 +
+ drivers/pinctrl/aspeed/pinctrl_ast2500.c       | 127 ++++
+ drivers/reset/Kconfig                          |  10 +
+ drivers/reset/Makefile                         |   1 +
+ drivers/reset/ast2500-reset.c                  | 106 +++
+ drivers/sysreset/sysreset_ast.c                |  24 +-
+ drivers/watchdog/Kconfig                       |  32 +
+ drivers/watchdog/Makefile                      |   3 +
+ drivers/watchdog/ast_wdt.c                     | 125 ++++
+ drivers/watchdog/sandbox_wdt.c                 |  76 +++
+ drivers/watchdog/wdt-uclass.c                  |  72 ++
+ include/dm/uclass-id.h                         |   1 +
+ include/dt-bindings/clock/ast2500-scu.h        |   2 +
+ include/dt-bindings/reset/ast2500-reset.h      |  45 ++
+ include/wdt.h                                  | 107 +++
+ test/dm/Makefile                               |   1 +
+ test/dm/wdt.c                                  |  40 ++
+ 38 files changed, 2721 insertions(+), 167 deletions(-)
+ create mode 100644 arch/arm/include/asm/arch-aspeed/pinctrl.h
+ create mode 100644 drivers/i2c/ast_i2c.c
+ create mode 100644 drivers/i2c/ast_i2c.h
+ create mode 100644 drivers/pinctrl/aspeed/Makefile
+ create mode 100644 drivers/pinctrl/aspeed/pinctrl_ast2500.c
+ create mode 100644 drivers/reset/ast2500-reset.c
+ create mode 100644 drivers/watchdog/ast_wdt.c
+ create mode 100644 drivers/watchdog/sandbox_wdt.c
+ create mode 100644 drivers/watchdog/wdt-uclass.c
+ create mode 100644 include/dt-bindings/reset/ast2500-reset.h
+ create mode 100644 include/wdt.h
+ create mode 100644 test/dm/wdt.c
+
 -- 
-1.8.2.2
+2.12.2.762.g0e3151a226-goog
