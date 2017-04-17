@@ -1,52 +1,59 @@
 Return-Path: <maxims@google.com>
-Received: from mail-pg0-x230.google.com (mail-pg0-x230.google.com
- [IPv6:2607:f8b0:400e:c05::230])
+Received: from mail-pg0-x231.google.com (mail-pg0-x231.google.com
+ [IPv6:2607:f8b0:400e:c05::231])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3w6HfQ4Vz0zDq9H
- for <openbmc@lists.ozlabs.org>; Tue, 18 Apr 2017 05:01:02 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3w6HfS0x3XzDqB9
+ for <openbmc@lists.ozlabs.org>; Tue, 18 Apr 2017 05:01:03 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="LyrPwlkX"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="Q2Gqv0Kh"; 
  dkim-atps=neutral
-Received: by mail-pg0-x230.google.com with SMTP id g2so75757466pge.3
- for <openbmc@lists.ozlabs.org>; Mon, 17 Apr 2017 12:01:02 -0700 (PDT)
+Received: by mail-pg0-x231.google.com with SMTP id 72so67537325pge.2
+ for <openbmc@lists.ozlabs.org>; Mon, 17 Apr 2017 12:01:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=bbCBYUTwaAOWQ+x4pvduqarLegDB1l9uVAAANmzNgK8=;
- b=LyrPwlkX/qstVtocSjugY6UCC4N+CIPepklrYKdYCWd2y5iAxV2xSAeTJMB0ptad/U
- u1XMKmQ8OxkaLYBo+liBbKil1TleXlktNZr4V+ATkc4Vqcf9t/kNgJVDzccHOvlPUUps
- RjkPZocisNX6/ShTsVaLvFCEI5O82Hi3hCsNOOfRP8HzbVMwsuN1Rah1GT9j4X4DNorQ
- AOq15c4BUQQ1pO8sBadnQuqxHrRCouGUyWYQKO3SY+vWsmyIAL4XuL2mwMlwfRBCzUTF
- JvfhOwWsOQz9rbtx+Rux0C3Hd/m2ad2l9Wau2xC3A6zj9i+jORweqKB9rflA2feB0d3g
- RH0Q==
+ bh=1JVrfpbur74DdtNJqlD9VqupK6iXiXPlkpgc7W+jO4I=;
+ b=Q2Gqv0KhpLyrBcVWr+93DyL/h7NWd0qUdYhe3Kdw0QBtkA2m1U1n4rpHx6p7lK1Nlw
+ 3e+fAM9uEK0k1IJIuDmOzd+8+xB/L3MFP9UGmlQQx8QPK9rvOV6BCrswwWO60Mid9J7G
+ 3QWkxT7rlKpWOuw1xdxj6lsmViwi58JeDpiFdR+bZcrProdXYMDp0iD1TOz8MnujCjfh
+ U5GBFpmijC46WPyCDRheSIIzNfFHA+v5D3F09QKKq7IZdwRdJo7fO2f3U+jV9YKHGK2A
+ JponvSsO//5TKq41zQDl+L3OPx7SdnJW0BdIH0EatTPkuT2Q661YdX5tq/mT2yzQDn39
+ jBPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=bbCBYUTwaAOWQ+x4pvduqarLegDB1l9uVAAANmzNgK8=;
- b=mzOaJAWdKQrM3QLxwtFcpes+M2Xz2fdvRNgI82G8tsN3Sz59qIh0dkpCoJDtQCArGV
- eNEkvlJMw5m0VIU/sN+YqEQLt3nE8V/2x9tSy4ZQCWzwgCLErlb2RKi0wF37WjKxKvIF
- eGHLylksBhSIcesj7nUJmvPB/YDiDrTrd96cttTqQ33WfnO9LUu3/MZOtGIs/agL/gL8
- 26Qpi4oUJao54gPhp3G52+DZWwXBsmZgvkTcto0IBpTCa59uS095f9z9XSeT658gfiMs
- D+0sZf3ZX8hwRbbu+g4Gfj0r0nPv9rBqGgOnF9+rH9loTmgNZE9x+Ko5QncDBC1bad1W
- rFTw==
-X-Gm-Message-State: AN3rC/7U44MVRQ+5PUCuGmrStvdTcwoh5UjHzlsKjuEH2KL3yTj7qtn8
- Tv37/YxV7cRUu+vU
-X-Received: by 10.98.156.23 with SMTP id f23mr13347025pfe.3.1492455660297;
- Mon, 17 Apr 2017 12:01:00 -0700 (PDT)
+ bh=1JVrfpbur74DdtNJqlD9VqupK6iXiXPlkpgc7W+jO4I=;
+ b=V3LJjcZjqiRspu6LE2Wx39X12s4wQN83laWOcxTACuMeK7oqZH30kkiZbCFG72agqm
+ GzJcyQpyezeLGiEvuzCermXUTY8qRse9NaDevMwVumv+jG+vmI3BVIZx1UCDQEniL4wd
+ R88u1o3PV2fxRhsYoAHp9QIyUQn5ozM5gw5h/nmvd4rIBqhioIt1sl3hm0VYm8K/MApt
+ bgvT7yTTHLN3Y62j4YQ2N67eMREgVy75MR3FEBSzXbKch844AuRNPthVIJMjuU4ah6ND
+ aVtdBl61nDnFgW880aJlkiCKYtz1PK4CXvqKQ2vf9YPwgxHdJ9OgCpCbUIwkudBTF9CF
+ 0s5Q==
+X-Gm-Message-State: AN3rC/5GbTYF36h3kQqyimDPrALl5nXAfpVfjzjvHXyQaYa6ZPc+Pj+5
+ DXBgDF49MBx0JcXy
+X-Received: by 10.98.150.65 with SMTP id c62mr13196908pfe.96.1492455661375;
+ Mon, 17 Apr 2017 12:01:01 -0700 (PDT)
 Received: from mxsl.svl.corp.google.com ([100.123.242.80])
- by smtp.gmail.com with ESMTPSA id p80sm19526121pfk.50.2017.04.17.12.00.59
+ by smtp.gmail.com with ESMTPSA id p80sm19526121pfk.50.2017.04.17.12.01.00
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Mon, 17 Apr 2017 12:00:59 -0700 (PDT)
+ Mon, 17 Apr 2017 12:01:00 -0700 (PDT)
 From: Maxim Sloyko <maxims@google.com>
 To: u-boot@lists.denx.de,
 	Simon Glass <sjg@chromium.org>
 Cc: openbmc@lists.ozlabs.org, Maxim Sloyko <maxims@google.com>,
- Albert Aribaud <albert.u.boot@aribaud.net>
-Subject: [PATCH v1 07/15] aspeed: Refactor AST2500 RAM Driver and Sysreset
- Driver
-Date: Mon, 17 Apr 2017 12:00:26 -0700
-Message-Id: <20170417190034.71945-8-maxims@google.com>
+ Konstantin Porotchkin <kostap@marvell.com>,
+ Thomas Abraham <thomas.ab@samsung.com>, Wills Wang <wills.wang@live.com>,
+ Kever Yang <kever.yang@rock-chips.com>,
+ Albert Aribaud <albert.u.boot@aribaud.net>,
+ Beniamino Galvani <b.galvani@gmail.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Minkyu Kang <mk7.kang@samsung.com>,
+ Daniel Schwierzeck <daniel.schwierzeck@gmail.com>,
+ Wenyou Yang <wenyou.yang@atmel.com>
+Subject: [PATCH v1 08/15] aspeed: AST2500 Pinctrl Driver
+Date: Mon, 17 Apr 2017 12:00:27 -0700
+Message-Id: <20170417190034.71945-9-maxims@google.com>
 X-Mailer: git-send-email 2.12.2.762.g0e3151a226-goog
 In-Reply-To: <20170417190034.71945-1-maxims@google.com>
 References: <20170417190034.71945-1-maxims@google.com>
@@ -61,270 +68,295 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Apr 2017 19:01:03 -0000
+X-List-Received-Date: Mon, 17 Apr 2017 19:01:04 -0000
 
-This change switches all existing users of ast2500 Watchdog to Driver
-Model based Watchdog driver.
+This driver uses Generic Pinctrl framework and is compatible with
+the Linux driver for ast2500: it uses the same device tree
+configuration.
 
-To perform system reset Sysreset Driver uses first Watchdog device found
-via uclass_first_device call. Since the system is going to be reset
-anyway it does not make much difference which watchdog is used.
-
-Instead of using Watchdog to reset itself, SDRAM driver now uses Reset
-driver to do that.
-
-These were the only users of the old Watchdog API, so that API is
-removed.
-
-This all is done in one change to avoid having to maintain dual API for
-watchdog in between.
+Not all pins are supported by the driver at the moment, so it actually
+compatible with ast2400. In general, however, there are differences that
+in the future would be easier to maintain separately.
 
 Signed-off-by: Maxim Sloyko <maxims@google.com>
-
 ---
 
-Changes in v1:
-- Rename wdt_reset call to wdt_expire_now
+Changes in v1: None
 
----
- arch/arm/include/asm/arch-aspeed/wdt.h       | 39 ---------------------
- arch/arm/mach-aspeed/Kconfig                 |  8 +----
- arch/arm/mach-aspeed/ast2500/sdram_ast2500.c | 12 +++++--
- arch/arm/mach-aspeed/ast_wdt.c               | 51 ----------------------------
- configs/evb-ast2500_defconfig                |  2 ++
- drivers/sysreset/sysreset_ast.c              | 24 ++++++-------
- 6 files changed, 24 insertions(+), 112 deletions(-)
+ arch/arm/include/asm/arch-aspeed/pinctrl.h     |  52 ++++++++++
+ arch/arm/include/asm/arch-aspeed/scu_ast2500.h |  19 ++++
+ drivers/pinctrl/Kconfig                        |   9 ++
+ drivers/pinctrl/Makefile                       |   1 +
+ drivers/pinctrl/aspeed/Makefile                |   1 +
+ drivers/pinctrl/aspeed/pinctrl_ast2500.c       | 127 +++++++++++++++++++++++++
+ 6 files changed, 209 insertions(+)
+ create mode 100644 arch/arm/include/asm/arch-aspeed/pinctrl.h
+ create mode 100644 drivers/pinctrl/aspeed/Makefile
+ create mode 100644 drivers/pinctrl/aspeed/pinctrl_ast2500.c
 
-diff --git a/arch/arm/include/asm/arch-aspeed/wdt.h b/arch/arm/include/asm/arch-aspeed/wdt.h
-index 981fa05a56..db8ecbcbe4 100644
---- a/arch/arm/include/asm/arch-aspeed/wdt.h
-+++ b/arch/arm/include/asm/arch-aspeed/wdt.h
-@@ -100,45 +100,6 @@ u32 ast_reset_mask_from_flags(ulong flags);
-  * @reset_mask: Reset Mask
-  */
- ulong ast_flags_from_reset_mode_mask(u32 reset_mode, u32 reset_mask);
--
--#ifndef CONFIG_WDT
--/**
-- * Stop WDT
-- *
-- * @wdt: watchdog to stop
-- *
-- * When using driver model this function has different signature
-- */
--void wdt_stop(struct ast_wdt *wdt);
--
--/**
-- * Stop WDT
-- *
-- * @wdt: watchdog to start
-- * @timeout	watchdog timeout in number of clock ticks
-- *
-- * When using driver model this function has different signature
-- */
--void wdt_start(struct ast_wdt *wdt, u32 timeout);
--#endif  /* CONFIG_WDT */
--
--/**
-- * Reset peripherals specified by mask
-- *
-- * Note, that this is only supported by ast2500 SoC
-- *
-- * @wdt: watchdog to use for this reset
-- * @mask: reset mask.
-- */
--int ast_wdt_reset_masked(struct ast_wdt *wdt, u32 mask);
--
--/**
-- * ast_get_wdt() - get a pointer to watchdog registers
-- *
-- * @wdt_number: 0-based WDT peripheral number
-- * @return pointer to registers or -ve error on error
-- */
--struct ast_wdt *ast_get_wdt(u8 wdt_number);
- #endif  /* __ASSEMBLY__ */
- 
- #endif /* _ASM_ARCH_WDT_H */
-diff --git a/arch/arm/mach-aspeed/Kconfig b/arch/arm/mach-aspeed/Kconfig
-index c5b90bd96a..4f021baa06 100644
---- a/arch/arm/mach-aspeed/Kconfig
-+++ b/arch/arm/mach-aspeed/Kconfig
-@@ -11,19 +11,13 @@ config SYS_TEXT_BASE
- 
- config ASPEED_AST2500
- 	bool "Support Aspeed AST2500 SoC"
-+	depends on DM_RESET
- 	select CPU_ARM1176
- 	help
- 	  The Aspeed AST2500 is a ARM-based SoC with arm1176 CPU.
- 	  It is used as Board Management Controller on many server boards,
- 	  which is enabled by support of LPC and eSPI peripherals.
- 
--config WDT_NUM
--	int "Number of Watchdog Timers"
--	default 3 if ASPEED_AST2500
--	help
--	  The number of Watchdot Timers on a SoC.
--	  AST2500 has three WDTsk earlier versions have two or fewer.
--
- source "arch/arm/mach-aspeed/ast2500/Kconfig"
- 
- endif
-diff --git a/arch/arm/mach-aspeed/ast2500/sdram_ast2500.c b/arch/arm/mach-aspeed/ast2500/sdram_ast2500.c
-index cb6e03fa34..efcf452b17 100644
---- a/arch/arm/mach-aspeed/ast2500/sdram_ast2500.c
-+++ b/arch/arm/mach-aspeed/ast2500/sdram_ast2500.c
-@@ -12,6 +12,7 @@
- #include <errno.h>
- #include <ram.h>
- #include <regmap.h>
-+#include <reset.h>
- #include <asm/io.h>
- #include <asm/arch/scu_ast2500.h>
- #include <asm/arch/sdram_ast2500.h>
-@@ -328,6 +329,7 @@ static void ast2500_sdrammc_lock(struct dram_info *info)
- 
- static int ast2500_sdrammc_probe(struct udevice *dev)
- {
-+	struct reset_ctl reset_ctl;
- 	struct dram_info *priv = (struct dram_info *)dev_get_priv(dev);
- 	struct ast2500_sdrammc_regs *regs = priv->regs;
- 	int i;
-@@ -345,9 +347,15 @@ static int ast2500_sdrammc_probe(struct udevice *dev)
- 	}
- 
- 	clk_set_rate(&priv->ddr_clk, priv->clock_rate);
--	ret = ast_wdt_reset_masked(ast_get_wdt(0), WDT_RESET_SDRAM);
-+	ret = reset_get_by_index(dev, 0, &reset_ctl);
- 	if (ret) {
--		debug("%s(): SDRAM reset failed\n", __func__);
-+		debug("%s(): Failed to get reset signal\n", __func__);
-+		return ret;
-+	}
+diff --git a/arch/arm/include/asm/arch-aspeed/pinctrl.h b/arch/arm/include/asm/arch-aspeed/pinctrl.h
+new file mode 100644
+index 0000000000..365dc21dbc
+--- /dev/null
++++ b/arch/arm/include/asm/arch-aspeed/pinctrl.h
+@@ -0,0 +1,52 @@
++/*
++ * Copyright (c) 2017 Google, Inc
++ *
++ * SPDX-License-Identifier:	GPL-2.0+
++ */
++#ifndef _ASM_ARCH_PERIPH_H
++#define _ASM_ARCH_PERIPH_H
 +
-+	ret = reset_assert(&reset_ctl);
-+	if (ret) {
-+		debug("%s(): SDRAM reset failed: %u\n", __func__, ret);
- 		return ret;
- 	}
++/*
++ * Peripherals supported by the hardware.
++ * These are used to specify pinctrl settings.
++ */
++
++enum periph_id {
++	PERIPH_ID_UART1,
++	PERIPH_ID_UART2,
++	PERIPH_ID_UART3,
++	PERIPH_ID_UART4,
++	PERIPH_ID_LPC,
++	PERIPH_ID_PWM0,
++	PERIPH_ID_PWM1,
++	PERIPH_ID_PWM2,
++	PERIPH_ID_PWM3,
++	PERIPH_ID_PWM4,
++	PERIPH_ID_PWM5,
++	PERIPH_ID_PWM6,
++	PERIPH_ID_PWM7,
++	PERIPH_ID_PWM8,
++	PERIPH_ID_MAC1,
++	PERIPH_ID_MAC2,
++	PERIPH_ID_VIDEO,
++	PERIPH_ID_SPI1,
++	PERIPH_ID_SPI2,
++	PERIPH_ID_I2C1,
++	PERIPH_ID_I2C2,
++	PERIPH_ID_I2C3,
++	PERIPH_ID_I2C4,
++	PERIPH_ID_I2C5,
++	PERIPH_ID_I2C6,
++	PERIPH_ID_I2C7,
++	PERIPH_ID_I2C8,
++	PERIPH_ID_I2C9,
++	PERIPH_ID_I2C10,
++	PERIPH_ID_I2C11,
++	PERIPH_ID_I2C12,
++	PERIPH_ID_I2C13,
++	PERIPH_ID_I2C14,
++	PERIPH_ID_SD1,
++	PERIPH_ID_SD2,
++};
++
++#endif  /* _ASM_ARCH_SCU_AST2500_H */
+diff --git a/arch/arm/include/asm/arch-aspeed/scu_ast2500.h b/arch/arm/include/asm/arch-aspeed/scu_ast2500.h
+index e2556f920d..1cdd3b9198 100644
+--- a/arch/arm/include/asm/arch-aspeed/scu_ast2500.h
++++ b/arch/arm/include/asm/arch-aspeed/scu_ast2500.h
+@@ -10,6 +10,8 @@
  
-diff --git a/arch/arm/mach-aspeed/ast_wdt.c b/arch/arm/mach-aspeed/ast_wdt.c
-index 895fba3366..1a858b1020 100644
---- a/arch/arm/mach-aspeed/ast_wdt.c
-+++ b/arch/arm/mach-aspeed/ast_wdt.c
-@@ -28,54 +28,3 @@ ulong ast_flags_from_reset_mode_mask(u32 reset_mode, u32 reset_mask)
+ #define SCU_HWSTRAP_VGAMEM_MASK		3
+ #define SCU_HWSTRAP_VGAMEM_SHIFT	2
++#define SCU_HWSTRAP_MAC1_RGMII		(1 << 6)
++#define SCU_HWSTRAP_MAC2_RGMII		(1 << 7)
+ #define SCU_HWSTRAP_DDR4		(1 << 24)
+ #define SCU_HWSTRAP_CLKIN_25MHZ		(1 << 23)
  
- 	return ret;
- }
--
--#ifndef CONFIG_WDT
--void wdt_stop(struct ast_wdt *wdt)
--{
--	clrbits_le32(&wdt->ctrl, WDT_CTRL_EN);
--}
--
--void wdt_start(struct ast_wdt *wdt, u32 timeout)
--{
--	writel(timeout, &wdt->counter_reload_val);
--	writel(WDT_COUNTER_RESTART_VAL, &wdt->counter_restart);
--	/*
--	 * Setting CLK1MHZ bit is just for compatibility with ast2400 part.
--	 * On ast2500 watchdog timer clock is fixed at 1MHz and the bit is
--	 * read-only
--	 */
--	setbits_le32(&wdt->ctrl,
--		     WDT_CTRL_EN | WDT_CTRL_RESET | WDT_CTRL_CLK1MHZ);
--}
--#endif  /* CONFIG_WDT */
--
--int ast_wdt_reset_masked(struct ast_wdt *wdt, u32 mask)
--{
--#ifdef CONFIG_ASPEED_AST2500
--	if (!mask)
--		return -EINVAL;
--
--	writel(mask, &wdt->reset_mask);
--	clrbits_le32(&wdt->ctrl,
--		     WDT_CTRL_RESET_MASK << WDT_CTRL_RESET_MODE_SHIFT);
--	wdt_start(wdt, 1);
--
--	/* Wait for WDT to reset */
--	while (readl(&wdt->ctrl) & WDT_CTRL_EN)
--		;
--	wdt_stop(wdt);
--
--	return 0;
--#else
--	return -EINVAL;
--#endif
--}
--
--struct ast_wdt *ast_get_wdt(u8 wdt_number)
--{
--	if (wdt_number > CONFIG_WDT_NUM - 1)
--		return ERR_PTR(-EINVAL);
--
--	return (struct ast_wdt *)(WDT_BASE +
--				  sizeof(struct ast_wdt) * wdt_number);
--}
-diff --git a/configs/evb-ast2500_defconfig b/configs/evb-ast2500_defconfig
-index cc5fea9a81..74808a71ee 100644
---- a/configs/evb-ast2500_defconfig
-+++ b/configs/evb-ast2500_defconfig
-@@ -15,3 +15,5 @@ CONFIG_DM_SERIAL=y
- CONFIG_SYS_NS16550=y
- CONFIG_SYSRESET=y
- CONFIG_TIMER=y
-+CONFIG_WDT=y
-+CONFIG_DM_RESET=y
-diff --git a/drivers/sysreset/sysreset_ast.c b/drivers/sysreset/sysreset_ast.c
-index a0ab12851d..3c3f552df8 100644
---- a/drivers/sysreset/sysreset_ast.c
-+++ b/drivers/sysreset/sysreset_ast.c
-@@ -8,21 +8,19 @@
- #include <dm.h>
- #include <errno.h>
- #include <sysreset.h>
-+#include <wdt.h>
- #include <asm/io.h>
- #include <asm/arch/wdt.h>
- #include <linux/err.h>
+@@ -59,6 +61,23 @@
+ #define SCU_SYSRESET_AHB		(1 << 1)
+ #define SCU_SYSRESET_SDRAM_WDT		(1 << 0)
  
--/* Number of Watchdog Timer ticks before reset */
--#define AST_WDT_RESET_TIMEOUT	10
--#define AST_WDT_FOR_RESET	0
--
- static int ast_sysreset_request(struct udevice *dev, enum sysreset_t type)
- {
--	struct ast_wdt *wdt = ast_get_wdt(AST_WDT_FOR_RESET);
--	u32 reset_mode = 0;
-+	struct udevice *wdt;
-+	u32 reset_mode;
-+	int ret = uclass_first_device(UCLASS_WDT, &wdt);
++/* Bits 16-27 in the register control pin functions for I2C devices 3-14 */
++#define SCU_PINMUX_CTRL5_I2C		(1 << 16)
++
++/*
++ * The values are grouped by function, not by register.
++ * They are actually scattered across multiple loosely related registers.
++ */
++#define SCU_PIN_FUN_MAC1_MDC		(1 << 30)
++#define SCU_PIN_FUN_MAC1_MDIO		(1 << 31)
++#define SCU_PIN_FUN_MAC1_PHY_LINK		(1 << 0)
++#define SCU_PIN_FUN_MAC2_MDIO		(1 << 2)
++#define SCU_PIN_FUN_MAC2_PHY_LINK		(1 << 1)
++#define SCU_PIN_FUN_SCL1		(1 << 12)
++#define SCU_PIN_FUN_SCL2		(1 << 14)
++#define SCU_PIN_FUN_SDA1		(1 << 13)
++#define SCU_PIN_FUN_SDA2		(1 << 15)
++
+ #ifndef __ASSEMBLY__
  
--	if (IS_ERR(wdt))
--		return PTR_ERR(wdt);
-+	if (ret)
-+		return ret;
+ struct ast2500_clk_priv {
+diff --git a/drivers/pinctrl/Kconfig b/drivers/pinctrl/Kconfig
+index efcb4c0003..3b7dd5f0c5 100644
+--- a/drivers/pinctrl/Kconfig
++++ b/drivers/pinctrl/Kconfig
+@@ -175,6 +175,15 @@ config PIC32_PINCTRL
+ 	  by a device tree node which contains both GPIO defintion and pin control
+ 	  functions.
  
- 	switch (type) {
- 	case SYSRESET_WARM:
-@@ -35,11 +33,11 @@ static int ast_sysreset_request(struct udevice *dev, enum sysreset_t type)
- 		return -EPROTONOSUPPORT;
- 	}
++config ASPEED_AST2500_PINCTRL
++  bool "Aspeed AST2500 pin control driver"
++  depends on DM && PINCTRL_GENERIC && ASPEED_AST2500
++  default y
++  help
++    Support pin multiplexing control on Aspeed ast2500 SoC. The driver uses
++	Generic Pinctrl framework and is compatible with the Linux driver,
++	i.e. it uses the same device tree configuration.
++
+ endif
  
--	/* Clear reset mode bits */
--	clrsetbits_le32(&wdt->ctrl,
--			(WDT_CTRL_RESET_MODE_MASK << WDT_CTRL_RESET_MODE_SHIFT),
--			(reset_mode << WDT_CTRL_RESET_MODE_SHIFT));
--	wdt_start(wdt, AST_WDT_RESET_TIMEOUT);
-+	ret = wdt_expire_now(wdt, reset_mode);
-+	if (ret) {
-+		debug("Sysreset failed: %d", ret);
-+		return ret;
-+	}
- 
- 	return -EINPROGRESS;
- }
+ source "drivers/pinctrl/meson/Kconfig"
+diff --git a/drivers/pinctrl/Makefile b/drivers/pinctrl/Makefile
+index 512112af64..5392c3ed45 100644
+--- a/drivers/pinctrl/Makefile
++++ b/drivers/pinctrl/Makefile
+@@ -16,3 +16,4 @@ obj-$(CONFIG_PIC32_PINCTRL)	+= pinctrl_pic32.o
+ obj-$(CONFIG_PINCTRL_EXYNOS)	+= exynos/
+ obj-$(CONFIG_PINCTRL_MESON)	+= meson/
+ obj-$(CONFIG_PINCTRL_MVEBU)	+= mvebu/
++obj-$(CONFIG_ARCH_ASPEED) += aspeed/
+diff --git a/drivers/pinctrl/aspeed/Makefile b/drivers/pinctrl/aspeed/Makefile
+new file mode 100644
+index 0000000000..2e6ed604c8
+--- /dev/null
++++ b/drivers/pinctrl/aspeed/Makefile
+@@ -0,0 +1 @@
++obj-$(CONFIG_ASPEED_AST2500_PINCTRL) += pinctrl_ast2500.o
+diff --git a/drivers/pinctrl/aspeed/pinctrl_ast2500.c b/drivers/pinctrl/aspeed/pinctrl_ast2500.c
+new file mode 100644
+index 0000000000..01f97c1b48
+--- /dev/null
++++ b/drivers/pinctrl/aspeed/pinctrl_ast2500.c
+@@ -0,0 +1,127 @@
++/*
++ * Copyright 2017 Google, Inc
++ *
++ * SPDX-License-Identifier: GPL-2.0+
++ */
++
++#include <common.h>
++#include <dm.h>
++#include <errno.h>
++#include <asm/io.h>
++#include <asm/arch/pinctrl.h>
++#include <asm/arch/scu_ast2500.h>
++#include <dm/pinctrl.h>
++
++DECLARE_GLOBAL_DATA_PTR;
++
++/*
++ * This driver works with very simple configuration that has the same name
++ * for group and function. This way it is compatible with the Linux Kernel
++ * driver.
++ */
++
++struct ast2500_pinctrl_priv {
++	struct ast2500_scu *scu;
++};
++
++static int ast2500_pinctrl_probe(struct udevice *dev)
++{
++	struct ast2500_pinctrl_priv *priv = dev_get_priv(dev);
++
++	priv->scu = ast_get_scu();
++
++	return 0;
++}
++
++struct ast2500_group_config {
++	char *group_name;
++	/* Control register number (1-10) */
++	unsigned reg_num;
++	/* The mask of control bits in the register */
++	u32 ctrl_bit_mask;
++};
++
++static const struct ast2500_group_config ast2500_groups[] = {
++	{ "I2C1", 8, (1 << 13) | (1 << 12) },
++	{ "I2C2", 8, (1 << 15) | (1 << 14) },
++	{ "I2C3", 8, (1 << 16) },
++	{ "I2C4", 5, (1 << 17) },
++	{ "I2C4", 5, (1 << 17) },
++	{ "I2C5", 5, (1 << 18) },
++	{ "I2C6", 5, (1 << 19) },
++	{ "I2C7", 5, (1 << 20) },
++	{ "I2C8", 5, (1 << 21) },
++	{ "I2C9", 5, (1 << 22) },
++	{ "I2C10", 5, (1 << 23) },
++	{ "I2C11", 5, (1 << 24) },
++	{ "I2C12", 5, (1 << 25) },
++	{ "I2C13", 5, (1 << 26) },
++	{ "I2C14", 5, (1 << 27) },
++	{ "MAC1LINK", 1, (1 << 0) },
++	{ "MDIO1", 3, (1 << 31) | (1 << 30) },
++	{ "MAC2LINK", 1, (1 << 1) },
++	{ "MDIO2", 5, (1 << 2) },
++};
++
++static int ast2500_pinctrl_get_groups_count(struct udevice *dev)
++{
++	debug("PINCTRL: get_(functions/groups)_count\n");
++
++	return ARRAY_SIZE(ast2500_groups);
++}
++
++static const char *ast2500_pinctrl_get_group_name(struct udevice *dev,
++						  unsigned selector)
++{
++	debug("PINCTRL: get_(function/group)_name %u\n", selector);
++
++	return ast2500_groups[selector].group_name;
++}
++
++static int ast2500_pinctrl_group_set(struct udevice *dev, unsigned selector,
++				     unsigned func_selector)
++{
++	struct ast2500_pinctrl_priv *priv = dev_get_priv(dev);
++	const struct ast2500_group_config *config;
++	u32 *ctrl_reg;
++
++	debug("PINCTRL: group_set <%u, %u>\n", selector, func_selector);
++	if (selector >= ARRAY_SIZE(ast2500_groups))
++		return -EINVAL;
++
++	config = &ast2500_groups[selector];
++	if (config->reg_num > 6)
++		ctrl_reg = &priv->scu->pinmux_ctrl1[config->reg_num - 7];
++	else
++		ctrl_reg = &priv->scu->pinmux_ctrl[config->reg_num - 1];
++
++	ast_scu_unlock(priv->scu);
++	setbits_le32(ctrl_reg, config->ctrl_bit_mask);
++	ast_scu_lock(priv->scu);
++
++	return 0;
++}
++
++static struct pinctrl_ops ast2500_pinctrl_ops = {
++	.set_state = pinctrl_generic_set_state,
++	.get_groups_count = ast2500_pinctrl_get_groups_count,
++	.get_group_name = ast2500_pinctrl_get_group_name,
++	.get_functions_count = ast2500_pinctrl_get_groups_count,
++	.get_function_name = ast2500_pinctrl_get_group_name,
++	.pinmux_group_set = ast2500_pinctrl_group_set,
++};
++
++static const struct udevice_id ast2500_pinctrl_ids[] = {
++	{ .compatible = "aspeed,ast2500-pinctrl" },
++	{ .compatible = "aspeed,g5-pinctrl" },
++	{ }
++};
++
++U_BOOT_DRIVER(pinctrl_ast2500) = {
++	.name = "aspeed_ast2500_pinctrl",
++	.id = UCLASS_PINCTRL,
++	.of_match = ast2500_pinctrl_ids,
++	.priv_auto_alloc_size = sizeof(struct ast2500_pinctrl_priv),
++	.ops = &ast2500_pinctrl_ops,
++	.probe = ast2500_pinctrl_probe,
++};
 -- 
 2.12.2.762.g0e3151a226-goog
