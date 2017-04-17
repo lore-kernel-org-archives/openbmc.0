@@ -1,51 +1,51 @@
 Return-Path: <maxims@google.com>
-Received: from mail-pf0-x22a.google.com (mail-pf0-x22a.google.com
- [IPv6:2607:f8b0:400e:c00::22a])
+Received: from mail-pg0-x236.google.com (mail-pg0-x236.google.com
+ [IPv6:2607:f8b0:400e:c05::236])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3w6HfK0JJyzDq5x
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3w6HfL0NGbzDq7Z
  for <openbmc@lists.ozlabs.org>; Tue, 18 Apr 2017 05:00:57 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="If6rg/JA"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="FN963bVa"; 
  dkim-atps=neutral
-Received: by mail-pf0-x22a.google.com with SMTP id c198so69602074pfc.1
- for <openbmc@lists.ozlabs.org>; Mon, 17 Apr 2017 12:00:56 -0700 (PDT)
+Received: by mail-pg0-x236.google.com with SMTP id z127so12279741pgb.1
+ for <openbmc@lists.ozlabs.org>; Mon, 17 Apr 2017 12:00:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=cQn0JTaz+XFPh0UyhvFYWrSvCVgRKhnStDoaVVcB0d0=;
- b=If6rg/JAQPZL8XNP4QvmCuwV3gTFV5y7F3XAdZFQJ71jDw24WmdXRQq9j7pmJ5/aS/
- 0j/HUvtglljqnU5RyhrmF2Ht/xYOpCAYxtlvliTtxNJgbMSJsU90tEQC79hPzHHst21a
- Pc9jAUGDWrla0VihXI3uNpXWMlr+65bFmG2nyti0T9uOHevKOrJdhMxCGfLRFXI7Fl1u
- XTKvlfov2bAIc+/xqkaPoF6MpaI3rqKSj8BqZjm+Kw+9aJQDO2PJvc41zSj71AcSnqSb
- e/8pBjNeGV2gFrNAAQPh3hfPuSec0rpI5ytunxFDWeU7AJLajwRz2dlfWhZj0yHTU6mO
- 25Ag==
+ bh=nfJmUX8+0BzQoYyki6LoaEfX+outy81xXuYxP76YClU=;
+ b=FN963bVaIhkjWYJ/o2Rpd5caLpRAHE5uyUbDQHEoSb/p/Lidy/YL4wOSMoQa+7h838
+ fqw0cU0f0Aliab+EX3PCX603YDG9q0ge4xyDKdp/T7nGWTGrmFE4Lm0vNUgLOpcUwnNj
+ 6Ng1WwBwm2phGej21tSnsGC9d2JamhXWFarTFhuxI2Xmm6UUXb5n9tptCkL57crzX0pI
+ m2nCNVWFDJYNHu2b1RXgLIIXXlSG925d2Xyok3vdDziiONfpWtepYMT6lG6jjBLjWff9
+ TwfOmSXBdfmpKFsI/86pcJvk991Os/eWhw+jV4Nz0QZamvfxQSr1NXUJcrVGCWahgbC4
+ 0R7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=cQn0JTaz+XFPh0UyhvFYWrSvCVgRKhnStDoaVVcB0d0=;
- b=qjVwzBZTVCViCLqvdGNdGgL9wyLpmx9bXOU8c44faJICrcIqtFJQXRSp40ai8R7vhU
- Jnd47Q4H9Q6avM6jlk9PrBNeKhGT8Dr25FI5ob7AQQdaUMNpeLMrU/YZ78Ky+iwOf2VU
- gt4XJclWknRoaOYTujk+XFAGdeV1Iq0KsZO93bQF9tlc7sA4yEVnGarzLDnKyY8UEHRa
- LZNTrgvbNrDi5uQqnto4im+ivE1T/t4CeNFPucQuWkRGDLaXxoSMpAKEoW/OCupQH6BD
- R4q84iC/nNHielHjWqgKL1Z+J0sEteZRflkgA+HDn+3/EAgDa0R26jDJ8+mgLE/yyuWQ
- SG/A==
-X-Gm-Message-State: AN3rC/5jdSrroE4lE8tXjRNBnv70O9fjBjE2u7hc1HGzaVVh36EJ10kh
- mC9vToITxi41dZO9
-X-Received: by 10.99.185.75 with SMTP id v11mr13416787pgo.166.1492455654763;
- Mon, 17 Apr 2017 12:00:54 -0700 (PDT)
+ bh=nfJmUX8+0BzQoYyki6LoaEfX+outy81xXuYxP76YClU=;
+ b=XiiZIMTE8s9KBaGJ9Rdo+r385/MOjFCIjTaRsYvwD1g7OFjQIGigEeuGzY0KyLPtHm
+ gBvBeHDxIDX188oFQvgxycJUOwq/1R3PTVNNvOGBALKz+NyPGRfKikjl8ja1t9Lh1XNm
+ tLBTJbOfwQnPS2hurte4rYaBTAc72e0Jibl71jVacAxZph+KJL9cTFDmk/XrMtGEiRps
+ TanVmLquevXgNfoIFpTq/06SP2/lprZOgyd2Ams9PZDIcXa2ZuHq2Hscsb183D5szd6N
+ UJtIwZU2u5FCJvubLTz/Hl0Epyql8EgsAS+K5mfVrXWexPZpNvf+AN13813O6kPLfUnH
+ hV/A==
+X-Gm-Message-State: AN3rC/55S/Q5QFaXe2hjZSoP+07DYnhiaARKi1SNmfhi+9OaBRfM+B4f
+ eU64HzVQEn4uk+7L
+X-Received: by 10.99.175.7 with SMTP id w7mr13817928pge.170.1492455655652;
+ Mon, 17 Apr 2017 12:00:55 -0700 (PDT)
 Received: from mxsl.svl.corp.google.com ([100.123.242.80])
- by smtp.gmail.com with ESMTPSA id p80sm19526121pfk.50.2017.04.17.12.00.53
+ by smtp.gmail.com with ESMTPSA id p80sm19526121pfk.50.2017.04.17.12.00.54
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Mon, 17 Apr 2017 12:00:54 -0700 (PDT)
+ Mon, 17 Apr 2017 12:00:55 -0700 (PDT)
 From: Maxim Sloyko <maxims@google.com>
 To: u-boot@lists.denx.de,
 	Simon Glass <sjg@chromium.org>
 Cc: openbmc@lists.ozlabs.org, Maxim Sloyko <maxims@google.com>,
- Albert Aribaud <albert.u.boot@aribaud.net>
-Subject: [PATCH v1 01/15] aspeed: Update ast2500 Device Tree
-Date: Mon, 17 Apr 2017 12:00:20 -0700
-Message-Id: <20170417190034.71945-2-maxims@google.com>
+ Stephen Warren <swarren@nvidia.com>
+Subject: [PATCH v1 02/15] dm: Simple Watchdog uclass
+Date: Mon, 17 Apr 2017 12:00:21 -0700
+Message-Id: <20170417190034.71945-3-maxims@google.com>
 X-Mailer: git-send-email 2.12.2.762.g0e3151a226-goog
 In-Reply-To: <20170417190034.71945-1-maxims@google.com>
 References: <20170417190034.71945-1-maxims@google.com>
@@ -60,954 +60,469 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Apr 2017 19:00:57 -0000
-X-List-Received-Date: Mon, 17 Apr 2017 19:00:57 -0000
+X-List-Received-Date: Mon, 17 Apr 2017 19:00:58 -0000
 
-Pull in the Device Tree for ast2500 from the mainline Linux kernel.
-The file is copied from
-https://raw.githubusercontent.com/torvalds/linux/34ea5c9d/arch/arm/boot/dts/aspeed-g5.dtsi
+This is a simple uclass for Watchdog Timers. It has four operations:
+start, restart, reset, stop. Drivers must implement start, restart and
+stop operations, while implementing reset is optional: It's default
+implementation expires watchdog timer in one clock tick.
 
 Signed-off-by: Maxim Sloyko <maxims@google.com>
-
 ---
 
 Changes in v1:
-- Added link to the original version to commit message
+- Rename wdt_reset to wdt_expire_now
+- Rename wdt_restart to wdt_reset
+- Clarified function documentation in few cases
+- Add Sandbox WDT driver and unit tests
+
 
 ---
- arch/arm/dts/ast2500.dtsi | 881 +++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 880 insertions(+), 1 deletion(-)
+ arch/sandbox/dts/test.dts        |   4 ++
+ arch/sandbox/include/asm/state.h |   9 ++++
+ configs/sandbox_defconfig        |   2 +
+ drivers/watchdog/Kconfig         |  21 ++++++++
+ drivers/watchdog/Makefile        |   2 +
+ drivers/watchdog/sandbox_wdt.c   |  76 +++++++++++++++++++++++++++
+ drivers/watchdog/wdt-uclass.c    |  72 ++++++++++++++++++++++++++
+ include/dm/uclass-id.h           |   1 +
+ include/wdt.h                    | 107 +++++++++++++++++++++++++++++++++++++++
+ test/dm/Makefile                 |   1 +
+ test/dm/wdt.c                    |  40 +++++++++++++++
+ 11 files changed, 335 insertions(+)
+ create mode 100644 drivers/watchdog/sandbox_wdt.c
+ create mode 100644 drivers/watchdog/wdt-uclass.c
+ create mode 100644 include/wdt.h
+ create mode 100644 test/dm/wdt.c
 
-diff --git a/arch/arm/dts/ast2500.dtsi b/arch/arm/dts/ast2500.dtsi
-index 97fac69d11..7e0ad3a41a 100644
---- a/arch/arm/dts/ast2500.dtsi
-+++ b/arch/arm/dts/ast2500.dtsi
-@@ -1,6 +1,6 @@
- /*
-  * This device tree is copied from
-- * https://raw.githubusercontent.com/torvalds/linux/02440622/arch/arm/boot/dts/
-+ * https://raw.githubusercontent.com/torvalds/linux/34ea5c9d/arch/arm/boot/dts/aspeed-g5.dtsi
-  */
- #include "skeleton.dtsi"
- 
-@@ -36,6 +36,22 @@
- 			reg = <0x1e6c0080 0x80>;
+diff --git a/arch/sandbox/dts/test.dts b/arch/sandbox/dts/test.dts
+index fff175d1b7..e04ecc64cc 100644
+--- a/arch/sandbox/dts/test.dts
++++ b/arch/sandbox/dts/test.dts
+@@ -418,6 +418,10 @@
+ 			};
  		};
+ 	};
++
++	wdt0: wdt@0 {
++		compatible = "sandbox,wdt";
++	};
+ };
  
-+		mac0: ethernet@1e660000 {
-+			compatible = "faraday,ftgmac100";
-+			reg = <0x1e660000 0x180>;
-+			interrupts = <2>;
-+			no-hw-checksum;
-+			status = "disabled";
-+		};
-+
-+		mac1: ethernet@1e680000 {
-+			compatible = "faraday,ftgmac100";
-+			reg = <0x1e680000 0x180>;
-+			interrupts = <3>;
-+			no-hw-checksum;
-+			status = "disabled";
-+		};
-+
- 		apb {
- 			compatible = "simple-bus";
- 			#address-cells = <1>;
-@@ -48,6 +64,822 @@
- 				reg = <0x1e6e2070 0x04>;
- 			};
+ #include "sandbox_pmic.dtsi"
+diff --git a/arch/sandbox/include/asm/state.h b/arch/sandbox/include/asm/state.h
+index 149f28d873..987cc7b49d 100644
+--- a/arch/sandbox/include/asm/state.h
++++ b/arch/sandbox/include/asm/state.h
+@@ -39,6 +39,12 @@ struct sandbox_spi_info {
+ 	struct udevice *emul;
+ };
  
-+			syscon: syscon@1e6e2000 {
-+				compatible = "aspeed,g5-scu", "syscon", "simple-mfd";
-+				reg = <0x1e6e2000 0x1a8>;
-+
-+				pinctrl: pinctrl {
-+					compatible = "aspeed,g5-pinctrl";
-+					aspeed,external-nodes = <&gfx &lhc>;
-+
-+					pinctrl_acpi_default: acpi_default {
-+						function = "ACPI";
-+						groups = "ACPI";
-+					};
-+
-+					pinctrl_adc0_default: adc0_default {
-+						function = "ADC0";
-+						groups = "ADC0";
-+					};
-+
-+					pinctrl_adc1_default: adc1_default {
-+						function = "ADC1";
-+						groups = "ADC1";
-+					};
-+
-+					pinctrl_adc10_default: adc10_default {
-+						function = "ADC10";
-+						groups = "ADC10";
-+					};
-+
-+					pinctrl_adc11_default: adc11_default {
-+						function = "ADC11";
-+						groups = "ADC11";
-+					};
-+
-+					pinctrl_adc12_default: adc12_default {
-+						function = "ADC12";
-+						groups = "ADC12";
-+					};
-+
-+					pinctrl_adc13_default: adc13_default {
-+						function = "ADC13";
-+						groups = "ADC13";
-+					};
-+
-+					pinctrl_adc14_default: adc14_default {
-+						function = "ADC14";
-+						groups = "ADC14";
-+					};
-+
-+					pinctrl_adc15_default: adc15_default {
-+						function = "ADC15";
-+						groups = "ADC15";
-+					};
-+
-+					pinctrl_adc2_default: adc2_default {
-+						function = "ADC2";
-+						groups = "ADC2";
-+					};
-+
-+					pinctrl_adc3_default: adc3_default {
-+						function = "ADC3";
-+						groups = "ADC3";
-+					};
-+
-+					pinctrl_adc4_default: adc4_default {
-+						function = "ADC4";
-+						groups = "ADC4";
-+					};
-+
-+					pinctrl_adc5_default: adc5_default {
-+						function = "ADC5";
-+						groups = "ADC5";
-+					};
-+
-+					pinctrl_adc6_default: adc6_default {
-+						function = "ADC6";
-+						groups = "ADC6";
-+					};
-+
-+					pinctrl_adc7_default: adc7_default {
-+						function = "ADC7";
-+						groups = "ADC7";
-+					};
-+
-+					pinctrl_adc8_default: adc8_default {
-+						function = "ADC8";
-+						groups = "ADC8";
-+					};
-+
-+					pinctrl_adc9_default: adc9_default {
-+						function = "ADC9";
-+						groups = "ADC9";
-+					};
-+
-+					pinctrl_bmcint_default: bmcint_default {
-+						function = "BMCINT";
-+						groups = "BMCINT";
-+					};
-+
-+					pinctrl_ddcclk_default: ddcclk_default {
-+						function = "DDCCLK";
-+						groups = "DDCCLK";
-+					};
-+
-+					pinctrl_ddcdat_default: ddcdat_default {
-+						function = "DDCDAT";
-+						groups = "DDCDAT";
-+					};
-+
-+					pinctrl_espi_default: espi_default {
-+						function = "ESPI";
-+						groups = "ESPI";
-+					};
-+
-+					pinctrl_fwspics1_default: fwspics1_default {
-+						function = "FWSPICS1";
-+						groups = "FWSPICS1";
-+					};
-+
-+					pinctrl_fwspics2_default: fwspics2_default {
-+						function = "FWSPICS2";
-+						groups = "FWSPICS2";
-+					};
-+
-+					pinctrl_gpid0_default: gpid0_default {
-+						function = "GPID0";
-+						groups = "GPID0";
-+					};
-+
-+					pinctrl_gpid2_default: gpid2_default {
-+						function = "GPID2";
-+						groups = "GPID2";
-+					};
-+
-+					pinctrl_gpid4_default: gpid4_default {
-+						function = "GPID4";
-+						groups = "GPID4";
-+					};
-+
-+					pinctrl_gpid6_default: gpid6_default {
-+						function = "GPID6";
-+						groups = "GPID6";
-+					};
-+
-+					pinctrl_gpie0_default: gpie0_default {
-+						function = "GPIE0";
-+						groups = "GPIE0";
-+					};
-+
-+					pinctrl_gpie2_default: gpie2_default {
-+						function = "GPIE2";
-+						groups = "GPIE2";
-+					};
-+
-+					pinctrl_gpie4_default: gpie4_default {
-+						function = "GPIE4";
-+						groups = "GPIE4";
-+					};
-+
-+					pinctrl_gpie6_default: gpie6_default {
-+						function = "GPIE6";
-+						groups = "GPIE6";
-+					};
-+
-+					pinctrl_i2c10_default: i2c10_default {
-+						function = "I2C10";
-+						groups = "I2C10";
-+					};
-+
-+					pinctrl_i2c11_default: i2c11_default {
-+						function = "I2C11";
-+						groups = "I2C11";
-+					};
-+
-+					pinctrl_i2c12_default: i2c12_default {
-+						function = "I2C12";
-+						groups = "I2C12";
-+					};
-+
-+					pinctrl_i2c13_default: i2c13_default {
-+						function = "I2C13";
-+						groups = "I2C13";
-+					};
-+
-+					pinctrl_i2c14_default: i2c14_default {
-+						function = "I2C14";
-+						groups = "I2C14";
-+					};
-+
-+					pinctrl_i2c3_default: i2c3_default {
-+						function = "I2C3";
-+						groups = "I2C3";
-+					};
-+
-+					pinctrl_i2c4_default: i2c4_default {
-+						function = "I2C4";
-+						groups = "I2C4";
-+					};
-+
-+					pinctrl_i2c5_default: i2c5_default {
-+						function = "I2C5";
-+						groups = "I2C5";
-+					};
-+
-+					pinctrl_i2c6_default: i2c6_default {
-+						function = "I2C6";
-+						groups = "I2C6";
-+					};
-+
-+					pinctrl_i2c7_default: i2c7_default {
-+						function = "I2C7";
-+						groups = "I2C7";
-+					};
-+
-+					pinctrl_i2c8_default: i2c8_default {
-+						function = "I2C8";
-+						groups = "I2C8";
-+					};
-+
-+					pinctrl_i2c9_default: i2c9_default {
-+						function = "I2C9";
-+						groups = "I2C9";
-+					};
-+
-+					pinctrl_lad0_default: lad0_default {
-+						function = "LAD0";
-+						groups = "LAD0";
-+					};
-+
-+					pinctrl_lad1_default: lad1_default {
-+						function = "LAD1";
-+						groups = "LAD1";
-+					};
-+
-+					pinctrl_lad2_default: lad2_default {
-+						function = "LAD2";
-+						groups = "LAD2";
-+					};
-+
-+					pinctrl_lad3_default: lad3_default {
-+						function = "LAD3";
-+						groups = "LAD3";
-+					};
-+
-+					pinctrl_lclk_default: lclk_default {
-+						function = "LCLK";
-+						groups = "LCLK";
-+					};
-+
-+					pinctrl_lframe_default: lframe_default {
-+						function = "LFRAME";
-+						groups = "LFRAME";
-+					};
-+
-+					pinctrl_lpchc_default: lpchc_default {
-+						function = "LPCHC";
-+						groups = "LPCHC";
-+					};
-+
-+					pinctrl_lpcpd_default: lpcpd_default {
-+						function = "LPCPD";
-+						groups = "LPCPD";
-+					};
-+
-+					pinctrl_lpcplus_default: lpcplus_default {
-+						function = "LPCPLUS";
-+						groups = "LPCPLUS";
-+					};
-+
-+					pinctrl_lpcpme_default: lpcpme_default {
-+						function = "LPCPME";
-+						groups = "LPCPME";
-+					};
-+
-+					pinctrl_lpcrst_default: lpcrst_default {
-+						function = "LPCRST";
-+						groups = "LPCRST";
-+					};
-+
-+					pinctrl_lpcsmi_default: lpcsmi_default {
-+						function = "LPCSMI";
-+						groups = "LPCSMI";
-+					};
-+
-+					pinctrl_lsirq_default: lsirq_default {
-+						function = "LSIRQ";
-+						groups = "LSIRQ";
-+					};
-+
-+					pinctrl_mac1link_default: mac1link_default {
-+						function = "MAC1LINK";
-+						groups = "MAC1LINK";
-+					};
-+
-+					pinctrl_mac2link_default: mac2link_default {
-+						function = "MAC2LINK";
-+						groups = "MAC2LINK";
-+					};
-+
-+					pinctrl_mdio1_default: mdio1_default {
-+						function = "MDIO1";
-+						groups = "MDIO1";
-+					};
-+
-+					pinctrl_mdio2_default: mdio2_default {
-+						function = "MDIO2";
-+						groups = "MDIO2";
-+					};
-+
-+					pinctrl_ncts1_default: ncts1_default {
-+						function = "NCTS1";
-+						groups = "NCTS1";
-+					};
-+
-+					pinctrl_ncts2_default: ncts2_default {
-+						function = "NCTS2";
-+						groups = "NCTS2";
-+					};
-+
-+					pinctrl_ncts3_default: ncts3_default {
-+						function = "NCTS3";
-+						groups = "NCTS3";
-+					};
-+
-+					pinctrl_ncts4_default: ncts4_default {
-+						function = "NCTS4";
-+						groups = "NCTS4";
-+					};
-+
-+					pinctrl_ndcd1_default: ndcd1_default {
-+						function = "NDCD1";
-+						groups = "NDCD1";
-+					};
-+
-+					pinctrl_ndcd2_default: ndcd2_default {
-+						function = "NDCD2";
-+						groups = "NDCD2";
-+					};
-+
-+					pinctrl_ndcd3_default: ndcd3_default {
-+						function = "NDCD3";
-+						groups = "NDCD3";
-+					};
-+
-+					pinctrl_ndcd4_default: ndcd4_default {
-+						function = "NDCD4";
-+						groups = "NDCD4";
-+					};
-+
-+					pinctrl_ndsr1_default: ndsr1_default {
-+						function = "NDSR1";
-+						groups = "NDSR1";
-+					};
-+
-+					pinctrl_ndsr2_default: ndsr2_default {
-+						function = "NDSR2";
-+						groups = "NDSR2";
-+					};
-+
-+					pinctrl_ndsr3_default: ndsr3_default {
-+						function = "NDSR3";
-+						groups = "NDSR3";
-+					};
-+
-+					pinctrl_ndsr4_default: ndsr4_default {
-+						function = "NDSR4";
-+						groups = "NDSR4";
-+					};
-+
-+					pinctrl_ndtr1_default: ndtr1_default {
-+						function = "NDTR1";
-+						groups = "NDTR1";
-+					};
-+
-+					pinctrl_ndtr2_default: ndtr2_default {
-+						function = "NDTR2";
-+						groups = "NDTR2";
-+					};
-+
-+					pinctrl_ndtr3_default: ndtr3_default {
-+						function = "NDTR3";
-+						groups = "NDTR3";
-+					};
-+
-+					pinctrl_ndtr4_default: ndtr4_default {
-+						function = "NDTR4";
-+						groups = "NDTR4";
-+					};
-+
-+					pinctrl_nri1_default: nri1_default {
-+						function = "NRI1";
-+						groups = "NRI1";
-+					};
-+
-+					pinctrl_nri2_default: nri2_default {
-+						function = "NRI2";
-+						groups = "NRI2";
-+					};
-+
-+					pinctrl_nri3_default: nri3_default {
-+						function = "NRI3";
-+						groups = "NRI3";
-+					};
-+
-+					pinctrl_nri4_default: nri4_default {
-+						function = "NRI4";
-+						groups = "NRI4";
-+					};
-+
-+					pinctrl_nrts1_default: nrts1_default {
-+						function = "NRTS1";
-+						groups = "NRTS1";
-+					};
-+
-+					pinctrl_nrts2_default: nrts2_default {
-+						function = "NRTS2";
-+						groups = "NRTS2";
-+					};
-+
-+					pinctrl_nrts3_default: nrts3_default {
-+						function = "NRTS3";
-+						groups = "NRTS3";
-+					};
-+
-+					pinctrl_nrts4_default: nrts4_default {
-+						function = "NRTS4";
-+						groups = "NRTS4";
-+					};
-+
-+					pinctrl_oscclk_default: oscclk_default {
-+						function = "OSCCLK";
-+						groups = "OSCCLK";
-+					};
-+
-+					pinctrl_pewake_default: pewake_default {
-+						function = "PEWAKE";
-+						groups = "PEWAKE";
-+					};
-+
-+					pinctrl_pnor_default: pnor_default {
-+						function = "PNOR";
-+						groups = "PNOR";
-+					};
-+
-+					pinctrl_pwm0_default: pwm0_default {
-+						function = "PWM0";
-+						groups = "PWM0";
-+					};
-+
-+					pinctrl_pwm1_default: pwm1_default {
-+						function = "PWM1";
-+						groups = "PWM1";
-+					};
-+
-+					pinctrl_pwm2_default: pwm2_default {
-+						function = "PWM2";
-+						groups = "PWM2";
-+					};
-+
-+					pinctrl_pwm3_default: pwm3_default {
-+						function = "PWM3";
-+						groups = "PWM3";
-+					};
-+
-+					pinctrl_pwm4_default: pwm4_default {
-+						function = "PWM4";
-+						groups = "PWM4";
-+					};
-+
-+					pinctrl_pwm5_default: pwm5_default {
-+						function = "PWM5";
-+						groups = "PWM5";
-+					};
-+
-+					pinctrl_pwm6_default: pwm6_default {
-+						function = "PWM6";
-+						groups = "PWM6";
-+					};
-+
-+					pinctrl_pwm7_default: pwm7_default {
-+						function = "PWM7";
-+						groups = "PWM7";
-+					};
-+
-+					pinctrl_rgmii1_default: rgmii1_default {
-+						function = "RGMII1";
-+						groups = "RGMII1";
-+					};
-+
-+					pinctrl_rgmii2_default: rgmii2_default {
-+						function = "RGMII2";
-+						groups = "RGMII2";
-+					};
-+
-+					pinctrl_rmii1_default: rmii1_default {
-+						function = "RMII1";
-+						groups = "RMII1";
-+					};
-+
-+					pinctrl_rmii2_default: rmii2_default {
-+						function = "RMII2";
-+						groups = "RMII2";
-+					};
-+
-+					pinctrl_rxd1_default: rxd1_default {
-+						function = "RXD1";
-+						groups = "RXD1";
-+					};
-+
-+					pinctrl_rxd2_default: rxd2_default {
-+						function = "RXD2";
-+						groups = "RXD2";
-+					};
-+
-+					pinctrl_rxd3_default: rxd3_default {
-+						function = "RXD3";
-+						groups = "RXD3";
-+					};
-+
-+					pinctrl_rxd4_default: rxd4_default {
-+						function = "RXD4";
-+						groups = "RXD4";
-+					};
-+
-+					pinctrl_salt1_default: salt1_default {
-+						function = "SALT1";
-+						groups = "SALT1";
-+					};
-+
-+					pinctrl_salt10_default: salt10_default {
-+						function = "SALT10";
-+						groups = "SALT10";
-+					};
-+
-+					pinctrl_salt11_default: salt11_default {
-+						function = "SALT11";
-+						groups = "SALT11";
-+					};
-+
-+					pinctrl_salt12_default: salt12_default {
-+						function = "SALT12";
-+						groups = "SALT12";
-+					};
-+
-+					pinctrl_salt13_default: salt13_default {
-+						function = "SALT13";
-+						groups = "SALT13";
-+					};
-+
-+					pinctrl_salt14_default: salt14_default {
-+						function = "SALT14";
-+						groups = "SALT14";
-+					};
-+
-+					pinctrl_salt2_default: salt2_default {
-+						function = "SALT2";
-+						groups = "SALT2";
-+					};
-+
-+					pinctrl_salt3_default: salt3_default {
-+						function = "SALT3";
-+						groups = "SALT3";
-+					};
-+
-+					pinctrl_salt4_default: salt4_default {
-+						function = "SALT4";
-+						groups = "SALT4";
-+					};
-+
-+					pinctrl_salt5_default: salt5_default {
-+						function = "SALT5";
-+						groups = "SALT5";
-+					};
-+
-+					pinctrl_salt6_default: salt6_default {
-+						function = "SALT6";
-+						groups = "SALT6";
-+					};
-+
-+					pinctrl_salt7_default: salt7_default {
-+						function = "SALT7";
-+						groups = "SALT7";
-+					};
-+
-+					pinctrl_salt8_default: salt8_default {
-+						function = "SALT8";
-+						groups = "SALT8";
-+					};
-+
-+					pinctrl_salt9_default: salt9_default {
-+						function = "SALT9";
-+						groups = "SALT9";
-+					};
-+
-+					pinctrl_scl1_default: scl1_default {
-+						function = "SCL1";
-+						groups = "SCL1";
-+					};
-+
-+					pinctrl_scl2_default: scl2_default {
-+						function = "SCL2";
-+						groups = "SCL2";
-+					};
-+
-+					pinctrl_sd1_default: sd1_default {
-+						function = "SD1";
-+						groups = "SD1";
-+					};
-+
-+					pinctrl_sd2_default: sd2_default {
-+						function = "SD2";
-+						groups = "SD2";
-+					};
-+
-+					pinctrl_sda1_default: sda1_default {
-+						function = "SDA1";
-+						groups = "SDA1";
-+					};
-+
-+					pinctrl_sda2_default: sda2_default {
-+						function = "SDA2";
-+						groups = "SDA2";
-+					};
-+
-+					pinctrl_sgps1_default: sgps1_default {
-+						function = "SGPS1";
-+						groups = "SGPS1";
-+					};
-+
-+					pinctrl_sgps2_default: sgps2_default {
-+						function = "SGPS2";
-+						groups = "SGPS2";
-+					};
-+
-+					pinctrl_sioonctrl_default: sioonctrl_default {
-+						function = "SIOONCTRL";
-+						groups = "SIOONCTRL";
-+					};
-+
-+					pinctrl_siopbi_default: siopbi_default {
-+						function = "SIOPBI";
-+						groups = "SIOPBI";
-+					};
-+
-+					pinctrl_siopbo_default: siopbo_default {
-+						function = "SIOPBO";
-+						groups = "SIOPBO";
-+					};
-+
-+					pinctrl_siopwreq_default: siopwreq_default {
-+						function = "SIOPWREQ";
-+						groups = "SIOPWREQ";
-+					};
-+
-+					pinctrl_siopwrgd_default: siopwrgd_default {
-+						function = "SIOPWRGD";
-+						groups = "SIOPWRGD";
-+					};
-+
-+					pinctrl_sios3_default: sios3_default {
-+						function = "SIOS3";
-+						groups = "SIOS3";
-+					};
-+
-+					pinctrl_sios5_default: sios5_default {
-+						function = "SIOS5";
-+						groups = "SIOS5";
-+					};
-+
-+					pinctrl_siosci_default: siosci_default {
-+						function = "SIOSCI";
-+						groups = "SIOSCI";
-+					};
-+
-+					pinctrl_spi1_default: spi1_default {
-+						function = "SPI1";
-+						groups = "SPI1";
-+					};
-+
-+					pinctrl_spi1cs1_default: spi1cs1_default {
-+						function = "SPI1CS1";
-+						groups = "SPI1CS1";
-+					};
-+
-+					pinctrl_spi1debug_default: spi1debug_default {
-+						function = "SPI1DEBUG";
-+						groups = "SPI1DEBUG";
-+					};
-+
-+					pinctrl_spi1passthru_default: spi1passthru_default {
-+						function = "SPI1PASSTHRU";
-+						groups = "SPI1PASSTHRU";
-+					};
-+
-+					pinctrl_spi2ck_default: spi2ck_default {
-+						function = "SPI2CK";
-+						groups = "SPI2CK";
-+					};
-+
-+					pinctrl_spi2cs0_default: spi2cs0_default {
-+						function = "SPI2CS0";
-+						groups = "SPI2CS0";
-+					};
-+
-+					pinctrl_spi2cs1_default: spi2cs1_default {
-+						function = "SPI2CS1";
-+						groups = "SPI2CS1";
-+					};
-+
-+					pinctrl_spi2miso_default: spi2miso_default {
-+						function = "SPI2MISO";
-+						groups = "SPI2MISO";
-+					};
-+
-+					pinctrl_spi2mosi_default: spi2mosi_default {
-+						function = "SPI2MOSI";
-+						groups = "SPI2MOSI";
-+					};
-+
-+					pinctrl_timer3_default: timer3_default {
-+						function = "TIMER3";
-+						groups = "TIMER3";
-+					};
-+
-+					pinctrl_timer4_default: timer4_default {
-+						function = "TIMER4";
-+						groups = "TIMER4";
-+					};
-+
-+					pinctrl_timer5_default: timer5_default {
-+						function = "TIMER5";
-+						groups = "TIMER5";
-+					};
-+
-+					pinctrl_timer6_default: timer6_default {
-+						function = "TIMER6";
-+						groups = "TIMER6";
-+					};
-+
-+					pinctrl_timer7_default: timer7_default {
-+						function = "TIMER7";
-+						groups = "TIMER7";
-+					};
-+
-+					pinctrl_timer8_default: timer8_default {
-+						function = "TIMER8";
-+						groups = "TIMER8";
-+					};
-+
-+					pinctrl_txd1_default: txd1_default {
-+						function = "TXD1";
-+						groups = "TXD1";
-+					};
-+
-+					pinctrl_txd2_default: txd2_default {
-+						function = "TXD2";
-+						groups = "TXD2";
-+					};
-+
-+					pinctrl_txd3_default: txd3_default {
-+						function = "TXD3";
-+						groups = "TXD3";
-+					};
-+
-+					pinctrl_txd4_default: txd4_default {
-+						function = "TXD4";
-+						groups = "TXD4";
-+					};
-+
-+					pinctrl_uart6_default: uart6_default {
-+						function = "UART6";
-+						groups = "UART6";
-+					};
-+
-+					pinctrl_usbcki_default: usbcki_default {
-+						function = "USBCKI";
-+						groups = "USBCKI";
-+					};
-+
-+					pinctrl_vgabiosrom_default: vgabiosrom_default {
-+						function = "VGABIOSROM";
-+						groups = "VGABIOSROM";
-+					};
-+
-+					pinctrl_vgahs_default: vgahs_default {
-+						function = "VGAHS";
-+						groups = "VGAHS";
-+					};
-+
-+					pinctrl_vgavs_default: vgavs_default {
-+						function = "VGAVS";
-+						groups = "VGAVS";
-+					};
-+
-+					pinctrl_vpi24_default: vpi24_default {
-+						function = "VPI24";
-+						groups = "VPI24";
-+					};
-+
-+					pinctrl_vpo_default: vpo_default {
-+						function = "VPO";
-+						groups = "VPO";
-+					};
-+
-+					pinctrl_wdtrst1_default: wdtrst1_default {
-+						function = "WDTRST1";
-+						groups = "WDTRST1";
-+					};
-+
-+					pinctrl_wdtrst2_default: wdtrst2_default {
-+						function = "WDTRST2";
-+						groups = "WDTRST2";
-+					};
-+
-+				};
-+			};
-+
- 			clk_hpll: clk_hpll@1e6e2024 {
- 				#clock-cells = <0>;
- 				compatible = "aspeed,g5-hpll-clock";
-@@ -75,11 +907,27 @@
- 				reg = <0x1e6e202c 0x4>;
- 			};
++struct sandbox_wdt_info {
++	unsigned long long counter;
++	uint reset_count;
++	bool running;
++};
++
+ /* The complete state of the test system */
+ struct sandbox_state {
+ 	const char *cmd;		/* Command to execute */
+@@ -69,6 +75,9 @@ struct sandbox_state {
+ 	/* Pointer to information for each SPI bus/cs */
+ 	struct sandbox_spi_info spi[CONFIG_SANDBOX_SPI_MAX_BUS]
+ 					[CONFIG_SANDBOX_SPI_MAX_CS];
++
++	/* Information about Watchdog */
++	struct sandbox_wdt_info wdt;
+ };
  
-+			gfx: display@1e6e6000 {
-+				compatible = "aspeed,ast2500-gfx", "syscon";
-+				reg = <0x1e6e6000 0x1000>;
-+				reg-io-width = <4>;
-+			};
+ /* Minimum space we guarantee in the state FDT when calling read/write*/
+diff --git a/configs/sandbox_defconfig b/configs/sandbox_defconfig
+index 01f6f5d5c6..a5f63e027f 100644
+--- a/configs/sandbox_defconfig
++++ b/configs/sandbox_defconfig
+@@ -171,3 +171,5 @@ CONFIG_UNIT_TEST=y
+ CONFIG_UT_TIME=y
+ CONFIG_UT_DM=y
+ CONFIG_UT_ENV=y
++CONFIG_WDT=y
++CONFIG_WDT_SANDBOX=y
+diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
+index e69de29bb2..7a725f1e6d 100644
+--- a/drivers/watchdog/Kconfig
++++ b/drivers/watchdog/Kconfig
+@@ -0,0 +1,21 @@
++menu "Watchdog Timer Support"
 +
- 			sram@1e720000 {
- 				compatible = "mmio-sram";
- 				reg = <0x1e720000 0x9000>;	// 36K
- 			};
++config WDT
++	bool "Enable driver model for watchdog timer drivers"
++	depends on DM
++	help
++	  Enable driver model for watchdog timer. At the moment the API
++	  is very simple and only supports four operations:
++	  start, restart, stop and reset (expire immediately).
++	  What exactly happens when the timer expires is up to a particular
++	  device/driver.
++
++config WDT_SANDBOX
++	bool "Enable Watchdog Timer support for Sandbox"
++	depends on SANDBOX && WDT
++	help
++		Enable Watchdog Timer support in Sandbox. This is a dummy device that
++		can be probed and supports all of the methods of WDT, but does not
++		really do anything.
++
++endmenu
+diff --git a/drivers/watchdog/Makefile b/drivers/watchdog/Makefile
+index a007ae8234..f523d34d57 100644
+--- a/drivers/watchdog/Makefile
++++ b/drivers/watchdog/Makefile
+@@ -15,3 +15,5 @@ obj-$(CONFIG_XILINX_TB_WATCHDOG) += xilinx_tb_wdt.o
+ obj-$(CONFIG_BFIN_WATCHDOG)  += bfin_wdt.o
+ obj-$(CONFIG_OMAP_WATCHDOG) += omap_wdt.o
+ obj-$(CONFIG_DESIGNWARE_WATCHDOG) += designware_wdt.o
++obj-$(CONFIG_WDT) += wdt-uclass.o
++obj-$(CONFIG_WDT_SANDBOX) += sandbox_wdt.o
+diff --git a/drivers/watchdog/sandbox_wdt.c b/drivers/watchdog/sandbox_wdt.c
+new file mode 100644
+index 0000000000..34d90bee7e
+--- /dev/null
++++ b/drivers/watchdog/sandbox_wdt.c
+@@ -0,0 +1,76 @@
++/*
++ * Copyright 2017 Google, Inc
++ *
++ * SPDX-License-Identifier:	GPL-2.0+
++ */
++
++#include <common.h>
++#include <dm.h>
++#include <asm/state.h>
++#include <wdt.h>
++
++DECLARE_GLOBAL_DATA_PTR;
++
++static int sandbox_wdt_start(struct udevice *dev, u64 timeout, ulong flags)
++{
++	struct sandbox_state *state = state_get_current();
++
++	state->wdt.counter = timeout;
++	state->wdt.running = true;
++
++	return 0;
++}
++
++static int sandbox_wdt_stop(struct udevice *dev)
++{
++	struct sandbox_state *state = state_get_current();
++
++	state->wdt.running = false;
++
++	return 0;
++}
++
++static int sandbox_wdt_reset(struct udevice *dev)
++{
++	struct sandbox_state *state = state_get_current();
++
++	state->wdt.reset_count++;
++
++	return 0;
++}
++
++static int sandbox_wdt_expire_now(struct udevice *dev, ulong flags)
++{
++	sandbox_wdt_start(dev, 1, flags);
++
++	return 0;
++}
++
++static int sandbox_wdt_probe(struct udevice *dev)
++{
++	struct sandbox_state *state = state_get_current();
++
++	memset(&state->wdt, 0, sizeof(state->wdt));
++
++	return 0;
++}
++
++static const struct wdt_ops sandbox_wdt_ops = {
++	.start = sandbox_wdt_start,
++	.reset = sandbox_wdt_reset,
++	.stop = sandbox_wdt_stop,
++	.expire_now = sandbox_wdt_expire_now,
++};
++
++static const struct udevice_id sandbox_wdt_ids[] = {
++	{ .compatible = "sandbox,wdt" },
++	{}
++};
++
++U_BOOT_DRIVER(wdt_sandbox) = {
++	.name = "wdt_sandbox",
++	.id = UCLASS_WDT,
++	.of_match = sandbox_wdt_ids,
++	.ops = &sandbox_wdt_ops,
++	.probe = sandbox_wdt_probe,
++};
+diff --git a/drivers/watchdog/wdt-uclass.c b/drivers/watchdog/wdt-uclass.c
+new file mode 100644
+index 0000000000..ab8a64c354
+--- /dev/null
++++ b/drivers/watchdog/wdt-uclass.c
+@@ -0,0 +1,72 @@
++/*
++ * Copyright 2017 Google, Inc
++ *
++ * SPDX-License-Identifier:	GPL-2.0+
++ */
++
++#include <common.h>
++#include <dm.h>
++#include <errno.h>
++#include <wdt.h>
++#include <dm/device-internal.h>
++#include <dm/lists.h>
++
++DECLARE_GLOBAL_DATA_PTR;
++
++int wdt_start(struct udevice *dev, u64 timeout, ulong flags)
++{
++	const struct wdt_ops *ops = device_get_ops(dev);
++
++	if (!ops->start)
++		return -ENOSYS;
++
++	return ops->start(dev, timeout, flags);
++}
++
++int wdt_stop(struct udevice *dev)
++{
++	const struct wdt_ops *ops = device_get_ops(dev);
++
++	if (!ops->stop)
++		return -ENOSYS;
++
++	return ops->stop(dev);
++}
++
++int wdt_reset(struct udevice *dev)
++{
++	const struct wdt_ops *ops = device_get_ops(dev);
++
++	if (!ops->reset)
++		return -ENOSYS;
++
++	return ops->reset(dev);
++}
++
++int wdt_expire_now(struct udevice *dev, ulong flags)
++{
++	int ret = 0;
++	const struct wdt_ops *ops;
++
++	debug("WDT Resettting: %lu\n", flags);
++	ops = device_get_ops(dev);
++	if (ops->expire_now) {
++		return ops->expire_now(dev, flags);
++	} else {
++		if (!ops->start)
++			return -ENOSYS;
++
++		ret = ops->start(dev, 1, flags);
++		if (ret < 0)
++			return ret;
++
++		hang();
++	}
++
++	return ret;
++}
++
++UCLASS_DRIVER(wdt) = {
++	.id		= UCLASS_WDT,
++	.name		= "wdt",
++};
+diff --git a/include/dm/uclass-id.h b/include/dm/uclass-id.h
+index 8c92d0b030..b73a7fd436 100644
+--- a/include/dm/uclass-id.h
++++ b/include/dm/uclass-id.h
+@@ -83,6 +83,7 @@ enum uclass_id {
+ 	UCLASS_VIDEO,		/* Video or LCD device */
+ 	UCLASS_VIDEO_BRIDGE,	/* Video bridge, e.g. DisplayPort to LVDS */
+ 	UCLASS_VIDEO_CONSOLE,	/* Text console driver for video device */
++	UCLASS_WDT,		/* Watchdot Timer driver */
  
-+			gpio: gpio@1e780000 {
-+				#gpio-cells = <2>;
-+				gpio-controller;
-+				compatible = "aspeed,ast2500-gpio";
-+				reg = <0x1e780000 0x1000>;
-+				interrupts = <20>;
-+				gpio-ranges = <&pinctrl 0 0 220>;
-+				interrupt-controller;
-+			};
+ 	UCLASS_COUNT,
+ 	UCLASS_INVALID = -1,
+diff --git a/include/wdt.h b/include/wdt.h
+new file mode 100644
+index 0000000000..0b5f05851a
+--- /dev/null
++++ b/include/wdt.h
+@@ -0,0 +1,107 @@
++/*
++ * Copyright 2017 Google, Inc
++ *
++ * SPDX-License-Identifier:	GPL-2.0+
++ */
 +
- 			timer: timer@1e782000 {
- 				compatible = "aspeed,ast2400-timer";
- 				reg = <0x1e782000 0x90>;
-@@ -90,6 +938,7 @@
- 				clocks = <&clk_apb>;
- 			};
- 
++#ifndef _WDT_H_
++#define _WDT_H_
 +
- 			wdt1: wdt@1e785000 {
- 				compatible = "aspeed,wdt";
- 				reg = <0x1e785000 0x1c>;
-@@ -119,6 +968,36 @@
- 				status = "disabled";
- 			};
- 
-+			lpc: lpc@1e789000 {
-+				compatible = "aspeed,ast2500-lpc", "simple-mfd";
-+				reg = <0x1e789000 0x1000>;
++/*
++ * Implement a simple watchdog uclass. Watchdog is basically a timer that
++ * is used to detect or recover from malfunction. During normal operation
++ * the watchdog would be regularly reset to prevent it from timing out.
++ * If, due to a hardware fault or program error, the computer fails to reset
++ * the watchdog, the timer will elapse and generate a timeout signal.
++ * The timeout signal is used to initiate corrective action or actions,
++ * which typically include placing the system in a safe, known state.
++ */
 +
-+				#address-cells = <1>;
-+				#size-cells = <1>;
-+				ranges = <0 0x1e789000 0x1000>;
++/*
++ * Start the timer
++ *
++ * @dev: WDT Device
++ * @timeout: Number of ticks before timer expires
++ * @flags: Driver specific flags. This might be used to specify
++ * which action needs to be executed when the timer expires
++ * @return: 0 if OK, -ve on error
++ */
++int wdt_start(struct udevice *dev, u64 timeout, ulong flags);
 +
-+				lpc_bmc: lpc-bmc@0 {
-+					compatible = "aspeed,ast2500-lpc-bmc";
-+					reg = <0x0 0x80>;
-+				};
++/*
++ * Stop the timer, thus disabling the Watchdog. Use wdt_start to start it again.
++ *
++ * @dev: WDT Device
++ * @return: 0 if OK, -ve on error
++ */
++int wdt_stop(struct udevice *dev);
 +
-+				lpc_host: lpc-host@80 {
-+					compatible = "aspeed,ast2500-lpc-host", "simple-mfd", "syscon";
-+					reg = <0x80 0x1e0>;
++/*
++ * Reset the timer, typically restoring the counter to
++ * the value configured by start()
++ *
++ * @dev: WDT Device
++ * @return: 0 if OK, -ve on error
++ */
++int wdt_reset(struct udevice *dev);
 +
-+					#address-cells = <1>;
-+					#size-cells = <1>;
-+					ranges = <0 0x80 0x1e0>;
++/*
++ * Expire the timer, thus executing its action immediately.
++ * This is typically used to reset the board or peripherals.
++ *
++ * @dev: WDT Device
++ * @flags: Driver specific flags
++ * @return 0 if OK -ve on error. If wdt action is system reset,
++ * this function may never return.
++ */
++int wdt_expire_now(struct udevice *dev, ulong flags);
 +
-+					reg-io-width = <4>;
++/*
++ * struct wdt_ops - Driver model wdt operations
++ *
++ * The uclass interface is implemented by all wdt devices which use
++ * driver model.
++ */
++struct wdt_ops {
++	/*
++	 * Start the timer
++	 *
++	 * @dev: WDT Device
++	 * @timeout: Number of ticks before the timer expires
++	 * @flags: Driver specific flags. This might be used to specify
++	 * which action needs to be executed when the timer expires
++	 * @return: 0 if OK, -ve on error
++	 */
++	int (*start)(struct udevice *dev, u64 timeout, ulong flags);
++	/*
++	 * Stop the timer
++	 *
++	 * @dev: WDT Device
++	 * @return: 0 if OK, -ve on error
++	 */
++	int (*stop)(struct udevice *dev);
++	/*
++	 * Reset the timer, typically restoring the counter to
++	 * the value configured by start()
++	 *
++	 * @dev: WDT Device
++	 * @return: 0 if OK, -ve on error
++	 */
++	int (*reset)(struct udevice *dev);
++	/*
++	 * Expire the timer, thus executing the action immediately (optional)
++	 *
++	 * If this function is not provided, a default implementation
++	 * will be used, which sets the counter to 1
++	 * and waits forever. This is good enough for system level
++	 * reset, where the function is not expected to return, but might not be
++	 * good enough for other use cases.
++	 *
++	 * @dev: WDT Device
++	 * @flags: Driver specific flags
++	 * @return 0 if OK -ve on error. May not return.
++	 */
++	int (*expire_now)(struct udevice *dev, ulong flags);
++};
 +
-+					lhc: lhc@20 {
-+						compatible = "aspeed,ast2500-lhc";
-+						reg = <0x20 0x24 0x48 0x8>;
-+					};
-+				};
-+			};
++#endif  /* _WDT_H_ */
+diff --git a/test/dm/Makefile b/test/dm/Makefile
+index 1885e17c38..78d14c27e6 100644
+--- a/test/dm/Makefile
++++ b/test/dm/Makefile
+@@ -41,4 +41,5 @@ obj-$(CONFIG_TIMER) += timer.o
+ obj-$(CONFIG_DM_VIDEO) += video.o
+ obj-$(CONFIG_ADC) += adc.o
+ obj-$(CONFIG_SPMI) += spmi.o
++obj-$(CONFIG_WDT) += wdt.o
+ endif
+diff --git a/test/dm/wdt.c b/test/dm/wdt.c
+new file mode 100644
+index 0000000000..2ecfceaaff
+--- /dev/null
++++ b/test/dm/wdt.c
+@@ -0,0 +1,40 @@
++/*
++ * Copyright 2017 Google, Inc
++ *
++ * SPDX-License-Identifier:	GPL-2.0+
++ */
 +
- 			uart2: serial@1e78d000 {
- 				compatible = "ns16550a";
- 				reg = <0x1e78d000 0x1000>;
++#include <common.h>
++#include <dm.h>
++#include <wdt.h>
++#include <asm/state.h>
++#include <asm/test.h>
++#include <dm/test.h>
++#include <test/ut.h>
++
++/* Test that watchdog driver functions are called */
++static int dm_test_wdt_base(struct unit_test_state *uts)
++{
++	struct sandbox_state *state = state_get_current();
++	struct udevice *dev;
++	const u64 timeout = 42;
++
++	ut_assertok(uclass_get_device(UCLASS_WDT, 0, &dev));
++	ut_asserteq(0, state->wdt.counter);
++	ut_asserteq(false, state->wdt.running);
++
++	ut_assertok(wdt_start(dev, timeout, 0));
++	ut_asserteq(timeout, state->wdt.counter);
++	ut_asserteq(true, state->wdt.running);
++
++	uint reset_count = state->wdt.reset_count;
++	ut_assertok(wdt_reset(dev));
++	ut_asserteq(reset_count + 1, state->wdt.reset_count);
++	ut_asserteq(true, state->wdt.running);
++
++	ut_assertok(wdt_stop(dev));
++	ut_asserteq(false, state->wdt.running);
++
++	return 0;
++}
++DM_TEST(dm_test_wdt_base, DM_TESTF_SCAN_PDATA | DM_TESTF_SCAN_FDT);
 -- 
 2.12.2.762.g0e3151a226-goog
