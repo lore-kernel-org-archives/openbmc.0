@@ -1,57 +1,48 @@
-Return-Path: <maxims@google.com>
-Received: from mail-it0-x236.google.com (mail-it0-x236.google.com
- [IPv6:2607:f8b0:4001:c0b::236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <mouse@yandex-team.ru>
+X-Greylist: delayed 563 seconds by postgrey-1.36 at bilbo;
+ Mon, 17 Apr 2017 19:41:29 AEST
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yandex-team.ru header.i=@yandex-team.ru
+ header.b="s+yfGAsz"; dkim-atps=neutral
+Received: from forwardcorp1o.cmail.yandex.net (forwardcorp1o.cmail.yandex.net
+ [IPv6:2a02:6b8:0:1a72::290])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3w4XXH2BvKzDq8M
- for <openbmc@lists.ozlabs.org>; Sat, 15 Apr 2017 08:34:39 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="jdhGNMjy"; 
- dkim-atps=neutral
-Received: by mail-it0-x236.google.com with SMTP id e132so1621151ite.1
- for <openbmc@lists.ozlabs.org>; Fri, 14 Apr 2017 15:34:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=UZoGhEk1Pk6quEtqqXUhsNHhlaE3Yg1RfRXW8C9iXb8=;
- b=jdhGNMjyywffojje/3dL+2xp3/IEFBo1e+4X6weCJrJuTKPzpZrI2soj0LerH67eOv
- VIzCJvubzSa/VtB/FyUDJLvAGjYo5ZC0HyYPojy+ot8yRuI/h/59TqnHHG96i0G8JvJs
- +6dDaS/9ioR3tiFd/pa6Jr/5/lHtn5ZM+0mtkLaE36vau4iRI1KrviIq8wLLawfz1CvD
- 54/FHOhf8o4XE3axrcKTwU93GTRzjWSsVFIgofvdqpycq74JjIXiPeSicM7rBqa7tSMw
- yXMRCgo1f5MDTptzb320LYMsGcZGM7dHy9t3Qfu23eZh/2aMEo1/YRbgP48964FLAAHF
- KIpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=UZoGhEk1Pk6quEtqqXUhsNHhlaE3Yg1RfRXW8C9iXb8=;
- b=cgkOYYvuUrKwaptjmwvUDFZOWU1tPVQCbxGgKPq03qJahVMNowwHIEopV9ihvUq8an
- DV3sd9SzfiI5254CSujng6iv2N0GPLrjvT2q2DnUh7SAu/YTR3BoQ5Yi+zNBP0RMYjtT
- 4cX2Y+1XFg1zjFcsx0mChe13l9ks8uLEdh+WTfPbil9bMJXnsJebsBbelakgCJ4bayuO
- 9kEb7FU2diWqJlnUpcrJvUv+2nlNvYfuYoINR29MxhWOw6f+J48dksZxgaeQhjuv1z4W
- QEReIO+gp0zAM6iDgKKHZVX6oKKL6JWUbqRQb9HoNegz25a/bE8ESjNdlgMkhh7ogTFo
- o5BQ==
-X-Gm-Message-State: AN3rC/7TIS3G2IrkBWQvjtsqm6cJQlPD88EChVAoaT7cjQ4SkwpDOKC2
- 4O2lHyOLUAm2dQeXQ/it7VCeOc9ZefTC
-X-Received: by 10.36.76.16 with SMTP id a16mr782230itb.91.1492209276827; Fri,
- 14 Apr 2017 15:34:36 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.107.185.7 with HTTP; Fri, 14 Apr 2017 15:34:36 -0700 (PDT)
-In-Reply-To: <20170414150915.p4jdh753kfcpvamt@asimov>
-References: <CAFR_W8po-K8Jjfd=qHzA=hO88stnQQDWEbNz2htm6b2DBqyHAg@mail.gmail.com>
- <57675cff-8d30-e550-0b45-d810f3c64426@linux.vnet.ibm.com>
- <CAFR_W8pc_AkHDxC_Tkr1ziShFDzCG2Ew_F-Ei-CquPPZmJGmWQ@mail.gmail.com>
- <CAARXrtmFhWN3FhXnWD0AH6U1pDZcLM_K66L28PMZWQKF1J3j1A@mail.gmail.com>
- <0a092fda-9523-b33c-8879-314cfabc7a3c@linux.vnet.ibm.com>
- <CAFR_W8pr6i4q0kma2eLTkGNG+Jzha6_pAFUqsnt5a+jJ0e7y_g@mail.gmail.com>
- <20170414150915.p4jdh753kfcpvamt@asimov>
-From: Maxim Sloyko <maxims@google.com>
-Date: Fri, 14 Apr 2017 15:34:36 -0700
-Message-ID: <CAFR_W8r_AmYFpqo81XfX8JCeDhAxovN70kh=DHjOYP-Bv8shsw@mail.gmail.com>
-Subject: Re: Running tests
-To: Patrick Williams <patrick@stwcx.xyz>
-Cc: vishwa <vishwa@linux.vnet.ibm.com>,
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3w63Dn4gl2zDqGx
+ for <openbmc@lists.ozlabs.org>; Mon, 17 Apr 2017 19:41:29 +1000 (AEST)
+Received: from mxbackcorp1j.mail.yandex.net (mxbackcorp1j.mail.yandex.net
+ [IPv6:2a02:6b8:0:1619::162])
+ by forwardcorp1o.cmail.yandex.net (Yandex) with ESMTP id A8B42206B4;
+ Mon, 17 Apr 2017 12:31:52 +0300 (MSK)
+Received: from webcorp03h.yandex-team.ru (webcorp03h.yandex-team.ru
+ [37.9.109.161])
+ by mxbackcorp1j.mail.yandex.net (nwsmtp/Yandex) with ESMTP id
+ EMgV9rIRnl-VqGWHHNt; Mon, 17 Apr 2017 12:31:52 +0300
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
+ s=default; 
+ t=1492421512; bh=30sZ0fQikNIDhEV6f90sbHMvPE5kFGx2Y6pcOSc3UHg=;
+ h=From:To:In-Reply-To:References:Subject:Message-Id:Date;
+ b=s+yfGAszg0liJ6hRFD4xNgg1iGKnZsCzTLl42+x6c83NJ+ctpmtXL79fsSF+Qf+SM
+ m+GNhyTWGFV35iECEh125PR2OcXoNxlPQrfTVscZBwmJOg0tIP+DYSCYZFXghvU3NX
+ cuIWVtpvw1g8eovm2Dtz1IqRR9DWiTg8YIlLomu4=
+Authentication-Results: mxbackcorp1j.mail.yandex.net;
+ dkim=pass header.i=@yandex-team.ru
+X-Yandex-Sender-Uid: 1120000000001030
+Received: by webcorp03h.yandex-team.ru with HTTP;
+ Mon, 17 Apr 2017 12:31:52 +0300
+From: Anton D. Kachalov <mouse@yandex-team.ru>
+To: tomjose <tomjose@linux.vnet.ibm.com>, Peter Hanson <peterh@google.com>,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <58EE852E.8010005@linux.vnet.ibm.com>
+References: <CAPozSNp_S_-N8YV=ruAzYVxWy4FgcJvyK27HFb0YL-mNYP22xA@mail.gmail.com>
+ <58EE852E.8010005@linux.vnet.ibm.com>
+Subject: Re: Plans for BMC i2c to host bridge via IPMI
+MIME-Version: 1.0
+Message-Id: <214891492421512@webcorp03h.yandex-team.ru>
+X-Mailer: Yamail [ http://yandex.ru ] 5.0
+Date: Mon, 17 Apr 2017 12:31:52 +0300
+Content-Transfer-Encoding: base64
+Content-Type: text/html; charset=utf-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,32 +54,84 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 14 Apr 2017 22:34:39 -0000
+X-List-Received-Date: Mon, 17 Apr 2017 09:41:31 -0000
 
-Thanks, I was able to successfully build x86 SDK with this instructions.
-
-FWIW, the ./configure --enable-oe-sdk step was still failing with the
-same error though, I had to run it as ./configure --enable-oe-sdk
---host x86_64, but make check did succeed after that.
-
-Thanks again!
-
-On Fri, Apr 14, 2017 at 8:09 AM, Patrick Williams <patrick@stwcx.xyz> wrote:
-> Maxim,
->
-> I think you have two issues:
->
-> 1) If you are running on an x86-host, you need to have an x86-target SDK
-> in order to compile and run on the x86-host.  Typically, we use the
-> qemux86-64 MACHINE.
->
-> 2) When you run ./configure, you need to pass a set of options that
-> OE-SDK has set up:  ./configure ${CONFIGURE_FLAGS} --enable-oe-sdk
->
-> --
-> Patrick Williams
-
-
-
--- 
-Maxim Sloyko
+PGRpdj5IZWxsbyw8L2Rpdj48ZGl2PsKgPC9kaXY+PGRpdj5JJ20gYWxyZWFkeSB3b3JrcyBvbiB0
+aGlzIGFwcHJvYWNoOjwvZGl2PjxkaXY+wqA8L2Rpdj48ZGl2PjxhIGhyZWY9Imh0dHBzOi8vZ2l0
+aHViLmNvbS95YS1tb3VzZS9tZXRhLW9wZW5ibWMteWFuZGV4L2Jsb2IvbWFzdGVyL21ldGEteWFu
+ZGV4L21ldGEtb3BlbnJhY2svbWV0YS1zaGFvc2kvcmVjaXBlcy1rZXJuZWwvbGludXgvbGludXgt
+b2JtYy9pcG1pX2kyYy5jIj5odHRwczovL2dpdGh1Yi5jb20veWEtbW91c2UvbWV0YS1vcGVuYm1j
+LXlhbmRleC9ibG9iL21hc3Rlci9tZXRhLXlhbmRleC9tZXRhLW9wZW5yYWNrL21ldGEtc2hhb3Np
+L3JlY2lwZXMta2VybmVsL2xpbnV4L2xpbnV4LW9ibWMvaXBtaV9pMmMuYzwvYT48L2Rpdj48ZGl2
+PsKgPC9kaXY+PGRpdj5UaGlzIGNyZWF0ZXMgYSBPcGVuSVBNSS1jb21wYXRpYmxlIGRldmljZSBm
+b3IgdGhlIHJlcXVlc3RlZCBpMmMgc2xhdmUgYWRkciArIG1hc3RlciAoeW91IG1heSB1c2UgaXBt
+aXRvb2wvZnJlZWlwbWkgYWZ0ZXIgYWxsKS4gRFRTIGV4YW1wbGU6PC9kaXY+PGRpdj7CoDwvZGl2
+PjxkaXY+PGEgaHJlZj0iaHR0cHM6Ly9naXRodWIuY29tL3lhLW1vdXNlL21ldGEtb3BlbmJtYy15
+YW5kZXgvYmxvYi9tYXN0ZXIvbWV0YS15YW5kZXgvbWV0YS1vcGVucmFjay9tZXRhLXNoYW9zaS9y
+ZWNpcGVzLWtlcm5lbC9saW51eC9saW51eC1vYm1jL292ZXJsYXlzL3NoYW9zaS1DQi5kdHMjTDEy
+MS1MMTI1Ij5odHRwczovL2dpdGh1Yi5jb20veWEtbW91c2UvbWV0YS1vcGVuYm1jLXlhbmRleC9i
+bG9iL21hc3Rlci9tZXRhLXlhbmRleC9tZXRhLW9wZW5yYWNrL21ldGEtc2hhb3NpL3JlY2lwZXMt
+a2VybmVsL2xpbnV4L2xpbnV4LW9ibWMvb3ZlcmxheXMvc2hhb3NpLUNCLmR0cyNMMTIxLUwxMjU8
+L2E+PC9kaXY+PGRpdj7CoDwvZGl2PjxkaXY+SW4gb3JkZXIgdG8gb3BlcmF0ZSBpbiBtdWx0aS1t
+YXN0ZXIgZW52LCB5b3UgYWxzbyBuZWVkIGFkZGl0aW9uYWwgcGF0Y2hlIHN1Y2ggYXM6PC9kaXY+
+PGRpdj48YSBocmVmPSJodHRwczovL2dpdGh1Yi5jb20veWEtbW91c2UvbWV0YS1vcGVuYm1jLXlh
+bmRleC9ibG9iL21hc3Rlci9tZXRhLXlhbmRleC9tZXRhLW9wZW5yYWNrL21ldGEtc2hhb3NpL3Jl
+Y2lwZXMta2VybmVsL2xpbnV4L2xpbnV4LW9ibWMvMDg2LWlwbWktaGFja3MucGF0Y2giPmh0dHBz
+Oi8vZ2l0aHViLmNvbS95YS1tb3VzZS9tZXRhLW9wZW5ibWMteWFuZGV4L2Jsb2IvbWFzdGVyL21l
+dGEteWFuZGV4L21ldGEtb3BlbnJhY2svbWV0YS1zaGFvc2kvcmVjaXBlcy1rZXJuZWwvbGludXgv
+bGludXgtb2JtYy8wODYtaXBtaS1oYWNrcy5wYXRjaDwvYT48L2Rpdj48ZGl2PsKgPC9kaXY+PGRp
+dj5UaGlzIGRyaXZlciBzdGlsbCBoYXMgc29tZSBpc3N1ZXMgKyBub3Qgc3VwcG9ydGVkIGluY29t
+aW5nIHJlcXVlc3RzIChpdCBvbmx5IG9wZXJhdGVzIGxpa2UgYSAiY2xpZW50IikuPC9kaXY+PGRp
+dj7CoDwvZGl2PjxkaXY+MTIuMDQuMjAxNywgMjI6NTEsICJ0b21qb3NlIiAmbHQ7dG9tam9zZUBs
+aW51eC52bmV0LmlibS5jb20mZ3Q7OjwvZGl2PjxibG9ja3F1b3RlIHR5cGU9ImNpdGUiPjxwPkhl
+bGxvIFBldGVyLDxiciAvPjxiciAvPkFzIGkgdW5kZXJzdGFuZCB5b3Ugd291bGQgYmUgbGV2ZXJh
+Z2luZyB0aGUgQlQoQmxvY2sgVHJhbnNmZXIpIGludGVyZmFjZTxiciAvPnRvIHJvdXRlIGNvbW1h
+bmRzIGZyb20gaG9zdCB0byBCTUMuPGJyIC8+PGJyIC8+wqBGcm9tIHRoZSBJUE1JIHNwZWNpZmlj
+YXRpb24gaXQgbG9va3MgbGlrZSB0aGlzIGNhbiBiZSBhIGdlbmVyaWMgb25lPGJyIC8+aW1wbGVt
+ZW50YXRpb24gaW5zdGVhZCBvZiBpbXBsZW1lbnRpbmc8YnIgLz5PRU0gY29tbWFuZHMuPGJyIC8+
+PGJyIC8+SW1wbGVtZW50aW5nIHRoZSBJUE1CIGludGVyZmFjZSAoU2VjdGlvbiA3KSBpbiB0aGUg
+SVBNSSBzcGVjaWZpY2F0aW9uPGJyIC8+d291bGQgcHJvYmFibHkgc3VpdCB5b3VyIHJlcXVpcmVt
+ZW50LjxiciAvPlRoZSBmb2xsb3dpbmcgY29tbWFuZHMgc2hvdWxkIGhlbHAgdXMgYWNoaWV2ZSB0
+aGUgZ29hbDogTWFzdGVyPGJyIC8+V3JpdGUtUmVhZCBjb21tYW5kLCBHZXQgTWVzc2FnZSBjb21t
+YW5kPGJyIC8+YW5kIFNlbmQgbWVzc2FnZSBjb21tYW5kLjxiciAvPjxiciAvPkkgYW0gdGhpbmtp
+bmcgdGhhdCBJUE1CIGludGVyZmFjZSBjb3VsZCBiZSBhIGRidXMgc2VydmljZSB3aGljaCBwYXJz
+ZXM8YnIgLz5ob3N0IElQTUkgY29tbWFuZHMgYW5kIG1hcHMgdG8gYW4gSTJDIHJlYWQvd3JpdGUu
+PGJyIC8+PGJyIC8+TGV0IG1lIGtub3cgeW91ciB0aG91Z2h0cy48YnIgLz48YnIgLz5SZWdhcmRz
+LDxiciAvPlRvbTxiciAvPjxiciAvPjxiciAvPk9uIFRodXJzZGF5IDA2IEFwcmlsIDIwMTcgMDc6
+MTAgQU0sIFBldGVyIEhhbnNvbiB3cm90ZTo8L3A+PGJsb2NrcXVvdGU+wqBBdmUhPGJyIC8+PGJy
+IC8+wqBUaGlzIGVtYWlsIGNhcHR1cmVzIHByb3Bvc2VkIGFjdGlvbnMgZnJvbSBhbiBleGNoYW5n
+ZSBlYXJsaWVyIHRvZGF5IG9uPGJyIC8+wqB0aGUgI29wZW5ibWMgSVJDIGNoYW5uZWwuPGJyIC8+
+PGJyIC8+wqBCYXNpYyBnb2FsIGlzIHRvIHJlYWNoIGRldmljZXMgb24gYSBCTUMgSTJDIGJ1cyBm
+cm9tIElQTUkgY29tbWFuZGxpbmUgYXQgaG9zdC48YnIgLz48YnIgLz7CoEkyQyBjb21tYW5kcyBh
+bmQgcmVzcG9uc2VzIHRvIGJlIGNhcnJpZWQgYXMgT0VNIGV4dGVuc2lvbiBtZXNzYWdlcyw8YnIg
+Lz7CoGkuZS4sIE5ldHdvcmsgRnVuY3Rpb24gQ29kZXMgMkVoIC8gMkZoIGluIHRoZSBJbnRlbCBz
+cGVjaWZpY2F0aW9uLjxiciAvPsKgVGhvc2UgbWVzc2FnZSBmb3JtcyByZXF1aXJlIGEgdGhyZWUg
+Ynl0ZSBJQU5BIEVudGVycHJpc2UgTnVtYmVyLCBhbmQ8YnIgLz7CoG91ciBvcmlnaW5hbCBwbGFu
+IHVzZWQgR29vZ2xlJ3MgY29kZS48YnIgLz48YnIgLz7CoFdlIHdvdWxkIGxpa2UgdG8gY2Fycnkg
+dGhlIGZlYXR1cmUgaW4gT3BlbkJtYywgc28gSSB3YW50ZWQgdG8gY29uZmlybTxiciAvPsKgaWYg
+dGhpcyBpcyBhY2NlcHRhYmxlLCBhbmQvb3Igd2hhdCBtb2RpZmljYXRpb25zIHdvdWxkIGJlIG5l
+ZWRlZC48YnIgLz48YnIgLz7CoERlY2lzaW9uczo8YnIgLz48YnIgLz7CoDEuIE9rIHRvIHVzZSBP
+RU0gZXh0ZW5zaW9ucy4gUGF0cmljayBub3RlZCB0aGF0IE9wZW5CbWMgYWxyZWFkeSB1c2VzPGJy
+IC8+wqBzb21lLCBhbGJlaXQgdW5kZXIgdGhlIElCTSBJQU5BIEVudGVycHJpc2UgTnVtYmVyLjxi
+ciAvPjxiciAvPsKgMi4gU3dpdGNoIHRvIE9wZW5CbWMgSUFOQSBFbnRlcnByaXNlIE51bWJlciB3
+aGVuIGF2YWlsYWJsZS48YnIgLz48YnIgLz7CoDMuIFBhdHJpY2sgcHJvcG9zZWQgdG8gY3JlYXRl
+IGEgbmV3IHBob3NwaG9yLWlwbWktb2VtcHJvdmlkZXJzIHJlcG8gdG88YnIgLz7CoGhvbGQgdGhl
+IGNvZGUsIG1lc3NhZ2UgZG9jdW1lbnRhdGlvbiwgZXRjLjxiciAvPjxiciAvPsKgNC4gQWxsIHVz
+ZXMgb2YgdGhlIE9wZW5CbWMgSUFOQSBzaGFsbCBiZSBlbnVtZXJhdGVkIGluIHBsYWNlIC0gYWxt
+b3N0PGJyIC8+wqBjZXJ0YWlubHkgYW4gaW5jbHVkZSBmaWxlIGluIHRoZSBuZXcgcmVwbyAtIHNv
+IHdlIGRvbid0IGVuZCB1cCB3aXRoPGJyIC8+wqBjb25mbGljdGluZyB1c2VzLjxiciAvPjxiciAv
+PsKgQWN0aW9uczo8YnIgLz48YnIgLz7CoEExLiBwZXRlcmg6IHNlbmQgdGhpcyBlbWFpbCB0byB0
+aGUgbWFpbGluZyBsaXN0LjxiciAvPsKgQTIuIHN0d2N4OiByZXF1ZXN0IElBTkEgRW50ZXJwcmlz
+ZSBOdW1iZXIuPGJyIC8+wqBBMy4gc3R3Y3g6IGNyZWF0ZSBuZXcgcGhvc3Bob3ItaXBtaS1vZW1w
+cm92aWRlcnMgcmVwby48YnIgLz7CoEE0LiBwZXRlcmgrYnJlbmRhbmhpZ2dpbnM6IHByb3Bvc2Ug
+ZGV0YWlsZWQgbWVzc2FnZSBkZXNpZ25zLjxiciAvPsKgQTUuIHBldGVyaDoge25ldC1pcG1pZCxo
+b3N0LWlwbWl9ICs9IHN1cHBvcnQgZm9yIHRoZXNlIGNvbW1hbmRzLjxiciAvPjxiciAvPsKgQSBr
+ZXkgcG9pbnQgb2YgdGhpcyBlbWFpbCBpcyB0byByZWFwIHlvdXIgY29sbGVjdGl2ZSB3aXNkb20s
+IHNvIHBsZWFzZTxiciAvPsKgaWYgeW91IGhhdmUgc29tZXRoaW5nIHRvIGNvbnRyaWJ1dGUsIHBs
+ZWFzZSBkby4gSW4gcGFydGljdWxhciw8YnIgLz7CoFBhdHJpY2ssIHBsZWFzZSBjb3JyZWN0IGFu
+eXRoaW5nIEkgbWlzdW5kZXJzdG9vZCBvciBpbmNvcnJlY3RseTxiciAvPsKgZXh0cmFwb2xhdGVk
+IGZyb20gdGhlIGNoYXQuPGJyIC8+PGJyIC8+wqDCoMKgwqAtLSBwZXRlcmg8YnIgLz7CoDwvYmxv
+Y2txdW90ZT48cD7CoDwvcD48L2Jsb2NrcXVvdGU+PGRpdj7CoDwvZGl2PjxkaXY+wqA8L2Rpdj48
+ZGl2Pi0twqA8YnIgLz5BbnRvbiBELiBLYWNoYWxvdjxiciAvPjxiciAvPklUTywgU3lzdGVtcyBB
+cmNoaXRlY3Q8YnIgLz5UZWw6IDcgKDQ5NSkgNzM5LTcwLTAwIGV4dC43NjEzPC9kaXY+PGRpdj7C
+oDwvZGl2Pg==
