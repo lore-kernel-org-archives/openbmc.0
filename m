@@ -1,51 +1,28 @@
-Return-Path: <geissonator@gmail.com>
-Received: from mail-io0-x242.google.com (mail-io0-x242.google.com
- [IPv6:2607:f8b0:4001:c06::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3w6SYw5zmgzDq7Z
- for <openbmc@lists.ozlabs.org>; Tue, 18 Apr 2017 11:42:44 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="jxsp7Ome"; 
- dkim-atps=neutral
-Received: by mail-io0-x242.google.com with SMTP id k87so30014543ioi.0
- for <openbmc@lists.ozlabs.org>; Mon, 17 Apr 2017 18:42:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=UDmtW4AjZHzsNupJARq4jjtET+ZF0OUIV6d+u2Q1dnQ=;
- b=jxsp7OmeBhifnffd447FUg3t380lACnUoq2BQ7zYKx0rGIhsC66+9qgF9CnBANHUAs
- x4RX4YrcMhPLtnFC9EXvwt/dX221rO7zRwqmkWapRWch2FQEx1jfKH/Zm6R1VQ+p+YmZ
- f9TyA8Mxm474RaUcS/TQm+QlzCE55ZkiX2XjuHpf52KDDnt2LFUqlDsDnGaIQ6z6z+do
- 4iFux+7TIp7ErY9BDSZqCbRh+OgwWi1IMrEylWqSV5hMps2LvumospJJX5Ap9xJiMMzF
- Mxb0zBJPxiOcrebbd9Wn3+bjpP2iXbDc1n70f5eJ2jLm6cO29n7EElvvEkBA42XJk6QU
- mGzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=UDmtW4AjZHzsNupJARq4jjtET+ZF0OUIV6d+u2Q1dnQ=;
- b=gd3QdfNr80nJSczEvP8HRFnm1Ru4J/i9fyMzRUZ9QVlCG75qMXSDHZ0ar7cGGJb+JB
- qWl0i8U4f03C+LQIfP/vtIsvB5XkDTJ6QI35pFkEeJzgoRhOElWJUB1HLzPt3GlJjWy6
- PuaqC+DXwhhhBHA3+X3Tshs9fkK1EwFjg/dudvOa/5J/tjSC5oTNBSrX0/HLncveiWxD
- ZZyN+SVISy8TdO8INbV2B27hGfUyQmvJxvfCz5YrOmXaNLGf8Mot9wkzEmgXalfGW3Oz
- mICDUX4xGfZVeKwunac1P8pXfuSoVFA9v7fTDGvO3JpEIV5lvYuHxkvjji+lpBCdWMBJ
- BmgQ==
-X-Gm-Message-State: AN3rC/6EdOxDhQWSMURV6boQBFwg3scn4j3AChpXSP9kqOuAogZ2Rs6+
- 4dqA2SRV4VrejiY+NjTqxugeLx95wA==
-X-Received: by 10.107.171.67 with SMTP id u64mr11482628ioe.102.1492479762238; 
- Mon, 17 Apr 2017 18:42:42 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3w6Tfs61qSzDq5b
+ for <openbmc@lists.ozlabs.org>; Tue, 18 Apr 2017 12:32:05 +1000 (AEST)
+Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
+ [76.250.84.236]) by mx.zohomail.com
+ with SMTPS id 1492482720358520.0472113563019;
+ Mon, 17 Apr 2017 19:32:00 -0700 (PDT)
+Date: Mon, 17 Apr 2017 21:31:59 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Patrick Venture <venture@google.com>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: thermald for OpenBMC
+Message-ID: <20170418023159.GA25774@heinlein.lan>
+References: <CAO=notwmuHO91eentG60W012rnQXtAybuTPqo+_EbY426eOwSA@mail.gmail.com>
 MIME-Version: 1.0
-Received: by 10.107.128.228 with HTTP; Mon, 17 Apr 2017 18:42:41 -0700 (PDT)
-In-Reply-To: <1492443705-24309-1-git-send-email-saqibkhan@utexas.edu>
-References: <1492443705-24309-1-git-send-email-saqibkhan@utexas.edu>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Mon, 17 Apr 2017 20:42:41 -0500
-Message-ID: <CALLMt=qKaXU5i3J+2wWFA968t4ohOPBcyjAnfBU0wW7NbROufA@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7] Correct spelling of "barreleye"
-To: saqibkhan@utexas.edu
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>,
- Saqib Khan <khansa@us.ibm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="vkogqOf2sHV7VnPd"
+Content-Disposition: inline
+In-Reply-To: <CAO=notwmuHO91eentG60W012rnQXtAybuTPqo+_EbY426eOwSA@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
+X-ZohoMailClient: External
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,33 +34,91 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Apr 2017 01:42:45 -0000
+X-List-Received-Date: Tue, 18 Apr 2017 02:32:06 -0000
 
-On Mon, Apr 17, 2017 at 10:41 AM,  <saqibkhan@utexas.edu> wrote:
-> From: Saqib Khan <khansa@us.ibm.com>
->
-> Note:"barreleye" mispelled in /sys/firmware/devicetree/base/model
->
-> Signed-off-by: Saqib Khan <khansa@us.ibm.com>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-> index 9dc3e67..f638bda 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-> @@ -4,7 +4,7 @@
->  #include <dt-bindings/gpio/aspeed-gpio.h>
->
->  / {
-> -       model = "Barrelye BMC";
-> +       model = "Barreleye BMC";
->         compatible = "rackspace,barreleye-bmc", "aspeed,ast2400";
->
->         aliases {
-> --
-> 1.8.2.2
->
 
-Acked-by: Andrew Geissler <geissonator@gmail.com>
+--vkogqOf2sHV7VnPd
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Patrick,
+
+On Mon, Apr 17, 2017 at 01:21:29PM -0700, Patrick Venture wrote:
+> I'm working on a thermal control loop that'll operate within the openbmc
+> framework(s) and wanted to provide a somewhat high level overview for
+> thoughts.
+
+We should connect you with Matt Spinler (mspinler) and Matt Barth
+(msbarth) on IRC.  They have been working on implementing the "IBM fan
+control algorithm" but I suspect there is a significant amount of
+overlap.  Our intention was that you'd be able to reuse our
+implementation and insert a different (low-level detailed) algorithm.
+
+> The general design is to have a daemon that reads fans and temperatures
+> from dbus (reaching out to phosphor-hwmon) as well as being able to recei=
+ve
+> temperatures and other sensor information over an OEM IPMI command.
+
+Sounds good.  This is how it is suppose to work.
+
+For the IPMI commands, the expectation would be that either the IPMI
+provider or an application fed by the IPMI provider for these OEM
+commands would implement the same xyz.openbmc_project.Sensor.Value
+interface as the phosphor-hwmon.  This way the thermal algorithm really
+doesn't need to know where the data comes from.
+
+> The system will support zones defined (yes, probably in YAML).  A zone wi=
+ll
+> have at least one exclusion fan, and at least one thermal sensor.  The
+> thermal sensor can be shared.  There will be defaults provided in this
+> configuration to act as fallbacks.
+
+There is some code available to define zones via YAML.  Matt Spinler can
+point you at these.
+
+> The thermal loop will be margin based and attempt to drive the fans to
+> maintain the temperature within operating temperature of the zones.  Each
+> zone will be independently managed.
+
+These sounds very similar to what their intended design is as well.  For
+a zone there is a lower-threshold and an upper-threshold.  When the
+temperature is above the upper-threshold, the fan speed is increased and
+the fans are decreased when the temperature is below the
+lower-threshold.  Again, the Matts can give you details on what the "IBM
+fan control algorithm" design is.
+
+> Because not all thermal sensors can necessarily be ready by the BMC, we
+> need a method of getting that information from the host.  From a previous
+> project, we have the notion of sending thermal margins for slow and quick
+> (heat change) devices to a controller.
+
+Is this the Host->BMC via IPMI you mentioned earlier or does the BMC
+need to actively query the host in some cases?  Hopefully it is always
+one direction.
+
+--=20
+Patrick Williams
+
+--vkogqOf2sHV7VnPd
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAlj1ep0ACgkQqwNHzC0A
+wRkLAA//dD7+mIw5nqrMTdqNIkMZTpAu/S/vxstMxtpFgaMC1/I8BTOYKdkXlklt
+hCRjGanBw+ksD6GSVsjs+wJLIqsB4xzGulUWmzjwpniQROu67Y5t0XL3EMbsO41r
+NFF2Zlk91luouh3hXtzrrinB+8jfnFXRpYLoBJJKVN9jCc8JLbYOK/YpQ0yiYwtm
+pOTtYj9+9CHrDd+twhyj8ri0NNO6OWbc12tbySvIbIur/ajmb2J5PquRUl4G4w35
+doiOxn3BhjcRr0BQt+M1zxas2YFC/V6RwLii3MLURMIQxZ80gDPVvR2rmwgSJvg2
+VbHiauB6y4B5sEvGWIWNsGr5X4jcjr2SBNfvQOagmdUa2uXxRh3z6Rh1Q+aC8/Z5
++vIQVPyL3ehZf62EVKlmFY1CWQjE0AiL0GcDbv2qMI1LAqYxHMVw2a5/LkNTasP8
+Ztno7JnyQtEY2X/shwxCUAKjhTaUv0cSAVA1/dqtClAuC1t142znalNEPzFFbgkI
++hhmCUlu4jEm2cfn7Jik/I5NpW1Jfaq2FOlOKXe2In7cxam/Uj0H20dFcNqAq5FZ
+8WuWZB7LDqNcAQY1YAYeu/4Oc0S+bBymygiqJ6lX1PaMnMcn44W3a6jr9L1ErNsM
+0C5/8NRLpsW8IuDbA9sx86a7MFO62I6SDk6LMqLMsO8Sz7FaScI=
+=0tHM
+-----END PGP SIGNATURE-----
+
+--vkogqOf2sHV7VnPd--
