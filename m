@@ -1,107 +1,52 @@
-Return-Path: <austenc@us.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <maxims@google.com>
+Received: from mail-it0-x229.google.com (mail-it0-x229.google.com
+ [IPv6:2607:f8b0:4001:c0b::229])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3w6vzX0dg4zDqBQ
- for <openbmc@lists.ozlabs.org>; Wed, 19 Apr 2017 05:17:59 +1000 (AEST)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v3IJDSTY031916
- for <openbmc@lists.ozlabs.org>; Tue, 18 Apr 2017 15:17:46 -0400
-Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
- by mx0a-001b2d01.pphosted.com with ESMTP id 29wqpuk3c8-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 18 Apr 2017 15:17:45 -0400
-Received: from localhost
- by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
- Tue, 18 Apr 2017 15:17:44 -0400
-Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
- by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Tue, 18 Apr 2017 15:17:42 -0400
-Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
- [9.57.199.109])
- by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v3IJHg3Z43384922
- for <openbmc@lists.ozlabs.org>; Tue, 18 Apr 2017 19:17:42 GMT
-Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 9BD89112060
- for <openbmc@lists.ozlabs.org>; Tue, 18 Apr 2017 15:17:41 -0400 (EDT)
-Received: from d50lp01.ny.us.ibm.com (unknown [146.89.104.207])
- by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTPS id 90E0611205F
- for <openbmc@lists.ozlabs.org>; Tue, 18 Apr 2017 15:17:41 -0400 (EDT)
-Received: from localhost
- by d50lp01.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
- Tue, 18 Apr 2017 15:17:41 -0400
-Received: from smtp.notes.na.collabserv.com (192.155.248.91)
- by d50lp01.ny.us.ibm.com (158.87.18.20) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128/128)
- Tue, 18 Apr 2017 15:17:39 -0400
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
- Tue, 18 Apr 2017 19:17:38 -0000
-Received: from us1a3-smtp05.a3.dal06.isc4sb.com (10.146.71.159)
- by smtp.notes.na.collabserv.com (10.106.227.143) with
- smtp.notes.na.collabserv.com ESMTP; Tue, 18 Apr 2017 19:17:36 -0000
-Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
- by us1a3-smtp05.a3.dal06.isc4sb.com
- with ESMTP id 2017041819173546-551441 ;
- Tue, 18 Apr 2017 19:17:35 +0000 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3w6wd25Yg3zDq5b
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Apr 2017 05:47:01 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="AWixrvFK"; 
+ dkim-atps=neutral
+Received: by mail-it0-x229.google.com with SMTP id e132so1292774ite.1
+ for <openbmc@lists.ozlabs.org>; Tue, 18 Apr 2017 12:47:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=S1RVRcFT6h34KgNs8Thzh+kK7C95CGQVLzqnFY00Gbw=;
+ b=AWixrvFKfHxik3mb4ljuYInlfo3J8kALmO4eEF0bQhM2S/ZQv8+0frimNDqpnOwOU+
+ 6psGVpNy7kY/dEAW2ftN27nzSkxDXVi+u0KdPPrNNPkmyF33YPc9wHgIt5U8BUzuagAN
+ 6AqL92vaSw33Qv8PkDems9UD9rmuqut6HZ+zVVYVB0GEEKRwFqcutaXtaxw9Be3Qvh9x
+ VDa/z00nm8mRB1sICa8Lxp5BTp5bfwLBo3ENYUxbLxpbiZddb4HBwSh2MOeyUbaOB6OY
+ 3RGCBhyyqrY6GroWqQSOnqwkBaVvzJmAlUE45XAm8tHCQnHZ5iAuyghIU7O3fIkmL0t+
+ xOxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=S1RVRcFT6h34KgNs8Thzh+kK7C95CGQVLzqnFY00Gbw=;
+ b=Ljup5iti8zB1HkJKvqJWR8eCVMT80ePE4lrin0o7oqFlkGXHWOiqV/DjDhnWmMjhHQ
+ f8FXT8hK0zUze05oKfHKh+u/i7kkwmD1r8zkd+aGCIDHceQpG8YyqxNJPESmcfY9/CYV
+ pBfWGbC2M619mdDqRbCuwfBgAPIJW2jeCD2jwVuuaGbDhGh1nEWJMWbaIzmVCmjM43ue
+ 9aEuCX5H/xjtVCkvuUUcxoVoMF35EFV80f5Ptzk/z9DY0INPBEsOJtlmBUQLbBQoQPMv
+ PYLd7wXWGeUBlCi0YHDirrp2Wiaeh8foyeoUYp3uX03ZVlAj+u0wig3WqZg7kmgKyZ5B
+ YRdw==
+X-Gm-Message-State: AN3rC/6Re7Ei28CqoAUd1WY9w7qdpte9wHjDibM7GSxHWTDsDSd9j0tB
+ XJdyDkiyuew734qKaDVJTV/lwaJivOsc
+X-Received: by 10.36.82.144 with SMTP id d138mr16850219itb.24.1492544819142;
+ Tue, 18 Apr 2017 12:46:59 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <214891492421512@webcorp03h.yandex-team.ru>
-Subject: Re: Plans for BMC i2c to host bridge via IPMI
-To: "Anton D. Kachalov" <mouse@yandex-team.ru>
-Cc: tomjose <tomjose@linux.vnet.ibm.com>, Peter Hanson <peterh@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: "Chris Austen" <austenc@us.ibm.com>
-Date: Tue, 18 Apr 2017 14:17:31 -0500
-References: <CAPozSNp_S_-N8YV=ruAzYVxWy4FgcJvyK27HFb0YL-mNYP22xA@mail.gmail.com>
- <58EE852E.8010005@linux.vnet.ibm.com>
- <214891492421512@webcorp03h.yandex-team.ru>
-X-KeepSent: 8A3EF940:D392E785-86258106:0069CC22;
- type=4; name=$KeepSent
-X-Mailer: IBM Notes Release 9.0.1EXT SHF766 December 14, 2016
-X-LLNOutbound: False
-X-Disclaimed: 10471
-X-TNEFEvaluated: 1
-Content-type: multipart/alternative; 
- Boundary="0__=09BB0B95DFFA4AB28f9e8a93df938690918c09BB0B95DFFA4AB2"
-Content-Disposition: inline
-x-cbid: 17041819-0052-0000-0000-000001DC2232
-X-IBM-SpamModules-Scores: BY=0.281209; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.449102; ST=0; TS=0; UL=0; ISC=; MB=0.135662
-X-IBM-SpamModules-Versions: BY=3.00006936; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000208; SDB=6.00849258; UDB=6.00419331; IPR=6.00627899; 
- BA=6.00005298; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015088; XFM=3.00000013;
- UTC=2017-04-18 19:17:38
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2017-04-18 11:23:12 - 6.00006618
-x-cbparentid: 17041819-9952-0000-0000-000030A861E0
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-X-TM-AS-GCONF: 00
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006936; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000208; SDB=6.00849258; UDB=6.00419331; IPR=6.00627899; 
- BA=6.00005298; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015088; XFM=3.00000013;
- UTC=2017-04-18 19:17:43
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-Message-Id: <OF8A3EF940.D392E785-ON86258106.0069CC22-86258106.0069F96F@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-04-18_16:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=17
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1704180152
+Received: by 10.107.185.7 with HTTP; Tue, 18 Apr 2017 12:46:58 -0700 (PDT)
+In-Reply-To: <CAFR_W8rHQNgzV9Lu5scZYF2-zV5y0kjCJDQ5BY0RYirEhi=pwQ@mail.gmail.com>
+References: <CAFR_W8rbMN1uSC8o+cF94D40KwSdJT1oOGYLMS90PWHHuAVsaQ@mail.gmail.com>
+ <CANF=oU6TBUTjq6gyDUZ=TWWQ-h-M3Hzdii4iBbUPVvMx5qRpAA@mail.gmail.com>
+ <CAFR_W8rHQNgzV9Lu5scZYF2-zV5y0kjCJDQ5BY0RYirEhi=pwQ@mail.gmail.com>
+From: Maxim Sloyko <maxims@google.com>
+Date: Tue, 18 Apr 2017 12:46:58 -0700
+Message-ID: <CAFR_W8q2LeLYZQZd17sFYo=KztC_JOrnLbnD0H2-1VaoQkjYUA@mail.gmail.com>
+Subject: Re: Running OpenBMC in qemu
+To: Robi Buranyi <rburanyi@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -113,228 +58,74 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Apr 2017 19:18:00 -0000
+X-List-Received-Date: Tue, 18 Apr 2017 19:47:03 -0000
 
+On Tue, Apr 18, 2017 at 10:01 AM, Maxim Sloyko <maxims@google.com> wrote:
+> On Mon, Apr 17, 2017 at 5:56 PM, Robi Buranyi <rburanyi@google.com> wrote:
+>> why does it have to be qemuarm exactly? You can equally run qemux86(-64),
+>> and shall see no difference in test results.
+>
+> Well, I guess it does not *have* to be qemuarm, but last time I tried
+> it, it worked, that's why I was running qemuarm. I was also under the
+> impression that we are trying to support it.
+>
+> If it's broken beyond repair though, it's fine by me.
+>
+>>
+>> so what has been working for me all the time [and still works with a
+>> relatively recent gbmc checkout]
+>> - build for machine qeumux86-64
+>> - and run a console-only mode: runqemu qemux86-64 ext4
+>> qemuparams="-nographic"
 
---0__=09BB0B95DFFA4AB28f9e8a93df938690918c09BB0B95DFFA4AB2
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/plain; charset=ISO-8859-1
+OK, so it turns out the problem was not arm vs x86, the problem was
+the lack of -nographic parameter.
+qemuarm image booted OK with -nographic parameter.
 
-
-Anton,
-you have it licensed as GPL.  Tom will not be able to use your code as the
-base code for OpenBMC is Apache licensed.
-
-Chris Austen
-POWER Systems Enablement Manager
-
-
-"openbmc" <openbmc-bounces+austenc=3Dus.ibm.com@lists.ozlabs.org> wrote on
-04/17/2017 04:31:52 AM:
-
-> From: "Anton D. Kachalov" <mouse@yandex-team.ru>
-> To: tomjose <tomjose@linux.vnet.ibm.com>, Peter Hanson
-> <peterh@google.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-> Date: 04/17/2017 04:41 AM
-> Subject: Re: Plans for BMC i2c to host bridge via IPMI
-> Sent by: "openbmc" <openbmc-bounces+austenc=3Dus.ibm.com@lists.ozlabs.org>
->
-> Hello,
->
-> I'm already works on this approach:
->
-> https://github.com/ya-mouse/meta-openbmc-yandex/blob/master/meta-
->
-yandex/meta-openrack/meta-shaosi/recipes-kernel/linux/linux-obmc/ipmi=5Fi2c=
-.c
->
-> This creates a OpenIPMI-compatible device for the requested i2c
-> slave addr + master (you may use ipmitool/freeipmi after all). DTS
-example:
->
-> https://github.com/ya-mouse/meta-openbmc-yandex/blob/master/meta-
-> yandex/meta-openrack/meta-shaosi/recipes-kernel/linux/linux-obmc/
-> overlays/shaosi-CB.dts#L121-L125
->
-> In order to operate in multi-master env, you also need additional
-> patche such as:
-> https://github.com/ya-mouse/meta-openbmc-yandex/blob/master/meta-
-> yandex/meta-openrack/meta-shaosi/recipes-kernel/linux/linux-obmc/
-> 086-ipmi-hacks.patch
->
-> This driver still has some issues + not supported incoming requests
-> (it only operates like a "client").
->
-> 12.04.2017, 22:51, "tomjose" <tomjose@linux.vnet.ibm.com>:
-> Hello Peter,
->
-> As i understand you would be leveraging the BT(Block Transfer) interface
-> to route commands from host to BMC.
->
-> =A0From the IPMI specification it looks like this can be a generic one
-> implementation instead of implementing
-> OEM commands.
->
-> Implementing the IPMB interface (Section 7) in the IPMI specification
-> would probably suit your requirement.
-> The following commands should help us achieve the goal: Master
-> Write-Read command, Get Message command
-> and Send message command.
->
-> I am thinking that IPMB interface could be a dbus service which parses
-> host IPMI commands and maps to an I2C read/write.
->
-> Let me know your thoughts.
->
-> Regards,
-> Tom
->
->
-> On Thursday 06 April 2017 07:10 AM, Peter Hanson wrote:
-> =A0Ave!
->
-> =A0This email captures proposed actions from an exchange earlier today on
-> =A0the #openbmc IRC channel.
->
-> =A0Basic goal is to reach devices on a BMC I2C bus from IPMI
-> commandline at host.
->
-> =A0I2C commands and responses to be carried as OEM extension messages,
-> =A0i.e., Network Function Codes 2Eh / 2Fh in the Intel specification.
-> =A0Those message forms require a three byte IANA Enterprise Number, and
-> =A0our original plan used Google's code.
->
-> =A0We would like to carry the feature in OpenBmc, so I wanted to confirm
-> =A0if this is acceptable, and/or what modifications would be needed.
->
-> =A0Decisions:
->
-> =A01. Ok to use OEM extensions. Patrick noted that OpenBmc already uses
-> =A0some, albeit under the IBM IANA Enterprise Number.
->
-> =A02. Switch to OpenBmc IANA Enterprise Number when available.
->
-> =A03. Patrick proposed to create a new phosphor-ipmi-oemproviders repo to
-> =A0hold the code, message documentation, etc.
->
-> =A04. All uses of the OpenBmc IANA shall be enumerated in place - almost
-> =A0certainly an include file in the new repo - so we don't end up with
-> =A0conflicting uses.
->
-> =A0Actions:
->
-> =A0A1. peterh: send this email to the mailing list.
-> =A0A2. stwcx: request IANA Enterprise Number.
-> =A0A3. stwcx: create new phosphor-ipmi-oemproviders repo.
-> =A0A4. peterh+brendanhiggins: propose detailed message designs.
-> =A0A5. peterh: {net-ipmid,host-ipmi} +=3D support for these commands.
->
-> =A0A key point of this email is to reap your collective wisdom, so please
-> =A0if you have something to contribute, please do. In particular,
-> =A0Patrick, please correct anything I misunderstood or incorrectly
-> =A0extrapolated from the chat.
->
-> =A0=A0=A0=A0-- peterh
->
+>>
+>>
+>>
+>> On Mon, Apr 17, 2017 at 5:25 PM, Maxim Sloyko <maxims@google.com> wrote:
+>>>
+>>> Hi all!
+>>>
+>>> I've ran into troubles when I was trying to run OpenBMC image in qemu.
+>>> It has been a while since I've done this, so I'm wondering if I'm
+>>> missing something.
+>>>
+>>> I build it with:
+>>>
+>>> export TEMPLATECONF=meta-phosphor/conf
+>>> source openbmc-env
+>>> MACHINE=qemuarm bitbase obmc-phosphor-image
+>>>
+>>> With v1.0-stable openbmc/openbmc branch I get this output:
+>>> http://pastebin.ca/3798183
+>>>
+>>> With the most recent version (master), I get very similar output,
+>>> except that the error is now:
+>>>
+>>> VNC server running on ::1:5900
+>>> vpb_sic_write: Bad register offset 0x2c
+>>>
+>>>
+>>> In both cases the terminal I run this from basically just hangs.
+>>>
+>>> Am I missing something here?
+>>>
+>>> Thanks!
+>>>
+>>> --
+>>> Maxim Sloyko
+>>
+>>
 >
 >
 >
 > --
-> Anton D. Kachalov
->
-> ITO, Systems Architect
-> Tel: 7 (495) 739-70-00 ext.7613
->
+> Maxim Sloyko
 
---0__=09BB0B95DFFA4AB28f9e8a93df938690918c09BB0B95DFFA4AB2
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/html; charset=ISO-8859-1
-Content-Disposition: inline
 
-<html><body><p><font size=3D"2">Anton,</font><br><font size=3D"2">you have =
-it licensed as GPL.  Tom will not be able to use your code as the base code=
- for OpenBMC is Apache licensed.  </font><br><font size=3D"2"><br>Chris Aus=
-ten<br>POWER Systems Enablement Manager <br></font><br><br><tt><font size=
-=3D"2">&quot;openbmc&quot; &lt;openbmc-bounces+austenc=3Dus.ibm.com@lists.o=
-zlabs.org&gt; wrote on 04/17/2017 04:31:52 AM:<br><br>&gt; From: &quot;Anto=
-n D. Kachalov&quot; &lt;mouse@yandex-team.ru&gt;</font></tt><br><tt><font s=
-ize=3D"2">&gt; To: tomjose &lt;tomjose@linux.vnet.ibm.com&gt;, Peter Hanson=
- <br>&gt; &lt;peterh@google.com&gt;, OpenBMC Maillist &lt;openbmc@lists.ozl=
-abs.org&gt;</font></tt><br><tt><font size=3D"2">&gt; Date: 04/17/2017 04:41=
- AM</font></tt><br><tt><font size=3D"2">&gt; Subject: Re: Plans for BMC i2c=
- to host bridge via IPMI</font></tt><br><tt><font size=3D"2">&gt; Sent by: =
-&quot;openbmc&quot; &lt;openbmc-bounces+austenc=3Dus.ibm.com@lists.ozlabs.o=
-rg&gt;</font></tt><br><tt><font size=3D"2">&gt; <br>&gt; Hello,</font></tt>=
-<br><tt><font size=3D"2">&gt; =A0</font></tt><br><tt><font size=3D"2">&gt; =
-I'm already works on this approach:</font></tt><br><tt><font size=3D"2">&gt=
-; =A0</font></tt><br><tt><font size=3D"2">&gt; <a href=3D"https://github.co=
-m/ya-mouse/meta-openbmc-yandex/blob/master/meta-">https://github.com/ya-mou=
-se/meta-openbmc-yandex/blob/master/meta-</a><br>&gt; yandex/meta-openrack/m=
-eta-shaosi/recipes-kernel/linux/linux-obmc/ipmi=5Fi2c.c</font></tt><br><tt>=
-<font size=3D"2">&gt; =A0</font></tt><br><tt><font size=3D"2">&gt; This cre=
-ates a OpenIPMI-compatible device for the requested i2c <br>&gt; slave addr=
- + master (you may use ipmitool/freeipmi after all). DTS example:</font></t=
-t><br><tt><font size=3D"2">&gt; =A0</font></tt><br><tt><font size=3D"2">&gt=
-; <a href=3D"https://github.com/ya-mouse/meta-openbmc-yandex/blob/master/me=
-ta-">https://github.com/ya-mouse/meta-openbmc-yandex/blob/master/meta-</a><=
-br>&gt; yandex/meta-openrack/meta-shaosi/recipes-kernel/linux/linux-obmc/<b=
-r>&gt; overlays/shaosi-CB.dts#L121-L125</font></tt><br><tt><font size=3D"2"=
->&gt; =A0</font></tt><br><tt><font size=3D"2">&gt; In order to operate in m=
-ulti-master env, you also need additional <br>&gt; patche such as:</font></=
-tt><br><tt><font size=3D"2">&gt; <a href=3D"https://github.com/ya-mouse/met=
-a-openbmc-yandex/blob/master/meta-">https://github.com/ya-mouse/meta-openbm=
-c-yandex/blob/master/meta-</a><br>&gt; yandex/meta-openrack/meta-shaosi/rec=
-ipes-kernel/linux/linux-obmc/<br>&gt; 086-ipmi-hacks.patch</font></tt><br><=
-tt><font size=3D"2">&gt; =A0</font></tt><br><tt><font size=3D"2">&gt; This =
-driver still has some issues + not supported incoming requests <br>&gt; (it=
- only operates like a &quot;client&quot;).</font></tt><br><tt><font size=3D=
-"2">&gt; =A0</font></tt><br><tt><font size=3D"2">&gt; 12.04.2017, 22:51, &q=
-uot;tomjose&quot; &lt;tomjose@linux.vnet.ibm.com&gt;:</font></tt><br><tt><f=
-ont size=3D"2">&gt; Hello Peter,<br>&gt; <br>&gt; As i understand you would=
- be leveraging the BT(Block Transfer) interface<br>&gt; to route commands f=
-rom host to BMC.<br>&gt; <br>&gt; =A0From the IPMI specification it looks l=
-ike this can be a generic one<br>&gt; implementation instead of implementin=
-g<br>&gt; OEM commands.<br>&gt; <br>&gt; Implementing the IPMB interface (S=
-ection 7) in the IPMI specification<br>&gt; would probably suit your requir=
-ement.<br>&gt; The following commands should help us achieve the goal: Mast=
-er<br>&gt; Write-Read command, Get Message command<br>&gt; and Send message=
- command.<br>&gt; <br>&gt; I am thinking that IPMB interface could be a dbu=
-s service which parses<br>&gt; host IPMI commands and maps to an I2C read/w=
-rite.<br>&gt; <br>&gt; Let me know your thoughts.<br>&gt; <br>&gt; Regards,=
-<br>&gt; Tom<br>&gt; <br>&gt; <br>&gt; On Thursday 06 April 2017 07:10 AM, =
-Peter Hanson wrote:</font></tt><br><tt><font size=3D"2">&gt; =A0Ave!<br>&gt=
-; <br>&gt; =A0This email captures proposed actions from an exchange earlier=
- today on<br>&gt; =A0the #openbmc IRC channel.<br>&gt; <br>&gt; =A0Basic go=
-al is to reach devices on a BMC I2C bus from IPMI <br>&gt; commandline at h=
-ost.<br>&gt; <br>&gt; =A0I2C commands and responses to be carried as OEM ex=
-tension messages,<br>&gt; =A0i.e., Network Function Codes 2Eh / 2Fh in the =
-Intel specification.<br>&gt; =A0Those message forms require a three byte IA=
-NA Enterprise Number, and<br>&gt; =A0our original plan used Google's code.<=
-br>&gt; <br>&gt; =A0We would like to carry the feature in OpenBmc, so I wan=
-ted to confirm<br>&gt; =A0if this is acceptable, and/or what modifications =
-would be needed.<br>&gt; <br>&gt; =A0Decisions:<br>&gt; <br>&gt; =A01. Ok t=
-o use OEM extensions. Patrick noted that OpenBmc already uses<br>&gt; =A0so=
-me, albeit under the IBM IANA Enterprise Number.<br>&gt; <br>&gt; =A02. Swi=
-tch to OpenBmc IANA Enterprise Number when available.<br>&gt; <br>&gt; =A03=
-. Patrick proposed to create a new phosphor-ipmi-oemproviders repo to<br>&g=
-t; =A0hold the code, message documentation, etc.<br>&gt; <br>&gt; =A04. All=
- uses of the OpenBmc IANA shall be enumerated in place - almost<br>&gt; =A0=
-certainly an include file in the new repo - so we don't end up with<br>&gt;=
- =A0conflicting uses.<br>&gt; <br>&gt; =A0Actions:<br>&gt; <br>&gt; =A0A1. =
-peterh: send this email to the mailing list.<br>&gt; =A0A2. stwcx: request =
-IANA Enterprise Number.<br>&gt; =A0A3. stwcx: create new phosphor-ipmi-oemp=
-roviders repo.<br>&gt; =A0A4. peterh+brendanhiggins: propose detailed messa=
-ge designs.<br>&gt; =A0A5. peterh: {net-ipmid,host-ipmi} +=3D support for t=
-hese commands.<br>&gt; <br>&gt; =A0A key point of this email is to reap you=
-r collective wisdom, so please<br>&gt; =A0if you have something to contribu=
-te, please do. In particular,<br>&gt; =A0Patrick, please correct anything I=
- misunderstood or incorrectly<br>&gt; =A0extrapolated from the chat.<br>&gt=
-; <br>&gt; =A0=A0=A0=A0-- peterh<br>&gt; =A0</font></tt><br><tt><font size=
-=3D"2">&gt; =A0</font></tt><br><tt><font size=3D"2">&gt; =A0</font></tt><br=
-><tt><font size=3D"2">&gt; =A0</font></tt><br><tt><font size=3D"2">&gt; --=
-=A0<br>&gt; Anton D. Kachalov<br>&gt; <br>&gt; ITO, Systems Architect<br>&g=
-t; Tel: 7 (495) 739-70-00 ext.7613</font></tt><br><tt><font size=3D"2">&gt;=
- =A0</font></tt><BR>
-</body></html>
 
---0__=09BB0B95DFFA4AB28f9e8a93df938690918c09BB0B95DFFA4AB2--
+-- 
+Maxim Sloyko
