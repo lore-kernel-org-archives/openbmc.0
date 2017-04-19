@@ -1,63 +1,64 @@
 Return-Path: <sjg@google.com>
-Received: from mail-ua0-x22a.google.com (mail-ua0-x22a.google.com
- [IPv6:2607:f8b0:400c:c08::22a])
+Received: from mail-vk0-x234.google.com (mail-vk0-x234.google.com
+ [IPv6:2607:f8b0:400c:c05::234])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3w72WJ057NzDqC4
- for <openbmc@lists.ozlabs.org>; Wed, 19 Apr 2017 10:12:28 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3w72WM1pr3zDqC6
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Apr 2017 10:12:31 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="kBi80gMR"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="ku5Zm2vK"; 
  dkim=pass (1024-bit key;
- unprotected) header.d=chromium.org header.i=@chromium.org header.b="mkqJUnrf";
+ unprotected) header.d=chromium.org header.i=@chromium.org header.b="UmAQtJ1K";
  dkim-atps=neutral
-Received: by mail-ua0-x22a.google.com with SMTP id q26so5289511uaa.0
- for <openbmc@lists.ozlabs.org>; Tue, 18 Apr 2017 17:12:27 -0700 (PDT)
+Received: by mail-vk0-x234.google.com with SMTP id j127so4563374vkh.0
+ for <openbmc@lists.ozlabs.org>; Tue, 18 Apr 2017 17:12:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=QugHAREegrAtjfMjcT91Ga4zkC7Y+He4/yb3ifF6EEA=;
- b=kBi80gMRIdWuyppXgCWiiI/lO5J5BvVOO3hkVO60R/Xpsrz9hMa15z01a5HSUUPB5Q
- CcQrgnQUDQkePU2I94Qe57wchZD82ZQXPC3iXvMeSIEw6/dYQI0lgA9yN/L6pQDo4WLd
- dzKEqk14SxMUfcesEuaT/n8pXmxfebFBhEJlocjuYY3PJnHVgz4SkdLs/uI2eQCqS1Hi
- xQdHBnHKMVouCbeuqAsHN2jxHovRu1Y2GW4sZ5/6V1fF89URh3ltpsoB6ALZ8B/Z/PTD
- aNSMygPwktP+uGZFoola3yhF6RADhAMDIhUdxRb34XxDDxkcU9yLjH8rvZE80znyI30c
- 49zg==
+ bh=VjpkFsTEVaQIEOZXyLUn6NbeMEqTCCHhafYLxei3gjA=;
+ b=ku5Zm2vKBxHQ77gBBU4gectxNvOFSEB218Ok3fJ9toHWieuX/AydTm8pUcl43Fc2dg
+ KIMMcACK4eW/r/EtrIetY0N+ejaY8eBEPDuqCiN/wEQzSaimJBqmfvfGnAbSkvoLYFmd
+ EFiGz4F1B1JExaSa8Vnnn0AnNxXm2GhyM1CoczR+f1kLO4/YAAgAnin2EWHNd6lPKq4E
+ tV7n6+OIdCeIp2kpyqBlazukHRplTc6DlmU6NZFTQ0QWxLhAHpma/YZ9+CPTtRHoPIMi
+ fgu/q+vDSl1nORnyedbMsav4Epw/Amt63pdUu+YrNJ2HDOBHHKEIG6SoTQ5YdoKmslui
+ Ag0Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=QugHAREegrAtjfMjcT91Ga4zkC7Y+He4/yb3ifF6EEA=;
- b=mkqJUnrfQlTAIcxjSi5bmPv4QxZdXQyUTLaWRiC5plK2UcsZId55akkkRHfxo76lsk
- lCERlDwpokE/rfnJi0q2Z3YLItHe8dujGs0Ru9RKpTSgbBDzi7LBB+7ChBuPL4/pgsyb
- UXtU7sVgHPTwzvld/o6KiAZ+5N987FROLSuv4=
+ bh=VjpkFsTEVaQIEOZXyLUn6NbeMEqTCCHhafYLxei3gjA=;
+ b=UmAQtJ1KeIS0yUMGhcRATVsVO7fNO6z6rrYJfZt/pAblYokYNP+X0RLccAQI0nFkdI
+ BFqnt69G0Lw0ZuUCQ/MIX9fa/gWrNzW+CV4bsHPGK6gEtBXw0ysErxTl6tFnE1bLKQIe
+ AVPAMGnwlcwBAaRz8zrJ1X9UKALdlxSO5LfaI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=QugHAREegrAtjfMjcT91Ga4zkC7Y+He4/yb3ifF6EEA=;
- b=NlHTOzkkEZCJpDPYvJ4jR0zen8vJw+dkznZmMP5J1j4dUw9KjGiZdSAKaik/krFfkg
- T3XgaEDV7Zk4HRPnb4QkKZdF2/1QleoVqgbtXvvHBOeuexB0d14HWmwBc8PgHOMl+wCx
- V/M4qz5d64pKTvpHppgj7zgleZDsG9JmCZYGrtboVR+AJEl9Sn06KCUAK+sYxc9PzDK8
- fBLV872Q6QJnxBnF6SQx5YksorpXb2z9sEfYJuYVKUtnbRhy4b1LiN4GgwotS7lCYFSe
- wNmjn7P6tZA5kbI2vRLt/0bVZtoWBDLwpuNqELaP9MgOqHevZgahYBk2Hfq79Xy168O2
- 2ZGg==
-X-Gm-Message-State: AN3rC/4Zr+MWB0g84f5QJES83wQikwvTZX9SjgJ3pNtfH6MG24KwQyvc
- p4p9hWn9PFCAI6AKS1aDu4o9Z2Q5NbxxrcM=
-X-Received: by 10.176.4.117 with SMTP id 108mr38618uav.134.1492560745909; Tue,
- 18 Apr 2017 17:12:25 -0700 (PDT)
+ bh=VjpkFsTEVaQIEOZXyLUn6NbeMEqTCCHhafYLxei3gjA=;
+ b=Mkw//Z2RCb3PnNF/bvqnPJM3V4rDy/UjrWb7uy5w6Js5hRVfwhpklykdGRJPPNbfwY
+ yHVkI/UUoR2JCC9Qb/k9YAzJ8W5N1maTAnLFQmREbeSepUwIaOkQ2n/arufQBMC+wb25
+ j54vKdE1kUFinJ97FCumV6oHiIO96rkvWu5jTHP7Z6kyIppiAkMui9wT5u9IQ+2L7h1m
+ HPG4i8ruLfTwws5NSDKsUUZbHqUpHN/D7TrOZRviH001ZOVO2q4xqyvI2KOx8/xogoVZ
+ G48IB7E8ZLUy20Lfcp+ktaX/om6+2uM6OclR+EDIqT/LagFx18fn+AjTp2RtMh+tk0d5
+ fKMQ==
+X-Gm-Message-State: AN3rC/4YIzCnPTyiiKk3Iz6Iy+0D/8zsExQrsUVjPQqYWy4cZHSDkZew
+ oquz7wEPzgUQy06DLoXJ4JVTlxlI2OU0
+X-Received: by 10.31.190.17 with SMTP id o17mr31689vkf.71.1492560748788; Tue,
+ 18 Apr 2017 17:12:28 -0700 (PDT)
 MIME-Version: 1.0
 Sender: sjg@google.com
-Received: by 10.176.17.106 with HTTP; Tue, 18 Apr 2017 17:12:05 -0700 (PDT)
-In-Reply-To: <20170417190034.71945-13-maxims@google.com>
+Received: by 10.176.17.106 with HTTP; Tue, 18 Apr 2017 17:12:08 -0700 (PDT)
+In-Reply-To: <20170417190034.71945-14-maxims@google.com>
 References: <20170417190034.71945-1-maxims@google.com>
- <20170417190034.71945-13-maxims@google.com>
+ <20170417190034.71945-14-maxims@google.com>
 From: Simon Glass <sjg@chromium.org>
-Date: Tue, 18 Apr 2017 18:12:05 -0600
-X-Google-Sender-Auth: GuU_M1Xdi7y3dRjdrjnTcl9Wuvw
-Message-ID: <CAPnjgZ2_3vcuoxgy0Y-mjkAwY9nGsUEJ7_ynve=3BDJH5im+jg@mail.gmail.com>
-Subject: Re: [PATCH v1 12/15] aspeed: Enable I2C in EVB defconfig
+Date: Tue, 18 Apr 2017 18:12:08 -0600
+X-Google-Sender-Auth: 43a_eEZLXfXcAtVv4xSvQm6qmNc
+Message-ID: <CAPnjgZ2CcNYiktqPC3V9eEj=1uiR_cDvUQ60RmBpMwt1esn7wA@mail.gmail.com>
+Subject: Re: [PATCH v1 13/15] aspeed: Add support for Clocks needed by MACs
 To: Maxim Sloyko <maxims@google.com>
 Cc: U-Boot Mailing List <u-boot@lists.denx.de>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Albert Aribaud <albert.u.boot@aribaud.net>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -70,18 +71,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Apr 2017 00:12:28 -0000
+X-List-Received-Date: Wed, 19 Apr 2017 00:12:31 -0000
 
 On 17 April 2017 at 13:00, Maxim Sloyko <maxims@google.com> wrote:
-> Enable I2C driver in ast2500 Eval Board defconfig.
-> Also enable i2c command.
+> Add support for clocks needed by MACs to ast2500 clock driver.
+> The clocks are D2-PLL, which is used by both MACs and PCLK_MAC1 and
+> PCLK_MAC2 for MAC1 and MAC2 respectively.
+>
+> The rate of D2-PLL is hardcoded to 250MHz -- the value used in Aspeed
+> SDK. It is not entirely clear from the datasheet how this clock is used
+> by MACs, so not clear if the rate would ever need to be different. So,
+> for now, hardcoding it is probably safer.
+>
+> The rate of PCLK_MAC{1,2} is chosen based on MAC speed selected through
+> hardware strapping.
+>
+> So, the network driver would only need to enable these clocks, no need
+> to configure the rate.
 >
 > Signed-off-by: Maxim Sloyko <maxims@google.com>
 > ---
 >
 > Changes in v1: None
 >
->  configs/evb-ast2500_defconfig | 3 +++
->  1 file changed, 3 insertions(+)
+>  arch/arm/dts/ast2500-u-boot.dtsi               |   8 +
+>  arch/arm/include/asm/arch-aspeed/scu_ast2500.h |  62 +++++-
+>  drivers/clk/aspeed/clk_ast2500.c               | 265 ++++++++++++++++++++++---
+>  include/dt-bindings/clock/ast2500-scu.h        |   2 +
+>  4 files changed, 304 insertions(+), 33 deletions(-)
 
 Reviewed-by: Simon Glass <sjg@chromium.org>
+
+Wow that 10ms delay is pretty unfortunate!
