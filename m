@@ -1,31 +1,59 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3w8Lrv3d12zDqL2
- for <openbmc@lists.ozlabs.org>; Fri, 21 Apr 2017 13:32:15 +1000 (AEST)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Sender: bradleyb@fuzziesquirrel.com
-Content-Type: text/plain; charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: Re: [PATCH linux dev-4.7 v3 2/2] ARM: dts: Enable checkstop and
- cooling gpio keys
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <CACPK8XeecjHPOYGG3mMQXUsxhrXt_Ry=NMTy+ng1pudO5p4+Jg@mail.gmail.com>
-Date: Thu, 20 Apr 2017 23:32:12 -0400
-Cc: Andrew Jeffery <andrew@aj.id.au>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <6871B647-C223-4D25-ABAE-3778E1CB4D19@fuzziesquirrel.com>
-References: <1492575497-1419-1-git-send-email-bradleyb@fuzziesquirrel.com>
- <1492575497-1419-3-git-send-email-bradleyb@fuzziesquirrel.com>
- <1492612195.1011.4.camel@aj.id.au>
- <F2CEC6F0-6FAD-41DB-9797-E6D63868FA6F@fuzziesquirrel.com>
- <1492662892.1011.7.camel@aj.id.au>
- <86B3586F-7CEC-4389-8CCC-38D5423A4CE7@fuzziesquirrel.com>
- <CACPK8XeecjHPOYGG3mMQXUsxhrXt_Ry=NMTy+ng1pudO5p4+Jg@mail.gmail.com>
-To: Joel Stanley <joel@jms.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3w8M2n1Ct6zDqL2
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Apr 2017 13:40:49 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="cx/HV/gC"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="XUoqvbhj"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 10D5620ABF;
+ Thu, 20 Apr 2017 23:40:46 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Thu, 20 Apr 2017 23:40:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=vLVAV2bPjFc0sYHAVazUW/dJ4O4qnZYJbSQFKTU15
+ 4Q=; b=cx/HV/gCggUc6mng0ZoGkuhZZqzzYPYESHjpL7XL3LwMcS52C5ylP3lNV
+ oTsWBpOghplV18Zz3KY1VpIJ8je7ZKOWvpehALKlYbJj6j/BWDJd5w4YPAtysTA5
+ 4YS2W7IV+PB8gFc7r1p2czGPGkl/w/775+ygz8lw/JYfoIyfqbMMzADjtSkG4FGc
+ DX4pSNQ9WNx4kq379ezfKigN89SOnJ7W+LIUpNG0b1Y+01Udcd2uH/Rh/qu3wKmv
+ EWNrgB6+zBop3bPHReJhIojsPeS1IWDIcEMTvLS5B0FZJW8Sn9o3+z43DYeHxL/e
+ 5hPlzkPx7Boi5MFjb2MbCzjeU9b8g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=vLVAV2bPjFc0sYHAVa
+ zUW/dJ4O4qnZYJbSQFKTU154Q=; b=XUoqvbhjVc3DktalRgdscJ7lpuMcztXMuz
+ anBtqerG/p8ClhJmnwSE3h4aZs3BiHVhEuX6GtQie3xMD8JXPk/GgxVmE36RHf5U
+ HJcDjtm/eaEIIlgQTXJyQqpQdmO9jam1aI/S1LqERCTcs2zbfiSMyJg+w4VMoSj9
+ Vcrg3Ezt98alZUQZ0RPJO69pzBYpcg2Z4R3rE3aTqZiIO3aPxrQn2I/uqowSrBtw
+ oBLqihDNiMJjf5/8knNmAZVEiUUjKXLIggLC8Rest9N8Awe00uKktQzXnzeVvwRr
+ 3L4PTecULPS8oprDy+EamZ6uMmbbxZl2LUWVj9g9bqSNm61QJCww==
+X-ME-Sender: <xms:PX_5WNv2VDWc8_-LQbmVBOE05Kb0au6O8zfwN5mpC4nm_GwiHFRSFg>
+X-Sasl-enc: J5O/NLJjQoGze9UCm4llWU9IQiKK9vsPzMhayygBMQH9 1492746045
+Received: from [10.104.0.15] (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 3C6DE245DF;
+ Thu, 20 Apr 2017 23:40:44 -0400 (EDT)
+Message-ID: <1492746038.4069.1.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.7 v5 1/2] ARM: configs: aspeed: Enable
+ keyboard-gpio
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>, openbmc@lists.ozlabs.org, 
+ joel@jms.id.au
+Date: Fri, 21 Apr 2017 13:10:38 +0930
+In-Reply-To: <1492744763-29872-2-git-send-email-bradleyb@fuzziesquirrel.com>
+References: <1492744763-29872-1-git-send-email-bradleyb@fuzziesquirrel.com>
+ <1492744763-29872-2-git-send-email-bradleyb@fuzziesquirrel.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-92WpVfY6klGNpACF46SS"
+X-Mailer: Evolution 3.22.6-0ubuntu0.1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -37,150 +65,103 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Apr 2017 03:32:16 -0000
+X-List-Received-Date: Fri, 21 Apr 2017 03:40:50 -0000
 
 
-> On Apr 20, 2017, at 10:14 PM, Joel Stanley <joel@jms.id.au> wrote:
->=20
-> Hi Brad,
->=20
-> On Thu, Apr 20, 2017 at 11:54 PM, Brad Bishop
-> <bradleyb@fuzziesquirrel.com> wrote:
->>>> Each gpio will have an application waiting for its state to change. =
- My
->>>> concern was waking up x number of applications every time any gpio =
-changes
->>>> state.  Is that a valid concern?
->>>=20
->>> How many applications do we expect to be reading the evdev? What are
->>> our expected interrupt rates? What are the worst expected cases?
->>=20
->> For Witherspoon/Zaius or any OpenBMC platform?  I obviously can=E2=80=99=
-t say for the
->> latter case.  On a bigger/enterprise systems I can see on the order =
-of 10 to 100
->> applications looking at these.  I don=E2=80=99t have a good sense of =
-how often.
->>=20
->> On Witherspoon/Zaius, sure, we only have a handful of applications =
-and the
->> interrupt rate should be very infrequent.
->>=20
->> I think you typically see all the gpio keys mapped to a single device =
-because
->> the usual thing to do is have a single application (Xorg) treat it =
-like a keyboard.
->=20
-> I've been following the discussion you've been having. I went to merge
-> the patches today, but first decided to satisfy myself that this was
-> the right way to go. I didn't arrive at the same conclusion as you and
-> Andrew.
->=20
-> The userspace use cases you've presented would be served well by a
-> single node. We have the flexibility to revisit this decision when
-> someone builds a machine that has 100 GPIOs they want to monitor; in
-> addition I think we would revisit the decision to have 100 userspace
-> programs.
->=20
-> By having separate nodes, you're creating a new instance of the kernel
-> driver for each node.
->=20
-> The driver, and the binding, is designed to support your use case -
-> multiple key events generated by the hardware.
+--=-92WpVfY6klGNpACF46SS
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Honestly I=E2=80=99m OK with either approach.  I think we will have =
-userspace configurable
-enough that switching back and forth would be pretty trivial, if this =
-would need
-to be revisited.  v5 en-route.
+On Thu, 2017-04-20 at 23:19 -0400, Brad Bishop wrote:
+> Some OpenBMC systems will be using keyboard-gpio so enable it
+> in our configs.
+>=20
+> Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
->=20
-> Finally, I looked at the other machines in the tree. None of them have
-> separate gpio-keys nodes
+Acked-by: Andrew Jeffery <andrew@aj.id.au>
 
-Yeah I noticed this too.  I chalked it up to my previously mentioned
-user-is-probably-Xorg logic, but standard practices are not usually a
-hard sell for me=E2=80=A6.
+In the future please add the tags given for previous patch revisions if
+there hasn't been significant change :)
 
+> ---
+> =C2=A0arch/arm/configs/aspeed_g4_defconfig | 8 +++++++-
+> =C2=A0arch/arm/configs/aspeed_g5_defconfig | 8 +++++++-
+> =C2=A02 files changed, 14 insertions(+), 2 deletions(-)
 >=20
-> arch/arm/boot/dts/armada-xp-netgear-rn2120.dts:
->=20
->        gpio-keys {
->                compatible =3D "gpio-keys";
->                pinctrl-0 =3D <&power_button_pin &reset_button_pin>;
->                pinctrl-names =3D "default";
->=20
->                power-button {
->                        label =3D "Power Button";
->                        linux,code =3D <KEY_POWER>;
->                        gpios =3D <&gpio0 27 GPIO_ACTIVE_HIGH>;
->                };
->=20
->                reset-button {
->                        label =3D "Reset Button";
->                        linux,code =3D <KEY_RESTART>;
->                        gpios =3D <&gpio1 9 GPIO_ACTIVE_LOW>;
->                };
->        };
->=20
-> arch/arm/boot/dts/at91sam9261ek.dts
->        gpio_keys {
->                compatible =3D "gpio-keys";
->=20
->                button_0 {
->                        label =3D "button_0";
->                        gpios =3D <&pioA 27 GPIO_ACTIVE_LOW>;
->                        linux,code =3D <256>;
->                        wakeup-source;
->                };
->=20
->                button_1 {
->                        label =3D "button_1";
->                        gpios =3D <&pioA 26 GPIO_ACTIVE_LOW>;
->                        linux,code =3D <257>;
->                        wakeup-source;
->                };
->=20
->                button_2 {
->                        label =3D "button_2";
->                        gpios =3D <&pioA 25 GPIO_ACTIVE_LOW>;
->                        linux,code =3D <258>;
->                        wakeup-source;
->                };
->=20
->                button_3 {
->                        label =3D "button_3";
->                        gpios =3D <&pioA 24 GPIO_ACTIVE_LOW>;
->                        linux,code =3D <259>;
->                        wakeup-source;
->                };
->        };
->=20
-> Cheers,
->=20
-> Joel
->=20
->=20
->=20
->>=20
->> We aren=E2=80=99t structured that way so rethinking the usual =
-approach seems reasonable.
->> Another reason I went for per gpio devices because it prevents =
-applications from
->> reacting to each others events without any special library code.
->>=20
->> I=E2=80=99m not saying there aren=E2=80=99t disadvantages to this =
-approach - I just don=E2=80=99t know what
->> they are?
->>=20
->>>=20
->>> It's hard to judge without knowing the numbers, but considering the
->>> chips we run on I agree we should generally favour performance if
->>> design is getting in the way. But to make that trade off we should =
-be
->>=20
->> Again, what exactly is being traded-off ?
->>=20
->>> clear on the performance numbers.
->>>=20
->>> Andrew
+> diff --git a/arch/arm/configs/aspeed_g4_defconfig b/arch/arm/configs/aspe=
+ed_g4_defconfig
+> index 552297b..4350f67 100644
+> --- a/arch/arm/configs/aspeed_g4_defconfig
+> +++ b/arch/arm/configs/aspeed_g4_defconfig
+> @@ -103,7 +103,12 @@ CONFIG_FTGMAC100=3Dy
+> =C2=A0CONFIG_BROADCOM_PHY=3Dy
+> =C2=A0CONFIG_REALTEK_PHY=3Dy
+> =C2=A0# CONFIG_WLAN is not set
+> -# CONFIG_INPUT is not set
+> +# CONFIG_INPUT_LEDS is not set
+> +# CONFIG_INPUT_MOUSEDEV is not set
+> +CONFIG_INPUT_EVDEV=3Dy
+> +# CONFIG_KEYBOARD_ATKBD is not set
+> +CONFIG_KEYBOARD_GPIO=3Dy
+> +# CONFIG_INPUT_MOUSE is not set
+> =C2=A0# CONFIG_SERIO is not set
+> =C2=A0# CONFIG_VT is not set
+> =C2=A0# CONFIG_LEGACY_PTYS is not set
+> @@ -138,6 +143,7 @@ CONFIG_SENSORS_ADM1275=3Dy
+> =C2=A0CONFIG_SENSORS_LM25066=3Dy
+> =C2=A0CONFIG_SENSORS_UCD9000=3Dy
+> =C2=A0CONFIG_SENSORS_TMP421=3Dy
+> +# CONFIG_HID is not set
+> =C2=A0# CONFIG_USB_SUPPORT is not set
+> =C2=A0CONFIG_NEW_LEDS=3Dy
+> =C2=A0CONFIG_LEDS_CLASS=3Dy
+> diff --git a/arch/arm/configs/aspeed_g5_defconfig b/arch/arm/configs/aspe=
+ed_g5_defconfig
+> index c5e7295..b6b3ca0 100644
+> --- a/arch/arm/configs/aspeed_g5_defconfig
+> +++ b/arch/arm/configs/aspeed_g5_defconfig
+> @@ -102,7 +102,12 @@ CONFIG_FTGMAC100=3Dy
+> =C2=A0CONFIG_BROADCOM_PHY=3Dy
+> =C2=A0CONFIG_REALTEK_PHY=3Dy
+> =C2=A0# CONFIG_WLAN is not set
+> -# CONFIG_INPUT is not set
+> +# CONFIG_INPUT_LEDS is not set
+> +# CONFIG_INPUT_MOUSEDEV is not set
+> +CONFIG_INPUT_EVDEV=3Dy
+> +# CONFIG_KEYBOARD_ATKBD is not set
+> +CONFIG_KEYBOARD_GPIO=3Dy
+> +# CONFIG_INPUT_MOUSE is not set
+> =C2=A0# CONFIG_SERIO is not set
+> =C2=A0# CONFIG_VT is not set
+> =C2=A0# CONFIG_LEGACY_PTYS is not set
+> @@ -135,6 +140,7 @@ CONFIG_PMBUS=3Dy
+> =C2=A0CONFIG_SENSORS_LM25066=3Dy
+> =C2=A0CONFIG_SENSORS_UCD9000=3Dy
+> =C2=A0CONFIG_SENSORS_TMP421=3Dy
+> +# CONFIG_HID is not set
+> =C2=A0# CONFIG_USB_SUPPORT is not set
+> =C2=A0CONFIG_NEW_LEDS=3Dy
+> =C2=A0CONFIG_LEDS_CLASS=3Dy
+--=-92WpVfY6klGNpACF46SS
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJY+X82AAoJEJ0dnzgO5LT5q4QP/RD7VxvZaumDBBmxt/AyCgCO
+V1QbtjrTR4V3dc437K8dx+QTsxZpTPrTKeU67hFV1wJomVZT+d9BcoJedtV33RF5
+ZuJdAuEgyEb01gynuXGNMHhz7i2Mt2dUFPCUqmMQTSzY7n4adXH2hBZh7bBDwNAO
+BVCgs+ekwF70ZIKwmZBpHl9LuZl0rjnsacVb8NsnIrDH36JdIM8Io7hSepESrqe2
+sfNgSaNWG3OlVBoamYcN5gUrwocqnludS8/41MWf7dqBF1sBTH9/vBl71DZUXPZN
+zO42lB325zjowM3gPJNRZEM8O0dsqkBxeoNK9Y6Knw/N6rTqgiKrJmrJ+jrHkKT6
+piR4eRYX/LAyf0inGiwQCm95+vz4UCZ2MS4DtAPFFvHmqhYejslifMPFk9052oMB
+OzeV7Q4nIITIEG1Rfv0hux99jWyJwfSf/iwagQAh/XIy5pPxpV9Jk9ZnyXZecBLv
+phGTOUCiflE0vrJCWRC97peFoaeMcXq1om19syDHjpjxwIrwftP0y/cVq4Zu/SOC
+55VWGdJtLu4ZGrFbrFy4eEQClb16Ca+717RxuM1/pkh+A9UPauCITyl2n9lJtibS
+BI2FAu+2qhIaTNzi5WgSoYooiQrqqpatMgcW/XYOBEtx/yF8L0Zyxt+yO7O04Ip1
+jeFDeN5uHxDcsD1Ac8M7
+=SukL
+-----END PGP SIGNATURE-----
+
+--=-92WpVfY6klGNpACF46SS--
