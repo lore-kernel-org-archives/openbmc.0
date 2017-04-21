@@ -1,57 +1,34 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x244.google.com (mail-yb0-x244.google.com
- [IPv6:2607:f8b0:4002:c09::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <sam@mendozajonas.com>
+Received: from mendozajonas.com (mendozajonas.com [188.166.185.233])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3w8M8l51BHzDqL2
- for <openbmc@lists.ozlabs.org>; Fri, 21 Apr 2017 13:45:59 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="AlA21Ana"; 
- dkim-atps=neutral
-Received: by mail-yb0-x244.google.com with SMTP id b2so5258374yba.3
- for <openbmc@lists.ozlabs.org>; Thu, 20 Apr 2017 20:45:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=oM+h6S5HWi6JA1veD/FhV7zvB8jzq5YS1si8GOt63ns=;
- b=AlA21AnajAR8gYuWZHaGQHWvHBja4S19UntgwoHQrcbi4r1mKBqO7hrG33sspvStfg
- 71g2Mm4Sb/rczLvJkqL0PzNzbyC5My3pPTI1JVH4hTryX5sjeiCcgiBpM7RpAOxZmFZQ
- 2VgxR+x2VHAOhWULQk1mNRN3UBPW6dOy17suUw06PFQNuraYOR9tJL/wSgCpOR5bzGbD
- 74sKw0c75LqNOO3hdQNI/AAotmFwFVtd4+9y+J1cV0d3VL0Jv9WhVIRa5GmxoLpwpTfS
- 2rQ0YIbFy5SiI7Jr00WM1ROLYPJJou/B9uh8I5/8OKaBBfzpF1HbizMZ35YovGeo7bkK
- w01A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=oM+h6S5HWi6JA1veD/FhV7zvB8jzq5YS1si8GOt63ns=;
- b=ak713Ganza3PQdu+A9Tw4bNxoBgsD0ZyEjCoFt2GyXCgfIj6r6Kas8P8FmuKMQ/+Tz
- 4Kz1qoOcc71S5o3X6yila4FVl+pn2b6M+FgI1S1/tiyw/cg2Uz9yQFyyzcJiYfPA1KQ4
- mbhPVC+IR3o7luZZwk8+9ExOCLrEMtfS2SjnBjzqpdTppsxustyre8SS0VJwPvnwSO6k
- +2AxsXv5D5m+jcVX9h4G2uW/w4FeJhxQqAkWFIc0FPD/5oMCffk7qSr2WjvOOI8jEqtj
- nmqbH2lf140s+KVrrY/sF+2raYuB6zpKLAC+rSWn1bQb1VKS5eOuu9XInB78aUTmxk9+
- m3JQ==
-X-Gm-Message-State: AN3rC/41bJvV7hwFCH+3JAArGJR6w3v+LFjoYhJ1tvn8d3QuPiiEPGX+
- C0SYTxXK9NDaHGXqcDmhFo968FXmOQ==
-X-Received: by 10.37.8.195 with SMTP id 186mr6967994ybi.17.1492746357242; Thu,
- 20 Apr 2017 20:45:57 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.8.202 with HTTP; Thu, 20 Apr 2017 20:45:36 -0700 (PDT)
-In-Reply-To: <1492746038.4069.1.camel@aj.id.au>
-References: <1492744763-29872-1-git-send-email-bradleyb@fuzziesquirrel.com>
- <1492744763-29872-2-git-send-email-bradleyb@fuzziesquirrel.com>
- <1492746038.4069.1.camel@aj.id.au>
-From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 21 Apr 2017 13:15:36 +0930
-X-Google-Sender-Auth: rRh17tfrcDyvnBKtIKGKyB6rfvs
-Message-ID: <CACPK8Xc6FXft7FREFC=GPA31KGhAZ+f1sC7Ja+i0nep_3DZyQA@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7 v5 1/2] ARM: configs: aspeed: Enable
- keyboard-gpio
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3w8N2J6Q5NzDqKd
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Apr 2017 14:25:28 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
+ header.b="ZOVOQoM6"; dkim-atps=neutral
+Received: from v4.ozlabs.ibm.com (unknown [122.99.82.10])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (Client did not present a certificate)
+ (Authenticated sender: sam@mendozajonas.com)
+ by mendozajonas.com (Postfix) with ESMTPSA id A407E143F68;
+ Fri, 21 Apr 2017 12:25:25 +0800 (SGT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mendozajonas.com;
+ s=mail; t=1492748726;
+ bh=DUNtSw/HoKAOna/5AfqTdWUdt+6fnLeqn22vVW6P0Yk=;
+ h=From:To:Cc:Subject:Date:From;
+ b=ZOVOQoM6+c3OF+fG6vMG85fd+W591VyfjGosaBOog9fVgdKLgDtMKmAjRBj+0gHtB
+ u9Kz1NM7Xuub4PbwRIey04suosqts0Dr/u3b1F5I1By3mBHPU/nVE2rdccfE3mfEup
+ vwZZXIbF4hI73A1kcuHA7q3LWrstspww8Y8wpTwg=
+From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+To: Guenter Roeck <linux@roeck-us.net>,
+	linux-hwmon@vger.kernel.org
+Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>, Joel Stanley <joel@jms.id.au>,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+Subject: [PATCH] hwmon (pmbus): Add client driver for IR35221
+Date: Fri, 21 Apr 2017 14:25:05 +1000
+Message-Id: <20170421042505.20403-1-sam@mendozajonas.com>
+X-Mailer: git-send-email 2.12.2
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,81 +40,482 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Apr 2017 03:46:00 -0000
+X-List-Received-Date: Fri, 21 Apr 2017 04:25:29 -0000
 
-On Fri, Apr 21, 2017 at 1:10 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> On Thu, 2017-04-20 at 23:19 -0400, Brad Bishop wrote:
->> Some OpenBMC systems will be using keyboard-gpio so enable it
->> in our configs.
->>
->> Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
->
-> Acked-by: Andrew Jeffery <andrew@aj.id.au>
+IR35221 is a Digital DC-DC Multiphase Converter
 
-Merged to dev-4.7.
+Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+---
+- Tested on a ppc64 system which includes several of these devices.
+- This patch re-implements the linear reg2data/data2reg functions from
+  pmbus-core like some other drivers in order to scale some results. Is
+  this something that would be better off being made generic for pmbus
+  drivers to call?
+- The resolution of iout0 is apparently configurable between two values,
+  however the documentation I have access to does not specify how this is
+  actually configured - currently it is left at the default resolution in
+  the driver.
 
-Cheers,
+ Documentation/hwmon/ir35221   |  87 ++++++++++++
+ drivers/hwmon/pmbus/Kconfig   |  11 ++
+ drivers/hwmon/pmbus/Makefile  |   1 +
+ drivers/hwmon/pmbus/ir35221.c | 322 ++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 421 insertions(+)
+ create mode 100644 Documentation/hwmon/ir35221
+ create mode 100644 drivers/hwmon/pmbus/ir35221.c
 
-Joel
-
->
-> In the future please add the tags given for previous patch revisions if
-> there hasn't been significant change :)
->
->> ---
->>  arch/arm/configs/aspeed_g4_defconfig | 8 +++++++-
->>  arch/arm/configs/aspeed_g5_defconfig | 8 +++++++-
->>  2 files changed, 14 insertions(+), 2 deletions(-)
->>
->> diff --git a/arch/arm/configs/aspeed_g4_defconfig b/arch/arm/configs/aspeed_g4_defconfig
->> index 552297b..4350f67 100644
->> --- a/arch/arm/configs/aspeed_g4_defconfig
->> +++ b/arch/arm/configs/aspeed_g4_defconfig
->> @@ -103,7 +103,12 @@ CONFIG_FTGMAC100=y
->>  CONFIG_BROADCOM_PHY=y
->>  CONFIG_REALTEK_PHY=y
->>  # CONFIG_WLAN is not set
->> -# CONFIG_INPUT is not set
->> +# CONFIG_INPUT_LEDS is not set
->> +# CONFIG_INPUT_MOUSEDEV is not set
->> +CONFIG_INPUT_EVDEV=y
->> +# CONFIG_KEYBOARD_ATKBD is not set
->> +CONFIG_KEYBOARD_GPIO=y
->> +# CONFIG_INPUT_MOUSE is not set
->>  # CONFIG_SERIO is not set
->>  # CONFIG_VT is not set
->>  # CONFIG_LEGACY_PTYS is not set
->> @@ -138,6 +143,7 @@ CONFIG_SENSORS_ADM1275=y
->>  CONFIG_SENSORS_LM25066=y
->>  CONFIG_SENSORS_UCD9000=y
->>  CONFIG_SENSORS_TMP421=y
->> +# CONFIG_HID is not set
->>  # CONFIG_USB_SUPPORT is not set
->>  CONFIG_NEW_LEDS=y
->>  CONFIG_LEDS_CLASS=y
->> diff --git a/arch/arm/configs/aspeed_g5_defconfig b/arch/arm/configs/aspeed_g5_defconfig
->> index c5e7295..b6b3ca0 100644
->> --- a/arch/arm/configs/aspeed_g5_defconfig
->> +++ b/arch/arm/configs/aspeed_g5_defconfig
->> @@ -102,7 +102,12 @@ CONFIG_FTGMAC100=y
->>  CONFIG_BROADCOM_PHY=y
->>  CONFIG_REALTEK_PHY=y
->>  # CONFIG_WLAN is not set
->> -# CONFIG_INPUT is not set
->> +# CONFIG_INPUT_LEDS is not set
->> +# CONFIG_INPUT_MOUSEDEV is not set
->> +CONFIG_INPUT_EVDEV=y
->> +# CONFIG_KEYBOARD_ATKBD is not set
->> +CONFIG_KEYBOARD_GPIO=y
->> +# CONFIG_INPUT_MOUSE is not set
->>  # CONFIG_SERIO is not set
->>  # CONFIG_VT is not set
->>  # CONFIG_LEGACY_PTYS is not set
->> @@ -135,6 +140,7 @@ CONFIG_PMBUS=y
->>  CONFIG_SENSORS_LM25066=y
->>  CONFIG_SENSORS_UCD9000=y
->>  CONFIG_SENSORS_TMP421=y
->> +# CONFIG_HID is not set
->>  # CONFIG_USB_SUPPORT is not set
->>  CONFIG_NEW_LEDS=y
->>  CONFIG_LEDS_CLASS=y
+diff --git a/Documentation/hwmon/ir35221 b/Documentation/hwmon/ir35221
+new file mode 100644
+index 000000000000..f7e112752c04
+--- /dev/null
++++ b/Documentation/hwmon/ir35221
+@@ -0,0 +1,87 @@
++Kernel driver ir35221
++=====================
++
++Supported chips:
++  * Infinion IR35221
++    Prefix: 'ir35221'
++    Addresses scanned: -
++    Datasheet: Datasheet is not publicly available.
++
++Author: Samuel Mendoza-Jonas <sam@mendozajonas.com>
++
++
++Description
++-----------
++
++IR35221 is a Digital DC-DC Multiphase Converter
++
++
++Usage Notes
++-----------
++
++This driver does not probe for PMBus devices. You will have to instantiate
++devices explicitly.
++
++Example: the following commands will load the driver for an IR35221
++at address 0x70 on I2C bus #4:
++
++# modprobe ir35221
++# echo ir35221 0x70 > /sys/bus/i2c/devices/i2c-4/new_device
++
++
++Sysfs attributes
++----------------
++
++curr1_label		"iin"
++curr1_input		Measured input current
++curr1_max		Maximum current
++curr1_max_alarm		Current high alarm
++
++curr[2-3]_label		"iout[1-2]"
++curr[2-3]_input		Measured output current
++curr[2-3]_crit		Critical maximum current
++curr[2-3]_crit_alarm	Current critical high alarm
++curr[2-3]_highest	Highest output current
++curr[2-3]_lowest	Lowest output current
++curr[2-3]_max		Maximum current
++curr[2-3]_max_alarm	Current high alarm
++
++in1_label		"vin"
++in1_input		Measured input voltage
++in1_crit		Critical maximum input voltage
++in1_crit_alarm		Input voltage critical high alarm
++in1_highest		Highest input voltage
++in1_lowest		Lowest input voltage
++in1_min			Minimum input voltage
++in1_min_alarm		Input voltage low alarm
++
++in[2-3]_label		"vout[1-2]"
++in[2-3]_input		Measured output voltage
++in[2-3]_lcrit		Critical minimum output voltage
++in[2-3]_lcrit_alarm	Output voltage critical low alarm
++in[2-3]_crit		Critical maximum output voltage
++in[2-3]_crit_alarm	Output voltage critical high alarm
++in[2-3]_highest		Highest output voltage
++in[2-3]_lowest		Lowest output voltage
++in[2-3]_max		Maximum output voltage
++in[2-3]_max_alarm	Output voltage high alarm
++in[2-3]_min		Minimum output voltage
++in[2-3]_min_alarm	Output voltage low alarm
++
++power1_label		"pin"
++power1_input		Measured input power
++power1_alarm		Input power high alarm
++power1_max		Input power limit
++
++power[2-3]_label	"pout[1-2]"
++power[2-3]_input	Measured output power
++power[2-3]_max		Output power limit
++power[2-3]_max_alarm	Output power high alarm
++
++temp[1-2]_input		Measured temperature
++temp[1-2]_crit		Critical high temperature
++temp[1-2]_crit_alarm	Chip temperature critical high alarm
++temp[1-2]_highest	Highest temperature
++temp[1-2]_lowest	Lowest temperature
++temp[1-2]_max		Maximum temperature
++temp[1-2]_max_alarm	Chip temperature high alarm
+diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
+index cad1229b7e17..88c7d6b116f8 100644
+--- a/drivers/hwmon/pmbus/Kconfig
++++ b/drivers/hwmon/pmbus/Kconfig
+@@ -159,4 +159,15 @@ config SENSORS_ZL6100
+ 	  This driver can also be built as a module. If so, the module will
+ 	  be called zl6100.
+ 
++config SENSORS_IR35221
++	tristate "Infineon IR35221"
++	default n
++	help
++	  If you say yes here you get hardware monitoring support for the
++	  Infineon IR35221 controller.
++
++	  This driver can also be built as a module. If so, the module will
++	  be called ir35521.
++
++
+ endif # PMBUS
+diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
+index 562132054aaf..75bb7ca619d9 100644
+--- a/drivers/hwmon/pmbus/Makefile
++++ b/drivers/hwmon/pmbus/Makefile
+@@ -5,6 +5,7 @@
+ obj-$(CONFIG_PMBUS)		+= pmbus_core.o
+ obj-$(CONFIG_SENSORS_PMBUS)	+= pmbus.o
+ obj-$(CONFIG_SENSORS_ADM1275)	+= adm1275.o
++obj-$(CONFIG_SENSORS_IR35221)	+= ir35221.o
+ obj-$(CONFIG_SENSORS_LM25066)	+= lm25066.o
+ obj-$(CONFIG_SENSORS_LTC2978)	+= ltc2978.o
+ obj-$(CONFIG_SENSORS_LTC3815)	+= ltc3815.o
+diff --git a/drivers/hwmon/pmbus/ir35221.c b/drivers/hwmon/pmbus/ir35221.c
+new file mode 100644
+index 000000000000..e73b1aeb0085
+--- /dev/null
++++ b/drivers/hwmon/pmbus/ir35221.c
+@@ -0,0 +1,322 @@
++/*
++ * Hardware monitoring driver for IR35221
++ *
++ * Copyright (C) IBM Corporation 2017.
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version
++ * 2 of the License, or (at your option) any later version.
++ */
++
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/err.h>
++#include <linux/init.h>
++#include <linux/i2c.h>
++#include "pmbus.h"
++
++#define IR35221_IC_DEVICE_ID		0xad
++#define IR35221_IC_DEVICE_REV		0xae
++#define IR35221_USER_DATA_00		0xb0
++#define IR35221_USER_DATA_01		0xb1
++#define IR35221_MFR_READ_VAUX		0xc4
++#define IR35221_MFR_VIN_PEAK		0xc5
++#define IR35221_MFR_VOUT_PEAK		0xc6
++#define IR35221_MFR_IOUT_PEAK		0xc7
++#define IR35221_MFR_TEMP_PEAK		0xc8
++#define IR35221_MFR_VIN_VALLEY		0xc9
++#define IR35221_MFR_VOUT_VALLEY		0xca
++#define IR35221_MFR_IOUT_VALLEY		0xcb
++#define IR35221_MFR_TEMP_VALLEY		0xcc
++#define IR35221_VOUT_RESET		0xce
++#define IR35221_RESET_TRANSITION_RATE	0xcf
++#define IR35221_MFR_REG_ACCESS		0xd0
++#define IR35221_MFR_I2C_ADDRESS		0xd6
++
++static long ir35221_reg2data(int data, enum pmbus_sensor_classes class)
++{
++	s16 exponent;
++	s32 mantissa;
++	long val;
++
++	/* We only modify LINEAR11 formats */
++	exponent = ((s16)data) >> 11;
++	mantissa = ((s16)((data & 0x7ff) << 5)) >> 5;
++
++	val = mantissa * 1000L;
++
++	/* scale result to micro-units for power sensors */
++	if (class == PSC_POWER)
++		val = val * 1000L;
++
++	if (exponent >= 0)
++		val <<= exponent;
++	else
++		val >>= -exponent;
++
++	return val;
++}
++
++#define MAX_MANTISSA	(1023 * 1000)
++#define MIN_MANTISSA	(511 * 1000)
++
++static u16 ir35221_data2reg(long val, enum pmbus_sensor_classes class)
++{
++	s16 exponent = 0, mantissa;
++	bool negative = false;
++
++	if (val == 0)
++		return 0;
++
++	if (val < 0) {
++		negative = true;
++		val = -val;
++	}
++
++	/* Power is in uW. Convert to mW before converting. */
++	if (class == PSC_POWER)
++		val = DIV_ROUND_CLOSEST(val, 1000L);
++
++	/* Reduce large mantissa until it fits into 10 bit */
++	while (val >= MAX_MANTISSA && exponent < 15) {
++		exponent++;
++		val >>= 1;
++	}
++	/* Increase small mantissa to improve precision */
++	while (val < MIN_MANTISSA && exponent > -15) {
++		exponent--;
++		val <<= 1;
++	}
++
++	/* Convert mantissa from milli-units to units */
++	mantissa = DIV_ROUND_CLOSEST(val, 1000);
++
++	/* Ensure that resulting number is within range */
++	if (mantissa > 0x3ff)
++		mantissa = 0x3ff;
++
++	/* restore sign */
++	if (negative)
++		mantissa = -mantissa;
++
++	/* Convert to 5 bit exponent, 11 bit mantissa */
++	return (mantissa & 0x7ff) | ((exponent << 11) & 0xf800);
++}
++
++static u16 ir35221_scale_result(s16 data, int shift,
++				enum pmbus_sensor_classes class)
++{
++	long val;
++
++	val = ir35221_reg2data(data, class);
++
++	if (shift < 0)
++		val >>= -shift;
++	else
++		val <<= shift;
++
++	return ir35221_data2reg(val, class);
++}
++
++static int ir35221_read_word_data(struct i2c_client *client, int page, int reg)
++{
++	int ret;
++
++	switch (reg) {
++	case PMBUS_IOUT_OC_FAULT_LIMIT:
++	case PMBUS_IOUT_OC_WARN_LIMIT:
++		ret = pmbus_read_word_data(client, page, reg);
++		ret = ir35221_scale_result(ret, 1, PSC_CURRENT_OUT);
++		break;
++	case PMBUS_VIN_OV_FAULT_LIMIT:
++	case PMBUS_VIN_OV_WARN_LIMIT:
++	case PMBUS_VIN_UV_WARN_LIMIT:
++		ret = pmbus_read_word_data(client, page, reg);
++		ret = ir35221_scale_result(ret, -4, PSC_VOLTAGE_IN);
++		break;
++	case PMBUS_IIN_OC_WARN_LIMIT:
++		ret = pmbus_read_word_data(client, page, reg);
++		ret = ir35221_scale_result(ret, -1, PSC_CURRENT_IN);
++	case PMBUS_READ_VIN:
++		ret = pmbus_read_word_data(client, page, PMBUS_READ_VIN);
++		ret = ir35221_scale_result(ret, -5, PSC_VOLTAGE_IN);
++		break;
++	case PMBUS_READ_IIN:
++		ret = pmbus_read_word_data(client, page, PMBUS_READ_IIN);
++		if (page == 0)
++			ret = ir35221_scale_result(ret, -4, PSC_CURRENT_IN);
++		else
++			ret = ir35221_scale_result(ret, -5, PSC_CURRENT_IN);
++		break;
++	case PMBUS_READ_POUT:
++		ret = pmbus_read_word_data(client, page, PMBUS_READ_POUT);
++		ret = ir35221_scale_result(ret, -1, PSC_POWER);
++		break;
++	case PMBUS_READ_PIN:
++		ret = pmbus_read_word_data(client, page, PMBUS_READ_PIN);
++		ret = ir35221_scale_result(ret, -1, PSC_POWER);
++		break;
++	case PMBUS_READ_IOUT:
++		ret = pmbus_read_word_data(client, page, PMBUS_READ_IOUT);
++		if (page == 0)
++			ret = ir35221_scale_result(ret, -1, PSC_CURRENT_OUT);
++		else
++			ret = ir35221_scale_result(ret, -2, PSC_CURRENT_OUT);
++		break;
++	case PMBUS_VIRT_READ_VIN_MAX:
++		ret = pmbus_read_word_data(client, page, IR35221_MFR_VIN_PEAK);
++		ret = ir35221_scale_result(ret, -5, PSC_VOLTAGE_IN);
++		break;
++	case PMBUS_VIRT_READ_VOUT_MAX:
++		ret = pmbus_read_word_data(client, page, IR35221_MFR_VOUT_PEAK);
++		break;
++	case PMBUS_VIRT_READ_IOUT_MAX:
++		ret = pmbus_read_word_data(client, page, IR35221_MFR_IOUT_PEAK);
++		if (page == 0)
++			ret = ir35221_scale_result(ret, -1, PSC_CURRENT_IN);
++		else
++			ret = ir35221_scale_result(ret, -2, PSC_CURRENT_IN);
++		break;
++	case PMBUS_VIRT_READ_TEMP_MAX:
++		ret = pmbus_read_word_data(client, page, IR35221_MFR_TEMP_PEAK);
++		break;
++	case PMBUS_VIRT_READ_VIN_MIN:
++		ret = pmbus_read_word_data(client, page,
++					   IR35221_MFR_VIN_VALLEY);
++		ret = ir35221_scale_result(ret, -5, PSC_VOLTAGE_IN);
++		break;
++	case PMBUS_VIRT_READ_VOUT_MIN:
++		ret = pmbus_read_word_data(client, page,
++					   IR35221_MFR_VOUT_VALLEY);
++		break;
++	case PMBUS_VIRT_READ_IOUT_MIN:
++		ret = pmbus_read_word_data(client, page,
++					   IR35221_MFR_IOUT_VALLEY);
++		if (page == 0)
++			ret = ir35221_scale_result(ret, -1, PSC_CURRENT_IN);
++		else
++			ret = ir35221_scale_result(ret, -2, PSC_CURRENT_IN);
++		break;
++	case PMBUS_VIRT_READ_TEMP_MIN:
++		ret = pmbus_read_word_data(client, page,
++					   IR35221_MFR_TEMP_VALLEY);
++		break;
++	default:
++		ret = -ENODATA;
++		break;
++	}
++
++	return ret;
++}
++
++static int ir35221_write_word_data(struct i2c_client *client, int page, int reg,
++				   u16 word)
++{
++	int ret;
++	u16 val;
++
++	switch (reg) {
++	case PMBUS_IOUT_OC_FAULT_LIMIT:
++	case PMBUS_IOUT_OC_WARN_LIMIT:
++		val = ir35221_scale_result(word, -1, PSC_CURRENT_OUT);
++		ret = pmbus_write_word_data(client, page, reg, val);
++		break;
++	case PMBUS_VIN_OV_FAULT_LIMIT:
++	case PMBUS_VIN_OV_WARN_LIMIT:
++	case PMBUS_VIN_UV_WARN_LIMIT:
++		val = ir35221_scale_result(word, 4, PSC_VOLTAGE_IN);
++		ret = pmbus_write_word_data(client, page, reg, val);
++		break;
++	case PMBUS_IIN_OC_WARN_LIMIT:
++		val = ir35221_scale_result(word, 1, PSC_CURRENT_IN);
++		ret = pmbus_write_word_data(client, page, reg, val);
++	default:
++		ret = -ENODATA;
++		break;
++	}
++
++	return ret;
++}
++
++static int ir35221_probe(struct i2c_client *client,
++			 const struct i2c_device_id *id)
++{
++	struct pmbus_driver_info *info;
++	u8 buf[I2C_SMBUS_BLOCK_MAX];
++	int ret;
++
++	if (!i2c_check_functionality(client->adapter,
++				     I2C_FUNC_SMBUS_READ_BYTE_DATA
++				| I2C_FUNC_SMBUS_READ_WORD_DATA
++				| I2C_FUNC_SMBUS_READ_BLOCK_DATA))
++		return -ENODEV;
++
++	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_ID, buf);
++	if (ret < 0) {
++		dev_err(&client->dev, "Failed to read PMBUS_MFR_ID\n");
++		return ret;
++	}
++	if (ret != 2 || strncmp(buf, "RI", strlen("RI"))) {
++		dev_err(&client->dev, "MFR_ID unrecognised\n");
++		return -ENODEV;
++	}
++
++	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
++	if (ret < 0) {
++		dev_err(&client->dev, "Failed to read PMBUS_MFR_MODEL\n");
++		return ret;
++	}
++	if (ret != 2 || !(buf[0] == 0x6c && buf[1] == 0x00)) {
++		dev_err(&client->dev, "MFR_MODEL unrecognised\n");
++		return -ENODEV;
++	}
++
++	info = devm_kzalloc(&client->dev, sizeof(struct pmbus_driver_info),
++			    GFP_KERNEL);
++	if (!info)
++		return -ENOMEM;
++
++	info->write_word_data = ir35221_write_word_data;
++	info->read_word_data = ir35221_read_word_data;
++
++	info->pages = 2;
++	info->format[PSC_VOLTAGE_IN] = linear;
++	info->format[PSC_VOLTAGE_OUT] = linear;
++	info->format[PSC_CURRENT_IN] = linear;
++	info->format[PSC_CURRENT_OUT] = linear;
++	info->format[PSC_POWER] = linear;
++	info->format[PSC_TEMPERATURE] = linear;
++
++	info->func[0] = PMBUS_HAVE_VIN
++		| PMBUS_HAVE_VOUT | PMBUS_HAVE_IIN
++		| PMBUS_HAVE_IOUT | PMBUS_HAVE_PIN
++		| PMBUS_HAVE_POUT | PMBUS_HAVE_TEMP
++		| PMBUS_HAVE_STATUS_VOUT | PMBUS_HAVE_STATUS_IOUT
++		| PMBUS_HAVE_STATUS_INPUT | PMBUS_HAVE_STATUS_TEMP;
++	info->func[1] = info->func[0];
++
++	return pmbus_do_probe(client, id, info);
++}
++
++static const struct i2c_device_id ir35221_id[] = {
++	{"ir35221", 0},
++	{}
++};
++
++MODULE_DEVICE_TABLE(i2c, ir35221_id);
++
++static struct i2c_driver ir35221_driver = {
++	.driver = {
++		.name	= "ir35221",
++	},
++	.probe		= ir35221_probe,
++	.remove		= pmbus_do_remove,
++	.id_table	= ir35221_id,
++};
++
++module_i2c_driver(ir35221_driver);
++
++MODULE_AUTHOR("Samuel Mendoza-Jonas <sam@mendozajonas.com");
++MODULE_DESCRIPTION("PMBus driver for IR35221");
++MODULE_LICENSE("GPL");
+-- 
+2.12.2
