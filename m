@@ -1,67 +1,63 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3w89lK3CxyzDqKR
- for <openbmc@lists.ozlabs.org>; Fri, 21 Apr 2017 06:41:49 +1000 (AEST)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v3KKcp72050238
- for <openbmc@lists.ozlabs.org>; Thu, 20 Apr 2017 16:41:38 -0400
-Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
- by mx0a-001b2d01.pphosted.com with ESMTP id 29xgvgkgs2-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 20 Apr 2017 16:41:38 -0400
-Received: from localhost
- by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 20 Apr 2017 14:41:36 -0600
-Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
- by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 20 Apr 2017 14:41:34 -0600
-Received: from b03ledav001.gho.boulder.ibm.com
- (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v3KKfXQ112452316; Thu, 20 Apr 2017 13:41:33 -0700
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id CE1416E040;
- Thu, 20 Apr 2017 14:41:33 -0600 (MDT)
-Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP id 8ED176E048;
- Thu, 20 Apr 2017 14:41:33 -0600 (MDT)
-Subject: Re: [PATCH linux dev-4.7 v2] drivers/fsi: Add FSI SBEFIFO driver
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>, openbmc@lists.ozlabs.org,
- joel@jms.id.au, alistair@popple.id.au
-References: <1492714297-13845-1-git-send-email-bradleyb@fuzziesquirrel.com>
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Thu, 20 Apr 2017 15:41:33 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.8.0
-MIME-Version: 1.0
-In-Reply-To: <1492714297-13845-1-git-send-email-bradleyb@fuzziesquirrel.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 17042020-0012-0000-0000-000014171BD8
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006946; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000208; SDB=6.00850210; UDB=6.00419916; IPR=6.00628866; 
- BA=6.00005305; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015113; XFM=3.00000013;
- UTC=2017-04-20 20:41:35
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17042020-0013-0000-0000-00004D2A2D19
-Message-Id: <db8b5d14-6a3e-640f-b74a-b72b1080352d@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-04-20_18:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=2
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1704200191
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3w8Gwz6RqtzDqKp
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Apr 2017 10:35:31 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="T3sm+Uiz"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="Y/HQlsDQ"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id C5E57207DD;
+ Thu, 20 Apr 2017 20:35:29 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Thu, 20 Apr 2017 20:35:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=YENG6FNtPCyEu7u/s9DXUIJkeywW+qMWo22RCwhRY
+ Bw=; b=T3sm+UizajF4cHexVG6L+NEtbs9ZsGSWG95m1mZfA0gQ0DqrQhdmV6cDq
+ 057tPJ49Xaz1ZJg43lR4eroyJaIrw1sGQwk8C5QMr8+yELYg2Te8peKEN9iWv1Ja
+ tSA8lu6lCMJbSJ9MKTuPZrNqVxTN9AQWeuo6eS7qBnQHiINswvX2DM1oowyJJyWL
+ DuEf9oMnpWoWA9JyL9q3T+u4E712clXdiUCe6v76ORV5bFTTUrgb01hyr/Svbpk3
+ XfxODULQABgx032AExnnko25b15dHDEki+4rnkJECs7UWtBwm/yBBP9eZRtXDUzk
+ krTfgyTNv16yS6xwHlgNYNAyHSMIw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=YENG6FNtPCyEu7u/s9
+ DXUIJkeywW+qMWo22RCwhRYBw=; b=Y/HQlsDQIe0KLqkPz7VP8b+UY/febhe21G
+ JvfCeHQg1VuOwFOa/C3SsT3TtYEpHxiuCnpLTrbEAryjhlMfAswNSPds9096tuHl
+ BYFoZ1jTr+EVmDKNCxS1pGRWGABd4Hz6kRIYUdZ/lVK3ztE9C/9BVAJHMWyUM/Ig
+ Ff81ElLsh4jTW1aZKzK2ZvrwYibb4cq3bDCVUsmY3rgq+QEPT+tAg2AIgJJ4C7mh
+ 4aiVbOs4ZM4MBzb57Zo3Osb+M4aZAH6KNeNf+8+pZBzqRvlQS0EMPp5C7JjQuAqA
+ ubhRU/H/GPBCA64+TOzUwKYmHzxnNdiF5D/f9KsRUIkpht5jRW6w==
+X-ME-Sender: <xms:0VP5WFzfNbSFgZfaCflfl4f1PPu6eBYROty2w3JJvZLtFoknn6-yDg>
+X-Sasl-enc: 9JWa68X6s3WD3pyqD2hwFn7ie6hwc34dmSGFXzHxHsMG 1492734928
+Received: from [10.104.0.15] (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 55EB4246A5;
+ Thu, 20 Apr 2017 20:35:28 -0400 (EDT)
+Message-ID: <1492734921.1011.10.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.7 v3 2/2] ARM: dts: Enable checkstop and
+ cooling gpio keys
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: openbmc@lists.ozlabs.org
+Date: Fri, 21 Apr 2017 10:05:21 +0930
+In-Reply-To: <86B3586F-7CEC-4389-8CCC-38D5423A4CE7@fuzziesquirrel.com>
+References: <1492575497-1419-1-git-send-email-bradleyb@fuzziesquirrel.com>
+ <1492575497-1419-3-git-send-email-bradleyb@fuzziesquirrel.com>
+ <1492612195.1011.4.camel@aj.id.au>
+ <F2CEC6F0-6FAD-41DB-9797-E6D63868FA6F@fuzziesquirrel.com>
+ <1492662892.1011.7.camel@aj.id.au>
+ <86B3586F-7CEC-4389-8CCC-38D5423A4CE7@fuzziesquirrel.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-blySNxP2Nr17y90QggJQ"
+X-Mailer: Evolution 3.22.6-0ubuntu0.1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -73,887 +69,167 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Apr 2017 20:41:49 -0000
+X-List-Received-Date: Fri, 21 Apr 2017 00:35:33 -0000
 
-Looks good.
 
-Reviewed-by: Eddie James <eajames@linux.vnet.ibm.com>
+--=-blySNxP2Nr17y90QggJQ
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 04/20/2017 01:51 PM, Brad Bishop wrote:
-> IBM POWER9 processors contain some embedded hardware and software bits
-> collectively referred to as the self boot engine (SBE).  One role of
-> the SBE is to act as a proxy that provides access to the registers of
-> the POWER chip from other (embedded) systems.
->
-> The POWER9 chip contains a hardware frontend for communicating with
-> the SBE from remote systems called the SBEFIFO.  The SBEFIFO logic
-> is contained within an FSI CFAM (see Documentation/fsi) and as such
-> the driver implements an FSI bus device.
->
-> The SBE expects to communicate using a defined wire protocol; however,
-> the driver knows nothing of the protocol and only provides raw access
-> to the fifo device to userspace applications wishing to communicate with
-> the SBE using the wire protocol.
->
-> The SBEFIFO consists of two hardware fifos.  The upstream fifo is used by
-> the driver to transfer data to the SBE on the POWER chip, from the system
-> hosting the driver.  The downstream fifo is used by the driver to transfer
-> data from the SBE on the power chip to the system hosting the driver.
->
-> Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
-> ---
-> v2:
->      Unexpand list_first_entry_or_null.
->      Unexpand list_for_each_entry_safe.
->      Reschedule a full 500ms later when fifos are busy.
-> ---
->   drivers/fsi/Kconfig       |   6 +
->   drivers/fsi/Makefile      |   1 +
->   drivers/fsi/fsi-sbefifo.c | 810 ++++++++++++++++++++++++++++++++++++++++++++++
->   3 files changed, 817 insertions(+)
->   create mode 100644 drivers/fsi/fsi-sbefifo.c
->
-> diff --git a/drivers/fsi/Kconfig b/drivers/fsi/Kconfig
-> index c78b9b6e..087f239 100644
-> --- a/drivers/fsi/Kconfig
-> +++ b/drivers/fsi/Kconfig
-> @@ -18,6 +18,12 @@ config FSI_MASTER_GPIO
->   	---help---
->   	This option enables a FSI master driver using GPIO lines.
->
-> +config FSI_SBEFIFO
-> +	tristate "SBEFIFO FSI client device driver"
-> +	depends on FSI
-> +	---help---
-> +	This option enables an FSI based SBEFIFO device driver.
-> +
->   config FSI_SCOM
->   	tristate "SCOM FSI client device driver"
->   	depends on FSI
-> diff --git a/drivers/fsi/Makefile b/drivers/fsi/Makefile
-> index 3a106ba..edd84b2 100644
-> --- a/drivers/fsi/Makefile
-> +++ b/drivers/fsi/Makefile
-> @@ -1,5 +1,6 @@
->
->   obj-$(CONFIG_FSI) += fsi-core.o
->   obj-$(CONFIG_FSI_MASTER_GPIO) += fsi-master-gpio.o
-> +obj-$(CONFIG_FSI_SBEFIFO) += fsi-sbefifo.o
->   obj-$(CONFIG_FSI_SCOM) += fsi-scom.o
->   obj-$(CONFIG_FSI_I2C) += i2c/
-> diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
-> new file mode 100644
-> index 0000000..c289508
-> --- /dev/null
-> +++ b/drivers/fsi/fsi-sbefifo.c
-> @@ -0,0 +1,810 @@
-> +/*
-> + * Copyright (C) IBM Corporation 2017
-> + *
-> + * This program is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License version 2 as
-> + * published by the Free Software Foundation.
-> + *
-> + * This program is distributed in the hope that it will be useful,
-> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> + * MERGCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> + * GNU General Public License for more details.
-> + */
-> +
-> +#include <linux/delay.h>
-> +#include <linux/errno.h>
-> +#include <linux/idr.h>
-> +#include <linux/fsi.h>
-> +#include <linux/list.h>
-> +#include <linux/miscdevice.h>
-> +#include <linux/module.h>
-> +#include <linux/poll.h>
-> +#include <linux/sched.h>
-> +#include <linux/slab.h>
-> +#include <linux/timer.h>
-> +#include <linux/uaccess.h>
-> +
-> +/*
-> + * The SBEFIFO is a pipe-like FSI device for communicating with
-> + * the self boot engine on POWER processors.
-> + */
-> +
-> +#define DEVICE_NAME		"sbefifo"
-> +#define FSI_ENGID_SBE		0x22
-> +#define SBEFIFO_BUF_CNT		32
-> +
-> +#define SBEFIFO_UP		0x00	/* Up register offset */
-> +#define SBEFIFO_DWN		0x40	/* Down register offset */
-> +
-> +#define SBEFIFO_STS		0x04
-> +#define   SBEFIFO_EMPTY			BIT(20)
-> +#define SBEFIFO_EOT_RAISE	0x08
-> +#define   SBEFIFO_EOT_MAGIC		0xffffffff
-> +#define SBEFIFO_EOT_ACK		0x14
-> +
-> +struct sbefifo {
-> +	struct timer_list poll_timer;
-> +	struct fsi_device *fsi_dev;
-> +	struct miscdevice mdev;
-> +	wait_queue_head_t wait;
-> +	struct list_head link;
-> +	struct list_head xfrs;
-> +	struct kref kref;
-> +	spinlock_t lock;
-> +	char name[32];
-> +	int idx;
-> +	int rc;
-> +};
-> +
-> +struct sbefifo_buf {
-> +	u32 buf[SBEFIFO_BUF_CNT];
-> +	unsigned long flags;
-> +#define SBEFIFO_BUF_FULL		1
-> +	u32 *rpos;
-> +	u32 *wpos;
-> +};
-> +
-> +struct sbefifo_xfr {
-> +	struct sbefifo_buf *rbuf;
-> +	struct sbefifo_buf *wbuf;
-> +	struct list_head client;
-> +	struct list_head xfrs;
-> +	unsigned long flags;
-> +#define SBEFIFO_XFR_WRITE_DONE		1
-> +#define SBEFIFO_XFR_RESP_PENDING	2
-> +#define SBEFIFO_XFR_COMPLETE		3
-> +#define SBEFIFO_XFR_CANCEL		4
-> +};
-> +
-> +struct sbefifo_client {
-> +	struct sbefifo_buf rbuf;
-> +	struct sbefifo_buf wbuf;
-> +	struct list_head xfrs;
-> +	struct sbefifo *dev;
-> +	struct kref kref;
-> +};
-> +
-> +static struct list_head sbefifo_fifos;
-> +
-> +static DEFINE_IDA(sbefifo_ida);
-> +
-> +static int sbefifo_inw(struct sbefifo *sbefifo, int reg, u32 *word)
-> +{
-> +	return fsi_device_read(sbefifo->fsi_dev, reg, word, sizeof(*word));
-> +}
-> +
-> +static int sbefifo_outw(struct sbefifo *sbefifo, int reg, u32 word)
-> +{
-> +	return fsi_device_write(sbefifo->fsi_dev, reg, &word, sizeof(word));
-> +}
-> +
-> +static int sbefifo_readw(struct sbefifo *sbefifo, u32 *word)
-> +{
-> +	return sbefifo_inw(sbefifo, SBEFIFO_DWN, word);
-> +}
-> +
-> +static int sbefifo_writew(struct sbefifo *sbefifo, u32 word)
-> +{
-> +	return sbefifo_outw(sbefifo, SBEFIFO_UP, word);
-> +}
-> +
-> +static int sbefifo_ack_eot(struct sbefifo *sbefifo)
-> +{
-> +	u32 discard;
-> +	int ret;
-> +
-> +	 /* Discard the EOT word. */
-> +	ret = sbefifo_readw(sbefifo, &discard);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return sbefifo_outw(sbefifo, SBEFIFO_DWN | SBEFIFO_EOT_ACK,
-> +			SBEFIFO_EOT_MAGIC);
-> +}
-> +
-> +static size_t sbefifo_dev_nwreadable(u32 sts)
-> +{
-> +	static const u32 FIFO_NTRY_CNT_MSK = 0x000f0000;
-> +	static const unsigned int FIFO_NTRY_CNT_SHIFT = 16;
-> +
-> +	return (sts & FIFO_NTRY_CNT_MSK) >> FIFO_NTRY_CNT_SHIFT;
-> +}
-> +
-> +static size_t sbefifo_dev_nwwriteable(u32 sts)
-> +{
-> +	static const size_t FIFO_DEPTH = 8;
-> +
-> +	return FIFO_DEPTH - sbefifo_dev_nwreadable(sts);
-> +}
-> +
-> +static void sbefifo_buf_init(struct sbefifo_buf *buf)
-> +{
-> +	WRITE_ONCE(buf->rpos, buf->buf);
-> +	WRITE_ONCE(buf->wpos, buf->buf);
-> +}
-> +
-> +static size_t sbefifo_buf_nbreadable(struct sbefifo_buf *buf)
-> +{
-> +	size_t n;
-> +	u32 *rpos = READ_ONCE(buf->rpos);
-> +	u32 *wpos = READ_ONCE(buf->wpos);
-> +
-> +	if (test_bit(SBEFIFO_BUF_FULL, &buf->flags))
-> +		n = SBEFIFO_BUF_CNT;
-> +	else if (rpos <= wpos)
-> +		n = wpos - rpos;
-> +	else
-> +		n = (buf->buf + SBEFIFO_BUF_CNT) - rpos;
-> +
-> +	return n << 2;
-> +}
-> +
-> +static size_t sbefifo_buf_nbwriteable(struct sbefifo_buf *buf)
-> +{
-> +	size_t n;
-> +	u32 *rpos = READ_ONCE(buf->rpos);
-> +	u32 *wpos = READ_ONCE(buf->wpos);
-> +
-> +	if (test_bit(SBEFIFO_BUF_FULL, &buf->flags))
-> +		n = 0;
-> +	else if (wpos < rpos)
-> +		n = rpos - wpos;
-> +	else
-> +		n = (buf->buf + SBEFIFO_BUF_CNT) - wpos;
-> +
-> +	return n << 2;
-> +}
-> +
-> +/*
-> + * Update pointers and flags after doing a buffer read.  Return true if the
-> + * buffer is now empty;
-> + */
-> +static bool sbefifo_buf_readnb(struct sbefifo_buf *buf, size_t n)
-> +{
-> +	u32 *rpos = READ_ONCE(buf->rpos);
-> +	u32 *wpos = READ_ONCE(buf->wpos);
-> +
-> +	if (n)
-> +		clear_bit(SBEFIFO_BUF_FULL, &buf->flags);
-> +
-> +	rpos += (n >> 2);
-> +	if (rpos == buf->buf + SBEFIFO_BUF_CNT)
-> +		rpos = buf->buf;
-> +
-> +	WRITE_ONCE(buf->rpos, rpos);
-> +	return rpos == wpos;
-> +}
-> +
-> +/*
-> + * Update pointers and flags after doing a buffer write.  Return true if the
-> + * buffer is now full.
-> + */
-> +static bool sbefifo_buf_wrotenb(struct sbefifo_buf *buf, size_t n)
-> +{
-> +	u32 *rpos = READ_ONCE(buf->rpos);
-> +	u32 *wpos = READ_ONCE(buf->wpos);
-> +
-> +	wpos += (n >> 2);
-> +	if (wpos == buf->buf + SBEFIFO_BUF_CNT)
-> +		wpos = buf->buf;
-> +	if (wpos == rpos)
-> +		set_bit(SBEFIFO_BUF_FULL, &buf->flags);
-> +
-> +	WRITE_ONCE(buf->wpos, wpos);
-> +	return rpos == wpos;
-> +}
-> +
-> +static void sbefifo_free(struct kref *kref)
-> +{
-> +	struct sbefifo *sbefifo;
-> +
-> +	sbefifo = container_of(kref, struct sbefifo, kref);
-> +	kfree(sbefifo);
-> +}
-> +
-> +static void sbefifo_get(struct sbefifo *sbefifo)
-> +{
-> +	kref_get(&sbefifo->kref);
-> +}
-> +
-> +static void sbefifo_put(struct sbefifo *sbefifo)
-> +{
-> +	kref_put(&sbefifo->kref, sbefifo_free);
-> +}
-> +
-> +static struct sbefifo_xfr *sbefifo_enq_xfr(struct sbefifo_client *client)
-> +{
-> +	struct sbefifo *sbefifo = client->dev;
-> +	struct sbefifo_xfr *xfr;
-> +
-> +	xfr = kzalloc(sizeof(*xfr), GFP_KERNEL);
-> +	if (!xfr)
-> +		return NULL;
-> +
-> +	xfr->rbuf = &client->rbuf;
-> +	xfr->wbuf = &client->wbuf;
-> +	list_add_tail(&xfr->xfrs, &sbefifo->xfrs);
-> +	list_add_tail(&xfr->client, &client->xfrs);
-> +
-> +	return xfr;
-> +}
-> +
-> +static struct sbefifo_xfr *sbefifo_client_next_xfr(
-> +		struct sbefifo_client *client)
-> +{
-> +	if (list_empty(&client->xfrs))
-> +		return NULL;
-> +
-> +	return container_of(client->xfrs.next, struct sbefifo_xfr,
-> +			client);
-> +}
-> +
-> +static bool sbefifo_xfr_rsp_pending(struct sbefifo_client *client)
-> +{
-> +	struct sbefifo_xfr *xfr;
-> +
-> +	xfr = sbefifo_client_next_xfr(client);
-> +	if (xfr && test_bit(SBEFIFO_XFR_RESP_PENDING, &xfr->flags))
-> +		return true;
-> +
-> +	return false;
-> +}
-> +
-> +static struct sbefifo_client *sbefifo_new_client(struct sbefifo *sbefifo)
-> +{
-> +	struct sbefifo_client *client;
-> +
-> +	client = kzalloc(sizeof(*client), GFP_KERNEL);
-> +	if (!client)
-> +		return NULL;
-> +
-> +	kref_init(&client->kref);
-> +	client->dev = sbefifo;
-> +	sbefifo_buf_init(&client->rbuf);
-> +	sbefifo_buf_init(&client->wbuf);
-> +	INIT_LIST_HEAD(&client->xfrs);
-> +
-> +	sbefifo_get(sbefifo);
-> +
-> +	return client;
-> +}
-> +
-> +static void sbefifo_client_release(struct kref *kref)
-> +{
-> +	struct sbefifo_client *client;
-> +	struct sbefifo_xfr *xfr;
-> +
-> +	client = container_of(kref, struct sbefifo_client, kref);
-> +	list_for_each_entry(xfr, &client->xfrs, client) {
-> +		/*
-> +		 * The client left with pending or running xfrs.
-> +		 * Cancel them.
-> +		 */
-> +		set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
-> +		sbefifo_get(client->dev);
-> +		if (mod_timer(&client->dev->poll_timer, jiffies))
-> +			sbefifo_put(client->dev);
-> +	}
-> +
-> +	sbefifo_put(client->dev);
-> +	kfree(client);
-> +}
-> +
-> +static void sbefifo_get_client(struct sbefifo_client *client)
-> +{
-> +	kref_get(&client->kref);
-> +}
-> +
-> +static void sbefifo_put_client(struct sbefifo_client *client)
-> +{
-> +	kref_put(&client->kref, sbefifo_client_release);
-> +}
-> +
-> +static struct sbefifo_xfr *sbefifo_next_xfr(struct sbefifo *sbefifo)
-> +{
-> +	struct sbefifo_xfr *xfr, *tmp;
-> +
-> +	list_for_each_entry_safe(xfr, tmp, &sbefifo->xfrs, xfrs) {
-> +		if (unlikely(test_bit(SBEFIFO_XFR_CANCEL, &xfr->flags))) {
-> +			/* Discard cancelled transfers. */
-> +			list_del(&xfr->xfrs);
-> +			kfree(xfr);
-> +			continue;
-> +		}
-> +		return xfr;
-> +	}
-> +
-> +	return NULL;
-> +}
-> +
-> +static void sbefifo_poll_timer(unsigned long data)
-> +{
-> +	static const unsigned long EOT_MASK = 0x000000ff;
-> +	struct sbefifo *sbefifo = (void *)data;
-> +	struct sbefifo_buf *rbuf, *wbuf;
-> +	struct sbefifo_xfr *xfr = NULL;
-> +	struct sbefifo_buf drain;
-> +	size_t devn, bufn;
-> +	int eot = 0;
-> +	int ret = 0;
-> +	u32 sts;
-> +	int i;
-> +
-> +	spin_lock(&sbefifo->lock);
-> +	xfr = list_first_entry_or_null(&sbefifo->xfrs, struct sbefifo_xfr,
-> +			xfrs);
-> +	if (!xfr)
-> +		goto out_unlock;
-> +
-> +	rbuf = xfr->rbuf;
-> +	wbuf = xfr->wbuf;
-> +
-> +	if (unlikely(test_bit(SBEFIFO_XFR_CANCEL, &xfr->flags))) {
-> +		/* The client left. */
-> +		rbuf = &drain;
-> +		wbuf = &drain;
-> +		sbefifo_buf_init(&drain);
-> +		if (!test_bit(SBEFIFO_XFR_RESP_PENDING, &xfr->flags))
-> +			set_bit(SBEFIFO_XFR_WRITE_DONE, &xfr->flags);
-> +	}
-> +
-> +	 /* Drain the write buffer. */
-> +	while ((bufn = sbefifo_buf_nbreadable(wbuf))) {
-> +		ret = sbefifo_inw(sbefifo, SBEFIFO_UP | SBEFIFO_STS,
-> +				&sts);
-> +		if (ret)
-> +			goto out;
-> +
-> +		devn = sbefifo_dev_nwwriteable(sts);
-> +		if (devn == 0) {
-> +			/* No open slot for write.  Reschedule. */
-> +			sbefifo->poll_timer.expires = jiffies +
-> +				msecs_to_jiffies(500);
-> +			add_timer(&sbefifo->poll_timer);
-> +			goto out_unlock;
-> +		}
-> +
-> +		devn = min_t(size_t, devn, bufn >> 2);
-> +		for (i = 0; i < devn; i++) {
-> +			ret = sbefifo_writew(sbefifo, *wbuf->rpos);
-> +			if (ret)
-> +				goto out;
-> +
-> +			sbefifo_buf_readnb(wbuf, 1 << 2);
-> +		}
-> +	}
-> +
-> +	 /* Send EOT if the writer is finished. */
-> +	if (test_and_clear_bit(SBEFIFO_XFR_WRITE_DONE, &xfr->flags)) {
-> +		ret = sbefifo_outw(sbefifo,
-> +				SBEFIFO_UP | SBEFIFO_EOT_RAISE,
-> +				SBEFIFO_EOT_MAGIC);
-> +		if (ret)
-> +			goto out;
-> +
-> +		/* Inform reschedules that the writer is finished. */
-> +		set_bit(SBEFIFO_XFR_RESP_PENDING, &xfr->flags);
-> +	}
-> +
-> +	/* Nothing left to do if the writer is not finished. */
-> +	if (!test_bit(SBEFIFO_XFR_RESP_PENDING, &xfr->flags))
-> +		goto out;
-> +
-> +	 /* Fill the read buffer. */
-> +	while ((bufn = sbefifo_buf_nbwriteable(rbuf))) {
-> +		ret = sbefifo_inw(sbefifo, SBEFIFO_DWN | SBEFIFO_STS, &sts);
-> +		if (ret)
-> +			goto out;
-> +
-> +		devn = sbefifo_dev_nwreadable(sts);
-> +		if (devn == 0) {
-> +			/* No data yet.  Reschedule. */
-> +			sbefifo->poll_timer.expires = jiffies +
-> +				msecs_to_jiffies(500);
-> +			add_timer(&sbefifo->poll_timer);
-> +			goto out_unlock;
-> +		}
-> +
-> +		/* Fill.  The EOT word is discarded.  */
-> +		devn = min_t(size_t, devn, bufn >> 2);
-> +		eot = (sts & EOT_MASK) != 0;
-> +		if (eot)
-> +			devn--;
-> +
-> +		for (i = 0; i < devn; i++) {
-> +			ret = sbefifo_readw(sbefifo, rbuf->wpos);
-> +			if (ret)
-> +				goto out;
-> +
-> +			if (likely(!test_bit(SBEFIFO_XFR_CANCEL, &xfr->flags)))
-> +				sbefifo_buf_wrotenb(rbuf, 1 << 2);
-> +		}
-> +
-> +		if (eot) {
-> +			ret = sbefifo_ack_eot(sbefifo);
-> +			if (ret)
-> +				goto out;
-> +
-> +			set_bit(SBEFIFO_XFR_COMPLETE, &xfr->flags);
-> +			list_del(&xfr->xfrs);
-> +			if (unlikely(test_bit(SBEFIFO_XFR_CANCEL,
-> +							&xfr->flags)))
-> +				kfree(xfr);
-> +			break;
-> +		}
-> +	}
-> +
-> +out:
-> +	if (unlikely(ret)) {
-> +		sbefifo->rc = ret;
-> +		dev_err(&sbefifo->fsi_dev->dev,
-> +				"Fatal bus access failure: %d\n", ret);
-> +		list_for_each_entry(xfr, &sbefifo->xfrs, xfrs)
-> +			kfree(xfr);
-> +		INIT_LIST_HEAD(&sbefifo->xfrs);
-> +
-> +	} else if (eot && sbefifo_next_xfr(sbefifo)) {
-> +		sbefifo_get(sbefifo);
-> +		sbefifo->poll_timer.expires = jiffies;
-> +		add_timer(&sbefifo->poll_timer);
-> +	}
-> +
-> +	sbefifo_put(sbefifo);
-> +	wake_up(&sbefifo->wait);
-> +
-> +out_unlock:
-> +	spin_unlock(&sbefifo->lock);
-> +}
-> +
-> +static int sbefifo_open(struct inode *inode, struct file *file)
-> +{
-> +	struct sbefifo *sbefifo = container_of(file->private_data,
-> +			struct sbefifo, mdev);
-> +	struct sbefifo_client *client;
-> +	int ret;
-> +
-> +	ret = READ_ONCE(sbefifo->rc);
-> +	if (ret)
-> +		return ret;
-> +
-> +	client = sbefifo_new_client(sbefifo);
-> +	if (!client)
-> +		return -ENOMEM;
-> +
-> +	file->private_data = client;
-> +
-> +	return 0;
-> +}
-> +
-> +static unsigned int sbefifo_poll(struct file *file, poll_table *wait)
-> +{
-> +	struct sbefifo_client *client = file->private_data;
-> +	struct sbefifo *sbefifo = client->dev;
-> +	unsigned int mask = 0;
-> +
-> +	poll_wait(file, &sbefifo->wait, wait);
-> +
-> +	if (READ_ONCE(sbefifo->rc))
-> +		mask |= POLLERR;
-> +
-> +	if (sbefifo_buf_nbreadable(&client->rbuf))
-> +		mask |= POLLIN;
-> +
-> +	if (sbefifo_buf_nbwriteable(&client->wbuf))
-> +		mask |= POLLOUT;
-> +
-> +	return mask;
-> +}
-> +
-> +static ssize_t sbefifo_read(struct file *file, char __user *buf,
-> +		size_t len, loff_t *offset)
-> +{
-> +	struct sbefifo_client *client = file->private_data;
-> +	struct sbefifo *sbefifo = client->dev;
-> +	struct sbefifo_xfr *xfr;
-> +	ssize_t ret = 0;
-> +	size_t n;
-> +
-> +	WARN_ON(*offset);
-> +
-> +	if (!access_ok(VERIFY_WRITE, buf, len))
-> +		return -EFAULT;
-> +
-> +	if ((len >> 2) << 2 != len)
-> +		return -EINVAL;
-> +
-> +	if ((file->f_flags & O_NONBLOCK) && !sbefifo_xfr_rsp_pending(client))
-> +		return -EAGAIN;
-> +
-> +	sbefifo_get_client(client);
-> +	if (wait_event_interruptible(sbefifo->wait,
-> +				(ret = READ_ONCE(sbefifo->rc)) ||
-> +				(n = sbefifo_buf_nbreadable(
-> +						&client->rbuf)))) {
-> +		sbefifo_put_client(client);
-> +		return -ERESTARTSYS;
-> +	}
-> +	if (ret) {
-> +		INIT_LIST_HEAD(&client->xfrs);
-> +		sbefifo_put_client(client);
-> +		return ret;
-> +	}
-> +
-> +	n = min_t(size_t, n, len);
-> +
-> +	if (copy_to_user(buf, READ_ONCE(client->rbuf.rpos), n)) {
-> +		sbefifo_put_client(client);
-> +		return -EFAULT;
-> +	}
-> +
-> +	if (sbefifo_buf_readnb(&client->rbuf, n)) {
-> +		xfr = sbefifo_client_next_xfr(client);
-> +		if (!test_bit(SBEFIFO_XFR_COMPLETE, &xfr->flags)) {
-> +			/*
-> +			 * Fill the read buffer back up.
-> +			 */
-> +			sbefifo_get(sbefifo);
-> +			if (mod_timer(&client->dev->poll_timer, jiffies))
-> +				sbefifo_put(sbefifo);
-> +		} else {
-> +			kfree(xfr);
-> +			list_del(&xfr->client);
-> +			wake_up(&sbefifo->wait);
-> +		}
-> +	}
-> +
-> +	sbefifo_put_client(client);
-> +
-> +	return n;
-> +}
-> +
-> +static ssize_t sbefifo_write(struct file *file, const char __user *buf,
-> +		size_t len, loff_t *offset)
-> +{
-> +	struct sbefifo_client *client = file->private_data;
-> +	struct sbefifo *sbefifo = client->dev;
-> +	struct sbefifo_xfr *xfr;
-> +	ssize_t ret = 0;
-> +	size_t n;
-> +
-> +	WARN_ON(*offset);
-> +
-> +	if (!access_ok(VERIFY_READ, buf, len))
-> +		return -EFAULT;
-> +
-> +	if ((len >> 2) << 2 != len)
-> +		return -EINVAL;
-> +
-> +	if (!len)
-> +		return 0;
-> +
-> +	n = sbefifo_buf_nbwriteable(&client->wbuf);
-> +
-> +	spin_lock_irq(&sbefifo->lock);
-> +	xfr = sbefifo_next_xfr(sbefifo);
-> +
-> +	if ((file->f_flags & O_NONBLOCK) && xfr && n < len) {
-> +		spin_unlock_irq(&sbefifo->lock);
-> +		return -EAGAIN;
-> +	}
-> +
-> +	xfr = sbefifo_enq_xfr(client);
-> +	if (!xfr) {
-> +		spin_unlock_irq(&sbefifo->lock);
-> +		return -ENOMEM;
-> +	}
-> +	spin_unlock_irq(&sbefifo->lock);
-> +
-> +	sbefifo_get_client(client);
-> +
-> +	/*
-> +	 * Partial writes are not really allowed in that EOT is sent exactly
-> +	 * once per write.
-> +	 */
-> +	while (len) {
-> +		if (wait_event_interruptible(sbefifo->wait,
-> +				READ_ONCE(sbefifo->rc) ||
-> +					(sbefifo_client_next_xfr(client) == xfr &&
-> +					 (n = sbefifo_buf_nbwriteable(
-> +							&client->wbuf))))) {
-> +			set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
-> +			sbefifo_get(sbefifo);
-> +			if (mod_timer(&sbefifo->poll_timer, jiffies))
-> +				sbefifo_put(sbefifo);
-> +
-> +			sbefifo_put_client(client);
-> +			return -ERESTARTSYS;
-> +		}
-> +		if (sbefifo->rc) {
-> +			INIT_LIST_HEAD(&client->xfrs);
-> +			sbefifo_put_client(client);
-> +			return sbefifo->rc;
-> +		}
-> +
-> +		n = min_t(size_t, n, len);
-> +
-> +		if (copy_from_user(READ_ONCE(client->wbuf.wpos), buf, n)) {
-> +			set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
-> +			sbefifo_get(sbefifo);
-> +			if (mod_timer(&sbefifo->poll_timer, jiffies))
-> +				sbefifo_put(sbefifo);
-> +			sbefifo_put_client(client);
-> +			return -EFAULT;
-> +		}
-> +
-> +		sbefifo_buf_wrotenb(&client->wbuf, n);
-> +		len -= n;
-> +		buf += n;
-> +		ret += n;
-> +
-> +		/*
-> +		 * Drain the write buffer.
-> +		 */
-> +		sbefifo_get(sbefifo);
-> +		if (mod_timer(&client->dev->poll_timer, jiffies))
-> +			sbefifo_put(sbefifo);
-> +	}
-> +
-> +	set_bit(SBEFIFO_XFR_WRITE_DONE, &xfr->flags);
-> +	sbefifo_put_client(client);
-> +
-> +	return ret;
-> +}
-> +
-> +static int sbefifo_release(struct inode *inode, struct file *file)
-> +{
-> +	struct sbefifo_client *client = file->private_data;
-> +	struct sbefifo *sbefifo = client->dev;
-> +
-> +	sbefifo_put_client(client);
-> +
-> +	return READ_ONCE(sbefifo->rc);
-> +}
-> +
-> +static const struct file_operations sbefifo_fops = {
-> +	.owner		= THIS_MODULE,
-> +	.open		= sbefifo_open,
-> +	.read		= sbefifo_read,
-> +	.write		= sbefifo_write,
-> +	.poll		= sbefifo_poll,
-> +	.release	= sbefifo_release,
-> +};
-> +
-> +static int sbefifo_probe(struct device *dev)
-> +{
-> +	struct fsi_device *fsi_dev = to_fsi_dev(dev);
-> +	struct sbefifo *sbefifo;
-> +	u32 sts;
-> +	int ret;
-> +
-> +	dev_info(dev, "Found sbefifo device\n");
-> +	sbefifo = kzalloc(sizeof(*sbefifo), GFP_KERNEL);
-> +	if (!sbefifo)
-> +		return -ENOMEM;
-> +
-> +	sbefifo->fsi_dev = fsi_dev;
-> +
-> +	ret = sbefifo_inw(sbefifo,
-> +			SBEFIFO_UP | SBEFIFO_STS, &sts);
-> +	if (ret)
-> +		return ret;
-> +	if (!(sts & SBEFIFO_EMPTY)) {
-> +		dev_err(&sbefifo->fsi_dev->dev,
-> +				"Found data in upstream fifo\n");
-> +		return -EIO;
-> +	}
-> +
-> +	ret = sbefifo_inw(sbefifo, SBEFIFO_DWN | SBEFIFO_STS, &sts);
-> +	if (ret)
-> +		return ret;
-> +	if (!(sts & SBEFIFO_EMPTY)) {
-> +		dev_err(&sbefifo->fsi_dev->dev,
-> +				"Found data in downstream fifo\n");
-> +		return -EIO;
-> +	}
-> +
-> +	sbefifo->mdev.minor = MISC_DYNAMIC_MINOR;
-> +	sbefifo->mdev.fops = &sbefifo_fops;
-> +	sbefifo->mdev.name = sbefifo->name;
-> +	sbefifo->mdev.parent = dev;
-> +	spin_lock_init(&sbefifo->lock);
-> +	kref_init(&sbefifo->kref);
-> +
-> +	sbefifo->idx = ida_simple_get(&sbefifo_ida, 1, INT_MAX, GFP_KERNEL);
-> +	snprintf(sbefifo->name, sizeof(sbefifo->name), "sbefifo%d",
-> +			sbefifo->idx);
-> +	init_waitqueue_head(&sbefifo->wait);
-> +	INIT_LIST_HEAD(&sbefifo->xfrs);
-> +
-> +	/* This bit of silicon doesn't offer any interrupts... */
-> +	setup_timer(&sbefifo->poll_timer, sbefifo_poll_timer,
-> +			(unsigned long)sbefifo);
-> +
-> +	list_add(&sbefifo->link, &sbefifo_fifos);
-> +	return misc_register(&sbefifo->mdev);
-> +}
-> +
-> +static int sbefifo_remove(struct device *dev)
-> +{
-> +	struct fsi_device *fsi_dev = to_fsi_dev(dev);
-> +	struct sbefifo *sbefifo, *sbefifo_tmp;
-> +	struct sbefifo_xfr *xfr;
-> +
-> +	list_for_each_entry_safe(sbefifo, sbefifo_tmp, &sbefifo_fifos, link) {
-> +		if (sbefifo->fsi_dev != fsi_dev)
-> +			continue;
-> +		misc_deregister(&sbefifo->mdev);
-> +		list_del(&sbefifo->link);
-> +		ida_simple_remove(&sbefifo_ida, sbefifo->idx);
-> +
-> +		if (del_timer_sync(&sbefifo->poll_timer))
-> +			sbefifo_put(sbefifo);
-> +
-> +		spin_lock(&sbefifo->lock);
-> +		list_for_each_entry(xfr, &sbefifo->xfrs, xfrs)
-> +			kfree(xfr);
-> +		spin_unlock(&sbefifo->lock);
-> +
-> +		WRITE_ONCE(sbefifo->rc, -ENODEV);
-> +
-> +		wake_up(&sbefifo->wait);
-> +		sbefifo_put(sbefifo);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static struct fsi_device_id sbefifo_ids[] = {
-> +	{
-> +		.engine_type = FSI_ENGID_SBE,
-> +		.version = FSI_VERSION_ANY,
-> +	},
-> +	{ 0 }
-> +};
-> +
-> +static struct fsi_driver sbefifo_drv = {
-> +	.id_table = sbefifo_ids,
-> +	.drv = {
-> +		.name = DEVICE_NAME,
-> +		.bus = &fsi_bus_type,
-> +		.probe = sbefifo_probe,
-> +		.remove = sbefifo_remove,
-> +	}
-> +};
-> +
-> +static int sbefifo_init(void)
-> +{
-> +	INIT_LIST_HEAD(&sbefifo_fifos);
-> +	return fsi_driver_register(&sbefifo_drv);
-> +}
-> +
-> +static void sbefifo_exit(void)
-> +{
-> +	fsi_driver_unregister(&sbefifo_drv);
-> +}
-> +
-> +module_init(sbefifo_init);
-> +module_exit(sbefifo_exit);
-> +MODULE_LICENSE("GPL");
-> +MODULE_AUTHOR("Brad Bishop <bradleyb@fuzziesquirrel.com>");
-> +MODULE_DESCRIPTION("Linux device interface to the POWER self boot engine");
+On Thu, 2017-04-20 at 10:24 -0400, Brad Bishop wrote:
+> > > > On Apr 20, 2017, at 12:34 AM, Andrew Jeffery <andrew@aj.id.au> wrot=
+e:
+> >=20
+> > On Wed, 2017-04-19 at 10:38 -0400, Brad Bishop wrote:
+> > > > > > On Apr 19, 2017, at 10:29 AM, Andrew Jeffery <andrew@aj.id.au> =
+wrote:
+> > > >=20
+> > > > Hi Brad,
+> > > >=20
+> > > > If you do future revisions of these patches, can you please Cc me?
+> > >=20
+> > > will do.
+> > >=20
+> > > >=20
+> > > > On Wed, 2017-04-19 at 00:18 -0400, Brad Bishop wrote:
+> > > > > Enable gpio-keys events for the checkstop and water/air cooled
+> > > > > gpios for use by applications on the Witherspoon system.
+> > > > >=20
+> > > > > > Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
+> > > > >=20
+> > > > > ---
+> > > > > =C2=A0arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 20 +++++=
++++++++++++++++
+> > > > > =C2=A01 file changed, 20 insertions(+)
+> > > > >=20
+> > > > > diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/a=
+rch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> > > > > index e3a7b77..aa1708e 100644
+> > > > > --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> > > > > +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> > > > > @@ -31,6 +31,26 @@
+> > > > > > > > > > =C2=A0		};
+> > > > > >=20
+> > > > > > =C2=A0	};
+> > > > >=20
+> > > > > =C2=A0
+> > > > > +	gpio-keys@0 {
+> > > >=20
+> > > > does the @0 give us a stable device name for userspace to open?
+> > >=20
+> > > No it doesn=E2=80=99t.=C2=A0=C2=A0This is my lack of DT skillz showin=
+g.=C2=A0=C2=A0I was looking
+> > > into how we can give userspace a stable device name.=C2=A0=C2=A0I was=
+ going
+> > > down the udev path but I can=E2=80=99t find any any of the informatio=
+n from
+> > > these DT nodes in the udev event.
+> > >=20
+> > > >=20
+> > > > Do we really want to go this way? We now have useful unique codes f=
+or
+> > > > the "key"s, why not use the one node? Or is your concern we've now =
+tied
+> > >=20
+> > > Each gpio will have an application waiting for its state to change.=
+=C2=A0=C2=A0My
+> > > concern was waking up x number of applications every time any gpio ch=
+anges
+> > > state.=C2=A0=C2=A0Is that a valid concern?
+> >=20
+> > How many applications do we expect to be reading the evdev? What are
+> > our expected interrupt rates? What are the worst expected cases?
+>=20
+> For Witherspoon/Zaius or any OpenBMC platform?=C2=A0
+
+Yes, this is what I was asking about, given they are concrete systems.
+
+> =C2=A0I obviously can=E2=80=99t say for the
+> latter case.=C2=A0
+
+Yep.
+
+> =C2=A0On a bigger/enterprise systems I can see on the order of 10 to 100
+> applications looking at these.=C2=A0
+
+Okay; having 10-100 processes woken is something we'd want to avoid.
+
+> =C2=A0I don=E2=80=99t have a good sense of how often.
+>=20
+> On Witherspoon/Zaius, sure, we only have a handful of applications and th=
+e
+> interrupt rate should be very infrequent.
+
+That was my thought, which was why I wanted to check. While it might be
+low, if we're waking up to 100 applications it's not ideal.
+
+>=20
+> I think you typically see all the gpio keys mapped to a single device bec=
+ause
+> the usual thing to do is have a single application (Xorg) treat it like a=
+ keyboard.
+>=20
+> We aren=E2=80=99t structured that way so rethinking the usual approach se=
+ems reasonable.=C2=A0
+
+Sure; I was never against rethinking it. I just wanted a clear
+explanation of why we would choose this route.
+
+> =C2=A0
+> Another reason I went for per gpio devices because it prevents applicatio=
+ns from
+> reacting to each others events without any special library code.=C2=A0=C2=
+=A0
+>=20
+> I=E2=80=99m not saying there aren=E2=80=99t disadvantages to this approac=
+h - I just don=E2=80=99t know what
+> they are?
+
+It's a bit strange from a design perspective as we now have two unique
+identifiers for an event; the input device *and* the keycode emitted by
+the event on the input device, which is the *only* keycode emitted by
+the device.
+
+For someone new to the system I expect this would seem a strange
+redundancy if they weren't aware of the performance implications
+inherent to the distributed nature of the application design.
+
+>=20
+> >=20
+> > It's hard to judge without knowing the numbers, but considering the
+> > chips we run on I agree we should generally favour performance if
+> > design is getting in the way. But to make that trade off we should be
+>=20
+> Again, what exactly is being traded-off ?
+
+The "oddity" in the design with respect to the "redundancy" I described
+above.
+
+Anyway, I think what you have outlined is reasonable.
+
+Cheers,
+
+Andrew
+--=-blySNxP2Nr17y90QggJQ
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJY+VPJAAoJEJ0dnzgO5LT5MNgP/1x1Ojx2KxIL1nkJI0E1cxvN
+lZm2XMBPQn3uLGmFDWOR9E1qt9iA00w9x9YN025Jrf+dbzUawEztX4mcOwCqERxH
+8WRDBGIX6Ote03/ftNhzSutgflP2+ENe4STbiSusoVHtrdhDRUe0x96y/xsva6MR
+IFmjME1gkE1rV5W04JB0Ut71FzuDqemBN1Naf8JHiOS7huhGfi7xmdjJ4i+uN/7x
+J6BSN7HaW1CKnTmrh/qWAEP9pria7GNNj2tFg8nSjl/Nc2wGETf8JSGEy/uWMniK
+wruH/3DnFpgTzAJa84p3TcYLJJ43dzBkkgQzDqZLoUhvFxqSAa5Q9rln/OwZowF2
+9TlqI/ITkXzH39uqUskZo05lBhKu8yVXHTcvJCOentLbDGlIlicYZAISw2H5gZVa
+AbQ3Ruxm7vzNZlmAJ6raVIR1wpzgYc+/uciiRipWdIu5Nh5P1q3oE9kH3Ii41VBY
+KAQ0DJ8x6Chwcx3nSmL7kBK9+Hkcpsftds77HyZjPkoFr61b3I8aPXTGEh4LGS9D
+aChQ8E4hkiBRFyVWGsWVvX5OZNUMbjS5nxPtTmfWiDsKkKKzrCxl31oa0T33ZmGQ
+xcHeMCA1hajuwfu5sPaPvQrLL6bSpRPeqEsaTakEW1ONeXnA6sBOwCdJqzAk2Cbh
+SJT6j81cFlq9bqs+Laa+
+=LhsO
+-----END PGP SIGNATURE-----
+
+--=-blySNxP2Nr17y90QggJQ--
