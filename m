@@ -3,18 +3,18 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3w8LZh2C8wzDqL2
- for <openbmc@lists.ozlabs.org>; Fri, 21 Apr 2017 13:19:55 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3w8LZj0vySzDqKy
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Apr 2017 13:19:57 +1000 (AEST)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
 Sender: bradleyb@bajor.fuzziesquirrel.com
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 To: openbmc@lists.ozlabs.org,
 	joel@jms.id.au,
 	andrew@aj.id.au
-Subject: [PATCH linux dev-4.7 v5 1/2] ARM: configs: aspeed: Enable
- keyboard-gpio
-Date: Thu, 20 Apr 2017 23:19:22 -0400
-Message-Id: <1492744763-29872-2-git-send-email-bradleyb@fuzziesquirrel.com>
+Subject: [PATCH linux dev-4.7 v5 2/2] ARM: dts: Enable checkstop and cooling
+ gpio keys
+Date: Thu, 20 Apr 2017 23:19:23 -0400
+Message-Id: <1492744763-29872-3-git-send-email-bradleyb@fuzziesquirrel.com>
 In-Reply-To: <1492744763-29872-1-git-send-email-bradleyb@fuzziesquirrel.com>
 References: <1492744763-29872-1-git-send-email-bradleyb@fuzziesquirrel.com>
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -28,68 +28,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Apr 2017 03:19:56 -0000
+X-List-Received-Date: Fri, 21 Apr 2017 03:19:57 -0000
 
-Some OpenBMC systems will be using keyboard-gpio so enable it
-in our configs.
+Enable gpio-keys events for the checkstop and water/air cooled
+gpios for use by applications on the Witherspoon system.
 
 Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 ---
- arch/arm/configs/aspeed_g4_defconfig | 8 +++++++-
- arch/arm/configs/aspeed_g5_defconfig | 8 +++++++-
- 2 files changed, 14 insertions(+), 2 deletions(-)
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/arch/arm/configs/aspeed_g4_defconfig b/arch/arm/configs/aspeed_g4_defconfig
-index 552297b..4350f67 100644
---- a/arch/arm/configs/aspeed_g4_defconfig
-+++ b/arch/arm/configs/aspeed_g4_defconfig
-@@ -103,7 +103,12 @@ CONFIG_FTGMAC100=y
- CONFIG_BROADCOM_PHY=y
- CONFIG_REALTEK_PHY=y
- # CONFIG_WLAN is not set
--# CONFIG_INPUT is not set
-+# CONFIG_INPUT_LEDS is not set
-+# CONFIG_INPUT_MOUSEDEV is not set
-+CONFIG_INPUT_EVDEV=y
-+# CONFIG_KEYBOARD_ATKBD is not set
-+CONFIG_KEYBOARD_GPIO=y
-+# CONFIG_INPUT_MOUSE is not set
- # CONFIG_SERIO is not set
- # CONFIG_VT is not set
- # CONFIG_LEGACY_PTYS is not set
-@@ -138,6 +143,7 @@ CONFIG_SENSORS_ADM1275=y
- CONFIG_SENSORS_LM25066=y
- CONFIG_SENSORS_UCD9000=y
- CONFIG_SENSORS_TMP421=y
-+# CONFIG_HID is not set
- # CONFIG_USB_SUPPORT is not set
- CONFIG_NEW_LEDS=y
- CONFIG_LEDS_CLASS=y
-diff --git a/arch/arm/configs/aspeed_g5_defconfig b/arch/arm/configs/aspeed_g5_defconfig
-index c5e7295..b6b3ca0 100644
---- a/arch/arm/configs/aspeed_g5_defconfig
-+++ b/arch/arm/configs/aspeed_g5_defconfig
-@@ -102,7 +102,12 @@ CONFIG_FTGMAC100=y
- CONFIG_BROADCOM_PHY=y
- CONFIG_REALTEK_PHY=y
- # CONFIG_WLAN is not set
--# CONFIG_INPUT is not set
-+# CONFIG_INPUT_LEDS is not set
-+# CONFIG_INPUT_MOUSEDEV is not set
-+CONFIG_INPUT_EVDEV=y
-+# CONFIG_KEYBOARD_ATKBD is not set
-+CONFIG_KEYBOARD_GPIO=y
-+# CONFIG_INPUT_MOUSE is not set
- # CONFIG_SERIO is not set
- # CONFIG_VT is not set
- # CONFIG_LEGACY_PTYS is not set
-@@ -135,6 +140,7 @@ CONFIG_PMBUS=y
- CONFIG_SENSORS_LM25066=y
- CONFIG_SENSORS_UCD9000=y
- CONFIG_SENSORS_TMP421=y
-+# CONFIG_HID is not set
- # CONFIG_USB_SUPPORT is not set
- CONFIG_NEW_LEDS=y
- CONFIG_LEDS_CLASS=y
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index e3a7b77..236696a 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -31,6 +31,22 @@
+ 		};
+ 	};
+ 
++	gpio-keys {
++		compatible = "gpio-keys";
++
++		air-water {
++			label = "air-water";
++			gpios = <&gpio ASPEED_GPIO(B, 5) GPIO_ACTIVE_LOW>;
++			linux,code = <ASPEED_GPIO(B, 5)>;
++		};
++
++		checkstop {
++			label = "checkstop";
++			gpios = <&gpio ASPEED_GPIO(J, 2) GPIO_ACTIVE_LOW>;
++			linux,code = <ASPEED_GPIO(J, 2)>;
++		};
++	};
++
+ 	leds {
+ 		compatible = "gpio-leds";
+ 
 -- 
 1.8.3.1
