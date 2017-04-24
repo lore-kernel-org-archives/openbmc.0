@@ -1,50 +1,51 @@
 Return-Path: <brendanhiggins@google.com>
-Received: from mail-qt0-x230.google.com (mail-qt0-x230.google.com
- [IPv6:2607:f8b0:400d:c0d::230])
+Received: from mail-qk0-x232.google.com (mail-qk0-x232.google.com
+ [IPv6:2607:f8b0:400d:c09::232])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wBhnJ6gcDzDq5b
- for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 09:07:16 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wBhy43z1bzDq5W
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 09:14:52 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="rUn80EYD"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="bOekTzQy"; 
  dkim-atps=neutral
-Received: by mail-qt0-x230.google.com with SMTP id c45so126930009qtb.1
- for <openbmc@lists.ozlabs.org>; Mon, 24 Apr 2017 16:07:16 -0700 (PDT)
+Received: by mail-qk0-x232.google.com with SMTP id h123so45876464qke.0
+ for <openbmc@lists.ozlabs.org>; Mon, 24 Apr 2017 16:14:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=x70jHHWad9ORTdnCadrmskk63TGewpNwk20yiXIwdMM=;
- b=rUn80EYDGOK+FXBRLfL8MjVOnmHYTLHalF6ep9DoPgpNcvJvYwRfIjauOnqZTTnKUk
- +fWqy6qrhw+QUY3yWWrUHK2EmbDPhjchA51v+kAd+IKpVvZTxIpyV/S9sMqPb9FtznRl
- 4YeyhlZeGaj9t1Ot64T8L9UcD7xIAUJ1Svi7P5O1sAzs45p5tZ9Kk4YzA1BV2PHvN6Lf
- XsrLwKQapqWAC44BFK9S9jnMm8B7mQ74mxkUoL3i64+ZHZlJcWzpVlbu3DMzBKHklvwK
- derENcNsHWdI8vpZmk9gHoiTKobSrgPVth+qa9MBmor+L6GJHNP8ujyFaGPu0K2mJB+Q
- U4RA==
+ :cc; bh=rsnpVTz5KEDNpMkUap1r9ork3mZD2O7npzo05DT1SDE=;
+ b=bOekTzQyaZDIb4696u2o+jcsW4gf0+ygEFPbFYxpsYoB6wiZBf+ocOpOQlHia3pnNm
+ iWi2KT+KRdVpFHf4R+1xMXxH7Ywv+VBpvGdEHDNDc2JI5l14Kh1ThXVsN3USn1Wd/PJK
+ MThNcDqoncES1RyaMEiI9YDTmS2D/g/Yh6RzPFrRZio3OV4SceqUQXLrpwwmEejyHf4C
+ tYDOnu/V72yMKyVvKWsPKYBnrBW9kq+0fsyIohZHryDjM1mjC/HobvJ3mNCeRyq1NNV0
+ efS/tXTHOmNMvuzXBukA4MV9agQwPvZXQlLWb2nHOiekk1ax6UZBJ/QN/T7Qc+j+H80f
+ 6jDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=x70jHHWad9ORTdnCadrmskk63TGewpNwk20yiXIwdMM=;
- b=U3eSyEg9kxNXUHJwr8lmnqupRAMXLtia7ErGLjcimYpOFgZFswuMI4flFyNp3b+KAI
- r98Kk9a30KfRcLv0rJ7GqTY2bQ3G9wI2DutSqTc1np3rQBUWDtyH4mcfk8A5aSxrQYLA
- Z786LtKZQBDu6oTVpurGFA4lCVtgCm7miZhvrmP6gYfyApA26VRntFRJVMIqMYWU7Q40
- tLWbx/iWztD18lNQzNSFa+tPadbem4YlC5LGCjj3dva9yr9WuISQvagAG8es6sbsAs+N
- hd8u4ebeuEHKz5qYi8cfNZmFZpZiJDPmkHhJs6gyDwk1lSuzCgaDXA7CFLQegfpuVk4A
- KnyA==
-X-Gm-Message-State: AN3rC/7xiQrWsInuY/GrG9kLEaaXo5eJhNLsyG+BiHMAc3nkwSbTYf8p
- vHcvH7LVOSJC9EzHPBYhyjj/SYeYKCIg
-X-Received: by 10.200.57.18 with SMTP id s18mr27198324qtb.1.1493075234609;
- Mon, 24 Apr 2017 16:07:14 -0700 (PDT)
+ bh=rsnpVTz5KEDNpMkUap1r9ork3mZD2O7npzo05DT1SDE=;
+ b=ErfhF1aPJ3vUDWgKITwlC8ij41ZsRjp/nWrA+wZ2gvjqsassCAZc2/AJ7LOWmnlFvW
+ MlbVP/wrWEyK5kjM+LIs2T6aBrJSIE90W8vddR0WneytMbNytkXMKcRgrq3hfK6Pe0b7
+ vUzggjLH290rU139hPeF9ZB1aNg+jetP0zwTjnjR6FwFPQFZNiFy8EyrFTlt1E3K8Pff
+ a7UFtnbjRnRO+a22HGihojWREDCWtHisc0M0FIkZ5+UIMcmHqviYrWHGh7XvAYZOTlBK
+ JTuIyqBEpI9qWFE5yJAQoC85Y6eno5Of+QHRPOERZJQgnpw/CjSwsfEbd2YLMTGu0YEY
+ M+3A==
+X-Gm-Message-State: AN3rC/5gtfmFYGEuLHJlt+jlYyZUjFsEW1OoYCCt+K/+ZuFGcLqszMAR
+ PEwkb2EaB5uoofbr923ipEqBEsuVVI7+
+X-Received: by 10.55.76.12 with SMTP id z12mr29914519qka.205.1493075689860;
+ Mon, 24 Apr 2017 16:14:49 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.12.162.69 with HTTP; Mon, 24 Apr 2017 16:07:14 -0700 (PDT)
-In-Reply-To: <CACPK8XfFF7tNrLjroNA05-c3pMZWFbiKvHq+oFLjBDSkgqfjDw@mail.gmail.com>
+Received: by 10.12.162.69 with HTTP; Mon, 24 Apr 2017 16:14:49 -0700 (PDT)
+In-Reply-To: <1493075519.25766.241.camel@kernel.crashing.org>
 References: <CACPK8XfFF7tNrLjroNA05-c3pMZWFbiKvHq+oFLjBDSkgqfjDw@mail.gmail.com>
+ <CAFd5g47SMzF=FjYrZkVx6y-L1+D3AGHb7-gQO5W=mzvW+RnTRQ@mail.gmail.com>
+ <1493075519.25766.241.camel@kernel.crashing.org>
 From: Brendan Higgins <brendanhiggins@google.com>
-Date: Mon, 24 Apr 2017 16:07:14 -0700
-Message-ID: <CAFd5g47SMzF=FjYrZkVx6y-L1+D3AGHb7-gQO5W=mzvW+RnTRQ@mail.gmail.com>
+Date: Mon, 24 Apr 2017 16:14:49 -0700
+Message-ID: <CAFd5g45Z-JH6UMM=q56Y1JfmMv3T6_OFWckFb9ZT4RnPtjk7+w@mail.gmail.com>
 Subject: Re: Switching to 4.10
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  Edward James <eajames@us.ibm.com>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -58,8 +59,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 24 Apr 2017 23:07:17 -0000
+X-List-Received-Date: Mon, 24 Apr 2017 23:14:53 -0000
 
-I just posted the latest version of the I2C driver this morning.
-
-Cheers
+BTW, I renamed the clock-frequency DT property to bus-frequency as
+requested, so the *.dtsi will need to be updated.
