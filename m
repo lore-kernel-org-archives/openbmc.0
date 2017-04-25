@@ -1,60 +1,70 @@
-Return-Path: <Chen.KenYY@inventec.com>
-X-Greylist: delayed 323 seconds by postgrey-1.36 at bilbo;
- Tue, 25 Apr 2017 20:57:51 AEST
-Received: from mail.inventec.com (hub02.inventec.com [218.32.67.167])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <brendanhiggins@google.com>
+Received: from mail-qk0-x22d.google.com (mail-qk0-x22d.google.com
+ [IPv6:2607:f8b0:400d:c09::22d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wC0YC4Bv0zDq5b
- for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 20:57:51 +1000 (AEST)
-Received: from IEC1-MSE-FE1.inventec.com (10.1.254.203) by
- IEC1-EX2010-04.iec.inventec (10.1.254.157) with Microsoft SMTP Server id
- 14.3.266.1; Tue, 25 Apr 2017 18:52:22 +0800
-Received: from IEC1-SPAM-1.inventec.com (smg.inventec.com [10.1.254.201])	by
- IEC1-MSE-FE1.inventec.com with ESMTP id v3PAqEfQ061016	for
- <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 18:52:14 +0800 (GMT-8)
- (envelope-from chen.kenyy@inventec.com)
-Received: from mail-pf0-f197.google.com (mail-pf0-f197.google.com
- [209.85.192.197])	by IEC1-SPAM-1.inventec.com with ESMTP id v3PAqT3E094695
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL)	for
- <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 18:52:30 +0800 (GMT-8)
- (envelope-from chen.kenyy@inventec.com)
-Received: by mail-pf0-f197.google.com with SMTP id p9so25938873pfj.8
- for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 03:52:08 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wCDN970RlzDq5b
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 05:50:49 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="Ftn7kcax"; 
+ dkim-atps=neutral
+Received: by mail-qk0-x22d.google.com with SMTP id f76so74709223qke.2
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 12:50:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=REFXv86hfe39dMRLcUyG4bzw8ifuq+60AvMJSSpiYHg=;
+ b=Ftn7kcaxPkgD4ooSOEcfrlDQPjc15/YdpDtBBxp1nN60ewqGG43iewEy5HWyByMCZy
+ KVL5CL7niSTqJ7O3afCqvRum0sDmQv0na8n6259VLGiy1Dr2BKetbG8kZo7w8SDAPpfs
+ FjxxlguSoiuM7famsXfqz+78A3A3SBdo/KP2t4uzZpE1LWmvtVBhYlK2Lc7zf67k/r9L
+ EwOe36A6cZ6JM/hwOSMV0bys0tAet288slDn1nvLzMTxyE0uK8EDqlUoIUOaLDbD5S+4
+ 7ro6N4Qi57/yl7PQGSXSVB42w9Nl0zWZizhBayAUIo8TsaKh9QR+RNOFaK6cTrYKGiQ1
+ fFCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=MUYpB9LbKs6SGk8ziUNuvNcQUmlY3pa7/w6+BEFBJrE=;
- b=hZlayRiHMROHzEV01ME1aBKb/IwlB5NBFE202XMWuszji03CfZ8CvdS3MNezVXKwiT
- jAa0RNfvFUJt6NCGQWvxnqPtCi8QoTlv4Awc5QcyzzwHkCnu8eGdaeFhenEavi40RzOp
- 7f8zbVqxKsMfpj2blBNeGJZKEbCbhKa/gscg4/wyhi++8TdwIMAOyxLlpPlrm20ukSqV
- iJ4jjQWbpEv1H95jVExUopaG8vSNeVbTjciIpdl9jmVOSWd53ACNeLtR22OPyLXM3D7b
- b38QROSzgBbeWoH87r1enX/iARLeSBk2qSa48AISt/f7JhmvzM71zsn6c/jmwEEAqD4+
- PP8w==
-X-Gm-Message-State: AN3rC/7nKCw9oUBQh4pvA3MTdbxyqTLNlfnGEURd1dgW3Ap6QkzH1xIn
- K4R34PCWQ8icCDuyRjxQ8iclt9DxMDrsjEDghzQyJYat3SUxasOrSkDmTkiGJ6PHKhUbE6UEAFX
- xkF/VtYqgSC48
-X-Received: by 10.84.129.131 with SMTP id b3mr38225639plb.1.1493117527195;
- Tue, 25 Apr 2017 03:52:07 -0700 (PDT)
-X-Received: by 10.84.129.131 with SMTP id b3mr38225614plb.1.1493117526970;
- Tue, 25 Apr 2017 03:52:06 -0700 (PDT)
-Received: from localhost (60-248-18-139.HINET-IP.hinet.net. [60.248.18.139])
- by smtp.gmail.com with ESMTPSA id
- u63sm35868589pfb.55.2017.04.25.03.52.06        (version=TLS1_2
- cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);        Tue, 25 Apr 2017
- 03:52:06 -0700 (PDT)
-From: KenChenIEC <chen.kenyy@inventec.com>
-To: <openbmc@lists.ozlabs.org>
-CC: KenChenIEC <chen.kenyy@inventec.com>, <joel@jms.id.au>
-Subject: [PATCH linux dev-4.7] ARM: dts: aspeed: Modify Laanyang BMC device
- tree
-Date: Tue, 25 Apr 2017 18:52:07 +0800
-Message-ID: <20170425105207.39501-1-chen.kenyy@inventec.com>
-X-Mailer: git-send-email 2.9.3
-X-DNSRBL: 
-X-MAIL: IEC1-MSE-FE1.inventec.com v3PAqEfQ061016
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=REFXv86hfe39dMRLcUyG4bzw8ifuq+60AvMJSSpiYHg=;
+ b=U+N2HOW2sM7ZzXqAGjffE/A0V/E4hMISmpoUDIp7WoKRSTWV1KzMD20+Og4CSvnvgF
+ ZUlPU6BBV6EU0/gPwARv8+4eh882dNu496w8uqTnUzZVboLu+rq89D7n5c7bspg9LKha
+ KonSHKBSEme4PK1M23J+5TpwyuLy2AJNYO55GpmSD/+PsCv6ng8YpvDsit7C5WjDsHCI
+ 5Ra7hbiznpLIor4WhNXoSR68Kaq1mmBEJoNjR/pPMOLyxiK/o0+xZlOB0qQ68NTZsakn
+ Io1ZZcCHLPfYCYlJi+Sz+z219D368LF9TeSA7pDtqEIPoVqjhWtX6GwARemm/2hiwu/a
+ l1rQ==
+X-Gm-Message-State: AN3rC/5l5YZcYkrjFvkHQ00+iyiB96G8YC/gEiEbna79f/3ew/yfZ7rL
+ xaWSPECRTnFk4qcquklt99xRZjZnjbzX
+X-Received: by 10.55.88.4 with SMTP id m4mr29249229qkb.84.1493149846601; Tue,
+ 25 Apr 2017 12:50:46 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Mailman-Approved-At: Wed, 26 Apr 2017 01:34:33 +1000
+Received: by 10.12.162.69 with HTTP; Tue, 25 Apr 2017 12:50:45 -0700 (PDT)
+In-Reply-To: <e90ff5914518400ea6902ca40406eb0f@TWMBX01.aspeed.com>
+References: <20170328051226.21677-1-brendanhiggins@google.com>
+ <20170328051226.21677-5-brendanhiggins@google.com>
+ <1490945610.3177.229.camel@kernel.crashing.org>
+ <CAFd5g45DQZz99y59AY-4465qnM+tRv6+bDdGQqS6VYHEfRfjDg@mail.gmail.com>
+ <1493086747.25766.264.camel@kernel.crashing.org>
+ <CAFd5g44ioW0PdFVOhY-ep8TXBNg6qC7E5yjOVf3MEdY9bPgEDA@mail.gmail.com>
+ <7d991733d3ea4591b74baf93300f0224@TWMBX01.aspeed.com>
+ <1493112875.25766.268.camel@kernel.crashing.org>
+ <e90ff5914518400ea6902ca40406eb0f@TWMBX01.aspeed.com>
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Tue, 25 Apr 2017 12:50:45 -0700
+Message-ID: <CAFd5g45htFgr5oHbB9W_nyyMfm5J7BCKUuP73RxKhNW3LkWtyw@mail.gmail.com>
+Subject: Re: [PATCH v6 4/5] i2c: aspeed: added driver for Aspeed I2C
+To: Ryan Chen <ryan_chen@aspeedtech.com>
+Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Wolfram Sang <wsa@the-dreams.de>, 
+ Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Thomas Gleixner <tglx@linutronix.de>, Jason Cooper <jason@lakedaemon.net>, 
+ Marc Zyngier <marc.zyngier@arm.com>, Joel Stanley <joel@jms.id.au>,
+ Vladimir Zapolskiy <vz@mleia.com>, Kachalov Anton <mouse@mayc.ru>,
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
+ "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>, 
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -66,132 +76,98 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Apr 2017 10:57:52 -0000
+X-List-Received-Date: Tue, 25 Apr 2017 19:50:50 -0000
 
-Modify Lanyang dts and add lanyang initial in aspeed.c
+On Tue, Apr 25, 2017 at 2:47 AM, Ryan Chen <ryan_chen@aspeedtech.com> wrote=
+:
+> Thanks Ryan. Can you shed some light on the meaning of the high-speed bit=
+ as well please ?
+>
+> About ASPEED_I2CD_M_HIGH_SPEED_EN, it is support for I2C specification "H=
+igh speed transfer". And also device need support it.
+> If you just speed up the I2C bus clock, you don=E2=80=99t have to enable =
+ASPEED_I2CD_M_HIGH_SPEED_EN, just change the clock is ok.
+>
 
-Signed-off-by: KenChenIEC <chen.kenyy@inventec.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts | 13 +++---
- arch/arm/mach-aspeed/aspeed.c                | 65 ++++++++++++++++++++++++++++
- 2 files changed, 71 insertions(+), 7 deletions(-)
+Interesting, I thought that ASPEED_I2CD_M_SDA_DRIVE_1T_EN and its
+counterpart would be used for fast mode or fast mode plus and
+ASPEED_I2CD_M_HIGH_SPEED_EN would be used for fast mode plus or high
+speed mode and that they work by driving the SDA and SCL signals to
+improve rise times. It made sense to me because the lowest SCL you can
+get with base clock set to zero is about ~1.5MHz which is in between
+fast mode plus (1MHz) and high speed mode (3.4MHz).
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
-index 176e4b4..6456458 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
-@@ -1,4 +1,4 @@
--/dts-v1/;
-+/dts-v3/;
- 
- #include "aspeed-g5.dtsi"
- #include <dt-bindings/gpio/aspeed-gpio.h>
-@@ -302,18 +302,17 @@
- };
- 
- &gpio {
--	line_apss_reset {
--		gpio-hog;
--		gpios = <ASPEED_GPIO(E, 4) GPIO_ACTIVE_HIGH>;
--		output-high;
--		line-name = "BMC_APSS_RESET_N";
--	};
-+
- };
- 
- &vuart {
- 	status = "okay";
- };
- 
-+&gfx {
-+        status = "okay";
-+};
-+
- &pinctrl {
- 	aspeed,external-nodes = <&gfx &lhc>;
- };
-diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
-index a7b03a0..b1073e5 100644
---- a/arch/arm/mach-aspeed/aspeed.c
-+++ b/arch/arm/mach-aspeed/aspeed.c
-@@ -238,6 +238,69 @@ static void __init do_romulus_setup(void)
-     writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC | 0x98));
- }
- 
-+static void __init do_lanyang_setup(void)
-+{
-+        unsigned long reg;
-+        unsigned long board_rev;
-+        /* D3 in GPIOA/B/C/D direction and data registers */
-+        unsigned long phy_reset_mask = BIT(27);
-+
-+        do_common_setup();
-+
-+        /* Read BOARD_REV[4:0] fuses from GPIOM[7:3] */
-+        reg = readl(AST_IO(AST_BASE_GPIO | 0x78));
-+        board_rev = (reg >> 3) & 0x1F;
-+
-+        /* EVT1 hacks */
-+        if (board_rev == 0) {
-+                /* Disable GPIO I, G/AB pulldowns due to weak driving buffers */
-+                reg = readl(AST_IO(AST_BASE_SCU | 0x8C));
-+                writel(reg | BIT(24) | BIT(22), AST_IO(AST_BASE_SCU | 0x8C));
-+        }
-+
-+        /* Disable GPIO H/AC pulldowns to float 1-wire interface pins */
-+        reg = readl(AST_IO(AST_BASE_SCU | 0x8C));
-+        writel(reg | BIT(23), AST_IO(AST_BASE_SCU | 0x8C));
-+
-+        /* Assert MAC2 PHY hardware reset */
-+        /* Set pin low */
-+        reg = readl(AST_IO(AST_BASE_GPIO | 0x00));
-+        writel(reg & ~phy_reset_mask, AST_IO(AST_BASE_GPIO | 0x00));
-+        /* Enable pin for output */
-+        reg = readl(AST_IO(AST_BASE_GPIO | 0x04));
-+        writel(reg | phy_reset_mask, AST_IO(AST_BASE_GPIO | 0x04));
-+        udelay(3);
-+        /* Set pin high */
-+        reg = readl(AST_IO(AST_BASE_GPIO | 0x00));
-+        writel(reg | phy_reset_mask, AST_IO(AST_BASE_GPIO | 0x00));
-+
-+        /* Setup PNOR address mapping for 64M flash
-+         *
-+         *   ADRBASE: 0x3000 (0x30000000)
-+         *   HWMBASE: 0x0C00 (0x0C000000)
-+         *  ADDRMASK: 0xFC00 (0xFC000000)
-+         *   HWNCARE: 0x03FF (0x03FF0000)
-+         *
-+         * Mapping appears at 0x60300fc000000 on the host
-+         */
-+        writel(0x30000C00, AST_IO(AST_BASE_LPC | 0x88));
-+        writel(0xFC0003FF, AST_IO(AST_BASE_LPC | 0x8C));
-+
-+        /* Set SPI1 CE1 decoding window to 0x34000000 */
-+        writel(0x70680000, AST_IO(AST_BASE_SPI | 0x34));
-+
-+        /* Set SPI1 CE0 decoding window to 0x30000000 */
-+        writel(0x68600000, AST_IO(AST_BASE_SPI | 0x30));
-+
-+        /* Disable default behavior of UART1 being held in reset by LPCRST#.
-+         * By releasing UART1 from being controlled by LPC reset, it becomes
-+         * immediately available regardless of the host being up.
-+         */
-+        reg = readl(AST_IO(AST_BASE_LPC | 0x98));
-+        /* Clear "Enable UART1 reset source from LPC" */
-+        writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC | 0x98));
-+}
-+
- #define SCU_PASSWORD	0x1688A8A8
- 
- static void __init aspeed_init_early(void)
-@@ -275,6 +338,8 @@ static void __init aspeed_init_early(void)
- 		do_witherspoon_setup();
- 	if (of_machine_is_compatible("ibm,romulus-bmc"))
- 		do_romulus_setup();
-+        if (of_machine_is_compatible("inventec,lanyang-bmc"))
-+                do_romulus_setup();
- }
- 
- static void __init aspeed_map_io(void)
--- 
-2.9.3
+But from what you are saying, ASPEED_I2CD_M_SDA_DRIVE_1T_EN and its
+counterpart are totally orthogonal to the selected speed and
+ASPEED_I2CD_M_HIGH_SPEED_EN exists as a matter of convenience to set
+all of the divider registers to their smallest possible values. Is my
+understanding correct?
+
+>
+> -----Original Message-----
+> From: Benjamin Herrenschmidt [mailto:benh@kernel.crashing.org]
+> Sent: Tuesday, April 25, 2017 5:35 PM
+> To: Ryan Chen <ryan_chen@aspeedtech.com>; Brendan Higgins <brendanhiggins=
+@google.com>
+> Cc: Wolfram Sang <wsa@the-dreams.de>; Rob Herring <robh+dt@kernel.org>; M=
+ark Rutland <mark.rutland@arm.com>; Thomas Gleixner <tglx@linutronix.de>; J=
+ason Cooper <jason@lakedaemon.net>; Marc Zyngier <marc.zyngier@arm.com>; Jo=
+el Stanley <joel@jms.id.au>; Vladimir Zapolskiy <vz@mleia.com>; Kachalov An=
+ton <mouse@mayc.ru>; C=C3=A9dric Le Goater <clg@kaod.org>; linux-i2c@vger.k=
+ernel.org; devicetree@vger.kernel.org; Linux Kernel Mailing List <linux-ker=
+nel@vger.kernel.org>; OpenBMC Maillist <openbmc@lists.ozlabs.org>
+> Subject: Re: [PATCH v6 4/5] i2c: aspeed: added driver for Aspeed I2C
+>
+> On Tue, 2017-04-25 at 08:50 +0000, Ryan Chen wrote:
+>> Hello All,
+>>               ASPEED_I2CD_M_SDA_DRIVE_1T_EN,
+>> ASPEED_I2CD_SDA_DRIVE_1T_EN is specific for some case usage.
+>>               For example, if i2c bus is use on "high speed" and "single=
+ slave and
+>> master" and i2c bus is too long. It need drive SDA or SCL less lunacy.
+>> It would enable it.
+>>               Otherwise, don=E2=80=99t enable it. especially in multi-ma=
+ster.
+>> It can=E2=80=99t be enable.
+>
+> That smells like a specific enough use case that we should probably cover=
+ with a device-tree property, something like an empty "sda-extra-drive" pro=
+perty (empty properties are typically used for booleans, their presence mea=
+ns "true").
+>
+> Thanks Ryan. Can you shed some light on the meaning of the high-speed bit=
+ as well please ? Does it force to a specific speed (ignoring the
+> divisor) or we can still play with the clock high/low counts ?
+>
+...
+>> > Your latest patch still does that. It will do things like start a
+>> > STOP command *then* ack the status bits. I'm pretty sure that's
+>> > bogus.
+>> >
+>> > That way it's a lot simpler to simply move the
+>> >
+>> >         writel(irq_status, bus->base + ASPEED_I2C_INTR_STS_REG);
+>> >
+>> > To either right after the readl of the status reg at the beginning
+>> > of aspeed_i2c_master_irq().
+>> >
+>> > I would be very surprised if that didn't work properly and wasn't
+>> > much safer than what you are currently doing.
+>>
+>> I think I tried your way and it worked. In anycase, Ryan will be able
+>> to clarify for us.
+
+After thinking about this more, I think Ben is right. It would be
+unusual for such a common convention to be broken and even if it is, I
+do not see how a command could take effect until it is actually
+issued. Nevertheless, it would make me feel better if you, Ryan, could
+comment on this.
+
+>>
+>> >
+>> > > Let me know if you still think we need a "RECOVERY" state.
+>> >
+...
+I feel pretty good about this; it does not look like there will be a
+lot of changes going into v8; hopefully, that version will be good
+enough to get merged.
