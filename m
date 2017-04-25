@@ -1,101 +1,52 @@
-Return-Path: <austenc@us.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <xow@google.com>
+Received: from mail-qk0-x22c.google.com (mail-qk0-x22c.google.com
+ [IPv6:2607:f8b0:400d:c09::22c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wCFvJ2QwvzDq72
- for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 06:59:23 +1000 (AEST)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v3PKx4mU050343
- for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 16:59:19 -0400
-Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2a2bs8e0ur-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 16:59:18 -0400
-Received: from localhost
- by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
- Tue, 25 Apr 2017 16:59:17 -0400
-Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
- by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Tue, 25 Apr 2017 16:59:16 -0400
-Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
- [9.57.199.107])
- by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v3PKxGRf37617794
- for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 20:59:16 GMT
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id ED6BB12404E
- for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 16:59:10 -0400 (EDT)
-Received: from d50lp01.ny.us.ibm.com (unknown [146.89.104.207])
- by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTPS id E26FE124050
- for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 16:59:10 -0400 (EDT)
-Received: from localhost
- by d50lp01.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
- Tue, 25 Apr 2017 16:59:15 -0400
-Received: from smtp.notes.na.collabserv.com (192.155.248.75)
- by d50lp01.ny.us.ibm.com (158.87.18.20) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128/128)
- Tue, 25 Apr 2017 16:59:14 -0400
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
- Tue, 25 Apr 2017 20:59:13 -0000
-Received: from us1a3-smtp05.a3.dal06.isc4sb.com (10.146.71.159)
- by smtp.notes.na.collabserv.com (10.106.227.123) with
- smtp.notes.na.collabserv.com ESMTP; Tue, 25 Apr 2017 20:59:12 -0000
-Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
- by us1a3-smtp05.a3.dal06.isc4sb.com
- with ESMTP id 2017042520591113-483059 ;
- Tue, 25 Apr 2017 20:59:11 +0000 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wCKs32BfCzDq7Z
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 09:57:42 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="JsvyKAIs"; 
+ dkim-atps=neutral
+Received: by mail-qk0-x22c.google.com with SMTP id y63so129760348qkd.1
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 16:57:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=eYp7ZJ3ZVAvQxrUCS2KvxeH3cVUtU06x4WGS7TlPxXg=;
+ b=JsvyKAIsuZIcsW+w0Ibh0m/5AnoA1ez+3IrRQL4r28ZFQiQfgf/efZBosgToBZHWrY
+ N4Rzd4rIwSomcwuLc359FSetpOfsc/LrY9V+I6rk52jbHdkmHiRFoPuJahOfjx1V6dcO
+ XKIDJ1iU1r4A10da+WzEULvFiqi3as+PfYVJ9eGRRefosA+efcMYTkbpMOlb9Xt+/hy9
+ AJ5oXlxKTrazbeztmSucOlDZhMfb8nww3g3ShQsMkIBtjP4RAdJaPZMKNkkIEauD4XV2
+ MePMYZftVfirh8gcnpC/GK/I5dxAo+0cSjspr0jrSlZyq8otVxAH/5J5jjmul3cCgN5o
+ TxYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=eYp7ZJ3ZVAvQxrUCS2KvxeH3cVUtU06x4WGS7TlPxXg=;
+ b=PAkMjZbSiDqFfncuLfq8GqDBZt0G2vcc4kEwAbAkWRAzIsBcxslb8IX/aJkRQbVFtQ
+ ftUOYLWimDIxYEGraL8rvuvUWbAYXlD+YHsWjxnmBBzu1+2/zMvmwaJP1VuSBZG+qqSQ
+ plETqHqZmvXkbeTE66Nr1ric03yuKUsELxC0kH1UAbovdPZKAc1YARzxtgYWbKMbxBr7
+ j8K7tVKcjvVrt3OLByApymoQGDVje65vCvynBvQi0fUfjuDRpd0XMfvY6rg1F/NqotFe
+ sy09D4GKeOiQ6ZufI5Tap5V/FNZtdv2COnGOPaepl2z88e2EJ2VjTk8Q0JEwUHeNFACV
+ dltw==
+X-Gm-Message-State: AN3rC/5vMJwY5ZCWbcmPGgJhy70DuVsaT1JLvoUxpiHgKkFU9xLIiw78
+ V3+BbhBl6Zw6NzGPeXBXAz9+1hCLFOHF
+X-Received: by 10.55.3.13 with SMTP id 13mr9900332qkd.300.1493164660343; Tue,
+ 25 Apr 2017 16:57:40 -0700 (PDT)
 MIME-Version: 1.0
-Subject: OpenBMC will be at the OpenPOWER Developers Congress
-To: openbmc@lists.ozlabs.org
-From: "Chris Austen" <austenc@us.ibm.com>
-Date: Tue, 25 Apr 2017 15:58:59 -0500
-X-KeepSent: CA4D26C2:76114BCC-8625810D:006F5244;
- type=4; name=$KeepSent
-X-Mailer: IBM Notes Release 9.0.1EXT SHF766 December 14, 2016
-X-LLNOutbound: False
-X-Disclaimed: 22983
-X-TNEFEvaluated: 1
-Content-type: multipart/alternative; 
- Boundary="0__=09BB0B9EDFFCD4D48f9e8a93df938690918c09BB0B9EDFFCD4D4"
-Content-Disposition: inline
-x-cbid: 17042520-0040-0000-0000-0000032540F8
-X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.423878; ST=0; TS=0; UL=0; ISC=; MB=0.000000
-X-IBM-SpamModules-Versions: BY=3.00006973; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000208; SDB=6.00852409; UDB=6.00421341; IPR=6.00631246; 
- BA=6.00005312; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015175; XFM=3.00000013;
- UTC=2017-04-25 20:59:12
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2017-04-25 16:01:48 - 6.00006649
-x-cbparentid: 17042520-3816-0000-0000-00000F197F06
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-X-TM-AS-GCONF: 00
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006973; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000208; SDB=6.00852409; UDB=6.00421342; IPR=6.00631246; 
- BA=6.00005312; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015175; XFM=3.00000013;
- UTC=2017-04-25 20:59:17
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-Message-Id: <OFCA4D26C2.76114BCC-ON8625810D.006F5244-8625810D.0073439F@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-04-25_15:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1704250363
+Received: by 10.140.29.73 with HTTP; Tue, 25 Apr 2017 16:57:39 -0700 (PDT)
+In-Reply-To: <CACPK8XfFF7tNrLjroNA05-c3pMZWFbiKvHq+oFLjBDSkgqfjDw@mail.gmail.com>
+References: <CACPK8XfFF7tNrLjroNA05-c3pMZWFbiKvHq+oFLjBDSkgqfjDw@mail.gmail.com>
+From: Xo Wang <xow@google.com>
+Date: Tue, 25 Apr 2017 16:57:39 -0700
+Message-ID: <CAPH-5w6-2zVQn2iNVP28aOAS_r11rxGYCrioXCR-sX8Ln7_BZQ@mail.gmail.com>
+Subject: Re: Switching to 4.10
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Brendan Higgins <brendanhiggins@google.com>, 
+ Edward James <eajames@us.ibm.com>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -107,74 +58,90 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Apr 2017 20:59:24 -0000
+X-List-Received-Date: Tue, 25 Apr 2017 23:57:44 -0000
 
+Hi Joel,
 
---0__=09BB0B9EDFFCD4D48f9e8a93df938690918c09BB0B9EDFFCD4D4
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/plain; charset=US-ASCII
+On Thu, Apr 20, 2017 at 7:30 PM, Joel Stanley <joel@jms.id.au> wrote:
+> Hello team,
+>
+> I want to make the 4.10 change happen. We don't have the resource to
+> be maintaining two trees, and the 4.10 tree has a whole heap of
+> shinyness - faster network, faster flash access, improved I2C.
+>
+> To this end I will stop merging patches in to 4.7. Please target the
+> 4.10 tree from here on.
+>
+> Use this thread to discuss concerns and coordinate the work that needs
+> to be done. Bits that I'm aware of
+>
+>  - Eddie is updating userspace to the new FSI APIs
+>  - I need to merge the upstream FSI patchset
+>  - Brednan needs to post the lastest version of the i2c patchset which
+> I will merge
+>  - I need to merge benh's ftgmac100 improvements
 
+We'll need to update the defconfig in the build system. Currently if I
+compile the kernel and generate a new defconfig (make savedefconfig),
+I see the following changes in the 4.10 generated defconfig:
 
+@@ -73,7 +73,6 @@
+ CONFIG_MTD_BLOCK=y
+ CONFIG_MTD_PARTITIONED_MASTER=y
+ CONFIG_MTD_SPI_NOR=y
+-CONFIG_ASPEED_FLASH_SPI=y
+ CONFIG_MTD_UBI=y
+ CONFIG_MTD_UBI_FASTMAP=y
+ CONFIG_MTD_UBI_BLOCK=y
+@@ -116,7 +115,6 @@
+ # CONFIG_SERIO is not set
+ # CONFIG_VT is not set
+ CONFIG_LEGACY_PTY_COUNT=4
+-# CONFIG_DEVKMEM is not set
+ CONFIG_SERIAL_8250=y
+ # CONFIG_SERIAL_8250_DEPRECATED_OPTIONS is not set
+ CONFIG_SERIAL_8250_CONSOLE=y
+@@ -131,10 +129,8 @@
+ CONFIG_I2C=y
+ CONFIG_I2C_CHARDEV=y
+ CONFIG_I2C_ASPEED=y
+-CONFIG_SENSORS_MAX31785=y
+ CONFIG_SENSORS_LM75=y
+ CONFIG_SENSORS_NCT7904=y
+-CONFIG_SENSORS_POWER8_OCC_I2C=y
+ CONFIG_PMBUS=y
+ CONFIG_SENSORS_ADM1275=y
+ CONFIG_SENSORS_UCD9000=y
+@@ -143,21 +139,14 @@
+ # CONFIG_USB_SUPPORT is not set
+ CONFIG_NEW_LEDS=y
+ CONFIG_LEDS_CLASS=y
+-CONFIG_LEDS_GPIO=y
+ CONFIG_LEDS_TRIGGERS=y
+ CONFIG_LEDS_TRIGGER_TIMER=y
+ CONFIG_LEDS_TRIGGER_HEARTBEAT=y
+-CONFIG_LEDS_TRIGGER_GPIO=y
+ CONFIG_RTC_CLASS=y
+ CONFIG_RTC_DRV_DS1307=y
+ CONFIG_RTC_DRV_ASPEED=y
+ CONFIG_MAILBOX=y
+-CONFIG_ASPEED_MBOX=y
+ # CONFIG_IOMMU_SUPPORT is not set
+-CONFIG_FSI=y
+-CONFIG_FSI_MASTER_GPIO=y
+-CONFIG_FSI_SCOM=y
+-CONFIG_FSI_I2C=y
+ CONFIG_FIRMWARE_MEMMAP=y
+ CONFIG_FANOTIFY=y
+ CONFIG_AUTOFS4_FS=y
 
-I wanted everyone to know that The OpenBMC Project will be part of the
-OpenPOWER Developers Congress (May 22-25 in San Francisco).  This is a
-chance for developers to get a helping hand on applications for (well of
-course OpenBMC but also) PowerAI, TensorFlow, Chainer, Anaconda, GPU, FPGA,
-CAPI and POWER.  We will supply the servers, you supply the problems to
-solve.
+>
+> Cheers,
+>
+> Joel
 
-For the OpenBMC sessions, together we will...
+I know that CONFIG_ASPEED_FLASH_SPI is now CONFIG_SPI_ASPEED_SMC, but
+I've yet to look at each of the other differences.
 
-Write BMC side applications on real hardware (AST2500)
-Interact with dbus using the SDK and on hardware
-Create and run a test suite
-Write a client application to interact with the BMC
-Use the simulation environment
-Show off some new UI features
-
-
-If you are interested sign up and we will see you there...
-https://openpowerfoundation.org/openpower-developer-congress
-
-Randel Ross wrote a great article on some reasons to attend too...
-http://insidebigdata.com/2017/04/18/five-reasons-attend-new-kind-developer-=
-event/
-
-
-
-Chris Austen
-POWER Systems Enablement Manager
-
---0__=09BB0B9EDFFCD4D48f9e8a93df938690918c09BB0B9EDFFCD4D4
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/html; charset=US-ASCII
-Content-Disposition: inline
-
-<html><body><p><font size=3D"2" face=3D"Arial">I wanted everyone to know th=
-at The OpenBMC Project will be part of the OpenPOWER Developers Congress (M=
-ay 22-25 in San Francisco).  This is a chance for developers to get a helpi=
-ng hand on applications for (well of course OpenBMC but also) </font><font =
-size=3D"2" face=3D"Arial">PowerAI, TensorFlow, Chainer, Anaconda, GPU, FPGA=
-, CAPI and POWER</font><font size=3D"2" face=3D"Arial">.  We will supply th=
-e servers, you supply the problems to solve.  </font><br><br><font size=3D"=
-2" face=3D"Arial">For the OpenBMC sessions, together we will...</font><br><=
-br><font size=3D"2" face=3D"Arial">Write BMC side applications on real hard=
-ware (AST2500)</font><br><font size=3D"2" face=3D"Arial">Interact with dbus=
- using the SDK and on hardware</font><br><font size=3D"2" face=3D"Arial">Cr=
-eate and run a test suite</font><br><font size=3D"2" face=3D"Arial">Write a=
- client application to interact with the BMC</font><br><font size=3D"2" fac=
-e=3D"Arial">Use the simulation environment</font><br><font size=3D"2" face=
-=3D"Arial">Show off some new UI features</font><br><br><br><font size=3D"2"=
- face=3D"Arial">If you are interested sign up and we will see you there...<=
-/font><br><a href=3D"https://openpowerfoundation.org/openpower-developer-co=
-ngress"><font size=3D"2" face=3D"Arial">https://openpowerfoundation.org/ope=
-npower-developer-congress</font></a><br><br><font size=3D"2" face=3D"Arial"=
->Randel Ross wrote a great article on some reasons to attend too... </font>=
-<a href=3D"http://insidebigdata.com/2017/04/18/five-reasons-attend-new-kind=
--developer-event/"><font size=3D"2" face=3D"Arial">http://insidebigdata.com=
-/2017/04/18/five-reasons-attend-new-kind-developer-event/</font></a><br><br=
-><br><br><font size=3D"2" face=3D"Arial">Chris Austen<br>POWER Systems Enab=
-lement Manager <br></font><BR>
-</body></html>
-
---0__=09BB0B9EDFFCD4D48f9e8a93df938690918c09BB0B9EDFFCD4D4--
+cheers
+xo
