@@ -1,70 +1,101 @@
-Return-Path: <brendanhiggins@google.com>
-Received: from mail-qk0-x22d.google.com (mail-qk0-x22d.google.com
- [IPv6:2607:f8b0:400d:c09::22d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <austenc@us.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wCDN970RlzDq5b
- for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 05:50:49 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="Ftn7kcax"; 
- dkim-atps=neutral
-Received: by mail-qk0-x22d.google.com with SMTP id f76so74709223qke.2
- for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 12:50:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=REFXv86hfe39dMRLcUyG4bzw8ifuq+60AvMJSSpiYHg=;
- b=Ftn7kcaxPkgD4ooSOEcfrlDQPjc15/YdpDtBBxp1nN60ewqGG43iewEy5HWyByMCZy
- KVL5CL7niSTqJ7O3afCqvRum0sDmQv0na8n6259VLGiy1Dr2BKetbG8kZo7w8SDAPpfs
- FjxxlguSoiuM7famsXfqz+78A3A3SBdo/KP2t4uzZpE1LWmvtVBhYlK2Lc7zf67k/r9L
- EwOe36A6cZ6JM/hwOSMV0bys0tAet288slDn1nvLzMTxyE0uK8EDqlUoIUOaLDbD5S+4
- 7ro6N4Qi57/yl7PQGSXSVB42w9Nl0zWZizhBayAUIo8TsaKh9QR+RNOFaK6cTrYKGiQ1
- fFCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=REFXv86hfe39dMRLcUyG4bzw8ifuq+60AvMJSSpiYHg=;
- b=U+N2HOW2sM7ZzXqAGjffE/A0V/E4hMISmpoUDIp7WoKRSTWV1KzMD20+Og4CSvnvgF
- ZUlPU6BBV6EU0/gPwARv8+4eh882dNu496w8uqTnUzZVboLu+rq89D7n5c7bspg9LKha
- KonSHKBSEme4PK1M23J+5TpwyuLy2AJNYO55GpmSD/+PsCv6ng8YpvDsit7C5WjDsHCI
- 5Ra7hbiznpLIor4WhNXoSR68Kaq1mmBEJoNjR/pPMOLyxiK/o0+xZlOB0qQ68NTZsakn
- Io1ZZcCHLPfYCYlJi+Sz+z219D368LF9TeSA7pDtqEIPoVqjhWtX6GwARemm/2hiwu/a
- l1rQ==
-X-Gm-Message-State: AN3rC/5l5YZcYkrjFvkHQ00+iyiB96G8YC/gEiEbna79f/3ew/yfZ7rL
- xaWSPECRTnFk4qcquklt99xRZjZnjbzX
-X-Received: by 10.55.88.4 with SMTP id m4mr29249229qkb.84.1493149846601; Tue,
- 25 Apr 2017 12:50:46 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wCFvJ2QwvzDq72
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 06:59:23 +1000 (AEST)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v3PKx4mU050343
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 16:59:19 -0400
+Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2a2bs8e0ur-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 16:59:18 -0400
+Received: from localhost
+ by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Tue, 25 Apr 2017 16:59:17 -0400
+Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
+ by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Tue, 25 Apr 2017 16:59:16 -0400
+Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
+ [9.57.199.107])
+ by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v3PKxGRf37617794
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 20:59:16 GMT
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id ED6BB12404E
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 16:59:10 -0400 (EDT)
+Received: from d50lp01.ny.us.ibm.com (unknown [146.89.104.207])
+ by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTPS id E26FE124050
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 16:59:10 -0400 (EDT)
+Received: from localhost
+ by d50lp01.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Tue, 25 Apr 2017 16:59:15 -0400
+Received: from smtp.notes.na.collabserv.com (192.155.248.75)
+ by d50lp01.ny.us.ibm.com (158.87.18.20) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128/128)
+ Tue, 25 Apr 2017 16:59:14 -0400
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Tue, 25 Apr 2017 20:59:13 -0000
+Received: from us1a3-smtp05.a3.dal06.isc4sb.com (10.146.71.159)
+ by smtp.notes.na.collabserv.com (10.106.227.123) with
+ smtp.notes.na.collabserv.com ESMTP; Tue, 25 Apr 2017 20:59:12 -0000
+Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
+ by us1a3-smtp05.a3.dal06.isc4sb.com
+ with ESMTP id 2017042520591113-483059 ;
+ Tue, 25 Apr 2017 20:59:11 +0000 
 MIME-Version: 1.0
-Received: by 10.12.162.69 with HTTP; Tue, 25 Apr 2017 12:50:45 -0700 (PDT)
-In-Reply-To: <e90ff5914518400ea6902ca40406eb0f@TWMBX01.aspeed.com>
-References: <20170328051226.21677-1-brendanhiggins@google.com>
- <20170328051226.21677-5-brendanhiggins@google.com>
- <1490945610.3177.229.camel@kernel.crashing.org>
- <CAFd5g45DQZz99y59AY-4465qnM+tRv6+bDdGQqS6VYHEfRfjDg@mail.gmail.com>
- <1493086747.25766.264.camel@kernel.crashing.org>
- <CAFd5g44ioW0PdFVOhY-ep8TXBNg6qC7E5yjOVf3MEdY9bPgEDA@mail.gmail.com>
- <7d991733d3ea4591b74baf93300f0224@TWMBX01.aspeed.com>
- <1493112875.25766.268.camel@kernel.crashing.org>
- <e90ff5914518400ea6902ca40406eb0f@TWMBX01.aspeed.com>
-From: Brendan Higgins <brendanhiggins@google.com>
-Date: Tue, 25 Apr 2017 12:50:45 -0700
-Message-ID: <CAFd5g45htFgr5oHbB9W_nyyMfm5J7BCKUuP73RxKhNW3LkWtyw@mail.gmail.com>
-Subject: Re: [PATCH v6 4/5] i2c: aspeed: added driver for Aspeed I2C
-To: Ryan Chen <ryan_chen@aspeedtech.com>
-Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Wolfram Sang <wsa@the-dreams.de>, 
- Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Thomas Gleixner <tglx@linutronix.de>, Jason Cooper <jason@lakedaemon.net>, 
- Marc Zyngier <marc.zyngier@arm.com>, Joel Stanley <joel@jms.id.au>,
- Vladimir Zapolskiy <vz@mleia.com>, Kachalov Anton <mouse@mayc.ru>,
- =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
- "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>, 
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Subject: OpenBMC will be at the OpenPOWER Developers Congress
+To: openbmc@lists.ozlabs.org
+From: "Chris Austen" <austenc@us.ibm.com>
+Date: Tue, 25 Apr 2017 15:58:59 -0500
+X-KeepSent: CA4D26C2:76114BCC-8625810D:006F5244;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1EXT SHF766 December 14, 2016
+X-LLNOutbound: False
+X-Disclaimed: 22983
+X-TNEFEvaluated: 1
+Content-type: multipart/alternative; 
+ Boundary="0__=09BB0B9EDFFCD4D48f9e8a93df938690918c09BB0B9EDFFCD4D4"
+Content-Disposition: inline
+x-cbid: 17042520-0040-0000-0000-0000032540F8
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.423878; ST=0; TS=0; UL=0; ISC=; MB=0.000000
+X-IBM-SpamModules-Versions: BY=3.00006973; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000208; SDB=6.00852409; UDB=6.00421341; IPR=6.00631246; 
+ BA=6.00005312; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015175; XFM=3.00000013;
+ UTC=2017-04-25 20:59:12
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2017-04-25 16:01:48 - 6.00006649
+x-cbparentid: 17042520-3816-0000-0000-00000F197F06
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+X-TM-AS-GCONF: 00
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006973; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000208; SDB=6.00852409; UDB=6.00421342; IPR=6.00631246; 
+ BA=6.00005312; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015175; XFM=3.00000013;
+ UTC=2017-04-25 20:59:17
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+Message-Id: <OFCA4D26C2.76114BCC-ON8625810D.006F5244-8625810D.0073439F@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-04-25_15:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1704250363
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -76,98 +107,74 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Apr 2017 19:50:50 -0000
+X-List-Received-Date: Tue, 25 Apr 2017 20:59:24 -0000
 
-On Tue, Apr 25, 2017 at 2:47 AM, Ryan Chen <ryan_chen@aspeedtech.com> wrote=
-:
-> Thanks Ryan. Can you shed some light on the meaning of the high-speed bit=
- as well please ?
->
-> About ASPEED_I2CD_M_HIGH_SPEED_EN, it is support for I2C specification "H=
-igh speed transfer". And also device need support it.
-> If you just speed up the I2C bus clock, you don=E2=80=99t have to enable =
-ASPEED_I2CD_M_HIGH_SPEED_EN, just change the clock is ok.
->
 
-Interesting, I thought that ASPEED_I2CD_M_SDA_DRIVE_1T_EN and its
-counterpart would be used for fast mode or fast mode plus and
-ASPEED_I2CD_M_HIGH_SPEED_EN would be used for fast mode plus or high
-speed mode and that they work by driving the SDA and SCL signals to
-improve rise times. It made sense to me because the lowest SCL you can
-get with base clock set to zero is about ~1.5MHz which is in between
-fast mode plus (1MHz) and high speed mode (3.4MHz).
+--0__=09BB0B9EDFFCD4D48f9e8a93df938690918c09BB0B9EDFFCD4D4
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/plain; charset=US-ASCII
 
-But from what you are saying, ASPEED_I2CD_M_SDA_DRIVE_1T_EN and its
-counterpart are totally orthogonal to the selected speed and
-ASPEED_I2CD_M_HIGH_SPEED_EN exists as a matter of convenience to set
-all of the divider registers to their smallest possible values. Is my
-understanding correct?
 
->
-> -----Original Message-----
-> From: Benjamin Herrenschmidt [mailto:benh@kernel.crashing.org]
-> Sent: Tuesday, April 25, 2017 5:35 PM
-> To: Ryan Chen <ryan_chen@aspeedtech.com>; Brendan Higgins <brendanhiggins=
-@google.com>
-> Cc: Wolfram Sang <wsa@the-dreams.de>; Rob Herring <robh+dt@kernel.org>; M=
-ark Rutland <mark.rutland@arm.com>; Thomas Gleixner <tglx@linutronix.de>; J=
-ason Cooper <jason@lakedaemon.net>; Marc Zyngier <marc.zyngier@arm.com>; Jo=
-el Stanley <joel@jms.id.au>; Vladimir Zapolskiy <vz@mleia.com>; Kachalov An=
-ton <mouse@mayc.ru>; C=C3=A9dric Le Goater <clg@kaod.org>; linux-i2c@vger.k=
-ernel.org; devicetree@vger.kernel.org; Linux Kernel Mailing List <linux-ker=
-nel@vger.kernel.org>; OpenBMC Maillist <openbmc@lists.ozlabs.org>
-> Subject: Re: [PATCH v6 4/5] i2c: aspeed: added driver for Aspeed I2C
->
-> On Tue, 2017-04-25 at 08:50 +0000, Ryan Chen wrote:
->> Hello All,
->>               ASPEED_I2CD_M_SDA_DRIVE_1T_EN,
->> ASPEED_I2CD_SDA_DRIVE_1T_EN is specific for some case usage.
->>               For example, if i2c bus is use on "high speed" and "single=
- slave and
->> master" and i2c bus is too long. It need drive SDA or SCL less lunacy.
->> It would enable it.
->>               Otherwise, don=E2=80=99t enable it. especially in multi-ma=
-ster.
->> It can=E2=80=99t be enable.
->
-> That smells like a specific enough use case that we should probably cover=
- with a device-tree property, something like an empty "sda-extra-drive" pro=
-perty (empty properties are typically used for booleans, their presence mea=
-ns "true").
->
-> Thanks Ryan. Can you shed some light on the meaning of the high-speed bit=
- as well please ? Does it force to a specific speed (ignoring the
-> divisor) or we can still play with the clock high/low counts ?
->
-...
->> > Your latest patch still does that. It will do things like start a
->> > STOP command *then* ack the status bits. I'm pretty sure that's
->> > bogus.
->> >
->> > That way it's a lot simpler to simply move the
->> >
->> >         writel(irq_status, bus->base + ASPEED_I2C_INTR_STS_REG);
->> >
->> > To either right after the readl of the status reg at the beginning
->> > of aspeed_i2c_master_irq().
->> >
->> > I would be very surprised if that didn't work properly and wasn't
->> > much safer than what you are currently doing.
->>
->> I think I tried your way and it worked. In anycase, Ryan will be able
->> to clarify for us.
 
-After thinking about this more, I think Ben is right. It would be
-unusual for such a common convention to be broken and even if it is, I
-do not see how a command could take effect until it is actually
-issued. Nevertheless, it would make me feel better if you, Ryan, could
-comment on this.
+I wanted everyone to know that The OpenBMC Project will be part of the
+OpenPOWER Developers Congress (May 22-25 in San Francisco).  This is a
+chance for developers to get a helping hand on applications for (well of
+course OpenBMC but also) PowerAI, TensorFlow, Chainer, Anaconda, GPU, FPGA,
+CAPI and POWER.  We will supply the servers, you supply the problems to
+solve.
 
->>
->> >
->> > > Let me know if you still think we need a "RECOVERY" state.
->> >
-...
-I feel pretty good about this; it does not look like there will be a
-lot of changes going into v8; hopefully, that version will be good
-enough to get merged.
+For the OpenBMC sessions, together we will...
+
+Write BMC side applications on real hardware (AST2500)
+Interact with dbus using the SDK and on hardware
+Create and run a test suite
+Write a client application to interact with the BMC
+Use the simulation environment
+Show off some new UI features
+
+
+If you are interested sign up and we will see you there...
+https://openpowerfoundation.org/openpower-developer-congress
+
+Randel Ross wrote a great article on some reasons to attend too...
+http://insidebigdata.com/2017/04/18/five-reasons-attend-new-kind-developer-=
+event/
+
+
+
+Chris Austen
+POWER Systems Enablement Manager
+
+--0__=09BB0B9EDFFCD4D48f9e8a93df938690918c09BB0B9EDFFCD4D4
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/html; charset=US-ASCII
+Content-Disposition: inline
+
+<html><body><p><font size=3D"2" face=3D"Arial">I wanted everyone to know th=
+at The OpenBMC Project will be part of the OpenPOWER Developers Congress (M=
+ay 22-25 in San Francisco).  This is a chance for developers to get a helpi=
+ng hand on applications for (well of course OpenBMC but also) </font><font =
+size=3D"2" face=3D"Arial">PowerAI, TensorFlow, Chainer, Anaconda, GPU, FPGA=
+, CAPI and POWER</font><font size=3D"2" face=3D"Arial">.  We will supply th=
+e servers, you supply the problems to solve.  </font><br><br><font size=3D"=
+2" face=3D"Arial">For the OpenBMC sessions, together we will...</font><br><=
+br><font size=3D"2" face=3D"Arial">Write BMC side applications on real hard=
+ware (AST2500)</font><br><font size=3D"2" face=3D"Arial">Interact with dbus=
+ using the SDK and on hardware</font><br><font size=3D"2" face=3D"Arial">Cr=
+eate and run a test suite</font><br><font size=3D"2" face=3D"Arial">Write a=
+ client application to interact with the BMC</font><br><font size=3D"2" fac=
+e=3D"Arial">Use the simulation environment</font><br><font size=3D"2" face=
+=3D"Arial">Show off some new UI features</font><br><br><br><font size=3D"2"=
+ face=3D"Arial">If you are interested sign up and we will see you there...<=
+/font><br><a href=3D"https://openpowerfoundation.org/openpower-developer-co=
+ngress"><font size=3D"2" face=3D"Arial">https://openpowerfoundation.org/ope=
+npower-developer-congress</font></a><br><br><font size=3D"2" face=3D"Arial"=
+>Randel Ross wrote a great article on some reasons to attend too... </font>=
+<a href=3D"http://insidebigdata.com/2017/04/18/five-reasons-attend-new-kind=
+-developer-event/"><font size=3D"2" face=3D"Arial">http://insidebigdata.com=
+/2017/04/18/five-reasons-attend-new-kind-developer-event/</font></a><br><br=
+><br><br><font size=3D"2" face=3D"Arial">Chris Austen<br>POWER Systems Enab=
+lement Manager <br></font><BR>
+</body></html>
+
+--0__=09BB0B9EDFFCD4D48f9e8a93df938690918c09BB0B9EDFFCD4D4--
