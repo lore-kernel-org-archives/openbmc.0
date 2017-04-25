@@ -1,101 +1,60 @@
-Return-Path: <devenrao@in.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <Chen.KenYY@inventec.com>
+X-Greylist: delayed 323 seconds by postgrey-1.36 at bilbo;
+ Tue, 25 Apr 2017 20:57:51 AEST
+Received: from mail.inventec.com (hub02.inventec.com [218.32.67.167])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wC3VK2VBszDq5b
- for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 23:10:33 +1000 (AEST)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v3PD9U03019933
- for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 09:10:24 -0400
-Received: from e23smtp02.au.ibm.com (e23smtp02.au.ibm.com [202.81.31.144])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2a206m5shb-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 09:10:24 -0400
-Received: from localhost
- by e23smtp02.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <devenrao@in.ibm.com>;
- Tue, 25 Apr 2017 23:10:13 +1000
-Received: from d23relay06.au.ibm.com (202.81.31.225)
- by e23smtp02.au.ibm.com (202.81.31.208) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Tue, 25 Apr 2017 23:10:11 +1000
-Received: from d23av03.au.ibm.com (d23av03.au.ibm.com [9.190.234.97])
- by d23relay06.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v3PDA2Iq6685084
- for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 23:10:10 +1000
-Received: from d23av03.au.ibm.com (localhost [127.0.0.1])
- by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- v3PD9X0s028650
- for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 23:09:33 +1000
-Received: from d50lp32.co.us.ibm.com (d50lp32.boulder.ibm.com [9.17.249.36])
- by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- v3PD9VFW028130
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
- for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 23:09:33 +1000
-Received: from localhost
- by d50lp32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <devenrao@in.ibm.com>;
- Tue, 25 Apr 2017 07:09:28 -0600
-Received: from smtp.notes.na.collabserv.com (192.155.248.82)
- by d50lp32.co.us.ibm.com (192.168.2.143) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128/128)
- Tue, 25 Apr 2017 07:09:26 -0600
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <devenrao@in.ibm.com>;
- Tue, 25 Apr 2017 13:09:25 -0000
-Received: from us1a3-smtp07.a3.dal06.isc4sb.com (10.146.103.14)
- by smtp.notes.na.collabserv.com (10.106.227.105) with
- smtp.notes.na.collabserv.com ESMTP; Tue, 25 Apr 2017 13:09:22 -0000
-Received: from us1a3-mail121.a3.dal06.isc4sb.com ([10.146.45.16])
- by us1a3-smtp07.a3.dal06.isc4sb.com
- with ESMTP id 2017042513092168-158355 ;
- Tue, 25 Apr 2017 13:09:21 +0000 
-In-Reply-To: 
-Subject: phosphor-logging: Create a friendlier "create and commit" error
- interface #1155
-From: "Devender Rao" <devenrao@in.ibm.com>
-To: openbmc@lists.ozlabs.org
-Date: Tue, 25 Apr 2017 13:09:21 +0000
-Sensitivity: 
-References: 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wC0YC4Bv0zDq5b
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 20:57:51 +1000 (AEST)
+Received: from IEC1-MSE-FE1.inventec.com (10.1.254.203) by
+ IEC1-EX2010-04.iec.inventec (10.1.254.157) with Microsoft SMTP Server id
+ 14.3.266.1; Tue, 25 Apr 2017 18:52:22 +0800
+Received: from IEC1-SPAM-1.inventec.com (smg.inventec.com [10.1.254.201])	by
+ IEC1-MSE-FE1.inventec.com with ESMTP id v3PAqEfQ061016	for
+ <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 18:52:14 +0800 (GMT-8)
+ (envelope-from chen.kenyy@inventec.com)
+Received: from mail-pf0-f197.google.com (mail-pf0-f197.google.com
+ [209.85.192.197])	by IEC1-SPAM-1.inventec.com with ESMTP id v3PAqT3E094695
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL)	for
+ <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 18:52:30 +0800 (GMT-8)
+ (envelope-from chen.kenyy@inventec.com)
+Received: by mail-pf0-f197.google.com with SMTP id p9so25938873pfj.8
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 03:52:08 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=MUYpB9LbKs6SGk8ziUNuvNcQUmlY3pa7/w6+BEFBJrE=;
+ b=hZlayRiHMROHzEV01ME1aBKb/IwlB5NBFE202XMWuszji03CfZ8CvdS3MNezVXKwiT
+ jAa0RNfvFUJt6NCGQWvxnqPtCi8QoTlv4Awc5QcyzzwHkCnu8eGdaeFhenEavi40RzOp
+ 7f8zbVqxKsMfpj2blBNeGJZKEbCbhKa/gscg4/wyhi++8TdwIMAOyxLlpPlrm20ukSqV
+ iJ4jjQWbpEv1H95jVExUopaG8vSNeVbTjciIpdl9jmVOSWd53ACNeLtR22OPyLXM3D7b
+ b38QROSzgBbeWoH87r1enX/iARLeSBk2qSa48AISt/f7JhmvzM71zsn6c/jmwEEAqD4+
+ PP8w==
+X-Gm-Message-State: AN3rC/7nKCw9oUBQh4pvA3MTdbxyqTLNlfnGEURd1dgW3Ap6QkzH1xIn
+ K4R34PCWQ8icCDuyRjxQ8iclt9DxMDrsjEDghzQyJYat3SUxasOrSkDmTkiGJ6PHKhUbE6UEAFX
+ xkF/VtYqgSC48
+X-Received: by 10.84.129.131 with SMTP id b3mr38225639plb.1.1493117527195;
+ Tue, 25 Apr 2017 03:52:07 -0700 (PDT)
+X-Received: by 10.84.129.131 with SMTP id b3mr38225614plb.1.1493117526970;
+ Tue, 25 Apr 2017 03:52:06 -0700 (PDT)
+Received: from localhost (60-248-18-139.HINET-IP.hinet.net. [60.248.18.139])
+ by smtp.gmail.com with ESMTPSA id
+ u63sm35868589pfb.55.2017.04.25.03.52.06        (version=TLS1_2
+ cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);        Tue, 25 Apr 2017
+ 03:52:06 -0700 (PDT)
+From: KenChenIEC <chen.kenyy@inventec.com>
+To: <openbmc@lists.ozlabs.org>
+CC: KenChenIEC <chen.kenyy@inventec.com>, <joel@jms.id.au>
+Subject: [PATCH linux dev-4.7] ARM: dts: aspeed: Modify Laanyang BMC device
+ tree
+Date: Tue, 25 Apr 2017 18:52:07 +0800
+Message-ID: <20170425105207.39501-1-chen.kenyy@inventec.com>
+X-Mailer: git-send-email 2.9.3
+X-DNSRBL: 
+X-MAIL: IEC1-MSE-FE1.inventec.com v3PAqEfQ061016
 MIME-Version: 1.0
-Importance: Normal
-X-Priority: 3 (Normal)
-X-Mailer: IBM Verse Build 14114-1129 | IBM Domino Build
- SCN_20170403T2153_FP6.1 April 19, 2017 at 09:53
-X-LLNOutbound: False
-X-Disclaimed: 3299
-X-TNEFEvaluated: 1
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html; charset=UTF-8
-x-cbid: 17042513-0004-0000-0000-000001FA8D60
-X-IBM-SpamModules-Scores: BY=0.113018; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.439231; ST=0; TS=0; UL=0; ISC=; MB=0.003270
-X-IBM-SpamModules-Versions: BY=3.00006971; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000208; SDB=6.00852252; UDB=6.00421248; IPR=6.00631090; 
- BA=6.00005312; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015168; XFM=3.00000013;
- UTC=2017-04-25 13:09:23
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2017-04-25 10:28:02 - 6.00006648
-x-cbparentid: 17042513-5102-0000-0000-000039B8D1B4
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-X-TM-AS-MML: disable
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-Message-Id: <OFC9064FBF.2BD00217-ON0025810D.0034A550-0025810D.004844BA@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-04-25_07:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=2
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1704250239
+Content-Type: text/plain
+X-Mailman-Approved-At: Wed, 26 Apr 2017 01:34:33 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -107,33 +66,132 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Apr 2017 13:10:33 -0000
+X-List-Received-Date: Tue, 25 Apr 2017 10:57:52 -0000
 
-<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
-elvetica, sans-serif;font-size:10.5pt" ><div class=3D"socmaildefaultfont" d=
-ir=3D"ltr" style=3D"font-family:Arial, Helvetica, sans-serif;font-size:10.5=
-pt" ><div dir=3D"ltr" >Hi,</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Existing mechanism to create an error (Creation of a jour=
-nal log entry) and commit( Creation of a d-bus object representing the erro=
-r,&nbsp; to indicate the error has been acknowledged or acted upon by the r=
-ight recipient ) is not user friendly.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >In the existing mechanism the error log creation method t=
-hrows back the error error after creating the journal entry which the calle=
-r need to catch&nbsp; and then commit the errror.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Introduced a new method(report) which in one shot will cr=
-eate and commit the error.</div>
-<div>&nbsp;</div>
-<div>Link to the report api</div>
-<div dir=3D"ltr" ><a href=3D"https://github.com/openbmc/phosphor-logging/co=
-mmit/d41e995d71b14f2c552b4da58eedbe1030cbf002" >https://github.com/openbmc/=
-phosphor-logging/commit/d41e995d71b14f2c552b4da58eedbe1030cbf002</a></div>
-<div dir=3D"ltr" ><div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Link to the usage of the report API</div>
-<div dir=3D"ltr" ><a href=3D"https://github.com/openbmc/phosphor-hwmon/comm=
-it/05711eb061d7f8a7d3b11a4d7d09d60a6afc2583" >https://github.com/openbmc/ph=
-osphor-hwmon/commit/05711eb061d7f8a7d3b11a4d7d09d60a6afc2583</a></div></div>
-<div dir=3D"ltr" >Regards</div>
-<div dir=3D"ltr" >Devender</div></div></div><BR>
+Modify Lanyang dts and add lanyang initial in aspeed.c
+
+Signed-off-by: KenChenIEC <chen.kenyy@inventec.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts | 13 +++---
+ arch/arm/mach-aspeed/aspeed.c                | 65 ++++++++++++++++++++++++++++
+ 2 files changed, 71 insertions(+), 7 deletions(-)
+
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
+index 176e4b4..6456458 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
+@@ -1,4 +1,4 @@
+-/dts-v1/;
++/dts-v3/;
+ 
+ #include "aspeed-g5.dtsi"
+ #include <dt-bindings/gpio/aspeed-gpio.h>
+@@ -302,18 +302,17 @@
+ };
+ 
+ &gpio {
+-	line_apss_reset {
+-		gpio-hog;
+-		gpios = <ASPEED_GPIO(E, 4) GPIO_ACTIVE_HIGH>;
+-		output-high;
+-		line-name = "BMC_APSS_RESET_N";
+-	};
++
+ };
+ 
+ &vuart {
+ 	status = "okay";
+ };
+ 
++&gfx {
++        status = "okay";
++};
++
+ &pinctrl {
+ 	aspeed,external-nodes = <&gfx &lhc>;
+ };
+diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+index a7b03a0..b1073e5 100644
+--- a/arch/arm/mach-aspeed/aspeed.c
++++ b/arch/arm/mach-aspeed/aspeed.c
+@@ -238,6 +238,69 @@ static void __init do_romulus_setup(void)
+     writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC | 0x98));
+ }
+ 
++static void __init do_lanyang_setup(void)
++{
++        unsigned long reg;
++        unsigned long board_rev;
++        /* D3 in GPIOA/B/C/D direction and data registers */
++        unsigned long phy_reset_mask = BIT(27);
++
++        do_common_setup();
++
++        /* Read BOARD_REV[4:0] fuses from GPIOM[7:3] */
++        reg = readl(AST_IO(AST_BASE_GPIO | 0x78));
++        board_rev = (reg >> 3) & 0x1F;
++
++        /* EVT1 hacks */
++        if (board_rev == 0) {
++                /* Disable GPIO I, G/AB pulldowns due to weak driving buffers */
++                reg = readl(AST_IO(AST_BASE_SCU | 0x8C));
++                writel(reg | BIT(24) | BIT(22), AST_IO(AST_BASE_SCU | 0x8C));
++        }
++
++        /* Disable GPIO H/AC pulldowns to float 1-wire interface pins */
++        reg = readl(AST_IO(AST_BASE_SCU | 0x8C));
++        writel(reg | BIT(23), AST_IO(AST_BASE_SCU | 0x8C));
++
++        /* Assert MAC2 PHY hardware reset */
++        /* Set pin low */
++        reg = readl(AST_IO(AST_BASE_GPIO | 0x00));
++        writel(reg & ~phy_reset_mask, AST_IO(AST_BASE_GPIO | 0x00));
++        /* Enable pin for output */
++        reg = readl(AST_IO(AST_BASE_GPIO | 0x04));
++        writel(reg | phy_reset_mask, AST_IO(AST_BASE_GPIO | 0x04));
++        udelay(3);
++        /* Set pin high */
++        reg = readl(AST_IO(AST_BASE_GPIO | 0x00));
++        writel(reg | phy_reset_mask, AST_IO(AST_BASE_GPIO | 0x00));
++
++        /* Setup PNOR address mapping for 64M flash
++         *
++         *   ADRBASE: 0x3000 (0x30000000)
++         *   HWMBASE: 0x0C00 (0x0C000000)
++         *  ADDRMASK: 0xFC00 (0xFC000000)
++         *   HWNCARE: 0x03FF (0x03FF0000)
++         *
++         * Mapping appears at 0x60300fc000000 on the host
++         */
++        writel(0x30000C00, AST_IO(AST_BASE_LPC | 0x88));
++        writel(0xFC0003FF, AST_IO(AST_BASE_LPC | 0x8C));
++
++        /* Set SPI1 CE1 decoding window to 0x34000000 */
++        writel(0x70680000, AST_IO(AST_BASE_SPI | 0x34));
++
++        /* Set SPI1 CE0 decoding window to 0x30000000 */
++        writel(0x68600000, AST_IO(AST_BASE_SPI | 0x30));
++
++        /* Disable default behavior of UART1 being held in reset by LPCRST#.
++         * By releasing UART1 from being controlled by LPC reset, it becomes
++         * immediately available regardless of the host being up.
++         */
++        reg = readl(AST_IO(AST_BASE_LPC | 0x98));
++        /* Clear "Enable UART1 reset source from LPC" */
++        writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC | 0x98));
++}
++
+ #define SCU_PASSWORD	0x1688A8A8
+ 
+ static void __init aspeed_init_early(void)
+@@ -275,6 +338,8 @@ static void __init aspeed_init_early(void)
+ 		do_witherspoon_setup();
+ 	if (of_machine_is_compatible("ibm,romulus-bmc"))
+ 		do_romulus_setup();
++        if (of_machine_is_compatible("inventec,lanyang-bmc"))
++                do_romulus_setup();
+ }
+ 
+ static void __init aspeed_map_io(void)
+-- 
+2.9.3
