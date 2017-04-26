@@ -1,62 +1,60 @@
-Return-Path: <andrew@aj.id.au>
-X-Greylist: delayed 419 seconds by postgrey-1.36 at bilbo;
- Wed, 26 Apr 2017 21:31:04 AEST
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="c6kxbLp2"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="gXUpfmQ0"; dkim-atps=neutral
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-pf0-x244.google.com (mail-pf0-x244.google.com
+ [IPv6:2607:f8b0:400e:c00::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wCdF43F9nzDq9m
- for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 21:31:04 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 026EC21C96;
- Wed, 26 Apr 2017 07:24:03 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Wed, 26 Apr 2017 07:24:03 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=F0VEP9jTBtHOI+nqvl9GAEoCIEzh5dy1i7pMuPZfg
- t0=; b=c6kxbLp2pvtj/CmQc11FyaRwZXAEjBrPrCB3Mo+D8YiAj1EsaUFSWWVdd
- dnwXTAtpKIuoluqw6OWIajM1lSvG764weprjz3I1oumdWyUuVRYmvvt2VnOD4v8d
- /97T/4iQY0NGbW7Z9lWzxFfCmlq0/hL7mvplLFdzKRXGQjnSEZx2MjGGc84jGoeB
- F5xPzC2GmO3et/2duNJKkFpfdYjxkSUlWokY4Rb7ZslxBkfI5IRdDLjKs6npJxaC
- dUGh2Ji1Ccd3TFDlajrtyL0AnoA2KltqeTu/QBWTEV2HmsYnLlam1kv+1ThZgKNT
- kvKAqvvyjH4qtXHysjWGuq/T3d46g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=F0VEP9jTBtHOI+nqvl
- 9GAEoCIEzh5dy1i7pMuPZfgt0=; b=gXUpfmQ0f2vxL/v9X5M++32D7c/T5709+T
- NAxY1a8PX+gFzAQWUVXRDsCMYZKffCRO7MFyfLmCkO1EtHC16narVynfJ3B+qfWb
- H6tm1yW7uXnq+C6Zh729Vx5wL4tkuYFiVv9zF4L90bFXF10OHIsivsqyKQdO3tIE
- PALyQnbKUrGRWdh4LNJEyTErgc+YG6Hao+ilaSv0TmozhqQgpZFIWjyKDnn1ZppA
- b3ewE7XYQ9BT+jDcmm4RlaTmmtrzVVVdGeFQWhvg7BreoNioKSS6Yg0jsqV05TxH
- w+nEiuEnev9IdmnCZqcsSNcfhzxzzWSFqP6yR6C4KJsDT9OjyuBw==
-X-ME-Sender: <xms:UoMAWcgmwSBKoW5nDyZVVpU6LGFHAxrR2UU8RF4RYkBjAFsOScwYpw>
-X-Sasl-enc: c8y7g6fD9ZJKYqeXnyRuMkMtTuIkUswZZzr7uFn15nZh 1493205842
-Received: from [172.16.172.59] (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id 36D137E0A4;
- Wed, 26 Apr 2017 07:24:00 -0400 (EDT)
-Message-ID: <1493205831.4433.1.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.7 v2] ARM: dts: aspeed: Modify Laanyang BMC
- device tree
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>, Ken Chen <chen.kenyy@inventec.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Wed, 26 Apr 2017 20:53:51 +0930
-In-Reply-To: <CACPK8Xe19-dDyn3GO5RE46=XSdAU=UC=egySFs37d1pBtExW5w@mail.gmail.com>
-References: <20170426051358.1909-1-chen.kenyy@inventec.com>
- <CACPK8Xe19-dDyn3GO5RE46=XSdAU=UC=egySFs37d1pBtExW5w@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-qbzrxsisJeOr52X9/Lq9"
-X-Mailer: Evolution 3.22.6-0ubuntu0.1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wCjHq2379zDqCL
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 00:33:43 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="BqLrw8as"; 
+ dkim-atps=neutral
+Received: by mail-pf0-x244.google.com with SMTP id c198so469391pfc.0
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 07:33:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=5nIe10jeh02fkir11TvwFbMPGD/HTVDjOGW0zNuhDyo=;
+ b=BqLrw8as/MDeqE7osfVZNdD0JZtN0e0zsg5nl6l96vLIlRPHIALkuHsn3+AxZQyiFX
+ W7sInB3QioFsq/Y5e5dynjT6BMrTCu22+BRYLcdqDqSUxUiZA1gtFcWDxe+xTUrYMvyT
+ HdewrbAajmpL9iluU9lUn7yDQdg6gy/T5NaQuw286KxjiY5sPXeH8VRagv5H7QHPLKt/
+ nthBUejMBSXAW8UkuMa8xsE+WVpoI2CffpotC/iyzJlz2VrJMvjop3YtZxcHIapTG4Gu
+ hAGh/MXtDELbMkZWS2XOK/MH3/nbZr5e6VqRYOi3kodnaCxyDad6JxpF8B1QieMfrwCL
+ EtRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+ :mime-version:content-transfer-encoding;
+ bh=5nIe10jeh02fkir11TvwFbMPGD/HTVDjOGW0zNuhDyo=;
+ b=OE6B3m1rYkZVchMTSPUmk2Oxt0j9wKjHVrn7PormzVjqiFrF6SebCBhSf3xReS12Gb
+ 6+G+dT7NUnj/YLYegaw80QAw/51WNjbNpkQ+v7OzOl9stxoW5XbWic6lJEY4jb19MWfS
+ pNrgGx8CrLQRS2PFCiuggb49EN8+GafyysB882zvvIDJ3fcpHtSY8KN2CQuF0mfarJQS
+ uM/lL+U9D/r+GIr3Jj50K5kHGVdWNGwSd5Ra2CKXFBiP0WAu1fIBgOZHPmsd9MeB6wRc
+ W5UTzJJKcepmRPcPufJ0Y7B6hcbmOcS0RHmSnfj1/0v43ft8GBjGnw02LPf++rtMsLzO
+ SnHQ==
+X-Gm-Message-State: AN3rC/6+0g/6DrDiUMWKPxyp4xJJw4XErjuLhHlR38BteSmm4z0stBhU
+ idf4kRisf7hP5g==
+X-Received: by 10.98.199.18 with SMTP id w18mr31086pfg.209.1493217220875;
+ Wed, 26 Apr 2017 07:33:40 -0700 (PDT)
+Received: from aurora.jms.id.au ([103.232.208.194])
+ by smtp.gmail.com with ESMTPSA id g7sm818263pfe.6.2017.04.26.07.33.36
+ (version=TLS1 cipher=AES128-SHA bits=128/128);
+ Wed, 26 Apr 2017 07:33:40 -0700 (PDT)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+Received: by aurora.jms.id.au (sSMTP sendmail emulation);
+ Thu, 27 Apr 2017 00:03:32 +0930
+From: Joel Stanley <joel@jms.id.au>
+To: Guenter Roeck <linux@roeck-us.net>,
+	Jean Delvare <jdelvare@suse.com>
+Cc: linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-iio@vger.kernel.org, openbmc@lists.ozlabs.org,
+ Jonathan Cameron <jic23@kernel.org>
+Subject: [RFC PATCH] hwmon: Add driver for Infineon DPS310
+Date: Thu, 27 Apr 2017 00:03:21 +0930
+Message-Id: <20170426143321.32000-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.11.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,63 +66,414 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Apr 2017 11:31:06 -0000
+X-List-Received-Date: Wed, 26 Apr 2017 14:33:44 -0000
 
+Hi Guenter,
 
---=-qbzrxsisJeOr52X9/Lq9
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Below is a work in progress hwmon driver for the DPS310[1]. The device does
+both pressure and temperature monitoring over either I2C or SPI. There's a
+public datasheet available on Infineon's website.
 
-T24gV2VkLCAyMDE3LTA0LTI2IGF0IDE3OjQ1ICswOTMwLCBKb2VsIFN0YW5sZXkgd3JvdGU6Cj4g
-SGkgS2VuLAo+IAo+IFRoYW5rIHlvdSBmb3IgeW91ciBwYXRjaC4gSSBoYXZlIHNvbWUgcXVlc3Rp
-b25zIGJlbG93Lgo+IAo+ID4gT24gV2VkLCBBcHIgMjYsIDIwMTcgYXQgMjo0MyBQTSwgS2VuIENo
-ZW4gPGNoZW4ua2VueXlAaW52ZW50ZWMuY29tPiB3cm90ZToKPiA+IAo+ID4gK8KgwqDCoMKgwqDC
-oMKgwqAvKiBTZXR1cCBQTk9SIGFkZHJlc3MgbWFwcGluZyBmb3IgNjRNIGZsYXNoCj4gPiArwqDC
-oMKgwqDCoMKgwqDCoMKgKgo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoCrCoMKgwqBBRFJCQVNFOiAw
-eDMwMDAgKDB4MzAwMDAwMDApCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgKsKgwqDCoEhXTUJBU0U6
-IDB4MEMwMCAoMHgwQzAwMDAwMCkKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqAqwqDCoEFERFJNQVNL
-OiAweEZDMDAgKDB4RkMwMDAwMDApCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgKsKgwqDCoEhXTkNB
-UkU6IDB4MDNGRiAoMHgwM0ZGMDAwMCkKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqAqCj4gPiArwqDC
-oMKgwqDCoMKgwqDCoMKgKiBNYXBwaW5nIGFwcGVhcnMgYXQgMHg2MDMwMGZjMDAwMDAwIG9uIHRo
-ZSBob3N0Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgKi8KPiA+ICvCoMKgwqDCoMKgwqDCoMKgd3Jp
-dGVsKDB4MzAwMDBDMDAsIEFTVF9JTyhBU1RfQkFTRV9MUEMgfCAweDg4KSk7Cj4gPiArwqDCoMKg
-wqDCoMKgwqDCoHdyaXRlbCgweEZDMDAwM0ZGLCBBU1RfSU8oQVNUX0JBU0VfTFBDIHwgMHg4Qykp
-Owo+ID4gKwo+ID4gK8KgwqDCoMKgwqDCoMKgwqAvKiBTZXQgU1BJMSBDRTEgZGVjb2Rpbmcgd2lu
-ZG93IHRvIDB4MzQwMDAwMDAgKi8KPiA+ICvCoMKgwqDCoMKgwqDCoMKgd3JpdGVsKDB4NzA2ODAw
-MDAsIEFTVF9JTyhBU1RfQkFTRV9TUEkgfCAweDM0KSk7Cj4gPiArCj4gPiArwqDCoMKgwqDCoMKg
-wqDCoC8qIFNldCBTUEkxIENFMCBkZWNvZGluZyB3aW5kb3cgdG8gMHgzMDAwMDAwMCAqLwo+ID4g
-K8KgwqDCoMKgwqDCoMKgwqB3cml0ZWwoMHg2ODYwMDAwMCwgQVNUX0lPKEFTVF9CQVNFX1NQSSB8
-IDB4MzApKTsKPiAKPiBXZSBzaG91bGQgbm90IG5lZWQgdG8gZG8gdGhpcy4gbWJveGQgd2lsbCBz
-ZXQgdGhlbS4KClRvIGNsYXJpZnksIHRoZXJlIGFyZSB0d28gZGlmZmVyZW50IGNhc2VzIGhlcmUs
-IGJ1dCB0aGUgb3V0Y29tZSByZW1haW5zCnRoYXQgd2UgZG9uJ3QgbmVlZCB0aGUgYWJvdmUuIFdl
-IGRvbid0IG5lZWQgdG8gc2V0IHRoZSB0d28gTFBDCnJlZ2lzdGVycyBiZWNhdXNlIG1ib3hkIHdp
-bGwgc2V0IHRoZW0gdmlhIHRoZSBpbnRlcmZhY2UgZXhwb3NlZCBieQpkcml2ZXJzL21pc2MvYXNw
-ZWVkLWxwYy1jdHJsLmMuIFdlIGFsc28gZG9uJ3QgbmVlZCB0byBzZXQgdGhlIHR3byBTUEkKcmVn
-aXN0ZXJzIGJlY2F1c2UgdGhlIFNNQyBkcml2ZXIgd2lsbCBjb25maWd1cmUgdGhlbSBiYXNlZCBv
-biB0aGUKY2hpcChzKSBkZXRlY3RlZCBvbiB0aGUgYnVzIGR1cmluZyBkcml2ZXIgcHJvYmUuCgpD
-aGVlcnMsCgpBbmRyZXcK
+I require a driver that reads the temperature data over I2C and exposes it to
+userspace as a hwmon device. I wanted your opinion weather this should be an
+IIO driver (and we could then use the IIO HWMON bridge in our application), or
+if it should be a native HWMON driver?
 
+Once we've agreed on a subsystem I will clean the driver up and submit it
+properly.
 
---=-qbzrxsisJeOr52X9/Lq9
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Cheers,
 
------BEGIN PGP SIGNATURE-----
+Joel
 
-iQIcBAABCgAGBQJZAINHAAoJEJ0dnzgO5LT589IP/AkvD/9DfKocmjPogkTozvye
-7mfID12jhmrLITuwohbnwSNMap4sCO14w8+F/FhsZSMnJgW3Lu3QPIf6BJPjcdP6
-SVcsEqzFwV6B2U4IfHz625fLnUxW7TM4TfutvCkOmtnuwdZ2vYmcq+flim6ZGkBO
-GzBj3jP2OCshcSdQ7i0jVfhZDF4YZCd7nMsbyMKlc0ezEEtXI6ZUmEIp9aA+8JUy
-TO1AsjI1OcpaSjkb/37e8V2UtODadbZUr8adrB1kXHl8hmyYxMvImvJVbwMDwFel
-z52I3EY7YWMVF9o8K82Vl/i3OSy9SdoQHh9RblTld7EMX5mf1iaXILPdeSbdL/q8
-Ec0nB9ZWOE0KlrMzylKK1o+ji18S9w+prncb2ruU/qIuq9MtmDLV8LB3yDXO/vEa
-MuDVrzeUcQRtddjVN5au9Ii5BR+rNQ7EftA12cVEJTA5vz3xtj2/JFozieDIwpqh
-r6yn5fk5IR/TDsfIvNj1Q0fdpGodTkTNsXGtGEtZeCbk06mQVp/MnMzmQaaPuUSN
-WlA6U5m2iCDE0aRuKIyNVjWmvdODbZ7kG/LZRVSO53jEZ7HsKSxqAAmB14NJICMp
-timUUXDCYsLZkSErMkjrMdFjtTY5l9PoLaD3gjRXdx+cfWsWuXzQiX01yS6SM8U0
-Ro2YyH+ZO01qJrvRFdeZ
-=qBJv
------END PGP SIGNATURE-----
+[1] https://www.infineon.com/cms/en/product/sensor/capacitive-pressure-sensor-for-consumer-applications/channel.html
 
---=-qbzrxsisJeOr52X9/Lq9--
+---
+
+The DPS310 is a temperature and pressure sensor. It can be accessed over
+i2c and SPI.
+
+This driver supports continual measurement of temperature over i2c only.
+
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+---
+ drivers/hwmon/Kconfig  |  12 ++
+ drivers/hwmon/Makefile |   1 +
+ drivers/hwmon/dps310.c | 331 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 344 insertions(+)
+ create mode 100644 drivers/hwmon/dps310.c
+
+diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
+index 190d270b20a2..8229b2f8c591 100644
+--- a/drivers/hwmon/Kconfig
++++ b/drivers/hwmon/Kconfig
+@@ -1349,6 +1349,18 @@ config SENSORS_DME1737
+ 	  This driver can also be built as a module.  If so, the module
+ 	  will be called dme1737.
+ 
++config SENSORS_DPS310
++	tristate "Infineon DPS310"
++	depends on I2C
++	select HWMON_VID
++	select REGMAP_I2C
++	help
++	  If you say yes here you get support for the hardware monitoring
++	  features of the Infineon DPS310 digital barometric pressure sensor.
++
++	  This driver can also be built as a module.  If so, the module
++	  will be called dps310.
++
+ config SENSORS_EMC1403
+ 	tristate "SMSC EMC1403/23 thermal sensor"
+ 	depends on I2C
+diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
+index d2cb7e804a0f..3a5ad06d6d89 100644
+--- a/drivers/hwmon/Makefile
++++ b/drivers/hwmon/Makefile
+@@ -52,6 +52,7 @@ obj-$(CONFIG_SENSORS_DA9052_ADC)+= da9052-hwmon.o
+ obj-$(CONFIG_SENSORS_DA9055)+= da9055-hwmon.o
+ obj-$(CONFIG_SENSORS_DELL_SMM)	+= dell-smm-hwmon.o
+ obj-$(CONFIG_SENSORS_DME1737)	+= dme1737.o
++obj-$(CONFIG_SENSORS_DPS310)	+= dps310.o
+ obj-$(CONFIG_SENSORS_DS620)	+= ds620.o
+ obj-$(CONFIG_SENSORS_DS1621)	+= ds1621.o
+ obj-$(CONFIG_SENSORS_EMC1403)	+= emc1403.o
+diff --git a/drivers/hwmon/dps310.c b/drivers/hwmon/dps310.c
+new file mode 100644
+index 000000000000..b014f01d0d3f
+--- /dev/null
++++ b/drivers/hwmon/dps310.c
+@@ -0,0 +1,331 @@
++/*
++ * Copyright 2017 IBM Corporation
++ *
++ * Joel Stanley <joel@jms.id.au>
++ *
++ * The DPS310 is a barometric pressure and temperature sensor.
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version
++ * 2 of the License, or (at your option) any later version.
++ */
++
++#include <linux/i2c.h>
++#include <linux/regmap.h>
++#include <linux/hwmon.h>
++#include <linux/module.h>
++
++#define PRS_B2		0x00
++#define PRS_B1		0x01
++#define PRS_B0		0x02
++#define TMP_B2		0x03
++#define TMP_B1		0x04
++#define TMP_B0		0x05
++#define PRS_CFG		0x06
++#define TMP_CFG		0x07
++#define  TMP_RATE_BITS	GENMASK(6, 4)
++#define  TMP_EXT	BIT(7)
++#define MEAS_CFG	0x08
++#define  MEAS_CTRL_BITS	GENMASK(2, 0)
++#define   PRESSURE_EN	BIT(0)
++#define   TEMP_EN	BIT(1)
++#define   BACKGROUND	BIT(2)
++#define  PRS_RDY	BIT(4)
++#define  TMP_RDY	BIT(5)
++#define  SENSOR_RDY	BIT(6)
++#define  COEF_RDY	BIT(7)
++#define RESET		0x0c
++#define  RESET_MAGIC	(BIT(0) | BIT(3))
++#define COEF_BASE	0x10
++
++#define TMP_BASE	TMP_B2
++#define PRS_BASE	PRS_B2
++
++#define TMP_RATE(_n)	ilog2(_n)
++#define TMP_PRC(_n)	ilog2(_n)
++
++const int scale_factor[] = {
++	 524288,
++	1572864,
++	3670016,
++	7864320,
++	 253952,
++	 516096,
++	1040384,
++	2088960,
++};
++
++struct dps310_data {
++	struct regmap *regmap;
++	int interval;
++	s32 c0, c1;
++};
++
++static s32 dps310_twos_compliment(u32 raw, size_t num_bits)
++{
++	s32 out = raw;
++
++	if (raw & BIT(num_bits - 1))
++		out = raw - BIT(num_bits);
++
++	return out;
++}
++
++static int dps310_get_temp_coef(struct dps310_data *data)
++{
++	struct regmap *regmap = data->regmap;
++	uint8_t coef[3] = {0};
++	int ready, r;
++	u32 c0, c1;
++
++	r = regmap_read(regmap, MEAS_CFG, &ready);
++	if (r < 0)
++		return r;
++
++	if (!(ready & COEF_RDY))
++		return -EAGAIN;
++
++	/*
++	 * Read temperature calibration coefficients c0 and c1 from the
++	 * COEF register. The numbers are 12-bit 2's compliment numbers
++	 */
++	r = regmap_bulk_read(regmap, COEF_BASE, coef, 3);
++	if (r < 0)
++		return r;
++
++	c0 = (coef[0] << 4) | (coef[1] >> 4);
++	data->c0 = dps310_twos_compliment(c0, 12);
++
++	c1 = ((coef[1] & GENMASK(3, 0)) << 8) | coef[2];
++	data->c1 = dps310_twos_compliment(c1, 12);
++
++	return 0;
++}
++
++static int dps310_get_scale_factor(struct device *dev)
++{
++	struct dps310_data *data = dev_get_drvdata(dev);
++	int val, r;
++
++	r = regmap_read(data->regmap, TMP_CFG, &val);
++	if (r < 0)
++		return r;
++
++	/* Scale factor is bottom 4 bits of the register */
++	val = val & GENMASK(3, 0);
++	if (val < 0 || val > ARRAY_SIZE(scale_factor))
++		return -EINVAL;
++
++	return scale_factor[val];
++}
++
++static int dps310_read_temp(struct device *dev, u32 attr, int channel,
++			     long *temp)
++{
++	struct dps310_data *data = dev_get_drvdata(dev);
++	struct regmap *regmap = data->regmap;
++	uint8_t val[3] = {0};
++	int r, ready;
++	int kT, T_raw;
++
++	switch (attr) {
++	case hwmon_temp_input:
++		r = regmap_read(regmap, MEAS_CFG, &ready);
++		if (r < 0)
++			return r;
++		if (!(ready & TMP_RDY)) {
++			dev_err(dev, "tmp not ready\n");
++			return -EAGAIN;
++		}
++
++		/* Choose scaling factor kT based on chosen precision rate */
++		kT = dps310_get_scale_factor(dev);
++
++		r = regmap_bulk_read(regmap, TMP_BASE, val, 3);
++		if (r < 0)
++			return r;
++		T_raw = (val[0] << 16) | (val[1] << 8) | val[2];
++		T_raw = dps310_twos_compliment(T_raw, 24);
++
++		/* (c0 * 0.5 + c1 * T_raw / kT) * 1000 m°C */
++		*temp = ((data->c0 >> 1) + (data->c1 * T_raw) / kT) * 1000;
++
++		return 0;
++	default:
++		return -EOPNOTSUPP;
++	}
++}
++
++static int dps310_read(struct device *dev, enum hwmon_sensor_types type,
++			u32 attr, int channel, long *val)
++{
++	switch (type) {
++	case hwmon_temp:
++		return dps310_read_temp(dev, attr, channel, val);
++	default:
++		return -EOPNOTSUPP;
++	}
++}
++
++static int dps310_write(struct device *dev, enum hwmon_sensor_types type,
++			 u32 attr, int channel, long val)
++{
++	switch (type) {
++	case hwmon_temp:
++		/* Fall through */
++	default:
++		return -EOPNOTSUPP;
++	}
++}
++
++static umode_t dps310_is_visible(const void *data,
++				  enum hwmon_sensor_types type,
++				  u32 attr, int channel)
++{
++	switch (type) {
++	case hwmon_temp:
++		switch (attr) {
++		case hwmon_temp_input:
++			return 0444;
++		default:
++			return 0;
++		}
++	default:
++		return 0;
++	}
++}
++
++
++static const u32 dps310_temp_config[] = {
++	HWMON_T_INPUT,
++	0
++};
++
++static const struct hwmon_channel_info dps310_temp = {
++	.type = hwmon_temp,
++	.config = dps310_temp_config,
++};
++
++static const struct hwmon_channel_info *dps310_info[] = {
++	&dps310_temp,
++	NULL
++};
++
++static const struct hwmon_ops dps310_hwmon_ops = {
++	.is_visible = dps310_is_visible,
++	.read = dps310_read,
++	.write = dps310_write,
++};
++
++static const struct hwmon_chip_info dps310_chip_info = {
++	.ops = &dps310_hwmon_ops,
++	.info = dps310_info,
++};
++
++static bool dps310_is_writeable_reg(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case PRS_CFG:
++	case TMP_CFG:
++	case MEAS_CFG:
++	case RESET:
++		return true;
++	default:
++		return false;
++	}
++}
++
++static bool dps310_is_volatile_reg(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case PRS_B2:
++	case PRS_B1:
++	case PRS_B0:
++	case TMP_B2:
++	case TMP_B1:
++	case TMP_B0:
++	case MEAS_CFG:
++		return true;
++	default:
++		return false;
++	}
++}
++
++static const struct regmap_config dps310_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.writeable_reg = dps310_is_writeable_reg,
++	.volatile_reg = dps310_is_volatile_reg,
++	.cache_type = REGCACHE_RBTREE,
++	.use_single_rw = true,
++};
++
++static int dps310_probe(struct i2c_client *client,
++			const struct i2c_device_id *id)
++{
++	struct dps310_data *data;
++	struct device *hwmon_dev;
++	int r;
++
++	data = devm_kzalloc(&client->dev,  sizeof(*data), GFP_KERNEL);
++	if (!data)
++		return -ENOMEM;
++
++	data->regmap = devm_regmap_init_i2c(client, &dps310_regmap_config);
++	if (IS_ERR(data->regmap))
++		return PTR_ERR(data->regmap);
++
++	r = regmap_write(data->regmap, TMP_CFG, TMP_EXT | TMP_PRC(128));
++	if (r < 0)
++		return r;
++
++	/* Turn on background temperature measurement */
++	r = regmap_update_bits(data->regmap, MEAS_CFG, MEAS_CTRL_BITS,
++			TEMP_EN);
++	if (r < 0)
++		return r;
++
++	/* Get calibration coefficients required for reporting temperature */
++	r = dps310_get_temp_coef(data);
++	if (r == -EAGAIN)
++		return -EPROBE_DEFER;
++	if (r < 0)
++		return r;
++
++	hwmon_dev = devm_hwmon_device_register_with_info(&client->dev,
++			client->name, data, &dps310_chip_info, NULL);
++
++	if (IS_ERR(hwmon_dev))
++		return PTR_ERR(hwmon_dev);
++
++	dev_info(&client->dev, "%s: sensor '%s'\n", dev_name(hwmon_dev),
++			client->name);
++
++	return 0;
++}
++
++static const struct i2c_device_id dps310_id[] = {
++	{ "dps310", 0 },
++	{}
++};
++MODULE_DEVICE_TABLE(i2c, dps310_id);
++
++static const unsigned short normal_i2c[] = {
++	0x77, 0x76, I2C_CLIENT_END
++};
++
++static struct i2c_driver dps310_driver = {
++	.class = I2C_CLASS_HWMON,
++	.driver = {
++		.name = "dps310",
++	},
++	.probe = dps310_probe,
++	.address_list = normal_i2c,
++	.id_table = dps310_id,
++};
++module_i2c_driver(dps310_driver);
++
++MODULE_AUTHOR("Joel Stanley <joel@jms.id.au>");
++MODULE_DESCRIPTION("Infineon DPS310 driver");
++MODULE_LICENSE("GPL");
+-- 
+2.11.0
