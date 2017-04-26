@@ -1,58 +1,54 @@
-Return-Path: <linux@roeck-us.net>
-Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <raltherr@google.com>
+Received: from mail-wm0-x22c.google.com (mail-wm0-x22c.google.com
+ [IPv6:2a00:1450:400c:c09::22c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wCk9N1ZSFzDqCL
- for <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 01:13:11 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wCnCT6K6szDqCL
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 03:30:13 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.b="gCIjjkz9";
+ unprotected) header.d=google.com header.i=@google.com header.b="IGumWvTY"; 
  dkim-atps=neutral
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=roeck-us.net; s=default; h=In-Reply-To:Content-Transfer-Encoding:
- Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
- Sender:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=RPy2GA/Fa+yFIvletE0x536N63Wl4ofcqqu0quIuS5Q=; b=gCIjjkz9cRA7iWtI1Qqa01kbt1
- 9RoOpduFAK5YVfqR4sJnyVWRr2CXpbmKPv3W9BoG2+6o9rP1vd4lj6rzjveDa+7UJMlbw4vnlFRYM
- s6EqEobFMOVaLFtRwURDkzIv9cFxmZMODtn/VKwWpHNR+KO0/Oz8texh4MBtzftWD0c1F5kkKJOC0
- V3mVqfi9fUjDCEEocDUcrK0jhkjvc8EhfPWt/R4mRvsY+JVuUXaYHnPhFHhqio5pCZLj9GjfpSTlU
- yX3xzcgktJQ7xqsbR6x42JUG5R6finx4SNzN/7xclrugpi2+H+ahkiqo4WgOUwzVcAIzn8B3lvxOk
- Il2nQkXg==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net
- ([108.223.40.66]:53584 helo=localhost)
- by bh-25.webhostbox.net with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
- (Exim 4.87) (envelope-from <linux@roeck-us.net>)
- id 1d3Ocs-004H2c-ND; Wed, 26 Apr 2017 15:13:07 +0000
-Date: Wed, 26 Apr 2017 08:13:05 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Joel Stanley <joel@jms.id.au>
-Cc: Jean Delvare <jdelvare@suse.com>, linux-kernel@vger.kernel.org,
- linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org,
- openbmc@lists.ozlabs.org, Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [RFC PATCH] hwmon: Add driver for Infineon DPS310
-Message-ID: <20170426151305.GD6411@roeck-us.net>
-References: <20170426143321.32000-1-joel@jms.id.au>
+Received: by mail-wm0-x22c.google.com with SMTP id u65so57216142wmu.1
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 10:30:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=i0l2EJQuB0VrMxiEDi8eZE2XAALR4J8CHvTx4Dv/E8c=;
+ b=IGumWvTYtgy4RVemjGF/vFbYgVXUViISpUHMNNPX4eqq6IajcSpB06+VWg+FrFhjs4
+ Tjn1uopfB6lp0qVyfASUZfF4psAikSJWiJlM57xDhOYeiWRuFe1zsbdVSQs6sohIBYTz
+ oErxOx8iMgZPw1VfoE07poLK+m/DosdlHLYNfdI0KBeGnMef3AI0wCkFqWEibens/kvM
+ KHoBpj7HhPu0P9DXQedvdNV1AWi6QjTBYOsT3PmxZo5ModNSStnOrpO6HTKOpSBKZGtI
+ vcpvM7Zt2ypCrr93wvTVWbAMSJP1Bq98/p5tzoBOJ9JltS0zfW75g8VWwsNES5h4yvXn
+ uwpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=i0l2EJQuB0VrMxiEDi8eZE2XAALR4J8CHvTx4Dv/E8c=;
+ b=TrL86xm5OHT/b6GqNmHFOrmbHBUOgu+T0yZYZUmHpRDZnw2biNGBnvsomAJciI8w5V
+ kBH5OD0b9vFbUq1/QqPrTRCdZratYX/bK6gIunHlC2GE1/POBCA9hcTxfpfXbNqXUiLs
+ x4sP2RJ++cX5k2YC7nfsucvzpWZrD7Mk5ARBGg/dV9M5ZCwLMONqDJJ6Zt8EjV7C10sL
+ D7UANTHw4kzIpxAWUTqWEjMJ6z8bIgiJXSqtHUWowzVkPKmG+uRtnGrTwcexW1d81D+c
+ +9UG6soNflsqCcE91rZj/czp6367YzAjgQWFOWFU4zrZ4sKCRE7d96RM5hej03tsf/gM
+ xSKQ==
+X-Gm-Message-State: AN3rC/6vCdmczuPlTKlhoDAWfiEX2hVuqtGk66KDgE52IMpXeEVJCSLU
+ DB444TvQlpTJ62EX/c6Fi0wdjR8stbPx
+X-Received: by 10.28.87.70 with SMTP id l67mr6057038wmb.37.1493227809680; Wed,
+ 26 Apr 2017 10:30:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20170426143321.32000-1-joel@jms.id.au>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Authenticated_sender: guenter@roeck-us.net
-X-OutGoing-Spam-Status: No, score=-1.0
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - lists.ozlabs.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-Get-Message-Sender-Via: bh-25.webhostbox.net: authenticated_id:
- guenter@roeck-us.net
-X-Authenticated-Sender: bh-25.webhostbox.net: guenter@roeck-us.net
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Received: by 10.28.46.130 with HTTP; Wed, 26 Apr 2017 10:30:08 -0700 (PDT)
+In-Reply-To: <CAPH-5w4OS_oT5MMu2kEOUwtOza_LO94vwSH9dZHpVMa_4OA38Q@mail.gmail.com>
+References: <CACPK8XfFF7tNrLjroNA05-c3pMZWFbiKvHq+oFLjBDSkgqfjDw@mail.gmail.com>
+ <CAPH-5w6-2zVQn2iNVP28aOAS_r11rxGYCrioXCR-sX8Ln7_BZQ@mail.gmail.com>
+ <CAPH-5w4OS_oT5MMu2kEOUwtOza_LO94vwSH9dZHpVMa_4OA38Q@mail.gmail.com>
+From: Rick Altherr <raltherr@google.com>
+Date: Wed, 26 Apr 2017 10:30:08 -0700
+Message-ID: <CAPLgG=nuU5befF4AfheWAbnU7tYPCpZSnj+-Zk8MDkvaKek+uw@mail.gmail.com>
+Subject: Re: Switching to 4.10
+To: Xo Wang <xow@google.com>
+Cc: Joel Stanley <joel@jms.id.au>, Edward James <eajames@us.ibm.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Brendan Higgins <brendanhiggins@google.com>
+Content-Type: multipart/alternative; boundary=001a1144323e2a9dc9054e1531b9
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -64,427 +60,328 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Apr 2017 15:13:13 -0000
+X-List-Received-Date: Wed, 26 Apr 2017 17:30:15 -0000
 
-Hi Joel,
+--001a1144323e2a9dc9054e1531b9
+Content-Type: text/plain; charset=UTF-8
 
-On Thu, Apr 27, 2017 at 12:03:21AM +0930, Joel Stanley wrote:
-> Hi Guenter,
-> 
-> Below is a work in progress hwmon driver for the DPS310[1]. The device does
-> both pressure and temperature monitoring over either I2C or SPI. There's a
-> public datasheet available on Infineon's website.
-> 
-> I require a driver that reads the temperature data over I2C and exposes it to
-> userspace as a hwmon device. I wanted your opinion weather this should be an
-> IIO driver (and we could then use the IIO HWMON bridge in our application), or
-> if it should be a native HWMON driver?
-> 
+I saw Joel started https://gerrit.openbmc-project.xyz/#/c/2846/ which has a
+defconfig for ast2400.  If you have one for ast2500, please upload a new
+patch set to that change.
 
-IIO, I think. Pressure isn't really for hardware monitoring, and we would have
-a hard time supporting it. IIO already has the necessary infrastructure for it.
+On Tue, Apr 25, 2017 at 5:30 PM, Xo Wang <xow@google.com> wrote:
 
-Jonathan, any thoughts/comments ?
+> On Tue, Apr 25, 2017 at 4:57 PM, Xo Wang <xow@google.com> wrote:
+> > Hi Joel,
+> >
+> > On Thu, Apr 20, 2017 at 7:30 PM, Joel Stanley <joel@jms.id.au> wrote:
+> >> Hello team,
+> >>
+> >> I want to make the 4.10 change happen. We don't have the resource to
+> >> be maintaining two trees, and the 4.10 tree has a whole heap of
+> >> shinyness - faster network, faster flash access, improved I2C.
+> >>
+> >> To this end I will stop merging patches in to 4.7. Please target the
+> >> 4.10 tree from here on.
+> >>
+> >> Use this thread to discuss concerns and coordinate the work that needs
+> >> to be done. Bits that I'm aware of
+> >>
+> >>  - Eddie is updating userspace to the new FSI APIs
+> >>  - I need to merge the upstream FSI patchset
+> >>  - Brednan needs to post the lastest version of the i2c patchset which
+> >> I will merge
+> >>  - I need to merge benh's ftgmac100 improvements
+> >
+> > We'll need to update the defconfig in the build system. Currently if I
+> > compile the kernel and generate a new defconfig (make savedefconfig),
+> > I see the following changes in the 4.10 generated defconfig:
+> >
+> > @@ -73,7 +73,6 @@
+> >  CONFIG_MTD_BLOCK=y
+> >  CONFIG_MTD_PARTITIONED_MASTER=y
+> >  CONFIG_MTD_SPI_NOR=y
+> > -CONFIG_ASPEED_FLASH_SPI=y
+> >  CONFIG_MTD_UBI=y
+> >  CONFIG_MTD_UBI_FASTMAP=y
+> >  CONFIG_MTD_UBI_BLOCK=y
+> > @@ -116,7 +115,6 @@
+> >  # CONFIG_SERIO is not set
+> >  # CONFIG_VT is not set
+> >  CONFIG_LEGACY_PTY_COUNT=4
+> > -# CONFIG_DEVKMEM is not set
+> >  CONFIG_SERIAL_8250=y
+> >  # CONFIG_SERIAL_8250_DEPRECATED_OPTIONS is not set
+> >  CONFIG_SERIAL_8250_CONSOLE=y
+> > @@ -131,10 +129,8 @@
+> >  CONFIG_I2C=y
+> >  CONFIG_I2C_CHARDEV=y
+> >  CONFIG_I2C_ASPEED=y
+> > -CONFIG_SENSORS_MAX31785=y
+> >  CONFIG_SENSORS_LM75=y
+> >  CONFIG_SENSORS_NCT7904=y
+> > -CONFIG_SENSORS_POWER8_OCC_I2C=y
+> >  CONFIG_PMBUS=y
+> >  CONFIG_SENSORS_ADM1275=y
+> >  CONFIG_SENSORS_UCD9000=y
+> > @@ -143,21 +139,14 @@
+> >  # CONFIG_USB_SUPPORT is not set
+> >  CONFIG_NEW_LEDS=y
+> >  CONFIG_LEDS_CLASS=y
+> > -CONFIG_LEDS_GPIO=y
+> >  CONFIG_LEDS_TRIGGERS=y
+> >  CONFIG_LEDS_TRIGGER_TIMER=y
+> >  CONFIG_LEDS_TRIGGER_HEARTBEAT=y
+> > -CONFIG_LEDS_TRIGGER_GPIO=y
+> >  CONFIG_RTC_CLASS=y
+> >  CONFIG_RTC_DRV_DS1307=y
+> >  CONFIG_RTC_DRV_ASPEED=y
+> >  CONFIG_MAILBOX=y
+> > -CONFIG_ASPEED_MBOX=y
+> >  # CONFIG_IOMMU_SUPPORT is not set
+> > -CONFIG_FSI=y
+> > -CONFIG_FSI_MASTER_GPIO=y
+> > -CONFIG_FSI_SCOM=y
+> > -CONFIG_FSI_I2C=y
+> >  CONFIG_FIRMWARE_MEMMAP=y
+> >  CONFIG_FANOTIFY=y
+> >  CONFIG_AUTOFS4_FS=y
+> >
+> >>
+> >> Cheers,
+> >>
+> >> Joel
+> >
+> > I know that CONFIG_ASPEED_FLASH_SPI is now CONFIG_SPI_ASPEED_SMC, but
+> > I've yet to look at each of the other differences.
+> >
+> > cheers
+> > xo
+>
+> OK, I guess it's not that much work to look at those configs. This
+> seems to work up to the limit of the missing FSI drivers as previously
+> mentioned:
+>
+> --- a/meta-openbmc-bsp/meta-aspeed/meta-ast2500/recipes-
+> kernel/linux/linux-obmc/defconfig
+> +++ b/meta-openbmc-bsp/meta-aspeed/meta-ast2500/recipes-
+> kernel/linux/linux-obmc/defconfig
+> @@ -73,7 +73,7 @@ CONFIG_MTD_CMDLINE_PARTS=y
+>  CONFIG_MTD_BLOCK=y
+>  CONFIG_MTD_PARTITIONED_MASTER=y
+>  CONFIG_MTD_SPI_NOR=y
+> -CONFIG_ASPEED_FLASH_SPI=y
+> +CONFIG_SPI_ASPEED_SMC=y
+>  CONFIG_MTD_UBI=y
+>  CONFIG_MTD_UBI_FASTMAP=y
+>  CONFIG_MTD_UBI_BLOCK=y
+> @@ -116,7 +116,6 @@ CONFIG_INPUT_EVDEV=y
+>  # CONFIG_SERIO is not set
+>  # CONFIG_VT is not set
+>  CONFIG_LEGACY_PTY_COUNT=4
+> -# CONFIG_DEVKMEM is not set
+>  CONFIG_SERIAL_8250=y
+>  # CONFIG_SERIAL_8250_DEPRECATED_OPTIONS is not set
+>  CONFIG_SERIAL_8250_CONSOLE=y
+> @@ -131,10 +130,11 @@ CONFIG_ASPEED_BT_IPMI_BMC=y
+>  CONFIG_I2C=y
+>  CONFIG_I2C_CHARDEV=y
+>  CONFIG_I2C_ASPEED=y
+> -CONFIG_SENSORS_MAX31785=y
+> +CONFIG_GPIOLIB=y
+> +CONFIG_GPIO_SYSFS=y
+> +CONFIG_GPIO_ASPEED=y
+>  CONFIG_SENSORS_LM75=y
+>  CONFIG_SENSORS_NCT7904=y
+> -CONFIG_SENSORS_POWER8_OCC_I2C=y
+>  CONFIG_PMBUS=y
+>  CONFIG_SENSORS_ADM1275=y
+>  CONFIG_SENSORS_UCD9000=y
+> @@ -152,12 +152,8 @@ CONFIG_RTC_CLASS=y
+>  CONFIG_RTC_DRV_DS1307=y
+>  CONFIG_RTC_DRV_ASPEED=y
+>  CONFIG_MAILBOX=y
+> -CONFIG_ASPEED_MBOX=y
+> +CONFIG_ASPEED_LPC_MBOX=y
+>  # CONFIG_IOMMU_SUPPORT is not set
+> -CONFIG_FSI=y
+> -CONFIG_FSI_MASTER_GPIO=y
+> -CONFIG_FSI_SCOM=y
+> -CONFIG_FSI_I2C=y
+>  CONFIG_FIRMWARE_MEMMAP=y
+>  CONFIG_FANOTIFY=y
+>  CONFIG_AUTOFS4_FS=y
+>
+> cheers
+> xo
+>
 
-Thanks,
-Guenter
+--001a1144323e2a9dc9054e1531b9
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-> Once we've agreed on a subsystem I will clean the driver up and submit it
-> properly.
-> 
-> Cheers,
-> 
-> Joel
-> 
-> [1] https://www.infineon.com/cms/en/product/sensor/capacitive-pressure-sensor-for-consumer-applications/channel.html
-> 
-> ---
-> 
-> The DPS310 is a temperature and pressure sensor. It can be accessed over
-> i2c and SPI.
-> 
-> This driver supports continual measurement of temperature over i2c only.
-> 
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-> ---
->  drivers/hwmon/Kconfig  |  12 ++
->  drivers/hwmon/Makefile |   1 +
->  drivers/hwmon/dps310.c | 331 +++++++++++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 344 insertions(+)
->  create mode 100644 drivers/hwmon/dps310.c
-> 
-> diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-> index 190d270b20a2..8229b2f8c591 100644
-> --- a/drivers/hwmon/Kconfig
-> +++ b/drivers/hwmon/Kconfig
-> @@ -1349,6 +1349,18 @@ config SENSORS_DME1737
->  	  This driver can also be built as a module.  If so, the module
->  	  will be called dme1737.
->  
-> +config SENSORS_DPS310
-> +	tristate "Infineon DPS310"
-> +	depends on I2C
-> +	select HWMON_VID
-> +	select REGMAP_I2C
-> +	help
-> +	  If you say yes here you get support for the hardware monitoring
-> +	  features of the Infineon DPS310 digital barometric pressure sensor.
-> +
-> +	  This driver can also be built as a module.  If so, the module
-> +	  will be called dps310.
-> +
->  config SENSORS_EMC1403
->  	tristate "SMSC EMC1403/23 thermal sensor"
->  	depends on I2C
-> diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
-> index d2cb7e804a0f..3a5ad06d6d89 100644
-> --- a/drivers/hwmon/Makefile
-> +++ b/drivers/hwmon/Makefile
-> @@ -52,6 +52,7 @@ obj-$(CONFIG_SENSORS_DA9052_ADC)+= da9052-hwmon.o
->  obj-$(CONFIG_SENSORS_DA9055)+= da9055-hwmon.o
->  obj-$(CONFIG_SENSORS_DELL_SMM)	+= dell-smm-hwmon.o
->  obj-$(CONFIG_SENSORS_DME1737)	+= dme1737.o
-> +obj-$(CONFIG_SENSORS_DPS310)	+= dps310.o
->  obj-$(CONFIG_SENSORS_DS620)	+= ds620.o
->  obj-$(CONFIG_SENSORS_DS1621)	+= ds1621.o
->  obj-$(CONFIG_SENSORS_EMC1403)	+= emc1403.o
-> diff --git a/drivers/hwmon/dps310.c b/drivers/hwmon/dps310.c
-> new file mode 100644
-> index 000000000000..b014f01d0d3f
-> --- /dev/null
-> +++ b/drivers/hwmon/dps310.c
-> @@ -0,0 +1,331 @@
-> +/*
-> + * Copyright 2017 IBM Corporation
-> + *
-> + * Joel Stanley <joel@jms.id.au>
-> + *
-> + * The DPS310 is a barometric pressure and temperature sensor.
-> + *
-> + * This program is free software; you can redistribute it and/or
-> + * modify it under the terms of the GNU General Public License
-> + * as published by the Free Software Foundation; either version
-> + * 2 of the License, or (at your option) any later version.
-> + */
-> +
-> +#include <linux/i2c.h>
-> +#include <linux/regmap.h>
-> +#include <linux/hwmon.h>
-> +#include <linux/module.h>
-> +
-> +#define PRS_B2		0x00
-> +#define PRS_B1		0x01
-> +#define PRS_B0		0x02
-> +#define TMP_B2		0x03
-> +#define TMP_B1		0x04
-> +#define TMP_B0		0x05
-> +#define PRS_CFG		0x06
-> +#define TMP_CFG		0x07
-> +#define  TMP_RATE_BITS	GENMASK(6, 4)
-> +#define  TMP_EXT	BIT(7)
-> +#define MEAS_CFG	0x08
-> +#define  MEAS_CTRL_BITS	GENMASK(2, 0)
-> +#define   PRESSURE_EN	BIT(0)
-> +#define   TEMP_EN	BIT(1)
-> +#define   BACKGROUND	BIT(2)
-> +#define  PRS_RDY	BIT(4)
-> +#define  TMP_RDY	BIT(5)
-> +#define  SENSOR_RDY	BIT(6)
-> +#define  COEF_RDY	BIT(7)
-> +#define RESET		0x0c
-> +#define  RESET_MAGIC	(BIT(0) | BIT(3))
-> +#define COEF_BASE	0x10
-> +
-> +#define TMP_BASE	TMP_B2
-> +#define PRS_BASE	PRS_B2
-> +
-> +#define TMP_RATE(_n)	ilog2(_n)
-> +#define TMP_PRC(_n)	ilog2(_n)
-> +
-> +const int scale_factor[] = {
-> +	 524288,
-> +	1572864,
-> +	3670016,
-> +	7864320,
-> +	 253952,
-> +	 516096,
-> +	1040384,
-> +	2088960,
-> +};
-> +
-> +struct dps310_data {
-> +	struct regmap *regmap;
-> +	int interval;
-> +	s32 c0, c1;
-> +};
-> +
-> +static s32 dps310_twos_compliment(u32 raw, size_t num_bits)
-> +{
-> +	s32 out = raw;
-> +
-> +	if (raw & BIT(num_bits - 1))
-> +		out = raw - BIT(num_bits);
-> +
-> +	return out;
-> +}
-> +
-> +static int dps310_get_temp_coef(struct dps310_data *data)
-> +{
-> +	struct regmap *regmap = data->regmap;
-> +	uint8_t coef[3] = {0};
-> +	int ready, r;
-> +	u32 c0, c1;
-> +
-> +	r = regmap_read(regmap, MEAS_CFG, &ready);
-> +	if (r < 0)
-> +		return r;
-> +
-> +	if (!(ready & COEF_RDY))
-> +		return -EAGAIN;
-> +
-> +	/*
-> +	 * Read temperature calibration coefficients c0 and c1 from the
-> +	 * COEF register. The numbers are 12-bit 2's compliment numbers
-> +	 */
-> +	r = regmap_bulk_read(regmap, COEF_BASE, coef, 3);
-> +	if (r < 0)
-> +		return r;
-> +
-> +	c0 = (coef[0] << 4) | (coef[1] >> 4);
-> +	data->c0 = dps310_twos_compliment(c0, 12);
-> +
-> +	c1 = ((coef[1] & GENMASK(3, 0)) << 8) | coef[2];
-> +	data->c1 = dps310_twos_compliment(c1, 12);
-> +
-> +	return 0;
-> +}
-> +
-> +static int dps310_get_scale_factor(struct device *dev)
-> +{
-> +	struct dps310_data *data = dev_get_drvdata(dev);
-> +	int val, r;
-> +
-> +	r = regmap_read(data->regmap, TMP_CFG, &val);
-> +	if (r < 0)
-> +		return r;
-> +
-> +	/* Scale factor is bottom 4 bits of the register */
-> +	val = val & GENMASK(3, 0);
-> +	if (val < 0 || val > ARRAY_SIZE(scale_factor))
-> +		return -EINVAL;
-> +
-> +	return scale_factor[val];
-> +}
-> +
-> +static int dps310_read_temp(struct device *dev, u32 attr, int channel,
-> +			     long *temp)
-> +{
-> +	struct dps310_data *data = dev_get_drvdata(dev);
-> +	struct regmap *regmap = data->regmap;
-> +	uint8_t val[3] = {0};
-> +	int r, ready;
-> +	int kT, T_raw;
-> +
-> +	switch (attr) {
-> +	case hwmon_temp_input:
-> +		r = regmap_read(regmap, MEAS_CFG, &ready);
-> +		if (r < 0)
-> +			return r;
-> +		if (!(ready & TMP_RDY)) {
-> +			dev_err(dev, "tmp not ready\n");
-> +			return -EAGAIN;
-> +		}
-> +
-> +		/* Choose scaling factor kT based on chosen precision rate */
-> +		kT = dps310_get_scale_factor(dev);
-> +
-> +		r = regmap_bulk_read(regmap, TMP_BASE, val, 3);
-> +		if (r < 0)
-> +			return r;
-> +		T_raw = (val[0] << 16) | (val[1] << 8) | val[2];
-> +		T_raw = dps310_twos_compliment(T_raw, 24);
-> +
-> +		/* (c0 * 0.5 + c1 * T_raw / kT) * 1000 m°C */
-> +		*temp = ((data->c0 >> 1) + (data->c1 * T_raw) / kT) * 1000;
-> +
-> +		return 0;
-> +	default:
-> +		return -EOPNOTSUPP;
-> +	}
-> +}
-> +
-> +static int dps310_read(struct device *dev, enum hwmon_sensor_types type,
-> +			u32 attr, int channel, long *val)
-> +{
-> +	switch (type) {
-> +	case hwmon_temp:
-> +		return dps310_read_temp(dev, attr, channel, val);
-> +	default:
-> +		return -EOPNOTSUPP;
-> +	}
-> +}
-> +
-> +static int dps310_write(struct device *dev, enum hwmon_sensor_types type,
-> +			 u32 attr, int channel, long val)
-> +{
-> +	switch (type) {
-> +	case hwmon_temp:
-> +		/* Fall through */
-> +	default:
-> +		return -EOPNOTSUPP;
-> +	}
-> +}
-> +
-> +static umode_t dps310_is_visible(const void *data,
-> +				  enum hwmon_sensor_types type,
-> +				  u32 attr, int channel)
-> +{
-> +	switch (type) {
-> +	case hwmon_temp:
-> +		switch (attr) {
-> +		case hwmon_temp_input:
-> +			return 0444;
-> +		default:
-> +			return 0;
-> +		}
-> +	default:
-> +		return 0;
-> +	}
-> +}
-> +
-> +
-> +static const u32 dps310_temp_config[] = {
-> +	HWMON_T_INPUT,
-> +	0
-> +};
-> +
-> +static const struct hwmon_channel_info dps310_temp = {
-> +	.type = hwmon_temp,
-> +	.config = dps310_temp_config,
-> +};
-> +
-> +static const struct hwmon_channel_info *dps310_info[] = {
-> +	&dps310_temp,
-> +	NULL
-> +};
-> +
-> +static const struct hwmon_ops dps310_hwmon_ops = {
-> +	.is_visible = dps310_is_visible,
-> +	.read = dps310_read,
-> +	.write = dps310_write,
-> +};
-> +
-> +static const struct hwmon_chip_info dps310_chip_info = {
-> +	.ops = &dps310_hwmon_ops,
-> +	.info = dps310_info,
-> +};
-> +
-> +static bool dps310_is_writeable_reg(struct device *dev, unsigned int reg)
-> +{
-> +	switch (reg) {
-> +	case PRS_CFG:
-> +	case TMP_CFG:
-> +	case MEAS_CFG:
-> +	case RESET:
-> +		return true;
-> +	default:
-> +		return false;
-> +	}
-> +}
-> +
-> +static bool dps310_is_volatile_reg(struct device *dev, unsigned int reg)
-> +{
-> +	switch (reg) {
-> +	case PRS_B2:
-> +	case PRS_B1:
-> +	case PRS_B0:
-> +	case TMP_B2:
-> +	case TMP_B1:
-> +	case TMP_B0:
-> +	case MEAS_CFG:
-> +		return true;
-> +	default:
-> +		return false;
-> +	}
-> +}
-> +
-> +static const struct regmap_config dps310_regmap_config = {
-> +	.reg_bits = 8,
-> +	.val_bits = 8,
-> +	.writeable_reg = dps310_is_writeable_reg,
-> +	.volatile_reg = dps310_is_volatile_reg,
-> +	.cache_type = REGCACHE_RBTREE,
-> +	.use_single_rw = true,
-> +};
-> +
-> +static int dps310_probe(struct i2c_client *client,
-> +			const struct i2c_device_id *id)
-> +{
-> +	struct dps310_data *data;
-> +	struct device *hwmon_dev;
-> +	int r;
-> +
-> +	data = devm_kzalloc(&client->dev,  sizeof(*data), GFP_KERNEL);
-> +	if (!data)
-> +		return -ENOMEM;
-> +
-> +	data->regmap = devm_regmap_init_i2c(client, &dps310_regmap_config);
-> +	if (IS_ERR(data->regmap))
-> +		return PTR_ERR(data->regmap);
-> +
-> +	r = regmap_write(data->regmap, TMP_CFG, TMP_EXT | TMP_PRC(128));
-> +	if (r < 0)
-> +		return r;
-> +
-> +	/* Turn on background temperature measurement */
-> +	r = regmap_update_bits(data->regmap, MEAS_CFG, MEAS_CTRL_BITS,
-> +			TEMP_EN);
-> +	if (r < 0)
-> +		return r;
-> +
-> +	/* Get calibration coefficients required for reporting temperature */
-> +	r = dps310_get_temp_coef(data);
-> +	if (r == -EAGAIN)
-> +		return -EPROBE_DEFER;
-> +	if (r < 0)
-> +		return r;
-> +
-> +	hwmon_dev = devm_hwmon_device_register_with_info(&client->dev,
-> +			client->name, data, &dps310_chip_info, NULL);
-> +
-> +	if (IS_ERR(hwmon_dev))
-> +		return PTR_ERR(hwmon_dev);
-> +
-> +	dev_info(&client->dev, "%s: sensor '%s'\n", dev_name(hwmon_dev),
-> +			client->name);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct i2c_device_id dps310_id[] = {
-> +	{ "dps310", 0 },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(i2c, dps310_id);
-> +
-> +static const unsigned short normal_i2c[] = {
-> +	0x77, 0x76, I2C_CLIENT_END
-> +};
-> +
-> +static struct i2c_driver dps310_driver = {
-> +	.class = I2C_CLASS_HWMON,
-> +	.driver = {
-> +		.name = "dps310",
-> +	},
-> +	.probe = dps310_probe,
-> +	.address_list = normal_i2c,
-> +	.id_table = dps310_id,
-> +};
-> +module_i2c_driver(dps310_driver);
-> +
-> +MODULE_AUTHOR("Joel Stanley <joel@jms.id.au>");
-> +MODULE_DESCRIPTION("Infineon DPS310 driver");
-> +MODULE_LICENSE("GPL");
-> -- 
-> 2.11.0
-> 
+<div dir=3D"ltr">I saw Joel started=C2=A0<a href=3D"https://gerrit.openbmc-=
+project.xyz/#/c/2846/">https://gerrit.openbmc-project.xyz/#/c/2846/</a> whi=
+ch has a defconfig for ast2400.=C2=A0 If you have one for ast2500, please u=
+pload a new patch set to that change.</div><div class=3D"gmail_extra"><br><=
+div class=3D"gmail_quote">On Tue, Apr 25, 2017 at 5:30 PM, Xo Wang <span di=
+r=3D"ltr">&lt;<a href=3D"mailto:xow@google.com" target=3D"_blank">xow@googl=
+e.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"m=
+argin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div class=3D=
+"HOEnZb"><div class=3D"h5">On Tue, Apr 25, 2017 at 4:57 PM, Xo Wang &lt;<a =
+href=3D"mailto:xow@google.com">xow@google.com</a>&gt; wrote:<br>
+&gt; Hi Joel,<br>
+&gt;<br>
+&gt; On Thu, Apr 20, 2017 at 7:30 PM, Joel Stanley &lt;<a href=3D"mailto:jo=
+el@jms.id.au">joel@jms.id.au</a>&gt; wrote:<br>
+&gt;&gt; Hello team,<br>
+&gt;&gt;<br>
+&gt;&gt; I want to make the 4.10 change happen. We don&#39;t have the resou=
+rce to<br>
+&gt;&gt; be maintaining two trees, and the 4.10 tree has a whole heap of<br=
+>
+&gt;&gt; shinyness - faster network, faster flash access, improved I2C.<br>
+&gt;&gt;<br>
+&gt;&gt; To this end I will stop merging patches in to 4.7. Please target t=
+he<br>
+&gt;&gt; 4.10 tree from here on.<br>
+&gt;&gt;<br>
+&gt;&gt; Use this thread to discuss concerns and coordinate the work that n=
+eeds<br>
+&gt;&gt; to be done. Bits that I&#39;m aware of<br>
+&gt;&gt;<br>
+&gt;&gt;=C2=A0 - Eddie is updating userspace to the new FSI APIs<br>
+&gt;&gt;=C2=A0 - I need to merge the upstream FSI patchset<br>
+&gt;&gt;=C2=A0 - Brednan needs to post the lastest version of the i2c patch=
+set which<br>
+&gt;&gt; I will merge<br>
+&gt;&gt;=C2=A0 - I need to merge benh&#39;s ftgmac100 improvements<br>
+&gt;<br>
+&gt; We&#39;ll need to update the defconfig in the build system. Currently =
+if I<br>
+&gt; compile the kernel and generate a new defconfig (make savedefconfig),<=
+br>
+&gt; I see the following changes in the 4.10 generated defconfig:<br>
+&gt;<br>
+&gt; @@ -73,7 +73,6 @@<br>
+&gt;=C2=A0 CONFIG_MTD_BLOCK=3Dy<br>
+&gt;=C2=A0 CONFIG_MTD_PARTITIONED_MASTER=3D<wbr>y<br>
+&gt;=C2=A0 CONFIG_MTD_SPI_NOR=3Dy<br>
+&gt; -CONFIG_ASPEED_FLASH_SPI=3Dy<br>
+&gt;=C2=A0 CONFIG_MTD_UBI=3Dy<br>
+&gt;=C2=A0 CONFIG_MTD_UBI_FASTMAP=3Dy<br>
+&gt;=C2=A0 CONFIG_MTD_UBI_BLOCK=3Dy<br>
+&gt; @@ -116,7 +115,6 @@<br>
+&gt;=C2=A0 # CONFIG_SERIO is not set<br>
+&gt;=C2=A0 # CONFIG_VT is not set<br>
+&gt;=C2=A0 CONFIG_LEGACY_PTY_COUNT=3D4<br>
+&gt; -# CONFIG_DEVKMEM is not set<br>
+&gt;=C2=A0 CONFIG_SERIAL_8250=3Dy<br>
+&gt;=C2=A0 # CONFIG_SERIAL_8250_DEPRECATED_<wbr>OPTIONS is not set<br>
+&gt;=C2=A0 CONFIG_SERIAL_8250_CONSOLE=3Dy<br>
+&gt; @@ -131,10 +129,8 @@<br>
+&gt;=C2=A0 CONFIG_I2C=3Dy<br>
+&gt;=C2=A0 CONFIG_I2C_CHARDEV=3Dy<br>
+&gt;=C2=A0 CONFIG_I2C_ASPEED=3Dy<br>
+&gt; -CONFIG_SENSORS_MAX31785=3Dy<br>
+&gt;=C2=A0 CONFIG_SENSORS_LM75=3Dy<br>
+&gt;=C2=A0 CONFIG_SENSORS_NCT7904=3Dy<br>
+&gt; -CONFIG_SENSORS_POWER8_OCC_<wbr>I2C=3Dy<br>
+&gt;=C2=A0 CONFIG_PMBUS=3Dy<br>
+&gt;=C2=A0 CONFIG_SENSORS_ADM1275=3Dy<br>
+&gt;=C2=A0 CONFIG_SENSORS_UCD9000=3Dy<br>
+&gt; @@ -143,21 +139,14 @@<br>
+&gt;=C2=A0 # CONFIG_USB_SUPPORT is not set<br>
+&gt;=C2=A0 CONFIG_NEW_LEDS=3Dy<br>
+&gt;=C2=A0 CONFIG_LEDS_CLASS=3Dy<br>
+&gt; -CONFIG_LEDS_GPIO=3Dy<br>
+&gt;=C2=A0 CONFIG_LEDS_TRIGGERS=3Dy<br>
+&gt;=C2=A0 CONFIG_LEDS_TRIGGER_TIMER=3Dy<br>
+&gt;=C2=A0 CONFIG_LEDS_TRIGGER_HEARTBEAT=3D<wbr>y<br>
+&gt; -CONFIG_LEDS_TRIGGER_GPIO=3Dy<br>
+&gt;=C2=A0 CONFIG_RTC_CLASS=3Dy<br>
+&gt;=C2=A0 CONFIG_RTC_DRV_DS1307=3Dy<br>
+&gt;=C2=A0 CONFIG_RTC_DRV_ASPEED=3Dy<br>
+&gt;=C2=A0 CONFIG_MAILBOX=3Dy<br>
+&gt; -CONFIG_ASPEED_MBOX=3Dy<br>
+&gt;=C2=A0 # CONFIG_IOMMU_SUPPORT is not set<br>
+&gt; -CONFIG_FSI=3Dy<br>
+&gt; -CONFIG_FSI_MASTER_GPIO=3Dy<br>
+&gt; -CONFIG_FSI_SCOM=3Dy<br>
+&gt; -CONFIG_FSI_I2C=3Dy<br>
+&gt;=C2=A0 CONFIG_FIRMWARE_MEMMAP=3Dy<br>
+&gt;=C2=A0 CONFIG_FANOTIFY=3Dy<br>
+&gt;=C2=A0 CONFIG_AUTOFS4_FS=3Dy<br>
+&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; Cheers,<br>
+&gt;&gt;<br>
+&gt;&gt; Joel<br>
+&gt;<br>
+&gt; I know that CONFIG_ASPEED_FLASH_SPI is now CONFIG_SPI_ASPEED_SMC, but<=
+br>
+&gt; I&#39;ve yet to look at each of the other differences.<br>
+&gt;<br>
+&gt; cheers<br>
+&gt; xo<br>
+<br>
+</div></div>OK, I guess it&#39;s not that much work to look at those config=
+s. This<br>
+seems to work up to the limit of the missing FSI drivers as previously<br>
+mentioned:<br>
+<br>
+--- a/meta-openbmc-bsp/meta-<wbr>aspeed/meta-ast2500/recipes-<wbr>kernel/li=
+nux/linux-obmc/<wbr>defconfig<br>
++++ b/meta-openbmc-bsp/meta-<wbr>aspeed/meta-ast2500/recipes-<wbr>kernel/li=
+nux/linux-obmc/<wbr>defconfig<br>
+@@ -73,7 +73,7 @@ CONFIG_MTD_CMDLINE_PARTS=3Dy<br>
+=C2=A0CONFIG_MTD_BLOCK=3Dy<br>
+=C2=A0CONFIG_MTD_PARTITIONED_MASTER=3D<wbr>y<br>
+=C2=A0CONFIG_MTD_SPI_NOR=3Dy<br>
+-CONFIG_ASPEED_FLASH_SPI=3Dy<br>
++CONFIG_SPI_ASPEED_SMC=3Dy<br>
+=C2=A0CONFIG_MTD_UBI=3Dy<br>
+=C2=A0CONFIG_MTD_UBI_FASTMAP=3Dy<br>
+=C2=A0CONFIG_MTD_UBI_BLOCK=3Dy<br>
+@@ -116,7 +116,6 @@ CONFIG_INPUT_EVDEV=3Dy<br>
+<span class=3D"">=C2=A0# CONFIG_SERIO is not set<br>
+=C2=A0# CONFIG_VT is not set<br>
+=C2=A0CONFIG_LEGACY_PTY_COUNT=3D4<br>
+-# CONFIG_DEVKMEM is not set<br>
+=C2=A0CONFIG_SERIAL_8250=3Dy<br>
+=C2=A0# CONFIG_SERIAL_8250_DEPRECATED_<wbr>OPTIONS is not set<br>
+=C2=A0CONFIG_SERIAL_8250_CONSOLE=3Dy<br>
+</span>@@ -131,10 +130,11 @@ CONFIG_ASPEED_BT_IPMI_BMC=3Dy<br>
+=C2=A0CONFIG_I2C=3Dy<br>
+=C2=A0CONFIG_I2C_CHARDEV=3Dy<br>
+=C2=A0CONFIG_I2C_ASPEED=3Dy<br>
+-CONFIG_SENSORS_MAX31785=3Dy<br>
++CONFIG_GPIOLIB=3Dy<br>
++CONFIG_GPIO_SYSFS=3Dy<br>
++CONFIG_GPIO_ASPEED=3Dy<br>
+<span class=3D"">=C2=A0CONFIG_SENSORS_LM75=3Dy<br>
+=C2=A0CONFIG_SENSORS_NCT7904=3Dy<br>
+-CONFIG_SENSORS_POWER8_OCC_<wbr>I2C=3Dy<br>
+=C2=A0CONFIG_PMBUS=3Dy<br>
+=C2=A0CONFIG_SENSORS_ADM1275=3Dy<br>
+=C2=A0CONFIG_SENSORS_UCD9000=3Dy<br>
+</span>@@ -152,12 +152,8 @@ CONFIG_RTC_CLASS=3Dy<br>
+=C2=A0CONFIG_RTC_DRV_DS1307=3Dy<br>
+=C2=A0CONFIG_RTC_DRV_ASPEED=3Dy<br>
+=C2=A0CONFIG_MAILBOX=3Dy<br>
+-CONFIG_ASPEED_MBOX=3Dy<br>
++CONFIG_ASPEED_LPC_MBOX=3Dy<br>
+<span class=3D"">=C2=A0# CONFIG_IOMMU_SUPPORT is not set<br>
+-CONFIG_FSI=3Dy<br>
+-CONFIG_FSI_MASTER_GPIO=3Dy<br>
+-CONFIG_FSI_SCOM=3Dy<br>
+-CONFIG_FSI_I2C=3Dy<br>
+=C2=A0CONFIG_FIRMWARE_MEMMAP=3Dy<br>
+=C2=A0CONFIG_FANOTIFY=3Dy<br>
+=C2=A0CONFIG_AUTOFS4_FS=3Dy<br>
+<br>
+</span>cheers<br>
+<span class=3D"HOEnZb"><font color=3D"#888888">xo<br>
+</font></span></blockquote></div><br></div>
+
+--001a1144323e2a9dc9054e1531b9--
