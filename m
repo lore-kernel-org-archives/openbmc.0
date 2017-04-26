@@ -1,55 +1,57 @@
 Return-Path: <Chen.KenYY@inventec.com>
-Received: from mail.inventec.com (hub02.inventec.com [218.32.67.167])
+X-Greylist: delayed 324 seconds by postgrey-1.36 at bilbo;
+ Wed, 26 Apr 2017 15:19:48 AEST
+Received: from mail.inventec.com (hub01.inventec.com [61.220.76.161])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wCSkN0WSzzDqG3
- for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 15:07:23 +1000 (AEST)
-Received: from IEC1-MSE-FE1.inventec.com (10.1.254.203) by
- IEC1-EX2010-04.iec.inventec (10.1.254.157) with Microsoft SMTP Server id
- 14.3.266.1; Wed, 26 Apr 2017 13:07:18 +0800
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wCT0h6QltzDqBQ
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 15:19:47 +1000 (AEST)
+Received: from IEC1-MSE-FE2.inventec.com (10.1.254.204) by
+ IEC1-EX2010-03.iec.inventec (10.1.254.155) with Microsoft SMTP Server id
+ 14.3.174.1; Wed, 26 Apr 2017 13:14:13 +0800
 Received: from IEC1-SPAM-1.inventec.com (smg.inventec.com [10.1.254.201])	by
- IEC1-MSE-FE1.inventec.com with ESMTP id v3Q57Dmc012077	for
- <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 13:07:13 +0800 (GMT-8)
+ IEC1-MSE-FE2.inventec.com with ESMTP id v3Q5E4u9080921	for
+ <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 13:14:04 +0800 (GMT-8)
  (envelope-from chen.kenyy@inventec.com)
 Received: from mail-pf0-f197.google.com (mail-pf0-f197.google.com
- [209.85.192.197])	by IEC1-SPAM-1.inventec.com with ESMTP id v3Q57WXx026378
+ [209.85.192.197])	by IEC1-SPAM-1.inventec.com with ESMTP id v3Q5EKni029985
  (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL)	for
- <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 13:07:33 +0800 (GMT-8)
+ <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 13:14:21 +0800 (GMT-8)
  (envelope-from chen.kenyy@inventec.com)
-Received: by mail-pf0-f197.google.com with SMTP id t23so38195198pfe.17
- for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 22:07:11 -0700 (PDT)
+Received: by mail-pf0-f197.google.com with SMTP id h87so38533359pfh.2
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 22:13:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id;
  bh=Fd4Yv0oirOLFo3J9szY6rPY9e4ypXQjs2okAx9X3Ks8=;
- b=Gz8szx4MgqZkmDlukaTLT+ywM0qn6FV0GhvOF/JSoV1mhOYhVpCDB0yzk168lfW5L7
- ewaR/MSi/ycRY0MKQ3B2P6C2uNa2PP+NVErCULCh1w5ZM6+tGONSL4TTvVnQtX5PLjXx
- iD9HFsiN69c5gez6Raq10zROkMtGgaN43TczUwrXlZBxts332Ni0W82LvRY1Ts4FF4GZ
- JwNVr34Js4wrMq4VYYcer7xQD88EQ1J4WXRUbaCx0jSCU2e9x+2VkMCsyxesKJecoPKp
- xj36aGqtZ6ENEn+S8bcHqiE8Sq/7zvUg7Aqv/WoQFJy4SJMIeaVT62MniETIeL3ObcGY
- za/Q==
-X-Gm-Message-State: AN3rC/4PzcxWjtZNuhQl+N31r3vfuo7SxGKTMGCmS/9ixLRJCKhDvDDj
- 7ejuFXpWrrGP6/4ktDJwat8carjkvq64Rw7ehX+/sxWVUDaFsoA8X5G7wNTJGs//IcGtHFJjBz8
- xKKzrmwOb/Qc0
-X-Received: by 10.98.197.194 with SMTP id j185mr30596524pfg.239.1493183229632; 
- Tue, 25 Apr 2017 22:07:09 -0700 (PDT)
-X-Received: by 10.98.197.194 with SMTP id j185mr30596510pfg.239.1493183229401; 
- Tue, 25 Apr 2017 22:07:09 -0700 (PDT)
+ b=OPF+bEBIXk7IVIVNF8Jc2w6uy6Nr72a+rFfBZdToyVXtNENOW0wpc10JQIIhHy9tbA
+ MQ4uf9Lj0RPSwFYNI5T5Iep6XQj1UuXkedc2JHU+D80loHr5O6WJ8M/Wh5x5F6POhJdo
+ KtugVbO7csGmqlzBeIM86EZhDX8VVXhzXrQ/0/pjHbXDi6i4hOvHOlxLMZgn3Upqk58a
+ pzu01eOVt6URPlxJZo2mJbrIbUINRwtsI+Cn4p9nilzbicvQ+W98CqChr+LRiREqfirB
+ WnPyhOlqjulh+TgeLTRA6M+eZaB1CwccTyw7OPqqI0pt4f5gH66RiOFzwSDUBAA2+W/O
+ LaMQ==
+X-Gm-Message-State: AN3rC/66Bt40JB6+Y1qiIkjKTwTNceV3a00Z8ctEEb6WyPQ0BpjabtsF
+ 18qyIl0/zI4NkPWalHA0+aCGrFR/JKsQV8yo20Yqt0NYU592yKVG3aWFdjatLwKPDRNo27ymeCM
+ WJjfREtVDDky4
+X-Received: by 10.99.171.65 with SMTP id k1mr26284835pgp.233.1493183637811;
+ Tue, 25 Apr 2017 22:13:57 -0700 (PDT)
+X-Received: by 10.99.171.65 with SMTP id k1mr26284827pgp.233.1493183637576;
+ Tue, 25 Apr 2017 22:13:57 -0700 (PDT)
 Received: from localhost (59-120-179-172.HINET-IP.hinet.net. [59.120.179.172])
  by smtp.gmail.com with ESMTPSA id
- e13sm39306646pfb.30.2017.04.25.22.07.08        (version=TLS1_2
+ t187sm39156118pfb.116.2017.04.25.22.13.56        (version=TLS1_2
  cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);        Tue, 25 Apr 2017
- 22:07:08 -0700 (PDT)
+ 22:13:56 -0700 (PDT)
 From: Ken Chen <chen.kenyy@inventec.com>
 To: <openbmc@lists.ozlabs.org>
 CC: Ken Chen <chen.kenyy@inventec.com>, <joel@jms.id.au>
-Subject: [PATCH linux dev-4.7] ARM: dts: aspeed: Modify Laanyang BMC device
+Subject: [PATCH linux dev-4.7 v2] ARM: dts: aspeed: Modify Laanyang BMC device
  tree
-Date: Wed, 26 Apr 2017 13:07:09 +0800
-Message-ID: <20170426050709.26186-1-chen.kenyy@inventec.com>
+Date: Wed, 26 Apr 2017 13:13:58 +0800
+Message-ID: <20170426051358.1909-1-chen.kenyy@inventec.com>
 X-Mailer: git-send-email 2.9.3
 X-DNSRBL: 
-X-MAIL: IEC1-MSE-FE1.inventec.com v3Q57Dmc012077
+X-MAIL: IEC1-MSE-FE2.inventec.com v3Q5E4u9080921
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Mailman-Approved-At: Wed, 26 Apr 2017 16:42:32 +1000
@@ -64,7 +66,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Apr 2017 05:07:24 -0000
+X-List-Received-Date: Wed, 26 Apr 2017 05:19:50 -0000
 
 Modify Lanyang dts and add lanyang initial in aspeed.c
 
