@@ -1,54 +1,62 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x242.google.com (mail-yw0-x242.google.com
- [IPv6:2607:f8b0:4002:c05::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wCXwD11rxzDqBN
- for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 18:16:12 +1000 (AEST)
+Return-Path: <andrew@aj.id.au>
+X-Greylist: delayed 419 seconds by postgrey-1.36 at bilbo;
+ Wed, 26 Apr 2017 21:31:04 AEST
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="cM9B4LJN"; 
- dkim-atps=neutral
-Received: by mail-yw0-x242.google.com with SMTP id 203so18537693ywe.0
- for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 01:16:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=AbLFY7awKaVofcIFHarWO35iydL+DHd6NLbKA6ALc/w=;
- b=cM9B4LJN+BHWmKi5kCHc3rwwGLe3AUi6gqUVxqsHjcJ58waR1yINjGbFu1lLMfIzE+
- rpMwcH+p/o/DtHw131GbgYKPlvZ2xmg7UAR3+yaMcPmdYWy05zQYj6hI0x9C6/O78cgF
- fJUqE2Z6/GDaE6UJ2BOHghrZxC/Dt+NkU6VIjy7Qsw2rTEmGhIbvGiTGw40gXI5CApv0
- Txt74EHqqDBpUTzFJALqg2HS7MUP0ZigXNK13cV5BGPdopEFclvtDVlmhQly7GSfr1TX
- PKPgjEz+M92ZkVTL6ctY4f2DqTBQO/uXobL5p+G2z1+a5AJTDA44fLwXtpCPsfGFu/oV
- Katg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=AbLFY7awKaVofcIFHarWO35iydL+DHd6NLbKA6ALc/w=;
- b=MMmvOZlIKnZHf3a1oF2IgsSiCiti93PZiA09hirlofxceK76NfFRZBcxvNkb+yCo4H
- LX2AUJYAcOvZ9wVJo26oZM1mJMK1YrDJ4ClYRvigrBpeHAN2wCVN49ImPQMFJZbL3UXQ
- Ywz5ZPk1FO1ZgP6uEvw3Y2yDyNly5h9z+XuEaL+h97ODN9qorFsmq1ZcQFKS6H2aFeA1
- MKSspANfnzIx46ewktnEKRepDds5VRTCb+jCykT5BqbH6kf+hSMv5rQhEnldIr+yFoNm
- ZY+uJQKMa/P193bv67HUfqDTMQItFcx6I3aEJytHh5GJB4ZbHAhUFvkn+sKe9gTzXIkX
- Hz3A==
-X-Gm-Message-State: AN3rC/7iDHbbe6QI2WRWI1ed2kKbE6fy1gnJtZTn7ZJLw/qUcBnouvWI
- WPRy6GsMXGfFV9xVFAVjl+7wJAltMA==
-X-Received: by 10.129.169.8 with SMTP id g8mr14206919ywh.56.1493194568864;
- Wed, 26 Apr 2017 01:16:08 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.171.70 with HTTP; Wed, 26 Apr 2017 01:15:48 -0700 (PDT)
-In-Reply-To: <20170426051358.1909-1-chen.kenyy@inventec.com>
-References: <20170426051358.1909-1-chen.kenyy@inventec.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 26 Apr 2017 17:45:48 +0930
-X-Google-Sender-Auth: YlSJOLwgfkMKN5nFN3mGVU4WZKQ
-Message-ID: <CACPK8Xe19-dDyn3GO5RE46=XSdAU=UC=egySFs37d1pBtExW5w@mail.gmail.com>
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="c6kxbLp2"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="gXUpfmQ0"; dkim-atps=neutral
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wCdF43F9nzDq9m
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 21:31:04 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 026EC21C96;
+ Wed, 26 Apr 2017 07:24:03 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Wed, 26 Apr 2017 07:24:03 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=F0VEP9jTBtHOI+nqvl9GAEoCIEzh5dy1i7pMuPZfg
+ t0=; b=c6kxbLp2pvtj/CmQc11FyaRwZXAEjBrPrCB3Mo+D8YiAj1EsaUFSWWVdd
+ dnwXTAtpKIuoluqw6OWIajM1lSvG764weprjz3I1oumdWyUuVRYmvvt2VnOD4v8d
+ /97T/4iQY0NGbW7Z9lWzxFfCmlq0/hL7mvplLFdzKRXGQjnSEZx2MjGGc84jGoeB
+ F5xPzC2GmO3et/2duNJKkFpfdYjxkSUlWokY4Rb7ZslxBkfI5IRdDLjKs6npJxaC
+ dUGh2Ji1Ccd3TFDlajrtyL0AnoA2KltqeTu/QBWTEV2HmsYnLlam1kv+1ThZgKNT
+ kvKAqvvyjH4qtXHysjWGuq/T3d46g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=F0VEP9jTBtHOI+nqvl
+ 9GAEoCIEzh5dy1i7pMuPZfgt0=; b=gXUpfmQ0f2vxL/v9X5M++32D7c/T5709+T
+ NAxY1a8PX+gFzAQWUVXRDsCMYZKffCRO7MFyfLmCkO1EtHC16narVynfJ3B+qfWb
+ H6tm1yW7uXnq+C6Zh729Vx5wL4tkuYFiVv9zF4L90bFXF10OHIsivsqyKQdO3tIE
+ PALyQnbKUrGRWdh4LNJEyTErgc+YG6Hao+ilaSv0TmozhqQgpZFIWjyKDnn1ZppA
+ b3ewE7XYQ9BT+jDcmm4RlaTmmtrzVVVdGeFQWhvg7BreoNioKSS6Yg0jsqV05TxH
+ w+nEiuEnev9IdmnCZqcsSNcfhzxzzWSFqP6yR6C4KJsDT9OjyuBw==
+X-ME-Sender: <xms:UoMAWcgmwSBKoW5nDyZVVpU6LGFHAxrR2UU8RF4RYkBjAFsOScwYpw>
+X-Sasl-enc: c8y7g6fD9ZJKYqeXnyRuMkMtTuIkUswZZzr7uFn15nZh 1493205842
+Received: from [172.16.172.59] (ppp203-122-213-247.static.internode.on.net
+ [203.122.213.247])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 36D137E0A4;
+ Wed, 26 Apr 2017 07:24:00 -0400 (EDT)
+Message-ID: <1493205831.4433.1.camel@aj.id.au>
 Subject: Re: [PATCH linux dev-4.7 v2] ARM: dts: aspeed: Modify Laanyang BMC
  device tree
-To: Ken Chen <chen.kenyy@inventec.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Lei YU <mine260309@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Joel Stanley <joel@jms.id.au>, Ken Chen <chen.kenyy@inventec.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Wed, 26 Apr 2017 20:53:51 +0930
+In-Reply-To: <CACPK8Xe19-dDyn3GO5RE46=XSdAU=UC=egySFs37d1pBtExW5w@mail.gmail.com>
+References: <20170426051358.1909-1-chen.kenyy@inventec.com>
+ <CACPK8Xe19-dDyn3GO5RE46=XSdAU=UC=egySFs37d1pBtExW5w@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-qbzrxsisJeOr52X9/Lq9"
+X-Mailer: Evolution 3.22.6-0ubuntu0.1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,152 +68,63 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Apr 2017 08:16:13 -0000
+X-List-Received-Date: Wed, 26 Apr 2017 11:31:06 -0000
 
-Hi Ken,
 
-Thank you for your patch. I have some questions below.
+--=-qbzrxsisJeOr52X9/Lq9
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
-On Wed, Apr 26, 2017 at 2:43 PM, Ken Chen <chen.kenyy@inventec.com> wrote:
-> Modify Lanyang dts and add lanyang initial in aspeed.c
->
-> Signed-off-by: Ken Chen <chen.kenyy@inventec.com>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts | 13 +++---
->  arch/arm/mach-aspeed/aspeed.c                | 65 ++++++++++++++++++++++++++++
->  2 files changed, 71 insertions(+), 7 deletions(-)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
-> index 176e4b4..6456458 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
-> @@ -1,4 +1,4 @@
-> -/dts-v1/;
-> +/dts-v3/;
->
->  #include "aspeed-g5.dtsi"
->  #include <dt-bindings/gpio/aspeed-gpio.h>
-> @@ -302,18 +302,17 @@
->  };
->
->  &gpio {
-> -       line_apss_reset {
-> -               gpio-hog;
-> -               gpios = <ASPEED_GPIO(E, 4) GPIO_ACTIVE_HIGH>;
-> -               output-high;
-> -               line-name = "BMC_APSS_RESET_N";
-> -       };
-> +
->  };
->
->  &vuart {
->         status = "okay";
->  };
->
-> +&gfx {
-> +        status = "okay";
-> +};
-> +
->  &pinctrl {
->         aspeed,external-nodes = <&gfx &lhc>;
->  };
-> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
-> index a7b03a0..b1073e5 100644
-> --- a/arch/arm/mach-aspeed/aspeed.c
-> +++ b/arch/arm/mach-aspeed/aspeed.c
-> @@ -238,6 +238,69 @@ static void __init do_romulus_setup(void)
->      writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC | 0x98));
->  }
->
-> +static void __init do_lanyang_setup(void)
-> +{
-> +        unsigned long reg;
-> +        unsigned long board_rev;
-> +        /* D3 in GPIOA/B/C/D direction and data registers */
-> +        unsigned long phy_reset_mask = BIT(27);
-> +
-> +        do_common_setup();
-> +
-> +        /* Read BOARD_REV[4:0] fuses from GPIOM[7:3] */
-> +        reg = readl(AST_IO(AST_BASE_GPIO | 0x78));
-> +        board_rev = (reg >> 3) & 0x1F;
+T24gV2VkLCAyMDE3LTA0LTI2IGF0IDE3OjQ1ICswOTMwLCBKb2VsIFN0YW5sZXkgd3JvdGU6Cj4g
+SGkgS2VuLAo+IAo+IFRoYW5rIHlvdSBmb3IgeW91ciBwYXRjaC4gSSBoYXZlIHNvbWUgcXVlc3Rp
+b25zIGJlbG93Lgo+IAo+ID4gT24gV2VkLCBBcHIgMjYsIDIwMTcgYXQgMjo0MyBQTSwgS2VuIENo
+ZW4gPGNoZW4ua2VueXlAaW52ZW50ZWMuY29tPiB3cm90ZToKPiA+IAo+ID4gK8KgwqDCoMKgwqDC
+oMKgwqAvKiBTZXR1cCBQTk9SIGFkZHJlc3MgbWFwcGluZyBmb3IgNjRNIGZsYXNoCj4gPiArwqDC
+oMKgwqDCoMKgwqDCoMKgKgo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoCrCoMKgwqBBRFJCQVNFOiAw
+eDMwMDAgKDB4MzAwMDAwMDApCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgKsKgwqDCoEhXTUJBU0U6
+IDB4MEMwMCAoMHgwQzAwMDAwMCkKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqAqwqDCoEFERFJNQVNL
+OiAweEZDMDAgKDB4RkMwMDAwMDApCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgKsKgwqDCoEhXTkNB
+UkU6IDB4MDNGRiAoMHgwM0ZGMDAwMCkKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqAqCj4gPiArwqDC
+oMKgwqDCoMKgwqDCoMKgKiBNYXBwaW5nIGFwcGVhcnMgYXQgMHg2MDMwMGZjMDAwMDAwIG9uIHRo
+ZSBob3N0Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgKi8KPiA+ICvCoMKgwqDCoMKgwqDCoMKgd3Jp
+dGVsKDB4MzAwMDBDMDAsIEFTVF9JTyhBU1RfQkFTRV9MUEMgfCAweDg4KSk7Cj4gPiArwqDCoMKg
+wqDCoMKgwqDCoHdyaXRlbCgweEZDMDAwM0ZGLCBBU1RfSU8oQVNUX0JBU0VfTFBDIHwgMHg4Qykp
+Owo+ID4gKwo+ID4gK8KgwqDCoMKgwqDCoMKgwqAvKiBTZXQgU1BJMSBDRTEgZGVjb2Rpbmcgd2lu
+ZG93IHRvIDB4MzQwMDAwMDAgKi8KPiA+ICvCoMKgwqDCoMKgwqDCoMKgd3JpdGVsKDB4NzA2ODAw
+MDAsIEFTVF9JTyhBU1RfQkFTRV9TUEkgfCAweDM0KSk7Cj4gPiArCj4gPiArwqDCoMKgwqDCoMKg
+wqDCoC8qIFNldCBTUEkxIENFMCBkZWNvZGluZyB3aW5kb3cgdG8gMHgzMDAwMDAwMCAqLwo+ID4g
+K8KgwqDCoMKgwqDCoMKgwqB3cml0ZWwoMHg2ODYwMDAwMCwgQVNUX0lPKEFTVF9CQVNFX1NQSSB8
+IDB4MzApKTsKPiAKPiBXZSBzaG91bGQgbm90IG5lZWQgdG8gZG8gdGhpcy4gbWJveGQgd2lsbCBz
+ZXQgdGhlbS4KClRvIGNsYXJpZnksIHRoZXJlIGFyZSB0d28gZGlmZmVyZW50IGNhc2VzIGhlcmUs
+IGJ1dCB0aGUgb3V0Y29tZSByZW1haW5zCnRoYXQgd2UgZG9uJ3QgbmVlZCB0aGUgYWJvdmUuIFdl
+IGRvbid0IG5lZWQgdG8gc2V0IHRoZSB0d28gTFBDCnJlZ2lzdGVycyBiZWNhdXNlIG1ib3hkIHdp
+bGwgc2V0IHRoZW0gdmlhIHRoZSBpbnRlcmZhY2UgZXhwb3NlZCBieQpkcml2ZXJzL21pc2MvYXNw
+ZWVkLWxwYy1jdHJsLmMuIFdlIGFsc28gZG9uJ3QgbmVlZCB0byBzZXQgdGhlIHR3byBTUEkKcmVn
+aXN0ZXJzIGJlY2F1c2UgdGhlIFNNQyBkcml2ZXIgd2lsbCBjb25maWd1cmUgdGhlbSBiYXNlZCBv
+biB0aGUKY2hpcChzKSBkZXRlY3RlZCBvbiB0aGUgYnVzIGR1cmluZyBkcml2ZXIgcHJvYmUuCgpD
+aGVlcnMsCgpBbmRyZXcK
 
-Can you check that the board uses GPIOM for revision GPIOs? The
-version of the schematic that I saw does not.
 
-> +
-> +        /* EVT1 hacks */
-> +        if (board_rev == 0) {
-> +                /* Disable GPIO I, G/AB pulldowns due to weak driving buffers */
-> +                reg = readl(AST_IO(AST_BASE_SCU | 0x8C));
-> +                writel(reg | BIT(24) | BIT(22), AST_IO(AST_BASE_SCU | 0x8C));
-> +        }
-> +
-> +        /* Disable GPIO H/AC pulldowns to float 1-wire interface pins */
-> +        reg = readl(AST_IO(AST_BASE_SCU | 0x8C));
-> +        writel(reg | BIT(23), AST_IO(AST_BASE_SCU | 0x8C));
-> +
-> +        /* Assert MAC2 PHY hardware reset */
+--=-qbzrxsisJeOr52X9/Lq9
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-It looks like GPIOD3 is not used for PHY hardware reset.
+-----BEGIN PGP SIGNATURE-----
 
-> +        /* Set pin low */
-> +        reg = readl(AST_IO(AST_BASE_GPIO | 0x00));
-> +        writel(reg & ~phy_reset_mask, AST_IO(AST_BASE_GPIO | 0x00));
-> +        /* Enable pin for output */
-> +        reg = readl(AST_IO(AST_BASE_GPIO | 0x04));
-> +        writel(reg | phy_reset_mask, AST_IO(AST_BASE_GPIO | 0x04));
-> +        udelay(3);
-> +        /* Set pin high */
-> +        reg = readl(AST_IO(AST_BASE_GPIO | 0x00));
-> +        writel(reg | phy_reset_mask, AST_IO(AST_BASE_GPIO | 0x00));
-> +
-> +        /* Setup PNOR address mapping for 64M flash
-> +         *
-> +         *   ADRBASE: 0x3000 (0x30000000)
-> +         *   HWMBASE: 0x0C00 (0x0C000000)
-> +         *  ADDRMASK: 0xFC00 (0xFC000000)
-> +         *   HWNCARE: 0x03FF (0x03FF0000)
-> +         *
-> +         * Mapping appears at 0x60300fc000000 on the host
-> +         */
-> +        writel(0x30000C00, AST_IO(AST_BASE_LPC | 0x88));
-> +        writel(0xFC0003FF, AST_IO(AST_BASE_LPC | 0x8C));
-> +
-> +        /* Set SPI1 CE1 decoding window to 0x34000000 */
-> +        writel(0x70680000, AST_IO(AST_BASE_SPI | 0x34));
-> +
-> +        /* Set SPI1 CE0 decoding window to 0x30000000 */
-> +        writel(0x68600000, AST_IO(AST_BASE_SPI | 0x30));
+iQIcBAABCgAGBQJZAINHAAoJEJ0dnzgO5LT589IP/AkvD/9DfKocmjPogkTozvye
+7mfID12jhmrLITuwohbnwSNMap4sCO14w8+F/FhsZSMnJgW3Lu3QPIf6BJPjcdP6
+SVcsEqzFwV6B2U4IfHz625fLnUxW7TM4TfutvCkOmtnuwdZ2vYmcq+flim6ZGkBO
+GzBj3jP2OCshcSdQ7i0jVfhZDF4YZCd7nMsbyMKlc0ezEEtXI6ZUmEIp9aA+8JUy
+TO1AsjI1OcpaSjkb/37e8V2UtODadbZUr8adrB1kXHl8hmyYxMvImvJVbwMDwFel
+z52I3EY7YWMVF9o8K82Vl/i3OSy9SdoQHh9RblTld7EMX5mf1iaXILPdeSbdL/q8
+Ec0nB9ZWOE0KlrMzylKK1o+ji18S9w+prncb2ruU/qIuq9MtmDLV8LB3yDXO/vEa
+MuDVrzeUcQRtddjVN5au9Ii5BR+rNQ7EftA12cVEJTA5vz3xtj2/JFozieDIwpqh
+r6yn5fk5IR/TDsfIvNj1Q0fdpGodTkTNsXGtGEtZeCbk06mQVp/MnMzmQaaPuUSN
+WlA6U5m2iCDE0aRuKIyNVjWmvdODbZ7kG/LZRVSO53jEZ7HsKSxqAAmB14NJICMp
+timUUXDCYsLZkSErMkjrMdFjtTY5l9PoLaD3gjRXdx+cfWsWuXzQiX01yS6SM8U0
+Ro2YyH+ZO01qJrvRFdeZ
+=qBJv
+-----END PGP SIGNATURE-----
 
-We should not need to do this. mboxd will set them.
-
-Cheers,
-
-Joel
-
-> +
-> +        /* Disable default behavior of UART1 being held in reset by LPCRST#.
-> +         * By releasing UART1 from being controlled by LPC reset, it becomes
-> +         * immediately available regardless of the host being up.
-> +         */
-> +        reg = readl(AST_IO(AST_BASE_LPC | 0x98));
-> +        /* Clear "Enable UART1 reset source from LPC" */
-> +        writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC | 0x98));
-> +}
-> +
->  #define SCU_PASSWORD   0x1688A8A8
->
->  static void __init aspeed_init_early(void)
-> @@ -275,6 +338,8 @@ static void __init aspeed_init_early(void)
->                 do_witherspoon_setup();
->         if (of_machine_is_compatible("ibm,romulus-bmc"))
->                 do_romulus_setup();
-> +        if (of_machine_is_compatible("inventec,lanyang-bmc"))
-> +                do_romulus_setup();
->  }
->
->  static void __init aspeed_map_io(void)
-> --
-> 2.9.3
->
+--=-qbzrxsisJeOr52X9/Lq9--
