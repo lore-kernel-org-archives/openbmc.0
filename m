@@ -1,54 +1,106 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-wm0-x22c.google.com (mail-wm0-x22c.google.com
- [IPv6:2a00:1450:400c:c09::22c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <austenc@us.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wCnCT6K6szDqCL
- for <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 03:30:13 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="IGumWvTY"; 
- dkim-atps=neutral
-Received: by mail-wm0-x22c.google.com with SMTP id u65so57216142wmu.1
- for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 10:30:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=i0l2EJQuB0VrMxiEDi8eZE2XAALR4J8CHvTx4Dv/E8c=;
- b=IGumWvTYtgy4RVemjGF/vFbYgVXUViISpUHMNNPX4eqq6IajcSpB06+VWg+FrFhjs4
- Tjn1uopfB6lp0qVyfASUZfF4psAikSJWiJlM57xDhOYeiWRuFe1zsbdVSQs6sohIBYTz
- oErxOx8iMgZPw1VfoE07poLK+m/DosdlHLYNfdI0KBeGnMef3AI0wCkFqWEibens/kvM
- KHoBpj7HhPu0P9DXQedvdNV1AWi6QjTBYOsT3PmxZo5ModNSStnOrpO6HTKOpSBKZGtI
- vcpvM7Zt2ypCrr93wvTVWbAMSJP1Bq98/p5tzoBOJ9JltS0zfW75g8VWwsNES5h4yvXn
- uwpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=i0l2EJQuB0VrMxiEDi8eZE2XAALR4J8CHvTx4Dv/E8c=;
- b=TrL86xm5OHT/b6GqNmHFOrmbHBUOgu+T0yZYZUmHpRDZnw2biNGBnvsomAJciI8w5V
- kBH5OD0b9vFbUq1/QqPrTRCdZratYX/bK6gIunHlC2GE1/POBCA9hcTxfpfXbNqXUiLs
- x4sP2RJ++cX5k2YC7nfsucvzpWZrD7Mk5ARBGg/dV9M5ZCwLMONqDJJ6Zt8EjV7C10sL
- D7UANTHw4kzIpxAWUTqWEjMJ6z8bIgiJXSqtHUWowzVkPKmG+uRtnGrTwcexW1d81D+c
- +9UG6soNflsqCcE91rZj/czp6367YzAjgQWFOWFU4zrZ4sKCRE7d96RM5hej03tsf/gM
- xSKQ==
-X-Gm-Message-State: AN3rC/6vCdmczuPlTKlhoDAWfiEX2hVuqtGk66KDgE52IMpXeEVJCSLU
- DB444TvQlpTJ62EX/c6Fi0wdjR8stbPx
-X-Received: by 10.28.87.70 with SMTP id l67mr6057038wmb.37.1493227809680; Wed,
- 26 Apr 2017 10:30:09 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wCxW22xk9zDqBJ
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 09:44:13 +1000 (AEST)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v3QNi570114709
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 19:44:11 -0400
+Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2a32j3dvef-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 19:44:10 -0400
+Received: from localhost
+ by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Wed, 26 Apr 2017 19:44:09 -0400
+Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
+ by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 26 Apr 2017 19:44:07 -0400
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v3QNi6Hx43516118
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 23:44:06 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A1CEF28041
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 19:44:01 -0400 (EDT)
+Received: from d50lp33.co.us.ibm.com (unknown [9.17.249.38])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTPS id 427392803A
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 19:44:01 -0400 (EDT)
+Received: from localhost
+ by d50lp33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Wed, 26 Apr 2017 17:44:05 -0600
+Received: from smtp.notes.na.collabserv.com (192.155.248.72)
+ by d50lp33.co.us.ibm.com (192.168.2.144) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128/128)
+ Wed, 26 Apr 2017 17:44:03 -0600
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Wed, 26 Apr 2017 23:44:02 -0000
+Received: from us1a3-smtp07.a3.dal06.isc4sb.com (10.146.103.14)
+ by smtp.notes.na.collabserv.com (10.106.227.158) with
+ smtp.notes.na.collabserv.com ESMTP; Wed, 26 Apr 2017 23:43:59 -0000
+Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
+ by us1a3-smtp07.a3.dal06.isc4sb.com
+ with ESMTP id 2017042623435797-712995 ;
+ Wed, 26 Apr 2017 23:43:57 +0000 
 MIME-Version: 1.0
-Received: by 10.28.46.130 with HTTP; Wed, 26 Apr 2017 10:30:08 -0700 (PDT)
-In-Reply-To: <CAPH-5w4OS_oT5MMu2kEOUwtOza_LO94vwSH9dZHpVMa_4OA38Q@mail.gmail.com>
-References: <CACPK8XfFF7tNrLjroNA05-c3pMZWFbiKvHq+oFLjBDSkgqfjDw@mail.gmail.com>
- <CAPH-5w6-2zVQn2iNVP28aOAS_r11rxGYCrioXCR-sX8Ln7_BZQ@mail.gmail.com>
- <CAPH-5w4OS_oT5MMu2kEOUwtOza_LO94vwSH9dZHpVMa_4OA38Q@mail.gmail.com>
-From: Rick Altherr <raltherr@google.com>
-Date: Wed, 26 Apr 2017 10:30:08 -0700
-Message-ID: <CAPLgG=nuU5befF4AfheWAbnU7tYPCpZSnj+-Zk8MDkvaKek+uw@mail.gmail.com>
-Subject: Re: Switching to 4.10
-To: Xo Wang <xow@google.com>
-Cc: Joel Stanley <joel@jms.id.au>, Edward James <eajames@us.ibm.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Brendan Higgins <brendanhiggins@google.com>
-Content-Type: multipart/alternative; boundary=001a1144323e2a9dc9054e1531b9
+In-Reply-To: <384e9172ef1c4bed81152e7354575f5e@rackspace.com>
+Subject: RE: OpenBMC cloud instance migration from Aaron's account
+To: Aaron Sullivan <aaron.sullivan@rackspace.com>
+Cc: "joel@jms.id.au" <openbmc@lists.ozlabs.org>
+From: "Chris Austen" <austenc@us.ibm.com>
+Date: Wed, 26 Apr 2017 18:43:56 -0500
+References: <1493226355476.40153@rackspace.com>
+ <3C77A62F-4926-4D09-B11E-48CC33A3F293@rackspace.com>
+ <OF183DA0D0.8B27A4BC-ON8625810E.0061E1C9-8625810E.00620572@notes.na.collabserv.com>
+ <384e9172ef1c4bed81152e7354575f5e@rackspace.com>
+X-KeepSent: 81B1700A:BAAADA39-8625810E:00824CFE;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1EXT SHF766 December 14, 2016
+X-LLNOutbound: False
+X-Disclaimed: 10027
+X-TNEFEvaluated: 1
+Content-type: multipart/related; 
+ Boundary="0__=09BB0B9DDF11CA6E8f9e8a93df938690918c09BB0B9DDF11CA6E"
+x-cbid: 17042623-2213-0000-0000-000001A2A4DA
+X-IBM-SpamModules-Scores: BY=0.255323; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.371236; ST=0; TS=0; UL=0; ISC=; MB=0.000557
+X-IBM-SpamModules-Versions: BY=3.00006979; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000208; SDB=6.00852943; UDB=6.00421663; IPR=6.00631781; 
+ BA=6.00005313; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015196; XFM=3.00000013;
+ UTC=2017-04-26 23:44:00
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2017-04-26 21:35:22 - 6.00006655
+x-cbparentid: 17042623-6060-0000-0000-00001093DCE8
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+X-TM-AS-GCONF: 00
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006979; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000208; SDB=6.00852943; UDB=6.00421662; IPR=6.00631781; 
+ BA=6.00005313; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015196; XFM=3.00000013;
+ UTC=2017-04-26 23:44:07
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+Message-Id: <OF81B1700A.BAAADA39-ON8625810E.00824CFE-8625810E.00825DAC@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-04-26_17:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1704260386
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,328 +112,230 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Apr 2017 17:30:15 -0000
+X-List-Received-Date: Wed, 26 Apr 2017 23:44:14 -0000
 
---001a1144323e2a9dc9054e1531b9
-Content-Type: text/plain; charset=UTF-8
+--0__=09BB0B9DDF11CA6E8f9e8a93df938690918c09BB0B9DDF11CA6E
+Content-type: multipart/alternative; 
+	Boundary="1__=09BB0B9DDF11CA6E8f9e8a93df938690918c09BB0B9DDF11CA6E"
 
-I saw Joel started https://gerrit.openbmc-project.xyz/#/c/2846/ which has a
-defconfig for ast2400.  If you have one for ast2500, please upload a new
-patch set to that change.
 
-On Tue, Apr 25, 2017 at 5:30 PM, Xo Wang <xow@google.com> wrote:
+--1__=09BB0B9DDF11CA6E8f9e8a93df938690918c09BB0B9DDF11CA6E
+Content-Transfer-Encoding: base64
+Content-type: text/plain; charset=UTF-8
 
-> On Tue, Apr 25, 2017 at 4:57 PM, Xo Wang <xow@google.com> wrote:
-> > Hi Joel,
-> >
-> > On Thu, Apr 20, 2017 at 7:30 PM, Joel Stanley <joel@jms.id.au> wrote:
-> >> Hello team,
-> >>
-> >> I want to make the 4.10 change happen. We don't have the resource to
-> >> be maintaining two trees, and the 4.10 tree has a whole heap of
-> >> shinyness - faster network, faster flash access, improved I2C.
-> >>
-> >> To this end I will stop merging patches in to 4.7. Please target the
-> >> 4.10 tree from here on.
-> >>
-> >> Use this thread to discuss concerns and coordinate the work that needs
-> >> to be done. Bits that I'm aware of
-> >>
-> >>  - Eddie is updating userspace to the new FSI APIs
-> >>  - I need to merge the upstream FSI patchset
-> >>  - Brednan needs to post the lastest version of the i2c patchset which
-> >> I will merge
-> >>  - I need to merge benh's ftgmac100 improvements
-> >
-> > We'll need to update the defconfig in the build system. Currently if I
-> > compile the kernel and generate a new defconfig (make savedefconfig),
-> > I see the following changes in the 4.10 generated defconfig:
-> >
-> > @@ -73,7 +73,6 @@
-> >  CONFIG_MTD_BLOCK=y
-> >  CONFIG_MTD_PARTITIONED_MASTER=y
-> >  CONFIG_MTD_SPI_NOR=y
-> > -CONFIG_ASPEED_FLASH_SPI=y
-> >  CONFIG_MTD_UBI=y
-> >  CONFIG_MTD_UBI_FASTMAP=y
-> >  CONFIG_MTD_UBI_BLOCK=y
-> > @@ -116,7 +115,6 @@
-> >  # CONFIG_SERIO is not set
-> >  # CONFIG_VT is not set
-> >  CONFIG_LEGACY_PTY_COUNT=4
-> > -# CONFIG_DEVKMEM is not set
-> >  CONFIG_SERIAL_8250=y
-> >  # CONFIG_SERIAL_8250_DEPRECATED_OPTIONS is not set
-> >  CONFIG_SERIAL_8250_CONSOLE=y
-> > @@ -131,10 +129,8 @@
-> >  CONFIG_I2C=y
-> >  CONFIG_I2C_CHARDEV=y
-> >  CONFIG_I2C_ASPEED=y
-> > -CONFIG_SENSORS_MAX31785=y
-> >  CONFIG_SENSORS_LM75=y
-> >  CONFIG_SENSORS_NCT7904=y
-> > -CONFIG_SENSORS_POWER8_OCC_I2C=y
-> >  CONFIG_PMBUS=y
-> >  CONFIG_SENSORS_ADM1275=y
-> >  CONFIG_SENSORS_UCD9000=y
-> > @@ -143,21 +139,14 @@
-> >  # CONFIG_USB_SUPPORT is not set
-> >  CONFIG_NEW_LEDS=y
-> >  CONFIG_LEDS_CLASS=y
-> > -CONFIG_LEDS_GPIO=y
-> >  CONFIG_LEDS_TRIGGERS=y
-> >  CONFIG_LEDS_TRIGGER_TIMER=y
-> >  CONFIG_LEDS_TRIGGER_HEARTBEAT=y
-> > -CONFIG_LEDS_TRIGGER_GPIO=y
-> >  CONFIG_RTC_CLASS=y
-> >  CONFIG_RTC_DRV_DS1307=y
-> >  CONFIG_RTC_DRV_ASPEED=y
-> >  CONFIG_MAILBOX=y
-> > -CONFIG_ASPEED_MBOX=y
-> >  # CONFIG_IOMMU_SUPPORT is not set
-> > -CONFIG_FSI=y
-> > -CONFIG_FSI_MASTER_GPIO=y
-> > -CONFIG_FSI_SCOM=y
-> > -CONFIG_FSI_I2C=y
-> >  CONFIG_FIRMWARE_MEMMAP=y
-> >  CONFIG_FANOTIFY=y
-> >  CONFIG_AUTOFS4_FS=y
-> >
-> >>
-> >> Cheers,
-> >>
-> >> Joel
-> >
-> > I know that CONFIG_ASPEED_FLASH_SPI is now CONFIG_SPI_ASPEED_SMC, but
-> > I've yet to look at each of the other differences.
-> >
-> > cheers
-> > xo
->
-> OK, I guess it's not that much work to look at those configs. This
-> seems to work up to the limit of the missing FSI drivers as previously
-> mentioned:
->
-> --- a/meta-openbmc-bsp/meta-aspeed/meta-ast2500/recipes-
-> kernel/linux/linux-obmc/defconfig
-> +++ b/meta-openbmc-bsp/meta-aspeed/meta-ast2500/recipes-
-> kernel/linux/linux-obmc/defconfig
-> @@ -73,7 +73,7 @@ CONFIG_MTD_CMDLINE_PARTS=y
->  CONFIG_MTD_BLOCK=y
->  CONFIG_MTD_PARTITIONED_MASTER=y
->  CONFIG_MTD_SPI_NOR=y
-> -CONFIG_ASPEED_FLASH_SPI=y
-> +CONFIG_SPI_ASPEED_SMC=y
->  CONFIG_MTD_UBI=y
->  CONFIG_MTD_UBI_FASTMAP=y
->  CONFIG_MTD_UBI_BLOCK=y
-> @@ -116,7 +116,6 @@ CONFIG_INPUT_EVDEV=y
->  # CONFIG_SERIO is not set
->  # CONFIG_VT is not set
->  CONFIG_LEGACY_PTY_COUNT=4
-> -# CONFIG_DEVKMEM is not set
->  CONFIG_SERIAL_8250=y
->  # CONFIG_SERIAL_8250_DEPRECATED_OPTIONS is not set
->  CONFIG_SERIAL_8250_CONSOLE=y
-> @@ -131,10 +130,11 @@ CONFIG_ASPEED_BT_IPMI_BMC=y
->  CONFIG_I2C=y
->  CONFIG_I2C_CHARDEV=y
->  CONFIG_I2C_ASPEED=y
-> -CONFIG_SENSORS_MAX31785=y
-> +CONFIG_GPIOLIB=y
-> +CONFIG_GPIO_SYSFS=y
-> +CONFIG_GPIO_ASPEED=y
->  CONFIG_SENSORS_LM75=y
->  CONFIG_SENSORS_NCT7904=y
-> -CONFIG_SENSORS_POWER8_OCC_I2C=y
->  CONFIG_PMBUS=y
->  CONFIG_SENSORS_ADM1275=y
->  CONFIG_SENSORS_UCD9000=y
-> @@ -152,12 +152,8 @@ CONFIG_RTC_CLASS=y
->  CONFIG_RTC_DRV_DS1307=y
->  CONFIG_RTC_DRV_ASPEED=y
->  CONFIG_MAILBOX=y
-> -CONFIG_ASPEED_MBOX=y
-> +CONFIG_ASPEED_LPC_MBOX=y
->  # CONFIG_IOMMU_SUPPORT is not set
-> -CONFIG_FSI=y
-> -CONFIG_FSI_MASTER_GPIO=y
-> -CONFIG_FSI_SCOM=y
-> -CONFIG_FSI_I2C=y
->  CONFIG_FIRMWARE_MEMMAP=y
->  CONFIG_FANOTIFY=y
->  CONFIG_AUTOFS4_FS=y
->
-> cheers
-> xo
->
+QWFyb24sDQpKb2VsIGtub3dzIHRoZSBjdXJyZW50IHJvb3QgcGFzc3dvcmQuIEhlIGlzIG9uIEND
+DQoNCg0KDQpDaHJpcyBBdXN0ZW4NClBPV0VSIFN5c3RlbXMgRW5hYmxlbWVudCBNYW5hZ2VyDQoo
+NTEyKSAyODYtNTE4NCAoVC9MOiAzNjMtNTE4NCkNCg0KDQoNCkZyb206CUFhcm9uIFN1bGxpdmFu
+IDxhYXJvbi5zdWxsaXZhbkByYWNrc3BhY2UuY29tPg0KVG86CUNocmlzIEF1c3RlbiA8YXVzdGVu
+Y0B1cy5pYm0uY29tPg0KQ2M6CUFkaSBHYW5naWRpIDxhZGkuZ2FuZ2lkaUByYWNrc3BhY2UuY29t
+PiwgQnJhZCBEZUJhdWNoZQ0KICAgICAgICAgICAgPGJyYWQuZGViYXVjaGVAUkFDS1NQQUNFLkNP
+TT4sIENoYWQgU29tZXJsb3QNCiAgICAgICAgICAgIDxjaGFkLnNvbWVybG90QFJBQ0tTUEFDRS5D
+T00+DQpEYXRlOgkwNC8yNi8yMDE3IDAxOjUxIFBNDQpTdWJqZWN0OglSRTogT3BlbkJNQyBjbG91
+ZCBpbnN0YW5jZSBtaWdyYXRpb24gZnJvbSBBYXJvbidzIGFjY291bnQNCg0KDQoNCkhpIENocmlz
+LA0KDQpEaWQgd2Ugc2hhcmUgcm9vdCBhY2Nlc3MgaW5mbywgb24gdGhlIHNlcnZlcj8gSSBkb27i
+gJl0IHJlY2FsbC4gSWYgc28sIEkgbmVlZA0KdG8gY2hlY2staW4gd2l0aCB5b3UuDQoNCi0tQWFy
+b24NCg0KRnJvbTogQWFyb24gU3VsbGl2YW4NClNlbnQ6IFdlZG5lc2RheSwgQXByaWwgMjYsIDIw
+MTcgMTowNiBQTQ0KVG86ICdDaHJpcyBBdXN0ZW4nIDxhdXN0ZW5jQHVzLmlibS5jb20+DQpDYzog
+QWRpIEdhbmdpZGkgPGFkaS5nYW5naWRpQHJhY2tzcGFjZS5jb20+OyBCcmFkIERlQmF1Y2hlDQo8
+YnJhZC5kZWJhdWNoZUBSQUNLU1BBQ0UuQ09NPjsgQ2hhZCBTb21lcmxvdCA8Y2hhZC5zb21lcmxv
+dEBSQUNLU1BBQ0UuQ09NPg0KU3ViamVjdDogUkU6IE9wZW5CTUMgY2xvdWQgaW5zdGFuY2UgbWln
+cmF0aW9uIGZyb20gQWFyb24ncyBhY2NvdW50DQoNCkhpIENocmlzLA0KDQpTaXRlIGlzIGxvb2tp
+bmcgZ29vZCEgQnJpZWYgaW50ZXJydXB0aW9uLiBJIG5lZWRlZCB0byByZWJvb3QgaXQgYW5kIGNo
+YW5nZQ0KYSBmZXcgc2V0dGluZ3MgYXJvdW5kIGJhY2t1cC4NCg0KWW91IG1pZ2h0IHNlZSBhIGhp
+Y2N1cC4NCg0KLS1BYXJvbg0KDQpGcm9tOiBDaHJpcyBBdXN0ZW4gW21haWx0bzphdXN0ZW5jQHVz
+LmlibS5jb21dDQpTZW50OiBXZWRuZXNkYXksIEFwcmlsIDI2LCAyMDE3IDEyOjUxIFBNDQpUbzog
+QWFyb24gU3VsbGl2YW4gPGFhcm9uLnN1bGxpdmFuQHJhY2tzcGFjZS5jb20+DQpDYzogQWRpIEdh
+bmdpZGkgPGFkaS5nYW5naWRpQHJhY2tzcGFjZS5jb20+OyBCcmFkIERlQmF1Y2hlIDwNCmJyYWQu
+ZGViYXVjaGVAUkFDS1NQQUNFLkNPTT47IENoYWQgU29tZXJsb3QgPGNoYWQuc29tZXJsb3RAUkFD
+S1NQQUNFLkNPTT4NClN1YmplY3Q6IFJlOiBPcGVuQk1DIGNsb3VkIGluc3RhbmNlIG1pZ3JhdGlv
+biBmcm9tIEFhcm9uJ3MgYWNjb3VudA0KDQoNCg0KVGhhbmsgeW91IEFhcm9uLA0KDQpXZWxjb21l
+IENoYWQgSSBsb29rIGZvcndhcmQgdG8gd29ya2luZyB3aXRoIHlvdS4gSWYgeW91IGV2ZXIgd29u
+ZGVyZWQgd2hhdA0Kd2UgZG8gd2l0aCB5b3VyIHNlcnZlciBmZWVsIGZyZWUgdG8gc2VlIGl0IGlu
+IGFjdGlvbi4uLg0KaHR0cHM6Ly9vcGVucG93ZXIueHl6Lw0KDQoNCg0KQ2hyaXMgQXVzdGVuDQpQ
+T1dFUiBTeXN0ZW1zIEVuYWJsZW1lbnQgTWFuYWdlcg0KKDUxMikgMjg2LTUxODQgKFQvTDogMzYz
+LTUxODQpDQoNCkluYWN0aXZlIGhpZGUgZGV0YWlscyBmb3IgQWFyb24gU3VsbGl2YW4gLS0tMDQv
+MjYvMjAxNyAxMjo0Nzo1MSBQTS0tLUhpDQpHdXlzLCBJIHRoaW5rIHdlJ3JlIGp1c3QgZ29pbmcg
+dG8gbWlncmF0ZSBteSBhY2NvdW50IG92QWFyb24gU3VsbGl2YW4NCi0tLTA0LzI2LzIwMTcgMTI6
+NDc6NTEgUE0tLS1IaSBHdXlzLCBJIHRoaW5rIHdlJ3JlIGp1c3QgZ29pbmcgdG8gbWlncmF0ZSBt
+eQ0KYWNjb3VudCBvdmVyIHRvIENoYWQuIFRoYXQgcHJvY2VzcyBpcyBpbiBmbGlnaHQgbm93Lg0K
+DQpGcm9tOiBBYXJvbiBTdWxsaXZhbiA8YWFyb24uc3VsbGl2YW5AcmFja3NwYWNlLmNvbT4NClRv
+OiBBZGkgR2FuZ2lkaSA8YWRpLmdhbmdpZGlAcmFja3NwYWNlLmNvbT4NCkNjOiBDaGFkIFNvbWVy
+bG90IDxjaGFkLnNvbWVybG90QFJBQ0tTUEFDRS5DT00+LCBDaHJpcw0KQXVzdGVuL0F1c3Rpbi9J
+Qk1ASUJNVVMsIEJyYWQgRGVCYXVjaGUgPGJyYWQuZGViYXVjaGVAUkFDS1NQQUNFLkNPTT4NCkRh
+dGU6IDA0LzI2LzIwMTcgMTI6NDcgUE0NClN1YmplY3Q6IFJlOiBPcGVuQk1DIGNsb3VkIGluc3Rh
+bmNlIG1pZ3JhdGlvbiBmcm9tIEFhcm9uJ3MgYWNjb3VudA0KDQoNCg0KDQpIaSBHdXlzLA0KDQpJ
+IHRoaW5rIHdlJ3JlIGp1c3QgZ29pbmcgdG8gbWlncmF0ZSBteSBhY2NvdW50IG92ZXIgdG8gQ2hh
+ZC4gVGhhdCBwcm9jZXNzDQppcyBpbiBmbGlnaHQgbm93Lg0KDQpTaG91bGQgYmUgbm8gZGlzcnVw
+dGlvbiB0byB0aGUgT3BlbkJNQyB0ZWFtLg0KDQpTZW50IGZyb20gbXkgbW9iaWxlDQoNCk9uIEFw
+ciAyNiwgMjAxNywgYXQgMTI6MDUgUE0sIEFkaSBHYW5naWRpIDxhZGkuZ2FuZ2lkaUByYWNrc3Bh
+Y2UuY29tPg0Kd3JvdGU6DQogICAgICAgICAgICDigItIaSBUZWFtDQoNCg0KICAgICAgICAgICAg
+Q2hyaXMgQXVzdGVuIG9uIGNjIGZyb20gT3BlbkJNQyB0ZWFtIHdvdWxkIGxpa2UgdG8gYmUgcG9z
+dGVkDQogICAgICAgICAgICB0aW1lbHkgb24gbWlncmF0aW9uIG9mIE9wZW5CTUMgYnVpbGQgc2Vy
+dmVyIG91dCBvZiBBYXJvbidzDQogICAgICAgICAgICBhY2NvdW50LiBNYWlubHkgaWYgdGhlcmUg
+aXMgYW55IGRvd24gdGltZSBleHBlY3RlZCBvciBqdXN0DQogICAgICAgICAgICBtYWtpbmcgc3Vy
+ZSB0aGUgcHJvY2VzcyBpcyBzbW9vdGggc28gdGhhdCB0aGVpciBidWlsZHMgZG9uJ3QNCiAgICAg
+ICAgICAgIGhhdmUgdG9vIG11Y2ggaW1wYWN0Lg0KDQoNCiAgICAgICAgICAgIC1BZGkNCg0KDQo=
 
---001a1144323e2a9dc9054e1531b9
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+--1__=09BB0B9DDF11CA6E8f9e8a93df938690918c09BB0B9DDF11CA6E
+Content-Transfer-Encoding: base64
+Content-type: text/html; charset=UTF-8
+Content-Disposition: inline
 
-<div dir=3D"ltr">I saw Joel started=C2=A0<a href=3D"https://gerrit.openbmc-=
-project.xyz/#/c/2846/">https://gerrit.openbmc-project.xyz/#/c/2846/</a> whi=
-ch has a defconfig for ast2400.=C2=A0 If you have one for ast2500, please u=
-pload a new patch set to that change.</div><div class=3D"gmail_extra"><br><=
-div class=3D"gmail_quote">On Tue, Apr 25, 2017 at 5:30 PM, Xo Wang <span di=
-r=3D"ltr">&lt;<a href=3D"mailto:xow@google.com" target=3D"_blank">xow@googl=
-e.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"m=
-argin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div class=3D=
-"HOEnZb"><div class=3D"h5">On Tue, Apr 25, 2017 at 4:57 PM, Xo Wang &lt;<a =
-href=3D"mailto:xow@google.com">xow@google.com</a>&gt; wrote:<br>
-&gt; Hi Joel,<br>
-&gt;<br>
-&gt; On Thu, Apr 20, 2017 at 7:30 PM, Joel Stanley &lt;<a href=3D"mailto:jo=
-el@jms.id.au">joel@jms.id.au</a>&gt; wrote:<br>
-&gt;&gt; Hello team,<br>
-&gt;&gt;<br>
-&gt;&gt; I want to make the 4.10 change happen. We don&#39;t have the resou=
-rce to<br>
-&gt;&gt; be maintaining two trees, and the 4.10 tree has a whole heap of<br=
->
-&gt;&gt; shinyness - faster network, faster flash access, improved I2C.<br>
-&gt;&gt;<br>
-&gt;&gt; To this end I will stop merging patches in to 4.7. Please target t=
-he<br>
-&gt;&gt; 4.10 tree from here on.<br>
-&gt;&gt;<br>
-&gt;&gt; Use this thread to discuss concerns and coordinate the work that n=
-eeds<br>
-&gt;&gt; to be done. Bits that I&#39;m aware of<br>
-&gt;&gt;<br>
-&gt;&gt;=C2=A0 - Eddie is updating userspace to the new FSI APIs<br>
-&gt;&gt;=C2=A0 - I need to merge the upstream FSI patchset<br>
-&gt;&gt;=C2=A0 - Brednan needs to post the lastest version of the i2c patch=
-set which<br>
-&gt;&gt; I will merge<br>
-&gt;&gt;=C2=A0 - I need to merge benh&#39;s ftgmac100 improvements<br>
-&gt;<br>
-&gt; We&#39;ll need to update the defconfig in the build system. Currently =
-if I<br>
-&gt; compile the kernel and generate a new defconfig (make savedefconfig),<=
-br>
-&gt; I see the following changes in the 4.10 generated defconfig:<br>
-&gt;<br>
-&gt; @@ -73,7 +73,6 @@<br>
-&gt;=C2=A0 CONFIG_MTD_BLOCK=3Dy<br>
-&gt;=C2=A0 CONFIG_MTD_PARTITIONED_MASTER=3D<wbr>y<br>
-&gt;=C2=A0 CONFIG_MTD_SPI_NOR=3Dy<br>
-&gt; -CONFIG_ASPEED_FLASH_SPI=3Dy<br>
-&gt;=C2=A0 CONFIG_MTD_UBI=3Dy<br>
-&gt;=C2=A0 CONFIG_MTD_UBI_FASTMAP=3Dy<br>
-&gt;=C2=A0 CONFIG_MTD_UBI_BLOCK=3Dy<br>
-&gt; @@ -116,7 +115,6 @@<br>
-&gt;=C2=A0 # CONFIG_SERIO is not set<br>
-&gt;=C2=A0 # CONFIG_VT is not set<br>
-&gt;=C2=A0 CONFIG_LEGACY_PTY_COUNT=3D4<br>
-&gt; -# CONFIG_DEVKMEM is not set<br>
-&gt;=C2=A0 CONFIG_SERIAL_8250=3Dy<br>
-&gt;=C2=A0 # CONFIG_SERIAL_8250_DEPRECATED_<wbr>OPTIONS is not set<br>
-&gt;=C2=A0 CONFIG_SERIAL_8250_CONSOLE=3Dy<br>
-&gt; @@ -131,10 +129,8 @@<br>
-&gt;=C2=A0 CONFIG_I2C=3Dy<br>
-&gt;=C2=A0 CONFIG_I2C_CHARDEV=3Dy<br>
-&gt;=C2=A0 CONFIG_I2C_ASPEED=3Dy<br>
-&gt; -CONFIG_SENSORS_MAX31785=3Dy<br>
-&gt;=C2=A0 CONFIG_SENSORS_LM75=3Dy<br>
-&gt;=C2=A0 CONFIG_SENSORS_NCT7904=3Dy<br>
-&gt; -CONFIG_SENSORS_POWER8_OCC_<wbr>I2C=3Dy<br>
-&gt;=C2=A0 CONFIG_PMBUS=3Dy<br>
-&gt;=C2=A0 CONFIG_SENSORS_ADM1275=3Dy<br>
-&gt;=C2=A0 CONFIG_SENSORS_UCD9000=3Dy<br>
-&gt; @@ -143,21 +139,14 @@<br>
-&gt;=C2=A0 # CONFIG_USB_SUPPORT is not set<br>
-&gt;=C2=A0 CONFIG_NEW_LEDS=3Dy<br>
-&gt;=C2=A0 CONFIG_LEDS_CLASS=3Dy<br>
-&gt; -CONFIG_LEDS_GPIO=3Dy<br>
-&gt;=C2=A0 CONFIG_LEDS_TRIGGERS=3Dy<br>
-&gt;=C2=A0 CONFIG_LEDS_TRIGGER_TIMER=3Dy<br>
-&gt;=C2=A0 CONFIG_LEDS_TRIGGER_HEARTBEAT=3D<wbr>y<br>
-&gt; -CONFIG_LEDS_TRIGGER_GPIO=3Dy<br>
-&gt;=C2=A0 CONFIG_RTC_CLASS=3Dy<br>
-&gt;=C2=A0 CONFIG_RTC_DRV_DS1307=3Dy<br>
-&gt;=C2=A0 CONFIG_RTC_DRV_ASPEED=3Dy<br>
-&gt;=C2=A0 CONFIG_MAILBOX=3Dy<br>
-&gt; -CONFIG_ASPEED_MBOX=3Dy<br>
-&gt;=C2=A0 # CONFIG_IOMMU_SUPPORT is not set<br>
-&gt; -CONFIG_FSI=3Dy<br>
-&gt; -CONFIG_FSI_MASTER_GPIO=3Dy<br>
-&gt; -CONFIG_FSI_SCOM=3Dy<br>
-&gt; -CONFIG_FSI_I2C=3Dy<br>
-&gt;=C2=A0 CONFIG_FIRMWARE_MEMMAP=3Dy<br>
-&gt;=C2=A0 CONFIG_FANOTIFY=3Dy<br>
-&gt;=C2=A0 CONFIG_AUTOFS4_FS=3Dy<br>
-&gt;<br>
-&gt;&gt;<br>
-&gt;&gt; Cheers,<br>
-&gt;&gt;<br>
-&gt;&gt; Joel<br>
-&gt;<br>
-&gt; I know that CONFIG_ASPEED_FLASH_SPI is now CONFIG_SPI_ASPEED_SMC, but<=
-br>
-&gt; I&#39;ve yet to look at each of the other differences.<br>
-&gt;<br>
-&gt; cheers<br>
-&gt; xo<br>
-<br>
-</div></div>OK, I guess it&#39;s not that much work to look at those config=
-s. This<br>
-seems to work up to the limit of the missing FSI drivers as previously<br>
-mentioned:<br>
-<br>
---- a/meta-openbmc-bsp/meta-<wbr>aspeed/meta-ast2500/recipes-<wbr>kernel/li=
-nux/linux-obmc/<wbr>defconfig<br>
-+++ b/meta-openbmc-bsp/meta-<wbr>aspeed/meta-ast2500/recipes-<wbr>kernel/li=
-nux/linux-obmc/<wbr>defconfig<br>
-@@ -73,7 +73,7 @@ CONFIG_MTD_CMDLINE_PARTS=3Dy<br>
-=C2=A0CONFIG_MTD_BLOCK=3Dy<br>
-=C2=A0CONFIG_MTD_PARTITIONED_MASTER=3D<wbr>y<br>
-=C2=A0CONFIG_MTD_SPI_NOR=3Dy<br>
--CONFIG_ASPEED_FLASH_SPI=3Dy<br>
-+CONFIG_SPI_ASPEED_SMC=3Dy<br>
-=C2=A0CONFIG_MTD_UBI=3Dy<br>
-=C2=A0CONFIG_MTD_UBI_FASTMAP=3Dy<br>
-=C2=A0CONFIG_MTD_UBI_BLOCK=3Dy<br>
-@@ -116,7 +116,6 @@ CONFIG_INPUT_EVDEV=3Dy<br>
-<span class=3D"">=C2=A0# CONFIG_SERIO is not set<br>
-=C2=A0# CONFIG_VT is not set<br>
-=C2=A0CONFIG_LEGACY_PTY_COUNT=3D4<br>
--# CONFIG_DEVKMEM is not set<br>
-=C2=A0CONFIG_SERIAL_8250=3Dy<br>
-=C2=A0# CONFIG_SERIAL_8250_DEPRECATED_<wbr>OPTIONS is not set<br>
-=C2=A0CONFIG_SERIAL_8250_CONSOLE=3Dy<br>
-</span>@@ -131,10 +130,11 @@ CONFIG_ASPEED_BT_IPMI_BMC=3Dy<br>
-=C2=A0CONFIG_I2C=3Dy<br>
-=C2=A0CONFIG_I2C_CHARDEV=3Dy<br>
-=C2=A0CONFIG_I2C_ASPEED=3Dy<br>
--CONFIG_SENSORS_MAX31785=3Dy<br>
-+CONFIG_GPIOLIB=3Dy<br>
-+CONFIG_GPIO_SYSFS=3Dy<br>
-+CONFIG_GPIO_ASPEED=3Dy<br>
-<span class=3D"">=C2=A0CONFIG_SENSORS_LM75=3Dy<br>
-=C2=A0CONFIG_SENSORS_NCT7904=3Dy<br>
--CONFIG_SENSORS_POWER8_OCC_<wbr>I2C=3Dy<br>
-=C2=A0CONFIG_PMBUS=3Dy<br>
-=C2=A0CONFIG_SENSORS_ADM1275=3Dy<br>
-=C2=A0CONFIG_SENSORS_UCD9000=3Dy<br>
-</span>@@ -152,12 +152,8 @@ CONFIG_RTC_CLASS=3Dy<br>
-=C2=A0CONFIG_RTC_DRV_DS1307=3Dy<br>
-=C2=A0CONFIG_RTC_DRV_ASPEED=3Dy<br>
-=C2=A0CONFIG_MAILBOX=3Dy<br>
--CONFIG_ASPEED_MBOX=3Dy<br>
-+CONFIG_ASPEED_LPC_MBOX=3Dy<br>
-<span class=3D"">=C2=A0# CONFIG_IOMMU_SUPPORT is not set<br>
--CONFIG_FSI=3Dy<br>
--CONFIG_FSI_MASTER_GPIO=3Dy<br>
--CONFIG_FSI_SCOM=3Dy<br>
--CONFIG_FSI_I2C=3Dy<br>
-=C2=A0CONFIG_FIRMWARE_MEMMAP=3Dy<br>
-=C2=A0CONFIG_FANOTIFY=3Dy<br>
-=C2=A0CONFIG_AUTOFS4_FS=3Dy<br>
-<br>
-</span>cheers<br>
-<span class=3D"HOEnZb"><font color=3D"#888888">xo<br>
-</font></span></blockquote></div><br></div>
+PGh0bWw+PGJvZHk+PHA+PGZvbnQgc2l6ZT0iMiI+QWFyb24sIDwvZm9udD48YnI+PGZvbnQgc2l6
+ZT0iMiI+Sm9lbCBrbm93cyB0aGUgY3VycmVudCByb290IHBhc3N3b3JkLiBIZSBpcyBvbiBDQzwv
+Zm9udD48YnI+PGJyPjxicj48Zm9udCBzaXplPSIyIj48YnI+Q2hyaXMgQXVzdGVuPGJyPlBPV0VS
+IFN5c3RlbXMgRW5hYmxlbWVudCBNYW5hZ2VyIDxicj4oNTEyKSAyODYtNTE4NCAoVC9MOiAzNjMt
+NTE4NCk8L2ZvbnQ+PGJyPjxicj48aW1nIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgc3JjPSJjaWQ6
+MV9fPTA5QkIwQjlEREYxMUNBNkU4ZjllOGE5M2RmOTM4NjkwOTE4YzA5QkAiIGJvcmRlcj0iMCIg
+YWx0PSJJbmFjdGl2ZSBoaWRlIGRldGFpbHMgZm9yIEFhcm9uIFN1bGxpdmFuIC0tLTA0LzI2LzIw
+MTcgMDE6NTE6NTMgUE0tLS1IaSBDaHJpcywgRGlkIHdlIHNoYXJlIHJvb3QgYWNjZXNzIGluZm8s
+IG9uIHRoZSBzZXJ2ZXI/IEkgIj48Zm9udCBzaXplPSIyIiBjb2xvcj0iIzQyNDI4MiI+QWFyb24g
+U3VsbGl2YW4gLS0tMDQvMjYvMjAxNyAwMTo1MTo1MyBQTS0tLUhpIENocmlzLCBEaWQgd2Ugc2hh
+cmUgcm9vdCBhY2Nlc3MgaW5mbywgb24gdGhlIHNlcnZlcj8gSSBkb27igJl0IHJlY2FsbC4gSWYg
+c28sIEkgbmVlZCB0byBjaGVjay1pbiB3aTwvZm9udD48YnI+PGJyPjxmb250IHNpemU9IjIiIGNv
+bG9yPSIjNUY1RjVGIj5Gcm9tOiAgICAgICAgPC9mb250Pjxmb250IHNpemU9IjIiPkFhcm9uIFN1
+bGxpdmFuICZsdDthYXJvbi5zdWxsaXZhbkByYWNrc3BhY2UuY29tJmd0OzwvZm9udD48YnI+PGZv
+bnQgc2l6ZT0iMiIgY29sb3I9IiM1RjVGNUYiPlRvOiAgICAgICAgPC9mb250Pjxmb250IHNpemU9
+IjIiPkNocmlzIEF1c3RlbiAmbHQ7YXVzdGVuY0B1cy5pYm0uY29tJmd0OzwvZm9udD48YnI+PGZv
+bnQgc2l6ZT0iMiIgY29sb3I9IiM1RjVGNUYiPkNjOiAgICAgICAgPC9mb250Pjxmb250IHNpemU9
+IjIiPkFkaSBHYW5naWRpICZsdDthZGkuZ2FuZ2lkaUByYWNrc3BhY2UuY29tJmd0OywgQnJhZCBE
+ZUJhdWNoZSAmbHQ7YnJhZC5kZWJhdWNoZUBSQUNLU1BBQ0UuQ09NJmd0OywgQ2hhZCBTb21lcmxv
+dCAmbHQ7Y2hhZC5zb21lcmxvdEBSQUNLU1BBQ0UuQ09NJmd0OzwvZm9udD48YnI+PGZvbnQgc2l6
+ZT0iMiIgY29sb3I9IiM1RjVGNUYiPkRhdGU6ICAgICAgICA8L2ZvbnQ+PGZvbnQgc2l6ZT0iMiI+
+MDQvMjYvMjAxNyAwMTo1MSBQTTwvZm9udD48YnI+PGZvbnQgc2l6ZT0iMiIgY29sb3I9IiM1RjVG
+NUYiPlN1YmplY3Q6ICAgICAgICA8L2ZvbnQ+PGZvbnQgc2l6ZT0iMiI+UkU6IE9wZW5CTUMgY2xv
+dWQgaW5zdGFuY2UgbWlncmF0aW9uIGZyb20gQWFyb24ncyBhY2NvdW50PC9mb250Pjxicj48aHIg
+d2lkdGg9IjEwMCUiIHNpemU9IjIiIGFsaWduPSJsZWZ0IiBub3NoYWRlIHN0eWxlPSJjb2xvcjoj
+ODA5MUE1OyAiPjxicj48YnI+PGJyPjxmb250IGNvbG9yPSIjMUY0OTdEIiBmYWNlPSJDYWxpYnJp
+Ij5IaSBDaHJpcyw8L2ZvbnQ+PGJyPjxmb250IGNvbG9yPSIjMUY0OTdEIiBmYWNlPSJDYWxpYnJp
+Ij4gPC9mb250Pjxicj48Zm9udCBjb2xvcj0iIzFGNDk3RCIgZmFjZT0iQ2FsaWJyaSI+RGlkIHdl
+IHNoYXJlIHJvb3QgYWNjZXNzIGluZm8sIG9uIHRoZSBzZXJ2ZXI/IEkgZG9u4oCZdCByZWNhbGwu
+IElmIHNvLCBJIG5lZWQgdG8gY2hlY2staW4gd2l0aCB5b3UuPC9mb250Pjxicj48Zm9udCBjb2xv
+cj0iIzFGNDk3RCIgZmFjZT0iQ2FsaWJyaSI+IDwvZm9udD48YnI+PGZvbnQgY29sb3I9IiMxRjQ5
+N0QiIGZhY2U9IkNhbGlicmkiPi0tQWFyb248L2ZvbnQ+PGJyPjxmb250IGNvbG9yPSIjMUY0OTdE
+IiBmYWNlPSJDYWxpYnJpIj4gPC9mb250Pjxicj48Yj48Zm9udCBmYWNlPSJDYWxpYnJpIj5Gcm9t
+OjwvZm9udD48L2I+PGZvbnQgZmFjZT0iQ2FsaWJyaSI+IEFhcm9uIFN1bGxpdmFuIDwvZm9udD48
+Yj48Zm9udCBmYWNlPSJDYWxpYnJpIj48YnI+U2VudDo8L2ZvbnQ+PC9iPjxmb250IGZhY2U9IkNh
+bGlicmkiPiBXZWRuZXNkYXksIEFwcmlsIDI2LCAyMDE3IDE6MDYgUE08L2ZvbnQ+PGI+PGZvbnQg
+ZmFjZT0iQ2FsaWJyaSI+PGJyPlRvOjwvZm9udD48L2I+PGZvbnQgZmFjZT0iQ2FsaWJyaSI+ICdD
+aHJpcyBBdXN0ZW4nICZsdDthdXN0ZW5jQHVzLmlibS5jb20mZ3Q7PC9mb250PjxiPjxmb250IGZh
+Y2U9IkNhbGlicmkiPjxicj5DYzo8L2ZvbnQ+PC9iPjxmb250IGZhY2U9IkNhbGlicmkiPiBBZGkg
+R2FuZ2lkaSAmbHQ7YWRpLmdhbmdpZGlAcmFja3NwYWNlLmNvbSZndDs7IEJyYWQgRGVCYXVjaGUg
+Jmx0O2JyYWQuZGViYXVjaGVAUkFDS1NQQUNFLkNPTSZndDs7IENoYWQgU29tZXJsb3QgJmx0O2No
+YWQuc29tZXJsb3RAUkFDS1NQQUNFLkNPTSZndDs8L2ZvbnQ+PGI+PGZvbnQgZmFjZT0iQ2FsaWJy
+aSI+PGJyPlN1YmplY3Q6PC9mb250PjwvYj48Zm9udCBmYWNlPSJDYWxpYnJpIj4gUkU6IE9wZW5C
+TUMgY2xvdWQgaW5zdGFuY2UgbWlncmF0aW9uIGZyb20gQWFyb24ncyBhY2NvdW50PC9mb250Pjxi
+cj48Zm9udCBmYWNlPSJUaW1lcyBOZXcgUm9tYW4iPiA8L2ZvbnQ+PGJyPjxmb250IGNvbG9yPSIj
+MUY0OTdEIiBmYWNlPSJDYWxpYnJpIj5IaSBDaHJpcyw8L2ZvbnQ+PGJyPjxmb250IGNvbG9yPSIj
+MUY0OTdEIiBmYWNlPSJDYWxpYnJpIj4gPC9mb250Pjxicj48Zm9udCBjb2xvcj0iIzFGNDk3RCIg
+ZmFjZT0iQ2FsaWJyaSI+U2l0ZSBpcyBsb29raW5nIGdvb2QhIEJyaWVmIGludGVycnVwdGlvbi4g
+SSBuZWVkZWQgdG8gcmVib290IGl0IGFuZCBjaGFuZ2UgYSBmZXcgc2V0dGluZ3MgYXJvdW5kIGJh
+Y2t1cC48L2ZvbnQ+PGJyPjxmb250IGNvbG9yPSIjMUY0OTdEIiBmYWNlPSJDYWxpYnJpIj4gPC9m
+b250Pjxicj48Zm9udCBjb2xvcj0iIzFGNDk3RCIgZmFjZT0iQ2FsaWJyaSI+WW91IG1pZ2h0IHNl
+ZSBhIGhpY2N1cC48L2ZvbnQ+PGJyPjxmb250IGNvbG9yPSIjMUY0OTdEIiBmYWNlPSJDYWxpYnJp
+Ij4gPC9mb250Pjxicj48Zm9udCBjb2xvcj0iIzFGNDk3RCIgZmFjZT0iQ2FsaWJyaSI+LS1BYXJv
+bjwvZm9udD48YnI+PGZvbnQgY29sb3I9IiMxRjQ5N0QiIGZhY2U9IkNhbGlicmkiPiA8L2ZvbnQ+
+PGJyPjxiPjxmb250IGZhY2U9IkNhbGlicmkiPkZyb206PC9mb250PjwvYj48Zm9udCBmYWNlPSJD
+YWxpYnJpIj4gQ2hyaXMgQXVzdGVuIFs8L2ZvbnQ+PGEgaHJlZj0ibWFpbHRvOmF1c3RlbmNAdXMu
+aWJtLmNvbSI+PHU+PGZvbnQgY29sb3I9IiMwMDAwRkYiIGZhY2U9IkNhbGlicmkiPm1haWx0bzph
+dXN0ZW5jQHVzLmlibS5jb208L2ZvbnQ+PC91PjwvYT48Zm9udCBmYWNlPSJDYWxpYnJpIj5dIDwv
+Zm9udD48Yj48Zm9udCBmYWNlPSJDYWxpYnJpIj48YnI+U2VudDo8L2ZvbnQ+PC9iPjxmb250IGZh
+Y2U9IkNhbGlicmkiPiBXZWRuZXNkYXksIEFwcmlsIDI2LCAyMDE3IDEyOjUxIFBNPC9mb250Pjxi
+Pjxmb250IGZhY2U9IkNhbGlicmkiPjxicj5Ubzo8L2ZvbnQ+PC9iPjxmb250IGZhY2U9IkNhbGli
+cmkiPiBBYXJvbiBTdWxsaXZhbiAmbHQ7PC9mb250PjxhIGhyZWY9Im1haWx0bzphYXJvbi5zdWxs
+aXZhbkByYWNrc3BhY2UuY29tIj48dT48Zm9udCBjb2xvcj0iIzAwMDBGRiIgZmFjZT0iQ2FsaWJy
+aSI+YWFyb24uc3VsbGl2YW5AcmFja3NwYWNlLmNvbTwvZm9udD48L3U+PC9hPjxmb250IGZhY2U9
+IkNhbGlicmkiPiZndDs8L2ZvbnQ+PGI+PGZvbnQgZmFjZT0iQ2FsaWJyaSI+PGJyPkNjOjwvZm9u
+dD48L2I+PGZvbnQgZmFjZT0iQ2FsaWJyaSI+IEFkaSBHYW5naWRpICZsdDs8L2ZvbnQ+PGEgaHJl
+Zj0ibWFpbHRvOmFkaS5nYW5naWRpQHJhY2tzcGFjZS5jb20iPjx1Pjxmb250IGNvbG9yPSIjMDAw
+MEZGIiBmYWNlPSJDYWxpYnJpIj5hZGkuZ2FuZ2lkaUByYWNrc3BhY2UuY29tPC9mb250PjwvdT48
+L2E+PGZvbnQgZmFjZT0iQ2FsaWJyaSI+Jmd0OzsgQnJhZCBEZUJhdWNoZSAmbHQ7PC9mb250Pjxh
+IGhyZWY9Im1haWx0bzpicmFkLmRlYmF1Y2hlQFJBQ0tTUEFDRS5DT00iPjx1Pjxmb250IGNvbG9y
+PSIjMDAwMEZGIiBmYWNlPSJDYWxpYnJpIj5icmFkLmRlYmF1Y2hlQFJBQ0tTUEFDRS5DT008L2Zv
+bnQ+PC91PjwvYT48Zm9udCBmYWNlPSJDYWxpYnJpIj4mZ3Q7OyBDaGFkIFNvbWVybG90ICZsdDs8
+L2ZvbnQ+PGEgaHJlZj0ibWFpbHRvOmNoYWQuc29tZXJsb3RAUkFDS1NQQUNFLkNPTSI+PHU+PGZv
+bnQgY29sb3I9IiMwMDAwRkYiIGZhY2U9IkNhbGlicmkiPmNoYWQuc29tZXJsb3RAUkFDS1NQQUNF
+LkNPTTwvZm9udD48L3U+PC9hPjxmb250IGZhY2U9IkNhbGlicmkiPiZndDs8L2ZvbnQ+PGI+PGZv
+bnQgZmFjZT0iQ2FsaWJyaSI+PGJyPlN1YmplY3Q6PC9mb250PjwvYj48Zm9udCBmYWNlPSJDYWxp
+YnJpIj4gUmU6IE9wZW5CTUMgY2xvdWQgaW5zdGFuY2UgbWlncmF0aW9uIGZyb20gQWFyb24ncyBh
+Y2NvdW50PC9mb250Pjxicj48Zm9udCBmYWNlPSJUaW1lcyBOZXcgUm9tYW4iPiA8L2ZvbnQ+PHA+
+PGZvbnQgc2l6ZT0iMiIgZmFjZT0iVGltZXMgTmV3IFJvbWFuIj5UaGFuayB5b3UgQWFyb24sIDwv
+Zm9udD48Zm9udCBmYWNlPSJUaW1lcyBOZXcgUm9tYW4iPjxicj48L2ZvbnQ+PGZvbnQgc2l6ZT0i
+MiIgZmFjZT0iVGltZXMgTmV3IFJvbWFuIj48YnI+V2VsY29tZSBDaGFkIEkgbG9vayBmb3J3YXJk
+IHRvIHdvcmtpbmcgd2l0aCB5b3UuIElmIHlvdSBldmVyIHdvbmRlcmVkIHdoYXQgd2UgZG8gd2l0
+aCB5b3VyIHNlcnZlciBmZWVsIGZyZWUgdG8gc2VlIGl0IGluIGFjdGlvbi4uLiA8L2ZvbnQ+PGEg
+aHJlZj0iaHR0cHM6Ly9vcGVucG93ZXIueHl6LyI+PHU+PGZvbnQgc2l6ZT0iMiIgY29sb3I9IiMw
+MDAwRkYiIGZhY2U9IlRpbWVzIE5ldyBSb21hbiI+aHR0cHM6Ly9vcGVucG93ZXIueHl6LzwvZm9u
+dD48L3U+PC9hPjxmb250IGZhY2U9IlRpbWVzIE5ldyBSb21hbiI+PGJyPjxicj48L2ZvbnQ+PGZv
+bnQgc2l6ZT0iMiIgZmFjZT0iVGltZXMgTmV3IFJvbWFuIj48YnI+PGJyPkNocmlzIEF1c3Rlbjxi
+cj5QT1dFUiBTeXN0ZW1zIEVuYWJsZW1lbnQgTWFuYWdlciA8YnI+KDUxMikgMjg2LTUxODQgKFQv
+TDogMzYzLTUxODQpPC9mb250Pjxmb250IGZhY2U9IlRpbWVzIE5ldyBSb21hbiI+PGJyPjxicj48
+L2ZvbnQ+PGltZyBzcmM9ImNpZDoxX189MDlCQjBCOURERjExQ0E2RThmOWU4YTkzZGY5Mzg2OTA5
+MThjMDlCQCIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiBhbHQ9IkluYWN0aXZlIGhpZGUgZGV0YWls
+cyBmb3IgQWFyb24gU3VsbGl2YW4gLS0tMDQvMjYvMjAxNyAxMjo0Nzo1MSBQTS0tLUhpIEd1eXMs
+IEkgdGhpbmsgd2UncmUganVzdCBnb2luZyB0byBtaWdyYXRlIG15IGFjY291bnQgb3YiPjxmb250
+IHNpemU9IjIiIGNvbG9yPSIjNDI0MjgyIiBmYWNlPSJUaW1lcyBOZXcgUm9tYW4iPkFhcm9uIFN1
+bGxpdmFuIC0tLTA0LzI2LzIwMTcgMTI6NDc6NTEgUE0tLS1IaSBHdXlzLCBJIHRoaW5rIHdlJ3Jl
+IGp1c3QgZ29pbmcgdG8gbWlncmF0ZSBteSBhY2NvdW50IG92ZXIgdG8gQ2hhZC4gVGhhdCBwcm9j
+ZXNzIGlzIGluIGZsaWdodCBub3cuPC9mb250Pjxmb250IGZhY2U9IlRpbWVzIE5ldyBSb21hbiI+
+PGJyPjwvZm9udD48Zm9udCBzaXplPSIyIiBjb2xvcj0iIzVGNUY1RiIgZmFjZT0iVGltZXMgTmV3
+IFJvbWFuIj48YnI+RnJvbTogPC9mb250Pjxmb250IHNpemU9IjIiIGZhY2U9IlRpbWVzIE5ldyBS
+b21hbiI+QWFyb24gU3VsbGl2YW4gJmx0OzwvZm9udD48YSBocmVmPSJtYWlsdG86YWFyb24uc3Vs
+bGl2YW5AcmFja3NwYWNlLmNvbSI+PHU+PGZvbnQgc2l6ZT0iMiIgY29sb3I9IiMwMDAwRkYiIGZh
+Y2U9IlRpbWVzIE5ldyBSb21hbiI+YWFyb24uc3VsbGl2YW5AcmFja3NwYWNlLmNvbTwvZm9udD48
+L3U+PC9hPjxmb250IHNpemU9IjIiIGZhY2U9IlRpbWVzIE5ldyBSb21hbiI+Jmd0OzwvZm9udD48
+Zm9udCBzaXplPSIyIiBjb2xvcj0iIzVGNUY1RiIgZmFjZT0iVGltZXMgTmV3IFJvbWFuIj48YnI+
+VG86IDwvZm9udD48Zm9udCBzaXplPSIyIiBmYWNlPSJUaW1lcyBOZXcgUm9tYW4iPkFkaSBHYW5n
+aWRpICZsdDs8L2ZvbnQ+PGEgaHJlZj0ibWFpbHRvOmFkaS5nYW5naWRpQHJhY2tzcGFjZS5jb20i
+Pjx1Pjxmb250IHNpemU9IjIiIGNvbG9yPSIjMDAwMEZGIiBmYWNlPSJUaW1lcyBOZXcgUm9tYW4i
+PmFkaS5nYW5naWRpQHJhY2tzcGFjZS5jb208L2ZvbnQ+PC91PjwvYT48Zm9udCBzaXplPSIyIiBm
+YWNlPSJUaW1lcyBOZXcgUm9tYW4iPiZndDs8L2ZvbnQ+PGZvbnQgc2l6ZT0iMiIgY29sb3I9IiM1
+RjVGNUYiIGZhY2U9IlRpbWVzIE5ldyBSb21hbiI+PGJyPkNjOiA8L2ZvbnQ+PGZvbnQgc2l6ZT0i
+MiIgZmFjZT0iVGltZXMgTmV3IFJvbWFuIj5DaGFkIFNvbWVybG90ICZsdDs8L2ZvbnQ+PGEgaHJl
+Zj0ibWFpbHRvOmNoYWQuc29tZXJsb3RAUkFDS1NQQUNFLkNPTSI+PHU+PGZvbnQgc2l6ZT0iMiIg
+Y29sb3I9IiMwMDAwRkYiIGZhY2U9IlRpbWVzIE5ldyBSb21hbiI+Y2hhZC5zb21lcmxvdEBSQUNL
+U1BBQ0UuQ09NPC9mb250PjwvdT48L2E+PGZvbnQgc2l6ZT0iMiIgZmFjZT0iVGltZXMgTmV3IFJv
+bWFuIj4mZ3Q7LCBDaHJpcyBBdXN0ZW4vQXVzdGluL0lCTUBJQk1VUywgQnJhZCBEZUJhdWNoZSAm
+bHQ7PC9mb250PjxhIGhyZWY9Im1haWx0bzpicmFkLmRlYmF1Y2hlQFJBQ0tTUEFDRS5DT00iPjx1
+Pjxmb250IHNpemU9IjIiIGNvbG9yPSIjMDAwMEZGIiBmYWNlPSJUaW1lcyBOZXcgUm9tYW4iPmJy
+YWQuZGViYXVjaGVAUkFDS1NQQUNFLkNPTTwvZm9udD48L3U+PC9hPjxmb250IHNpemU9IjIiIGZh
+Y2U9IlRpbWVzIE5ldyBSb21hbiI+Jmd0OzwvZm9udD48Zm9udCBzaXplPSIyIiBjb2xvcj0iIzVG
+NUY1RiIgZmFjZT0iVGltZXMgTmV3IFJvbWFuIj48YnI+RGF0ZTogPC9mb250Pjxmb250IHNpemU9
+IjIiIGZhY2U9IlRpbWVzIE5ldyBSb21hbiI+MDQvMjYvMjAxNyAxMjo0NyBQTTwvZm9udD48Zm9u
+dCBzaXplPSIyIiBjb2xvcj0iIzVGNUY1RiIgZmFjZT0iVGltZXMgTmV3IFJvbWFuIj48YnI+U3Vi
+amVjdDogPC9mb250Pjxmb250IHNpemU9IjIiIGZhY2U9IlRpbWVzIE5ldyBSb21hbiI+UmU6IE9w
+ZW5CTUMgY2xvdWQgaW5zdGFuY2UgbWlncmF0aW9uIGZyb20gQWFyb24ncyBhY2NvdW50PC9mb250
+Pjxicj48aHIgd2lkdGg9IjEwMCUiIHNpemU9IjIiIGFsaWduPSJsZWZ0IiBub3NoYWRlPjxicj48
+Zm9udCBmYWNlPSJUaW1lcyBOZXcgUm9tYW4iPjxicj48YnI+PGJyPkhpIEd1eXMsPGJyPjxicj5J
+IHRoaW5rIHdlJ3JlIGp1c3QgZ29pbmcgdG8gbWlncmF0ZSBteSBhY2NvdW50IG92ZXIgdG8gQ2hh
+ZC4gVGhhdCBwcm9jZXNzIGlzIGluIGZsaWdodCBub3cuPGJyPjxicj5TaG91bGQgYmUgbm8gZGlz
+cnVwdGlvbiB0byB0aGUgT3BlbkJNQyB0ZWFtLjxicj48YnI+U2VudCBmcm9tIG15IG1vYmlsZTxi
+cj48YnI+T24gQXByIDI2LCAyMDE3LCBhdCAxMjowNSBQTSwgQWRpIEdhbmdpZGkgJmx0OzwvZm9u
+dD48YSBocmVmPSJtYWlsdG86YWRpLmdhbmdpZGlAcmFja3NwYWNlLmNvbSI+PHU+PGZvbnQgY29s
+b3I9IiMwMDAwRkYiIGZhY2U9IlRpbWVzIE5ldyBSb21hbiI+YWRpLmdhbmdpZGlAcmFja3NwYWNl
+LmNvbTwvZm9udD48L3U+PC9hPjxmb250IGZhY2U9IlRpbWVzIE5ldyBSb21hbiI+Jmd0OyB3cm90
+ZTo8L2ZvbnQ+PHVsPjx1bD48dWw+PHVsPjxmb250IGZhY2U9IlRpbWVzIE5ldyBSb21hbiI+4oCL
+SGkgVGVhbSA8L2ZvbnQ+PHA+PGZvbnQgZmFjZT0iVGltZXMgTmV3IFJvbWFuIj5DaHJpcyBBdXN0
+ZW4gb24gY2MgZnJvbSBPcGVuQk1DIHRlYW0gd291bGQgbGlrZSB0byBiZSBwb3N0ZWQgdGltZWx5
+IG9uIG1pZ3JhdGlvbiBvZiBPcGVuQk1DIGJ1aWxkIHNlcnZlciBvdXQgb2YgQWFyb24ncyBhY2Nv
+dW50LiBNYWlubHkgaWYgdGhlcmUgaXMgYW55IGRvd24gdGltZSBleHBlY3RlZCBvciBqdXN0IG1h
+a2luZyBzdXJlIHRoZSBwcm9jZXNzIGlzIHNtb290aCBzbyB0aGF0IHRoZWlyIGJ1aWxkcyBkb24n
+dCBoYXZlIHRvbyBtdWNoIGltcGFjdC4gPC9mb250PjxwPjxmb250IGZhY2U9IlRpbWVzIE5ldyBS
+b21hbiI+LUFkaSA8L2ZvbnQ+PC91bD48L3VsPjwvdWw+PC91bD48Zm9udCBmYWNlPSJUaW1lcyBO
+ZXcgUm9tYW4iPiA8L2ZvbnQ+PGJyPjxicj48QlI+DQo8L2JvZHk+PC9odG1sPg0K
 
---001a1144323e2a9dc9054e1531b9--
+--1__=09BB0B9DDF11CA6E8f9e8a93df938690918c09BB0B9DDF11CA6E--
+
+
+--0__=09BB0B9DDF11CA6E8f9e8a93df938690918c09BB0B9DDF11CA6E
+Content-type: image/gif; 
+	name="graycol.gif"
+Content-Disposition: inline; filename="graycol.gif"
+Content-ID: <1__=09BB0B9DDF11CA6E8f9e8a93df938690918c09B@>
+Content-Transfer-Encoding: base64
+
+R0lGODlhEAAQAKECAMzMzAAAAP///wAAACH5BAEAAAIALAAAAAAQABAAAAIXlI+py+0PopwxUbpu
+ZRfKZ2zgSJbmSRYAIf4fT3B0aW1pemVkIGJ5IFVsZWFkIFNtYXJ0U2F2ZXIhAAA7
+
+
+--0__=09BB0B9DDF11CA6E8f9e8a93df938690918c09BB0B9DDF11CA6E--
