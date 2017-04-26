@@ -1,57 +1,39 @@
-Return-Path: <ryan_chen@aspeedtech.com>
-Received: from twspam01.aspeedtech.com (unknown [211.20.114.71])
- (using TLSv1 with cipher AES256-SHA (256/256 bits))
+Return-Path: <sam@mendozajonas.com>
+Received: from mendozajonas.com (mendozajonas.com [188.166.185.233])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wCM6N0wVZzDq7Z
- for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 10:54:19 +1000 (AEST)
-Received: from mail.aspeedtech.com (twmbx02.aspeed.com [192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id v3Q0qCJp086145;
- Wed, 26 Apr 2017 08:52:12 +0800 (CST)
- (envelope-from ryan_chen@aspeedtech.com)
-Received: from TWMBX01.aspeed.com (192.168.0.23) by TWMBX02.aspeed.com
- (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.620.29; Wed, 26 Apr
- 2017 08:52:51 +0800
-Received: from TWMBX01.aspeed.com ([fe80::157a:4af5:bbf4:5dbb]) by
- TWMBX01.aspeed.com ([fe80::157a:4af5:bbf4:5dbb%12]) with mapi id
- 15.00.0620.020; Wed, 26 Apr 2017 08:52:48 +0800
-From: Ryan Chen <ryan_chen@aspeedtech.com>
-To: Brendan Higgins <brendanhiggins@google.com>
-CC: Benjamin Herrenschmidt <benh@kernel.crashing.org>, Wolfram Sang
- <wsa@the-dreams.de>, Rob Herring <robh+dt@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, Thomas Gleixner <tglx@linutronix.de>, Jason Cooper
- <jason@lakedaemon.net>, Marc Zyngier <marc.zyngier@arm.com>, Joel Stanley
- <joel@jms.id.au>, Vladimir Zapolskiy <vz@mleia.com>, Kachalov Anton
- <mouse@mayc.ru>, =?utf-8?B?Q8OpZHJpYyBMZSBHb2F0ZXI=?= <clg@kaod.org>,
- "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "Linux Kernel
- Mailing List" <linux-kernel@vger.kernel.org>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>
-Subject: RE: [PATCH v6 4/5] i2c: aspeed: added driver for Aspeed I2C
-Thread-Topic: [PATCH v6 4/5] i2c: aspeed: added driver for Aspeed I2C
-Thread-Index: AQHSvSx+Drdx1H0Z3EiZ7klrZcj7hKHU1CyAgABoTACAAIl1AP//h+qAgACHK5CAACT9gIAA2Xvg
-Date: Wed, 26 Apr 2017 00:52:48 +0000
-Message-ID: <667ba18784664804a87d36e82d244148@TWMBX01.aspeed.com>
-References: <20170328051226.21677-1-brendanhiggins@google.com>
- <20170328051226.21677-5-brendanhiggins@google.com>
- <1490945610.3177.229.camel@kernel.crashing.org>
- <CAFd5g45DQZz99y59AY-4465qnM+tRv6+bDdGQqS6VYHEfRfjDg@mail.gmail.com>
- <1493086747.25766.264.camel@kernel.crashing.org>
- <CAFd5g44ioW0PdFVOhY-ep8TXBNg6qC7E5yjOVf3MEdY9bPgEDA@mail.gmail.com>
- <7d991733d3ea4591b74baf93300f0224@TWMBX01.aspeed.com>
- <1493112875.25766.268.camel@kernel.crashing.org>
- <e90ff5914518400ea6902ca40406eb0f@TWMBX01.aspeed.com>
- <CAFd5g45htFgr5oHbB9W_nyyMfm5J7BCKUuP73RxKhNW3LkWtyw@mail.gmail.com>
-In-Reply-To: <CAFd5g45htFgr5oHbB9W_nyyMfm5J7BCKUuP73RxKhNW3LkWtyw@mail.gmail.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [192.168.0.108]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com v3Q0qCJp086145
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wCMKZ2QHbzDq7Z
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 11:04:02 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
+ header.b="rwyn8y8I"; dkim-atps=neutral
+Received: from [192.168.1.9] (124-171-153-237.dyn.iinet.net.au
+ [124.171.153.237])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client did not present a certificate)
+ (Authenticated sender: sam@mendozajonas.com)
+ by mendozajonas.com (Postfix) with ESMTPSA id 68F42143FC8;
+ Wed, 26 Apr 2017 09:03:58 +0800 (SGT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mendozajonas.com;
+ s=mail; t=1493168639;
+ bh=26Mx6q2bc0PTrk5ePAriC0Yh+2lNad9zoTU3OBHX+G4=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+ b=rwyn8y8IKPd63BbyyyfOKZjeDUcL311MMG964l/KXqv8QMumTHcOLmaifkKwuSUd/
+ BCOLT1miFzjNCXm6qGEG6o/oVikUZqNdlghGS3CUtI6ShDwiLj0ixU7hxNwXsVYDnM
+ uk0HXsecd3XJhO/qp8qwEcOQxSquT8oz0zK4eBuQ=
+Message-ID: <1493168635.1790.6.camel@mendozajonas.com>
+Subject: Re: [PATCH] hwmon (pmbus): Add client driver for IR35221
+From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+To: Guenter Roeck <linux@roeck-us.net>, linux-hwmon@vger.kernel.org
+Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Wed, 26 Apr 2017 11:03:55 +1000
+In-Reply-To: <248726f5-f1e7-4feb-1917-049173303aa6@roeck-us.net>
+References: <20170421042505.20403-1-sam@mendozajonas.com>
+ <248726f5-f1e7-4feb-1917-049173303aa6@roeck-us.net>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.22.6 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,83 +45,526 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Apr 2017 00:54:20 -0000
+X-List-Received-Date: Wed, 26 Apr 2017 01:04:03 -0000
 
-PiBUaGFua3MgUnlhbi4gQ2FuIHlvdSBzaGVkIHNvbWUgbGlnaHQgb24gdGhlIG1lYW5pbmcgb2Yg
-dGhlIGhpZ2gtc3BlZWQgYml0IGFzIHdlbGwgcGxlYXNlID8NCj4NCj4gQWJvdXQgQVNQRUVEX0ky
-Q0RfTV9ISUdIX1NQRUVEX0VOLCBpdCBpcyBzdXBwb3J0IGZvciBJMkMgc3BlY2lmaWNhdGlvbiAi
-SGlnaCBzcGVlZCB0cmFuc2ZlciIuIEFuZCBhbHNvIGRldmljZSBuZWVkIHN1cHBvcnQgaXQuDQo+
-IElmIHlvdSBqdXN0IHNwZWVkIHVwIHRoZSBJMkMgYnVzIGNsb2NrLCB5b3UgZG9u4oCZdCBoYXZl
-IHRvIGVuYWJsZSBBU1BFRURfSTJDRF9NX0hJR0hfU1BFRURfRU4sIGp1c3QgY2hhbmdlIHRoZSBj
-bG9jayBpcyBvay4NCj4NCg0KPkludGVyZXN0aW5nLCBJIHRob3VnaHQgdGhhdCBBU1BFRURfSTJD
-RF9NX1NEQV9EUklWRV8xVF9FTiBhbmQgaXRzIGNvdW50ZXJwYXJ0IHdvdWxkIGJlIHVzZWQgZm9y
-IGZhc3QgbW9kZSBvciBmYXN0IG1vZGUgcGx1cyBhbmQgQVNQRUVEX0kyQ0RfTV9ISUdIX1NQRUVE
-X0VOIHdvdWxkIGJlIHVzZWQgZm9yIGZhc3QgbW9kZSBwbHVzIG9yIGhpZ2ggc3BlZWQgbW9kZSBh
-bmQgdGhhdCB0aGV5IHdvcmsgYnkgZHJpdmluZyB0aGUgU0RBIGFuZCBTQ0wgc2lnbmFscyB0byA+
-aW1wcm92ZSByaXNlIHRpbWVzLiBJdCBtYWRlIHNlbnNlIHRvIG1lIGJlY2F1c2UgdGhlIGxvd2Vz
-dCBTQ0wgeW91IGNhbiBnZXQgd2l0aCBiYXNlIGNsb2NrIHNldCB0byB6ZXJvIGlzIGFib3V0IH4x
-LjVNSHogd2hpY2ggaXMgaW4gYmV0d2VlbiBmYXN0IG1vZGUgcGx1cyAoMU1IeikgYW5kIGhpZ2gg
-c3BlZWQgbW9kZSAoMy40TUh6KS4NCg0KPkJ1dCBmcm9tIHdoYXQgeW91IGFyZSBzYXlpbmcsIEFT
-UEVFRF9JMkNEX01fU0RBX0RSSVZFXzFUX0VOIGFuZCBpdHMgY291bnRlcnBhcnQgYXJlIHRvdGFs
-bHkgb3J0aG9nb25hbCB0byB0aGUgc2VsZWN0ZWQgc3BlZWQgYW5kIEFTUEVFRF9JMkNEX01fSElH
-SF9TUEVFRF9FTiBleGlzdHMgYXMgYSBtYXR0ZXIgb2YgY29udmVuaWVuY2UgdG8gc2V0IGFsbCBv
-ZiB0aGUgZGl2aWRlciByZWdpc3RlcnMgdG8gdGhlaXIgc21hbGxlc3QgcG9zc2libGUgdmFsdWVz
-LiBJcyBteSA+DQo+dW5kZXJzdGFuZGluZyBjb3JyZWN0Pw0KDQoNCkluIEkyYyBzcGVjaWZpY2F0
-aW9uW2h0dHA6Ly93d3cuY3NkLnVvYy5nci9+aHk0MjgvcmVhZGluZy9pMmNfc3BlYy5wZGZdIHRo
-ZXJlIGhhdmUgYSBjaGFwdGVyIGFib3V0IGhpZ2ggc3BlZWQgdHJhbnNmZXIuIEl0IHdpbGwgc3Rh
-cnQgZnJvbSBzcGVjaWZpYyBjb21tYW5kICgwMDAwMVhYWCkgYW5kIGFmdGVyIHRoYXQgY2FuIHRy
-YW5zZmVyIHRvIGhpZ2ggc3BlZWQgbW9kZS4gDQpUaGUgZm9sbG93aW5nIGlzIG91ciBoaWdoIHNw
-ZWVkIG1vZGUgcHJvZ3JhbW1pbmcgZ3VpZGUuIFRoYXQgYWxzbyBoYXZlIGRlc2NyaXB0aW9uIGF0
-IEFTVDI0MDAgZGF0YXNoZWV0LiA0MC43LjEyDQoNCg0KDQo+DQo+IC0tLS0tT3JpZ2luYWwgTWVz
-c2FnZS0tLS0tDQo+IEZyb206IEJlbmphbWluIEhlcnJlbnNjaG1pZHQgW21haWx0bzpiZW5oQGtl
-cm5lbC5jcmFzaGluZy5vcmddDQo+IFNlbnQ6IFR1ZXNkYXksIEFwcmlsIDI1LCAyMDE3IDU6MzUg
-UE0NCj4gVG86IFJ5YW4gQ2hlbiA8cnlhbl9jaGVuQGFzcGVlZHRlY2guY29tPjsgQnJlbmRhbiBI
-aWdnaW5zIA0KPiA8YnJlbmRhbmhpZ2dpbnNAZ29vZ2xlLmNvbT4NCj4gQ2M6IFdvbGZyYW0gU2Fu
-ZyA8d3NhQHRoZS1kcmVhbXMuZGU+OyBSb2IgSGVycmluZyANCj4gPHJvYmgrZHRAa2VybmVsLm9y
-Zz47IE1hcmsgUnV0bGFuZCA8bWFyay5ydXRsYW5kQGFybS5jb20+OyBUaG9tYXMgDQo+IEdsZWl4
-bmVyIDx0Z2x4QGxpbnV0cm9uaXguZGU+OyBKYXNvbiBDb29wZXIgPGphc29uQGxha2VkYWVtb24u
-bmV0PjsgDQo+IE1hcmMgWnluZ2llciA8bWFyYy56eW5naWVyQGFybS5jb20+OyBKb2VsIFN0YW5s
-ZXkgPGpvZWxAam1zLmlkLmF1PjsgDQo+IFZsYWRpbWlyIFphcG9sc2tpeSA8dnpAbWxlaWEuY29t
-PjsgS2FjaGFsb3YgQW50b24gPG1vdXNlQG1heWMucnU+OyANCj4gQ8OpZHJpYyBMZSBHb2F0ZXIg
-PGNsZ0BrYW9kLm9yZz47IGxpbnV4LWkyY0B2Z2VyLmtlcm5lbC5vcmc7IA0KPiBkZXZpY2V0cmVl
-QHZnZXIua2VybmVsLm9yZzsgTGludXggS2VybmVsIE1haWxpbmcgTGlzdCANCj4gPGxpbnV4LWtl
-cm5lbEB2Z2VyLmtlcm5lbC5vcmc+OyBPcGVuQk1DIE1haWxsaXN0IA0KPiA8b3BlbmJtY0BsaXN0
-cy5vemxhYnMub3JnPg0KPiBTdWJqZWN0OiBSZTogW1BBVENIIHY2IDQvNV0gaTJjOiBhc3BlZWQ6
-IGFkZGVkIGRyaXZlciBmb3IgQXNwZWVkIEkyQw0KPg0KPiBPbiBUdWUsIDIwMTctMDQtMjUgYXQg
-MDg6NTAgKzAwMDAsIFJ5YW4gQ2hlbiB3cm90ZToNCj4+IEhlbGxvIEFsbCwNCj4+ICAgICAgICAg
-ICAgICAgQVNQRUVEX0kyQ0RfTV9TREFfRFJJVkVfMVRfRU4sIA0KPj4gQVNQRUVEX0kyQ0RfU0RB
-X0RSSVZFXzFUX0VOIGlzIHNwZWNpZmljIGZvciBzb21lIGNhc2UgdXNhZ2UuDQo+PiAgICAgICAg
-ICAgICAgIEZvciBleGFtcGxlLCBpZiBpMmMgYnVzIGlzIHVzZSBvbiAiaGlnaCBzcGVlZCIgYW5k
-IA0KPj4gInNpbmdsZSBzbGF2ZSBhbmQgbWFzdGVyIiBhbmQgaTJjIGJ1cyBpcyB0b28gbG9uZy4g
-SXQgbmVlZCBkcml2ZSBTREEgb3IgU0NMIGxlc3MgbHVuYWN5Lg0KPj4gSXQgd291bGQgZW5hYmxl
-IGl0Lg0KPj4gICAgICAgICAgICAgICBPdGhlcndpc2UsIGRvbuKAmXQgZW5hYmxlIGl0LiBlc3Bl
-Y2lhbGx5IGluIG11bHRpLW1hc3Rlci4NCj4+IEl0IGNhbuKAmXQgYmUgZW5hYmxlLg0KPg0KPiBU
-aGF0IHNtZWxscyBsaWtlIGEgc3BlY2lmaWMgZW5vdWdoIHVzZSBjYXNlIHRoYXQgd2Ugc2hvdWxk
-IHByb2JhYmx5IGNvdmVyIHdpdGggYSBkZXZpY2UtdHJlZSBwcm9wZXJ0eSwgc29tZXRoaW5nIGxp
-a2UgYW4gZW1wdHkgInNkYS1leHRyYS1kcml2ZSIgcHJvcGVydHkgKGVtcHR5IHByb3BlcnRpZXMg
-YXJlIHR5cGljYWxseSB1c2VkIGZvciBib29sZWFucywgdGhlaXIgcHJlc2VuY2UgbWVhbnMgInRy
-dWUiKS4NCj4NCj4gVGhhbmtzIFJ5YW4uIENhbiB5b3Ugc2hlZCBzb21lIGxpZ2h0IG9uIHRoZSBt
-ZWFuaW5nIG9mIHRoZSBoaWdoLXNwZWVkIA0KPiBiaXQgYXMgd2VsbCBwbGVhc2UgPyBEb2VzIGl0
-IGZvcmNlIHRvIGEgc3BlY2lmaWMgc3BlZWQgKGlnbm9yaW5nIHRoZQ0KPiBkaXZpc29yKSBvciB3
-ZSBjYW4gc3RpbGwgcGxheSB3aXRoIHRoZSBjbG9jayBoaWdoL2xvdyBjb3VudHMgPw0KPg0KLi4u
-DQo+PiA+IFlvdXIgbGF0ZXN0IHBhdGNoIHN0aWxsIGRvZXMgdGhhdC4gSXQgd2lsbCBkbyB0aGlu
-Z3MgbGlrZSBzdGFydCBhIA0KPj4gPiBTVE9QIGNvbW1hbmQgKnRoZW4qIGFjayB0aGUgc3RhdHVz
-IGJpdHMuIEknbSBwcmV0dHkgc3VyZSB0aGF0J3MgDQo+PiA+IGJvZ3VzLg0KPj4gPg0KPj4gPiBU
-aGF0IHdheSBpdCdzIGEgbG90IHNpbXBsZXIgdG8gc2ltcGx5IG1vdmUgdGhlDQo+PiA+DQo+PiA+
-ICAgICAgICAgd3JpdGVsKGlycV9zdGF0dXMsIGJ1cy0+YmFzZSArIEFTUEVFRF9JMkNfSU5UUl9T
-VFNfUkVHKTsNCj4+ID4NCj4+ID4gVG8gZWl0aGVyIHJpZ2h0IGFmdGVyIHRoZSByZWFkbCBvZiB0
-aGUgc3RhdHVzIHJlZyBhdCB0aGUgYmVnaW5uaW5nIA0KPj4gPiBvZiBhc3BlZWRfaTJjX21hc3Rl
-cl9pcnEoKS4NCj4+ID4NCj4+ID4gSSB3b3VsZCBiZSB2ZXJ5IHN1cnByaXNlZCBpZiB0aGF0IGRp
-ZG4ndCB3b3JrIHByb3Blcmx5IGFuZCB3YXNuJ3QgDQo+PiA+IG11Y2ggc2FmZXIgdGhhbiB3aGF0
-IHlvdSBhcmUgY3VycmVudGx5IGRvaW5nLg0KPj4NCj4+IEkgdGhpbmsgSSB0cmllZCB5b3VyIHdh
-eSBhbmQgaXQgd29ya2VkLiBJbiBhbnljYXNlLCBSeWFuIHdpbGwgYmUgYWJsZSANCj4+IHRvIGNs
-YXJpZnkgZm9yIHVzLg0KDQpBZnRlciB0aGlua2luZyBhYm91dCB0aGlzIG1vcmUsIEkgdGhpbmsg
-QmVuIGlzIHJpZ2h0LiBJdCB3b3VsZCBiZSB1bnVzdWFsIGZvciBzdWNoIGEgY29tbW9uIGNvbnZl
-bnRpb24gdG8gYmUgYnJva2VuIGFuZCBldmVuIGlmIGl0IGlzLCBJIGRvIG5vdCBzZWUgaG93IGEg
-Y29tbWFuZCBjb3VsZCB0YWtlIGVmZmVjdCB1bnRpbCBpdCBpcyBhY3R1YWxseSBpc3N1ZWQuIE5l
-dmVydGhlbGVzcywgaXQgd291bGQgbWFrZSBtZSBmZWVsIGJldHRlciBpZiB5b3UsIFJ5YW4sIGNv
-dWxkIGNvbW1lbnQgb24gdGhpcy4NCg0KPj4NCj4+ID4NCj4+ID4gPiBMZXQgbWUga25vdyBpZiB5
-b3Ugc3RpbGwgdGhpbmsgd2UgbmVlZCBhICJSRUNPVkVSWSIgc3RhdGUuDQo+PiA+DQouLi4NCkkg
-ZmVlbCBwcmV0dHkgZ29vZCBhYm91dCB0aGlzOyBpdCBkb2VzIG5vdCBsb29rIGxpa2UgdGhlcmUg
-d2lsbCBiZSBhIGxvdCBvZiBjaGFuZ2VzIGdvaW5nIGludG8gdjg7IGhvcGVmdWxseSwgdGhhdCB2
-ZXJzaW9uIHdpbGwgYmUgZ29vZCBlbm91Z2ggdG8gZ2V0IG1lcmdlZC4NCg==
+On Fri, 2017-04-21 at 06:49 -0700, Guenter Roeck wrote:
+> On 04/20/2017 09:25 PM, Samuel Mendoza-Jonas wrote:
+> > IR35221 is a Digital DC-DC Multiphase Converter
+> > 
+> > Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+> > ---
+> > - Tested on a ppc64 system which includes several of these devices.
+> > - This patch re-implements the linear reg2data/data2reg functions from
+> >   pmbus-core like some other drivers in order to scale some results. Is
+> >   this something that would be better off being made generic for pmbus
+> >   drivers to call?
+> 
+> That might make sense. The only other driver is zl6100, or am I missing
+> something ?
+
+I believe ltc2978 has a small implementation as well.
+
+> 
+> Trying to understand the code, the data format seems to be linear11 with
+> an added exponent on top of it. Is that correct ? If so, I wonder if we should
+> make that configurable, ie store the additional exponent in R and handle it
+> in the pmbus core. Would that help ?
+
+Yes that's essentially what it is. Using R for the extra exponent would
+be a neat solution, however at least for this chip commands in the same
+class have different scaling exponents (eg VIN_UV_WARN_LIMIT vs
+READ_VIN). I'll have a look though and see if I can cover this - maybe a
+small wrapper function that updates the exponent in the data returned by
+pmbus_read_word_data()/etc?
+
+> 
+> If so, and if you have time, feel free to provide patches the modify the
+> pmbus core code accordingly.
+> 
+> > - The resolution of iout0 is apparently configurable between two values,
+> >   however the documentation I have access to does not specify how this is
+> >   actually configured - currently it is left at the default resolution in
+> >   the driver.
+> > 
+> 
+> Nothing we can do about that, but it might make sense to add a note somewhere
+> in the driver.
+> 
+> >  Documentation/hwmon/ir35221   |  87 ++++++++++++
+> >  drivers/hwmon/pmbus/Kconfig   |  11 ++
+> >  drivers/hwmon/pmbus/Makefile  |   1 +
+> >  drivers/hwmon/pmbus/ir35221.c | 322 ++++++++++++++++++++++++++++++++++++++++++
+> >  4 files changed, 421 insertions(+)
+> >  create mode 100644 Documentation/hwmon/ir35221
+> >  create mode 100644 drivers/hwmon/pmbus/ir35221.c
+> > 
+> > diff --git a/Documentation/hwmon/ir35221 b/Documentation/hwmon/ir35221
+> > new file mode 100644
+> > index 000000000000..f7e112752c04
+> > --- /dev/null
+> > +++ b/Documentation/hwmon/ir35221
+> > @@ -0,0 +1,87 @@
+> > +Kernel driver ir35221
+> > +=====================
+> > +
+> > +Supported chips:
+> > +  * Infinion IR35221
+> > +    Prefix: 'ir35221'
+> > +    Addresses scanned: -
+> > +    Datasheet: Datasheet is not publicly available.
+> 
+> The chip doesn't even publicly exist, which is really annoying :-(.
+> 
+> > +
+> > +Author: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+> > +
+> > +
+> > +Description
+> > +-----------
+> > +
+> > +IR35221 is a Digital DC-DC Multiphase Converter
+> > +
+> > +
+> > +Usage Notes
+> > +-----------
+> > +
+> > +This driver does not probe for PMBus devices. You will have to instantiate
+> > +devices explicitly.
+> > +
+> > +Example: the following commands will load the driver for an IR35221
+> > +at address 0x70 on I2C bus #4:
+> > +
+> > +# modprobe ir35221
+> > +# echo ir35221 0x70 > /sys/bus/i2c/devices/i2c-4/new_device
+> > +
+> > +
+> > +Sysfs attributes
+> > +----------------
+> > +
+> > +curr1_label		"iin"
+> > +curr1_input		Measured input current
+> > +curr1_max		Maximum current
+> > +curr1_max_alarm		Current high alarm
+> > +
+> > +curr[2-3]_label		"iout[1-2]"
+> > +curr[2-3]_input		Measured output current
+> > +curr[2-3]_crit		Critical maximum current
+> > +curr[2-3]_crit_alarm	Current critical high alarm
+> > +curr[2-3]_highest	Highest output current
+> > +curr[2-3]_lowest	Lowest output current
+> > +curr[2-3]_max		Maximum current
+> > +curr[2-3]_max_alarm	Current high alarm
+> > +
+> > +in1_label		"vin"
+> > +in1_input		Measured input voltage
+> > +in1_crit		Critical maximum input voltage
+> > +in1_crit_alarm		Input voltage critical high alarm
+> > +in1_highest		Highest input voltage
+> > +in1_lowest		Lowest input voltage
+> > +in1_min			Minimum input voltage
+> > +in1_min_alarm		Input voltage low alarm
+> > +
+> > +in[2-3]_label		"vout[1-2]"
+> > +in[2-3]_input		Measured output voltage
+> > +in[2-3]_lcrit		Critical minimum output voltage
+> > +in[2-3]_lcrit_alarm	Output voltage critical low alarm
+> > +in[2-3]_crit		Critical maximum output voltage
+> > +in[2-3]_crit_alarm	Output voltage critical high alarm
+> > +in[2-3]_highest		Highest output voltage
+> > +in[2-3]_lowest		Lowest output voltage
+> > +in[2-3]_max		Maximum output voltage
+> > +in[2-3]_max_alarm	Output voltage high alarm
+> > +in[2-3]_min		Minimum output voltage
+> > +in[2-3]_min_alarm	Output voltage low alarm
+> > +
+> > +power1_label		"pin"
+> > +power1_input		Measured input power
+> > +power1_alarm		Input power high alarm
+> > +power1_max		Input power limit
+> > +
+> > +power[2-3]_label	"pout[1-2]"
+> > +power[2-3]_input	Measured output power
+> > +power[2-3]_max		Output power limit
+> > +power[2-3]_max_alarm	Output power high alarm
+> > +
+> > +temp[1-2]_input		Measured temperature
+> > +temp[1-2]_crit		Critical high temperature
+> > +temp[1-2]_crit_alarm	Chip temperature critical high alarm
+> > +temp[1-2]_highest	Highest temperature
+> > +temp[1-2]_lowest	Lowest temperature
+> > +temp[1-2]_max		Maximum temperature
+> > +temp[1-2]_max_alarm	Chip temperature high alarm
+> > diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
+> > index cad1229b7e17..88c7d6b116f8 100644
+> > --- a/drivers/hwmon/pmbus/Kconfig
+> > +++ b/drivers/hwmon/pmbus/Kconfig
+> > @@ -159,4 +159,15 @@ config SENSORS_ZL6100
+> >  	  This driver can also be built as a module. If so, the module will
+> >  	  be called zl6100.
+> > 
+> > +config SENSORS_IR35221
+> > +	tristate "Infineon IR35221"
+> > +	default n
+> > +	help
+> > +	  If you say yes here you get hardware monitoring support for the
+> > +	  Infineon IR35221 controller.
+> > +
+> > +	  This driver can also be built as a module. If so, the module will
+> > +	  be called ir35521.
+> > +
+> > +
+> >  endif # PMBUS
+> > diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
+> > index 562132054aaf..75bb7ca619d9 100644
+> > --- a/drivers/hwmon/pmbus/Makefile
+> > +++ b/drivers/hwmon/pmbus/Makefile
+> > @@ -5,6 +5,7 @@
+> >  obj-$(CONFIG_PMBUS)		+= pmbus_core.o
+> >  obj-$(CONFIG_SENSORS_PMBUS)	+= pmbus.o
+> >  obj-$(CONFIG_SENSORS_ADM1275)	+= adm1275.o
+> > +obj-$(CONFIG_SENSORS_IR35221)	+= ir35221.o
+> >  obj-$(CONFIG_SENSORS_LM25066)	+= lm25066.o
+> >  obj-$(CONFIG_SENSORS_LTC2978)	+= ltc2978.o
+> >  obj-$(CONFIG_SENSORS_LTC3815)	+= ltc3815.o
+> > diff --git a/drivers/hwmon/pmbus/ir35221.c b/drivers/hwmon/pmbus/ir35221.c
+> > new file mode 100644
+> > index 000000000000..e73b1aeb0085
+> > --- /dev/null
+> > +++ b/drivers/hwmon/pmbus/ir35221.c
+> > @@ -0,0 +1,322 @@
+> > +/*
+> > + * Hardware monitoring driver for IR35221
+> > + *
+> > + * Copyright (C) IBM Corporation 2017.
+> > + *
+> > + * This program is free software; you can redistribute it and/or
+> > + * modify it under the terms of the GNU General Public License
+> > + * as published by the Free Software Foundation; either version
+> > + * 2 of the License, or (at your option) any later version.
+> > + */
+> > +
+> > +#include <linux/kernel.h>
+> > +#include <linux/module.h>
+> > +#include <linux/err.h>
+> > +#include <linux/init.h>
+> > +#include <linux/i2c.h>
+> 
+> Alphabetic order please.
+> 
+> > +#include "pmbus.h"
+> > +
+> > +#define IR35221_IC_DEVICE_ID		0xad
+> > +#define IR35221_IC_DEVICE_REV		0xae
+> > +#define IR35221_USER_DATA_00		0xb0
+> > +#define IR35221_USER_DATA_01		0xb1
+> > +#define IR35221_MFR_READ_VAUX		0xc4
+> > +#define IR35221_MFR_VIN_PEAK		0xc5
+> > +#define IR35221_MFR_VOUT_PEAK		0xc6
+> > +#define IR35221_MFR_IOUT_PEAK		0xc7
+> > +#define IR35221_MFR_TEMP_PEAK		0xc8
+> > +#define IR35221_MFR_VIN_VALLEY		0xc9
+> > +#define IR35221_MFR_VOUT_VALLEY		0xca
+> > +#define IR35221_MFR_IOUT_VALLEY		0xcb
+> > +#define IR35221_MFR_TEMP_VALLEY		0xcc
+> > +#define IR35221_VOUT_RESET		0xce
+> > +#define IR35221_RESET_TRANSITION_RATE	0xcf
+> > +#define IR35221_MFR_REG_ACCESS		0xd0
+> > +#define IR35221_MFR_I2C_ADDRESS		0xd6
+> 
+> I don't think those are all used. Please drop the unused definitions.
+> 
+> > +
+> > +static long ir35221_reg2data(int data, enum pmbus_sensor_classes class)
+> > +{
+> > +	s16 exponent;
+> > +	s32 mantissa;
+> > +	long val;
+> > +
+> > +	/* We only modify LINEAR11 formats */
+> > +	exponent = ((s16)data) >> 11;
+> > +	mantissa = ((s16)((data & 0x7ff) << 5)) >> 5;
+> > +
+> > +	val = mantissa * 1000L;
+> > +
+> > +	/* scale result to micro-units for power sensors */
+> > +	if (class == PSC_POWER)
+> > +		val = val * 1000L;
+> > +
+> > +	if (exponent >= 0)
+> > +		val <<= exponent;
+> > +	else
+> > +		val >>= -exponent;
+> > +
+> > +	return val;
+> > +}
+> > +
+> > +#define MAX_MANTISSA	(1023 * 1000)
+> > +#define MIN_MANTISSA	(511 * 1000)
+> > +
+> > +static u16 ir35221_data2reg(long val, enum pmbus_sensor_classes class)
+> > +{
+> > +	s16 exponent = 0, mantissa;
+> > +	bool negative = false;
+> > +
+> > +	if (val == 0)
+> > +		return 0;
+> > +
+> > +	if (val < 0) {
+> > +		negative = true;
+> > +		val = -val;
+> > +	}
+> > +
+> > +	/* Power is in uW. Convert to mW before converting. */
+> > +	if (class == PSC_POWER)
+> > +		val = DIV_ROUND_CLOSEST(val, 1000L);
+> > +
+> > +	/* Reduce large mantissa until it fits into 10 bit */
+> > +	while (val >= MAX_MANTISSA && exponent < 15) {
+> > +		exponent++;
+> > +		val >>= 1;
+> > +	}
+> > +	/* Increase small mantissa to improve precision */
+> > +	while (val < MIN_MANTISSA && exponent > -15) {
+> > +		exponent--;
+> > +		val <<= 1;
+> > +	}
+> > +
+> > +	/* Convert mantissa from milli-units to units */
+> > +	mantissa = DIV_ROUND_CLOSEST(val, 1000);
+> > +
+> > +	/* Ensure that resulting number is within range */
+> > +	if (mantissa > 0x3ff)
+> > +		mantissa = 0x3ff;
+> > +
+> > +	/* restore sign */
+> > +	if (negative)
+> > +		mantissa = -mantissa;
+> > +
+> > +	/* Convert to 5 bit exponent, 11 bit mantissa */
+> > +	return (mantissa & 0x7ff) | ((exponent << 11) & 0xf800);
+> > +}
+> > +
+> > +static u16 ir35221_scale_result(s16 data, int shift,
+> > +				enum pmbus_sensor_classes class)
+> > +{
+> > +	long val;
+> > +
+> > +	val = ir35221_reg2data(data, class);
+> > +
+> > +	if (shift < 0)
+> > +		val >>= -shift;
+> > +	else
+> > +		val <<= shift;
+> > +
+> > +	return ir35221_data2reg(val, class);
+> > +}
+> > +
+> > +static int ir35221_read_word_data(struct i2c_client *client, int page, int reg)
+> > +{
+> > +	int ret;
+> > +
+> > +	switch (reg) {
+> > +	case PMBUS_IOUT_OC_FAULT_LIMIT:
+> > +	case PMBUS_IOUT_OC_WARN_LIMIT:
+> > +		ret = pmbus_read_word_data(client, page, reg);
+> > +		ret = ir35221_scale_result(ret, 1, PSC_CURRENT_OUT);
+> > +		break;
+> > +	case PMBUS_VIN_OV_FAULT_LIMIT:
+> > +	case PMBUS_VIN_OV_WARN_LIMIT:
+> > +	case PMBUS_VIN_UV_WARN_LIMIT:
+> > +		ret = pmbus_read_word_data(client, page, reg);
+> > +		ret = ir35221_scale_result(ret, -4, PSC_VOLTAGE_IN);
+> > +		break;
+> > +	case PMBUS_IIN_OC_WARN_LIMIT:
+> > +		ret = pmbus_read_word_data(client, page, reg);
+> > +		ret = ir35221_scale_result(ret, -1, PSC_CURRENT_IN);
+> > +	case PMBUS_READ_VIN:
+> > +		ret = pmbus_read_word_data(client, page, PMBUS_READ_VIN);
+> > +		ret = ir35221_scale_result(ret, -5, PSC_VOLTAGE_IN);
+> > +		break;
+> > +	case PMBUS_READ_IIN:
+> > +		ret = pmbus_read_word_data(client, page, PMBUS_READ_IIN);
+> > +		if (page == 0)
+> > +			ret = ir35221_scale_result(ret, -4, PSC_CURRENT_IN);
+> > +		else
+> > +			ret = ir35221_scale_result(ret, -5, PSC_CURRENT_IN);
+> 
+> Wow, per-page exponent. Someone was inventive.
+> If we move scaling to the core, this would still be simpler as the additional
+> scale could be handled here.
+> 
+> > +		break;
+> > +	case PMBUS_READ_POUT:
+> > +		ret = pmbus_read_word_data(client, page, PMBUS_READ_POUT);
+> > +		ret = ir35221_scale_result(ret, -1, PSC_POWER);
+> > +		break;
+> > +	case PMBUS_READ_PIN:
+> > +		ret = pmbus_read_word_data(client, page, PMBUS_READ_PIN);
+> > +		ret = ir35221_scale_result(ret, -1, PSC_POWER);
+> > +		break;
+> > +	case PMBUS_READ_IOUT:
+> > +		ret = pmbus_read_word_data(client, page, PMBUS_READ_IOUT);
+> > +		if (page == 0)
+> > +			ret = ir35221_scale_result(ret, -1, PSC_CURRENT_OUT);
+> > +		else
+> > +			ret = ir35221_scale_result(ret, -2, PSC_CURRENT_OUT);
+> > +		break;
+> > +	case PMBUS_VIRT_READ_VIN_MAX:
+> > +		ret = pmbus_read_word_data(client, page, IR35221_MFR_VIN_PEAK);
+> > +		ret = ir35221_scale_result(ret, -5, PSC_VOLTAGE_IN);
+> > +		break;
+> > +	case PMBUS_VIRT_READ_VOUT_MAX:
+> > +		ret = pmbus_read_word_data(client, page, IR35221_MFR_VOUT_PEAK);
+> > +		break;
+> > +	case PMBUS_VIRT_READ_IOUT_MAX:
+> > +		ret = pmbus_read_word_data(client, page, IR35221_MFR_IOUT_PEAK);
+> > +		if (page == 0)
+> > +			ret = ir35221_scale_result(ret, -1, PSC_CURRENT_IN);
+> > +		else
+> > +			ret = ir35221_scale_result(ret, -2, PSC_CURRENT_IN);
+> > +		break;
+> > +	case PMBUS_VIRT_READ_TEMP_MAX:
+> > +		ret = pmbus_read_word_data(client, page, IR35221_MFR_TEMP_PEAK);
+> > +		break;
+> > +	case PMBUS_VIRT_READ_VIN_MIN:
+> > +		ret = pmbus_read_word_data(client, page,
+> > +					   IR35221_MFR_VIN_VALLEY);
+> > +		ret = ir35221_scale_result(ret, -5, PSC_VOLTAGE_IN);
+> > +		break;
+> > +	case PMBUS_VIRT_READ_VOUT_MIN:
+> > +		ret = pmbus_read_word_data(client, page,
+> > +					   IR35221_MFR_VOUT_VALLEY);
+> > +		break;
+> > +	case PMBUS_VIRT_READ_IOUT_MIN:
+> > +		ret = pmbus_read_word_data(client, page,
+> > +					   IR35221_MFR_IOUT_VALLEY);
+> > +		if (page == 0)
+> > +			ret = ir35221_scale_result(ret, -1, PSC_CURRENT_IN);
+> > +		else
+> > +			ret = ir35221_scale_result(ret, -2, PSC_CURRENT_IN);
+> > +		break;
+> > +	case PMBUS_VIRT_READ_TEMP_MIN:
+> > +		ret = pmbus_read_word_data(client, page,
+> > +					   IR35221_MFR_TEMP_VALLEY);
+> > +		break;
+> > +	default:
+> > +		ret = -ENODATA;
+> > +		break;
+> > +	}
+> > +
+> > +	return ret;
+> > +}
+> > +
+> > +static int ir35221_write_word_data(struct i2c_client *client, int page, int reg,
+> > +				   u16 word)
+> > +{
+> > +	int ret;
+> > +	u16 val;
+> > +
+> > +	switch (reg) {
+> > +	case PMBUS_IOUT_OC_FAULT_LIMIT:
+> > +	case PMBUS_IOUT_OC_WARN_LIMIT:
+> > +		val = ir35221_scale_result(word, -1, PSC_CURRENT_OUT);
+> > +		ret = pmbus_write_word_data(client, page, reg, val);
+> > +		break;
+> > +	case PMBUS_VIN_OV_FAULT_LIMIT:
+> > +	case PMBUS_VIN_OV_WARN_LIMIT:
+> > +	case PMBUS_VIN_UV_WARN_LIMIT:
+> > +		val = ir35221_scale_result(word, 4, PSC_VOLTAGE_IN);
+> > +		ret = pmbus_write_word_data(client, page, reg, val);
+> > +		break;
+> > +	case PMBUS_IIN_OC_WARN_LIMIT:
+> > +		val = ir35221_scale_result(word, 1, PSC_CURRENT_IN);
+> > +		ret = pmbus_write_word_data(client, page, reg, val);
+> > +	default:
+> > +		ret = -ENODATA;
+> > +		break;
+> > +	}
+> > +
+> > +	return ret;
+> > +}
+> > +
+> > +static int ir35221_probe(struct i2c_client *client,
+> > +			 const struct i2c_device_id *id)
+> > +{
+> > +	struct pmbus_driver_info *info;
+> > +	u8 buf[I2C_SMBUS_BLOCK_MAX];
+> > +	int ret;
+> > +
+> > +	if (!i2c_check_functionality(client->adapter,
+> > +				     I2C_FUNC_SMBUS_READ_BYTE_DATA
+> > +				| I2C_FUNC_SMBUS_READ_WORD_DATA
+> > +				| I2C_FUNC_SMBUS_READ_BLOCK_DATA))
+> > +		return -ENODEV;
+> > +
+> > +	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_ID, buf);
+> > +	if (ret < 0) {
+> > +		dev_err(&client->dev, "Failed to read PMBUS_MFR_ID\n");
+> > +		return ret;
+> > +	}
+> > +	if (ret != 2 || strncmp(buf, "RI", strlen("RI"))) {
+> > +		dev_err(&client->dev, "MFR_ID unrecognised\n");
+> > +		return -ENODEV;
+> > +	}
+> > +
+> > +	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
+> > +	if (ret < 0) {
+> > +		dev_err(&client->dev, "Failed to read PMBUS_MFR_MODEL\n");
+> > +		return ret;
+> > +	}
+> > +	if (ret != 2 || !(buf[0] == 0x6c && buf[1] == 0x00)) {
+> > +		dev_err(&client->dev, "MFR_MODEL unrecognised\n");
+> > +		return -ENODEV;
+> > +	}
+> > +
+> > +	info = devm_kzalloc(&client->dev, sizeof(struct pmbus_driver_info),
+> > +			    GFP_KERNEL);
+> > +	if (!info)
+> > +		return -ENOMEM;
+> > +
+> > +	info->write_word_data = ir35221_write_word_data;
+> > +	info->read_word_data = ir35221_read_word_data;
+> > +
+> > +	info->pages = 2;
+> > +	info->format[PSC_VOLTAGE_IN] = linear;
+> > +	info->format[PSC_VOLTAGE_OUT] = linear;
+> > +	info->format[PSC_CURRENT_IN] = linear;
+> > +	info->format[PSC_CURRENT_OUT] = linear;
+> > +	info->format[PSC_POWER] = linear;
+> > +	info->format[PSC_TEMPERATURE] = linear;
+> > +
+> > +	info->func[0] = PMBUS_HAVE_VIN
+> > +		| PMBUS_HAVE_VOUT | PMBUS_HAVE_IIN
+> > +		| PMBUS_HAVE_IOUT | PMBUS_HAVE_PIN
+> > +		| PMBUS_HAVE_POUT | PMBUS_HAVE_TEMP
+> > +		| PMBUS_HAVE_STATUS_VOUT | PMBUS_HAVE_STATUS_IOUT
+> > +		| PMBUS_HAVE_STATUS_INPUT | PMBUS_HAVE_STATUS_TEMP;
+> > +	info->func[1] = info->func[0];
+> > +
+> > +	return pmbus_do_probe(client, id, info);
+> > +}
+> > +
+> > +static const struct i2c_device_id ir35221_id[] = {
+> > +	{"ir35221", 0},
+> > +	{}
+> > +};
+> > +
+> > +MODULE_DEVICE_TABLE(i2c, ir35221_id);
+> > +
+> > +static struct i2c_driver ir35221_driver = {
+> > +	.driver = {
+> > +		.name	= "ir35221",
+> > +	},
+> > +	.probe		= ir35221_probe,
+> > +	.remove		= pmbus_do_remove,
+> > +	.id_table	= ir35221_id,
+> > +};
+> > +
+> > +module_i2c_driver(ir35221_driver);
+> > +
+> > +MODULE_AUTHOR("Samuel Mendoza-Jonas <sam@mendozajonas.com");
+> > +MODULE_DESCRIPTION("PMBus driver for IR35221");
+> > +MODULE_LICENSE("GPL");
+> > 
+> 
+> 
