@@ -1,53 +1,57 @@
-Return-Path: <xow@google.com>
-Received: from mail-qt0-x233.google.com (mail-qt0-x233.google.com
- [IPv6:2607:f8b0:400d:c0d::233])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <ryan_chen@aspeedtech.com>
+Received: from twspam01.aspeedtech.com (unknown [211.20.114.71])
+ (using TLSv1 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wCLZT5YyCzDq7Z
- for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 10:30:09 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="MfVeq8Or"; 
- dkim-atps=neutral
-Received: by mail-qt0-x233.google.com with SMTP id y33so154299083qta.2
- for <openbmc@lists.ozlabs.org>; Tue, 25 Apr 2017 17:30:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=irBcPQmlBB5OMgJ6mD1p0DqBoLL8cSnnWC/sHFj1804=;
- b=MfVeq8Ord/WPvOjRYPId/4XrnFZ3QW0sfrC0AoNNImxJA4aKfU9cReX74VX+sA8TPm
- XkPNLxIZKqSUaeTGlHhw9o2uhZzibr2XvJvQbPiKGrn81LmCE1gZ4NEiiL0/oz+wqkTj
- 4eRHzLqHShMe6uwgM5rZrPTvbNrXdQ6a1fjwpkVv5ZF01dd6X7mvh3U3nL455nTlXHPh
- ZUPvwjrjTGTdeMRDcwocJifseObPZQVfGd0FMV03GcSIiVZn9z+ZpJ9Fgdw+Ad25s1/y
- sk9V6LRn8zfMVOKeDr8pZFYB+H4DtBLesD1AN0xO/NkE41BUaxFgqCQ+Mar9nyf84jpj
- VXug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=irBcPQmlBB5OMgJ6mD1p0DqBoLL8cSnnWC/sHFj1804=;
- b=fiY1TFn9Bo3oBkDNxxDT4L2q6u5o6iCjhsLyu0c4g6bP09svwcjfixkUCHDWmjTmzo
- 3jmu5qBL/R+3gmevFU8830PGfmmlZnn5xBzxEVbWZ46lnToiXt/zyXqUbPVUVbHDOwXv
- 7wBdridAPk1n1gHviuk5FmRmR5WvlVoRd09+2xOKmQZr5GffmbcwRliv8XOok6LXvZFi
- q644I5mIaYLbs7Kc3SnlK5O6WTVUKX6xu05BJhPb+gXdox3WLD4Tx9enKYCx6KNtPkJ4
- INjpH/DhYCzwj9jAAlYRmLkM8b4F5xRxJ3IdxOWAnVQPWZegDCW0pdOYVxPY6S86V0yU
- KeoA==
-X-Gm-Message-State: AN3rC/7qTKz2P6xlLNCQ+jUuYgzEBYWOG/nuOyqyDvHeomeLPM2Df8JM
- CfcEPE62Lry8MRX1ORJ4XiR+AFR6F72OXN60hA==
-X-Received: by 10.237.36.151 with SMTP id t23mr35927734qtc.181.1493166606562; 
- Tue, 25 Apr 2017 17:30:06 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wCM6N0wVZzDq7Z
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 10:54:19 +1000 (AEST)
+Received: from mail.aspeedtech.com (twmbx02.aspeed.com [192.168.0.24])
+ by twspam01.aspeedtech.com with ESMTP id v3Q0qCJp086145;
+ Wed, 26 Apr 2017 08:52:12 +0800 (CST)
+ (envelope-from ryan_chen@aspeedtech.com)
+Received: from TWMBX01.aspeed.com (192.168.0.23) by TWMBX02.aspeed.com
+ (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.620.29; Wed, 26 Apr
+ 2017 08:52:51 +0800
+Received: from TWMBX01.aspeed.com ([fe80::157a:4af5:bbf4:5dbb]) by
+ TWMBX01.aspeed.com ([fe80::157a:4af5:bbf4:5dbb%12]) with mapi id
+ 15.00.0620.020; Wed, 26 Apr 2017 08:52:48 +0800
+From: Ryan Chen <ryan_chen@aspeedtech.com>
+To: Brendan Higgins <brendanhiggins@google.com>
+CC: Benjamin Herrenschmidt <benh@kernel.crashing.org>, Wolfram Sang
+ <wsa@the-dreams.de>, Rob Herring <robh+dt@kernel.org>, Mark Rutland
+ <mark.rutland@arm.com>, Thomas Gleixner <tglx@linutronix.de>, Jason Cooper
+ <jason@lakedaemon.net>, Marc Zyngier <marc.zyngier@arm.com>, Joel Stanley
+ <joel@jms.id.au>, Vladimir Zapolskiy <vz@mleia.com>, Kachalov Anton
+ <mouse@mayc.ru>, =?utf-8?B?Q8OpZHJpYyBMZSBHb2F0ZXI=?= <clg@kaod.org>,
+ "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "Linux Kernel
+ Mailing List" <linux-kernel@vger.kernel.org>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>
+Subject: RE: [PATCH v6 4/5] i2c: aspeed: added driver for Aspeed I2C
+Thread-Topic: [PATCH v6 4/5] i2c: aspeed: added driver for Aspeed I2C
+Thread-Index: AQHSvSx+Drdx1H0Z3EiZ7klrZcj7hKHU1CyAgABoTACAAIl1AP//h+qAgACHK5CAACT9gIAA2Xvg
+Date: Wed, 26 Apr 2017 00:52:48 +0000
+Message-ID: <667ba18784664804a87d36e82d244148@TWMBX01.aspeed.com>
+References: <20170328051226.21677-1-brendanhiggins@google.com>
+ <20170328051226.21677-5-brendanhiggins@google.com>
+ <1490945610.3177.229.camel@kernel.crashing.org>
+ <CAFd5g45DQZz99y59AY-4465qnM+tRv6+bDdGQqS6VYHEfRfjDg@mail.gmail.com>
+ <1493086747.25766.264.camel@kernel.crashing.org>
+ <CAFd5g44ioW0PdFVOhY-ep8TXBNg6qC7E5yjOVf3MEdY9bPgEDA@mail.gmail.com>
+ <7d991733d3ea4591b74baf93300f0224@TWMBX01.aspeed.com>
+ <1493112875.25766.268.camel@kernel.crashing.org>
+ <e90ff5914518400ea6902ca40406eb0f@TWMBX01.aspeed.com>
+ <CAFd5g45htFgr5oHbB9W_nyyMfm5J7BCKUuP73RxKhNW3LkWtyw@mail.gmail.com>
+In-Reply-To: <CAFd5g45htFgr5oHbB9W_nyyMfm5J7BCKUuP73RxKhNW3LkWtyw@mail.gmail.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [192.168.0.108]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Received: by 10.140.29.73 with HTTP; Tue, 25 Apr 2017 17:30:04 -0700 (PDT)
-In-Reply-To: <CAPH-5w6-2zVQn2iNVP28aOAS_r11rxGYCrioXCR-sX8Ln7_BZQ@mail.gmail.com>
-References: <CACPK8XfFF7tNrLjroNA05-c3pMZWFbiKvHq+oFLjBDSkgqfjDw@mail.gmail.com>
- <CAPH-5w6-2zVQn2iNVP28aOAS_r11rxGYCrioXCR-sX8Ln7_BZQ@mail.gmail.com>
-From: Xo Wang <xow@google.com>
-Date: Tue, 25 Apr 2017 17:30:04 -0700
-Message-ID: <CAPH-5w4OS_oT5MMu2kEOUwtOza_LO94vwSH9dZHpVMa_4OA38Q@mail.gmail.com>
-Subject: Re: Switching to 4.10
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Brendan Higgins <brendanhiggins@google.com>, 
- Edward James <eajames@us.ibm.com>
-Content-Type: text/plain; charset=UTF-8
+X-DNSRBL: 
+X-MAIL: twspam01.aspeedtech.com v3Q0qCJp086145
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,146 +63,83 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Apr 2017 00:30:10 -0000
+X-List-Received-Date: Wed, 26 Apr 2017 00:54:20 -0000
 
-On Tue, Apr 25, 2017 at 4:57 PM, Xo Wang <xow@google.com> wrote:
-> Hi Joel,
->
-> On Thu, Apr 20, 2017 at 7:30 PM, Joel Stanley <joel@jms.id.au> wrote:
->> Hello team,
->>
->> I want to make the 4.10 change happen. We don't have the resource to
->> be maintaining two trees, and the 4.10 tree has a whole heap of
->> shinyness - faster network, faster flash access, improved I2C.
->>
->> To this end I will stop merging patches in to 4.7. Please target the
->> 4.10 tree from here on.
->>
->> Use this thread to discuss concerns and coordinate the work that needs
->> to be done. Bits that I'm aware of
->>
->>  - Eddie is updating userspace to the new FSI APIs
->>  - I need to merge the upstream FSI patchset
->>  - Brednan needs to post the lastest version of the i2c patchset which
->> I will merge
->>  - I need to merge benh's ftgmac100 improvements
->
-> We'll need to update the defconfig in the build system. Currently if I
-> compile the kernel and generate a new defconfig (make savedefconfig),
-> I see the following changes in the 4.10 generated defconfig:
->
-> @@ -73,7 +73,6 @@
->  CONFIG_MTD_BLOCK=y
->  CONFIG_MTD_PARTITIONED_MASTER=y
->  CONFIG_MTD_SPI_NOR=y
-> -CONFIG_ASPEED_FLASH_SPI=y
->  CONFIG_MTD_UBI=y
->  CONFIG_MTD_UBI_FASTMAP=y
->  CONFIG_MTD_UBI_BLOCK=y
-> @@ -116,7 +115,6 @@
->  # CONFIG_SERIO is not set
->  # CONFIG_VT is not set
->  CONFIG_LEGACY_PTY_COUNT=4
-> -# CONFIG_DEVKMEM is not set
->  CONFIG_SERIAL_8250=y
->  # CONFIG_SERIAL_8250_DEPRECATED_OPTIONS is not set
->  CONFIG_SERIAL_8250_CONSOLE=y
-> @@ -131,10 +129,8 @@
->  CONFIG_I2C=y
->  CONFIG_I2C_CHARDEV=y
->  CONFIG_I2C_ASPEED=y
-> -CONFIG_SENSORS_MAX31785=y
->  CONFIG_SENSORS_LM75=y
->  CONFIG_SENSORS_NCT7904=y
-> -CONFIG_SENSORS_POWER8_OCC_I2C=y
->  CONFIG_PMBUS=y
->  CONFIG_SENSORS_ADM1275=y
->  CONFIG_SENSORS_UCD9000=y
-> @@ -143,21 +139,14 @@
->  # CONFIG_USB_SUPPORT is not set
->  CONFIG_NEW_LEDS=y
->  CONFIG_LEDS_CLASS=y
-> -CONFIG_LEDS_GPIO=y
->  CONFIG_LEDS_TRIGGERS=y
->  CONFIG_LEDS_TRIGGER_TIMER=y
->  CONFIG_LEDS_TRIGGER_HEARTBEAT=y
-> -CONFIG_LEDS_TRIGGER_GPIO=y
->  CONFIG_RTC_CLASS=y
->  CONFIG_RTC_DRV_DS1307=y
->  CONFIG_RTC_DRV_ASPEED=y
->  CONFIG_MAILBOX=y
-> -CONFIG_ASPEED_MBOX=y
->  # CONFIG_IOMMU_SUPPORT is not set
-> -CONFIG_FSI=y
-> -CONFIG_FSI_MASTER_GPIO=y
-> -CONFIG_FSI_SCOM=y
-> -CONFIG_FSI_I2C=y
->  CONFIG_FIRMWARE_MEMMAP=y
->  CONFIG_FANOTIFY=y
->  CONFIG_AUTOFS4_FS=y
->
->>
->> Cheers,
->>
->> Joel
->
-> I know that CONFIG_ASPEED_FLASH_SPI is now CONFIG_SPI_ASPEED_SMC, but
-> I've yet to look at each of the other differences.
->
-> cheers
-> xo
-
-OK, I guess it's not that much work to look at those configs. This
-seems to work up to the limit of the missing FSI drivers as previously
-mentioned:
-
---- a/meta-openbmc-bsp/meta-aspeed/meta-ast2500/recipes-kernel/linux/linux-obmc/defconfig
-+++ b/meta-openbmc-bsp/meta-aspeed/meta-ast2500/recipes-kernel/linux/linux-obmc/defconfig
-@@ -73,7 +73,7 @@ CONFIG_MTD_CMDLINE_PARTS=y
- CONFIG_MTD_BLOCK=y
- CONFIG_MTD_PARTITIONED_MASTER=y
- CONFIG_MTD_SPI_NOR=y
--CONFIG_ASPEED_FLASH_SPI=y
-+CONFIG_SPI_ASPEED_SMC=y
- CONFIG_MTD_UBI=y
- CONFIG_MTD_UBI_FASTMAP=y
- CONFIG_MTD_UBI_BLOCK=y
-@@ -116,7 +116,6 @@ CONFIG_INPUT_EVDEV=y
- # CONFIG_SERIO is not set
- # CONFIG_VT is not set
- CONFIG_LEGACY_PTY_COUNT=4
--# CONFIG_DEVKMEM is not set
- CONFIG_SERIAL_8250=y
- # CONFIG_SERIAL_8250_DEPRECATED_OPTIONS is not set
- CONFIG_SERIAL_8250_CONSOLE=y
-@@ -131,10 +130,11 @@ CONFIG_ASPEED_BT_IPMI_BMC=y
- CONFIG_I2C=y
- CONFIG_I2C_CHARDEV=y
- CONFIG_I2C_ASPEED=y
--CONFIG_SENSORS_MAX31785=y
-+CONFIG_GPIOLIB=y
-+CONFIG_GPIO_SYSFS=y
-+CONFIG_GPIO_ASPEED=y
- CONFIG_SENSORS_LM75=y
- CONFIG_SENSORS_NCT7904=y
--CONFIG_SENSORS_POWER8_OCC_I2C=y
- CONFIG_PMBUS=y
- CONFIG_SENSORS_ADM1275=y
- CONFIG_SENSORS_UCD9000=y
-@@ -152,12 +152,8 @@ CONFIG_RTC_CLASS=y
- CONFIG_RTC_DRV_DS1307=y
- CONFIG_RTC_DRV_ASPEED=y
- CONFIG_MAILBOX=y
--CONFIG_ASPEED_MBOX=y
-+CONFIG_ASPEED_LPC_MBOX=y
- # CONFIG_IOMMU_SUPPORT is not set
--CONFIG_FSI=y
--CONFIG_FSI_MASTER_GPIO=y
--CONFIG_FSI_SCOM=y
--CONFIG_FSI_I2C=y
- CONFIG_FIRMWARE_MEMMAP=y
- CONFIG_FANOTIFY=y
- CONFIG_AUTOFS4_FS=y
-
-cheers
-xo
+PiBUaGFua3MgUnlhbi4gQ2FuIHlvdSBzaGVkIHNvbWUgbGlnaHQgb24gdGhlIG1lYW5pbmcgb2Yg
+dGhlIGhpZ2gtc3BlZWQgYml0IGFzIHdlbGwgcGxlYXNlID8NCj4NCj4gQWJvdXQgQVNQRUVEX0ky
+Q0RfTV9ISUdIX1NQRUVEX0VOLCBpdCBpcyBzdXBwb3J0IGZvciBJMkMgc3BlY2lmaWNhdGlvbiAi
+SGlnaCBzcGVlZCB0cmFuc2ZlciIuIEFuZCBhbHNvIGRldmljZSBuZWVkIHN1cHBvcnQgaXQuDQo+
+IElmIHlvdSBqdXN0IHNwZWVkIHVwIHRoZSBJMkMgYnVzIGNsb2NrLCB5b3UgZG9u4oCZdCBoYXZl
+IHRvIGVuYWJsZSBBU1BFRURfSTJDRF9NX0hJR0hfU1BFRURfRU4sIGp1c3QgY2hhbmdlIHRoZSBj
+bG9jayBpcyBvay4NCj4NCg0KPkludGVyZXN0aW5nLCBJIHRob3VnaHQgdGhhdCBBU1BFRURfSTJD
+RF9NX1NEQV9EUklWRV8xVF9FTiBhbmQgaXRzIGNvdW50ZXJwYXJ0IHdvdWxkIGJlIHVzZWQgZm9y
+IGZhc3QgbW9kZSBvciBmYXN0IG1vZGUgcGx1cyBhbmQgQVNQRUVEX0kyQ0RfTV9ISUdIX1NQRUVE
+X0VOIHdvdWxkIGJlIHVzZWQgZm9yIGZhc3QgbW9kZSBwbHVzIG9yIGhpZ2ggc3BlZWQgbW9kZSBh
+bmQgdGhhdCB0aGV5IHdvcmsgYnkgZHJpdmluZyB0aGUgU0RBIGFuZCBTQ0wgc2lnbmFscyB0byA+
+aW1wcm92ZSByaXNlIHRpbWVzLiBJdCBtYWRlIHNlbnNlIHRvIG1lIGJlY2F1c2UgdGhlIGxvd2Vz
+dCBTQ0wgeW91IGNhbiBnZXQgd2l0aCBiYXNlIGNsb2NrIHNldCB0byB6ZXJvIGlzIGFib3V0IH4x
+LjVNSHogd2hpY2ggaXMgaW4gYmV0d2VlbiBmYXN0IG1vZGUgcGx1cyAoMU1IeikgYW5kIGhpZ2gg
+c3BlZWQgbW9kZSAoMy40TUh6KS4NCg0KPkJ1dCBmcm9tIHdoYXQgeW91IGFyZSBzYXlpbmcsIEFT
+UEVFRF9JMkNEX01fU0RBX0RSSVZFXzFUX0VOIGFuZCBpdHMgY291bnRlcnBhcnQgYXJlIHRvdGFs
+bHkgb3J0aG9nb25hbCB0byB0aGUgc2VsZWN0ZWQgc3BlZWQgYW5kIEFTUEVFRF9JMkNEX01fSElH
+SF9TUEVFRF9FTiBleGlzdHMgYXMgYSBtYXR0ZXIgb2YgY29udmVuaWVuY2UgdG8gc2V0IGFsbCBv
+ZiB0aGUgZGl2aWRlciByZWdpc3RlcnMgdG8gdGhlaXIgc21hbGxlc3QgcG9zc2libGUgdmFsdWVz
+LiBJcyBteSA+DQo+dW5kZXJzdGFuZGluZyBjb3JyZWN0Pw0KDQoNCkluIEkyYyBzcGVjaWZpY2F0
+aW9uW2h0dHA6Ly93d3cuY3NkLnVvYy5nci9+aHk0MjgvcmVhZGluZy9pMmNfc3BlYy5wZGZdIHRo
+ZXJlIGhhdmUgYSBjaGFwdGVyIGFib3V0IGhpZ2ggc3BlZWQgdHJhbnNmZXIuIEl0IHdpbGwgc3Rh
+cnQgZnJvbSBzcGVjaWZpYyBjb21tYW5kICgwMDAwMVhYWCkgYW5kIGFmdGVyIHRoYXQgY2FuIHRy
+YW5zZmVyIHRvIGhpZ2ggc3BlZWQgbW9kZS4gDQpUaGUgZm9sbG93aW5nIGlzIG91ciBoaWdoIHNw
+ZWVkIG1vZGUgcHJvZ3JhbW1pbmcgZ3VpZGUuIFRoYXQgYWxzbyBoYXZlIGRlc2NyaXB0aW9uIGF0
+IEFTVDI0MDAgZGF0YXNoZWV0LiA0MC43LjEyDQoNCg0KDQo+DQo+IC0tLS0tT3JpZ2luYWwgTWVz
+c2FnZS0tLS0tDQo+IEZyb206IEJlbmphbWluIEhlcnJlbnNjaG1pZHQgW21haWx0bzpiZW5oQGtl
+cm5lbC5jcmFzaGluZy5vcmddDQo+IFNlbnQ6IFR1ZXNkYXksIEFwcmlsIDI1LCAyMDE3IDU6MzUg
+UE0NCj4gVG86IFJ5YW4gQ2hlbiA8cnlhbl9jaGVuQGFzcGVlZHRlY2guY29tPjsgQnJlbmRhbiBI
+aWdnaW5zIA0KPiA8YnJlbmRhbmhpZ2dpbnNAZ29vZ2xlLmNvbT4NCj4gQ2M6IFdvbGZyYW0gU2Fu
+ZyA8d3NhQHRoZS1kcmVhbXMuZGU+OyBSb2IgSGVycmluZyANCj4gPHJvYmgrZHRAa2VybmVsLm9y
+Zz47IE1hcmsgUnV0bGFuZCA8bWFyay5ydXRsYW5kQGFybS5jb20+OyBUaG9tYXMgDQo+IEdsZWl4
+bmVyIDx0Z2x4QGxpbnV0cm9uaXguZGU+OyBKYXNvbiBDb29wZXIgPGphc29uQGxha2VkYWVtb24u
+bmV0PjsgDQo+IE1hcmMgWnluZ2llciA8bWFyYy56eW5naWVyQGFybS5jb20+OyBKb2VsIFN0YW5s
+ZXkgPGpvZWxAam1zLmlkLmF1PjsgDQo+IFZsYWRpbWlyIFphcG9sc2tpeSA8dnpAbWxlaWEuY29t
+PjsgS2FjaGFsb3YgQW50b24gPG1vdXNlQG1heWMucnU+OyANCj4gQ8OpZHJpYyBMZSBHb2F0ZXIg
+PGNsZ0BrYW9kLm9yZz47IGxpbnV4LWkyY0B2Z2VyLmtlcm5lbC5vcmc7IA0KPiBkZXZpY2V0cmVl
+QHZnZXIua2VybmVsLm9yZzsgTGludXggS2VybmVsIE1haWxpbmcgTGlzdCANCj4gPGxpbnV4LWtl
+cm5lbEB2Z2VyLmtlcm5lbC5vcmc+OyBPcGVuQk1DIE1haWxsaXN0IA0KPiA8b3BlbmJtY0BsaXN0
+cy5vemxhYnMub3JnPg0KPiBTdWJqZWN0OiBSZTogW1BBVENIIHY2IDQvNV0gaTJjOiBhc3BlZWQ6
+IGFkZGVkIGRyaXZlciBmb3IgQXNwZWVkIEkyQw0KPg0KPiBPbiBUdWUsIDIwMTctMDQtMjUgYXQg
+MDg6NTAgKzAwMDAsIFJ5YW4gQ2hlbiB3cm90ZToNCj4+IEhlbGxvIEFsbCwNCj4+ICAgICAgICAg
+ICAgICAgQVNQRUVEX0kyQ0RfTV9TREFfRFJJVkVfMVRfRU4sIA0KPj4gQVNQRUVEX0kyQ0RfU0RB
+X0RSSVZFXzFUX0VOIGlzIHNwZWNpZmljIGZvciBzb21lIGNhc2UgdXNhZ2UuDQo+PiAgICAgICAg
+ICAgICAgIEZvciBleGFtcGxlLCBpZiBpMmMgYnVzIGlzIHVzZSBvbiAiaGlnaCBzcGVlZCIgYW5k
+IA0KPj4gInNpbmdsZSBzbGF2ZSBhbmQgbWFzdGVyIiBhbmQgaTJjIGJ1cyBpcyB0b28gbG9uZy4g
+SXQgbmVlZCBkcml2ZSBTREEgb3IgU0NMIGxlc3MgbHVuYWN5Lg0KPj4gSXQgd291bGQgZW5hYmxl
+IGl0Lg0KPj4gICAgICAgICAgICAgICBPdGhlcndpc2UsIGRvbuKAmXQgZW5hYmxlIGl0LiBlc3Bl
+Y2lhbGx5IGluIG11bHRpLW1hc3Rlci4NCj4+IEl0IGNhbuKAmXQgYmUgZW5hYmxlLg0KPg0KPiBU
+aGF0IHNtZWxscyBsaWtlIGEgc3BlY2lmaWMgZW5vdWdoIHVzZSBjYXNlIHRoYXQgd2Ugc2hvdWxk
+IHByb2JhYmx5IGNvdmVyIHdpdGggYSBkZXZpY2UtdHJlZSBwcm9wZXJ0eSwgc29tZXRoaW5nIGxp
+a2UgYW4gZW1wdHkgInNkYS1leHRyYS1kcml2ZSIgcHJvcGVydHkgKGVtcHR5IHByb3BlcnRpZXMg
+YXJlIHR5cGljYWxseSB1c2VkIGZvciBib29sZWFucywgdGhlaXIgcHJlc2VuY2UgbWVhbnMgInRy
+dWUiKS4NCj4NCj4gVGhhbmtzIFJ5YW4uIENhbiB5b3Ugc2hlZCBzb21lIGxpZ2h0IG9uIHRoZSBt
+ZWFuaW5nIG9mIHRoZSBoaWdoLXNwZWVkIA0KPiBiaXQgYXMgd2VsbCBwbGVhc2UgPyBEb2VzIGl0
+IGZvcmNlIHRvIGEgc3BlY2lmaWMgc3BlZWQgKGlnbm9yaW5nIHRoZQ0KPiBkaXZpc29yKSBvciB3
+ZSBjYW4gc3RpbGwgcGxheSB3aXRoIHRoZSBjbG9jayBoaWdoL2xvdyBjb3VudHMgPw0KPg0KLi4u
+DQo+PiA+IFlvdXIgbGF0ZXN0IHBhdGNoIHN0aWxsIGRvZXMgdGhhdC4gSXQgd2lsbCBkbyB0aGlu
+Z3MgbGlrZSBzdGFydCBhIA0KPj4gPiBTVE9QIGNvbW1hbmQgKnRoZW4qIGFjayB0aGUgc3RhdHVz
+IGJpdHMuIEknbSBwcmV0dHkgc3VyZSB0aGF0J3MgDQo+PiA+IGJvZ3VzLg0KPj4gPg0KPj4gPiBU
+aGF0IHdheSBpdCdzIGEgbG90IHNpbXBsZXIgdG8gc2ltcGx5IG1vdmUgdGhlDQo+PiA+DQo+PiA+
+ICAgICAgICAgd3JpdGVsKGlycV9zdGF0dXMsIGJ1cy0+YmFzZSArIEFTUEVFRF9JMkNfSU5UUl9T
+VFNfUkVHKTsNCj4+ID4NCj4+ID4gVG8gZWl0aGVyIHJpZ2h0IGFmdGVyIHRoZSByZWFkbCBvZiB0
+aGUgc3RhdHVzIHJlZyBhdCB0aGUgYmVnaW5uaW5nIA0KPj4gPiBvZiBhc3BlZWRfaTJjX21hc3Rl
+cl9pcnEoKS4NCj4+ID4NCj4+ID4gSSB3b3VsZCBiZSB2ZXJ5IHN1cnByaXNlZCBpZiB0aGF0IGRp
+ZG4ndCB3b3JrIHByb3Blcmx5IGFuZCB3YXNuJ3QgDQo+PiA+IG11Y2ggc2FmZXIgdGhhbiB3aGF0
+IHlvdSBhcmUgY3VycmVudGx5IGRvaW5nLg0KPj4NCj4+IEkgdGhpbmsgSSB0cmllZCB5b3VyIHdh
+eSBhbmQgaXQgd29ya2VkLiBJbiBhbnljYXNlLCBSeWFuIHdpbGwgYmUgYWJsZSANCj4+IHRvIGNs
+YXJpZnkgZm9yIHVzLg0KDQpBZnRlciB0aGlua2luZyBhYm91dCB0aGlzIG1vcmUsIEkgdGhpbmsg
+QmVuIGlzIHJpZ2h0LiBJdCB3b3VsZCBiZSB1bnVzdWFsIGZvciBzdWNoIGEgY29tbW9uIGNvbnZl
+bnRpb24gdG8gYmUgYnJva2VuIGFuZCBldmVuIGlmIGl0IGlzLCBJIGRvIG5vdCBzZWUgaG93IGEg
+Y29tbWFuZCBjb3VsZCB0YWtlIGVmZmVjdCB1bnRpbCBpdCBpcyBhY3R1YWxseSBpc3N1ZWQuIE5l
+dmVydGhlbGVzcywgaXQgd291bGQgbWFrZSBtZSBmZWVsIGJldHRlciBpZiB5b3UsIFJ5YW4sIGNv
+dWxkIGNvbW1lbnQgb24gdGhpcy4NCg0KPj4NCj4+ID4NCj4+ID4gPiBMZXQgbWUga25vdyBpZiB5
+b3Ugc3RpbGwgdGhpbmsgd2UgbmVlZCBhICJSRUNPVkVSWSIgc3RhdGUuDQo+PiA+DQouLi4NCkkg
+ZmVlbCBwcmV0dHkgZ29vZCBhYm91dCB0aGlzOyBpdCBkb2VzIG5vdCBsb29rIGxpa2UgdGhlcmUg
+d2lsbCBiZSBhIGxvdCBvZiBjaGFuZ2VzIGdvaW5nIGludG8gdjg7IGhvcGVmdWxseSwgdGhhdCB2
+ZXJzaW9uIHdpbGwgYmUgZ29vZCBlbm91Z2ggdG8gZ2V0IG1lcmdlZC4NCg==
