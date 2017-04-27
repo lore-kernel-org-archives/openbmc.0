@@ -3,50 +3,54 @@ Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wD6383j8nzDqCC
- for <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 16:09:08 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wD63D3CF8zDqCC
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 16:09:12 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Mf5gOs+X"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="poHMgg89"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Tg2KOVE8"; dkim-atps=neutral
+ header.b="U7lzzMvp"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 16D5820867;
- Thu, 27 Apr 2017 02:09:06 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 3EEA420867;
+ Thu, 27 Apr 2017 02:09:10 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Thu, 27 Apr 2017 02:09:06 -0400
+ by compute4.internal (MEProxy); Thu, 27 Apr 2017 02:09:10 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:message-id:subject:to:x-me-sender:x-me-sender
- :x-sasl-enc:x-sasl-enc; s=fm1; bh=v/5fYJPezdGPsvIJfP6V2a3xoS+dzm
- RCS+ts1C1kPgA=; b=Mf5gOs+XQUm39rIzAWP1rsaNSJ39kwdamBUBofSiMEafEs
- AEIDDnCgHNBGxLWtJqrdYzap+Eq3eja2jB9MUpQIGQninNr6n9tFHlZPAKIgyzaQ
- Om8rGeNuk3OREq5Sc4VdP0dYSWFN+yR7hl98vUpBmcP9fgk8fsTk/tpEk49b6gyR
- 25Ji1mk1mdDGvw0aLcJgqwcmWOX97N4pu0sGVMolZg/3zfc/PP1YA5+73/eBIAcC
- tOcpGzjnOHqu+0i8fS8amnyJ/A1Mw6mgZhsny3BqwOWkRdofkplxilU3tu+8IEvy
- oQimMtx9PctJKeg77SJi+ypaCWeav7cAfYeJt/gg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=v/5fYJ
- PezdGPsvIJfP6V2a3xoS+dzmRCS+ts1C1kPgA=; b=Tg2KOVE8jlZ3+W65RnMNvy
- XmBnMXAaOImkGDxRn1r5mfSdvi47b0NPzziBoYO27fPajllL2Aq6DRXpm/leVQ3l
- TDu4iLFIgrmDIZIKTm68cfHkv2Rj9hpAQOqak5yyG9c1UAon6mdkBQIMRtRw3urE
- eU34/AEN8izwqfrZe75mJCfWCugg5f8Txq7v7ZP/MHjCZPTJbIkU45mCi9JOJEFe
- myMaY2dvsm27ygVL43s4M+ef/dKa34IpdiJmcwLxwV955Zc7cVOCem8kNA4+6/w8
- EOBIfYBqqrvzJBFg8VAvfEBdcmbOVqq9TnRq+Wyju5ZqGmdEKMlh84zmWvW05YaA
+ :date:from:in-reply-to:message-id:references:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=xRgw9w
+ iivg0YpGCXZcB5WUsRSgmVBv2tvx2SipQuX+M=; b=poHMgg89+WR0M+NR7b3WyC
+ v5zyn8gX5sqsZFA1IMa8RAjIbmFgEHGkbLWq7zsnzoP+TGYUVtA1j6oolhzFl8i+
+ 0W7TSXgM3KFLmSl/bePwpU1ZA/Gr6M7DzpeQQ2sEI++V2JiKxFXRkYS16R5FeCyu
+ 6kC9DIqyhEIWsdqzGTDZT47bzIFLogxAidOpCO5e9Xoz0k/LGgvPiCSIUv1QmM61
+ /se9QA0o7YtR1cr2XGZGTXus9grFrgXwQZb7CbY26xG27KS7lJCY8ErHYaNmTK22
+ AMrBacCReKQA3XlzLF30iL505sWh4Zji+18NnbfeEFaAL0KjgN/XiLYXiH57DaQg
  ==
-X-ME-Sender: <xms:AYsBWVyTiB0Pwy5FOmqvBIAcr8Vj8XBTZlrQJ6ToE2aRav1O9QuryQ>
-X-Sasl-enc: uOxYoVQe/C5H4tu5ZfW4reMv+relyEhnIAtjMP6cIIVD 1493273345
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:in-reply-to:message-id
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=xRgw9wiivg0YpGCXZcB5WUsRSgmVBv2tvx2SipQuX
+ +M=; b=U7lzzMvpQ12sGYEsXXlV8BP8FmQ6B85QuFqPFq5r/oCv15Z41IUGUwycO
+ vTXTHe9XW9n8YoUM7Xl9WTnrCDR/VCUq6ZoxrAoWXSXKm2aZsmtn0m9Jl3Gl16xx
+ Q0lvhCqDDH9d0/hSUhFunC7YBD03DJk0ft35cYapXSyxn3Ll47uJo3sl+QtG01Yl
+ cKqkW7Cv/3Hdj5maUXv2VmTfP8DHbJpHf6Non1IeKYEfyAQMU3sua0wmxBoJQTt1
+ v4VD1fTi3cDwtLcb+ktPtnBtF+5zoHInhOhxP+FvGTyBOB1r3chfGkS92oq8B+08
+ 3e4B0oHmEBbtaxEZkIaQ9RGPPZkXw==
+X-ME-Sender: <xms:BosBWVmJv3HxPJDE6xSE754ErVZzzb5kAu7zBPmNo-SISjgpKqW0OQ>
+X-Sasl-enc: vgTdkcywsP58VCSJwm7joPwKEhVb18PQb+ViRYPuF+F2 1493273349
 Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 2409124216;
- Thu, 27 Apr 2017 02:09:02 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 746E824216;
+ Thu, 27 Apr 2017 02:09:06 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: joel@jms.id.au
 Cc: openbmc@lists.ozlabs.org, Andrew Jeffery <andrew@aj.id.au>, clg@kaod.org,
  mine260309@gmail.com, raltherr@google.com, xow@google.com
-Subject: [PATCH linux dev-4.10 00/10] Clean up mach-aspeed/aspeed.c
-Date: Thu, 27 Apr 2017 15:38:13 +0930
-Message-Id: <20170427060823.32226-1-andrew@aj.id.au>
+Subject: [PATCH linux dev-4.10 01/10] aspeed: barreleye: Remove unnecessary
+ GPIO configuration
+Date: Thu, 27 Apr 2017 15:38:14 +0930
+Message-Id: <20170427060823.32226-2-andrew@aj.id.au>
 X-Mailer: git-send-email 2.9.3
+In-Reply-To: <20170427060823.32226-1-andrew@aj.id.au>
+References: <20170427060823.32226-1-andrew@aj.id.au>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,56 +62,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Apr 2017 06:09:09 -0000
+X-List-Received-Date: Thu, 27 Apr 2017 06:09:12 -0000
 
-Hi all,
+These values will be configured by requesting the GPIOs from userspace,
+as the GPIO controller plumbs its pin request through the pinctrl
+subsystem.
 
-Here's RFC-ish series for cleaning up the board file given functionality we now
-have in the tree. The intent here is to:
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ arch/arm/mach-aspeed/aspeed.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
-1. Demonstrate what can be done with some of the driver support we have merged
-2. Solicit feedback from system owners about the changes
-
-Probably the most overtly breaking change is the patch for power button
-debouncing in Barreleye, which switches to using gpio-keys.
-
-Another likely controversial change is creating two devicetrees for Zaius to
-isolate EVT1 requirements from the general Zaius configuration.
-
-The rest of the changes hopefully shouldn't cause too much grief, but still
-need some inspection.
-
-The series depends on patches not included in it, however Joel is in the
-process of putting together a tree on which the series can be applied. For
-reference, the dependencies include:
-
-GPIO debouncing: https://lists.ozlabs.org/pipermail/openbmc/2017-April/007219.html
-Pinconf support: https://lists.ozlabs.org/pipermail/openbmc/2017-April/007213.html
-
-Cheers,
-
-Andrew
-
-Andrew Jeffery (10):
-  aspeed: barreleye: Remove unnecessary GPIO configuration
-  aspeed: barreleye: Passthrough debounce isn't required
-  aspeed: barreleye: Debounce BMC_PWBTN_IN_N through devicetree
-  aspeed: garrison: Request RGMII and MDIO through devicetree
-  aspeed: zaius: Disable GPIO bias via devicetree pinconf requests
-  aspeed: zaius: Remove LPC-to-AHB bridge configuration
-  aspeed: zaius: Remove manual CS decoding window configuration
-  aspeed: witherspoon: Remove LPC-to-AHB bridge configuration
-  aspeed: witherspoon: Remove manual CS decoding window configuration
-  aspeed: romulus: Remove manual CS decoding window configuration
-
- arch/arm/boot/dts/Makefile                      |  1 +
- arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts  | 11 ++++
- arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts   |  5 ++
- arch/arm/boot/dts/aspeed-bmc-opp-zaius-evt1.dts | 20 +++++++
- arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts      | 10 ++++
- arch/arm/mach-aspeed/aspeed.c                   | 74 -------------------------
- 6 files changed, 47 insertions(+), 74 deletions(-)
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-zaius-evt1.dts
-
+diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+index 7ac006aaa5f4..6c6bac0c3e63 100644
+--- a/arch/arm/mach-aspeed/aspeed.c
++++ b/arch/arm/mach-aspeed/aspeed.c
+@@ -64,13 +64,6 @@ static void __init do_barreleye_setup(void)
+ 	writel(0x9E82FCE7, AST_IO(AST_BASE_GPIO | 0x00));
+ 	writel(0x0370E677, AST_IO(AST_BASE_GPIO | 0x04));
+ 
+-	/* SCU setup
+-	 *  - GPION must be set to GPIO mode (SCU88[0:7] = 0) on
+-	 *    Barreleye so they can be used to read the PCIe inventory
+-	 *    status
+-	 */
+-	writel(0x01C00000, AST_IO(AST_BASE_SCU | 0x88));
+-
+ 	/* To enable GPIOE0 pass through function debounce mode */
+ 	writel(0x010FFFFF, AST_IO(AST_BASE_SCU | 0xA8));
+ 
 -- 
 2.9.3
