@@ -1,56 +1,53 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x242.google.com (mail-yw0-x242.google.com
- [IPv6:2607:f8b0:4002:c05::242])
+Received: from mail-pf0-x244.google.com (mail-pf0-x244.google.com
+ [IPv6:2607:f8b0:400e:c00::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wD6JP1r2rzDqCC
- for <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 16:20:37 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wD7dQ1qwTzDqCL
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 17:20:26 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="KQUT4TtF"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="I/LG6vWD"; 
  dkim-atps=neutral
-Received: by mail-yw0-x242.google.com with SMTP id 203so1907680ywe.0
- for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 23:20:37 -0700 (PDT)
+Received: by mail-pf0-x244.google.com with SMTP id v14so7070305pfd.3
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 00:20:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=bKmQy7YbpVLAjmyIwtQQm6hm/6IhT/5I9x1Scrt8lUI=;
- b=KQUT4TtFAmPOjZqdUcyfP/RavkkLNL/1C9ol69P996Q/giI8kNMU1LrDhT/h4LuMjS
- 5UbxNTKDACLRAasABSEIirXR8l2yklGI0JK48oR0D9JcGcJv0wbuwXc1WC7ck8Fk+k3m
- 5x+RYW+JPvT8h2CkunU6qkahoG5q0hegeXJ7rcsCduhgy5ezl2XeeQXJZQIcU3N62kHs
- vk6m1rUjthWsxERUVUMKCs/XhYYEhRH0dds7FP5MaVjX68oZIgXZ1vP8PDtV0mSAw+zC
- fWdrwTOhU+PsR6JJxfwxmB8ClXnfl3uze9U6fTnYTAqrmUBUrq3cUycfmLunBR4hO6kf
- LDWw==
+ h=sender:from:to:cc:subject:date:message-id;
+ bh=ZNHB4tsVYikNe8k0WfluItVs/wIOuk/GjJTqRTjvRa8=;
+ b=I/LG6vWDuGuEe06x+48PmDI2fp2A6LwHKQSUYFqxBxfdP+Yx403all9GEJBhVf+Dfx
+ pMU9bmN5A0IGFPlowpu/g4Yb6m0X0niAw1F40sF28g9g8Fw753q/OscGseHBLhI669ON
+ BhDx/9bspbY6/HDUcemNpIfCHLNCszwGakZwuALyPakI/g1SH/3mDrFF4UE8SwOh6dpD
+ q4rs+Gl48pL+qcdHyTLap6vkJAqMU7XQ/ug5FAhOcZGd6ljhDDWkWxrD6D793D5Mqo80
+ 0XiEHPTQ3d7pLPN4Sh5XDl3vjLtAg+BZ2RrSW4HzFdgFeMJA4/GjjGQpdmrrwA+6sUOw
+ afhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=bKmQy7YbpVLAjmyIwtQQm6hm/6IhT/5I9x1Scrt8lUI=;
- b=JWGtAZ8Nbe/BHFQDUatcn3b3U6/cEIyEuhnPXZLsqxta/WXUawfVxZ/6cS1K1IDwtH
- +11OxoXfUGvB1zci9eP39gHNqqm595LcccEWTs6ooUySsjkH2wU5tPQVDXPx2bEIRi+q
- 4cnbK+yHS6McRYUs5D+MQfume+dd/hJHWSE67UoMvmAwqyTzBxJl9B5DdRKhibkScv8/
- 88txv99M/S5zlBdIj0lnbLRt34dBQuRFR+x4NLvVQAZjqt+UVnyVx3gLV0uzkbOZLYOg
- VlJi5F9IAZLmhdUHUJuAL5LPuSSK64dgJwelGWO+9gJWAFgxq54nlPRNMvAY7bQRqfdC
- 7ylw==
-X-Gm-Message-State: AN3rC/4kWeLpnY6JmeSmS3JsRs9Jmb1u4aA7H/scOBUl7VgqW7TLuUs1
- qTFEg5s98PwIy4JpJ3NKiujeLH56HQ==
-X-Received: by 10.129.65.74 with SMTP id f10mr3039344ywk.164.1493274034975;
- Wed, 26 Apr 2017 23:20:34 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.171.70 with HTTP; Wed, 26 Apr 2017 23:20:14 -0700 (PDT)
-In-Reply-To: <1493273870.4433.4.camel@aj.id.au>
-References: <20170427040214.15096-1-chen.kenyy@inventec.com>
- <1493273870.4433.4.camel@aj.id.au>
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
+ bh=ZNHB4tsVYikNe8k0WfluItVs/wIOuk/GjJTqRTjvRa8=;
+ b=apTVA+CAqffSBscG5OeagboJC6S9ZFj3rSD7si+h8TWCBO8Q6/Guy24vNGTGvhfCH6
+ QOEAn6XOmRHc1lNRI5euhskEzVcn8FI5st3eCYNSlk/K/DXl3k970qvC2AtEr0LR178r
+ lfDrU8oxv09YtwBtu0PfT3Gm20r2XPwxfEeOX2G8H9D9E4RrebCA7wB5jnsNjKDQczgZ
+ 8FpNEtCYh3F/otoLdOGGSGjFCkcTBwaOsAXJdZ2ok4IeY9iDF2Iq/EtW/6ZhT39MMBoW
+ PPCqLtWpwVjlAzXCw1aR5KqmosvhjHMJyqfdGJ5LDAe3wFmnjHnchMEJfoOzxzlPWCJ/
+ GYsg==
+X-Gm-Message-State: AN3rC/6TqSUrYpqzZTmHIRwCsdYxEu9hU7g9ghwuqyLxQlFNNF/2ZZQH
+ ctv81ROxV1WiBYZrKrpeQQ==
+X-Received: by 10.99.151.18 with SMTP id n18mr4192727pge.199.1493277623328;
+ Thu, 27 Apr 2017 00:20:23 -0700 (PDT)
+Received: from aurora.jms.id.au ([203.0.153.9])
+ by smtp.gmail.com with ESMTPSA id m3sm3159590pgn.30.2017.04.27.00.20.19
+ (version=TLS1 cipher=AES128-SHA bits=128/128);
+ Thu, 27 Apr 2017 00:20:22 -0700 (PDT)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+Received: by aurora.jms.id.au (sSMTP sendmail emulation);
+ Thu, 27 Apr 2017 16:50:16 +0930
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 27 Apr 2017 15:50:14 +0930
-X-Google-Sender-Auth: P-R9Bro_uqd3bUzkeS4kSwin2dc
-Message-ID: <CACPK8XegRvaLoO=cn=ot7R4KdROAQfUqVz-CjeHM7DxioY=8iQ@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7 v4] ARM: dts: aspeed: Modify Laanyang BMC
- device tree
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Ken Chen <chen.kenyy@inventec.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+To: openbmc@lists.ozlabs.org
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+ Brendan Higgins <brendanhiggins@google.com>
+Subject: [PATCH linux dev-4.10] ARM: dts: aspeed: Update i2c binding
+Date: Thu, 27 Apr 2017 16:50:15 +0930
+Message-Id: <20170427072015.23334-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,102 +59,634 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Apr 2017 06:20:38 -0000
+X-List-Received-Date: Thu, 27 Apr 2017 07:20:27 -0000
 
-On Thu, Apr 27, 2017 at 3:47 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> On Thu, 2017-04-27 at 12:02 +0800, Ken Chen wrote:
->> Modify Lanyang dts and add lanyang initial in aspeed.c
->>
->> Signed-off-by: Ken Chen <chen.kenyy@inventec.com>
->
-> Acked-by: Andrew Jeffery <andrew@aj.id.au>
->
->> ---
->>  arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts | 13 ++++++-------
->>  arch/arm/mach-aspeed/aspeed.c                | 17 +++++++++++++++++
->>  2 files changed, 23 insertions(+), 7 deletions(-)
->>
->> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
->> index 176e4b4..6456458 100644
->> --- a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
->> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
->> @@ -1,4 +1,4 @@
->> -/dts-v1/;
->> +/dts-v3/;
->>
->
-> Was this necessary? What do we get from the change?
+The I2C binding changed when upstreaming the I2C driver.
 
-This string should be left alone. I will fix that when applying.
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+---
 
->
->>  #include "aspeed-g5.dtsi"
->>  #include <dt-bindings/gpio/aspeed-gpio.h>
->> @@ -302,18 +302,17 @@
->>  };
->>
->>  &gpio {
->> > -   line_apss_reset {
->> > -           gpio-hog;
->> > -           gpios = <ASPEED_GPIO(E, 4) GPIO_ACTIVE_HIGH>;
->> > -           output-high;
->> > -           line-name = "BMC_APSS_RESET_N";
->> > -   };
->> +
->>  };
+I've boot tested this, but please take a look to make sure I didn't stuff it up.
 
-You can remove this node now that is it empty. I will fix that when applying.
+ arch/arm/boot/dts/aspeed-g4.dtsi | 156 ++++++++++++++++++++-------------
+ arch/arm/boot/dts/aspeed-g5.dtsi | 180 ++++++++++++++++++++++++---------------
+ 2 files changed, 207 insertions(+), 129 deletions(-)
 
-Thanks for the patch! I have applied this to dev-4.7.
-
-Cheers,
-
-Joel
-
->>
->>  &vuart {
->> >     status = "okay";
->>  };
->>
->> +&gfx {
->> +        status = "okay";
->> +};
->> +
->>  &pinctrl {
->> >     aspeed,external-nodes = <&gfx &lhc>;
->>  };
->> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
->> index a7b03a0..0717181 100644
->> --- a/arch/arm/mach-aspeed/aspeed.c
->> +++ b/arch/arm/mach-aspeed/aspeed.c
->> @@ -238,6 +238,21 @@ static void __init do_romulus_setup(void)
->>      writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC | 0x98));
->>  }
->>
->> +static void __init do_lanyang_setup(void)
->> +{
->> +        unsigned long reg;
->> +
->> +        do_common_setup();
->> +
->> +        /* Disable default behavior of UART1 being held in reset by LPCRST#.
->> +         * By releasing UART1 from being controlled by LPC reset, it becomes
->> +         * immediately available regardless of the host being up.
->> +         */
->> +        reg = readl(AST_IO(AST_BASE_LPC | 0x98));
->> +        /* Clear "Enable UART1 reset source from LPC" */
->> +        writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC | 0x98));
->> +}
->> +
->> >  #define SCU_PASSWORD       0x1688A8A8
->>
->>  static void __init aspeed_init_early(void)
->> @@ -275,6 +290,8 @@ static void __init aspeed_init_early(void)
->> >             do_witherspoon_setup();
->> >     if (of_machine_is_compatible("ibm,romulus-bmc"))
->> >             do_romulus_setup();
->> +        if (of_machine_is_compatible("inventec,lanyang-bmc"))
->> +                do_lanyang_setup();
->>  }
->>
->>  static void __init aspeed_map_io(void)
+diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
+index b9a6730cc831..c25c5f839d58 100644
+--- a/arch/arm/boot/dts/aspeed-g4.dtsi
++++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+@@ -958,200 +958,240 @@
+ 			};
+ 
+ 			i2c: i2c@1e78a000 {
++				compatible = "simple-bus";
+ 				#address-cells = <1>;
+ 				#size-cells = <1>;
+-				#interrupt-cells = <1>;
+-
+-				compatible = "aspeed,ast2400-i2c-controller";
+-				reg = <0x1e78a000 0x40>;
+ 				ranges = <0 0x1e78a000 0x1000>;
+-				interrupts = <12>;
+-				clocks = <&clk_apb>;
+-				clock-ranges;
+-				interrupt-controller;
++
++				i2c_ic: interrupt-controller@0 {
++					#interrupt-cells = <1>;
++					compatible = "aspeed,ast2400-i2c-ic";
++					reg = <0x0 0x40>;
++					interrupts = <12>;
++					interrupt-controller;
++				};
+ 
+ 				i2c0: i2c-bus@40 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
++					#interrupt-cells = <1>;
++
+ 					reg = <0x40 0x40>;
+ 					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <0>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <0>;
+-					interrupt-parent = <&i2c>;
++					interrupt-parent = <&i2c_ic>;
++					status = "disabled";
+ 					/* Does not need pinctrl node */
+ 				};
+ 
+ 				i2c1: i2c-bus@80 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
++					#interrupt-cells = <1>;
++
+ 					reg = <0x80 0x40>;
+ 					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <1>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <1>;
++					interrupt-parent = <&i2c_ic>;
++					status = "disabled";
+ 					/* Does not need pinctrl node */
+ 				};
+ 
+ 				i2c2: i2c-bus@c0 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
+-					reg = <0xC0 0x40>;
++					#interrupt-cells = <1>;
++
++					reg = <0xc0 0x40>;
+ 					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <2>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <2>;
+-					pinctrl-names = "default";
+-					pinctrl-0 = <&pinctrl_i2c3_default>;
++					interrupt-parent = <&i2c_ic>;
++					status = "disabled";
++					/* Does not need pinctrl node */
+ 				};
+ 
+ 				i2c3: i2c-bus@100 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
++					#interrupt-cells = <1>;
++
+ 					reg = <0x100 0x40>;
+ 					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <3>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <3>;
++					interrupt-parent = <&i2c_ic>;
+ 					pinctrl-names = "default";
+ 					pinctrl-0 = <&pinctrl_i2c4_default>;
++					status = "disabled";
+ 				};
+ 
+ 				i2c4: i2c-bus@140 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
++					#interrupt-cells = <1>;
++
+ 					reg = <0x140 0x40>;
+ 					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <4>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <4>;
++					interrupt-parent = <&i2c_ic>;
+ 					pinctrl-names = "default";
+ 					pinctrl-0 = <&pinctrl_i2c5_default>;
++					status = "disabled";
+ 				};
+ 
+ 				i2c5: i2c-bus@180 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
++					#interrupt-cells = <1>;
++
+ 					reg = <0x180 0x40>;
+ 					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <5>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <5>;
++					interrupt-parent = <&i2c_ic>;
+ 					pinctrl-names = "default";
+ 					pinctrl-0 = <&pinctrl_i2c6_default>;
++					status = "disabled";
+ 				};
+ 
+ 				i2c6: i2c-bus@1c0 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
+-					reg = <0x1C0 0x40>;
++					#interrupt-cells = <1>;
++
++					reg = <0x1c0 0x40>;
+ 					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <6>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <6>;
++					interrupt-parent = <&i2c_ic>;
+ 					pinctrl-names = "default";
+ 					pinctrl-0 = <&pinctrl_i2c7_default>;
++					status = "disabled";
+ 				};
+ 
+ 				i2c7: i2c-bus@300 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
++					#interrupt-cells = <1>;
++
+ 					reg = <0x300 0x40>;
+ 					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <7>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <7>;
++					interrupt-parent = <&i2c_ic>;
+ 					pinctrl-names = "default";
+ 					pinctrl-0 = <&pinctrl_i2c8_default>;
++					status = "disabled";
+ 				};
+ 
+ 				i2c8: i2c-bus@340 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
++					#interrupt-cells = <1>;
++
+ 					reg = <0x340 0x40>;
+ 					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <8>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <8>;
++					interrupt-parent = <&i2c_ic>;
+ 					pinctrl-names = "default";
+ 					pinctrl-0 = <&pinctrl_i2c9_default>;
++					status = "disabled";
+ 				};
+ 
+ 				i2c9: i2c-bus@380 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
++					#interrupt-cells = <1>;
++
+ 					reg = <0x380 0x40>;
+ 					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <9>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <9>;
++					interrupt-parent = <&i2c_ic>;
+ 					pinctrl-names = "default";
+ 					pinctrl-0 = <&pinctrl_i2c10_default>;
++					status = "disabled";
+ 				};
+ 
+ 				i2c10: i2c-bus@3c0 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
++					#interrupt-cells = <1>;
++
+ 					reg = <0x3c0 0x40>;
+ 					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <10>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <10>;
++					interrupt-parent = <&i2c_ic>;
+ 					pinctrl-names = "default";
+ 					pinctrl-0 = <&pinctrl_i2c11_default>;
++					status = "disabled";
+ 				};
+ 
+ 				i2c11: i2c-bus@400 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
++					#interrupt-cells = <1>;
++
+ 					reg = <0x400 0x40>;
+ 					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <11>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <11>;
++					interrupt-parent = <&i2c_ic>;
+ 					pinctrl-names = "default";
+ 					pinctrl-0 = <&pinctrl_i2c12_default>;
++					status = "disabled";
+ 				};
+ 
+ 				i2c12: i2c-bus@440 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
++					#interrupt-cells = <1>;
++
+ 					reg = <0x440 0x40>;
+ 					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <12>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <12>;
++					interrupt-parent = <&i2c_ic>;
+ 					pinctrl-names = "default";
+ 					pinctrl-0 = <&pinctrl_i2c13_default>;
++					status = "disabled";
+ 				};
+ 
+ 				i2c13: i2c-bus@480 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
++					#interrupt-cells = <1>;
++
+ 					reg = <0x480 0x40>;
+ 					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <13>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <13>;
+-					/* Does not need pinctrl node */
++					interrupt-parent = <&i2c_ic>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c14_default>;
++					status = "disabled";
+ 				};
+-
+ 			};
+-
+ 		};
+ 	};
+ };
+diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+index ddfb729bb85a..9f43c978df40 100644
+--- a/arch/arm/boot/dts/aspeed-g5.dtsi
++++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+@@ -1149,199 +1149,237 @@
+ 			};
+ 
+ 			i2c: i2c@1e78a000 {
++				compatible = "simple-bus";
+ 				#address-cells = <1>;
+ 				#size-cells = <1>;
+-				#interrupt-cells = <1>;
+-
+-				compatible = "aspeed,ast2400-i2c-controller";
+-				reg = <0x1e78a000 0x40>;
+ 				ranges = <0 0x1e78a000 0x1000>;
+-				interrupts = <12>;
+-				clocks = <&clk_apb>;
+-				clock-ranges;
+-				interrupt-controller;
++
++				i2c_ic: interrupt-controller@0 {
++					#interrupt-cells = <1>;
++					compatible = "aspeed,ast2500-i2c-ic";
++					reg = <0x0 0x40>;
++					interrupts = <12>;
++					interrupt-controller;
++				};
+ 
+ 				i2c0: i2c-bus@40 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
++					#interrupt-cells = <1>;
++
+ 					reg = <0x40 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <0>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					compatible = "aspeed,ast2500-i2c-bus";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <0>;
+-					interrupt-parent = <&i2c>;
++					interrupt-parent = <&i2c_ic>;
++					status = "disabled";
+ 				};
+ 
+ 				i2c1: i2c-bus@80 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
++					#interrupt-cells = <1>;
++
+ 					reg = <0x80 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <1>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					compatible = "aspeed,ast2500-i2c-bus";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <1>;
++					interrupt-parent = <&i2c_ic>;
++					status = "disabled";
+ 				};
+ 
+ 				i2c2: i2c-bus@c0 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
+-					reg = <0xC0 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <2>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					#interrupt-cells = <1>;
++
++					reg = <0xc0 0x40>;
++					compatible = "aspeed,ast2500-i2c-bus";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <2>;
+-					pinctrl-names = "default";
+-					pinctrl-0 = <&pinctrl_i2c3_default>;
++					interrupt-parent = <&i2c_ic>;
++					status = "disabled";
+ 				};
+ 
+ 				i2c3: i2c-bus@100 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
++					#interrupt-cells = <1>;
++
+ 					reg = <0x100 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <3>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					compatible = "aspeed,ast2500-i2c-bus";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <3>;
++					interrupt-parent = <&i2c_ic>;
+ 					pinctrl-names = "default";
+ 					pinctrl-0 = <&pinctrl_i2c4_default>;
++					status = "disabled";
+ 				};
+ 
+ 				i2c4: i2c-bus@140 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
++					#interrupt-cells = <1>;
++
+ 					reg = <0x140 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <4>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					compatible = "aspeed,ast2500-i2c-bus";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <4>;
++					interrupt-parent = <&i2c_ic>;
+ 					pinctrl-names = "default";
+ 					pinctrl-0 = <&pinctrl_i2c5_default>;
++					status = "disabled";
+ 				};
+ 
+ 				i2c5: i2c-bus@180 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
++					#interrupt-cells = <1>;
++
+ 					reg = <0x180 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <5>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					compatible = "aspeed,ast2500-i2c-bus";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <5>;
++					interrupt-parent = <&i2c_ic>;
+ 					pinctrl-names = "default";
+ 					pinctrl-0 = <&pinctrl_i2c6_default>;
++					status = "disabled";
+ 				};
+ 
+ 				i2c6: i2c-bus@1c0 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
+-					reg = <0x1C0 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <6>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					#interrupt-cells = <1>;
++
++					reg = <0x1c0 0x40>;
++					compatible = "aspeed,ast2500-i2c-bus";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <6>;
++					interrupt-parent = <&i2c_ic>;
+ 					pinctrl-names = "default";
+ 					pinctrl-0 = <&pinctrl_i2c7_default>;
++					status = "disabled";
+ 				};
+ 
+ 				i2c7: i2c-bus@300 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
++					#interrupt-cells = <1>;
++
+ 					reg = <0x300 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <7>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					compatible = "aspeed,ast2500-i2c-bus";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <7>;
++					interrupt-parent = <&i2c_ic>;
+ 					pinctrl-names = "default";
+ 					pinctrl-0 = <&pinctrl_i2c8_default>;
++					status = "disabled";
+ 				};
+ 
+ 				i2c8: i2c-bus@340 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
++					#interrupt-cells = <1>;
++
+ 					reg = <0x340 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <8>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					compatible = "aspeed,ast2500-i2c-bus";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <8>;
++					interrupt-parent = <&i2c_ic>;
+ 					pinctrl-names = "default";
+ 					pinctrl-0 = <&pinctrl_i2c9_default>;
++					status = "disabled";
+ 				};
+ 
+ 				i2c9: i2c-bus@380 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
++					#interrupt-cells = <1>;
++
+ 					reg = <0x380 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <9>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					compatible = "aspeed,ast2500-i2c-bus";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <9>;
++					interrupt-parent = <&i2c_ic>;
+ 					pinctrl-names = "default";
+ 					pinctrl-0 = <&pinctrl_i2c10_default>;
++					status = "disabled";
+ 				};
+ 
+ 				i2c10: i2c-bus@3c0 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
++					#interrupt-cells = <1>;
++
+ 					reg = <0x3c0 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <10>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					compatible = "aspeed,ast2500-i2c-bus";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <10>;
++					interrupt-parent = <&i2c_ic>;
+ 					pinctrl-names = "default";
+ 					pinctrl-0 = <&pinctrl_i2c11_default>;
++					status = "disabled";
+ 				};
+ 
+ 				i2c11: i2c-bus@400 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
++					#interrupt-cells = <1>;
++
+ 					reg = <0x400 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <11>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					compatible = "aspeed,ast2500-i2c-bus";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <11>;
++					interrupt-parent = <&i2c_ic>;
+ 					pinctrl-names = "default";
+ 					pinctrl-0 = <&pinctrl_i2c12_default>;
++					status = "disabled";
+ 				};
+ 
+ 				i2c12: i2c-bus@440 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
++					#interrupt-cells = <1>;
++
+ 					reg = <0x440 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <12>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					compatible = "aspeed,ast2500-i2c-bus";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <12>;
++					interrupt-parent = <&i2c_ic>;
+ 					pinctrl-names = "default";
+ 					pinctrl-0 = <&pinctrl_i2c13_default>;
++					status = "disabled";
+ 				};
+ 
+ 				i2c13: i2c-bus@480 {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
++					#interrupt-cells = <1>;
++
+ 					reg = <0x480 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <13>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
++					compatible = "aspeed,ast2500-i2c-bus";
++					clocks = <&clk_apb>;
++					bus-frequency = <100000>;
+ 					interrupts = <13>;
++					interrupt-parent = <&i2c_ic>;
+ 					pinctrl-names = "default";
+ 					pinctrl-0 = <&pinctrl_i2c14_default>;
++					status = "disabled";
+ 				};
+-
+ 			};
+-
+ 		};
+ 	};
+ };
+-- 
+2.11.0
