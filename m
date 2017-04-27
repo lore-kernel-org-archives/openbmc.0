@@ -1,47 +1,56 @@
-Return-Path: <prvs=028676A439=aaron.sullivan@rackspace.com>
-X-Greylist: delayed 934 seconds by postgrey-1.36 at bilbo;
- Thu, 27 Apr 2017 11:28:50 AEST
-Received: from esg01.rackspace.com (esg01.rackspace.com [192.237.132.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <Chen.KenYY@inventec.com>
+Received: from mail.inventec.com (hub02.inventec.com [218.32.67.167])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wCzqk2FCnzDqFy
- for <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 11:28:50 +1000 (AEST)
-Received: from smtpout.rackspace.com (unknown [10.12.51.27])
- by Websense Email with ESMTPS id C0D95552A4174;
- Thu, 27 Apr 2017 01:13:13 +0000 (UTC)
-Received: from 544148-OExch13.ror-uc.rackspace.com (10.12.51.26) by
- 544149-OEXCH10.ror-uc.rackspace.com (10.12.51.27) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id
- 15.1.845.32; Wed, 26 Apr 2017 20:13:13 -0500
-Received: from 544148-OExch13.ror-uc.rackspace.com
- ([fe80::6594:3af7:3f77:634c]) by 544148-OExch13.ror-uc.rackspace.com
- ([fe80::6594:3af7:3f77:634c%25]) with mapi id 15.01.0845.032; Wed, 26 Apr
- 2017 20:13:13 -0500
-From: Aaron Sullivan <aaron.sullivan@rackspace.com>
-To: Joel Stanley <joel@jms.id.au>
-CC: Chris Austen <austenc@us.ibm.com>, "joel@jms.id.au"
- <openbmc@lists.ozlabs.org>, Chad Somerlot <chad.somerlot@RACKSPACE.COM>
-Subject: RE: OpenBMC cloud instance migration from Aaron's account
-Thread-Topic: OpenBMC cloud instance migration from Aaron's account
-Thread-Index: AQHSvq6Wzqg/ctrZnkGYapizSsnjb6HX7QOqgABUrID//7B5gIAADKfwgACllQD//7EasIAAWzCA//+4qwA=
-Date: Thu, 27 Apr 2017 01:13:13 +0000
-Message-ID: <2cbb411eb150459eaf1484f0067be47f@rackspace.com>
-References: <1493226355476.40153@rackspace.com>
- <3C77A62F-4926-4D09-B11E-48CC33A3F293@rackspace.com>
- <OF183DA0D0.8B27A4BC-ON8625810E.0061E1C9-8625810E.00620572@notes.na.collabserv.com>
- <384e9172ef1c4bed81152e7354575f5e@rackspace.com>
- <OF81B1700A.BAAADA39-ON8625810E.00824CFE-8625810E.00825DAC@notes.na.collabserv.com>
- <fc3dc13e5adb4125b3f22853c8326b62@rackspace.com>
- <CACPK8XfO3dUUkRNfx+_S7Z4PfndmiV-dm9p_av6-C2YXZ2jg2g@mail.gmail.com>
-In-Reply-To: <CACPK8XfO3dUUkRNfx+_S7Z4PfndmiV-dm9p_av6-C2YXZ2jg2g@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.12.51.4]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wD3CM61sJzDq9K
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 14:01:03 +1000 (AEST)
+Received: from IEC1-MSE-FE2.inventec.com (10.1.254.204) by
+ IEC1-EX2010-04.iec.inventec (10.1.254.157) with Microsoft SMTP Server id
+ 14.3.266.1; Thu, 27 Apr 2017 12:00:37 +0800
+Received: from IEC1-SPAM-1.inventec.com (smg.inventec.com [10.1.254.201])	by
+ IEC1-MSE-FE2.inventec.com with ESMTP id v3R4035i053747	for
+ <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 12:00:03 +0800 (GMT-8)
+ (envelope-from chen.kenyy@inventec.com)
+Received: from mail-pf0-f199.google.com (mail-pf0-f199.google.com
+ [209.85.192.199])	by IEC1-SPAM-1.inventec.com with ESMTP id v3R40BQV048885
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL)	for
+ <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 12:00:12 +0800 (GMT-8)
+ (envelope-from chen.kenyy@inventec.com)
+Received: by mail-pf0-f199.google.com with SMTP id j16so15811119pfk.4
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 20:59:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=cOw3lvordxFe0cr048Ck+tYiqtn8+gyCVTlWEoJB60E=;
+ b=ocwTw7yRMrm7SbRPTytlassFLBVgzqQdqnEcGmZYUt3pVjaGsZ1FoVDM2oQEtFcJy+
+ KnyUKqaQBTZoy1SO4JR3mKSF0YRbKpmOCZqEbLEsTAB0dyO42uje2037PICKl7kiuKOB
+ jkw5WRsmAU0potgW0uCDBBpU7HWldAQyvizTn1qIYp+JnpF5przIOma9nJI9JW4TTyxb
+ kVZXEZzJa20m+ZmLd9+M7/I42lq1Xlrkp1qI0W/cBZc6/AAVipq2xVda4xoBpTKyPFiY
+ R5BfbWpqYrN7keEKcmIb8Kk92Ks42MNSAHZDS2/KJaS/3UKSDIOBjYHM1227jYmvSsli
+ xibA==
+X-Gm-Message-State: AN3rC/5oQj7A1JepNf6Phsdnvco1pixiJ8/Q0rBsWNOGKei+GxyRJuSt
+ nb1Y8LKOaEiFSDiLsvF9pJ3H4EpW2DGoORr7/GtNl0UXrXUYKywHxHkygULJJRmiVtvabUDwSj2
+ Pu0NRhMkyzh4X
+X-Received: by 10.84.228.193 with SMTP id y1mr4269253pli.77.1493265588773;
+ Wed, 26 Apr 2017 20:59:48 -0700 (PDT)
+X-Received: by 10.84.228.193 with SMTP id y1mr4269244pli.77.1493265588559;
+ Wed, 26 Apr 2017 20:59:48 -0700 (PDT)
+Received: from localhost ([122.146.87.216])        by smtp.gmail.com with
+ ESMTPSA id p2sm1261645pfj.93.2017.04.26.20.59.47        (version=TLS1_2
+ cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);        Wed, 26 Apr 2017
+ 20:59:47 -0700 (PDT)
+From: Ken Chen <chen.kenyy@inventec.com>
+To: <openbmc@lists.ozlabs.org>
+CC: Ken Chen <chen.kenyy@inventec.com>, <joel@jms.id.au>
+Subject: [PATCH linux dev-4.7 v3] ARM: dts: aspeed: Modify Laanyang BMC device
+ tree
+Date: Thu, 27 Apr 2017 11:59:42 +0800
+Message-ID: <20170427035942.12129-1-chen.kenyy@inventec.com>
+X-Mailer: git-send-email 2.9.3
+X-DNSRBL: 
+X-MAIL: IEC1-MSE-FE2.inventec.com v3R4035i053747
 MIME-Version: 1.0
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -53,100 +62,84 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Apr 2017 01:28:50 -0000
+X-List-Received-Date: Thu, 27 Apr 2017 04:01:04 -0000
 
-SGkgSm9lbCwNCg0KVGhlIGVtZXJnZW5jeSBjb25zb2xlIHN0aWxsIHNlZW1zIHN0dWNrLiBDb3Vs
-ZCBiZSB0aGUgWGVuU2VydmVyIGFnZW50IGZvciBlbWVyZ2VuY3kgY29uc29sZSBpcyBicm9rZW4u
-DQoNCkhlcmUncyBteSBwdWJsaWMga2V5Og0KDQpzc2gtcnNhIEFBQUFCM056YUMxeWMyRUFBQUFC
-SlFBQUFRRUFsUVJaRS8yWHVwaW9pcXNlRWljS0JZaEYvZ1V1bU44b1V6RlZDYm53endxZS9MUTVG
-OEViT003WDQwTkxDU3IwL1BURmdhblhRSCtkS0w1S2EyYXFPbUt3MUREeE54REZIVjcxcXZZTmwx
-bmlXVUUyVjNuUUkvOGdYNVNHVVQ3TXFSUFJma2N3RDd5WEFvam1jcW1KVnFLZFpWdlZqT0MwTUNU
-Q05lN2VQd0pSeUZxaVV1Y0VvLy8xS1ZuaEtDS2tRRlM1akR6VUlRdzZCb0c3bEZKTGd5U3UzZjlz
-NmIrSXozaGVJUkUxSDBWRnpucXBxSTgzN1N1akIyZEVQSWhSc1BFa0hkcks3VFVocWRCMCtwM0Ft
-K0MyTmZtZDIzVkNoY3FuZEphUW9kM0Njd01zdFZBL2RqU283MURyNzJtTnRFNno3SHBTa3hHcTRI
-YnlTTG5Denc9PSByc2Eta2V5LTIwMTcwNDI2DQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0t
-DQpGcm9tOiBqb2VsLnN0YW5AZ21haWwuY29tIFttYWlsdG86am9lbC5zdGFuQGdtYWlsLmNvbV0g
-T24gQmVoYWxmIE9mIEpvZWwgU3RhbmxleQ0KU2VudDogV2VkbmVzZGF5LCBBcHJpbCAyNiwgMjAx
-NyA3OjI4IFBNDQpUbzogQWFyb24gU3VsbGl2YW4gPGFhcm9uLnN1bGxpdmFuQHJhY2tzcGFjZS5j
-b20+DQpDYzogQ2hyaXMgQXVzdGVuIDxhdXN0ZW5jQHVzLmlibS5jb20+OyBqb2VsQGptcy5pZC5h
-dSA8b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPjsgQ2hhZCBTb21lcmxvdCA8Y2hhZC5zb21lcmxv
-dEBSQUNLU1BBQ0UuQ09NPg0KU3ViamVjdDogUmU6IE9wZW5CTUMgY2xvdWQgaW5zdGFuY2UgbWln
-cmF0aW9uIGZyb20gQWFyb24ncyBhY2NvdW50DQoNCk9uIFRodSwgQXByIDI3LCAyMDE3IGF0IDk6
-MzQgQU0sIEFhcm9uIFN1bGxpdmFuIDxhYXJvbi5zdWxsaXZhbkByYWNrc3BhY2UuY29tPiB3cm90
-ZToNCj4gSGkgSm9lbCwNCj4NCj4gVGhlIHNlcnZlciBhcHBlYXJzIHRvIGJlIG5lYXJseSBvdXQg
-b2Ygc3BhY2UsIG9uIHRoZSByb290IHZvbHVtZSwgYW5kIG5vdCByZXNwb25kaW5nIHRvIGEgc2hl
-bGwtbG9naW4gb24gdGhlIHZvbHVtZS4gSSBuZXZlciBnb3QgYXJvdW5kIHRvIHNldHRpbmctdXAg
-dGhlIHJpZ2h0IGJhY2t1cCBhdHRyaWJ1dGVzIChiYWNrdXAgd2FzIHRvbyBsYXJnZSwgYW5kIG9m
-dGVuIGZhaWxzKS4NCj4NCj4gQmVmb3JlIEZyaWRheSwgbWlkLWRheSwgSSB3YW50ZWQgdG8gY2xl
-YW4tdXAgdGhlIHZvbHVtZSBhbmQgcmVjb25maWd1cmUgYmFja3VwLCBhbmQgZ2V0IHRoZSBlbWVy
-Z2VuY3kgY29uc29sZSB3b3JraW5nIGFnYWluLiBJIHN1c3BlY3QgdGhhdCBpZiB5b3UganVzdCBk
-ZWxldGUgd2hhdGV2ZXIgaXMgZmlsbGluZyB1cCB0aGUgdm9sdW1lLCBhbmQgYm91bmNlIHRoZSBz
-ZXJ2ZXIsIG15IGVtZXJnZW5jeSBjb25zb2xlIHdpbGwgd29yayBhZ2Fpbi4NCj4NCj4gQWx0ZXJu
-YXRpdmVseSwgSSBjYW4gbWFrZSBjb250YWN0IHdpdGggeW91IHRvIGdldCB0aGUgcGFzc3dvcmQg
-YW5kIHNzaCBrZXksIGFuZCBkbyB0aGUgdm9sdW1lIGNsZWFuLXVwLCBldGMuLCBteXNlbGYuDQoN
-ClRoYW5rcyBmb3IgdGhlIGhlYWRzIHVwLiBUaGVyZSB3YXMgYW4gb2xkIHBhY2tldCBjYXB0dXJl
-IHNpdHRpbmcgaW4gYSBob21lIGRpcmVjdG9yeSBmcm9tIHdoZW4gd2Ugd2VyZSBkaWFnbm9zaW5n
-IHNvbWUgbmV0d29yayBpc3N1ZXMuDQpSZW1vdmluZyB0aGlzIGZpeGVkIHVwIHRoZSBzcGFjZSBp
-c3N1ZSBvbiB0aGUgcm9vdCB2b2x1bWUuDQoNCkknbGwgY29vcmRpbmF0ZSB3aXRoIHlvdSBvZmYg
-bGlzdCB0byBzb3J0IG91dCB0aGUgYmFja3Vwcy4NCg0KQ2hlZXJzLA0KDQpKb2VsDQoNCg0KPg0K
-Pg0KPg0KPiBMZXQgbWUga25vdyB3aGF0IHlvdSBwcmVmZXIuDQo+DQo+DQo+DQo+IC0tQWFyb24N
-Cj4NCj4NCj4NCj4gRnJvbTogQ2hyaXMgQXVzdGVuIFttYWlsdG86YXVzdGVuY0B1cy5pYm0uY29t
-XQ0KPiBTZW50OiBXZWRuZXNkYXksIEFwcmlsIDI2LCAyMDE3IDY6NDQgUE0NCj4gVG86IEFhcm9u
-IFN1bGxpdmFuIDxhYXJvbi5zdWxsaXZhbkByYWNrc3BhY2UuY29tPg0KPiBDYzogam9lbEBqbXMu
-aWQuYXUgPG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZz4NCj4NCj4NCj4gU3ViamVjdDogUkU6IE9w
-ZW5CTUMgY2xvdWQgaW5zdGFuY2UgbWlncmF0aW9uIGZyb20gQWFyb24ncyBhY2NvdW50DQo+DQo+
-DQo+DQo+IEFhcm9uLA0KPiBKb2VsIGtub3dzIHRoZSBjdXJyZW50IHJvb3QgcGFzc3dvcmQuIEhl
-IGlzIG9uIENDDQo+DQo+DQo+DQo+IENocmlzIEF1c3Rlbg0KPiBQT1dFUiBTeXN0ZW1zIEVuYWJs
-ZW1lbnQgTWFuYWdlcg0KPiAoNTEyKSAyODYtNTE4NCAoVC9MOiAzNjMtNTE4NCkNCj4NCj4gQWFy
-b24gU3VsbGl2YW4gLS0tMDQvMjYvMjAxNyAwMTo1MTo1MyBQTS0tLUhpIENocmlzLCBEaWQgd2Ug
-c2hhcmUgcm9vdCANCj4gYWNjZXNzIGluZm8sIG9uIHRoZSBzZXJ2ZXI/IEkgZG9u4oCZdCByZWNh
-bGwuIElmIHNvLCBJIG5lZWQgdG8gY2hlY2staW4gDQo+IHdpDQo+DQo+IEZyb206IEFhcm9uIFN1
-bGxpdmFuIDxhYXJvbi5zdWxsaXZhbkByYWNrc3BhY2UuY29tPg0KPiBUbzogQ2hyaXMgQXVzdGVu
-IDxhdXN0ZW5jQHVzLmlibS5jb20+DQo+IENjOiBBZGkgR2FuZ2lkaSA8YWRpLmdhbmdpZGlAcmFj
-a3NwYWNlLmNvbT4sIEJyYWQgRGVCYXVjaGUgDQo+IDxicmFkLmRlYmF1Y2hlQFJBQ0tTUEFDRS5D
-T00+LCBDaGFkIFNvbWVybG90IA0KPiA8Y2hhZC5zb21lcmxvdEBSQUNLU1BBQ0UuQ09NPg0KPiBE
-YXRlOiAwNC8yNi8yMDE3IDAxOjUxIFBNDQo+IFN1YmplY3Q6IFJFOiBPcGVuQk1DIGNsb3VkIGlu
-c3RhbmNlIG1pZ3JhdGlvbiBmcm9tIEFhcm9uJ3MgYWNjb3VudA0KPg0KPiBfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXw0KPg0KPg0KPg0KPg0KPiBIaSBDaHJpcywNCj4NCj4gRGlkIHdl
-IHNoYXJlIHJvb3QgYWNjZXNzIGluZm8sIG9uIHRoZSBzZXJ2ZXI/IEkgZG9u4oCZdCByZWNhbGwu
-IElmIHNvLCBJIG5lZWQgdG8gY2hlY2staW4gd2l0aCB5b3UuDQo+DQo+IC0tQWFyb24NCj4NCj4g
-RnJvbTogQWFyb24gU3VsbGl2YW4NCj4gU2VudDogV2VkbmVzZGF5LCBBcHJpbCAyNiwgMjAxNyAx
-OjA2IFBNDQo+IFRvOiAnQ2hyaXMgQXVzdGVuJyA8YXVzdGVuY0B1cy5pYm0uY29tPg0KPiBDYzog
-QWRpIEdhbmdpZGkgPGFkaS5nYW5naWRpQHJhY2tzcGFjZS5jb20+OyBCcmFkIERlQmF1Y2hlIA0K
-PiA8YnJhZC5kZWJhdWNoZUBSQUNLU1BBQ0UuQ09NPjsgQ2hhZCBTb21lcmxvdCANCj4gPGNoYWQu
-c29tZXJsb3RAUkFDS1NQQUNFLkNPTT4NCj4gU3ViamVjdDogUkU6IE9wZW5CTUMgY2xvdWQgaW5z
-dGFuY2UgbWlncmF0aW9uIGZyb20gQWFyb24ncyBhY2NvdW50DQo+DQo+IEhpIENocmlzLA0KPg0K
-PiBTaXRlIGlzIGxvb2tpbmcgZ29vZCEgQnJpZWYgaW50ZXJydXB0aW9uLiBJIG5lZWRlZCB0byBy
-ZWJvb3QgaXQgYW5kIGNoYW5nZSBhIGZldyBzZXR0aW5ncyBhcm91bmQgYmFja3VwLg0KPg0KPiBZ
-b3UgbWlnaHQgc2VlIGEgaGljY3VwLg0KPg0KPiAtLUFhcm9uDQo+DQo+IEZyb206IENocmlzIEF1
-c3RlbiBbbWFpbHRvOmF1c3RlbmNAdXMuaWJtLmNvbV0NCj4gU2VudDogV2VkbmVzZGF5LCBBcHJp
-bCAyNiwgMjAxNyAxMjo1MSBQTQ0KPiBUbzogQWFyb24gU3VsbGl2YW4gPGFhcm9uLnN1bGxpdmFu
-QHJhY2tzcGFjZS5jb20+DQo+IENjOiBBZGkgR2FuZ2lkaSA8YWRpLmdhbmdpZGlAcmFja3NwYWNl
-LmNvbT47IEJyYWQgRGVCYXVjaGUgDQo+IDxicmFkLmRlYmF1Y2hlQFJBQ0tTUEFDRS5DT00+OyBD
-aGFkIFNvbWVybG90IA0KPiA8Y2hhZC5zb21lcmxvdEBSQUNLU1BBQ0UuQ09NPg0KPiBTdWJqZWN0
-OiBSZTogT3BlbkJNQyBjbG91ZCBpbnN0YW5jZSBtaWdyYXRpb24gZnJvbSBBYXJvbidzIGFjY291
-bnQNCj4NCj4gVGhhbmsgeW91IEFhcm9uLA0KPg0KPiBXZWxjb21lIENoYWQgSSBsb29rIGZvcndh
-cmQgdG8gd29ya2luZyB3aXRoIHlvdS4gSWYgeW91IGV2ZXIgd29uZGVyZWQgDQo+IHdoYXQgd2Ug
-ZG8gd2l0aCB5b3VyIHNlcnZlciBmZWVsIGZyZWUgdG8gc2VlIGl0IGluIGFjdGlvbi4uLiANCj4g
-aHR0cHM6Ly9vcGVucG93ZXIueHl6Lw0KPg0KPg0KPg0KPiBDaHJpcyBBdXN0ZW4NCj4gUE9XRVIg
-U3lzdGVtcyBFbmFibGVtZW50IE1hbmFnZXINCj4gKDUxMikgMjg2LTUxODQgKFQvTDogMzYzLTUx
-ODQpDQo+DQo+IEFhcm9uIFN1bGxpdmFuIC0tLTA0LzI2LzIwMTcgMTI6NDc6NTEgUE0tLS1IaSBH
-dXlzLCBJIHRoaW5rIHdlJ3JlIGp1c3QgZ29pbmcgdG8gbWlncmF0ZSBteSBhY2NvdW50IG92ZXIg
-dG8gQ2hhZC4gVGhhdCBwcm9jZXNzIGlzIGluIGZsaWdodCBub3cuDQo+DQo+IEZyb206IEFhcm9u
-IFN1bGxpdmFuIDxhYXJvbi5zdWxsaXZhbkByYWNrc3BhY2UuY29tPg0KPiBUbzogQWRpIEdhbmdp
-ZGkgPGFkaS5nYW5naWRpQHJhY2tzcGFjZS5jb20+DQo+IENjOiBDaGFkIFNvbWVybG90IDxjaGFk
-LnNvbWVybG90QFJBQ0tTUEFDRS5DT00+LCBDaHJpcyANCj4gQXVzdGVuL0F1c3Rpbi9JQk1ASUJN
-VVMsIEJyYWQgRGVCYXVjaGUgPGJyYWQuZGViYXVjaGVAUkFDS1NQQUNFLkNPTT4NCj4gRGF0ZTog
-MDQvMjYvMjAxNyAxMjo0NyBQTQ0KPiBTdWJqZWN0OiBSZTogT3BlbkJNQyBjbG91ZCBpbnN0YW5j
-ZSBtaWdyYXRpb24gZnJvbSBBYXJvbidzIGFjY291bnQNCj4NCj4gX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18NCj4NCj4NCj4NCj4NCj4NCj4gSGkgR3V5cywNCj4NCj4gSSB0aGluayB3
-ZSdyZSBqdXN0IGdvaW5nIHRvIG1pZ3JhdGUgbXkgYWNjb3VudCBvdmVyIHRvIENoYWQuIFRoYXQg
-cHJvY2VzcyBpcyBpbiBmbGlnaHQgbm93Lg0KPg0KPiBTaG91bGQgYmUgbm8gZGlzcnVwdGlvbiB0
-byB0aGUgT3BlbkJNQyB0ZWFtLg0KPg0KPiBTZW50IGZyb20gbXkgbW9iaWxlDQo+DQo+IE9uIEFw
-ciAyNiwgMjAxNywgYXQgMTI6MDUgUE0sIEFkaSBHYW5naWRpIDxhZGkuZ2FuZ2lkaUByYWNrc3Bh
-Y2UuY29tPiB3cm90ZToNCj4NCj4gSGkgVGVhbQ0KPg0KPiBDaHJpcyBBdXN0ZW4gb24gY2MgZnJv
-bSBPcGVuQk1DIHRlYW0gd291bGQgbGlrZSB0byBiZSBwb3N0ZWQgdGltZWx5IG9uIG1pZ3JhdGlv
-biBvZiBPcGVuQk1DIGJ1aWxkIHNlcnZlciBvdXQgb2YgQWFyb24ncyBhY2NvdW50LiBNYWlubHkg
-aWYgdGhlcmUgaXMgYW55IGRvd24gdGltZSBleHBlY3RlZCBvciBqdXN0IG1ha2luZyBzdXJlIHRo
-ZSBwcm9jZXNzIGlzIHNtb290aCBzbyB0aGF0IHRoZWlyIGJ1aWxkcyBkb24ndCBoYXZlIHRvbyBt
-dWNoIGltcGFjdC4NCj4NCj4gLUFkaQ0KPg0KPg0KPg0K
+Modify Lanyang dts and add lanyang initial in aspeed.c
+
+Signed-off-by: Ken Chen <chen.kenyy@inventec.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts | 13 ++++++-------
+ arch/arm/mach-aspeed/aspeed.c                | 17 +++++++++++++++++
+ 2 files changed, 23 insertions(+), 7 deletions(-)
+
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
+index 176e4b4..6456458 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
+@@ -1,4 +1,4 @@
+-/dts-v1/;
++/dts-v3/;
+ 
+ #include "aspeed-g5.dtsi"
+ #include <dt-bindings/gpio/aspeed-gpio.h>
+@@ -302,18 +302,17 @@
+ };
+ 
+ &gpio {
+-	line_apss_reset {
+-		gpio-hog;
+-		gpios = <ASPEED_GPIO(E, 4) GPIO_ACTIVE_HIGH>;
+-		output-high;
+-		line-name = "BMC_APSS_RESET_N";
+-	};
++
+ };
+ 
+ &vuart {
+ 	status = "okay";
+ };
+ 
++&gfx {
++        status = "okay";
++};
++
+ &pinctrl {
+ 	aspeed,external-nodes = <&gfx &lhc>;
+ };
+diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+index a7b03a0..ae1e6cc 100644
+--- a/arch/arm/mach-aspeed/aspeed.c
++++ b/arch/arm/mach-aspeed/aspeed.c
+@@ -238,6 +238,21 @@ static void __init do_romulus_setup(void)
+     writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC | 0x98));
+ }
+ 
++static void __init do_lanyang_setup(void)
++{
++        unsigned long reg;
++
++        do_common_setup();
++
++        /* Disable default behavior of UART1 being held in reset by LPCRST#.
++         * By releasing UART1 from being controlled by LPC reset, it becomes
++         * immediately available regardless of the host being up.
++         */
++        reg = readl(AST_IO(AST_BASE_LPC | 0x98));
++        /* Clear "Enable UART1 reset source from LPC" */
++        writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC | 0x98));
++}
++
+ #define SCU_PASSWORD	0x1688A8A8
+ 
+ static void __init aspeed_init_early(void)
+@@ -275,6 +290,8 @@ static void __init aspeed_init_early(void)
+ 		do_witherspoon_setup();
+ 	if (of_machine_is_compatible("ibm,romulus-bmc"))
+ 		do_romulus_setup();
++        if (of_machine_is_compatible("inventec,lanyang-bmc"))
++                do_romulus_setup();
+ }
+ 
+ static void __init aspeed_map_io(void)
+-- 
+2.9.3
