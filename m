@@ -1,44 +1,31 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x236.google.com (mail-yb0-x236.google.com
- [IPv6:2607:f8b0:4002:c09::236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <prvs=028676A439=aaron.sullivan@rackspace.com>
+X-Greylist: delayed 934 seconds by postgrey-1.36 at bilbo;
+ Thu, 27 Apr 2017 11:28:50 AEST
+Received: from esg01.rackspace.com (esg01.rackspace.com [192.237.132.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wCzgK1YtrzDqHv
- for <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 11:21:33 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="mgQxE5cK"; 
- dkim-atps=neutral
-Received: by mail-yb0-x236.google.com with SMTP id s22so4570925ybe.3
- for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 18:21:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=xfvW5Vs8JxrdpU4Zk000NtA6fud8/vS0R25uByM03aI=;
- b=mgQxE5cK3g75NipGVfXN0O3nM+ezd83XHQLdG2CQAcg4X6QJJZprPnWpO6CH5me25Y
- jmnJhgeAquTCMsgimQ7L/cIb9kDE/78LEmpFM2xMs8T1/8ZeahvqkRNHJ9Ur+sjW8rD7
- VM53vFGs8kGUTNgEtcA91CSL+5EubjY+bNPzlTPx1yudEnpGgEw2SPHqAAfPTpfVcN3L
- oyYNi6pgKb2YD7epqR6N8QvVtdaic3CyY6RpaKLzgv/5ZoeL/WONWnuJ/AgfCLcYYFF5
- wZINW3/KkbsrB0vE/eBJ8aA3bg9MBcJ8vkdVvIblSwuLpjKBA7HRp3U0sBQTwvNluK1M
- fOqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=xfvW5Vs8JxrdpU4Zk000NtA6fud8/vS0R25uByM03aI=;
- b=kfnSEWr4pDE6pe4gLmLU8ME7vJARCfviIfKoHGB6y1Offmu0yzLGUi/r/vyQMqa8at
- DniomrbPFaO3dgPMU38sSZGwWqw6Ie79pdZ2bQtsnAmd1wAuUSCJAN8iJUvC7g7zo4LB
- +oriPe4NTtasanlM2O8/6IMu0qOywt99qpOJMEzU0nogKIZ63HZHXMdQgFHi7zNq4IET
- GWh4aGevF89dczV7y7cc3UNw0uxYxFyZHmJmYmAx9jlXtlHqYRHoL2r6RPBMxFmfssEe
- RJG0fA+l/mrZQsmilbMYxzs1dFmTUFWZcQjo4tpSqDkT8eDxUu7WBtkrXLXeY1DpIyeA
- qKCQ==
-X-Gm-Message-State: AN3rC/5vxRUpPnvcrvslsHplCTEwjjbQHwyV1cf/gKgHqLUhbH9DiR2T
- 9+wzoXkd8YTinrtNhASHmUrbaH5avG7T
-X-Received: by 10.37.33.193 with SMTP id h184mr2478065ybh.57.1493256090606;
- Wed, 26 Apr 2017 18:21:30 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.171.70 with HTTP; Wed, 26 Apr 2017 18:21:10 -0700 (PDT)
-In-Reply-To: <2cbb411eb150459eaf1484f0067be47f@rackspace.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wCzqk2FCnzDqFy
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 11:28:50 +1000 (AEST)
+Received: from smtpout.rackspace.com (unknown [10.12.51.27])
+ by Websense Email with ESMTPS id C0D95552A4174;
+ Thu, 27 Apr 2017 01:13:13 +0000 (UTC)
+Received: from 544148-OExch13.ror-uc.rackspace.com (10.12.51.26) by
+ 544149-OEXCH10.ror-uc.rackspace.com (10.12.51.27) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id
+ 15.1.845.32; Wed, 26 Apr 2017 20:13:13 -0500
+Received: from 544148-OExch13.ror-uc.rackspace.com
+ ([fe80::6594:3af7:3f77:634c]) by 544148-OExch13.ror-uc.rackspace.com
+ ([fe80::6594:3af7:3f77:634c%25]) with mapi id 15.01.0845.032; Wed, 26 Apr
+ 2017 20:13:13 -0500
+From: Aaron Sullivan <aaron.sullivan@rackspace.com>
+To: Joel Stanley <joel@jms.id.au>
+CC: Chris Austen <austenc@us.ibm.com>, "joel@jms.id.au"
+ <openbmc@lists.ozlabs.org>, Chad Somerlot <chad.somerlot@RACKSPACE.COM>
+Subject: RE: OpenBMC cloud instance migration from Aaron's account
+Thread-Topic: OpenBMC cloud instance migration from Aaron's account
+Thread-Index: AQHSvq6Wzqg/ctrZnkGYapizSsnjb6HX7QOqgABUrID//7B5gIAADKfwgACllQD//7EasIAAWzCA//+4qwA=
+Date: Thu, 27 Apr 2017 01:13:13 +0000
+Message-ID: <2cbb411eb150459eaf1484f0067be47f@rackspace.com>
 References: <1493226355476.40153@rackspace.com>
  <3C77A62F-4926-4D09-B11E-48CC33A3F293@rackspace.com>
  <OF183DA0D0.8B27A4BC-ON8625810E.0061E1C9-8625810E.00620572@notes.na.collabserv.com>
@@ -46,18 +33,15 @@ References: <1493226355476.40153@rackspace.com>
  <OF81B1700A.BAAADA39-ON8625810E.00824CFE-8625810E.00825DAC@notes.na.collabserv.com>
  <fc3dc13e5adb4125b3f22853c8326b62@rackspace.com>
  <CACPK8XfO3dUUkRNfx+_S7Z4PfndmiV-dm9p_av6-C2YXZ2jg2g@mail.gmail.com>
- <2cbb411eb150459eaf1484f0067be47f@rackspace.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 27 Apr 2017 10:51:10 +0930
-X-Google-Sender-Auth: Q425QGrCjVjMri09yA0RApb0B3Q
-Message-ID: <CACPK8XeJyt6vPB5G0q6a7kyieWth3Akodkqdk+ECKZLoM+gB1w@mail.gmail.com>
-Subject: Re: OpenBMC cloud instance migration from Aaron's account
-To: Aaron Sullivan <aaron.sullivan@rackspace.com>
-Cc: Chris Austen <austenc@us.ibm.com>,
- "joel@jms.id.au" <openbmc@lists.ozlabs.org>, 
- Chad Somerlot <chad.somerlot@rackspace.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CACPK8XfO3dUUkRNfx+_S7Z4PfndmiV-dm9p_av6-C2YXZ2jg2g@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.12.51.4]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -69,195 +53,100 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Apr 2017 01:21:33 -0000
+X-List-Received-Date: Thu, 27 Apr 2017 01:28:50 -0000
 
-On Thu, Apr 27, 2017 at 10:43 AM, Aaron Sullivan
-<aaron.sullivan@rackspace.com> wrote:
-> Hi Joel,
->
-> The emergency console still seems stuck. Could be the XenServer agent for=
- emergency console is broken.
->
-> Here's my public key:
->
-> ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAlQRZE/2XupioiqseEicKBYhF/gUumN8oUzFVC=
-bnwzwqe/LQ5F8EbOM7X40NLCSr0/PTFganXQH+dKL5Ka2aqOmKw1DDxNxDFHV71qvYNl1niWUE2=
-V3nQI/8gX5SGUT7MqRPRfkcwD7yXAojmcqmJVqKdZVvVjOC0MCTCNe7ePwJRyFqiUucEo//1KVn=
-hKCKkQFS5jDzUIQw6BoG7lFJLgySu3f9s6b+Iz3heIRE1H0VFznqpqI837SujB2dEPIhRsPEkHd=
-rK7TUhqdB0+p3Am+C2Nfmd23VChcqndJaQod3CcwMstVA/djSo71Dr72mNtE6z7HpSkxGq4HbyS=
-LnCzw=3D=3D rsa-key-20170426
-
-I've added this to your account.
-
-Cheers,
-
-Joel
-
->
-> -----Original Message-----
-> From: joel.stan@gmail.com [mailto:joel.stan@gmail.com] On Behalf Of Joel =
-Stanley
-> Sent: Wednesday, April 26, 2017 7:28 PM
-> To: Aaron Sullivan <aaron.sullivan@rackspace.com>
-> Cc: Chris Austen <austenc@us.ibm.com>; joel@jms.id.au <openbmc@lists.ozla=
-bs.org>; Chad Somerlot <chad.somerlot@RACKSPACE.COM>
-> Subject: Re: OpenBMC cloud instance migration from Aaron's account
->
-> On Thu, Apr 27, 2017 at 9:34 AM, Aaron Sullivan <aaron.sullivan@rackspace=
-.com> wrote:
->> Hi Joel,
->>
->> The server appears to be nearly out of space, on the root volume, and no=
-t responding to a shell-login on the volume. I never got around to setting-=
-up the right backup attributes (backup was too large, and often fails).
->>
->> Before Friday, mid-day, I wanted to clean-up the volume and reconfigure =
-backup, and get the emergency console working again. I suspect that if you =
-just delete whatever is filling up the volume, and bounce the server, my em=
-ergency console will work again.
->>
->> Alternatively, I can make contact with you to get the password and ssh k=
-ey, and do the volume clean-up, etc., myself.
->
-> Thanks for the heads up. There was an old packet capture sitting in a hom=
-e directory from when we were diagnosing some network issues.
-> Removing this fixed up the space issue on the root volume.
->
-> I'll coordinate with you off list to sort out the backups.
->
-> Cheers,
->
-> Joel
->
->
->>
->>
->>
->> Let me know what you prefer.
->>
->>
->>
->> --Aaron
->>
->>
->>
->> From: Chris Austen [mailto:austenc@us.ibm.com]
->> Sent: Wednesday, April 26, 2017 6:44 PM
->> To: Aaron Sullivan <aaron.sullivan@rackspace.com>
->> Cc: joel@jms.id.au <openbmc@lists.ozlabs.org>
->>
->>
->> Subject: RE: OpenBMC cloud instance migration from Aaron's account
->>
->>
->>
->> Aaron,
->> Joel knows the current root password. He is on CC
->>
->>
->>
->> Chris Austen
->> POWER Systems Enablement Manager
->> (512) 286-5184 (T/L: 363-5184)
->>
->> Aaron Sullivan ---04/26/2017 01:51:53 PM---Hi Chris, Did we share root
->> access info, on the server? I don=E2=80=99t recall. If so, I need to che=
-ck-in
->> wi
->>
->> From: Aaron Sullivan <aaron.sullivan@rackspace.com>
->> To: Chris Austen <austenc@us.ibm.com>
->> Cc: Adi Gangidi <adi.gangidi@rackspace.com>, Brad DeBauche
->> <brad.debauche@RACKSPACE.COM>, Chad Somerlot
->> <chad.somerlot@RACKSPACE.COM>
->> Date: 04/26/2017 01:51 PM
->> Subject: RE: OpenBMC cloud instance migration from Aaron's account
->>
->> ________________________________
->>
->>
->>
->>
->> Hi Chris,
->>
->> Did we share root access info, on the server? I don=E2=80=99t recall. If=
- so, I need to check-in with you.
->>
->> --Aaron
->>
->> From: Aaron Sullivan
->> Sent: Wednesday, April 26, 2017 1:06 PM
->> To: 'Chris Austen' <austenc@us.ibm.com>
->> Cc: Adi Gangidi <adi.gangidi@rackspace.com>; Brad DeBauche
->> <brad.debauche@RACKSPACE.COM>; Chad Somerlot
->> <chad.somerlot@RACKSPACE.COM>
->> Subject: RE: OpenBMC cloud instance migration from Aaron's account
->>
->> Hi Chris,
->>
->> Site is looking good! Brief interruption. I needed to reboot it and chan=
-ge a few settings around backup.
->>
->> You might see a hiccup.
->>
->> --Aaron
->>
->> From: Chris Austen [mailto:austenc@us.ibm.com]
->> Sent: Wednesday, April 26, 2017 12:51 PM
->> To: Aaron Sullivan <aaron.sullivan@rackspace.com>
->> Cc: Adi Gangidi <adi.gangidi@rackspace.com>; Brad DeBauche
->> <brad.debauche@RACKSPACE.COM>; Chad Somerlot
->> <chad.somerlot@RACKSPACE.COM>
->> Subject: Re: OpenBMC cloud instance migration from Aaron's account
->>
->> Thank you Aaron,
->>
->> Welcome Chad I look forward to working with you. If you ever wondered
->> what we do with your server feel free to see it in action...
->> https://openpower.xyz/
->>
->>
->>
->> Chris Austen
->> POWER Systems Enablement Manager
->> (512) 286-5184 (T/L: 363-5184)
->>
->> Aaron Sullivan ---04/26/2017 12:47:51 PM---Hi Guys, I think we're just g=
-oing to migrate my account over to Chad. That process is in flight now.
->>
->> From: Aaron Sullivan <aaron.sullivan@rackspace.com>
->> To: Adi Gangidi <adi.gangidi@rackspace.com>
->> Cc: Chad Somerlot <chad.somerlot@RACKSPACE.COM>, Chris
->> Austen/Austin/IBM@IBMUS, Brad DeBauche <brad.debauche@RACKSPACE.COM>
->> Date: 04/26/2017 12:47 PM
->> Subject: Re: OpenBMC cloud instance migration from Aaron's account
->>
->> ________________________________
->>
->>
->>
->>
->>
->> Hi Guys,
->>
->> I think we're just going to migrate my account over to Chad. That proces=
-s is in flight now.
->>
->> Should be no disruption to the OpenBMC team.
->>
->> Sent from my mobile
->>
->> On Apr 26, 2017, at 12:05 PM, Adi Gangidi <adi.gangidi@rackspace.com> wr=
-ote:
->>
->> Hi Team
->>
->> Chris Austen on cc from OpenBMC team would like to be posted timely on m=
-igration of OpenBMC build server out of Aaron's account. Mainly if there is=
- any down time expected or just making sure the process is smooth so that t=
-heir builds don't have too much impact.
->>
->> -Adi
->>
->>
->>
+SGkgSm9lbCwNCg0KVGhlIGVtZXJnZW5jeSBjb25zb2xlIHN0aWxsIHNlZW1zIHN0dWNrLiBDb3Vs
+ZCBiZSB0aGUgWGVuU2VydmVyIGFnZW50IGZvciBlbWVyZ2VuY3kgY29uc29sZSBpcyBicm9rZW4u
+DQoNCkhlcmUncyBteSBwdWJsaWMga2V5Og0KDQpzc2gtcnNhIEFBQUFCM056YUMxeWMyRUFBQUFC
+SlFBQUFRRUFsUVJaRS8yWHVwaW9pcXNlRWljS0JZaEYvZ1V1bU44b1V6RlZDYm53endxZS9MUTVG
+OEViT003WDQwTkxDU3IwL1BURmdhblhRSCtkS0w1S2EyYXFPbUt3MUREeE54REZIVjcxcXZZTmwx
+bmlXVUUyVjNuUUkvOGdYNVNHVVQ3TXFSUFJma2N3RDd5WEFvam1jcW1KVnFLZFpWdlZqT0MwTUNU
+Q05lN2VQd0pSeUZxaVV1Y0VvLy8xS1ZuaEtDS2tRRlM1akR6VUlRdzZCb0c3bEZKTGd5U3UzZjlz
+NmIrSXozaGVJUkUxSDBWRnpucXBxSTgzN1N1akIyZEVQSWhSc1BFa0hkcks3VFVocWRCMCtwM0Ft
+K0MyTmZtZDIzVkNoY3FuZEphUW9kM0Njd01zdFZBL2RqU283MURyNzJtTnRFNno3SHBTa3hHcTRI
+YnlTTG5Denc9PSByc2Eta2V5LTIwMTcwNDI2DQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0t
+DQpGcm9tOiBqb2VsLnN0YW5AZ21haWwuY29tIFttYWlsdG86am9lbC5zdGFuQGdtYWlsLmNvbV0g
+T24gQmVoYWxmIE9mIEpvZWwgU3RhbmxleQ0KU2VudDogV2VkbmVzZGF5LCBBcHJpbCAyNiwgMjAx
+NyA3OjI4IFBNDQpUbzogQWFyb24gU3VsbGl2YW4gPGFhcm9uLnN1bGxpdmFuQHJhY2tzcGFjZS5j
+b20+DQpDYzogQ2hyaXMgQXVzdGVuIDxhdXN0ZW5jQHVzLmlibS5jb20+OyBqb2VsQGptcy5pZC5h
+dSA8b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPjsgQ2hhZCBTb21lcmxvdCA8Y2hhZC5zb21lcmxv
+dEBSQUNLU1BBQ0UuQ09NPg0KU3ViamVjdDogUmU6IE9wZW5CTUMgY2xvdWQgaW5zdGFuY2UgbWln
+cmF0aW9uIGZyb20gQWFyb24ncyBhY2NvdW50DQoNCk9uIFRodSwgQXByIDI3LCAyMDE3IGF0IDk6
+MzQgQU0sIEFhcm9uIFN1bGxpdmFuIDxhYXJvbi5zdWxsaXZhbkByYWNrc3BhY2UuY29tPiB3cm90
+ZToNCj4gSGkgSm9lbCwNCj4NCj4gVGhlIHNlcnZlciBhcHBlYXJzIHRvIGJlIG5lYXJseSBvdXQg
+b2Ygc3BhY2UsIG9uIHRoZSByb290IHZvbHVtZSwgYW5kIG5vdCByZXNwb25kaW5nIHRvIGEgc2hl
+bGwtbG9naW4gb24gdGhlIHZvbHVtZS4gSSBuZXZlciBnb3QgYXJvdW5kIHRvIHNldHRpbmctdXAg
+dGhlIHJpZ2h0IGJhY2t1cCBhdHRyaWJ1dGVzIChiYWNrdXAgd2FzIHRvbyBsYXJnZSwgYW5kIG9m
+dGVuIGZhaWxzKS4NCj4NCj4gQmVmb3JlIEZyaWRheSwgbWlkLWRheSwgSSB3YW50ZWQgdG8gY2xl
+YW4tdXAgdGhlIHZvbHVtZSBhbmQgcmVjb25maWd1cmUgYmFja3VwLCBhbmQgZ2V0IHRoZSBlbWVy
+Z2VuY3kgY29uc29sZSB3b3JraW5nIGFnYWluLiBJIHN1c3BlY3QgdGhhdCBpZiB5b3UganVzdCBk
+ZWxldGUgd2hhdGV2ZXIgaXMgZmlsbGluZyB1cCB0aGUgdm9sdW1lLCBhbmQgYm91bmNlIHRoZSBz
+ZXJ2ZXIsIG15IGVtZXJnZW5jeSBjb25zb2xlIHdpbGwgd29yayBhZ2Fpbi4NCj4NCj4gQWx0ZXJu
+YXRpdmVseSwgSSBjYW4gbWFrZSBjb250YWN0IHdpdGggeW91IHRvIGdldCB0aGUgcGFzc3dvcmQg
+YW5kIHNzaCBrZXksIGFuZCBkbyB0aGUgdm9sdW1lIGNsZWFuLXVwLCBldGMuLCBteXNlbGYuDQoN
+ClRoYW5rcyBmb3IgdGhlIGhlYWRzIHVwLiBUaGVyZSB3YXMgYW4gb2xkIHBhY2tldCBjYXB0dXJl
+IHNpdHRpbmcgaW4gYSBob21lIGRpcmVjdG9yeSBmcm9tIHdoZW4gd2Ugd2VyZSBkaWFnbm9zaW5n
+IHNvbWUgbmV0d29yayBpc3N1ZXMuDQpSZW1vdmluZyB0aGlzIGZpeGVkIHVwIHRoZSBzcGFjZSBp
+c3N1ZSBvbiB0aGUgcm9vdCB2b2x1bWUuDQoNCkknbGwgY29vcmRpbmF0ZSB3aXRoIHlvdSBvZmYg
+bGlzdCB0byBzb3J0IG91dCB0aGUgYmFja3Vwcy4NCg0KQ2hlZXJzLA0KDQpKb2VsDQoNCg0KPg0K
+Pg0KPg0KPiBMZXQgbWUga25vdyB3aGF0IHlvdSBwcmVmZXIuDQo+DQo+DQo+DQo+IC0tQWFyb24N
+Cj4NCj4NCj4NCj4gRnJvbTogQ2hyaXMgQXVzdGVuIFttYWlsdG86YXVzdGVuY0B1cy5pYm0uY29t
+XQ0KPiBTZW50OiBXZWRuZXNkYXksIEFwcmlsIDI2LCAyMDE3IDY6NDQgUE0NCj4gVG86IEFhcm9u
+IFN1bGxpdmFuIDxhYXJvbi5zdWxsaXZhbkByYWNrc3BhY2UuY29tPg0KPiBDYzogam9lbEBqbXMu
+aWQuYXUgPG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZz4NCj4NCj4NCj4gU3ViamVjdDogUkU6IE9w
+ZW5CTUMgY2xvdWQgaW5zdGFuY2UgbWlncmF0aW9uIGZyb20gQWFyb24ncyBhY2NvdW50DQo+DQo+
+DQo+DQo+IEFhcm9uLA0KPiBKb2VsIGtub3dzIHRoZSBjdXJyZW50IHJvb3QgcGFzc3dvcmQuIEhl
+IGlzIG9uIENDDQo+DQo+DQo+DQo+IENocmlzIEF1c3Rlbg0KPiBQT1dFUiBTeXN0ZW1zIEVuYWJs
+ZW1lbnQgTWFuYWdlcg0KPiAoNTEyKSAyODYtNTE4NCAoVC9MOiAzNjMtNTE4NCkNCj4NCj4gQWFy
+b24gU3VsbGl2YW4gLS0tMDQvMjYvMjAxNyAwMTo1MTo1MyBQTS0tLUhpIENocmlzLCBEaWQgd2Ug
+c2hhcmUgcm9vdCANCj4gYWNjZXNzIGluZm8sIG9uIHRoZSBzZXJ2ZXI/IEkgZG9u4oCZdCByZWNh
+bGwuIElmIHNvLCBJIG5lZWQgdG8gY2hlY2staW4gDQo+IHdpDQo+DQo+IEZyb206IEFhcm9uIFN1
+bGxpdmFuIDxhYXJvbi5zdWxsaXZhbkByYWNrc3BhY2UuY29tPg0KPiBUbzogQ2hyaXMgQXVzdGVu
+IDxhdXN0ZW5jQHVzLmlibS5jb20+DQo+IENjOiBBZGkgR2FuZ2lkaSA8YWRpLmdhbmdpZGlAcmFj
+a3NwYWNlLmNvbT4sIEJyYWQgRGVCYXVjaGUgDQo+IDxicmFkLmRlYmF1Y2hlQFJBQ0tTUEFDRS5D
+T00+LCBDaGFkIFNvbWVybG90IA0KPiA8Y2hhZC5zb21lcmxvdEBSQUNLU1BBQ0UuQ09NPg0KPiBE
+YXRlOiAwNC8yNi8yMDE3IDAxOjUxIFBNDQo+IFN1YmplY3Q6IFJFOiBPcGVuQk1DIGNsb3VkIGlu
+c3RhbmNlIG1pZ3JhdGlvbiBmcm9tIEFhcm9uJ3MgYWNjb3VudA0KPg0KPiBfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXw0KPg0KPg0KPg0KPg0KPiBIaSBDaHJpcywNCj4NCj4gRGlkIHdl
+IHNoYXJlIHJvb3QgYWNjZXNzIGluZm8sIG9uIHRoZSBzZXJ2ZXI/IEkgZG9u4oCZdCByZWNhbGwu
+IElmIHNvLCBJIG5lZWQgdG8gY2hlY2staW4gd2l0aCB5b3UuDQo+DQo+IC0tQWFyb24NCj4NCj4g
+RnJvbTogQWFyb24gU3VsbGl2YW4NCj4gU2VudDogV2VkbmVzZGF5LCBBcHJpbCAyNiwgMjAxNyAx
+OjA2IFBNDQo+IFRvOiAnQ2hyaXMgQXVzdGVuJyA8YXVzdGVuY0B1cy5pYm0uY29tPg0KPiBDYzog
+QWRpIEdhbmdpZGkgPGFkaS5nYW5naWRpQHJhY2tzcGFjZS5jb20+OyBCcmFkIERlQmF1Y2hlIA0K
+PiA8YnJhZC5kZWJhdWNoZUBSQUNLU1BBQ0UuQ09NPjsgQ2hhZCBTb21lcmxvdCANCj4gPGNoYWQu
+c29tZXJsb3RAUkFDS1NQQUNFLkNPTT4NCj4gU3ViamVjdDogUkU6IE9wZW5CTUMgY2xvdWQgaW5z
+dGFuY2UgbWlncmF0aW9uIGZyb20gQWFyb24ncyBhY2NvdW50DQo+DQo+IEhpIENocmlzLA0KPg0K
+PiBTaXRlIGlzIGxvb2tpbmcgZ29vZCEgQnJpZWYgaW50ZXJydXB0aW9uLiBJIG5lZWRlZCB0byBy
+ZWJvb3QgaXQgYW5kIGNoYW5nZSBhIGZldyBzZXR0aW5ncyBhcm91bmQgYmFja3VwLg0KPg0KPiBZ
+b3UgbWlnaHQgc2VlIGEgaGljY3VwLg0KPg0KPiAtLUFhcm9uDQo+DQo+IEZyb206IENocmlzIEF1
+c3RlbiBbbWFpbHRvOmF1c3RlbmNAdXMuaWJtLmNvbV0NCj4gU2VudDogV2VkbmVzZGF5LCBBcHJp
+bCAyNiwgMjAxNyAxMjo1MSBQTQ0KPiBUbzogQWFyb24gU3VsbGl2YW4gPGFhcm9uLnN1bGxpdmFu
+QHJhY2tzcGFjZS5jb20+DQo+IENjOiBBZGkgR2FuZ2lkaSA8YWRpLmdhbmdpZGlAcmFja3NwYWNl
+LmNvbT47IEJyYWQgRGVCYXVjaGUgDQo+IDxicmFkLmRlYmF1Y2hlQFJBQ0tTUEFDRS5DT00+OyBD
+aGFkIFNvbWVybG90IA0KPiA8Y2hhZC5zb21lcmxvdEBSQUNLU1BBQ0UuQ09NPg0KPiBTdWJqZWN0
+OiBSZTogT3BlbkJNQyBjbG91ZCBpbnN0YW5jZSBtaWdyYXRpb24gZnJvbSBBYXJvbidzIGFjY291
+bnQNCj4NCj4gVGhhbmsgeW91IEFhcm9uLA0KPg0KPiBXZWxjb21lIENoYWQgSSBsb29rIGZvcndh
+cmQgdG8gd29ya2luZyB3aXRoIHlvdS4gSWYgeW91IGV2ZXIgd29uZGVyZWQgDQo+IHdoYXQgd2Ug
+ZG8gd2l0aCB5b3VyIHNlcnZlciBmZWVsIGZyZWUgdG8gc2VlIGl0IGluIGFjdGlvbi4uLiANCj4g
+aHR0cHM6Ly9vcGVucG93ZXIueHl6Lw0KPg0KPg0KPg0KPiBDaHJpcyBBdXN0ZW4NCj4gUE9XRVIg
+U3lzdGVtcyBFbmFibGVtZW50IE1hbmFnZXINCj4gKDUxMikgMjg2LTUxODQgKFQvTDogMzYzLTUx
+ODQpDQo+DQo+IEFhcm9uIFN1bGxpdmFuIC0tLTA0LzI2LzIwMTcgMTI6NDc6NTEgUE0tLS1IaSBH
+dXlzLCBJIHRoaW5rIHdlJ3JlIGp1c3QgZ29pbmcgdG8gbWlncmF0ZSBteSBhY2NvdW50IG92ZXIg
+dG8gQ2hhZC4gVGhhdCBwcm9jZXNzIGlzIGluIGZsaWdodCBub3cuDQo+DQo+IEZyb206IEFhcm9u
+IFN1bGxpdmFuIDxhYXJvbi5zdWxsaXZhbkByYWNrc3BhY2UuY29tPg0KPiBUbzogQWRpIEdhbmdp
+ZGkgPGFkaS5nYW5naWRpQHJhY2tzcGFjZS5jb20+DQo+IENjOiBDaGFkIFNvbWVybG90IDxjaGFk
+LnNvbWVybG90QFJBQ0tTUEFDRS5DT00+LCBDaHJpcyANCj4gQXVzdGVuL0F1c3Rpbi9JQk1ASUJN
+VVMsIEJyYWQgRGVCYXVjaGUgPGJyYWQuZGViYXVjaGVAUkFDS1NQQUNFLkNPTT4NCj4gRGF0ZTog
+MDQvMjYvMjAxNyAxMjo0NyBQTQ0KPiBTdWJqZWN0OiBSZTogT3BlbkJNQyBjbG91ZCBpbnN0YW5j
+ZSBtaWdyYXRpb24gZnJvbSBBYXJvbidzIGFjY291bnQNCj4NCj4gX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18NCj4NCj4NCj4NCj4NCj4NCj4gSGkgR3V5cywNCj4NCj4gSSB0aGluayB3
+ZSdyZSBqdXN0IGdvaW5nIHRvIG1pZ3JhdGUgbXkgYWNjb3VudCBvdmVyIHRvIENoYWQuIFRoYXQg
+cHJvY2VzcyBpcyBpbiBmbGlnaHQgbm93Lg0KPg0KPiBTaG91bGQgYmUgbm8gZGlzcnVwdGlvbiB0
+byB0aGUgT3BlbkJNQyB0ZWFtLg0KPg0KPiBTZW50IGZyb20gbXkgbW9iaWxlDQo+DQo+IE9uIEFw
+ciAyNiwgMjAxNywgYXQgMTI6MDUgUE0sIEFkaSBHYW5naWRpIDxhZGkuZ2FuZ2lkaUByYWNrc3Bh
+Y2UuY29tPiB3cm90ZToNCj4NCj4gSGkgVGVhbQ0KPg0KPiBDaHJpcyBBdXN0ZW4gb24gY2MgZnJv
+bSBPcGVuQk1DIHRlYW0gd291bGQgbGlrZSB0byBiZSBwb3N0ZWQgdGltZWx5IG9uIG1pZ3JhdGlv
+biBvZiBPcGVuQk1DIGJ1aWxkIHNlcnZlciBvdXQgb2YgQWFyb24ncyBhY2NvdW50LiBNYWlubHkg
+aWYgdGhlcmUgaXMgYW55IGRvd24gdGltZSBleHBlY3RlZCBvciBqdXN0IG1ha2luZyBzdXJlIHRo
+ZSBwcm9jZXNzIGlzIHNtb290aCBzbyB0aGF0IHRoZWlyIGJ1aWxkcyBkb24ndCBoYXZlIHRvbyBt
+dWNoIGltcGFjdC4NCj4NCj4gLUFkaQ0KPg0KPg0KPg0K
