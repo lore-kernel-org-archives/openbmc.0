@@ -1,56 +1,52 @@
-Return-Path: <Chen.KenYY@inventec.com>
-Received: from mail.inventec.com (hub01.inventec.com [61.220.76.161])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wD3Gn1v72zDq9K
- for <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 14:04:01 +1000 (AEST)
-Received: from IEC1-MSE-FE1.inventec.com (10.1.254.203) by
- IEC1-EX2010-03.iec.inventec (10.1.254.155) with Microsoft SMTP Server id
- 14.3.174.1; Thu, 27 Apr 2017 12:03:48 +0800
-Received: from IEC1-SPAM-1.inventec.com (smg.inventec.com [10.1.254.201])	by
- IEC1-MSE-FE1.inventec.com with ESMTP id v3R42Vc0059519	for
- <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 12:02:31 +0800 (GMT-8)
- (envelope-from chen.kenyy@inventec.com)
-Received: from mail-pf0-f199.google.com (mail-pf0-f199.google.com
- [209.85.192.199])	by IEC1-SPAM-1.inventec.com with ESMTP id v3R42bso052712
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL)	for
- <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 12:02:38 +0800 (GMT-8)
- (envelope-from chen.kenyy@inventec.com)
-Received: by mail-pf0-f199.google.com with SMTP id 194so15790778pfv.11
- for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2017 21:02:16 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=3mRCcsIisKsVqPOlpHvwOsQEtBeD30wJo8btG6fOudI=;
- b=QKY+BCvfywsV5QuFAT/htqPy5htF/JY+6L7q2mRyvSkciJXBCG+EK2e2DHMFFmVU5U
- crpk15wk7ym4up4dLfojJ0tak7v8n+RkNUu+tL3E90xSC3gGgE6/+VGatXEeq33BqwiI
- NWWFEZieHbivPJRgBHGw3cdhdSEn+/S88MslMTLsd+iV14vBvAZZawyFjzpTq/b0+6vD
- yx2C9585lZxfL2vDLidtJ8i0mz1DWwUmSjmb3MIyc3XWHef3wRCNlSMs4JGmldn95/pW
- er098M/xP1QbldnvqrPzMFJQAyatL1TPsas16gegS6lLIb7wbPal40oANgV+zgm2GRPJ
- fdbA==
-X-Gm-Message-State: AN3rC/7beab3SBFh/PNkat6Ex+Gu3L7PtPXKh92Su1q+XRLKTDx9vG1+
- ns7MSpxkWPCw0nhkzFEyNUswo8vfD3lsSEwG4IoudjjgMPOeWBRSvQxBjM2X26WVvpruLvNZrPh
- wqmNtE9bmRMkN
-X-Received: by 10.84.230.229 with SMTP id e92mr4358719plk.2.1493265734833;
- Wed, 26 Apr 2017 21:02:14 -0700 (PDT)
-X-Received: by 10.84.230.229 with SMTP id e92mr4358704plk.2.1493265734658;
- Wed, 26 Apr 2017 21:02:14 -0700 (PDT)
-Received: from localhost ([122.146.87.216])        by smtp.gmail.com with
- ESMTPSA id h89sm1305511pfh.45.2017.04.26.21.02.13        (version=TLS1_2
- cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);        Wed, 26 Apr 2017
- 21:02:14 -0700 (PDT)
-From: Ken Chen <chen.kenyy@inventec.com>
-To: <openbmc@lists.ozlabs.org>
-CC: Ken Chen <chen.kenyy@inventec.com>, <joel@jms.id.au>
-Subject: [PATCH linux dev-4.7 v4] ARM: dts: aspeed: Modify Laanyang BMC device
- tree
-Date: Thu, 27 Apr 2017 12:02:14 +0800
-Message-ID: <20170427040214.15096-1-chen.kenyy@inventec.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wD6383j8nzDqCC
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 16:09:08 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Mf5gOs+X"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="Tg2KOVE8"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 16D5820867;
+ Thu, 27 Apr 2017 02:09:06 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Thu, 27 Apr 2017 02:09:06 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :date:from:message-id:subject:to:x-me-sender:x-me-sender
+ :x-sasl-enc:x-sasl-enc; s=fm1; bh=v/5fYJPezdGPsvIJfP6V2a3xoS+dzm
+ RCS+ts1C1kPgA=; b=Mf5gOs+XQUm39rIzAWP1rsaNSJ39kwdamBUBofSiMEafEs
+ AEIDDnCgHNBGxLWtJqrdYzap+Eq3eja2jB9MUpQIGQninNr6n9tFHlZPAKIgyzaQ
+ Om8rGeNuk3OREq5Sc4VdP0dYSWFN+yR7hl98vUpBmcP9fgk8fsTk/tpEk49b6gyR
+ 25Ji1mk1mdDGvw0aLcJgqwcmWOX97N4pu0sGVMolZg/3zfc/PP1YA5+73/eBIAcC
+ tOcpGzjnOHqu+0i8fS8amnyJ/A1Mw6mgZhsny3BqwOWkRdofkplxilU3tu+8IEvy
+ oQimMtx9PctJKeg77SJi+ypaCWeav7cAfYeJt/gg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=v/5fYJ
+ PezdGPsvIJfP6V2a3xoS+dzmRCS+ts1C1kPgA=; b=Tg2KOVE8jlZ3+W65RnMNvy
+ XmBnMXAaOImkGDxRn1r5mfSdvi47b0NPzziBoYO27fPajllL2Aq6DRXpm/leVQ3l
+ TDu4iLFIgrmDIZIKTm68cfHkv2Rj9hpAQOqak5yyG9c1UAon6mdkBQIMRtRw3urE
+ eU34/AEN8izwqfrZe75mJCfWCugg5f8Txq7v7ZP/MHjCZPTJbIkU45mCi9JOJEFe
+ myMaY2dvsm27ygVL43s4M+ef/dKa34IpdiJmcwLxwV955Zc7cVOCem8kNA4+6/w8
+ EOBIfYBqqrvzJBFg8VAvfEBdcmbOVqq9TnRq+Wyju5ZqGmdEKMlh84zmWvW05YaA
+ ==
+X-ME-Sender: <xms:AYsBWVyTiB0Pwy5FOmqvBIAcr8Vj8XBTZlrQJ6ToE2aRav1O9QuryQ>
+X-Sasl-enc: uOxYoVQe/C5H4tu5ZfW4reMv+relyEhnIAtjMP6cIIVD 1493273345
+Received: from keelia.au.ibm.com (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 2409124216;
+ Thu, 27 Apr 2017 02:09:02 -0400 (EDT)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: joel@jms.id.au
+Cc: openbmc@lists.ozlabs.org, Andrew Jeffery <andrew@aj.id.au>, clg@kaod.org,
+ mine260309@gmail.com, raltherr@google.com, xow@google.com
+Subject: [PATCH linux dev-4.10 00/10] Clean up mach-aspeed/aspeed.c
+Date: Thu, 27 Apr 2017 15:38:13 +0930
+Message-Id: <20170427060823.32226-1-andrew@aj.id.au>
 X-Mailer: git-send-email 2.9.3
-X-DNSRBL: 
-X-MAIL: IEC1-MSE-FE1.inventec.com v3R42Vc0059519
-MIME-Version: 1.0
-Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,84 +58,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Apr 2017 04:04:02 -0000
+X-List-Received-Date: Thu, 27 Apr 2017 06:09:09 -0000
 
-Modify Lanyang dts and add lanyang initial in aspeed.c
+Hi all,
 
-Signed-off-by: Ken Chen <chen.kenyy@inventec.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts | 13 ++++++-------
- arch/arm/mach-aspeed/aspeed.c                | 17 +++++++++++++++++
- 2 files changed, 23 insertions(+), 7 deletions(-)
+Here's RFC-ish series for cleaning up the board file given functionality we now
+have in the tree. The intent here is to:
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
-index 176e4b4..6456458 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
-@@ -1,4 +1,4 @@
--/dts-v1/;
-+/dts-v3/;
- 
- #include "aspeed-g5.dtsi"
- #include <dt-bindings/gpio/aspeed-gpio.h>
-@@ -302,18 +302,17 @@
- };
- 
- &gpio {
--	line_apss_reset {
--		gpio-hog;
--		gpios = <ASPEED_GPIO(E, 4) GPIO_ACTIVE_HIGH>;
--		output-high;
--		line-name = "BMC_APSS_RESET_N";
--	};
-+
- };
- 
- &vuart {
- 	status = "okay";
- };
- 
-+&gfx {
-+        status = "okay";
-+};
-+
- &pinctrl {
- 	aspeed,external-nodes = <&gfx &lhc>;
- };
-diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
-index a7b03a0..0717181 100644
---- a/arch/arm/mach-aspeed/aspeed.c
-+++ b/arch/arm/mach-aspeed/aspeed.c
-@@ -238,6 +238,21 @@ static void __init do_romulus_setup(void)
-     writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC | 0x98));
- }
- 
-+static void __init do_lanyang_setup(void)
-+{
-+        unsigned long reg;
-+
-+        do_common_setup();
-+
-+        /* Disable default behavior of UART1 being held in reset by LPCRST#.
-+         * By releasing UART1 from being controlled by LPC reset, it becomes
-+         * immediately available regardless of the host being up.
-+         */
-+        reg = readl(AST_IO(AST_BASE_LPC | 0x98));
-+        /* Clear "Enable UART1 reset source from LPC" */
-+        writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC | 0x98));
-+}
-+
- #define SCU_PASSWORD	0x1688A8A8
- 
- static void __init aspeed_init_early(void)
-@@ -275,6 +290,8 @@ static void __init aspeed_init_early(void)
- 		do_witherspoon_setup();
- 	if (of_machine_is_compatible("ibm,romulus-bmc"))
- 		do_romulus_setup();
-+        if (of_machine_is_compatible("inventec,lanyang-bmc"))
-+                do_lanyang_setup();
- }
- 
- static void __init aspeed_map_io(void)
+1. Demonstrate what can be done with some of the driver support we have merged
+2. Solicit feedback from system owners about the changes
+
+Probably the most overtly breaking change is the patch for power button
+debouncing in Barreleye, which switches to using gpio-keys.
+
+Another likely controversial change is creating two devicetrees for Zaius to
+isolate EVT1 requirements from the general Zaius configuration.
+
+The rest of the changes hopefully shouldn't cause too much grief, but still
+need some inspection.
+
+The series depends on patches not included in it, however Joel is in the
+process of putting together a tree on which the series can be applied. For
+reference, the dependencies include:
+
+GPIO debouncing: https://lists.ozlabs.org/pipermail/openbmc/2017-April/007219.html
+Pinconf support: https://lists.ozlabs.org/pipermail/openbmc/2017-April/007213.html
+
+Cheers,
+
+Andrew
+
+Andrew Jeffery (10):
+  aspeed: barreleye: Remove unnecessary GPIO configuration
+  aspeed: barreleye: Passthrough debounce isn't required
+  aspeed: barreleye: Debounce BMC_PWBTN_IN_N through devicetree
+  aspeed: garrison: Request RGMII and MDIO through devicetree
+  aspeed: zaius: Disable GPIO bias via devicetree pinconf requests
+  aspeed: zaius: Remove LPC-to-AHB bridge configuration
+  aspeed: zaius: Remove manual CS decoding window configuration
+  aspeed: witherspoon: Remove LPC-to-AHB bridge configuration
+  aspeed: witherspoon: Remove manual CS decoding window configuration
+  aspeed: romulus: Remove manual CS decoding window configuration
+
+ arch/arm/boot/dts/Makefile                      |  1 +
+ arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts  | 11 ++++
+ arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts   |  5 ++
+ arch/arm/boot/dts/aspeed-bmc-opp-zaius-evt1.dts | 20 +++++++
+ arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts      | 10 ++++
+ arch/arm/mach-aspeed/aspeed.c                   | 74 -------------------------
+ 6 files changed, 47 insertions(+), 74 deletions(-)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-zaius-evt1.dts
+
 -- 
 2.9.3
