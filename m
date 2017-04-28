@@ -1,67 +1,63 @@
-Return-Path: <stewart@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wDclg04SfzDq7Z
- for <openbmc@lists.ozlabs.org>; Fri, 28 Apr 2017 12:12:30 +1000 (AEST)
-Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v3S29699091514
- for <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 22:12:25 -0400
-Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2a3sh0qgvf-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 22:12:25 -0400
-Received: from localhost
- by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
- Thu, 27 Apr 2017 22:12:24 -0400
-Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
- by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 27 Apr 2017 22:12:22 -0400
-Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
- [9.57.199.111])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v3S2CC9Y46137586; Fri, 28 Apr 2017 02:12:12 GMT
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 13B98AC03A;
- Thu, 27 Apr 2017 22:12:02 -0400 (EDT)
-Received: from birb.localdomain (unknown [9.185.16.76])
- by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id 900C2AC040;
- Thu, 27 Apr 2017 22:12:01 -0400 (EDT)
-Received: by birb.localdomain (Postfix, from userid 1000)
- id 09355229DB28; Fri, 28 Apr 2017 12:12:08 +1000 (AEST)
-From: Stewart Smith <stewart@linux.vnet.ibm.com>
-To: Jayanth Othayoth <ojayanth@in.ibm.com>, openbmc@lists.ozlabs.org
-Subject: Re: OpenBMC Debug data collection tool evaluation updates
-In-Reply-To: <OF887D4BA6.3DF1614A-ON0025810D.004324D1-0025810D.0043964E@notes.na.collabserv.com>
-References: <OF887D4BA6.3DF1614A-ON0025810D.004324D1-0025810D.0043964E@notes.na.collabserv.com>
-User-Agent: Notmuch/0.21+24~gbceb651 (http://notmuchmail.org) Emacs/25.1.1
- (x86_64-redhat-linux-gnu)
-Date: Fri, 28 Apr 2017 12:12:07 +1000
-MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-AS-GCONF: 00
-x-cbid: 17042802-0052-0000-0000-000001EA38BB
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006986; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000208; SDB=6.00853364; UDB=6.00421979; IPR=6.00632306; 
- BA=6.00005316; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015212; XFM=3.00000014;
- UTC=2017-04-28 02:12:23
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17042802-0053-0000-0000-000050499781
-Message-Id: <8737ctcmbs.fsf@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-04-27_20:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1704280031
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wDfZl1jLYzDq7Z
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Apr 2017 13:34:55 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="g9y8Ecox"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="ZGnt/luy"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 1099B20A21;
+ Thu, 27 Apr 2017 23:34:53 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Thu, 27 Apr 2017 23:34:53 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=GgTePhu6OG3UWUwa3F4/uuXFDZY08Fdyb3lh0Ennd
+ Nw=; b=g9y8EcoxNCC0SjRTl/4kCuuLdkLV50ljImtwWAJfjdmH2MroWBHZOliFJ
+ MHg+vPE1d7a8Aage2Irb/GLm1CIRrvXE7mZTLnBXmGTcgBwUapy5AtpggmnEj9Wc
+ hcGNkfMGmNnoJePDF1Gw7/IRULM1QOWC7xnCcbr11ppXed1FJWg2ixZNO4tAX77g
+ YOt5lJ1dZmms3k9y8LelruDHQMVK18rSYeERGL1VLZVgfHywb1pX0XJlQsz8cxhZ
+ BFcJfBJUGgXq8uU8y3xIrzKHl4M8d/BbzMq5UUqnf0q52ktFKS9OXJLgQFGbdjsd
+ g6Wq6tCuiT40iJJVHUDZK48sbBazw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=GgTePhu6OG3UWUwa3F
+ 4/uuXFDZY08Fdyb3lh0EnndNw=; b=ZGnt/luyqWpSC2rl/KwP59msslCrW+38gy
+ tkRcIIIcHRO4q+ibctLhtK+EzasNVPKS85m+v2tWOO1ZAn+y0GAlalso/WiCgoLG
+ QcfM5UCh6yscb+4PLt61BRuWPyRoyGzMPv1nchOCus7VEp8PhV8Ok+SS7pokltNv
+ u/3hVnRHAUhAY/Q2oSdghBoMgb0TgaUy242oloUNxdg57HCKMt0RVnLJud56osnx
+ 67lp3M4Yl8UzgciL7iJKi96JGvKiGjXLzLOwHLFJRk1DZ+UGu4jO3I2BjDOCTYvV
+ PXJQ2fsC6PH7vHvpLessyg0EAP3YJA7S8omb6Cw+F0GqtuXcJvSQ==
+X-ME-Sender: <xms:XLgCWVVpVTXwxvtPupqymBRDYXEC2b4hwFUC-dC5XaxHac45FAJ7ag>
+X-Sasl-enc: 0A81NEbDGME875c1ymjGsb99097JgSdg5y0q/EOGFSmK 1493350492
+Received: from [10.104.0.15] (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 762E6248A0;
+ Thu, 27 Apr 2017 23:34:50 -0400 (EDT)
+Message-ID: <1493350479.4433.10.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.10 05/10] aspeed: zaius: Disable GPIO bias
+ via devicetree pinconf requests
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Xo Wang <xow@google.com>
+Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>,  =?ISO-8859-1?Q?C=E9dric?= Le Goater
+ <clg@kaod.org>, Mine <mine260309@gmail.com>, Rick Altherr
+ <raltherr@google.com>
+Date: Fri, 28 Apr 2017 13:04:39 +0930
+In-Reply-To: <CAPH-5w46rey_4d=enxOPwvjbZp2aL8smNZ6DMGPQraQtaFt3OQ@mail.gmail.com>
+References: <20170427060823.32226-1-andrew@aj.id.au>
+ <20170427060823.32226-6-andrew@aj.id.au>
+ <CAPH-5w46rey_4d=enxOPwvjbZp2aL8smNZ6DMGPQraQtaFt3OQ@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-KkGk2IoxytIahZPnxkMi"
+X-Mailer: Evolution 3.22.6-0ubuntu0.1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -73,19 +69,112 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Apr 2017 02:12:31 -0000
+X-List-Received-Date: Fri, 28 Apr 2017 03:34:57 -0000
 
-Jayanth Othayoth <ojayanth@in.ibm.com> writes:
-> Base SOS Package with minimal plugin size: 360K (based on Fedora distribution)
-> Base Package size: 2.65MB (based on Fedora distribution)
 
-I'm not sure these sizes are too valid as to what would show up in
-OpenBMC.
+--=-KkGk2IoxytIahZPnxkMi
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
-Distro packages are not build with -Os, which can halve binary size in
-some cases. Additionally, the binaries are likely to be compressed on
-flash for OpenBMC, and things like man pages aren't going to be needed.
+T24gVGh1LCAyMDE3LTA0LTI3IGF0IDEwOjE2IC0wNzAwLCBYbyBXYW5nIHdyb3RlOgo+IEhpIEFu
+ZHJldywKPiAKPiA+IE9uIFdlZCwgQXByIDI2LCAyMDE3IGF0IDExOjA4IFBNLCBBbmRyZXcgSmVm
+ZmVyeSA8YW5kcmV3QGFqLmlkLmF1PiB3cm90ZToKPiA+IEdpdmVuIHRoZXJlIGFyZSBmaXhlcyBw
+cmVzdW1hYmx5IHByZXNlbnQgaW4gcmV2aXNpb25zIGJleW9uZCBFVlQxLCB0aGUKPiA+IHNwZWNp
+YWwtY2FzaW5nIGRvbmUgaW4gdGhlIGJvYXJkIGZpbGUgaXMgaW1wbGVtZW50ZWQgYnkgc2VwYXJh
+dGUKPiA+IGRldmljZXRyZWVzLgo+IAo+IEkgZG9uJ3QgdGhpbmsgYW55b25lIGlzIHVzaW5nIEVW
+VDEgYm9hcmRzIGFueSBtb3JlLiBUaGV5IGRvbid0IGJvb3QKPiBDUFVzLiAKCkFscmlnaHQsIEkn
+bGwgZHJvcCB0aGUgc3VwcG9ydC4gTGVzcyBjb2RlIGlzIGJldHRlciA6KQoKPiBIb3dldmVyLCBJ
+IGxpa2UgdGhpcyBhcHByb2FjaCBmb3IgcGx1bWJpbmcgYm9hcmQgc3BlY2lhbC1jYXNpbmcKPiBh
+bmQgd2UnbGwgcHJvYmFibHkgaGF2ZSB0byBkbyBpdCBmb3IgRVZUL0RWVCBkaWZmZXJlbmNlcy4K
+PiA+IAo+ID4gPiA+IFNpZ25lZC1vZmYtYnk6IEFuZHJldyBKZWZmZXJ5IDxhbmRyZXdAYWouaWQu
+YXU+Cj4gPiAtLS0KPiA+IMKgYXJjaC9hcm0vYm9vdC9kdHMvTWFrZWZpbGXCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHzCoMKgMSArCj4gPiDCoGFyY2gvYXJtL2Jv
+b3QvZHRzL2FzcGVlZC1ibWMtb3BwLXphaXVzLWV2dDEuZHRzIHwgMjAgKysrKysrKysrKysrKysr
+KysrKysKPiA+IMKgYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1vcHAtemFpdXMuZHRzwqDC
+oMKgwqDCoMKgfCAxMCArKysrKysrKysrCj4gPiDCoGFyY2gvYXJtL21hY2gtYXNwZWVkL2FzcGVl
+ZC5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqB8IDExIC0tLS0tLS0tLS0t
+Cj4gPiDCoDQgZmlsZXMgY2hhbmdlZCwgMzEgaW5zZXJ0aW9ucygrKSwgMTEgZGVsZXRpb25zKC0p
+Cj4gPiDCoGNyZWF0ZSBtb2RlIDEwMDY0NCBhcmNoL2FybS9ib290L2R0cy9hc3BlZWQtYm1jLW9w
+cC16YWl1cy1ldnQxLmR0cwo+ID4gCj4gPiBkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMv
+TWFrZWZpbGUgYi9hcmNoL2FybS9ib290L2R0cy9NYWtlZmlsZQo+ID4gaW5kZXggNjEyN2ZkOTQ1
+OTFjLi42MTAyZTdiZDIxYWUgMTAwNjQ0Cj4gPiAtLS0gYS9hcmNoL2FybS9ib290L2R0cy9NYWtl
+ZmlsZQo+ID4gKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvTWFrZWZpbGUKPiA+IEBAIC05ODksNiAr
+OTg5LDcgQEAgZHRiLSQoQ09ORklHX0FSQ0hfQVNQRUVEKSArPSBhc3BlZWQtYm1jLW9wcC1wYWxt
+ZXR0by5kdGIgXAo+ID4gwqDCoMKgwqDCoMKgwqDCoGFzcGVlZC1ibWMtb3BwLWdhcnJpc29uLmR0
+YiBcCj4gPiDCoMKgwqDCoMKgwqDCoMKgYXNwZWVkLWJtYy1vcHAtd2l0aGVyc3Bvb24uZHRiIFwK
+PiA+IMKgwqDCoMKgwqDCoMKgwqBhc3BlZWQtYm1jLW9wcC16YWl1cy5kdGIgXAo+ID4gK8KgwqDC
+oMKgwqDCoMKgYXNwZWVkLWJtYy1vcHAtemFpdXMtZXZ0MS5kdGIgXAo+ID4gwqDCoMKgwqDCoMKg
+wqDCoGFzcGVlZC1hc3QyNTAwLWV2Yi5kdGIKPiA+IMKgZW5kaWYKPiA+IAo+ID4gZGlmZiAtLWdp
+dCBhL2FyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1ibWMtb3BwLXphaXVzLWV2dDEuZHRzIGIvYXJj
+aC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1vcHAtemFpdXMtZXZ0MS5kdHMKPiA+IG5ldyBmaWxl
+IG1vZGUgMTAwNjQ0Cj4gPiBpbmRleCAwMDAwMDAwMDAwMDAuLjIxYjg3YTVkYmFlMwo+ID4gLS0t
+IC9kZXYvbnVsbAo+ID4gKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1vcHAtemFp
+dXMtZXZ0MS5kdHMKPiA+IEBAIC0wLDAgKzEsMjAgQEAKPiA+ICsjaW5jbHVkZSAiYXNwZWVkLWJt
+Yy1vcHAtemFpdXMuZHRzIgo+ID4gKwo+ID4gKyZwaW5jdHJsIHsKPiA+ICvCoMKgwqDCoMKgwqDC
+oHBpbmN0cmxfZ3Bpb2dhYl91bmJpYXNlZDogZ3Bpb2dhYl91bmJpYXNlZCB7Cj4gPiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgcGlucyA9ICJBMTQiLCAiRTEzIiwgIkQxMyIsICJDMTMi
+LCAiQjEzIiwgIlkyMSIsICJBQTIyIiwgIlUxOCI7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgYmlhcy1kaXNhYmxlOwo+ID4gK8KgwqDCoMKgwqDCoMKgfTsKPiA+ICsKPiA+ICvC
+oMKgwqDCoMKgwqDCoHBpbmN0cmxfZ3Bpb2lfdW5iaWFzZWQ6IGdwaW9pX3VuYmlhc2VkIHsKPiA+
+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBwaW5zID0gIkMyMiIsICJHMTgiLCAiRDE5
+IiwgIkMyMCIsICJCMjIiLCAiRzE5IiwgIkMxOCIsICJFMjAiOwo+ID4gK8KgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoGJpYXMtZGlzYWJsZTsKPiA+ICvCoMKgwqDCoMKgwqDCoH07Cj4gPiAr
+fTsKPiA+ICsKPiA+ICsmZ3BpbyB7Cj4gPiArwqDCoMKgwqDCoMKgwqBwaW5jdHJsLW5hbWVzID0g
+ImRlZmF1bHQiOwo+ID4gK8KgwqDCoMKgwqDCoMKgcGluY3RybC0wID0gPCZwaW5jdHJsX2dwaW9o
+X3VuYmlhc2VkCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCZwaW5jdHJsX2dwaW9nYWJfdW5iaWFzZWQKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgJnBpbmN0cmxfZ3Bpb2lfdW5iaWFzZWQ+Owo+ID4gK307
+Cj4gPiBkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1vcHAtemFpdXMu
+ZHRzIGIvYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1vcHAtemFpdXMuZHRzCj4gPiBpbmRl
+eCA3MzQ5NmM4ZDUwZjYuLmM2ZTU4YzViNGRmMSAxMDA2NDQKPiA+IC0tLSBhL2FyY2gvYXJtL2Jv
+b3QvZHRzL2FzcGVlZC1ibWMtb3BwLXphaXVzLmR0cwo+ID4gKysrIGIvYXJjaC9hcm0vYm9vdC9k
+dHMvYXNwZWVkLWJtYy1vcHAtemFpdXMuZHRzCj4gPiBAQCAtMzU5LDQgKzM1OSwxNCBAQAo+ID4g
+Cj4gPiDCoCZwaW5jdHJsIHsKPiA+IMKgwqDCoMKgwqDCoMKgwqBhc3BlZWQsZXh0ZXJuYWwtbm9k
+ZXMgPSA8JmdmeCAmbGhjPjsKPiA+ICsKPiA+ICvCoMKgwqDCoMKgwqDCoHBpbmN0cmxfZ3Bpb2hf
+dW5iaWFzZWQ6IGdwaW9pX3VuYmlhc2VkIHsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqBwaW5zID0gIkE4IiwgIkM3IiwgIkI3IiwgIkE3IiwgIkQ3IiwgIkI2IiwgIkE2IiwgIkU3
+IjsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBiaWFzLWRpc2FibGU7Cj4gPiAr
+wqDCoMKgwqDCoMKgwqB9Owo+ID4gK307Cj4gPiArCj4gPiArJmdwaW8gewo+ID4gK8KgwqDCoMKg
+wqDCoMKgcGluY3RybC1uYW1lcyA9ICJkZWZhdWx0IjsKPiA+ICvCoMKgwqDCoMKgwqDCoHBpbmN0
+cmwtMCA9IDwmcGluY3RybF9ncGlvaF91bmJpYXNlZD47Cj4gPiDCoH07Cj4gCj4gTG9va3MgZ29v
+ZC4KPiAKPiA+IGRpZmYgLS1naXQgYS9hcmNoL2FybS9tYWNoLWFzcGVlZC9hc3BlZWQuYyBiL2Fy
+Y2gvYXJtL21hY2gtYXNwZWVkL2FzcGVlZC5jCj4gPiBpbmRleCBiM2FiYTg3OTY0YmYuLmY3M2E3
+MjY3NjQzNyAxMDA2NDQKPiA+IC0tLSBhL2FyY2gvYXJtL21hY2gtYXNwZWVkL2FzcGVlZC5jCj4g
+PiArKysgYi9hcmNoL2FybS9tYWNoLWFzcGVlZC9hc3BlZWQuYwo+ID4gQEAgLTEyNCwxNyArMTI0
+LDYgQEAgc3RhdGljIHZvaWQgX19pbml0IGRvX3phaXVzX3NldHVwKHZvaWQpCj4gPiDCoMKgwqDC
+oMKgwqDCoMKgcmVnID0gcmVhZGwoQVNUX0lPKEFTVF9CQVNFX0dQSU8gfCAweDc4KSk7Cj4gPiDC
+oMKgwqDCoMKgwqDCoMKgYm9hcmRfcmV2ID0gKHJlZyA+PiAzKSAmIDB4MUY7Cj4gPiAKPiA+IC3C
+oMKgwqDCoMKgwqDCoC8qIEVWVDEgaGFja3MgKi8KPiA+IC3CoMKgwqDCoMKgwqDCoGlmIChib2Fy
+ZF9yZXYgPT0gMCkgewo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoC8qIERpc2Fi
+bGUgR1BJTyBJLCBHL0FCIHB1bGxkb3ducyBkdWUgdG8gd2VhayBkcml2aW5nIGJ1ZmZlcnMgKi8K
+PiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqByZWcgPSByZWFkbChBU1RfSU8oQVNU
+X0JBU0VfU0NVIHwgMHg4QykpOwo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHdy
+aXRlbChyZWcgfCBCSVQoMjQpIHwgQklUKDIyKSwgQVNUX0lPKEFTVF9CQVNFX1NDVSB8IDB4OEMp
+KTsKPiA+IC3CoMKgwqDCoMKgwqDCoH0KPiAKPiBQbGVhc2UgcmVtb3ZlIHRoaXMgY29kZSAoaW4g
+YSBzZXBhcmF0ZSBjb21taXQgaWYgeW91IHByZWZlcikgYW5kIG9taXQKPiBhc3BlZWQtYm1jLW9w
+cC16YWl1cy1ldnQxLmR0cy4KClllcywgd2lsbCBkby4KCkNoZWVycywKCkFuZHJldw==
 
--- 
-Stewart Smith
-OPAL Architect, IBM.
+
+--=-KkGk2IoxytIahZPnxkMi
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZArhQAAoJEJ0dnzgO5LT5pU4P/0iHXV8XHr+aLupTKh7zPwOI
+QxHTgw414/7kAXHcZemsBMf0gXxIsGZWR7fb4RR5w2alwlD6YAEaIPpysGfPK9Jt
+qZspLuwdCE924OcoSYxjzHCAl2rgKWg/4UhOLGdb76A6eumcg03NaEaJJppM+NqX
+ayhOJyj9lU7QpqAgSfhdeiLrr/SoRZQd0aszar2f80bQaqQqPiS/WB0iSyYRlCM0
+idD63KbEB7s27Tar7GVQAFux0DOIbwNx+BOoaeYSw/OYUwtuvXZ3FoDYG/XZrBNG
+LfKvVLhQvhlXLVI+JUuKprCU3PW6Sj//xNCwBr8cttGw8u53T33GLBsaLw2vFXf9
+SSKIXCSyfKNPZME3rGfZQX1E/Rrj0FN6T2goWxR3WVwNjMgLb+5hH5/iEsASTHeW
+yQ4IJ7e7ix1ZiDtYXrI6IoXBBQqW9J1GZ58A+/6+8spZCYZFrKrklLHkXT+bBp4n
+YKbRR61ZRaRAhlAKl0iZEmrWHyLDyXeyt6X+2WhgrNBvEqgwD7RbZR2zjDup8XZC
+oykcsJmZc6Jn4/z/L8dtCIvNytv0LWh43tQgaNhFj1OheP7SfELu2RfNVuFAoN42
+7qXUon2Q37AsN4LfWKQYYE+7NPDYbMhgUC67XCH97ubaGi4U1snsbZQYLrWWStyw
+lT2Ke/Z0FAGdYx3MJtaA
+=bIbL
+-----END PGP SIGNATURE-----
+
+--=-KkGk2IoxytIahZPnxkMi--
