@@ -1,51 +1,102 @@
-Return-Path: <brendanhiggins@google.com>
-Received: from mail-qk0-x234.google.com (mail-qk0-x234.google.com
- [IPv6:2607:f8b0:400d:c09::234])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <ojayanth@in.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wDm5147gqzDq5W
- for <openbmc@lists.ozlabs.org>; Fri, 28 Apr 2017 17:43:00 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="Gxl3QPsl"; 
- dkim-atps=neutral
-Received: by mail-qk0-x234.google.com with SMTP id f76so46555565qke.2
- for <openbmc@lists.ozlabs.org>; Fri, 28 Apr 2017 00:43:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=AVoPUwyj3CS5FoKGbqzv/cUT8oz3PiatVgZT4mg0jrY=;
- b=Gxl3QPsln7eC224G8pdE0eBHjVOiiGNP1b34AjsgNKPOUSNf23QS9bSYx87b/QnLXn
- mZX3N12xaS1axcaTlX4htkx2FVkEAjtSk4bD3jYR0STfgnSkZ1wUZQSpGqCE6ZfCf3tf
- q25i2BGTtQWlMe1dB3pxEpED+XTTfU/XIhdje+TlP24Yp4jxGyTyrNo+BC8crrKqqXf/
- kMqx3VrbI/OHH5EAe5IQD1EeUQfXRR3ncgOIbY1vAQ5vC08RkgDUO6VdSug8UM0fFBcq
- Ah6lr/TcyOVUWXf0retXVLCzb6BjYjfdF450RnhY4XtNtpmHHsdy0y3v/Q3DxwxdFuJI
- g4+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=AVoPUwyj3CS5FoKGbqzv/cUT8oz3PiatVgZT4mg0jrY=;
- b=ELE1VJ2YWPCqNqptiFWq6d6gYS7K84Pi/g79Bd8yQAH1pHGTGcJYk345kkfNJTWn2p
- NTLw8RyyU5NMGpeDzha7g+KKDupR+8LNcHzyJap7DOHh6drb3o8se751AkV3tShjSOfO
- MuIgFtFHDe95CWj3SucImVTkEN1OrzwzzzMck9ZGFELx1FkK+Z0rw1zy/F4U3okQiSbS
- ArB+sIn0Y3f19zaeu+UqJBqpB0gNoXXubhvNMOSP3R6RMP0rGs9qUycTAvqqS6A01r9r
- p7iqXXCL1uDQPLaNYJxi0Mv+2uTXrn5Wtfdsuv1WtJ+aKNZ+hDxN5b5WeYwZ+zDdHAX1
- QH2Q==
-X-Gm-Message-State: AN3rC/6qoBlFw6YMCH9gvC3mFNiho3uf9hwqCpVqCffxJuyROH0D/pEe
- D996KZYXinWQHBQFhEJK8/E5jF828u7YVYPNyw==
-X-Received: by 10.55.24.9 with SMTP id j9mr7883185qkh.25.1493365376701; Fri,
- 28 Apr 2017 00:42:56 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wDtvk4JwTzDq5W
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Apr 2017 22:50:26 +1000 (AEST)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v3SCo9Zo123290
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Apr 2017 08:50:18 -0400
+Received: from e28smtp04.in.ibm.com (e28smtp04.in.ibm.com [125.16.236.4])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2a3fk8dh5a-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Apr 2017 08:50:17 -0400
+Received: from localhost
+ by e28smtp04.in.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <ojayanth@in.ibm.com>;
+ Fri, 28 Apr 2017 18:20:07 +0530
+Received: from d28relay10.in.ibm.com (9.184.220.161)
+ by e28smtp04.in.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Fri, 28 Apr 2017 18:20:05 +0530
+Received: from d28av08.in.ibm.com (d28av08.in.ibm.com [9.184.220.148])
+ by d28relay10.in.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v3SCmbJe19792052
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Apr 2017 18:18:37 +0530
+Received: from d28av08.in.ibm.com (localhost [127.0.0.1])
+ by d28av08.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ v3SCo5cs032654
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Apr 2017 18:20:05 +0530
+Received: from d50lp01.ny.us.ibm.com (d50lp01.pok.ibm.com [146.89.104.207])
+ by d28av08.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ v3SCo2VJ032629
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Apr 2017 18:20:04 +0530
+Received: from localhost
+ by d50lp01.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <ojayanth@in.ibm.com>;
+ Fri, 28 Apr 2017 08:50:02 -0400
+Received: from smtp.notes.na.collabserv.com (192.155.248.67)
+ by d50lp01.ny.us.ibm.com (158.87.18.20) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128/128)
+ Fri, 28 Apr 2017 08:49:59 -0400
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <ojayanth@in.ibm.com>;
+ Fri, 28 Apr 2017 12:49:58 -0000
+Received: from us1a3-smtp03.a3.dal06.isc4sb.com (10.106.154.98)
+ by smtp.notes.na.collabserv.com (10.106.227.16) with
+ smtp.notes.na.collabserv.com ESMTP; Fri, 28 Apr 2017 12:49:56 -0000
+Received: from us1a3-mail76.a3.dal09.isc4sb.com ([10.142.3.53])
+ by us1a3-smtp03.a3.dal06.isc4sb.com
+ with ESMTP id 2017042812495587-334590 ;
+ Fri, 28 Apr 2017 12:49:55 +0000 
+Subject: Re: OpenBMC Debug data collection tool evaluation updates
+In-Reply-To: <8737ctcmbs.fsf@linux.vnet.ibm.com>
+From: "Jayanth Othayoth" <ojayanth@in.ibm.com>
+To: stewart@linux.vnet.ibm.com
+Cc: openbmc@lists.ozlabs.org
+Date: Fri, 28 Apr 2017 12:49:56 +0000
+Sensitivity: 
 MIME-Version: 1.0
-Received: by 10.12.135.185 with HTTP; Fri, 28 Apr 2017 00:42:56 -0700 (PDT)
-In-Reply-To: <20170428011805.22513-1-joel@jms.id.au>
-References: <20170428011805.22513-1-joel@jms.id.au>
-From: Brendan Higgins <brendanhiggins@google.com>
-Date: Fri, 28 Apr 2017 00:42:56 -0700
-Message-ID: <CAFd5g45dNZvFApkKrUHDvH_5=j--Co8JMh4umST+foxogVUq0Q@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 v3] ARM: dts: aspeed: Update i2c binding
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Andrew Jeffery <andrew@aj.id.au>
-Content-Type: text/plain; charset=UTF-8
+References: <8737ctcmbs.fsf@linux.vnet.ibm.com>,
+ <OF887D4BA6.3DF1614A-ON0025810D.004324D1-0025810D.0043964E@notes.na.collabserv.com>
+Importance: Normal
+X-Priority: 3 (Normal)
+X-Mailer: IBM Verse Build 14114-1129 | IBM Domino Build
+ SCN17101_20170411T0540_FP3 April 25, 2017 at 12:55
+X-LLNOutbound: False
+X-Disclaimed: 38803
+X-TNEFEvaluated: 1
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=UTF-8
+x-cbid: 17042812-0012-0000-0000-000003E6ADE6
+X-IBM-SpamModules-Scores: BY=0.022364; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.417846; ST=0; TS=0; UL=0; ISC=; MB=0.372449
+X-IBM-SpamModules-Versions: BY=3.00006989; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000208; SDB=6.00853577; UDB=6.00422106; IPR=6.00632518; 
+ BA=6.00005316; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015218; XFM=3.00000014;
+ UTC=2017-04-28 12:49:57
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2017-04-28 11:41:56 - 6.00006662
+x-cbparentid: 17042812-0328-0000-0000-000014CF598C
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+X-TM-AS-MML: disable
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+Message-Id: <OFE2BDAB07.BB5C47BF-ON00258110.00464427-00258110.00467D7A@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-04-28_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=2
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1704280187
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,963 +108,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Apr 2017 07:43:02 -0000
+X-List-Received-Date: Fri, 28 Apr 2017 12:50:27 -0000
 
-On Thu, Apr 27, 2017 at 6:18 PM, Joel Stanley <joel@jms.id.au> wrote:
-> The I2C binding changed when upstreaming the I2C driver.
->
-> This adds aliases for the 14 built-in I2C busses to ensure userspace
-> sees the numbering that we had with the old driver.
->
-> This change moves the description of the i2c buses to the bottom of the
-> dtsi to improve readability.
->
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-
-Reviewed-by: Brendan Higgins <brendanhiggins@google.com>
-
-> ---
-> v2:
->  Added i2c aliases.
->
->  Boot tested on qemu-palmetto. We see the same i2c entries under /dev as before,
->  so the aliases work. Note that we can't use qemu for testing with the new
->  driver, tracked at https://github.com/openbmc/qemu/issues/5
->
-> v3:
->  Fixed missing pinctrl properties for i2c2
->
-> v4:
->  No code change. Send patch with --diff-algorithm=histogram so it made sense
->
->  arch/arm/boot/dts/aspeed-g4.dtsi | 440 ++++++++++++++++++++++-----------------
->  arch/arm/boot/dts/aspeed-g5.dtsi | 439 +++++++++++++++++++++-----------------
->  2 files changed, 501 insertions(+), 378 deletions(-)
->
-> diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-> index b9a6730cc831..952e23d553f8 100644
-> --- a/arch/arm/boot/dts/aspeed-g4.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-> @@ -18,6 +18,23 @@
->                 };
->         };
->
-> +       aliases {
-> +               i2c0 = &i2c0;
-> +               i2c1 = &i2c1;
-> +               i2c2 = &i2c2;
-> +               i2c3 = &i2c3;
-> +               i2c4 = &i2c4;
-> +               i2c5 = &i2c5;
-> +               i2c6 = &i2c6;
-> +               i2c7 = &i2c7;
-> +               i2c8 = &i2c8;
-> +               i2c9 = &i2c9;
-> +               i2c10 = &i2c10;
-> +               i2c11 = &i2c11;
-> +               i2c12 = &i2c12;
-> +               i2c13 = &i2c13;
-> +       };
-> +
->         clocks {
->         };
->
-> @@ -958,200 +975,245 @@
->                         };
->
->                         i2c: i2c@1e78a000 {
-> +                               compatible = "simple-bus";
->                                 #address-cells = <1>;
->                                 #size-cells = <1>;
-> -                               #interrupt-cells = <1>;
-> -
-> -                               compatible = "aspeed,ast2400-i2c-controller";
-> -                               reg = <0x1e78a000 0x40>;
->                                 ranges = <0 0x1e78a000 0x1000>;
-> -                               interrupts = <12>;
-> -                               clocks = <&clk_apb>;
-> -                               clock-ranges;
-> -                               interrupt-controller;
-> -
-> -                               i2c0: i2c-bus@40 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x40 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <0>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <0>;
-> -                                       interrupt-parent = <&i2c>;
-> -                                       /* Does not need pinctrl node */
-> -                               };
-> -
-> -                               i2c1: i2c-bus@80 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x80 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <1>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <1>;
-> -                                       /* Does not need pinctrl node */
-> -                               };
-> -
-> -                               i2c2: i2c-bus@c0 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0xC0 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <2>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <2>;
-> -                                       pinctrl-names = "default";
-> -                                       pinctrl-0 = <&pinctrl_i2c3_default>;
-> -                               };
-> -
-> -                               i2c3: i2c-bus@100 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x100 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <3>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <3>;
-> -                                       pinctrl-names = "default";
-> -                                       pinctrl-0 = <&pinctrl_i2c4_default>;
-> -                               };
-> -
-> -                               i2c4: i2c-bus@140 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x140 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <4>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <4>;
-> -                                       pinctrl-names = "default";
-> -                                       pinctrl-0 = <&pinctrl_i2c5_default>;
-> -                               };
-> -
-> -                               i2c5: i2c-bus@180 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x180 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <5>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <5>;
-> -                                       pinctrl-names = "default";
-> -                                       pinctrl-0 = <&pinctrl_i2c6_default>;
-> -                               };
-> -
-> -                               i2c6: i2c-bus@1c0 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x1C0 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <6>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <6>;
-> -                                       pinctrl-names = "default";
-> -                                       pinctrl-0 = <&pinctrl_i2c7_default>;
-> -                               };
-> -
-> -                               i2c7: i2c-bus@300 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x300 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <7>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <7>;
-> -                                       pinctrl-names = "default";
-> -                                       pinctrl-0 = <&pinctrl_i2c8_default>;
-> -                               };
-> -
-> -                               i2c8: i2c-bus@340 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x340 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <8>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <8>;
-> -                                       pinctrl-names = "default";
-> -                                       pinctrl-0 = <&pinctrl_i2c9_default>;
-> -                               };
-> -
-> -                               i2c9: i2c-bus@380 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x380 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <9>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <9>;
-> -                                       pinctrl-names = "default";
-> -                                       pinctrl-0 = <&pinctrl_i2c10_default>;
-> -                               };
-> -
-> -                               i2c10: i2c-bus@3c0 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x3c0 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <10>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <10>;
-> -                                       pinctrl-names = "default";
-> -                                       pinctrl-0 = <&pinctrl_i2c11_default>;
-> -                               };
-> -
-> -                               i2c11: i2c-bus@400 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x400 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <11>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <11>;
-> -                                       pinctrl-names = "default";
-> -                                       pinctrl-0 = <&pinctrl_i2c12_default>;
-> -                               };
-> -
-> -                               i2c12: i2c-bus@440 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x440 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <12>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <12>;
-> -                                       pinctrl-names = "default";
-> -                                       pinctrl-0 = <&pinctrl_i2c13_default>;
-> -                               };
-> -
-> -                               i2c13: i2c-bus@480 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x480 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <13>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <13>;
-> -                                       /* Does not need pinctrl node */
-> -                               };
-> -
->                         };
->
-> +
->                 };
->         };
->  };
-> +
-> +&i2c {
-> +       i2c_ic: interrupt-controller@0 {
-> +               #interrupt-cells = <1>;
-> +               compatible = "aspeed,ast2400-i2c-ic";
-> +               reg = <0x0 0x40>;
-> +               interrupts = <12>;
-> +               interrupt-controller;
-> +       };
-> +
-> +       i2c0: i2c-bus@40 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x40 0x40>;
-> +               compatible = "aspeed,ast2400-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <0>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               status = "disabled";
-> +               /* Does not need pinctrl properties */
-> +       };
-> +
-> +       i2c1: i2c-bus@80 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x80 0x40>;
-> +               compatible = "aspeed,ast2400-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <1>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               status = "disabled";
-> +               /* Does not need pinctrl properties */
-> +       };
-> +
-> +       i2c2: i2c-bus@c0 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0xc0 0x40>;
-> +               compatible = "aspeed,ast2400-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <2>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               status = "disabled";
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_i2c3_default>;
-> +       };
-> +
-> +       i2c3: i2c-bus@100 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x100 0x40>;
-> +               compatible = "aspeed,ast2400-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <3>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_i2c4_default>;
-> +               status = "disabled";
-> +       };
-> +
-> +       i2c4: i2c-bus@140 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x140 0x40>;
-> +               compatible = "aspeed,ast2400-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <4>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_i2c5_default>;
-> +               status = "disabled";
-> +       };
-> +
-> +       i2c5: i2c-bus@180 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x180 0x40>;
-> +               compatible = "aspeed,ast2400-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <5>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_i2c6_default>;
-> +               status = "disabled";
-> +       };
-> +
-> +       i2c6: i2c-bus@1c0 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x1c0 0x40>;
-> +               compatible = "aspeed,ast2400-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <6>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_i2c7_default>;
-> +               status = "disabled";
-> +       };
-> +
-> +       i2c7: i2c-bus@300 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x300 0x40>;
-> +               compatible = "aspeed,ast2400-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <7>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_i2c8_default>;
-> +               status = "disabled";
-> +       };
-> +
-> +       i2c8: i2c-bus@340 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x340 0x40>;
-> +               compatible = "aspeed,ast2400-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <8>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_i2c9_default>;
-> +               status = "disabled";
-> +       };
-> +
-> +       i2c9: i2c-bus@380 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x380 0x40>;
-> +               compatible = "aspeed,ast2400-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <9>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_i2c10_default>;
-> +               status = "disabled";
-> +       };
-> +
-> +       i2c10: i2c-bus@3c0 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x3c0 0x40>;
-> +               compatible = "aspeed,ast2400-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <10>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_i2c11_default>;
-> +               status = "disabled";
-> +       };
-> +
-> +       i2c11: i2c-bus@400 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x400 0x40>;
-> +               compatible = "aspeed,ast2400-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <11>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_i2c12_default>;
-> +               status = "disabled";
-> +       };
-> +
-> +       i2c12: i2c-bus@440 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x440 0x40>;
-> +               compatible = "aspeed,ast2400-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <12>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_i2c13_default>;
-> +               status = "disabled";
-> +       };
-> +
-> +       i2c13: i2c-bus@480 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x480 0x40>;
-> +               compatible = "aspeed,ast2400-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <13>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_i2c14_default>;
-> +               status = "disabled";
-> +       };
-> +};
-> diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-> index ddfb729bb85a..905edd7b83ae 100644
-> --- a/arch/arm/boot/dts/aspeed-g5.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-> @@ -18,6 +18,23 @@
->                 };
->         };
->
-> +       aliases {
-> +               i2c0 = &i2c0;
-> +               i2c1 = &i2c1;
-> +               i2c2 = &i2c2;
-> +               i2c3 = &i2c3;
-> +               i2c4 = &i2c4;
-> +               i2c5 = &i2c5;
-> +               i2c6 = &i2c6;
-> +               i2c7 = &i2c7;
-> +               i2c8 = &i2c8;
-> +               i2c9 = &i2c9;
-> +               i2c10 = &i2c10;
-> +               i2c11 = &i2c11;
-> +               i2c12 = &i2c12;
-> +               i2c13 = &i2c13;
-> +       };
-> +
->         ahb {
->                 compatible = "simple-bus";
->                 #address-cells = <1>;
-> @@ -1149,199 +1166,243 @@
->                         };
->
->                         i2c: i2c@1e78a000 {
-> +                               compatible = "simple-bus";
->                                 #address-cells = <1>;
->                                 #size-cells = <1>;
-> -                               #interrupt-cells = <1>;
-> -
-> -                               compatible = "aspeed,ast2400-i2c-controller";
-> -                               reg = <0x1e78a000 0x40>;
->                                 ranges = <0 0x1e78a000 0x1000>;
-> -                               interrupts = <12>;
-> -                               clocks = <&clk_apb>;
-> -                               clock-ranges;
-> -                               interrupt-controller;
-> -
-> -                               i2c0: i2c-bus@40 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x40 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <0>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <0>;
-> -                                       interrupt-parent = <&i2c>;
-> -                               };
-> -
-> -                               i2c1: i2c-bus@80 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x80 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <1>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <1>;
-> -                               };
-> -
-> -                               i2c2: i2c-bus@c0 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0xC0 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <2>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <2>;
-> -                                       pinctrl-names = "default";
-> -                                       pinctrl-0 = <&pinctrl_i2c3_default>;
-> -                               };
-> -
-> -                               i2c3: i2c-bus@100 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x100 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <3>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <3>;
-> -                                       pinctrl-names = "default";
-> -                                       pinctrl-0 = <&pinctrl_i2c4_default>;
-> -                               };
-> -
-> -                               i2c4: i2c-bus@140 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x140 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <4>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <4>;
-> -                                       pinctrl-names = "default";
-> -                                       pinctrl-0 = <&pinctrl_i2c5_default>;
-> -                               };
-> -
-> -                               i2c5: i2c-bus@180 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x180 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <5>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <5>;
-> -                                       pinctrl-names = "default";
-> -                                       pinctrl-0 = <&pinctrl_i2c6_default>;
-> -                               };
-> -
-> -                               i2c6: i2c-bus@1c0 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x1C0 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <6>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <6>;
-> -                                       pinctrl-names = "default";
-> -                                       pinctrl-0 = <&pinctrl_i2c7_default>;
-> -                               };
-> -
-> -                               i2c7: i2c-bus@300 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x300 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <7>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <7>;
-> -                                       pinctrl-names = "default";
-> -                                       pinctrl-0 = <&pinctrl_i2c8_default>;
-> -                               };
-> -
-> -                               i2c8: i2c-bus@340 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x340 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <8>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <8>;
-> -                                       pinctrl-names = "default";
-> -                                       pinctrl-0 = <&pinctrl_i2c9_default>;
-> -                               };
-> -
-> -                               i2c9: i2c-bus@380 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x380 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <9>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <9>;
-> -                                       pinctrl-names = "default";
-> -                                       pinctrl-0 = <&pinctrl_i2c10_default>;
-> -                               };
-> -
-> -                               i2c10: i2c-bus@3c0 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x3c0 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <10>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <10>;
-> -                                       pinctrl-names = "default";
-> -                                       pinctrl-0 = <&pinctrl_i2c11_default>;
-> -                               };
-> -
-> -                               i2c11: i2c-bus@400 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x400 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <11>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <11>;
-> -                                       pinctrl-names = "default";
-> -                                       pinctrl-0 = <&pinctrl_i2c12_default>;
-> -                               };
-> -
-> -                               i2c12: i2c-bus@440 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x440 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <12>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <12>;
-> -                                       pinctrl-names = "default";
-> -                                       pinctrl-0 = <&pinctrl_i2c13_default>;
-> -                               };
-> -
-> -                               i2c13: i2c-bus@480 {
-> -                                       #address-cells = <1>;
-> -                                       #size-cells = <0>;
-> -                                       reg = <0x480 0x40>;
-> -                                       compatible = "aspeed,ast2400-i2c-bus";
-> -                                       bus = <13>;
-> -                                       clock-frequency = <100000>;
-> -                                       status = "disabled";
-> -                                       interrupts = <13>;
-> -                                       pinctrl-names = "default";
-> -                                       pinctrl-0 = <&pinctrl_i2c14_default>;
-> -                               };
-> -
->                         };
-> -
->                 };
->         };
->  };
-> +
-> +&i2c {
-> +       i2c_ic: interrupt-controller@0 {
-> +               #interrupt-cells = <1>;
-> +               compatible = "aspeed,ast2500-i2c-ic";
-> +               reg = <0x0 0x40>;
-> +               interrupts = <12>;
-> +               interrupt-controller;
-> +       };
-> +
-> +       i2c0: i2c-bus@40 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x40 0x40>;
-> +               compatible = "aspeed,ast2500-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <0>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               status = "disabled";
-> +               /* Does not need pinctrl properties */
-> +       };
-> +
-> +       i2c1: i2c-bus@80 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x80 0x40>;
-> +               compatible = "aspeed,ast2500-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <1>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               status = "disabled";
-> +               /* Does not need pinctrl properties */
-> +       };
-> +
-> +       i2c2: i2c-bus@c0 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0xc0 0x40>;
-> +               compatible = "aspeed,ast2500-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <2>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_i2c3_default>;
-> +               status = "disabled";
-> +       };
-> +
-> +       i2c3: i2c-bus@100 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x100 0x40>;
-> +               compatible = "aspeed,ast2500-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <3>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_i2c4_default>;
-> +               status = "disabled";
-> +       };
-> +
-> +       i2c4: i2c-bus@140 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x140 0x40>;
-> +               compatible = "aspeed,ast2500-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <4>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_i2c5_default>;
-> +               status = "disabled";
-> +       };
-> +
-> +       i2c5: i2c-bus@180 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x180 0x40>;
-> +               compatible = "aspeed,ast2500-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <5>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_i2c6_default>;
-> +               status = "disabled";
-> +       };
-> +
-> +       i2c6: i2c-bus@1c0 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x1c0 0x40>;
-> +               compatible = "aspeed,ast2500-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <6>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_i2c7_default>;
-> +               status = "disabled";
-> +       };
-> +
-> +       i2c7: i2c-bus@300 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x300 0x40>;
-> +               compatible = "aspeed,ast2500-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <7>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_i2c8_default>;
-> +               status = "disabled";
-> +       };
-> +
-> +       i2c8: i2c-bus@340 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x340 0x40>;
-> +               compatible = "aspeed,ast2500-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <8>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_i2c9_default>;
-> +               status = "disabled";
-> +       };
-> +
-> +       i2c9: i2c-bus@380 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x380 0x40>;
-> +               compatible = "aspeed,ast2500-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <9>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_i2c10_default>;
-> +               status = "disabled";
-> +       };
-> +
-> +       i2c10: i2c-bus@3c0 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x3c0 0x40>;
-> +               compatible = "aspeed,ast2500-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <10>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_i2c11_default>;
-> +               status = "disabled";
-> +       };
-> +
-> +       i2c11: i2c-bus@400 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x400 0x40>;
-> +               compatible = "aspeed,ast2500-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <11>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_i2c12_default>;
-> +               status = "disabled";
-> +       };
-> +
-> +       i2c12: i2c-bus@440 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x440 0x40>;
-> +               compatible = "aspeed,ast2500-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <12>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_i2c13_default>;
-> +               status = "disabled";
-> +       };
-> +
-> +       i2c13: i2c-bus@480 {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #interrupt-cells = <1>;
-> +
-> +               reg = <0x480 0x40>;
-> +               compatible = "aspeed,ast2500-i2c-bus";
-> +               clocks = <&clk_apb>;
-> +               bus-frequency = <100000>;
-> +               interrupts = <13>;
-> +               interrupt-parent = <&i2c_ic>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_i2c14_default>;
-> +               status = "disabled";
-> +       };
-> +};
-> --
-> 2.11.0
->
+<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
+elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" >Allowed Flash spa=
+ce for these tool is 200 K .&nbsp; As mentioned in the earlier&nbsp; mail S=
+OSreport base package size it self is 360K ( Python package) .</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Thanks &amp; Regards<br><br>Jayanth Othayoth<br>PFW<br>Ph=
+: 91-80-40256823<br>T/L : 7221723<br><br>mailto:ojayanth@in.ibm.com</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<blockquote data-history-content-modified=3D"1" dir=3D"ltr" style=3D"border=
+-left:solid #aaaaaa 2px; margin-left:5px; padding-left:5px; direction:ltr; =
+margin-right:0px" >----- Original message -----<br>From: Stewart Smith &lt;=
+stewart@linux.vnet.ibm.com&gt;<br>To: Jayanth Othayoth/India/IBM@IBMIN, ope=
+nbmc@lists.ozlabs.org<br>Cc:<br>Subject: Re: OpenBMC Debug data collection =
+tool evaluation updates<br>Date: Fri, Apr 28, 2017 7:42 AM<br>&nbsp;
+<div><font face=3D"Default Monospace,Courier New,Courier,monospace" size=3D=
+"2" >Jayanth Othayoth &lt;ojayanth@in.ibm.com&gt; writes:<br>&gt; Base SOS =
+Package with minimal plugin size: 360K (based on Fedora distribution)<br>&g=
+t; Base Package size: 2.65MB (based on Fedora distribution)<br><br>I'm not =
+sure these sizes are too valid as to what would show up in<br>OpenBMC.<br><=
+br>Distro packages are not build with -Os, which can halve binary size in<b=
+r>some cases. Additionally, the binaries are likely to be compressed on<br>=
+flash for OpenBMC, and things like man pages aren't going to be needed.<br>=
+<br>--<br>Stewart Smith<br>OPAL Architect, IBM.</font></div></blockquote>
+<div dir=3D"ltr" >&nbsp;</div></div><BR>
