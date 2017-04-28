@@ -1,25 +1,67 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Return-Path: <stewart@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wDcLl5M3gzDq5b
- for <openbmc@lists.ozlabs.org>; Fri, 28 Apr 2017 11:54:23 +1000 (AEST)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1493344459122242.08032946647813;
- Thu, 27 Apr 2017 18:54:19 -0700 (PDT)
-Date: Thu, 27 Apr 2017 20:54:17 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: IANA Enterprise Number
-Message-ID: <20170428015417.GA15299@heinlein.lan>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wDclg04SfzDq7Z
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Apr 2017 12:12:30 +1000 (AEST)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v3S29699091514
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 22:12:25 -0400
+Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2a3sh0qgvf-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 22:12:25 -0400
+Received: from localhost
+ by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
+ Thu, 27 Apr 2017 22:12:24 -0400
+Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
+ by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Thu, 27 Apr 2017 22:12:22 -0400
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
+ [9.57.199.111])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v3S2CC9Y46137586; Fri, 28 Apr 2017 02:12:12 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 13B98AC03A;
+ Thu, 27 Apr 2017 22:12:02 -0400 (EDT)
+Received: from birb.localdomain (unknown [9.185.16.76])
+ by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id 900C2AC040;
+ Thu, 27 Apr 2017 22:12:01 -0400 (EDT)
+Received: by birb.localdomain (Postfix, from userid 1000)
+ id 09355229DB28; Fri, 28 Apr 2017 12:12:08 +1000 (AEST)
+From: Stewart Smith <stewart@linux.vnet.ibm.com>
+To: Jayanth Othayoth <ojayanth@in.ibm.com>, openbmc@lists.ozlabs.org
+Subject: Re: OpenBMC Debug data collection tool evaluation updates
+In-Reply-To: <OF887D4BA6.3DF1614A-ON0025810D.004324D1-0025810D.0043964E@notes.na.collabserv.com>
+References: <OF887D4BA6.3DF1614A-ON0025810D.004324D1-0025810D.0043964E@notes.na.collabserv.com>
+User-Agent: Notmuch/0.21+24~gbceb651 (http://notmuchmail.org) Emacs/25.1.1
+ (x86_64-redhat-linux-gnu)
+Date: Fri, 28 Apr 2017 12:12:07 +1000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="rwEMma7ioTxnRzrJ"
-Content-Disposition: inline
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
-X-ZohoMailClient: External
+Content-Type: text/plain
+X-TM-AS-GCONF: 00
+x-cbid: 17042802-0052-0000-0000-000001EA38BB
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006986; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000208; SDB=6.00853364; UDB=6.00421979; IPR=6.00632306; 
+ BA=6.00005316; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015212; XFM=3.00000014;
+ UTC=2017-04-28 02:12:23
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17042802-0053-0000-0000-000050499781
+Message-Id: <8737ctcmbs.fsf@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-04-27_20:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1704280031
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -31,44 +73,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Apr 2017 01:54:24 -0000
+X-List-Received-Date: Fri, 28 Apr 2017 02:12:31 -0000
 
+Jayanth Othayoth <ojayanth@in.ibm.com> writes:
+> Base SOS Package with minimal plugin size: 360K (based on Fedora distribution)
+> Base Package size: 2.65MB (based on Fedora distribution)
 
---rwEMma7ioTxnRzrJ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I'm not sure these sizes are too valid as to what would show up in
+OpenBMC.
 
-I requested and we have been granted a private enterprise number from
-IANA: 49871 -   OpenBMC Project
+Distro packages are not build with -Os, which can halve binary size in
+some cases. Additionally, the binaries are likely to be compressed on
+flash for OpenBMC, and things like man pages aren't going to be needed.
 
-https://www.iana.org/assignments/enterprise-numbers/enterprise-numbers
-
-This number can be used for identifying our IPMI OEM commands.
-
-
---=20
-Patrick Williams
-
---rwEMma7ioTxnRzrJ
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAlkCoMcACgkQqwNHzC0A
-wRlBQBAAi4LShs9iVAADeB63e8M/lDewFXdhR68jbE5/WemdeasYNX2GG9o4RT22
-Yud/Ol6TiT/bc73K3dfThbv7xBkfcRBOUrUo8TQuXvsmQqJ2ZB3rHdEmqRdSITYJ
-O2cRGQErAIEz6NCd2xfs8n2omMrpc3tDTEzWpr14+Uhd22kW1092uTGKhWEXak5J
-CnygUwE9wWvK2j5mYJ1Qaay21kJ/eZG7RJTTmrmz/Hwta8vo16213z+tUeBWww/8
-0/S6oXR4iiK6E1WHYnCml1cbh3HOaBatc4zywmqBlbxxN8XmcUynlxXRitXBqcvt
-tw2+De+gLwvWwKixq63wlTHlwFYnlvkMS2cMiqwE8EUCe2/RgNZWSknSUyN0PXXI
-GCOnNSFGDDedCRxvY+RqG6NSOr0oaJKDnDkACIQ3rr3tNHgZVbe8HwwYgro1r/GS
-+d1fycOA1SgNaEiR7IWWZ8WwjmzKqVLLPsnUus0F9CQKk8KLICykk/2/gjApYtx3
-P5tapgdUsXIigBZV/cTE8L8ZmHqc4uh1NX3zxDsXnNVi31YJ2ldBYevivDxq9vH8
-o4krPu4Ot6z3+OrYwkC3IG7fSbhxkwpYPeXl5ebitLPokbIqGOCvf3JXfSKO7SHe
-EI1VRoS9Dx9p/1aYwey/7o50tv0785b9iHppPBEUTjHhSXUj+cY=
-=6CsN
------END PGP SIGNATURE-----
-
---rwEMma7ioTxnRzrJ--
+-- 
+Stewart Smith
+OPAL Architect, IBM.
