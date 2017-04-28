@@ -1,57 +1,60 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x242.google.com (mail-yw0-x242.google.com
+ [IPv6:2607:f8b0:4002:c05::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wDZx268CjzDq5b
- for <openbmc@lists.ozlabs.org>; Fri, 28 Apr 2017 10:50:30 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wDb0Z4hkWzDq5b
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Apr 2017 10:53:34 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Qccebs2a"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="nWgZmpC3"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 9E71220A70;
- Thu, 27 Apr 2017 20:50:27 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Thu, 27 Apr 2017 20:50:27 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=5mxSYSQmqKa5FMqKff7SCSMa6NoQiYn59FEZhTSfm
- do=; b=Qccebs2aSfHZP6P9cfHDNS8d8AnypiOkTpWef8pU0f9Amz5CRMPB/qtmU
- CjdqG8NhwY7kMVnBOYN5BnWNXWZtW+I5pwL/Ep+RFhQIlJaaw7CKoknoIkJs4naZ
- Akyj8+vhopzXUDgLyx86TA1b3BFRP1cNynetLJWZpuSNt3o11N7TsWbIno+04wvJ
- YNWNKaVAyZwlsJa91jL3KxaI3cZD8wXMrzrLz3ufk16DbKVrv7ZNKYwIAGSPkRmG
- 7Qbl4aAwvb0e3IgLIqueCwBj9Uj5F3hRRncB8imjLJUEZxev0VBVcTOpC5CQtFWM
- 4zD3suMX+KIzb+ck40KzxCXlpEgFA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=5mxSYSQmqKa5FMqKff
- 7SCSMa6NoQiYn59FEZhTSfmdo=; b=nWgZmpC3ldfE3y5fGA1PwsoH8PKPO+nj8E
- DK8fR83o98+NgEasEL+EbsuwR37ua/gaIaJ4twPhjT7UQ4RoSuKvRbATETkhSE0N
- bXAbq42026syRY9OBmc6bSYCQ+Z8m8XXHke2A21t4SCJL0yeHpdmB1aZ9fpulFt7
- EMqMBOD7jgLuBmToQ8OUYod+5lCSVRGZHeSOE1stGhv0pQiGWLzJheWPfDZhMBal
- 5Oga0l/1jpLWngn8SkPEIrcZ8cug4Fl75fp45bLydk9RL3eJo80LzarcHZh7026X
- nsJHATimKxPV6HDCuy0kmglQ41pbxMNqk97xNBdaUz0GOvrL2atQ==
-X-ME-Sender: <xms:05ECWcjscu_QA24cH-dJFMZhkYGQj7AQMWC9ZxbWQBYkFU8gxqBCxA>
-X-Sasl-enc: Nv4ZyavjDS5L6mAPlkJhq2hNkFSzU6FPihvzCHgWcdB9 1493340626
-Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id B638E7E352;
- Thu, 27 Apr 2017 20:50:25 -0400 (EDT)
-Message-ID: <1493340619.4433.6.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10 v2] ARM: dts: aspeed: Update i2c binding
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
-Cc: Brendan Higgins <brendanhiggins@google.com>
-Date: Fri, 28 Apr 2017 10:20:19 +0930
-In-Reply-To: <20170427144319.23130-1-joel@jms.id.au>
-References: <20170427144319.23130-1-joel@jms.id.au>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-KfdX3HvNv6vug5fdjEPS"
-X-Mailer: Evolution 3.22.6-0ubuntu0.1 
-Mime-Version: 1.0
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="UBds8Ruc"; 
+ dkim-atps=neutral
+Received: by mail-yw0-x242.google.com with SMTP id 203so3926545ywe.0
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 17:53:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=eRPqzwLbiQKU3WuUPjCVhiNmL/z12IGo/gFHWjdPEGM=;
+ b=UBds8RucAukc7muTPN5fP4kUp6TmoYxdvUnDnkj7T2kNBoMM+6HzcGg5UhbLm5d2iP
+ dbcoe3nINPToHLlyKYEGoGx1VZ73vS7W0X1P+ZYGOeo6J8kg1AZk5scW/f2UcL+zNOQ0
+ UzcsRxgYHImE04uHkcbhii5x1qKuu9pyFc11QfbXgxA60umbWaEWGcnKhX6fRdoSdjrd
+ njMANK54mOQJjDcW++lJEN1G6GeN4jl5Z3M1dloKAdVSHYX/j93k43NaZ5BpajMOhK7c
+ CVMUQVkNnyXYlnzXNXm7GjJl1r5/Rz2xN05I2LBE/6G95LiGZD9bOUcOU1HFLbOHwx06
+ zFkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=eRPqzwLbiQKU3WuUPjCVhiNmL/z12IGo/gFHWjdPEGM=;
+ b=h/vfB6yRW3/EmyRWdIhvYZMbidcGsRLhJRozBWCri9oRVgnkPh0grgNCMq12u6kxe9
+ x98BcRwIudt9ET3K7tzd7oMSAa1VE8IYIi6ifdUcF4bZKzLynZcjA33pXFDLcnI9YCbG
+ zq+d19GCQ3tA+8GoA31SxlP+fngeFgJNC5STc69UsIHHSYKpIi8azMk4fkoHhGHx7WO8
+ LnU3H5bsg3hO8l6NMSD6JlrgfVFdKU3O4qv8gQxszNbGHuzKKye02p7biUrHKZ5H4Hmj
+ ZzUX3QgqQFPhIbrd0mQrVTXNRCsRbdHQD21Ht6f6CN2+oXDlPcUY+kK2kz4B7M85uoFR
+ MjMw==
+X-Gm-Message-State: AN3rC/6gEKE/Hol0fzDILv7+JDudeLS0IlMgCTvssBuY708VLjtKoyJz
+ 9irTdeHZYyC08hQXSJZH9whWklRP4w==
+X-Received: by 10.129.76.21 with SMTP id z21mr7276669ywa.43.1493340811940;
+ Thu, 27 Apr 2017 17:53:31 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.171.70 with HTTP; Thu, 27 Apr 2017 17:53:11 -0700 (PDT)
+In-Reply-To: <CAPH-5w747NM1a+0RvEniXyDo5RQmCV-b7ckCGbuoWuw18Y84eg@mail.gmail.com>
+References: <20170427060823.32226-1-andrew@aj.id.au>
+ <20170427060823.32226-8-andrew@aj.id.au>
+ <493f7f06-99c7-e391-6258-d315bd87d950@kaod.org>
+ <CAPH-5w747NM1a+0RvEniXyDo5RQmCV-b7ckCGbuoWuw18Y84eg@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 28 Apr 2017 10:23:11 +0930
+X-Google-Sender-Auth: B7PDM2qTfabHT4zerjCtNVhhHuk
+Message-ID: <CACPK8Xczp4c815_0e9E6d0MgWLs6hWtqat826irZ+t9e8fb=dA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 07/10] aspeed: zaius: Remove manual CS
+ decoding window configuration
+To: Xo Wang <xow@google.com>
+Cc: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
+ Andrew Jeffery <andrew@aj.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Mine <mine260309@gmail.com>, Rick Altherr <raltherr@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,735 +66,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Apr 2017 00:50:33 -0000
+X-List-Received-Date: Fri, 28 Apr 2017 00:53:35 -0000
 
+On Fri, Apr 28, 2017 at 2:50 AM, Xo Wang <xow@google.com> wrote:
+> On Wed, Apr 26, 2017 at 11:57 PM, C=C3=A9dric Le Goater <clg@kaod.org> wr=
+ote:
+>> On 04/27/2017 08:08 AM, Andrew Jeffery wrote:
+>>> This is now handled by the SMC driver.
+>>>
+>>> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+>>
+>> Reviewed-by: C=C3=A9dric Le Goater <clg@kaod.org>
 
---=-KfdX3HvNv6vug5fdjEPS
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, 2017-04-28 at 00:13 +0930, Joel Stanley wrote:
-> The I2C binding changed when upstreaming the I2C driver.
->=20
-> This adds aliases for the 14 built-in I2C busses to ensure userspace
-> sees the numbering that we had with the old driver.
->=20
-> > Signed-off-by: Joel Stanley <joel@jms.id.au>
-> ---
->=20
-> Boot tested on qemu-palmetto. We see the same i2c entries under /dev as b=
-efore,
-> so the aliases work. Note that we can't use qemu for testing with the new
-> driver, tracked at https://github.com/openbmc/qemu/issues/5
->=20
-> =C2=A0arch/arm/boot/dts/aspeed-g4.dtsi | 173 ++++++++++++++++++++++------=
-------
-> =C2=A0arch/arm/boot/dts/aspeed-g5.dtsi | 197 +++++++++++++++++++++++++---=
------------
-> =C2=A02 files changed, 241 insertions(+), 129 deletions(-)
->=20
-> diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-=
-g4.dtsi
-> index b9a6730cc831..f7767b999791 100644
-> --- a/arch/arm/boot/dts/aspeed-g4.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-> @@ -18,6 +18,23 @@
-> > =C2=A0		};
-> > =C2=A0	};
-> =C2=A0
-> > +	aliases {
-> > +		i2c0 =3D &i2c0;
-> > +		i2c1 =3D &i2c1;
-> > +		i2c2 =3D &i2c2;
-> > +		i2c3 =3D &i2c3;
-> > +		i2c4 =3D &i2c4;
-> > +		i2c5 =3D &i2c5;
-> > +		i2c6 =3D &i2c6;
-> > +		i2c7 =3D &i2c7;
-> > +		i2c8 =3D &i2c8;
-> > +		i2c9 =3D &i2c9;
-> > +		i2c10 =3D &i2c10;
-> > +		i2c11 =3D &i2c11;
-> > +		i2c12 =3D &i2c12;
-> > +		i2c13 =3D &i2c13;
-> > +	};
-> +
-> > =C2=A0	clocks {
-> > =C2=A0	};
-> =C2=A0
-> @@ -958,200 +975,240 @@
-> > =C2=A0			};
-> =C2=A0
-> > > =C2=A0			i2c: i2c@1e78a000 {
-> > +				compatible =3D "simple-bus";
-> > =C2=A0				#address-cells =3D <1>;
-> > =C2=A0				#size-cells =3D <1>;
-> > -				#interrupt-cells =3D <1>;
-> -
-> > -				compatible =3D "aspeed,ast2400-i2c-controller";
-> > -				reg =3D <0x1e78a000 0x40>;
-> > =C2=A0				ranges =3D <0 0x1e78a000 0x1000>;
-> > -				interrupts =3D <12>;
-> > -				clocks =3D <&clk_apb>;
-> > -				clock-ranges;
-> > -				interrupt-controller;
-> +
-> > > +				i2c_ic: interrupt-controller@0 {
-> > +					#interrupt-cells =3D <1>;
-> > +					compatible =3D "aspeed,ast2400-i2c-ic";
-> > +					reg =3D <0x0 0x40>;
-> > +					interrupts =3D <12>;
-> > +					interrupt-controller;
-> > +				};
-> =C2=A0
-> > > =C2=A0				i2c0: i2c-bus@40 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > =C2=A0					reg =3D <0x40 0x40>;
-> > =C2=A0					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <0>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <0>;
-> > -					interrupt-parent =3D <&i2c>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > +					status =3D "disabled";
-> > =C2=A0					/* Does not need pinctrl node */
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c1: i2c-bus@80 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > =C2=A0					reg =3D <0x80 0x40>;
-> > =C2=A0					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <1>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <1>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > +					status =3D "disabled";
-> > =C2=A0					/* Does not need pinctrl node */
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c2: i2c-bus@c0 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > -					reg =3D <0xC0 0x40>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > +					reg =3D <0xc0 0x40>;
-> > =C2=A0					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <2>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <2>;
-> > -					pinctrl-names =3D "default";
-> -					pinctrl-0 =3D <&pinctrl_i2c3_default>;
-
-We still need the pinctrl properties.
-
-> +					interrupt-parent =3D <&i2c_ic>;
-> > +					status =3D "disabled";
-> > +					/* Does not need pinctrl node */
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c3: i2c-bus@100 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > =C2=A0					reg =3D <0x100 0x40>;
-> > =C2=A0					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <3>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <3>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > =C2=A0					pinctrl-names =3D "default";
-> > =C2=A0					pinctrl-0 =3D <&pinctrl_i2c4_default>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c4: i2c-bus@140 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > =C2=A0					reg =3D <0x140 0x40>;
-> > =C2=A0					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <4>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <4>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > =C2=A0					pinctrl-names =3D "default";
-> > =C2=A0					pinctrl-0 =3D <&pinctrl_i2c5_default>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c5: i2c-bus@180 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > =C2=A0					reg =3D <0x180 0x40>;
-> > =C2=A0					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <5>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <5>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > =C2=A0					pinctrl-names =3D "default";
-> > =C2=A0					pinctrl-0 =3D <&pinctrl_i2c6_default>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c6: i2c-bus@1c0 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > -					reg =3D <0x1C0 0x40>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > +					reg =3D <0x1c0 0x40>;
-> > =C2=A0					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <6>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <6>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > =C2=A0					pinctrl-names =3D "default";
-> > =C2=A0					pinctrl-0 =3D <&pinctrl_i2c7_default>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c7: i2c-bus@300 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > =C2=A0					reg =3D <0x300 0x40>;
-> > =C2=A0					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <7>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <7>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > =C2=A0					pinctrl-names =3D "default";
-> > =C2=A0					pinctrl-0 =3D <&pinctrl_i2c8_default>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c8: i2c-bus@340 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > =C2=A0					reg =3D <0x340 0x40>;
-> > =C2=A0					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <8>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <8>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > =C2=A0					pinctrl-names =3D "default";
-> > =C2=A0					pinctrl-0 =3D <&pinctrl_i2c9_default>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c9: i2c-bus@380 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > =C2=A0					reg =3D <0x380 0x40>;
-> > =C2=A0					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <9>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <9>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > =C2=A0					pinctrl-names =3D "default";
-> > =C2=A0					pinctrl-0 =3D <&pinctrl_i2c10_default>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c10: i2c-bus@3c0 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > =C2=A0					reg =3D <0x3c0 0x40>;
-> > =C2=A0					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <10>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <10>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > =C2=A0					pinctrl-names =3D "default";
-> > =C2=A0					pinctrl-0 =3D <&pinctrl_i2c11_default>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c11: i2c-bus@400 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > =C2=A0					reg =3D <0x400 0x40>;
-> > =C2=A0					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <11>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <11>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > =C2=A0					pinctrl-names =3D "default";
-> > =C2=A0					pinctrl-0 =3D <&pinctrl_i2c12_default>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c12: i2c-bus@440 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > =C2=A0					reg =3D <0x440 0x40>;
-> > =C2=A0					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <12>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <12>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > =C2=A0					pinctrl-names =3D "default";
-> > =C2=A0					pinctrl-0 =3D <&pinctrl_i2c13_default>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c13: i2c-bus@480 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > =C2=A0					reg =3D <0x480 0x40>;
-> > =C2=A0					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <13>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <13>;
-> > -					/* Does not need pinctrl node */
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > +					pinctrl-names =3D "default";
-> > +					pinctrl-0 =3D <&pinctrl_i2c14_default>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> -
-> > =C2=A0			};
-> -
-> > =C2=A0		};
-> > =C2=A0	};
-> =C2=A0};
-> diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-=
-g5.dtsi
-> index ddfb729bb85a..6aef4b7fa529 100644
-> --- a/arch/arm/boot/dts/aspeed-g5.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-> @@ -18,6 +18,23 @@
-> > =C2=A0		};
-> > =C2=A0	};
-> =C2=A0
-> > +	aliases {
-> > +		i2c0 =3D &i2c0;
-> > +		i2c1 =3D &i2c1;
-> > +		i2c2 =3D &i2c2;
-> > +		i2c3 =3D &i2c3;
-> > +		i2c4 =3D &i2c4;
-> > +		i2c5 =3D &i2c5;
-> > +		i2c6 =3D &i2c6;
-> > +		i2c7 =3D &i2c7;
-> > +		i2c8 =3D &i2c8;
-> > +		i2c9 =3D &i2c9;
-> > +		i2c10 =3D &i2c10;
-> > +		i2c11 =3D &i2c11;
-> > +		i2c12 =3D &i2c12;
-> > +		i2c13 =3D &i2c13;
-> > +	};
-> +
-> > =C2=A0	ahb {
-> > =C2=A0		compatible =3D "simple-bus";
-> > =C2=A0		#address-cells =3D <1>;
-> @@ -1149,199 +1166,237 @@
-> > =C2=A0			};
-> =C2=A0
-> > > =C2=A0			i2c: i2c@1e78a000 {
-> > +				compatible =3D "simple-bus";
-> > =C2=A0				#address-cells =3D <1>;
-> > =C2=A0				#size-cells =3D <1>;
-> > -				#interrupt-cells =3D <1>;
-> -
-> > -				compatible =3D "aspeed,ast2400-i2c-controller";
-> > -				reg =3D <0x1e78a000 0x40>;
-> > =C2=A0				ranges =3D <0 0x1e78a000 0x1000>;
-> > -				interrupts =3D <12>;
-> > -				clocks =3D <&clk_apb>;
-> > -				clock-ranges;
-> > -				interrupt-controller;
-> +
-> > > +				i2c_ic: interrupt-controller@0 {
-> > +					#interrupt-cells =3D <1>;
-> > +					compatible =3D "aspeed,ast2500-i2c-ic";
-> > +					reg =3D <0x0 0x40>;
-> > +					interrupts =3D <12>;
-> > +					interrupt-controller;
-> > +				};
-> =C2=A0
-> > > =C2=A0				i2c0: i2c-bus@40 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > =C2=A0					reg =3D <0x40 0x40>;
-> > -					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <0>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					compatible =3D "aspeed,ast2500-i2c-bus";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <0>;
-> > -					interrupt-parent =3D <&i2c>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c1: i2c-bus@80 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > =C2=A0					reg =3D <0x80 0x40>;
-> > -					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <1>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					compatible =3D "aspeed,ast2500-i2c-bus";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <1>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c2: i2c-bus@c0 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > -					reg =3D <0xC0 0x40>;
-> > -					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <2>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					#interrupt-cells =3D <1>;
-> +
-> > +					reg =3D <0xc0 0x40>;
-> > +					compatible =3D "aspeed,ast2500-i2c-bus";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <2>;
-> > -					pinctrl-names =3D "default";
-> -					pinctrl-0 =3D <&pinctrl_i2c3_default>;
-
-Again, we still need the pinctrl properties.
-
-> +					interrupt-parent =3D <&i2c_ic>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c3: i2c-bus@100 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > =C2=A0					reg =3D <0x100 0x40>;
-> > -					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <3>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					compatible =3D "aspeed,ast2500-i2c-bus";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <3>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > =C2=A0					pinctrl-names =3D "default";
-> > =C2=A0					pinctrl-0 =3D <&pinctrl_i2c4_default>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c4: i2c-bus@140 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > =C2=A0					reg =3D <0x140 0x40>;
-> > -					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <4>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					compatible =3D "aspeed,ast2500-i2c-bus";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <4>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > =C2=A0					pinctrl-names =3D "default";
-> > =C2=A0					pinctrl-0 =3D <&pinctrl_i2c5_default>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c5: i2c-bus@180 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > =C2=A0					reg =3D <0x180 0x40>;
-> > -					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <5>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					compatible =3D "aspeed,ast2500-i2c-bus";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <5>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > =C2=A0					pinctrl-names =3D "default";
-> > =C2=A0					pinctrl-0 =3D <&pinctrl_i2c6_default>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c6: i2c-bus@1c0 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > -					reg =3D <0x1C0 0x40>;
-> > -					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <6>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					#interrupt-cells =3D <1>;
-> +
-> > +					reg =3D <0x1c0 0x40>;
-> > +					compatible =3D "aspeed,ast2500-i2c-bus";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <6>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > =C2=A0					pinctrl-names =3D "default";
-> > =C2=A0					pinctrl-0 =3D <&pinctrl_i2c7_default>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c7: i2c-bus@300 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > =C2=A0					reg =3D <0x300 0x40>;
-> > -					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <7>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					compatible =3D "aspeed,ast2500-i2c-bus";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <7>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > =C2=A0					pinctrl-names =3D "default";
-> > =C2=A0					pinctrl-0 =3D <&pinctrl_i2c8_default>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c8: i2c-bus@340 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > =C2=A0					reg =3D <0x340 0x40>;
-> > -					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <8>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					compatible =3D "aspeed,ast2500-i2c-bus";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <8>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > =C2=A0					pinctrl-names =3D "default";
-> > =C2=A0					pinctrl-0 =3D <&pinctrl_i2c9_default>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c9: i2c-bus@380 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > =C2=A0					reg =3D <0x380 0x40>;
-> > -					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <9>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					compatible =3D "aspeed,ast2500-i2c-bus";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <9>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > =C2=A0					pinctrl-names =3D "default";
-> > =C2=A0					pinctrl-0 =3D <&pinctrl_i2c10_default>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c10: i2c-bus@3c0 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > =C2=A0					reg =3D <0x3c0 0x40>;
-> > -					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <10>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					compatible =3D "aspeed,ast2500-i2c-bus";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <10>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > =C2=A0					pinctrl-names =3D "default";
-> > =C2=A0					pinctrl-0 =3D <&pinctrl_i2c11_default>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c11: i2c-bus@400 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > =C2=A0					reg =3D <0x400 0x40>;
-> > -					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <11>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					compatible =3D "aspeed,ast2500-i2c-bus";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <11>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > =C2=A0					pinctrl-names =3D "default";
-> > =C2=A0					pinctrl-0 =3D <&pinctrl_i2c12_default>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c12: i2c-bus@440 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > =C2=A0					reg =3D <0x440 0x40>;
-> > -					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <12>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					compatible =3D "aspeed,ast2500-i2c-bus";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <12>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > =C2=A0					pinctrl-names =3D "default";
-> > =C2=A0					pinctrl-0 =3D <&pinctrl_i2c13_default>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				i2c13: i2c-bus@480 {
-> > =C2=A0					#address-cells =3D <1>;
-> > =C2=A0					#size-cells =3D <0>;
-> > +					#interrupt-cells =3D <1>;
-> +
-> > =C2=A0					reg =3D <0x480 0x40>;
-> > -					compatible =3D "aspeed,ast2400-i2c-bus";
-> > -					bus =3D <13>;
-> > -					clock-frequency =3D <100000>;
-> > -					status =3D "disabled";
-> > +					compatible =3D "aspeed,ast2500-i2c-bus";
-> > +					clocks =3D <&clk_apb>;
-> > +					bus-frequency =3D <100000>;
-> > =C2=A0					interrupts =3D <13>;
-> > +					interrupt-parent =3D <&i2c_ic>;
-> > =C2=A0					pinctrl-names =3D "default";
-> > =C2=A0					pinctrl-0 =3D <&pinctrl_i2c14_default>;
-> > +					status =3D "disabled";
-> > =C2=A0				};
-> -
-> > =C2=A0			};
-> -
-> > =C2=A0		};
-> > =C2=A0	};
-> =C2=A0};
-
-Overall, should we give the i2c nodes the same treatment in store for
-the pinctrl nodes? That is, flatten the file out by moving them to an
-&i2c { }; section down the bottom to get them out of the way? It's all
-pretty tedious and a bit of a distraction from the other interesting
-parts of the structure.
+Applied to dev-4.10. Thanks for the reviews.
 
 Cheers,
 
-Andrew
---=-KfdX3HvNv6vug5fdjEPS
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Joel
 
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJZApHLAAoJEJ0dnzgO5LT58cgP/j5rvSvX7KC4T6zNGJsqeys+
-B7SIdXJ1cr5Zin0MkvX6Z8niAM9jZwR/iJNhA2QWp+jGsmIu2dwmqqvI8ngcux8j
-TaarRWQKaiObUu8MM0wzWgSjbNuV0hK315ncL+rhEma3k3dZ5aEeADNiFaRH4NFI
-f0fXNSRwoC69VfZfIg0AwKGMHp6uAk8UoZlE/SDxSeL5LqdNPKKL9h7iyAkXUut2
-C05N0iu8UF5I7pv+3VzTfm8eIydDEGOcROFT/uCLl7htEpx5JT/gdnhraq6jOS1L
-P2cAw7D80Jp4wv3kUkTON/CyuoWm13o+r9j2fJ5YF83vUDhrMUnMcn/ysxG0Bq1e
-lqqNy1mIYWfHbaIdb0Br0uJBxskqvcee2JmUQpP0NuSjpyvbHsfFIwNziHml2qq9
-Cgi1FjzotBExH9rUkbJpfUrW3y8hidT1+P5eGuEJsEb3VpxkFVtNRc2uaEXtz2Z7
-4VEAW2R3blXn2C9O4xnmQnVN1tlQxHRVncTdkdqQVsVIVOWKihAz5YDy9ewK0qW1
-8XQW5KcYaXCNMXqW6UAVK8oAX5ZuO7dBBqA7O5zMxB9/oLMWqxwSgJIIKmkYSxw7
-e+PGZQoQWMvY/fLUErSRe6EtAmZqeq75ucY2fX6qkszWInuMIDeI+b8lPtuBhShn
-7khe8KVuvgQXglqPr+2+
-=qbay
------END PGP SIGNATURE-----
-
---=-KfdX3HvNv6vug5fdjEPS--
+>>
+>> Thanks,
+>>
+>> C.
+>>
+>>> ---
+>>>  arch/arm/mach-aspeed/aspeed.c | 6 ------
+>>>  1 file changed, 6 deletions(-)
+>>>
+>>> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspee=
+d.c
+>>> index e879e9e1aa42..ded756b4fae5 100644
+>>> --- a/arch/arm/mach-aspeed/aspeed.c
+>>> +++ b/arch/arm/mach-aspeed/aspeed.c
+>>> @@ -136,12 +136,6 @@ static void __init do_zaius_setup(void)
+>>>       reg =3D readl(AST_IO(AST_BASE_GPIO | 0x00));
+>>>       writel(reg | phy_reset_mask, AST_IO(AST_BASE_GPIO | 0x00));
+>>>
+>>> -     /* Set SPI1 CE1 decoding window to 0x34000000 */
+>>> -     writel(0x70680000, AST_IO(AST_BASE_SPI | 0x34));
+>>> -
+>>> -     /* Set SPI1 CE0 decoding window to 0x30000000 */
+>>> -     writel(0x68600000, AST_IO(AST_BASE_SPI | 0x30));
+>>> -
+>>>       /* Disable default behavior of UART1 being held in reset by LPCRS=
+T#.
+>>>        * By releasing UART1 from being controlled by LPC reset, it beco=
+mes
+>>>        * immediately available regardless of the host being up.
+>>>
+>>
+>
+> Reviewed-by: Xo Wang <xow@google.com>
