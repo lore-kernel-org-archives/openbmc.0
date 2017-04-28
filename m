@@ -1,49 +1,49 @@
 Return-Path: <xow@google.com>
-Received: from mail-qk0-x235.google.com (mail-qk0-x235.google.com
- [IPv6:2607:f8b0:400d:c09::235])
+Received: from mail-qk0-x236.google.com (mail-qk0-x236.google.com
+ [IPv6:2607:f8b0:400d:c09::236])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wF56H1cQ3zDqBQ
- for <openbmc@lists.ozlabs.org>; Sat, 29 Apr 2017 06:30:15 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wF5Bb6JtwzDqBQ
+ for <openbmc@lists.ozlabs.org>; Sat, 29 Apr 2017 06:33:59 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="dVk6sKY1"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="VrtB2usv"; 
  dkim-atps=neutral
-Received: by mail-qk0-x235.google.com with SMTP id y63so62314122qkd.1
- for <openbmc@lists.ozlabs.org>; Fri, 28 Apr 2017 13:30:15 -0700 (PDT)
+Received: by mail-qk0-x236.google.com with SMTP id f76so62402870qke.2
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Apr 2017 13:33:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=FcXNIPIyC6dJXhbovnUqdb3ceXTgcukYi0fdtSxrAdo=;
- b=dVk6sKY1CCzQ7+kjMQzFEf6y5DwJP+1avSrUOYQq/mirmoYYm/kFFhGG4GqMpXENPV
- 72DyQ/ShRHGfhBDcVwUKpYN3lpHD0kGxhgWmy44osVHnyfE+wlL5ny4Uhx6jBO0HbQqq
- prmXET9FI4QFqzayfqkKzU+BCrmwPEHUt2y3jtnz7YYVthSGMCXYlaumyg9eZWCCXXHT
- LWoOeFqt2MNnQn/86mnDvtTwTnhIZ5epOrC2na0DXiEb1MgVRTJ0lqeBob2z49Edvb2w
- 69qBm/KsHjFe9YQh0Z46xJpo+eq89HgGsscZRO3eG5CQZROG0W3dyA4h6Mp5PC/d+rmX
- ZXjw==
+ :cc; bh=kDzm8VC6V1w3Mkcfheh85F5qJS4Mwxpn9uZ/hFG79+I=;
+ b=VrtB2usvtSJFRq605erQN4Qn/EqFa9FUczVgrHfxzkjvpZY2T1uzuLRBok0cQf1qav
+ wNMGLg/buayaofg51ZbEcealdEcmUCejDjQ+kiIxFESOMFTRKvzjdHcQG5u6Nunx2eFc
+ miwXmyrSwK6wEGCTQ9RyHoGiq+u1zpf9S8LNzbNK+y4r4gHPLvabV5XTHFi/oji5sgqK
+ dsh25mbWkvHyenHVSH3A241hL/dxvXOo84NmzbGYYyCfnPzIqdH+3VoOjSUJAhSiyLfC
+ Ts9tnZrWcdkyB6Qbpia/RU6UrsKyj1LaZ99bl00eNoC6tHSbBx1Wo78UQwcq0SsuHtW2
+ y/dA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=FcXNIPIyC6dJXhbovnUqdb3ceXTgcukYi0fdtSxrAdo=;
- b=TQzUXMHxuyZRMK4DC+DkNJsIhuN7YdYL7srEf52dnfY6QgMSnIzsPkQmylebtd1kEi
- yp59mE9//PX4PqTTnNt1LJCv/3lkgVwS4PvEm6n6whIMCpLugOMidl0O1B0iFCtC+pQX
- KL/vbqHLQucEsRnOFIHkoI482bwl2fIZANNp6XGv0LafhztJA2+/TX7Cg83GqUEyWce7
- sniEmsypjjlMgk75DXf+9Dmi+NOIjbirfdhohsP3Illr/l9Ubhaf8MYk9GonnfnjyKVq
- a8FSSl+EyZVc1PYXF7gbOIr+nTnpEAf9NwdtVPIghdH8Afxht/iu7v5HmAFQK6gvuWx2
- NkFQ==
-X-Gm-Message-State: AN3rC/4tqgd4venRlAsm8PlcSFcC33OBHhQT7nJMHNYBliHHyVGzSHmO
- kef1L+0y2evbO1gh8sKHfDVWi5BXmf3q
-X-Received: by 10.55.116.5 with SMTP id p5mr11032571qkc.305.1493411412757;
- Fri, 28 Apr 2017 13:30:12 -0700 (PDT)
+ bh=kDzm8VC6V1w3Mkcfheh85F5qJS4Mwxpn9uZ/hFG79+I=;
+ b=MnNYA8NhsUeHyV8LePiy+GaIqkHWEgN+4tZvXNoeXPJ7rwtNhqBsp9rp6bct7oXYSd
+ w85C0AZm47xPowgleToR3LHUapt24sOtn4Ll7bO23oAn2HJn2SzgW0vM+Gb+NPwLD+ur
+ 4Vu14HlbxvKzKjY7SIpTIQiuZRT1cJ0YVpAGFd51n+lzjne2Ym+s9Kit6o8dLoVUL5kM
+ J7csUtLUKBntodzttTgnNpbT4cS6hhFjgso2TIdMe/JyAGL9PXJ0ekRmVdPtqzRrMW4b
+ 2UG9f+uYGki7ks72ectzKxmZMDOscckId9CCy+ACpQUALsLwLIoCPj+ZQq4Sr/hKOQOp
+ NUAw==
+X-Gm-Message-State: AN3rC/66Ll09PXox7kjz0dihabddbNUI+dQlCIbW9WKkAFWJVesYrP79
+ 3a0Th85gLHWfuauC15WgEuljuMXmaeoXvMvW/A==
+X-Received: by 10.55.3.13 with SMTP id 13mr10835410qkd.300.1493411637043; Fri,
+ 28 Apr 2017 13:33:57 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.140.29.73 with HTTP; Fri, 28 Apr 2017 13:30:12 -0700 (PDT)
-In-Reply-To: <20170428071043.1355-4-andrew@aj.id.au>
+Received: by 10.140.29.73 with HTTP; Fri, 28 Apr 2017 13:33:56 -0700 (PDT)
+In-Reply-To: <20170428071043.1355-12-andrew@aj.id.au>
 References: <20170428071043.1355-1-andrew@aj.id.au>
- <20170428071043.1355-4-andrew@aj.id.au>
+ <20170428071043.1355-12-andrew@aj.id.au>
 From: Xo Wang <xow@google.com>
-Date: Fri, 28 Apr 2017 13:30:12 -0700
-Message-ID: <CAPH-5w4UOPOLhwduFByg0JcFJyKYoY04TRd5dMACdpg7OFy5fQ@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 v2 03/11] aspeed: dt: Add clocks property
- to GPIO node
+Date: Fri, 28 Apr 2017 13:33:56 -0700
+Message-ID: <CAPH-5w5Ykq=7WFukmtrp7_Z+ZzAbYMU1bQZhJ26K9BqJWA1zTA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v2 11/11] aspeed: zaius: Disable GPIO bias
+ via devicetree pinconf requests
 To: Andrew Jeffery <andrew@aj.id.au>,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Cc: Joel Stanley <joel@jms.id.au>,
@@ -61,47 +61,73 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Apr 2017 20:30:16 -0000
+X-List-Received-Date: Fri, 28 Apr 2017 20:34:00 -0000
 
 On Fri, Apr 28, 2017 at 12:10 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> This enables debouncing of GPIOs as requested by drivers.
->
 > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 > ---
->  arch/arm/boot/dts/aspeed-g4.dtsi | 1 +
->  arch/arm/boot/dts/aspeed-g5.dtsi | 1 +
->  2 files changed, 2 insertions(+)
+>  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 16 ++++++++++++----
+>  arch/arm/mach-aspeed/aspeed.c              |  4 ----
+>  2 files changed, 12 insertions(+), 8 deletions(-)
 >
-> diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-> index 9c844fa240e0..d8827d522dfe 100644
-> --- a/arch/arm/boot/dts/aspeed-g4.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-> @@ -143,6 +143,7 @@
->                                 interrupts = <20>;
->                                 interrupt-controller;
->                                 gpio-ranges = <&pinctrl 0 0 220>;
-> +                               clocks = <&clk_hpll>;
->                         };
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> index acf7cc8d0e6d..b5c4c0fb2986 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> @@ -333,7 +333,19 @@
+>          */
+>  };
 >
->                         timer: timer@1e782000 {
-> diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-> index 613b899b07bd..992242d3b22e 100644
-> --- a/arch/arm/boot/dts/aspeed-g5.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-> @@ -263,6 +263,7 @@
->                                 interrupts = <20>;
->                                 interrupt-controller;
->                                 gpio-ranges = <&pinctrl 0 0 232>;
-> +                               clocks = <&clk_hpll>;
->                         };
+> +&pinctrl {
+> +       aspeed,external-nodes = <&gfx &lhc>;
+> +
+> +       pinctrl_gpioh_unbiased: gpioi_unbiased {
+> +               pins = "A8", "C7", "B7", "A7", "D7", "B6", "A6", "E7";
+
+Out of curiosity, do you need to specify all eight pins affected by
+the "unbiased" register bit, or only the ones that you need for some
+functionality? In this case, only the first four pins are required for
+the 1-wire interfaces, but the whole port's pull-downs are controlled
+by one bit.
+
+> +               bias-disable;
+> +       };
+> +};
+> +
+>  &gpio {
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&pinctrl_gpioh_unbiased>;
+> +
+>         line_iso_u146_en {
+>                 gpio-hog;
+>                 gpios = <ASPEED_GPIO(O, 4) GPIO_ACTIVE_HIGH>;
+> @@ -370,7 +382,3 @@
+>  &gfx {
+>         status = "okay";
+>  };
+> -
+> -&pinctrl {
+> -       aspeed,external-nodes = <&gfx &lhc>;
+> -};
+> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+> index 814a303a3894..760fed641a0b 100644
+> --- a/arch/arm/mach-aspeed/aspeed.c
+> +++ b/arch/arm/mach-aspeed/aspeed.c
+> @@ -124,10 +124,6 @@ static void __init do_zaius_setup(void)
+>         reg = readl(AST_IO(AST_BASE_GPIO | 0x78));
+>         board_rev = (reg >> 3) & 0x1F;
 >
->                         timer: timer@1e782000 {
+> -       /* Disable GPIO H/AC pulldowns to float 1-wire interface pins */
+> -       reg = readl(AST_IO(AST_BASE_SCU | 0x8C));
+> -       writel(reg | BIT(23), AST_IO(AST_BASE_SCU | 0x8C));
+> -
+>         /* Assert MAC2 PHY hardware reset */
+>         /* Set pin low */
+>         reg = readl(AST_IO(AST_BASE_GPIO | 0x00));
 > --
 > 2.9.3
 >
 
 +OpenBMC list
-
-Does this fix any particular bug?
 
 Reviewed-by: Xo Wang <xow@google.com>
