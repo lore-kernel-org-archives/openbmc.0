@@ -3,59 +3,59 @@ Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wDfZl1jLYzDq7Z
- for <openbmc@lists.ozlabs.org>; Fri, 28 Apr 2017 13:34:55 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wDfd360rkzDq7Z
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Apr 2017 13:36:55 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="g9y8Ecox"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="iPXiyT96"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="ZGnt/luy"; dkim-atps=neutral
+ header.b="CofO63gc"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 1099B20A21;
- Thu, 27 Apr 2017 23:34:53 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id B22372095B;
+ Thu, 27 Apr 2017 23:36:53 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Thu, 27 Apr 2017 23:34:53 -0400
+ by compute4.internal (MEProxy); Thu, 27 Apr 2017 23:36:53 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=GgTePhu6OG3UWUwa3F4/uuXFDZY08Fdyb3lh0Ennd
- Nw=; b=g9y8EcoxNCC0SjRTl/4kCuuLdkLV50ljImtwWAJfjdmH2MroWBHZOliFJ
- MHg+vPE1d7a8Aage2Irb/GLm1CIRrvXE7mZTLnBXmGTcgBwUapy5AtpggmnEj9Wc
- hcGNkfMGmNnoJePDF1Gw7/IRULM1QOWC7xnCcbr11ppXed1FJWg2ixZNO4tAX77g
- YOt5lJ1dZmms3k9y8LelruDHQMVK18rSYeERGL1VLZVgfHywb1pX0XJlQsz8cxhZ
- BFcJfBJUGgXq8uU8y3xIrzKHl4M8d/BbzMq5UUqnf0q52ktFKS9OXJLgQFGbdjsd
- g6Wq6tCuiT40iJJVHUDZK48sbBazw==
+ :x-sasl-enc; s=fm1; bh=UQap80CU/Mv0Zn/7m5aVv6bgORxnAjJ5r0dFPQDnN
+ 3c=; b=iPXiyT96fi1yryixMc5Q5GV4i1F791KsQzFrAAKEtsZkKecI/svFC1A+7
+ SDLvy5zsBj8JNzwRc2Ns8DbQgozRBwIGupfowGpFoVcv+N7cT8lJOxgikNu4hblM
+ xJGNYj2k/q2SrrzQxd7ATFdsFD1a+I7PlSdNfL3p4aF3TGrhRpkzUUEyPNqCI5B7
+ yg8IJrgRAzCnrzea0bJnQF44ONT7Te7FJ6DJzzLGM7iLa1u4W7UENBmG6FxiZE9X
+ 5OU018SWdXvD61znxU27lvQth2KZXn4Sp5gaBzG0OrUov3vxXAuHPurDu3T32SBc
+ m6qbFYIx1lDWZfG0WvXf+NuOKjbpw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=GgTePhu6OG3UWUwa3F
- 4/uuXFDZY08Fdyb3lh0EnndNw=; b=ZGnt/luyqWpSC2rl/KwP59msslCrW+38gy
- tkRcIIIcHRO4q+ibctLhtK+EzasNVPKS85m+v2tWOO1ZAn+y0GAlalso/WiCgoLG
- QcfM5UCh6yscb+4PLt61BRuWPyRoyGzMPv1nchOCus7VEp8PhV8Ok+SS7pokltNv
- u/3hVnRHAUhAY/Q2oSdghBoMgb0TgaUy242oloUNxdg57HCKMt0RVnLJud56osnx
- 67lp3M4Yl8UzgciL7iJKi96JGvKiGjXLzLOwHLFJRk1DZ+UGu4jO3I2BjDOCTYvV
- PXJQ2fsC6PH7vHvpLessyg0EAP3YJA7S8omb6Cw+F0GqtuXcJvSQ==
-X-ME-Sender: <xms:XLgCWVVpVTXwxvtPupqymBRDYXEC2b4hwFUC-dC5XaxHac45FAJ7ag>
-X-Sasl-enc: 0A81NEbDGME875c1ymjGsb99097JgSdg5y0q/EOGFSmK 1493350492
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=UQap80CU/Mv0Zn/7m5
+ aVv6bgORxnAjJ5r0dFPQDnN3c=; b=CofO63gcdb5N2jRc24aS1PIN9dlthZApYg
+ qr5kYJpmEJMK/efzVzuByZgyPbcefio/r+7qrXG/o/XKoINuLGjF6c622xmNqq3j
+ 1uTfXmjaDKHGmiA6W/azL3tneinYgkXJL8TLOTAJ9j5tyQReparSKzFJPCVuVzHp
+ 3mrdNEVG7DE9xAfCEd+bt52AGglUixCszsdK4zp8vJjfTtnQtRANmr5ngqXp/BAu
+ /VChanIfet7MmdCewb86UVDIsoDLCntjHlYK/cILgq2oU8zuUOpY0+7rXuguJqUQ
+ PKGpl4BqV4JbAIL/MJFBbpD/If+j+MrkWY6aULpA6IkSqBKfBv0A==
+X-ME-Sender: <xms:1bgCWRu87YMd6b8SrhtaJAWTMbCmVaiBcV68dzM95hN6kEIBGjtQSQ>
+X-Sasl-enc: 3QQDe1csLZRMktgdgF4S+j4r8MDRTPcmx3rc+bRQJaZa 1493350612
 Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 762E6248A0;
- Thu, 27 Apr 2017 23:34:50 -0400 (EDT)
-Message-ID: <1493350479.4433.10.camel@aj.id.au>
+ by mail.messagingengine.com (Postfix) with ESMTPA id 04D8324873;
+ Thu, 27 Apr 2017 23:36:50 -0400 (EDT)
+Message-ID: <1493350607.4433.11.camel@aj.id.au>
 Subject: Re: [PATCH linux dev-4.10 05/10] aspeed: zaius: Disable GPIO bias
  via devicetree pinconf requests
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Xo Wang <xow@google.com>
-Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>,  =?ISO-8859-1?Q?C=E9dric?= Le Goater
- <clg@kaod.org>, Mine <mine260309@gmail.com>, Rick Altherr
+To: Joel Stanley <joel@jms.id.au>, Xo Wang <xow@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, =?ISO-8859-1?Q?C=E9dric?=
+ Le Goater <clg@kaod.org>, Mine <mine260309@gmail.com>, Rick Altherr
  <raltherr@google.com>
-Date: Fri, 28 Apr 2017 13:04:39 +0930
-In-Reply-To: <CAPH-5w46rey_4d=enxOPwvjbZp2aL8smNZ6DMGPQraQtaFt3OQ@mail.gmail.com>
+Date: Fri, 28 Apr 2017 13:06:47 +0930
+In-Reply-To: <CACPK8XccB5je8fSDWvgVyVKKPJBbhEu5xE_KvU=dDsUUauiNBQ@mail.gmail.com>
 References: <20170427060823.32226-1-andrew@aj.id.au>
  <20170427060823.32226-6-andrew@aj.id.au>
  <CAPH-5w46rey_4d=enxOPwvjbZp2aL8smNZ6DMGPQraQtaFt3OQ@mail.gmail.com>
+ <CACPK8XccB5je8fSDWvgVyVKKPJBbhEu5xE_KvU=dDsUUauiNBQ@mail.gmail.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-KkGk2IoxytIahZPnxkMi"
+ protocol="application/pgp-signature"; boundary="=-PWOKr4duEnxOGSxx+HZN"
 X-Mailer: Evolution 3.22.6-0ubuntu0.1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -69,112 +69,69 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Apr 2017 03:34:57 -0000
+X-List-Received-Date: Fri, 28 Apr 2017 03:36:56 -0000
 
 
---=-KkGk2IoxytIahZPnxkMi
+--=-PWOKr4duEnxOGSxx+HZN
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: quoted-printable
 
-T24gVGh1LCAyMDE3LTA0LTI3IGF0IDEwOjE2IC0wNzAwLCBYbyBXYW5nIHdyb3RlOgo+IEhpIEFu
-ZHJldywKPiAKPiA+IE9uIFdlZCwgQXByIDI2LCAyMDE3IGF0IDExOjA4IFBNLCBBbmRyZXcgSmVm
-ZmVyeSA8YW5kcmV3QGFqLmlkLmF1PiB3cm90ZToKPiA+IEdpdmVuIHRoZXJlIGFyZSBmaXhlcyBw
-cmVzdW1hYmx5IHByZXNlbnQgaW4gcmV2aXNpb25zIGJleW9uZCBFVlQxLCB0aGUKPiA+IHNwZWNp
-YWwtY2FzaW5nIGRvbmUgaW4gdGhlIGJvYXJkIGZpbGUgaXMgaW1wbGVtZW50ZWQgYnkgc2VwYXJh
-dGUKPiA+IGRldmljZXRyZWVzLgo+IAo+IEkgZG9uJ3QgdGhpbmsgYW55b25lIGlzIHVzaW5nIEVW
-VDEgYm9hcmRzIGFueSBtb3JlLiBUaGV5IGRvbid0IGJvb3QKPiBDUFVzLiAKCkFscmlnaHQsIEkn
-bGwgZHJvcCB0aGUgc3VwcG9ydC4gTGVzcyBjb2RlIGlzIGJldHRlciA6KQoKPiBIb3dldmVyLCBJ
-IGxpa2UgdGhpcyBhcHByb2FjaCBmb3IgcGx1bWJpbmcgYm9hcmQgc3BlY2lhbC1jYXNpbmcKPiBh
-bmQgd2UnbGwgcHJvYmFibHkgaGF2ZSB0byBkbyBpdCBmb3IgRVZUL0RWVCBkaWZmZXJlbmNlcy4K
-PiA+IAo+ID4gPiA+IFNpZ25lZC1vZmYtYnk6IEFuZHJldyBKZWZmZXJ5IDxhbmRyZXdAYWouaWQu
-YXU+Cj4gPiAtLS0KPiA+IMKgYXJjaC9hcm0vYm9vdC9kdHMvTWFrZWZpbGXCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHzCoMKgMSArCj4gPiDCoGFyY2gvYXJtL2Jv
-b3QvZHRzL2FzcGVlZC1ibWMtb3BwLXphaXVzLWV2dDEuZHRzIHwgMjAgKysrKysrKysrKysrKysr
-KysrKysKPiA+IMKgYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1vcHAtemFpdXMuZHRzwqDC
-oMKgwqDCoMKgfCAxMCArKysrKysrKysrCj4gPiDCoGFyY2gvYXJtL21hY2gtYXNwZWVkL2FzcGVl
-ZC5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqB8IDExIC0tLS0tLS0tLS0t
-Cj4gPiDCoDQgZmlsZXMgY2hhbmdlZCwgMzEgaW5zZXJ0aW9ucygrKSwgMTEgZGVsZXRpb25zKC0p
-Cj4gPiDCoGNyZWF0ZSBtb2RlIDEwMDY0NCBhcmNoL2FybS9ib290L2R0cy9hc3BlZWQtYm1jLW9w
-cC16YWl1cy1ldnQxLmR0cwo+ID4gCj4gPiBkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMv
-TWFrZWZpbGUgYi9hcmNoL2FybS9ib290L2R0cy9NYWtlZmlsZQo+ID4gaW5kZXggNjEyN2ZkOTQ1
-OTFjLi42MTAyZTdiZDIxYWUgMTAwNjQ0Cj4gPiAtLS0gYS9hcmNoL2FybS9ib290L2R0cy9NYWtl
-ZmlsZQo+ID4gKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvTWFrZWZpbGUKPiA+IEBAIC05ODksNiAr
-OTg5LDcgQEAgZHRiLSQoQ09ORklHX0FSQ0hfQVNQRUVEKSArPSBhc3BlZWQtYm1jLW9wcC1wYWxt
-ZXR0by5kdGIgXAo+ID4gwqDCoMKgwqDCoMKgwqDCoGFzcGVlZC1ibWMtb3BwLWdhcnJpc29uLmR0
-YiBcCj4gPiDCoMKgwqDCoMKgwqDCoMKgYXNwZWVkLWJtYy1vcHAtd2l0aGVyc3Bvb24uZHRiIFwK
-PiA+IMKgwqDCoMKgwqDCoMKgwqBhc3BlZWQtYm1jLW9wcC16YWl1cy5kdGIgXAo+ID4gK8KgwqDC
-oMKgwqDCoMKgYXNwZWVkLWJtYy1vcHAtemFpdXMtZXZ0MS5kdGIgXAo+ID4gwqDCoMKgwqDCoMKg
-wqDCoGFzcGVlZC1hc3QyNTAwLWV2Yi5kdGIKPiA+IMKgZW5kaWYKPiA+IAo+ID4gZGlmZiAtLWdp
-dCBhL2FyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1ibWMtb3BwLXphaXVzLWV2dDEuZHRzIGIvYXJj
-aC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1vcHAtemFpdXMtZXZ0MS5kdHMKPiA+IG5ldyBmaWxl
-IG1vZGUgMTAwNjQ0Cj4gPiBpbmRleCAwMDAwMDAwMDAwMDAuLjIxYjg3YTVkYmFlMwo+ID4gLS0t
-IC9kZXYvbnVsbAo+ID4gKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1vcHAtemFp
-dXMtZXZ0MS5kdHMKPiA+IEBAIC0wLDAgKzEsMjAgQEAKPiA+ICsjaW5jbHVkZSAiYXNwZWVkLWJt
-Yy1vcHAtemFpdXMuZHRzIgo+ID4gKwo+ID4gKyZwaW5jdHJsIHsKPiA+ICvCoMKgwqDCoMKgwqDC
-oHBpbmN0cmxfZ3Bpb2dhYl91bmJpYXNlZDogZ3Bpb2dhYl91bmJpYXNlZCB7Cj4gPiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgcGlucyA9ICJBMTQiLCAiRTEzIiwgIkQxMyIsICJDMTMi
-LCAiQjEzIiwgIlkyMSIsICJBQTIyIiwgIlUxOCI7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgYmlhcy1kaXNhYmxlOwo+ID4gK8KgwqDCoMKgwqDCoMKgfTsKPiA+ICsKPiA+ICvC
-oMKgwqDCoMKgwqDCoHBpbmN0cmxfZ3Bpb2lfdW5iaWFzZWQ6IGdwaW9pX3VuYmlhc2VkIHsKPiA+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBwaW5zID0gIkMyMiIsICJHMTgiLCAiRDE5
-IiwgIkMyMCIsICJCMjIiLCAiRzE5IiwgIkMxOCIsICJFMjAiOwo+ID4gK8KgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoGJpYXMtZGlzYWJsZTsKPiA+ICvCoMKgwqDCoMKgwqDCoH07Cj4gPiAr
-fTsKPiA+ICsKPiA+ICsmZ3BpbyB7Cj4gPiArwqDCoMKgwqDCoMKgwqBwaW5jdHJsLW5hbWVzID0g
-ImRlZmF1bHQiOwo+ID4gK8KgwqDCoMKgwqDCoMKgcGluY3RybC0wID0gPCZwaW5jdHJsX2dwaW9o
-X3VuYmlhc2VkCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCZwaW5jdHJsX2dwaW9nYWJfdW5iaWFzZWQKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgJnBpbmN0cmxfZ3Bpb2lfdW5iaWFzZWQ+Owo+ID4gK307
-Cj4gPiBkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1vcHAtemFpdXMu
-ZHRzIGIvYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1vcHAtemFpdXMuZHRzCj4gPiBpbmRl
-eCA3MzQ5NmM4ZDUwZjYuLmM2ZTU4YzViNGRmMSAxMDA2NDQKPiA+IC0tLSBhL2FyY2gvYXJtL2Jv
-b3QvZHRzL2FzcGVlZC1ibWMtb3BwLXphaXVzLmR0cwo+ID4gKysrIGIvYXJjaC9hcm0vYm9vdC9k
-dHMvYXNwZWVkLWJtYy1vcHAtemFpdXMuZHRzCj4gPiBAQCAtMzU5LDQgKzM1OSwxNCBAQAo+ID4g
-Cj4gPiDCoCZwaW5jdHJsIHsKPiA+IMKgwqDCoMKgwqDCoMKgwqBhc3BlZWQsZXh0ZXJuYWwtbm9k
-ZXMgPSA8JmdmeCAmbGhjPjsKPiA+ICsKPiA+ICvCoMKgwqDCoMKgwqDCoHBpbmN0cmxfZ3Bpb2hf
-dW5iaWFzZWQ6IGdwaW9pX3VuYmlhc2VkIHsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqBwaW5zID0gIkE4IiwgIkM3IiwgIkI3IiwgIkE3IiwgIkQ3IiwgIkI2IiwgIkE2IiwgIkU3
-IjsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBiaWFzLWRpc2FibGU7Cj4gPiAr
-wqDCoMKgwqDCoMKgwqB9Owo+ID4gK307Cj4gPiArCj4gPiArJmdwaW8gewo+ID4gK8KgwqDCoMKg
-wqDCoMKgcGluY3RybC1uYW1lcyA9ICJkZWZhdWx0IjsKPiA+ICvCoMKgwqDCoMKgwqDCoHBpbmN0
-cmwtMCA9IDwmcGluY3RybF9ncGlvaF91bmJpYXNlZD47Cj4gPiDCoH07Cj4gCj4gTG9va3MgZ29v
-ZC4KPiAKPiA+IGRpZmYgLS1naXQgYS9hcmNoL2FybS9tYWNoLWFzcGVlZC9hc3BlZWQuYyBiL2Fy
-Y2gvYXJtL21hY2gtYXNwZWVkL2FzcGVlZC5jCj4gPiBpbmRleCBiM2FiYTg3OTY0YmYuLmY3M2E3
-MjY3NjQzNyAxMDA2NDQKPiA+IC0tLSBhL2FyY2gvYXJtL21hY2gtYXNwZWVkL2FzcGVlZC5jCj4g
-PiArKysgYi9hcmNoL2FybS9tYWNoLWFzcGVlZC9hc3BlZWQuYwo+ID4gQEAgLTEyNCwxNyArMTI0
-LDYgQEAgc3RhdGljIHZvaWQgX19pbml0IGRvX3phaXVzX3NldHVwKHZvaWQpCj4gPiDCoMKgwqDC
-oMKgwqDCoMKgcmVnID0gcmVhZGwoQVNUX0lPKEFTVF9CQVNFX0dQSU8gfCAweDc4KSk7Cj4gPiDC
-oMKgwqDCoMKgwqDCoMKgYm9hcmRfcmV2ID0gKHJlZyA+PiAzKSAmIDB4MUY7Cj4gPiAKPiA+IC3C
-oMKgwqDCoMKgwqDCoC8qIEVWVDEgaGFja3MgKi8KPiA+IC3CoMKgwqDCoMKgwqDCoGlmIChib2Fy
-ZF9yZXYgPT0gMCkgewo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoC8qIERpc2Fi
-bGUgR1BJTyBJLCBHL0FCIHB1bGxkb3ducyBkdWUgdG8gd2VhayBkcml2aW5nIGJ1ZmZlcnMgKi8K
-PiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqByZWcgPSByZWFkbChBU1RfSU8oQVNU
-X0JBU0VfU0NVIHwgMHg4QykpOwo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHdy
-aXRlbChyZWcgfCBCSVQoMjQpIHwgQklUKDIyKSwgQVNUX0lPKEFTVF9CQVNFX1NDVSB8IDB4OEMp
-KTsKPiA+IC3CoMKgwqDCoMKgwqDCoH0KPiAKPiBQbGVhc2UgcmVtb3ZlIHRoaXMgY29kZSAoaW4g
-YSBzZXBhcmF0ZSBjb21taXQgaWYgeW91IHByZWZlcikgYW5kIG9taXQKPiBhc3BlZWQtYm1jLW9w
-cC16YWl1cy1ldnQxLmR0cy4KClllcywgd2lsbCBkby4KCkNoZWVycywKCkFuZHJldw==
+On Fri, 2017-04-28 at 10:08 +0930, Joel Stanley wrote:
+> > On Fri, Apr 28, 2017 at 2:46 AM, Xo Wang <xow@google.com> wrote:
+> > > --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> > > +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> > > @@ -359,4 +359,14 @@
+> > >=20
+> > > =C2=A0&pinctrl {
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0aspeed,external-nodes=
+ =3D <&gfx &lhc>;
+> > > +
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0pinctrl_gpioh_unbiased: gp=
+ioi_unbiased {
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0pins =3D "A8", "C7", "B7", "A7", "D7", "B6", "A6", =
+"E7";
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0bias-disable;
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0};
+> > > +};
+> > > +
+> > > +&gpio {
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0pinctrl-names =3D "default=
+";
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0pinctrl-0 =3D <&pinctrl_gp=
+ioh_unbiased>;
+> > > =C2=A0};
+> >=20
+> > Looks good.
+>=20
+> Andrew, There's a gpio section just above here. Should we put merge
+> this in to that?
+>=20
 
+Yes, I think we should. I'll address this in v2.
 
---=-KkGk2IoxytIahZPnxkMi
+Andrew
+--=-PWOKr4duEnxOGSxx+HZN
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJZArhQAAoJEJ0dnzgO5LT5pU4P/0iHXV8XHr+aLupTKh7zPwOI
-QxHTgw414/7kAXHcZemsBMf0gXxIsGZWR7fb4RR5w2alwlD6YAEaIPpysGfPK9Jt
-qZspLuwdCE924OcoSYxjzHCAl2rgKWg/4UhOLGdb76A6eumcg03NaEaJJppM+NqX
-ayhOJyj9lU7QpqAgSfhdeiLrr/SoRZQd0aszar2f80bQaqQqPiS/WB0iSyYRlCM0
-idD63KbEB7s27Tar7GVQAFux0DOIbwNx+BOoaeYSw/OYUwtuvXZ3FoDYG/XZrBNG
-LfKvVLhQvhlXLVI+JUuKprCU3PW6Sj//xNCwBr8cttGw8u53T33GLBsaLw2vFXf9
-SSKIXCSyfKNPZME3rGfZQX1E/Rrj0FN6T2goWxR3WVwNjMgLb+5hH5/iEsASTHeW
-yQ4IJ7e7ix1ZiDtYXrI6IoXBBQqW9J1GZ58A+/6+8spZCYZFrKrklLHkXT+bBp4n
-YKbRR61ZRaRAhlAKl0iZEmrWHyLDyXeyt6X+2WhgrNBvEqgwD7RbZR2zjDup8XZC
-oykcsJmZc6Jn4/z/L8dtCIvNytv0LWh43tQgaNhFj1OheP7SfELu2RfNVuFAoN42
-7qXUon2Q37AsN4LfWKQYYE+7NPDYbMhgUC67XCH97ubaGi4U1snsbZQYLrWWStyw
-lT2Ke/Z0FAGdYx3MJtaA
-=bIbL
+iQIcBAABCgAGBQJZArjPAAoJEJ0dnzgO5LT5e74QALAc0Uix1ZS9bTtOybIrYoCe
+5A8JKVcULDTEzZOkeJNczbW8b6GIGYNZYewoqQFo5peHzklZCFn209FtoUPqD3fM
+PAMSZeQGv8XPSYWVAcwld4w7rCE/WjYfZidyTyR5EAO4XhSkqwuAXeARNLcJKqXc
+a2fV+WKeOtbzytF0VrtlD5k6aOweZrJcP3FZcA5kVagBaqWAnCI8pvNhDCdpv8XO
+KmV630aVV9aOOcFCa0lta8KV+MBwa01gftPahRk+AiRNnsYnfrTO8gf9UtZRJzSE
+hi0S1DwRudLCbURBuKji5KZa9jdgao3dOehgj6zWa7bXUP/NknIpK3Xp9uW7x1ss
+9x0bphhALefi9Tdq+wohfI8bwSNu9VK6RBo6H4IFv0oDg01m7yZk9nsbeGwI7kNd
+ZdEk67FkG9h+4cUrmwCVgGbY2CgoJ5kENU2uW6Drfz7T5Pa/V26yf0wM55BnNqKz
+AbnZbhRzPrVNgW9zg4hkoiiSX2iHFsoNMWlOrDHc8Mu4rbwHVdWpJoYzrevNRxD/
+34pFSH2f2x2nNkigZAPNZwAFp7Gw+x3rakeq5qaRUAjZzHD0YGmflA+86gnfPjsY
+mL4idt+Arfzgtex4CwbVi0kw0LzCdu2TQwyObecj7T7nD7QqIB0zQOMdRZJV0ntI
+rncu4TJUuYOgAHpyVP/e
+=A3CA
 -----END PGP SIGNATURE-----
 
---=-KkGk2IoxytIahZPnxkMi--
+--=-PWOKr4duEnxOGSxx+HZN--
