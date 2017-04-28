@@ -1,46 +1,59 @@
-Return-Path: <guhan.sac@gmail.com>
-Received: from mail-qt0-x235.google.com (mail-qt0-x235.google.com
- [IPv6:2607:f8b0:400d:c0d::235])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yb0-x22a.google.com (mail-yb0-x22a.google.com
+ [IPv6:2607:f8b0:4002:c09::22a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wDX7K0Z3TzDqBH
- for <openbmc@lists.ozlabs.org>; Fri, 28 Apr 2017 08:44:12 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wDZgT5pPXzDq5b
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Apr 2017 10:38:45 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="P2OmxeX9"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="BdrMxyrs"; 
  dkim-atps=neutral
-Received: by mail-qt0-x235.google.com with SMTP id y33so38124160qta.2
- for <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 15:44:12 -0700 (PDT)
+Received: by mail-yb0-x22a.google.com with SMTP id s22so12070861ybe.3
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2017 17:38:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=4ne+nqvY2iQgzp6GCniDlnthoBU02Ov6XeLymjmnFxA=;
- b=P2OmxeX9/Vpf+5oS4r5wIO7mWAyiQEkhgHlJ/6VV8C/gckD7TYncVxvoJ6DFSNLMKH
- VEH5xr+FRiKsEqNZclRL/V93k+419XsOM89efoG3FYjdqJlZU7O+4C6Ly8w9LhWKe6mh
- KAOp6+SdjwHV0fmsHsjK2Nk+gHtooHGZu73/k1cZvYU4OY3QF07tYe6zpANpIItE2FU3
- xbPxs+Ch77yCfTUtR0IboYkpupsan0jyDSLt9uDUQDoMFtcY3BXLKl4O9qyjB9RS/3hT
- RLbMo2+gVOeobf2ewNRTjkx5Ab8cZp2M5Y0n357ik9Z4/OYsi0YfFNLf3BbefiXATG1J
- SypQ==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=UT1ziOhsgfkA0ihncQMXXtenqRL/zFn+XhocO0YcQYA=;
+ b=BdrMxyrsah0DPngLfyXO8M40xeEqoJy3EENwwSZCI77yejHdXg+uT3Hcrf3CJWxm5i
+ l1+P3ESbDGD10csjP1KHdPEyDTpe7/y9xOtuF2O25Qqgt4KTeJnpcyiWb1YFi68uz64A
+ lOHOlIpa1mZwRKnyHr1GsfT4iUWwEI3U1MiLqkeVjxshprLvzc9B6LrFHBZpgOQQt6Tm
+ F02FoTUQi7v5EKqawluQdM+abaT1d+EWaLrk46/pgMzrWijUxgXDsRfCcLlaL4zLJEFD
+ FBJWPfnEhju85OIDhl1ybwHiE1cRjo5brP9YpVuk58ATDfk+RnjTEFfqvrI48M6E4LuL
+ sQ/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=4ne+nqvY2iQgzp6GCniDlnthoBU02Ov6XeLymjmnFxA=;
- b=BzgfrrLh3IR4dqglAmK8hDXgjhQld4T02p/Z/9W79K0hX+AcoQtczbWIxuRopfhFCA
- 4REycen+EZyf3Ruijl0toPfgfLAe0fjlSHCown15i1bPWZra2rP967euPPyNCG9Bhc5Y
- dEKMy585k2wFrV5J1v2Tv2vvHC/7SUwuN1cPjixC4EP+2BLeLrpUGB9NxBIR1q69nt8a
- ll90hbfO9HtJbLHM7H18W16xqabYP1fxYt/Nd2FZh3nIyaghE9V7PMvwDTQV7up227kL
- vbVXrwnu5ud9bfVgLMRt7KsBOByDAMUyUV40Y7MD9nfXhul/Ve5oi6WdgFvP/2ZnFrom
- lqkg==
-X-Gm-Message-State: AN3rC/67JQJXMje+UMlDKj5T9YcqAmuKrIbBXBmZNpWwdSOAlYN+ZLyF
- OuUzmD76B+8lm2243ZK9k7fSuVfVwg==
-X-Received: by 10.200.54.136 with SMTP id a8mr8139031qtc.87.1493333049400;
- Thu, 27 Apr 2017 15:44:09 -0700 (PDT)
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=UT1ziOhsgfkA0ihncQMXXtenqRL/zFn+XhocO0YcQYA=;
+ b=BpPCBMqUIQw9BFsUDqDHoJrNglQ5We8v84jZ13qWUp8zlkfye4vtMuL/J/JNrTPzam
+ L53B9LQHvlDfcXBilg9nrG7JqWkZrw/yrmvBAtZgaTBugZDN6qaRmeI8j1U0wzPaj0VN
+ YNzjn45u+TGPB5rg+zG4/cm6TvNvW9Y5jo0lAmQFuONk4iVltp1LOutjc9YOBEduzO0g
+ f5KCkrJWGVInQyUywAaM18MiAZHbVZVwS1e1w3IxmKPZmIcow81AUDJpbVyE2a+p76tl
+ AvkcXzOnCdytcTOqnxPaQEN/iEDr8tYf48O5Celil4AAw5K1nKuPx9Il1eRgKCtf1oss
+ 56Jg==
+X-Gm-Message-State: AN3rC/5sKQBHKZ5fw7y7CeDCEQ4X+gHopkUIX3KtOLt9luAgsDWVkuJE
+ t5ddmvX0Q80j4pppjpsoO9YjxGiRTA==
+X-Received: by 10.37.110.198 with SMTP id j189mr6928007ybc.123.1493339922329; 
+ Thu, 27 Apr 2017 17:38:42 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.12.160.164 with HTTP; Thu, 27 Apr 2017 15:43:49 -0700 (PDT)
-From: guhan balasubramanian <guhan.sac@gmail.com>
-Date: Thu, 27 Apr 2017 15:43:49 -0700
-Message-ID: <CAMNAJg1PdvWvrocgSd+04msjZgJ53X5xN5YPGjJRRjHh1LTCsw@mail.gmail.com>
-Subject: Ipmitool compatibility with host-ipmid - Bootparam options
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary=001a1142833cf0fd20054e2db1d5
+Sender: joel.stan@gmail.com
+Received: by 10.37.171.70 with HTTP; Thu, 27 Apr 2017 17:38:21 -0700 (PDT)
+In-Reply-To: <CAPH-5w46rey_4d=enxOPwvjbZp2aL8smNZ6DMGPQraQtaFt3OQ@mail.gmail.com>
+References: <20170427060823.32226-1-andrew@aj.id.au>
+ <20170427060823.32226-6-andrew@aj.id.au>
+ <CAPH-5w46rey_4d=enxOPwvjbZp2aL8smNZ6DMGPQraQtaFt3OQ@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 28 Apr 2017 10:08:21 +0930
+X-Google-Sender-Auth: sacVKOOM9vFrBQ33h58N0A4qDA8
+Message-ID: <CACPK8XccB5je8fSDWvgVyVKKPJBbhEu5xE_KvU=dDsUUauiNBQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 05/10] aspeed: zaius: Disable GPIO bias via
+ devicetree pinconf requests
+To: Xo Wang <xow@google.com>
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, Mine <mine260309@gmail.com>, 
+ Rick Altherr <raltherr@google.com>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -52,51 +65,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Apr 2017 22:44:13 -0000
+X-List-Received-Date: Fri, 28 Apr 2017 00:38:47 -0000
 
---001a1142833cf0fd20054e2db1d5
-Content-Type: text/plain; charset=UTF-8
+On Fri, Apr 28, 2017 at 2:46 AM, Xo Wang <xow@google.com> wrote:
+>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+>> @@ -359,4 +359,14 @@
+>>
+>>  &pinctrl {
+>>         aspeed,external-nodes = <&gfx &lhc>;
+>> +
+>> +       pinctrl_gpioh_unbiased: gpioi_unbiased {
+>> +               pins = "A8", "C7", "B7", "A7", "D7", "B6", "A6", "E7";
+>> +               bias-disable;
+>> +       };
+>> +};
+>> +
+>> +&gpio {
+>> +       pinctrl-names = "default";
+>> +       pinctrl-0 = <&pinctrl_gpioh_unbiased>;
+>>  };
+>
+> Looks good.
 
-Hi,
+Andrew, There's a gpio section just above here. Should we put merge
+this in to that?
 
-Currently openbmc's host-ipmid implements petitboot options (in
-host-ipmid/chassishandler.cpp) where it only implements Boot param 0x05 and
-0x61.
+Cheers,
 
-Hence the following ipmitool command works:
-*ipmitool chassis bootparam get 0x05 *
-
-But when the following ipmitool command is issued, it fails with
-unsupported parameter error:
-*ipmitool chassis bootparam set bootflag force_disk*
-
-In the opipmitool code, I see bootparam requests like 0x00 and 0x04 in the
-process. The set bootflag hence, fails with a unsupported parameter
-request.
-
-Is this expected?
-If so, do we just test it using the raw ipmitool commands instead?
-*ipmitool raw 0x00 0x08 0x05 0x80 0x04 0x00 0x00 0x00*
-
-Thanks,
-Guhan
-
---001a1142833cf0fd20054e2db1d5
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hi,</div><div><br></div><div>Currently openbmc&#39;s =
-host-ipmid implements petitboot options (in host-ipmid/chassishandler.cpp) =
-where it only implements Boot param 0x05 and 0x61.=C2=A0</div><div><br></di=
-v><div>Hence the following ipmitool command works:</div><div><b>ipmitool ch=
-assis bootparam get 0x05=C2=A0</b></div><div><br></div><div>But when the fo=
-llowing ipmitool command is issued, it fails with unsupported parameter err=
-or:</div><div><b>ipmitool chassis bootparam set bootflag force_disk</b></di=
-v><div><br></div><div>In the opipmitool code, I see bootparam requests like=
- 0x00 and 0x04 in the process. The set bootflag hence, fails with a unsuppo=
-rted parameter request.=C2=A0</div><div><br></div><div>Is this expected?=C2=
-=A0</div><div>If so, do we just test it using the raw ipmitool commands ins=
-tead?</div><div><b>ipmitool raw 0x00 0x08 0x05 0x80 0x04 0x00 0x00 0x00</b>=
-<br></div><div><br></div><div>Thanks,</div><div>Guhan</div></div>
-
---001a1142833cf0fd20054e2db1d5--
+Joel
