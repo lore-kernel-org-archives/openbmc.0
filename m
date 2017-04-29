@@ -3,43 +3,43 @@ Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wF7Mq4wP5zDqC2
- for <openbmc@lists.ozlabs.org>; Sat, 29 Apr 2017 08:12:07 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wFSMH5Ww4zDqBJ
+ for <openbmc@lists.ozlabs.org>; Sat, 29 Apr 2017 20:57:46 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Rbo6nDwt"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="OZG9GMul"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="iOPTXALg"; dkim-atps=neutral
+ header.b="PU7koyQa"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 325AF20BFD;
- Fri, 28 Apr 2017 18:12:05 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 91686208A0;
+ Sat, 29 Apr 2017 06:57:42 -0400 (EDT)
 Received: from web4 ([10.202.2.214])
- by compute4.internal (MEProxy); Fri, 28 Apr 2017 18:12:05 -0400
+ by compute4.internal (MEProxy); Sat, 29 Apr 2017 06:57:42 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=7pFzZ6K6jsR6gvelW7p09u5Sj2WGg
- yAUBhAjW3FsYPI=; b=Rbo6nDwtANEg75uljSye4X92g6o4mk1oBadE/SXeVg1DZ
- RBC2k7rhvy2CpGUgsqsxER87Zdq0rBMvPkvxN2TUKict2sR6uU/HaUau5qtAXPep
- ksiEKfiRjTRhwO0xPMOKqPZ9bwWKlfqDVNW80LpyoeuqQT2ZJblXeKTK2YUzJZxg
- Ef98mQK4xJ3ITCzy8oEwV2uT5L/aN8SEwR+6rhjf4bxnjZOH6rqPm1l5EMSh1RU/
- RfRSK61F3JE/Y7uDlUpJARCT4LwyTWxwzxUGdfcJYgPstnCvaKwG5s2dx3a+GbKY
- ln72CsYs1BR71HwY3Ec2um2td7fWhnI3+eyAzWY4g==
+ :x-me-sender:x-sasl-enc; s=fm1; bh=3Btz4lxAQ+68c2XG1+gzZcF0nQxlw
+ TZ3snBkKmzxfOU=; b=OZG9GMulk1YBU/t9wmehWF+Jod18FUvVLBcDPkVh/PEdU
+ f+xdP3Fv+nr2boMGU1RZEbtFPbOSbz+NfWh+gsUFKPPyaDxhwwuWR0R5CK4hekvk
+ mzkN/FlIiFPIRZC2Mc06HLLyT2Hh3ecK0miPMhL8IhL5BdylIkugvrVKi04XM1D5
+ IuFMiBNBtpqbBafqQIJRxJ5qVegcqnT764hi9AJdy8kL9fwkLLCTp3dX8jSxyHys
+ 2hnezN4zIt6m8/VenLt7HhM57KFEUUuqlrfKKmgxiGcUXmLP897HOG3SpTqknzR1
+ w0rkUa7ej9QN1DEiEzrDaJShXaadsjrqpt7eMVI5g==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:content-type
  :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=7pFzZ6
- K6jsR6gvelW7p09u5Sj2WGgyAUBhAjW3FsYPI=; b=iOPTXALgngWDGSsh69xCeW
- mm+h1qcqItDRM3LHIDxmGHU8f2D3J5e4PYfJKGjy28oP/8B7PNlrx9S380qEv7K8
- AFt1TPWaj1B7mubW7BuqfA8poW13VLEyTbbg2B2gnw1ipPvkIIw58rHEYToYW02h
- HHu00oT9R1NQtM/GhbnnTHGkEU+w1WuYn4Yui+akDX71oXvU8u2WhP7xiIvh1b3u
- u7hBJPcfCGHwf6nFvaEl/1oqsELWvWaWchkbN5lF1ffQhfPSf2cgzjP23bJgYNu+
- Gel9nl9iOn0mYGtTrl0Xmr1og9G/s5hqA+EUjuOOThCFSH8RFOxt9jmGalLhPTbQ
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=3Btz4l
+ xAQ+68c2XG1+gzZcF0nQxlwTZ3snBkKmzxfOU=; b=PU7koyQaUOJpQ6DhQe6Ak5
+ twfDzRf1MHJy6z41aG8k/B8AIdht7zz04XXzR45bQ5W3bOLlfK7I6smEW8MeluT4
+ s44yGhBSRfcA8TLQrKBA+qwxUWqvOxVWRACHfvVXgsFcy4aXG2BbKKS/XukYsjo6
+ 6y2az4yHoBuHoBt8ehkOD8hy6E1wVl0EavbBLmpCJIuupFbH4CyPdZBvKjMhW4wy
+ u8onC6TOMdcLSRrTWcLDM6zG270yiyTEpcW9PcdRK8zu09AGlDC/7aX6aDrX8iOv
+ WhGwQVglrVHI7uM7MxfbSx2/P5Qvp61PLniwk8BJWjmZxUEDAJixxlyPdSQKyr6Q
  ==
-X-ME-Sender: <xms:Nb4DWZgAhx38ny2XPPNPTqHvyiZLVeHMb1wnsXahmucomC04yky4VQ>
+X-ME-Sender: <xms:pnEEWUOd3sbvaiZ9TK1Z9r5UyTgEXTn31z7CJXAPRmAb1vphrdtWvQ>
 Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id EFED4BAB6F; Fri, 28 Apr 2017 18:12:04 -0400 (EDT)
-Message-Id: <1493417524.77601.959872576.42A9BAE9@webmail.messagingengine.com>
+ id 5E54EBAB6F; Sat, 29 Apr 2017 06:57:42 -0400 (EDT)
+Message-Id: <1493463462.232472.960218944.25DF2EF7@webmail.messagingengine.com>
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Xo Wang <xow@google.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Cc: Joel Stanley <joel@jms.id.au>,
@@ -49,13 +49,13 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: MessagingEngine.com Webmail Interface - ajax-88a795dc
-Subject: Re: [PATCH linux dev-4.10 v2 03/11] aspeed: dt: Add clocks property to
- GPIO node
-In-Reply-To: <CAPH-5w4UOPOLhwduFByg0JcFJyKYoY04TRd5dMACdpg7OFy5fQ@mail.gmail.com>
+In-Reply-To: <CAPH-5w5Ykq=7WFukmtrp7_Z+ZzAbYMU1bQZhJ26K9BqJWA1zTA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v2 11/11] aspeed: zaius: Disable GPIO bias
+ via devicetree pinconf requests
+Date: Sat, 29 Apr 2017 20:27:42 +0930
 References: <20170428071043.1355-1-andrew@aj.id.au>
- <20170428071043.1355-4-andrew@aj.id.au>
- <CAPH-5w4UOPOLhwduFByg0JcFJyKYoY04TRd5dMACdpg7OFy5fQ@mail.gmail.com>
-Date: Sat, 29 Apr 2017 07:42:04 +0930
+ <20170428071043.1355-12-andrew@aj.id.au>
+ <CAPH-5w5Ykq=7WFukmtrp7_Z+ZzAbYMU1bQZhJ26K9BqJWA1zTA@mail.gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,62 +67,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Apr 2017 22:12:09 -0000
+X-List-Received-Date: Sat, 29 Apr 2017 10:57:52 -0000
 
 
 
-On Sat, Apr 29, 2017, at 06:00, Xo Wang wrote:
+On Sat, Apr 29, 2017, at 06:03, Xo Wang wrote:
 > On Fri, Apr 28, 2017 at 12:10 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> > This enables debouncing of GPIOs as requested by drivers.
-> >
 > > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 > > ---
-> >  arch/arm/boot/dts/aspeed-g4.dtsi | 1 +
-> >  arch/arm/boot/dts/aspeed-g5.dtsi | 1 +
-> >  2 files changed, 2 insertions(+)
+> >  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 16 ++++++++++++----
+> >  arch/arm/mach-aspeed/aspeed.c              |  4 ----
+> >  2 files changed, 12 insertions(+), 8 deletions(-)
 > >
-> > diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-> > index 9c844fa240e0..d8827d522dfe 100644
-> > --- a/arch/arm/boot/dts/aspeed-g4.dtsi
-> > +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-> > @@ -143,6 +143,7 @@
-> >                                 interrupts = <20>;
-> >                                 interrupt-controller;
-> >                                 gpio-ranges = <&pinctrl 0 0 220>;
-> > +                               clocks = <&clk_hpll>;
-> >                         };
+> > diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> > index acf7cc8d0e6d..b5c4c0fb2986 100644
+> > --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> > +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> > @@ -333,7 +333,19 @@
+> >          */
+> >  };
 > >
-> >                         timer: timer@1e782000 {
-> > diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-> > index 613b899b07bd..992242d3b22e 100644
-> > --- a/arch/arm/boot/dts/aspeed-g5.dtsi
-> > +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-> > @@ -263,6 +263,7 @@
-> >                                 interrupts = <20>;
-> >                                 interrupt-controller;
-> >                                 gpio-ranges = <&pinctrl 0 0 232>;
-> > +                               clocks = <&clk_hpll>;
-> >                         };
-> >
-> >                         timer: timer@1e782000 {
-> > --
-> > 2.9.3
-> >
+> > +&pinctrl {
+> > +       aspeed,external-nodes = <&gfx &lhc>;
+> > +
+> > +       pinctrl_gpioh_unbiased: gpioi_unbiased {
+> > +               pins = "A8", "C7", "B7", "A7", "D7", "B6", "A6", "E7";
 > 
-> +OpenBMC list
+> Out of curiosity, do you need to specify all eight pins affected by
+> the "unbiased" register bit, or only the ones that you need for some
+> functionality? In this case, only the first four pins are required for
+> the 1-wire interfaces, but the whole port's pull-downs are controlled
+> by one bit.
 
-Thanks, that was a clear accident on my part :)
-
-> 
-> Does this fix any particular bug?
-
-No, no bug,  it's a new optional property for the controller so the
-driver can derive debounce values, which are specified to the hardware
-in hpll clock cycles.
-
-> 
-> Reviewed-by: Xo Wang <xow@google.com>
-
-Cheers,
+Yeah it's somewhat arbitrary. Any of these options will work. A downside
+to specifying multiple pins is redundant writes (though they happen
+once, at boot). The downside of specifying one pin is a broken
+abstraction. Maybe your suggestion is best, that we only specify the
+pins Zaius needs to configure, even if the result is all of bank H has
+the bias disabled. Should I send a v3?
 
 Andrew
