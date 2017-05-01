@@ -1,58 +1,77 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <msbarth@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wGcZQ3SY5zDq9m
- for <openbmc@lists.ozlabs.org>; Mon,  1 May 2017 18:11:26 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Gbi06s8v"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="o1TlCKME"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 2D656207E2;
- Mon,  1 May 2017 04:11:24 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Mon, 01 May 2017 04:11:24 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=Eit2KKQT4iyYjWwUojGRMMvppVw49zAkCm+oNbNKY
- 28=; b=Gbi06s8v7udqOqZSQTZSy0BItLFZQIDa1QqYNau0U7jK7EwTSZt5H5Kct
- L9S/rZC56S2PBo2KMdMfOOZMSxmH8XTHEWBvI3zPBIPSqBSP0YYjYx4CBaAq3Q+9
- AVGlOKcS2ndiaxq8NEhXXsjRR0oQBVMFCPUr7GTutPejN6vSKVcL8dP7aEyPMpGu
- 8nk7fGk4YwrlwiKmYrsw626JFVaHpFdAvoGDJDhTbABnrEfTQs17Z7WPximZArLG
- FfE7I4Z8GPvtRC6Pq55W5B2DlfzniBRQY3fYO0/9tCSEYB7RxwOntcT8LUHIC0p3
- sj0FWHzzF4NIc1t8QH4bHX6tz0N7w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=Eit2KKQT4iyYjWwUoj
- GRMMvppVw49zAkCm+oNbNKY28=; b=o1TlCKMEdmK4KP+L2/lFwzC8On3O27VBTo
- zi4ezmzseEzP2QURdU2IG05N/566OdF3tdZOA8lPvyg4s0Rc44asNLUpQ1b4qH1S
- DpRjDWu+m8O9IXcbs44lXWz3FruZNukopOmNtgcCF3Kt4ZmDs888YXBR3WaGFC0t
- Dn6Q9hYZ4fgpnJacYIEVN3fijql8c+gAVZZbsndr4ZuY8wi72SIuz8IOTGDZRkvD
- 5yDJiJaGdaL8WqxHYW3bmKCH9ba5BopYdRDYsrt71g3GVaxc/8e8G2x62nqNbqhV
- hwpjdDzNMlP3uiiFMaHW6mAKimNekiD2Y9i0RSz3r7N4WtrSubhA==
-X-ME-Sender: <xms:rO0GWTpmp9yZwEIiBcMaaxwySyMVJrjSbRmtOGAXr-Kt-lLWVRtdhg>
-X-Sasl-enc: tjBLm5oknaod0VIImqlqwx17SaqpTLfhkLjy16TCtckR 1493626283
-Received: from [172.16.172.59] (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id 582B624050;
- Mon,  1 May 2017 04:11:22 -0400 (EDT)
-Message-ID: <1493626274.4433.17.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.7 v2] ARM: aspeed: witherspoon: Take UART1
- out of reset
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
-Date: Mon, 01 May 2017 17:41:14 +0930
-In-Reply-To: <20170501075139.19006-1-joel@jms.id.au>
-References: <20170501075139.19006-1-joel@jms.id.au>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-h4AANhKF130z7GyvNO1v"
-X-Mailer: Evolution 3.22.6-0ubuntu0.1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wGn3g025FzDq7Z
+ for <openbmc@lists.ozlabs.org>; Tue,  2 May 2017 00:33:50 +1000 (AEST)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v41ETNNa074436
+ for <openbmc@lists.ozlabs.org>; Mon, 1 May 2017 10:33:43 -0400
+Received: from e15.ny.us.ibm.com (e15.ny.us.ibm.com [129.33.205.205])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2a63vuq0ef-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 01 May 2017 10:33:42 -0400
+Received: from localhost
+ by e15.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <msbarth@linux.vnet.ibm.com>;
+ Mon, 1 May 2017 10:33:42 -0400
+Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
+ by e15.ny.us.ibm.com (146.89.104.202) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Mon, 1 May 2017 10:33:40 -0400
+Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
+ [9.57.199.110])
+ by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v41EXesE64684120; Mon, 1 May 2017 14:33:40 GMT
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 95532AE03C;
+ Mon,  1 May 2017 10:33:28 -0400 (EDT)
+Received: from [9.10.255.113] (unknown [9.10.255.113])
+ by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP id 2EF42AE04E;
+ Mon,  1 May 2017 10:33:28 -0400 (EDT)
+Subject: Re: Switching to 4.10
+To: Joel Stanley <joel@jms.id.au>
+References: <CACPK8XfFF7tNrLjroNA05-c3pMZWFbiKvHq+oFLjBDSkgqfjDw@mail.gmail.com>
+ <CAPH-5w6-2zVQn2iNVP28aOAS_r11rxGYCrioXCR-sX8Ln7_BZQ@mail.gmail.com>
+ <CAPH-5w4OS_oT5MMu2kEOUwtOza_LO94vwSH9dZHpVMa_4OA38Q@mail.gmail.com>
+ <CAPLgG=nuU5befF4AfheWAbnU7tYPCpZSnj+-Zk8MDkvaKek+uw@mail.gmail.com>
+ <CACPK8XdLpPYitsvg9Eaw+g4jRX0Ki=9oBCtgtd9fx=_XevdfhA@mail.gmail.com>
+ <a0cb1ba8-19e0-bbdf-d343-7463395e72bf@linux.vnet.ibm.com>
+ <CACPK8XfNoBfGVtXN_gKQZMxKaK_krZDjpPq4kCcyrcR7AZ3Dmw@mail.gmail.com>
+Cc: Rick Altherr <raltherr@google.com>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>, Edward James
+ <eajames@us.ibm.com>, Xo Wang <xow@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Brendan Higgins <brendanhiggins@google.com>
+From: Matthew Barth <msbarth@linux.vnet.ibm.com>
+Date: Mon, 1 May 2017 09:33:38 -0500
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101
+ Thunderbird/45.8.0
+MIME-Version: 1.0
+In-Reply-To: <CACPK8XfNoBfGVtXN_gKQZMxKaK_krZDjpPq4kCcyrcR7AZ3Dmw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+x-cbid: 17050114-0036-0000-0000-000001F58454
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007006; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000208; SDB=6.00854734; UDB=6.00422944; IPR=6.00633895; 
+ BA=6.00005321; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015256; XFM=3.00000014;
+ UTC=2017-05-01 14:33:42
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17050114-0037-0000-0000-0000401BE943
+Message-Id: <cef1105a-bffd-a760-3c2f-cbc74b220685@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-05-01_10:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1705010099
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -64,88 +83,72 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 01 May 2017 08:11:28 -0000
+X-List-Received-Date: Mon, 01 May 2017 14:33:51 -0000
 
 
---=-h4AANhKF130z7GyvNO1v
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2017-05-01 at 17:21 +0930, Joel Stanley wrote:
-> This is required so the UART can be used before booting the host.
->=20
-> > Signed-off-by: Joel Stanley <joel@jms.id.au>
->=20
-> ---
-> This is a minimal workaround for manufacturing. dev-4.10 will receive a
-> proper fix.
->=20
-> v2:
-> =C2=A0- Make it compile
->=20
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
+On 04/27/17 8:24 PM, Joel Stanley wrote:
+> On Fri, Apr 28, 2017 at 1:39 AM, Matthew Barth
+> <msbarth@linux.vnet.ibm.com> wrote:
+>>
+>> On 04/27/17 2:33 AM, Joel Stanley wrote:
+>>> On Thu, Apr 27, 2017 at 3:00 AM, Rick Altherr <raltherr@google.com> wrote:
+>>>> I saw Joel started https://gerrit.openbmc-project.xyz/#/c/2846/ which has
+>>>> a
+>>>> defconfig for ast2400.  If you have one for ast2500, please upload a new
+>>>> patch set to that change.
+>>> I have defconfigs in the tree that are ready to go. I will upload them
+>>> to Gerrit when I get the chance.
+>>>
+>>> I've pulled in:
+>>>
+>>>    - Ben's ftgmac100 patches from the net-next tree
+>>>    - Brendan's i2c patches, v7
+>>>    - Andrew's GPIO and Pinconf patches from the gpio and pinconf trees
+>>>    - Chris Bostic's FSI series, v6
+>>>
+>>> These are going through a test cycle on the ast2500evb and Plametto
+>>> tonight. Once I have an ack for the i2c device tree, I will add that
+>>> to the tree and push to github.
+>>>
+>>> Eddie, can you let me know which version of your OCC hwmon patches you
+>>> want included. Same goes for the CFAM I2C patches. If you want to wait
+>>> for review then please ping your reviewers and we can see if we can
+>>> get the patches reviewed before we include them.
+>>>
+>>> Brad, can you point me to the SBE FIFO work that you want included. If
+>>> you would prefer to wait for review that is okay.
+>>>
+>>> Matt, I think do you want to merge the MAX31785 hwmon driver as-is for
+>>> now?
+>> I thought we already have a MAX31785 driver merged, so what is
+>> 'as-is'...does that include the update supporting reading the tach feedback
+>> from both rotors as described in
+>> issue#652(https://github.com/openbmc/openbmc/issues/652)? The commit you
+>> referenced in that issue does not have the dual tach feedback support yet.
+> No, that driver is not upstream and therefore it is not in the tree.
+> It needs to be included in the OpenBMC tree as part of this work.
+>
+> Thanks for clarifying the issue about dual tach feedback.
+>
+> Is it useful for you to have the driver merged as-is, or does it need
+> to have that feature enabled before you can do any testing?
+It would be best to have both tach feedbacks for this. Whatever the 
+current driver interface that hwmon is using provides enough 
+functionality for reading a single rotor's feedback along with being 
+able to set a target speed to the fans currently. Because of this, I'd 
+prefer that we focus on getting the dual tach feedback added and merge 
+the complete driver then.
 
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+Thanks,
 
->=20
-> =C2=A0arch/arm/mach-aspeed/aspeed.c | 10 ++++++++++
-> =C2=A01 file changed, 10 insertions(+)
->=20
-> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.=
-c
-> index 0717181cc890..0d1dded5d91b 100644
-> --- a/arch/arm/mach-aspeed/aspeed.c
-> +++ b/arch/arm/mach-aspeed/aspeed.c
-> @@ -197,6 +197,8 @@ static void __init do_zaius_setup(void)
-> =C2=A0
-> =C2=A0static void __init do_witherspoon_setup(void)
-> =C2=A0{
-> > +	int reg;
-> +
-> > =C2=A0	do_common_setup();
-> =C2=A0
-> > =C2=A0	/* Setup PNOR address mapping for 64M flash
-> @@ -216,6 +218,14 @@ static void __init do_witherspoon_setup(void)
-> =C2=A0
-> > =C2=A0	/* Set SPI1 CE0 decoding window to 0x30000000 */
-> > =C2=A0	writel(0x68600000, AST_IO(AST_BASE_SPI | 0x30));
-> +
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/* Disable default behav=
-ior of UART1 being held in reset by LPCRST#.
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0* By releasing UAR=
-T1 from being controlled by LPC reset, it becomes
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0* immediately avai=
-lable regardless of the host being up.
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0*/
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0reg =3D readl(AST_IO(AST=
-_BASE_LPC | 0x98));
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/* Clear "Enable UART1 r=
-eset source from LPC" */
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0writel(reg & ~BIT(4), AS=
-T_IO(AST_BASE_LPC | 0x98));
-> =C2=A0}
-> =C2=A0
-> =C2=A0static void __init do_romulus_setup(void)
---=-h4AANhKF130z7GyvNO1v
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJZBu2jAAoJEJ0dnzgO5LT5FqoP/17Q2C27IH8PnY36Rg99QzWe
-oMizABvECGmhbYmQUmiebi2I1MnayXnANttYtV22FidXgkZNNmGp7+RcfHE07v9H
-Yc2S6lyILBzLEMdz+u9opNXxUHH2/ZRYuxsntYt8TGKhQtBymj37JvSqdeFWk+S1
-k2O5GWNjMNA4Ta2/RJ9IJJ99F2iZm4kiBI8ex7BZsYYdvX/SmWV+KaSsq4LokhoU
-tyo/1zb46YBs3mUo8ZWMZjeuBboeCP/p8MmNJ+MR7xal2lm3ceeLA7PWecGQfUiC
-1yPhIot8TLFKcaB6DzgOdh/HwJJJvWs1ICmH/cqk0HdrbZRQ3Rv4+h/BZSLm6jB9
-BDRqEq9pfnL5CEuW3YQiyz5+YIF+TCMWqq/VHIx6D9tCd4XFPx5YzK1FbxKKtDBf
-zBzY+uUzO6pm8tXHOOrvQrPnVABNsqTzyodEQNKy468zpa8bwwtrxMVLeK6kP76A
-b9zq2j3eBZXB0qgTRXYWcVCsP0JzE2kIiHzJd3EAXpJcHV002Iz6uXMtxILGEAV5
-q9seasQZKaw033QdcI4rm4g+VBCjrOubJ6uUs6zPSgpWLz57CzMhbURrchnq5+Sk
-HyyOsRYSjFaAtqblznyQaeyiLQGhOZ0VGBLSZ65UnKMPosIgb7PnMOWeO27bsyD4
-r6/VS9DLm6U/JnyzlNjJ
-=55Wc
------END PGP SIGNATURE-----
-
---=-h4AANhKF130z7GyvNO1v--
+Matt
+>
+> Cheers,
+>
+> Joel
+>
+>> At this point in time, it's important we get the MAX31785 driver updated
+>> with this support along with the PCA9552 driver presence & led verification
+>> of the fan enclosures.
+>>
