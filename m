@@ -1,18 +1,52 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-pg0-x242.google.com (mail-pg0-x242.google.com
+ [IPv6:2607:f8b0:400e:c05::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wH9WG6q7YzDqBQ
- for <openbmc@lists.ozlabs.org>; Tue,  2 May 2017 15:55:38 +1000 (AEST)
-Received: by ozlabs.org (Postfix, from userid 1023)
- id 3wH9WG6F6Bz9sDB; Tue,  2 May 2017 15:55:38 +1000 (AEST)
-From: Jeremy Kerr <jk@ozlabs.org>
-To: devicetree@vger.kernel.org,
-	openbmc@lists.ozlabs.org
-Subject: [PATCH RFC] Documentation/devicetree: Add specification for FSI busses
-Date: Tue,  2 May 2017 13:55:08 +0800
-Message-Id: <1493704508-27119-1-git-send-email-jk@ozlabs.org>
-X-Mailer: git-send-email 2.7.4
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wH9v61hp0zDqBQ
+ for <openbmc@lists.ozlabs.org>; Tue,  2 May 2017 16:12:49 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q4faqr6n"; 
+ dkim-atps=neutral
+Received: by mail-pg0-x242.google.com with SMTP id v1so19377594pgv.3
+ for <openbmc@lists.ozlabs.org>; Mon, 01 May 2017 23:12:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:from:to:cc:subject:date:message-id;
+ bh=EPXN0l18KrtrSjgl59uXp9l6pcmNqh2xFcXdyMm9II4=;
+ b=Q4faqr6nTSoA7nWzj71akVrJPgh/bAKYr1vhagnf5e5GdR3xEUoBAyYCwMUTsqiFRY
+ +m0Y5Z5rVBZyYzBID9jcgNpwloKDYI2nY1EYVaqBc0L+4Gc+6u+WwurCoQgL+rM7AlsM
+ 1LTxtMEGrHQVVGE5gcoZVDZbw9Eux8CAYIB9iCFNnIutsrgSSy7TvIBB3GN6P0ktD/UM
+ XyFiLaZtLxamwzUu9/0HZPjgLdssZK5IQC0HLNcUJF1vVTyS18dX5RO9rCCpaqO9Duvr
+ DoKijKX5gTJJrGbDbtSQzAsTiCYJjX68UX/v5ZoPqwkuKDEo1WQf8h/ss5fjkdEIkqjR
+ jziA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
+ bh=EPXN0l18KrtrSjgl59uXp9l6pcmNqh2xFcXdyMm9II4=;
+ b=bOgrN5oEavbG7zzwHh+7An2CFdSKQPNP8Y/dII09j+V3wA2EC6iCknwaghic2rmRHE
+ iIxH1HDh79mfQN1aB7NU5VLJ/G7dHjxtzKCtp+pMxWyXsdZXIjjn7xOu6CUzigJCzIpS
+ DvuEzCCXSCt2blgU7luEqI91PdwDOJBPL1ddi1XOXuHJcC7lvF7BkBag3QaH5cW7/bad
+ AZjNUUqHpV7em7xgK+GXMbUF2xjNMeFdbiEsvKM/wiyA9i3r0DiZDMfTleQpxdxz0a0A
+ z9DSA1MmljUxKFyzZwJ3OFrWEpluVsEcbyzdP5+dsaYte0ecYi+zqJCWhFn3cSvZsWyg
+ OI8w==
+X-Gm-Message-State: AN3rC/41Lb7Kny4T/rrV4AcSdtFELO5Z2UGEP83CziwUMZzEHx8CAhE9
+ ceN7ptn0DSm81g==
+X-Received: by 10.98.102.13 with SMTP id a13mr30996751pfc.33.1493705567564;
+ Mon, 01 May 2017 23:12:47 -0700 (PDT)
+Received: from aurora.jms.id.au ([203.0.153.9])
+ by smtp.gmail.com with ESMTPSA id f131sm26639215pfc.54.2017.05.01.23.12.44
+ (version=TLS1 cipher=AES128-SHA bits=128/128);
+ Mon, 01 May 2017 23:12:46 -0700 (PDT)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+Received: by aurora.jms.id.au (sSMTP sendmail emulation);
+ Tue, 02 May 2017 15:42:41 +0930
+From: Joel Stanley <joel@jms.id.au>
+To: openbmc@lists.ozlabs.org
+Cc: Lei YU <mine260309@gmail.com>, Samuel Mendoza-Jonas <sam@mendozajonas.com>
+Subject: [PATCH linux dev-4.10 0/3] Enable Infineon IR35221
+Date: Tue,  2 May 2017 15:42:36 +0930
+Message-Id: <20170502061239.7677-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -24,174 +58,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 02 May 2017 05:55:39 -0000
+X-List-Received-Date: Tue, 02 May 2017 06:12:50 -0000
 
-This change introduces a proposed layout for describing FSI busses in
-the device tree. While the bus is probe-able, we'd still like a method
-of describing subordinate (eg i2c) busses that are behind FSI devices.
+This driver has been accepted upstream and backported to the 4.10 tree.
+These changes turn it on in the defconfig and add it to the device tree for
+Witherspoon and Romulus.
 
-The FSI core will be responsible for matching probed slaves & engines to
-their device tree nodes, so the FSI device drivers' probe() functions
-will be passed a struct device with the appropriate of_node populated
-where a matching DT node is found.
+I have tested on both of these platforms and the driver correctly probes for
+the i2c addresses.
 
-RFC at this stage, so I'd welcome any feedback.
+Joel Stanley (3):
+  ARM: dts: aspeed: romulus: Add Infineon ir35221
+  ARM: dts: aspeed: witherspoon: Add Infineon ir35221
+  ARM: configs: aspeed_g5: Add Infineon IR35221
 
-Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
----
- Documentation/devicetree/bindings/fsi/fsi.txt | 144 ++++++++++++++++++++++++++
- 1 file changed, 144 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/fsi/fsi.txt
+ arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     | 10 ++++++++++
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 10 ++++++++++
+ arch/arm/configs/aspeed_g5_defconfig             |  1 +
+ 3 files changed, 21 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/fsi/fsi.txt b/Documentation/devicetree/bindings/fsi/fsi.txt
-new file mode 100644
-index 0000000..b5e85c7
---- /dev/null
-+++ b/Documentation/devicetree/bindings/fsi/fsi.txt
-@@ -0,0 +1,144 @@
-+FSI bus & engine generic device tree bindings
-+=============================================
-+
-+The FSI bus is probe-able, so Linux is able to enumerate FSI slaves, and
-+engines within those slaves. However, we have a facility to match devicetree
-+nodes to probed engines. This allows for fsi engines to expose non-probeable
-+busses, which are then exposed by the device tree. For example, a FSI engine
-+that is an I2C master - the I2C bus can be described by the device tree under
-+the engine's device tree node.
-+
-+FSI masters may require their own DT nodes (to describe the master HW itself);
-+that requirement is defined by the master's implementation, and is described by
-+the fsi-master-* binding specifications.
-+
-+Under the masters' nodes, we can describe the bus topology using nodes to
-+represent the FSI slaves and their slave engines. As a basic outline:
-+
-+  fsi-master {
-+      /* top-level of FSI bus topology, bound to a FSI master driver and
-+       * exposes a FSI bus */
-+
-+      fsi-slave@<link,id> {
-+          /* this node defines the FSI slave device, and is handled
-+           * entirely with FSI core code */
-+
-+          fsi-slave-engine@<addr> {
-+              /* this node defines the engine endpoint & address range, which
-+               * is bound to the relevant fsi device driver */
-+               ...
-+          };
-+
-+          fsi-slave-engine@<addr> {
-+              ...
-+          };
-+
-+      };
-+  };
-+
-+Note that since the bus is probe-able, some (or all) of the topology may
-+not be described; this binding only provides an optional facility for
-+adding subordinate device tree nodes as children of FSI engines.
-+
-+FSI masters
-+-----------
-+
-+FSI master nodes declare themselves as such with the "fsi-master" compatible
-+value. It's likely that an implementation-specific compatible value will
-+be needed as well, for example:
-+
-+    compatible = "fsi-master-gpio", "fsi-master";
-+
-+Since the master nodes describe the top-level of the FSI topology, they also
-+need to declare the FSI-standard addressing scheme. This requires two cells for
-+addresses (link index and slave ID), and no size:
-+
-+    #address-cells = <2>;
-+    #size-cells = <0>;
-+
-+FSI slaves
-+----------
-+
-+Slaves are identified by a (link-index, slave-id) pair, so require two cells
-+for an address identifier. Since these are not a range, no size cells are
-+required. For an example, a slave on link 1, with ID 2, could be represented
-+as:
-+
-+    cfam@1,2 {
-+        reg = <1 2>;
-+	[...];
-+    }
-+
-+Each slave provides an address-space, under which the engines are accessible.
-+That address space has a maximum of 23 bits, so we use one cell to represent
-+addresses and sizes in the slave address space:
-+
-+    #address-cells = <1>;
-+    #size-cells = <1>;
-+
-+
-+FSI engines (devices)
-+---------------------
-+
-+Engines are identified by their address under the slaves' address spaces. We
-+use a single cell for address and size. Engine nodes represent the endpoint
-+FSI device, and are passed to those FSI device drivers' ->probe() functions.
-+
-+For example, for a slave using a single 0x400-byte page starting at address
-+0xc00:
-+
-+    engine@c00 {
-+        reg = <0xc00 0x400>;
-+    };
-+
-+
-+Full example
-+------------
-+
-+Here's an example that illustrates:
-+ - a FSI master
-+   - connected to a FSI slave
-+     - that contains an engine that is an I2C master
-+       - connected to an I2C EEPROM
-+
-+The FSI master may be connected to additional slaves, and slaves may have
-+additional engines, but they don't necessarily need to be describe in the
-+device tree if no extra platform information is required.
-+
-+    /* The GPIO-based FSI master node, describing the top level of the
-+     * FSI bus
-+     */
-+    gpio-fsi {
-+        compatible = "fsi-master-gpio", "fsi-master";
-+        #address-cells = <2>;
-+        #size-cells = <0>;
-+
-+        /* A FSI slave (aka. CFAM) at link 0, ID 0. */
-+        cfam@0,0 {
-+            reg = <0 0>;
-+            #address-cells = <1>;
-+            #size-cells = <1>;
-+
-+            /* FSI engine at 0xc00, using a single page. In this example,
-+             * it's an I2C master controller, so subnodes describe the
-+             * I2C bus.
-+             */
-+            i2c-controller@c00 {
-+                reg = <0xc00 0x400>;
-+
-+                /* Engine-specific data. In this case, we're describing an
-+                 * I2C bus, so we're conforming to the generic I2C binding
-+                 */
-+                compatible = "ibm,fsi-i2c";
-+                #address-cells = <1>;
-+                #size-cells = <1>;
-+
-+                /* I2C endpoint device: an Atmel EEPROM */
-+                eeprom@50 {
-+                    compatible = "atmel,24c256";
-+                    reg = <0x50>;
-+                    pagesize = <64>;
-+                };
-+            };
-+        };
-+    };
 -- 
-2.7.4
+2.11.0
