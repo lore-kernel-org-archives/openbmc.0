@@ -1,58 +1,29 @@
-Return-Path: <andy.shevchenko@gmail.com>
-Received: from mail-qk0-x242.google.com (mail-qk0-x242.google.com
- [IPv6:2607:f8b0:400d:c09::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <benh@kernel.crashing.org>
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wHD4h1ltlzDqBQ
- for <openbmc@lists.ozlabs.org>; Tue,  2 May 2017 17:51:15 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="m56y4Xw5"; 
- dkim-atps=neutral
-Received: by mail-qk0-x242.google.com with SMTP id u68so4809818qkd.2
- for <openbmc@lists.ozlabs.org>; Tue, 02 May 2017 00:51:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=auGPoehDewBKrHK0zos9EFHOhGEPUu25BneHJIkAO44=;
- b=m56y4Xw5OSOdF6oUVNfoyD0Hv8HUAf/JnQXo7i69W6fczQHnYhdx0aj+LGb370ETHy
- kC30mGAc9u+jhMCor4IYFzxg/UvpYLo6wIYhBCaX1vH/PPJ5MD4C7G3UKRgfeo1UwuRi
- mqC8k4YHM3sVDO/BjOzNsewre5IrCnOewXYijfT3Z3QOOBI9HRWANIu042lwyZ4YnS/V
- ubwMe6AslWUJGIcIL3HJyzCtdDFhjzgjrDZslI9iI6rsjLYkF+fEq7yPL48c68LJlPP2
- o6tyOWsoPEBazyT7kv7dkyTtFN8s5tv7AlqpJyYuZKLC8B2Iu5Jz2cF6TkhXttseaBkg
- +VTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=auGPoehDewBKrHK0zos9EFHOhGEPUu25BneHJIkAO44=;
- b=jclW8pNo3QFO472LUD+BIO1HfetKQnZunAvnKvK7wFlsneMFc7uCz+IO0H5BHBaqXW
- mbJ7h8rw+WMePASEsl/mrtgXl08GammCUT5AYAIGF7AwKQ/hmlBk9l2Zct6TPsIccvZL
- 7A5mwzn3gJr21IDAvUti3zGzMo9+gXWB7T5g5PwSrBhH7hj6nfQIqTraulhDijijKjsV
- ifQkK7uV1TwB3Wsb40MDBC2AZyeTX+rRfz9AkCOJboCSdniMpabm1wrgnaORjPzdlYla
- IXVeOqR2qf+jzaxxJ3AiTOzGxV5w1DBeaDYBiAmE3mYFm5YnP3ZW4fBSDheZMnyHILt0
- r+ag==
-X-Gm-Message-State: AN3rC/51U7QNZkeSt7ooohNMzyID1kZIuNlWuw8yYLyRECLlkgYnvLQZ
- Ez5YiHn+uQTvpRFIqkSqkGKnNp08ig==
-X-Received: by 10.55.105.129 with SMTP id e123mr23168235qkc.184.1493711471840; 
- Tue, 02 May 2017 00:51:11 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.12.152.75 with HTTP; Tue, 2 May 2017 00:51:11 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wHDGB3s1MzDqBQ
+ for <openbmc@lists.ozlabs.org>; Tue,  2 May 2017 17:59:30 +1000 (AEST)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+ by gate.crashing.org (8.14.1/8.13.8) with ESMTP id v427x3IJ018601;
+ Tue, 2 May 2017 02:59:04 -0500
+Message-ID: <1493711948.25766.341.camel@kernel.crashing.org>
+Subject: Re: [PATCH v4 2/2] drivers/serial: Add driver for Aspeed virtual UART
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: Joel Stanley <joel@jms.id.au>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Jiri Slaby <jslaby@suse.com>
+Cc: Jeremy Kerr <jk@ozlabs.org>, linux-serial@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, Andy Shevchenko
+ <andy.shevchenko@gmail.com>, Mark Rutland <mark.rutland@arm.com>, Rob
+ Herring <robh+dt@kernel.org>, openbmc@lists.ozlabs.org
+Date: Tue, 02 May 2017 09:59:08 +0200
 In-Reply-To: <20170502074543.1380-3-joel@jms.id.au>
 References: <20170502074543.1380-1-joel@jms.id.au>
  <20170502074543.1380-3-joel@jms.id.au>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Tue, 2 May 2017 10:51:11 +0300
-Message-ID: <CAHp75VeoQ6B29r5AyVmN2=SiAiN5h8Fc43oTCxchCbZHVk=mXQ@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] drivers/serial: Add driver for Aspeed virtual UART
-To: Joel Stanley <joel@jms.id.au>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jslaby@suse.com>, Jeremy Kerr <jk@ozlabs.org>, 
- "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- devicetree <devicetree@vger.kernel.org>, 
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Mark Rutland <mark.rutland@arm.com>, 
- Rob Herring <robh+dt@kernel.org>, openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.22.6 (3.22.6-1.fc25) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -64,56 +35,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 02 May 2017 07:51:17 -0000
+X-List-Received-Date: Tue, 02 May 2017 07:59:31 -0000
 
-On Tue, May 2, 2017 at 10:45 AM, Joel Stanley <joel@jms.id.au> wrote:
+On Tue, 2017-05-02 at 17:15 +0930, Joel Stanley wrote:
 > From: Jeremy Kerr <jk@ozlabs.org>
->
+> 
 > This change adds a driver for the 16550-based Aspeed virtual UART
 > device. We use a similar process to the of_serial driver for device
 > probe, but expose some VUART-specific functions through sysfs too.
->
+> 
 > The VUART is two UART 'front ends' connected by their FIFO (no actual
 > serial line in between). One is on the BMC side (management controller)
 > and one is on the host CPU side.
->
+> 
 > This driver is for the BMC side. The sysfs files allow the BMC
 > userspace, which owns the system configuration policy, to specify at
 > what IO port and interrupt number the host side will appear to the host
 > on the Host <-> BMC LPC bus. It could be different on a different system
 > (though most of them use 3f8/4).
->
+> 
 > OpenPOWER host firmware doesn't like it when the host-side of the
 > VUART's FIFO is not drained. This driver only disables host TX discard
 > mode when the port is in use. We set the VUART enabled bit when we bind
 > to the device, and clear it on unbind.
->
+> 
 > We don't want to do this on open/release, as the host may be using this
 > bit to configure serial output modes, which is independent of whether
 > the devices has been opened by BMC userspace.
->
+> 
 > Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
 > Signed-off-by: Joel Stanley <joel@jms.id.au>
 > Acked-by: Rob Herring <robh@kernel.org>
->
 
-I have reviewed the driver and found it's quality good, though one
-minor about IRQ getting is left untouched. Let's Greg or others to
-decide, from my side FWIW:
-Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+Reviewed-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 
 > ---
 > v4:
 >  - Reorder if statements
 >  - Remove uncessary comment
->
+> 
 > v3:
 >  - remove whitespace in header
 >  - reformat comment
 >  - don't check for reg-io-width property; we don't need any special
 >    accessors for reading/writing bytes
 >  - move file to 8250_aspeed_vuart.c
->
+> 
 > v2:
 >  - Use attribute groups and DEVICE_ATTR_RW
 >  - Use platform_get_resource/devm_ioremap_resource
@@ -125,7 +92,7 @@ Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
 >  - Rename ast -> aspeed to match other Aspeed drivers
 >  - Add documentation of sysfs file
 >  - Add detail to the commit message
->
+> 
 >  Documentation/ABI/stable/sysfs-driver-aspeed-vuart |  15 +
 >  Documentation/devicetree/bindings/serial/8250.txt  |   2 +
 >  drivers/tty/serial/8250/8250_aspeed_vuart.c        | 323 +++++++++++++++++++++
@@ -134,39 +101,39 @@ Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
 >  5 files changed, 351 insertions(+)
 >  create mode 100644 Documentation/ABI/stable/sysfs-driver-aspeed-vuart
 >  create mode 100644 drivers/tty/serial/8250/8250_aspeed_vuart.c
->
+> 
 > diff --git a/Documentation/ABI/stable/sysfs-driver-aspeed-vuart b/Documentation/ABI/stable/sysfs-driver-aspeed-vuart
 > new file mode 100644
 > index 000000000000..8062953ce77b
 > --- /dev/null
 > +++ b/Documentation/ABI/stable/sysfs-driver-aspeed-vuart
 > @@ -0,0 +1,15 @@
-> +What:          /sys/bus/platform/drivers/aspeed-vuart/*/lpc_address
-> +Date:          April 2017
-> +Contact:       Jeremy Kerr <jk@ozlabs.org>
-> +Description:   Configures which IO port the host side of the UART
-> +               will appear on the host <-> BMC LPC bus.
-> +Users:         OpenBMC.  Proposed changes should be mailed to
-> +               openbmc@lists.ozlabs.org
+> +What:		/sys/bus/platform/drivers/aspeed-vuart/*/lpc_address
+> +Date:		April 2017
+> +Contact:	Jeremy Kerr <jk@ozlabs.org>
+> +Description:	Configures which IO port the host side of the UART
+> +		will appear on the host <-> BMC LPC bus.
+> +Users:		OpenBMC.  Proposed changes should be mailed to
+> +		openbmc@lists.ozlabs.org
 > +
-> +What:          /sys/bus/platform/drivers/aspeed-vuart*/sirq
-> +Date:          April 2017
-> +Contact:       Jeremy Kerr <jk@ozlabs.org>
-> +Description:   Configures which interrupt number the host side of
-> +               the UART will appear on the host <-> BMC LPC bus.
-> +Users:         OpenBMC.  Proposed changes should be mailed to
-> +               openbmc@lists.ozlabs.org
+> +What:		/sys/bus/platform/drivers/aspeed-vuart*/sirq
+> +Date:		April 2017
+> +Contact:	Jeremy Kerr <jk@ozlabs.org>
+> +Description:	Configures which interrupt number the host side of
+> +		the UART will appear on the host <-> BMC LPC bus.
+> +Users:		OpenBMC.  Proposed changes should be mailed to
+> +		openbmc@lists.ozlabs.org
 > diff --git a/Documentation/devicetree/bindings/serial/8250.txt b/Documentation/devicetree/bindings/serial/8250.txt
 > index 10276a46ecef..656733949309 100644
 > --- a/Documentation/devicetree/bindings/serial/8250.txt
 > +++ b/Documentation/devicetree/bindings/serial/8250.txt
 > @@ -20,6 +20,8 @@ Required properties:
->         - "fsl,16550-FIFO64"
->         - "fsl,ns16550"
->         - "ti,da830-uart"
-> +       - "aspeed,ast2400-vuart"
-> +       - "aspeed,ast2500-vuart"
->         - "serial" if the port type is unknown.
+>  	- "fsl,16550-FIFO64"
+>  	- "fsl,ns16550"
+>  	- "ti,da830-uart"
+> +	- "aspeed,ast2400-vuart"
+> +	- "aspeed,ast2500-vuart"
+>  	- "serial" if the port type is unknown.
 >  - reg : offset and length of the register set for the device.
 >  - interrupts : should contain uart interrupt.
 > diff --git a/drivers/tty/serial/8250/8250_aspeed_vuart.c b/drivers/tty/serial/8250/8250_aspeed_vuart.c
@@ -195,20 +162,20 @@ Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
 > +
 > +#include "8250.h"
 > +
-> +#define ASPEED_VUART_GCRA              0x20
-> +#define ASPEED_VUART_GCRA_VUART_EN             BIT(0)
+> +#define ASPEED_VUART_GCRA		0x20
+> +#define ASPEED_VUART_GCRA_VUART_EN		BIT(0)
 > +#define ASPEED_VUART_GCRA_DISABLE_HOST_TX_DISCARD BIT(5)
-> +#define ASPEED_VUART_GCRB              0x24
-> +#define ASPEED_VUART_GCRB_HOST_SIRQ_MASK       GENMASK(7, 4)
-> +#define ASPEED_VUART_GCRB_HOST_SIRQ_SHIFT      4
-> +#define ASPEED_VUART_ADDRL             0x28
-> +#define ASPEED_VUART_ADDRH             0x2c
+> +#define ASPEED_VUART_GCRB		0x24
+> +#define ASPEED_VUART_GCRB_HOST_SIRQ_MASK	GENMASK(7, 4)
+> +#define ASPEED_VUART_GCRB_HOST_SIRQ_SHIFT	4
+> +#define ASPEED_VUART_ADDRL		0x28
+> +#define ASPEED_VUART_ADDRH		0x2c
 > +
 > +struct aspeed_vuart {
-> +       struct device           *dev;
-> +       void __iomem            *regs;
-> +       struct clk              *clk;
-> +       int                     line;
+> +	struct device		*dev;
+> +	void __iomem		*regs;
+> +	struct clk		*clk;
+> +	int			line;
 > +};
 > +
 > +/*
@@ -228,269 +195,269 @@ Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
 > + */
 > +
 > +static ssize_t lpc_address_show(struct device *dev,
-> +                               struct device_attribute *attr, char *buf)
+> +				struct device_attribute *attr, char *buf)
 > +{
-> +       struct aspeed_vuart *vuart = dev_get_drvdata(dev);
-> +       u16 addr;
+> +	struct aspeed_vuart *vuart = dev_get_drvdata(dev);
+> +	u16 addr;
 > +
-> +       addr = (readb(vuart->regs + ASPEED_VUART_ADDRH) << 8) |
-> +               (readb(vuart->regs + ASPEED_VUART_ADDRL));
+> +	addr = (readb(vuart->regs + ASPEED_VUART_ADDRH) << 8) |
+> +		(readb(vuart->regs + ASPEED_VUART_ADDRL));
 > +
-> +       return snprintf(buf, PAGE_SIZE - 1, "0x%x\n", addr);
+> +	return snprintf(buf, PAGE_SIZE - 1, "0x%x\n", addr);
 > +}
 > +
 > +static ssize_t lpc_address_store(struct device *dev,
-> +                                struct device_attribute *attr,
-> +                                const char *buf, size_t count)
+> +				 struct device_attribute *attr,
+> +				 const char *buf, size_t count)
 > +{
-> +       struct aspeed_vuart *vuart = dev_get_drvdata(dev);
-> +       unsigned long val;
-> +       int err;
+> +	struct aspeed_vuart *vuart = dev_get_drvdata(dev);
+> +	unsigned long val;
+> +	int err;
 > +
-> +       err = kstrtoul(buf, 0, &val);
-> +       if (err)
-> +               return err;
+> +	err = kstrtoul(buf, 0, &val);
+> +	if (err)
+> +		return err;
 > +
-> +       writeb(val >> 8, vuart->regs + ASPEED_VUART_ADDRH);
-> +       writeb(val >> 0, vuart->regs + ASPEED_VUART_ADDRL);
+> +	writeb(val >> 8, vuart->regs + ASPEED_VUART_ADDRH);
+> +	writeb(val >> 0, vuart->regs + ASPEED_VUART_ADDRL);
 > +
-> +       return count;
+> +	return count;
 > +}
 > +
 > +static DEVICE_ATTR_RW(lpc_address);
 > +
 > +static ssize_t sirq_show(struct device *dev,
-> +                        struct device_attribute *attr, char *buf)
+> +			 struct device_attribute *attr, char *buf)
 > +{
-> +       struct aspeed_vuart *vuart = dev_get_drvdata(dev);
-> +       u8 reg;
+> +	struct aspeed_vuart *vuart = dev_get_drvdata(dev);
+> +	u8 reg;
 > +
-> +       reg = readb(vuart->regs + ASPEED_VUART_GCRB);
-> +       reg &= ASPEED_VUART_GCRB_HOST_SIRQ_MASK;
-> +       reg >>= ASPEED_VUART_GCRB_HOST_SIRQ_SHIFT;
+> +	reg = readb(vuart->regs + ASPEED_VUART_GCRB);
+> +	reg &= ASPEED_VUART_GCRB_HOST_SIRQ_MASK;
+> +	reg >>= ASPEED_VUART_GCRB_HOST_SIRQ_SHIFT;
 > +
-> +       return snprintf(buf, PAGE_SIZE - 1, "%u\n", reg);
+> +	return snprintf(buf, PAGE_SIZE - 1, "%u\n", reg);
 > +}
 > +
 > +static ssize_t sirq_store(struct device *dev, struct device_attribute *attr,
-> +                         const char *buf, size_t count)
+> +			  const char *buf, size_t count)
 > +{
-> +       struct aspeed_vuart *vuart = dev_get_drvdata(dev);
-> +       unsigned long val;
-> +       int err;
-> +       u8 reg;
+> +	struct aspeed_vuart *vuart = dev_get_drvdata(dev);
+> +	unsigned long val;
+> +	int err;
+> +	u8 reg;
 > +
-> +       err = kstrtoul(buf, 0, &val);
-> +       if (err)
-> +               return err;
+> +	err = kstrtoul(buf, 0, &val);
+> +	if (err)
+> +		return err;
 > +
-> +       val <<= ASPEED_VUART_GCRB_HOST_SIRQ_SHIFT;
-> +       val &= ASPEED_VUART_GCRB_HOST_SIRQ_MASK;
+> +	val <<= ASPEED_VUART_GCRB_HOST_SIRQ_SHIFT;
+> +	val &= ASPEED_VUART_GCRB_HOST_SIRQ_MASK;
 > +
-> +       reg = readb(vuart->regs + ASPEED_VUART_GCRB);
-> +       reg &= ~ASPEED_VUART_GCRB_HOST_SIRQ_MASK;
-> +       reg |= val;
-> +       writeb(reg, vuart->regs + ASPEED_VUART_GCRB);
+> +	reg = readb(vuart->regs + ASPEED_VUART_GCRB);
+> +	reg &= ~ASPEED_VUART_GCRB_HOST_SIRQ_MASK;
+> +	reg |= val;
+> +	writeb(reg, vuart->regs + ASPEED_VUART_GCRB);
 > +
-> +       return count;
+> +	return count;
 > +}
 > +
 > +static DEVICE_ATTR_RW(sirq);
 > +
 > +static struct attribute *aspeed_vuart_attrs[] = {
-> +       &dev_attr_sirq.attr,
-> +       &dev_attr_lpc_address.attr,
-> +       NULL,
+> +	&dev_attr_sirq.attr,
+> +	&dev_attr_lpc_address.attr,
+> +	NULL,
 > +};
 > +
 > +static const struct attribute_group aspeed_vuart_attr_group = {
-> +       .attrs = aspeed_vuart_attrs,
+> +	.attrs = aspeed_vuart_attrs,
 > +};
 > +
 > +static void aspeed_vuart_set_enabled(struct aspeed_vuart *vuart, bool enabled)
 > +{
-> +       u8 reg = readb(vuart->regs + ASPEED_VUART_GCRA);
+> +	u8 reg = readb(vuart->regs + ASPEED_VUART_GCRA);
 > +
-> +       if (enabled)
-> +               reg |= ASPEED_VUART_GCRA_VUART_EN;
-> +       else
-> +               reg &= ~ASPEED_VUART_GCRA_VUART_EN;
+> +	if (enabled)
+> +		reg |= ASPEED_VUART_GCRA_VUART_EN;
+> +	else
+> +		reg &= ~ASPEED_VUART_GCRA_VUART_EN;
 > +
-> +       writeb(reg, vuart->regs + ASPEED_VUART_GCRA);
+> +	writeb(reg, vuart->regs + ASPEED_VUART_GCRA);
 > +}
 > +
 > +static void aspeed_vuart_set_host_tx_discard(struct aspeed_vuart *vuart,
-> +                                            bool discard)
+> +					     bool discard)
 > +{
-> +       u8 reg;
+> +	u8 reg;
 > +
-> +       reg = readb(vuart->regs + ASPEED_VUART_GCRA);
+> +	reg = readb(vuart->regs + ASPEED_VUART_GCRA);
 > +
-> +       /* If the DISABLE_HOST_TX_DISCARD bit is set, discard is disabled */
-> +       if (!discard)
-> +               reg |= ASPEED_VUART_GCRA_DISABLE_HOST_TX_DISCARD;
-> +       else
-> +               reg &= ~ASPEED_VUART_GCRA_DISABLE_HOST_TX_DISCARD;
+> +	/* If the DISABLE_HOST_TX_DISCARD bit is set, discard is disabled */
+> +	if (!discard)
+> +		reg |= ASPEED_VUART_GCRA_DISABLE_HOST_TX_DISCARD;
+> +	else
+> +		reg &= ~ASPEED_VUART_GCRA_DISABLE_HOST_TX_DISCARD;
 > +
-> +       writeb(reg, vuart->regs + ASPEED_VUART_GCRA);
+> +	writeb(reg, vuart->regs + ASPEED_VUART_GCRA);
 > +}
 > +
 > +static int aspeed_vuart_startup(struct uart_port *uart_port)
 > +{
-> +       struct uart_8250_port *uart_8250_port = up_to_u8250p(uart_port);
-> +       struct aspeed_vuart *vuart = uart_8250_port->port.private_data;
-> +       int rc;
+> +	struct uart_8250_port *uart_8250_port = up_to_u8250p(uart_port);
+> +	struct aspeed_vuart *vuart = uart_8250_port->port.private_data;
+> +	int rc;
 > +
-> +       rc = serial8250_do_startup(uart_port);
-> +       if (rc)
-> +               return rc;
+> +	rc = serial8250_do_startup(uart_port);
+> +	if (rc)
+> +		return rc;
 > +
-> +       aspeed_vuart_set_host_tx_discard(vuart, false);
+> +	aspeed_vuart_set_host_tx_discard(vuart, false);
 > +
-> +       return 0;
+> +	return 0;
 > +}
 > +
 > +static void aspeed_vuart_shutdown(struct uart_port *uart_port)
 > +{
-> +       struct uart_8250_port *uart_8250_port = up_to_u8250p(uart_port);
-> +       struct aspeed_vuart *vuart = uart_8250_port->port.private_data;
+> +	struct uart_8250_port *uart_8250_port = up_to_u8250p(uart_port);
+> +	struct aspeed_vuart *vuart = uart_8250_port->port.private_data;
 > +
-> +       aspeed_vuart_set_host_tx_discard(vuart, true);
+> +	aspeed_vuart_set_host_tx_discard(vuart, true);
 > +
-> +       serial8250_do_shutdown(uart_port);
+> +	serial8250_do_shutdown(uart_port);
 > +}
 > +
 > +static int aspeed_vuart_probe(struct platform_device *pdev)
 > +{
-> +       struct uart_8250_port port;
-> +       struct aspeed_vuart *vuart;
-> +       struct device_node *np;
-> +       struct resource *res;
-> +       u32 clk, prop;
-> +       int rc;
+> +	struct uart_8250_port port;
+> +	struct aspeed_vuart *vuart;
+> +	struct device_node *np;
+> +	struct resource *res;
+> +	u32 clk, prop;
+> +	int rc;
 > +
-> +       np = pdev->dev.of_node;
+> +	np = pdev->dev.of_node;
 > +
-> +       vuart = devm_kzalloc(&pdev->dev, sizeof(*vuart), GFP_KERNEL);
-> +       if (!vuart)
-> +               return -ENOMEM;
+> +	vuart = devm_kzalloc(&pdev->dev, sizeof(*vuart), GFP_KERNEL);
+> +	if (!vuart)
+> +		return -ENOMEM;
 > +
-> +       vuart->dev = &pdev->dev;
+> +	vuart->dev = &pdev->dev;
 > +
-> +       res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +       vuart->regs = devm_ioremap_resource(&pdev->dev, res);
-> +       if (IS_ERR(vuart->regs))
-> +               return PTR_ERR(vuart->regs);
+> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> +	vuart->regs = devm_ioremap_resource(&pdev->dev, res);
+> +	if (IS_ERR(vuart->regs))
+> +		return PTR_ERR(vuart->regs);
 > +
-> +       memset(&port, 0, sizeof(port));
-> +       port.port.private_data = vuart;
-> +       port.port.membase = vuart->regs;
-> +       port.port.mapbase = res->start;
-> +       port.port.mapsize = resource_size(res);
-> +       port.port.startup = aspeed_vuart_startup;
-> +       port.port.shutdown = aspeed_vuart_shutdown;
-> +       port.port.dev = &pdev->dev;
+> +	memset(&port, 0, sizeof(port));
+> +	port.port.private_data = vuart;
+> +	port.port.membase = vuart->regs;
+> +	port.port.mapbase = res->start;
+> +	port.port.mapsize = resource_size(res);
+> +	port.port.startup = aspeed_vuart_startup;
+> +	port.port.shutdown = aspeed_vuart_shutdown;
+> +	port.port.dev = &pdev->dev;
 > +
-> +       rc = sysfs_create_group(&vuart->dev->kobj, &aspeed_vuart_attr_group);
-> +       if (rc < 0)
-> +               return rc;
+> +	rc = sysfs_create_group(&vuart->dev->kobj, &aspeed_vuart_attr_group);
+> +	if (rc < 0)
+> +		return rc;
 > +
-> +       if (of_property_read_u32(np, "clock-frequency", &clk)) {
-> +               vuart->clk = devm_clk_get(&pdev->dev, NULL);
-> +               if (IS_ERR(vuart->clk)) {
-> +                       dev_warn(&pdev->dev,
-> +                               "clk or clock-frequency not defined\n");
-> +                       return PTR_ERR(vuart->clk);
-> +               }
+> +	if (of_property_read_u32(np, "clock-frequency", &clk)) {
+> +		vuart->clk = devm_clk_get(&pdev->dev, NULL);
+> +		if (IS_ERR(vuart->clk)) {
+> +			dev_warn(&pdev->dev,
+> +				"clk or clock-frequency not defined\n");
+> +			return PTR_ERR(vuart->clk);
+> +		}
 > +
-> +               rc = clk_prepare_enable(vuart->clk);
-> +               if (rc < 0)
-> +                       return rc;
+> +		rc = clk_prepare_enable(vuart->clk);
+> +		if (rc < 0)
+> +			return rc;
 > +
-> +               clk = clk_get_rate(vuart->clk);
-> +       }
+> +		clk = clk_get_rate(vuart->clk);
+> +	}
 > +
-> +       /* If current-speed was set, then try not to change it. */
-> +       if (of_property_read_u32(np, "current-speed", &prop) == 0)
-> +               port.port.custom_divisor = clk / (16 * prop);
+> +	/* If current-speed was set, then try not to change it. */
+> +	if (of_property_read_u32(np, "current-speed", &prop) == 0)
+> +		port.port.custom_divisor = clk / (16 * prop);
 > +
-> +       /* Check for shifted address mapping */
-> +       if (of_property_read_u32(np, "reg-offset", &prop) == 0)
-> +               port.port.mapbase += prop;
+> +	/* Check for shifted address mapping */
+> +	if (of_property_read_u32(np, "reg-offset", &prop) == 0)
+> +		port.port.mapbase += prop;
 > +
-> +       /* Check for registers offset within the devices address range */
-> +       if (of_property_read_u32(np, "reg-shift", &prop) == 0)
-> +               port.port.regshift = prop;
+> +	/* Check for registers offset within the devices address range */
+> +	if (of_property_read_u32(np, "reg-shift", &prop) == 0)
+> +		port.port.regshift = prop;
 > +
-> +       /* Check for fifo size */
-> +       if (of_property_read_u32(np, "fifo-size", &prop) == 0)
-> +               port.port.fifosize = prop;
+> +	/* Check for fifo size */
+> +	if (of_property_read_u32(np, "fifo-size", &prop) == 0)
+> +		port.port.fifosize = prop;
 > +
-> +       /* Check for a fixed line number */
-> +       rc = of_alias_get_id(np, "serial");
-> +       if (rc >= 0)
-> +               port.port.line = rc;
+> +	/* Check for a fixed line number */
+> +	rc = of_alias_get_id(np, "serial");
+> +	if (rc >= 0)
+> +		port.port.line = rc;
 > +
-> +       port.port.irq = irq_of_parse_and_map(np, 0);
-> +       port.port.irqflags = IRQF_SHARED;
-> +       port.port.iotype = UPIO_MEM;
-> +       port.port.type = PORT_16550A;
-> +       port.port.uartclk = clk;
-> +       port.port.flags = UPF_SHARE_IRQ | UPF_BOOT_AUTOCONF
-> +               | UPF_FIXED_PORT | UPF_FIXED_TYPE | UPF_NO_THRE_TEST;
+> +	port.port.irq = irq_of_parse_and_map(np, 0);
+> +	port.port.irqflags = IRQF_SHARED;
+> +	port.port.iotype = UPIO_MEM;
+> +	port.port.type = PORT_16550A;
+> +	port.port.uartclk = clk;
+> +	port.port.flags = UPF_SHARE_IRQ | UPF_BOOT_AUTOCONF
+> +		| UPF_FIXED_PORT | UPF_FIXED_TYPE | UPF_NO_THRE_TEST;
 > +
-> +       if (of_property_read_bool(np, "no-loopback-test"))
-> +               port.port.flags |= UPF_SKIP_TEST;
+> +	if (of_property_read_bool(np, "no-loopback-test"))
+> +		port.port.flags |= UPF_SKIP_TEST;
 > +
-> +       if (port.port.fifosize)
-> +               port.capabilities = UART_CAP_FIFO;
+> +	if (port.port.fifosize)
+> +		port.capabilities = UART_CAP_FIFO;
 > +
-> +       if (of_property_read_bool(np, "auto-flow-control"))
-> +               port.capabilities |= UART_CAP_AFE;
+> +	if (of_property_read_bool(np, "auto-flow-control"))
+> +		port.capabilities |= UART_CAP_AFE;
 > +
-> +       rc = serial8250_register_8250_port(&port);
-> +       if (rc < 0)
-> +               goto err_clk_disable;
+> +	rc = serial8250_register_8250_port(&port);
+> +	if (rc < 0)
+> +		goto err_clk_disable;
 > +
-> +       vuart->line = rc;
+> +	vuart->line = rc;
 > +
-> +       aspeed_vuart_set_enabled(vuart, true);
-> +       aspeed_vuart_set_host_tx_discard(vuart, true);
-> +       platform_set_drvdata(pdev, vuart);
+> +	aspeed_vuart_set_enabled(vuart, true);
+> +	aspeed_vuart_set_host_tx_discard(vuart, true);
+> +	platform_set_drvdata(pdev, vuart);
 > +
-> +       return 0;
+> +	return 0;
 > +
 > +err_clk_disable:
-> +       clk_disable_unprepare(vuart->clk);
-> +       irq_dispose_mapping(port.port.irq);
-> +       return rc;
+> +	clk_disable_unprepare(vuart->clk);
+> +	irq_dispose_mapping(port.port.irq);
+> +	return rc;
 > +}
 > +
 > +static int aspeed_vuart_remove(struct platform_device *pdev)
 > +{
-> +       struct aspeed_vuart *vuart = platform_get_drvdata(pdev);
+> +	struct aspeed_vuart *vuart = platform_get_drvdata(pdev);
 > +
-> +       aspeed_vuart_set_enabled(vuart, false);
-> +       serial8250_unregister_port(vuart->line);
-> +       sysfs_remove_group(&vuart->dev->kobj, &aspeed_vuart_attr_group);
-> +       clk_disable_unprepare(vuart->clk);
+> +	aspeed_vuart_set_enabled(vuart, false);
+> +	serial8250_unregister_port(vuart->line);
+> +	sysfs_remove_group(&vuart->dev->kobj, &aspeed_vuart_attr_group);
+> +	clk_disable_unprepare(vuart->clk);
 > +
-> +       return 0;
+> +	return 0;
 > +}
 > +
 > +static const struct of_device_id aspeed_vuart_table[] = {
-> +       { .compatible = "aspeed,ast2400-vuart" },
-> +       { .compatible = "aspeed,ast2500-vuart" },
-> +       { },
+> +	{ .compatible = "aspeed,ast2400-vuart" },
+> +	{ .compatible = "aspeed,ast2500-vuart" },
+> +	{ },
 > +};
 > +
 > +static struct platform_driver aspeed_vuart_driver = {
-> +       .driver = {
-> +               .name = "aspeed-vuart",
-> +               .of_match_table = aspeed_vuart_table,
-> +       },
-> +       .probe = aspeed_vuart_probe,
-> +       .remove = aspeed_vuart_remove,
+> +	.driver = {
+> +		.name = "aspeed-vuart",
+> +		.of_match_table = aspeed_vuart_table,
+> +	},
+> +	.probe = aspeed_vuart_probe,
+> +	.remove = aspeed_vuart_remove,
 > +};
 > +
 > +module_platform_driver(aspeed_vuart_driver);
@@ -503,40 +470,31 @@ Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
 > --- a/drivers/tty/serial/8250/Kconfig
 > +++ b/drivers/tty/serial/8250/Kconfig
 > @@ -224,6 +224,16 @@ config SERIAL_8250_ACCENT
->           To compile this driver as a module, choose M here: the module
->           will be called 8250_accent.
->
+>  	  To compile this driver as a module, choose M here: the module
+>  	  will be called 8250_accent.
+>  
 > +config SERIAL_8250_ASPEED_VUART
-> +       tristate "Aspeed Virtual UART"
-> +       depends on SERIAL_8250
-> +       depends on OF
-> +       help
-> +         If you want to use the virtual UART (VUART) device on Aspeed
-> +         BMC platforms, enable this option. This enables the 16550A-
-> +         compatible device on the local LPC bus, giving a UART device
-> +         with no physical RS232 connections.
+> +	tristate "Aspeed Virtual UART"
+> +	depends on SERIAL_8250
+> +	depends on OF
+> +	help
+> +	  If you want to use the virtual UART (VUART) device on Aspeed
+> +	  BMC platforms, enable this option. This enables the 16550A-
+> +	  compatible device on the local LPC bus, giving a UART device
+> +	  with no physical RS232 connections.
 > +
 >  config SERIAL_8250_BOCA
->         tristate "Support Boca cards"
->         depends on SERIAL_8250 != n && ISA && SERIAL_8250_MANY_PORTS
+>  	tristate "Support Boca cards"
+>  	depends on SERIAL_8250 != n && ISA && SERIAL_8250_MANY_PORTS
 > diff --git a/drivers/tty/serial/8250/Makefile b/drivers/tty/serial/8250/Makefile
 > index 2f30f9ecdb1b..a44a99a3e623 100644
 > --- a/drivers/tty/serial/8250/Makefile
 > +++ b/drivers/tty/serial/8250/Makefile
-> @@ -14,6 +14,7 @@ obj-$(CONFIG_SERIAL_8250_EXAR)                += 8250_exar.o
->  obj-$(CONFIG_SERIAL_8250_HP300)                += 8250_hp300.o
->  obj-$(CONFIG_SERIAL_8250_CS)           += serial_cs.o
->  obj-$(CONFIG_SERIAL_8250_ACORN)                += 8250_acorn.o
-> +obj-$(CONFIG_SERIAL_8250_ASPEED_VUART) += 8250_aspeed_vuart.o
->  obj-$(CONFIG_SERIAL_8250_BCM2835AUX)   += 8250_bcm2835aux.o
->  obj-$(CONFIG_SERIAL_8250_CONSOLE)      += 8250_early.o
->  obj-$(CONFIG_SERIAL_8250_FOURPORT)     += 8250_fourport.o
-> --
-> 2.11.0
->
-
-
-
--- 
-With Best Regards,
-Andy Shevchenko
+> @@ -14,6 +14,7 @@ obj-$(CONFIG_SERIAL_8250_EXAR)		+= 8250_exar.o
+>  obj-$(CONFIG_SERIAL_8250_HP300)		+= 8250_hp300.o
+>  obj-$(CONFIG_SERIAL_8250_CS)		+= serial_cs.o
+>  obj-$(CONFIG_SERIAL_8250_ACORN)		+= 8250_acorn.o
+> +obj-$(CONFIG_SERIAL_8250_ASPEED_VUART)	+= 8250_aspeed_vuart.o
+>  obj-$(CONFIG_SERIAL_8250_BCM2835AUX)	+= 8250_bcm2835aux.o
+>  obj-$(CONFIG_SERIAL_8250_CONSOLE)	+= 8250_early.o
+>  obj-$(CONFIG_SERIAL_8250_FOURPORT)	+= 8250_fourport.o
