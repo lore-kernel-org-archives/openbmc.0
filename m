@@ -1,57 +1,63 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-pf0-x243.google.com (mail-pf0-x243.google.com
- [IPv6:2607:f8b0:400e:c00::243])
+Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
+ [IPv6:2607:f8b0:4002:c05::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wHCyY5Yt1zDqBQ
- for <openbmc@lists.ozlabs.org>; Tue,  2 May 2017 17:45:57 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wHCyb2RLhzDqBQ
+ for <openbmc@lists.ozlabs.org>; Tue,  2 May 2017 17:45:59 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="IEdMpz92"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="UmWlmOeX"; 
  dkim-atps=neutral
-Received: by mail-pf0-x243.google.com with SMTP id g23so31275862pfj.1
- for <openbmc@lists.ozlabs.org>; Tue, 02 May 2017 00:45:57 -0700 (PDT)
+Received: by mail-yw0-x244.google.com with SMTP id k11so11032589ywb.2
+ for <openbmc@lists.ozlabs.org>; Tue, 02 May 2017 00:45:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id;
- bh=QA7vRRjjphNL9mltYQQKNoM8opMKfUUp9ApP0LcAgvU=;
- b=IEdMpz92M8+jYYs8RCnV/f6voZuo6dyAQtyIjQQqa0M61yXUBYW8of1OQGJGfyErlS
- SMCQGjliM3CguDMYMvF5wJ/X6/De5fqaxhmcU9l0pR+kA3fjnaIRaOgfjc5fHbuEGE1W
- B+RVjwkHtcLHpzLhRryL228fb9I7OexIhwzgI5g4gUMLNXxP1GNNiQfcTHlc2zauKCQh
- scF8t/8XYE/UuxtBJcy0OdOU9aK7o+Bur/eOMGrcM46WvVBcnZXObOc++r9yI7zzr5aO
- lbVssxJOIkkd4QaHyfgKcukczsoh5+9MhnzFHZYW7i1eb5/aEHCR22Ao4t5ZjHEhv+aH
- LI4Q==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=2eFrsAJtJYNRlJNGbBEruKHWBHAd7a4j/GBhwi1FJpA=;
+ b=UmWlmOeXBuorIzQGNohGH0P5rNfuQbmBpftP3A6Nt1+45yhDFhyVkwh7FRiVT1HL39
+ Om0PbtXE1FuJxGlMosUHD0XmFwwphYDBCZBsw1mXi8ipAkY9v4tsADJm0XRkPZl0Sm9r
+ 9gF3kl3MP2Dhbw8s9moSSvTPb/kzmTog184kGFl2bHWqyQbnBW8EgAxzFk4z0EXF9WOw
+ d53523A8CAT0laAZWuQz2YwGhzmm/i032w4V1WELznDbzJ62y5sDG2wwpKQuJVD45uQv
+ zxqhlb3Wp8cfcxLZcUAmNNphEHFHvWz781XKeV94lF9FC4PXe3PSh0YBYEXdolKnk9nP
+ g0Qg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
- bh=QA7vRRjjphNL9mltYQQKNoM8opMKfUUp9ApP0LcAgvU=;
- b=SZJ+Y+FomI/m3PCrwhTsI3Dpn87RjV3yTymEMS9HrgHD1FyPCCakTgRK32q0Ye4qYS
- TkjAwA3Z37qxHWEeSgXh7XR2isdsr5sxOgDfroVU7zxW9vAfHWAOOmfjwpQ8IaBIQI6h
- CrYMaFo2nq8f76yspdeDmwvQHtJV5ahrGUb5fe2eQYCnsTXtSAnc+H8uY61zILA7N2mq
- pmciriXw3BKpat0D9PvABG2DlM/kiO6muyPalKfjiN5AQ5RU5slE7kMEbUtXK/EhX5fD
- UJzQXXuSdwIfYroX4Vca3GejdFnlQXC/7Ynnvx4JwPoTkWSVcN2h1b1boP8/o8P7ZING
- dAFQ==
-X-Gm-Message-State: AN3rC/5hWhzfOCAzoGa1blB4/WW1pDiA5V6mzK3lMVj5WjQFGUQNsCLG
- B+ugNRQLPTmTrA==
-X-Received: by 10.84.198.3 with SMTP id o3mr38600540pld.45.1493711155401;
- Tue, 02 May 2017 00:45:55 -0700 (PDT)
-Received: from aurora.jms.id.au ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id e5sm33992743pga.13.2017.05.02.00.45.50
- (version=TLS1 cipher=AES128-SHA bits=128/128);
- Tue, 02 May 2017 00:45:54 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Tue, 02 May 2017 17:15:47 +0930
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=2eFrsAJtJYNRlJNGbBEruKHWBHAd7a4j/GBhwi1FJpA=;
+ b=BXjTH/UvgCZSVLL9VxbP4COwviKr5bQE8yS6klQwWvNHPbT1fLL8+uh6P9yakaggfP
+ pCtUza/k8Ecsy8LWYPYLoWtAXKGyho84Ts2LSPj302opgOUI31oRTksI3J/C/7bMqty6
+ 4vyVM126IO7irYqRNuSRl2ogxxNLKOnvSzJ8VcrsvTJgu1rbQ8qKpcbZ0c386AqDlYXz
+ BLynUmU3suGRgTxMP1QASUXA1DzS2vlkf4vDAgneVAXzRwblYG0Lrv81tF0Mxi0AfWHG
+ btSyideO3a74drh8EjoH3ACT54i8w5f4ncan6wEvVOzieKvs5bJNRB2jydS0L1vP/4rX
+ YfnQ==
+X-Gm-Message-State: AN3rC/6pv4fEHtYbLU2SsHfpPQBjALCqFp6M5GrUNvXrkeTT1rltZFbD
+ A9URRz1OLvPyGsKBsdOZRBIsfQiRGQ==
+X-Received: by 10.13.251.4 with SMTP id l4mr22887122ywf.329.1493711157051;
+ Tue, 02 May 2017 00:45:57 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.171.70 with HTTP; Tue, 2 May 2017 00:45:36 -0700 (PDT)
+In-Reply-To: <CAHp75Vd=oONhzF34Pe8WwYKBWWxcsaQtgJy66aFD68iNKTxEfg@mail.gmail.com>
+References: <20170410040400.5509-1-joel@jms.id.au>
+ <20170410040400.5509-3-joel@jms.id.au>
+ <CAHp75Vd=oONhzF34Pe8WwYKBWWxcsaQtgJy66aFD68iNKTxEfg@mail.gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jslaby@suse.com>
-Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Andy Shevchenko <andy.shevchenko@gmail.com>,
+Date: Tue, 2 May 2017 17:15:36 +0930
+X-Google-Sender-Auth: iBlwxz8OPi--Akk7E-71odMKxWY
+Message-ID: <CACPK8XfCLxRkdAdmtgNLrTMwXzk8cRsfV2e16SCY6O6e73JNyg@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] drivers/serial: Add driver for Aspeed virtual UART
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jslaby@suse.com>, 
+ Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh+dt@kernel.org>,
+ Jeremy Kerr <jk@ozlabs.org>, 
+ "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ devicetree <devicetree@vger.kernel.org>, 
  Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Jeremy Kerr <jk@ozlabs.org>, Mark Rutland <mark.rutland@arm.com>,
- Rob Herring <robh+dt@kernel.org>, openbmc@lists.ozlabs.org
-Subject: [PATCH v4 0/2] drivers: serial: Aspeed VUART driver
-Date: Tue,  2 May 2017 17:15:41 +0930
-Message-Id: <20170502074543.1380-1-joel@jms.id.au>
-X-Mailer: git-send-email 2.11.0
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,41 +69,64 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 02 May 2017 07:45:58 -0000
+X-List-Received-Date: Tue, 02 May 2017 07:45:59 -0000
 
-This is v4 of a driver for the Aspeed VUART. This version addresses feedback
-from Andy and Greg, and includes Rob's ack for the bindings change.
+On Tue, Apr 11, 2017 at 9:45 PM, Andy Shevchenko
+<andy.shevchenko@gmail.com> wrote:
+> On Mon, Apr 10, 2017 at 7:04 AM, Joel Stanley <joel@jms.id.au> wrote:
+>> From: Jeremy Kerr <jk@ozlabs.org>
+>>
+>> This change adds a driver for the 16550-based Aspeed virtual UART
+>> device. We use a similar process to the of_serial driver for device
+>> probe, but expose some VUART-specific functions through sysfs too.
+>>
+>> The VUART is two UART 'front ends' connected by their FIFO (no actual
+>> serial line in between). One is on the BMC side (management controller)
+>> and one is on the host CPU side.
+>>
+>> This driver is for the BMC side. The sysfs files allow the BMC
+>> userspace, which owns the system configuration policy, to specify at
+>> what IO port and interrupt number the host side will appear to the host
+>> on the Host <-> BMC LPC bus. It could be different on a different system
+>> (though most of them use 3f8/4).
+>>
+>> OpenPOWER host firmware doesn't like it when the host-side of the
+>> VUART's FIFO is not drained. This driver only disables host TX discard
+>> mode when the port is in use. We set the VUART enabled bit when we bind
+>> to the device, and clear it on unbind.
+>>
+>> We don't want to do this on open/release, as the host may be using this
+>> bit to configure serial output modes, which is independent of whether
+>> the devices has been opened by BMC userspace.
+>
+>> +static void aspeed_vuart_set_enabled(struct aspeed_vuart *vuart, bool enabled)
+>> +{
+>> +       u8 reg;
+>> +
+>> +       reg = readb(vuart->regs + ASPEED_VUART_GCRA);
+>
+>> +       reg &= ~ASPEED_VUART_GCRA_VUART_EN;
+>> +       if (enabled)
+>> +               reg |= ASPEED_VUART_GCRA_VUART_EN;
+>
+> Usually the pattern is
+> if (something)
+>  set x bit;
+> else
+>  clear x bit;
+>
+> It would make it one operation in any case and a bit more understandable.
 
-The VUART is a serial device on the BMC side of the LPC bus that connects a BMC
-to it's host processor.
+I have made these ordering changes you requested.
 
-We add a flag to the serial core to allow the driver to skip probing of the
-THRE irq behaviour, which could hang due to the host not reading bytes out of
-the buffer.
+>
+>> +       port.port.irq = irq_of_parse_and_map(np, 0);
+>
+> The benefit of use platform_get_irq() is to get rid of some OF specific headers.
 
-We've been using this on systems for over a year, so it has seen a good amount
-of testing.
+It's an of driver, and this function does exactly what we require. I
+have left it in for v4.
 
 Cheers,
 
 Joel
-
-Jeremy Kerr (1):
-  drivers/serial: Add driver for Aspeed virtual UART
-
-Joel Stanley (1):
-  serial: 8250: Add flag so drivers can avoid THRE probe
-
- Documentation/ABI/stable/sysfs-driver-aspeed-vuart |  15 +
- Documentation/devicetree/bindings/serial/8250.txt  |   2 +
- drivers/tty/serial/8250/8250_aspeed_vuart.c        | 323 +++++++++++++++++++++
- drivers/tty/serial/8250/8250_port.c                |   2 +-
- drivers/tty/serial/8250/Kconfig                    |  10 +
- drivers/tty/serial/8250/Makefile                   |   1 +
- include/linux/serial_core.h                        |   1 +
- 7 files changed, 353 insertions(+), 1 deletion(-)
- create mode 100644 Documentation/ABI/stable/sysfs-driver-aspeed-vuart
- create mode 100644 drivers/tty/serial/8250/8250_aspeed_vuart.c
-
--- 
-2.11.0
