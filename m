@@ -3,50 +3,54 @@ Received: from mail-pg0-x242.google.com (mail-pg0-x242.google.com
  [IPv6:2607:f8b0:400e:c05::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wH9v61hp0zDqBQ
- for <openbmc@lists.ozlabs.org>; Tue,  2 May 2017 16:12:49 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wH9vC30gBzDqFG
+ for <openbmc@lists.ozlabs.org>; Tue,  2 May 2017 16:12:55 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q4faqr6n"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="qzySoYjF"; 
  dkim-atps=neutral
-Received: by mail-pg0-x242.google.com with SMTP id v1so19377594pgv.3
- for <openbmc@lists.ozlabs.org>; Mon, 01 May 2017 23:12:49 -0700 (PDT)
+Received: by mail-pg0-x242.google.com with SMTP id v1so19377925pgv.3
+ for <openbmc@lists.ozlabs.org>; Mon, 01 May 2017 23:12:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id;
- bh=EPXN0l18KrtrSjgl59uXp9l6pcmNqh2xFcXdyMm9II4=;
- b=Q4faqr6nTSoA7nWzj71akVrJPgh/bAKYr1vhagnf5e5GdR3xEUoBAyYCwMUTsqiFRY
- +m0Y5Z5rVBZyYzBID9jcgNpwloKDYI2nY1EYVaqBc0L+4Gc+6u+WwurCoQgL+rM7AlsM
- 1LTxtMEGrHQVVGE5gcoZVDZbw9Eux8CAYIB9iCFNnIutsrgSSy7TvIBB3GN6P0ktD/UM
- XyFiLaZtLxamwzUu9/0HZPjgLdssZK5IQC0HLNcUJF1vVTyS18dX5RO9rCCpaqO9Duvr
- DoKijKX5gTJJrGbDbtSQzAsTiCYJjX68UX/v5ZoPqwkuKDEo1WQf8h/ss5fjkdEIkqjR
- jziA==
+ h=sender:from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=395hZPBKPcaTQp0zemRhC6o45HCNYxhVhMR6iFi6Uwg=;
+ b=qzySoYjF2pT3TD/9Ef8VlD5imQo97gNHAUEs0jeRNvdijkIYmKcsBqTUjdKGCu5/e6
+ 5c/Wukv95P6CXJLaRtxDpF//7VtwnHAWHCwri2I0oQoM8KacWIni7NT1gznPx8rtczQF
+ 5Jh6lJrqSsU734EqEj+COcyMDxrQWicypBgtVJ0YdrilzBNDfGrT9qthOIqzNJmTy7TF
+ vVTtiA6nlFUcbBwXS1br7gvt9KEdrkTLlK6CR/lbehFsPBShZm2aBy+VebEobzifjP/x
+ zJXcB+c4c05EjKE+sE75jiZCn82DLD0hJ32vUl25RWKvwXrtTSxOm9rsiI+STLNSXpF0
+ 1TCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
- bh=EPXN0l18KrtrSjgl59uXp9l6pcmNqh2xFcXdyMm9II4=;
- b=bOgrN5oEavbG7zzwHh+7An2CFdSKQPNP8Y/dII09j+V3wA2EC6iCknwaghic2rmRHE
- iIxH1HDh79mfQN1aB7NU5VLJ/G7dHjxtzKCtp+pMxWyXsdZXIjjn7xOu6CUzigJCzIpS
- DvuEzCCXSCt2blgU7luEqI91PdwDOJBPL1ddi1XOXuHJcC7lvF7BkBag3QaH5cW7/bad
- AZjNUUqHpV7em7xgK+GXMbUF2xjNMeFdbiEsvKM/wiyA9i3r0DiZDMfTleQpxdxz0a0A
- z9DSA1MmljUxKFyzZwJ3OFrWEpluVsEcbyzdP5+dsaYte0ecYi+zqJCWhFn3cSvZsWyg
- OI8w==
-X-Gm-Message-State: AN3rC/41Lb7Kny4T/rrV4AcSdtFELO5Z2UGEP83CziwUMZzEHx8CAhE9
- ceN7ptn0DSm81g==
-X-Received: by 10.98.102.13 with SMTP id a13mr30996751pfc.33.1493705567564;
- Mon, 01 May 2017 23:12:47 -0700 (PDT)
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+ :in-reply-to:references;
+ bh=395hZPBKPcaTQp0zemRhC6o45HCNYxhVhMR6iFi6Uwg=;
+ b=h7k3BWwECqKngUG/vt8/X3ZvzkqSUlBwH4mc0x7vQEH+A+mAym+3B+NkfSu/PhukIa
+ 18XPyN0ZAtIRsnrumIRXVDHEb55XBI6qXX2OHOnvL4bRC8LcdqFgyenvfSYPQnz0GPbC
+ SUX3YnLxBUHBp9tr76tYEjzD8JSiwZe8TjkWF11yZVqxjPus+E4QFH3pICY56KfxORYy
+ K1Ic5v+knGcr995B0ABCM9y9Wi+AA7iSpSZih39EFetfs94kIhEzBwsHsOJVFIUZwypb
+ Ee1FNzal/JFSBzmeOJh3VLQGaM+s9LZbD68Sz+RvAq30aBYzIiraJxcNzna+SaplP8h4
+ d48w==
+X-Gm-Message-State: AN3rC/512pdjPRAnocWswFblH3Nl445FHspcYsSWQ6XXYyfvo+aSu28Z
+ LDW9koc7z3Iybw==
+X-Received: by 10.84.230.229 with SMTP id e92mr39010972plk.2.1493705573669;
+ Mon, 01 May 2017 23:12:53 -0700 (PDT)
 Received: from aurora.jms.id.au ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id f131sm26639215pfc.54.2017.05.01.23.12.44
+ by smtp.gmail.com with ESMTPSA id y184sm23585793pgb.33.2017.05.01.23.12.50
  (version=TLS1 cipher=AES128-SHA bits=128/128);
- Mon, 01 May 2017 23:12:46 -0700 (PDT)
+ Mon, 01 May 2017 23:12:53 -0700 (PDT)
 Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
 Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Tue, 02 May 2017 15:42:41 +0930
+ Tue, 02 May 2017 15:42:47 +0930
 From: Joel Stanley <joel@jms.id.au>
 To: openbmc@lists.ozlabs.org
 Cc: Lei YU <mine260309@gmail.com>, Samuel Mendoza-Jonas <sam@mendozajonas.com>
-Subject: [PATCH linux dev-4.10 0/3] Enable Infineon IR35221
-Date: Tue,  2 May 2017 15:42:36 +0930
-Message-Id: <20170502061239.7677-1-joel@jms.id.au>
+Subject: [PATCH linux dev-4.10 1/3] ARM: dts: aspeed: romulus: Add Infineon
+ ir35221
+Date: Tue,  2 May 2017 15:42:37 +0930
+Message-Id: <20170502061239.7677-2-joel@jms.id.au>
 X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20170502061239.7677-1-joel@jms.id.au>
+References: <20170502061239.7677-1-joel@jms.id.au>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,24 +62,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 02 May 2017 06:12:50 -0000
+X-List-Received-Date: Tue, 02 May 2017 06:12:55 -0000
 
-This driver has been accepted upstream and backported to the 4.10 tree.
-These changes turn it on in the defconfig and add it to the device tree for
-Witherspoon and Romulus.
+The driver is not loaded at boot as the host must have power applied
+before they can be probed.
 
-I have tested on both of these platforms and the driver correctly probes for
-the i2c addresses.
+OpenBMC-Staging-Count: 1
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-Joel Stanley (3):
-  ARM: dts: aspeed: romulus: Add Infineon ir35221
-  ARM: dts: aspeed: witherspoon: Add Infineon ir35221
-  ARM: configs: aspeed_g5: Add Infineon IR35221
-
- arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     | 10 ++++++++++
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 10 ++++++++++
- arch/arm/configs/aspeed_g5_defconfig             |  1 +
- 3 files changed, 21 insertions(+)
-
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+index e70fc00b6d8d..07e8168fdf7f 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+@@ -134,6 +134,11 @@
+ 	 *  CPU0 VDDR A
+ 	 *  CPU0 VDDR B
+ 	 */
++	 hwmon@70 {
++		 compatible = "infineon,ir35221";
++		 reg = <0x70>;
++		 status = "disabled";
++	 };
+ };
+ 
+ &i2c5 {
+@@ -145,6 +150,11 @@
+ 	 *  CPU1 VDDR A
+ 	 *  CPU1 VDDR B
+ 	 */
++	 hwmon@70 {
++		 compatible = "infineon,ir35221";
++		 reg = <0x70>;
++		 status = "disabled";
++	 };
+ };
+ 
+ &i2c6 {
 -- 
 2.11.0
