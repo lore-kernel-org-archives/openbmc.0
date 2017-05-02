@@ -1,53 +1,53 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-pg0-x242.google.com (mail-pg0-x242.google.com
- [IPv6:2607:f8b0:400e:c05::242])
+Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
+ [IPv6:2607:f8b0:400e:c00::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wH9vC30gBzDqFG
- for <openbmc@lists.ozlabs.org>; Tue,  2 May 2017 16:12:55 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wH9vK4vQ2zDqGx
+ for <openbmc@lists.ozlabs.org>; Tue,  2 May 2017 16:13:01 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="qzySoYjF"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="B+OTVf7C"; 
  dkim-atps=neutral
-Received: by mail-pg0-x242.google.com with SMTP id v1so19377925pgv.3
- for <openbmc@lists.ozlabs.org>; Mon, 01 May 2017 23:12:55 -0700 (PDT)
+Received: by mail-pf0-x241.google.com with SMTP id g23so30736835pfj.1
+ for <openbmc@lists.ozlabs.org>; Mon, 01 May 2017 23:13:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=sender:from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=395hZPBKPcaTQp0zemRhC6o45HCNYxhVhMR6iFi6Uwg=;
- b=qzySoYjF2pT3TD/9Ef8VlD5imQo97gNHAUEs0jeRNvdijkIYmKcsBqTUjdKGCu5/e6
- 5c/Wukv95P6CXJLaRtxDpF//7VtwnHAWHCwri2I0oQoM8KacWIni7NT1gznPx8rtczQF
- 5Jh6lJrqSsU734EqEj+COcyMDxrQWicypBgtVJ0YdrilzBNDfGrT9qthOIqzNJmTy7TF
- vVTtiA6nlFUcbBwXS1br7gvt9KEdrkTLlK6CR/lbehFsPBShZm2aBy+VebEobzifjP/x
- zJXcB+c4c05EjKE+sE75jiZCn82DLD0hJ32vUl25RWKvwXrtTSxOm9rsiI+STLNSXpF0
- 1TCA==
+ bh=kJ5EcVejD/kRGYT2Q6DuO+yRtJQ8GvemS1eMAZ4uWPE=;
+ b=B+OTVf7CQYzwmIgF4cEZ213M2mYxh5N5FERd4BiUN6j04/ze/8MfykGEfNgWGwkrJx
+ gbUOmVO09rs9HomoSH3Do/Oj7MEqEaJvGLlwTPsjkkFupu7yLM8z+bNrJEyoQtD5dWC0
+ ovopbIm7jSW9lJC2vRMrFps7FWDSWf3UgA3mt8D0r5FltTrtof5AhsFXblBaSX1tOAZM
+ wWGrtNDUDdrLPPwTaqRqYJLE9nfrV6X8bp4tFWUBGur01b5+hM05c1ijx/OC56Ax8WYW
+ 490SQ7SPS91mi7P4EGp3gza0m1dDJLazX6oX3rM+ahrMFg/67p0HOGwO5UOkcrSKiSk3
+ CQSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
  :in-reply-to:references;
- bh=395hZPBKPcaTQp0zemRhC6o45HCNYxhVhMR6iFi6Uwg=;
- b=h7k3BWwECqKngUG/vt8/X3ZvzkqSUlBwH4mc0x7vQEH+A+mAym+3B+NkfSu/PhukIa
- 18XPyN0ZAtIRsnrumIRXVDHEb55XBI6qXX2OHOnvL4bRC8LcdqFgyenvfSYPQnz0GPbC
- SUX3YnLxBUHBp9tr76tYEjzD8JSiwZe8TjkWF11yZVqxjPus+E4QFH3pICY56KfxORYy
- K1Ic5v+knGcr995B0ABCM9y9Wi+AA7iSpSZih39EFetfs94kIhEzBwsHsOJVFIUZwypb
- Ee1FNzal/JFSBzmeOJh3VLQGaM+s9LZbD68Sz+RvAq30aBYzIiraJxcNzna+SaplP8h4
- d48w==
-X-Gm-Message-State: AN3rC/512pdjPRAnocWswFblH3Nl445FHspcYsSWQ6XXYyfvo+aSu28Z
- LDW9koc7z3Iybw==
-X-Received: by 10.84.230.229 with SMTP id e92mr39010972plk.2.1493705573669;
- Mon, 01 May 2017 23:12:53 -0700 (PDT)
+ bh=kJ5EcVejD/kRGYT2Q6DuO+yRtJQ8GvemS1eMAZ4uWPE=;
+ b=BXQEmHlcNsE9UnD3rNrLbBJvd64Kwmy0E23x0cJIvF6gsgiTxHcxRySp5cToIDQbhq
+ A48mon8vtDNWUZZ1KrveggmqBesoJlb6HUHXQmGUOVbvKGAv+HCymVNfYTzU2nT+j15a
+ TbORduw34Bn9wQSAZfyLavT1pMI9M9b9kHJRJZHPMULLA6GvaL98WssujgupeFwcL+FA
+ wANkYWFmOSlFsib/FyEaMVpXBtKXLkNeqiItTRmFiwc4onV4qDdb5+S6RAuZ4b11Fuh8
+ bvx1j+nUeag0P2TVm6KRSJjxdHgNfksjA04DJcAPJ/1OS29LdZbjC2lK+m+NQVyW9eFL
+ vZjQ==
+X-Gm-Message-State: AN3rC/45krrl7zQBOxvIY+wo0Km2Yfj7BmEwYQCv8Yz9Qut9RI8ooNcJ
+ xuOH38bcE6sNQQ==
+X-Received: by 10.98.104.4 with SMTP id d4mr30627613pfc.94.1493705579882;
+ Mon, 01 May 2017 23:12:59 -0700 (PDT)
 Received: from aurora.jms.id.au ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id y184sm23585793pgb.33.2017.05.01.23.12.50
+ by smtp.gmail.com with ESMTPSA id s10sm27322723pfe.28.2017.05.01.23.12.56
  (version=TLS1 cipher=AES128-SHA bits=128/128);
- Mon, 01 May 2017 23:12:53 -0700 (PDT)
+ Mon, 01 May 2017 23:12:59 -0700 (PDT)
 Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
 Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Tue, 02 May 2017 15:42:47 +0930
+ Tue, 02 May 2017 15:42:54 +0930
 From: Joel Stanley <joel@jms.id.au>
 To: openbmc@lists.ozlabs.org
 Cc: Lei YU <mine260309@gmail.com>, Samuel Mendoza-Jonas <sam@mendozajonas.com>
-Subject: [PATCH linux dev-4.10 1/3] ARM: dts: aspeed: romulus: Add Infineon
- ir35221
-Date: Tue,  2 May 2017 15:42:37 +0930
-Message-Id: <20170502061239.7677-2-joel@jms.id.au>
+Subject: [PATCH linux dev-4.10 2/3] ARM: dts: aspeed: witherspoon: Add
+ Infineon ir35221
+Date: Tue,  2 May 2017 15:42:38 +0930
+Message-Id: <20170502061239.7677-3-joel@jms.id.au>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20170502061239.7677-1-joel@jms.id.au>
 References: <20170502061239.7677-1-joel@jms.id.au>
@@ -62,44 +62,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 02 May 2017 06:12:55 -0000
+X-List-Received-Date: Tue, 02 May 2017 06:13:02 -0000
 
-The driver is not loaded at boot as the host must have power applied
-before they can be probed.
-
-OpenBMC-Staging-Count: 1
 Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
- arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 10 ++++++++++
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 10 ++++++++++
  1 file changed, 10 insertions(+)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-index e70fc00b6d8d..07e8168fdf7f 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-@@ -134,6 +134,11 @@
- 	 *  CPU0 VDDR A
- 	 *  CPU0 VDDR B
- 	 */
-+	 hwmon@70 {
-+		 compatible = "infineon,ir35221";
-+		 reg = <0x70>;
-+		 status = "disabled";
-+	 };
- };
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index f20aaf48614d..31da60f8ff49 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -209,6 +209,11 @@
+ 	/* CP1 VDD & VCS */
+ 	/* CP1 VIO */
  
- &i2c5 {
-@@ -145,6 +150,11 @@
- 	 *  CPU1 VDDR A
- 	 *  CPU1 VDDR B
- 	 */
-+	 hwmon@70 {
-+		 compatible = "infineon,ir35221";
-+		 reg = <0x70>;
-+		 status = "disabled";
-+	 };
- };
++	hwmon@70 {
++		compatible = "infineon,ir35221";
++		reg = <0x70>;
++	};
++
+ 	tmp423a@4c {
+ 		compatible = "ti,tmp423";
+ 		reg = <0x4c>;
+@@ -223,6 +228,11 @@
+ 	/* CP1 VDD & VCS */
+ 	/* CP1 VIO */
  
- &i2c6 {
++	hwmon@70 {
++		compatible = "infineon,ir35221";
++		reg = <0x70>;
++	};
++
+ 	tmp423a@4c {
+ 		compatible = "ti,tmp423";
+ 		reg = <0x4c>;
 -- 
 2.11.0
