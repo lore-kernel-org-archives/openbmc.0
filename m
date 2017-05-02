@@ -3,54 +3,54 @@ Received: from mail-yb0-x241.google.com (mail-yb0-x241.google.com
  [IPv6:2607:f8b0:4002:c09::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wHC8j5s3MzDqBQ
- for <openbmc@lists.ozlabs.org>; Tue,  2 May 2017 17:09:41 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wHCBN1MxkzDqBQ
+ for <openbmc@lists.ozlabs.org>; Tue,  2 May 2017 17:11:07 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="AlnolYJO"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="gvVsoXYP"; 
  dkim-atps=neutral
-Received: by mail-yb0-x241.google.com with SMTP id l192so5642510ybl.1
- for <openbmc@lists.ozlabs.org>; Tue, 02 May 2017 00:09:41 -0700 (PDT)
+Received: by mail-yb0-x241.google.com with SMTP id l192so5643585ybl.1
+ for <openbmc@lists.ozlabs.org>; Tue, 02 May 2017 00:11:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=WcWDk36ZczHjAkdwDxe+HveAGc+gfzt0INX2MyOX9ww=;
- b=AlnolYJOd4UXcTkasCZRNcCMus/AhXSiFMVdyzMkp13pHJkTiYskeeaqxgnR9T4/Ti
- Vv1AAMVfHWFLLg85Jbd8zVOYK/7d0VR24ihqTWu+mGZCcNkNvXkC7PBBRydKQ6J7qY/U
- 3j0gIDsReh1VO7IgOyWQf3HOfiLNTGxUcZH4GO4LquEVyvWi6ZQhI8Ia2GOKULpYUN4v
- zY0XeOs9RucqksEdfoDh4I5GICY7nTL3+Ay9+BEIaD5KrbsTybdO+/l3vhFTWroSBcpw
- qqK6Ybrxs4L5Bcqh1eI+ib1gfXnVC0xK489iMJj1SEwNfQLWY8POdBxfE7WG48+G0KDN
- Dyyw==
+ bh=qE1Ia++9DE+NHpqoIea8JbddWndPxqTwZO4HMah/WwY=;
+ b=gvVsoXYPEzJgVwfITtAM5SVzjN4dCosV65LFzdzYbc1u8Ge9SLJJUXoN92OkJPaqlo
+ oE7TiJ+0HwnqixViF0jx6w3ehSdAglZhIxDAk9rw5J7P86drj+Fam5dXez7nJquwkrlW
+ IhxU+zmkcQx8PWSVvLYylmlIrlvJqdOKBnhqDxK6QIRD5QDA5PCd4QMGnnsi1YJbv1rv
+ 2/4CmEzPT13sA08k8cL+R1t83XOklN8YGRX1K0RlUm80L7njeqnB5LlTYaIb5UWWsX/I
+ +EcWfJz2HYPWFqtfP/GpDf/3TU4mY/Xyp+yFa+JHZ9xCigmWqamfrxjTYG5R4LQrB6jH
+ v4Sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=WcWDk36ZczHjAkdwDxe+HveAGc+gfzt0INX2MyOX9ww=;
- b=IeempqygeRHortD/jA6NY6gUi03e995w/NgH+bdaxFME7UvIPSaAZDslMONSxJ5WcV
- hLT3WN8AFl2l5/EAH2IFAmEbmvdLPJSOqV25i36ROGfcJA7hPrJJWwneI8hlnhgmVWEN
- v2mi5L91snEq+ClNhVEg17PAQ1pLjzcuBSid+hYEuK2C/GJ2OiU/iBW49yU90hVko3n0
- R5j9HbpaVHI+P9x/OHVxtu9yX/No90b2B7JI1HjfMSfu3rXnRg3N08WX6WmuYA88bJhc
- vxYqJSZaQkDO9HuFhfcWiLj7Akpj04qqRsolAm4CQPZMoTESU7YQMAJH8gHOXe4mb+RR
- 2pZA==
-X-Gm-Message-State: AN3rC/4gH1+zBgVHNJwiS/Noo2xkw4v/6XxZJcy5FobD/uQsShf3vhaK
- I14tk70FAiOQk9NzVL/GG86vizp7Og==
-X-Received: by 10.37.31.193 with SMTP id f184mr23628897ybf.25.1493708979450;
- Tue, 02 May 2017 00:09:39 -0700 (PDT)
+ bh=qE1Ia++9DE+NHpqoIea8JbddWndPxqTwZO4HMah/WwY=;
+ b=uLqq94PJMUSrYeEVVuHUp600Btc19kH5J1Oyi++2bLzBfqZM412wN8bkpnA4FplHhj
+ dfOs19NZcQ74i6KcgUTu6oatPi3de+8MLjzFJMInLpc241s9g+kf9qfPIMQCgue8QHKt
+ LyqwB2kEDE/lSPY01j8FiLDix65fZgJiTkBC+VQZ4ReMAjazvaQVaCaj2VuJxUsOolTw
+ eiGArR7iOA4zzeUox2Kc2GTK9ytOfuJ4SdXuYyCOuhcIuwfpBKp6yxzSclap5tE7aAUX
+ rvxUHIFNN6dULaMF1BXr6iVtW3+xBaIXgqm+gaZRNmdik6PKJxjHhgosblmFZS1aUqqk
+ ogow==
+X-Gm-Message-State: AN3rC/7LyweVTUkIyzVPL5HkuXZEclrAtbwwmjf9dEMrFA2TPAd2zEy9
+ OB90Vbl+Pr4Gq6sZIs/DJVjhYO7Ihw==
+X-Received: by 10.37.219.20 with SMTP id g20mr23612633ybf.135.1493709065444;
+ Tue, 02 May 2017 00:11:05 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.171.70 with HTTP; Tue, 2 May 2017 00:09:18 -0700 (PDT)
-In-Reply-To: <1493417524.77601.959872576.42A9BAE9@webmail.messagingengine.com>
+Received: by 10.37.171.70 with HTTP; Tue, 2 May 2017 00:10:44 -0700 (PDT)
+In-Reply-To: <CAPH-5w5Ykq=7WFukmtrp7_Z+ZzAbYMU1bQZhJ26K9BqJWA1zTA@mail.gmail.com>
 References: <20170428071043.1355-1-andrew@aj.id.au>
- <20170428071043.1355-4-andrew@aj.id.au>
- <CAPH-5w4UOPOLhwduFByg0JcFJyKYoY04TRd5dMACdpg7OFy5fQ@mail.gmail.com>
- <1493417524.77601.959872576.42A9BAE9@webmail.messagingengine.com>
+ <20170428071043.1355-12-andrew@aj.id.au>
+ <CAPH-5w5Ykq=7WFukmtrp7_Z+ZzAbYMU1bQZhJ26K9BqJWA1zTA@mail.gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 2 May 2017 16:39:18 +0930
-X-Google-Sender-Auth: BShwT8LJ6xa7owk9PQ4tt2Ki3ao
-Message-ID: <CACPK8XcjPhaR5Av-KZwFQ_D3qDrNeocjnL=rPt9KymBOJ_9W1Q@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 v2 03/11] aspeed: dt: Add clocks property
- to GPIO node
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Xo Wang <xow@google.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+Date: Tue, 2 May 2017 16:40:44 +0930
+X-Google-Sender-Auth: TudhhSx3HHM4jx6olPSj6YIFuIM
+Message-ID: <CACPK8XftiHpuSzjgk996+QTnSMKcsEKpm--6UDr6bn7iH5=WbQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v2 11/11] aspeed: zaius: Disable GPIO bias
+ via devicetree pinconf requests
+To: Xo Wang <xow@google.com>
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
  =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, Mine <mine260309@gmail.com>, 
  Rick Altherr <raltherr@google.com>
 Content-Type: text/plain; charset=UTF-8
@@ -65,30 +65,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 02 May 2017 07:09:42 -0000
+X-List-Received-Date: Tue, 02 May 2017 07:11:08 -0000
 
-On Sat, Apr 29, 2017 at 7:42 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+On Sat, Apr 29, 2017 at 6:03 AM, Xo Wang <xow@google.com> wrote:
+> On Fri, Apr 28, 2017 at 12:10 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+>> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 >
+> +OpenBMC list
 >
-> On Sat, Apr 29, 2017, at 06:00, Xo Wang wrote:
->> On Fri, Apr 28, 2017 at 12:10 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
->> > This enables debouncing of GPIOs as requested by drivers.
->> >
->> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-
->>
->> Does this fix any particular bug?
->
-> No, no bug,  it's a new optional property for the controller so the
-> driver can derive debounce values, which are specified to the hardware
-> in hpll clock cycles.
->
->>
->> Reviewed-by: Xo Wang <xow@google.com>
->
-> Cheers,
->
-> Andrew
+> Reviewed-by: Xo Wang <xow@google.com>
 
 Applied to dev-4.10.
 
