@@ -1,25 +1,58 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <sjitindarsingh@gmail.com>
+Received: from mail-pf0-x243.google.com (mail-pf0-x243.google.com
+ [IPv6:2607:f8b0:400e:c00::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wHj3C3Ld1zDq7Z
- for <openbmc@lists.ozlabs.org>; Wed,  3 May 2017 12:36:39 +1000 (AEST)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Sender: bradleyb@fuzziesquirrel.com
-Content-Type: text/plain; charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: Re: [PATCH RFC] Documentation/devicetree: Add specification for FSI
- busses
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <1493704508-27119-1-git-send-email-jk@ozlabs.org>
-Date: Tue, 2 May 2017 22:36:34 -0400
-Cc: devicetree@vger.kernel.org,
- openbmc@lists.ozlabs.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <6AE33BFA-636B-4131-ABFC-3A8DC40F80DD@fuzziesquirrel.com>
-References: <1493704508-27119-1-git-send-email-jk@ozlabs.org>
-To: Jeremy Kerr <jk@ozlabs.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wHrH11JYszDqBH
+ for <openbmc@lists.ozlabs.org>; Wed,  3 May 2017 18:02:21 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="aEh+d3gq"; 
+ dkim-atps=neutral
+Received: by mail-pf0-x243.google.com with SMTP id d1so112623pfe.1
+ for <openbmc@lists.ozlabs.org>; Wed, 03 May 2017 01:02:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=message-id:subject:from:to:cc:date:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=8FSTeL8EbH36Jb/vL2Nv601bcVxTsL3eozSL5vYD+Xw=;
+ b=aEh+d3gq2nrvoHB0HHltgV+rRspFtKqF6XdpfKDPGwz/6w3Bpw+DDa497g6xi495Wv
+ MKTCS3ekbcp4yuIkldBNdOlityswVZ83YzY897etrtPn2j4SkXpho8Zv37MDJi1aAmhM
+ 3PpeBf1SYNLmGntkwCGVX/pK32hzSE9oxItuHrn9bTJuFoXosu2mBzhloPTSgVdJos8z
+ KWkT/g59OA4TBPLU1f42rSZ4CjAkSsxbb4nmeBDaVYOgFBidnH0vkDt7+IGXQy/IjMz+
+ JR6cQrfnPrmcZlMZ0i5QEWldgJljV3m0TzRnFLD7DgImcv+Nrf3UtORX0heVFEItTL15
+ SDfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=8FSTeL8EbH36Jb/vL2Nv601bcVxTsL3eozSL5vYD+Xw=;
+ b=Xa2emFwFc+79psiPOPNy1DSTxcCr5sSVXjmfoCKZu+lPSJnLH7aVBJlmhdJSxnhI1r
+ SJ3eiBD0EmYf6FTnrkVrfrIKYHGQlK1Vk/kx3c6kNaBC5Cl5JQcgtA3bwQWirhd8t/Mj
+ xO6/c19Ir2IHpoO8pnr5ErPygSBsqAaIvDqLhZivpfCRF47iSZp1N32RdqVyEVD2Dd2c
+ 7CfmSY2mqLlTT1RqvvNVXNe1jUi5zuRzSV8PdKbygelPShL4flgQAStzbiSSzImbYEcM
+ GR6Tak/CH46jc+4Qukh/OswoE9nVfmLAdgF9IamD16YnXUVhIu+2NYRpGDVkN8XLdmtC
+ VWDw==
+X-Gm-Message-State: AN3rC/6q+In3gX5k9TQb6A2DedjAUp9WNQk0RWegEqZsV/cOOl7ucz+g
+ 3LdV9F70tcVJSA==
+X-Received: by 10.98.35.10 with SMTP id j10mr3316325pfj.23.1493798539193;
+ Wed, 03 May 2017 01:02:19 -0700 (PDT)
+Received: from surajjs.ozlabs.ibm.com ([122.99.82.10])
+ by smtp.googlemail.com with ESMTPSA id h7sm3708216pfc.99.2017.05.03.01.02.15
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Wed, 03 May 2017 01:02:17 -0700 (PDT)
+Message-ID: <1493798532.2039.4.camel@gmail.com>
+Subject: Re: [PATCH v2] drivers/mailbox: Add Aspeed mailbox driver
+From: Suraj Jitindar Singh <sjitindarsingh@gmail.com>
+To: Jassi Brar <jassisinghbrar@gmail.com>
+Cc: Joel Stanley <joel@jms.id.au>, Cyril Bur <cyrilbur@gmail.com>, 
+ linux-kernel@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Wed, 03 May 2017 18:02:12 +1000
+In-Reply-To: <CACPK8XcELMZT+e1Q-uYK7SFb3QtihvhG8Ot_+QmT3z808oW0JA@mail.gmail.com>
+References: <20170207233623.18737-1-cyrilbur@gmail.com>
+ <CACPK8XcELMZT+e1Q-uYK7SFb3QtihvhG8Ot_+QmT3z808oW0JA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.18.5.2 (3.18.5.2-1.fc23) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -31,229 +64,106 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 03 May 2017 02:36:40 -0000
+X-List-Received-Date: Wed, 03 May 2017 08:02:21 -0000
 
+***PING***
 
-> On May 2, 2017, at 1:55 AM, Jeremy Kerr <jk@ozlabs.org> wrote:
->=20
-> This change introduces a proposed layout for describing FSI busses in
-> the device tree. While the bus is probe-able, we'd still like a method
-> of describing subordinate (eg i2c) busses that are behind FSI devices.
->=20
-> The FSI core will be responsible for matching probed slaves & engines =
-to
-> their device tree nodes, so the FSI device drivers' probe() functions
-> will be passed a struct device with the appropriate of_node populated
-> where a matching DT node is found.
->=20
-> RFC at this stage, so I'd welcome any feedback.
->=20
-> Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
+Are there any comments on this stopping it going upstream?
 
-Acked-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Do we think this would better belong in /drivers/misc rather than as a
+mailbox driver?
 
-with some very inconsequential nits...
+Looking to get some discussion going and this moving along :)
 
-> ---
-> Documentation/devicetree/bindings/fsi/fsi.txt | 144 =
-++++++++++++++++++++++++++
-> 1 file changed, 144 insertions(+)
-> create mode 100644 Documentation/devicetree/bindings/fsi/fsi.txt
->=20
-> diff --git a/Documentation/devicetree/bindings/fsi/fsi.txt =
-b/Documentation/devicetree/bindings/fsi/fsi.txt
-> new file mode 100644
-> index 0000000..b5e85c7
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/fsi/fsi.txt
-> @@ -0,0 +1,144 @@
-> +FSI bus & engine generic device tree bindings
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +The FSI bus is probe-able, so Linux is able to enumerate FSI slaves, =
-and
-> +engines within those slaves. However, we have a facility to match =
-devicetree
-> +nodes to probed engines. This allows for fsi engines to expose =
-non-probeable
-> +busses, which are then exposed by the device tree. For example, a FSI =
-engine
-> +that is an I2C master - the I2C bus can be described by the device =
-tree under
-> +the engine's device tree node.
-> +
-> +FSI masters may require their own DT nodes (to describe the master HW =
-itself);
-> +that requirement is defined by the master's implementation, and is =
-described by
-> +the fsi-master-* binding specifications.
-> +
-> +Under the masters' nodes, we can describe the bus topology using =
-nodes to
-> +represent the FSI slaves and their slave engines. As a basic outline:
-> +
-> +  fsi-master {
+Suraj
 
-an FSI master
-
-> +      /* top-level of FSI bus topology, bound to a FSI master driver =
-and
-> +       * exposes a FSI bus */
-
-an FSI bus
-
-> +
-> +      fsi-slave@<link,id> {
-> +          /* this node defines the FSI slave device, and is handled
-> +           * entirely with FSI core code */
-> +
-> +          fsi-slave-engine@<addr> {
-> +              /* this node defines the engine endpoint & address =
-range, which
-> +               * is bound to the relevant fsi device driver */
-> +               ...
-> +          };
-> +
-> +          fsi-slave-engine@<addr> {
-> +              ...
-> +          };
-> +
-> +      };
-> +  };
-> +
-> +Note that since the bus is probe-able, some (or all) of the topology =
-may
-> +not be described; this binding only provides an optional facility for
-> +adding subordinate device tree nodes as children of FSI engines.
-> +
-> +FSI masters
-> +-----------
-> +
-> +FSI master nodes declare themselves as such with the "fsi-master" =
-compatible
-> +value. It's likely that an implementation-specific compatible value =
-will
-> +be needed as well, for example:
-> +
-> +    compatible =3D "fsi-master-gpio", "fsi-master";
-> +
-> +Since the master nodes describe the top-level of the FSI topology, =
-they also
-> +need to declare the FSI-standard addressing scheme. This requires two =
-cells for
-> +addresses (link index and slave ID), and no size:
-> +
-> +    #address-cells =3D <2>;
-> +    #size-cells =3D <0>;
-> +
-> +FSI slaves
-> +----------
-> +
-> +Slaves are identified by a (link-index, slave-id) pair, so require =
-two cells
-> +for an address identifier. Since these are not a range, no size cells =
-are
-> +required. For an example, a slave on link 1, with ID 2, could be =
-represented
-> +as:
-> +
-> +    cfam@1,2 {
-> +        reg =3D <1 2>;
-> +	[...];
-> +    }
-> +
-> +Each slave provides an address-space, under which the engines are =
-accessible.
-> +That address space has a maximum of 23 bits, so we use one cell to =
-represent
-> +addresses and sizes in the slave address space:
-> +
-> +    #address-cells =3D <1>;
-> +    #size-cells =3D <1>;
-> +
-> +
-> +FSI engines (devices)
-> +---------------------
-> +
-> +Engines are identified by their address under the slaves' address =
-spaces. We
-> +use a single cell for address and size. Engine nodes represent the =
-endpoint
-> +FSI device, and are passed to those FSI device drivers' ->probe() =
-functions.
-> +
-> +For example, for a slave using a single 0x400-byte page starting at =
-address
-> +0xc00:
-> +
-> +    engine@c00 {
-> +        reg =3D <0xc00 0x400>;
-> +    };
-> +
-> +
-> +Full example
-> +------------
-> +
-> +Here's an example that illustrates:
-> + - a FSI master
-
-an FSI master
-
-> +   - connected to a FSI slave
-
-an FSI slave
-
-> +     - that contains an engine that is an I2C master
-> +       - connected to an I2C EEPROM
-> +
-> +The FSI master may be connected to additional slaves, and slaves may =
-have
-> +additional engines, but they don't necessarily need to be describe in =
-the
-> +device tree if no extra platform information is required.
-> +
-> +    /* The GPIO-based FSI master node, describing the top level of =
-the
-> +     * FSI bus
-> +     */
-> +    gpio-fsi {
-> +        compatible =3D "fsi-master-gpio", "fsi-master";
-> +        #address-cells =3D <2>;
-> +        #size-cells =3D <0>;
-> +
-> +        /* A FSI slave (aka. CFAM) at link 0, ID 0. */
-> +        cfam@0,0 {
-> +            reg =3D <0 0>;
-> +            #address-cells =3D <1>;
-> +            #size-cells =3D <1>;
-> +
-> +            /* FSI engine at 0xc00, using a single page. In this =
-example,
-> +             * it's an I2C master controller, so subnodes describe =
-the
-> +             * I2C bus.
-> +             */
-> +            i2c-controller@c00 {
-> +                reg =3D <0xc00 0x400>;
-> +
-> +                /* Engine-specific data. In this case, we're =
-describing an
-> +                 * I2C bus, so we're conforming to the generic I2C =
-binding
-> +                 */
-> +                compatible =3D "ibm,fsi-i2c";
-> +                #address-cells =3D <1>;
-> +                #size-cells =3D <1>;
-> +
-> +                /* I2C endpoint device: an Atmel EEPROM */
-> +                eeprom@50 {
-> +                    compatible =3D "atmel,24c256";
-> +                    reg =3D <0x50>;
-> +                    pagesize =3D <64>;
-> +                };
-> +            };
-> +        };
-> +    };
-> --=20
-> 2.7.4
+On Thu, 2017-02-09 at 15:09 +1030, Joel Stanley wrote:
+> On Wed, Feb 8, 2017 at 10:06 AM, Cyril Bur <cyrilbur@gmail.com>
+> wrote:
+> > 
+> > This provides access to the mbox registers on the ast2400 and
+> > ast2500
+> > SoCs.
+> > 
+> > This driver allows arbitrary reads and writes to the 16 data
+> > registers as
+> > the other end may have configured the mbox hardware to provide an
+> > interrupt when a specific register gets written to.
+> > 
+> > Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
+> > ---
+> > V2:
+> >    s/ASpeed/Aspeed/
+> >    Reword Kconfig options
+> >    Use tristate for config symbol
+> > 
+> >  drivers/mailbox/Kconfig       |   8 +
+> >  drivers/mailbox/Makefile      |   2 +
+> >  drivers/mailbox/aspeed-mbox.c | 334
+> > ++++++++++++++++++++++++++++++++++++++++++
+> >  3 files changed, 344 insertions(+)
+> >  create mode 100644 drivers/mailbox/aspeed-mbox.c
+> > 
+> > diff --git a/drivers/mailbox/Kconfig b/drivers/mailbox/Kconfig
+> > index ceff415f201c..e24044d5c219 100644
+> > --- a/drivers/mailbox/Kconfig
+> > +++ b/drivers/mailbox/Kconfig
+> > @@ -152,4 +152,12 @@ config BCM_PDC_MBOX
+> >           Mailbox implementation for the Broadcom PDC ring manager,
+> >           which provides access to various offload engines on
+> > Broadcom
+> >           SoCs. Say Y here if you want to use the Broadcom PDC.
+> > +
+> > +config ASPEED_LPC_MBOX
+> > +       depends on (ARCH_ASPEED || COMPILE_TEST) && REGMAP &&
+> > MFD_SYSCON
+> > +       tristate "Aspeed LPC Mailbox Controller"
+> > +       ---help---
+> > +         Provides a driver for the MBOX registers found on Aspeed
+> > SOCs
+> > +         (AST2400 and AST2500). This driver provides a device for
+> > aspeed
+> > +         mbox registers
+> You repeat yourself.
+> 
+> Mention that this driver is for the the BMC side.
+> 
+> > 
+> > diff --git a/drivers/mailbox/aspeed-mbox.c
+> > b/drivers/mailbox/aspeed-mbox.c
+> > 
+> > +static int aspeed_mbox_probe(struct platform_device *pdev)
+> > +{
+> > +       struct aspeed_mbox *mbox;
+> > +       struct device *dev;
+> > +       int rc;
+> > +
+> > +       dev = &pdev->dev;
+> > +
+> > +       mbox = devm_kzalloc(dev, sizeof(*mbox), GFP_KERNEL);
+> > +       if (!mbox)
+> > +               return -ENOMEM;
+> > +
+> > +       dev_set_drvdata(&pdev->dev, mbox);
+> > +
+> > +       rc = of_property_read_u32(dev->of_node, "reg", &mbox-
+> > >base);
+> > +       if (rc) {
+> > +               dev_err(dev, "Couldn't read reg device-tree
+> > property\n");
+> > +               return rc;
+> > +       }
+> I think we want to use of_address_to_resource here.
+> 
+> > 
+> > +
+> > +static const struct of_device_id aspeed_mbox_match[] = {
+> > +       { .compatible = "aspeed,ast2400-mbox" },
+> > +       { .compatible = "aspeed,ast2500-mbox" },
+> > +       { },
+> I didn't see the bindings in this series. Have they already been
+> accepted?
+> 
+> Cheers,
+> 
+> Joel
