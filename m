@@ -1,55 +1,25 @@
-Return-Path: <venture@google.com>
-Received: from mail-pf0-x22b.google.com (mail-pf0-x22b.google.com
- [IPv6:2607:f8b0:400e:c00::22b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <bradleyb@fuzziesquirrel.com>
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wHZKr2vdWzDq9m
- for <openbmc@lists.ozlabs.org>; Wed,  3 May 2017 07:33:51 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="twpnCKCd"; 
- dkim-atps=neutral
-Received: by mail-pf0-x22b.google.com with SMTP id e64so3039581pfd.1
- for <openbmc@lists.ozlabs.org>; Tue, 02 May 2017 14:33:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=bl2hF36iRKqsw9icYCQLOyWxDHI6kwBHzpsILPabS+c=;
- b=twpnCKCdlzReGtO2b2ShCFq9cgtY9qKXSV+NJ2znIEuUJdq9qPqEBcZoYt/cU+hilQ
- a8LbEieuj57O8/ZtZdD90xb1LEhwZ7U6G92WhYg/waF4E1Na541/uz7wvM1biyXZ5sF/
- DBb0FWWZsFiuJjbke4XwVcfcjMc/k6IH9gf3YxzMDeKFSCSsiXc0byjmVzrS93k22gEL
- pIcmWfdSvzwyBN18eVpfv95LdtEZ6sidbFrT/v6Xt83TnpzNXXihRlUCYUVQoPMLPYuK
- EYWQQnCn8WDIRQRIQWYDVRtyP6Yg7p9xmbULUJtI+HIOEEzV5kaT8+MnXwnMf8G5XGvs
- HhEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=bl2hF36iRKqsw9icYCQLOyWxDHI6kwBHzpsILPabS+c=;
- b=TFOC8T776bvLz7y7SVIoD97ah/ntGoyhITbeDfF6CQ5DDgCVmu21wjPI/6o9wKMB8Z
- /DK6LwqsqXqVumVbsuGQh7P4rxDgN6DMVrHJcYvNvDPPUVQJ3w1ToQf0J6vS1TDxjtnY
- rGJ+AnJFivgFrVQPAm21w2CF/iw900FpuAzaeFwfscrv4rO+0PKX8ewquM9IxOR5RCq/
- DDjwZwMvqTP4frU8/Zkxn69r+XNaO1mdcI0h8E3IHDMfzxWYPe5o285cayEbWJiU8f37
- eoiPxxy/tcdPoCPwFQOpc3Y6kG/HX/mOtejCquvqkQACM37TZB0Hax9B7MofQcacZ9LD
- E1kg==
-X-Gm-Message-State: AN3rC/6lN636Z6f78v9CLPQCvWhrYjBbjwIVPwFLgyPivQFN00G2ohlo
- ngLbeGQDSGnLay6FMF4A+Tso1j0v6c0gv4baBg==
-X-Received: by 10.99.127.26 with SMTP id a26mr34925392pgd.196.1493760828321;
- Tue, 02 May 2017 14:33:48 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.100.166.133 with HTTP; Tue, 2 May 2017 14:33:27 -0700 (PDT)
-In-Reply-To: <4f971554-1f33-c7ab-c0b5-3105c3505083@linux.vnet.ibm.com>
-References: <CAO=notwmuHO91eentG60W012rnQXtAybuTPqo+_EbY426eOwSA@mail.gmail.com>
- <20170418023159.GA25774@heinlein.lan>
- <CAO=notww5QJUuMpc8qYxey+AH4mvi6eb+VXs=dqzvAyP9P1y0Q@mail.gmail.com>
- <290c826d-da59-2bed-ecee-7aa1f778ab71@linux.vnet.ibm.com>
- <CAO=notw3p5KJNRsvcqs74Sw9D24JSLmgPhuERtNtyTQNd3Pung@mail.gmail.com>
- <4f971554-1f33-c7ab-c0b5-3105c3505083@linux.vnet.ibm.com>
-From: Patrick Venture <venture@google.com>
-Date: Tue, 2 May 2017 14:33:27 -0700
-Message-ID: <CAO=notyO9vNR-QcbUFMHhdw+EB64k0x-fM4ycwxF7G_Ck_xUiA@mail.gmail.com>
-Subject: Re: OpenBMC Thermal Design
-To: Matthew Barth <msbarth@linux.vnet.ibm.com>
-Cc: Patrick Williams <patrick@stwcx.xyz>, openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary=94eb2c1b4c348d94c7054e914b93
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wHj3C3Ld1zDq7Z
+ for <openbmc@lists.ozlabs.org>; Wed,  3 May 2017 12:36:39 +1000 (AEST)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Sender: bradleyb@fuzziesquirrel.com
+Content-Type: text/plain; charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: Re: [PATCH RFC] Documentation/devicetree: Add specification for FSI
+ busses
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <1493704508-27119-1-git-send-email-jk@ozlabs.org>
+Date: Tue, 2 May 2017 22:36:34 -0400
+Cc: devicetree@vger.kernel.org,
+ openbmc@lists.ozlabs.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <6AE33BFA-636B-4131-ABFC-3A8DC40F80DD@fuzziesquirrel.com>
+References: <1493704508-27119-1-git-send-email-jk@ozlabs.org>
+To: Jeremy Kerr <jk@ozlabs.org>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,178 +31,229 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 02 May 2017 21:33:53 -0000
+X-List-Received-Date: Wed, 03 May 2017 02:36:40 -0000
 
---94eb2c1b4c348d94c7054e914b93
-Content-Type: text/plain; charset=UTF-8
 
-Fantastic!  Thanks for elaborating.
+> On May 2, 2017, at 1:55 AM, Jeremy Kerr <jk@ozlabs.org> wrote:
+>=20
+> This change introduces a proposed layout for describing FSI busses in
+> the device tree. While the bus is probe-able, we'd still like a method
+> of describing subordinate (eg i2c) busses that are behind FSI devices.
+>=20
+> The FSI core will be responsible for matching probed slaves & engines =
+to
+> their device tree nodes, so the FSI device drivers' probe() functions
+> will be passed a struct device with the appropriate of_node populated
+> where a matching DT node is found.
+>=20
+> RFC at this stage, so I'd welcome any feedback.
+>=20
+> Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
 
->> Please elaborate on how the control program will execute it's
-"pluggable" algorithm?
-> Filling out the associated yaml file for the control application defines
-how the algorithm will control the fan speeds based on the values, sensors
-listed, delays, etc.. that will be supported as parameter inputs to the
-algorithm.
+Acked-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
-What do you mean by "delays?"
+with some very inconsequential nits...
 
-Patrick
+> ---
+> Documentation/devicetree/bindings/fsi/fsi.txt | 144 =
+++++++++++++++++++++++++++
+> 1 file changed, 144 insertions(+)
+> create mode 100644 Documentation/devicetree/bindings/fsi/fsi.txt
+>=20
+> diff --git a/Documentation/devicetree/bindings/fsi/fsi.txt =
+b/Documentation/devicetree/bindings/fsi/fsi.txt
+> new file mode 100644
+> index 0000000..b5e85c7
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/fsi/fsi.txt
+> @@ -0,0 +1,144 @@
+> +FSI bus & engine generic device tree bindings
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +The FSI bus is probe-able, so Linux is able to enumerate FSI slaves, =
+and
+> +engines within those slaves. However, we have a facility to match =
+devicetree
+> +nodes to probed engines. This allows for fsi engines to expose =
+non-probeable
+> +busses, which are then exposed by the device tree. For example, a FSI =
+engine
+> +that is an I2C master - the I2C bus can be described by the device =
+tree under
+> +the engine's device tree node.
+> +
+> +FSI masters may require their own DT nodes (to describe the master HW =
+itself);
+> +that requirement is defined by the master's implementation, and is =
+described by
+> +the fsi-master-* binding specifications.
+> +
+> +Under the masters' nodes, we can describe the bus topology using =
+nodes to
+> +represent the FSI slaves and their slave engines. As a basic outline:
+> +
+> +  fsi-master {
 
-On Tue, May 2, 2017 at 2:21 PM, Matthew Barth <msbarth@linux.vnet.ibm.com>
-wrote:
+an FSI master
 
-> On 05/02/17 2:33 PM, Patrick Venture wrote:
->
-> Please elaborate on the format or layout of the control configuration file.
->
-> This will be a yaml file containing the zone and fan definitions with the
-> associated set of parameters that feed into the control algorithm.
-> Currently this contains the zone number, the zone initial speed, and the
-> list of fans(including their inventory path, sensor name, etc...).
->
-> Please elaborate on the mechanism planned to import it into code?  Y'all
-> often use python programs to make c++, will that be the case here?
->
-> Correct, that will be the case here as well.
->
-> Please elaborate on how the control program will execute it's "pluggable"
-> algorithm?
->
-> Filling out the associated yaml file for the control application defines
-> how the algorithm will control the fan speeds based on the values, sensors
-> listed, delays, etc.. that will be supported as parameter inputs to the
-> algorithm.
->
-> Please elaborate on how the fans will be controlled?  Will that be as a
-> group per system or independently per zone?
->
-> This will be configurable by the yaml file where the fan speeds are set on
-> the zone, which a zone is a group of fans. These zones can be constructed
-> as 1-to-many fans enabling individual fans being controlled or a group of
-> fans being controlled similarly.
->
->   -- What is a zone?
->
-> A grouping of fans
->
->
-> Patrick
->
-> On Tue, May 2, 2017 at 11:07 AM, Matthew Barth <msbarth@linux.vnet.ibm.com
-> > wrote:
->
->> Patrick,
->>
->> As Patrick mentioned a few of us have been working on the fan control
->> infrastructure currently and wrote up a quick outline to share our thoughts
->> on the design layout. Let us know if there are areas you'd like to see more
->> detail.
->>
->> Matt
->>
->
->
->
+> +      /* top-level of FSI bus topology, bound to a FSI master driver =
+and
+> +       * exposes a FSI bus */
 
---94eb2c1b4c348d94c7054e914b93
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+an FSI bus
 
-<div dir=3D"ltr">Fantastic!=C2=A0 Thanks for elaborating.<div><table class=
-=3D"gmail-Bs gmail-nH gmail-iY" cellpadding=3D"0" style=3D"width:1363px"><t=
-body><tr><td class=3D"gmail-Bu"><br>&gt;&gt; Please elaborate on how the co=
-ntrol program will execute it&#39;s &quot;pluggable&quot; algorithm?<br>&gt=
-; Filling out the associated yaml file for the control application defines =
-how the algorithm will control the fan speeds based on the values, sensors =
-listed, delays, etc.. that will be supported as parameter inputs to the alg=
-orithm.<br><br>What do you mean by &quot;delays?&quot;<br><br>Patrick</td><=
-/tr></tbody></table></div></div><div class=3D"gmail_extra"><br><div class=
-=3D"gmail_quote">On Tue, May 2, 2017 at 2:21 PM, Matthew Barth <span dir=3D=
-"ltr">&lt;<a href=3D"mailto:msbarth@linux.vnet.ibm.com" target=3D"_blank">m=
-sbarth@linux.vnet.ibm.com</a>&gt;</span> wrote:<br><blockquote class=3D"gma=
-il_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-lef=
-t:1ex">
- =20
-   =20
- =20
-  <div bgcolor=3D"#FFFFFF" text=3D"#000000"><span class=3D"">
-    On 05/02/17 2:33 PM, Patrick Venture wrote:<br>
-    <blockquote type=3D"cite">
-      <div dir=3D"ltr">Please elaborate on the format or layout of the
-        control configuration file.</div>
-    </blockquote></span>
-    This will be a yaml file containing the zone and fan definitions
-    with the associated set of parameters that feed into the control
-    algorithm. Currently this contains the zone number, the zone initial
-    speed, and the list of fans(including their inventory path, sensor
-    name, etc...).<span class=3D""><br>
-    <blockquote type=3D"cite">
-      <div dir=3D"ltr">
-        <div>Please elaborate on the mechanism planned to import it into
-          code?=C2=A0 Y&#39;all often use python programs to make c++, will=
- that
-          be the case here?</div>
-      </div>
-    </blockquote></span>
-    Correct, that will be the case here as well.<span class=3D""><br>
-    <blockquote type=3D"cite">
-      <div dir=3D"ltr">
-        <div>Please elaborate on how the control program will execute
-          it&#39;s &quot;pluggable&quot; algorithm?</div>
-      </div>
-    </blockquote></span>
-    Filling out the associated yaml file for the control application
-    defines how the algorithm will control the fan speeds based on the
-    values, sensors listed, delays, etc.. that will be supported as
-    parameter inputs to the algorithm.<span class=3D""><br>
-    <blockquote type=3D"cite">
-      <div dir=3D"ltr">
-        <div>Please elaborate on how the fans will be controlled?=C2=A0 Wil=
-l
-          that be as a group per system or independently per zone?</div>
-      </div>
-    </blockquote></span>
-    This will be configurable by the yaml file where the fan speeds are
-    set on the zone, which a zone is a group of fans. These zones can be
-    constructed as 1-to-many fans enabling individual fans being
-    controlled or a group of fans being controlled similarly.<span class=3D=
-""><br>
-    <blockquote type=3D"cite">
-      <div dir=3D"ltr">
-        <div>=C2=A0 -- What is a zone?</div>
-      </div>
-    </blockquote></span>
-    A grouping of fans<span class=3D""><br>
-    <blockquote type=3D"cite">
-      <div dir=3D"ltr">
-        <div><br>
-        </div>
-        <div>Patrick</div>
-      </div>
-      <div class=3D"gmail_extra"><br>
-        <div class=3D"gmail_quote">On Tue, May 2, 2017 at 11:07 AM,
-          Matthew Barth <span dir=3D"ltr">&lt;<a href=3D"mailto:msbarth@lin=
-ux.vnet.ibm.com" target=3D"_blank">msbarth@linux.vnet.ibm.com</a>&gt;</span=
->
-          wrote:<br>
-          <blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bord=
-er-left:1px #ccc solid;padding-left:1ex">Patrick,<br>
-            <br>
-            As Patrick mentioned a few of us have been working on the
-            fan control infrastructure currently and wrote up a quick
-            outline to share our thoughts on the design layout. Let us
-            know if there are areas you&#39;d like to see more detail.<br>
-            <br>
-            Matt<br>
-          </blockquote>
-        </div>
-        <br>
-      </div>
-    </blockquote>
-    <br>
-  </span></div>
+> +
+> +      fsi-slave@<link,id> {
+> +          /* this node defines the FSI slave device, and is handled
+> +           * entirely with FSI core code */
+> +
+> +          fsi-slave-engine@<addr> {
+> +              /* this node defines the engine endpoint & address =
+range, which
+> +               * is bound to the relevant fsi device driver */
+> +               ...
+> +          };
+> +
+> +          fsi-slave-engine@<addr> {
+> +              ...
+> +          };
+> +
+> +      };
+> +  };
+> +
+> +Note that since the bus is probe-able, some (or all) of the topology =
+may
+> +not be described; this binding only provides an optional facility for
+> +adding subordinate device tree nodes as children of FSI engines.
+> +
+> +FSI masters
+> +-----------
+> +
+> +FSI master nodes declare themselves as such with the "fsi-master" =
+compatible
+> +value. It's likely that an implementation-specific compatible value =
+will
+> +be needed as well, for example:
+> +
+> +    compatible =3D "fsi-master-gpio", "fsi-master";
+> +
+> +Since the master nodes describe the top-level of the FSI topology, =
+they also
+> +need to declare the FSI-standard addressing scheme. This requires two =
+cells for
+> +addresses (link index and slave ID), and no size:
+> +
+> +    #address-cells =3D <2>;
+> +    #size-cells =3D <0>;
+> +
+> +FSI slaves
+> +----------
+> +
+> +Slaves are identified by a (link-index, slave-id) pair, so require =
+two cells
+> +for an address identifier. Since these are not a range, no size cells =
+are
+> +required. For an example, a slave on link 1, with ID 2, could be =
+represented
+> +as:
+> +
+> +    cfam@1,2 {
+> +        reg =3D <1 2>;
+> +	[...];
+> +    }
+> +
+> +Each slave provides an address-space, under which the engines are =
+accessible.
+> +That address space has a maximum of 23 bits, so we use one cell to =
+represent
+> +addresses and sizes in the slave address space:
+> +
+> +    #address-cells =3D <1>;
+> +    #size-cells =3D <1>;
+> +
+> +
+> +FSI engines (devices)
+> +---------------------
+> +
+> +Engines are identified by their address under the slaves' address =
+spaces. We
+> +use a single cell for address and size. Engine nodes represent the =
+endpoint
+> +FSI device, and are passed to those FSI device drivers' ->probe() =
+functions.
+> +
+> +For example, for a slave using a single 0x400-byte page starting at =
+address
+> +0xc00:
+> +
+> +    engine@c00 {
+> +        reg =3D <0xc00 0x400>;
+> +    };
+> +
+> +
+> +Full example
+> +------------
+> +
+> +Here's an example that illustrates:
+> + - a FSI master
 
-</blockquote></div><br></div>
+an FSI master
 
---94eb2c1b4c348d94c7054e914b93--
+> +   - connected to a FSI slave
+
+an FSI slave
+
+> +     - that contains an engine that is an I2C master
+> +       - connected to an I2C EEPROM
+> +
+> +The FSI master may be connected to additional slaves, and slaves may =
+have
+> +additional engines, but they don't necessarily need to be describe in =
+the
+> +device tree if no extra platform information is required.
+> +
+> +    /* The GPIO-based FSI master node, describing the top level of =
+the
+> +     * FSI bus
+> +     */
+> +    gpio-fsi {
+> +        compatible =3D "fsi-master-gpio", "fsi-master";
+> +        #address-cells =3D <2>;
+> +        #size-cells =3D <0>;
+> +
+> +        /* A FSI slave (aka. CFAM) at link 0, ID 0. */
+> +        cfam@0,0 {
+> +            reg =3D <0 0>;
+> +            #address-cells =3D <1>;
+> +            #size-cells =3D <1>;
+> +
+> +            /* FSI engine at 0xc00, using a single page. In this =
+example,
+> +             * it's an I2C master controller, so subnodes describe =
+the
+> +             * I2C bus.
+> +             */
+> +            i2c-controller@c00 {
+> +                reg =3D <0xc00 0x400>;
+> +
+> +                /* Engine-specific data. In this case, we're =
+describing an
+> +                 * I2C bus, so we're conforming to the generic I2C =
+binding
+> +                 */
+> +                compatible =3D "ibm,fsi-i2c";
+> +                #address-cells =3D <1>;
+> +                #size-cells =3D <1>;
+> +
+> +                /* I2C endpoint device: an Atmel EEPROM */
+> +                eeprom@50 {
+> +                    compatible =3D "atmel,24c256";
+> +                    reg =3D <0x50>;
+> +                    pagesize =3D <64>;
+> +                };
+> +            };
+> +        };
+> +    };
+> --=20
+> 2.7.4
