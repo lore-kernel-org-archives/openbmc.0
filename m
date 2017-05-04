@@ -1,61 +1,61 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <anoo@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wJZqC4XLPzDqBJ
- for <openbmc@lists.ozlabs.org>; Thu,  4 May 2017 22:59:19 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="RDdxjU4g"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="WCVLPh9T"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 7690220828;
- Thu,  4 May 2017 08:59:17 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Thu, 04 May 2017 08:59:17 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=utxeCO3oN0BaM64Qe/MxRjtSi5Fb/vGFNg9JfV/TF
- Tk=; b=RDdxjU4gXX3MncXjC/FdsSalnwDpG4NHl0DBncaoReThubUqP515zWHQ5
- hcARMZtOSwbhHInhY9qxdUPHKXFIZQotqnhvSRYdcUYEDJK4ZbqLCcRE7u7Z7XdQ
- OxHNMqN871j2tQD8qFULV1GN+uDazxXNTZmmJzYHlwzqgP6/7naAuCkwsP/cOeeF
- BMdLRUx73J+EGTuNWCUtHPM0ok+OYBUcPStRebYycnsXO/8lx9xVhlJbaf8Mpu/w
- zQ+NeTmOeSuGqbafSMReNfoSTB/67lwMkBYsMAfXrnNHNjVxL9IW8NdvhHsfQWPb
- yqZCeDd/yJV3IIq7nEwq4FcPwIxqA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=utxeCO3oN0BaM64Qe/
- MxRjtSi5Fb/vGFNg9JfV/TFTk=; b=WCVLPh9TI0yTCAhF7eW9mGnTMM/sK+oPAS
- dVi9C38R5jkeJwoE5wv9rZI3105v69399U0lGYoc98VWILPBSTYjf9DmzjC/91G9
- iDaz7Xdx+JmLT0JEtpQrCzqnw25wCvLIox95S40weTp9vhiPbcHQ0o+TtpvBg4gs
- hXRMvdup5KFr1YB9jO4dggmL9glscDZg89jBSrOsq6kP6osOZ+nhuWk67XymDkA5
- o7VR66VF8fONWfHvyyxzgPCJ1t9BxIqcCvP/vX7A6FybyjSMXkNa6AkF/l+Tt0Yy
- z2Q7isa+3ofXWvDdixELF7ZFOMIJFESQkgLHbfpoiXHH+cIf8tKA==
-X-ME-Sender: <xms:pSULWekuSIwsuEORWph8BeTSJ0SPyr1sWsdOBowytmdiGD3hbPruyw>
-X-Sasl-enc: ZneszYrsAxCHBSKrkD8uZlpeqVCaI/DScvCG2J+SZQy9 1493902756
-Received: from [172.16.172.59] (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id BA17D2436D;
- Thu,  4 May 2017 08:59:15 -0400 (EDT)
-Message-ID: <1493902748.4433.24.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10] spi-nor: aspeed-smc: Fix flash window
- size message
-From: Andrew Jeffery <andrew@aj.id.au>
-To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, Joel Stanley
- <joel@jms.id.au>, openbmc@lists.ozlabs.org
-Date: Thu, 04 May 2017 22:29:08 +0930
-In-Reply-To: <316ff8db-35d4-7645-3ca2-17a24f227dd6@kaod.org>
-References: <20170504023416.25653-1-joel@jms.id.au>
- <1493898773.4433.23.camel@aj.id.au>
- <316ff8db-35d4-7645-3ca2-17a24f227dd6@kaod.org>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-U0sBP1C8tySC+ESU8O7F"
-X-Mailer: Evolution 3.22.6-0ubuntu0.1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wJfns604GzDqCL
+ for <openbmc@lists.ozlabs.org>; Fri,  5 May 2017 01:58:25 +1000 (AEST)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v44FnAot078729
+ for <openbmc@lists.ozlabs.org>; Thu, 4 May 2017 11:58:15 -0400
+Received: from e15.ny.us.ibm.com (e15.ny.us.ibm.com [129.33.205.205])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2a861bmeca-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 04 May 2017 11:58:15 -0400
+Received: from localhost
+ by e15.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <anoo@linux.vnet.ibm.com>;
+ Thu, 4 May 2017 11:58:14 -0400
+Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
+ by e15.ny.us.ibm.com (146.89.104.202) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Thu, 4 May 2017 11:58:10 -0400
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
+ [9.57.199.111])
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v44Fw6ee43319402; Thu, 4 May 2017 15:58:10 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C8841AC043;
+ Thu,  4 May 2017 11:57:59 -0400 (EDT)
+Received: from habcap11p1.aus.stglabs.ibm.com (unknown [9.41.164.53])
+ by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id 97F79AC03A;
+ Thu,  4 May 2017 11:57:59 -0400 (EDT)
+From: Adriana Kobylak <anoo@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.7] arm: configs: aspeed: Disable
+ CONFIG_MTD_SPI_NOR_USE_4K_SECTORS
+Date: Thu,  4 May 2017 10:58:07 -0500
+X-Mailer: git-send-email 2.1.4
+X-TM-AS-GCONF: 00
+x-cbid: 17050415-0036-0000-0000-000001FB00EA
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007021; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000209; SDB=6.00856194; UDB=6.00423824; IPR=6.00635358; 
+ BA=6.00005326; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015304; XFM=3.00000014;
+ UTC=2017-05-04 15:58:13
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17050415-0037-0000-0000-000040340B90
+Message-Id: <1493913487-7482-1-git-send-email-anoo@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-05-04_10:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1705040245
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,90 +67,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 04 May 2017 12:59:21 -0000
+X-List-Received-Date: Thu, 04 May 2017 15:58:26 -0000
 
+Disable the 4KB erase block size from the spi nor to be able to
+use UBIFS, since UBIFS requires the erase size to be at least 15KB.
 
---=-U0sBP1C8tySC+ESU8O7F
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Adriana Kobylak <anoo@linux.vnet.ibm.com>
+---
+ arch/arm/configs/aspeed_g4_defconfig | 1 +
+ arch/arm/configs/aspeed_g5_defconfig | 1 +
+ 2 files changed, 2 insertions(+)
 
-On Thu, 2017-05-04 at 14:13 +0200, C=C3=A9dric Le Goater wrote:
-> On 05/04/2017 01:52 PM, Andrew Jeffery wrote:
-> > On Thu, 2017-05-04 at 12:04 +0930, Joel Stanley wrote:
-> > > When booting we see something like this:
-> > >=20
-> > > =C2=A0aspeed-smc 1e620000.flash-controller: Using IRQ 17
-> > > =C2=A0aspeed-smc 1e620000.flash-controller: DMA support disabled.
-> > > =C2=A0aspeed-smc 1e620000.flash-controller: mx25l25635e (32768 Kbytes=
-)
-> > > =C2=A0aspeed-smc 1e620000.flash-controller: CE0 window [ 0x20000000- =
-0x22000000 ] 32MB
-> > > =C2=A0aspeed-smc 1e620000.flash-controller: CE1 window [ 0x22000000- =
-0x2a000000 ] 128MB
-> > >=20
-> > > The lack of space after the first hex number haunts me every time I
-> > > boot a BMC.
-> > >=20
-> > > With this fix we see the pleasingly symmetrical:
-> > >=20
-> > > =C2=A0aspeed-smc 1e620000.flash-controller: CE0 window [ 0x20000000 -=
- 0x22000000 ] 32MB
-> > > =C2=A0aspeed-smc 1e620000.flash-controller: CE1 window [ 0x22000000 -=
- 0x2a000000 ] 128MB
-> > >=20
-> > > > Signed-off-by: Joel Stanley <joel@jms.id.au>
-> > >=20
-> > > ---
-> > > =C2=A0drivers/mtd/spi-nor/aspeed-smc.c | 2 +-
-> > > =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
-> > >=20
-> > > diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/a=
-speed-smc.c
-> > > index 875b029198fc..23622bf62b6b 100644
-> > > --- a/drivers/mtd/spi-nor/aspeed-smc.c
-> > > +++ b/drivers/mtd/spi-nor/aspeed-smc.c
-> > > @@ -709,7 +709,7 @@ static u32 chip_set_segment(struct aspeed_smc_chi=
-p *chip, u32 cs, u32 start,
-> > > > > > > > =C2=A0		size =3D end - start;
-> > > > =C2=A0	}
-> > >=20
-> > > =C2=A0
-> > > > > > > > -	dev_info(chip->nor.dev, "CE%d window [ 0x%.8x- 0x%.8x ] %=
-dMB",
-> > > > +	dev_info(chip->nor.dev, "CE%d window [ 0x%.8x - 0x%.8x ] %dMB",
-> > >=20
-> > > =C2=A0		=C2=A0cs, start, end, size >> 20);
-> >=20
-> > NAK! I want *no* spaces!
-> >=20
-> > Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
->=20
-> ah ! as you wish, I have no strong feeling on the format :)=C2=A0
-
-Sorry, that was a stupid bikeshed joke. I'm happy that someone's done
-anything with it :)
-
-Andrew
---=-U0sBP1C8tySC+ESU8O7F
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIbBAABCgAGBQJZCyWdAAoJEJ0dnzgO5LT55igP+NtfW5uwmygKJJVu/nxX8Ru/
-zB0rASTO/BPxswrdkiCjvNN401+YDP5PcckWGGDNlrr1fjDiD/wcNLyzgzN0wxuM
-ixzV3O0rpmgXNKPD4oPj6RBcM4H/VYhlK/jkH5wp5hS7RB2TUHhP6AONIbse/eMn
-vPGNIZ6fY+xeiE1UNW04Cu6JTD8xmXWcjDWoD4QIxbONC05acqXgkQDn4NDPmFlO
-U5PoHxAF/grM9mPaGNWb9Bhflf91WPEbWbFciVs9IlvuLvsYBnWLQSnZBStsKhCV
-UY2u1wjpxnYD/+/IBZMc/ieNK05HT9pmVqLR1yGOnRIgsyLhTHO2uKYDvfPQ5MgO
-hN7GKR5ytJYnQ+DHivPqHb8c7LBeCwFUZGfaj4nE4EVXzRBlJ0s0puJE4BAHN7k6
-47rG9qybONN0QBeeUbqE+g1n7ParBkcT+JloII19bzn+zJ53y9/YDfxtZL6Cmgqu
-YECJ32Ppd2QZyfzj23t7dXc7lv/JUuQj5nfp8xEZYyMIwjIP6498olVpSsxBe8a+
-VNnisXXDJTDi2gzkpu3b+PAtC28H6GdhJuAa+No87Ltyu2n0NRzufnKyugZi1MRH
-hufT+4BslOYwdG6fB07O2WN3iawCD5pgrrltbySAWJjIirsc3qJKGD1gc3rZLnX8
-oysP6OJquAqwa3508qQ=
-=3J3w
------END PGP SIGNATURE-----
-
---=-U0sBP1C8tySC+ESU8O7F--
+diff --git a/arch/arm/configs/aspeed_g4_defconfig b/arch/arm/configs/aspeed_g4_defconfig
+index 4350f67..6538993 100644
+--- a/arch/arm/configs/aspeed_g4_defconfig
++++ b/arch/arm/configs/aspeed_g4_defconfig
+@@ -69,6 +69,7 @@ CONFIG_MTD=y
+ CONFIG_MTD_BLOCK=y
+ CONFIG_MTD_PARTITIONED_MASTER=y
+ CONFIG_MTD_SPI_NOR=y
++# CONFIG_MTD_SPI_NOR_USE_4K_SECTORS is not set
+ CONFIG_ASPEED_FLASH_SPI=y
+ CONFIG_MTD_UBI=y
+ CONFIG_MTD_UBI_FASTMAP=y
+diff --git a/arch/arm/configs/aspeed_g5_defconfig b/arch/arm/configs/aspeed_g5_defconfig
+index b6b3ca0..7063949 100644
+--- a/arch/arm/configs/aspeed_g5_defconfig
++++ b/arch/arm/configs/aspeed_g5_defconfig
+@@ -68,6 +68,7 @@ CONFIG_MTD=y
+ CONFIG_MTD_BLOCK=y
+ CONFIG_MTD_PARTITIONED_MASTER=y
+ CONFIG_MTD_SPI_NOR=y
++# CONFIG_MTD_SPI_NOR_USE_4K_SECTORS is not set
+ CONFIG_ASPEED_FLASH_SPI=y
+ CONFIG_MTD_UBI=y
+ CONFIG_MTD_UBI_FASTMAP=y
+-- 
+1.8.2.2
