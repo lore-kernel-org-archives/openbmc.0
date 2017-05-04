@@ -1,62 +1,53 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-pg0-x244.google.com (mail-pg0-x244.google.com
+ [IPv6:2607:f8b0:400e:c05::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wJB2F3JWszDqBH
- for <openbmc@lists.ozlabs.org>; Thu,  4 May 2017 07:22:28 +1000 (AEST)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v43LJgOV078045
- for <openbmc@lists.ozlabs.org>; Wed, 3 May 2017 17:22:26 -0400
-Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2a7dbj42au-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 03 May 2017 17:22:26 -0400
-Received: from localhost
- by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Wed, 3 May 2017 15:22:25 -0600
-Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
- by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Wed, 3 May 2017 15:22:22 -0600
-Received: from b03ledav004.gho.boulder.ibm.com
- (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v43LMMZb6553900; Wed, 3 May 2017 14:22:22 -0700
-Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0EDD778038;
- Wed,  3 May 2017 15:22:22 -0600 (MDT)
-Received: from Christophers-MacBook-Pro.local.com (unknown [9.83.1.58])
- by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP id 46BCD7804D;
- Wed,  3 May 2017 15:22:19 -0600 (MDT)
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-To: joel@jms.id.au
-Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10] drivers/fsi: GPIO stability changes for
- Cronus/Hostboot
-Date: Wed,  3 May 2017 16:22:15 -0500
-X-Mailer: git-send-email 2.10.1 (Apple Git-78)
-X-TM-AS-GCONF: 00
-x-cbid: 17050321-0024-0000-0000-0000165ABA71
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007018; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000208; SDB=6.00855829; UDB=6.00423602; IPR=6.00634992; 
- BA=6.00005323; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015287; XFM=3.00000014;
- UTC=2017-05-03 21:22:24
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17050321-0025-0000-0000-00004ABBA821
-Message-Id: <20170503212215.89562-1-cbostic@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-05-03_15:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1705030371
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wJJyC0FWtzDqBJ
+ for <openbmc@lists.ozlabs.org>; Thu,  4 May 2017 12:34:27 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="TLQ2dL7H"; 
+ dkim-atps=neutral
+Received: by mail-pg0-x244.google.com with SMTP id i63so183270pgd.2
+ for <openbmc@lists.ozlabs.org>; Wed, 03 May 2017 19:34:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:from:to:subject:date:message-id;
+ bh=esn0h8022WxUZuysc7hvIkZ5X3P59J4tXBnSs5zuOZA=;
+ b=TLQ2dL7HouBnbkU244ilDmQF+i1yDYBTiRcx/iCPM1b19CVLCWxTtAwPCLooYClgKm
+ lZbwRwmRDnZlnWwgB2XG8wzNmhn8kCPM79KM0fpaj+BO4xD3A5FaO2YGjZorW+CFhOXI
+ hVelDFwzr7YN1170VEtUAc3xTnyuvSks99romcIJ1l6pC2gcVnCSUxT6CPFW83GDxznT
+ KLzzUaGn5Lj1nCmenwBdGoLEUk5KnPlEXJ6A/lLThUcb+5bwWLdtNu0wQvTU03CCYzyI
+ SBw+yUb6QlbMlM/xJuYaF/NvtKfnDM73DTGxBjntAT8v2B0NmnB40qxJ7bYuf1NXo/Wg
+ K4yQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:from:to:subject:date:message-id;
+ bh=esn0h8022WxUZuysc7hvIkZ5X3P59J4tXBnSs5zuOZA=;
+ b=WtJUmSDhY347Kq0JIxZT4c+HBA16Bxvh6yxdPeh14/Yn8O9Hi0e6vgkYi4EmY2BB+P
+ GrpEIkaTGs91aOOx5HcMbBKYI55jIaCH8dEhWLwcSg0aAIzYLTsjnWsr8LTY7UKEqWHF
+ wuo1d7MW0ZS8lgQEAArPmFx/7x261KGCUpr4p+CD5Q15+XSSlFZpQKJQjiC+XLaDy0yc
+ akUkQc5Wla7D9KeYWPmqg5OGW6KJkJ6Y7UozJaSJ/8M+c4fcuEVLC1jgbBfbFdG4cOda
+ QTzJUvOuOJfIxsoevts5eX1OGkDMPAYNhyPkR08oWn1uVRXPQ1+FJIUnHQDRGJNn7uD2
+ tJpw==
+X-Gm-Message-State: AN3rC/5NQ54AZocA3JWXP5EEYXQb1kSuSYTCkEEe9aj7FCozywn326Gq
+ PuUrsruSvJhEv63lGT4=
+X-Received: by 10.84.238.200 with SMTP id l8mr700832pln.85.1493865264912;
+ Wed, 03 May 2017 19:34:24 -0700 (PDT)
+Received: from aurora.jms.id.au ([103.232.208.194])
+ by smtp.gmail.com with ESMTPSA id b77sm729431pfe.39.2017.05.03.19.34.21
+ (version=TLS1 cipher=AES128-SHA bits=128/128);
+ Wed, 03 May 2017 19:34:24 -0700 (PDT)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+Received: by aurora.jms.id.au (sSMTP sendmail emulation);
+ Thu, 04 May 2017 12:04:18 +0930
+From: Joel Stanley <joel@jms.id.au>
+To: openbmc@lists.ozlabs.org,
+ =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
+Subject: [PATCH linux dev-4.10] spi-nor: aspeed-smc: Fix flash window size
+ message
+Date: Thu,  4 May 2017 12:04:16 +0930
+Message-Id: <20170504023416.25653-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,56 +59,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 03 May 2017 21:22:29 -0000
+X-List-Received-Date: Thu, 04 May 2017 02:34:27 -0000
 
-Improve stability in the FSI protocol by re-ordering the clocking
-delays. Increase clocking delays to 3 microseconds.  Remove
-delay prior to sampling input - now redundant given new clocking
-delay order.
+When booting we see something like this:
 
-New effective delay per clock toggle is now 6 microseconds.
-Previous clocking summed up to 3 nS but real time measurements
-of each 1 nS delay actually was approx 1.8 microseconds.
-Previous total delay was then 1.8 * 3 = 5.4 microseconds.
+ aspeed-smc 1e620000.flash-controller: Using IRQ 17
+ aspeed-smc 1e620000.flash-controller: DMA support disabled.
+ aspeed-smc 1e620000.flash-controller: mx25l25635e (32768 Kbytes)
+ aspeed-smc 1e620000.flash-controller: CE0 window [ 0x20000000- 0x22000000 ] 32MB
+ aspeed-smc 1e620000.flash-controller: CE1 window [ 0x22000000- 0x2a000000 ] 128MB
 
-Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+The lack of space after the first hex number haunts me every time I
+boot a BMC.
+
+With this fix we see the pleasingly symmetrical:
+
+ aspeed-smc 1e620000.flash-controller: CE0 window [ 0x20000000 - 0x22000000 ] 32MB
+ aspeed-smc 1e620000.flash-controller: CE1 window [ 0x22000000 - 0x2a000000 ] 128MB
+
+Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
- drivers/fsi/fsi-master-gpio.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/mtd/spi-nor/aspeed-smc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
-index d5cce88..ef209ef 100644
---- a/drivers/fsi/fsi-master-gpio.c
-+++ b/drivers/fsi/fsi-master-gpio.c
-@@ -14,7 +14,7 @@
- 
- #include "fsi-master.h"
- 
--#define	FSI_GPIO_STD_DLY	1	/* Standard pin delay in nS */
-+#define	FSI_GPIO_STD_DLY	3	/* Standard pin delay in uS */
- #define	FSI_ECHO_DELAY_CLOCKS	16	/* Number clocks for echo delay */
- #define	FSI_PRE_BREAK_CLOCKS	50	/* Number clocks to prep for break */
- #define	FSI_BREAK_CLOCKS	256	/* Number of clocks to issue break */
-@@ -76,10 +76,10 @@ static void clock_toggle(struct fsi_master_gpio *master, int count)
- 	int i;
- 
- 	for (i = 0; i < count; i++) {
--		ndelay(FSI_GPIO_STD_DLY);
- 		gpiod_set_value(master->gpio_clk, 0);
--		ndelay(FSI_GPIO_STD_DLY);
-+		udelay(FSI_GPIO_STD_DLY);
- 		gpiod_set_value(master->gpio_clk, 1);
-+		udelay(FSI_GPIO_STD_DLY);
+diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspeed-smc.c
+index 875b029198fc..23622bf62b6b 100644
+--- a/drivers/mtd/spi-nor/aspeed-smc.c
++++ b/drivers/mtd/spi-nor/aspeed-smc.c
+@@ -709,7 +709,7 @@ static u32 chip_set_segment(struct aspeed_smc_chip *chip, u32 cs, u32 start,
+ 		size = end - start;
  	}
- }
  
-@@ -87,7 +87,6 @@ static int sda_in(struct fsi_master_gpio *master)
- {
- 	int in;
+-	dev_info(chip->nor.dev, "CE%d window [ 0x%.8x- 0x%.8x ] %dMB",
++	dev_info(chip->nor.dev, "CE%d window [ 0x%.8x - 0x%.8x ] %dMB",
+ 		 cs, start, end, size >> 20);
  
--	ndelay(FSI_GPIO_STD_DLY);
- 	in = gpiod_get_value(master->gpio_data);
- 	return in ? 1 : 0;
- }
+ 	return size;
 -- 
-1.8.2.2
+2.11.0
