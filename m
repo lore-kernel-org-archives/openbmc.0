@@ -3,54 +3,56 @@ Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wJmLc4Jt1zDqBJ
- for <openbmc@lists.ozlabs.org>; Fri,  5 May 2017 06:08:40 +1000 (AEST)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wJmLd3rwYzDqBJ
+ for <openbmc@lists.ozlabs.org>; Fri,  5 May 2017 06:08:41 +1000 (AEST)
+Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v44K3RQF137239
- for <openbmc@lists.ozlabs.org>; Thu, 4 May 2017 16:08:34 -0400
-Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2a89sskhyv-1
+ v44K3Sbr085633
+ for <openbmc@lists.ozlabs.org>; Thu, 4 May 2017 16:08:36 -0400
+Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2a8adt1pxn-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 04 May 2017 16:08:34 -0400
+ for <openbmc@lists.ozlabs.org>; Thu, 04 May 2017 16:08:36 -0400
 Received: from localhost
- by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 4 May 2017 16:08:33 -0400
-Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
- by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
+ Thu, 4 May 2017 16:08:35 -0400
+Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
+ by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Thu, 4 May 2017 16:08:29 -0400
+ Thu, 4 May 2017 16:08:33 -0400
 Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
  [9.57.199.107])
- by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v44K8T058323554; Thu, 4 May 2017 20:08:29 GMT
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v44K8WxP44695710; Thu, 4 May 2017 20:08:33 GMT
 Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id EE3DC124052;
- Thu,  4 May 2017 16:08:23 -0400 (EDT)
+ by IMSVA (Postfix) with ESMTP id D961D12403F;
+ Thu,  4 May 2017 16:08:26 -0400 (EDT)
 Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP id 92B29124044;
- Thu,  4 May 2017 16:08:23 -0400 (EDT)
+ by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP id 7AE8D124035;
+ Thu,  4 May 2017 16:08:26 -0400 (EDT)
 From: Eddie James <eajames@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: cbostic@linux.vnet.ibm.com, joel@jms.id.au,
  "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10 0/6] drivers: i2c: FSI-attached I2C master
+Subject: [PATCH linux dev-4.10 1/6] drivers: i2c: Add FSI-attached I2C master
  algorithm
-Date: Thu,  4 May 2017 15:08:19 -0500
+Date: Thu,  4 May 2017 15:08:20 -0500
 X-Mailer: git-send-email 1.8.3.1
+In-Reply-To: <1493928505-30816-1-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1493928505-30816-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-TM-AS-GCONF: 00
-x-cbid: 17050420-2213-0000-0000-000001AD9000
+x-cbid: 17050420-0048-0000-0000-000001775AF1
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00007022; HX=3.00000240; KW=3.00000007;
  PH=3.00000004; SC=3.00000209; SDB=6.00856257; UDB=6.00423874; IPR=6.00635441; 
  BA=6.00005326; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015308; XFM=3.00000014;
- UTC=2017-05-04 20:08:31
+ UTC=2017-05-04 20:08:34
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17050420-2214-0000-0000-000055FC59B0
-Message-Id: <1493928505-30816-1-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 17050420-0049-0000-0000-000040FFCCED
+Message-Id: <1493928505-30816-2-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-05-04_12:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -70,38 +72,349 @@ List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Thu, 04 May 2017 20:08:41 -0000
-X-List-Received-Date: Thu, 04 May 2017 20:08:41 -0000
 
 From: "Edward A. James" <eajames@us.ibm.com>
 
-This patch series adds an I2C bus algorithm to drive the I2C master located on
-POWER CPUs. The master is accessed over FSI bus from the service processor.
+Initial startup code for the I2C algorithm to drive the I2C master
+located on POWER CPUs over FSI bus.
 
-The driver creates one chardev entry for each port off an I2C master by
-registering one I2C adapter for port. This implementation requires locking of
-the master in the driver to prevent transfers running into each other. The
-master registers are shared between ports.
-
-This patchset also adds the latest in FSI dt bindings from Jeremy Kerr. This
-describes the entire FSI tree structure (master -> slaves -> engines ->
-engine data (such as i2c master ports)). These bindings are required for the
-I2C driver in order to enumerate the ports off each I2C master.
-
-Edward A. James (6):
-  drivers: i2c: Add FSI-attached I2C master algorithm
-  drivers: i2c: Add port structure to FSI algorithm
-  drivers: i2c: Add transfer implementation for FSI algorithm
-  drivers: i2c: Add I2C master locking to FSI algorithm
-  drivers: i2c: Add bus recovery for FSI algorithm
-  dts: aspeed: witherspoon: Add I2C master under FSI masters
-
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 156 ++++++
- drivers/Makefile                                 |   2 +-
- drivers/i2c/busses/Kconfig                       |  11 +
- drivers/i2c/busses/Makefile                      |   1 +
- drivers/i2c/busses/i2c-fsi.c                     | 681 +++++++++++++++++++++++
- 5 files changed, 850 insertions(+), 1 deletion(-)
+Signed-off-by: Edward A. James <eajames@us.ibm.com>
+---
+ drivers/Makefile             |   2 +-
+ drivers/i2c/busses/Kconfig   |  11 ++
+ drivers/i2c/busses/Makefile  |   1 +
+ drivers/i2c/busses/i2c-fsi.c | 275 +++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 288 insertions(+), 1 deletion(-)
  create mode 100644 drivers/i2c/busses/i2c-fsi.c
 
+diff --git a/drivers/Makefile b/drivers/Makefile
+index 67ce51d..278f109 100644
+--- a/drivers/Makefile
++++ b/drivers/Makefile
+@@ -105,6 +105,7 @@ obj-$(CONFIG_SERIO)		+= input/serio/
+ obj-$(CONFIG_GAMEPORT)		+= input/gameport/
+ obj-$(CONFIG_INPUT)		+= input/
+ obj-$(CONFIG_RTC_LIB)		+= rtc/
++obj-$(CONFIG_FSI)		+= fsi/
+ obj-y				+= i2c/ media/
+ obj-$(CONFIG_PPS)		+= pps/
+ obj-y				+= ptp/
+@@ -173,4 +174,3 @@ obj-$(CONFIG_STM)		+= hwtracing/stm/
+ obj-$(CONFIG_ANDROID)		+= android/
+ obj-$(CONFIG_NVMEM)		+= nvmem/
+ obj-$(CONFIG_FPGA)		+= fpga/
+-obj-$(CONFIG_FSI)		+= fsi/
+diff --git a/drivers/i2c/busses/Kconfig b/drivers/i2c/busses/Kconfig
+index 7e34901d..0c714e0 100644
+--- a/drivers/i2c/busses/Kconfig
++++ b/drivers/i2c/busses/Kconfig
+@@ -1245,4 +1245,15 @@ config I2C_OPAL
+ 	  This driver can also be built as a module. If so, the module will be
+ 	  called as i2c-opal.
+ 
++config I2C_FSI
++	tristate "FSI I2C driver"
++	depends on FSI
++	help
++	  Driver for FSI bus attached I2C masters. These are I2C masters that
++	  are connected to the system over a FSI bus, instead of the more
++	  common PCI or MMIO interface.
++
++	  This driver can also be built as a module. If so, the module will be
++	  called as i2c-fsi.
++
+ endmenu
+diff --git a/drivers/i2c/busses/Makefile b/drivers/i2c/busses/Makefile
+index 5798b4e..547773b 100644
+--- a/drivers/i2c/busses/Makefile
++++ b/drivers/i2c/busses/Makefile
+@@ -124,5 +124,6 @@ obj-$(CONFIG_I2C_PCA_ISA)	+= i2c-pca-isa.o
+ obj-$(CONFIG_I2C_SIBYTE)	+= i2c-sibyte.o
+ obj-$(CONFIG_I2C_XGENE_SLIMPRO) += i2c-xgene-slimpro.o
+ obj-$(CONFIG_SCx200_ACB)	+= scx200_acb.o
++obj-$(CONFIG_I2C_FSI)		+= i2c-fsi.o
+ 
+ ccflags-$(CONFIG_I2C_DEBUG_BUS) := -DDEBUG
+diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
+new file mode 100644
+index 0000000..bb12fa9
+--- /dev/null
++++ b/drivers/i2c/busses/i2c-fsi.c
+@@ -0,0 +1,275 @@
++/*
++ * Copyright 2017 IBM Corporation
++ *
++ * Eddie James <eajames@us.ibm.com>
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version
++ * 2 of the License, or (at your option) any later version.
++ */
++
++#include <linux/fsi.h>
++#include <linux/i2c.h>
++#include <linux/jiffies.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/sched.h>
++#include <linux/semaphore.h>
++#include <linux/wait.h>
++
++#define FSI_ENGID_I2C_FSI	0x7
++
++/* Find left shift from first set bit in m */
++#define MASK_TO_LSH(m)		(__builtin_ffsll(m) - 1ULL)
++
++/* Extract field m from v */
++#define GETFIELD(m, v)		(((v) & (m)) >> MASK_TO_LSH(m))
++
++/* Set field m of v to val */
++#define SETFIELD(m, v, val)	\
++	(((v) & ~(m)) | ((((typeof(v))(val)) << MASK_TO_LSH(m)) & (m)))
++
++#define I2C_DEFAULT_CLK_DIV	6
++#define I2C_DEFAULT_CLK		333333
++
++/* i2c registers */
++#define I2C_FSI_FIFO		0x00
++#define I2C_FSI_CMD		0x04
++#define I2C_FSI_MODE		0x08
++#define I2C_FSI_WATER_MARK	0x0C
++#define I2C_FSI_INT_MASK	0x10
++#define I2C_FSI_INT_COND	0x14
++#define I2C_FSI_OR_INT_MASK	0x14
++#define I2C_FSI_INTS		0x18
++#define I2C_FSI_AND_INT_MASK	0x18
++#define I2C_FSI_STAT		0x1C
++#define I2C_FSI_RESET_I2C	0x1C
++#define I2C_FSI_ESTAT		0x20
++#define I2C_FSI_RESET_ERR	0x20
++#define I2C_FSI_RESID_LEN	0x24
++#define I2C_FSI_SET_SCL		0x24
++#define I2C_FSI_PORT_BUSY	0x28
++#define I2C_FSI_RESET_SCL	0x2C
++#define I2C_FSI_SET_SDA		0x30
++#define I2C_FSI_RESET_SDA	0x34
++
++/* cmd register */
++#define I2C_CMD_WITH_START	0x80000000
++#define I2C_CMD_WITH_ADDR	0x40000000
++#define I2C_CMD_RD_CONT		0x20000000
++#define I2C_CMD_WITH_STOP	0x10000000
++#define I2C_CMD_FORCELAUNCH	0x08000000
++#define I2C_CMD_ADDR		0x00fe0000
++#define I2C_CMD_READ		0x00010000
++#define I2C_CMD_LEN		0x0000ffff
++
++/* mode register */
++#define I2C_MODE_CLKDIV		0xffff0000
++#define I2C_MODE_PORT		0x0000fc00
++#define I2C_MODE_ENHANCED	0x00000008
++#define I2C_MODE_DIAG		0x00000004
++#define I2C_MODE_PACE_ALLOW	0x00000002
++#define I2C_MODE_WRAP		0x00000001
++
++/* watermark register */
++#define I2C_WATERMARK_HI	0x0000f000
++#define I2C_WATERMARK_LO	0x000000f0
++
++#define I2C_FIFO_HI_LVL		4
++#define I2C_FIFO_LO_LVL		4
++
++/* interrupt register */
++#define I2C_INT_INV_CMD		0x00008000
++#define I2C_INT_PARITY		0x00004000
++#define I2C_INT_BE_OVERRUN	0x00002000
++#define I2C_INT_BE_ACCESS	0x00001000
++#define I2C_INT_LOST_ARB	0x00000800
++#define I2C_INT_NACK		0x00000400
++#define I2C_INT_DAT_REQ		0x00000200
++#define I2C_INT_CMD_COMP	0x00000100
++#define I2C_INT_STOP_ERR	0x00000080
++#define I2C_INT_BUSY		0x00000040
++#define I2C_INT_IDLE		0x00000020
++
++#define I2C_INT_ENABLE		0x0000ff80
++#define I2C_INT_ERR		0x0000fcc0
++
++/* status register */
++#define I2C_STAT_INV_CMD	0x80000000
++#define I2C_STAT_PARITY		0x40000000
++#define I2C_STAT_BE_OVERRUN	0x20000000
++#define I2C_STAT_BE_ACCESS	0x10000000
++#define I2C_STAT_LOST_ARB	0x08000000
++#define I2C_STAT_NACK		0x04000000
++#define I2C_STAT_DAT_REQ	0x02000000
++#define I2C_STAT_CMD_COMP	0x01000000
++#define I2C_STAT_STOP_ERR	0x00800000
++#define I2C_STAT_MAX_PORT	0x000f0000
++#define I2C_STAT_ANY_INT	0x00008000
++#define I2C_STAT_SCL_IN		0x00000800
++#define I2C_STAT_SDA_IN		0x00000400
++#define I2C_STAT_PORT_BUSY	0x00000200
++#define I2C_STAT_SELF_BUSY	0x00000100
++#define I2C_STAT_FIFO_COUNT	0x000000ff
++
++#define I2C_STAT_ERR		0xfc800000
++#define I2C_STAT_ANY_RESP	0xff800000
++
++/* extended status register */
++#define I2C_ESTAT_FIFO_SZ	0xff000000
++#define I2C_ESTAT_SCL_IN_SY	0x00008000
++#define I2C_ESTAT_SDA_IN_SY	0x00004000
++#define I2C_ESTAT_S_SCL		0x00002000
++#define I2C_ESTAT_S_SDA		0x00001000
++#define I2C_ESTAT_M_SCL		0x00000800
++#define I2C_ESTAT_M_SDA		0x00000400
++#define I2C_ESTAT_HI_WATER	0x00000200
++#define I2C_ESTAT_LO_WATER	0x00000100
++#define I2C_ESTAT_PORT_BUSY	0x00000080
++#define I2C_ESTAT_SELF_BUSY	0x00000040
++#define I2C_ESTAT_VERSION	0x0000001f
++
++struct fsi_i2c_master {
++	struct fsi_device	*fsi;
++	u8			fifo_size;
++	unsigned long		clk;
++};
++
++static int fsi_i2c_read_reg(struct fsi_device *fsi, unsigned int reg,
++			    u32 *data)
++{
++	int rc;
++	u32 _data;
++
++	rc = fsi_device_read(fsi, reg, &_data, sizeof(_data));
++	if (rc)
++		return rc;
++
++	*data = be32_to_cpu(_data);
++
++	return 0;
++}
++
++static int fsi_i2c_write_reg(struct fsi_device *fsi, unsigned int reg,
++			     u32 *data)
++{
++	u32 _data = cpu_to_be32(*data);
++
++	return fsi_device_write(fsi, reg, &_data, sizeof(_data));
++}
++
++static unsigned long fsi_i2c_get_clk_div(struct fsi_i2c_master *i2c)
++{
++	unsigned long clk_div = I2C_DEFAULT_CLK_DIV;
++
++	return clk_div;
++}
++
++static int fsi_i2c_dev_init(struct fsi_i2c_master *i2c)
++{
++	int rc;
++	unsigned long clk_div;
++	u32 mode = I2C_MODE_ENHANCED, extended_status, watermark = 0;
++	u32 interrupt = 0;
++
++	/* since we use polling, disable interrupts */
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_INT_MASK, &interrupt);
++	if (rc)
++		return rc;
++
++	clk_div = fsi_i2c_get_clk_div(i2c);
++	mode = SETFIELD(I2C_MODE_CLKDIV, mode, clk_div);
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
++	if (rc)
++		return rc;
++
++	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_ESTAT, &extended_status);
++	if (rc)
++		return rc;
++
++	i2c->fifo_size = GETFIELD(I2C_ESTAT_FIFO_SZ, extended_status);
++	watermark = SETFIELD(I2C_WATERMARK_HI, watermark,
++			     i2c->fifo_size - I2C_FIFO_HI_LVL);
++	watermark = SETFIELD(I2C_WATERMARK_LO, watermark,
++			     I2C_FIFO_LO_LVL);
++
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_WATER_MARK, &watermark);
++
++	return rc;
++}
++
++static int fsi_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
++			int num)
++{
++	return -ENOSYS;
++}
++
++static u32 fsi_i2c_functionality(struct i2c_adapter *adap)
++{
++	return I2C_FUNC_I2C | I2C_FUNC_PROTOCOL_MANGLING | I2C_FUNC_10BIT_ADDR;
++}
++
++static const struct i2c_algorithm fsi_i2c_algorithm = {
++	.master_xfer = fsi_i2c_xfer,
++	.functionality = fsi_i2c_functionality,
++};
++
++static int fsi_i2c_probe(struct device *dev)
++{
++	struct fsi_i2c_master *i2c;
++	int rc;
++	u32 clk;
++
++	i2c = devm_kzalloc(dev, sizeof(*i2c), GFP_KERNEL);
++	if (!i2c)
++		return -ENOMEM;
++
++	i2c->fsi = to_fsi_dev(dev);
++	i2c->clk = I2C_DEFAULT_CLK;
++
++	if (dev->of_node) {
++		if (!of_property_read_u32(dev->of_node, "clock-frequency",
++					  &clk))
++			i2c->clk = clk;
++	}
++
++	rc = fsi_i2c_dev_init(i2c);
++	if (rc)
++		return rc;
++
++	dev_set_drvdata(dev, i2c);
++
++	return 0;
++}
++
++static const struct fsi_device_id fsi_i2c_ids[] = {
++	{ FSI_ENGID_I2C_FSI, FSI_VERSION_ANY },
++	{ 0 }
++};
++
++static struct fsi_driver fsi_i2c_driver = {
++	.id_table = fsi_i2c_ids,
++	.drv = {
++		.name = "i2c_master_fsi",
++		.bus = &fsi_bus_type,
++		.probe = fsi_i2c_probe,
++	},
++};
++
++static int fsi_i2c_init(void)
++{
++	return fsi_driver_register(&fsi_i2c_driver);
++}
++
++static void fsi_i2c_exit(void)
++{
++	fsi_driver_unregister(&fsi_i2c_driver);
++}
++
++module_init(fsi_i2c_init);
++module_exit(fsi_i2c_exit);
++
++MODULE_AUTHOR("Eddie James <eajames@us.ibm.com>");
++MODULE_DESCRIPTION("FSI attached I2C master");
++MODULE_LICENSE("GPL");
 -- 
 1.8.3.1
