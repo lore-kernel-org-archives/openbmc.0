@@ -1,51 +1,51 @@
 Return-Path: <maxims@google.com>
-Received: from mail-pg0-x22d.google.com (mail-pg0-x22d.google.com
- [IPv6:2607:f8b0:400e:c05::22d])
+Received: from mail-pf0-x236.google.com (mail-pf0-x236.google.com
+ [IPv6:2607:f8b0:400e:c00::236])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wKQpd6SL3zDqG1
- for <openbmc@lists.ozlabs.org>; Sat,  6 May 2017 08:01:45 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wKQpg2RPFzDqFr
+ for <openbmc@lists.ozlabs.org>; Sat,  6 May 2017 08:01:47 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="pF/iaNh1"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="Wakfo2W9"; 
  dkim-atps=neutral
-Received: by mail-pg0-x22d.google.com with SMTP id 12so8838058pgc.1
- for <openbmc@lists.ozlabs.org>; Fri, 05 May 2017 15:01:45 -0700 (PDT)
+Received: by mail-pf0-x236.google.com with SMTP id v14so8212470pfd.2
+ for <openbmc@lists.ozlabs.org>; Fri, 05 May 2017 15:01:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=USzGfm2NjFFGV6wDymSCY5E0XnbWng+d3OJhbhL42M8=;
- b=pF/iaNh1QLNx698nY2lNNvTQfLFF4IrdGkBS28wgZJPUjBhZNqJmY8jfWR5ICLrrMA
- 2JLw/ObLZz2lUrPcukSoQZpx5ZDTP/QBeBG/VoqANKsFjuu02ux4y9TfJopEV8QER5Ta
- uk0lIMONJ3KEOSqgylI7hCQmBa1oKYAnXUFewH4c5ynPmWKKn6wJ6wK3yNbc3Hiz+NOO
- z1Rs1StEcnAljJJ3XF3r2a7XFpFEBpi1YT5kbyCKg+BFtCj8bRZfyi58DrbFDmOVC/SI
- z9PyNTdILQPJsyNDsgLHlZPxYvGFS3DKR84cxqDVVPfZaw4SaElpYhiH6M+NgwO7xBhg
- A9Zg==
+ bh=2YzZFm5ZsGdGEQ4XAGGfhD6LTbCOyqmnyfG525Xnd10=;
+ b=Wakfo2W9E9ZIO/1B7TA1Po6/cTMdxk2XByfy3UT1ug2SQ9Q6d4TmxcNdGMpKHQ8J+H
+ zlko914wbRXzM/wwCJ6Z55279z/yCunr7vwFzHJnkJIf8PLe4nZsa6GOxjA0yTfhap9x
+ duoyDEwnBrdTxSFCJCfpcnJU97GYbcGBHlSEs1Xq9ynUu831bY1iQHYwQsir/ODsAgja
+ JQatdLw9uFrqbAD+Spq/84SKMK0Ug9trJGUPkKKRJaAIr0VcJg+WSattxhYa92ZRoQ8u
+ 5pnaGtcmvGWEC0A7J4EYErP58rWvW65BQ2RHq4IoE9hAg4nGWfkL88sp11iEP5iVpzmK
+ PE+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=USzGfm2NjFFGV6wDymSCY5E0XnbWng+d3OJhbhL42M8=;
- b=B3HdFSF9KHqYHWv9gAb5YibcdRzRtjQCziV9ou/Wy3AA0PJomI0xSOF9lP7gzvDhms
- ZvbfbXmp4nhAheCAI4mZh30iSkJaW23jXAt5B6ncDuORtHbmwLdTjIGEtOiBqKp9daOF
- yf90BgtQLZ8lSe0DwQ8Wv46drScc+8ZJ1nCkdhOLVxRgo9fEOotcIBEj9Zqp2rKkN+Wz
- zUFVcxKzCnmJlVlL6XNAyeS5wPzcujsTnnqi489jj8I8BGF04AluRYHcg+Q7wToU2iWw
- 96PEdD7fXlmzBbJJtoxiPydDsIBzblQqmDBdC92FwEZv6o5pIFhpT1NNp8kB3zSVZTlR
- nN9g==
-X-Gm-Message-State: AN3rC/7BjQxjIyWb+Xp5/8uDujMJYQXc0ut2QPjvfnlLNfFN4K6voWUe
- BphffVSQfjuKHDvCO4Phmg==
-X-Received: by 10.84.233.131 with SMTP id l3mr31083925plk.18.1494021703930;
- Fri, 05 May 2017 15:01:43 -0700 (PDT)
+ bh=2YzZFm5ZsGdGEQ4XAGGfhD6LTbCOyqmnyfG525Xnd10=;
+ b=e/1pu3795aX2WQmbRecgWaqWy1KdaUI0y2DozxsN87OLMAggeFVlIEJGlD2CsoKgbl
+ /c6Ix7cHi4gBHzsndxDn5HkfAcGSMwpcn/cAlqcDcEf7lF6joJHixD8sLNOtClssC4V8
+ cdOK1teRDH6SBK3tZXF7HyVIehbKCt/bacA8J6lqgQoomA7N4Tq/f71ffvdMexYmehK1
+ nTyY1YwOKx5qhi0RSvfgGeOLMK+iEk9OtXPITvRXCAR+rvh3f3BErwJPGHlFLdopqBwk
+ Q4/awIN2+guTC9KxTi2Q3zdLapGWC/JuQtrtEld83f2QBxvHT7m4Cr6MSoWMosNQjrnH
+ oC6Q==
+X-Gm-Message-State: AN3rC/5qGmO1J2m5XzciDykEJNIZD2oCpoLZRO9/6tKGAq7fkUKFSQtg
+ 9iJdgCohRtwwzVXl
+X-Received: by 10.84.217.203 with SMTP id d11mr13620677plj.141.1494021704863; 
+ Fri, 05 May 2017 15:01:44 -0700 (PDT)
 Received: from mxsl.svl.corp.google.com ([100.123.242.80])
- by smtp.gmail.com with ESMTPSA id r131sm7768501pgr.67.2017.05.05.15.01.43
+ by smtp.gmail.com with ESMTPSA id r131sm7768501pgr.67.2017.05.05.15.01.44
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Fri, 05 May 2017 15:01:43 -0700 (PDT)
+ Fri, 05 May 2017 15:01:44 -0700 (PDT)
 From: Maxim Sloyko <maxims@google.com>
 To: u-boot@lists.denx.de,
 	Simon Glass <sjg@chromium.org>
-Cc: openbmc@lists.ozlabs.org,
-	Maxim Sloyko <maxims@google.com>
-Subject: [PATCH v2 09/15] aspeed: Enable Pinctrl Driver in AST2500 EVB
-Date: Fri,  5 May 2017 15:01:09 -0700
-Message-Id: <20170505220115.143025-10-maxims@google.com>
+Cc: openbmc@lists.ozlabs.org, Maxim Sloyko <maxims@google.com>,
+ Albert Aribaud <albert.u.boot@aribaud.net>
+Subject: [PATCH v2 10/15] aspeed: Add P-Bus clock in ast2500 clock driver
+Date: Fri,  5 May 2017 15:01:10 -0700
+Message-Id: <20170505220115.143025-11-maxims@google.com>
 X-Mailer: git-send-email 2.13.0.rc1.294.g07d810a77f-goog
 In-Reply-To: <20170505220115.143025-1-maxims@google.com>
 References: <20170417190034.71945-1-maxims@google.com>
@@ -61,9 +61,10 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 05 May 2017 22:01:46 -0000
+X-List-Received-Date: Fri, 05 May 2017 22:01:48 -0000
 
-Enable Pinctrl Driver in AST2500 Eval Board's defconfig
+Add P-Bus Clock support to ast2500 clock driver.
+This is the clock used by I2C devices.
 
 Signed-off-by: Maxim Sloyko <maxims@google.com>
 Reviewed-by: Simon Glass <sjg@chromium.org>
@@ -72,17 +73,45 @@ Reviewed-by: Simon Glass <sjg@chromium.org>
 Changes in v2: None
 Changes in v1: None
 
- configs/evb-ast2500_defconfig | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm/include/asm/arch-aspeed/scu_ast2500.h |  3 ++-
+ drivers/clk/aspeed/clk_ast2500.c               | 11 +++++++++++
+ 2 files changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/configs/evb-ast2500_defconfig b/configs/evb-ast2500_defconfig
-index 74808a71ee..f8ef9b779c 100644
---- a/configs/evb-ast2500_defconfig
-+++ b/configs/evb-ast2500_defconfig
-@@ -17,3 +17,4 @@ CONFIG_SYSRESET=y
- CONFIG_TIMER=y
- CONFIG_WDT=y
- CONFIG_DM_RESET=y
-+CONFIG_PINCTRL=y
+diff --git a/arch/arm/include/asm/arch-aspeed/scu_ast2500.h b/arch/arm/include/asm/arch-aspeed/scu_ast2500.h
+index 1cdd3b9198..319d75e05c 100644
+--- a/arch/arm/include/asm/arch-aspeed/scu_ast2500.h
++++ b/arch/arm/include/asm/arch-aspeed/scu_ast2500.h
+@@ -21,7 +21,8 @@
+ #define SCU_MPLL_NUM_MASK		0xff
+ #define SCU_MPLL_POST_SHIFT		13
+ #define SCU_MPLL_POST_MASK		0x3f
+-
++#define SCU_PCLK_DIV_SHIFT		23
++#define SCU_PCLK_DIV_MASK		7
+ #define SCU_HPLL_DENUM_SHIFT		0
+ #define SCU_HPLL_DENUM_MASK		0x1f
+ #define SCU_HPLL_NUM_SHIFT		5
+diff --git a/drivers/clk/aspeed/clk_ast2500.c b/drivers/clk/aspeed/clk_ast2500.c
+index 504731271c..9e4c66ea85 100644
+--- a/drivers/clk/aspeed/clk_ast2500.c
++++ b/drivers/clk/aspeed/clk_ast2500.c
+@@ -110,6 +110,17 @@ static ulong ast2500_clk_get_rate(struct clk *clk)
+ 		rate = ast2500_get_mpll_rate(clkin,
+ 					     readl(&priv->scu->m_pll_param));
+ 		break;
++	case BCLK_PCLK:
++		{
++			ulong apb_div = 4 + 4 * ((readl(&priv->scu->clk_sel1)
++						  >> SCU_PCLK_DIV_SHIFT) &
++						 SCU_PCLK_DIV_MASK);
++			rate = ast2500_get_hpll_rate(clkin,
++						     readl(&priv->scu->
++							   h_pll_param));
++			rate = rate / apb_div;
++		}
++		break;
+ 	case PCLK_UART1:
+ 		rate = ast2500_get_uart_clk_rate(priv->scu, 1);
+ 		break;
 -- 
 2.13.0.rc1.294.g07d810a77f-goog
