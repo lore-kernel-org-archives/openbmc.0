@@ -2,36 +2,21 @@ Return-Path: <patrick@stwcx.xyz>
 Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wKNvQ3k3mzDqCd
- for <openbmc@lists.ozlabs.org>; Sat,  6 May 2017 06:35:46 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wKPfd6cMRzDqCd
+ for <openbmc@lists.ozlabs.org>; Sat,  6 May 2017 07:09:45 +1000 (AEST)
 Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
  [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1494016539183918.9098242594789;
- Fri, 5 May 2017 13:35:39 -0700 (PDT)
-Date: Fri, 5 May 2017 15:35:38 -0500
+ with SMTPS id 1494018579989635.9522723808951;
+ Fri, 5 May 2017 14:09:39 -0700 (PDT)
+Date: Fri, 5 May 2017 16:09:39 -0500
 From: Patrick Williams <patrick@stwcx.xyz>
-To: Nancy Yuen <yuenn@google.com>
-Cc: Rick Altherr <raltherr@google.com>,
- Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Brad Bishop <bradleyb@fuzziesquirrel.com>,
- Patrick Venture <venture@google.com>
-Subject: Re: phosphor-hwmon bottleneck potential
-Message-ID: <20170505203538.GL25937@heinlein.lan>
-References: <CAO=notxUh7si0kxbpyA-vK6aJaLQSi5NWCap7SeXDAgUNn8grQ@mail.gmail.com>
- <1493960865.3948.70.camel@fuzziesquirrel.com>
- <20170505163406.GB25937@heinlein.lan>
- <CAPLgG=k3mr01DnqWX5W4oCOQJ3njJCVBSe+EsLkpXCdj2Uwj7A@mail.gmail.com>
- <20170505174341.GE25937@heinlein.lan>
- <CAPLgG=m9S_4X=-Wvc8Uomhh7KBL5tBZn8A0Be9JTLZ=B-u+h5g@mail.gmail.com>
- <20170505180239.GF25937@heinlein.lan>
- <CAPLgG=mXE4qz5PVRFupp3=ogcS4oe0bQfYKaEwesttUhdvb4Xw@mail.gmail.com>
- <CADfYTpGfqgKP-HWg54mXnw7qc0wtPqfE=ZicZrCo_WsOJiQc7g@mail.gmail.com>
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: sdbusplus match interface changes
+Message-ID: <20170505210939.GM25937@heinlein.lan>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="pFej7zHSL6C5fFIz"
+ protocol="application/pgp-signature"; boundary="YS7t75H5cNTCpbja"
 Content-Disposition: inline
-In-Reply-To: <CADfYTpGfqgKP-HWg54mXnw7qc0wtPqfE=ZicZrCo_WsOJiQc7g@mail.gmail.com>
 User-Agent: Mutt/1.5.24 (2015-08-30)
 X-Zoho-Virus-Status: 1
 X-ZohoMailClient: External
@@ -46,80 +31,90 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 05 May 2017 20:35:47 -0000
+X-List-Received-Date: Fri, 05 May 2017 21:09:46 -0000
 
 
---pFej7zHSL6C5fFIz
+--YS7t75H5cNTCpbja
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, May 05, 2017 at 11:37:06AM -0700, Nancy Yuen wrote:
-> 1. General design issue if time between reads of a sensor is dependent on
-> the number of sensors in the system.
+There are three changes that I made recently to the sdbusplus match APIs
+that I'd like new code to start using.  I'm going through the existing
+openbmc repositories and making the changes to existing code.
 
-I don't see any general design issue with phosphor-hwmon or dbus being
-talked about here.  There is one specific driver that has a pretty large
-scaling factor no matter how you read sensor values out of it.  We've
-talked elsewhere in the thread about a potential driver change to
-improve it.  Most hwmon drivers do not have any issue.
+1. Namespace move.
 
-> And drivers can fail, due to miss behaving code or hardware.
+    The sdbusplus::server::match namespace is now sdbusplus::bus::match,
+    but there is a temporary alias for the old namespace still in place.
+    Once I get all changes merged in the user repositories, I'll remove
+    the alias.
 
-hwmon drivers should never block userspace forever.  If they do that is
-a serious driver bug.  We could be defensive against it by enhancing
-phosphor-hwmon to use non-blocking IO, assuming the kernel supports it,
-but that seems like a lot of code for a non-existent problem.
+    This change was proposed by someone outside OpenBMC that was using
+    the library.  I agreed that the 'match' utilities should not be in
+    server because they are just as likely to be used by a dbus-client.
 
-Hardware failures are already handled by the hwmon drivers, reported
-back to phosphor-hwmon as errnos on read, and dealt with.
+2. Addition of match rule utilities.
 
-> In this design, sensor report could be
-> significantly delayed if one sensor/driver were bad or misbehaving.
+    I added a number of utilities in the sdbus::bus::match::rules
+    namespace that can be used to create signal match rules instead of
+    hand-written C-strings.
 
-You have no difference in the problem of one sensor reading not working
-in any of these three potential designs:
-    1. One big loop that reads each hwmon sysfs entry for the whole
-       system in sequence.
-    2. One big program with N threads that, with a stampeding herd,
-       attempt to read all hwmon sysfs at the same instant.
-    3. M processes with N hwmon sysfs reads in sequence.
+    Old example:
+        "type=3D'signal',member=3D'JobRemoved',path=3D'/org/freedesktop/sys=
+temd1',"
+        "interface=3D'org.freedesktop.systemd1.Manager'"
 
-In any of these designs, if the driver delays your read for 8 seconds
-your data is delayed and stale.  I think our expectation is that a
-fan-control algorithm is using dbus signals to keep track of the most
-recent value and if it doesn't have up-to-date data by the time it wants
-to make a decision it would deal with it in whatever way it sees fit.
-Likely, either using old data or treating that sensor as in-error.
+    New example:
+        type::signal() + member("JobRemoved") +
+        path("/org/freedesktop/systemd1) +
+        interface("org.freedesktop.systemd1.Manager)
 
-If you chose design #2 and then expanded on it by adding a thermal
-control loop in yet another thread, you'd still have the exact same
-problems to deal with.  It just is now all in one process using shm to
-communicate the cached sensor values instead of using dbus between
-processes.
+3. Support for std::function-type callbacks.
+
+    Previously, when you had a class member function you wanted to have as
+    the callback for a dbus signal, you needed to make a static member
+    trampoline like:
+
+        static int callback(msg, void* context)
+        {
+            return static_cast<MyClass>(context)->realCallback(msg);
+        }
+
+        match m =3D match(..., &MyClass::callback, this);
+
+    You can now avoid writing the trampoline function by using
+    std::mem_fn:
+
+        match m =3D match(..., std::bind(std::mem_fn(&MyClass::callback),
+                                       this, _1));
+
+The first repository I modified to take advantage of these three changes
+is phosphor-state-manager.  You can find that review here as an example:
+https://gerrit.openbmc-project.xyz/#/c/4092
 
 --=20
 Patrick Williams
 
---pFej7zHSL6C5fFIz
+--YS7t75H5cNTCpbja
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAlkM4hoACgkQqwNHzC0A
-wRk53g/9GXXAMUdIc5f6rwOiX2gkmXmW+l1PECPv0bc9EmxPDM9iQhIeLnzO84yK
-q5BdSrViHr4VIBnLVuGM9qUfm8xiJhsz0y8qOqub9ipguB5Nj0qPVIs9FKb1wTEQ
-8I1TLoF8DkB2tN5+TMWHTaDxBDYr2sy9QwzZUv1SasLh61v6eCZlotXzJxv1Qv6s
-JcJg4IphXXShZy05jiL8noBLr9VDPY9GbkQUPWWzRUQkniz+YEjLcY8AQhMrhPAI
-6yrIOIEeshGozvwMG7WDB32NaM5M/dBQ/ERqYChmLq9xdU/5MNBvpxnCL1/HnsRz
-LUyUHhVq7pmiKNBlHDZgk8Q9xeIIDTjQ63ItWGv5UcE/xNgOzE70Br0Jsh2bfxdw
-L+UhbYCd57ntTbqv3VYG/9zeZDjv+fqBtKXbZ+S67n9DF1oNQqaQ5SNfVJzPcPym
-F77rS2Uvc/gwb2Aol4MVix914YYvypinWIku6u/9zMZzhBQ4NJO+3PD6GmIyDc6Y
-vOY+IEqvtzME+ri0u/uNhn8r9GGtGosD0X/ToWno8VQ5yk1UCZLsSy5TLqJAZn0L
-aeZozmntzl9mtGZTQK5BsTa2EwNhgfZED7txsHkBcuCBevt+X3IOf26Fg66M7lnA
-VbEXqKqHspCsuIm3Cg2TZBwtQ0nN2yTLqQXmMg9RWoajPO6iYe4=
-=2yvB
+iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAlkM6hAACgkQqwNHzC0A
+wRl6zw/8C8+h/SNtZvfnic+2j4afu7bdm2LHR//x/tuwTBNxocfJMTq5NN9ZRdgg
+Rtb6ZQl+Dw3jh+MK0uY0nAbMjGX5C+FGkrADzKu+wO0wiArKwmA/OFTFi4TallMY
+Lnmz5JcM9fBvzeiP4XcGR1GX8LmFKBVO4Pu8S+dfd7KnPSp+4zU2fgcWg8lHPoW3
+3/nxpkIaPHTVITgcMxYsd1rgvMeF9hsiMkm0wQoIjSU9GdvG+4xI7CZsN9eNDRL0
+h/FB+fkUsTS6JMvhrSkXoAgKjZkUCiXneIkTTRr6sr7NYLjBflO39LTdo2jwvmkd
+1oa5kgdwcfZ8704jqkdPdoTl3EzbSZ+N86z1XUvSF6wg5WC+IZyB/bSPKWiRZJNM
+snpVafO1dSf1u/WgWH2KGYSiKujZ7ZsBzuX/WniGVFNihL0mymdo6bmfegfoBQdq
+jSef8Q0H2UsC2Jqz4ksmoZVSdME6ufBD6Yyo0BZ6bxyGpYyoaIyTycXkuro5J8s6
+NF3C1LX3lzqyImilhHdwae/sOzii5aJuGog4Qga6vk+t5vkKfXa1dGw+/S5LBs66
+lXRbStoTiuP5r85wxyqQU+tYcpzvvhwmloCQuYveMoI+uKsxlgLr17pqVtR2jfOF
+TANjYjOcuRsRd92gfp2i1AlMk3Vazd4HKPxRaKkwj7r+pL55PXk=
+=xM8m
 -----END PGP SIGNATURE-----
 
---pFej7zHSL6C5fFIz--
+--YS7t75H5cNTCpbja--
