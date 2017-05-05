@@ -1,58 +1,24 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
+Return-Path: <bradleyb@fuzziesquirrel.com>
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wJx5s28pfzDqFr
- for <openbmc@lists.ozlabs.org>; Fri,  5 May 2017 12:43:13 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="EonX4iY+"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="K2ZZumta"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 3317B20ACF;
- Thu,  4 May 2017 22:43:11 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Thu, 04 May 2017 22:43:11 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=b7eI/z
- qJI1Pbc67rf4+x36Vi3uRwnARrnJOLDyjJiI0=; b=EonX4iY+vAbd3PdQU23m6n
- xF5bJtD/iWMh9KYOwlw3pqERIIU4wCWxyZtxhFjuev7MXy4ZAuYnukHcM0rO+gs4
- buLiBYnt252EHNs/qSXfGondNKh1lXI7vWwvo66hf9S13jWhwEfaINLaG77Y1F7t
- 7xYdLArlkLZpdTYzJtfN6Av/Y57dz+lUoil3t0cG6u1NFWHXgmWpqOE+9iEa5MQV
- pJgokdWIQHWqzeHPuEdVAduzQ4Ctg7zadCFHQwn0PN1CyFoYJp+Rfl7dtLO3oTys
- bNYdZhL5pVjgeYgpwkh7nSl59UWkVoGgSU4DHeG+t2yuDyMBJGmHyMblm/8t8G9g
- ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:in-reply-to:message-id
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=b7eI/zqJI1Pbc67rf4+x36Vi3uRwnARrnJOLDyjJi
- I0=; b=K2ZZumtaAgDfZEau2DZmyTuLtyuIkaYEu/x0fmlA8N7JySYK3689N/z3k
- A3XOweVHivHreK2S2VcbST2PZlo2tlFB/GoVFiMrz42ilTwm9L56q1RnRrdJWfuG
- fgBUI3EpRNt5jWsjaniGbY/hx2zB13WG77Cx+bc6vJrx35qYFhStK0N+T7Xgurxv
- UBR5b9eQmR0r0T+K9qpibcobXXAN8qm8iHK2GglY5giyNrIIIJfcF1mx7GupfAp7
- wdpGD16RSnDI4IiszIVtcE3OK5vekLn9F9Da9f6HoNQ++EHSpnV9peqbBfm9B6s4
- hvpnAgfH0slePs8/qhxLTWnEAYe6g==
-X-ME-Sender: <xms:v-YLWW0jjilp3Cc-JbNCJNW25i4x5l5k1SjamKNAfgNz-So2jD1btQ>
-X-Sasl-enc: INIuy8gJxqb26twVR7yukg+ELa4mYtmC7vwgDhytUjC4 1493952190
-Received: from keelia.au.ibm.com (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id 82C4E7E351;
- Thu,  4 May 2017 22:43:08 -0400 (EDT)
-From: Andrew Jeffery <andrew@aj.id.au>
-To: joel@jms.id.au
-Cc: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org,
- bradleyb@fuzziesquirrel.com, ken.th.liu@foxconn.com,
- john.hc.wang@foxconn.com
-Subject: [PATCH linux dev-4.10 v3 3/3] aspeed: barreleye: Debounce
- BMC_PWBTN_IN_N through devicetree
-Date: Fri,  5 May 2017 12:12:26 +0930
-Message-Id: <20170505024227.30962-4-andrew@aj.id.au>
-X-Mailer: git-send-email 2.9.3
-In-Reply-To: <20170505024227.30962-1-andrew@aj.id.au>
-References: <20170505024227.30962-1-andrew@aj.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wK0Jn5xLFzDq5W
+ for <openbmc@lists.ozlabs.org>; Fri,  5 May 2017 15:07:53 +1000 (AEST)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Sender: bradleyb@bajor.fuzziesquirrel.com
+Message-ID: <1493960865.3948.70.camel@fuzziesquirrel.com>
+Subject: Re: phosphor-hwmon bottleneck potential
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+To: Patrick Venture <venture@google.com>
+Cc: openbmc@lists.ozlabs.org, Patrick Williams <patrick@stwcx.xyz>, Nancy
+ Yuen <yuenn@google.com>, Matthew Barth <msbarth@linux.vnet.ibm.com>
+Date: Fri, 05 May 2017 01:07:45 -0400
+In-Reply-To: <CAO=notxUh7si0kxbpyA-vK6aJaLQSi5NWCap7SeXDAgUNn8grQ@mail.gmail.com>
+References: <CAO=notxUh7si0kxbpyA-vK6aJaLQSi5NWCap7SeXDAgUNn8grQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -64,57 +30,137 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 05 May 2017 02:43:14 -0000
+X-List-Received-Date: Fri, 05 May 2017 05:07:54 -0000
 
-This is a breaking change for userspace, as the GPIO is now represented
-as a key-code from a GPIO keyboard input.
+Hi Patrick, thanks for the feedback!
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts | 11 +++++++++++
- arch/arm/mach-aspeed/aspeed.c                  |  8 --------
- 2 files changed, 11 insertions(+), 8 deletions(-)
+On Thu, 2017-05-04 at 09:11 -0700, Patrick Venture wrote:
+> The system upon which I'm presently running openbmc uses
+> phosphor-hwmon to expose reading of fans and thermal sensors.  And its
+> works great for precisely this function, however, when another program
+> attempts to get the sensor values over dbus from phosphor-hwmon I run
+> into timing issues that can likely be addressed.
+> 
+> 
+> The driver we're using for the fans requires a time period to measure
+>  its RPMs.  I don't know if this is the only driver on earth that does
+> so, but if it is --then this is only a problem I'll run into.
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-index be1f2d120fee..9b75fc039f2d 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-@@ -74,6 +74,17 @@
- 			gpios = <&gpio ASPEED_GPIO(N, 7) GPIO_ACTIVE_HIGH>;
- 		};
- 	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+
-+		gpioe0 {
-+			gpios = <&gpio ASPEED_GPIO(E, 0) GPIO_ACTIVE_LOW>;
-+			label = "bmc_pwbtn_in_n";
-+			linux,code = <0>;
-+			debounce-interval = <20>;
-+		};
-+	};
- };
- 
- &pinctrl {
-diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
-index 31b0e69f62b8..760fed641a0b 100644
---- a/arch/arm/mach-aspeed/aspeed.c
-+++ b/arch/arm/mach-aspeed/aspeed.c
-@@ -73,14 +73,6 @@ static void __init do_barreleye_setup(void)
- 	writel(reg, AST_IO(AST_BASE_GPIO | 0x20));
- 	writel(0xC738F20A, AST_IO(AST_BASE_GPIO | 0x24));
- 	writel(0x0031FFAF, AST_IO(AST_BASE_GPIO | 0x80));
--
--	/* Select TIMER3 as debounce timer */
--	writel(0x00000001, AST_IO(AST_BASE_GPIO | 0x48));
--	writel(0x00000001, AST_IO(AST_BASE_GPIO | 0x4C));
--
--	/* Set debounce timer to 480000 cycles, with a pclk of 48MHz,
--	 * corresponds to 20 ms. This time was found by experimentation */
--	writel(0x000EA600, AST_IO(AST_BASE_GPIO | 0x58));
- }
- 
- static void __init do_palmetto_setup(void)
--- 
-2.9.3
+I think this is a pretty critical point.  If this is one-off driver
+behavior I'm not very excited about adding special code to
+phosphor-hwmon to work around it.  But if its SOP for hwmon drivers, we
+should definitely improve phosphor-hwmon to handle long read times (more
+on long read times below).
+
+>   The time period is about 1 second.
+
+I'm translating this slightly and assuming it to mean the read system
+call on the sysfs attribute blocks phosphor-hwmon for ~1 second.  If
+that is the case it would explain the observed behavior.
+
+I didn't consider such long blocking read operations on the sysfs entry
+when implementing phosphor-hwmon.
+
+> 
+> 
+> As it stands now, there is one expected problem and one bizarre one
+> that I haven't traced down.
+> 
+> 
+> Firstly, if I try to read a specific fan speed it takes 8s to get a
+> response from phosphor-hwmon over dbus.  This may be that it's
+
+This is what I would expect given the read delay.  The Dbus handler
+doesn't make read system calls on files in sysfs, but there is a single
+loop handling both the dbus socket and updating sensor values.  What is
+happening is that the loop body is taking eight seconds so the call to
+process dbus traffic is only occurring every eight seconds.
+
+>  reading all the fan speeds before returning; but I haven't verified
+> it.  There are eight fans on the system being handled by that instance
+> of phosphor-hwmon, but the 8 seconds could be a coincidence.  I'd need
+> to really look at how it handles dbus requests to determine that
+> that's the issue.
+> 
+> 
+> To avoid this, I registered for listen for Sensor.Value updates over
+> dbus, however, from looking at the round robin sensor update loop, my
+> hypothesis is that I would receive an update from each fan once every
+> 8 seconds or so given its first time to run.  This was effectively
+> what I saw, except of course it was an update to the sensor every 9
+> seconds, because my hypothesis forgot to account for the one second
+> pause between each loop iteration.
+
+Right, each sensor is only being polled once every 8+1 seconds, so
+events won't be triggered any faster than that.
+
+> 
+> 
+> The solution that comes to mind would be to simply parallelize sensor
+> updates, such that phosphor-hwmon uses threads to update the sensor
+
+I think this is a great idea.  But I would vote for some kind of
+non-blocking or async io rather than threads.  I don't know what support
+for that sort of thing is available in the hwmon subsystem so I'm not
+sure if its even possible, but it seems worth a look anyway.
+
+>  values independently of each other.  There are certainly downsides to
+> this implementation and it won't be 100% optimized because there are
+> switching overheads with threads, but since my driver read
+
+non-blocking IO would address these concerns.
+
+>  appears to be a bottleneck, each thread will take their 1 second
+> reading different files and update the information more rapidly.  This
+> also prevents other sensors under the same configuration from
+> interfering with general updates to the dbus sensor namespace.  My
+> system runs four instances of phosphor-hwmon because of the layout,
+> but others may run different variations and experience other problems
+> that could be alleviated by multi-threading.
+> 
+> 
+> The other suggestion I have to improve involves adding a timestamp to
+> phosphos-dbus-interfaces for Sensor.Value to let the recipient of the
+> information know when it was last updated.  Certainly if someone
+
+When a dbus signal is emitted for a property changed event, the time
+associated with the signal is "right now".  When invoking Get on the
+sensor value property, again the timestamp of the data provided by the
+method call is "right now".
+
+If an application wants to grab a timestamp when it gets a signal or
+makes a Get method call and associate it with the sensor value I think
+thats fine but I'm not seeing the value in requiring that every
+implementation of a sensor do that.
+
+>  listens for property updates, they can produce this information
+> themselves, but it doesn't hurt to provide it to any reader
+
+Honestly I'm not able to come up with a reason that it doesn't hurt.
+But it hurts even less for the application using the Dbus interface to
+collect the timestamp itself does it not?  Is it not preferable to have
+a reduced API requirement for applications implementing sensors?
+
+>  regardless of mechanism and as it stands now, it feels missing.  It's
+> true that some drivers cache the information, and phosphor-hwmon
+> itself waits one second before looping around to update, but a way to
+> reduce some amount of ambiguity would be to provide a timestamp on the
+> information.  By adding a timestamp the information would also come
+> across to the reader as more of a time series, which is more or less
+> is.
+> 
+> 
+> Without multi-threading to remove the timing bottleneck on my
+> platform, and the inability to provide other more direct interfaces
+> for controlling fans, I'll be unable to use phosphor-hwmon as a
+> primary source for reading/writing sensor data and will be unable to
+> upstream any effort i make to write a pluggable thermal controller.
+> 
+> 
+> I felt it was important to thoroughly explain my reasoning as other
+> engineering teams attempting to use openbmc for their platforms could
+> run into similar problems and that the decision to develop
+> independently was data-driven and not arbitrary.
+> 
+> 
+> Patrick
