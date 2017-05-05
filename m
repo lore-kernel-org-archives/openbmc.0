@@ -1,41 +1,41 @@
-Return-Path: <venture@google.com>
-Received: from mail-pf0-x22c.google.com (mail-pf0-x22c.google.com
- [IPv6:2607:f8b0:400e:c00::22c])
+Return-Path: <raltherr@google.com>
+Received: from mail-wr0-x235.google.com (mail-wr0-x235.google.com
+ [IPv6:2a00:1450:400c:c0c::235])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wKKXq5RzvzDq5W
- for <openbmc@lists.ozlabs.org>; Sat,  6 May 2017 04:04:27 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wKKYd2th4zDq5W
+ for <openbmc@lists.ozlabs.org>; Sat,  6 May 2017 04:05:09 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="DgRVQsrW"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="XdPGqxMe"; 
  dkim-atps=neutral
-Received: by mail-pf0-x22c.google.com with SMTP id q20so6065103pfg.0
- for <openbmc@lists.ozlabs.org>; Fri, 05 May 2017 11:04:27 -0700 (PDT)
+Received: by mail-wr0-x235.google.com with SMTP id l50so7986876wrc.3
+ for <openbmc@lists.ozlabs.org>; Fri, 05 May 2017 11:05:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=mZyX8RZM2e5w55M59E6D2UeSYzkNNytbVemSHL8z/LE=;
- b=DgRVQsrW1tTawXHp1byvyET7B3wVOKPo2cvcLklcxaDLL9du12k+Q5OSwS5yRdRfv8
- +Rh+R5EEssRf3o+r/yTzk6PxU879TFxr/8HaKbUdxiNJyQxoPW8krZeFh8QtbbDAtxg7
- 6VMnPIinkwZKsJ++A2MxIJe1Pf5LdOOqJZQGRLf8tjZN3pmxDmQ4FNFjq1qzAmKQ67nZ
- Ib90wvvIoa/P/hzA1oMGi2f1mlqr49ijD71FK1sZrROYUnrGOo5Oe0ZqypeCd8IcTRqX
- qjzkxCFJC1byxMTUg4jp1FZ567493GPQ04JIlcvaIWNgFhPX8pQr8+Loz+oSVTDor+fQ
- oVpA==
+ :cc; bh=rDRLbtXP7zSdQaP0j90ugDSvZkNhTI5QQKUGG1wQBfc=;
+ b=XdPGqxMej3pry2KaBS07KKlPSU0P40o09iFlbnfDiXJLn760s5w0TM50QxXpv7eNUx
+ O2OChpqgtReW9e/HksttRXmoTN93ej/jOGQqWYWkgaO4ZG+KTcqZLJYynY69ggdGHqFy
+ YPPSeiS1l1tcqoca7J0v9F3FSJkt5jM5gjWXUwFem0toPc+15pDoIQXX0sIng4E8pqSx
+ tcuiB6jEIEGFjaceFV996v/cnNKmAm7CupE51LBqCfwpoWts1TXBFrFjU2GgD6CGuvt1
+ ev4Utq3O10Zi9M/twD/eBC+bcY0i/HlGaKvPaj5JLh6vu0Rmeom+5D9VGKxNQsXBs6KR
+ f7cA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=mZyX8RZM2e5w55M59E6D2UeSYzkNNytbVemSHL8z/LE=;
- b=SJkND+34h5tzihuSV1KysP7vKenaT8y0wbWBPHBVXUkHPRJAJFoVoDHbCHZDRkI9JF
- aYhD1pPjnS4o44mOnIs0kcqr20L2V7puTkot79g8mFZS3POBighRGnE2XjuVK0IQdEH0
- rUEBMYvRMS/Ug4aP6FKacmHTYZLnSU93N0RRLbiHkHQ2jNV33V7tgDqF8R5gXi+LOQpO
- 2Ew6h439CTukhkHiuuRHufYile/6DEtaui1/Al+pehAN3Kc3GNiMBiJ8TBKrNABklmVQ
- YpXbzT+KopTNWIHQwyvJbdgWXDpMEsaC9IaKH9uGwB7HGi2AI6vyDvr4QXHNzRTedqjp
- lDjA==
-X-Gm-Message-State: AN3rC/4/MfLkJI6mg+SjRoxEbAdIsYHdPB6cBIIPMySVuYzzm+rf/wCw
- R6ZsTBnHeUPTEfapR+CBihpX3ZV32fU/
-X-Received: by 10.84.229.78 with SMTP id d14mr35384626pln.15.1494007465640;
- Fri, 05 May 2017 11:04:25 -0700 (PDT)
+ bh=rDRLbtXP7zSdQaP0j90ugDSvZkNhTI5QQKUGG1wQBfc=;
+ b=tKC891A8y2tIhv06u81sUOdYdmo0ppeVP2S1LbfCygX5tOy+YGjO3tqTBK7tjF59Vs
+ FTLC/9Bzh1a7V8TUzGhThRNyAEVqPyCreSLTO1XLHIrH+Ky5es1k9IL61CZGBP9i3O03
+ 8b7FcTEfgAP/dJPPoP3RGLKCkWJAWZUC22KeCt94AfBigH/mtwzYkE0Ga+hUi9JNGnBn
+ 7X0/k5yK9GCVoTor3j2j/kb44zXK8wu/i8BJs1KNiQ6pVnjnVesneUpuIjf1MmySizIM
+ tHipmcwJEFE0RKV8RYZ55r43gEwINc8aiIivuWAWLWTPKf1LilrBEsOYjtkieiSJXDOc
+ oq9Q==
+X-Gm-Message-State: AN3rC/7XcPuNjGBJ4M5ty5h6yRHsip5FceQZZI6kezn4Pa6Ct4FgQriM
+ C2aGYDE2GT94xitRkqlwTDacSp5PHDye
+X-Received: by 10.223.161.194 with SMTP id v2mr31928807wrv.132.1494007506322; 
+ Fri, 05 May 2017 11:05:06 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.100.166.133 with HTTP; Fri, 5 May 2017 11:04:05 -0700 (PDT)
+Received: by 10.28.46.130 with HTTP; Fri, 5 May 2017 11:05:05 -0700 (PDT)
 In-Reply-To: <20170505180239.GF25937@heinlein.lan>
 References: <CAO=notxUh7si0kxbpyA-vK6aJaLQSi5NWCap7SeXDAgUNn8grQ@mail.gmail.com>
  <1493960865.3948.70.camel@fuzziesquirrel.com>
@@ -44,16 +44,16 @@ References: <CAO=notxUh7si0kxbpyA-vK6aJaLQSi5NWCap7SeXDAgUNn8grQ@mail.gmail.com>
  <20170505174341.GE25937@heinlein.lan>
  <CAPLgG=m9S_4X=-Wvc8Uomhh7KBL5tBZn8A0Be9JTLZ=B-u+h5g@mail.gmail.com>
  <20170505180239.GF25937@heinlein.lan>
-From: Patrick Venture <venture@google.com>
-Date: Fri, 5 May 2017 11:04:05 -0700
-Message-ID: <CAO=notw-MN9uXdOHqEO_H5rWnmsZxarOcgd9uVOsKBNk897_qQ@mail.gmail.com>
+From: Rick Altherr <raltherr@google.com>
+Date: Fri, 5 May 2017 11:05:05 -0700
+Message-ID: <CAPLgG=mXE4qz5PVRFupp3=ogcS4oe0bQfYKaEwesttUhdvb4Xw@mail.gmail.com>
 Subject: Re: phosphor-hwmon bottleneck potential
 To: Patrick Williams <patrick@stwcx.xyz>
-Cc: Rick Altherr <raltherr@google.com>, 
- Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>,
+Cc: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>,
  Brad Bishop <bradleyb@fuzziesquirrel.com>, 
+ Patrick Venture <venture@google.com>,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=94eb2c1cb35a484820054ecab84a
+Content-Type: multipart/alternative; boundary=f403045f2ed6b50dc7054ecaba1e
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -65,15 +65,12 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 05 May 2017 18:04:28 -0000
+X-List-Received-Date: Fri, 05 May 2017 18:05:10 -0000
 
---94eb2c1cb35a484820054ecab84a
+--f403045f2ed6b50dc7054ecaba1e
 Content-Type: text/plain; charset=UTF-8
 
-For what it's worth, I'm experimenting with shorter measurement periods for
-this specific driver.
-
-Patrick
+Jagha is currently on leave.
 
 On Fri, May 5, 2017 at 11:02 AM, Patrick Williams <patrick@stwcx.xyz> wrote:
 
@@ -134,17 +131,16 @@ On Fri, May 5, 2017 at 11:02 AM, Patrick Williams <patrick@stwcx.xyz> wrote:
 > Patrick Williams
 >
 
---94eb2c1cb35a484820054ecab84a
+--f403045f2ed6b50dc7054ecaba1e
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">For what it&#39;s worth, I&#39;m experimenting with shorte=
-r measurement periods for this specific driver.<div><br></div><div>Patrick<=
-/div></div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Fri=
-, May 5, 2017 at 11:02 AM, Patrick Williams <span dir=3D"ltr">&lt;<a href=
-=3D"mailto:patrick@stwcx.xyz" target=3D"_blank">patrick@stwcx.xyz</a>&gt;</=
-span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8e=
-x;border-left:1px #ccc solid;padding-left:1ex">Jaghu,<br>
+<div dir=3D"ltr">Jagha is currently on leave.</div><div class=3D"gmail_extr=
+a"><br><div class=3D"gmail_quote">On Fri, May 5, 2017 at 11:02 AM, Patrick =
+Williams <span dir=3D"ltr">&lt;<a href=3D"mailto:patrick@stwcx.xyz" target=
+=3D"_blank">patrick@stwcx.xyz</a>&gt;</span> wrote:<br><blockquote class=3D=
+"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding=
+-left:1ex">Jaghu,<br>
 <br>
 Can you comment?=C2=A0 I&#39;m looking at the version that was merged into =
 Linus&#39;<br>
@@ -214,4 +210,4 @@ r>
 Patrick Williams<br>
 </font></span></blockquote></div><br></div>
 
---94eb2c1cb35a484820054ecab84a--
+--f403045f2ed6b50dc7054ecaba1e--
