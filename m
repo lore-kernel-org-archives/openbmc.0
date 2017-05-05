@@ -2,21 +2,36 @@ Return-Path: <patrick@stwcx.xyz>
 Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wKMJB1m5nzDqCd
- for <openbmc@lists.ozlabs.org>; Sat,  6 May 2017 05:23:37 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wKN0Z6LHyzDqCd
+ for <openbmc@lists.ozlabs.org>; Sat,  6 May 2017 05:55:10 +1000 (AEST)
 Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
  [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1494012213258950.4316409200205;
- Fri, 5 May 2017 12:23:33 -0700 (PDT)
-Date: Fri, 5 May 2017 14:23:32 -0500
+ with SMTPS id 14940141060301003.466886328573;
+ Fri, 5 May 2017 12:55:06 -0700 (PDT)
+Date: Fri, 5 May 2017 14:55:05 -0500
 From: Patrick Williams <patrick@stwcx.xyz>
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: OpenBMC v1.99.5
-Message-ID: <20170505192332.GI25937@heinlein.lan>
+To: Robi Buranyi <rburanyi@google.com>
+Cc: Nancy Yuen <yuenn@google.com>, Patrick Venture <venture@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>,
+ Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
+Subject: Re: phosphor-hwmon bottleneck potential
+Message-ID: <20170505195505.GJ25937@heinlein.lan>
+References: <CAO=notxUh7si0kxbpyA-vK6aJaLQSi5NWCap7SeXDAgUNn8grQ@mail.gmail.com>
+ <1493960865.3948.70.camel@fuzziesquirrel.com>
+ <20170505163406.GB25937@heinlein.lan>
+ <CAPLgG=k3mr01DnqWX5W4oCOQJ3njJCVBSe+EsLkpXCdj2Uwj7A@mail.gmail.com>
+ <20170505174341.GE25937@heinlein.lan>
+ <CAPLgG=m9S_4X=-Wvc8Uomhh7KBL5tBZn8A0Be9JTLZ=B-u+h5g@mail.gmail.com>
+ <20170505180239.GF25937@heinlein.lan>
+ <CAPLgG=mXE4qz5PVRFupp3=ogcS4oe0bQfYKaEwesttUhdvb4Xw@mail.gmail.com>
+ <CADfYTpGfqgKP-HWg54mXnw7qc0wtPqfE=ZicZrCo_WsOJiQc7g@mail.gmail.com>
+ <CANF=oU7xrGxz+Lfp+GT7QHOqYmKP7h+uMbraK0PjkTOdugTydw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="yzvKDKJiLNESc64M"
+ protocol="application/pgp-signature"; boundary="tKy6e3LXpfmanBFM"
 Content-Disposition: inline
+In-Reply-To: <CANF=oU7xrGxz+Lfp+GT7QHOqYmKP7h+uMbraK0PjkTOdugTydw@mail.gmail.com>
 User-Agent: Mutt/1.5.24 (2015-08-30)
 X-Zoho-Virus-Status: 1
 X-ZohoMailClient: External
@@ -31,60 +46,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 05 May 2017 19:23:39 -0000
+X-List-Received-Date: Fri, 05 May 2017 19:55:11 -0000
 
 
---yzvKDKJiLNESc64M
+--tKy6e3LXpfmanBFM
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-I made a release earlier this week but did not have a chance to put
-together a list of highlights, until now:
+On Fri, May 05, 2017 at 11:50:52AM -0700, Robi Buranyi wrote:
+> We could change the driver(s) to periodically poll the sensors like every
+> second, and store the latest value. Then the sysfs read shall always retu=
+rn
+> the last completed measurement data. We should do this for both the
+> tachometers reading and the temperature sensors. There shall be some logic
+> implemented for aging (when sensor read constantly fails)
 
-v1.99.5: 83 commits since v1.99.4
-    - systemd upgrade to 232
-    - Romulus, Witherspoon, Zaius machines enable host console
-      mirroring at 115k baud
-    - Changes to systemd boot sequence target names for consistency
-    - IPMI:
-        - Barreleye, Firestone, Garrison, Palmetto, Romulus inventory
-          updated with present / functional state from host-initiated
-          sensor operations.
-        - IPMI SOL supported on network interface.
-    - Zaius configuration change to boot system automatically by
-      default.
-    - mboxbridge added a dbus-based utility, with corresponding service
-      files, to trigger PNOR cache resets.  This removed a 45s sleep in
-      the boot sequence.
-    - OpenPOWER P9:
-        - Kernel fixes for FSI stability.
-        - FSI supports i2c master on second processor socket.
-        - SBE-FIFO driver, OCC-FIFO driver.
-        - CFAM override procedure added to boot sequence for lab usage.
+This could certainly be done for the Aspeed PWM driver in question and
+by my reading this might be the best approach.  Due to the way that
+hardware works it seems like you'd an interval between samples of at
+least 1 second in order to be accurate to roughly 100 RPMs.  I don't
+know what accuracy you are striving for, but blocking an application on
+a syscall for 1 second doesn't sound like a great implementation.
+
+We could check with Guenter Roeck, the HWMON maintainer, to see if he
+has any recommendations on the best way to handle this driver.
+
+Changing HWMON on the whole to do this (the '(s)' part of your 'driver(s)'
+statement) seems pretty out of scope and not likely to be accepted by
+upstream.  Most HWMON drivers do simple IO in the read syscall, like a
+few i2c operations to read a register out in a device so there isn't
+problem with a long occurring block.
 
 --=20
 Patrick Williams
 
---yzvKDKJiLNESc64M
+--tKy6e3LXpfmanBFM
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAlkM0TIACgkQqwNHzC0A
-wRmv1xAAghK6lWvWULS5LZ2GsNR2uOo1+zaMAZNkrfTyCibk/K/f2pDEDegjJsIg
-AFCaCDpBQ+smQEziYG5s1TXDCHwOedwNUD0D2LJMT6l5QL7LqjMoLKpy6JLfVoGu
-7JcOnvqqosuCjMTi9SU80Vhbn4VLjVUhtJ0fIawbffd1z1yytaEK61NCddYfZXtD
-zX259qco40X0D2aBJd9nmqDIBh/jC0EWlW0HvhUkoct13w2OXpvu8cHx7Rf7e77v
-MbS9wkxdYEmVwmv0wd8tlRM5G8e23b1xla8es7J1VNxA2+7sUTYXsjGWLCMq7tB8
-1oKau+WWumo2yB6YycHalgo9VfmaUg5+HUFACL4WBqMosPE6i3VHeBrCTuBpEgki
-nR2j8TUEn4yv7snLX0gk2gmVbljmwLNODBoOe1w2vrCxmqpZAiHvqsxMkMiTyJ0h
-C8dkGG/Lf3NMh5hfJssXryuLV9GinGoYh6rtCS0/nb6LKCRwmM85fkOuJBzo7W21
-HmmdRza999YvqAu5tuItCW6sc9MRRRwDf5HuFP53EEGRSdJL+Hm69XZPayk+ztVx
-ujEY2PSViScntdf7Uxzgn8luiOd32tHHVOYuKRkb3m8NJpxWc4yfLEDx2/woZXUS
-VITIVsMQm/7y0uiNA5GntkLw0vbpFe1kPbDD0IkSf7WJfvT8Gcs=
-=HLOX
+iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAlkM2JcACgkQqwNHzC0A
+wRkd8w//ZmrwidJjXc+3BCTyp1ZMdRRK/A7e6ixZlWYHz+TjTmH+WnuKlXR8vv3L
+bLy1NFN8XKBssg8nRuXxVdREmkqu5oz65CFC1ozTmN8nUR7I+nAANkqHHYMQ+0ya
+qjKPZrvFNJvFoE3+rpRc4RW59ycUBZbmryNJIEx5AXi/hs1kWfw2KsbvyonULO97
+uVjyiq8db5Wx56CfEJviXQ2hQyk+NOgLQOqV1qnisKlAxr104z3apHKjz1eZr/r4
+/RgrhRIu7SOBwNRJWrxnWqpywgOIahFbEBuKaxj1zu/aT+Jf4HL4WLyi8UnOQmYh
+njZxA2P5wjAH+c2kVEOsqPtnIWdh1qc7rtxn8EuWliYIZdaM+IFVsyzJ/5mk1BzO
+q4DyY+9XkdPJW8bWMDc0at2x+4AqxBk7l6vrX+i7fkO2EJk51EoNV5Ar9a6RVYl8
+stOjbiH9dfFezD2If9jDQR/3TZZkHVFSMxl/KQRi1ZFpIxNhr5V+g7rea19AkV2L
+BMRiDQj+HsV+VhXk/nti1u+NlSM+St2HllBwI6F3aZcTd+gfD8gjHYVIantJLwcu
+L2KiinYLO4+X7eMIeNiyqyzU8NLrBqxshKg30Z5cHf7hNkVoAxsPXfNkLRHAAVm1
+HP/KE95pYu4KY2uF4Z14KjmFs3QzI3YB8cv9Yex47wX439ZtJzk=
+=aori
 -----END PGP SIGNATURE-----
 
---yzvKDKJiLNESc64M--
+--tKy6e3LXpfmanBFM--
