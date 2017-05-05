@@ -2,22 +2,22 @@ Return-Path: <patrick@stwcx.xyz>
 Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wKNPq4jNNzDqCd
- for <openbmc@lists.ozlabs.org>; Sat,  6 May 2017 06:13:35 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wKNvQ3k3mzDqCd
+ for <openbmc@lists.ozlabs.org>; Sat,  6 May 2017 06:35:46 +1000 (AEST)
 Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
  [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1494015209219902.5247489687392;
- Fri, 5 May 2017 13:13:29 -0700 (PDT)
-Date: Fri, 5 May 2017 15:13:28 -0500
+ with SMTPS id 1494016539183918.9098242594789;
+ Fri, 5 May 2017 13:35:39 -0700 (PDT)
+Date: Fri, 5 May 2017 15:35:38 -0500
 From: Patrick Williams <patrick@stwcx.xyz>
-To: Rick Altherr <raltherr@google.com>
-Cc: Nancy Yuen <yuenn@google.com>,
+To: Nancy Yuen <yuenn@google.com>
+Cc: Rick Altherr <raltherr@google.com>,
  Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  Brad Bishop <bradleyb@fuzziesquirrel.com>,
  Patrick Venture <venture@google.com>
 Subject: Re: phosphor-hwmon bottleneck potential
-Message-ID: <20170505201328.GK25937@heinlein.lan>
+Message-ID: <20170505203538.GL25937@heinlein.lan>
 References: <CAO=notxUh7si0kxbpyA-vK6aJaLQSi5NWCap7SeXDAgUNn8grQ@mail.gmail.com>
  <1493960865.3948.70.camel@fuzziesquirrel.com>
  <20170505163406.GB25937@heinlein.lan>
@@ -27,12 +27,11 @@ References: <CAO=notxUh7si0kxbpyA-vK6aJaLQSi5NWCap7SeXDAgUNn8grQ@mail.gmail.com>
  <20170505180239.GF25937@heinlein.lan>
  <CAPLgG=mXE4qz5PVRFupp3=ogcS4oe0bQfYKaEwesttUhdvb4Xw@mail.gmail.com>
  <CADfYTpGfqgKP-HWg54mXnw7qc0wtPqfE=ZicZrCo_WsOJiQc7g@mail.gmail.com>
- <CAPLgG=mTXTh-Pa_T2y2SxpOis4Y9aWz0shkzz7pH+iyB7BWBFA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="8kI7hWEHMS8Z+7/0"
+ protocol="application/pgp-signature"; boundary="pFej7zHSL6C5fFIz"
 Content-Disposition: inline
-In-Reply-To: <CAPLgG=mTXTh-Pa_T2y2SxpOis4Y9aWz0shkzz7pH+iyB7BWBFA@mail.gmail.com>
+In-Reply-To: <CADfYTpGfqgKP-HWg54mXnw7qc0wtPqfE=ZicZrCo_WsOJiQc7g@mail.gmail.com>
 User-Agent: Mutt/1.5.24 (2015-08-30)
 X-Zoho-Virus-Status: 1
 X-ZohoMailClient: External
@@ -47,81 +46,80 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 05 May 2017 20:13:36 -0000
+X-List-Received-Date: Fri, 05 May 2017 20:35:47 -0000
 
 
---8kI7hWEHMS8Z+7/0
+--pFej7zHSL6C5fFIz
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, May 05, 2017 at 11:52:15AM -0700, Rick Altherr wrote:
-> On Fri, May 5, 2017 at 11:37 AM, Nancy Yuen <yuenn@google.com> wrote:
-> > 2. So putting the onus on each application to implement timestamps is
-> > better design than having timestamps recorded by a central source, the
-> > source that actually is reading from the driver?
+On Fri, May 05, 2017 at 11:37:06AM -0700, Nancy Yuen wrote:
+> 1. General design issue if time between reads of a sensor is dependent on
+> the number of sensors in the system.
 
-> Re #2: timestamps lose value as they shift away from the time of the actu=
-al
-> measurement.  Ideally, the hardware would timestamp the sample, hwmon wou=
-ld
-> preserve and provide that timestamp to the userspace.
+I don't see any general design issue with phosphor-hwmon or dbus being
+talked about here.  There is one specific driver that has a pretty large
+scaling factor no matter how you read sensor values out of it.  We've
+talked elsewhere in the thread about a potential driver change to
+improve it.  Most hwmon drivers do not have any issue.
 
-I'm not seeing the utility, specifically in the context of a fan control
-algorithm, for a timestamp to know when the reading occurred having been
-described.  I do see a need for it in the context of a "repository of
-historical sensor values" such as what we will need to implement the
-DCMI interfaces for IPMI.
+> And drivers can fail, due to miss behaving code or hardware.
 
-I don't have any problem with a timestamp being added to the
-dbus-objects being presented by phosphor-hwmon.  We do have Timestamp
-property on xyz.openbmc_project.Logging.Entry already.  I would suggest
-we make a xyz.openbmc_project.Common.Timestamp interface instead and
-transition the logging entry server to including it.  The reason being
-that I've recently had some questions about the date-time format we are
-presenting across REST (ms since 1970 as uint64) as being difficult for
-humans; having a Common.Timestamp interface makes it much easier for the
-REST server (and later Redfish) to identify "things representing time
-that should be converted to date-time format".
+hwmon drivers should never block userspace forever.  If they do that is
+a serious driver bug.  We could be defensive against it by enhancing
+phosphor-hwmon to use non-blocking IO, assuming the kernel supports it,
+but that seems like a lot of code for a non-existent problem.
 
-There is an issue with having two properties in a single dbus object
-being changed at the same time and generating a single signal for it.
-The org.freedesktop.DBus.Properties.PropertiesChanged signal only allows
-a single interface, which might be an argument against what I wrote in
-the previous paragraph.  Also, the sdbusplus-generated bindings do not
-currently have a mechanism to indicate multiple properties changing as a
-transaction even on a single interface.
+Hardware failures are already handled by the hwmon drivers, reported
+back to phosphor-hwmon as errnos on read, and dealt with.
 
-If we do add a timestamp we need to be clear on what the expected
-behavior of it is.  As we are seeing with this issue there can be some
-time between sysfs read-start and read-end.  Also, if we are reading an
-external device, like the fan controller on Witherspoon, the value
-obtained isn't an instantaneous fan speed but an average over some
-hardware-defined interval.  So I think we would need some language such
-that "time immediately after sysfs read-end" is a valid representation.
+> In this design, sensor report could be
+> significantly delayed if one sensor/driver were bad or misbehaving.
+
+You have no difference in the problem of one sensor reading not working
+in any of these three potential designs:
+    1. One big loop that reads each hwmon sysfs entry for the whole
+       system in sequence.
+    2. One big program with N threads that, with a stampeding herd,
+       attempt to read all hwmon sysfs at the same instant.
+    3. M processes with N hwmon sysfs reads in sequence.
+
+In any of these designs, if the driver delays your read for 8 seconds
+your data is delayed and stale.  I think our expectation is that a
+fan-control algorithm is using dbus signals to keep track of the most
+recent value and if it doesn't have up-to-date data by the time it wants
+to make a decision it would deal with it in whatever way it sees fit.
+Likely, either using old data or treating that sensor as in-error.
+
+If you chose design #2 and then expanded on it by adding a thermal
+control loop in yet another thread, you'd still have the exact same
+problems to deal with.  It just is now all in one process using shm to
+communicate the cached sensor values instead of using dbus between
+processes.
 
 --=20
 Patrick Williams
 
---8kI7hWEHMS8Z+7/0
+--pFej7zHSL6C5fFIz
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAlkM3OgACgkQqwNHzC0A
-wRl+Fw/8DO7Z2j76l6xx9xqksqIBAu8enmqR6AVoiNvF61av3FqArWnLfgAp+DcM
-WgKyXlK8C3+NWHVm3GITjR3aZ0aMCOkt6d+RkeFeUiO672cydrV+XgCA/+Fmv7o+
-4D4jHJKeTRoFAJaPIIHSWx0eXQuuzGTiKbYCBD0L0GGmkuOleLksUzDmKuBeOwv9
-L11xd9OxalSxKgaPRbSL5Ai+C7WQ175opIIOiH/NRjOi5uT3c91kkvAi11o4sCdt
-KgZpH3PNGRwxGs/w2VVQHv9HzGoRImnRq7JrMDlmX50HvbuG3+bqOiTCwaVPhsiT
-58sHcr4OEPrGUxk3nLU356Ou3sDe8VqTFzWwCUoxkYcDa7ZT6iJef2OdI5yaX+lC
-znDnV+eE0RT6MAXnLlzB7VOys+XIr/K3KvFsHu+O+l+etimFGiKaOBVOpgHzO5JK
-+OuqOKXWv8WK4T94TGQrM2nr3LMBEa78vwpCCH8wzY1S2wJsA6GHvs01Xn9/1FUh
-opZs9yxXxyBOhMyS4bhjPfoyDiBFwUCt1MDKUXDl/NAPrymHiXKKpNOwQf/wZlWV
-ER25M6eD51BT/BJwEft3mdeEvEXvwx6EGoAD9JTLwLI7wdP7PFyPoB7mcEGw4E68
-GE5wZYCDLKvf3UX8aqyp/xNi5YCzksK4cYpsShZhCsxRKRMIfCE=
-=OSXl
+iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAlkM4hoACgkQqwNHzC0A
+wRk53g/9GXXAMUdIc5f6rwOiX2gkmXmW+l1PECPv0bc9EmxPDM9iQhIeLnzO84yK
+q5BdSrViHr4VIBnLVuGM9qUfm8xiJhsz0y8qOqub9ipguB5Nj0qPVIs9FKb1wTEQ
+8I1TLoF8DkB2tN5+TMWHTaDxBDYr2sy9QwzZUv1SasLh61v6eCZlotXzJxv1Qv6s
+JcJg4IphXXShZy05jiL8noBLr9VDPY9GbkQUPWWzRUQkniz+YEjLcY8AQhMrhPAI
+6yrIOIEeshGozvwMG7WDB32NaM5M/dBQ/ERqYChmLq9xdU/5MNBvpxnCL1/HnsRz
+LUyUHhVq7pmiKNBlHDZgk8Q9xeIIDTjQ63ItWGv5UcE/xNgOzE70Br0Jsh2bfxdw
+L+UhbYCd57ntTbqv3VYG/9zeZDjv+fqBtKXbZ+S67n9DF1oNQqaQ5SNfVJzPcPym
+F77rS2Uvc/gwb2Aol4MVix914YYvypinWIku6u/9zMZzhBQ4NJO+3PD6GmIyDc6Y
+vOY+IEqvtzME+ri0u/uNhn8r9GGtGosD0X/ToWno8VQ5yk1UCZLsSy5TLqJAZn0L
+aeZozmntzl9mtGZTQK5BsTa2EwNhgfZED7txsHkBcuCBevt+X3IOf26Fg66M7lnA
+VbEXqKqHspCsuIm3Cg2TZBwtQ0nN2yTLqQXmMg9RWoajPO6iYe4=
+=2yvB
 -----END PGP SIGNATURE-----
 
---8kI7hWEHMS8Z+7/0--
+--pFej7zHSL6C5fFIz--
