@@ -3,52 +3,56 @@ Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wJx5j31XwzDq5W
- for <openbmc@lists.ozlabs.org>; Fri,  5 May 2017 12:43:04 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wJx5l1fRZzDq5W
+ for <openbmc@lists.ozlabs.org>; Fri,  5 May 2017 12:43:07 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="smtw3A1a"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="BMt466qt"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="qLvzXxRZ"; dkim-atps=neutral
+ header.b="gJB2gSBw"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id EDCFC2097C;
- Thu,  4 May 2017 22:43:01 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 1626920636;
+ Thu,  4 May 2017 22:43:05 -0400 (EDT)
 Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Thu, 04 May 2017 22:43:01 -0400
+ by compute4.internal (MEProxy); Thu, 04 May 2017 22:43:05 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:message-id:subject:to:x-me-sender:x-me-sender
- :x-sasl-enc:x-sasl-enc; s=fm1; bh=cOHSrWFGAZad8QyQDxXsRFGFrw/ZRz
- B+az4r3/lEt1E=; b=smtw3A1a/bq8u+/jpeqI7Hs3kmh+to06L7AEXQ2HsMKSWW
- dFk0U24WzJMEzZylY9RPsNc3iQoV5B7tEovSgRrFKRyCEt4W2h6tEkqpqm3VEbwB
- usv7MikLzJQnj3GISWJX4R+9gt3wQF58xaj1c7rJCOvt3NpIII4GwY1hokbeW4HN
- IE1l8lm2X2FDVcCqnL4Nbxj4ALpJETaPzCVEQIadzIeKmDrl4rZWnDj+1cM3flRC
- E+C+MLQzcDvAddYw9rB2XyOkxTzzJiJYP0pTLdVY7qcMGCR5ndBtc2yHf+4TnK4Z
- wgsJgxm3aHtk50J+A/cFuwzcESvCxSRnrHoJVCKQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=cOHSrW
- FGAZad8QyQDxXsRFGFrw/ZRzB+az4r3/lEt1E=; b=qLvzXxRZFjl/74rWtlkIqj
- zFNOBZvF87gjrEk5TbjcJFgqPPkKmH9mvqmnidWig1ZgoDv5PludhtYq31ye+nmK
- UWnG8SRrYLnN/OhFFJGqWw/Gr7Ygr/3vDFYEiupPNBV7PQSXV0dH/zMMxBx+1DPr
- dVl91y3XGW5+shikhrhCzPXteqyejCyd4azv4IfNaI/r/GHMEOUVCzty0VmgDVSp
- ZNafDKolzXmLTXv4yRV90DB4A+ofBfpAQVGkJXVEXMBkTL0Gt3qhQ3JlTsIvdqMQ
- L0q4IHOZjAbfC53lE6hbllYF9lggmNYCI7LWUARqvs1+/7jRG+k2xraHskEqjXKA
+ :date:from:in-reply-to:message-id:references:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=GQIhm3
+ 98kcTwhjg1U3iuhmJYnTkuyAkj3LtHv1QFq24=; b=BMt466qtdkvJp5sC0NM9hQ
+ I2gh67O+M9BFMBpO5HQ4ta8qzt1MzhRx5FF59wwBDZRuMCk/hKHqY0leq0eFY+NE
+ rDfGWAVw5PwPn0V268JoBGQA2rowpOlKjs20AZkSBV7BN/z3KxOumy3w9IXfUQb9
+ NMA1NBF710k3phmSD3Nwn9ZNPimDOwlRvIiv3Ww1hSHMl6/HCx/9zB4c2Twt7/+O
+ qGY04Ju/0Ap4wIMTvbatARY9r4kJfaWIWvRHDah3lGJWhHTX7igC6fA7st3QlZKx
+ C3xPzBPFhAYE3Ebl5V/ugkzodCPalKa8zKPITBGc5Ahh83Z4X01hHsRJxbHA413g
  ==
-X-ME-Sender: <xms:teYLWfq3IYHISou6-VM70lX3PdKjf8F8ktST9knpo0lmwrXCCbxzjg>
-X-Sasl-enc: AgEtQsQQJB8brfhElmfHrtlAzgQ+XNjUgfZKZE3lN3db 1493952181
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:in-reply-to:message-id
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=GQIhm398kcTwhjg1U3iuhmJYnTkuyAkj3LtHv1QFq
+ 24=; b=gJB2gSBwGBmldBUK2ajS4E3LU8FAN7r6EESX4i0tO1JRGvi2ZHAkIXn+2
+ kgmfItJa9y9xJ7GuPFq6PAHzRsX+R4B08IPAfFRyRZrC6qOuKx3urTk2EPiYPvi5
+ GCNLwbs6mhEOA2+fIEYT1E4nZd4bty8M3swimSKXjLwu2fJlIJef5TX+QuPUJp79
+ Sz6+9/+SF97VQIEYP8Bj0iEvGZ04fnwXNjrsJQXY6rJDe7HcjTRInvTWEOxTX/KV
+ ghkrx330I8/ewr+AoxWrTmAqJwUZhiJoNdmkcaYxBF9WbNAT2ihHPxYWwChinMI8
+ NlG6OnhYxQ4vAV3B2PU+3uqoVttBw==
+X-ME-Sender: <xms:ueYLWVVljQUZh8qsl8GfuzL9mOa1yvApqzeYhaRWCtBVqO32GKFH-Q>
+X-Sasl-enc: loGm2YdXoKSRKOrzDrJBRafVkY71IaY1gg2g7rHhOVVe 1493952184
 Received: from keelia.au.ibm.com (ppp203-122-213-247.static.internode.on.net
  [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id 35A227E2E2;
- Thu,  4 May 2017 22:42:58 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 739C87E317;
+ Thu,  4 May 2017 22:43:02 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: joel@jms.id.au
 Cc: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org,
  bradleyb@fuzziesquirrel.com, ken.th.liu@foxconn.com,
  john.hc.wang@foxconn.com
-Subject: [PATCH linux dev-4.10 v3 0/3] Clean up mach-aspeed/aspeed.c
-Date: Fri,  5 May 2017 12:12:23 +0930
-Message-Id: <20170505024227.30962-1-andrew@aj.id.au>
+Subject: [PATCH linux dev-4.10 v3 1/3] aspeed: barreleye: Remove unnecessary
+ GPIO configuration
+Date: Fri,  5 May 2017 12:12:24 +0930
+Message-Id: <20170505024227.30962-2-andrew@aj.id.au>
 X-Mailer: git-send-email 2.9.3
+In-Reply-To: <20170505024227.30962-1-andrew@aj.id.au>
+References: <20170505024227.30962-1-andrew@aj.id.au>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,34 +66,32 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Fri, 05 May 2017 02:43:07 -0000
 
-Hi all,
+These values will be configured by requesting the GPIOs from userspace,
+as the GPIO controller plumbs its pin request through the pinctrl
+subsystem.
 
-Here's v3 of the series cleaning up the board file given functionality we now
-have in the tree. Between patches acked and applied from v1 and v2, there's
-only Barreleye left. I've dug into the archives and Cc'ed Ken and John so they
-can provide feedback if they have availability.
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ arch/arm/mach-aspeed/aspeed.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
-A slip of the fingers meant that v2 didn't actually get Cc'ed to the list, so
-apologies for that. Xo kindly Cc'ed his replies so the acks at least saw the
-light of day.
-
-Again, the controversial patch is the debounce patch for BMC_PWBTN_IN_N, which
-changes how the GPIO is exposed to userspace (and so needs a corresponding
-userspace update). I'm hoping Brad can give feedback or start the discussion to
-coordinate the userspace change.
-
-Cheers,
-
-Andrew
-
-Andrew Jeffery (3):
-  aspeed: barreleye: Remove unnecessary GPIO configuration
-  aspeed: barreleye: Passthrough debounce isn't required
-  aspeed: barreleye: Debounce BMC_PWBTN_IN_N through devicetree
-
- arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts | 11 +++++++++++
- arch/arm/mach-aspeed/aspeed.c                  | 18 ------------------
- 2 files changed, 11 insertions(+), 18 deletions(-)
-
+diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+index 0f1a536ba1b2..88d0a59d043d 100644
+--- a/arch/arm/mach-aspeed/aspeed.c
++++ b/arch/arm/mach-aspeed/aspeed.c
+@@ -64,13 +64,6 @@ static void __init do_barreleye_setup(void)
+ 	writel(0x9E82FCE7, AST_IO(AST_BASE_GPIO | 0x00));
+ 	writel(0x0370E677, AST_IO(AST_BASE_GPIO | 0x04));
+ 
+-	/* SCU setup
+-	 *  - GPION must be set to GPIO mode (SCU88[0:7] = 0) on
+-	 *    Barreleye so they can be used to read the PCIe inventory
+-	 *    status
+-	 */
+-	writel(0x01C00000, AST_IO(AST_BASE_SCU | 0x88));
+-
+ 	/* To enable GPIOE0 pass through function debounce mode */
+ 	writel(0x010FFFFF, AST_IO(AST_BASE_SCU | 0xA8));
+ 
 -- 
 2.9.3
