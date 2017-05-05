@@ -1,24 +1,34 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <clg@kaod.org>
+X-Greylist: delayed 111534 seconds by postgrey-1.36 at bilbo;
+ Fri, 05 May 2017 23:08:19 AEST
+Received: from 5.mo173.mail-out.ovh.net (5.mo173.mail-out.ovh.net
+ [46.105.40.148])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wK0Jn5xLFzDq5W
- for <openbmc@lists.ozlabs.org>; Fri,  5 May 2017 15:07:53 +1000 (AEST)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Sender: bradleyb@bajor.fuzziesquirrel.com
-Message-ID: <1493960865.3948.70.camel@fuzziesquirrel.com>
-Subject: Re: phosphor-hwmon bottleneck potential
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: Patrick Venture <venture@google.com>
-Cc: openbmc@lists.ozlabs.org, Patrick Williams <patrick@stwcx.xyz>, Nancy
- Yuen <yuenn@google.com>, Matthew Barth <msbarth@linux.vnet.ibm.com>
-Date: Fri, 05 May 2017 01:07:45 -0400
-In-Reply-To: <CAO=notxUh7si0kxbpyA-vK6aJaLQSi5NWCap7SeXDAgUNn8grQ@mail.gmail.com>
-References: <CAO=notxUh7si0kxbpyA-vK6aJaLQSi5NWCap7SeXDAgUNn8grQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wKBz74T29zDqCL
+ for <openbmc@lists.ozlabs.org>; Fri,  5 May 2017 23:08:18 +1000 (AEST)
+Received: from player791.ha.ovh.net (b9.ovh.net [213.186.33.59])
+ by mo173.mail-out.ovh.net (Postfix) with ESMTP id 108493D5FA
+ for <openbmc@lists.ozlabs.org>; Fri,  5 May 2017 15:08:13 +0200 (CEST)
+Received: from zorba.kaod.org.com (LFbn-1-10647-27.w90-89.abo.wanadoo.fr
+ [90.89.233.27]) (Authenticated sender: clg@kaod.org)
+ by player791.ha.ovh.net (Postfix) with ESMTPSA id 317FD420088;
+ Fri,  5 May 2017 15:08:07 +0200 (CEST)
+From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
+To: openbmc@lists.ozlabs.org
+Cc: Joel Stanley <joel@jms.id.au>,
+ =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
+Subject: [RFC PATCH linux dev-4.10] leds: pca955x: add GPIO support
+Date: Fri,  5 May 2017 15:07:47 +0200
+Message-Id: <1493989667-29466-1-git-send-email-clg@kaod.org>
+X-Mailer: git-send-email 2.7.4
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 8736138855771048706
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeeliedrieeggdeitdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -30,137 +40,560 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 05 May 2017 05:07:54 -0000
+X-List-Received-Date: Fri, 05 May 2017 13:08:20 -0000
 
-Hi Patrick, thanks for the feedback!
+The PCA955x family of chips are I2C LED blinkers whose pins not used
+to control LEDs can be used as general purpose I/Os (GPIOs).
 
-On Thu, 2017-05-04 at 09:11 -0700, Patrick Venture wrote:
-> The system upon which I'm presently running openbmc uses
-> phosphor-hwmon to expose reading of fans and thermal sensors.  And its
-> works great for precisely this function, however, when another program
-> attempts to get the sensor values over dbus from phosphor-hwmon I run
-> into timing issues that can likely be addressed.
-> 
-> 
-> The driver we're using for the fans requires a time period to measure
->  its RPMs.  I don't know if this is the only driver on earth that does
-> so, but if it is --then this is only a problem I'll run into.
+The following adds support for device tree and Open Firmware to be
+able do define different operation modes for each pin. See bindings
+documentation for more details. The pca955x driver is then extended
+with a gpio_chip when pins are operating in GPIO mode.
 
-I think this is a pretty critical point.  If this is one-off driver
-behavior I'm not very excited about adding special code to
-phosphor-hwmon to work around it.  But if its SOP for hwmon drivers, we
-should definitely improve phosphor-hwmon to handle long read times (more
-on long read times below).
+Signed-off-by: Cédric Le Goater <clg@kaod.org>
+---
 
->   The time period is about 1 second.
+ I made some experiments on a witherspoon with this tree :
+ 
+   https://github.com/legoater/linux/commits/openbmc-4.10
 
-I'm translating this slightly and assuming it to mean the read system
-call on the sysfs attribute blocks phosphor-hwmon for ~1 second.  If
-that is the case it would explain the observed behavior.
+ Looks OK but I don't know what is happening behind the chip.
 
-I didn't consider such long blocking read operations on the sysfs entry
-when implementing phosphor-hwmon.
+ Please take a look at the DT bindings.
 
-> 
-> 
-> As it stands now, there is one expected problem and one bizarre one
-> that I haven't traced down.
-> 
-> 
-> Firstly, if I try to read a specific fan speed it takes 8s to get a
-> response from phosphor-hwmon over dbus.  This may be that it's
+ Thanks,
 
-This is what I would expect given the read delay.  The Dbus handler
-doesn't make read system calls on files in sysfs, but there is a single
-loop handling both the dbus socket and updating sensor values.  What is
-happening is that the loop body is taking eight seconds so the call to
-process dbus traffic is only occurring every eight seconds.
+ C.
 
->  reading all the fan speeds before returning; but I haven't verified
-> it.  There are eight fans on the system being handled by that instance
-> of phosphor-hwmon, but the 8 seconds could be a coincidence.  I'd need
-> to really look at how it handles dbus requests to determine that
-> that's the issue.
-> 
-> 
-> To avoid this, I registered for listen for Sensor.Value updates over
-> dbus, however, from looking at the round robin sensor update loop, my
-> hypothesis is that I would receive an update from each fan once every
-> 8 seconds or so given its first time to run.  This was effectively
-> what I saw, except of course it was an update to the sensor every 9
-> seconds, because my hypothesis forgot to account for the one second
-> pause between each loop iteration.
+ .../devicetree/bindings/leds/leds-pca955x.txt      | 103 ++++++++
+ drivers/leds/Kconfig                               |  11 +
+ drivers/leds/leds-pca955x.c                        | 290 ++++++++++++++++++---
+ 3 files changed, 374 insertions(+), 30 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/leds/leds-pca955x.txt
 
-Right, each sensor is only being polled once every 8+1 seconds, so
-events won't be triggered any faster than that.
-
-> 
-> 
-> The solution that comes to mind would be to simply parallelize sensor
-> updates, such that phosphor-hwmon uses threads to update the sensor
-
-I think this is a great idea.  But I would vote for some kind of
-non-blocking or async io rather than threads.  I don't know what support
-for that sort of thing is available in the hwmon subsystem so I'm not
-sure if its even possible, but it seems worth a look anyway.
-
->  values independently of each other.  There are certainly downsides to
-> this implementation and it won't be 100% optimized because there are
-> switching overheads with threads, but since my driver read
-
-non-blocking IO would address these concerns.
-
->  appears to be a bottleneck, each thread will take their 1 second
-> reading different files and update the information more rapidly.  This
-> also prevents other sensors under the same configuration from
-> interfering with general updates to the dbus sensor namespace.  My
-> system runs four instances of phosphor-hwmon because of the layout,
-> but others may run different variations and experience other problems
-> that could be alleviated by multi-threading.
-> 
-> 
-> The other suggestion I have to improve involves adding a timestamp to
-> phosphos-dbus-interfaces for Sensor.Value to let the recipient of the
-> information know when it was last updated.  Certainly if someone
-
-When a dbus signal is emitted for a property changed event, the time
-associated with the signal is "right now".  When invoking Get on the
-sensor value property, again the timestamp of the data provided by the
-method call is "right now".
-
-If an application wants to grab a timestamp when it gets a signal or
-makes a Get method call and associate it with the sensor value I think
-thats fine but I'm not seeing the value in requiring that every
-implementation of a sensor do that.
-
->  listens for property updates, they can produce this information
-> themselves, but it doesn't hurt to provide it to any reader
-
-Honestly I'm not able to come up with a reason that it doesn't hurt.
-But it hurts even less for the application using the Dbus interface to
-collect the timestamp itself does it not?  Is it not preferable to have
-a reduced API requirement for applications implementing sensors?
-
->  regardless of mechanism and as it stands now, it feels missing.  It's
-> true that some drivers cache the information, and phosphor-hwmon
-> itself waits one second before looping around to update, but a way to
-> reduce some amount of ambiguity would be to provide a timestamp on the
-> information.  By adding a timestamp the information would also come
-> across to the reader as more of a time series, which is more or less
-> is.
-> 
-> 
-> Without multi-threading to remove the timing bottleneck on my
-> platform, and the inability to provide other more direct interfaces
-> for controlling fans, I'll be unable to use phosphor-hwmon as a
-> primary source for reading/writing sensor data and will be unable to
-> upstream any effort i make to write a pluggable thermal controller.
-> 
-> 
-> I felt it was important to thoroughly explain my reasoning as other
-> engineering teams attempting to use openbmc for their platforms could
-> run into similar problems and that the decision to develop
-> independently was data-driven and not arbitrary.
-> 
-> 
-> Patrick
+diff --git a/Documentation/devicetree/bindings/leds/leds-pca955x.txt b/Documentation/devicetree/bindings/leds/leds-pca955x.txt
+new file mode 100644
+index 000000000000..98d1053dd1b0
+--- /dev/null
++++ b/Documentation/devicetree/bindings/leds/leds-pca955x.txt
+@@ -0,0 +1,103 @@
++LEDs connected to pca9550, pca9551, pca9552, pca9553,
++
++Required properties:
++- compatible : should be one of :
++	"nxp,pca9550"
++	"nxp,pca9551"
++	"nxp,pca9552"
++	"nxp,pca9553"
++- #address-cells: must be 1
++- #size-cells: must be 0
++- reg: I2C slave address. depends on the model.
++
++Optional properties:
++- gpio-controller: allows pins to be used as GPIOs.
++- #gpio-cells: if present, must not be 0.
++- gpio-base : base number of the pins used as GPIOs. If there are more
++              than one, they should be contiguous. See 'type' property
++              below.
++
++LED sub-node properties:
++- reg   : number of LED line.
++		from 0 to  1 in pca9550
++		from 0 to  7 in pca9551
++		from 0 to 15 in pca9552
++		from 0 to  3 in pca9553
++- compatible: either "none", "led" (default) or "gpio".
++- label : (optional)
++          see Documentation/devicetree/bindings/leds/common.txt
++- linux,default-trigger : (optional)
++          see Documentation/devicetree/bindings/leds/common.txt
++
++Examples:
++
++pca9552: pca9552@60 {
++	compatible = "nxp,pca9552";
++	#address-cells = <1>;
++        #size-cells = <0>;
++	reg = <0x60>;
++
++	gpio-controller;
++	#gpio-cells = <2>;
++	gpio-base = <12>;
++
++	gpio@12 {
++		label = "GPIO12";
++		reg = <12>;
++		compatible = "gpio";
++	};
++	gpio@13 {
++		label = "GPIO13";
++		reg = <13>;
++		compatible = "gpio";
++	};
++	gpio@14 {
++		label = "GPIO14";
++		reg = <14>;
++		compatible = "gpio";
++	};
++	gpio@15 {
++		label = "GPIO15";
++		reg = <15>;
++		compatible = "gpio";
++	};
++
++	led@0 {
++		label = "LED0";
++		linux,default-trigger = "default-on";
++		reg = <0>;
++	};
++	led@1 {
++		label = "LED1";
++		reg = <1>;
++	};
++	led@2 {
++		label = "LED2";
++		reg = <2>;
++	};
++	led@3 {
++		label = "LED3";
++		reg = <3>;
++	};
++
++	none@4 {
++		reg = <4>;
++		compatible = "none";
++	};
++	none@5 {
++		reg = <5>;
++		compatible = "none";
++	};
++	none@6 {
++		reg = <6>;
++		compatible = "none";
++	};
++	none@7 {
++		reg = <7>;
++		compatible = "none";
++	};
++
++	led@8 {
++		label = "LED8";
++		reg = <8>;
++	};
+diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
+index c621cbbb5768..0177a36dab3d 100644
+--- a/drivers/leds/Kconfig
++++ b/drivers/leds/Kconfig
+@@ -352,6 +352,17 @@ config LEDS_PCA955X
+ 	  LED driver chips accessed via the I2C bus.  Supported
+ 	  devices include PCA9550, PCA9551, PCA9552, and PCA9553.
+ 
++config LEDS_PCA955X_GPIO
++	bool "Enable GPIO support for PCA955X"
++	depends on LEDS_PCA955X
++	depends on GPIOLIB
++	help
++	  Allow unused pins on PCA955X to be used as gpio.
++
++	  To use a pin as gpio the pin type should be set to
++	  PCA955X_TYPE_GPIO in the device tree.
++
++
+ config LEDS_PCA963X
+ 	tristate "LED support for PCA963x I2C chip"
+ 	depends on LEDS_CLASS
+diff --git a/drivers/leds/leds-pca955x.c b/drivers/leds/leds-pca955x.c
+index 78a7ce816a47..afbdccb0e8b6 100644
+--- a/drivers/leds/leds-pca955x.c
++++ b/drivers/leds/leds-pca955x.c
+@@ -45,10 +45,13 @@
+ #include <linux/delay.h>
+ #include <linux/string.h>
+ #include <linux/ctype.h>
++#include <linux/gpio.h>
+ #include <linux/leds.h>
+ #include <linux/err.h>
+ #include <linux/i2c.h>
+ #include <linux/slab.h>
++#include <linux/of.h>
++#include <linux/of_device.h>
+ 
+ /* LED select registers determine the source that drives LED outputs */
+ #define PCA955X_LS_LED_ON	0x0	/* Output LOW */
+@@ -56,6 +59,10 @@
+ #define PCA955X_LS_BLINK0	0x2	/* Blink at PWM0 rate */
+ #define PCA955X_LS_BLINK1	0x3	/* Blink at PWM1 rate */
+ 
++#define PCA955X_TYPE_NONE         0
++#define PCA955X_TYPE_LED          1
++#define PCA955X_TYPE_GPIO         2
++
+ enum pca955x_type {
+ 	pca9550,
+ 	pca9551,
+@@ -115,6 +122,9 @@ struct pca955x {
+ 	struct pca955x_led *leds;
+ 	struct pca955x_chipdef	*chipdef;
+ 	struct i2c_client	*client;
++#ifdef CONFIG_LEDS_PCA955X_GPIO
++	struct gpio_chip gpio;
++#endif
+ };
+ 
+ struct pca955x_led {
+@@ -122,6 +132,14 @@ struct pca955x_led {
+ 	struct led_classdev	led_cdev;
+ 	int			led_num;	/* 0 .. 15 potentially */
+ 	char			name[32];
++	u32			type;
++	const char		*default_trigger;
++};
++
++struct pca955x_platform_data {
++	struct pca955x_led	*leds;
++	int			num_leds;
++	int			gpio_base;
+ };
+ 
+ /* 8 bits per input register */
+@@ -200,6 +218,14 @@ static u8 pca955x_read_ls(struct i2c_client *client, int n)
+ 		pca95xx_num_input_regs(pca955x->chipdef->bits) + 4 + n);
+ }
+ 
++/*
++ * Read the INPUT register, which constains the state of LEDs.
++ */
++static u8 pca955x_read_input(struct i2c_client *client, int n)
++{
++	return (u8)i2c_smbus_read_byte_data(client, n);
++}
++
+ static int pca955x_led_set(struct led_classdev *led_cdev,
+ 			    enum led_brightness value)
+ {
+@@ -250,6 +276,156 @@ static int pca955x_led_set(struct led_classdev *led_cdev,
+ 	return 0;
+ }
+ 
++#ifdef CONFIG_LEDS_PCA955X_GPIO
++static int pca955x_gpio_request_pin(struct gpio_chip *gc, unsigned int offset)
++{
++	struct pca955x *pca955x = gpiochip_get_data(gc);
++	struct pca955x_led *led = &pca955x->leds[gc->base + offset];
++
++	if (led->type == PCA955X_TYPE_GPIO)
++		return 0;
++
++	return -EBUSY;
++}
++
++static void pca955x_gpio_set_value(struct gpio_chip *gc, unsigned int offset,
++				   int val)
++{
++	struct pca955x *pca955x = gpiochip_get_data(gc);
++	struct pca955x_led *led = &pca955x->leds[gc->base + offset];
++
++	if (val)
++		pca955x_led_set(&led->led_cdev, LED_FULL);
++	else
++		pca955x_led_set(&led->led_cdev, LED_OFF);
++}
++
++static int pca955x_gpio_get_value(struct gpio_chip *gc, unsigned int offset)
++{
++	struct pca955x *pca955x = gpiochip_get_data(gc);
++	struct pca955x_led *led = &pca955x->leds[gc->base + offset];
++	u8 reg = pca955x_read_input(pca955x->client, led->led_num / 8);
++
++	return !!(reg & (1 << (led->led_num % 8)));
++}
++
++static int pca955x_gpio_direction_input(struct gpio_chip *gc,
++					unsigned int offset)
++{
++	/* To use as input ensure pin is not driven */
++	pca955x_gpio_set_value(gc, offset, 0);
++
++	return 0;
++}
++
++static int pca955x_gpio_direction_output(struct gpio_chip *gc,
++					 unsigned int offset, int val)
++{
++	pca955x_gpio_set_value(gc, offset, val);
++
++	return 0;
++}
++#endif /* CONFIG_LEDS_PCA955X_GPIO */
++
++#if IS_ENABLED(CONFIG_OF)
++static struct pca955x_platform_data *
++pca955x_pdata_of_init(struct i2c_client *client, struct pca955x_chipdef *chip)
++{
++	struct device_node *np = client->dev.of_node;
++	struct device_node *child;
++	struct pca955x_platform_data *pdata;
++	int count;
++
++	count = of_get_child_count(np);
++	if (!count || count > chip->bits)
++		return ERR_PTR(-ENODEV);
++
++	pdata = devm_kzalloc(&client->dev, sizeof(*pdata), GFP_KERNEL);
++	if (!pdata)
++		return ERR_PTR(-ENOMEM);
++
++	pdata->leds = devm_kzalloc(&client->dev,
++			   sizeof(struct pca955x_led) * chip->bits, GFP_KERNEL);
++	if (!pdata->leds)
++		return ERR_PTR(-ENOMEM);
++
++	for_each_child_of_node(np, child) {
++		const char *name;
++		u32 reg;
++		int res;
++
++		res = of_property_read_u32(child, "reg", &reg);
++		if ((res != 0) || (reg >= chip->bits))
++			continue;
++
++		if (of_property_read_string(child, "label", &name))
++			name = child->name;
++
++		snprintf(pdata->leds[reg].name, sizeof(pdata->leds[reg].name),
++			 "%s", name);
++
++		pdata->leds[reg].type = PCA955X_TYPE_LED;
++		if (of_property_match_string(child, "compatible", "gpio") >= 0)
++			pdata->leds[reg].type = PCA955X_TYPE_GPIO;
++		if (of_property_match_string(child, "compatible", "none") >= 0)
++			pdata->leds[reg].type = PCA955X_TYPE_NONE;
++
++		of_property_read_u32(child, "type", &pdata->leds[reg].type);
++		of_property_read_string(child, "linux,default-trigger",
++					&pdata->leds[reg].default_trigger);
++	}
++
++	pdata->num_leds = chip->bits;
++
++	if (of_property_read_u32(np, "gpio-base", &pdata->gpio_base))
++		pdata->gpio_base = -1;
++
++	return pdata;
++}
++
++static const struct of_device_id of_pca955x_match[] = {
++	{ .compatible = "nxp,pca9550", .data = (void *)pca9550 },
++	{ .compatible = "nxp,pca9551", .data = (void *)pca9551 },
++	{ .compatible = "nxp,pca9552", .data = (void *)pca9552 },
++	{ .compatible = "nxp,pca9553", .data = (void *)pca9553 },
++	{},
++};
++
++MODULE_DEVICE_TABLE(of, of_pca955x_match);
++#else
++static struct pca955x_platform_data *
++pca955x_pdata_of_init(struct i2c_client *client, struct pca963x_chipdef *chip)
++{
++	return ERR_PTR(-ENODEV);
++}
++#endif
++
++static int pca955x_destroy_devices(struct pca955x *data, int n_devs)
++{
++	int i = n_devs;
++
++	if (!data)
++		return -EINVAL;
++
++	while (--i >= 0) {
++		switch (data->leds[i].type) {
++		case PCA955X_TYPE_NONE:
++		case PCA955X_TYPE_GPIO:
++			break;
++		case PCA955X_TYPE_LED:
++			led_classdev_unregister(&data->leds[i].led_cdev);
++			break;
++		}
++	}
++
++#ifdef CONFIG_LEDS_PCA955X_GPIO
++	if (data->gpio.parent)
++		gpiochip_remove(&data->gpio);
++#endif
++
++	return 0;
++}
++
+ static int pca955x_probe(struct i2c_client *client,
+ 					const struct i2c_device_id *id)
+ {
+@@ -257,8 +433,9 @@ static int pca955x_probe(struct i2c_client *client,
+ 	struct pca955x_led *pca955x_led;
+ 	struct pca955x_chipdef *chip;
+ 	struct i2c_adapter *adapter;
+-	struct led_platform_data *pdata;
+ 	int i, err;
++	struct pca955x_platform_data *pdata;
++	int ngpios = 0;
+ 
+ 	if (id) {
+ 		chip = &pca955x_chipdefs[id->driver_data];
+@@ -272,6 +449,11 @@ static int pca955x_probe(struct i2c_client *client,
+ 	}
+ 	adapter = to_i2c_adapter(client->dev.parent);
+ 	pdata = dev_get_platdata(&client->dev);
++	if (!pdata) {
++		pdata =	pca955x_pdata_of_init(client, chip);
++		if (IS_ERR(pdata))
++			return PTR_ERR(pdata);
++	}
+ 
+ 	/* Make sure the slave address / chip type combo given is possible */
+ 	if ((client->addr & ~((1 << chip->slv_addr_shift) - 1)) !=
+@@ -313,36 +495,52 @@ static int pca955x_probe(struct i2c_client *client,
+ 	pca955x->chipdef = chip;
+ 
+ 	for (i = 0; i < chip->bits; i++) {
++		struct pca955x_led *pled = &pdata->leds[i];
++
+ 		pca955x_led = &pca955x->leds[i];
+ 		pca955x_led->led_num = i;
+ 		pca955x_led->pca955x = pca955x;
+-
+-		/* Platform data can specify LED names and default triggers */
+-		if (pdata) {
+-			if (pdata->leds[i].name)
++		pca955x_led->type = pled->type;
++
++		switch (pca955x_led->type) {
++		case PCA955X_TYPE_NONE:
++			break;
++		case PCA955X_TYPE_GPIO:
++			ngpios++;
++			break;
++		case PCA955X_TYPE_LED:
++			/*
++			 * Platform data can specify LED names and
++			 * default triggers
++			 */
++			if (pdata) {
++				if (pdata->leds[i].name)
++					snprintf(pca955x_led->name,
++						 sizeof(pca955x_led->name),
++						 "pca955x:%s",
++						 pdata->leds[i].name);
++				if (pdata->leds[i].default_trigger)
++					pca955x_led->led_cdev.default_trigger =
++						pdata->leds[i].default_trigger;
++			} else {
+ 				snprintf(pca955x_led->name,
+-					sizeof(pca955x_led->name), "pca955x:%s",
+-					pdata->leds[i].name);
+-			if (pdata->leds[i].default_trigger)
+-				pca955x_led->led_cdev.default_trigger =
+-					pdata->leds[i].default_trigger;
+-		} else {
+-			snprintf(pca955x_led->name, sizeof(pca955x_led->name),
+-				 "pca955x:%d", i);
+-		}
++					 sizeof(pca955x_led->name),
++					 "pca955x:%d", i);
++			}
+ 
+-		pca955x_led->led_cdev.name = pca955x_led->name;
+-		pca955x_led->led_cdev.brightness_set_blocking = pca955x_led_set;
++			pca955x_led->led_cdev.name = pca955x_led->name;
++			pca955x_led->led_cdev.brightness_set_blocking =
++				pca955x_led_set;
+ 
+-		err = led_classdev_register(&client->dev,
+-					&pca955x_led->led_cdev);
+-		if (err < 0)
+-			goto exit;
+-	}
++			err = led_classdev_register(&client->dev,
++						    &pca955x_led->led_cdev);
++			if (err < 0)
++				goto exit;
+ 
+-	/* Turn off LEDs */
+-	for (i = 0; i < pca95xx_num_led_regs(chip->bits); i++)
+-		pca955x_write_ls(client, i, 0x55);
++			/* Turn off LEDs */
++			pca955x_led_set(&pca955x_led->led_cdev, LED_OFF);
++		}
++	}
+ 
+ 	/* PWM0 is used for half brightness or 50% duty cycle */
+ 	pca955x_write_pwm(client, 0, 255-LED_HALF);
+@@ -354,22 +552,53 @@ static int pca955x_probe(struct i2c_client *client,
+ 	pca955x_write_psc(client, 0, 0);
+ 	pca955x_write_psc(client, 1, 0);
+ 
++#ifdef CONFIG_LEDS_PCA955X_GPIO
++	if (ngpios) {
++		if (pdata->gpio_base == -1) {
++			dev_warn(&client->dev, "gpio-base is undefined\n");
++			goto exit;
++		}
++
++		pca955x->gpio.label = "gpio-pca955x";
++		pca955x->gpio.direction_input = pca955x_gpio_direction_input;
++		pca955x->gpio.direction_output = pca955x_gpio_direction_output;
++		pca955x->gpio.set = pca955x_gpio_set_value;
++		pca955x->gpio.get = pca955x_gpio_get_value;
++		pca955x->gpio.request = pca955x_gpio_request_pin;
++		pca955x->gpio.can_sleep = 1;
++		pca955x->gpio.base = pdata->gpio_base;
++		pca955x->gpio.ngpio = ngpios;
++		pca955x->gpio.parent = &client->dev;
++		pca955x->gpio.owner = THIS_MODULE;
++
++		err = gpiochip_add_data(&pca955x->gpio, pca955x);
++		if (err) {
++			/* Use data->gpio.dev as a flag for freeing gpiochip */
++			pca955x->gpio.parent = NULL;
++			dev_warn(&client->dev, "could not add gpiochip\n");
++		} else {
++			dev_info(&client->dev, "gpios %i...%i\n",
++				 pca955x->gpio.base, pca955x->gpio.base +
++				 pca955x->gpio.ngpio - 1);
++		}
++	}
++#endif
++
+ 	return 0;
+ 
+ exit:
+-	while (i--)
+-		led_classdev_unregister(&pca955x->leds[i].led_cdev);
+-
++	pca955x_destroy_devices(pca955x, i);
+ 	return err;
+ }
+ 
+ static int pca955x_remove(struct i2c_client *client)
+ {
+ 	struct pca955x *pca955x = i2c_get_clientdata(client);
+-	int i;
++	int err;
+ 
+-	for (i = 0; i < pca955x->chipdef->bits; i++)
+-		led_classdev_unregister(&pca955x->leds[i].led_cdev);
++	err = pca955x_destroy_devices(pca955x, pca955x->chipdef->bits);
++	if (err)
++		return err;
+ 
+ 	return 0;
+ }
+@@ -378,6 +607,7 @@ static struct i2c_driver pca955x_driver = {
+ 	.driver = {
+ 		.name	= "leds-pca955x",
+ 		.acpi_match_table = ACPI_PTR(pca955x_acpi_ids),
++		.of_match_table = of_match_ptr(of_pca955x_match),
+ 	},
+ 	.probe	= pca955x_probe,
+ 	.remove	= pca955x_remove,
+-- 
+2.7.4
