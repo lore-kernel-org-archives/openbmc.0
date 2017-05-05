@@ -1,41 +1,41 @@
-Return-Path: <rburanyi@google.com>
-Received: from mail-pf0-x232.google.com (mail-pf0-x232.google.com
- [IPv6:2607:f8b0:400e:c00::232])
+Return-Path: <raltherr@google.com>
+Received: from mail-wm0-x235.google.com (mail-wm0-x235.google.com
+ [IPv6:2a00:1450:400c:c09::235])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wKLZR5SN6zDqCd
- for <openbmc@lists.ozlabs.org>; Sat,  6 May 2017 04:50:55 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wKLc34ZKqzDqCd
+ for <openbmc@lists.ozlabs.org>; Sat,  6 May 2017 04:52:19 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="e3zpiHu8"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="eBMep6WN"; 
  dkim-atps=neutral
-Received: by mail-pf0-x232.google.com with SMTP id e64so6509125pfd.1
- for <openbmc@lists.ozlabs.org>; Fri, 05 May 2017 11:50:55 -0700 (PDT)
+Received: by mail-wm0-x235.google.com with SMTP id b84so1287585wmh.0
+ for <openbmc@lists.ozlabs.org>; Fri, 05 May 2017 11:52:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=Jw29Ll+chx2cOKXTvGd473JUBOBT/yn4EI2AT12rKDU=;
- b=e3zpiHu8+cf8pMICaswm+GnFtQeP+ADZbG7NQYUBsLfBpx+H43oUq4WgJTKiVhV4gf
- XNAEVsT4qD1m2vt+59mpIGg0jZ2dirQhbENcr+IOTQFkv8yX9NJoTcvwKYosRP34QpD0
- wpnnHMGfJoK1JBG+Don2EaUx5/whklo3jVMiXEAV6dzDWEf3Y7sDUFhy0U1x05gh1pY7
- qgO41Web8xtYd5474P8Qjej8K/UVnc+iJxVc5lRxFb0lZy+2hunpi+ZmHkTiIeTMqjP1
- /F2x5+pbmHPGO3CPRz1x9F2bNK3Sepof1y3pzohlwUEPPdQimRM//MwwLv7jXNcVFJ1w
- /2Gg==
+ :cc; bh=m8JHUGU6RVRz+UbDx/R93CIpNWjnjN03pmDG/gs0tm4=;
+ b=eBMep6WNBfCwgnlQbUJF5X6YSXONTTSjB3EI+6FhjtfyH9dZa5dQbFryOYCZcO24Kf
+ yHZlu0KcJT1Lpa2LyOfb500L2rLYIaESBQDCVqtK/YZ7RQ+DRUZUt+HLOFiAEFHy2gIj
+ H/23cZ7i4HTJSscXhul2jwYXtoExnPF9vFI4BX8wCnln1hrfanA4R++tOl67ZmyijlZO
+ s7ABJzgc3TwsGA6N/rdaQtSG+u4ZqU3kwsAFD03xNL+zWIdlyxV7bSnMp9uGRAs7SjsC
+ BWIL/TJNuKB9tdC8cYrqnWMDBMsPvj/BNSPb3mCdyIZfsV4xuFivo0Vz2QYspPd3F6Eh
+ KgBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=Jw29Ll+chx2cOKXTvGd473JUBOBT/yn4EI2AT12rKDU=;
- b=ZzapgKtAErl0uqLfoCq9wsskuY4ijd33nQfHPUXgW+2ygTp6dUeu5iZND05onU9R/7
- BN1IahoY5CZFvgPtXHlhl+A1hymusELqy8z4/iGbvvLnTDkfo5QiHy2y5Rgj11TcG2bI
- oaKbMYzQFcYKq/ApUekRawBbZRn16h7l2WIDHK2NywWgmm/eq+U14cuU8cCgrrUnN2BK
- b9VOk1erUeYCcP33qCkDHTkY9ZViI9MExv2lkDbZ/fSqgl2Viqvcf2ta7lQUy+b+SOYf
- TX8/MByAjHcZ5lxeM2mVuh2V1flrIjaPPclv+weD75n51RQumYRnq/2ityh3feYjt4xZ
- wpwg==
-X-Gm-Message-State: AN3rC/5LIbaUWgqKz+DmeqSenllq3W2mjMBcNUJvz6jWoTiPNIEp4RVM
- x2s2BPh7b7w4MSX5CT92gp94QulDD9Lm
-X-Received: by 10.84.215.155 with SMTP id l27mr34943451pli.31.1494010253713;
- Fri, 05 May 2017 11:50:53 -0700 (PDT)
+ bh=m8JHUGU6RVRz+UbDx/R93CIpNWjnjN03pmDG/gs0tm4=;
+ b=CR+B0FqwLO1FK0CYR+ErVKjTA0d/Ll3aFia2GTKcYuYIZOESYTHU7EOlCCgpIyMrsy
+ BOgPcFuFBQbJOs2l8ythfB7LYOjlmr3d+VFlnOdRGsw5RU55Jh2129COxLRaaml++89M
+ lVEoRu0DUZej0RFEzj7VFsQZwltNFZfw8G13+bjdgJg02h9s2vAEr72OGgxsUbTVQ5Fb
+ 8Ilseu2tt0kNQT6fhjDXBeOpMqv4On6Fqh3ya18mOUBFXB5mpaQJPOepx27gcb/w9UXA
+ EvJKNL6iggWFt2PdR03lHLBMRHmkwMGZJioAKQrvIcLu4shgVrigMfvoi+0hKYDByZLR
+ hVZQ==
+X-Gm-Message-State: AN3rC/7A9OGbg4RBHES5YEpRcq3+cVFsDdB/jOIH8qBheawCgJU4rTLy
+ sa5AQJy46s5CHggJ7YApgthpZTtDxTly
+X-Received: by 10.28.206.70 with SMTP id e67mr5827642wmg.37.1494010336438;
+ Fri, 05 May 2017 11:52:16 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.100.178.15 with HTTP; Fri, 5 May 2017 11:50:52 -0700 (PDT)
+Received: by 10.28.46.130 with HTTP; Fri, 5 May 2017 11:52:15 -0700 (PDT)
 In-Reply-To: <CADfYTpGfqgKP-HWg54mXnw7qc0wtPqfE=ZicZrCo_WsOJiQc7g@mail.gmail.com>
 References: <CAO=notxUh7si0kxbpyA-vK6aJaLQSi5NWCap7SeXDAgUNn8grQ@mail.gmail.com>
  <1493960865.3948.70.camel@fuzziesquirrel.com>
@@ -46,16 +46,16 @@ References: <CAO=notxUh7si0kxbpyA-vK6aJaLQSi5NWCap7SeXDAgUNn8grQ@mail.gmail.com>
  <20170505180239.GF25937@heinlein.lan>
  <CAPLgG=mXE4qz5PVRFupp3=ogcS4oe0bQfYKaEwesttUhdvb4Xw@mail.gmail.com>
  <CADfYTpGfqgKP-HWg54mXnw7qc0wtPqfE=ZicZrCo_WsOJiQc7g@mail.gmail.com>
-From: Robi Buranyi <rburanyi@google.com>
-Date: Fri, 5 May 2017 11:50:52 -0700
-Message-ID: <CANF=oU7xrGxz+Lfp+GT7QHOqYmKP7h+uMbraK0PjkTOdugTydw@mail.gmail.com>
+From: Rick Altherr <raltherr@google.com>
+Date: Fri, 5 May 2017 11:52:15 -0700
+Message-ID: <CAPLgG=mTXTh-Pa_T2y2SxpOis4Y9aWz0shkzz7pH+iyB7BWBFA@mail.gmail.com>
 Subject: Re: phosphor-hwmon bottleneck potential
 To: Nancy Yuen <yuenn@google.com>
-Cc: Rick Altherr <raltherr@google.com>, Patrick Venture <venture@google.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Brad Bishop <bradleyb@fuzziesquirrel.com>, 
- Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
-Content-Type: multipart/alternative; boundary=f403045c5b7076e413054ecb5e34
+Cc: Patrick Williams <patrick@stwcx.xyz>, 
+ Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Brad Bishop <bradleyb@fuzziesquirrel.com>, Patrick Venture <venture@google.com>
+Content-Type: multipart/alternative; boundary=94eb2c1930b465712b054ecb6307
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,18 +67,14 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 05 May 2017 18:50:57 -0000
+X-List-Received-Date: Fri, 05 May 2017 18:52:20 -0000
 
---f403045c5b7076e413054ecb5e34
+--94eb2c1930b465712b054ecb6307
 Content-Type: text/plain; charset=UTF-8
 
-my 50 cents on this.
-
-We could change the driver(s) to periodically poll the sensors like every
-second, and store the latest value. Then the sysfs read shall always return
-the last completed measurement data. We should do this for both the
-tachometers reading and the temperature sensors. There shall be some logic
-implemented for aging (when sensor read constantly fails)
+Re #2: timestamps lose value as they shift away from the time of the actual
+measurement.  Ideally, the hardware would timestamp the sample, hwmon would
+preserve and provide that timestamp to the userspace.
 
 On Fri, May 5, 2017 at 11:37 AM, Nancy Yuen <yuenn@google.com> wrote:
 
@@ -164,36 +160,34 @@ On Fri, May 5, 2017 at 11:37 AM, Nancy Yuen <yuenn@google.com> wrote:
 >>
 >
 
---f403045c5b7076e413054ecb5e34
+--94eb2c1930b465712b054ecb6307
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">my 50 cents on this.<div><br></div><div>We could change th=
-e driver(s) to periodically poll the sensors like every second, and store t=
-he latest value. Then the sysfs read shall always return the last completed=
- measurement data. We should do this for both the tachometers reading and t=
-he temperature sensors. There shall be some logic implemented for aging (wh=
-en sensor read constantly fails)</div></div><div class=3D"gmail_extra"><br>=
-<div class=3D"gmail_quote">On Fri, May 5, 2017 at 11:37 AM, Nancy Yuen <spa=
-n dir=3D"ltr">&lt;<a href=3D"mailto:yuenn@google.com" target=3D"_blank">yue=
-nn@google.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" st=
-yle=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div =
-dir=3D"ltr">1. General design issue if time between reads of a sensor is de=
-pendent on the number of sensors in the system.=C2=A0 And drivers can fail,=
- due to miss behaving code or hardware.=C2=A0 In this design, sensor report=
- could be significantly delayed if one sensor/driver were bad or misbehavin=
-g.<div><br></div><div>2. So putting the onus on each application to impleme=
-nt timestamps is better design than having timestamps recorded by a central=
- source, the source that actually is reading from the driver?</div></div><d=
-iv class=3D"gmail_extra"><br clear=3D"all"><div><div class=3D"m_24613501428=
-86178694gmail_signature" data-smartmail=3D"gmail_signature">----------<br>N=
-ancy</div></div><div><div class=3D"h5">
+<div dir=3D"ltr">Re #2: timestamps lose value as they shift away from the t=
+ime of the actual measurement.=C2=A0 Ideally, the hardware would timestamp =
+the sample, hwmon would preserve and provide that timestamp to the userspac=
+e.</div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Fri, M=
+ay 5, 2017 at 11:37 AM, Nancy Yuen <span dir=3D"ltr">&lt;<a href=3D"mailto:=
+yuenn@google.com" target=3D"_blank">yuenn@google.com</a>&gt;</span> wrote:<=
+br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left=
+:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr">1. General design issue =
+if time between reads of a sensor is dependent on the number of sensors in =
+the system.=C2=A0 And drivers can fail, due to miss behaving code or hardwa=
+re.=C2=A0 In this design, sensor report could be significantly delayed if o=
+ne sensor/driver were bad or misbehaving.<div><br></div><div>2. So putting =
+the onus on each application to implement timestamps is better design than =
+having timestamps recorded by a central source, the source that actually is=
+ reading from the driver?</div></div><div class=3D"gmail_extra"><br clear=
+=3D"all"><div><div class=3D"m_7723034924305096455gmail_signature" data-smar=
+tmail=3D"gmail_signature">----------<br>Nancy</div></div><div><div class=3D=
+"h5">
 <br><div class=3D"gmail_quote">On Fri, May 5, 2017 at 11:05 AM, Rick Alther=
 r <span dir=3D"ltr">&lt;<a href=3D"mailto:raltherr@google.com" target=3D"_b=
 lank">raltherr@google.com</a>&gt;</span> wrote:<br><blockquote class=3D"gma=
 il_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-lef=
-t:1ex"><div dir=3D"ltr">Jagha is currently on leave.</div><div class=3D"m_2=
-461350142886178694HOEnZb"><div class=3D"m_2461350142886178694h5"><div class=
+t:1ex"><div dir=3D"ltr">Jagha is currently on leave.</div><div class=3D"m_7=
+723034924305096455HOEnZb"><div class=3D"m_7723034924305096455h5"><div class=
 =3D"gmail_extra"><br><div class=3D"gmail_quote">On Fri, May 5, 2017 at 11:0=
 2 AM, Patrick Williams <span dir=3D"ltr">&lt;<a href=3D"mailto:patrick@stwc=
 x.xyz" target=3D"_blank">patrick@stwcx.xyz</a>&gt;</span> wrote:<br><blockq=
@@ -211,8 +205,8 @@ Author: Jaghathiswari Rankappagounder Natarajan &lt;<a href=3D"mailto:jaghu=
 Date:=C2=A0 =C2=A0Tue Apr 4 17:52:41 2017 -0700<br>
 <br>
 =C2=A0 =C2=A0 drivers: hwmon: Support for ASPEED PWM/Fan tach<br>
-<div class=3D"m_2461350142886178694m_-3791221182464829462HOEnZb"><div class=
-=3D"m_2461350142886178694m_-3791221182464829462h5"><br>
+<div class=3D"m_7723034924305096455m_-3791221182464829462HOEnZb"><div class=
+=3D"m_7723034924305096455m_-3791221182464829462h5"><br>
 <br>
 On Fri, May 05, 2017 at 10:48:39AM -0700, Rick Altherr wrote:<br>
 &gt; I can&#39;t comment on the driver implementation choices.=C2=A0 They h=
@@ -266,11 +260,11 @@ r>
 &gt; &gt; Patrick Williams<br>
 &gt; &gt;<br>
 <br>
-</div></div><span class=3D"m_2461350142886178694m_-3791221182464829462HOEnZ=
+</div></div><span class=3D"m_7723034924305096455m_-3791221182464829462HOEnZ=
 b"><font color=3D"#888888">--<br>
 Patrick Williams<br>
 </font></span></blockquote></div><br></div>
 </div></div></blockquote></div><br></div></div></div>
 </blockquote></div><br></div>
 
---f403045c5b7076e413054ecb5e34--
+--94eb2c1930b465712b054ecb6307--
