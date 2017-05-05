@@ -1,101 +1,59 @@
-Return-Path: <rahulmaheshwari@in.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <venture@google.com>
+Received: from mail-pf0-x22c.google.com (mail-pf0-x22c.google.com
+ [IPv6:2607:f8b0:400e:c00::22c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wK6dD0r2kzDqCL
- for <openbmc@lists.ozlabs.org>; Fri,  5 May 2017 19:52:31 +1000 (AEST)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v459mp22062047
- for <openbmc@lists.ozlabs.org>; Fri, 5 May 2017 05:52:28 -0400
-Received: from e23smtp01.au.ibm.com (e23smtp01.au.ibm.com [202.81.31.143])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2a8k76jqh3-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 05 May 2017 05:52:28 -0400
-Received: from localhost
- by e23smtp01.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <rahulmaheshwari@in.ibm.com>;
- Fri, 5 May 2017 19:51:25 +1000
-Received: from d23relay10.au.ibm.com (202.81.31.229)
- by e23smtp01.au.ibm.com (202.81.31.207) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Fri, 5 May 2017 19:51:24 +1000
-Received: from d23av02.au.ibm.com (d23av02.au.ibm.com [9.190.235.138])
- by d23relay10.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v459pFrk63832094
- for <openbmc@lists.ozlabs.org>; Fri, 5 May 2017 19:51:23 +1000
-Received: from d23av02.au.ibm.com (localhost [127.0.0.1])
- by d23av02.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- v459ojet021906
- for <openbmc@lists.ozlabs.org>; Fri, 5 May 2017 19:50:45 +1000
-Received: from d50lp32.co.us.ibm.com (d50lp32.boulder.ibm.com [9.17.249.36])
- by d23av02.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- v459ohBF021526
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
- for <openbmc@lists.ozlabs.org>; Fri, 5 May 2017 19:50:45 +1000
-Received: from localhost
- by d50lp32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <rahulmaheshwari@in.ibm.com>;
- Fri, 5 May 2017 03:50:41 -0600
-Received: from smtp.notes.na.collabserv.com (192.155.248.82)
- by d50lp32.co.us.ibm.com (192.168.2.143) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128/128)
- Fri, 5 May 2017 03:50:40 -0600
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <rahulmaheshwari@in.ibm.com>;
- Fri, 5 May 2017 09:50:39 -0000
-Received: from us1a3-smtp04.a3.dal06.isc4sb.com (10.106.154.237)
- by smtp.notes.na.collabserv.com (10.106.227.105) with
- smtp.notes.na.collabserv.com ESMTP; Fri, 5 May 2017 09:50:37 -0000
-Received: from us1a3-mail57.a3.dal09.isc4sb.com ([10.142.3.65])
- by us1a3-smtp04.a3.dal06.isc4sb.com
- with ESMTP id 2017050509503693-251699 ;
- Fri, 5 May 2017 09:50:36 +0000 
-In-Reply-To: 
-Subject: Consistent naming for physical LED.
-From: "Rahul Maheshwari3" <rahulmaheshwari@in.ibm.com>
-To: openbmc@lists.ozlabs.org
-Date: Fri, 5 May 2017 09:50:37 +0000
-Sensitivity: 
-References: 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wKKXq5RzvzDq5W
+ for <openbmc@lists.ozlabs.org>; Sat,  6 May 2017 04:04:27 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="DgRVQsrW"; 
+ dkim-atps=neutral
+Received: by mail-pf0-x22c.google.com with SMTP id q20so6065103pfg.0
+ for <openbmc@lists.ozlabs.org>; Fri, 05 May 2017 11:04:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=mZyX8RZM2e5w55M59E6D2UeSYzkNNytbVemSHL8z/LE=;
+ b=DgRVQsrW1tTawXHp1byvyET7B3wVOKPo2cvcLklcxaDLL9du12k+Q5OSwS5yRdRfv8
+ +Rh+R5EEssRf3o+r/yTzk6PxU879TFxr/8HaKbUdxiNJyQxoPW8krZeFh8QtbbDAtxg7
+ 6VMnPIinkwZKsJ++A2MxIJe1Pf5LdOOqJZQGRLf8tjZN3pmxDmQ4FNFjq1qzAmKQ67nZ
+ Ib90wvvIoa/P/hzA1oMGi2f1mlqr49ijD71FK1sZrROYUnrGOo5Oe0ZqypeCd8IcTRqX
+ qjzkxCFJC1byxMTUg4jp1FZ567493GPQ04JIlcvaIWNgFhPX8pQr8+Loz+oSVTDor+fQ
+ oVpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=mZyX8RZM2e5w55M59E6D2UeSYzkNNytbVemSHL8z/LE=;
+ b=SJkND+34h5tzihuSV1KysP7vKenaT8y0wbWBPHBVXUkHPRJAJFoVoDHbCHZDRkI9JF
+ aYhD1pPjnS4o44mOnIs0kcqr20L2V7puTkot79g8mFZS3POBighRGnE2XjuVK0IQdEH0
+ rUEBMYvRMS/Ug4aP6FKacmHTYZLnSU93N0RRLbiHkHQ2jNV33V7tgDqF8R5gXi+LOQpO
+ 2Ew6h439CTukhkHiuuRHufYile/6DEtaui1/Al+pehAN3Kc3GNiMBiJ8TBKrNABklmVQ
+ YpXbzT+KopTNWIHQwyvJbdgWXDpMEsaC9IaKH9uGwB7HGi2AI6vyDvr4QXHNzRTedqjp
+ lDjA==
+X-Gm-Message-State: AN3rC/4/MfLkJI6mg+SjRoxEbAdIsYHdPB6cBIIPMySVuYzzm+rf/wCw
+ R6ZsTBnHeUPTEfapR+CBihpX3ZV32fU/
+X-Received: by 10.84.229.78 with SMTP id d14mr35384626pln.15.1494007465640;
+ Fri, 05 May 2017 11:04:25 -0700 (PDT)
 MIME-Version: 1.0
-Importance: Normal
-X-Priority: 3 (Normal)
-X-Mailer: IBM Verse Build 14114-1129 | IBM Domino Build SCN_20170424T1816_FP2
- April 27, 2017 at 17:16
-X-LLNOutbound: False
-X-Disclaimed: 10847
-X-TNEFEvaluated: 1
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html; charset=UTF-8
-x-cbid: 17050509-1617-0000-0000-000001CAA29A
-X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.423878; ST=0; TS=0; UL=0; ISC=; MB=0.000125
-X-IBM-SpamModules-Versions: BY=3.00007025; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000209; SDB=6.00856447; UDB=6.00424039; IPR=6.00635715; 
- BA=6.00005326; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015317; XFM=3.00000014;
- UTC=2017-05-05 09:50:38
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2017-05-05 05:31:14 - 6.00006692
-x-cbparentid: 17050509-5102-0000-0000-000039E5D092
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-X-TM-AS-MML: disable
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-Message-Id: <OF867BE263.6CF5588B-ON00258117.003404BD-00258117.003612B8@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-05-05_08:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=2
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1705050107
-X-Mailman-Approved-At: Sat, 06 May 2017 04:03:22 +1000
+Received: by 10.100.166.133 with HTTP; Fri, 5 May 2017 11:04:05 -0700 (PDT)
+In-Reply-To: <20170505180239.GF25937@heinlein.lan>
+References: <CAO=notxUh7si0kxbpyA-vK6aJaLQSi5NWCap7SeXDAgUNn8grQ@mail.gmail.com>
+ <1493960865.3948.70.camel@fuzziesquirrel.com>
+ <20170505163406.GB25937@heinlein.lan>
+ <CAPLgG=k3mr01DnqWX5W4oCOQJ3njJCVBSe+EsLkpXCdj2Uwj7A@mail.gmail.com>
+ <20170505174341.GE25937@heinlein.lan>
+ <CAPLgG=m9S_4X=-Wvc8Uomhh7KBL5tBZn8A0Be9JTLZ=B-u+h5g@mail.gmail.com>
+ <20170505180239.GF25937@heinlein.lan>
+From: Patrick Venture <venture@google.com>
+Date: Fri, 5 May 2017 11:04:05 -0700
+Message-ID: <CAO=notw-MN9uXdOHqEO_H5rWnmsZxarOcgd9uVOsKBNk897_qQ@mail.gmail.com>
+Subject: Re: phosphor-hwmon bottleneck potential
+To: Patrick Williams <patrick@stwcx.xyz>
+Cc: Rick Altherr <raltherr@google.com>, 
+ Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary=94eb2c1cb35a484820054ecab84a
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -107,35 +65,153 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 05 May 2017 09:52:32 -0000
+X-List-Received-Date: Fri, 05 May 2017 18:04:28 -0000
 
-<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
-elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" >Hi</div>
-<div dir=3D"ltr" >With new xyz interface, I see that physical Identify LED =
-is named differently as "id" in Witherspoon and system state led as "beep" =
-in Barreleye. Also I see that we have 3rd LED in Witherspoon is&nbsp;"fault=
-" (for enclosure fault) and&nbsp;in Barreleye and palmetto "heartbeat" (for=
- BMC state state).</div>
-<div dir=3D"ltr" ><div><div>&nbsp;</div>
-<div>Can we have same set of name/xyz url for physical LED across different=
- systems?</div>
-<div>&nbsp;</div>
-<div>Witherspoon<br>&nbsp; &nbsp; "/xyz/openbmc=5Fproject/led/physical/powe=
-r", &nbsp; &nbsp; &nbsp; &nbsp; System State LED<br>&nbsp; &nbsp; "/xyz/ope=
-nbmc=5Fproject/led/physical/id", &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp;Identify LED<br>&nbsp; &nbsp; "/xyz/openbmc=5Fproject/led/phys=
-ical/fault" &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Enclosure fault LED</=
-div>
-<div>Barreleye</div>
-<div>&nbsp; &nbsp; "/xyz/openbmc=5Fproject/led/physical/identify", &nbsp; &=
-nbsp; &nbsp; &nbsp;Identify LED<br>&nbsp; &nbsp; "/xyz/openbmc=5Fproject/le=
-d/physical/beep", &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; System State LED<br>&n=
-bsp; &nbsp; "/xyz/openbmc=5Fproject/led/physical/heartbeat" &nbsp; &nbsp; B=
-MC state</div>
-<div>Palmetto<br>&nbsp; &nbsp; "/xyz/openbmc=5Fproject/led/physical/power",=
- &nbsp; &nbsp; &nbsp; &nbsp; System state<br>&nbsp; &nbsp; "/xyz/openbmc=5F=
-project/led/physical/identify", &nbsp; &nbsp; &nbsp; &nbsp;Identify LED<br>=
-&nbsp; &nbsp; "/xyz/openbmc=5Fproject/led/physical/heartbeat" &nbsp; &nbsp;=
- BMC state<br>&nbsp;</div></div>
-<div>Thanks</div>
-<div>Rahul</div></div></div><BR>
+--94eb2c1cb35a484820054ecab84a
+Content-Type: text/plain; charset=UTF-8
+
+For what it's worth, I'm experimenting with shorter measurement periods for
+this specific driver.
+
+Patrick
+
+On Fri, May 5, 2017 at 11:02 AM, Patrick Williams <patrick@stwcx.xyz> wrote:
+
+> Jaghu,
+>
+> Can you comment?  I'm looking at the version that was merged into Linus'
+> master for 4.12:
+>
+> commit 2d7a548a3eff382da5cd743670693b7657327714
+> Author: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
+> Date:   Tue Apr 4 17:52:41 2017 -0700
+>
+>     drivers: hwmon: Support for ASPEED PWM/Fan tach
+>
+>
+> On Fri, May 05, 2017 at 10:48:39AM -0700, Rick Altherr wrote:
+> > I can't comment on the driver implementation choices.  They have been
+> > reviewed and accepted by upstream.  I'm not sure what version of the
+> driver
+> > you are looking at.
+> >
+> > On Fri, May 5, 2017 at 10:43 AM, Patrick Williams <patrick@stwcx.xyz>
+> wrote:
+> >
+> > > Rick,
+> > >
+> > > On Fri, May 05, 2017 at 09:48:01AM -0700, Rick Altherr wrote:
+> > > > I've chatted with Patrick V. separately about the driver.
+> AST2400/2500
+> > > fan
+> > > > tach hardware measures only one fan at a time.  I think we can
+> adjust the
+> > > > driver settings to reduce the measurement time but it will scale
+> with #
+> > > of
+> > > > tachs being read.
+> > >
+> > > I never looked at this driver before but it looks like it is doing an
+> > > 'msleep' in the hwmon read path after resetting a counter register and
+> > > then counting rotations?  Two comments:
+> > >
+> > > 1. As it stands, it doesn't appear that this driver is actually
+> > > multi-reader safe (either thread or process).  There is no locking or
+> > > queueing to prevent one reader from resetting the result register while
+> > > another is performing the msleep loop.  Multi-threading might "go
+> > > faster" but it will give entirely wrong results by my reading.
+> > >
+> > > 2. It seems bad to do a long-running msleep in the hwmon read path to
+> > > begin with.  Should this driver be restructured to have a kthread read
+> > > the channels in the background on a polling interval instead of
+> > > initiating by userspace action?
+> > >
+> > > --
+> > > Patrick Williams
+> > >
+>
+> --
+> Patrick Williams
+>
+
+--94eb2c1cb35a484820054ecab84a
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">For what it&#39;s worth, I&#39;m experimenting with shorte=
+r measurement periods for this specific driver.<div><br></div><div>Patrick<=
+/div></div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Fri=
+, May 5, 2017 at 11:02 AM, Patrick Williams <span dir=3D"ltr">&lt;<a href=
+=3D"mailto:patrick@stwcx.xyz" target=3D"_blank">patrick@stwcx.xyz</a>&gt;</=
+span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8e=
+x;border-left:1px #ccc solid;padding-left:1ex">Jaghu,<br>
+<br>
+Can you comment?=C2=A0 I&#39;m looking at the version that was merged into =
+Linus&#39;<br>
+master for 4.12:<br>
+<br>
+commit 2d7a548a3eff382da5cd743670693b<wbr>7657327714<br>
+Author: Jaghathiswari Rankappagounder Natarajan &lt;<a href=3D"mailto:jaghu=
+@google.com">jaghu@google.com</a>&gt;<br>
+Date:=C2=A0 =C2=A0Tue Apr 4 17:52:41 2017 -0700<br>
+<br>
+=C2=A0 =C2=A0 drivers: hwmon: Support for ASPEED PWM/Fan tach<br>
+<div class=3D"HOEnZb"><div class=3D"h5"><br>
+<br>
+On Fri, May 05, 2017 at 10:48:39AM -0700, Rick Altherr wrote:<br>
+&gt; I can&#39;t comment on the driver implementation choices.=C2=A0 They h=
+ave been<br>
+&gt; reviewed and accepted by upstream.=C2=A0 I&#39;m not sure what version=
+ of the driver<br>
+&gt; you are looking at.<br>
+&gt;<br>
+&gt; On Fri, May 5, 2017 at 10:43 AM, Patrick Williams &lt;<a href=3D"mailt=
+o:patrick@stwcx.xyz">patrick@stwcx.xyz</a>&gt; wrote:<br>
+&gt;<br>
+&gt; &gt; Rick,<br>
+&gt; &gt;<br>
+&gt; &gt; On Fri, May 05, 2017 at 09:48:01AM -0700, Rick Altherr wrote:<br>
+&gt; &gt; &gt; I&#39;ve chatted with Patrick V. separately about the driver=
+.=C2=A0 AST2400/2500<br>
+&gt; &gt; fan<br>
+&gt; &gt; &gt; tach hardware measures only one fan at a time.=C2=A0 I think=
+ we can adjust the<br>
+&gt; &gt; &gt; driver settings to reduce the measurement time but it will s=
+cale with #<br>
+&gt; &gt; of<br>
+&gt; &gt; &gt; tachs being read.<br>
+&gt; &gt;<br>
+&gt; &gt; I never looked at this driver before but it looks like it is doin=
+g an<br>
+&gt; &gt; &#39;msleep&#39; in the hwmon read path after resetting a counter=
+ register and<br>
+&gt; &gt; then counting rotations?=C2=A0 Two comments:<br>
+&gt; &gt;<br>
+&gt; &gt; 1. As it stands, it doesn&#39;t appear that this driver is actual=
+ly<br>
+&gt; &gt; multi-reader safe (either thread or process).=C2=A0 There is no l=
+ocking or<br>
+&gt; &gt; queueing to prevent one reader from resetting the result register=
+ while<br>
+&gt; &gt; another is performing the msleep loop.=C2=A0 Multi-threading migh=
+t &quot;go<br>
+&gt; &gt; faster&quot; but it will give entirely wrong results by my readin=
+g.<br>
+&gt; &gt;<br>
+&gt; &gt; 2. It seems bad to do a long-running msleep in the hwmon read pat=
+h to<br>
+&gt; &gt; begin with.=C2=A0 Should this driver be restructured to have a kt=
+hread read<br>
+&gt; &gt; the channels in the background on a polling interval instead of<b=
+r>
+&gt; &gt; initiating by userspace action?<br>
+&gt; &gt;<br>
+&gt; &gt; --<br>
+&gt; &gt; Patrick Williams<br>
+&gt; &gt;<br>
+<br>
+</div></div><span class=3D"HOEnZb"><font color=3D"#888888">--<br>
+Patrick Williams<br>
+</font></span></blockquote></div><br></div>
+
+--94eb2c1cb35a484820054ecab84a--
