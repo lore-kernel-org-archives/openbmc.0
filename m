@@ -1,45 +1,46 @@
-Return-Path: <robherring2@gmail.com>
-Received: from mail-oi0-f67.google.com (mail-oi0-f67.google.com
- [209.85.218.67])
+Return-Path: <maxims@google.com>
+Received: from mail-io0-x229.google.com (mail-io0-x229.google.com
+ [IPv6:2607:f8b0:4001:c06::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wM4wb3YrmzDqCL
- for <openbmc@lists.ozlabs.org>; Tue,  9 May 2017 00:42:39 +1000 (AEST)
-Received: by mail-oi0-f67.google.com with SMTP id h4so9652103oib.0
- for <openbmc@lists.ozlabs.org>; Mon, 08 May 2017 07:42:39 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wM8wW6JnyzDqGv
+ for <openbmc@lists.ozlabs.org>; Tue,  9 May 2017 03:42:50 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="cpC9eLDF"; 
+ dkim-atps=neutral
+Received: by mail-io0-x229.google.com with SMTP id p24so55136788ioi.0
+ for <openbmc@lists.ozlabs.org>; Mon, 08 May 2017 10:42:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=3dGBCz0jhqjYLnyBXrA3XzbRJFf5IQD4jUw9PcMavdY=;
+ b=cpC9eLDFcbzBI5hY/0S6GPuKIsN7X6xWx1cMkP1q7XS1VtWS24WkOD9wLWaOXRPhFC
+ cZmEBcqagSSFtejXmMF8CMVjn/I1Hb0NEjvFKb0eQszJlKLSkLDEhF0KjW5vsFpx6JYL
+ RmSwKSZZsZ4e3Z0Bu+QOW5B0uwR1RpABDBiww5IwmYD8uzslLa+dCl/XyXipBZv5j2gE
+ RDw/kQFwPZP1ucsmQrEqYp9L9HBOhpo+AaOXMbC8KsGFhHmRkeJZCvu8gWkgqEVztroM
+ vPP4W8xVg06RzZPjT9Rovk6yo7pq5rlVDblYJOKh4oSaLWZ/vEeQeFNEta4uajPhX0Y7
+ 8mQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=xrxXb9nULoupewtCnxtW3C/5wDrAZs9FP7Xjk/C271o=;
- b=txrwWxSSo2MzV3rIaZv4zd/rqJ4kh7VRdVArJ3cmqe/vpPhlfgsJDqZNXSYsX+NNsD
- XjnbnKmjSti3MTjdn5glJ3Qw68XafFdv6sjIggmQVdOfioJfc0BdhfTYcXXXuylX0iHx
- xpTv9mXqEDMSNeYDrkpmXKQ4WsZ3K0vnqhgogKXz7xI+UfqXZPX0pA/INRAwghd0eBJd
- 98ASZSn6PO3YKaK1/tbgwn/9uiSF34NKv4ZG3MFotr7w43s5h3zyn9iM6QUf2WgIxELr
- XL3g0x4YbXx74b1C07/KtKG/SZQTm0qqbsi6z8zPoy71teAFXudnzAqTXdlbaEHnonns
- SyPw==
-X-Gm-Message-State: AN3rC/7dIQpibyKG3DW/yKVFdC2mbFnvt1ka+8WhPX/bFV8jZjb/mrhD
- UCwPXHnw0f6gnA==
-X-Received: by 10.157.1.97 with SMTP id 88mr22776007otu.66.1494254557197;
- Mon, 08 May 2017 07:42:37 -0700 (PDT)
-Received: from localhost (66-90-148-125.dyn.grandenetworks.net.
- [66.90.148.125])
- by smtp.gmail.com with ESMTPSA id c126sm6754392oia.5.2017.05.08.07.42.36
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 08 May 2017 07:42:36 -0700 (PDT)
-Date: Mon, 8 May 2017 09:42:36 -0500
-From: Rob Herring <robh@kernel.org>
-To: Jeremy Kerr <jk@ozlabs.org>
-Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH RFC] Documentation/devicetree: Add specification for FSI
- busses
-Message-ID: <20170508144236.r5ezra467hyzebtv@rob-hp-laptop>
-References: <1493704508-27119-1-git-send-email-jk@ozlabs.org>
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=3dGBCz0jhqjYLnyBXrA3XzbRJFf5IQD4jUw9PcMavdY=;
+ b=iR6Hd/MnfOX2B1wZ00YBGHARigG80NetnH28OguqJaAHO4xrJuJWJ17ptBzqyKnbKC
+ cbNVgdbQQlqxB2Et3ZKPU57XjnK4/uEDYj3WL4wW2Xp36KEfcrAE6Umlpdm/phPEnEwe
+ 84mqUHif7b7+E0vrMQnSi6lPJ4WAiumhjaQ1EfYR551292Wk0ZFGYO63Lk913He6YU62
+ GIjg0iKoLa6NCmouJ1m38bahjDmYbpehzaWc4xxFtcFJ35hTWcW0zf8INhGzgpzFxD6H
+ CjYvIeIvxzATVD5uKGOMileiAs3cNxXWmXpXQGolSnFcHeyUhv95MgDH7GAO+jVxiSQO
+ qdrA==
+X-Gm-Message-State: AODbwcBXfvtovn63/9v1N9K/3cimXY/2wei2+YbG8JfQdGbCgdCZmqZN
+ aT9WXX7x+bOxxZ7NWKGlBCosGWlMdjwfVFjElw==
+X-Received: by 10.107.201.131 with SMTP id z125mr5593750iof.160.1494265368089; 
+ Mon, 08 May 2017 10:42:48 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1493704508-27119-1-git-send-email-jk@ozlabs.org>
-User-Agent: NeoMutt/20170113 (1.7.2)
+Received: by 10.107.185.7 with HTTP; Mon, 8 May 2017 10:42:47 -0700 (PDT)
+From: Maxim Sloyko <maxims@google.com>
+Date: Mon, 8 May 2017 10:42:47 -0700
+Message-ID: <CAFR_W8rB5RPxZ0LH6xYSa7iuPAy-vADxYxLHBtzbsoBwm=cUsQ@mail.gmail.com>
+Subject: Running ptests
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary=94eb2c0b9cbe7789fe054f06c4de
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -51,39 +52,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 May 2017 14:42:40 -0000
+X-List-Received-Date: Mon, 08 May 2017 17:42:53 -0000
 
-On Tue, May 02, 2017 at 01:55:08PM +0800, Jeremy Kerr wrote:
-> This change introduces a proposed layout for describing FSI busses in
-> the device tree. While the bus is probe-able, we'd still like a method
-> of describing subordinate (eg i2c) busses that are behind FSI devices.
-> 
-> The FSI core will be responsible for matching probed slaves & engines to
-> their device tree nodes, so the FSI device drivers' probe() functions
-> will be passed a struct device with the appropriate of_node populated
-> where a matching DT node is found.
-> 
-> RFC at this stage, so I'd welcome any feedback.
-> 
-> Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
-> ---
->  Documentation/devicetree/bindings/fsi/fsi.txt | 144 ++++++++++++++++++++++++++
->  1 file changed, 144 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/fsi/fsi.txt
-> 
-> diff --git a/Documentation/devicetree/bindings/fsi/fsi.txt b/Documentation/devicetree/bindings/fsi/fsi.txt
-> new file mode 100644
-> index 0000000..b5e85c7
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/fsi/fsi.txt
-> @@ -0,0 +1,144 @@
-> +FSI bus & engine generic device tree bindings
-> +=============================================
-> +
-> +The FSI bus is probe-able, so Linux is able to enumerate FSI slaves, and
+--94eb2c0b9cbe7789fe054f06c4de
+Content-Type: text/plain; charset=UTF-8
 
-s/Linux/the OS/
+Hi all,
 
-Otherwise, looks good to me.
+I'm working on setting up some infrastructure for testing OpenBMC images
+and I want to use Yocto's ptests (https://wiki.yoctoproject.org/wiki/Ptest)
 
-Rob
+To run those tests the image needs a recipe for gtest and also the recipes
+for some of our packages (phosphor-event for example) need to be changed so
+that they would build ptests. As far as I can tell the changes to the
+packages themselves are not required.
+
+My question is: do we want this in meta-phosphor layer or somewhere else?
+What's the best way to implement some kind of a switch to say "build an
+image with ptests" or "build an image without ptests"?
+
+Thank you.
+
+-- 
+*M*axim *S*loyko
+
+--94eb2c0b9cbe7789fe054f06c4de
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi all,<div><br></div><div>I&#39;m working on setting up s=
+ome infrastructure for testing OpenBMC images and I want to use Yocto&#39;s=
+ ptests (<a href=3D"https://wiki.yoctoproject.org/wiki/Ptest">https://wiki.=
+yoctoproject.org/wiki/Ptest</a>)</div><div><br></div><div>To run those test=
+s the image needs a recipe for gtest and also the recipes for some of our p=
+ackages (phosphor-event for example) need to be changed so that they would =
+build ptests. As far as I can tell the changes to the packages themselves a=
+re not required.</div><div><br></div><div>My question is: do we want this i=
+n meta-phosphor layer or somewhere else? What&#39;s the best way to impleme=
+nt some kind of a switch to say &quot;build an image with ptests&quot; or &=
+quot;build an image without ptests&quot;?</div><div><br></div><div>Thank yo=
+u.<br clear=3D"all"><div><br></div>-- <br><div class=3D"gmail_signature"><d=
+iv><b>M</b>axim <b>S</b>loyko</div></div>
+</div></div>
+
+--94eb2c0b9cbe7789fe054f06c4de--
