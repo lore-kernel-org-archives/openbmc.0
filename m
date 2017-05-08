@@ -1,56 +1,56 @@
 Return-Path: <trini@konsulko.com>
-Received: from mail-qk0-x231.google.com (mail-qk0-x231.google.com
- [IPv6:2607:f8b0:400d:c09::231])
+Received: from mail-qk0-x236.google.com (mail-qk0-x236.google.com
+ [IPv6:2607:f8b0:400d:c09::236])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wMCXk0Vf9zDqJL
- for <openbmc@lists.ozlabs.org>; Tue,  9 May 2017 05:40:54 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wMCXn5lmMzDqJv
+ for <openbmc@lists.ozlabs.org>; Tue,  9 May 2017 05:40:57 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=konsulko.com header.i=@konsulko.com header.b="gzWgo69e";
+ unprotected) header.d=konsulko.com header.i=@konsulko.com header.b="s65WGtTG";
  dkim-atps=neutral
-Received: by mail-qk0-x231.google.com with SMTP id a72so45305596qkj.2
- for <openbmc@lists.ozlabs.org>; Mon, 08 May 2017 12:40:53 -0700 (PDT)
+Received: by mail-qk0-x236.google.com with SMTP id k74so61579804qke.1
+ for <openbmc@lists.ozlabs.org>; Mon, 08 May 2017 12:40:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=konsulko.com; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=RKrDYXSjw4brNhk3r5Ob4etVAselHFguDg2KQVONXRw=;
- b=gzWgo69eKnII7KmNEs3cPEu7XlWNQ0qq5oz3JAtXMouXWqgjhvz+ueJEQ/kWi23Rfd
- y+Fdu/3JpYh7guG7p4kV2IhYtFj7AMYsik+X4hwMz3HmuOZWzeH2PYh2k5LMM1S3skwI
- PaX9ox0EEMAq2vs65AMjL/PV1CL4BFZWrGWdU=
+ bh=NznR01AFUu+x95reRmgtG3BhcpZh3i2a7eGkFCKRarc=;
+ b=s65WGtTGbltIsk766eTp3zsQI8a6NURUcRd9RrEopPBq0dgCdx5ghhwtmhED97oIXN
+ kdrb9IfMXLyst2JXqwyhvJaM1k05NG+u9ALR3mM4DEjFu9oovryogknfH6S9usyy99a4
+ AzEtYEuDo5QhZvGhJG0gunJsH9db67i5ib7NM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=RKrDYXSjw4brNhk3r5Ob4etVAselHFguDg2KQVONXRw=;
- b=rD8OKipu/7Ii+zBgaMuHDCbNSuT0d1BA3zhttzABKlbMDeA1ghjgCAcnn8q9v+f0R7
- gJjqafnLB3l7KbE6w/qey6rHOya8mx7ii2CN9iPF1sOjyGrg0V6Dh+552QmcagVQ5lCi
- ijhKfs7sjhBmeVMmAhtZ9e4tEgT7737KanJ/vpNkxvPVa7LOfF5ffRzxGKOMmmwFNdq9
- 6Rqi0URA1bhAHIVq8s7/bygXhgm5/oVKyF/9nORcl4Q/+KHQo85maFCgxEBnyasVeGKr
- 2meOXAJ0mBeBXDT4cDXQFTu/Js7PrPbL5xxz+JfxX5l4uHkVkpvFL8Fb5Xmxw6V+TtOw
- fyzw==
-X-Gm-Message-State: AODbwcBYswW7CPK1PjGAdU7SclEmgGIYJwRNK1ij8z8Ajcdph7+iWW1U
- w8NYVA2ypAw9djwitgc=
-X-Received: by 10.55.204.23 with SMTP id r23mr28896806qki.72.1494272451946;
- Mon, 08 May 2017 12:40:51 -0700 (PDT)
+ bh=NznR01AFUu+x95reRmgtG3BhcpZh3i2a7eGkFCKRarc=;
+ b=TP3cIZsmUtzb0tKnq1c5HOek9YDv0i5dn/Olp5bAu4dJozTGO/owFokGix3gyvyJTb
+ oCkEt4ETHt5BxFbx5+34G3F/UUPykj5AGuqs3Mu37w2vnzX/g46uF0QuY8ZJ8ntJNT/0
+ 2sM+ZSY1yO2IbeIVD0lJ9TqToWBa5D+ECrL1LINBZD/cKl5ZMDQtiKPfm5mXliKVRGr/
+ kX4jcCspKJ1J3Iot4mrZK08j0anYryXu4YhQLxjCRLVaousBBCyKg3pnn5GxGjBKGVOi
+ jLGPke47M6zBbOTmQDwfid0C2T5/ArbHPqfSBC8ZAcKZWifQShsmMMokois4D2/Q0JUw
+ 6MSw==
+X-Gm-Message-State: AODbwcDk6I9nbwHEBaeY3Nvj9zkH2rYKhOFdoRB5ZdqLgp/AHrD63yCS
+ 10q9Cey/sC8zvg==
+X-Received: by 10.55.169.77 with SMTP id s74mr29841306qke.297.1494272455920;
+ Mon, 08 May 2017 12:40:55 -0700 (PDT)
 Received: from bill-the-cat (cpe-75-180-228-133.ec.res.rr.com.
  [75.180.228.133])
- by smtp.gmail.com with ESMTPSA id z33sm10961065qta.48.2017.05.08.12.40.51
+ by smtp.gmail.com with ESMTPSA id r129sm9978179qkb.16.2017.05.08.12.40.55
  (version=TLS1_2 cipher=AES128-SHA bits=128/128);
- Mon, 08 May 2017 12:40:51 -0700 (PDT)
-Date: Mon, 8 May 2017 15:42:33 -0400
+ Mon, 08 May 2017 12:40:55 -0700 (PDT)
+Date: Mon, 8 May 2017 15:42:38 -0400
 From: Tom Rini <trini@konsulko.com>
 To: maxims@google.com
 Cc: u-boot@lists.denx.de, Simon Glass <sjg@chromium.org>,
  openbmc@lists.ozlabs.org
-Subject: Re: [U-Boot,v1,06/15] aspeed: Device Tree configuration for Reset
- Driver
-Message-ID: <20170508194233.GI12511@bill-the-cat>
-References: <20170417190034.71945-7-maxims@google.com>
+Subject: Re: [U-Boot, v1, 07/15] aspeed: Refactor AST2500 RAM Driver and
+ Sysreset Driver
+Message-ID: <20170508194238.GJ12511@bill-the-cat>
+References: <20170417190034.71945-8-maxims@google.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature"; boundary="UXdpmlmE+xADLAjU"
+ protocol="application/pgp-signature"; boundary="Ecgo2ZBDry9z5RYd"
 Content-Disposition: inline
-In-Reply-To: <20170417190034.71945-7-maxims@google.com>
+In-Reply-To: <20170417190034.71945-8-maxims@google.com>
 User-Agent: Mutt/1.5.21 (2010-09-15)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -63,18 +63,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 May 2017 19:40:54 -0000
+X-List-Received-Date: Mon, 08 May 2017 19:40:58 -0000
 
 
---UXdpmlmE+xADLAjU
+--Ecgo2ZBDry9z5RYd
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Apr 17, 2017 at 12:00:25PM -0700, maxims@google.com wrote:
+On Mon, Apr 17, 2017 at 12:00:26PM -0700, maxims@google.com wrote:
 
-> Add Reset Driver configuration to ast2500 SoC Device Tree and bindings
-> for various reset signals
+> This change switches all existing users of ast2500 Watchdog to Driver
+> Model based Watchdog driver.
+>=20
+> To perform system reset Sysreset Driver uses first Watchdog device found
+> via uclass_first_device call. Since the system is going to be reset
+> anyway it does not make much difference which watchdog is used.
+>=20
+> Instead of using Watchdog to reset itself, SDRAM driver now uses Reset
+> driver to do that.
+>=20
+> These were the only users of the old Watchdog API, so that API is
+> removed.
+>=20
+> This all is done in one change to avoid having to maintain dual API for
+> watchdog in between.
 >=20
 > Signed-off-by: Maxim Sloyko <maxims@google.com>
 > Reviewed-by: Simon Glass <sjg@chromium.org>
@@ -84,26 +97,26 @@ Applied to u-boot/master, thanks!
 --=20
 Tom
 
---UXdpmlmE+xADLAjU
+--Ecgo2ZBDry9z5RYd
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1
 
-iQIcBAEBAgAGBQJZEMopAAoJEIf59jXTHXZSSPcP/3lHWbTeusVnputcc5f/IG70
-ToTI9mNxZwYkJ+vbX+3hhvQ7e4zO3u8QwXJASHieu/n0gdTDWmT4oPDFYkK1GT5C
-BVnoafJF1CMkbEhVl1eXmaKsv4N59bJ7jiDWh31UbQGaOu/jqHIj8Y+0uv0mwy2P
-JZ62vkeYx7Qb+e25ZJywQ8tUnGXqf5a3HqVHpncURhkBwB8I+3GTEwzMZ2DYJ+Yx
-fSwh3tsEKXrzENJ+D/4AMpWDJZdV5RoPmMT1MvSuMdTimaopvsqkrEYk+RRh+o7F
-BrjvkO7Qp//VJ6Lo9ZLoPPOnbkaZx0MC/l2jB5ruBdkb7LN9v1oqg4SJWJ3j78jm
-akXWwoevOfrdmv0Lmyz6U2/bZ4EWh/sGOVVitanfjDUtmWl5FUDEYVLD5OmfGC+3
-YmB8qhYW7IdjTU8B6u8HBpdfmrgpFPBHy+1u0DlrNLCjEZqbQLN4ujswBWtMjYT4
-CA9vAluqQ+Sr6xPATXQnJE4Xlze8VftL6rJZdP6GrVO9YSyOAKkyn/lj8o/x2A2p
-j+DuXfpqJlKLuOrXdKMHrzSrvEbXnkdcy2tJLHDHyla46moQNrU8H8PW+s4X6ENu
-CP2dHT3QEqLE5PxkNpCRYJYAuub9Wa9vddhGFfUD0vCmjYh4jv6qozOyN4yfS+BI
-YokhWkJOcXddRonx1T8i
-=Ysnz
+iQIcBAEBAgAGBQJZEMotAAoJEIf59jXTHXZS1ZMQALPYd+rgLTlnM/RXQpVoyPPC
+MdaB8mAqb4//FelrljGBC/1NQAi7a9UKagG/dOcIebONlHEJP7YEBUmzOirYUfqI
+sgehISlk7eZJrLI5EqGxKBsjgid83mt6AM9Cs29W6xXLU2Uou28Q+CFoUhfaCQRB
+PHk5Y/wR6FgCZkPATgGPJUSmkdXHv/tK6k/YM1T3is8LTvU0HX1iIi84isYX/A8C
++zsOnnuGiHoNA7VdU7Qxr0VBV372iMpru8Q0kjmC8rERGb5ZXcWNQ4wucRWD2D2n
+gUvQoZRH/PDBDQJN6WAL2k4jzlYCTJM3TbN34zHWSXzp/rN9J8SheRna8CeEEPNc
+44AZSmN9yKVzlT5bGsit/Sdl1vbnLpO7ZEpDwAmGHm816Gr7VvQsmE0ClxuObhhY
+DMfpHEt13K3Y1q6fFfXf+oYVxzjBNFF92oYE1EEmqz23I7Yl3HsG99rPTXNrNd7P
+17m1K+7cTQKmgXd4YM9U7QARdM8rau834W69mqY/CxC6Ch5OQdcJCJnUEe0QMva1
+p5WP5QlMR2BlfzDF+s6cHR9ze0a6pI+xfnJ0F0skhUMdfDmJ1GlHAg58+fT5qwTL
+tyqvVu4Fs2usewaP/dnIEa3WsUMmcZsarkQCIz24Vszag5ghOF3iYVs/Uj2aYQx5
++jJd0BnAKozsu6K+LW9A
+=GpLI
 -----END PGP SIGNATURE-----
 
---UXdpmlmE+xADLAjU--
+--Ecgo2ZBDry9z5RYd--
