@@ -1,47 +1,47 @@
 Return-Path: <brendanhiggins@google.com>
-Received: from mail-qt0-x230.google.com (mail-qt0-x230.google.com
- [IPv6:2607:f8b0:400d:c0d::230])
+Received: from mail-qt0-x229.google.com (mail-qt0-x229.google.com
+ [IPv6:2607:f8b0:400d:c0d::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wMJbh1181zDqJL
- for <openbmc@lists.ozlabs.org>; Tue,  9 May 2017 09:28:47 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wMJkt1QCszDqJL
+ for <openbmc@lists.ozlabs.org>; Tue,  9 May 2017 09:35:01 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="EzirrqqI"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="auLJ710p"; 
  dkim-atps=neutral
-Received: by mail-qt0-x230.google.com with SMTP id t26so47600278qtg.0
- for <openbmc@lists.ozlabs.org>; Mon, 08 May 2017 16:28:47 -0700 (PDT)
+Received: by mail-qt0-x229.google.com with SMTP id j29so63228969qtj.1
+ for <openbmc@lists.ozlabs.org>; Mon, 08 May 2017 16:35:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=1h2PeidC6qJ4421nV6o8XGnl86V7twqz3kqy0Eg6TsE=;
- b=EzirrqqIBn0rWOiBJdTT0R+05OwHg5aAWK3dNIcp91Dr5GBb2mJUS4i+gCUTb+oHFa
- swJ2PS8VttChIZbYFCkHX5bSg4A2WsL4gvuhvduOOIQcuPCYzEhtXcGGFQNybDiav9h5
- BKLZ3aFQof4Jy8cgci57y7Lke4yYR4C1KglMyEI00ksoV0i6TQpORGYecZcKNUrywqY5
- 7osQB4Mukr3OYNHGzeapU5meGQX4LD4n1wCiwjTNCUvBHsusKkr6Iz02d0qa3/4+hbRy
- FXufN1Kvv50bwksYkBjS7Bg2wuXXimVwY/fKusLOFUHi7i56z4/gPY1pmrYtMqUDMI18
- oZ/w==
+ :cc; bh=BZYI2f8U1RhHrnnJtde1Xpr0cCeovpXJAlaci4C6Vwc=;
+ b=auLJ710pFNkH4KBjbxpaSNLZSETEgKZGKQ4A68oPxqzPbRyvVFWrUcyTA+DhjK1Y02
+ 5N2tu28TXwbYCKseZYriH/DO0eHffG1M6Yv2ZeMLOTav0PaoWvR4qlrgxLOfaXZYEXzp
+ l5jNUB/l2gmejqJQeI9JWka/iEf9zt878azU5BX2MzDwIz2KLZNI87K4dTLMCmz5zEMG
+ NENCIh77lMraoXUskj6aOUGQ62mXpDpQjqQFqRVgXJgW4vKxTLFkhTxbWaqjEPP5Eppw
+ gWTsmjWlj3exMukIV97MQVJi7ZWSxw9gci7K7gK+/kyu9EvJN5EbqZAxlT9E9Y6xuGHY
+ wktA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=1h2PeidC6qJ4421nV6o8XGnl86V7twqz3kqy0Eg6TsE=;
- b=PV/BHkG38LVT8MZMPbezwdbxMhI0C5zMpHHaFC5jVFbLvMrqmbmBACnvLiWmehN2tk
- rG3UmweFxg3XN4j1o3pdTU18dCTXeIktcNViGpT0QQ91qJ0ZUYro86HbU6kzfV+uqGeL
- EAPONVrQN/XYS0ED+3p3Cw+Gj0Cl0Q/dE3TLSeDBQy6pqx+O8KKZHJxEbToS43oBTVm9
- P7WJltMn83y1b5fMn2Q0lIZAiyUW0lfMxvPL+2xJ+nzWrQ0+/wgh7ZGwWIKLyv++NXPb
- o+EiAuuqCUGcadJvLxeOcQzh8UkzUUWAv4M8y+5yRZ6AhK9k6WYjLS4WuZhPGU28R78+
- GQaA==
-X-Gm-Message-State: AODbwcC+9D3YeJxyYwCyNlTo/qg3H3Fr7I7+hxPxk1QDDP6RR9j58aOS
- 378b7JBdG76eSQm3AEt2jHXb4CNg4D3+
-X-Received: by 10.200.50.67 with SMTP id y3mr19201317qta.27.1494286124519;
- Mon, 08 May 2017 16:28:44 -0700 (PDT)
+ bh=BZYI2f8U1RhHrnnJtde1Xpr0cCeovpXJAlaci4C6Vwc=;
+ b=JNl12HP2Kh4/E4l3p9Yu/594R3FqzNC1koUtrGJXy2tJiR2X4glSA4ErRf95UGIADe
+ 351wUjOOikpib6gsRltyjEuOTQzrSFopgKxUTzWpNY5QqClrNxxQT3X3XbzqiGy5M9sQ
+ nOhA0VAi4uPuFzhBYmB4qIYdbye0etke7sHia7I5BMFDNMYfZvPewSsxXFYLQHhUqqTV
+ LBm1UuuWprTzHn7MXwYhduKHISxRB2fyWbM/CegzAsPpZ29frt/05ej/Ac+yebQS3jXy
+ 6+MuoXmv4FgntYyTnNA+CL4DrYtSDCGgozLgiMngffOyZbt0h2bPvR3St/O294P+MCLN
+ ww5g==
+X-Gm-Message-State: AODbwcA+/nE1UbJgTDK+z8Hy8h+FtGccxHpfjqCy+YYQwz80bhE8Ea45
+ 4973joOaqN2GAOWBhtYNmXQigQpoBO18
+X-Received: by 10.200.4.42 with SMTP id v42mr10123451qtg.2.1494286499042; Mon,
+ 08 May 2017 16:34:59 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.12.163.229 with HTTP; Mon, 8 May 2017 16:28:44 -0700 (PDT)
+Received: by 10.12.163.229 with HTTP; Mon, 8 May 2017 16:34:58 -0700 (PDT)
 In-Reply-To: <20170424181818.2754-5-brendanhiggins@google.com>
 References: <20170424181818.2754-1-brendanhiggins@google.com>
  <20170424181818.2754-5-brendanhiggins@google.com>
 From: Brendan Higgins <brendanhiggins@google.com>
-Date: Mon, 8 May 2017 16:28:44 -0700
-Message-ID: <CAFd5g47VGa=wqeyg5tFjB5xD=YsTuP27hLN3-ZM62MJD8dCP_Q@mail.gmail.com>
+Date: Mon, 8 May 2017 16:34:58 -0700
+Message-ID: <CAFd5g44RxehYCYB=WnxiXMZJe6E5_baQKDvdLAJX7+TTbvpi0Q@mail.gmail.com>
 Subject: Re: [PATCH v7 4/5] i2c: aspeed: added driver for Aspeed I2C
 To: Wolfram Sang <wsa@the-dreams.de>, Rob Herring <robh+dt@kernel.org>, 
  Mark Rutland <mark.rutland@arm.com>, Thomas Gleixner <tglx@linutronix.de>, 
@@ -55,7 +55,7 @@ Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
  Brendan Higgins <brendanhiggins@google.com>,
  Ryan Chen <ryan_chen@aspeedtech.com>
-Content-Type: multipart/alternative; boundary=001a1141047aa5568c054f0b9953
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,18 +67,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 May 2017 23:28:48 -0000
+X-List-Received-Date: Mon, 08 May 2017 23:35:03 -0000
 
---001a1141047aa5568c054f0b9953
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Sorry for the spam everyone, email client did not do what I expected it to do.
 
-=E2=80=8BI would like to release another version this week or next week, an=
-d I
+I would like to release another version this week or next week, and I
 think that we are pretty closed to having something we can apply, but
 before I do that, I want to get something resolved:
 
-+static int __aspeed_i2c_init(struct aspeed_i2c_bus *bus,
+> +static int __aspeed_i2c_init(struct aspeed_i2c_bus *bus,
 > +                            struct platform_device *pdev)
 > +{
 > +       int ret;
@@ -86,91 +83,26 @@ before I do that, I want to get something resolved:
 > +       /* Disable everything. */
 > +       writel(0, bus->base + ASPEED_I2C_FUN_CTRL_REG);
 > +
-> +       ret =3D __aspeed_i2c_init_clk(bus, pdev);
+> +       ret = __aspeed_i2c_init_clk(bus, pdev);
 > +       if (ret < 0)
 > +               return ret;
 > +
 > +       /* Enable Master Mode */
 > +       writel(readl(bus->base + ASPEED_I2C_FUN_CTRL_REG) |
 > +              ASPEED_I2CD_MASTER_EN |
-> +              /* TODO: provide device tree option for multi-master mode.
-> */
+> +              /* TODO: provide device tree option for multi-master mode. */
 
+I am curious what everyone thinks about this. It seemed that, earlier
+on, people did not like me disabling multi-master mode, but I think
+that it would make bus recovery not work as well. Given that, I think
+it makes the most sense to provide a device tree option either to
+enable multi-master support or disable it. Thoughts?
 
-I am curious what everyone thinks about this. It seemed that, earlier on,
-people did not like me disabling multi-master mode, but I think that it
-would make bus recovery not work as well. Given that, I think it makes the
-most sense to provide a device tree option either to enable multi-master
-support or disable it. Thoughts?
-
-
->
 > +              ASPEED_I2CD_MULTI_MASTER_DIS,
 > +              bus->base + ASPEED_I2C_FUN_CTRL_REG);
 > +
 > +       /* Set interrupt generation of I2C controller */
-> +       writel(ASPEED_I2CD_INTR_ALL, bus->base + ASPEED_I2C_INTR_CTRL_REG=
-);
+> +       writel(ASPEED_I2CD_INTR_ALL, bus->base + ASPEED_I2C_INTR_CTRL_REG);
 > +
 > +       return 0;
 > +}
-
---001a1141047aa5568c054f0b9953
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><br>=E2=80=8BI would like to release another version this =
-week or next week, and I think that we are pretty closed to having somethin=
-g we can apply, but before I do that, I want to get something resolved:<br>=
-<div><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
-x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><span styl=
-e=3D"font-size:12.8px">+static int __aspeed_i2c_init(struct aspeed_i2c_bus =
-*bus,</span><br style=3D"font-size:12.8px"><span style=3D"font-size:12.8px"=
->+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 struct platform_device *pdev)</span><br style=3D"f=
-ont-size:12.8px"><span style=3D"font-size:12.8px">+{</span><br style=3D"fon=
-t-size:12.8px"><span style=3D"font-size:12.8px">+=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0int ret;</span><br style=3D"font-size:12.8px"><span style=3D"font-size:1=
-2.8px">+</span><br style=3D"font-size:12.8px"><span style=3D"font-size:12.8=
-px">+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Disable everything. */</span><br style=
-=3D"font-size:12.8px"><span style=3D"font-size:12.8px">+=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0writel(0, bus-&gt;base + ASPEED_I2C_FUN_CTRL_REG);</span><br styl=
-e=3D"font-size:12.8px"><span style=3D"font-size:12.8px">+</span><br style=
-=3D"font-size:12.8px"><span style=3D"font-size:12.8px">+=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0ret =3D __aspeed_i2c_init_clk(bus, pdev);</span><br style=3D"font=
--size:12.8px"><span style=3D"font-size:12.8px">+=C2=A0 =C2=A0 =C2=A0 =C2=A0=
-if (ret &lt; 0)</span><br style=3D"font-size:12.8px"><span style=3D"font-si=
-ze:12.8px">+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return r=
-et;</span><br style=3D"font-size:12.8px"><span style=3D"font-size:12.8px">+=
-</span><br style=3D"font-size:12.8px"><span style=3D"font-size:12.8px">+=C2=
-=A0 =C2=A0 =C2=A0 =C2=A0/* Enable Master Mode */</span><br style=3D"font-si=
-ze:12.8px"><span style=3D"font-size:12.8px">+=C2=A0 =C2=A0 =C2=A0 =C2=A0wri=
-tel(readl(bus-&gt;base + ASPEED_I2C_FUN_CTRL_REG) |</span><br style=3D"font=
--size:12.8px"><span style=3D"font-size:12.8px">+=C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 ASPEED_I2CD_MASTER_EN |</span><br style=3D"font-size:=
-12.8px"><span style=3D"font-size:12.8px">+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 /* TODO: provide device tree option for multi-master mode=
-. */</span></blockquote><div><br></div><div>I am curious what everyone thin=
-ks about this. It seemed that, earlier on, people did not like me disabling=
- multi-master mode, but I think that it would make bus recovery not work as=
- well. Given that, I think it makes the most sense to provide a device tree=
- option either to enable multi-master support or disable it. Thoughts?</div=
-><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
- 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><br sty=
-le=3D"font-size:12.8px"><span style=3D"font-size:12.8px">+=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ASPEED_I2CD_MULTI_MASTER_DIS,</span><br sty=
-le=3D"font-size:12.8px"><span style=3D"font-size:12.8px">+=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bus-&gt;base + ASPEED_I2C_FUN_CTRL_REG);</s=
-pan><br style=3D"font-size:12.8px"><span style=3D"font-size:12.8px">+</span=
-><br style=3D"font-size:12.8px"><span style=3D"font-size:12.8px">+=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0/* Set interrupt generation of=C2=A0</span><span class=
-=3D"gmail-il" style=3D"font-size:12.8px">I2C</span><span style=3D"font-size=
-:12.8px">=C2=A0controller */</span><br style=3D"font-size:12.8px"><span sty=
-le=3D"font-size:12.8px">+=C2=A0 =C2=A0 =C2=A0 =C2=A0writel(ASPEED_I2CD_INTR=
-_ALL, bus-&gt;base + ASPEED_I2C_INTR_CTRL_REG);</span><br style=3D"font-siz=
-e:12.8px"><span style=3D"font-size:12.8px">+</span><br style=3D"font-size:1=
-2.8px"><span style=3D"font-size:12.8px">+=C2=A0 =C2=A0 =C2=A0 =C2=A0return =
-0;</span><br style=3D"font-size:12.8px"><span style=3D"font-size:12.8px">+}=
-</span></blockquote></div>
-
---001a1141047aa5568c054f0b9953--
