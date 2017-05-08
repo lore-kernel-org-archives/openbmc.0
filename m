@@ -1,56 +1,56 @@
 Return-Path: <trini@konsulko.com>
-Received: from mail-qk0-x236.google.com (mail-qk0-x236.google.com
- [IPv6:2607:f8b0:400d:c09::236])
+Received: from mail-qk0-x229.google.com (mail-qk0-x229.google.com
+ [IPv6:2607:f8b0:400d:c09::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wMCXn5lmMzDqJv
- for <openbmc@lists.ozlabs.org>; Tue,  9 May 2017 05:40:57 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wMCXt41GPzDqKF
+ for <openbmc@lists.ozlabs.org>; Tue,  9 May 2017 05:41:02 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=konsulko.com header.i=@konsulko.com header.b="s65WGtTG";
+ unprotected) header.d=konsulko.com header.i=@konsulko.com header.b="SgKQAivD";
  dkim-atps=neutral
-Received: by mail-qk0-x236.google.com with SMTP id k74so61579804qke.1
- for <openbmc@lists.ozlabs.org>; Mon, 08 May 2017 12:40:57 -0700 (PDT)
+Received: by mail-qk0-x229.google.com with SMTP id u75so61378968qka.3
+ for <openbmc@lists.ozlabs.org>; Mon, 08 May 2017 12:41:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=konsulko.com; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=NznR01AFUu+x95reRmgtG3BhcpZh3i2a7eGkFCKRarc=;
- b=s65WGtTGbltIsk766eTp3zsQI8a6NURUcRd9RrEopPBq0dgCdx5ghhwtmhED97oIXN
- kdrb9IfMXLyst2JXqwyhvJaM1k05NG+u9ALR3mM4DEjFu9oovryogknfH6S9usyy99a4
- AzEtYEuDo5QhZvGhJG0gunJsH9db67i5ib7NM=
+ bh=xnN9pN2cY8YcwiNCvpdswnxXdNCLYmWL0nHVYIeorQM=;
+ b=SgKQAivDvYzvAREclOpTrmJAbLvm0Ldkdf2z/FGSYEPwfJ2OiwN7BzVXg6QQ3DxSBu
+ N9eoWipaPhKF8OknDgyeGWxz5WM4ZioIf5QTBZIvdgN2Y8ZL0NFp3y8ZsoaznsZW/aTK
+ +CUfSgvQX69pNmDtJZCaBPmXskwGnPxhrr8/Y=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=NznR01AFUu+x95reRmgtG3BhcpZh3i2a7eGkFCKRarc=;
- b=TP3cIZsmUtzb0tKnq1c5HOek9YDv0i5dn/Olp5bAu4dJozTGO/owFokGix3gyvyJTb
- oCkEt4ETHt5BxFbx5+34G3F/UUPykj5AGuqs3Mu37w2vnzX/g46uF0QuY8ZJ8ntJNT/0
- 2sM+ZSY1yO2IbeIVD0lJ9TqToWBa5D+ECrL1LINBZD/cKl5ZMDQtiKPfm5mXliKVRGr/
- kX4jcCspKJ1J3Iot4mrZK08j0anYryXu4YhQLxjCRLVaousBBCyKg3pnn5GxGjBKGVOi
- jLGPke47M6zBbOTmQDwfid0C2T5/ArbHPqfSBC8ZAcKZWifQShsmMMokois4D2/Q0JUw
- 6MSw==
-X-Gm-Message-State: AODbwcDk6I9nbwHEBaeY3Nvj9zkH2rYKhOFdoRB5ZdqLgp/AHrD63yCS
- 10q9Cey/sC8zvg==
-X-Received: by 10.55.169.77 with SMTP id s74mr29841306qke.297.1494272455920;
- Mon, 08 May 2017 12:40:55 -0700 (PDT)
+ bh=xnN9pN2cY8YcwiNCvpdswnxXdNCLYmWL0nHVYIeorQM=;
+ b=HCCx/7DO2Gq9AEHbPmvVCBEwJhJYxS8sRpdCBC/3GPn6UmEA9rYfgZGJN1oIqEsr2K
+ Fhg5CH/uM4uvzt6M0bsC/rAIGWPVF3zzqWf1pQUo1Rc2hqonbPiCGfCoE83hU6jNVl8w
+ KtdupT2QcT5OeGsMhKge67qyWkHTZTkDhNRhVrWcVPP2GX4KtrXg/0zlVLQkywsI1ew0
+ dJO/niV6/wrGHNPJovygG60zkdKlIPoevdXQNdveabbEz0axlUGsqn6gZxUXLVn7rlsd
+ mbjFvf1DNCofPv/4lxApWFDmyu3Ek9brlUouUUEsgXYw8L1nFyCvdxiDNY+ONYyPss4I
+ Cv1A==
+X-Gm-Message-State: AODbwcDn9Z58pXI4aNL42OLLh7n3F2iTFoW0jTp6kW+bJSCxW7ZNB61x
+ eUX6/L3UMA7owQ==
+X-Received: by 10.55.130.131 with SMTP id e125mr28863812qkd.109.1494272460423; 
+ Mon, 08 May 2017 12:41:00 -0700 (PDT)
 Received: from bill-the-cat (cpe-75-180-228-133.ec.res.rr.com.
  [75.180.228.133])
- by smtp.gmail.com with ESMTPSA id r129sm9978179qkb.16.2017.05.08.12.40.55
+ by smtp.gmail.com with ESMTPSA id k34sm9874646qte.3.2017.05.08.12.40.59
  (version=TLS1_2 cipher=AES128-SHA bits=128/128);
- Mon, 08 May 2017 12:40:55 -0700 (PDT)
-Date: Mon, 8 May 2017 15:42:38 -0400
+ Mon, 08 May 2017 12:40:59 -0700 (PDT)
+Date: Mon, 8 May 2017 15:42:42 -0400
 From: Tom Rini <trini@konsulko.com>
 To: maxims@google.com
 Cc: u-boot@lists.denx.de, Simon Glass <sjg@chromium.org>,
- openbmc@lists.ozlabs.org
-Subject: Re: [U-Boot, v1, 07/15] aspeed: Refactor AST2500 RAM Driver and
- Sysreset Driver
-Message-ID: <20170508194238.GJ12511@bill-the-cat>
-References: <20170417190034.71945-8-maxims@google.com>
+ openbmc@lists.ozlabs.org, Wills Wang <wills.wang@live.com>,
+ Thomas Abraham <thomas.ab@samsung.com>
+Subject: Re: [U-Boot,v1,08/15] aspeed: AST2500 Pinctrl Driver
+Message-ID: <20170508194242.GK12511@bill-the-cat>
+References: <20170417190034.71945-9-maxims@google.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature"; boundary="Ecgo2ZBDry9z5RYd"
+ protocol="application/pgp-signature"; boundary="ktVyxOZBIsenE1Qh"
 Content-Disposition: inline
-In-Reply-To: <20170417190034.71945-8-maxims@google.com>
+In-Reply-To: <20170417190034.71945-9-maxims@google.com>
 User-Agent: Mutt/1.5.21 (2010-09-15)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -63,31 +63,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 May 2017 19:40:58 -0000
+X-List-Received-Date: Mon, 08 May 2017 19:41:03 -0000
 
 
---Ecgo2ZBDry9z5RYd
+--ktVyxOZBIsenE1Qh
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Apr 17, 2017 at 12:00:26PM -0700, maxims@google.com wrote:
+On Mon, Apr 17, 2017 at 12:00:27PM -0700, maxims@google.com wrote:
 
-> This change switches all existing users of ast2500 Watchdog to Driver
-> Model based Watchdog driver.
+> This driver uses Generic Pinctrl framework and is compatible with
+> the Linux driver for ast2500: it uses the same device tree
+> configuration.
 >=20
-> To perform system reset Sysreset Driver uses first Watchdog device found
-> via uclass_first_device call. Since the system is going to be reset
-> anyway it does not make much difference which watchdog is used.
->=20
-> Instead of using Watchdog to reset itself, SDRAM driver now uses Reset
-> driver to do that.
->=20
-> These were the only users of the old Watchdog API, so that API is
-> removed.
->=20
-> This all is done in one change to avoid having to maintain dual API for
-> watchdog in between.
+> Not all pins are supported by the driver at the moment, so it actually
+> compatible with ast2400. In general, however, there are differences that
+> in the future would be easier to maintain separately.
 >=20
 > Signed-off-by: Maxim Sloyko <maxims@google.com>
 > Reviewed-by: Simon Glass <sjg@chromium.org>
@@ -97,26 +89,26 @@ Applied to u-boot/master, thanks!
 --=20
 Tom
 
---Ecgo2ZBDry9z5RYd
+--ktVyxOZBIsenE1Qh
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1
 
-iQIcBAEBAgAGBQJZEMotAAoJEIf59jXTHXZS1ZMQALPYd+rgLTlnM/RXQpVoyPPC
-MdaB8mAqb4//FelrljGBC/1NQAi7a9UKagG/dOcIebONlHEJP7YEBUmzOirYUfqI
-sgehISlk7eZJrLI5EqGxKBsjgid83mt6AM9Cs29W6xXLU2Uou28Q+CFoUhfaCQRB
-PHk5Y/wR6FgCZkPATgGPJUSmkdXHv/tK6k/YM1T3is8LTvU0HX1iIi84isYX/A8C
-+zsOnnuGiHoNA7VdU7Qxr0VBV372iMpru8Q0kjmC8rERGb5ZXcWNQ4wucRWD2D2n
-gUvQoZRH/PDBDQJN6WAL2k4jzlYCTJM3TbN34zHWSXzp/rN9J8SheRna8CeEEPNc
-44AZSmN9yKVzlT5bGsit/Sdl1vbnLpO7ZEpDwAmGHm816Gr7VvQsmE0ClxuObhhY
-DMfpHEt13K3Y1q6fFfXf+oYVxzjBNFF92oYE1EEmqz23I7Yl3HsG99rPTXNrNd7P
-17m1K+7cTQKmgXd4YM9U7QARdM8rau834W69mqY/CxC6Ch5OQdcJCJnUEe0QMva1
-p5WP5QlMR2BlfzDF+s6cHR9ze0a6pI+xfnJ0F0skhUMdfDmJ1GlHAg58+fT5qwTL
-tyqvVu4Fs2usewaP/dnIEa3WsUMmcZsarkQCIz24Vszag5ghOF3iYVs/Uj2aYQx5
-+jJd0BnAKozsu6K+LW9A
-=GpLI
+iQIcBAEBAgAGBQJZEMoyAAoJEIf59jXTHXZSoQcQAIUSY7+XzBmSllbA7LylEKjo
+XZxfT+o/qNwTuxd5a+4Wj6kDGY0tBEcL6DA8ccntENsN+H3S9qvuvlYkmjqah8S0
+wTAkJL06+MeKIv1cdtLP6WJkLHtFljFzfyh0vmbD1FrwZQLNIZnCjqJcUx/6hnvm
+6Tb6K1qcfW+EdcwbniDvUFRakf79T7XZ5MYrkl1fzTavTe8BOD0tUgUiDBviVTiu
+dO2kQt3DFXJmjm+J2NmpEb5diI/h3jSw/y506VsLcUMCtvF0XV5avrAT2/yHq5qP
+bWkmKIueN0yFoQWGjI4e48IEcIIaWpddOFti6OnrPoScuY/cMSmVASPSwwzVlBhC
+JJ9mwigf7dhlfg3SW5Rz4h+jUAGkKD9GkjsJMwtXunvtw+YAA3U1fRwHmY0tR3SV
+viqVkYzucwPHKxnY3CmStSd+2F4Ig9sTi4nVRrAomxzjfdhjHK79z9tuA4O2jY3/
+oyq7X8mJ6dyyYGOlIDWb1GEoW4TpoV5Az1jUv6yptaxlF28D+inO7GnvU1fdnTFn
+PJX6iuX+m9r0R6lV9ovBfjq+FWW14AGGPHqTZwoD1ZyIdZKj7tvzZz+RUl4RcnRc
+7EKkrjc1wsDXOrlhm7F5azTX/VN4uh3xOk5rJLZOuYKGXOj1EoWQhN1AfwDNXGEU
+bt/LAOBzmEfwHeGA2zcj
+=oORZ
 -----END PGP SIGNATURE-----
 
---Ecgo2ZBDry9z5RYd--
+--ktVyxOZBIsenE1Qh--
