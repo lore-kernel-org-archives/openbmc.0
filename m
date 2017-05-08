@@ -1,46 +1,37 @@
-Return-Path: <maxims@google.com>
-Received: from mail-io0-x229.google.com (mail-io0-x229.google.com
- [IPv6:2607:f8b0:4001:c06::229])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <clg@kaod.org>
+X-Greylist: delayed 492 seconds by postgrey-1.36 at bilbo;
+ Tue, 09 May 2017 05:35:07 AEST
+Received: from 11.mo1.mail-out.ovh.net (11.mo1.mail-out.ovh.net
+ [188.165.48.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wM8wW6JnyzDqGv
- for <openbmc@lists.ozlabs.org>; Tue,  9 May 2017 03:42:50 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="cpC9eLDF"; 
- dkim-atps=neutral
-Received: by mail-io0-x229.google.com with SMTP id p24so55136788ioi.0
- for <openbmc@lists.ozlabs.org>; Mon, 08 May 2017 10:42:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=3dGBCz0jhqjYLnyBXrA3XzbRJFf5IQD4jUw9PcMavdY=;
- b=cpC9eLDFcbzBI5hY/0S6GPuKIsN7X6xWx1cMkP1q7XS1VtWS24WkOD9wLWaOXRPhFC
- cZmEBcqagSSFtejXmMF8CMVjn/I1Hb0NEjvFKb0eQszJlKLSkLDEhF0KjW5vsFpx6JYL
- RmSwKSZZsZ4e3Z0Bu+QOW5B0uwR1RpABDBiww5IwmYD8uzslLa+dCl/XyXipBZv5j2gE
- RDw/kQFwPZP1ucsmQrEqYp9L9HBOhpo+AaOXMbC8KsGFhHmRkeJZCvu8gWkgqEVztroM
- vPP4W8xVg06RzZPjT9Rovk6yo7pq5rlVDblYJOKh4oSaLWZ/vEeQeFNEta4uajPhX0Y7
- 8mQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=3dGBCz0jhqjYLnyBXrA3XzbRJFf5IQD4jUw9PcMavdY=;
- b=iR6Hd/MnfOX2B1wZ00YBGHARigG80NetnH28OguqJaAHO4xrJuJWJ17ptBzqyKnbKC
- cbNVgdbQQlqxB2Et3ZKPU57XjnK4/uEDYj3WL4wW2Xp36KEfcrAE6Umlpdm/phPEnEwe
- 84mqUHif7b7+E0vrMQnSi6lPJ4WAiumhjaQ1EfYR551292Wk0ZFGYO63Lk913He6YU62
- GIjg0iKoLa6NCmouJ1m38bahjDmYbpehzaWc4xxFtcFJ35hTWcW0zf8INhGzgpzFxD6H
- CjYvIeIvxzATVD5uKGOMileiAs3cNxXWmXpXQGolSnFcHeyUhv95MgDH7GAO+jVxiSQO
- qdrA==
-X-Gm-Message-State: AODbwcBXfvtovn63/9v1N9K/3cimXY/2wei2+YbG8JfQdGbCgdCZmqZN
- aT9WXX7x+bOxxZ7NWKGlBCosGWlMdjwfVFjElw==
-X-Received: by 10.107.201.131 with SMTP id z125mr5593750iof.160.1494265368089; 
- Mon, 08 May 2017 10:42:48 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wMCQ34XN3zDqJ9
+ for <openbmc@lists.ozlabs.org>; Tue,  9 May 2017 05:35:07 +1000 (AEST)
+Received: from player756.ha.ovh.net (b6.ovh.net [213.186.33.56])
+ by mo1.mail-out.ovh.net (Postfix) with ESMTP id A900270894
+ for <openbmc@lists.ozlabs.org>; Mon,  8 May 2017 21:26:50 +0200 (CEST)
+Received: from zorba.kaod.org (LFbn-1-10647-27.w90-89.abo.wanadoo.fr
+ [90.89.233.27]) (Authenticated sender: postmaster@kaod.org)
+ by player756.ha.ovh.net (Postfix) with ESMTPSA id 993CD42007B;
+ Mon,  8 May 2017 21:26:47 +0200 (CEST)
+Subject: Re: [RFC PATCH linux dev-4.10] leds: pca955x: add GPIO support
+To: Joel Stanley <joel@jms.id.au>
+References: <1493989667-29466-1-git-send-email-clg@kaod.org>
+ <CACPK8XdLXdDos4MeNB2WWwsTXCHfets9FdumzvsqMJjOgdBLvA@mail.gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <98575112-697c-69f8-38f3-80d99801ed56@kaod.org>
+Date: Mon, 8 May 2017 21:26:46 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.8.0
 MIME-Version: 1.0
-Received: by 10.107.185.7 with HTTP; Mon, 8 May 2017 10:42:47 -0700 (PDT)
-From: Maxim Sloyko <maxims@google.com>
-Date: Mon, 8 May 2017 10:42:47 -0700
-Message-ID: <CAFR_W8rB5RPxZ0LH6xYSa7iuPAy-vADxYxLHBtzbsoBwm=cUsQ@mail.gmail.com>
-Subject: Running ptests
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=94eb2c0b9cbe7789fe054f06c4de
+In-Reply-To: <CACPK8XdLXdDos4MeNB2WWwsTXCHfets9FdumzvsqMJjOgdBLvA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 14301462093433834242
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeeliedrjedtgddufeekucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -52,47 +43,127 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 May 2017 17:42:53 -0000
+X-List-Received-Date: Mon, 08 May 2017 19:35:08 -0000
 
---94eb2c0b9cbe7789fe054f06c4de
-Content-Type: text/plain; charset=UTF-8
+On 05/08/2017 06:58 AM, Joel Stanley wrote:
+> On Fri, May 5, 2017 at 10:37 PM, Cédric Le Goater <clg@kaod.org> wrote:
+>> The PCA955x family of chips are I2C LED blinkers whose pins not used
+>> to control LEDs can be used as general purpose I/Os (GPIOs).
+>>
+>> The following adds support for device tree and Open Firmware to be
+>> able do define different operation modes for each pin. See bindings
+>> documentation for more details. The pca955x driver is then extended
+>> with a gpio_chip when pins are operating in GPIO mode.
+>>
+>> Signed-off-by: Cédric Le Goater <clg@kaod.org>
+>> ---
+>>
+>>  I made some experiments on a witherspoon with this tree :
+>>
+>>    https://github.com/legoater/linux/commits/openbmc-4.10
+>>
+>>  Looks OK but I don't know what is happening behind the chip.
+>>
+>>  Please take a look at the DT bindings.
+>>
+>>  Thanks,
+>>
+>>  C.
+>>
+>>  .../devicetree/bindings/leds/leds-pca955x.txt      | 103 ++++++++
+>>  drivers/leds/Kconfig                               |  11 +
+>>  drivers/leds/leds-pca955x.c                        | 290 ++++++++++++++++++---
+>>  3 files changed, 374 insertions(+), 30 deletions(-)
+>>  create mode 100644 Documentation/devicetree/bindings/leds/leds-pca955x.txt
+>>
+>> diff --git a/Documentation/devicetree/bindings/leds/leds-pca955x.txt b/Documentation/devicetree/bindings/leds/leds-pca955x.txt
+>> new file mode 100644
+>> index 000000000000..98d1053dd1b0
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/leds/leds-pca955x.txt
+>> @@ -0,0 +1,103 @@
+>> +LEDs connected to pca9550, pca9551, pca9552, pca9553,
+>> +
+>> +Required properties:
+>> +- compatible : should be one of :
+>> +       "nxp,pca9550"
+>> +       "nxp,pca9551"
+>> +       "nxp,pca9552"
+>> +       "nxp,pca9553"
+>> +- #address-cells: must be 1
+>> +- #size-cells: must be 0
+>> +- reg: I2C slave address. depends on the model.
+>> +
+>> +Optional properties:
+>> +- gpio-controller: allows pins to be used as GPIOs.
+>> +- #gpio-cells: if present, must not be 0.
+>> +- gpio-base : base number of the pins used as GPIOs. If there are more
+>> +              than one, they should be contiguous. See 'type' property
+>> +              below.
+>> +
+>> +LED sub-node properties:
+>> +- reg   : number of LED line.
+>> +               from 0 to  1 in pca9550
+>> +               from 0 to  7 in pca9551
+>> +               from 0 to 15 in pca9552
+>> +               from 0 to  3 in pca9553
+>> +- compatible: either "none", "led" (default) or "gpio".
+>> +- label : (optional)
+>> +          see Documentation/devicetree/bindings/leds/common.txt
+>> +- linux,default-trigger : (optional)
+>> +          see Documentation/devicetree/bindings/leds/common.txt
+>> +
+>> +Examples:
+>> +
+>> +pca9552: pca9552@60 {
+>> +       compatible = "nxp,pca9552";
+>> +       #address-cells = <1>;
+>> +        #size-cells = <0>;
+>> +       reg = <0x60>;
+>> +
+>> +       gpio-controller;
+>> +       #gpio-cells = <2>;
+>> +       gpio-base = <12>;
+>> +
+>> +       gpio@12 {
+>> +               label = "GPIO12";
+>> +               reg = <12>;
+>> +               compatible = "gpio";
+>> +       };
+>> +       gpio@13 {
+>> +               label = "GPIO13";
+>> +               reg = <13>;
+>> +               compatible = "gpio";
+>> +       };
+>> +       gpio@14 {
+>> +               label = "GPIO14";
+>> +               reg = <14>;
+>> +               compatible = "gpio";
+>> +       };
+>> +       gpio@15 {
+>> +               label = "GPIO15";
+>> +               reg = <15>;
+>> +               compatible = "gpio";
+>> +       };
+> 
+> This is a bit unusual as normally GPIOs aren't described until they're
+> being used.
 
-Hi all,
+that is to distinguish the LED pins from the GPIO pins.
 
-I'm working on setting up some infrastructure for testing OpenBMC images
-and I want to use Yocto's ptests (https://wiki.yoctoproject.org/wiki/Ptest)
+> In that sense, we should have a GPIO controller that covers all of the
+> pins in the device. When requested as LEDs the driver should return
+> EBUSY to things that are asking for LEDs.
 
-To run those tests the image needs a recipe for gtest and also the recipes
-for some of our packages (phosphor-event for example) need to be changed so
-that they would build ptests. As far as I can tell the changes to the
-packages themselves are not required.
+Well, this is how it works when a LED pin is requested as a GPIO :
+EBUSY is returned.
 
-My question is: do we want this in meta-phosphor layer or somewhere else?
-What's the best way to implement some kind of a switch to say "build an
-image with ptests" or "build an image without ptests"?
 
-Thank you.
+> Perhaps you should just send your RFC upstream and see what they have 
+> to say?
 
--- 
-*M*axim *S*loyko
+Yes. I will in the morning.
 
---94eb2c0b9cbe7789fe054f06c4de
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Cheers,
 
-<div dir=3D"ltr">Hi all,<div><br></div><div>I&#39;m working on setting up s=
-ome infrastructure for testing OpenBMC images and I want to use Yocto&#39;s=
- ptests (<a href=3D"https://wiki.yoctoproject.org/wiki/Ptest">https://wiki.=
-yoctoproject.org/wiki/Ptest</a>)</div><div><br></div><div>To run those test=
-s the image needs a recipe for gtest and also the recipes for some of our p=
-ackages (phosphor-event for example) need to be changed so that they would =
-build ptests. As far as I can tell the changes to the packages themselves a=
-re not required.</div><div><br></div><div>My question is: do we want this i=
-n meta-phosphor layer or somewhere else? What&#39;s the best way to impleme=
-nt some kind of a switch to say &quot;build an image with ptests&quot; or &=
-quot;build an image without ptests&quot;?</div><div><br></div><div>Thank yo=
-u.<br clear=3D"all"><div><br></div>-- <br><div class=3D"gmail_signature"><d=
-iv><b>M</b>axim <b>S</b>loyko</div></div>
-</div></div>
-
---94eb2c0b9cbe7789fe054f06c4de--
+C.
