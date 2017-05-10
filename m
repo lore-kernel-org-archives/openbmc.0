@@ -1,56 +1,54 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x241.google.com (mail-yb0-x241.google.com
- [IPv6:2607:f8b0:4002:c09::241])
+Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
+ [IPv6:2607:f8b0:4002:c05::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wN89L2S79zDqKy
- for <openbmc@lists.ozlabs.org>; Wed, 10 May 2017 18:12:22 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wN8Fh09fbzDqL0
+ for <openbmc@lists.ozlabs.org>; Wed, 10 May 2017 18:16:08 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="jVn1zIA2"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Jnny9Ce8"; 
  dkim-atps=neutral
-Received: by mail-yb0-x241.google.com with SMTP id d72so886718ybh.0
- for <openbmc@lists.ozlabs.org>; Wed, 10 May 2017 01:12:22 -0700 (PDT)
+Received: by mail-yw0-x244.google.com with SMTP id 203so1711047ywe.0
+ for <openbmc@lists.ozlabs.org>; Wed, 10 May 2017 01:16:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=AyqUHuYLPhU4baWFmgS+m6LIiESM4orxHPYFWqCVaEY=;
- b=jVn1zIA2n6z8jj2+q9kaBtPyDakqZchCBZ9R6m8l8LRksqWvERRH1RT0JB0hixkNem
- 1QIqdlvOYUba5ltQMU0labdEyo9+EZgUo1e/P1GI50S77nA2VDMnMtLjdCfD07vbKoGK
- 5qMbma9BJu02afjfmjyVNfA6QxijljThJ7dbDnfvTmWA8QA6YtMKRYD5095lU4oTIyQa
- x/KIw6qV0pYYbhhaxpaR7YicC5yv9ONdtHBFYcfTiueQUgtBE3IU1w8R3cP345XdlVhl
- m5osz6UsaXxiq0iGpRVSop5JiYYMyMaYqXz0CZ4/PuOV8pXQCsfdgUUdQYMLwdIJXJFQ
- UUsg==
+ bh=l2GtqByDKjkPUDCNkw5leBHN5435KD3mTBeFInm39YE=;
+ b=Jnny9Ce8CrkOWHppSTES+5aYisTXA76dj9prGofBPTJbdAaqbwm6qewbVxYQUZe45l
+ mtNp43eRdkVqvgtKNzJrrrBlA29KjlfY2bgGOs+oZRnHaY5qS2DGNWbs8m6vgn+khvhT
+ zWtJJ2DfckMSlDLdw4oQ6wCvzcIlM3kC7QMDPg0qqotJcJCAp2J/RjCynfMLO+K9eMoZ
+ EAOVaaeNYRm+3jfEXLCYxRxe+w5cPtgt4DB6VX4vb1vekPxYMGgYw3ukl4kcjo0RfJN7
+ afdeT1sK/Rpa94VvhFp2LGnosE/mzszbRzOpnhwxrFoOQoAqSZCrtZoCfElG23w0/h6a
+ 0rjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=AyqUHuYLPhU4baWFmgS+m6LIiESM4orxHPYFWqCVaEY=;
- b=jPfPXk6sawTsVxTQlfbUM92FR3yu8lMoNR1jsWn2a6bpZHX3Ps5SFzIpK/hXEFPenZ
- EVq1Edxml3cSSMVSN503Ceth0BF1Ku+ljeX6Bc2GAt20G3VjZxo1+fKIbZ0QDWsBoEp5
- gRSCRGdCWms47w3HXqcaaF5xgqG4PIA35p4QZPWr1JJsOAvul7GWLFwUgVvQRDtaywMz
- 49WPPkL7xrmAJWTIvGXTm7EG0drQQ9/wdtbyp/15TEU3nRN84olKWooaB+wCk9LEMM6G
- gVjHAedIofoSPHfCHErsVC9Ab2P7UczU/uZqnTeK9l9ovr91eYf4cJ4UXqsyCQ8DNKHi
- tjYg==
-X-Gm-Message-State: AODbwcDenFBUUQ0YwMK2zRDs1awTCwjzJHD7f9XCVNEANMftP1cmsGFj
- Y6RC9yRziv1XU1DFF/PFYTMyVo1mdA==
-X-Received: by 10.37.31.195 with SMTP id f186mr3822075ybf.25.1494403939818;
- Wed, 10 May 2017 01:12:19 -0700 (PDT)
+ bh=l2GtqByDKjkPUDCNkw5leBHN5435KD3mTBeFInm39YE=;
+ b=V8d8VskSg+3LgM5NBtq11m/p6VIqEUL+7ZE6/9AsIUPSuaGc6s2+JfUxZwo2L+gEkY
+ CIoLHGjEBV+e/dx1aaxeEaAVNo//EVIuwsSVSUtLdybkN6FWHwZZbhWEFniBMwL378Tt
+ OcC7sHx+rU5yh/OknpOkQ2gEuTYLC3lzxzIiBNHoUrtMtUi8ks8gg48indSMs2ZOINTF
+ b7KrMGe1hLmiBOiNTCtEKpzlFYjjXf6Ggkk5NrHmE1u2Y0hDg8VwxaQOXei7mUs3SQZf
+ dfr2pK7MwVP6Vnxc/md0HV9l5T8slMiWHB2JXJ72EqiYpCfgt51bj2oFhecqfXeJcnOs
+ cdTA==
+X-Gm-Message-State: AODbwcAi+92tYewOyYKddAfXcp+hwowy6mF7hslWOtdZK3djur9gzNE6
+ 0vV98MyPLtm0ADpiVGLE9fyHX69ER4PHRPs=
+X-Received: by 10.129.46.66 with SMTP id u63mr3573536ywu.219.1494404165933;
+ Wed, 10 May 2017 01:16:05 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.171.70 with HTTP; Wed, 10 May 2017 01:11:59 -0700 (PDT)
-In-Reply-To: <1493928505-30816-2-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1493928505-30816-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1493928505-30816-2-git-send-email-eajames@linux.vnet.ibm.com>
+Received: by 10.37.171.70 with HTTP; Wed, 10 May 2017 01:15:45 -0700 (PDT)
+In-Reply-To: <1492714297-13845-1-git-send-email-bradleyb@fuzziesquirrel.com>
+References: <1492714297-13845-1-git-send-email-bradleyb@fuzziesquirrel.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 10 May 2017 17:41:59 +0930
-X-Google-Sender-Auth: JVGex0469eRQf3v0zQrWAyCHZ5I
-Message-ID: <CACPK8XcE+veBqNPLJRY4Amjc5h0NC-8Q1yCOqjxmyLHTH=JCzw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 1/6] drivers: i2c: Add FSI-attached I2C
- master algorithm
-To: Eddie James <eajames@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Christopher Bostic <cbostic@linux.vnet.ibm.com>,
- "Edward A. James" <eajames@us.ibm.com>
+Date: Wed, 10 May 2017 17:45:45 +0930
+X-Google-Sender-Auth: hvQAw3HRvZ7y2Lg53BIy9mWq818
+Message-ID: <CACPK8XdP+9G_BGqupcbHCYCsNyLvO0TdsNb8E7JfqDkcmoKhmw@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7 v2] drivers/fsi: Add FSI SBEFIFO driver
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ eajames <eajames@linux.vnet.ibm.com>, 
+ Alistair Popple <alistair@popple.id.au>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -63,376 +61,327 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 May 2017 08:12:23 -0000
+X-List-Received-Date: Wed, 10 May 2017 08:16:08 -0000
 
-On Fri, May 5, 2017 at 5:38 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
-> From: "Edward A. James" <eajames@us.ibm.com>
+Hi Brad,
+
+I started looking at this a while ago and didn't get around to
+finishing. I'm sending my comments for the bit I did look at so you
+can fix those issues.
+
+On Fri, Apr 21, 2017 at 4:21 AM, Brad Bishop
+<bradleyb@fuzziesquirrel.com> wrote:
+> IBM POWER9 processors contain some embedded hardware and software bits
+> collectively referred to as the self boot engine (SBE).  One role of
+> the SBE is to act as a proxy that provides access to the registers of
+> the POWER chip from other (embedded) systems.
+
+Is are "other embedded systems" service processors (FSP, BMC)?
+
+> The POWER9 chip contains a hardware frontend for communicating with
+> the SBE from remote systems called the SBEFIFO.  The SBEFIFO logic
+> is contained within an FSI CFAM (see Documentation/fsi) and as such
+> the driver implements an FSI bus device.
 >
-> Initial startup code for the I2C algorithm to drive the I2C master
-> located on POWER CPUs over FSI bus.
+> The SBE expects to communicate using a defined wire protocol; however,
+> the driver knows nothing of the protocol and only provides raw access
+> to the fifo device to userspace applications wishing to communicate with
+> the SBE using the wire protocol.
 >
-> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+> The SBEFIFO consists of two hardware fifos.  The upstream fifo is used by
+> the driver to transfer data to the SBE on the POWER chip, from the system
+> hosting the driver.  The downstream fifo is used by the driver to transfer
+> data from the SBE on the power chip to the system hosting the driver.
+>
+> Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 > ---
->  drivers/Makefile             |   2 +-
->  drivers/i2c/busses/Kconfig   |  11 ++
->  drivers/i2c/busses/Makefile  |   1 +
->  drivers/i2c/busses/i2c-fsi.c | 275 +++++++++++++++++++++++++++++++++++++++++++
->  4 files changed, 288 insertions(+), 1 deletion(-)
->  create mode 100644 drivers/i2c/busses/i2c-fsi.c
+> v2:
+>     Unexpand list_first_entry_or_null.
+>     Unexpand list_for_each_entry_safe.
+>     Reschedule a full 500ms later when fifos are busy.
+> ---
+>  drivers/fsi/Kconfig       |   6 +
+>  drivers/fsi/Makefile      |   1 +
+>  drivers/fsi/fsi-sbefifo.c | 810 ++++++++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 817 insertions(+)
+>  create mode 100644 drivers/fsi/fsi-sbefifo.c
 >
-> diff --git a/drivers/Makefile b/drivers/Makefile
-> index 67ce51d..278f109 100644
-> --- a/drivers/Makefile
-> +++ b/drivers/Makefile
-> @@ -105,6 +105,7 @@ obj-$(CONFIG_SERIO)         += input/serio/
->  obj-$(CONFIG_GAMEPORT)         += input/gameport/
->  obj-$(CONFIG_INPUT)            += input/
->  obj-$(CONFIG_RTC_LIB)          += rtc/
-> +obj-$(CONFIG_FSI)              += fsi/
->  obj-y                          += i2c/ media/
->  obj-$(CONFIG_PPS)              += pps/
->  obj-y                          += ptp/
-> @@ -173,4 +174,3 @@ obj-$(CONFIG_STM)           += hwtracing/stm/
->  obj-$(CONFIG_ANDROID)          += android/
->  obj-$(CONFIG_NVMEM)            += nvmem/
->  obj-$(CONFIG_FPGA)             += fpga/
-> -obj-$(CONFIG_FSI)              += fsi/
-> diff --git a/drivers/i2c/busses/Kconfig b/drivers/i2c/busses/Kconfig
-> index 7e34901d..0c714e0 100644
-> --- a/drivers/i2c/busses/Kconfig
-> +++ b/drivers/i2c/busses/Kconfig
-> @@ -1245,4 +1245,15 @@ config I2C_OPAL
->           This driver can also be built as a module. If so, the module will be
->           called as i2c-opal.
+> diff --git a/drivers/fsi/Kconfig b/drivers/fsi/Kconfig
+> index c78b9b6e..087f239 100644
+> --- a/drivers/fsi/Kconfig
+> +++ b/drivers/fsi/Kconfig
+> @@ -18,6 +18,12 @@ config FSI_MASTER_GPIO
+>         ---help---
+>         This option enables a FSI master driver using GPIO lines.
 >
-> +config I2C_FSI
-> +       tristate "FSI I2C driver"
+> +config FSI_SBEFIFO
+> +       tristate "SBEFIFO FSI client device driver"
 > +       depends on FSI
-> +       help
-> +         Driver for FSI bus attached I2C masters. These are I2C masters that
-> +         are connected to the system over a FSI bus, instead of the more
-> +         common PCI or MMIO interface.
+> +       ---help---
+> +       This option enables an FSI based SBEFIFO device driver.
+
+
+"You should select this for kernels that run on service processors for
+IBM Power9 systems" or something.
+
 > +
-> +         This driver can also be built as a module. If so, the module will be
-> +         called as i2c-fsi.
-> +
->  endmenu
-> diff --git a/drivers/i2c/busses/Makefile b/drivers/i2c/busses/Makefile
-> index 5798b4e..547773b 100644
-> --- a/drivers/i2c/busses/Makefile
-> +++ b/drivers/i2c/busses/Makefile
-> @@ -124,5 +124,6 @@ obj-$(CONFIG_I2C_PCA_ISA)   += i2c-pca-isa.o
->  obj-$(CONFIG_I2C_SIBYTE)       += i2c-sibyte.o
->  obj-$(CONFIG_I2C_XGENE_SLIMPRO) += i2c-xgene-slimpro.o
->  obj-$(CONFIG_SCx200_ACB)       += scx200_acb.o
-> +obj-$(CONFIG_I2C_FSI)          += i2c-fsi.o
+>  config FSI_SCOM
+>         tristate "SCOM FSI client device driver"
+>         depends on FSI
+> diff --git a/drivers/fsi/Makefile b/drivers/fsi/Makefile
+> index 3a106ba..edd84b2 100644
+> --- a/drivers/fsi/Makefile
+> +++ b/drivers/fsi/Makefile
+> @@ -1,5 +1,6 @@
 >
->  ccflags-$(CONFIG_I2C_DEBUG_BUS) := -DDEBUG
-> diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
+>  obj-$(CONFIG_FSI) += fsi-core.o
+>  obj-$(CONFIG_FSI_MASTER_GPIO) += fsi-master-gpio.o
+> +obj-$(CONFIG_FSI_SBEFIFO) += fsi-sbefifo.o
+>  obj-$(CONFIG_FSI_SCOM) += fsi-scom.o
+>  obj-$(CONFIG_FSI_I2C) += i2c/
+> diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
 > new file mode 100644
-> index 0000000..bb12fa9
+> index 0000000..c289508
 > --- /dev/null
-> +++ b/drivers/i2c/busses/i2c-fsi.c
-> @@ -0,0 +1,275 @@
+> +++ b/drivers/fsi/fsi-sbefifo.c
+> @@ -0,0 +1,810 @@
 > +/*
-> + * Copyright 2017 IBM Corporation
+> + * Copyright (C) IBM Corporation 2017
 > + *
-> + * Eddie James <eajames@us.ibm.com>
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
 > + *
-> + * This program is free software; you can redistribute it and/or
-> + * modify it under the terms of the GNU General Public License
-> + * as published by the Free Software Foundation; either version
-> + * 2 of the License, or (at your option) any later version.
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERGCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+
+Check out the wording we use in other drivers.
+
 > + */
 > +
+> +#include <linux/delay.h>
+> +#include <linux/errno.h>
+> +#include <linux/idr.h>
 > +#include <linux/fsi.h>
-> +#include <linux/i2c.h>
-> +#include <linux/jiffies.h>
+> +#include <linux/list.h>
+> +#include <linux/miscdevice.h>
 > +#include <linux/module.h>
-> +#include <linux/of.h>
+> +#include <linux/poll.h>
 > +#include <linux/sched.h>
-> +#include <linux/semaphore.h>
-> +#include <linux/wait.h>
+> +#include <linux/slab.h>
+> +#include <linux/timer.h>
+> +#include <linux/uaccess.h>
 > +
-> +#define FSI_ENGID_I2C_FSI      0x7
+> +/*
+> + * The SBEFIFO is a pipe-like FSI device for communicating with
+> + * the self boot engine on POWER processors.
+> + */
+> +
+> +#define DEVICE_NAME            "sbefifo"
+> +#define FSI_ENGID_SBE          0x22
 
-Is the engine ID something that is part of the FSI spec? If so, we
-should put the IDs in the FSI headers.
+Should these engine IDs be kept in in a common fsi header?
 
+> +#define SBEFIFO_BUF_CNT                32
 > +
-> +/* Find left shift from first set bit in m */
-> +#define MASK_TO_LSH(m)         (__builtin_ffsll(m) - 1ULL)
+> +#define SBEFIFO_UP             0x00    /* Up register offset */
+> +#define SBEFIFO_DWN            0x40    /* Down register offset */
 > +
-> +/* Extract field m from v */
-> +#define GETFIELD(m, v)         (((v) & (m)) >> MASK_TO_LSH(m))
-> +
-> +/* Set field m of v to val */
-> +#define SETFIELD(m, v, val)    \
-> +       (((v) & ~(m)) | ((((typeof(v))(val)) << MASK_TO_LSH(m)) & (m)))
+> +#define SBEFIFO_STS            0x04
+> +#define   SBEFIFO_EMPTY                        BIT(20)
 
-My eyes :)
+Are STS and EOT_RAISE bits too? It's confusing to have a mixture.
 
-Are these going to be used by all of our FSI drivers? Perhaps we could
-get Chris to put them in the common FSI header.
+> +#define SBEFIFO_EOT_RAISE      0x08
+> +#define   SBEFIFO_EOT_MAGIC            0xffffffff
+> +#define SBEFIFO_EOT_ACK                0x14
+> +
+> +struct sbefifo {
+> +       struct timer_list poll_timer;
+> +       struct fsi_device *fsi_dev;
+> +       struct miscdevice mdev;
+> +       wait_queue_head_t wait;
+> +       struct list_head link;
+> +       struct list_head xfrs;
+> +       struct kref kref;
 
-> +
-> +#define I2C_DEFAULT_CLK_DIV    6
-> +#define I2C_DEFAULT_CLK                333333
-> +
-> +/* i2c registers */
-> +#define I2C_FSI_FIFO           0x00
-> +#define I2C_FSI_CMD            0x04
-> +#define I2C_FSI_MODE           0x08
-> +#define I2C_FSI_WATER_MARK     0x0C
-> +#define I2C_FSI_INT_MASK       0x10
-> +#define I2C_FSI_INT_COND       0x14
-> +#define I2C_FSI_OR_INT_MASK    0x14
-> +#define I2C_FSI_INTS           0x18
-> +#define I2C_FSI_AND_INT_MASK   0x18
-> +#define I2C_FSI_STAT           0x1C
-> +#define I2C_FSI_RESET_I2C      0x1C
-> +#define I2C_FSI_ESTAT          0x20
-> +#define I2C_FSI_RESET_ERR      0x20
-> +#define I2C_FSI_RESID_LEN      0x24
-> +#define I2C_FSI_SET_SCL                0x24
-> +#define I2C_FSI_PORT_BUSY      0x28
-> +#define I2C_FSI_RESET_SCL      0x2C
-> +#define I2C_FSI_SET_SDA                0x30
-> +#define I2C_FSI_RESET_SDA      0x34
-> +
-> +/* cmd register */
-> +#define I2C_CMD_WITH_START     0x80000000
-> +#define I2C_CMD_WITH_ADDR      0x40000000
-> +#define I2C_CMD_RD_CONT                0x20000000
-> +#define I2C_CMD_WITH_STOP      0x10000000
-> +#define I2C_CMD_FORCELAUNCH    0x08000000
-> +#define I2C_CMD_ADDR           0x00fe0000
-> +#define I2C_CMD_READ           0x00010000
-> +#define I2C_CMD_LEN            0x0000ffff
-> +
-> +/* mode register */
-> +#define I2C_MODE_CLKDIV                0xffff0000
-> +#define I2C_MODE_PORT          0x0000fc00
-> +#define I2C_MODE_ENHANCED      0x00000008
-> +#define I2C_MODE_DIAG          0x00000004
-> +#define I2C_MODE_PACE_ALLOW    0x00000002
-> +#define I2C_MODE_WRAP          0x00000001
-> +
-> +/* watermark register */
-> +#define I2C_WATERMARK_HI       0x0000f000
-> +#define I2C_WATERMARK_LO       0x000000f0
-> +
-> +#define I2C_FIFO_HI_LVL                4
-> +#define I2C_FIFO_LO_LVL                4
-> +
-> +/* interrupt register */
-> +#define I2C_INT_INV_CMD                0x00008000
-> +#define I2C_INT_PARITY         0x00004000
-> +#define I2C_INT_BE_OVERRUN     0x00002000
-> +#define I2C_INT_BE_ACCESS      0x00001000
-> +#define I2C_INT_LOST_ARB       0x00000800
-> +#define I2C_INT_NACK           0x00000400
-> +#define I2C_INT_DAT_REQ                0x00000200
-> +#define I2C_INT_CMD_COMP       0x00000100
-> +#define I2C_INT_STOP_ERR       0x00000080
-> +#define I2C_INT_BUSY           0x00000040
-> +#define I2C_INT_IDLE           0x00000020
-> +
-> +#define I2C_INT_ENABLE         0x0000ff80
-> +#define I2C_INT_ERR            0x0000fcc0
-> +
-> +/* status register */
-> +#define I2C_STAT_INV_CMD       0x80000000
-> +#define I2C_STAT_PARITY                0x40000000
-> +#define I2C_STAT_BE_OVERRUN    0x20000000
-> +#define I2C_STAT_BE_ACCESS     0x10000000
-> +#define I2C_STAT_LOST_ARB      0x08000000
-> +#define I2C_STAT_NACK          0x04000000
-> +#define I2C_STAT_DAT_REQ       0x02000000
-> +#define I2C_STAT_CMD_COMP      0x01000000
-> +#define I2C_STAT_STOP_ERR      0x00800000
-> +#define I2C_STAT_MAX_PORT      0x000f0000
-> +#define I2C_STAT_ANY_INT       0x00008000
-> +#define I2C_STAT_SCL_IN                0x00000800
-> +#define I2C_STAT_SDA_IN                0x00000400
-> +#define I2C_STAT_PORT_BUSY     0x00000200
-> +#define I2C_STAT_SELF_BUSY     0x00000100
-> +#define I2C_STAT_FIFO_COUNT    0x000000ff
-> +
-> +#define I2C_STAT_ERR           0xfc800000
-> +#define I2C_STAT_ANY_RESP      0xff800000
-> +
-> +/* extended status register */
-> +#define I2C_ESTAT_FIFO_SZ      0xff000000
-> +#define I2C_ESTAT_SCL_IN_SY    0x00008000
-> +#define I2C_ESTAT_SDA_IN_SY    0x00004000
-> +#define I2C_ESTAT_S_SCL                0x00002000
-> +#define I2C_ESTAT_S_SDA                0x00001000
-> +#define I2C_ESTAT_M_SCL                0x00000800
-> +#define I2C_ESTAT_M_SDA                0x00000400
-> +#define I2C_ESTAT_HI_WATER     0x00000200
-> +#define I2C_ESTAT_LO_WATER     0x00000100
-> +#define I2C_ESTAT_PORT_BUSY    0x00000080
-> +#define I2C_ESTAT_SELF_BUSY    0x00000040
-> +#define I2C_ESTAT_VERSION      0x0000001f
-> +
-> +struct fsi_i2c_master {
-> +       struct fsi_device       *fsi;
-> +       u8                      fifo_size;
-> +       unsigned long           clk;
-> +};
-> +
-> +static int fsi_i2c_read_reg(struct fsi_device *fsi, unsigned int reg,
-> +                           u32 *data)
-> +{
+I tried to work out what the kref was counting. Can you explain how
+the reference and timers are used?
+
+> +       spinlock_t lock;
+> +       char name[32];
+
+The miscdev has a name too. What do we need this one for?
+
+> +       int idx;
 > +       int rc;
-> +       u32 _data;
 
-Not a fan of the underscores. Perhaps raw_data?
+Try to create some groupings here for things that are common.
 
-> +
-> +       rc = fsi_device_read(fsi, reg, &_data, sizeof(_data));
-> +       if (rc)
-> +               return rc;
-> +
-> +       *data = be32_to_cpu(_data);
-> +
-> +       return 0;
-> +}
-> +
-> +static int fsi_i2c_write_reg(struct fsi_device *fsi, unsigned int reg,
-> +                            u32 *data)
-> +{
-> +       u32 _data = cpu_to_be32(*data);
-> +
-> +       return fsi_device_write(fsi, reg, &_data, sizeof(_data));
 
-It would be nice if the FSI api checked that you were passing it data
-in the correct endiannes.
+struct sbefifo {
+       struct fsi_device *fsi_dev;
+       struct miscdevice mdev;
 
-> +}
-> +
-> +static unsigned long fsi_i2c_get_clk_div(struct fsi_i2c_master *i2c)
-> +{
-> +       unsigned long clk_div = I2C_DEFAULT_CLK_DIV;
-> +
-> +       return clk_div;
-> +}
+       int idx;
 
-A bit of overkill. You could just use the #define where you need it.
+       struct timer_list poll_timer;
+       wait_queue_head_t wait;
+       struct list_head link;
 
-> +
-> +static int fsi_i2c_dev_init(struct fsi_i2c_master *i2c)
-> +{
-> +       int rc;
-> +       unsigned long clk_div;
-> +       u32 mode = I2C_MODE_ENHANCED, extended_status, watermark = 0;
-> +       u32 interrupt = 0;
-> +
-> +       /* since we use polling, disable interrupts */
-> +       rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_INT_MASK, &interrupt);
-> +       if (rc)
-> +               return rc;
-> +
-> +       clk_div = fsi_i2c_get_clk_div(i2c);
-> +       mode = SETFIELD(I2C_MODE_CLKDIV, mode, clk_div);
-> +       rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
-> +       if (rc)
-> +               return rc;
-> +
-> +       rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_ESTAT, &extended_status);
-> +       if (rc)
-> +               return rc;
-> +
-> +       i2c->fifo_size = GETFIELD(I2C_ESTAT_FIFO_SZ, extended_status);
-> +       watermark = SETFIELD(I2C_WATERMARK_HI, watermark,
-> +                            i2c->fifo_size - I2C_FIFO_HI_LVL);
-> +       watermark = SETFIELD(I2C_WATERMARK_LO, watermark,
-> +                            I2C_FIFO_LO_LVL);
-> +
-> +       rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_WATER_MARK, &watermark);
-> +
-> +       return rc;
-> +}
-> +
-> +static int fsi_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
-> +                       int num)
-> +{
-> +       return -ENOSYS;
-> +}
-> +
-> +static u32 fsi_i2c_functionality(struct i2c_adapter *adap)
-> +{
-> +       return I2C_FUNC_I2C | I2C_FUNC_PROTOCOL_MANGLING | I2C_FUNC_10BIT_ADDR;
-> +}
-> +
-> +static const struct i2c_algorithm fsi_i2c_algorithm = {
-> +       .master_xfer = fsi_i2c_xfer,
-> +       .functionality = fsi_i2c_functionality,
+       struct list_head xfrs;
+       struct kref kref;
+       spinlock_t lock;
+
+       int rc;
+}
+
 > +};
 > +
-> +static int fsi_i2c_probe(struct device *dev)
-> +{
-> +       struct fsi_i2c_master *i2c;
-> +       int rc;
-> +       u32 clk;
-> +
-> +       i2c = devm_kzalloc(dev, sizeof(*i2c), GFP_KERNEL);
-> +       if (!i2c)
-> +               return -ENOMEM;
-> +
-> +       i2c->fsi = to_fsi_dev(dev);
-> +       i2c->clk = I2C_DEFAULT_CLK;
-> +
-> +       if (dev->of_node) {
-> +               if (!of_property_read_u32(dev->of_node, "clock-frequency",
-> +                                         &clk))
-> +                       i2c->clk = clk;
-> +       }
-> +
-> +       rc = fsi_i2c_dev_init(i2c);
-> +       if (rc)
-> +               return rc;
-> +
-> +       dev_set_drvdata(dev, i2c);
-> +
-> +       return 0;
-> +}
-> +
-> +static const struct fsi_device_id fsi_i2c_ids[] = {
-> +       { FSI_ENGID_I2C_FSI, FSI_VERSION_ANY },
-> +       { 0 }
+> +struct sbefifo_buf {
+> +       u32 buf[SBEFIFO_BUF_CNT];
+> +       unsigned long flags;
+> +#define SBEFIFO_BUF_FULL               1
+> +       u32 *rpos;
+> +       u32 *wpos;
 > +};
 > +
-> +static struct fsi_driver fsi_i2c_driver = {
-> +       .id_table = fsi_i2c_ids,
-> +       .drv = {
-> +               .name = "i2c_master_fsi",
-> +               .bus = &fsi_bus_type,
-> +               .probe = fsi_i2c_probe,
-> +       },
+> +struct sbefifo_xfr {
+> +       struct sbefifo_buf *rbuf;
+> +       struct sbefifo_buf *wbuf;
+> +       struct list_head client;
+> +       struct list_head xfrs;
+> +       unsigned long flags;
+> +#define SBEFIFO_XFR_WRITE_DONE         1
+> +#define SBEFIFO_XFR_RESP_PENDING       2
+> +#define SBEFIFO_XFR_COMPLETE           3
+> +#define SBEFIFO_XFR_CANCEL             4
 > +};
 > +
-> +static int fsi_i2c_init(void)
+> +struct sbefifo_client {
+> +       struct sbefifo_buf rbuf;
+> +       struct sbefifo_buf wbuf;
+> +       struct list_head xfrs;
+> +       struct sbefifo *dev;
+> +       struct kref kref;
+> +};
+> +
+> +static struct list_head sbefifo_fifos;
+> +
+> +static DEFINE_IDA(sbefifo_ida);
+> +
+> +static int sbefifo_inw(struct sbefifo *sbefifo, int reg, u32 *word)
 > +{
-> +       return fsi_driver_register(&fsi_i2c_driver);
+> +       return fsi_device_read(sbefifo->fsi_dev, reg, word, sizeof(*word));
 > +}
 > +
-> +static void fsi_i2c_exit(void)
+> +static int sbefifo_outw(struct sbefifo *sbefifo, int reg, u32 word)
 > +{
-> +       fsi_driver_unregister(&fsi_i2c_driver);
+> +       return fsi_device_write(sbefifo->fsi_dev, reg, &word, sizeof(word));
 > +}
 > +
-> +module_init(fsi_i2c_init);
-> +module_exit(fsi_i2c_exit);
-
-Please use module_fsi_driver() instead.
-
-
+> +static int sbefifo_readw(struct sbefifo *sbefifo, u32 *word)
+> +{
+> +       return sbefifo_inw(sbefifo, SBEFIFO_DWN, word);
+> +}
 > +
-> +MODULE_AUTHOR("Eddie James <eajames@us.ibm.com>");
-> +MODULE_DESCRIPTION("FSI attached I2C master");
-> +MODULE_LICENSE("GPL");
-> --
-> 1.8.3.1
->
+> +static int sbefifo_writew(struct sbefifo *sbefifo, u32 word)
+> +{
+> +       return sbefifo_outw(sbefifo, SBEFIFO_UP, word);
+> +}
+> +
+> +static int sbefifo_ack_eot(struct sbefifo *sbefifo)
+> +{
+> +       u32 discard;
+> +       int ret;
+> +
+> +        /* Discard the EOT word. */
+> +       ret = sbefifo_readw(sbefifo, &discard);
+> +       if (ret)
+> +               return ret;
+> +
+> +       return sbefifo_outw(sbefifo, SBEFIFO_DWN | SBEFIFO_EOT_ACK,
+> +                       SBEFIFO_EOT_MAGIC);
+> +}
+> +
+> +static size_t sbefifo_dev_nwreadable(u32 sts)
+> +{
+> +       static const u32 FIFO_NTRY_CNT_MSK = 0x000f0000;
+> +       static const unsigned int FIFO_NTRY_CNT_SHIFT = 16;
+> +
+> +       return (sts & FIFO_NTRY_CNT_MSK) >> FIFO_NTRY_CNT_SHIFT;
+> +}
+> +
+> +static size_t sbefifo_dev_nwwriteable(u32 sts)
+> +{
+> +       static const size_t FIFO_DEPTH = 8;
+> +
+> +       return FIFO_DEPTH - sbefifo_dev_nwreadable(sts);
+> +}
+> +
+> +static void sbefifo_buf_init(struct sbefifo_buf *buf)
+> +{
+> +       WRITE_ONCE(buf->rpos, buf->buf);
+> +       WRITE_ONCE(buf->wpos, buf->buf);
+> +}
+> +
+> +static size_t sbefifo_buf_nbreadable(struct sbefifo_buf *buf)
+
+non-blocking readable?
+
+> +{
+> +       size_t n;
+> +       u32 *rpos = READ_ONCE(buf->rpos);
+> +       u32 *wpos = READ_ONCE(buf->wpos);
+> +
+> +       if (test_bit(SBEFIFO_BUF_FULL, &buf->flags))
+> +               n = SBEFIFO_BUF_CNT;
+> +       else if (rpos <= wpos)
+> +               n = wpos - rpos;
+> +       else
+> +               n = (buf->buf + SBEFIFO_BUF_CNT) - rpos;
+> +
+> +       return n << 2;
+> +}
+> +
+> +static size_t sbefifo_buf_nbwriteable(struct sbefifo_buf *buf)
+> +{
+> +       size_t n;
+> +       u32 *rpos = READ_ONCE(buf->rpos);
+> +       u32 *wpos = READ_ONCE(buf->wpos);
+> +
+> +       if (test_bit(SBEFIFO_BUF_FULL, &buf->flags))
+> +               n = 0;
+> +       else if (wpos < rpos)
+> +               n = rpos - wpos;
+> +       else
+> +               n = (buf->buf + SBEFIFO_BUF_CNT) - wpos;
+> +
+> +       return n << 2;
+> +}
+> +
+> +/*
+> + * Update pointers and flags after doing a buffer read.  Return true if the
+> + * buffer is now empty;
+> + */
+> +static bool sbefifo_buf_readnb(struct sbefifo_buf *buf, size_t n)
+
+n is number? or the length of the buffer?
+
+> +{
+> +       u32 *rpos = READ_ONCE(buf->rpos);
+> +       u32 *wpos = READ_ONCE(buf->wpos);
+> +
+> +       if (n)
+> +               clear_bit(SBEFIFO_BUF_FULL, &buf->flags);
+> +
+> +       rpos += (n >> 2);
+> +       if (rpos == buf->buf + SBEFIFO_BUF_CNT)
+> +               rpos = buf->buf;
+> +
+> +       WRITE_ONCE(buf->rpos, rpos);
+> +       return rpos == wpos;
+> +}
+> +
