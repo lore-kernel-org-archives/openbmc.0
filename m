@@ -1,55 +1,60 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
- [IPv6:2607:f8b0:4002:c05::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <vishwa@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wN8Fh09fbzDqL0
- for <openbmc@lists.ozlabs.org>; Wed, 10 May 2017 18:16:08 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Jnny9Ce8"; 
- dkim-atps=neutral
-Received: by mail-yw0-x244.google.com with SMTP id 203so1711047ywe.0
- for <openbmc@lists.ozlabs.org>; Wed, 10 May 2017 01:16:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=l2GtqByDKjkPUDCNkw5leBHN5435KD3mTBeFInm39YE=;
- b=Jnny9Ce8CrkOWHppSTES+5aYisTXA76dj9prGofBPTJbdAaqbwm6qewbVxYQUZe45l
- mtNp43eRdkVqvgtKNzJrrrBlA29KjlfY2bgGOs+oZRnHaY5qS2DGNWbs8m6vgn+khvhT
- zWtJJ2DfckMSlDLdw4oQ6wCvzcIlM3kC7QMDPg0qqotJcJCAp2J/RjCynfMLO+K9eMoZ
- EAOVaaeNYRm+3jfEXLCYxRxe+w5cPtgt4DB6VX4vb1vekPxYMGgYw3ukl4kcjo0RfJN7
- afdeT1sK/Rpa94VvhFp2LGnosE/mzszbRzOpnhwxrFoOQoAqSZCrtZoCfElG23w0/h6a
- 0rjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=l2GtqByDKjkPUDCNkw5leBHN5435KD3mTBeFInm39YE=;
- b=V8d8VskSg+3LgM5NBtq11m/p6VIqEUL+7ZE6/9AsIUPSuaGc6s2+JfUxZwo2L+gEkY
- CIoLHGjEBV+e/dx1aaxeEaAVNo//EVIuwsSVSUtLdybkN6FWHwZZbhWEFniBMwL378Tt
- OcC7sHx+rU5yh/OknpOkQ2gEuTYLC3lzxzIiBNHoUrtMtUi8ks8gg48indSMs2ZOINTF
- b7KrMGe1hLmiBOiNTCtEKpzlFYjjXf6Ggkk5NrHmE1u2Y0hDg8VwxaQOXei7mUs3SQZf
- dfr2pK7MwVP6Vnxc/md0HV9l5T8slMiWHB2JXJ72EqiYpCfgt51bj2oFhecqfXeJcnOs
- cdTA==
-X-Gm-Message-State: AODbwcAi+92tYewOyYKddAfXcp+hwowy6mF7hslWOtdZK3djur9gzNE6
- 0vV98MyPLtm0ADpiVGLE9fyHX69ER4PHRPs=
-X-Received: by 10.129.46.66 with SMTP id u63mr3573536ywu.219.1494404165933;
- Wed, 10 May 2017 01:16:05 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.171.70 with HTTP; Wed, 10 May 2017 01:15:45 -0700 (PDT)
-In-Reply-To: <1492714297-13845-1-git-send-email-bradleyb@fuzziesquirrel.com>
-References: <1492714297-13845-1-git-send-email-bradleyb@fuzziesquirrel.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 10 May 2017 17:45:45 +0930
-X-Google-Sender-Auth: hvQAw3HRvZ7y2Lg53BIy9mWq818
-Message-ID: <CACPK8XdP+9G_BGqupcbHCYCsNyLvO0TdsNb8E7JfqDkcmoKhmw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7 v2] drivers/fsi: Add FSI SBEFIFO driver
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- eajames <eajames@linux.vnet.ibm.com>, 
- Alistair Popple <alistair@popple.id.au>
-Content-Type: text/plain; charset=UTF-8
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wN9Rp5ZYJzDqKv
+ for <openbmc@lists.ozlabs.org>; Wed, 10 May 2017 19:09:57 +1000 (AEST)
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v4A93d5D043532
+ for <openbmc@lists.ozlabs.org>; Wed, 10 May 2017 05:09:55 -0400
+Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2abhaxr46p-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 10 May 2017 05:09:55 -0400
+Received: from localhost
+ by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <vishwa@linux.vnet.ibm.com>;
+ Wed, 10 May 2017 05:09:54 -0400
+Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
+ by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 10 May 2017 05:09:51 -0400
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v4A99pch10092814; Wed, 10 May 2017 09:09:51 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id D02FD28048;
+ Wed, 10 May 2017 05:09:45 -0400 (EDT)
+Received: from vishwa.in.ibm.com (unknown [9.193.99.213])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id DFB2C2803F;
+ Wed, 10 May 2017 05:09:44 -0400 (EDT)
+From: Vishwanatha Subbanna <vishwa@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH] witherspoon: leds: Use underscore in led names than hyphen
+Date: Wed, 10 May 2017 14:40:11 +0530
+X-Mailer: git-send-email 1.9.1
+X-TM-AS-GCONF: 00
+x-cbid: 17051009-0048-0000-0000-0000017D0D14
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007042; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000210; SDB=6.00858585; UDB=6.00425437; IPR=6.00638058; 
+ BA=6.00005340; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015391; XFM=3.00000015;
+ UTC=2017-05-10 09:09:52
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17051009-0049-0000-0000-000041126BB2
+Message-Id: <1494407411-2614-1-git-send-email-vishwa@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-05-10_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1705100065
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,327 +66,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 May 2017 08:16:08 -0000
+X-List-Received-Date: Wed, 10 May 2017 09:09:59 -0000
 
-Hi Brad,
+udev rule for leds subsystem in Witherspoon launches a systemd
+service file with $devpath. If the devpath is
+sys-devices-platform-leds-leds-rear-fault, systemd service file
+interprets it as /sys/devices/platform/leds/leds/rear/fault.
 
-I started looking at this a while ago and didn't get around to
-finishing. I'm sending my comments for the bit I did look at so you
-can fix those issues.
+However, what is really needed by the service file is
+/sys/devices/platform/leds/leds/rear-fault.
 
-On Fri, Apr 21, 2017 at 4:21 AM, Brad Bishop
-<bradleyb@fuzziesquirrel.com> wrote:
-> IBM POWER9 processors contain some embedded hardware and software bits
-> collectively referred to as the self boot engine (SBE).  One role of
-> the SBE is to act as a proxy that provides access to the registers of
-> the POWER chip from other (embedded) systems.
+This is a limitation in current systemd with template argument
+containing hyphen. Short term solution is to have $name contain
+underscores.
 
-Is are "other embedded systems" service processors (FSP, BMC)?
+It would then become: /sys/devices/platform/leds/leds/rear_fault
+and hence will work.
 
-> The POWER9 chip contains a hardware frontend for communicating with
-> the SBE from remote systems called the SBEFIFO.  The SBEFIFO logic
-> is contained within an FSI CFAM (see Documentation/fsi) and as such
-> the driver implements an FSI bus device.
->
-> The SBE expects to communicate using a defined wire protocol; however,
-> the driver knows nothing of the protocol and only provides raw access
-> to the fifo device to userspace applications wishing to communicate with
-> the SBE using the wire protocol.
->
-> The SBEFIFO consists of two hardware fifos.  The upstream fifo is used by
-> the driver to transfer data to the SBE on the POWER chip, from the system
-> hosting the driver.  The downstream fifo is used by the driver to transfer
-> data from the SBE on the power chip to the system hosting the driver.
->
-> Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
-> ---
-> v2:
->     Unexpand list_first_entry_or_null.
->     Unexpand list_for_each_entry_safe.
->     Reschedule a full 500ms later when fifos are busy.
-> ---
->  drivers/fsi/Kconfig       |   6 +
->  drivers/fsi/Makefile      |   1 +
->  drivers/fsi/fsi-sbefifo.c | 810 ++++++++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 817 insertions(+)
->  create mode 100644 drivers/fsi/fsi-sbefifo.c
->
-> diff --git a/drivers/fsi/Kconfig b/drivers/fsi/Kconfig
-> index c78b9b6e..087f239 100644
-> --- a/drivers/fsi/Kconfig
-> +++ b/drivers/fsi/Kconfig
-> @@ -18,6 +18,12 @@ config FSI_MASTER_GPIO
->         ---help---
->         This option enables a FSI master driver using GPIO lines.
->
-> +config FSI_SBEFIFO
-> +       tristate "SBEFIFO FSI client device driver"
-> +       depends on FSI
-> +       ---help---
-> +       This option enables an FSI based SBEFIFO device driver.
+Refer systemd bug: https://github.com/systemd/systemd/issues/5072
 
+Change-Id: Ie45dbf92e5ea96b8d8461856415bae6ce0bbd7d8
+Signed-off-by: Vishwanatha Subbanna <vishwa@linux.vnet.ibm.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-"You should select this for kernels that run on service processors for
-IBM Power9 systems" or something.
-
-> +
->  config FSI_SCOM
->         tristate "SCOM FSI client device driver"
->         depends on FSI
-> diff --git a/drivers/fsi/Makefile b/drivers/fsi/Makefile
-> index 3a106ba..edd84b2 100644
-> --- a/drivers/fsi/Makefile
-> +++ b/drivers/fsi/Makefile
-> @@ -1,5 +1,6 @@
->
->  obj-$(CONFIG_FSI) += fsi-core.o
->  obj-$(CONFIG_FSI_MASTER_GPIO) += fsi-master-gpio.o
-> +obj-$(CONFIG_FSI_SBEFIFO) += fsi-sbefifo.o
->  obj-$(CONFIG_FSI_SCOM) += fsi-scom.o
->  obj-$(CONFIG_FSI_I2C) += i2c/
-> diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
-> new file mode 100644
-> index 0000000..c289508
-> --- /dev/null
-> +++ b/drivers/fsi/fsi-sbefifo.c
-> @@ -0,0 +1,810 @@
-> +/*
-> + * Copyright (C) IBM Corporation 2017
-> + *
-> + * This program is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License version 2 as
-> + * published by the Free Software Foundation.
-> + *
-> + * This program is distributed in the hope that it will be useful,
-> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> + * MERGCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> + * GNU General Public License for more details.
-
-Check out the wording we use in other drivers.
-
-> + */
-> +
-> +#include <linux/delay.h>
-> +#include <linux/errno.h>
-> +#include <linux/idr.h>
-> +#include <linux/fsi.h>
-> +#include <linux/list.h>
-> +#include <linux/miscdevice.h>
-> +#include <linux/module.h>
-> +#include <linux/poll.h>
-> +#include <linux/sched.h>
-> +#include <linux/slab.h>
-> +#include <linux/timer.h>
-> +#include <linux/uaccess.h>
-> +
-> +/*
-> + * The SBEFIFO is a pipe-like FSI device for communicating with
-> + * the self boot engine on POWER processors.
-> + */
-> +
-> +#define DEVICE_NAME            "sbefifo"
-> +#define FSI_ENGID_SBE          0x22
-
-Should these engine IDs be kept in in a common fsi header?
-
-> +#define SBEFIFO_BUF_CNT                32
-> +
-> +#define SBEFIFO_UP             0x00    /* Up register offset */
-> +#define SBEFIFO_DWN            0x40    /* Down register offset */
-> +
-> +#define SBEFIFO_STS            0x04
-> +#define   SBEFIFO_EMPTY                        BIT(20)
-
-Are STS and EOT_RAISE bits too? It's confusing to have a mixture.
-
-> +#define SBEFIFO_EOT_RAISE      0x08
-> +#define   SBEFIFO_EOT_MAGIC            0xffffffff
-> +#define SBEFIFO_EOT_ACK                0x14
-> +
-> +struct sbefifo {
-> +       struct timer_list poll_timer;
-> +       struct fsi_device *fsi_dev;
-> +       struct miscdevice mdev;
-> +       wait_queue_head_t wait;
-> +       struct list_head link;
-> +       struct list_head xfrs;
-> +       struct kref kref;
-
-I tried to work out what the kref was counting. Can you explain how
-the reference and timers are used?
-
-> +       spinlock_t lock;
-> +       char name[32];
-
-The miscdev has a name too. What do we need this one for?
-
-> +       int idx;
-> +       int rc;
-
-Try to create some groupings here for things that are common.
-
-
-struct sbefifo {
-       struct fsi_device *fsi_dev;
-       struct miscdevice mdev;
-
-       int idx;
-
-       struct timer_list poll_timer;
-       wait_queue_head_t wait;
-       struct list_head link;
-
-       struct list_head xfrs;
-       struct kref kref;
-       spinlock_t lock;
-
-       int rc;
-}
-
-> +};
-> +
-> +struct sbefifo_buf {
-> +       u32 buf[SBEFIFO_BUF_CNT];
-> +       unsigned long flags;
-> +#define SBEFIFO_BUF_FULL               1
-> +       u32 *rpos;
-> +       u32 *wpos;
-> +};
-> +
-> +struct sbefifo_xfr {
-> +       struct sbefifo_buf *rbuf;
-> +       struct sbefifo_buf *wbuf;
-> +       struct list_head client;
-> +       struct list_head xfrs;
-> +       unsigned long flags;
-> +#define SBEFIFO_XFR_WRITE_DONE         1
-> +#define SBEFIFO_XFR_RESP_PENDING       2
-> +#define SBEFIFO_XFR_COMPLETE           3
-> +#define SBEFIFO_XFR_CANCEL             4
-> +};
-> +
-> +struct sbefifo_client {
-> +       struct sbefifo_buf rbuf;
-> +       struct sbefifo_buf wbuf;
-> +       struct list_head xfrs;
-> +       struct sbefifo *dev;
-> +       struct kref kref;
-> +};
-> +
-> +static struct list_head sbefifo_fifos;
-> +
-> +static DEFINE_IDA(sbefifo_ida);
-> +
-> +static int sbefifo_inw(struct sbefifo *sbefifo, int reg, u32 *word)
-> +{
-> +       return fsi_device_read(sbefifo->fsi_dev, reg, word, sizeof(*word));
-> +}
-> +
-> +static int sbefifo_outw(struct sbefifo *sbefifo, int reg, u32 word)
-> +{
-> +       return fsi_device_write(sbefifo->fsi_dev, reg, &word, sizeof(word));
-> +}
-> +
-> +static int sbefifo_readw(struct sbefifo *sbefifo, u32 *word)
-> +{
-> +       return sbefifo_inw(sbefifo, SBEFIFO_DWN, word);
-> +}
-> +
-> +static int sbefifo_writew(struct sbefifo *sbefifo, u32 word)
-> +{
-> +       return sbefifo_outw(sbefifo, SBEFIFO_UP, word);
-> +}
-> +
-> +static int sbefifo_ack_eot(struct sbefifo *sbefifo)
-> +{
-> +       u32 discard;
-> +       int ret;
-> +
-> +        /* Discard the EOT word. */
-> +       ret = sbefifo_readw(sbefifo, &discard);
-> +       if (ret)
-> +               return ret;
-> +
-> +       return sbefifo_outw(sbefifo, SBEFIFO_DWN | SBEFIFO_EOT_ACK,
-> +                       SBEFIFO_EOT_MAGIC);
-> +}
-> +
-> +static size_t sbefifo_dev_nwreadable(u32 sts)
-> +{
-> +       static const u32 FIFO_NTRY_CNT_MSK = 0x000f0000;
-> +       static const unsigned int FIFO_NTRY_CNT_SHIFT = 16;
-> +
-> +       return (sts & FIFO_NTRY_CNT_MSK) >> FIFO_NTRY_CNT_SHIFT;
-> +}
-> +
-> +static size_t sbefifo_dev_nwwriteable(u32 sts)
-> +{
-> +       static const size_t FIFO_DEPTH = 8;
-> +
-> +       return FIFO_DEPTH - sbefifo_dev_nwreadable(sts);
-> +}
-> +
-> +static void sbefifo_buf_init(struct sbefifo_buf *buf)
-> +{
-> +       WRITE_ONCE(buf->rpos, buf->buf);
-> +       WRITE_ONCE(buf->wpos, buf->buf);
-> +}
-> +
-> +static size_t sbefifo_buf_nbreadable(struct sbefifo_buf *buf)
-
-non-blocking readable?
-
-> +{
-> +       size_t n;
-> +       u32 *rpos = READ_ONCE(buf->rpos);
-> +       u32 *wpos = READ_ONCE(buf->wpos);
-> +
-> +       if (test_bit(SBEFIFO_BUF_FULL, &buf->flags))
-> +               n = SBEFIFO_BUF_CNT;
-> +       else if (rpos <= wpos)
-> +               n = wpos - rpos;
-> +       else
-> +               n = (buf->buf + SBEFIFO_BUF_CNT) - rpos;
-> +
-> +       return n << 2;
-> +}
-> +
-> +static size_t sbefifo_buf_nbwriteable(struct sbefifo_buf *buf)
-> +{
-> +       size_t n;
-> +       u32 *rpos = READ_ONCE(buf->rpos);
-> +       u32 *wpos = READ_ONCE(buf->wpos);
-> +
-> +       if (test_bit(SBEFIFO_BUF_FULL, &buf->flags))
-> +               n = 0;
-> +       else if (wpos < rpos)
-> +               n = rpos - wpos;
-> +       else
-> +               n = (buf->buf + SBEFIFO_BUF_CNT) - wpos;
-> +
-> +       return n << 2;
-> +}
-> +
-> +/*
-> + * Update pointers and flags after doing a buffer read.  Return true if the
-> + * buffer is now empty;
-> + */
-> +static bool sbefifo_buf_readnb(struct sbefifo_buf *buf, size_t n)
-
-n is number? or the length of the buffer?
-
-> +{
-> +       u32 *rpos = READ_ONCE(buf->rpos);
-> +       u32 *wpos = READ_ONCE(buf->wpos);
-> +
-> +       if (n)
-> +               clear_bit(SBEFIFO_BUF_FULL, &buf->flags);
-> +
-> +       rpos += (n >> 2);
-> +       if (rpos == buf->buf + SBEFIFO_BUF_CNT)
-> +               rpos = buf->buf;
-> +
-> +       WRITE_ONCE(buf->rpos, rpos);
-> +       return rpos == wpos;
-> +}
-> +
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index ca228be..da0ff4a 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -50,15 +50,15 @@
+ 	leds {
+ 		compatible = "gpio-leds";
+ 
+-		rear-fault {
++		rear_fault {
+ 			gpios = <&gpio ASPEED_GPIO(N, 2) GPIO_ACTIVE_LOW>;
+ 		};
+ 
+-		rear-id {
++		rear_id {
+ 			gpios = <&gpio ASPEED_GPIO(N, 4) GPIO_ACTIVE_LOW>;
+ 		};
+ 
+-		rear-power {
++		rear_power {
+ 			gpios = <&gpio ASPEED_GPIO(N, 3) GPIO_ACTIVE_LOW>;
+ 		};
+ 	};
+-- 
+1.9.1
