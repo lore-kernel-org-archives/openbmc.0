@@ -3,56 +3,56 @@ Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wNLNx6DnvzDqLt
- for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 01:53:05 +1000 (AEST)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wNLP16W3DzDqLK
+ for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 01:53:09 +1000 (AEST)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v4AFmmFL077573
- for <openbmc@lists.ozlabs.org>; Wed, 10 May 2017 11:53:04 -0400
-Received: from e38.co.us.ibm.com (e38.co.us.ibm.com [32.97.110.159])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2abx63ex14-1
+ v4AFmmOn113198
+ for <openbmc@lists.ozlabs.org>; Wed, 10 May 2017 11:52:58 -0400
+Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2ac1y0507v-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 10 May 2017 11:53:04 -0400
+ for <openbmc@lists.ozlabs.org>; Wed, 10 May 2017 11:52:58 -0400
 Received: from localhost
- by e38.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Wed, 10 May 2017 09:53:02 -0600
-Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
- by e38.co.us.ibm.com (192.168.1.138) with IBM ESMTP SMTP Gateway: Authorized
+ Wed, 10 May 2017 09:52:57 -0600
+Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
+ by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Wed, 10 May 2017 09:52:58 -0600
+ Wed, 10 May 2017 09:52:56 -0600
 Received: from b03ledav002.gho.boulder.ibm.com
  (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v4AFqw8t13893956; Wed, 10 May 2017 08:52:58 -0700
+ by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v4AFqtUR13435342; Wed, 10 May 2017 08:52:55 -0700
 Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 27AC613603C;
- Wed, 10 May 2017 09:52:58 -0600 (MDT)
+ by IMSVA (Postfix) with ESMTP id 8709F13603A;
+ Wed, 10 May 2017 09:52:55 -0600 (MDT)
 Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id CCDF5136043;
- Wed, 10 May 2017 09:52:57 -0600 (MDT)
+ by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id 3B0B6136046;
+ Wed, 10 May 2017 09:52:55 -0600 (MDT)
 From: Eddie James <eajames@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, cbostic@linux.vnet.ibm.com,
  "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10 v2 6/6] dts: aspeed: witherspoon: Add I2C
- master under FSI masters
-Date: Wed, 10 May 2017 10:52:42 -0500
+Subject: [PATCH linux dev-4.10 v2 5/6] drivers: i2c: Add bus recovery for FSI
+ algorithm
+Date: Wed, 10 May 2017 10:52:41 -0500
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1494431562-25101-1-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1494431562-25101-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-TM-AS-GCONF: 00
-x-cbid: 17051015-0028-0000-0000-0000078F80EE
+x-cbid: 17051015-0016-0000-0000-000006B686BD
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00007043; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000210; SDB=6.00858722; UDB=6.00425519; IPR=6.00638195; 
+ PH=3.00000004; SC=3.00000210; SDB=6.00858721; UDB=6.00425519; IPR=6.00638195; 
  BA=6.00005342; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015397; XFM=3.00000015;
- UTC=2017-05-10 15:53:00
+ UTC=2017-05-10 15:52:56
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17051015-0029-0000-0000-000035B1304A
-Message-Id: <1494431562-25101-7-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 17051015-0017-0000-0000-00003994701D
+Message-Id: <1494431562-25101-6-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-05-10_11:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -71,190 +71,111 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 May 2017 15:53:06 -0000
+X-List-Received-Date: Wed, 10 May 2017 15:53:10 -0000
 
 From: "Edward A. James" <eajames@us.ibm.com>
 
-Include all the ports that are present off I2C engine on P9.
+Bus recovery should reset the engine and force block the bus 9 times
+to recover most situations.
 
 Signed-off-by: Edward A. James <eajames@us.ibm.com>
 ---
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 156 +++++++++++++++++++++++
- 1 file changed, 156 insertions(+)
+ drivers/i2c/busses/i2c-fsi.c | 76 ++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 76 insertions(+)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-index f20aaf4..ac903c8 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -65,6 +65,8 @@
+diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
+index d757aee..4689479 100644
+--- a/drivers/i2c/busses/i2c-fsi.c
++++ b/drivers/i2c/busses/i2c-fsi.c
+@@ -467,6 +467,80 @@ static u32 fsi_i2c_functionality(struct i2c_adapter *adap)
+ 	return I2C_FUNC_I2C | I2C_FUNC_PROTOCOL_MANGLING | I2C_FUNC_10BIT_ADDR;
+ }
  
- 	gpio-fsi {
- 		compatible = "fsi-master-gpio", "fsi-master";
-+		#address-cells = <2>;
-+		#size-cells = <0>;
- 
- 		status = "okay";
- 
-@@ -73,6 +75,160 @@
- 		mux-gpios = <&gpio ASPEED_GPIO(A, 6) GPIO_ACTIVE_HIGH>;
- 		enable-gpios = <&gpio ASPEED_GPIO(D, 0) GPIO_ACTIVE_HIGH>;
- 		trans-gpios = <&gpio ASPEED_GPIO(R, 2) GPIO_ACTIVE_HIGH>;
++static int fsi_i2c_low_level_recover_bus(struct fsi_i2c_master *i2c)
++{
++	int i, rc;
++	u32 mode, dummy = 0;
 +
-+		cfam@0,0 {
-+			reg = <0 0>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
++	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_MODE, &mode);
++	if (rc)
++		return rc;
 +
-+			i2c-master@1800 {
-+				compatible = "ibm,fsi-i2c-master";
-+				reg = <0x1800 0x400>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
++	mode |= I2C_MODE_DIAG;
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
++	if (rc)
++		return rc;
 +
-+				port@0 {
-+					port = <0>;
-+				};
++	for (i = 0; i < 9; ++i) {
++		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SCL, &dummy);
++		if (rc)
++			return rc;
 +
-+				port@1 {
-+					port = <1>;
-+				};
++		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SCL, &dummy);
++		if (rc)
++			return rc;
++	}
 +
-+				port@2 {
-+					port = <2>;
-+				};
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SCL, &dummy);
++	if (rc)
++		return rc;
 +
-+				port@3 {
-+					port = <3>;
-+				};
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SDA, &dummy);
++	if (rc)
++		return rc;
 +
-+				port@4 {
-+					port = <4>;
-+				};
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SCL, &dummy);
++	if (rc)
++		return rc;
 +
-+				port@5 {
-+					port = <5>;
-+				};
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SDA, &dummy);
++	if (rc)
++		return rc;
 +
-+				port@6 {
-+					port = <6>;
-+				};
++	mode &= ~I2C_MODE_DIAG;
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
 +
-+				port@7 {
-+					port = <7>;
-+				};
++	return rc;
++}
 +
-+				port@8 {
-+					port = <8>;
-+				};
++static int fsi_i2c_recover_bus(struct i2c_adapter *adap)
++{
++	int rc;
++	u32 dummy = 0;
++	struct fsi_i2c_port *port = adap->algo_data;
++	struct fsi_i2c_master *i2c = port->master;
 +
-+				port@9 {
-+					port = <9>;
-+				};
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_I2C, &dummy);
++	if (rc)
++		return rc;
 +
-+				port@10 {
-+					port = <10>;
-+				};
++	rc = fsi_i2c_dev_init(i2c);
++	if (rc)
++		return rc;
 +
-+				port@11 {
-+					port = <11>;
-+				};
++	rc = fsi_i2c_low_level_recover_bus(i2c);
++	if (rc)
++		return rc;
 +
-+				port@12 {
-+					port = <12>;
-+				};
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_ERR, &dummy);
 +
-+				port@13 {
-+					port = <13>;
-+				};
++	return rc;
++}
 +
-+				port@14 {
-+					port = <14>;
-+				};
-+			};
++static struct i2c_bus_recovery_info fsi_i2c_bus_recovery_info = {
++	.recover_bus = fsi_i2c_recover_bus,
++};
 +
-+			hub@3400 {
-+				compatible = "fsi-master-hub";
-+				reg = <0x3400 0x400>;
-+				#address-cells = <2>;
-+				#size-cells = <0>;
-+
-+				cfam@1,0 {
-+					reg = <1 0>;
-+					#address-cells = <1>;
-+					#size-cells = <1>;
-+
-+					i2c-master@1800 {
-+						compatible = "ibm,fsi-i2c-master";
-+						reg = <0x1800 0x400>;
-+						#address-cells = <1>;
-+						#size-cells = <0>;
-+
-+						port@0 {
-+							port = <0>;
-+						};
-+
-+						port@1 {
-+							port = <1>;
-+						};
-+
-+						port@2 {
-+							port = <2>;
-+						};
-+
-+						port@3 {
-+							port = <3>;
-+						};
-+
-+						port@4 {
-+							port = <4>;
-+						};
-+
-+						port@5 {
-+							port = <5>;
-+						};
-+
-+						port@6 {
-+							port = <6>;
-+						};
-+
-+						port@7 {
-+							port = <7>;
-+						};
-+
-+						port@8 {
-+							port = <8>;
-+						};
-+
-+						port@9 {
-+							port = <9>;
-+						};
-+
-+						port@10 {
-+							port = <10>;
-+						};
-+
-+						port@11 {
-+							port = <11>;
-+						};
-+
-+						port@12 {
-+							port = <12>;
-+						};
-+
-+						port@13 {
-+							port = <13>;
-+						};
-+
-+						port@14 {
-+							port = <14>;
-+						};
-+					};
-+
-+				};
-+			};
-+		};
- 	};
- 
- 	iio-hwmon {
+ static const struct i2c_algorithm fsi_i2c_algorithm = {
+ 	.master_xfer = fsi_i2c_xfer,
+ 	.functionality = fsi_i2c_functionality,
+@@ -514,6 +588,8 @@ static int fsi_i2c_probe(struct device *dev)
+ 			port->adapter.owner = THIS_MODULE;
+ 			port->adapter.dev.parent = dev;
+ 			port->adapter.algo = &fsi_i2c_algorithm;
++			port->adapter.bus_recovery_info =
++				&fsi_i2c_bus_recovery_info;
+ 			port->adapter.algo_data = port;
+ 			/* number ports uniquely */
+ 			port->adapter.nr = (i2c->idx * I2C_MASTER_NR_OFFSET) +
 -- 
 1.8.3.1
