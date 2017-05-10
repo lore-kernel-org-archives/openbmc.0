@@ -1,65 +1,60 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+Return-Path: <dkodihal@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wNLP22X6BzDqP3
- for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 01:53:10 +1000 (AEST)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v4AFmkIq110065
- for <openbmc@lists.ozlabs.org>; Wed, 10 May 2017 11:52:55 -0400
-Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2aby8qv14p-1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wNNt30Wx6zDqLN
+ for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 03:44:58 +1000 (AEST)
+Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v4AHiALt097889
+ for <openbmc@lists.ozlabs.org>; Wed, 10 May 2017 13:44:53 -0400
+Received: from e23smtp08.au.ibm.com (e23smtp08.au.ibm.com [202.81.31.141])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2abx63ky9a-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 10 May 2017 11:52:55 -0400
+ for <openbmc@lists.ozlabs.org>; Wed, 10 May 2017 13:44:53 -0400
 Received: from localhost
- by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e23smtp08.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Wed, 10 May 2017 09:52:54 -0600
-Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
- by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Wed, 10 May 2017 09:52:51 -0600
-Received: from b03ledav002.gho.boulder.ibm.com
- (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v4AFqpJO7143756; Wed, 10 May 2017 08:52:51 -0700
-Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 32BA0136048;
- Wed, 10 May 2017 09:52:51 -0600 (MDT)
-Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id E1E0A13603C;
- Wed, 10 May 2017 09:52:50 -0600 (MDT)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, cbostic@linux.vnet.ibm.com,
- "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10 v2 3/6] drivers: i2c: Add transfer
- implementation for FSI algorithm
-Date: Wed, 10 May 2017 10:52:39 -0500
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1494431562-25101-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1494431562-25101-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-TM-AS-GCONF: 00
-x-cbid: 17051015-8235-0000-0000-00000B7772DD
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007043; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000210; SDB=6.00858722; UDB=6.00425519; IPR=6.00638195; 
- BA=6.00005342; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015397; XFM=3.00000015;
- UTC=2017-05-10 15:52:53
+ for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
+ Thu, 11 May 2017 03:44:50 +1000
+Received: from d23relay08.au.ibm.com (202.81.31.227)
+ by e23smtp08.au.ibm.com (202.81.31.205) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Thu, 11 May 2017 03:44:49 +1000
+Received: from d23av03.au.ibm.com (d23av03.au.ibm.com [9.190.234.97])
+ by d23relay08.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v4AHieVV6685154
+ for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 03:44:48 +1000
+Received: from d23av03.au.ibm.com (localhost [127.0.0.1])
+ by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ v4AHiA17019716
+ for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 03:44:10 +1000
+Received: from Deepaks-MacBook-Pro.local ([9.79.225.176])
+ by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ v4AHi9qr019438
+ for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 03:44:10 +1000
+From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+Subject: Refactor phosphor-settingsd
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Wed, 10 May 2017 23:13:59 +0530
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:45.0)
+ Gecko/20100101 Thunderbird/45.8.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-MML: disable
+x-cbid: 17051017-0048-0000-0000-0000022BD85E
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17051015-8236-0000-0000-00003BBE12CD
-Message-Id: <1494431562-25101-4-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 17051017-0049-0000-0000-000047DA2447
+Message-Id: <b2d26ce9-bb9e-218b-34b7-61bd260fdb73@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-05-10_11:, , signatures=0
+ definitions=2017-05-10_14:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
+ spamscore=0 suspectscore=0
  malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
  adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1705100107
+ definitions=main-1705100121
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -71,237 +66,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 May 2017 15:53:10 -0000
+X-List-Received-Date: Wed, 10 May 2017 17:44:59 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
+Hello All,
 
-Execute I2C transfers from the FSI-attached I2C master. Use polling
-instead of interrupts as we have no hardware IRQ over FSI.
+I'm working this sprint on refactoring the existing phosphor-settingsd 
+application (https://github.com/openbmc/phosphor-settingsd). This 
+application provides and implements interfaces to let the user configure 
+system settings. One of the first goals is to write d-bus interfaces, in 
+YAML, around various settings, and place them in the 
+phosphor-dbus-interfaces repository.
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
----
- drivers/i2c/busses/i2c-fsi.c | 193 ++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 191 insertions(+), 2 deletions(-)
+With the existing settings application, there isn't a clear schema 
+around each setting, they are all described by a single 
+org.openbmc.settings.Host interface. We'd ideally want an interface 
+clearly describing each setting. That also makes it possible to 
+implement settings d-bus objects as needed by a system.
 
-diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
-index cdebc99..f690b16 100644
---- a/drivers/i2c/busses/i2c-fsi.c
-+++ b/drivers/i2c/busses/i2c-fsi.c
-@@ -143,6 +143,7 @@ struct fsi_i2c_port {
- 	struct i2c_adapter	adapter;
- 	struct fsi_i2c_master	*master;
- 	u16			port;
-+	u16			xfrd;
- };
- 
- static DEFINE_IDA(fsi_i2c_ida);
-@@ -229,17 +230,205 @@ static int fsi_i2c_set_port(struct fsi_i2c_port *port)
- 	return rc;
- }
- 
-+static int fsi_i2c_start(struct fsi_i2c_port *port, struct i2c_msg *msg,
-+			 bool stop)
-+{
-+	int rc;
-+	struct fsi_i2c_master *i2c = port->master;
-+	u32 cmd = I2C_CMD_WITH_START | I2C_CMD_WITH_ADDR;
-+
-+	port->xfrd = 0;
-+
-+	if (msg->flags & I2C_M_RD)
-+		cmd |= I2C_CMD_READ;
-+
-+	if (stop || msg->flags & I2C_M_STOP)
-+		cmd |= I2C_CMD_WITH_STOP;
-+
-+	cmd = SETFIELD(I2C_CMD_ADDR, cmd, msg->addr >> 1);
-+	cmd = SETFIELD(I2C_CMD_LEN, cmd, msg->len);
-+
-+	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_CMD, &cmd);
-+
-+	return rc;
-+}
-+
-+static int fsi_i2c_write_fifo(struct fsi_i2c_port *port, struct i2c_msg *msg,
-+			      u8 fifo_count)
-+{
-+	int write;
-+	int rc = 0;
-+	struct fsi_i2c_master *i2c = port->master;
-+	int bytes_to_write = i2c->fifo_size - fifo_count;
-+	int bytes_remaining = msg->len - port->xfrd;
-+
-+	if (bytes_to_write > bytes_remaining)
-+		bytes_to_write = bytes_remaining;
-+
-+	while (bytes_to_write > 0) {
-+		write = bytes_to_write;
-+		/* fsi limited to max 4 byte aligned ops */
-+		if (bytes_to_write > 4)
-+			write = 4;
-+		else if (write == 3)
-+			write = 2;
-+
-+		rc = fsi_device_write(i2c->fsi, I2C_FSI_FIFO,
-+				      &msg->buf[port->xfrd], write);
-+		if (rc)
-+			return rc;
-+
-+		port->xfrd += write;
-+		bytes_to_write -= write;
-+	}
-+
-+	return rc;
-+}
-+
-+static int fsi_i2c_read_fifo(struct fsi_i2c_port *port, struct i2c_msg *msg,
-+			     u8 fifo_count)
-+{
-+	int read;
-+	int rc = 0;
-+	struct fsi_i2c_master *i2c = port->master;
-+	int xfr_remaining = msg->len - port->xfrd;
-+	u32 dummy;
-+
-+	while (fifo_count) {
-+		read = fifo_count;
-+		/* fsi limited to max 4 byte aligned ops */
-+		if (fifo_count > 4)
-+			read = 4;
-+		else if (read == 3)
-+			read = 2;
-+
-+		if (xfr_remaining) {
-+			if (xfr_remaining < read)
-+				read = xfr_remaining;
-+
-+			rc = fsi_device_read(i2c->fsi, I2C_FSI_FIFO,
-+					     &msg->buf[port->xfrd], read);
-+			if (rc)
-+				return rc;
-+
-+			port->xfrd += read;
-+			xfr_remaining -= read;
-+		} else {
-+			/* no more buffer but data in fifo, need to clear it */
-+			rc = fsi_device_read(i2c->fsi, I2C_FSI_FIFO, &dummy,
-+					     read);
-+			if (rc)
-+				return rc;
-+		}
-+
-+		fifo_count -= read;
-+	}
-+
-+	return rc;
-+}
-+
-+static int fsi_i2c_handle_status(struct fsi_i2c_port *port,
-+				 struct i2c_msg *msg, u32 status)
-+{
-+	int rc;
-+	u8 fifo_count;
-+	struct fsi_i2c_master *i2c = port->master;
-+	u32 dummy = 0;
-+
-+	if (status & I2C_STAT_ERR) {
-+		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_ERR, &dummy);
-+		if (rc)
-+			return rc;
-+
-+		if (status & I2C_STAT_NACK)
-+			return -EFAULT;
-+
-+		return -EIO;
-+	}
-+
-+	if (status & I2C_STAT_DAT_REQ) {
-+		fifo_count = GETFIELD(I2C_STAT_FIFO_COUNT, status);
-+
-+		if (msg->flags & I2C_M_RD)
-+			rc = fsi_i2c_read_fifo(port, msg, fifo_count);
-+		else
-+			rc = fsi_i2c_write_fifo(port, msg, fifo_count);
-+
-+		return rc;
-+	}
-+
-+	if (status & I2C_STAT_CMD_COMP) {
-+		if (port->xfrd < msg->len)
-+			rc = -ENODATA;
-+		else
-+			rc = msg->len;
-+	}
-+
-+	return rc;
-+}
-+
-+static int fsi_i2c_wait(struct fsi_i2c_port *port, struct i2c_msg *msg,
-+			unsigned long timeout)
-+{
-+	const unsigned long local_timeout = 2; /* jiffies */
-+	u32 status = 0;
-+	int rc;
-+
-+	do {
-+		rc = fsi_i2c_read_reg(port->master->fsi, I2C_FSI_STAT,
-+				      &status);
-+		if (rc)
-+			return rc;
-+
-+		if (status & I2C_STAT_ANY_RESP) {
-+			rc = fsi_i2c_handle_status(port, msg, status);
-+			if (rc < 0)
-+				return rc;
-+
-+			/* cmd complete and all data xfrd */
-+			if (rc == msg->len)
-+				return 0;
-+
-+			/* need to xfr more data, but maybe don't need wait */
-+			continue;
-+		}
-+
-+		set_current_state(TASK_UNINTERRUPTIBLE);
-+		schedule_timeout(local_timeout);
-+		timeout = (timeout < local_timeout) ? 0 :
-+			timeout - local_timeout;
-+	} while (timeout);
-+
-+	return -ETIME;
-+}
-+
- static int fsi_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
- 			int num)
- {
--	int rc;
-+	int i, rc;
-+	unsigned long start_time;
- 	struct fsi_i2c_port *port = adap->algo_data;
-+	struct i2c_msg *msg;
- 
- 	rc = fsi_i2c_set_port(port);
- 	if (rc)
- 		return rc;
- 
--	return -ENOSYS;
-+	for (i = 0; i < num; ++i) {
-+		msg = msgs + i;
-+		start_time = jiffies;
-+
-+		rc = fsi_i2c_start(port, msg, i == num - 1);
-+		if (rc)
-+			return rc;
-+
-+		rc = fsi_i2c_wait(port, msg,
-+				  adap->timeout - (jiffies - start_time));
-+		if (rc)
-+			return rc;
-+	}
-+
-+	return 0;
- }
- 
- static u32 fsi_i2c_functionality(struct i2c_adapter *adap)
--- 
-1.8.3.1
+Looking for feedback on these points :
+
+1) Where to place settings d-bus interfaces? For example let's say 
+there's a "boot_media" setting which indicates the source of the host 
+image (disk/network/etc). The interface could be either 
+xyz/openbmc_project/Settings/Host/BootMedia.interface.yaml or 
+xyz/openbmc_project/Control/Host/BootMedia.interface.yaml. Apart from 
+organizational clarity, any other advantages of placing all Settings 
+interfaces under a common 'Settings' namespace? Any disadvantages? Is it 
+more intuitive to place the interfaces in an already existing namespace 
+describing the object on which this setting applies? For instance, what 
+would be the best place to house an interface describing a CPU setting? 
+We already have an 'Inventory' namespace for items such as the CPU.
+
+2) While 1) above is more of an organizational statement, the same 
+problem applies to object paths of the d-bus objects implementing 
+settings. An obvious advantage of having all settings d-bus objects 
+under xyz/openbmc_project/settings/ would be that they are easy to find 
+and enumerate. The disadvantage would be extra work to identify unique 
+path names. The alternative would be to have the settings objects under 
+the existing namespace of the object they are applied to, for example 
+xyz/openbmc_project/inventory/system/motherboard/cpu0/some_cpu_setting. 
+Any preferences here?
+
+3) Creating system specific settings d-bus objects - this for example 
+means certain settings d-bus objects nay not even be created for certain 
+systems. I'm thinking this can be achieved via a policy file (in YAML), 
+which states what settings interfaces to implement. If there's a 
+possibility of different kind of objects implementing the same 
+interface, or the same kind of objects implementing different 
+interfaces, then the policy file will have to talk about objects as 
+well. I guess point 2) has a bearing here.
+
+Thanks,
+Deepak
