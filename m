@@ -1,60 +1,69 @@
-Return-Path: <dkodihal@linux.vnet.ibm.com>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wNNt30Wx6zDqLN
- for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 03:44:58 +1000 (AEST)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wNW7P6FtlzDqLL
+ for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 08:26:57 +1000 (AEST)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v4AHiALt097889
- for <openbmc@lists.ozlabs.org>; Wed, 10 May 2017 13:44:53 -0400
-Received: from e23smtp08.au.ibm.com (e23smtp08.au.ibm.com [202.81.31.141])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2abx63ky9a-1
+ v4AMNeVF084847
+ for <openbmc@lists.ozlabs.org>; Wed, 10 May 2017 18:26:52 -0400
+Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2ac456p1r6-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 10 May 2017 13:44:53 -0400
+ for <openbmc@lists.ozlabs.org>; Wed, 10 May 2017 18:26:52 -0400
 Received: from localhost
- by e23smtp08.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
- Thu, 11 May 2017 03:44:50 +1000
-Received: from d23relay08.au.ibm.com (202.81.31.227)
- by e23smtp08.au.ibm.com (202.81.31.205) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Thu, 11 May 2017 03:44:49 +1000
-Received: from d23av03.au.ibm.com (d23av03.au.ibm.com [9.190.234.97])
- by d23relay08.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v4AHieVV6685154
- for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 03:44:48 +1000
-Received: from d23av03.au.ibm.com (localhost [127.0.0.1])
- by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- v4AHiA17019716
- for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 03:44:10 +1000
-Received: from Deepaks-MacBook-Pro.local ([9.79.225.176])
- by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- v4AHi9qr019438
- for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 03:44:10 +1000
-From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
-Subject: Refactor phosphor-settingsd
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Wed, 10 May 2017 23:13:59 +0530
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:45.0)
- Gecko/20100101 Thunderbird/45.8.0
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Wed, 10 May 2017 18:26:50 -0400
+Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
+ by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 10 May 2017 18:26:48 -0400
+Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
+ [9.57.199.107])
+ by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v4AMQmBP64422034; Wed, 10 May 2017 22:26:48 GMT
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 3AA5B124037;
+ Wed, 10 May 2017 18:26:43 -0400 (EDT)
+Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
+ by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP id CBA3312403F;
+ Wed, 10 May 2017 18:26:42 -0400 (EDT)
+Subject: Re: [PATCH linux dev-4.10 1/7] drivers/fsi: Add slave interrupt
+ polling
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>, joel@jms.id.au
+References: <20170509213902.37939-1-cbostic@linux.vnet.ibm.com>
+ <20170509213902.37939-2-cbostic@linux.vnet.ibm.com>
+Cc: Eddie James <eajames@us.ibm.com>, openbmc@lists.ozlabs.org
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Wed, 10 May 2017 17:26:42 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <20170509213902.37939-2-cbostic@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=windows-1252; format=flowed
 Content-Transfer-Encoding: 7bit
-X-TM-AS-MML: disable
-x-cbid: 17051017-0048-0000-0000-0000022BD85E
+X-TM-AS-GCONF: 00
+x-cbid: 17051022-2213-0000-0000-000001B42B31
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007044; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000210; SDB=6.00858851; UDB=6.00425598; IPR=6.00638326; 
+ BA=6.00005342; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015403; XFM=3.00000015;
+ UTC=2017-05-10 22:26:50
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17051017-0049-0000-0000-000047DA2447
-Message-Id: <b2d26ce9-bb9e-218b-34b7-61bd260fdb73@linux.vnet.ibm.com>
+x-cbparentid: 17051022-2214-0000-0000-000056113D78
+Message-Id: <c56a7ff3-8e86-15ff-d743-3c8fa0acb6b4@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-05-10_14:, , signatures=0
+ definitions=2017-05-10_18:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  spamscore=0 suspectscore=0
  malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
  adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1705100121
+ definitions=main-1705100152
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -66,55 +75,250 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 May 2017 17:44:59 -0000
+X-List-Received-Date: Wed, 10 May 2017 22:26:58 -0000
 
-Hello All,
 
-I'm working this sprint on refactoring the existing phosphor-settingsd 
-application (https://github.com/openbmc/phosphor-settingsd). This 
-application provides and implements interfaces to let the user configure 
-system settings. One of the first goals is to write d-bus interfaces, in 
-YAML, around various settings, and place them in the 
-phosphor-dbus-interfaces repository.
 
-With the existing settings application, there isn't a clear schema 
-around each setting, they are all described by a single 
-org.openbmc.settings.Host interface. We'd ideally want an interface 
-clearly describing each setting. That also makes it possible to 
-implement settings d-bus objects as needed by a system.
+On 05/09/2017 04:38 PM, Christopher Bostic wrote:
+> Scan slaves present for asserting interrupt signals in the
+> si1s register and call a registered client's interrupt handler as
+> appropriate.
+>
+> Includes initial code from Eddie James <eajames@us.ibm.com>
+>
+> Signed-off-by: Eddie James <eajames@us.ibm.com>
+> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+> ---
+>   drivers/fsi/fsi-core.c   | 110 +++++++++++++++++++++++++++++++++++++++++++++++
+>   drivers/fsi/fsi-master.h |   1 +
+>   include/linux/fsi.h      |   5 +++
+>   3 files changed, 116 insertions(+)
+>
+> diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
+> index a6ed34f..73fdb69 100644
+> --- a/drivers/fsi/fsi-core.c
+> +++ b/drivers/fsi/fsi-core.c
+> @@ -15,9 +15,11 @@
+>
+>   #include <linux/device.h>
+>   #include <linux/fsi.h>
+> +#include <linux/kthread.h>
+>   #include <linux/idr.h>
+>   #include <linux/module.h>
+>   #include <linux/slab.h>
+> +#include <linux/jiffies.h>
+>
+>   #include "fsi-master.h"
+>
+> @@ -38,8 +40,11 @@
+>   #define FSI_PEEK_BASE			0x410
+>
+>   static const int engine_page_size = 0x400;
+> +static struct task_struct *master_ipoll;
+> +static unsigned int fsi_ipoll_period_ms = 100;
+>
+>   #define FSI_SLAVE_BASE			0x800
+> +#define FSI_IPOLL_PERIOD		msecs_to_jiffies(fsi_ipoll_period_ms)
+>
+>   /*
+>    * FSI slave engine control register offsets
+> @@ -47,6 +52,8 @@
+>   #define FSI_SMODE		0x0	/* R/W: Mode register */
+>   #define FSI_SISC		0x8	/* R/W: Interrupt condition */
+>   #define FSI_SSTAT		0x14	/* R  : Slave status */
+> +#define FSI_SI1M		0x18	/* R/W: IRQ mask */
+> +#define FSI_SI1S		0x1C	/* R  : IRQ status */
+>   #define FSI_LLMODE		0x100	/* R/W: Link layer mode register */
+>
+>   /*
+> @@ -342,6 +349,7 @@ static int fsi_slave_scan(struct fsi_slave *slave)
+>   	uint32_t engine_addr;
+>   	uint32_t conf;
+>   	int rc, i;
+> +	uint8_t si1s_bit = 1;
+>
+>   	/*
+>   	 * scan engines
+> @@ -396,6 +404,7 @@ static int fsi_slave_scan(struct fsi_slave *slave)
+>   			dev->unit = i;
+>   			dev->addr = engine_addr;
+>   			dev->size = slots * engine_page_size;
+> +			dev->si1s_bit = si1s_bit++;
+>
+>   			dev_info(&slave->dev,
+>   			"engine[%i]: type %x, version %x, addr %x size %x\n",
+> @@ -761,6 +770,90 @@ static void fsi_master_unscan(struct fsi_master *master)
+>   	device_for_each_child(&master->dev, NULL, __fsi_master_remove_slave);
+>   }
+>
+> +static int __fsi_dev_irq(struct device *dev, void *data)
+> +{
+> +	uint32_t *si1s = data;
+> +	struct fsi_device *fsi_dev = to_fsi_dev(dev);
+> +
+> +	if (!fsi_dev || !si1s) {
+> +		dev_dbg(dev, "Invalid input: %p %p\n", fsi_dev, si1s);
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (*si1s & (0x80000000 >> fsi_dev->si1s_bit) &&
+> +					fsi_dev->irq_handler) {
+> +		fsi_dev->irq_handler(0, &fsi_dev->dev);
+> +		return 1;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int __fsi_slave_irq(struct device *dev, void *data)
+> +{
+> +	return device_for_each_child(dev, data, __fsi_dev_irq);
+> +}
+> +
+> +static void fsi_master_irq(struct fsi_master *master, int link, uint32_t si1s)
+> +{
+> +	device_for_each_child(&master->dev, &si1s, __fsi_slave_irq);
+> +}
+> +
+> +static int fsi_master_ipoll(void *data)
+> +{
+> +	int rc;
+> +	uint32_t si1s;
+> +	unsigned long elapsed = 0;
+> +	unsigned long previous_jiffies = jiffies;
+> +	struct fsi_master *master = data;
+> +
+> +	while (!kthread_should_stop()) {
+> +		if (!master->ipoll)
+> +			goto done;
+> +
+> +		/* Ignore errors for now */
+> +		rc = master->read(master, 0, 0, FSI_SLAVE_BASE + FSI_SI1S,
+> +				&si1s, sizeof(uint32_t));
+> +		if (rc)
+> +			goto done;
+> +
+> +		if (si1s & master->ipoll)
+> +			fsi_master_irq(master, 0, si1s);
+> +done:
+> +		elapsed = jiffies = previous_jiffies;
+> +		if (elapsed < FSI_IPOLL_PERIOD) {
+> +			set_current_state(TASK_UNINTERRUPTIBLE);
+> +			schedule_timeout(FSI_IPOLL_PERIOD - elapsed);
+> +		}
+> +		previous_jiffies = jiffies;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * TODO: move this to master->start_ipoll() - each master may have its
+> + * own way of doing this
+> + */
+> +int fsi_master_start_ipoll(struct fsi_master *master)
+> +{
+> +	if (master_ipoll) {
+> +		dev_err(&master->dev, "Already polling for irqs\n");
+> +		return -EALREADY;
+> +	}
+> +	master_ipoll = kthread_create(fsi_master_ipoll, master,
+> +					"fsi_master_ipoll");
+> +	if (IS_ERR(master_ipoll)) {
+> +		dev_err(&master->dev, "Coudn't create ipoll thread rc:%d\n",
+> +			(int)PTR_ERR(master_ipoll));
+> +		return PTR_ERR(master_ipoll);
+> +	}
+> +	wake_up_process(master_ipoll);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(fsi_master_start_ipoll);
+> +
+>   static ssize_t master_rescan_store(struct device *dev,
+>   		struct device_attribute *attr, const char *buf, size_t count)
+>   {
+> @@ -768,6 +861,7 @@ static ssize_t master_rescan_store(struct device *dev,
+>
+>   	fsi_master_unscan(master);
+>   	fsi_master_scan(master);
+> +	fsi_master_start_ipoll(master);
 
-Looking for feedback on these points :
-
-1) Where to place settings d-bus interfaces? For example let's say 
-there's a "boot_media" setting which indicates the source of the host 
-image (disk/network/etc). The interface could be either 
-xyz/openbmc_project/Settings/Host/BootMedia.interface.yaml or 
-xyz/openbmc_project/Control/Host/BootMedia.interface.yaml. Apart from 
-organizational clarity, any other advantages of placing all Settings 
-interfaces under a common 'Settings' namespace? Any disadvantages? Is it 
-more intuitive to place the interfaces in an already existing namespace 
-describing the object on which this setting applies? For instance, what 
-would be the best place to house an interface describing a CPU setting? 
-We already have an 'Inventory' namespace for items such as the CPU.
-
-2) While 1) above is more of an organizational statement, the same 
-problem applies to object paths of the d-bus objects implementing 
-settings. An obvious advantage of having all settings d-bus objects 
-under xyz/openbmc_project/settings/ would be that they are easy to find 
-and enumerate. The disadvantage would be extra work to identify unique 
-path names. The alternative would be to have the settings objects under 
-the existing namespace of the object they are applied to, for example 
-xyz/openbmc_project/inventory/system/motherboard/cpu0/some_cpu_setting. 
-Any preferences here?
-
-3) Creating system specific settings d-bus objects - this for example 
-means certain settings d-bus objects nay not even be created for certain 
-systems. I'm thinking this can be achieved via a policy file (in YAML), 
-which states what settings interfaces to implement. If there's a 
-possibility of different kind of objects implementing the same 
-interface, or the same kind of objects implementing different 
-interfaces, then the policy file will have to talk about objects as 
-well. I guess point 2) has a bearing here.
+I have been having some problems in 4.10 with this patch in the build. 
+BMC is hanging and requires AC cycle to recover, directly after scanning 
+fsi. I haven't had time to debug but so far it seems to follow this 
+patch. I do not think this should be merged until Chris and I have done 
+more testing.
 
 Thanks,
-Deepak
+Eddie
+
+>
+>   	return count;
+>   }
+> @@ -829,6 +923,11 @@ void fsi_master_unregister(struct fsi_master *master)
+>   		master->idx = -1;
+>   	}
+>
+> +	if (master_ipoll) {
+> +		kthread_stop(master_ipoll);
+> +		master_ipoll = NULL;
+> +	}
+> +
+>   	device_unregister(&master->dev);
+>   }
+>   EXPORT_SYMBOL_GPL(fsi_master_unregister);
+> @@ -872,6 +971,17 @@ void fsi_driver_unregister(struct fsi_driver *fsi_drv)
+>   }
+>   EXPORT_SYMBOL_GPL(fsi_driver_unregister);
+>
+> +int fsi_enable_irq(struct fsi_device *dev)
+> +{
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(fsi_enable_irq);
+> +
+> +void fsi_disable_irq(struct fsi_device *dev)
+> +{
+> +}
+> +EXPORT_SYMBOL(fsi_disable_irq);
+> +
+>   struct bus_type fsi_bus_type = {
+>   	.name		= "fsi",
+>   	.match		= fsi_bus_match,
+> diff --git a/drivers/fsi/fsi-master.h b/drivers/fsi/fsi-master.h
+> index fd39924..668ab0c 100644
+> --- a/drivers/fsi/fsi-master.h
+> +++ b/drivers/fsi/fsi-master.h
+> @@ -26,6 +26,7 @@ struct fsi_master {
+>   	int		idx;
+>   	int		n_links;
+>   	int		flags;
+> +	uint32_t	ipoll;
+>   	int		(*read)(struct fsi_master *, int link, uint8_t id,
+>   				uint32_t addr, void *val, size_t size);
+>   	int		(*write)(struct fsi_master *, int link, uint8_t id,
+> diff --git a/include/linux/fsi.h b/include/linux/fsi.h
+> index 141fd38..bb5c6c6 100644
+> --- a/include/linux/fsi.h
+> +++ b/include/linux/fsi.h
+> @@ -22,9 +22,11 @@ struct fsi_device {
+>   	u8			engine_type;
+>   	u8			version;
+>   	u8			unit;
+> +	u8			si1s_bit;
+>   	struct fsi_slave	*slave;
+>   	uint32_t		addr;
+>   	uint32_t		size;
+> +	int (*irq_handler)(int, void *);
+>   };
+>
+>   extern int fsi_device_read(struct fsi_device *dev, uint32_t addr,
+> @@ -80,4 +82,7 @@ extern int fsi_slave_write(struct fsi_slave *slave, uint32_t addr,
+>
+>   extern struct bus_type fsi_bus_type;
+>
+> +extern int fsi_enable_irq(struct fsi_device *dev);
+> +extern void fsi_disable_irq(struct fsi_device *dev);
+> +
+>   #endif /* LINUX_FSI_H */
