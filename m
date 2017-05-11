@@ -1,58 +1,101 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x243.google.com (mail-yb0-x243.google.com
- [IPv6:2607:f8b0:4002:c09::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <austenc@us.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wNsSR0wpnzDqLS
- for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 22:12:55 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="fYHsrgno"; 
- dkim-atps=neutral
-Received: by mail-yb0-x243.google.com with SMTP id d72so840550ybh.0
- for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 05:12:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=vXqtkFgfcPC2naJ7vTG11yOPZg5F9KedCL1euNOKJP4=;
- b=fYHsrgnoDTDPA0F8RqXLI7L/LJzPd/HpTc6zmIzTsqpXtTeLAKm/SeuWZZ8YekYK/a
- vzNHQYuzWWRxhl/27OAIsOqnrHOz0mHLxYqVTv+IV/XhERvCrSHVKZzYZhwc9gSj6oke
- WV3/WBBC06nWxZKa0W1G3WzmPcNc1vvEevEKlVpy86+nuPW2hsemMMPou4/OQbkCgExz
- YKrCYOffPrlxVpDwhlx2VFDVAohqpw/NCEJGjjGZ0sNeP4e0IJpuGQPUp0MCb9k6EoVZ
- 8gATrqbDZcYtZdRHMq9/SARyk5EQ+iWKLKkeqOHFIjmn78+yqQVeonzElXu1GcvUT16l
- cfEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=vXqtkFgfcPC2naJ7vTG11yOPZg5F9KedCL1euNOKJP4=;
- b=VcHqnKwNsK7RSsomxn1zA6jpxIvpq91r4kG6kOqq89v3C98JS3se5aZKurvCh6Xe+x
- 7SiM1Q+C21Oreiuax53Z8jKHybbtfYMiRIFLCDrUALWs2ZA8JA4hKalBleZcpIFQ/LyG
- 3PBQYz1SbFf5wOaUiDnvQoXibYV72muJTzCYfDWvE65X0cWXK9a+fYGpldAS4yqUo/lx
- ugEwp9a7oNaoktYsyqPb6yzDspfv+G69MzBR2DKXAj/fJ/TTKv2PBVfVpOARdLVaArCM
- vtLE1U2U/XlYUa7D6nUXQKpl20Q/tyE6iVSYjrOp3Qt/W8vvWpTewEaoqoq0x+Pdp/nr
- TQFQ==
-X-Gm-Message-State: AODbwcD5EYsxATpdTGA2zaPnaMev0ZuBpJRQEnFfL1S21SMjzXIVmPjk
- TVfu7qn6iVLSWcP5IAtf0H9M0j8fnwJF
-X-Received: by 10.37.33.193 with SMTP id h184mr9411478ybh.57.1494504772760;
- Thu, 11 May 2017 05:12:52 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wP7JL5Hj7zDqbt
+ for <openbmc@lists.ozlabs.org>; Fri, 12 May 2017 08:36:49 +1000 (AEST)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v4BMXeAB008901
+ for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 18:36:45 -0400
+Received: from e38.co.us.ibm.com (e38.co.us.ibm.com [32.97.110.159])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2act8u885e-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 18:36:45 -0400
+Received: from localhost
+ by e38.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Thu, 11 May 2017 16:36:44 -0600
+Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
+ by e38.co.us.ibm.com (192.168.1.138) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Thu, 11 May 2017 16:36:42 -0600
+Received: from b03ledav002.gho.boulder.ibm.com
+ (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v4BMafw88126832
+ for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 15:36:41 -0700
+Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 48622136046
+ for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 16:36:41 -0600 (MDT)
+Received: from d50lp33.co.us.ibm.com (unknown [9.17.249.38])
+ by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTPS id 33DEF136040
+ for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 16:36:41 -0600 (MDT)
+Received: from localhost
+ by d50lp33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Thu, 11 May 2017 16:36:41 -0600
+Received: from smtp.notes.na.collabserv.com (192.155.248.74)
+ by d50lp33.co.us.ibm.com (192.168.2.144) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128/128)
+ Thu, 11 May 2017 16:36:37 -0600
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Thu, 11 May 2017 22:36:36 -0000
+Received: from us1a3-smtp07.a3.dal06.isc4sb.com (10.146.103.14)
+ by smtp.notes.na.collabserv.com (10.106.227.92) with
+ smtp.notes.na.collabserv.com ESMTP; Thu, 11 May 2017 22:36:33 -0000
+Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
+ by us1a3-smtp07.a3.dal06.isc4sb.com
+ with ESMTP id 2017051122363318-825499 ;
+ Thu, 11 May 2017 22:36:33 +0000 
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.171.70 with HTTP; Thu, 11 May 2017 05:12:32 -0700 (PDT)
-In-Reply-To: <14B306E8-EFC9-4BD5-B2DD-D892CB459439@linux.vnet.ibm.com>
-References: <1493913487-7482-1-git-send-email-anoo@linux.vnet.ibm.com>
- <14B306E8-EFC9-4BD5-B2DD-D892CB459439@linux.vnet.ibm.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 11 May 2017 21:42:32 +0930
-X-Google-Sender-Auth: 4rqgvLDmzhRsEFiHlqfhLpnDuQw
-Message-ID: <CACPK8XeNtDWLmx2qeHshd=Bg4JCNLd45CriVYLuNmGOMb-qqdg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7] arm: configs: aspeed: Disable
- CONFIG_MTD_SPI_NOR_USE_4K_SECTORS
-To: Adriana Kobylak <anoo@linux.vnet.ibm.com>,
- =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
-Cc: Patrick Williams <patrick@stwcx.xyz>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Subject: Developers Congress is almost here
+To: openbmc@lists.ozlabs.org
+From: "Chris Austen" <austenc@us.ibm.com>
+Date: Thu, 11 May 2017 17:36:32 -0500
+X-KeepSent: 2AD85A35:F5279C1C-8625811D:006DED3B;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1EXT SHF766 December 14, 2016
+X-LLNOutbound: False
+X-Disclaimed: 30007
+X-TNEFEvaluated: 1
+Content-type: multipart/alternative; 
+ Boundary="0__=09BB0B8EDFFE6BAB8f9e8a93df938690918c09BB0B8EDFFE6BAB"
+Content-Disposition: inline
+x-cbid: 17051122-0028-0000-0000-000007925862
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.439231; ST=0; TS=0; UL=0; ISC=; MB=0.012338
+X-IBM-SpamModules-Versions: BY=3.00007048; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000211; SDB=6.00859259; UDB=6.00425886; IPR=6.00638804; 
+ BA=6.00005345; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015418; XFM=3.00000015;
+ UTC=2017-05-11 22:36:34
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2017-05-11 21:20:14 - 6.00006727
+x-cbparentid: 17051122-7582-0000-0000-0000057F7BE8
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+X-TM-AS-GCONF: 00
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007048; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000211; SDB=6.00859259; UDB=6.00425886; IPR=6.00638805; 
+ BA=6.00005345; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015418; XFM=3.00000015;
+ UTC=2017-05-11 22:36:42
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+Message-Id: <OF2AD85A35.F5279C1C-ON8625811D.006DED3B-8625811D.007C3204@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-05-11_18:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1705110145
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -64,84 +107,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 May 2017 12:12:55 -0000
+X-List-Received-Date: Thu, 11 May 2017 22:36:51 -0000
 
-On Thu, May 11, 2017 at 7:31 AM, Adriana Kobylak
-<anoo@linux.vnet.ibm.com> wrote:
-> Milton stopped by and mentioned that you had tried to modify the 4K erase
-> sector previously for a perhaps bmc chip and saw some flash corruption wh=
-en
-> moving to an image that changed it?
->
-> Just wanted to add that this change only changes the pnor setting and I
-> didn=E2=80=99t see any issues powering on a system after updating the BMC=
- with an
-> image with this change. Then I updated the pnor with an image that had th=
-e
-> mbox enabled. Also checked with AndrewJ and the hostboot team and there=
-=E2=80=99s no
-> hard-coded assumptions in their side about the erase size.
->
-> With all this info let me know if you have any thoughts or concerns.
 
-I recall issues relating to this option. I didn't record what they were tho=
-ugh.
+--0__=09BB0B8EDFFE6BAB8f9e8a93df938690918c09BB0B8EDFFE6BAB
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/plain; charset=US-ASCII
 
-Cedric, can you remind me what the issues are with the 4K kconfig option?
 
-Cheers,
 
-Joel
+OpenBMC training at the OpenPOWER Developers Congress.
 
->
-> Thanks!
->
->
-> Begin forwarded message:
->
-> From: Adriana Kobylak <anoo@linux.vnet.ibm.com>
-> Subject: [PATCH linux dev-4.7] arm: configs: aspeed: Disable
-> CONFIG_MTD_SPI_NOR_USE_4K_SECTORS
-> Date: May 4, 2017 at 10:58:07 AM CDT
-> To: openbmc@lists.ozlabs.org
-> Cc: Adriana Kobylak <anoo@linux.vnet.ibm.com>
->
-> Disable the 4KB erase block size from the spi nor to be able to
-> use UBIFS, since UBIFS requires the erase size to be at least 15KB.
->
-> Signed-off-by: Adriana Kobylak <anoo@linux.vnet.ibm.com>
-> ---
-> arch/arm/configs/aspeed_g4_defconfig | 1 +
-> arch/arm/configs/aspeed_g5_defconfig | 1 +
-> 2 files changed, 2 insertions(+)
->
-> diff --git a/arch/arm/configs/aspeed_g4_defconfig
-> b/arch/arm/configs/aspeed_g4_defconfig
-> index 4350f67..6538993 100644
-> --- a/arch/arm/configs/aspeed_g4_defconfig
-> +++ b/arch/arm/configs/aspeed_g4_defconfig
-> @@ -69,6 +69,7 @@ CONFIG_MTD=3Dy
-> CONFIG_MTD_BLOCK=3Dy
-> CONFIG_MTD_PARTITIONED_MASTER=3Dy
-> CONFIG_MTD_SPI_NOR=3Dy
-> +# CONFIG_MTD_SPI_NOR_USE_4K_SECTORS is not set
-> CONFIG_ASPEED_FLASH_SPI=3Dy
-> CONFIG_MTD_UBI=3Dy
-> CONFIG_MTD_UBI_FASTMAP=3Dy
-> diff --git a/arch/arm/configs/aspeed_g5_defconfig
-> b/arch/arm/configs/aspeed_g5_defconfig
-> index b6b3ca0..7063949 100644
-> --- a/arch/arm/configs/aspeed_g5_defconfig
-> +++ b/arch/arm/configs/aspeed_g5_defconfig
-> @@ -68,6 +68,7 @@ CONFIG_MTD=3Dy
-> CONFIG_MTD_BLOCK=3Dy
-> CONFIG_MTD_PARTITIONED_MASTER=3Dy
-> CONFIG_MTD_SPI_NOR=3Dy
-> +# CONFIG_MTD_SPI_NOR_USE_4K_SECTORS is not set
-> CONFIG_ASPEED_FLASH_SPI=3Dy
-> CONFIG_MTD_UBI=3Dy
-> CONFIG_MTD_UBI_FASTMAP=3Dy
-> --
-> 1.8.2.2
->
->
+Enhance your skills of OpenBMC and OCC (On Chip Controller) by coming to
+the Developers Congress in San Francisco May 22-25.  Topics include adding
+services, UI exploration, simulation. testing and debugging.  Wednesday
+will be a Codeathon day to write a Redfish interface.  Thursday will focus
+on tailoring OpenBMC to fit your needs.
+
+https://openpowerfoundation.org/openpower-developer-congress/
+
+Sign up if you can make it
+
+
+Chris Austen
+POWER Systems Enablement Manager
+
+--0__=09BB0B8EDFFE6BAB8f9e8a93df938690918c09BB0B8EDFFE6BAB
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/html; charset=US-ASCII
+Content-Disposition: inline
+
+<html><body><p><font size=3D"2">OpenBMC training at the OpenPOWER Developer=
+s Congress.  </font><br><br><font size=3D"2">Enhance your skills of OpenBMC=
+ and OCC (On Chip Controller) by coming to the Developers Congress in San F=
+rancisco May 22-25.  Topics include adding services, UI exploration, simula=
+tion. testing and debugging.  Wednesday will be a Codeathon day to write a =
+Redfish interface.  Thursday will focus on tailoring OpenBMC to fit your ne=
+eds.  </font><br><br><a href=3D"https://openpowerfoundation.org/openpower-d=
+eveloper-congress/"><font size=3D"2">https://openpowerfoundation.org/openpo=
+wer-developer-congress/</font></a><br><font size=3D"2"><br>Sign up if you c=
+an make it</font><br><br><br><font size=3D"2">Chris Austen<br>POWER Systems=
+ Enablement Manager <br></font><BR>
+</body></html>
+
+--0__=09BB0B8EDFFE6BAB8f9e8a93df938690918c09BB0B8EDFFE6BAB--
