@@ -1,52 +1,50 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x241.google.com (mail-yb0-x241.google.com
- [IPv6:2607:f8b0:4002:c09::241])
+Received: from mail-yw0-x229.google.com (mail-yw0-x229.google.com
+ [IPv6:2607:f8b0:4002:c05::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wNsLs5TrNzDqLS
- for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 22:08:05 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wNsPM4GdMzDqLS
+ for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 22:10:15 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="hnwE2ETm"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="lmf7BoBn"; 
  dkim-atps=neutral
-Received: by mail-yb0-x241.google.com with SMTP id l192so833968ybl.1
- for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 05:08:05 -0700 (PDT)
+Received: by mail-yw0-x229.google.com with SMTP id b68so11384267ywe.3
+ for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 05:10:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=rQrF3Q0+oFucPWmbs96eP6n9pdatdKdyQpelGHaPb1g=;
- b=hnwE2ETmMY0FjjTDSN+TIbzebkFM2wvsc08/Rb6FAv3f3621bx7ShcvCb59BOonKHH
- JyfAMntwR3iYUH304BoqOGQm7IggaFTEAKshZHcf4FUmgBFHUre9PAF5Ios0jEWGTLT+
- zimXVrSSte4NuFY/WYG/ZnS9v/5zQD5h/44DQDYy04TajLysoJ0NHqMpk78w55tm3g3J
- 6cAg2mgihczIxUF054LI5k8TVtLv/Fj7DgHde2CJuNDqloK5+XdNh7Pg0OHWvUkyIFAU
- Ic3j7snlrimsZ2wQMBtRtUerSO56OHcknfcFl5l2HiXGZrWZwLOHYZTOFfVIjsTDzax5
- lkjQ==
+ bh=W9kCs7Oc5opXTu95Jg18iBTXU64E1TlzGUGgbKeO61s=;
+ b=lmf7BoBniNbA00N/6vsQLS2QeaakiUTAcML58xEudUFbkYcuw6fztfk9Jsfwb+xBWU
+ /pARHzLJjWwE4NbHeeyu6MgPmQIz9L3R/GvLJS5TO7ra3hSbFmV7KZEOsNpK5SX4Om3C
+ JaoLqqY/m587ZTRwxoR1IGdYLv6VqbUqDeHoqJSJQdnRay9ncmW7frKOfuWgOLARZaxa
+ 9FJpJqiIrMy7tUjbHgx13ypYKP75T/OYcYw7JDM+vt5YkupmmcQBAdVEGaRXhmwH6CrZ
+ UxIO4EJnKjZaoFG9J5WNY7QojZgHszSIDBr/iFo+308Hhr9c7z/XCqdxunBznJ1S/qk5
+ 2qhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=rQrF3Q0+oFucPWmbs96eP6n9pdatdKdyQpelGHaPb1g=;
- b=F7hfYTGUVI7UCZiTMF4mB0GF/Xrv+b2NENnWJSRDPDU43c3qTR0z1Ml3bbEII6Tg0l
- Sac54NN1BaClv5/Ie6ByFLILk7afoys/b7y/AKX5DFfvAxB4o5OFNqegZ+NrmTAmJ8xQ
- RDLTnbs1Hc67m07EHRYNvJQWX65xeKJ4mG3zDye8FIUIDXslMz2WzAvJR8Ew1aVF3B4C
- pkF4xuCu24YXH/lhSafc+WcdAuAxFvq3pSG+ofOKrHT+k/pbcDx5ReKNQ8DyFYj15Aao
- 0YXQ7RflAlbCvdQG0BlX9vNLr1zYP6G29ABaUPV0V7Udc7I/vISlj8PumPWWd4obPivH
- UzkA==
-X-Gm-Message-State: AODbwcDa1+bnJuJOK/WIzPCCm2cw8hVhyWIjNdlf+J1pDHY156nW9JZE
- pa3NJ1qpUb7qpE/K5Z+rKPpxjiS/Dw==
-X-Received: by 10.37.164.102 with SMTP id f93mr9135319ybi.152.1494504483563;
- Thu, 11 May 2017 05:08:03 -0700 (PDT)
+ bh=W9kCs7Oc5opXTu95Jg18iBTXU64E1TlzGUGgbKeO61s=;
+ b=JQgfMCw76ZJhvjebXM2ZrA93+ZUWxXYqmCzX7dXnN6KEbrrgorsbiF9NqpTMdnFW9j
+ nB6e0BIPxm6M63Ik9rNaiOCSfikK9rS/gbCTfCr7oEdfSCrbUAUNOfsIr7pReB+CfLZh
+ LG2qDlUE0h17cqOpHM7TBEv9aTxno8aCWWKRvbX4wwUweFXBw23VSR43Mur7z7sMz0xm
+ pfIaW/fZv6+1q7EfyMzZ530ir3PjVFy41ikKunudgPjOXOBjlIcGE6KSqXXHUaksQhye
+ usEs2CVdPn4rwBxVNEf5+9D/jTkDVvvjyGatvT1wlo6EZvwTNjnqx7tPGSmn6/11EWEV
+ 7FXg==
+X-Gm-Message-State: AODbwcBth5+px1d2ualnCwidl9FPQ1Gekmp6gb4Xdcm+LgdMMogdkTs5
+ uRQ00/wAIkhmpJyRnkfV6Iyyyezuvg==
+X-Received: by 10.129.76.19 with SMTP id z19mr9350003ywa.43.1494504612279;
+ Thu, 11 May 2017 05:10:12 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.171.70 with HTTP; Thu, 11 May 2017 05:07:43 -0700 (PDT)
-In-Reply-To: <20170509213902.37939-7-cbostic@linux.vnet.ibm.com>
+Received: by 10.37.171.70 with HTTP; Thu, 11 May 2017 05:09:51 -0700 (PDT)
+In-Reply-To: <20170509213902.37939-1-cbostic@linux.vnet.ibm.com>
 References: <20170509213902.37939-1-cbostic@linux.vnet.ibm.com>
- <20170509213902.37939-7-cbostic@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 11 May 2017 21:37:43 +0930
-X-Google-Sender-Auth: r9n7fHNCRrNvFkm84Ykrw8rpQME
-Message-ID: <CACPK8XcTJ+rRTjU1oHtQ8WPHc3SvHsMqZevjjdihc82saps4cA@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 6/7] drivers/fsi: GPIO stability changes
- for Cronus/Hostboot
+Date: Thu, 11 May 2017 21:39:51 +0930
+X-Google-Sender-Auth: 7oqALX7TF6yAy3b58r6NWo58Gr8
+Message-ID: <CACPK8Xethn=jHirhPvn9kEzzDpaQ5y_U_Dv-ijBErYG7g=oNLQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 0/7] OpenFSI Updates for dev-4.10 kernel
 To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
@@ -61,26 +59,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 May 2017 12:08:06 -0000
+X-List-Received-Date: Thu, 11 May 2017 12:10:16 -0000
 
-On Wed, May 10, 2017 at 7:09 AM, Christopher Bostic
+On Wed, May 10, 2017 at 7:08 AM, Christopher Bostic
 <cbostic@linux.vnet.ibm.com> wrote:
-> Improve stability in the FSI protocol by re-ordering the clocking
-> delays. Increase clocking delays to 3 microseconds.  Remove
-> delay prior to sampling input - now redundant given new clocking
-> delay order.
+> These changes bring the 4.10 kernel FSI device driver up to date
+> with the 4.7 kernel version.
 >
-> New effective delay per clock toggle is now 6 microseconds.
-> Previous clocking summed up to 3 nS but real time measurements
-> of each 1 nS delay actually was approx 1.8 microseconds.
-> Previous total delay was then 1.8 * 3 = 5.4 microseconds.
+> * Add basic and hub interrupt support
+> * Bug fixes introduced during 4.7 to 4.10 migration
+> * FSI protocol modification for added operational stability
 >
-> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+> Christopher Bostic (5):
+>   drivers/fsi: Add slave interrupt polling
+>   drivers/fsi: Scan for hub sourced IRQ's
+>   drivers/fsi: Set IRQ masks along hub path
+>   drivers/fsi: Add Client IRQ Enable / Disable
 
-Applied to dev-4.10 with a note about this being a temporary fix until
-we find the root cause.
+As discussed we will hold off on these until the stability issues are resolved.
 
-Keep us updated with the investigation.
+>   drivers/fsi: Unscan on master unregister
+>   drivers/fsi: GPIO stability changes for Cronus/Hostboot
+>   drivers/fsi: Fix one and two byte bus reads/writes
+
+These three have been applied.
 
 Cheers,
 
