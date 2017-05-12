@@ -1,41 +1,64 @@
-Return-Path: <clg@kaod.org>
-X-Greylist: delayed 1183 seconds by postgrey-1.36 at bilbo;
- Fri, 12 May 2017 17:22:36 AEST
-Received: from 6.mo69.mail-out.ovh.net (6.mo69.mail-out.ovh.net
- [46.105.50.107])
+Return-Path: <eajames@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wPLz05vztzDqc8
- for <openbmc@lists.ozlabs.org>; Fri, 12 May 2017 17:22:36 +1000 (AEST)
-Received: from player738.ha.ovh.net (b6.ovh.net [213.186.33.56])
- by mo69.mail-out.ovh.net (Postfix) with ESMTP id 98ADF1EC89
- for <openbmc@lists.ozlabs.org>; Fri, 12 May 2017 09:02:49 +0200 (CEST)
-Received: from zorba.kaod.org (LFbn-1-10647-27.w90-89.abo.wanadoo.fr
- [90.89.233.27]) (Authenticated sender: postmaster@kaod.org)
- by player738.ha.ovh.net (Postfix) with ESMTPSA id 4BC022A7;
- Fri, 12 May 2017 09:02:31 +0200 (CEST)
-Subject: Re: [PATCH v7 4/5] i2c: aspeed: added driver for Aspeed I2C
-To: Brendan Higgins <brendanhiggins@google.com>, wsa@the-dreams.de,
- robh+dt@kernel.org, mark.rutland@arm.com, tglx@linutronix.de,
- jason@lakedaemon.net, marc.zyngier@arm.com, joel@jms.id.au, vz@mleia.com,
- mouse@mayc.ru, benh@kernel.crashing.org
-References: <20170424181818.2754-1-brendanhiggins@google.com>
- <20170424181818.2754-5-brendanhiggins@google.com>
-Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <a6cc137f-8803-d9a8-e426-052f05a44df5@kaod.org>
-Date: Fri, 12 May 2017 09:02:30 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.8.0
-MIME-Version: 1.0
-In-Reply-To: <20170424181818.2754-5-brendanhiggins@google.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-X-Ovh-Tracer-Id: 6780450717249473282
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeeljedrtdeigdduvddvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wPgJC1rCpzDqch
+ for <openbmc@lists.ozlabs.org>; Sat, 13 May 2017 05:38:34 +1000 (AEST)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v4CJcVUT051827
+ for <openbmc@lists.ozlabs.org>; Fri, 12 May 2017 15:38:32 -0400
+Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2adg0qr269-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 12 May 2017 15:38:32 -0400
+Received: from localhost
+ by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Fri, 12 May 2017 13:38:28 -0600
+Received: from b03cxnp08026.gho.boulder.ibm.com (9.17.130.18)
+ by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Fri, 12 May 2017 13:38:25 -0600
+Received: from b03ledav001.gho.boulder.ibm.com
+ (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
+ by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v4CJcPx311076076; Fri, 12 May 2017 12:38:25 -0700
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 695A36E03D;
+ Fri, 12 May 2017 13:38:25 -0600 (MDT)
+Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP id 00A876E035;
+ Fri, 12 May 2017 13:38:24 -0600 (MDT)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, bradleyb@fuzziesquirrel.com, cbostic@linux.vnet.ibm.com,
+ "Edward A. James" <eajames@us.ibm.com>
+Subject: [PATCH linux dev-4.10 1/3] drivers: fsi: sbefifo: Add in-kernel API
+Date: Fri, 12 May 2017 14:38:18 -0500
+X-Mailer: git-send-email 1.8.3.1
+In-Reply-To: <1494617900-32369-1-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1494617900-32369-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-TM-AS-GCONF: 00
+x-cbid: 17051219-0004-0000-0000-00001222FAC5
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007052; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000211; SDB=6.00859642; UDB=6.00426138; IPR=6.00639225; 
+ BA=6.00005345; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015432; XFM=3.00000015;
+ UTC=2017-05-12 19:38:27
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17051219-0005-0000-0000-00007F427974
+Message-Id: <1494617900-32369-2-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-05-12_11:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1705120367
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,466 +70,332 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 12 May 2017 07:22:37 -0000
+X-List-Received-Date: Fri, 12 May 2017 19:38:35 -0000
 
-Hello Brendan,
+From: "Edward A. James" <eajames@us.ibm.com>
 
-[ ... ]
+Add exported functions to the SBEFIFO driver to open/write/read/close
+from within the kernel.
 
-> +static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
-> +{
-> +	u32 irq_status, status_ack = 0, command = 0;
-> +	struct i2c_msg *msg;
-> +	u8 recv_byte;
-> +
-> +	spin_lock(&bus->lock);
-> +	irq_status = readl(bus->base + ASPEED_I2C_INTR_STS_REG);
-> +
-> +	if (irq_status & ASPEED_I2CD_INTR_BUS_RECOVER_DONE) {
-> +		bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
-> +		status_ack |= ASPEED_I2CD_INTR_BUS_RECOVER_DONE;
-> +		goto out_complete;
-> +	}
-> +
-> +	/*
-> +	 * Either we encountered an interrupt that reports an error, or we are
-> +	 * in an invalid state.
-> +	 */
-> +	if (irq_status & ASPEED_I2CD_INTR_ERROR ||
-> +	    (!bus->msgs && bus->master_state != ASPEED_I2C_MASTER_STOP)) {
-> +		dev_dbg(bus->dev, "received error interrupt: 0x%08x",
-> +			irq_status);
-> +		bus->cmd_err = -EIO;
-> +		__aspeed_i2c_do_stop(bus);
+Signed-off-by: Edward A. James <eajames@us.ibm.com>
+---
+ drivers/fsi/fsi-sbefifo.c   | 161 +++++++++++++++++++++++++++++++++++---------
+ include/linux/fsi-sbefifo.h |  30 +++++++++
+ 2 files changed, 161 insertions(+), 30 deletions(-)
+ create mode 100644 include/linux/fsi-sbefifo.h
 
-If I am correct, this will continuously send STOP commands if 
-an interrupt error is reported. It might be worth checking for 
-this potential issue.
-
-Thanks,
-
-C. 
+diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
+index b49aec2..56e6331 100644
+--- a/drivers/fsi/fsi-sbefifo.c
++++ b/drivers/fsi/fsi-sbefifo.c
+@@ -15,9 +15,12 @@
+ #include <linux/errno.h>
+ #include <linux/idr.h>
+ #include <linux/fsi.h>
++#include <linux/fsi-sbefifo.h>
+ #include <linux/list.h>
+ #include <linux/miscdevice.h>
+ #include <linux/module.h>
++#include <linux/of.h>
++#include <linux/of_platform.h>
+ #include <linux/poll.h>
+ #include <linux/sched.h>
+ #include <linux/slab.h>
+@@ -82,6 +85,7 @@ struct sbefifo_client {
+ 	struct list_head xfrs;
+ 	struct sbefifo *dev;
+ 	struct kref kref;
++	unsigned long f_flags;
+ };
  
-> +		goto out_no_complete;
-> +	}
-> +	msg = &bus->msgs[bus->msgs_index];
-> +
-> +	/*
-> +	 * START is a special case because we still have to handle a subsequent
-> +	 * TX or RX immediately after we handle it, so we handle it here and
-> +	 * then update the state and handle the new state below.
-> +	 */
-> +	if (bus->master_state == ASPEED_I2C_MASTER_START) {
-> +		if (unlikely(!(irq_status & ASPEED_I2CD_INTR_TX_ACK))) {
-> +			dev_dbg(bus->dev,
-> +				"no slave present at %02x", msg->addr);
-> +			status_ack |= ASPEED_I2CD_INTR_TX_NAK;
-> +			goto error_and_stop;
-> +		}
-> +		status_ack |= ASPEED_I2CD_INTR_TX_ACK;
-> +		if (msg->flags & I2C_M_RD)
-> +			bus->master_state = ASPEED_I2C_MASTER_RX_FIRST;
-> +		else
-> +			bus->master_state = ASPEED_I2C_MASTER_TX_FIRST;
-> +	}
-> +
-> +	switch (bus->master_state) {
-> +	case ASPEED_I2C_MASTER_TX:
-> +		if (unlikely(irq_status & ASPEED_I2CD_INTR_TX_NAK)) {
-> +			dev_dbg(bus->dev, "slave NACKed TX");
-> +			status_ack |= ASPEED_I2CD_INTR_TX_NAK;
-> +			goto error_and_stop;
-> +		} else if (unlikely(!(irq_status & ASPEED_I2CD_INTR_TX_ACK))) {
-> +			dev_err(bus->dev, "slave failed to ACK TX");
-> +			goto error_and_stop;
-> +		}
-> +		status_ack |= ASPEED_I2CD_INTR_TX_ACK;
-> +		/* fallthrough intended */
-> +	case ASPEED_I2C_MASTER_TX_FIRST:
-> +		if (bus->buf_index < msg->len) {
-> +			bus->master_state = ASPEED_I2C_MASTER_TX;
-> +			writel(msg->buf[bus->buf_index++],
-> +			       bus->base + ASPEED_I2C_BYTE_BUF_REG);
-> +			writel(ASPEED_I2CD_M_TX_CMD,
-> +			       bus->base + ASPEED_I2C_CMD_REG);
-> +		} else {
-> +			__aspeed_i2c_next_msg_or_stop(bus);
-> +		}
-> +		goto out_no_complete;
-> +	case ASPEED_I2C_MASTER_RX_FIRST:
-> +		/* RX may not have completed yet (only address cycle) */
-> +		if (!(irq_status & ASPEED_I2CD_INTR_RX_DONE))
-> +			goto out_no_complete;
-> +		/* fallthrough intended */
-> +	case ASPEED_I2C_MASTER_RX:
-> +		if (unlikely(!(irq_status & ASPEED_I2CD_INTR_RX_DONE))) {
-> +			dev_err(bus->dev, "master failed to RX");
-> +			goto error_and_stop;
-> +		}
-> +		status_ack |= ASPEED_I2CD_INTR_RX_DONE;
-> +
-> +		recv_byte = readl(bus->base + ASPEED_I2C_BYTE_BUF_REG) >> 8;
-> +		msg->buf[bus->buf_index++] = recv_byte;
-> +
-> +		if (msg->flags & I2C_M_RECV_LEN) {
-> +			if (unlikely(recv_byte > I2C_SMBUS_BLOCK_MAX)) {
-> +				bus->cmd_err = -EPROTO;
-> +				__aspeed_i2c_do_stop(bus);
-> +				goto out_no_complete;
-> +			}
-> +			msg->len = recv_byte +
-> +					((msg->flags & I2C_CLIENT_PEC) ? 2 : 1);
-> +			msg->flags &= ~I2C_M_RECV_LEN;
-> +		}
-> +
-> +		if (bus->buf_index < msg->len) {
-> +			bus->master_state = ASPEED_I2C_MASTER_RX;
-> +			command = ASPEED_I2CD_M_RX_CMD;
-> +			if (bus->buf_index + 1 == msg->len)
-> +				command |= ASPEED_I2CD_M_S_RX_CMD_LAST;
-> +			writel(command, bus->base + ASPEED_I2C_CMD_REG);
-> +		} else {
-> +			__aspeed_i2c_next_msg_or_stop(bus);
-> +		}
-> +		goto out_no_complete;
-> +	case ASPEED_I2C_MASTER_STOP:
-> +		if (unlikely(!(irq_status & ASPEED_I2CD_INTR_NORMAL_STOP))) {
-> +			dev_err(bus->dev, "master failed to STOP");
-> +			bus->cmd_err = -EIO;
-> +			/* Do not STOP as we have already tried. */
-> +		} else {
-> +			status_ack |= ASPEED_I2CD_INTR_NORMAL_STOP;
-> +		}
-> +
-> +		bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
-> +		goto out_complete;
-> +	case ASPEED_I2C_MASTER_INACTIVE:
-> +		dev_err(bus->dev,
-> +			"master received interrupt 0x%08x, but is inactive",
-> +			irq_status);
-> +		bus->cmd_err = -EIO;
-> +		/* Do not STOP as we should be inactive. */
-> +		goto out_complete;
-> +	default:
-> +		WARN(1, "unknown master state\n");
-> +		bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
-> +		bus->cmd_err = -EIO;
-> +		goto out_complete;
-> +	}
-> +error_and_stop:
-> +	bus->cmd_err = -EIO;
-> +	__aspeed_i2c_do_stop(bus);
-> +	goto out_no_complete;
-> +out_complete:
-> +	complete(&bus->cmd_complete);
-> +out_no_complete:
-> +	if (irq_status != status_ack)
-> +		dev_err(bus->dev,
-> +			"irq handled != irq. expected 0x%08x, but was 0x%08x\n",
-> +			irq_status, status_ack);
-> +	writel(irq_status, bus->base + ASPEED_I2C_INTR_STS_REG);
-> +	spin_unlock(&bus->lock);
-> +	return !!irq_status;
-> +}
-> +
-> +static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
-> +{
-> +	struct aspeed_i2c_bus *bus = dev_id;
-> +
-> +	if (aspeed_i2c_master_irq(bus))
-> +		return IRQ_HANDLED;
-> +	else
-> +		return IRQ_NONE;
-> +}
-> +
-> +static int aspeed_i2c_master_xfer(struct i2c_adapter *adap,
-> +				  struct i2c_msg *msgs, int num)
-> +{
-> +	struct aspeed_i2c_bus *bus = adap->algo_data;
-> +	unsigned long time_left, flags;
-> +	int ret = 0;
-> +
-> +	spin_lock_irqsave(&bus->lock, flags);
-> +	bus->cmd_err = 0;
-> +
-> +	/* If bus is busy, attempt recovery. We assume a single master
-> +	 * environment.
-> +	 */
-> +	if (readl(bus->base + ASPEED_I2C_CMD_REG) & ASPEED_I2CD_BUS_BUSY_STS) {
-> +		spin_unlock_irqrestore(&bus->lock, flags);
-> +		ret = aspeed_i2c_recover_bus(bus);
-> +		if (ret)
-> +			return ret;
-> +		spin_lock_irqsave(&bus->lock, flags);
-> +	}
-> +
-> +	bus->msgs = msgs;
-> +	bus->msgs_index = 0;
-> +	bus->msgs_count = num;
-> +
-> +	reinit_completion(&bus->cmd_complete);
-> +	__aspeed_i2c_do_start(bus);
-> +	spin_unlock_irqrestore(&bus->lock, flags);
-> +
-> +	time_left = wait_for_completion_timeout(&bus->cmd_complete,
-> +						bus->adap.timeout);
-> +
-> +	spin_lock_irqsave(&bus->lock, flags);
-> +	bus->msgs = NULL;
-> +	if (time_left == 0)
-> +		ret = -ETIMEDOUT;
-> +	else
-> +		ret = bus->cmd_err;
-> +	spin_unlock_irqrestore(&bus->lock, flags);
-> +
-> +	/* If nothing went wrong, return number of messages transferred. */
-> +	if (ret >= 0)
-> +		return bus->msgs_index + 1;
-> +	else
-> +		return ret;
-> +}
-> +
-> +static u32 aspeed_i2c_functionality(struct i2c_adapter *adap)
-> +{
-> +	return I2C_FUNC_I2C | I2C_FUNC_SMBUS_EMUL | I2C_FUNC_SMBUS_BLOCK_DATA;
-> +}
-> +
-> +static const struct i2c_algorithm aspeed_i2c_algo = {
-> +	.master_xfer	= aspeed_i2c_master_xfer,
-> +	.functionality	= aspeed_i2c_functionality,
-> +};
-> +
-> +static u32 aspeed_i2c_get_clk_reg_val(u32 divisor)
-> +{
-> +	u32 base_clk, clk_high, clk_low, tmp;
-> +
-> +	/*
-> +	 * The actual clock frequency of SCL is:
-> +	 *	SCL_freq = APB_freq / (base_freq * (SCL_high + SCL_low))
-> +	 *		 = APB_freq / divisor
-> +	 * where base_freq is a programmable clock divider; its value is
-> +	 *	base_freq = 1 << base_clk
-> +	 * SCL_high is the number of base_freq clock cycles that SCL stays high
-> +	 * and SCL_low is the number of base_freq clock cycles that SCL stays
-> +	 * low for a period of SCL.
-> +	 * The actual register has a minimum SCL_high and SCL_low minimum of 1;
-> +	 * thus, they start counting at zero. So
-> +	 *	SCL_high = clk_high + 1
-> +	 *	SCL_low	 = clk_low + 1
-> +	 * Thus,
-> +	 *	SCL_freq = APB_freq /
-> +	 *		((1 << base_clk) * (clk_high + 1 + clk_low + 1))
-> +	 * The documentation recommends clk_high >= 8 and clk_low >= 7 when
-> +	 * possible; this last constraint gives us the following solution:
-> +	 */
-> +	base_clk = divisor > 33 ? ilog2((divisor - 1) / 32) + 1 : 0;
-> +	tmp = divisor / (1 << base_clk);
-> +	clk_high = tmp / 2 + tmp % 2;
-> +	clk_low = tmp - clk_high;
-> +
-> +	clk_high -= 1;
-> +	clk_low -= 1;
-> +
-> +	return ((clk_high << ASPEED_I2CD_TIME_SCL_HIGH_SHIFT)
-> +		& ASPEED_I2CD_TIME_SCL_HIGH_MASK)
-> +			| ((clk_low << ASPEED_I2CD_TIME_SCL_LOW_SHIFT)
-> +			   & ASPEED_I2CD_TIME_SCL_LOW_MASK)
-> +			| (base_clk & ASPEED_I2CD_TIME_BASE_DIVISOR_MASK);
-> +}
-> +
-> +static int __aspeed_i2c_init_clk(struct aspeed_i2c_bus *bus,
-> +				 struct platform_device *pdev)
-> +{
-> +	u32 clk_freq, divisor, clk_reg_val;
-> +	struct clk *pclk;
-> +	int ret;
-> +
-> +	pclk = devm_clk_get(&pdev->dev, NULL);
-> +	if (IS_ERR(pclk)) {
-> +		dev_err(&pdev->dev, "clk_get failed\n");
-> +		return PTR_ERR(pclk);
-> +	}
-> +	ret = of_property_read_u32(pdev->dev.of_node,
-> +				   "bus-frequency", &clk_freq);
-> +	if (ret < 0) {
-> +		dev_err(&pdev->dev,
-> +			"Could not read bus-frequency property\n");
-> +		clk_freq = 100000;
-> +	}
-> +	divisor = clk_get_rate(pclk) / clk_freq;
-> +	/* We just need the clock rate, we don't actually use the clk object. */
-> +	devm_clk_put(&pdev->dev, pclk);
-> +
-> +	clk_reg_val = aspeed_i2c_get_clk_reg_val(divisor);
-> +	writel(clk_reg_val, bus->base + ASPEED_I2C_AC_TIMING_REG1);
-> +
-> +	/*
-> +	 * If the base divisor is non-zero then we do not want to enable high
-> +	 * speed mode, otherwise we might as well enable it.
-> +	 * For reference, setting high speed mode will make the base divisor
-> +	 * zero and corresponds to a minimum SCL frequency of about 1.5MHz.
-> +	 */
-> +	if (clk_reg_val & ASPEED_I2CD_TIME_BASE_DIVISOR_MASK) {
-> +		writel(ASPEED_NO_TIMEOUT_CTRL,
-> +		       bus->base + ASPEED_I2C_AC_TIMING_REG2);
-> +	} else {
-> +		writel(readl(bus->base + ASPEED_I2C_FUN_CTRL_REG) |
-> +		       ASPEED_I2CD_M_HIGH_SPEED_EN |
-> +		       ASPEED_I2CD_M_SDA_DRIVE_1T_EN |
-> +		       ASPEED_I2CD_SDA_DRIVE_1T_EN,
-> +		       bus->base + ASPEED_I2C_FUN_CTRL_REG);
-> +
-> +		writel(0x3, bus->base + ASPEED_I2C_AC_TIMING_REG2);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int __aspeed_i2c_init(struct aspeed_i2c_bus *bus,
-> +			     struct platform_device *pdev)
-> +{
-> +	int ret;
-> +
-> +	/* Disable everything. */
-> +	writel(0, bus->base + ASPEED_I2C_FUN_CTRL_REG);
-> +
-> +	ret = __aspeed_i2c_init_clk(bus, pdev);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	/* Enable Master Mode */
-> +	writel(readl(bus->base + ASPEED_I2C_FUN_CTRL_REG) |
-> +	       ASPEED_I2CD_MASTER_EN |
-> +	       /* TODO: provide device tree option for multi-master mode. */
-> +	       ASPEED_I2CD_MULTI_MASTER_DIS,
-> +	       bus->base + ASPEED_I2C_FUN_CTRL_REG);
-> +
-> +	/* Set interrupt generation of I2C controller */
-> +	writel(ASPEED_I2CD_INTR_ALL, bus->base + ASPEED_I2C_INTR_CTRL_REG);
-> +
-> +	return 0;
-> +}
-> +
-> +static int aspeed_i2c_reset(struct aspeed_i2c_bus *bus)
-> +{
-> +	struct platform_device *pdev = to_platform_device(bus->dev);
-> +	unsigned long flags;
-> +	int ret;
-> +
-> +	spin_lock_irqsave(&bus->lock, flags);
-> +
-> +	/* Disable and quiesce interrupts. */
-> +	reinit_completion(&bus->cmd_complete);
-> +	writel(0, bus->base + ASPEED_I2C_INTR_CTRL_REG);
-> +
-> +	spin_unlock_irqrestore(&bus->lock, flags);
-> +	/*
-> +	 * We need to make sure that there are no interrupts that fired just
-> +	 * before we grabbed the lock; if that did not happen, then we are going
-> +	 * to timeout and that is okay.
-> +	 */
-> +	wait_for_completion_timeout(&bus->cmd_complete, bus->adap.timeout);
-> +	spin_lock_irqsave(&bus->lock, flags);
-> +
-> +	ret = __aspeed_i2c_init(bus, pdev);
-> +
-> +	spin_unlock_irqrestore(&bus->lock, flags);
-> +
-> +	return ret;
-> +}
-> +
-> +static int aspeed_i2c_probe_bus(struct platform_device *pdev)
-> +{
-> +	struct aspeed_i2c_bus *bus;
-> +	struct resource *res;
-> +	int ret;
-> +
-> +	bus = devm_kzalloc(&pdev->dev, sizeof(*bus), GFP_KERNEL);
-> +	if (!bus)
-> +		return -ENOMEM;
-> +
-> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +	bus->base = devm_ioremap_resource(&pdev->dev, res);
-> +	if (IS_ERR(bus->base))
-> +		return PTR_ERR(bus->base);
-> +
-> +	/* Initialize the I2C adapter */
-> +	spin_lock_init(&bus->lock);
-> +	init_completion(&bus->cmd_complete);
-> +	bus->adap.owner = THIS_MODULE;
-> +	bus->adap.retries = 0;
-> +	bus->adap.timeout = 5 * HZ;
-> +	bus->adap.algo = &aspeed_i2c_algo;
-> +	bus->adap.algo_data = bus;
-> +	bus->adap.dev.parent = &pdev->dev;
-> +	bus->adap.dev.of_node = pdev->dev.of_node;
-> +	snprintf(bus->adap.name, sizeof(bus->adap.name), "Aspeed i2c");
-> +
-> +	bus->dev = &pdev->dev;
-> +
-> +	/*
-> +	 * No need to quiesce interrupts because there is no interrupt handler
-> +	 * installed.
-> +	 */
-> +	writel(0, bus->base + ASPEED_I2C_INTR_CTRL_REG);
-> +	ret = __aspeed_i2c_init(bus, pdev);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	bus->irq = irq_of_parse_and_map(pdev->dev.of_node, 0);
-> +	ret = devm_request_irq(&pdev->dev, bus->irq, aspeed_i2c_bus_irq,
-> +			       0, dev_name(&pdev->dev), bus);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret = i2c_add_adapter(&bus->adap);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	platform_set_drvdata(pdev, bus);
-> +
-> +	dev_info(bus->dev, "i2c bus %d registered, irq %d\n",
-> +		 bus->adap.nr, bus->irq);
-> +
-> +	return 0;
-> +}
-> +
-> +static int aspeed_i2c_remove_bus(struct platform_device *pdev)
-> +{
-> +	struct aspeed_i2c_bus *bus = platform_get_drvdata(pdev);
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&bus->lock, flags);
-> +
-> +	/* Disable everything. */
-> +	writel(0, bus->base + ASPEED_I2C_FUN_CTRL_REG);
-> +	writel(0, bus->base + ASPEED_I2C_INTR_CTRL_REG);
-> +
-> +	spin_unlock_irqrestore(&bus->lock, flags);
-> +
-> +	i2c_del_adapter(&bus->adap);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct of_device_id aspeed_i2c_bus_of_table[] = {
-> +	{ .compatible = "aspeed,ast2400-i2c-bus", },
-> +	{ .compatible = "aspeed,ast2500-i2c-bus", },
-> +	{ },
-> +};
-> +MODULE_DEVICE_TABLE(of, aspeed_i2c_bus_of_table);
-> +
-> +static struct platform_driver aspeed_i2c_bus_driver = {
-> +	.probe		= aspeed_i2c_probe_bus,
-> +	.remove		= aspeed_i2c_remove_bus,
-> +	.driver		= {
-> +		.name		= "aspeed-i2c-bus",
-> +		.of_match_table	= aspeed_i2c_bus_of_table,
-> +	},
-> +};
-> +module_platform_driver(aspeed_i2c_bus_driver);
-> +
-> +MODULE_AUTHOR("Brendan Higgins <brendanhiggins@google.com>");
-> +MODULE_DESCRIPTION("Aspeed I2C Bus Driver");
-> +MODULE_LICENSE("GPL v2");
-> 
+ static struct list_head sbefifo_fifos;
+@@ -506,6 +510,7 @@ static int sbefifo_open(struct inode *inode, struct file *file)
+ 		return -ENOMEM;
+ 
+ 	file->private_data = client;
++	client->f_flags = file->f_flags;
+ 
+ 	return 0;
+ }
+@@ -530,24 +535,18 @@ static unsigned int sbefifo_poll(struct file *file, poll_table *wait)
+ 	return mask;
+ }
+ 
+-static ssize_t sbefifo_read(struct file *file, char __user *buf,
+-		size_t len, loff_t *offset)
++static ssize_t sbefifo_read_common(struct sbefifo_client *client,
++				   char __user *ubuf, char *kbuf, size_t len)
+ {
+-	struct sbefifo_client *client = file->private_data;
+ 	struct sbefifo *sbefifo = client->dev;
+ 	struct sbefifo_xfr *xfr;
+-	ssize_t ret = 0;
+ 	size_t n;
+-
+-	WARN_ON(*offset);
+-
+-	if (!access_ok(VERIFY_WRITE, buf, len))
+-		return -EFAULT;
++	ssize_t ret = 0;
+ 
+ 	if ((len >> 2) << 2 != len)
+ 		return -EINVAL;
+ 
+-	if ((file->f_flags & O_NONBLOCK) && !sbefifo_xfr_rsp_pending(client))
++	if ((client->f_flags & O_NONBLOCK) && !sbefifo_xfr_rsp_pending(client))
+ 		return -EAGAIN;
+ 
+ 	sbefifo_get_client(client);
+@@ -566,10 +565,13 @@ static ssize_t sbefifo_read(struct file *file, char __user *buf,
+ 
+ 	n = min_t(size_t, n, len);
+ 
+-	if (copy_to_user(buf, READ_ONCE(client->rbuf.rpos), n)) {
+-		sbefifo_put_client(client);
+-		return -EFAULT;
+-	}
++	if (ubuf) {
++		if (copy_to_user(ubuf, READ_ONCE(client->rbuf.rpos), n)) {
++			sbefifo_put_client(client);
++			return -EFAULT;
++		}
++	} else
++		memcpy(kbuf, READ_ONCE(client->rbuf.rpos), n);
+ 
+ 	if (sbefifo_buf_readnb(&client->rbuf, n)) {
+ 		xfr = sbefifo_client_next_xfr(client);
+@@ -592,20 +594,28 @@ static ssize_t sbefifo_read(struct file *file, char __user *buf,
+ 	return n;
+ }
+ 
+-static ssize_t sbefifo_write(struct file *file, const char __user *buf,
++static ssize_t sbefifo_read(struct file *file, char __user *buf,
+ 		size_t len, loff_t *offset)
+ {
+ 	struct sbefifo_client *client = file->private_data;
+-	struct sbefifo *sbefifo = client->dev;
+-	struct sbefifo_xfr *xfr;
+-	ssize_t ret = 0;
+-	size_t n;
+ 
+ 	WARN_ON(*offset);
+ 
+-	if (!access_ok(VERIFY_READ, buf, len))
++	if (!access_ok(VERIFY_WRITE, buf, len))
+ 		return -EFAULT;
+ 
++	return sbefifo_read_common(client, buf, NULL, len);
++}
++
++static ssize_t sbefifo_write_common(struct sbefifo_client *client,
++				    const char __user *ubuf, const char *kbuf,
++				    size_t len)
++{
++	struct sbefifo *sbefifo = client->dev;
++	struct sbefifo_xfr *xfr;
++	ssize_t ret = 0;
++	size_t n;
++
+ 	if ((len >> 2) << 2 != len)
+ 		return -EINVAL;
+ 
+@@ -617,7 +627,7 @@ static ssize_t sbefifo_write(struct file *file, const char __user *buf,
+ 	spin_lock_irq(&sbefifo->lock);
+ 	xfr = sbefifo_next_xfr(sbefifo);
+ 
+-	if ((file->f_flags & O_NONBLOCK) && xfr && n < len) {
++	if ((client->f_flags & O_NONBLOCK) && xfr && n < len) {
+ 		spin_unlock_irq(&sbefifo->lock);
+ 		return -EAGAIN;
+ 	}
+@@ -657,18 +667,25 @@ static ssize_t sbefifo_write(struct file *file, const char __user *buf,
+ 
+ 		n = min_t(size_t, n, len);
+ 
+-		if (copy_from_user(READ_ONCE(client->wbuf.wpos), buf, n)) {
+-			set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
+-			sbefifo_get(sbefifo);
+-			if (mod_timer(&sbefifo->poll_timer, jiffies))
+-				sbefifo_put(sbefifo);
+-			sbefifo_put_client(client);
+-			return -EFAULT;
++		if (ubuf) {
++			if (copy_from_user(READ_ONCE(client->wbuf.wpos), ubuf,
++			    n)) {
++				set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
++				sbefifo_get(sbefifo);
++				if (mod_timer(&sbefifo->poll_timer, jiffies))
++					sbefifo_put(sbefifo);
++				sbefifo_put_client(client);
++				return -EFAULT;
++			}
++
++			ubuf += n;
++		} else {
++			memcpy(READ_ONCE(client->wbuf.wpos), kbuf, n);
++			kbuf += n;
+ 		}
+ 
+ 		sbefifo_buf_wrotenb(&client->wbuf, n);
+ 		len -= n;
+-		buf += n;
+ 		ret += n;
+ 
+ 		/*
+@@ -685,6 +702,19 @@ static ssize_t sbefifo_write(struct file *file, const char __user *buf,
+ 	return ret;
+ }
+ 
++static ssize_t sbefifo_write(struct file *file, const char __user *buf,
++		size_t len, loff_t *offset)
++{
++	struct sbefifo_client *client = file->private_data;
++
++	WARN_ON(*offset);
++
++	if (!access_ok(VERIFY_READ, buf, len))
++		return -EFAULT;
++
++	return sbefifo_write_common(client, buf, NULL, len);
++}
++
+ static int sbefifo_release(struct inode *inode, struct file *file)
+ {
+ 	struct sbefifo_client *client = file->private_data;
+@@ -704,12 +734,68 @@ static int sbefifo_release(struct inode *inode, struct file *file)
+ 	.release	= sbefifo_release,
+ };
+ 
++struct sbefifo_client *sbefifo_drv_open(struct device *dev,
++					unsigned long flags)
++{
++	struct sbefifo_client *client = NULL;
++	struct sbefifo *sbefifo;
++	struct fsi_device *fsi_dev = to_fsi_dev(dev);
++
++	list_for_each_entry(sbefifo, &sbefifo_fifos, link) {
++		if (sbefifo->fsi_dev != fsi_dev)
++			continue;
++
++		client = sbefifo_new_client(sbefifo);
++		if (client)
++			client->f_flags = flags;
++	}
++
++	return client;
++}
++EXPORT_SYMBOL_GPL(sbefifo_drv_open);
++
++int sbefifo_drv_read(struct sbefifo_client *client, char *buf, size_t len)
++{
++	return sbefifo_read_common(client, NULL, buf, len);
++}
++EXPORT_SYMBOL_GPL(sbefifo_drv_read);
++
++int sbefifo_drv_write(struct sbefifo_client *client, const char *buf,
++		      size_t len)
++{
++	return sbefifo_write_common(client, NULL, buf, len);
++}
++EXPORT_SYMBOL_GPL(sbefifo_drv_write);
++
++void sbefifo_drv_release(struct sbefifo_client *client)
++{
++	if (!client)
++		return;
++
++	sbefifo_put_client(client);
++}
++EXPORT_SYMBOL_GPL(sbefifo_drv_release);
++
++static int sbefifo_unregister_child(struct device *dev, void *data)
++{
++	struct platform_device *child = to_platform_device(dev);
++
++	of_device_unregister(child);
++	if (dev->of_node)
++		of_node_clear_flag(dev->of_node, OF_POPULATED);
++
++	return 0;
++}
++
+ static int sbefifo_probe(struct device *dev)
+ {
+ 	struct fsi_device *fsi_dev = to_fsi_dev(dev);
+ 	struct sbefifo *sbefifo;
++	struct device_node *np;
++	struct platform_device *child;
++	char child_name[32];
+ 	u32 sts;
+-	int ret;
++	int ret, child_idx = 0;
+ 
+ 	dev_info(dev, "Found sbefifo device\n");
+ 	sbefifo = kzalloc(sizeof(*sbefifo), GFP_KERNEL);
+@@ -750,6 +836,18 @@ static int sbefifo_probe(struct device *dev)
+ 	init_waitqueue_head(&sbefifo->wait);
+ 	INIT_LIST_HEAD(&sbefifo->xfrs);
+ 
++	if (dev->of_node) {
++		/* create platform devs for dts child nodes (occ, etc) */
++		for_each_child_of_node(dev->of_node, np) {
++			snprintf(child_name, sizeof(child_name), "%s-dev%d",
++				 sbefifo->name, child_idx++);
++			child = of_platform_device_create(np, child_name, dev);
++			if (!child)
++				dev_warn(&sbefifo->fsi_dev->dev,
++					 "failed to create child node dev\n");
++		}
++	}
++
+ 	/* This bit of silicon doesn't offer any interrupts... */
+ 	setup_timer(&sbefifo->poll_timer, sbefifo_poll_timer,
+ 			(unsigned long)sbefifo);
+@@ -767,6 +865,9 @@ static int sbefifo_remove(struct device *dev)
+ 	list_for_each_entry_safe(sbefifo, sbefifo_tmp, &sbefifo_fifos, link) {
+ 		if (sbefifo->fsi_dev != fsi_dev)
+ 			continue;
++
++		device_for_each_child(dev, NULL, sbefifo_unregister_child);
++
+ 		misc_deregister(&sbefifo->mdev);
+ 		list_del(&sbefifo->link);
+ 		ida_simple_remove(&sbefifo_ida, sbefifo->idx);
+diff --git a/include/linux/fsi-sbefifo.h b/include/linux/fsi-sbefifo.h
+new file mode 100644
+index 0000000..1b46c63
+--- /dev/null
++++ b/include/linux/fsi-sbefifo.h
+@@ -0,0 +1,30 @@
++/*
++ * SBEFIFO FSI Client device driver
++ *
++ * Copyright (C) IBM Corporation 2017
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERGCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ */
++
++#ifndef __FSI_SBEFIFO_H__
++#define __FSI_SBEFIFO_H__
++
++struct device;
++struct sbefifo_client;
++
++extern struct sbefifo_client *sbefifo_drv_open(struct device *dev,
++					       unsigned long flags);
++extern int sbefifo_drv_read(struct sbefifo_client *client, char *buf,
++			    size_t len);
++extern int sbefifo_drv_write(struct sbefifo_client *client, const char *buf,
++			     size_t len);
++extern void sbefifo_drv_release(struct sbefifo_client *client);
++
++#endif /* __FSI_SBEFIFO_H__ */
+-- 
+1.8.3.1
