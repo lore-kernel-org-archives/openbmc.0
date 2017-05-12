@@ -1,101 +1,41 @@
-Return-Path: <austenc@us.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Return-Path: <clg@kaod.org>
+X-Greylist: delayed 1183 seconds by postgrey-1.36 at bilbo;
+ Fri, 12 May 2017 17:22:36 AEST
+Received: from 6.mo69.mail-out.ovh.net (6.mo69.mail-out.ovh.net
+ [46.105.50.107])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wP7JL5Hj7zDqbt
- for <openbmc@lists.ozlabs.org>; Fri, 12 May 2017 08:36:49 +1000 (AEST)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v4BMXeAB008901
- for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 18:36:45 -0400
-Received: from e38.co.us.ibm.com (e38.co.us.ibm.com [32.97.110.159])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2act8u885e-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 18:36:45 -0400
-Received: from localhost
- by e38.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
- Thu, 11 May 2017 16:36:44 -0600
-Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
- by e38.co.us.ibm.com (192.168.1.138) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 11 May 2017 16:36:42 -0600
-Received: from b03ledav002.gho.boulder.ibm.com
- (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v4BMafw88126832
- for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 15:36:41 -0700
-Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 48622136046
- for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 16:36:41 -0600 (MDT)
-Received: from d50lp33.co.us.ibm.com (unknown [9.17.249.38])
- by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTPS id 33DEF136040
- for <openbmc@lists.ozlabs.org>; Thu, 11 May 2017 16:36:41 -0600 (MDT)
-Received: from localhost
- by d50lp33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
- Thu, 11 May 2017 16:36:41 -0600
-Received: from smtp.notes.na.collabserv.com (192.155.248.74)
- by d50lp33.co.us.ibm.com (192.168.2.144) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128/128)
- Thu, 11 May 2017 16:36:37 -0600
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
- Thu, 11 May 2017 22:36:36 -0000
-Received: from us1a3-smtp07.a3.dal06.isc4sb.com (10.146.103.14)
- by smtp.notes.na.collabserv.com (10.106.227.92) with
- smtp.notes.na.collabserv.com ESMTP; Thu, 11 May 2017 22:36:33 -0000
-Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
- by us1a3-smtp07.a3.dal06.isc4sb.com
- with ESMTP id 2017051122363318-825499 ;
- Thu, 11 May 2017 22:36:33 +0000 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wPLz05vztzDqc8
+ for <openbmc@lists.ozlabs.org>; Fri, 12 May 2017 17:22:36 +1000 (AEST)
+Received: from player738.ha.ovh.net (b6.ovh.net [213.186.33.56])
+ by mo69.mail-out.ovh.net (Postfix) with ESMTP id 98ADF1EC89
+ for <openbmc@lists.ozlabs.org>; Fri, 12 May 2017 09:02:49 +0200 (CEST)
+Received: from zorba.kaod.org (LFbn-1-10647-27.w90-89.abo.wanadoo.fr
+ [90.89.233.27]) (Authenticated sender: postmaster@kaod.org)
+ by player738.ha.ovh.net (Postfix) with ESMTPSA id 4BC022A7;
+ Fri, 12 May 2017 09:02:31 +0200 (CEST)
+Subject: Re: [PATCH v7 4/5] i2c: aspeed: added driver for Aspeed I2C
+To: Brendan Higgins <brendanhiggins@google.com>, wsa@the-dreams.de,
+ robh+dt@kernel.org, mark.rutland@arm.com, tglx@linutronix.de,
+ jason@lakedaemon.net, marc.zyngier@arm.com, joel@jms.id.au, vz@mleia.com,
+ mouse@mayc.ru, benh@kernel.crashing.org
+References: <20170424181818.2754-1-brendanhiggins@google.com>
+ <20170424181818.2754-5-brendanhiggins@google.com>
+Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <a6cc137f-8803-d9a8-e426-052f05a44df5@kaod.org>
+Date: Fri, 12 May 2017 09:02:30 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.8.0
 MIME-Version: 1.0
-Subject: Developers Congress is almost here
-To: openbmc@lists.ozlabs.org
-From: "Chris Austen" <austenc@us.ibm.com>
-Date: Thu, 11 May 2017 17:36:32 -0500
-X-KeepSent: 2AD85A35:F5279C1C-8625811D:006DED3B;
- type=4; name=$KeepSent
-X-Mailer: IBM Notes Release 9.0.1EXT SHF766 December 14, 2016
-X-LLNOutbound: False
-X-Disclaimed: 30007
-X-TNEFEvaluated: 1
-Content-type: multipart/alternative; 
- Boundary="0__=09BB0B8EDFFE6BAB8f9e8a93df938690918c09BB0B8EDFFE6BAB"
-Content-Disposition: inline
-x-cbid: 17051122-0028-0000-0000-000007925862
-X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.439231; ST=0; TS=0; UL=0; ISC=; MB=0.012338
-X-IBM-SpamModules-Versions: BY=3.00007048; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000211; SDB=6.00859259; UDB=6.00425886; IPR=6.00638804; 
- BA=6.00005345; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015418; XFM=3.00000015;
- UTC=2017-05-11 22:36:34
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2017-05-11 21:20:14 - 6.00006727
-x-cbparentid: 17051122-7582-0000-0000-0000057F7BE8
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-X-TM-AS-GCONF: 00
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007048; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000211; SDB=6.00859259; UDB=6.00425886; IPR=6.00638805; 
- BA=6.00005345; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015418; XFM=3.00000015;
- UTC=2017-05-11 22:36:42
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-Message-Id: <OF2AD85A35.F5279C1C-ON8625811D.006DED3B-8625811D.007C3204@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-05-11_18:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1705110145
+In-Reply-To: <20170424181818.2754-5-brendanhiggins@google.com>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 7bit
+X-Ovh-Tracer-Id: 6780450717249473282
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeeljedrtdeigdduvddvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -107,47 +47,466 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 May 2017 22:36:51 -0000
+X-List-Received-Date: Fri, 12 May 2017 07:22:37 -0000
 
+Hello Brendan,
 
---0__=09BB0B8EDFFE6BAB8f9e8a93df938690918c09BB0B8EDFFE6BAB
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/plain; charset=US-ASCII
+[ ... ]
 
+> +static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
+> +{
+> +	u32 irq_status, status_ack = 0, command = 0;
+> +	struct i2c_msg *msg;
+> +	u8 recv_byte;
+> +
+> +	spin_lock(&bus->lock);
+> +	irq_status = readl(bus->base + ASPEED_I2C_INTR_STS_REG);
+> +
+> +	if (irq_status & ASPEED_I2CD_INTR_BUS_RECOVER_DONE) {
+> +		bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
+> +		status_ack |= ASPEED_I2CD_INTR_BUS_RECOVER_DONE;
+> +		goto out_complete;
+> +	}
+> +
+> +	/*
+> +	 * Either we encountered an interrupt that reports an error, or we are
+> +	 * in an invalid state.
+> +	 */
+> +	if (irq_status & ASPEED_I2CD_INTR_ERROR ||
+> +	    (!bus->msgs && bus->master_state != ASPEED_I2C_MASTER_STOP)) {
+> +		dev_dbg(bus->dev, "received error interrupt: 0x%08x",
+> +			irq_status);
+> +		bus->cmd_err = -EIO;
+> +		__aspeed_i2c_do_stop(bus);
 
+If I am correct, this will continuously send STOP commands if 
+an interrupt error is reported. It might be worth checking for 
+this potential issue.
 
-OpenBMC training at the OpenPOWER Developers Congress.
+Thanks,
 
-Enhance your skills of OpenBMC and OCC (On Chip Controller) by coming to
-the Developers Congress in San Francisco May 22-25.  Topics include adding
-services, UI exploration, simulation. testing and debugging.  Wednesday
-will be a Codeathon day to write a Redfish interface.  Thursday will focus
-on tailoring OpenBMC to fit your needs.
-
-https://openpowerfoundation.org/openpower-developer-congress/
-
-Sign up if you can make it
-
-
-Chris Austen
-POWER Systems Enablement Manager
-
---0__=09BB0B8EDFFE6BAB8f9e8a93df938690918c09BB0B8EDFFE6BAB
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/html; charset=US-ASCII
-Content-Disposition: inline
-
-<html><body><p><font size=3D"2">OpenBMC training at the OpenPOWER Developer=
-s Congress.  </font><br><br><font size=3D"2">Enhance your skills of OpenBMC=
- and OCC (On Chip Controller) by coming to the Developers Congress in San F=
-rancisco May 22-25.  Topics include adding services, UI exploration, simula=
-tion. testing and debugging.  Wednesday will be a Codeathon day to write a =
-Redfish interface.  Thursday will focus on tailoring OpenBMC to fit your ne=
-eds.  </font><br><br><a href=3D"https://openpowerfoundation.org/openpower-d=
-eveloper-congress/"><font size=3D"2">https://openpowerfoundation.org/openpo=
-wer-developer-congress/</font></a><br><font size=3D"2"><br>Sign up if you c=
-an make it</font><br><br><br><font size=3D"2">Chris Austen<br>POWER Systems=
- Enablement Manager <br></font><BR>
-</body></html>
-
---0__=09BB0B8EDFFE6BAB8f9e8a93df938690918c09BB0B8EDFFE6BAB--
+C. 
+ 
+> +		goto out_no_complete;
+> +	}
+> +	msg = &bus->msgs[bus->msgs_index];
+> +
+> +	/*
+> +	 * START is a special case because we still have to handle a subsequent
+> +	 * TX or RX immediately after we handle it, so we handle it here and
+> +	 * then update the state and handle the new state below.
+> +	 */
+> +	if (bus->master_state == ASPEED_I2C_MASTER_START) {
+> +		if (unlikely(!(irq_status & ASPEED_I2CD_INTR_TX_ACK))) {
+> +			dev_dbg(bus->dev,
+> +				"no slave present at %02x", msg->addr);
+> +			status_ack |= ASPEED_I2CD_INTR_TX_NAK;
+> +			goto error_and_stop;
+> +		}
+> +		status_ack |= ASPEED_I2CD_INTR_TX_ACK;
+> +		if (msg->flags & I2C_M_RD)
+> +			bus->master_state = ASPEED_I2C_MASTER_RX_FIRST;
+> +		else
+> +			bus->master_state = ASPEED_I2C_MASTER_TX_FIRST;
+> +	}
+> +
+> +	switch (bus->master_state) {
+> +	case ASPEED_I2C_MASTER_TX:
+> +		if (unlikely(irq_status & ASPEED_I2CD_INTR_TX_NAK)) {
+> +			dev_dbg(bus->dev, "slave NACKed TX");
+> +			status_ack |= ASPEED_I2CD_INTR_TX_NAK;
+> +			goto error_and_stop;
+> +		} else if (unlikely(!(irq_status & ASPEED_I2CD_INTR_TX_ACK))) {
+> +			dev_err(bus->dev, "slave failed to ACK TX");
+> +			goto error_and_stop;
+> +		}
+> +		status_ack |= ASPEED_I2CD_INTR_TX_ACK;
+> +		/* fallthrough intended */
+> +	case ASPEED_I2C_MASTER_TX_FIRST:
+> +		if (bus->buf_index < msg->len) {
+> +			bus->master_state = ASPEED_I2C_MASTER_TX;
+> +			writel(msg->buf[bus->buf_index++],
+> +			       bus->base + ASPEED_I2C_BYTE_BUF_REG);
+> +			writel(ASPEED_I2CD_M_TX_CMD,
+> +			       bus->base + ASPEED_I2C_CMD_REG);
+> +		} else {
+> +			__aspeed_i2c_next_msg_or_stop(bus);
+> +		}
+> +		goto out_no_complete;
+> +	case ASPEED_I2C_MASTER_RX_FIRST:
+> +		/* RX may not have completed yet (only address cycle) */
+> +		if (!(irq_status & ASPEED_I2CD_INTR_RX_DONE))
+> +			goto out_no_complete;
+> +		/* fallthrough intended */
+> +	case ASPEED_I2C_MASTER_RX:
+> +		if (unlikely(!(irq_status & ASPEED_I2CD_INTR_RX_DONE))) {
+> +			dev_err(bus->dev, "master failed to RX");
+> +			goto error_and_stop;
+> +		}
+> +		status_ack |= ASPEED_I2CD_INTR_RX_DONE;
+> +
+> +		recv_byte = readl(bus->base + ASPEED_I2C_BYTE_BUF_REG) >> 8;
+> +		msg->buf[bus->buf_index++] = recv_byte;
+> +
+> +		if (msg->flags & I2C_M_RECV_LEN) {
+> +			if (unlikely(recv_byte > I2C_SMBUS_BLOCK_MAX)) {
+> +				bus->cmd_err = -EPROTO;
+> +				__aspeed_i2c_do_stop(bus);
+> +				goto out_no_complete;
+> +			}
+> +			msg->len = recv_byte +
+> +					((msg->flags & I2C_CLIENT_PEC) ? 2 : 1);
+> +			msg->flags &= ~I2C_M_RECV_LEN;
+> +		}
+> +
+> +		if (bus->buf_index < msg->len) {
+> +			bus->master_state = ASPEED_I2C_MASTER_RX;
+> +			command = ASPEED_I2CD_M_RX_CMD;
+> +			if (bus->buf_index + 1 == msg->len)
+> +				command |= ASPEED_I2CD_M_S_RX_CMD_LAST;
+> +			writel(command, bus->base + ASPEED_I2C_CMD_REG);
+> +		} else {
+> +			__aspeed_i2c_next_msg_or_stop(bus);
+> +		}
+> +		goto out_no_complete;
+> +	case ASPEED_I2C_MASTER_STOP:
+> +		if (unlikely(!(irq_status & ASPEED_I2CD_INTR_NORMAL_STOP))) {
+> +			dev_err(bus->dev, "master failed to STOP");
+> +			bus->cmd_err = -EIO;
+> +			/* Do not STOP as we have already tried. */
+> +		} else {
+> +			status_ack |= ASPEED_I2CD_INTR_NORMAL_STOP;
+> +		}
+> +
+> +		bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
+> +		goto out_complete;
+> +	case ASPEED_I2C_MASTER_INACTIVE:
+> +		dev_err(bus->dev,
+> +			"master received interrupt 0x%08x, but is inactive",
+> +			irq_status);
+> +		bus->cmd_err = -EIO;
+> +		/* Do not STOP as we should be inactive. */
+> +		goto out_complete;
+> +	default:
+> +		WARN(1, "unknown master state\n");
+> +		bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
+> +		bus->cmd_err = -EIO;
+> +		goto out_complete;
+> +	}
+> +error_and_stop:
+> +	bus->cmd_err = -EIO;
+> +	__aspeed_i2c_do_stop(bus);
+> +	goto out_no_complete;
+> +out_complete:
+> +	complete(&bus->cmd_complete);
+> +out_no_complete:
+> +	if (irq_status != status_ack)
+> +		dev_err(bus->dev,
+> +			"irq handled != irq. expected 0x%08x, but was 0x%08x\n",
+> +			irq_status, status_ack);
+> +	writel(irq_status, bus->base + ASPEED_I2C_INTR_STS_REG);
+> +	spin_unlock(&bus->lock);
+> +	return !!irq_status;
+> +}
+> +
+> +static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
+> +{
+> +	struct aspeed_i2c_bus *bus = dev_id;
+> +
+> +	if (aspeed_i2c_master_irq(bus))
+> +		return IRQ_HANDLED;
+> +	else
+> +		return IRQ_NONE;
+> +}
+> +
+> +static int aspeed_i2c_master_xfer(struct i2c_adapter *adap,
+> +				  struct i2c_msg *msgs, int num)
+> +{
+> +	struct aspeed_i2c_bus *bus = adap->algo_data;
+> +	unsigned long time_left, flags;
+> +	int ret = 0;
+> +
+> +	spin_lock_irqsave(&bus->lock, flags);
+> +	bus->cmd_err = 0;
+> +
+> +	/* If bus is busy, attempt recovery. We assume a single master
+> +	 * environment.
+> +	 */
+> +	if (readl(bus->base + ASPEED_I2C_CMD_REG) & ASPEED_I2CD_BUS_BUSY_STS) {
+> +		spin_unlock_irqrestore(&bus->lock, flags);
+> +		ret = aspeed_i2c_recover_bus(bus);
+> +		if (ret)
+> +			return ret;
+> +		spin_lock_irqsave(&bus->lock, flags);
+> +	}
+> +
+> +	bus->msgs = msgs;
+> +	bus->msgs_index = 0;
+> +	bus->msgs_count = num;
+> +
+> +	reinit_completion(&bus->cmd_complete);
+> +	__aspeed_i2c_do_start(bus);
+> +	spin_unlock_irqrestore(&bus->lock, flags);
+> +
+> +	time_left = wait_for_completion_timeout(&bus->cmd_complete,
+> +						bus->adap.timeout);
+> +
+> +	spin_lock_irqsave(&bus->lock, flags);
+> +	bus->msgs = NULL;
+> +	if (time_left == 0)
+> +		ret = -ETIMEDOUT;
+> +	else
+> +		ret = bus->cmd_err;
+> +	spin_unlock_irqrestore(&bus->lock, flags);
+> +
+> +	/* If nothing went wrong, return number of messages transferred. */
+> +	if (ret >= 0)
+> +		return bus->msgs_index + 1;
+> +	else
+> +		return ret;
+> +}
+> +
+> +static u32 aspeed_i2c_functionality(struct i2c_adapter *adap)
+> +{
+> +	return I2C_FUNC_I2C | I2C_FUNC_SMBUS_EMUL | I2C_FUNC_SMBUS_BLOCK_DATA;
+> +}
+> +
+> +static const struct i2c_algorithm aspeed_i2c_algo = {
+> +	.master_xfer	= aspeed_i2c_master_xfer,
+> +	.functionality	= aspeed_i2c_functionality,
+> +};
+> +
+> +static u32 aspeed_i2c_get_clk_reg_val(u32 divisor)
+> +{
+> +	u32 base_clk, clk_high, clk_low, tmp;
+> +
+> +	/*
+> +	 * The actual clock frequency of SCL is:
+> +	 *	SCL_freq = APB_freq / (base_freq * (SCL_high + SCL_low))
+> +	 *		 = APB_freq / divisor
+> +	 * where base_freq is a programmable clock divider; its value is
+> +	 *	base_freq = 1 << base_clk
+> +	 * SCL_high is the number of base_freq clock cycles that SCL stays high
+> +	 * and SCL_low is the number of base_freq clock cycles that SCL stays
+> +	 * low for a period of SCL.
+> +	 * The actual register has a minimum SCL_high and SCL_low minimum of 1;
+> +	 * thus, they start counting at zero. So
+> +	 *	SCL_high = clk_high + 1
+> +	 *	SCL_low	 = clk_low + 1
+> +	 * Thus,
+> +	 *	SCL_freq = APB_freq /
+> +	 *		((1 << base_clk) * (clk_high + 1 + clk_low + 1))
+> +	 * The documentation recommends clk_high >= 8 and clk_low >= 7 when
+> +	 * possible; this last constraint gives us the following solution:
+> +	 */
+> +	base_clk = divisor > 33 ? ilog2((divisor - 1) / 32) + 1 : 0;
+> +	tmp = divisor / (1 << base_clk);
+> +	clk_high = tmp / 2 + tmp % 2;
+> +	clk_low = tmp - clk_high;
+> +
+> +	clk_high -= 1;
+> +	clk_low -= 1;
+> +
+> +	return ((clk_high << ASPEED_I2CD_TIME_SCL_HIGH_SHIFT)
+> +		& ASPEED_I2CD_TIME_SCL_HIGH_MASK)
+> +			| ((clk_low << ASPEED_I2CD_TIME_SCL_LOW_SHIFT)
+> +			   & ASPEED_I2CD_TIME_SCL_LOW_MASK)
+> +			| (base_clk & ASPEED_I2CD_TIME_BASE_DIVISOR_MASK);
+> +}
+> +
+> +static int __aspeed_i2c_init_clk(struct aspeed_i2c_bus *bus,
+> +				 struct platform_device *pdev)
+> +{
+> +	u32 clk_freq, divisor, clk_reg_val;
+> +	struct clk *pclk;
+> +	int ret;
+> +
+> +	pclk = devm_clk_get(&pdev->dev, NULL);
+> +	if (IS_ERR(pclk)) {
+> +		dev_err(&pdev->dev, "clk_get failed\n");
+> +		return PTR_ERR(pclk);
+> +	}
+> +	ret = of_property_read_u32(pdev->dev.of_node,
+> +				   "bus-frequency", &clk_freq);
+> +	if (ret < 0) {
+> +		dev_err(&pdev->dev,
+> +			"Could not read bus-frequency property\n");
+> +		clk_freq = 100000;
+> +	}
+> +	divisor = clk_get_rate(pclk) / clk_freq;
+> +	/* We just need the clock rate, we don't actually use the clk object. */
+> +	devm_clk_put(&pdev->dev, pclk);
+> +
+> +	clk_reg_val = aspeed_i2c_get_clk_reg_val(divisor);
+> +	writel(clk_reg_val, bus->base + ASPEED_I2C_AC_TIMING_REG1);
+> +
+> +	/*
+> +	 * If the base divisor is non-zero then we do not want to enable high
+> +	 * speed mode, otherwise we might as well enable it.
+> +	 * For reference, setting high speed mode will make the base divisor
+> +	 * zero and corresponds to a minimum SCL frequency of about 1.5MHz.
+> +	 */
+> +	if (clk_reg_val & ASPEED_I2CD_TIME_BASE_DIVISOR_MASK) {
+> +		writel(ASPEED_NO_TIMEOUT_CTRL,
+> +		       bus->base + ASPEED_I2C_AC_TIMING_REG2);
+> +	} else {
+> +		writel(readl(bus->base + ASPEED_I2C_FUN_CTRL_REG) |
+> +		       ASPEED_I2CD_M_HIGH_SPEED_EN |
+> +		       ASPEED_I2CD_M_SDA_DRIVE_1T_EN |
+> +		       ASPEED_I2CD_SDA_DRIVE_1T_EN,
+> +		       bus->base + ASPEED_I2C_FUN_CTRL_REG);
+> +
+> +		writel(0x3, bus->base + ASPEED_I2C_AC_TIMING_REG2);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int __aspeed_i2c_init(struct aspeed_i2c_bus *bus,
+> +			     struct platform_device *pdev)
+> +{
+> +	int ret;
+> +
+> +	/* Disable everything. */
+> +	writel(0, bus->base + ASPEED_I2C_FUN_CTRL_REG);
+> +
+> +	ret = __aspeed_i2c_init_clk(bus, pdev);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	/* Enable Master Mode */
+> +	writel(readl(bus->base + ASPEED_I2C_FUN_CTRL_REG) |
+> +	       ASPEED_I2CD_MASTER_EN |
+> +	       /* TODO: provide device tree option for multi-master mode. */
+> +	       ASPEED_I2CD_MULTI_MASTER_DIS,
+> +	       bus->base + ASPEED_I2C_FUN_CTRL_REG);
+> +
+> +	/* Set interrupt generation of I2C controller */
+> +	writel(ASPEED_I2CD_INTR_ALL, bus->base + ASPEED_I2C_INTR_CTRL_REG);
+> +
+> +	return 0;
+> +}
+> +
+> +static int aspeed_i2c_reset(struct aspeed_i2c_bus *bus)
+> +{
+> +	struct platform_device *pdev = to_platform_device(bus->dev);
+> +	unsigned long flags;
+> +	int ret;
+> +
+> +	spin_lock_irqsave(&bus->lock, flags);
+> +
+> +	/* Disable and quiesce interrupts. */
+> +	reinit_completion(&bus->cmd_complete);
+> +	writel(0, bus->base + ASPEED_I2C_INTR_CTRL_REG);
+> +
+> +	spin_unlock_irqrestore(&bus->lock, flags);
+> +	/*
+> +	 * We need to make sure that there are no interrupts that fired just
+> +	 * before we grabbed the lock; if that did not happen, then we are going
+> +	 * to timeout and that is okay.
+> +	 */
+> +	wait_for_completion_timeout(&bus->cmd_complete, bus->adap.timeout);
+> +	spin_lock_irqsave(&bus->lock, flags);
+> +
+> +	ret = __aspeed_i2c_init(bus, pdev);
+> +
+> +	spin_unlock_irqrestore(&bus->lock, flags);
+> +
+> +	return ret;
+> +}
+> +
+> +static int aspeed_i2c_probe_bus(struct platform_device *pdev)
+> +{
+> +	struct aspeed_i2c_bus *bus;
+> +	struct resource *res;
+> +	int ret;
+> +
+> +	bus = devm_kzalloc(&pdev->dev, sizeof(*bus), GFP_KERNEL);
+> +	if (!bus)
+> +		return -ENOMEM;
+> +
+> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> +	bus->base = devm_ioremap_resource(&pdev->dev, res);
+> +	if (IS_ERR(bus->base))
+> +		return PTR_ERR(bus->base);
+> +
+> +	/* Initialize the I2C adapter */
+> +	spin_lock_init(&bus->lock);
+> +	init_completion(&bus->cmd_complete);
+> +	bus->adap.owner = THIS_MODULE;
+> +	bus->adap.retries = 0;
+> +	bus->adap.timeout = 5 * HZ;
+> +	bus->adap.algo = &aspeed_i2c_algo;
+> +	bus->adap.algo_data = bus;
+> +	bus->adap.dev.parent = &pdev->dev;
+> +	bus->adap.dev.of_node = pdev->dev.of_node;
+> +	snprintf(bus->adap.name, sizeof(bus->adap.name), "Aspeed i2c");
+> +
+> +	bus->dev = &pdev->dev;
+> +
+> +	/*
+> +	 * No need to quiesce interrupts because there is no interrupt handler
+> +	 * installed.
+> +	 */
+> +	writel(0, bus->base + ASPEED_I2C_INTR_CTRL_REG);
+> +	ret = __aspeed_i2c_init(bus, pdev);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	bus->irq = irq_of_parse_and_map(pdev->dev.of_node, 0);
+> +	ret = devm_request_irq(&pdev->dev, bus->irq, aspeed_i2c_bus_irq,
+> +			       0, dev_name(&pdev->dev), bus);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret = i2c_add_adapter(&bus->adap);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	platform_set_drvdata(pdev, bus);
+> +
+> +	dev_info(bus->dev, "i2c bus %d registered, irq %d\n",
+> +		 bus->adap.nr, bus->irq);
+> +
+> +	return 0;
+> +}
+> +
+> +static int aspeed_i2c_remove_bus(struct platform_device *pdev)
+> +{
+> +	struct aspeed_i2c_bus *bus = platform_get_drvdata(pdev);
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&bus->lock, flags);
+> +
+> +	/* Disable everything. */
+> +	writel(0, bus->base + ASPEED_I2C_FUN_CTRL_REG);
+> +	writel(0, bus->base + ASPEED_I2C_INTR_CTRL_REG);
+> +
+> +	spin_unlock_irqrestore(&bus->lock, flags);
+> +
+> +	i2c_del_adapter(&bus->adap);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct of_device_id aspeed_i2c_bus_of_table[] = {
+> +	{ .compatible = "aspeed,ast2400-i2c-bus", },
+> +	{ .compatible = "aspeed,ast2500-i2c-bus", },
+> +	{ },
+> +};
+> +MODULE_DEVICE_TABLE(of, aspeed_i2c_bus_of_table);
+> +
+> +static struct platform_driver aspeed_i2c_bus_driver = {
+> +	.probe		= aspeed_i2c_probe_bus,
+> +	.remove		= aspeed_i2c_remove_bus,
+> +	.driver		= {
+> +		.name		= "aspeed-i2c-bus",
+> +		.of_match_table	= aspeed_i2c_bus_of_table,
+> +	},
+> +};
+> +module_platform_driver(aspeed_i2c_bus_driver);
+> +
+> +MODULE_AUTHOR("Brendan Higgins <brendanhiggins@google.com>");
+> +MODULE_DESCRIPTION("Aspeed I2C Bus Driver");
+> +MODULE_LICENSE("GPL v2");
+> 
