@@ -1,57 +1,56 @@
 Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wPgJD5mpBzDqch
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wPgJD5rTzzDqcm
  for <openbmc@lists.ozlabs.org>; Sat, 13 May 2017 05:38:36 +1000 (AEST)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v4CJcWlT022110
- for <openbmc@lists.ozlabs.org>; Fri, 12 May 2017 15:38:34 -0400
-Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2adjrw99xu-1
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v4CJcWjA062370
+ for <openbmc@lists.ozlabs.org>; Fri, 12 May 2017 15:38:32 -0400
+Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2adk6arbkm-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 12 May 2017 15:38:33 -0400
+ for <openbmc@lists.ozlabs.org>; Fri, 12 May 2017 15:38:32 -0400
 Received: from localhost
- by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Fri, 12 May 2017 13:38:33 -0600
-Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
- by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
+ Fri, 12 May 2017 13:38:26 -0600
+Received: from b03cxnp08026.gho.boulder.ibm.com (9.17.130.18)
+ by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Fri, 12 May 2017 13:38:30 -0600
+ Fri, 12 May 2017 13:38:23 -0600
 Received: from b03ledav001.gho.boulder.ibm.com
  (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v4CJcTLf10879288; Fri, 12 May 2017 12:38:29 -0700
+ by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v4CJcNRA8520148; Fri, 12 May 2017 12:38:23 -0700
 Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A00F96E035;
- Fri, 12 May 2017 13:38:29 -0600 (MDT)
+ by IMSVA (Postfix) with ESMTP id 44FEA6E03D;
+ Fri, 12 May 2017 13:38:23 -0600 (MDT)
 Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP id 41CE36E03D;
- Fri, 12 May 2017 13:38:29 -0600 (MDT)
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP id DB03D6E035;
+ Fri, 12 May 2017 13:38:22 -0600 (MDT)
 From: Eddie James <eajames@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, bradleyb@fuzziesquirrel.com, cbostic@linux.vnet.ibm.com,
  "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10 3/3] dts: aspeed: witherspoon: Add FSI devices
-Date: Fri, 12 May 2017 14:38:20 -0500
+Subject: [PATCH linux dev-4.10 0/3] drivers: fsi: Add OCC driver with SBEFIFO
+ in-kernel API
+Date: Fri, 12 May 2017 14:38:17 -0500
 X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1494617900-32369-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1494617900-32369-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-TM-AS-GCONF: 00
-x-cbid: 17051219-0016-0000-0000-000006BB0F51
+x-cbid: 17051219-0020-0000-0000-00000BEDFFB7
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00007052; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000211; SDB=6.00859642; UDB=6.00426139; IPR=6.00639225; 
+ PH=3.00000004; SC=3.00000211; SDB=6.00859642; UDB=6.00426138; IPR=6.00639225; 
  BA=6.00005345; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015432; XFM=3.00000015;
- UTC=2017-05-12 19:38:31
+ UTC=2017-05-12 19:38:24
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17051219-0017-0000-0000-0000399DC2E5
-Message-Id: <1494617900-32369-4-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 17051219-0021-0000-0000-00005C4BF5C9
+Message-Id: <1494617900-32369-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-05-12_11:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -74,74 +73,30 @@ X-List-Received-Date: Fri, 12 May 2017 19:38:37 -0000
 
 From: "Edward A. James" <eajames@us.ibm.com>
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 46 ++++++++++++++++++++++++
- 1 file changed, 46 insertions(+)
+This patch series adds a driver to communicate with the POWER processor
+On-Chip Controller (OCC), from a service processor. Communication is performed
+via the SBEFIFO driver, which required a new in-kernel API.
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-index f20aaf4..4138c93 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -65,6 +65,8 @@
- 
- 	gpio-fsi {
- 		compatible = "fsi-master-gpio", "fsi-master";
-+		#address-cells = <2>;
-+		#size-cells = <0>;
- 
- 		status = "okay";
- 
-@@ -73,6 +75,50 @@
- 		mux-gpios = <&gpio ASPEED_GPIO(A, 6) GPIO_ACTIVE_HIGH>;
- 		enable-gpios = <&gpio ASPEED_GPIO(D, 0) GPIO_ACTIVE_HIGH>;
- 		trans-gpios = <&gpio ASPEED_GPIO(R, 2) GPIO_ACTIVE_HIGH>;
-+
-+		cfam@0,0 {
-+			reg = <0 0>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			sbefifo@2400 {
-+				compatible = "ibm,p9-sbefifo";
-+				reg = <0x2400 0x400>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				occ@1 {
-+					compatible = "ibm,p9-occ";
-+					reg = <1>;
-+				};
-+			};
-+
-+			hub@3400 {
-+				compatible = "fsi-master-hub";
-+				reg = <0x3400 0x400>;
-+				#address-cells = <2>;
-+				#size-cells = <0>;
-+
-+				cfam@1,0 {
-+					reg = <1 0>;
-+					#address-cells = <1>;
-+					#size-cells = <1>;
-+
-+					sbefifo@2400 {
-+						compatible = "ibm,p9-sbefifo";
-+						reg = <0x2400 0x400>;
-+						#address-cells = <1>;
-+						#size-cells = <0>;
-+
-+						occ@2 {
-+							compatible =
-+								"ibm,p9-occ";
-+							reg = <2>;
-+						};
-+					};
-+				};
-+			};
-+		};
- 	};
- 
- 	iio-hwmon {
+The patch series includes device-tree updates to instantiate devices for the
+OCC driver from the SBEFIFO driver.
+
+An application to test the OCC driver can be found at
+https://github.com/eddiejames/occtest
+
+Edward A. James (3):
+  drivers: fsi: sbefifo: Add in-kernel API
+  drivers: fsi: sbefifo: Add OCC driver
+  dts: aspeed: witherspoon: Add FSI devices
+
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts |  46 ++
+ drivers/fsi/Kconfig                              |   9 +
+ drivers/fsi/Makefile                             |   1 +
+ drivers/fsi/fsi-sbefifo.c                        | 161 ++++--
+ drivers/fsi/occ.c                                | 625 +++++++++++++++++++++++
+ include/linux/fsi-sbefifo.h                      |  30 ++
+ 6 files changed, 842 insertions(+), 30 deletions(-)
+ create mode 100644 drivers/fsi/occ.c
+ create mode 100644 include/linux/fsi-sbefifo.h
+
 -- 
 1.8.3.1
