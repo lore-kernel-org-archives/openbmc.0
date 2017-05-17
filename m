@@ -1,61 +1,100 @@
-Return-Path: <mine260309@gmail.com>
-Received: from mail-io0-x241.google.com (mail-io0-x241.google.com
- [IPv6:2607:f8b0:4001:c06::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <ojayanth@in.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wSHJl2lQHzDq9m
- for <openbmc@lists.ozlabs.org>; Wed, 17 May 2017 11:48:07 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Chjlr/dI"; 
- dkim-atps=neutral
-Received: by mail-io0-x241.google.com with SMTP id f102so166337ioi.3
- for <openbmc@lists.ozlabs.org>; Tue, 16 May 2017 18:48:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=doETI3+RTFP0SVF/A+jOk9vBCpjQmuNfI91bVCKi2L4=;
- b=Chjlr/dIPj/+2ZW+ofjOOUR/slw8xnI071al2YdkaqGg0ZDVJgChgtYVkVanpKbP0s
- xlkPITDZTMMmCbXd6dYKwtuf8K9RIM3SUJqtD35jzEdjBI5HwxvMlYAd25aWFOZM3OGF
- iBw5Qx2I+bahPUUqxqkQikH7ha3ZRwPIaw1p7CcGoB4bIDKLFvCgt11TQbdEFismIPAr
- QcbRCNn+XQAyAaqdRk0QQW6TOFh/Wmfu9uQydOHOuwADBTqYp1UB9S8PR6k2m+ZRUm7d
- /D1ggW91Lcs2wZ9PTeO9hanfIHGUFyvcRmiSkckr+MUA25qnj4Isc8Uo+mtiYlFg1Wva
- tdAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=doETI3+RTFP0SVF/A+jOk9vBCpjQmuNfI91bVCKi2L4=;
- b=Joi+CcLIw5prQEosiKolmnaCLsh9kIYsUiihh7e/96WjnVMp8oqW3KJYgFYapUmATA
- mQITGcfHPVE1qixx0cEst6nEzIrwt6EnMzOYwM5wKOihtq1zagOSdWow1s5x22IX/t7+
- S/RQY3bSlw7oBSxMS5SPZ68yhCf77xB/a/PBuaxTGj/HUZPPSdHFvu5gW6JamoycpzQb
- MyQHcQsbkv1movAanPOHr90gj0kEz8WuAnPl9NtUp1+teLUcnZHa3Rw/UcSFqdaziibf
- qg45a4zJM+UzVbHzoJQDGBdvv02x8x2yOd+9/TsOdF5B3g5ht/8kiG8bME0umbtohB3k
- P/pw==
-X-Gm-Message-State: AODbwcB9VfL3VAV/dwqCQNv4f5EJKp84lCQ4nmhZKc+8kr2xvV9X9G1h
- DCI3BXvhUVfHal/B8VlnB3hjn7kWyw==
-X-Received: by 10.107.169.207 with SMTP id f76mr923107ioj.71.1494985685126;
- Tue, 16 May 2017 18:48:05 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wSR3R3FdczDqZJ
+ for <openbmc@lists.ozlabs.org>; Wed, 17 May 2017 17:37:06 +1000 (AEST)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v4H7Y2pg037335
+ for <openbmc@lists.ozlabs.org>; Wed, 17 May 2017 03:36:58 -0400
+Received: from e28smtp01.in.ibm.com (e28smtp01.in.ibm.com [125.16.236.1])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2agf3tg4sa-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 17 May 2017 03:36:57 -0400
+Received: from localhost
+ by e28smtp01.in.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <ojayanth@in.ibm.com>;
+ Wed, 17 May 2017 13:06:53 +0530
+Received: from d28relay10.in.ibm.com (9.184.220.161)
+ by e28smtp01.in.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Wed, 17 May 2017 13:06:52 +0530
+Received: from d28av02.in.ibm.com (d28av02.in.ibm.com [9.184.220.64])
+ by d28relay10.in.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v4H7ZHSd30015582
+ for <openbmc@lists.ozlabs.org>; Wed, 17 May 2017 13:05:17 +0530
+Received: from d28av02.in.ibm.com (localhost [127.0.0.1])
+ by d28av02.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ v4H7apWQ018330
+ for <openbmc@lists.ozlabs.org>; Wed, 17 May 2017 13:06:51 +0530
+Received: from d50lp31.co.us.ibm.com (d50lp31.boulder.ibm.com [9.17.249.32])
+ by d28av02.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ v4H7amP3018303
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
+ for <openbmc@lists.ozlabs.org>; Wed, 17 May 2017 13:06:50 +0530
+Received: from localhost
+ by d50lp31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <ojayanth@in.ibm.com>;
+ Wed, 17 May 2017 01:36:48 -0600
+Received: from smtp.notes.na.collabserv.com (192.155.248.73)
+ by d50lp31.co.us.ibm.com (192.168.2.141) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128/128)
+ Wed, 17 May 2017 01:36:44 -0600
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <ojayanth@in.ibm.com>;
+ Wed, 17 May 2017 07:36:43 -0000
+Received: from us1a3-smtp08.a3.dal06.isc4sb.com (10.146.103.57)
+ by smtp.notes.na.collabserv.com (10.106.227.90) with
+ smtp.notes.na.collabserv.com ESMTP; Wed, 17 May 2017 07:36:41 -0000
+Received: from us1a3-mail76.a3.dal09.isc4sb.com ([10.142.3.53])
+ by us1a3-smtp08.a3.dal06.isc4sb.com
+ with ESMTP id 2017051707364131-108007 ;
+ Wed, 17 May 2017 07:36:41 +0000 
+In-Reply-To: 
+Subject: BMC Dump High level Design
+From: "Jayanth Othayoth" <ojayanth@in.ibm.com>
+To: openbmc@lists.ozlabs.org
+Date: Wed, 17 May 2017 07:36:41 +0000
+Sensitivity: 
+References: 
 MIME-Version: 1.0
-Received: by 10.79.150.10 with HTTP; Tue, 16 May 2017 18:48:04 -0700 (PDT)
-In-Reply-To: <7de4ad45-f675-b691-f3de-b7c02c5e5bfd@kaod.org>
-References: <1493913487-7482-1-git-send-email-anoo@linux.vnet.ibm.com>
- <14B306E8-EFC9-4BD5-B2DD-D892CB459439@linux.vnet.ibm.com>
- <CACPK8XeNtDWLmx2qeHshd=Bg4JCNLd45CriVYLuNmGOMb-qqdg@mail.gmail.com>
- <f47cd08e-5ceb-5d41-4975-d689d2ebba3b@kaod.org>
- <7B0513B8-3B71-42AD-B9D5-2F05E7B000C2@linux.vnet.ibm.com>
- <3a8ba892-7560-a028-2441-61fe546792ed@kaod.org>
- <D4C24912-6520-4ECB-B80C-B13D1D3515AB@linux.vnet.ibm.com>
- <7de4ad45-f675-b691-f3de-b7c02c5e5bfd@kaod.org>
-From: Lei YU <mine260309@gmail.com>
-Date: Wed, 17 May 2017 09:48:04 +0800
-Message-ID: <CAARXrt=zd2H+4Xq+EwsqF=22RJsY3XpCP3pGeYpao3XkakFCQw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7] arm: configs: aspeed: Disable
- CONFIG_MTD_SPI_NOR_USE_4K_SECTORS
-To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
-Cc: Adriana Kobylak <anoo@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Importance: Normal
+X-Priority: 3 (Normal)
+X-Mailer: IBM Verse Build 14370-1181 | IBM Domino Build
+ SCN_20170424T1816_FP2.2 May 09, 2017 at 09:16
+X-LLNOutbound: False
+X-Disclaimed: 40495
+X-TNEFEvaluated: 1
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=UTF-8
+x-cbid: 17051707-7323-0000-0000-000001050EAB
+X-IBM-SpamModules-Scores: FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0; SC=0.423878;
+ ST=0; TS=0; UL=0; ISC=; MB=0.163084
+X-IBM-SpamModules-Versions: BY=3.00007076; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000212; SDB=6.00861636; UDB=6.00427379; IPR=6.00641298; 
+ BA=6.00005353; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015488; XFM=3.00000015;
+ UTC=2017-05-17 07:36:42
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2017-05-17 06:42:16 - 6.00006754
+x-cbparentid: 17051707-3108-0000-0000-00001216F216
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+X-TM-AS-MML: disable
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+Message-Id: <OF8B18E4E2.0156BD10-ON00258123.0028B202-00258123.0029CFA1@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-05-17_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=25
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1705170059
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,118 +106,407 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 May 2017 01:48:08 -0000
+X-List-Received-Date: Wed, 17 May 2017 07:37:08 -0000
 
-On Tue, May 16, 2017 at 9:59 PM, C=C3=A9dric Le Goater <clg@kaod.org> wrote=
-:
-> On 05/16/2017 03:30 PM, Adriana Kobylak wrote:
->>
->>> On May 16, 2017, at 1:01 AM, C=C3=A9dric Le Goater <clg@kaod.org <mailt=
-o:clg@kaod.org>> wrote:
->>>
->>> On 05/15/2017 02:41 AM, Adriana Kobylak wrote:
->>>>
->>>>> On May 13, 2017, at 3:49 PM, C=C3=A9dric Le Goater <clg@kaod.org <mai=
-lto:clg@kaod.org>> wrote:
->>>>>
->>>>> On 05/11/2017 02:12 PM, Joel Stanley wrote:
->>>>>> On Thu, May 11, 2017 at 7:31 AM, Adriana Kobylak
->>>>>> <anoo@linux.vnet.ibm.com <mailto:anoo@linux.vnet.ibm.com>> wrote:
->>>>>>> Milton stopped by and mentioned that you had tried to modify the 4K=
- erase
->>>>>>> sector previously for a perhaps bmc chip and saw some flash corrupt=
-ion when
->>>>>>> moving to an image that changed it?
->>>>>>>
->>>>>>> Just wanted to add that this change only changes the pnor setting a=
-nd I
->>>>>>> didn=E2=80=99t see any issues powering on a system after updating t=
-he BMC with an
->>>>>>> image with this change. Then I updated the pnor with an image that =
-had the
->>>>>>> mbox enabled. Also checked with AndrewJ and the hostboot team and t=
-here=E2=80=99s no
->>>>>>> hard-coded assumptions in their side about the erase size.
->>>>>>>
->>>>>>> With all this info let me know if you have any thoughts or concerns=
-.
->>>>>>
->>>>>> I recall issues relating to this option. I didn't record what they w=
-ere
->>>>>> though.
->>>>>
->>>>> We tried to activate 4K erase on some chips, which supported it,
->>>>> and that the OpenPOWER systems use. That was because the PNOR
->>>>> sections were not aligned with the erase size and that caused
->>>>> some issues in pflash. But it breaks the compatibility with
->>>>> previously created jffs2 filesystems. jffs2 stores the erase
->>>>> size. So we stepped back.
->>>>>
->>>>>> Cedric, can you remind me what the issues are with the 4K kconfig op=
-tion?
->>>>>
->>>>> CONFIG_MTD_SPI_NOR_USE_4K_SECTORS enables the 4K erase commands,
->>>>> and without it, the driver will use the sector erase command, most
->>>>> likely 64K. I suppose we could have the same problem as described
->>>>> above, as it can change the default erase size of a chip. to be
->>>>> checked.
-
-The same question as Cedric, PNOR has sections that are not 64K
-aligned but 4K aligned,
-e.g. HBEL, GARD:
-ID=3D02            HBEL 000a0000..000c4000 (actual=3D00024000) [ECC]
-ID=3D03           GUARD 000d0000..000d5000 (actual=3D00005000) [ECC]
-
-When using gard tool to clear GARD partition, it will fail if erasing
-size is 64K.
-
-Do we have a plan to support this case?
-
->>>>>
->>>> Thanks Cedric for the info. It appears there are no issues when
->>>> disabling the 4K sectors for the pnor chip (yes, the erase size
->>>> is then 64K), probably because the pnor is not formatted with
->>>> a jffs2 filesystem. We might need to clear the pnor chip anyways
->>>> to be able to format it as a UBI volume. So would you say we=E2=80=99r=
-e
->>>> ok with this patch?
->>>
->>> Well, what if the BMC is using a flash module with a 4K erase size ?
->>
->> All the mtd devices except PNOR in the P8 and P9 systems running openbmc
->> have already an erase size of 64K.
->
-> So everything is fine for these.
->
-> Cheers,
->
-> C.
->
->
->> Ex witherspoon:
->> root@witherspoon:~# cat /proc/mtd
->> dev:    size   erasesize  name
->> mtd0: 02000000 00010000 "bmc"
->> mtd1: 00060000 00010000 "u-boot"
->> mtd2: 00020000 00010000 "u-boot-env"
->> mtd3: 00440000 00010000 "kernel"
->> mtd4: 01740000 00010000 "rofs"
->> mtd5: 00400000 00010000 "rwfs"
->> mtd6: 02000000 00010000 "alt"
->> mtd7: 08000000 00001000 =E2=80=9Cpnor=E2=80=9D
->>
->> Ex barreleye:
->> root@barreleye:~# cat /proc/mtd
->> dev:    size   erasesize  name
->> mtd0: 02000000 00010000 "bmc"
->> mtd1: 00060000 00010000 "u-boot"
->> mtd2: 00020000 00010000 "u-boot-env"
->> mtd3: 00440000 00010000 "kernel"
->> mtd4: 01740000 00010000 "rofs"
->> mtd5: 00400000 00010000 "rwfs"
->> mtd6: 04000000 00001000 "pnor"
->>
->>>
->>> C.
->>
->
+<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
+elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" ><div>Design goals=
+:<br>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp; &nbsp;Enable Debug data colle=
+ction for user level application failure and user initiated dump. Design sh=
+ould be flexible enough to accommodate<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;Any future dump use cases<br>&nbsp;&nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;Open sour=
+ce reporting tools</div>
+<div>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp; &nbsp;Assumptions:<br>&nbsp;&=
+nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =E2=96=AA&nbsp;&nbsp=
+; &nbsp;FFDC partition size is 1MB.<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; =E2=96=AA&nbsp;&nbsp; &nbsp;Maximum size of a Dum=
+p entry is 500K.</div>
+<div>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp; &nbsp;Overview<br>&nbsp;&nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; =E2=96=AA&nbsp;&nbsp; &nbsp;Dump Manage=
+ment contains two processes and a bash script based infrastructure(dReport)=
+ for reporting.<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =E2=81=83=
+&nbsp;&nbsp; &nbsp;phosphor-dump-manager: This is daemon and serves the key=
+ Dbus calls related to Dump. Which includes<br>&nbsp;&nbsp; &nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; =E2=80=A2&nbsp;&nbsp; &nbsp;Manager Class which is responsible for over=
+all Dump management.<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =E2=80=A2&nbsp;&nbs=
+p; &nbsp;Entry class is responsible for individual Dump entry level managem=
+ent.<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =E2=80=A2&nbsp;&nbsp; &nbsp;Dbus in=
+terfaces ( REST use cases) as part of this process.<br>&nbsp;&nbsp; &nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =E2=80=A2&nbsp;=
+&nbsp; &nbsp;Create(): Start creating new user initiated dump reports and s=
+ave in to FFDC partition.<br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =E2=81=83&nbsp;&nbsp; =
+&nbsp;Member in Manager class.<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =E2=80=A2&nbsp;&nbsp; &nbsp;Delete()=
+: Delete all dump reports in FFDC partition.<br>&nbsp;&nbsp; &nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;Member in Manag=
+er class<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; =E2=80=A2&nbsp;&nbsp; &nbsp;GetDump(): returns Dump data f=
+ile for a given Dump ID.<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;Member in Entry class<br>&nbsp;&nbs=
+p; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =E2=80=A2&n=
+bsp;&nbsp; &nbsp;DeleteDump(): Delete dumpreport for a given Dump ID. ( Use=
+ exiting DBus delete function)<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;Member in Entry class<br>&nbs=
+p;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =E2=80=A2&nbsp;&nbsp; &nbsp;ReportDump(Ty=
+pe,list of files): Start creating new dump reports using dReport script bas=
+ed on type and save in to FFDC partition.<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; =E2=80=A2&nbsp;&nbsp; &nbsp;Member in Manager =
+class and&nbsp; Dbus (internal) interface.</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =E2=80=
+=A2&nbsp;&nbsp; List of files includes core file info incase core dump type=
+.<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =E2=80=A2&n=
+bsp;&nbsp; &nbsp;initiate dReport script for creating dump report.</div>
+<div>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =E2=80=A2&nbsp;&nbsp; &nbs=
+p;Attributes supports.<br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp;&nbsp; =E2=80=A2&nbsp;&nbsp; &nbsp;Size.<br>&nbsp;&nbsp; &nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;Membe=
+r in Entry class<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =E2=
+=80=A2&nbsp;&nbsp; &nbsp;TimeStamp().<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;Member in Entry class<=
+br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;pho=
+sphor-dump-inotify:</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -This is daemon for monitoring for new core f=
+iles in the selected core file directory.</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; - For any new core this will read the list of avail=
+able cores in the inotify list and&nbsp; call&nbsp; ReportDump(ApplicationC=
+rash,list of core files) bus interface to generate new Report.</div>
+<div><br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =E2=81=83&nbsp;&nbsp; &nb=
+sp;dReport: Bash script based reporting application, which is used to gener=
+ates a compressed tarball of debugging information based on input type and<=
+/div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; settings in the bmcdump.config file settings.Details are availa=
+ble in dReport Section.</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp; &nbsp;Execution flow for User=
+ initiated Dump<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =E2=96=AA&nbsp=
+;&nbsp; &nbsp;User request Dump via REST call<br>&nbsp;&nbsp; &nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =E2=96=AA&nbsp;&nbsp; &nbsp;Dump Manage=
+r gets this request<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;Call internal function=
+ ReportDump(Type =3D userInitiated) to initiate dump reporting process.<br>=
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;=
+&nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;ReportDump(Type,ErrorlogID)<br>&nbsp;&nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;Increment Dum=
+pID.<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =E2=81=83&nbsp;&nbsp;&nbsp; G=
+enerate UUID ( use existing systemD d bus api)<br>&nbsp;&nbsp; &nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;Creates Entry objects with dumpID,=
+ errorlogID and Type.<br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =E2=81=
+=83&nbsp;&nbsp; &nbsp;call dReport script for reporting dump.<br>&nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ =E2=81=83&nbsp;&nbsp; &nbsp;input parameter Type, dumpID, errorlogID,UUID<=
+br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; =E2=81=83&nbsp;&nbsp; &=
+nbsp;update Entry object member size with file size info.</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp; &nbsp;Execution flow for Appl=
+ication Crash<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+=E2=80=A2&nbsp;&nbsp; &nbsp;phosphor-dump-inotify daemon gets notification =
+for the new core file.</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =E2=80=A2=
+&nbsp;&nbsp; phosphor-dump-inotify daemon reads the list core file from ino=
+tify.<br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =E2=80=A2&nbsp;&nbsp;&nbs=
+p; phosphor-dump-inotify call=E2=80=99s internal dBus interface ReportDump(=
+Type =3D ApplicationCrash, list of core files).<br>&nbsp;&nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; =E2=81=83&nbsp;&n=
+bsp; &nbsp;Create Error log and commit.<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;Need to follow same steps mentio=
+ned above in ReportDump(Type, ErrorlogID)</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp; &nbsp;For future usecases<br>=
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; =E2=80=A2&nbsp;&nbsp; &nbsp;Create=
+ service file and use internal DBus interface ReportDump(Type,errorlogid) t=
+o trigger dump.</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp; &nbsp;Git Repo - phosphor-deb=
+ug-collector.</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp; &nbsp;Dump File Name: bmcdump=
+[TIMESTAMP][Serial Number][UUID][TYPE].tar.bz2</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp; &nbsp;Other potential Dump us=
+e cases, not considered here<br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+=E2=96=AA&nbsp;&nbsp; &nbsp;Kernel panic<br>&nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp;&nbsp; =E2=96=AA&nbsp;&nbsp; &nbsp;Host quiesce state<br>&nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp;&nbsp; =E2=96=AA&nbsp;&nbsp; &nbsp;Boot Failure<br>&nbsp=
+; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; =E2=96=AA&nbsp;&nbsp; &nbsp;BMC Reset</=
+div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><strong>dReport:</strong><br>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp; =
+&nbsp;This design approach is adopted from init.d.<br>&nbsp;&nbsp; &nbsp;=
+=E2=80=A2&nbsp;&nbsp; &nbsp;=E2=80=9CdReport=E2=80=9D set of bash scripts t=
+hat gathers information about system hardware, configuration and debug logs=
+. This information can be used for diagnostic purposes</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; and debugging. =
+This tool is mainly aimed for developers and lab bring-up. Key features<br>=
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; =E2=81=83&nbsp=
+;&nbsp; &nbsp;Generates a compressed tarball of debugging information based=
+ on user inputs and bmcdump.config file settings.</div>
+<div>Design Flow: &nbsp;<br>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp; &nbsp;=
+The /etc/bmcdump.conf used to keep all dump specific config and settings</d=
+iv>
+<div>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp; &nbsp;All installed&nbsp; Dum=
+p collection commands script should store in&nbsp; /usr/share/dump/bmc-base=
+.<br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; =E2=81=83&nbsp;&=
+nbsp; &nbsp;Script command&nbsp; file follows&nbsp; a simple format and set=
+ of consistent actions,&nbsp; which includes<br>&nbsp;&nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; =E2=81=83&nbs=
+p;&nbsp; &nbsp;CONFIG [TYPE ..] [priority]&nbsp; - TYPE - 0..6 priority 0..=
+99 ( Eg : CONFIG 234 93 =E2=80=94 include this in TYPE 2,3,4 with priority =
+93)<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;Methods<br>&nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;execute()&nbsp;&nbsp; =E2=80=
+=94 execute command and save in to temporary file.<br>&nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;error()&nbsp;&nbsp;&nbsp;&nbsp;=
+ =E2=80=94 handle error.<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =E2=81=83&=
+nbsp;&nbsp; &nbsp;summary()&nbsp;&nbsp; =E2=80=94 Update summary log file w=
+ith execution status.</div>
+<div>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp; &nbsp;Create&nbsp; symbolic l=
+inks in /usr/share/dump/bmc-xx (use case specific path) during initializati=
+on based on the control comments defined in the beginning of the script.<br=
+>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =E2=81=83&nbsp;&nbs=
+p; &nbsp;File name Eg:&nbsp;&nbsp; /usr/share/dump/bmc-rc1/b93date&nbsp;&nb=
+sp;&nbsp; =E2=80=94 b ( BMC Dump) , 93 - Sequence .Date -command name.<br>&=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; =E2=81=83&nbsp;&nbsp; &nbsp; Sequence number in which the programs =
+should be started. This can be used optimizing dump incase size exceeded.</=
+div>
+<div>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp; &nbsp;Depending on type setti=
+ng, the&nbsp; report bash script&nbsp; will execute the programs from one o=
+f the following directories.<br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp;&nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;0 : Disable Dump&nbsp; /usr/s=
+hare/dump/bmc-disable&nbsp; &nbsp;<br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp;&nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;1 : User Initiated&nbsp=
+;&nbsp; /usr/share/bmc-userinitiated<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;2 : Application crash&nbsp=
+; /usr/share/bmc-appcrash</div>
+<div>&nbsp;</div>
+<div>&nbsp; &nbsp;Example: Subsystems installed in /etc/init.d<br>&nbsp;&nb=
+sp; &nbsp;&nbsp;&nbsp; &nbsp;-bash-4.1$ pwd<br>&nbsp;&nbsp; &nbsp;&nbsp;&nb=
+sp; &nbsp;/etc/init.d<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;-bash-4.1$ l=
+s -l<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;-rwxr-xr-x. 1 root root&nbsp;=
+&nbsp;&nbsp;&nbsp; 1288 Jan 23&nbsp; 2013 abrt-ccpp<br>&nbsp;&nbsp; &nbsp;&=
+nbsp;&nbsp; &nbsp;-rwxr-xr-x. 1 root root&nbsp;&nbsp;&nbsp;&nbsp; 1628 Jan =
+23&nbsp; 2013 abrtd<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;-rwxr-xr-x. 1 =
+root root&nbsp;&nbsp;&nbsp;&nbsp; 1642 Jan 23&nbsp; 2013 abrt-oops<br>&nbsp=
+;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;--rwxr-xr-x. 1 root root&nbsp;&nbsp;&nbsp;=
+&nbsp; 2062 Oct&nbsp; 6&nbsp; 2014 atd<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &=
+nbsp;-rwxr-xr-x. 1 root root&nbsp;&nbsp;&nbsp;&nbsp; 1041 Jan 16&nbsp; 2014=
+ atop<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;-rwxr-xr-x. 1 root root&nbsp=
+;&nbsp;&nbsp;&nbsp; 3378 Mar 14&nbsp; 2012 auditd</div>
+<div>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;/etc/rc.d/rcN.d (N is the runlev=
+el indicator)<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;These directories mu=
+st contain only special symbolic links to the scripts in /etc/init.d. This =
+is how it looks:<br>&nbsp;&nbsp; &nbsp;Example: /etc/rc3.d listing<br>&nbsp=
+;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;-bash-4.1$ pwd<br>&nbsp;&nbsp; &nbsp;&nbsp=
+;&nbsp; &nbsp;/etc/rc3.d<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;-bash-4.1=
+$ ls -l<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;lrwxrwxrwx. 1 root root 17=
+ May&nbsp; 2&nbsp; 2015 K00ipmievd -&gt; ../init.d/ipmievd<br>&nbsp;&nbsp; =
+&nbsp;&nbsp;&nbsp; &nbsp;lrwxrwxrwx. 1 root root 22 May&nbsp; 2&nbsp; 2015 =
+K01bmc-watchdog -&gt; ../init.d/bmc-watchdog<br>&nbsp;&nbsp; &nbsp;&nbsp;&n=
+bsp; &nbsp;lrwxrwxrwx. 1 root root 18 May&nbsp; 2&nbsp; 2015 K01collectl -&=
+gt; ../init.d/collectl<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;lrwxrwxrwx.=
+ 1 root root 16 May&nbsp; 2&nbsp; 2015 K01smartd -&gt; ../init.d/smartd</di=
+v>
+<div><br>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp; &nbsp;Dump Manager/comman=
+d line can&nbsp; executes /usr/share/dump/dReport bash script , which inclu=
+des<br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =E2=81=83&nbsp;&nbsp=
+; &nbsp;Check the space available in temporary location (/tmp)<br>&nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; =E2=81=
+=83&nbsp;&nbsp; &nbsp;Exit script with error code , incase no space availab=
+le.<br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =E2=81=83&nbsp;&nbsp=
+; &nbsp;For any space issue during dump data collection ,dReport should sav=
+e the collected info into specified location in the Flash.<br>&nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;Depending on=
+ the =E2=80=9Ctype=E2=80=9D, execute the programs from the specified direct=
+ories ,. which includes<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;Dump Summary=
+<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;copy of=
+&nbsp; /usr/share/bmcdump.conf.<br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;Dump=
+ Log<br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;Outputs of the various commands=
+ in /usr/share/dump/bmc-rcx<br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; =E2=81=83&nbsp;&nbsp; &nbsp;Create log file to keep the Dump collection=
+ progress.<br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =E2=81=83&nbs=
+p;&nbsp; &nbsp;Store the data in /tmp/Dump/filename temporarily.<br>&nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; =E2=81=
+=83&nbsp;&nbsp; &nbsp;Use file move option for core specific debug files in=
+case file delete option is enabled for the specific files.<br>&nbsp;&nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =E2=81=83&nb=
+sp;&nbsp; &nbsp;Data stores in File format similar to sosreport.<br>&nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;Check =
+the space availability in Permanent location<br>&nbsp;&nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =E2=81=83&nbsp;&nbsp; &nbs=
+p;Delete the oldest dump incase, the allowed size is less than Dump Max siz=
+e if the file delete policy is enabled.<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp;&nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;Generate compressed tarball and=
+ save into permanent location.<br>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;Delete lower priority files incase compre=
+ssed tar file is great than allowed size<br>&nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;D=
+elete temporary file after successful compression.<br>&nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =E2=81=83&nbsp;&nbs=
+p; &nbsp;Delete core debug file from core location incase , it is included =
+in this dump.<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;For any general failure whic=
+h cause Dump collection script will exit with an error code</div>
+<div>&nbsp;</div>
+<div>BMC Dump configuration - /etc/bmcdump.conf.<br>&nbsp;&nbsp; &nbsp;=E2=
+=80=A2&nbsp;&nbsp; &nbsp;This need discussion , keep system config only now=
+<br>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp; &nbsp;Options are set using 'i=
+ni'-style name =3D value pairs.<br>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp;=
+ &nbsp;Name info<br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =E2=81=83&nbsp=
+;&nbsp; &nbsp;filelocationtemp&nbsp;&nbsp;&nbsp; // Temporary file location=
+ in RAM<br>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; =E2=81=83&nbsp;&nbsp; &=
+nbsp;filelocation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // File path in=
+ Flash<br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =E2=81=83&nbsp;&nbsp; &n=
+bsp;compression&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Compress=
+ion scheme.<br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =E2=81=83&nbsp;&nbs=
+p; &nbsp;corefile&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; // Core file path<br>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; =E2=
+=81=83&nbsp;&nbsp; &nbsp;kerneldebug&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; // Kernel Debug Data path<br>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &n=
+bsp; =E2=81=83&nbsp;&nbsp; &nbsp;maxsize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Max file size.<br>&nbsp; &nbsp; &n=
+bsp; &nbsp;&nbsp; &nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;debug&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Enab=
+le Debug option. to print more trace</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&nbsp;&n=
+bsp;&nbsp; deletedump&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Delete old dumps inc=
+ase not enough storage space.</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><strong>Dump Contents:</strong></div>
+<div>&nbsp;</div>
+<div>0-9: Must to have for all types of Dumps</div>
+<div>1. summary.log&nbsp; &nbsp;<br>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp=
+; &nbsp;DumpID<br>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp; &nbsp;UUID<br>&n=
+bsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp; &nbsp;File Name<br>&nbsp;&nbsp; &nbs=
+p;=E2=80=A2&nbsp;&nbsp; &nbsp;The Date<br>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp=
+;&nbsp; &nbsp;System uptime<br>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp; &nb=
+sp;Software release information (Kernel,BMC,Host).<br>&nbsp;&nbsp; &nbsp; &=
+nbsp; &nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;cat /etc/version<br>&nbsp;&nbsp; &=
+nbsp; &nbsp; &nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;cat /etc/os-release<br>&nbs=
+p;&nbsp; &nbsp;=E2=81=83&nbsp;&nbsp; &nbsp;uname -a<br>&nbsp;&nbsp; &nbsp;=
+=E2=80=A2&nbsp;&nbsp; &nbsp;State information ( BMC,Chassis,Host )<br>&nbsp=
+;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp; &nbsp;Boot progress<br>&nbsp;&nbsp; &nb=
+sp;=E2=80=A2&nbsp;&nbsp; &nbsp;Dump Status summary.</div>
+<div>2. dump Log file.</div>
+<div>3. Configuration/State Basic:<br>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nb=
+sp; &nbsp;CPUs info&nbsp;&nbsp; (cat /proc/cpuinfo)<br>&nbsp;&nbsp; &nbsp;=
+=E2=80=A2&nbsp;&nbsp; &nbsp;Memory info (cat /proc/meminfo)<br>&nbsp;&nbsp;=
+ &nbsp;=E2=80=A2&nbsp;&nbsp; &nbsp;Disk usage&nbsp; (df -hT)&nbsp;&nbsp; &n=
+bsp;<br>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp; &nbsp;network basic info (=
+ ip link and ip addr)<br>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp; &nbsp;LED=
+.<br>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp; &nbsp;systemctl status&nbsp; =
+- runtime status information<br>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&nbsp; &n=
+bsp;systemctl --all --state=3Dfailed<br>&nbsp;&nbsp; &nbsp;=E2=80=A2&nbsp;&=
+nbsp; &nbsp;OS commands<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =E2=80=
+=A2&nbsp;&nbsp; &nbsp;top<br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;=
+ =E2=80=A2&nbsp;&nbsp; &nbsp;free<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; =E2=80=A2&nbsp;&nbsp; &nbsp;ps<br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp;&nbsp; =E2=80=A2&nbsp;&nbsp; &nbsp;mount<br>&nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; =E2=80=A2&nbsp;&nbsp; &nbsp;ulimit -a</div>
+<div>4. Dump Config file.<br>&nbsp; &nbsp;<br>10-99: Use case specific fail=
+ures</div>
+<div>&nbsp;</div>
+<div><strong>=E2=80=A2&nbsp;&nbsp; &nbsp;User initiated:</strong><br>&nbsp;=
+&nbsp; &nbsp;=E2=81=83&nbsp;&nbsp; &nbsp;Journal Traces =E2=80=9Cwarning an=
+d above. (journalctl -p 4)<br>&nbsp;&nbsp; &nbsp;=E2=81=83&nbsp;&nbsp; &nbs=
+p;Error Logs.<br>&nbsp;&nbsp; &nbsp;=E2=81=83&nbsp;&nbsp; &nbsp;systemctl<b=
+r>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; =E2=80=A2&nbsp;&nbsp; &nbs=
+p;list-jobs&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; =
+To list running Jobs<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =E2=80=A2=
+&nbsp;&nbsp; &nbsp;list-units -t service --all&nbsp;&nbsp; &nbsp;To list al=
+l available services and their current status<br>&nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; =E2=80=A2&nbsp;&nbsp; &nbsp;list-units -t target --all&nbsp=
+;&nbsp; &nbsp;To show all available targets.<br>&nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; =E2=80=A2&nbsp;&nbsp; &nbsp;list-timers<br>&nbsp;&nbsp; &nbs=
+p;=E2=81=83&nbsp;&nbsp; &nbsp;Inventory dump.<br>&nbsp;&nbsp; &nbsp;=E2=81=
+=83&nbsp;&nbsp; &nbsp;Watchdog<br>&nbsp;&nbsp; &nbsp;=E2=81=83&nbsp;&nbsp; =
+&nbsp;Settings<br>&nbsp;&nbsp; &nbsp;=E2=81=83&nbsp;&nbsp;&nbsp; Host Senso=
+r info<br>&nbsp;&nbsp;&nbsp; =E2=81=83&nbsp;&nbsp; &nbsp;/var/logs<br>&nbsp=
+;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =E2=80=A2&nbsp;&nbsp; &nbsp;Console:&nb=
+sp; /var/log/obmc-console.log<br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+=E2=80=A2&nbsp;&nbsp; &nbsp;SystemD:&nbsp; /var/log/messages<br>&nbsp;&nbsp=
+; &nbsp;=E2=81=83&nbsp;&nbsp; &nbsp;/proc<br>&nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp;&nbsp; =E2=80=A2&nbsp;&nbsp; &nbsp;/proc/net Network advanced info<br>&=
+nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; =E2=80=A2&nbsp;&nbsp; &nbsp;device =
+tree (find /proc/device-tree/ -type f -exec head {} + | less)<br>&nbsp;&nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; =E2=80=A2&nbsp;&nbsp; &nbsp;dmesg</div>
+<div>&nbsp;</div>
+<div><strong>=E2=80=A2&nbsp;&nbsp; &nbsp;Application Crash</strong><br>&nbs=
+p;&nbsp; &nbsp;=E2=81=83&nbsp;&nbsp; &nbsp;Core File.</div></div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Thanks &amp; Regards<br><br>Jayanth Othayoth<br>&nbsp;</d=
+iv></div><BR>
