@@ -1,76 +1,27 @@
-Return-Path: <anoo@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wSdv36lDHzDqQ8
- for <openbmc@lists.ozlabs.org>; Thu, 18 May 2017 01:45:35 +1000 (AEST)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v4HFcxW2032643
- for <openbmc@lists.ozlabs.org>; Wed, 17 May 2017 11:45:29 -0400
-Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2aggdfm0qc-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 17 May 2017 11:45:29 -0400
-Received: from localhost
- by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <anoo@linux.vnet.ibm.com>;
- Wed, 17 May 2017 11:45:28 -0400
-Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
- by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Wed, 17 May 2017 11:45:27 -0400
-Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
- [9.57.199.110])
- by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v4HFjOXb52822102; Wed, 17 May 2017 15:45:26 GMT
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 114DDAE052;
- Wed, 17 May 2017 11:45:15 -0400 (EDT)
-Received: from adriana-mbp.austin.ibm.com (unknown [9.53.179.218])
- by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTPS id 9805DAE03B;
- Wed, 17 May 2017 11:45:14 -0400 (EDT)
-From: Adriana Kobylak <anoo@linux.vnet.ibm.com>
-Content-Type: multipart/alternative;
- boundary="Apple-Mail=_E65672D1-1E88-4864-9ACA-947ABC1AA1F4"
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: Re: [PATCH linux dev-4.7] arm: configs: aspeed: Disable
- CONFIG_MTD_SPI_NOR_USE_4K_SECTORS
-Date: Wed, 17 May 2017 10:43:22 -0500
-In-Reply-To: <CAARXrt=zd2H+4Xq+EwsqF=22RJsY3XpCP3pGeYpao3XkakFCQw@mail.gmail.com>
-Cc: =?utf-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-To: Lei YU <mine260309@gmail.com>
-References: <1493913487-7482-1-git-send-email-anoo@linux.vnet.ibm.com>
- <14B306E8-EFC9-4BD5-B2DD-D892CB459439@linux.vnet.ibm.com>
- <CACPK8XeNtDWLmx2qeHshd=Bg4JCNLd45CriVYLuNmGOMb-qqdg@mail.gmail.com>
- <f47cd08e-5ceb-5d41-4975-d689d2ebba3b@kaod.org>
- <7B0513B8-3B71-42AD-B9D5-2F05E7B000C2@linux.vnet.ibm.com>
- <3a8ba892-7560-a028-2441-61fe546792ed@kaod.org>
- <D4C24912-6520-4ECB-B80C-B13D1D3515AB@linux.vnet.ibm.com>
- <7de4ad45-f675-b691-f3de-b7c02c5e5bfd@kaod.org>
- <CAARXrt=zd2H+4Xq+EwsqF=22RJsY3XpCP3pGeYpao3XkakFCQw@mail.gmail.com>
-X-Mailer: Apple Mail (2.3273)
-X-TM-AS-GCONF: 00
-x-cbid: 17051715-0048-0000-0000-000001856F26
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007078; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000212; SDB=6.00861795; UDB=6.00427475; IPR=6.00641459; 
- BA=6.00005355; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015491; XFM=3.00000015;
- UTC=2017-05-17 15:45:28
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17051715-0049-0000-0000-00004129C984
-Message-Id: <EF112150-A566-4731-AF33-E4E356FF7C95@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-05-17_11:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1705170119
+Return-Path: <c_mykolak@mellanox.com>
+X-Greylist: delayed 400 seconds by postgrey-1.36 at bilbo;
+ Thu, 18 May 2017 19:58:41 AEST
+Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
+ by lists.ozlabs.org (Postfix) with ESMTP id 3wT68K6YRBzDqb6
+ for <openbmc@lists.ozlabs.org>; Thu, 18 May 2017 19:58:41 +1000 (AEST)
+Received: from Internal Mail-Server by MTLPINE1 (envelope-from
+ c?mykolak@mellanox.com)
+ with ESMTPS (AES256-SHA encrypted); 18 May 2017 12:51:55 +0300
+Received: from r-build-lowlevel.mtr.labs.mlnx. (r-build-lowlevel.mtr.labs.mlnx
+ [10.209.0.190])
+ by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id v4I9ps3G014269;
+ Thu, 18 May 2017 12:51:54 +0300
+From: Mykola Kostenok <c_mykolak@mellanox.com>
+To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
+Cc: Mykola Kostenok <c_mykolak@mellanox.com>
+Subject: [PATCH linux dev-4.10] Initial introduction of Mellanox switches of
+ MSNXXXX family equipped with Aspeed 2520 BMC SoC. Initial minimal commit to
+ support Mellanox MSNXXXX switches,
+ including: Adding Mellanox msn platform early initialization. Adding Mellanox
+ msn platform device tree file
+Date: Thu, 18 May 2017 12:51:00 +0300
+Message-Id: <20170518095100.194211-1-c_mykolak@mellanox.com>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -82,383 +33,365 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 May 2017 15:45:36 -0000
+X-List-Received-Date: Thu, 18 May 2017 09:58:43 -0000
 
+Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
+---
+ .../devicetree/bindings/vendor-prefixes.txt        |   1 +
+ arch/arm/boot/dts/Makefile                         |   1 +
+ .../dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi  |  32 ++++
+ arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts      | 205 +++++++++++++++++++++
+ arch/arm/configs/aspeed_g5_defconfig               |   2 +
+ arch/arm/mach-aspeed/aspeed.c                      |  28 +++
+ 6 files changed, 269 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
 
---Apple-Mail=_E65672D1-1E88-4864-9ACA-947ABC1AA1F4
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=utf-8
-
-
-> On May 16, 2017, at 8:48 PM, Lei YU <mine260309@gmail.com> wrote:
->=20
-> On Tue, May 16, 2017 at 9:59 PM, C=C3=A9dric Le Goater <clg@kaod.org =
-<mailto:clg@kaod.org>> wrote:
->> On 05/16/2017 03:30 PM, Adriana Kobylak wrote:
->>>=20
->>>> On May 16, 2017, at 1:01 AM, C=C3=A9dric Le Goater <clg@kaod.org =
-<mailto:clg@kaod.org>> wrote:
->>>>=20
->>>> On 05/15/2017 02:41 AM, Adriana Kobylak wrote:
->>>>>=20
->>>>>> On May 13, 2017, at 3:49 PM, C=C3=A9dric Le Goater <clg@kaod.org =
-<mailto:clg@kaod.org>> wrote:
->>>>>>=20
->>>>>> On 05/11/2017 02:12 PM, Joel Stanley wrote:
->>>>>>> On Thu, May 11, 2017 at 7:31 AM, Adriana Kobylak
->>>>>>> <anoo@linux.vnet.ibm.com <mailto:anoo@linux.vnet.ibm.com>> =
-wrote:
->>>>>>>> Milton stopped by and mentioned that you had tried to modify =
-the 4K erase
->>>>>>>> sector previously for a perhaps bmc chip and saw some flash =
-corruption when
->>>>>>>> moving to an image that changed it?
->>>>>>>>=20
->>>>>>>> Just wanted to add that this change only changes the pnor =
-setting and I
->>>>>>>> didn=E2=80=99t see any issues powering on a system after =
-updating the BMC with an
->>>>>>>> image with this change. Then I updated the pnor with an image =
-that had the
->>>>>>>> mbox enabled. Also checked with AndrewJ and the hostboot team =
-and there=E2=80=99s no
->>>>>>>> hard-coded assumptions in their side about the erase size.
->>>>>>>>=20
->>>>>>>> With all this info let me know if you have any thoughts or =
-concerns.
->>>>>>>=20
->>>>>>> I recall issues relating to this option. I didn't record what =
-they were
->>>>>>> though.
->>>>>>=20
->>>>>> We tried to activate 4K erase on some chips, which supported it,
->>>>>> and that the OpenPOWER systems use. That was because the PNOR
->>>>>> sections were not aligned with the erase size and that caused
->>>>>> some issues in pflash. But it breaks the compatibility with
->>>>>> previously created jffs2 filesystems. jffs2 stores the erase
->>>>>> size. So we stepped back.
->>>>>>=20
->>>>>>> Cedric, can you remind me what the issues are with the 4K =
-kconfig option?
->>>>>>=20
->>>>>> CONFIG_MTD_SPI_NOR_USE_4K_SECTORS enables the 4K erase commands,
->>>>>> and without it, the driver will use the sector erase command, =
-most
->>>>>> likely 64K. I suppose we could have the same problem as described
->>>>>> above, as it can change the default erase size of a chip. to be
->>>>>> checked.
->=20
-> The same question as Cedric, PNOR has sections that are not 64K
-> aligned but 4K aligned,
-> e.g. HBEL, GARD:
-> ID=3D02            HBEL 000a0000..000c4000 (actual=3D00024000) [ECC]
-> ID=3D03           GUARD 000d0000..000d5000 (actual=3D00005000) [ECC]
->=20
-> When using gard tool to clear GARD partition, it will fail if erasing
-> size is 64K.
->=20
-> Do we have a plan to support this case?
-
-Thanks Lei for providing this info. For the proposed openbmc =
-implementation, it=E2=80=99d work since the pnor sections (or =
-partitions) would be files located in a ubi volume, and their data =
-loaded into memory (virtual pnor) for the host to access, so erasing =
-GUARD for example would underneath the covers modify the GUARD.bin file =
-and not a specific offset in the physical pnor chip.
-
-But that raises the question about openpower systems that are not =
-running openbmc. Should disabling 4k be an openbmc only patch?
-
->=20
->>>>>>=20
->>>>> Thanks Cedric for the info. It appears there are no issues when
->>>>> disabling the 4K sectors for the pnor chip (yes, the erase size
->>>>> is then 64K), probably because the pnor is not formatted with
->>>>> a jffs2 filesystem. We might need to clear the pnor chip anyways
->>>>> to be able to format it as a UBI volume. So would you say we=E2=80=99=
-re
->>>>> ok with this patch?
->>>>=20
->>>> Well, what if the BMC is using a flash module with a 4K erase size =
-?
->>>=20
->>> All the mtd devices except PNOR in the P8 and P9 systems running =
-openbmc
->>> have already an erase size of 64K.
->>=20
->> So everything is fine for these.
->>=20
->> Cheers,
->>=20
->> C.
->>=20
->>=20
->>> Ex witherspoon:
->>> root@witherspoon:~# cat /proc/mtd
->>> dev:    size   erasesize  name
->>> mtd0: 02000000 00010000 "bmc"
->>> mtd1: 00060000 00010000 "u-boot"
->>> mtd2: 00020000 00010000 "u-boot-env"
->>> mtd3: 00440000 00010000 "kernel"
->>> mtd4: 01740000 00010000 "rofs"
->>> mtd5: 00400000 00010000 "rwfs"
->>> mtd6: 02000000 00010000 "alt"
->>> mtd7: 08000000 00001000 =E2=80=9Cpnor=E2=80=9D
->>>=20
->>> Ex barreleye:
->>> root@barreleye:~# cat /proc/mtd
->>> dev:    size   erasesize  name
->>> mtd0: 02000000 00010000 "bmc"
->>> mtd1: 00060000 00010000 "u-boot"
->>> mtd2: 00020000 00010000 "u-boot-env"
->>> mtd3: 00440000 00010000 "kernel"
->>> mtd4: 01740000 00010000 "rofs"
->>> mtd5: 00400000 00010000 "rwfs"
->>> mtd6: 04000000 00001000 "pnor"
->>>=20
->>>>=20
->>>> C.
-
-
---Apple-Mail=_E65672D1-1E88-4864-9ACA-947ABC1AA1F4
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=utf-8
-
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html =
-charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
--webkit-nbsp-mode: space; -webkit-line-break: after-white-space;" =
-class=3D""><br class=3D""><div><blockquote type=3D"cite" class=3D""><div =
-class=3D"">On May 16, 2017, at 8:48 PM, Lei YU &lt;<a =
-href=3D"mailto:mine260309@gmail.com" =
-class=3D"">mine260309@gmail.com</a>&gt; wrote:</div><br =
-class=3D"Apple-interchange-newline"><div class=3D""><span =
-style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-float: none; display: inline !important;" class=3D"">On Tue, May 16, =
-2017 at 9:59 PM, C=C3=A9dric Le Goater &lt;</span><a =
-href=3D"mailto:clg@kaod.org" style=3D"font-family: ArialUnicodeMS; =
-font-size: 12px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; orphans: auto; text-align: =
-start; text-indent: 0px; text-transform: none; white-space: normal; =
-widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto; =
--webkit-text-stroke-width: 0px;" class=3D"">clg@kaod.org</a><span =
-style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-float: none; display: inline !important;" class=3D"">&gt; =
-wrote:</span><br style=3D"font-family: ArialUnicodeMS; font-size: 12px; =
-font-style: normal; font-variant-caps: normal; font-weight: normal; =
-letter-spacing: normal; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; word-spacing: 0px; =
--webkit-text-stroke-width: 0px;" class=3D""><blockquote type=3D"cite" =
-style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; orphans: auto; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; widows: auto; word-spacing: =
-0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;" =
-class=3D"">On 05/16/2017 03:30 PM, Adriana Kobylak wrote:<br =
-class=3D""><blockquote type=3D"cite" class=3D""><br class=3D""><blockquote=
- type=3D"cite" class=3D"">On May 16, 2017, at 1:01 AM, C=C3=A9dric Le =
-Goater &lt;<a href=3D"mailto:clg@kaod.org" class=3D"">clg@kaod.org</a> =
-&lt;<a href=3D"mailto:clg@kaod.org" =
-class=3D"">mailto:clg@kaod.org</a>&gt;&gt; wrote:<br class=3D""><br =
-class=3D"">On 05/15/2017 02:41 AM, Adriana Kobylak wrote:<br =
-class=3D""><blockquote type=3D"cite" class=3D""><br class=3D""><blockquote=
- type=3D"cite" class=3D"">On May 13, 2017, at 3:49 PM, C=C3=A9dric Le =
-Goater &lt;<a href=3D"mailto:clg@kaod.org" class=3D"">clg@kaod.org</a> =
-&lt;<a href=3D"mailto:clg@kaod.org" =
-class=3D"">mailto:clg@kaod.org</a>&gt;&gt; wrote:<br class=3D""><br =
-class=3D"">On 05/11/2017 02:12 PM, Joel Stanley wrote:<br =
-class=3D""><blockquote type=3D"cite" class=3D"">On Thu, May 11, 2017 at =
-7:31 AM, Adriana Kobylak<br class=3D"">&lt;<a =
-href=3D"mailto:anoo@linux.vnet.ibm.com" =
-class=3D"">anoo@linux.vnet.ibm.com</a> &lt;<a =
-href=3D"mailto:anoo@linux.vnet.ibm.com" =
-class=3D"">mailto:anoo@linux.vnet.ibm.com</a>&gt;&gt; wrote:<br =
-class=3D""><blockquote type=3D"cite" class=3D"">Milton stopped by and =
-mentioned that you had tried to modify the 4K erase<br class=3D"">sector =
-previously for a perhaps bmc chip and saw some flash corruption when<br =
-class=3D"">moving to an image that changed it?<br class=3D""><br =
-class=3D"">Just wanted to add that this change only changes the pnor =
-setting and I<br class=3D"">didn=E2=80=99t see any issues powering on a =
-system after updating the BMC with an<br class=3D"">image with this =
-change. Then I updated the pnor with an image that had the<br =
-class=3D"">mbox enabled. Also checked with AndrewJ and the hostboot team =
-and there=E2=80=99s no<br class=3D"">hard-coded assumptions in their =
-side about the erase size.<br class=3D""><br class=3D"">With all this =
-info let me know if you have any thoughts or concerns.<br =
-class=3D""></blockquote><br class=3D"">I recall issues relating to this =
-option. I didn't record what they were<br class=3D"">though.<br =
-class=3D""></blockquote><br class=3D"">We tried to activate 4K erase on =
-some chips, which supported it,<br class=3D"">and that the OpenPOWER =
-systems use. That was because the PNOR<br class=3D"">sections were not =
-aligned with the erase size and that caused<br class=3D"">some issues in =
-pflash. But it breaks the compatibility with<br class=3D"">previously =
-created jffs2 filesystems. jffs2 stores the erase<br class=3D"">size. So =
-we stepped back.<br class=3D""><br class=3D""><blockquote type=3D"cite" =
-class=3D"">Cedric, can you remind me what the issues are with the 4K =
-kconfig option?<br class=3D""></blockquote><br =
-class=3D"">CONFIG_MTD_SPI_NOR_USE_4K_SECTORS enables the 4K erase =
-commands,<br class=3D"">and without it, the driver will use the sector =
-erase command, most<br class=3D"">likely 64K. I suppose we could have =
-the same problem as described<br class=3D"">above, as it can change the =
-default erase size of a chip. to be<br class=3D"">checked.<br =
-class=3D""></blockquote></blockquote></blockquote></blockquote></blockquot=
-e><br style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px;" =
-class=3D""><span style=3D"font-family: ArialUnicodeMS; font-size: 12px; =
-font-style: normal; font-variant-caps: normal; font-weight: normal; =
-letter-spacing: normal; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; word-spacing: 0px; =
--webkit-text-stroke-width: 0px; float: none; display: inline =
-!important;" class=3D"">The same question as Cedric, PNOR has sections =
-that are not 64K</span><br style=3D"font-family: ArialUnicodeMS; =
-font-size: 12px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px;" class=3D""><span =
-style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-float: none; display: inline !important;" class=3D"">aligned but 4K =
-aligned,</span><br style=3D"font-family: ArialUnicodeMS; font-size: =
-12px; font-style: normal; font-variant-caps: normal; font-weight: =
-normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; word-spacing: 0px; =
--webkit-text-stroke-width: 0px;" class=3D""><span style=3D"font-family: =
-ArialUnicodeMS; font-size: 12px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; display: =
-inline !important;" class=3D"">e.g. HBEL, GARD:</span><br =
-style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px;" =
-class=3D""><span style=3D"font-family: ArialUnicodeMS; font-size: 12px; =
-font-style: normal; font-variant-caps: normal; font-weight: normal; =
-letter-spacing: normal; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; word-spacing: 0px; =
--webkit-text-stroke-width: 0px; float: none; display: inline =
-!important;" class=3D"">ID=3D02 =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HBEL =
-000a0000..000c4000 (actual=3D00024000) [ECC]</span><br =
-style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px;" =
-class=3D""><span style=3D"font-family: ArialUnicodeMS; font-size: 12px; =
-font-style: normal; font-variant-caps: normal; font-weight: normal; =
-letter-spacing: normal; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; word-spacing: 0px; =
--webkit-text-stroke-width: 0px; float: none; display: inline =
-!important;" class=3D"">ID=3D03 =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GUARD =
-000d0000..000d5000 (actual=3D00005000) [ECC]</span><br =
-style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px;" =
-class=3D""><br style=3D"font-family: ArialUnicodeMS; font-size: 12px; =
-font-style: normal; font-variant-caps: normal; font-weight: normal; =
-letter-spacing: normal; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; word-spacing: 0px; =
--webkit-text-stroke-width: 0px;" class=3D""><span style=3D"font-family: =
-ArialUnicodeMS; font-size: 12px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; display: =
-inline !important;" class=3D"">When using gard tool to clear GARD =
-partition, it will fail if erasing</span><br style=3D"font-family: =
-ArialUnicodeMS; font-size: 12px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px;" class=3D""><span =
-style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-float: none; display: inline !important;" class=3D"">size is =
-64K.</span><br style=3D"font-family: ArialUnicodeMS; font-size: 12px; =
-font-style: normal; font-variant-caps: normal; font-weight: normal; =
-letter-spacing: normal; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; word-spacing: 0px; =
--webkit-text-stroke-width: 0px;" class=3D""><br style=3D"font-family: =
-ArialUnicodeMS; font-size: 12px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px;" class=3D""><span =
-style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-float: none; display: inline !important;" class=3D"">Do we have a plan =
-to support this case?</span><br style=3D"font-family: ArialUnicodeMS; =
-font-size: 12px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px;" =
-class=3D""></div></blockquote><div><br class=3D""></div>Thanks Lei for =
-providing this info. For the proposed openbmc implementation, it=E2=80=99d=
- work since the pnor sections (or partitions) would be files located in =
-a ubi volume, and their data loaded into memory (virtual pnor) for the =
-host to access, so erasing GUARD for example would underneath the covers =
-modify the GUARD.bin file and not a specific offset in the physical pnor =
-chip.</div><div><br class=3D""></div><div>But that raises the question =
-about openpower systems that are not running openbmc. Should disabling =
-4k be an openbmc only patch?</div><div><br class=3D""><blockquote =
-type=3D"cite" class=3D""><div class=3D""><br style=3D"font-family: =
-ArialUnicodeMS; font-size: 12px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px;" class=3D""><blockquote=
- type=3D"cite" style=3D"font-family: ArialUnicodeMS; font-size: 12px; =
-font-style: normal; font-variant-caps: normal; font-weight: normal; =
-letter-spacing: normal; orphans: auto; text-align: start; text-indent: =
-0px; text-transform: none; white-space: normal; widows: auto; =
-word-spacing: 0px; -webkit-text-size-adjust: auto; =
--webkit-text-stroke-width: 0px;" class=3D""><blockquote type=3D"cite" =
-class=3D""><blockquote type=3D"cite" class=3D""><blockquote type=3D"cite" =
-class=3D""><blockquote type=3D"cite" class=3D""><br =
-class=3D""></blockquote>Thanks Cedric for the info. It appears there are =
-no issues when<br class=3D"">disabling the 4K sectors for the pnor chip =
-(yes, the erase size<br class=3D"">is then 64K), probably because the =
-pnor is not formatted with<br class=3D"">a jffs2 filesystem. We might =
-need to clear the pnor chip anyways<br class=3D"">to be able to format =
-it as a UBI volume. So would you say we=E2=80=99re<br class=3D"">ok with =
-this patch?<br class=3D""></blockquote><br class=3D"">Well, what if the =
-BMC is using a flash module with a 4K erase size ?<br =
-class=3D""></blockquote><br class=3D"">All the mtd devices except PNOR =
-in the P8 and P9 systems running openbmc<br class=3D"">have already an =
-erase size of 64K.<br class=3D""></blockquote><br class=3D"">So =
-everything is fine for these.<br class=3D""><br class=3D"">Cheers,<br =
-class=3D""><br class=3D"">C.<br class=3D""><br class=3D""><br =
-class=3D""><blockquote type=3D"cite" class=3D"">Ex witherspoon:<br =
-class=3D"">root@witherspoon:~# cat /proc/mtd<br class=3D"">dev: =
-&nbsp;&nbsp;&nbsp;size &nbsp;&nbsp;erasesize &nbsp;name<br =
-class=3D"">mtd0: 02000000 00010000 "bmc"<br class=3D"">mtd1: 00060000 =
-00010000 "u-boot"<br class=3D"">mtd2: 00020000 00010000 "u-boot-env"<br =
-class=3D"">mtd3: 00440000 00010000 "kernel"<br class=3D"">mtd4: 01740000 =
-00010000 "rofs"<br class=3D"">mtd5: 00400000 00010000 "rwfs"<br =
-class=3D"">mtd6: 02000000 00010000 "alt"<br class=3D"">mtd7: 08000000 =
-00001000 =E2=80=9Cpnor=E2=80=9D<br class=3D""><br class=3D"">Ex =
-barreleye:<br class=3D"">root@barreleye:~# cat /proc/mtd<br =
-class=3D"">dev: &nbsp;&nbsp;&nbsp;size &nbsp;&nbsp;erasesize =
-&nbsp;name<br class=3D"">mtd0: 02000000 00010000 "bmc"<br class=3D"">mtd1:=
- 00060000 00010000 "u-boot"<br class=3D"">mtd2: 00020000 00010000 =
-"u-boot-env"<br class=3D"">mtd3: 00440000 00010000 "kernel"<br =
-class=3D"">mtd4: 01740000 00010000 "rofs"<br class=3D"">mtd5: 00400000 =
-00010000 "rwfs"<br class=3D"">mtd6: 04000000 00001000 "pnor"<br =
-class=3D""><br class=3D""><blockquote type=3D"cite" class=3D""><br =
-class=3D"">C.</blockquote></blockquote></blockquote></div></blockquote></d=
-iv><br class=3D""></body></html>=
-
---Apple-Mail=_E65672D1-1E88-4864-9ACA-947ABC1AA1F4--
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.txt b/Documentation/devicetree/bindings/vendor-prefixes.txt
+index 16d3b5e7f5d1..84601d869a1b 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.txt
++++ b/Documentation/devicetree/bindings/vendor-prefixes.txt
+@@ -172,6 +172,7 @@ meas	Measurement Specialties
+ mediatek	MediaTek Inc.
+ melexis	Melexis N.V.
+ melfas	MELFAS Inc.
++mellanox	Mellanox Technologies
+ memsic	MEMSIC Inc.
+ merrii	Merrii Technology Co., Ltd.
+ micrel	Micrel Inc.
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index 30fe65627f30..3dba6c633686 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -990,6 +990,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb \
+ 	aspeed-bmc-opp-witherspoon.dtb \
+ 	aspeed-bmc-opp-zaius.dtb \
+ 	aspeed-bmc-opp-lanyang.dtb \
++	aspeed-bmc-mellanox-msn.dtb \
+ 	aspeed-ast2500-evb.dtb
+ endif
+ 
+diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi
+new file mode 100644
+index 000000000000..cf8ee54f13c2
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi
+@@ -0,0 +1,32 @@
++/* This file is the label for the bmc primary flash and its partitions */
++				label = "bmc";
++				#address-cells = < 1 >;
++				#size-cells = < 1 >;
++				u-boot {
++					reg = < 0 0x60000 >;
++					label = "u-boot";
++				};
++				u-boot-env {
++					reg = < 0x60000 0x10000>;
++					label = "u-boot-env";
++				};
++				kernel  {
++					reg = < 0x70000 0x280000 >;
++					label = "kernel";
++				};
++				dtb  {
++					reg = < 0x2f0000 0x10000 >;
++					label = "dtb";
++				};
++				initramfs {
++					reg = < 0x300000 0x1c0000 >;
++					label = "initramfs";
++				};
++				rofs  {
++					reg = < 0x4c0000 0x1740000 >;
++					label = "rofs";
++				};
++				rwfs  {
++					reg = < 0x1c00000 0x400000 >;
++					label = "rwfs";
++				};
+diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+new file mode 100644
+index 000000000000..372ce2cd5320
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+@@ -0,0 +1,205 @@
++/dts-v1/;
++
++#include <dt-bindings/thermal/thermal.h>
++#include <dt-bindings/pwm/pwm.h>
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/gpio/aspeed-gpio.h>
++#include "aspeed-g5.dtsi"
++
++/ {
++	model = "MSNXXXX BMC";
++	compatible = "mellanox,msnxxxx-bmc", "aspeed,ast2500";
++
++	aliases {
++		serial0 = &uart1;
++		serial4 = &uart5;
++	};
++
++	chosen {
++		stdout-path = &uart5;
++		bootargs = "console=ttyS4,115200n8 earlyprintk";
++	};
++
++	memory {
++		/* 512MiB SDRAM DDR4 @ 0x8000_0000 */
++		reg = <0x80000000 0x20000000>;
++	};
++
++	ahb {
++		bmc_pnor: fmc@1e620000 {
++			reg = < 0x1e620000 0xc4
++				0x20000000 0x02000000 >;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			compatible = "aspeed,ast2500-fmc";
++			interrupts = <19>;
++			flash@0 {
++				reg = < 0 >;
++				compatible = "jedec,spi-nor" ;
++#include "aspeed-bmc-mellanox-msn-flash-layout.dtsi"
++			};
++		};
++
++		host_pnor: spi2@1e631000 {
++			reg = < 0x1e631000 0xc4
++				0x38000000 0x08000000 >;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			compatible = "aspeed,ast2500-spi";
++			status = "disabled";
++			pinctrl-names = "default";
++			pinctrl-0 = <&pinctrl_spi2ck_default
++				     &pinctrl_spi2cs0_default
++				     &pinctrl_spi2miso_default
++				     &pinctrl_spi2mosi_default>;
++
++			host_flash {
++				reg = < 0 >;
++				compatible = "jedec,spi-nor";
++				label = "host_flash";
++				#address-cells = < 1 >;
++				#size-cells = < 1 >;
++			};
++		};
++	};
++};
++
++&uart5 {
++	status = "okay";
++};
++
++&uart1 {
++	status = "okay";
++};
++
++&mac0 {
++	status = "okay";
++	use-ncsi;
++	no-hw-checksum;
++};
++
++&i2c0 {
++	status = "okay";
++};
++
++&i2c1 {
++	status = "okay";
++};
++
++&i2c2 {
++	status = "okay";
++};
++
++&i2c3 {
++	status = "okay";
++};
++
++&i2c4 {
++	status = "okay";
++};
++
++&i2c5 {
++	status = "okay";
++
++	eeprom@50 {
++		compatible = "atmel,24c32";
++		reg = <0x50>;
++	};
++
++	eeprom@51 {
++		compatible = "atmel,24c32";
++		reg = <0x51>;
++	};
++};
++
++&i2c6 {
++	status = "okay";
++
++	eeprom@51 {
++		compatible = "atmel,24c32";
++		reg = <0x51>;
++	};
++
++	eeprom@52 {
++		compatible = "atmel,24c32";
++		reg = <0x52>;
++	};
++
++	eeprom@55 {
++		compatible = "atmel,24c32";
++		reg = <0x55>;
++	};
++
++	i2cswitch@71 {
++		compatible = "nxp,pca9548";
++		#address-cells = <1>;
++		#size-cells = <0>;
++		reg = <0x71>;
++	};
++};
++
++&i2c7 {
++	status = "okay";
++};
++
++&i2c8 {
++	status = "okay";
++
++	carrier_ambient: lm75@49 {
++		#thermal-sensor-cells = <0>;
++		compatible = "national,lm75";
++		reg = <0x49>;
++	};
++
++	swbrd_ambient: lm75@4a {
++		#thermal-sensor-cells = <0>;
++		compatible = "national,lm75";
++		reg = <0x4a>;
++	};
++};
++
++&i2c9 {
++	status = "okay";
++};
++
++&i2c10 {
++	status = "okay";
++
++	hwmon@41 {
++		compatible = "ti,ucd9224";
++		reg = <0x41>;
++	};
++
++	hwmon@27 {
++		compatible = "ti,ucd9224";
++		reg = <0x27>;
++	};
++
++	adc@6d {
++		compatible = "maxim,max11603";
++		reg = <0x6d>;
++		adc0: iio-device@0 {
++			#io-channel-cells = <1>;
++			io-channels = <&adc0 0>, <&adc0 1>, <&adc0 2>,
++				      <&adc0 3>, <&adc0 4>, <&adc0 5>,
++				      <&adc0 6>, <&adc0 7>;
++		};
++	};
++};
++
++&i2c11 {
++	status = "okay";
++};
++
++&i2c12 {
++	status = "okay";
++};
++
++&i2c13 {
++	status = "okay";
++};
++
++&vuart {
++	status = "okay";
++};
+diff --git a/arch/arm/configs/aspeed_g5_defconfig b/arch/arm/configs/aspeed_g5_defconfig
+index d0deda45f55b..49a270266fd9 100644
+--- a/arch/arm/configs/aspeed_g5_defconfig
++++ b/arch/arm/configs/aspeed_g5_defconfig
+@@ -140,6 +140,7 @@ CONFIG_PMBUS=y
+ CONFIG_SENSORS_ADM1275=y
+ CONFIG_SENSORS_LM25066=y
+ CONFIG_SENSORS_UCD9000=y
++CONFIG_SENSORS_UCD9200=y
+ CONFIG_SENSORS_TMP421=y
+ CONFIG_USB=y
+ CONFIG_USB_ANNOUNCE_NEW_DEVICES=y
+@@ -164,6 +165,7 @@ CONFIG_MAILBOX=y
+ CONFIG_ASPEED_LPC_MBOX=y
+ # CONFIG_IOMMU_SUPPORT is not set
+ CONFIG_IIO=y
++CONFIG_MAX1363=y
+ CONFIG_ASPEED_ADC=y
+ CONFIG_BMP280=y
+ CONFIG_FSI=y
+diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+index 0f1a536ba1b2..25fbc6c1adb7 100644
+--- a/arch/arm/mach-aspeed/aspeed.c
++++ b/arch/arm/mach-aspeed/aspeed.c
+@@ -27,6 +27,7 @@
+ #define AST_BASE_MAC0		0X1E660000 /* MAC 1 */
+ #define AST_BASE_SCU		0x1E6E2000 /* System Control Unit (SCU) */
+ #define AST_BASE_GPIO		0x1E780000 /* GPIO Controller */
++#define AST_BASE_WD		0x1E785000 /* Watchdog */
+ 
+ static struct map_desc aspeed_io_desc[] __initdata __maybe_unused = {
+ 	{
+@@ -188,6 +189,31 @@ static void __init do_lanyang_setup(void)
+ 	writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC | 0x98));
+ }
+ 
++static void __init do_mellanox_setup(void)
++{
++	unsigned long reg;
++
++	do_common_setup();
++
++	/* Set strap to RGMII for dedicated PHY networking */
++	reg = readl(AST_IO(AST_BASE_SCU | 0x70));
++	reg |= BIT(7);
++	reg &= ~BIT(6);
++	writel(reg, AST_IO(AST_BASE_SCU | 0x70));
++
++	/* Disable UART1 Reset from LPC */
++	writel(0x00000A00, AST_IO(AST_BASE_LPC | 0x98));
++
++	reg = readl(AST_IO(AST_BASE_SCU | 0x48));
++	reg |= BIT(29);
++	writel(reg, AST_IO(AST_BASE_SCU | 0x48));
++
++	/* Disable WD2 */
++	reg = readl(AST_IO(AST_BASE_WD | 0x2c));
++	reg &= ~BIT(0);
++	writel(reg, AST_IO(AST_BASE_WD | 0x2c));
++}
++
+ #define SCU_PASSWORD	0x1688A8A8
+ 
+ static void __init aspeed_init_early(void)
+@@ -227,6 +253,8 @@ static void __init aspeed_init_early(void)
+ 		do_romulus_setup();
+ 	if (of_machine_is_compatible("inventec,lanyang-bmc"))
+ 		do_lanyang_setup();
++	if (of_machine_is_compatible("mellanox,msnxxxx-bmc"))
++		do_mellanox_setup();
+ }
+ 
+ static void __init aspeed_map_io(void)
+-- 
+2.11.0
