@@ -1,79 +1,77 @@
-Return-Path: <c_mykolak@mellanox.com>
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur01on0066.outbound.protection.outlook.com [104.47.2.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Return-Path: <anoo@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wTgzX3y1qzDqKK
- for <openbmc@lists.ozlabs.org>; Fri, 19 May 2017 18:23:04 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b="uewnlvCC";
- dkim-atps=neutral
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
- s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=8N0ofM209x/fFgQNo71x9EuuGW3mM2tzfESbOeHa2uE=;
- b=uewnlvCCdmi5/LkTpDIhyIQf+b3FXntBotl+TPcSz3yo9rthqR//RizjPwlT21P3kew7Fey1spyJPuPy1ODqis1KCfV7iZTinn849wcwF2PvJAwvSJBVtZ4iPq487CojcFms4cYOebOzw7LJR5OIf9bs6k8mOvTzZ78MEtH513I=
-Received: from VI1PR05MB3247.eurprd05.prod.outlook.com (10.170.238.16) by
- VI1PR05MB3248.eurprd05.prod.outlook.com (10.170.238.17) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1084.16; Fri, 19 May 2017 08:22:57 +0000
-Received: from VI1PR05MB3247.eurprd05.prod.outlook.com
- ([fe80::c68:af38:3f49:5157]) by VI1PR05MB3247.eurprd05.prod.outlook.com
- ([fe80::c68:af38:3f49:5157%13]) with mapi id 15.01.1084.031; Fri, 19 May 2017
- 08:22:57 +0000
-From: Mykola Kostenok <c_mykolak@mellanox.com>
-To: Joel Stanley <joel@jms.id.au>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: RE: [PATCH linux dev-4.10] Initial introduction of Mellanox switches
- of MSNXXXX family equipped with Aspeed 2520 BMC SoC. Initial minimal
- commit
- to support Mellanox MSNXXXX switches, including: Adding Mellanox msn platform
- early initialization. Adding ...
-Thread-Topic: [PATCH linux dev-4.10] Initial introduction of Mellanox switches
- of MSNXXXX family equipped with Aspeed 2520 BMC SoC. Initial
- minimal commit
- to support Mellanox MSNXXXX switches, including: Adding Mellanox msn platform
- early initialization. Adding ...
-Thread-Index: AQHS0E0WrlyQvSQnlkiwmn3qx6ovuqH7Ta6A
-Date: Fri, 19 May 2017 08:22:57 +0000
-Message-ID: <VI1PR05MB3247B4508DDE577079A43E3CEFE50@VI1PR05MB3247.eurprd05.prod.outlook.com>
-References: <20170518095100.194211-1-c_mykolak@mellanox.com>
- <CACPK8XdMjXDpDeuGwzaYEP+tcuAa3XC_5JvH667bdrJF2sNfGg@mail.gmail.com>
-In-Reply-To: <CACPK8XdMjXDpDeuGwzaYEP+tcuAa3XC_5JvH667bdrJF2sNfGg@mail.gmail.com>
-Accept-Language: ru-RU, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: jms.id.au; dkim=none (message not signed)
- header.d=none;jms.id.au; dmarc=none action=none header.from=mellanox.com;
-x-originating-ip: [80.90.224.13]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; VI1PR05MB3248;
- 7:wBW7sCnWMA/8qvwY5sghzcQd8KYmcvEeszy9P+fDAepubdAr5AUeO18cQ0r7yjsTgT7zms4s+YHXhPBmfxOtHcLKiqsOJcEewIEbbPpNBM7vcSdbDZz9+bHwMDezZSIVoKpkeoei63lzmt1lsfS1yEcvz+tm0y8M9DCXBnsytaKR2yk44jyq25fhYna2M/NqUHU9U4rbOW1mG7hEtj3O9DtTK3qdruMQVb0gP5sb+lXigrrNBUFgSLpVCL7+4vlo216tvUsXsPttiCnu65/fnos6eWkR/q6mHwBh3seD5n3ti9pd9/rivmydMGwIEjfMfG8Ekg3Ja9gmvpb2ZaAXIA==
-x-ms-office365-filtering-correlation-id: 95ec25e3-7061-4674-d5d4-08d49e904193
-x-ms-office365-filtering-ht: Tenant
-x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
- RULEID:(22001)(2017030254075)(48565401081)(201703131423075)(201703031133081)(201702281549075);
- SRVR:VI1PR05MB3248; 
-x-microsoft-antispam-prvs: <VI1PR05MB324820F335E95E818914752EEFE50@VI1PR05MB3248.eurprd05.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:(65623756079841);
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(6040450)(601004)(2401047)(5005006)(8121501046)(3002001)(93006095)(93001095)(10201501046)(6055026)(6041248)(20161123555025)(20161123564025)(20161123558100)(20161123562025)(20161123560025)(201703131423075)(201702281528075)(201703061421075)(201703061406153)(6072148);
- SRVR:VI1PR05MB3248; BCL:0; PCL:0; RULEID:; SRVR:VI1PR05MB3248; 
-x-forefront-prvs: 031257FE13
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(6009001)(39410400002)(39450400003)(39860400002)(39400400002)(39850400002)(39840400002)(13464003)(377454003)(24454002)(51914003)(33656002)(305945005)(478600001)(6506006)(6916009)(6436002)(2950100002)(5250100002)(74316002)(53546009)(25786009)(45080400002)(7696004)(50986999)(76176999)(54356999)(2906002)(53936002)(102836003)(81166006)(38730400002)(8676002)(229853002)(110136004)(3846002)(8936002)(66066001)(5660300001)(189998001)(9686003)(99286003)(6246003)(55016002)(2900100001)(4326008)(86362001)(3280700002)(7736002)(3660700001)(219693003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR05MB3248;
- H:VI1PR05MB3247.eurprd05.prod.outlook.com; FPR:; SPF:None; MLV:sfv; LANG:en; 
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-OriginatorOrg: Mellanox.com
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2017 08:22:57.7838 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR05MB3248
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wTqRq3nPPzDqbx
+ for <openbmc@lists.ozlabs.org>; Fri, 19 May 2017 23:59:34 +1000 (AEST)
+Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v4JDxLjb099906
+ for <openbmc@lists.ozlabs.org>; Fri, 19 May 2017 09:59:28 -0400
+Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2ahw45x00m-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 19 May 2017 09:59:24 -0400
+Received: from localhost
+ by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <anoo@linux.vnet.ibm.com>;
+ Fri, 19 May 2017 07:59:16 -0600
+Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
+ by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Fri, 19 May 2017 07:59:13 -0600
+Received: from b03ledav004.gho.boulder.ibm.com
+ (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
+ by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v4JDxDCe14549302; Fri, 19 May 2017 06:59:13 -0700
+Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 479047803F;
+ Fri, 19 May 2017 07:59:13 -0600 (MDT)
+Received: from [9.85.137.207] (unknown [9.85.137.207])
+ by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTPS id 4156278038;
+ Fri, 19 May 2017 07:59:12 -0600 (MDT)
+From: Adriana Kobylak <anoo@linux.vnet.ibm.com>
+Content-Type: multipart/alternative;
+ boundary="Apple-Mail=_4B95C6DD-5805-43EE-B8A8-A941616E6C4B"
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: Re: [PATCH linux dev-4.7] arm: configs: aspeed: Disable
+ CONFIG_MTD_SPI_NOR_USE_4K_SECTORS
+Date: Fri, 19 May 2017 08:57:05 -0500
+In-Reply-To: <EF112150-A566-4731-AF33-E4E356FF7C95@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ =?utf-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+To: Lei YU <mine260309@gmail.com>, andrew@aj.id.au
+References: <1493913487-7482-1-git-send-email-anoo@linux.vnet.ibm.com>
+ <14B306E8-EFC9-4BD5-B2DD-D892CB459439@linux.vnet.ibm.com>
+ <CACPK8XeNtDWLmx2qeHshd=Bg4JCNLd45CriVYLuNmGOMb-qqdg@mail.gmail.com>
+ <f47cd08e-5ceb-5d41-4975-d689d2ebba3b@kaod.org>
+ <7B0513B8-3B71-42AD-B9D5-2F05E7B000C2@linux.vnet.ibm.com>
+ <3a8ba892-7560-a028-2441-61fe546792ed@kaod.org>
+ <D4C24912-6520-4ECB-B80C-B13D1D3515AB@linux.vnet.ibm.com>
+ <7de4ad45-f675-b691-f3de-b7c02c5e5bfd@kaod.org>
+ <CAARXrt=zd2H+4Xq+EwsqF=22RJsY3XpCP3pGeYpao3XkakFCQw@mail.gmail.com>
+ <EF112150-A566-4731-AF33-E4E356FF7C95@linux.vnet.ibm.com>
+X-Mailer: Apple Mail (2.3273)
+X-TM-AS-GCONF: 00
+x-cbid: 17051913-0016-0000-0000-000006C6B08F
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007084; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000212; SDB=6.00862616; UDB=6.00428019; IPR=6.00642365; 
+ BA=6.00005358; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015510; XFM=3.00000015;
+ UTC=2017-05-19 13:59:15
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17051913-0017-0000-0000-000039B720B6
+Message-Id: <016BF3B0-FB50-4AC8-B4AB-86EB2234AE8D@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-05-19_09:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1705190088
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -85,255 +83,430 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 19 May 2017 08:23:07 -0000
+X-List-Received-Date: Fri, 19 May 2017 13:59:36 -0000
 
-SGksIEpvZWwuDQpUaGFua3MgZm9yIHJlcGx5Lg0KDQpQbGVhc2UgbG9vayBhdCBteSBjb21tZW50
-cyBiZWxvdy4NCg0KQmVzdCByZWdhcmRzLiBNeWtvbGEgS29zdGVub2suDQoNCj4gLS0tLS1Pcmln
-aW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogam9lbC5zdGFuQGdtYWlsLmNvbSBbbWFpbHRvOmpv
-ZWwuc3RhbkBnbWFpbC5jb21dIE9uIEJlaGFsZiBPZiBKb2VsDQo+IFN0YW5sZXkNCj4gU2VudDog
-RnJpZGF5LCBNYXkgMTksIDIwMTcgNjowNyBBTQ0KPiBUbzogTXlrb2xhIEtvc3Rlbm9rIDxjX215
-a29sYWtAbWVsbGFub3guY29tPg0KPiBDYzogT3BlbkJNQyBNYWlsbGlzdCA8b3BlbmJtY0BsaXN0
-cy5vemxhYnMub3JnPg0KPiBTdWJqZWN0OiBSZTogW1BBVENIIGxpbnV4IGRldi00LjEwXSBJbml0
-aWFsIGludHJvZHVjdGlvbiBvZiBNZWxsYW5veCBzd2l0Y2hlcw0KPiBvZiBNU05YWFhYIGZhbWls
-eSBlcXVpcHBlZCB3aXRoIEFzcGVlZCAyNTIwIEJNQyBTb0MuIEluaXRpYWwgbWluaW1hbA0KPiBj
-b21taXQgdG8gc3VwcG9ydCBNZWxsYW5veCBNU05YWFhYIHN3aXRjaGVzLCBpbmNsdWRpbmc6IEFk
-ZGluZyBNZWxsYW5veA0KPiBtc24gcGxhdGZvcm0gZWFybHkgaW5pdGlhbGl6YXRpb24uIEFkZGlu
-ZyAuLi4NCj4gDQo+IEhlbGxvIE15a29sYSwNCj4gDQo+IFRoYW5rcyBmb3IgdGhlIHBhdGNoISBJ
-dCdzIGEgZ3JlYXQgc3RhcnQuIEkgaGF2ZSBhIGZldyB0aGluZ3MgdGhhdCB5b3UgbmVlZCB0bw0K
-PiBjbGVhbiB1cCBmaXJzdC4NCj4gDQo+IE1ha2UgeW91ciBjb21taXQgbWVzc2FnZXMgaW4gdGhp
-cyBmb3JtYXQuIFRoZSBpbXBvcnRhbnQgcGFydCBpcyB0byBoYXZlIGENCj4gc2hvcnQgKH41MCBj
-aGFyYWN0ZXIgdGl0bGUpIHRoYXQgYmVjb21lcyB0aGUgZW1haWwgc3ViamVjdCwgYW5kIHRoZW4g
-YSBsb25nZXINCj4gZGlzY3Vzc2lvbiBiZWxvdy4gRm9yIGV4YW1wbGU6DQo+IA0KPiBBUk06IGFz
-cGVlZDogQWRkIE1lbGxhbm94IE1TWCBtYWNoaW5lDQpbTXlrb2xhIEtvc3Rlbm9rXSBPay4gQnV0
-IGl0cyBNU04uDQoNCj4gDQo+IEluaXRpYWwgaW50cm9kdWN0aW9uIG9mIE1lbGxhbm94IHN3aXRj
-aGVzIG9mIE1TTlhYWFggZmFtaWx5IGVxdWlwcGVkIHdpdGgNCj4gQXNwZWVkIDI1MjAgQk1DIFNv
-Qy4gVGhpcyBhZGRzIHRoZSBwbGF0Zm9ybSBlYXJseSBpbml0aWFsaXphdGlvbiBhbmQgbXNuDQo+
-IHBsYXRmb3JtIGRldmljZSB0cmVlIGZpbGUuDQpbTXlrb2xhIEtvc3Rlbm9rXSBPaywgZ3JlYXQu
-IEknbGwgZG8gaXQuDQoNCj4gDQo+IFNpZ25lZC1vZmYtYnk6IE15a29sYSBLb3N0ZW5vayA8Y19t
-eWtvbGFrQG1lbGxhbm94LmNvbT4NCj4gDQo+IFdoZW4geW91IHNlbmQgeW91ciBuZXh0IHZlcnNp
-b24sIHVzZSBnaXQtZm9ybWF0LXBhdGNoIC12MiB0byBpbmRpY2F0ZSB0aGF0DQo+IHRoaXMgaXMg
-dGhlIHNlY29uZCByZXZpc2lvbi4NCj4gDQo+IE9uIFRodSwgTWF5IDE4LCAyMDE3IGF0IDU6NTEg
-UE0sIE15a29sYSBLb3N0ZW5vaw0KPiA8Y19teWtvbGFrQG1lbGxhbm94LmNvbT4gd3JvdGU6DQo+
-ID4gU2lnbmVkLW9mZi1ieTogTXlrb2xhIEtvc3Rlbm9rIDxjX215a29sYWtAbWVsbGFub3guY29t
-Pg0KPiA+IC0tLQ0KPiA+ICAuLi4vZGV2aWNldHJlZS9iaW5kaW5ncy92ZW5kb3ItcHJlZml4ZXMu
-dHh0ICAgICAgICB8ICAgMSArDQo+ID4gIGFyY2gvYXJtL2Jvb3QvZHRzL01ha2VmaWxlICAgICAg
-ICAgICAgICAgICAgICAgICAgIHwgICAxICsNCj4gPiAgLi4uL2R0cy9hc3BlZWQtYm1jLW1lbGxh
-bm94LW1zbi1mbGFzaC1sYXlvdXQuZHRzaSAgfCAgMzIgKysrKw0KPiA+ICBhcmNoL2FybS9ib290
-L2R0cy9hc3BlZWQtYm1jLW1lbGxhbm94LW1zbi5kdHMgICAgICB8IDIwNQ0KPiArKysrKysrKysr
-KysrKysrKysrKysNCj4gPiAgYXJjaC9hcm0vY29uZmlncy9hc3BlZWRfZzVfZGVmY29uZmlnICAg
-ICAgICAgICAgICAgfCAgIDIgKw0KPiA+ICBhcmNoL2FybS9tYWNoLWFzcGVlZC9hc3BlZWQuYyAg
-ICAgICAgICAgICAgICAgICAgICB8ICAyOCArKysNCj4gPiAgNiBmaWxlcyBjaGFuZ2VkLCAyNjkg
-aW5zZXJ0aW9ucygrKQ0KPiA+ICBjcmVhdGUgbW9kZSAxMDA2NDQNCj4gPiBhcmNoL2FybS9ib290
-L2R0cy9hc3BlZWQtYm1jLW1lbGxhbm94LW1zbi1mbGFzaC1sYXlvdXQuZHRzaQ0KPiA+ICBjcmVh
-dGUgbW9kZSAxMDA2NDQgYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1tZWxsYW5veC1tc24u
-ZHRzDQo+ID4NCj4gPiBkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRp
-bmdzL3ZlbmRvci1wcmVmaXhlcy50eHQNCj4gPiBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9i
-aW5kaW5ncy92ZW5kb3ItcHJlZml4ZXMudHh0DQo+ID4gaW5kZXggMTZkM2I1ZTdmNWQxLi44NDYw
-MWQ4NjlhMWIgMTAwNjQ0DQo+ID4gLS0tIGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRp
-bmdzL3ZlbmRvci1wcmVmaXhlcy50eHQNCj4gPiArKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRy
-ZWUvYmluZGluZ3MvdmVuZG9yLXByZWZpeGVzLnR4dA0KPiA+IEBAIC0xNzIsNiArMTcyLDcgQEAg
-bWVhcyAgICAgICAgTWVhc3VyZW1lbnQgU3BlY2lhbHRpZXMNCj4gPiAgbWVkaWF0ZWsgICAgICAg
-TWVkaWFUZWsgSW5jLg0KPiA+ICBtZWxleGlzICAgICAgICBNZWxleGlzIE4uVi4NCj4gPiAgbWVs
-ZmFzIE1FTEZBUyBJbmMuDQo+ID4gK21lbGxhbm94ICAgICAgIE1lbGxhbm94IFRlY2hub2xvZ2ll
-cw0KPiA+ICBtZW1zaWMgTUVNU0lDIEluYy4NCj4gPiAgbWVycmlpIE1lcnJpaSBUZWNobm9sb2d5
-IENvLiwgTHRkLg0KPiA+ICBtaWNyZWwgTWljcmVsIEluYy4NCj4gPiBkaWZmIC0tZ2l0IGEvYXJj
-aC9hcm0vYm9vdC9kdHMvTWFrZWZpbGUgYi9hcmNoL2FybS9ib290L2R0cy9NYWtlZmlsZQ0KPiA+
-IGluZGV4IDMwZmU2NTYyN2YzMC4uM2RiYTZjNjMzNjg2IDEwMDY0NA0KPiA+IC0tLSBhL2FyY2gv
-YXJtL2Jvb3QvZHRzL01ha2VmaWxlDQo+ID4gKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvTWFrZWZp
-bGUNCj4gPiBAQCAtOTkwLDYgKzk5MCw3IEBAIGR0Yi0kKENPTkZJR19BUkNIX0FTUEVFRCkgKz0g
-YXNwZWVkLWJtYy0NCj4gb3BwLXBhbG1ldHRvLmR0YiBcDQo+ID4gICAgICAgICBhc3BlZWQtYm1j
-LW9wcC13aXRoZXJzcG9vbi5kdGIgXA0KPiA+ICAgICAgICAgYXNwZWVkLWJtYy1vcHAtemFpdXMu
-ZHRiIFwNCj4gPiAgICAgICAgIGFzcGVlZC1ibWMtb3BwLWxhbnlhbmcuZHRiIFwNCj4gPiArICAg
-ICAgIGFzcGVlZC1ibWMtbWVsbGFub3gtbXNuLmR0YiBcDQo+ID4gICAgICAgICBhc3BlZWQtYXN0
-MjUwMC1ldmIuZHRiDQo+ID4gIGVuZGlmDQo+ID4NCj4gPiBkaWZmIC0tZ2l0DQo+ID4gYS9hcmNo
-L2FybS9ib290L2R0cy9hc3BlZWQtYm1jLW1lbGxhbm94LW1zbi1mbGFzaC1sYXlvdXQuZHRzaQ0K
-PiA+IGIvYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1tZWxsYW5veC1tc24tZmxhc2gtbGF5
-b3V0LmR0c2kNCj4gPiBuZXcgZmlsZSBtb2RlIDEwMDY0NA0KPiA+IGluZGV4IDAwMDAwMDAwMDAw
-MC4uY2Y4ZWU1NGYxM2MyDQo+ID4gLS0tIC9kZXYvbnVsbA0KPiA+ICsrKyBiL2FyY2gvYXJtL2Jv
-b3QvZHRzL2FzcGVlZC1ibWMtbWVsbGFub3gtbXNuLWZsYXNoLWxheW91dC5kdHNpDQo+ID4gQEAg
-LTAsMCArMSwzMiBAQA0KPiA+ICsvKiBUaGlzIGZpbGUgaXMgdGhlIGxhYmVsIGZvciB0aGUgYm1j
-IHByaW1hcnkgZmxhc2ggYW5kIGl0cw0KPiA+ICtwYXJ0aXRpb25zICovDQo+IA0KPiBIYXZpbmcg
-YSBzZXBhcmF0ZSBkc3RpIGZvciB0aGUgZmxhc2ggbGF5b3V0IGlzIG9rYXksIGFuZCB3ZSBkbyB0
-aGlzIGZvcg0KPiBvcGVucG93ZXIgbWFjaGluZXMgc28gd2UgY2FuIHNoYXJlIHRoZSBsYXlvdXQg
-d2l0aG91dCBjdXQvcGFzdGUuDQo+IA0KPiBTaW5jZSB5b3Ugb25seSBoYXZlIG9uZSBtYWNoaW5l
-LCB5b3UgY291bGQgaW5jbHVkZSB0aGlzIGluIHRoZSBtYWluIGR0cz8NCltNeWtvbGEgS29zdGVu
-b2tdIFdlIGFyZSB3b3JraW5nIG5vdyBvbiB0d28gYW5vdGhlciBzeXN0ZW1zIChib3RoIGJhc2Vk
-IG9uIEFSTSBob3N0LCBidXQgd2l0aCB0aGUgc2FtZSBCTUMgbWV6emFuaW5lKS4gQW5kIGluIHRo
-ZSBmdXR1cmUgd2UgY2FuIGhhdmUgbW9yZS4NCkFsbCB0aGVzZSBzeXN0ZW1zIGFyZSBzdXBwb3Nl
-ZCB0byBoYXZlIHNhbWUgRkxBU0ggbGF5b3V0Lg0KSG93IGl0IGNyaXRpY2FsIHRvIGFkZCBvdXIg
-cHJvcHJpZXRhcnkgZmxhc2ggZHRzaT8NCklmIGl0J3MgcmVhbCBpc3N1ZSBJJ2xsIGVtYmVkIGl0
-IGludG8gb3VyIG1haW4gZHRzIGZpbGUuDQoNCj4gDQo+ID4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBsYWJlbCA9ICJibWMiOw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgI2FkZHJlc3MtY2VsbHMgPSA8IDEgPjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICNzaXplLWNlbGxzID0gPCAxID47DQo+ID4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICB1LWJvb3Qgew0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICByZWcgPSA8IDAgMHg2MDAwMCA+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBsYWJlbCA9ICJ1LWJvb3QiOw0KPiA+ICsgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgfTsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHUt
-Ym9vdC1lbnYgew0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBy
-ZWcgPSA8IDB4NjAwMDAgMHgxMDAwMD47DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIGxhYmVsID0gInUtYm9vdC1lbnYiOw0KPiA+ICsgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgfTsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGtl
-cm5lbCAgew0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZWcg
-PSA8IDB4NzAwMDAgMHgyODAwMDAgPjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgbGFiZWwgPSAia2VybmVsIjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIH07DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkdGIgIHsN
-Cj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVnID0gPCAweDJm
-MDAwMCAweDEwMDAwID47DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIGxhYmVsID0gImR0YiI7DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9
-Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaW5pdHJhbWZzIHsNCj4gPiAr
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVnID0gPCAweDMwMDAwMCAw
-eDFjMDAwMCA+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBs
-YWJlbCA9ICJpbml0cmFtZnMiOw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-fTsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJvZnMgIHsNCj4gPiArICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVnID0gPCAweDRjMDAwMCAweDE3
-NDAwMDAgPjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbGFi
-ZWwgPSAicm9mcyI7DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9Ow0KPiA+
-ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcndmcyAgew0KPiA+ICsgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZWcgPSA8IDB4MWMwMDAwMCAweDQwMDAwMCA+
-Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBsYWJlbCA9ICJy
-d2ZzIjsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH07DQo+ID4gZGlmZiAt
-LWdpdCBhL2FyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1ibWMtbWVsbGFub3gtbXNuLmR0cw0KPiA+
-IGIvYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1tZWxsYW5veC1tc24uZHRzDQo+ID4gbmV3
-IGZpbGUgbW9kZSAxMDA2NDQNCj4gPiBpbmRleCAwMDAwMDAwMDAwMDAuLjM3MmNlMmNkNTMyMA0K
-PiA+IC0tLSAvZGV2L251bGwNCj4gPiArKysgYi9hcmNoL2FybS9ib290L2R0cy9hc3BlZWQtYm1j
-LW1lbGxhbm94LW1zbi5kdHMNCj4gPiBAQCAtMCwwICsxLDIwNSBAQA0KPiA+ICsvZHRzLXYxLzsN
-Cj4gPiArDQo+ID4gKyNpbmNsdWRlIDxkdC1iaW5kaW5ncy90aGVybWFsL3RoZXJtYWwuaD4gI2lu
-Y2x1ZGUNCj4gPiArPGR0LWJpbmRpbmdzL3B3bS9wd20uaD4gI2luY2x1ZGUgPGR0LWJpbmRpbmdz
-L2dwaW8vZ3Bpby5oPiAjaW5jbHVkZQ0KPiA+ICs8ZHQtYmluZGluZ3MvaW50ZXJydXB0LWNvbnRy
-b2xsZXIvaXJxLmg+DQo+ID4gKyNpbmNsdWRlIDxkdC1iaW5kaW5ncy9ncGlvL2FzcGVlZC1ncGlv
-Lmg+ICNpbmNsdWRlICJhc3BlZWQtZzUuZHRzaSINCj4gPiArDQo+ID4gKy8gew0KPiA+ICsgICAg
-ICAgbW9kZWwgPSAiTVNOWFhYWCBCTUMiOw0KPiA+ICsgICAgICAgY29tcGF0aWJsZSA9ICJtZWxs
-YW5veCxtc254eHh4LWJtYyIsICJhc3BlZWQsYXN0MjUwMCI7DQo+IA0KPiBEb2VzIE1TTiBzdGFu
-ZCBmb3Igc29tZXRoaW5nPw0KW015a29sYSBLb3N0ZW5va10gTVNOIGlzIHN0YW5kcyBmb3IgTWVs
-bGFub3ggRXRoZXJuZXQgc3dpdGNoZXMgZXF1aXBwZWQgd2l0aCAzMngxMDBHIEFTSUNzICBTcGVj
-dHJ1bSBhbmQgU3BlY3RydW0tMi4NCk1lbGxhbm94IGNvbnZlbnRpb24gZm9yIHByb2R1Y3RzIG5h
-bWUgYXJlIE1TTiBmb3Igc3dpdHhjaGVzIGVxdWlwcGVkIHdpdGggMTAwRyBFdGhlcm5ldCwgTVNY
-IGZvciAzNng0MEcgRXRoZXJuZXQvSW5maW5pQmFuZCAgIEFTSUNzIChTd2l0Y2hYLCBTd2l0Y2hY
-LTIsIE1TQiBmb3IgMzZ4MTAwZyBJbmZpbmlCYW5kIChTd2l0Y2gtSUIsIFN3aXRjaC1JQjIpLg0K
-Ri5lLiBpbiBkcml2ZXJzL3BsYXRmb3JtL3g4Ni9tbHgtcGxhdGZvcm0uYw0KTU9EVUxFX0xJQ0VO
-U0UoIkR1YWwgQlNEL0dQTCIpOw0KTU9EVUxFX0FMSUFTKCJkbWk6KjoqTWVsbGFub3gqOk1TTjI0
-KjoiKTsNCk1PRFVMRV9BTElBUygiZG1pOio6Kk1lbGxhbm94KjpNU04yNyo6Iik7DQpNT0RVTEVf
-QUxJQVMoImRtaToqOipNZWxsYW5veCo6TVNCKjoiKTsNCk1PRFVMRV9BTElBUygiZG1pOio6Kk1l
-bGxhbm94KjpNU1gqOiIpOw0KTU9EVUxFX0FMSUFTKCJkbWk6KjoqTWVsbGFub3gqOk1TTjIxKjoi
-KTsNCg0KVGhlIDEtc3kgc3lzdGVtIGVxdWlwcGVkIHdpdGggQk1DIGlzIE1TTjI0MC4NCg0KU28g
-d2UgdXNlZCBNU05YWFhYLiBBbmQgb2YgY291cnNlIHdlIGNhbiBjaGFuZ2UgaXQgdG8gTVNOLg0K
-DQo+IA0KPiBUaGUgeHh4eCBpcyBhIGJpdCB1bnN1YWwgbG9va2luZy4gQ291bGQgeW91IGluc3Rl
-YWQganVzdCB1c2UgbWVsbGFub3gsbXNuLQ0KPiBibWM/DQpbTXlrb2xhIEtvc3Rlbm9rXSBZZXMu
-DQoNCj4gDQo+ID4gKw0KPiA+ICsgICAgICAgYWxpYXNlcyB7DQo+ID4gKyAgICAgICAgICAgICAg
-IHNlcmlhbDAgPSAmdWFydDE7DQo+ID4gKyAgICAgICAgICAgICAgIHNlcmlhbDQgPSAmdWFydDU7
-DQo+ID4gKyAgICAgICB9Ow0KPiA+ICsNCj4gPiArICAgICAgIGNob3NlbiB7DQo+ID4gKyAgICAg
-ICAgICAgICAgIHN0ZG91dC1wYXRoID0gJnVhcnQ1Ow0KPiA+ICsgICAgICAgICAgICAgICBib290
-YXJncyA9ICJjb25zb2xlPXR0eVM0LDExNTIwMG44IGVhcmx5cHJpbnRrIjsNCj4gPiArICAgICAg
-IH07DQo+ID4gKw0KPiA+ICsgICAgICAgbWVtb3J5IHsNCj4gPiArICAgICAgICAgICAgICAgLyog
-NTEyTWlCIFNEUkFNIEREUjQgQCAweDgwMDBfMDAwMCAqLw0KPiA+ICsgICAgICAgICAgICAgICBy
-ZWcgPSA8MHg4MDAwMDAwMCAweDIwMDAwMDAwPjsNCj4gPiArICAgICAgIH07DQo+ID4gKw0KPiA+
-ICsgICAgICAgYWhiIHsNCj4gPiArICAgICAgICAgICAgICAgYm1jX3Bub3I6IGZtY0AxZTYyMDAw
-MCB7DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgcmVnID0gPCAweDFlNjIwMDAwIDB4YzQN
-Cj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MjAwMDAwMDAgMHgwMjAwMDAw
-MCA+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICNhZGRyZXNzLWNlbGxzID0gPDE+Ow0K
-PiA+ICsgICAgICAgICAgICAgICAgICAgICAgICNzaXplLWNlbGxzID0gPDA+Ow0KPiA+ICsgICAg
-ICAgICAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAiYXNwZWVkLGFzdDI1MDAtZm1jIjsNCj4g
-PiArICAgICAgICAgICAgICAgICAgICAgICBpbnRlcnJ1cHRzID0gPDE5PjsNCj4gPiArICAgICAg
-ICAgICAgICAgICAgICAgICBmbGFzaEAwIHsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHJlZyA9IDwgMCA+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-Y29tcGF0aWJsZSA9ICJqZWRlYyxzcGktbm9yIiA7DQo+ID4gKyNpbmNsdWRlICJhc3BlZWQtYm1j
-LW1lbGxhbm94LW1zbi1mbGFzaC1sYXlvdXQuZHRzaSINCj4gPiArICAgICAgICAgICAgICAgICAg
-ICAgICB9Ow0KPiA+ICsgICAgICAgICAgICAgICB9Ow0KPiA+ICsNCj4gPiArICAgICAgICAgICAg
-ICAgaG9zdF9wbm9yOiBzcGkyQDFlNjMxMDAwIHsNCj4gPiArICAgICAgICAgICAgICAgICAgICAg
-ICByZWcgPSA8IDB4MWU2MzEwMDAgMHhjNA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgMHgzODAwMDAwMCAweDA4MDAwMDAwID47DQo+ID4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgI2FkZHJlc3MtY2VsbHMgPSA8MT47DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgI3Np
-emUtY2VsbHMgPSA8MD47DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgY29tcGF0aWJsZSA9
-ICJhc3BlZWQsYXN0MjUwMC1zcGkiOw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgIHN0YXR1
-cyA9ICJkaXNhYmxlZCI7DQo+IA0KPiBEaXNhYmxlZD8NCltNeWtvbGEgS29zdGVub2tdIFllcy4N
-CkluIG91ciBhcmNoaXRlY3R1cmUgdGhpcyBjb250cm9sbGVyIGlzIHVzZWQgdG8gYWNjZXNzIGRp
-ZmZlcmVudCBTUEkgZGV2aWNlcyBvbiBob3N0IHNpZGUsIGluIHBhcnRpY3VsYXIgTkMtU0kgZmxh
-c2ggYW5kIEJJT1MgZmxhc2guDQpTbyB0aGlzIGlzIGR5bmFtaWMgZGV2aWNlcywgd2hpY2ggYXJl
-IHNlbGVjdGVkIHRocm91Z2ggc3lzZnMgcmVxdWVzdCBhbmQgTVVYIHRvIG9wZW4gYSBkZXZpY2Ug
-aXMgY29udHJvbGxlZCBieSBDUExELg0KIFdoZW4gc2VsZWN0aW9uIGlzIHJlcXVlc3RlZCwgZHlu
-YW1pYyBkZXZpY2UgbGlrZSAvZGV2L210ZDggaXMgY3JlYXRlZCwgd2hlbiBkZS1zZWxlY3RlZCAt
-IGRlc3Ryb3llZC4gDQoNCkluIENQTEQgZHJpdmUsIHdoaWNoIHdlIGFyZSBnb2luZyB0byBzdWJt
-aXQgbGF0ZXIsIHdlIGhhdmUgY29kZSBhcyBiZWxvdzoNCgkJCWlmICh2YWwpIHsNCgkJCQkvKiBF
-bmFibGUgYW5kIGNyZWF0ZSBwbGF0Zm9ybSBkZXZpY2UuICovDQoJCQkJb2ZfdXBkYXRlX3Byb3Bl
-cnR5KGRhdGEtPm5wLCAmZGV2aWNlX2VuKTsNCg0KCQkJCWRhdGEtPnBkZXYgPSBvZl9wbGF0Zm9y
-bV9kZXZpY2VfY3JlYXRlKA0KCQkJCQkJCWRhdGEtPm5wLCBOVUxMLCBOVUxMKTsNCgkJCQlwcml2
-LT5lbl9keW5hbWljX25vZGUgPSB0cnVlOw0KCQkJfSBlbHNlIHsNCgkJCQkvKiBEaXNhYmxlIGFu
-ZCBhbmQgdW5yZWdpc3RlciBwbGF0Zm9ybSBkZXZpY2UuICovDQoJCQkJb2ZfdXBkYXRlX3Byb3Bl
-cnR5KGRhdGEtPm5wLCAmZGV2aWNlX2Rpcyk7DQoJCQkJb2ZfZGV2aWNlX3VucmVnaXN0ZXIoZGF0
-YS0+cGRldik7DQoJCQkJb2Zfbm9kZV9jbGVhcl9mbGFnKGRhdGEtPm5wLCBPRl9QT1BVTEFURUQp
-Ow0KCQkJCXByaXYtPmVuX2R5bmFtaWNfbm9kZSA9IGZhbHNlOw0KCQkJfQ0KDQpJbiBkcml2ZXJz
-L210ZC9zcGktbm9yL2FzcGVlZC1zbWMuYyB3ZSB1c2VkIHBhdGNoIGZvciByZW1vdmluZyBkZXZp
-Y2U6DQpAQCAtNTY4LDggKzU2OCwxNSBAQCBzdGF0aWMgaW50IGFzcGVlZF9zbWNfdW5yZWdpc3Rl
-cihzdHJ1Y3QgYXNwZWVkX3NtY19jb250cm9sbGVyICpjb250cm9sbGVyKQ0KDQogICAgICAgIGZv
-ciAobiA9IDA7IG4gPCBjb250cm9sbGVyLT5pbmZvLT5uY2U7IG4rKykgew0KICAgICAgICAgICAg
-ICAgIGNoaXAgPSBjb250cm9sbGVyLT5jaGlwc1tuXTsNCi0gICAgICAgICAgICAgICBpZiAoY2hp
-cCkNCisgICAgICAgICAgICAgICBpZiAoY2hpcCkgew0KKyAgICAgICAgICAgICAgICAgICAgICAg
-c3RydWN0IHBsYXRmb3JtX2RldmljZSAqY2RldiA9DQorICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgDQorIHRvX3BsYXRmb3JtX2RldmljZShjaGlwLT5ub3IuZGV2KTsNCisN
-CiAgICAgICAgICAgICAgICAgICAgICAgIG10ZF9kZXZpY2VfdW5yZWdpc3RlcigmY2hpcC0+bm9y
-Lm10ZCk7DQorICAgICAgICAgICAgICAgICAgICAgICBvZl9kZXZpY2VfdW5yZWdpc3RlcihjZGV2
-KTsNCisgICAgICAgICAgICAgICAgICAgICAgIG9mX25vZGVfY2xlYXJfZmxhZyhjaGlwLT5ub3Iu
-ZGV2LT5vZl9ub2RlLA0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IE9GX1BPUFVMQVRFRCk7DQorICAgICAgICAgICAgICAgfQ0KICAgICAgICB9DQoNCj4gDQo+ID4g
-KyAgICAgICAgICAgICAgICAgICAgICAgcGluY3RybC1uYW1lcyA9ICJkZWZhdWx0IjsNCj4gPiAr
-ICAgICAgICAgICAgICAgICAgICAgICBwaW5jdHJsLTAgPSA8JnBpbmN0cmxfc3BpMmNrX2RlZmF1
-bHQNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJnBpbmN0cmxfc3Bp
-MmNzMF9kZWZhdWx0DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICZw
-aW5jdHJsX3NwaTJtaXNvX2RlZmF1bHQNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgJnBpbmN0cmxfc3BpMm1vc2lfZGVmYXVsdD47DQo+ID4gKw0KPiA+ICsgICAgICAg
-ICAgICAgICAgICAgICAgIGhvc3RfZmxhc2ggew0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgcmVnID0gPCAwID47DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBjb21wYXRpYmxlID0gImplZGVjLHNwaS1ub3IiOw0KPiA+ICsgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgbGFiZWwgPSAiaG9zdF9mbGFzaCI7DQo+ID4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAjYWRkcmVzcy1jZWxscyA9IDwgMSA+Ow0KPiA+ICsgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgI3NpemUtY2VsbHMgPSA8IDEgPjsNCj4gPiArICAgICAgICAgICAg
-ICAgICAgICAgICB9Ow0KPiA+ICsgICAgICAgICAgICAgICB9Ow0KPiA+ICsgICAgICAgfTsNCj4g
-PiArfTsNCj4gPiArDQo+ID4gKyZ1YXJ0NSB7DQo+ID4gKyAgICAgICBzdGF0dXMgPSAib2theSI7
-DQo+ID4gK307DQo+ID4gKw0KPiA+ICsmdWFydDEgew0KPiA+ICsgICAgICAgc3RhdHVzID0gIm9r
-YXkiOw0KPiA+ICt9Ow0KPiA+ICsNCj4gPiArJm1hYzAgew0KPiA+ICsgICAgICAgc3RhdHVzID0g
-Im9rYXkiOw0KPiA+ICsgICAgICAgdXNlLW5jc2k7DQo+ID4gKyAgICAgICBuby1ody1jaGVja3N1
-bTsNCj4gDQo+IEkgZG9uJ3QgdGhpbmsgd2UgbmVlZCBuby1ody1jaGVja3N1bSBmb3IgYXN0MjUw
-MCBvbiA0LjEwLg0KW015a29sYSBLb3N0ZW5va10gT0ssIEknbGwgcmVtb3ZlIGl0Lg0KDQo+IA0K
-PiA+IGRpZmYgLS1naXQgYS9hcmNoL2FybS9tYWNoLWFzcGVlZC9hc3BlZWQuYw0KPiA+IGIvYXJj
-aC9hcm0vbWFjaC1hc3BlZWQvYXNwZWVkLmMgaW5kZXggMGYxYTUzNmJhMWIyLi4yNWZiYzZjMWFk
-YjcNCj4gPiAxMDA2NDQNCj4gPiAtLS0gYS9hcmNoL2FybS9tYWNoLWFzcGVlZC9hc3BlZWQuYw0K
-PiA+ICsrKyBiL2FyY2gvYXJtL21hY2gtYXNwZWVkL2FzcGVlZC5jDQo+ID4gQEAgLTI3LDYgKzI3
-LDcgQEANCj4gPiAgI2RlZmluZSBBU1RfQkFTRV9NQUMwICAgICAgICAgIDBYMUU2NjAwMDAgLyog
-TUFDIDEgKi8NCj4gPiAgI2RlZmluZSBBU1RfQkFTRV9TQ1UgICAgICAgICAgIDB4MUU2RTIwMDAg
-LyogU3lzdGVtIENvbnRyb2wgVW5pdCAoU0NVKSAqLw0KPiA+ICAjZGVmaW5lIEFTVF9CQVNFX0dQ
-SU8gICAgICAgICAgMHgxRTc4MDAwMCAvKiBHUElPIENvbnRyb2xsZXIgKi8NCj4gPiArI2RlZmlu
-ZSBBU1RfQkFTRV9XRCAgICAgICAgICAgIDB4MUU3ODUwMDAgLyogV2F0Y2hkb2cgKi8NCj4gPg0K
-PiA+ICBzdGF0aWMgc3RydWN0IG1hcF9kZXNjIGFzcGVlZF9pb19kZXNjW10gX19pbml0ZGF0YSBf
-X21heWJlX3VudXNlZCA9IHsNCj4gPiAgICAgICAgIHsNCj4gPiBAQCAtMTg4LDYgKzE4OSwzMSBA
-QCBzdGF0aWMgdm9pZCBfX2luaXQgZG9fbGFueWFuZ19zZXR1cCh2b2lkKQ0KPiA+ICAgICAgICAg
-d3JpdGVsKHJlZyAmIH5CSVQoNCksIEFTVF9JTyhBU1RfQkFTRV9MUEMgfCAweDk4KSk7ICB9DQo+
-ID4NCj4gPiArc3RhdGljIHZvaWQgX19pbml0IGRvX21lbGxhbm94X3NldHVwKHZvaWQpIHsNCj4g
-PiArICAgICAgIHVuc2lnbmVkIGxvbmcgcmVnOw0KPiA+ICsNCj4gPiArICAgICAgIGRvX2NvbW1v
-bl9zZXR1cCgpOw0KPiA+ICsNCj4gPiArICAgICAgIC8qIFNldCBzdHJhcCB0byBSR01JSSBmb3Ig
-ZGVkaWNhdGVkIFBIWSBuZXR3b3JraW5nICovDQo+ID4gKyAgICAgICByZWcgPSByZWFkbChBU1Rf
-SU8oQVNUX0JBU0VfU0NVIHwgMHg3MCkpOw0KPiA+ICsgICAgICAgcmVnIHw9IEJJVCg3KTsNCj4g
-PiArICAgICAgIHJlZyAmPSB+QklUKDYpOw0KPiA+ICsgICAgICAgd3JpdGVsKHJlZywgQVNUX0lP
-KEFTVF9CQVNFX1NDVSB8IDB4NzApKTsNCj4gDQo+IA0KPiBUaGlzIGlzIGEgc29mdHdhcmUgd29y
-a2Fyb3VuZCBmb3IgaW5jb3JyZWN0IGhhcmR3YXJlIHN0cmFwcGluZy4gV2lsbCB0aGUNCj4gc3Ry
-YXBwaW5nIGJlIGZpeGVkIG9uIGEgZnV0dXJlIHJldmlzaW9uIG9mIHlvdXIgaGFyZHdhcmU/DQpb
-TXlrb2xhIEtvc3Rlbm9rXSBQb3NzaWJseSwgYnV0IGluIG5lYXJlc3QgZnV0dXJlIHdlIHNob3Vs
-ZCBsaXZlIHdpdGggaXQuDQoNCj4gDQo+ID4gKyAgICAgICAvKiBEaXNhYmxlIFVBUlQxIFJlc2V0
-IGZyb20gTFBDICovDQo+ID4gKyAgICAgICB3cml0ZWwoMHgwMDAwMEEwMCwgQVNUX0lPKEFTVF9C
-QVNFX0xQQyB8IDB4OTgpKTsNCj4gPiArDQo+ID4gKyAgICAgICByZWcgPSByZWFkbChBU1RfSU8o
-QVNUX0JBU0VfU0NVIHwgMHg0OCkpOw0KPiA+ICsgICAgICAgcmVnIHw9IEJJVCgyOSk7DQo+ID4g
-KyAgICAgICB3cml0ZWwocmVnLCBBU1RfSU8oQVNUX0JBU0VfU0NVIHwgMHg0OCkpOw0KPiANCj4g
-UGxlYXNlIGFkZCBhIGNvbW1lbnQgZm9yIHRoaXMuIEkgdGhpbmsgaXQncyBlbmFibGluZyBSTUlJ
-MSA1ME1IeiBSQ0xLIG91dHB1dC4NCltNeWtvbGEgS29zdGVub2tdIE9LLg0KDQo+IA0KPiA+ICsg
-ICAgICAgLyogRGlzYWJsZSBXRDIgKi8NCj4gPiArICAgICAgIHJlZyA9IHJlYWRsKEFTVF9JTyhB
-U1RfQkFTRV9XRCB8IDB4MmMpKTsNCj4gPiArICAgICAgIHJlZyAmPSB+QklUKDApOw0KPiA+ICsg
-ICAgICAgd3JpdGVsKHJlZywgQVNUX0lPKEFTVF9CQVNFX1dEIHwgMHgyYykpOw0KPiANCj4gSW5z
-dGVhZCBvZiBkaXNhYmxpbmcgdGhlIHdhdGNoZG9nIGhlcmUsIHlvdSBzaG91bGQgbG9hZCBhIGRy
-aXZlciBmb3IgaXQuIFRvIGRvDQo+IHRoaXMsIGFkZCB0aGUgZm9sbG93aW5nIHRvIHlvdXIgZGV2
-aWNlIHRyZWU6DQo+IA0KPiAmd2R0MiB7DQo+ICAgICAgICAgc3RhdHVzID0gIm9rYXkiOw0KPiB9
-Ow0KW015a29sYSBLb3N0ZW5va10gV2hlbiB1LWJvb3QgcGFzc2VkIGNvbnRyb2wgdG8ga2VybmVs
-LCBXRDIgaXMgZW5hYmxlZCBvbiBvdXIgc3lzdGVtLiBJbiBrZXJuZWwgd2Ugd2FudGVkIHRvIGNs
-ZWFyIFdEMiBhdCBlYXJseSBpbml0LCBpbiBvdGhlciBjYXNlIEJNQyB3aWxsIGZhbGwgdG8gYSBi
-YWNrdXAgZmxhc2guDQpTaG91bGQgbG9hZGluZyBXRCBkcml2ZXIganVzdCBjbGVhciBXRDI/DQpJ
-ZiB5ZXMsIGl0IHNob3VsZCBiZSBPSyBmb3Igb3VyIHN5c3RlbS4NCg0KPiANCj4gQ2hlZXJzLA0K
-PiANCj4gSm9lbA0K
+
+--Apple-Mail=_4B95C6DD-5805-43EE-B8A8-A941616E6C4B
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
+
+
+> On May 17, 2017, at 10:43 AM, Adriana Kobylak =
+<anoo@linux.vnet.ibm.com> wrote:
+>=20
+>>=20
+>> On May 16, 2017, at 8:48 PM, Lei YU <mine260309@gmail.com =
+<mailto:mine260309@gmail.com>> wrote:
+>>=20
+>> On Tue, May 16, 2017 at 9:59 PM, C=C3=A9dric Le Goater <clg@kaod.org =
+<mailto:clg@kaod.org>> wrote:
+>>> On 05/16/2017 03:30 PM, Adriana Kobylak wrote:
+>>>>=20
+>>>>> On May 16, 2017, at 1:01 AM, C=C3=A9dric Le Goater <clg@kaod.org =
+<mailto:clg@kaod.org> <mailto:clg@kaod.org <mailto:clg@kaod.org>>> =
+wrote:
+>>>>>=20
+>>>>> On 05/15/2017 02:41 AM, Adriana Kobylak wrote:
+>>>>>>=20
+>>>>>>> On May 13, 2017, at 3:49 PM, C=C3=A9dric Le Goater <clg@kaod.org =
+<mailto:clg@kaod.org> <mailto:clg@kaod.org <mailto:clg@kaod.org>>> =
+wrote:
+>>>>>>>=20
+>>>>>>> On 05/11/2017 02:12 PM, Joel Stanley wrote:
+>>>>>>>> On Thu, May 11, 2017 at 7:31 AM, Adriana Kobylak
+>>>>>>>> <anoo@linux.vnet.ibm.com <mailto:anoo@linux.vnet.ibm.com> =
+<mailto:anoo@linux.vnet.ibm.com <mailto:anoo@linux.vnet.ibm.com>>> =
+wrote:
+>>>>>>>>> Milton stopped by and mentioned that you had tried to modify =
+the 4K erase
+>>>>>>>>> sector previously for a perhaps bmc chip and saw some flash =
+corruption when
+>>>>>>>>> moving to an image that changed it?
+>>>>>>>>>=20
+>>>>>>>>> Just wanted to add that this change only changes the pnor =
+setting and I
+>>>>>>>>> didn=E2=80=99t see any issues powering on a system after =
+updating the BMC with an
+>>>>>>>>> image with this change. Then I updated the pnor with an image =
+that had the
+>>>>>>>>> mbox enabled. Also checked with AndrewJ and the hostboot team =
+and there=E2=80=99s no
+>>>>>>>>> hard-coded assumptions in their side about the erase size.
+>>>>>>>>>=20
+>>>>>>>>> With all this info let me know if you have any thoughts or =
+concerns.
+>>>>>>>>=20
+>>>>>>>> I recall issues relating to this option. I didn't record what =
+they were
+>>>>>>>> though.
+>>>>>>>=20
+>>>>>>> We tried to activate 4K erase on some chips, which supported it,
+>>>>>>> and that the OpenPOWER systems use. That was because the PNOR
+>>>>>>> sections were not aligned with the erase size and that caused
+>>>>>>> some issues in pflash. But it breaks the compatibility with
+>>>>>>> previously created jffs2 filesystems. jffs2 stores the erase
+>>>>>>> size. So we stepped back.
+>>>>>>>=20
+>>>>>>>> Cedric, can you remind me what the issues are with the 4K =
+kconfig option?
+>>>>>>>=20
+>>>>>>> CONFIG_MTD_SPI_NOR_USE_4K_SECTORS enables the 4K erase commands,
+>>>>>>> and without it, the driver will use the sector erase command, =
+most
+>>>>>>> likely 64K. I suppose we could have the same problem as =
+described
+>>>>>>> above, as it can change the default erase size of a chip. to be
+>>>>>>> checked.
+>>=20
+>> The same question as Cedric, PNOR has sections that are not 64K
+>> aligned but 4K aligned,
+>> e.g. HBEL, GARD:
+>> ID=3D02            HBEL 000a0000..000c4000 (actual=3D00024000) [ECC]
+>> ID=3D03           GUARD 000d0000..000d5000 (actual=3D00005000) [ECC]
+>>=20
+>> When using gard tool to clear GARD partition, it will fail if erasing
+>> size is 64K.
+>>=20
+>> Do we have a plan to support this case?
+
+Maybe Andrew can comment? It=E2=80=99s my understanding that the mbox =
+daemon v2 would support any erase size, but if there=E2=80=99s an issue =
+with alignment when using something other than 4k, maybe the daemon =
+would need to abstract the chip erase size and set to 4k as the v1 does.
+
+>=20
+> Thanks Lei for providing this info. For the proposed openbmc =
+implementation, it=E2=80=99d work since the pnor sections (or =
+partitions) would be files located in a ubi volume, and their data =
+loaded into memory (virtual pnor) for the host to access, so erasing =
+GUARD for example would underneath the covers modify the GUARD.bin file =
+and not a specific offset in the physical pnor chip.
+>=20
+> But that raises the question about openpower systems that are not =
+running openbmc. Should disabling 4k be an openbmc only patch?
+>=20
+>>=20
+>>>>>>>=20
+>>>>>> Thanks Cedric for the info. It appears there are no issues when
+>>>>>> disabling the 4K sectors for the pnor chip (yes, the erase size
+>>>>>> is then 64K), probably because the pnor is not formatted with
+>>>>>> a jffs2 filesystem. We might need to clear the pnor chip anyways
+>>>>>> to be able to format it as a UBI volume. So would you say we=E2=80=99=
+re
+>>>>>> ok with this patch?
+>>>>>=20
+>>>>> Well, what if the BMC is using a flash module with a 4K erase size =
+?
+>>>>=20
+>>>> All the mtd devices except PNOR in the P8 and P9 systems running =
+openbmc
+>>>> have already an erase size of 64K.
+>>>=20
+>>> So everything is fine for these.
+>>>=20
+>>> Cheers,
+>>>=20
+>>> C.
+>>>=20
+>>>=20
+>>>> Ex witherspoon:
+>>>> root@witherspoon:~# cat /proc/mtd
+>>>> dev:    size   erasesize  name
+>>>> mtd0: 02000000 00010000 "bmc"
+>>>> mtd1: 00060000 00010000 "u-boot"
+>>>> mtd2: 00020000 00010000 "u-boot-env"
+>>>> mtd3: 00440000 00010000 "kernel"
+>>>> mtd4: 01740000 00010000 "rofs"
+>>>> mtd5: 00400000 00010000 "rwfs"
+>>>> mtd6: 02000000 00010000 "alt"
+>>>> mtd7: 08000000 00001000 =E2=80=9Cpnor=E2=80=9D
+>>>>=20
+>>>> Ex barreleye:
+>>>> root@barreleye:~# cat /proc/mtd
+>>>> dev:    size   erasesize  name
+>>>> mtd0: 02000000 00010000 "bmc"
+>>>> mtd1: 00060000 00010000 "u-boot"
+>>>> mtd2: 00020000 00010000 "u-boot-env"
+>>>> mtd3: 00440000 00010000 "kernel"
+>>>> mtd4: 01740000 00010000 "rofs"
+>>>> mtd5: 00400000 00010000 "rwfs"
+>>>> mtd6: 04000000 00001000 "pnor"
+>>>>=20
+>>>>>=20
+>>>>> C.
+
+
+--Apple-Mail=_4B95C6DD-5805-43EE-B8A8-A941616E6C4B
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=utf-8
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html =
+charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; -webkit-line-break: after-white-space;" =
+class=3D""><br class=3D""><div><blockquote type=3D"cite" class=3D""><div =
+class=3D"">On May 17, 2017, at 10:43 AM, Adriana Kobylak &lt;<a =
+href=3D"mailto:anoo@linux.vnet.ibm.com" =
+class=3D"">anoo@linux.vnet.ibm.com</a>&gt; wrote:</div><br =
+class=3D"Apple-interchange-newline"><div class=3D""><div =
+style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px;" =
+class=3D""><blockquote type=3D"cite" class=3D""><div class=3D""><br =
+class=3D"Apple-interchange-newline">On May 16, 2017, at 8:48 PM, Lei YU =
+&lt;<a href=3D"mailto:mine260309@gmail.com" =
+class=3D"">mine260309@gmail.com</a>&gt; wrote:</div><br =
+class=3D"Apple-interchange-newline"><div class=3D""><span class=3D"" =
+style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+float: none; display: inline !important;">On Tue, May 16, 2017 at 9:59 =
+PM, C=C3=A9dric Le Goater &lt;</span><a href=3D"mailto:clg@kaod.org" =
+class=3D"" style=3D"font-family: ArialUnicodeMS; font-size: 12px; =
+font-style: normal; font-variant-caps: normal; font-weight: normal; =
+letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px;">clg@kaod.org</a><span class=3D"" =
+style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+float: none; display: inline !important;">&gt; wrote:</span><br class=3D""=
+ style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: =
+0px;"><blockquote type=3D"cite" class=3D"" style=3D"font-family: =
+ArialUnicodeMS; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px;">On 05/16/2017 03:30 =
+PM, Adriana Kobylak wrote:<br class=3D""><blockquote type=3D"cite" =
+class=3D""><br class=3D""><blockquote type=3D"cite" class=3D"">On May =
+16, 2017, at 1:01 AM, C=C3=A9dric Le Goater &lt;<a =
+href=3D"mailto:clg@kaod.org" class=3D"">clg@kaod.org</a><span =
+class=3D"Apple-converted-space">&nbsp;</span>&lt;<a =
+href=3D"mailto:clg@kaod.org" class=3D"">mailto:clg@kaod.org</a>&gt;&gt; =
+wrote:<br class=3D""><br class=3D"">On 05/15/2017 02:41 AM, Adriana =
+Kobylak wrote:<br class=3D""><blockquote type=3D"cite" class=3D""><br =
+class=3D""><blockquote type=3D"cite" class=3D"">On May 13, 2017, at 3:49 =
+PM, C=C3=A9dric Le Goater &lt;<a href=3D"mailto:clg@kaod.org" =
+class=3D"">clg@kaod.org</a><span =
+class=3D"Apple-converted-space">&nbsp;</span>&lt;<a =
+href=3D"mailto:clg@kaod.org" class=3D"">mailto:clg@kaod.org</a>&gt;&gt; =
+wrote:<br class=3D""><br class=3D"">On 05/11/2017 02:12 PM, Joel Stanley =
+wrote:<br class=3D""><blockquote type=3D"cite" class=3D"">On Thu, May =
+11, 2017 at 7:31 AM, Adriana Kobylak<br class=3D"">&lt;<a =
+href=3D"mailto:anoo@linux.vnet.ibm.com" =
+class=3D"">anoo@linux.vnet.ibm.com</a><span =
+class=3D"Apple-converted-space">&nbsp;</span>&lt;<a =
+href=3D"mailto:anoo@linux.vnet.ibm.com" =
+class=3D"">mailto:anoo@linux.vnet.ibm.com</a>&gt;&gt; wrote:<br =
+class=3D""><blockquote type=3D"cite" class=3D"">Milton stopped by and =
+mentioned that you had tried to modify the 4K erase<br class=3D"">sector =
+previously for a perhaps bmc chip and saw some flash corruption when<br =
+class=3D"">moving to an image that changed it?<br class=3D""><br =
+class=3D"">Just wanted to add that this change only changes the pnor =
+setting and I<br class=3D"">didn=E2=80=99t see any issues powering on a =
+system after updating the BMC with an<br class=3D"">image with this =
+change. Then I updated the pnor with an image that had the<br =
+class=3D"">mbox enabled. Also checked with AndrewJ and the hostboot team =
+and there=E2=80=99s no<br class=3D"">hard-coded assumptions in their =
+side about the erase size.<br class=3D""><br class=3D"">With all this =
+info let me know if you have any thoughts or concerns.<br =
+class=3D""></blockquote><br class=3D"">I recall issues relating to this =
+option. I didn't record what they were<br class=3D"">though.<br =
+class=3D""></blockquote><br class=3D"">We tried to activate 4K erase on =
+some chips, which supported it,<br class=3D"">and that the OpenPOWER =
+systems use. That was because the PNOR<br class=3D"">sections were not =
+aligned with the erase size and that caused<br class=3D"">some issues in =
+pflash. But it breaks the compatibility with<br class=3D"">previously =
+created jffs2 filesystems. jffs2 stores the erase<br class=3D"">size. So =
+we stepped back.<br class=3D""><br class=3D""><blockquote type=3D"cite" =
+class=3D"">Cedric, can you remind me what the issues are with the 4K =
+kconfig option?<br class=3D""></blockquote><br =
+class=3D"">CONFIG_MTD_SPI_NOR_USE_4K_SECTORS enables the 4K erase =
+commands,<br class=3D"">and without it, the driver will use the sector =
+erase command, most<br class=3D"">likely 64K. I suppose we could have =
+the same problem as described<br class=3D"">above, as it can change the =
+default erase size of a chip. to be<br class=3D"">checked.<br =
+class=3D""></blockquote></blockquote></blockquote></blockquote></blockquot=
+e><br class=3D"" style=3D"font-family: ArialUnicodeMS; font-size: 12px; =
+font-style: normal; font-variant-caps: normal; font-weight: normal; =
+letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px;"><span class=3D"" style=3D"font-family: =
+ArialUnicodeMS; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; display: =
+inline !important;">The same question as Cedric, PNOR has sections that =
+are not 64K</span><br class=3D"" style=3D"font-family: ArialUnicodeMS; =
+font-size: 12px; font-style: normal; font-variant-caps: normal; =
+font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px;"><span class=3D"" =
+style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+float: none; display: inline !important;">aligned but 4K =
+aligned,</span><br class=3D"" style=3D"font-family: ArialUnicodeMS; =
+font-size: 12px; font-style: normal; font-variant-caps: normal; =
+font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px;"><span class=3D"" =
+style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+float: none; display: inline !important;">e.g. HBEL, GARD:</span><br =
+class=3D"" style=3D"font-family: ArialUnicodeMS; font-size: 12px; =
+font-style: normal; font-variant-caps: normal; font-weight: normal; =
+letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px;"><span class=3D"" style=3D"font-family: =
+ArialUnicodeMS; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; display: =
+inline !important;">ID=3D02 =
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HBEL =
+000a0000..000c4000 (actual=3D00024000) [ECC]</span><br class=3D"" =
+style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: =
+0px;"><span class=3D"" style=3D"font-family: ArialUnicodeMS; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; float: none; display: inline =
+!important;">ID=3D03 =
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GUARD =
+000d0000..000d5000 (actual=3D00005000) [ECC]</span><br class=3D"" =
+style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: =
+0px;"><br class=3D"" style=3D"font-family: ArialUnicodeMS; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px;"><span class=3D"" style=3D"font-family: =
+ArialUnicodeMS; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; display: =
+inline !important;">When using gard tool to clear GARD partition, it =
+will fail if erasing</span><br class=3D"" style=3D"font-family: =
+ArialUnicodeMS; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px;"><span class=3D"" =
+style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+float: none; display: inline !important;">size is 64K.</span><br =
+class=3D"" style=3D"font-family: ArialUnicodeMS; font-size: 12px; =
+font-style: normal; font-variant-caps: normal; font-weight: normal; =
+letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px;"><br class=3D"" style=3D"font-family: =
+ArialUnicodeMS; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px;"><span class=3D"" =
+style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+float: none; display: inline !important;">Do we have a plan to support =
+this case?</span><br class=3D"" style=3D"font-family: ArialUnicodeMS; =
+font-size: 12px; font-style: normal; font-variant-caps: normal; =
+font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: =
+0px;"></div></blockquote></div></div></blockquote><div><br =
+class=3D""></div>Maybe Andrew can comment? It=E2=80=99s my understanding =
+that the mbox daemon v2 would support any erase size, but if there=E2=80=99=
+s an issue with alignment when using something other than 4k, maybe the =
+daemon would need to abstract the chip erase size and set to 4k as the =
+v1 does.</div><div><br class=3D""><blockquote type=3D"cite" =
+class=3D""><div class=3D""><div style=3D"font-family: ArialUnicodeMS; =
+font-size: 12px; font-style: normal; font-variant-caps: normal; =
+font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px;" class=3D""><div =
+class=3D""><br class=3D""></div>Thanks Lei for providing this info. For =
+the proposed openbmc implementation, it=E2=80=99d work since the pnor =
+sections (or partitions) would be files located in a ubi volume, and =
+their data loaded into memory (virtual pnor) for the host to access, so =
+erasing GUARD for example would underneath the covers modify the =
+GUARD.bin file and not a specific offset in the physical pnor =
+chip.</div><div style=3D"font-family: ArialUnicodeMS; font-size: 12px; =
+font-style: normal; font-variant-caps: normal; font-weight: normal; =
+letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px;" class=3D""><br class=3D""></div><div =
+style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px;" =
+class=3D"">But that raises the question about openpower systems that are =
+not running openbmc. Should disabling 4k be an openbmc only =
+patch?</div><div style=3D"font-family: ArialUnicodeMS; font-size: 12px; =
+font-style: normal; font-variant-caps: normal; font-weight: normal; =
+letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px;" class=3D""><br class=3D""><blockquote =
+type=3D"cite" class=3D""><div class=3D""><br class=3D"" =
+style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: =
+0px;"><blockquote type=3D"cite" class=3D"" style=3D"font-family: =
+ArialUnicodeMS; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px;"><blockquote =
+type=3D"cite" class=3D""><blockquote type=3D"cite" class=3D""><blockquote =
+type=3D"cite" class=3D""><blockquote type=3D"cite" class=3D""><br =
+class=3D""></blockquote>Thanks Cedric for the info. It appears there are =
+no issues when<br class=3D"">disabling the 4K sectors for the pnor chip =
+(yes, the erase size<br class=3D"">is then 64K), probably because the =
+pnor is not formatted with<br class=3D"">a jffs2 filesystem. We might =
+need to clear the pnor chip anyways<br class=3D"">to be able to format =
+it as a UBI volume. So would you say we=E2=80=99re<br class=3D"">ok with =
+this patch?<br class=3D""></blockquote><br class=3D"">Well, what if the =
+BMC is using a flash module with a 4K erase size ?<br =
+class=3D""></blockquote><br class=3D"">All the mtd devices except PNOR =
+in the P8 and P9 systems running openbmc<br class=3D"">have already an =
+erase size of 64K.<br class=3D""></blockquote><br class=3D"">So =
+everything is fine for these.<br class=3D""><br class=3D"">Cheers,<br =
+class=3D""><br class=3D"">C.<br class=3D""><br class=3D""><br =
+class=3D""><blockquote type=3D"cite" class=3D"">Ex witherspoon:<br =
+class=3D"">root@witherspoon:~# cat /proc/mtd<br class=3D"">dev: =
+&nbsp;&nbsp;&nbsp;size &nbsp;&nbsp;erasesize &nbsp;name<br =
+class=3D"">mtd0: 02000000 00010000 "bmc"<br class=3D"">mtd1: 00060000 =
+00010000 "u-boot"<br class=3D"">mtd2: 00020000 00010000 "u-boot-env"<br =
+class=3D"">mtd3: 00440000 00010000 "kernel"<br class=3D"">mtd4: 01740000 =
+00010000 "rofs"<br class=3D"">mtd5: 00400000 00010000 "rwfs"<br =
+class=3D"">mtd6: 02000000 00010000 "alt"<br class=3D"">mtd7: 08000000 =
+00001000 =E2=80=9Cpnor=E2=80=9D<br class=3D""><br class=3D"">Ex =
+barreleye:<br class=3D"">root@barreleye:~# cat /proc/mtd<br =
+class=3D"">dev: &nbsp;&nbsp;&nbsp;size &nbsp;&nbsp;erasesize =
+&nbsp;name<br class=3D"">mtd0: 02000000 00010000 "bmc"<br class=3D"">mtd1:=
+ 00060000 00010000 "u-boot"<br class=3D"">mtd2: 00020000 00010000 =
+"u-boot-env"<br class=3D"">mtd3: 00440000 00010000 "kernel"<br =
+class=3D"">mtd4: 01740000 00010000 "rofs"<br class=3D"">mtd5: 00400000 =
+00010000 "rwfs"<br class=3D"">mtd6: 04000000 00001000 "pnor"<br =
+class=3D""><br class=3D""><blockquote type=3D"cite" class=3D""><br =
+class=3D"">C.</blockquote></blockquote></blockquote></div></blockquote></d=
+iv></div></blockquote></div><br class=3D""></body></html>=
+
+--Apple-Mail=_4B95C6DD-5805-43EE-B8A8-A941616E6C4B--
