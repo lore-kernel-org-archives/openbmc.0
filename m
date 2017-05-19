@@ -1,68 +1,57 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x242.google.com (mail-yw0-x242.google.com
+ [IPv6:2607:f8b0:4002:c05::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wTNbg6wJ9zDqcN
- for <openbmc@lists.ozlabs.org>; Fri, 19 May 2017 06:49:51 +1000 (AEST)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v4IKnhVb045917
- for <openbmc@lists.ozlabs.org>; Thu, 18 May 2017 16:49:45 -0400
-Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2ahhx42qq4-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 18 May 2017 16:49:44 -0400
-Received: from localhost
- by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Thu, 18 May 2017 14:49:41 -0600
-Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
- by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 18 May 2017 14:49:38 -0600
-Received: from b03ledav005.gho.boulder.ibm.com
- (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v4IKnc5m11076012; Thu, 18 May 2017 13:49:38 -0700
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3E46BBE03A;
- Thu, 18 May 2017 14:49:38 -0600 (MDT)
-Received: from christophersmbp.austin.ibm.com (unknown [9.83.5.45])
- by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP id 02E5BBE038;
- Thu, 18 May 2017 14:49:36 -0600 (MDT)
-Subject: Re: [PATCH linux dev-4.10] arm: dts: aspeed: Add IR35221 instances to
- dev tree
-To: joel@jms.id.au
-References: <20170518193742.56927-1-cbostic@linux.vnet.ibm.com>
-Cc: openbmc@lists.ozlabs.org
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Thu, 18 May 2017 15:49:35 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
- Gecko/20100101 Thunderbird/45.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wTXzf6Px1zDqcf
+ for <openbmc@lists.ozlabs.org>; Fri, 19 May 2017 13:07:42 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="DWmb6uTX"; 
+ dkim-atps=neutral
+Received: by mail-yw0-x242.google.com with SMTP id 17so4161917ywk.1
+ for <openbmc@lists.ozlabs.org>; Thu, 18 May 2017 20:07:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=i7+vxAHbeFV+Svh5iy9USD/ygOeVN3WN2KXE9lxafqY=;
+ b=DWmb6uTXSBSWyvDDqKhoMxk7binAk4viKrX0M9ku20dk//B8bM16Z1HMmPibrcMYpf
+ noChJx8Ppkewx+F7+RLzHhNtp+8iZvhZriYhpWa82+ff+kivn/SP361umApH2JeKOUF3
+ SuD1Nj/X5qmTkK1VSEnhTXg34noiMPhnaNnWBuZaH0lpkJVVMNQf4Vbd1ySekcEANkW6
+ TyuPbxVPIpmSfK/QI3KyTok9FVRBgO28b8O0y9Yn9ULjahKwiNegx5qOCFMQWpZ0vak8
+ VRLhM+vsSYAIWoUKnKxzwRSzFlzaOP4sIQ3TokNzJKMKVtX47T1hBMyk3YN4u2V+Urnt
+ 2Q3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=i7+vxAHbeFV+Svh5iy9USD/ygOeVN3WN2KXE9lxafqY=;
+ b=A8HefBmbPAlgHxmNq+GLWOYms9dIRd1jcR5NQ8/ojpMqRZZBCK97GrTSYeN5JvQ33u
+ v8yWUjBoCgBIAaEMAAW0qx7N65cpZx38NvJ1JzhgdR3NJnrhQF+lbHiqDbH2MRAyA6aw
+ CE2D7aito29mrPgzW5swLAhduyLIfwqFJLSfW9Ba1j2TLhp3Sg/dt7OLwyxN7vndrar4
+ gye675ffOesUEAO4JZl091d5Je4+ruawUpvvpHKwk3qISjPIec7x345r9RizDHxQLTvQ
+ 0Vns+2IHwogiUiPWV1jsm6G0DlyJhZsNyblMYrGFrft8zx3Y+NheRnzSmAMyQScXkz8+
+ lsTQ==
+X-Gm-Message-State: AODbwcCBQfvQ2+BDTJaHToUuBmhdQ4n72Jd4HrptG8UluTtfdBWAHkLj
+ ZKt6GHkBJ7RMOS49274pg5h0OD/P0Q==
+X-Received: by 10.13.243.133 with SMTP id c127mr6504872ywf.43.1495163260321;
+ Thu, 18 May 2017 20:07:40 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20170518193742.56927-1-cbostic@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 17051820-0012-0000-0000-0000144471D0
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007081; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000212; SDB=6.00862336; UDB=6.00427815; IPR=6.00642022; 
- BA=6.00005358; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015503; XFM=3.00000015;
- UTC=2017-05-18 20:49:40
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17051820-0013-0000-0000-00004DB93572
-Message-Id: <f34e522e-5a01-6b7a-bf79-b218987fffcb@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-05-18_05:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1705180142
+Sender: joel.stan@gmail.com
+Received: by 10.37.171.70 with HTTP; Thu, 18 May 2017 20:07:19 -0700 (PDT)
+In-Reply-To: <20170518095100.194211-1-c_mykolak@mellanox.com>
+References: <20170518095100.194211-1-c_mykolak@mellanox.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 19 May 2017 11:07:19 +0800
+X-Google-Sender-Auth: 5JPZKQ0BpTyWnD2zGLID8B5OamE
+Message-ID: <CACPK8XdMjXDpDeuGwzaYEP+tcuAa3XC_5JvH667bdrJF2sNfGg@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] Initial introduction of Mellanox switches
+ of MSNXXXX family equipped with Aspeed 2520 BMC SoC. Initial minimal
+ commit
+ to support Mellanox MSNXXXX switches, including: Adding Mellanox msn platform
+ early initialization. Adding Mellanox msn platform device tree file
+To: Mykola Kostenok <c_mykolak@mellanox.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -74,70 +63,259 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 18 May 2017 20:49:52 -0000
+X-List-Received-Date: Fri, 19 May 2017 03:07:43 -0000
 
+Hello Mykola,
 
+Thanks for the patch! It's a great start. I have a few things that you
+need to clean up first.
 
-On 5/18/17 2:37 PM, Christopher Bostic wrote:
-> Add IR35221 to i2c4 and i2c5 buses.
->
-> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Make your commit messages in this format. The important part is to
+have a short (~50 character title) that becomes the email subject, and
+then a longer discussion below. For example:
+
+ARM: aspeed: Add Mellanox MSX machine
+
+Initial introduction of Mellanox switches of MSNXXXX family equipped
+with Aspeed 2520
+BMC SoC. This adds the platform early initialization and msn platform
+device tree file.
+
+Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
+
+When you send your next version, use git-format-patch -v2 to indicate
+that this is the second revision.
+
+On Thu, May 18, 2017 at 5:51 PM, Mykola Kostenok <c_mykolak@mellanox.com> wrote:
+> Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
 > ---
->   .../devicetree/bindings/i2c/trivial-devices.txt      |  1 +
->   arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts     | 20 ++++++++++++++++++++
->   2 files changed, 21 insertions(+)
+>  .../devicetree/bindings/vendor-prefixes.txt        |   1 +
+>  arch/arm/boot/dts/Makefile                         |   1 +
+>  .../dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi  |  32 ++++
+>  arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts      | 205 +++++++++++++++++++++
+>  arch/arm/configs/aspeed_g5_defconfig               |   2 +
+>  arch/arm/mach-aspeed/aspeed.c                      |  28 +++
+>  6 files changed, 269 insertions(+)
+>  create mode 100644 arch/arm/boot/dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi
+>  create mode 100644 arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
 >
-> diff --git a/Documentation/devicetree/bindings/i2c/trivial-devices.txt b/Documentation/devicetree/bindings/i2c/trivial-devices.txt
-> index cdd7b48..d504271 100644
-> --- a/Documentation/devicetree/bindings/i2c/trivial-devices.txt
-> +++ b/Documentation/devicetree/bindings/i2c/trivial-devices.txt
-> @@ -53,6 +53,7 @@ fsl,sgtl5000		SGTL5000: Ultra Low-Power Audio Codec
->   gmt,g751		G751: Digital Temperature Sensor and Thermal Watchdog with Two-Wire Interface
->   infineon,slb9635tt	Infineon SLB9635 (Soft-) I2C TPM (old protocol, max 100khz)
->   infineon,slb9645tt	Infineon SLB9645 I2C TPM (new protocol, max 400khz)
-> +infineon,ir35221	Infineon IR35221 Digital DC-DC Multiphase Converter
->   isil,isl29028		Intersil ISL29028 Ambient Light and Proximity Sensor
->   maxim,ds1050		5 Bit Programmable, Pulse-Width Modulator
->   maxim,max1237		Low-Power, 4-/12-Channel, 2-Wire Serial, 12-Bit ADCs
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> index f20aaf4..64a6bb9 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> @@ -213,6 +213,16 @@
->   		compatible = "ti,tmp423";
->   		reg = <0x4c>;
->   	};
-> +
-> +	ir35221@e0 {
-> +		compatible = "infineon,ir35221";
-> +		reg = <0xe0>;
-Address formatting needs to be updated for 7 bit right aligned. Will fix 
-in v2.
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.txt b/Documentation/devicetree/bindings/vendor-prefixes.txt
+> index 16d3b5e7f5d1..84601d869a1b 100644
+> --- a/Documentation/devicetree/bindings/vendor-prefixes.txt
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.txt
+> @@ -172,6 +172,7 @@ meas        Measurement Specialties
+>  mediatek       MediaTek Inc.
+>  melexis        Melexis N.V.
+>  melfas MELFAS Inc.
+> +mellanox       Mellanox Technologies
+>  memsic MEMSIC Inc.
+>  merrii Merrii Technology Co., Ltd.
+>  micrel Micrel Inc.
+> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+> index 30fe65627f30..3dba6c633686 100644
+> --- a/arch/arm/boot/dts/Makefile
+> +++ b/arch/arm/boot/dts/Makefile
+> @@ -990,6 +990,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb \
+>         aspeed-bmc-opp-witherspoon.dtb \
+>         aspeed-bmc-opp-zaius.dtb \
+>         aspeed-bmc-opp-lanyang.dtb \
+> +       aspeed-bmc-mellanox-msn.dtb \
+>         aspeed-ast2500-evb.dtb
+>  endif
+>
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi
+> new file mode 100644
+> index 000000000000..cf8ee54f13c2
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi
+> @@ -0,0 +1,32 @@
+> +/* This file is the label for the bmc primary flash and its partitions */
 
--Chris.
-> +	};
+Having a separate dsti for the flash layout is okay, and we do this
+for openpower machines so we can share the layout without cut/paste.
+
+Since you only have one machine, you could include this in the main dts?
+
+> +                               label = "bmc";
+> +                               #address-cells = < 1 >;
+> +                               #size-cells = < 1 >;
+> +                               u-boot {
+> +                                       reg = < 0 0x60000 >;
+> +                                       label = "u-boot";
+> +                               };
+> +                               u-boot-env {
+> +                                       reg = < 0x60000 0x10000>;
+> +                                       label = "u-boot-env";
+> +                               };
+> +                               kernel  {
+> +                                       reg = < 0x70000 0x280000 >;
+> +                                       label = "kernel";
+> +                               };
+> +                               dtb  {
+> +                                       reg = < 0x2f0000 0x10000 >;
+> +                                       label = "dtb";
+> +                               };
+> +                               initramfs {
+> +                                       reg = < 0x300000 0x1c0000 >;
+> +                                       label = "initramfs";
+> +                               };
+> +                               rofs  {
+> +                                       reg = < 0x4c0000 0x1740000 >;
+> +                                       label = "rofs";
+> +                               };
+> +                               rwfs  {
+> +                                       reg = < 0x1c00000 0x400000 >;
+> +                                       label = "rwfs";
+> +                               };
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+> new file mode 100644
+> index 000000000000..372ce2cd5320
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+> @@ -0,0 +1,205 @@
+> +/dts-v1/;
 > +
-> +	ir35221@e2 {
-> +		compatible = "infineon,ir35221";
-> +		reg = <0xe2>;
-> +	};
->   };
->
->
-> @@ -227,6 +237,16 @@
->   		compatible = "ti,tmp423";
->   		reg = <0x4c>;
->   	};
+> +#include <dt-bindings/thermal/thermal.h>
+> +#include <dt-bindings/pwm/pwm.h>
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/interrupt-controller/irq.h>
+> +#include <dt-bindings/gpio/aspeed-gpio.h>
+> +#include "aspeed-g5.dtsi"
 > +
-> +	ir35221@e0 {
-> +		compatible = "infineon,ir35221";
-> +		reg = <0xe0>;
-> +	};
+> +/ {
+> +       model = "MSNXXXX BMC";
+> +       compatible = "mellanox,msnxxxx-bmc", "aspeed,ast2500";
+
+Does MSN stand for something?
+
+The xxxx is a bit unsual looking. Could you instead just use mellanox,msn-bmc?
+
 > +
-> +	ir35221@e2 {
-> +		compatible = "infineon,ir35221";
-> +		reg = <0xe2>;
-> +	};
->   };
+> +       aliases {
+> +               serial0 = &uart1;
+> +               serial4 = &uart5;
+> +       };
+> +
+> +       chosen {
+> +               stdout-path = &uart5;
+> +               bootargs = "console=ttyS4,115200n8 earlyprintk";
+> +       };
+> +
+> +       memory {
+> +               /* 512MiB SDRAM DDR4 @ 0x8000_0000 */
+> +               reg = <0x80000000 0x20000000>;
+> +       };
+> +
+> +       ahb {
+> +               bmc_pnor: fmc@1e620000 {
+> +                       reg = < 0x1e620000 0xc4
+> +                               0x20000000 0x02000000 >;
+> +                       #address-cells = <1>;
+> +                       #size-cells = <0>;
+> +                       compatible = "aspeed,ast2500-fmc";
+> +                       interrupts = <19>;
+> +                       flash@0 {
+> +                               reg = < 0 >;
+> +                               compatible = "jedec,spi-nor" ;
+> +#include "aspeed-bmc-mellanox-msn-flash-layout.dtsi"
+> +                       };
+> +               };
+> +
+> +               host_pnor: spi2@1e631000 {
+> +                       reg = < 0x1e631000 0xc4
+> +                               0x38000000 0x08000000 >;
+> +                       #address-cells = <1>;
+> +                       #size-cells = <0>;
+> +                       compatible = "aspeed,ast2500-spi";
+> +                       status = "disabled";
+
+Disabled?
+
+> +                       pinctrl-names = "default";
+> +                       pinctrl-0 = <&pinctrl_spi2ck_default
+> +                                    &pinctrl_spi2cs0_default
+> +                                    &pinctrl_spi2miso_default
+> +                                    &pinctrl_spi2mosi_default>;
+> +
+> +                       host_flash {
+> +                               reg = < 0 >;
+> +                               compatible = "jedec,spi-nor";
+> +                               label = "host_flash";
+> +                               #address-cells = < 1 >;
+> +                               #size-cells = < 1 >;
+> +                       };
+> +               };
+> +       };
+> +};
+> +
+> +&uart5 {
+> +       status = "okay";
+> +};
+> +
+> +&uart1 {
+> +       status = "okay";
+> +};
+> +
+> +&mac0 {
+> +       status = "okay";
+> +       use-ncsi;
+> +       no-hw-checksum;
+
+I don't think we need no-hw-checksum for ast2500 on 4.10.
+
+> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+> index 0f1a536ba1b2..25fbc6c1adb7 100644
+> --- a/arch/arm/mach-aspeed/aspeed.c
+> +++ b/arch/arm/mach-aspeed/aspeed.c
+> @@ -27,6 +27,7 @@
+>  #define AST_BASE_MAC0          0X1E660000 /* MAC 1 */
+>  #define AST_BASE_SCU           0x1E6E2000 /* System Control Unit (SCU) */
+>  #define AST_BASE_GPIO          0x1E780000 /* GPIO Controller */
+> +#define AST_BASE_WD            0x1E785000 /* Watchdog */
 >
->   &i2c6 {
+>  static struct map_desc aspeed_io_desc[] __initdata __maybe_unused = {
+>         {
+> @@ -188,6 +189,31 @@ static void __init do_lanyang_setup(void)
+>         writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC | 0x98));
+>  }
+>
+> +static void __init do_mellanox_setup(void)
+> +{
+> +       unsigned long reg;
+> +
+> +       do_common_setup();
+> +
+> +       /* Set strap to RGMII for dedicated PHY networking */
+> +       reg = readl(AST_IO(AST_BASE_SCU | 0x70));
+> +       reg |= BIT(7);
+> +       reg &= ~BIT(6);
+> +       writel(reg, AST_IO(AST_BASE_SCU | 0x70));
+
+
+This is a software workaround for incorrect hardware strapping. Will
+the strapping be fixed on a future revision of your hardware?
+
+> +       /* Disable UART1 Reset from LPC */
+> +       writel(0x00000A00, AST_IO(AST_BASE_LPC | 0x98));
+> +
+> +       reg = readl(AST_IO(AST_BASE_SCU | 0x48));
+> +       reg |= BIT(29);
+> +       writel(reg, AST_IO(AST_BASE_SCU | 0x48));
+
+Please add a comment for this. I think it's enabling RMII1 50MHz RCLK output.
+
+> +       /* Disable WD2 */
+> +       reg = readl(AST_IO(AST_BASE_WD | 0x2c));
+> +       reg &= ~BIT(0);
+> +       writel(reg, AST_IO(AST_BASE_WD | 0x2c));
+
+Instead of disabling the watchdog here, you should load a driver for
+it. To do this, add the following to your device tree:
+
+&wdt2 {
+        status = "okay";
+};
+
+Cheers,
+
+Joel
