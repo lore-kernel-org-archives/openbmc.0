@@ -1,46 +1,21 @@
-Return-Path: <robherring2@gmail.com>
-Received: from mail-oi0-f67.google.com (mail-oi0-f67.google.com
- [209.85.218.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wWfCl0P5wzDqLj
- for <openbmc@lists.ozlabs.org>; Mon, 22 May 2017 23:10:27 +1000 (AEST)
-Received: by mail-oi0-f67.google.com with SMTP id w10so22591549oif.1
- for <openbmc@lists.ozlabs.org>; Mon, 22 May 2017 06:10:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=RUXLNviOYyZu9KZrTanfULM0LVlr4N0g7ZxPD08T29A=;
- b=Ox157v1UauXpkVLNPS8DLpJ1Y03dD4mBwxVOPOchRzQV3dllucWj3BfC9d6ACPnWpp
- T65lCTfmUkGAn6PISNNt1SfzjP8HgabXMdNSg8onOLzpjBqYGj9dCd4JKoR1o3edrECn
- Si2BIeZDtvLNxegYOx0Z9MDYyPi5leClxcRgl+jJ6nOXEMPaLEq7eqLe6V1EsiBhbYl7
- xKT7lfEerDAldt1LWL9ebqSt08Hk+KRla7Rz8hSXeizdF0qBnd5hVUeJIqlApgLv3pvs
- 7XWyKYhoVOaZP/SwC3Dz8+8hOsupeC1X/BgffsFlUOEAc36xijNTpnxx1VJti8g1bCGd
- 8lVg==
-X-Gm-Message-State: AODbwcDPzJR5aTekqabfN6xDI7rxH/JHjRRO9nzbl07gUcULLo8fuaCD
- INjslKoWQGA8tQ==
-X-Received: by 10.202.84.205 with SMTP id i196mr12043256oib.145.1495458624925; 
- Mon, 22 May 2017 06:10:24 -0700 (PDT)
-Received: from localhost (66-90-148-125.dyn.grandenetworks.net.
- [66.90.148.125])
- by smtp.gmail.com with ESMTPSA id q206sm4779666oia.2.2017.05.22.06.10.24
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 22 May 2017 06:10:24 -0700 (PDT)
-Date: Mon, 22 May 2017 08:10:23 -0500
-From: Rob Herring <robh@kernel.org>
-To: Jeremy Kerr <jk@ozlabs.org>
-Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH RFC v2 1/2] Documentation/devicetree: Add specification
- for FSI busses
-Message-ID: <20170522131023.rawtmyrdalxvobrd@rob-hp-laptop>
-References: <1494910285-20856-1-git-send-email-jk@ozlabs.org>
- <1494910285-20856-2-git-send-email-jk@ozlabs.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1494910285-20856-2-git-send-email-jk@ozlabs.org>
-User-Agent: NeoMutt/20170113 (1.7.2)
+Return-Path: <c_mykolak@mellanox.com>
+Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
+ by lists.ozlabs.org (Postfix) with ESMTP id 3wXD3f09bLzDqLS
+ for <openbmc@lists.ozlabs.org>; Tue, 23 May 2017 21:35:24 +1000 (AEST)
+Received: from Internal Mail-Server by MTLPINE1 (envelope-from
+ c?mykolak@mellanox.com)
+ with ESMTPS (AES256-SHA encrypted); 23 May 2017 14:35:20 +0300
+Received: from r-build-lowlevel.mtr.labs.mlnx. (r-build-lowlevel.mtr.labs.mlnx
+ [10.209.0.190])
+ by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id v4NBZJd9009346;
+ Tue, 23 May 2017 14:35:20 +0300
+From: Mykola Kostenok <c_mykolak@mellanox.com>
+To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
+Subject: [PATCH u-boot v2016.07-aspeed-openbmc] Add extended configuration for
+ ast-g5 board
+Date: Tue, 23 May 2017 14:34:10 +0300
+Message-Id: <20170523113410.192036-1-c_mykolak@mellanox.com>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -52,26 +27,99 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 May 2017 13:10:27 -0000
+X-List-Received-Date: Tue, 23 May 2017 11:35:27 -0000
 
-On Tue, May 16, 2017 at 12:51:24PM +0800, Jeremy Kerr wrote:
-> This change introduces a proposed layout for describing FSI busses in
-> the device tree. While the bus is probe-able, we'd still like a method
-> of describing subordinate (eg i2c) busses that are behind FSI devices.
-> 
-> The FSI core will be responsible for matching probed slaves & engines to
-> their device tree nodes, so the FSI device drivers' probe() functions
-> will be passed a struct device with the appropriate of_node populated
-> where a matching DT node is found.
+Add defconfig extends ast_g5_ncsi_defconfig with the number of options:
+It allows 2-nd  boot partition, memory testing, boot, image info option,
+extra filesystem and environment commands.
+Add WATCHDOG_RESET macro support for aspeed g5 boards for cases when
+HW watchdog is configured.
 
-Missed this the first time, "dt-bindings: fsi: " is the preferred 
-subject prefix. No need to respin just for that.
+Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
+---
+ board/aspeed/ast-g5/Kconfig         |  1 +
+ board/aspeed/ast-g5/ast-g5.c        | 17 +++++++++++++++++
+ configs/ast_g5_ncsi_2boot_defconfig | 36 ++++++++++++++++++++++++++++++++++++
+ 3 files changed, 54 insertions(+)
+ create mode 100644 configs/ast_g5_ncsi_2boot_defconfig
 
-> 
-> Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
-> ---
->  Documentation/devicetree/bindings/fsi/fsi.txt | 144 ++++++++++++++++++++++++++
->  1 file changed, 144 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/fsi/fsi.txt
-
-Acked-by: Rob Herring <robh@kernel.org>
+diff --git a/board/aspeed/ast-g5/Kconfig b/board/aspeed/ast-g5/Kconfig
+index 9bd3e7de49..0a8b38b9db 100644
+--- a/board/aspeed/ast-g5/Kconfig
++++ b/board/aspeed/ast-g5/Kconfig
+@@ -18,5 +18,6 @@ config SYS_SOC
+ config SYS_CONFIG_NAME
+ 	default "ast-g5-phy" if ASPEED_NET_PHY
+ 	default "ast-g5-ncsi" if ASPEED_NET_NCSI
++	default "ast-g5-ncsi-2boot" if ASPEED_NET_NCSI && FIRMWARE_2ND_BOOT
+ 
+ endif
+diff --git a/board/aspeed/ast-g5/ast-g5.c b/board/aspeed/ast-g5/ast-g5.c
+index da79d7b79a..2965ffea0e 100644
+--- a/board/aspeed/ast-g5/ast-g5.c
++++ b/board/aspeed/ast-g5/ast-g5.c
+@@ -46,3 +46,20 @@ int board_eth_init(bd_t *bd)
+         return aspeednic_initialize(bd);
+ }
+ #endif
++
++/*Called by macro WATCHDOG_RESET*/
++#if defined(CONFIG_HW_WATCHDOG)
++
++#define AST_BASE_WD 0x1E785000 /* Watch DOG */
++#define WDT_28 0x28 /*WDT2 Counter Restart Register*/
++#define WDT_RESTART_VALUE 0x4755 /*value to write into WDT restart register.*/
++
++void hw_watchdog_reset(void)
++{
++	u32 reg = 0;
++	/*restart WD2 timer*/
++	reg = WDT_RESTART_VALUE;
++	writel(reg, AST_BASE_WD | WDT_28);
++}
++
++#endif /* CONFIG_WATCHDOG */
+diff --git a/configs/ast_g5_ncsi_2boot_defconfig b/configs/ast_g5_ncsi_2boot_defconfig
+new file mode 100644
+index 0000000000..f919f237b4
+--- /dev/null
++++ b/configs/ast_g5_ncsi_2boot_defconfig
+@@ -0,0 +1,36 @@
++CONFIG_ARM=y
++CONFIG_TARGET_AST_G5=y
++CONFIG_SYS_PROMPT="ast# "
++CONFIG_CMD_BOOTEFI=n
++CONFIG_CMD_DHCP=y
++CONFIG_CMD_PING=y
++CONFIG_EFI_LOADER=n
++CONFIG_FIT=y
++CONFIG_FIT_VERBOSE=y
++CONFIG_HUSH_PARSER=y
++CONFIG_OF_LIBFDT=y
++CONFIG_SPI_FLASH=y
++CONFIG_SYS_NS16550=y
++CONFIG_FIRMWARE_2ND_BOOT=y
++CONFIG_AUTOBOOT=y
++CONFIG_AUTOBOOT_KEYED=y
++CONFIG_AUTOBOOT_PROMPT="\nBooting the BMC in %d seconds. Type the password to stop autoboot.\n"
++CONFIG_AUTOBOOT_STOP_STR="0penBmc"
++CONFIG_CMD_SAVEENV=y
++CONFIG_CMDLINE=y
++CONFIG_BOOTDELAY=5
++CONFIG_NETDEVICES=y
++CONFIG_CMD_GREPENV=y
++CONFIG_CMD_MEMINFO=y
++CONFIG_CMD_EXT2=y
++CONFIG_CMD_FAT=y
++CONFIG_EXPERT=y
++CONFIG_REGEX=y
++CONFIG_CMD_IMI=y
++CONFIG_CMD_IMLS=y
++CONFIG_CMD_MEMORY=y
++CONFIG_CMD_CRC32=y
++CONFIG_LOOPW=y
++CONFIG_CMD_MEMTEST=y
++CONFIG_CMD_MX_CYCLIC=y
++
+-- 
+2.11.0
