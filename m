@@ -1,58 +1,55 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x241.google.com (mail-yw0-x241.google.com
+ [IPv6:2607:f8b0:4002:c05::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wXW1H6FhCzDqZX
- for <openbmc@lists.ozlabs.org>; Wed, 24 May 2017 08:49:23 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wXYvD4QNqzDqdl
+ for <openbmc@lists.ozlabs.org>; Wed, 24 May 2017 10:59:20 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="TiRcKKBF"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="D4Q3XdS4"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 58F04208D2;
- Tue, 23 May 2017 18:49:20 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Tue, 23 May 2017 18:49:20 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=xm41PN1tnBbLDSFEyOVGTd4ipXbrKYZQwrI1gmiR2
- DU=; b=TiRcKKBFMNGlBdbhVbK007Lt6RcrKqOEBFnp4AKQDJc/pGKBNEL6zSpC/
- 41OnDLNlQnTjU6ds1fZ2v9DjmVJSaU9MdEMGG58iG4gJAc2eRSM0vRMzufcDEY4n
- y4QdOIXqkcokeMb8H0cbYdd8Z3slyJZcfrhtnCVWE4rup7StKqQF4+cJl+NGfjLt
- OYZWPydPjZGBrXT7zzJGGIL+CGk8pq3IUEYypB++Zxv1XwOhSI0rK3MHi2hJnQcD
- GYvjUPXvSREi00wVXIPDeCzx7N9d9z5/WAWy9T+jUQ5afbgLF52fTbHEMnqxe4Rc
- WTqLWiZylk0xQE9Kja7dbCUPTs8hw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=xm41PN1tnBbLDSFEyO
- VGTd4ipXbrKYZQwrI1gmiR2DU=; b=D4Q3XdS4tLvT1QrtQdZhUrzAzG7gSEkLCW
- 9D+lsElmeMQySZsfX8jZR063NKt5ecowO2QcgOxRNXQeknOFOWt9ACKsle1P9X6i
- ABzUMovZpDTZp0oVfGPKKdqXxmwRZEYsypijtf+JpXz/52RGZHMcpdrtUaMq9W7T
- SKcEULpX2xLaaTobblyCuprYWZraUXtCOKUh/3UGIerchNmEPvhi9Cuv48U27Jfn
- 8r/5AaXOZa1Sjh6EoK+OXFVxetyiJFpIldZgI9qT0HeIlzxQKXDnlMMts5DdsLkS
- 2DSSwBQoabYjLxCZDSKXpgcFDo/v+IXmaagbXcHNG5KVCnilcuCg==
-X-ME-Sender: <xms:cLwkWe0IKC4nBOksaoDoeTMWlOk3OfIvrOHwCzOA9OJGA1646plB5A>
-X-Sasl-enc: zXmhjK+TcxEimByQxdKnv4cipYgGYc4+gxWDMwiSXcpo 1495579759
-Received: from keelia (unknown [122.99.82.10])
- by mail.messagingengine.com (Postfix) with ESMTPA id E2C4E241E3;
- Tue, 23 May 2017 18:49:18 -0400 (EDT)
-Message-ID: <1495579753.7794.1.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10] drivers/watchdog: Add user space access
- to aspeed ext signal and reset
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Christopher Bostic <cbostic@linux.vnet.ibm.com>, joel@jms.id.au
-Cc: openbmc@lists.ozlabs.org
-Date: Wed, 24 May 2017 08:49:13 +1000
-In-Reply-To: <20170523212845.89898-1-cbostic@linux.vnet.ibm.com>
-References: <20170523212845.89898-1-cbostic@linux.vnet.ibm.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-MF71mLyS6CJ2PgbxetdG"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="X39/vQkc"; 
+ dkim-atps=neutral
+Received: by mail-yw0-x241.google.com with SMTP id p144so11946340ywp.2
+ for <openbmc@lists.ozlabs.org>; Tue, 23 May 2017 17:59:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=AD+4ST/ib1e2By7rAiI38VaGGvEZzE39R8CVhp58SuY=;
+ b=X39/vQkcCm5MJDqlKMDA4tWpe8WJZv3AlDJVZ9tlH3ALqjn68r5ogMPQTqU8dmC9Hf
+ 4cIe1vchFzcbNFNS7NvnBFvFIXWd9LocMY2V1e/BFoa28yoToSK0YxIQWnOSz39ppSjD
+ TMaEjtODlRkUJUG7slWCEjFoREv4GsfVw6laVeW39jGb6GWIGtLYtUGcDt+MMfxcQlrc
+ r0qYwI50xn8Cn4Y2c8Y1h8kOvW+2+T5Hqlau6NzjOW9f/jXk+iE5zkPM9MY3Y0zWFfcy
+ uaMhXd55t0X3suf2RIDksp/5SgGhs0qVMPwoiVrsjc+PZQSfyFpSuA2hdPLVjnjRmCxE
+ 7Uaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=AD+4ST/ib1e2By7rAiI38VaGGvEZzE39R8CVhp58SuY=;
+ b=W/ZJM+Wi16R4FwqWUgVxBfGqdfFRGrw6jLZw74XjoD2oIjRtdJH1dxi9/FFEz3MHGg
+ zosXBcxb9cMsiJbUAwHi9nAeJAp9mP+aetmz1bacXFMJ2G/xeQECPnpE/YCi+82RiX3B
+ WQeWy/eaNGra7NgSEW7KPoB2JK/2aw6kbPJTnqgHkqswddhakhKQQcXQ+WY5ASD26XFb
+ /VHk/gdHkaP1nww+6rGLOUYGxNNNS4mlKfcqFGUr27QcVCqwvUQH3IJ6UzPISj1GlG7U
+ 76YFKeb8AZfExAMOLUxcrnNCIXcaTYv5/LjZZJNu1yIsmJoAR2ngbEMnzkmfHuzVv2Kb
+ FWPQ==
+X-Gm-Message-State: AODbwcDlceTw1yNJ9ajH5CrE1l/mN81aiJxpMyq8VCf/uvJUcF/jxVDg
+ LlaNtC8Uy/oNhdfMuYEVQ686BO1ZcA==
+X-Received: by 10.129.108.215 with SMTP id h206mr24657384ywc.329.1495587558139; 
+ Tue, 23 May 2017 17:59:18 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.171.70 with HTTP; Tue, 23 May 2017 17:58:57 -0700 (PDT)
+In-Reply-To: <20170519173412.68053-2-cbostic@linux.vnet.ibm.com>
+References: <20170519173412.68053-1-cbostic@linux.vnet.ibm.com>
+ <20170519173412.68053-2-cbostic@linux.vnet.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 24 May 2017 10:58:57 +1000
+X-Google-Sender-Auth: oS894GyrjxH4RpDkFN8rQkSlCQk
+Message-ID: <CACPK8Xdq2J0XE9bkezBDOTQ=xCUGdYo=TLdjyOkwpp=3JFATgg@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v2] arm: dts: aspeed: Add IR35221 instances
+ to dev tree
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -64,254 +61,81 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 23 May 2017 22:49:26 -0000
+X-List-Received-Date: Wed, 24 May 2017 00:59:21 -0000
+
+On Sat, May 20, 2017 at 3:34 AM, Christopher Bostic
+<cbostic@linux.vnet.ibm.com> wrote:
+> Add IR35221 to i2c4 and i2c5 buses.
+
+This is similar to the patch that I sent on the 2nd.
+
+I took your patch as it adds the device at 0x71 which I did not know about.
+
+Cheers,
+
+Joel
 
 
---=-MF71mLyS6CJ2PgbxetdG
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, 2017-05-23 at 16:28 -0500, Christopher Bostic wrote:
-> Add sysfs files for 'ext signal' mode and 'system reset' mode within
-> the aspeed watchdog device driver for wdt1 and wdt2
-
-This commit message explains what the patch does, not why we need it.
-The code change already describes what it does, so can you please
-instead outline in the commit message what the motivation is (or
-potential motivations are). Ultimately what I'm interested in is
-whether this should be a platform design decision (and so should be
-managed via devicetree), or userspace policy, which is what we have
-here.
-
-Separately, given it's fairly generic and assuming the motivation is
-reasonable, I'd suggest also sending it upstream.
-
-Andrew
-
->=20
-> > Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+>
+> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 > ---
-> =C2=A0.../ABI/testing/sysfs-platform-aspeed-wdt=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0| 40 ++++++++++
-> =C2=A0drivers/watchdog/aspeed_wdt.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0| 89 +++++++++++++++++++++-
-> =C2=A02 files changed, 128 insertions(+), 1 deletion(-)
-> =C2=A0create mode 100644 Documentation/ABI/testing/sysfs-platform-aspeed-=
-wdt
->=20
-> diff --git a/Documentation/ABI/testing/sysfs-platform-aspeed-wdt b/Docume=
-ntation/ABI/testing/sysfs-platform-aspeed-wdt
-> new file mode 100644
-> index 0000000..a582176
-> --- /dev/null
-> +++ b/Documentation/ABI/testing/sysfs-platform-aspeed-wdt
-> @@ -0,0 +1,40 @@
-> +What:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/=
-sys/bus/platform/devices/1e785000.wdt/watchdog/watchdog0/
-> > +		reset_system
-> +Date:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0M=
-ay 2017
-> +KernelVersion:=C2=A0=C2=A04.12
-> > +Contact:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Christopher Bo=
-stic <cbostic@linux.vnet.ibm.com>
-> +Description:
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0Value indicates if a watchdog time out results in a=
- reset of
-> > +		system.=C2=A0=C2=A0'off': no system reset on timeout.=C2=A0=C2=A0'on=
-' there will
-> > +		be a system reset on timeout.
+> V2 - Convert I2C bus addresses to 7 bit right aligned.
+>    - Add IR35221 to device tree documentation.
+> ---
+>  .../devicetree/bindings/i2c/trivial-devices.txt      |  1 +
+>  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts     | 20 ++++++++++++++++++++
+>  2 files changed, 21 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/i2c/trivial-devices.txt b/Documentation/devicetree/bindings/i2c/trivial-devices.txt
+> index cdd7b48..d504271 100644
+> --- a/Documentation/devicetree/bindings/i2c/trivial-devices.txt
+> +++ b/Documentation/devicetree/bindings/i2c/trivial-devices.txt
+> @@ -53,6 +53,7 @@ fsl,sgtl5000          SGTL5000: Ultra Low-Power Audio Codec
+>  gmt,g751               G751: Digital Temperature Sensor and Thermal Watchdog with Two-Wire Interface
+>  infineon,slb9635tt     Infineon SLB9635 (Soft-) I2C TPM (old protocol, max 100khz)
+>  infineon,slb9645tt     Infineon SLB9645 I2C TPM (new protocol, max 400khz)
+> +infineon,ir35221       Infineon IR35221 Digital DC-DC Multiphase Converter
+>  isil,isl29028          Intersil ISL29028 Ambient Light and Proximity Sensor
+>  maxim,ds1050           5 Bit Programmable, Pulse-Width Modulator
+>  maxim,max1237          Low-Power, 4-/12-Channel, 2-Wire Serial, 12-Bit ADCs
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> index 5d83a76..b0338db 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> @@ -394,6 +394,16 @@
+>                 compatible = "ti,tmp423";
+>                 reg = <0x4c>;
+>         };
 > +
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0Default: off
+> +       ir35221@70 {
+> +               compatible = "infineon,ir35221";
+> +               reg = <0x70>;
+> +       };
 > +
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0- Enable 'reset system' on watchdog timeout:
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0echo on > /sys/bus/platform/devices/1e785000.wdt/wa=
-tchdog/
-> > +			watchdog0/reset_system;
+> +       ir35221@71 {
+> +               compatible = "infineon,ir35221";
+> +               reg = <0x71>;
+> +       };
+>  };
+>
+>
+> @@ -408,6 +418,16 @@
+>                 compatible = "ti,tmp423";
+>                 reg = <0x4c>;
+>         };
 > +
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0- Disable 'reset system' on watchdog timeout:
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0echo off > /sys/bus/platform/devices/1e785000.wdt/w=
-atchdog/
-> > +			watchdog0/reset_system;
+> +       ir35221@70 {
+> +               compatible = "infineon,ir35221";
+> +               reg = <0x70>;
+> +       };
 > +
-> +What:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/=
-sys/bus/platform/devices/1e785000.wdt/watchdog/watchdog0/
-> > +		ext_signal
-> +Date:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0M=
-ay 2017
-> +KernelVersion:=C2=A0=C2=A04.12
-> > +Contact:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Christopher Bo=
-stic <cbostic@linux.vnet.ibm.com>
-> +Description:
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0Value indicates if a watchdog time out results in a=
-n active
-> > +		high pulse sent out an output pin.=C2=A0=C2=A0'off': No output pulse
-> > +		generated on watchdog time out.=C2=A0=C2=A0'on': output pulse
-> > +		generated on watchdog time out.
-> +
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0Default: off
-> +
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0- Enable 'external signal' on watchdog timeout:
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0echo on > /sys/bus/platform/devices/1e785000.wdt/wa=
-tchdog/
-> > +			watchdog0/ext_signal;
-> +
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0- Disable 'external signal' on watchdog timeout:
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0echo off > /sys/bus/platform/devices/1e785000.wdt/w=
-atchdog/
-> > +			watchdog0/ext_signal;
-> diff --git a/drivers/watchdog/aspeed_wdt.c b/drivers/watchdog/aspeed_wdt.=
-c
-> index f5ad802..277948b 100644
-> --- a/drivers/watchdog/aspeed_wdt.c
-> +++ b/drivers/watchdog/aspeed_wdt.c
-> @@ -145,6 +145,93 @@ static int aspeed_wdt_remove(struct platform_device =
-*pdev)
-> > =C2=A0	return 0;
-> =C2=A0}
-> =C2=A0
-> +static ssize_t aspeed_wdt_reset_system_store(struct device *dev,
-> > +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct device_attribute *attr,
-> > +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0const char *buf, size_t count)
-> +{
-> > +	struct platform_device *pdev =3D to_platform_device(dev);
-> > +	struct aspeed_wdt *wdt =3D platform_get_drvdata(pdev);
-> +
-> > +	if (!strncmp(buf, "on", strlen("on"))) {
-> > +		wdt->ctrl |=3D WDT_CTRL_RESET_SYSTEM;
-> > +		writel(wdt->ctrl, wdt->base + WDT_CTRL);
-> > +	} else if (!strncmp(buf, "off", strlen("off"))) {
-> > +		wdt->ctrl &=3D ~WDT_CTRL_RESET_SYSTEM;
-> > +		writel(wdt->ctrl, wdt->base + WDT_CTRL);
-> > +	} else {
-> > +		dev_warn(dev, "Unknown reset system mode command: [%s]\n", buf);
-> > +		return -EINVAL;
-> > +	}
-> +
-> > +	return count;
-> +}
-> +
-> +static ssize_t aspeed_wdt_reset_system_show(struct device *dev,
-> > +					=C2=A0=C2=A0=C2=A0=C2=A0struct device_attribute *attr,
-> > +					=C2=A0=C2=A0=C2=A0=C2=A0char *buf)
-> +{
-> > +	struct platform_device *pdev =3D to_platform_device(dev);
-> > +	struct aspeed_wdt *wdt =3D platform_get_drvdata(pdev);
-> > +	int ret;
-> +
-> > +	if (readl(wdt->base + WDT_CTRL) & WDT_CTRL_RESET_SYSTEM)
-> > +		ret =3D sprintf(buf, "on\n");
-> > +	else
-> > +		ret =3D sprintf(buf, "off\n");
-> +
-> > +	return ret;
-> +}
-> +
-> +static DEVICE_ATTR(reset_system, 0644,
-> > +		=C2=A0=C2=A0=C2=A0aspeed_wdt_reset_system_show, aspeed_wdt_reset_sys=
-tem_store);
-> +
-> +static ssize_t aspeed_wdt_ext_signal_store(struct device *dev,
-> > +					=C2=A0=C2=A0=C2=A0struct device_attribute *attr,
-> > +					=C2=A0=C2=A0=C2=A0const char *buf, size_t count)
-> +{
-> > +	struct platform_device *pdev =3D to_platform_device(dev);
-> > +	struct aspeed_wdt *wdt =3D platform_get_drvdata(pdev);
-> +
-> > +	if (!strncmp(buf, "on", strlen("on"))) {
-> > +		wdt->ctrl |=3D WDT_CTRL_WDT_EXT;
-> > +		writel(wdt->ctrl, wdt->base + WDT_CTRL);
-> > +	} else if (!strncmp(buf, "off", strlen("off"))) {
-> > +		wdt->ctrl &=3D ~WDT_CTRL_WDT_EXT;
-> > +		writel(wdt->ctrl, wdt->base + WDT_CTRL);
-> > +	} else {
-> > +		dev_warn(dev, "Unknown reset system mode command: %s\n", buf);
-> > +		return -EINVAL;
-> > +	}
-> +
-> > +	return count;
-> +}
-> +
-> +static ssize_t aspeed_wdt_ext_signal_show(struct device *dev,
-> > +					=C2=A0=C2=A0struct device_attribute *attr,
-> > +					=C2=A0=C2=A0char *buf)
-> +{
-> > +	struct platform_device *pdev =3D to_platform_device(dev);
-> > +	struct aspeed_wdt *wdt =3D platform_get_drvdata(pdev);
-> > +	int ret;
-> +
-> > +	if (readl(wdt->base + WDT_CTRL) & WDT_CTRL_WDT_EXT)
-> > +		ret =3D sprintf(buf, "on\n");
-> > +	else
-> > +		ret =3D sprintf(buf, "off\n");
-> +
-> > +	return ret;
-> +}
-> +
-> +static DEVICE_ATTR(ext_signal, 0644,
-> +		=C2=A0=C2=A0=C2=A0aspeed_wdt_ext_signal_show, aspeed_wdt_ext_signal_st=
-ore);
-
-The on/off implementations for show/store callbacks are very similar,
-only differentiated by the bit that we're flipping. We could almost cut
-the code in half by parameterising a function with the bit of interest
-and invoking it appropriately in the callback handlers. Thoughts?
-
-Andrew
-
-> +
-> +static struct attribute *aspeed_wdt_attrs[] =3D {
-> > +	&dev_attr_reset_system.attr,
-> > +	&dev_attr_ext_signal.attr,
-> > +	NULL
-> +};
-> +ATTRIBUTE_GROUPS(aspeed_wdt);
-> +
-> =C2=A0static int aspeed_wdt_probe(struct platform_device *pdev)
-> =C2=A0{
-> > =C2=A0	struct aspeed_wdt *wdt;
-> @@ -169,7 +256,7 @@ static int aspeed_wdt_probe(struct platform_device *p=
-dev)
-> > =C2=A0	wdt->wdd.ops =3D &aspeed_wdt_ops;
-> > =C2=A0	wdt->wdd.max_hw_heartbeat_ms =3D WDT_MAX_TIMEOUT_MS;
-> > =C2=A0	wdt->wdd.parent =3D &pdev->dev;
-> -
-> > +	wdt->wdd.groups =3D aspeed_wdt_groups;
-> > =C2=A0	wdt->wdd.timeout =3D WDT_DEFAULT_TIMEOUT;
-> > =C2=A0	watchdog_init_timeout(&wdt->wdd, 0, &pdev->dev);
-> =C2=A0
---=-MF71mLyS6CJ2PgbxetdG
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJZJLxpAAoJEJ0dnzgO5LT5wJsP+gPyddq1aFsMfJgEVVvsBSCP
-Eb6NGkYrFbQo9SRaV7Q6Z+NyRAwdb8yKoiPMj637qT/g9BOo+JjLry3PeHj0Uob4
-6fcnE5o8hsQtzBecURGpSt8ZSJEislh2mAONopX9v7LEM6+CVyFtwB+zIecKsTVf
-Lafug0cbXPCHyWlGivXCeqOa8jltGoCf+fnBMzoGlS+tc+xnsrVuV6Wr6zSax/kN
-1npQlL+nw+A3G1rnk6My8i8itXJpYlXLOqB1ZsrZFngwcFxaIxPIHZYcLyeKwhcS
-gd5NNt73CRegzaB/UvIXaHFv2R08JDYno3pKyCjNKNuJfP/BUrd1P9R98VLu9YBu
-V3byd6hzl9R1Sy6E5+2QveDZjW7OYdJL4OjrXeb786SGXsj409Sr44K+P/LAeZPh
-CceTO8nK/ss4rMzDnb4TmAwAiUSxtExpHrBAw7gdovxK8X43nAV9kkwU4vOnsure
-pQQAfDAfnKpfwAT/w8W5GH2rvqiiJvGEP8m5wbeHLyf520xTXJRamwwuQ/xVPJYT
-vP8EApRX0z9GxDscxR7SsDTIQwUZfhS8k9Ig/vtUP4aqYCsav2lyRAhijtnhEwdI
-ujQXcmy8nz27zA13Bdu0HtxePtVpAdLXO3xlIqFK1nwMvzuSt10aLb/75OZVi1sI
-GTwaqxqTq94TZJu4mdbb
-=khbv
------END PGP SIGNATURE-----
-
---=-MF71mLyS6CJ2PgbxetdG--
+> +       ir35221@71 {
+> +               compatible = "infineon,ir35221";
+> +               reg = <0x71>;
+> +       };
+>  };
+>
+>  &i2c6 {
+> --
+> 1.8.2.2
+>
