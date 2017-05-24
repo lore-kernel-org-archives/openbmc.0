@@ -1,54 +1,26 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x242.google.com (mail-yw0-x242.google.com
- [IPv6:2607:f8b0:4002:c05::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <bradleyb@fuzziesquirrel.com>
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wXZvB0lSxzDqcP
- for <openbmc@lists.ozlabs.org>; Wed, 24 May 2017 11:44:22 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="AkBaRAyh"; 
- dkim-atps=neutral
-Received: by mail-yw0-x242.google.com with SMTP id y64so10566973ywe.0
- for <openbmc@lists.ozlabs.org>; Tue, 23 May 2017 18:44:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=VUs/xq1qqwqYOr+aw7GIRhZqrQWseBa5+CIGLD/dvcI=;
- b=AkBaRAyhkI+XBC/iSL74tCqK45to4PxedyugjNZ31tNt7XGl8qPj6BvOPlzLeMCKmR
- NhmPAanhJl9p8bubOK0HTPHQiysTW/OPJL0RPZZgWwSqHUhkB1e1Ti58/GEqVFGrnpul
- ieE7UNyRs5ezvurBXKP/o4baB0TWySOLHwAzAisL4U8F5EuWhlwkOigawECLaWBD6gPl
- NU042AY/m7uPAGcsYvUdlf88fwShxM1v3dMFbprkEPc/py/002SVB5cLgVCA8ShJcJuY
- zdl1XWxPas3FgTrhvT1UaZnEmhwaP++FDNPuNCtChj3qchn5SbrNM+BmzHF6meEESmFw
- 42Cw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=VUs/xq1qqwqYOr+aw7GIRhZqrQWseBa5+CIGLD/dvcI=;
- b=FVSj+z1Mq7EDwe9/r4UlpXjRI/wvFAb3sB8d08+nly0VIPXoQcdN9SARAMu5hGDIM8
- Y+upx3aW/K+RRUc8bNKiUYOAfXo8HsWDodWNgxrrXkBi7hway0lZizGJNhrkgIKK9kxw
- 5QHARGlr6HFvzXBt1isd567LrEXbPHd34V8ssT6GPjRnnnSIqcUyrW96tWivHkuSUxQ4
- h/VJFUGAliuT2EjPZPT7JOYy9KYHkPi5T06AYR74d7mlGEZvBB65LV1GW4aktMojWFte
- 9iGh7tooQNwIqGqcwZKIX/BIQgVLsf1hgKRO67bkSMekqxYVjoF5XS+BlAsIEVphjUqI
- lycQ==
-X-Gm-Message-State: AODbwcBZ+V+sM3v3jBTpuvJCYKZFSql2u++sz56iHzBVckSThbJ2wYlG
- vzRDIpnEpmkQXcBhRd0a6ZtWX2uTl+xZOUc=
-X-Received: by 10.129.108.215 with SMTP id h206mr24758434ywc.329.1495590259732; 
- Tue, 23 May 2017 18:44:19 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.171.70 with HTTP; Tue, 23 May 2017 18:43:59 -0700 (PDT)
-In-Reply-To: <20170523113410.192036-1-c_mykolak@mellanox.com>
-References: <20170523113410.192036-1-c_mykolak@mellanox.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 24 May 2017 11:43:59 +1000
-X-Google-Sender-Auth: 3qC5JXx0QrNIfxXsaB7QJ32kV_k
-Message-ID: <CACPK8XfQW2MTdPSkh0HZd6=C3yMYUFA03HrmvH0Jt1+U-WqdjA@mail.gmail.com>
-Subject: Re: [PATCH u-boot v2016.07-aspeed-openbmc] Add extended configuration
- for ast-g5 board
-To: Mykola Kostenok <c_mykolak@mellanox.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wXbj46K0gzDqcM
+ for <openbmc@lists.ozlabs.org>; Wed, 24 May 2017 12:20:40 +1000 (AEST)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Sender: bradleyb@fuzziesquirrel.com
+Content-Type: text/plain; charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: Re: [PATCH linux dev-4.10] drivers/watchdog: Add user space access to
+ aspeed ext signal and reset
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <1495579753.7794.1.camel@aj.id.au>
+Date: Tue, 23 May 2017 22:20:35 -0400
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, joel@jms.id.au,
+ openbmc@lists.ozlabs.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <DC205E45-AB4A-4939-88D6-244369E6F68E@fuzziesquirrel.com>
+References: <20170523212845.89898-1-cbostic@linux.vnet.ibm.com>
+ <1495579753.7794.1.camel@aj.id.au>
+To: Andrew Jeffery <andrew@aj.id.au>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,115 +32,235 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 24 May 2017 01:44:22 -0000
+X-List-Received-Date: Wed, 24 May 2017 02:20:41 -0000
 
-On Tue, May 23, 2017 at 9:34 PM, Mykola Kostenok <c_mykolak@mellanox.com> wrote:
-> Add defconfig extends ast_g5_ncsi_defconfig with the number of options:
-> It allows 2-nd  boot partition, memory testing, boot, image info option,
-> extra filesystem and environment commands.
-> Add WATCHDOG_RESET macro support for aspeed g5 boards for cases when
-> HW watchdog is configured.
->
-> Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
-> ---
->  board/aspeed/ast-g5/Kconfig         |  1 +
->  board/aspeed/ast-g5/ast-g5.c        | 17 +++++++++++++++++
->  configs/ast_g5_ncsi_2boot_defconfig | 36 ++++++++++++++++++++++++++++++++++++
->  3 files changed, 54 insertions(+)
->  create mode 100644 configs/ast_g5_ncsi_2boot_defconfig
->
-> diff --git a/board/aspeed/ast-g5/Kconfig b/board/aspeed/ast-g5/Kconfig
-> index 9bd3e7de49..0a8b38b9db 100644
-> --- a/board/aspeed/ast-g5/Kconfig
-> +++ b/board/aspeed/ast-g5/Kconfig
-> @@ -18,5 +18,6 @@ config SYS_SOC
->  config SYS_CONFIG_NAME
->         default "ast-g5-phy" if ASPEED_NET_PHY
->         default "ast-g5-ncsi" if ASPEED_NET_NCSI
-> +       default "ast-g5-ncsi-2boot" if ASPEED_NET_NCSI && FIRMWARE_2ND_BOOT
->
->  endif
-> diff --git a/board/aspeed/ast-g5/ast-g5.c b/board/aspeed/ast-g5/ast-g5.c
-> index da79d7b79a..2965ffea0e 100644
-> --- a/board/aspeed/ast-g5/ast-g5.c
-> +++ b/board/aspeed/ast-g5/ast-g5.c
-> @@ -46,3 +46,20 @@ int board_eth_init(bd_t *bd)
->          return aspeednic_initialize(bd);
->  }
->  #endif
-> +
-> +/*Called by macro WATCHDOG_RESET*/
-> +#if defined(CONFIG_HW_WATCHDOG)
-> +
-> +#define AST_BASE_WD 0x1E785000 /* Watch DOG */
-> +#define WDT_28 0x28 /*WDT2 Counter Restart Register*/
-> +#define WDT_RESTART_VALUE 0x4755 /*value to write into WDT restart register.*/
-> +
-> +void hw_watchdog_reset(void)
-> +{
-> +       u32 reg = 0;
-> +       /*restart WD2 timer*/
-> +       reg = WDT_RESTART_VALUE;
 
-You can just use WDT_RESTART_VALUE instead of creating the local variable.
+> On May 23, 2017, at 6:49 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+>=20
+> On Tue, 2017-05-23 at 16:28 -0500, Christopher Bostic wrote:
+>> Add sysfs files for 'ext signal' mode and 'system reset' mode within
+>> the aspeed watchdog device driver for wdt1 and wdt2
+>=20
+> This commit message explains what the patch does, not why we need it.
+> The code change already describes what it does, so can you please
+> instead outline in the commit message what the motivation is (or
+> potential motivations are). Ultimately what I'm interested in is
+> whether this should be a platform design decision (and so should be
 
-Can you explain what you're doing here. You're setting the magic
-reload value, but not the WDT enable or the count.
+Witherspoon has a physical connection between one of the watchdogs on =
+the
+SOC and the max31785 fan control chip.  We want the line to wiggle if
+the watchdog is not pinged by userspace.
 
-> +       writel(reg, AST_BASE_WD | WDT_28);
-> +}
-> +
-> +#endif /* CONFIG_WATCHDOG */
-> diff --git a/configs/ast_g5_ncsi_2boot_defconfig b/configs/ast_g5_ncsi_2boot_defconfig
-> new file mode 100644
-> index 0000000000..f919f237b4
-> --- /dev/null
-> +++ b/configs/ast_g5_ncsi_2boot_defconfig
+That said, the specific watchdog instance on the SOC that has the =
+connection
+can be configured to wiggle the pin, or not, and to reset the chip, or
+not, independently.
 
-The defconfig looks okay. If you send that change in a separate patch
-I can merge it.
+So is that platform design or userspace policy?  I=E2=80=99m not sure...
 
-Cheers,
+> managed via devicetree), or userspace policy, which is what we have
+> here.
+>=20
+> Separately, given it's fairly generic and assuming the motivation is
+> reasonable, I'd suggest also sending it upstream.
 
-Joel
+Agreed on doing the review directly upstream.
 
-> @@ -0,0 +1,36 @@
-> +CONFIG_ARM=y
-> +CONFIG_TARGET_AST_G5=y
-> +CONFIG_SYS_PROMPT="ast# "
-> +CONFIG_CMD_BOOTEFI=n
-> +CONFIG_CMD_DHCP=y
-> +CONFIG_CMD_PING=y
-> +CONFIG_EFI_LOADER=n
-> +CONFIG_FIT=y
-> +CONFIG_FIT_VERBOSE=y
-> +CONFIG_HUSH_PARSER=y
-> +CONFIG_OF_LIBFDT=y
-> +CONFIG_SPI_FLASH=y
-> +CONFIG_SYS_NS16550=y
-> +CONFIG_FIRMWARE_2ND_BOOT=y
-> +CONFIG_AUTOBOOT=y
-> +CONFIG_AUTOBOOT_KEYED=y
-> +CONFIG_AUTOBOOT_PROMPT="\nBooting the BMC in %d seconds. Type the password to stop autoboot.\n"
-> +CONFIG_AUTOBOOT_STOP_STR="0penBmc"
-> +CONFIG_CMD_SAVEENV=y
-> +CONFIG_CMDLINE=y
-> +CONFIG_BOOTDELAY=5
-> +CONFIG_NETDEVICES=y
-> +CONFIG_CMD_GREPENV=y
-> +CONFIG_CMD_MEMINFO=y
-> +CONFIG_CMD_EXT2=y
-> +CONFIG_CMD_FAT=y
-> +CONFIG_EXPERT=y
-> +CONFIG_REGEX=y
-> +CONFIG_CMD_IMI=y
-> +CONFIG_CMD_IMLS=y
-> +CONFIG_CMD_MEMORY=y
-> +CONFIG_CMD_CRC32=y
-> +CONFIG_LOOPW=y
-> +CONFIG_CMD_MEMTEST=y
-> +CONFIG_CMD_MX_CYCLIC=y
-> +
-> --
-> 2.11.0
->
+>=20
+> Andrew
+>=20
+>>=20
+>>> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+>> ---
+>>  .../ABI/testing/sysfs-platform-aspeed-wdt          | 40 ++++++++++
+>>  drivers/watchdog/aspeed_wdt.c                      | 89 =
++++++++++++++++++++++-
+>>  2 files changed, 128 insertions(+), 1 deletion(-)
+>>  create mode 100644 =
+Documentation/ABI/testing/sysfs-platform-aspeed-wdt
+>>=20
+>> diff --git a/Documentation/ABI/testing/sysfs-platform-aspeed-wdt =
+b/Documentation/ABI/testing/sysfs-platform-aspeed-wdt
+>> new file mode 100644
+>> index 0000000..a582176
+>> --- /dev/null
+>> +++ b/Documentation/ABI/testing/sysfs-platform-aspeed-wdt
+>> @@ -0,0 +1,40 @@
+>> +What:           =
+/sys/bus/platform/devices/1e785000.wdt/watchdog/watchdog0/
+>>> +		reset_system
+>> +Date:           May 2017
+>> +KernelVersion:  4.12
+>>> +Contact:        Christopher Bostic <cbostic@linux.vnet.ibm.com>
+>> +Description:
+>> +                Value indicates if a watchdog time out results in a =
+reset of
+>>> +		system.  'off': no system reset on timeout.  'on' there =
+will
+>>> +		be a system reset on timeout.
+>> +
+>> +                Default: off
+>> +
+>> +                - Enable 'reset system' on watchdog timeout:
+>> +                echo on > =
+/sys/bus/platform/devices/1e785000.wdt/watchdog/
+>>> +			watchdog0/reset_system;
+>> +
+>> +                - Disable 'reset system' on watchdog timeout:
+>> +                echo off > =
+/sys/bus/platform/devices/1e785000.wdt/watchdog/
+>>> +			watchdog0/reset_system;
+>> +
+>> +What:           =
+/sys/bus/platform/devices/1e785000.wdt/watchdog/watchdog0/
+>>> +		ext_signal
+>> +Date:           May 2017
+>> +KernelVersion:  4.12
+>>> +Contact:        Christopher Bostic <cbostic@linux.vnet.ibm.com>
+>> +Description:
+>> +                Value indicates if a watchdog time out results in an =
+active
+>>> +		high pulse sent out an output pin.  'off': No output =
+pulse
+>>> +		generated on watchdog time out.  'on': output pulse
+>>> +		generated on watchdog time out.
+>> +
+>> +                Default: off
+>> +
+>> +                - Enable 'external signal' on watchdog timeout:
+>> +                echo on > =
+/sys/bus/platform/devices/1e785000.wdt/watchdog/
+>>> +			watchdog0/ext_signal;
+>> +
+>> +                - Disable 'external signal' on watchdog timeout:
+>> +                echo off > =
+/sys/bus/platform/devices/1e785000.wdt/watchdog/
+>>> +			watchdog0/ext_signal;
+>> diff --git a/drivers/watchdog/aspeed_wdt.c =
+b/drivers/watchdog/aspeed_wdt.c
+>> index f5ad802..277948b 100644
+>> --- a/drivers/watchdog/aspeed_wdt.c
+>> +++ b/drivers/watchdog/aspeed_wdt.c
+>> @@ -145,6 +145,93 @@ static int aspeed_wdt_remove(struct =
+platform_device *pdev)
+>>>  	return 0;
+>>  }
+>> =20
+>> +static ssize_t aspeed_wdt_reset_system_store(struct device *dev,
+>>> +					     struct device_attribute =
+*attr,
+>>> +					     const char *buf, size_t =
+count)
+>> +{
+>>> +	struct platform_device *pdev =3D to_platform_device(dev);
+>>> +	struct aspeed_wdt *wdt =3D platform_get_drvdata(pdev);
+>> +
+>>> +	if (!strncmp(buf, "on", strlen("on"))) {
+>>> +		wdt->ctrl |=3D WDT_CTRL_RESET_SYSTEM;
+>>> +		writel(wdt->ctrl, wdt->base + WDT_CTRL);
+>>> +	} else if (!strncmp(buf, "off", strlen("off"))) {
+>>> +		wdt->ctrl &=3D ~WDT_CTRL_RESET_SYSTEM;
+>>> +		writel(wdt->ctrl, wdt->base + WDT_CTRL);
+>>> +	} else {
+>>> +		dev_warn(dev, "Unknown reset system mode command: =
+[%s]\n", buf);
+>>> +		return -EINVAL;
+>>> +	}
+>> +
+>>> +	return count;
+>> +}
+>> +
+>> +static ssize_t aspeed_wdt_reset_system_show(struct device *dev,
+>>> +					    struct device_attribute =
+*attr,
+>>> +					    char *buf)
+>> +{
+>>> +	struct platform_device *pdev =3D to_platform_device(dev);
+>>> +	struct aspeed_wdt *wdt =3D platform_get_drvdata(pdev);
+>>> +	int ret;
+>> +
+>>> +	if (readl(wdt->base + WDT_CTRL) & WDT_CTRL_RESET_SYSTEM)
+>>> +		ret =3D sprintf(buf, "on\n");
+>>> +	else
+>>> +		ret =3D sprintf(buf, "off\n");
+>> +
+>>> +	return ret;
+>> +}
+>> +
+>> +static DEVICE_ATTR(reset_system, 0644,
+>>> +		   aspeed_wdt_reset_system_show, =
+aspeed_wdt_reset_system_store);
+>> +
+>> +static ssize_t aspeed_wdt_ext_signal_store(struct device *dev,
+>>> +					   struct device_attribute =
+*attr,
+>>> +					   const char *buf, size_t =
+count)
+>> +{
+>>> +	struct platform_device *pdev =3D to_platform_device(dev);
+>>> +	struct aspeed_wdt *wdt =3D platform_get_drvdata(pdev);
+>> +
+>>> +	if (!strncmp(buf, "on", strlen("on"))) {
+>>> +		wdt->ctrl |=3D WDT_CTRL_WDT_EXT;
+>>> +		writel(wdt->ctrl, wdt->base + WDT_CTRL);
+>>> +	} else if (!strncmp(buf, "off", strlen("off"))) {
+>>> +		wdt->ctrl &=3D ~WDT_CTRL_WDT_EXT;
+>>> +		writel(wdt->ctrl, wdt->base + WDT_CTRL);
+>>> +	} else {
+>>> +		dev_warn(dev, "Unknown reset system mode command: %s\n", =
+buf);
+>>> +		return -EINVAL;
+>>> +	}
+>> +
+>>> +	return count;
+>> +}
+>> +
+>> +static ssize_t aspeed_wdt_ext_signal_show(struct device *dev,
+>>> +					  struct device_attribute *attr,
+>>> +					  char *buf)
+>> +{
+>>> +	struct platform_device *pdev =3D to_platform_device(dev);
+>>> +	struct aspeed_wdt *wdt =3D platform_get_drvdata(pdev);
+>>> +	int ret;
+>> +
+>>> +	if (readl(wdt->base + WDT_CTRL) & WDT_CTRL_WDT_EXT)
+>>> +		ret =3D sprintf(buf, "on\n");
+>>> +	else
+>>> +		ret =3D sprintf(buf, "off\n");
+>> +
+>>> +	return ret;
+>> +}
+>> +
+>> +static DEVICE_ATTR(ext_signal, 0644,
+>> +		   aspeed_wdt_ext_signal_show, =
+aspeed_wdt_ext_signal_store);
+>=20
+> The on/off implementations for show/store callbacks are very similar,
+> only differentiated by the bit that we're flipping. We could almost =
+cut
+> the code in half by parameterising a function with the bit of interest
+> and invoking it appropriately in the callback handlers. Thoughts?
+>=20
+> Andrew
+>=20
+>> +
+>> +static struct attribute *aspeed_wdt_attrs[] =3D {
+>>> +	&dev_attr_reset_system.attr,
+>>> +	&dev_attr_ext_signal.attr,
+>>> +	NULL
+>> +};
+>> +ATTRIBUTE_GROUPS(aspeed_wdt);
+>> +
+>>  static int aspeed_wdt_probe(struct platform_device *pdev)
+>>  {
+>>>  	struct aspeed_wdt *wdt;
+>> @@ -169,7 +256,7 @@ static int aspeed_wdt_probe(struct =
+platform_device *pdev)
+>>>  	wdt->wdd.ops =3D &aspeed_wdt_ops;
+>>>  	wdt->wdd.max_hw_heartbeat_ms =3D WDT_MAX_TIMEOUT_MS;
+>>>  	wdt->wdd.parent =3D &pdev->dev;
+>> -
+>>> +	wdt->wdd.groups =3D aspeed_wdt_groups;
+>>>  	wdt->wdd.timeout =3D WDT_DEFAULT_TIMEOUT;
+>>>  	watchdog_init_timeout(&wdt->wdd, 0, &pdev->dev);
