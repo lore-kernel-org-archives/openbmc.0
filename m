@@ -1,30 +1,53 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <brendanhiggins@google.com>
+Received: from mail-pf0-x22c.google.com (mail-pf0-x22c.google.com
+ [IPv6:2607:f8b0:400e:c00::22c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wYBPZ2LXZzDqdl
- for <openbmc@lists.ozlabs.org>; Thu, 25 May 2017 11:24:17 +1000 (AEST)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Sender: bradleyb@fuzziesquirrel.com
-Content-Type: text/plain; charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: Re: [PATCH linux dev-4.10 v2] arm: dts: aspeed: Add IR35221 instances
- to dev tree
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <CACPK8XeZN5ALj3ry-G8QkOneCLWT=_6yBF4NuMP1h+MEO8NPmQ@mail.gmail.com>
-Date: Wed, 24 May 2017 21:24:14 -0400
-Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <86554E4C-0D25-4446-B59B-3FCB84638ACD@fuzziesquirrel.com>
-References: <20170519173412.68053-1-cbostic@linux.vnet.ibm.com>
- <20170519173412.68053-2-cbostic@linux.vnet.ibm.com>
- <CACPK8Xdq2J0XE9bkezBDOTQ=xCUGdYo=TLdjyOkwpp=3JFATgg@mail.gmail.com>
- <CACPK8Xe_5V_c30A+h_5+ZVbZ2YEcfSbF5od-qfQgp+aGggFmJg@mail.gmail.com>
- <8ED27577-DDFA-49E1-ADFC-EAC12A98D655@fuzziesquirrel.com>
- <CACPK8XeZN5ALj3ry-G8QkOneCLWT=_6yBF4NuMP1h+MEO8NPmQ@mail.gmail.com>
-To: Joel Stanley <joel@jms.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wYKd75sknzDqcG
+ for <openbmc@lists.ozlabs.org>; Thu, 25 May 2017 16:49:47 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="Xu19ucfc"; 
+ dkim-atps=neutral
+Received: by mail-pf0-x22c.google.com with SMTP id m17so158358208pfg.3
+ for <openbmc@lists.ozlabs.org>; Wed, 24 May 2017 23:49:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=5LM0NS9JjelmpAg4YFY8607MAvTrztIk2rZQ1KvgqmU=;
+ b=Xu19ucfcHBelshAC08GHUy80EpNpBSsw3/Wux5w5ZT8RCab5Et3o1OXhQ+ocE4mBm1
+ +UwQYJ6wvM9KhigHZhTMJc1x2lDHYPHCZr+oQP3kdHo7Uszzx7o6Hzh2sVWgrbX/6QDe
+ C6oP+Szy3zm35kVX3Wu1icGhNjziWt4ynW7ogmpI9Yi7qYd3hUCKxcUxt4BT7H4UPjzQ
+ Pq1Smst/bYSl8Z4dUMVuUdS1CyrxZ1nO5M3dl4AO6IznaTJ34tUBSplfzzd07PScAZt6
+ ps8KO/c54dS2ffFMb56q9Xp3D4n64hhN+KWrLWRuU7ImmN9ox5s8WQyHW6bPITTq+Vb3
+ Jviw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=5LM0NS9JjelmpAg4YFY8607MAvTrztIk2rZQ1KvgqmU=;
+ b=JqamjBY/T38y5y8aCfooej84o9OrRAWV0+8G65if15S9GLZ2UeMUwgZgJd+fbk3n6D
+ poEpxk+sMBx1Ll4njTWAayJjZcMPP2+ORpFlCmWFnQoELrD/jWVfmu2rkbbzuPKr5G4n
+ p6aWuo+6wER4ZFEhmT1g1M3Rt/O6LZXn18jR36Rc73hCsTtT9ze+z7tXaAiIc+k5v+No
+ MhZyf7ATS/Dh6iB4ssocY5hCDEz+4/aHHMovhDLhb42U11ZNB6FXLs+FO0bUOxwfOo39
+ oac4lS7TLkBAIzau5/sPhi4gp/RwOxFVweelcI7L5qIvW3AVrX2/qckvNZRHZRH9Ue4I
+ 2wCw==
+X-Gm-Message-State: AODbwcAzRDdf/wyl5BQJ/dCB0IiiH91125T/vaoDFzcvBLlMtSDDWF+G
+ MYCFNYDQXgbQ1fzN
+X-Received: by 10.98.37.68 with SMTP id l65mr43657889pfl.175.1495694985182;
+ Wed, 24 May 2017 23:49:45 -0700 (PDT)
+Received: from mactruck.svl.corp.google.com ([100.123.242.94])
+ by smtp.gmail.com with ESMTPSA id g63sm10995700pgc.59.2017.05.24.23.49.43
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Wed, 24 May 2017 23:49:44 -0700 (PDT)
+From: Brendan Higgins <brendanhiggins@google.com>
+To: wsa@the-dreams.de, robh+dt@kernel.org, mark.rutland@arm.com,
+ tglx@linutronix.de, jason@lakedaemon.net, marc.zyngier@arm.com,
+ joel@jms.id.au, vz@mleia.com, mouse@mayc.ru, clg@kaod.org,
+ benh@kernel.crashing.org
+Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+Subject: [PATCH v8 0/5] i2c: aspeed: added driver for Aspeed I2C
+Date: Wed, 24 May 2017 23:49:20 -0700
+Message-Id: <20170525064925.16867-1-brendanhiggins@google.com>
+X-Mailer: git-send-email 2.13.0.219.gdb65acc882-goog
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -36,72 +59,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 May 2017 01:24:18 -0000
+X-List-Received-Date: Thu, 25 May 2017 06:49:48 -0000
 
+Addressed comments from:
+  - Ben in: http://www.spinics.net/lists/devicetree/msg174576.html
+    and: https://www.spinics.net/lists/kernel/msg2496151.html
+  - Wolfram in: https://www.spinics.net/lists/kernel/msg2504011.html
+  - Cedric in: https://www.spinics.net/lists/kernel/msg2506531.html
 
-> On May 24, 2017, at 9:16 PM, Joel Stanley <joel@jms.id.au> wrote:
->=20
-> On Thu, May 25, 2017 at 4:32 AM, Brad Bishop
-> <bradleyb@fuzziesquirrel.com> wrote:
->>=20
->>> On May 24, 2017, at 2:20 AM, Joel Stanley <joel@jms.id.au> wrote:
->>>=20
->>> On Wed, May 24, 2017 at 10:58 AM, Joel Stanley <joel@jms.id.au> =
-wrote:
->>>> On Sat, May 20, 2017 at 3:34 AM, Christopher Bostic
->>>> <cbostic@linux.vnet.ibm.com> wrote:
->>>>> Add IR35221 to i2c4 and i2c5 buses.
->>>>=20
->>>> This is similar to the patch that I sent on the 2nd.
->>>>=20
->>>> I took your patch as it adds the device at 0x71 which I did not =
-know about.
->>>>=20
->>>=20
->>> This breaks userspace, as userspace assumes it can access the i2c
->>> devices through /dev/i2c-x.
->>>=20
->>=20
->> Joel, or anyone able to answer=E2=80=A6
->>=20
->> Do you know which application?  I wasn=E2=80=99t aware of any =
-applications using i2c-dev...
->=20
-> The one I noticed was vrm-control.sh.
->=20
->> Can we simply remove i2c-dev from the config?
->=20
-> We could, but that would break other bits of the p9 userspace.
->=20
-> Taking a look a the root filesystem, we have the following
-> applications that use the /dev/i2c interfaces:
->=20
-> $ grep -rl i2cset *
-> usr/sbin/i2cset
-> usr/bin/avsbus-disable.sh
-> usr/bin/avsbus-workaround.sh
-> usr/bin/avsbus-enable.sh
-> usr/bin/vrm-control.sh
-> usr/bin/vcs_on.sh
-> usr/bin/ucd_disable_vcs.sh
-> usr/bin/vcs_off.sh
->=20
+Changes since previous update:
+  - ACK IRQ status bits before doing anything else
+  - Added multi-master device tree property
+  - Do not send STOP commands after interrupt errors
+  - Fix SMBUS_QUICK emulation handling
+  - Removed highspeed clock code (I will do it in a later patch set)
+  - Use the platform_device name for the adapter name
+  - Reset for all failed recoveries
+  - Removed the "__" prefix from all of the non-thread safe functions
 
-Thanks Joel.  I had forgotten about these.
-
-I=E2=80=99m not sure how to handle this.  We obviously still need to run =
-these workarounds,
-but we also need the regulator temperatures.
-
-The only thing I can think of is exposing what these scripts need via =
-sysfs attributes.
-
-Is there any alternative?
-
-> grep -rl i2cget *
-> usr/sbin/i2cget
-> usr/bin/vrm-control.sh
->=20
-> Cheers,
->=20
-> Joel
+As before, tested on Aspeed 2500 evaluation board and a real platform with an
+Aspeed 2520.
