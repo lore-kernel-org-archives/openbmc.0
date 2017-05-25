@@ -1,63 +1,60 @@
-Return-Path: <sjg@google.com>
-Received: from mail-vk0-x22c.google.com (mail-vk0-x22c.google.com
- [IPv6:2607:f8b0:400c:c05::22c])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
+ [IPv6:2607:f8b0:4002:c05::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wY8gB6S7rzDqL5
- for <openbmc@lists.ozlabs.org>; Thu, 25 May 2017 10:05:58 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wYBFC4xDmzDqdl
+ for <openbmc@lists.ozlabs.org>; Thu, 25 May 2017 11:17:03 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="GJZIyMUG"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=chromium.org header.i=@chromium.org header.b="DmV1ndnM";
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Oe94c0jZ"; 
  dkim-atps=neutral
-Received: by mail-vk0-x22c.google.com with SMTP id y190so84280821vkc.1
- for <openbmc@lists.ozlabs.org>; Wed, 24 May 2017 17:05:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+Received: by mail-yw0-x244.google.com with SMTP id 17so13853676ywk.1
+ for <openbmc@lists.ozlabs.org>; Wed, 24 May 2017 18:17:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=3mxU8mOhu0EYho8AB7fB1aveFC9IPF498E0Ffzs5SZw=;
- b=GJZIyMUGgJXPdgsDgy63hew0wW3npD1iwoalSNvDRtOBRyTbsQOX6TkKBEoYmeH5Em
- GJRrc2bOgUS91LHWgq9VahvgAVu2swHIKFv86ZuSLLWqWCHkc4eOKFy0ssKcUyzMIowQ
- wOGumUXo84npWaKm0ahKLdQWtISbWTcKD6+RIv/04xkVmdDss1rXWTPB4ghHqR50jn8M
- 3bisKI4oi86YDSVk+Yb/qKP9SerBydKWhLdeuTSM5562Z0e9at+Xv+kdH86+pgT6j2Qs
- 299/9BCaNOWUxdjeuPx5U4z543qgOAGWbrOqbccE3q+KsjfEa2m/Xjm0jeDIuKK4eAiW
- mScQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=3mxU8mOhu0EYho8AB7fB1aveFC9IPF498E0Ffzs5SZw=;
- b=DmV1ndnMQN6NAVYxWqrHPmJnU+ChrvN0DcwME0ZD++yO4DJOUeK7YxMK4+Rgv+sdaJ
- a9NKwPveSG7Q9ptbD2rStBw15XLaetSi9DRjqG6PMsqDgL03SxZzyIXXXblJAh8sNDIF
- OsdfIZrLcpi/EqwPBs8AOSRhYnaoYYeKejGE8=
+ :subject:to:cc:content-transfer-encoding;
+ bh=zb2itkf0v/pOOgwxnJ4ucpp3+A7J6yLmWDBHalhkMBM=;
+ b=Oe94c0jZWAEbIAah4j8V5r12IzXtk0vk7Adu/wpCcXWm6CTLZwvjuZ9gs4mSg93Nxj
+ fmd3Jd2b05P+26BvDdikiw4ym1z5Wv4bb+fLQfPQRCBZKwql9+nQSUTerjR9AUFkC28K
+ IF9YSuZot9zHq2uHOscphnefk8S2bZtdMxRsOp3rioSfwwFqU+iFnoERDX+t2UrIZgLO
+ 9PsGsWcGDtql4m5wgB9ahw7AtJHB9spNqCnRcZzglwQi9SE9FQbYVa6mbIrAaxCIv8U9
+ HW985Rs3N2ic7pSnipIDSg3+co/e8pf+JOwUHDdqyZ95q06MQb3bZvvtRLg3c6rP56/y
+ NxCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=3mxU8mOhu0EYho8AB7fB1aveFC9IPF498E0Ffzs5SZw=;
- b=Q5C0lUBoMCa78GIRopJmW00fWnuyyH/qqeZy5rfgK1VpjmWQKFT/Z6WmIHJP8RZZLZ
- MQgbqcBitAxe1oVtAly0lcDitrZucaElqirL7bkT9MSNuYWdhivC5D2r0MTjEe1qjfMU
- HHudtMJqbXT+SqMng0YN//E7GwosMntkf1C7BT6q1Cq2EPmzRcK5y2dF9Y45oe7loFfN
- ypWL4j05kHH4knQCaa60D2S61Ktl98B8M1Ds6VZ6VpJYw1kjUTBLdSr5Ukr7bb+vzGEV
- bMMCu1S+Fx7WRkS12AioDHxJu4t08F+ylKTvLKURiJ/VG7lWIgEiXMHFNtDk4VLA8Qy6
- BFPA==
-X-Gm-Message-State: AODbwcBxz+pnQMvcc2i/8pFu4XHAR3OIvFCxa0pkXVy6O+I+1tHpCM3n
- MdptQ85uuqV7HVHyLGmo9H/lTD+JpobG
-X-Received: by 10.31.79.65 with SMTP id d62mr6840568vkb.54.1495670756062; Wed,
- 24 May 2017 17:05:56 -0700 (PDT)
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=zb2itkf0v/pOOgwxnJ4ucpp3+A7J6yLmWDBHalhkMBM=;
+ b=ehReY8S52PNAPvDNQn1xqZ1nBbKbe2Q+Q5x9mwezUOe+x9HR5o8G11MKIa4aPcR3KF
+ hEK15gfRpF/8l2IvsTN79/IJU3AmK0x7QYpCivIsOCAXWj93fwdUMIzzoJTdxNJt6WAU
+ 28TeOTEqfpWnaa3RVbwOeM9ikm7M9SpVzhRzuP6cWumpFByOiu0kYmQIGW55n2CFeGlt
+ lMUJmB2PU6zrg/sZsNQ4z7NL266+4BT/BVdSMO9D2gKOabp1QxJ6TYrKuHHzc6TvFYqW
+ a8z1obHTjaDmvjPJQm2yYBJ/pvQ/yDnrt8xzuK0E3fB/Wqke7bN+XPuq83N2ARyl1boT
+ DeUQ==
+X-Gm-Message-State: AODbwcAJkZdXAgBchqrf/uylTlEhLSxLh6s8sm+dXOa8IwqGrypiQQQe
+ JX3G4RkQp8uxqgJtsFwMI+HR8sHemw==
+X-Received: by 10.13.243.133 with SMTP id c127mr31422368ywf.43.1495675021290; 
+ Wed, 24 May 2017 18:17:01 -0700 (PDT)
 MIME-Version: 1.0
-Sender: sjg@google.com
-Received: by 10.176.78.39 with HTTP; Wed, 24 May 2017 17:05:34 -0700 (PDT)
-In-Reply-To: <20170523113410.192036-1-c_mykolak@mellanox.com>
-References: <20170523113410.192036-1-c_mykolak@mellanox.com>
-From: Simon Glass <sjg@chromium.org>
-Date: Wed, 24 May 2017 18:05:34 -0600
-X-Google-Sender-Auth: _AsMRchnXcDy0BJ6mdeccB8MiWg
-Message-ID: <CAPnjgZ3aBHLDd9AXSpy5PZVnY9WAstFjGCpMSCLfCx7su7_bRA@mail.gmail.com>
-Subject: Re: [PATCH u-boot v2016.07-aspeed-openbmc] Add extended configuration
- for ast-g5 board
-To: Mykola Kostenok <c_mykolak@mellanox.com>
-Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Sender: joel.stan@gmail.com
+Received: by 10.37.171.70 with HTTP; Wed, 24 May 2017 18:16:40 -0700 (PDT)
+In-Reply-To: <8ED27577-DDFA-49E1-ADFC-EAC12A98D655@fuzziesquirrel.com>
+References: <20170519173412.68053-1-cbostic@linux.vnet.ibm.com>
+ <20170519173412.68053-2-cbostic@linux.vnet.ibm.com>
+ <CACPK8Xdq2J0XE9bkezBDOTQ=xCUGdYo=TLdjyOkwpp=3JFATgg@mail.gmail.com>
+ <CACPK8Xe_5V_c30A+h_5+ZVbZ2YEcfSbF5od-qfQgp+aGggFmJg@mail.gmail.com>
+ <8ED27577-DDFA-49E1-ADFC-EAC12A98D655@fuzziesquirrel.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 25 May 2017 11:16:40 +1000
+X-Google-Sender-Auth: F_qBx9bXFjlBLsM8tYNOPVs_Bts
+Message-ID: <CACPK8XeZN5ALj3ry-G8QkOneCLWT=_6yBF4NuMP1h+MEO8NPmQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v2] arm: dts: aspeed: Add IR35221 instances
+ to dev tree
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -69,27 +66,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 May 2017 00:06:00 -0000
+X-List-Received-Date: Thu, 25 May 2017 01:17:04 -0000
 
-Hi,
-
-On 23 May 2017 at 05:34, Mykola Kostenok <c_mykolak@mellanox.com> wrote:
-> Add defconfig extends ast_g5_ncsi_defconfig with the number of options:
-> It allows 2-nd  boot partition, memory testing, boot, image info option,
-> extra filesystem and environment commands.
-> Add WATCHDOG_RESET macro support for aspeed g5 boards for cases when
-> HW watchdog is configured.
+On Thu, May 25, 2017 at 4:32 AM, Brad Bishop
+<bradleyb@fuzziesquirrel.com> wrote:
 >
-> Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
-> ---
->  board/aspeed/ast-g5/Kconfig         |  1 +
->  board/aspeed/ast-g5/ast-g5.c        | 17 +++++++++++++++++
->  configs/ast_g5_ncsi_2boot_defconfig | 36 ++++++++++++++++++++++++++++++++++++
->  3 files changed, 54 insertions(+)
->  create mode 100644 configs/ast_g5_ncsi_2boot_defconfig
+>> On May 24, 2017, at 2:20 AM, Joel Stanley <joel@jms.id.au> wrote:
+>>
+>> On Wed, May 24, 2017 at 10:58 AM, Joel Stanley <joel@jms.id.au> wrote:
+>>> On Sat, May 20, 2017 at 3:34 AM, Christopher Bostic
+>>> <cbostic@linux.vnet.ibm.com> wrote:
+>>>> Add IR35221 to i2c4 and i2c5 buses.
+>>>
+>>> This is similar to the patch that I sent on the 2nd.
+>>>
+>>> I took your patch as it adds the device at 0x71 which I did not know ab=
+out.
+>>>
+>>
+>> This breaks userspace, as userspace assumes it can access the i2c
+>> devices through /dev/i2c-x.
+>>
+>
+> Joel, or anyone able to answer=E2=80=A6
+>
+> Do you know which application?  I wasn=E2=80=99t aware of any application=
+s using i2c-dev...
 
-Are you targeting mainline U-Boot with any of these changes? There is
-a watchdog uclass in mainline that probably should be used here.
+The one I noticed was vrm-control.sh.
 
-Regards,
-Simon
+> Can we simply remove i2c-dev from the config?
+
+We could, but that would break other bits of the p9 userspace.
+
+Taking a look a the root filesystem, we have the following
+applications that use the /dev/i2c interfaces:
+
+$ grep -rl i2cset *
+usr/sbin/i2cset
+usr/bin/avsbus-disable.sh
+usr/bin/avsbus-workaround.sh
+usr/bin/avsbus-enable.sh
+usr/bin/vrm-control.sh
+usr/bin/vcs_on.sh
+usr/bin/ucd_disable_vcs.sh
+usr/bin/vcs_off.sh
+
+grep -rl i2cget *
+usr/sbin/i2cget
+usr/bin/vrm-control.sh
+
+Cheers,
+
+Joel
