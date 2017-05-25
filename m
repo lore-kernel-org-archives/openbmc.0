@@ -1,43 +1,43 @@
 Return-Path: <brendanhiggins@google.com>
-Received: from mail-pf0-x234.google.com (mail-pf0-x234.google.com
- [IPv6:2607:f8b0:400e:c00::234])
+Received: from mail-pf0-x235.google.com (mail-pf0-x235.google.com
+ [IPv6:2607:f8b0:400e:c00::235])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wYKd93HVpzDqcG
- for <openbmc@lists.ozlabs.org>; Thu, 25 May 2017 16:49:49 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wYKdB0vcKzDqcG
+ for <openbmc@lists.ozlabs.org>; Thu, 25 May 2017 16:49:50 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="YzdB720R"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="CzeKL7xK"; 
  dkim-atps=neutral
-Received: by mail-pf0-x234.google.com with SMTP id m17so158359000pfg.3
- for <openbmc@lists.ozlabs.org>; Wed, 24 May 2017 23:49:49 -0700 (PDT)
+Received: by mail-pf0-x235.google.com with SMTP id m17so158359383pfg.3
+ for <openbmc@lists.ozlabs.org>; Wed, 24 May 2017 23:49:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=7D15SQXa6knSO7GEcZXjZYB3JKKv1mihNlALzyr7G24=;
- b=YzdB720RXRh48zpwF9jNnU4R6G9WCmOyT31BMjRFe8TH+YD4Z/N+SVkQViYBIEBiMI
- TwXS9m/y6bKQDd3xtSnjIuqSGmSFmRiQvZT4MPAYPXQnVae6xHurC+lFDYUGFCR9Vf0L
- xqcDRK8y0qMhjrd9W7jeL1Zcp1e5ZDhFCXk4jVhgwNW1YRDupXSMF54fxxodLSEhRxBz
- ZtReR+MMd/OFr1q35gtvCctCpPAdqwxOFVpvRpNP6HaBE4El94KLyq+2TwntNTVI5Kz0
- qdgWIO8MaIruhr9umA6eY4meT6rTSBNxBpYDAPK2J60sYr8ixq+IUeHrSEoscWUyuaJt
- 0pcg==
+ bh=07xCGHzxVwY8KU8LipaOqXkM0AlKm9KhcDajvm+43G4=;
+ b=CzeKL7xKhdysRXJNIZ1yOp/vXGfqOvjETVTycLMU48xyVvSQ/Nc4nU+103n9sys2jc
+ 0kcmrlAcMJ9SemedlPWpc4+X3AIkNmSDRN479VElViEaC/1WCdoveisinvsL4Gdk+5J3
+ OLGA2IRQboxpwbk586zeQYYoRUUa1XNGtD3xZfTdMcDDgTldNOLpQvCimuTXgkfRnGcC
+ OX49KavAeFp6iYIL7El0g8yO3mO27b9YV9ZL2ALtxi2ujggjwGE05Gg0pWdepwavoDGI
+ pvlsHmzE0YPXSIU2hL9vkjDaYcckeqVHRJ7+u1J7ZXYdqu+32TKghrMAGibcLp/8fEXp
+ mIJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=7D15SQXa6knSO7GEcZXjZYB3JKKv1mihNlALzyr7G24=;
- b=HnfYbjEKcPvFQVljLlH6ptHArqe4BlK6BZ4vzuULKpHnpmmssfb02EShqcwzdUGwaz
- RSwjUk5RK4ZOjg5GHvU3X/vgdnQ04RUEbRXyk2zRTVlUmjeM8Om37+pk1h2MQmJWO3Cx
- RvUwC6eHpMVINYI9CEBTb/5L6JsznGIG0cSPrfQlq2seIz0AmXVXRbxsA8itdXGur33D
- PfdayqJ3tVIZ9dLqaK77L90WdwTDB6TdfYBhuJPIf9e2f/aPfkksmtHPNBZxpxx5b3Om
- OgtwOCJo5lE5gaEWPWMxYGa3xVHQynqHbUzffT4H1vX9EMbp2cDTg65I8KclGJCoRQMP
- 0b6g==
-X-Gm-Message-State: AODbwcB5RW1oKk7VPy29eRik9PIakXOyDt7rfJyzlrMRr3p4r/7Wp3PW
- iN6IIgLKHlJSyZHF
-X-Received: by 10.98.220.201 with SMTP id c70mr43707785pfl.230.1495694987251; 
- Wed, 24 May 2017 23:49:47 -0700 (PDT)
+ bh=07xCGHzxVwY8KU8LipaOqXkM0AlKm9KhcDajvm+43G4=;
+ b=ODNTsbL9C/iwpizeID1M+OLgH4TO8LX0L/qaVAnIXVoZR9GN8fLRtoH66QbGHGCGKL
+ XTBWqn8hdUvlFiZw+wdGK/RrEAbCM62w68vA5Yh4hgsjKvUR12o2P2lW2sj/m3JbQgFJ
+ l/pYvhFcn2ofEwBlzHH1nzlPZ7Ip1Pf8aXGeiP3LNoTHqeUSTnxRCkc3UiYp6ptAAOT8
+ PS2Uh2C3zmsdMGH1bXOoqtmpMiQ278SrdxAPyq9wP04WyYrXRu3JwZG0RuK9ZwLC2Fec
+ f1YIBQyyN83RqW6ice6XBa+LTsCQwosjfTYrNlsawhYZXvTUiwh/z/FdFRq0tUGJjkvB
+ 1kEQ==
+X-Gm-Message-State: AODbwcASM9WU2ExlooWj6pcb7FxswTgTkeK1VorckTz1MOKMIfLX1/1g
+ KfzVmSgAWXrENh6a
+X-Received: by 10.98.70.198 with SMTP id o67mr41863850pfi.79.1495694988250;
+ Wed, 24 May 2017 23:49:48 -0700 (PDT)
 Received: from mactruck.svl.corp.google.com ([100.123.242.94])
- by smtp.gmail.com with ESMTPSA id g63sm10995700pgc.59.2017.05.24.23.49.46
+ by smtp.gmail.com with ESMTPSA id g63sm10995700pgc.59.2017.05.24.23.49.47
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Wed, 24 May 2017 23:49:46 -0700 (PDT)
+ Wed, 24 May 2017 23:49:47 -0700 (PDT)
 From: Brendan Higgins <brendanhiggins@google.com>
 To: wsa@the-dreams.de, robh+dt@kernel.org, mark.rutland@arm.com,
  tglx@linutronix.de, jason@lakedaemon.net, marc.zyngier@arm.com,
@@ -46,10 +46,9 @@ To: wsa@the-dreams.de, robh+dt@kernel.org, mark.rutland@arm.com,
 Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
  Brendan Higgins <brendanhiggins@google.com>
-Subject: [PATCH v8 2/5] irqchip/aspeed-i2c-ic: Add I2C IRQ controller for
- Aspeed
-Date: Wed, 24 May 2017 23:49:22 -0700
-Message-Id: <20170525064925.16867-3-brendanhiggins@google.com>
+Subject: [PATCH v8 3/5] i2c: aspeed: added documentation for Aspeed I2C driver
+Date: Wed, 24 May 2017 23:49:23 -0700
+Message-Id: <20170525064925.16867-4-brendanhiggins@google.com>
 X-Mailer: git-send-email 2.13.0.219.gdb65acc882-goog
 In-Reply-To: <20170525064925.16867-1-brendanhiggins@google.com>
 References: <20170525064925.16867-1-brendanhiggins@google.com>
@@ -64,146 +63,85 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 May 2017 06:49:49 -0000
+X-List-Received-Date: Thu, 25 May 2017 06:49:50 -0000
 
-The Aspeed 24XX/25XX chips share a single hardware interrupt across 14
-separate I2C busses. This adds a dummy irqchip which maps the single
-hardware interrupt to software interrupts for each of the busses.
+Added device tree binding documentation for Aspeed I2C busses.
 
 Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
 ---
-Added in v6:
-  - Pulled "aspeed_i2c_controller" out into a interrupt controller since that is
-    what it actually does.
-Changes for v7:
-  - Renamed irq domain for consistency
-Changes for v8:
+Changes for v2:
   - None
+Changes for v3:
+  - Removed reference to "bus" device tree param
+Changes for v4:
+  - None
+Changes for v5:
+  - None
+Changes for v6:
+  - Replaced the controller property with and interrupt controller, leaving only
+    the busses in the I2C documentation.
+Changes for v7:
+  - Changed clock-frequency to bus-frequency in device tree
+Changes for v8:
+  - Added multi-master property to device tree
 ---
- drivers/irqchip/Makefile            |   2 +-
- drivers/irqchip/irq-aspeed-i2c-ic.c | 102 ++++++++++++++++++++++++++++++++++++
- 2 files changed, 103 insertions(+), 1 deletion(-)
- create mode 100644 drivers/irqchip/irq-aspeed-i2c-ic.c
+ .../devicetree/bindings/i2c/i2c-aspeed.txt         | 48 ++++++++++++++++++++++
+ 1 file changed, 48 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
 
-diff --git a/drivers/irqchip/Makefile b/drivers/irqchip/Makefile
-index b64c59b838a0..e067f9839b33 100644
---- a/drivers/irqchip/Makefile
-+++ b/drivers/irqchip/Makefile
-@@ -73,6 +73,6 @@ obj-$(CONFIG_MVEBU_ODMI)		+= irq-mvebu-odmi.o
- obj-$(CONFIG_MVEBU_PIC)			+= irq-mvebu-pic.o
- obj-$(CONFIG_LS_SCFG_MSI)		+= irq-ls-scfg-msi.o
- obj-$(CONFIG_EZNPS_GIC)			+= irq-eznps.o
--obj-$(CONFIG_ARCH_ASPEED)		+= irq-aspeed-vic.o
-+obj-$(CONFIG_ARCH_ASPEED)		+= irq-aspeed-vic.o irq-aspeed-i2c-ic.o
- obj-$(CONFIG_STM32_EXTI) 		+= irq-stm32-exti.o
- obj-$(CONFIG_QCOM_IRQ_COMBINER)		+= qcom-irq-combiner.o
-diff --git a/drivers/irqchip/irq-aspeed-i2c-ic.c b/drivers/irqchip/irq-aspeed-i2c-ic.c
+diff --git a/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
 new file mode 100644
-index 000000000000..a36fb09c10c2
+index 000000000000..bd6480b19535
 --- /dev/null
-+++ b/drivers/irqchip/irq-aspeed-i2c-ic.c
-@@ -0,0 +1,102 @@
-+/*
-+ *  Aspeed 24XX/25XX I2C Interrupt Controller.
-+ *
-+ *  Copyright (C) 2012-2017 ASPEED Technology Inc.
-+ *  Copyright 2017 IBM Corporation
-+ *  Copyright 2017 Google, Inc.
-+ *
-+ *  This program is free software; you can redistribute it and/or modify
-+ *  it under the terms of the GNU General Public License version 2 as
-+ *  published by the Free Software Foundation.
-+ */
++++ b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
+@@ -0,0 +1,48 @@
++Device tree configuration for the I2C busses on the AST24XX and AST25XX SoCs.
 +
-+#include <linux/irq.h>
-+#include <linux/irqchip.h>
-+#include <linux/irqchip/chained_irq.h>
-+#include <linux/irqdomain.h>
-+#include <linux/of_address.h>
-+#include <linux/of_irq.h>
-+#include <linux/io.h>
++Required Properties:
++- #address-cells	: should be 1
++- #size-cells		: should be 0
++- reg			: address offset and range of bus
++- compatible		: should be "aspeed,ast2400-i2c-bus"
++			  or "aspeed,ast2500-i2c-bus"
++- clocks		: root clock of bus, should reference the APB
++			  clock
++- interrupts		: interrupt number
++- interrupt-parent	: interrupt controller for bus, should reference a
++			  aspeed,ast2400-i2c-ic or aspeed,ast2500-i2c-ic
++			  interrupt controller
 +
++Optional Properties:
++- bus-frequency	: frequency of the bus clock in Hz defaults to 100 kHz when not
++		  specified
++- multi-master	: states that there is another master active on this bus.
 +
-+#define ASPEED_I2C_IC_NUM_BUS 14
++Example:
 +
-+struct aspeed_i2c_ic {
-+	void __iomem		*base;
-+	int			parent_irq;
-+	struct irq_domain	*irq_domain;
++i2c {
++	compatible = "simple-bus";
++	#address-cells = <1>;
++	#size-cells = <1>;
++	ranges = <0 0x1e78a000 0x1000>;
++
++	i2c_ic: interrupt-controller@0 {
++		#interrupt-cells = <1>;
++		compatible = "aspeed,ast2400-i2c-ic";
++		reg = <0x0 0x40>;
++		interrupts = <12>;
++		interrupt-controller;
++	};
++
++	i2c0: i2c-bus@40 {
++		#address-cells = <1>;
++		#size-cells = <0>;
++		#interrupt-cells = <1>;
++		reg = <0x40 0x40>;
++		compatible = "aspeed,ast2400-i2c-bus";
++		clocks = <&clk_apb>;
++		bus-frequency = <100000>;
++		interrupts = <0>;
++		interrupt-parent = <&i2c_ic>;
++	};
 +};
-+
-+/*
-+ * The aspeed chip provides a single hardware interrupt for all of the I2C
-+ * busses, so we use a dummy interrupt chip to translate this single interrupt
-+ * into multiple interrupts, each associated with a single I2C bus.
-+ */
-+static void aspeed_i2c_ic_irq_handler(struct irq_desc *desc)
-+{
-+	struct aspeed_i2c_ic *i2c_ic = irq_desc_get_handler_data(desc);
-+	struct irq_chip *chip = irq_desc_get_chip(desc);
-+	unsigned long bit, status;
-+	unsigned int bus_irq;
-+
-+	chained_irq_enter(chip, desc);
-+	status = readl(i2c_ic->base);
-+	for_each_set_bit(bit, &status, ASPEED_I2C_IC_NUM_BUS) {
-+		bus_irq = irq_find_mapping(i2c_ic->irq_domain, bit);
-+		generic_handle_irq(bus_irq);
-+	}
-+	chained_irq_exit(chip, desc);
-+}
-+
-+/*
-+ * Set simple handler and mark IRQ as valid. Nothing interesting to do here
-+ * since we are using a dummy interrupt chip.
-+ */
-+static int aspeed_i2c_ic_map_irq_domain(struct irq_domain *domain,
-+					unsigned int irq, irq_hw_number_t hwirq)
-+{
-+	irq_set_chip_and_handler(irq, &dummy_irq_chip, handle_simple_irq);
-+	irq_set_chip_data(irq, domain->host_data);
-+
-+	return 0;
-+}
-+
-+static const struct irq_domain_ops aspeed_i2c_ic_irq_domain_ops = {
-+	.map = aspeed_i2c_ic_map_irq_domain,
-+};
-+
-+static int __init aspeed_i2c_ic_of_init(struct device_node *node,
-+					struct device_node *parent)
-+{
-+	struct aspeed_i2c_ic *i2c_ic;
-+
-+	i2c_ic = kzalloc(sizeof(*i2c_ic), GFP_KERNEL);
-+	if (!i2c_ic)
-+		return -ENOMEM;
-+
-+	i2c_ic->base = of_iomap(node, 0);
-+	if (IS_ERR(i2c_ic->base))
-+		return PTR_ERR(i2c_ic->base);
-+
-+	i2c_ic->parent_irq = irq_of_parse_and_map(node, 0);
-+	if (i2c_ic->parent_irq < 0)
-+		return i2c_ic->parent_irq;
-+
-+	i2c_ic->irq_domain = irq_domain_add_linear(
-+			node, ASPEED_I2C_IC_NUM_BUS,
-+			&aspeed_i2c_ic_irq_domain_ops, NULL);
-+	if (!i2c_ic->irq_domain)
-+		return -ENOMEM;
-+
-+	i2c_ic->irq_domain->name = "aspeed-i2c-domain";
-+
-+	irq_set_chained_handler_and_data(i2c_ic->parent_irq,
-+					 aspeed_i2c_ic_irq_handler, i2c_ic);
-+
-+	pr_info("i2c controller registered, irq %d\n", i2c_ic->parent_irq);
-+
-+	return 0;
-+}
-+
-+IRQCHIP_DECLARE(ast2400_i2c_ic, "aspeed,ast2400-i2c-ic", aspeed_i2c_ic_of_init);
-+IRQCHIP_DECLARE(ast2500_i2c_ic, "aspeed,ast2500-i2c-ic", aspeed_i2c_ic_of_init);
 -- 
 2.13.0.219.gdb65acc882-goog
