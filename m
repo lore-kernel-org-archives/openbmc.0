@@ -1,21 +1,21 @@
 Return-Path: <c_mykolak@mellanox.com>
 Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
- by lists.ozlabs.org (Postfix) with ESMTP id 3wbrgt6QxGzDq9m
- for <openbmc@lists.ozlabs.org>; Mon, 29 May 2017 19:15:54 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTP id 3wbrhS1DnMzDq9m
+ for <openbmc@lists.ozlabs.org>; Mon, 29 May 2017 19:16:23 +1000 (AEST)
 Received: from Internal Mail-Server by MTLPINE1 (envelope-from
  c?mykolak@mellanox.com)
- with ESMTPS (AES256-SHA encrypted); 29 May 2017 12:15:46 +0300
+ with ESMTPS (AES256-SHA encrypted); 29 May 2017 12:16:16 +0300
 Received: from r-build-lowlevel.mtr.labs.mlnx. (r-build-lowlevel.mtr.labs.mlnx
  [10.209.0.190])
- by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id v4T9Fk5g004422;
- Mon, 29 May 2017 12:15:46 +0300
+ by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id v4T9GGYh005088;
+ Mon, 29 May 2017 12:16:16 +0300
 From: Mykola Kostenok <c_mykolak@mellanox.com>
 To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
 Cc: Mykola Kostenok <c_mykolak@mellanox.com>
 Subject: [PATCH linux dev-4.10 v3] ARM: aspeed: Add Mellanox MSN machine
- (aspeed arch)
-Date: Mon, 29 May 2017 12:15:44 +0300
-Message-Id: <20170529091544.54256-1-c_mykolak@mellanox.com>
+ (defconfig)
+Date: Mon, 29 May 2017 12:16:15 +0300
+Message-Id: <20170529091615.54310-1-c_mykolak@mellanox.com>
 X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -28,10 +28,10 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 May 2017 09:15:59 -0000
+X-List-Received-Date: Mon, 29 May 2017 09:16:25 -0000
 
 Initial introduction of Mellanox switches of MSNXXXX family equipped
-with Aspeed 2520 BMC SoC. This adds the platform early initialization.
+with Aspeed 2520 BMC SoC. This adds defconfig changes.
 
 Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
 ---
@@ -48,49 +48,28 @@ Fixed issues pointed out by Joel:
 v2->v3
 - Split v2 patch into three separate.
 ---
- arch/arm/mach-aspeed/aspeed.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+ arch/arm/configs/aspeed_g5_defconfig | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
-index 0f1a536ba1b2..942cdffed9bd 100644
---- a/arch/arm/mach-aspeed/aspeed.c
-+++ b/arch/arm/mach-aspeed/aspeed.c
-@@ -188,6 +188,27 @@ static void __init do_lanyang_setup(void)
- 	writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC | 0x98));
- }
- 
-+static void __init do_mellanox_setup(void)
-+{
-+	unsigned long reg;
-+
-+	do_common_setup();
-+
-+	/* Set strap to RGMII for dedicated PHY networking */
-+	reg = readl(AST_IO(AST_BASE_SCU | 0x70));
-+	reg |= BIT(7);
-+	reg &= ~BIT(6);
-+	writel(reg, AST_IO(AST_BASE_SCU | 0x70));
-+
-+	/* Disable UART1 Reset from LPC */
-+	writel(0x00000A00, AST_IO(AST_BASE_LPC | 0x98));
-+
-+	/* Enable RMII1 50MHz RCLK output.*/
-+	reg = readl(AST_IO(AST_BASE_SCU | 0x48));
-+	reg |= BIT(29);
-+	writel(reg, AST_IO(AST_BASE_SCU | 0x48));
-+}
-+
- #define SCU_PASSWORD	0x1688A8A8
- 
- static void __init aspeed_init_early(void)
-@@ -227,6 +248,8 @@ static void __init aspeed_init_early(void)
- 		do_romulus_setup();
- 	if (of_machine_is_compatible("inventec,lanyang-bmc"))
- 		do_lanyang_setup();
-+	if (of_machine_is_compatible("mellanox,msn-bmc"))
-+		do_mellanox_setup();
- }
- 
- static void __init aspeed_map_io(void)
+diff --git a/arch/arm/configs/aspeed_g5_defconfig b/arch/arm/configs/aspeed_g5_defconfig
+index 25332b07d887..3fc3eb0e8867 100644
+--- a/arch/arm/configs/aspeed_g5_defconfig
++++ b/arch/arm/configs/aspeed_g5_defconfig
+@@ -141,6 +141,7 @@ CONFIG_SENSORS_ADM1275=y
+ CONFIG_SENSORS_IR35221=y
+ CONFIG_SENSORS_LM25066=y
+ CONFIG_SENSORS_UCD9000=y
++CONFIG_SENSORS_UCD9200=y
+ CONFIG_SENSORS_TMP421=y
+ CONFIG_USB=y
+ CONFIG_USB_ANNOUNCE_NEW_DEVICES=y
+@@ -165,6 +166,7 @@ CONFIG_MAILBOX=y
+ CONFIG_ASPEED_LPC_MBOX=y
+ # CONFIG_IOMMU_SUPPORT is not set
+ CONFIG_IIO=y
++CONFIG_MAX1363=y
+ CONFIG_ASPEED_ADC=y
+ CONFIG_BMP280=y
+ CONFIG_FSI=y
 -- 
 2.11.0
