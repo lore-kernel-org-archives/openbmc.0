@@ -1,34 +1,22 @@
-Return-Path: <clg@kaod.org>
-Received: from 4.mo2.mail-out.ovh.net (4.mo2.mail-out.ovh.net [87.98.172.75])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wbwh45q8KzDq5W
- for <openbmc@lists.ozlabs.org>; Mon, 29 May 2017 22:16:20 +1000 (AEST)
-Received: from player692.ha.ovh.net (b6.ovh.net [213.186.33.56])
- by mo2.mail-out.ovh.net (Postfix) with ESMTP id BCC7589062
- for <openbmc@lists.ozlabs.org>; Mon, 29 May 2017 12:56:33 +0200 (CEST)
-Received: from zorba.kaod.org (LFbn-1-10647-27.w90-89.abo.wanadoo.fr
- [90.89.233.27]) (Authenticated sender: postmaster@kaod.org)
- by player692.ha.ovh.net (Postfix) with ESMTPSA id AD1AB600097;
- Mon, 29 May 2017 12:56:27 +0200 (CEST)
-Subject: Re: [PATCH linux dev-4.10 v4] arm: dts: aspeed: Add missing clock
- sources for barreleye
-To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-References: <1495815002-1808-1-git-send-email-eajames@linux.vnet.ibm.com>
-Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <6f8cb5f9-1b95-4caf-8257-163a36208045@kaod.org>
-Date: Mon, 29 May 2017 12:56:27 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.8.0
-MIME-Version: 1.0
-In-Reply-To: <1495815002-1808-1-git-send-email-eajames@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-X-Ovh-Tracer-Id: 18329650484541098993
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeeljedrgedvgdefiecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+Return-Path: <c_mykolak@mellanox.com>
+Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
+ by lists.ozlabs.org (Postfix) with ESMTP id 3wbysb0fVtzDqBJ
+ for <openbmc@lists.ozlabs.org>; Mon, 29 May 2017 23:54:41 +1000 (AEST)
+Received: from Internal Mail-Server by MTLPINE1 (envelope-from
+ c?mykolak@mellanox.com)
+ with ESMTPS (AES256-SHA encrypted); 29 May 2017 16:54:33 +0300
+Received: from r-build-lowlevel.mtr.labs.mlnx. (r-build-lowlevel.mtr.labs.mlnx
+ [10.209.0.190])
+ by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id v4TDsXM8012126;
+ Mon, 29 May 2017 16:54:33 +0300
+From: Mykola Kostenok <c_mykolak@mellanox.com>
+To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
+Cc: Mykola Kostenok <c_mykolak@mellanox.com>
+Subject: [PATCH linux dev-4.10 v3] ARM: aspeed: Add Mellanox MSN machine
+ (device tree)
+Date: Mon, 29 May 2017 16:54:31 +0300
+Message-Id: <20170529135431.65427-1-c_mykolak@mellanox.com>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -40,399 +28,298 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 May 2017 12:16:21 -0000
+X-List-Received-Date: Mon, 29 May 2017 13:54:44 -0000
 
-Hello Edward,
+Initial introduction of Mellanox switches of MSNXXXX family equipped
+with Aspeed 2520 BMC SoC. This adds msn platform device tree file.
 
-On 05/26/2017 06:10 PM, Eddie James wrote:
-> From: "Edward A. James" <eajames@us.ibm.com>
-> 
-> Reorganize flash controllers into the ast2400 config and edit all the
-> ast2400 machine configs.  Barreleye wasn't booting with the new
-> aspeed-smc driver.
+Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
+---
+v1->v2
+Fixed issues pointed out by Joel:
+- Make commit title shorter.
+- Replace flash layout from separate dtsi to dts.
+- Change compatible = "mellanox,msnxxxx-bmc" to "mellanox,msn-bmc".
+- Remove no-hw-checksum from dts.
+- Add comments.
+- Remove WD2 disable from aspeed.c
+- Add wdt2 to dts.
 
-There are a couple of "m25p,fast-read" properties missing below. 
-Is that on purpose ?
+v2->v3
+Fixed issues pointed out by Joel:
+- Split v2 patch into three separate.
+- Remove unnesesary include in dts.
+- Replace flash layout to separate dsti.
+- Remove spi2 as it was disabled.
+- Add uart1 pinctrl.
+---
+ .../devicetree/bindings/vendor-prefixes.txt        |   1 +
+ arch/arm/boot/dts/Makefile                         |   1 +
+ .../dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi  |  32 ++++
+ arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts      | 192 +++++++++++++++++++++
+ 4 files changed, 226 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
 
-Thanks,
-
-C. 
-
-> Signed-off-by: Edward A. James <eajames@us.ibm.com>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts | 44 ++++++++-------------
->  arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts | 37 ++++++------------
->  arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts  | 47 +++++++---------------
->  arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts  | 54 +++++++++-----------------
->  arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts   | 38 ++++++------------
->  arch/arm/boot/dts/aspeed-g4.dtsi               | 34 ++++++++++++++++
->  6 files changed, 106 insertions(+), 148 deletions(-)
-> 
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-> index be1f2d1..6c4221c 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-> @@ -31,34 +31,6 @@
->  		};
->  	};
->  
-> -	ahb {
-> -		bmc_pnor: fmc@1e620000 {
-> -			reg = < 0x1e620000 0x94
-> -				0x20000000 0x02000000 >;
-> -			#address-cells = <1>;
-> -			#size-cells = <0>;
-> -			compatible = "aspeed,ast2400-fmc";
-> -			flash@0 {
-> -				reg = < 0 >;
-> -				compatible = "jedec,spi-nor" ;
-> -#include "aspeed-bmc-opp-flash-layout.dtsi"
-> -			};
-> -		};
-> -
-> -		host_pnor: spi@1e630000 {
-> -			reg = < 0x1e630000 0x18
-> -				0x30000000 0x02000000 >;
-> -			#address-cells = <1>;
-> -			#size-cells = <0>;
-> -			compatible = "aspeed,ast2400-spi";
-> -			flash@0 {
-> -				reg = < 0 >;
-> -				compatible = "jedec,spi-nor" ;
-> -				label = "pnor";
-> -			};
-> -		};
-> -	};
-> -
->  	leds {
->  		compatible = "gpio-leds";
->  
-> @@ -76,6 +48,22 @@
->  	};
->  };
->  
-> +&bmc_pnor {
-> +	status = "okay";
-
-no m25p,fast-read; ? 
-
-> +	flash@0 {
-> +		status = "okay";
-> +#include "aspeed-bmc-opp-flash-layout.dtsi"
-> +	};
-> +};
-> +
-> +&host_pnor {
-> +	status = "okay";
-
-
-no m25p,fast-read; ? 
-
-> +	flash@0 {
-> +		status = "okay";
-> +		label = "pnor";
-> +	};
-> +};
-> +
->  &pinctrl {
->  	pinctrl-names = "default";
->  	pinctrl-0 = <&pinctrl_flbusy_default &pinctrl_flwp_default
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-> index fe63621..dffe1cd 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-> @@ -50,34 +50,21 @@
->  			gpios = <&gpio ASPEED_GPIO(A, 2) GPIO_ACTIVE_LOW>;
->  		};
->  	};
-> +};
->  
-> -	ahb {
-> -		fmc@1e620000 {
-> -			reg = < 0x1e620000 0x94
-> -				0x20000000 0x02000000 >;
-> -			#address-cells = <1>;
-> -			#size-cells = <0>;
-> -			compatible = "aspeed,ast2400-fmc";
-> -
-> -			flash@0 {
-> -				reg = < 0 >;
-> -				compatible = "jedec,spi-nor" ;
-> +&bmc_pnor {
-> +	status = "okay";
-
-
-no m25p,fast-read; ? 
-
-> +	flash@0 {
-> +		status = "okay";
->  #include "aspeed-bmc-opp-flash-layout.dtsi"
-> -			};
-> -		};
-> +	};
-> +};
->  
-> -		spi@1e630000 {
-> -			reg = < 0x1e630000 0x18
-> -				0x30000000 0x02000000 >;
-> -			#address-cells = <1>;
-> -			#size-cells = <0>;
-> -			compatible = "aspeed,ast2400-spi";
-> -			flash@0 {
-> -				reg = < 0 >;
-> -				compatible = "jedec,spi-nor" ;
-> -				label = "pnor";
-> -			};
-> -		};
-> +&host_pnor {
-> +	status = "okay";
-
-
-no m25p,fast-read; ? 
-
-> +	flash@0 {
-> +		status = "okay";
-> +		label = "pnor";
->  	};
->  };
->  
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-> index 121612a..c6c5e14 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-> @@ -30,42 +30,23 @@
->  			reg = <0x5f000000 0x01000000>; /* 16MB */
->  		};
->  	};
-> +};
->  
-> -	ahb {
-> -
-> -		bmc_pnor: fmc@1e620000 {
-> -			reg = < 0x1e620000 0x94
-> -				0x20000000 0x02000000 >;
-> -			#address-cells = <1>;
-> -			#size-cells = <0>;
-> -			compatible = "aspeed,ast2400-fmc";
-> -			aspeed,fmc-has-dma;
-> -			interrupts = <19>;
-> -			clocks = <&clk_ahb>;
-> -			clock-names = "ahb";
-> -			flash@0 {
-> -				reg = < 0 >;
-> -				compatible = "jedec,spi-nor" ;
-> -				m25p,fast-read;
-> +&bmc_pnor {
-> +	status = "okay";
-> +	flash@0 {
-> +		status = "okay";
-> +		m25p,fast-read;
->  #include "aspeed-bmc-opp-flash-layout.dtsi"
-> -			};
-> -		};
-> +	};
-> +};
->  
-> -		host_pnor: spi@1e630000 {
-> -			reg = < 0x1e630000 0x18
-> -				0x30000000 0x02000000 >;
-> -			#address-cells = <1>;
-> -			#size-cells = <0>;
-> -			compatible = "aspeed,ast2400-spi";
-> -			clocks = <&clk_ahb>;
-> -			clock-names = "ahb";
-> -			flash {
-> -				reg = < 0 >;
-> -				compatible = "jedec,spi-nor" ;
-> -				label = "pnor";
-> -				m25p,fast-read;
-> -			};
-> -		};
-> +&host_pnor {
-> +	status = "okay";
-> +	flash@0 {
-> +		status = "okay";
-> +		label = "pnor";
-> +		m25p,fast-read;
->  	};
->  };
->  
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> index b4faa1d..f343aa4 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> @@ -47,42 +47,6 @@
->                  };
->          };
->  
-> -	ahb {
-> -		bmc_pnor: fmc@1e620000 {
-> -			reg = < 0x1e620000 0x94
-> -				0x20000000 0x02000000 >;
-> -			#address-cells = <1>;
-> -			#size-cells = <0>;
-> -			compatible = "aspeed,ast2400-fmc";
-> -			aspeed,fmc-has-dma;
-> -			interrupts = <19>;
-> -			clocks = <&clk_ahb>;
-> -			clock-names = "ahb";
-> -			flash@0 {
-> -				reg = < 0 >;
-> -				compatible = "jedec,spi-nor" ;
-> -				m25p,fast-read;
-> -#include "aspeed-bmc-opp-flash-layout.dtsi"
-> -			};
-> -		};
-> -
-> -		host_pnor: spi@1e630000 {
-> -			reg = < 0x1e630000 0x18
-> -				0x30000000 0x02000000 >;
-> -			#address-cells = <1>;
-> -			#size-cells = <0>;
-> -			compatible = "aspeed,ast2400-spi";
-> -			clocks = <&clk_ahb>;
-> -			clock-names = "ahb";
-> -			flash {
-> -				reg = < 0 >;
-> -				compatible = "jedec,spi-nor" ;
-> -				label = "pnor";
-> -				m25p,fast-read;
-> -			};
-> -		};
-> -	};
-> -
->  	gpio-fsi {
->  		compatible = "fsi-master-gpio", "fsi-master";
->  
-> @@ -94,6 +58,24 @@
->  	};
->  };
->  
-> +&bmc_pnor {
-> +	status = "okay";
-> +	flash@0 {
-> +		status = "okay";
-> +		m25p,fast-read;
-> +#include "aspeed-bmc-opp-flash-layout.dtsi"
-> +	};
-> +};
-> +
-> +&host_pnor {
-> +	status = "okay";
-> +	flash@0 {
-> +		status = "okay";
-> +		label = "pnor";
-> +		m25p,fast-read;
-> +	};
-> +};
-> +
->  &pinctrl {
->  	pinctrl-names = "default";
->  	pinctrl-0 = <&pinctrl_flbusy_default &pinctrl_flwp_default
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-> index 7132460..e55685d 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-> @@ -30,35 +30,21 @@
->  			reg = <0x47800000 0x00800000>; /* 8MB */
->  		};
->  	};
-> +};
->  
-> -	ahb {
-> -		bmc_pnor: fmc@1e620000 {
-> -			reg = < 0x1e620000 0x94
-> -				0x20000000 0x02000000 >;
-> -			#address-cells = <1>;
-> -			#size-cells = <0>;
-> -			compatible = "aspeed,ast2400-fmc";
-> -			aspeed,fmc-has-dma;
-> -			interrupts = <19>;
-> -			flash@0 {
-> -				reg = < 0 >;
-> -				compatible = "jedec,spi-nor" ;
-> +&bmc_pnor {
-> +	status = "okay";
-
-
-no m25p,fast-read; ? 
-
-> +	flash@0 {
-> +		status = "okay";
->  #include "aspeed-bmc-opp-flash-layout.dtsi"
-> -			};
-> -		};
-> +	};
-> +};
->  
-> -		host_pnor: spi@1e630000 {
-> -			reg = < 0x1e630000 0x18
-> -				0x30000000 0x01000000 >;
-> -			#address-cells = <1>;
-> -			#size-cells = <0>;
-> -			compatible = "aspeed,ast2400-smc";
-> -			flash {
-> -				reg = < 0 >;
-> -				compatible = "jedec,spi-nor" ;
-> -				label = "pnor";
-> -			};
-> -		};
-> +&host_pnor {
-> +	status = "okay";
-
-
-no m25p,fast-read; ? 
-
-
-> +	flash@0 {
-> +		status = "okay";
-> +		label = "pnor";
->  	};
->  };
->  
-> diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-> index d8827d5..9fb7889 100644
-> --- a/arch/arm/boot/dts/aspeed-g4.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-> @@ -44,6 +44,40 @@
->  		#size-cells = <1>;
->  		ranges;
->  
-> +		bmc_pnor: fmc@1e620000 {
-> +			reg = < 0x1e620000 0x94
-> +				0x20000000 0x02000000 >;
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +			compatible = "aspeed,ast2400-fmc";
-> +			status = "disabled";
-> +			aspeed,fmc-has-dma;
-> +			interrupts = <19>;
-> +			clocks = <&clk_ahb>;
-> +			clock-names = "ahb";
-> +			flash@0 {
-> +				reg = < 0 >;
-> +				compatible = "jedec,spi-nor" ;
-> +				status = "disabled";
-> +			};
-> +		};
-> +
-> +		host_pnor: spi@1e630000 {
-> +			reg = < 0x1e630000 0x18
-> +				0x30000000 0x02000000 >;
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +			compatible = "aspeed,ast2400-spi";
-> +			status = "disabled";
-> +			clocks = <&clk_ahb>;
-> +			clock-names = "ahb";
-> +			flash@0 {
-> +				reg = < 0 >;
-> +				compatible = "jedec,spi-nor" ;
-> +				status = "disabled";
-> +			};
-> +		};
-> +
->  		vic: interrupt-controller@1e6c0080 {
->  			compatible = "aspeed,ast2400-vic";
->  			interrupt-controller;
-> 
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.txt b/Documentation/devicetree/bindings/vendor-prefixes.txt
+index 16d3b5e7f5d1..84601d869a1b 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.txt
++++ b/Documentation/devicetree/bindings/vendor-prefixes.txt
+@@ -172,6 +172,7 @@ meas	Measurement Specialties
+ mediatek	MediaTek Inc.
+ melexis	Melexis N.V.
+ melfas	MELFAS Inc.
++mellanox	Mellanox Technologies
+ memsic	MEMSIC Inc.
+ merrii	Merrii Technology Co., Ltd.
+ micrel	Micrel Inc.
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index 30fe65627f30..3dba6c633686 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -990,6 +990,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb \
+ 	aspeed-bmc-opp-witherspoon.dtb \
+ 	aspeed-bmc-opp-zaius.dtb \
+ 	aspeed-bmc-opp-lanyang.dtb \
++	aspeed-bmc-mellanox-msn.dtb \
+ 	aspeed-ast2500-evb.dtb
+ endif
+ 
+diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi
+new file mode 100644
+index 000000000000..cf8ee54f13c2
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi
+@@ -0,0 +1,32 @@
++/* This file is the label for the bmc primary flash and its partitions */
++				label = "bmc";
++				#address-cells = < 1 >;
++				#size-cells = < 1 >;
++				u-boot {
++					reg = < 0 0x60000 >;
++					label = "u-boot";
++				};
++				u-boot-env {
++					reg = < 0x60000 0x10000>;
++					label = "u-boot-env";
++				};
++				kernel  {
++					reg = < 0x70000 0x280000 >;
++					label = "kernel";
++				};
++				dtb  {
++					reg = < 0x2f0000 0x10000 >;
++					label = "dtb";
++				};
++				initramfs {
++					reg = < 0x300000 0x1c0000 >;
++					label = "initramfs";
++				};
++				rofs  {
++					reg = < 0x4c0000 0x1740000 >;
++					label = "rofs";
++				};
++				rwfs  {
++					reg = < 0x1c00000 0x400000 >;
++					label = "rwfs";
++				};
+diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+new file mode 100644
+index 000000000000..4c69caf08111
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+@@ -0,0 +1,192 @@
++/dts-v1/;
++
++#include <dt-bindings/gpio/aspeed-gpio.h>
++#include "aspeed-g5.dtsi"
++
++/ {
++	model = "MSN BMC";
++	compatible = "mellanox,msn-bmc", "aspeed,ast2500";
++
++	aliases {
++		serial0 = &uart1;
++		serial4 = &uart5;
++	};
++
++	chosen {
++		stdout-path = &uart5;
++		bootargs = "console=ttyS4,115200n8 earlyprintk";
++	};
++
++	memory {
++		/* 512MiB SDRAM DDR4 @ 0x8000_0000 */
++		reg = <0x80000000 0x20000000>;
++	};
++
++	ahb {
++		bmc_pnor: fmc@1e620000 {
++			reg = < 0x1e620000 0xc4
++				0x20000000 0x02000000 >;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			compatible = "aspeed,ast2500-fmc";
++			interrupts = <19>;
++			flash@0 {
++				reg = < 0 >;
++				compatible = "jedec,spi-nor" ;
++#include "aspeed-bmc-mellanox-msn-flash-layout.dtsi"
++			};
++		};
++	};
++};
++
++&uart5 {
++	status = "okay";
++};
++
++&uart1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_txd1_default
++		     &pinctrl_rxd1_default
++		     &pinctrl_nrts1_default
++		     &pinctrl_ndtr1_default
++		     &pinctrl_ndsr1_default
++		     &pinctrl_ncts1_default
++		     &pinctrl_ndcd1_default
++		     &pinctrl_nri1_default>;
++};
++
++&mac0 {
++	status = "okay";
++	use-ncsi;
++};
++
++&i2c0 {
++	status = "okay";
++};
++
++&i2c1 {
++	status = "okay";
++};
++
++&i2c2 {
++	status = "okay";
++};
++
++&i2c3 {
++	status = "okay";
++};
++
++&i2c4 {
++	status = "okay";
++};
++
++&i2c5 {
++	status = "okay";
++
++	eeprom@50 {
++		compatible = "atmel,24c32";
++		reg = <0x50>;
++	};
++
++	eeprom@51 {
++		compatible = "atmel,24c32";
++		reg = <0x51>;
++	};
++};
++
++&i2c6 {
++	status = "okay";
++
++	eeprom@51 {
++		compatible = "atmel,24c32";
++		reg = <0x51>;
++	};
++
++	eeprom@52 {
++		compatible = "atmel,24c32";
++		reg = <0x52>;
++	};
++
++	eeprom@55 {
++		compatible = "atmel,24c32";
++		reg = <0x55>;
++	};
++
++	i2cswitch@71 {
++		compatible = "nxp,pca9548";
++		#address-cells = <1>;
++		#size-cells = <0>;
++		reg = <0x71>;
++	};
++};
++
++&i2c7 {
++	status = "okay";
++};
++
++&i2c8 {
++	status = "okay";
++
++	carrier_ambient: lm75@49 {
++		#thermal-sensor-cells = <0>;
++		compatible = "national,lm75";
++		reg = <0x49>;
++	};
++
++	swbrd_ambient: lm75@4a {
++		#thermal-sensor-cells = <0>;
++		compatible = "national,lm75";
++		reg = <0x4a>;
++	};
++};
++
++&i2c9 {
++	status = "okay";
++};
++
++&i2c10 {
++	status = "okay";
++
++	hwmon@41 {
++		compatible = "ti,ucd9224";
++		reg = <0x41>;
++	};
++
++	hwmon@27 {
++		compatible = "ti,ucd9224";
++		reg = <0x27>;
++	};
++
++	adc@6d {
++		compatible = "maxim,max11603";
++		reg = <0x6d>;
++		adc0: iio-device@0 {
++			#io-channel-cells = <1>;
++			io-channels = <&adc0 0>, <&adc0 1>, <&adc0 2>,
++				      <&adc0 3>, <&adc0 4>, <&adc0 5>,
++				      <&adc0 6>, <&adc0 7>;
++		};
++	};
++};
++
++&i2c11 {
++	status = "okay";
++};
++
++&i2c12 {
++	status = "okay";
++};
++
++&i2c13 {
++	status = "okay";
++};
++
++&vuart {
++	status = "okay";
++};
++
++&wdt2 {
++	status = "okay";
++};
++
+-- 
+2.11.0
