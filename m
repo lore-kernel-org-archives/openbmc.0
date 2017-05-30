@@ -3,54 +3,56 @@ Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wcGs40ql8zDq5b
- for <openbmc@lists.ozlabs.org>; Tue, 30 May 2017 11:55:20 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="lrKOWk3r"; 
- dkim=pass (2048-bit key;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wcJV164MWzDq5x
+ for <openbmc@lists.ozlabs.org>; Tue, 30 May 2017 13:08:57 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+ dkim=temperror (0-bit key) header.d=aj.id.au header.i=@aj.id.au
+ header.b="ZsMww2dn"; dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="DWIBJ/t7"; dkim-atps=neutral
+ header.b="jmB8thhK"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 7AF1B207F8;
- Mon, 29 May 2017 21:55:17 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 1D8FA2084C;
+ Mon, 29 May 2017 23:08:55 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Mon, 29 May 2017 21:55:17 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- content-type:date:from:in-reply-to:message-id:mime-version
+ by compute4.internal (MEProxy); Mon, 29 May 2017 23:08:55 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=28WpU4NLAsXN4MMLcDJHsN7IailirbFBUX5yu5Nqd
- C8=; b=lrKOWk3rfBWRtnXMDxx7nMpU+NuTrHuDMlGF0jfEHMRXsnuaQrXJ57bIT
- EF3EuOG3CsEbDLSPygQKweowU8ni/P2LzeiCQ+++4D6YBh0U9g4uiAnIJzMLBrxf
- gUyVh17XV+pUTKRWz5EkGRD14LTC1C4XMat8716tKXeto/YalZGIpDDCGri3r/9J
- +18FIRqd8BmDJXl7/r6ywEENCQeAxltVh2jv3p77gG8jOULrXMNLOWikL5I6IJFU
- 2BgTewjpMZLXw2mINltjVzOCyURR2EqVW3kyrvfTn3VcpREhgQA5hSsS1uxVpYdT
- EsTYKmuCslq7gkXBKRk5nmtsjziTg==
+ :x-sasl-enc; s=fm1; bh=bpXEu57Xsnoo+domE+J2wQlx3gdgqUjiLgn6lcMJ9
+ XA=; b=ZsMww2dnwLL6s23J17LOxddzRGTugHv4RAi4YWDJGbtn96RpBJsdiJqdk
+ LxjWnNvMkakfw1jcdhpqtsIMmgv5bmg36jiEO3RcpYCEc9Bhz47YY2fNhCbDR6xT
+ 37fWtI8wfHMzOfYFfk8l6nzKa5VXMoknqaPy49OD0xe26D+8ugHA1hsd5sINcuHN
+ MouVRWV+gk6FwJMpEcz6d/YkuPZUlE9G6vZvz6BFzCO6LA4N3rL07Dxf6Ebhpa0Y
+ 6oXWoAPMdiH8IMiIO16P26BBB3fTk0+YMDA+Tm9ziqg+r/iag/afJPo474G9Jl8J
+ x0rDCDQvKqjqYRGF9xuKWlBoVEeAw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=28WpU4NLAsXN4MMLcD
- JHsN7IailirbFBUX5yu5NqdC8=; b=DWIBJ/t7hqU6JGVP60pJfOAxyAyOWmR2fA
- UnzeaaWMbowZmkMh0PAQeoJlHISWPTMyoUDDzdY0Q8ovvoZtOh4OmWN5whmboF62
- jHIyccFkSkqSzuEaOKd+Z3Jk3GU7geW+S+qegLWrRx5EmDPJbOUy6NLU0CGfGlku
- 2cWsVZI09qKLntmOFS4zQJ+ajRYLukzxvwHdudFNSUVmPTGtFiDUyzt9iDJRN403
- GY6DndpUQzn4/09l+ry2WYp/a747J/jEjDi4/F8hOC/sQdiZiiaEJQd3D5OXi0Lx
- dTdFlmMYf5iV8zXW/LQZnTSoLgVWzfHiLmHiVdQofKUh6tQNF6bw==
-X-ME-Sender: <xms:BdEsWYiuNl_q71fo6JRoitJQARfeqOqPO_c5_n2aY2-GLt6P13UYbg>
-X-Sasl-enc: ZarY1Oa+A0K3r/fwpRnDamaC20dlA+7c2ZWvUHa5w/EP 1496109316
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=bpXEu57Xsnoo+domE+
+ J2wQlx3gdgqUjiLgn6lcMJ9XA=; b=jmB8thhK8clgCA8/JmyPzcM1QgUKSMFx6Q
+ HtmSgJDVV3yoKxxxjTDbCHN67xl/FvSJ2IdB8ZJeXQNy0jXKuYMP1PSiLWxNtE3l
+ t5UA9DInYKi2Vb+xo/HMyUVumTPG1OJoGvGeeJAOiGG/eogslPacX5ZODovR0TBx
+ I/x/b/fsO2ETTHpVKK55MG0UJNJI+gL1k819sH+hZ6bJvMHUjFD8rVTUa3sn7hl+
+ Av6z5Paptd8bMvsM+PLEIMg6RQkxDZH3Xy1C+Wjh4BQ6ULhxJ5SvRiMvHiObXitx
+ s5c8/dn4W2UFNDo7hFsRCQHkEWUIEkKb4ruGmPYFueylvj8t27rA==
+X-ME-Sender: <xms:R-IsWUP-WxyR8-qIWf7gkniK_QQv-fKAox18WlYqwsx_j9Il1ybtiQ>
+X-Sasl-enc: CE1koMxdJhNWT+7lGg1EdkKC+jtW8ohfe7Ayazn1m5r8 1496113734
 Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id AB13E241E0;
- Mon, 29 May 2017 21:55:15 -0400 (EDT)
-Message-ID: <1496109312.8159.3.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10 v3] ARM: aspeed: Add Mellanox MSN machine
- (defconfig)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 078E62444C;
+ Mon, 29 May 2017 23:08:52 -0400 (EDT)
+Message-ID: <1496113726.8159.5.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.10 v2] ARM: aspeed: Add Mellanox MSN machine
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Mykola Kostenok <c_mykolak@mellanox.com>, Joel Stanley <joel@jms.id.au>,
- openbmc@lists.ozlabs.org
-Date: Tue, 30 May 2017 11:25:12 +0930
-In-Reply-To: <20170529091615.54310-1-c_mykolak@mellanox.com>
-References: <20170529091615.54310-1-c_mykolak@mellanox.com>
+To: Mykola Kostenok <c_mykolak@mellanox.com>, 'Joel Stanley'
+ <joel@jms.id.au>,  =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Tue, 30 May 2017 12:38:46 +0930
+In-Reply-To: <VI1PR05MB3247E6BAE06F7B02ABEAB00CEFF30@VI1PR05MB3247.eurprd05.prod.outlook.com>
+References: <20170525144903.88282-1-c_mykolak@mellanox.com>
+ <CACPK8XcydmdN4i8EOohtPNkvHBQwEpCMvNWU_auK71JZaPFSdA@mail.gmail.com>
+ <VI1PR05MB3247E6BAE06F7B02ABEAB00CEFF30@VI1PR05MB3247.eurprd05.prod.outlook.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-azBGlTbOcb4X40EIaxbq"
+ protocol="application/pgp-signature"; boundary="=-sSjB6VPNwnE/PSft7xUE"
 X-Mailer: Evolution 3.22.6-1ubuntu1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -64,79 +66,145 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 30 May 2017 01:55:20 -0000
+X-List-Received-Date: Tue, 30 May 2017 03:09:03 -0000
 
 
---=-azBGlTbOcb4X40EIaxbq
+--=-sSjB6VPNwnE/PSft7xUE
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
 
-On Mon, 2017-05-29 at 12:16 +0300, Mykola Kostenok wrote:
-> Initial introduction of Mellanox switches of MSNXXXX family equipped
-> with Aspeed 2520 BMC SoC. This adds defconfig changes.
->=20
-> Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
+SGkgTXlrb2xhLAoKT24gTW9uLCAyMDE3LTA1LTI5IGF0IDExOjIzICswMDAwLCBNeWtvbGEgS29z
+dGVub2sgd3JvdGU6Cj4gPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+ID4gPiA+ID4gPiBG
+cm9tOiBqb2VsLnN0YW5AZ21haWwuY29tIFttYWlsdG86am9lbC5zdGFuQGdtYWlsLmNvbV0gT24g
+QmVoYWxmIE9mIEpvZWwKPiA+IFN0YW5sZXkKPiA+IFNlbnQ6IEZyaWRheSwgTWF5IDI2LCAyMDE3
+IDc6NDMgQU0KPiA+ID4gPiBUbzogTXlrb2xhIEtvc3Rlbm9rIDxjX215a29sYWtAbWVsbGFub3gu
+Y29tPjsgQ8OpZHJpYyBMZSBHb2F0ZXIKPiA+ID4gPiA+ID4gPGNsZ0BrYW9kLm9yZz47IEFuZHJl
+dyBKZWZmZXJ5IDxhbmRyZXdAYWouaWQuYXU+Cj4gPiA+ID4gQ2M6IE9wZW5CTUMgTWFpbGxpc3Qg
+PG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZz4KPiA+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggbGludXgg
+ZGV2LTQuMTAgdjJdIEFSTTogYXNwZWVkOiBBZGQgTWVsbGFub3ggTVNOCj4gPiBtYWNoaW5lCj4g
+PiAKPiA+IEFuZHJldywgY2FuIHlvdSBwbGVhc2UgcmV2aWV3IHRoZSBwaW5tdXgteSBiaXRzPwo+
+ID4gCj4gPiBDZWRyaWMsIGNhbiB5b3UgZG91YmxlIGNoZWNrIHRoZSBtdGQgYml0cz8KPiA+IAoK
+Li4uCgo+ID4gPiArCj4gPiA+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBo
+b3N0X3Bub3I6IHNwaTJAMWU2MzEwMDAgewo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJlZyA9IDwgMHgxZTYzMTAwMCAweGM0Cj4gPiA+ICvCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oDB4MzgwMDAwMDAgMHgwODAwMDAwMCA+Owo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCNhZGRyZXNzLWNlbGxzID0gPDE+Owo+ID4gPiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCNzaXplLWNlbGxzID0gPDA+
+Owo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGNv
+bXBhdGlibGUgPSAiYXNwZWVkLGFzdDI1MDAtc3BpIjsKPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBzdGF0dXMgPSAiZGlzYWJsZWQiOwo+ID4gCj4g
+PiBBcyB0aGlzIGlzIGRpc2FibGVkIGl0IGhhcyBubyBhZmZlY3QuIFlvdSBjYW4gcmVtb3ZlIHRo
+ZSBlbnRpcmUgaG9zdF9wbm9yCj4gPiBub2RlLgo+ID4gCj4gCj4gT2suIEkgd2lsbCByZW1vdmUg
+aXQuCj4gQnV0IHNob3VsZCBJIGhhdmUgc29tZXdoZXJlIHRoZSBiZWxvdyBkZWZpbml0aW9uczoK
+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgcGluY3RybC0w
+ID0gPCZwaW5jdHJsX3NwaTJja19kZWZhdWx0Cj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgJnBpbmN0cmxfc3Bp
+MmNzMF9kZWZhdWx0Cj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgJnBpbmN0cmxfc3BpMm1pc29fZGVmYXVsdAo+
+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCZwaW5jdHJsX3NwaTJtb3NpX2RlZmF1bHQ+OwoKSWYgeW91J3JlIHJl
+bW92aW5nIHRoZSBub2RlIHlvdSBzaG91bGQgYWxzbyByZW1vdmUgdGhlIHBpbmN0cmwKcHJvcGVy
+dGllcy4gVGhlIHBpbmN0cmwgc2V0dGluZ3MgYXJlIG5vdCBob25vdXJlZCBpZiB0aGUgZGV2aWNl
+IHdvbid0CmJlIHByb2JlZCAoaS5lLiBpZiBzdGF0dXMgaXMgZGlzYWJsZWQpLgoKPiAKPiAKPiA+
+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBwaW5jdHJs
+LW5hbWVzID0gImRlZmF1bHQiOwo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoHBpbmN0cmwtMCA9IDwmcGluY3RybF9zcGkyY2tfZGVmYXVsdAo+ID4g
+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgJnBpbmN0cmxfc3BpMmNzMF9kZWZhdWx0Cj4gPiA+ICvCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAmcGluY3RybF9zcGkybWlzb19kZWZhdWx0Cj4gPiA+ICvCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAm
+cGluY3RybF9zcGkybW9zaV9kZWZhdWx0PjsKPiA+ID4gKwo+ID4gPiArwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGhvc3RfZmxhc2ggewo+ID4gPiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBy
+ZWcgPSA8IDAgPjsKPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgY29tcGF0aWJsZSA9ICJqZWRlYyxzcGktbm9yIjsKPiA+
+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgbGFiZWwgPSAiaG9zdF9mbGFzaCI7Cj4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCNhZGRyZXNzLWNlbGxz
+ID0gPCAxID47Cj4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCNzaXplLWNlbGxzID0gPCAxID47Cj4gPiA+ICvCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgfTsKPiA+ID4gK8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoH07Cj4gPiA+ICvCoMKgwqDCoMKgwqDCoH07Cj4gPiA+ICt9
+Owo+ID4gPiArCj4gPiA+ICsmdWFydDUgewo+ID4gPiArwqDCoMKgwqDCoMKgwqBzdGF0dXMgPSAi
+b2theSI7Cj4gPiA+ICt9Owo+ID4gPiArCj4gPiA+ICsmdWFydDEgewo+ID4gPiArwqDCoMKgwqDC
+oMKgwqBzdGF0dXMgPSAib2theSI7Cj4gPiAKPiA+IFlvdSBuZWVkIHRvIHJlcXVlc3QgdGhlIHBp
+bnMgZnJvbSBwaW5tdXguIElmIHlvdSdlIGdvdCBhbGwgb2YgdGhlCj4gPiBSUy0yMzIgbGluZXMg
+Y29ubmVjdGVkLCB0aGF0IHdpbGwgbG9vayBsaWtlIHRoaXM6Cj4gPiAKPiA+IMKgwqDCoMKgwqDC
+oMKgwqBwaW5jdHJsLW5hbWVzID0gImRlZmF1bHQiOwo+ID4gwqDCoMKgwqDCoMKgwqDCoHBpbmN0
+cmwtMCA9IDwmcGluY3RybF90eGQxX2RlZmF1bHQKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCZwaW5jdHJsX3J4ZDFfZGVmYXVsdAo+ID4gwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgJnBpbmN0cmxfbnJ0czFf
+ZGVmYXVsdAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgJnBpbmN0cmxfbmR0cjFfZGVmYXVsdAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgJnBpbmN0cmxfbmRzcjFfZGVmYXVsdAo+ID4gwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgJnBpbmN0cmxfbmN0czFfZGVm
+YXVsdAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+JnBpbmN0cmxfbmRjZDFfZGVmYXVsdAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgJnBpbmN0cmxfbnJpMV9kZWZhdWx0PjsKPiA+IAo+ID4gWW91IG1h
+eSBqdXN0IGhhdmUgdGhlIHR4IGFuZCByeCBsaW5lcyBjb25uZWN0ZWQsIGluIHdoaWNoIGNhc2Ug
+aXQgd291bGQgbG9vawo+ID4gbGlrZSB0aGlzOgo+ID4gCj4gPiDCoMKgwqDCoMKgwqDCoMKgcGlu
+Y3RybC1uYW1lcyA9ICJkZWZhdWx0IjsKPiA+IMKgwqDCoMKgwqDCoMKgwqBwaW5jdHJsLTAgPSA8
+JnBpbmN0cmxfdHhkMV9kZWZhdWx0Cj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAmcGluY3RybF9yeGQxX2RlZmF1bHQ+Owo+ID4gCj4gPiBZb3Ugd2ls
+bCBuZWVkIHRvIGNoZWNrIHlvdXIgc2NoZW1hdGljIHRvIHdvcmsgdGhhdCBvdXQuCj4gPiAKPiA+
+ID4gK307Cj4gPiA+ICsKPiA+ID4gKyZtYWMwIHsKPiA+ID4gK8KgwqDCoMKgwqDCoMKgc3RhdHVz
+ID0gIm9rYXkiOwo+ID4gPiArwqDCoMKgwqDCoMKgwqB1c2UtbmNzaTsKPiA+ID4gK307Cj4gPiA+
+ICsKPiA+ID4gKyZpMmMwIHsKPiA+ID4gK8KgwqDCoMKgwqDCoMKgc3RhdHVzID0gIm9rYXkiOwo+
+ID4gPiArfTsKPiA+ID4gKwo+ID4gPiArJmkyYzEgewo+ID4gPiArwqDCoMKgwqDCoMKgwqBzdGF0
+dXMgPSAib2theSI7Cj4gPiA+ICt9Owo+ID4gPiArCj4gPiA+ICsmaTJjMiB7Cj4gPiA+ICvCoMKg
+wqDCoMKgwqDCoHN0YXR1cyA9ICJva2F5IjsKPiA+ID4gK307Cj4gPiA+ICsKPiA+ID4gKyZpMmMz
+IHsKPiA+ID4gK8KgwqDCoMKgwqDCoMKgc3RhdHVzID0gIm9rYXkiOwo+ID4gPiArfTsKPiA+ID4g
+Kwo+ID4gPiArJmkyYzQgewo+ID4gPiArwqDCoMKgwqDCoMKgwqBzdGF0dXMgPSAib2theSI7Cj4g
+PiA+ICt9Owo+ID4gCj4gPiAKPiA+IEkgYXNzdW1lIHlvdSdyZSBlbmFibGluZyB0aGVzZSBpMmMg
+YnVzZXMgc28geW91IGNhbiB1c2UgdGhlbSBmcm9tCj4gPiB1c2Vyc3BhY2U/Cj4gPiAKPiAKPiBP
+biBkZXZpY2UgaTJjNCB3ZSBoYXZlIDQgQ1BMRHMsIGFuZCByZWxhdGVkIGtlcm5lbCBkcml2ZXIs
+IHdoaWNoIHdlIGxvY2F0ZSBpbiBkcml2ZXIvbWZkLy4KPiBUaGlzIGRyaXZlciBoYW5kbGVzIExF
+RCwgY2hhc3NpcyBpbnRlcnJ1cHRzLCBzZWxlY3RzLCBleHBvc2VzIHRocm91Z2ggc3lzZnMgcmVz
+ZXQgY29udHJvbCwgcmVzZXQgY2F1c2UgYW5kIGdlbmVyYWwgaW5mby4KPiBJdCBhbHNvIGhhbmRs
+ZXMgaG90cGx1ZyBldmVudHMsIGxpa2UgUFNVL0ZBTi9wb3dlciBjYWJsZSByZW1vdmFsL2luc2Vy
+dGlvbi4KPiAKPiBGb3IgZXhhbXBsZSwgRkFOIEVFUFJPTSBhcmUgbG9jYXRlZCBhdCB2aXJ0dWFs
+IGJ1c2VzLCBjcmVhdGVkIGJ5IHBjYTk1NDg6Cj4gPiAJaTJjc3dpdGNoQDcxIHsKPiA+IAkJY29t
+cGF0aWJsZSA9ICJueHAscGNhOTU0OCI7Cj4gPiAJCSNhZGRyZXNzLWNlbGxzID0gPDE+Owo+ID4g
+CQkjc2l6ZS1jZWxscyA9IDwwPjsKPiA+IAkJcmVnID0gPDB4NzE+Owo+IAl9Owo+IAo+IFRoZSBw
+aHlzaWNhbCBpMmMgYnVzZXMgd2hpY2ggYXJlIG5vdCBzZXQgd2l0aMKgwqBzdGF0dXMgIm9rIiBh
+cmUgc2tpcHBlZCBhbmQgdGhlIG51bWJlcmluZyBvZiB2aXJ0dWFsIGJ1c2VzIHdpbGwgYmUgc3Rh
+cnRlZCBmcm9tIHRoZSBuZXh0IGF2YWlsYWJsZSBudW1iZXIuCj4gV2Ugd2FudHMgdG8gaGF2ZSB0
+aGVtIGF0IGNvbnN0YW50IHBvc2l0aW9uIChpbiB0aGUgYmVsb3cgZnJhZ21lbnQgdGhpcyBudW1i
+ZXIgaXMgc3BlY2lmaWVkIGluIGJ1cyBmaWxlZCkgdG8gaGF2ZSBGQU4gKHNhbWUgZm9yIFBTVSwg
+Y2FibGVzKSBhdCBzYW1lIHBvc2l0aW9uIGluIHN5c2ZzIGZvciB0aGUgZGlmZmVyZW50IHN5c3Rl
+bXMuCj4gQW5kIHdlIGRpZG4ndCBmaW5kIGhvdyBlbmZvcmNlwqDCoHBjYTk1NDggdG8gc3RhcnQg
+dmlydHVhbCBidXNlcyBmcm9tIHRoZSBkZXNpcmFibGUgbnVtYmVyICgxNCBpbiBvdXIgY2FzZSkg
+dGhyb3VnaCBkdHMuCgpGb3IgaTJjIHRoaXMgY2FuIGJlIGhhbmRsZWQgYnkgdGhlIGFsaWFzZXMg
+bm9kZSBpbiB0aGUgZGV2aWNldHJlZSwgYW5kCnRoZSBiZWhhdmlvdXIgaXMgbWFuYWdlZCBieSBp
+MmMtY29yZS4gWW91IGNhbiBzZXQgdXAgYWxpYXNlcyBmb3IgYWxsIG9mCnRoZSBidXNlcyBhbmQg
+b25seSBzZXQgJ3N0YXR1cyA9ICJva2F5IjsnIGZvciBub2RlcyB5b3UgbmVlZC4gSSd2ZQpsaW5r
+ZWQgdGhlIGNvcmUgY29kZSBhdCBbMV0uCgpbMV0gaHR0cHM6Ly9naXRodWIuY29tL29wZW5ibWMv
+bGludXgvYmxvYi9kZXYtNC4xMC9kcml2ZXJzL2kyYy9pMmMtY29yZS5jI0wyMDc4CgpDaGVlcnMs
+CgpBbmRyZXc=
 
-Acked-by: Andrew Jeffery <andrew@aj.id.au>
 
-> ---
-> v1->v2
-> Fixed issues pointed out by Joel:
-> - Make commit title shorter.
-> - Replace flash layout from separate dtsi to dts.
-> - Change compatible =3D "mellanox,msnxxxx-bmc" to "mellanox,msn-bmc".
-> - Remove no-hw-checksum from dts.
-> - Add comments.
-> - Remove WD2 disable from aspeed.c
-> - Add wdt2 to dts.
->=20
-> v2->v3
-> - Split v2 patch into three separate.
-> ---
-> =C2=A0arch/arm/configs/aspeed_g5_defconfig | 2 ++
-> =C2=A01 file changed, 2 insertions(+)
->=20
-> diff --git a/arch/arm/configs/aspeed_g5_defconfig
-> b/arch/arm/configs/aspeed_g5_defconfig
-> index 25332b07d887..3fc3eb0e8867 100644
-> --- a/arch/arm/configs/aspeed_g5_defconfig
-> +++ b/arch/arm/configs/aspeed_g5_defconfig
-> @@ -141,6 +141,7 @@ CONFIG_SENSORS_ADM1275=3Dy
-> =C2=A0CONFIG_SENSORS_IR35221=3Dy
-> =C2=A0CONFIG_SENSORS_LM25066=3Dy
-> =C2=A0CONFIG_SENSORS_UCD9000=3Dy
-> +CONFIG_SENSORS_UCD9200=3Dy
-> =C2=A0CONFIG_SENSORS_TMP421=3Dy
-> =C2=A0CONFIG_USB=3Dy
-> =C2=A0CONFIG_USB_ANNOUNCE_NEW_DEVICES=3Dy
-> @@ -165,6 +166,7 @@ CONFIG_MAILBOX=3Dy
-> =C2=A0CONFIG_ASPEED_LPC_MBOX=3Dy
-> =C2=A0# CONFIG_IOMMU_SUPPORT is not set
-> =C2=A0CONFIG_IIO=3Dy
-> +CONFIG_MAX1363=3Dy
-> =C2=A0CONFIG_ASPEED_ADC=3Dy
-> =C2=A0CONFIG_BMP280=3Dy
-> =C2=A0CONFIG_FSI=3Dy
---=-azBGlTbOcb4X40EIaxbq
+--=-sSjB6VPNwnE/PSft7xUE
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJZLNEAAAoJEJ0dnzgO5LT5xcgP/jtcdn1xztp4FwZhp2ooItWC
-Vhvf03nCxd5UBRA/CyVOdYEgUlWEDdGC0d7vQcEbQgyTbfb0kPRlFIK24zItA67/
-LC87UoFXKCkBYeNy2GoIZgm9KKSpes/SoBBzEfOzJOLpJZ0mqvdsLzgfuGpPEQHW
-EGQJKp/ZVWQwRqjiavk7Kzd3nzuCSt6kqBUZ8HG+WFkOO3+ZdUHZAyTXd3oH5vjy
-/SDbG1jM0M6ZijrcOLo5GB4xep18yxKAaxbFCL5riyqCdo03rvdRKkBFsp1qxlND
-mK1qncEnPtjcuKpVXM5djqlUfq/wusGVLRX4kaGCGlbBbXrDUfhaXwCTsz6Qqex8
-Ynp5NhnhFU5A+o774ZB72EdzlWUfq66aPn9tBBBfg6aZFgpbqhFFWbRg/ikBi3eu
-Zf0KplJsFCTOiU2VksxCLjR2grP+1u4S9jNbGfRKmsGJ3vY7HJOCDPTgxzXnEFGg
-E9YOV6ND0wEN/jYdVpHvNCpAUnyjjv3BG9YvFDc6MpENc93s+yz7xYvVFsu+5/v3
-qD0djELrSv85BG8IMp3w/25Ryj1PGVqHSODFQWExMx3bSXBrEK8bFX04S6v81F1d
-MUABsq5We3XVuVSqgA6RqLkEpEv4YoJU4SWAUEO5pQcSeWu6sTIOBTIiMANDK6+D
-bnqjnY+FPUzwuAQuKziy
-=Xpu0
+iQIcBAABCgAGBQJZLOI+AAoJEJ0dnzgO5LT54usQAIIZeGibvMyU+9+HCWAkKUhu
+M3SItfz/iPM26JltFn0b4j+C6N6UiBN+BnNsp38191nWJGQlPbeD/qZofkhuBT/7
+ymduH0fmFPUsPaHXmeRTBOmkQ3RUu30qt8YidX6iC44dA0V/Dlj7I8gQK0JOvXsn
+wnnBJN0QLhTIIbZ44qMgLcuO1SyAmdSE0yGLeHrbNcv4dmylBwt30mBhjArRF0K1
+ZKAlfsJuDPhtgw676aDNumKq+NYf1EQir8BukUtUVaGH/TkUKQOdANFUD2lq1yP6
+0h0Dcd3rFQZTegMUyxGTwHHgzlUaPapgQ+QfNN1ecIn9A/ogl+BfqxJJag4B2b+e
+fmLTkgzIrafqGbbyNAcbeaeBDcuCNBSqspp1Pl0dlesHWINXnqZncdjSjmh+GK8W
+fS+LlOCf7oOear6VyCLLGZo83HJXcIdAPrkKFl0B03FhbEJfK9evitxKQvW7fbbg
+lsViT7I2IZG6DcYMH3JC5YnGd25P/44MkXMKZbWGjAPN1zFePaSZ7Lm8ObK1ioES
+LLPHTo9s17h94jw0FCGnoxO84Oj6topwlPhvzGw51MIE4cnc0XQzWLS0snG5iAIY
+KgxKnbhrj9VBvHWpvtzG5q7PjEOfoP+V/iBYHnl993pc1BWXEBvc6jDS1ThsTpst
+rXEOkNei8VW5i/EFEsUF
+=62Wr
 -----END PGP SIGNATURE-----
 
---=-azBGlTbOcb4X40EIaxbq--
+--=-sSjB6VPNwnE/PSft7xUE--
