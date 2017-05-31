@@ -1,30 +1,54 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yb0-x242.google.com (mail-yb0-x242.google.com
+ [IPv6:2607:f8b0:4002:c09::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wd9Z62VCczDq5W
- for <openbmc@lists.ozlabs.org>; Wed, 31 May 2017 23:00:29 +1000 (AEST)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1496235620920488.99263758857023;
- Wed, 31 May 2017 06:00:20 -0700 (PDT)
-Date: Wed, 31 May 2017 08:00:20 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Rahul Maheshwari3 <rahulmaheshwari@in.ibm.com>
-Cc: openbmc@lists.ozlabs.org
-Subject: Re: Consistent naming for physical LED.
-Message-ID: <20170531130020.GA29772@asimov.ibmmodules.com>
-References: <20170505180537.GG25937@heinlein.lan>
- <OF867BE263.6CF5588B-ON00258117.003404BD-00258117.003612B8@notes.na.collabserv.com>
- <OF8328B8DE.E0C57A25-ON0025811A.00373812-0025811A.0037D739@notes.na.collabserv.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wd9wP0xGrzDq5W
+ for <openbmc@lists.ozlabs.org>; Wed, 31 May 2017 23:16:21 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="hB6f5ZXX"; 
+ dkim-atps=neutral
+Received: by mail-yb0-x242.google.com with SMTP id 130so460658ybl.2
+ for <openbmc@lists.ozlabs.org>; Wed, 31 May 2017 06:16:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=j8Ga01LLSv7VM35aHfLNJ2mlo3PB00Hv7tUFvaL/ojw=;
+ b=hB6f5ZXXciKwSg2iJkuuJ6N2TLCsuBCwQiytUZRg4nspTnfR2uMd8RHfbqWl4+3Lvh
+ 4zNzuv4oANEzlxa++Cxqm9n5S59Ywfc4Lz22WXpVzHnxp9LEGZ0S/agRrth+LdcYzUza
+ lAiuAJKZcC9rV6do7ylxV1fMuqxpkhKEBfYcANtVCHiiPEiZ55UV+XK7wLYPBnOcxvmI
+ eo/yoP0056zUy8TDhRr/Jbo6hBB/03fLD7AFBRk1VoCix/bqULY0wtVW77nf4A8H+8WV
+ 94rkivOCjhMg6M8t4V/jrS2DR333Bf5vKOIBaD/YM/J6ipUKblZZ5YL3a498jGeFW1XG
+ rPxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=j8Ga01LLSv7VM35aHfLNJ2mlo3PB00Hv7tUFvaL/ojw=;
+ b=rL4mtFt58u8fuLCodtVI/Blo3pygAE8IBd7rxsH2tKg/ZC1VovtbMs3WXVQm/b5D8L
+ 06/8i+KpSQYIezBfv7DB1FM8JrDEn84pKA/+T5pie7D8nGfg7efW6TixmvPBU7qJ+oU2
+ WsumZq8mdz4f1WLilhR6grxHLuqBjrZh5F/XLj2yJf3waEF+uFuXZxCAvc7ofZofrVF6
+ UO+2DZI7h3qKUFgMeGOWFnpSUZSCh1W1rGyQ6RdGx6M++haX4E55V+6jJ9y+3KqFdFpL
+ i8sO9O0G7UuxKNcbA1Tf3IY0fzV4ndNCvuHxdIIWY17hMUsIQl1KWQYJEZApfOqOMKTF
+ dk3Q==
+X-Gm-Message-State: AODbwcCk3puCFXde/URyTRuDodu5KbxC+1Zr8RHKIV/kL4Q9GPZ3WF6Z
+ s9XBsg1cjPHN4b2RpaaPJfjnFX4DAg==
+X-Received: by 10.37.59.210 with SMTP id i201mr227575yba.25.1496236579000;
+ Wed, 31 May 2017 06:16:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="qDbXVdCdHGoSgWSk"
-Content-Disposition: inline
-In-Reply-To: <OF8328B8DE.E0C57A25-ON0025811A.00373812-0025811A.0037D739@notes.na.collabserv.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
-X-ZohoMailClient: External
+Sender: joel.stan@gmail.com
+Received: by 10.37.183.7 with HTTP; Wed, 31 May 2017 06:15:58 -0700 (PDT)
+In-Reply-To: <20170530123810.102882-1-c_mykolak@mellanox.com>
+References: <20170530123810.102882-1-c_mykolak@mellanox.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 31 May 2017 22:45:58 +0930
+X-Google-Sender-Auth: YEpwuU1wBqfdyf1zM4UFtcoyrx0
+Message-ID: <CACPK8XdAuwTbdkYdGAJQJHbckYAT5wBDUF+Xxcp1nfYY3gLjwA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v4] ARM: aspeed: Add Mellanox MSN machine
+ (aspeed arch)
+To: Mykola Kostenok <c_mykolak@mellanox.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -36,120 +60,92 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 31 May 2017 13:00:31 -0000
+X-List-Received-Date: Wed, 31 May 2017 13:16:21 -0000
 
+On Tue, May 30, 2017 at 10:08 PM, Mykola Kostenok
+<c_mykolak@mellanox.com> wrote:
+> Initial introduction of Mellanox switches of MSNXXXX family equipped
+> with Aspeed 2520 BMC SoC. This adds the platform early initialization.
+>
+> Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
 
---qDbXVdCdHGoSgWSk
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thanks, applied to dev-4.10.
 
-On Mon, May 08, 2017 at 10:09:55AM +0000, Rahul Maheshwari3 wrote:
->    Patrick
->    I was believing that these 3 physical LEDs(Identify, Fault, Power) will
->    be lit on/off based on group LED asserted state. Example: Physical's
->    fault LED will be lit ON when any fault LED(e.g. cpu0fault) in group is
->    asserted.
->    If that is not the case and we need to rely on below LED groups to get
->    full system status then - how are we going to display state like blink
->    in future using these group LED?
+Please follow up with the RMII clock and MAC strapping issues - these
+should be fixed by correcting the hardware strapping. We would prefer
+not to have a workaround in the kernel tree.
 
-Specific LED behavior is a system policy that differs by system and
-OEM/ODM.  There is not a common set of tests we can create for that.
+Cheers,
 
-The groups indicate a virtual function like "the FRU x has a fault" or
-"the system is powered on", which may cause an indicator like an LED to
-behave in a certain way.  The behavior itself is system specific.  (As
-an example, Witherspoon has a front-fault and rear-fault LED that are
-both turned 'on' when the system has a fault).
+Joel
 
->=20
->    /xyz/openbmc_project/led/groups/enclosure_fault
->    /xyz/openbmc_project/led/groups/enclosure_identify
->    /xyz/openbmc_project/led/groups/power_on
->    /xyz/openbmc_project/led/groups/power_off
->=20
->    Thanks
->    Rahul
->=20
->      ----- Original message -----
->      From: Patrick Williams <patrick@stwcx.xyz>
->      To: Rahul Maheshwari3 <rahulmaheshwari@in.ibm.com>
->      Cc: openbmc@lists.ozlabs.org
->      Subject: Re: Consistent naming for physical LED.
->      Date: Fri, May 5, 2017 11:35 PM
->=20
->    On Fri, May 05, 2017 at 09:50:37AM +0000, Rahul Maheshwari3 wrote:
->    >    Hi
->    >    With new xyz interface, I see that physical Identify LED is named
->    >    differently as "id" in Witherspoon and system state led as "beep"
->    in
->    >    Barreleye. Also I see that we have 3rd LED in Witherspoon is
->    "fault"
->    >    (for enclosure fault) and in Barreleye and palmetto "heartbeat"
->    (for
->    >    BMC state state).
->    >
->    >    Can we have same set of name/xyz url for physical LED across
->    different
->    >    systems?
->    >
->    >    Witherspoon
->    >        "/xyz/openbmc_project/led/physical/power",         System
->    State LED
->    >        "/xyz/openbmc_project/led/physical/id",
->    Identify LED
->    >        "/xyz/openbmc_project/led/physical/fault"
->    Enclosure
->    >    fault LED
->    >    Barreleye
->    >        "/xyz/openbmc_project/led/physical/identify",        Identify
->    LED
->    >        "/xyz/openbmc_project/led/physical/beep",           System
->    State
->    >    LED
->    >        "/xyz/openbmc_project/led/physical/heartbeat"     BMC state
->    >    Palmetto
->    >        "/xyz/openbmc_project/led/physical/power",         System
->    state
->    >        "/xyz/openbmc_project/led/physical/identify",        Identify
->    LED
->    >        "/xyz/openbmc_project/led/physical/heartbeat"     BMC state
->    >
->    >    Thanks
->    >    Rahul
->    Rahul,
->    We expect those to potentially be generated from board schematics and
->    are not intended to be used as a universal identifier for anything.  We
->    do have requirements on the naming of the LED groups, which is what we
->    intend users to interact with.  What are you trying to use the physical
->    LED for that you would like some kind of consistent naming and are you
->    sure the group would not be more appropriate for your purpose?
->    --
->    Patrick Williams
-
---=20
-Patrick Williams
-
---qDbXVdCdHGoSgWSk
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAlkuvmEACgkQqwNHzC0A
-wRk3Wg//R1osjH8kw3uSYG36awIGkO+r6z5Ptta4KxPpdqopnignJNVxFLr94oe/
-U2CPAKu/X68tgNj8A/yO1IfNqx5Em4jQFvV/ppJS9E8b2AaOZCLxdl/ct7lTp/c4
-57wb92sCKiNuGNtlTod2PEkEJiTlprKjsninHqsHbqQNoFkyD1QJseBFmGnOtQP1
-IIoIaDyYpFD1WsZrew8yiiiZRgsc6cbvuLJECdRXV1X73qm+tjqTJbubcHKn101d
-Z1t7QiPsiPYjQQGFsttVBXxxXzbw24XGB3kCI/4GNswcV4iMcP8lveva3B4NfT6Q
-7yRgJOFBs5HYfhIEe8bFS36S4B9g/gwp4vMls2FQYbOsv1YBCrOeOaH9r8KGCtIr
-sm3jY8wDLuqW1/ma9KXT1WeUuZvUyMs5JcKiKVesuzDMMvmgaCFY2zrj0Ra5eG+M
-gSrc+H9a01Z5ssE5T8DLSLUwgmRUdvk1H0c8dWJhgXs+UifTmVavmiBSzuG6+pmQ
-gpR9QzI6Z4mTeWltTrybeDH/IFvX8+gasX1+rPmOg3YIbgfqbv2wMLvQBso9BVJ6
-BxyrDwmByMkQPVKOxRMmI3a/pJBO7xA+nL7LYBdBzXnKkELV1mdccM2rtIGF2mDP
-GtHCQj3qfb3v2hwlqbEKL3aCC6pjj3m6jyfVNNjC+niEz7bzjXs=
-=5DOz
------END PGP SIGNATURE-----
-
---qDbXVdCdHGoSgWSk--
+> ---
+> v1->v2
+> Fixed issues pointed out by Joel:
+> - Make commit title shorter.
+> - Replace flash layout from separate dtsi to dts.
+> - Change compatible = "mellanox,msnxxxx-bmc" to "mellanox,msn-bmc".
+> - Remove no-hw-checksum from dts.
+> - Add comments.
+> - Remove WD2 disable from aspeed.c
+> - Add wdt2 to dts.
+>
+> v2->v3
+> - Split v2 patch into three separate.
+>
+> v3->v4
+> Fixed issues pointed by Andrew:
+> - Fix comment.
+> - Fix UART1 reset disable sequence(read/modify/write).
+> ---
+>  arch/arm/mach-aspeed/aspeed.c | 27 +++++++++++++++++++++++++++
+>  1 file changed, 27 insertions(+)
+>
+> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+> index 0f1a536ba1b2..5c88286c96fd 100644
+> --- a/arch/arm/mach-aspeed/aspeed.c
+> +++ b/arch/arm/mach-aspeed/aspeed.c
+> @@ -188,6 +188,31 @@ static void __init do_lanyang_setup(void)
+>         writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC | 0x98));
+>  }
+>
+> +static void __init do_mellanox_setup(void)
+> +{
+> +       unsigned long reg;
+> +
+> +       do_common_setup();
+> +
+> +       /* Set strapping for MAC1 to RMII/NCSI and MAC2 to RGMII. */
+> +       reg = readl(AST_IO(AST_BASE_SCU | 0x70));
+> +       reg |= BIT(7);
+> +       reg &= ~BIT(6);
+> +       writel(reg, AST_IO(AST_BASE_SCU | 0x70));
+> +
+> +       /* Disable default behavior of UART1 being held in reset by LPCRST#.
+> +        * By releasing UART1 from being controlled by LPC reset, it becomes
+> +        * immediately available regardless of the host being up. */
+> +       reg = readl(AST_IO(AST_BASE_LPC | 0x98));
+> +       /* Clear "Enable UART1 reset source from LPC" */
+> +       writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC | 0x98));
+> +
+> +       /* Enable RMII1 50MHz RCLK output. */
+> +       reg = readl(AST_IO(AST_BASE_SCU | 0x48));
+> +       reg |= BIT(29);
+> +       writel(reg, AST_IO(AST_BASE_SCU | 0x48));
+> +}
+> +
+>  #define SCU_PASSWORD   0x1688A8A8
+>
+>  static void __init aspeed_init_early(void)
+> @@ -227,6 +252,8 @@ static void __init aspeed_init_early(void)
+>                 do_romulus_setup();
+>         if (of_machine_is_compatible("inventec,lanyang-bmc"))
+>                 do_lanyang_setup();
+> +       if (of_machine_is_compatible("mellanox,msn-bmc"))
+> +               do_mellanox_setup();
+>  }
+>
+>  static void __init aspeed_map_io(void)
+> --
+> 2.11.0
+>
