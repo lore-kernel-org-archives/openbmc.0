@@ -1,52 +1,59 @@
-Return-Path: <mine260309@gmail.com>
-Received: from mail-it0-x244.google.com (mail-it0-x244.google.com
- [IPv6:2607:f8b0:4001:c0b::244])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yb0-x243.google.com (mail-yb0-x243.google.com
+ [IPv6:2607:f8b0:4002:c09::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wd1Vt6QW7zDqJh
- for <openbmc@lists.ozlabs.org>; Wed, 31 May 2017 16:57:10 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wd9Hn6hL4zDq5j
+ for <openbmc@lists.ozlabs.org>; Wed, 31 May 2017 22:48:05 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="GIuqFzv/"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="f3pkVd3f"; 
  dkim-atps=neutral
-Received: by mail-it0-x244.google.com with SMTP id d68so1055555ita.1
- for <openbmc@lists.ozlabs.org>; Tue, 30 May 2017 23:57:10 -0700 (PDT)
+Received: by mail-yb0-x243.google.com with SMTP id 130so434703ybl.2
+ for <openbmc@lists.ozlabs.org>; Wed, 31 May 2017 05:48:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=qwLNzASwhvVOqEG+8+l0qN0TbbEPwki+36kszWLq604=;
- b=GIuqFzv/ONrIAdGelN1IwlVgPH6DZJjuX334/fNKaSJr0wJ2mqX1K5ORs4oyfrWQhG
- FM3LcwvFgFGyzYpxVjLyNC8x/ofQAuYcM4q6pWnZMS0CRFRakB2E9Tg5RT3qkbiX7eeu
- VeGSLcUhbLYvcu0+MjvOLYb6NkAf77tiL/FK7ktjCvfeIaY1mq5iwuUc9i5dflhGZext
- dMc2i/SML2ZcYbcq7D69g7GdV0PQWcHxRyr2CAjItLnCIdAFu1lzZ1u8v0UZN58M+sjS
- zfDWEfQ4uX1bUN8H1Pxs4qPOoRAGCDHgaz0exEQ0upQFeIDaSqjIWAcEVBxmJVdi2E79
- vZqw==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=WfX3q7Dp9nCpLoG6ByQbGfJyLvX9+Qh5sKPwYCQ0A+M=;
+ b=f3pkVd3fgCwwV4d8U9vifOSVVESAPI+zdh/Gn49dOlCNpvrGAL72M9C29ih9wRFxIr
+ XFN+tznUBu6lj4MMvHbIMA0uRpGt53Soy9DWirSfEpSn9+OtJ2a1tryyxiwQwVQ+rOn6
+ SQRxXaeN4Aab2EAqNMynqV9Krx8Euk/ef9HcFXNCHFZuD3xhP9zxU4mNKRHA3f5Awaav
+ gdRjEc40Kn5rlTuR2I2bF9PXfm8aH5pWWagaf4R8DbJMgxe+X0jQXqftTntJnIlKn/hV
+ IyqLDVocdlK6FfyumUo8iAm0MhROt6Z9YF09UbzzWmix1+wHMYVYaMSJwyAhSu5Vmb3a
+ BzmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=qwLNzASwhvVOqEG+8+l0qN0TbbEPwki+36kszWLq604=;
- b=tQb3/iUFop88F8FMx/hPWiT6PqSK4rHGVsqFS78/PofCmsTvjZe4VhTIayAyYnueO8
- Bd33Ti6JpXsF5KyGCbqU40OgxXbC7mH0WPbxLPChYWp9EwooZINANev3bMgjbTk2y4O0
- y8W2nv0z2dIFnjrcTqPBj7MBRFbOn4h5QEBx6jNhfeqexIpMnT9QDf3bArbcRcQmPkkD
- +abtu5eITZoY/FyRvr2exTz82g1Sw0Eq+2jmzqHheKEYrwO5FCvwNka6c+UpMFlkzShI
- jyhMQO7VvO04V87lvxIyawlR+yu9uzCVENithi72YFOTdrvRi20GE59U2r+E6CEH8ykK
- siPA==
-X-Gm-Message-State: AODbwcBM70QVnRQoOdESCekCGKQ8BuGG6NX51NrwhzXlNP3L0hA2c8lT
- pC7fucKYtNjfv0//ZcqcMfmULp0MAA==
-X-Received: by 10.36.57.137 with SMTP id l131mr6154365ita.61.1496213827953;
- Tue, 30 May 2017 23:57:07 -0700 (PDT)
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=WfX3q7Dp9nCpLoG6ByQbGfJyLvX9+Qh5sKPwYCQ0A+M=;
+ b=j8XG8YIeai8Tp1vDyK5ZPbUygwJQXHgpq3zR9ZQ20o+bsane5CqHDSaUksv9Gxji7S
+ Esl11b2udjjg3Q28f9N/r54c5L9n05QmMIRJVONuX4B4Ym+Y4/LBGJViUp/NEEruoOUb
+ FwiyAGe6pBoxpXjlkwTROjU2khAJNnhcsuyAIBQE0DAzo3Q/qHX/uO0iHSdCnI1uesLe
+ gz8/fhLzA6vAzZYesjuBgIIvHZEhXMu7qxiYCeRbQ7KdWSEphRUXOZd1BQbmf5FKkQf0
+ PhS9yjU1FL7xrM8v7/QZrexY2sJB/Wt2N61e4sgdfm3GvWcopYVYaCQqIt9c9A2HQraM
+ 8zmg==
+X-Gm-Message-State: AODbwcDft0uUeB8qpiXOg/HLk02MRvB1zfwRfE/Oophb6W2qyJEQFjoN
+ D0FSt77v0w3tdiGWtYjwKP3da7np0w==
+X-Received: by 10.37.110.135 with SMTP id j129mr33930855ybc.123.1496234883468; 
+ Wed, 31 May 2017 05:48:03 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.79.150.10 with HTTP; Tue, 30 May 2017 23:57:07 -0700 (PDT)
-In-Reply-To: <20170525074818.7284-1-joel@jms.id.au>
-References: <20170525074818.7284-1-joel@jms.id.au>
-From: Lei YU <mine260309@gmail.com>
-Date: Wed, 31 May 2017 14:57:07 +0800
-Message-ID: <CAARXrt=4kSrO-G7bAK47mO=x23GYyN2wN35PaC9zW6Z2A2wjgA@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 1/2] ARM: dts: aspeed: romulus: Add
- checkstop gpio-keys
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Nickolaus Gruendler <ngruend@us.ibm.com>
+Sender: joel.stan@gmail.com
+Received: by 10.37.183.7 with HTTP; Wed, 31 May 2017 05:47:43 -0700 (PDT)
+In-Reply-To: <78ec6cac-79f9-643e-71eb-dfeae156c9d4@kaod.org>
+References: <1495746791-2748-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <CACPK8XcPUcbZt4xKHh+bNGq799ObpD1dfGaZamPL=Q9-UStS9Q@mail.gmail.com>
+ <78ec6cac-79f9-643e-71eb-dfeae156c9d4@kaod.org>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 31 May 2017 22:17:43 +0930
+X-Google-Sender-Auth: Cg-bZ4rZm4Mm36ObXKCf7pYpYKk
+Message-ID: <CACPK8XcmU6fwBKoUB60Z_mvb2iwZQUWp3xrs1ZUw0ycp+b4fdA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v2] arm: dts: aspeed: Add missing clock
+ sources for barreleye
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Cc: Eddie James <eajames@linux.vnet.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ "Edward A. James" <eajames@us.ibm.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,40 +65,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 31 May 2017 06:57:11 -0000
+X-List-Received-Date: Wed, 31 May 2017 12:48:06 -0000
 
-Reviewed-by: Lei YU <mine260309@gmail.com>
+On Fri, May 26, 2017 at 3:47 PM, C=C3=A9dric Le Goater <clg@kaod.org> wrote=
+:
+> On 05/26/2017 06:33 AM, Joel Stanley wrote:
+>> On Fri, May 26, 2017 at 7:13 AM, Eddie James <eajames@linux.vnet.ibm.com=
+> wrote:
+>>> From: "Edward A. James" <eajames@us.ibm.com>
+>>>
+>>> Reorganize flash controllers into the ast2400 config. Barreleye wasn't
+>>> booting with the new aspeed-smc driver.
+>>
+>> Your commit message mentions Barreleye, but you're also updating Palmett=
+o.
+>>
+>> Can you please update all of the ast2400 platforms?
+>>
+>> Also cc Cedric on your next version so he can check that we're doing
+>> the correct thing.
+>
+> Joel,
+>
+> I would also like to add CONFIG_VMSPLIT_2G on the G4 to define
+> correctly the SMC controller flash mapping window on the AHB Bus.
+> It is limited to 32MB currently
 
-On Thu, May 25, 2017 at 3:48 PM, Joel Stanley <joel@jms.id.au> wrote:
-> From: Nickolaus Gruendler <ngruend@us.ibm.com>
+Yes, we should do that, I agree.
 >
-> Signed-off-by: Nickolaus Gruendler <ngruend@us.ibm.com>
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 10 ++++++++++
->  1 file changed, 10 insertions(+)
+> Do you think we can take these ?
 >
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> index ac728695e447..5ca0f6e6a6a4 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> @@ -42,6 +42,16 @@
->                 enable-gpios = <&gpio ASPEED_GPIO(D, 0) GPIO_ACTIVE_HIGH>;
->                 trans-gpios = <&gpio ASPEED_GPIO(R, 2) GPIO_ACTIVE_HIGH>;
->         };
-> +
-> +       gpio-keys {
-> +               compatible = "gpio-keys";
-> +
-> +               checkstop {
-> +                       label = "checkstop";
-> +                       gpios = <&gpio ASPEED_GPIO(J, 2) GPIO_ACTIVE_LOW>;
-> +                       linux,code = <ASPEED_GPIO(J, 2)>;
-> +               };
-> +       };
->  };
->
->  &fmc {
-> --
-> 2.11.0
->
+>         http://patchwork.ozlabs.org/patch/752285/
+
+"ARM: dts: aspeed-g4: fix AHB window size of the SMC controllers"
+
+This one did not apply, as the device tree we have in dev-4.10 is
+ancient compared to upstream. I think Eddie's series that converts the
+machines over to match the ast2500 should help.
+
+I will apply it once I have applied Eddie's v5 (as v4 needs some fixes
+for missing fast-read properties).
+
+>         http://patchwork.ozlabs.org/patch/752287/
+
+I applied this one.
+
+Apologies for not applying them earlier. I had assumed they were
+intended for the upstream tree. I have applied both of them to my
+staging tree for upstream as well.
+
+Cheers,
+
+Joel
