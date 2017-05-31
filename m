@@ -1,56 +1,56 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x243.google.com (mail-yb0-x243.google.com
- [IPv6:2607:f8b0:4002:c09::243])
+Received: from mail-yb0-x241.google.com (mail-yb0-x241.google.com
+ [IPv6:2607:f8b0:4002:c09::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wd9Hn6hL4zDq5j
- for <openbmc@lists.ozlabs.org>; Wed, 31 May 2017 22:48:05 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wd9Jm5SPRzDq5j
+ for <openbmc@lists.ozlabs.org>; Wed, 31 May 2017 22:48:56 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="f3pkVd3f"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="mV3fyMP2"; 
  dkim-atps=neutral
-Received: by mail-yb0-x243.google.com with SMTP id 130so434703ybl.2
- for <openbmc@lists.ozlabs.org>; Wed, 31 May 2017 05:48:05 -0700 (PDT)
+Received: by mail-yb0-x241.google.com with SMTP id r66so434601yba.3
+ for <openbmc@lists.ozlabs.org>; Wed, 31 May 2017 05:48:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc:content-transfer-encoding;
- bh=WfX3q7Dp9nCpLoG6ByQbGfJyLvX9+Qh5sKPwYCQ0A+M=;
- b=f3pkVd3fgCwwV4d8U9vifOSVVESAPI+zdh/Gn49dOlCNpvrGAL72M9C29ih9wRFxIr
- XFN+tznUBu6lj4MMvHbIMA0uRpGt53Soy9DWirSfEpSn9+OtJ2a1tryyxiwQwVQ+rOn6
- SQRxXaeN4Aab2EAqNMynqV9Krx8Euk/ef9HcFXNCHFZuD3xhP9zxU4mNKRHA3f5Awaav
- gdRjEc40Kn5rlTuR2I2bF9PXfm8aH5pWWagaf4R8DbJMgxe+X0jQXqftTntJnIlKn/hV
- IyqLDVocdlK6FfyumUo8iAm0MhROt6Z9YF09UbzzWmix1+wHMYVYaMSJwyAhSu5Vmb3a
- BzmA==
+ bh=Zt/qq6/IZmY/Au0CJ0ACAYazN95YPIXiUbseKyCKRgU=;
+ b=mV3fyMP28SnKdLVZnt3363Ttk+Y+JlafWaqVT8fk281C1r5GwaiEuJvb/z1EFsMRqR
+ hZp1zLsTP8unGqX5gUH2EJjFw20+pNs7OM0eQhuJwTv7tFTfh/9hSOTCCGZV5pw2qkS0
+ RPAs2SRww6T6FgxvPsxie0XrMTytosOmoFD3Gmkn5jdP26LSDGRtCuweEDvSFoFtzKBF
+ d6VzwZ4wM8SEPRSR6R4ja3teMVg/q58XcjCevA12wrP610dLzCLzZOGa14t0DMta/jv4
+ f4pMwMl2W4o7V7hFeqQttvavycwa1ntVivymsJFlfKx4qn+JFQ2J67ORNAV6l+NwukSS
+ csAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=WfX3q7Dp9nCpLoG6ByQbGfJyLvX9+Qh5sKPwYCQ0A+M=;
- b=j8XG8YIeai8Tp1vDyK5ZPbUygwJQXHgpq3zR9ZQ20o+bsane5CqHDSaUksv9Gxji7S
- Esl11b2udjjg3Q28f9N/r54c5L9n05QmMIRJVONuX4B4Ym+Y4/LBGJViUp/NEEruoOUb
- FwiyAGe6pBoxpXjlkwTROjU2khAJNnhcsuyAIBQE0DAzo3Q/qHX/uO0iHSdCnI1uesLe
- gz8/fhLzA6vAzZYesjuBgIIvHZEhXMu7qxiYCeRbQ7KdWSEphRUXOZd1BQbmf5FKkQf0
- PhS9yjU1FL7xrM8v7/QZrexY2sJB/Wt2N61e4sgdfm3GvWcopYVYaCQqIt9c9A2HQraM
- 8zmg==
-X-Gm-Message-State: AODbwcDft0uUeB8qpiXOg/HLk02MRvB1zfwRfE/Oophb6W2qyJEQFjoN
- D0FSt77v0w3tdiGWtYjwKP3da7np0w==
-X-Received: by 10.37.110.135 with SMTP id j129mr33930855ybc.123.1496234883468; 
- Wed, 31 May 2017 05:48:03 -0700 (PDT)
+ bh=Zt/qq6/IZmY/Au0CJ0ACAYazN95YPIXiUbseKyCKRgU=;
+ b=FDKI1LevWMIknSnNs1ms315QlxsAYxP5Uz73DsqAkOn7bWftBMC6Re9LZMvY6a/Kp+
+ 6jwhQahJB7iyoer3sW7V07X4Q2kB07ePn5oveSHA2g/i+qW2RbGqJeabPxZjFcSyI49S
+ 5mNWDodGyW7sAO2uGH5vcqnXYVLGa6wml7XpBAR1ZBEj9Ea6m43G62EFuqlvuGUg/gkQ
+ PXFHzrvZcwuzgZJsXxx+8TCNMNYumQxd8DMcqhVJbdK1aMm9MBwtvSSM2kPdYARnT4mB
+ u08UCALoPQvKsPjDWzSsIPgAEQ9V/JexjGw7q5PUjmT1gVQbb42Urer0UpdLgKPQZgk2
+ otCQ==
+X-Gm-Message-State: AODbwcAy0wStRDhZ0z9O0Su3RIUCVHBu3P/ymS6l+cEMCjIMe0iLr+vw
+ fsM4ab7M4lvmEISiiff5AJ6bE5nIUA==
+X-Received: by 10.37.58.131 with SMTP id h125mr55032707yba.152.1496234934185; 
+ Wed, 31 May 2017 05:48:54 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.183.7 with HTTP; Wed, 31 May 2017 05:47:43 -0700 (PDT)
-In-Reply-To: <78ec6cac-79f9-643e-71eb-dfeae156c9d4@kaod.org>
-References: <1495746791-2748-1-git-send-email-eajames@linux.vnet.ibm.com>
- <CACPK8XcPUcbZt4xKHh+bNGq799ObpD1dfGaZamPL=Q9-UStS9Q@mail.gmail.com>
- <78ec6cac-79f9-643e-71eb-dfeae156c9d4@kaod.org>
+Received: by 10.37.183.7 with HTTP; Wed, 31 May 2017 05:48:33 -0700 (PDT)
+In-Reply-To: <14524f62-a369-b8bb-e71c-5c495772afb5@linux.vnet.ibm.com>
+References: <1495815002-1808-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <6f8cb5f9-1b95-4caf-8257-163a36208045@kaod.org>
+ <14524f62-a369-b8bb-e71c-5c495772afb5@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 31 May 2017 22:17:43 +0930
-X-Google-Sender-Auth: Cg-bZ4rZm4Mm36ObXKCf7pYpYKk
-Message-ID: <CACPK8XcmU6fwBKoUB60Z_mvb2iwZQUWp3xrs1ZUw0ycp+b4fdA@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 v2] arm: dts: aspeed: Add missing clock
+Date: Wed, 31 May 2017 22:18:33 +0930
+X-Google-Sender-Auth: HHFlDPsF8Cb8Ct_oy42wWb-4ppY
+Message-ID: <CACPK8XcnK8CG_=Mr6x4YXz9MUZxz38veY3t48y5Fn8iVtYyY6g@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v4] arm: dts: aspeed: Add missing clock
  sources for barreleye
-To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
-Cc: Eddie James <eajames@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+To: Eddie James <eajames@linux.vnet.ibm.com>
+Cc: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  "Edward A. James" <eajames@us.ibm.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -65,54 +65,33 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 31 May 2017 12:48:06 -0000
+X-List-Received-Date: Wed, 31 May 2017 12:48:57 -0000
 
-On Fri, May 26, 2017 at 3:47 PM, C=C3=A9dric Le Goater <clg@kaod.org> wrote=
-:
-> On 05/26/2017 06:33 AM, Joel Stanley wrote:
->> On Fri, May 26, 2017 at 7:13 AM, Eddie James <eajames@linux.vnet.ibm.com=
-> wrote:
+On Tue, May 30, 2017 at 11:05 PM, Eddie James
+<eajames@linux.vnet.ibm.com> wrote:
+>
+> On 05/29/2017 05:56 AM, C=C3=A9dric Le Goater wrote:
+>>
+>> Hello Edward,
+>>
+>> On 05/26/2017 06:10 PM, Eddie James wrote:
+>>>
 >>> From: "Edward A. James" <eajames@us.ibm.com>
 >>>
->>> Reorganize flash controllers into the ast2400 config. Barreleye wasn't
->>> booting with the new aspeed-smc driver.
+>>> Reorganize flash controllers into the ast2400 config and edit all the
+>>> ast2400 machine configs.  Barreleye wasn't booting with the new
+>>> aspeed-smc driver.
 >>
->> Your commit message mentions Barreleye, but you're also updating Palmett=
-o.
->>
->> Can you please update all of the ast2400 platforms?
->>
->> Also cc Cedric on your next version so he can check that we're doing
->> the correct thing.
+>> There are a couple of "m25p,fast-read" properties missing below.
+>> Is that on purpose ?
 >
-> Joel,
 >
-> I would also like to add CONFIG_VMSPLIT_2G on the G4 to define
-> correctly the SMC controller flash mapping window on the AHB Bus.
-> It is limited to 32MB currently
+> Yes, I copied the properties (or lack thereof) exactly from the existing
+> flash entries for each individual system. I'm not sure if it was the
+> original intention to not have those properties...
 
-Yes, we should do that, I agree.
->
-> Do you think we can take these ?
->
->         http://patchwork.ozlabs.org/patch/752285/
-
-"ARM: dts: aspeed-g4: fix AHB window size of the SMC controllers"
-
-This one did not apply, as the device tree we have in dev-4.10 is
-ancient compared to upstream. I think Eddie's series that converts the
-machines over to match the ast2500 should help.
-
-I will apply it once I have applied Eddie's v5 (as v4 needs some fixes
-for missing fast-read properties).
-
->         http://patchwork.ozlabs.org/patch/752287/
-
-I applied this one.
-
-Apologies for not applying them earlier. I had assumed they were
-intended for the upstream tree. I have applied both of them to my
-staging tree for upstream as well.
+Can you please re-spin with the properties added so Cedric can give it
+one last check over before I merge it?
 
 Cheers,
 
