@@ -1,55 +1,56 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-pg0-x242.google.com (mail-pg0-x242.google.com
- [IPv6:2607:f8b0:400e:c05::242])
+Received: from mail-yb0-x244.google.com (mail-yb0-x244.google.com
+ [IPv6:2607:f8b0:4002:c09::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wdBps2Z72zDq5W
- for <openbmc@lists.ozlabs.org>; Wed, 31 May 2017 23:56:37 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wdCTQ3gVTzDq5j
+ for <openbmc@lists.ozlabs.org>; Thu,  1 Jun 2017 00:26:34 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="gu204rpJ"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="uITQOZls"; 
  dkim-atps=neutral
-Received: by mail-pg0-x242.google.com with SMTP id s62so1995387pgc.0
- for <openbmc@lists.ozlabs.org>; Wed, 31 May 2017 06:56:37 -0700 (PDT)
+Received: by mail-yb0-x244.google.com with SMTP id 130so526195ybl.2
+ for <openbmc@lists.ozlabs.org>; Wed, 31 May 2017 07:26:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id;
- bh=KHL5K6fvHY8mteSecUUPXyyK9PqE9P1KolU5gPe7380=;
- b=gu204rpJqId/p/TWgwCLDCghEWFsC5DMJea98wwx6XvTJ0GWdFhSfRxfP7lB6LtJn9
- gjrU5MH9BZnVvIRetlMEtLjkY+fh5X1jKDIKRqqPtvAX0zcccoUb6h2GikARZuB52tOQ
- La+QwMfP6dBTWra7aYeSRXy4ehzPPsV5cZ1LdHIyyQSIWa4slgWkiWa/CgPuPNNW8qHS
- EWZTF+d8dvVooi6kj9EGcz7EZaz8l0nr9DKV/LiyouVnA+f2OxLIXRNDvV/x1SJ08oNP
- 9EpoHJIHFSi3KcDuWXUlH1u9MISA+cE047OKUeCxNbnodOLWEibtLm41gCTR8ltHf0mr
- hH5Q==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=mlXaK1iLus1czGU7MiM5g9TKimkMNAD75U+CH296mF8=;
+ b=uITQOZlsq7PSRepQOFqwhtWN+shpUVoxJ5mR9kGS1aawwxNhE6bdlMuTQaysIOCMCF
+ DHWRCMSGmwGVKrhdsu8/QVdXiZnzpbCVftVbjieDkFvVsw/RnLuUb12DieCfUZLxqBHJ
+ 4SbO0e7YysHcY0htATvBL7SU89Pb3XiYjq/2NoyXhB7a3I7z/g03FYFJIvjyB1cNIcgX
+ hy8hfNREUxSN/Pj95SG/ZRP3uDB7Bd3qtThAFl0Sowic7Ftujt8xRXeRqC0LU6ay3SnI
+ cFa8LjkmysRK1BwGm4jG9Q6tTLya44GtbNqlck7HLuXQFKHNMi6TqDsHmsYtrIgWTVdp
+ 1FWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
- bh=KHL5K6fvHY8mteSecUUPXyyK9PqE9P1KolU5gPe7380=;
- b=twCZAC4msM3w0r4lhMbNvXR093QHxSGElS4E3UnQzZmQHk9Sb3DllRPI0C3Wd7Ifxr
- QptRBE4lUE9aDDygYVuLBb7AagfQ4tQB7NgxtX+c7X+SW79+5Is/guA7dXeW3k1RdMeH
- rx0ttJRratBrifhEDwveFVCKMm3Ss80DwXaMVXZxND1el3NmYl3ZdU/RC7Zm0ndH1AOh
- j14dNNBOPq+V+bJAaDpTGGvP3zTYafUd4nsZ3XwTHNRZZAS7EV7HRdJcQe06DYR0W0iE
- tTi28lGq8sdTLwmrPBc1CAJOu38A1a0KBmrrgVE/EsQjjNB1vQJ4ORt4EsX/WS6W8rJ0
- n3LA==
-X-Gm-Message-State: AODbwcC73sjYK8dE/LfciGmZIVz15epgd7B8TqCUj9PcKnTywjjSjP5/
- 0IoPw20hVFpcwg==
-X-Received: by 10.84.194.34 with SMTP id g31mr52477114pld.89.1496238994802;
- Wed, 31 May 2017 06:56:34 -0700 (PDT)
-Received: from aurora.jms.id.au ([45.124.203.14])
- by smtp.gmail.com with ESMTPSA id b2sm24846872pgc.16.2017.05.31.06.56.30
- (version=TLS1 cipher=AES128-SHA bits=128/128);
- Wed, 31 May 2017 06:56:34 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Wed, 31 May 2017 23:26:26 +0930
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=mlXaK1iLus1czGU7MiM5g9TKimkMNAD75U+CH296mF8=;
+ b=LM0yHWLazyjaRqxrjqOMcba66odsg+MsvmRzI4qVcSft5B96TdTf5cnlutKDwdPFZN
+ uJGNcLmnq1t4C/Lp1Z7NJr2t2e/7y4F6OqnuJGwt+96d9DmuBw7/VUEwRSSlGO2aCTwD
+ fZD/Fhoc6DunMOZetozUghQdKHW9ZeziDwNotrgZxqHtelP2jAbboq0jWeFaJQ39Qxub
+ KtmGyYsH0iVomZhGGeYlIUdp5JAs6mLR9ZzMzW10V5VCAMSnZrMQN/VuzHZRAzhYnEn5
+ UJmOdjdThdw0KxGBKYsFqLlojhqrWowwUFFQZX7PAhBNOu98WDcF4vHi+pbcDG1Oqbsw
+ Y5BA==
+X-Gm-Message-State: AODbwcDHUtFE6Y3L6Iw8oS/Fas+uCezOCSvtTksw1DRJSgb7S+COJ4/q
+ FtXjHAfe8GW4vPc1NgS6PaOrXVVkEw==
+X-Received: by 10.37.59.210 with SMTP id i201mr515992yba.25.1496240792142;
+ Wed, 31 May 2017 07:26:32 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.183.7 with HTTP; Wed, 31 May 2017 07:26:11 -0700 (PDT)
+In-Reply-To: <1494431562-25101-1-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1494431562-25101-1-git-send-email-eajames@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-To: openbmc@lists.ozlabs.org
-Cc: "Edward A. James" <eajames@us.ibm.com>,
- Eddie James <eajames@linux.vnet.ibm.com>,
- =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>,
- Andrew Jeffery <andrew@aj.id.au>, Mykola Kostenok <c_mykolak@mellanox.com>
-Subject: [PATCH linux dev-4.10] arm: dts: aspeed: Update old style flash nodes
-Date: Wed, 31 May 2017 23:26:14 +0930
-Message-Id: <20170531135614.7170-1-joel@jms.id.au>
-X-Mailer: git-send-email 2.11.0
+Date: Wed, 31 May 2017 23:56:11 +0930
+X-Google-Sender-Auth: eawA1q0hKD9geq0gejHt0xw6qk0
+Message-ID: <CACPK8XfGrZARPMn7hNg73OELV=JTwL32VgUnZEjZvERbhT1L6g@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v2 0/6] drivers: i2c: FSI-attached I2C
+ master algorithm
+To: Eddie James <eajames@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Christopher Bostic <cbostic@linux.vnet.ibm.com>,
+ "Edward A. James" <eajames@us.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,480 +62,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 31 May 2017 13:56:38 -0000
+X-List-Received-Date: Wed, 31 May 2017 14:26:35 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
+On Thu, May 11, 2017 at 1:22 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+> From: "Edward A. James" <eajames@us.ibm.com>
+>
+> This patch series adds an I2C bus algorithm to drive the I2C master located on
+> POWER CPUs. The master is accessed over FSI bus from the service processor.
+>
+> The driver creates one chardev entry for each port off an I2C master by
+> registering one I2C adapter for port. This implementation requires locking of
+> the master in the driver to prevent transfers running into each other. The
+> master registers are shared between ports.
+>
+> This patchset also adds the latest in FSI dt bindings from Jeremy Kerr. This
+> describes the entire FSI tree structure (master -> slaves -> engines ->
+> engine data (such as i2c master ports)). These bindings are required for the
+> I2C driver in order to enumerate the ports off each I2C master.
+>
 
-Reorganize flash controllers into the ast2400 device tree to match what
-is used upstream. This moves the nodes from the machine dts to the
-common dtsi.
+I have added this series to dev-4.10. Note that under our kernel
+rules, this means you must be in the process of submitting them
+upstream :)
 
-This also affected the newly added Mellanox MSN device tree, which is
-also updated in this series.
+I think you can send them to the i2c maintainer with a mention in your
+cover letter that it depends on the unmerged FSI series and that you'd
+like to kick off the review process for your driver.
 
-Barreleye wasn't booting with the new aspeed-smc driver.
+Cheers,
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
-[joel:
-  - rework commit message
-  - add missing m25p,fast-read properties
-  - add pinmux for pnor
-  - use upstream node names
-     * bmc_pnor becomes fmc
-     * host_pnor becomes spi
-  - fix the facebook machine
-]
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
-Eddie, I reworked your patch for you. Please check it looks okay.
+Joel
 
-Cedric, can you please double check I didn't stuff anything up?
 
-Andrew, can you reivew for pinmux correctness?
-
-Mykola, please reply with "Acked-by: Mykola Kostenok <c_mykolak@mellanox.com>"
-if the changes to the Mellanox device tree look okay to you. They should be
-functionally the same as before.
-
- arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts  | 19 ++++-----
- arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts  | 20 ++++-----
- arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts | 49 ++++++++++------------
- arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts | 42 ++++++++-----------
- arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts  | 51 ++++++++---------------
- arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts  | 57 ++++++++++----------------
- arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts   | 43 ++++++++-----------
- arch/arm/boot/dts/aspeed-g4.dtsi               | 34 +++++++++++++++
- 8 files changed, 142 insertions(+), 173 deletions(-)
-
-diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
-index 8df116ea8594..ff5058ee8834 100644
---- a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
-@@ -18,21 +18,16 @@
- 	memory {
- 		reg = <0x80000000 0x3f000000>;
- 	};
-+};
- 
--	ahb {
--		bmc_pnor: fmc@1e620000 {
--			reg = < 0x1e620000 0x94
--				0x20000000 0x02000000 >;
--			#address-cells = <1>;
--			#size-cells = <0>;
--			compatible = "aspeed,ast2400-fmc";
--			flash@0 {
--				reg = < 0 >;
--				compatible = "jedec,spi-nor" ;
-+&fmc {
-+	status = "okay";
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
- #include "aspeed-bmc-facebook-cmm-flash-layout.dtsi"
--			};
--		};
- 	};
-+
- };
- 
- &uart1 {
-diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-index 649964a3726a..c71a6dbe1410 100644
---- a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-@@ -22,20 +22,14 @@
- 		reg = <0x80000000 0x20000000>;
- 	};
- 
--	ahb {
--		bmc_pnor: fmc@1e620000 {
--			reg = < 0x1e620000 0xc4
--				0x20000000 0x02000000 >;
--			#address-cells = <1>;
--			#size-cells = <0>;
--			compatible = "aspeed,ast2500-fmc";
--			interrupts = <19>;
--			flash@0 {
--				reg = < 0 >;
--				compatible = "jedec,spi-nor" ;
-+};
-+
-+&fmc {
-+	status = "okay";
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
- #include "aspeed-bmc-mellanox-msn-flash-layout.dtsi"
--			};
--		};
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-index be1f2d120fee..9f7098876ecb 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-@@ -31,34 +31,6 @@
- 		};
- 	};
- 
--	ahb {
--		bmc_pnor: fmc@1e620000 {
--			reg = < 0x1e620000 0x94
--				0x20000000 0x02000000 >;
--			#address-cells = <1>;
--			#size-cells = <0>;
--			compatible = "aspeed,ast2400-fmc";
--			flash@0 {
--				reg = < 0 >;
--				compatible = "jedec,spi-nor" ;
--#include "aspeed-bmc-opp-flash-layout.dtsi"
--			};
--		};
--
--		host_pnor: spi@1e630000 {
--			reg = < 0x1e630000 0x18
--				0x30000000 0x02000000 >;
--			#address-cells = <1>;
--			#size-cells = <0>;
--			compatible = "aspeed,ast2400-spi";
--			flash@0 {
--				reg = < 0 >;
--				compatible = "jedec,spi-nor" ;
--				label = "pnor";
--			};
--		};
--	};
--
- 	leds {
- 		compatible = "gpio-leds";
- 
-@@ -76,6 +48,27 @@
- 	};
- };
- 
-+&fmc {
-+	status = "okay";
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+#include "aspeed-bmc-opp-flash-layout.dtsi"
-+	};
-+};
-+
-+&spi {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_spi1_default>;
-+
-+	flash@0 {
-+		m25p,fast-read;
-+		status = "okay";
-+		label = "pnor";
-+	};
-+};
-+
- &pinctrl {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_flbusy_default &pinctrl_flwp_default
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-index fe63621365fd..430622c86ef7 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-@@ -50,34 +50,26 @@
- 			gpios = <&gpio ASPEED_GPIO(A, 2) GPIO_ACTIVE_LOW>;
- 		};
- 	};
-+};
- 
--	ahb {
--		fmc@1e620000 {
--			reg = < 0x1e620000 0x94
--				0x20000000 0x02000000 >;
--			#address-cells = <1>;
--			#size-cells = <0>;
--			compatible = "aspeed,ast2400-fmc";
--
--			flash@0 {
--				reg = < 0 >;
--				compatible = "jedec,spi-nor" ;
-+&fmc {
-+	status = "okay";
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
- #include "aspeed-bmc-opp-flash-layout.dtsi"
--			};
--		};
-+	};
-+};
- 
--		spi@1e630000 {
--			reg = < 0x1e630000 0x18
--				0x30000000 0x02000000 >;
--			#address-cells = <1>;
--			#size-cells = <0>;
--			compatible = "aspeed,ast2400-spi";
--			flash@0 {
--				reg = < 0 >;
--				compatible = "jedec,spi-nor" ;
--				label = "pnor";
--			};
--		};
-+&spi {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_spi1_default>;
-+
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+		label = "pnor";
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-index 121612a8776e..b64edad3e050 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-@@ -30,42 +30,27 @@
- 			reg = <0x5f000000 0x01000000>; /* 16MB */
- 		};
- 	};
-+};
-+
-+&fmc {
-+	status = "okay";
- 
--	ahb {
--
--		bmc_pnor: fmc@1e620000 {
--			reg = < 0x1e620000 0x94
--				0x20000000 0x02000000 >;
--			#address-cells = <1>;
--			#size-cells = <0>;
--			compatible = "aspeed,ast2400-fmc";
--			aspeed,fmc-has-dma;
--			interrupts = <19>;
--			clocks = <&clk_ahb>;
--			clock-names = "ahb";
--			flash@0 {
--				reg = < 0 >;
--				compatible = "jedec,spi-nor" ;
--				m25p,fast-read;
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
- #include "aspeed-bmc-opp-flash-layout.dtsi"
--			};
--		};
-+	};
-+};
- 
--		host_pnor: spi@1e630000 {
--			reg = < 0x1e630000 0x18
--				0x30000000 0x02000000 >;
--			#address-cells = <1>;
--			#size-cells = <0>;
--			compatible = "aspeed,ast2400-spi";
--			clocks = <&clk_ahb>;
--			clock-names = "ahb";
--			flash {
--				reg = < 0 >;
--				compatible = "jedec,spi-nor" ;
--				label = "pnor";
--				m25p,fast-read;
--			};
--		};
-+&spi {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_spi1_default>;
-+
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+		label = "pnor";
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-index b4faa1d79460..60792f6ff7ec 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-@@ -47,42 +47,6 @@
-                 };
-         };
- 
--	ahb {
--		bmc_pnor: fmc@1e620000 {
--			reg = < 0x1e620000 0x94
--				0x20000000 0x02000000 >;
--			#address-cells = <1>;
--			#size-cells = <0>;
--			compatible = "aspeed,ast2400-fmc";
--			aspeed,fmc-has-dma;
--			interrupts = <19>;
--			clocks = <&clk_ahb>;
--			clock-names = "ahb";
--			flash@0 {
--				reg = < 0 >;
--				compatible = "jedec,spi-nor" ;
--				m25p,fast-read;
--#include "aspeed-bmc-opp-flash-layout.dtsi"
--			};
--		};
--
--		host_pnor: spi@1e630000 {
--			reg = < 0x1e630000 0x18
--				0x30000000 0x02000000 >;
--			#address-cells = <1>;
--			#size-cells = <0>;
--			compatible = "aspeed,ast2400-spi";
--			clocks = <&clk_ahb>;
--			clock-names = "ahb";
--			flash {
--				reg = < 0 >;
--				compatible = "jedec,spi-nor" ;
--				label = "pnor";
--				m25p,fast-read;
--			};
--		};
--	};
--
- 	gpio-fsi {
- 		compatible = "fsi-master-gpio", "fsi-master";
- 
-@@ -94,6 +58,27 @@
- 	};
- };
- 
-+&fmc {
-+	status = "okay";
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+#include "aspeed-bmc-opp-flash-layout.dtsi"
-+	};
-+};
-+
-+&spi {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_spi1_default>;
-+
-+	flash@0 {
-+		status = "okay";
-+		label = "pnor";
-+		m25p,fast-read;
-+	};
-+};
-+
- &pinctrl {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_flbusy_default &pinctrl_flwp_default
-diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-index 713246090906..50be8dd921cf 100644
---- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-@@ -30,35 +30,26 @@
- 			reg = <0x47800000 0x00800000>; /* 8MB */
- 		};
- 	};
-+};
- 
--	ahb {
--		bmc_pnor: fmc@1e620000 {
--			reg = < 0x1e620000 0x94
--				0x20000000 0x02000000 >;
--			#address-cells = <1>;
--			#size-cells = <0>;
--			compatible = "aspeed,ast2400-fmc";
--			aspeed,fmc-has-dma;
--			interrupts = <19>;
--			flash@0 {
--				reg = < 0 >;
--				compatible = "jedec,spi-nor" ;
-+&fmc {
-+	status = "okay";
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
- #include "aspeed-bmc-opp-flash-layout.dtsi"
--			};
--		};
-+	};
-+};
- 
--		host_pnor: spi@1e630000 {
--			reg = < 0x1e630000 0x18
--				0x30000000 0x01000000 >;
--			#address-cells = <1>;
--			#size-cells = <0>;
--			compatible = "aspeed,ast2400-smc";
--			flash {
--				reg = < 0 >;
--				compatible = "jedec,spi-nor" ;
--				label = "pnor";
--			};
--		};
-+&spi {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_spi1_default>;
-+
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+		label = "pnor";
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-index d8827d522dfe..9a329cee72bf 100644
---- a/arch/arm/boot/dts/aspeed-g4.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-@@ -44,6 +44,40 @@
- 		#size-cells = <1>;
- 		ranges;
- 
-+		fmc: fmc@1e620000 {
-+			reg = < 0x1e620000 0x94
-+				0x20000000 0x02000000 >;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "aspeed,ast2400-fmc";
-+			status = "disabled";
-+			aspeed,fmc-has-dma;
-+			interrupts = <19>;
-+			clocks = <&clk_ahb>;
-+			clock-names = "ahb";
-+			flash@0 {
-+				reg = < 0 >;
-+				compatible = "jedec,spi-nor" ;
-+				status = "disabled";
-+			};
-+		};
-+
-+		spi: spi@1e630000 {
-+			reg = < 0x1e630000 0x18
-+				0x30000000 0x02000000 >;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "aspeed,ast2400-spi";
-+			status = "disabled";
-+			clocks = <&clk_ahb>;
-+			clock-names = "ahb";
-+			flash@0 {
-+				reg = < 0 >;
-+				compatible = "jedec,spi-nor" ;
-+				status = "disabled";
-+			};
-+		};
-+
- 		vic: interrupt-controller@1e6c0080 {
- 			compatible = "aspeed,ast2400-vic";
- 			interrupt-controller;
--- 
-2.11.0
+> Edward A. James (6):
+>   drivers: i2c: Add FSI-attached I2C master algorithm
+>   drivers: i2c: Add port structure to FSI algorithm
+>   drivers: i2c: Add transfer implementation for FSI algorithm
+>   drivers: i2c: Add I2C master locking to FSI algorithm
+>   drivers: i2c: Add bus recovery for FSI algorithm
+>   dts: aspeed: witherspoon: Add I2C master under FSI masters
+>
+>  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 156 ++++++
+>  drivers/Makefile                                 |   2 +-
+>  drivers/i2c/busses/Kconfig                       |  11 +
+>  drivers/i2c/busses/Makefile                      |   1 +
+>  drivers/i2c/busses/i2c-fsi.c                     | 654 +++++++++++++++++++++++
+>  5 files changed, 823 insertions(+), 1 deletion(-)
+>  create mode 100644 drivers/i2c/busses/i2c-fsi.c
+>
+> --
+> 1.8.3.1
+>
