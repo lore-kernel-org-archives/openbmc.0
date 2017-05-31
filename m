@@ -1,62 +1,36 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x242.google.com (mail-yb0-x242.google.com
- [IPv6:2607:f8b0:4002:c09::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wdDRx0XGWzDq5j
- for <openbmc@lists.ozlabs.org>; Thu,  1 Jun 2017 01:10:21 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="l0/RQn5Y"; 
- dkim-atps=neutral
-Received: by mail-yb0-x242.google.com with SMTP id 130so568593ybl.2
- for <openbmc@lists.ozlabs.org>; Wed, 31 May 2017 08:10:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=Mio0hRVgdZ24AKSay9DYue+E+5KZ6hoaqY7jPvRSQlE=;
- b=l0/RQn5Y/Wn3tOVKSguXrKsN364rw1dqXwxvW8bEXJHEmYLqAxqk6rfdHxzEAf1Ftc
- P1zTrTZ3mtpdd6gUBBv7xEPolU7bny59fYI7VTxFa+GCwjCmSfoJU/h/H/R+qjJnU9yO
- w5qGPf5MEBbZP/33VvZDHjyUgRNy8ZLYEGLNMpwNvumkR8mEBqOP4ahlr2OY3EmHY5RJ
- tbzTMuXdaBMEJaIAL1xoybntndtbGIHPjKrDlFnE61E6Y9bPA6Wcr3zOtPSs0m6BgJQ/
- QOUF93fUN18ZWjVCSYlHMNi9ty/nWl5rrcCEW8kGoilNIjyzZ6IP1dByyB+T589cSa/I
- ZHHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=Mio0hRVgdZ24AKSay9DYue+E+5KZ6hoaqY7jPvRSQlE=;
- b=J2KUGAysk5LsOAHcpfT2Od1yihuUTU+tVgjsXBhu0zxy/7xuObN1RqvMqP10/Sd2y+
- 6XLIdSgS3miVDUehqtNmEGNRrgxgmyeM4yiIf5BqkB1yf8CWMZw5evuQyLodVfrwMLtS
- Q+EplK5NoYTXWdMfejjSB6PzJE4V+AclyopZ++vPYPthAHYD73mMR7SaCwce8tGOXgK9
- 39jyZ4Xk1DoHbpSoT8Oz3nuqq0zkH9WroxCsy7ajGbIZzmh4bQiTFgVO7PjXkLGuqQYA
- DvrOuuXMhUnVNSgdygeZYPNLxu5OLQoc5LJmQRs3U1tbZw+3VsLbuez2e795XlJ8CxnM
- ybMg==
-X-Gm-Message-State: AODbwcAOm49PW7ELj4i447YxkMiqXr3sAisewT2RkjF14XD86GS1TAO0
- QlOJ+18TEHwbgA6/R9mssOPboBVpFg==
-X-Received: by 10.37.58.131 with SMTP id h125mr55631645yba.152.1496243418745; 
- Wed, 31 May 2017 08:10:18 -0700 (PDT)
+Return-Path: <clg@kaod.org>
+Received: from 3.mo5.mail-out.ovh.net (3.mo5.mail-out.ovh.net [46.105.40.108])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wdH294tmFzDqBJ
+ for <openbmc@lists.ozlabs.org>; Thu,  1 Jun 2017 03:06:41 +1000 (AEST)
+Received: from player695.ha.ovh.net (b9.ovh.net [213.186.33.59])
+ by mo5.mail-out.ovh.net (Postfix) with ESMTP id D2D06FDFDB
+ for <openbmc@lists.ozlabs.org>; Wed, 31 May 2017 18:50:00 +0200 (CEST)
+Received: from zorba.kaod.org (LFbn-1-10647-27.w90-89.abo.wanadoo.fr
+ [90.89.233.27]) (Authenticated sender: postmaster@kaod.org)
+ by player695.ha.ovh.net (Postfix) with ESMTPSA id F2F59460086;
+ Wed, 31 May 2017 18:49:53 +0200 (CEST)
+Subject: Re: [PATCH linux dev-4.10] arm: dts: aspeed: Update old style flash
+ nodes
+To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
+References: <20170531135614.7170-1-joel@jms.id.au>
+Cc: "Edward A. James" <eajames@us.ibm.com>,
+ Eddie James <eajames@linux.vnet.ibm.com>, Andrew Jeffery <andrew@aj.id.au>,
+ Mykola Kostenok <c_mykolak@mellanox.com>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <51f0d0dd-eb92-5a48-3af1-7f8f0f2f4000@kaod.org>
+Date: Wed, 31 May 2017 18:49:53 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.8.0
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.12.6 with HTTP; Wed, 31 May 2017 08:09:57 -0700 (PDT)
-In-Reply-To: <86554E4C-0D25-4446-B59B-3FCB84638ACD@fuzziesquirrel.com>
-References: <20170519173412.68053-1-cbostic@linux.vnet.ibm.com>
- <20170519173412.68053-2-cbostic@linux.vnet.ibm.com>
- <CACPK8Xdq2J0XE9bkezBDOTQ=xCUGdYo=TLdjyOkwpp=3JFATgg@mail.gmail.com>
- <CACPK8Xe_5V_c30A+h_5+ZVbZ2YEcfSbF5od-qfQgp+aGggFmJg@mail.gmail.com>
- <8ED27577-DDFA-49E1-ADFC-EAC12A98D655@fuzziesquirrel.com>
- <CACPK8XeZN5ALj3ry-G8QkOneCLWT=_6yBF4NuMP1h+MEO8NPmQ@mail.gmail.com>
- <86554E4C-0D25-4446-B59B-3FCB84638ACD@fuzziesquirrel.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 1 Jun 2017 00:39:57 +0930
-X-Google-Sender-Auth: t3xZluibyJ5elvzmWGV6a2PxZIo
-Message-ID: <CACPK8Xft92TUg+US7x53VWYg27oMMndwzXj8qN2XGOwnRmjPFA@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 v2] arm: dts: aspeed: Add IR35221 instances
- to dev tree
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20170531135614.7170-1-joel@jms.id.au>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 17597815547637500679
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeeljedrgeeigddutdejucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,63 +42,488 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 31 May 2017 15:10:21 -0000
+X-List-Received-Date: Wed, 31 May 2017 17:06:42 -0000
 
-On Thu, May 25, 2017 at 10:54 AM, Brad Bishop
-<bradleyb@fuzziesquirrel.com> wrote:
+On 05/31/2017 03:56 PM, Joel Stanley wrote:
+> From: "Edward A. James" <eajames@us.ibm.com>
+> 
+> Reorganize flash controllers into the ast2400 device tree to match what
+> is used upstream. This moves the nodes from the machine dts to the
+> common dtsi.
+> 
+> This also affected the newly added Mellanox MSN device tree, which is
+> also updated in this series.
+> 
+> Barreleye wasn't booting with the new aspeed-smc driver.
+> 
+> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+> [joel:
+>   - rework commit message
+>   - add missing m25p,fast-read properties
+>   - add pinmux for pnor
+>   - use upstream node names
+>      * bmc_pnor becomes fmc
+>      * host_pnor becomes spi
+>   - fix the facebook machine
+> ]
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
+> ---
+> Eddie, I reworked your patch for you. Please check it looks okay.
+> 
+> Cedric, can you please double check I didn't stuff anything up?
 
->>>> This breaks userspace, as userspace assumes it can access the i2c
->>>> devices through /dev/i2c-x.
->>>>
->>>
->>> Joel, or anyone able to answer=E2=80=A6
->>>
->>> Do you know which application?  I wasn=E2=80=99t aware of any applicati=
-ons using i2c-dev...
->>
->> The one I noticed was vrm-control.sh.
+Reviewed-by: Cédric Le Goater <clg@kaod.org>
 
-> I=E2=80=99m not sure how to handle this.  We obviously still need to run =
-these workarounds,
-> but we also need the regulator temperatures.
->
-> The only thing I can think of is exposing what these scripts need via sys=
-fs attributes.
->
-> Is there any alternative?
+Thanks for the cleanup,
 
-There are two options:
+C.
 
-Write from userspace
 
-We could unbind the driver, make the relevant configuration changes in
-userspace, and then re-bind the driver. This has the benefit of being
-sure that the driver will still work, and does not require any kernel
-work.
-
-A sub-option of this is to do the same without unbinding the driver.
-Userspace can specify a "force" flag in the ioctl, which allows it to
-write to the i2c device even when a kernel driver is bound. The upside
-here is less messing around with unbinding, but the drawback is
-userspace may change the hardware state that the driver depends on,
-leading to instability. We could audit the drivers to make sure the
-state we're changing from userspace does not affect the driver, and/or
-fix the driver so it still behaves.
-
-Add functionality to the driver
-
-Look at adding the required configuration to the driver. Either
-through device tree properties, or sysfs files. This is would require
-looking at the writes we need to do, and working out how they can be
-integrated.
-
-As discussed today, we will go with writing from userspace after
-unbinding the driver.
-
-As I've already merged the ir35221 patch into the kernel, completing
-the unbinding work is blocking an update of the kernel. Do we have a
-ticket opened for this work?
-
-Cheers,
-
-Joel
+> 
+> Andrew, can you reivew for pinmux correctness?
+> 
+> Mykola, please reply with "Acked-by: Mykola Kostenok <c_mykolak@mellanox.com>"
+> if the changes to the Mellanox device tree look okay to you. They should be
+> functionally the same as before.
+> 
+>  arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts  | 19 ++++-----
+>  arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts  | 20 ++++-----
+>  arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts | 49 ++++++++++------------
+>  arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts | 42 ++++++++-----------
+>  arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts  | 51 ++++++++---------------
+>  arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts  | 57 ++++++++++----------------
+>  arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts   | 43 ++++++++-----------
+>  arch/arm/boot/dts/aspeed-g4.dtsi               | 34 +++++++++++++++
+>  8 files changed, 142 insertions(+), 173 deletions(-)
+> 
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
+> index 8df116ea8594..ff5058ee8834 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
+> @@ -18,21 +18,16 @@
+>  	memory {
+>  		reg = <0x80000000 0x3f000000>;
+>  	};
+> +};
+>  
+> -	ahb {
+> -		bmc_pnor: fmc@1e620000 {
+> -			reg = < 0x1e620000 0x94
+> -				0x20000000 0x02000000 >;
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+> -			compatible = "aspeed,ast2400-fmc";
+> -			flash@0 {
+> -				reg = < 0 >;
+> -				compatible = "jedec,spi-nor" ;
+> +&fmc {
+> +	status = "okay";
+> +	flash@0 {
+> +		status = "okay";
+> +		m25p,fast-read;
+>  #include "aspeed-bmc-facebook-cmm-flash-layout.dtsi"
+> -			};
+> -		};
+>  	};
+> +
+>  };
+>  
+>  &uart1 {
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+> index 649964a3726a..c71a6dbe1410 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+> @@ -22,20 +22,14 @@
+>  		reg = <0x80000000 0x20000000>;
+>  	};
+>  
+> -	ahb {
+> -		bmc_pnor: fmc@1e620000 {
+> -			reg = < 0x1e620000 0xc4
+> -				0x20000000 0x02000000 >;
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+> -			compatible = "aspeed,ast2500-fmc";
+> -			interrupts = <19>;
+> -			flash@0 {
+> -				reg = < 0 >;
+> -				compatible = "jedec,spi-nor" ;
+> +};
+> +
+> +&fmc {
+> +	status = "okay";
+> +	flash@0 {
+> +		status = "okay";
+> +		m25p,fast-read;
+>  #include "aspeed-bmc-mellanox-msn-flash-layout.dtsi"
+> -			};
+> -		};
+>  	};
+>  };
+>  
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+> index be1f2d120fee..9f7098876ecb 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+> @@ -31,34 +31,6 @@
+>  		};
+>  	};
+>  
+> -	ahb {
+> -		bmc_pnor: fmc@1e620000 {
+> -			reg = < 0x1e620000 0x94
+> -				0x20000000 0x02000000 >;
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+> -			compatible = "aspeed,ast2400-fmc";
+> -			flash@0 {
+> -				reg = < 0 >;
+> -				compatible = "jedec,spi-nor" ;
+> -#include "aspeed-bmc-opp-flash-layout.dtsi"
+> -			};
+> -		};
+> -
+> -		host_pnor: spi@1e630000 {
+> -			reg = < 0x1e630000 0x18
+> -				0x30000000 0x02000000 >;
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+> -			compatible = "aspeed,ast2400-spi";
+> -			flash@0 {
+> -				reg = < 0 >;
+> -				compatible = "jedec,spi-nor" ;
+> -				label = "pnor";
+> -			};
+> -		};
+> -	};
+> -
+>  	leds {
+>  		compatible = "gpio-leds";
+>  
+> @@ -76,6 +48,27 @@
+>  	};
+>  };
+>  
+> +&fmc {
+> +	status = "okay";
+> +	flash@0 {
+> +		status = "okay";
+> +		m25p,fast-read;
+> +#include "aspeed-bmc-opp-flash-layout.dtsi"
+> +	};
+> +};
+> +
+> +&spi {
+> +	status = "okay";
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_spi1_default>;
+> +
+> +	flash@0 {
+> +		m25p,fast-read;
+> +		status = "okay";
+> +		label = "pnor";
+> +	};
+> +};
+> +
+>  &pinctrl {
+>  	pinctrl-names = "default";
+>  	pinctrl-0 = <&pinctrl_flbusy_default &pinctrl_flwp_default
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+> index fe63621365fd..430622c86ef7 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+> @@ -50,34 +50,26 @@
+>  			gpios = <&gpio ASPEED_GPIO(A, 2) GPIO_ACTIVE_LOW>;
+>  		};
+>  	};
+> +};
+>  
+> -	ahb {
+> -		fmc@1e620000 {
+> -			reg = < 0x1e620000 0x94
+> -				0x20000000 0x02000000 >;
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+> -			compatible = "aspeed,ast2400-fmc";
+> -
+> -			flash@0 {
+> -				reg = < 0 >;
+> -				compatible = "jedec,spi-nor" ;
+> +&fmc {
+> +	status = "okay";
+> +	flash@0 {
+> +		status = "okay";
+> +		m25p,fast-read;
+>  #include "aspeed-bmc-opp-flash-layout.dtsi"
+> -			};
+> -		};
+> +	};
+> +};
+>  
+> -		spi@1e630000 {
+> -			reg = < 0x1e630000 0x18
+> -				0x30000000 0x02000000 >;
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+> -			compatible = "aspeed,ast2400-spi";
+> -			flash@0 {
+> -				reg = < 0 >;
+> -				compatible = "jedec,spi-nor" ;
+> -				label = "pnor";
+> -			};
+> -		};
+> +&spi {
+> +	status = "okay";
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_spi1_default>;
+> +
+> +	flash@0 {
+> +		status = "okay";
+> +		m25p,fast-read;
+> +		label = "pnor";
+>  	};
+>  };
+>  
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
+> index 121612a8776e..b64edad3e050 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
+> @@ -30,42 +30,27 @@
+>  			reg = <0x5f000000 0x01000000>; /* 16MB */
+>  		};
+>  	};
+> +};
+> +
+> +&fmc {
+> +	status = "okay";
+>  
+> -	ahb {
+> -
+> -		bmc_pnor: fmc@1e620000 {
+> -			reg = < 0x1e620000 0x94
+> -				0x20000000 0x02000000 >;
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+> -			compatible = "aspeed,ast2400-fmc";
+> -			aspeed,fmc-has-dma;
+> -			interrupts = <19>;
+> -			clocks = <&clk_ahb>;
+> -			clock-names = "ahb";
+> -			flash@0 {
+> -				reg = < 0 >;
+> -				compatible = "jedec,spi-nor" ;
+> -				m25p,fast-read;
+> +	flash@0 {
+> +		status = "okay";
+> +		m25p,fast-read;
+>  #include "aspeed-bmc-opp-flash-layout.dtsi"
+> -			};
+> -		};
+> +	};
+> +};
+>  
+> -		host_pnor: spi@1e630000 {
+> -			reg = < 0x1e630000 0x18
+> -				0x30000000 0x02000000 >;
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+> -			compatible = "aspeed,ast2400-spi";
+> -			clocks = <&clk_ahb>;
+> -			clock-names = "ahb";
+> -			flash {
+> -				reg = < 0 >;
+> -				compatible = "jedec,spi-nor" ;
+> -				label = "pnor";
+> -				m25p,fast-read;
+> -			};
+> -		};
+> +&spi {
+> +	status = "okay";
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_spi1_default>;
+> +
+> +	flash@0 {
+> +		status = "okay";
+> +		m25p,fast-read;
+> +		label = "pnor";
+>  	};
+>  };
+>  
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+> index b4faa1d79460..60792f6ff7ec 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+> @@ -47,42 +47,6 @@
+>                  };
+>          };
+>  
+> -	ahb {
+> -		bmc_pnor: fmc@1e620000 {
+> -			reg = < 0x1e620000 0x94
+> -				0x20000000 0x02000000 >;
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+> -			compatible = "aspeed,ast2400-fmc";
+> -			aspeed,fmc-has-dma;
+> -			interrupts = <19>;
+> -			clocks = <&clk_ahb>;
+> -			clock-names = "ahb";
+> -			flash@0 {
+> -				reg = < 0 >;
+> -				compatible = "jedec,spi-nor" ;
+> -				m25p,fast-read;
+> -#include "aspeed-bmc-opp-flash-layout.dtsi"
+> -			};
+> -		};
+> -
+> -		host_pnor: spi@1e630000 {
+> -			reg = < 0x1e630000 0x18
+> -				0x30000000 0x02000000 >;
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+> -			compatible = "aspeed,ast2400-spi";
+> -			clocks = <&clk_ahb>;
+> -			clock-names = "ahb";
+> -			flash {
+> -				reg = < 0 >;
+> -				compatible = "jedec,spi-nor" ;
+> -				label = "pnor";
+> -				m25p,fast-read;
+> -			};
+> -		};
+> -	};
+> -
+>  	gpio-fsi {
+>  		compatible = "fsi-master-gpio", "fsi-master";
+>  
+> @@ -94,6 +58,27 @@
+>  	};
+>  };
+>  
+> +&fmc {
+> +	status = "okay";
+> +	flash@0 {
+> +		status = "okay";
+> +		m25p,fast-read;
+> +#include "aspeed-bmc-opp-flash-layout.dtsi"
+> +	};
+> +};
+> +
+> +&spi {
+> +	status = "okay";
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_spi1_default>;
+> +
+> +	flash@0 {
+> +		status = "okay";
+> +		label = "pnor";
+> +		m25p,fast-read;
+> +	};
+> +};
+> +
+>  &pinctrl {
+>  	pinctrl-names = "default";
+>  	pinctrl-0 = <&pinctrl_flbusy_default &pinctrl_flwp_default
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+> index 713246090906..50be8dd921cf 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+> @@ -30,35 +30,26 @@
+>  			reg = <0x47800000 0x00800000>; /* 8MB */
+>  		};
+>  	};
+> +};
+>  
+> -	ahb {
+> -		bmc_pnor: fmc@1e620000 {
+> -			reg = < 0x1e620000 0x94
+> -				0x20000000 0x02000000 >;
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+> -			compatible = "aspeed,ast2400-fmc";
+> -			aspeed,fmc-has-dma;
+> -			interrupts = <19>;
+> -			flash@0 {
+> -				reg = < 0 >;
+> -				compatible = "jedec,spi-nor" ;
+> +&fmc {
+> +	status = "okay";
+> +	flash@0 {
+> +		status = "okay";
+> +		m25p,fast-read;
+>  #include "aspeed-bmc-opp-flash-layout.dtsi"
+> -			};
+> -		};
+> +	};
+> +};
+>  
+> -		host_pnor: spi@1e630000 {
+> -			reg = < 0x1e630000 0x18
+> -				0x30000000 0x01000000 >;
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+> -			compatible = "aspeed,ast2400-smc";
+> -			flash {
+> -				reg = < 0 >;
+> -				compatible = "jedec,spi-nor" ;
+> -				label = "pnor";
+> -			};
+> -		};
+> +&spi {
+> +	status = "okay";
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_spi1_default>;
+> +
+> +	flash@0 {
+> +		status = "okay";
+> +		m25p,fast-read;
+> +		label = "pnor";
+>  	};
+>  };
+>  
+> diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
+> index d8827d522dfe..9a329cee72bf 100644
+> --- a/arch/arm/boot/dts/aspeed-g4.dtsi
+> +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+> @@ -44,6 +44,40 @@
+>  		#size-cells = <1>;
+>  		ranges;
+>  
+> +		fmc: fmc@1e620000 {
+> +			reg = < 0x1e620000 0x94
+> +				0x20000000 0x02000000 >;
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +			compatible = "aspeed,ast2400-fmc";
+> +			status = "disabled";
+> +			aspeed,fmc-has-dma;
+> +			interrupts = <19>;
+> +			clocks = <&clk_ahb>;
+> +			clock-names = "ahb";
+> +			flash@0 {
+> +				reg = < 0 >;
+> +				compatible = "jedec,spi-nor" ;
+> +				status = "disabled";
+> +			};
+> +		};
+> +
+> +		spi: spi@1e630000 {
+> +			reg = < 0x1e630000 0x18
+> +				0x30000000 0x02000000 >;
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +			compatible = "aspeed,ast2400-spi";
+> +			status = "disabled";
+> +			clocks = <&clk_ahb>;
+> +			clock-names = "ahb";
+> +			flash@0 {
+> +				reg = < 0 >;
+> +				compatible = "jedec,spi-nor" ;
+> +				status = "disabled";
+> +			};
+> +		};
+> +
+>  		vic: interrupt-controller@1e6c0080 {
+>  			compatible = "aspeed,ast2400-vic";
+>  			interrupt-controller;
+> 
