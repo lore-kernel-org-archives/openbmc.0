@@ -1,53 +1,54 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x242.google.com (mail-yb0-x242.google.com
- [IPv6:2607:f8b0:4002:c09::242])
+Received: from mail-yw0-x242.google.com (mail-yw0-x242.google.com
+ [IPv6:2607:f8b0:4002:c05::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wd9wP0xGrzDq5W
- for <openbmc@lists.ozlabs.org>; Wed, 31 May 2017 23:16:21 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wdB132QgXzDq5W
+ for <openbmc@lists.ozlabs.org>; Wed, 31 May 2017 23:20:23 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="hB6f5ZXX"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="AbyG7hSF"; 
  dkim-atps=neutral
-Received: by mail-yb0-x242.google.com with SMTP id 130so460658ybl.2
- for <openbmc@lists.ozlabs.org>; Wed, 31 May 2017 06:16:21 -0700 (PDT)
+Received: by mail-yw0-x242.google.com with SMTP id p144so910287ywp.2
+ for <openbmc@lists.ozlabs.org>; Wed, 31 May 2017 06:20:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=j8Ga01LLSv7VM35aHfLNJ2mlo3PB00Hv7tUFvaL/ojw=;
- b=hB6f5ZXXciKwSg2iJkuuJ6N2TLCsuBCwQiytUZRg4nspTnfR2uMd8RHfbqWl4+3Lvh
- 4zNzuv4oANEzlxa++Cxqm9n5S59Ywfc4Lz22WXpVzHnxp9LEGZ0S/agRrth+LdcYzUza
- lAiuAJKZcC9rV6do7ylxV1fMuqxpkhKEBfYcANtVCHiiPEiZ55UV+XK7wLYPBnOcxvmI
- eo/yoP0056zUy8TDhRr/Jbo6hBB/03fLD7AFBRk1VoCix/bqULY0wtVW77nf4A8H+8WV
- 94rkivOCjhMg6M8t4V/jrS2DR333Bf5vKOIBaD/YM/J6ipUKblZZ5YL3a498jGeFW1XG
- rPxw==
+ bh=UKzR+Mty6tUjxr3/ADk7CQNbhJlx5gqHECXGCkCNXw4=;
+ b=AbyG7hSFtHqCjf8ACLGRElRd4rE6OjBA/qR/QZoQDhfm8PHyo052YR2kNLofoAWfqa
+ NTmXp2u/PjoensmLmcInaUZuRDgAkTlwY9YWy2s2MCZRA9Qz5BUSnt1jZIT0CHERKqj0
+ TTz5QnZbuAjbsLa+30K4ss/JZCAQ+6F9h7iKcrqKhgRQU/VYA/fTksZOzdnSSfNY2dND
+ cWNCiLO52AVLQzF+R7B8rdodm66pKsGtGMHVyeARMTeqWJTcAZZia73iYFUwaFVC5C9z
+ Pz6OVHe8Y9ccY5pdcF3jT4chtT6UkrdTggeorNortENqaVG99jMQ5oZq71bV0B8iGTHZ
+ MImQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=j8Ga01LLSv7VM35aHfLNJ2mlo3PB00Hv7tUFvaL/ojw=;
- b=rL4mtFt58u8fuLCodtVI/Blo3pygAE8IBd7rxsH2tKg/ZC1VovtbMs3WXVQm/b5D8L
- 06/8i+KpSQYIezBfv7DB1FM8JrDEn84pKA/+T5pie7D8nGfg7efW6TixmvPBU7qJ+oU2
- WsumZq8mdz4f1WLilhR6grxHLuqBjrZh5F/XLj2yJf3waEF+uFuXZxCAvc7ofZofrVF6
- UO+2DZI7h3qKUFgMeGOWFnpSUZSCh1W1rGyQ6RdGx6M++haX4E55V+6jJ9y+3KqFdFpL
- i8sO9O0G7UuxKNcbA1Tf3IY0fzV4ndNCvuHxdIIWY17hMUsIQl1KWQYJEZApfOqOMKTF
- dk3Q==
-X-Gm-Message-State: AODbwcCk3puCFXde/URyTRuDodu5KbxC+1Zr8RHKIV/kL4Q9GPZ3WF6Z
- s9XBsg1cjPHN4b2RpaaPJfjnFX4DAg==
-X-Received: by 10.37.59.210 with SMTP id i201mr227575yba.25.1496236579000;
- Wed, 31 May 2017 06:16:19 -0700 (PDT)
+ bh=UKzR+Mty6tUjxr3/ADk7CQNbhJlx5gqHECXGCkCNXw4=;
+ b=T5+dfXWQ/0pRoOuIPZ9AHUwrUPbwy3ExY2cqYtzY63fDVbC3HkLMFOy+uCmcXaFA6V
+ dZwh73JmI3pSGY4fzcy1PH2XhSAOiOHgNw2patENzXb3URhtLcuQHteHjjWNPRfrVokj
+ JQFcKwGQ0T19qGPSaI8GQNGSqjV4to47mk5s0z5GT3BkkRHYSVmxHBlYMqO4tgG3A54p
+ XwXsHIn3b7/l2qC1AXNWtJWWtKI7DznYahsdu1COSLYAszOWVwpHG9FfI7M/YWAfxn50
+ rh6c5bk6jNAhsKw3kmmizfr/sO+KUUHC0Qqw4RWvjN+IdkpFq9BmmLLYCOKvWFoPWWdd
+ Us4w==
+X-Gm-Message-State: AODbwcA9PyakLD8R/nKCeCWAZAnaN1pFjdfdtKN223PgRty56kfiB/75
+ I9SNj59D1lrz+yfoXNTLPFkg4UCwEA==
+X-Received: by 10.129.46.66 with SMTP id u63mr19498757ywu.219.1496236821136;
+ Wed, 31 May 2017 06:20:21 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.183.7 with HTTP; Wed, 31 May 2017 06:15:58 -0700 (PDT)
-In-Reply-To: <20170530123810.102882-1-c_mykolak@mellanox.com>
-References: <20170530123810.102882-1-c_mykolak@mellanox.com>
+Received: by 10.37.183.7 with HTTP; Wed, 31 May 2017 06:20:00 -0700 (PDT)
+In-Reply-To: <20170530152246.108806-1-c_mykolak@mellanox.com>
+References: <20170530152246.108806-1-c_mykolak@mellanox.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 31 May 2017 22:45:58 +0930
-X-Google-Sender-Auth: YEpwuU1wBqfdyf1zM4UFtcoyrx0
-Message-ID: <CACPK8XdAuwTbdkYdGAJQJHbckYAT5wBDUF+Xxcp1nfYY3gLjwA@mail.gmail.com>
+Date: Wed, 31 May 2017 22:50:00 +0930
+X-Google-Sender-Auth: CWwQwaV3_uPKCh8q5v_qe6mDlUQ
+Message-ID: <CACPK8XcTKnqPnBTp2hOyitfbkKxDukx3JT0KuFChi5B9wjd0nA@mail.gmail.com>
 Subject: Re: [PATCH linux dev-4.10 v4] ARM: aspeed: Add Mellanox MSN machine
- (aspeed arch)
+ (device tree)
 To: Mykola Kostenok <c_mykolak@mellanox.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Andrew Jeffery <andrew@aj.id.au>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -60,24 +61,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 31 May 2017 13:16:21 -0000
+X-List-Received-Date: Wed, 31 May 2017 13:20:24 -0000
 
-On Tue, May 30, 2017 at 10:08 PM, Mykola Kostenok
+On Wed, May 31, 2017 at 12:52 AM, Mykola Kostenok
 <c_mykolak@mellanox.com> wrote:
 > Initial introduction of Mellanox switches of MSNXXXX family equipped
-> with Aspeed 2520 BMC SoC. This adds the platform early initialization.
+> with Aspeed 2520 BMC SoC. This adds msn platform device tree file.
 >
 > Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
 
-Thanks, applied to dev-4.10.
+Thanks, applied to dev-4.10 with some small tweaks to the commit message.
 
-Please follow up with the RMII clock and MAC strapping issues - these
-should be fixed by correcting the hardware strapping. We would prefer
-not to have a workaround in the kernel tree.
+I also removed the aliases you added. I think we confused you with our
+explanations; those aliases are already present in
+arch/arm/dts/aspeed-g5.dtsi. What you need to add to your machine
+specific device tree in the future are aliases for the i2c expander(s)
+you have. For example (untested):
+
+aliases {
+ i2c14 = &i2cexpander;
+};
+
+Please work out what you need to do there and follow up with that
+patch when you have a chance.
 
 Cheers,
 
 Joel
+
 
 > ---
 > v1->v2
@@ -91,61 +102,255 @@ Joel
 > - Add wdt2 to dts.
 >
 > v2->v3
+> Fixed issues pointed out by Joel:
 > - Split v2 patch into three separate.
+> - Remove unnesesary include in dts.
+> - Replace flash layout to separate dsti.
+> - Remove spi2 as it was disabled.
+> - Add uart1 pinctrl.
 >
 > v3->v4
 > Fixed issues pointed by Andrew:
-> - Fix comment.
-> - Fix UART1 reset disable sequence(read/modify/write).
+> - Make i2c bus aliases instead empty nodes.
 > ---
->  arch/arm/mach-aspeed/aspeed.c | 27 +++++++++++++++++++++++++++
->  1 file changed, 27 insertions(+)
+>  .../devicetree/bindings/vendor-prefixes.txt        |   1 +
+>  arch/arm/boot/dts/Makefile                         |   1 +
+>  .../dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi  |  32 ++++
+>  arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts      | 162 +++++++++++++++++++++
+>  4 files changed, 196 insertions(+)
+>  create mode 100644 arch/arm/boot/dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi
+>  create mode 100644 arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
 >
-> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
-> index 0f1a536ba1b2..5c88286c96fd 100644
-> --- a/arch/arm/mach-aspeed/aspeed.c
-> +++ b/arch/arm/mach-aspeed/aspeed.c
-> @@ -188,6 +188,31 @@ static void __init do_lanyang_setup(void)
->         writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC | 0x98));
->  }
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.txt b/Documentation/devicetree/bindings/vendor-prefixes.txt
+> index 16d3b5e7f5d1..84601d869a1b 100644
+> --- a/Documentation/devicetree/bindings/vendor-prefixes.txt
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.txt
+> @@ -172,6 +172,7 @@ meas        Measurement Specialties
+>  mediatek       MediaTek Inc.
+>  melexis        Melexis N.V.
+>  melfas MELFAS Inc.
+> +mellanox       Mellanox Technologies
+>  memsic MEMSIC Inc.
+>  merrii Merrii Technology Co., Ltd.
+>  micrel Micrel Inc.
+> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+> index 30fe65627f30..3dba6c633686 100644
+> --- a/arch/arm/boot/dts/Makefile
+> +++ b/arch/arm/boot/dts/Makefile
+> @@ -990,6 +990,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb \
+>         aspeed-bmc-opp-witherspoon.dtb \
+>         aspeed-bmc-opp-zaius.dtb \
+>         aspeed-bmc-opp-lanyang.dtb \
+> +       aspeed-bmc-mellanox-msn.dtb \
+>         aspeed-ast2500-evb.dtb
+>  endif
 >
-> +static void __init do_mellanox_setup(void)
-> +{
-> +       unsigned long reg;
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi
+> new file mode 100644
+> index 000000000000..cf8ee54f13c2
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi
+> @@ -0,0 +1,32 @@
+> +/* This file is the label for the bmc primary flash and its partitions */
+> +                               label = "bmc";
+> +                               #address-cells = < 1 >;
+> +                               #size-cells = < 1 >;
+> +                               u-boot {
+> +                                       reg = < 0 0x60000 >;
+> +                                       label = "u-boot";
+> +                               };
+> +                               u-boot-env {
+> +                                       reg = < 0x60000 0x10000>;
+> +                                       label = "u-boot-env";
+> +                               };
+> +                               kernel  {
+> +                                       reg = < 0x70000 0x280000 >;
+> +                                       label = "kernel";
+> +                               };
+> +                               dtb  {
+> +                                       reg = < 0x2f0000 0x10000 >;
+> +                                       label = "dtb";
+> +                               };
+> +                               initramfs {
+> +                                       reg = < 0x300000 0x1c0000 >;
+> +                                       label = "initramfs";
+> +                               };
+> +                               rofs  {
+> +                                       reg = < 0x4c0000 0x1740000 >;
+> +                                       label = "rofs";
+> +                               };
+> +                               rwfs  {
+> +                                       reg = < 0x1c00000 0x400000 >;
+> +                                       label = "rwfs";
+> +                               };
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+> new file mode 100644
+> index 000000000000..955b90655a56
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+> @@ -0,0 +1,162 @@
+> +/dts-v1/;
 > +
-> +       do_common_setup();
+> +#include <dt-bindings/gpio/aspeed-gpio.h>
+> +#include "aspeed-g5.dtsi"
 > +
-> +       /* Set strapping for MAC1 to RMII/NCSI and MAC2 to RGMII. */
-> +       reg = readl(AST_IO(AST_BASE_SCU | 0x70));
-> +       reg |= BIT(7);
-> +       reg &= ~BIT(6);
-> +       writel(reg, AST_IO(AST_BASE_SCU | 0x70));
+> +/ {
+> +       model = "MSN BMC";
+> +       compatible = "mellanox,msn-bmc", "aspeed,ast2500";
 > +
-> +       /* Disable default behavior of UART1 being held in reset by LPCRST#.
-> +        * By releasing UART1 from being controlled by LPC reset, it becomes
-> +        * immediately available regardless of the host being up. */
-> +       reg = readl(AST_IO(AST_BASE_LPC | 0x98));
-> +       /* Clear "Enable UART1 reset source from LPC" */
-> +       writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC | 0x98));
+> +       aliases {
+> +               serial0 = &uart1;
+> +               serial4 = &uart5;
+> +               i2c0 = &i2c0;
+> +               i2c1 = &i2c1;
+> +               i2c2 = &i2c2;
+> +               i2c3 = &i2c3;
+> +               i2c4 = &i2c4;
+> +               i2c7 = &i2c7;
+> +               i2c9 = &i2c9;
+> +               i2c11 = &i2c11;
+> +               i2c12 = &i2c12;
+> +               i2c13 = &i2c13;
+> +       };
 > +
-> +       /* Enable RMII1 50MHz RCLK output. */
-> +       reg = readl(AST_IO(AST_BASE_SCU | 0x48));
-> +       reg |= BIT(29);
-> +       writel(reg, AST_IO(AST_BASE_SCU | 0x48));
-> +}
+> +       chosen {
+> +               stdout-path = &uart5;
+> +               bootargs = "console=ttyS4,115200n8 earlyprintk";
+> +       };
 > +
->  #define SCU_PASSWORD   0x1688A8A8
->
->  static void __init aspeed_init_early(void)
-> @@ -227,6 +252,8 @@ static void __init aspeed_init_early(void)
->                 do_romulus_setup();
->         if (of_machine_is_compatible("inventec,lanyang-bmc"))
->                 do_lanyang_setup();
-> +       if (of_machine_is_compatible("mellanox,msn-bmc"))
-> +               do_mellanox_setup();
->  }
->
->  static void __init aspeed_map_io(void)
+> +       memory {
+> +               /* 512MiB SDRAM DDR4 @ 0x8000_0000 */
+> +               reg = <0x80000000 0x20000000>;
+> +       };
+> +
+> +       ahb {
+> +               bmc_pnor: fmc@1e620000 {
+> +                       reg = < 0x1e620000 0xc4
+> +                               0x20000000 0x02000000 >;
+> +                       #address-cells = <1>;
+> +                       #size-cells = <0>;
+> +                       compatible = "aspeed,ast2500-fmc";
+> +                       interrupts = <19>;
+> +                       flash@0 {
+> +                               reg = < 0 >;
+> +                               compatible = "jedec,spi-nor" ;
+> +#include "aspeed-bmc-mellanox-msn-flash-layout.dtsi"
+> +                       };
+> +               };
+> +       };
+> +};
+> +
+> +&uart5 {
+> +       status = "okay";
+> +};
+> +
+> +&uart1 {
+> +       status = "okay";
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&pinctrl_txd1_default
+> +                    &pinctrl_rxd1_default
+> +                    &pinctrl_nrts1_default
+> +                    &pinctrl_ndtr1_default
+> +                    &pinctrl_ndsr1_default
+> +                    &pinctrl_ncts1_default
+> +                    &pinctrl_ndcd1_default
+> +                    &pinctrl_nri1_default>;
+> +};
+> +
+> +&mac0 {
+> +       status = "okay";
+> +       use-ncsi;
+> +};
+> +
+> +&i2c5 {
+> +       status = "okay";
+> +
+> +       eeprom@50 {
+> +               compatible = "atmel,24c32";
+> +               reg = <0x50>;
+> +       };
+> +
+> +       eeprom@51 {
+> +               compatible = "atmel,24c32";
+> +               reg = <0x51>;
+> +       };
+> +};
+> +
+> +&i2c6 {
+> +       status = "okay";
+> +
+> +       eeprom@51 {
+> +               compatible = "atmel,24c32";
+> +               reg = <0x51>;
+> +       };
+> +
+> +       eeprom@52 {
+> +               compatible = "atmel,24c32";
+> +               reg = <0x52>;
+> +       };
+> +
+> +       eeprom@55 {
+> +               compatible = "atmel,24c32";
+> +               reg = <0x55>;
+> +       };
+> +
+> +       i2cswitch@71 {
+> +               compatible = "nxp,pca9548";
+> +               #address-cells = <1>;
+> +               #size-cells = <0>;
+> +               reg = <0x71>;
+> +       };
+> +};
+> +
+> +&i2c8 {
+> +       status = "okay";
+> +
+> +       carrier_ambient: lm75@49 {
+> +               #thermal-sensor-cells = <0>;
+> +               compatible = "national,lm75";
+> +               reg = <0x49>;
+> +       };
+> +
+> +       swbrd_ambient: lm75@4a {
+> +               #thermal-sensor-cells = <0>;
+> +               compatible = "national,lm75";
+> +               reg = <0x4a>;
+> +       };
+> +};
+> +
+> +&i2c10 {
+> +       status = "okay";
+> +
+> +       hwmon@41 {
+> +               compatible = "ti,ucd9224";
+> +               reg = <0x41>;
+> +       };
+> +
+> +       hwmon@27 {
+> +               compatible = "ti,ucd9224";
+> +               reg = <0x27>;
+> +       };
+> +
+> +       adc@6d {
+> +               compatible = "maxim,max11603";
+> +               reg = <0x6d>;
+> +               adc0: iio-device@0 {
+> +                       #io-channel-cells = <1>;
+> +                       io-channels = <&adc0 0>, <&adc0 1>, <&adc0 2>,
+> +                                     <&adc0 3>, <&adc0 4>, <&adc0 5>,
+> +                                     <&adc0 6>, <&adc0 7>;
+> +               };
+> +       };
+> +};
+> +
+> +&vuart {
+> +       status = "okay";
+> +};
+> +
+> +&wdt2 {
+> +       status = "okay";
+> +};
+> +
 > --
 > 2.11.0
 >
