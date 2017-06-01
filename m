@@ -1,61 +1,55 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x242.google.com (mail-yb0-x242.google.com
- [IPv6:2607:f8b0:4002:c09::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wdfcy0WdPzDqBQ
- for <openbmc@lists.ozlabs.org>; Thu,  1 Jun 2017 17:49:38 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wdpfy0bFzzDqFR
+ for <openbmc@lists.ozlabs.org>; Thu,  1 Jun 2017 23:51:53 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Oe2KlHkC"; 
- dkim-atps=neutral
-Received: by mail-yb0-x242.google.com with SMTP id r66so1212987yba.3
- for <openbmc@lists.ozlabs.org>; Thu, 01 Jun 2017 00:49:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=9wpH+QD+M2P94jydTW13H/F0YiPP2UOQt3EoDJIlLrM=;
- b=Oe2KlHkCjn8awcqqS0pj4i0QP8malEwf/UuIDnbCmDnYII+YWyTY0uqrDFWC4+ZcaX
- hWqZPOekwXYfJzM+JCwQ4Sug4ZYo1kSBIOMU4sUuc4mwZIkx6YcQtifJYagCq4YVyLOi
- ZTNZ/1oiELEHVAN0LvlTL62yF1ZKS2BiSSHyS27IEzYUD/MiO/y2doJO58cJwFmdhvwq
- rQDq+RCC0hEQ5r2ypkJLkpGrnDKZ3oqPKiIiCat7pgLJZZ4OR6MPNEv5xonOBYwNYeXE
- 22aPk2iz3VuH/yybgK2NJqWVWTNiOnoWFO4NGlcjFXBmsN56fgIFvov9LVJl3fh5DJwJ
- zL+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=9wpH+QD+M2P94jydTW13H/F0YiPP2UOQt3EoDJIlLrM=;
- b=lM9Y9e1MEz17gAFHTrUGb6ltMOQ3j6Chg//aU4xBX7e9ROgIFchnIprXS1+13p+btH
- a+otsuoiml9WXnfhJIq47nvtdTGZOxQKwoux+wXjTFPcCc8PY7ROKshwbjJ1WAEQ4iXw
- zRJn/FE4k8PPR2EjPyi8U1uVN9upYucaTB2MCHE4GpVy98Of3P4gJSiN0lm3GFNwf9tS
- 6vwAR73W3nHLkoTdYGDDssiUgXMhjGiTd+MeBH4rCH3AiuZndQd1LjOIX4P9V8qSyNOZ
- iQvejBq+MR4YzvCtkyUPIDI6SshpGGtBvLOOsBjFWLTnvViw9qi4n52ZjrKMfKPZ5U3/
- 2WFQ==
-X-Gm-Message-State: AODbwcA8T3CptZdBGOCnwbwYTEhdiUL4BHn/wupEALq3Ci+/2UskIlWR
- tyCzth/BZvP+G0ilg3J492b+A1KK3CzAy04=
-X-Received: by 10.37.59.210 with SMTP id i201mr3620656yba.25.1496303375871;
- Thu, 01 Jun 2017 00:49:35 -0700 (PDT)
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="frfEaUz/"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="KfwOde/b"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 0B7E120F25
+ for <openbmc@lists.ozlabs.org>; Thu,  1 Jun 2017 09:51:51 -0400 (EDT)
+Received: from web4 ([10.202.2.214])
+ by compute4.internal (MEProxy); Thu, 01 Jun 2017 09:51:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; bh=hzhXdL6LRTTIo/6ONVWbPulHFfL9k
+ k2vK3+cqDFdano=; b=frfEaUz/VFIgPP+IonoZZDJiqldf2SEhVN0pA2/Anue/V
+ eW8r8GPXRh9eCsHoCXgpqFyAUq6cdMzlxFXK49ecM6bgp495bf5hFolPpJYXCJ3A
+ 7Xmo9yj/+MyRy9xgb8Y2nouSAdrNK3DmrHszIOT8HeV0k/DBfJDjJ7tntv7YpIRg
+ McJFvBNjb5gCkqMX4wMKMkJjDHcSUqZANsy/iCfg18IOkRBD8TqH57soVhr1DPJS
+ LXlg+86+HhUUyAHuTCqC1+0wgDcrJWLkmv0VEeruuzvWXo69a5VQkpxrpZ86R7Gd
+ TPp5rUHxbER89+y6aC7bQlMCHPfnYfBbu0OI/TkyA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=hzhXdL
+ 6LRTTIo/6ONVWbPulHFfL9kk2vK3+cqDFdano=; b=KfwOde/bPkw7T/LjlZFP8x
+ NKcAU3cb3FIAHH6DXaWYCVEQvizfWM2rS1tcg4EKriZf8G783FchflfLv8n/C4iP
+ 2XHFToa74m6lIL4re1h1KBkxv32p56bflMgouPnpDrkv9kdeKBYLLCLZiiRSELcY
+ m/kQBNRyfFpkULk9WFVZ+xYF1KRysshs0NPpFvcwKStd/AN1qXNJMDhqBKbZfm0f
+ GYQytMiLB/ZTuoGFPe5fsbhiDxGXQ9XwDQzvyv/lRmnwvZT8kPY2txv1JhZc9wAU
+ LYDMsq9Fd7y1tp3+u7MZfn2TXDMICoGnUUz5kWXGS3yvKlDcuBUP5ajkGUOUafqA
+ ==
+X-ME-Sender: <xms:9hswWcT-t25xaB2NphcUMd2PU9qyq-PCLl2x2fhYc25XIfT0bj_qFA>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id E053FBAB67; Thu,  1 Jun 2017 09:51:50 -0400 (EDT)
+Message-Id: <1496325110.2448422.995421856.4D7FC7AF@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: openbmc@lists.ozlabs.org
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.183.7 with HTTP; Thu, 1 Jun 2017 00:49:15 -0700 (PDT)
-In-Reply-To: <17737bf1-ea87-a116-b362-e059e2fe82cc@kaod.org>
-References: <20170531135614.7170-1-joel@jms.id.au>
- <ab9921a6-72b7-289b-b1ab-65738052a1ff@linux.vnet.ibm.com>
- <CACPK8Xd+bXUzVsXez1gF_S5Fgtp_c5ix8pWuUmZqj1r1yp=b4g@mail.gmail.com>
- <17737bf1-ea87-a116-b362-e059e2fe82cc@kaod.org>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 1 Jun 2017 17:19:15 +0930
-X-Google-Sender-Auth: y87iUFDzWmXdzbk9zJn44wYqosU
-Message-ID: <CACPK8XdbtAvHZrLn4rrvuE3zbVTDVEuhnG0-y1pyVYEHobbVvw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] arm: dts: aspeed: Update old style flash
- nodes
-To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
-Cc: Eddie James <eajames@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Andrew Jeffery <andrew@aj.id.au>, "Edward A. James" <eajames@us.ibm.com>, 
- Mykola Kostenok <c_mykolak@mellanox.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-16c78b46
+Date: Thu, 01 Jun 2017 23:21:50 +0930
+References: <20170601063703.3083-1-joel@jms.id.au>
+Subject: Re: [PATCH linux dev-4.10] i2c: fsi: Fix unused variable warning
+In-Reply-To: <20170601063703.3083-1-joel@jms.id.au>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,61 +61,74 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 Jun 2017 07:49:38 -0000
+X-List-Received-Date: Thu, 01 Jun 2017 13:51:56 -0000
 
-On Thu, Jun 1, 2017 at 4:15 PM, C=C3=A9dric Le Goater <clg@kaod.org> wrote:
-> On 06/01/2017 08:40 AM, Joel Stanley wrote:
->> On Thu, Jun 1, 2017 at 2:45 AM, Eddie James <eajames@linux.vnet.ibm.com>=
- wrote:
->>>
->>>
->>> On 05/31/2017 08:56 AM, Joel Stanley wrote:
->>>>
->>>> From: "Edward A. James" <eajames@us.ibm.com>
->>>>
->>>> Reorganize flash controllers into the ast2400 device tree to match wha=
-t
->>>> is used upstream. This moves the nodes from the machine dts to the
->>>> common dtsi.
->>>>
->>>> This also affected the newly added Mellanox MSN device tree, which is
->>>> also updated in this series.
->>>>
->>>> Barreleye wasn't booting with the new aspeed-smc driver.
->>>>
->>>> Signed-off-by: Edward A. James <eajames@us.ibm.com>
->>>> [joel:
->>>>    - rework commit message
->>>>    - add missing m25p,fast-read properties
->>>>    - add pinmux for pnor
->>>>    - use upstream node names
->>>>       * bmc_pnor becomes fmc
->>>>       * host_pnor becomes spi
->>>>    - fix the facebook machine
->>>> ]
->>>> Signed-off-by: Joel Stanley <joel@jms.id.au>
->>>> ---
->>>> Eddie, I reworked your patch for you. Please check it looks okay.
->>>
->>>
->>> Thanks Joel!
->>>
->>> Reviewed-by: Eddie James <eajames@linux.vnet.ibm.com>
->>
->> Thanks for the review Cedric and Eddie.
->>
->> I have applied to dev-4.10.
->
-> I suppose that this patch applies now ?
->
->         http://patchwork.ozlabs.org/patch/752285/
 
-Yup! I've applied that one.
 
-We need to chase up a pinmux issue:
+On Thu, Jun 1, 2017, at 16:07, Joel Stanley wrote:
+> When there is no status bit to handle we return the uninitialised rc
+> variable, causing this warning:
+>=20
+> drivers/i2c/busses/i2c-fsi.c: In function =E2=80=98fsi_i2c_xfer=E2=80=99:
+> drivers/i2c/busses/i2c-fsi.c:410:7: warning: =E2=80=98rc=E2=80=99 may be =
+used
+> uninitialized in
+> this function [-Wmaybe-uninitialized]
+>     if (rc < 0)
+>        ^
+> drivers/i2c/busses/i2c-fsi.c:358:6: note: =E2=80=98rc=E2=80=99 was declar=
+ed here
+>   int rc;
+>       ^~
+>=20
+> Instead return zero, but also print a warning as this looks like an
+> error, as  we have checked the I2C_FSI_STAT register for
+> I2C_STAT_ANY_RESP, but none of the status bits were set.
+>=20
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
 
- https://github.com/openbmc/openbmc/issues/1701
+Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 
-Cheers,
-
-Joel
+> ---
+>  drivers/i2c/busses/i2c-fsi.c | 11 +++++++----
+>  1 file changed, 7 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
+> index 4689479acf5e..b4eb1028a2ae 100644
+> --- a/drivers/i2c/busses/i2c-fsi.c
+> +++ b/drivers/i2c/busses/i2c-fsi.c
+> @@ -355,12 +355,12 @@ static int fsi_i2c_read_fifo(struct fsi_i2c_port
+> *port, struct i2c_msg *msg,
+>  static int fsi_i2c_handle_status(struct fsi_i2c_port *port,
+>  				 struct i2c_msg *msg, u32 status)
+>  {
+> -       int rc;
+> -       u8 fifo_count;
+>  	struct fsi_i2c_master *i2c =3D port->master;
+> -       u32 dummy =3D 0;
+> +       u8 fifo_count;
+> +       int rc;
+>=20=20
+>  	if (status & I2C_STAT_ERR) {
+> +               u32 dummy =3D 0;
+>  		rc =3D fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_ERR, &dummy);
+>  		if (rc)
+>  			return rc;
+> @@ -387,9 +387,12 @@ static int fsi_i2c_handle_status(struct fsi_i2c_port
+> *port,
+>  			rc =3D -ENODATA;
+>  		else
+>  			rc =3D msg->len;
+> +               return rc;
+>  	}
+>=20=20
+> -       return rc;
+> +       dev_warn(&port->adapter.dev, "no status to handle\n");
+> +
+> +       return 0;
+>  }
+>=20=20
+>  static int fsi_i2c_wait(struct fsi_i2c_port *port, struct i2c_msg *msg,
+> --=20
+> 2.11.0
+>=20
