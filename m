@@ -1,58 +1,41 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x242.google.com (mail-yb0-x242.google.com
- [IPv6:2607:f8b0:4002:c09::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <clg@kaod.org>
+X-Greylist: delayed 50488 seconds by postgrey-1.36 at bilbo;
+ Thu, 01 Jun 2017 16:51:34 AEST
+Received: from 16.mo5.mail-out.ovh.net (16.mo5.mail-out.ovh.net
+ [87.98.174.144])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wdd563VSHzDq5x
- for <openbmc@lists.ozlabs.org>; Thu,  1 Jun 2017 16:40:26 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="pgErcs70"; 
- dkim-atps=neutral
-Received: by mail-yb0-x242.google.com with SMTP id 202so1175791ybd.0
- for <openbmc@lists.ozlabs.org>; Wed, 31 May 2017 23:40:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=qSZ9knaftDiwV1cO1X1tm7ooPIWuL6xYBGUyMLNYvUs=;
- b=pgErcs70Xt4gA/Ll/+XnJS5FPPQTkzwmiNacl1gVCdJqCLGrbCYiDYB92ZO/dIve/S
- Tx7LCi12jrQ8R0j7KN/aJC9i18JPG2s1562yHGGGTZ1VmbphitXtaGQe7+ZIar2AUrnW
- 4vgx3x3otpsPRsoGyf2SxttTzXYK2OGtYCnsFqJ+CvS+RC0cuOCGhL/EDdFTK8ooL8Ng
- eDGa3JHFdCpznZ72Zf7iIf4H1X4L8zSKdMT5EQnfyFwclB/Td2dom8swS/6QCELF9/Rq
- F25tAesj2eFegmUrmUkDe05KA7buqK5rbAP8bMtLu9dRnUfprNipx7x7oN37IdkEvIBM
- id8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=qSZ9knaftDiwV1cO1X1tm7ooPIWuL6xYBGUyMLNYvUs=;
- b=I2xkP34sNv3j6JShJfGyYv1HmqkPCgaX4eV1JwjkVA+1ViT+3kRte4JUboE57UvkiH
- Io/r7LhjtdKs/m0NbbKiZTYMIuLvW7nzgOHKoiG98sgzc6eqO7B+/43l4jG6Sexv8LK1
- f1uxPntBdtZHTle7jAu8hBOzq3DTL6Y9o8wOe2dXt0j6Rfjv49dbMJmdE0mZKYU32as9
- Ra3h2EDWlsF8uWgp8UnT5LvIkSHjy6Iq43dM6z6fYVDO04Xkn6ThbkSZP/NTqM2NbZPO
- OkOoZLpwWWFctRVa5uosuqxEvFDihqznrQ0enFMp8nVygpWkBJYRzHJBFji8OqhFQhan
- nkBg==
-X-Gm-Message-State: AODbwcCWWRwE2RbfTYakDQfMqMLWpB0Q+otES4vMt3P143L5cXElQdCY
- 0VBKgFAWcyjQbKR6/5c4fcep11ZHosgV
-X-Received: by 10.37.108.212 with SMTP id h203mr58827447ybc.77.1496299224251; 
- Wed, 31 May 2017 23:40:24 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.183.7 with HTTP; Wed, 31 May 2017 23:40:03 -0700 (PDT)
-In-Reply-To: <ab9921a6-72b7-289b-b1ab-65738052a1ff@linux.vnet.ibm.com>
-References: <20170531135614.7170-1-joel@jms.id.au>
- <ab9921a6-72b7-289b-b1ab-65738052a1ff@linux.vnet.ibm.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 1 Jun 2017 16:10:03 +0930
-X-Google-Sender-Auth: wzapWP1r32GbJcbovn9raQPMHo8
-Message-ID: <CACPK8Xd+bXUzVsXez1gF_S5Fgtp_c5ix8pWuUmZqj1r1yp=b4g@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wddKy40VwzDqBQ
+ for <openbmc@lists.ozlabs.org>; Thu,  1 Jun 2017 16:51:33 +1000 (AEST)
+Received: from player695.ha.ovh.net (b9.ovh.net [213.186.33.59])
+ by mo5.mail-out.ovh.net (Postfix) with ESMTP id B5883100344
+ for <openbmc@lists.ozlabs.org>; Thu,  1 Jun 2017 08:45:09 +0200 (CEST)
+Received: from zorba.kaod.org (LFbn-1-10647-27.w90-89.abo.wanadoo.fr
+ [90.89.233.27]) (Authenticated sender: postmaster@kaod.org)
+ by player695.ha.ovh.net (Postfix) with ESMTPSA id 224D2460086;
+ Thu,  1 Jun 2017 08:45:03 +0200 (CEST)
 Subject: Re: [PATCH linux dev-4.10] arm: dts: aspeed: Update old style flash
  nodes
-To: Eddie James <eajames@linux.vnet.ibm.com>
+To: Joel Stanley <joel@jms.id.au>, Eddie James <eajames@linux.vnet.ibm.com>
+References: <20170531135614.7170-1-joel@jms.id.au>
+ <ab9921a6-72b7-289b-b1ab-65738052a1ff@linux.vnet.ibm.com>
+ <CACPK8Xd+bXUzVsXez1gF_S5Fgtp_c5ix8pWuUmZqj1r1yp=b4g@mail.gmail.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  Andrew Jeffery <andrew@aj.id.au>, "Edward A. James" <eajames@us.ibm.com>,
- Mykola Kostenok <c_mykolak@mellanox.com>, 
- =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
-Content-Type: text/plain; charset="UTF-8"
+ Mykola Kostenok <c_mykolak@mellanox.com>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <17737bf1-ea87-a116-b362-e059e2fe82cc@kaod.org>
+Date: Thu, 1 Jun 2017 08:45:02 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.8.0
+MIME-Version: 1.0
+In-Reply-To: <CACPK8Xd+bXUzVsXez1gF_S5Fgtp_c5ix8pWuUmZqj1r1yp=b4g@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Ovh-Tracer-Id: 13255501080499030791
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeeljedrgeekgdduudeiucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -64,47 +47,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 Jun 2017 06:40:26 -0000
+X-List-Received-Date: Thu, 01 Jun 2017 06:51:34 -0000
 
-On Thu, Jun 1, 2017 at 2:45 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
->
->
-> On 05/31/2017 08:56 AM, Joel Stanley wrote:
+On 06/01/2017 08:40 AM, Joel Stanley wrote:
+> On Thu, Jun 1, 2017 at 2:45 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
 >>
->> From: "Edward A. James" <eajames@us.ibm.com>
 >>
->> Reorganize flash controllers into the ast2400 device tree to match what
->> is used upstream. This moves the nodes from the machine dts to the
->> common dtsi.
+>> On 05/31/2017 08:56 AM, Joel Stanley wrote:
+>>>
+>>> From: "Edward A. James" <eajames@us.ibm.com>
+>>>
+>>> Reorganize flash controllers into the ast2400 device tree to match what
+>>> is used upstream. This moves the nodes from the machine dts to the
+>>> common dtsi.
+>>>
+>>> This also affected the newly added Mellanox MSN device tree, which is
+>>> also updated in this series.
+>>>
+>>> Barreleye wasn't booting with the new aspeed-smc driver.
+>>>
+>>> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+>>> [joel:
+>>>    - rework commit message
+>>>    - add missing m25p,fast-read properties
+>>>    - add pinmux for pnor
+>>>    - use upstream node names
+>>>       * bmc_pnor becomes fmc
+>>>       * host_pnor becomes spi
+>>>    - fix the facebook machine
+>>> ]
+>>> Signed-off-by: Joel Stanley <joel@jms.id.au>
+>>> ---
+>>> Eddie, I reworked your patch for you. Please check it looks okay.
 >>
->> This also affected the newly added Mellanox MSN device tree, which is
->> also updated in this series.
 >>
->> Barreleye wasn't booting with the new aspeed-smc driver.
+>> Thanks Joel!
 >>
->> Signed-off-by: Edward A. James <eajames@us.ibm.com>
->> [joel:
->>    - rework commit message
->>    - add missing m25p,fast-read properties
->>    - add pinmux for pnor
->>    - use upstream node names
->>       * bmc_pnor becomes fmc
->>       * host_pnor becomes spi
->>    - fix the facebook machine
->> ]
->> Signed-off-by: Joel Stanley <joel@jms.id.au>
->> ---
->> Eddie, I reworked your patch for you. Please check it looks okay.
->
->
-> Thanks Joel!
->
-> Reviewed-by: Eddie James <eajames@linux.vnet.ibm.com>
+>> Reviewed-by: Eddie James <eajames@linux.vnet.ibm.com>
+> 
+> Thanks for the review Cedric and Eddie.
+> 
+> I have applied to dev-4.10.
 
-Thanks for the review Cedric and Eddie.
+I suppose that this patch applies now ? 
+ 
+	http://patchwork.ozlabs.org/patch/752285/
 
-I have applied to dev-4.10.
+Thanks,
 
-Cheers,
-
-Joel
+C. 
