@@ -1,60 +1,55 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
+ [IPv6:2607:f8b0:4002:c05::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wdSJ25LPHzDqCv
- for <openbmc@lists.ozlabs.org>; Thu,  1 Jun 2017 10:04:17 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wdZpR2CfkzDqBQ
+ for <openbmc@lists.ozlabs.org>; Thu,  1 Jun 2017 14:57:34 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="fhC0qIsV"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="fg3D2QUC"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 9D01520A20;
- Wed, 31 May 2017 20:04:13 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Wed, 31 May 2017 20:04:13 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=n/naClqm6XK6O00EeN3N5E8JXEGgv/Sr6n0qHTQma
- wY=; b=fhC0qIsVJL2wuVuSRU2y1mv8tTrOuDTps9l2ihkU20O+QDCfNu8yuRiM2
- /MnTb2mIsC+iTLevQOVGvYGU3+JbNX34K4SZ6t26XBD1vx4kjjNILFpnnX0QKW4Y
- IH/onjfyaXomJFwv/8HMc3KaW8JKigQDH0UDOmR7VuheYTB8VOWowP51NCFr3DgE
- En7qGOL2kuY7uBeKoUhGUOgQprkDMjI6SQ7WfU60jMtJUjQWh7miHKv946aW7Y3A
- SgDbM9fhLmso9QdLl1p8SamXxLxfi7wCyh//5wTPJXi6d0UyffMMQ1xURmZHh7+5
- q9FSt9aJ8pJhyWN7qqkMaJ7h6EDew==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=n/naClqm6XK6O00EeN
- 3N5E8JXEGgv/Sr6n0qHTQmawY=; b=fg3D2QUCQfCe2Jab2GQefkJT7oUGVahCAG
- /Xw/ljcDWAEObUIOS6EE0Wdhy8SuHeUMjQZN90XbLvbfSq5sEHIAsTsrz2EndEt4
- 5vKvinpgNzUhYiWEg0ysWYVGQcRxlwSOR1Cg3EbV3LD8oUNMm3DbiUUSaxGI5irP
- /fRWQbS5AAr/eJ5Izn5MFXf5S8I5QPXs1oTwmQh1LcFQmT3gTx+FQdB6AOehFjV1
- jqtEgtk+G+GZJ4cEPVLZoeB1aF5PTlgkEuiUnaXBRN57Aebd/Lwhz1+MhlMIun5b
- 9CyQ0yw/66gepFenbUI8nq2twz+HZihd1aGKM8nknpbfCYx2m81g==
-X-ME-Sender: <xms:_VkvWWPiWQ1aAxZdGCs2JXHhmhH0isTrrQnDywf0KWKgcbIaqnyLCw>
-X-Sasl-enc: gOzxQXkB6eGrXSGkjXqCpLnL9pmCG9NanmGwF6fluDGe 1496275452
-Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 0F71224009;
- Wed, 31 May 2017 20:04:10 -0400 (EDT)
-Message-ID: <1496275444.8159.13.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10 0/3] drivers: hwmon: Add OCC driver
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>, Eddie James <eajames@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Brad Bishop
- <bradleyb@fuzziesquirrel.com>, Christopher Bostic
- <cbostic@linux.vnet.ibm.com>,  "Edward A. James" <eajames@us.ibm.com>
-Date: Thu, 01 Jun 2017 09:34:04 +0930
-In-Reply-To: <CACPK8Xcajw_TgVAEYp4XY0UP0SRrgUROAVN+YBW-H49z8e=wPg@mail.gmail.com>
-References: <1495820793-24205-1-git-send-email-eajames@linux.vnet.ibm.com>
- <CACPK8Xcajw_TgVAEYp4XY0UP0SRrgUROAVN+YBW-H49z8e=wPg@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-gAlJRE0akLyEiFVVxWfq"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Rt46tzfb"; 
+ dkim-atps=neutral
+Received: by mail-yw0-x244.google.com with SMTP id p144so2139415ywp.2
+ for <openbmc@lists.ozlabs.org>; Wed, 31 May 2017 21:57:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=JU6ZAlijc34cz2U7uiKptl080TC/w1wQb2P5ts9+VlM=;
+ b=Rt46tzfbgLXm8Mli0M2CQGsJDPOUWoFAJWTzMjEi+IDW3SIE0q57HMRuf5g0KPJATd
+ B3kdEH6J32zoza9m5Np2nETnrsuLEYfoy0JQ8wRuqEd68pWmk2Lgnm67gOH1QSTIHreK
+ kpyp7pvnSHt7/vqvSBQ1VPl7+ref+N9/Up/k5gp6UTGsdEuHbvUFuyPzTqQtKjU3D4Ex
+ jTxRFDeM8ZeLwkDaEYJBha3VgRYP2GsjXAwOelP72qWXocg+mQ1Bqldt6HDVfXLUNqtw
+ vm99QL12Mxg+jlJMbBittCcLCEFjpDH7P3UV8Vgk5n9z1hY2wg0rf6Q1A6fd6Wyppm2U
+ QyQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=JU6ZAlijc34cz2U7uiKptl080TC/w1wQb2P5ts9+VlM=;
+ b=QeCSEO3iNmXzEeUJAHKlMTpMIyPd1QxfyWMoqclhrzG+AnVaSwe+GIytB3rchsLrpO
+ 0eLxxUxxzOaZerWNTBjqOCn55cBkAUH6SHcuoztWEaHvofqnyBux+dVtA551BigpSwHc
+ pW3JBFMweafNkVnwr4AwvLlygsXuzO8uNNFamhhsevigL8Kc1Xbcob4zgInMQvwseq5r
+ Iafm7/tHgDuwx0tMX7oHd7mJ+UV7ngmKkdjqqZJl+bTkyAELYC1EGh3hMIKp7gMjGJXB
+ M/kWbREZDIYq9v4u6GPnUQg0esrFv0hm4I5k1thZvi0QCqoQN/C8YhCMI9waJX9cEOSV
+ xq4g==
+X-Gm-Message-State: AODbwcC0QMb8uvxa34S2qHza9QlaRVkJB2suFTFd+Wbg0Q4MzQDV1z2t
+ rmv99mXLcwISNcdoPP/z2jsQI+7NUQ==
+X-Received: by 10.13.243.133 with SMTP id c127mr23580371ywf.43.1496293052016; 
+ Wed, 31 May 2017 21:57:32 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.183.7 with HTTP; Wed, 31 May 2017 21:57:11 -0700 (PDT)
+In-Reply-To: <1494471173-6077-1-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1494471173-6077-1-git-send-email-eajames@linux.vnet.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 1 Jun 2017 14:27:11 +0930
+X-Google-Sender-Auth: xcxGCeED3JvpOGb8W43Jf7HIT_I
+Message-ID: <CACPK8XdeHhR4E-t6fCdnU=Pw=fnof3PLOszd7XjpBtjrom2qOg@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] drivers: fsi: Add FSI SBEFIFO driver
+To: Eddie James <eajames@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>, 
+ "Edward A. James" <eajames@us.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -66,64 +61,904 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 Jun 2017 00:04:21 -0000
+X-List-Received-Date: Thu, 01 Jun 2017 04:57:36 -0000
 
+On Thu, May 11, 2017 at 12:22 PM, Eddie James
+<eajames@linux.vnet.ibm.com> wrote:
+> From: "Edward A. James" <eajames@us.ibm.com>
+>
+> IBM POWER9 processors contain some embedded hardware and software bits
+> collectively referred to as the self boot engine (SBE).  One role of
+> the SBE is to act as a proxy that provides access to the registers of
+> the POWER chip from other (embedded) systems.
+>
+> The POWER9 chip contains a hardware frontend for communicating with
+> the SBE from remote systems called the SBEFIFO.  The SBEFIFO logic
+> is contained within an FSI CFAM (see Documentation/fsi) and as such
+> the driver implements an FSI bus device.
+>
+> The SBE expects to communicate using a defined wire protocol; however,
+> the driver knows nothing of the protocol and only provides raw access
+> to the fifo device to userspace applications wishing to communicate with
+> the SBE using the wire protocol.
+>
+> The SBEFIFO consists of two hardware fifos.  The upstream fifo is used
+> by the driver to transfer data to the SBE on the POWER chip, from the
+> system hosting the driver.  The downstream fifo is used by the driver to
+> transfer data from the SBE on the power chip to the system hosting the
+> driver.
+>
+> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+> Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
---=-gAlJRE0akLyEiFVVxWfq
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Applied to dev-4.10.
 
-On Wed, 2017-05-31 at 23:59 +0930, Joel Stanley wrote:
-> On Sat, May 27, 2017 at 3:16 AM, Eddie James <eajames@linux.vnet.ibm.com>=
- wrote:
-> > > > From: "Edward A. James" <eajames@us.ibm.com>
-> >=20
-> > This series adds a hwmon driver for the POWER9 OCC (haven't tested for =
-P8 yet).
-> > The driver obtains the OCC poll response and exports all the sensor dat=
-a as
-> > hwmon attributes. This driver is intended to operate on a service proce=
-ssor.
-> >=20
-> > For the POWER9 application, the driver communicates with the OCC from a=
- service
-> > processor using the SBE engine. The low-level transfer protocol details=
-,
-> > however, are contained in the OCC "fifo" driver, in order to arbitrate =
-accesses
-> > from different users on the service processor.
->=20
-> I have merged this series to dev-4.10. Do you have the relevant P8 bits t=
-oo?
->=20
-> Lets sync up with Andrew on where we are at with the upstream review
-> these drivers.
+Cheers,
 
-My understanding was Eddie was going to do a wholesale rework to
-simplify the design now that we have the bits required for P9. It
-sounded like some of the abstractions could be removed.
+Joel
 
-Andrew
---=-gAlJRE0akLyEiFVVxWfq
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJZL1n0AAoJEJ0dnzgO5LT5kkYP/jI++beIzXX9+U7g67cdnz+r
-9spAx+pBhR1GI3to+BZ8Sc0l79tOcsgKSCtMzTfr95JkSznYaxFTQhtLStPl8tty
-9YoR/9diimWmna+lSyU89bgRmZJmEdqyZQ+fcXypC5B0QPPv1S/9S988NCgAtH2Y
-6+8tCiqNYDmPwyl37BcG16XM4EKymJseD2asmKjOdsc5fK2PZgnaDsDbQszirqSk
-/BecxaozEU9yh1lFRHeuu9eeq5sZcxnlorJ+iJIkPnwhPy8Fgj7QiQ0UiHMMviE/
-xivZ4QDHiDYurLwbUFqFx2aEsHHRgsDjdUlaMoAahDXVRNRL979IDxUBYhxjyXLJ
-NQhWasmC8eSn7BB4g0A3X9VHrDq790q4nvdFF2kzfdiQuq4ZcKN0KPzWhojfmHC8
-kpgkq0gW+iSaBjYg4JCaymOf03yc6iFM3OaHSTxyTZQnxGEoqV1NbU4FTNpsewe+
-xjxAdaRcS1M+/uPjTknuZ1l5/1fbu10F19l3Vg0rED6iUg6JVQYQh48RKnPJkyeu
-BOQM3Z+jxj8D6Oun4hcxa1s123dG46ihVUvXI6zAjlZAfzasaQzI2d3sYdKuQC27
-1zk8Yj5LnmHLhGOy23L1WCmLQ28jpLkuvmURW6u/uI08NFdCGD0pBlLiMFCFrdIz
-h3RxaaLl9tGskUy0f42N
-=ZHAf
------END PGP SIGNATURE-----
-
---=-gAlJRE0akLyEiFVVxWfq--
+> ---
+>  drivers/fsi/Kconfig       |   5 +
+>  drivers/fsi/Makefile      |   1 +
+>  drivers/fsi/fsi-sbefifo.c | 824 ++++++++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 830 insertions(+)
+>  create mode 100644 drivers/fsi/fsi-sbefifo.c
+>
+> diff --git a/drivers/fsi/Kconfig b/drivers/fsi/Kconfig
+> index fc031ac..39527fa 100644
+> --- a/drivers/fsi/Kconfig
+> +++ b/drivers/fsi/Kconfig
+> @@ -31,6 +31,11 @@ config FSI_SCOM
+>         ---help---
+>         This option enables an FSI based SCOM device driver.
+>
+> +config FSI_SBEFIFO
+> +       tristate "SBEFIFO FSI client device driver"
+> +       ---help---
+> +       This option enables an FSI based SBEFIFO device driver.
+> +
+>  endif
+>
+>  endmenu
+> diff --git a/drivers/fsi/Makefile b/drivers/fsi/Makefile
+> index 65eb99d..851182e 100644
+> --- a/drivers/fsi/Makefile
+> +++ b/drivers/fsi/Makefile
+> @@ -3,3 +3,4 @@ obj-$(CONFIG_FSI) += fsi-core.o
+>  obj-$(CONFIG_FSI_MASTER_HUB) += fsi-master-hub.o
+>  obj-$(CONFIG_FSI_MASTER_GPIO) += fsi-master-gpio.o
+>  obj-$(CONFIG_FSI_SCOM) += fsi-scom.o
+> +obj-$(CONFIG_FSI_SBEFIFO) += fsi-sbefifo.o
+> diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
+> new file mode 100644
+> index 0000000..b49aec2
+> --- /dev/null
+> +++ b/drivers/fsi/fsi-sbefifo.c
+> @@ -0,0 +1,824 @@
+> +/*
+> + * Copyright (C) IBM Corporation 2017
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERGCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + */
+> +
+> +#include <linux/delay.h>
+> +#include <linux/errno.h>
+> +#include <linux/idr.h>
+> +#include <linux/fsi.h>
+> +#include <linux/list.h>
+> +#include <linux/miscdevice.h>
+> +#include <linux/module.h>
+> +#include <linux/poll.h>
+> +#include <linux/sched.h>
+> +#include <linux/slab.h>
+> +#include <linux/timer.h>
+> +#include <linux/uaccess.h>
+> +
+> +/*
+> + * The SBEFIFO is a pipe-like FSI device for communicating with
+> + * the self boot engine on POWER processors.
+> + */
+> +
+> +#define DEVICE_NAME            "sbefifo"
+> +#define FSI_ENGID_SBE          0x22
+> +#define SBEFIFO_BUF_CNT                32
+> +
+> +#define SBEFIFO_UP             0x00    /* Up register offset */
+> +#define SBEFIFO_DWN            0x40    /* Down register offset */
+> +
+> +#define SBEFIFO_STS            0x04
+> +#define   SBEFIFO_EMPTY                        BIT(20)
+> +#define SBEFIFO_EOT_RAISE      0x08
+> +#define   SBEFIFO_EOT_MAGIC            0xffffffff
+> +#define SBEFIFO_EOT_ACK                0x14
+> +
+> +struct sbefifo {
+> +       struct timer_list poll_timer;
+> +       struct fsi_device *fsi_dev;
+> +       struct miscdevice mdev;
+> +       wait_queue_head_t wait;
+> +       struct list_head link;
+> +       struct list_head xfrs;
+> +       struct kref kref;
+> +       spinlock_t lock;
+> +       char name[32];
+> +       int idx;
+> +       int rc;
+> +};
+> +
+> +struct sbefifo_buf {
+> +       u32 buf[SBEFIFO_BUF_CNT];
+> +       unsigned long flags;
+> +#define SBEFIFO_BUF_FULL               1
+> +       u32 *rpos;
+> +       u32 *wpos;
+> +};
+> +
+> +struct sbefifo_xfr {
+> +       struct sbefifo_buf *rbuf;
+> +       struct sbefifo_buf *wbuf;
+> +       struct list_head client;
+> +       struct list_head xfrs;
+> +       unsigned long flags;
+> +#define SBEFIFO_XFR_WRITE_DONE         1
+> +#define SBEFIFO_XFR_RESP_PENDING       2
+> +#define SBEFIFO_XFR_COMPLETE           3
+> +#define SBEFIFO_XFR_CANCEL             4
+> +};
+> +
+> +struct sbefifo_client {
+> +       struct sbefifo_buf rbuf;
+> +       struct sbefifo_buf wbuf;
+> +       struct list_head xfrs;
+> +       struct sbefifo *dev;
+> +       struct kref kref;
+> +};
+> +
+> +static struct list_head sbefifo_fifos;
+> +
+> +static DEFINE_IDA(sbefifo_ida);
+> +
+> +static int sbefifo_inw(struct sbefifo *sbefifo, int reg, u32 *word)
+> +{
+> +       int rc;
+> +       u32 raw_word;
+> +
+> +       rc = fsi_device_read(sbefifo->fsi_dev, reg, &raw_word,
+> +                            sizeof(raw_word));
+> +       if (rc)
+> +               return rc;
+> +
+> +       *word = be32_to_cpu(raw_word);
+> +       return 0;
+> +}
+> +
+> +static int sbefifo_outw(struct sbefifo *sbefifo, int reg, u32 word)
+> +{
+> +       u32 raw_word = cpu_to_be32(word);
+> +
+> +       return fsi_device_write(sbefifo->fsi_dev, reg, &raw_word,
+> +                               sizeof(raw_word));
+> +}
+> +
+> +static int sbefifo_readw(struct sbefifo *sbefifo, u32 *word)
+> +{
+> +       return fsi_device_read(sbefifo->fsi_dev, SBEFIFO_DWN, word,
+> +                              sizeof(*word));
+> +}
+> +
+> +static int sbefifo_writew(struct sbefifo *sbefifo, u32 word)
+> +{
+> +       return fsi_device_write(sbefifo->fsi_dev, SBEFIFO_UP, &word,
+> +                               sizeof(word));
+> +}
+> +
+> +static int sbefifo_ack_eot(struct sbefifo *sbefifo)
+> +{
+> +       u32 discard;
+> +       int ret;
+> +
+> +        /* Discard the EOT word. */
+> +       ret = sbefifo_readw(sbefifo, &discard);
+> +       if (ret)
+> +               return ret;
+> +
+> +       return sbefifo_outw(sbefifo, SBEFIFO_DWN | SBEFIFO_EOT_ACK,
+> +                       SBEFIFO_EOT_MAGIC);
+> +}
+> +
+> +static size_t sbefifo_dev_nwreadable(u32 sts)
+> +{
+> +       static const u32 FIFO_NTRY_CNT_MSK = 0x000f0000;
+> +       static const unsigned int FIFO_NTRY_CNT_SHIFT = 16;
+> +
+> +       return (sts & FIFO_NTRY_CNT_MSK) >> FIFO_NTRY_CNT_SHIFT;
+> +}
+> +
+> +static size_t sbefifo_dev_nwwriteable(u32 sts)
+> +{
+> +       static const size_t FIFO_DEPTH = 8;
+> +
+> +       return FIFO_DEPTH - sbefifo_dev_nwreadable(sts);
+> +}
+> +
+> +static void sbefifo_buf_init(struct sbefifo_buf *buf)
+> +{
+> +       WRITE_ONCE(buf->rpos, buf->buf);
+> +       WRITE_ONCE(buf->wpos, buf->buf);
+> +}
+> +
+> +static size_t sbefifo_buf_nbreadable(struct sbefifo_buf *buf)
+> +{
+> +       size_t n;
+> +       u32 *rpos = READ_ONCE(buf->rpos);
+> +       u32 *wpos = READ_ONCE(buf->wpos);
+> +
+> +       if (test_bit(SBEFIFO_BUF_FULL, &buf->flags))
+> +               n = SBEFIFO_BUF_CNT;
+> +       else if (rpos <= wpos)
+> +               n = wpos - rpos;
+> +       else
+> +               n = (buf->buf + SBEFIFO_BUF_CNT) - rpos;
+> +
+> +       return n << 2;
+> +}
+> +
+> +static size_t sbefifo_buf_nbwriteable(struct sbefifo_buf *buf)
+> +{
+> +       size_t n;
+> +       u32 *rpos = READ_ONCE(buf->rpos);
+> +       u32 *wpos = READ_ONCE(buf->wpos);
+> +
+> +       if (test_bit(SBEFIFO_BUF_FULL, &buf->flags))
+> +               n = 0;
+> +       else if (wpos < rpos)
+> +               n = rpos - wpos;
+> +       else
+> +               n = (buf->buf + SBEFIFO_BUF_CNT) - wpos;
+> +
+> +       return n << 2;
+> +}
+> +
+> +/*
+> + * Update pointers and flags after doing a buffer read.  Return true if the
+> + * buffer is now empty;
+> + */
+> +static bool sbefifo_buf_readnb(struct sbefifo_buf *buf, size_t n)
+> +{
+> +       u32 *rpos = READ_ONCE(buf->rpos);
+> +       u32 *wpos = READ_ONCE(buf->wpos);
+> +
+> +       if (n)
+> +               clear_bit(SBEFIFO_BUF_FULL, &buf->flags);
+> +
+> +       rpos += (n >> 2);
+> +       if (rpos == buf->buf + SBEFIFO_BUF_CNT)
+> +               rpos = buf->buf;
+> +
+> +       WRITE_ONCE(buf->rpos, rpos);
+> +       return rpos == wpos;
+> +}
+> +
+> +/*
+> + * Update pointers and flags after doing a buffer write.  Return true if the
+> + * buffer is now full.
+> + */
+> +static bool sbefifo_buf_wrotenb(struct sbefifo_buf *buf, size_t n)
+> +{
+> +       u32 *rpos = READ_ONCE(buf->rpos);
+> +       u32 *wpos = READ_ONCE(buf->wpos);
+> +
+> +       wpos += (n >> 2);
+> +       if (wpos == buf->buf + SBEFIFO_BUF_CNT)
+> +               wpos = buf->buf;
+> +       if (wpos == rpos)
+> +               set_bit(SBEFIFO_BUF_FULL, &buf->flags);
+> +
+> +       WRITE_ONCE(buf->wpos, wpos);
+> +       return rpos == wpos;
+> +}
+> +
+> +static void sbefifo_free(struct kref *kref)
+> +{
+> +       struct sbefifo *sbefifo;
+> +
+> +       sbefifo = container_of(kref, struct sbefifo, kref);
+> +       kfree(sbefifo);
+> +}
+> +
+> +static void sbefifo_get(struct sbefifo *sbefifo)
+> +{
+> +       kref_get(&sbefifo->kref);
+> +}
+> +
+> +static void sbefifo_put(struct sbefifo *sbefifo)
+> +{
+> +       kref_put(&sbefifo->kref, sbefifo_free);
+> +}
+> +
+> +static struct sbefifo_xfr *sbefifo_enq_xfr(struct sbefifo_client *client)
+> +{
+> +       struct sbefifo *sbefifo = client->dev;
+> +       struct sbefifo_xfr *xfr;
+> +
+> +       xfr = kzalloc(sizeof(*xfr), GFP_KERNEL);
+> +       if (!xfr)
+> +               return NULL;
+> +
+> +       xfr->rbuf = &client->rbuf;
+> +       xfr->wbuf = &client->wbuf;
+> +       list_add_tail(&xfr->xfrs, &sbefifo->xfrs);
+> +       list_add_tail(&xfr->client, &client->xfrs);
+> +
+> +       return xfr;
+> +}
+> +
+> +static struct sbefifo_xfr *sbefifo_client_next_xfr(
+> +               struct sbefifo_client *client)
+> +{
+> +       if (list_empty(&client->xfrs))
+> +               return NULL;
+> +
+> +       return container_of(client->xfrs.next, struct sbefifo_xfr,
+> +                       client);
+> +}
+> +
+> +static bool sbefifo_xfr_rsp_pending(struct sbefifo_client *client)
+> +{
+> +       struct sbefifo_xfr *xfr;
+> +
+> +       xfr = sbefifo_client_next_xfr(client);
+> +       if (xfr && test_bit(SBEFIFO_XFR_RESP_PENDING, &xfr->flags))
+> +               return true;
+> +
+> +       return false;
+> +}
+> +
+> +static struct sbefifo_client *sbefifo_new_client(struct sbefifo *sbefifo)
+> +{
+> +       struct sbefifo_client *client;
+> +
+> +       client = kzalloc(sizeof(*client), GFP_KERNEL);
+> +       if (!client)
+> +               return NULL;
+> +
+> +       kref_init(&client->kref);
+> +       client->dev = sbefifo;
+> +       sbefifo_buf_init(&client->rbuf);
+> +       sbefifo_buf_init(&client->wbuf);
+> +       INIT_LIST_HEAD(&client->xfrs);
+> +
+> +       sbefifo_get(sbefifo);
+> +
+> +       return client;
+> +}
+> +
+> +static void sbefifo_client_release(struct kref *kref)
+> +{
+> +       struct sbefifo_client *client;
+> +       struct sbefifo_xfr *xfr;
+> +
+> +       client = container_of(kref, struct sbefifo_client, kref);
+> +       list_for_each_entry(xfr, &client->xfrs, client) {
+> +               /*
+> +                * The client left with pending or running xfrs.
+> +                * Cancel them.
+> +                */
+> +               set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
+> +               sbefifo_get(client->dev);
+> +               if (mod_timer(&client->dev->poll_timer, jiffies))
+> +                       sbefifo_put(client->dev);
+> +       }
+> +
+> +       sbefifo_put(client->dev);
+> +       kfree(client);
+> +}
+> +
+> +static void sbefifo_get_client(struct sbefifo_client *client)
+> +{
+> +       kref_get(&client->kref);
+> +}
+> +
+> +static void sbefifo_put_client(struct sbefifo_client *client)
+> +{
+> +       kref_put(&client->kref, sbefifo_client_release);
+> +}
+> +
+> +static struct sbefifo_xfr *sbefifo_next_xfr(struct sbefifo *sbefifo)
+> +{
+> +       struct sbefifo_xfr *xfr, *tmp;
+> +
+> +       list_for_each_entry_safe(xfr, tmp, &sbefifo->xfrs, xfrs) {
+> +               if (unlikely(test_bit(SBEFIFO_XFR_CANCEL, &xfr->flags))) {
+> +                       /* Discard cancelled transfers. */
+> +                       list_del(&xfr->xfrs);
+> +                       kfree(xfr);
+> +                       continue;
+> +               }
+> +               return xfr;
+> +       }
+> +
+> +       return NULL;
+> +}
+> +
+> +static void sbefifo_poll_timer(unsigned long data)
+> +{
+> +       static const unsigned long EOT_MASK = 0x000000ff;
+> +       struct sbefifo *sbefifo = (void *)data;
+> +       struct sbefifo_buf *rbuf, *wbuf;
+> +       struct sbefifo_xfr *xfr = NULL;
+> +       struct sbefifo_buf drain;
+> +       size_t devn, bufn;
+> +       int eot = 0;
+> +       int ret = 0;
+> +       u32 sts;
+> +       int i;
+> +
+> +       spin_lock(&sbefifo->lock);
+> +       xfr = list_first_entry_or_null(&sbefifo->xfrs, struct sbefifo_xfr,
+> +                       xfrs);
+> +       if (!xfr)
+> +               goto out_unlock;
+> +
+> +       rbuf = xfr->rbuf;
+> +       wbuf = xfr->wbuf;
+> +
+> +       if (unlikely(test_bit(SBEFIFO_XFR_CANCEL, &xfr->flags))) {
+> +               /* The client left. */
+> +               rbuf = &drain;
+> +               wbuf = &drain;
+> +               sbefifo_buf_init(&drain);
+> +               if (!test_bit(SBEFIFO_XFR_RESP_PENDING, &xfr->flags))
+> +                       set_bit(SBEFIFO_XFR_WRITE_DONE, &xfr->flags);
+> +       }
+> +
+> +        /* Drain the write buffer. */
+> +       while ((bufn = sbefifo_buf_nbreadable(wbuf))) {
+> +               ret = sbefifo_inw(sbefifo, SBEFIFO_UP | SBEFIFO_STS,
+> +                               &sts);
+> +               if (ret)
+> +                       goto out;
+> +
+> +               devn = sbefifo_dev_nwwriteable(sts);
+> +               if (devn == 0) {
+> +                       /* No open slot for write.  Reschedule. */
+> +                       sbefifo->poll_timer.expires = jiffies +
+> +                               msecs_to_jiffies(500);
+> +                       add_timer(&sbefifo->poll_timer);
+> +                       goto out_unlock;
+> +               }
+> +
+> +               devn = min_t(size_t, devn, bufn >> 2);
+> +               for (i = 0; i < devn; i++) {
+> +                       ret = sbefifo_writew(sbefifo, *wbuf->rpos);
+> +                       if (ret)
+> +                               goto out;
+> +
+> +                       sbefifo_buf_readnb(wbuf, 1 << 2);
+> +               }
+> +       }
+> +
+> +        /* Send EOT if the writer is finished. */
+> +       if (test_and_clear_bit(SBEFIFO_XFR_WRITE_DONE, &xfr->flags)) {
+> +               ret = sbefifo_outw(sbefifo,
+> +                               SBEFIFO_UP | SBEFIFO_EOT_RAISE,
+> +                               SBEFIFO_EOT_MAGIC);
+> +               if (ret)
+> +                       goto out;
+> +
+> +               /* Inform reschedules that the writer is finished. */
+> +               set_bit(SBEFIFO_XFR_RESP_PENDING, &xfr->flags);
+> +       }
+> +
+> +       /* Nothing left to do if the writer is not finished. */
+> +       if (!test_bit(SBEFIFO_XFR_RESP_PENDING, &xfr->flags))
+> +               goto out;
+> +
+> +        /* Fill the read buffer. */
+> +       while ((bufn = sbefifo_buf_nbwriteable(rbuf))) {
+> +               ret = sbefifo_inw(sbefifo, SBEFIFO_DWN | SBEFIFO_STS, &sts);
+> +               if (ret)
+> +                       goto out;
+> +
+> +               devn = sbefifo_dev_nwreadable(sts);
+> +               if (devn == 0) {
+> +                       /* No data yet.  Reschedule. */
+> +                       sbefifo->poll_timer.expires = jiffies +
+> +                               msecs_to_jiffies(500);
+> +                       add_timer(&sbefifo->poll_timer);
+> +                       goto out_unlock;
+> +               }
+> +
+> +               /* Fill.  The EOT word is discarded.  */
+> +               devn = min_t(size_t, devn, bufn >> 2);
+> +               eot = (sts & EOT_MASK) != 0;
+> +               if (eot)
+> +                       devn--;
+> +
+> +               for (i = 0; i < devn; i++) {
+> +                       ret = sbefifo_readw(sbefifo, rbuf->wpos);
+> +                       if (ret)
+> +                               goto out;
+> +
+> +                       if (likely(!test_bit(SBEFIFO_XFR_CANCEL, &xfr->flags)))
+> +                               sbefifo_buf_wrotenb(rbuf, 1 << 2);
+> +               }
+> +
+> +               if (eot) {
+> +                       ret = sbefifo_ack_eot(sbefifo);
+> +                       if (ret)
+> +                               goto out;
+> +
+> +                       set_bit(SBEFIFO_XFR_COMPLETE, &xfr->flags);
+> +                       list_del(&xfr->xfrs);
+> +                       if (unlikely(test_bit(SBEFIFO_XFR_CANCEL,
+> +                                                       &xfr->flags)))
+> +                               kfree(xfr);
+> +                       break;
+> +               }
+> +       }
+> +
+> +out:
+> +       if (unlikely(ret)) {
+> +               sbefifo->rc = ret;
+> +               dev_err(&sbefifo->fsi_dev->dev,
+> +                               "Fatal bus access failure: %d\n", ret);
+> +               list_for_each_entry(xfr, &sbefifo->xfrs, xfrs)
+> +                       kfree(xfr);
+> +               INIT_LIST_HEAD(&sbefifo->xfrs);
+> +
+> +       } else if (eot && sbefifo_next_xfr(sbefifo)) {
+> +               sbefifo_get(sbefifo);
+> +               sbefifo->poll_timer.expires = jiffies;
+> +               add_timer(&sbefifo->poll_timer);
+> +       }
+> +
+> +       sbefifo_put(sbefifo);
+> +       wake_up(&sbefifo->wait);
+> +
+> +out_unlock:
+> +       spin_unlock(&sbefifo->lock);
+> +}
+> +
+> +static int sbefifo_open(struct inode *inode, struct file *file)
+> +{
+> +       struct sbefifo *sbefifo = container_of(file->private_data,
+> +                       struct sbefifo, mdev);
+> +       struct sbefifo_client *client;
+> +       int ret;
+> +
+> +       ret = READ_ONCE(sbefifo->rc);
+> +       if (ret)
+> +               return ret;
+> +
+> +       client = sbefifo_new_client(sbefifo);
+> +       if (!client)
+> +               return -ENOMEM;
+> +
+> +       file->private_data = client;
+> +
+> +       return 0;
+> +}
+> +
+> +static unsigned int sbefifo_poll(struct file *file, poll_table *wait)
+> +{
+> +       struct sbefifo_client *client = file->private_data;
+> +       struct sbefifo *sbefifo = client->dev;
+> +       unsigned int mask = 0;
+> +
+> +       poll_wait(file, &sbefifo->wait, wait);
+> +
+> +       if (READ_ONCE(sbefifo->rc))
+> +               mask |= POLLERR;
+> +
+> +       if (sbefifo_buf_nbreadable(&client->rbuf))
+> +               mask |= POLLIN;
+> +
+> +       if (sbefifo_buf_nbwriteable(&client->wbuf))
+> +               mask |= POLLOUT;
+> +
+> +       return mask;
+> +}
+> +
+> +static ssize_t sbefifo_read(struct file *file, char __user *buf,
+> +               size_t len, loff_t *offset)
+> +{
+> +       struct sbefifo_client *client = file->private_data;
+> +       struct sbefifo *sbefifo = client->dev;
+> +       struct sbefifo_xfr *xfr;
+> +       ssize_t ret = 0;
+> +       size_t n;
+> +
+> +       WARN_ON(*offset);
+> +
+> +       if (!access_ok(VERIFY_WRITE, buf, len))
+> +               return -EFAULT;
+> +
+> +       if ((len >> 2) << 2 != len)
+> +               return -EINVAL;
+> +
+> +       if ((file->f_flags & O_NONBLOCK) && !sbefifo_xfr_rsp_pending(client))
+> +               return -EAGAIN;
+> +
+> +       sbefifo_get_client(client);
+> +       if (wait_event_interruptible(sbefifo->wait,
+> +                               (ret = READ_ONCE(sbefifo->rc)) ||
+> +                               (n = sbefifo_buf_nbreadable(
+> +                                               &client->rbuf)))) {
+> +               sbefifo_put_client(client);
+> +               return -ERESTARTSYS;
+> +       }
+> +       if (ret) {
+> +               INIT_LIST_HEAD(&client->xfrs);
+> +               sbefifo_put_client(client);
+> +               return ret;
+> +       }
+> +
+> +       n = min_t(size_t, n, len);
+> +
+> +       if (copy_to_user(buf, READ_ONCE(client->rbuf.rpos), n)) {
+> +               sbefifo_put_client(client);
+> +               return -EFAULT;
+> +       }
+> +
+> +       if (sbefifo_buf_readnb(&client->rbuf, n)) {
+> +               xfr = sbefifo_client_next_xfr(client);
+> +               if (!test_bit(SBEFIFO_XFR_COMPLETE, &xfr->flags)) {
+> +                       /*
+> +                        * Fill the read buffer back up.
+> +                        */
+> +                       sbefifo_get(sbefifo);
+> +                       if (mod_timer(&client->dev->poll_timer, jiffies))
+> +                               sbefifo_put(sbefifo);
+> +               } else {
+> +                       kfree(xfr);
+> +                       list_del(&xfr->client);
+> +                       wake_up(&sbefifo->wait);
+> +               }
+> +       }
+> +
+> +       sbefifo_put_client(client);
+> +
+> +       return n;
+> +}
+> +
+> +static ssize_t sbefifo_write(struct file *file, const char __user *buf,
+> +               size_t len, loff_t *offset)
+> +{
+> +       struct sbefifo_client *client = file->private_data;
+> +       struct sbefifo *sbefifo = client->dev;
+> +       struct sbefifo_xfr *xfr;
+> +       ssize_t ret = 0;
+> +       size_t n;
+> +
+> +       WARN_ON(*offset);
+> +
+> +       if (!access_ok(VERIFY_READ, buf, len))
+> +               return -EFAULT;
+> +
+> +       if ((len >> 2) << 2 != len)
+> +               return -EINVAL;
+> +
+> +       if (!len)
+> +               return 0;
+> +
+> +       n = sbefifo_buf_nbwriteable(&client->wbuf);
+> +
+> +       spin_lock_irq(&sbefifo->lock);
+> +       xfr = sbefifo_next_xfr(sbefifo);
+> +
+> +       if ((file->f_flags & O_NONBLOCK) && xfr && n < len) {
+> +               spin_unlock_irq(&sbefifo->lock);
+> +               return -EAGAIN;
+> +       }
+> +
+> +       xfr = sbefifo_enq_xfr(client);
+> +       if (!xfr) {
+> +               spin_unlock_irq(&sbefifo->lock);
+> +               return -ENOMEM;
+> +       }
+> +       spin_unlock_irq(&sbefifo->lock);
+> +
+> +       sbefifo_get_client(client);
+> +
+> +       /*
+> +        * Partial writes are not really allowed in that EOT is sent exactly
+> +        * once per write.
+> +        */
+> +       while (len) {
+> +               if (wait_event_interruptible(sbefifo->wait,
+> +                               READ_ONCE(sbefifo->rc) ||
+> +                                       (sbefifo_client_next_xfr(client) == xfr &&
+> +                                        (n = sbefifo_buf_nbwriteable(
+> +                                                       &client->wbuf))))) {
+> +                       set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
+> +                       sbefifo_get(sbefifo);
+> +                       if (mod_timer(&sbefifo->poll_timer, jiffies))
+> +                               sbefifo_put(sbefifo);
+> +
+> +                       sbefifo_put_client(client);
+> +                       return -ERESTARTSYS;
+> +               }
+> +               if (sbefifo->rc) {
+> +                       INIT_LIST_HEAD(&client->xfrs);
+> +                       sbefifo_put_client(client);
+> +                       return sbefifo->rc;
+> +               }
+> +
+> +               n = min_t(size_t, n, len);
+> +
+> +               if (copy_from_user(READ_ONCE(client->wbuf.wpos), buf, n)) {
+> +                       set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
+> +                       sbefifo_get(sbefifo);
+> +                       if (mod_timer(&sbefifo->poll_timer, jiffies))
+> +                               sbefifo_put(sbefifo);
+> +                       sbefifo_put_client(client);
+> +                       return -EFAULT;
+> +               }
+> +
+> +               sbefifo_buf_wrotenb(&client->wbuf, n);
+> +               len -= n;
+> +               buf += n;
+> +               ret += n;
+> +
+> +               /*
+> +                * Drain the write buffer.
+> +                */
+> +               sbefifo_get(sbefifo);
+> +               if (mod_timer(&client->dev->poll_timer, jiffies))
+> +                       sbefifo_put(sbefifo);
+> +       }
+> +
+> +       set_bit(SBEFIFO_XFR_WRITE_DONE, &xfr->flags);
+> +       sbefifo_put_client(client);
+> +
+> +       return ret;
+> +}
+> +
+> +static int sbefifo_release(struct inode *inode, struct file *file)
+> +{
+> +       struct sbefifo_client *client = file->private_data;
+> +       struct sbefifo *sbefifo = client->dev;
+> +
+> +       sbefifo_put_client(client);
+> +
+> +       return READ_ONCE(sbefifo->rc);
+> +}
+> +
+> +static const struct file_operations sbefifo_fops = {
+> +       .owner          = THIS_MODULE,
+> +       .open           = sbefifo_open,
+> +       .read           = sbefifo_read,
+> +       .write          = sbefifo_write,
+> +       .poll           = sbefifo_poll,
+> +       .release        = sbefifo_release,
+> +};
+> +
+> +static int sbefifo_probe(struct device *dev)
+> +{
+> +       struct fsi_device *fsi_dev = to_fsi_dev(dev);
+> +       struct sbefifo *sbefifo;
+> +       u32 sts;
+> +       int ret;
+> +
+> +       dev_info(dev, "Found sbefifo device\n");
+> +       sbefifo = kzalloc(sizeof(*sbefifo), GFP_KERNEL);
+> +       if (!sbefifo)
+> +               return -ENOMEM;
+> +
+> +       sbefifo->fsi_dev = fsi_dev;
+> +
+> +       ret = sbefifo_inw(sbefifo,
+> +                       SBEFIFO_UP | SBEFIFO_STS, &sts);
+> +       if (ret)
+> +               return ret;
+> +       if (!(sts & SBEFIFO_EMPTY)) {
+> +               dev_err(&sbefifo->fsi_dev->dev,
+> +                               "Found data in upstream fifo\n");
+> +               return -EIO;
+> +       }
+> +
+> +       ret = sbefifo_inw(sbefifo, SBEFIFO_DWN | SBEFIFO_STS, &sts);
+> +       if (ret)
+> +               return ret;
+> +       if (!(sts & SBEFIFO_EMPTY)) {
+> +               dev_err(&sbefifo->fsi_dev->dev,
+> +                               "Found data in downstream fifo\n");
+> +               return -EIO;
+> +       }
+> +
+> +       sbefifo->mdev.minor = MISC_DYNAMIC_MINOR;
+> +       sbefifo->mdev.fops = &sbefifo_fops;
+> +       sbefifo->mdev.name = sbefifo->name;
+> +       sbefifo->mdev.parent = dev;
+> +       spin_lock_init(&sbefifo->lock);
+> +       kref_init(&sbefifo->kref);
+> +
+> +       sbefifo->idx = ida_simple_get(&sbefifo_ida, 1, INT_MAX, GFP_KERNEL);
+> +       snprintf(sbefifo->name, sizeof(sbefifo->name), "sbefifo%d",
+> +                       sbefifo->idx);
+> +       init_waitqueue_head(&sbefifo->wait);
+> +       INIT_LIST_HEAD(&sbefifo->xfrs);
+> +
+> +       /* This bit of silicon doesn't offer any interrupts... */
+> +       setup_timer(&sbefifo->poll_timer, sbefifo_poll_timer,
+> +                       (unsigned long)sbefifo);
+> +
+> +       list_add(&sbefifo->link, &sbefifo_fifos);
+> +       return misc_register(&sbefifo->mdev);
+> +}
+> +
+> +static int sbefifo_remove(struct device *dev)
+> +{
+> +       struct fsi_device *fsi_dev = to_fsi_dev(dev);
+> +       struct sbefifo *sbefifo, *sbefifo_tmp;
+> +       struct sbefifo_xfr *xfr;
+> +
+> +       list_for_each_entry_safe(sbefifo, sbefifo_tmp, &sbefifo_fifos, link) {
+> +               if (sbefifo->fsi_dev != fsi_dev)
+> +                       continue;
+> +               misc_deregister(&sbefifo->mdev);
+> +               list_del(&sbefifo->link);
+> +               ida_simple_remove(&sbefifo_ida, sbefifo->idx);
+> +
+> +               if (del_timer_sync(&sbefifo->poll_timer))
+> +                       sbefifo_put(sbefifo);
+> +
+> +               spin_lock(&sbefifo->lock);
+> +               list_for_each_entry(xfr, &sbefifo->xfrs, xfrs)
+> +                       kfree(xfr);
+> +               spin_unlock(&sbefifo->lock);
+> +
+> +               WRITE_ONCE(sbefifo->rc, -ENODEV);
+> +
+> +               wake_up(&sbefifo->wait);
+> +               sbefifo_put(sbefifo);
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+> +static struct fsi_device_id sbefifo_ids[] = {
+> +       {
+> +               .engine_type = FSI_ENGID_SBE,
+> +               .version = FSI_VERSION_ANY,
+> +       },
+> +       { 0 }
+> +};
+> +
+> +static struct fsi_driver sbefifo_drv = {
+> +       .id_table = sbefifo_ids,
+> +       .drv = {
+> +               .name = DEVICE_NAME,
+> +               .bus = &fsi_bus_type,
+> +               .probe = sbefifo_probe,
+> +               .remove = sbefifo_remove,
+> +       }
+> +};
+> +
+> +static int sbefifo_init(void)
+> +{
+> +       INIT_LIST_HEAD(&sbefifo_fifos);
+> +       return fsi_driver_register(&sbefifo_drv);
+> +}
+> +
+> +static void sbefifo_exit(void)
+> +{
+> +       fsi_driver_unregister(&sbefifo_drv);
+> +}
+> +
+> +module_init(sbefifo_init);
+> +module_exit(sbefifo_exit);
+> +MODULE_LICENSE("GPL");
+> +MODULE_AUTHOR("Brad Bishop <bradleyb@fuzziesquirrel.com>");
+> +MODULE_DESCRIPTION("Linux device interface to the POWER self boot engine");
+> --
+> 1.8.3.1
+>
