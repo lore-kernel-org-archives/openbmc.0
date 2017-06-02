@@ -1,56 +1,53 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <brendanhiggins@google.com>
+Received: from mail-oi0-x235.google.com (mail-oi0-x235.google.com
+ [IPv6:2607:f8b0:4003:c06::235])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wfHSR1N49zDqN6
- for <openbmc@lists.ozlabs.org>; Fri,  2 Jun 2017 18:29:27 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wfHqn0SFlzDqLR
+ for <openbmc@lists.ozlabs.org>; Fri,  2 Jun 2017 18:46:12 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="pHuScSAE"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Uy6Hmnss"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 7AA5720AE5;
- Fri,  2 Jun 2017 04:29:24 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Fri, 02 Jun 2017 04:29:24 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=GJH2eU
- sDG7x9+EoCceQO79UrD5SCiuq8NrWo5IiKje8=; b=pHuScSAER14yRL/OdVeK0f
- bKRy2vvCeAE29xV5BegMvd2svISQr481fwqc6vRGm4+XJRWGiEPs/1nBVtHlKfJY
- kZkQCvi6eulkh65sbJd+NEU847pUCKddyMo4uzuFjCFmvdNx0g5/pyWuuXZ50fLN
- iYgMBF+hmg8BBOXsjIA5gUb+Y+vJs3XjwD+tg/+PktB6W80q1GHywA1gyAdEsrD2
- jbFz8jrDc3btp4KWgXf5J/N5v9XGBLsnqN16xjyiXzy+oNCuPhaOzAiOrduWOzHv
- NZj8KNCS9J1UwEoQnOfOJP50nKHK4orT88wVHEOQiATftPiPP9ysVkc76AT8U2EA
- ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:in-reply-to:message-id
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=GJH2eUsDG7x9+EoCceQO79UrD5SCiuq8NrWo5IiKj
- e8=; b=Uy6HmnsspllKImP5Cp50y92K10NNGk9YpC/rC1LTD39sXaaZ08iAHlw4f
- yZbuUUhaxe+xc93cF1uuTxr9ppcHWeghp71diO191A/jwjoynvwxnOPBFm6degsI
- BLMfnC3l46NuwtpGqxECRPA09PLtuz4P+8XHAkpjkx/4MEv8FpGJhsNS6ez1n7+X
- BvDacYA6NQr0RNVKM2gPv6EhiamNdjKFoB077+tnPck494tr4AHFBwObqpzcAYwr
- 4rs0vFWuKaCp9nfgoiMDPgYrgHKGZFYZo2pV38Thp2/0tOUghNihyYZL0mvcwvVu
- BNLQiWCwU0fmTwZk2tLqYOL4twVMw==
-X-ME-Sender: <xms:5CExWQYgsefukse0Rj1_VKi4nTJCjXzrIF9PE5V6xpvaUqqkkB1ICQ>
-X-Sasl-enc: I3rrwtQHyZqPP2c5zN+V+uDhSPUobdtXQypecvwJNVjg 1496392163
-Received: from keelia.base64.com.au (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 65DF47E7C6;
- Fri,  2 Jun 2017 04:29:22 -0400 (EDT)
-From: Andrew Jeffery <andrew@aj.id.au>
-To: joel@jms.id.au
-Cc: Andrew Jeffery <andrew@aj.id.au>, anoo@linux.vnet.ibm.com,
- openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10 3/3] arm: aspeed: Configure mbox and lpc nodes
- on Palmetto
-Date: Fri,  2 Jun 2017 17:58:44 +0930
-Message-Id: <20170602082844.7370-4-andrew@aj.id.au>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20170602082844.7370-1-andrew@aj.id.au>
-References: <20170602082844.7370-1-andrew@aj.id.au>
+ unprotected) header.d=google.com header.i=@google.com header.b="imMQCtjW"; 
+ dkim-atps=neutral
+Received: by mail-oi0-x235.google.com with SMTP id h4so83835970oib.3
+ for <openbmc@lists.ozlabs.org>; Fri, 02 Jun 2017 01:46:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=xyuwwZ3bx2jdrl01mmKYKxayzk4LTCVPnJxfURQj88Q=;
+ b=imMQCtjWBAB86mpaylhq3wL30QO2MylNyCJOvfClQFMOcIvsYqsVSoG5+xJH1g8O4q
+ ayuZDqdwKJpZIVsMt+LH1Z2djswhrjyl0LHOaJZFShcmGUy0lL4MtHl9MmPyc/zg/zpp
+ Sp08Eg8MPsHd27/r6ZMoKR9C8UrVl2FLtFn3dhpVXrQxzjLXbIopf9HRVZxKFsiu4HVx
+ sSFjuzrtbHs6u//cG4wgSr/mIvdyv49eKF7RF4OugTokVD/iTRgseORJWdWdqgkeghM8
+ 0W9n+UEYWd4dN12nodzQ+J8MmbUgWsqGt0mepJCsmqyQqhDK2tZJ6DimJvOsHjWdqXDs
+ lGtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=xyuwwZ3bx2jdrl01mmKYKxayzk4LTCVPnJxfURQj88Q=;
+ b=LtUnQEClbbOv49wZwbvYz94NSJPjIqvwvC205OAagMFwbFYNLkIkkI6X1lG6xeOFJb
+ 3UVbqgyrWV/Js6EZoh3CvrMxvloi2ta1fNbQuNLnQPNICvUJaTBmeAqR3/KCxI10cBTB
+ TgKmIdRqdX2grb77glab7gDbLmUcXDz+He5V5LBI+aP2BEaSJVPybK77AUzchmkxH6xL
+ xOQ9GMmfcWZ6IoYuiycbopVZ0nmlzS51arqC8KL96IFpQBQ1ZIN4yNDX5fmPv3Sk38fv
+ 05ceKxnJMO7yYsvXv9vP5j+vbLpze8nAU2OHlsDyRxejJk348RVOoPAni1GYcx/F5UYk
+ 2m0A==
+X-Gm-Message-State: AODbwcAqupeyf7B5h6Sjr1konvd6DgTvdBZ1dgVp9kbew6Z7gRB+I0Nz
+ XI9KooHA3LuT1ImU
+X-Received: by 10.84.248.73 with SMTP id e9mr101550712pln.76.1496393170607;
+ Fri, 02 Jun 2017 01:46:10 -0700 (PDT)
+Received: from mactruck.svl.corp.google.com ([100.123.242.94])
+ by smtp.gmail.com with ESMTPSA id o76sm48911007pfi.119.2017.06.02.01.46.09
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Fri, 02 Jun 2017 01:46:09 -0700 (PDT)
+From: Brendan Higgins <brendanhiggins@google.com>
+To: wsa@the-dreams.de, robh+dt@kernel.org, mark.rutland@arm.com,
+ tglx@linutronix.de, jason@lakedaemon.net, marc.zyngier@arm.com,
+ joel@jms.id.au, vz@mleia.com, mouse@mayc.ru, clg@kaod.org,
+ benh@kernel.crashing.org, ryan_chen@aspeedtech.com
+Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+Subject: [PATCH v9 0/5] i2c: aspeed: added driver for Aspeed I2C
+Date: Fri,  2 Jun 2017 01:45:58 -0700
+Message-Id: <20170602084603.30811-1-brendanhiggins@google.com>
+X-Mailer: git-send-email 2.13.0.506.g27d5fe0cd-goog
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,45 +59,13 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 02 Jun 2017 08:29:27 -0000
+X-List-Received-Date: Fri, 02 Jun 2017 08:46:13 -0000
 
-Assign 16MB of reserved memory for mboxd to make use of via the
-aspeed-lpc-ctrl device.
+Addressed comments from:
+  - Ben in: http://www.spinics.net/lists/devicetree/msg179006.html
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+Changes since previous update:
+  - Fairly minimal changes in master support patch, all else is the same
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-index 60792f6ff7ec..8ebed01e7725 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-@@ -29,6 +29,11 @@
- 			no-map;
- 			reg = <0x5f000000 0x01000000>; /* 16MB */
- 		};
-+
-+		flash_memory: region@98000000 {
-+			no-map;
-+			reg = <0x98000000 0x01000000>; /* 16MB */
-+		};
- 	};
- 
-         leds {
-@@ -309,3 +314,13 @@
- &vuart {
- 	status = "okay";
- };
-+
-+&lpc_ctrl {
-+	status = "okay";
-+	memory-region = <&flash_memory>;
-+	flash = <&spi>;
-+};
-+
-+&mbox {
-+	status = "okay";
-+};
--- 
-2.11.0
+As before, tested on Aspeed 2500 evaluation board and a real platform with an
+Aspeed 2520.
