@@ -1,64 +1,62 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <brendanhiggins@google.com>
+Received: from mail-qt0-x22a.google.com (mail-qt0-x22a.google.com
+ [IPv6:2607:f8b0:400d:c0d::22a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wfX2m5s2TzDqJV
- for <openbmc@lists.ozlabs.org>; Sat,  3 Jun 2017 03:56:32 +1000 (AEST)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v52Hrjp9063825
- for <openbmc@lists.ozlabs.org>; Fri, 2 Jun 2017 13:56:28 -0400
-Received: from e16.ny.us.ibm.com (e16.ny.us.ibm.com [129.33.205.206])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2au7vdd27s-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 02 Jun 2017 13:56:28 -0400
-Received: from localhost
- by e16.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Fri, 2 Jun 2017 13:56:28 -0400
-Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
- by e16.ny.us.ibm.com (146.89.104.203) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Fri, 2 Jun 2017 13:56:25 -0400
-Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
- [9.57.199.106])
- by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v52HuPMw52953184; Fri, 2 Jun 2017 17:56:25 GMT
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 6CF442803D;
- Fri,  2 Jun 2017 13:56:19 -0400 (EDT)
-Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id EF70D2803A;
- Fri,  2 Jun 2017 13:56:18 -0400 (EDT)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, jk@ozlabs.org, bradleyb@fuzziesquirrel.com,
- "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10 v4 1/2] drivers: fsi: sbefifo: Add in-kernel API
-Date: Fri,  2 Jun 2017 12:56:20 -0500
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1496426181-26205-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1496426181-26205-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-TM-AS-GCONF: 00
-x-cbid: 17060217-0024-0000-0000-00000285686E
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007160; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000212; SDB=6.00869160; UDB=6.00432071; IPR=6.00649128; 
- BA=6.00005393; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015682; XFM=3.00000015;
- UTC=2017-06-02 17:56:26
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17060217-0025-0000-0000-0000443CDE67
-Message-Id: <1496426181-26205-2-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-06-02_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1706020317
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wfXmS3H7fzDqKX
+ for <openbmc@lists.ozlabs.org>; Sat,  3 Jun 2017 04:29:11 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="pMMyXpv/"; 
+ dkim-atps=neutral
+Received: by mail-qt0-x22a.google.com with SMTP id f55so65478820qta.3
+ for <openbmc@lists.ozlabs.org>; Fri, 02 Jun 2017 11:29:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=ei0Ts8sQ/16+RDjFphx2tdJfJOH/e6PLXddrXNvM1WA=;
+ b=pMMyXpv/5hCOSfKKBWfUQgK/CVpRqVyZkR7smZeKjhsj/y6B8h6w9lppcgX7BBwsUE
+ G5pjNkJiHBrbpWZ4/49Ht8/YDyfRWb5Zs9Asqov2q9hdxuqF0XCEzazxCHqlP59L+gL/
+ sFnbrVCdQjzJCAvyYbjFLQRpnuXDUqqOkf1s5kZ5+14wcI3P31d2KZinUFqrU3FNS28O
+ ey1yDXba+iudmjz0cM4Kj6L5u+gXAihRxS2VEMj3Hv2Afs2duZlkjowqj+//CJIJ2lFN
+ Nl/Dv5Aw93c1Y4hqecOn/VJAIS+9qmGVIoz6mvGwp7rAZWsmEG4L3t76V+2DZ5Oa0zh4
+ tepQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=ei0Ts8sQ/16+RDjFphx2tdJfJOH/e6PLXddrXNvM1WA=;
+ b=mYrlKVJNErGWq6p0ost05PYuKTvRQE+0CPokVeB11IE7C8oiqRVeMxi5nbhRWgQaKy
+ MhCyRyqPJEpZ4l6Dsm2oRqbUNT+Fo8sItdrV2kQ7tbc3zbbs6zP1XAeCVoTYXl+s48r4
+ 6lv4nAlj3I6cv565x0yRo13e7ouZ2SVrWDuia8tVue7JIqKif4eRSZWLcVJ29BmFbxpE
+ DuIUK8INyYYV1xQ3JT6jTWqKL5du0tOJya6Ea8K+j89yWbxAjHrDTDjHmd0+FOwmH3S6
+ UNQOGBH++d418/NfAVm3vn/WzbRIO4Yb/LAXex6RRRQarnmzLPsFVon5FensDHVBWPV2
+ bMSg==
+X-Gm-Message-State: AODbwcBLOpM3FVWxyb//ew/h5UsDkbZZr/TZu9V/Aqc5bk7lbwbN2Q5o
+ CBLbrFJt8TI6iTMg7D5JBdfsfsjqXUq6
+X-Received: by 10.200.35.177 with SMTP id q46mr10642906qtq.158.1496428148387; 
+ Fri, 02 Jun 2017 11:29:08 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.200.45.73 with HTTP; Fri, 2 Jun 2017 11:29:07 -0700 (PDT)
+In-Reply-To: <0db6df3c-013b-1d57-5c69-edfc53ef26c0@arm.com>
+References: <20170602084603.30811-1-brendanhiggins@google.com>
+ <20170602084603.30811-3-brendanhiggins@google.com>
+ <0db6df3c-013b-1d57-5c69-edfc53ef26c0@arm.com>
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Fri, 2 Jun 2017 11:29:07 -0700
+Message-ID: <CAFd5g44FJyVHU1fss0zy1OrQVUQKVo27KQCS2GaRi7=JS-Gzmw@mail.gmail.com>
+Subject: Re: [PATCH v9 2/5] irqchip/aspeed-i2c-ic: Add I2C IRQ controller for
+ Aspeed
+To: Marc Zyngier <marc.zyngier@arm.com>
+Cc: Wolfram Sang <wsa@the-dreams.de>, Rob Herring <robh+dt@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Thomas Gleixner <tglx@linutronix.de>, 
+ Jason Cooper <jason@lakedaemon.net>, Joel Stanley <joel@jms.id.au>,
+ Vladimir Zapolskiy <vz@mleia.com>, Kachalov Anton <mouse@mayc.ru>,
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Ryan Chen <ryan_chen@aspeedtech.com>, 
+ linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -70,331 +68,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 02 Jun 2017 17:56:33 -0000
+X-List-Received-Date: Fri, 02 Jun 2017 18:29:13 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
+>> +     i2c_ic->irq_domain = irq_domain_add_linear(
+>> +                     node, ASPEED_I2C_IC_NUM_BUS,
+>> +                     &aspeed_i2c_ic_irq_domain_ops, NULL);
+>
+> nit: can you have at least one argument following the function name?
+> Even if checkpatch shouts out you?
 
-Refactor user interface of sbefifo driver to allow for an in-kernel API
-as well. Add exported functions for other drivers to call, and add an
-include file with those functions. Also parse the device tree for child
-nodes and create child platform devices accordingly.
+Makes no difference to me.
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
----
- drivers/fsi/fsi-sbefifo.c   | 161 +++++++++++++++++++++++++++++++++++---------
- include/linux/fsi-sbefifo.h |  30 +++++++++
- 2 files changed, 161 insertions(+), 30 deletions(-)
- create mode 100644 include/linux/fsi-sbefifo.h
+>
+>> +     if (!i2c_ic->irq_domain)
+>> +             return -ENOMEM;
+>
+> All these error paths are leaking the initial memory allocation.
 
-diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
-index b49aec2..fbc8dc5 100644
---- a/drivers/fsi/fsi-sbefifo.c
-+++ b/drivers/fsi/fsi-sbefifo.c
-@@ -18,6 +18,8 @@
- #include <linux/list.h>
- #include <linux/miscdevice.h>
- #include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/of_platform.h>
- #include <linux/poll.h>
- #include <linux/sched.h>
- #include <linux/slab.h>
-@@ -82,6 +84,7 @@ struct sbefifo_client {
- 	struct list_head xfrs;
- 	struct sbefifo *dev;
- 	struct kref kref;
-+	unsigned long f_flags;
- };
- 
- static struct list_head sbefifo_fifos;
-@@ -506,6 +509,7 @@ static int sbefifo_open(struct inode *inode, struct file *file)
- 		return -ENOMEM;
- 
- 	file->private_data = client;
-+	client->f_flags = file->f_flags;
- 
- 	return 0;
- }
-@@ -530,24 +534,18 @@ static unsigned int sbefifo_poll(struct file *file, poll_table *wait)
- 	return mask;
- }
- 
--static ssize_t sbefifo_read(struct file *file, char __user *buf,
--		size_t len, loff_t *offset)
-+static ssize_t sbefifo_read_common(struct sbefifo_client *client,
-+				   char __user *ubuf, char *kbuf, size_t len)
- {
--	struct sbefifo_client *client = file->private_data;
- 	struct sbefifo *sbefifo = client->dev;
- 	struct sbefifo_xfr *xfr;
--	ssize_t ret = 0;
- 	size_t n;
--
--	WARN_ON(*offset);
--
--	if (!access_ok(VERIFY_WRITE, buf, len))
--		return -EFAULT;
-+	ssize_t ret = 0;
- 
- 	if ((len >> 2) << 2 != len)
- 		return -EINVAL;
- 
--	if ((file->f_flags & O_NONBLOCK) && !sbefifo_xfr_rsp_pending(client))
-+	if ((client->f_flags & O_NONBLOCK) && !sbefifo_xfr_rsp_pending(client))
- 		return -EAGAIN;
- 
- 	sbefifo_get_client(client);
-@@ -566,10 +564,13 @@ static ssize_t sbefifo_read(struct file *file, char __user *buf,
- 
- 	n = min_t(size_t, n, len);
- 
--	if (copy_to_user(buf, READ_ONCE(client->rbuf.rpos), n)) {
--		sbefifo_put_client(client);
--		return -EFAULT;
--	}
-+	if (ubuf) {
-+		if (copy_to_user(ubuf, READ_ONCE(client->rbuf.rpos), n)) {
-+			sbefifo_put_client(client);
-+			return -EFAULT;
-+		}
-+	} else
-+		memcpy(kbuf, READ_ONCE(client->rbuf.rpos), n);
- 
- 	if (sbefifo_buf_readnb(&client->rbuf, n)) {
- 		xfr = sbefifo_client_next_xfr(client);
-@@ -592,20 +593,28 @@ static ssize_t sbefifo_read(struct file *file, char __user *buf,
- 	return n;
- }
- 
--static ssize_t sbefifo_write(struct file *file, const char __user *buf,
-+static ssize_t sbefifo_read(struct file *file, char __user *buf,
- 		size_t len, loff_t *offset)
- {
- 	struct sbefifo_client *client = file->private_data;
--	struct sbefifo *sbefifo = client->dev;
--	struct sbefifo_xfr *xfr;
--	ssize_t ret = 0;
--	size_t n;
- 
- 	WARN_ON(*offset);
- 
--	if (!access_ok(VERIFY_READ, buf, len))
-+	if (!access_ok(VERIFY_WRITE, buf, len))
- 		return -EFAULT;
- 
-+	return sbefifo_read_common(client, buf, NULL, len);
-+}
-+
-+static ssize_t sbefifo_write_common(struct sbefifo_client *client,
-+				    const char __user *ubuf, const char *kbuf,
-+				    size_t len)
-+{
-+	struct sbefifo *sbefifo = client->dev;
-+	struct sbefifo_xfr *xfr;
-+	ssize_t ret = 0;
-+	size_t n;
-+
- 	if ((len >> 2) << 2 != len)
- 		return -EINVAL;
- 
-@@ -617,7 +626,7 @@ static ssize_t sbefifo_write(struct file *file, const char __user *buf,
- 	spin_lock_irq(&sbefifo->lock);
- 	xfr = sbefifo_next_xfr(sbefifo);
- 
--	if ((file->f_flags & O_NONBLOCK) && xfr && n < len) {
-+	if ((client->f_flags & O_NONBLOCK) && xfr && n < len) {
- 		spin_unlock_irq(&sbefifo->lock);
- 		return -EAGAIN;
- 	}
-@@ -657,18 +666,25 @@ static ssize_t sbefifo_write(struct file *file, const char __user *buf,
- 
- 		n = min_t(size_t, n, len);
- 
--		if (copy_from_user(READ_ONCE(client->wbuf.wpos), buf, n)) {
--			set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
--			sbefifo_get(sbefifo);
--			if (mod_timer(&sbefifo->poll_timer, jiffies))
--				sbefifo_put(sbefifo);
--			sbefifo_put_client(client);
--			return -EFAULT;
-+		if (ubuf) {
-+			if (copy_from_user(READ_ONCE(client->wbuf.wpos), ubuf,
-+			    n)) {
-+				set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
-+				sbefifo_get(sbefifo);
-+				if (mod_timer(&sbefifo->poll_timer, jiffies))
-+					sbefifo_put(sbefifo);
-+				sbefifo_put_client(client);
-+				return -EFAULT;
-+			}
-+
-+			ubuf += n;
-+		} else {
-+			memcpy(READ_ONCE(client->wbuf.wpos), kbuf, n);
-+			kbuf += n;
- 		}
- 
- 		sbefifo_buf_wrotenb(&client->wbuf, n);
- 		len -= n;
--		buf += n;
- 		ret += n;
- 
- 		/*
-@@ -685,6 +701,19 @@ static ssize_t sbefifo_write(struct file *file, const char __user *buf,
- 	return ret;
- }
- 
-+static ssize_t sbefifo_write(struct file *file, const char __user *buf,
-+		size_t len, loff_t *offset)
-+{
-+	struct sbefifo_client *client = file->private_data;
-+
-+	WARN_ON(*offset);
-+
-+	if (!access_ok(VERIFY_READ, buf, len))
-+		return -EFAULT;
-+
-+	return sbefifo_write_common(client, buf, NULL, len);
-+}
-+
- static int sbefifo_release(struct inode *inode, struct file *file)
- {
- 	struct sbefifo_client *client = file->private_data;
-@@ -704,12 +733,68 @@ static int sbefifo_release(struct inode *inode, struct file *file)
- 	.release	= sbefifo_release,
- };
- 
-+struct sbefifo_client *sbefifo_drv_open(struct device *dev,
-+					unsigned long flags)
-+{
-+	struct sbefifo_client *client = NULL;
-+	struct sbefifo *sbefifo;
-+	struct fsi_device *fsi_dev = to_fsi_dev(dev);
-+
-+	list_for_each_entry(sbefifo, &sbefifo_fifos, link) {
-+		if (sbefifo->fsi_dev != fsi_dev)
-+			continue;
-+
-+		client = sbefifo_new_client(sbefifo);
-+		if (client)
-+			client->f_flags = flags;
-+	}
-+
-+	return client;
-+}
-+EXPORT_SYMBOL_GPL(sbefifo_drv_open);
-+
-+int sbefifo_drv_read(struct sbefifo_client *client, char *buf, size_t len)
-+{
-+	return sbefifo_read_common(client, NULL, buf, len);
-+}
-+EXPORT_SYMBOL_GPL(sbefifo_drv_read);
-+
-+int sbefifo_drv_write(struct sbefifo_client *client, const char *buf,
-+		      size_t len)
-+{
-+	return sbefifo_write_common(client, NULL, buf, len);
-+}
-+EXPORT_SYMBOL_GPL(sbefifo_drv_write);
-+
-+void sbefifo_drv_release(struct sbefifo_client *client)
-+{
-+	if (!client)
-+		return;
-+
-+	sbefifo_put_client(client);
-+}
-+EXPORT_SYMBOL_GPL(sbefifo_drv_release);
-+
-+static int sbefifo_unregister_child(struct device *dev, void *data)
-+{
-+	struct platform_device *child = to_platform_device(dev);
-+
-+	of_device_unregister(child);
-+	if (dev->of_node)
-+		of_node_clear_flag(dev->of_node, OF_POPULATED);
-+
-+	return 0;
-+}
-+
- static int sbefifo_probe(struct device *dev)
- {
- 	struct fsi_device *fsi_dev = to_fsi_dev(dev);
- 	struct sbefifo *sbefifo;
-+	struct device_node *np;
-+	struct platform_device *child;
-+	char child_name[32];
- 	u32 sts;
--	int ret;
-+	int ret, child_idx = 0;
- 
- 	dev_info(dev, "Found sbefifo device\n");
- 	sbefifo = kzalloc(sizeof(*sbefifo), GFP_KERNEL);
-@@ -755,6 +840,19 @@ static int sbefifo_probe(struct device *dev)
- 			(unsigned long)sbefifo);
- 
- 	list_add(&sbefifo->link, &sbefifo_fifos);
-+
-+	if (dev->of_node) {
-+		/* create platform devs for dts child nodes (occ, etc) */
-+		for_each_child_of_node(dev->of_node, np) {
-+			snprintf(child_name, sizeof(child_name), "%s-dev%d",
-+				 sbefifo->name, child_idx++);
-+			child = of_platform_device_create(np, child_name, dev);
-+			if (!child)
-+				dev_warn(&sbefifo->fsi_dev->dev,
-+					 "failed to create child node dev\n");
-+		}
-+	}
-+	
- 	return misc_register(&sbefifo->mdev);
- }
- 
-@@ -767,6 +865,9 @@ static int sbefifo_remove(struct device *dev)
- 	list_for_each_entry_safe(sbefifo, sbefifo_tmp, &sbefifo_fifos, link) {
- 		if (sbefifo->fsi_dev != fsi_dev)
- 			continue;
-+
-+		device_for_each_child(dev, NULL, sbefifo_unregister_child);
-+
- 		misc_deregister(&sbefifo->mdev);
- 		list_del(&sbefifo->link);
- 		ida_simple_remove(&sbefifo_ida, sbefifo->idx);
-diff --git a/include/linux/fsi-sbefifo.h b/include/linux/fsi-sbefifo.h
-new file mode 100644
-index 0000000..1b46c63
---- /dev/null
-+++ b/include/linux/fsi-sbefifo.h
-@@ -0,0 +1,30 @@
-+/*
-+ * SBEFIFO FSI Client device driver
-+ *
-+ * Copyright (C) IBM Corporation 2017
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License version 2 as
-+ * published by the Free Software Foundation.
-+ *
-+ * This program is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERGCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+ * GNU General Public License for more details.
-+ */
-+
-+#ifndef __FSI_SBEFIFO_H__
-+#define __FSI_SBEFIFO_H__
-+
-+struct device;
-+struct sbefifo_client;
-+
-+extern struct sbefifo_client *sbefifo_drv_open(struct device *dev,
-+					       unsigned long flags);
-+extern int sbefifo_drv_read(struct sbefifo_client *client, char *buf,
-+			    size_t len);
-+extern int sbefifo_drv_write(struct sbefifo_client *client, const char *buf,
-+			     size_t len);
-+extern void sbefifo_drv_release(struct sbefifo_client *client);
-+
-+#endif /* __FSI_SBEFIFO_H__ */
--- 
-1.8.3.1
+Whoops, forgot I am not using devm_*.
+
+>
+>> +
+>> +     i2c_ic->irq_domain->name = "aspeed-i2c-domain";
+>> +
+>> +     irq_set_chained_handler_and_data(i2c_ic->parent_irq,
+>> +                                      aspeed_i2c_ic_irq_handler, i2c_ic);
+>> +
+>> +     pr_info("i2c controller registered, irq %d\n", i2c_ic->parent_irq);
+>> +
+>> +     return 0;
+>> +}
+>> +
+>> +IRQCHIP_DECLARE(ast2400_i2c_ic, "aspeed,ast2400-i2c-ic", aspeed_i2c_ic_of_init);
+>> +IRQCHIP_DECLARE(ast2500_i2c_ic, "aspeed,ast2500-i2c-ic", aspeed_i2c_ic_of_init);
+>>
+>
+> Once you've fixed the trivial bug above, this should be good to go.
+> What's the merging strategy? Can I take the initial two patches, and let
+> someone else deal with the rest? Or do you want the whole series to be
+> kept together?
+
+I think it makes most sense to keep it together and let Wolfram merge the
+whole thing since the I2C patches won't work without this and I would not
+want to make the merging process unnecessarily complicated.
