@@ -1,62 +1,51 @@
-Return-Path: <brendanhiggins@google.com>
-Received: from mail-qt0-x229.google.com (mail-qt0-x229.google.com
- [IPv6:2607:f8b0:400d:c0d::229])
+Return-Path: <roblip@gmail.com>
+Received: from mail-pf0-x243.google.com (mail-pf0-x243.google.com
+ [IPv6:2607:f8b0:400e:c00::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wfXxy19WXzDqKX
- for <openbmc@lists.ozlabs.org>; Sat,  3 Jun 2017 04:37:26 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wfZTl1L3xzDqKX
+ for <openbmc@lists.ozlabs.org>; Sat,  3 Jun 2017 05:46:35 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="Q+HueaLf"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="a4clBQ2x"; 
  dkim-atps=neutral
-Received: by mail-qt0-x229.google.com with SMTP id c13so65697384qtc.1
- for <openbmc@lists.ozlabs.org>; Fri, 02 Jun 2017 11:37:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=VxkE/KI+OUhVOLHcXWPjmwDaj+P9Q/eCruqFJlhOULQ=;
- b=Q+HueaLf70Xrzg70HN+b3wWLLWikBmmFYcQZMVlLU9mxSCjaOWRwi1FGzAxJU/VCRf
- Fka9E10gKsUeJJEtv2jaxHDorOmJ0aksoIEImgNpboUriXQCF855GItlnPsuRwWMxJZi
- wp3DDUfROJVlMlWUICpVGvf6+uaP1T0dhqycHC3Ul276ZgY4kfv8dDngAeQaCBvA/Nrx
- 1Szl4SA6kzTlJPlh5WdvrEznCEoZeU8VjqLlZe6U8qHUckCuk9B+I3R4FbtYdTa1SzW3
- DTk1K4h61WX3Un9ZYl34k9x/ngAjNbE6inXK7XAz5wZi5IRda6DMoUV/V3c+H86veSNw
- pFpA==
+Received: by mail-pf0-x243.google.com with SMTP id u26so13563281pfd.2
+ for <openbmc@lists.ozlabs.org>; Fri, 02 Jun 2017 12:46:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=cx1bLVws58XRFI5Zh+JZUbMKgZXmIrsICC6Mb7/WxN0=;
+ b=a4clBQ2xgiKfT9O5zbFi2FjtbmQAgOcG4ijTaWVcpqSsE9723OIDuenXA1L3OsgfXW
+ 5DCHowXw1t0tbOKshIcYyGJIITJAu/X1Sc6XPWkyQ4Mn5NOqZqaTtoMcqENo4+Jarx/B
+ hGIuO6tPHakTC1BYuRBGfc/J1FNF8dCSzIzqkJqAoMw3WUv2cXFkEjsuV+RjXPIFcYwd
+ y9yabJLgk9WnrReuMk/RvvJqAo7V8YVJIrpk6l9a6T0DG/g2twb/WJwo9EODaqx3QoLy
+ q/gw+KS9WA4LwD0SbWTF6iothHOOOsGVw4IvLC7QrTMlJC2NLEPL/YiXN3yveLRDyOVo
+ 4/lA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=VxkE/KI+OUhVOLHcXWPjmwDaj+P9Q/eCruqFJlhOULQ=;
- b=rs+CrZN6nuzsCUEvfs7hjYqRx4UPxsYaK1SzTmTVoMUoOzqvxL9BGpsp9vpWHk73U5
- Unk0rk1ndLOvolNb+A+2T74pvOcIB0brepe6qELCToBRHSUxLYJqOH4T3z7FTqdq5SIa
- TbP9DNJxay+Qf7I5wH6tGN+AyvZKesvq4vEwNaXR9p/y7LaUWiz+T3+ZkjTR2Qzky8OD
- M+E6k0OrTWMl2RZVU3ypOI6N9FpXiwW36OuqjGq6uUQ74vNgLWAOXmSINDedsrRxqYSP
- pkLSlXh2PgDpqi7TPb422Lne8ZYekm/9fNG5dmhG5P+sN0E60vkyqJU8doNfb8kzrzCx
- SbNQ==
-X-Gm-Message-State: AODbwcAUkLzxazUcBfq2bYUPO38rWFsY/x4mE61vXp3vbMAFP+Lgk7e1
- 13jmjnkQx33lP3i+lnj6kMQXKRlxOrxk
-X-Received: by 10.237.36.101 with SMTP id s34mr10495551qtc.137.1496428643703; 
- Fri, 02 Jun 2017 11:37:23 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.200.45.73 with HTTP; Fri, 2 Jun 2017 11:37:23 -0700 (PDT)
-In-Reply-To: <1496405090.2842.5.camel@kernel.crashing.org>
-References: <20170602084603.30811-1-brendanhiggins@google.com>
- <20170602084603.30811-6-brendanhiggins@google.com>
- <1496405090.2842.5.camel@kernel.crashing.org>
-From: Brendan Higgins <brendanhiggins@google.com>
-Date: Fri, 2 Jun 2017 11:37:23 -0700
-Message-ID: <CAFd5g448cSQnGnhNegQ4+u5tZ_n1ndZQVpZexMYS1RBO2bzyZw@mail.gmail.com>
-Subject: Re: [PATCH v9 5/5] i2c: aspeed: added slave support for Aspeed I2C
- driver
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Cc: Wolfram Sang <wsa@the-dreams.de>, Rob Herring <robh+dt@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, Thomas Gleixner <tglx@linutronix.de>, 
- Jason Cooper <jason@lakedaemon.net>, Marc Zyngier <marc.zyngier@arm.com>, 
- Joel Stanley <joel@jms.id.au>, Vladimir Zapolskiy <vz@mleia.com>,
- Kachalov Anton <mouse@mayc.ru>, 
- =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
- Ryan Chen <ryan_chen@aspeedtech.com>, linux-i2c@vger.kernel.org, 
- devicetree@vger.kernel.org, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=cx1bLVws58XRFI5Zh+JZUbMKgZXmIrsICC6Mb7/WxN0=;
+ b=QRjSb0ea/gyQQNhgjCzJaXfpdX41wd6CnKrmvk0c8DYT2ixq7w9+MgCe8V626q5iF+
+ g+eiJ9uLzygYm9FEhZOKPutHoOxh+wliQX78cZ2wYdp8fXKIMzX8i1Mh9dYlrXOGdghs
+ Fdl0hPa2emIBYwIR53dOhGL28EkLa7EqQ9UPUKROQvUPu17r2OC2wAn5E2tmMBshhnF3
+ Z4E62jgG5mRSmDy+QzXKHHnE1IL3FdfDXEr7wZdoTHEFHU8H5niTy/E+R+gwpALaw62g
+ shAxn80Eqn8s8SW0wsAGuXMex0GIeJ7ajsZlSVWzcA/7+GCBp3TQ0liaAAUq88+zUMzB
+ YSjA==
+X-Gm-Message-State: AODbwcDwpCRAjXeQMXDGGCjJasZpW/Z/70L8/nxjWjNgHcnWaRr1WbMd
+ W75CnatPSDQUJlrQL/wU8A==
+X-Received: by 10.84.232.8 with SMTP id h8mr1437817plk.278.1496432793049;
+ Fri, 02 Jun 2017 12:46:33 -0700 (PDT)
+Received: from rlippert.svl.corp.google.com ([100.123.242.116])
+ by smtp.gmail.com with ESMTPSA id g13sm4871840pgu.54.2017.06.02.12.46.31
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Fri, 02 Jun 2017 12:46:31 -0700 (PDT)
+From: Robert Lippert <roblip@gmail.com>
+X-Google-Original-From: Robert Lippert <rlippert@google.com>
+To: openbmc@lists.ozlabs.org,
+	joel@jms.id.au
+Subject: [PATCH linux dev-4.10] ARM: aspeed: zaius: Support new board FSI gpio
+ pin mapping
+Date: Fri,  2 Jun 2017 12:46:12 -0700
+Message-Id: <20170602194612.11866-1-rlippert@google.com>
+X-Mailer: git-send-email 2.13.0.506.g27d5fe0cd-goog
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,31 +57,84 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 02 Jun 2017 18:37:27 -0000
+X-List-Received-Date: Fri, 02 Jun 2017 19:46:35 -0000
 
-On Fri, Jun 2, 2017 at 5:04 AM, Benjamin Herrenschmidt
-<benh@kernel.crashing.org> wrote:
-> On Fri, 2017-06-02 at 01:46 -0700, Brendan Higgins wrote:
->> Added slave support for Aspeed I2C controller. Supports fourteen busses
->> present in AST24XX and AST25XX BMC SoCs by Aspeed.
->
-> (Not an issue for merging)
->
-> Have you looked at a "mode" by which you implement just enough of the
-> slave support to decode smbus notifications ?
->
-> This looks like it could be useful when using pmbus devices, as some of
-> them use smbus notifications fairly often.
->
-> Today only one driver calls i2c_handle_smbus_host_notify() (the Intel
-> one of course).
->
+FSI routing was broken on EVT boards and all boards were reworked
+to use the nearest available GPIO pins.  Future boards have
+fixed the issue so need to use the original planned GPIOG ports.
 
-Although I have not thought about the exact thing you are mentioning, I
-want to implement a number of other features for the slave. The thing I am
-most interested in is adding support for smbus alert from the slave side.
-Nevertheless, I wanted to actually get the driver in before I start trying to do
-interesting things. As it is, the slave code satisfies our current purposes and
-I do not know of anyone else who wants this feature at this time.
+Signed-off-by: Robert Lippert <rlippert@google.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts |  8 ++++++--
+ arch/arm/mach-aspeed/aspeed.c              | 30 ++++++++++++++++++++++++++++++
+ 2 files changed, 36 insertions(+), 2 deletions(-)
 
-Cheers
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+index b5c4c0fb2986..68baf3288263 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+@@ -80,8 +80,12 @@
+ 
+ 		status = "okay";
+ 
+-		clock-gpios = <&gpio ASPEED_GPIO(C, 3) GPIO_ACTIVE_HIGH>;
+-		data-gpios = <&gpio ASPEED_GPIO(C, 2) GPIO_ACTIVE_HIGH>;
++		/*
++		 * These 2 GPIOs are set per board revision in aspeed.c.
++		 * These are the DVT and beyond values:
++		 * clock-gpios = <&gpio ASPEED_GPIO(G, 0) GPIO_ACTIVE_HIGH>;
++		 * data-gpios = <&gpio ASPEED_GPIO(G, 1) GPIO_ACTIVE_HIGH>;
++		 */
+ 		trans-gpios = <&gpio ASPEED_GPIO(O, 6) GPIO_ACTIVE_HIGH>;
+ 		enable-gpios = <&gpio ASPEED_GPIO(D, 0) GPIO_ACTIVE_HIGH>;
+ 		mux-gpios = <&gpio ASPEED_GPIO(P, 6) GPIO_ACTIVE_HIGH>;
+diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+index 5c88286c96fd..1e080d8909f4 100644
+--- a/arch/arm/mach-aspeed/aspeed.c
++++ b/arch/arm/mach-aspeed/aspeed.c
+@@ -8,6 +8,8 @@
+  */
+ 
+ #include <linux/init.h>
++#include <linux/gpio/machine.h>
++#include <dt-bindings/gpio/aspeed-gpio.h>
+ #include <linux/of_irq.h>
+ #include <linux/of_platform.h>
+ #include <linux/io.h>
+@@ -141,6 +143,34 @@ static void __init do_zaius_setup(void)
+ 	/* Read BOARD_REV[4:0] fuses from GPIOM[7:3] */
+ 	reg = readl(AST_IO(AST_BASE_GPIO | 0x78));
+ 	board_rev = (reg >> 3) & 0x1F;
++	printk(KERN_INFO "Zaius platform board revision: 0x%02x\n", board_rev);
++
++	/* EVT boards have different FSI pin mappings */
++	if (board_rev < 0x08) {
++		static struct gpiod_lookup_table fsi_evt_gpio_lookup = {
++			.dev_id = "fsi-master",
++			.table = {
++				GPIO_LOOKUP("1e780000.gpio", ASPEED_GPIO(C, 3),
++					    "clock", GPIO_ACTIVE_HIGH),
++				GPIO_LOOKUP("1e780000.gpio", ASPEED_GPIO(C, 2),
++					    "data", GPIO_ACTIVE_HIGH),
++				{ },
++			},
++		};
++		gpiod_add_lookup_table(&fsi_evt_gpio_lookup);
++	} else {
++		static struct gpiod_lookup_table fsi_gpio_lookup = {
++			.dev_id = "fsi-master",
++			.table = {
++				GPIO_LOOKUP("1e780000.gpio", ASPEED_GPIO(G, 0),
++					    "clock", GPIO_ACTIVE_HIGH),
++				GPIO_LOOKUP("1e780000.gpio", ASPEED_GPIO(G, 1),
++					    "data", GPIO_ACTIVE_HIGH),
++				{ },
++			},
++		};
++		gpiod_add_lookup_table(&fsi_gpio_lookup);
++	}
+ 
+ 	/* Assert MAC2 PHY hardware reset */
+ 	/* Set pin low */
+-- 
+2.13.0.506.g27d5fe0cd-goog
