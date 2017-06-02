@@ -1,34 +1,62 @@
-Return-Path: <benh@kernel.crashing.org>
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wfNMV2d3mzDqLF
- for <openbmc@lists.ozlabs.org>; Fri,  2 Jun 2017 22:10:30 +1000 (AEST)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.13.8) with ESMTP id v52C9lN4024003;
- Fri, 2 Jun 2017 07:09:49 -0500
-Message-ID: <1496405386.2842.8.camel@kernel.crashing.org>
-Subject: Re: [PATCH v8 4/5] i2c: aspeed: added driver for Aspeed I2C
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Brendan Higgins <brendanhiggins@google.com>
-Cc: Wolfram Sang <wsa@the-dreams.de>, Rob Herring <robh+dt@kernel.org>, Mark
- Rutland <mark.rutland@arm.com>, Thomas Gleixner <tglx@linutronix.de>, Jason
- Cooper <jason@lakedaemon.net>, Marc Zyngier <marc.zyngier@arm.com>, Joel
- Stanley <joel@jms.id.au>, Vladimir Zapolskiy <vz@mleia.com>, Kachalov Anton
- <mouse@mayc.ru>, =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>,
- linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, Linux Kernel Mailing
- List <linux-kernel@vger.kernel.org>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>
-Date: Fri, 02 Jun 2017 22:09:46 +1000
-In-Reply-To: <CAFd5g45en_S0NYgufoET_Lwgu3Rs=7RafsFJZeCUiYCWyxogag@mail.gmail.com>
-References: <20170525064925.16867-1-brendanhiggins@google.com>
- <20170525064925.16867-5-brendanhiggins@google.com>
- <1496197001.3354.19.camel@kernel.crashing.org>
- <CAFd5g45en_S0NYgufoET_Lwgu3Rs=7RafsFJZeCUiYCWyxogag@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.22.6 (3.22.6-2.fc25) 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wfWsY0j6pzDqJV
+ for <openbmc@lists.ozlabs.org>; Sat,  3 Jun 2017 03:48:32 +1000 (AEST)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v52HhaNI116129
+ for <openbmc@lists.ozlabs.org>; Fri, 2 Jun 2017 13:48:27 -0400
+Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2au6tffjd4-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 02 Jun 2017 13:48:27 -0400
+Received: from localhost
+ by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Fri, 2 Jun 2017 11:48:26 -0600
+Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
+ by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Fri, 2 Jun 2017 11:48:23 -0600
+Received: from b03ledav005.gho.boulder.ibm.com
+ (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
+ by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v52HmNop17170730; Fri, 2 Jun 2017 10:48:23 -0700
+Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 45FB6BE03A;
+ Fri,  2 Jun 2017 11:48:23 -0600 (MDT)
+Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
+ by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP id DB15CBE042;
+ Fri,  2 Jun 2017 11:48:22 -0600 (MDT)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, jk@ozlabs.org, bradleyb@fuzziesquirrel.com,
+ "Edward A. James" <eajames@us.ibm.com>
+Subject: [PATCH linux dev-4.10 v3 0/2] drivers: fsi: Add OCC driver
+Date: Fri,  2 Jun 2017 12:48:19 -0500
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+x-cbid: 17060217-8235-0000-0000-00000BA29218
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007160; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000212; SDB=6.00869157; UDB=6.00432069; IPR=6.00649126; 
+ BA=6.00005393; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015682; XFM=3.00000015;
+ UTC=2017-06-02 17:48:25
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17060217-8236-0000-0000-00003C18F68F
+Message-Id: <1496425701-22980-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-06-02_09:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1706020314
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -40,60 +68,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 02 Jun 2017 12:10:31 -0000
+X-List-Received-Date: Fri, 02 Jun 2017 17:48:34 -0000
 
-On Fri, 2017-06-02 at 02:29 -0700, Brendan Higgins wrote:
-> > That way you avoid the above lock which is racy, slave activity could
-> > get in there and trigger an error interrupt clobbering cmd_err for
-> > example no ? Or am I missing something...
-> 
-> The slave handler does not touch these fields, so that should be fine.
-> The only way I can think
-> that we could get in this state is if we had some sort of error
-> interrupt fire after we handled a
-> STOP or previous error; this should not happen, but I think it is
-> better to be safe than sorry.
-> Nevertheless, I do not think it is necessary to do more than what I
-> have already done because
-> it would mean the bus is in a pretty bad state anyway. Maybe I should
-> just drop the locks here.
-> 
-> If you disagree, could you elaborate on what you meant by putting
-> cmd_err in a separate field?
-> Did you just mean having one for xfer and one for everything else (like resets)?
+From: "Edward A. James" <eajames@us.ibm.com>
 
-None of that is a big deal and definitely not a blocker for merging,
-you can always "improve" things with a latter patch.
+This patch series adds a driver to communicate with the POWER processor
+On-Chip Controller (OCC), from a service processor. Communication is performed
+via the SBEFIFO driver, which required a new in-kernel API.
 
-I was thinking that the act of "completing" a request could cleaner if
-entirely done from the interrupt code, thus clearing bus->msgs and
-setting a "final" status code to be returned to the caller.
+An application to test the OCC driver can be found at
+https://github.com/eddiejames/occtest
 
-Now that could be "cmd_err", it's just that today, that is written to
-under various circumstances that may or may not related to a command
-being in progress and this I worry that with the lock dropping, we
-might "lose" the value that actually pertain to the command itself (and
-possibly caused it to fail).
+Changes since v2:
+ * Switch to use getSRAM/putSRAM over the SBE. This is significantly more
+efficient and also circumvents the need to set up OCB channels manually.
+ * Include the in-kernel API (for hwmon driver).
+ * xfr struct embedded in client
+ * add sequence number and checksum to command
 
-This is all quite academic however, as you said, if that happens we are
-already probably in a pretty bad shape.
+Edward A. James (2):
+  drivers: fsi: sbefifo: Add in-kernel API
+  drivers: fsi: sbefifo: Add OCC driver
 
-I suspect the only errors that would happen in "normal" circumstances
-would be loss of arbitration and nacks, which are I think, already
-properly handled, at least from my reading of the code.
+ drivers/fsi/Kconfig         |   6 +
+ drivers/fsi/Makefile        |   1 +
+ drivers/fsi/fsi-sbefifo.c   | 161 +++++++--
+ drivers/fsi/occ.c           | 784 ++++++++++++++++++++++++++++++++++++++++++++
+ include/linux/fsi-sbefifo.h |  30 ++
+ 5 files changed, 952 insertions(+), 30 deletions(-)
+ create mode 100644 drivers/fsi/occ.c
+ create mode 100644 include/linux/fsi-sbefifo.h
 
-Cheers,
-Ben.
-
-> > > +     /* If nothing went wrong, return number of messages transferred. */
-> > > +     if (ret >= 0)
-> > > +             return bus->msgs_index + 1;
-> > > +     else
-> > > +             return ret;
-> > > +}
-> > > +
-> 
-> --
-> To unsubscribe from this list: send the line "unsubscribe devicetree" in
-> the body of a message to majordomo@vger.kernel.org
-> More majordomo info at  http://vger.kernel.org/majordomo-info.html
+-- 
+1.8.3.1
