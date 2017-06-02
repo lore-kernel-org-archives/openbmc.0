@@ -1,62 +1,43 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <austenc@us.ibm.com>
+Received: from nm2-vm1.bullet.mail.bf1.yahoo.com
+ (nm2-vm1.bullet.mail.bf1.yahoo.com [98.139.213.158])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wdyzc6H1KzDqKK
- for <openbmc@lists.ozlabs.org>; Fri,  2 Jun 2017 06:06:51 +1000 (AEST)
-Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v51K42kq001215
- for <openbmc@lists.ozlabs.org>; Thu, 1 Jun 2017 16:06:49 -0400
-Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2atmfay1er-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 01 Jun 2017 16:06:48 -0400
-Received: from localhost
- by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Thu, 1 Jun 2017 16:06:48 -0400
-Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
- by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 1 Jun 2017 16:06:46 -0400
-Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
- [9.57.199.109])
- by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v51K6itO64553018; Thu, 1 Jun 2017 20:06:46 GMT
-Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 4FE17112047;
- Thu,  1 Jun 2017 16:06:50 -0400 (EDT)
-Received: from christophersmbp.austin.ibm.com (unknown [9.41.175.240])
- by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id F3F9911204B;
- Thu,  1 Jun 2017 16:06:49 -0400 (EDT)
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-To: joel@jms.id.au
-Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10] drivers/hwmon: MAX31785 Provide config of
- fault pin bevavior
-Date: Thu,  1 Jun 2017 15:06:44 -0500
-X-Mailer: git-send-email 2.10.1 (Apple Git-78)
-X-TM-AS-GCONF: 00
-x-cbid: 17060120-0052-0000-0000-000002126646
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007154; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000212; SDB=6.00868804; UDB=6.00431810; IPR=6.00648693; 
- BA=6.00005393; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015673; XFM=3.00000015;
- UTC=2017-06-01 20:06:47
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17060120-0053-0000-0000-000050CBBF59
-Message-Id: <20170601200644.56311-1-cbostic@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-06-01_05:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1706010372
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wf4D84Dt6zDqKm
+ for <openbmc@lists.ozlabs.org>; Fri,  2 Jun 2017 10:03:04 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=yahoo.com header.i=@yahoo.com header.b="R1GkAr8D"; 
+ dkim-atps=neutral
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1496361781; bh=PktU/lOk/BbJvYd69PdG3smBUKSjyKOZOiUU2DX1Sj4=;
+ h=From:To:Cc:Subject:Date:From:Subject;
+ b=R1GkAr8DRKxmodgdW7lZXV49U4ZdTp+ttG/tKHcZxCB2uDbYIEwIZc2XckWYCBi2xIZA1kP9UMQrVwi1FlEQJ3LdRRA39NrguOVxw+nkJHOGUTUulapcOVTU5Agzuv9lpcgCvI/q+KW96cQwvaIFQHtowNrWgnp+e5IoIhrq3c/ycXt5lfx8HpfPrVjw3cvax44Fy391PzIPG7nHOsnPyQ4uxk3buz36/fJfAfBCWo1FOJDZh/qULMyJ+SJmo86zz5X9I1oD9++Wfhtl10q9efjR37Qpoq/MU0O4ISS1r7PkE2oY4mLS/ezGma8RAe/5OKyzPdXdKGvLENarl+JP8w==
+Received: from [98.139.215.141] by nm2.bullet.mail.bf1.yahoo.com with NNFMP;
+ 02 Jun 2017 00:03:01 -0000
+Received: from [68.142.230.76] by tm12.bullet.mail.bf1.yahoo.com with NNFMP;
+ 02 Jun 2017 00:03:01 -0000
+Received: from [127.0.0.1] by smtp233.mail.bf1.yahoo.com with NNFMP;
+ 02 Jun 2017 00:03:01 -0000
+X-Yahoo-Newman-Id: 58524.61822.bm@smtp233.mail.bf1.yahoo.com
+X-Yahoo-Newman-Property: ymail-3
+X-YMail-OSG: 47.lXxIVM1n4BAhv2URY__VNo5R_nU8LT78yVAhU2buwFu0
+ KKfIKXcQ6BeFeON1Gdyqc4Nil51u7pYWzFw.0jaQBB7Vs65xw7lFR6_8Nm2D
+ fAX9iW9h0t.iVCqpiK5jCCn6Bn33iItePU2ECXR6EZ4iTx5uJ8cxlQZnTfh0
+ WFtA8yyPUsNt9mKt_DpBQdX084DRvtpl6W0ditzWL22jxIQS64LBd1BJ_btB
+ HIqNVuSO2TBwChVt_H8wlTTWmFOJxgbfi_wPuGVeNBqcUC5iv.bJtkVwupTy
+ DJQezoS7qr0EFNZVw0tQfAStxzI.q8UqKpFf6U.4FYEY18lSJyowOCWjLcmw
+ W5VPMEznd85M1DNBB32mutX7._KWfCySo99BCfpekHabFnYMXk9w9fUPqlAp
+ 9E0_3uBTSzcv4F4vIAhANr9xlo.5_PGJFqkhb3bTAsE27oEqVAgWR_wfms1m
+ mDC1kK_.1mGxBGYizHrlVjg6nxVyt5G7_zBCDni7cTTTHpWk9YbBf8VhNYWK
+ E3zD6XAVFtCaFJ.9UXPnRTWt3sWIh6TOnximEOTeYrXBCIZfhjE4Z0OJW9ub _1IX1
+X-Yahoo-SMTP: kKQA4hiswBAsDtB7Rz5b18fkdN7u
+From: causten <austenc@us.ibm.com>
+To: openbmc@lists.ozlabs.org,
+	joel@jms.id.au
+Subject: [PATCH linux dev-4.10 1/1] Add Romulus LEDs in to dts
+Date: Thu,  1 Jun 2017 19:02:57 -0500
+Message-Id: <1496361777-8390-1-git-send-email-austenc@us.ibm.com>
+X-Mailer: git-send-email 2.7.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,117 +49,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 Jun 2017 20:06:53 -0000
+X-List-Received-Date: Fri, 02 Jun 2017 00:03:05 -0000
 
-Provide interface to set behavior when FAULT pin is asserted.
-When enabled force fan to 100% PWM duty cycle.
+Romulus has three LEDs that can be exposed.  Without them the
+OpenBMC code can not operate them.
 
-Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Signed-off-by: Chris Austen <austenc@us.ibm.com>
 ---
- drivers/hwmon/max31785.c | 70 ++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 70 insertions(+)
+ arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/drivers/hwmon/max31785.c b/drivers/hwmon/max31785.c
-index fb7b3f0..9b42ce5 100644
---- a/drivers/hwmon/max31785.c
-+++ b/drivers/hwmon/max31785.c
-@@ -37,6 +37,7 @@
- #define MAX31785_REG_FAN_SPEED_1		0x90
- #define MAX31785_REG_MFR_ID			0x99
- #define MAX31785_REG_MFR_MODEL			0x9a
-+#define MAX31785_REG_MFR_FAULT_RESP		0xd9
- #define MAX31785_REG_MFR_FAN_CONFIG		0xf1
- #define MAX31785_REG_READ_FAN_PWM		0xf3
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+index e70fc00..7547b9e 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+@@ -31,6 +31,22 @@
+ 		};
+ 	};
  
-@@ -50,6 +51,9 @@
- /* Fan Status register bits */
- #define MAX31785_FAN_STATUS_FAULT_MASK		0x80
- 
-+/* Fault response register bits */
-+#define MAX31785_FAULT_RESP_PIN_MONITOR		0x01
++	leds {
++		compatible = "gpio-leds";
 +
- /* Fan Command constants */
- #define MAX31785_FAN_COMMAND_PWM_RATIO		40
- 
-@@ -657,6 +661,68 @@ static int max31785_detect(struct i2c_client *client,
- 	return 0;
- }
- 
-+static ssize_t fault_resp_store(struct device *dev,
-+				struct device_attribute *attr, const char *buf,
-+				size_t count)
-+{
-+	struct i2c_client *client = to_i2c_client(dev);
-+	int rv;
++		fault {
++			gpios = <&gpio ASPEED_GPIO(N, 2) GPIO_ACTIVE_LOW>;
++		};
 +
-+	rv = max31785_set_page(client, 0);
-+	if (rv < 0)
-+		return rv;
++		identify {
++			gpios = <&gpio ASPEED_GPIO(N, 4) GPIO_ACTIVE_LOW>;
++		};
 +
-+	rv = i2c_smbus_read_byte_data(client, MAX31785_REG_MFR_FAULT_RESP);
-+	if (rv < 0)
-+		return rv;
++		power {
++			gpios = <&gpio ASPEED_GPIO(R, 5) GPIO_ACTIVE_LOW>;
++		};
++	};
 +
-+	if (!strncmp(buf, "on", strlen("on"))) {
-+		if (!(rv & MAX31785_FAULT_RESP_PIN_MONITOR)) {
-+			rv |= MAX31785_FAULT_RESP_PIN_MONITOR;
-+			rv = i2c_smbus_write_byte_data(client,
-+					MAX31785_REG_MFR_FAULT_RESP, rv);
-+			if (rv < 0)
-+				return rv;
-+		}
-+	} else if (!strncmp(buf, "off", strlen("off"))) {
-+		if (rv & MAX31785_FAULT_RESP_PIN_MONITOR) {
-+			rv &= ~MAX31785_FAULT_RESP_PIN_MONITOR;
-+			rv = i2c_smbus_write_byte_data(client,
-+					MAX31785_REG_MFR_FAULT_RESP, rv);
-+			if (rv < 0)
-+				return rv;
-+		}
-+	} else {
-+		dev_warn(dev, "Unknown fault response type: [%s]\n", buf);
-+		return -EINVAL;
-+	}
-+	return count;
-+}
-+
-+static ssize_t fault_resp_show(struct device *dev,
-+			       struct device_attribute *attr, char *buf)
-+{
-+	struct i2c_client *client = to_i2c_client(dev);
-+	int rv;
-+
-+	rv = max31785_set_page(client, 0);
-+	if (rv < 0)
-+		return rv;
-+
-+	rv = i2c_smbus_read_byte_data(client, MAX31785_REG_MFR_FAULT_RESP);
-+	if (rv < 0)
-+		return rv;
-+
-+	if (rv & MAX31785_FAULT_RESP_PIN_MONITOR)
-+		rv = sprintf(buf, "on\n");
-+	else
-+		rv = sprintf(buf, "off\n");
-+
-+	return rv;
-+}
-+
-+static DEVICE_ATTR(fault_resp, 0644, fault_resp_show, fault_resp_store);
-+
- static int max31785_probe(struct i2c_client *client,
- 			  const struct i2c_device_id *id)
- {
-@@ -684,6 +750,10 @@ static int max31785_probe(struct i2c_client *client,
- 	if (err)
- 		return err;
- 
-+	err = device_create_file(dev, &dev_attr_fault_resp);
-+	if (err)
-+		return err;
-+
- 	hwmon_dev = devm_hwmon_device_register_with_groups(dev,
- 			client->name, data, max31785_groups);
+ 	gpio-fsi {
+ 		compatible = "fsi-master-gpio", "fsi-master";
  
 -- 
-1.8.2.2
+2.7.4
