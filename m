@@ -1,32 +1,48 @@
-Return-Path: <gregkh@linuxfoundation.org>
-Received: from mail.linuxfoundation.org (mail.linuxfoundation.org
- [140.211.169.12])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <sschaeck@cisco.com>
+X-Greylist: delayed 633 seconds by postgrey-1.36 at bilbo;
+ Sat, 03 Jun 2017 05:52:48 AEST
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=cisco.com header.i=@cisco.com header.b="LpSWPUiQ"; 
+ dkim-atps=neutral
+Received: from alln-iport-1.cisco.com (alln-iport-1.cisco.com [173.37.142.88])
+ (using TLSv1.2 with cipher DHE-RSA-SEED-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wg32m6nhLzDqFH
- for <openbmc@lists.ozlabs.org>; Sun,  4 Jun 2017 00:13:20 +1000 (AEST)
-Received: from localhost (mobile-166-177-187-107.mycingular.net
- [166.177.187.107])
- by mail.linuxfoundation.org (Postfix) with ESMTPSA id 0280240A;
- Sat,  3 Jun 2017 14:13:16 +0000 (UTC)
-Date: Sat, 3 Jun 2017 19:05:10 +0900
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Cc: rostedt@goodmis.org, mingo@redhat.com, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, joel@jms.id.au,
- andrew@aj.id.au, jk@ozlabs.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org, robh+dt@kernel.org, mark.rutland@arm.com,
- linux@armlinux.org.uk, alistair@popple.id.au, benh@kernel.crashing.org
-Subject: Re: [PATCH v7 00/23] FSI device driver implementation
-Message-ID: <20170603100510.GA24053@kroah.com>
-References: <20170511210101.78409-1-cbostic@linux.vnet.ibm.com>
- <305bc7b6-30eb-a44d-28da-f90f9a973acf@linux.vnet.ibm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wfZcw1qHLzDqKX
+ for <openbmc@lists.ozlabs.org>; Sat,  3 Jun 2017 05:52:47 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=cisco.com; i=@cisco.com; l=685; q=dns/txt; s=iport;
+ t=1496433168; x=1497642768;
+ h=date:from:to:subject:message-id:mime-version;
+ bh=cZxxIxSKLuQceJwK47iour6936oUod1qMgGxaB8N51w=;
+ b=LpSWPUiQnpphyvKR2KqztfM+hG1XTjPTepF4A3dEWJVhbwI+Lk35cEFb
+ qTG6JUNamz0G75i6XAGSf9lRRwwJnRFHXckeSTBnerfXynvqzWb1RprBN
+ Jjim7mCRptU/jZ7+lKOrXYM/M41X75XLhpQ6vZyelRJ7z3sBfARNmEAsP g=;
+X-IronPort-AV: E=Sophos;i="5.39,286,1493683200"; d="scan'208";a="432054089"
+Received: from alln-core-3.cisco.com ([173.36.13.136])
+ by alln-iport-1.cisco.com with ESMTP/TLS/DHE-RSA-AES256-SHA;
+ 02 Jun 2017 19:42:10 +0000
+Received: from sjc-ads-246.cisco.com (sjc-ads-246.cisco.com [171.71.190.178])
+ by alln-core-3.cisco.com (8.14.5/8.14.5) with ESMTP id v52JgAlV022823
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+ Fri, 2 Jun 2017 19:42:10 GMT
+Received: from sjc-ads-246.cisco.com (localhost.localdomain [127.0.0.1])
+ by sjc-ads-246.cisco.com (8.13.8/8.13.8) with ESMTP id v52Jg8RA024083;
+ Fri, 2 Jun 2017 12:42:08 -0700
+Received: (from sschaeck@localhost)
+ by sjc-ads-246.cisco.com (8.13.8/8.13.8/Submit) id v52Jg8qi024082;
+ Fri, 2 Jun 2017 12:42:08 -0700
+Date: Fri, 2 Jun 2017 12:42:08 -0700
+From: Stefan Schaeckeler <sschaeck@cisco.com>
+To: Joel Stanley <joel@jms.id.au>, Jean Delvare <jdelvare@suse.com>,
+ Guenter Roeck <linux@roeck-us.net>, openbmc@lists.ozlabs.org
+Subject: [PATCH] drivers: hwmon: aspeed fan driver: call of_node_put() on a
+ node not claimed
+Message-ID: <20170602194208.GA23541@sjc-ads-246.cisco.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <305bc7b6-30eb-a44d-28da-f90f9a973acf@linux.vnet.ibm.com>
-User-Agent: Mutt/1.8.3 (2017-05-23)
+User-Agent: Mutt/1.4.2.2i
+X-Mailman-Approved-At: Sun, 04 Jun 2017 20:05:34 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -38,123 +54,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 03 Jun 2017 14:13:21 -0000
+X-List-Received-Date: Fri, 02 Jun 2017 19:52:49 -0000
 
-On Wed, May 31, 2017 at 12:17:05PM -0500, Christopher Bostic wrote:
-> Hi Greg,
-> 
-> Are there any further changes you require for this patch set? This has been
-> extensively tested internally and all is working as expected.   Would it be
-> possible to move forward with integration in the near future?   Any input
-> would be appreciated.
+Delete call of_node_put() on a node not claimed with
+of_node_get() or by any other means such as for_each_child_of_node().
 
-Sorry for the delay.  I just tried applying this to my tree, but got the
-following build warnings, and then errors:
+Signed-off-by: Stefan Schaeckeler <sschaeck@cisco.com>
+---
+ drivers/hwmon/aspeed-pwm-tacho.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-In file included from ./include/trace/define_trace.h:95:0,
-                 from ./include/trace/events/fsi.h:127,
-                 from drivers/fsi/fsi-core.c:27:
-./include/trace/events/fsi.h: In function ‘trace_raw_output_fsi_master_write’:
-./include/trace/events/fsi.h:58:12: warning: field width specifier ‘*’ expects argument of type ‘int’, but argument 8 has type ‘size_t {aka long unsigned int}’ [-Wformat=]
-  TP_printk("fsi%d:%02d:%02d %08x[%zd] <= {%*ph}",
-            ^
-./include/trace/trace_events.h:343:22: note: in definition of macro ‘DECLARE_EVENT_CLASS’
-  trace_seq_printf(s, print);     \
-                      ^~~~~
-./include/trace/trace_events.h:65:9: note: in expansion of macro ‘PARAMS’
-         PARAMS(print));         \
-         ^~~~~~
-./include/trace/events/fsi.h:37:1: note: in expansion of macro ‘TRACE_EVENT’
- TRACE_EVENT(fsi_master_write,
- ^~~~~~~~~~~
-./include/trace/events/fsi.h:58:2: note: in expansion of macro ‘TP_printk’
-  TP_printk("fsi%d:%02d:%02d %08x[%zd] <= {%*ph}",
-  ^~~~~~~~~
-In file included from ./include/trace/trace_events.h:377:0,
-                 from ./include/trace/define_trace.h:95,
-                 from ./include/trace/events/fsi.h:127,
-                 from drivers/fsi/fsi-core.c:27:
-./include/trace/events/fsi.h:58:44: note: format string is defined here
-  TP_printk("fsi%d:%02d:%02d %08x[%zd] <= {%*ph}",
-                                           ~^~
-In file included from ./include/trace/define_trace.h:95:0,
-                 from ./include/trace/events/fsi.h:127,
-                 from drivers/fsi/fsi-core.c:27:
-./include/trace/events/fsi.h: In function ‘trace_raw_output_fsi_master_rw_resul
-’:
-./include/trace/events/fsi.h:95:12: warning: field width specifier ‘*’ expects argument of type ‘int’, but argument 9 has type ‘size_t {aka long unsigned int}’ [-Wformat=]
-  TP_printk("fsi%d:%02d:%02d %08x[%zd] %s {%*ph} ret %d",
-            ^
-./include/trace/trace_events.h:343:22: note: in definition of macro ‘DECLARE_EVENT_CLASS’
-  trace_seq_printf(s, print);     \
-                      ^~~~~
-./include/trace/trace_events.h:65:9: note: in expansion of macro ‘PARAMS’
-         PARAMS(print));         \
-         ^~~~~~
-./include/trace/events/fsi.h:68:1: note: in expansion of macro ‘TRACE_EVENT’
- TRACE_EVENT(fsi_master_rw_result,
- ^~~~~~~~~~~
-./include/trace/events/fsi.h:95:2: note: in expansion of macro ‘TP_printk’
-  TP_printk("fsi%d:%02d:%02d %08x[%zd] %s {%*ph} ret %d",
-  ^~~~~~~~~
-In file included from ./include/trace/trace_events.h:377:0,
-                 from ./include/trace/define_trace.h:95,
-                 from ./include/trace/events/fsi.h:127,
-                 from drivers/fsi/fsi-core.c:27:
-./include/trace/events/fsi.h:95:44: note: format string is defined here
-  TP_printk("fsi%d:%02d:%02d %08x[%zd] %s {%*ph} ret %d",
-                                           ~^~
-  CHK     include/generated/uapi/linux/version.h
-  GEN     .version
-  CHK     include/generated/compile.h
-  UPD     include/generated/compile.h
-  CC      init/version.o
-  LD      init/built-in.o
-  LD      vmlinux.o
-  MODPOST vmlinux.o
-  KSYM    .tmp_kallsyms1.o
-  KSYM    .tmp_kallsyms2.o
-  LD      vmlinux
-  SORTEX  vmlinux
-  SYSMAP  System.map
-  CC      arch/x86/boot/version.o
-  Building modules, stage 2.
-  VOFFSET arch/x86/boot/compressed/../voffset.h
-  OBJCOPY arch/x86/boot/compressed/vmlinux.bin
-  RELOCS  arch/x86/boot/compressed/vmlinux.relocs
-  CC      arch/x86/boot/compressed/kaslr.o
-  GZIP    arch/x86/boot/compressed/vmlinux.bin.gz
-  CC      arch/x86/boot/compressed/misc.o
-  MODPOST 476 modules
-WARNING: modpost: missing MODULE_LICENSE() in drivers/fsi/fsi-core.o
-see include/linux/module.h for more information
-  MKPIGGY arch/x86/boot/compressed/piggy.S
-  AS      arch/x86/boot/compressed/piggy.o
-  DATAREL arch/x86/boot/compressed/vmlinux
-  LD      arch/x86/boot/compressed/vmlinux
-  ZOFFSET arch/x86/boot/zoffset.h
-  OBJCOPY arch/x86/boot/vmlinux.bin
-  AS      arch/x86/boot/header.o
-  LD      arch/x86/boot/setup.elf
-  OBJCOPY arch/x86/boot/setup.bin
-  BUILD   arch/x86/boot/bzImage
-Setup is 17532 bytes (padded to 17920 bytes).
-System is 5445 kB
-CRC 56d8089d
-Kernel: arch/x86/boot/bzImage is ready  (#387)
-ERROR: "fsi_slave_claim_range" [drivers/fsi/fsi-master-hub.ko] undefined!
-ERROR: "fsi_slave_read" [drivers/fsi/fsi-master-hub.ko] undefined!
-ERROR: "fsi_slave_write" [drivers/fsi/fsi-master-hub.ko] undefined!
-ERROR: "fsi_slave_release_range" [drivers/fsi/fsi-master-hub.ko] undefined!
-make[1]: *** [scripts/Makefile.modpost:91: __modpost] Error 1
-make: *** [Makefile:1214: modules] Error 2
-
-
-Note, I'm using gcc 7.1.1, which might be what is showing the build warnings,
-but that doesn't explain the build errors.
-
-So obviously, I can't take this as is :(
-
-thanks,
-
-greg k-h
+diff --git a/drivers/hwmon/aspeed-pwm-tacho.c b/drivers/hwmon/aspeed-pwm-tacho.c
+index 48403a2..d9161cd 100644
+--- a/drivers/hwmon/aspeed-pwm-tacho.c
++++ b/drivers/hwmon/aspeed-pwm-tacho.c
+@@ -802,7 +802,6 @@ static int aspeed_pwm_tacho_probe(struct platform_device *pdev)
+ 		if (ret)
+ 			return ret;
+ 	}
+-	of_node_put(np);
+ 
+ 	priv->groups[0] = &pwm_dev_group;
+ 	priv->groups[1] = &fan_dev_group;
+-- 
+2.9.3
