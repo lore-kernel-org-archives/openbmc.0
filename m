@@ -3,52 +3,52 @@ Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wfDfn6DbyzDqKp
- for <openbmc@lists.ozlabs.org>; Fri,  2 Jun 2017 16:23:13 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wfDfr6d43zDqL5
+ for <openbmc@lists.ozlabs.org>; Fri,  2 Jun 2017 16:23:16 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Bz2wcAr7"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="r5RBedMy"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="ZGuTRVgc"; dkim-atps=neutral
+ header.b="qtVyAEzn"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 3C05420842;
- Fri,  2 Jun 2017 02:23:11 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 4BCF5207EF;
+ Fri,  2 Jun 2017 02:23:14 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Fri, 02 Jun 2017 02:23:11 -0400
+ by compute4.internal (MEProxy); Fri, 02 Jun 2017 02:23:14 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=WPEhAv
- 4tEpX3WHJssRO8+QRTNeE23V1E73adzmfhEhQ=; b=Bz2wcAr7gpBFaU0DB4akbM
- YappVw+/gQMzexgwjCQWYKJdn7wHB9XcOAfJep1WOXa5TtL19UH9YRGyUvD1xg/a
- wqvGxhfVG0LiB3hNXF5TMN5TqlvnZTn3ziQdw7KoPcqTr1STChw51QPy0nTW3NWn
- sHVxq7uADKJzXnvDI2OZTFmO8XkCRnEAM6P9HeLgBbcVnvn3pGruDx9mqeO19JiO
- MMXCnloMOar6BKY1j3pcVG7CuxkZPb8M3NNKhPXC4utxxyEp31ZMNMsyjhy3XMUH
- 5FzXF/gVD+IlO7s3Q5VtD6OBRfoUc1zXHSLGt8OTJ9x9c+nQuA5Zto0/wFIoFceg
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=rpFNG3
+ 8fIiEze36SCv31zAhk3wDmSUK+5OCwoazaq48=; b=r5RBedMymOWF7leuszdm3j
+ 3zwOOgVmiyJev13UZltUjk6hXBCP9OIhTB/nzxDj7OxHHcF6woyI0KotfklPvgRb
+ ULKzBJFzUj2HlS8/R8y6fLOqrL1F36Zza5AOEbOTvo6S/iNar9o23WYpBJPhBPLi
+ z5idMqTxcW+k+asK+js62Zb3ofnRufh/Iz2l+XvhhJdzjUZmPb9kJcG0JgFhsi0U
+ hp9s8bwrkxTh1J5gS0nyaHo8Vt+zWiSL7UQQESDNgUy9ll/sQhzC2FPs40467T/s
+ Jo3+UG9w30sCyQpD9weDzHtHBSChhz2j9x141L0VipixjTB75M9rXnqvm+7WuaLQ
  ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:date:from:in-reply-to:message-id
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=WPEhAv4tEpX3WHJssRO8+QRTNeE23V1E73adzmfhE
- hQ=; b=ZGuTRVgcrAm5gGjHzDppqCLZNm6OlhpVYNE0fT1Ktz0GXZo8W+kiBAPXD
- RlECrUlZv0E95mT97LaTVXMhkJdxH6orPWgAMtADglBJu4DyJoGHvM/KpQyrRfom
- bAqmf3vN3kd1f5myA1/H5MnRAMJRnUg2Yl8zSU14uX+xybtFY9KbXXbTt7e6tQwb
- c4/DHLYhS6ntgnTk1MjmgV3DfJvzK2tHyddMAerkppxA+MZI6TOCbkkvrKNExPPX
- Xto6GzuC+PfBVCHOa0oTJ2J+hRRXquIEETkehDr66LLPV+JPvwbyXDVpPUqSTF52
- o8arzIyeBhmXW+vaeASPfZtRGSvlQ==
-X-ME-Sender: <xms:TwQxWbbVggt8hRM5Kn3ChzZOfFYy8Eu4e2SUb9DFy8GYUZKXsFwNgQ>
-X-Sasl-enc: 4udM6SGJFmX2ubk+aZeQzMr5uoCu8klJ3/jsOeZJu5Yh 1496384590
+ :x-sasl-enc; s=fm1; bh=rpFNG38fIiEze36SCv31zAhk3wDmSUK+5OCwoazaq
+ 48=; b=qtVyAEzn/JTxRcoBP0vjQI5rZ3Xv7RxrD7/AX+qKAhuncHwYZ4/229k1q
+ m5RWTAsvEUmX1muXSTPG/S6g6VqbAtOWDEErKPtYMHXRQS3gM+odn5dxX5CwK6vV
+ 4ZpltNSZhyk2F9lMl4le+J2lO1v0GEHn/RwgfbzIc89uc7HIpAPqKWpzmkyxAkXc
+ 88Pz11WyTsx31EL8lKZe2Sgd0iI7b4eB3k7ABUAclQDVMkpDtcpGhex98ifngmGe
+ EKLcpuGv1hrOJgxVfz6NLgFFyxBlVZ9Rl1Qc53K85JFjwlrCLVZu6bJtkg6Bw/We
+ xnyhzhhXQJk9pfJOmT/n4IhsKii9Q==
+X-ME-Sender: <xms:UgQxWZBEDhLdkiTaAJL9oWpFagf_WKwu_6UaTyLu_WsARRbgNi6cxw>
+X-Sasl-enc: 3uhalhYUB8Dok/yFp0yCKeLGiJEIw3ZYTA7p/j4UU839 1496384593
 Received: from keelia.base64.com.au (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 9C8D8240F6;
- Fri,  2 Jun 2017 02:23:08 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id AA0B424009;
+ Fri,  2 Jun 2017 02:23:11 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: joel@jms.id.au
 Cc: tpearson@raptorengineering.com, Andrew Jeffery <andrew@aj.id.au>,
  openbmc@lists.ozlabs.org, cbostic@linux.vnet.ibm.com,
  msbarth@linux.vnet.ibm.com
-Subject: [RFC PATCH linux dev-4.10 5/7] i2c: Add bogus I2C_SMBUS_DWORD_DATA
- bus protocol/transaction type
-Date: Fri,  2 Jun 2017 15:52:05 +0930
-Message-Id: <20170602062208.15999-6-andrew@aj.id.au>
+Subject: [RFC PATCH linux dev-4.10 6/7] hwmon: max31785: Enable fast rotor
+ measurement feature
+Date: Fri,  2 Jun 2017 15:52:06 +0930
+Message-Id: <20170602062208.15999-7-andrew@aj.id.au>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20170602062208.15999-1-andrew@aj.id.au>
 References: <20170602062208.15999-1-andrew@aj.id.au>
@@ -63,106 +63,235 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 02 Jun 2017 06:23:15 -0000
+X-List-Received-Date: Fri, 02 Jun 2017 06:23:17 -0000
 
-Added so we can issue 4-byte read commands without invoking a block
-transfer (which requires the length to be sent by the slave in the first
-byte). The 0x3040 revision of the MAX31785 firmware can return a 'fast'
-rotor read, and does so in this 4-byte format.
+MFR_REVISION 0x3040 of the max31785 chip provides two rotor readings
+for READ_FAN_SPEED_1, with an extra 16 bits after the original
+READ_FAN_SPEED_1 response. For this firmware revision, the first result
+represents the 'slow' rotor reading whilst the second represents the
+'fast' rotor reading.
 
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 ---
- drivers/i2c/i2c-core.c   | 30 ++++++++++++++++++++++++++++++
- include/linux/i2c.h      |  2 ++
- include/uapi/linux/i2c.h |  2 ++
- 3 files changed, 34 insertions(+)
+ Documentation/hwmon/max31785 |   8 +++
+ drivers/hwmon/max31785.c     | 115 ++++++++++++++++++++++++++++++++++++++-----
+ 2 files changed, 112 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/i2c/i2c-core.c b/drivers/i2c/i2c-core.c
-index 583e95042a21..4c8fe52df8ad 100644
---- a/drivers/i2c/i2c-core.c
-+++ b/drivers/i2c/i2c-core.c
-@@ -3210,6 +3210,18 @@ s32 i2c_smbus_read_word_data(const struct i2c_client *client, u8 command)
- }
- EXPORT_SYMBOL(i2c_smbus_read_word_data);
- 
-+s64 i2c_smbus_read_dword_data(const struct i2c_client *client, u8 command)
-+{
-+	union i2c_smbus_data data;
-+	int status;
+diff --git a/Documentation/hwmon/max31785 b/Documentation/hwmon/max31785
+index 0911d204547e..f0d0e54d9a9f 100644
+--- a/Documentation/hwmon/max31785
++++ b/Documentation/hwmon/max31785
+@@ -34,3 +34,11 @@ fan[1-6]_pulses          RW  tachometer pulses per fan revolution
+ fan[1-6]_target          RW  desired fan speed in RPM
+ pwm[1-6]_enable          RW  pwm mode, 0=disabled, 1=pwm, 2=rpm, 3=automatic
+ pwm[1-6]                 RW  fan target duty cycle (0-255)
 +
-+	status = i2c_smbus_xfer(client->adapter, client->addr, client->flags,
-+				I2C_SMBUS_READ, command,
-+				I2C_SMBUS_DWORD_DATA, &data);
-+	return (status < 0) ? status : data.dword;
-+}
-+EXPORT_SYMBOL(i2c_smbus_read_word_data);
++Dynamic syfs entries
++--------------------
 +
- /**
-  * i2c_smbus_write_word_data - SMBus "write word" protocol
-  * @client: Handle to slave device
-@@ -3443,6 +3455,17 @@ static s32 i2c_smbus_xfer_emulated(struct i2c_adapter *adapter, u16 addr,
- 				msgbuf0[i] = data->block[i];
- 		}
- 		break;
-+	case I2C_SMBUS_DWORD_DATA:
-+		if (read_write == I2C_SMBUS_READ)
-+			msg[1].len = 4;
-+		else {
-+			msg[0].len = 5;
-+			msgbuf0[1] = data->dword & 0xff;
-+			msgbuf0[2] = (data->dword >> 8) & 0xff;
-+			msgbuf0[3] = (data->dword >> 16) & 0xff;
-+			msgbuf0[4] = (data->dword >> 24) & 0xff;
-+		}
-+		break;
- 	default:
- 		dev_err(&adapter->dev, "Unsupported transaction %d\n", size);
- 		return -EOPNOTSUPP;
-@@ -3486,6 +3509,13 @@ static s32 i2c_smbus_xfer_emulated(struct i2c_adapter *adapter, u16 addr,
- 		case I2C_SMBUS_PROC_CALL:
- 			data->word = msgbuf1[0] | (msgbuf1[1] << 8);
- 			break;
-+		case I2C_SMBUS_DWORD_DATA:
-+			data->dword =
-+				(msgbuf1[0] << (0 * 8)) |
-+				(msgbuf1[1] << (1 * 8)) |
-+				(msgbuf1[2] << (2 * 8)) |
-+				(msgbuf1[3] << (3 * 8));
-+			break;
- 		case I2C_SMBUS_I2C_BLOCK_DATA:
- 			for (i = 0; i < data->block[0]; i++)
- 				data->block[i+1] = msgbuf1[i];
-diff --git a/include/linux/i2c.h b/include/linux/i2c.h
-index 4b45ec46161f..ff15b25bdeda 100644
---- a/include/linux/i2c.h
-+++ b/include/linux/i2c.h
-@@ -95,6 +95,8 @@ extern s32 i2c_smbus_read_word_data(const struct i2c_client *client,
- 				    u8 command);
- extern s32 i2c_smbus_write_word_data(const struct i2c_client *client,
- 				     u8 command, u16 value);
-+extern s64 i2c_smbus_read_dword_data(const struct i2c_client *client,
-+				     u8 command);
++Whether these entries are present depends on the firmware features detected on
++the device during probe.
++
++fan[1-6]_input_fast      RO  fan tachometer speed in RPM (fast rotor measurement)
+diff --git a/drivers/hwmon/max31785.c b/drivers/hwmon/max31785.c
+index d1feb73d08f1..fb971277165c 100644
+--- a/drivers/hwmon/max31785.c
++++ b/drivers/hwmon/max31785.c
+@@ -37,6 +37,7 @@
+ #define MAX31785_REG_FAN_SPEED_1		0x90
+ #define MAX31785_REG_MFR_ID			0x99
+ #define MAX31785_REG_MFR_MODEL			0x9a
++#define MAX31785_REG_MFR_REVISION		0x9b
+ #define MAX31785_REG_MFR_FAN_CONFIG		0xf1
+ #define MAX31785_REG_READ_FAN_PWM		0xf3
  
- static inline s32
- i2c_smbus_read_word_swapped(const struct i2c_client *client, u8 command)
-diff --git a/include/uapi/linux/i2c.h b/include/uapi/linux/i2c.h
-index 009e27bb9abe..63ab01e3faa2 100644
---- a/include/uapi/linux/i2c.h
-+++ b/include/uapi/linux/i2c.h
-@@ -131,6 +131,7 @@ struct i2c_msg {
- union i2c_smbus_data {
- 	__u8 byte;
- 	__u16 word;
-+	__u32 dword;
- 	__u8 block[I2C_SMBUS_BLOCK_MAX + 2]; /* block[0] is used for length */
- 			       /* and one more for user-space compatibility */
+@@ -59,6 +60,8 @@
+ static const unsigned short normal_i2c[] = { 0x52, 0x53, 0x54, 0x55,
+ 							I2C_CLIENT_END };
+ 
++#define MAX31785_CAP_FAST_ROTOR BIT(0)
++
+ /*
+  * Client data (each client gets its own)
+  */
+@@ -67,14 +70,17 @@ struct max31785 {
+ 	struct mutex device_lock;
+ 	bool valid; /* zero until following fields are valid */
+ 	unsigned long last_updated; /* in jiffies */
++	u32 capabilities;
+ 
+ 	/* register values */
+ 	u8 fan_config[NR_CHANNEL];
+ 	u16 fan_command[NR_CHANNEL];
+ 	u8 mfr_fan_config[NR_CHANNEL];
+ 	u8 fault_status[NR_CHANNEL];
+-	u16 tach_rpm[NR_CHANNEL];
+ 	u16 pwm[NR_CHANNEL];
++	u16 tach_rpm[NR_CHANNEL];
++	/* Fast rotor measurement */
++	u16 tach_rpm_fast[NR_CHANNEL];
  };
-@@ -150,5 +151,6 @@ union i2c_smbus_data {
- #define I2C_SMBUS_I2C_BLOCK_BROKEN  6
- #define I2C_SMBUS_BLOCK_PROC_CALL   7		/* SMBus 2.0 */
- #define I2C_SMBUS_I2C_BLOCK_DATA    8
-+#define I2C_SMBUS_DWORD_DATA	    9
  
- #endif /* _UAPI_LINUX_I2C_H */
+ static int max31785_set_page(struct i2c_client *client,
+@@ -123,6 +129,35 @@ static int max31785_write_fan_data(struct i2c_client *client,
+ 	return 0;
+ }
+ 
++static int max31785_update_fan_speed(struct max31785 *data, u8 fan)
++{
++	s64 rc;
++
++	rc = max31785_set_page(data->client, MAX31785_PAGE_FAN_CONFIG(fan));
++	if (rc)
++		return rc;
++
++	if (data->capabilities & MAX31785_CAP_FAST_ROTOR) {
++		rc = i2c_smbus_read_dword_data(data->client,
++				MAX31785_REG_FAN_SPEED_1);
++		if (rc < 0)
++			return rc;
++
++		data->tach_rpm[fan] = rc & 0xffff;
++		data->tach_rpm_fast[fan] = (rc >> 16) & 0xffff;
++
++		return rc;
++	}
++
++	rc = i2c_smbus_read_dword_data(data->client, MAX31785_REG_FAN_SPEED_1);
++	if (rc < 0)
++		return rc;
++
++	data->tach_rpm[fan] = rc;
++
++	return rc;
++}
++
+ static bool is_automatic_control_mode(struct max31785 *data,
+ 			int index)
+ {
+@@ -134,8 +169,8 @@ static struct max31785 *max31785_update_device(struct device *dev)
+ 	struct max31785 *data = dev_get_drvdata(dev);
+ 	struct i2c_client *client = data->client;
+ 	struct max31785 *ret = data;
++	int rv;
+ 	int i;
+-	int rv;
+ 
+ 	mutex_lock(&data->device_lock);
+ 
+@@ -147,11 +182,9 @@ static struct max31785 *max31785_update_device(struct device *dev)
+ 				goto abort;
+ 			data->fault_status[i] = rv;
+ 
+-			rv = max31785_read_fan_data(client, i,
+-					MAX31785_REG_FAN_SPEED_1, 0);
++			rv = max31785_update_fan_speed(data, i);
+ 			if (rv < 0)
+ 				goto abort;
+-			data->tach_rpm[i] = rv;
+ 
+ 			if ((data->fan_config[i]
+ 				& MAX31785_FAN_CFG_CONTROL_MODE_RPM)
+@@ -478,6 +511,20 @@ static int max31785_read_fan(struct max31785 *data, u32 attr, int channel,
+ 	return rc;
+ }
+ 
++static int max31785_fan_get_fast(struct device *dev,
++				struct device_attribute *attr, char *buf)
++{
++	struct sensor_device_attribute_2 *attr2 = to_sensor_dev_attr_2(attr);
++	struct max31785 *data = dev_get_drvdata(dev);
++
++	int ret = i2c_smbus_read_byte_data(data->client, attr2->index);
++
++	if (ret < 0)
++		return ret;
++
++	return sprintf(buf, "%d\n", data->tach_rpm_fast[attr2->index]);
++}
++
+ static int max31785_read_pwm(struct max31785 *data, u32 attr, int channel,
+ 		long *val)
+ {
+@@ -631,14 +678,53 @@ static const struct hwmon_chip_info max31785_chip_info = {
+ 	.info = max31785_info,
+ };
+ 
++static SENSOR_DEVICE_ATTR(fan1_input_fast, 0444, max31785_fan_get_fast,
++		NULL, 0);
++static SENSOR_DEVICE_ATTR(fan2_input_fast, 0444, max31785_fan_get_fast,
++		NULL, 1);
++static SENSOR_DEVICE_ATTR(fan3_input_fast, 0444, max31785_fan_get_fast,
++		NULL, 2);
++static SENSOR_DEVICE_ATTR(fan4_input_fast, 0444, max31785_fan_get_fast,
++		NULL, 3);
++static SENSOR_DEVICE_ATTR(fan5_input_fast, 0444, max31785_fan_get_fast,
++		NULL, 4);
++static SENSOR_DEVICE_ATTR(fan6_input_fast, 0444, max31785_fan_get_fast,
++		NULL, 5);
++
++static struct attribute *max31785_attrs[] = {
++	&sensor_dev_attr_fan1_input_fast.dev_attr.attr,
++	&sensor_dev_attr_fan2_input_fast.dev_attr.attr,
++	&sensor_dev_attr_fan3_input_fast.dev_attr.attr,
++	&sensor_dev_attr_fan4_input_fast.dev_attr.attr,
++	&sensor_dev_attr_fan5_input_fast.dev_attr.attr,
++	&sensor_dev_attr_fan6_input_fast.dev_attr.attr,
++	NULL,
++};
++ATTRIBUTE_GROUPS(max31785);
++
++static int max31785_get_capabilities(struct max31785 *data)
++{
++	s32 rc;
++
++	rc = i2c_smbus_read_word_data(data->client, MAX31785_REG_MFR_REVISION);
++	if (rc < 0)
++		return rc;
++
++	if (rc == 0x3040)
++		data->capabilities |= MAX31785_CAP_FAST_ROTOR;
++
++	return 0;
++}
++
+ static int max31785_probe(struct i2c_client *client,
+ 			  const struct i2c_device_id *id)
+ {
+ 	struct i2c_adapter *adapter = client->adapter;
++	const struct attribute_group **extra_groups;
+ 	struct device *dev = &client->dev;
+-	struct max31785 *data;
+ 	struct device *hwmon_dev;
+-	int err;
++	struct max31785 *data;
++	int rc;
+ 
+ 	if (!i2c_check_functionality(adapter,
+ 			I2C_FUNC_SMBUS_BYTE_DATA | I2C_FUNC_SMBUS_WORD_DATA))
+@@ -654,12 +740,19 @@ static int max31785_probe(struct i2c_client *client,
+ 	/*
+ 	 * Initialize the max31785 chip
+ 	 */
+-	err = max31785_init_client(client, data);
+-	if (err)
+-		return err;
++	rc = max31785_init_client(client, data);
++	if (rc)
++		return rc;
++
++	rc = max31785_get_capabilities(data);
++	if (rc < 0)
++		return rc;
++
++	if (data->capabilities & MAX31785_CAP_FAST_ROTOR)
++		extra_groups = max31785_groups;
+ 
+ 	hwmon_dev = devm_hwmon_device_register_with_info(dev,
+-			client->name, data, &max31785_chip_info, NULL);
++			client->name, data, &max31785_chip_info, extra_groups);
+ 
+ 	return PTR_ERR_OR_ZERO(hwmon_dev);
+ }
 -- 
 2.11.0
