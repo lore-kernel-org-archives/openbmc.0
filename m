@@ -1,57 +1,32 @@
-Return-Path: <linux@roeck-us.net>
-Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+Return-Path: <gregkh@linuxfoundation.org>
+Received: from mail.linuxfoundation.org (mail.linuxfoundation.org
+ [140.211.169.12])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wfyl3326KzDqFH
- for <openbmc@lists.ozlabs.org>; Sat,  3 Jun 2017 20:59:27 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.b="UWERhHZG";
- dkim-atps=neutral
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
- :Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
- :Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ooEXc8qHxQm91del4MsjIrJGycOsUipoEZnsX1+GMXQ=; b=UWERhHZGhiuUo0AsAUtMps/T1U
- vlKe8XRNTZDdaqKS6flJ3xSsM+2Z3wXuWf6VKEx7jzx6F/FTDKiT/1oR3hr9K67l/BYK/FmObw7Yc
- LCpPYqVayrbc7HoFs9N0Lj1zoIqJAanGIUKrdTswwBVnwClHtG1hI1SEF0WW7Yn4YnsrxrYVa53wF
- 6aqmFB/DcHLiSvXwhVyTrN2uvX0mQoAeXeW1eMK0bojhEO3AJKmsxyXEde2wVDyx/ZaxT2VzSiOSB
- HMhK3WjsNrhG9UV8PskK1XHrqUDLaHJfAKjHnRnQADGMS+wpfC1O9piYqW7dIUFE13tE22gvn1OdN
- PTJJr3ng==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net
- ([108.223.40.66]:42494 helo=localhost)
- by bh-25.webhostbox.net with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
- (Exim 4.87) (envelope-from <linux@roeck-us.net>)
- id 1dH6mC-001Uji-V0; Sat, 03 Jun 2017 10:59:25 +0000
-Date: Sat, 3 Jun 2017 03:59:24 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Stefan Schaeckeler <sschaeck@cisco.com>
-Cc: Joel Stanley <joel@jms.id.au>, Jean Delvare <jdelvare@suse.com>,
- openbmc@lists.ozlabs.org
-Subject: Re: [PATCH] drivers: hwmon: aspeed fan driver: make fan/pwm names
- start with index 1
-Message-ID: <20170603105924.GB16274@roeck-us.net>
-References: <20170602194328.GA24663@sjc-ads-246.cisco.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wg32m6nhLzDqFH
+ for <openbmc@lists.ozlabs.org>; Sun,  4 Jun 2017 00:13:20 +1000 (AEST)
+Received: from localhost (mobile-166-177-187-107.mycingular.net
+ [166.177.187.107])
+ by mail.linuxfoundation.org (Postfix) with ESMTPSA id 0280240A;
+ Sat,  3 Jun 2017 14:13:16 +0000 (UTC)
+Date: Sat, 3 Jun 2017 19:05:10 +0900
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Cc: rostedt@goodmis.org, mingo@redhat.com, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, joel@jms.id.au,
+ andrew@aj.id.au, jk@ozlabs.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org, robh+dt@kernel.org, mark.rutland@arm.com,
+ linux@armlinux.org.uk, alistair@popple.id.au, benh@kernel.crashing.org
+Subject: Re: [PATCH v7 00/23] FSI device driver implementation
+Message-ID: <20170603100510.GA24053@kroah.com>
+References: <20170511210101.78409-1-cbostic@linux.vnet.ibm.com>
+ <305bc7b6-30eb-a44d-28da-f90f9a973acf@linux.vnet.ibm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20170602194328.GA24663@sjc-ads-246.cisco.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Authenticated_sender: guenter@roeck-us.net
-X-OutGoing-Spam-Status: No, score=-1.0
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - lists.ozlabs.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-Get-Message-Sender-Via: bh-25.webhostbox.net: authenticated_id:
- guenter@roeck-us.net
-X-Authenticated-Sender: bh-25.webhostbox.net: guenter@roeck-us.net
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <305bc7b6-30eb-a44d-28da-f90f9a973acf@linux.vnet.ibm.com>
+User-Agent: Mutt/1.8.3 (2017-05-23)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,136 +38,123 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 03 Jun 2017 10:59:27 -0000
+X-List-Received-Date: Sat, 03 Jun 2017 14:13:21 -0000
 
-On Fri, Jun 02, 2017 at 12:43:28PM -0700, Stefan Schaeckeler wrote:
-> Make fan and pwm names in sysfs start with index 1 in accordance to
-> Documentation/hwmon/sysfs-interface conventions.
+On Wed, May 31, 2017 at 12:17:05PM -0500, Christopher Bostic wrote:
+> Hi Greg,
 > 
-> Current implementation starts with index 0 making tools such as sensors(1)
-> skip the first fan.
-> 
-> Signed-off-by: Stefan Schaeckeler <sschaeck@cisco.com>
+> Are there any further changes you require for this patch set? This has been
+> extensively tested internally and all is working as expected.   Would it be
+> possible to move forward with integration in the near future?   Any input
+> would be appreciated.
 
-Applied. Same comments as before.
+Sorry for the delay.  I just tried applying this to my tree, but got the
+following build warnings, and then errors:
 
-Thanks,
-Guenter
+In file included from ./include/trace/define_trace.h:95:0,
+                 from ./include/trace/events/fsi.h:127,
+                 from drivers/fsi/fsi-core.c:27:
+./include/trace/events/fsi.h: In function ‘trace_raw_output_fsi_master_write’:
+./include/trace/events/fsi.h:58:12: warning: field width specifier ‘*’ expects argument of type ‘int’, but argument 8 has type ‘size_t {aka long unsigned int}’ [-Wformat=]
+  TP_printk("fsi%d:%02d:%02d %08x[%zd] <= {%*ph}",
+            ^
+./include/trace/trace_events.h:343:22: note: in definition of macro ‘DECLARE_EVENT_CLASS’
+  trace_seq_printf(s, print);     \
+                      ^~~~~
+./include/trace/trace_events.h:65:9: note: in expansion of macro ‘PARAMS’
+         PARAMS(print));         \
+         ^~~~~~
+./include/trace/events/fsi.h:37:1: note: in expansion of macro ‘TRACE_EVENT’
+ TRACE_EVENT(fsi_master_write,
+ ^~~~~~~~~~~
+./include/trace/events/fsi.h:58:2: note: in expansion of macro ‘TP_printk’
+  TP_printk("fsi%d:%02d:%02d %08x[%zd] <= {%*ph}",
+  ^~~~~~~~~
+In file included from ./include/trace/trace_events.h:377:0,
+                 from ./include/trace/define_trace.h:95,
+                 from ./include/trace/events/fsi.h:127,
+                 from drivers/fsi/fsi-core.c:27:
+./include/trace/events/fsi.h:58:44: note: format string is defined here
+  TP_printk("fsi%d:%02d:%02d %08x[%zd] <= {%*ph}",
+                                           ~^~
+In file included from ./include/trace/define_trace.h:95:0,
+                 from ./include/trace/events/fsi.h:127,
+                 from drivers/fsi/fsi-core.c:27:
+./include/trace/events/fsi.h: In function ‘trace_raw_output_fsi_master_rw_resul
+’:
+./include/trace/events/fsi.h:95:12: warning: field width specifier ‘*’ expects argument of type ‘int’, but argument 9 has type ‘size_t {aka long unsigned int}’ [-Wformat=]
+  TP_printk("fsi%d:%02d:%02d %08x[%zd] %s {%*ph} ret %d",
+            ^
+./include/trace/trace_events.h:343:22: note: in definition of macro ‘DECLARE_EVENT_CLASS’
+  trace_seq_printf(s, print);     \
+                      ^~~~~
+./include/trace/trace_events.h:65:9: note: in expansion of macro ‘PARAMS’
+         PARAMS(print));         \
+         ^~~~~~
+./include/trace/events/fsi.h:68:1: note: in expansion of macro ‘TRACE_EVENT’
+ TRACE_EVENT(fsi_master_rw_result,
+ ^~~~~~~~~~~
+./include/trace/events/fsi.h:95:2: note: in expansion of macro ‘TP_printk’
+  TP_printk("fsi%d:%02d:%02d %08x[%zd] %s {%*ph} ret %d",
+  ^~~~~~~~~
+In file included from ./include/trace/trace_events.h:377:0,
+                 from ./include/trace/define_trace.h:95,
+                 from ./include/trace/events/fsi.h:127,
+                 from drivers/fsi/fsi-core.c:27:
+./include/trace/events/fsi.h:95:44: note: format string is defined here
+  TP_printk("fsi%d:%02d:%02d %08x[%zd] %s {%*ph} ret %d",
+                                           ~^~
+  CHK     include/generated/uapi/linux/version.h
+  GEN     .version
+  CHK     include/generated/compile.h
+  UPD     include/generated/compile.h
+  CC      init/version.o
+  LD      init/built-in.o
+  LD      vmlinux.o
+  MODPOST vmlinux.o
+  KSYM    .tmp_kallsyms1.o
+  KSYM    .tmp_kallsyms2.o
+  LD      vmlinux
+  SORTEX  vmlinux
+  SYSMAP  System.map
+  CC      arch/x86/boot/version.o
+  Building modules, stage 2.
+  VOFFSET arch/x86/boot/compressed/../voffset.h
+  OBJCOPY arch/x86/boot/compressed/vmlinux.bin
+  RELOCS  arch/x86/boot/compressed/vmlinux.relocs
+  CC      arch/x86/boot/compressed/kaslr.o
+  GZIP    arch/x86/boot/compressed/vmlinux.bin.gz
+  CC      arch/x86/boot/compressed/misc.o
+  MODPOST 476 modules
+WARNING: modpost: missing MODULE_LICENSE() in drivers/fsi/fsi-core.o
+see include/linux/module.h for more information
+  MKPIGGY arch/x86/boot/compressed/piggy.S
+  AS      arch/x86/boot/compressed/piggy.o
+  DATAREL arch/x86/boot/compressed/vmlinux
+  LD      arch/x86/boot/compressed/vmlinux
+  ZOFFSET arch/x86/boot/zoffset.h
+  OBJCOPY arch/x86/boot/vmlinux.bin
+  AS      arch/x86/boot/header.o
+  LD      arch/x86/boot/setup.elf
+  OBJCOPY arch/x86/boot/setup.bin
+  BUILD   arch/x86/boot/bzImage
+Setup is 17532 bytes (padded to 17920 bytes).
+System is 5445 kB
+CRC 56d8089d
+Kernel: arch/x86/boot/bzImage is ready  (#387)
+ERROR: "fsi_slave_claim_range" [drivers/fsi/fsi-master-hub.ko] undefined!
+ERROR: "fsi_slave_read" [drivers/fsi/fsi-master-hub.ko] undefined!
+ERROR: "fsi_slave_write" [drivers/fsi/fsi-master-hub.ko] undefined!
+ERROR: "fsi_slave_release_range" [drivers/fsi/fsi-master-hub.ko] undefined!
+make[1]: *** [scripts/Makefile.modpost:91: __modpost] Error 1
+make: *** [Makefile:1214: modules] Error 2
 
-> ---
->  drivers/hwmon/aspeed-pwm-tacho.c | 52 ++++++++++++++++++++--------------------
->  1 file changed, 26 insertions(+), 26 deletions(-)
-> 
-> diff --git a/drivers/hwmon/aspeed-pwm-tacho.c b/drivers/hwmon/aspeed-pwm-tacho.c
-> index d9161cd..1dbd83e 100644
-> --- a/drivers/hwmon/aspeed-pwm-tacho.c
-> +++ b/drivers/hwmon/aspeed-pwm-tacho.c
-> @@ -591,24 +591,23 @@ static umode_t fan_dev_is_visible(struct kobject *kobj,
->  	return a->mode;
->  }
->  
-> -static SENSOR_DEVICE_ATTR(pwm0, 0644,
-> -			show_pwm, set_pwm, 0);
->  static SENSOR_DEVICE_ATTR(pwm1, 0644,
-> -			show_pwm, set_pwm, 1);
-> +			show_pwm, set_pwm, 0);
->  static SENSOR_DEVICE_ATTR(pwm2, 0644,
-> -			show_pwm, set_pwm, 2);
-> +			show_pwm, set_pwm, 1);
->  static SENSOR_DEVICE_ATTR(pwm3, 0644,
-> -			show_pwm, set_pwm, 3);
-> +			show_pwm, set_pwm, 2);
->  static SENSOR_DEVICE_ATTR(pwm4, 0644,
-> -			show_pwm, set_pwm, 4);
-> +			show_pwm, set_pwm, 3);
->  static SENSOR_DEVICE_ATTR(pwm5, 0644,
-> -			show_pwm, set_pwm, 5);
-> +			show_pwm, set_pwm, 4);
->  static SENSOR_DEVICE_ATTR(pwm6, 0644,
-> -			show_pwm, set_pwm, 6);
-> +			show_pwm, set_pwm, 5);
->  static SENSOR_DEVICE_ATTR(pwm7, 0644,
-> +			show_pwm, set_pwm, 6);
-> +static SENSOR_DEVICE_ATTR(pwm8, 0644,
->  			show_pwm, set_pwm, 7);
->  static struct attribute *pwm_dev_attrs[] = {
-> -	&sensor_dev_attr_pwm0.dev_attr.attr,
->  	&sensor_dev_attr_pwm1.dev_attr.attr,
->  	&sensor_dev_attr_pwm2.dev_attr.attr,
->  	&sensor_dev_attr_pwm3.dev_attr.attr,
-> @@ -616,6 +615,7 @@ static struct attribute *pwm_dev_attrs[] = {
->  	&sensor_dev_attr_pwm5.dev_attr.attr,
->  	&sensor_dev_attr_pwm6.dev_attr.attr,
->  	&sensor_dev_attr_pwm7.dev_attr.attr,
-> +	&sensor_dev_attr_pwm8.dev_attr.attr,
->  	NULL,
->  };
->  
-> @@ -624,40 +624,39 @@ static const struct attribute_group pwm_dev_group = {
->  	.is_visible = pwm_is_visible,
->  };
->  
-> -static SENSOR_DEVICE_ATTR(fan0_input, 0444,
-> -		show_rpm, NULL, 0);
->  static SENSOR_DEVICE_ATTR(fan1_input, 0444,
-> -		show_rpm, NULL, 1);
-> +		show_rpm, NULL, 0);
->  static SENSOR_DEVICE_ATTR(fan2_input, 0444,
-> -		show_rpm, NULL, 2);
-> +		show_rpm, NULL, 1);
->  static SENSOR_DEVICE_ATTR(fan3_input, 0444,
-> -		show_rpm, NULL, 3);
-> +		show_rpm, NULL, 2);
->  static SENSOR_DEVICE_ATTR(fan4_input, 0444,
-> -		show_rpm, NULL, 4);
-> +		show_rpm, NULL, 3);
->  static SENSOR_DEVICE_ATTR(fan5_input, 0444,
-> -		show_rpm, NULL, 5);
-> +		show_rpm, NULL, 4);
->  static SENSOR_DEVICE_ATTR(fan6_input, 0444,
-> -		show_rpm, NULL, 6);
-> +		show_rpm, NULL, 5);
->  static SENSOR_DEVICE_ATTR(fan7_input, 0444,
-> -		show_rpm, NULL, 7);
-> +		show_rpm, NULL, 6);
->  static SENSOR_DEVICE_ATTR(fan8_input, 0444,
-> -		show_rpm, NULL, 8);
-> +		show_rpm, NULL, 7);
->  static SENSOR_DEVICE_ATTR(fan9_input, 0444,
-> -		show_rpm, NULL, 9);
-> +		show_rpm, NULL, 8);
->  static SENSOR_DEVICE_ATTR(fan10_input, 0444,
-> -		show_rpm, NULL, 10);
-> +		show_rpm, NULL, 9);
->  static SENSOR_DEVICE_ATTR(fan11_input, 0444,
-> -		show_rpm, NULL, 11);
-> +		show_rpm, NULL, 10);
->  static SENSOR_DEVICE_ATTR(fan12_input, 0444,
-> -		show_rpm, NULL, 12);
-> +		show_rpm, NULL, 11);
->  static SENSOR_DEVICE_ATTR(fan13_input, 0444,
-> -		show_rpm, NULL, 13);
-> +		show_rpm, NULL, 12);
->  static SENSOR_DEVICE_ATTR(fan14_input, 0444,
-> -		show_rpm, NULL, 14);
-> +		show_rpm, NULL, 13);
->  static SENSOR_DEVICE_ATTR(fan15_input, 0444,
-> +		show_rpm, NULL, 14);
-> +static SENSOR_DEVICE_ATTR(fan16_input, 0444,
->  		show_rpm, NULL, 15);
->  static struct attribute *fan_dev_attrs[] = {
-> -	&sensor_dev_attr_fan0_input.dev_attr.attr,
->  	&sensor_dev_attr_fan1_input.dev_attr.attr,
->  	&sensor_dev_attr_fan2_input.dev_attr.attr,
->  	&sensor_dev_attr_fan3_input.dev_attr.attr,
-> @@ -673,6 +672,7 @@ static struct attribute *fan_dev_attrs[] = {
->  	&sensor_dev_attr_fan13_input.dev_attr.attr,
->  	&sensor_dev_attr_fan14_input.dev_attr.attr,
->  	&sensor_dev_attr_fan15_input.dev_attr.attr,
-> +	&sensor_dev_attr_fan16_input.dev_attr.attr,
->  	NULL
->  };
->  
-> -- 
-> 2.9.3
-> 
+
+Note, I'm using gcc 7.1.1, which might be what is showing the build warnings,
+but that doesn't explain the build errors.
+
+So obviously, I can't take this as is :(
+
+thanks,
+
+greg k-h
