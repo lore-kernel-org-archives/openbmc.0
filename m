@@ -1,58 +1,52 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <mine260309@gmail.com>
+Received: from mail-it0-x244.google.com (mail-it0-x244.google.com
+ [IPv6:2607:f8b0:4001:c0b::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wh7Dq0RCzzDq5j
- for <openbmc@lists.ozlabs.org>; Mon,  5 Jun 2017 18:25:47 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wh7Pm0B0fzDqKp
+ for <openbmc@lists.ozlabs.org>; Mon,  5 Jun 2017 18:33:32 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="SQPITP6m"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Y5H3vYDL"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 52B0F20B4B;
- Mon,  5 Jun 2017 04:25:44 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Mon, 05 Jun 2017 04:25:44 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=GlyZWC/vVPFKP16eWRHJyEo2uvRTz3KdlBHwr4TcK
- +I=; b=SQPITP6mMYWZRM+bYe5J3BYud7Q5DGq6j+he1vMQ/TTu77gmDJoxR3pKm
- fK1UI06OkRQHoWuCQyabyR0WoJhDIKeCVObPFXRFNBrWobezNObwg6XlVyawNl/L
- ksvh8GUUL7bj4+xJgGXfQ/DpHnx63RKMxhbbsA2de47TWE1NaS0u3M71RgiPLEIv
- gcDtEOmyLQ5ZgEhkoX7/DVvQRccyirTdkYkissQc6dZDyzockNJ8NXzT9JNafhgp
- yCyDZ1Tba/eVd/GISLWQV4u3ySF9RVq8XK+ksN+WyKo01dpcdV4VYlLvGdI/Lza1
- gEKlGPhiQEXxaUxpGStCLLvnnDZhw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=GlyZWC/vVPFKP16eWR
- HJyEo2uvRTz3KdlBHwr4TcK+I=; b=Y5H3vYDLCNZmMMFg2gaVo1g1FP8OG2iU9c
- wqmwNFrUZ75PnKbwD//eZYLdapmFHy9POLStaY6dmvYVcYBjZuROEg4V2A3DFRgL
- 8rhoowNv4yfKRjvUzaI5M3Zo3v3n4a2HgSq9IZRwc8tMt0CxugMeJ6ivJTOKrskW
- NLRU/a9L+c+WYRjPWm6pjmRMGuBK3lO6DZEPKfQtmMShaBAmRfModnRLFZIcMNa1
- Rt8Q5Sjtn05AYugFcsOLz4FlM8CLBIBxQdZAWENeAaak/ayKzZSyx2uQ4011iSFx
- h/r4h5pYoezbDCzarj4GZUV0SI1QGwOhyGaspbvNWuUm8mrpUZCw==
-X-ME-Sender: <xms:iBU1WcLsUyTRvIzbnyYvFn4M9lLZXgugfmzkiXa_uepKgIdclojEpA>
-X-Sasl-enc: OlDgrUTsW3T6jT2FeGgedBP1VDayzZLrvVOw3wjS+sAj 1496651143
-Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 71E157E814;
- Mon,  5 Jun 2017 04:25:42 -0400 (EDT)
-Message-ID: <1496651139.8159.29.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: Add devices under FSI
- CFAM
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
-Cc: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Mon, 05 Jun 2017 17:55:39 +0930
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="G3oO9Hjb"; 
+ dkim-atps=neutral
+Received: by mail-it0-x244.google.com with SMTP id i206so21072393ita.3
+ for <openbmc@lists.ozlabs.org>; Mon, 05 Jun 2017 01:33:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=8T+P0qip3vgmW3tFsWYSq2U0S+Eod3aUdhNgWbLc4gU=;
+ b=G3oO9HjbKfw618O03JYmI7HZV0aA+wvtyLIRVrM8IGzk4lgHdGAzHSj86ydERMUtJ6
+ 384GjTqhnPI0ocRiRrePSIY+q5rCMkKTeMRa8sGH2Tv/oIrZm+v7KXL0ckNzZpwulvXY
+ TW2HFuM78PNOe1YalCuSgzVYf0Uk/0xdXXAFtbPdpIXhgJxu/dX/HSMyyDi5C4SmaNRM
+ qTh8vlF/xYK2NPWlq0TF2zJX280DSWyRgbhwKZ17DWM7op6iGFKlsAEVeVWia1KWLAXx
+ fQSLKGEZDa4duqgTsKve8X8RotVJpn9DamWLHBwXcwqbzXr8qibGmSvMaLlJnN1Ss4ww
+ tWKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=8T+P0qip3vgmW3tFsWYSq2U0S+Eod3aUdhNgWbLc4gU=;
+ b=GNuViI9UH3eg+8vimiKxT+sZTB1bN4tHeYNtaPAVqmTbEYaFoQaj6dOt+GmQzWq3/L
+ 2ZZDmoGBuC4CNzI6U3TMEzLZhgpcvALU4QHCwXAY945rny/LdK3pnCAy3F18X+nCkLNH
+ uLufjWmzTayPxkMeC54GnyakYluMDfwvByaUUHrVfF43r3BmazUOOfuAUsly5K1TDBlm
+ m6qYH889sdYnhXOzi1vdBtRNyHeL8GDHAGzQNfZDW7XZJtzSyfZ34mco20FeFiO3t0ND
+ C3rE5rt47e3U5y6fXM+mHenA10y2wfyp7XTJv8c9VZs2K0YWxpJe/OY9mvGpdbrHA6Wc
+ Ni/Q==
+X-Gm-Message-State: AODbwcAfcz0AE7C5AoNDu7cB5BkIvIz+2e177fd20m8H0un20xo/AxPr
+ HBSrisVgW4TMLHp200GMK+mSXX5cmQ==
+X-Received: by 10.107.162.204 with SMTP id l195mr18552535ioe.218.1496651609877; 
+ Mon, 05 Jun 2017 01:33:29 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.79.164.81 with HTTP; Mon, 5 Jun 2017 01:33:29 -0700 (PDT)
 In-Reply-To: <20170605074301.11310-1-joel@jms.id.au>
 References: <20170605074301.11310-1-joel@jms.id.au>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-BOklv5u+ToyqF1+DKeWF"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+From: Lei YU <mine260309@gmail.com>
+Date: Mon, 5 Jun 2017 16:33:29 +0800
+Message-ID: <CAARXrtmCsNhrQP+YQ-kdErGuW0+2C4PEWeF12fxHKLOZj4MDkw@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: Add devices under FSI
+ CFAM
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Eddie James <eajames@linux.vnet.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -64,165 +58,130 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 Jun 2017 08:25:47 -0000
+X-List-Received-Date: Mon, 05 Jun 2017 08:33:32 -0000
 
+Acked-by: Lei YU <mine260309@gmail.com>
 
---=-BOklv5u+ToyqF1+DKeWF
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, 2017-06-05 at 17:13 +0930, Joel Stanley wrote:
+On Mon, Jun 5, 2017 at 3:43 PM, Joel Stanley <joel@jms.id.au> wrote:
 > This describes the SBE FIFO and OCC device that are attached via the FSI
 > bus.
->=20
+>
 > As this layout is common to all existing p9 machines, we add them via a
-> dtsi.=C2=A0=C2=A0This dtsi requires the 'fsi' label be present.
->=20
+> dtsi.  This dtsi requires the 'fsi' label be present.
+>
 > Signed-off-by: Joel Stanley <joel@jms.id.au>
-
-There are a number of ways we can lay out the nodes in the dtsi, but
-I'll save the bikeshedding. What you have looks good to me.
-
-Acked-by: Andrew Jeffery <andrew@aj.id.au>
-
 > ---
-> =C2=A0arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0|=C2=A0=C2=A08 +++--
-> =C2=A0arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts |=C2=A0=C2=A08 +++=
---
-> =C2=A0arch/arm/boot/dts/ibm-power9-cfam.dtsi=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0| 45 ++++++++++++++++++++++++
-> =C2=A03 files changed, 55 insertions(+), 6 deletions(-)
-> =C2=A0create mode 100644 arch/arm/boot/dts/ibm-power9-cfam.dtsi
->=20
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot=
-/dts/aspeed-bmc-opp-romulus.dts
+>  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     |  8 +++--
+>  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts |  8 +++--
+>  arch/arm/boot/dts/ibm-power9-cfam.dtsi           | 45 ++++++++++++++++++++++++
+>  3 files changed, 55 insertions(+), 6 deletions(-)
+>  create mode 100644 arch/arm/boot/dts/ibm-power9-cfam.dtsi
+>
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
 > index 03cde39189c5..dd01dfaa8509 100644
 > --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
 > +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
 > @@ -47,10 +47,10 @@
-> > =C2=A0		};
-> > =C2=A0	};
-> =C2=A0
-> > -	gpio-fsi {
-> > +	fsi: gpio-fsi {
-> > =C2=A0		compatible =3D "fsi-master-gpio", "fsi-master";
+>                 };
+>         };
+>
+> -       gpio-fsi {
+> +       fsi: gpio-fsi {
+>                 compatible = "fsi-master-gpio", "fsi-master";
 > -
-> > -		status =3D "okay";
-> > +		#address-cells =3D <2>;
-> > +		#size-cells =3D <0>;
-> =C2=A0
-> > =C2=A0		clock-gpios =3D <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
-> > =C2=A0		data-gpios =3D <&gpio ASPEED_GPIO(AA, 2) GPIO_ACTIVE_HIGH>;
+> -               status = "okay";
+> +               #address-cells = <2>;
+> +               #size-cells = <0>;
+>
+>                 clock-gpios = <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
+>                 data-gpios = <&gpio ASPEED_GPIO(AA, 2) GPIO_ACTIVE_HIGH>;
 > @@ -70,6 +70,8 @@
-> > =C2=A0	};
-> =C2=A0};
-> =C2=A0
+>         };
+>  };
+>
 > +#include "ibm-power9-cfam.dtsi"
 > +
-> =C2=A0&fmc {
-> > =C2=A0	status =3D "okay";
-> > =C2=A0	flash@0 {
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/=
-boot/dts/aspeed-bmc-opp-witherspoon.dts
+>  &fmc {
+>         status = "okay";
+>         flash@0 {
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
 > index 3001597d42d9..42b70a5d57aa 100644
 > --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
 > +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
 > @@ -63,10 +63,10 @@
-> > =C2=A0		};
-> > =C2=A0	};
-> =C2=A0
-> > -	gpio-fsi {
-> > +	fsi: gpio-fsi {
-> > =C2=A0		compatible =3D "fsi-master-gpio", "fsi-master";
+>                 };
+>         };
+>
+> -       gpio-fsi {
+> +       fsi: gpio-fsi {
+>                 compatible = "fsi-master-gpio", "fsi-master";
 > -
-> > -		status =3D "okay";
-> > +		#address-cells =3D <2>;
-> > +		#size-cells =3D <0>;
-> =C2=A0
-> > =C2=A0		clock-gpios =3D <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
-> > =C2=A0		data-gpios =3D <&gpio ASPEED_GPIO(E, 0) GPIO_ACTIVE_HIGH>;
+> -               status = "okay";
+> +               #address-cells = <2>;
+> +               #size-cells = <0>;
+>
+>                 clock-gpios = <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
+>                 data-gpios = <&gpio ASPEED_GPIO(E, 0) GPIO_ACTIVE_HIGH>;
 > @@ -81,6 +81,8 @@
-> > =C2=A0	};
-> =C2=A0};
-> =C2=A0
+>         };
+>  };
+>
 > +#include "ibm-power9-cfam.dtsi"
 > +
-> =C2=A0&fmc {
-> > =C2=A0	status =3D "okay";
-> > =C2=A0	flash@0 {
-> diff --git a/arch/arm/boot/dts/ibm-power9-cfam.dtsi b/arch/arm/boot/dts/i=
-bm-power9-cfam.dtsi
+>  &fmc {
+>         status = "okay";
+>         flash@0 {
+> diff --git a/arch/arm/boot/dts/ibm-power9-cfam.dtsi b/arch/arm/boot/dts/ibm-power9-cfam.dtsi
 > new file mode 100644
 > index 000000000000..5beb978f9f31
 > --- /dev/null
 > +++ b/arch/arm/boot/dts/ibm-power9-cfam.dtsi
 > @@ -0,0 +1,45 @@
 > +&fsi {
-> > +	cfam@0,0 {
-> > +		reg =3D <0 0>;
-> > +		#address-cells =3D <1>;
-> > +		#size-cells =3D <1>;
+> +       cfam@0,0 {
+> +               reg = <0 0>;
+> +               #address-cells = <1>;
+> +               #size-cells = <1>;
 > +
-> > +		sbefifo@2400 {
-> > +			compatible =3D "ibm,p9-sbefifo";
-> > +			reg =3D <0x2400 0x400>;
-> > +			#address-cells =3D <1>;
-> > +			#size-cells =3D <0>;
+> +               sbefifo@2400 {
+> +                       compatible = "ibm,p9-sbefifo";
+> +                       reg = <0x2400 0x400>;
+> +                       #address-cells = <1>;
+> +                       #size-cells = <0>;
 > +
-> > +			occ@1 {
-> > +				compatible =3D "ibm,p9-occ";
-> > +				reg =3D <1>;
-> > +			};
-> > +		};
+> +                       occ@1 {
+> +                               compatible = "ibm,p9-occ";
+> +                               reg = <1>;
+> +                       };
+> +               };
 > +
-> > +		hub@3400 {
-> > +			compatible =3D "fsi-master-hub";
-> > +			reg =3D <0x3400 0x400>;
-> > +			#address-cells =3D <2>;
-> > +			#size-cells =3D <0>;
+> +               hub@3400 {
+> +                       compatible = "fsi-master-hub";
+> +                       reg = <0x3400 0x400>;
+> +                       #address-cells = <2>;
+> +                       #size-cells = <0>;
 > +
-> > +			cfam@1,0 {
-> > +				reg =3D <1 0>;
-> > +				#address-cells =3D <1>;
-> > +				#size-cells =3D <1>;
+> +                       cfam@1,0 {
+> +                               reg = <1 0>;
+> +                               #address-cells = <1>;
+> +                               #size-cells = <1>;
 > +
-> > +				sbefifo@2400 {
-> > +					compatible =3D "ibm,p9-sbefifo";
-> > +					reg =3D <0x2400 0x400>;
-> > +					#address-cells =3D <1>;
-> > +					#size-cells =3D <0>;
+> +                               sbefifo@2400 {
+> +                                       compatible = "ibm,p9-sbefifo";
+> +                                       reg = <0x2400 0x400>;
+> +                                       #address-cells = <1>;
+> +                                       #size-cells = <0>;
 > +
-> > +					occ@2 {
-> > +						compatible =3D
-> > +							"ibm,p9-occ";
-> > +						reg =3D <2>;
-> > +					};
-> > +				};
-> > +			};
-> > +		};
-> > +	};
+> +                                       occ@2 {
+> +                                               compatible =
+> +                                                       "ibm,p9-occ";
+> +                                               reg = <2>;
+> +                                       };
+> +                               };
+> +                       };
+> +               };
+> +       };
 > +};
---=-BOklv5u+ToyqF1+DKeWF
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJZNRWDAAoJEJ0dnzgO5LT5AVYP/i2lVG7PfpBFMyzXWSz+vEZC
-KsGhxRqeepQgMoxBJ+qxJbTE06YfqvbBQi4IRH0GAQsGv4Msx91nwDzkdaiARrhp
-kw1FNe7BPJiVJ+D1N9VBqnRB76zLV+CPkH0RpmkuZaTeREc9gLJwBfOcYeC6QBm6
-rX0+/ytnFKwHVQZwXZ/VwIKt8xoQumL6LwkrZSvh6M5PIcdeO2pwk2QQNycGwfI/
-2vPnuB+ZY/XhK9mw6HXH5aB/6p1d38NRJhd6ZrvKaJarU8/1qra9YfMrOLZXwVPs
-/Tyh4jN1OjAoyR4z1IFAYOoE7lD0vPFQDognAEz0LOmlHHd7E8zt5HNOjlsKAON8
-+DZndisKatVfoDkgu8A4dYOOPj+jYlUdHWKglceCgMNyUb/t0IvRsebU8MEcT8Or
-hQuIwl1slSz/w79r/tLoQ0/zEr2h2reP51fuCF6/uCuHqDIC1XzUJP17w3oB278k
-AL8HRTXQKkU87X/8leffao9/HjQfoxNBApWNBkuzf2D0aG0+ruM0M0HxR1617snZ
-fTPTLkVuEpo4cf0/PJcWz4bWCocHnBp8m2uyWHNRtC2HZm1cSo46C1VggKfDscI9
-ipWNrh6pSsdrVfHhvlJNQq+TlytFED7VqZt8zJhqPnacGwZp7fAcWVw04HyphRZh
-iJYAHuuigNzP5KDOOCRL
-=yMQ3
------END PGP SIGNATURE-----
-
---=-BOklv5u+ToyqF1+DKeWF--
+> --
+> 2.11.0
+>
