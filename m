@@ -1,52 +1,52 @@
-Return-Path: <mine260309@gmail.com>
-Received: from mail-it0-x244.google.com (mail-it0-x244.google.com
- [IPv6:2607:f8b0:4001:c0b::244])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-pg0-x242.google.com (mail-pg0-x242.google.com
+ [IPv6:2607:f8b0:400e:c05::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wh7Pm0B0fzDqKp
- for <openbmc@lists.ozlabs.org>; Mon,  5 Jun 2017 18:33:32 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wh7mv5JmxzDqKp
+ for <openbmc@lists.ozlabs.org>; Mon,  5 Jun 2017 18:50:06 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="G3oO9Hjb"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="mJyjBH6Y"; 
  dkim-atps=neutral
-Received: by mail-it0-x244.google.com with SMTP id i206so21072393ita.3
- for <openbmc@lists.ozlabs.org>; Mon, 05 Jun 2017 01:33:31 -0700 (PDT)
+Received: by mail-pg0-x242.google.com with SMTP id v14so5396343pgn.1
+ for <openbmc@lists.ozlabs.org>; Mon, 05 Jun 2017 01:50:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=8T+P0qip3vgmW3tFsWYSq2U0S+Eod3aUdhNgWbLc4gU=;
- b=G3oO9HjbKfw618O03JYmI7HZV0aA+wvtyLIRVrM8IGzk4lgHdGAzHSj86ydERMUtJ6
- 384GjTqhnPI0ocRiRrePSIY+q5rCMkKTeMRa8sGH2Tv/oIrZm+v7KXL0ckNzZpwulvXY
- TW2HFuM78PNOe1YalCuSgzVYf0Uk/0xdXXAFtbPdpIXhgJxu/dX/HSMyyDi5C4SmaNRM
- qTh8vlF/xYK2NPWlq0TF2zJX280DSWyRgbhwKZ17DWM7op6iGFKlsAEVeVWia1KWLAXx
- fQSLKGEZDa4duqgTsKve8X8RotVJpn9DamWLHBwXcwqbzXr8qibGmSvMaLlJnN1Ss4ww
- tWKg==
+ h=sender:from:to:cc:subject:date:message-id;
+ bh=BwfGR1nFySlkl9/hostZIkGd+uX2mrM6N8rIWYF1zWM=;
+ b=mJyjBH6YWocwn43IWmWR0Gfq87p/yCGzsAjEtNGr0XwPcXhRBpk2yum0bdKN3NtRlF
+ dxUZE0x3VDU90ioR0agNLPrq230IhJKlGaDzLrBfcbWuiKtkcxgLoAapPtkKRUaoKvlP
+ FTRXaOWbBnlTBpZmS+50cV8AE2vdyA7aiQ6ml/fVqsiPiiZpA7aQryFtHVcte2hVo3IR
+ ottNWgiSWSNB3p3WgcAxZzQf/b6fNFx8iIzPi3wS5qvyaZGJiliGaoebZtQCqiAQfyVI
+ gEmkrbRGi10dP/C55htRkGcIq9Ikxjd/gOA+JL2jf7tlr098KbgJEABUglW/WOro6UHD
+ suxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=8T+P0qip3vgmW3tFsWYSq2U0S+Eod3aUdhNgWbLc4gU=;
- b=GNuViI9UH3eg+8vimiKxT+sZTB1bN4tHeYNtaPAVqmTbEYaFoQaj6dOt+GmQzWq3/L
- 2ZZDmoGBuC4CNzI6U3TMEzLZhgpcvALU4QHCwXAY945rny/LdK3pnCAy3F18X+nCkLNH
- uLufjWmzTayPxkMeC54GnyakYluMDfwvByaUUHrVfF43r3BmazUOOfuAUsly5K1TDBlm
- m6qYH889sdYnhXOzi1vdBtRNyHeL8GDHAGzQNfZDW7XZJtzSyfZ34mco20FeFiO3t0ND
- C3rE5rt47e3U5y6fXM+mHenA10y2wfyp7XTJv8c9VZs2K0YWxpJe/OY9mvGpdbrHA6Wc
- Ni/Q==
-X-Gm-Message-State: AODbwcAfcz0AE7C5AoNDu7cB5BkIvIz+2e177fd20m8H0un20xo/AxPr
- HBSrisVgW4TMLHp200GMK+mSXX5cmQ==
-X-Received: by 10.107.162.204 with SMTP id l195mr18552535ioe.218.1496651609877; 
- Mon, 05 Jun 2017 01:33:29 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.79.164.81 with HTTP; Mon, 5 Jun 2017 01:33:29 -0700 (PDT)
-In-Reply-To: <20170605074301.11310-1-joel@jms.id.au>
-References: <20170605074301.11310-1-joel@jms.id.au>
-From: Lei YU <mine260309@gmail.com>
-Date: Mon, 5 Jun 2017 16:33:29 +0800
-Message-ID: <CAARXrtmCsNhrQP+YQ-kdErGuW0+2C4PEWeF12fxHKLOZj4MDkw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: Add devices under FSI
- CFAM
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Eddie James <eajames@linux.vnet.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
+ bh=BwfGR1nFySlkl9/hostZIkGd+uX2mrM6N8rIWYF1zWM=;
+ b=W0ALbjuumiWq6X/U3tL/FJUPMhcXQBfbRLEw3hNfPHEbmiPDreb6WxPVc5v1JoMVXi
+ Vjvi3dYcS286Y1OlYOyaAk4xFY6DLSv+/sEGTNtmsXnVVQLucv1zRQa+76l8Qlv7vPW3
+ 3fatdNQFs/3Xl7ScBzrr4riOIi+msgV4UEINVb5kqISdiqg9nbfP58a52s+7S+c70luO
+ rhR9Lxf4SBR1XWOj3CMn8q7NvyDFzOO155uXfu+ymZCSCnQmQDIwpnNFLBMUYOmuj1Lb
+ t0rMRaaW6hmgXRsxJPMJNQOGh9HFGj0kMS7m0DIvwcq6X7QYuHpTTtfyRk2S9L5U6M1r
+ GAQg==
+X-Gm-Message-State: AODbwcCncO4Ld2oyncz6HzcTSccYgp/+/uSwiIfTyFYVBZcmgRnkygmB
+ 6Uy2rEmyyn7XbfzdB3cV0Q==
+X-Received: by 10.98.217.155 with SMTP id b27mr18235561pfl.17.1496652604868;
+ Mon, 05 Jun 2017 01:50:04 -0700 (PDT)
+Received: from aurora.jms.id.au ([203.0.153.9])
+ by smtp.gmail.com with ESMTPSA id u9sm54694618pgn.55.2017.06.05.01.50.01
+ (version=TLS1 cipher=AES128-SHA bits=128/128);
+ Mon, 05 Jun 2017 01:50:04 -0700 (PDT)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+Received: by aurora.jms.id.au (sSMTP sendmail emulation);
+ Mon, 05 Jun 2017 18:19:59 +0930
+From: Joel Stanley <joel@jms.id.au>
+To: openbmc@lists.ozlabs.org
+Cc: Eddie James <eajames@linux.vnet.ibm.com>
+Subject: [PATCH linux dev-4.10] hwmon (occ): Fix kconfig and makefile
+Date: Mon,  5 Jun 2017 18:19:54 +0930
+Message-Id: <20170605084954.8512-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,130 +58,78 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 Jun 2017 08:33:32 -0000
+X-List-Received-Date: Mon, 05 Jun 2017 08:50:08 -0000
 
-Acked-by: Lei YU <mine260309@gmail.com>
+The OCC driver was not buildable. Clean up the makefile and kconfig.
 
-On Mon, Jun 5, 2017 at 3:43 PM, Joel Stanley <joel@jms.id.au> wrote:
-> This describes the SBE FIFO and OCC device that are attached via the FSI
-> bus.
->
-> As this layout is common to all existing p9 machines, we add them via a
-> dtsi.  This dtsi requires the 'fsi' label be present.
->
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     |  8 +++--
->  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts |  8 +++--
->  arch/arm/boot/dts/ibm-power9-cfam.dtsi           | 45 ++++++++++++++++++++++++
->  3 files changed, 55 insertions(+), 6 deletions(-)
->  create mode 100644 arch/arm/boot/dts/ibm-power9-cfam.dtsi
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> index 03cde39189c5..dd01dfaa8509 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> @@ -47,10 +47,10 @@
->                 };
->         };
->
-> -       gpio-fsi {
-> +       fsi: gpio-fsi {
->                 compatible = "fsi-master-gpio", "fsi-master";
-> -
-> -               status = "okay";
-> +               #address-cells = <2>;
-> +               #size-cells = <0>;
->
->                 clock-gpios = <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
->                 data-gpios = <&gpio ASPEED_GPIO(AA, 2) GPIO_ACTIVE_HIGH>;
-> @@ -70,6 +70,8 @@
->         };
->  };
->
-> +#include "ibm-power9-cfam.dtsi"
-> +
->  &fmc {
->         status = "okay";
->         flash@0 {
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> index 3001597d42d9..42b70a5d57aa 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> @@ -63,10 +63,10 @@
->                 };
->         };
->
-> -       gpio-fsi {
-> +       fsi: gpio-fsi {
->                 compatible = "fsi-master-gpio", "fsi-master";
-> -
-> -               status = "okay";
-> +               #address-cells = <2>;
-> +               #size-cells = <0>;
->
->                 clock-gpios = <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
->                 data-gpios = <&gpio ASPEED_GPIO(E, 0) GPIO_ACTIVE_HIGH>;
-> @@ -81,6 +81,8 @@
->         };
->  };
->
-> +#include "ibm-power9-cfam.dtsi"
-> +
->  &fmc {
->         status = "okay";
->         flash@0 {
-> diff --git a/arch/arm/boot/dts/ibm-power9-cfam.dtsi b/arch/arm/boot/dts/ibm-power9-cfam.dtsi
-> new file mode 100644
-> index 000000000000..5beb978f9f31
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/ibm-power9-cfam.dtsi
-> @@ -0,0 +1,45 @@
-> +&fsi {
-> +       cfam@0,0 {
-> +               reg = <0 0>;
-> +               #address-cells = <1>;
-> +               #size-cells = <1>;
-> +
-> +               sbefifo@2400 {
-> +                       compatible = "ibm,p9-sbefifo";
-> +                       reg = <0x2400 0x400>;
-> +                       #address-cells = <1>;
-> +                       #size-cells = <0>;
-> +
-> +                       occ@1 {
-> +                               compatible = "ibm,p9-occ";
-> +                               reg = <1>;
-> +                       };
-> +               };
-> +
-> +               hub@3400 {
-> +                       compatible = "fsi-master-hub";
-> +                       reg = <0x3400 0x400>;
-> +                       #address-cells = <2>;
-> +                       #size-cells = <0>;
-> +
-> +                       cfam@1,0 {
-> +                               reg = <1 0>;
-> +                               #address-cells = <1>;
-> +                               #size-cells = <1>;
-> +
-> +                               sbefifo@2400 {
-> +                                       compatible = "ibm,p9-sbefifo";
-> +                                       reg = <0x2400 0x400>;
-> +                                       #address-cells = <1>;
-> +                                       #size-cells = <0>;
-> +
-> +                                       occ@2 {
-> +                                               compatible =
-> +                                                       "ibm,p9-occ";
-> +                                               reg = <2>;
-> +                                       };
-> +                               };
-> +                       };
-> +               };
-> +       };
-> +};
-> --
-> 2.11.0
->
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+---
+ drivers/hwmon/Makefile     |  2 +-
+ drivers/hwmon/occ/Kconfig  | 15 +--------------
+ drivers/hwmon/occ/Makefile |  8 +-------
+ 3 files changed, 3 insertions(+), 22 deletions(-)
+
+diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
+index f03dd0a15933..2e803f56446e 100644
+--- a/drivers/hwmon/Makefile
++++ b/drivers/hwmon/Makefile
+@@ -46,6 +46,7 @@ obj-$(CONFIG_SENSORS_ADT7475)	+= adt7475.o
+ obj-$(CONFIG_SENSORS_APPLESMC)	+= applesmc.o
+ obj-$(CONFIG_SENSORS_ARM_SCPI)	+= scpi-hwmon.o
+ obj-$(CONFIG_SENSORS_ASC7621)	+= asc7621.o
++obj-$(CONFIG_SENSORS_OCC_P9_SBE) += occ/
+ obj-$(CONFIG_SENSORS_ATXP1)	+= atxp1.o
+ obj-$(CONFIG_SENSORS_CORETEMP)	+= coretemp.o
+ obj-$(CONFIG_SENSORS_DA9052_ADC)+= da9052-hwmon.o
+@@ -170,7 +171,6 @@ obj-$(CONFIG_SENSORS_WM8350)	+= wm8350-hwmon.o
+ obj-$(CONFIG_SENSORS_XGENE)	+= xgene-hwmon.o
+ 
+ obj-$(CONFIG_PMBUS)		+= pmbus/
+-obj-$(CONFIG_SENSORS_OCC)	+= occ/
+ 
+ ccflags-$(CONFIG_HWMON_DEBUG_CHIP) := -DDEBUG
+ 
+diff --git a/drivers/hwmon/occ/Kconfig b/drivers/hwmon/occ/Kconfig
+index 34488de15900..8196b50c1693 100644
+--- a/drivers/hwmon/occ/Kconfig
++++ b/drivers/hwmon/occ/Kconfig
+@@ -2,23 +2,10 @@
+ # On-Chip Controller configuration
+ #
+ 
+-menuconfig SENSORS_OCC
+-	tristate "POWER On-Chip Controller"
+-	help
+-	  If you say yes here you get support for monitoring the IBM POWER
+-	  processor sensors via the On-Chip Controller (OCC).
+-
+-	  This driver can also be built as a module. If so, the module will be
+-	  called occ-hwmon.
+-
+-if SENSORS_OCC
+-
+ config SENSORS_OCC_P9_SBE
+ 	bool "POWER9 OCC via SBE"
+-	depends on SBEFIFO_OCC
++	depends on OCCFIFO
+ 	help
+ 	  If you say yes here you get support for monitoring the POWER9
+ 	  processor sensors via the OCC, from a service processor, over SBE
+ 	  engine on FSI bus.
+-
+-endif
+diff --git a/drivers/hwmon/occ/Makefile b/drivers/hwmon/occ/Makefile
+index adc7a9c458d6..3b0ddc6c1e52 100644
+--- a/drivers/hwmon/occ/Makefile
++++ b/drivers/hwmon/occ/Makefile
+@@ -1,7 +1 @@
+-occ-hwmon-objs := common.o
+-
+-ifeq ($(CONFIG_SENSORS_OCC_P9_SBE), y)
+-occ-hwmon-objs += p9.o p9_sbe.o
+-endif
+-
+-obj-$(CONFIG_SENSORS_OCC) += occ-hwmon.o
++obj-y += p9.o p9_sbe.o common.o
+-- 
+2.11.0
