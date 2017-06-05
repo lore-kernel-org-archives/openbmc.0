@@ -1,58 +1,53 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x242.google.com (mail-yw0-x242.google.com
- [IPv6:2607:f8b0:4002:c05::242])
+Received: from mail-pg0-x244.google.com (mail-pg0-x244.google.com
+ [IPv6:2607:f8b0:400e:c05::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wh4gG3dWbzDq5W
- for <openbmc@lists.ozlabs.org>; Mon,  5 Jun 2017 16:30:02 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wh6Hp3cHczDqKp
+ for <openbmc@lists.ozlabs.org>; Mon,  5 Jun 2017 17:43:18 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="gRsRuDye"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="NpDjTT0I"; 
  dkim-atps=neutral
-Received: by mail-yw0-x242.google.com with SMTP id w143so1190252yww.1
- for <openbmc@lists.ozlabs.org>; Sun, 04 Jun 2017 23:30:02 -0700 (PDT)
+Received: by mail-pg0-x244.google.com with SMTP id v18so5582795pgb.3
+ for <openbmc@lists.ozlabs.org>; Mon, 05 Jun 2017 00:43:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=8P1NiCJMOjdM73YBVzXp/oErWDc4x/uIUXh7SAO/mr0=;
- b=gRsRuDyecKTJkBdqyb8fvJ5rmCWtSS0rfxzDHypOCndG8t7FDPXOxoUxromLY+46ZI
- Ly1VdzB4KiVaRiguhP/+QTK7rWa4YQ2XqAZaZOjp3kY9Q4ehbt5iCfAK/FfF7PrUzrox
- GOowx2TLHcZapzsZpttmZLhZ62f1kN6sqZTHa+9xnK04V7Rpw0fHDOTuPDqmOo9R6jzc
- SXv0eVC2TGfmbr4qF/2Nez9SqT4i0gZeDfymu6Rs2WNRKlmqe83k0fzCzhQd2uiP+EAY
- eugmRX9a3oTo2beQZSi2iHv1DMgDZpn9bQs3MqxM4dJaVS3w99FvtFS2Fq5XGH00Al30
- ZP9A==
+ h=sender:from:to:cc:subject:date:message-id;
+ bh=MvfgiPuo0oz38mScg7Aodj9TSUKkKLltv77jmjhi0FE=;
+ b=NpDjTT0IeH2HZk+Ttor11E/z2zNoqeh1kFRsPRdUhI7APPUMCWpHgTzusZO7FuhJ/7
+ ebZEX2GuuElh+ElI226Z9rVegxA40Nk+yQiHNZzWbLLSu/vbBn0jKMOAjmcWnT9wbZj3
+ C/aldQfcvU/MpTitLmfPkt11lkXLW2207mf1yRDF8e+47UADIOcvGdbag04THpP0kAuK
+ G5qjRSjh6OEMutICFywbOp+yM/0LvT0kfxIgmph/adGq2LFVjoZaOmqOH25/ZlA5/9jF
+ qss+jA5GhNOAcdBa6Isr6KZyLlpcji6Ogy+wh7QEc8hKJFcnFm4ZWAVOcFLhY68pLcDE
+ 75DQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=8P1NiCJMOjdM73YBVzXp/oErWDc4x/uIUXh7SAO/mr0=;
- b=neVnor0i57FXGWb+e1I7qtpMHybo1rQ1PQkDukMgQhSjO4aEZ/0Ubl6rrA8yYjAg32
- xtjmrkSQ4veU+V81t8HnPdFxiOnjAIU8INcpdt2P3E99SGmU80KZ3iCU5zvSgNoxOfBJ
- XVdY9tR6Z8xgey2GVOgbGvW8Zi0Sklv05R1T8gyxGxWf15Dzn9DPEHEn/LgbrK7XbhpR
- bMi9ywafJ0OKLLVcsfcDNRumy6TQ3b8KaW7mIO2RloS8E5SLBgkXVwvDEVLsr86hfOuq
- td4iWqVTzptunjCq11UujzyixPLZrVhEl2+61sWPvkjKCSOOk2Sl5e/xAMmx34M66SxI
- FJew==
-X-Gm-Message-State: AODbwcDQGeKjDLCqinG/0pSsopMl0rIPTYMmZKExEUI/sid+TV0rPxC0
- E3fiRg8nrWGp8cYSkJpKhjuPClaejg==
-X-Received: by 10.13.218.198 with SMTP id c189mr14305925ywe.308.1496644200558; 
- Sun, 04 Jun 2017 23:30:00 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.183.7 with HTTP; Sun, 4 Jun 2017 23:29:40 -0700 (PDT)
-In-Reply-To: <1494617900-32369-4-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1494617900-32369-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1494617900-32369-4-git-send-email-eajames@linux.vnet.ibm.com>
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
+ bh=MvfgiPuo0oz38mScg7Aodj9TSUKkKLltv77jmjhi0FE=;
+ b=hoagH1RCKiPlZPxqVcW3raqnGgyMkVK3v55kawdFCWWRMN4qQmm7BvRxYzfNJvgTvc
+ G2E8yv2l+sn6usNKj2FUBI97SrSgKhiOCiS+GwxMTmxp4Yx1a0kBMeIP5PLuWSe7zab1
+ KrKzolMLMLL7aiwixjk8Ki9LsZsyV4wjFn/YZ7LkzCb0KfCOVRQvovuOBuOH+uvp+OhR
+ 1evTg+VGIVxfJdWCXVi+D4Js3kAsP4R5O9WzJpXOUUjqpy1DXPEkp2lCQyr2bI8Tow1Y
+ tGgGHIgqMe9u+Tme17tShU63e6Ar3A1nTJXVLtsRZHaZmjP6borsggQZRLqxs4GxKK9/
+ mwQA==
+X-Gm-Message-State: AODbwcAOJ82XG3kzeJP1ePF19oMh31lb3p1jZ2NN1eA/1cwOgFqNXFO2
+ OfhE9pEN9wUkj+fY2sH5gw==
+X-Received: by 10.101.88.8 with SMTP id g8mr16918277pgr.180.1496648596182;
+ Mon, 05 Jun 2017 00:43:16 -0700 (PDT)
+Received: from aurora.jms.id.au ([203.0.153.9])
+ by smtp.gmail.com with ESMTPSA id x27sm5028876pfe.113.2017.06.05.00.43.12
+ (version=TLS1 cipher=AES128-SHA bits=128/128);
+ Mon, 05 Jun 2017 00:43:15 -0700 (PDT)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+Received: by aurora.jms.id.au (sSMTP sendmail emulation);
+ Mon, 05 Jun 2017 17:13:09 +0930
 From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 5 Jun 2017 15:59:40 +0930
-X-Google-Sender-Auth: aBaMWvTt5gAecGyeOVD2fHsZAMg
-Message-ID: <CACPK8XdMJANFCV8pfrbf=+oR5pzku5ARVs1fE39E5v=eP0p_tQ@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 3/3] dts: aspeed: witherspoon: Add FSI
- devices
-To: Eddie James <eajames@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Brad Bishop <bradleyb@fuzziesquirrel.com>, 
- Christopher Bostic <cbostic@linux.vnet.ibm.com>,
- "Edward A. James" <eajames@us.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
+To: openbmc@lists.ozlabs.org
+Cc: Eddie James <eajames@linux.vnet.ibm.com>,
+	Jeremy Kerr <jk@ozlabs.org>
+Subject: [PATCH linux dev-4.10] ARM: dts: aspeed: Add devices under FSI CFAM
+Date: Mon,  5 Jun 2017 17:13:01 +0930
+Message-Id: <20170605074301.11310-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -64,90 +59,126 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 Jun 2017 06:30:03 -0000
+X-List-Received-Date: Mon, 05 Jun 2017 07:43:19 -0000
 
-On Sat, May 13, 2017 at 5:08 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
-> From: "Edward A. James" <eajames@us.ibm.com>
->
-> Signed-off-by: Edward A. James <eajames@us.ibm.com>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 46 ++++++++++++++++++++++++
->  1 file changed, 46 insertions(+)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> index f20aaf4..4138c93 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> @@ -65,6 +65,8 @@
->
->         gpio-fsi {
->                 compatible = "fsi-master-gpio", "fsi-master";
-> +               #address-cells = <2>;
-> +               #size-cells = <0>;
->
->                 status = "okay";
->
-> @@ -73,6 +75,50 @@
->                 mux-gpios = <&gpio ASPEED_GPIO(A, 6) GPIO_ACTIVE_HIGH>;
->                 enable-gpios = <&gpio ASPEED_GPIO(D, 0) GPIO_ACTIVE_HIGH>;
->                 trans-gpios = <&gpio ASPEED_GPIO(R, 2) GPIO_ACTIVE_HIGH>;
-> +
-> +               cfam@0,0 {
-> +                       reg = <0 0>;
-> +                       #address-cells = <1>;
-> +                       #size-cells = <1>;
+This describes the SBE FIFO and OCC device that are attached via the FSI
+bus.
 
-Since this snippet will be shared by all power9 machines, I suggest we
-put it in a dtsi file that is included by them all.
+As this layout is common to all existing p9 machines, we add them via a
+dtsi.  This dtsi requires the 'fsi' label be present.
 
-I will resend with my proposal.
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     |  8 +++--
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts |  8 +++--
+ arch/arm/boot/dts/ibm-power9-cfam.dtsi           | 45 ++++++++++++++++++++++++
+ 3 files changed, 55 insertions(+), 6 deletions(-)
+ create mode 100644 arch/arm/boot/dts/ibm-power9-cfam.dtsi
 
-Cheers,
-
-Joel
-
-> +
-> +                       sbefifo@2400 {
-> +                               compatible = "ibm,p9-sbefifo";
-> +                               reg = <0x2400 0x400>;
-> +                               #address-cells = <1>;
-> +                               #size-cells = <0>;
-> +
-> +                               occ@1 {
-> +                                       compatible = "ibm,p9-occ";
-> +                                       reg = <1>;
-> +                               };
-> +                       };
-> +
-> +                       hub@3400 {
-> +                               compatible = "fsi-master-hub";
-> +                               reg = <0x3400 0x400>;
-> +                               #address-cells = <2>;
-> +                               #size-cells = <0>;
-> +
-> +                               cfam@1,0 {
-> +                                       reg = <1 0>;
-> +                                       #address-cells = <1>;
-> +                                       #size-cells = <1>;
-> +
-> +                                       sbefifo@2400 {
-> +                                               compatible = "ibm,p9-sbefifo";
-> +                                               reg = <0x2400 0x400>;
-> +                                               #address-cells = <1>;
-> +                                               #size-cells = <0>;
-> +
-> +                                               occ@2 {
-> +                                                       compatible =
-> +                                                               "ibm,p9-occ";
-> +                                                       reg = <2>;
-> +                                               };
-> +                                       };
-> +                               };
-> +                       };
-> +               };
->         };
->
->         iio-hwmon {
-> --
-> 1.8.3.1
->
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+index 03cde39189c5..dd01dfaa8509 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+@@ -47,10 +47,10 @@
+ 		};
+ 	};
+ 
+-	gpio-fsi {
++	fsi: gpio-fsi {
+ 		compatible = "fsi-master-gpio", "fsi-master";
+-
+-		status = "okay";
++		#address-cells = <2>;
++		#size-cells = <0>;
+ 
+ 		clock-gpios = <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
+ 		data-gpios = <&gpio ASPEED_GPIO(AA, 2) GPIO_ACTIVE_HIGH>;
+@@ -70,6 +70,8 @@
+ 	};
+ };
+ 
++#include "ibm-power9-cfam.dtsi"
++
+ &fmc {
+ 	status = "okay";
+ 	flash@0 {
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index 3001597d42d9..42b70a5d57aa 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -63,10 +63,10 @@
+ 		};
+ 	};
+ 
+-	gpio-fsi {
++	fsi: gpio-fsi {
+ 		compatible = "fsi-master-gpio", "fsi-master";
+-
+-		status = "okay";
++		#address-cells = <2>;
++		#size-cells = <0>;
+ 
+ 		clock-gpios = <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
+ 		data-gpios = <&gpio ASPEED_GPIO(E, 0) GPIO_ACTIVE_HIGH>;
+@@ -81,6 +81,8 @@
+ 	};
+ };
+ 
++#include "ibm-power9-cfam.dtsi"
++
+ &fmc {
+ 	status = "okay";
+ 	flash@0 {
+diff --git a/arch/arm/boot/dts/ibm-power9-cfam.dtsi b/arch/arm/boot/dts/ibm-power9-cfam.dtsi
+new file mode 100644
+index 000000000000..5beb978f9f31
+--- /dev/null
++++ b/arch/arm/boot/dts/ibm-power9-cfam.dtsi
+@@ -0,0 +1,45 @@
++&fsi {
++	cfam@0,0 {
++		reg = <0 0>;
++		#address-cells = <1>;
++		#size-cells = <1>;
++
++		sbefifo@2400 {
++			compatible = "ibm,p9-sbefifo";
++			reg = <0x2400 0x400>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			occ@1 {
++				compatible = "ibm,p9-occ";
++				reg = <1>;
++			};
++		};
++
++		hub@3400 {
++			compatible = "fsi-master-hub";
++			reg = <0x3400 0x400>;
++			#address-cells = <2>;
++			#size-cells = <0>;
++
++			cfam@1,0 {
++				reg = <1 0>;
++				#address-cells = <1>;
++				#size-cells = <1>;
++
++				sbefifo@2400 {
++					compatible = "ibm,p9-sbefifo";
++					reg = <0x2400 0x400>;
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					occ@2 {
++						compatible =
++							"ibm,p9-occ";
++						reg = <2>;
++					};
++				};
++			};
++		};
++	};
++};
+-- 
+2.11.0
