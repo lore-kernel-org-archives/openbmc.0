@@ -1,53 +1,58 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-pg0-x244.google.com (mail-pg0-x244.google.com
- [IPv6:2607:f8b0:400e:c05::244])
+Received: from mail-yb0-x243.google.com (mail-yb0-x243.google.com
+ [IPv6:2607:f8b0:4002:c09::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wh6Hp3cHczDqKp
- for <openbmc@lists.ozlabs.org>; Mon,  5 Jun 2017 17:43:18 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wh6d11dCvzDqLG
+ for <openbmc@lists.ozlabs.org>; Mon,  5 Jun 2017 17:58:13 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="NpDjTT0I"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="GzfurNBM"; 
  dkim-atps=neutral
-Received: by mail-pg0-x244.google.com with SMTP id v18so5582795pgb.3
- for <openbmc@lists.ozlabs.org>; Mon, 05 Jun 2017 00:43:18 -0700 (PDT)
+Received: by mail-yb0-x243.google.com with SMTP id 202so4656253ybd.0
+ for <openbmc@lists.ozlabs.org>; Mon, 05 Jun 2017 00:58:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id;
- bh=MvfgiPuo0oz38mScg7Aodj9TSUKkKLltv77jmjhi0FE=;
- b=NpDjTT0IeH2HZk+Ttor11E/z2zNoqeh1kFRsPRdUhI7APPUMCWpHgTzusZO7FuhJ/7
- ebZEX2GuuElh+ElI226Z9rVegxA40Nk+yQiHNZzWbLLSu/vbBn0jKMOAjmcWnT9wbZj3
- C/aldQfcvU/MpTitLmfPkt11lkXLW2207mf1yRDF8e+47UADIOcvGdbag04THpP0kAuK
- G5qjRSjh6OEMutICFywbOp+yM/0LvT0kfxIgmph/adGq2LFVjoZaOmqOH25/ZlA5/9jF
- qss+jA5GhNOAcdBa6Isr6KZyLlpcji6Ogy+wh7QEc8hKJFcnFm4ZWAVOcFLhY68pLcDE
- 75DQ==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=E1sCI5QsKJN8YQAprSfAKqapP4X41JE2Vm2zEUa6Q8s=;
+ b=GzfurNBMLKn2NBGeDZNtQ309d6YWsgN1EY2UZr3kmJLYQ8vHGG+V6Ss0mJQg29KBqg
+ D4+FWNWTHllK59y16yDhRqfV/XSdd4H1oT0Ka0nPhUrJyXYcXPzV0PjO785aPpp9Ag3o
+ fO4JjbhfmvOp1n4y9kL5DIi215p3xRDKG76rPhWCLU6CusMn32BtBJ32fGWZA64zRuxq
+ VXVwHFMlBLGOM1Sn3ED7NxDXGWcS/scIuo1qnZyOBS+UJ6m1d+9muWzXlc7o5ENqixtp
+ mH9TXH9Kif7m7ebsjOSQbgVkrAKCWzPjyMWdgZmYzCB/qVf1oH2r5JbFkMgD0CaHVppN
+ ns1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
- bh=MvfgiPuo0oz38mScg7Aodj9TSUKkKLltv77jmjhi0FE=;
- b=hoagH1RCKiPlZPxqVcW3raqnGgyMkVK3v55kawdFCWWRMN4qQmm7BvRxYzfNJvgTvc
- G2E8yv2l+sn6usNKj2FUBI97SrSgKhiOCiS+GwxMTmxp4Yx1a0kBMeIP5PLuWSe7zab1
- KrKzolMLMLL7aiwixjk8Ki9LsZsyV4wjFn/YZ7LkzCb0KfCOVRQvovuOBuOH+uvp+OhR
- 1evTg+VGIVxfJdWCXVi+D4Js3kAsP4R5O9WzJpXOUUjqpy1DXPEkp2lCQyr2bI8Tow1Y
- tGgGHIgqMe9u+Tme17tShU63e6Ar3A1nTJXVLtsRZHaZmjP6borsggQZRLqxs4GxKK9/
- mwQA==
-X-Gm-Message-State: AODbwcAOJ82XG3kzeJP1ePF19oMh31lb3p1jZ2NN1eA/1cwOgFqNXFO2
- OfhE9pEN9wUkj+fY2sH5gw==
-X-Received: by 10.101.88.8 with SMTP id g8mr16918277pgr.180.1496648596182;
- Mon, 05 Jun 2017 00:43:16 -0700 (PDT)
-Received: from aurora.jms.id.au ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id x27sm5028876pfe.113.2017.06.05.00.43.12
- (version=TLS1 cipher=AES128-SHA bits=128/128);
- Mon, 05 Jun 2017 00:43:15 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Mon, 05 Jun 2017 17:13:09 +0930
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=E1sCI5QsKJN8YQAprSfAKqapP4X41JE2Vm2zEUa6Q8s=;
+ b=N51JddpYqYGIUSW1oLwc/ONUEbjVNWoLUPgiD8GPsVQ+nxoiheTQk/j7W9Pn1DouEp
+ /8SuP2SpMoYIL5EE9Mqx7ZkcloWsKIsZ50skzFBXdxGmhSJeqCWECTvXnbm38u/WLd2G
+ DMRJPGDWbjijBY+oLjLf2Gocp3P5SSpO7qpj8bhdmcN+jMAzNhDmqjorsLyVikFMHy9r
+ IipHkUcNe3Y30MudXu+xBwwV2YrxfenLjqBuduzYgfXMXdy9h9HjNmFAhmZzL8AtgBcV
+ pg9V0p/ccSZNTqlI1D4F/xT+VJ0EXUClSCpBy6kOqPDX/imxq1q4qiC0kjNfbS3+vnGy
+ 2qrQ==
+X-Gm-Message-State: AODbwcC4IG1HmyMQCnGhQZlNbRUp+pcR2wo7hnfcXOhJU+qZ45jw/heh
+ CwXz3RSeZfFisAe2CcMPe9CMg0seiQ==
+X-Received: by 10.37.202.140 with SMTP id a134mr4684452ybg.182.1496649490735; 
+ Mon, 05 Jun 2017 00:58:10 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.183.7 with HTTP; Mon, 5 Jun 2017 00:57:50 -0700 (PDT)
+In-Reply-To: <1496426181-26205-3-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1496426181-26205-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <1496426181-26205-3-git-send-email-eajames@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-To: openbmc@lists.ozlabs.org
-Cc: Eddie James <eajames@linux.vnet.ibm.com>,
-	Jeremy Kerr <jk@ozlabs.org>
-Subject: [PATCH linux dev-4.10] ARM: dts: aspeed: Add devices under FSI CFAM
-Date: Mon,  5 Jun 2017 17:13:01 +0930
-Message-Id: <20170605074301.11310-1-joel@jms.id.au>
-X-Mailer: git-send-email 2.11.0
+Date: Mon, 5 Jun 2017 17:27:50 +0930
+X-Google-Sender-Auth: iwtHhHbpiN0s4dwRZ6Znhi-BlYg
+Message-ID: <CACPK8XdVxJ+f+U-aYX0N2__E1oCUokrBzv=a+JFNvcq1KqnpNg@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v4 2/2] drivers: fsi: sbefifo: Add OCC
+ driver
+To: Eddie James <eajames@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Jeremy Kerr <jk@ozlabs.org>, 
+ Brad Bishop <bradleyb@fuzziesquirrel.com>,
+ "Edward A. James" <eajames@us.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,126 +64,143 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 Jun 2017 07:43:19 -0000
+X-List-Received-Date: Mon, 05 Jun 2017 07:58:13 -0000
 
-This describes the SBE FIFO and OCC device that are attached via the FSI
-bus.
+On Sat, Jun 3, 2017 at 3:26 AM, Eddie James <eajames@linux.vnet.ibm.com> wr=
+ote:
+> From: "Edward A. James" <eajames@us.ibm.com>
+>
+> This driver provides an atomic communications channel between the OCC on
+> the POWER9 processor and a service processor (a BMC). The driver is
+> dependent on the FSI SBEFIFO driver to get hardware access to the OCC
+> SRAM.
+>
+> The format of the communication is a command followed by a response.
+> Since the command and response must be performed atomically, the driver
+> will perform this operations asynchronously. In this way, a write
+> operation starts the command, and a read will gather the response data
+> once it is complete.
+>
+> Signed-off-by: Edward A. James <eajames@us.ibm.com>
 
-As this layout is common to all existing p9 machines, we add them via a
-dtsi.  This dtsi requires the 'fsi' label be present.
+I applied this to dev-4.10.
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     |  8 +++--
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts |  8 +++--
- arch/arm/boot/dts/ibm-power9-cfam.dtsi           | 45 ++++++++++++++++++++++++
- 3 files changed, 55 insertions(+), 6 deletions(-)
- create mode 100644 arch/arm/boot/dts/ibm-power9-cfam.dtsi
+Note that there are a number of outstanding issues we must address
+before it is considered production quality. I propose we do that
+review when you submit it to the upstream lists.
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-index 03cde39189c5..dd01dfaa8509 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-@@ -47,10 +47,10 @@
- 		};
- 	};
- 
--	gpio-fsi {
-+	fsi: gpio-fsi {
- 		compatible = "fsi-master-gpio", "fsi-master";
--
--		status = "okay";
-+		#address-cells = <2>;
-+		#size-cells = <0>;
- 
- 		clock-gpios = <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
- 		data-gpios = <&gpio ASPEED_GPIO(AA, 2) GPIO_ACTIVE_HIGH>;
-@@ -70,6 +70,8 @@
- 	};
- };
- 
-+#include "ibm-power9-cfam.dtsi"
-+
- &fmc {
- 	status = "okay";
- 	flash@0 {
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-index 3001597d42d9..42b70a5d57aa 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -63,10 +63,10 @@
- 		};
- 	};
- 
--	gpio-fsi {
-+	fsi: gpio-fsi {
- 		compatible = "fsi-master-gpio", "fsi-master";
--
--		status = "okay";
-+		#address-cells = <2>;
-+		#size-cells = <0>;
- 
- 		clock-gpios = <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
- 		data-gpios = <&gpio ASPEED_GPIO(E, 0) GPIO_ACTIVE_HIGH>;
-@@ -81,6 +81,8 @@
- 	};
- };
- 
-+#include "ibm-power9-cfam.dtsi"
-+
- &fmc {
- 	status = "okay";
- 	flash@0 {
-diff --git a/arch/arm/boot/dts/ibm-power9-cfam.dtsi b/arch/arm/boot/dts/ibm-power9-cfam.dtsi
-new file mode 100644
-index 000000000000..5beb978f9f31
---- /dev/null
-+++ b/arch/arm/boot/dts/ibm-power9-cfam.dtsi
-@@ -0,0 +1,45 @@
-+&fsi {
-+	cfam@0,0 {
-+		reg = <0 0>;
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+
-+		sbefifo@2400 {
-+			compatible = "ibm,p9-sbefifo";
-+			reg = <0x2400 0x400>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			occ@1 {
-+				compatible = "ibm,p9-occ";
-+				reg = <1>;
-+			};
-+		};
-+
-+		hub@3400 {
-+			compatible = "fsi-master-hub";
-+			reg = <0x3400 0x400>;
-+			#address-cells = <2>;
-+			#size-cells = <0>;
-+
-+			cfam@1,0 {
-+				reg = <1 0>;
-+				#address-cells = <1>;
-+				#size-cells = <1>;
-+
-+				sbefifo@2400 {
-+					compatible = "ibm,p9-sbefifo";
-+					reg = <0x2400 0x400>;
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					occ@2 {
-+						compatible =
-+							"ibm,p9-occ";
-+						reg = <2>;
-+					};
-+				};
-+			};
-+		};
-+	};
-+};
--- 
-2.11.0
+> +
+> +static int occ_remove(struct platform_device *pdev)
+> +{
+> +       struct occ_xfr *xfr, *tmp;
+> +       struct occ *occ =3D platform_get_drvdata(pdev);
+> +       struct occ_client *client;
+
+This created some warnings:
+
+drivers/fsi/occ.c: In function =E2=80=98occ_remove=E2=80=99:
+drivers/fsi/occ.c:735:21: warning: unused variable =E2=80=98client=E2=80=99=
+ [-Wunused-variable]
+  struct occ_client *client;
+                     ^~~~~~
+drivers/fsi/occ.c:733:24: warning: unused variable =E2=80=98tmp=E2=80=99 [-=
+Wunused-variable]
+  struct occ_xfr *xfr, *tmp;
+                        ^~~
+drivers/fsi/occ.c:733:18: warning: unused variable =E2=80=98xfr=E2=80=99 [-=
+Wunused-variable]
+  struct occ_xfr *xfr, *tmp;
+                  ^~~
+
+I fixed them for you. Please make sure you fix them in your tree
+before submitting upstream.
+
+Cheers,
+
+Joel
+
+> +
+> +       flush_work(&occ->work);
+> +
+> +       misc_deregister(&occ->mdev);
+> +
+> +       device_for_each_child(&pdev->dev, NULL, occ_unregister_child);
+> +
+> +       ida_simple_remove(&occ_ida, occ->idx);
+> +
+> +       return 0;
+> +}
+> +
+> +static const struct of_device_id occ_match[] =3D {
+> +       { .compatible =3D "ibm,p9-occ" },
+> +       { },
+> +};
+> +
+> +static struct platform_driver occ_driver =3D {
+> +       .driver =3D {
+> +               .name =3D "occ",
+> +               .of_match_table =3D occ_match,
+> +       },
+> +       .probe  =3D occ_probe,
+> +       .remove =3D occ_remove,
+> +};
+> +
+> +static int occ_init(void)
+> +{
+> +       occ_wq =3D create_singlethread_workqueue("occ");
+> +       if (!occ_wq)
+> +               return -ENOMEM;
+> +
+> +       return platform_driver_register(&occ_driver);
+> +}
+> +
+> +static void occ_exit(void)
+> +{
+> +       destroy_workqueue(occ_wq);
+> +
+> +       platform_driver_unregister(&occ_driver);
+> +}
+> +
+> +module_init(occ_init);
+> +module_exit(occ_exit);
+> +
+> +MODULE_AUTHOR("Eddie James <eajames@us.ibm.com>");
+> +MODULE_DESCRIPTION("BMC P9 OCC driver");
+> +MODULE_LICENSE("GPL");
+> diff --git a/include/linux/occ.h b/include/linux/occ.h
+> new file mode 100644
+> index 0000000..d78332c
+> --- /dev/null
+> +++ b/include/linux/occ.h
+> @@ -0,0 +1,27 @@
+> +/*
+> + * Copyright (C) IBM Corporation 2017
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERGCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + */
+> +
+> +#ifndef __OCC_H__
+> +#define __OCC_H__
+> +
+> +struct device;
+> +struct occ_client;
+> +
+> +extern struct occ_client *occ_drv_open(struct device *dev,
+> +                                      unsigned long flags);
+> +extern int occ_drv_read(struct occ_client *client, char *buf, size_t len=
+);
+> +extern int occ_drv_write(struct occ_client *client, const char *buf,
+> +                        size_t len);
+> +extern void occ_drv_release(struct occ_client *client);
+> +
+> +#endif /* __OCC_H__ */
+> --
+> 1.8.3.1
+>
