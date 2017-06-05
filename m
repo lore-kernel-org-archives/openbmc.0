@@ -1,52 +1,54 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-pg0-x242.google.com (mail-pg0-x242.google.com
- [IPv6:2607:f8b0:400e:c05::242])
+Received: from mail-yb0-x243.google.com (mail-yb0-x243.google.com
+ [IPv6:2607:f8b0:4002:c09::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wh7mv5JmxzDqKp
- for <openbmc@lists.ozlabs.org>; Mon,  5 Jun 2017 18:50:06 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3whFbH0qz1zDqKp
+ for <openbmc@lists.ozlabs.org>; Mon,  5 Jun 2017 23:12:11 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="mJyjBH6Y"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="qtXpGl8t"; 
  dkim-atps=neutral
-Received: by mail-pg0-x242.google.com with SMTP id v14so5396343pgn.1
- for <openbmc@lists.ozlabs.org>; Mon, 05 Jun 2017 01:50:06 -0700 (PDT)
+Received: by mail-yb0-x243.google.com with SMTP id 202so4925777ybd.0
+ for <openbmc@lists.ozlabs.org>; Mon, 05 Jun 2017 06:12:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id;
- bh=BwfGR1nFySlkl9/hostZIkGd+uX2mrM6N8rIWYF1zWM=;
- b=mJyjBH6YWocwn43IWmWR0Gfq87p/yCGzsAjEtNGr0XwPcXhRBpk2yum0bdKN3NtRlF
- dxUZE0x3VDU90ioR0agNLPrq230IhJKlGaDzLrBfcbWuiKtkcxgLoAapPtkKRUaoKvlP
- FTRXaOWbBnlTBpZmS+50cV8AE2vdyA7aiQ6ml/fVqsiPiiZpA7aQryFtHVcte2hVo3IR
- ottNWgiSWSNB3p3WgcAxZzQf/b6fNFx8iIzPi3wS5qvyaZGJiliGaoebZtQCqiAQfyVI
- gEmkrbRGi10dP/C55htRkGcIq9Ikxjd/gOA+JL2jf7tlr098KbgJEABUglW/WOro6UHD
- suxQ==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=nHnR5fldK0W43TubEQ6xUzippnnmKX+qTdnK96yWbJ0=;
+ b=qtXpGl8tnPn4YCLLiq89bDboaspCUUeiKSxEJp3UQT31bWMOE6FuorTn1z6LYy/7/H
+ eTEU8dyO/hnvrUETAVsZz2I1GxX6m9p6n7Z1n08+mZukUX035qFL7Dyk9xqu0CNxfIy4
+ KGWas4PaxM9u3Xznx4/NewA4WzTkot9bVokFuHMUWMlps2Lte2rrU0RpjRzNQBpUQj/5
+ 8NykZauyDRc7ilU0dikodbqB9D68nnPrawHMLbXvuOp4+Oi6J7TTNJEqPMRfIfgmfeaA
+ EViQy0NRgp8uC1MVezL8i7OklvsbeZu/ICorzo4JBGcmSFNFf5IDP70a+nDrXHpgTR7X
+ rEGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
- bh=BwfGR1nFySlkl9/hostZIkGd+uX2mrM6N8rIWYF1zWM=;
- b=W0ALbjuumiWq6X/U3tL/FJUPMhcXQBfbRLEw3hNfPHEbmiPDreb6WxPVc5v1JoMVXi
- Vjvi3dYcS286Y1OlYOyaAk4xFY6DLSv+/sEGTNtmsXnVVQLucv1zRQa+76l8Qlv7vPW3
- 3fatdNQFs/3Xl7ScBzrr4riOIi+msgV4UEINVb5kqISdiqg9nbfP58a52s+7S+c70luO
- rhR9Lxf4SBR1XWOj3CMn8q7NvyDFzOO155uXfu+ymZCSCnQmQDIwpnNFLBMUYOmuj1Lb
- t0rMRaaW6hmgXRsxJPMJNQOGh9HFGj0kMS7m0DIvwcq6X7QYuHpTTtfyRk2S9L5U6M1r
- GAQg==
-X-Gm-Message-State: AODbwcCncO4Ld2oyncz6HzcTSccYgp/+/uSwiIfTyFYVBZcmgRnkygmB
- 6Uy2rEmyyn7XbfzdB3cV0Q==
-X-Received: by 10.98.217.155 with SMTP id b27mr18235561pfl.17.1496652604868;
- Mon, 05 Jun 2017 01:50:04 -0700 (PDT)
-Received: from aurora.jms.id.au ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id u9sm54694618pgn.55.2017.06.05.01.50.01
- (version=TLS1 cipher=AES128-SHA bits=128/128);
- Mon, 05 Jun 2017 01:50:04 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Mon, 05 Jun 2017 18:19:59 +0930
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=nHnR5fldK0W43TubEQ6xUzippnnmKX+qTdnK96yWbJ0=;
+ b=Yw85F9bRF9awyPuPALJ10oEcD0W0cH+iLl/i0lTUjJn9178XER7in4tMh+8zjrammT
+ pyoo8N6E5Reqv107who8XaFzuH5T6mfHbHkGQiOX8VbUK7ziumCjYi74JWG0PaNLIxxW
+ upn4OA71cMNWJfvFtaYLHLecUz52U4+Od2ySyd3D3gYsrerzoZ2XDUBDNNnJlB2HjvQa
+ j/wQB8YARQ9WOVUrz+kq6GByEFlJKoT3LXQ4Lk/w142PVAx+SCtGUdJtg4FRKU9hLWYa
+ e7kzpKH4KYDDTT/Gxm6iK0znle9m8ag6aZzqskEUvVfdkztCnCPw7snqvKPrV8jb29QE
+ wkdg==
+X-Gm-Message-State: AODbwcCfoe+7IhbrviRHBTdzHIu8AC9mczoCHqsQaHSVUWEmCxGv2aiU
+ ghzn+74lTIQx0xGEHjyJS/QY5LwUEw==
+X-Received: by 10.37.207.7 with SMTP id f7mr8954292ybg.93.1496668328760; Mon,
+ 05 Jun 2017 06:12:08 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.183.7 with HTTP; Mon, 5 Jun 2017 06:11:48 -0700 (PDT)
+In-Reply-To: <CACPK8XewcZ51qZqQHBzn5EuPvJw+P+ue+B87v=NRKrPZSNzYYg@mail.gmail.com>
+References: <CACPK8XewcZ51qZqQHBzn5EuPvJw+P+ue+B87v=NRKrPZSNzYYg@mail.gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-To: openbmc@lists.ozlabs.org
-Cc: Eddie James <eajames@linux.vnet.ibm.com>
-Subject: [PATCH linux dev-4.10] hwmon (occ): Fix kconfig and makefile
-Date: Mon,  5 Jun 2017 18:19:54 +0930
-Message-Id: <20170605084954.8512-1-joel@jms.id.au>
-X-Mailer: git-send-email 2.11.0
+Date: Mon, 5 Jun 2017 22:41:48 +0930
+X-Google-Sender-Auth: rbPr7pTYIwM83CDY8_xE3onSMQ0
+Message-ID: <CACPK8Xe2V_C=CN7VfdhMqx7=iR4DQpYLnKpPvE4u44tiKga0cw@mail.gmail.com>
+Subject: Re: Enabling p9 OCC hwmon
+To: Edward James <eajames@us.ibm.com>
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,78 +60,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 Jun 2017 08:50:08 -0000
+X-List-Received-Date: Mon, 05 Jun 2017 13:12:11 -0000
 
-The OCC driver was not buildable. Clean up the makefile and kconfig.
+On Mon, Jun 5, 2017 at 5:46 PM, Joel Stanley <joel@jms.id.au> wrote:
+> Hi Eddie,
+>
+> As of 763d6007e084f480b7129f35560c30ce30938509 the kernel tree has all
+> of the drivers that have been posted to the list staged, as far as I
+> could tell.
+>
+> I was attempting to enable the OCC hwmon driver, but it is behind a
+> config symbol that does not exist:
+>
+> $ git grep CONFIG_SENSORS_OCC_P9_SBE
+> drivers/hwmon/occ/Makefile:ifeq ($(CONFIG_SENSORS_OCC_P9_SBE), y)
+>
+> Can you work out what has happened here?
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- drivers/hwmon/Makefile     |  2 +-
- drivers/hwmon/occ/Kconfig  | 15 +--------------
- drivers/hwmon/occ/Makefile |  8 +-------
- 3 files changed, 3 insertions(+), 22 deletions(-)
+I made a patch that fixes the issue for now:
 
-diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
-index f03dd0a15933..2e803f56446e 100644
---- a/drivers/hwmon/Makefile
-+++ b/drivers/hwmon/Makefile
-@@ -46,6 +46,7 @@ obj-$(CONFIG_SENSORS_ADT7475)	+= adt7475.o
- obj-$(CONFIG_SENSORS_APPLESMC)	+= applesmc.o
- obj-$(CONFIG_SENSORS_ARM_SCPI)	+= scpi-hwmon.o
- obj-$(CONFIG_SENSORS_ASC7621)	+= asc7621.o
-+obj-$(CONFIG_SENSORS_OCC_P9_SBE) += occ/
- obj-$(CONFIG_SENSORS_ATXP1)	+= atxp1.o
- obj-$(CONFIG_SENSORS_CORETEMP)	+= coretemp.o
- obj-$(CONFIG_SENSORS_DA9052_ADC)+= da9052-hwmon.o
-@@ -170,7 +171,6 @@ obj-$(CONFIG_SENSORS_WM8350)	+= wm8350-hwmon.o
- obj-$(CONFIG_SENSORS_XGENE)	+= xgene-hwmon.o
- 
- obj-$(CONFIG_PMBUS)		+= pmbus/
--obj-$(CONFIG_SENSORS_OCC)	+= occ/
- 
- ccflags-$(CONFIG_HWMON_DEBUG_CHIP) := -DDEBUG
- 
-diff --git a/drivers/hwmon/occ/Kconfig b/drivers/hwmon/occ/Kconfig
-index 34488de15900..8196b50c1693 100644
---- a/drivers/hwmon/occ/Kconfig
-+++ b/drivers/hwmon/occ/Kconfig
-@@ -2,23 +2,10 @@
- # On-Chip Controller configuration
- #
- 
--menuconfig SENSORS_OCC
--	tristate "POWER On-Chip Controller"
--	help
--	  If you say yes here you get support for monitoring the IBM POWER
--	  processor sensors via the On-Chip Controller (OCC).
--
--	  This driver can also be built as a module. If so, the module will be
--	  called occ-hwmon.
--
--if SENSORS_OCC
--
- config SENSORS_OCC_P9_SBE
- 	bool "POWER9 OCC via SBE"
--	depends on SBEFIFO_OCC
-+	depends on OCCFIFO
- 	help
- 	  If you say yes here you get support for monitoring the POWER9
- 	  processor sensors via the OCC, from a service processor, over SBE
- 	  engine on FSI bus.
--
--endif
-diff --git a/drivers/hwmon/occ/Makefile b/drivers/hwmon/occ/Makefile
-index adc7a9c458d6..3b0ddc6c1e52 100644
---- a/drivers/hwmon/occ/Makefile
-+++ b/drivers/hwmon/occ/Makefile
-@@ -1,7 +1 @@
--occ-hwmon-objs := common.o
--
--ifeq ($(CONFIG_SENSORS_OCC_P9_SBE), y)
--occ-hwmon-objs += p9.o p9_sbe.o
--endif
--
--obj-$(CONFIG_SENSORS_OCC) += occ-hwmon.o
-+obj-y += p9.o p9_sbe.o common.o
--- 
-2.11.0
+ http://patchwork.ozlabs.org/patch/771128/
+
+This my not be the fix you want once you've integrated the p8 version.
+Do you plan on posting the p8 OCC patches?
+
+In addition, we need to fix these sparse warnings:
+
+$ make C=2  drivers/hwmon/occ/
+  CHECK   drivers/hwmon/occ/p9.c
+  CHECK   drivers/hwmon/occ/p9_sbe.c
+  CHECK   drivers/hwmon/occ/common.c
+drivers/hwmon/occ/p9.c:99:23: warning: cast to restricted __be16
+drivers/hwmon/occ/p9.c:96:23: warning: cast to restricted __be32
+drivers/hwmon/occ/p9.c:63:23: warning: cast to restricted __be32
+drivers/hwmon/occ/p9.c:181:23: warning: cast to restricted __be16
+drivers/hwmon/occ/p9.c:178:23: warning: cast to restricted __be16
+drivers/hwmon/occ/p9.c:175:23: warning: cast to restricted __be16
+drivers/hwmon/occ/p9.c:172:23: warning: cast to restricted __be16
+drivers/hwmon/occ/p9.c:169:23: warning: cast to restricted __be16
+drivers/hwmon/occ/p9.c:166:23: warning: cast to restricted __be16
+drivers/hwmon/occ/p9.c:140:23: warning: cast to restricted __be16
+drivers/hwmon/occ/p9.c:137:23: warning: cast to restricted __be64
+drivers/hwmon/occ/p9.c:134:23: warning: cast to restricted __be32
+drivers/hwmon/occ/p9.c:125:23: warning: cast to restricted __be32
+drivers/hwmon/occ/p9.c:210:5: warning: symbol
+'p9_occ_setup_sensor_attrs' was not declared. Should it be static?
+drivers/hwmon/occ/common.c:77:24: warning: incorrect type in
+assignment (different base types)
+drivers/hwmon/occ/common.c:77:24:    expected unsigned short
+[unsigned] [usertype] user_power_cap
+drivers/hwmon/occ/common.c:77:24:    got restricted __be16 [usertype] <noident>
+
+Cheers,
+
+Joel
