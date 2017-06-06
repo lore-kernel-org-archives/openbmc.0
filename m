@@ -1,30 +1,29 @@
-Return-Path: <gregkh@linuxfoundation.org>
-Received: from mail.linuxfoundation.org (mail.linuxfoundation.org
- [140.211.169.12])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <jk@ozlabs.org>
+Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3whgQ51ZydzDqFR
- for <openbmc@lists.ozlabs.org>; Tue,  6 Jun 2017 15:35:40 +1000 (AEST)
-Received: from localhost (LFbn-1-12060-104.w90-92.abo.wanadoo.fr
- [90.92.122.104])
- by mail.linuxfoundation.org (Postfix) with ESMTPSA id AF161957;
- Tue,  6 Jun 2017 05:35:37 +0000 (UTC)
-Date: Tue, 6 Jun 2017 07:35:31 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Joel Stanley <joel@jms.id.au>
-Cc: Rob Lippert <rlippert@google.com>, Robert Lippert <roblip@gmail.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, Arnd Bergmann <arnd@arndb.de>
-Subject: Re: [PATCH] drivers/misc: add Aspeed LPC snoop driver
-Message-ID: <20170606053531.GA21809@kroah.com>
-References: <20170602215322.24376-1-rlippert@google.com>
- <CACPK8XfWySi5kDEASVpmDKAmBSByB6w0ocQxinazqTHbv+omcQ@mail.gmail.com>
- <CAFRv3wxh-+KiaLfD7zc4+FeiUOn4AyvJtcRLshiPQfpNb8uk4g@mail.gmail.com>
- <CACPK8XfKmm9ZUesgNJsL=MeruOfLzi-j6Dfjb2Be1zfdYn7XcQ@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3whgf90bnqzDqKq
+ for <openbmc@lists.ozlabs.org>; Tue,  6 Jun 2017 15:46:09 +1000 (AEST)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.org (Postfix) with ESMTPSA id 3whgf858Dcz9s3T;
+ Tue,  6 Jun 2017 15:46:08 +1000 (AEST)
+Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: Add devices under FSI
+ CFAM
+To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
+Cc: Eddie James <eajames@linux.vnet.ibm.com>
+References: <20170605074301.11310-1-joel@jms.id.au>
+From: Jeremy Kerr <jk@ozlabs.org>
+Message-ID: <6cc0e085-0867-4128-c815-4ff74da1d5d7@ozlabs.org>
+Date: Tue, 6 Jun 2017 13:46:05 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.1.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CACPK8XfKmm9ZUesgNJsL=MeruOfLzi-j6Dfjb2Be1zfdYn7XcQ@mail.gmail.com>
-User-Agent: Mutt/1.8.3 (2017-05-23)
+In-Reply-To: <20170605074301.11310-1-joel@jms.id.au>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-AU
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -36,42 +35,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 06 Jun 2017 05:35:41 -0000
+X-List-Received-Date: Tue, 06 Jun 2017 05:46:09 -0000
 
-On Tue, Jun 06, 2017 at 11:46:56AM +0930, Joel Stanley wrote:
-> On Tue, Jun 6, 2017 at 5:16 AM, Rob Lippert <rlippert@google.com> wrote:
-> > On Sun, Jun 4, 2017 at 8:25 PM, Joel Stanley <joel@jms.id.au> wrote:
-> >> Hello Rob,
-> >>
-> >> On Sat, Jun 3, 2017 at 7:23 AM, Robert Lippert <roblip@gmail.com> wrote:
-> >>> This driver enables the LPC snoop hardware on the ASPEED BMC
-> >>> which generates an interrupt upon every write to an I/O port
-> >>> by the host.
-> >>>
-> >>> This is typically used to monitor BIOS boot progress by listening
-> >>> to well-known debug port 80h.
-> >>>
-> >>> The functionality in this commit just saves all snooped values
-> >>> to a circular 2K buffer in the kernel, subsequent commits can
-> >>> act on the values to do things with them.
-> >>
-> >> Reviewed-by: Joel Stanley <joel@jms.id.au>
-> >>
-> >> The driver looks okay to me. I can stage it in the OpenBMC kernel tree
-> >> while we get it reviewed upstream.
-> >>
-> >> Can you re-send to the upstream mailing lists so it gets reviewed
-> >> there. You will need to include a device tree binding document too
-> >> (something to put in Documentation/devicetree/bindings/).
-> >
-> > What is the proper upstream mailing list for this?  patman didn't list
-> > any mailing lists...
-> 
-> Yeah, get_maintainers.pl only suggested lkml. cc lkml I think.
-> 
-> I'm not sure if we want to put these drivers in misc, or if we want to
-> use something like drivers/soc/aspeed.
-> 
-> Arnd, Greg, do you have any suggestions here?
+Hi Joel,
 
-It's up to you :)
+> This describes the SBE FIFO and OCC device that are attached via the FSI
+> bus.
+> 
+> As this layout is common to all existing p9 machines, we add them via a
+> dtsi.  This dtsi requires the 'fsi' label be present.
+
+Sounds like a good idea, no need to replicate the p9 FSI topology in
+each BMC's device tree.
+
+> -	gpio-fsi {
+> +	fsi: gpio-fsi {
+>  		compatible = "fsi-master-gpio", "fsi-master";
+> -
+> -		status = "okay";
+> +		#address-cells = <2>;
+> +		#size-cells = <0>;
+
+We might want to keep #address-cells and #size-cells in the common
+include, but then we're splitting properties (ie. compatible) between
+the two files. I'm happy either way though.
+
+Acked-by: Jeremy Kerr <jk@ozlabs.org>
+
+Cheers,
+
+
+Jeremy
