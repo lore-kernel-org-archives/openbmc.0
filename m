@@ -1,50 +1,62 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-wr0-x235.google.com (mail-wr0-x235.google.com
- [IPv6:2a00:1450:400c:c0c::235])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <cbostic@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3whyRN4fVtzDqGr
- for <openbmc@lists.ozlabs.org>; Wed,  7 Jun 2017 02:52:48 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="vDVbzOHC"; 
- dkim-atps=neutral
-Received: by mail-wr0-x235.google.com with SMTP id v111so50266934wrc.3
- for <openbmc@lists.ozlabs.org>; Tue, 06 Jun 2017 09:52:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=Qmij3ZdUiLUkhdNFhWKQPGXBeRJhNkOOzmvzdG1eY6A=;
- b=vDVbzOHCm/i/F64AGMBK9c8TnIshv0/p55B9NJoK+2kPtRtWfxPcZDvTDhZL++eaNF
- eryOdzQh2ZhzPgNQg4l5HxvUVgh9G7sKv9N9o8M8P5NSlJwPHd/LniKx+SYR5qslreKv
- qhmtmJ+ZGPh2cYAflfDJLDU/RUjKzs+NzqKUvJ4ncZAm/mUP7r7R9XRIv6+Kqie+vPa5
- K4lExX7IUWtIw5A0k9rbAdDZ/H5Fp1tZ/azxvyZisqV1NkgUCPBgn6rJWK9CIqKlcjpO
- Yh6zWnsl19I7qEROjIwrbwwrWcxdlDCetEql1QBJQOudvL/OmOZ073f1EaUKTyL1FhAR
- GYsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=Qmij3ZdUiLUkhdNFhWKQPGXBeRJhNkOOzmvzdG1eY6A=;
- b=D32dXnW5+chwo+QUcGKORNzFQUquvwBr+6T579igmHOCkMG5ckhupxUiy3GFTRMUs7
- WjxdASKRGpxT1d1+CKMa4DxoAGRasPeI6IiWAz88R96tiRA1eNBPdqNbRvF/gZEZUcLu
- P1UDnkyS3fupgq0ycRyd9BQPQ5haEEbEBi8bLZmJBHVvorBvrTrN9Z/KHJ1bpzEKHpyM
- y4fonPHZZkCvZ/w79oU5YlW7QRIWBF4/1OhLVo2y8yebyI0XxwHtpXPqArXo6OvUsk9+
- 4QZPFbHPXOOulreO4uFVfjKWDXdVpSpIJfrwzy3r03oHRj6Q4vwvyxJaYBkKDF8c3GEI
- T0YQ==
-X-Gm-Message-State: AODbwcApN/accwwU/VMAeL0nwjc2i7ijyZQ1ATmyARReY/7Q2SSod9ie
- KzgpViPZx372wAqIGwwmDI3OBLeAeTSm5q8=
-X-Received: by 10.223.171.77 with SMTP id r13mr18010902wrc.83.1496767965529;
- Tue, 06 Jun 2017 09:52:45 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.28.217.7 with HTTP; Tue, 6 Jun 2017 09:52:44 -0700 (PDT)
-In-Reply-To: <1496755188.31588.21.camel@kernel.crashing.org>
-References: <1496755188.31588.21.camel@kernel.crashing.org>
-From: Rick Altherr <raltherr@google.com>
-Date: Tue, 6 Jun 2017 09:52:44 -0700
-Message-ID: <CAPLgG=nFF1W7WjZHKX7pZQ3LunsqOf5K_SGz+okkZ_yUMyMtBQ@mail.gmail.com>
-Subject: Re: [RFC] USB gadget driver for AST2x00 vHub
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="94eb2c1b56b4e5dd5505514d7252"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wj2fY0p5qzDqLD
+ for <openbmc@lists.ozlabs.org>; Wed,  7 Jun 2017 06:02:44 +1000 (AEST)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v56JwWZY052996
+ for <openbmc@lists.ozlabs.org>; Tue, 6 Jun 2017 16:02:39 -0400
+Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2ax29fssex-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 06 Jun 2017 16:02:39 -0400
+Received: from localhost
+ by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Tue, 6 Jun 2017 16:02:38 -0400
+Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
+ by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Tue, 6 Jun 2017 16:02:35 -0400
+Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
+ [9.57.199.110])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v56K2WOW53149854; Tue, 6 Jun 2017 20:02:33 GMT
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 1B0F5AE07E;
+ Tue,  6 Jun 2017 16:02:30 -0400 (EDT)
+Received: from christophersmbp.austin.ibm.com (unknown [9.41.175.240])
+ by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP id 9B6B0AE075;
+ Tue,  6 Jun 2017 16:02:29 -0400 (EDT)
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+To: joel@jms.id.au
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.10] drivers/fsi: Break and set pin states on GPIO
+ master remove
+Date: Tue,  6 Jun 2017 15:02:30 -0500
+X-Mailer: git-send-email 2.10.1 (Apple Git-78)
+X-TM-AS-GCONF: 00
+x-cbid: 17060620-0052-0000-0000-000002193598
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007184; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000212; SDB=6.00871084; UDB=6.00433214; IPR=6.00651076; 
+ BA=6.00005403; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015723; XFM=3.00000015;
+ UTC=2017-06-06 20:02:37
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17060620-0053-0000-0000-000050DC8EDC
+Message-Id: <20170606200230.77482-1-cbostic@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-06-06_13:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1706060344
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,102 +68,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 06 Jun 2017 16:52:49 -0000
+X-List-Received-Date: Tue, 06 Jun 2017 20:02:45 -0000
 
---94eb2c1b56b4e5dd5505514d7252
-Content-Type: text/plain; charset="UTF-8"
+Update GPIO remove behavior to match dev-4.7.
 
-Thanks for sharing this!  I've been wanting to play with the USB device
-peripherals but haven't found the time to work on the driver.  I'll try to
-make time soon to read this over.
+On gpio remove: Send a break
+		clock, translator, mux = 0
+		data, enable = 1
 
-On Tue, Jun 6, 2017 at 6:19 AM, Benjamin Herrenschmidt <
-benh@kernel.crashing.org> wrote:
+Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+---
+ drivers/fsi/fsi-master-gpio.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-> Hi !
->
-> So I've been writing a new UDC gadget driver for the vHub from scratch.
->
-> It's still a work in progress as I haven't yet implement the "hub"
-> functionality yet, so it's a single device UDC driver at the moment.
->
-> There are also various improvements that need to be done, but overall
-> it's functional enough to give me about 200Mbit/sec off hdparm -tf of a
-> mass storage fed off a tmpfs file.
->
-> I'll be working on it more sporadically during the next few weeks, I
-> plan to have the virtual hub functionality going at some point and
-> might look into further performance improvements, but it's in a state
-> where some reviews/feedback could come in handy if anybody feels like
-> having a look.
->
-> So for the curious, look here:
->
->   https://github.com/ozbenh/linux-ast/commits/bmc
->
-> This is also to make sure nobody else is duplicating the work.
->
-> (This contains *no* code from any of the existing implementations I've
-> seen floating around, which have some serious issues anyway, and not
-> just coding style related :-) This was written from scratch from a
-> blank slate, using other upstream UDC drivers as guides).
->
-> Cheers,
-> Ben.
->
->
-
---94eb2c1b56b4e5dd5505514d7252
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Thanks for sharing this!=C2=A0 I&#39;ve been wanting to pl=
-ay with the USB device peripherals but haven&#39;t found the time to work o=
-n the driver.=C2=A0 I&#39;ll try to make time soon to read this over.</div>=
-<div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Tue, Jun 6, 20=
-17 at 6:19 AM, Benjamin Herrenschmidt <span dir=3D"ltr">&lt;<a href=3D"mail=
-to:benh@kernel.crashing.org" target=3D"_blank">benh@kernel.crashing.org</a>=
-&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0=
- 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Hi !<br>
-<br>
-So I&#39;ve been writing a new UDC gadget driver for the vHub from scratch.=
-<br>
-<br>
-It&#39;s still a work in progress as I haven&#39;t yet implement the &quot;=
-hub&quot;<br>
-functionality yet, so it&#39;s a single device UDC driver at the moment.<br=
->
-<br>
-There are also various improvements that need to be done, but overall<br>
-it&#39;s functional enough to give me about 200Mbit/sec off hdparm -tf of a=
-<br>
-mass storage fed off a tmpfs file.<br>
-<br>
-I&#39;ll be working on it more sporadically during the next few weeks, I<br=
->
-plan to have the virtual hub functionality going at some point and<br>
-might look into further performance improvements, but it&#39;s in a state<b=
-r>
-where some reviews/feedback could come in handy if anybody feels like<br>
-having a look.<br>
-<br>
-So for the curious, look here:<br>
-<br>
-=C2=A0 <a href=3D"https://github.com/ozbenh/linux-ast/commits/bmc" rel=3D"n=
-oreferrer" target=3D"_blank">https://github.com/ozbenh/<wbr>linux-ast/commi=
-ts/bmc</a><br>
-<br>
-This is also to make sure nobody else is duplicating the work.<br>
-<br>
-(This contains *no* code from any of the existing implementations I&#39;ve<=
-br>
-seen floating around, which have some serious issues anyway, and not<br>
-just coding style related :-) This was written from scratch from a<br>
-blank slate, using other upstream UDC drivers as guides).<br>
-<br>
-Cheers,<br>
-Ben.<br>
-<br>
-</blockquote></div><br></div>
-
---94eb2c1b56b4e5dd5505514d7252--
+diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
+index 2a6a812..47eaf61 100644
+--- a/drivers/fsi/fsi-master-gpio.c
++++ b/drivers/fsi/fsi-master-gpio.c
+@@ -585,17 +585,23 @@ static int fsi_master_gpio_probe(struct platform_device *pdev)
+ 	return 0;
+ }
+ 
+-
+ static int fsi_master_gpio_remove(struct platform_device *pdev)
+ {
+ 	struct fsi_master_gpio *master = platform_get_drvdata(pdev);
+ 
++	fsi_master_gpio_break(&master->master, 0);
++
++	gpiod_set_value(master->gpio_clk, 0);
+ 	devm_gpiod_put(&pdev->dev, master->gpio_clk);
++	gpiod_set_value(master->gpio_data, 1);
+ 	devm_gpiod_put(&pdev->dev, master->gpio_data);
++	gpiod_set_value(master->gpio_trans, 0);
+ 	if (master->gpio_trans)
+ 		devm_gpiod_put(&pdev->dev, master->gpio_trans);
++	gpiod_set_value(master->gpio_enable, 1);
+ 	if (master->gpio_enable)
+ 		devm_gpiod_put(&pdev->dev, master->gpio_enable);
++	gpiod_set_value(master->gpio_mux, 0);
+ 	if (master->gpio_mux)
+ 		devm_gpiod_put(&pdev->dev, master->gpio_mux);
+ 	fsi_master_unregister(&master->master);
+-- 
+1.8.2.2
