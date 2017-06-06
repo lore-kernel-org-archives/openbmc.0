@@ -1,56 +1,56 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x243.google.com (mail-yw0-x243.google.com
- [IPv6:2607:f8b0:4002:c05::243])
+Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
+ [IPv6:2607:f8b0:4002:c05::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3whZy55QgxzDqKy
- for <openbmc@lists.ozlabs.org>; Tue,  6 Jun 2017 12:14:37 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3whb1B6xZxzDqL1
+ for <openbmc@lists.ozlabs.org>; Tue,  6 Jun 2017 12:17:18 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="VFy6Y6OR"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="d0QvS85W"; 
  dkim-atps=neutral
-Received: by mail-yw0-x243.google.com with SMTP id p144so9098606ywp.2
- for <openbmc@lists.ozlabs.org>; Mon, 05 Jun 2017 19:14:37 -0700 (PDT)
+Received: by mail-yw0-x244.google.com with SMTP id h82so9115062ywb.3
+ for <openbmc@lists.ozlabs.org>; Mon, 05 Jun 2017 19:17:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=P0EFYLmkUz1uyCpTi5psRb0VKePOq0qsZcR5p1bd4Rw=;
- b=VFy6Y6ORZwUeP8DVfGGKHKGfqo9b6nhGS/4OqYrc7Xgu0absRXL/WS3oeAThgY5EhU
- FgAnCZVKAwZpjuZsVe1M98cOhd0LFsBeegfpgnRzozYPN3SUIVFPvqBpXz5HHrlAOhy3
- 4QyWLyeNYwd3whxk5Vr5DKX2rhHruzAzJ6MhveOmSvOfsZOPZTCFsHu+hWAQY5Ge+vNK
- uzdGVdF6dxHBvO6SB5N7zyMh2Itdz5wljZfaUNSHIn/n4WUwfKnqjHiUvVhwnbnZT8TC
- rsQOkTeRYp5qiviWgMDt1b6XhfwCG2mmYqboZrobJPfltFeSVYNoxs9Y0077vV3/RdvU
- rapw==
+ bh=Kr3On/XIuiUvPsJuZftFxMT8rvo8Z/WmlHZs/pQnyFs=;
+ b=d0QvS85WLUfAd6XrRrERSePbyKPAdVX5rWPT+mm5ZUlVwGc52p6+lYMszZQPcXDkQt
+ VhBoDdplYHGZwiR4xduHd2P63LAMa54TgTXiCPTWPcz+GNHgr0aDNnqMJBhHdw/HXO+J
+ WlBR3gyWIXrM9DC6QtBmAkqIsf8Vragk9qhUPQar4CzHIWhyBA5JXX/SrJv6ivhZjSKF
+ pcN5xemBLaYoQ3uM4pGFvhNUsGDZE98g3TBRNJk4YVS9j+LPNpgD9abVWXbzsU8fr3VQ
+ 43HgJCclEuUTn/KmVsAjnhfvVfkSXH3t7CRIU5X39yKEfoZrsehdRYk8SuQgcx/0FQjd
+ Rc0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=P0EFYLmkUz1uyCpTi5psRb0VKePOq0qsZcR5p1bd4Rw=;
- b=W0AhyHHUDSEz/MSImY/5i8hdT2sl+0MOIcdy6JL70nDe3N1iAXpD2Bh0J43uNmMb8l
- TE2MiNbJUlPi4/nBx0xzRdKrGG52bmY9DkBalQAuhXfP2K1Bhs1LYsv36UoE368n8ocF
- pTVsg77FX6465bbhP+x43vuGy1ciKZlDeGhXbz9iY0+yzQmRjuoa3IiFvz0y3+EWAeEX
- OVviT5zpIy3Nac3L0bX/5cMLl5Xcq/MbFpP1+pYqZzawwlWjntCO5a3TTb5nR5+YHehQ
- O8r+qS/Q+g3r/RXYcT3QTMrIknlElSJGjg1+PS9pp/2YlgGLzAEhjt5h1lJBxscB4NCl
- 7sNg==
-X-Gm-Message-State: AODbwcDzTOp1kD2J9hBncaQ5Q4kNo0ebpCarOrEC7QZW/YLLW1AOlm38
- aU/Yu4NtTXtxpeZeiL6kWDGbfUGdOg==
-X-Received: by 10.13.218.198 with SMTP id c189mr1090331ywe.308.1496715274950; 
- Mon, 05 Jun 2017 19:14:34 -0700 (PDT)
+ bh=Kr3On/XIuiUvPsJuZftFxMT8rvo8Z/WmlHZs/pQnyFs=;
+ b=VYa9vLm15evP38A5LgS/B98VcLDgEtFB7BsKigJiQub94Q01KDO45vlu8G2MLV9pR8
+ eKRRfqyqWJoeYqR268Schvs+t/bBofVl15Ft9pzBp5KtbE7Gl1O9NmnzjTVuHc7RoCY0
+ am54qdLTbdiCJzlTG+EuG4KP7ewpNsYcdXxFO/fyua3tnyLJ81DlF4a/6iDAUCzaJtK0
+ VKjzGVI8HsxAbcXXPi0+8KL4uGA1tVe5nD/TmXgCBFWqcy66qnAMWjwZCAj7KFZ8hx3b
+ OmKMqMEWwtb2iIn9pT2ZZ8cLzHoYD8qFPOEjxVEM47sLXfWuxfP2pn+YHDk/fJUhMXnT
+ FOAQ==
+X-Gm-Message-State: AODbwcBNumcL15hz+32eXotGV6dge/ZNgA8ePqjmzmJ4iAqyvSYBOoBF
+ pYNg0K0CBOO4hzrP+L65idz7RfrTEQ==
+X-Received: by 10.13.225.196 with SMTP id k187mr1044952ywe.178.1496715436743; 
+ Mon, 05 Jun 2017 19:17:16 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.174.2 with HTTP; Mon, 5 Jun 2017 19:14:14 -0700 (PDT)
-In-Reply-To: <CAFRv3wzAfdwRreYMGMa4ZMiKuSu7fB4Sd9a8Jt3_Fah9L97R9g@mail.gmail.com>
-References: <20170602194612.11866-1-rlippert@google.com>
- <CACPK8XdmjihLOZseWtGq+9QKQ+mDVNujP_csW8fhUTzPFoTMaQ@mail.gmail.com>
- <CAFRv3wzAfdwRreYMGMa4ZMiKuSu7fB4Sd9a8Jt3_Fah9L97R9g@mail.gmail.com>
+Received: by 10.37.174.2 with HTTP; Mon, 5 Jun 2017 19:16:56 -0700 (PDT)
+In-Reply-To: <CAFRv3wxh-+KiaLfD7zc4+FeiUOn4AyvJtcRLshiPQfpNb8uk4g@mail.gmail.com>
+References: <20170602215322.24376-1-rlippert@google.com>
+ <CACPK8XfWySi5kDEASVpmDKAmBSByB6w0ocQxinazqTHbv+omcQ@mail.gmail.com>
+ <CAFRv3wxh-+KiaLfD7zc4+FeiUOn4AyvJtcRLshiPQfpNb8uk4g@mail.gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 6 Jun 2017 11:44:14 +0930
-X-Google-Sender-Auth: FMqIOO3LEyIg29ohg2lgD1h951E
-Message-ID: <CACPK8Xe6Z-VK6rTnOhMfEzg=mMwOwN==64srwFryxdL1hR1G4g@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] ARM: aspeed: zaius: Support new board FSI
- gpio pin mapping
+Date: Tue, 6 Jun 2017 11:46:56 +0930
+X-Google-Sender-Auth: nP5uzccKPUXCiKkZuu5IxJSxruM
+Message-ID: <CACPK8XfKmm9ZUesgNJsL=MeruOfLzi-j6Dfjb2Be1zfdYn7XcQ@mail.gmail.com>
+Subject: Re: [PATCH] drivers/misc: add Aspeed LPC snoop driver
 To: Rob Lippert <rlippert@google.com>
 Cc: Robert Lippert <roblip@gmail.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, Xo Wang <xow@google.com>
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Arnd Bergmann <arnd@arndb.de>, Greg KH <gregkh@linuxfoundation.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -63,30 +63,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 06 Jun 2017 02:14:38 -0000
+X-List-Received-Date: Tue, 06 Jun 2017 02:17:19 -0000
 
-On Tue, Jun 6, 2017 at 5:13 AM, Rob Lippert <rlippert@google.com> wrote:
-> On Sun, Jun 4, 2017 at 9:46 PM, Joel Stanley <joel@jms.id.au> wrote:
->> On Sat, Jun 3, 2017 at 5:16 AM, Robert Lippert <roblip@gmail.com> wrote:
->>> FSI routing was broken on EVT boards and all boards were reworked
->>> to use the nearest available GPIO pins.  Future boards have
->>> fixed the issue so need to use the original planned GPIOG ports.
+On Tue, Jun 6, 2017 at 5:16 AM, Rob Lippert <rlippert@google.com> wrote:
+> On Sun, Jun 4, 2017 at 8:25 PM, Joel Stanley <joel@jms.id.au> wrote:
+>> Hello Rob,
 >>
->> How long will we need to carry support for the EVT boards?
->
-> EVT boards should be scrapped within a few months (by end of year at
-> the latest) at which point we can remove this code hack and uncomment
-> the properties in the .dts file.
->
+>> On Sat, Jun 3, 2017 at 7:23 AM, Robert Lippert <roblip@gmail.com> wrote:
+>>> This driver enables the LPC snoop hardware on the ASPEED BMC
+>>> which generates an interrupt upon every write to an I/O port
+>>> by the host.
+>>>
+>>> This is typically used to monitor BIOS boot progress by listening
+>>> to well-known debug port 80h.
+>>>
+>>> The functionality in this commit just saves all snooped values
+>>> to a circular 2K buffer in the kernel, subsequent commits can
+>>> act on the values to do things with them.
 >>
->> We had proposed using u-boot to fix up the device tree for these kind
->> of changes. If you want to support the EVT long term, we should look
->> in to implementing those changes in u-boot.
+>> Reviewed-by: Joel Stanley <joel@jms.id.au>
+>>
+>> The driver looks okay to me. I can stage it in the OpenBMC kernel tree
+>> while we get it reviewed upstream.
+>>
+>> Can you re-send to the upstream mailing lists so it gets reviewed
+>> there. You will need to include a device tree binding document too
+>> (something to put in Documentation/devicetree/bindings/).
 >
-> I looked at that briefly but it was significantly more complicated :)
+> What is the proper upstream mailing list for this?  patman didn't list
+> any mailing lists...
 
-Yeah agreed. Lets carry the hack for now, and it can be dropped in a
-future rebase.
+Yeah, get_maintainers.pl only suggested lkml. cc lkml I think.
+
+I'm not sure if we want to put these drivers in misc, or if we want to
+use something like drivers/soc/aspeed.
+
+Arnd, Greg, do you have any suggestions here?
+
+> The aspeed-lpc-ctrl that I used as a reference has no bindings in
+> upstream, was that intentional or oversight?
+
+That was an oversight.
 
 Cheers,
 
