@@ -1,65 +1,57 @@
-Return-Path: <mspinler@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x243.google.com (mail-yw0-x243.google.com
+ [IPv6:2607:f8b0:4002:c05::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3whQsc4lGszDqGr
- for <openbmc@lists.ozlabs.org>; Tue,  6 Jun 2017 06:10:12 +1000 (AEST)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v55K8slq075905
- for <openbmc@lists.ozlabs.org>; Mon, 5 Jun 2017 16:10:09 -0400
-Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2awcwhjr5r-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 05 Jun 2017 16:10:09 -0400
-Received: from localhost
- by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
- Mon, 5 Jun 2017 16:10:08 -0400
-Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
- by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 5 Jun 2017 16:10:05 -0400
-Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
- [9.57.199.109])
- by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v55KA4DC62193856; Mon, 5 Jun 2017 20:10:05 GMT
-Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 2A37711205F;
- Mon,  5 Jun 2017 16:10:11 -0400 (EDT)
-Received: from [9.10.99.11] (unknown [9.10.99.11])
- by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id F3F13112034;
- Mon,  5 Jun 2017 16:10:10 -0400 (EDT)
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: Matt Spinler <mspinler@linux.vnet.ibm.com>
-Subject: UCD registers for fault analysis
-Date: Mon, 5 Jun 2017 15:10:05 -0500
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101
- Thunderbird/45.8.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3whZy55QgxzDqKy
+ for <openbmc@lists.ozlabs.org>; Tue,  6 Jun 2017 12:14:37 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="VFy6Y6OR"; 
+ dkim-atps=neutral
+Received: by mail-yw0-x243.google.com with SMTP id p144so9098606ywp.2
+ for <openbmc@lists.ozlabs.org>; Mon, 05 Jun 2017 19:14:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=P0EFYLmkUz1uyCpTi5psRb0VKePOq0qsZcR5p1bd4Rw=;
+ b=VFy6Y6ORZwUeP8DVfGGKHKGfqo9b6nhGS/4OqYrc7Xgu0absRXL/WS3oeAThgY5EhU
+ FgAnCZVKAwZpjuZsVe1M98cOhd0LFsBeegfpgnRzozYPN3SUIVFPvqBpXz5HHrlAOhy3
+ 4QyWLyeNYwd3whxk5Vr5DKX2rhHruzAzJ6MhveOmSvOfsZOPZTCFsHu+hWAQY5Ge+vNK
+ uzdGVdF6dxHBvO6SB5N7zyMh2Itdz5wljZfaUNSHIn/n4WUwfKnqjHiUvVhwnbnZT8TC
+ rsQOkTeRYp5qiviWgMDt1b6XhfwCG2mmYqboZrobJPfltFeSVYNoxs9Y0077vV3/RdvU
+ rapw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=P0EFYLmkUz1uyCpTi5psRb0VKePOq0qsZcR5p1bd4Rw=;
+ b=W0AhyHHUDSEz/MSImY/5i8hdT2sl+0MOIcdy6JL70nDe3N1iAXpD2Bh0J43uNmMb8l
+ TE2MiNbJUlPi4/nBx0xzRdKrGG52bmY9DkBalQAuhXfP2K1Bhs1LYsv36UoE368n8ocF
+ pTVsg77FX6465bbhP+x43vuGy1ciKZlDeGhXbz9iY0+yzQmRjuoa3IiFvz0y3+EWAeEX
+ OVviT5zpIy3Nac3L0bX/5cMLl5Xcq/MbFpP1+pYqZzawwlWjntCO5a3TTb5nR5+YHehQ
+ O8r+qS/Q+g3r/RXYcT3QTMrIknlElSJGjg1+PS9pp/2YlgGLzAEhjt5h1lJBxscB4NCl
+ 7sNg==
+X-Gm-Message-State: AODbwcDzTOp1kD2J9hBncaQ5Q4kNo0ebpCarOrEC7QZW/YLLW1AOlm38
+ aU/Yu4NtTXtxpeZeiL6kWDGbfUGdOg==
+X-Received: by 10.13.218.198 with SMTP id c189mr1090331ywe.308.1496715274950; 
+ Mon, 05 Jun 2017 19:14:34 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 17060520-0052-0000-0000-00000217B98A
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007178; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000212; SDB=6.00870618; UDB=6.00432928; IPR=6.00650598; 
- BA=6.00005398; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015711; XFM=3.00000015;
- UTC=2017-06-05 20:10:06
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17060520-0053-0000-0000-000050D901E3
-Message-Id: <76e2515b-1cfe-4663-1676-20f1e27fb9ac@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-06-05_12:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1706050382
+Sender: joel.stan@gmail.com
+Received: by 10.37.174.2 with HTTP; Mon, 5 Jun 2017 19:14:14 -0700 (PDT)
+In-Reply-To: <CAFRv3wzAfdwRreYMGMa4ZMiKuSu7fB4Sd9a8Jt3_Fah9L97R9g@mail.gmail.com>
+References: <20170602194612.11866-1-rlippert@google.com>
+ <CACPK8XdmjihLOZseWtGq+9QKQ+mDVNujP_csW8fhUTzPFoTMaQ@mail.gmail.com>
+ <CAFRv3wzAfdwRreYMGMa4ZMiKuSu7fB4Sd9a8Jt3_Fah9L97R9g@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 6 Jun 2017 11:44:14 +0930
+X-Google-Sender-Auth: FMqIOO3LEyIg29ohg2lgD1h951E
+Message-ID: <CACPK8Xe6Z-VK6rTnOhMfEzg=mMwOwN==64srwFryxdL1hR1G4g@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] ARM: aspeed: zaius: Support new board FSI
+ gpio pin mapping
+To: Rob Lippert <rlippert@google.com>
+Cc: Robert Lippert <roblip@gmail.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, Xo Wang <xow@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -71,37 +63,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 Jun 2017 20:10:13 -0000
+X-List-Received-Date: Tue, 06 Jun 2017 02:14:38 -0000
 
-Hi Joel,
+On Tue, Jun 6, 2017 at 5:13 AM, Rob Lippert <rlippert@google.com> wrote:
+> On Sun, Jun 4, 2017 at 9:46 PM, Joel Stanley <joel@jms.id.au> wrote:
+>> On Sat, Jun 3, 2017 at 5:16 AM, Robert Lippert <roblip@gmail.com> wrote:
+>>> FSI routing was broken on EVT boards and all boards were reworked
+>>> to use the nearest available GPIO pins.  Future boards have
+>>> fixed the issue so need to use the original planned GPIOG ports.
+>>
+>> How long will we need to carry support for the EVT boards?
+>
+> EVT boards should be scrapped within a few months (by end of year at
+> the latest) at which point we can remove this code hack and uncomment
+> the properties in the .dts file.
+>
+>>
+>> We had proposed using u-boot to fix up the device tree for these kind
+>> of changes. If you want to support the EVT long term, we should look
+>> in to implementing those changes in u-boot.
+>
+> I looked at that briefly but it was significantly more complicated :)
 
-I opened issue https://github.com/openbmc/openbmc/issues/1727 to 
-describe some UCD90160 registers we need to be able to access in order 
-to do power fault analysis.   Please take a look and see if its doable 
-to add these to a driver.
+Yeah agreed. Lets carry the hack for now, and it can be dropped in a
+future rebase.
 
-They are:
+Cheers,
 
-* CLEAR_FAULTS - command 0x03
-* Clear logged faults - write 0x00 to register 0xEA
-* STATUS_WORD - 0x79
-* STATUS_VOUT - 0x7A - all pages
-* NUM_PAGES - 0xD6 - though maybe we can get the number of pages another way
-* MFR_STATUS - 0xF3 - page 0 - for reading the GPI bits
-
-Also:
-
-Write, 0xFA 0x08
-Read, 0xFB
-Write, 0xFA 0x09
-Read, 0xFB
-Write, 0xFA 0x0A
-Read, 0xFB
-Write, 0xFA 0x0E
-Read, 0xFB
-Write, 0xFA 0x11
-Read, 0xFB
-Write, 0xFA 0x0B
-Read, 0xFB
-
-I also have a document I will send you offline.
+Joel
