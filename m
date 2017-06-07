@@ -1,69 +1,57 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+Return-Path: <linux@roeck-us.net>
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wjVSv1zGlzDqKm
- for <openbmc@lists.ozlabs.org>; Wed,  7 Jun 2017 23:55:57 +1000 (AEST)
-Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v57DrqXo084640
- for <openbmc@lists.ozlabs.org>; Wed, 7 Jun 2017 09:55:54 -0400
-Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2axj3ha4jk-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 07 Jun 2017 09:55:54 -0400
-Received: from localhost
- by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Wed, 7 Jun 2017 07:55:53 -0600
-Received: from b03cxnp08028.gho.boulder.ibm.com (9.17.130.20)
- by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Wed, 7 Jun 2017 07:55:50 -0600
-Received: from b03ledav001.gho.boulder.ibm.com
- (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
- by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v57Dtnh418547066
- for <openbmc@lists.ozlabs.org>; Wed, 7 Jun 2017 06:55:49 -0700
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E69EC6E04C
- for <openbmc@lists.ozlabs.org>; Wed,  7 Jun 2017 07:55:48 -0600 (MDT)
-Received: from Christophers-MacBook-Pro.local (unknown [9.81.195.225])
- by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP id 115716E038
- for <openbmc@lists.ozlabs.org>; Wed,  7 Jun 2017 07:55:47 -0600 (MDT)
-Subject: Re: [PATCH linux dev-4.10] drivers/fsi: Break and set pin states on
- GPIO master remove
-To: openbmc@lists.ozlabs.org
-References: <20170606200230.77482-1-cbostic@linux.vnet.ibm.com>
- <1ac7a650-9524-4c50-f449-b5fc89e8d988@ozlabs.org>
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Wed, 7 Jun 2017 08:55:45 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
- Gecko/20100101 Thunderbird/45.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wjY6q6jwJzDqCt
+ for <openbmc@lists.ozlabs.org>; Thu,  8 Jun 2017 01:55:31 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.b="pn4/17Nv";
+ dkim-atps=neutral
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+ :Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+ :Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=1CIugcleHh19G/zgf4eiLvtMAfYMxN9wZpE7wUwWYnc=; b=pn4/17Nv67VVv1H6yCO2JK6RUw
+ 8F/IPf95fwgLjFrjqsXn/90RQQSxQOkUFYZG2PZihX/O7BTwtHQh+Rl2ZMkD9jDEjA8YNev4jI0TM
+ G50pC9rjCAEhV81UV5IfarTW1Uulf+HFVY3T81FyctEnJa5wwRFMX/MPXVmBj/eiytLdzTw1TmWyr
+ 6YBY5RZgNL7PFQn9YLpzCIj5FJYJ8gh6cM04JjvEzcRLFbQ2Mr+gS8GWMh6YbcD/mU531fpyXRvrN
+ Y6AybVp51lHOnR/YMy7CuZSTIO/RhxNL+t45WkDrbADg/4KDrcKOsGADdGhLTXRfx0KuM56sWquYU
+ eaBHqw4A==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net
+ ([108.223.40.66]:37118 helo=localhost)
+ by bh-25.webhostbox.net with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ (Exim 4.89) (envelope-from <linux@roeck-us.net>)
+ id 1dIdIt-003OUy-Fa; Wed, 07 Jun 2017 15:55:27 +0000
+Date: Wed, 7 Jun 2017 08:55:26 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: linux-hwmon@vger.kernel.org, jdelvare@suse.com, corbet@lwn.net,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ joel@jms.id.au, msbarth@linux.vnet.ibm.com,
+ tpearson@raptorengineering.com, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v3] hwmon: Add support for MAX31785 intelligent fan
+ controller
+Message-ID: <20170607155526.GA18946@roeck-us.net>
+References: <20170606070230.32669-1-andrew@aj.id.au>
 MIME-Version: 1.0
-In-Reply-To: <1ac7a650-9524-4c50-f449-b5fc89e8d988@ozlabs.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 17060713-0016-0000-0000-000006E96FD8
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007189; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000212; SDB=6.00871442; UDB=6.00433429; IPR=6.00651434; 
- BA=6.00005405; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015731; XFM=3.00000015;
- UTC=2017-06-07 13:55:51
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17060713-0017-0000-0000-00003A00A486
-Message-Id: <bdb441e5-5485-9a67-1749-029f684162f9@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-06-07_08:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1706070258
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20170606070230.32669-1-andrew@aj.id.au>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - lists.ozlabs.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-Get-Message-Sender-Via: bh-25.webhostbox.net: authenticated_id:
+ guenter@roeck-us.net
+X-Authenticated-Sender: bh-25.webhostbox.net: guenter@roeck-us.net
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -75,42 +63,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 07 Jun 2017 13:55:59 -0000
+X-List-Received-Date: Wed, 07 Jun 2017 15:55:32 -0000
 
+On Tue, Jun 06, 2017 at 04:32:30PM +0930, Andrew Jeffery wrote:
+> Add a basic driver for the MAX31785, focusing on the fan control
+> features but ignoring the temperature and voltage monitoring
+> features of the device.
+> 
+> This driver supports all fan control modes and tachometer / PWM
+> readback where applicable.
+> 
+> Signed-off-by: Timothy Pearson <tpearson@raptorengineering.com>
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> ---
+> Hello,
+> 
+> This is a rework of Timothy Pearson's original patch:
+> 
+>     https://www.mail-archive.com/linux-hwmon@vger.kernel.org/msg00868.html
+> 
+> I've labelled it as v3 to differentiate from Timothy's postings.
+> 
+> The original thread had some discussion about the MAX31785 being a PMBus device
+> and that it should thus be a PMBus driver. The implementation still makes use
 
+After thinking about it, that is what it should be. If I accept it as non-PMBus
+driver, it will be all but impossible to convert it to a PMBus driver later on,
+and that just doesn't make any sense.
 
-On 6/6/17 10:22 PM, Jeremy Kerr wrote:
-> Hi Chris,
->
->> Update GPIO remove behavior to match dev-4.7.
->>
->> On gpio remove: Send a break
->> 		clock, translator, mux = 0
->> 		data, enable = 1
-> While this change itself seems okay (leaving GPIOs in a defined state),
-> I'm concerned about *why* we need this.
->
-> If there is other code that need GPIOs in a certain state, then that
-> code should be doing the required init itself.
-Hi Jeremy,
+With no one interested in writing that driver, I'll try to give it some more
+priority myself. I do have an evaluation board somewhere, which should help.
 
-The pins are set here mainly for the benefit of the Cronus debug 
-tools.   Its common practice in test and bringup labs to switch back and 
-forth between BMC and FSP-2 with Cronus to access the host processor 
-CFAMs over FSI.  Without the remove pin state changes Cronus cannot access.
+Note that the second fan reading should be implemented as just that, not with
+a non-standard attribute.
 
-Cronus is a user space layer and presently doesn't modify gpio directly 
-in this situation.   It could do this work I suppose but all designers 
-involved will need to come to an agreement as to which is the proper 
-approach.
-
-Thanks,
-Chris
-
-> Could you add a comment on why this is required?
->
-> Cheers,
->
->
-> Jeremy
->
+Guenter
