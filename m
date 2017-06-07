@@ -1,53 +1,67 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x232.google.com (mail-yw0-x232.google.com
- [IPv6:2607:f8b0:4002:c05::232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wjGj45r3nzDqKY
- for <openbmc@lists.ozlabs.org>; Wed,  7 Jun 2017 15:05:44 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wjJw01ZTyzDqKp
+ for <openbmc@lists.ozlabs.org>; Wed,  7 Jun 2017 16:45:20 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="WjITSJFE"; 
- dkim-atps=neutral
-Received: by mail-yw0-x232.google.com with SMTP id l75so707568ywc.3
- for <openbmc@lists.ozlabs.org>; Tue, 06 Jun 2017 22:05:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=kT8hFMm9oHYTK9MDACWJUd+3JjmmsNoK97l5+xNyThA=;
- b=WjITSJFEJL0/HMtoZrTbZBPtBXJc4kKnlt3bHTdX9vfd6sqZlqIScezNF1i5/1/TaV
- KIsqjmX/awEc0xRMsE+QkDCZc6AL45SZIV4YMl4JMNFwoYsT7ZbUcuB02sMXT2vCRBra
- 8W73oamOWCyzLol+Xcvb87AMNXA/eqsUnEFL/49ul9hGWOH3gUcIV9VQdjGBPStQnBWY
- DGEUu0wYCMyqWXU4k9M0GgHOYkgVPPvhBCmek+Z3H5PBGelGV0erjLdMZSaino+H46aA
- pGfj8UukphwE0/ldz4FOg83DxL41rgPK7Dhf0h9V09Y+guGJzb6GiA89fnGZ91Yu4Ur+
- JoxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=kT8hFMm9oHYTK9MDACWJUd+3JjmmsNoK97l5+xNyThA=;
- b=OBQhENK/fgewXvMtLw+RUAxfwR3vyFgKOAMKAQ2r8JjZQ3s66og5dDwmrZ1tClr8mc
- yuQ+ubMP07XM9wa2NFPylmE7RbOY6noBVfmEbqOBxLjVki8HLMvQOUEGh7948DI2QZ2G
- YPr6lMziPvoN/Nsm7L+6ZroI76loh0DTDWchNiTSrbxIGC5wV6ylUXyJtoj+8B4Htoqj
- 5tBaaoN1bG9irHo9+2uhfsbmsZ3gwkkq9OAuOAPp+cQVQJwe66yUHCUXpM0TsT+EATCP
- b75YpRSb1H3TtZcA1Qe9S6MjkiEqJYRtCC93LjYfHWC0Cfp+ja5NKbuDlNlPnlhTh80e
- PtDA==
-X-Gm-Message-State: AODbwcDsTCpbTWRIbNIpvVqocA7IwEOCL0SzkrIf9hQxC3ZlSPPY9ypY
- Um5rMI4VtDf8N8Vfs6Ka8Hml/bQhQQ==
-X-Received: by 10.13.212.69 with SMTP id w66mr4913269ywd.164.1496811941689;
- Tue, 06 Jun 2017 22:05:41 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.174.2 with HTTP; Tue, 6 Jun 2017 22:05:21 -0700 (PDT)
-In-Reply-To: <76e2515b-1cfe-4663-1676-20f1e27fb9ac@linux.vnet.ibm.com>
-References: <76e2515b-1cfe-4663-1676-20f1e27fb9ac@linux.vnet.ibm.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 7 Jun 2017 14:35:21 +0930
-X-Google-Sender-Auth: RciaHp_MPKpUyOWXETV050A7w7s
-Message-ID: <CACPK8Xcdo6RqQFTP+B=+eQxDZ2KJTE+rj3LkSp9Ke362Ke6S=Q@mail.gmail.com>
-Subject: Re: UCD registers for fault analysis
-To: Matt Spinler <mspinler@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="kp6aSyVk"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="TAej87hx"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 3D1B520A82;
+ Wed,  7 Jun 2017 02:45:17 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Wed, 07 Jun 2017 02:45:17 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=XPyZNS+HAUlhs2yjE7eMCN9MVyL9UHDpYS1+RNP/u
+ C0=; b=kp6aSyVkSVAhky1mi6OmSkJcaqgAw1fWkMZCH0QaZfbUFJk4YhhOhYnPc
+ GULUpEPlG3SZ1YIo8ccZPJCACoKilwBIhNe7m7umNB/GwjdUofzLB44h++x8K5m+
+ OFM9vOmCwe8N4qwIkBN9TOT9j0R2mT/+D5JGbyEI5idgwJ2fazgEfM5DHO4GL9lt
+ iCGjBpPI517Rob8PVHJfDZWiBAVSNe2VgqcW+ujaWLtPeSljxUXLr/zHBFm2KMPR
+ 1IwKpQgA1gZ6SRMSynPyD8VwhjuxCYyXI+AJJdkQSAYgzvYDNE9VMwaMBx4A/EgQ
+ hvWiSEMBpoVc+6UWQd06PCzFXdgtA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=XPyZNS+HAUlhs2yjE7
+ eMCN9MVyL9UHDpYS1+RNP/uC0=; b=TAej87hxM4r+2w2eBWqvKKSwP3VMGAgrea
+ kV6DsFih9s6ZC7HcE6SG5y+SLVTQeTO5A1y62+w4J7r+LZCQQD+GZs3ePEsz8WdF
+ tRxg/5Y0SEdjv7IwseShSHM1mluyO/zTyjyzzuWWsSCbPW5gDFpqnbudpSi9p5qE
+ 00Xo1aJNeY9TFAmB1honE6Hd0oBgcmEde7reVSSsFTppXJ6Bin60AU2E/DthfyMh
+ JkvLGezzgj4gzxyQFWnXX5XDMUH0/8jpm+cKKH0esiYmQeWDzQ74Mg4VGC995N2X
+ mFLyIpERBVGU2wxgEBoa305ay3IRn3hZQVAsJrsC8pvr+ckTCndA==
+X-ME-Sender: <xms:_aA3WazH3zKw541wXDxlz7u-veFVMCncXvW2oB-O6MrDixNt-tX0xg>
+X-Sasl-enc: ntgLPUgGUn0sgncLHR5aneQ5G9HVJbmnYk2uCSZ7X3SJ 1496817916
+Received: from keelia (ppp203-122-213-247.static.internode.on.net
+ [203.122.213.247])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 30F9424772;
+ Wed,  7 Jun 2017 02:45:12 -0400 (EDT)
+Message-ID: <1496817906.8159.31.camel@aj.id.au>
+Subject: Re: [PATCH v3] hwmon: Add support for MAX31785 intelligent fan
+ controller
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Joel Stanley <joel@jms.id.au>, Matthew Barth
+ <msbarth@linux.vnet.ibm.com>,  Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org, Jean Delvare <jdelvare@suse.com>, Jonathan
+ Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org, Linux Kernel Mailing
+ List <linux-kernel@vger.kernel.org>, Timothy Pearson
+ <tpearson@raptorengineering.com>,  OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>
+Date: Wed, 07 Jun 2017 16:15:06 +0930
+In-Reply-To: <CACPK8Xd4B0o_1e1L_RwNTY7rmYy-09ucgF_O2MrxL27h6z0H=g@mail.gmail.com>
+References: <20170606070230.32669-1-andrew@aj.id.au>
+ <91cbe313-7fab-5424-7274-929cc7b31732@roeck-us.net>
+ <49c93415-8e92-68f5-b97a-0b270c40e3c6@linux.vnet.ibm.com>
+ <CACPK8Xd4B0o_1e1L_RwNTY7rmYy-09ucgF_O2MrxL27h6z0H=g@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-/U5lHhKu5GlVDEee4ch7"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,51 +73,113 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 07 Jun 2017 05:05:45 -0000
+X-List-Received-Date: Wed, 07 Jun 2017 06:45:21 -0000
 
-Hi Matt,
 
-On Tue, Jun 6, 2017 at 5:40 AM, Matt Spinler
-<mspinler@linux.vnet.ibm.com> wrote:
-> Hi Joel,
->
-> I opened issue https://github.com/openbmc/openbmc/issues/1727 to describe
-> some UCD90160 registers we need to be able to access in order to do power
-> fault analysis.   Please take a look and see if its doable to add these to a
-> driver.
+--=-/U5lHhKu5GlVDEee4ch7
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thanks for the heads up. I've put this on my list of things to look
-at. Please remind me if I haven't responded in about a week.
+On Wed, 2017-06-07 at 12:18 +0930, Joel Stanley wrote:
+> On Wed, Jun 7, 2017 at 1:50 AM, Matthew Barth
+> > <msbarth@linux.vnet.ibm.com> wrote:
+> >=20
+> > On 06/06/17 8:33 AM, Guenter Roeck wrote:
+> > >=20
+> > > On 06/06/2017 12:02 AM, Andrew Jeffery wrote:
+> > > > Over and above the features of the original patch is support for a
+> > > > secondary
+> > > > rotor measurement value that is provided by MAX31785 chips with a r=
+evised
+> > > > firmware. The feature(s) of the firmware are determined at probe ti=
+me and
+> > > > extra
+> > > > attributes exposed accordingly. Specifically, the MFR_REVISION 0x30=
+40 of
+> > > > the
+> > > > firmware supports 'slow' and 'fast' rotor reads. The feature is
+> > > > implemented by
+> > > > command 0x90 (READ_FAN_SPEED_1) providing a 4-byte response (with t=
+he
+> > > > 'fast'
+> > > > measurement in the second word) rather than the 2-bytes response in=
+ the
+> > > > original firmware (MFR_REVISION 0x3030).
+> > > >=20
+> > >=20
+> > > Taking the pmbus driver question out, why would this warrant another
+> > > non-standard
+> > > attribute outside the ABI ? I could see the desire to replace the 'sl=
+ow'
+> > > access
+> > > with the 'fast' one, but provide two attributes ? No, I don't see the
+> > > point, sorry,
+> > > even more so without detailed explanation why the second attribute in
+> > > addition
+> > > to the first one would add any value.
+> >=20
+> > In the case of counter-rotating(CR) fans which contain two rotors to pr=
+ovide
+> > more airflow there are then two tach feedbacks. These CR fans take a si=
+ngle
+> > target speed and provide individual feedbacks for each rotor contained
+> > within the fan enclosure. Providing these individual feedbacks assists =
+in
+> > fan fault driven speed changes, improved thermal characterization among
+> > other things.
+> >=20
+> > Maxim provided this as a 'slow' / 'fast' set of bytes to be user
+> > compatible(so the 'slow' rotor speed, regardless of which rotor, is in =
+the
+> > first 2 bytes with the 'slow' version of firmware as well). In some cas=
+es,
+> > mfg systems could have a mix of these revisions.
+>=20
+> Andrew, instead of creating the _fast sysfs nodes, I think you could
+> expose the extra rotors are separate fan devices in sysfs. This would
+> not introduce new ABI.
+
+I considered this approach: I debated whether to consider the fan unit
+as a single entity with two inputs, or just separate fans, and ended up
+leaning towards the former. To go the latter path we need to consider
+whether or not to expose the writeable properties for the second input
+(given they also affect the first) and how to sensibly arrange the
+pairs given the functionality is determined at probe-time. Not rocket
+science but decisions we need to make.
+
+There's also the issue that the physical fan that each element of an
+input pair represents will change as the fan speeds vary, based on the
+behaviour that Matt outlined. I don't feel this maps well onto the
+expectations of the sysfs interface, but then I'm not sure there's much
+we can do to alleviate it either other than designating one of the
+input attributes of a fan pair as the fastest input.
+
+Regardless, I'll look into it in the anticipation that this is a viable
+way forward.
 
 Cheers,
 
-Joel
+Andrew
+--=-/U5lHhKu5GlVDEee4ch7
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
+-----BEGIN PGP SIGNATURE-----
 
->
-> They are:
->
-> * CLEAR_FAULTS - command 0x03
-> * Clear logged faults - write 0x00 to register 0xEA
-> * STATUS_WORD - 0x79
-> * STATUS_VOUT - 0x7A - all pages
-> * NUM_PAGES - 0xD6 - though maybe we can get the number of pages another way
-> * MFR_STATUS - 0xF3 - page 0 - for reading the GPI bits
->
-> Also:
->
-> Write, 0xFA 0x08
-> Read, 0xFB
-> Write, 0xFA 0x09
-> Read, 0xFB
-> Write, 0xFA 0x0A
-> Read, 0xFB
-> Write, 0xFA 0x0E
-> Read, 0xFB
-> Write, 0xFA 0x11
-> Read, 0xFB
-> Write, 0xFA 0x0B
-> Read, 0xFB
->
-> I also have a document I will send you offline.
->
+iQIcBAABCgAGBQJZN6DzAAoJEJ0dnzgO5LT5o3gQAJ42qPAK8Jb0YyGEUlGGtF88
+y3pw5VDbPNYHqZpS5eb7L/7JToLm68/7OeUxv6Iczl7/2IGABk1dyiINc5VRPsKc
+B5KJ1JFx/IphCzpF4OGUONaWrDSdMginxz3GncSxeepyBJVyNKO6Zk0zoH5fcWEb
+WK8/EqcNOtuv8xzsirQYbHnAMlKJ19rdIQl9b0xbalQVKMl7QqOBcqtYd/dA230t
+S32ySUDS5wMLxcz+qBhPAXmbDySX9CBl+FNqanOXDf8wzv9OLYqaLdS6/haSZ7Lt
+yu1qBDhOEQ/hktGu1UAUKQB7SXgNBWGr79O+D0jQeQqjErZp5nwMV4qD4HI7Sf+y
+ztUDDR5VCMWJXiTQpnbRwFG3Kh/E1rfBJvwGDDdW4erkuf/OFKiGVfCjwCng+w5a
+F3CQqvrB6Prj5pdFaolY+QmXt7+H+LK02c8+YFcLjbBNFBrt7hQdeEO1fN9PsIgd
+e1N3n1CIaOZTm7d4OWh+H0g7Zdg/u+co8rhmriL1l1V+NKiUFF/oVx/mMAoW6hzF
+McG5gMb/s8P4+TdUhAxFFOB4S1do0GVuiVasMA7KsY/6DMHnLAuQeM7M2k1cnlhm
+lt002eix6+bA+X2jj2Dt5OTnMeNN3j/2/EpR2w5HKc3cY/G+BZKTYMkf4MQ21Omk
+c6UHKJYqMNJHh/vbOxYM
+=wv05
+-----END PGP SIGNATURE-----
+
+--=-/U5lHhKu5GlVDEee4ch7--
