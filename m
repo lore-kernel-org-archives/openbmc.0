@@ -1,68 +1,53 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yb0-x22d.google.com (mail-yb0-x22d.google.com
+ [IPv6:2607:f8b0:4002:c09::22d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wjwTS3J4VzDqFH
- for <openbmc@lists.ozlabs.org>; Thu,  8 Jun 2017 16:27:56 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wjxQx6wh9zDqFH
+ for <openbmc@lists.ozlabs.org>; Thu,  8 Jun 2017 17:10:49 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="KkNL+KAj"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="qHB1RCjS"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id B27F92074C;
- Thu,  8 Jun 2017 02:27:53 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Thu, 08 Jun 2017 02:27:53 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=yf9c0ru+RDphfAb0iF8+r39e5zTDh8gFzqjTgZJme
- u8=; b=KkNL+KAjeok3vQt41zl88wUdpdBY5n2jjxNQW8+NXiCHE9EBl/G4yOLya
- Aj1FtWEdft3gE7xko8nHVqoWDWysK0JhNtVxlldKMCK598M4kXqGRFVT60jBmF+k
- 2u9YZcueZKwJVo7gS3AH/j9V+2czVG2E6Rg3bq/YiJ9oWPUX3Y6Nvg+t/pDVGCKy
- mt1l9UaOb4VIu1P/H45Sut1ikIEWpW0OrDjgdNNemBVIVZEIG8JH/WbXRlnhT0KF
- XAL5ept5Qf3v/YyjQGhq31TE7u5kWVZYilXvdnmKnGhE8rgI27KNh6jaievPHRyV
- MZz5wQPHQiJezy/ZAR29NNDSxAh5Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=yf9c0ru+RDphfAb0iF
- 8+r39e5zTDh8gFzqjTgZJmeu8=; b=qHB1RCjS5NNkzjX53ym8dTnVyK8rllYyow
- ftXNQDs6vw6ZtnevwF5GoMS65gIe7k4SHThNFI1gtgY2dlrAfYs90XMsljlCON4A
- HZ05LizuiIJziVqGAIZaec6l9OA8ukhnRcAMDIwD2KWxYDi72Qiaxt2qPJp0uf5y
- FpjX82Sz95CnUFPScqYKssVN5x9oShXkD/1ylVwMJ8/XwamMhI55H5/Tlofw4lq2
- 6sxEppFwWWJ0RqmeC4iQbziAEBLRl6GcoBy45kfpAdUs0n5eJGD94cEk6BnaAKV7
- Z2UC0HEPXGD+9uLrTtF2MBFtUJPqN35+nesdzKO57hRtqMlGU+bw==
-X-ME-Sender: <xms:ae44WbxFPyv95wNxfjoA61BAX-24ckCRT5opPG0xA7ephi8vcgqbrw>
-X-Sasl-enc: Ffx8C8kuoh/tY9/q6oUl7qzw3qYQGqmFxw1I6RJM9ZQf 1496903272
-Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id D25107E850;
- Thu,  8 Jun 2017 02:27:49 -0400 (EDT)
-Message-ID: <1496903262.23335.1.camel@aj.id.au>
-Subject: Re: [PATCH v3] hwmon: Add support for MAX31785 intelligent fan
- controller
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Joel Stanley <joel@jms.id.au>, Matthew Barth
- <msbarth@linux.vnet.ibm.com>,  linux-hwmon@vger.kernel.org, Jean Delvare
- <jdelvare@suse.com>, Jonathan Corbet <corbet@lwn.net>,
- linux-doc@vger.kernel.org, Linux Kernel Mailing List
- <linux-kernel@vger.kernel.org>, Timothy Pearson
- <tpearson@raptorengineering.com>,  OpenBMC Maillist
- <openbmc@lists.ozlabs.org>
-Date: Thu, 08 Jun 2017 15:57:42 +0930
-In-Reply-To: <20170607173752.GA7167@roeck-us.net>
-References: <20170606070230.32669-1-andrew@aj.id.au>
- <91cbe313-7fab-5424-7274-929cc7b31732@roeck-us.net>
- <49c93415-8e92-68f5-b97a-0b270c40e3c6@linux.vnet.ibm.com>
- <CACPK8Xd4B0o_1e1L_RwNTY7rmYy-09ucgF_O2MrxL27h6z0H=g@mail.gmail.com>
- <1496817906.8159.31.camel@aj.id.au> <20170607173752.GA7167@roeck-us.net>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-koRit8N+p/UXs5DxN/QU"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="sWT+bwca"; 
+ dkim-atps=neutral
+Received: by mail-yb0-x22d.google.com with SMTP id 202so7686726ybd.0
+ for <openbmc@lists.ozlabs.org>; Thu, 08 Jun 2017 00:10:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=fP7PRxNs9dOLBB2b6nasd1J17mo6RMulTTOtuzWlAoo=;
+ b=sWT+bwca651xxw7cxPsRYrgCmSVjj+lvQ4ng01s05u7UWo+MhKGNmDCywX4jnkad5s
+ 2X+q2Mjlhft66LG7ELxH9uO5BnCZXwB4IjKmSIKPsr2zeAVV1WxuVoRGX7xWF4DFLhFP
+ /GKLdxbeuLYyk8nOaOc0HRIhz82+4Q3Zc14IU35elJCNYlkJYuSqSZNGteWVuUX+KOSz
+ bLQBYfBoWbeuUYDklxVGcSC7cQGvERcOa9BuGgbv08sg1QamYJtxjkmU6WLkgvC5EgAW
+ Gwcs+qiSVn0ZuV2Ahr/ZepFQPXbbyTknUErg9++5YmxG9K6ngMRqr4guaN9L+LKm2Z5G
+ +i8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=fP7PRxNs9dOLBB2b6nasd1J17mo6RMulTTOtuzWlAoo=;
+ b=dqEcMmeP7lhKscBjHmVIQ2Bk96NJux9smmqWV+tIdJmUDb6d4Wghi9u1faSeZy69u9
+ v+4SedLI+6muvzQwRVK/Skq1C98UZVPKnyLw62BwV5KNMOiSiBiMy/HrU0X81WchDpi7
+ HMb3SwGWx0e4ISWFuD1v9AqH/YbagPyl5QSIdN4KjHB4bi5Mo7jEe1Lbsz7Yu6Pu4mVD
+ w/fYk1sW0SxOeCveA00w8I2hblHaarlm2IosTDJKQ5Dh0DX+egGxWIplwke1KlAGil6o
+ Udb3B0vGYKrtYQ7iTyZ2pQGyLvaFao6w43IvwfmM7ColcG+zcbrlH0HADeO662P9B6G8
+ xMiA==
+X-Gm-Message-State: AODbwcBjKsw3oCtqTDojw6xQdzJzLqsMzDNdN0RIKgHe0Sao9NyeFCx4
+ iUqdE0gFhlihtxDrb0zMwMmbBqT7XL6bLsw=
+X-Received: by 10.37.113.4 with SMTP id m4mr9370867ybc.221.1496905847076; Thu,
+ 08 Jun 2017 00:10:47 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.174.2 with HTTP; Thu, 8 Jun 2017 00:10:26 -0700 (PDT)
+In-Reply-To: <CAO=notyH_wpUBZELWGf5dBeCApB4+Zo-VrTa4vYJyHYjpxHvjQ@mail.gmail.com>
+References: <CAO=notyH_wpUBZELWGf5dBeCApB4+Zo-VrTa4vYJyHYjpxHvjQ@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 8 Jun 2017 16:40:26 +0930
+X-Google-Sender-Auth: Zbj-YExVKuVCTdY17hKwv4AbJ4o
+Message-ID: <CACPK8XdMs6DQRk2DWAYwgtta3cGfpEm9mjZ7TqFCsADj4LW5oQ@mail.gmail.com>
+Subject: Re: New Platform Guide
+To: Patrick Venture <venture@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -74,132 +59,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 08 Jun 2017 06:27:57 -0000
+X-List-Received-Date: Thu, 08 Jun 2017 07:10:50 -0000
 
+Hi Patrick,
 
---=-koRit8N+p/UXs5DxN/QU
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Thu, Jun 8, 2017 at 3:48 AM, Patrick Venture <venture@google.com> wrote:
+> Where is the new platform guide?
+>
+> In trying to get the quanta board running with everything; I've often run
+> into stumbling blocks when trying to define what packages are required and
+> what need to be replaced with custom versions -- for things like sensors.
+>
+> Often I've been more or less reduced to checking the journal logs to see if
+> something is saying why it's not running (settings.py was crashing which
+> meant ipmid wouldn't start as an example).  It took some source searching to
+> figure out that x really depended on some object existing.  Often those were
+> in the service file, but not every time.  And especially as OpenBMC is a
+> moving target, this has been somewhat discouraging.  Especially when the
+> "supported" platforms all stem from the skeleton which still has its fingers
+> in many places.
 
-On Wed, 2017-06-07 at 10:37 -0700, Guenter Roeck wrote:
-> On Wed, Jun 07, 2017 at 04:15:06PM +0930, Andrew Jeffery wrote:
-> > On Wed, 2017-06-07 at 12:18 +0930, Joel Stanley wrote:
-> > > On Wed, Jun 7, 2017 at 1:50 AM, Matthew Barth
-> > > > > > > > <msbarth@linux.vnet.ibm.com> wrote:
-> > > >=20
-> > > > On 06/06/17 8:33 AM, Guenter Roeck wrote:
-> > > > >=20
-> > > > > On 06/06/2017 12:02 AM, Andrew Jeffery wrote:
-> > > > > > Over and above the features of the original patch is support fo=
-r a
-> > > > > > secondary
-> > > > > > rotor measurement value that is provided by MAX31785 chips with=
- a revised
-> > > > > > firmware. The feature(s) of the firmware are determined at prob=
-e time and
-> > > > > > extra
-> > > > > > attributes exposed accordingly. Specifically, the MFR_REVISION =
-0x3040 of
-> > > > > > the
-> > > > > > firmware supports 'slow' and 'fast' rotor reads. The feature is
-> > > > > > implemented by
-> > > > > > command 0x90 (READ_FAN_SPEED_1) providing a 4-byte response (wi=
-th the
-> > > > > > 'fast'
-> > > > > > measurement in the second word) rather than the 2-bytes respons=
-e in the
-> > > > > > original firmware (MFR_REVISION 0x3030).
-> > > > > >=20
-> > > > >=20
-> > > > > Taking the pmbus driver question out, why would this warrant anot=
-her
-> > > > > non-standard
-> > > > > attribute outside the ABI ? I could see the desire to replace the=
- 'slow'
-> > > > > access
-> > > > > with the 'fast' one, but provide two attributes ? No, I don't see=
- the
-> > > > > point, sorry,
-> > > > > even more so without detailed explanation why the second attribut=
-e in
-> > > > > addition
-> > > > > to the first one would add any value.
-> > > >=20
-> > > > In the case of counter-rotating(CR) fans which contain two rotors t=
-o provide
-> > > > more airflow there are then two tach feedbacks. These CR fans take =
-a single
-> > > > target speed and provide individual feedbacks for each rotor contai=
-ned
-> > > > within the fan enclosure. Providing these individual feedbacks assi=
-sts in
-> > > > fan fault driven speed changes, improved thermal characterization a=
-mong
-> > > > other things.
-> > > >=20
-> > > > Maxim provided this as a 'slow' / 'fast' set of bytes to be user
-> > > > compatible(so the 'slow' rotor speed, regardless of which rotor, is=
- in the
-> > > > first 2 bytes with the 'slow' version of firmware as well). In some=
- cases,
-> > > > mfg systems could have a mix of these revisions.
-> > >=20
-> > > Andrew, instead of creating the _fast sysfs nodes, I think you could
-> > > expose the extra rotors are separate fan devices in sysfs. This would
-> > > not introduce new ABI.
-> >=20
-> > I considered this approach: I debated whether to consider the fan unit
-> > as a single entity with two inputs, or just separate fans, and ended up
-> > leaning towards the former. To go the latter path we need to consider
-> > whether or not to expose the writeable properties for the second input
-> > (given they also affect the first) and how to sensibly arrange the
-> > pairs given the functionality is determined at probe-time. Not rocket
-> > science but decisions we need to make.
-> >=20
->=20
-> There are many other examples with one writeable and multiple readable
-> attributes. Temperature offset attributes are an excellent example.
-> Next question would be what exactly would be writable. pwm attributes are
-> commonly completely independent of fan attributes. pwm1 output doesn't
-> mean that fan1 is the matching input; in fact, most of the time it isn't.
-> The only question would be numbering (is the pair numbered fan1/2 or
-> fan1/fan(1+X) ?) which is just a matter of personal preference. However,
-> everything is better than coming up with non-standard attributes which
-> can not be used with any standard application beyond the application of t=
-he
-> person submitting the driver. It is bad enough if a non-standard attribut=
-e
-> describes something really driver specific. But a non-standard attribute
-> for a fan speed reading ? Please no.=20
+As an end-user of the userspace who does not grok the systemd part of
+OpenBMC, I also find it hard to navigate. I look forward to
+improvements in this area.
 
-Yes, I've received loud and clear that I made the wrong choice :)
-Apologies.
+>
+> That said, there are a lot of dependencies between packages, and things that
+> you receive that maybe you don't want or need or aren't configured properly.
+> For example, I don't know why or what the led-manager is doing but it's on
+> my system running.  I don't believe I configured it.
+>
+> If there is a guide, then I didn't see it and I apologize.
+>
+> If there isn't a guide -- I can start one; however, I won't really have to
+> do it properly until some time in July.  My approach would be, create a new
+> platform that mimics Zaius but under a different name and see what it takes
+> to output a similar image and what is really required -- although difficult
+> for me to test.  So maybe a new Quanta image from scratch and see what's
+> running, and why and what things need to be configured.
 
-Thanks again for your feedback.
+I would appreciate this too. Let me know if I can help out.
 
-Andrew
+Cheers,
 
-
---=-koRit8N+p/UXs5DxN/QU
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJZOO5eAAoJEJ0dnzgO5LT5GtIP/312kz1t7cv63wLVqMa2/khD
-+vFQhh6WRsHe1I0I6+BSesUwC2jvDdaOiOLCgUqXATHgtih50cJfJDM3r3RTm0zL
-iyjjPqJoQCH3KtrIS15tfKfboESJMZOnHH01sboQq//k6vYFSZZcRVDpfTri10ov
-V4PEih7ucFEul/w1Y5yispRY9eKBdp9P4ojrCt8iR/2J4SA8fBCpUrJUuzhPGBob
-kucQKvqtTBWHcdemv7VPuuwhKho9fT3qMLhKhpsylJOqRjURNFVwB3gPPKB/KNrC
-dRSpKNDWEnoOVtkQsUpG//wp3YOD44Iqtr7PU2YtBHMV9PllGxzZlsdwteIx416L
-W1/khFP9hBNWBEnPhQEnwErcAcHotcTnnKxodw8x89bHRyNem8OwXGetiohdOLAK
-9vSPOLflh7uxKQToWmfu1w4UvDjJFjrLq2YPAvRe/WN7qrvgJCvAtlhJCIRDBd86
-8DKo9suDbZRBJc3haxC/xNxp1hseW7+9BtZFbmt3+Xe/cv8G8xhPesU0VmQ8pUdj
-pTkaCDKquUNRACa3O1RnxPs4PdtkKNNutthn3JILW7MXNcKKyjLKTWrOlYloXspB
-24MNcKdI4viSQcWaxM56xDI8NKf+7s63digqpdVeyNV48DsoWUKRtBbAg5DFrnit
-SeVktG8Ghz/XwUcg12TP
-=4Kng
------END PGP SIGNATURE-----
-
---=-koRit8N+p/UXs5DxN/QU--
+Joel
