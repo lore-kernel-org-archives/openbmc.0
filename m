@@ -3,54 +3,54 @@ Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
  [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wkqq45bBrzDqBH
- for <openbmc@lists.ozlabs.org>; Sat, 10 Jun 2017 04:01:20 +1000 (AEST)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wkqq73qMBzDqLR
+ for <openbmc@lists.ozlabs.org>; Sat, 10 Jun 2017 04:01:23 +1000 (AEST)
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
  by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v59HxXpa074646
- for <openbmc@lists.ozlabs.org>; Fri, 9 Jun 2017 14:01:18 -0400
-Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2ayqjw2tjb-1
+ v59HxQVq120039
+ for <openbmc@lists.ozlabs.org>; Fri, 9 Jun 2017 14:01:21 -0400
+Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2aywh0g76q-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 09 Jun 2017 14:01:18 -0400
+ for <openbmc@lists.ozlabs.org>; Fri, 09 Jun 2017 14:01:20 -0400
 Received: from localhost
- by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Fri, 9 Jun 2017 12:01:17 -0600
+ Fri, 9 Jun 2017 12:01:19 -0600
 Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
- by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
+ by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Fri, 9 Jun 2017 12:01:15 -0600
+ Fri, 9 Jun 2017 12:01:17 -0600
 Received: from b03ledav004.gho.boulder.ibm.com
  (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
  by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v59I1F9363766530; Fri, 9 Jun 2017 11:01:15 -0700
+ v59I1Gmn52756514; Fri, 9 Jun 2017 11:01:17 -0700
 Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E6BAC78047;
- Fri,  9 Jun 2017 12:01:14 -0600 (MDT)
+ by IMSVA (Postfix) with ESMTP id D543778056;
+ Fri,  9 Jun 2017 12:01:16 -0600 (MDT)
 Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP id A666B78059;
- Fri,  9 Jun 2017 12:01:14 -0600 (MDT)
+ by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP id 9D99578041;
+ Fri,  9 Jun 2017 12:01:16 -0600 (MDT)
 From: Eddie James <eajames@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10 v2 3/5] drivers: hwmon: occ: Add P8 OCC access
-Date: Fri,  9 Jun 2017 13:01:03 -0500
+Subject: [PATCH linux dev-4.10 v2 4/5] drivers: occ: hwmon and fsi probing fix
+Date: Fri,  9 Jun 2017 13:01:04 -0500
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1497031265-29545-1-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1497031265-29545-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-TM-AS-GCONF: 00
-x-cbid: 17060918-0012-0000-0000-0000146CC6A8
+x-cbid: 17060918-0024-0000-0000-0000169CBAC1
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00007202; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000212; SDB=6.00872403; UDB=6.00434054; IPR=6.00652472; 
+ PH=3.00000004; SC=3.00000212; SDB=6.00872402; UDB=6.00434054; IPR=6.00652472; 
  BA=6.00005406; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015762; XFM=3.00000015;
- UTC=2017-06-09 18:01:16
+ UTC=2017-06-09 18:01:19
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17060918-0013-0000-0000-00004E0F028F
-Message-Id: <1497031265-29545-4-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 17060918-0025-0000-0000-00004B4D58C0
+Message-Id: <1497031265-29545-5-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-06-09_08:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -69,365 +69,178 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 09 Jun 2017 18:01:21 -0000
+X-List-Received-Date: Fri, 09 Jun 2017 18:01:24 -0000
 
 From: "Edward A. James" <eajames@us.ibm.com>
 
-Access the P8 OCC over I2C bus.
+Probe the FSI-based OCC hwmon driver immediately instead of delaying.
+The probe will fail during FSI scan intentionally, since the OCC is not
+active when the system is first powering on. The driver can then be
+manually bound when the OCC becomes active.
 
 Signed-off-by: Edward A. James <eajames@us.ibm.com>
 ---
- drivers/hwmon/Makefile     |   2 +-
- drivers/hwmon/occ/Kconfig  |  19 +++-
- drivers/hwmon/occ/Makefile |  12 +-
- drivers/hwmon/occ/p8_i2c.c | 270 +++++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 300 insertions(+), 3 deletions(-)
- create mode 100644 drivers/hwmon/occ/p8_i2c.c
+ drivers/fsi/fsi-sbefifo.c  |  4 ++--
+ drivers/fsi/occ.c          |  8 +++++++-
+ drivers/hwmon/occ/p9_sbe.c | 38 ++++++++++----------------------------
+ 3 files changed, 19 insertions(+), 31 deletions(-)
 
-diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
-index 73d79bc..4b7c15f 100644
---- a/drivers/hwmon/Makefile
-+++ b/drivers/hwmon/Makefile
-@@ -47,7 +47,6 @@ obj-$(CONFIG_SENSORS_APPLESMC)	+= applesmc.o
- obj-$(CONFIG_SENSORS_ARM_SCPI)	+= scpi-hwmon.o
- obj-$(CONFIG_SENSORS_ASC7621)	+= asc7621.o
- obj-$(CONFIG_SENSORS_ASPEED)	+= aspeed-pwm-tacho.o
--obj-$(CONFIG_SENSORS_OCC_P9_SBE) += occ/
- obj-$(CONFIG_SENSORS_ATXP1)	+= atxp1.o
- obj-$(CONFIG_SENSORS_CORETEMP)	+= coretemp.o
- obj-$(CONFIG_SENSORS_DA9052_ADC)+= da9052-hwmon.o
-@@ -172,6 +171,7 @@ obj-$(CONFIG_SENSORS_WM831X)	+= wm831x-hwmon.o
- obj-$(CONFIG_SENSORS_WM8350)	+= wm8350-hwmon.o
- obj-$(CONFIG_SENSORS_XGENE)	+= xgene-hwmon.o
+diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
+index fbc8dc5..bcf284c 100644
+--- a/drivers/fsi/fsi-sbefifo.c
++++ b/drivers/fsi/fsi-sbefifo.c
+@@ -839,8 +839,6 @@ static int sbefifo_probe(struct device *dev)
+ 	setup_timer(&sbefifo->poll_timer, sbefifo_poll_timer,
+ 			(unsigned long)sbefifo);
  
-+obj-$(CONFIG_SENSORS_OCC)	+= occ/
- obj-$(CONFIG_PMBUS)		+= pmbus/
+-	list_add(&sbefifo->link, &sbefifo_fifos);
+-
+ 	if (dev->of_node) {
+ 		/* create platform devs for dts child nodes (occ, etc) */
+ 		for_each_child_of_node(dev->of_node, np) {
+@@ -852,6 +850,8 @@ static int sbefifo_probe(struct device *dev)
+ 					 "failed to create child node dev\n");
+ 		}
+ 	}
++
++	list_add(&sbefifo->link, &sbefifo_fifos);
+ 	
+ 	return misc_register(&sbefifo->mdev);
+ }
+diff --git a/drivers/fsi/occ.c b/drivers/fsi/occ.c
+index a1508f2..f43ae51 100644
+--- a/drivers/fsi/occ.c
++++ b/drivers/fsi/occ.c
+@@ -635,6 +635,9 @@ struct occ_client *occ_drv_open(struct device *dev, unsigned long flags)
+ {
+ 	struct occ *occ = dev_get_drvdata(dev);
  
- ccflags-$(CONFIG_HWMON_DEBUG_CHIP) := -DDEBUG
-diff --git a/drivers/hwmon/occ/Kconfig b/drivers/hwmon/occ/Kconfig
-index 8196b50..4024dc0 100644
---- a/drivers/hwmon/occ/Kconfig
-+++ b/drivers/hwmon/occ/Kconfig
-@@ -2,9 +2,26 @@
- # On-Chip Controller configuration
- #
++	if (!occ)
++		return NULL;
++
+ 	return occ_open_common(occ, flags);
+ }
+ EXPORT_SYMBOL_GPL(occ_drv_open);
+@@ -688,7 +691,8 @@ static int occ_probe(struct platform_device *pdev)
+ 	mutex_init(&occ->occ_lock);
+ 	INIT_WORK(&occ->work, occ_worker);
  
-+config SENSORS_OCC
-+	tristate "POWER On-Chip Controller"
-+	help
-+	  If you say yes here you get support for monitoring the IBM POWER
-+	  processor sensors via the On-Chip Controller (OCC).
+-	platform_set_drvdata(pdev, occ);
++	/* ensure NULL before we probe children, so they don't hang FSI */
++	platform_set_drvdata(pdev, NULL);
+ 
+ 	if (dev->of_node) {
+ 		rc = of_property_read_u32(dev->of_node, "reg", &reg);
+@@ -715,6 +719,8 @@ static int occ_probe(struct platform_device *pdev)
+ 	} else
+ 		occ->idx = ida_simple_get(&occ_ida, 1, INT_MAX, GFP_KERNEL);
+ 
++	platform_set_drvdata(pdev, occ);
 +
-+	  This driver can also be built as a module. If so, the module will be
-+	  called occ-hwmon.
-+
-+config SENSORS_OCC_P8_I2C
-+	bool "POWER8 OCC via I2C"
-+	depends on I2C && SENSORS_OCC
-+	help
-+	  If you say yes here you get support for monitoring the POWER8
-+	  processor sensors via the OCC, from a service processor, over I2C
-+	  bus.
-+
- config SENSORS_OCC_P9_SBE
- 	bool "POWER9 OCC via SBE"
--	depends on OCCFIFO
-+	depends on OCCFIFO && SENSORS_OCC
- 	help
- 	  If you say yes here you get support for monitoring the POWER9
- 	  processor sensors via the OCC, from a service processor, over SBE
-diff --git a/drivers/hwmon/occ/Makefile b/drivers/hwmon/occ/Makefile
-index 6245c25..ab5c3e9 100644
---- a/drivers/hwmon/occ/Makefile
-+++ b/drivers/hwmon/occ/Makefile
-@@ -1 +1,11 @@
--obj-y += p9_sbe.o common.o
-+occ-hwmon-objs := common.o
-+
-+ifeq ($(CONFIG_SENSORS_OCC_P9_SBE), y)
-+occ-hwmon-objs += p9_sbe.o
-+endif
-+
-+ifeq ($(CONFIG_SENSORS_OCC_P8_I2C), y)
-+occ-hwmon-objs += p8_i2c.o
-+endif
-+
-+obj-$(CONFIG_SENSORS_OCC) += occ-hwmon.o
-diff --git a/drivers/hwmon/occ/p8_i2c.c b/drivers/hwmon/occ/p8_i2c.c
-new file mode 100644
-index 0000000..a2f10ea
---- /dev/null
-+++ b/drivers/hwmon/occ/p8_i2c.c
-@@ -0,0 +1,270 @@
-+/*
-+ * Copyright 2017 IBM Corp.
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License as published by
-+ * the Free Software Foundation; either version 2 of the License, or
-+ * (at your option) any later version.
-+ */
-+
-+#include <asm/unaligned.h>
-+#include "common.h"
-+#include <linux/hwmon.h>
-+#include <linux/i2c.h>
-+#include <linux/init.h>
-+#include <linux/module.h>
-+
-+struct p8_i2c_occ {
-+	struct occ occ;
-+	struct i2c_client *client;
-+};
-+
-+#define to_p8_i2c_occ(x)	container_of((x), struct p8_i2c_occ, occ)
-+
-+static int p8_i2c_occ_getscom(struct i2c_client *client, u32 address, u8 *data)
-+{
-+	ssize_t rc;
-+	__be64 buf_be;
-+	u64 buf;
-+	struct i2c_msg msgs[2];
-+
-+	address <<= 1;
-+
-+	msgs[0].addr = client->addr;
-+	msgs[0].flags = client->flags & I2C_M_TEN;
-+	msgs[0].len = sizeof(u32);
-+	msgs[0].buf = (char *)&address;
-+
-+
-+	msgs[1].addr = client->addr;
-+	msgs[1].flags = (client->flags & I2C_M_TEN) | I2C_M_RD;
-+	msgs[1].len = sizeof(u64);
-+	msgs[1].buf = (char *)&buf_be;
-+
-+	rc = i2c_transfer(client->adapter, msgs, 2);
-+	if (rc < 0)
+ 	snprintf(occ->name, sizeof(occ->name), "occ%d", occ->idx);
+ 	occ->mdev.fops = &occ_fops;
+ 	occ->mdev.minor = MISC_DYNAMIC_MINOR;
+diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
+index fe435ef..c70858d 100644
+--- a/drivers/hwmon/occ/p9_sbe.c
++++ b/drivers/hwmon/occ/p9_sbe.c
+@@ -16,11 +16,8 @@
+ #include <linux/sched.h>
+ #include <linux/workqueue.h>
+ 
+-#define P9_SBE_OCC_SETUP_DELAY		5000
+-
+ struct p9_sbe_occ {
+ 	struct occ occ;
+-	struct delayed_work setup;
+ 	struct device *sbe;
+ };
+ 
+@@ -93,12 +90,9 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
+ 	return rc;
+ }
+ 
+-static void p9_sbe_occ_setup(struct work_struct *work)
++static int p9_sbe_occ_setup(struct p9_sbe_occ *p9_sbe_occ)
+ {
+ 	int rc;
+-	struct delayed_work *dwork = to_delayed_work(work);
+-	struct p9_sbe_occ *p9_sbe_occ = container_of(dwork, struct p9_sbe_occ,
+-						     setup);
+ 	struct occ *occ = &p9_sbe_occ->occ;
+ 
+ 	/* no need to lock */
+@@ -106,7 +100,7 @@ static void p9_sbe_occ_setup(struct work_struct *work)
+ 	if (rc < 0) {
+ 		dev_err(occ->bus_dev, "failed to get OCC poll response: %d\n",
+ 			rc);
+-		return;
 +		return rc;
-+
-+	buf = be64_to_cpu(buf_be);
-+	memcpy(data, &buf, sizeof(u64));
-+
-+	return 0;
-+}
-+
-+static int p8_i2c_occ_putscom(struct i2c_client *client, u32 address, u8 *data)
-+{
-+	u32 buf[3];
-+	ssize_t rc;
-+
-+	address <<= 1;
-+
-+	buf[0] = address;
-+	memcpy(&buf[1], &data[4], sizeof(u32));
-+	memcpy(&buf[2], data, sizeof(u32));
-+
-+	rc = i2c_master_send(client, (const char *)buf, sizeof(buf));
-+	if (rc < 0)
+ 	}
+ 
+ 	occ_parse_poll_response(occ);
+@@ -114,21 +108,24 @@ static void p9_sbe_occ_setup(struct work_struct *work)
+ 	rc = occ_setup_sensor_attrs(occ);
+ 	if (rc) {
+ 		dev_err(occ->bus_dev, "failed to setup p9 attrs: %d\n", rc);
+-		return;
 +		return rc;
-+	else if (rc != sizeof(buf))
-+		return -EIO;
-+
-+	return 0;
-+}
-+
-+static int p8_i2c_occ_putscom_u32(struct i2c_client *client, u32 address,
-+				  u32 data0, u32 data1)
-+{
-+	u8 buf[8];
-+
-+	memcpy(buf, &data0, 4);
-+	memcpy(buf + 4, &data1, 4);
-+
-+	return p8_i2c_occ_putscom(client, address, buf);
-+}
-+
-+static int p8_i2c_occ_putscom_be(struct i2c_client *client, u32 address,
-+				 u8 *data)
-+{
-+	unsigned int i;
-+	u8 buf[8];
-+
-+	for (i = 0; i < 4; ++i) {
-+		buf[i] = data[3 - i];
-+		buf[i + 4] = data[7 - i];
-+	}
-+
-+	return p8_i2c_occ_putscom(client, address, buf);
-+}
-+
-+static int p8_i2c_occ_send_cmd(struct occ *occ, u8 *cmd)
-+{
-+	int i, rc;
-+	unsigned long start;
-+	u16 data_length;
-+	struct p8_i2c_occ *p8_i2c_occ = to_p8_i2c_occ(occ);
-+	struct i2c_client *client = p8_i2c_occ->client;
-+	struct occ_response *resp = &occ->resp;
-+
-+	start = jiffies;
-+
-+	/* set sram address for command */
-+	rc = p8_i2c_occ_putscom_u32(client, 0x6B070, 0xFFFF6000, 0);
-+	if (rc)
-+		goto err;
-+
-+	/* write command (already be), i2c expects le */
-+	rc = p8_i2c_occ_putscom_be(client, 0x6B075, cmd);
-+	if (rc)
-+		goto err;
-+
-+	/* trigger OCC attention */
-+	rc = p8_i2c_occ_putscom_u32(client, 0x6B035, 0x20010000, 0);
-+	if (rc)
-+		goto err;
-+
-+	/* set sram address for response */
-+	rc = p8_i2c_occ_putscom_u32(client, 0x6B070, 0xFFFF7000, 0);
-+	if (rc)
-+		goto err;
-+
-+retry:
-+	rc = p8_i2c_occ_getscom(client, 0x6B075, (u8 *)resp);
-+	if (rc)
-+		goto err;
-+
-+	/* check the occ response */
-+	switch (resp->return_status) {
-+	case RESP_RETURN_CMD_IN_PRG:
-+		if (time_after(jiffies,
-+			       start + msecs_to_jiffies(OCC_TIMEOUT_MS)))
-+			rc = -EALREADY;
-+		else {
-+			set_current_state(TASK_INTERRUPTIBLE);
-+			schedule_timeout(msecs_to_jiffies(OCC_CMD_IN_PRG_MS));
-+
-+			goto retry;
-+		}
-+		break;
-+	case RESP_RETURN_SUCCESS:
-+		rc = 0;
-+		break;
-+	case RESP_RETURN_CMD_INVAL:
-+	case RESP_RETURN_CMD_LEN:
-+	case RESP_RETURN_DATA_INVAL:
-+	case RESP_RETURN_CHKSUM:
-+		rc = -EINVAL;
-+		break;
-+	case RESP_RETURN_OCC_ERR:
-+		rc = -EREMOTE;
-+		break;
-+	default:
-+		rc = -EFAULT;
-+	}
-+
-+	if (rc < 0) {
-+		dev_warn(&client->dev, "occ bad response:%d\n",
-+			 resp->return_status);
-+		return rc;
-+	}
-+
-+	data_length = get_unaligned_be16(&resp->data_length_be);
-+	if (data_length > OCC_RESP_DATA_BYTES) {
-+		dev_warn(&client->dev, "occ bad data length:%d\n",
-+			 data_length);
-+		return -EDOM;
-+	}
-+
-+	for (i = 8; i < data_length + 7; i += 8) {
-+		rc = p8_i2c_occ_getscom(client, 0x6B075, ((u8 *)resp) + i);
-+		if (rc)
-+			goto err;
-+	}
-+
-+	return data_length + 7;
-+
-+err:
-+	dev_err(&client->dev, "i2c scom op failed rc:%d\n", rc);
-+	return rc;
-+}
-+
-+static int p8_i2c_occ_probe(struct i2c_client *client,
-+			    const struct i2c_device_id *id)
-+{
-+	int rc;
-+	struct occ *occ;
-+	struct p8_i2c_occ *p8_i2c_occ = devm_kzalloc(&client->dev,
-+						     sizeof(*p8_i2c_occ),
-+						     GFP_KERNEL);
-+	if (!p8_i2c_occ)
-+		return -ENOMEM;
-+
-+	p8_i2c_occ->client = client;
-+
-+	occ = &p8_i2c_occ->occ;
-+	occ->bus_dev = &client->dev;
-+	occ->groups[0] = &occ->group;
-+	occ->poll_cmd_data = 0x10;
-+	occ->send_cmd = p8_i2c_occ_send_cmd;
-+	mutex_init(&occ->lock);
-+
-+	dev_set_drvdata(&client->dev, occ);
-+
-+	/* no need to lock yet */
-+	rc = occ_poll(occ);
-+	if (rc < 0) {
-+		dev_err(occ->bus_dev, "failed to get OCC poll response: %d\n",
-+			rc);
-+		return rc;
-+	}
-+
-+	occ_parse_poll_response(occ);
-+
-+	rc = occ_setup_sensor_attrs(occ);
-+	if (rc) {
-+		dev_err(occ->bus_dev, "failed to setup p8 attrs: %d\n", rc);
-+		return rc;
-+	}
-+
-+	occ->hwmon = devm_hwmon_device_register_with_groups(occ->bus_dev,
-+							    "p8_occ", occ,
-+							    occ->groups);
-+	if (IS_ERR(occ->hwmon)) {
+ 	}
+ 
+ 	occ->hwmon = devm_hwmon_device_register_with_groups(occ->bus_dev,
+ 							    "p9_occ", occ,
+ 							    occ->groups);
+ 	if (IS_ERR(occ->hwmon)) {
+-		dev_err(occ->bus_dev, "failed to register hwmon device: %ld\n",
+-			PTR_ERR(occ->hwmon));
+-		return;
 +		rc = PTR_ERR(occ->hwmon);
 +		dev_err(occ->bus_dev, "failed to register hwmon device: %d\n",
 +			rc);
 +		return rc;
-+	}
+ 	}
+ 
+ 	rc = occ_create_status_attrs(occ);
+ 	if (rc)
+ 		dev_err(occ->bus_dev, "failed to setup p9 status attrs: %d\n", rc);
 +
-+	rc = occ_create_status_attrs(occ);
-+	if (rc) {
-+		dev_err(occ->bus_dev, "failed to setup p8 status attrs: %d\n",
-+			rc);
-+		return rc;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id p8_i2c_occ_of_match[] = {
-+	{ .compatible = "ibm,p8-occ-hwmon" },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, p8_i2c_occ_of_match);
-+
-+static const unsigned short p8_i2c_occ_addr[] = { 0x50, 0x51, I2C_CLIENT_END };
-+
-+static struct i2c_driver p8_i2c_occ_driver = {
-+	.class = I2C_CLASS_HWMON,
-+	.driver = {
-+		.name = "occ-hwmon",
-+		.of_match_table = p8_i2c_occ_of_match,
-+	},
-+	.probe = p8_i2c_occ_probe,
-+	.address_list = p8_i2c_occ_addr,
-+};
-+
-+module_i2c_driver(p8_i2c_occ_driver);
-+
-+MODULE_AUTHOR("Eddie James <eajames@us.ibm.com>");
-+MODULE_DESCRIPTION("BMC P8 OCC hwmon driver");
-+MODULE_LICENSE("GPL");
++	return rc;
+ }
+ 
+ static int p9_sbe_occ_probe(struct platform_device *pdev)
+@@ -148,24 +145,10 @@ static int p9_sbe_occ_probe(struct platform_device *pdev)
+ 	occ->poll_cmd_data = 0x20;
+ 	occ->send_cmd = p9_sbe_occ_send_cmd;
+ 	mutex_init(&occ->lock);
+-	INIT_DELAYED_WORK(&p9_sbe_occ->setup, p9_sbe_occ_setup);
+ 
+ 	platform_set_drvdata(pdev, occ);
+ 
+-	schedule_delayed_work(&p9_sbe_occ->setup,
+-			      msecs_to_jiffies(P9_SBE_OCC_SETUP_DELAY));
+-
+-	return 0;
+-}
+-
+-static int p9_sbe_occ_remove(struct platform_device *pdev)
+-{
+-	struct occ *occ = platform_get_drvdata(pdev);
+-	struct p9_sbe_occ *p9_sbe_occ = to_p9_sbe_occ(occ);
+-
+-	cancel_delayed_work_sync(&p9_sbe_occ->setup);
+-
+-	return 0;
++	return p9_sbe_occ_setup(p9_sbe_occ);
+ }
+ 
+ static const struct of_device_id p9_sbe_occ_of_match[] = {
+@@ -179,7 +162,6 @@ static int p9_sbe_occ_remove(struct platform_device *pdev)
+ 		.of_match_table	= p9_sbe_occ_of_match,
+ 	},
+ 	.probe	= p9_sbe_occ_probe,
+-	.remove = p9_sbe_occ_remove,
+ };
+ 
+ module_platform_driver(p9_sbe_occ_driver);
 -- 
 1.8.3.1
