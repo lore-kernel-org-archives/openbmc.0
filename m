@@ -1,29 +1,34 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <clg@kaod.org>
+Received: from 12.mo6.mail-out.ovh.net (12.mo6.mail-out.ovh.net
+ [178.32.125.228])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wkhfv2S1GzDqLD
- for <openbmc@lists.ozlabs.org>; Fri,  9 Jun 2017 22:38:46 +1000 (AEST)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Sender: bradleyb@fuzziesquirrel.com
-Content-Type: text/plain; charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: Re: [PATCH v2 3/3] hwmon: max31785: Provide config of fault pin
- behavior
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <CACPK8XfoH0vRf5WK41KYj1HQbDPUwovM3ieChCgv_EMVdWZP2g@mail.gmail.com>
-Date: Fri, 9 Jun 2017 08:38:42 -0400
-Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>,
- msbarth <msbarth@linux.vnet.ibm.com>, Andrew Jeffery <andrew@aj.id.au>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <7CEA6E4B-F655-4FC4-8A40-FD599AB98A36@fuzziesquirrel.com>
-References: <20170609041457.31708-1-andrew@aj.id.au>
- <20170609041457.31708-4-andrew@aj.id.au>
- <CACPK8XfoH0vRf5WK41KYj1HQbDPUwovM3ieChCgv_EMVdWZP2g@mail.gmail.com>
-To: Joel Stanley <joel@jms.id.au>,
- Jeremy Kerr <jk@ozlabs.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wkjbq4jCTzDqLG
+ for <openbmc@lists.ozlabs.org>; Fri,  9 Jun 2017 23:21:11 +1000 (AEST)
+Received: from player787.ha.ovh.net (b9.ovh.net [213.186.33.59])
+ by mo6.mail-out.ovh.net (Postfix) with ESMTP id 23916E32DB
+ for <openbmc@lists.ozlabs.org>; Fri,  9 Jun 2017 15:12:58 +0200 (CEST)
+Received: from zorba.kaod.org.com (LFbn-1-10652-153.w90-89.abo.wanadoo.fr
+ [90.89.238.153]) (Authenticated sender: clg@kaod.org)
+ by player787.ha.ovh.net (Postfix) with ESMTPSA id 06000600086;
+ Fri,  9 Jun 2017 15:12:55 +0200 (CEST)
+From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
+To: openbmc@lists.ozlabs.org
+Cc: Joel Stanley <joel@jms.id.au>,
+ =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
+Subject: [PATCH 5/5] ARM: dts: aspeed: witherspoon: Add pca9552 device
+Date: Fri,  9 Jun 2017 15:12:29 +0200
+Message-Id: <1497013949-8786-6-git-send-email-clg@kaod.org>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1497013949-8786-1-git-send-email-clg@kaod.org>
+References: <1497013949-8786-1-git-send-email-clg@kaod.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 11446461403337034498
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeeljedrieehgdehlecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -35,175 +40,117 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 09 Jun 2017 12:38:47 -0000
+X-List-Received-Date: Fri, 09 Jun 2017 13:21:12 -0000
 
+All pins of the pca9552 are used as GPIOs.
 
-> On Jun 9, 2017, at 1:27 AM, Joel Stanley <joel@jms.id.au> wrote:
->=20
-> On Fri, Jun 9, 2017 at 1:44 PM, Andrew Jeffery <andrew@aj.id.au> =
-wrote:
->> From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
->>=20
->> Provide interface to set behavior when FAULT pin is asserted.
->> When enabled force fan to 100% PWM duty cycle.
->>=20
->> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
->> [Andrew Jeffery: Make it apply to reworked driver]
->> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
->> ---
->> drivers/hwmon/max31785.c | 84 =
-++++++++++++++++++++++++++++++++++++++++++++++++
->> 1 file changed, 84 insertions(+)
->>=20
->> diff --git a/drivers/hwmon/max31785.c b/drivers/hwmon/max31785.c
->> index ecece346be28..b4a350477ee5 100644
->> --- a/drivers/hwmon/max31785.c
->> +++ b/drivers/hwmon/max31785.c
->> @@ -38,6 +38,7 @@
->> #define MAX31785_REG_MFR_ID                    0x99
->> #define MAX31785_REG_MFR_MODEL                 0x9a
->> #define MAX31785_REG_MFR_REVISION              0x9b
->> +#define MAX31785_REG_MFR_FAULT_RESP            0xd9
->> #define MAX31785_REG_MFR_FAN_CONFIG            0xf1
->> #define MAX31785_REG_READ_FAN_PWM              0xf3
->>=20
->> @@ -51,6 +52,9 @@
->> /* Fan Status register bits */
->> #define MAX31785_FAN_STATUS_FAULT_MASK         0x80
->>=20
->> +/* Fault response register bits */
->> +#define MAX31785_FAULT_RESP_PIN_MONITOR                0x01
->> +
->> /* Fan Command constants */
->> #define MAX31785_FAN_COMMAND_PWM_RATIO         40
->>=20
->> @@ -755,6 +759,82 @@ static const struct hwmon_chip_info =
-max31785_chip_info_0x3040 =3D {
->>        .info =3D max31785_info_0x3040,
->> };
->>=20
->> +static ssize_t max31785_fault_resp_store(struct device *dev,
->> +                               struct device_attribute *attr, const =
-char *buf,
->> +                               size_t count)
->> +{
->> +       struct i2c_client *client =3D to_i2c_client(dev);
->> +       struct max31785 *data =3D dev_get_drvdata(dev);
->> +       int rv;
->> +
->> +       mutex_lock(&data->lock);
->> +
->> +       rv =3D max31785_set_page(client, 0);
->> +       if (rv < 0)
->> +               goto done;
->> +
->> +       rv =3D i2c_smbus_read_byte_data(client, =
-MAX31785_REG_MFR_FAULT_RESP);
->> +       if (rv < 0)
->> +               goto done;
->> +
->> +       if (!strncmp(buf, "on", strlen("on"))) {
->=20
-> This is interesting. What do you gain from the strlen?
->=20
->> +               if (!(rv & MAX31785_FAULT_RESP_PIN_MONITOR)) {
->> +                       rv |=3D MAX31785_FAULT_RESP_PIN_MONITOR;
->=20
-> Is this something we're toggling on and off at runtime?
->=20
-> I doubt it is. This should be enabled at probe time.
+Signed-off-by: Cédric Le Goater <clg@kaod.org>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 85 ++++++++++++++++++++++++
+ 1 file changed, 85 insertions(+)
 
-I had asked jk if this should be DT or sysfs.  jk: can you comment?
-
-> If we want to
-> make it an option then use a device tree property, but I don't think
-> it even needs to be optional.
->=20
-> Chris, can you confirm that this does not need to be dynamic?
-
-It does not need to be dynamic.
-
->=20
-> Cheers,
->=20
-> Joel
->=20
->=20
->> +                       rv =3D i2c_smbus_write_byte_data(client,
->> +                                       MAX31785_REG_MFR_FAULT_RESP, =
-rv);
->> +                       if (rv < 0)
->> +                               goto done;
->> +               }
->> +       } else if (!strncmp(buf, "off", strlen("off"))) {
->> +               if (rv & MAX31785_FAULT_RESP_PIN_MONITOR) {
->> +                       rv &=3D ~MAX31785_FAULT_RESP_PIN_MONITOR;
->> +                       rv =3D i2c_smbus_write_byte_data(client,
->> +                                       MAX31785_REG_MFR_FAULT_RESP, =
-rv);
->> +                       if (rv < 0)
->> +                               goto done;
->> +               }
->> +       } else {
->> +               dev_warn(dev, "Unknown fault response type: [%s]\n", =
-buf);
->> +               rv =3D -EINVAL;
->> +       }
->> +
->> +done:
->> +       mutex_unlock(&data->lock);
->> +
->> +       return rv;
->> +}
->> +
->> +static ssize_t max31785_fault_resp_show(struct device *dev,
->> +                              struct device_attribute *attr, char =
-*buf)
->> +{
->> +       struct max31785 *data =3D max31785_update_device(dev);
->> +       struct i2c_client *client =3D to_i2c_client(dev);
->> +       int rv;
->> +
->> +       mutex_lock(&data->lock);
->> +
->> +       rv =3D max31785_set_page(client, 0);
->> +       if (rv < 0)
->> +               goto done;
->> +
->> +       rv =3D i2c_smbus_read_byte_data(client, =
-MAX31785_REG_MFR_FAULT_RESP);
->> +       if (rv < 0)
->> +               goto done;
->> +
->> +       if (rv & MAX31785_FAULT_RESP_PIN_MONITOR)
->> +               rv =3D sprintf(buf, "on\n");
->> +       else
->> +               rv =3D sprintf(buf, "off\n");
->> +
->> +done:
->> +       mutex_unlock(&data->lock);
->> +
->> +       return rv;
->> +}
->> +
->> +static DEVICE_ATTR(fault_resp, 0644, max31785_fault_resp_show,
->> +               max31785_fault_resp_store);
->> +
->>=20
->> static int max31785_get_capabilities(struct max31785 *data)
->> {
->> @@ -804,6 +884,10 @@ static int max31785_probe(struct i2c_client =
-*client,
->>        else
->>                chip =3D &max31785_chip_info_0x3030;
->>=20
->> +       rc =3D device_create_file(dev, &dev_attr_fault_resp);
->> +       if (rc)
->> +               return rc;
->> +
->>        hwmon_dev =3D devm_hwmon_device_register_with_info(dev,
->>                        client->name, data, chip, NULL);
->>=20
->> --
->> 2.11.0
->>=20
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index 3001597d42d9..b80bf4706b66 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -2,6 +2,7 @@
+ 
+ #include "aspeed-g5.dtsi"
+ #include <dt-bindings/gpio/aspeed-gpio.h>
++#include <dt-bindings/leds/leds-pca955x.h>
+ 
+ / {
+ 	model = "Witherspoon BMC";
+@@ -290,6 +291,90 @@
+ &i2c11 {
+ 	status = "okay";
+ 
++	pca9552: pca9552@60 {
++		compatible = "nxp,pca9552";
++		reg = <0x60>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++		gpio-controller;
++		#gpio-cells = <2>;
++
++		gpio-line-names = "PS_SMBUS_RESET_N", "APSS_RESET_N",
++		"GPU0_TH_OVERT_N_BUFF",	"GPU1_TH_OVERT_N_BUFF",
++		"GPU2_TH_OVERT_N_BUFF", "GPU3_TH_OVERT_N_BUFF",
++		"GPU4_TH_OVERT_N_BUFF",	"GPU5_TH_OVERT_N_BUFF",
++		"GPU0_PWR_GOOD_BUFF", "GPU1_PWR_GOOD_BUFF",
++		"GPU2_PWR_GOOD_BUFF", "GPU3_PWR_GOOD_BUFF",
++		"GPU4_PWR_GOOD_BUFF", "GPU5_PWR_GOOD_BUFF",
++		"12V_BREAKER_FLT_N", "THROTTLE_UNLATCHED_N";
++
++		gpio@0 {
++			reg = <0>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++		gpio@1 {
++			reg = <1>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++		gpio@2 {
++			reg = <2>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++		gpio@3 {
++			reg = <3>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++		gpio@4 {
++			reg = <4>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++		gpio@5 {
++			reg = <5>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++		gpio@6 {
++			reg = <6>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++		gpio@7 {
++			reg = <7>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++		gpio@8 {
++			reg = <8>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++		gpio@9 {
++			reg = <9>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++		gpio@10 {
++			reg = <10>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++		gpio@11 {
++			reg = <11>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++		gpio@12 {
++			reg = <12>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++		gpio@13 {
++			reg = <13>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++		gpio@14 {
++			reg = <14>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++		gpio@15 {
++			reg = <15>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++	};
++
+ 	/* TPM */
+ 	/* 9552 */
+ 
+-- 
+2.7.4
