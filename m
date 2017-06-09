@@ -1,35 +1,58 @@
-Return-Path: <clg@kaod.org>
-X-Greylist: delayed 2305 seconds by postgrey-1.36 at bilbo;
- Fri, 09 Jun 2017 23:51:20 AEST
-Received: from 8.mo6.mail-out.ovh.net (8.mo6.mail-out.ovh.net [178.33.42.204])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wkkGc6VQ7zDqCt
- for <openbmc@lists.ozlabs.org>; Fri,  9 Jun 2017 23:51:20 +1000 (AEST)
-Received: from player787.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo6.mail-out.ovh.net (Postfix) with ESMTP id C0E54E2EE4
- for <openbmc@lists.ozlabs.org>; Fri,  9 Jun 2017 15:12:48 +0200 (CEST)
-Received: from zorba.kaod.org.com (LFbn-1-10652-153.w90-89.abo.wanadoo.fr
- [90.89.238.153]) (Authenticated sender: clg@kaod.org)
- by player787.ha.ovh.net (Postfix) with ESMTPSA id A404E60009C;
- Fri,  9 Jun 2017 15:12:45 +0200 (CEST)
-From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-To: openbmc@lists.ozlabs.org
-Cc: Joel Stanley <joel@jms.id.au>,
- =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-Subject: [PATCH 2/5] leds: pca955x: use devm_led_classdev_register
-Date: Fri,  9 Jun 2017 15:12:26 +0200
-Message-Id: <1497013949-8786-3-git-send-email-clg@kaod.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1497013949-8786-1-git-send-email-clg@kaod.org>
-References: <1497013949-8786-1-git-send-email-clg@kaod.org>
+Return-Path: <rlippert@google.com>
+Received: from mail-qt0-x235.google.com (mail-qt0-x235.google.com
+ [IPv6:2607:f8b0:400d:c0d::235])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wkpm62HlgzDqLD
+ for <openbmc@lists.ozlabs.org>; Sat, 10 Jun 2017 03:13:41 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="PaNDvJib"; 
+ dkim-atps=neutral
+Received: by mail-qt0-x235.google.com with SMTP id c10so83092122qtd.1
+ for <openbmc@lists.ozlabs.org>; Fri, 09 Jun 2017 10:13:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=kwcgSyjIEG782T1e4k8d+Gr0EUh3FYnTU8VHWAYUpd4=;
+ b=PaNDvJibaJip9OZE5UPlyOmi11woLIADa12zjNfG26H5S9YoByvmKkSDfguMYjwLoS
+ DByxcmThNW5hdlrtuZp++TCtspvA9DNFuCmB2+DKetJNzRYwUIfAlY4GszSx/HuVVOrn
+ l4BhIoI6GHe9BXnJ38nzRWWi85Ghd8r8Qzz+WXgpPek4JQLufH4ontUyHubg1rjuc3nw
+ TwcuTictSeWGQMfpFTZBw52prjlo4XDeV35F0HaBSUaDGXf8U0wkoEd7oFdGbReSzo2h
+ qNjNO2lMtBrcKcqjwQ2q8kIR6bEDIHndFeQ8PNkSNiozUUn8+L+8ZnrEtyymVRD0IiEH
+ xGUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=kwcgSyjIEG782T1e4k8d+Gr0EUh3FYnTU8VHWAYUpd4=;
+ b=YWB21yQTr+7PMYFD1oI8cA/eMAWKY1U/ndnIwR7CGgjt4KKb199Vpj4slJbAXicdcY
+ t0+NInrJmkkf9O42eDQaND91wiovktCFYYXMHwrQaxUb9IfgDLmJ8yCrQrgQfvLoJLN+
+ 2dXe6SIIVIIRQX/v+bcHF5tSBhEKHJjKuJcYj0gX4JXjOCgiXyZ7Kgc4UJVugw4BbE6z
+ r2p5tnKQ9ZsQNfmKl3xTAlI4ZJ8BkQ3z/XlOEqxb07sCRvGgS1GTV1f9TfQL2zd4xXKV
+ FPGe6yEYgCh7hwKtxRREQxAaC6rcTZiqyKl4DpsF6CxeGuTjqWtoBeyUrf1EDRVOWsI0
+ e27Q==
+X-Gm-Message-State: AODbwcCouWkgBLdIAR2+JK8m7keN3jtbv0to9e8+qdUXsJ/l5Oo9+/OX
+ 1GERoD4wFTj6zXbJGUPO74NMxnqgtsMc
+X-Received: by 10.237.52.99 with SMTP id w90mr30279839qtd.19.1497028418086;
+ Fri, 09 Jun 2017 10:13:38 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 11443646656690359042
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeeljedrieehgdehlecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+Received: by 10.200.56.108 with HTTP; Fri, 9 Jun 2017 10:13:17 -0700 (PDT)
+In-Reply-To: <OF6B672B6D.E6759427-ON0025813A.005D800E-0025813A.005DB2CB@notes.na.collabserv.com>
+References: <EDE9FA85-CF2B-4B72-9974-1E92EE9EC676@rackspace.com>
+ <1497022202970.71679@rackspace.com>
+ <OF6B672B6D.E6759427-ON0025813A.005D800E-0025813A.005DB2CB@notes.na.collabserv.com>
+From: Rob Lippert <rlippert@google.com>
+Date: Fri, 9 Jun 2017 10:13:17 -0700
+Message-ID: <CAFRv3wzS2TtJBom-tfSnfOTdc=6rHsvQ5ZJqFbgZUT609i-g2g@mail.gmail.com>
+Subject: Re: Switch up eth0 and eth1 to BMC shared and dedicated resp. ( Zaius
+ )
+To: Adriana Kobylak <anoo@us.ibm.com>
+Cc: Adi Gangidi <adi.gangidi@rackspace.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Adrian Barrera <abarrera@us.ibm.com>,
+ Brad DeBauche <brad.debauche@rackspace.com>, 
+ Chad Somerlot <chad.somerlot@rackspace.com>,
+ Kenneth Wilke <kenneth.wilke@rackspace.com>, ryan.dc.yu@foxconn.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -41,65 +64,73 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 09 Jun 2017 13:51:21 -0000
+X-List-Received-Date: Fri, 09 Jun 2017 17:13:43 -0000
 
-This lets us remove the loop doing the cleanup in case of failure and
-also the remove handler of the i2c_driver.
+On Fri, Jun 9, 2017 at 10:03 AM, Adriana Kobylak <anoo@us.ibm.com> wrote:
+> Looping in the community for feedback.
+>
+>
+>
+> ----- Original message -----
+> From: Adi Gangidi <adi.gangidi@rackspace.com>
+> To: "anoo@us.ibm.com" <anoo@us.ibm.com>, Kenneth Wilke
+> <kenneth.wilke@RACKSPACE.COM>, Brad DeBauche <brad.debauche@RACKSPACE.COM>,
+> Chad Somerlot <chad.somerlot@RACKSPACE.COM>, "abarrera@us.ibm.com"
+> <abarrera@us.ibm.com>, "ryan.dc.yu@foxconn.com" <ryan.dc.yu@foxconn.com>,
+> "Rob Lippert" <rlippert@google.com>
+> Cc:
+> Subject: Re: Switch up eth0 and eth1 to BMC shared and dedicated resp. (
+> Zaius )
+> Date: Fri, Jun 9, 2017 10:30 AM
+>
+> Sorry for couple of typo below, corrected them now.
+>
+> Please read again if it didn't make sense before.
+>
+> -Adi
+> ________________________________________
+> From: Adi Gangidi
+> Sent: Friday, June 9, 2017 10:06 AM
+> To: anoo@us.ibm.com; Kenneth Wilke; Brad DeBauche; Chad Somerlot;
+> abarrera@us.ibm.com; ryan.dc.yu@foxconn.com; Rob Lippert
+> Subject: Switch up eth0 and eth1 to BMC shared and dedicated resp. ( Zaius )
+>
+> Hi Adriana /.  Ryan ( Foxconn )
+>
+> Right now on openBMC
+> BMC Shared      = eth0
+> BMC Dedicated = eth1
+>
+>
+> Instead, Is there a way we can make sure the BMC dedicated comes up as eth0
+> and BMC shared link comes up as eth1, in Zaius / Barreleye G2 ?
+>
+>
+> In how it works currently . you could have BMC dedicated be eth0 or eth1
+> depending upon the hardware config ( Whether or not Broadcom 5719A is popped
+> OR de-popped ) . That could confusing to support operators who don't
+> understand the nuances .
 
-Signed-off-by: Cédric Le Goater <clg@kaod.org>
----
- drivers/leds/leds-pca955x.c | 24 +++---------------------
- 1 file changed, 3 insertions(+), 21 deletions(-)
+The eth0 and eth1 on the BMC map to the BMC hardware MAC unit #.  On
+Zaius MAC1 is connected to various NC-SI stuff and MAC2 is connected
+to the dedicated BMC MAC.
 
-diff --git a/drivers/leds/leds-pca955x.c b/drivers/leds/leds-pca955x.c
-index a3e61a57d574..13634a0f6238 100644
---- a/drivers/leds/leds-pca955x.c
-+++ b/drivers/leds/leds-pca955x.c
-@@ -411,10 +411,10 @@ static int pca955x_probe(struct i2c_client *client,
- 		pca955x_led->led_cdev.name = pca955x_led->name;
- 		pca955x_led->led_cdev.brightness_set_blocking = pca955x_led_set;
- 
--		err = led_classdev_register(&client->dev,
-+		err = devm_led_classdev_register(&client->dev,
- 					&pca955x_led->led_cdev);
--		if (err < 0)
--			goto exit;
-+		if (err)
-+			return err;
- 	}
- 
- 	/* Turn off LEDs */
-@@ -432,23 +432,6 @@ static int pca955x_probe(struct i2c_client *client,
- 	pca955x_write_psc(client, 1, 0);
- 
- 	return 0;
--
--exit:
--	while (i--)
--		led_classdev_unregister(&pca955x->leds[i].led_cdev);
--
--	return err;
--}
--
--static int pca955x_remove(struct i2c_client *client)
--{
--	struct pca955x *pca955x = i2c_get_clientdata(client);
--	int i;
--
--	for (i = 0; i < pca955x->chipdef->bits; i++)
--		led_classdev_unregister(&pca955x->leds[i].led_cdev);
--
--	return 0;
- }
- 
- static struct i2c_driver pca955x_driver = {
-@@ -458,7 +441,6 @@ static struct i2c_driver pca955x_driver = {
- 		.of_match_table = of_match_ptr(of_pca955x_match),
- 	},
- 	.probe	= pca955x_probe,
--	.remove	= pca955x_remove,
- 	.id_table = pca955x_id,
- };
- 
--- 
-2.7.4
+So the eth numbers should not move around even if there is nothing
+connected on the other end of eth0.  The only way the dedicated BMC
+MAC MAC2 would become eth0 should be if the devtree entry for BMC MAC1
+was removed.
+
+-Rob
+
+>
+> If you guys are busy with other things to make the change  , can I have your
+> thoughts on if this can be changed ? I'm guessing this is a u-boot change .
+> Any thoughts on how we could make this change ourselves ?
+>
+> -Adi
+>
+>
+>
+>
+>
+>
