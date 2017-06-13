@@ -1,76 +1,101 @@
-Return-Path: <anoo@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+Return-Path: <austenc@us.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wnHrP6fXjzDqLB
- for <openbmc@lists.ozlabs.org>; Wed, 14 Jun 2017 04:11:01 +1000 (AEST)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v5DI9ll3024708
- for <openbmc@lists.ozlabs.org>; Tue, 13 Jun 2017 14:10:57 -0400
-Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2b2mqr91uh-1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wnMVK6pSPzDqLD
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Jun 2017 06:55:37 +1000 (AEST)
+Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v5DKrZUT084154
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Jun 2017 16:55:34 -0400
+Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2b2pdctqbv-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 13 Jun 2017 14:10:57 -0400
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Jun 2017 16:55:34 -0400
 Received: from localhost
- by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <anoo@linux.vnet.ibm.com>;
- Tue, 13 Jun 2017 12:10:56 -0600
-Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
- by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Tue, 13 Jun 2017 16:55:32 -0400
+Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
+ by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Tue, 13 Jun 2017 12:10:55 -0600
-Received: from b03ledav001.gho.boulder.ibm.com
- (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
- by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v5DIAtDl18612348
- for <openbmc@lists.ozlabs.org>; Tue, 13 Jun 2017 11:10:55 -0700
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E7AA26E04A
- for <openbmc@lists.ozlabs.org>; Tue, 13 Jun 2017 12:10:54 -0600 (MDT)
-Received: from adriana-mbp.austin.ibm.com (unknown [9.53.179.218])
- by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTPS id D21A16E045
- for <openbmc@lists.ozlabs.org>; Tue, 13 Jun 2017 12:10:54 -0600 (MDT)
-Subject: Re: OpenBMC Image Management
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Content-Type: text/html; charset=us-ascii
-X-Apple-Auto-Saved: 1
-X-Apple-Mail-Remote-Attachments: YES
-From: Adriana Kobylak <anoo@linux.vnet.ibm.com>
-X-Apple-Base-Url: x-msg://3/
-In-Reply-To: <CAPLgG=nY-_A6HvVmY45U5U=wrz4iRK5P=R0e_0NPVs=B--CLdw@mail.gmail.com>
-X-Apple-Windows-Friendly: 1
-Date: Tue, 13 Jun 2017 13:10:40 -0500
-X-Apple-Mail-Signature: SKIP_SIGNATURE
-Content-Transfer-Encoding: quoted-printable
-References: <75C63AB7-E340-4A78-BA82-80F96EAEA051@linux.vnet.ibm.com>
- <OF3E869A3E.DB3E43DE-ON862580B3.008284D7-862580B3.0082FDDB@notes.na.collabserv.com>
- <20170127030706.GB5504@heinlein.lan> <87o9ypw13y.fsf@linux.vnet.ibm.com>
- <20170131181641.k3jnv73ha5v2kjsh@asimov>
- <CAPLgG=nY-_A6HvVmY45U5U=wrz4iRK5P=R0e_0NPVs=B--CLdw@mail.gmail.com>
-X-Uniform-Type-Identifier: com.apple.mail-draft
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-X-Mailer: Apple Mail (2.3273)
+ Tue, 13 Jun 2017 16:55:31 -0400
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v5DKtUeZ31916230
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Jun 2017 20:55:30 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id B1E65112040
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Jun 2017 16:55:36 -0400 (EDT)
+Received: from d50lp01.ny.us.ibm.com (unknown [146.89.104.207])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTPS id 9D4E6112034
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Jun 2017 16:55:36 -0400 (EDT)
+Received: from localhost
+ by d50lp01.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Tue, 13 Jun 2017 16:55:30 -0400
+Received: from smtp.notes.na.collabserv.com (192.155.248.81)
+ by d50lp01.ny.us.ibm.com (158.87.18.20) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128/128)
+ Tue, 13 Jun 2017 16:55:29 -0400
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Tue, 13 Jun 2017 20:55:27 -0000
+Received: from us1a3-smtp04.a3.dal06.isc4sb.com (10.106.154.237)
+ by smtp.notes.na.collabserv.com (10.106.227.88) with
+ smtp.notes.na.collabserv.com ESMTP; Tue, 13 Jun 2017 20:55:25 -0000
+Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
+ by us1a3-smtp04.a3.dal06.isc4sb.com
+ with ESMTP id 2017061320552474-1066747 ;
+ Tue, 13 Jun 2017 20:55:24 +0000 
+MIME-Version: 1.0
+Subject: OpenBMC world wide call for topics
+To: OpenBMC <openbmc@lists.ozlabs.org>
+From: "Chris Austen" <austenc@us.ibm.com>
+Date: Tue, 13 Jun 2017 15:55:23 -0500
+X-KeepSent: A5A59E2D:D08E083C-8625813E:00649282;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1EXT SHF766 December 14, 2016
+X-LLNOutbound: False
+X-Disclaimed: 52507
+X-TNEFEvaluated: 1
+Content-type: multipart/alternative; 
+ Boundary="0__=09BB0BADDFF714128f9e8a93df938690918c09BB0BADDFF71412"
+Content-Disposition: inline
+x-cbid: 17061320-2213-0000-0000-000001DB748C
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.423878; ST=0; TS=0; UL=0; ISC=; MB=0.000011
+X-IBM-SpamModules-Versions: BY=3.00007226; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000212; SDB=6.00874334; UDB=6.00435208; IPR=6.00654423; 
+ BA=6.00005420; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015811; XFM=3.00000015;
+ UTC=2017-06-13 20:55:26
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2017-06-13 19:25:58 - 6.00006889
+x-cbparentid: 17061320-7094-0000-0000-00000C5E1D8D
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
 X-TM-AS-GCONF: 00
-x-cbid: 17061318-0008-0000-0000-00000802D727
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00007226; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000212; SDB=6.00874280; UDB=6.00435175; IPR=6.00654368; 
+ PH=3.00000004; SC=3.00000212; SDB=6.00874334; UDB=6.00435208; IPR=6.00654423; 
  BA=6.00005420; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015808; XFM=3.00000015;
- UTC=2017-06-13 18:10:56
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015811; XFM=3.00000015;
+ UTC=2017-06-13 20:55:32
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17061318-0009-0000-0000-00004299E7CD
-Message-Id: <2DA4883E-3015-4FDF-92FC-F6761436585D@linux.vnet.ibm.com>
+Message-Id: <OFA5A59E2D.D08E083C-ON8625813E.00649282-8625813E.0072EF32@notes.na.collabserv.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-06-13_09:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
+ spamscore=0 suspectscore=0
  malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
  adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1706130312
+ definitions=main-1706130356
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -82,31 +107,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Jun 2017 18:11:03 -0000
+X-List-Received-Date: Tue, 13 Jun 2017 20:55:38 -0000
 
-<html><head></head><body dir=3D"auto" style=3D"word-wrap: break-word; =
--webkit-nbsp-mode: space; -webkit-line-break: after-white-space;"><div =
-style=3D"word-wrap: break-word; -webkit-nbsp-mode: space; =
--webkit-line-break: after-white-space;" class=3D"">In the next coming =
-days, the changes to the host bios update procedure will be available =
-for use.<div class=3D""><br class=3D""></div><div class=3D"">Notable =
-changes are using a squashfs image that includes individual pnor =
-partition files instead of the ffs (.pnor) image, formatting the pnor =
-chip as ubi to store these files (allowing for the storage of more than =
-one image), and mailbox daemon updates to support these changes (new =
-phosphor-mboxd repo).</div><div class=3D""><br class=3D""></div><div =
-class=3D"">Regarding the mailbox daemon, the mboxbridge repository is =
-staying as a reference implementation and has been cloned into =
-phosphor-mboxd. Any system using mailbox and running with a flashed ffs =
-pnor image (instead of updating to the ubi layout) would still need the =
-reference mboxbridge implementation. The openbmc build is being updated =
-to build phosphor-mboxd as the default.</div><div class=3D""><br =
-class=3D""></div><div class=3D"">A system can be updated transparently =
-from running with an ffs pnor image to the squashfs image via the =
-Software dbus interfaces. In a similar way, a system with a =
-ubi-formatted pnor can be flashed with an ffs pnor image using =
-pflash.</div><div class=3D""><br class=3D""></div><div class=3D"">The =
-first round of documentation updates are here:&nbsp;<a =
-href=3D"https://gerrit.openbmc-project.xyz/#/c/4756/" =
-class=3D"">https://gerrit.openbmc-project.xyz/#/c/4756/</a></div><div =
-class=3D"">Reviewers welcome :)</div></div></body></html>=
+
+--0__=09BB0BADDFF714128f9e8a93df938690918c09BB0BADDFF71412
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/plain; charset=US-ASCII
+
+
+
+Greetings,
+during the recent OpenPOWER Developers Congress it became apparent that
+there was a need; beyond the mailing list, to have a discussion about what
+is going on in the OpenBMC Project and how to improve communication.  I
+committed to creating an event and to reach out to our ever growing
+community for topics.  Is there something that you would like to hear about
+or understand more?  Are you looking for places to volunteer or show off a
+technology using OpenBMC?  The tentative plan is to hold an over-the-phone
+discussion during the week of July 10-15th.  The exact date and time really
+depend on the time zones I get feedback from.  So what would you like to
+hear about?
+
+
+Chris Austen
+OpenBMC Community Evangelist
+
+--0__=09BB0BADDFF714128f9e8a93df938690918c09BB0BADDFF71412
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/html; charset=US-ASCII
+Content-Disposition: inline
+
+<html><body><p><font size=3D"2">Greetings, </font><br><font size=3D"2">duri=
+ng the recent OpenPOWER Developers Congress it became apparent that there w=
+as a need; beyond the mailing list, to have a discussion about what is goin=
+g on in the OpenBMC Project and how to improve communication.  I committed =
+to creating an event and to reach out to our ever growing community for top=
+ics.  Is there something that you would like to hear about or understand mo=
+re?  Are you looking for places to volunteer or show off a technology using=
+ OpenBMC?  The tentative plan is to hold an over-the-phone discussion durin=
+g the week of July 10-15th.  The exact date and time really depend on the t=
+ime zones I get feedback from.  So what would you like to hear about?</font=
+><br><br><font size=3D"2"><br>Chris Austen<br>OpenBMC Community Evangelist<=
+/font><BR>
+</body></html>
+
+--0__=09BB0BADDFF714128f9e8a93df938690918c09BB0BADDFF71412--
