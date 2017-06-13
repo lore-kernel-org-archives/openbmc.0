@@ -1,50 +1,50 @@
 Return-Path: <venture@google.com>
-Received: from mail-it0-x235.google.com (mail-it0-x235.google.com
- [IPv6:2607:f8b0:4001:c0b::235])
+Received: from mail-io0-x234.google.com (mail-io0-x234.google.com
+ [IPv6:2607:f8b0:4001:c06::234])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wnP655QlQzDqLp
- for <openbmc@lists.ozlabs.org>; Wed, 14 Jun 2017 08:08:13 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wnP8d4k5NzDqL5
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Jun 2017 08:10:25 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="t/SJCXDi"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="L2pI1ce4"; 
  dkim-atps=neutral
-Received: by mail-it0-x235.google.com with SMTP id l6so37607496iti.1
- for <openbmc@lists.ozlabs.org>; Tue, 13 Jun 2017 15:08:13 -0700 (PDT)
+Received: by mail-io0-x234.google.com with SMTP id k93so82504281ioi.2
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Jun 2017 15:10:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=from:to:cc:subject:date:message-id;
- bh=sSbQ9olBdlC8bI0HZAvPxPY4IFiyEha4wQ8ZH+oMO2U=;
- b=t/SJCXDiv88Dyv5ITQvfdjWFm9b5IDLwNt7odRXOnKPHTmv6ZfQ1OzqUvu3aupOhfr
- 4JZ9p/DEz2Y6oFdz1IIofUFjQPm81MFZWM9FetRYB/9oFS6xlCOWBgS5FThbPr3z+F87
- e/txdW7XhKvBfeRuipocWrA5IDz0a/UHLP7clxUG1Vbj+KlY5+QxWImYmV6iebfhx/NF
- KoJLiUlIkkU9eiRojZL6MIA715wZ4kD6snDjHW8hDHj6MDwBWkwlQFajd8zl+SV2/L2s
- MPNU63OuYbO8yMoqeCmR/pR8BIqgMKYvOR0OLiEx+SwJpWGrNgRG4oXnVt4q5zovT2zM
- YZ8A==
+ bh=pp9RV4MyJlqJLgTFwGVR9xO7/y08n+jjHOGmsUZsTXw=;
+ b=L2pI1ce4P23HE6R83MYPIBsdRy7Hq5L2atV9ZR9Flo49A98UdDPcDdhxrK30VXO/Sx
+ G02JuWbJ1eqONt+WtTidq3cdmkxHnWzPPVwCm5PeaJnpwPS/2riXef+s3WVBtxAnV8o9
+ ptw8ON4KTXBSJ7DeTupFfnjd2XjOTUnDWCGB3uQ5JEuy6f2bnWKWP+eeSL/0Q6Df7/uv
+ k28nz8ZtdkAh3UnJoILQMXDC/rULhTo3W2ZpkMfhaFnAuMuNDswVFv/P++I69u5/fMrw
+ i18UOI2lpfuNRVWcD13pY5VX8ah0M7e8aS7BvnoxMto4qI8YZXZYZbjZLylu+nc9Nw2n
+ xQ3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=sSbQ9olBdlC8bI0HZAvPxPY4IFiyEha4wQ8ZH+oMO2U=;
- b=YcROzc7ELTChLH3b8MVZ5klKxZoKchTH0F+0xSzyg8yebgq5A/by7VtY18GDH2XOCU
- VjiJNmuFU4C+LBBGWHI248QBkRocL7taslj1RQ02nDLNyTspl99YOFo6JEKNC8q4P8wY
- odoaD7CPohl8ZxnF0CIX58KabzyFIj1dln3heFcueYlWpBoLnfjQDnrK9CtRn4K/e5Rj
- rgC3emBKWtFzb7IrDLYRxZ27zoQFYuOzMcU3xlc3l1U1dxRVEQ2m7ssg4e25lggouKBR
- o6g4d0IJkPvvFMIcqDS5Gf7SYO+Bof6ud32iOgbZ4RTw1R99vC0RTSYxLkSd+pX+c+dC
- JoZA==
-X-Gm-Message-State: AKS2vOzkFFW6xiYUtI9+bqf9d5oDv+rqGEjG9i3ekqjXmSsAMjDS0WI2
- uI0+8aLncdAaBxve1MQ0OQ==
-X-Received: by 10.36.65.18 with SMTP id x18mr2914808ita.88.1497391691581;
- Tue, 13 Jun 2017 15:08:11 -0700 (PDT)
+ bh=pp9RV4MyJlqJLgTFwGVR9xO7/y08n+jjHOGmsUZsTXw=;
+ b=N/uNaWK/p8CAPQo2+BvAw4Cr6skQFFCv0lY5kDtVhEjORgZI+V9d9PjIh02O3i/Eub
+ ff/Tu8CwsqJX0wBPoR8ZLDVEdTkR0B8yXUiVssr5rY106ZZ/a+X+UvvpCSLjMgTq1LE1
+ NINPaP8HPwi2NAJEtgQdLerEHZ73sSo8QMkpnxEq2fxfkT2iJvkaT70mf07g+3v7WE0Y
+ uvJ5A7pMdkyhBL+azoc5E21q/K2pW7RZ4IHebVvtnPrz6C45Ki6v/PJZVC26i7KI0YQe
+ xjqFBK2ftZJzfyt5wgG8O27JmMYxuIDDJ2Mw0xFXK4vQPTk0Z6yFAkswkOqrsv6BHRS9
+ LMJQ==
+X-Gm-Message-State: AKS2vOwfajE2j8EDmxCMCzhoy+J9J6fj//lY+KdZyCPtCwvGy2DFM5eV
+ do030sWg10Rcg/iE
+X-Received: by 10.107.32.197 with SMTP id g188mr2986952iog.146.1497391823278; 
+ Tue, 13 Jun 2017 15:10:23 -0700 (PDT)
 Received: from venture.svl.corp.google.com ([100.123.242.104])
- by smtp.gmail.com with ESMTPSA id 19sm6992005iom.47.2017.06.13.15.08.10
+ by smtp.gmail.com with ESMTPSA id 66sm2272191itj.1.2017.06.13.15.10.22
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Tue, 13 Jun 2017 15:08:10 -0700 (PDT)
+ Tue, 13 Jun 2017 15:10:22 -0700 (PDT)
 From: Patrick Venture <venture@google.com>
 To: venture@google.com,
 	joel@jms.id.au,
 	openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10 4/4] ARM: dts: aspeed: quanta-q71l: PDB FRU and
- mux on the PDB in front of the PSUs.
-Date: Tue, 13 Jun 2017 15:08:08 -0700
-Message-Id: <20170613220808.99895-1-venture@google.com>
+Subject: [PATCH linux dev-4.10 v2 4/4] ARM: dts: aspeed: quanta-q71l: PDB FRU
+ and mux on the PDB in front of the PSUs.
+Date: Tue, 13 Jun 2017 15:10:19 -0700
+Message-Id: <20170613221019.100175-1-venture@google.com>
 X-Mailer: git-send-email 2.13.1.518.g3df882009-goog
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -57,7 +57,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Jun 2017 22:08:14 -0000
+X-List-Received-Date: Tue, 13 Jun 2017 22:10:26 -0000
 
 Signed-off-by: Patrick Venture <venture@google.com>
 ---
@@ -74,7 +74,7 @@ index 4b5047b5d592..2b01c5bcc88b 100644
  	 */
 -	i2cswitch@77 {
 +	i2c-switch@77 {
- 		compatible = "nxp,pca9548";
+ 		compatible = "pca9548";
  		#address-cells = <1>;
  		#size-cells = <0>;
 @@ -177,6 +177,24 @@
