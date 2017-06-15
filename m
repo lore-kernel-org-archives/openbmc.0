@@ -1,58 +1,61 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x22d.google.com (mail-yb0-x22d.google.com
- [IPv6:2607:f8b0:4002:c09::22d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <cbostic@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wpBtP1tbxzDqLd
- for <openbmc@lists.ozlabs.org>; Thu, 15 Jun 2017 15:30:53 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="tNtPqLoz"; 
- dkim-atps=neutral
-Received: by mail-yb0-x22d.google.com with SMTP id f192so1125895yba.2
- for <openbmc@lists.ozlabs.org>; Wed, 14 Jun 2017 22:30:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=9czXV4UhZTb3YdiO9Iu+EPUnrui8NOTveyjVb1E90+k=;
- b=tNtPqLoztEdjShBCFKW6wHegHhaQn7XYZ9G2n12V2WZya7Ul4YgPXzm2wfDH9MJM/P
- +dyM9jJxM9g+9DF26iwPqDZRgc2RClu5eNIfiLcvKT5mSrbLCfNqFZtRkWk88l8JVsbM
- 1KEDk8kwnpJh9redDjsnP5r1ek0qFHG0Gf+ITskYJ80rxMgXjokPQkpSupt8okXtrg5w
- HZe77k5IPVtzQQLCvwY0A1EfEDva2+A3ISU/cFk5L7TTC/O+bhMNTfMWjTOW8XQ/oJqc
- OqzZX/WzUCUaI+pMy1sP1hl3q7oh5F8Uos7hZF0vrBA9YT2dU/t5C3WTC8hQ1FRCRsbr
- LmFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=9czXV4UhZTb3YdiO9Iu+EPUnrui8NOTveyjVb1E90+k=;
- b=jlpP2haaltPN6Tf0BA9hRd2x/jf02KSSPZfnd9YvjMNw9dNJ4PwwZw6prHzjGiNLpy
- SRZ80yz3vWVFchJeQU1EyP3cn5MHKiOvdwwvOivbPisXFDk1cl/vfD8mKGS7rpb/qBOy
- GeX6ZDmyykJiGl59Eb0fRUqXFq6y6aC7DlANGnUFBW2LohEhpTMNq+q0WHhBPXPSr+bP
- iLayohJOPvyDMstiZIDuiFjqFFw3IOjMG/NFpzBerEyGcQ/Ais/C81dQpyjwclgDsbGk
- TfHA5gi0mgZqPK50KaVaW+sT6jOdFXK5xEMQWr6v63HPcG9x8rPhf2Bo9ynyhCp8L5Qw
- fGzw==
-X-Gm-Message-State: AKS2vOwez1Co2yt41/lJf+UleLE9BLGjJsWgsFU05r2Sdc0W+aN+OcRS
- NU+Ck+PQahvkyjKjhLZVC2AO/Ee4iA==
-X-Received: by 10.37.88.193 with SMTP id m184mr2862345ybb.39.1497504650487;
- Wed, 14 Jun 2017 22:30:50 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.174.2 with HTTP; Wed, 14 Jun 2017 22:30:30 -0700 (PDT)
-In-Reply-To: <OF6B672B6D.E6759427-ON0025813A.005D800E-0025813A.005DB2CB@notes.na.collabserv.com>
-References: <EDE9FA85-CF2B-4B72-9974-1E92EE9EC676@rackspace.com>
- <1497022202970.71679@rackspace.com>
- <OF6B672B6D.E6759427-ON0025813A.005D800E-0025813A.005DB2CB@notes.na.collabserv.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 15 Jun 2017 15:00:30 +0930
-X-Google-Sender-Auth: aaCJx2bEuQBwdhXFLYZ7MELj7aA
-Message-ID: <CACPK8Xdi8bQWYc5QErBi2rJgMfEHLLOdBW7MoasUdK2tpk-GaQ@mail.gmail.com>
-Subject: Re: Switch up eth0 and eth1 to BMC shared and dedicated resp. ( Zaius
- )
-To: Adriana Kobylak <anoo@us.ibm.com>
-Cc: adi.gangidi@rackspace.com, OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- brad.debauche@rackspace.com, Chad Somerlot <chad.somerlot@rackspace.com>, 
- ryan.dc.yu@foxconn.com, Adrian Barrera <abarrera@us.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wpZB06Q6JzDqL8
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 06:00:40 +1000 (AEST)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v5FJwfL5048044
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Jun 2017 16:00:38 -0400
+Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2b3s5j60g8-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Jun 2017 16:00:37 -0400
+Received: from localhost
+ by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Thu, 15 Jun 2017 14:00:37 -0600
+Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
+ by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Thu, 15 Jun 2017 14:00:35 -0600
+Received: from b03ledav001.gho.boulder.ibm.com
+ (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
+ by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v5FK0Zjf65667204; Thu, 15 Jun 2017 13:00:35 -0700
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id DB0266E035;
+ Thu, 15 Jun 2017 14:00:34 -0600 (MDT)
+Received: from christophersmbp.austin.ibm.com (unknown [9.41.175.240])
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP id 9BE3E6E053;
+ Thu, 15 Jun 2017 14:00:34 -0600 (MDT)
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+To: joel@jms.id.au, andrew@aj.id.au
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.10 v2 0/3] Config max31785 based on devtree attrs
+Date: Thu, 15 Jun 2017 15:00:30 -0500
+X-Mailer: git-send-email 2.10.1 (Apple Git-78)
+X-TM-AS-GCONF: 00
+x-cbid: 17061520-0016-0000-0000-000006F9630B
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007238; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000212; SDB=6.00875272; UDB=6.00435772; IPR=6.00655361; 
+ BA=6.00005423; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015840; XFM=3.00000015;
+ UTC=2017-06-15 20:00:36
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17061520-0017-0000-0000-00003A220EA0
+Message-Id: <20170615200033.67387-1-cbostic@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-06-15_10:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1706150345
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -64,37 +67,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Jun 2017 05:30:53 -0000
+X-List-Received-Date: Thu, 15 Jun 2017 20:00:41 -0000
 
-On Sat, Jun 10, 2017 at 2:33 AM, Adriana Kobylak <anoo@us.ibm.com> wrote:
-> From: Adi Gangidi
-> Sent: Friday, June 9, 2017 10:06 AM
-> To: anoo@us.ibm.com; Kenneth Wilke; Brad DeBauche; Chad Somerlot;
-> abarrera@us.ibm.com; ryan.dc.yu@foxconn.com; Rob Lippert
-> Subject: Switch up eth0 and eth1 to BMC shared and dedicated resp. ( Zaius )
->
-> Hi Adriana /.  Ryan ( Foxconn )
->
-> Right now on openBMC
-> BMC Shared      = eth0
-> BMC Dedicated = eth1
->
->
-> Instead, Is there a way we can make sure the BMC dedicated comes up as eth0
-> and BMC shared link comes up as eth1, in Zaius / Barreleye G2 ?
->
->
-> In how it works currently . you could have BMC dedicated be eth0 or eth1
-> depending upon the hardware config ( Whether or not Broadcom 5719A is popped
-> OR de-popped ) . That could confusing to support operators who don't
-> understand the nuances .
->
-> If you guys are busy with other things to make the change  , can I have your
-> thoughts on if this can be changed ? I'm guessing this is a u-boot change .
-> Any thoughts on how we could make this change ourselves ?
+Add optional property for max31785 in device tree to indicate that fan PWM
+should be set to 100% on fault.  Driver references this property during
+initialization time to set fault response appropriately.
+----
+Changes in v2:
+	- Set fault response for fans on pages 0-3 was previously only
+          setting page 0.
 
-You can use a udev rule to ensure the devices are named as you expect.
 
-Cheers,
+Christopher Bostic (3):
+  drivers/hwmon: Document optional dev tree property 'fault-max-fan'
+  arch/arm/boot/dts: Add optional property for max31785
+  drivers/hwmon: max31785 Set fan fault response based on dev tree
 
-Joel
+ Documentation/devicetree/bindings/hwmon/max31785.txt | 20 ++++++++++++++++++++
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 1 +
+ drivers/hwmon/max31785.c | 38 ++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 59 insertions(+)
+
+-- 
+1.8.2.2
