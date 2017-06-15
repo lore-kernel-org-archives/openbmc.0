@@ -1,61 +1,62 @@
-Return-Path: <mtritz@us.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <brendanhiggins@google.com>
+Received: from mail-qt0-x234.google.com (mail-qt0-x234.google.com
+ [IPv6:2607:f8b0:400d:c0d::234])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wpfQF2xNTzDq7c
- for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 09:11:33 +1000 (AEST)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v5FN8cGA115932
- for <openbmc@lists.ozlabs.org>; Thu, 15 Jun 2017 19:11:31 -0400
-Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2b3ujwcyaf-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 15 Jun 2017 19:11:30 -0400
-Received: from localhost
- by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <mtritz@us.ibm.com>;
- Thu, 15 Jun 2017 19:11:29 -0400
-Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
- by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 15 Jun 2017 19:11:26 -0400
-Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
- [9.57.199.107])
- by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v5FNBQ7b56688724; Thu, 15 Jun 2017 23:11:26 GMT
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E880A124037;
- Thu, 15 Jun 2017 19:08:58 -0400 (EDT)
-Received: from localhost.localdomain (unknown [9.80.236.247])
- by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP id 4CD62124035;
- Thu, 15 Jun 2017 19:08:58 -0400 (EDT)
-From: Michael Tritz <mtritz@us.ibm.com>
-To: skiboot@lists.ozlabs.org, openbmc@lists.ozlabs.org
-Cc: Michael Tritz <mtritz@us.ibm.com>, cyrilbur@gmail.com
-Subject: [PATCH v3] pflash option to retrieve PNOR partition flags
-Date: Thu, 15 Jun 2017 18:10:20 -0500
-X-Mailer: git-send-email 2.11.0 (Apple Git-81)
-X-TM-AS-GCONF: 00
-x-cbid: 17061523-0048-0000-0000-000001A85582
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007239; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000212; SDB=6.00875336; UDB=6.00435810; IPR=6.00655424; 
- BA=6.00005423; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015842; XFM=3.00000015;
- UTC=2017-06-15 23:11:27
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17061523-0049-0000-0000-00004188A925
-Message-Id: <20170615231020.56263-1-mtritz@us.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-06-15_11:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1706150400
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wpg6G6cM2zDq7c
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 09:42:46 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="ObWnJWQ4"; 
+ dkim-atps=neutral
+Received: by mail-qt0-x234.google.com with SMTP id c10so41862967qtd.1
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Jun 2017 16:42:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=QjlWboI2GVt4yO1DMRKaTXybgfb7AfXh0TnMYHNxH/o=;
+ b=ObWnJWQ4i0kVk/RP0PQF8qkAwZsaqVbbGLH+MufEfI7vSVhML0gR5iZtN3eJI8uFAi
+ q/8GhjlRUGSbKSpVLCe6yQD36jMD80+/1SkjYJiJeZNJvSx5/QGHTbEwIAOMxM5sYu+i
+ T55qZNvq1oCcSucQ/yw7VZZwXNPwSkAxXVFFPaV3aIMMDRbJ5QZ0x+GQ4Dveio0rwKyk
+ YoCw1J0vH0LNr0c7ddUvYA+bx6jzmyDi9LoVmpAV12G/C0klKJli7hHxIY3L8/7/Atfo
+ kgSbw4eKWxBGp04AZOClDLwWFmJ9DSy3N5BVRoSWlAVxDuMto7lad9XuVlMjcKynCtqA
+ CzgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=QjlWboI2GVt4yO1DMRKaTXybgfb7AfXh0TnMYHNxH/o=;
+ b=hq24nWrVL8TMnHaunxrw7tTg+42rmr15iM+yonQg4WYWc9KOf/IWs2YdqgecrYLz9C
+ bZxkXGQ2X0U4kDnxAqIlWOxvDFs1JsJzlwUTgIWQllwgiex7f6847/CM7LTS0BbqI1cu
+ SxEKk74IqW4HPF0mypG6M+G23dqj/b8KnL9xjFjb8sZ/dwznH4/ft/Zrn1aHTg3lQ0Lx
+ P2pGzZdXSfibDR7/nJefOsNj7nBqsm+bXc8T3nXcyy7ykY5Tu0z5j8H+1J4PHfY6Glix
+ LO+cyGxUzGX2B4tRHfYFugxnOUoyxZssgGE8K9r5ozRfKBJjtViDlTrJBP/Pa0SQ+pwg
+ 8WWg==
+X-Gm-Message-State: AKS2vOwmCYZ1ZDzNCHuZVBCAebi5D0wqM8e/lZDebxKhaGncJA66E0HQ
+ 6Btn1kjltj/Gap026Z5Ntry4FiOfz4on
+X-Received: by 10.200.33.176 with SMTP id 45mr9768550qty.223.1497570163291;
+ Thu, 15 Jun 2017 16:42:43 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.200.45.73 with HTTP; Thu, 15 Jun 2017 16:42:42 -0700 (PDT)
+In-Reply-To: <1496638941.8159.20.camel@aj.id.au>
+References: <20170603012952.2192-1-brendanhiggins@google.com>
+ <20170603012952.2192-5-brendanhiggins@google.com>
+ <1496638941.8159.20.camel@aj.id.au>
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Thu, 15 Jun 2017 16:42:42 -0700
+Message-ID: <CAFd5g45+QztyiSXmzjDYdHcxA6qz_8fCc5gx+5yw9fo=HdLSAg@mail.gmail.com>
+Subject: Re: [PATCH v10 4/5] i2c: aspeed: added driver for Aspeed I2C
+To: Wolfram Sang <wsa@the-dreams.de>
+Cc: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Thomas Gleixner <tglx@linutronix.de>, Jason Cooper <jason@lakedaemon.net>, 
+ Marc Zyngier <marc.zyngier@arm.com>, Joel Stanley <joel@jms.id.au>,
+ Vladimir Zapolskiy <vz@mleia.com>, Kachalov Anton <mouse@mayc.ru>,
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Ryan Chen <ryan_chen@aspeedtech.com>, 
+ devicetree@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ linux-i2c@vger.kernel.org, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Andrew Jeffery <andrew@aj.id.au>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,434 +68,893 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Jun 2017 23:11:33 -0000
+X-List-Received-Date: Thu, 15 Jun 2017 23:42:47 -0000
 
-This commit extends pflash with an option to retrieve and print
-information for a particular partition, including the content from
-"pflash -i" and a verbose list of set miscellaneous flags. -i option
-is also updated to print a short list of flags in addition to the
-ECC flag, with one character per flag. A test of the new option is
-included in libflash/test.
+On Sun, Jun 4, 2017 at 10:02 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> On Fri, 2017-06-02 at 18:29 -0700, Brendan Higgins wrote:
+>> Added initial master support for Aspeed I2C controller. Supports
+>> fourteen busses present in AST24XX and AST25XX BMC SoCs by Aspeed.
+>>
+>> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+>
+> I exercised this patch on an AST2500-based machine. The results were
+> good, and the implementation copes fine with a workload that causes an
+> oops in our (older, unrelated) out-of-tree bus driver.
+>
+> Tested-by: Andrew Jeffery <andrew@aj.id.au>
 
-Change-Id: Iebb8a6d34c537cecd2eb44ddf41271c8fbe25258
-Signed-off-by: Michael Tritz <mtritz@us.ibm.com>
----
- external/pflash/pflash.c          |  86 ++++++++++++++++++++++++++++---
- libflash/libffs.c                 |  26 +++++++++-
- libflash/libffs.h                 |   5 ++
- libflash/test/test-miscprint.pnor | 103 ++++++++++++++++++++++++++++++++++++++
- libflash/test/test-miscprint.sh   |  40 +++++++++++++++
- 5 files changed, 252 insertions(+), 8 deletions(-)
- create mode 100644 libflash/test/test-miscprint.pnor
- create mode 100644 libflash/test/test-miscprint.sh
+Wolfram, could you take a look at these patches? Ben, Joel and others
+seem to be happy with it and Marc said he would take the irqchip
+stuff.
 
-diff --git a/external/pflash/pflash.c b/external/pflash/pflash.c
-index a344987e..74c0adf8 100644
---- a/external/pflash/pflash.c
-+++ b/external/pflash/pflash.c
-@@ -14,6 +14,8 @@
-  * limitations under the License.
-  */
- 
-+#define _GNU_SOURCE
-+
- #include <stdio.h>
- #include <stdlib.h>
- #include <string.h>
-@@ -89,6 +91,7 @@ static void check_confirm(void)
- static void print_ffs_info(uint32_t toc_offset)
- {
- 	struct ffs_handle *ffs_handle;
-+	struct ffs_entry_user ent_user;
- 	uint32_t other_side_offset = 0;
- 	int rc;
- 	uint32_t i;
-@@ -115,9 +118,21 @@ static void print_ffs_info(uint32_t toc_offset)
- 			fprintf(stderr, "Error %d scanning partitions\n", rc);
- 			break;
- 		}
-+
-+		ent_user = ffs_entry_user_get(ffs_get_part(ffs_handle, i));
-+
-+		char *flags;
-+		int l;
-+		l = asprintf(&flags, "[%c%c%c%c%c]",
-+					(ecc) ? 'E' : '-',
-+					has_flag(&ent_user, FFS_MISCFLAGS_PRESERVED) ? 'P' : '-',
-+					has_flag(&ent_user, FFS_MISCFLAGS_READONLY) ? 'R' : '-',
-+					has_flag(&ent_user, FFS_MISCFLAGS_BACKUP) ? 'B' : '-',
-+					has_flag(&ent_user, FFS_MISCFLAGS_REPROVISION) ? 'F' : '-');
-+
- 		end = start + size;
- 		printf("ID=%02d %15s %08x..%08x (actual=%08x) %s\n",
--		       i, name, start, end, act, ecc ? "[ECC]" : "");
-+		       i, name, start, end, act, (l != -1) ? flags : NULL);
- 
- 		if (strcmp(name, "OTHER_SIDE") == 0)
- 			other_side_offset = start;
-@@ -413,6 +428,56 @@ static void disable_4B_addresses(void)
- 	}
- }
- 
-+static void print_partition_detail(uint32_t part_ID)
-+{
-+	struct ffs_handle *ffs_handle;
-+	struct ffs_entry_user ent_user;
-+	int rc;
-+	uint32_t start, size, act, end;
-+	bool ecc;
-+	char *name;
-+
-+	rc = ffs_init(0, fl_total_size, bl, &ffs_handle, 0);
-+	if (rc) {
-+		fprintf(stderr, "Error %d opening ffs !\n", rc);
-+		return;
-+	}
-+
-+	rc = ffs_part_info(ffs_handle, part_ID, &name, &start, &size, &act, &ecc);
-+	if (rc == FFS_ERR_PART_NOT_FOUND)
-+		return;
-+	if (rc) {
-+		fprintf(stderr, "Error %d scanning partitions\n", rc);
-+		return;
-+	}
-+
-+	ent_user = ffs_entry_user_get(ffs_get_part(ffs_handle, part_ID));
-+
-+	ffs_close(ffs_handle);
-+
-+	end = start + size;
-+	printf("ID=%02d - %s %08x..%08x (actual=%08x)\n",
-+		   part_ID, name, start, end, act);
-+
-+	char *flags;
-+	int l;
-+	l = asprintf(&flags, "%s%s%s%s%s",
-+				(ecc) ? "ECC," : "",
-+				has_flag(&ent_user, FFS_MISCFLAGS_PRESERVED) ?
-+						"PRESERVED," : "",
-+				has_flag(&ent_user, FFS_MISCFLAGS_READONLY) ? "READONLY," : "",
-+				has_flag(&ent_user, FFS_MISCFLAGS_BACKUP) ? "BACKUP," : "",
-+				has_flag(&ent_user, FFS_MISCFLAGS_REPROVISION) ?
-+						"REPROVISION." : "");
-+	if (l > 0)
-+	{
-+		flags[l-1] = '\n';
-+		printf(flags);
-+	}
-+
-+	return;
-+}
-+
- static void print_version(void)
- {
- 	printf("Open-Power Flash tool %s\n", version);
-@@ -494,6 +559,9 @@ static void print_help(const char *pname)
- 	printf("\t\tpartition and then set all the ECC bits as they should be\n\n");
- 	printf("\t-i, --info\n");
- 	printf("\t\tDisplay some information about the flash.\n\n");
-+	printf("\t-m --misc\n");
-+	printf("\t\tDisplays miscellaneous info about a particular partition.\n");
-+	printf("\t\tRequires the numerical partition index as an argument.\n\n");
- 	printf("\t-h, --help\n");
- 	printf("\t\tThis message.\n\n");
- }
-@@ -508,7 +576,7 @@ void exiting(void)
- int main(int argc, char *argv[])
- {
- 	const char *pname = argv[0];
--	uint32_t address = 0, read_size = 0, write_size = 0;
-+	uint32_t address = 0, read_size = 0, write_size = 0, part_ID = 0;
- 	uint32_t erase_start = 0, erase_size = 0;
- 	bool erase = false, do_clear = false;
- 	bool program = false, erase_all = false, info = false, do_read = false;
-@@ -516,7 +584,7 @@ int main(int argc, char *argv[])
- 	bool show_help = false, show_version = false;
- 	bool no_action = false, tune = false;
- 	char *write_file = NULL, *read_file = NULL, *part_name = NULL;
--	bool ffs_toc_seen = false, direct = false;
-+	bool ffs_toc_seen = false, direct = false, print_detail = false;
- 	int rc;
- 
- 	while(1) {
-@@ -534,7 +602,7 @@ int main(int argc, char *argv[])
- 			{"program",	required_argument,	NULL,	'p'},
- 			{"force",	no_argument,		NULL,	'f'},
- 			{"flash-file",	required_argument,	NULL,	'F'},
--			{"info",	no_argument,		NULL,	'i'},
-+			{"info",	no_argument,  		NULL,	'i'},
- 			{"tune",	no_argument,		NULL,	't'},
- 			{"dummy",	no_argument,		NULL,	'd'},
- 			{"help",	no_argument,		NULL,	'h'},
-@@ -547,7 +615,7 @@ int main(int argc, char *argv[])
- 		};
- 		int c, oidx = 0;
- 
--		c = getopt_long(argc, argv, "+:a:s:P:r:43Eep:fdihvbtgS:T:cF:",
-+		c = getopt_long(argc, argv, "+:a:s:P:r:43Eep:fdihvbtgS:T:cF:m:",
- 				long_opts, &oidx);
- 		if (c == -1)
- 			break;
-@@ -622,6 +690,10 @@ int main(int argc, char *argv[])
- 		case 'c':
- 			do_clear = true;
- 			break;
-+		case 'm':
-+			print_detail = true;
-+			part_ID = strtoul(optarg, NULL, 10);
-+			break;
- 		case ':':
- 			fprintf(stderr, "Unrecognised option \"%s\" to '%c'\n", optarg, optopt);
- 			no_action = true;
-@@ -651,7 +723,7 @@ int main(int argc, char *argv[])
- 	 * also tune them as a side effect
- 	 */
- 	no_action = no_action || (!erase && !program && !info && !do_read &&
--		!enable_4B && !disable_4B && !tune && !do_clear);
-+		!enable_4B && !disable_4B && !tune && !do_clear && !print_detail);
- 
- 	/* Nothing to do, if we didn't already, print usage */
- 	if (no_action && !show_version)
-@@ -871,6 +943,8 @@ int main(int argc, char *argv[])
- 		 */
- 		print_flash_info(flash_side ? 0 : ffs_toc);
- 	}
-+	if (print_detail)
-+		print_partition_detail(part_ID);
- 
- 	/* Unlock flash (PNOR only) */
- 	if ((erase || program || do_clear) && !bmc_flash && !flashfilename) {
-diff --git a/libflash/libffs.c b/libflash/libffs.c
-index 763e061c..1a9ce82a 100644
---- a/libflash/libffs.c
-+++ b/libflash/libffs.c
-@@ -180,7 +180,7 @@ static int ffs_entry_to_cpu(struct ffs_hdr *hdr,
- 	return rc;
- }
- 
--static struct ffs_entry *ffs_get_part(struct ffs_handle *ffs, uint32_t index)
-+struct ffs_entry *ffs_get_part(struct ffs_handle *ffs, uint32_t index)
- {
- 	int i = 0;
- 	struct ffs_entry *ent = NULL;
-@@ -195,7 +195,16 @@ static struct ffs_entry *ffs_get_part(struct ffs_handle *ffs, uint32_t index)
- 
- bool has_ecc(struct ffs_entry *ent)
- {
--	return ((ent->user.datainteg & FFS_ENRY_INTEG_ECC) != 0);
-+	struct ffs_entry_user entry_user = ffs_entry_user_get(ent);
-+	return has_flag(&entry_user, FFS_ENRY_INTEG_ECC);
-+}
-+
-+bool has_flag(struct ffs_entry_user *ent_user, uint16_t FLAG)
-+{
-+	if (FLAG == FFS_ENRY_INTEG_ECC) {
-+		return ((ent_user->datainteg & FFS_ENRY_INTEG_ECC) != 0);
-+	}
-+	return ((ent_user->miscflags & FLAG) != 0);
- }
- 
- int ffs_init(uint32_t offset, uint32_t max_size, struct blocklevel_device *bl,
-@@ -546,6 +555,19 @@ int ffs_entry_add(struct ffs_hdr *hdr, struct ffs_entry *entry, unsigned int sid
- 	return rc;
- }
- 
-+struct ffs_entry_user ffs_entry_user_get(struct ffs_entry *entry)
-+{
-+	struct ffs_entry_user entry_user;
-+
-+	entry_user.chip = entry->user.chip;
-+	entry_user.compresstype = entry->user.compresstype;
-+	entry_user.datainteg = entry->user.datainteg;
-+	entry_user.vercheck = entry->user.vercheck;
-+	entry_user.miscflags = entry->user.miscflags;
-+
-+	return entry_user;
-+}
-+
- /* This should be done last! */
- int ffs_hdr_create_backup(struct ffs_hdr *hdr)
- {
-diff --git a/libflash/libffs.h b/libflash/libffs.h
-index 2c1fbd83..72ae4a1c 100644
---- a/libflash/libffs.h
-+++ b/libflash/libffs.h
-@@ -89,9 +89,12 @@ struct ffs_entry_user {
- #define FFS_MISCFLAGS_BACKUP 0x20
- #define FFS_MISCFLAGS_REPROVISION 0x10
- 
-+struct ffs_entry *ffs_get_part(struct ffs_handle *ffs, uint32_t index);
- 
- bool has_ecc(struct ffs_entry *ent);
- 
-+bool has_flag(struct ffs_entry_user *ent_user, uint16_t FLAG);
-+
- /* Init */
- 
- int ffs_init(uint32_t offset, uint32_t max_size, struct blocklevel_device *bl,
-@@ -140,6 +143,8 @@ int ffs_entry_user_set(struct ffs_entry *ent, struct ffs_entry_user *user);
- 
- int ffs_entry_add(struct ffs_hdr *hdr, struct ffs_entry *entry, unsigned int side);
- 
-+struct ffs_entry_user ffs_entry_user_get(struct ffs_entry *entry);
-+
- int ffs_hdr_create_backup(struct ffs_hdr *hdr);
- 
- int ffs_hdr_finalise(struct blocklevel_device *bl, struct ffs_hdr *hdr);
-diff --git a/libflash/test/test-miscprint.pnor b/libflash/test/test-miscprint.pnor
-new file mode 100644
-index 00000000..e3f3d355
---- /dev/null
-+++ b/libflash/test/test-miscprint.pnor
-@@ -0,0 +1,103 @@
-+504152540000000100000001000000800000000500000300000000040000
-+0000000000000000000000000000504151d5706172740000000000000000
-+000000000000000000000001ffffffff0000000100000003000000010000
-+030000000000000000000000000000000000000000000000000000000000
-+000000000000000000000000000000000000000000000000000000000000
-+000000000000000000000000000000000000000000008f9e8e8950524553
-+4552564544000000000000000000000100000000ffffffff000000020000
-+000100000000000001000000000000000000000000000000000000000000
-+008000000000000000000000000000000000000000000000000000000000
-+000000000000000000000000000000000000000000000000000000000000
-+ae7fedeb524541444f4e4c5900000000000000000000000100000000ffff
-+ffff00000003000000010000000000000100000000000000000000000000
-+000000000000000000400000000000000000000000000000000000000000
-+000000000000000000000000000000000000000000000000000000000000
-+0000000000000000e2b4f3e1524550524f564953494f4e00000000000000
-+000100000000ffffffff0000000400000001000000000000010000000000
-+000000000000000000000000000000000010000000000000000000000000
-+000000000000000000000000000000000000000000000000000000000000
-+00000000000000000000000000000000abb3a9fa4241434b555000000000
-+0000000000000000000200000000ffffffff000000050000000100000000
-+000001000000000000000000000000000000000000000000002000000000
-+000000000000000000000000000000000000000000000000000000000000
-+000000000000000000000000000000000000000000000000e8cebdb2ffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffff
-diff --git a/libflash/test/test-miscprint.sh b/libflash/test/test-miscprint.sh
-new file mode 100644
-index 00000000..7670b6e4
---- /dev/null
-+++ b/libflash/test/test-miscprint.sh
-@@ -0,0 +1,40 @@
-+#!/bin/bash
-+
-+# test-miscprint.pnor is constructed as follows:
-+# PRESERVED,0x00000300,0x00000100,P,/dev/zero
-+# READONLY,0x00000400,0x00000100,R,/dev/zero
-+# REPROVISION,0x00000500,0x00000100,F,/dev/zero
-+# BACKUP,0x00000600,0x00000100,B,/dev/zero
-+
-+pass=false
-+wd=$(dirname -- "$0")
-+
-+xxd -p -r "$wd/test-miscprint.pnor" > "$wd/temp.pnor"
-+
-+output=$(pflash -m 1 -F "$wd/temp.pnor" | grep ,)
-+if [[ $output == "PRESERVED" ]]; then
-+    pass=true
-+fi
-+
-+output=$(pflash -m 2 -F "$wd/temp.pnor" | grep ,)
-+if [[ $output == "READONLY" ]]; then
-+    pass=true
-+fi
-+
-+output=$(pflash -m 3 -F "$wd/temp.pnor" | grep ,)
-+if [[ $output == "REPROVISION" ]]; then
-+    pass=true
-+fi
-+
-+output=$(pflash -m 4 -F "$wd/temp.pnor" | grep ,)
-+if [[ $output == "BACKUP" ]]; then
-+    pass=true
-+fi
-+
-+if [[ pass ]]; then
-+    echo "Test passed!"
-+else
-+    echo "Test failed!"
-+fi
-+
-+rm "$wd/temp.pnor"
--- 
-2.11.0 (Apple Git-81)
+Cheers
+
+>
+>> ---
+>> Changes for v2:
+>>   - Added single module_init (multiple was breaking some builds).
+>> Changes for v3:
+>>   - Removed "bus" device tree param; now extracted from bus address
+>> offset
+>> Changes for v4:
+>>   - I2C adapter number is now generated dynamically unless specified
+>> in alias.
+>> Changes for v5:
+>>   - Removed irq_chip used to multiplex IRQ and replaced it with
+>> dummy_irq_chip
+>>     along with some other IRQ cleanup.
+>>   - Addressed comments from Cedric, and Vladimir, mostly stylistic
+>> things and
+>>     using devm managed resources.
+>>   - Increased max clock frequency before the bus is put in HighSpeed
+>> mode, as
+>>     per Kachalov's comment.
+>> Changes for v6:
+>>   - No longer arbitrarily restrict bus to be slave xor master.
+>>   - Pulled out "struct aspeed_i2c_controller" as a interrupt
+>> controller.
+>>   - Pulled out slave support into its own commit.
+>>   - Rewrote code that sets clock divider register because the
+>> original version
+>>     set it incorrectly.
+>>   - Rewrote the aspeed_i2c_master_irq handler because the old method
+>> of
+>>     completing a completion in between restarts was too slow causing
+>> devices to
+>>     misbehave.
+>>   - Added support for I2C_M_RECV_LEN which I had incorrectly said was
+>> supported
+>>     before.
+>>   - Addressed other comments from Vladimir.
+>> Changes for v7:
+>>   - Changed clock-frequency to bus-frequency
+>>   - Made some fixes to clock divider code
+>>   - Added hardware reset function
+>>   - Marked functions that need to be called with the lock held as
+>> "unlocked"
+>>   - Did a bunch of clean up
+>> Changes for v8:
+>>   - ACK IRQ status bits before doing anything else
+>>   - Added multi-master device tree property
+>>   - Do not send STOP commands after interrupt errors
+>>   - Fix SMBUS_QUICK emulation handling
+>>   - Removed highspeed clock code (I will do it in a later patch set)
+>>   - Use the platform_device name for the adapter name
+>>   - Reset for all failed recoveries
+>>   - Removed the "__" prefix from all of the non-thread safe functions
+>> Changes for v9:
+>>   - No longer debug log after every address NACK
+>>   - Clear errors after reset
+>>   - No longer access clock while holding lock
+>>   - Ack all interrupts durring bus reset and initialization
+>> Changes for v10:
+>>   - Added master_xfer_result field to struct aspeed_i2c_bus
+>> ---
+>>  drivers/i2c/busses/Kconfig      |  10 +
+>>  drivers/i2c/busses/Makefile     |   1 +
+>>  drivers/i2c/busses/i2c-aspeed.c | 681
+>> ++++++++++++++++++++++++++++++++++++++++
+>>  3 files changed, 692 insertions(+)
+>>  create mode 100644 drivers/i2c/busses/i2c-aspeed.c
+>>
+>> diff --git a/drivers/i2c/busses/Kconfig b/drivers/i2c/busses/Kconfig
+>> index 144cbadc7c72..280f84a0d7d1 100644
+>> --- a/drivers/i2c/busses/Kconfig
+>> +++ b/drivers/i2c/busses/Kconfig
+>> @@ -326,6 +326,16 @@ config I2C_POWERMAC
+>>
+>>  comment "I2C system bus drivers (mostly embedded / system-on-chip)"
+>>
+>> +config I2C_ASPEED
+>> +     tristate "Aspeed I2C Controller"
+>> +     depends on ARCH_ASPEED
+>> +     help
+>> +       If you say yes to this option, support will be included
+>> for the
+>> +       Aspeed I2C controller.
+>> +
+>> +       This driver can also be built as a module.  If so, the
+>> module
+>> +       will be called i2c-aspeed.
+>> +
+>>  config I2C_AT91
+>>       tristate "Atmel AT91 I2C Two-Wire interface (TWI)"
+>>       depends on ARCH_AT91
+>> diff --git a/drivers/i2c/busses/Makefile
+>> b/drivers/i2c/busses/Makefile
+>> index 30b60855fbcd..e84604b9bf3b 100644
+>> --- a/drivers/i2c/busses/Makefile
+>> +++ b/drivers/i2c/busses/Makefile
+>> @@ -29,6 +29,7 @@ obj-$(CONFIG_I2C_HYDRA)             += i2c-
+>> hydra.o
+>>  obj-$(CONFIG_I2C_POWERMAC)   += i2c-powermac.o
+>>
+>>  # Embedded system I2C/SMBus host controller drivers
+>> +obj-$(CONFIG_I2C_ASPEED)     += i2c-aspeed.o
+>>  obj-$(CONFIG_I2C_AT91)               += i2c-at91.o
+>>  obj-$(CONFIG_I2C_AU1550)     += i2c-au1550.o
+>>  obj-$(CONFIG_I2C_AXXIA)              += i2c-axxia.o
+>> diff --git a/drivers/i2c/busses/i2c-aspeed.c
+>> b/drivers/i2c/busses/i2c-aspeed.c
+>> new file mode 100644
+>> index 000000000000..a04021e3b3ab
+>> --- /dev/null
+>> +++ b/drivers/i2c/busses/i2c-aspeed.c
+>> @@ -0,0 +1,681 @@
+>> +/*
+>> + *  Aspeed 24XX/25XX I2C Controller.
+>> + *
+>> + *  Copyright (C) 2012-2017 ASPEED Technology Inc.
+>> + *  Copyright 2017 IBM Corporation
+>> + *  Copyright 2017 Google, Inc.
+>> + *
+>> + *  This program is free software; you can redistribute it and/or
+>> modify
+>> + *  it under the terms of the GNU General Public License version 2
+>> as
+>> + *  published by the Free Software Foundation.
+>> + */
+>> +
+>> +#include <linux/clk.h>
+>> +#include <linux/completion.h>
+>> +#include <linux/err.h>
+>> +#include <linux/errno.h>
+>> +#include <linux/i2c.h>
+>> +#include <linux/init.h>
+>> +#include <linux/interrupt.h>
+>> +#include <linux/io.h>
+>> +#include <linux/irq.h>
+>> +#include <linux/irqchip/chained_irq.h>
+>> +#include <linux/irqdomain.h>
+>> +#include <linux/kernel.h>
+>> +#include <linux/module.h>
+>> +#include <linux/of_address.h>
+>> +#include <linux/of_irq.h>
+>> +#include <linux/of_platform.h>
+>> +#include <linux/platform_device.h>
+>> +#include <linux/slab.h>
+>> +
+>> +/* I2C Register */
+>> +#define ASPEED_I2C_FUN_CTRL_REG                              0x00
+>> +#define ASPEED_I2C_AC_TIMING_REG1                    0x04
+>> +#define ASPEED_I2C_AC_TIMING_REG2                    0x08
+>> +#define ASPEED_I2C_INTR_CTRL_REG                     0x0c
+>> +#define ASPEED_I2C_INTR_STS_REG                              0x10
+>> +#define ASPEED_I2C_CMD_REG                           0x14
+>> +#define ASPEED_I2C_DEV_ADDR_REG                              0x18
+>> +#define ASPEED_I2C_BYTE_BUF_REG                              0x20
+>> +
+>> +/* Global Register Definition */
+>> +/* 0x00 : I2C Interrupt Status Register  */
+>> +/* 0x08 : I2C Interrupt Target Assignment  */
+>> +
+>> +/* Device Register Definition */
+>> +/* 0x00 : I2CD Function Control Register  */
+>> +#define ASPEED_I2CD_MULTI_MASTER_DIS                 BIT(15)
+>> +#define ASPEED_I2CD_SDA_DRIVE_1T_EN                  BIT(8)
+>> +#define ASPEED_I2CD_M_SDA_DRIVE_1T_EN                        BIT(7)
+>> +#define ASPEED_I2CD_M_HIGH_SPEED_EN                  BIT(6)
+>> +#define ASPEED_I2CD_MASTER_EN                                BIT(0)
+>> +
+>> +/* 0x04 : I2CD Clock and AC Timing Control Register #1 */
+>> +#define ASPEED_I2CD_TIME_SCL_HIGH_SHIFT                      16
+>> +#define ASPEED_I2CD_TIME_SCL_HIGH_MASK                       GENMAS
+>> K(19, 16)
+>> +#define ASPEED_I2CD_TIME_SCL_LOW_SHIFT                       12
+>> +#define ASPEED_I2CD_TIME_SCL_LOW_MASK                        GENMASK
+>> (15, 12)
+>> +#define ASPEED_I2CD_TIME_BASE_DIVISOR_MASK           GENMASK(3,
+>> 0)
+>> +#define ASPEED_I2CD_TIME_SCL_REG_MAX                 GENMASK(
+>> 3, 0)
+>> +/* 0x08 : I2CD Clock and AC Timing Control Register #2 */
+>> +#define ASPEED_NO_TIMEOUT_CTRL                               0
+>> +
+>> +/* 0x0c : I2CD Interrupt Control Register &
+>> + * 0x10 : I2CD Interrupt Status Register
+>> + *
+>> + * These share bit definitions, so use the same values for the
+>> enable &
+>> + * status bits.
+>> + */
+>> +#define ASPEED_I2CD_INTR_SDA_DL_TIMEOUT                      BIT(1
+>> 4)
+>> +#define ASPEED_I2CD_INTR_BUS_RECOVER_DONE            BIT(13)
+>> +#define ASPEED_I2CD_INTR_SCL_TIMEOUT                 BIT(6)
+>> +#define ASPEED_I2CD_INTR_ABNORMAL                    BIT(5)
+>> +#define ASPEED_I2CD_INTR_NORMAL_STOP                 BIT(4)
+>> +#define ASPEED_I2CD_INTR_ARBIT_LOSS                  BIT(3)
+>> +#define ASPEED_I2CD_INTR_RX_DONE                     BIT(2)
+>> +#define ASPEED_I2CD_INTR_TX_NAK                              BIT(1
+>> )
+>> +#define ASPEED_I2CD_INTR_TX_ACK                              BIT(0
+>> )
+>> +#define ASPEED_I2CD_INTR_ERROR
+>>              \
+>> +             (ASPEED_I2CD_INTR_ARBIT_LOSS |
+>>              \
+>> +              ASPEED_I2CD_INTR_ABNORMAL |
+>>        \
+>> +              ASPEED_I2CD_INTR_SCL_TIMEOUT |
+>>              \
+>> +              ASPEED_I2CD_INTR_SDA_DL_TIMEOUT)
+>> +#define ASPEED_I2CD_INTR_ALL
+>>        \
+>> +             (ASPEED_I2CD_INTR_SDA_DL_TIMEOUT |
+>>        \
+>> +              ASPEED_I2CD_INTR_BUS_RECOVER_DONE |
+>>        \
+>> +              ASPEED_I2CD_INTR_SCL_TIMEOUT |
+>>              \
+>> +              ASPEED_I2CD_INTR_ABNORMAL |
+>>        \
+>> +              ASPEED_I2CD_INTR_NORMAL_STOP |
+>>              \
+>> +              ASPEED_I2CD_INTR_ARBIT_LOSS |
+>>              \
+>> +              ASPEED_I2CD_INTR_RX_DONE |
+>>        \
+>> +              ASPEED_I2CD_INTR_TX_NAK |
+>>        \
+>> +              ASPEED_I2CD_INTR_TX_ACK)
+>> +
+>> +/* 0x14 : I2CD Command/Status Register   */
+>> +#define ASPEED_I2CD_SCL_LINE_STS                     BIT(18)
+>> +#define ASPEED_I2CD_SDA_LINE_STS                     BIT(17)
+>> +#define ASPEED_I2CD_BUS_BUSY_STS                     BIT(16)
+>> +#define ASPEED_I2CD_BUS_RECOVER_CMD                  BIT(11)
+>> +
+>> +/* Command Bit */
+>> +#define ASPEED_I2CD_M_STOP_CMD                               BIT(5)
+>> +#define ASPEED_I2CD_M_S_RX_CMD_LAST                  BIT(4)
+>> +#define ASPEED_I2CD_M_RX_CMD                         BIT(3)
+>> +#define ASPEED_I2CD_S_TX_CMD                         BIT(2)
+>> +#define ASPEED_I2CD_M_TX_CMD                         BIT(1)
+>> +#define ASPEED_I2CD_M_START_CMD                              BIT(0
+>> )
+>> +
+>> +enum aspeed_i2c_master_state {
+>> +     ASPEED_I2C_MASTER_START,
+>> +     ASPEED_I2C_MASTER_TX_FIRST,
+>> +     ASPEED_I2C_MASTER_TX,
+>> +     ASPEED_I2C_MASTER_RX_FIRST,
+>> +     ASPEED_I2C_MASTER_RX,
+>> +     ASPEED_I2C_MASTER_STOP,
+>> +     ASPEED_I2C_MASTER_INACTIVE,
+>> +};
+>> +
+>> +struct aspeed_i2c_bus {
+>> +     struct i2c_adapter              adap;
+>> +     struct device                   *dev;
+>> +     void __iomem                    *base;
+>> +     /* Synchronizes I/O mem access to base. */
+>> +     spinlock_t                      lock;
+>> +     struct completion               cmd_complete;
+>> +     int                             irq;
+>> +     unsigned long                   parent_clk_frequency;
+>> +     u32                             bus_frequency;
+>> +     /* Transaction state. */
+>> +     enum aspeed_i2c_master_state    master_state;
+>> +     struct i2c_msg                  *msgs;
+>> +     size_t                          buf_index;
+>> +     size_t                          msgs_index;
+>> +     size_t                          msgs_count;
+>> +     bool                            send_stop;
+>> +     int                             cmd_err;
+>> +     /* Protected only by i2c_lock_bus */
+>> +     int                             master_xfer_result;
+>> +};
+>> +
+>> +static int aspeed_i2c_reset(struct aspeed_i2c_bus *bus);
+>> +
+>> +static int aspeed_i2c_recover_bus(struct aspeed_i2c_bus *bus)
+>> +{
+>> +     unsigned long time_left, flags;
+>> +     int ret = 0;
+>> +     u32 command;
+>> +
+>> +     spin_lock_irqsave(&bus->lock, flags);
+>> +     command = readl(bus->base + ASPEED_I2C_CMD_REG);
+>> +
+>> +     if (command & ASPEED_I2CD_SDA_LINE_STS) {
+>> +             /* Bus is idle: no recovery needed. */
+>> +             if (command & ASPEED_I2CD_SCL_LINE_STS)
+>> +                     goto out;
+>> +             dev_dbg(bus->dev, "bus hung (state %x), attempting
+>> recovery\n",
+>> +                     command);
+>> +
+>> +             reinit_completion(&bus->cmd_complete);
+>> +             writel(ASPEED_I2CD_M_STOP_CMD, bus->base +
+>> ASPEED_I2C_CMD_REG);
+>> +             spin_unlock_irqrestore(&bus->lock, flags);
+>> +
+>> +             time_left = wait_for_completion_timeout(
+>> +                             &bus->cmd_complete, bus-
+>> >adap.timeout);
+>> +
+>> +             spin_lock_irqsave(&bus->lock, flags);
+>> +             if (time_left == 0)
+>> +                     goto reset_out;
+>> +             else if (bus->cmd_err)
+>> +                     goto reset_out;
+>> +             /* Recovery failed. */
+>> +             else if (!(readl(bus->base + ASPEED_I2C_CMD_REG) &
+>> +                        ASPEED_I2CD_SCL_LINE_STS))
+>> +                     goto reset_out;
+>> +     /* Bus error. */
+>> +     } else {
+>> +             dev_dbg(bus->dev, "bus hung (state %x), attempting
+>> recovery\n",
+>> +                     command);
+>> +
+>> +             reinit_completion(&bus->cmd_complete);
+>> +             writel(ASPEED_I2CD_BUS_RECOVER_CMD,
+>> +                    bus->base + ASPEED_I2C_CMD_REG);
+>> +             spin_unlock_irqrestore(&bus->lock, flags);
+>> +
+>> +             time_left = wait_for_completion_timeout(
+>> +                             &bus->cmd_complete, bus-
+>> >adap.timeout);
+>> +
+>> +             spin_lock_irqsave(&bus->lock, flags);
+>> +             if (time_left == 0)
+>> +                     goto reset_out;
+>> +             else if (bus->cmd_err)
+>> +                     goto reset_out;
+>> +             /* Recovery failed. */
+>> +             else if (!(readl(bus->base + ASPEED_I2C_CMD_REG) &
+>> +                        ASPEED_I2CD_SDA_LINE_STS))
+>> +                     goto reset_out;
+>> +     }
+>> +
+>> +out:
+>> +     spin_unlock_irqrestore(&bus->lock, flags);
+>> +
+>> +     return ret;
+>> +
+>> +reset_out:
+>> +     spin_unlock_irqrestore(&bus->lock, flags);
+>> +
+>> +     return aspeed_i2c_reset(bus);
+>> +}
+>> +
+>> +/* precondition: bus.lock has been acquired. */
+>> +static void aspeed_i2c_do_start(struct aspeed_i2c_bus *bus)
+>> +{
+>> +     u32 command = ASPEED_I2CD_M_START_CMD |
+>> ASPEED_I2CD_M_TX_CMD;
+>> +     struct i2c_msg *msg = &bus->msgs[bus->msgs_index];
+>> +     u8 slave_addr = msg->addr << 1;
+>> +
+>> +     bus->master_state = ASPEED_I2C_MASTER_START;
+>> +     bus->buf_index = 0;
+>> +
+>> +     if (msg->flags & I2C_M_RD) {
+>> +             slave_addr |= 1;
+>> +             command |= ASPEED_I2CD_M_RX_CMD;
+>> +             /* Need to let the hardware know to NACK after RX.
+>> */
+>> +             if (msg->len == 1 && !(msg->flags & I2C_M_RECV_LEN))
+>> +                     command |= ASPEED_I2CD_M_S_RX_CMD_LAST;
+>> +     }
+>> +
+>> +     writel(slave_addr, bus->base + ASPEED_I2C_BYTE_BUF_REG);
+>> +     writel(command, bus->base + ASPEED_I2C_CMD_REG);
+>> +}
+>> +
+>> +/* precondition: bus.lock has been acquired. */
+>> +static void aspeed_i2c_do_stop(struct aspeed_i2c_bus *bus)
+>> +{
+>> +     bus->master_state = ASPEED_I2C_MASTER_STOP;
+>> +     writel(ASPEED_I2CD_M_STOP_CMD, bus->base +
+>> ASPEED_I2C_CMD_REG);
+>> +}
+>> +
+>> +/* precondition: bus.lock has been acquired. */
+>> +static void aspeed_i2c_next_msg_or_stop(struct aspeed_i2c_bus *bus)
+>> +{
+>> +     if (bus->msgs_index + 1 < bus->msgs_count) {
+>> +             bus->msgs_index++;
+>> +             aspeed_i2c_do_start(bus);
+>> +     } else {
+>> +             aspeed_i2c_do_stop(bus);
+>> +     }
+>> +}
+>> +
+>> +static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
+>> +{
+>> +     u32 irq_status, status_ack = 0, command = 0;
+>> +     struct i2c_msg *msg;
+>> +     u8 recv_byte;
+>> +
+>> +     spin_lock(&bus->lock);
+>> +     irq_status = readl(bus->base + ASPEED_I2C_INTR_STS_REG);
+>> +     /* Ack all interrupt bits. */
+>> +     writel(irq_status, bus->base + ASPEED_I2C_INTR_STS_REG);
+>> +
+>> +     if (irq_status & ASPEED_I2CD_INTR_BUS_RECOVER_DONE) {
+>> +             bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
+>> +             status_ack |= ASPEED_I2CD_INTR_BUS_RECOVER_DONE;
+>> +             goto out_complete;
+>> +     }
+>> +
+>> +     /*
+>> +      * We encountered an interrupt that reports an error: the
+>> hardware
+>> +      * should clear the command queue effectively taking us back
+>> to the
+>> +      * INACTIVE state.
+>> +      */
+>> +     if (irq_status & ASPEED_I2CD_INTR_ERROR) {
+>> +             dev_dbg(bus->dev, "received error interrupt:
+>> 0x%08x",
+>> +                     irq_status);
+>> +             bus->cmd_err = -EIO;
+>> +             bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
+>> +             goto out_complete;
+>> +     }
+>> +
+>> +     /* We are in an invalid state; reset bus to a known state.
+>> */
+>> +     if (!bus->msgs && bus->master_state !=
+>> ASPEED_I2C_MASTER_STOP) {
+>> +             dev_err(bus->dev, "bus in unknown state");
+>> +             bus->cmd_err = -EIO;
+>> +             aspeed_i2c_do_stop(bus);
+>> +             goto out_no_complete;
+>> +     }
+>> +     msg = &bus->msgs[bus->msgs_index];
+>> +
+>> +     /*
+>> +      * START is a special case because we still have to handle a
+>> subsequent
+>> +      * TX or RX immediately after we handle it, so we handle it
+>> here and
+>> +      * then update the state and handle the new state below.
+>> +      */
+>> +     if (bus->master_state == ASPEED_I2C_MASTER_START) {
+>> +             if (unlikely(!(irq_status &
+>> ASPEED_I2CD_INTR_TX_ACK))) {
+>> +                     pr_devel("no slave present at %02x", msg-
+>> >addr);
+>> +                     status_ack |= ASPEED_I2CD_INTR_TX_NAK;
+>> +                     goto error_and_stop;
+>> +             }
+>> +             status_ack |= ASPEED_I2CD_INTR_TX_ACK;
+>> +             if (msg->len == 0) { /* SMBUS_QUICK */
+>> +                     aspeed_i2c_do_stop(bus);
+>> +                     goto out_no_complete;
+>> +             }
+>> +             if (msg->flags & I2C_M_RD)
+>> +                     bus->master_state =
+>> ASPEED_I2C_MASTER_RX_FIRST;
+>> +             else
+>> +                     bus->master_state =
+>> ASPEED_I2C_MASTER_TX_FIRST;
+>> +     }
+>> +
+>> +     switch (bus->master_state) {
+>> +     case ASPEED_I2C_MASTER_TX:
+>> +             if (unlikely(irq_status & ASPEED_I2CD_INTR_TX_NAK))
+>> {
+>> +                     dev_dbg(bus->dev, "slave NACKed TX");
+>> +                     status_ack |= ASPEED_I2CD_INTR_TX_NAK;
+>> +                     goto error_and_stop;
+>> +             } else if (unlikely(!(irq_status &
+>> ASPEED_I2CD_INTR_TX_ACK))) {
+>> +                     dev_err(bus->dev, "slave failed to ACK TX");
+>> +                     goto error_and_stop;
+>> +             }
+>> +             status_ack |= ASPEED_I2CD_INTR_TX_ACK;
+>> +             /* fallthrough intended */
+>> +     case ASPEED_I2C_MASTER_TX_FIRST:
+>> +             if (bus->buf_index < msg->len) {
+>> +                     bus->master_state = ASPEED_I2C_MASTER_TX;
+>> +                     writel(msg->buf[bus->buf_index++],
+>> +                            bus->base + ASPEED_I2C_BYTE_BUF_REG);
+>> +                     writel(ASPEED_I2CD_M_TX_CMD,
+>> +                            bus->base + ASPEED_I2C_CMD_REG);
+>> +             } else {
+>> +                     aspeed_i2c_next_msg_or_stop(bus);
+>> +             }
+>> +             goto out_no_complete;
+>> +     case ASPEED_I2C_MASTER_RX_FIRST:
+>> +             /* RX may not have completed yet (only address
+>> cycle) */
+>> +             if (!(irq_status & ASPEED_I2CD_INTR_RX_DONE))
+>> +                     goto out_no_complete;
+>> +             /* fallthrough intended */
+>> +     case ASPEED_I2C_MASTER_RX:
+>> +             if (unlikely(!(irq_status &
+>> ASPEED_I2CD_INTR_RX_DONE))) {
+>> +                     dev_err(bus->dev, "master failed to RX");
+>> +                     goto error_and_stop;
+>> +             }
+>> +             status_ack |= ASPEED_I2CD_INTR_RX_DONE;
+>> +
+>> +             recv_byte = readl(bus->base +
+>> ASPEED_I2C_BYTE_BUF_REG) >> 8;
+>> +             msg->buf[bus->buf_index++] = recv_byte;
+>> +
+>> +             if (msg->flags & I2C_M_RECV_LEN) {
+>> +                     if (unlikely(recv_byte >
+>> I2C_SMBUS_BLOCK_MAX)) {
+>> +                             bus->cmd_err = -EPROTO;
+>> +                             aspeed_i2c_do_stop(bus);
+>> +                             goto out_no_complete;
+>> +                     }
+>> +                     msg->len = recv_byte +
+>> +                                     ((msg->flags &
+>> I2C_CLIENT_PEC) ? 2 : 1);
+>> +                     msg->flags &= ~I2C_M_RECV_LEN;
+>> +             }
+>> +
+>> +             if (bus->buf_index < msg->len) {
+>> +                     bus->master_state = ASPEED_I2C_MASTER_RX;
+>> +                     command = ASPEED_I2CD_M_RX_CMD;
+>> +                     if (bus->buf_index + 1 == msg->len)
+>> +                             command |=
+>> ASPEED_I2CD_M_S_RX_CMD_LAST;
+>> +                     writel(command, bus->base +
+>> ASPEED_I2C_CMD_REG);
+>> +             } else {
+>> +                     aspeed_i2c_next_msg_or_stop(bus);
+>> +             }
+>> +             goto out_no_complete;
+>> +     case ASPEED_I2C_MASTER_STOP:
+>> +             if (unlikely(!(irq_status &
+>> ASPEED_I2CD_INTR_NORMAL_STOP))) {
+>> +                     dev_err(bus->dev, "master failed to STOP");
+>> +                     bus->cmd_err = -EIO;
+>> +                     /* Do not STOP as we have already tried. */
+>> +             } else {
+>> +                     status_ack |= ASPEED_I2CD_INTR_NORMAL_STOP;
+>> +             }
+>> +
+>> +             bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
+>> +             goto out_complete;
+>> +     case ASPEED_I2C_MASTER_INACTIVE:
+>> +             dev_err(bus->dev,
+>> +                     "master received interrupt 0x%08x, but is
+>> inactive",
+>> +                     irq_status);
+>> +             bus->cmd_err = -EIO;
+>> +             /* Do not STOP as we should be inactive. */
+>> +             goto out_complete;
+>> +     default:
+>> +             WARN(1, "unknown master state\n");
+>> +             bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
+>> +             bus->cmd_err = -EIO;
+>> +             goto out_complete;
+>> +     }
+>> +error_and_stop:
+>> +     bus->cmd_err = -EIO;
+>> +     aspeed_i2c_do_stop(bus);
+>> +     goto out_no_complete;
+>> +out_complete:
+>> +     bus->msgs = NULL;
+>> +     if (bus->cmd_err)
+>> +             bus->master_xfer_result = bus->cmd_err;
+>> +     else
+>> +             bus->master_xfer_result = bus->msgs_index + 1;
+>> +     complete(&bus->cmd_complete);
+>> +out_no_complete:
+>> +     if (irq_status != status_ack)
+>> +             dev_err(bus->dev,
+>> +                     "irq handled != irq. expected 0x%08x, but
+>> was 0x%08x\n",
+>> +                     irq_status, status_ack);
+>> +     spin_unlock(&bus->lock);
+>> +     return !!irq_status;
+>> +}
+>> +
+>> +static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
+>> +{
+>> +     struct aspeed_i2c_bus *bus = dev_id;
+>> +
+>> +     if (aspeed_i2c_master_irq(bus))
+>> +             return IRQ_HANDLED;
+>> +     else
+>> +             return IRQ_NONE;
+>> +}
+>> +
+>> +static int aspeed_i2c_master_xfer(struct i2c_adapter *adap,
+>> +                               struct i2c_msg *msgs, int num)
+>> +{
+>> +     struct aspeed_i2c_bus *bus = adap->algo_data;
+>> +     unsigned long time_left, flags;
+>> +     int ret = 0;
+>> +
+>> +     spin_lock_irqsave(&bus->lock, flags);
+>> +     bus->cmd_err = 0;
+>> +
+>> +     /* If bus is busy, attempt recovery. We assume a single
+>> master
+>> +      * environment.
+>> +      */
+>> +     if (readl(bus->base + ASPEED_I2C_CMD_REG) &
+>> ASPEED_I2CD_BUS_BUSY_STS) {
+>> +             spin_unlock_irqrestore(&bus->lock, flags);
+>> +             ret = aspeed_i2c_recover_bus(bus);
+>> +             if (ret)
+>> +                     return ret;
+>> +             spin_lock_irqsave(&bus->lock, flags);
+>> +     }
+>> +
+>> +     bus->cmd_err = 0;
+>> +     bus->msgs = msgs;
+>> +     bus->msgs_index = 0;
+>> +     bus->msgs_count = num;
+>> +
+>> +     reinit_completion(&bus->cmd_complete);
+>> +     aspeed_i2c_do_start(bus);
+>> +     spin_unlock_irqrestore(&bus->lock, flags);
+>> +
+>> +     time_left = wait_for_completion_timeout(&bus->cmd_complete,
+>> +                                             bus->adap.timeout);
+>> +
+>> +     if (time_left == 0)
+>> +             return -ETIMEDOUT;
+>> +     else
+>> +             return bus->master_xfer_result;
+>> +}
+>> +
+>> +static u32 aspeed_i2c_functionality(struct i2c_adapter *adap)
+>> +{
+>> +     return I2C_FUNC_I2C | I2C_FUNC_SMBUS_EMUL |
+>> I2C_FUNC_SMBUS_BLOCK_DATA;
+>> +}
+>> +
+>> +static const struct i2c_algorithm aspeed_i2c_algo = {
+>> +     .master_xfer    = aspeed_i2c_master_xfer,
+>> +     .functionality  = aspeed_i2c_functionality,
+>> +};
+>> +
+>> +static u32 aspeed_i2c_get_clk_reg_val(u32 divisor)
+>> +{
+>> +     u32 base_clk, clk_high, clk_low, tmp;
+>> +
+>> +     /*
+>> +      * The actual clock frequency of SCL is:
+>> +      *      SCL_freq = APB_freq / (base_freq * (SCL_high +
+>> SCL_low))
+>> +      *               = APB_freq / divisor
+>> +      * where base_freq is a programmable clock divider; its
+>> value is
+>> +      *      base_freq = 1 << base_clk
+>> +      * SCL_high is the number of base_freq clock cycles that SCL
+>> stays high
+>> +      * and SCL_low is the number of base_freq clock cycles that
+>> SCL stays
+>> +      * low for a period of SCL.
+>> +      * The actual register has a minimum SCL_high and SCL_low
+>> minimum of 1;
+>> +      * thus, they start counting at zero. So
+>> +      *      SCL_high = clk_high + 1
+>> +      *      SCL_low  = clk_low + 1
+>> +      * Thus,
+>> +      *      SCL_freq = APB_freq /
+>> +      *              ((1 << base_clk) * (clk_high + 1 + clk_low
+>> + 1))
+>> +      * The documentation recommends clk_high >= 8 and clk_low >=
+>> 7 when
+>> +      * possible; this last constraint gives us the following
+>> solution:
+>> +      */
+>> +     base_clk = divisor > 33 ? ilog2((divisor - 1) / 32) + 1 : 0;
+>> +     tmp = divisor / (1 << base_clk);
+>> +     clk_high = tmp / 2 + tmp % 2;
+>> +     clk_low = tmp - clk_high;
+>> +
+>> +     clk_high -= 1;
+>> +     clk_low -= 1;
+>> +
+>> +     return ((clk_high << ASPEED_I2CD_TIME_SCL_HIGH_SHIFT)
+>> +             & ASPEED_I2CD_TIME_SCL_HIGH_MASK)
+>> +                     | ((clk_low <<
+>> ASPEED_I2CD_TIME_SCL_LOW_SHIFT)
+>> +                        & ASPEED_I2CD_TIME_SCL_LOW_MASK)
+>> +                     | (base_clk &
+>> ASPEED_I2CD_TIME_BASE_DIVISOR_MASK);
+>> +}
+>> +
+>> +/* precondition: bus.lock has been acquired. */
+>> +static int aspeed_i2c_init_clk(struct aspeed_i2c_bus *bus)
+>> +{
+>> +     u32 divisor, clk_reg_val;
+>> +
+>> +     divisor = bus->parent_clk_frequency / bus->bus_frequency;
+>> +     clk_reg_val = aspeed_i2c_get_clk_reg_val(divisor);
+>> +     writel(clk_reg_val, bus->base + ASPEED_I2C_AC_TIMING_REG1);
+>> +     writel(ASPEED_NO_TIMEOUT_CTRL, bus->base +
+>> ASPEED_I2C_AC_TIMING_REG2);
+>> +
+>> +     return 0;
+>> +}
+>> +
+>> +/* precondition: bus.lock has been acquired. */
+>> +static int aspeed_i2c_init(struct aspeed_i2c_bus *bus,
+>> +                          struct platform_device *pdev)
+>> +{
+>> +     u32 fun_ctrl_reg = ASPEED_I2CD_MASTER_EN;
+>> +     int ret;
+>> +
+>> +     /* Disable everything. */
+>> +     writel(0, bus->base + ASPEED_I2C_FUN_CTRL_REG);
+>> +
+>> +     ret = aspeed_i2c_init_clk(bus);
+>> +     if (ret < 0)
+>> +             return ret;
+>> +
+>> +     if (!of_property_read_bool(pdev->dev.of_node, "multi-
+>> master"))
+>> +             fun_ctrl_reg |= ASPEED_I2CD_MULTI_MASTER_DIS;
+>> +
+>> +     /* Enable Master Mode */
+>> +     writel(readl(bus->base + ASPEED_I2C_FUN_CTRL_REG) |
+>> fun_ctrl_reg,
+>> +            bus->base + ASPEED_I2C_FUN_CTRL_REG);
+>> +
+>> +     /* Set interrupt generation of I2C controller */
+>> +     writel(ASPEED_I2CD_INTR_ALL, bus->base +
+>> ASPEED_I2C_INTR_CTRL_REG);
+>> +
+>> +     return 0;
+>> +}
+>> +
+>> +static int aspeed_i2c_reset(struct aspeed_i2c_bus *bus)
+>> +{
+>> +     struct platform_device *pdev = to_platform_device(bus->dev);
+>> +     unsigned long flags;
+>> +     int ret;
+>> +
+>> +     spin_lock_irqsave(&bus->lock, flags);
+>> +
+>> +     /* Disable and ack all interrupts. */
+>> +     writel(0, bus->base + ASPEED_I2C_INTR_CTRL_REG);
+>> +     writel(0xffffffff, bus->base + ASPEED_I2C_INTR_STS_REG);
+>> +
+>> +     ret = aspeed_i2c_init(bus, pdev);
+>> +
+>> +     spin_unlock_irqrestore(&bus->lock, flags);
+>> +
+>> +     return ret;
+>> +}
+>> +
+>> +static int aspeed_i2c_probe_bus(struct platform_device *pdev)
+>> +{
+>> +     struct aspeed_i2c_bus *bus;
+>> +     struct clk *parent_clk;
+>> +     struct resource *res;
+>> +     int ret;
+>> +
+>> +     bus = devm_kzalloc(&pdev->dev, sizeof(*bus), GFP_KERNEL);
+>> +     if (!bus)
+>> +             return -ENOMEM;
+>> +
+>> +     res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+>> +     bus->base = devm_ioremap_resource(&pdev->dev, res);
+>> +     if (IS_ERR(bus->base))
+>> +             return PTR_ERR(bus->base);
+>> +
+>> +     parent_clk = devm_clk_get(&pdev->dev, NULL);
+>> +     if (IS_ERR(parent_clk))
+>> +             return PTR_ERR(parent_clk);
+>> +     bus->parent_clk_frequency = clk_get_rate(parent_clk);
+>> +     /* We just need the clock rate, we don't actually use the
+>> clk object. */
+>> +     devm_clk_put(&pdev->dev, parent_clk);
+>> +
+>> +     ret = of_property_read_u32(pdev->dev.of_node,
+>> +                                "bus-frequency", &bus-
+>> >bus_frequency);
+>> +     if (ret < 0) {
+>> +             dev_err(&pdev->dev,
+>> +                     "Could not read bus-frequency property\n");
+>> +             bus->bus_frequency = 100000;
+>> +     }
+>> +
+>> +     /* Initialize the I2C adapter */
+>> +     spin_lock_init(&bus->lock);
+>> +     init_completion(&bus->cmd_complete);
+>> +     bus->adap.owner = THIS_MODULE;
+>> +     bus->adap.retries = 0;
+>> +     bus->adap.timeout = 5 * HZ;
+>> +     bus->adap.algo = &aspeed_i2c_algo;
+>> +     bus->adap.algo_data = bus;
+>> +     bus->adap.dev.parent = &pdev->dev;
+>> +     bus->adap.dev.of_node = pdev->dev.of_node;
+>> +     strlcpy(bus->adap.name, pdev->name, sizeof(bus->adap.name));
+>> +
+>> +     bus->dev = &pdev->dev;
+>> +
+>> +     /* Clean up any left over interrupt state. */
+>> +     writel(0, bus->base + ASPEED_I2C_INTR_CTRL_REG);
+>> +     writel(0xffffffff, bus->base + ASPEED_I2C_INTR_STS_REG);
+>> +     /*
+>> +      * bus.lock does not need to be held because the interrupt
+>> handler has
+>> +      * not been enabled yet.
+>> +      */
+>> +     ret = aspeed_i2c_init(bus, pdev);
+>> +     if (ret < 0)
+>> +             return ret;
+>> +
+>> +     bus->irq = irq_of_parse_and_map(pdev->dev.of_node, 0);
+>> +     ret = devm_request_irq(&pdev->dev, bus->irq,
+>> aspeed_i2c_bus_irq,
+>> +                            0, dev_name(&pdev->dev), bus);
+>> +     if (ret < 0)
+>> +             return ret;
+>> +
+>> +     ret = i2c_add_adapter(&bus->adap);
+>> +     if (ret < 0)
+>> +             return ret;
+>> +
+>> +     platform_set_drvdata(pdev, bus);
+>> +
+>> +     dev_info(bus->dev, "i2c bus %d registered, irq %d\n",
+>> +              bus->adap.nr, bus->irq);
+>> +
+>> +     return 0;
+>> +}
+>> +
+>> +static int aspeed_i2c_remove_bus(struct platform_device *pdev)
+>> +{
+>> +     struct aspeed_i2c_bus *bus = platform_get_drvdata(pdev);
+>> +     unsigned long flags;
+>> +
+>> +     spin_lock_irqsave(&bus->lock, flags);
+>> +
+>> +     /* Disable everything. */
+>> +     writel(0, bus->base + ASPEED_I2C_FUN_CTRL_REG);
+>> +     writel(0, bus->base + ASPEED_I2C_INTR_CTRL_REG);
+>> +
+>> +     spin_unlock_irqrestore(&bus->lock, flags);
+>> +
+>> +     i2c_del_adapter(&bus->adap);
+>> +
+>> +     return 0;
+>> +}
+>> +
+>> +static const struct of_device_id aspeed_i2c_bus_of_table[] = {
+>> +     { .compatible = "aspeed,ast2400-i2c-bus", },
+>> +     { .compatible = "aspeed,ast2500-i2c-bus", },
+>> +     { },
+>> +};
+>> +MODULE_DEVICE_TABLE(of, aspeed_i2c_bus_of_table);
+>> +
+>> +static struct platform_driver aspeed_i2c_bus_driver = {
+>> +     .probe          = aspeed_i2c_probe_bus,
+>> +     .remove         = aspeed_i2c_remove_bus,
+>> +     .driver         = {
+>> +             .name           = "aspeed-i2c-bus",
+>> +             .of_match_table = aspeed_i2c_bus_of_table,
+>> +     },
+>> +};
+>> +module_platform_driver(aspeed_i2c_bus_driver);
+>> +
+>> +MODULE_AUTHOR("Brendan Higgins <brendanhiggins@google.com>");
+>> +MODULE_DESCRIPTION("Aspeed I2C Bus Driver");
+>> +MODULE_LICENSE("GPL v2");
