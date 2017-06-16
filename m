@@ -1,53 +1,50 @@
 Return-Path: <venture@google.com>
-Received: from mail-pg0-x236.google.com (mail-pg0-x236.google.com
- [IPv6:2607:f8b0:400e:c05::236])
+Received: from mail-pf0-x235.google.com (mail-pf0-x235.google.com
+ [IPv6:2607:f8b0:400e:c00::235])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wq3C02zfXzDq88
- for <openbmc@lists.ozlabs.org>; Sat, 17 Jun 2017 00:48:12 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wq3bN6lnkzDq8B
+ for <openbmc@lists.ozlabs.org>; Sat, 17 Jun 2017 01:05:52 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="POuo/3tB"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="DznvNQfM"; 
  dkim-atps=neutral
-Received: by mail-pg0-x236.google.com with SMTP id v18so21374618pgb.1
- for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 07:48:11 -0700 (PDT)
+Received: by mail-pf0-x235.google.com with SMTP id 83so23639522pfr.0
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 08:05:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=jd0HrUqfcplhqyrzQ+SNxbOHooDlM/DVAD3bHVCfEVg=;
- b=POuo/3tBKXC2kOkIMs/aEoNvOyIpfaA11lRHcsDCN9jB3DDzV0Qj6+WUd86tkOFM+f
- Y6VjdHV+kybXUcgnfeIGVZ79b8hgNGVpCNJyhRjF6Twt+3n3oSRcNdjAv5QZzrNPWdOe
- WtIx+6LrSZfBHssOdvAXFJTac252GpG0alITjZIwZTl8sizg9IeJx+6vxaABHufxQcj5
- v2FqRSHZIJxCkqcVtcmu3p6rDdzErwnYaNnshzJzO7V93e1Elp/fXSvbEb2RIHnXZ6fh
- Fpgg9BFmvnEGZd5Svuiiusf8ItwVMQ2UReHnPTpGAsTxJY8QzI3TkkOjXQjTMQJlLY2C
- 6Szw==
+ h=from:to:subject:date:message-id;
+ bh=TeuPABiNO2xbus/6T+oohGSSeo9NaH3/Sa0r2Eh66rg=;
+ b=DznvNQfM9FCEA1YYOTOhyULkeSxCBizK9Kgc4S2SdHFcY8QjAhzr+4fNPZzf9DzY0u
+ D/szgArVOQtmM++ISFIh8FPomY8qq4zt56k4TmRRu1tBP4T4rlEQS0/tGTdlPlrkWrxA
+ a9QWH0rybP8oYWUxQHQsFAlAvuCv1cbk1U1CajWmaygSRLnBwe2HMOSGhXrwP3mEV5Vr
+ YGF+9UzuSA/APXLh1NTHO164DfjvpKBv3P5WnTvyLde6g8SUrPF9TiAeEqE3x3hkNCfj
+ rJw6HpZKfg2sUElITwX1vSTHYrIntkpKGgCK70vyTd/mmttKF0tQB5eBa79bgrysYKT+
+ kjOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=jd0HrUqfcplhqyrzQ+SNxbOHooDlM/DVAD3bHVCfEVg=;
- b=sPP1re62JG0R0NDOYep0IeMcXJ0zy6u927PYnoucp9GAHUOzC2D7T5uKTZ2S1xlOb6
- I9UqRYywgMR+k3xwR6+o/FtfxrN1OQoOOD9UYZjvwovPCrhzIlK5LUSipgB6T6PR2eUI
- scle33JRnG5PFEK/ZcPj/AL3W+A0WvuaGai0JwOv1pFUemWgpzs+SJElxBVw2crg+VaN
- B/TWgdTYiUHuUmsEYHJC+ZM4iMQLkzonKdID7D0V3gfp6qizlSL4oGeQW2NzONhraaXF
- +T0OTZU0vLR/f19OKk9DllbGmh2sn08/oB12SW35Zp5u2CDEsvdSFwgqe2LcwVksBZDQ
- BO+Q==
-X-Gm-Message-State: AKS2vOzIm9vUTQppi0yrHFBPv9hIKep/HMClgpvqfhmcSB35oFP/172T
- gie4ZSQuSkKv7cjsgsjVELAULk9e2eY6
-X-Received: by 10.98.34.8 with SMTP id i8mr11539199pfi.194.1497624489705; Fri,
- 16 Jun 2017 07:48:09 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.100.160.108 with HTTP; Fri, 16 Jun 2017 07:47:49 -0700 (PDT)
-In-Reply-To: <CACPK8Xe_MT6Ssq3XPF1EO-pzS89Ja-_PHPOtne7vttn7TVzaHg@mail.gmail.com>
-References: <20170613221019.100175-1-venture@google.com>
- <CACPK8Xe_MT6Ssq3XPF1EO-pzS89Ja-_PHPOtne7vttn7TVzaHg@mail.gmail.com>
+ h=x-gm-message-state:from:to:subject:date:message-id;
+ bh=TeuPABiNO2xbus/6T+oohGSSeo9NaH3/Sa0r2Eh66rg=;
+ b=WmEFk+iin8c1NYzpoE60DUPWuCrrwXpjp97fO99w39xi/+1h/6w/7oABDn1JD9IYDf
+ O5a8EoXZH2ZSaP+nIs7y9CrjqALHT5YjMY0CMe83tKotc98mfWA83Jtg1TKrBIOiH6SI
+ Nq5XO5qlotmSV1Z6kk0A4Euy+1lMdy7JQHdFSC4QLgk4Ii6g+YWd9qvH04nlZPl7Em4l
+ DNTSpPyf08h8/vYDjyKdYW8U3z94rHdr2vmi181g/tylw6SsmntoOZ5L7mLTreB88gBU
+ 7n+y7aaRJ6mv42sGrnc7MacxifGziNZkZHSvMiDjS3xdwBef+QthXi4V73X8+gce4qQy
+ nC4g==
+X-Gm-Message-State: AKS2vOyJUON1WFTjf+t8/BaxvxSWE6uEw7zCfSK80saz/x/wvkxg1Wt4
+ NKQVJ/n+qSaPq1pd
+X-Received: by 10.84.208.102 with SMTP id f35mr13194028plh.53.1497625549821;
+ Fri, 16 Jun 2017 08:05:49 -0700 (PDT)
+Received: from venture.svl.corp.google.com ([100.123.242.104])
+ by smtp.gmail.com with ESMTPSA id d71sm6222372pfe.106.2017.06.16.08.05.49
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Fri, 16 Jun 2017 08:05:49 -0700 (PDT)
 From: Patrick Venture <venture@google.com>
-Date: Fri, 16 Jun 2017 07:47:49 -0700
-Message-ID: <CAO=notxv7eoNBv8=rdCYA+EoxJheKDFbWzycDSuh+f1KkXVgCg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 v2 4/4] ARM: dts: aspeed: quanta-q71l: PDB
- FRU and mux on the PDB in front of the PSUs.
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Rick Altherr <raltherr@google.com>
-Content-Type: text/plain; charset="UTF-8"
+To: venture@google.com, joel@jms.id.au, openbmc@lists.ozlabs.org,
+ raltherr@google.com
+Subject: [PATCH linux dev-4.10] ARM: dts: aspeed: quanta-q71l: i2c-mux compat
+ fix
+Date: Fri, 16 Jun 2017 08:05:40 -0700
+Message-Id: <20170616150540.137808-1-venture@google.com>
+X-Mailer: git-send-email 2.13.1.518.g3df882009-goog
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,90 +56,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Jun 2017 14:48:13 -0000
+X-List-Received-Date: Fri, 16 Jun 2017 15:05:53 -0000
 
-Joel;
+Updating compatibility string from 4.7 to 4.10 version of driver.
 
-Thanks!  This was my first patch email series, so I appreciate your
-help.  So I ran into something last night while reviewing something
-that jumped out at me.  I'll need to send a new patch for the quanta
-dts momentarily to address this.  In linux-4.7 the i2c-mux driver
-pca9546 had a different compatibility string from 4.10.  Since we
-don't own those devices on our BMC image in testing (we're mastering
-them from the host via i2c over IPMI),  So, let me submit a patch to
-fix that.
+Signed-off-by: Patrick Venture <venture@google.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Patrick
-
-On Thu, Jun 15, 2017 at 9:51 PM, Joel Stanley <joel@jms.id.au> wrote:
-> Hi Patrick,
->
-> On Wed, Jun 14, 2017 at 7:40 AM, Patrick Venture <venture@google.com> wrote:
->> Signed-off-by: Patrick Venture <venture@google.com>
->> ---
->>  arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts | 20 +++++++++++++++++++-
->
-> I had some issues with conflicts between the 4 patch series and the
-> two patches you'd sent before then. So merged all of your device tree
-> changes for the Q71L as one patch.
->
-> Next time you're sending changes that may conflict, put them all in
-> the same series. It's okay to send a v2 of the series with additional
-> patches added.
->
-> Also, in the case of your patch #4 where you needed to make a fix,
-> it's convention to re-send the entire series. No worries this time
-> though, I got it sorted in the end.
->
-> I noticed we did not have the dts added to the Makefile, so it was not
-> building. I fixed that too. Please take a look a the tree and make
-> sure all of the device tree nodes are in there as you expect them to
-> be.
->
-> Cheers,
->
-> Joel
->
->>  1 file changed, 19 insertions(+), 1 deletion(-)
->>
->> diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
->> index 4b5047b5d592..2b01c5bcc88b 100644
->> --- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
->> +++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
->> @@ -145,7 +145,7 @@
->>          *    SSD 1,
->>          *    SSD 2
->>          */
->> -       i2cswitch@77 {
->> +       i2c-switch@77 {
->>                 compatible = "pca9548";
->>                 #address-cells = <1>;
->>                 #size-cells = <0>;
->> @@ -177,6 +177,24 @@
->>
->>  &i2c7 {
->>         status = "okay";
->> +
->> +       /* 0: PSU4
->> +        *    PSU1
->> +        *    PSU3
->> +        *    PSU2
->> +        */
->> +       i2c-switch@70 {
->> +               compatible = "pca9546";
->> +               reg = <0x70>;
->> +               #address-cells = <1>;
->> +               #size-cells = <0>;
->> +       };
->> +
->> +       /* PDB FRU */
->> +       eeprom@52 {
->> +               compatible = "atmel,24c64";
->> +               reg = <0x52>;
->> +       };
->>  };
->>
->>  &i2c8 {
->> --
->> 2.13.1.518.g3df882009-goog
->>
+diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+index d5febe330121..a73d33d4ce90 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+@@ -164,7 +164,7 @@
+ 	 *    Slot 7
+ 	 */
+ 	i2c-switch@74 {
+-		compatible = "pca9546";
++		compatible = "nxp,pca9546";
+ 		reg = <0x74>;
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+@@ -180,7 +180,7 @@
+ 	 *    SSD 2
+ 	 */
+ 	i2c-switch@77 {
+-		compatible = "pca9548";
++		compatible = "nxp,pca9548";
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+ 		reg = <0x77>;
+@@ -218,7 +218,7 @@
+ 	 *    PSU2
+ 	 */
+ 	i2c-switch@70 {
+-		compatible = "pca9546";
++		compatible = "nxp,pca9546";
+ 		reg = <0x70>;
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+-- 
+2.13.1.518.g3df882009-goog
