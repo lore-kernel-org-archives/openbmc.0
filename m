@@ -1,33 +1,61 @@
-Return-Path: <clg@kaod.org>
-Received: from 8.mo3.mail-out.ovh.net (8.mo3.mail-out.ovh.net [87.98.172.249])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wq5cT5YnkzDq8B
- for <openbmc@lists.ozlabs.org>; Sat, 17 Jun 2017 02:36:57 +1000 (AEST)
-Received: from player771.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo3.mail-out.ovh.net (Postfix) with ESMTP id A8A67EB95B
- for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 18:27:15 +0200 (CEST)
-Received: from zorba.kaod.org (LFbn-1-10652-153.w90-89.abo.wanadoo.fr
- [90.89.238.153]) (Authenticated sender: postmaster@kaod.org)
- by player771.ha.ovh.net (Postfix) with ESMTPSA id 92C60840089;
- Fri, 16 Jun 2017 18:27:12 +0200 (CEST)
-Subject: Re: [PATCH] ARM: dts: witherspoon: enable wdt2
-To: Matt Spinler <mspinler@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-References: <20170616161229.6639-1-mspinler@linux.vnet.ibm.com>
+Return-Path: <mspinler@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wqC4p02ZvzDqLt
+ for <openbmc@lists.ozlabs.org>; Sat, 17 Jun 2017 06:43:21 +1000 (AEST)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v5GKdbx2116869
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 16:43:18 -0400
+Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2b4pjbg2jq-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 16:43:18 -0400
+Received: from localhost
+ by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
+ Fri, 16 Jun 2017 14:43:17 -0600
+Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
+ by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Fri, 16 Jun 2017 14:43:16 -0600
+Received: from b03ledav001.gho.boulder.ibm.com
+ (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
+ by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v5GKhFop8061394; Fri, 16 Jun 2017 13:43:15 -0700
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 3F2526E038;
+ Fri, 16 Jun 2017 14:43:15 -0600 (MDT)
+Received: from twohearted.rchland.ibm.com (unknown [9.10.99.32])
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP id EF7366E03F;
+ Fri, 16 Jun 2017 14:43:14 -0600 (MDT)
+From: Matt Spinler <mspinler@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
 Cc: Matt Spinler <spinler@us.ibm.com>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <58d6b0bd-13cb-f161-661a-fbb8ab8e6f6b@kaod.org>
-Date: Fri, 16 Jun 2017 18:27:07 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.8.0
-MIME-Version: 1.0
-In-Reply-To: <20170616161229.6639-1-mspinler@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-X-Ovh-Tracer-Id: 496240386260241336
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeeljedrjeelgddutdefucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+Subject: [PATCH] ARM: dts: witherspoon: enable wdt2
+Date: Fri, 16 Jun 2017 15:43:30 -0500
+X-Mailer: git-send-email 2.13.0
+X-TM-AS-GCONF: 00
+x-cbid: 17061620-8235-0000-0000-00000BBC5FCE
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007245; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00875766; UDB=6.00436068; IPR=6.00655855; 
+ BA=6.00005425; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015856; XFM=3.00000015;
+ UTC=2017-06-16 20:43:17
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17061620-8236-0000-0000-00003C509B1B
+Message-Id: <20170616204330.25401-1-mspinler@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-06-16_11:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1706160348
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -39,46 +67,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Jun 2017 16:36:58 -0000
+X-List-Received-Date: Fri, 16 Jun 2017 20:43:22 -0000
 
-On 06/16/2017 06:12 PM, Matt Spinler wrote:
-> From: Matt Spinler <spinler@us.ibm.com>
-> 
-> WDT1 is used for a fan watchdog, so enable WDT2
-> for use by others.
-> 
-> Signed-off-by: Matt Spinler <spinler@us.ibm.com>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> index 99003b9fb54b..1c99e22b256b 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> @@ -84,6 +84,10 @@
->  
->  #include "ibm-power9-cfam.dtsi"
->  
-> +&wdt2 {
-> +    status = "okay";
-> +};
-> +
->  &fmc {
->  	status = "okay";
->  	flash@0 {
-> @@ -367,7 +371,7 @@
->  			type = <PCA955X_TYPE_GPIO>;
->  		};
->  		gpio@14 {
-> -			reg = <14>;
-> +			reg = <14>;./arch/arm/boot/dts/
+From: Matt Spinler <spinler@us.ibm.com>
 
-may be not ? :)
+WDT1 is used for a fan watchdog, so enable WDT2
+for use by others.
 
-C. 
+Signed-off-by: Matt Spinler <spinler@us.ibm.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 4 ++++
+ 1 file changed, 4 insertions(+)
 
->  			type = <PCA955X_TYPE_GPIO>;
->  		};
->  		gpio@15 {
-> 
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index 99003b9fb54b..d1c455606a32 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -84,6 +84,10 @@
+ 
+ #include "ibm-power9-cfam.dtsi"
+ 
++&wdt2 {
++    status = "okay";
++};
++
+ &fmc {
+ 	status = "okay";
+ 	flash@0 {
+-- 
+2.13.0
