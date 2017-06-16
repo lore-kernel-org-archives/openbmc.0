@@ -1,56 +1,57 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x244.google.com (mail-yb0-x244.google.com
- [IPv6:2607:f8b0:4002:c09::244])
+Received: from mail-yb0-x243.google.com (mail-yb0-x243.google.com
+ [IPv6:2607:f8b0:4002:c09::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wppPj72F3zDq8B
- for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 15:11:37 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wppz14hySzDq8M
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 15:37:01 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="DxAJ62bd"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="A2mj42P7"; 
  dkim-atps=neutral
-Received: by mail-yb0-x244.google.com with SMTP id p198so1278574yba.2
- for <openbmc@lists.ozlabs.org>; Thu, 15 Jun 2017 22:11:37 -0700 (PDT)
+Received: by mail-yb0-x243.google.com with SMTP id j65so1297406ybj.3
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Jun 2017 22:37:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=LlKjS/Av+Z5C2+yn/ubyC4tGHf36A7fYCT9P6e63uQ8=;
- b=DxAJ62bda2D4CWxNtuVUfxQ5Z4f6KrLCB9dXXjLtwiBagSiqS7ljwxiXkU6g9p+y2u
- /LutaRO6gzI1ekgniV7s6u47GY8UUhAHA37wD6QtU3Sp4fL/6aJfCoa9q/enu25MgkZb
- /CPOwKeiixEX4FWk1AslBBlCZTdNvwd+oIIWpCmZK3nQFfTIyPPiBWqtAysIuy1I+uo9
- mJwJxYmV+5ckbpyGstaJ32hzohyNgisuZ5h3r6Vm5OrXsuWlOcCLeUZz0QVVftTjGZhh
- klK3HXnygShaZmRy5aHiHYQjVIVTrkjAFug717kvg8v7ozrAIVZo0ZImFtnEGv7GiftC
- dUvQ==
+ :subject:to:cc:content-transfer-encoding;
+ bh=/O6WAMtmIFMH/Spjp+gqLMIjEDglLwkreZYWeAHsuio=;
+ b=A2mj42P7m4bKf4nPXTG6KgHDMiIoACVB/haG6kb3E/YzHhEBzv09PvTtM5NbKGb4Yu
+ 5AzjQw3cN2AmQvQ+nS6EyG8LzGI9CV2eFRyuQEi63TGf5McMtHBjBKzBvBRky6jHuzYX
+ Rb31/6aBrneHBvwjzDbEsD+xVp2hr3voQkPSr45Q0rn3EOt8Osym0vXQQhQyMiKAHnsG
+ E5pEdt4VePbQvl96J38CDrOP6AJrt7KWYaXKIXfB6BQbGnlQ/H6IhuPD2ERT1/lYCT9w
+ 9mIAUR37d789x7Eo5TiMoLH//iAN8Ow4nWUtiIRPV4TB0V/eWyVH4a2e9yA5lUVGfDOH
+ XRJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=LlKjS/Av+Z5C2+yn/ubyC4tGHf36A7fYCT9P6e63uQ8=;
- b=O5Mgm885Ey0e/ge/qtJIm6s6HNJVbTWX7uab45/MmOBiFdcZQS71DLKTdFZ8eG9m4g
- KNTrygZiU6Nvm10J9s8Q9TKcZ4sihlfDdsRl1jIWwkGJfkj9M8YSGha14jAm6U/kEx+a
- T1MZvnm7FaJfNgXo/2roJkmi6UcRc4SlJOzIw7g7qDA/CLAn0Y87wsVF5/Co15WBpEXQ
- ioZm2dij7bzceBBqWxN2HReS3eDxogNBDZmAPrx5A1+Pq2dd6LeYajv4H5/fCRDCf7kc
- eN8yUig2F9+dDbTLwCTbbsYZKB/WwVq5ax+VXgnwxnCvLlb2NqeaacvUZ8lh7yqn3B1w
- IAUQ==
-X-Gm-Message-State: AKS2vOzlbK8JaGBIQ+0cXVkSmkqEuDt1A2MLv7w0PtfQ0W4hN++wOBqk
- dma9aWwd2Mr56K7cbnqDWSvuSvfJfw==
-X-Received: by 10.37.88.193 with SMTP id m184mr6803345ybb.39.1497589895443;
- Thu, 15 Jun 2017 22:11:35 -0700 (PDT)
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=/O6WAMtmIFMH/Spjp+gqLMIjEDglLwkreZYWeAHsuio=;
+ b=iT60aTLy/5i4qAJ1c96MFZQDDZfXMSwbhyWlsoMknXq0vDX107dAnzeaBBQ7EKS/An
+ 3kCfHMW5raE8HHUvMkxvA/fg4G39fBm/jHV+vZh4k9MjjZN+gQ4E3ZM0Syl7erDEOUMg
+ WkZKaeWXU6PhCl+qTsCJg+aaei2spR4XdpfUrBriqHzE6jtlQiShTWv/7IMfHKGsYZBg
+ Vc9XB0LcI/U0Qgh8wYYfXGAYH4drpg4nY2w7amhlJbmVrZZ1YCKJi74Z1qGbzdp7uvg9
+ Cd7J+JWbjkIuLghOnnP2/lyJ1QLXOEzeJDJGd6dyyFKegl4yvgnVmfI95IHe+UakW43n
+ OZUw==
+X-Gm-Message-State: AKS2vOwrDRWZhHEcpmVzIfeHZs74xThg7/6RSZKTYylp/CHxB5dhUtwK
+ T3uqhGwMxsAPXZl9b/lfcPPeAzzDUA==
+X-Received: by 10.37.11.68 with SMTP id 65mr1790673ybl.94.1497591419531; Thu,
+ 15 Jun 2017 22:36:59 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.174.2 with HTTP; Thu, 15 Jun 2017 22:11:15 -0700 (PDT)
-In-Reply-To: <1497031265-29545-2-git-send-email-eajames@linux.vnet.ibm.com>
+Received: by 10.37.174.2 with HTTP; Thu, 15 Jun 2017 22:36:39 -0700 (PDT)
+In-Reply-To: <1497031265-29545-3-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1497031265-29545-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1497031265-29545-2-git-send-email-eajames@linux.vnet.ibm.com>
+ <1497031265-29545-3-git-send-email-eajames@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 16 Jun 2017 14:41:15 +0930
-X-Google-Sender-Auth: y6vHp6T41ymkLxoZUzuicOSKFEo
-Message-ID: <CACPK8XfqLvqiV-tCSoiaVjAfW7-bCkWcmM-kBw4ivo3PST-Puw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 v2 1/5] drivers: fsi: occ: Fix 1 byte
- response and rc for O_NONBLOCK
+Date: Fri, 16 Jun 2017 15:06:39 +0930
+X-Google-Sender-Auth: qpBUUAAxrmHeup9DaOUgUXbrJSI
+Message-ID: <CACPK8Xc9MNxxsj5EW8dyhtnSpbB9j4ayZAcO6ensPfRr9Q_K+w@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v2 2/5] drivers: hwmon: occ: Add new sensor
+ versions and non-hwmon attributes
 To: Eddie James <eajames@linux.vnet.ibm.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  "Edward A. James" <eajames@us.ibm.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,53 +63,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Jun 2017 05:11:38 -0000
+X-List-Received-Date: Fri, 16 Jun 2017 05:37:02 -0000
 
-On Sat, Jun 10, 2017 at 3:31 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
-> From: "Edward A. James" <eajames@us.ibm.com>
->
-> Couple of bug fixes.
->
-> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+On Sat, Jun 10, 2017 at 3:31 AM, Eddie James <eajames@linux.vnet.ibm.com> w=
+rote:
 
-Applied to dev-4.10.
-
-> ---
->  drivers/fsi/occ.c | 14 ++++++++------
->  1 file changed, 8 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/fsi/occ.c b/drivers/fsi/occ.c
-> index fc014b6..a1508f2 100644
-> --- a/drivers/fsi/occ.c
-> +++ b/drivers/fsi/occ.c
-> @@ -188,7 +188,7 @@ static ssize_t occ_read_common(struct occ_client *client, char __user *ubuf,
->
->         if (!test_bit(XFR_COMPLETE, &xfr->flags)) {
->                 if (test_bit(CLIENT_NONBLOCKING, &client->flags)) {
-> -                       rc = -ERESTARTSYS;
-> +                       rc = -EAGAIN;
->                         goto done;
->                 }
->
-> @@ -593,11 +593,13 @@ static void occ_worker(struct work_struct *work)
->                 goto done;
->         }
->
-> -       /* already got 3 bytes resp, also need 2 bytes checksum */
-> -       rc = occ_getsram(sbefifo, 0xFFFBF008, &xfr->buf[8],
-> -                        resp_data_length - 1);
-> -       if (rc)
-> -               goto done;
-> +       if (resp_data_length > 1) {
-> +               /* already got 3 bytes resp, also need 2 bytes checksum */
-> +               rc = occ_getsram(sbefifo, 0xFFFBF008, &xfr->buf[8],
-> +                                resp_data_length - 1);
-> +               if (rc)
-> +                       goto done;
+> +static ssize_t occ_show_status(struct device *dev,
+> +                              struct device_attribute *attr, char *buf)
+> +{
+> +       int rc;
+> +       int val;
+> +       struct occ *occ =3D dev_get_drvdata(dev);
+> +       struct occ_poll_response_header *header;
+> +       struct sensor_device_attribute *sattr =3D to_sensor_dev_attr(attr=
+);
+> +
+> +       rc =3D occ_update_response(occ);
+> +       if (rc)
+> +               return rc;
+> +
+> +       header =3D (struct occ_poll_response_header *)occ->resp.data;
+> +
+> +       switch (sattr->index) {
+> +       case 0:
+> +               val =3D header->status & OCC_STAT_ACTIVE;
+> +               break;
+> +       case 1:
+> +               val =3D header->ext_status & OCC_EXT_STAT_DVFS_OT;
+> +               break;
+> +       case 2:
+> +               val =3D header->ext_status & OCC_EXT_STAT_DVFS_POWER;
+> +               break;
+> +       case 3:
+> +               val =3D header->ext_status & OCC_EXT_STAT_MEM_THROTTLE;
+> +               break;
+> +       case 4:
+> +               val =3D header->ext_status & OCC_EXT_STAT_QUICK_DROP;
+> +               break;
+> +       case 5:
+> +               val =3D header->occ_state;
+> +               break;
 > +       }
->
->         xfr->resp_data_length = resp_data_length + 7;
->
-> --
-> 1.8.3.1
->
+> +
+> +       return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
+
+drivers/hwmon/occ/common.c: In function =E2=80=98occ_show_status=E2=80=99:
+drivers/hwmon/occ/common.c:258:9: warning: =E2=80=98val=E2=80=99 may be use=
+d
+uninitialized in this function [-Wmaybe-uninitialized]
+  return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Please fix this.
