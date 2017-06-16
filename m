@@ -1,58 +1,52 @@
-Return-Path: <andrew@aj.id.au>
-X-Greylist: delayed 338 seconds by postgrey-1.36 at bilbo;
- Fri, 16 Jun 2017 18:05:55 AEST
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="bHbB9XNz"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="nWGCa4EJ"; dkim-atps=neutral
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <geissonator@gmail.com>
+Received: from mail-io0-x22d.google.com (mail-io0-x22d.google.com
+ [IPv6:2607:f8b0:4001:c06::22d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wptGq1HJlzDq88
- for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 18:05:55 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 2944720881;
- Fri, 16 Jun 2017 04:00:15 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Fri, 16 Jun 2017 04:00:15 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=/ArFUUELdn+2eU3dk9P3djlqgnO0DUPIRhO0+0fHc
- 5M=; b=bHbB9XNzLHQkZx4eRiOm16feCAqLdpsZP0IMV39irNMMyjaiTiTUbPS3T
- Dt3uy4uOmKzKpIXjpbegBxmDBFS6DhPjhKZClHQ6wjWJDyIcunbK98JN+jo5p/vC
- YOZPGPAegQCdnHpc3deNCbYyC2sYndKtJfjH4uMYay1OGkspoixAbIHd/ROcP3Vw
- w/k4Oy3RBF+2uX49GO3807HYJHjKTDIAzgYndfl9pX9XF2/YSwRBstjpyiOJIKim
- t8Ob8w1rbJECuztDrcjfKZkLvqp6xuIhlRvlfNLzbgqLX/qeHgKsdy1hfmA8GH1O
- D8FoHL196+/f4zaSprAxIannGcLdA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:message-id:mime-version:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=/ArFUUELdn+2eU3dk9
- P3djlqgnO0DUPIRhO0+0fHc5M=; b=nWGCa4EJdoYla/daRWhZ072o9M4Pi8YdBH
- i3gr6qt7y9XWeMf7JNy1r2K0l7zn5hrd0l5WwLWmyUFXAH4ktFl8kyOqy8Me40ax
- kRcxU5yMtOmNfH9durKPgU5vv92pbCzhT+QVXNNJGnxT8hqeeE4s5/tYqwDFVatN
- dE+X3RxuUcabk2+x1P366hRoI+im9sj6qgBeuJtA7OhNNvaAudkKXa1Xh8R9FOtg
- TYiAgUIx16i6QldBPgA4lKDWLn5vA358ldiW+ts6dHfhUc+leUUjCgpuqYHz5k1q
- 43hoac0U9gWwIWgUDR6Yw8z/7tO0GROhSWNGhpJiRB7+MMYWNvEg==
-X-ME-Sender: <xms:D5BDWYn_jXTlXeF-yoeyIDqED5YShKjR3GZixbjffp-7RKJkADYpGw>
-X-Sasl-enc: jRkdtS0MOHJ1stOekUMe9DUumciCGT7fDb7PbvL2MGZm 1497600014
-Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id C5746249CF;
- Fri, 16 Jun 2017 04:00:12 -0400 (EDT)
-From: Andrew Jeffery <andrew@aj.id.au>
-To: joel@jms.id.au
-Cc: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org,
- eajames@linux.vnet.ibm.com
-Subject: [PATCH linux dev-4.10] hwmon: occ: Fix uninitialised variable warning
-Date: Fri, 16 Jun 2017 17:29:17 +0930
-Message-Id: <20170616075917.12356-1-andrew@aj.id.au>
-X-Mailer: git-send-email 2.11.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wq0kz0FPvzDq88
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 22:57:15 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ksqWzTbw"; 
+ dkim-atps=neutral
+Received: by mail-io0-x22d.google.com with SMTP id i7so29938694ioe.1
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 05:57:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=2sqg5Kqti8fiqfglkwdU+uNs48if3Ot48ZJRQnuef9g=;
+ b=ksqWzTbwWDTH1OL7vh1RZMLBKHgp35njCIVJnXHw+9bD3Dvp+koqbQidmUcJgCaQt2
+ 8JCAVocEnrGBLJKFTM/qh3GvKmegC/NDa7cn/NloVNoEDbkPkrYXhGvtRug8h1f1H5MO
+ 3B6kDPPaYO1HCAdlZI18LxbIWwcb1z+AgB8S/OebcpvyyImQRgqyljNa7sqTgLaQfJL8
+ rKDQVhFMqSkIJQNRy8IWruKTbZ7iCQcDotDyreE6Vdkm539T53xKy8Osy65OpS1NxVn5
+ oml4VOAQIZQ0S1YAk0kn3nXvGc9i5E6fClQHgJdTpt3WNxk2ns/+pSs/3cyE+8DVz/1k
+ YTbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=2sqg5Kqti8fiqfglkwdU+uNs48if3Ot48ZJRQnuef9g=;
+ b=NcemvrI8ZiQ1/DeO7f4EUBvea1TbHNHIAYcqJRfKi5cd1M2czqHUnmAFPZcdhZdRS7
+ qKU8li17+wjVSgz1wamPAi2U1njCAm3d9tfkdQeeJH974aOxbJDxQiUCkh4LLZaWD2q6
+ 8TOJKM2c1Ua0dgZp5l40qPBFv12SHxchkrhs73kbNFGeSCyj6yQMtOE+Komythg3NuQP
+ /lW8oCrtDc1nmJwndGObQWlD3aV/Gk6EM/ZRIIlHNgpNW9aEubTO8XZB4Axiz5gd7QLF
+ lALzc6wItxAw90jVMj/NpvEBsI57lslxIwLtN42xTM5IJ8TVYeGrmTA/PouUAO1b7FOt
+ MkTg==
+X-Gm-Message-State: AKS2vOyP36e4ZH1PwoTSz7gLOLpNDNiGq0jq3as9DtnY7XgfRZjLMPYV
+ mqrfIdbZZlbGBRVPN2RzwMRYgk+iQw==
+X-Received: by 10.107.17.21 with SMTP id z21mr9817791ioi.34.1497617831385;
+ Fri, 16 Jun 2017 05:57:11 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Received: by 10.107.133.40 with HTTP; Fri, 16 Jun 2017 05:57:10 -0700 (PDT)
+In-Reply-To: <1497582330728.74747@rackspace.com>
+References: <1497582330728.74747@rackspace.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Fri, 16 Jun 2017 07:57:10 -0500
+Message-ID: <CALLMt=qkjc31EyMv64_fpqaJoyrVB90tAoVvuuuUMMMBa195mQ@mail.gmail.com>
+Subject: Re: Changing Power Button behavior
+To: Adi Gangidi <adi.gangidi@rackspace.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ Chad Somerlot <chad.somerlot@rackspace.com>, 
+ Brad DeBauche <brad.debauche@rackspace.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -64,33 +58,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Jun 2017 08:05:56 -0000
+X-List-Received-Date: Fri, 16 Jun 2017 12:57:15 -0000
 
-Observed the following:
+Hey Adi, issues 771 and 776 track the refactoring work for the
+buttons.  If you want to take a stab at it the old code is out in
+skeleton, skeleton/pwrbutton/button_power_obj.c is for the button
+monitoring and signal generation,
+skeleton/pychassisctl/chassis_control.py for the handling  of the
+signal.
 
-      CC      drivers/hwmon/occ/common.o
-    drivers/hwmon/occ/common.c: In function ‘occ_show_status’:
-    drivers/hwmon/occ/common.c:262:9: warning: ‘val’ may be used uninitialized in this function [-Wmaybe-uninitialized]
-      return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
-             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+You'll want to make sure the POWER_BUTTON gpio is configured right for
+your system.  https://github.com/openbmc/openbmc/issues/1593 would
+also be something to look out for.  A quick glance shows
+chassis_control.py using the right targets for power on so nothing
+obvious to me on why it wouldn't work.
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- drivers/hwmon/occ/common.c | 2 ++
- 1 file changed, 2 insertions(+)
+Andrew
 
-diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
-index f34b40062479..d3eb6f83a42c 100644
---- a/drivers/hwmon/occ/common.c
-+++ b/drivers/hwmon/occ/common.c
-@@ -257,6 +257,8 @@ static ssize_t occ_show_status(struct device *dev,
- 	case 6:
- 		val = header->occ_state;
- 		break;
-+	default:
-+		return -EINVAL;
- 	}
- 
- 	return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
--- 
-2.11.0
+On Thu, Jun 15, 2017 at 10:05 PM, Adi Gangidi <adi.gangidi@rackspace.com> wrote:
+> Hi Nice folks on the mailing list,
+>
+>
+> In our testing on Barreleye G2 server we noticed that:
+>
+>
+> BMC short press:  Doesn't effect power state
+>
+> BMC long press:   Reboots the host (instead of poweroff)
+>
+>
+> Is that what its coded to ? Where can I find the code that dictates this
+> behavior ? Any tips on how to go about changing this would be helpful.
+>
+>
+>
+> -Adi
