@@ -1,57 +1,55 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x243.google.com (mail-yb0-x243.google.com
- [IPv6:2607:f8b0:4002:c09::243])
+Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
+ [IPv6:2607:f8b0:4002:c05::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wppz14hySzDq8M
- for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 15:37:01 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wpq3h10CfzDq8M
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 15:41:04 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="A2mj42P7"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="qGl8LXQx"; 
  dkim-atps=neutral
-Received: by mail-yb0-x243.google.com with SMTP id j65so1297406ybj.3
- for <openbmc@lists.ozlabs.org>; Thu, 15 Jun 2017 22:37:01 -0700 (PDT)
+Received: by mail-yw0-x244.google.com with SMTP id u13so1769771ywg.0
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Jun 2017 22:41:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=/O6WAMtmIFMH/Spjp+gqLMIjEDglLwkreZYWeAHsuio=;
- b=A2mj42P7m4bKf4nPXTG6KgHDMiIoACVB/haG6kb3E/YzHhEBzv09PvTtM5NbKGb4Yu
- 5AzjQw3cN2AmQvQ+nS6EyG8LzGI9CV2eFRyuQEi63TGf5McMtHBjBKzBvBRky6jHuzYX
- Rb31/6aBrneHBvwjzDbEsD+xVp2hr3voQkPSr45Q0rn3EOt8Osym0vXQQhQyMiKAHnsG
- E5pEdt4VePbQvl96J38CDrOP6AJrt7KWYaXKIXfB6BQbGnlQ/H6IhuPD2ERT1/lYCT9w
- 9mIAUR37d789x7Eo5TiMoLH//iAN8Ow4nWUtiIRPV4TB0V/eWyVH4a2e9yA5lUVGfDOH
- XRJg==
+ :subject:to:cc;
+ bh=NtQ61/wjgLbxwa8ntqOLdBEFyCuU0u5GhfuxmvWBVXM=;
+ b=qGl8LXQxdvK+ZbVW6vI91wU7SR8SHON2pOj3T7LgIA85qt5NhR7dpL25yZbCE77mNj
+ jxCGlS3RyJ3BjOuiD3L4QT5pj/pG+okgMlkJWkkkz99uveDONqA7n3MuFSpExLiCHJB4
+ fwh65WThQ9hhrwHdp1R9bHl6Bk2eKOU0nLOVJ8yUVWOZNqsnWQYtzcR1ERgFKdomfTIk
+ THufheOoepwSTrFPXFqozQu8qi0ezQKptbSi5+TJudSKunby14bN6vpz3P45ULi1SJ+9
+ /UtP6PP+PyM6h3nfg3K5QZY3pGm7zr+PLLnrOhnI5ueuTIh9ZTOEvnTyjQ/na8eC/TFx
+ iVew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=/O6WAMtmIFMH/Spjp+gqLMIjEDglLwkreZYWeAHsuio=;
- b=iT60aTLy/5i4qAJ1c96MFZQDDZfXMSwbhyWlsoMknXq0vDX107dAnzeaBBQ7EKS/An
- 3kCfHMW5raE8HHUvMkxvA/fg4G39fBm/jHV+vZh4k9MjjZN+gQ4E3ZM0Syl7erDEOUMg
- WkZKaeWXU6PhCl+qTsCJg+aaei2spR4XdpfUrBriqHzE6jtlQiShTWv/7IMfHKGsYZBg
- Vc9XB0LcI/U0Qgh8wYYfXGAYH4drpg4nY2w7amhlJbmVrZZ1YCKJi74Z1qGbzdp7uvg9
- Cd7J+JWbjkIuLghOnnP2/lyJ1QLXOEzeJDJGd6dyyFKegl4yvgnVmfI95IHe+UakW43n
- OZUw==
-X-Gm-Message-State: AKS2vOwrDRWZhHEcpmVzIfeHZs74xThg7/6RSZKTYylp/CHxB5dhUtwK
- T3uqhGwMxsAPXZl9b/lfcPPeAzzDUA==
-X-Received: by 10.37.11.68 with SMTP id 65mr1790673ybl.94.1497591419531; Thu,
- 15 Jun 2017 22:36:59 -0700 (PDT)
+ :date:message-id:subject:to:cc;
+ bh=NtQ61/wjgLbxwa8ntqOLdBEFyCuU0u5GhfuxmvWBVXM=;
+ b=D59XvekeKQ2dNXzoiCdspNwT1l2bi9fyK9bNCSclV9fpAYG71J8KvIuaYk9h360wJp
+ DZlg6YL7nuvGr3wNMcHkSMtSxqAZoVLzKgiAxkGYoaQnpKM5IfMwoxkXeARyFcVVod1V
+ T4OOlqXCGTcFu0zNEHajddTBIXKPve/U+u6XfkaW4Kk/8O5W2ZPaxoCfReBsrlyDAkxl
+ TLr18+USI8EVBPvRb0GjRwIA6AMJxR2FqPBa2aA/cWWk1sh4xtRJ7hSEh57qtwhyfJ8g
+ khsxmHuwMukCvJn2Cm/EIYAsNogGu+vk+kV9yPaHT1Hq+iDLBBOKpFyZdaoTDH7SRfzN
+ Jyxw==
+X-Gm-Message-State: AKS2vOwDqVtklLHcMbPj7LgbD1vQiU1jWmRCqOf08AVZK6C3k+lYCbvT
+ KZXeMZmv4cNhxLyozGE5Xi+XXXb8NsmlKHk=
+X-Received: by 10.13.208.67 with SMTP id s64mr7662189ywd.43.1497591662095;
+ Thu, 15 Jun 2017 22:41:02 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.174.2 with HTTP; Thu, 15 Jun 2017 22:36:39 -0700 (PDT)
-In-Reply-To: <1497031265-29545-3-git-send-email-eajames@linux.vnet.ibm.com>
+Received: by 10.37.174.2 with HTTP; Thu, 15 Jun 2017 22:40:41 -0700 (PDT)
+In-Reply-To: <1497031265-29545-1-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1497031265-29545-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1497031265-29545-3-git-send-email-eajames@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 16 Jun 2017 15:06:39 +0930
-X-Google-Sender-Auth: qpBUUAAxrmHeup9DaOUgUXbrJSI
-Message-ID: <CACPK8Xc9MNxxsj5EW8dyhtnSpbB9j4ayZAcO6ensPfRr9Q_K+w@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 v2 2/5] drivers: hwmon: occ: Add new sensor
- versions and non-hwmon attributes
+Date: Fri, 16 Jun 2017 15:10:41 +0930
+X-Google-Sender-Auth: 7RD7y-WKe-YdlKeA0raFUHw79VM
+Message-ID: <CACPK8XcJ1owjXZdunnMjQ=tyAmren8Oi_MfTBwTM2kbpUzG8Sg@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v2 0/5] drivers: OCC: Update sensors, fix
+ probing, add P8
 To: Eddie James <eajames@linux.vnet.ibm.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  "Edward A. James" <eajames@us.ibm.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,56 +61,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Jun 2017 05:37:02 -0000
+X-List-Received-Date: Fri, 16 Jun 2017 05:41:04 -0000
 
-On Sat, Jun 10, 2017 at 3:31 AM, Eddie James <eajames@linux.vnet.ibm.com> w=
-rote:
+2017-06-10 3:31 GMT+09:30 Eddie James <eajames@linux.vnet.ibm.com>:
+> From: "Edward A. James" <eajames@us.ibm.com>
+>
+> This series refactors the OCC hwmon driver to make a number of changes and bug
+> fixes. It also includes bug fixes for the FSI OCC driver. This includes 3
+> patches that were previously sent individually on the openbmc mailing list.
+>
+> Edward A. James (5):
+>   drivers: fsi: occ: Fix 1 byte response and rc for O_NONBLOCK
+>   drivers: hwmon: occ: Add new sensor versions and non-hwmon attributes
+>   drivers: hwmon: occ: Add P8 OCC access
+>   drivers: occ: hwmon and fsi probing fix
+>   aspeed: update power9 dts and defconfigs for OCC
 
-> +static ssize_t occ_show_status(struct device *dev,
-> +                              struct device_attribute *attr, char *buf)
-> +{
-> +       int rc;
-> +       int val;
-> +       struct occ *occ =3D dev_get_drvdata(dev);
-> +       struct occ_poll_response_header *header;
-> +       struct sensor_device_attribute *sattr =3D to_sensor_dev_attr(attr=
-);
-> +
-> +       rc =3D occ_update_response(occ);
-> +       if (rc)
-> +               return rc;
-> +
-> +       header =3D (struct occ_poll_response_header *)occ->resp.data;
-> +
-> +       switch (sattr->index) {
-> +       case 0:
-> +               val =3D header->status & OCC_STAT_ACTIVE;
-> +               break;
-> +       case 1:
-> +               val =3D header->ext_status & OCC_EXT_STAT_DVFS_OT;
-> +               break;
-> +       case 2:
-> +               val =3D header->ext_status & OCC_EXT_STAT_DVFS_POWER;
-> +               break;
-> +       case 3:
-> +               val =3D header->ext_status & OCC_EXT_STAT_MEM_THROTTLE;
-> +               break;
-> +       case 4:
-> +               val =3D header->ext_status & OCC_EXT_STAT_QUICK_DROP;
-> +               break;
-> +       case 5:
-> +               val =3D header->occ_state;
-> +               break;
-> +       }
-> +
-> +       return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
+I've applied this series. They look like there is some more work to be
+done, so please find some reviewers ASAP.
 
-drivers/hwmon/occ/common.c: In function =E2=80=98occ_show_status=E2=80=99:
-drivers/hwmon/occ/common.c:258:9: warning: =E2=80=98val=E2=80=99 may be use=
-d
-uninitialized in this function [-Wmaybe-uninitialized]
-  return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Cheers,
 
+Joel
 
-Please fix this.
+>
+>  arch/arm/boot/dts/ibm-power9-cfam.dtsi |   9 +
+>  arch/arm/configs/aspeed_g4_defconfig   |   2 +
+>  arch/arm/configs/aspeed_g5_defconfig   |   1 +
+>  drivers/fsi/fsi-sbefifo.c              |   4 +-
+>  drivers/fsi/occ.c                      |  22 +-
+>  drivers/hwmon/Makefile                 |   2 +-
+>  drivers/hwmon/occ/Kconfig              |  19 +-
+>  drivers/hwmon/occ/Makefile             |  12 +-
+>  drivers/hwmon/occ/common.c             | 991 ++++++++++++++++++++++++++++++++-
+>  drivers/hwmon/occ/common.h             |  17 +
+>  drivers/hwmon/occ/p8_i2c.c             | 270 +++++++++
+>  drivers/hwmon/occ/p9.c                 | 350 ------------
+>  drivers/hwmon/occ/p9.h                 |  17 -
+>  drivers/hwmon/occ/p9_sbe.c             |  60 +-
+>  14 files changed, 1354 insertions(+), 422 deletions(-)
+>  create mode 100644 drivers/hwmon/occ/p8_i2c.c
+>  delete mode 100644 drivers/hwmon/occ/p9.c
+>  delete mode 100644 drivers/hwmon/occ/p9.h
+>
+> --
+> 1.8.3.1
+>
