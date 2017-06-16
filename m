@@ -1,54 +1,52 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
- [IPv6:2607:f8b0:4002:c05::244])
+Received: from mail-yb0-x241.google.com (mail-yb0-x241.google.com
+ [IPv6:2607:f8b0:4002:c09::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wpq3h10CfzDq8M
- for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 15:41:04 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wpqCX0cMjzDq8M
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 15:47:52 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="qGl8LXQx"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="SFdBfPbK"; 
  dkim-atps=neutral
-Received: by mail-yw0-x244.google.com with SMTP id u13so1769771ywg.0
- for <openbmc@lists.ozlabs.org>; Thu, 15 Jun 2017 22:41:04 -0700 (PDT)
+Received: by mail-yb0-x241.google.com with SMTP id p198so1300760yba.2
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Jun 2017 22:47:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=NtQ61/wjgLbxwa8ntqOLdBEFyCuU0u5GhfuxmvWBVXM=;
- b=qGl8LXQxdvK+ZbVW6vI91wU7SR8SHON2pOj3T7LgIA85qt5NhR7dpL25yZbCE77mNj
- jxCGlS3RyJ3BjOuiD3L4QT5pj/pG+okgMlkJWkkkz99uveDONqA7n3MuFSpExLiCHJB4
- fwh65WThQ9hhrwHdp1R9bHl6Bk2eKOU0nLOVJ8yUVWOZNqsnWQYtzcR1ERgFKdomfTIk
- THufheOoepwSTrFPXFqozQu8qi0ezQKptbSi5+TJudSKunby14bN6vpz3P45ULi1SJ+9
- /UtP6PP+PyM6h3nfg3K5QZY3pGm7zr+PLLnrOhnI5ueuTIh9ZTOEvnTyjQ/na8eC/TFx
- iVew==
+ bh=y0zQvRRKS9nVJkvVRjBN2IZV+4SuAAx8pR4asVdvVLE=;
+ b=SFdBfPbKiGc0br2J/d2NlElMTpHhbimRk+tXI34+u1w2iXbGmyzFXVrl1svs5BGdNL
+ k2bXNFAldPNXxgBZnn13pzVVoqqOXGIeMWnQWze000aGP2XKN+UJ69gmK4l+ADdnDtjS
+ bFPAgC/aknWmRHJRMGh2TDj1XyicpZaH8+ky9ZUwBwsaHdxQ9UL4k7Eek80tC2AVPKw+
+ fcNNehvZbPtr/zIhQAr1P4ixqCO43/xBjC9pUtvIPW94z50+inj/KOJCbOs4p0CVNkVV
+ CTietmvGomzJdP7pEp+hvIktNEBkk118ii/hoYXaLUwBmRZJClitNMhDne2BvBHj0K/B
+ zgog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=NtQ61/wjgLbxwa8ntqOLdBEFyCuU0u5GhfuxmvWBVXM=;
- b=D59XvekeKQ2dNXzoiCdspNwT1l2bi9fyK9bNCSclV9fpAYG71J8KvIuaYk9h360wJp
- DZlg6YL7nuvGr3wNMcHkSMtSxqAZoVLzKgiAxkGYoaQnpKM5IfMwoxkXeARyFcVVod1V
- T4OOlqXCGTcFu0zNEHajddTBIXKPve/U+u6XfkaW4Kk/8O5W2ZPaxoCfReBsrlyDAkxl
- TLr18+USI8EVBPvRb0GjRwIA6AMJxR2FqPBa2aA/cWWk1sh4xtRJ7hSEh57qtwhyfJ8g
- khsxmHuwMukCvJn2Cm/EIYAsNogGu+vk+kV9yPaHT1Hq+iDLBBOKpFyZdaoTDH7SRfzN
- Jyxw==
-X-Gm-Message-State: AKS2vOwDqVtklLHcMbPj7LgbD1vQiU1jWmRCqOf08AVZK6C3k+lYCbvT
- KZXeMZmv4cNhxLyozGE5Xi+XXXb8NsmlKHk=
-X-Received: by 10.13.208.67 with SMTP id s64mr7662189ywd.43.1497591662095;
- Thu, 15 Jun 2017 22:41:02 -0700 (PDT)
+ bh=y0zQvRRKS9nVJkvVRjBN2IZV+4SuAAx8pR4asVdvVLE=;
+ b=YsCgfSxwinML/jMvDdfg3QtmmrUNUrg52/C4MBjNlgIfpyyWc/r3pn/a1in+jELatL
+ FFK7bfFxWtkPzq/pLQzxLQVU/xb8rA/qSkh+/g2O6wXuAYWaCkChg25S3s4HD7ppCLz7
+ A57rzIUO24Vp/Akq9D5YrN8Zy+pqsAimxnc8WV0TydanCSeerGU5qUIq5toGBl4RkNea
+ 6fsbETG/YK7lr1rJFVesC/P6G9ptfUCFl2ERl+w3FhqBtmjxV6yNoKYu1/WS7U12M8IJ
+ e9KXbqsRagwTOKq8JBu8uO1z0qzGT7D6nNtP+tEbYN39gREZUwq53ZvAiSuMlJnyTdD4
+ Uakw==
+X-Gm-Message-State: AKS2vOwgzAZXFcN/zZPnZTvvSrtF99DjABNlu+f6XrDdtc42GqDuMIld
+ x3cUOXVWYL4J8IWbdXcwl2GTx1z9mA==
+X-Received: by 10.37.88.193 with SMTP id m184mr6867875ybb.39.1497592070073;
+ Thu, 15 Jun 2017 22:47:50 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.174.2 with HTTP; Thu, 15 Jun 2017 22:40:41 -0700 (PDT)
-In-Reply-To: <1497031265-29545-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1497031265-29545-1-git-send-email-eajames@linux.vnet.ibm.com>
+Received: by 10.37.174.2 with HTTP; Thu, 15 Jun 2017 22:47:29 -0700 (PDT)
+In-Reply-To: <20170607173400.46762-1-xow@google.com>
+References: <20170607173400.46762-1-xow@google.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 16 Jun 2017 15:10:41 +0930
-X-Google-Sender-Auth: 7RD7y-WKe-YdlKeA0raFUHw79VM
-Message-ID: <CACPK8XcJ1owjXZdunnMjQ=tyAmren8Oi_MfTBwTM2kbpUzG8Sg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 v2 0/5] drivers: OCC: Update sensors, fix
- probing, add P8
-To: Eddie James <eajames@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- "Edward A. James" <eajames@us.ibm.com>
+Date: Fri, 16 Jun 2017 15:17:29 +0930
+X-Google-Sender-Auth: Jv9_qp2AdX5quBTdY8sad4LNT0U
+Message-ID: <CACPK8XdVmM8p6zkv=+6SpC5b3SLXSyLg=4HeqGkMBQX0yNTOJg@mail.gmail.com>
+Subject: Re: [linux] ARM: dts: aspeed: zaius: Add aliases for I2C buses
+To: Xo Wang <xow@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -61,49 +59,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Jun 2017 05:41:04 -0000
+X-List-Received-Date: Fri, 16 Jun 2017 05:47:52 -0000
 
-2017-06-10 3:31 GMT+09:30 Eddie James <eajames@linux.vnet.ibm.com>:
-> From: "Edward A. James" <eajames@us.ibm.com>
->
-> This series refactors the OCC hwmon driver to make a number of changes and bug
-> fixes. It also includes bug fixes for the FSI OCC driver. This includes 3
-> patches that were previously sent individually on the openbmc mailing list.
->
-> Edward A. James (5):
->   drivers: fsi: occ: Fix 1 byte response and rc for O_NONBLOCK
->   drivers: hwmon: occ: Add new sensor versions and non-hwmon attributes
->   drivers: hwmon: occ: Add P8 OCC access
->   drivers: occ: hwmon and fsi probing fix
->   aspeed: update power9 dts and defconfigs for OCC
+Hey Xo,
 
-I've applied this series. They look like there is some more work to be
-done, so please find some reviewers ASAP.
+For some reason I didn't get this mail from you. Luckily I saw it in patchwork.
+
+On Thu, Jun 8, 2017 at 3:04 AM, Xo Wang <xow@google.com> wrote:
+> Make numbering for I2C buses consistent across boots by assigning
+> aliases to all the bus blocks in the peripheral, including the ones that
+> are currently disabled. This way, Linux reserves bus numbers for buses
+> that are disabled, instead of filling in those number gaps with logical
+> I2C buses from muxes.
+
+Thanks for the change. We already set these aliases in aspeed-g5.dtsi,
+so you shouldn't need this patch.
 
 Cheers,
 
 Joel
 
 >
->  arch/arm/boot/dts/ibm-power9-cfam.dtsi |   9 +
->  arch/arm/configs/aspeed_g4_defconfig   |   2 +
->  arch/arm/configs/aspeed_g5_defconfig   |   1 +
->  drivers/fsi/fsi-sbefifo.c              |   4 +-
->  drivers/fsi/occ.c                      |  22 +-
->  drivers/hwmon/Makefile                 |   2 +-
->  drivers/hwmon/occ/Kconfig              |  19 +-
->  drivers/hwmon/occ/Makefile             |  12 +-
->  drivers/hwmon/occ/common.c             | 991 ++++++++++++++++++++++++++++++++-
->  drivers/hwmon/occ/common.h             |  17 +
->  drivers/hwmon/occ/p8_i2c.c             | 270 +++++++++
->  drivers/hwmon/occ/p9.c                 | 350 ------------
->  drivers/hwmon/occ/p9.h                 |  17 -
->  drivers/hwmon/occ/p9_sbe.c             |  60 +-
->  14 files changed, 1354 insertions(+), 422 deletions(-)
->  create mode 100644 drivers/hwmon/occ/p8_i2c.c
->  delete mode 100644 drivers/hwmon/occ/p9.c
->  delete mode 100644 drivers/hwmon/occ/p9.h
+> Signed-off-by: Xo Wang <xow@google.com>
+> ---
+>  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
 >
-> --
-> 1.8.3.1
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> index 68baf3288263..353613344ea9 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> @@ -9,6 +9,20 @@
 >
+>         aliases {
+>                 serial4 = &uart5;
+> +               i2c0 = &i2c0;
+> +               i2c1 = &i2c1;
+> +               i2c2 = &i2c2;
+> +               i2c3 = &i2c3;
+> +               i2c4 = &i2c4;
+> +               i2c5 = &i2c5;
+> +               i2c6 = &i2c6;
+> +               i2c7 = &i2c7;
+> +               i2c8 = &i2c8;
+> +               i2c9 = &i2c9;
+> +               i2c10 = &i2c10;
+> +               i2c11 = &i2c11;
+> +               i2c12 = &i2c12;
+> +               i2c13 = &i2c13;
+>         };
+>
+>         chosen {
