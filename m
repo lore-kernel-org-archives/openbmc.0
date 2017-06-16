@@ -1,69 +1,53 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <venture@google.com>
+Received: from mail-pg0-x236.google.com (mail-pg0-x236.google.com
+ [IPv6:2607:f8b0:400e:c05::236])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wq2Hf6wgWzDq88
- for <openbmc@lists.ozlabs.org>; Sat, 17 Jun 2017 00:07:10 +1000 (AEST)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v5GE6Di1092823
- for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 10:07:08 -0400
-Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2b4g5vhtu5-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 10:07:07 -0400
-Received: from localhost
- by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Fri, 16 Jun 2017 08:07:06 -0600
-Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
- by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Fri, 16 Jun 2017 08:07:02 -0600
-Received: from b03ledav002.gho.boulder.ibm.com
- (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v5GE72tp8257870; Fri, 16 Jun 2017 07:07:02 -0700
-Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 55433136055;
- Fri, 16 Jun 2017 08:07:02 -0600 (MDT)
-Received: from oc3016140333.ibm.com (unknown [9.80.216.198])
- by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id C6208136046;
- Fri, 16 Jun 2017 08:07:01 -0600 (MDT)
-Subject: Re: [PATCH linux dev-4.10] hwmon: occ: Fix uninitialised variable
- warning
-To: Andrew Jeffery <andrew@aj.id.au>, joel@jms.id.au
-Cc: openbmc@lists.ozlabs.org
-References: <20170616075917.12356-1-andrew@aj.id.au>
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Fri, 16 Jun 2017 09:07:01 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wq3C02zfXzDq88
+ for <openbmc@lists.ozlabs.org>; Sat, 17 Jun 2017 00:48:12 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="POuo/3tB"; 
+ dkim-atps=neutral
+Received: by mail-pg0-x236.google.com with SMTP id v18so21374618pgb.1
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 07:48:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=jd0HrUqfcplhqyrzQ+SNxbOHooDlM/DVAD3bHVCfEVg=;
+ b=POuo/3tBKXC2kOkIMs/aEoNvOyIpfaA11lRHcsDCN9jB3DDzV0Qj6+WUd86tkOFM+f
+ Y6VjdHV+kybXUcgnfeIGVZ79b8hgNGVpCNJyhRjF6Twt+3n3oSRcNdjAv5QZzrNPWdOe
+ WtIx+6LrSZfBHssOdvAXFJTac252GpG0alITjZIwZTl8sizg9IeJx+6vxaABHufxQcj5
+ v2FqRSHZIJxCkqcVtcmu3p6rDdzErwnYaNnshzJzO7V93e1Elp/fXSvbEb2RIHnXZ6fh
+ Fpgg9BFmvnEGZd5Svuiiusf8ItwVMQ2UReHnPTpGAsTxJY8QzI3TkkOjXQjTMQJlLY2C
+ 6Szw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=jd0HrUqfcplhqyrzQ+SNxbOHooDlM/DVAD3bHVCfEVg=;
+ b=sPP1re62JG0R0NDOYep0IeMcXJ0zy6u927PYnoucp9GAHUOzC2D7T5uKTZ2S1xlOb6
+ I9UqRYywgMR+k3xwR6+o/FtfxrN1OQoOOD9UYZjvwovPCrhzIlK5LUSipgB6T6PR2eUI
+ scle33JRnG5PFEK/ZcPj/AL3W+A0WvuaGai0JwOv1pFUemWgpzs+SJElxBVw2crg+VaN
+ B/TWgdTYiUHuUmsEYHJC+ZM4iMQLkzonKdID7D0V3gfp6qizlSL4oGeQW2NzONhraaXF
+ +T0OTZU0vLR/f19OKk9DllbGmh2sn08/oB12SW35Zp5u2CDEsvdSFwgqe2LcwVksBZDQ
+ BO+Q==
+X-Gm-Message-State: AKS2vOzIm9vUTQppi0yrHFBPv9hIKep/HMClgpvqfhmcSB35oFP/172T
+ gie4ZSQuSkKv7cjsgsjVELAULk9e2eY6
+X-Received: by 10.98.34.8 with SMTP id i8mr11539199pfi.194.1497624489705; Fri,
+ 16 Jun 2017 07:48:09 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20170616075917.12356-1-andrew@aj.id.au>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 17061614-0008-0000-0000-00000808B865
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007243; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00875634; UDB=6.00435989; IPR=6.00655723; 
- BA=6.00005425; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015852; XFM=3.00000015;
- UTC=2017-06-16 14:07:04
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17061614-0009-0000-0000-000042A601E1
-Message-Id: <a359a4c2-31e1-c1b9-1f70-28749a4ea0ed@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-06-16_08:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1706160234
+Received: by 10.100.160.108 with HTTP; Fri, 16 Jun 2017 07:47:49 -0700 (PDT)
+In-Reply-To: <CACPK8Xe_MT6Ssq3XPF1EO-pzS89Ja-_PHPOtne7vttn7TVzaHg@mail.gmail.com>
+References: <20170613221019.100175-1-venture@google.com>
+ <CACPK8Xe_MT6Ssq3XPF1EO-pzS89Ja-_PHPOtne7vttn7TVzaHg@mail.gmail.com>
+From: Patrick Venture <venture@google.com>
+Date: Fri, 16 Jun 2017 07:47:49 -0700
+Message-ID: <CAO=notxv7eoNBv8=rdCYA+EoxJheKDFbWzycDSuh+f1KkXVgCg@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v2 4/4] ARM: dts: aspeed: quanta-q71l: PDB
+ FRU and mux on the PDB in front of the PSUs.
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Rick Altherr <raltherr@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -75,38 +59,90 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Jun 2017 14:07:11 -0000
+X-List-Received-Date: Fri, 16 Jun 2017 14:48:13 -0000
 
+Joel;
 
+Thanks!  This was my first patch email series, so I appreciate your
+help.  So I ran into something last night while reviewing something
+that jumped out at me.  I'll need to send a new patch for the quanta
+dts momentarily to address this.  In linux-4.7 the i2c-mux driver
+pca9546 had a different compatibility string from 4.10.  Since we
+don't own those devices on our BMC image in testing (we're mastering
+them from the host via i2c over IPMI),  So, let me submit a patch to
+fix that.
 
-On 06/16/2017 02:59 AM, Andrew Jeffery wrote:
-> Observed the following:
+Patrick
+
+On Thu, Jun 15, 2017 at 9:51 PM, Joel Stanley <joel@jms.id.au> wrote:
+> Hi Patrick,
 >
->        CC      drivers/hwmon/occ/common.o
->      drivers/hwmon/occ/common.c: In function ‘occ_show_status’:
->      drivers/hwmon/occ/common.c:262:9: warning: ‘val’ may be used uninitialized in this function [-Wmaybe-uninitialized]
->        return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
->               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> On Wed, Jun 14, 2017 at 7:40 AM, Patrick Venture <venture@google.com> wrote:
+>> Signed-off-by: Patrick Venture <venture@google.com>
+>> ---
+>>  arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts | 20 +++++++++++++++++++-
 >
-> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-
-Thanks Andrew!
-
-Eddie
-> ---
->   drivers/hwmon/occ/common.c | 2 ++
->   1 file changed, 2 insertions(+)
+> I had some issues with conflicts between the 4 patch series and the
+> two patches you'd sent before then. So merged all of your device tree
+> changes for the Q71L as one patch.
 >
-> diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
-> index f34b40062479..d3eb6f83a42c 100644
-> --- a/drivers/hwmon/occ/common.c
-> +++ b/drivers/hwmon/occ/common.c
-> @@ -257,6 +257,8 @@ static ssize_t occ_show_status(struct device *dev,
->   	case 6:
->   		val = header->occ_state;
->   		break;
-> +	default:
-> +		return -EINVAL;
->   	}
+> Next time you're sending changes that may conflict, put them all in
+> the same series. It's okay to send a v2 of the series with additional
+> patches added.
 >
->   	return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
+> Also, in the case of your patch #4 where you needed to make a fix,
+> it's convention to re-send the entire series. No worries this time
+> though, I got it sorted in the end.
+>
+> I noticed we did not have the dts added to the Makefile, so it was not
+> building. I fixed that too. Please take a look a the tree and make
+> sure all of the device tree nodes are in there as you expect them to
+> be.
+>
+> Cheers,
+>
+> Joel
+>
+>>  1 file changed, 19 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+>> index 4b5047b5d592..2b01c5bcc88b 100644
+>> --- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+>> @@ -145,7 +145,7 @@
+>>          *    SSD 1,
+>>          *    SSD 2
+>>          */
+>> -       i2cswitch@77 {
+>> +       i2c-switch@77 {
+>>                 compatible = "pca9548";
+>>                 #address-cells = <1>;
+>>                 #size-cells = <0>;
+>> @@ -177,6 +177,24 @@
+>>
+>>  &i2c7 {
+>>         status = "okay";
+>> +
+>> +       /* 0: PSU4
+>> +        *    PSU1
+>> +        *    PSU3
+>> +        *    PSU2
+>> +        */
+>> +       i2c-switch@70 {
+>> +               compatible = "pca9546";
+>> +               reg = <0x70>;
+>> +               #address-cells = <1>;
+>> +               #size-cells = <0>;
+>> +       };
+>> +
+>> +       /* PDB FRU */
+>> +       eeprom@52 {
+>> +               compatible = "atmel,24c64";
+>> +               reg = <0x52>;
+>> +       };
+>>  };
+>>
+>>  &i2c8 {
+>> --
+>> 2.13.1.518.g3df882009-goog
+>>
