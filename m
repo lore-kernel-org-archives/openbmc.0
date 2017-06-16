@@ -1,52 +1,69 @@
-Return-Path: <geissonator@gmail.com>
-Received: from mail-io0-x22d.google.com (mail-io0-x22d.google.com
- [IPv6:2607:f8b0:4001:c06::22d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wq0kz0FPvzDq88
- for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 22:57:15 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="ksqWzTbw"; 
- dkim-atps=neutral
-Received: by mail-io0-x22d.google.com with SMTP id i7so29938694ioe.1
- for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 05:57:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=2sqg5Kqti8fiqfglkwdU+uNs48if3Ot48ZJRQnuef9g=;
- b=ksqWzTbwWDTH1OL7vh1RZMLBKHgp35njCIVJnXHw+9bD3Dvp+koqbQidmUcJgCaQt2
- 8JCAVocEnrGBLJKFTM/qh3GvKmegC/NDa7cn/NloVNoEDbkPkrYXhGvtRug8h1f1H5MO
- 3B6kDPPaYO1HCAdlZI18LxbIWwcb1z+AgB8S/OebcpvyyImQRgqyljNa7sqTgLaQfJL8
- rKDQVhFMqSkIJQNRy8IWruKTbZ7iCQcDotDyreE6Vdkm539T53xKy8Osy65OpS1NxVn5
- oml4VOAQIZQ0S1YAk0kn3nXvGc9i5E6fClQHgJdTpt3WNxk2ns/+pSs/3cyE+8DVz/1k
- YTbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=2sqg5Kqti8fiqfglkwdU+uNs48if3Ot48ZJRQnuef9g=;
- b=NcemvrI8ZiQ1/DeO7f4EUBvea1TbHNHIAYcqJRfKi5cd1M2czqHUnmAFPZcdhZdRS7
- qKU8li17+wjVSgz1wamPAi2U1njCAm3d9tfkdQeeJH974aOxbJDxQiUCkh4LLZaWD2q6
- 8TOJKM2c1Ua0dgZp5l40qPBFv12SHxchkrhs73kbNFGeSCyj6yQMtOE+Komythg3NuQP
- /lW8oCrtDc1nmJwndGObQWlD3aV/Gk6EM/ZRIIlHNgpNW9aEubTO8XZB4Axiz5gd7QLF
- lALzc6wItxAw90jVMj/NpvEBsI57lslxIwLtN42xTM5IJ8TVYeGrmTA/PouUAO1b7FOt
- MkTg==
-X-Gm-Message-State: AKS2vOyP36e4ZH1PwoTSz7gLOLpNDNiGq0jq3as9DtnY7XgfRZjLMPYV
- mqrfIdbZZlbGBRVPN2RzwMRYgk+iQw==
-X-Received: by 10.107.17.21 with SMTP id z21mr9817791ioi.34.1497617831385;
- Fri, 16 Jun 2017 05:57:11 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wq2Hf6wgWzDq88
+ for <openbmc@lists.ozlabs.org>; Sat, 17 Jun 2017 00:07:10 +1000 (AEST)
+Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v5GE6Di1092823
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 10:07:08 -0400
+Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2b4g5vhtu5-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 10:07:07 -0400
+Received: from localhost
+ by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Fri, 16 Jun 2017 08:07:06 -0600
+Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
+ by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Fri, 16 Jun 2017 08:07:02 -0600
+Received: from b03ledav002.gho.boulder.ibm.com
+ (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
+ by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v5GE72tp8257870; Fri, 16 Jun 2017 07:07:02 -0700
+Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 55433136055;
+ Fri, 16 Jun 2017 08:07:02 -0600 (MDT)
+Received: from oc3016140333.ibm.com (unknown [9.80.216.198])
+ by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id C6208136046;
+ Fri, 16 Jun 2017 08:07:01 -0600 (MDT)
+Subject: Re: [PATCH linux dev-4.10] hwmon: occ: Fix uninitialised variable
+ warning
+To: Andrew Jeffery <andrew@aj.id.au>, joel@jms.id.au
+Cc: openbmc@lists.ozlabs.org
+References: <20170616075917.12356-1-andrew@aj.id.au>
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Fri, 16 Jun 2017 09:07:01 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.1.0
 MIME-Version: 1.0
-Received: by 10.107.133.40 with HTTP; Fri, 16 Jun 2017 05:57:10 -0700 (PDT)
-In-Reply-To: <1497582330728.74747@rackspace.com>
-References: <1497582330728.74747@rackspace.com>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Fri, 16 Jun 2017 07:57:10 -0500
-Message-ID: <CALLMt=qkjc31EyMv64_fpqaJoyrVB90tAoVvuuuUMMMBa195mQ@mail.gmail.com>
-Subject: Re: Changing Power Button behavior
-To: Adi Gangidi <adi.gangidi@rackspace.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- Chad Somerlot <chad.somerlot@rackspace.com>, 
- Brad DeBauche <brad.debauche@rackspace.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20170616075917.12356-1-andrew@aj.id.au>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 17061614-0008-0000-0000-00000808B865
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007243; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00875634; UDB=6.00435989; IPR=6.00655723; 
+ BA=6.00005425; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015852; XFM=3.00000015;
+ UTC=2017-06-16 14:07:04
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17061614-0009-0000-0000-000042A601E1
+Message-Id: <a359a4c2-31e1-c1b9-1f70-28749a4ea0ed@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-06-16_08:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1706160234
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,38 +75,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Jun 2017 12:57:15 -0000
+X-List-Received-Date: Fri, 16 Jun 2017 14:07:11 -0000
 
-Hey Adi, issues 771 and 776 track the refactoring work for the
-buttons.  If you want to take a stab at it the old code is out in
-skeleton, skeleton/pwrbutton/button_power_obj.c is for the button
-monitoring and signal generation,
-skeleton/pychassisctl/chassis_control.py for the handling  of the
-signal.
 
-You'll want to make sure the POWER_BUTTON gpio is configured right for
-your system.  https://github.com/openbmc/openbmc/issues/1593 would
-also be something to look out for.  A quick glance shows
-chassis_control.py using the right targets for power on so nothing
-obvious to me on why it wouldn't work.
 
-Andrew
+On 06/16/2017 02:59 AM, Andrew Jeffery wrote:
+> Observed the following:
+>
+>        CC      drivers/hwmon/occ/common.o
+>      drivers/hwmon/occ/common.c: In function ‘occ_show_status’:
+>      drivers/hwmon/occ/common.c:262:9: warning: ‘val’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+>        return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
+>               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 
-On Thu, Jun 15, 2017 at 10:05 PM, Adi Gangidi <adi.gangidi@rackspace.com> wrote:
-> Hi Nice folks on the mailing list,
+Thanks Andrew!
+
+Eddie
+> ---
+>   drivers/hwmon/occ/common.c | 2 ++
+>   1 file changed, 2 insertions(+)
 >
+> diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
+> index f34b40062479..d3eb6f83a42c 100644
+> --- a/drivers/hwmon/occ/common.c
+> +++ b/drivers/hwmon/occ/common.c
+> @@ -257,6 +257,8 @@ static ssize_t occ_show_status(struct device *dev,
+>   	case 6:
+>   		val = header->occ_state;
+>   		break;
+> +	default:
+> +		return -EINVAL;
+>   	}
 >
-> In our testing on Barreleye G2 server we noticed that:
->
->
-> BMC short press:  Doesn't effect power state
->
-> BMC long press:   Reboots the host (instead of poweroff)
->
->
-> Is that what its coded to ? Where can I find the code that dictates this
-> behavior ? Any tips on how to go about changing this would be helpful.
->
->
->
-> -Adi
+>   	return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
