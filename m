@@ -1,55 +1,55 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x243.google.com (mail-yb0-x243.google.com
- [IPv6:2607:f8b0:4002:c09::243])
+Received: from mail-yb0-x242.google.com (mail-yb0-x242.google.com
+ [IPv6:2607:f8b0:4002:c09::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wpr681SkczDq8M
- for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 16:28:14 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wprWJ2fCCzDq8B
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 16:46:36 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="hLosaZGu"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="VoYWUSNn"; 
  dkim-atps=neutral
-Received: by mail-yb0-x243.google.com with SMTP id 84so1346844ybe.0
- for <openbmc@lists.ozlabs.org>; Thu, 15 Jun 2017 23:28:14 -0700 (PDT)
+Received: by mail-yb0-x242.google.com with SMTP id j65so1366138ybj.3
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Jun 2017 23:46:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=H6w9uuz9+u8PbwmAYGVwz8d5V3GSvJm9+SzMhT031IQ=;
- b=hLosaZGu79VxJ6RweAUDjNyaNFfd5daAtvnpW5P4BYxfSjsEVCdTeH+TZtWSZnGtqb
- WS9mtVo0YoEfMlzY9dWQj4MScQlofma5S0AJLO7+/Djxex3j1uwStDHR4YPZ0AXFQP0P
- xGLYXt91rl047p7t9clGeX8Dj2rYLEBaX73bV2no4j31bjIIbLwHPXCau2walSuRlaqz
- r2K6JDFLFNfyNU/mvVmONF1TnJBME59K/F6VyTguANac8vsrrJXXICgLGCw7YoAlbQNH
- ZXyoeSIeKkxU5ijKEmqqmdVEpQzam+jZqi8sjwXT6rCTYhf5A2Fo+3y8n3os1AJWOHYu
- GCSg==
+ :subject:to:cc:content-transfer-encoding;
+ bh=IK6aQcDIWpl3Zh21YoaFYv15fCfP3akvLIPOVvcQL7g=;
+ b=VoYWUSNnC2lIgkkTKd7OQpOuYfAmClSN9K7vM00MsRN6h6+XzjRBK17Ow6hrbawM/f
+ Xbq+Sm7dPFvnhoGrPTI0nhlyU49I4OwSyD2YtWCH0O+d2bYOH8ZgxgTlvGciRROoRPi8
+ TO+Bhiw+DulTW8a6rd+hgJ2njhpiXPe2dt1erw6jz0lRJas2GQDhhwut4RgZ/Iye5y1A
+ KeU/apGsPlF6JUMLHkyG0g0I0jqofWdp84av/opN74IdZ9iDL9k8mpGJ00RIMBz3NOyY
+ OCDXgHpdqfXVGHFnplm8lnqCjIvsyjxXpxbH66HeQ98tZSKag0BqDeTgoLpFQ5Jbz/wW
+ Cmww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=H6w9uuz9+u8PbwmAYGVwz8d5V3GSvJm9+SzMhT031IQ=;
- b=bMlaxbpOpDvQS+vT+9vuTepMx1aERCOz/hQT8G4x7g9C95q1ZhVM3sJnAbuRMZh9v+
- s5i519BmRP3qmsMbFdBT8rp1jMX2nTaXalZhNSb+xCPJebepxVCYhhgcnX22OjzjgCID
- +UzmQpURCfyfoTnZkmvk9N3Lc5DfpmKBIW/KkXbsIHhbM5X+Mxngt74M4lUqXi3G696f
- iurEZh1eAbd22dgbobdNtP5fzqn2iKQ5K+6ZSMgexjZs/hzR+AYxS9JAWhCx7ITZ+gbA
- 4mzvFMdhMfXflRXT7B20D4N+GGyQ8HyV77Hbr4UXlHaAkcezYNki4/0x4ZVOJH28u44o
- 7sUQ==
-X-Gm-Message-State: AKS2vOw7NR6YgpqYtU/z+f7a5Pj7kv4J4Np0Ff+LK5TnWX6QadCMlc+A
- JmT0javcv7ufjoO9HnOHeqjwN7MyJg==
-X-Received: by 10.37.177.158 with SMTP id h30mr7084632ybj.214.1497594492804;
- Thu, 15 Jun 2017 23:28:12 -0700 (PDT)
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=IK6aQcDIWpl3Zh21YoaFYv15fCfP3akvLIPOVvcQL7g=;
+ b=kbaCRMzjPnfbfhgDiayBLSXFa2A5X3Ni0NUKenLWDZ1NfkaBBT14MzfIVXRfRPnpCg
+ NVpPWmGk5U/LDlDrOOU29i8T0ZnaaqiId4HaaXCKkMVU8FxNmo4wo5yUe5ueH3HFdPad
+ G45424iX8XJBDABfar4TP3zaeiaIzRFhGhTEtuJwAwHR7/UeQuYdrqiBrzuuruHfvq0R
+ X+327+Vwfpi/hkUm75TeADE2NyrhUu1QK9RkdAnoy0RVxSKWEnhbT7RwhWYiByl51QL6
+ xO4Hqg5zHuKnAU1h5HQ69Z/0KDIddvm52wQHsft5uot8R5Pk5pJW1OwHM2F0oSmaQgg2
+ E8Dw==
+X-Gm-Message-State: AKS2vOwULHRpglPmwQYRYkqigpNp+QQAxLbun6lgBtYUrRlau5YEccTU
+ 77oU1iAoholei4roYeCk85Kkgz3m7DTIdPg=
+X-Received: by 10.37.175.144 with SMTP id g16mr1120896ybh.169.1497595594219;
+ Thu, 15 Jun 2017 23:46:34 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.174.2 with HTTP; Thu, 15 Jun 2017 23:27:52 -0700 (PDT)
-In-Reply-To: <1497471966-6420-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1497471966-6420-1-git-send-email-eajames@linux.vnet.ibm.com>
+Received: by 10.37.174.2 with HTTP; Thu, 15 Jun 2017 23:46:13 -0700 (PDT)
+In-Reply-To: <1497013949-8786-2-git-send-email-clg@kaod.org>
+References: <1497013949-8786-1-git-send-email-clg@kaod.org>
+ <1497013949-8786-2-git-send-email-clg@kaod.org>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 16 Jun 2017 15:57:52 +0930
-X-Google-Sender-Auth: LGtk7NFq3awQg4q-LL-aXW--mlk
-Message-ID: <CACPK8Xd89nmigT==9j5Xdgi9bkLWA2hKmZDT9_+a2-_RYW1oOg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] drivers: hwmon: occ: Add "master"
- attribute and remove status files
-To: Eddie James <eajames@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- "Edward A. James" <eajames@us.ibm.com>
+Date: Fri, 16 Jun 2017 16:16:13 +0930
+X-Google-Sender-Auth: o4gqeZWrfA1Br-fQiOHWurkDhT8
+Message-ID: <CACPK8XfMUszkpDGsNMg1nxsqFtRwMUA6HJTJ76pg+du-CB_O6Q@mail.gmail.com>
+Subject: Re: [PATCH 1/5] leds: pca955x: add device tree support
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,190 +61,174 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Jun 2017 06:28:16 -0000
+X-List-Received-Date: Fri, 16 Jun 2017 06:46:37 -0000
 
-2017-06-15 5:56 GMT+09:30 Eddie James <eajames@linux.vnet.ibm.com>:
-> From: "Edward A. James" <eajames@us.ibm.com>
+On Fri, Jun 9, 2017 at 10:42 PM, C=C3=A9dric Le Goater <clg@kaod.org> wrote=
+:
+> It will be used in a following patch to define different operation
+> modes for each pin.
 >
-> Driver did not remove status device attributes when the device was
-> unloaded.
->
-> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+> Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
 
-Applied to dev-4.10.
+I've applied this series to dev-4.10 make it easier for us to get some test=
+ing.
 
+Thanks for sorting this out.
 
+Cheers,
+
+Joel
 > ---
->  drivers/hwmon/occ/common.c | 39 ++++++++++++++++++++++++++++-----------
->  drivers/hwmon/occ/common.h |  1 +
->  drivers/hwmon/occ/p8_i2c.c | 10 ++++++++++
->  drivers/hwmon/occ/p9_sbe.c | 10 ++++++++++
->  4 files changed, 49 insertions(+), 11 deletions(-)
+>  drivers/leds/leds-pca955x.c | 88 +++++++++++++++++++++++++++++++++++++++=
++++---
+>  1 file changed, 83 insertions(+), 5 deletions(-)
 >
-> diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
-> index bee64cd..f34b400 100644
-> --- a/drivers/hwmon/occ/common.c
-> +++ b/drivers/hwmon/occ/common.c
-> @@ -10,8 +10,9 @@
->  #include <asm/unaligned.h>
->  #include "common.h"
+> diff --git a/drivers/leds/leds-pca955x.c b/drivers/leds/leds-pca955x.c
+> index 78a7ce816a47..a3e61a57d574 100644
+> --- a/drivers/leds/leds-pca955x.c
+> +++ b/drivers/leds/leds-pca955x.c
+> @@ -41,14 +41,17 @@
+>   */
 >
-> -#define OCC_NUM_STATUS_ATTRS           6
-> +#define OCC_NUM_STATUS_ATTRS           7
+>  #include <linux/acpi.h>
+> -#include <linux/module.h>
+> -#include <linux/delay.h>
+> -#include <linux/string.h>
+>  #include <linux/ctype.h>
+> -#include <linux/leds.h>
+> +#include <linux/delay.h>
+>  #include <linux/err.h>
+> +#include <linux/gpio.h>
+>  #include <linux/i2c.h>
+> +#include <linux/leds.h>
+> +#include <linux/module.h>
+> +#include <linux/of_device.h>
+> +#include <linux/of.h>
+>  #include <linux/slab.h>
+> +#include <linux/string.h>
 >
-> +#define OCC_STAT_MASTER                        0x80
->  #define OCC_STAT_ACTIVE                        0x01
->  #define OCC_EXT_STAT_DVFS_OT           0x80
->  #define OCC_EXT_STAT_DVFS_POWER                0x40
-> @@ -236,21 +237,24 @@ static ssize_t occ_show_status(struct device *dev,
+>  /* LED select registers determine the source that drives LED outputs */
+>  #define PCA955X_LS_LED_ON      0x0     /* Output LOW */
+> @@ -122,6 +125,12 @@ struct pca955x_led {
+>         struct led_classdev     led_cdev;
+>         int                     led_num;        /* 0 .. 15 potentially */
+>         char                    name[32];
+> +       const char              *default_trigger;
+> +};
+> +
+> +struct pca955x_platform_data {
+> +       struct pca955x_led      *leds;
+> +       int                     num_leds;
+>  };
 >
->         switch (sattr->index) {
->         case 0:
-> -               val = header->status & OCC_STAT_ACTIVE;
-> +               val = header->status & OCC_STAT_MASTER;
->                 break;
->         case 1:
-> -               val = header->ext_status & OCC_EXT_STAT_DVFS_OT;
-> +               val = header->status & OCC_STAT_ACTIVE;
->                 break;
->         case 2:
-> -               val = header->ext_status & OCC_EXT_STAT_DVFS_POWER;
-> +               val = header->ext_status & OCC_EXT_STAT_DVFS_OT;
->                 break;
->         case 3:
-> -               val = header->ext_status & OCC_EXT_STAT_MEM_THROTTLE;
-> +               val = header->ext_status & OCC_EXT_STAT_DVFS_POWER;
->                 break;
->         case 4:
-> -               val = header->ext_status & OCC_EXT_STAT_QUICK_DROP;
-> +               val = header->ext_status & OCC_EXT_STAT_MEM_THROTTLE;
->                 break;
->         case 5:
-> +               val = header->ext_status & OCC_EXT_STAT_QUICK_DROP;
-> +               break;
-> +       case 6:
->                 val = header->occ_state;
->                 break;
+>  /* 8 bits per input register */
+> @@ -250,6 +259,69 @@ static int pca955x_led_set(struct led_classdev *led_=
+cdev,
+>         return 0;
+>  }
+>
+> +#if IS_ENABLED(CONFIG_OF)
+> +static struct pca955x_platform_data *
+> +pca955x_pdata_of_init(struct i2c_client *client, struct pca955x_chipdef =
+*chip)
+> +{
+> +       struct device_node *np =3D client->dev.of_node;
+> +       struct device_node *child;
+> +       struct pca955x_platform_data *pdata;
+> +       int count;
+> +
+> +       count =3D of_get_child_count(np);
+> +       if (!count || count > chip->bits)
+> +               return ERR_PTR(-ENODEV);
+> +
+> +       pdata =3D devm_kzalloc(&client->dev, sizeof(*pdata), GFP_KERNEL);
+> +       if (!pdata)
+> +               return ERR_PTR(-ENOMEM);
+> +
+> +       pdata->leds =3D devm_kzalloc(&client->dev,
+> +                          sizeof(struct pca955x_led) * chip->bits, GFP_K=
+ERNEL);
+> +       if (!pdata->leds)
+> +               return ERR_PTR(-ENOMEM);
+> +
+> +       for_each_child_of_node(np, child) {
+> +               const char *name;
+> +               u32 reg;
+> +               int res;
+> +
+> +               res =3D of_property_read_u32(child, "reg", &reg);
+> +               if ((res !=3D 0) || (reg >=3D chip->bits))
+> +                       continue;
+> +
+> +               if (of_property_read_string(child, "label", &name))
+> +                       name =3D child->name;
+> +
+> +               snprintf(pdata->leds[reg].name, sizeof(pdata->leds[reg].n=
+ame),
+> +                        "%s", name);
+> +
+> +               of_property_read_string(child, "linux,default-trigger",
+> +                                       &pdata->leds[reg].default_trigger=
+);
+> +       }
+> +
+> +       pdata->num_leds =3D chip->bits;
+> +
+> +       return pdata;
+> +}
+> +
+> +static const struct of_device_id of_pca955x_match[] =3D {
+> +       { .compatible =3D "nxp,pca9550", .data =3D (void *)pca9550 },
+> +       { .compatible =3D "nxp,pca9551", .data =3D (void *)pca9551 },
+> +       { .compatible =3D "nxp,pca9552", .data =3D (void *)pca9552 },
+> +       { .compatible =3D "nxp,pca9553", .data =3D (void *)pca9553 },
+> +       {},
+> +};
+> +
+> +MODULE_DEVICE_TABLE(of, of_pca955x_match);
+> +#else
+> +static struct pca955x_platform_data *
+> +pca955x_pdata_of_init(struct i2c_client *client, struct pca963x_chipdef =
+*chip)
+> +{
+> +       return ERR_PTR(-ENODEV);
+> +}
+> +#endif
+> +
+>  static int pca955x_probe(struct i2c_client *client,
+>                                         const struct i2c_device_id *id)
+>  {
+> @@ -257,8 +329,8 @@ static int pca955x_probe(struct i2c_client *client,
+>         struct pca955x_led *pca955x_led;
+>         struct pca955x_chipdef *chip;
+>         struct i2c_adapter *adapter;
+> -       struct led_platform_data *pdata;
+>         int i, err;
+> +       struct pca955x_platform_data *pdata;
+>
+>         if (id) {
+>                 chip =3D &pca955x_chipdefs[id->driver_data];
+> @@ -272,6 +344,11 @@ static int pca955x_probe(struct i2c_client *client,
 >         }
-> @@ -1061,29 +1065,33 @@ int occ_create_status_attrs(struct occ *occ)
->                 return -ENOMEM;
+>         adapter =3D to_i2c_adapter(client->dev.parent);
+>         pdata =3D dev_get_platdata(&client->dev);
+> +       if (!pdata) {
+> +               pdata =3D pca955x_pdata_of_init(client, chip);
+> +               if (IS_ERR(pdata))
+> +                       return PTR_ERR(pdata);
+> +       }
 >
->         occ->status_attrs[0] =
-> -               (struct sensor_device_attribute)SENSOR_ATTR(occ_active, 0444,
-> +               (struct sensor_device_attribute)SENSOR_ATTR(occ_master, 0444,
->                                                             occ_show_status,
->                                                             NULL, 0);
->         occ->status_attrs[1] =
-> +               (struct sensor_device_attribute)SENSOR_ATTR(occ_active, 0444,
-> +                                                           occ_show_status,
-> +                                                           NULL, 0);
-> +       occ->status_attrs[2] =
->                 (struct sensor_device_attribute)SENSOR_ATTR(occ_dvfs_ot, 0444,
->                                                             occ_show_status,
->                                                             NULL, 1);
-> -       occ->status_attrs[2] =
-> +       occ->status_attrs[3] =
->                 (struct sensor_device_attribute)SENSOR_ATTR(occ_dvfs_power,
->                                                             0444,
->                                                             occ_show_status,
->                                                             NULL, 2);
-> -       occ->status_attrs[3] =
-> +       occ->status_attrs[4] =
->                 (struct sensor_device_attribute)SENSOR_ATTR(occ_mem_throttle,
->                                                             0444,
->                                                             occ_show_status,
->                                                             NULL, 3);
-> -       occ->status_attrs[4] =
-> +       occ->status_attrs[5] =
->                 (struct sensor_device_attribute)SENSOR_ATTR(occ_quick_drop,
->                                                             0444,
->                                                             occ_show_status,
->                                                             NULL, 4);
-> -       occ->status_attrs[5] =
-> +       occ->status_attrs[6] =
->                 (struct sensor_device_attribute)SENSOR_ATTR(occ_status, 0444,
->                                                             occ_show_status,
->                                                             NULL, 5);
-> @@ -1097,3 +1105,12 @@ int occ_create_status_attrs(struct occ *occ)
->
->         return 0;
->  }
-> +
-> +void occ_remove_status_attrs(struct occ *occ)
-> +{
-> +       int i;
-> +
-> +       for (i = 0; i < OCC_NUM_STATUS_ATTRS; ++i)
-> +               device_remove_file(occ->bus_dev,
-> +                                  &occ->status_attrs[i].dev_attr);
-> +}
-> diff --git a/drivers/hwmon/occ/common.h b/drivers/hwmon/occ/common.h
-> index ad21538..a6582a7 100644
-> --- a/drivers/hwmon/occ/common.h
-> +++ b/drivers/hwmon/occ/common.h
-> @@ -137,5 +137,6 @@ struct occ {
->  int occ_update_response(struct occ *occ);
->  int occ_setup_sensor_attrs(struct occ *occ);
->  int occ_create_status_attrs(struct occ *occ);
-> +void occ_remove_status_attrs(struct occ *occ);
->
->  #endif /* __OCC_COMMON_H__ */
-> diff --git a/drivers/hwmon/occ/p8_i2c.c b/drivers/hwmon/occ/p8_i2c.c
-> index a2f10ea..a4d9965 100644
-> --- a/drivers/hwmon/occ/p8_i2c.c
-> +++ b/drivers/hwmon/occ/p8_i2c.c
-> @@ -245,6 +245,15 @@ static int p8_i2c_occ_probe(struct i2c_client *client,
->         return 0;
->  }
->
-> +static int p8_i2c_occ_remove(struct i2c_client *client)
-> +{
-> +       struct occ *occ = dev_get_drvdata(&client->dev);
-> +
-> +       occ_remove_status_attrs(occ);
-> +
-> +       return 0;
-> +}
-> +
->  static const struct of_device_id p8_i2c_occ_of_match[] = {
->         { .compatible = "ibm,p8-occ-hwmon" },
->         {}
-> @@ -260,6 +269,7 @@ static int p8_i2c_occ_probe(struct i2c_client *client,
->                 .of_match_table = p8_i2c_occ_of_match,
+>         /* Make sure the slave address / chip type combo given is possibl=
+e */
+>         if ((client->addr & ~((1 << chip->slv_addr_shift) - 1)) !=3D
+> @@ -378,6 +455,7 @@ static struct i2c_driver pca955x_driver =3D {
+>         .driver =3D {
+>                 .name   =3D "leds-pca955x",
+>                 .acpi_match_table =3D ACPI_PTR(pca955x_acpi_ids),
+> +               .of_match_table =3D of_match_ptr(of_pca955x_match),
 >         },
->         .probe = p8_i2c_occ_probe,
-> +       .remove = p8_i2c_occ_remove,
->         .address_list = p8_i2c_occ_addr,
->  };
->
-> diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
-> index c70858d..6226f6f 100644
-> --- a/drivers/hwmon/occ/p9_sbe.c
-> +++ b/drivers/hwmon/occ/p9_sbe.c
-> @@ -151,6 +151,15 @@ static int p9_sbe_occ_probe(struct platform_device *pdev)
->         return p9_sbe_occ_setup(p9_sbe_occ);
->  }
->
-> +static int p9_sbe_occ_remove(struct platform_device *pdev)
-> +{
-> +       struct occ *occ = platform_get_drvdata(pdev);
-> +
-> +       occ_remove_status_attrs(occ);
-> +
-> +       return 0;
-> +}
-> +
->  static const struct of_device_id p9_sbe_occ_of_match[] = {
->         { .compatible = "ibm,p9-occ-hwmon" },
->         { },
-> @@ -162,6 +171,7 @@ static int p9_sbe_occ_probe(struct platform_device *pdev)
->                 .of_match_table = p9_sbe_occ_of_match,
->         },
->         .probe  = p9_sbe_occ_probe,
-> +       .remove = p9_sbe_occ_remove,
->  };
->
->  module_platform_driver(p9_sbe_occ_driver);
+>         .probe  =3D pca955x_probe,
+>         .remove =3D pca955x_remove,
 > --
-> 1.8.3.1
+> 2.7.4
 >
