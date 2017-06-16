@@ -1,52 +1,59 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x241.google.com (mail-yb0-x241.google.com
- [IPv6:2607:f8b0:4002:c09::241])
+Received: from mail-yw0-x241.google.com (mail-yw0-x241.google.com
+ [IPv6:2607:f8b0:4002:c05::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wpqCX0cMjzDq8M
- for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 15:47:52 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wpqfJ0kWpzDq8M
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 16:07:35 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="SFdBfPbK"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="cVIALjz0"; 
  dkim-atps=neutral
-Received: by mail-yb0-x241.google.com with SMTP id p198so1300760yba.2
- for <openbmc@lists.ozlabs.org>; Thu, 15 Jun 2017 22:47:51 -0700 (PDT)
+Received: by mail-yw0-x241.google.com with SMTP id w143so1797802yww.1
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Jun 2017 23:07:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=y0zQvRRKS9nVJkvVRjBN2IZV+4SuAAx8pR4asVdvVLE=;
- b=SFdBfPbKiGc0br2J/d2NlElMTpHhbimRk+tXI34+u1w2iXbGmyzFXVrl1svs5BGdNL
- k2bXNFAldPNXxgBZnn13pzVVoqqOXGIeMWnQWze000aGP2XKN+UJ69gmK4l+ADdnDtjS
- bFPAgC/aknWmRHJRMGh2TDj1XyicpZaH8+ky9ZUwBwsaHdxQ9UL4k7Eek80tC2AVPKw+
- fcNNehvZbPtr/zIhQAr1P4ixqCO43/xBjC9pUtvIPW94z50+inj/KOJCbOs4p0CVNkVV
- CTietmvGomzJdP7pEp+hvIktNEBkk118ii/hoYXaLUwBmRZJClitNMhDne2BvBHj0K/B
- zgog==
+ bh=XzPnKJU/qUMal2a+UZhd4ESN8qdO6Hb/e5mvL9fFToo=;
+ b=cVIALjz0e8zwRQr8ZWVfmMn8+kvVn0N641xtdPYIt7/TGezAr1eYAZn1q9t9PSdfKA
+ A0qmW7rA1hP86TLJEYl52w7r8wv1UTLT3q4pr2796oDIF/FPCZ89MVgHpY/EnTwJs/ph
+ 8Zgp+hhbvW7lkqXf5p5pDkFzBA2sBrMC9cX7uvuhJMEMbfPYH3wAaDsxcz+q1xznmG2I
+ 5cicK4SAKqZROkd3buyXPXlVbN/Gso73MWGPuXPJCvWQ0dfAD1oPolqXBUxMXNf7Gd6K
+ XhKS9DVURAVKxx9XTyieWArySLP1fn3gRHoWAtT4zpf6usS3sTic0kV+2mvVXBBaPSOS
+ byag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=y0zQvRRKS9nVJkvVRjBN2IZV+4SuAAx8pR4asVdvVLE=;
- b=YsCgfSxwinML/jMvDdfg3QtmmrUNUrg52/C4MBjNlgIfpyyWc/r3pn/a1in+jELatL
- FFK7bfFxWtkPzq/pLQzxLQVU/xb8rA/qSkh+/g2O6wXuAYWaCkChg25S3s4HD7ppCLz7
- A57rzIUO24Vp/Akq9D5YrN8Zy+pqsAimxnc8WV0TydanCSeerGU5qUIq5toGBl4RkNea
- 6fsbETG/YK7lr1rJFVesC/P6G9ptfUCFl2ERl+w3FhqBtmjxV6yNoKYu1/WS7U12M8IJ
- e9KXbqsRagwTOKq8JBu8uO1z0qzGT7D6nNtP+tEbYN39gREZUwq53ZvAiSuMlJnyTdD4
- Uakw==
-X-Gm-Message-State: AKS2vOwgzAZXFcN/zZPnZTvvSrtF99DjABNlu+f6XrDdtc42GqDuMIld
- x3cUOXVWYL4J8IWbdXcwl2GTx1z9mA==
-X-Received: by 10.37.88.193 with SMTP id m184mr6867875ybb.39.1497592070073;
- Thu, 15 Jun 2017 22:47:50 -0700 (PDT)
+ bh=XzPnKJU/qUMal2a+UZhd4ESN8qdO6Hb/e5mvL9fFToo=;
+ b=tITDcMJKQuEjPvD3DHHcD5gtWNUN55RGLUJTA5jyVCW0scLO8nx/Swsst3tpR9H+fb
+ nIHbEpQYC4sHXYQ6Pl9ygNy2OZJXgJpR6ZzyQJ3cf9OXEEpgk4MBdPT1oa+tl5EtFFrQ
+ l+pSEReq9sL/JZfGXlifEMBOU9fIDKCFGq1psdHYOVPrd66BzGwQsuZ8aEmRhOtgU3+m
+ F1O8qO47t8e3WMmweQTpZA/Fvy9fp6zJRvW2Sx9ekZklD8/qj4ZaDkxDUCRaZnVWXR8O
+ pgQqmtG/N9lxR5tRJaO9Rzpc0b8/gXL6tCPr8J+24XclNhiL1Bc+5uJ3Owk2I8twkx2R
+ ngrg==
+X-Gm-Message-State: AKS2vOybieHvzBa44hNZHv4mE7XQv3SfZa/Yl272RS/Wlt19uYJyvH1k
+ FMS6RRMnpiy1HA3iOW7u3vLnrzm+EQ==
+X-Received: by 10.13.212.69 with SMTP id w66mr7092183ywd.164.1497593253598;
+ Thu, 15 Jun 2017 23:07:33 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.174.2 with HTTP; Thu, 15 Jun 2017 22:47:29 -0700 (PDT)
-In-Reply-To: <20170607173400.46762-1-xow@google.com>
-References: <20170607173400.46762-1-xow@google.com>
+Received: by 10.37.174.2 with HTTP; Thu, 15 Jun 2017 23:07:13 -0700 (PDT)
+In-Reply-To: <7CEA6E4B-F655-4FC4-8A40-FD599AB98A36@fuzziesquirrel.com>
+References: <20170609041457.31708-1-andrew@aj.id.au>
+ <20170609041457.31708-4-andrew@aj.id.au>
+ <CACPK8XfoH0vRf5WK41KYj1HQbDPUwovM3ieChCgv_EMVdWZP2g@mail.gmail.com>
+ <7CEA6E4B-F655-4FC4-8A40-FD599AB98A36@fuzziesquirrel.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 16 Jun 2017 15:17:29 +0930
-X-Google-Sender-Auth: Jv9_qp2AdX5quBTdY8sad4LNT0U
-Message-ID: <CACPK8XdVmM8p6zkv=+6SpC5b3SLXSyLg=4HeqGkMBQX0yNTOJg@mail.gmail.com>
-Subject: Re: [linux] ARM: dts: aspeed: zaius: Add aliases for I2C buses
-To: Xo Wang <xow@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Fri, 16 Jun 2017 15:37:13 +0930
+X-Google-Sender-Auth: xLuIyRhu2T4hJqcUCc_2e0Qr-aI
+Message-ID: <CACPK8XeQO85H2ZbTUaXv4RMsc2MLtpSPUma8q0bXva_tAn3VZg@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] hwmon: max31785: Provide config of fault pin
+ behavior
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: Jeremy Kerr <jk@ozlabs.org>,
+ Christopher Bostic <cbostic@linux.vnet.ibm.com>, 
+ msbarth <msbarth@linux.vnet.ibm.com>, Andrew Jeffery <andrew@aj.id.au>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -59,54 +66,176 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Jun 2017 05:47:52 -0000
+X-List-Received-Date: Fri, 16 Jun 2017 06:07:36 -0000
 
-Hey Xo,
+On Fri, Jun 9, 2017 at 10:08 PM, Brad Bishop
+<bradleyb@fuzziesquirrel.com> wrote:
+>
+>> On Jun 9, 2017, at 1:27 AM, Joel Stanley <joel@jms.id.au> wrote:
+>>
+>> On Fri, Jun 9, 2017 at 1:44 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+>>> From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+>>>
+>>> Provide interface to set behavior when FAULT pin is asserted.
+>>> When enabled force fan to 100% PWM duty cycle.
+>>>
+>>> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+>>> [Andrew Jeffery: Make it apply to reworked driver]
+>>> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+>>> ---
+>>> drivers/hwmon/max31785.c | 84 ++++++++++++++++++++++++++++++++++++++++++++++++
+>>> 1 file changed, 84 insertions(+)
+>>>
+>>> diff --git a/drivers/hwmon/max31785.c b/drivers/hwmon/max31785.c
+>>> index ecece346be28..b4a350477ee5 100644
+>>> --- a/drivers/hwmon/max31785.c
+>>> +++ b/drivers/hwmon/max31785.c
+>>> @@ -38,6 +38,7 @@
+>>> #define MAX31785_REG_MFR_ID                    0x99
+>>> #define MAX31785_REG_MFR_MODEL                 0x9a
+>>> #define MAX31785_REG_MFR_REVISION              0x9b
+>>> +#define MAX31785_REG_MFR_FAULT_RESP            0xd9
+>>> #define MAX31785_REG_MFR_FAN_CONFIG            0xf1
+>>> #define MAX31785_REG_READ_FAN_PWM              0xf3
+>>>
+>>> @@ -51,6 +52,9 @@
+>>> /* Fan Status register bits */
+>>> #define MAX31785_FAN_STATUS_FAULT_MASK         0x80
+>>>
+>>> +/* Fault response register bits */
+>>> +#define MAX31785_FAULT_RESP_PIN_MONITOR                0x01
+>>> +
+>>> /* Fan Command constants */
+>>> #define MAX31785_FAN_COMMAND_PWM_RATIO         40
+>>>
+>>> @@ -755,6 +759,82 @@ static const struct hwmon_chip_info max31785_chip_info_0x3040 = {
+>>>        .info = max31785_info_0x3040,
+>>> };
+>>>
+>>> +static ssize_t max31785_fault_resp_store(struct device *dev,
+>>> +                               struct device_attribute *attr, const char *buf,
+>>> +                               size_t count)
+>>> +{
+>>> +       struct i2c_client *client = to_i2c_client(dev);
+>>> +       struct max31785 *data = dev_get_drvdata(dev);
+>>> +       int rv;
+>>> +
+>>> +       mutex_lock(&data->lock);
+>>> +
+>>> +       rv = max31785_set_page(client, 0);
+>>> +       if (rv < 0)
+>>> +               goto done;
+>>> +
+>>> +       rv = i2c_smbus_read_byte_data(client, MAX31785_REG_MFR_FAULT_RESP);
+>>> +       if (rv < 0)
+>>> +               goto done;
+>>> +
+>>> +       if (!strncmp(buf, "on", strlen("on"))) {
+>>
+>> This is interesting. What do you gain from the strlen?
+>>
+>>> +               if (!(rv & MAX31785_FAULT_RESP_PIN_MONITOR)) {
+>>> +                       rv |= MAX31785_FAULT_RESP_PIN_MONITOR;
+>>
+>> Is this something we're toggling on and off at runtime?
+>>
+>> I doubt it is. This should be enabled at probe time.
+>
+> I had asked jk if this should be DT or sysfs.  jk: can you comment?
 
-For some reason I didn't get this mail from you. Luckily I saw it in patchwork.
+As with the watchdog, this is a property of the wiring of the system -
+a hardware property - so I think it should be device tree.
 
-On Thu, Jun 8, 2017 at 3:04 AM, Xo Wang <xow@google.com> wrote:
-> Make numbering for I2C buses consistent across boots by assigning
-> aliases to all the bus blocks in the peripheral, including the ones that
-> are currently disabled. This way, Linux reserves bus numbers for buses
-> that are disabled, instead of filling in those number gaps with logical
-> I2C buses from muxes.
-
-Thanks for the change. We already set these aliases in aspeed-g5.dtsi,
-so you shouldn't need this patch.
+I applied the other two patches in the series, but not this one.
 
 Cheers,
 
 Joel
 
 >
-> Signed-off-by: Xo Wang <xow@google.com>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
+>> If we want to
+>> make it an option then use a device tree property, but I don't think
+>> it even needs to be optional.
+>>
+>> Chris, can you confirm that this does not need to be dynamic?
 >
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> index 68baf3288263..353613344ea9 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> @@ -9,6 +9,20 @@
+> It does not need to be dynamic.
 >
->         aliases {
->                 serial4 = &uart5;
-> +               i2c0 = &i2c0;
-> +               i2c1 = &i2c1;
-> +               i2c2 = &i2c2;
-> +               i2c3 = &i2c3;
-> +               i2c4 = &i2c4;
-> +               i2c5 = &i2c5;
-> +               i2c6 = &i2c6;
-> +               i2c7 = &i2c7;
-> +               i2c8 = &i2c8;
-> +               i2c9 = &i2c9;
-> +               i2c10 = &i2c10;
-> +               i2c11 = &i2c11;
-> +               i2c12 = &i2c12;
-> +               i2c13 = &i2c13;
->         };
->
->         chosen {
+>>
+>> Cheers,
+>>
+>> Joel
+>>
+>>
+>>> +                       rv = i2c_smbus_write_byte_data(client,
+>>> +                                       MAX31785_REG_MFR_FAULT_RESP, rv);
+>>> +                       if (rv < 0)
+>>> +                               goto done;
+>>> +               }
+>>> +       } else if (!strncmp(buf, "off", strlen("off"))) {
+>>> +               if (rv & MAX31785_FAULT_RESP_PIN_MONITOR) {
+>>> +                       rv &= ~MAX31785_FAULT_RESP_PIN_MONITOR;
+>>> +                       rv = i2c_smbus_write_byte_data(client,
+>>> +                                       MAX31785_REG_MFR_FAULT_RESP, rv);
+>>> +                       if (rv < 0)
+>>> +                               goto done;
+>>> +               }
+>>> +       } else {
+>>> +               dev_warn(dev, "Unknown fault response type: [%s]\n", buf);
+>>> +               rv = -EINVAL;
+>>> +       }
+>>> +
+>>> +done:
+>>> +       mutex_unlock(&data->lock);
+>>> +
+>>> +       return rv;
+>>> +}
+>>> +
+>>> +static ssize_t max31785_fault_resp_show(struct device *dev,
+>>> +                              struct device_attribute *attr, char *buf)
+>>> +{
+>>> +       struct max31785 *data = max31785_update_device(dev);
+>>> +       struct i2c_client *client = to_i2c_client(dev);
+>>> +       int rv;
+>>> +
+>>> +       mutex_lock(&data->lock);
+>>> +
+>>> +       rv = max31785_set_page(client, 0);
+>>> +       if (rv < 0)
+>>> +               goto done;
+>>> +
+>>> +       rv = i2c_smbus_read_byte_data(client, MAX31785_REG_MFR_FAULT_RESP);
+>>> +       if (rv < 0)
+>>> +               goto done;
+>>> +
+>>> +       if (rv & MAX31785_FAULT_RESP_PIN_MONITOR)
+>>> +               rv = sprintf(buf, "on\n");
+>>> +       else
+>>> +               rv = sprintf(buf, "off\n");
+>>> +
+>>> +done:
+>>> +       mutex_unlock(&data->lock);
+>>> +
+>>> +       return rv;
+>>> +}
+>>> +
+>>> +static DEVICE_ATTR(fault_resp, 0644, max31785_fault_resp_show,
+>>> +               max31785_fault_resp_store);
+>>> +
+>>>
+>>> static int max31785_get_capabilities(struct max31785 *data)
+>>> {
+>>> @@ -804,6 +884,10 @@ static int max31785_probe(struct i2c_client *client,
+>>>        else
+>>>                chip = &max31785_chip_info_0x3030;
+>>>
+>>> +       rc = device_create_file(dev, &dev_attr_fault_resp);
+>>> +       if (rc)
+>>> +               return rc;
+>>> +
+>>>        hwmon_dev = devm_hwmon_device_register_with_info(dev,
+>>>                        client->name, data, chip, NULL);
+>>>
+>>> --
+>>> 2.11.0
+>>>
