@@ -1,50 +1,61 @@
-Return-Path: <venture@google.com>
-Received: from mail-pf0-x235.google.com (mail-pf0-x235.google.com
- [IPv6:2607:f8b0:400e:c00::235])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <mspinler@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wq3bN6lnkzDq8B
- for <openbmc@lists.ozlabs.org>; Sat, 17 Jun 2017 01:05:52 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="DznvNQfM"; 
- dkim-atps=neutral
-Received: by mail-pf0-x235.google.com with SMTP id 83so23639522pfr.0
- for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 08:05:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=from:to:subject:date:message-id;
- bh=TeuPABiNO2xbus/6T+oohGSSeo9NaH3/Sa0r2Eh66rg=;
- b=DznvNQfM9FCEA1YYOTOhyULkeSxCBizK9Kgc4S2SdHFcY8QjAhzr+4fNPZzf9DzY0u
- D/szgArVOQtmM++ISFIh8FPomY8qq4zt56k4TmRRu1tBP4T4rlEQS0/tGTdlPlrkWrxA
- a9QWH0rybP8oYWUxQHQsFAlAvuCv1cbk1U1CajWmaygSRLnBwe2HMOSGhXrwP3mEV5Vr
- YGF+9UzuSA/APXLh1NTHO164DfjvpKBv3P5WnTvyLde6g8SUrPF9TiAeEqE3x3hkNCfj
- rJw6HpZKfg2sUElITwX1vSTHYrIntkpKGgCK70vyTd/mmttKF0tQB5eBa79bgrysYKT+
- kjOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:subject:date:message-id;
- bh=TeuPABiNO2xbus/6T+oohGSSeo9NaH3/Sa0r2Eh66rg=;
- b=WmEFk+iin8c1NYzpoE60DUPWuCrrwXpjp97fO99w39xi/+1h/6w/7oABDn1JD9IYDf
- O5a8EoXZH2ZSaP+nIs7y9CrjqALHT5YjMY0CMe83tKotc98mfWA83Jtg1TKrBIOiH6SI
- Nq5XO5qlotmSV1Z6kk0A4Euy+1lMdy7JQHdFSC4QLgk4Ii6g+YWd9qvH04nlZPl7Em4l
- DNTSpPyf08h8/vYDjyKdYW8U3z94rHdr2vmi181g/tylw6SsmntoOZ5L7mLTreB88gBU
- 7n+y7aaRJ6mv42sGrnc7MacxifGziNZkZHSvMiDjS3xdwBef+QthXi4V73X8+gce4qQy
- nC4g==
-X-Gm-Message-State: AKS2vOyJUON1WFTjf+t8/BaxvxSWE6uEw7zCfSK80saz/x/wvkxg1Wt4
- NKQVJ/n+qSaPq1pd
-X-Received: by 10.84.208.102 with SMTP id f35mr13194028plh.53.1497625549821;
- Fri, 16 Jun 2017 08:05:49 -0700 (PDT)
-Received: from venture.svl.corp.google.com ([100.123.242.104])
- by smtp.gmail.com with ESMTPSA id d71sm6222372pfe.106.2017.06.16.08.05.49
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Fri, 16 Jun 2017 08:05:49 -0700 (PDT)
-From: Patrick Venture <venture@google.com>
-To: venture@google.com, joel@jms.id.au, openbmc@lists.ozlabs.org,
- raltherr@google.com
-Subject: [PATCH linux dev-4.10] ARM: dts: aspeed: quanta-q71l: i2c-mux compat
- fix
-Date: Fri, 16 Jun 2017 08:05:40 -0700
-Message-Id: <20170616150540.137808-1-venture@google.com>
-X-Mailer: git-send-email 2.13.1.518.g3df882009-goog
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wq54D0DSZzDq8B
+ for <openbmc@lists.ozlabs.org>; Sat, 17 Jun 2017 02:12:27 +1000 (AEST)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v5GG93sX022083
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 12:12:24 -0400
+Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2b4h6k3sph-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Jun 2017 12:12:24 -0400
+Received: from localhost
+ by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
+ Fri, 16 Jun 2017 12:12:23 -0400
+Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
+ by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Fri, 16 Jun 2017 12:12:22 -0400
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v5GGCLGZ22413328; Fri, 16 Jun 2017 16:12:21 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id DB8DF11204B;
+ Fri, 16 Jun 2017 12:12:26 -0400 (EDT)
+Received: from twohearted.rchland.ibm.com (unknown [9.10.99.32])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id A2600112034;
+ Fri, 16 Jun 2017 12:12:26 -0400 (EDT)
+From: Matt Spinler <mspinler@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: Matt Spinler <spinler@us.ibm.com>
+Subject: [PATCH] ARM: dts: witherspoon: enable wdt2
+Date: Fri, 16 Jun 2017 11:12:29 -0500
+X-Mailer: git-send-email 2.11.0
+X-TM-AS-GCONF: 00
+x-cbid: 17061616-0048-0000-0000-000001A932A0
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007243; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00875676; UDB=6.00436014; IPR=6.00655765; 
+ BA=6.00005425; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015853; XFM=3.00000015;
+ UTC=2017-06-16 16:12:23
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17061616-0049-0000-0000-0000418AF408
+Message-Id: <20170616161229.6639-1-mspinler@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-06-16_09:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1706160267
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,45 +67,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Jun 2017 15:05:53 -0000
+X-List-Received-Date: Fri, 16 Jun 2017 16:12:28 -0000
 
-Updating compatibility string from 4.7 to 4.10 version of driver.
+From: Matt Spinler <spinler@us.ibm.com>
 
-Signed-off-by: Patrick Venture <venture@google.com>
+WDT1 is used for a fan watchdog, so enable WDT2
+for use by others.
+
+Signed-off-by: Matt Spinler <spinler@us.ibm.com>
 ---
- arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-index d5febe330121..a73d33d4ce90 100644
---- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-@@ -164,7 +164,7 @@
- 	 *    Slot 7
- 	 */
- 	i2c-switch@74 {
--		compatible = "pca9546";
-+		compatible = "nxp,pca9546";
- 		reg = <0x74>;
- 		#address-cells = <1>;
- 		#size-cells = <0>;
-@@ -180,7 +180,7 @@
- 	 *    SSD 2
- 	 */
- 	i2c-switch@77 {
--		compatible = "pca9548";
-+		compatible = "nxp,pca9548";
- 		#address-cells = <1>;
- 		#size-cells = <0>;
- 		reg = <0x77>;
-@@ -218,7 +218,7 @@
- 	 *    PSU2
- 	 */
- 	i2c-switch@70 {
--		compatible = "pca9546";
-+		compatible = "nxp,pca9546";
- 		reg = <0x70>;
- 		#address-cells = <1>;
- 		#size-cells = <0>;
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index 99003b9fb54b..1c99e22b256b 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -84,6 +84,10 @@
+ 
+ #include "ibm-power9-cfam.dtsi"
+ 
++&wdt2 {
++    status = "okay";
++};
++
+ &fmc {
+ 	status = "okay";
+ 	flash@0 {
+@@ -367,7 +371,7 @@
+ 			type = <PCA955X_TYPE_GPIO>;
+ 		};
+ 		gpio@14 {
+-			reg = <14>;
++			reg = <14>;./arch/arm/boot/dts/
+ 			type = <PCA955X_TYPE_GPIO>;
+ 		};
+ 		gpio@15 {
 -- 
-2.13.1.518.g3df882009-goog
+2.11.0
