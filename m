@@ -1,54 +1,71 @@
-Return-Path: <ilya@yadro.com>
-X-Greylist: delayed 462 seconds by postgrey-1.36 at bilbo;
- Tue, 20 Jun 2017 00:56:04 AEST
-Authentication-Results: lists.ozlabs.org;
- dkim=fail reason="signature verification failed" (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="CjfGFPJL"; 
- dkim-atps=neutral
-Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <cbostic@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wrvDh47DYzDq7c
- for <openbmc@lists.ozlabs.org>; Tue, 20 Jun 2017 00:56:04 +1000 (AEST)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id 4764E41185
- for <openbmc@lists.ozlabs.org>; Mon, 19 Jun 2017 14:48:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- user-agent:content-disposition:content-type:content-type
- :mime-version:message-id:subject:subject:from:from:date:date
- :received:received:received; s=mta-01; t=1497883696; x=
- 1499698097; bh=Ax2P0AK0CVouhude9S0LrNFCVSdROjYezqdeYPn3jd0=; b=C
- jfGFPJLClK+vs8GB8mswuMkpS7kWzOExWHrAfSZp0gYPgyjK7iUSbx/4t41mScui
- JlNWOJwpqmc3pEzJVwfLM8ZTlbYprVczuJqI9CJHEGsjL9ohxBrtgjc+T9ziGzMk
- Ph/t/lkDCGKK540hFUmoersW2TnEcb2ZuXLHRIlZos=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id E1CNDXVV4dew for <openbmc@lists.ozlabs.org>;
- Mon, 19 Jun 2017 17:48:16 +0300 (MSK)
-Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
- [172.17.10.102])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 803C0404CF
- for <openbmc@lists.ozlabs.org>; Mon, 19 Jun 2017 17:48:16 +0300 (MSK)
-Received: from localhost (172.17.14.158) by T-EXCH-02.corp.yadro.com
- (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Mon, 19
- Jun 2017 17:48:16 +0300
-Date: Mon, 19 Jun 2017 17:44:45 +0300
-From: Ilya Kuznetsov <ilya@yadro.com>
-To: <openbmc@lists.ozlabs.org>
-CC: Vlad Vovchenko <v.vovchenko@yadro.com>
-Subject: phosphor-net-ipmid
-Message-ID: <20170619144445.xpoo5x2sbt3ct22p@yadro.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ws3Xj2jsjzDqRW
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Jun 2017 07:10:28 +1000 (AEST)
+Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v5JL9EqH129101
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Jun 2017 17:10:26 -0400
+Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2b6cyemhe0-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Jun 2017 17:10:25 -0400
+Received: from localhost
+ by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Mon, 19 Jun 2017 17:10:24 -0400
+Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
+ by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Mon, 19 Jun 2017 17:10:21 -0400
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v5JLALdq56885462; Mon, 19 Jun 2017 21:10:21 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 466782803F;
+ Mon, 19 Jun 2017 17:10:15 -0400 (EDT)
+Received: from Christophers-MacBook-Pro.local (unknown [9.83.1.249])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id 013CD2803E;
+ Mon, 19 Jun 2017 17:10:12 -0400 (EDT)
+Subject: Re: [PATCH linux dev-4.10 v2 3/3] drivers/hwmon: max31785 Set fan
+ fault response based on dev tree
+To: Joel Stanley <joel@jms.id.au>
+References: <20170615200033.67387-1-cbostic@linux.vnet.ibm.com>
+ <20170615200033.67387-4-cbostic@linux.vnet.ibm.com>
+ <CACPK8Xc-Sm1+jU3tXNnCqCFPCkojro75mtQm1+PkO7=ev2uz=w@mail.gmail.com>
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Date: Mon, 19 Jun 2017 16:10:16 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
+ Gecko/20100101 Thunderbird/45.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"; format=flowed
-Content-Disposition: inline
-User-Agent: NeoMutt/20170609 (1.8.3)
-X-Originating-IP: [172.17.14.158]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-02.corp.yadro.com (172.17.10.102)
+In-Reply-To: <CACPK8Xc-Sm1+jU3tXNnCqCFPCkojro75mtQm1+PkO7=ev2uz=w@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+x-cbid: 17061921-0040-0000-0000-00000366F68A
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007257; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00877140; UDB=6.00436919; IPR=6.00657282; 
+ BA=6.00005431; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015889; XFM=3.00000015;
+ UTC=2017-06-19 21:10:23
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17061921-0041-0000-0000-0000075B0C1B
+Message-Id: <97cde136-3c06-acc9-7f93-26f27fc50069@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-06-19_11:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1706190348
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,11 +77,129 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 19 Jun 2017 14:56:06 -0000
+X-List-Received-Date: Mon, 19 Jun 2017 21:10:30 -0000
 
-Hello,
-we would like to help with phosphor-net-ipmid and have volunteer. For us main 
-priorities are sensors and sel. Obviously work is in progress there and we don't 
-want to duplicate it, so please share tasks with us and tell how we can 
-contribute?
-Thanks!
+
+
+On 6/16/17 1:18 AM, Joel Stanley wrote:
+> On Fri, Jun 16, 2017 at 5:30 AM, Christopher Bostic
+> <cbostic@linux.vnet.ibm.com> wrote:
+>> Check for the optional device tree property 'fault-max-fan'.  If
+>> present, configure hardware for 100% PWM fan duty cycle on fault
+>> condition.
+>>
+>> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+>> ---
+>>   drivers/hwmon/max31785.c | 38 ++++++++++++++++++++++++++++++++++++++
+>>   1 file changed, 38 insertions(+)
+>>
+>> diff --git a/drivers/hwmon/max31785.c b/drivers/hwmon/max31785.c
+>> index fc03b7c..a67d5e5 100644
+>> --- a/drivers/hwmon/max31785.c
+>> +++ b/drivers/hwmon/max31785.c
+>> @@ -38,6 +38,7 @@
+>>   #define MAX31785_REG_MFR_ID                    0x99
+>>   #define MAX31785_REG_MFR_MODEL                 0x9a
+>>   #define MAX31785_REG_MFR_REVISION              0x9b
+>> +#define MAX31785_REG_MFR_FAULT_RESP            0xd9
+>>   #define MAX31785_REG_MFR_FAN_CONFIG            0xf1
+>>   #define MAX31785_REG_READ_FAN_PWM              0xf3
+>>
+>> @@ -51,6 +52,9 @@
+>>   /* Fan Status register bits */
+>>   #define MAX31785_FAN_STATUS_FAULT_MASK         0x80
+>>
+>> +/* Fault response register bits */
+>> +#define MAX31785_FAULT_RESP_PIN_MONITOR                0x01
+> It's a bit, so use BIT(0).
+>
+> The bit is called "FAULT_PIN_MONITOR". Please use that naming in your code.
+
+Hi Joel,
+
+OK will make those updates.
+>
+>> +
+>>   /* Fan Command constants */
+>>   #define MAX31785_FAN_COMMAND_PWM_RATIO         40
+>>
+>> @@ -762,6 +766,36 @@ static int max31785_get_capabilities(struct max31785 *data)
+>>          return 0;
+>>   }
+>>
+>> +static int max31785_init_fault_resp(struct i2c_client *client)
+>> +{
+>> +       struct device_node *np = client->dev.of_node;
+>> +       int page;
+>> +       int rc;
+>> +
+>> +       if (np && of_get_property(np, "fault-max-fan", NULL)) {
+>> +               /* TODO: number of fans/pages is platform dependent */
+>> +               for (page = 0; page < 4; page++) {
+> The datasheet says "this bit is only valid for pages 0 to 5. Other
+> pages return 0".
+>
+> Is there a reason you only apply it to the first four pages, and not
+> the fifth (index 4) and sixth (index 5)?
+
+Was thinking in terms of Witherspoon which only uses fans 0 - 3. Clearly 
+not a generic
+solution.
+>
+> If you intended to apply this for all 6 supported pages, you could set
+> page 255, and have the condition applied for all of the valid pages.
+
+I'll use this approach.
+
+Thanks,
+Chris
+>
+> If you only set it for the first four pages on purpose then please add
+> a comment to say that. However, I think we should fix the binding so
+> the pages can be selected. I will review the bindings separately.
+>
+> Cheers,
+>
+> Joel
+>
+>
+>> +
+>> +                       /* set max fans on fault */
+>> +                       rc = max31785_set_page(client, page);
+>> +                       if (rc < 0)
+>> +                               return rc;
+>> +
+>> +                       rc = i2c_smbus_read_byte_data(client,
+>> +                                       MAX31785_REG_MFR_FAULT_RESP);
+>> +                       if (rc < 0)
+>> +                               return rc;
+>> +
+>> +                       rc |= MAX31785_FAULT_RESP_PIN_MONITOR;
+>
+>
+>> +                       rc = i2c_smbus_write_byte_data(client,
+>> +                                       MAX31785_REG_MFR_FAULT_RESP, rc);
+>> +               }
+>> +               return rc;
+>> +       }
+>> +
+>> +       return 0;
+>> +}
+>> +
+>>   static int max31785_probe(struct i2c_client *client,
+>>                            const struct i2c_device_id *id)
+>>   {
+>> @@ -783,6 +817,10 @@ static int max31785_probe(struct i2c_client *client,
+>>          data->client = client;
+>>          mutex_init(&data->lock);
+>>
+>> +       rc = max31785_init_fault_resp(client);
+>> +       if (rc)
+>> +               return rc;
+>> +
+>>          rc = max31785_init_fans(data);
+>>          if (rc)
+>>                  return rc;
+>> --
+>> 1.8.2.2
+>>
