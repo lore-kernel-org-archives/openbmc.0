@@ -1,54 +1,74 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x244.google.com (mail-yb0-x244.google.com
- [IPv6:2607:f8b0:4002:c09::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <stewart@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wrd2D5v8JzDqgs
- for <openbmc@lists.ozlabs.org>; Mon, 19 Jun 2017 14:16:04 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="nKaFWMuO"; 
- dkim-atps=neutral
-Received: by mail-yb0-x244.google.com with SMTP id j65so4162940ybj.3
- for <openbmc@lists.ozlabs.org>; Sun, 18 Jun 2017 21:16:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=dshGD5aB1H9hVNon4Uw3bejyTT0b1MMEa5+i8/sowLQ=;
- b=nKaFWMuO+n0rsSifiYkvKojQoQEiRVXPXrJHLLfJPME37cfwMDOWyEoOFYeALAou0i
- QZsSdmCCw2h64vWlonZTqzwnbWQzTnZtULd5/OzwIIG0Oq36pSFbfpHmsAAWsQjNNroc
- 0ZYpiK9Nqm8Hk5C/tRcbv25eG+MmhPKeBWJLdvqpHRfKrKRbmEQIzSYx5pIIiMROEY2F
- nQdC/6R/NdcKNEP5jdnaXB1/FmlP9UMU2dVttqKk85niuaX4lNjEG2atYwczEf/G5Ius
- fReveK53NK8iuGKEhfOdFPUy9sqfmwEWS/GJSLLv9baPvpNfBkn4hDWfLnRYB5TNX+7+
- EuFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=dshGD5aB1H9hVNon4Uw3bejyTT0b1MMEa5+i8/sowLQ=;
- b=GRJtG2X+EqLwruhncKs82sXG6RycYukRbEdcVPdBmSgWLmUW+y1rTw0lcrC6HUj15x
- hYl7cP1M0cfaQ19KH880LNNZV7r0j0lUqd5ulWnl6hKChX+B9ViVN0Y4uOxSCrlGxkdF
- eKxAsVlQ/M7pbaOKzswNqXCCBKxGGBlUlUejgl9wjntSRTOJZHjYDGyycdxhdkd6Cu0b
- n3Qo2AfJbjCAihMVpuB++DP1hgMW364wc6NW6xVoBK+qhle0ArYqFZ1tZRySxOoLZFj8
- xt4Hr8BhRkBFn6E+++byccClcbpTfL4FKhJOkYdThqY5ds2KF6ZmkW6wDQoIxcaRGMF2
- 3stw==
-X-Gm-Message-State: AKS2vOz/wq3nDfAR3GvLkfBC7GwI38m7cJ7VFdWGDwTV0JSKl8Ob7Z5W
- 7At2hLxPizMkb871qNtx0P1l1I2bwZTq
-X-Received: by 10.37.11.68 with SMTP id 65mr11883062ybl.94.1497845762321; Sun,
- 18 Jun 2017 21:16:02 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wrg0p1qz0zDq7c
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Jun 2017 15:44:57 +1000 (AEST)
+Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v5J5hxPB070962
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Jun 2017 01:44:55 -0400
+Received: from e38.co.us.ibm.com (e38.co.us.ibm.com [32.97.110.159])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2b64htgew7-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Jun 2017 01:44:55 -0400
+Received: from localhost
+ by e38.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
+ Sun, 18 Jun 2017 23:44:54 -0600
+Received: from b03cxnp08028.gho.boulder.ibm.com (9.17.130.20)
+ by e38.co.us.ibm.com (192.168.1.138) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Sun, 18 Jun 2017 23:44:53 -0600
+Received: from b03ledav001.gho.boulder.ibm.com
+ (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
+ by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v5J5iqqm20316282; Sun, 18 Jun 2017 22:44:52 -0700
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C92436E03A;
+ Sun, 18 Jun 2017 23:44:52 -0600 (MDT)
+Received: from birb.localdomain (unknown [9.81.207.113])
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with SMTP id 1EDF06E038;
+ Sun, 18 Jun 2017 23:44:51 -0600 (MDT)
+Received: by birb.localdomain (Postfix, from userid 1000)
+ id F1CC84EC5FE; Mon, 19 Jun 2017 15:44:48 +1000 (AEST)
+From: Stewart Smith <stewart@linux.vnet.ibm.com>
+To: Adriana Kobylak <anoo@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: OpenBMC Image Management
+In-Reply-To: <DF60C6B0-BEF2-4CBA-B5D8-6B85EF0F158A@linux.vnet.ibm.com>
+References: <75C63AB7-E340-4A78-BA82-80F96EAEA051@linux.vnet.ibm.com>
+ <OF3E869A3E.DB3E43DE-ON862580B3.008284D7-862580B3.0082FDDB@notes.na.collabserv.com>
+ <20170127030706.GB5504@heinlein.lan> <87o9ypw13y.fsf@linux.vnet.ibm.com>
+ <20170131181641.k3jnv73ha5v2kjsh@asimov>
+ <CAPLgG=nY-_A6HvVmY45U5U=wrz4iRK5P=R0e_0NPVs=B--CLdw@mail.gmail.com>
+ <2DA4883E-3015-4FDF-92FC-F6761436585D@linux.vnet.ibm.com>
+ <87y3sv8str.fsf@linux.vnet.ibm.com>
+ <DF60C6B0-BEF2-4CBA-B5D8-6B85EF0F158A@linux.vnet.ibm.com>
+Date: Mon, 19 Jun 2017 15:44:48 +1000
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.174.2 with HTTP; Sun, 18 Jun 2017 21:15:41 -0700 (PDT)
-In-Reply-To: <20170616204330.25401-1-mspinler@linux.vnet.ibm.com>
-References: <20170616204330.25401-1-mspinler@linux.vnet.ibm.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 19 Jun 2017 13:45:41 +0930
-X-Google-Sender-Auth: D4X0W7zgUGN5ek6STBBjBwmnddc
-Message-ID: <CACPK8XdADqAsv9xPDJcb+NE7pa3q1JbzMiZZCWjOaRMHcbs98A@mail.gmail.com>
-Subject: Re: [PATCH] ARM: dts: witherspoon: enable wdt2
-To: Matt Spinler <mspinler@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Matt Spinler <spinler@us.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-TM-AS-GCONF: 00
+x-cbid: 17061905-0028-0000-0000-000007D62EBD
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007254; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00876840; UDB=6.00436738; IPR=6.00656979; 
+ BA=6.00005429; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015878; XFM=3.00000015;
+ UTC=2017-06-19 05:44:53
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17061905-0029-0000-0000-00003647AFC7
+Message-Id: <87mv945y5r.fsf@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-06-19_04:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1706190098
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,47 +80,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 19 Jun 2017 04:16:06 -0000
+X-List-Received-Date: Mon, 19 Jun 2017 05:44:58 -0000
 
-On Sat, Jun 17, 2017 at 6:13 AM, Matt Spinler
-<mspinler@linux.vnet.ibm.com> wrote:
-> From: Matt Spinler <spinler@us.ibm.com>
+Adriana Kobylak <anoo@linux.vnet.ibm.com> writes:
+>> Why is there mboxbridge separate from phosphor-mboxd?
 >
-> WDT1 is used for a fan watchdog, so enable WDT2
-> for use by others.
->
+> Because the mboxbridge is being used by other companies as a reference
+> to be able to implement the mailbox daemon in their own BMC firmware
+> stack for other openpower systems, we didn=E2=80=99t want to =E2=80=9Cpol=
+lute=E2=80=9D the
+> repository with openbmc-specific and c++ implementation that could
+> confuse them.
 
-Thanks Matt. I like this idea so much that I've gone and created a
-patch to do it for all platforms.
+Why are there OpenBMC specific things in mboxd?
 
-This is so we can update to the latest u-boot build which enables WDT2
-by default.
+Why can't the reference implementation be used? What's deficient in it?
 
-Cheers,
-
-Joel
-
-
-> Signed-off-by: Matt Spinler <spinler@us.ibm.com>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> index 99003b9fb54b..d1c455606a32 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> @@ -84,6 +84,10 @@
->
->  #include "ibm-power9-cfam.dtsi"
->
-> +&wdt2 {
-> +    status = "okay";
-> +};
-> +
->  &fmc {
->         status = "okay";
->         flash@0 {
-> --
-> 2.13.0
->
+--=20
+Stewart Smith
+OPAL Architect, IBM.
