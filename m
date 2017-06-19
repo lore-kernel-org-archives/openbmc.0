@@ -1,56 +1,57 @@
-Return-Path: <cyrilbur@gmail.com>
-Received: from mail-pf0-x244.google.com (mail-pf0-x244.google.com
- [IPv6:2607:f8b0:400e:c00::244])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
+ [IPv6:2607:f8b0:400e:c00::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wrYMf0xJ9zDq88;
- Mon, 19 Jun 2017 11:30:53 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wrcb70JvNzDqhF
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Jun 2017 13:56:03 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Zu1Nx1xS"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="I4fxDKuk"; 
  dkim-atps=neutral
-Received: by mail-pf0-x244.google.com with SMTP id y7so14433007pfd.3;
- Sun, 18 Jun 2017 18:30:53 -0700 (PDT)
+Received: by mail-pf0-x241.google.com with SMTP id y7so14779972pfd.3
+ for <openbmc@lists.ozlabs.org>; Sun, 18 Jun 2017 20:56:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=message-id:subject:from:to:date:in-reply-to:references:mime-version
+ h=sender:from:to:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=yOoD3ZtfxEEumhZddol6w9Dc00/lyjiB/v/2vhWAWnI=;
- b=Zu1Nx1xSVqAucyplYL5OVbSYJDSJY6YnqT+sBHl+jP3Lh3SbSJslIIfGEjTYDutkYV
- qwoeWdQNCuifqXoX3hq/lI1EYIfWCFYs9rBFqQdERqCg+gMRLH3IFIQWasqLNqM87hIy
- V7veZzw9iklF4hXSyvCd1BNkHIQj1g12C+cl/2xuXXa+68FlhEM/FK4bHRBLpxyiZBAU
- VP1LOq0egLpH+8kfILDuGigna0b/nSnXR9FNAjhu69vc149IjPNt7td2dSDMBl6g7Ead
- 0Ts3IM/457KCIBkiNuyyWVpym6+LbV+poGtlAGSzrtgFmBQrvl/Ip2JJXiiTn9+YhTnV
- hf2Q==
+ bh=BDlWMGGNQMrQGAHqZoHA4gi5aewRJW9Gd7K4ni1cThg=;
+ b=I4fxDKukhifTHQ83Z/rTynYK+O5E9wcz9sSX1Dh2Z2/HwvV+bEs+hBgNlSCyJqgr93
+ fiHUX4SdcfnbXhzDIg1OAQvFGgSihTI4dIXJhRpZS+tHbDzgG6b83Q/ox0oNGN/n7B+R
+ 2pOpGAuBiV6FwC16t+Z2xnUXAV7J6FvRinwhiNnPqcwQXp6JWVcfAW0C3F0atIzGi9hG
+ Fhly+Wtw3awbDP6Oko49cRrVClSkAlMKiMbhUsP7ARM2gpYblXxf+IkaAWtNWFwApnUv
+ hpexT0Dhg1Do/7scrMaHPi/2PV/uBRLH8FjBYhaa1/od+swcenjm6n8EUMsrTHLk/lIQ
+ X8Lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=yOoD3ZtfxEEumhZddol6w9Dc00/lyjiB/v/2vhWAWnI=;
- b=X7i36ySb4Qcl9pKQ+cBw/HyLwFQG7CbxUyMyTz8Tb6LR26PYh6ufoyNdkJ28lSkVlF
- ypzWwUQpoTg07fcky//zEFOY0v+r0cl/NOl9OAar3olfskyKsVqQ2gGWxOTssVhOkC4S
- MniOVt47+3Vp1uSbgYXihxU4dQo4LW71G2Xyt54rOXViiLhyB08GbwrAyBOnJdjD8EjB
- Xk9b+6jKE8KAYwPG5Ciq5QVuTfYDl+al0LSLqtbelpyC9JnZnmIzDl9f7iNnYFTIo2AK
- AyIInFWtALIgVB+MWnUsG5qpGO/kuPdj4lg0bHJojdGi6uy2K/Z0u5cU+2uUG+xN8dEZ
- HBJw==
-X-Gm-Message-State: AKS2vOwKYFKyXOyqtwfDMfH7mzrrxLRN2qWjDTrj+/irUe2QuS9Ca8Rf
- k9HQM8Y1tndfLQ==
-X-Received: by 10.84.214.150 with SMTP id j22mr26508312pli.137.1497835850864; 
- Sun, 18 Jun 2017 18:30:50 -0700 (PDT)
-Received: from camb691.ozlabs.ibm.com ([122.99.82.10])
- by smtp.googlemail.com with ESMTPSA id 66sm20031165pgh.59.2017.06.18.18.30.48
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Sun, 18 Jun 2017 18:30:50 -0700 (PDT)
-Message-ID: <1497835846.3613.2.camel@gmail.com>
-Subject: Re: [PATCH v3] pflash option to retrieve PNOR partition flags
-From: Cyril Bur <cyrilbur@gmail.com>
-To: Michael Tritz <mtritz@us.ibm.com>, skiboot@lists.ozlabs.org, 
- openbmc@lists.ozlabs.org
-Date: Mon, 19 Jun 2017 11:30:46 +1000
-In-Reply-To: <20170615231020.56263-1-mtritz@us.ibm.com>
-References: <20170615231020.56263-1-mtritz@us.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.24.2 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ h=x-gm-message-state:sender:from:to:subject:date:message-id
+ :mime-version:content-transfer-encoding;
+ bh=BDlWMGGNQMrQGAHqZoHA4gi5aewRJW9Gd7K4ni1cThg=;
+ b=n15AWmpCx167+bKykyEkPipqcvQhUJg/Xl2hXZFdG53GVH2OVcakyzClsxffFpRS7q
+ 0anoVSzmLC7zJVRH0NdwqLIMeM+A2OgM0eK4gXUPw5yfCv4pemrL1c40CrLfwb6aKnGi
+ uVSopK2H2SCMw2t5Jdml86hUgFL7vH44n/3+xkvY5C2k5cPuY8b3aplsJOtMXcIJjW5T
+ jPQtWjQ8ujQ2wyu3OCWvnPxM2tZnEDKtig74l8x6skEWtgXJFBcc/lGco34G0l4k1p/H
+ YdFd7LEhDMrTu1xObftQ/tof70RF6JgNxd1rnfLbYYGBwQz7nACoJVzXgwkFot3rCOGJ
+ 389w==
+X-Gm-Message-State: AKS2vOyk6bExlrLvj1wSjk3yLm2jpqheVX/1f/GJTqGUjpfcF4x9bT/J
+ X3SWp6Bp/kBEtkEwssY=
+X-Received: by 10.98.157.74 with SMTP id i71mr23294380pfd.141.1497844560190;
+ Sun, 18 Jun 2017 20:56:00 -0700 (PDT)
+Received: from aurora.jms.id.au ([203.0.153.9])
+ by smtp.gmail.com with ESMTPSA id m81sm17119767pfj.121.2017.06.18.20.55.57
+ for <openbmc@lists.ozlabs.org>
+ (version=TLS1 cipher=AES128-SHA bits=128/128);
+ Sun, 18 Jun 2017 20:55:59 -0700 (PDT)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+Received: by aurora.jms.id.au (sSMTP sendmail emulation);
+ Mon, 19 Jun 2017 13:25:53 +0930
+From: Joel Stanley <joel@jms.id.au>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.10 v2 1/2] iio: Add driver for Infineon DPS310
+Date: Mon, 19 Jun 2017 13:25:48 +0930
+Message-Id: <20170619035549.18773-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.11.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,468 +63,497 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 19 Jun 2017 01:30:55 -0000
+X-List-Received-Date: Mon, 19 Jun 2017 03:56:03 -0000
 
-On Thu, 2017-06-15 at 18:10 -0500, Michael Tritz wrote:
-> This commit extends pflash with an option to retrieve and print
-> information for a particular partition, including the content from
-> "pflash -i" and a verbose list of set miscellaneous flags. -i option
-> is also updated to print a short list of flags in addition to the
-> ECC flag, with one character per flag. A test of the new option is
-> included in libflash/test.
-> 
-> Change-Id: Iebb8a6d34c537cecd2eb44ddf41271c8fbe25258
-> Signed-off-by: Michael Tritz <mtritz@us.ibm.com>
-> ---
->  external/pflash/pflash.c          |  86 ++++++++++++++++++++++++++++---
->  libflash/libffs.c                 |  26 +++++++++-
->  libflash/libffs.h                 |   5 ++
->  libflash/test/test-miscprint.pnor | 103 ++++++++++++++++++++++++++++++++++++++
->  libflash/test/test-miscprint.sh   |  40 +++++++++++++++
->  5 files changed, 252 insertions(+), 8 deletions(-)
->  create mode 100644 libflash/test/test-miscprint.pnor
->  create mode 100644 libflash/test/test-miscprint.sh
-> 
-> diff --git a/external/pflash/pflash.c b/external/pflash/pflash.c
-> index a344987e..74c0adf8 100644
-> --- a/external/pflash/pflash.c
-> +++ b/external/pflash/pflash.c
-> @@ -14,6 +14,8 @@
->   * limitations under the License.
->   */
->  
-> +#define _GNU_SOURCE
-> +
->  #include <stdio.h>
->  #include <stdlib.h>
->  #include <string.h>
-> @@ -89,6 +91,7 @@ static void check_confirm(void)
->  static void print_ffs_info(uint32_t toc_offset)
->  {
->  	struct ffs_handle *ffs_handle;
-> +	struct ffs_entry_user ent_user;
->  	uint32_t other_side_offset = 0;
->  	int rc;
->  	uint32_t i;
-> @@ -115,9 +118,21 @@ static void print_ffs_info(uint32_t toc_offset)
->  			fprintf(stderr, "Error %d scanning partitions\n", rc);
->  			break;
->  		}
-> +
-> +		ent_user = ffs_entry_user_get(ffs_get_part(ffs_handle, i));
-> +
-> +		char *flags;
-> +		int l;
-> +		l = asprintf(&flags, "[%c%c%c%c%c]",
-> +					(ecc) ? 'E' : '-',
-> +					has_flag(&ent_user, FFS_MISCFLAGS_PRESERVED) ? 'P' : '-',
-> +					has_flag(&ent_user, FFS_MISCFLAGS_READONLY) ? 'R' : '-',
-> +					has_flag(&ent_user, FFS_MISCFLAGS_BACKUP) ? 'B' : '-',
-> +					has_flag(&ent_user, FFS_MISCFLAGS_REPROVISION) ? 'F' : '-');
-> +
->  		end = start + size;
->  		printf("ID=%02d %15s %08x..%08x (actual=%08x) %s\n",
-> -		       i, name, start, end, act, ecc ? "[ECC]" : "");
-> +		       i, name, start, end, act, (l != -1) ? flags : NULL);
+The DPS310 is a temperature and pressure sensor. It can be accessed over
+i2c and SPI.
 
-Passing NULL here is interesting - I've seen various libcs so
-interesting things over the years, notably (admittedly this hasn't
-happened for a while) segfault if a %s has a corresponding NULL. I've
-also seen it print literally "(null)" which is not going to look good.
+This driver supports polled measurement of temperature over i2c only.
 
-Might I suggest just checking l after the call the asprintf, I might
-also be a good idea to exit if memory allocation fails.
+Signed-off-by: Joel Stanley <joel@jms.id.au>
 
->  
+---
+v2:
+ - Add prefixes to all defines
+ - Use generic sign_extend32 (different api, counts from zero)
+ - Add link to datasheet
+ - Summarise temperature calc in comment at top of the file
+ - Use DPS_PRS_B{0,1,2} instead of the strange looking +2
+ - Sort headers by abc
+ - Add comments about init procedure
+ - Use PRC and RATE wrappers
+ - Wait for COEF_RDY at probe time if required
+ - Reset device on remove to disable background reading
 
-You should free(flags); here
+ drivers/iio/pressure/Kconfig  |  11 ++
+ drivers/iio/pressure/Makefile |   1 +
+ drivers/iio/pressure/dps310.c | 424 ++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 436 insertions(+)
+ create mode 100644 drivers/iio/pressure/dps310.c
 
->  		if (strcmp(name, "OTHER_SIDE") == 0)
->  			other_side_offset = start;
-> @@ -413,6 +428,56 @@ static void disable_4B_addresses(void)
->  	}
->  }
->  
-> +static void print_partition_detail(uint32_t part_ID)
-> +{
-> +	struct ffs_handle *ffs_handle;
-> +	struct ffs_entry_user ent_user;
-> +	int rc;
-> +	uint32_t start, size, act, end;
-> +	bool ecc;
-> +	char *name;
-> +
-> +	rc = ffs_init(0, fl_total_size, bl, &ffs_handle, 0);
-> +	if (rc) {
-> +		fprintf(stderr, "Error %d opening ffs !\n", rc);
-> +		return;
-> +	}
-> +
-> +	rc = ffs_part_info(ffs_handle, part_ID, &name, &start, &size, &act, &ecc);
-> +	if (rc == FFS_ERR_PART_NOT_FOUND)
-> +		return;
-> +	if (rc) {
-> +		fprintf(stderr, "Error %d scanning partitions\n", rc);
-> +		return;
-> +	}
-> +
-> +	ent_user = ffs_entry_user_get(ffs_get_part(ffs_handle, part_ID));
-> +
-> +	ffs_close(ffs_handle);
-> +
-> +	end = start + size;
-> +	printf("ID=%02d - %s %08x..%08x (actual=%08x)\n",
-> +		   part_ID, name, start, end, act);
-> +
-> +	char *flags;
-> +	int l;
-> +	l = asprintf(&flags, "%s%s%s%s%s",
-> +				(ecc) ? "ECC," : "",
-> +				has_flag(&ent_user, FFS_MISCFLAGS_PRESERVED) ?
-> +						"PRESERVED," : "",
-> +				has_flag(&ent_user, FFS_MISCFLAGS_READONLY) ? "READONLY," : "",
-> +				has_flag(&ent_user, FFS_MISCFLAGS_BACKUP) ? "BACKUP," : "",
-> +				has_flag(&ent_user, FFS_MISCFLAGS_REPROVISION) ?
-> +						"REPROVISION." : "");
-
-I'm pretty sure I've pointed this out before - are we just going to
-accept that the output will look odd if there isn't a reprovision flag?
-
-> +	if (l > 0)
-> +	{
-> +		flags[l-1] = '\n';
-
-Ummmmm, why not put the '\n' after all the %s in the asprintf format
-string?
-
-> +		printf(flags);
-
-Lets free(flags); here too.
-
-> +	}
-> +
-> +	return;
-> +}
-> +
->  static void print_version(void)
->  {
->  	printf("Open-Power Flash tool %s\n", version);
-> @@ -494,6 +559,9 @@ static void print_help(const char *pname)
->  	printf("\t\tpartition and then set all the ECC bits as they should be\n\n");
->  	printf("\t-i, --info\n");
->  	printf("\t\tDisplay some information about the flash.\n\n");
-> +	printf("\t-m --misc\n");
-> +	printf("\t\tDisplays miscellaneous info about a particular partition.\n");
-> +	printf("\t\tRequires the numerical partition index as an argument.\n\n");
->  	printf("\t-h, --help\n");
->  	printf("\t\tThis message.\n\n");
->  }
-> @@ -508,7 +576,7 @@ void exiting(void)
->  int main(int argc, char *argv[])
->  {
->  	const char *pname = argv[0];
-> -	uint32_t address = 0, read_size = 0, write_size = 0;
-> +	uint32_t address = 0, read_size = 0, write_size = 0, part_ID = 0;
->  	uint32_t erase_start = 0, erase_size = 0;
->  	bool erase = false, do_clear = false;
->  	bool program = false, erase_all = false, info = false, do_read = false;
-> @@ -516,7 +584,7 @@ int main(int argc, char *argv[])
->  	bool show_help = false, show_version = false;
->  	bool no_action = false, tune = false;
->  	char *write_file = NULL, *read_file = NULL, *part_name = NULL;
-> -	bool ffs_toc_seen = false, direct = false;
-> +	bool ffs_toc_seen = false, direct = false, print_detail = false;
->  	int rc;
->  
->  	while(1) {
-> @@ -534,7 +602,7 @@ int main(int argc, char *argv[])
->  			{"program",	required_argument,	NULL,	'p'},
->  			{"force",	no_argument,		NULL,	'f'},
->  			{"flash-file",	required_argument,	NULL,	'F'},
-> -			{"info",	no_argument,		NULL,	'i'},
-> +			{"info",	no_argument,  		NULL,	'i'},
->  			{"tune",	no_argument,		NULL,	't'},
->  			{"dummy",	no_argument,		NULL,	'd'},
->  			{"help",	no_argument,		NULL,	'h'},
-> @@ -547,7 +615,7 @@ int main(int argc, char *argv[])
->  		};
->  		int c, oidx = 0;
->  
-> -		c = getopt_long(argc, argv, "+:a:s:P:r:43Eep:fdihvbtgS:T:cF:",
-> +		c = getopt_long(argc, argv, "+:a:s:P:r:43Eep:fdihvbtgS:T:cF:m:",
->  				long_opts, &oidx);
->  		if (c == -1)
->  			break;
-> @@ -622,6 +690,10 @@ int main(int argc, char *argv[])
->  		case 'c':
->  			do_clear = true;
->  			break;
-> +		case 'm':
-> +			print_detail = true;
-> +			part_ID = strtoul(optarg, NULL, 10);
-
-Couldn't we require that -m be used in conjunction with -P flag? I
-think there's already a precedent.
-
-I would have called the actual command line argument --detail but sure.
-
-> +			break;
->  		case ':':
->  			fprintf(stderr, "Unrecognised option \"%s\" to '%c'\n", optarg, optopt);
->  			no_action = true;
-> @@ -651,7 +723,7 @@ int main(int argc, char *argv[])
->  	 * also tune them as a side effect
->  	 */
->  	no_action = no_action || (!erase && !program && !info && !do_read &&
-> -		!enable_4B && !disable_4B && !tune && !do_clear);
-> +		!enable_4B && !disable_4B && !tune && !do_clear && !print_detail);
->  
->  	/* Nothing to do, if we didn't already, print usage */
->  	if (no_action && !show_version)
-> @@ -871,6 +943,8 @@ int main(int argc, char *argv[])
->  		 */
->  		print_flash_info(flash_side ? 0 : ffs_toc);
->  	}
-> +	if (print_detail)
-> +		print_partition_detail(part_ID);
->  
->  	/* Unlock flash (PNOR only) */
->  	if ((erase || program || do_clear) && !bmc_flash && !flashfilename) {
-> diff --git a/libflash/libffs.c b/libflash/libffs.c
-> index 763e061c..1a9ce82a 100644
-> --- a/libflash/libffs.c
-> +++ b/libflash/libffs.c
-> @@ -180,7 +180,7 @@ static int ffs_entry_to_cpu(struct ffs_hdr *hdr,
->  	return rc;
->  }
->  
-> -static struct ffs_entry *ffs_get_part(struct ffs_handle *ffs, uint32_t index)
-> +struct ffs_entry *ffs_get_part(struct ffs_handle *ffs, uint32_t index)
->  {
->  	int i = 0;
->  	struct ffs_entry *ent = NULL;
-> @@ -195,7 +195,16 @@ static struct ffs_entry *ffs_get_part(struct ffs_handle *ffs, uint32_t index)
->  
->  bool has_ecc(struct ffs_entry *ent)
->  {
-> -	return ((ent->user.datainteg & FFS_ENRY_INTEG_ECC) != 0);
-> +	struct ffs_entry_user entry_user = ffs_entry_user_get(ent);
-> +	return has_flag(&entry_user, FFS_ENRY_INTEG_ECC);
-> +}
-> +
-> +bool has_flag(struct ffs_entry_user *ent_user, uint16_t FLAG)
-> +{
-> +	if (FLAG == FFS_ENRY_INTEG_ECC) {
-> +		return ((ent_user->datainteg & FFS_ENRY_INTEG_ECC) != 0);
-> +	}
-> +	return ((ent_user->miscflags & FLAG) != 0);
->  }
->  
->  int ffs_init(uint32_t offset, uint32_t max_size, struct blocklevel_device *bl,
-> @@ -546,6 +555,19 @@ int ffs_entry_add(struct ffs_hdr *hdr, struct ffs_entry *entry, unsigned int sid
->  	return rc;
->  }
->  
-> +struct ffs_entry_user ffs_entry_user_get(struct ffs_entry *entry)
-> +{
-> +	struct ffs_entry_user entry_user;
-> +
-> +	entry_user.chip = entry->user.chip;
-> +	entry_user.compresstype = entry->user.compresstype;
-> +	entry_user.datainteg = entry->user.datainteg;
-> +	entry_user.vercheck = entry->user.vercheck;
-> +	entry_user.miscflags = entry->user.miscflags;
-> +
-
-Could you memcpy() this?
-
-> +	return entry_user;
-> +}
-> +
->  /* This should be done last! */
->  int ffs_hdr_create_backup(struct ffs_hdr *hdr)
->  {
-> diff --git a/libflash/libffs.h b/libflash/libffs.h
-> index 2c1fbd83..72ae4a1c 100644
-> --- a/libflash/libffs.h
-> +++ b/libflash/libffs.h
-> @@ -89,9 +89,12 @@ struct ffs_entry_user {
->  #define FFS_MISCFLAGS_BACKUP 0x20
->  #define FFS_MISCFLAGS_REPROVISION 0x10
->  
-> +struct ffs_entry *ffs_get_part(struct ffs_handle *ffs, uint32_t index);
->  
->  bool has_ecc(struct ffs_entry *ent);
->  
-> +bool has_flag(struct ffs_entry_user *ent_user, uint16_t FLAG);
-
-Caps?
-
-> +
->  /* Init */
->  
->  int ffs_init(uint32_t offset, uint32_t max_size, struct blocklevel_device *bl,
-> @@ -140,6 +143,8 @@ int ffs_entry_user_set(struct ffs_entry *ent, struct ffs_entry_user *user);
->  
->  int ffs_entry_add(struct ffs_hdr *hdr, struct ffs_entry *entry, unsigned int side);
->  
-> +struct ffs_entry_user ffs_entry_user_get(struct ffs_entry *entry);
-> +
->  int ffs_hdr_create_backup(struct ffs_hdr *hdr);
->  
->  int ffs_hdr_finalise(struct blocklevel_device *bl, struct ffs_hdr *hdr);
-> diff --git a/libflash/test/test-miscprint.pnor b/libflash/test/test-miscprint.pnor
-> new file mode 100644
-> index 00000000..e3f3d355
-> --- /dev/null
-> +++ b/libflash/test/test-miscprint.pnor
-> @@ -0,0 +1,103 @@
-> +504152540000000100000001000000800000000500000300000000040000
-> +0000000000000000000000000000504151d5706172740000000000000000
-> +000000000000000000000001ffffffff0000000100000003000000010000
-> +030000000000000000000000000000000000000000000000000000000000
-> +000000000000000000000000000000000000000000000000000000000000
-> +000000000000000000000000000000000000000000008f9e8e8950524553
-> +4552564544000000000000000000000100000000ffffffff000000020000
-> +000100000000000001000000000000000000000000000000000000000000
-> +008000000000000000000000000000000000000000000000000000000000
-> +000000000000000000000000000000000000000000000000000000000000
-> +ae7fedeb524541444f4e4c5900000000000000000000000100000000ffff
-> +ffff00000003000000010000000000000100000000000000000000000000
-> +000000000000000000400000000000000000000000000000000000000000
-> +000000000000000000000000000000000000000000000000000000000000
-> +0000000000000000e2b4f3e1524550524f564953494f4e00000000000000
-> +000100000000ffffffff0000000400000001000000000000010000000000
-> +000000000000000000000000000000000010000000000000000000000000
-> +000000000000000000000000000000000000000000000000000000000000
-> +00000000000000000000000000000000abb3a9fa4241434b555000000000
-> +0000000000000000000200000000ffffffff000000050000000100000000
-> +000001000000000000000000000000000000000000000000002000000000
-> +000000000000000000000000000000000000000000000000000000000000
-> +000000000000000000000000000000000000000000000000e8cebdb2ffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffff
-> diff --git a/libflash/test/test-miscprint.sh b/libflash/test/test-miscprint.sh
-> new file mode 100644
-> index 00000000..7670b6e4
-> --- /dev/null
-> +++ b/libflash/test/test-miscprint.sh
-> @@ -0,0 +1,40 @@
-> +#!/bin/bash
-> +
-> +# test-miscprint.pnor is constructed as follows:
-> +# PRESERVED,0x00000300,0x00000100,P,/dev/zero
-> +# READONLY,0x00000400,0x00000100,R,/dev/zero
-> +# REPROVISION,0x00000500,0x00000100,F,/dev/zero
-> +# BACKUP,0x00000600,0x00000100,B,/dev/zero
-> +
-> +pass=false
-> +wd=$(dirname -- "$0")
-> +
-> +xxd -p -r "$wd/test-miscprint.pnor" > "$wd/temp.pnor"
-> +
-> +output=$(pflash -m 1 -F "$wd/temp.pnor" | grep ,)
-> +if [[ $output == "PRESERVED" ]]; then
-> +    pass=true
-> +fi
-> +
-> +output=$(pflash -m 2 -F "$wd/temp.pnor" | grep ,)
-> +if [[ $output == "READONLY" ]]; then
-> +    pass=true
-> +fi
-> +
-> +output=$(pflash -m 3 -F "$wd/temp.pnor" | grep ,)
-> +if [[ $output == "REPROVISION" ]]; then
-> +    pass=true
-> +fi
-> +
-> +output=$(pflash -m 4 -F "$wd/temp.pnor" | grep ,)
-> +if [[ $output == "BACKUP" ]]; then
-> +    pass=true
-> +fi
-> +
-> +if [[ pass ]]; then
-> +    echo "Test passed!"
-> +else
-> +    echo "Test failed!"
-> +fi
-> +
-> +rm "$wd/temp.pnor"
+diff --git a/drivers/iio/pressure/Kconfig b/drivers/iio/pressure/Kconfig
+index bd8d96b96771..50caefc0cd7d 100644
+--- a/drivers/iio/pressure/Kconfig
++++ b/drivers/iio/pressure/Kconfig
+@@ -42,6 +42,17 @@ config BMP280_SPI
+ 	depends on SPI_MASTER
+ 	select REGMAP
+ 
++config DPS310
++       tristate "Infineon DPS310 pressure and temperature sensor"
++       depends on I2C
++       select REGMAP_I2C
++       help
++	 Support for the Infineon DPS310 digital barometric pressure sensor.
++	 This driver measures temperature only.
++
++	 This driver can also be built as a module.  If so, the module will be
++	 called dps310.
++
+ config HID_SENSOR_PRESS
+ 	depends on HID_SENSOR_HUB
+ 	select IIO_BUFFER
+diff --git a/drivers/iio/pressure/Makefile b/drivers/iio/pressure/Makefile
+index de3dbc81dc5a..997bbaebfa34 100644
+--- a/drivers/iio/pressure/Makefile
++++ b/drivers/iio/pressure/Makefile
+@@ -8,6 +8,7 @@ obj-$(CONFIG_BMP280) += bmp280.o
+ bmp280-objs := bmp280-core.o bmp280-regmap.o
+ obj-$(CONFIG_BMP280_I2C) += bmp280-i2c.o
+ obj-$(CONFIG_BMP280_SPI) += bmp280-spi.o
++obj-$(CONFIG_DPS310) += dps310.o
+ obj-$(CONFIG_HID_SENSOR_PRESS)   += hid-sensor-press.o
+ obj-$(CONFIG_HP03) += hp03.o
+ obj-$(CONFIG_MPL115) += mpl115.o
+diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
+new file mode 100644
+index 000000000000..1b54ae06783c
+--- /dev/null
++++ b/drivers/iio/pressure/dps310.c
+@@ -0,0 +1,424 @@
++/*
++ * Copyright 2017 IBM Corporation
++ *
++ * Joel Stanley <joel@jms.id.au>
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version
++ * 2 of the License, or (at your option) any later version.
++ *
++ * The DPS310 is a barometric pressure and temperature sensor.
++ * Currently only reading a single temperature is supported by
++ * this driver.
++ *
++ * https://www.infineon.com/dgdl/?fileId=5546d462576f34750157750826c42242
++ *
++ * Temperature calculation:
++ *   c0 * 0.5 + c1 * T_raw / kT °C
++ *
++ * TODO:
++ *  - Pressure sensor readings
++ *  - Optionally support the FIFO
++ */
++
++#include <linux/i2c.h>
++#include <linux/module.h>
++#include <linux/regmap.h>
++
++#include <linux/iio/iio.h>
++#include <linux/iio/sysfs.h>
++
++#define DPS310_PRS_B0		0x00
++#define DPS310_PRS_B1		0x01
++#define DPS310_PRS_B2		0x02
++#define DPS310_TMP_B0		0x03
++#define DPS310_TMP_B1		0x04
++#define DPS310_TMP_B2		0x05
++#define DPS310_PRS_CFG		0x06
++#define DPS310_TMP_CFG		0x07
++#define  DPS310_TMP_RATE_BITS	GENMASK(6, 4)
++#define  DPS310_TMP_PRC_BITS	GENMASK(3, 0)
++#define  DPS310_TMP_EXT		BIT(7)
++#define DPS310_MEAS_CFG		0x08
++#define  DPS310_MEAS_CTRL_BITS	GENMASK(2, 0)
++#define   DPS310_PRESSURE_EN	BIT(0)
++#define   DPS310_TEMP_EN	BIT(1)
++#define   DPS310_BACKGROUND	BIT(2)
++#define  DPS310_PRS_RDY		BIT(4)
++#define  DPS310_TMP_RDY		BIT(5)
++#define  DPS310_SENSOR_RDY	BIT(6)
++#define  DPS310_COEF_RDY	BIT(7)
++#define DPS310_CFG_REG		0x09
++#define  DPS310_INT_HL		BIT(7)
++#define  DPS310_TMP_SHIFT_EN	BIT(3)
++#define  DPS310_PRS_SHIFT_EN	BIT(4)
++#define  DPS310_FIFO_EN		BIT(5)
++#define  DPS310_SPI_EN		BIT(6)
++#define DPS310_RESET		0x0c
++#define  DPS310_RESET_MAGIC	(BIT(0) | BIT(3))
++#define DPS310_COEF_BASE	0x10
++
++#define DPS310_PRS_BASE		DPS310_PRS_B0
++#define DPS310_TMP_BASE		DPS310_TMP_B0
++
++#define DPS310_TMP_RATE(_n)	ilog2(_n)
++#define DPS310_TMP_PRC(_n)	ilog2(_n)
++
++#define MCELSIUS_PER_CELSIUS	1000
++
++const int scale_factor[] = {
++	 524288,
++	1572864,
++	3670016,
++	7864320,
++	 253952,
++	 516096,
++	1040384,
++	2088960,
++};
++
++struct dps310_data {
++	struct i2c_client *client;
++	struct regmap *regmap;
++
++	s32 c0, c1;
++	s32 temp_raw;
++};
++
++static const struct iio_chan_spec dps310_channels[] = {
++	{
++		.type = IIO_TEMP,
++		.info_mask_separate = BIT(IIO_CHAN_INFO_OFFSET) |
++			BIT(IIO_CHAN_INFO_SCALE) |
++			BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO) |
++			BIT(IIO_CHAN_INFO_SAMP_FREQ) |
++			BIT(IIO_CHAN_INFO_RAW),
++	},
++};
++
++/* To be called after checking the TMP_RDY bit in MEAS_CFG */
++static int dps310_get_temp_coef(struct dps310_data *data)
++{
++	struct regmap *regmap = data->regmap;
++	uint8_t coef[3] = {0};
++	int r;
++	u32 c0, c1;
++
++	/*
++	 * Read temperature calibration coefficients c0 and c1 from the
++	 * COEF register. The numbers are 12-bit 2's compliment numbers
++	 */
++	r = regmap_bulk_read(regmap, DPS310_COEF_BASE, coef, 3);
++	if (r < 0)
++		return r;
++
++	c0 = (coef[0] << 4) | (coef[1] >> 4);
++	data->c0 = sign_extend32(c0, 11);
++
++	c1 = ((coef[1] & GENMASK(3, 0)) << 8) | coef[2];
++	data->c1 = sign_extend32(c1, 11);
++
++	return 0;
++}
++
++static int dps310_get_temp_precision(struct dps310_data *data)
++{
++	int val, r;
++
++	r = regmap_read(data->regmap, DPS310_TMP_CFG, &val);
++	if (r < 0)
++		return r;
++
++	/*
++	 * Scale factor is bottom 4 bits of the register, but 1111 is
++	 * reserved so just grab bottom three
++	 */
++	return BIT(val & GENMASK(2, 0));
++}
++
++static int dps310_set_temp_precision(struct dps310_data *data, int val)
++{
++	int ret;
++	u8 shift_en;
++
++	if (val < 0 || val > 128)
++		return -EINVAL;
++
++	shift_en = val >= 16 ? DPS310_TMP_SHIFT_EN : 0;
++	ret = regmap_write_bits(data->regmap, DPS310_CFG_REG,
++			DPS310_TMP_SHIFT_EN,
++			shift_en);
++	if (ret)
++		return ret;
++
++	return regmap_update_bits(data->regmap, DPS310_TMP_CFG,
++			DPS310_TMP_PRC_BITS, DPS310_TMP_PRC(val));
++}
++
++static int dps310_set_temp_samp_freq(struct dps310_data *data, int freq)
++{
++	uint8_t val;
++
++	if (freq < 0 || freq > 128)
++		return -EINVAL;
++
++	val = DPS310_TMP_RATE(freq) << 4;
++
++	return regmap_update_bits(data->regmap, DPS310_TMP_CFG,
++			DPS310_TMP_RATE_BITS, val);
++}
++
++static int dps310_get_temp_samp_freq(struct dps310_data *data)
++{
++	int val, r;
++
++	r = regmap_read(data->regmap, DPS310_TMP_CFG, &val);
++	if (r < 0)
++		return r;
++
++	return BIT((val & DPS310_TMP_RATE_BITS) >> 4);
++}
++
++static int dps310_get_temp_k(struct dps310_data *data)
++{
++	return scale_factor[DPS310_TMP_PRC(dps310_get_temp_precision(data))];
++}
++
++static int dps310_read_temp(struct dps310_data *data)
++{
++	struct device *dev = &data->client->dev;
++	struct regmap *regmap = data->regmap;
++	uint8_t val[3] = {0};
++	int r, ready;
++	int T_raw;
++
++	r = regmap_read(regmap, DPS310_MEAS_CFG, &ready);
++	if (r < 0)
++		return r;
++	if (!(ready & DPS310_TMP_RDY)) {
++		dev_dbg(dev, "temperature not ready\n");
++		return -EAGAIN;
++	}
++
++	r = regmap_bulk_read(regmap, DPS310_TMP_BASE, val, 3);
++	if (r < 0)
++		return r;
++
++	T_raw = (val[0] << 16) | (val[1] << 8) | val[2];
++	data->temp_raw = sign_extend32(T_raw, 23);
++
++	return 0;
++}
++
++static bool dps310_is_writeable_reg(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case DPS310_PRS_CFG:
++	case DPS310_TMP_CFG:
++	case DPS310_MEAS_CFG:
++	case DPS310_CFG_REG:
++	case DPS310_RESET:
++		return true;
++	default:
++		return false;
++	}
++}
++
++static bool dps310_is_volatile_reg(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case DPS310_PRS_B0:
++	case DPS310_PRS_B1:
++	case DPS310_PRS_B2:
++	case DPS310_TMP_B0:
++	case DPS310_TMP_B1:
++	case DPS310_TMP_B2:
++	case DPS310_MEAS_CFG:
++		return true;
++	default:
++		return false;
++	}
++}
++
++static int dps310_write_raw(struct iio_dev *iio,
++			    struct iio_chan_spec const *chan, int val,
++			    int val2, long mask)
++{
++	struct dps310_data *data = iio_priv(iio);
++
++	if (chan->type != IIO_TEMP)
++		return -EINVAL;
++
++	switch (mask) {
++	case IIO_CHAN_INFO_SAMP_FREQ:
++		return dps310_set_temp_samp_freq(data, val);
++	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
++		return dps310_set_temp_precision(data, val);
++	default:
++		return -EINVAL;
++	}
++
++	return -EINVAL;
++}
++
++static int dps310_read_raw(struct iio_dev *iio,
++			   struct iio_chan_spec const *chan,
++			   int *val, int *val2, long mask)
++{
++	struct dps310_data *data = iio_priv(iio);
++	int ret;
++
++	switch (mask) {
++	case IIO_CHAN_INFO_SAMP_FREQ:
++		*val = dps310_get_temp_samp_freq(data);
++		return IIO_VAL_INT;
++
++	case IIO_CHAN_INFO_RAW:
++		ret = dps310_read_temp(data);
++		if (ret)
++			return ret;
++
++		*val = data->temp_raw * data->c1;
++		return IIO_VAL_INT;
++
++	case IIO_CHAN_INFO_OFFSET:
++		*val = (data->c0 >> 1) * dps310_get_temp_k(data);
++		return IIO_VAL_INT;
++
++	case IIO_CHAN_INFO_SCALE:
++		*val = 1000; /* milliCelsius per Celsius */
++		*val2 = dps310_get_temp_k(data);
++		return IIO_VAL_FRACTIONAL;
++
++	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
++		*val = dps310_get_temp_precision(data);
++		return IIO_VAL_INT;
++
++	default:
++		return -EINVAL;
++	}
++
++	return -EINVAL;
++}
++
++static const struct regmap_config dps310_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.writeable_reg = dps310_is_writeable_reg,
++	.volatile_reg = dps310_is_volatile_reg,
++	.cache_type = REGCACHE_RBTREE,
++	.max_register = 0x29,
++};
++
++static const struct iio_info dps310_info = {
++	.driver_module = THIS_MODULE,
++	.read_raw = dps310_read_raw,
++	.write_raw = dps310_write_raw,
++};
++
++static int dps310_probe(struct i2c_client *client,
++			const struct i2c_device_id *id)
++{
++	struct dps310_data *data;
++	struct iio_dev *iio;
++	int r, ready;
++
++	iio = devm_iio_device_alloc(&client->dev,  sizeof(*data));
++	if (!iio)
++		return -ENOMEM;
++
++	data = iio_priv(iio);
++	data->client = client;
++
++	iio->dev.parent = &client->dev;
++	iio->name = id->name;
++	iio->channels = dps310_channels;
++	iio->num_channels = ARRAY_SIZE(dps310_channels);
++	iio->info = &dps310_info;
++	iio->modes = INDIO_DIRECT_MODE;
++
++	data->regmap = devm_regmap_init_i2c(client, &dps310_regmap_config);
++	if (IS_ERR(data->regmap))
++		return PTR_ERR(data->regmap);
++
++	/*
++	 * Set up external (MEMS) temperature sensor in single sample, one
++	 * measurement per second mode
++	 */
++	r = regmap_write(data->regmap, DPS310_TMP_CFG,
++			DPS310_TMP_EXT | DPS310_TMP_RATE(1) | DPS310_TMP_PRC(1));
++	if (r < 0)
++		return r;
++
++	/* Temp shift is disabled when PRC <= 8 */
++	r = regmap_write_bits(data->regmap, DPS310_CFG_REG,
++			DPS310_TMP_SHIFT_EN, 0);
++	if (r < 0)
++		return r;
++
++	/* Turn on temperature measurement in the background */
++	r = regmap_write_bits(data->regmap, DPS310_MEAS_CFG,
++			DPS310_MEAS_CTRL_BITS,
++			DPS310_TEMP_EN | DPS310_BACKGROUND);
++	if (r < 0)
++		return r;
++
++	/*
++	 * Calibration coefficients required for reporting temperature.
++	 * They are available 40ms after the device has started
++	 */
++	r = regmap_read_poll_timeout(data->regmap, DPS310_MEAS_CFG, ready,
++			ready & DPS310_COEF_RDY,
++			10 * 1000,
++			40 * 1000);
++	if (r < 0)
++		return r;
++
++	r = dps310_get_temp_coef(data);
++	if (r < 0)
++		return r;
++
++	r = devm_iio_device_register(&client->dev, iio);
++	if (r)
++		return r;
++
++	i2c_set_clientdata(client, iio);
++
++	dev_info(&client->dev, "%s: sensor '%s'\n", dev_name(&iio->dev),
++			client->name);
++
++	return 0;
++}
++
++static int dps310_remove(struct i2c_client *client)
++{
++	struct dps310_data *data = i2c_get_clientdata(client);
++
++	return regmap_write(data->regmap, DPS310_RESET, DPS310_RESET_MAGIC);
++}
++
++static const struct i2c_device_id dps310_id[] = {
++	{ "dps310", 0 },
++	{}
++};
++MODULE_DEVICE_TABLE(i2c, dps310_id);
++
++static const unsigned short normal_i2c[] = {
++	0x77, 0x76, I2C_CLIENT_END
++};
++
++static struct i2c_driver dps310_driver = {
++	.driver = {
++		.name = "dps310",
++	},
++	.probe = dps310_probe,
++	.remove = dps310_remove,
++	.address_list = normal_i2c,
++	.id_table = dps310_id,
++};
++module_i2c_driver(dps310_driver);
++
++MODULE_AUTHOR("Joel Stanley <joel@jms.id.au>");
++MODULE_DESCRIPTION("Infineon DPS310 pressure and temperature sensor");
++MODULE_LICENSE("GPL");
+-- 
+2.11.0
