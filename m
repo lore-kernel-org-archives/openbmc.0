@@ -1,30 +1,54 @@
-Return-Path: <wsa@the-dreams.de>
-Received: from pokefinder.org (sauhun.de [88.99.104.3])
- by lists.ozlabs.org (Postfix) with ESMTP id 3wrtYl0hgrzDq7c
- for <openbmc@lists.ozlabs.org>; Tue, 20 Jun 2017 00:25:47 +1000 (AEST)
-Received: from localhost (p54B337D6.dip0.t-ipconnect.de [84.179.55.214])
- by pokefinder.org (Postfix) with ESMTPSA id 8EEC92C288A;
- Mon, 19 Jun 2017 16:14:17 +0200 (CEST)
-Date: Mon, 19 Jun 2017 16:14:17 +0200
-From: Wolfram Sang <wsa@the-dreams.de>
-To: Brendan Higgins <brendanhiggins@google.com>
-Cc: robh+dt@kernel.org, mark.rutland@arm.com, tglx@linutronix.de,
- jason@lakedaemon.net, marc.zyngier@arm.com, joel@jms.id.au,
- vz@mleia.com, mouse@mayc.ru, clg@kaod.org, benh@kernel.crashing.org,
- ryan_chen@aspeedtech.com, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org
-Subject: Re: [PATCH v10 5/5] i2c: aspeed: added slave support for Aspeed I2C
- driver
-Message-ID: <20170619141417.fs7bnc6esz4uksmg@ninjato>
-References: <20170603012952.2192-1-brendanhiggins@google.com>
- <20170603012952.2192-6-brendanhiggins@google.com>
+Return-Path: <ilya@yadro.com>
+X-Greylist: delayed 462 seconds by postgrey-1.36 at bilbo;
+ Tue, 20 Jun 2017 00:56:04 AEST
+Authentication-Results: lists.ozlabs.org;
+ dkim=fail reason="signature verification failed" (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="CjfGFPJL"; 
+ dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wrvDh47DYzDq7c
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Jun 2017 00:56:04 +1000 (AEST)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 4764E41185
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Jun 2017 14:48:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ user-agent:content-disposition:content-type:content-type
+ :mime-version:message-id:subject:subject:from:from:date:date
+ :received:received:received; s=mta-01; t=1497883696; x=
+ 1499698097; bh=Ax2P0AK0CVouhude9S0LrNFCVSdROjYezqdeYPn3jd0=; b=C
+ jfGFPJLClK+vs8GB8mswuMkpS7kWzOExWHrAfSZp0gYPgyjK7iUSbx/4t41mScui
+ JlNWOJwpqmc3pEzJVwfLM8ZTlbYprVczuJqI9CJHEGsjL9ohxBrtgjc+T9ziGzMk
+ Ph/t/lkDCGKK540hFUmoersW2TnEcb2ZuXLHRIlZos=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id E1CNDXVV4dew for <openbmc@lists.ozlabs.org>;
+ Mon, 19 Jun 2017 17:48:16 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
+ [172.17.10.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 803C0404CF
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Jun 2017 17:48:16 +0300 (MSK)
+Received: from localhost (172.17.14.158) by T-EXCH-02.corp.yadro.com
+ (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Mon, 19
+ Jun 2017 17:48:16 +0300
+Date: Mon, 19 Jun 2017 17:44:45 +0300
+From: Ilya Kuznetsov <ilya@yadro.com>
+To: <openbmc@lists.ozlabs.org>
+CC: Vlad Vovchenko <v.vovchenko@yadro.com>
+Subject: phosphor-net-ipmid
+Message-ID: <20170619144445.xpoo5x2sbt3ct22p@yadro.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="7robew4ddhcjv54q"
+Content-Type: text/plain; charset="us-ascii"; format=flowed
 Content-Disposition: inline
-In-Reply-To: <20170603012952.2192-6-brendanhiggins@google.com>
-User-Agent: NeoMutt/20170113 (1.7.2)
+User-Agent: NeoMutt/20170609 (1.8.3)
+X-Originating-IP: [172.17.14.158]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-02.corp.yadro.com (172.17.10.102)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -36,41 +60,11 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 19 Jun 2017 14:25:47 -0000
+X-List-Received-Date: Mon, 19 Jun 2017 14:56:06 -0000
 
-
---7robew4ddhcjv54q
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Jun 02, 2017 at 06:29:52PM -0700, Brendan Higgins wrote:
-> Added slave support for Aspeed I2C controller. Supports fourteen busses
-> present in AST24XX and AST25XX BMC SoCs by Aspeed.
->=20
-> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
-
-Nice, looks good to me!
-
-
---7robew4ddhcjv54q
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAllH3DkACgkQFA3kzBSg
-KbZt0hAAg4JI+HCvsP78ONTmLQNGuBk4S3XgDjHqqM3hR6neNwfCUsB2fHao4xlL
-bjqlXHKXNUMmiOyy9ybt1TShVwOeowVPDBa84YOZHLzxqfltrmyHrWVu7FlPPejl
-rP6SzHPq1ir+ZxvC6Ez79wdrjSLvxP4B1BR17zm8dP5Z6bY65x2IOQkX/jAu4B0S
-9DFzq9Pi+7pGaRht+JPaxg1OprqWJOa8j+5CZR6h2csckKSai81vsmWXnGbGObHg
-5KXwoQtq5jJyvFpKOF+aQgdeL+pbRbkhH2IIP7z7eah5b5P5RHsvkAObaDP0e5Wn
-1QKccgH47IDFEYfkjLSskAscxHba9oPZwd7OCfr0ESld1ipSbxmUfRCesCVoKCJA
-KDqKEpU49jdIS4XUcU59SGqVwLoh0a2Gyd4zVLFcVBi5XG3Ae3aJKoS7+AMrw5iZ
-oEgZ/pwEIE36R+uvWA9GYzCTxGP44wAaks4KsExAPv+oFzmAHVfQbHx4GSP6ut8a
-664M/sZJ1WNi3pShJLfe/Movn0B7xZsTLbCvU0/YLUPEyEKC/QKKzhtJwjyd7mSG
-aadNkDGQlCiTetXdK6LhW4qnGiEtLAt3apHCCtrwHysuv+tTv3F/g8FG88Ce4+dR
-sqUSEDyjQ4uArDiigKPT/Jwym/DeNYXWiWR2caGj4+ZAG+KDTj4=
-=r9Dm
------END PGP SIGNATURE-----
-
---7robew4ddhcjv54q--
+Hello,
+we would like to help with phosphor-net-ipmid and have volunteer. For us main 
+priorities are sensors and sel. Obviously work is in progress there and we don't 
+want to duplicate it, so please share tasks with us and tell how we can 
+contribute?
+Thanks!
