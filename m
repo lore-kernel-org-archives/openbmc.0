@@ -1,52 +1,60 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x231.google.com (mail-yw0-x231.google.com
- [IPv6:2607:f8b0:4002:c05::231])
+Return-Path: <brendanhiggins@google.com>
+Received: from mail-qk0-x22d.google.com (mail-qk0-x22d.google.com
+ [IPv6:2607:f8b0:400d:c09::22d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wsCJm1DrQzDq5W
- for <openbmc@lists.ozlabs.org>; Tue, 20 Jun 2017 13:00:40 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wsDhV3J9BzDqh2
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Jun 2017 14:02:49 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="b9tpYC6i"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="vu7m3wSe"; 
  dkim-atps=neutral
-Received: by mail-yw0-x231.google.com with SMTP id 63so47389252ywr.0
- for <openbmc@lists.ozlabs.org>; Mon, 19 Jun 2017 20:00:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=UYBGFsAjHj1kfoBy/HMTdSAcjum9e+7tVAqnCk6LLH4=;
- b=b9tpYC6iDsz0F4bIXTVd1dBSGDVGxVay887bv8f5mxuKGd7C40DbbZ1Jud3M+Wen7B
- WnDlBV3MWOXg2BAKD+oMJSCm8xYy13LXvpaM+gbkP4dIiOKrF0/ZhnWy7Ch/5kPYDx57
- dcB0ZIf5K6Bjv6eYuGhhOxW+6egJgk6xh6O3IY6pVdb4U/1ZC9hq044NZU10nHdX5E/o
- o9swBKjK5YIAzC8vFW/LOxyXJ2asHMsjbA6pFdUVihu7z+JFQTWJoUpekWfx6WZKT6C5
- 66CVkM9PO90bdEgSNJcxKLsuWwwAUyGHbrHh3A9bqdG/O5QkPL0eOxFRGij2KpgtgWzq
- 6KhA==
+Received: by mail-qk0-x22d.google.com with SMTP id d14so48610900qkb.1
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Jun 2017 21:02:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=lxSyy8x5PIES1kha7C0SAKIH+PttqFo7BXSe+qxa8kU=;
+ b=vu7m3wSeOPfviDY2yz1F1icGlfYSJIyZbOXQMz3tuvsGqZjcFFlgAQzecZFY4S0GIO
+ 6WKItzitQ9TzwQLtsQ7/ho5LZaXJYHK0+jwroog2Ai9zbh+DH5fCQmle/CXl26PKyPYE
+ VeJi+0OrSGsnqA5S8xLzJJ1+LDKOYM/h4e9Q95gOBTezKWKc4mk0EB6OfRYVAxUkejic
+ 8jDG430d03AnEifYluCw6f1ihdBUW1Q0L/QbtnlajLMsmOgBZWzUQ5UEqCeCRX9xAHq1
+ YaFId9XL2uKGa74LIIE1DV0MT81kAiajABGjvJAfe9nTOVmWWBIanbpJjb9utMGtClaR
+ 6jQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=UYBGFsAjHj1kfoBy/HMTdSAcjum9e+7tVAqnCk6LLH4=;
- b=aQb2CK+xymROXDFz8YQgHqRK+uGPWUxfMvo0Av0x7yqUTQJQUbjg/PlT1udP1yxeF5
- RlZnLXsqW5CwCIRSWFLwMb4lPOvIEz0TJxtQchQ/UvAG2XRSA4/ye6zwoXVHT5TReSUd
- Y66WTPfxBGGfSDmThgEE4JAy/5W0KaeicwvBdj1T8ov3/FsjWro6x6Q+Udlzf3+LEiLn
- J3L5geGfCtDvoCZDhQ/BBPPCxloAnsAW1ZTdJgPM1//1UlqcgHfZsJ0Z1paMzGdRtVpF
- fnjYN/TAhkwhig63pzqfvjJJPJUj6I9dAC2p4XmjWfaPsPANdGbtDYXj5AeVXmGc2irU
- Vulg==
-X-Gm-Message-State: AKS2vOw6hwwF919C//eyZ5NLnxH9V7/0EsddwiLhYcczFWdYXDN4683H
- NT7uB5x7AXgIwJM/bEUP5qfu2Tu1CfXA
-X-Received: by 10.13.225.79 with SMTP id k76mr20030563ywe.178.1497927637715;
- Mon, 19 Jun 2017 20:00:37 -0700 (PDT)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=lxSyy8x5PIES1kha7C0SAKIH+PttqFo7BXSe+qxa8kU=;
+ b=GaFUMFzQkH8SDuN4RvLfi5FbiNZsTqDNxXGQmw1nR/qSfi6mNtk5h6tP0AZfMUMapA
+ cGLifaA28Tt31/GnZfD9UJmqfSUMuEANCpYaGD1AxE+77OExLxJ6/wmd+RbMUCs9hh1v
+ Afu5yxYTpXDVhAjpdwm0CTKEF6v5VO/0hWKreORhkwhppKPscAIag8QpnoeDvyNIYunp
+ EjBhbcMwcRv3kGg2OykJwy5NTk6BsyQziQbCDN5Fn8S6c9VESpVtsQf+5Oi/tlwcCOOB
+ kJv5edIYPmV5/n1DSBSRRZvsxde/UuBr4CX3R5ce69bUXZ3NhL9aTKarEyyCZOMzkzLx
+ aiKg==
+X-Gm-Message-State: AKS2vOzk74LTWr2VZxcNUAvmnliWJXeHnDzAc/fxwsvSTaUdEjCN7deU
+ wF1PBeoHHqAp999FqmjWIiOBxG/XCqzp
+X-Received: by 10.55.158.208 with SMTP id h199mr30133566qke.254.1497931367247; 
+ Mon, 19 Jun 2017 21:02:47 -0700 (PDT)
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.174.2 with HTTP; Mon, 19 Jun 2017 20:00:17 -0700 (PDT)
-In-Reply-To: <OFA5A59E2D.D08E083C-ON8625813E.00649282-8625813E.0072EF32@notes.na.collabserv.com>
-References: <OFA5A59E2D.D08E083C-ON8625813E.00649282-8625813E.0072EF32@notes.na.collabserv.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 20 Jun 2017 12:30:17 +0930
-X-Google-Sender-Auth: jQOEHpyJ-nghF6IDge29V43QlYU
-Message-ID: <CACPK8Xf-1TBsN-Xpju1WOrSYvmjwdghQD-x5eFX1jvSyNw-Uug@mail.gmail.com>
-Subject: Re: OpenBMC world wide call for topics
-To: Chris Austen <austenc@us.ibm.com>
-Cc: OpenBMC <openbmc@lists.ozlabs.org>
+Received: by 10.200.45.73 with HTTP; Mon, 19 Jun 2017 21:02:46 -0700 (PDT)
+In-Reply-To: <20170619141322.devvmcbjaeq4jnv5@ninjato>
+References: <20170603012952.2192-1-brendanhiggins@google.com>
+ <20170603012952.2192-5-brendanhiggins@google.com>
+ <20170619141322.devvmcbjaeq4jnv5@ninjato>
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Mon, 19 Jun 2017 21:02:46 -0700
+Message-ID: <CAFd5g471kpgskO1MkBPZgFLbwAqncT_NZy=igVRkYJpxDNRVyg@mail.gmail.com>
+Subject: Re: [PATCH v10 4/5] i2c: aspeed: added driver for Aspeed I2C
+To: Wolfram Sang <wsa@the-dreams.de>
+Cc: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Thomas Gleixner <tglx@linutronix.de>, Jason Cooper <jason@lakedaemon.net>, 
+ Marc Zyngier <marc.zyngier@arm.com>, Joel Stanley <joel@jms.id.au>,
+ Vladimir Zapolskiy <vz@mleia.com>, Kachalov Anton <mouse@mayc.ru>,
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Ryan Chen <ryan_chen@aspeedtech.com>, 
+ linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -59,25 +67,101 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Jun 2017 03:00:40 -0000
+X-List-Received-Date: Tue, 20 Jun 2017 04:02:51 -0000
 
-On Wed, Jun 14, 2017 at 6:25 AM, Chris Austen <austenc@us.ibm.com> wrote:
-> Greetings,
-> during the recent OpenPOWER Developers Congress it became apparent that
-> there was a need; beyond the mailing list, to have a discussion about what
-> is going on in the OpenBMC Project and how to improve communication. I
-> committed to creating an event and to reach out to our ever growing
-> community for topics. Is there something that you would like to hear about
-> or understand more? Are you looking for places to volunteer or show off a
-> technology using OpenBMC? The tentative plan is to hold an over-the-phone
-> discussion during the week of July 10-15th. The exact date and time really
-> depend on the time zones I get feedback from. So what would you like to hear
-> about?
+I thought all of the comments made sense and will be addressed in my
+next revision,
+except the following:
 
-I'm in UTC+9.5.
+>> +static int aspeed_i2c_recover_bus(struct aspeed_i2c_bus *bus)
+>> +{
+>> +     unsigned long time_left, flags;
+>> +     int ret = 0;
+>> +     u32 command;
+>> +
+>> +     spin_lock_irqsave(&bus->lock, flags);
+>> +     command = readl(bus->base + ASPEED_I2C_CMD_REG);
+>> +
+>> +     if (command & ASPEED_I2CD_SDA_LINE_STS) {
+>> +             /* Bus is idle: no recovery needed. */
+>> +             if (command & ASPEED_I2CD_SCL_LINE_STS)
+>> +                     goto out;
+>> +             dev_dbg(bus->dev, "bus hung (state %x), attempting recovery\n",
+>> +                     command);
+>> +
+>> +             reinit_completion(&bus->cmd_complete);
+>> +             writel(ASPEED_I2CD_M_STOP_CMD, bus->base + ASPEED_I2C_CMD_REG);
+>> +             spin_unlock_irqrestore(&bus->lock, flags);
+>> +
+>> +             time_left = wait_for_completion_timeout(
+>> +                             &bus->cmd_complete, bus->adap.timeout);
+>> +
+>> +             spin_lock_irqsave(&bus->lock, flags);
+>> +             if (time_left == 0)
+>> +                     goto reset_out;
+>> +             else if (bus->cmd_err)
+>> +                     goto reset_out;
+>> +             /* Recovery failed. */
+>> +             else if (!(readl(bus->base + ASPEED_I2C_CMD_REG) &
+>> +                        ASPEED_I2CD_SCL_LINE_STS))
+>> +                     goto reset_out;
+>> +     /* Bus error. */
+>> +     } else {
+>> +             dev_dbg(bus->dev, "bus hung (state %x), attempting recovery\n",
+>> +                     command);
+>
+> Same dbg message as in the condition? Move it out of the 'if'?
 
-I would be happy to give a 3 minute run down on the OpenBMC kernel efforts.
+Message is the same; that's true; however, I only want to print this
+if I am actually doing
+the recovery. There is a case in the first condition where we actually
+don't attempt recovery.
+(See both SDA and SCL high). Nevertheless, now that I am looking at
+this. I think it might
+make sense to make the dbg statements different since I can explain
+what type of recovery
+I am attempting.
 
-Cheers,
+>
+>> +
+>> +             reinit_completion(&bus->cmd_complete);
+>> +             writel(ASPEED_I2CD_BUS_RECOVER_CMD,
+>> +                    bus->base + ASPEED_I2C_CMD_REG);
+>
+> Out of interest: What does the RECOVER_CMD do?
 
-Joel
+According to the documentation, it attempts to create 1 to 8 SCL
+cycles to force any stuck
+device to let go of the SDA line. It then puts the hardware in a sane
+state once it detects
+that the bus has been recovered. I will put a comment to this effect.
+
+>
+>> +             spin_unlock_irqrestore(&bus->lock, flags);
+>> +
+>> +             time_left = wait_for_completion_timeout(
+>> +                             &bus->cmd_complete, bus->adap.timeout);
+>> +
+>> +             spin_lock_irqsave(&bus->lock, flags);
+>> +             if (time_left == 0)
+>> +                     goto reset_out;
+>> +             else if (bus->cmd_err)
+>> +                     goto reset_out;
+>> +             /* Recovery failed. */
+>> +             else if (!(readl(bus->base + ASPEED_I2C_CMD_REG) &
+>> +                        ASPEED_I2CD_SDA_LINE_STS))
+>> +                     goto reset_out;
+>> +     }
+>> +
+>> +out:
+>> +     spin_unlock_irqrestore(&bus->lock, flags);
+>> +
+>> +     return ret;
+>> +
+>> +reset_out:
+>> +     spin_unlock_irqrestore(&bus->lock, flags);
+>> +
+>> +     return aspeed_i2c_reset(bus);
+>> +}
+
+Cheers!
