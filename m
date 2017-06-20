@@ -1,61 +1,61 @@
 Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wsgk72X2FzDqhn
- for <openbmc@lists.ozlabs.org>; Wed, 21 Jun 2017 07:20:47 +1000 (AEST)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v5KLJBYC084279
- for <openbmc@lists.ozlabs.org>; Tue, 20 Jun 2017 17:20:45 -0400
-Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2b7amvj620-1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wsgtP59bpzDqhp
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Jun 2017 07:27:57 +1000 (AEST)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v5KLNpvE045226
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Jun 2017 17:27:54 -0400
+Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2b6qepcc6t-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 20 Jun 2017 17:20:44 -0400
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Jun 2017 17:27:54 -0400
 Received: from localhost
- by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Tue, 20 Jun 2017 15:20:44 -0600
-Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
- by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
+ Tue, 20 Jun 2017 17:27:53 -0400
+Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
+ by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Tue, 20 Jun 2017 15:20:41 -0600
-Received: from b03ledav004.gho.boulder.ibm.com
- (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
- by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v5KLKex1852292; Tue, 20 Jun 2017 14:20:40 -0700
-Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 66FE878041;
- Tue, 20 Jun 2017 15:20:40 -0600 (MDT)
+ Tue, 20 Jun 2017 17:27:52 -0400
+Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
+ [9.57.199.107])
+ by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v5KLRpkB41877750; Tue, 20 Jun 2017 21:27:51 GMT
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 0A8BD124035;
+ Tue, 20 Jun 2017 17:25:23 -0400 (EDT)
 Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP id 130B97803F;
- Tue, 20 Jun 2017 15:20:40 -0600 (MDT)
+ by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP id B76A7124037;
+ Tue, 20 Jun 2017 17:25:22 -0400 (EDT)
 From: Eddie James <eajames@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10] drivers/hwmon/occ: Add error handling
-Date: Tue, 20 Jun 2017 16:20:30 -0500
+Subject: [PATCH linux dev-4.10 v2] drivers/hwmon/occ: Add error handling
+Date: Tue, 20 Jun 2017 16:27:49 -0500
 X-Mailer: git-send-email 1.8.3.1
 X-TM-AS-GCONF: 00
-x-cbid: 17062021-8235-0000-0000-00000BC28F9D
+x-cbid: 17062021-2213-0000-0000-000001E2F365
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00007263; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00877611; UDB=6.00437202; IPR=6.00657749; 
+ PH=3.00000004; SC=3.00000214; SDB=6.00877613; UDB=6.00437203; IPR=6.00657751; 
  BA=6.00005432; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015903; XFM=3.00000015;
- UTC=2017-06-20 21:20:42
+ UTC=2017-06-20 21:27:53
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17062021-8236-0000-0000-00003C5F9BBD
-Message-Id: <1497993630-14394-1-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 17062021-2214-0000-0000-000056949C6C
+Message-Id: <1497994069-18223-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-06-20_10:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  spamscore=0 suspectscore=1
  malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
  adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1706200367
+ definitions=main-1706200369
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,7 +67,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Jun 2017 21:20:47 -0000
+X-List-Received-Date: Tue, 20 Jun 2017 21:27:58 -0000
 
 From: "Edward A. James" <eajames@us.ibm.com>
 
@@ -77,13 +77,16 @@ endianness.
 
 Resolves: https://github.com/openbmc/openbmc/issues/1802
 
+Changes since v1:
+ - Forgot to decrement OCC counter in remove functions.
+
 Signed-off-by: Edward A. James <eajames@us.ibm.com>
 ---
  drivers/hwmon/occ/common.c | 85 ++++++++++++++++++++++++++++++++++++++--------
  drivers/hwmon/occ/common.h | 11 ++++++
- drivers/hwmon/occ/p8_i2c.c | 14 ++++++--
- drivers/hwmon/occ/p9_sbe.c | 16 ++++++++-
- 4 files changed, 108 insertions(+), 18 deletions(-)
+ drivers/hwmon/occ/p8_i2c.c | 16 +++++++--
+ drivers/hwmon/occ/p9_sbe.c | 18 +++++++++-
+ 4 files changed, 112 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
 index d3eb6f8..4e3e411 100644
@@ -309,7 +312,7 @@ index a6582a7..a5f86c3 100644
  int occ_poll(struct occ *occ);
  int occ_set_user_power_cap(struct occ *occ, u16 user_power_cap);
 diff --git a/drivers/hwmon/occ/p8_i2c.c b/drivers/hwmon/occ/p8_i2c.c
-index a4d9965..498e3ab 100644
+index a4d9965..29233b4 100644
 --- a/drivers/hwmon/occ/p8_i2c.c
 +++ b/drivers/hwmon/occ/p8_i2c.c
 @@ -122,12 +122,12 @@ static int p8_i2c_occ_send_cmd(struct occ *occ, u8 *cmd)
@@ -372,8 +375,17 @@ index a4d9965..498e3ab 100644
  	return 0;
  }
  
+@@ -251,6 +261,8 @@ static int p8_i2c_occ_remove(struct i2c_client *client)
+ 
+ 	occ_remove_status_attrs(occ);
+ 
++	atomic_dec(&occ_num_occs);
++
+ 	return 0;
+ }
+ 
 diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
-index 6226f6f..a1dd201 100644
+index 6226f6f..c85f133 100644
 --- a/drivers/hwmon/occ/p9_sbe.c
 +++ b/drivers/hwmon/occ/p9_sbe.c
 @@ -36,6 +36,7 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
@@ -429,5 +441,14 @@ index 6226f6f..a1dd201 100644
  }
  
  static int p9_sbe_occ_remove(struct platform_device *pdev)
+@@ -157,6 +171,8 @@ static int p9_sbe_occ_remove(struct platform_device *pdev)
+ 
+ 	occ_remove_status_attrs(occ);
+ 
++	atomic_dec(&occ_num_occs);
++
+ 	return 0;
+ }
+ 
 -- 
 1.8.3.1
