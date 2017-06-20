@@ -1,51 +1,101 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-wr0-x232.google.com (mail-wr0-x232.google.com
- [IPv6:2a00:1450:400c:c0c::232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <austenc@us.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wsYVR1729zDqhk
- for <openbmc@lists.ozlabs.org>; Wed, 21 Jun 2017 02:40:14 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="McNKhIsZ"; 
- dkim-atps=neutral
-Received: by mail-wr0-x232.google.com with SMTP id y25so58991792wrd.2
- for <openbmc@lists.ozlabs.org>; Tue, 20 Jun 2017 09:40:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=BygT/CLjJls8a9h5aJzH0uSs5Jzyhh965wXTlE0yEbA=;
- b=McNKhIsZFXyBJ6XZYSL+ZNeJHBFTsEYO5+audQNPFB2wCIxP4zL/vWCf77i6/9Doaa
- Hwcnw5t7IsBNsQeH2BzRIBMmMV0C4j/3zP2glT8owtUL7bO0NpfvBZz7t1gpwzq1eM/9
- KbI3i7btyvphFLdFmZ99GiMhZVUxO/UtAoy7IXNioXCqcd/lYcsaQjqCa4GDSi0YSfY7
- VahMKdQQ5/ANZ9UgB1RquOfPGDOykPFHBT9qVLfC2jWb4IV6yWzBZCBTN4hoLzt6Iv/l
- tpvX6Ml0TtuEfjJml0g5BthlEl0+N9wjlUlcCs2N2iWuSomhW31k38Ikdg68t2Tq3ZQC
- 7kIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=BygT/CLjJls8a9h5aJzH0uSs5Jzyhh965wXTlE0yEbA=;
- b=SYfiSaQMmXEB99wByGgdSyYuEgnZ+6rCEwrDe1A1U9OLo3NLT8M+gL3aAJh0JQu6LF
- abMfTEAmgyzLOhNhRyLASlMfljDBHLQiYJhlbitGDx62rbVEr/bbc1yFhT2UHrdqdpit
- c9/BKstWG/9j1SFCe4mAPn+J2p8/IR3PdZ1EJVeU2sg5OknHVdVTkDDehYvSK91sILHv
- B7oV+Au2trgrG15Jws3wjPI699oiZQH1XlL+dB5V6jY7qkAHNuhVGclel8iLry2Bw7au
- jMPSHqoeYWSdYKizcA5VETAjLYxMii3xjcHa6PN0aaJC0jw1rBg50t6BKPTMqmPWRYQq
- j54g==
-X-Gm-Message-State: AKS2vOzV+KjvIGQ4OuKIgF89l+WGYTKDb2A4lUaExczH7wbOGBuzohaC
- 8RUjCVyVS2QgqX2JRBmYLrrA5wxNnlr8
-X-Received: by 10.28.91.198 with SMTP id p189mr3358693wmb.97.1497976811766;
- Tue, 20 Jun 2017 09:40:11 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wsYmC6rGKzDqhk
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Jun 2017 02:52:11 +1000 (AEST)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v5KGmjpg075528
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Jun 2017 12:52:08 -0400
+Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2b6mk48h0y-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Jun 2017 12:52:08 -0400
+Received: from localhost
+ by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Tue, 20 Jun 2017 10:52:07 -0600
+Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
+ by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Tue, 20 Jun 2017 10:52:05 -0600
+Received: from b03ledav003.gho.boulder.ibm.com
+ (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
+ by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v5KGq4m68782316
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Jun 2017 09:52:04 -0700
+Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A10116A042
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Jun 2017 10:52:04 -0600 (MDT)
+Received: from d50lp01.ny.us.ibm.com (unknown [146.89.104.207])
+ by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTPS id 5D20B6A041
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Jun 2017 10:52:04 -0600 (MDT)
+Received: from localhost
+ by d50lp01.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Tue, 20 Jun 2017 12:52:03 -0400
+Received: from smtp.notes.na.collabserv.com (192.155.248.81)
+ by d50lp01.ny.us.ibm.com (158.87.18.20) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128/128)
+ Tue, 20 Jun 2017 12:52:01 -0400
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Tue, 20 Jun 2017 16:51:59 -0000
+Received: from us1a3-smtp03.a3.dal06.isc4sb.com (10.106.154.98)
+ by smtp.notes.na.collabserv.com (10.106.227.88) with
+ smtp.notes.na.collabserv.com ESMTP; Tue, 20 Jun 2017 16:51:58 -0000
+Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
+ by us1a3-smtp03.a3.dal06.isc4sb.com
+ with ESMTP id 2017062016515759-782145 ;
+ Tue, 20 Jun 2017 16:51:57 +0000 
 MIME-Version: 1.0
-Received: by 10.28.143.18 with HTTP; Tue, 20 Jun 2017 09:40:11 -0700 (PDT)
-In-Reply-To: <CACPK8Xf-1TBsN-Xpju1WOrSYvmjwdghQD-x5eFX1jvSyNw-Uug@mail.gmail.com>
-References: <OFA5A59E2D.D08E083C-ON8625813E.00649282-8625813E.0072EF32@notes.na.collabserv.com>
- <CACPK8Xf-1TBsN-Xpju1WOrSYvmjwdghQD-x5eFX1jvSyNw-Uug@mail.gmail.com>
-From: Rick Altherr <raltherr@google.com>
-Date: Tue, 20 Jun 2017 09:40:11 -0700
-Message-ID: <CAPLgG==Kdf9cT1_GYyRnEmmi+QS7Sd=96S89yTVNP=OWTaQO-g@mail.gmail.com>
-Subject: Re: OpenBMC world wide call for topics
-To: Joel Stanley <joel@jms.id.au>
-Cc: Chris Austen <austenc@us.ibm.com>, OpenBMC <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="001a11440c14bff8a7055266e73d"
+Subject: OpenBMC and Redfish - intro
+To: openbmc@lists.ozlabs.org
+From: "Chris Austen" <austenc@us.ibm.com>
+Date: Tue, 20 Jun 2017 11:51:56 -0500
+X-KeepSent: FA529A42:5FDE064B-86258145:00576CCE;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1EXT SHF766 December 14, 2016
+X-LLNOutbound: False
+X-Disclaimed: 30951
+X-TNEFEvaluated: 1
+Content-type: multipart/alternative; 
+ Boundary="0__=09BB0BD6DFC4EA5E8f9e8a93df938690918c09BB0BD6DFC4EA5E"
+Content-Disposition: inline
+x-cbid: 17062016-0016-0000-0000-000007011D09
+X-IBM-SpamModules-Scores: BY=0.021414; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.435941; ST=0; TS=0; UL=0; ISC=; MB=0.144868
+X-IBM-SpamModules-Versions: BY=3.00007262; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00877521; UDB=6.00437148; IPR=6.00657660; 
+ BA=6.00005432; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015900; XFM=3.00000015;
+ UTC=2017-06-20 16:51:59
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2017-06-20 06:06:00 - 6.00006914
+x-cbparentid: 17062016-7094-0000-0000-00000DA3C774
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+X-TM-AS-GCONF: 00
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007262; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00877521; UDB=6.00437148; IPR=6.00657660; 
+ BA=6.00005432; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015900; XFM=3.00000015;
+ UTC=2017-06-20 16:52:06
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+Message-Id: <OFFA529A42.5FDE064B-ON86258145.00576CCE-86258145.005CA593@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-06-20_08:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1706200289
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,92 +107,113 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Jun 2017 16:40:15 -0000
+X-List-Received-Date: Tue, 20 Jun 2017 16:52:12 -0000
 
---001a11440c14bff8a7055266e73d
-Content-Type: text/plain; charset="UTF-8"
 
-My team is based in California (currently UTC-7).  I know we are working on
-a variety of enhancements for Zaius and Quanta Q71L as well as more general
-features such as A/B booting.  I'd like to hear a discussion on a
-community-led roadmap so my team can coordinate with everyone else on their
-development efforts.
-
-Rick
-
-On Mon, Jun 19, 2017 at 8:00 PM, Joel Stanley <joel@jms.id.au> wrote:
-
-> On Wed, Jun 14, 2017 at 6:25 AM, Chris Austen <austenc@us.ibm.com> wrote:
-> > Greetings,
-> > during the recent OpenPOWER Developers Congress it became apparent that
-> > there was a need; beyond the mailing list, to have a discussion about
-> what
-> > is going on in the OpenBMC Project and how to improve communication. I
-> > committed to creating an event and to reach out to our ever growing
-> > community for topics. Is there something that you would like to hear
-> about
-> > or understand more? Are you looking for places to volunteer or show off a
-> > technology using OpenBMC? The tentative plan is to hold an over-the-phone
-> > discussion during the week of July 10-15th. The exact date and time
-> really
-> > depend on the time zones I get feedback from. So what would you like to
-> hear
-> > about?
->
-> I'm in UTC+9.5.
->
-> I would be happy to give a 3 minute run down on the OpenBMC kernel efforts.
->
-> Cheers,
->
-> Joel
->
-
---001a11440c14bff8a7055266e73d
-Content-Type: text/html; charset="UTF-8"
+--0__=09BB0BD6DFC4EA5E8f9e8a93df938690918c09BB0BD6DFC4EA5E
 Content-Transfer-Encoding: quoted-printable
+Content-type: text/plain; charset=US-ASCII
 
-<div dir=3D"ltr">My team is based in California (currently UTC-7).=C2=A0 I =
-know we are working on a variety of enhancements for Zaius and Quanta Q71L =
-as well as more general features such as A/B booting.=C2=A0 I&#39;d like to=
- hear a discussion on a community-led roadmap so my team can coordinate wit=
-h everyone else on their development efforts.<div><br></div><div>Rick</div>=
-</div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Mon, Jun=
- 19, 2017 at 8:00 PM, Joel Stanley <span dir=3D"ltr">&lt;<a href=3D"mailto:=
-joel@jms.id.au" target=3D"_blank">joel@jms.id.au</a>&gt;</span> wrote:<br><=
-blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px=
- #ccc solid;padding-left:1ex"><span class=3D"">On Wed, Jun 14, 2017 at 6:25=
- AM, Chris Austen &lt;<a href=3D"mailto:austenc@us.ibm.com">austenc@us.ibm.=
-com</a>&gt; wrote:<br>
-&gt; Greetings,<br>
-&gt; during the recent OpenPOWER Developers Congress it became apparent tha=
-t<br>
-&gt; there was a need; beyond the mailing list, to have a discussion about =
-what<br>
-&gt; is going on in the OpenBMC Project and how to improve communication. I=
-<br>
-&gt; committed to creating an event and to reach out to our ever growing<br=
->
-&gt; community for topics. Is there something that you would like to hear a=
-bout<br>
-&gt; or understand more? Are you looking for places to volunteer or show of=
-f a<br>
-&gt; technology using OpenBMC? The tentative plan is to hold an over-the-ph=
-one<br>
-&gt; discussion during the week of July 10-15th. The exact date and time re=
-ally<br>
-&gt; depend on the time zones I get feedback from. So what would you like t=
-o hear<br>
-&gt; about?<br>
-<br>
-</span>I&#39;m in UTC+9.5.<br>
-<br>
-I would be happy to give a 3 minute run down on the OpenBMC kernel efforts.=
-<br>
-<br>
-Cheers,<br>
-<br>
-Joel<br>
-</blockquote></div><br></div>
 
---001a11440c14bff8a7055266e73d--
+
+Well that is a loaded subject line!
+
+We have talked for a while about wanting to support the DMTF Redfish REST
+interface.  Support would allow operators to adhere to a growing industry
+standard and allow communities such as OCP (Open Compute Project) a
+platform to put in to practice their profiles.  I think Operators and API
+developers would also appreciate the interface.
+
+At the Developer Congress in May 2017 we started working with
+https://github.com/DMTF/Redfish-Profile-Simulator/tree/upgrade-0.9.5.  It
+looks like it could be a great fit for implementation in the OpenBMC
+Project.  The profile simulator code base seems to contain a front and back
+end.  The front handling errors, REST, Parameter validation, Paths, etc
+while the back end captures the data from the physical hardware.  The back
+end; at discovery time, also informs the front end what is supported.
+Seems like a great division of labor and very testable since validation
+tools could be coded against both sides.
+
+There are a few architectural discussion that need to occur around Redfish
+and the mailing list is currently the best forum for that.  Let's start
+with a really basic design point...  Translating to Odata: Compile vs
+Runtime.
+
+OpenBMC today at compile time knows what is supported (properties and
+paths) via YAML files.  You could then in theory build the complete JSON
+Schema for fixed values at compile time by probing in to different projects
+such as https://github.com/openbmc/phosphor-dbus-interfaces (great for
+static validation testing).  You could create static values inside the
+meta-openbmc-machines layers (i.e. model#, Redfish version, etc) or support
+various standard profiles in a layer such as meta-openbmc-redfish/meta-ocp.
+Down side is you have to probe repositories and parse lots of YAML.
+
+Runtime discovery puts some more effort on to the dbus objects but forces a
+cleaner translation (who tells you that the host power only supports on/off
+not reboot).  That may not actually be a benefit since we were pretty
+active about not creating IPMI properties in our dbus objects.  Runtime
+would run through all the dbus interfaces and translate them to Redfish.
+In a single Redfish repository you could create the translation rules which
+would simplify the code layout.  It would likely also mean that you avoid
+YAML translations.  I don't think I am giving Runtime enough justice
+really.  That or I've answered my own question.
+
+I'm leaning towards compile time myself.  Thoughts?  Any volunteers that
+would like to participate in helping to develop the architecture and coding
+out a schema?
+
+
+Chris Austen
+The OpenBMC Project community evangelist
+
+--0__=09BB0BD6DFC4EA5E8f9e8a93df938690918c09BB0BD6DFC4EA5E
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/html; charset=US-ASCII
+Content-Disposition: inline
+
+<html><body><p><font size=3D"2">Well that is a loaded subject line!</font><=
+br><br><font size=3D"2">We have talked for a while about wanting to support=
+ the DMTF Redfish REST interface.  Support would allow operators to adhere =
+to a growing industry standard and allow communities such as OCP (Open Comp=
+ute Project) a platform to put in to practice their profiles.  I think Oper=
+ators and API developers would also appreciate the interface.  </font><br><=
+br><font size=3D"2">At the Developer Congress in May 2017 we started workin=
+g with </font><a href=3D"https://github.com/DMTF/Redfish-Profile-Simulator/=
+tree/upgrade-0.9.5"><font size=3D"2">https://github.com/DMTF/Redfish-Profil=
+e-Simulator/tree/upgrade-0.9.5</font></a><font size=3D"2">.  It looks like =
+it could be a great fit for implementation in the OpenBMC Project.  The pro=
+file simulator code base seems to contain a front and back end.  The front =
+handling errors, REST, Parameter validation, Paths, etc while the back end =
+captures the data from the physical hardware.  The back end; at discovery t=
+ime, also informs the front end what is supported.  Seems like a great divi=
+sion of labor and very testable since validation tools could be coded again=
+st both sides.    </font><br><br><font size=3D"2">There are a few architect=
+ural discussion that need to occur around Redfish and the mailing list is c=
+urrently the best forum for that.  Let's start with a really basic design p=
+oint...  Translating to Odata: Compile vs Runtime.  </font><br><br><font si=
+ze=3D"2">OpenBMC today at compile time knows what is supported (properties =
+and paths) via YAML files.  You could then in theory build the complete JSO=
+N Schema for fixed values at compile time by probing in to different projec=
+ts such as </font><a href=3D"https://github.com/openbmc/phosphor-dbus-inter=
+faces"><font size=3D"2">https://github.com/openbmc/phosphor-dbus-interfaces=
+</font></a><font size=3D"2"> (great for static validation testing).  You co=
+uld create static values inside the meta-openbmc-machines layers (i.e. mode=
+l#, Redfish version, etc) or support various standard profiles in a layer s=
+uch as meta-openbmc-redfish/meta-ocp.  Down side is you have to probe repos=
+itories and parse lots of YAML.  </font><br><br><font size=3D"2">Runtime di=
+scovery puts some more effort on to the dbus objects but forces a cleaner t=
+ranslation (who tells you that the host power only supports on/off not rebo=
+ot).  That may not actually be a benefit since we were pretty active about =
+not creating IPMI properties in our dbus objects.  Runtime would run throug=
+h all the dbus interfaces and translate them to Redfish.  In a single Redfi=
+sh repository you could create the translation rules which would simplify t=
+he code layout.  It would likely also mean that you avoid YAML translations=
+.  I don't think I am giving Runtime enough justice really.  That or I've a=
+nswered my own question. </font><br><br><font size=3D"2">I'm leaning toward=
+s compile time myself.  Thoughts?  Any volunteers that would like to partic=
+ipate in helping to develop the architecture and coding out a schema?</font=
+><br><br><font size=3D"2"><br>Chris Austen<br>The OpenBMC Project community=
+ evangelist </font><BR>
+</body></html>
+
+--0__=09BB0BD6DFC4EA5E8f9e8a93df938690918c09BB0BD6DFC4EA5E--
