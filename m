@@ -1,113 +1,58 @@
-Return-Path: <miltonm@us.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <cyrilbur@gmail.com>
+Received: from mail-pg0-x244.google.com (mail-pg0-x244.google.com
+ [IPv6:2607:f8b0:400e:c05::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wtFGH0t90zDqj1
- for <openbmc@lists.ozlabs.org>; Thu, 22 Jun 2017 05:32:06 +1000 (AEST)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v5LJSdRL034259
- for <openbmc@lists.ozlabs.org>; Wed, 21 Jun 2017 15:32:04 -0400
-Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2b7uxfh8tb-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 21 Jun 2017 15:32:03 -0400
-Received: from localhost
- by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <miltonm@us.ibm.com>;
- Wed, 21 Jun 2017 15:32:02 -0400
-Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
- by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Wed, 21 Jun 2017 15:32:01 -0400
-Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
- [9.57.199.108])
- by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v5LJW1aP62521350
- for <openbmc@lists.ozlabs.org>; Wed, 21 Jun 2017 19:32:01 GMT
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 9BD52B205D
- for <openbmc@lists.ozlabs.org>; Wed, 21 Jun 2017 15:29:34 -0400 (EDT)
-Received: from d50lp03.ny.us.ibm.com (unknown [146.89.104.211])
- by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTPS id 86FF2B2056
- for <openbmc@lists.ozlabs.org>; Wed, 21 Jun 2017 15:29:34 -0400 (EDT)
-Received: from localhost
- by d50lp03.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <miltonm@us.ibm.com>;
- Wed, 21 Jun 2017 15:32:01 -0400
-Received: from smtp.notes.na.collabserv.com (158.85.210.114)
- by d50lp03.ny.us.ibm.com (158.87.18.22) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128/128)
- Wed, 21 Jun 2017 15:31:58 -0400
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <miltonm@us.ibm.com>;
- Wed, 21 Jun 2017 19:31:57 -0000
-Received: from us1b3-smtp01.a3dr.sjc01.isc4sb.com (10.122.7.174)
- by smtp.notes.na.collabserv.com (10.122.47.58) with
- smtp.notes.na.collabserv.com ESMTP; Wed, 21 Jun 2017 19:31:55 -0000
-Received: from us1b3-mail79.a3dr.sjc01.isc4sb.com ([10.122.105.126])
- by us1b3-smtp01.a3dr.sjc01.isc4sb.com
- with ESMTP id 2017062119315511-786836 ;
- Wed, 21 Jun 2017 19:31:55 +0000 
-In-Reply-To: <CALLMt=q8L8UwegNKy+D0uhyqi25sfpUW27FjwBbqmVme1OgP0g@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] drivers/fsi: Break and set pin states on
- GPIO master remove
-From: "Milton Miller II" <miltonm@us.ibm.com>
-To: Andrew Geissler <geissonator@gmail.com>
-Cc: Jeremy Kerr <jk@ozlabs.org>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Wed, 21 Jun 2017 19:31:54 +0000
-MIME-Version: 1.0
-Sensitivity: 
-Importance: Normal
-X-Priority: 3 (Normal)
-References: <CALLMt=q8L8UwegNKy+D0uhyqi25sfpUW27FjwBbqmVme1OgP0g@mail.gmail.com>,
- <20170606200230.77482-1-cbostic@linux.vnet.ibm.com>
- <1ac7a650-9524-4c50-f449-b5fc89e8d988@ozlabs.org>
- <bdb441e5-5485-9a67-1749-029f684162f9@linux.vnet.ibm.com>
- <2986922.Yi4HN7lb1t@new-mexico>
- <ce283d8e-ba55-9476-8409-e5982a63034f@ozlabs.org>
-X-Mailer: IBM iNotes ($HaikuForm 964) | IBM Domino Build
- SCN17157_20170606T0034 June 06, 2017 at 00:34
-X-LLNOutbound: False
-X-Disclaimed: 50319
-X-TNEFEvaluated: 1
-X-LLNXfer: False
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-x-cbid: 17062119-0048-0000-0000-000001AE2A1D
-X-IBM-SpamModules-Scores: FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0; SC=0.399202;
- ST=0; TS=0; UL=0; ISC=; MB=0.220251
-X-IBM-SpamModules-Versions: BY=3.00007267; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00877938; UDB=6.00437401; IPR=6.00658078; 
- BA=6.00005434; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015912; XFM=3.00000015;
- UTC=2017-06-21 19:31:57
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2017-06-21 18:33:56 - 6.00006918
-x-cbparentid: 17062119-9696-0000-0000-0000D2E8E5EB
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-X-TM-AS-GCONF: 00
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007267; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00877937; UDB=6.00437401; IPR=6.00658078; 
- BA=6.00005434; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015912; XFM=3.00000015;
- UTC=2017-06-21 19:32:02
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-Message-Id: <OF25D89DF3.3352CCD9-ON00258146.006B4AC4-00258146.006B4AC8@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-06-21_04:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1706210325
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wtM412L2YzDqRW;
+ Thu, 22 Jun 2017 09:53:36 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="qW1nHN7i"; 
+ dkim-atps=neutral
+Received: by mail-pg0-x244.google.com with SMTP id u62so133369pgb.0;
+ Wed, 21 Jun 2017 16:53:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=message-id:subject:from:to:date:in-reply-to:references:mime-version
+ :content-transfer-encoding;
+ bh=Hk1hXPZFi6tXNXM3GIEwl38Krsof+POKRwo7nI4ZoZs=;
+ b=qW1nHN7ixdsc9YFemlFEwJDkbQ9dkenb8gfCQXjJ07u7pCjHeZlJs6Woa5IF+srm5a
+ nSO/roNAaqE4wQcYtgJpORKGzZ1YIHV7a34NbMVjZhxb9ITsG3/5vsc6EFQnK8s1p8ZL
+ ZMIsK1k0QAjV9QwTO1okg5BMYVXskQWja3f20pQF6zpM5XRAFhKothhUV9eS5Tst0dvw
+ zhpgXANXYO8dV48iIpXwZMsPQ2D0Fgx2Sw0H5EV4lpmrt8AUDo6ykFgoSQrU8457py0u
+ MI24yzozo9JKE7Zr9CahE8PbnaQaXXvp2O1/T03Z66jEqNpIBjMdr/p0AhfZgflzkBMB
+ Af6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=Hk1hXPZFi6tXNXM3GIEwl38Krsof+POKRwo7nI4ZoZs=;
+ b=Lf2sWJAHsrS74jklcr9xlYiOq1Ee1rmFHCU2nO7s5SoqzgJ7+tr7VgQB+7+RrOx5Op
+ SoXC6+85ip4QZisdFmO3pohLxeouGRQqvTq1xM82Z3gAjZb1UkkMb7c6v6Ys/7v/WVCc
+ NZSgWDllUmb+uh0BrOlxvWJaMRsirTtol6HC0gRMB+Kxxzwudf+bbQ3ExPXDKuCI1vih
+ hOMZt+hT3GmqHduKzOnI2GovKCfeL/nR2J+8GCDNALAx/rHXE5R/PN+NmTXdIzokg4Hf
+ 2C0TYfPkvaVkv82BmVZ3QOg6ZwzlOtQp/ZzbmTO/+pZVzsznzZIYdy/oay2r7U0+o+Au
+ 2Z5Q==
+X-Gm-Message-State: AKS2vOw50EczDZTjLH8d6FLjiGOGlbzUCNtsEKHMIgUgHVakyfg6ya2Q
+ Bz16wrtv8eAtEA==
+X-Received: by 10.99.62.65 with SMTP id l62mr33213640pga.106.1498089214243;
+ Wed, 21 Jun 2017 16:53:34 -0700 (PDT)
+Received: from camb691.ozlabs.ibm.com ([122.99.82.10])
+ by smtp.googlemail.com with ESMTPSA id
+ a187sm32380165pgc.37.2017.06.21.16.53.31
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Wed, 21 Jun 2017 16:53:33 -0700 (PDT)
+Message-ID: <1498089208.1181.3.camel@gmail.com>
+Subject: Re: [PATCH v4] pflash option to retrieve PNOR partition flags
+From: Cyril Bur <cyrilbur@gmail.com>
+To: Michael Tritz <mtritz@us.ibm.com>, skiboot@lists.ozlabs.org, 
+ openbmc@lists.ozlabs.org, Joel Stanley <joel@jms.id.au>, Sam Mendoza-Jonas
+ <sam@mendozajonas.com>, Suraj Jitindar Singh <sjitindarsingh@gmail.com>
+Date: Thu, 22 Jun 2017 09:53:28 +1000
+In-Reply-To: <20170621034957.2504-1-mtritz@us.ibm.com>
+References: <20170621034957.2504-1-mtritz@us.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.24.3 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -119,62 +64,485 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Jun 2017 19:32:07 -0000
+X-List-Received-Date: Wed, 21 Jun 2017 23:53:38 -0000
 
-Around 06/21/2017, Andrew Geissler wrote:
->I think we had this same discussion last time Chris put this on the
->mailing list for 4.7 :)   I think we can do better here but we also
->(as usual) have a big time crunch.  Can we agree to put this in for
->now since our main goal is to just get 4.10 merged and of equal (or
->better) function to 4.7?  Chris can create an issue to come up with a
->final solution?  Without this change, cronus via the FSP debug does
->not work, which is a non-starter for picking this release up by IBM
->(and a lot of partners).
->
->I know, in theory, this is easy to fix, but it will require new
->testing, potentially new documentation for our users, and is just
->adding new function when we're mostly looking to just get a stable
->base going.
->
->Andrew
->
->On Thu, Jun 8, 2017 at 5:00 AM, Jeremy Kerr <jk@ozlabs.org> wrote:
->> Hi Alistair & Chris,
->>
->>>> The pins are set here mainly for the benefit of the Cronus debug
->>>> tools.   Its common practice in test and bringup labs to switch
->back and
->>>> forth between BMC and FSP-2 with Cronus to access the host
->processor
->>>> CFAMs over FSI.  Without the remove pin state changes Cronus
->cannot access.
->>>
->>> As far as I know you have to run "systemctl start
->fsi-disable.service"
->>> to switch over to Cronus mode. I think Jeremy's point is that it
->>> should be that service which explicitly sets up the hardware in a
->>> suitable mode rather than relying on side-effects from removing
->the
->>> kernel driver.
->>
->> Yep, spot on.
->>
->> Also, those side-effects might not be how the GPIOs need to
->configured
->> for the next usage of the FSI bus (which could be Cronus, but could
->also
->> be any other tool). So, let those tools handle the init correctly,
->> rather than the kernel making a guess at it.
->>
+On Tue, 2017-06-20 at 22:49 -0500, Michael Tritz wrote:
+> This commit extends pflash with an option to retrieve and print
+> information for a particular partition, including the content from
+> "pflash -i" and a verbose list of set miscellaneous flags. -i option
+> is also updated to print a short list of flags in addition to the
+> ECC flag, with one character per flag. A test of the new option is
+> included in libflash/test.
 
-Actually I think there are well defined "Idle" states and I would expect=20
-those to be asserted.
+I wonder if we should bikeshed the layout of print_partition_detail(),
+I'm absolutely not the person to review that kind of thing.
 
-I would expect the gpios to be set such that changing the mux does not=20
-glitch the signals to the chip.
+I think it makes more sense for the changes to the libffs interface to
+be a separate patch.
 
-Is this the state that is being set in the patch?
+Cyril
 
-milton
-
-[catching up after vacation]
+> 
+> Change-Id: Iebb8a6d34c537cecd2eb44ddf41271c8fbe25258
+> Signed-off-by: Michael Tritz <mtritz@us.ibm.com>
+> ---
+>  external/pflash/pflash.c          | 134 ++++++++++++++++++++++++++++++++++----
+>  libflash/libffs.c                 |  19 +++---
+>  libflash/libffs.h                 |   8 ++-
+>  libflash/test/test-miscprint.pnor | 103 +++++++++++++++++++++++++++++
+>  libflash/test/test-miscprint.sh   |  25 +++++++
+>  5 files changed, 269 insertions(+), 20 deletions(-)
+>  create mode 100644 libflash/test/test-miscprint.pnor
+>  create mode 100644 libflash/test/test-miscprint.sh
+> 
+> diff --git a/external/pflash/pflash.c b/external/pflash/pflash.c
+> index a344987e..8e08a7c7 100644
+> --- a/external/pflash/pflash.c
+> +++ b/external/pflash/pflash.c
+> @@ -14,6 +14,8 @@
+>   * limitations under the License.
+>   */
+>  
+> +#define _GNU_SOURCE
+> +
+>  #include <stdio.h>
+>  #include <stdlib.h>
+>  #include <string.h>
+> @@ -90,6 +92,7 @@ static void print_ffs_info(uint32_t toc_offset)
+>  {
+>  	struct ffs_handle *ffs_handle;
+>  	uint32_t other_side_offset = 0;
+> +	struct ffs_entry *ent;
+>  	int rc;
+>  	uint32_t i;
+>  
+> @@ -103,25 +106,40 @@ static void print_ffs_info(uint32_t toc_offset)
+>  		return;
+>  	}
+>  
+> -	for (i = 0;; i++) {
+> +	for (i = 0; rc == 0; i++) {
+>  		uint32_t start, size, act, end;
+> -		bool ecc;
+> -		char *name;
+> +		char *name = NULL, *flags;
+> +		int l;
+>  
+> -		rc = ffs_part_info(ffs_handle, i, &name, &start, &size, &act, &ecc);
+> +		rc = ffs_part_info(ffs_handle, i, &name, &start, &size, &act, NULL);
+>  		if (rc == FFS_ERR_PART_NOT_FOUND)
+>  			break;
+> -		if (rc) {
+> -			fprintf(stderr, "Error %d scanning partitions\n", rc);
+> -			break;
+> +
+> +        ent = ffs_entry_get(ffs_handle, i);
+> + 		if (rc || !ent) {
+> + 			fprintf(stderr, "Error %d scanning partitions\n",
+> +            		!ent ? FFS_ERR_PART_NOT_FOUND : rc);
+> +			goto out;
+>  		}
+> +
+> +		l = asprintf(&flags, "[%c%c%c%c%c]",
+> +				has_ecc(ent) ? 'E' : '-',
+> +				has_flag(ent, FFS_MISCFLAGS_PRESERVED) ? 'P' : '-',
+> +				has_flag(ent, FFS_MISCFLAGS_READONLY) ? 'R' : '-',
+> +				has_flag(ent, FFS_MISCFLAGS_BACKUP) ? 'B' : '-',
+> +				has_flag(ent, FFS_MISCFLAGS_REPROVISION) ? 'F' : '-');
+> +		if (l < 0)
+> +			goto out;
+> +
+>  		end = start + size;
+>  		printf("ID=%02d %15s %08x..%08x (actual=%08x) %s\n",
+> -		       i, name, start, end, act, ecc ? "[ECC]" : "");
+> +		       i, name, start, end, act, flags);
+>  
+>  		if (strcmp(name, "OTHER_SIDE") == 0)
+>  			other_side_offset = start;
+>  
+> +		free(flags);
+> +out:
+>  		free(name);
+>  	}
+>  
+> @@ -413,6 +431,81 @@ static void disable_4B_addresses(void)
+>  	}
+>  }
+>  
+> +static void print_partition_detail(uint32_t toc_offset, uint32_t part_id, char *name)
+> +{
+> +	uint32_t start, size, act, end;
+> +	struct ffs_handle *ffs_handle;
+> +	char *ent_name = NULL, *flags;
+> +	struct ffs_entry *ent;
+> +	int rc, l;
+> +
+> +	rc = ffs_init(toc_offset, fl_total_size, bl, &ffs_handle, 0);
+> +	if (rc) {
+> +		fprintf(stderr, "Error %d opening ffs !\n", rc);
+> +		return;
+> +	}
+> +
+> +	if (name) {
+> +		uint32_t i;
+> +
+> +		for (i = 0;;i++) {
+> +			rc = ffs_part_info(ffs_handle, i, &ent_name, &start, &size, &act,
+> +            		NULL);
+> +			if (rc == FFS_ERR_PART_NOT_FOUND) {
+> +				fprintf(stderr, "Partition with name %s doesn't exist withing TOC at 0x%08x\n", name, toc_offset);
+> +				goto out;
+> +			}
+> +			if (rc || strncmp(ent_name, name, FFS_PART_NAME_MAX) == 0) {
+> +				part_id = i;
+> +				break;
+> +			}
+> +			free(ent_name);
+> +			ent_name = NULL;
+> +		}
+> +	} else {
+> +		rc = ffs_part_info(ffs_handle, part_id, &ent_name, &start, &size, &act,
+> +				NULL);
+> +		if (rc == FFS_ERR_PART_NOT_FOUND) {
+> +			fprintf(stderr, "Partition with ID %d doesn't exist within TOC at 0x%08x\n",
+> +			part_id, toc_offset);
+> +			goto out;
+> +		}
+> +	}
+> +	ent = ffs_entry_get(ffs_handle, part_id);
+> +	if (rc || !ent) {
+> +		fprintf(stderr, "Error %d scanning partitions\n", !ent ?
+> +				FFS_ERR_PART_NOT_FOUND : rc);
+> +		goto out;
+> +	}
+> +
+> +	printf("Detailed partition information\n");
+> +	end = start + size;
+> +	printf("Name:\n");
+> +	printf("%s (ID=%02d)\n\n", ent_name, part_id);
+> +	printf("%-10s  %-10s  %-10s\n", "Start", "End", "Actual");
+> +	printf("0x%08x  0x%08x  0x%08x\n\n", start, end, act);
+> +
+> +	printf("Flags:\n");
+> +
+> +	l = asprintf(&flags, "%s%s%s%s%s", has_ecc(ent) ? "ECC [E]\n" : "",
+> +			has_flag(ent, FFS_MISCFLAGS_PRESERVED) ? "PRESERVED [P]\n" : "",
+> +			has_flag(ent, FFS_MISCFLAGS_READONLY) ? "READONLY [R]\n" : "",
+> +			has_flag(ent, FFS_MISCFLAGS_BACKUP) ? "BACKUP [B]\n" : "",
+> +			has_flag(ent, FFS_MISCFLAGS_REPROVISION) ?
+> +					"REPROVISION [F]\n" : "");
+> +	if (l < 0) {
+> +		fprintf(stderr, "Memory allocation failure printing flags!\n");
+> +		goto out;
+> +	}
+> +
+> +	printf("%s", flags);
+> +	free(flags);
+> +
+> +out:
+> +	ffs_close(ffs_handle);
+> +	free(ent_name);
+> +}
+> +
+>  static void print_version(void)
+>  {
+>  	printf("Open-Power Flash tool %s\n", version);
+> @@ -494,6 +587,10 @@ static void print_help(const char *pname)
+>  	printf("\t\tpartition and then set all the ECC bits as they should be\n\n");
+>  	printf("\t-i, --info\n");
+>  	printf("\t\tDisplay some information about the flash.\n\n");
+> +    printf("\t--detail\n");
+> +	printf("\t\tDisplays detailed info about a particular partition.\n");
+> +	printf("\t\tAccepts a numeric partition or can be used in conjuction\n");
+> +	printf("\t\twith the -P flag.\n\n");
+>  	printf("\t-h, --help\n");
+>  	printf("\t\tThis message.\n\n");
+>  }
+> @@ -508,7 +605,7 @@ void exiting(void)
+>  int main(int argc, char *argv[])
+>  {
+>  	const char *pname = argv[0];
+> -	uint32_t address = 0, read_size = 0, write_size = 0;
+> +	uint32_t address = 0, read_size = 0, write_size = 0, detail_id = UINT_MAX;
+>  	uint32_t erase_start = 0, erase_size = 0;
+>  	bool erase = false, do_clear = false;
+>  	bool program = false, erase_all = false, info = false, do_read = false;
+> @@ -516,7 +613,7 @@ int main(int argc, char *argv[])
+>  	bool show_help = false, show_version = false;
+>  	bool no_action = false, tune = false;
+>  	char *write_file = NULL, *read_file = NULL, *part_name = NULL;
+> -	bool ffs_toc_seen = false, direct = false;
+> +	bool ffs_toc_seen = false, direct = false, print_detail = false;
+>  	int rc;
+>  
+>  	while(1) {
+> @@ -535,6 +632,7 @@ int main(int argc, char *argv[])
+>  			{"force",	no_argument,		NULL,	'f'},
+>  			{"flash-file",	required_argument,	NULL,	'F'},
+>  			{"info",	no_argument,		NULL,	'i'},
+> +			{"detail",  optional_argument,  NULL,   'm'},
+>  			{"tune",	no_argument,		NULL,	't'},
+>  			{"dummy",	no_argument,		NULL,	'd'},
+>  			{"help",	no_argument,		NULL,	'h'},
+> @@ -622,6 +720,11 @@ int main(int argc, char *argv[])
+>  		case 'c':
+>  			do_clear = true;
+>  			break;
+> +		case 'm':
+> +			print_detail = true;
+> +			if (optarg)
+> +				detail_id = strtoul(optarg, NULL, 0);
+> +			break;
+>  		case ':':
+>  			fprintf(stderr, "Unrecognised option \"%s\" to '%c'\n", optarg, optopt);
+>  			no_action = true;
+> @@ -651,7 +754,7 @@ int main(int argc, char *argv[])
+>  	 * also tune them as a side effect
+>  	 */
+>  	no_action = no_action || (!erase && !program && !info && !do_read &&
+> -		!enable_4B && !disable_4B && !tune && !do_clear);
+> +		!enable_4B && !disable_4B && !tune && !do_clear && !print_detail);
+>  
+>  	/* Nothing to do, if we didn't already, print usage */
+>  	if (no_action && !show_version)
+> @@ -684,6 +787,12 @@ int main(int argc, char *argv[])
+>  		exit(1);
+>  	}
+>  
+> +	if (print_detail && ((detail_id == UINT_MAX && !part_name)
+> +			|| (detail_id != UINT_MAX && part_name))) {
+> +		fprintf(stderr, "--detail requires either a partition id or\n");
+> +		fprintf(stderr, "a partition name with -P\n");
+> +	}
+> +
+>  	/* part-name and erase-all make no sense together */
+>  	if (part_name && erase_all) {
+>  		fprintf(stderr, "--partition and --erase-all are mutually"
+> @@ -872,6 +981,9 @@ int main(int argc, char *argv[])
+>  		print_flash_info(flash_side ? 0 : ffs_toc);
+>  	}
+>  
+> +	if (print_detail)
+> +		print_partition_detail(flash_side ? 0 : ffs_toc, detail_id, part_name);
+> +
+>  	/* Unlock flash (PNOR only) */
+>  	if ((erase || program || do_clear) && !bmc_flash && !flashfilename) {
+>  		need_relock = arch_flash_set_wrprotect(bl, false);
+> diff --git a/libflash/libffs.c b/libflash/libffs.c
+> index 763e061c..5acfe837 100644
+> --- a/libflash/libffs.c
+> +++ b/libflash/libffs.c
+> @@ -180,7 +180,15 @@ static int ffs_entry_to_cpu(struct ffs_hdr *hdr,
+>  	return rc;
+>  }
+>  
+> -static struct ffs_entry *ffs_get_part(struct ffs_handle *ffs, uint32_t index)
+> +bool has_flag(struct ffs_entry *ent, uint16_t flag)
+> +{
+> +	if (flag == FFS_ENRY_INTEG_ECC) {
+> +		return ((ent->user.datainteg & FFS_ENRY_INTEG_ECC) != 0);
+> +	}
+> +	return ((ent->user.miscflags & flag) != 0);
+> +}
+> +
+> +struct ffs_entry *ffs_entry_get(struct ffs_handle *ffs, uint32_t index)
+>  {
+>  	int i = 0;
+>  	struct ffs_entry *ent = NULL;
+> @@ -193,11 +201,6 @@ static struct ffs_entry *ffs_get_part(struct ffs_handle *ffs, uint32_t index)
+>  	return NULL;
+>  }
+>  
+> -bool has_ecc(struct ffs_entry *ent)
+> -{
+> -	return ((ent->user.datainteg & FFS_ENRY_INTEG_ECC) != 0);
+> -}
+> -
+>  int ffs_init(uint32_t offset, uint32_t max_size, struct blocklevel_device *bl,
+>  		struct ffs_handle **ffs, bool mark_ecc)
+>  {
+> @@ -369,7 +372,7 @@ int ffs_part_info(struct ffs_handle *ffs, uint32_t part_idx,
+>  	struct ffs_entry *ent;
+>  	char *n;
+>  
+> -	ent = ffs_get_part(ffs, part_idx);
+> +	ent = ffs_entry_get(ffs, part_idx);
+>  	if (!ent)
+>  		return FFS_ERR_PART_NOT_FOUND;
+>  
+> @@ -776,7 +779,7 @@ int ffs_update_act_size(struct ffs_handle *ffs, uint32_t part_idx,
+>  	uint32_t offset;
+>  	int rc;
+>  
+> -	ent = ffs_get_part(ffs, part_idx);
+> +	ent = ffs_entry_get(ffs, part_idx);
+>  	if (!ent) {
+>  		FL_DBG("FFS: Entry not found\n");
+>  		return FFS_ERR_PART_NOT_FOUND;
+> diff --git a/libflash/libffs.h b/libflash/libffs.h
+> index 2c1fbd83..aaa062ae 100644
+> --- a/libflash/libffs.h
+> +++ b/libflash/libffs.h
+> @@ -89,8 +89,12 @@ struct ffs_entry_user {
+>  #define FFS_MISCFLAGS_BACKUP 0x20
+>  #define FFS_MISCFLAGS_REPROVISION 0x10
+>  
+> +bool has_flag(struct ffs_entry *ent, uint16_t flag);
+>  
+> -bool has_ecc(struct ffs_entry *ent);
+> +static inline bool has_ecc(struct ffs_entry *ent)
+> +{
+> +	return has_flag(ent, FFS_ENRY_INTEG_ECC);
+> +}
+>  
+>  /* Init */
+>  
+> @@ -126,6 +130,8 @@ int ffs_part_info(struct ffs_handle *ffs, uint32_t part_idx,
+>  		  char **name, uint32_t *start,
+>  		  uint32_t *total_size, uint32_t *act_size, bool *ecc);
+>  
+> +struct ffs_entry *ffs_entry_get(struct ffs_handle *ffs, uint32_t index);
+> +
+>  int ffs_update_act_size(struct ffs_handle *ffs, uint32_t part_idx,
+>  			uint32_t act_size);
+>  
+> diff --git a/libflash/test/test-miscprint.pnor b/libflash/test/test-miscprint.pnor
+> new file mode 100644
+> index 00000000..e3f3d355
+> --- /dev/null
+> +++ b/libflash/test/test-miscprint.pnor
+> @@ -0,0 +1,103 @@
+> +504152540000000100000001000000800000000500000300000000040000
+> +0000000000000000000000000000504151d5706172740000000000000000
+> +000000000000000000000001ffffffff0000000100000003000000010000
+> +030000000000000000000000000000000000000000000000000000000000
+> +000000000000000000000000000000000000000000000000000000000000
+> +000000000000000000000000000000000000000000008f9e8e8950524553
+> +4552564544000000000000000000000100000000ffffffff000000020000
+> +000100000000000001000000000000000000000000000000000000000000
+> +008000000000000000000000000000000000000000000000000000000000
+> +000000000000000000000000000000000000000000000000000000000000
+> +ae7fedeb524541444f4e4c5900000000000000000000000100000000ffff
+> +ffff00000003000000010000000000000100000000000000000000000000
+> +000000000000000000400000000000000000000000000000000000000000
+> +000000000000000000000000000000000000000000000000000000000000
+> +0000000000000000e2b4f3e1524550524f564953494f4e00000000000000
+> +000100000000ffffffff0000000400000001000000000000010000000000
+> +000000000000000000000000000000000010000000000000000000000000
+> +000000000000000000000000000000000000000000000000000000000000
+> +00000000000000000000000000000000abb3a9fa4241434b555000000000
+> +0000000000000000000200000000ffffffff000000050000000100000000
+> +000001000000000000000000000000000000000000000000002000000000
+> +000000000000000000000000000000000000000000000000000000000000
+> +000000000000000000000000000000000000000000000000e8cebdb2ffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+> +ffffffffffffffffffffffff
+> diff --git a/libflash/test/test-miscprint.sh b/libflash/test/test-miscprint.sh
+> new file mode 100644
+> index 00000000..8f085ed5
+> --- /dev/null
+> +++ b/libflash/test/test-miscprint.sh
+> @@ -0,0 +1,25 @@
+> +#!/bin/bash
+> +
+> +# test-miscprint.pnor is constructed as follows:
+> +# PRESERVED,0x00000300,0x00000100,P,/dev/zero
+> +# READONLY,0x00000400,0x00000100,R,/dev/zero
+> +# REPROVISION,0x00000500,0x00000100,F,/dev/zero
+> +# BACKUP,0x00000600,0x00000100,B,/dev/zero
+> +
+> +wd=$(dirname -- "$0")
+> +
+> +xxd -p -r "$wd/test-miscprint.pnor" > "$wd/temp.pnor"
+> +
+> +output1=$(pflash --detail=1 -F "$wd/temp.pnor" | grep "\[P\]")
+> +output2=$(pflash --detail=2 -F "$wd/temp.pnor" | grep "\[R\]")
+> +output3=$(pflash --detail=3 -F "$wd/temp.pnor" | grep "\[F\]")
+> +output4=$(pflash --detail=4 -F "$wd/temp.pnor" | grep "\[B\]")
+> +
+> +if [[ $output1 == "PRESERVED [P]" && $output2 == "READONLY [R]" &&
+> +      $output3 == "REPROVISION [F]" && $output4 == "BACKUP [B]" ]]; then
+> +    echo "Test passed!"
+> +else
+> +    echo "Test failed!"
+> +fi
+> +
+> +rm "$wd/temp.pnor"
