@@ -1,53 +1,50 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x242.google.com (mail-yw0-x242.google.com
- [IPv6:2607:f8b0:4002:c05::242])
+Received: from mail-yb0-x241.google.com (mail-yb0-x241.google.com
+ [IPv6:2607:f8b0:4002:c09::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wst2g1n21zDq88
- for <openbmc@lists.ozlabs.org>; Wed, 21 Jun 2017 15:05:47 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wst4L68YszDq88
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Jun 2017 15:07:14 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="F2SC7QWi"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="RzkeHmRC"; 
  dkim-atps=neutral
-Received: by mail-yw0-x242.google.com with SMTP id e142so4971884ywa.2
- for <openbmc@lists.ozlabs.org>; Tue, 20 Jun 2017 22:05:47 -0700 (PDT)
+Received: by mail-yb0-x241.google.com with SMTP id i80so324774yba.3
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Jun 2017 22:07:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=R6NUIrEDnuRGfRjqy1D2rxFcAwqUzCHgehVeva7YI5I=;
- b=F2SC7QWiuQQVCrJoz+kJAn4GueLfjnob+DdSTTeA/vsStgwYY/EE6HFMo78naaC+fq
- xveTzXPgD5mYtzV3aoFD/mNvWBwejjTcH2tCG2rmrkoxQI88CcGjAtXNEnA8lzyrWkuV
- L770oFUUmxh26QbfhmozsTE3Rh3W9MU0Hj7rAiLHlVBh7Q/TXZoRQZBxcT6tvRJvzwgv
- F7KpXfkUz8nrBknkwHY/9mzjoKGjYtE57v22kgA2CSJPcMEYyPbqZ+yTee7b2S3SDoUa
- BtwVpILdPLnZxvPfwAllcS9xlnonmRYFHt+POeP145lbkWR8k70QaYDOJUul4zAABfc3
- /crA==
+ :subject:to; bh=gtOGuPM/orDNDI3iH6Y8SJTt9ZxI0Dzk6Zt04kY4BVE=;
+ b=RzkeHmRCD+0WOvscDakQCg51s60ASGsZXZHwT9o2s/B92Q4SafrQiU1VoAkDbGs1QE
+ yHaxxetqgnsoBThQ5HxHxQTTWRP6wZE5MmTVxOVfll54qqJ0nBFjR5SkUNX6/fCD3ZPD
+ JUVgf2ciRewckCz0p7wVJnfG6AXSjOuUQyYkyn8f8Z8/6n13xTDKNUucVjUOoeOy63bc
+ UO3BPvf7Ad5rpyxBiACAYhMiFjBGfi6OkHqSxRQpnR+0eZnXpWVy5jWdFat/zM+F7wq7
+ FGvK6+kojFhwS+ZBWawuTWGorpOHhra5M0Tek7FDsTNr+ggk2T+uTy+1JVH+fOOqgcF8
+ IO/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=R6NUIrEDnuRGfRjqy1D2rxFcAwqUzCHgehVeva7YI5I=;
- b=V+T0fz7RG2q1/h40hVt7BrWS7KH2ettArqWsbIkM7RIW2Nl8LP/CnF3DaaSXBZpWch
- SzK12o9p0kDoB7Ez/xHxHMdm3dFBdlwWeW1oGuG23ag+MAa8KcJXqvQBOgC69pQAayKr
- VxPGjksyylM+AP5RI/bKCWOR5ghEo13RI7g3h/PAcc8mMUtTcHepesncvzA5EY4dA1tj
- XGmxKBLVr9Oamjv7Y7igiKCp3/Kln5nqfkk1AMtBB6xo7Gv5OhdJMQi8zjQIPYLk//zi
- Ct9NDWFmyLQ2XojwhP07Wt5EPSpimOpwqBsNPcj/J5BYCAcS3qcbiOCSJO3Qo0+xBeii
- LoKA==
-X-Gm-Message-State: AKS2vOz8HYgC9jhzm/FyXHGJyfmnUSKbf67Ggmjgr56RlMxB0uC+K0hu
- /KCODt4KWHwKgtC9XrxYnozG8DIk+g==
-X-Received: by 10.13.208.67 with SMTP id s64mr26568203ywd.43.1498021544949;
- Tue, 20 Jun 2017 22:05:44 -0700 (PDT)
+ :date:message-id:subject:to;
+ bh=gtOGuPM/orDNDI3iH6Y8SJTt9ZxI0Dzk6Zt04kY4BVE=;
+ b=LnmdNijPAleF9bqGTHZKsCo5p20NnYFSs1qiwnT6+7ZMyN2oChftZAzMe2yThLcizy
+ pdw07Q9nIB9e96Bi8m6sKQKz1rASIESxmqp0afVgr2K5VQHBXvrhC6sMFfZfSwT5k1Co
+ YLWc2P2Uj8llYO7cFpaz4aOND5w3IIn4HXgta23Hvs4FyCiAAXWOCpPtzIY/af2Sq3Xz
+ DAMIV2mb3CsTn0YhTmLj0EXD+t65uxnRVZ38oIG6VVDaApRt0yW9dhw7Si++jK8yL0vT
+ OBBupRoaTGQy2bVdqeQgQtpPy4cZL/UzI3ETNs+uoxCMHTSYat8r556qiQw6RgusH87O
+ LTmA==
+X-Gm-Message-State: AKS2vOxmZXEbf1O3G9ZOGdrGoZp3FLcNYGsuHAAVcJ4nXrBK5mENqho6
+ njmUzDwaq5GRV/8WkqLZHRsjkLeVXmsp5C0=
+X-Received: by 10.37.88.193 with SMTP id m184mr24443317ybb.39.1498021632270;
+ Tue, 20 Jun 2017 22:07:12 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.174.2 with HTTP; Tue, 20 Jun 2017 22:05:24 -0700 (PDT)
-In-Reply-To: <20170620183747.25327-1-cbostic@linux.vnet.ibm.com>
-References: <20170620183747.25327-1-cbostic@linux.vnet.ibm.com>
+Received: by 10.37.174.2 with HTTP; Tue, 20 Jun 2017 22:06:51 -0700 (PDT)
+In-Reply-To: <20170619035549.18773-1-joel@jms.id.au>
+References: <20170619035549.18773-1-joel@jms.id.au>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 21 Jun 2017 14:35:24 +0930
-X-Google-Sender-Auth: zfNEB39FCkG3u5lA282EGP3S3mA
-Message-ID: <CACPK8XcEuWbFhc5Z6y7k+aS=9n2EUfO6TYqHYnfiMPaw6P56Kw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] drivers/hwmon: max31785 Set fan fault
- response based on dev tree
-To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Wed, 21 Jun 2017 14:36:51 +0930
+X-Google-Sender-Auth: m0jBf1cPr01bw5zoXBYyv-uCZso
+Message-ID: <CACPK8Xd3AdtSURm_p2v8bU9MS4oqs9bxeojEXdoGbsRoZBnF9w@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v2 1/2] iio: Add driver for Infineon DPS310
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -60,104 +57,14 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Jun 2017 05:05:48 -0000
+X-List-Received-Date: Wed, 21 Jun 2017 05:07:15 -0000
 
-On Wed, Jun 21, 2017 at 4:07 AM, Christopher Bostic
-<cbostic@linux.vnet.ibm.com> wrote:
-> Check for the optional device tree property 'fault-max-fan'.  If
-> present, configure hardware for 100% PWM fan duty cycle on fault
-> condition.
+On Mon, Jun 19, 2017 at 1:25 PM, Joel Stanley <joel@jms.id.au> wrote:
+> The DPS310 is a temperature and pressure sensor. It can be accessed over
+> i2c and SPI.
 >
-> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-> ---
-> v3 - Change bit field definition to use macro BIT(x)
->    - Set all 6 fans to same fault response
->    - Rename fault response register #define to match the spec
+> This driver supports polled measurement of temperature over i2c only.
+>
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
 
 Applied to dev-4.10.
-
-Cheers,
-
-Joel
-
->
-> v2 - Set 4 fans to same fault response
-> ---
->  drivers/hwmon/max31785.c | 37 +++++++++++++++++++++++++++++++++++++
->  1 file changed, 37 insertions(+)
->
-> diff --git a/drivers/hwmon/max31785.c b/drivers/hwmon/max31785.c
-> index fc03b7c..4010504 100644
-> --- a/drivers/hwmon/max31785.c
-> +++ b/drivers/hwmon/max31785.c
-> @@ -38,6 +38,7 @@
->  #define MAX31785_REG_MFR_ID                    0x99
->  #define MAX31785_REG_MFR_MODEL                 0x9a
->  #define MAX31785_REG_MFR_REVISION              0x9b
-> +#define MAX31785_REG_MFR_FAULT_RESP            0xd9
->  #define MAX31785_REG_MFR_FAN_CONFIG            0xf1
->  #define MAX31785_REG_READ_FAN_PWM              0xf3
->
-> @@ -51,6 +52,9 @@
->  /* Fan Status register bits */
->  #define MAX31785_FAN_STATUS_FAULT_MASK         0x80
->
-> +/* Fault response register bits */
-> +#define MAX31785_FAULT_PIN_MONITOR             BIT(0)
-> +
->  /* Fan Command constants */
->  #define MAX31785_FAN_COMMAND_PWM_RATIO         40
->
-> @@ -762,6 +766,35 @@ static int max31785_get_capabilities(struct max31785 *data)
->         return 0;
->  }
->
-> +static int max31785_init_fault_resp(struct i2c_client *client)
-> +{
-> +       struct device_node *np = client->dev.of_node;
-> +       int page;
-> +       int rc;
-> +
-> +       if (np && of_get_property(np, "fault-max-fan", NULL)) {
-
-For reference, you can use of_property_read_bool here.
-
-> +               for (page = 0; page < NR_CHANNEL; page++) {
-> +
-> +                       /* set max fans on fault */
-> +                       rc = max31785_set_page(client, page);
-> +                       if (rc < 0)
-> +                               return rc;
-> +
-> +                       rc = i2c_smbus_read_byte_data(client,
-> +                                       MAX31785_REG_MFR_FAULT_RESP);
-> +                       if (rc < 0)
-> +                               return rc;
-> +
-> +                       rc |= MAX31785_FAULT_PIN_MONITOR;
-> +                       rc = i2c_smbus_write_byte_data(client,
-> +                                       MAX31785_REG_MFR_FAULT_RESP, rc);
-> +               }
-> +               return rc;
-> +       }
-> +
-> +       return 0;
-> +}
-> +
->  static int max31785_probe(struct i2c_client *client,
->                           const struct i2c_device_id *id)
->  {
-> @@ -783,6 +816,10 @@ static int max31785_probe(struct i2c_client *client,
->         data->client = client;
->         mutex_init(&data->lock);
->
-> +       rc = max31785_init_fault_resp(client);
-> +       if (rc)
-> +               return rc;
-> +
->         rc = max31785_init_fans(data);
->         if (rc)
->                 return rc;
-> --
-> 1.8.2.2
->
