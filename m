@@ -1,56 +1,113 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x243.google.com (mail-yw0-x243.google.com
- [IPv6:2607:f8b0:4002:c05::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <miltonm@us.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wsvYG2L3DzDq88
- for <openbmc@lists.ozlabs.org>; Wed, 21 Jun 2017 16:13:54 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="QdGCp2BP"; 
- dkim-atps=neutral
-Received: by mail-yw0-x243.google.com with SMTP id u13so9834287ywg.0
- for <openbmc@lists.ozlabs.org>; Tue, 20 Jun 2017 23:13:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=UJFJzNAgVp7APa+vxeQYVTZXLJXwyv4jTXW1d+FoZEU=;
- b=QdGCp2BP92gilUDTXeowEN/S3SaPC9zSe4nw8GYSaPhS/cSVt1lsPZsVvrnTCDGyHG
- lYImIy3gVw3fdR7bJZXWkn34sRthylKHnLF8hlLRk5QtxjPe/MZV24cGocfsYTjSgVyC
- y7QMF7B8eOVl+j+lCd7FCjSHG7TRBuugh9SXtAwBRyW4XnLZuFUR/YNZ6TSCeMqtXqSr
- Q8djglLslO4RNpxRYJfkx8giwR7TATKvk7d8yUvQwICFWHsLuWpWdJ3FrWDufmcyhzid
- kKppZkWA+T2beJlDAoyd3BEkIZYL2XROizTpRKiTb6RvmEapHZCxv8G27Mx/NsaK0jNl
- lQNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=UJFJzNAgVp7APa+vxeQYVTZXLJXwyv4jTXW1d+FoZEU=;
- b=rysSJqqAqM5n6bWOft07i5/MDPavMQxP6/qdZt1RuN5U/Lwjgdp1XbKcmVmrhV61LI
- U4TfTTvY86SeyV9ca09KVB42RDPub31ppmpHXfY4n1aDdyBVws8XYS9tGQ5epOdXimzc
- 8A83ecGzkjUdDQ05sJK8/ErN8VUcLcw8APk/ItyU5wZY62rEIkF/7T3pcA/jFTZw9ylK
- AaAtgJYcUxGDbmyCGc+3RvjSsba5go/CNvM68bW+G/TWNg0GRen4yxK6rOtNPkdAyleA
- f7U/Z7O40A/8h7KHPQqCrP6PyX2ZGcg6a7HbeBDoggnIgxMk79sGDU8d1X3CtZ/QaCTh
- 5wgw==
-X-Gm-Message-State: AKS2vOwCpljfzcRDA353XoLqegYo3s1bEvauFh3IPwB00bDKFANJcdQ0
- dRFa65rtZ8OQ4UfsevQbQsRGIiR7ZnEHKkI=
-X-Received: by 10.13.225.79 with SMTP id k76mr24425354ywe.178.1498025631509;
- Tue, 20 Jun 2017 23:13:51 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wtFGH0t90zDqj1
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Jun 2017 05:32:06 +1000 (AEST)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v5LJSdRL034259
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Jun 2017 15:32:04 -0400
+Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2b7uxfh8tb-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Jun 2017 15:32:03 -0400
+Received: from localhost
+ by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <miltonm@us.ibm.com>;
+ Wed, 21 Jun 2017 15:32:02 -0400
+Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
+ by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 21 Jun 2017 15:32:01 -0400
+Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
+ [9.57.199.108])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v5LJW1aP62521350
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Jun 2017 19:32:01 GMT
+Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 9BD52B205D
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Jun 2017 15:29:34 -0400 (EDT)
+Received: from d50lp03.ny.us.ibm.com (unknown [146.89.104.211])
+ by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTPS id 86FF2B2056
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Jun 2017 15:29:34 -0400 (EDT)
+Received: from localhost
+ by d50lp03.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <miltonm@us.ibm.com>;
+ Wed, 21 Jun 2017 15:32:01 -0400
+Received: from smtp.notes.na.collabserv.com (158.85.210.114)
+ by d50lp03.ny.us.ibm.com (158.87.18.22) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128/128)
+ Wed, 21 Jun 2017 15:31:58 -0400
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <miltonm@us.ibm.com>;
+ Wed, 21 Jun 2017 19:31:57 -0000
+Received: from us1b3-smtp01.a3dr.sjc01.isc4sb.com (10.122.7.174)
+ by smtp.notes.na.collabserv.com (10.122.47.58) with
+ smtp.notes.na.collabserv.com ESMTP; Wed, 21 Jun 2017 19:31:55 -0000
+Received: from us1b3-mail79.a3dr.sjc01.isc4sb.com ([10.122.105.126])
+ by us1b3-smtp01.a3dr.sjc01.isc4sb.com
+ with ESMTP id 2017062119315511-786836 ;
+ Wed, 21 Jun 2017 19:31:55 +0000 
+In-Reply-To: <CALLMt=q8L8UwegNKy+D0uhyqi25sfpUW27FjwBbqmVme1OgP0g@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] drivers/fsi: Break and set pin states on
+ GPIO master remove
+From: "Milton Miller II" <miltonm@us.ibm.com>
+To: Andrew Geissler <geissonator@gmail.com>
+Cc: Jeremy Kerr <jk@ozlabs.org>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Date: Wed, 21 Jun 2017 19:31:54 +0000
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.174.2 with HTTP; Tue, 20 Jun 2017 23:13:31 -0700 (PDT)
-In-Reply-To: <20170619041533.26446-1-joel@jms.id.au>
-References: <20170619041533.26446-1-joel@jms.id.au>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 21 Jun 2017 15:43:31 +0930
-X-Google-Sender-Auth: 3sWDkVT_9mCL8Hig7uycYuh8uwY
-Message-ID: <CACPK8XeDB+0O8MrBOV9_yBg9cqbsnH6qW0Bhe4FymnSBAoPv2g@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: Enable WDT2 for all
- platforms
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Cc: Matt Spinler <spinler@us.ibm.com>, Xo Wang <xow@google.com>,
- Lei YU <mine260309@gmail.com>, 
- Rick Altherr <raltherr@google.com>, Patrick Venture <venture@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Sensitivity: 
+Importance: Normal
+X-Priority: 3 (Normal)
+References: <CALLMt=q8L8UwegNKy+D0uhyqi25sfpUW27FjwBbqmVme1OgP0g@mail.gmail.com>,
+ <20170606200230.77482-1-cbostic@linux.vnet.ibm.com>
+ <1ac7a650-9524-4c50-f449-b5fc89e8d988@ozlabs.org>
+ <bdb441e5-5485-9a67-1749-029f684162f9@linux.vnet.ibm.com>
+ <2986922.Yi4HN7lb1t@new-mexico>
+ <ce283d8e-ba55-9476-8409-e5982a63034f@ozlabs.org>
+X-Mailer: IBM iNotes ($HaikuForm 964) | IBM Domino Build
+ SCN17157_20170606T0034 June 06, 2017 at 00:34
+X-LLNOutbound: False
+X-Disclaimed: 50319
+X-TNEFEvaluated: 1
+X-LLNXfer: False
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+x-cbid: 17062119-0048-0000-0000-000001AE2A1D
+X-IBM-SpamModules-Scores: FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0; SC=0.399202;
+ ST=0; TS=0; UL=0; ISC=; MB=0.220251
+X-IBM-SpamModules-Versions: BY=3.00007267; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00877938; UDB=6.00437401; IPR=6.00658078; 
+ BA=6.00005434; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015912; XFM=3.00000015;
+ UTC=2017-06-21 19:31:57
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2017-06-21 18:33:56 - 6.00006918
+x-cbparentid: 17062119-9696-0000-0000-0000D2E8E5EB
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+X-TM-AS-GCONF: 00
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007267; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00877937; UDB=6.00437401; IPR=6.00658078; 
+ BA=6.00005434; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015912; XFM=3.00000015;
+ UTC=2017-06-21 19:32:02
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+Message-Id: <OF25D89DF3.3352CCD9-ON00258146.006B4AC4-00258146.006B4AC8@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-06-21_04:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1706210325
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,132 +119,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Jun 2017 06:13:55 -0000
+X-List-Received-Date: Wed, 21 Jun 2017 19:32:07 -0000
 
-On Mon, Jun 19, 2017 at 1:45 PM, Joel Stanley <joel@jms.id.au> wrote:
-> Some versions of u-boot leave watchdog 2 running, but some do not.
-> In order to handle all of the u-boots in the wild, ensure Linux is
-> loading a driver for it.
+Around 06/21/2017, Andrew Geissler wrote:
+>I think we had this same discussion last time Chris put this on the
+>mailing list for 4.7 :)   I think we can do better here but we also
+>(as usual) have a big time crunch.  Can we agree to put this in for
+>now since our main goal is to just get 4.10 merged and of equal (or
+>better) function to 4.7?  Chris can create an issue to come up with a
+>final solution?  Without this change, cronus via the FSP debug does
+>not work, which is a non-starter for picking this release up by IBM
+>(and a lot of partners).
 >
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-
-Merged to dev-4.10. Thanks Rick for the ack.
-
-Cheers,
-
-Joel
-
-> ---
-> If you're on cc, please reply with an Ack so I know that this change is okay
-> for the platform(s) you care about. If I don't have objections by Wednesday,
-> I'll merge.
+>I know, in theory, this is easy to fix, but it will require new
+>testing, potentially new documentation for our users, and is just
+>adding new function when we're mostly looking to just get a stable
+>base going.
 >
->  arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts    | 4 ++++
->  arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts   | 4 ++++
->  arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts   | 4 ++++
->  arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts    | 4 ++++
->  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     | 4 ++++
->  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 4 ++++
->  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts       | 4 ++++
->  arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts     | 4 ++++
->  8 files changed, 32 insertions(+)
+>Andrew
 >
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
-> index ff5058ee8834..9bfd5462ea9e 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
-> @@ -201,3 +201,7 @@
->  &pinctrl {
->         aspeed,external-nodes = <&gfx &lhc>;
->  };
-> +
-> +&wdt2 {
-> +       status = "okay";
-> +};
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-> index 9f7098876ecb..e4e853d0f561 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-> @@ -184,3 +184,7 @@
->  &vuart {
->         status = "okay";
->  };
-> +
-> +&wdt2 {
-> +       status = "okay";
-> +};
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-> index 430622c86ef7..873e62ce6673 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-> @@ -224,3 +224,7 @@
->  &vuart {
->         status = "okay";
->  };
-> +
-> +&wdt2 {
-> +       status = "okay";
-> +};
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> index 8ebed01e7725..f7a7cbf77aba 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> @@ -324,3 +324,7 @@
->  &mbox {
->         status = "okay";
->  };
-> +
-> +&wdt2 {
-> +       status = "okay";
-> +};
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> index dd01dfaa8509..d53dc597a0ce 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> @@ -257,3 +257,7 @@
->  &pinctrl {
->         aspeed,external-nodes = <&gfx &lhc>;
->  };
-> +
-> +&wdt2 {
-> +       status = "okay";
-> +};
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> index 99003b9fb54b..31315d03dfb8 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> @@ -419,3 +419,7 @@
->  &pinctrl {
->         aspeed,external-nodes = <&gfx &lhc>;
->  };
-> +
-> +&wdt2 {
-> +       status = "okay";
-> +};
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> index 68baf3288263..ccf6cad2e382 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> @@ -386,3 +386,7 @@
->  &gfx {
->         status = "okay";
->  };
-> +
-> +&wdt2 {
-> +       status = "okay";
-> +};
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-> index a73d33d4ce90..e609c53d58f5 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-> @@ -244,3 +244,7 @@
->  &vuart {
->         status = "okay";
->  };
-> +
-> +&wdt2 {
-> +       status = "okay";
-> +};
-> --
-> 2.11.0
->
+>On Thu, Jun 8, 2017 at 5:00 AM, Jeremy Kerr <jk@ozlabs.org> wrote:
+>> Hi Alistair & Chris,
+>>
+>>>> The pins are set here mainly for the benefit of the Cronus debug
+>>>> tools.   Its common practice in test and bringup labs to switch
+>back and
+>>>> forth between BMC and FSP-2 with Cronus to access the host
+>processor
+>>>> CFAMs over FSI.  Without the remove pin state changes Cronus
+>cannot access.
+>>>
+>>> As far as I know you have to run "systemctl start
+>fsi-disable.service"
+>>> to switch over to Cronus mode. I think Jeremy's point is that it
+>>> should be that service which explicitly sets up the hardware in a
+>>> suitable mode rather than relying on side-effects from removing
+>the
+>>> kernel driver.
+>>
+>> Yep, spot on.
+>>
+>> Also, those side-effects might not be how the GPIOs need to
+>configured
+>> for the next usage of the FSI bus (which could be Cronus, but could
+>also
+>> be any other tool). So, let those tools handle the init correctly,
+>> rather than the kernel making a guess at it.
+>>
+
+Actually I think there are well defined "Idle" states and I would expect=20
+those to be asserted.
+
+I would expect the gpios to be set such that changing the mux does not=20
+glitch the signals to the chip.
+
+Is this the state that is being set in the patch?
+
+milton
+
+[catching up after vacation]
