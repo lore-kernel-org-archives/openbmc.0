@@ -1,50 +1,56 @@
-Return-Path: <venture@google.com>
-Received: from mail-pf0-x22e.google.com (mail-pf0-x22e.google.com
- [IPv6:2607:f8b0:400e:c00::22e])
+Return-Path: <brendanhiggins@google.com>
+Received: from mail-pg0-x232.google.com (mail-pg0-x232.google.com
+ [IPv6:2607:f8b0:400e:c05::232])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wv12P1YLzzDqjD
- for <openbmc@lists.ozlabs.org>; Fri, 23 Jun 2017 11:24:28 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wv8wr4Mm1zDqjC
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Jun 2017 17:20:11 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="eHhaKDkE"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="B6kqypK3"; 
  dkim-atps=neutral
-Received: by mail-pf0-x22e.google.com with SMTP id q86so16511770pfl.3
- for <openbmc@lists.ozlabs.org>; Thu, 22 Jun 2017 18:24:28 -0700 (PDT)
+Received: by mail-pg0-x232.google.com with SMTP id u62so18034934pgb.3
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Jun 2017 00:20:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=from:to:subject:date:message-id;
- bh=kOu+Rfdpm/1iT3+zDcCHVHOa2qEKUyzL1mocytIcFrQ=;
- b=eHhaKDkEyi70R478E19FIjPZ7L40DpB04aRs+nyKP1Jch0lrCXGu2TuLxQZiCnvCYk
- 3UaW+DcK7GvqXoxgAiuUTCY3plpMzIZfsm9pbSwjc+sfcfuwpiUIW9O/nawlnEMJzcXH
- 6ROH8+K4Bdrh7LWeq+7yGnHay331QEE/we+gEcTZXCouoLcDyqMQgmSXW1Rg8WtJGbrW
- PGqyACCrUzP4GYwlC6A6mrCA2wPeIfRJjFvjo9CknO8ZHR4u40l4VWjTz5AvVPf28OTt
- jGIAZMwT+qZbAJwOjmPhiK9b8Ex5k+fwjtNskkUtS7HqbbVkxwRRERhT1RNtC6GknIz6
- dzRg==
+ h=date:message-id:to:cc:from:subject:in-reply-to;
+ bh=xJ5uTMXGr4lBs8SVRWH+3RBKo5Da9HJ1yk3VeihkIeU=;
+ b=B6kqypK3RPLsmapvuJbPHXyW7ih3w92lMihU0l9j4TRoiF34gjM55nYiowQ9EMPG+L
+ r6zHKtGEBayAAAs2LRjWlqMIz4fZzqjXSobzF6qz5fklx3qSRbmUeixg4xXOKYzmvl94
+ ZEUkkOjON8XDE5DaqsF/ey7T1x7ZYs5+PX4aufW2FHQh7hxwfg8aczjByRWLZ20P4INU
+ Y5ZhXGa0sNyqVd8RXyLDENKQ2l+HjJ9r54AkjXoQoAf4aiKNwM/jcIntKLDlllq8y12L
+ knCqrJ7kogPmD60spTIBXCoYF6Gzxfm/yJyZKFKQLTzaTdXUTjg37rF6lDgn5IhsXyr6
+ v3LA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:subject:date:message-id;
- bh=kOu+Rfdpm/1iT3+zDcCHVHOa2qEKUyzL1mocytIcFrQ=;
- b=LpVv4Z84xULqIPX3BdHW/2vXa5X6EoQxwY1Yb2Kr/8F3wnELhoC1qfz4Oy87tGAEfM
- 4iHKbaR3JfAyY8IW9rox8eEXw2C9/mLAAAnLRSMzdKgm+mk4DyYaGSGrHBZWqvTrnNZA
- HGtrmt7lCOB8s+9Vjbj21alXzLpeqZ2q9+eHNIyyT0W4X4ZLCBpoNm6MOnuQp+w81YtY
- Yf53HefrW6L4AWBbWHwJjoPHcryP6dN9sSUWx7qEl3dpWDbrQ0wp0fil8XjvjSnriNIl
- WtkETH36TBqXRxJkRuyJeXyI47F6elaz4B1FsVWcyd6VfED9FBq/7NE0WykL5yWc4dyj
- R+hw==
-X-Gm-Message-State: AKS2vOwlkcJEgiI5catj8iaN9BRP02QJPkxMXKD3qzWHDMDQ9KsC/FAN
- guxaUs6mfNafuWZD
-X-Received: by 10.84.224.133 with SMTP id s5mr6003196plj.93.1498181066172;
- Thu, 22 Jun 2017 18:24:26 -0700 (PDT)
-Received: from venture.svl.corp.google.com ([100.123.242.104])
- by smtp.gmail.com with ESMTPSA id d19sm6249106pfd.35.2017.06.22.18.24.24
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Thu, 22 Jun 2017 18:24:25 -0700 (PDT)
-From: Patrick Venture <venture@google.com>
-To: venture@google.com,
-	joel@jms.id.au,
-	openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10] ARM: dts: aspeed: quanta: Enable pwm fans
-Date: Thu, 22 Jun 2017 18:24:21 -0700
-Message-Id: <20170623012421.63639-1-venture@google.com>
-X-Mailer: git-send-email 2.13.1.611.g7e3b11ae1-goog
+ h=x-gm-message-state:date:message-id:to:cc:from:subject:in-reply-to;
+ bh=xJ5uTMXGr4lBs8SVRWH+3RBKo5Da9HJ1yk3VeihkIeU=;
+ b=fgZGRyHGlw5gv3ipt1kAkhlnIlFsLWNnUj+aeedoznyDqGNEXzYDhGr/kurDIzV5A8
+ 7EXM61zoSKO+9lohasXH27HF2tziOcaFbQXEZQo1pVn+yQqEDEGTdPye4Ds2iD00LxAj
+ nna9F7Hv/kU39AGNrCkT+OvLA/65vw8GXd+O++zRxwpWMVIvCuSGABw5YfWyyRqDLyks
+ 336NBOeIoBvqT29oBqLshz9SKk9vFRNkbZcl+saETilVWac/WuBzCC9bftBRXiIScym7
+ AYJPb4KdI7JwEcD1VRNcqYsA+VySofbGrzfCx9f3qdn8Ei2OCEqnMzqZsw7JCgm7ZTcL
+ pdOw==
+X-Gm-Message-State: AKS2vOxXw7o+oImiv5GvRZ/QYm4m1/xd52OKs+aavknlANj1g3OIb4HL
+ LodDyyQNvnPIzw33
+X-Received: by 10.98.58.78 with SMTP id h75mr6582256pfa.50.1498202409556;
+ Fri, 23 Jun 2017 00:20:09 -0700 (PDT)
+Received: from mactruck.svl.corp.google.com
+ ([2620:15c:2c5:3:d0f1:277f:274f:e602])
+ by smtp.gmail.com with ESMTPSA id h71sm8475783pfk.126.2017.06.23.00.20.08
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 23 Jun 2017 00:20:08 -0700 (PDT)
+Received: from mactruck.svl.corp.google.com (localhost [127.0.0.1])
+ by mactruck.svl.corp.google.com (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP
+ id v5N7K7xY030030; Fri, 23 Jun 2017 00:20:07 -0700
+Received: (from brendanhiggins@localhost)
+ by mactruck.svl.corp.google.com (8.14.4/8.14.4/Submit) id v5N7K755030029;
+ Fri, 23 Jun 2017 00:20:07 -0700
+Date: Fri, 23 Jun 2017 00:20:07 -0700
+Message-Id: <201706230720.v5N7K755030029@mactruck.svl.corp.google.com>
+To: ilya@yadro.com
+Cc: patrick@stwcx.xyz, tomjoseph@in.ibm.com, openbmc@lists.ozlabs.org
+From: brendanhiggins@google.com
+Subject: Re: phosphor-net-ipmid
+In-Reply-To: 20170619144445.xpoo5x2sbt3ct22p@yadro.com
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,92 +62,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 23 Jun 2017 01:24:29 -0000
+X-List-Received-Date: Fri, 23 Jun 2017 07:20:13 -0000
 
-Signed-off-by: Patrick Venture <venture@google.com>
----
- arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts | 51 ++++++++++++++++++++++++++++
- arch/arm/boot/dts/aspeed-g4.dtsi             |  6 ++++
- 2 files changed, 57 insertions(+)
+> Hello,
+> we would like to help with phosphor-net-ipmid and have volunteer. For us main
+> priorities are sensors and sel. Obviously work is in progress there and we don't
+> want to duplicate it, so please share tasks with us and tell how we can
+> contribute?
+> Thanks!
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-index e609c53d58f5..3abc2954d26e 100644
---- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-@@ -46,6 +46,57 @@
- 			gpios = <&gpio ASPEED_GPIO(B, 3) GPIO_ACTIVE_LOW>;
- 		};
- 	};
-+
-+	pwm_tacho: pwm-tacho-controller@1e786000 {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		reg = <0x1E786000 0x1000>;
-+		compatible = "aspeed,ast2500-pwm-tacho";
-+		clocks = <&pwm_tacho_fixed_clk>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
-+			&pinctrl_pwm2_default &pinctrl_pwm3_default>;
-+
-+		fan@0 {
-+			reg = <0x00>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x00>;
-+		};
-+
-+		fan@1 {
-+			reg = <0x01>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x01>;
-+		};
-+
-+		fan@2 {
-+			reg = <0x02>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x02>;
-+		};
-+
-+		fan@3 {
-+			reg = <0x03>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x03>;
-+		};
-+
-+		fan@4 {
-+			reg = <0x00>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x04>;
-+		};
-+
-+		fan@5 {
-+			reg = <0x01>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x05>;
-+		};
-+
-+		fan@6 {
-+			reg = <0x02>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x06>;
-+		};
-+
-+		fan@7 {
-+			reg = <0x03>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x07>;
-+		};
-+	};
- };
- 
- &fmc {
-diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-index a998a00a2728..c93b0460cada 100644
---- a/arch/arm/boot/dts/aspeed-g4.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-@@ -184,6 +184,12 @@
- 					reg = <0x2c>;
- 				};
- 
-+				pwm_tacho_fixed_clk: fixedclk {
-+					compatible = "fixed-clock";
-+					#clock-cells = <0>;
-+					clock-frequency = <24000000>;
-+				};
-+
- 				hwrng@1e6e2078 {
- 					compatible = "timeriomem_rng";
- 					reg = <0x1e6e2078 0x4>;
--- 
-2.13.1.611.g7e3b11ae1-goog
+Awesome! Always great to see more people getting involved!
+
+The first thing to do would be to hop on the IRC channel: #openbmc on
+freenode.net and say hi to everyone.
+
+Next, in order to see what tasks we have going on, install Zenhub:
+https://www.zenhub.com/. Then look at https://github.com/openbmc/openbmc#boards
+
+Probably also a good idea to talk to Patrick and Tom (I CC'ed them). I am pretty
+sure they are more familiar with that codebase than anyone else.
+
+Once you know what you want to work on, or even if you just need some help,
+either start a conversation on the IRC channel or send an email to the list.
+
+phosphor-net-ipmid is not something I work on or am likely to work on in the
+near future, but I think I know most of the people on the list, so feel free to
+CC me on future emails and I will try to make sure the right people are involved
+in the conversation.
+
+Cheers!
