@@ -1,68 +1,76 @@
-Return-Path: <mspinler@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <c_mykolak@mellanox.com>
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com
+ (mail-eopbgr00081.outbound.protection.outlook.com [40.107.0.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wxB0V6qf8zDr1h
- for <openbmc@lists.ozlabs.org>; Tue, 27 Jun 2017 00:15:22 +1000 (AEST)
-Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v5QEFFXu103481
- for <openbmc@lists.ozlabs.org>; Mon, 26 Jun 2017 10:15:20 -0400
-Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2bb2kqbyck-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 26 Jun 2017 10:15:18 -0400
-Received: from localhost
- by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
- Mon, 26 Jun 2017 08:14:59 -0600
-Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
- by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 26 Jun 2017 08:14:57 -0600
-Received: from b03ledav005.gho.boulder.ibm.com
- (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v5QEEuwZ1311206; Mon, 26 Jun 2017 07:14:56 -0700
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 9960EBE03B;
- Mon, 26 Jun 2017 08:14:56 -0600 (MDT)
-Received: from [9.10.222.148] (unknown [9.10.222.148])
- by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP id 670EFBE039;
- Mon, 26 Jun 2017 08:14:56 -0600 (MDT)
-Subject: Re: [PATCH linux dev-4.10] Add fan card PCA9552 to Witherspoon
- devicetree
-To: Brandon Wyman <bjwyman@gmail.com>
-References: <1498262178-27820-1-git-send-email-bjwyman@gmail.com>
-Cc: openbmc@lists.ozlabs.org
-From: Matt Spinler <mspinler@linux.vnet.ibm.com>
-Date: Mon, 26 Jun 2017 09:15:18 -0500
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101
- Thunderbird/45.8.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wxB2V0nqmzDr1h
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Jun 2017 00:17:05 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b="hlHB4Jac";
+ dkim-atps=neutral
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
+ s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=BXCGDsJz0ncf07AbXVHrhUe4DJU6LfS77+rz6MGPuC4=;
+ b=hlHB4Jacd4r/WC8VcXojqp8dProGhV95CumGERTe04ZV1RCOQ42/mCgi54byt1vIQqFGB49uGx32vuPYNK8pjD1LMKhtI8fPIsLE98bv89RDBcrUyH91On8ERXZUCcB9aVvIkrJHBAHKtJ/u/4gFDbyxrJQZyQN29IQUzCqWUrk=
+Received: from VI1PR05MB3247.eurprd05.prod.outlook.com (10.170.238.16) by
+ VI1PR05MB3247.eurprd05.prod.outlook.com (10.170.238.16) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.1199.15; Mon, 26 Jun 2017 14:17:00 +0000
+Received: from VI1PR05MB3247.eurprd05.prod.outlook.com
+ ([fe80::91da:b346:569d:26a2]) by VI1PR05MB3247.eurprd05.prod.outlook.com
+ ([fe80::91da:b346:569d:26a2%13]) with mapi id 15.01.1199.017; Mon, 26 Jun
+ 2017 14:17:00 +0000
+From: Mykola Kostenok <c_mykolak@mellanox.com>
+To: Joel Stanley <joel@jms.id.au>
+CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: RE: [PATCH u-boot v2016.07-aspeed-openbmc] Add ast-g5 ncsi 2nd boot
+ config.
+Thread-Topic: [PATCH u-boot v2016.07-aspeed-openbmc] Add ast-g5 ncsi 2nd boot
+ config.
+Thread-Index: AQHS24Epj6VwZ4Hw1E+hA0gIgKki1aI3EpCAgABDpmA=
+Date: Mon, 26 Jun 2017 14:17:00 +0000
+Message-ID: <VI1PR05MB3247F1B9D52FE88E0D3D6437EFDF0@VI1PR05MB3247.eurprd05.prod.outlook.com>
+References: <20170602091800.189904-1-c_mykolak@mellanox.com>
+ <CACPK8XcdZ0L1oc+jC25RDccC78wxa4Ybt3X=RqRuHFjV2+Rs0Q@mail.gmail.com>
+In-Reply-To: <CACPK8XcdZ0L1oc+jC25RDccC78wxa4Ybt3X=RqRuHFjV2+Rs0Q@mail.gmail.com>
+Accept-Language: ru-RU, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: jms.id.au; dkim=none (message not signed)
+ header.d=none;jms.id.au; dmarc=none action=none header.from=mellanox.com;
+x-originating-ip: [80.90.224.13]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; VI1PR05MB3247;
+ 7:MqWUoGfdhw4+x335GrBLgzIycGkTLMhZc9JWDzn3czn8C/ODroXmrSWRNp3CUQGaJ+dNFh0qL65dhm24IhUmTE5JrlDQH+QBrmro9ftTkXp8Uic4IVuGhD1TgDPSSWUF3S1lmg9/VlxCGzVG+iGozdsQyQ6xeTG8pk9jRt9jxAyht+HIFvLY8fTqpH5pHQ2TSw5lEwD1vGDHepKceu9btKCOge+apUPWBh9CCOe0bJTSallZbZuWPQVtI2EFwbIvuS+no5KLcfajt1yJ2TNrtrfDn06kb59muKi2Hm2H3nc76/cyuRW3NBsfgxvj0kFe9WzV5ZsJkWJnSrC7D8QtotjtYx4/CDexiK1EXwT8KawJcBnjlVb985/d1r5D2+MkzaBaZAVQppKY9GFfKqqWy66dlyQCx9H97ZkR/mZl0bW8iXlHVFTtNkNEaPGKb904jvutO+ByFnmFKOZe12uhbctQsm2DbXB/iwqNXNwCi3/2NdqFJmuyTXmfMHEh/eC5z0hz2EGl6u7cqQuPKt58ocIXZ2/41+IX8bsO7NkfC0o9DprYshZ6yWVvC0XxvrHagDDxzolqKXOtsLQLdkzSLjGHIRHOb24hCnDhrKhVw/9qm0nl2g3L2WN4Vbf3x7vUpmYrbaZ9K62N5/YfTWDXiXn7KcmUl5ggtvLqo1Jn55QCjPw16TQQzDP3ur/3IJR2hSN9gwqjh3xOltJNHbf0dr7a/Xiksf1Y2XE1YJkl3w0dVOpL7KN+RNpXUXdzSagYUAjHw1iVXboD1zDAM8S7gftjhdcMiS8wH72OAecUxL8=
+x-ms-office365-filtering-correlation-id: 8d4ad0ca-e054-4301-9739-08d4bc9e02c1
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
+ RULEID:(300000500095)(300135000095)(300000501095)(300135300095)(300000502095)(300135100095)(22001)(2017030254075)(48565401081)(300000503095)(300135400095)(201703131423075)(201703031133081)(300000504095)(300135200095)(300000505095)(300135600095)(300000506067)(300135500095);
+ SRVR:VI1PR05MB3247; 
+x-ms-traffictypediagnostic: VI1PR05MB3247:
+x-microsoft-antispam-prvs: <VI1PR05MB3247249575AF044D7237246AEFDF0@VI1PR05MB3247.eurprd05.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(236129657087228)(65623756079841);
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(100000700101)(100105000095)(100000701101)(100105300095)(100000702101)(100105100095)(6040450)(601004)(2401047)(8121501046)(5005006)(3002001)(93006095)(93001095)(10201501046)(100000703101)(100105400095)(6055026)(6041248)(20161123564025)(20161123555025)(20161123560025)(201703131423075)(201702281528075)(201703061421075)(201703061406153)(20161123562025)(20161123558100)(6072148)(100000704101)(100105200095)(100000705101)(100105500095);
+ SRVR:VI1PR05MB3247; BCL:0; PCL:0;
+ RULEID:(100000800101)(100110000095)(100000801101)(100110300095)(100000802101)(100110100095)(100000803101)(100110400095)(100000804101)(100110200095)(100000805101)(100110500095);
+ SRVR:VI1PR05MB3247; 
+x-forefront-prvs: 0350D7A55D
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(6009001)(39840400002)(39860400002)(39410400002)(39450400003)(39400400002)(39850400002)(24454002)(377454003)(13464003)(5660300001)(4326008)(33656002)(110136004)(478600001)(5250100002)(2950100002)(55016002)(81166006)(6246003)(3846002)(6116002)(102836003)(8676002)(76176999)(54356999)(189998001)(6436002)(8936002)(50986999)(7696004)(6916009)(53546010)(99286003)(7736002)(66066001)(86362001)(9686003)(25786009)(229853002)(38730400002)(305945005)(3280700002)(3660700001)(6506006)(53936002)(14454004)(74316002)(2900100001)(230783001)(2906002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR05MB3247;
+ H:VI1PR05MB3247.eurprd05.prod.outlook.com; FPR:; SPF:None; MLV:sfv; LANG:en; 
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-In-Reply-To: <1498262178-27820-1-git-send-email-bjwyman@gmail.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 17062614-0016-0000-0000-0000070B5C60
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007280; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00878975; UDB=6.00438032; IPR=6.00659128; 
- BA=6.00005441; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015953; XFM=3.00000015;
- UTC=2017-06-26 14:14:58
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17062614-0017-0000-0000-00003A4B61DA
-Message-Id: <abbf4242-d44d-246c-c7b9-b1497fd4b160@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-06-26_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1706260238
+X-OriginatorOrg: Mellanox.com
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jun 2017 14:17:00.1303 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR05MB3247
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -74,83 +82,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 26 Jun 2017 14:15:23 -0000
+X-List-Received-Date: Mon, 26 Jun 2017 14:17:07 -0000
 
-A few comments on naming below.  The names here have to match up with 
-the MRW XML so code can find them, and we already took a shot at naming 
-them in the XML.
-
-On 6/23/2017 6:56 PM, Brandon Wyman wrote:
-> The Witherspoon OpenBMC system has a PCA9552 chip on the fan card that
-> is used for fan fault and identify LED control. Adding this chip and the
-> LED lines to the device tree.
->
-> Signed-off-by: Brandon Wyman <bjwyman@gmail.com>
-> ---
->   arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 47 ++++++++++++++++++++++++
->   1 file changed, 47 insertions(+)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> index 31315d0..e5e3b37 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> @@ -203,6 +203,53 @@
->   		compatible = "infineon,dps310";
->   		reg = <0x76>;
->   	};
-> +
-> +	pca0: pca9552@60 {
-> +		compatible = "nxp,pca9552";
-> +		reg = <0x60>;
-> +		fan0: led@0 {
-> +			label = "fan0:yellow";
-These are all fan fault LEDs.  The MRW just calls them fan0, fan1, etc.  
-I suppose fan0-fault would be OK here too and we could update the MRW.
-> +			default-state = "keep";
-> +			reg = <0>;
-> +			type = <PCA955X_TYPE_LED>;
-> +		};
-> +		fan1: led@1 {
-> +			label = "fan1:yellow";
-> +			default-state = "keep";
-> +			reg = <1>;
-> +			type = <PCA955X_TYPE_LED>;
-> +		};
-> +		fan2: led@2 {
-> +			label = "fan2:yellow";
-> +			default-state = "keep";
-> +			reg = <2>;
-> +			type = <PCA955X_TYPE_LED>;
-> +		};
-> +		fan3: led@3 {
-> +			label = "fan3:yellow";
-> +			default-state = "keep";
-> +			reg = <3>;
-> +			type = <PCA955X_TYPE_LED>;
-> +		};
-> +		led@13 {
-> +			label = "yellow";
-The fault LED in the back of the system is already called rear-fault, so 
-this should probably be front-fault.
-> +			default-state = "keep";
-> +			reg = <13>;
-> +			type = <PCA955X_TYPE_LED>;
-> +		};
-> +		led@14 {
-> +			label = "green";
-front-power
-> +			default-state = "keep";
-> +			reg = <14>;
-> +			type = <PCA955X_TYPE_LED>;
-> +		};
-> +		led@15 {
-> +			label = "blue";
-front-id
-> +			default-state = "keep";
-> +			reg = <15>;
-> +			type = <PCA955X_TYPE_LED>;
-> +		};
-> +	};
->   };
->
->   &i2c4 {
+DQoNCkJlc3QgcmVnYXJkcy4gTXlrb2xhIEtvc3Rlbm9rLg0KDQo+IC0tLS0tT3JpZ2luYWwgTWVz
+c2FnZS0tLS0tDQo+IEZyb206IGpvZWwuc3RhbkBnbWFpbC5jb20gW21haWx0bzpqb2VsLnN0YW5A
+Z21haWwuY29tXSBPbiBCZWhhbGYgT2YgSm9lbA0KPiBTdGFubGV5DQo+IFNlbnQ6IE1vbmRheSwg
+SnVuZSAyNiwgMjAxNyAxOjEzIFBNDQo+IFRvOiBNeWtvbGEgS29zdGVub2sgPGNfbXlrb2xha0Bt
+ZWxsYW5veC5jb20+DQo+IENjOiBPcGVuQk1DIE1haWxsaXN0IDxvcGVuYm1jQGxpc3RzLm96bGFi
+cy5vcmc+DQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggdS1ib290IHYyMDE2LjA3LWFzcGVlZC1vcGVu
+Ym1jXSBBZGQgYXN0LWc1IG5jc2kgMm5kDQo+IGJvb3QgY29uZmlnLg0KPiANCj4gT24gRnJpLCBK
+dW4gMiwgMjAxNyBhdCA2OjQ4IFBNLCBNeWtvbGEgS29zdGVub2sNCj4gPGNfbXlrb2xha0BtZWxs
+YW5veC5jb20+IHdyb3RlOg0KPiA+IEFkZCBuY3NpIDJuZCBib290IGFzcGVlZCBnNSBjb25maWd1
+cmF0aW9uIGhlYWRlci4NCj4gPiBJdCBiYXNlZCBvbiBhc3QtZzUtbmNzaS5oIGV4dGVuZGVkIHdp
+dGggZGVmaW5lcyBmb3IgbWVtdGVzdC4NCj4gDQo+IEkgd2FzIGhvcGluZyB0byBtZXJnZSB0aGVz
+ZSBjaGFuZ2VzIGludG8gdGhlIG5vcm1hbCBjb25maWd1cmF0aW9ucywgaW5zdGVhZA0KPiBvZiBo
+YXZpbmcgYSBzZXBhcmF0ZSBjb25maWcuDQo+IA0KPiBUaGUgb25seSBkaWZmZXJlbmNlIGlzIHRo
+ZSBwcmVzZW5jZSBvZiB0aGUgU1lTX01FTVRFU1QgZGVmaW5lcy4NCj4gDQo+ID4gKy8qIHBsYXRm
+b3JtLlMgc2V0dGluZ3MgKi8NCj4gPiArI2RlZmluZSAgICAgICAgQ09ORklHX0RSQU1fRUNDX1NJ
+WkUgICAgICAgICAgICAweDEwMDAwMDAwDQo+ID4gKw0KPiA+ICsjZGVmaW5lIENPTkZJR19TWVNf
+TUVNVEVTVF9TSVpFICAgICAgICAxMjggKiAxMDI0ICogMTAyNCAvKiAxMjhNQiAqLw0KPiA+ICsj
+ZGVmaW5lIENPTkZJR19TWVNfTUVNVEVTVF9TVEFSVCAgICAgICBDT05GSUdfU1lTX1NEUkFNX0JB
+U0UNCj4gPiArI2RlZmluZSBDT05GSUdfU1lTX01FTVRFU1RfRU5EIChDT05GSUdfU1lTX01FTVRF
+U1RfU1RBUlQgKw0KPiA+ICtDT05GSUdfU1lTX01FTVRFU1RfU0laRSkNCj4gDQo+IEkgd2FzIGxv
+b2tpbmcgYXQgdGhlIHUtYm9vdCB0cmVlLCBhbmQgaXQgYXBwZWFycyB0aGF0IHRoZXNlIFNZU19N
+RU1URVNUDQo+IGRlZmluZXMgYXJlIHVzZWQgYnkgdGhlIG10ZXN0IGNvbW1hbmQsIGFuZCB0aGUg
+bXRlc3QgY29tbWFuZCBpcw0KPiBkZXByZWNhdGVkOg0KPiANCj4gDQo+IDIuIFRoZSAibXRlc3Qi
+IGNvbW1hbmQuDQo+IA0KPiAgICBUaGlzIGlzIHByb2JhYmx5IHRoZSBiZXN0IGtub3duIG1lbW9y
+eSB0ZXN0IHV0aWxpdHkgaW4gVS1Cb290Lg0KPiAgICBVbmZvcnR1bmF0ZWx5LCBpdCBpcyBhbHNv
+IHRoZSBtb3N0IHByb2JsZW1hdGljLCBhbmQgdGhlIG1vc3QNCj4gICAgdXNlbGVzcyBvbmUuDQo+
+IA0KPiAgICBCZWNhdXNlIG9mIHRoZXNlIGlzc3VlcywgdGhlICJtdGVzdCIgY29tbWFuZCBpcyBj
+b25zaWRlcmVkIGRlcHJlLQ0KPiAgICBjYXRlZC4gIEl0IHNob3VsZCBub3QgYmUgZW5hYmxlZCBp
+biBtb3N0IG5vcm1hbCBwb3J0cyBvZiBVLUJvb3QsDQo+ICAgIGVzcGVjaWFsbHkgbm90IGluIHBy
+b2R1Y3Rpb24uICBJZiB5b3UgcmVhbGx5IG5lZWQgYSBtZW1vcnkgdGVzdCwNCj4gICAgdGhlbiBz
+ZWUgMS4gYW5kIDMuIGFib3ZlIHJlc3AuIGJlbG93Lg0KPiANCj4gQXJlIHlvdSBzdXJlIHRoYXQg
+eW91IHdhbnQgdG8gZW5hYmxlIHRoZSBtdGVzdCBjb21tYW5kPw0KPiANCg0KV2UgYWRkZWQgbXRl
+c3QsIGJlY2F1c2UgaXQgd2FzIHRoZSBwcm9kdWN0aW9uIHJlcXVpcmVtZW50Lg0KRm9sbG93aW5n
+IHRoZSByZWZlcmVuY2UgZnJvbSB1LWJvb3QgeW91IHBvaW50ZWQgb3V0Og0KKzMuIFRoZSBtb3N0
+IHRob3JvdWdoIG1lbW9yeSB0ZXN0IGZhY2lsaXR5IGlzIGF2YWlsYWJsZSBhcyBwYXJ0IG9mIHRo
+ZQ0KKyAgIFBPU1QgKFBvd2VyLU9uIFNlbGYgVGVzdCkgc3ViLXN5c3RlbSwgc2VlICJwb3N0L2Ry
+aXZlcnMvbWVtb3J5LmMiLg0KSSBzZWUgdGhhdCAgaW4gcG9zdC9NYWtlZmlsZSB0aGVyZSBpcyBu
+byBlbnRyeSBmb3IgQVJNDQpvYmotJChDT05GSUdfQVJNKSArPSBjcHUvYXJtLw0KDQpJ4oCZbGwg
+Y2hlY2sgaXQuIElmIGl04oCZcyB3b3JrIOKAkyB3b3VsZCBiZSBnb29kIHdpdGggdXMuDQoNCj4g
+Q2hlZXJzLA0KPiANCj4gSm9lbA0KPiANCj4gDQo+ID4gKw0KPiA+ICsjZW5kaWYgLyogX19BU1Rf
+RzVfTkNTSV8yQk9PVF9DT05GSUdfSCAqLw0KPiA+IC0tDQo+ID4gMi4xMS4wDQo+ID4NCg==
