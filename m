@@ -1,53 +1,70 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x243.google.com (mail-yw0-x243.google.com
- [IPv6:2607:f8b0:4002:c05::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <stewart@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wx0lt4NskzDr1b
- for <openbmc@lists.ozlabs.org>; Mon, 26 Jun 2017 17:18:50 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="AWH7nQhD"; 
- dkim-atps=neutral
-Received: by mail-yw0-x243.google.com with SMTP id s127so5932783ywg.3
- for <openbmc@lists.ozlabs.org>; Mon, 26 Jun 2017 00:18:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=VMkCWZBRti6hlLPHu9bcpGeziVZozi682k2T2XW9v3w=;
- b=AWH7nQhDl3ksEE92F4k1gKE1nYLYTtiBBroiFSLANmyVVdGoj/EgqUMbM4ReEcP/Y/
- EwvdhXAUT6dS9IuvUcsz/haOvh8yC3oCXw+dsPzBSP2EyW7+fAxT0m9TeognrJTuRFKj
- iG8F4Mcp07IDK5s2aMRTWPbNhD/2I+BMbr/nh+OFG6ZfUz27HyZ4AiUgX2mkgU+ZYQJe
- ijSUqelVJQhitAo+PcPilZqFQP72vp5dwCzLAUeV29vkcTbAAoOA7WtDaGz2vd3nDw2E
- chv8u0fFyveX0aJjlt4z16gLIzcKzOzcFI0Tauub0QkzSam0B0QHlWkk10qrTF6DyYe8
- TUmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=VMkCWZBRti6hlLPHu9bcpGeziVZozi682k2T2XW9v3w=;
- b=RiuQk5nJ2GlXfzFmbFemMjuuYfd1I92jlXxv2XYgzqJcIJpiImOcfXCIcqDAYhrCsw
- O3yFrrCc1hLNq7ANxsUJ1diGYwDIj4P6tdrrkLmXBT7OM43Uh7kIzfXau/daNrdcWXv9
- z9fzWksCwWMIidf9t70mnMBRG20hmCKT4MoyPd0tOJcCTJqTvq2FHAy9S9CnmQrhoCa6
- 9l5BaxpZ001Dp09kVKHw4RHpbdSY3ppnFRjoaLJtcIXFSEJcIxojM+vnZbEsfx05p/d2
- Z1rEQEwTljwI7SnZLkF/bAXwmBUnUgCVnYUk3ogcn+cZrhd6dmw+6Y9RQUF82ele5Cjb
- q2MA==
-X-Gm-Message-State: AKS2vOxAWD3Tbs9hxZfhPrhK3NGyTiDDqxev0huAar9Z0Qs6f7IDVxie
- hVlqcyuyBD7orWuUepiI3nUy6BRJlw==
-X-Received: by 10.13.207.195 with SMTP id r186mr14288420ywd.219.1498461528111; 
- Mon, 26 Jun 2017 00:18:48 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wx2bL1GlbzDr1k
+ for <openbmc@lists.ozlabs.org>; Mon, 26 Jun 2017 18:41:34 +1000 (AEST)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v5Q8d5VF129248
+ for <openbmc@lists.ozlabs.org>; Mon, 26 Jun 2017 04:41:31 -0400
+Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2bassfb5em-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 26 Jun 2017 04:41:31 -0400
+Received: from localhost
+ by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
+ Mon, 26 Jun 2017 04:41:29 -0400
+Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
+ by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Mon, 26 Jun 2017 04:41:25 -0400
+Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
+ [9.57.199.110])
+ by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v5Q8fP1M55115892; Mon, 26 Jun 2017 08:41:25 GMT
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 0AE13AE03B;
+ Mon, 26 Jun 2017 04:41:27 -0400 (EDT)
+Received: from birb.localdomain (unknown [9.185.16.200])
+ by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP id 7E3A5AE043;
+ Mon, 26 Jun 2017 04:41:26 -0400 (EDT)
+Received: by birb.localdomain (Postfix, from userid 1000)
+ id 43E9D4EC5FE; Mon, 26 Jun 2017 18:41:21 +1000 (AEST)
+From: Stewart Smith <stewart@linux.vnet.ibm.com>
+To: Cyril Bur <cyrilbur@gmail.com>, Michael Tritz <mtritz@us.ibm.com>,
+ skiboot@lists.ozlabs.org, openbmc@lists.ozlabs.org,
+ Joel Stanley <joel@jms.id.au>, Sam Mendoza-Jonas <sam@mendozajonas.com>,
+ Suraj Jitindar Singh <sjitindarsingh@gmail.com>
+Subject: Re: [Skiboot] [PATCH v4] pflash option to retrieve PNOR partition
+ flags
+In-Reply-To: <1498089208.1181.3.camel@gmail.com>
+References: <20170621034957.2504-1-mtritz@us.ibm.com>
+ <1498089208.1181.3.camel@gmail.com>
+Date: Mon, 26 Jun 2017 18:41:21 +1000
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.177.8 with HTTP; Mon, 26 Jun 2017 00:18:27 -0700 (PDT)
-In-Reply-To: <20170623012421.63639-1-venture@google.com>
-References: <20170623012421.63639-1-venture@google.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 26 Jun 2017 16:48:27 +0930
-X-Google-Sender-Auth: 4IbWzATQ0FeNHKXg0zIypIfvmHU
-Message-ID: <CACPK8XfuBONVYNEQyymzL_g3beDSwwOjvJG5NgL6gL6f1CM-tg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: quanta: Enable pwm fans
-To: Patrick Venture <venture@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
+X-TM-AS-GCONF: 00
+x-cbid: 17062608-2213-0000-0000-000001E80751
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007280; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00878879; UDB=6.00437974; IPR=6.00659031; 
+ BA=6.00005438; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015947; XFM=3.00000015;
+ UTC=2017-06-26 08:41:27
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17062608-2214-0000-0000-000056A56A01
+Message-Id: <87fuenw37y.fsf@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-06-26_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1706260146
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,99 +76,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 26 Jun 2017 07:18:51 -0000
+X-List-Received-Date: Mon, 26 Jun 2017 08:41:34 -0000
 
-On Fri, Jun 23, 2017 at 10:54 AM, Patrick Venture <venture@google.com> wrote:
-> Signed-off-by: Patrick Venture <venture@google.com>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts | 51 ++++++++++++++++++++++++++++
->  arch/arm/boot/dts/aspeed-g4.dtsi             |  6 ++++
->  2 files changed, 57 insertions(+)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-> index e609c53d58f5..3abc2954d26e 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-> @@ -46,6 +46,57 @@
->                         gpios = <&gpio ASPEED_GPIO(B, 3) GPIO_ACTIVE_LOW>;
->                 };
->         };
-> +
-> +       pwm_tacho: pwm-tacho-controller@1e786000 {
-> +               #address-cells = <1>;
-> +               #size-cells = <1>;
-> +               reg = <0x1E786000 0x1000>;
-> +               compatible = "aspeed,ast2500-pwm-tacho";
-> +               clocks = <&pwm_tacho_fixed_clk>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
-> +                       &pinctrl_pwm2_default &pinctrl_pwm3_default>;
-> +
-> +               fan@0 {
-> +                       reg = <0x00>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x00>;
-> +               };
-> +
-> +               fan@1 {
-> +                       reg = <0x01>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x01>;
-> +               };
-> +
-> +               fan@2 {
-> +                       reg = <0x02>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x02>;
-> +               };
-> +
-> +               fan@3 {
-> +                       reg = <0x03>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x03>;
-> +               };
-> +
-> +               fan@4 {
-> +                       reg = <0x00>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x04>;
-> +               };
-> +
-> +               fan@5 {
-> +                       reg = <0x01>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x05>;
-> +               };
-> +
-> +               fan@6 {
-> +                       reg = <0x02>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x06>;
-> +               };
-> +
-> +               fan@7 {
-> +                       reg = <0x03>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x07>;
-> +               };
-> +       };
->  };
->
->  &fmc {
-> diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-> index a998a00a2728..c93b0460cada 100644
-> --- a/arch/arm/boot/dts/aspeed-g4.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-> @@ -184,6 +184,12 @@
->                                         reg = <0x2c>;
->                                 };
->
-> +                               pwm_tacho_fixed_clk: fixedclk {
-> +                                       compatible = "fixed-clock";
-> +                                       #clock-cells = <0>;
-> +                                       clock-frequency = <24000000>;
-> +                               };
+Cyril Bur <cyrilbur@gmail.com> writes:
 
-This is a bit strange. I don't think it should live at this spot in
-the device tree.
-
-
-> +
->                                 hwrng@1e6e2078 {
->                                         compatible = "timeriomem_rng";
->                                         reg = <0x1e6e2078 0x4>;
-> --
-> 2.13.1.611.g7e3b11ae1-goog
+> On Tue, 2017-06-20 at 22:49 -0500, Michael Tritz wrote:
+>> This commit extends pflash with an option to retrieve and print
+>> information for a particular partition, including the content from
+>> "pflash -i" and a verbose list of set miscellaneous flags. -i option
+>> is also updated to print a short list of flags in addition to the
+>> ECC flag, with one character per flag. A test of the new option is
+>> included in libflash/test.
 >
+> I wonder if we should bikeshed the layout of print_partition_detail(),
+> I'm absolutely not the person to review that kind of thing.
+>
+> I think it makes more sense for the changes to the libffs interface to
+> be a separate patch.
+
+I don't have a problem taking it as one patch, at least then we merge in
+a user at the same time
+
+-- 
+Stewart Smith
+OPAL Architect, IBM.
