@@ -1,79 +1,56 @@
-Return-Path: <c_mykolak@mellanox.com>
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur01on0040.outbound.protection.outlook.com [104.47.2.40])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x234.google.com (mail-yw0-x234.google.com
+ [IPv6:2607:f8b0:4002:c05::234])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wx9Lm1rRLzDr1p
- for <openbmc@lists.ozlabs.org>; Mon, 26 Jun 2017 23:46:07 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b="fWP8N+id";
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wx9Qz5shJzDr1p
+ for <openbmc@lists.ozlabs.org>; Mon, 26 Jun 2017 23:49:47 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="jHNTLy8A"; 
  dkim-atps=neutral
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
- s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=G06hNiKryDtaZzH0gWtcwHziVFjx60+ERx2KzXWxfAs=;
- b=fWP8N+idWEgcOtwS58ZKJ2aWgOFKQ4cEjFQtq06sz50zizS6p3iL/7H7M5Hv+4KliKd1OO49toYWYd6OReoba4zzAAQpaOt/M0b/AzzbZ9IjIpNCWA7SmKiEF8ryTrtxx/IjQD1BRtMRhheP7br/c4AR4Kr9dTodttkEw/D83LE=
-Received: from VI1PR05MB3247.eurprd05.prod.outlook.com (10.170.238.16) by
- VI1PR05MB3246.eurprd05.prod.outlook.com (10.170.238.15) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1199.15; Mon, 26 Jun 2017 13:46:02 +0000
-Received: from VI1PR05MB3247.eurprd05.prod.outlook.com
- ([fe80::91da:b346:569d:26a2]) by VI1PR05MB3247.eurprd05.prod.outlook.com
- ([fe80::91da:b346:569d:26a2%13]) with mapi id 15.01.1199.017; Mon, 26 Jun
- 2017 13:46:02 +0000
-From: Mykola Kostenok <c_mykolak@mellanox.com>
-To: Joel Stanley <joel@jms.id.au>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: RE: [PATCH u-boot v2016.07-aspeed-openbmc] Aspeed: ast-g5 change
- configuration order to allow 2-nd boot
-Thread-Topic: [PATCH u-boot v2016.07-aspeed-openbmc] Aspeed: ast-g5 change
- configuration order to allow 2-nd boot
-Thread-Index: AQHS7mUw/ziBzfga1kq1DTSu9XbTlKI3HNxg
-Date: Mon, 26 Jun 2017 13:46:01 +0000
-Message-ID: <VI1PR05MB3247D186793DAD7F1CB37EEDEFDF0@VI1PR05MB3247.eurprd05.prod.outlook.com>
+Received: by mail-yw0-x234.google.com with SMTP id s127so764389ywg.1
+ for <openbmc@lists.ozlabs.org>; Mon, 26 Jun 2017 06:49:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=Z+GYLi0YbffeUJB9+MdNjANwduPnKDB3JAgznS8bmdY=;
+ b=jHNTLy8Acu4hHu9II6YN+jUqlzsurdqK0Bp1EmwjvZRppgYvJsIDuai1ArMrSDbKLJ
+ HGIWg0pb72cKpJfEv9OW1BFR8td5Sx9O+ehbPMk/6TyGG9ThfeKcrKaMa4VthbFbUR6b
+ NpNaPVUierL0dgi+VSJc1Nw9LUVPKS1dGO5z9HHB4s+BCg8VJyvLTNvkECnCe8MukS2X
+ 1tiPoxqI+Km91EVJET+vQQ7Xm8QKVbfgibT8pXHbnQ9MMKfdCWfhzEZMrduruFd1j67E
+ UfilM39XygBOIsy+PakWcmuaCc6FKshuTseFeHQdFBxAWUZhuTza2vQAzAuGKYr75qX3
+ xuSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=Z+GYLi0YbffeUJB9+MdNjANwduPnKDB3JAgznS8bmdY=;
+ b=GNfiPPabv7wT6dhQeG0q1hd6CDkfF8sefEepVUstTfKoiXZQ4y42U+Ii/+oUSF2DvQ
+ TifgI5BzqAusti4yV0ZccrjNEN2i/4C+ZYm0Rvqre29lldofv5meE6zXGnHRe9YjixQV
+ fv0oCioEtS1gWC00dwxt1Bv51VvRdmk8k6rNV73LT7VbMvQ2rHkNM93r1fEPjU5GztQ5
+ qdp4bcu9eDZQNLu0mTfCAvAYWfWZy3/qixssJ2eyXtE6LIx5AYnJeQSkQCJG7Ibaa1xf
+ Kgl/i2fawIvqMPpcBHp6lcsIzAyvZMJCKkNkEq4r57BmHSDZ2k1MX2hd+KPjxvGcbsE+
+ 39hg==
+X-Gm-Message-State: AKS2vOz2eqh6SV4nVhZbetHVmrK40xFIvuUSq4HNxquFVPQ1Ern0t5gj
+ mJKtWtpr7tXrLFy5lq0xhvcVVnBOyfYklLjPsA==
+X-Received: by 10.129.93.133 with SMTP id r127mr200435ywb.135.1498484985183;
+ Mon, 26 Jun 2017 06:49:45 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.177.8 with HTTP; Mon, 26 Jun 2017 06:49:24 -0700 (PDT)
+In-Reply-To: <VI1PR05MB3247D186793DAD7F1CB37EEDEFDF0@VI1PR05MB3247.eurprd05.prod.outlook.com>
 References: <20170602091701.189794-1-c_mykolak@mellanox.com>
  <CACPK8Xc4PJ-NmZfN=vi4t4Tc6yauZ=wp3vfkbNWiB4RdSWgEVg@mail.gmail.com>
-In-Reply-To: <CACPK8Xc4PJ-NmZfN=vi4t4Tc6yauZ=wp3vfkbNWiB4RdSWgEVg@mail.gmail.com>
-Accept-Language: ru-RU, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=c_mykolak@mellanox.com; 
-x-originating-ip: [80.90.224.13]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; VI1PR05MB3246;
- 7:evZLM+xvVG9ONop0u0Q66JkKA/6MD6kOruTE9IJx/EkJdoz9Jer5s8LoyAh7iV4XmMpvylvOl95I9VNXzvt3/fN4mLnn3f1h+m5WjhwaxVa1+tKfVNlMqbCVDVb1MlN/93/HSRBiLyvNOtepcjLu4CdvdCeiROgpZOoScAaQRpkq6xWRRsgzUgvzmgz9MXi0GPw/rVG224Zk2ZFRDdyE0zo8Agp2vAjPjy0b1z/d5fh9iiNfvBdNuE5D5ANDrEnTtLVmydhzoOvSehWAJdUiMJQo956PYvmzNZVR9newwnFc8u/1ZAlarxj07E1xa6heJsLN6WDFl6HYXkQ529qkCAZEXe8YQqdFtKsjLuO4cMoAU/HDkIABcyVyCaA8nhOe/Bm1t1NzHed0KX2itxLHLKCg6gKLdjXUPZB91l9ywbYy3HaFz+NDsN3fu7LU+Kpnct3ix/vtjlThk7f/UZvGaTXlSoTEIz9PvckO2oIpWyGTu6ZdnLYKZyZcklMLHoiDv/Y4BKWVyEV/OAAy8fJ3WN19HQ+1VCxnBiigoxFY2WBx5vFhLcEICfBznoyIi7KzJPQ+SgIANuxEju9PQCVA696TZhvqfCRevXLafRFsQIYMAG6mxzcwd1ZaEgzj9b+SJ7knRJ8Vhza3+JSpBbfag9skO0yM0vcnycZH4o1hdWlkE0h6ipMwAl3JcdwB3wZhPxeTcU29/22WKaEnfUhEdgjeGxJJ39hgzfbLsR0SYm3mXclpGkOhirOX4z+nuCKNlJlH8IKjdTDUKdMvQOOPC6pLmpLzyCDD7owoRkcTNYA=
-x-ms-office365-filtering-correlation-id: b64c317e-0a19-480c-0a1a-08d4bc99af31
-x-ms-office365-filtering-ht: Tenant
-x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
- RULEID:(300000500095)(300135000095)(300000501095)(300135300095)(22001)(300000502095)(300135100095)(2017030254075)(300000503095)(300135400095)(48565401081)(201703131423075)(201703031133081)(300000504095)(300135200095)(300000505095)(300135600095)(300000506067)(300135500095);
- SRVR:VI1PR05MB3246; 
-x-ms-traffictypediagnostic: VI1PR05MB3246:
-x-microsoft-antispam-prvs: <VI1PR05MB32460530B5C6BBD97E43B80EEFDF0@VI1PR05MB3246.eurprd05.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:(133145235818549)(236129657087228)(65623756079841)(48057245064654); 
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(100000700101)(100105000095)(100000701101)(100105300095)(100000702101)(100105100095)(6040450)(601004)(2401047)(8121501046)(5005006)(100000703101)(100105400095)(93006095)(93001095)(10201501046)(3002001)(6055026)(6041248)(20161123558100)(201703131423075)(201702281528075)(201703061421075)(201703061406153)(20161123560025)(20161123562025)(20161123564025)(20161123555025)(6072148)(100000704101)(100105200095)(100000705101)(100105500095);
- SRVR:VI1PR05MB3246; BCL:0; PCL:0;
- RULEID:(100000800101)(100110000095)(100000801101)(100110300095)(100000802101)(100110100095)(100000803101)(100110400095)(100000804101)(100110200095)(100000805101)(100110500095);
- SRVR:VI1PR05MB3246; 
-x-forefront-prvs: 0350D7A55D
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(979002)(6009001)(39850400002)(39860400002)(39840400002)(39450400003)(39410400002)(39400400002)(24454002)(377454003)(13464003)(101416001)(305945005)(33656002)(53546010)(76176999)(50986999)(54356999)(5250100002)(189998001)(230783001)(7736002)(110136004)(2950100002)(229853002)(99286003)(55016002)(6506006)(4326008)(6436002)(102836003)(14454004)(74316002)(8676002)(81166006)(8936002)(3280700002)(66066001)(38730400002)(3660700001)(6116002)(478600001)(3846002)(2906002)(2900100001)(53936002)(86362001)(5660300001)(9686003)(6246003)(7696004)(6916009)(25786009)(969003)(989001)(999001)(1009001)(1019001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR05MB3246;
- H:VI1PR05MB3247.eurprd05.prod.outlook.com; FPR:; SPF:None; MLV:ovrnspm;
- PTR:InfoNoRecords; LANG:en; 
-received-spf: None (protection.outlook.com: mellanox.com does not designate
- permitted sender hosts)
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-OriginatorOrg: Mellanox.com
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jun 2017 13:46:01.8514 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR05MB3246
+ <VI1PR05MB3247D186793DAD7F1CB37EEDEFDF0@VI1PR05MB3247.eurprd05.prod.outlook.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 26 Jun 2017 23:19:24 +0930
+X-Google-Sender-Auth: 8wJQWpWLJ1jrzg30ZxbplrVdaA0
+Message-ID: <CACPK8XefYSpZA9D8SfLDW=7vXuHuxth1G+x40XAhZVYwSs=zOQ@mail.gmail.com>
+Subject: Re: [PATCH u-boot v2016.07-aspeed-openbmc] Aspeed: ast-g5 change
+ configuration order to allow 2-nd boot
+To: Mykola Kostenok <c_mykolak@mellanox.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -85,32 +62,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 26 Jun 2017 13:46:09 -0000
+X-List-Received-Date: Mon, 26 Jun 2017 13:49:48 -0000
 
-VGhhbmtzIGZvciB5b3VyIGF0dGVudGlvbi4NCg0KQmVzdCByZWdhcmRzLiBNeWtvbGEgS29zdGVu
-b2suDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogam9lbC5zdGFuQGdt
-YWlsLmNvbSBbbWFpbHRvOmpvZWwuc3RhbkBnbWFpbC5jb21dIE9uIEJlaGFsZiBPZiBKb2VsDQo+
-IFN0YW5sZXkNCj4gU2VudDogTW9uZGF5LCBKdW5lIDI2LCAyMDE3IDE6MTUgUE0NCj4gVG86IE15
-a29sYSBLb3N0ZW5vayA8Y19teWtvbGFrQG1lbGxhbm94LmNvbT4NCj4gQ2M6IE9wZW5CTUMgTWFp
-bGxpc3QgPG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZz4NCj4gU3ViamVjdDogUmU6IFtQQVRDSCB1
-LWJvb3QgdjIwMTYuMDctYXNwZWVkLW9wZW5ibWNdIEFzcGVlZDogYXN0LWc1DQo+IGNoYW5nZSBj
-b25maWd1cmF0aW9uIG9yZGVyIHRvIGFsbG93IDItbmQgYm9vdA0KPiANCj4gT24gRnJpLCBKdW4g
-MiwgMjAxNyBhdCA2OjQ3IFBNLCBNeWtvbGEgS29zdGVub2sNCj4gPGNfbXlrb2xha0BtZWxsYW5v
-eC5jb20+IHdyb3RlOg0KPiA+ICtjb25maWcgRklSTVdBUkVfMk5EX0JPT1QNCj4gPiArICAgICAg
-IGJvb2wgIkZpcm13YXJlIHNlY29uZCBib290IFdEMiBlbmFibGUuIg0KPiA+ICsgICAgICAgZGVm
-YXVsdCBuDQo+IA0KPiBMb29raW5nIGF0IHRoZSBtb3N0IHJlY2VudCBwbGF0Zm9ybS5TIGZvciB0
-aGUgRzU6DQo+IA0KPiAvKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKg0KPiAqKioqKioqKioqKioqKioqKioqKg0KPiAgRGlzYWJsZSBXRFQy
-IGZvciAybmQgYm9vdCBmdW5jdGlvbg0KPiANCj4gKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKg0KPiAqKioqKioqKioqKioqKioqKioqKi8N
-Cj4gLyoNCj4gI2lmbmRlZiBDT05GSUdfRklSTVdBUkVfMk5EX0JPT1QNCj4gICAgIGxkciAgIHIw
-LCA9MHgxZTc4NTAyYw0KPiAgICAgbW92ICAgcjEsICMwDQo+ICAgICBzdHIgICByMSwgW3IwXQ0K
-PiAjZW5kaWYNCj4gDQo+IEJ5IHNldHRpbmcgdGhpcyBvcHRpb24gd2UgZGlzYWJsZSB0aGlzIGNv
-ZGUsIHNvIHdlIGRvIG5vdCBjbGVhciB0aGUNCj4gV0RUMiBzdGF0dXMgcmVnaXN0ZXIuDQo+IA0K
-PiBUaGUgaGVscCB0ZXh0IGZvciB5b3VyIEtjb25maWcgb3B0aW9uIGlzIGNvbmZ1c2luZzsgSSB3
-b3VsZCB0aGluayB0aGF0IGl0IG1lYW5zDQo+IHdlIGVuYWJsZSBXRFQyLg0KPiANCj4gQ2FuIHlv
-dSBjbGFyaWZ5Pw0KPg0KDQpXZSBjYW4gY2hhbmdlIGhlbHAgdGV4dCB0byAiRmlybXdhcmUgc2Vj
-b25kIGJvb3Qgc3VwcG9ydCBlbmFibGUiLg0KQnkgZGVmYXVsdCBhZnRlciBwb3dlciB1cCBXRFQy
-IGVuYWJsZWQuIFRoaXMgY29kZSBkaXNhYmxlIFdEVDIgaW4gdS1ib290Lg0KU28gd2hlbiBDT05G
-SUdfRklSTVdBUkVfMk5EX0JPT1QgZGVmaW5lZCAtIFdEVDIgbm90IGRpc2FibGVkIGluIHUtYm9v
-dC4NCg0KIA0KPiBDaGVlcnMsDQo+IA0KPiBKb2VsDQo=
+On Mon, Jun 26, 2017 at 11:16 PM, Mykola Kostenok
+<c_mykolak@mellanox.com> wrote:
+> Thanks for your attention.
+>
+> Best regards. Mykola Kostenok.
+>
+>> -----Original Message-----
+>> From: joel.stan@gmail.com [mailto:joel.stan@gmail.com] On Behalf Of Joel
+>> Stanley
+>> Sent: Monday, June 26, 2017 1:15 PM
+>> To: Mykola Kostenok <c_mykolak@mellanox.com>
+>> Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+>> Subject: Re: [PATCH u-boot v2016.07-aspeed-openbmc] Aspeed: ast-g5
+>> change configuration order to allow 2-nd boot
+>>
+>> On Fri, Jun 2, 2017 at 6:47 PM, Mykola Kostenok
+>> <c_mykolak@mellanox.com> wrote:
+>> > +config FIRMWARE_2ND_BOOT
+>> > +       bool "Firmware second boot WD2 enable."
+>> > +       default n
+>>
+>> Looking at the most recent platform.S for the G5:
+>>
+>> /**********************************************************
+>> ********************
+>>  Disable WDT2 for 2nd boot function
+>>
+>> **********************************************************
+>> ********************/
+>> /*
+>> #ifndef CONFIG_FIRMWARE_2ND_BOOT
+>>     ldr   r0, =0x1e78502c
+>>     mov   r1, #0
+>>     str   r1, [r0]
+>> #endif
+>>
+>> By setting this option we disable this code, so we do not clear the
+>> WDT2 status register.
+>>
+>> The help text for your Kconfig option is confusing; I would think that it means
+>> we enable WDT2.
+>>
+>> Can you clarify?
+>>
+>
+> We can change help text to "Firmware second boot support enable".
+> By default after power up WDT2 enabled. This code disable WDT2 in u-boot.
+> So when CONFIG_FIRMWARE_2ND_BOOT defined - WDT2 not disabled in u-boot.
+
+Ok. The current version of platform.S has this entire chunk commented
+out, so the state of CONFIG_FIRMWARE_2ND_BOOT is irrelevant.
+
+ https://github.com/openbmc/u-boot/blob/ed9e4abbf3f0aab348bc64d5439aadda03f42e4c/arch/arm/mach-aspeed/platform_g5.S#L612
+
+Do you need WDT2 disabled in u-boot? With your other changes applied
+you should be able to drop to the prompt, etc, and the watchdog is
+serviced.
