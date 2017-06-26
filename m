@@ -1,61 +1,34 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wxK3F3BvCzDr2d
- for <openbmc@lists.ozlabs.org>; Tue, 27 Jun 2017 05:33:13 +1000 (AEST)
-Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v5QJT8nr076933
- for <openbmc@lists.ozlabs.org>; Mon, 26 Jun 2017 15:33:10 -0400
-Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2bb3v2m0eb-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 26 Jun 2017 15:33:10 -0400
-Received: from localhost
- by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Mon, 26 Jun 2017 15:33:10 -0400
-Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
- by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 26 Jun 2017 15:33:07 -0400
-Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
- [9.57.199.110])
- by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v5QJX7eC52297922; Mon, 26 Jun 2017 19:33:07 GMT
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 036FCAE034;
- Mon, 26 Jun 2017 15:33:09 -0400 (EDT)
-Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP id A8FF1AE03B;
- Mon, 26 Jun 2017 15:33:08 -0400 (EDT)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10] arm/dts: Add I2C master and ports to FSI cfam
-Date: Mon, 26 Jun 2017 14:33:05 -0500
-X-Mailer: git-send-email 1.8.3.1
-X-TM-AS-GCONF: 00
-x-cbid: 17062619-0048-0000-0000-000001B2AC52
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007281; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00879080; UDB=6.00438096; IPR=6.00659235; 
- BA=6.00005443; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015957; XFM=3.00000015;
- UTC=2017-06-26 19:33:09
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17062619-0049-0000-0000-000041AA1919
-Message-Id: <1498505585-1820-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-06-26_15:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1706260319
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wxPn60GsxzDr15
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Jun 2017 09:06:17 +1000 (AEST)
+Received: from localhost (32.97.110.55 [32.97.110.55]) by mx.zohomail.com
+ with SMTPS id 1498518365946390.75358372056223;
+ Mon, 26 Jun 2017 16:06:05 -0700 (PDT)
+Date: Mon, 26 Jun 2017 18:05:59 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Joel Stanley <joel@jms.id.au>
+Cc: Adriana Kobylak <anoo@us.ibm.com>, brad.debauche@rackspace.com,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, adi.gangidi@rackspace.com,
+ Chad Somerlot <chad.somerlot@rackspace.com>, ryan.dc.yu@foxconn.com,
+ Adrian Barrera <abarrera@us.ibm.com>
+Subject: Re: Switch up eth0 and eth1 to BMC shared and dedicated resp. (
+ Zaius )
+Message-ID: <20170626230559.GB31439@asimov.austin.ibm.com>
+References: <EDE9FA85-CF2B-4B72-9974-1E92EE9EC676@rackspace.com>
+ <1497022202970.71679@rackspace.com>
+ <OF6B672B6D.E6759427-ON0025813A.005D800E-0025813A.005DB2CB@notes.na.collabserv.com>
+ <CACPK8Xdi8bQWYc5QErBi2rJgMfEHLLOdBW7MoasUdK2tpk-GaQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="IiVenqGWf+H9Y6IX"
+Content-Disposition: inline
+In-Reply-To: <CACPK8Xdi8bQWYc5QErBi2rJgMfEHLLOdBW7MoasUdK2tpk-GaQ@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
+X-ZohoMailClient: External
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,168 +40,96 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 26 Jun 2017 19:33:14 -0000
+X-List-Received-Date: Mon, 26 Jun 2017 23:06:18 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
 
-FSI I2C master algorithm probes port devices based on dts.
+--IiVenqGWf+H9Y6IX
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
----
- arch/arm/boot/dts/ibm-power9-cfam.dtsi | 134 +++++++++++++++++++++++++++++++++
- 1 file changed, 134 insertions(+)
+On Thu, Jun 15, 2017 at 03:00:30PM +0930, Joel Stanley wrote:
+> On Sat, Jun 10, 2017 at 2:33 AM, Adriana Kobylak <anoo@us.ibm.com> wrote:
+> > From: Adi Gangidi
+> > Sent: Friday, June 9, 2017 10:06 AM
+> > To: anoo@us.ibm.com; Kenneth Wilke; Brad DeBauche; Chad Somerlot;
+> > abarrera@us.ibm.com; ryan.dc.yu@foxconn.com; Rob Lippert
+> > Subject: Switch up eth0 and eth1 to BMC shared and dedicated resp. ( Za=
+ius )
+> >
+> > Hi Adriana /.  Ryan ( Foxconn )
+> >
+> > Right now on openBMC
+> > BMC Shared      =3D eth0
+> > BMC Dedicated =3D eth1
+> >
+> >
+> > Instead, Is there a way we can make sure the BMC dedicated comes up as =
+eth0
+> > and BMC shared link comes up as eth1, in Zaius / Barreleye G2 ?
+> >
+> >
+> > In how it works currently . you could have BMC dedicated be eth0 or eth1
+> > depending upon the hardware config ( Whether or not Broadcom 5719A is p=
+opped
+> > OR de-popped ) . That could confusing to support operators who don't
+> > understand the nuances .
+> >
+> > If you guys are busy with other things to make the change  , can I have=
+ your
+> > thoughts on if this can be changed ? I'm guessing this is a u-boot chan=
+ge .
+> > Any thoughts on how we could make this change ourselves ?
+>=20
+> You can use a udev rule to ensure the devices are named as you expect.
 
-diff --git a/arch/arm/boot/dts/ibm-power9-cfam.dtsi b/arch/arm/boot/dts/ibm-power9-cfam.dtsi
-index f29c6e3..a0b5c97 100644
---- a/arch/arm/boot/dts/ibm-power9-cfam.dtsi
-+++ b/arch/arm/boot/dts/ibm-power9-cfam.dtsi
-@@ -4,6 +4,73 @@
- 		#address-cells = <1>;
- 		#size-cells = <1>;
- 
-+		i2cm@1800 {
-+			compatible = "ibm,fsi-i2c-master";
-+			reg = <0x1800 0x400>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				port = <0>;
-+			};
-+
-+			port@1 {
-+				port = <1>;
-+			};
-+
-+			port@2 {
-+				port = <2>;
-+			};
-+
-+			port@3 {
-+				port = <3>;
-+			};
-+
-+			port@4 {
-+				port = <4>;
-+			};
-+
-+			port@5 {
-+				port = <5>;
-+			};
-+
-+			port@6 {
-+				port = <6>;
-+			};
-+
-+			port@7 {
-+				port = <7>;
-+			};
-+
-+			port@8 {
-+				port = <8>;
-+			};
-+
-+			port@9 {
-+				port = <9>;
-+			};
-+
-+			port@10 {
-+				port = <10>;
-+			};
-+
-+			port@11 {
-+				port = <11>;
-+			};
-+
-+			port@12 {
-+				port = <12>;
-+			};
-+
-+			port@13 {
-+				port = <13>;
-+			};
-+
-+			port@14 {
-+				port = <14>;
-+			};
-+		};
-+
- 		sbefifo@2400 {
- 			compatible = "ibm,p9-sbefifo";
- 			reg = <0x2400 0x400>;
-@@ -31,6 +98,73 @@
- 				#address-cells = <1>;
- 				#size-cells = <1>;
- 
-+				i2cm@1800 {
-+					compatible = "ibm,fsi-i2c-master";
-+					reg = <0x1800 0x400>;
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						port = <0>;
-+					};
-+
-+					port@1 {
-+						port = <1>;
-+					};
-+
-+					port@2 {
-+						port = <2>;
-+					};
-+
-+					port@3 {
-+						port = <3>;
-+					};
-+
-+					port@4 {
-+						port = <4>;
-+					};
-+
-+					port@5 {
-+						port = <5>;
-+					};
-+
-+					port@6 {
-+						port = <6>;
-+					};
-+
-+					port@7 {
-+						port = <7>;
-+					};
-+
-+					port@8 {
-+						port = <8>;
-+					};
-+
-+					port@9 {
-+						port = <9>;
-+					};
-+
-+					port@10 {
-+						port = <10>;
-+					};
-+
-+					port@11 {
-+						port = <11>;
-+					};
-+
-+					port@12 {
-+						port = <12>;
-+					};
-+
-+					port@13 {
-+						port = <13>;
-+					};
-+
-+					port@14 {
-+						port = <14>;
-+					};
-+				};
-+
- 				sbefifo@2400 {
- 					compatible = "ibm,p9-sbefifo";
- 					reg = <0x2400 0x400>;
--- 
-1.8.3.1
+Most Linux distros have moved away from 'ethN' style naming and to
+"something else".  My laptop's network interfaces are named 'enp0s31f6'
+and 'wlp4s0' for the ethernet and wireless interfaces respectively.
+
+https://www.freedesktop.org/wiki/Software/systemd/PredictableNetworkInterfa=
+ceNames/
+
+According to that, the default order of naming we should be getting is some=
+thing
+like this:
+
+1. Names incorporating Firmware/BIOS provided index numbers for on-board de=
+vices (example: eno1)
+2. Names incorporating Firmware/BIOS provided PCI Express hotplug slot inde=
+x numbers (example: ens1)
+3. Names incorporating physical/geographical location of the connector of t=
+he hardware (example: enp2s0)
+4. Classic, unpredictable kernel-native ethX naming (example: eth0)
+
+Any idea why we are ending up with #4?  Is this due to device tree
+entries / naming?  It seems like using something like #3 would get well
+defined and consistent names no matter which network interface is
+enabled.  It should also, in theory, make all AST2400 chips arrive at
+the same names for NC-SI vs direct PHY.
+
+--=20
+Patrick Williams
+
+--IiVenqGWf+H9Y6IX
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAllRk1YACgkQqwNHzC0A
+wRk1GBAAnSNslDbiB1QM+LcRZ7i9d+XAThStAjhBMq1m0yLnii7NHmTw41iDxZYL
+3X3LVBiVo7/ddUHPiOqrggKY3BHeJqvNtpPcje2K/8S2oknwqk8VUZAPR6tqXQXD
+6YBGdsy9fbOsoYBlc5v86J8XTiCwg+ZRpglvqTyOyw01nJBnmBsy5xT1r5/GpDc9
+mecKYZtR3cYi697ReVmdFuk7xY/FbOXVMn+oG/+dMB5fDrppGOCB+dkWbY4GcETY
+BMb+boOQMs2VcT3u8Fk49BnlgIJKh50j61YFyc0gdgJn8vfCxVwCZ40BzKoQanxl
+Z4QRUBSwrOc7DjU6Ruc50erAIQ8h4ChnutU44JETFfiEU3SI0H70oXdmNHE77HlB
+AOGNVPLayNNapocwsC3jQSDkIELiMNGpmtWFxn71IvtonkSMZoro3xH8GFw/4wxv
+fzkCUaChGgXm+9MRmlWcjMW2VkzFpJEtn/AZLi5hpB+EVCtoodCbMSaLcziQavDL
+t84UrAyGsbT2x3/D1IBVn4wOUXW+RKjTmpXWUYPbkK9FPokGeBPGmkJJPzTnTj8w
+6l3In710cFDDB0RdYxO7+VuJkj1uIm9Q+7tjEB52YRzyIZg7nz9aV7W/NRWFKhHu
+rJrmRxrVCqTZfBIiaCAUPKX1Dk9EfFQnVxuyo0eyzK552Aq71Ik=
+=3l7k
+-----END PGP SIGNATURE-----
+
+--IiVenqGWf+H9Y6IX--
