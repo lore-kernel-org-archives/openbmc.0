@@ -1,33 +1,46 @@
-Return-Path: <clg@kaod.org>
-Received: from 14.mo4.mail-out.ovh.net (14.mo4.mail-out.ovh.net [46.105.40.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <venture@google.com>
+Received: from mail-pg0-x22a.google.com (mail-pg0-x22a.google.com
+ [IPv6:2607:f8b0:400e:c05::22a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wxnRh5g6tzDr28
- for <openbmc@lists.ozlabs.org>; Tue, 27 Jun 2017 23:52:32 +1000 (AEST)
-Received: from player759.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo4.mail-out.ovh.net (Postfix) with ESMTP id 17DAA7C741
- for <openbmc@lists.ozlabs.org>; Tue, 27 Jun 2017 15:44:39 +0200 (CEST)
-Received: from zorba.kaod.org (LFbn-1-10652-153.w90-89.abo.wanadoo.fr
- [90.89.238.153]) (Authenticated sender: postmaster@kaod.org)
- by player759.ha.ovh.net (Postfix) with ESMTPSA id D89346400A4;
- Tue, 27 Jun 2017 15:44:35 +0200 (CEST)
-Subject: Re: [PATCH qemu] aspeed: Register all three watchdogs
-To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
-References: <20170627115411.19642-1-joel@jms.id.au>
-Cc: Andrew Jeffery <andrew@aj.id.au>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <3f8a2e65-e038-4df3-8544-7522d7e8e72c@kaod.org>
-Date: Tue, 27 Jun 2017 15:44:30 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.8.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wxsQf62DrzDr2Z
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Jun 2017 02:51:54 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="GSDPLBY+"; 
+ dkim-atps=neutral
+Received: by mail-pg0-x22a.google.com with SMTP id f127so18431310pgc.0
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Jun 2017 09:51:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=cDhETVJ9Aez6q9sYOIzRRI0796NRpC4Evp1nd+H8+AM=;
+ b=GSDPLBY+09/Z7BJyTogsVZ+Uk5bS8dsEcEY0xuONhP4D4yLBZdu3gQu9nou8HBRWrV
+ L08uMxjMD70okw2KtRXYSoDowW4lQvxGF+ZsrSg3YcObRO/1pPucgXhJQZ8jFZqbl4Hi
+ S25868GJY+0GvoN6I5qbNvcnllTSoTo8yIrb14E52xcPi3hs3IYIlAFa+akxwcFycjyT
+ WkVyJSmJ9lzWOfgEtOIFVhJkTvs1pPCYeO1wrm5HLhh8Ol2yf3ZH0yHKXj0DDopkyxsY
+ r2JZQERWMx0XutdLabG6P47m60Iz7lMzP3j5v72mDpdQyrjO/ciVaHTF9Sz7xtYlZJL1
+ gsTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=cDhETVJ9Aez6q9sYOIzRRI0796NRpC4Evp1nd+H8+AM=;
+ b=n+dkfTaNS6rMcxj6tJmCEEUX0TTAezNPrl2wTlEq05JbGckPZz2PvSP+s97skDP7fx
+ o+yNcdIhQhzrQbreQQxHiMLNXv9sfYw+f+yw887o3sFttyYiz7dgX1WuDDq0W5XCuQGL
+ a9RKA3PsbxXzcOjqjTBHN2rPNShSQqlN238ew2zet+j8wHqUWAkAL8tPYsB1CqDybtf2
+ JkcNM17g+3V3/PToBhfafcjPmFmDB9P15s2TNdYm2yI9Er2/gYtdhT9OnHjuSWyAw/Ub
+ bh3Y3CYMLB4MIE8Hz55icwlIMb1r6yKzxw6iLQSpXO1SuD54kZ6ijzQIQuedHz8+WNd1
+ tf4Q==
+X-Gm-Message-State: AKS2vOxGjEoTo5mELS1qNyj+gGLI/uBkcY1sw189kqOZBad7KnSHfWm7
+ YP1kT6YHRbP5cMLNIX1MvZ3NpfHXHqXF94k=
+X-Received: by 10.84.232.70 with SMTP id f6mr6710018pln.169.1498582311586;
+ Tue, 27 Jun 2017 09:51:51 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20170627115411.19642-1-joel@jms.id.au>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-X-Ovh-Tracer-Id: 7009289871161658283
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelkedrtddtgdehudcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+Received: by 10.100.165.205 with HTTP; Tue, 27 Jun 2017 09:51:31 -0700 (PDT)
+From: Patrick Venture <venture@google.com>
+Date: Tue, 27 Jun 2017 09:51:31 -0700
+Message-ID: <CAO=notxJgr=+fyCaNWH+i6EL2v06aW5LkMp19uFbpYArv7FS3Q@mail.gmail.com>
+Subject: Swampd PID-driven Fan Controller
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -39,105 +52,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Jun 2017 13:52:33 -0000
+X-List-Received-Date: Tue, 27 Jun 2017 16:51:55 -0000
 
-On 06/27/2017 01:54 PM, Joel Stanley wrote:
-> The ast2500 contains three watchdogs. Instatite the model three times to
-> the correct address.
-> 
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-> ---
-> Tested with dev-4.10 with multiple watchdogs enabled in the device tree.
-> 
-> Note that the ast2400 only has two watchdogs, but I'm not sure how to account for that.
+Per the requirements to have a fan controller for the quanta-q71l that
+runs within the OpenBMC framework+, I developed the swampd
+application.  It was designed to leverage sdbusplus and other OpenBMC
+libraries and coding standards.
 
-take a look at the spi controllers. briefly speaking :
+It supports:
+* build-time yaml descriptions of the sensors and PID loops
+* run-time configuration of the above
+* run-time fan speed set-point control
+* IPMI controlled manual mode
+* passively and actively read sensors
+* sensors that are from the host
+* any variation on sysfs IO that is configured.
 
-- add an array of 'AspeedWDTState' under AspeedSoCState.
-- modify 'static const AspeedSoCInfo aspeed_socs' to include the 
-  number of watchdogs.
-- initialize and realize only the number of watchdogs you need
-  for a SoC 
+The design document is too large to really paste in this email, so
+I'll summarize.
 
-Some comments below,
+Each sensor is created based on the configuration provided.  Each PID
+loop is created per zone.  Each zone lives on a separate thread (could
+be merged into one thread that iterates through zones).  The zone
+loops every 0.1s to steer the fans closer to their goal while every
+second it adjusts the goal.
 
-> 
->  hw/arm/aspeed_soc.c         | 25 +++++++++++++++----------
->  include/hw/arm/aspeed_soc.h |  2 +-
->  2 files changed, 16 insertions(+), 11 deletions(-)
-> 
-> diff --git a/hw/arm/aspeed_soc.c b/hw/arm/aspeed_soc.c
-> index 77b95e8e8092..522cdba3bf9d 100644
-> --- a/hw/arm/aspeed_soc.c
-> +++ b/hw/arm/aspeed_soc.c
-> @@ -178,11 +178,13 @@ static void aspeed_soc_init(Object *obj)
->      object_property_add_alias(obj, "ram-size", OBJECT(&s->sdmc),
->                                "ram-size", &error_abort);
->  
-> -    object_initialize(&s->wdt, sizeof(s->wdt), TYPE_ASPEED_WDT);
-> -    object_property_add_child(obj, "wdt", OBJECT(&s->wdt), NULL);
-> -    qdev_set_parent_bus(DEVICE(&s->wdt), sysbus_get_default());
-> -    object_property_add_const_link(OBJECT(&s->wdt), "scu", OBJECT(&s->scu),
-> -                                   NULL);
-> +    for (i = 0; i < ARRAY_SIZE(s->wdt); i++) {
+Some things I know OpenBMC won't like: it's multi-threaded.  It wasn't
+built into the current fan-presence package.
 
-replace ARRAY_SIZE(s->wdt) by 'sc->info->wdt_count'. Pick the name you want.
+I'm at a crossroads with this project because I'd like to make it
+generally available.  Should I try to submit it for review on this
+list, if so, how?  Or should I push it to Google's github projects
+first?
 
-> +	    object_initialize(&s->wdt[i], sizeof(s->wdt[i]), TYPE_ASPEED_WDT);
-> +	    object_property_add_child(obj, "wdt", OBJECT(&s->wdt[i]), NULL);
-> +	    qdev_set_parent_bus(DEVICE(&s->wdt[i]), sysbus_get_default());
-> +	    object_property_add_const_link(OBJECT(&s->wdt[i]), "scu",
-> +			    OBJECT(&s->scu), NULL);
-> +    }
->  
->      object_initialize(&s->ftgmac100, sizeof(s->ftgmac100), TYPE_FTGMAC100);
->      object_property_add_child(obj, "ftgmac100", OBJECT(&s->ftgmac100), NULL);
-> @@ -340,12 +342,15 @@ static void aspeed_soc_realize(DeviceState *dev, Error **errp)
->      sysbus_mmio_map(SYS_BUS_DEVICE(&s->sdmc), 0, ASPEED_SOC_SDMC_BASE);
->  
->      /* Watch dog */
-> -    object_property_set_bool(OBJECT(&s->wdt), true, "realized", &err);
-> -    if (err) {
-> -        error_propagate(errp, err);
-> -        return;
-> +    for (i = 0; i < ARRAY_SIZE(s->wdt); i++) {
-> +	    fprintf(stderr, "regisering wdt %d at %08x\n", i, ASPEED_SOC_WDT_BASE + i * 0x20); 
-
-drop the fprintf
-
-> +	    object_property_set_bool(OBJECT(&s->wdt[i]), true, "realized", &err);
-> +	    if (err) {
-> +		    error_propagate(errp, err);
-> +		    return;
-> +	    }
-> +	    sysbus_mmio_map(SYS_BUS_DEVICE(&s->wdt[i]), 0, ASPEED_SOC_WDT_BASE + i * 0x20);
-
-This line is too long. 
-
->      }
-> -    sysbus_mmio_map(SYS_BUS_DEVICE(&s->wdt), 0, ASPEED_SOC_WDT_BASE);
->  
->      /* Net */
->      qdev_set_nic_properties(DEVICE(&s->ftgmac100), &nd_table[0]);
-> diff --git a/include/hw/arm/aspeed_soc.h b/include/hw/arm/aspeed_soc.h
-> index d16205c66b5f..8a550dafd737 100644
-> --- a/include/hw/arm/aspeed_soc.h
-> +++ b/include/hw/arm/aspeed_soc.h
-> @@ -40,7 +40,7 @@ typedef struct AspeedSoCState {
->      AspeedSMCState fmc;
->      AspeedSMCState spi[ASPEED_SPIS_NUM];
->      AspeedSDMCState sdmc;
-> -    AspeedWDTState wdt;
-> +    AspeedWDTState wdt[3];
-
-use a define may be ? no big deal as we won't use it anywhere 
-else I think.
++As well as other requirements.
 
 Thanks,
-
-C. 
-
->      FTGMAC100State ftgmac100;
->      AspeedIBTState ibt;
->  } AspeedSoCState;
-> 
+Patrick
