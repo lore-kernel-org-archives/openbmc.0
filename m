@@ -1,52 +1,55 @@
-Return-Path: <xow@google.com>
-Received: from mail-pg0-x22c.google.com (mail-pg0-x22c.google.com
- [IPv6:2607:f8b0:400e:c05::22c])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yb0-x241.google.com (mail-yb0-x241.google.com
+ [IPv6:2607:f8b0:4002:c09::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wxSD604yqzDr2g
- for <openbmc@lists.ozlabs.org>; Tue, 27 Jun 2017 10:56:21 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wxVqH0PDBzDqj1
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Jun 2017 12:53:31 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="g94eoeoW"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="uQwQ4cFh"; 
  dkim-atps=neutral
-Received: by mail-pg0-x22c.google.com with SMTP id t186so7751183pgb.1
- for <openbmc@lists.ozlabs.org>; Mon, 26 Jun 2017 17:56:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=16dvwAzYw7tBcIlDp8W2dg4pufUeyFnOmQ5LGbQyF6w=;
- b=g94eoeoWMWPy+8JGHuC0Ybns2d0E5mFCq78reyLSR/RknfIU5TRF43xo76cG+PeURm
- JUIQnRknqpnPb+o+qg5qCsP+QC6nIkWyPeFxNYb+SCrEPUIrHN0m4RimR9UV836MmOVw
- EFcs2FWFbmDtcz54CySJxfq0ss1+m5OE7+Es4r2PEiIRpEl7cHsi+yLUSpQTM93gnRKN
- /D1nm9rqha3luDYZx0CATe81vrVQ9e/0Wdi/t9b68ivB1bEoT15SYmsYwJzHqZYoqhHU
- 5IZC3E/eLTGydL3SP8/4AHlemK6mcB3p6bz5Fp6yw9+XDrOB9XE9Pw+mZj2rqga4H5sJ
- hGzQ==
+Received: by mail-yb0-x241.google.com with SMTP id 84so812457ybe.0
+ for <openbmc@lists.ozlabs.org>; Mon, 26 Jun 2017 19:53:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=nk1XvGODJJuhF6GfbrIkC15L+RCifqEPu+vptOkJhVU=;
+ b=uQwQ4cFhKXHMtElaS/luDH75yre34MX3SkXz1odTN2Yt4LYwApjboxFNYiH3+7YknZ
+ sxVALieFSNSdyDNhO3n/D4b+SRY1bmTU/bIYkLJH5N4OTMW56n+od9CWg/QQ/Gw9Lt59
+ 3lGRq3d4N441+FjQs4TFGkfXI7p7QdW9CiZISAqXE8Rjpi3nkXnRX1H4xiWfmQUKWinw
+ K6K+fcnhEaZ0eIeIZI0ZAU8BwybGfg7N4MFBlMkhrQ8iUpz+8YATVm3WTnKRZALFCqt6
+ b0z2jDOod2gmvn/eMp0EWGG5Y3VBFz1SEF1eE1cE3I2x1x5snlz4gLiO7vhP7YozDOZc
+ 6r1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=16dvwAzYw7tBcIlDp8W2dg4pufUeyFnOmQ5LGbQyF6w=;
- b=ChFofneEp924+cxUnVZPhFxPqxbi0pabmflrrbkIQalDG0C9xCcZFShquOfOJ5W0g4
- POMJkcscZ37Zl67ddCmwp39xw/X+KA3gVBPtn3LMU0yBhCvxg5ZE3XeggjFEK9yaHk8O
- +aFGK61+myqRIJxYA8DIJk7D+HKCbkDsYfLj4gg+cMjPyXc0EZLcVlX6oKUYuK03jt60
- W5fVItuy+pRJqNjH7dcD/qbQeaqz3E6cyKgN7D0vvG+YkDhzTZdBdxkJ7K1zhcRhpBr8
- YZUMJYbRFI/bvPsOxy3EaSb7JxHWm/0K9jdIkdtu747w57bjYL9Uo2ypnO/dtL7WVvNI
- n7Xg==
-X-Gm-Message-State: AKS2vOzFJ+W4htdrfmxKC726SJ57lkQmqc2WKubwGTjVVzvBfzY+XUg3
- MKeDfBSed9WRlvZOKAa+Ow==
-X-Received: by 10.84.232.135 with SMTP id i7mr2951481plk.300.1498524977867;
- Mon, 26 Jun 2017 17:56:17 -0700 (PDT)
-Received: from pewter.svl.corp.google.com ([100.123.242.121])
- by smtp.gmail.com with ESMTPSA id 189sm2019220pfd.50.2017.06.26.17.56.16
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Mon, 26 Jun 2017 17:56:16 -0700 (PDT)
-From: Xo Wang <xow@google.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux 4.10] ARM: aspeed: zaius: Fix FSI GPIO mapping matching
-Date: Mon, 26 Jun 2017 17:55:50 -0700
-Message-Id: <20170627005550.59771-1-xow@google.com>
-X-Mailer: git-send-email 2.13.1.611.g7e3b11ae1-goog
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=nk1XvGODJJuhF6GfbrIkC15L+RCifqEPu+vptOkJhVU=;
+ b=Bf0QNNbs3QRHf3VSxT+a/AzhpscChCM9e2r3qt0oAliuTlI9pW/CCyM/Mf5RCC8yMO
+ K5gv5j/82zq3MbPQjbW1F2U/mn2CvpjPT0h7rgRfP0nfIa0da7XtVirD8khvk1/DuAnz
+ RixacrZHtaul2ItC98oIrRmKTsHfN/oV+EFOZWjiGOXpJ7BDB/s869g2so7ytBIIO73B
+ zP6MaIsZ0PnsXF+2Fghg0iPiBczaidNc/EJAlt8iR4Z7kLa/IIemIo65cWkrLZI7nm9T
+ JHIV1wZJvE7O9YaCidQuLcjf6DvHPDBZPlfWVy3rAX/Ka0aD0ZyIy0lNg+KO2xQJ4V3E
+ cjRg==
+X-Gm-Message-State: AKS2vOzjpCFvQOSHaBHgCejqy2MMS2X189RH6qqXOfHujSUyLaQfuhho
+ yOX1+Lplr/AIrnTSR3czt57nrS1b2Q==
+X-Received: by 10.37.88.193 with SMTP id m184mr2269465ybb.39.1498532007097;
+ Mon, 26 Jun 2017 19:53:27 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Sender: joel.stan@gmail.com
+Received: by 10.37.177.8 with HTTP; Mon, 26 Jun 2017 19:53:06 -0700 (PDT)
+In-Reply-To: <CAO=notxN66ZN1HFvBSKpFrCETcqpsQ7N4q3dUh-iE3gqBje3MQ@mail.gmail.com>
+References: <20170623012421.63639-1-venture@google.com>
+ <CACPK8XfuBONVYNEQyymzL_g3beDSwwOjvJG5NgL6gL6f1CM-tg@mail.gmail.com>
+ <CAO=notxN66ZN1HFvBSKpFrCETcqpsQ7N4q3dUh-iE3gqBje3MQ@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 27 Jun 2017 12:23:06 +0930
+X-Google-Sender-Auth: P1dC1cIVSgeKnpEHSeGga52G1uY
+Message-ID: <CACPK8Xc5YJF+_PyKxuw=Lrze62NXnhVLJTh2pvYXjBXNR0ozUw@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: quanta: Enable pwm fans
+To: Patrick Venture <venture@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,41 +61,120 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Jun 2017 00:56:22 -0000
+X-List-Received-Date: Tue, 27 Jun 2017 02:53:32 -0000
 
-Zaius changes FSI GPIO mappings dynamically based on board revision
-fuses. The GPIO lookup tables used matches the FSI device tree node name
-that is used prior to a3f0f300d74d05977a21a6941979414a78360d89. Now they
-no longer work as intended to configure the FSI driver.
+On Tue, Jun 27, 2017 at 1:37 AM, Patrick Venture <venture@google.com> wrote:
+> If you're referring strictly to the clock, maybe I should put it under:
+>
+> https://github.com/openbmc/linux/blob/dev-4.10/arch/arm/boot/dts/aspeed-g4.dtsi#L38
+>
+> Which I didn't notice before :)
 
-Update the lookup table device name match string.
+Yep. Lets stick it there.
 
-Signed-off-by: Xo Wang <xow@google.com>
----
- arch/arm/mach-aspeed/aspeed.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
-index 32eb36183e92..420a8d0344da 100644
---- a/arch/arm/mach-aspeed/aspeed.c
-+++ b/arch/arm/mach-aspeed/aspeed.c
-@@ -138,7 +138,7 @@ static void __init do_zaius_setup(void)
- 	/* EVT boards have different FSI pin mappings */
- 	if (board_rev < 0x08) {
- 		static struct gpiod_lookup_table fsi_evt_gpio_lookup = {
--			.dev_id = "fsi-master",
-+			.dev_id = "gpio-fsi",
- 			.table = {
- 				GPIO_LOOKUP("1e780000.gpio", ASPEED_GPIO(C, 3),
- 					    "clock", GPIO_ACTIVE_HIGH),
-@@ -150,7 +150,7 @@ static void __init do_zaius_setup(void)
- 		gpiod_add_lookup_table(&fsi_evt_gpio_lookup);
- 	} else {
- 		static struct gpiod_lookup_table fsi_gpio_lookup = {
--			.dev_id = "fsi-master",
-+			.dev_id = "gpio-fsi",
- 			.table = {
- 				GPIO_LOOKUP("1e780000.gpio", ASPEED_GPIO(G, 0),
- 					    "clock", GPIO_ACTIVE_HIGH),
--- 
-2.13.1.611.g7e3b11ae1-goog
+>
+> Patrick
+>
+> On Mon, Jun 26, 2017 at 12:18 AM, Joel Stanley <joel@jms.id.au> wrote:
+>>
+>> On Fri, Jun 23, 2017 at 10:54 AM, Patrick Venture <venture@google.com>
+>> wrote:
+>> > Signed-off-by: Patrick Venture <venture@google.com>
+>> > ---
+>> >  arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts | 51
+>> > ++++++++++++++++++++++++++++
+>> >  arch/arm/boot/dts/aspeed-g4.dtsi             |  6 ++++
+>> >  2 files changed, 57 insertions(+)
+>> >
+>> > diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+>> > b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+>> > index e609c53d58f5..3abc2954d26e 100644
+>> > --- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+>> > +++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+>> > @@ -46,6 +46,57 @@
+>> >                         gpios = <&gpio ASPEED_GPIO(B, 3)
+>> > GPIO_ACTIVE_LOW>;
+>> >                 };
+>> >         };
+>> > +
+>> > +       pwm_tacho: pwm-tacho-controller@1e786000 {
+>> > +               #address-cells = <1>;
+>> > +               #size-cells = <1>;
+>> > +               reg = <0x1E786000 0x1000>;
+>> > +               compatible = "aspeed,ast2500-pwm-tacho";
+>> > +               clocks = <&pwm_tacho_fixed_clk>;
+>> > +               pinctrl-names = "default";
+>> > +               pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
+>> > +                       &pinctrl_pwm2_default &pinctrl_pwm3_default>;
+>> > +
+>> > +               fan@0 {
+>> > +                       reg = <0x00>;
+>> > +                       aspeed,fan-tach-ch = /bits/ 8 <0x00>;
+>> > +               };
+>> > +
+>> > +               fan@1 {
+>> > +                       reg = <0x01>;
+>> > +                       aspeed,fan-tach-ch = /bits/ 8 <0x01>;
+>> > +               };
+>> > +
+>> > +               fan@2 {
+>> > +                       reg = <0x02>;
+>> > +                       aspeed,fan-tach-ch = /bits/ 8 <0x02>;
+>> > +               };
+>> > +
+>> > +               fan@3 {
+>> > +                       reg = <0x03>;
+>> > +                       aspeed,fan-tach-ch = /bits/ 8 <0x03>;
+>> > +               };
+>> > +
+>> > +               fan@4 {
+>> > +                       reg = <0x00>;
+>> > +                       aspeed,fan-tach-ch = /bits/ 8 <0x04>;
+>> > +               };
+>> > +
+>> > +               fan@5 {
+>> > +                       reg = <0x01>;
+>> > +                       aspeed,fan-tach-ch = /bits/ 8 <0x05>;
+>> > +               };
+>> > +
+>> > +               fan@6 {
+>> > +                       reg = <0x02>;
+>> > +                       aspeed,fan-tach-ch = /bits/ 8 <0x06>;
+>> > +               };
+>> > +
+>> > +               fan@7 {
+>> > +                       reg = <0x03>;
+>> > +                       aspeed,fan-tach-ch = /bits/ 8 <0x07>;
+>> > +               };
+>> > +       };
+>> >  };
+>> >
+>> >  &fmc {
+>> > diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi
+>> > b/arch/arm/boot/dts/aspeed-g4.dtsi
+>> > index a998a00a2728..c93b0460cada 100644
+>> > --- a/arch/arm/boot/dts/aspeed-g4.dtsi
+>> > +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+>> > @@ -184,6 +184,12 @@
+>> >                                         reg = <0x2c>;
+>> >                                 };
+>> >
+>> > +                               pwm_tacho_fixed_clk: fixedclk {
+>> > +                                       compatible = "fixed-clock";
+>> > +                                       #clock-cells = <0>;
+>> > +                                       clock-frequency = <24000000>;
+>> > +                               };
+>>
+>> This is a bit strange. I don't think it should live at this spot in
+>> the device tree.
+>>
+>>
+>> > +
+>> >                                 hwrng@1e6e2078 {
+>> >                                         compatible = "timeriomem_rng";
+>> >                                         reg = <0x1e6e2078 0x4>;
+>> > --
+>> > 2.13.1.611.g7e3b11ae1-goog
+>> >
+>
+>
