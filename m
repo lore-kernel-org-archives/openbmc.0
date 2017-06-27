@@ -1,36 +1,58 @@
-Return-Path: <wsa-dev@sang-engineering.com>
-Received: from mail.zeus03.de (www.zeus03.de [194.117.254.33])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yb0-x242.google.com (mail-yb0-x242.google.com
+ [IPv6:2607:f8b0:4002:c09::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wxfz71l4zzDr0c
- for <openbmc@lists.ozlabs.org>; Tue, 27 Jun 2017 19:00:49 +1000 (AEST)
-Received: (qmail 14241 invoked from network); 27 Jun 2017 11:00:42 +0200
-Received: from p200300cf5bc9d700021de0fffea0c865.dip0.t-ipconnect.de (HELO
- localhost) (l3s3148p1@2003:cf:5bc9:d700:21d:e0ff:fea0:c865)
- by mail.zeus03.de with ESMTPSA (ECDHE-RSA-AES256-GCM-SHA384 encrypted,
- authenticated); 27 Jun 2017 11:00:42 +0200
-Date: Tue, 27 Jun 2017 11:00:42 +0200
-From: Wolfram Sang <wsa@the-dreams.de>
-To: Brendan Higgins <brendanhiggins@google.com>
-Cc: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- gregkh@linuxfoundation.org, davem@davemloft.net, mchehab@kernel.org,
- Joel Stanley <joel@jms.id.au>, martin.petersen@oracle.com,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: [PATCH v11 3/4] i2c: aspeed: added driver for Aspeed I2C
-Message-ID: <20170627090042.GA2408@katana>
-References: <20170620211516.13095-1-brendanhiggins@google.com>
- <20170620211516.13095-4-brendanhiggins@google.com>
- <20170623184305.xqqhjgrbdmgk6lsr@ninjato>
- <CAFd5g45=O2_MgfZEkmbY-=ZZY+izxeWSuhZT+B2e08P=O+WEog@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wxgj70LFTzDqRW
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Jun 2017 19:33:47 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="r3gl/iir"; 
+ dkim-atps=neutral
+Received: by mail-yb0-x242.google.com with SMTP id i80so1075811yba.3
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Jun 2017 02:33:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=S5iqtUJ0frhwVh4nz9gkzl19es+nda7fH1DmdUcNvK4=;
+ b=r3gl/iirm63cYKxB5zP0R3fHDurGnYhfSEhybyv7ms0oH/3K0S5mPcOXDetX93DBfs
+ PqIvzZ6lzBcNNth5Bjn6byIfwJPcxlKyNN7yQTJPXZeejO0HqiEwWX5I6MiftsUDwq1P
+ /KjdRGRIAkDH9326jCBThr9s2OsTAcQNtYvvIdKOt/Abx9xSTBOytmAbAE1YT5jgfKmc
+ zaA2ed6ZSoAy8sFQwcxf1Y1MgHX7+gJR6YxS9gX7sFdDyUs7qQh53xAMr4yLiODNav81
+ k5blii58ZYZhUQPUKsRHCj4h1zvYDts9g4rc70QddyFu02poU431eLjjMgwLbC0jcZX3
+ KWSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=S5iqtUJ0frhwVh4nz9gkzl19es+nda7fH1DmdUcNvK4=;
+ b=quI2pHtvxWXgDHuZgcrU022HSLKLUaxCLcSjBm7fXSXfG38ybNPkKfQ1toxOV0puNU
+ bpGfvcNn5pv04++UEIsKSTl81OH3+BZua2HIrcKxfxjG8cawEof7GOBbv4zqEENbgVIW
+ iLM/6Mo1kt/t+5j4X2B9kVzaraCkgTMCJYxwfkxRK2lI6o0Ob7LxrGma08hGne+QRbir
+ 5M2Vdg2t2DL5e89GYgej06H6V2c7WRh9eK/Ky0naFHbv38Zj93DSTV5EPwtAPT1fQz06
+ 8Ek8enx4POuRutftnL0orBmciKlywwqf0iRQ/CZqMpuIgDDP9Sj39ZFMzAxAGwkWByS3
+ rsfA==
+X-Gm-Message-State: AKS2vOz2tp9LnhOfWh/RbfoPi6kcEuoc7lbh1akW9rrw9rrjEZXnd2fu
+ YNJATwJo6MpQ93VwxXsTU9oLcc3VaD1NYbw=
+X-Received: by 10.37.83.66 with SMTP id h63mr3080812ybb.169.1498556023639;
+ Tue, 27 Jun 2017 02:33:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="KsGdsel6WgEHnImy"
-Content-Disposition: inline
-In-Reply-To: <CAFd5g45=O2_MgfZEkmbY-=ZZY+izxeWSuhZT+B2e08P=O+WEog@mail.gmail.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+Sender: joel.stan@gmail.com
+Received: by 10.37.177.8 with HTTP; Tue, 27 Jun 2017 02:33:23 -0700 (PDT)
+In-Reply-To: <f8553d4f-c0b9-5cef-de01-067b313b10cb@kaod.org>
+References: <1498262178-27820-1-git-send-email-bjwyman@gmail.com>
+ <CACPK8XcDD+0ZCytgx_xWf9L2Q9nW7fQp9pNtE9+285UrnQh80A@mail.gmail.com>
+ <f8553d4f-c0b9-5cef-de01-067b313b10cb@kaod.org>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 27 Jun 2017 19:03:23 +0930
+X-Google-Sender-Auth: DKZNxILRCBLxely1hnuetJWNBHo
+Message-ID: <CACPK8Xf0p6EBNf2G1dhKCeT8KvsTpniVUePpVLYEh2eGw66ORA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] Add fan card PCA9552 to Witherspoon
+ devicetree
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Cc: Brandon Wyman <bjwyman@gmail.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -42,46 +64,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Jun 2017 09:00:52 -0000
+X-List-Received-Date: Tue, 27 Jun 2017 09:33:47 -0000
 
+On Tue, Jun 27, 2017 at 3:43 PM, C=C3=A9dric Le Goater <clg@kaod.org> wrote=
+:
+> On 06/26/2017 08:16 AM, Joel Stanley wrote:
+>> Hello Brandon,
+>>
+>> On Sat, Jun 24, 2017 at 9:26 AM, Brandon Wyman <bjwyman@gmail.com> wrote=
+:
+>>> The Witherspoon OpenBMC system has a PCA9552 chip on the fan card that
+>>> is used for fan fault and identify LED control. Adding this chip and th=
+e
+>>> LED lines to the device tree.
+>>
+>> Great first submission. One issue I found, please see below.
+>
+> Joel,
+>
+> haven't you merged the patch defining all the PCA9552 pins as GPIOS ?
+>
+> https://github.com/openbmc/linux/commit/db30464ee579176abc82d0fe95aa9b9ff=
+76d0c3a
 
---KsGdsel6WgEHnImy
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Yeah. We have a few PCA955x devices in the system.
 
+There's the pca9552 used as GPIOs for the GPUs that you worked on the
+driver for. There's also a pca9551 that's used for driving LEDs, which
+is what Brandon is working on.
 
-> > If SCL is stuck low, how do you want to send a STOP?
-> >
->=20
-> Fair point. I should probably drop that in the future and just do a
-> reset, and even then, doing a
-> reset is probably just wishful thinking. If a slave is holding down
-> SCL, we are pretty screwed.
+Cheers,
 
-Yes, you'd need to reset the client device. And that has to be done in
-the client driver. I wonder if i2c_transfer and friends should return a
-specific error value in that case... need to think about it.
-
-
---KsGdsel6WgEHnImy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAllSHrYACgkQFA3kzBSg
-KbaaZg/+OzB7p9eUDVCwaxNXXlYulzEa248dNyL4zHlmnUn04JU/V1pjh+Pu8x28
-eLk3uUmheTL881bqWWVBShng9FKUebzEIFAAKdmozlNCF+GGg/Ptb7Y7iri7VRA3
-f2RgivnTWhDg0R0nU4Hne2WHT7AVtIr3LUI4SViWK4+4sJGC0ngd5t2kYIateNj8
-r7puuQYbKL27hvEY5H1oGCtWUZBgQmi6cNqeO1KsqQm6t7o6Q2cX9FKynMT/XK5+
-Klh8B0jmNBw0YfKY5pYnuxx90tbsru9ny/i2ebjbcAKe/1DXyMVuT8lwS2c8nJQr
-xwpKWzyaaN0NSGaH9XuIzNS4JRrD7AZJ/MfKZxXS5a8tUA8ZZvmcUKEZhoJ3ShmK
-5T2DhH9TYyuCYXqt5oNC3gGW2ZE8Gw5//Sg9V84S+TyxtaapQ+gZZf5hl2aru6/w
-4Jxs89VEuc82gVFf2Oq8rpIqufZN8FyJ60w5KtwdHlnhDyiVrnvSNkbOlTxVl6N4
-1mnxrODvmnwLW/iellc85dmD6oQIDrWV+M4++XQ/VPdOX5g9pQLVncJAX/ZP92+i
-LZ74+zWbrfEhqgnSNxFyG6qEXzbr10zo0uP0C98ZNHO1FlBvBxJvrx9v2azxJ1mN
-mRQHY80AunfLKaQpcpOWRgIAt1n8qnA7v+qw6LXmFzErIbZuT+E=
-=HPi4
------END PGP SIGNATURE-----
-
---KsGdsel6WgEHnImy--
+Joel
