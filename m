@@ -1,49 +1,23 @@
-Return-Path: <venture@google.com>
-Received: from mail-pf0-x236.google.com (mail-pf0-x236.google.com
- [IPv6:2607:f8b0:400e:c00::236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <bradleyb@fuzziesquirrel.com>
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wxxCZ2Sd6zDr3P
- for <openbmc@lists.ozlabs.org>; Wed, 28 Jun 2017 05:42:33 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="EtH9BxRw"; 
- dkim-atps=neutral
-Received: by mail-pf0-x236.google.com with SMTP id q86so21377533pfl.3
- for <openbmc@lists.ozlabs.org>; Tue, 27 Jun 2017 12:42:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to;
- bh=FChcjwBKVYuCHX7PTuaqzuWG4bRk9QcrzzHZgoCx97o=;
- b=EtH9BxRw92ixyhoBuEPzvcKBHNXzDnojzpOQ20JtCrsRglJnMUUGT6ssSKwlIdg6wk
- fUgPoHV3m6/ByxY3eUZoh/EQKtjy6+mqu7qo4DTKSsbG4MMPaWKe6tyc+x7HKAs9obS/
- u15L9tCypUvE0XSS+W/SfnNBbO60gS8YUsNvQP/P3oycmuwziAXqtuPnHmsiH8D+pOtW
- R79GVP6RKxMLNE0Nh3EgN5tC1paoxUbWv0x0h7zfZiOj9BZr9boipWvNHvRyQqb3mHQD
- cTgOIpDis52lqnOLR9mcK2MgXclAvQF1J6Q9MEANKmK+QNaZ99u/XyXmZPukY/QkPnZd
- iohg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to;
- bh=FChcjwBKVYuCHX7PTuaqzuWG4bRk9QcrzzHZgoCx97o=;
- b=szS+vMnEsyR99alZ2UYbq1do0Q/H9YotozF1PwPQq6fwftWygYhVHQY9710SdN/R7c
- ly+52JoFrXm/2ot18pZHJk1aGflNlfMspghG0qW17c7NEye48l0w4MQ691zHbQV2qh+N
- Ek99m+GfIbhi0rLdJPrSXm6vH3mD/PP8QU0G2vM9SZRsGp5dXTOUGzT7qWVVoSaV/FHp
- tEGjP1sE+jFrb5jVrD6N8V4QUtGUls5TMXw/lOoq6QoSLURb27D33IHdzho/E42CtV9h
- THJ783YrQSAkxBm2HP9R8dFnUBmB6+0X95fj8RYkPFrebZhisYDvxsP3GFW1Cv4927Qu
- bHPA==
-X-Gm-Message-State: AKS2vOygKIx6rN0OQtzCw+1ssUvRolAbpQADhSS1rljAECCxRGV3j+J+
- 23gIZ4oGdhnSyPYYbHdREkO4BXa16oj4oEOZEg==
-X-Received: by 10.84.232.70 with SMTP id f6mr7424118pln.169.1498592551584;
- Tue, 27 Jun 2017 12:42:31 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.100.165.205 with HTTP; Tue, 27 Jun 2017 12:42:11 -0700 (PDT)
-In-Reply-To: <CAO=notxJgr=+fyCaNWH+i6EL2v06aW5LkMp19uFbpYArv7FS3Q@mail.gmail.com>
-References: <CAO=notxJgr=+fyCaNWH+i6EL2v06aW5LkMp19uFbpYArv7FS3Q@mail.gmail.com>
-From: Patrick Venture <venture@google.com>
-Date: Tue, 27 Jun 2017 12:42:11 -0700
-Message-ID: <CAO=notxse66NqGzH7Af_-x0A+2tcqoFfLoWoBVSOPuXcxyqoTA@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wy12C2x33zDr3T
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Jun 2017 08:34:43 +1000 (AEST)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Sender: bradleyb@fuzziesquirrel.com
+Content-Type: text/plain; charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
 Subject: Re: Swampd PID-driven Fan Controller
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <CAO=notxJgr=+fyCaNWH+i6EL2v06aW5LkMp19uFbpYArv7FS3Q@mail.gmail.com>
+Date: Tue, 27 Jun 2017 18:34:38 -0400
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <FB3659C0-EF79-40D3-8001-17D9116FA522@fuzziesquirrel.com>
+References: <CAO=notxJgr=+fyCaNWH+i6EL2v06aW5LkMp19uFbpYArv7FS3Q@mail.gmail.com>
+To: Patrick Venture <venture@google.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,19 +29,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Jun 2017 19:42:35 -0000
+X-List-Received-Date: Tue, 27 Jun 2017 22:34:44 -0000
 
-Patrick brought it to my attention that PID wasn't defined:
-https://en.wikipedia.org/wiki/PID_controller
+Hi Patrick
 
--Patrick
-
-On Tue, Jun 27, 2017 at 9:51 AM, Patrick Venture <venture@google.com> wrote:
+> On Jun 27, 2017, at 12:51 PM, Patrick Venture <venture@google.com> =
+wrote:
+>=20
 > Per the requirements to have a fan controller for the quanta-q71l that
 > runs within the OpenBMC framework+, I developed the swampd
 > application.  It was designed to leverage sdbusplus and other OpenBMC
 > libraries and coding standards.
->
+
+Sweet!  First let me say thanks for your willingness to share your
+application.
+
+>=20
 > It supports:
 > * build-time yaml descriptions of the sensors and PID loops
 > * run-time configuration of the above
@@ -76,25 +53,100 @@ On Tue, Jun 27, 2017 at 9:51 AM, Patrick Venture <venture@google.com> wrote:
 > * passively and actively read sensors
 > * sensors that are from the host
 > * any variation on sysfs IO that is configured.
->
+
+Sounds like a solid feature set.  Can you speak to what level of support
+exists for things like hot plugging and/or degraded mode operation?
+
+>=20
 > The design document is too large to really paste in this email, so
 > I'll summarize.
->
+>=20
 > Each sensor is created based on the configuration provided.  Each PID
 > loop is created per zone.  Each zone lives on a separate thread (could
 > be merged into one thread that iterates through zones).  The zone
 > loops every 0.1s to steer the fans closer to their goal while every
 > second it adjusts the goal.
->
-> Some things I know OpenBMC won't like: it's multi-threaded.  It wasn't
+>=20
+> Some things I know OpenBMC won't like: it's multi-threaded.  It =
+wasn=E2=80=99t
+
+True, we are trying to avoid multi-threaded applications, but if the
+problem being solved by threads can=E2=80=99t reasonably be solved some =
+other
+way that seems fine.
+
 > built into the current fan-presence package.
->
+
+I don=E2=80=99t have any issue with this.
+
+>=20
 > I'm at a crossroads with this project because I'd like to make it
 > generally available.  Should I try to submit it for review on this
 > list, if so, how?  Or should I push it to Google's github projects
 > first?
->
+
+I think this depends on a couple factors.
+
+As you know, another team is also developing a fan control algorithm.
+If the two algorithms are similar I don=E2=80=99t see any point in =
+hosting two
+applications that do the same thing.  It would just make it more =
+confusing
+for others coming to OpenBMC to pick one or the other for their =
+platform.
+
+Now, if each provides their own unique, fundamentally different fan =
+control
+strategy - each with a different set of pros/cons - that is exactly what =
+we
+had anticipated and bringing it in seems like a great idea.
+
+For the second factor, I=E2=80=99m going to be a little frank and =
+critical, because
+my point is fundamental to the project goals and vision.  Please don=E2=80=
+=99t take
+this personally.
+
+This is what is known in OSS circles as a code dump.  It isn=E2=80=99t =
+OSS development.
+OSS development happens...in the open.  The first three bullet points =
+here touch
+on this:
+
+=
+https://people.redhat.com/rjones/how-to-supply-code-to-open-source-project=
+s/
+
+In an OSS development model, the entire community is given the =
+opportunity
+to collaborate and shape the result of the end product, =
+_as_it_is_developed_
+through feedback and contributions.
+
+I=E2=80=99m no zealot.  I completely understand that many times factors =
+like product
+delivery schedules, etc get in the way of this model, and thats fine.  =
+Thats
+why most products using OSS don=E2=80=99t ship with vanilla versions of =
+the project
+they are based on.
+
+But the other fan control algorithm _is_ being developed in the open.  A =
+lot of
+folks have invested many many hours of peer review in it.
+
+So the question becomes, are you prepared to submit your application to =
+that
+same level of peer review and reciprocate by investing the time required =
+to
+address the feedback and get it to a point where the community feels =
+comfortable
+assuming maintenance responsibility for it?
+
+Thx - brad
+
+>=20
 > +As well as other requirements.
->
+>=20
 > Thanks,
 > Patrick
