@@ -1,27 +1,49 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Return-Path: <venture@google.com>
+Received: from mail-pf0-x236.google.com (mail-pf0-x236.google.com
+ [IPv6:2607:f8b0:400e:c00::236])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wxx5C3mM7zDr3P
- for <openbmc@lists.ozlabs.org>; Wed, 28 Jun 2017 05:37:02 +1000 (AEST)
-Received: from localhost (32.97.110.57 [32.97.110.57]) by mx.zohomail.com
- with SMTPS id 1498592217229549.6289315920176;
- Tue, 27 Jun 2017 12:36:57 -0700 (PDT)
-Date: Tue, 27 Jun 2017 14:36:50 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Ilya Kuznetsov <ilya@yadro.com>
-Cc: openbmc@lists.ozlabs.org, Vlad Vovchenko <v.vovchenko@yadro.com>
-Subject: Re: phosphor-net-ipmid
-Message-ID: <20170627193650.GD31439@asimov.austin.ibm.com>
-References: <20170619144445.xpoo5x2sbt3ct22p@yadro.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wxxCZ2Sd6zDr3P
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Jun 2017 05:42:33 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="EtH9BxRw"; 
+ dkim-atps=neutral
+Received: by mail-pf0-x236.google.com with SMTP id q86so21377533pfl.3
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Jun 2017 12:42:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to;
+ bh=FChcjwBKVYuCHX7PTuaqzuWG4bRk9QcrzzHZgoCx97o=;
+ b=EtH9BxRw92ixyhoBuEPzvcKBHNXzDnojzpOQ20JtCrsRglJnMUUGT6ssSKwlIdg6wk
+ fUgPoHV3m6/ByxY3eUZoh/EQKtjy6+mqu7qo4DTKSsbG4MMPaWKe6tyc+x7HKAs9obS/
+ u15L9tCypUvE0XSS+W/SfnNBbO60gS8YUsNvQP/P3oycmuwziAXqtuPnHmsiH8D+pOtW
+ R79GVP6RKxMLNE0Nh3EgN5tC1paoxUbWv0x0h7zfZiOj9BZr9boipWvNHvRyQqb3mHQD
+ cTgOIpDis52lqnOLR9mcK2MgXclAvQF1J6Q9MEANKmK+QNaZ99u/XyXmZPukY/QkPnZd
+ iohg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to;
+ bh=FChcjwBKVYuCHX7PTuaqzuWG4bRk9QcrzzHZgoCx97o=;
+ b=szS+vMnEsyR99alZ2UYbq1do0Q/H9YotozF1PwPQq6fwftWygYhVHQY9710SdN/R7c
+ ly+52JoFrXm/2ot18pZHJk1aGflNlfMspghG0qW17c7NEye48l0w4MQ691zHbQV2qh+N
+ Ek99m+GfIbhi0rLdJPrSXm6vH3mD/PP8QU0G2vM9SZRsGp5dXTOUGzT7qWVVoSaV/FHp
+ tEGjP1sE+jFrb5jVrD6N8V4QUtGUls5TMXw/lOoq6QoSLURb27D33IHdzho/E42CtV9h
+ THJ783YrQSAkxBm2HP9R8dFnUBmB6+0X95fj8RYkPFrebZhisYDvxsP3GFW1Cv4927Qu
+ bHPA==
+X-Gm-Message-State: AKS2vOygKIx6rN0OQtzCw+1ssUvRolAbpQADhSS1rljAECCxRGV3j+J+
+ 23gIZ4oGdhnSyPYYbHdREkO4BXa16oj4oEOZEg==
+X-Received: by 10.84.232.70 with SMTP id f6mr7424118pln.169.1498592551584;
+ Tue, 27 Jun 2017 12:42:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="gE7i1rD7pdK0Ng3j"
-Content-Disposition: inline
-In-Reply-To: <20170619144445.xpoo5x2sbt3ct22p@yadro.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
-X-ZohoMailClient: External
+Received: by 10.100.165.205 with HTTP; Tue, 27 Jun 2017 12:42:11 -0700 (PDT)
+In-Reply-To: <CAO=notxJgr=+fyCaNWH+i6EL2v06aW5LkMp19uFbpYArv7FS3Q@mail.gmail.com>
+References: <CAO=notxJgr=+fyCaNWH+i6EL2v06aW5LkMp19uFbpYArv7FS3Q@mail.gmail.com>
+From: Patrick Venture <venture@google.com>
+Date: Tue, 27 Jun 2017 12:42:11 -0700
+Message-ID: <CAO=notxse66NqGzH7Af_-x0A+2tcqoFfLoWoBVSOPuXcxyqoTA@mail.gmail.com>
+Subject: Re: Swampd PID-driven Fan Controller
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -33,76 +55,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Jun 2017 19:37:04 -0000
+X-List-Received-Date: Tue, 27 Jun 2017 19:42:35 -0000
 
+Patrick brought it to my attention that PID wasn't defined:
+https://en.wikipedia.org/wiki/PID_controller
 
---gE7i1rD7pdK0Ng3j
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+-Patrick
 
-On Mon, Jun 19, 2017 at 05:44:45PM +0300, Ilya Kuznetsov wrote:
-> Hello,
-> we would like to help with phosphor-net-ipmid and have volunteer. For us =
-main=20
-> priorities are sensors and sel. Obviously work is in progress there and w=
-e don't=20
-> want to duplicate it, so please share tasks with us and tell how we can=
-=20
-> contribute?
-> Thanks!
-
-Ilya,
-
-Tom and I did some discussion last week while I was in India on the
-remaining work items for IPMI overall.  The biggest outstanding item is
-DCMI 1.5 support and he has started creating stories for that.
-
-With respect to Sensors and SELs, someone at Google already has some
-commits up that take care of most of the sensor commands and we have
-someone assigned to enhance that.  Before we can fully start on SELs
-there are some backend work items that need to be done, because we do
-not currently keep track of state-items like "when did the machine last
-boot" which are typically placed into the SEL.
-
-We think the best bet would be to have your team work on a small DCMI
-story to get into development.  From there, we can arrange some more
-detailed discussions on some of the breakdown of the bigger items,
-perhaps becoming involved in the SEL development.  Would this be
-reasonable?
-
-A smaller DCMI task that Tom already created is #1855:=20
-https://github.com/openbmc/openbmc/issues/1855 .  This would be an IPMI
-provider that maps the "get/set management controller ID" function into
-the xyz.openbmc_project.Network hostname property:
-https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc=
-_project/Network/SystemConfiguration.interface.yaml#L4
-
-Feel free to discuss over IRC if you want some real-time discussion on
-this.
-
---=20
-Patrick Williams
-
---gE7i1rD7pdK0Ng3j
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAllSs88ACgkQqwNHzC0A
-wRmurQ/9H/HXsY+9i2fNDvy0y2VS7ojaKjlv3O1OgYK4vZyikby/xD65sAri65zt
-SD4FTx0NHU1CVCTNVFt0SzukFYosOaAv9I7bB2Rx1PBH38oS/IBejuxJMUjeQIIu
-hPSjAIg72siRATD57/X/k4R+Qx3KSPbT4iwiy5TPZ1gmyJYBaJhlqW7zQsC+9KBQ
-r0YybNE/W+LrVdwSJ1c7dyNwaNiRiudXuv51sgQCVzgcdyL9rWfBmyahGmebGKCG
-MsDwGRMbWF3MTfjcB3uAbUmjGhXledptTBHuYOZZab0EAFZVJgmontmYsoso2/PR
-pcrjvksSbUL7oqxBZJBGSQTF7xhR2J6x6wf4lbjsldIRSaBz8qfpqnf4qtoVGQ6b
-Xem4fYgI3rUo4vEOBynDyq7fJj/JUyagRJW6PEl3DX1SrZtctRjWtDYXqba6T4Ce
-1263xG7ZpWXIFH86cD0SSHZ45PHB2ZQuyjq52ZhVmFzYnG1EzJ5c8s6HGgOjFWJC
-8mC1ZA5RaCsAPMoUKSHQn/P7edfZhBZ9w3QLywcqtA4skXRB8n172/pG4vqoiZOH
-gI30WKRN5zeoZfUZQQpMeLP1HJvUQ0MXyCEycJDxBZNqR4lNe0sH7XsVV4kXwjl/
-DELYAf+rQcOU6hy6avgyfUscvH2HrV3aQNLlK0XMHJS0EycdpEQ=
-=CBr0
------END PGP SIGNATURE-----
-
---gE7i1rD7pdK0Ng3j--
+On Tue, Jun 27, 2017 at 9:51 AM, Patrick Venture <venture@google.com> wrote:
+> Per the requirements to have a fan controller for the quanta-q71l that
+> runs within the OpenBMC framework+, I developed the swampd
+> application.  It was designed to leverage sdbusplus and other OpenBMC
+> libraries and coding standards.
+>
+> It supports:
+> * build-time yaml descriptions of the sensors and PID loops
+> * run-time configuration of the above
+> * run-time fan speed set-point control
+> * IPMI controlled manual mode
+> * passively and actively read sensors
+> * sensors that are from the host
+> * any variation on sysfs IO that is configured.
+>
+> The design document is too large to really paste in this email, so
+> I'll summarize.
+>
+> Each sensor is created based on the configuration provided.  Each PID
+> loop is created per zone.  Each zone lives on a separate thread (could
+> be merged into one thread that iterates through zones).  The zone
+> loops every 0.1s to steer the fans closer to their goal while every
+> second it adjusts the goal.
+>
+> Some things I know OpenBMC won't like: it's multi-threaded.  It wasn't
+> built into the current fan-presence package.
+>
+> I'm at a crossroads with this project because I'd like to make it
+> generally available.  Should I try to submit it for review on this
+> list, if so, how?  Or should I push it to Google's github projects
+> first?
+>
+> +As well as other requirements.
+>
+> Thanks,
+> Patrick
