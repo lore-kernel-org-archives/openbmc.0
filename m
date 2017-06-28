@@ -1,54 +1,39 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x243.google.com (mail-yw0-x243.google.com
- [IPv6:2607:f8b0:4002:c05::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <wsa-dev@sang-engineering.com>
+Received: from mail.zeus03.de (www.zeus03.de [194.117.254.33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wyC3Z6zHczDr3j
- for <openbmc@lists.ozlabs.org>; Wed, 28 Jun 2017 16:06:34 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="mK7R3agX"; 
- dkim-atps=neutral
-Received: by mail-yw0-x243.google.com with SMTP id l21so1612338ywb.3
- for <openbmc@lists.ozlabs.org>; Tue, 27 Jun 2017 23:06:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=u1EBE3DU+WNtoEdkOjT/oSCuM3okEMSOcXi51Ct1+Xs=;
- b=mK7R3agXjav8GHyUVx5DcUwO25eBizCZhiYyKgk+x07X7/cjvZtRSGypCBmWETSFbj
- oA50pzdo/GFuTM4wUj5FY13WCqrjJz0kD7D82ja7ZGiMHbBTBHgaez/GdXerKQOHWbTb
- pa0qrEE/x/15Ns35YWYK7h3DIgNpD2DRhJfVoNBWVC1bIIpI8YNFYHhFir843pgXU6xp
- vgQXuQOXj4VcajNHdDu7mgyjcaKzd9Rk9JxoQccHnmUkRpIN9W5Ob+IJ2KRxSZLtrN/c
- oOXRjqxynx8TrL8t6U/bXSZU6pvVi1C95AwhdFDd2W5x7HnGfDZnMb8jPZo2MKRbk7XX
- Woug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=u1EBE3DU+WNtoEdkOjT/oSCuM3okEMSOcXi51Ct1+Xs=;
- b=DgfZLOX92cJwFmVkeJvAdY1lCqRxlfrW4j50zoCr6HFOCnf8YP+qzgDzYoBjWc0FXg
- P2q25ZWU9UNE0Eka13COtNGXa8WZduHbsY6CXwaikAxMEcXq6/2eTEAZVah1COwBVj3q
- KbUZddsg74vZ7r/zy3hZKsqF2B7CNjMBfmkE9ESEqUEg6Ir4kGRLBHTqzo1vT7B0M9Xn
- dndWGerF8WSZzThzlRmPgtRX8A890d6MsJd+rh1Lf65w8RP99g1ObFV0gs2tguERYXbo
- lYrJk7l1Q2sW52cyOhaQzurQLVbdmXB7utL+QBq7niHnZYnS19HgUwh+p2j7wFjuodLN
- fzgw==
-X-Gm-Message-State: AKS2vOxlM5tw4II7kEcobPcuU+Tjd6c5+gnbokbzajGuc/v7W5LpfpaE
- HydNc9TAtvTonwx+BuVDALWa/t8ZGg==
-X-Received: by 10.129.52.148 with SMTP id b142mr6549528ywa.164.1498629992254; 
- Tue, 27 Jun 2017 23:06:32 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wyFFd0vfczDqyV
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Jun 2017 17:45:23 +1000 (AEST)
+Received: (qmail 24898 invoked from network); 28 Jun 2017 09:45:16 +0200
+Received: from p200300cf5bc54600021de0fffea0c865.dip0.t-ipconnect.de (HELO
+ localhost) (l3s3148p1@2003:cf:5bc5:4600:21d:e0ff:fea0:c865)
+ by mail.zeus03.de with ESMTPSA (ECDHE-RSA-AES256-GCM-SHA384 encrypted,
+ authenticated); 28 Jun 2017 09:45:16 +0200
+Date: Wed, 28 Jun 2017 09:45:15 +0200
+From: Wolfram Sang <wsa@the-dreams.de>
+To: Brendan Higgins <brendanhiggins@google.com>
+Cc: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Greg KH <gregkh@linuxfoundation.org>,
+ "David S . Miller" <davem@davemloft.net>, mchehab@kernel.org,
+ Joel Stanley <joel@jms.id.au>, martin.petersen@oracle.com,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ linux-i2c@vger.kernel.org, devicetree <devicetree@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: [PATCH v11 3/4] i2c: aspeed: added driver for Aspeed I2C
+Message-ID: <20170628074515.GA1550@katana>
+References: <20170620211516.13095-1-brendanhiggins@google.com>
+ <20170620211516.13095-4-brendanhiggins@google.com>
+ <20170623184305.xqqhjgrbdmgk6lsr@ninjato>
+ <CAFd5g45=O2_MgfZEkmbY-=ZZY+izxeWSuhZT+B2e08P=O+WEog@mail.gmail.com>
+ <20170627090042.GA2408@katana>
+ <CAFd5g449iu6DGvMuP8-n8C6GBbr62G6_ZYS6Lh9038EB0XO9YA@mail.gmail.com>
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.177.8 with HTTP; Tue, 27 Jun 2017 23:06:11 -0700 (PDT)
-In-Reply-To: <20170627134459.125774-1-venture@google.com>
-References: <20170627134459.125774-1-venture@google.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 28 Jun 2017 15:36:11 +0930
-X-Google-Sender-Auth: CFGB_y0fCO030oL0ymyw4_5rHWc
-Message-ID: <CACPK8XfH0OPN4Lch-JmNWDpRO_5wPDic+-8dFjA3Dzr0LkvU8w@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 v2] ARM: dts: aspeed: quanta: Enable pwm
- fans
-To: Patrick Venture <venture@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="u3/rZRmxL6MmkK24"
+Content-Disposition: inline
+In-Reply-To: <CAFd5g449iu6DGvMuP8-n8C6GBbr62G6_ZYS6Lh9038EB0XO9YA@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,106 +45,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 28 Jun 2017 06:06:35 -0000
+X-List-Received-Date: Wed, 28 Jun 2017 07:45:26 -0000
 
-On Tue, Jun 27, 2017 at 11:14 PM, Patrick Venture <venture@google.com> wrote:
-> Signed-off-by: Patrick Venture <venture@google.com>
-> ---
-> v2: Moved pwm_tacho_fixed_clk to clocks.
-> ---
->  arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts | 51 ++++++++++++++++++++++++++++
->  arch/arm/boot/dts/aspeed-g4.dtsi             |  5 +++
->  2 files changed, 56 insertions(+)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-> index e609c53d58f5..3abc2954d26e 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-> @@ -46,6 +46,57 @@
->                         gpios = <&gpio ASPEED_GPIO(B, 3) GPIO_ACTIVE_LOW>;
->                 };
->         };
-> +
-> +       pwm_tacho: pwm-tacho-controller@1e786000 {
-> +               #address-cells = <1>;
-> +               #size-cells = <1>;
-> +               reg = <0x1E786000 0x1000>;
 
-Nit: convention is to use lowecase for hex numbers in the dt.
+--u3/rZRmxL6MmkK24
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> +               compatible = "aspeed,ast2500-pwm-tacho";
-> +               clocks = <&pwm_tacho_fixed_clk>;
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
-> +                       &pinctrl_pwm2_default &pinctrl_pwm3_default>;
 
-It looks like you're using fans 0..7, but you're only requesting the
-pins for the first four fans. Should you be requesting all 8?
+> the struct i2c_bus_recovery_info. Is i2c_generic_scl_recovery supposed
+> to be part of the user interface, or is it just intended to help put the
+> main recovery function together?
 
-Cheers,
+Sorry, I don't understand the question. What do you mean?
 
-Joel
 
-> +
-> +               fan@0 {
-> +                       reg = <0x00>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x00>;
-> +               };
-> +
-> +               fan@1 {
-> +                       reg = <0x01>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x01>;
-> +               };
-> +
-> +               fan@2 {
-> +                       reg = <0x02>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x02>;
-> +               };
-> +
-> +               fan@3 {
-> +                       reg = <0x03>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x03>;
-> +               };
-> +
-> +               fan@4 {
-> +                       reg = <0x00>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x04>;
-> +               };
-> +
-> +               fan@5 {
-> +                       reg = <0x01>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x05>;
-> +               };
-> +
-> +               fan@6 {
-> +                       reg = <0x02>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x06>;
-> +               };
-> +
-> +               fan@7 {
-> +                       reg = <0x03>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x07>;
-> +               };
-> +       };
->  };
->
->  &fmc {
-> diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-> index a998a00a2728..9cc959fccfa0 100644
-> --- a/arch/arm/boot/dts/aspeed-g4.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-> @@ -36,6 +36,11 @@
->         };
->
->         clocks {
-> +               pwm_tacho_fixed_clk: fixedclk {
-> +                       compatible = "fixed-clock";
-> +                       #clock-cells = <0>;
-> +                       clock-frequency = <24000000>;
-> +               };
->         };
->
->         ahb {
-> --
-> 2.13.1.611.g7e3b11ae1-goog
->
+--u3/rZRmxL6MmkK24
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAllTXocACgkQFA3kzBSg
+Kbaeeg//SPK9le+UeP5TF7ffb7my1IPiug4r8BHGZncLLQyS/FLmCp8yai5KpYWV
+oGFWrBnfnc/9kaHkrBXeyooCdyHKxIvYVarWiIoQsidM0Q9j4AD5J7edB9T31rGh
+2PJvhLt5tKKK3G/W73rWa2a+SR2fRPbMKGnJffJjJaUXoVMtzO/b/gBrkuWJTTie
+0UUlYm8TRDSW8IqtAJSxM10gU7a4lV5z9GGPrW+TmPm8/ezcqNjCZ483S+5+5izQ
+vEtPJXIbeAxZcOGb0NhLmJVE6SQnh7aYBIMGpgbXzSuTEQzL20e+RuBUEJUOI9vP
+C5kekSZzZHq7bTXg4pd1znCAnwTTvRb/OasqaeUZyj14N9LNWsDdZku3apLMauPU
+nnsfdmihimfbcECcaaxXMkSTVzP00Biw7Pn+Wtu6H8ESnuswy0YrSq+16C0SR1E9
+L5Wwvy5yyGGk2QCMpqgFfiCoRCgLhuHwN86qx1XTBBTe62PNqBiQIvn44pPykLQU
+Uoj5azB2xM956j0bzTxN8AXcWUDPTRABe9HkG027KsEqgqisgOq7dmEG2rBcx2jE
+cW2yCb+LawJQiR2XcSB6wen1dpYCOeQesDx8fSd3WLyy8Ln8aB1ftPT++Y3qmJG2
+KkskjrjWfpEDa6fi3xBbrcQ+F95pBZNv2PDS0bCAZ81rCtq01i4=
+=yvxZ
+-----END PGP SIGNATURE-----
+
+--u3/rZRmxL6MmkK24--
