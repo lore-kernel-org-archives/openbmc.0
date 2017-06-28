@@ -1,71 +1,50 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <venture@google.com>
+Received: from mail-pf0-x236.google.com (mail-pf0-x236.google.com
+ [IPv6:2607:f8b0:400e:c00::236])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wyPnW0w6rzDr3l
- for <openbmc@lists.ozlabs.org>; Thu, 29 Jun 2017 00:10:06 +1000 (AEST)
-Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v5SE9DRK040232
- for <openbmc@lists.ozlabs.org>; Wed, 28 Jun 2017 10:10:05 -0400
-Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2bc8p8y803-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 28 Jun 2017 10:10:04 -0400
-Received: from localhost
- by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Wed, 28 Jun 2017 10:10:03 -0400
-Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
- by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Wed, 28 Jun 2017 10:10:00 -0400
-Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
- [9.57.199.107])
- by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v5SEA0d162783570; Wed, 28 Jun 2017 14:10:00 GMT
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 355F2124044;
- Wed, 28 Jun 2017 10:07:30 -0400 (EDT)
-Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP id BE93F124037;
- Wed, 28 Jun 2017 10:07:29 -0400 (EDT)
-Subject: Re: [PATCH linux dev-4.10] arm/dts: Add I2C master and ports to FSI
- cfam
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- "Edward A. James" <eajames@us.ibm.com>
-References: <1498505585-1820-1-git-send-email-eajames@linux.vnet.ibm.com>
- <CACPK8XeOHwzMjMm7N4GU159QckNV=WvX=5C5RLWOr7DQ5yFF=g@mail.gmail.com>
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Wed, 28 Jun 2017 09:09:59 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.1.0
-MIME-Version: 1.0
-In-Reply-To: <CACPK8XeOHwzMjMm7N4GU159QckNV=WvX=5C5RLWOr7DQ5yFF=g@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 17062814-0044-0000-0000-0000035E89B6
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007290; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00879931; UDB=6.00438607; IPR=6.00660086; 
- BA=6.00005445; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015991; XFM=3.00000015;
- UTC=2017-06-28 14:10:02
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17062814-0045-0000-0000-0000078C92D2
-Message-Id: <6058006f-ad66-d053-550f-6962725b55e9@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-06-28_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1706280230
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wyQ4d6fR3zDr3q
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Jun 2017 00:23:13 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="RWLE+OjO"; 
+ dkim-atps=neutral
+Received: by mail-pf0-x236.google.com with SMTP id s66so34297072pfs.1
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Jun 2017 07:23:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=from:to:subject:date:message-id;
+ bh=J9OOoZraDKZiVCjXwN9z7vzatF+dn1sAlMHxz+u1kMA=;
+ b=RWLE+OjOr+j9oFVvJpRUxhORNEf/TGrvTdr9QMn7q+Z1cwi/cuFtEUZdMa2BifhFix
+ 42rEwB+36bWmDMX+DfBHgmLrPbjda5d7qZKcare2FMwYmx4t4Ft5+Ycnl2HewLeBjZEP
+ cnw4sK/4PsYBD/3e5iPym9AQMm992ermq0K2v53Wf6kKt2O/0QRRpIbqszQFREzBfthL
+ ITOfaazQtzl9BU1R3gRW54Z9+6pF7G2xam/8cYEB6jxjIkPnJoL2tADC2fht3D0Irz30
+ FZd2gSCCD1FUseniO/oqYWxB4cdRf6og/QM1XfVrTz71LJJ4fSq1Y94g9ANys/ntpirz
+ qgJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:subject:date:message-id;
+ bh=J9OOoZraDKZiVCjXwN9z7vzatF+dn1sAlMHxz+u1kMA=;
+ b=gc8NnOi6p4iZ22+7DCEiRQggAMutvZ5ympD1TODlHzjwzCFnrGkgDYnwkIdB/wo1HM
+ OImllpDJ+p98qPPuEHgr8GlyVu3CLtjYnK662JAuympcLj7dTyGM6V7teJCaCpoK7zIk
+ GrdSTysOhP7vLwpivMNTii5vcVx4crIj4gI0+gqTTnLLha1z5PxgIppZ6GrJM24m60SF
+ sLXVntV9ChaXmmtF+OiKdqMX0CA88hThIKknUsji/hXwP7Zmdd1wI/GsIJPLqhdQweU1
+ E5JUeyJ83HlR8dqF+CRMHhHX2OEYJA7d2js9EgBj6jN0yDl5kfWzDspHb4ekeD2MBkRg
+ quiA==
+X-Gm-Message-State: AKS2vOxq/XMUeAIP0sBuOiOXp8XNksApAh4R3xR0VisrkdQsbMRdS74T
+ rP9ixRDpyqwB1ucO
+X-Received: by 10.84.197.69 with SMTP id m63mr12222008pld.50.1498659791182;
+ Wed, 28 Jun 2017 07:23:11 -0700 (PDT)
+Received: from venture.svl.corp.google.com ([100.123.242.104])
+ by smtp.gmail.com with ESMTPSA id k73sm7364983pge.13.2017.06.28.07.23.10
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Wed, 28 Jun 2017 07:23:10 -0700 (PDT)
+From: Patrick Venture <venture@google.com>
+To: venture@google.com,
+	joel@jms.id.au,
+	openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.10 v3] ARM: dts: aspeed: quanta: Enable pwm fans
+Date: Wed, 28 Jun 2017 07:23:04 -0700
+Message-Id: <20170628142304.34433-1-venture@google.com>
+X-Mailer: git-send-email 2.13.2.725.g09c95d1e9-goog
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -77,181 +56,94 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 28 Jun 2017 14:10:07 -0000
+X-List-Received-Date: Wed, 28 Jun 2017 14:23:14 -0000
 
+Signed-off-by: Patrick Venture <venture@google.com>
+---
+v3: lowercased hex address
+v2: Moved pwm_tacho_fixed_clk to clocks.
+---
+ arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts | 51 ++++++++++++++++++++++++++++
+ arch/arm/boot/dts/aspeed-g4.dtsi             |  5 +++
+ 2 files changed, 56 insertions(+)
 
-
-On 06/27/2017 11:57 PM, Joel Stanley wrote:
-> On Tue, Jun 27, 2017 at 5:03 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
->> From: "Edward A. James" <eajames@us.ibm.com>
->>
->> FSI I2C master algorithm probes port devices based on dts.
-> Do you need all 28 ports enabled?
-
-I think so. All of those are valid I2C busses on P9. I'm not sure who 
-uses them all.
-
-Thanks,
-Eddie
-
->
->> Signed-off-by: Edward A. James <eajames@us.ibm.com>
->> ---
->>   arch/arm/boot/dts/ibm-power9-cfam.dtsi | 134 +++++++++++++++++++++++++++++++++
->>   1 file changed, 134 insertions(+)
->>
->> diff --git a/arch/arm/boot/dts/ibm-power9-cfam.dtsi b/arch/arm/boot/dts/ibm-power9-cfam.dtsi
->> index f29c6e3..a0b5c97 100644
->> --- a/arch/arm/boot/dts/ibm-power9-cfam.dtsi
->> +++ b/arch/arm/boot/dts/ibm-power9-cfam.dtsi
->> @@ -4,6 +4,73 @@
->>                  #address-cells = <1>;
->>                  #size-cells = <1>;
->>
->> +               i2cm@1800 {
->> +                       compatible = "ibm,fsi-i2c-master";
->> +                       reg = <0x1800 0x400>;
->> +                       #address-cells = <1>;
->> +                       #size-cells = <0>;
->> +
->> +                       port@0 {
->> +                               port = <0>;
->> +                       };
->> +
->> +                       port@1 {
->> +                               port = <1>;
->> +                       };
->> +
->> +                       port@2 {
->> +                               port = <2>;
->> +                       };
->> +
->> +                       port@3 {
->> +                               port = <3>;
->> +                       };
->> +
->> +                       port@4 {
->> +                               port = <4>;
->> +                       };
->> +
->> +                       port@5 {
->> +                               port = <5>;
->> +                       };
->> +
->> +                       port@6 {
->> +                               port = <6>;
->> +                       };
->> +
->> +                       port@7 {
->> +                               port = <7>;
->> +                       };
->> +
->> +                       port@8 {
->> +                               port = <8>;
->> +                       };
->> +
->> +                       port@9 {
->> +                               port = <9>;
->> +                       };
->> +
->> +                       port@10 {
->> +                               port = <10>;
->> +                       };
->> +
->> +                       port@11 {
->> +                               port = <11>;
->> +                       };
->> +
->> +                       port@12 {
->> +                               port = <12>;
->> +                       };
->> +
->> +                       port@13 {
->> +                               port = <13>;
->> +                       };
->> +
->> +                       port@14 {
->> +                               port = <14>;
->> +                       };
->> +               };
->> +
->>                  sbefifo@2400 {
->>                          compatible = "ibm,p9-sbefifo";
->>                          reg = <0x2400 0x400>;
->> @@ -31,6 +98,73 @@
->>                                  #address-cells = <1>;
->>                                  #size-cells = <1>;
->>
->> +                               i2cm@1800 {
->> +                                       compatible = "ibm,fsi-i2c-master";
->> +                                       reg = <0x1800 0x400>;
->> +                                       #address-cells = <1>;
->> +                                       #size-cells = <0>;
->> +
->> +                                       port@0 {
->> +                                               port = <0>;
->> +                                       };
->> +
->> +                                       port@1 {
->> +                                               port = <1>;
->> +                                       };
->> +
->> +                                       port@2 {
->> +                                               port = <2>;
->> +                                       };
->> +
->> +                                       port@3 {
->> +                                               port = <3>;
->> +                                       };
->> +
->> +                                       port@4 {
->> +                                               port = <4>;
->> +                                       };
->> +
->> +                                       port@5 {
->> +                                               port = <5>;
->> +                                       };
->> +
->> +                                       port@6 {
->> +                                               port = <6>;
->> +                                       };
->> +
->> +                                       port@7 {
->> +                                               port = <7>;
->> +                                       };
->> +
->> +                                       port@8 {
->> +                                               port = <8>;
->> +                                       };
->> +
->> +                                       port@9 {
->> +                                               port = <9>;
->> +                                       };
->> +
->> +                                       port@10 {
->> +                                               port = <10>;
->> +                                       };
->> +
->> +                                       port@11 {
->> +                                               port = <11>;
->> +                                       };
->> +
->> +                                       port@12 {
->> +                                               port = <12>;
->> +                                       };
->> +
->> +                                       port@13 {
->> +                                               port = <13>;
->> +                                       };
->> +
->> +                                       port@14 {
->> +                                               port = <14>;
->> +                                       };
->> +                               };
->> +
->>                                  sbefifo@2400 {
->>                                          compatible = "ibm,p9-sbefifo";
->>                                          reg = <0x2400 0x400>;
->> --
->> 1.8.3.1
->>
+diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+index e609c53d58f5..3abc2954d26e 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+@@ -46,6 +46,57 @@
+ 			gpios = <&gpio ASPEED_GPIO(B, 3) GPIO_ACTIVE_LOW>;
+ 		};
+ 	};
++
++	pwm_tacho: pwm-tacho-controller@1e786000 {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		reg = <0x1e786000 0x1000>;
++		compatible = "aspeed,ast2500-pwm-tacho";
++		clocks = <&pwm_tacho_fixed_clk>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
++			&pinctrl_pwm2_default &pinctrl_pwm3_default>;
++
++		fan@0 {
++			reg = <0x00>;
++			aspeed,fan-tach-ch = /bits/ 8 <0x00>;
++		};
++
++		fan@1 {
++			reg = <0x01>;
++			aspeed,fan-tach-ch = /bits/ 8 <0x01>;
++		};
++
++		fan@2 {
++			reg = <0x02>;
++			aspeed,fan-tach-ch = /bits/ 8 <0x02>;
++		};
++
++		fan@3 {
++			reg = <0x03>;
++			aspeed,fan-tach-ch = /bits/ 8 <0x03>;
++		};
++
++		fan@4 {
++			reg = <0x00>;
++			aspeed,fan-tach-ch = /bits/ 8 <0x04>;
++		};
++
++		fan@5 {
++			reg = <0x01>;
++			aspeed,fan-tach-ch = /bits/ 8 <0x05>;
++		};
++
++		fan@6 {
++			reg = <0x02>;
++			aspeed,fan-tach-ch = /bits/ 8 <0x06>;
++		};
++
++		fan@7 {
++			reg = <0x03>;
++			aspeed,fan-tach-ch = /bits/ 8 <0x07>;
++		};
++	};
+ };
+ 
+ &fmc {
+diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
+index a998a00a2728..9cc959fccfa0 100644
+--- a/arch/arm/boot/dts/aspeed-g4.dtsi
++++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+@@ -36,6 +36,11 @@
+ 	};
+ 
+ 	clocks {
++		pwm_tacho_fixed_clk: fixedclk {
++			compatible = "fixed-clock";
++			#clock-cells = <0>;
++			clock-frequency = <24000000>;
++		};
+ 	};
+ 
+ 	ahb {
+-- 
+2.13.1.611.g7e3b11ae1-goog
