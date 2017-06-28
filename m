@@ -1,57 +1,62 @@
-Return-Path: <bjwyman@gmail.com>
-Received: from mail-qt0-x242.google.com (mail-qt0-x242.google.com
- [IPv6:2607:f8b0:400d:c0d::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wyVzL5PS3zDr27
- for <openbmc@lists.ozlabs.org>; Thu, 29 Jun 2017 04:03:58 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="dcHi/7oh"; 
- dkim-atps=neutral
-Received: by mail-qt0-x242.google.com with SMTP id c20so8441667qte.0
- for <openbmc@lists.ozlabs.org>; Wed, 28 Jun 2017 11:03:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=LrqoPJagYIGITtJvmn8UJkGrzazg8GXEZHfbOEjieWs=;
- b=dcHi/7ohfJ7+oLtFUObJ4MxSpAHBuqxBiqfOnIVmcX+C2DXCJ621ohKLMIg/7WLsVM
- wBSVCpZawxlTSajkPp3Q/lEbv0kb2oTNT+Lr+fkdSJ9uzeR4ohuhFBi4OnD2RP9l+9qS
- 0/ATlR6xynENXaJqR5xl1tytwgEvpKwiih4M1CTlF7frxe85/50VYNUW1/heoGz4bHMo
- JAhqjF6TD5z6hnUa6IRBK717C3b5yAn95RxaL6jnb5TQdn9HiN7fW3SH5IlIw9rJfJeU
- VwL5aiv9eZXAIOQtP1Wv7M8fTonGC1s6vrQzOhjRSrbSQ2q5GpqKhLjneI7+AQS4WqP7
- eNwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=LrqoPJagYIGITtJvmn8UJkGrzazg8GXEZHfbOEjieWs=;
- b=rsd6AE5XdjwAJ2F4ahVwfiudLvMTmo7iFZl73ONenJDwPQDJLuRL0krLkXURdTxOkh
- CDo46+hgI/z9V0t59Mq4fi6mQ3TfapOTPce/ltQGskGDCmvn13Pv8TlgT6SkgIw/dZnP
- fvK2MhDoAMGZaGdywzq8hUJ8pujAgCVAG4GUcih8GwJCqNDr7n/R+L1TkansPb1f+dA/
- GO+nYex3QJfF7JTrQVVc6A4aPGmxQznRLMyPgk546h6yKsJ66gNJB38mdqWL+eU0fTnp
- bwKx4zBYryp3mbxJgDiaBNPVIdltzmMCFjB+BrVeUmNJwxlD9H4o7ZBKDQtyc0xGCc9M
- a6BQ==
-X-Gm-Message-State: AKS2vOwnhd2WVRy8ReKQlYG6YF/6gRYVcv5I6hR9MZ6VT2kuCGMjIzQT
- xjaNol42S8MhlYy1S9dXzPjG/ECBCQ==
-X-Received: by 10.237.50.132 with SMTP id z4mr15484272qtd.31.1498673034719;
- Wed, 28 Jun 2017 11:03:54 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.140.97.4 with HTTP; Wed, 28 Jun 2017 11:03:54 -0700 (PDT)
-In-Reply-To: <CACPK8Xf0p6EBNf2G1dhKCeT8KvsTpniVUePpVLYEh2eGw66ORA@mail.gmail.com>
-References: <1498262178-27820-1-git-send-email-bjwyman@gmail.com>
- <CACPK8XcDD+0ZCytgx_xWf9L2Q9nW7fQp9pNtE9+285UrnQh80A@mail.gmail.com>
- <f8553d4f-c0b9-5cef-de01-067b313b10cb@kaod.org>
- <CACPK8Xf0p6EBNf2G1dhKCeT8KvsTpniVUePpVLYEh2eGw66ORA@mail.gmail.com>
-From: Brandon Wyman <bjwyman@gmail.com>
-Date: Wed, 28 Jun 2017 13:03:54 -0500
-Message-ID: <CAK_vbW1Vk_AokYnPbvNqyBE3_PKFXmN+_krzedN-x4y03M8PAw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] Add fan card PCA9552 to Witherspoon
- devicetree
-To: Joel Stanley <joel@jms.id.au>
-Cc: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wyc7361p8zDr46
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Jun 2017 07:55:59 +1000 (AEST)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v5SLrqrP046737
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Jun 2017 17:55:56 -0400
+Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2bckf32pys-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Jun 2017 17:55:56 -0400
+Received: from localhost
+ by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Wed, 28 Jun 2017 15:55:55 -0600
+Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
+ by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 28 Jun 2017 15:55:52 -0600
+Received: from b03ledav001.gho.boulder.ibm.com
+ (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
+ by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v5SLtqWi66257042; Wed, 28 Jun 2017 14:55:52 -0700
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 4AF6A6E044;
+ Wed, 28 Jun 2017 15:55:52 -0600 (MDT)
+Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP id 169FE6E03A;
+ Wed, 28 Jun 2017 15:55:52 -0600 (MDT)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, bradleyb@fuzziesquirrel.com,
+ "Edward A. James" <eajames@us.ibm.com>
+Subject: [PATCH linux dev-4.10] drivers/fsi: Fix SBEFIFO write() race condition
+Date: Wed, 28 Jun 2017 16:55:49 -0500
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+x-cbid: 17062821-0012-0000-0000-0000148ED07B
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007291; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00880087; UDB=6.00438699; IPR=6.00660241; 
+ BA=6.00005445; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015995; XFM=3.00000015;
+ UTC=2017-06-28 21:55:54
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17062821-0013-0000-0000-00004E5A8D69
+Message-Id: <1498686949-15084-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-06-28_13:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1706280351
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,38 +68,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 28 Jun 2017 18:04:01 -0000
+X-List-Received-Date: Wed, 28 Jun 2017 21:56:00 -0000
 
-On Tue, Jun 27, 2017 at 4:33 AM, Joel Stanley <joel@jms.id.au> wrote:
-> On Tue, Jun 27, 2017 at 3:43 PM, C=C3=A9dric Le Goater <clg@kaod.org> wro=
-te:
->> On 06/26/2017 08:16 AM, Joel Stanley wrote:
->>> Hello Brandon,
->>>
->>> On Sat, Jun 24, 2017 at 9:26 AM, Brandon Wyman <bjwyman@gmail.com> wrot=
-e:
->>>> The Witherspoon OpenBMC system has a PCA9552 chip on the fan card that
->>>> is used for fan fault and identify LED control. Adding this chip and t=
-he
->>>> LED lines to the device tree.
->>>
->>> Great first submission. One issue I found, please see below.
->>
->> Joel,
->>
->> haven't you merged the patch defining all the PCA9552 pins as GPIOS ?
->>
->> https://github.com/openbmc/linux/commit/db30464ee579176abc82d0fe95aa9b9f=
-f76d0c3a
->
-> Yeah. We have a few PCA955x devices in the system.
->
-> There's the pca9552 used as GPIOs for the GPUs that you worked on the
-> driver for. There's also a pca9551 that's used for driving LEDs, which
-> is what Brandon is working on.
->
-> Cheers,
->
-> Joel
-That is correct. There are two such PCA9552 devices on the Witherspoon
-system. One is on I2C-11, the other is on I2C-3.
+From: "Edward A. James" <eajames@us.ibm.com>
+
+There was a race condition with the XFR_WRITE_DONE flag between write()
+and the worker thread. Occasionally the worker wrote all the data and
+checked the flag before write() could set it.
+
+Signed-off-by: Edward A. James <eajames@us.ibm.com>
+---
+ drivers/fsi/fsi-sbefifo.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
+index f1bc144..d7dccf9 100644
+--- a/drivers/fsi/fsi-sbefifo.c
++++ b/drivers/fsi/fsi-sbefifo.c
+@@ -688,6 +688,12 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
+ 		len -= n;
+ 		ret += n;
+ 
++		/* set flag before starting the worker, as it may run through
++		 * and check the flag before we exit this loop!
++		 */
++		if (!len)
++			set_bit(SBEFIFO_XFR_WRITE_DONE, &xfr->flags);
++
+ 		/*
+ 		 * Drain the write buffer.
+ 		 */
+@@ -696,7 +702,6 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
+ 			sbefifo_put(sbefifo);
+ 	}
+ 
+-	set_bit(SBEFIFO_XFR_WRITE_DONE, &xfr->flags);
+ 	sbefifo_put_client(client);
+ 
+ 	return ret;
+-- 
+1.8.3.1
