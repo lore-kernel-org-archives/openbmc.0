@@ -1,61 +1,57 @@
-Return-Path: <cyril.bur@au1.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x22a.google.com (mail-yw0-x22a.google.com
+ [IPv6:2607:f8b0:4002:c05::22a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wyd896s7XzDr4J
- for <openbmc@lists.ozlabs.org>; Thu, 29 Jun 2017 08:42:01 +1000 (AEST)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v5SMcowN069297
- for <openbmc@lists.ozlabs.org>; Wed, 28 Jun 2017 18:41:58 -0400
-Received: from e23smtp03.au.ibm.com (e23smtp03.au.ibm.com [202.81.31.145])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2bcmrbsatp-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 28 Jun 2017 18:41:58 -0400
-Received: from localhost
- by e23smtp03.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cyril.bur@au1.ibm.com>;
- Thu, 29 Jun 2017 08:41:55 +1000
-Received: from d23relay08.au.ibm.com (202.81.31.227)
- by e23smtp03.au.ibm.com (202.81.31.209) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Thu, 29 Jun 2017 08:41:54 +1000
-Received: from d23av05.au.ibm.com (d23av05.au.ibm.com [9.190.234.119])
- by d23relay08.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v5SMfjBa8389058
- for <openbmc@lists.ozlabs.org>; Thu, 29 Jun 2017 08:41:53 +1000
-Received: from d23av05.au.ibm.com (localhost [127.0.0.1])
- by d23av05.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- v5SMfLMb010995
- for <openbmc@lists.ozlabs.org>; Thu, 29 Jun 2017 08:41:21 +1000
-Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
- by d23av05.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- v5SMfLJF010569; Thu, 29 Jun 2017 08:41:21 +1000
-Received: from camb691.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
- (using TLSv1.2 with cipher DHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 01C8AA01B5;
- Thu, 29 Jun 2017 08:40:57 +1000 (AEST)
-From: Cyril Bur <cyril.bur@au1.ibm.com>
-To: joel@jms.id.au, openbmc@lists.ozlabs.org
-Subject: [PATCH skiboot/pflash] libflash/libffs: Detect first byte flash
- corruption
-Date: Thu, 29 Jun 2017 08:40:41 +1000
-X-Mailer: git-send-email 2.13.2
-X-TM-AS-MML: disable
-x-cbid: 17062822-0008-0000-0000-00000148DA38
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17062822-0009-0000-0000-00000978B456
-Message-Id: <20170628224041.14315-1-cyril.bur@au1.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-06-28_14:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1706280363
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wydFR0fwQzDr24
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Jun 2017 08:46:35 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZVXIYVjC"; 
+ dkim-atps=neutral
+Received: by mail-yw0-x22a.google.com with SMTP id j11so30379565ywa.2
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Jun 2017 15:46:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=QTMjAbsll8U1j2HtbMBDNu57u2ZWFOZDeJOzmko2dvU=;
+ b=ZVXIYVjCGExmSKW8gpdEbC9L2i2/gO4Coc77i+xBJOWFwRqrHigkoMfJUHf0so8Q80
+ GBVoV8SP3YCYAgh2UYMjv4jZ9SNXJaT7H/68GwTX/0V3xLhsJZqWawrEkmFaeAV3I1hQ
+ 0L1gx4eAgB/hwZe/pTd/QU9RaYkY0w3+KY5UDjTqJ6cpqliKFiqE0kenex3VBlZM7muA
+ TOwgt5eEndw6qLMNmAF76kyoPsP/UqkH/8/Sw91j1xwb6ztBT++WaQDA7vKlprAiispu
+ bUVRdQsxklV7T5KaqWufrmrhZcrQKmbZYpw/L64nukgf+E32Q8urj9zqIw0VtXVDqCnO
+ qHfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=QTMjAbsll8U1j2HtbMBDNu57u2ZWFOZDeJOzmko2dvU=;
+ b=WNucoNsPtEULRu3LODbtJ48U5Fj4wqdeQKsz0ryUgVyp5+JRa8gHihurRNjCFjOya7
+ hzrChMOjr2NbQZ6gMahUQrV13i3SkKhoK6MiVDctfDqj+crEQptIlAoPOgkj4wPjYcf2
+ DzY+E5rBbRSr7URE+ITbTTh5mPNklBOTdu5eY4/3JEm7IO6WN3POw7cbH/os0Vau688x
+ gU/OrjvKyxR9YrFZFaWgfrYnqm2DEt70I3kgvjeooChB7Nh/sbhB5+h1pbqKe8UudjKM
+ fQAj1ag6k/Ah73sxC/yHx5wuASAteOQqhKrQ8EeDln3ziIfmNxe7azR23M//kvwjAm9Y
+ 5iCg==
+X-Gm-Message-State: AKS2vOxM/dqt0fUJymPM7R2dw0dwNMG/nGkw94Pld0B61m66XYWrzfIB
+ EC5Nw2OT56fkuaaVqrmGFCJXIKegKg==
+X-Received: by 10.13.208.67 with SMTP id s64mr10140362ywd.43.1498689992658;
+ Wed, 28 Jun 2017 15:46:32 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.177.8 with HTTP; Wed, 28 Jun 2017 15:46:12 -0700 (PDT)
+In-Reply-To: <6058006f-ad66-d053-550f-6962725b55e9@linux.vnet.ibm.com>
+References: <1498505585-1820-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <CACPK8XeOHwzMjMm7N4GU159QckNV=WvX=5C5RLWOr7DQ5yFF=g@mail.gmail.com>
+ <6058006f-ad66-d053-550f-6962725b55e9@linux.vnet.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 29 Jun 2017 08:16:12 +0930
+X-Google-Sender-Auth: 87lSBq_JTI2z2j3-dgLU14vDOWM
+Message-ID: <CACPK8XeSLsXU+FMm-t_gE+J3zOkGTAaG80JO0H_-gQQoxK4e=g@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] arm/dts: Add I2C master and ports to FSI
+ cfam
+To: Eddie James <eajames@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ "Edward A. James" <eajames@us.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,60 +63,33 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 28 Jun 2017 22:42:02 -0000
+X-List-Received-Date: Wed, 28 Jun 2017 22:46:35 -0000
 
-This patch is not for upstream but currently this unknown corruption is
-making life difficult.
+On Wed, Jun 28, 2017 at 11:39 PM, Eddie James
+<eajames@linux.vnet.ibm.com> wrote:
+>
+>
+> On 06/27/2017 11:57 PM, Joel Stanley wrote:
+>>
+>> On Tue, Jun 27, 2017 at 5:03 AM, Eddie James <eajames@linux.vnet.ibm.com>
+>> wrote:
+>>>
+>>> From: "Edward A. James" <eajames@us.ibm.com>
+>>>
+>>> FSI I2C master algorithm probes port devices based on dts.
+>>
+>> Do you need all 28 ports enabled?
+>
+>
+> I think so. All of those are valid I2C busses on P9. I'm not sure who uses
+> them all.
 
-Perhaps it can be useful at least temporarily.
+Convention has been to only enable the buses that are active. Set the
+default to be status = "disabled"; and then in the .dts files for each
+machine that uses these will set the status = "okay".
 
-Feel free to remove the option to continue and leave just the
-information message.
+I know that the Cronus tools use one of these for updating the SBE EEPROM.
 
-Signed-off-by: Cyril Bur <cyril.bur@au1.ibm.com>
----
- libflash/libffs.c | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+Cheers,
 
-diff --git a/libflash/libffs.c b/libflash/libffs.c
-index 7ae9050e..dce6237e 100644
---- a/libflash/libffs.c
-+++ b/libflash/libffs.c
-@@ -260,6 +260,35 @@ int ffs_init(uint32_t offset, uint32_t max_size, struct blocklevel_device *bl,
- 
- 	/* Convert and check flash header */
- 	rc = ffs_check_convert_header(&f->hdr, &raw_hdr);
-+	/*
-+	 * A bug on witherspoon of currently unknown origin causes
-+	 * corruption of the first byte of flash. This is by no means
-+	 * a fix and should never go upstream but may prove helpful.
-+	 */
-+	if (rc == FFS_ERR_BAD_MAGIC) {
-+		/*
-+		 * We can set the first byte to what we know it should be
-+		 * and try to check and convert header again. If it
-+		 * succeeds there is a very high chance this is the
-+		 * problem.
-+		 */
-+		*(char *)&raw_hdr = 'P';
-+		rc = ffs_check_convert_header(&f->hdr, &raw_hdr);
-+		if (rc) {
-+			/*
-+			 * Turn it back into BAD_MAGIC, the flash obviously
-+			 * has bigger problems.
-+			 */
-+			rc = FFS_ERR_BAD_MAGIC;
-+		} else {
-+			FL_ERR("FFS: Detected corruption of the first byte of flash.\n");
-+			FL_ERR("     Recommend hard power cycling the entire machine\n");
-+			FL_ERR("     Continuing is dangerous!\n");
-+			FL_ERR("     Continuing in 10 seconds\n");
-+			sleep(10);
-+			rc = 0;
-+		}
-+	}
- 	if (rc) {
- 		FL_INF("FFS: Flash header not found. Code: %d\n", rc);
- 		goto out;
--- 
-2.13.2
+Joel
