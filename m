@@ -1,55 +1,61 @@
-Return-Path: <venture@google.com>
-Received: from mail-pg0-x235.google.com (mail-pg0-x235.google.com
- [IPv6:2607:f8b0:400e:c05::235])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <linux@roeck-us.net>
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wz15Q0kqszDrBV
- for <openbmc@lists.ozlabs.org>; Thu, 29 Jun 2017 23:40:58 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wz2xf0NgczDr4k
+ for <openbmc@lists.ozlabs.org>; Fri, 30 Jun 2017 01:04:21 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="R84vWc9K"; 
+ unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.b="Nbxjlz0C";
  dkim-atps=neutral
-Received: by mail-pg0-x235.google.com with SMTP id u62so48215339pgb.3
- for <openbmc@lists.ozlabs.org>; Thu, 29 Jun 2017 06:40:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=TL7pCqP8RU5SPHxmv3cpdDVFMJFmZjiRy/O0x1KVfL8=;
- b=R84vWc9Khs0UcWPhJ+OgpSQQUpN2nLwswOYJgQKDCw1Wzx2hE0DnRLaGKbkO5OtVh4
- 5FgnehSSy8cHzmmUvnyHFnHgs3Un3NsZrfvH836zkNR3h2nd5KDWcW2juW2BVzR9lXUO
- 3ZD8Uv6cMQFequ/WkC8JlKaMQw9gZvNoflp2/jn+wO+nNgQgpCUfc9UZpCeoJcMrNT1r
- dqyzxBBbwzNXlVKxN2YvLNIuSVwfyT6A6y4/sZFEsA0TxNSP0KNhPCwePPpTMVXgvIms
- B+QcO4qieBXfQC2/5uTgeFKPIN8IbEl7BZmRjsXUPBGMldZlFxVZRIT1VW+9zvLsRXS8
- w00A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=TL7pCqP8RU5SPHxmv3cpdDVFMJFmZjiRy/O0x1KVfL8=;
- b=g4DeUEvc4yKfwFmUXJxHT1v3xMtY/5011q5Lds9FpdWL3rS29Totl9q0yOEqI0Lrji
- /6DS2aGUykNIPoVHgOXnU4xLoJNgaEmXLTXYAasD5u/BfohwuvVOjWvYKUcfAiWrTFyf
- V8Iy3D1QYVqPLv+Jf48dVbQKTyidAiR+xM+kmUPkbVmEwPVxQ3hJ6K5ORWm2KH3sp5nq
- je/rw5MbFbm7JdN3yIjuqVllugn3beZKfgMWnv4fgilPjHW2xPDOZOymkmQaJ1DdwiYV
- hbmRY8kchc+i+dDf58BpnMO7mHeemXvuQjaWJStbvu00092k7PyDx4z6V4Y3MlNx10pk
- EHbQ==
-X-Gm-Message-State: AKS2vOyrMQbMuUpEvfltwx0t79yLWnMMHkpY/dyXh04KcWhK9fD2CauN
- tyrhvz2IPnK1gNzdLrneY1YJIvSlvvSW
-X-Received: by 10.98.69.76 with SMTP id s73mr16311421pfa.94.1498743656171;
- Thu, 29 Jun 2017 06:40:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+ :Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+ :Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=c7P8bYscZOUMteFK+Vv353N03ip9tehpbpF71i9u3Aw=; b=Nbxjlz0CN1NREO/LhylACz+wN8
+ NcVTeTQ11QN7MGDbEvHLB2vq4+PGEiYYOXLB9VhjB4SqhtgwYsRMZxBnJhp3x7CFjXN7Ap5uOd6dt
+ moXJ5Q64ZthiqeES85tWKR0sZ5seerJvf4r18X+eh/lcCusFThGcWvy8V34kdFkPlXGq3wf1PSKSE
+ EvlhbLvM85JM5aaF2BI0A+JgMJBRHpOD1lRIINMET25zE+Ql7mfmICCB/Ed5iF22wdV/Bsc/wGbDP
+ bCNyJbvZAc9UvGjfYPpqNgUAZX3+iVqESCPuhtHlyoCUKbMFYMFkRcZKdFHPBgWBYtiDTXOpnTvOT
+ GkCwVVVA==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net
+ ([108.223.40.66]:42744 helo=localhost)
+ by bh-25.webhostbox.net with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ (Exim 4.89) (envelope-from <linux@roeck-us.net>)
+ id 1dQazR-002HWT-WE; Thu, 29 Jun 2017 15:04:18 +0000
+Date: Thu, 29 Jun 2017 08:04:17 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Cc: wim@iguana.be, robh+dt@kernel.org, mark.rutland@arm.com, joel@jms.id.au,
+ linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] drivers/watchdog: Add optional ASPEED device tree
+ properties
+Message-ID: <20170629150417.GA10226@roeck-us.net>
+References: <20170629002811.87199-1-cbostic@linux.vnet.ibm.com>
+ <20170629002811.87199-2-cbostic@linux.vnet.ibm.com>
+ <b51fedbb-837f-49ea-d050-4c3be82724c5@roeck-us.net>
+ <21f28ed9-b73a-5c21-5557-bec1fef0d874@linux.vnet.ibm.com>
 MIME-Version: 1.0
-Received: by 10.100.165.205 with HTTP; Thu, 29 Jun 2017 06:40:35 -0700 (PDT)
-In-Reply-To: <DB5PR05MB12247989FD121B27F422DCB4EFD20@DB5PR05MB1224.eurprd05.prod.outlook.com>
-References: <20170628142304.34433-1-venture@google.com>
- <DB5PR05MB12247989FD121B27F422DCB4EFD20@DB5PR05MB1224.eurprd05.prod.outlook.com>
-From: Patrick Venture <venture@google.com>
-Date: Thu, 29 Jun 2017 06:40:35 -0700
-Message-ID: <CAO=notw80vkmDPuFdP_sTqHGh0zsWeg_xCQcmxvjDB0HakcS-Q@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 v3] ARM: dts: aspeed: quanta: Enable pwm
- fans
-To: Mykola Kostenok <c_mykolak@mellanox.com>
-Cc: "joel@jms.id.au" <joel@jms.id.au>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <21f28ed9-b73a-5c21-5557-bec1fef0d874@linux.vnet.ibm.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Authenticated_sender: guenter@roeck-us.net
+X-OutGoing-Spam-Status: No, score=-1.0
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - lists.ozlabs.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-Get-Message-Sender-Via: bh-25.webhostbox.net: authenticated_id:
+ guenter@roeck-us.net
+X-Authenticated-Sender: bh-25.webhostbox.net: guenter@roeck-us.net
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,161 +67,148 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 29 Jun 2017 13:40:58 -0000
+X-List-Received-Date: Thu, 29 Jun 2017 15:04:23 -0000
 
-On Thu, Jun 29, 2017 at 5:30 AM, Mykola Kostenok <c_mykolak@mellanox.com> w=
-rote:
-> Hi!
->
->
-> We want to add pwm_tacho for msn platform too.
->
-> Is there some special reason why you add pwm_tacho:
-> pwm-tacho-controller@1e786000  to .dts not .dtsi file?
->
->
-> What about add this:
->
->        pwm_tacho: pwm-tacho-controller@1e786000 {
->                #address-cells =3D <1>;
->                #size-cells =3D <1>;
->               reg =3D <0x1e786000 0x1000>;
->                compatible =3D "aspeed,ast2500-pwm-tacho";
->                clocks =3D <&pwm_tacho_fixed_clk>;
->                pinctrl-names =3D "default";
->
->
-> to aspeed-g5.dtsi?
->
+On Thu, Jun 29, 2017 at 08:39:59AM -0500, Christopher Bostic wrote:
+> 
+> 
+> On 6/28/17 10:33 PM, Guenter Roeck wrote:
+> >On 06/28/2017 05:28 PM, Christopher Bostic wrote:
+> >>Describe device tree optional properties:
+> >>
+> >>   * aspeed,arm-reet - ARM CPU reset on signal
+> >>   * aspeed,no-soc-reset - SOC reset on signal
+> >>   * aspeed,no-sys-reset - System reset on signal
+> >>   * aspeed,interrupt - Interrupt CPU on signal
+> >>   * aspeed,external-signal - Generate external signal (WDT1 and WDT2
+> >>only)
+> >>   * aspeed,alt-boot - Boot from alternate block on signal
+> >>
+> >>Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+> >>---
+> >>v3 - Invert soc and sys reset to 'no' to preserve backwards
+> >>      compatibility.  SOC and SYS reset will be set by default
+> >>      without any optional parameters set
+> >>v2 - Add 'aspeed,' prefix to all optional properties
+> >>    - Add arm-reset, soc-reset, interrupt, alt-boot properties
+> >>---
+> >>  .../devicetree/bindings/watchdog/aspeed-wdt.txt    | 24
+> >>++++++++++++++++++++++
+> >>  1 file changed, 24 insertions(+)
+> >>
+> >>diff --git a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> >>b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> >>index c5e74d7..6f18005 100644
+> >>--- a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> >>+++ b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> >>@@ -8,9 +8,33 @@ Required properties:
+> >>   - reg: physical base address of the controller and length of memory
+> >>mapped
+> >>     region
+> >>  +Optional properties:
+> >>+   Signal behavior - Whenever a timeout occurs the watchdog can be
+> >>programmed
+> >>+   to generate/not generate 6 types of signals:
+> >>+
+> >>+ - aspeed,arm-reset:    If property is present then reset ARM CPU only.
+> >>+            If not specified no ARM CPU reset is done.
+> >>+
+> >>+ - aspeed,no-soc-reset: If property is present then do not reset SOC.
+> >>+            If not specified then SOC reset is done.
+> >>+
+> >>+ - aspeed,no-sys-reset: If property is present then do not reset
+> >>system.
+> >>+            Typcally used in tandem with 'aspeed-external-signal'
+> >
+> >Is this correct ? As I understand the datasheet, it could also used in
+> >tandem with
+> >aspeed,interrupt.
+> True, that should be documented.  Will add that.
+> >
+> >>+            If not specified then system reset is done.
+> >>+
+> >
+> >I'll leave it up to Rob to decide, but for my part I don't understand
+> >no-soc-reset.
+> As the aspeed watchdog driver exists prior to this change an SOC reset is
+> done by
+> default.   In order to preserve backwards compatibility a missing optional
+> property
+> should result in default behavior.  I however need to be able to specify
+> that SOC
+> reset be disabled in some way.  This goes back to our discussion about why
+> we'd
+> ever want to disable SYSTEM reset in the first place.  Same reasoning
+> applies for
+> SOC reset.
+> 
+> >I would instead use four properties.
+> >
+> >    aspeed,arm-reset
+> >    aspeed,soc-reset
+> Per my response above I think it should remain as aspeed,no-soc-reset due to
+> backwards compatibility requirements.
 
-I believe that's completely do-able.  I submitted patches for the way
-we had it configured here.  Defining the fans in a big group with the
-pwm specific to the platform.  But you're right, I do believe the
-primary details are the same across all aspeed-g4/g5 for the
-pwm-tacho-controller.
+The same can be accomplished with "aspeed,no-reset", which would avoid the, in
+my opinion, awkward "no-{sys,soc}-reset" poperties.
 
->
-> And specific like pinctrl and fan:
->
->                pinctrl-0 =3D <&pinctrl_pwm0_default &pinctrl_pwm1_default
->                        &pinctrl_pwm2_default &pinctrl_pwm3_default>;
->
->                fan@0 {
->                        reg =3D <0x00>;
->                        aspeed,fan-tach-ch =3D /bits/ 8 <0x00>;
->                };
->
->
->  to .dts file.
->
->
-> Thanks.
->
-> Best regards, Mykola Kostenok.
->
-> ________________________________
-> =D0=9E=D1=82: openbmc <openbmc-bounces+c_mykolak=3Dmellanox.com@lists.ozl=
-abs.org> =D0=BE=D1=82
-> =D0=B8=D0=BC=D0=B5=D0=BD=D0=B8 Patrick Venture <venture@google.com>
-> =D0=9E=D1=82=D0=BF=D1=80=D0=B0=D0=B2=D0=BB=D0=B5=D0=BD=D0=BE: 28 =D0=B8=
-=D1=8E=D0=BD=D1=8F 2017 =D0=B3. 17:23:04
-> =D0=9A=D0=BE=D0=BC=D1=83: venture@google.com; joel@jms.id.au; openbmc@lis=
-ts.ozlabs.org
-> =D0=A2=D0=B5=D0=BC=D0=B0: [PATCH linux dev-4.10 v3] ARM: dts: aspeed: qua=
-nta: Enable pwm fans
->
-> Signed-off-by: Patrick Venture <venture@google.com>
-> ---
-> v3: lowercased hex address
-> v2: Moved pwm_tacho_fixed_clk to clocks.
-> ---
->  arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts | 51
-> ++++++++++++++++++++++++++++
->  arch/arm/boot/dts/aspeed-g4.dtsi             |  5 +++
->  2 files changed, 56 insertions(+)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-> b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-> index e609c53d58f5..3abc2954d26e 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-> @@ -46,6 +46,57 @@
->                          gpios =3D <&gpio ASPEED_GPIO(B, 3) GPIO_ACTIVE_L=
-OW>;
->                  };
->          };
-> +
-> +       pwm_tacho: pwm-tacho-controller@1e786000 {
-> +               #address-cells =3D <1>;
-> +               #size-cells =3D <1>;
-> +               reg =3D <0x1e786000 0x1000>;
-> +               compatible =3D "aspeed,ast2500-pwm-tacho";
-> +               clocks =3D <&pwm_tacho_fixed_clk>;
-> +               pinctrl-names =3D "default";
-> +               pinctrl-0 =3D <&pinctrl_pwm0_default &pinctrl_pwm1_defaul=
-t
-> +                       &pinctrl_pwm2_default &pinctrl_pwm3_default>;
-> +
-> +               fan@0 {
-> +                       reg =3D <0x00>;
-> +                       aspeed,fan-tach-ch =3D /bits/ 8 <0x00>;
-> +               };
-> +
-> +               fan@1 {
-> +                       reg =3D <0x01>;
-> +                       aspeed,fan-tach-ch =3D /bits/ 8 <0x01>;
-> +               };
-> +
-> +               fan@2 {
-> +                       reg =3D <0x02>;
-> +                       aspeed,fan-tach-ch =3D /bits/ 8 <0x02>;
-> +               };
-> +
-> +               fan@3 {
-> +                       reg =3D <0x03>;
-> +                       aspeed,fan-tach-ch =3D /bits/ 8 <0x03>;
-> +               };
-> +
-> +               fan@4 {
-> +                       reg =3D <0x00>;
-> +                       aspeed,fan-tach-ch =3D /bits/ 8 <0x04>;
-> +               };
-> +
-> +               fan@5 {
-> +                       reg =3D <0x01>;
-> +                       aspeed,fan-tach-ch =3D /bits/ 8 <0x05>;
-> +               };
-> +
-> +               fan@6 {
-> +                       reg =3D <0x02>;
-> +                       aspeed,fan-tach-ch =3D /bits/ 8 <0x06>;
-> +               };
-> +
-> +               fan@7 {
-> +                       reg =3D <0x03>;
-> +                       aspeed,fan-tach-ch =3D /bits/ 8 <0x07>;
-> +               };
-> +       };
->  };
->
->  &fmc {
-> diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi
-> b/arch/arm/boot/dts/aspeed-g4.dtsi
-> index a998a00a2728..9cc959fccfa0 100644
-> --- a/arch/arm/boot/dts/aspeed-g4.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-> @@ -36,6 +36,11 @@
->          };
->
->          clocks {
-> +               pwm_tacho_fixed_clk: fixedclk {
-> +                       compatible =3D "fixed-clock";
-> +                       #clock-cells =3D <0>;
-> +                       clock-frequency =3D <24000000>;
-> +               };
->          };
->
->          ahb {
-> --
-> 2.13.1.611.g7e3b11ae1-goog
->
+> >    aspeed,sys-reset (which is the default)
+> Again as per our discussion yesterday I need some way to specify how system
+> reset is to  be done.  For backwards compatibility, a lack of parameter here
+> would
+> result in a system reset being configured.  Only way to indicate to the
+> driver
+> that no system reset is to be done is to indicate 'no' system reset in the
+> optional
+> parameter.
+
+Or "aspeed,no-reset".
+
+> >    aspeed,no-reset
+> This parameter seems ambiguous as we could be doing a 'no system reset'
+> or a 'no SOC reset' in theory.
+
+{arm,soc,sys}-reset are mutually exclusive per datasheet, and there is a
+separate configuration bit which enables the reset in the first place.
+I don't see how that is ambiguous.
+
+Anyway, I don't think we are making any progress here. Let's wait for
+guidance from Rob.
+
+Guenter
+
+> >
+> >There should also be a note explaining that the above are mutually
+> >exclusive.
+> >
+> OK, will add that.
+> 
+> >>+ - aspeed,interrupt:    If property is present then interrupt CPU.
+> >>+            If not specified then don't interrupt CPU.
+> >>+
+> >>+ - aspeed,external-signal: If property is present then signal is sent
+> >>to
+> >>+            external reset counter (only WDT1 and WDT2). If not
+> >>+            specified no external signal is sent.
+> >
+> >For consistency, either add an empty line here or remove the empty lines
+> >above
+> 
+> Will fix.
+> 
+> Thanks,
+> Chris
+> >
+> >>+ - aspeed,alt-boot:    If property is present then boot from alternate
+> >>block.
+> >>+
+> >>  Example:
+> >>        wdt1: watchdog@1e785000 {
+> >>          compatible = "aspeed,ast2400-wdt";
+> >>          reg = <0x1e785000 0x1c>;
+> >>+        aspeed,no-sys-reset;
+> >>+        aspeed,external-signal;
+> >>      };
+> >>
+> >
+> 
