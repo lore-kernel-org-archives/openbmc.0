@@ -1,53 +1,61 @@
-Return-Path: <venture@google.com>
-Received: from mail-pf0-x232.google.com (mail-pf0-x232.google.com
- [IPv6:2607:f8b0:400e:c00::232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <linux@roeck-us.net>
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wyhWL3mzWzDr4V
- for <openbmc@lists.ozlabs.org>; Thu, 29 Jun 2017 11:13:50 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wylcl2JMSzDr4V
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Jun 2017 13:33:42 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="lUtg6Abh"; 
+ unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.b="wba4lU40";
  dkim-atps=neutral
-Received: by mail-pf0-x232.google.com with SMTP id e7so41826685pfk.0
- for <openbmc@lists.ozlabs.org>; Wed, 28 Jun 2017 18:13:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=jN68U4PcPGKV+lpWdNd/jRhgZrQbTr2QY66V9L7FH/M=;
- b=lUtg6AbhSvvB7KeuJH6EdE4FXfN9PvdTnHfWoxWzkTIzEJxLotJqIXSJrxfjvy817U
- zeDf6xKsAQRHOHernGnhZFBTbmxTnIoQciCd99as/ga7WEVrZm8rshC5ucpD8LwZft97
- H6tLiwF5tGzeyiEfbCSGXyR1robOrIeZIWF6kfpj180x3BCdhkRWDdEWrxx4VZo/tIZh
- 724rA1Zp/tcxWRca8b7BO+h1pit+l7f3qB58oyh6Y8m0grvgmOtLqt3CjM34/49tZPRb
- PrwGckq0VA2k+dV1m0V9+unL0Ll+XYNsvLJzejnTSHk2ayZJNz43HrusdY8o5Zz27X0A
- V2Yg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=jN68U4PcPGKV+lpWdNd/jRhgZrQbTr2QY66V9L7FH/M=;
- b=NvBu8FbLoj0sMzEG3dlBEuYbWRj1WQUkwt/jGaKMtEVBEWUCgLfGPz9amYEDMoSBcA
- 2iRtAJjtXcl8i0WC4wpnibcC9nAY4pNHpozsSWhbA9U9BdW9Dihmg3n/TwGBKj9Kf3Rr
- GWKYRrB/JizYLUq4HI1oox+D7ZFEfzsr53rGmU9d+Yiv/s61wONGmQTsjPc0V3pZO/Ng
- XgUNA0Xjp4+V5fJxYNZjrOjqCfYEc3eiNBw4GVtzcju2SQxSSrDMC+OGgx783b+59CSc
- O0knCwf/YNihHCGD3x3NBFPvZMK5TCZVnC0i7u5VLM0IwAE1EL12BmYr67wiN+w+zRAS
- 33Jw==
-X-Gm-Message-State: AKS2vOwLFqNjLR7Fy5ZWfa/+DRrtG4bVei34qwDBwTUV6XbQeHr1WBXh
- 7OzTU7K7pkRsihVjnPTf7FOllxaSRpDT4Rw=
-X-Received: by 10.98.69.76 with SMTP id s73mr13497389pfa.94.1498698828032;
- Wed, 28 Jun 2017 18:13:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=6APHqC/PgmCr1kbM0dK6DdUyFTUGndVO8ai957/N7ps=; b=wba4lU40ho+CQczGki0iBLoXQ2
+ szciLjN808VZCZXLlu/xl4KuqSSOvOSf9cFLLJvVOm6u80X2B2FJ6gFj4Yy5gA2zfRqnnLON9+Iav
+ oKyZ0Vt1sik1QJez+khHFQoeFLfuBMrYhuz68RcyXqG8AB93CAQXE6/gWTsIRje3GGx3wukoXaB+5
+ ePWymGSGK/N7RQqcsyKRT8K/dL0daSBt2zzh0OIde/FvM3ZnlxkNGWvRm+yg2I3pHsopv/srvdK8f
+ RxXlQscR6kdRYOxzhxwAgMljusXtPKd7UO6UTiagcuEtDqmSZ3Sq/wICWBS0cZBl1vUNMPFa15pwL
+ 1GhSg/eA==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net
+ ([108.223.40.66]:42460 helo=server.roeck-us.net)
+ by bh-25.webhostbox.net with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ (Exim 4.89) (envelope-from <linux@roeck-us.net>)
+ id 1dQQD5-003KYP-4s; Thu, 29 Jun 2017 03:33:39 +0000
+Subject: Re: [PATCH v3 1/2] drivers/watchdog: Add optional ASPEED device tree
+ properties
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>, wim@iguana.be,
+ robh+dt@kernel.org, mark.rutland@arm.com, joel@jms.id.au,
+ linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+References: <20170629002811.87199-1-cbostic@linux.vnet.ibm.com>
+ <20170629002811.87199-2-cbostic@linux.vnet.ibm.com>
+From: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <b51fedbb-837f-49ea-d050-4c3be82724c5@roeck-us.net>
+Date: Wed, 28 Jun 2017 20:33:37 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.1.1
 MIME-Version: 1.0
-Received: by 10.100.165.205 with HTTP; Wed, 28 Jun 2017 18:13:27 -0700 (PDT)
-In-Reply-To: <FB3659C0-EF79-40D3-8001-17D9116FA522@fuzziesquirrel.com>
-References: <CAO=notxJgr=+fyCaNWH+i6EL2v06aW5LkMp19uFbpYArv7FS3Q@mail.gmail.com>
- <FB3659C0-EF79-40D3-8001-17D9116FA522@fuzziesquirrel.com>
-From: Patrick Venture <venture@google.com>
-Date: Wed, 28 Jun 2017 18:13:27 -0700
-Message-ID: <CAO=notzHV07bANYK=f+QsqBpx_t83rYAJxvYzSAZb9qeYUPwLw@mail.gmail.com>
-Subject: Re: Swampd PID-driven Fan Controller
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20170629002811.87199-2-cbostic@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Authenticated_sender: linux@roeck-us.net
+X-OutGoing-Spam-Status: No, score=-1.0
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - lists.ozlabs.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-Get-Message-Sender-Via: bh-25.webhostbox.net: authenticated_id:
+ linux@roeck-us.net
+X-Authenticated-Sender: bh-25.webhostbox.net: linux@roeck-us.net
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,165 +67,83 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 29 Jun 2017 01:13:51 -0000
+X-List-Received-Date: Thu, 29 Jun 2017 03:33:44 -0000
 
-On Tue, Jun 27, 2017 at 3:34 PM, Brad Bishop
-<bradleyb@fuzziesquirrel.com> wrote:
-> Hi Patrick
->
->> On Jun 27, 2017, at 12:51 PM, Patrick Venture <venture@google.com> wrote=
-:
->>
->> Per the requirements to have a fan controller for the quanta-q71l that
->> runs within the OpenBMC framework+, I developed the swampd
->> application.  It was designed to leverage sdbusplus and other OpenBMC
->> libraries and coding standards.
->
-> Sweet!  First let me say thanks for your willingness to share your
-> application.
+On 06/28/2017 05:28 PM, Christopher Bostic wrote:
+> Describe device tree optional properties:
+> 
+>    * aspeed,arm-reet - ARM CPU reset on signal
+>    * aspeed,no-soc-reset - SOC reset on signal
+>    * aspeed,no-sys-reset - System reset on signal
+>    * aspeed,interrupt - Interrupt CPU on signal
+>    * aspeed,external-signal - Generate external signal (WDT1 and WDT2 only)
+>    * aspeed,alt-boot - Boot from alternate block on signal
+> 
+> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+> ---
+> v3 - Invert soc and sys reset to 'no' to preserve backwards
+>       compatibility.  SOC and SYS reset will be set by default
+>       without any optional parameters set
+> v2 - Add 'aspeed,' prefix to all optional properties
+>     - Add arm-reset, soc-reset, interrupt, alt-boot properties
+> ---
+>   .../devicetree/bindings/watchdog/aspeed-wdt.txt    | 24 ++++++++++++++++++++++
+>   1 file changed, 24 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> index c5e74d7..6f18005 100644
+> --- a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> +++ b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> @@ -8,9 +8,33 @@ Required properties:
+>    - reg: physical base address of the controller and length of memory mapped
+>      region
+>   
+> +Optional properties:
+> +   Signal behavior - Whenever a timeout occurs the watchdog can be programmed
+> +   to generate/not generate 6 types of signals:
+> +
+> + - aspeed,arm-reset:	If property is present then reset ARM CPU only.
+> +			If not specified no ARM CPU reset is done.
+> +
+> + - aspeed,no-soc-reset: If property is present then do not reset SOC.
+> +			If not specified then SOC reset is done.
+> +
+> + - aspeed,no-sys-reset: If property is present then do not reset system.
+> +			Typcally used in tandem with 'aspeed-external-signal'
 
-No problem.
->
->>
->> It supports:
->> * build-time yaml descriptions of the sensors and PID loops
->> * run-time configuration of the above
->> * run-time fan speed set-point control
->> * IPMI controlled manual mode
->> * passively and actively read sensors
->> * sensors that are from the host
->> * any variation on sysfs IO that is configured.
->
-> Sounds like a solid feature set.  Can you speak to what level of support
-> exists for things like hot plugging and/or degraded mode operation?
+Is this correct ? As I understand the datasheet, it could also used in tandem with
+aspeed,interrupt.
 
-Right now it's at ~80*% done, so I'm still working with people here to
-design the best practices for what they want in failure modes.  It was
-designed with input from a few engineers who have ties to its primary
-use cases.  And there is a an expectation that things with this will
-behave similarly to how the predecessors behaved.  So that drove a
-fair amount, but there are certain failure modes this doesn't yet
-handle that it needs to.  If the sensors stop reporting information,
-for instance, it goes into a pre-configured fail-safe mode.
+> +			If not specified then system reset is done.
+> +
 
+I'll leave it up to Rob to decide, but for my part I don't understand no-soc-reset.
+I would instead use four properties.
 
-*Functionally complete but still has lots of room for improvement.
+	aspeed,arm-reset
+	aspeed,soc-reset
+	aspeed,sys-reset (which is the default)
+	aspeed,no-reset
 
->
->>
->> The design document is too large to really paste in this email, so
->> I'll summarize.
->>
->> Each sensor is created based on the configuration provided.  Each PID
->> loop is created per zone.  Each zone lives on a separate thread (could
->> be merged into one thread that iterates through zones).  The zone
->> loops every 0.1s to steer the fans closer to their goal while every
->> second it adjusts the goal.
->>
->> Some things I know OpenBMC won't like: it's multi-threaded.  It wasn=E2=
-=80=99t
->
-> True, we are trying to avoid multi-threaded applications, but if the
-> problem being solved by threads can=E2=80=99t reasonably be solved some o=
-ther
-> way that seems fine.
->
->> built into the current fan-presence package.
->
-> I don=E2=80=99t have any issue with this.
->
->>
->> I'm at a crossroads with this project because I'd like to make it
->> generally available.  Should I try to submit it for review on this
->> list, if so, how?  Or should I push it to Google's github projects
->> first?
->
-> I think this depends on a couple factors.
->
-> As you know, another team is also developing a fan control algorithm.
-> If the two algorithms are similar I don=E2=80=99t see any point in hostin=
-g two
-> applications that do the same thing.  It would just make it more confusin=
-g
-> for others coming to OpenBMC to pick one or the other for their platform.
->
-> Now, if each provides their own unique, fundamentally different fan contr=
-ol
-> strategy - each with a different set of pros/cons - that is exactly what =
-we
-> had anticipated and bringing it in seems like a great idea.
+There should also be a note explaining that the above are mutually exclusive.
 
-It does look like there has been some progress on the
-phosphor-fan-presence/control.   Although I'd have to hack it anyway
-to support Control.FanPwm because I lost that community argument.
+> + - aspeed,interrupt:	If property is present then interrupt CPU.
+> +			If not specified then don't interrupt CPU.
+> +
+> + - aspeed,external-signal: If property is present then signal is sent to
+> +			external reset counter (only WDT1 and WDT2). If not
+> +			specified no external signal is sent.
 
-There are definitely some differences.  However, some things can be
-done in separate daemons -- as has been suggested.  As an alternative
-to separate threads.
+For consistency, either add an empty line here or remove the empty lines above
 
->
-> For the second factor, I=E2=80=99m going to be a little frank and critica=
-l, because
-> my point is fundamental to the project goals and vision.  Please don=E2=
-=80=99t take
-> this personally.
->
-> This is what is known in OSS circles as a code dump.  It isn=E2=80=99t OS=
-S development.
-> OSS development happens...in the open.  The first three bullet points her=
-e touch
-> on this:
->
-> https://people.redhat.com/rjones/how-to-supply-code-to-open-source-projec=
-ts/
->
-> In an OSS development model, the entire community is given the opportunit=
-y
-> to collaborate and shape the result of the end product, _as_it_is_develop=
-ed_
-> through feedback and contributions.
->
-> I=E2=80=99m no zealot.  I completely understand that many times factors l=
-ike product
-> delivery schedules, etc get in the way of this model, and thats fine.  Th=
-ats
-> why most products using OSS don=E2=80=99t ship with vanilla versions of t=
-he project
-> they are based on.
->
-> But the other fan control algorithm _is_ being developed in the open.  A =
-lot of
-> folks have invested many many hours of peer review in it.
->
-> So the question becomes, are you prepared to submit your application to t=
-hat
-> same level of peer review and reciprocate by investing the time required =
-to
-> address the feedback and get it to a point where the community feels comf=
-ortable
-> assuming maintenance responsibility for it?
->
-
-I would have liked to develop this in the open, but as you touched on
-it, schedules.  My platform is under a compressed schedule.  Under any
-situation, I'll be responsible for maintaining this code base.  And
-expanding it to support other platforms.  As implementing it wasn't
-done in a vacuum, I feel fairly confident that outside contributions
-at least in furthering the design to make it simpler or more modular
-would be warranted.
-
-Obviously, it was designed around very specific execution
-requirements, which drove my adding an interval to phosphor-hwmon and
-quite a few downstream hacks.  That said, those specific execution
-requirements do have an impact on the ability to change the design
-from input.  If the design suggestions or ideas violate the terms of
-service that we're providing the data centers -- it can be forked,
-effectively.
-
-> Thx - brad
->
->>
->> +As well as other requirements.
->>
->> Thanks,
->> Patrick
+> + - aspeed,alt-boot:    If property is present then boot from alternate block.
+> +
+>   Example:
+>   
+>   	wdt1: watchdog@1e785000 {
+>   		compatible = "aspeed,ast2400-wdt";
+>   		reg = <0x1e785000 0x1c>;
+> +		aspeed,no-sys-reset;
+> +		aspeed,external-signal;
+>   	};
+> 
