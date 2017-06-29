@@ -1,25 +1,64 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <cbostic@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wyfkC6j2TzDr1m
- for <openbmc@lists.ozlabs.org>; Thu, 29 Jun 2017 09:53:07 +1000 (AEST)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Sender: bradleyb@fuzziesquirrel.com
-Content-Type: text/plain; charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: Re: [PATCH linux dev-4.10] drivers/fsi: Fix SBEFIFO write() race
- condition
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <1498686949-15084-1-git-send-email-eajames@linux.vnet.ibm.com>
-Date: Wed, 28 Jun 2017 19:53:03 -0400
-Cc: openbmc@lists.ozlabs.org,
- "Edward A. James" <eajames@us.ibm.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <D8D14726-D4AC-4EC6-B704-06B04B4659A7@fuzziesquirrel.com>
-References: <1498686949-15084-1-git-send-email-eajames@linux.vnet.ibm.com>
-To: Eddie James <eajames@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wygW10vSSzDr4J
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Jun 2017 10:28:28 +1000 (AEST)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v5T0NjUT036865
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Jun 2017 20:28:26 -0400
+Received: from e15.ny.us.ibm.com (e15.ny.us.ibm.com [129.33.205.205])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2bc7a4jtjv-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Jun 2017 20:28:26 -0400
+Received: from localhost
+ by e15.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Wed, 28 Jun 2017 20:28:25 -0400
+Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
+ by e15.ny.us.ibm.com (146.89.104.202) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 28 Jun 2017 20:28:22 -0400
+Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
+ [9.57.199.110])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v5T0SLgC62849238; Thu, 29 Jun 2017 00:28:21 GMT
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 3F984AE04B;
+ Wed, 28 Jun 2017 20:28:24 -0400 (EDT)
+Received: from Christophers-MacBook-Pro.local.com (unknown [9.83.6.33])
+ by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP id D83FBAE034;
+ Wed, 28 Jun 2017 20:28:18 -0400 (EDT)
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+To: wim@iguana.be, linux@roeck-us.net, robh+dt@kernel.org,
+ mark.rutland@arm.com, joel@jms.id.au, linux-watchdog@vger.kernel.org,
+ devicetree@vger.kernel.org
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>,
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+Subject: [PATCH v3 0/2] Add ASPEED watchdog device tree properties
+Date: Wed, 28 Jun 2017 19:28:09 -0500
+X-Mailer: git-send-email 2.10.1 (Apple Git-78)
+X-TM-AS-GCONF: 00
+x-cbid: 17062900-0036-0000-0000-000002398754
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007292; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00880137; UDB=6.00438730; IPR=6.00660292; 
+ BA=6.00005445; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00015997; XFM=3.00000015;
+ UTC=2017-06-29 00:28:25
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17062900-0037-0000-0000-000040E71EE7
+Message-Id: <20170629002811.87199-1-cbostic@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-06-28_15:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1706290006
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -31,54 +70,18 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 28 Jun 2017 23:53:08 -0000
+X-List-Received-Date: Thu, 29 Jun 2017 00:28:29 -0000
 
-thx Eddie!
+Document device tree optional properties for ASPEED watchdog.
+Reference properties in ASPEED watchdog driver and configure accordingly.
 
-Reviewed-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Christopher Bostic (2):
+  drivers/watchdog: Add optional ASPEED device tree properties
+  drivers/watchdog: ASPEED reference dev tree properties for config
 
-> On Jun 28, 2017, at 5:55 PM, Eddie James <eajames@linux.vnet.ibm.com> =
-wrote:
->=20
-> From: "Edward A. James" <eajames@us.ibm.com>
->=20
-> There was a race condition with the XFR_WRITE_DONE flag between =
-write()
-> and the worker thread. Occasionally the worker wrote all the data and
-> checked the flag before write() could set it.
->=20
-> Signed-off-by: Edward A. James <eajames@us.ibm.com>
-> ---
-> drivers/fsi/fsi-sbefifo.c | 7 ++++++-
-> 1 file changed, 6 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
-> index f1bc144..d7dccf9 100644
-> --- a/drivers/fsi/fsi-sbefifo.c
-> +++ b/drivers/fsi/fsi-sbefifo.c
-> @@ -688,6 +688,12 @@ static ssize_t sbefifo_write_common(struct =
-sbefifo_client *client,
-> 		len -=3D n;
-> 		ret +=3D n;
->=20
-> +		/* set flag before starting the worker, as it may run =
-through
-> +		 * and check the flag before we exit this loop!
-> +		 */
-> +		if (!len)
-> +			set_bit(SBEFIFO_XFR_WRITE_DONE, &xfr->flags);
-> +
-> 		/*
-> 		 * Drain the write buffer.
-> 		 */
-> @@ -696,7 +702,6 @@ static ssize_t sbefifo_write_common(struct =
-sbefifo_client *client,
-> 			sbefifo_put(sbefifo);
-> 	}
->=20
-> -	set_bit(SBEFIFO_XFR_WRITE_DONE, &xfr->flags);
-> 	sbefifo_put_client(client);
->=20
-> 	return ret;
-> --=20
-> 1.8.3.1
+ .../devicetree/bindings/watchdog/aspeed-wdt.txt    | 24 ++++++++++++++++++++++
+ drivers/watchdog/aspeed_wdt.c                      | 20 +++++++++++++-----
+ 2 files changed, 39 insertions(+), 5 deletions(-)
+
+-- 
+1.8.2.2
