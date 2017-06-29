@@ -1,64 +1,50 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <raltherr@google.com>
+Received: from mail-wm0-x22a.google.com (mail-wm0-x22a.google.com
+ [IPv6:2a00:1450:400c:c09::22a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wz57F75B1zDr5M
- for <openbmc@lists.ozlabs.org>; Fri, 30 Jun 2017 02:42:49 +1000 (AEST)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v5TGd7CS145602
- for <openbmc@lists.ozlabs.org>; Thu, 29 Jun 2017 12:42:47 -0400
-Received: from e16.ny.us.ibm.com (e16.ny.us.ibm.com [129.33.205.206])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2bd1dtch73-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 29 Jun 2017 12:42:47 -0400
-Received: from localhost
- by e16.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 29 Jun 2017 12:42:46 -0400
-Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
- by e16.ny.us.ibm.com (146.89.104.203) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 29 Jun 2017 12:42:44 -0400
-Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
- [9.57.199.108])
- by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v5TGghp341550034; Thu, 29 Jun 2017 16:42:43 GMT
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A41ADB204D;
- Thu, 29 Jun 2017 12:40:15 -0400 (EDT)
-Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP id 5CA2FB2046;
- Thu, 29 Jun 2017 12:40:15 -0400 (EDT)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10 v2 2/2] drivers/i2c: Fix devicetree parsing in
- FSI-attached I2C master algo
-Date: Thu, 29 Jun 2017 11:42:36 -0500
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1498754556-21020-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1498754556-21020-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-TM-AS-GCONF: 00
-x-cbid: 17062916-0024-0000-0000-000002A2720E
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007294; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00880462; UDB=6.00438925; IPR=6.00660614; 
- BA=6.00005447; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016010; XFM=3.00000015;
- UTC=2017-06-29 16:42:46
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17062916-0025-0000-0000-000044932644
-Message-Id: <1498754556-21020-3-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-06-29_11:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1706290272
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wz5s70GK5zDr0g
+ for <openbmc@lists.ozlabs.org>; Fri, 30 Jun 2017 03:15:38 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="O2d8Q7Fw"; 
+ dkim-atps=neutral
+Received: by mail-wm0-x22a.google.com with SMTP id 62so88693179wmw.1
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Jun 2017 10:15:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=VF4lsjeZnDcjwPJ0liYtoL6hKHIL+drbgBtcPIk58oc=;
+ b=O2d8Q7FwpAcm94YN+NTHHNj2zgjFQiKCrGIgFpAz/2mThPcMWhIbCCH5i7CuTkPpLj
+ RXZgSjZT7+9GvhEnjtYUADFxS27lPT8D574Knny7ClS9glwNEPzziV0hTmcZQFp/lkfX
+ Ym7DAfwHWo/zGD+MFWW82l3v7AggTOKcTsCqrPxJXrmM0j58EEMGzVwsqy5nxeSwCVrV
+ vszJLvg72wc8xnvQvhoMKZwVyzAsXZGkSEkujfbCAZLN5oOGfE9tmcx7TAoCftx1m2gq
+ V+DuMg/1odz/m7C2LVqHJBaS0n1doradOhQ2rlT5xcq/pDhOcaDLbA7295+TACTKk8lv
+ fAhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=VF4lsjeZnDcjwPJ0liYtoL6hKHIL+drbgBtcPIk58oc=;
+ b=hV+bp8OUVZ9aIwjcLLOOLGwuqnlpQHbzKQYbPHIxDIfIEfybgaLbZ5u3gouhP6rBEt
+ KGOdgc10yTMKo4EqkVL6z1sNS3pz2DLyDq/Fh6s6auGSDrSK9tuzq9c3XepWZeNh6KFo
+ mdid0Up/MCodInv6FRO0EV8keFYEABxnBb50rvuypzyuuIIXtgp4r4UZLyaxlck1Dr/a
+ XOrXgvAtdX2YC5rIwZmO3hSeyjcTOlJQ4lsC77E55WFHGRcj6MmqJXSjIZATWqw7EHtX
+ PONKWa1sX1pHVl4PPil9WZlCbrNI4sdISeVO/jfdB7uuBAi2caya9UxsgyKJhyJ0g1VU
+ pAkw==
+X-Gm-Message-State: AIVw111W+hxIU+nh2zoe0XT/i5ejasZ17V5CLC2kaeR+q2jSjYie/PcX
+ hl46tdp/GrGkqk0uCVXRrIEBrpOm/u/8mSg=
+X-Received: by 10.28.19.205 with SMTP id 196mr2944960wmt.122.1498756535175;
+ Thu, 29 Jun 2017 10:15:35 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.28.143.18 with HTTP; Thu, 29 Jun 2017 10:15:34 -0700 (PDT)
+In-Reply-To: <CACPK8XfEoxHnj9-UOvSMXwuE=YoXQp21NeT7EsxHk4miNLz-zw@mail.gmail.com>
+References: <CACPK8XfEoxHnj9-UOvSMXwuE=YoXQp21NeT7EsxHk4miNLz-zw@mail.gmail.com>
+From: Rick Altherr <raltherr@google.com>
+Date: Thu, 29 Jun 2017 10:15:34 -0700
+Message-ID: <CAPLgG=kQPbdvRxHTLuBXG7SHVG-tNX0mGG+3RAxsnSMRE1M1iA@mail.gmail.com>
+Subject: Re: Setting timeriomem rng quality
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="001a1145b67ce31df505531c727d"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -70,54 +56,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 29 Jun 2017 16:42:50 -0000
+X-List-Received-Date: Thu, 29 Jun 2017 17:15:40 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
+--001a1145b67ce31df505531c727d
+Content-Type: text/plain; charset="UTF-8"
 
-Add compatible check for the master device node. Change "port" to "reg"
-for the port number property. Check that the port node is available.
+Huh.  I thought I sent a patch for that.  Quality is #bit of entropy per
+1000 bits read.  100 is a conservative value that was suggested by those in
+the know.
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
----
- drivers/i2c/busses/i2c-fsi.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+On Wed, Jun 28, 2017 at 9:36 PM, Joel Stanley <joel@jms.id.au> wrote:
 
-diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
-index b4eb102..d5135b4 100644
---- a/drivers/i2c/busses/i2c-fsi.c
-+++ b/drivers/i2c/busses/i2c-fsi.c
-@@ -568,10 +568,11 @@ static int fsi_i2c_probe(struct device *dev)
- 	ida_init(&i2c->ida);
- 	INIT_LIST_HEAD(&i2c->ports);
- 
--	if (dev->of_node) {
-+	if (dev->of_node &&
-+	    of_device_is_compatible(dev->of_node, "ibm,fsi-i2c-master")) {
- 		/* add adapter for each i2c port of the master */
--		for_each_child_of_node(dev->of_node, np) {
--			rc = of_property_read_u32(np, "port", &port_no);
-+		for_each_available_child_of_node(dev->of_node, np) {
-+			rc = of_property_read_u32(np, "reg", &port_no);
- 			if (rc || port_no > 0xFFFF)
- 				continue;
- 
-@@ -600,7 +601,7 @@ static int fsi_i2c_probe(struct device *dev)
- 
- 			snprintf(port->adapter.name,
- 				 sizeof(port->adapter.name),
--				 "fsi_i2c-%u", port_no);
-+				 "fsi%d_i2c%u", i2c->idx, port_no);
- 
- 			rc = i2c_add_numbered_adapter(&port->adapter);
- 			if (rc < 0)
-@@ -643,7 +644,7 @@ static int fsi_i2c_remove(struct device *dev)
- static struct fsi_driver fsi_i2c_driver = {
- 	.id_table = fsi_i2c_ids,
- 	.drv = {
--		.name = "i2c_master_fsi",
-+		.name = "fsi_i2c_master",
- 		.bus = &fsi_bus_type,
- 		.probe = fsi_i2c_probe,
- 		.remove = fsi_i2c_remove,
--- 
-1.8.3.1
+> Hi Rick,
+>
+> I saw your patch to allow the device tree to set the timeriomem rng
+> quality. I was wondering what value that should be set to for the
+> Aspeed SoCs?
+>
+> Cheers,
+>
+> Joel
+>
+
+--001a1145b67ce31df505531c727d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Huh.=C2=A0 I thought I sent a patch for that.=C2=A0 Qualit=
+y is #bit of entropy per 1000 bits read. =C2=A0100 is a conservative value =
+that was suggested by those in the know.</div><div class=3D"gmail_extra"><b=
+r><div class=3D"gmail_quote">On Wed, Jun 28, 2017 at 9:36 PM, Joel Stanley =
+<span dir=3D"ltr">&lt;<a href=3D"mailto:joel@jms.id.au" target=3D"_blank">j=
+oel@jms.id.au</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" st=
+yle=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Hi Ri=
+ck,<br>
+<br>
+I saw your patch to allow the device tree to set the timeriomem rng<br>
+quality. I was wondering what value that should be set to for the<br>
+Aspeed SoCs?<br>
+<br>
+Cheers,<br>
+<br>
+Joel<br>
+</blockquote></div><br></div>
+
+--001a1145b67ce31df505531c727d--
