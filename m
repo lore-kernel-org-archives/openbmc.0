@@ -1,61 +1,56 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yb0-x243.google.com (mail-yb0-x243.google.com
+ [IPv6:2607:f8b0:4002:c09::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wzRLj25PMzDr60
- for <openbmc@lists.ozlabs.org>; Fri, 30 Jun 2017 16:23:57 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wzSFV3TNnzDr60
+ for <openbmc@lists.ozlabs.org>; Fri, 30 Jun 2017 17:04:29 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="slinb5dY"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="T+ztySU4"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 24AF320C1A;
- Fri, 30 Jun 2017 02:23:55 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Fri, 30 Jun 2017 02:23:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=X6HSPbpSx0mYUdWtxi9jn1Zk9aOts4VfuMWR9RRIF
- Ms=; b=slinb5dY6a+ja/JhuEBgumKnnZcDh9l1fOeUiUP0/oevnFGVHN0FuirAr
- MGMBJc3IiI34TD2HLxvBESAfzhIr8Y1e8PMJb9XjBPgJzfRBciBRIFu7TK0T9Suq
- Zkgyl87hiVbva9Kf6TKKO3SI7huVTMN15WwTkN7/UfKGw+B7yNACcB3LFSFoZX0k
- 6dugkIcEF4md03rPS8bEZhZXlqvLlIehS3Co72rTDRe8EmODKWjqB9qz9J1NTKu2
- iOLxdZE0EGUlm+ZFaTeE1DrHLr9HR4KPoW0zv6byPGrU0sgzyxUnvbKGLRV3GCma
- OJuM+l6OzIkYFaDxfLoRZ04qnjprA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=X6HSPbpSx0mYUdWtxi
- 9jn1Zk9aOts4VfuMWR9RRIFMs=; b=T+ztySU4EB8jj9eAVenhmbzZb1zR639i9+
- NulVfQtfDUlu5FeA2CD2VQ4MmpTjuvyHEEtxIor6k8VbUhbQiKmhA2t18XdTsKqX
- QKFvHI3UPq9UTY62b3CNYHTj4PcpZr7XLjIjzBsmwEAlvKHs/K2ifn1tqGbjVWbW
- PYXskb7aSpg0epru1apcJ8sZBsJ5C9d17XcxZjoqnHSuVEPZThxG8AxiyXITvr86
- w4lkfV91YOeEy6viU2F416i1cx+Cc1RpZ19uc9UVhgIFdQ0/z+QsldXERpQ19Rv4
- ZnDTBKcJoxtsXluinmC/5mukWZlm5LosGZrEkdWOLXvNrF7xkRZw==
-X-ME-Sender: <xms:e-5VWd7HtDHeHGWbIM6qZ0Ebcub9ZQcggkerdSoW6Tp7gYmMgQ8DYA>
-X-Sasl-enc: Rx9aExSohvXWkdep/DOdqnW8Z6LXtXZAM0SRu4A0tQ9H 1498803834
-Received: from keelia (ppp118-210-130-225.bras1.adl6.internode.on.net
- [118.210.130.225])
- by mail.messagingengine.com (Postfix) with ESMTPA id 197C87E32F;
- Fri, 30 Jun 2017 02:23:52 -0400 (EDT)
-Message-ID: <1498803825.5203.23.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10] aspeed-g5: add gpiolib irqchip support.
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Vadim Pasternak <vadimp@mellanox.com>, Mykola Kostenok
- <c_mykolak@mellanox.com>, Joel Stanley <joel@jms.id.au>, 
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Date: Fri, 30 Jun 2017 15:53:45 +0930
-In-Reply-To: <AM4PR05MB33301315344DDE9F1ED9F775A2D30@AM4PR05MB3330.eurprd05.prod.outlook.com>
-References: <20170629133239.17711-1-c_mykolak@mellanox.com>
- <1498786763.5203.17.camel@aj.id.au>
- <AM4PR05MB33301315344DDE9F1ED9F775A2D30@AM4PR05MB3330.eurprd05.prod.outlook.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-Qm5c0xfkgDly93v5Kwl5"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="XylKSz9u"; 
+ dkim-atps=neutral
+Received: by mail-yb0-x243.google.com with SMTP id k192so315271ybk.1
+ for <openbmc@lists.ozlabs.org>; Fri, 30 Jun 2017 00:04:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=i1YBO5AM9lPs8HxtRpqCahHSFh0JvhEw+T5j0qpAnv0=;
+ b=XylKSz9ucRYl0ILOgrswZOXsdx9dpvDnY/g8CkiyoNzWGrx5XIQKaj1jJSAs7JLqqH
+ NDJVWUWVD6X7R+/9A7sEqXOOW+cWnCe3N2fNBMSEUzdsAeFXFvzALNGf3a/lwOtJLd9Y
+ s1ehgcNUDaX+uOczD0K5z4k6BOhq2yWrX/86FC3O70zcXjtIWS/2U/Akrlod9xx0OtaN
+ Iq1oQetRVhh42N3SzXR+rW+Wx1Po9zXqxYulKxfcEGcAzKLz2w/2OYAn2VVbXu4xQClV
+ 5fyh3ZHJ8Ol9/PNj+h4gP0y/mIM8EH5DgKhcdpkBmDwfOoSBh14K/tKAEf731urESlHQ
+ B8oQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=i1YBO5AM9lPs8HxtRpqCahHSFh0JvhEw+T5j0qpAnv0=;
+ b=dWGocxjNv9mD+l9jCXQ49mCOlaloTnkPny4HURYqG7LWcKdeyIVCJRw2BtDJ0aiGQg
+ IfZTFAvet+PuE28tjxgJyDwCCWjG8dDcJUffT8t9AiW2sDVu+xIg4hrFXgrrX5+Z9cjg
+ chKK0LfklguNnQE9y6H7m+BDV60fqj1mwDs3hyA/DoXajS30o8hKFxxPnujWxTpMn7wd
+ HPg4zw/q5alV+R2TZRYoB+53+sKl580RITRaTkiJubwYcuAf5CaU6IfOCI8noLI3AJF3
+ 0Ngtvv+ORF9iTy+BtupwMUcnuKaulQUJAXKfEOt1/NyrLoDhWTWJT/cq4TaJ3QMDcw1w
+ kYqA==
+X-Gm-Message-State: AKS2vOw0hT1Q94/Ad0rWx4OgakI9OcWQXe4OhBKdJ6hfL+OxCn0XwDiI
+ Zd5zvs+dbTALP7F4zel8idLhXmBdBQ==
+X-Received: by 10.37.88.193 with SMTP id m184mr14741142ybb.39.1498806267459;
+ Fri, 30 Jun 2017 00:04:27 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.177.8 with HTTP; Fri, 30 Jun 2017 00:04:06 -0700 (PDT)
+In-Reply-To: <1498801595.5203.19.camel@aj.id.au>
+References: <20170630054302.20162-1-andrew@aj.id.au>
+ <1498801595.5203.19.camel@aj.id.au>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 30 Jun 2017 16:34:06 +0930
+X-Google-Sender-Auth: j0wdMhrzEuPk_D4WoPqDmsZqmic
+Message-ID: <CACPK8Xemge72U6wNRAWURMSFfqTsU+piB63B9zBicARuB5DXYQ@mail.gmail.com>
+Subject: Re: [PATCH] ARM: aspeed: palmetto: Deconflict FSI trans line and hog
+ of GPIOH6
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Sweta Potthuri <spotthur@in.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,59 +62,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 30 Jun 2017 06:23:57 -0000
+X-List-Received-Date: Fri, 30 Jun 2017 07:04:31 -0000
 
+On Fri, Jun 30, 2017 at 3:16 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> Whoops, I missed adding "linux dev-4.10" in the subject prefix, but
+> hopefully there's enough context :)
+>
+> On Fri, 2017-06-30 at 15:13 +0930, Andrew Jeffery wrote:
+>> The hogs are left-overs from the Bad Old Days of Palmetto development.
+>> The specification of the trans GPIO for fsi-master-gpio conflicted with
+>> one of the hogs.
+>>
+>> Remove the hog to allow fsi-master-gpio to allocate the GPIO.
+>>
+>> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 
---=-Qm5c0xfkgDly93v5Kwl5
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, 2017-06-30 at 04:44 +0000, Vadim Pasternak wrote:
-> > Sorry, I don't understand the need for this; CONFIG_GPIOLIB_IRQCHIP is
-> > already selected by CONFIG_GPIO_ASPEED, which is enabled by the
-> > aspeed_g5_defconfig. I don't think we need to do this here.
-> >=20
-> > Further, what problem are you trying to solve? From my testing GPIO
-> > interrupts are functional.
-> >=20
->=20
-> We have the number of CPLDs with the internal interrupt control
-> logic. Interrupts on top routed through the particular GPIO to SoC.
-> The motivation was to specify top aggregation interrupt for CPLD
-> driver in DTS with GPIO pin number and convert it in driver with
-> gpio_to_irq and connect irq to CPLD interrupt handler.
-
-Okay; you'll likely want to use gpio*d*_to_irq(), as gpio_to_irq() is
-part of the legacy GPIO infrastructure. It doesn't look like you need
-GENERIC_IRQ_CHIP to access gpiod_to_irq(), the existing GPIOLIB
-dependency should be enough.
-
-If we did need configuration changes, my preference would be to put
-them in a defconfig rather than in the arch Kconfig.
+Thanks, applied to dev-4.10 with a small tweak to the commit message.
 
 Cheers,
 
-Andrew
---=-Qm5c0xfkgDly93v5Kwl5
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Joel
 
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJZVe5yAAoJEJ0dnzgO5LT5KnAQAKfqAHDuKfVFtDMRW/TLTj0n
-Y9GzUnRsjKaveLbOWlKLxKFmyYSYPUehpQ6QGSHlH1zwkIzb+g50oeqlc74noXY4
-1uAPPcJzLV4bHSrPYr5yB1HPQTKiHzmSS/axfsvxCQhLg1rcBbm4Brfvl2lY6XBL
-paPrcxGmZUuck3CfZk7WaU4V4RrnlEkGVJI2lenI5DcizLjRgH3Y9W5/TPB8EtqJ
-lIPLa8ObHwf7TYgh/cNGqFO7JI/JRPvm37VLVzEDhRcjjkVJS3oLs6zjiJ3Zr1Qr
-m+TlFK+8+OAN4xWGHyi160hOr6cgUJxw9s4rxAaZSpOtc8Hph4rw1iWtQd+yfz3v
-lJ7Uyds7sNw+AQsvEJtcO/MDo30IuJPBuc5FpCba0oZLLxvxGkDkYA7srsvY6Zkf
-ttCXwW3wKrjPnQqWeh/lm3tCbQiY8gnnCXI9ylQ2SWMZzkvpWzfoaws/ols6CMb5
-NNxTKna8ukDqccZ37BRAGTNoATL2+9As0EYaqnuDyMnRr8tLdl3myQ+AHF00Iwrh
-d4X+yE4EhzkWQLSCc1iau+dxe+vCt8MI29FID7Qm6GxzHJ7zU0d+Uh56mcRSzm/K
-5pfchXecuyyxS+gpxjB7r3K07l2G742E3TYXjz94jdQ7OsVdy9r+pjYpcxq6l4X4
-PUqOxacvfROMKaOzkrWW
-=u5ht
------END PGP SIGNATURE-----
-
---=-Qm5c0xfkgDly93v5Kwl5--
+>> ---
+>>  arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts | 7 -------
+>>  1 file changed, 7 deletions(-)
+>>
+>> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+>> index f7a7cbf77aba..a171e41790c1 100644
+>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+>> @@ -295,13 +295,6 @@
+>> >             line-name = "SYS_PWROK_BMC";
+>> >     };
+>>
+>> > -   pin_gpio_h6 {
+>> > -           gpio-hog;
+>> > -           gpios = <ASPEED_GPIO(H, 6) GPIO_ACTIVE_HIGH>;
+>> > -           output-high;
+>> > -           line-name = "SCM1_FSI0_DATA_EN";
+>> > -   };
+>> -
+>> >     pin_gpio_h7 {
+>> >             gpio-hog;
+>> >             gpios = <ASPEED_GPIO(H, 7) GPIO_ACTIVE_HIGH>;
