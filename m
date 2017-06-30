@@ -3,56 +3,54 @@ Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wzJsB0bSQzDr5W
- for <openbmc@lists.ozlabs.org>; Fri, 30 Jun 2017 11:31:26 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wzK2Y4QJdzDr5b
+ for <openbmc@lists.ozlabs.org>; Fri, 30 Jun 2017 11:39:32 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Kj0qyvSz"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="NisnqF9j"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="hCZHZAJX"; dkim-atps=neutral
+ header.b="OQgLI8Bf"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id CC9F92094B;
- Thu, 29 Jun 2017 21:31:23 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id CD6FA20FE2;
+ Thu, 29 Jun 2017 21:39:30 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Thu, 29 Jun 2017 21:31:23 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
+ by compute4.internal (MEProxy); Thu, 29 Jun 2017 21:39:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=wI6YTaQO7+jTleRRwPb/FHmvavAxGC50EpKq0tOi1
- x0=; b=Kj0qyvSzkRNXeA0D5Oc84h0g8OT/fJlJ/lN8y5VWcZYgSduybDsVxjK5d
- UhbPqaGmeH+SfIs31n1D79Me48x6QpEVw5LE5sHPiHZBT97F4sQsA07ATr8lTsZF
- DsSo+oE8cepTF6D1eNTGRF3bEHYOekerKjoPkUmN9o1BV9l674vMMWs6fgvxSKC3
- j1lZ/CtzvTI1m+lEarxbSFrsmIa74Uf5d8BO3FNWmEkGZnLserCaa+/s40SwTELo
- vop6qCc9VVSHq2KPL6XnI58GqG5to8+Pa84ryH3DmTYiGeBxXvux9XKydpmxEQXL
- dsio9DU6bi8qNNxRgKIWZZ2vYMQ9w==
+ :x-sasl-enc; s=fm1; bh=luOYm48KUzMT1LggSPzcfxRzdZijzX3TNucNr81Bf
+ RI=; b=NisnqF9jjL9YT8Uto3cQMFitSIKkCTgaz0zBIqI4WNMrMm0COYuS12ONX
+ 9KIXoLmdb6Xtc1kcmmL5sKwUJUWpFFD3nhyy3jsJC1A6OSzpE/Og8GCQal2wx7kl
+ TIrfrBSVCHxs752+XLTkqBVT/VqWcs5/wnYwFewa4b5H+sGiWjNjmS3k+vyTkFpe
+ +daIkxqPV2za2lCuVaDo1vTFMq79l7r39C2AaI44pEhDnnFu4zbVjdQmC3OnPSB+
+ Ng1/XnGHzE53piejnuF1wTU8MC54zh9cwZLk/NLXvEzMr98NxJTb3gAcVSU75DNq
+ hOhUYZsRIWqH3HWigxQ/lnWeNCpxw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ messagingengine.com; h=content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=wI6YTaQO7+jTleRRwP
- b/FHmvavAxGC50EpKq0tOi1x0=; b=hCZHZAJXnPQRlWFgsAcIIuByhuXB3YD7cX
- SEB2zpn8lBgRJFIBxkelZNXX7ViNlt1F7w9AuBEIXn+g/lqt5tQQgia6E/Y2yX0x
- 73hI71CSJN8VDpBfEUgRinoOZhqu0wG0hg5doLVkv2y6tVFi0kkBEq6ckT29c+Lt
- 0Vg64CagzLP9XHsIWguoEzkylLVxk+YUwUso+Tjf0LC3iQ2W7rb+IG2vanFEo+zn
- 1n+6O5BMMpRvOBhOqmrxZ0YgdFihwV6bGHYoKAP40amHr/gZL2d+LE9huhJfLSSa
- qPrdvD2Tv13tZFlROm+dTHNaZtvyl6cOpq01jBRATyUFDVj7T6MA==
-X-ME-Sender: <xms:66lVWZsoheTG79d1WZgTubynM5IhMLEryoq-0mrgmwtQ2Z7RYr5gMw>
-X-Sasl-enc: oopU01hJvppX+r01SQrPXtHowk78j7uDuFRalpdwRx9P 1498786282
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=luOYm48KUzMT1LggSP
+ zcfxRzdZijzX3TNucNr81BfRI=; b=OQgLI8Bf7dNlXJVkIonv/EAHA9+YdpQwcr
+ 9fcz1nDnpTdtkmZPZeoRPfjjmT5z297kJ4KfpvGPTUtT5AAaKLIfHYRwtYGtAieV
+ EZUl8w5hSftP04u2SibqjHlYgQFuMqywyGN37ApeMJpGTVMiFRG4f/0ySOLwSWXI
+ I/xYavDJP+i/9lbIZ4uz8eIVsu5FW4suXYXIBxi7BaChGxNvgHjNnIwCsYC9i5dE
+ jKX6bh4wScaeu82/DWfrqvosdQLvNOSTNQqL3p8D5LO4GvDC2Ajyl/ZT75ZHwLhh
+ kE2y+p+TgM4NFDtzZCkaexDvACjo/gYggLfJN+nKXbC+kGJxe3vQ==
+X-ME-Sender: <xms:0qtVWbEN__D5B5xKuESqJfqTU2v-0lO1mokzo8llk_oZmwXCfPeTOA>
+X-Sasl-enc: z7Ok4BUZHFyvPng8PuOe64qJmbea+CG7ttWP5GRX31qJ 1498786770
 Received: from keelia (ppp118-210-130-225.bras1.adl6.internode.on.net
  [118.210.130.225])
- by mail.messagingengine.com (Postfix) with ESMTPA id D3F0424426;
- Thu, 29 Jun 2017 21:31:21 -0400 (EDT)
-Message-ID: <1498786277.5203.14.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10] aspeed: Set max gpio num.
+ by mail.messagingengine.com (Postfix) with ESMTPA id 2FA482424E;
+ Thu, 29 Jun 2017 21:39:28 -0400 (EDT)
+Message-ID: <1498786763.5203.17.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.10] aspeed-g5: add gpiolib irqchip support.
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Milton Miller II <miltonm@us.ibm.com>, Mykola Kostenok
- <c_mykolak@mellanox.com>
-Cc: openbmc@lists.ozlabs.org
-Date: Fri, 30 Jun 2017 11:01:17 +0930
-In-Reply-To: <OFC401AD1C.D9F923CA-ON0025814E.007AD5AE-0025814F.000332A5@notes.na.collabserv.com>
-References: <20170629133008.13045-1-c_mykolak@mellanox.com>
- <OFC401AD1C.D9F923CA-ON0025814E.007AD5AE-0025814F.000332A5@notes.na.collabserv.com>
+To: Mykola Kostenok <c_mykolak@mellanox.com>, Joel Stanley <joel@jms.id.au>,
+ openbmc@lists.ozlabs.org
+Date: Fri, 30 Jun 2017 11:09:23 +0930
+In-Reply-To: <20170629133239.17711-1-c_mykolak@mellanox.com>
+References: <20170629133239.17711-1-c_mykolak@mellanox.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-gY0u/Y9/mwVAUB/FH8gj"
+ protocol="application/pgp-signature"; boundary="=-9KfFgdXb3QYFaxVLaKS7"
 X-Mailer: Evolution 3.22.6-1ubuntu1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -66,100 +64,73 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 30 Jun 2017 01:31:26 -0000
+X-List-Received-Date: Fri, 30 Jun 2017 01:39:34 -0000
 
 
---=-gY0u/Y9/mwVAUB/FH8gj
+--=-9KfFgdXb3QYFaxVLaKS7
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2017-06-30 at 00:34 +0000, Milton Miller II wrote:
-> On June 29 2017 at 8:31 in some time zone, Mykola Kostenok wrote:
-> >=20
-> > Set maximum number of gpio for ARCH_ASPEED.
-> >=20
-> > > > Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
-> > diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
-> > index 186c4c214e0a..9d373685c628 100644
-> > --- a/arch/arm/Kconfig
-> > +++ b/arch/arm/Kconfig
-> > @@ -1492,6 +1492,7 @@ config ARCH_NR_GPIO
-> > 	default 352 if ARCH_VT8500
-> > 	default 288 if ARCH_ROCKCHIP
-> > 	default 264 if MACH_H4700
-> > > > +	default 232 if ARCH_ASPEED
-> > 	default 0
-> > 	help
-> > 	=C2=A0=C2=A0Maximum number of GPIOs in the system.
+Hi Mykola,
+
+On Thu, 2017-06-29 at 16:32 +0300, Mykola Kostenok wrote:
+> To allow support gpio class infrastructure for Aspeed SOC.
+> To allow gpio_to_irq conversion.
 >=20
+> Enable irqchip and libgpio_irqchip for aspeed-g5.
 >=20
-> This is a bad idea.=C2=A0
-
-I agree.
-
-> =C2=A0This sets the maximum total number=C2=A0
-> of gpios supported by the kernel, and setting it to this=C2=A0
-> value would not allow any space for the various pca=C2=A0
-> expanders to define additional gpios.
+> > Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
+> ---
+> =C2=A0arch/arm/mach-aspeed/Kconfig | 3 +++
+> =C2=A01 file changed, 3 insertions(+)
 >=20
-> The logic in asm-generic/gpio.h says if the CONFIG=C2=A0
-> number is 0 use 512 else use the supplied value.
->=20
-> I'm guessing this was motivated to make the gpio numbers=C2=A0
-> match with the controller.
+> diff --git a/arch/arm/mach-aspeed/Kconfig b/arch/arm/mach-aspeed/Kconfig
+> index f3f8c5c658db..e098b7a780ee 100644
+> --- a/arch/arm/mach-aspeed/Kconfig
+> +++ b/arch/arm/mach-aspeed/Kconfig
+> @@ -27,6 +27,9 @@ config MACH_ASPEED_G5
+> > =C2=A0	depends on ARCH_MULTI_V6
+> > =C2=A0	select CPU_V6
+> > =C2=A0	select PINCTRL_ASPEED_G5
+> > +	select GENERIC_IRQ_CHIP
+> +	select GPIOLIB_IRQCHIP
 
-Right; what's missing is any mention of the motivation.
+Sorry, I don't understand the need for this; CONFIG_GPIOLIB_IRQCHIP is
+already selected by CONFIG_GPIO_ASPEED, which is enabled by the
+aspeed_g5_defconfig. I don't think we need to do this here.
 
-Mykola: What problem are you trying to solve with this patch? As Milton
-mentions it might be making the GPIO numbers align with the controller,
-but why do you need that? It should already be possible to describe the
-system without this patch.
-
-> =C2=A0=C2=A0Unfortunately the gpios from=C2=A0
-> the device tree are assigned numbers from the end of=C2=A0
-> the number space.
->=20
-> If we need to assign a specific range, we should try=C2=A0
-> to define an optional property in the gpio chip binding=C2=A0
-> and assign the value to gpio-chip.base in gpio-aspeed.c,=C2=A0
-> but I am doubtful that such a patch would be accepted=C2=A0
-> upstream.=C2=A0=C2=A0
-
-I tend to doubt it as well. Describing GPIOs in the devicetree always
-uses the GPIO controller phandle for a base reference and the pin
-numbers are mapped at runtime as required.
-
-If it's a userspace problem, then there are means via sysfs and the
-chardev API to discover which controller you're talking to (e.g. chip
-labels, named gpios). Either of those approaches should suffice.
+Further, what problem are you trying to solve? From my testing GPIO
+interrupts are functional.
 
 Cheers,
 
 Andrew
 
->=20
-> milton
->=20
---=-gY0u/Y9/mwVAUB/FH8gj
+> +
+> > =C2=A0	help
+> > =C2=A0	=C2=A0Say yes if you intend to run on an Aspeed ast2500 or simil=
+ar
+> > =C2=A0	=C2=A0fifth generation Aspeed BMCs.
+--=-9KfFgdXb3QYFaxVLaKS7
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJZVanlAAoJEJ0dnzgO5LT5OWcP/AzgFpWqXQKZzrR+e1ncWCmZ
-Lfj+o9Ktu5LNPlo0VXNLhP7boaETu7h11H4Tlt4meUmWu7O1HFM+ZSqN9tr8L+kV
-ecLIXtFE9XDNJQAhBHKIkbNwXXOnSGTD2S/FzhUFuvWuWapxwH/RoFshWlG2S5J5
-6u4vyuJzdMcBpDCnUT2phaMNrx8ZNxvkwCGfOeBb3lZastJBtKhxXP0La2gZ2Kcg
-cR4hg4c/IweaDwH6DKuxwvfb6o5vcvjEYHbiQLFJJQcFaG9WhngC/jsKCnxkTZDH
-6q7Z9vZFXIddAvYgCRzpmuoV3rUkoTS6uKzZdWRQA41UbSWgzevom6lFyWefofOt
-x+k/LKqdUohPBpR4ucPXKkKwsYdvRuvvxcrv/xnKskRGfSb23g2AZkko1MOYxT66
-fECBkaekBGLJwZTXJYK0iimi3rE7YzguyjpEOeH6gWNsYFsgaxpA6AcfT6Od7IdN
-OJnQ0Pf5toCmiQfZOHVk66n9vQn9/k7TOjvZSThT3KYHZsXxMIruHL/Aca/ULpJR
-g9Ab5IVudmOtMZyzibBs9ALaxRi/oe0GC3JTVe/jbzJWObhP3GgM8awnbE1PtdkP
-Aln8k9G4+YC4vKzXeOSm8vsfWhJEtq2ijMQl74ljlMC1yNWkImNx8PAnXZZ1OFOo
-y/tA1p/MYQfl+hZYVuat
-=GhW0
+iQIcBAABCgAGBQJZVavLAAoJEJ0dnzgO5LT5MaUQAJCBYFvAWYSJl7/WIxjcdkW7
+fKuH6Xa+e+Wx0l+7Slno0hfKuiPxYmOaKhBMUUDmVbnME1VHiwjEHhL8+hHvAfOT
+pWcXbipZXQxe1ATrMUMdweSlgDPrvvTtHkLBzf0ue0uTN6BGsVYgKa/UIVAoKWVU
+cZ7eQtv2L+pgUdfqJV72Mn54QpnPjl+AisOsfVHSdIXdbuAZFvhGLMaV4uvc91lZ
+9cKREPerqbWq3EQFxEVu84H46nzSJmTGWhcqGaONdVxg/CvhS7hvuVfTUi+C2ZMk
+LLN6m66lBR5T3+OhCGx0Pt5s3ndpBCEHRBPTiZWQ0qHqrOIdSkUa7SpRobOfaEAy
+Vum/F5rPcLERnlpN0UqVNICoOy+XRQAFgY0128+czZEtAA50TEikDtIb+0UwL+qn
+jEYNmR7jfRBwAaHCa+EU+fb5CoejSdKTNqvXM5uLoSmYxftgNTxxUdJUHMbyM1dI
+JkcX7Adgv1z9HQC0vsxdtw9xNboLioVIz9l3MjIKwd7igRxf5szv27UPTSo6+/4D
+z6PxPcy1Ubzn5CTu8CI9br6jiJmAuSjba1SQJqKtx23mPaqTSkeEZ12rBfeuQOMt
+FjJBpZboUYVHtVT3xDhIeoAg0TPGeUh1tm1nEJBK1Cn0+O+JR/OMilHgyfe/zT0v
+VLSq6QOoGQyNwZa53taM
+=0Cr8
 -----END PGP SIGNATURE-----
 
---=-gY0u/Y9/mwVAUB/FH8gj--
+--=-9KfFgdXb3QYFaxVLaKS7--
