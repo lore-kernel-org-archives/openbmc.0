@@ -1,25 +1,25 @@
 Return-Path: <c_mykolak@mellanox.com>
 Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
- by lists.ozlabs.org (Postfix) with ESMTP id 3wzZZZ463XzDr5r
- for <openbmc@lists.ozlabs.org>; Fri, 30 Jun 2017 21:49:41 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTP id 3wzbYl01fCzDr5X
+ for <openbmc@lists.ozlabs.org>; Fri, 30 Jun 2017 22:34:00 +1000 (AEST)
 Received: from Internal Mail-Server by MTLPINE1 (envelope-from
  c?mykolak@mellanox.com)
- with ESMTPS (AES256-SHA encrypted); 30 Jun 2017 14:49:13 +0300
+ with ESMTPS (AES256-SHA encrypted); 30 Jun 2017 15:33:47 +0300
 Received: from r-vnc15.mtr.labs.mlnx (r-vnc15.mtr.labs.mlnx [10.208.0.15])
- by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id v5UBnDH7013019;
- Fri, 30 Jun 2017 14:49:13 +0300
+ by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id v5UCXlbT007263;
+ Fri, 30 Jun 2017 15:33:47 +0300
 Received: from r-vnc15.mtr.labs.mlnx (localhost [127.0.0.1])
- by r-vnc15.mtr.labs.mlnx (8.14.4/8.14.4) with ESMTP id v5UBn6V5030661;
- Fri, 30 Jun 2017 14:49:06 +0300
+ by r-vnc15.mtr.labs.mlnx (8.14.4/8.14.4) with ESMTP id v5UCXd5s005149;
+ Fri, 30 Jun 2017 15:33:39 +0300
 Received: (from c_mykolak@localhost)
- by r-vnc15.mtr.labs.mlnx (8.14.4/8.14.4/Submit) id v5UBmjpc030174;
- Fri, 30 Jun 2017 14:48:45 +0300
+ by r-vnc15.mtr.labs.mlnx (8.14.4/8.14.4/Submit) id v5UCXPPV004844;
+ Fri, 30 Jun 2017 15:33:25 +0300
 From: Mykola Kostenok <c_mykolak@mellanox.com>
 To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
 Cc: Mykola Kostenok <c_mykolak@mellanox.com>
-Subject: [PATCH linux dev-4.10] aspeed-g5: add aspeed,ast2500-pwm-tacho.
-Date: Fri, 30 Jun 2017 14:48:44 +0300
-Message-Id: <20170630114844.30027-1-c_mykolak@mellanox.com>
+Subject: [PATCH linux dev-4.10] aspeed-g5: extend defconfig with thermal.
+Date: Fri, 30 Jun 2017 15:33:16 +0300
+Message-Id: <20170630123316.4479-1-c_mykolak@mellanox.com>
 X-Mailer: git-send-email 2.8.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -32,103 +32,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 30 Jun 2017 11:49:43 -0000
+X-List-Received-Date: Fri, 30 Jun 2017 12:34:04 -0000
 
-Add aspeed,ast2500-pwm-tacho to dtsi.
-Enable aspeed,ast2500-pwm-tacho for msn.
+Extend aspeed g5 defconfig with TMP102 sensor
+and several thermal configs.
 
 Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
 ---
- arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts | 45 +++++++++++++++++++++++++++
- arch/arm/boot/dts/aspeed-g5.dtsi              | 16 ++++++++++
- 2 files changed, 61 insertions(+)
+ arch/arm/configs/aspeed_g5_defconfig | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-index c71a6dbe1410..55d5dc15d136 100644
---- a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-@@ -144,3 +144,48 @@
- 	status = "okay";
- };
- 
-+&pwm_tacho {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_pwm0_default>;
-+
-+	fan@0 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
-+	};
-+
-+	fan@1 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x01>;
-+	};
-+
-+	fan@2 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x02>;
-+	};
-+
-+	fan@3 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x03>;
-+	};
-+
-+	fan@4 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x04>;
-+	};
-+
-+	fan@5 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x05>;
-+	};
-+
-+	fan@6 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x06>;
-+	};
-+
-+	fan@7 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x07>;
-+	};
-+};
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index 992242d3b22e..01c86bb71932 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -35,6 +35,14 @@
- 		i2c13 = &i2c13;
- 	};
- 
-+	clocks {
-+		pwm_tacho_fixed_clk: fixedclk {
-+			compatible = "fixed-clock";
-+			#clock-cells = <0>;
-+			clock-frequency = <24000000>;
-+		};
-+	};
-+
- 	ahb {
- 		compatible = "simple-bus";
- 		#address-cells = <1>;
-@@ -366,6 +374,14 @@
- 				#size-cells = <1>;
- 				ranges = <0 0x1e78a000 0x1000>;
- 			};
-+			pwm_tacho: pwm-tacho-controller@1e786000 {
-+				compatible = "aspeed,ast2500-pwm-tacho";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				reg = <0x1e786000 0x1000>;
-+				clocks = <&pwm_tacho_fixed_clk>;
-+				status = "disabled";
-+			};
- 		};
- 	};
- };
+diff --git a/arch/arm/configs/aspeed_g5_defconfig b/arch/arm/configs/aspeed_g5_defconfig
+index 29206d1..ad121ed 100644
+--- a/arch/arm/configs/aspeed_g5_defconfig
++++ b/arch/arm/configs/aspeed_g5_defconfig
+@@ -149,6 +149,12 @@ CONFIG_SENSORS_LM25066=y
+ CONFIG_SENSORS_UCD9000=y
+ CONFIG_SENSORS_UCD9200=y
+ CONFIG_SENSORS_TMP421=y
++CONFIG_SENSORS_TMP102=y
++CONFIG_THERMAL=y
++CONFIG_THERMAL_HWMON=y
++CONFIG_THERMAL_OF=y
++CONFIG_THERMAL_DEFAULT_GOV_STEP_WISE=y
++CONFIG_THERMAL_GOV_STEP_WISE=y
+ CONFIG_USB=y
+ CONFIG_USB_ANNOUNCE_NEW_DEVICES=y
+ CONFIG_USB_DYNAMIC_MINORS=y
 -- 
-2.11.0
+2.8.4
