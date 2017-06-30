@@ -1,50 +1,105 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-wm0-x22a.google.com (mail-wm0-x22a.google.com
- [IPv6:2a00:1450:400c:c09::22a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <miltonm@us.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wz5s70GK5zDr0g
- for <openbmc@lists.ozlabs.org>; Fri, 30 Jun 2017 03:15:38 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="O2d8Q7Fw"; 
- dkim-atps=neutral
-Received: by mail-wm0-x22a.google.com with SMTP id 62so88693179wmw.1
- for <openbmc@lists.ozlabs.org>; Thu, 29 Jun 2017 10:15:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=VF4lsjeZnDcjwPJ0liYtoL6hKHIL+drbgBtcPIk58oc=;
- b=O2d8Q7FwpAcm94YN+NTHHNj2zgjFQiKCrGIgFpAz/2mThPcMWhIbCCH5i7CuTkPpLj
- RXZgSjZT7+9GvhEnjtYUADFxS27lPT8D574Knny7ClS9glwNEPzziV0hTmcZQFp/lkfX
- Ym7DAfwHWo/zGD+MFWW82l3v7AggTOKcTsCqrPxJXrmM0j58EEMGzVwsqy5nxeSwCVrV
- vszJLvg72wc8xnvQvhoMKZwVyzAsXZGkSEkujfbCAZLN5oOGfE9tmcx7TAoCftx1m2gq
- V+DuMg/1odz/m7C2LVqHJBaS0n1doradOhQ2rlT5xcq/pDhOcaDLbA7295+TACTKk8lv
- fAhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=VF4lsjeZnDcjwPJ0liYtoL6hKHIL+drbgBtcPIk58oc=;
- b=hV+bp8OUVZ9aIwjcLLOOLGwuqnlpQHbzKQYbPHIxDIfIEfybgaLbZ5u3gouhP6rBEt
- KGOdgc10yTMKo4EqkVL6z1sNS3pz2DLyDq/Fh6s6auGSDrSK9tuzq9c3XepWZeNh6KFo
- mdid0Up/MCodInv6FRO0EV8keFYEABxnBb50rvuypzyuuIIXtgp4r4UZLyaxlck1Dr/a
- XOrXgvAtdX2YC5rIwZmO3hSeyjcTOlJQ4lsC77E55WFHGRcj6MmqJXSjIZATWqw7EHtX
- PONKWa1sX1pHVl4PPil9WZlCbrNI4sdISeVO/jfdB7uuBAi2caya9UxsgyKJhyJ0g1VU
- pAkw==
-X-Gm-Message-State: AIVw111W+hxIU+nh2zoe0XT/i5ejasZ17V5CLC2kaeR+q2jSjYie/PcX
- hl46tdp/GrGkqk0uCVXRrIEBrpOm/u/8mSg=
-X-Received: by 10.28.19.205 with SMTP id 196mr2944960wmt.122.1498756535175;
- Thu, 29 Jun 2017 10:15:35 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3wzHcD6FwvzDr5g
+ for <openbmc@lists.ozlabs.org>; Fri, 30 Jun 2017 10:35:08 +1000 (AEST)
+Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v5U0YZkx038020
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Jun 2017 20:35:06 -0400
+Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2bd1dtv0sy-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Jun 2017 20:35:06 -0400
+Received: from localhost
+ by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <miltonm@us.ibm.com>;
+ Thu, 29 Jun 2017 18:35:05 -0600
+Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
+ by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Thu, 29 Jun 2017 18:35:02 -0600
+Received: from b03ledav001.gho.boulder.ibm.com
+ (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v5U0Z2sY39256230
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Jun 2017 17:35:02 -0700
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 600F16E03D
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Jun 2017 18:35:02 -0600 (MDT)
+Received: from d50lp02.ny.us.ibm.com (unknown [146.89.104.208])
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTPS id 3EEDD6E040
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Jun 2017 18:35:02 -0600 (MDT)
+Received: from localhost
+ by d50lp02.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <miltonm@us.ibm.com>;
+ Thu, 29 Jun 2017 20:35:01 -0400
+Received: from smtp.notes.na.collabserv.com (192.155.248.75)
+ by d50lp02.ny.us.ibm.com (158.87.18.21) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128/128)
+ Thu, 29 Jun 2017 20:34:58 -0400
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <miltonm@us.ibm.com>;
+ Fri, 30 Jun 2017 00:34:57 -0000
+Received: from us1a3-smtp08.a3.dal06.isc4sb.com (10.146.103.57)
+ by smtp.notes.na.collabserv.com (10.106.227.123) with
+ smtp.notes.na.collabserv.com ESMTP; Fri, 30 Jun 2017 00:34:55 -0000
+Received: from us1a3-mail79.a3.dal09.isc4sb.com ([10.142.3.136])
+ by us1a3-smtp08.a3.dal06.isc4sb.com
+ with ESMTP id 2017063000345519-1031511 ;
+ Fri, 30 Jun 2017 00:34:55 +0000 
+In-Reply-To: <20170629133008.13045-1-c_mykolak@mellanox.com>
+Subject: Re: [PATCH linux dev-4.10] aspeed: Set max gpio num.
+From: "Milton Miller II" <miltonm@us.ibm.com>
+To: Mykola Kostenok <c_mykolak@mellanox.com>
+Cc: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
+Date: Fri, 30 Jun 2017 00:34:55 +0000
 MIME-Version: 1.0
-Received: by 10.28.143.18 with HTTP; Thu, 29 Jun 2017 10:15:34 -0700 (PDT)
-In-Reply-To: <CACPK8XfEoxHnj9-UOvSMXwuE=YoXQp21NeT7EsxHk4miNLz-zw@mail.gmail.com>
-References: <CACPK8XfEoxHnj9-UOvSMXwuE=YoXQp21NeT7EsxHk4miNLz-zw@mail.gmail.com>
-From: Rick Altherr <raltherr@google.com>
-Date: Thu, 29 Jun 2017 10:15:34 -0700
-Message-ID: <CAPLgG=kQPbdvRxHTLuBXG7SHVG-tNX0mGG+3RAxsnSMRE1M1iA@mail.gmail.com>
-Subject: Re: Setting timeriomem rng quality
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="001a1145b67ce31df505531c727d"
+Sensitivity: 
+Importance: Normal
+X-Priority: 3 (Normal)
+References: <20170629133008.13045-1-c_mykolak@mellanox.com>
+X-Mailer: IBM iNotes ($HaikuForm 964) | IBM Domino Build
+ SCN17157_20170606T0034 June 06, 2017 at 00:34
+X-LLNOutbound: False
+X-Disclaimed: 31463
+X-TNEFEvaluated: 1
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+x-cbid: 17063000-0008-0000-0000-000008219B14
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.40962; ST=0; TS=0; UL=0; ISC=; MB=0.000006
+X-IBM-SpamModules-Versions: BY=3.00007295; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00880616; UDB=6.00439017; IPR=6.00660769; 
+ BA=6.00005447; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016015; XFM=3.00000015;
+ UTC=2017-06-30 00:34:56
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2017-06-29 21:15:46 - 6.00006950
+x-cbparentid: 17063000-3816-0000-0000-0000251D76B8
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+X-TM-AS-GCONF: 00
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007295; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00880616; UDB=6.00439017; IPR=6.00660769; 
+ BA=6.00005447; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016015; XFM=3.00000015;
+ UTC=2017-06-30 00:35:03
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+Message-Id: <OFC401AD1C.D9F923CA-ON0025814E.007AD5AE-0025814F.000332A5@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-06-29_17:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1706300007
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,48 +111,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 29 Jun 2017 17:15:40 -0000
+X-List-Received-Date: Fri, 30 Jun 2017 00:35:09 -0000
 
---001a1145b67ce31df505531c727d
-Content-Type: text/plain; charset="UTF-8"
-
-Huh.  I thought I sent a patch for that.  Quality is #bit of entropy per
-1000 bits read.  100 is a conservative value that was suggested by those in
-the know.
-
-On Wed, Jun 28, 2017 at 9:36 PM, Joel Stanley <joel@jms.id.au> wrote:
-
-> Hi Rick,
+On June 29 2017 at 8:31 in some time zone, Mykola Kostenok wrote:
 >
-> I saw your patch to allow the device tree to set the timeriomem rng
-> quality. I was wondering what value that should be set to for the
-> Aspeed SoCs?
+>Set maximum number of gpio for ARCH=5FASPEED.
 >
-> Cheers,
->
-> Joel
->
+>Signed-off-by: Mykola Kostenok <c=5Fmykolak@mellanox.com>
 
---001a1145b67ce31df505531c727d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+>diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+>index 186c4c214e0a..9d373685c628 100644
+>--- a/arch/arm/Kconfig
+>+++ b/arch/arm/Kconfig
+>@@ -1492,6 +1492,7 @@ config ARCH=5FNR=5FGPIO
+> 	default 352 if ARCH=5FVT8500
+> 	default 288 if ARCH=5FROCKCHIP
+> 	default 264 if MACH=5FH4700
+>+	default 232 if ARCH=5FASPEED
+> 	default 0
+> 	help
+> 	  Maximum number of GPIOs in the system.
 
-<div dir=3D"ltr">Huh.=C2=A0 I thought I sent a patch for that.=C2=A0 Qualit=
-y is #bit of entropy per 1000 bits read. =C2=A0100 is a conservative value =
-that was suggested by those in the know.</div><div class=3D"gmail_extra"><b=
-r><div class=3D"gmail_quote">On Wed, Jun 28, 2017 at 9:36 PM, Joel Stanley =
-<span dir=3D"ltr">&lt;<a href=3D"mailto:joel@jms.id.au" target=3D"_blank">j=
-oel@jms.id.au</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" st=
-yle=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Hi Ri=
-ck,<br>
-<br>
-I saw your patch to allow the device tree to set the timeriomem rng<br>
-quality. I was wondering what value that should be set to for the<br>
-Aspeed SoCs?<br>
-<br>
-Cheers,<br>
-<br>
-Joel<br>
-</blockquote></div><br></div>
 
---001a1145b67ce31df505531c727d--
+This is a bad idea.  This sets the maximum total number=20
+of gpios supported by the kernel, and setting it to this=20
+value would not allow any space for the various pca=20
+expanders to define additional gpios.
+
+The logic in asm-generic/gpio.h says if the CONFIG=20
+number is 0 use 512 else use the supplied value.
+
+I'm guessing this was motivated to make the gpio numbers=20
+match with the controller.  Unfortunately the gpios from=20
+the device tree are assigned numbers from the end of=20
+the number space.
+
+If we need to assign a specific range, we should try=20
+to define an optional property in the gpio chip binding=20
+and assign the value to gpio-chip.base in gpio-aspeed.c,=20
+but I am doubtful that such a patch would be accepted=20
+upstream. =20
+
+milton
