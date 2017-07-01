@@ -1,62 +1,53 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <venture@google.com>
+Received: from mail-pf0-x22f.google.com (mail-pf0-x22f.google.com
+ [IPv6:2607:f8b0:400e:c00::22f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3wzsLv2QjvzDr8Z
- for <openbmc@lists.ozlabs.org>; Sat,  1 Jul 2017 08:55:35 +1000 (AEST)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v5UMt8Ea027952
- for <openbmc@lists.ozlabs.org>; Fri, 30 Jun 2017 18:55:33 -0400
-Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2bdrtjf42u-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 30 Jun 2017 18:55:32 -0400
-Received: from localhost
- by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Fri, 30 Jun 2017 18:55:31 -0400
-Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
- by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Fri, 30 Jun 2017 18:55:29 -0400
-Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
- [9.57.199.109])
- by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v5UMtT6M55246860; Fri, 30 Jun 2017 22:55:29 GMT
-Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C12A6112034;
- Fri, 30 Jun 2017 18:55:30 -0400 (EDT)
-Received: from Christophers-MacBook-Pro.local.com (unknown [9.83.6.33])
- by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id 83B91112047;
- Fri, 30 Jun 2017 18:55:28 -0400 (EDT)
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-To: joel@jms.id.au
-Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10] drivers/leds: Add GPIO keys for PCA955x and
- ast24/2500 gpio
-Date: Fri, 30 Jun 2017 17:55:21 -0500
-X-Mailer: git-send-email 2.10.1 (Apple Git-78)
-X-TM-AS-GCONF: 00
-x-cbid: 17063022-0052-0000-0000-00000233FCD6
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007300; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00881063; UDB=6.00439285; IPR=6.00661216; 
- BA=6.00005448; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016027; XFM=3.00000015;
- UTC=2017-06-30 22:55:31
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17063022-0053-0000-0000-0000512A5187
-Message-Id: <20170630225521.7612-1-cbostic@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-06-30_15:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1706300353
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x0J9w2rVCzDr51
+ for <openbmc@lists.ozlabs.org>; Sun,  2 Jul 2017 02:04:19 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="Crs3t++7"; 
+ dkim-atps=neutral
+Received: by mail-pf0-x22f.google.com with SMTP id e7so80865567pfk.0
+ for <openbmc@lists.ozlabs.org>; Sat, 01 Jul 2017 09:04:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=tbgJFy5zfS8CIBHt6ytH2ziIpWbc8i6Ow0zZb/DIzcg=;
+ b=Crs3t++7YfhhyYOcMqZHYXN9ujF7xckeLU/yVq/oSA1uwJSIZuStalwofnhyGW+/zS
+ oP09aTRLn77gSnC3T03soaI7MKF55+ct+tSf/g3WgugOvAVtEHfhJLZ5kvJ4ThJBWeNh
+ FyXCluXQE84iZ6kElm6xFwUjKNFg3rcCQI9HoHdfHtwqgMYzvA8IEZupM+e8bZZwYbUB
+ U69LdVwxFJFPeD3lXFRqOHAhjEmv5Wjze9e/dDqLYkY5NjJqUKh/uI7HKQ6/Go1/L4UK
+ YNjNDrhbB7vbn35zj+AAgalRBher1+8dMG4nAqgbmVRyvHbTqaDmZ4KZMJvKY7qhUo/M
+ wzUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=tbgJFy5zfS8CIBHt6ytH2ziIpWbc8i6Ow0zZb/DIzcg=;
+ b=aWp0qqpgPxx9ONtVOqtjHxtXqCBUHEkn2IWFsWyQk6ge5zxLLsxgfsagjpP8LrrCjN
+ fWZYwFtUnM6WAwOogZf1er/995VypVK+4o6PHIL6XQvQiW08xbKZxaDoIfpt98muaVhz
+ AOdsVjKrQk36TGaGJVmp15R4I6Ibknga8XUvcxGtJ2SQWLtR4mUx6f2Xs7P0kBUT1+Hy
+ LFX+qYBU1DE5j5D8A+eJ0VcGoQE8hC4FJakFOALS8ETLm0JsWOcgbnNjNxQN69+JwC0k
+ E1cnlDTdVq9PR7rlAIBFUxrvquXngUPeIGPT3qlQY88F+jP4Xdtjn5jb5Wi8iyJuCD/n
+ aKcg==
+X-Gm-Message-State: AIVw113ZOpMjvi7/iXpyXfomDXpZlS1XMUKYidrLaeZxs5+G5F0nPUet
+ afIOPLKdOelFiT4C
+X-Received: by 10.99.122.3 with SMTP id v3mr1395378pgc.98.1498925056448;
+ Sat, 01 Jul 2017 09:04:16 -0700 (PDT)
+Received: from venture.svl.corp.google.com ([100.123.242.104])
+ by smtp.gmail.com with ESMTPSA id l4sm22418909pgr.21.2017.07.01.09.04.15
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Sat, 01 Jul 2017 09:04:15 -0700 (PDT)
+From: Patrick Venture <venture@google.com>
+To: venture@google.com,
+	joel@jms.id.au,
+	roblip@gmail.com
+Cc: openbmc@lists.ozlabs.org,
+	raltherr@google.com
+Subject: [PATCH linux dev-4.10] drivers/misc: (aspeed-lpc-snoop): Add ast2400
+ to compat
+Date: Sat,  1 Jul 2017 09:04:12 -0700
+Message-Id: <20170701160412.45558-1-venture@google.com>
+X-Mailer: git-send-email 2.13.2.725.g09c95d1e9-goog
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,202 +59,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 30 Jun 2017 22:55:35 -0000
+X-List-Received-Date: Sat, 01 Jul 2017 16:04:21 -0000
 
-Define gpio keys for power supply presence, ucd alert, and fan presence.
+This driver can be used on the aspeed ast2400.
 
-Link pca955x to parent i2c interrupt controller so that new pca955x gpio
-keys for fan presence haning off of pca955x can be defined.
+Tested: ast2400 on quanta-q71l
 
-Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Signed-off-by: Patrick Venture <venture@google.com>
 ---
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 77 ++++++++++++++++++++++++
- drivers/leds/leds-pca955x.c                      | 64 ++++++++++++++++++++
- 2 files changed, 141 insertions(+)
+ drivers/misc/aspeed-lpc-snoop.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-index 31315d0..24ea9944 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -46,6 +46,48 @@
- 			gpios = <&gpio ASPEED_GPIO(J, 2) GPIO_ACTIVE_LOW>;
- 			linux,code = <ASPEED_GPIO(J, 2)>;
- 		};
-+
-+		ps0-presence {
-+			label = "ps0-presence";
-+			gpios = <&gpio ASPEED_GPIO(P, 7) GPIO_ACTIVE_LOW>;
-+			linux,code = <ASPEED_GPIO(P, 7)>;
-+		};
-+
-+		ps1-presence {
-+			label = "ps1-presence";
-+			gpios = <&gpio ASPEED_GPIO(N, 0) GPIO_ACTIVE_LOW>;
-+			linux,code = <ASPEED_GPIO(N, 0)>;
-+		};
-+
-+		ucd-alert {
-+			label = "ucd-alert";
-+			gpios = <&gpio ASPEED_GPIO(I, 2) GPIO_ACTIVE_LOW>;
-+			linux,code = <ASPEED_GPIO(I, 2)>;
-+		};
-+
-+		fan0-presence {
-+			label = "fan0-presence";
-+			gpios = <&pca0 0 GPIO_ACTIVE_LOW>;
-+			linux,code = <0>;
-+		};
-+
-+		fan1-presence {
-+			label = "fan1-presence";
-+			gpios = <&pca0 1 GPIO_ACTIVE_LOW>;
-+			linux,code = <1>;
-+		};
-+
-+		fan2-presence {
-+			label = "fan2-presence";
-+			gpios = <&pca0 2 GPIO_ACTIVE_LOW>;
-+			linux,code = <2>;
-+		};
-+
-+		fan3-presence {
-+			label = "fan3-presence";
-+			gpios = <&pca0 3 GPIO_ACTIVE_LOW>;
-+			linux,code = <3>;
-+		};
- 	};
+diff --git a/drivers/misc/aspeed-lpc-snoop.c b/drivers/misc/aspeed-lpc-snoop.c
+index 593905565b74..0647cff6280a 100644
+--- a/drivers/misc/aspeed-lpc-snoop.c
++++ b/drivers/misc/aspeed-lpc-snoop.c
+@@ -241,6 +241,7 @@ static int aspeed_lpc_snoop_remove(struct platform_device *pdev)
  
- 	leds {
-@@ -203,6 +245,41 @@
- 		compatible = "infineon,dps310";
- 		reg = <0x76>;
- 	};
-+
-+	pca0: pca9552@60 {
-+		compatible = "nxp,pca9552";
-+		reg = <0x60>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+
-+		interrupt-parent = <&i2c_ic>;
-+		interrupts = <3>;
-+
-+		gpio-line-names = "FAN0_PRESENSE_N", "FAN1_PRESENSE_N",
-+				"FAN2_PRESENSE_N", "FAN3_PRESENSE_N";
-+
-+		gpio@4 {
-+			reg = <4>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@5 {
-+			reg = <5>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@6 {
-+			reg = <6>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@7 {
-+			reg = <7>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+	};
+ static const struct of_device_id aspeed_lpc_snoop_match[] = {
+ 	{ .compatible = "aspeed,ast2500-lpc-snoop" },
++	{ .compatible = "aspeed,ast2400-lpc-snoop" },
+ 	{ },
  };
  
- &i2c4 {
-diff --git a/drivers/leds/leds-pca955x.c b/drivers/leds/leds-pca955x.c
-index 9216742..88990f1 100644
---- a/drivers/leds/leds-pca955x.c
-+++ b/drivers/leds/leds-pca955x.c
-@@ -52,6 +52,7 @@
- #include <linux/of.h>
- #include <linux/slab.h>
- #include <linux/string.h>
-+#include <linux/interrupt.h>
- 
- #include <dt-bindings/leds/leds-pca955x.h>
- 
-@@ -389,6 +390,66 @@ static int pca955x_gpio_direction_output(struct gpio_chip *gc,
- }
- #endif
- 
-+static void pca955x_irq_mask(struct irq_data *d)
-+{
-+}
-+
-+static void pca955x_irq_unmask(struct irq_data *d)
-+{
-+}
-+
-+static void pca955x_irq_bus_lock(struct irq_data *d)
-+{
-+}
-+
-+static void pca955x_irq_bus_sync_unlock(struct irq_data *d)
-+{
-+}
-+
-+static int pca955x_irq_set_type(struct irq_data *d, unsigned int type)
-+{
-+	return 0;
-+}
-+
-+static struct irq_chip pca955x_irq_chip = {
-+	.name			= "pca955x",
-+	.irq_mask		= pca955x_irq_mask,
-+	.irq_unmask		= pca955x_irq_unmask,
-+	.irq_bus_lock		= pca955x_irq_bus_lock,
-+	.irq_bus_sync_unlock	= pca955x_irq_bus_sync_unlock,
-+	.irq_set_type		= pca955x_irq_set_type,
-+};
-+
-+static int pca955x_irq_setup(struct pca955x *chip, int irq_base)
-+{
-+	struct i2c_client *client;
-+	int ret;
-+
-+	if (!chip)
-+		return 0;
-+
-+	client = chip->client;
-+	if (!client)
-+		return 0;
-+
-+	if (client->irq && irq_base >= 0) {
-+		ret = gpiochip_irqchip_add_nested(&chip->gpio,
-+						&pca955x_irq_chip,
-+						irq_base,
-+						handle_simple_irq,
-+						IRQ_TYPE_NONE);
-+		if (ret) {
-+			dev_err(&client->dev,
-+				"could not connect irqchip to gpiochip\n");
-+			return ret;
-+		}
-+		gpiochip_set_nested_irqchip(&chip->gpio,
-+					&pca955x_irq_chip,
-+					client->irq);
-+	}
-+	return 0;
-+}
-+
- static int pca955x_probe(struct i2c_client *client,
- 					const struct i2c_device_id *id)
- {
-@@ -543,6 +604,9 @@ static int pca955x_probe(struct i2c_client *client,
- 		}
- 	}
- #endif
-+	err = pca955x_irq_setup(pca955x, 0);
-+	if (err)
-+		return err;
- 
- 	return 0;
- }
 -- 
-1.8.2.2
+2.13.2.725.g09c95d1e9-goog
