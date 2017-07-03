@@ -1,75 +1,53 @@
-Return-Path: <c_mykolak@mellanox.com>
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur01on0065.outbound.protection.outlook.com [104.47.0.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Return-Path: <venture@google.com>
+Received: from mail-pg0-x22d.google.com (mail-pg0-x22d.google.com
+ [IPv6:2607:f8b0:400e:c05::22d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x1W5N1syQzDr3p
- for <openbmc@lists.ozlabs.org>; Tue,  4 Jul 2017 01:19:34 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b="xJ4ftgwS";
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x1WB84kgszDr3p
+ for <openbmc@lists.ozlabs.org>; Tue,  4 Jul 2017 01:23:44 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="i7iVZ1nq"; 
  dkim-atps=neutral
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
- s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=8TNSnlEM+CBPy0+krJyLKtJ+7ukbJKdESYJjTyef9vk=;
- b=xJ4ftgwS3JlBDmU6cnf5MkLdKn0/VKz+Bmjn0FCmg9Ql6sQsHm+VVimS7gLz/dy0kO9JCP4KjpIXpVmdl5OamYiJdBuNJWITlFSbr6ZUJNEqMwbHHuVhoy0MhVRGGDy3iv415b+AAhy3InR3A6YdvNqhA3I/YPcOpmd3oEjcNWM=
-Received: from DB5PR05MB1224.eurprd05.prod.outlook.com (10.161.245.11) by
- DB5PR05MB1221.eurprd05.prod.outlook.com (10.161.244.26) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1220.11; Mon, 3 Jul 2017 15:19:22 +0000
-Received: from DB5PR05MB1224.eurprd05.prod.outlook.com
- ([fe80::21e6:bfbb:dbbc:3bd5]) by DB5PR05MB1224.eurprd05.prod.outlook.com
- ([fe80::21e6:bfbb:dbbc:3bd5%14]) with mapi id 15.01.1220.015; Mon, 3 Jul 2017
- 15:19:22 +0000
-From: Mykola Kostenok <c_mykolak@mellanox.com>
-To: Patrick Venture <venture@google.com>, Joel Stanley <joel@jms.id.au>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: RE: [PATCH linux dev-4.10] aspeed-g5: add aspeed,ast2500-pwm-tacho.
-Thread-Topic: [PATCH linux dev-4.10] aspeed-g5: add aspeed,ast2500-pwm-tacho.
-Thread-Index: AQHS88Oyc6PC4Xvqqk+rXk8OFnYOraJCMMiAgAADQHA=
-Date: Mon, 3 Jul 2017 15:19:22 +0000
-Message-ID: <DB5PR05MB1224BD072CC2CA2A7E7FB58AEFD60@DB5PR05MB1224.eurprd05.prod.outlook.com>
+Received: by mail-pg0-x22d.google.com with SMTP id t186so97168990pgb.1
+ for <openbmc@lists.ozlabs.org>; Mon, 03 Jul 2017 08:23:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=wP+NRvnFgE60oKKd9AKZm9UE7RoYrUD5fKvXz3lR5Fw=;
+ b=i7iVZ1nquuWgHwFG8kstii59rJYmbScbSaps0J+Q/IaLivGQOHnxiHrX94TyJ9FlX8
+ fgdkCITrNenhmFUfbRbc58VD/Qx0clYmtj6h6xZJfRjfgCut1mZZf0QxsTXgDDITTbBn
+ Qr4JOLscmCgjYzCl9X6KZGPwDnmzAzcJN3+6nBv7I5/8yMldWuOOtUmLoSfUGiOslyRu
+ 5bAB3EdCc+ySxloRwR9fHX/Us7UfI53Dmn7zBL1dXG9vamfrffaAOy/7OE/YEe4+alVs
+ nX1ZfDLgjPtHxow1NaioBUSP5gA639x0OpvKOpKIuMl0A+6xifd48FdlAypPiITJBMir
+ IRNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=wP+NRvnFgE60oKKd9AKZm9UE7RoYrUD5fKvXz3lR5Fw=;
+ b=k1YH3/pbwYDx+4Kvr2lNgTRCc9s9dYAzDr+eC7dKkoeBqnESeLZQg67nWKtBLho0au
+ ErhSbQnSfOPSpDvFRq9XpgdhWuvcwuXKzt9hynwFw+//2tD1zBLlkYPeDjd6q61w2E+U
+ CklMLxLBGYM5SeXclalRGBZ/LEsEX0KALQvhnmTeVKytOA1alAFaeZCwZc2j4KhN4vbr
+ S5D68hGxDJRsJOvYPB5EkC22MsJCx2TU4zsaqSEIqvMhrrOjwoXJDVonH3Uk44iKPioB
+ +7IUV71ibh0hebm/CTTXBOgy44i0NZkzR0JQA8yAyG7zTZJaODrh25JpbBFocxHYVnT+
+ Sl2w==
+X-Gm-Message-State: AIVw113RE6MFB7Azw7h53rRKvEbrOLDuDqI+SdwEp8OcAG0yVqfn/535
+ AJnxFsAZJmwTkYqrXWM3eIM+yekrIr3g
+X-Received: by 10.98.43.80 with SMTP id r77mr10440571pfr.92.1499095422723;
+ Mon, 03 Jul 2017 08:23:42 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.100.165.205 with HTTP; Mon, 3 Jul 2017 08:23:22 -0700 (PDT)
+In-Reply-To: <DB5PR05MB1224BD072CC2CA2A7E7FB58AEFD60@DB5PR05MB1224.eurprd05.prod.outlook.com>
 References: <20170630114844.30027-1-c_mykolak@mellanox.com>
  <CACPK8Xe6g2VZUQBwJopcBBLwjzjsxAaX9arw6Gqh7ZO23htGGA@mail.gmail.com>
  <CAO=notzKhBGwE-2f5jS4JhpL9mgmBouzig9NgWgjUGj_VcWjew@mail.gmail.com>
-In-Reply-To: <CAO=notzKhBGwE-2f5jS4JhpL9mgmBouzig9NgWgjUGj_VcWjew@mail.gmail.com>
-Accept-Language: ru-RU, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: google.com; dkim=none (message not signed)
- header.d=none;google.com; dmarc=none action=none header.from=mellanox.com;
-x-originating-ip: [80.90.224.13]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; DB5PR05MB1221;
- 7:kdGUmDEFq94P2v3q9ZTW5CVKKbrWE+XGUoGxSRJthbyhDDJW2HSaauAM49bdWSV7hsBqbUbD43/0jyJlAdZQeiE6LD7WPb4QHpY4WKwxkmolVDFQA9wfm7P9bwcgiZXLIAtHsGlbdm4QnZsMJM3fy9bzpySJ836ZvrjRebNtWo1a/Y6X2LDReEU36WkxIcQBH7uP/JY4eLO8bti8TB8ywuITs1zaRNLnaaCpqlkG88ROIHIEYxmXND/GATyeNhIE1TSgEJtuUzhxHlFZnhJDkeadiHC4GbCE/+7gdsKC+x1DeNYpwGmBVizdvR5uzSwIrOnUbKHoPjcVPHO1nX1RS0ydhU02QeTEXNc4ERy2h9lJuhT+qFEr1YhsiHNkj8M3GiOYWVOvWhaqtaHOj7PdD083a8x+eLtuOKOpNW9xrpx778Dwx7KffqYNdWHgLq5RpeyeiSvZHnrEKdBsP59SLusy5awNII5OFPbLB/Yh4swKDNoUVOsmVn8zEs4xrJpJmHW+cNZWiXrvG+W9Imh2aqeTUMd+zf8rRRquzJeiEndwOZeI9bgNK8gVMusftB6prPkY/PvB6jh/Nxsfu2sXmzA3A264c7NbAaL9qfXmqN0ngs0ZG1jwvDQz+IPGcfvA+nSMEVdC6TH0gSJC3VkyQQR16ZXpfsp0RHsXNZqDl5d0UJLf8UkdE80tv5rUXxjhDi2KuVfxDGifgbzZpOJdodc1l9jE6w1LjylWny9TfME0kv6zaw5m77Q4YTM8ruNTC3Doqu2Axj39+0M8Iq3Z0kILt7uia2NgNk7ELCWI4Rc=
-x-ms-office365-filtering-correlation-id: ff8977af-318b-4b19-a58a-08d4c226e256
-x-ms-office365-filtering-ht: Tenant
-x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
- RULEID:(300000500095)(300135000095)(300000501095)(300135300095)(22001)(300000502095)(300135100095)(2017030254075)(48565401081)(300000503095)(300135400095)(2017052603031)(201703131423075)(201703031133081)(300000504095)(300135200095)(300000505095)(300135600095)(300000506095)(300135500095);
- SRVR:DB5PR05MB1221; 
-x-ms-traffictypediagnostic: DB5PR05MB1221:
-x-microsoft-antispam-prvs: <DB5PR05MB1221C77C91B0B6921FB3D784EFD60@DB5PR05MB1221.eurprd05.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:(236129657087228)(65623756079841)(211936372134217)(247924648384137); 
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(100000700101)(100105000095)(100000701101)(100105300095)(100000702101)(100105100095)(6040450)(601004)(2401047)(8121501046)(5005006)(93006095)(93001095)(3002001)(100000703101)(100105400095)(10201501046)(6055026)(6041248)(20161123555025)(201703131423075)(201702281528075)(201703061421075)(201703061406153)(20161123558100)(20161123562025)(20161123560025)(20161123564025)(6072148)(100000704101)(100105200095)(100000705101)(100105500095);
- SRVR:DB5PR05MB1221; BCL:0; PCL:0;
- RULEID:(100000800101)(100110000095)(100000801101)(100110300095)(100000802101)(100110100095)(100000803101)(100110400095)(100000804101)(100110200095)(100000805101)(100110500095);
- SRVR:DB5PR05MB1221; 
-x-forefront-prvs: 035748864E
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(6009001)(39850400002)(39860400002)(39400400002)(39450400003)(39410400002)(39840400002)(13464003)(24454002)(377454003)(54356999)(38730400002)(53936002)(50986999)(5660300001)(74316002)(7696004)(14454004)(33656002)(2900100001)(230783001)(9686003)(86362001)(99286003)(6116002)(3846002)(102836003)(5250100002)(55016002)(66066001)(6436002)(8936002)(229853002)(2950100002)(6506006)(25786009)(3280700002)(4326008)(478600001)(53546010)(8676002)(81166006)(76176999)(305945005)(6246003)(2906002)(7736002)(45080400002)(3660700001)(189998001)(142933001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DB5PR05MB1221;
- H:DB5PR05MB1224.eurprd05.prod.outlook.com; FPR:; SPF:None; MLV:sfv; LANG:en; 
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-OriginatorOrg: Mellanox.com
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jul 2017 15:19:22.6707 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB5PR05MB1221
+ <DB5PR05MB1224BD072CC2CA2A7E7FB58AEFD60@DB5PR05MB1224.eurprd05.prod.outlook.com>
+From: Patrick Venture <venture@google.com>
+Date: Mon, 3 Jul 2017 08:23:22 -0700
+Message-ID: <CAO=notz7P3_KLyUP_8m+zP4qj50RMc8cTw+u-HN_d0YFnmh+XA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] aspeed-g5: add aspeed,ast2500-pwm-tacho.
+To: Mykola Kostenok <c_mykolak@mellanox.com>
+Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -81,83 +59,151 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Jul 2017 15:19:37 -0000
+X-List-Received-Date: Mon, 03 Jul 2017 15:23:45 -0000
 
-VGhhbmtzLg0KDQpCZXN0IHJlZ2FyZHMuIE15a29sYSBLb3N0ZW5vay4NCg0KPiAtLS0tLU9yaWdp
-bmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBQYXRyaWNrIFZlbnR1cmUgW21haWx0bzp2ZW50dXJl
-QGdvb2dsZS5jb21dDQo+IFNlbnQ6IE1vbmRheSwgSnVseSAzLCAyMDE3IDU6NTQgUE0NCj4gVG86
-IEpvZWwgU3RhbmxleSA8am9lbEBqbXMuaWQuYXU+DQo+IENjOiBNeWtvbGEgS29zdGVub2sgPGNf
-bXlrb2xha0BtZWxsYW5veC5jb20+OyBPcGVuQk1DIE1haWxsaXN0DQo+IDxvcGVuYm1jQGxpc3Rz
-Lm96bGFicy5vcmc+DQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggbGludXggZGV2LTQuMTBdIGFzcGVl
-ZC1nNTogYWRkIGFzcGVlZCxhc3QyNTAwLXB3bS0NCj4gdGFjaG8uDQo+IA0KPiBPbiBTdW4sIEp1
-bCAyLCAyMDE3IGF0IDExOjE0IFBNLCBKb2VsIFN0YW5sZXkgPGpvZWxAam1zLmlkLmF1PiB3cm90
-ZToNCj4gPiBPbiBGcmksIEp1biAzMCwgMjAxNyBhdCA5OjE4IFBNLCBNeWtvbGEgS29zdGVub2sN
-Cj4gPGNfbXlrb2xha0BtZWxsYW5veC5jb20+IHdyb3RlOg0KPiA+PiBBZGQgYXNwZWVkLGFzdDI1
-MDAtcHdtLXRhY2hvIHRvIGR0c2kuDQo+ID4+IEVuYWJsZSBhc3BlZWQsYXN0MjUwMC1wd20tdGFj
-aG8gZm9yIG1zbi4NCj4gPj4NCj4gPj4gU2lnbmVkLW9mZi1ieTogTXlrb2xhIEtvc3Rlbm9rIDxj
-X215a29sYWtAbWVsbGFub3guY29tPg0KPiA+DQo+ID4gUGF0cmljaywgeW91J3JlIG91ciBwd20v
-dGFjaCBleHBlcnQuIENhbiB5b3UgcGxlYXNlIHJldmlldyB0aGlzIG9uZT8NCj4gPg0KPiA+IENo
-ZWVycywNCj4gPg0KPiA+IEpvZWwNCj4gPg0KPiA+PiAtLS0NCj4gPj4gIGFyY2gvYXJtL2Jvb3Qv
-ZHRzL2FzcGVlZC1ibWMtbWVsbGFub3gtbXNuLmR0cyB8IDQ1DQo+ICsrKysrKysrKysrKysrKysr
-KysrKysrKysrKw0KPiA+PiAgYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWc1LmR0c2kgICAgICAg
-ICAgICAgIHwgMTYgKysrKysrKysrKw0KPiA+PiAgMiBmaWxlcyBjaGFuZ2VkLCA2MSBpbnNlcnRp
-b25zKCspDQo+ID4+DQo+ID4+IGRpZmYgLS1naXQgYS9hcmNoL2FybS9ib290L2R0cy9hc3BlZWQt
-Ym1jLW1lbGxhbm94LW1zbi5kdHMNCj4gPj4gYi9hcmNoL2FybS9ib290L2R0cy9hc3BlZWQtYm1j
-LW1lbGxhbm94LW1zbi5kdHMNCj4gPj4gaW5kZXggYzcxYTZkYmUxNDEwLi41NWQ1ZGMxNWQxMzYg
-MTAwNjQ0DQo+ID4+IC0tLSBhL2FyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1ibWMtbWVsbGFub3gt
-bXNuLmR0cw0KPiA+PiArKysgYi9hcmNoL2FybS9ib290L2R0cy9hc3BlZWQtYm1jLW1lbGxhbm94
-LW1zbi5kdHMNCj4gPj4gQEAgLTE0NCwzICsxNDQsNDggQEANCj4gPj4gICAgICAgICBzdGF0dXMg
-PSAib2theSI7DQo+ID4+ICB9Ow0KPiA+Pg0KPiA+PiArJnB3bV90YWNobyB7DQo+ID4+ICsgICAg
-ICAgc3RhdHVzID0gIm9rYXkiOw0KPiA+PiArICAgICAgIHBpbmN0cmwtbmFtZXMgPSAiZGVmYXVs
-dCI7DQo+ID4+ICsgICAgICAgcGluY3RybC0wID0gPCZwaW5jdHJsX3B3bTBfZGVmYXVsdD47DQo+
-ID4+ICsNCj4gPj4gKyAgICAgICBmYW5AMCB7DQo+ID4+ICsgICAgICAgICAgICAgICByZWcgPSA8
-MHgwMD47DQo+ID4+ICsgICAgICAgICAgICAgICBhc3BlZWQsZmFuLXRhY2gtY2ggPSAvYml0cy8g
-OCA8MHgwMD47DQo+ID4+ICsgICAgICAgfTsNCj4gPj4gKw0KPiA+PiArICAgICAgIGZhbkAxIHsN
-Cj4gPj4gKyAgICAgICAgICAgICAgIHJlZyA9IDwweDAwPjsNCj4gPj4gKyAgICAgICAgICAgICAg
-IGFzcGVlZCxmYW4tdGFjaC1jaCA9IC9iaXRzLyA4IDwweDAxPjsNCj4gPj4gKyAgICAgICB9Ow0K
-PiA+PiArDQo+ID4+ICsgICAgICAgZmFuQDIgew0KPiA+PiArICAgICAgICAgICAgICAgcmVnID0g
-PDB4MDA+Ow0KPiA+PiArICAgICAgICAgICAgICAgYXNwZWVkLGZhbi10YWNoLWNoID0gL2JpdHMv
-IDggPDB4MDI+Ow0KPiA+PiArICAgICAgIH07DQo+ID4+ICsNCj4gPj4gKyAgICAgICBmYW5AMyB7
-DQo+ID4+ICsgICAgICAgICAgICAgICByZWcgPSA8MHgwMD47DQo+ID4+ICsgICAgICAgICAgICAg
-ICBhc3BlZWQsZmFuLXRhY2gtY2ggPSAvYml0cy8gOCA8MHgwMz47DQo+ID4+ICsgICAgICAgfTsN
-Cj4gPj4gKw0KPiA+PiArICAgICAgIGZhbkA0IHsNCj4gPj4gKyAgICAgICAgICAgICAgIHJlZyA9
-IDwweDAwPjsNCj4gPj4gKyAgICAgICAgICAgICAgIGFzcGVlZCxmYW4tdGFjaC1jaCA9IC9iaXRz
-LyA4IDwweDA0PjsNCj4gPj4gKyAgICAgICB9Ow0KPiA+PiArDQo+ID4+ICsgICAgICAgZmFuQDUg
-ew0KPiA+PiArICAgICAgICAgICAgICAgcmVnID0gPDB4MDA+Ow0KPiA+PiArICAgICAgICAgICAg
-ICAgYXNwZWVkLGZhbi10YWNoLWNoID0gL2JpdHMvIDggPDB4MDU+Ow0KPiA+PiArICAgICAgIH07
-DQo+ID4+ICsNCj4gPj4gKyAgICAgICBmYW5ANiB7DQo+ID4+ICsgICAgICAgICAgICAgICByZWcg
-PSA8MHgwMD47DQo+ID4+ICsgICAgICAgICAgICAgICBhc3BlZWQsZmFuLXRhY2gtY2ggPSAvYml0
-cy8gOCA8MHgwNj47DQo+ID4+ICsgICAgICAgfTsNCj4gPj4gKw0KPiA+PiArICAgICAgIGZhbkA3
-IHsNCj4gPj4gKyAgICAgICAgICAgICAgIHJlZyA9IDwweDAwPjsNCj4gPj4gKyAgICAgICAgICAg
-ICAgIGFzcGVlZCxmYW4tdGFjaC1jaCA9IC9iaXRzLyA4IDwweDA3PjsNCj4gPj4gKyAgICAgICB9
-Ow0KPiA+PiArfTsNCj4gDQo+IFRoZXNlIGFsbCB1c2UgdGhlIHNhbWUgcHdtPyBJcyB0aGF0IGRl
-bGliZXJhdGU/DQo+IA0KDQpZZXMsIHdlIGhhdmUgc28uDQoNCj4gPj4gZGlmZiAtLWdpdCBhL2Fy
-Y2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1nNS5kdHNpDQo+ID4+IGIvYXJjaC9hcm0vYm9vdC9kdHMv
-YXNwZWVkLWc1LmR0c2kNCj4gPj4gaW5kZXggOTkyMjQyZDNiMjJlLi4wMWM4NmJiNzE5MzIgMTAw
-NjQ0DQo+ID4+IC0tLSBhL2FyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1nNS5kdHNpDQo+ID4+ICsr
-KyBiL2FyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1nNS5kdHNpDQo+ID4+IEBAIC0zNSw2ICszNSwx
-NCBAQA0KPiA+PiAgICAgICAgICAgICAgICAgaTJjMTMgPSAmaTJjMTM7DQo+ID4+ICAgICAgICAg
-fTsNCj4gPj4NCj4gPj4gKyAgICAgICBjbG9ja3Mgew0KPiA+PiArICAgICAgICAgICAgICAgcHdt
-X3RhY2hvX2ZpeGVkX2NsazogZml4ZWRjbGsgew0KPiA+PiArICAgICAgICAgICAgICAgICAgICAg
-ICBjb21wYXRpYmxlID0gImZpeGVkLWNsb2NrIjsNCj4gPj4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgI2Nsb2NrLWNlbGxzID0gPDA+Ow0KPiA+PiArICAgICAgICAgICAgICAgICAgICAgICBjbG9j
-ay1mcmVxdWVuY3kgPSA8MjQwMDAwMDA+Ow0KPiA+PiArICAgICAgICAgICAgICAgfTsNCj4gPj4g
-KyAgICAgICB9Ow0KPiA+PiArDQo+ID4+ICAgICAgICAgYWhiIHsNCj4gPj4gICAgICAgICAgICAg
-ICAgIGNvbXBhdGlibGUgPSAic2ltcGxlLWJ1cyI7DQo+ID4+ICAgICAgICAgICAgICAgICAjYWRk
-cmVzcy1jZWxscyA9IDwxPjsgQEAgLTM2Niw2ICszNzQsMTQgQEANCj4gPj4gICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAjc2l6ZS1jZWxscyA9IDwxPjsNCj4gPj4gICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICByYW5nZXMgPSA8MCAweDFlNzhhMDAwIDB4MTAwMD47DQo+ID4+
-ICAgICAgICAgICAgICAgICAgICAgICAgIH07DQo+IA0KPiBJIGRpZG4ndCBwdXQgbWluZSBiZWhp
-bmQgdGhlIGFoYi4gIEkgYW0gc3RpbGwgbGVhcm5pbmcgZGV2aWNlLXRyZWUtZnUuDQo+IHRoaXMg
-bGlrZWx5IGlzbid0IGFuIGlzc3VlIGF0IGFsbC4NCj4gDQoNCkFjdHVhbGx5IEl0J3MgdW5kZXIg
-YXBiLiANCg0KPiA+PiArICAgICAgICAgICAgICAgICAgICAgICBwd21fdGFjaG86IHB3bS10YWNo
-by1jb250cm9sbGVyQDFlNzg2MDAwIHsNCj4gPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBjb21wYXRpYmxlID0gImFzcGVlZCxhc3QyNTAwLXB3bS10YWNobyI7DQo+ID4+ICsgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgI2FkZHJlc3MtY2VsbHMgPSA8MT47DQo+ID4+ICsg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgI3NpemUtY2VsbHMgPSA8MD47DQo+ID4+ICsg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVnID0gPDB4MWU3ODYwMDAgMHgxMDAwPjsN
-Cj4gPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjbG9ja3MgPSA8JnB3bV90YWNo
-b19maXhlZF9jbGs+Ow0KPiA+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0YXR1
-cyA9ICJkaXNhYmxlZCI7DQo+ID4+ICsgICAgICAgICAgICAgICAgICAgICAgIH07DQo+ID4+ICAg
-ICAgICAgICAgICAgICB9Ow0KPiA+PiAgICAgICAgIH07DQo+ID4+ICB9Ow0KPiA+PiAtLQ0KPiA+
-PiAyLjExLjANCj4gPj4NCg==
+On Mon, Jul 3, 2017 at 8:19 AM, Mykola Kostenok <c_mykolak@mellanox.com> wrote:
+> Thanks.
+>
+> Best regards. Mykola Kostenok.
+>
+>> -----Original Message-----
+>> From: Patrick Venture [mailto:venture@google.com]
+>> Sent: Monday, July 3, 2017 5:54 PM
+>> To: Joel Stanley <joel@jms.id.au>
+>> Cc: Mykola Kostenok <c_mykolak@mellanox.com>; OpenBMC Maillist
+>> <openbmc@lists.ozlabs.org>
+>> Subject: Re: [PATCH linux dev-4.10] aspeed-g5: add aspeed,ast2500-pwm-
+>> tacho.
+>>
+>> On Sun, Jul 2, 2017 at 11:14 PM, Joel Stanley <joel@jms.id.au> wrote:
+>> > On Fri, Jun 30, 2017 at 9:18 PM, Mykola Kostenok
+>> <c_mykolak@mellanox.com> wrote:
+>> >> Add aspeed,ast2500-pwm-tacho to dtsi.
+>> >> Enable aspeed,ast2500-pwm-tacho for msn.
+>> >>
+>> >> Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
+>> >
+>> > Patrick, you're our pwm/tach expert. Can you please review this one?
+>> >
+>> > Cheers,
+>> >
+>> > Joel
+>> >
+>> >> ---
+>> >>  arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts | 45
+>> +++++++++++++++++++++++++++
+>> >>  arch/arm/boot/dts/aspeed-g5.dtsi              | 16 ++++++++++
+>> >>  2 files changed, 61 insertions(+)
+>> >>
+>> >> diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+>> >> b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+>> >> index c71a6dbe1410..55d5dc15d136 100644
+>> >> --- a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+>> >> +++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+>> >> @@ -144,3 +144,48 @@
+>> >>         status = "okay";
+>> >>  };
+>> >>
+>> >> +&pwm_tacho {
+>> >> +       status = "okay";
+>> >> +       pinctrl-names = "default";
+>> >> +       pinctrl-0 = <&pinctrl_pwm0_default>;
+>> >> +
+>> >> +       fan@0 {
+>> >> +               reg = <0x00>;
+>> >> +               aspeed,fan-tach-ch = /bits/ 8 <0x00>;
+>> >> +       };
+>> >> +
+>> >> +       fan@1 {
+>> >> +               reg = <0x00>;
+>> >> +               aspeed,fan-tach-ch = /bits/ 8 <0x01>;
+>> >> +       };
+>> >> +
+>> >> +       fan@2 {
+>> >> +               reg = <0x00>;
+>> >> +               aspeed,fan-tach-ch = /bits/ 8 <0x02>;
+>> >> +       };
+>> >> +
+>> >> +       fan@3 {
+>> >> +               reg = <0x00>;
+>> >> +               aspeed,fan-tach-ch = /bits/ 8 <0x03>;
+>> >> +       };
+>> >> +
+>> >> +       fan@4 {
+>> >> +               reg = <0x00>;
+>> >> +               aspeed,fan-tach-ch = /bits/ 8 <0x04>;
+>> >> +       };
+>> >> +
+>> >> +       fan@5 {
+>> >> +               reg = <0x00>;
+>> >> +               aspeed,fan-tach-ch = /bits/ 8 <0x05>;
+>> >> +       };
+>> >> +
+>> >> +       fan@6 {
+>> >> +               reg = <0x00>;
+>> >> +               aspeed,fan-tach-ch = /bits/ 8 <0x06>;
+>> >> +       };
+>> >> +
+>> >> +       fan@7 {
+>> >> +               reg = <0x00>;
+>> >> +               aspeed,fan-tach-ch = /bits/ 8 <0x07>;
+>> >> +       };
+>> >> +};
+>>
+>> These all use the same pwm? Is that deliberate?
+>>
+>
+> Yes, we have so.
+
+Oh, ok.  Well, then that looks fine.
+
+>
+>> >> diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi
+>> >> b/arch/arm/boot/dts/aspeed-g5.dtsi
+>> >> index 992242d3b22e..01c86bb71932 100644
+>> >> --- a/arch/arm/boot/dts/aspeed-g5.dtsi
+>> >> +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+>> >> @@ -35,6 +35,14 @@
+>> >>                 i2c13 = &i2c13;
+>> >>         };
+>> >>
+>> >> +       clocks {
+>> >> +               pwm_tacho_fixed_clk: fixedclk {
+>> >> +                       compatible = "fixed-clock";
+>> >> +                       #clock-cells = <0>;
+>> >> +                       clock-frequency = <24000000>;
+>> >> +               };
+>> >> +       };
+>> >> +
+>> >>         ahb {
+>> >>                 compatible = "simple-bus";
+>> >>                 #address-cells = <1>; @@ -366,6 +374,14 @@
+>> >>                                 #size-cells = <1>;
+>> >>                                 ranges = <0 0x1e78a000 0x1000>;
+>> >>                         };
+>>
+>> I didn't put mine behind the ahb.  I am still learning device-tree-fu.
+>> this likely isn't an issue at all.
+>>
+>
+> Actually It's under apb.
+
+In the diagram of the aspeed part, it is under the apb.  I meant in
+the device tree layout, at least in my version; I don't think I placed
+it under that parent.  So yours is _more_ correct.
+
+>
+>> >> +                       pwm_tacho: pwm-tacho-controller@1e786000 {
+>> >> +                               compatible = "aspeed,ast2500-pwm-tacho";
+>> >> +                               #address-cells = <1>;
+>> >> +                               #size-cells = <0>;
+>> >> +                               reg = <0x1e786000 0x1000>;
+>> >> +                               clocks = <&pwm_tacho_fixed_clk>;
+>> >> +                               status = "disabled";
+>> >> +                       };
+>> >>                 };
+>> >>         };
+>> >>  };
+>> >> --
+>> >> 2.11.0
+>> >>
