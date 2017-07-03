@@ -1,55 +1,36 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x242.google.com (mail-yb0-x242.google.com
- [IPv6:2607:f8b0:4002:c09::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <clg@kaod.org>
+Received: from 12.mo6.mail-out.ovh.net (12.mo6.mail-out.ovh.net
+ [178.32.125.228])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x1HFM5N4rzDr44
- for <openbmc@lists.ozlabs.org>; Mon,  3 Jul 2017 16:25:43 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="LVOSq3FY"; 
- dkim-atps=neutral
-Received: by mail-yb0-x242.google.com with SMTP id 84so7436502ybe.0
- for <openbmc@lists.ozlabs.org>; Sun, 02 Jul 2017 23:25:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=mAB21PvOiyD3EifqSrG7lDTEhWzWGwSqfa5I6jFRjpY=;
- b=LVOSq3FYVGQ0UNfiPu2knMsRdzJyNWsmRG7CgdflRi66KQabvcmCwaxZx/YwVIz2lr
- p0gyKvUNHuB3oq2wsXXhz5d5u8Sxe21sHZVYc9ez8nwUByWP8bvoeB6t6kdLDiMkAtcc
- avE+EjuhOYaNw7dLc2++ZKDdrwCafWz3G/uNc3NrRucem4b6nXduxR+K6jC9g1mwvreI
- 98x26F586aMyjjZvGZrBXa3LVj/TTqrWQ8f2MLHJhIGM4WI2yo4FWoskTfJYv00ozfkb
- W5XO7ANQyD6G8zd7TerXeXsLhm6fhWNJR28DCdRYW5hAHp58rawYadefN7NXdmAMc5TC
- el8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=mAB21PvOiyD3EifqSrG7lDTEhWzWGwSqfa5I6jFRjpY=;
- b=iK9zXdvv8KQem8MOT8GRFOHxXp/BF3fxV0ZoAuDUgZ+gC++oiGRavUrL+7hkTv+APe
- Bp01buL0JQqAj41nOTzzB2y+07eeeKFDCwTf8jRMDbvuG4NZzAnQWK/YhvgRpjnqSmCv
- UZoSyI4SaLKvMU+/W9ISbc44eu7IFFBb6Olpjl+/COcgvqYvNq4lh2779kINMUcJQw7h
- /00b2dRmC7tKi/UWZdARhfQRKTeW73vo0JCedDUal8cdPotHFomrZEGt/H8S7TQTtrPJ
- hQSr5LVP0E2sGSoTYC7UIQyxsbdH7h6dUjgSJjmOfbWlwfGQrP12qqoVhkgt1JTYzzEt
- CbcA==
-X-Gm-Message-State: AKS2vOwIslM2bdynqfUdNwn4SOBZ+nCEkTPe4j0VukV/QMBHC9FjcwVE
- gJUUUTg2TDFae0D9Cxai5ydUR7lSyaf+
-X-Received: by 10.37.165.98 with SMTP id h89mr17537290ybi.169.1499063141557;
- Sun, 02 Jul 2017 23:25:41 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x1J8K19WmzDr44
+ for <openbmc@lists.ozlabs.org>; Mon,  3 Jul 2017 17:06:25 +1000 (AEST)
+Received: from player696.ha.ovh.net (b6.ovh.net [213.186.33.56])
+ by mo6.mail-out.ovh.net (Postfix) with ESMTP id 0774CF94FE
+ for <openbmc@lists.ozlabs.org>; Mon,  3 Jul 2017 08:57:50 +0200 (CEST)
+Received: from zorba.kaod.org (LFbn-1-10652-153.w90-89.abo.wanadoo.fr
+ [90.89.238.153]) (Authenticated sender: postmaster@kaod.org)
+ by player696.ha.ovh.net (Postfix) with ESMTPSA id EDD463C0093;
+ Mon,  3 Jul 2017 08:57:48 +0200 (CEST)
+Subject: Re: [PATCH linux dev-4.10] mtd: spi-nor: aspeed: limit the maximum
+ SPI frequency
+To: Joel Stanley <joel@jms.id.au>
+References: <1499032165-23145-1-git-send-email-clg@kaod.org>
+ <CACPK8XdCeGO2q8p5TYzObYar3iEouS4ytAuaxU-eY7E5iE9ZZQ@mail.gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <aff97f2b-2f6d-bc11-c9f9-f4475d89aa13@kaod.org>
+Date: Mon, 3 Jul 2017 08:57:48 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.8.0
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.170.239 with HTTP; Sun, 2 Jul 2017 23:25:21 -0700 (PDT)
-In-Reply-To: <20170629033446.10782-1-joel@jms.id.au>
-References: <20170629033446.10782-1-joel@jms.id.au>
-From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 3 Jul 2017 15:55:21 +0930
-X-Google-Sender-Auth: KMXGifD9tQbJAt4yBWtm5x5D9Y0
-Message-ID: <CACPK8Xffcw-6zGUpN_6Ni8spz-Nz9jsnr9tqGW-TDNze8DJzsw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: barreleye: Correct bad
- LED nodes
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Cc: Sweta Potthuri <spotthur@in.ibm.com>,
- Adi Gangidi <adi.gangidi@rackspace.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <CACPK8XdCeGO2q8p5TYzObYar3iEouS4ytAuaxU-eY7E5iE9ZZQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 16928468052176440066
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelkedruddugdehlecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,75 +42,217 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Jul 2017 06:25:44 -0000
+X-List-Received-Date: Mon, 03 Jul 2017 07:06:25 -0000
 
-On Thu, Jun 29, 2017 at 1:04 PM, Joel Stanley <joel@jms.id.au> wrote:
-> There was a bug in the definition of the heartbeat LED that meant we
-> were selecting the wrong GPIO for the driver. This fails now that we
-> have the correct pinmux settings for the Ethernet MAC.
->
-> When looking at the schematic for the correct number I found that the
-> other LEDs were mislabeled, and in the case of the power LED not
-> present at all.
->
-> Finally, the keep property is reinstated. This was present in an older
-> version of the dts as it is the required behaviour.
->
-> The LEDs are now accurate according to the Ingrasys document
-> 0101DAW00-000-G, dated Wednesday, April 20, 2016, rev A00. The file
-> name is BARRELEYE-IO_BOARD-MP-HW-SCH-A00_20160419_FINAL.pdf
->
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
+On 07/03/2017 05:00 AM, Joel Stanley wrote:
+> On Mon, Jul 3, 2017 at 7:19 AM, Cédric Le Goater <clg@kaod.org> wrote:
+>> The optimize read algo can choose a 100MHz SPI frequency which might
+>> be a bit too high for dual output IO on some chips, for the W25Q256 on
+>> palmetto for instance. The MX66L1G45G on witherspoon should be fine
+>> though.
+>>
+>> To do some fine tuning, we use the "spi-max-frequency" property in the
+>> device tree. By default, the frequency is 50MHz, as U-boot does for
+>> most of the supported chips.
+> 
+> Looks good to me. I had some questions below to clear up my understanding.
+> 
+> I will boot this on a few machines today for you.
 
-I got a:
+ok. I tried it on a palmetto, a ast2500 evb and a witherspoon.
 
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+> Is this a suspect for the first-byte corruption issue?
 
-off the list, so I will apply this fix.
+yes. This is still a mystery for me. I have hammered pretty 
+badly the PNOR on a palmetto and on a witherspoon and could 
+not reproduce ...
 
-Cheers,
+50MHz seems to be the safe limit used by most of the tool I 
+have looked at. I will ask a couple of questions to Aspeed.
 
-Joel
 
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts | 16 ++++++++++++++--
->  1 file changed, 14 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-> index e4e853d0f561..2060831e579c 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-> @@ -34,16 +34,28 @@
->         leds {
->                 compatible = "gpio-leds";
->
-> +               /* BMC_HEARTBRAT_LED_N */
->                 heartbeat {
-> -                       gpios = <&gpio ASPEED_GPIO(R, 17) GPIO_ACTIVE_HIGH>;
-> +                       gpios = <&gpio ASPEED_GPIO(R, 4) GPIO_ACTIVE_LOW>;
-> +                       default-state = "keep";
->                 };
->
-> +               /* BMC_SYS_PWROK_IDLED_N */
->                 identify {
-> -                       gpios = <&gpio ASPEED_GPIO(R, 2) GPIO_ACTIVE_LOW>;
-> +                       gpios = <&gpio ASPEED_GPIO(H, 2) GPIO_ACTIVE_LOW>;
-> +                       default-state = "keep";
->                 };
->
-> +               /* BMC_BEEP */
->                 beep {
->                         gpios = <&gpio ASPEED_GPIO(N, 7) GPIO_ACTIVE_HIGH>;
-> +                       default-state = "keep";
-> +               };
-> +
-> +               /* BMC_PWR_LED_N */
-> +               power {
-> +                       gpios = <&gpio ASPEED_GPIO(R, 5) GPIO_ACTIVE_LOW>;
-> +                       default-state = "keep";
->                 };
->         };
->  };
-> --
-> 2.13.2
->
+> Cheers,
+> 
+> Joel
+> 
+>>
+>> Signed-off-by: Cédric Le Goater <clg@kaod.org>
+>> ---
+>>  drivers/mtd/spi-nor/aspeed-smc.c | 69 +++++++++++++++++++++++++---------------
+>>  1 file changed, 44 insertions(+), 25 deletions(-)
+>>
+>> diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspeed-smc.c
+>> index 23622bf62b6b..7d9f570f11ff 100644
+>> --- a/drivers/mtd/spi-nor/aspeed-smc.c
+>> +++ b/drivers/mtd/spi-nor/aspeed-smc.c
+>> @@ -121,6 +121,7 @@ struct aspeed_smc_chip {
+>>         u32 ctl_val[smc_max];                   /* control settings */
+>>         enum aspeed_smc_flash_type type;        /* what type of flash */
+>>         struct spi_nor nor;
+>> +       u32 clk_rate;
+>>  };
+>>
+>>  struct aspeed_smc_controller {
+>> @@ -148,6 +149,8 @@ struct aspeed_smc_controller {
+>>         struct aspeed_smc_chip *chips[0];       /* pointers to attached chips */
+>>  };
+>>
+>> +#define ASPEED_SPI_DEFAULT_FREQ                50000000
+>> +
+>>  /*
+>>   * SPI Flash Configuration Register (AST2500 SPI)
+>>   *     or
+>> @@ -215,7 +218,7 @@ struct aspeed_smc_controller {
+>>
+>>  #define CONTROL_KEEP_MASK                                              \
+>>         (CONTROL_AAF_MODE | CONTROL_CE_INACTIVE_MASK | CONTROL_CLK_DIV4 | \
+>> -        CONTROL_CLOCK_FREQ_SEL_MASK | CONTROL_LSB_FIRST | CONTROL_CLOCK_MODE_3)
+>> +        CONTROL_LSB_FIRST | CONTROL_CLOCK_MODE_3)
+> 
+> We're dropping CONTROL_CLOCK_FREQ_SEL_MASK because the driver now sets
+> it own value?
+
+Exactly.
+
+The BMC freq is tuned by U-Boot at HCLK/4 (~50MHz) and the 
+PNOR is set with a default HCLK/2 (~100MHz) which is done 
+by HW strapping I suppose. 
+
+It is better to enforce some settings I think.
+
+>>  /* Interrupt Control and Status Register */
+>>  #define INTERRUPT_STATUS_REG           0x08
+>> @@ -820,6 +823,34 @@ static void aspeed_smc_chip_set_4b_spi_2400(struct aspeed_smc_chip *chip)
+>>         chip->ctl_val[smc_read] |= CONTROL_IO_ADDRESS_4B;
+>>  }
+>>
+>> +static const u32 aspeed_smc_hclk_divs[] = {
+> 
+> Could be a u8.
+
+Indeed. I will change that.
+ 
+>> +       0xf, /* HCLK */
+>> +       0x7, /* HCLK/2 */
+>> +       0xe, /* HCLK/3 */
+>> +       0x6, /* HCLK/4 */
+>> +       0xd, /* HCLK/5 */
+>> +};
+> 
+> You stop at HCLK/5 as there's no point going any slower?
+
+
+The first reason is that the "SPI Flash Read Timing Setting" 
+register only handles this range, but we could change the 
+optimize algo to stop or start at HCLK/5 and have a bigger 
+array of dividers.
+
+The second is that all the chips we use support freqs above 
+40MHz, which is more or less HCLK/5.
+
+There is some room for improvements. This is not a problem,
+I can change that.
+
+Thanks,
+
+C.
+
+>> +
+>> +#define ASPEED_SMC_HCLK_DIV(i) (aspeed_smc_hclk_divs[(i) - 1] << 8)
+>> +
+>> +static u32 aspeed_smc_get_hclk(struct aspeed_smc_chip *chip,
+>> +                              u32 max_freq)
+>> +{
+>> +       int i;
+>> +       u32 div;
+>> +       u32 ahb_freq = clk_get_rate(chip->controller->ahb_clk);
+>> +
+>> +       for (i = ARRAY_SIZE(aspeed_smc_hclk_divs); i > 0; i--) {
+>> +               u32 freq = ahb_freq / i;
+>> +
+>> +               if (freq >= max_freq)
+>> +                       break;
+>> +
+>> +               div = ASPEED_SMC_HCLK_DIV(i);
+>> +       }
+>> +       return div;
+>> +}
+>> +
+>>  static int aspeed_smc_chip_setup_init(struct aspeed_smc_chip *chip,
+>>                                       struct resource *res)
+>>  {
+>> @@ -858,6 +889,7 @@ static int aspeed_smc_chip_setup_init(struct aspeed_smc_chip *chip,
+>>         dev_dbg(controller->dev, "control register: %08x\n", reg);
+>>
+>>         base_reg = reg & CONTROL_KEEP_MASK;
+>> +       base_reg |= aspeed_smc_get_hclk(chip, chip->clk_rate);
+>>         if (base_reg != reg) {
+>>                 dev_dbg(controller->dev,
+>>                         "control register changed to: %08x\n",
+>> @@ -865,17 +897,9 @@ static int aspeed_smc_chip_setup_init(struct aspeed_smc_chip *chip,
+>>         }
+>>         chip->ctl_val[smc_base] = base_reg;
+>>
+>> -       /*
+>> -        * Retain the prior value of the control register as the
+>> -        * default if it was normal access mode. Otherwise start with
+>> -        * the sanitized base value set to read mode.
+>> -        */
+>> -       if ((reg & CONTROL_COMMAND_MODE_MASK) ==
+>> -           CONTROL_COMMAND_MODE_NORMAL)
+>> -               chip->ctl_val[smc_read] = reg;
+>> -       else
+>> -               chip->ctl_val[smc_read] = chip->ctl_val[smc_base] |
+>> -                       CONTROL_COMMAND_MODE_NORMAL;
+>> +       /* start with the sanitized base value set to read mode. */
+>> +       chip->ctl_val[smc_read] = chip->ctl_val[smc_base] |
+>> +               CONTROL_COMMAND_MODE_NORMAL;
+>>
+>>         dev_dbg(controller->dev, "default control register: %08x\n",
+>>                 chip->ctl_val[smc_read]);
+>> @@ -968,15 +992,6 @@ static bool aspeed_smc_check_calib_data(const u8 *test_buf, u32 size)
+>>         return cnt >= 64;
+>>  }
+>>
+>> -static const uint32_t aspeed_smc_hclk_divs[] = {
+>> -       0xf, /* HCLK */
+>> -       0x7, /* HCLK/2 */
+>> -       0xe, /* HCLK/3 */
+>> -       0x6, /* HCLK/4 */
+>> -       0xd, /* HCLK/5 */
+>> -};
+>> -#define ASPEED_SMC_HCLK_DIV(i) (aspeed_smc_hclk_divs[(i) - 1] << 8)
+>> -
+>>  static int aspeed_smc_optimize_read(struct aspeed_smc_chip *chip,
+>>                                      u32 max_freq)
+>>  {
+>> @@ -1104,11 +1119,8 @@ static int aspeed_smc_chip_setup_finish(struct aspeed_smc_chip *chip)
+>>         dev_dbg(controller->dev, "read control register: %08x\n",
+>>                 chip->ctl_val[smc_read]);
+>>
+>> -       /*
+>> -        * TODO: get max freq from chip
+>> -        */
+>>         if (optimize_read && info->optimize_read)
+>> -               info->optimize_read(chip, 104000000);
+>> +               info->optimize_read(chip, chip->clk_rate);
+>>         return 0;
+>>  }
+>>
+>> @@ -1156,6 +1168,13 @@ static int aspeed_smc_setup_flash(struct aspeed_smc_controller *controller,
+>>                         break;
+>>                 }
+>>
+>> +               if (of_property_read_u32(child, "spi-max-frequency",
+>> +                                        &chip->clk_rate)) {
+>> +                       chip->clk_rate = ASPEED_SPI_DEFAULT_FREQ;
+>> +               }
+>> +               dev_info(dev, "Using %d MHz SPI frequency\n",
+>> +                        chip->clk_rate / 1000000);
+>> +
+>>                 chip->controller = controller;
+>>                 chip->ctl = controller->regs + info->ctl0 + cs * 4;
+>>                 chip->cs = cs;
+>> --
+>> 2.7.5
+>>
