@@ -1,62 +1,81 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <vadimp@mellanox.com>
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01on0088.outbound.protection.outlook.com [104.47.0.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x1Q425kbczDr42
- for <openbmc@lists.ozlabs.org>; Mon,  3 Jul 2017 21:33:06 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="JFsBmm4v"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="pva8g4Kx"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id E302920AE7;
- Mon,  3 Jul 2017 07:32:59 -0400 (EDT)
-Received: from web2 ([10.202.2.212])
- by compute4.internal (MEProxy); Mon, 03 Jul 2017 07:32:59 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=z3WMFixvOEC7cg47wbt5AY0sbkNCZ
- CFMWA6eBQ0rcg0=; b=JFsBmm4vDQ0w8FNH2TgA1UnWoPmC5k2ABjuP8GbB16+nE
- vX7XeNqoAr4esVTh8ljqFgwHbtC8lPI/WS8ljpdWK6yLRW2AgzQDZsjzfG7knpMQ
- oUjHTYALqJzxc4MOfBMuhXy8nz9Asui6ls++CslruLMK2KeZUxeS9pi/pHIbajZ4
- +LS+vxhC8L/97O3sVAe/TlapusCd0e9wrBQX4L2N5afJBaNqQMmrLn2ydIPVgloF
- iTaGq6lmBSbcOww1nR6f+R4yg/sP/L+DmHWhw+ysI2AjdyJkeQ+2fl4GJp/Z1K6M
- 3gfWMsY5CtN54EtZ/oQ/kBTB2nd0c0lS/byqORyKA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=z3WMFi
- xvOEC7cg47wbt5AY0sbkNCZCFMWA6eBQ0rcg0=; b=pva8g4KxMulPyFJwvBMVCg
- kP7rLbrVBaNsFbuEe6Vs1J/b4vnRChV+rugvOYkqg2UOrdCC0DWmrMX6cZFQb+rq
- HmDki5Eo7f2UxYCU2y8rBJNtrtF7hZ0cHxzRZMleVO4m3lJnE84lK2sxSSICRAec
- vZjII6iA6bc78zoF5qhVclhv8LAKw3EhjQBtnKwVd+e8vA7BVuIRJttOF/XGVkkR
- I4RAbfVsr8Abr+CBCncu6C7LWRqNgOACNY/AkxnzNpY6MN0koJ0M93ihvnh7yEB7
- 8iUjEIj8dmM545MGgsMxZRUUz9M/Ctf2sWbJ/I6jW8Q4gmP/vXB/6YWsKYMW82Ew
- ==
-X-ME-Sender: <xms:aytaWXY0CdnKReiwjY0mEkQ1krjO9S0UkQcZJcq0mkxbOc5VF5hb5g>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id BA552627BD; Mon,  3 Jul 2017 07:32:59 -0400 (EDT)
-Message-Id: <1499081579.166788.1028828168.46976734@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Vadim Pasternak <vadimp@mellanox.com>, Joel Stanley <joel@jms.id.au>
-Cc: Milton Miller II <miltonm@us.ibm.com>,
- Mykola Kostenok <c_mykolak@mellanox.com>, openbmc@lists.ozlabs.org
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-6c54a332
-Subject: Re: [PATCH linux dev-4.10] aspeed: Set max gpio num.
-In-Reply-To: <AM4PR05MB3330F620C64B16F26B120F3DA2D60@AM4PR05MB3330.eurprd05.prod.outlook.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x1QJq4dLWzDr4D
+ for <openbmc@lists.ozlabs.org>; Mon,  3 Jul 2017 21:44:10 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b="Z/00VWIL";
+ dkim-atps=neutral
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
+ s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=dFgDWhFJBd9APhuxtynUrShMMcuoWonQpy16jKsyXIo=;
+ b=Z/00VWIL6fOqbLlK+FSLtF30ZcuEMFBpK2fNXorH4dDcXj/JqYyUbrbvIiksFCPU14XRnhtHQvHutIQBNByM5lV2OYDshhe5E29JbpvsL9NpMqHGifhEghPZ6d0UzUqycccqdpC/svzrBoGjNldkoyvHmu0UW5XEmvWQ4nvahqc=
+Received: from AM4PR05MB3330.eurprd05.prod.outlook.com (10.171.187.15) by
+ HE1PR05MB1226.eurprd05.prod.outlook.com (10.161.119.24) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.1220.11; Mon, 3 Jul 2017 11:44:03 +0000
+Received: from AM4PR05MB3330.eurprd05.prod.outlook.com
+ ([fe80::b139:dd6:ef32:aafd]) by AM4PR05MB3330.eurprd05.prod.outlook.com
+ ([fe80::b139:dd6:ef32:aafd%13]) with mapi id 15.01.1220.015; Mon, 3 Jul 2017
+ 11:44:03 +0000
+From: Vadim Pasternak <vadimp@mellanox.com>
+To: Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>
+CC: Milton Miller II <miltonm@us.ibm.com>, Mykola Kostenok
+ <c_mykolak@mellanox.com>, "openbmc@lists.ozlabs.org"
+ <openbmc@lists.ozlabs.org>
+Subject: RE: [PATCH linux dev-4.10] aspeed: Set max gpio num.
+Thread-Topic: [PATCH linux dev-4.10] aspeed: Set max gpio num.
+Thread-Index: AQHS8TjCS4ZOBKKONUKbRhS7J5JORqI8nrGAgAA1+DCAAAzzgIAFDmwAgAANxYCAAALfMA==
+Date: Mon, 3 Jul 2017 11:44:02 +0000
+Message-ID: <AM4PR05MB33307444167F2B40A73CF9C2A2D60@AM4PR05MB3330.eurprd05.prod.outlook.com>
 References: <20170629133008.13045-1-c_mykolak@mellanox.com>
  <OFC401AD1C.D9F923CA-ON0025814E.007AD5AE-0025814F.000332A5@notes.na.collabserv.com>
  <1498786277.5203.14.camel@aj.id.au>
  <AM4PR05MB3330BD0A11C99EF1DD029BCBA2D30@AM4PR05MB3330.eurprd05.prod.outlook.com>
  <CACPK8XdGd72RYrS-YP6kV2ewvU5tYf0SqjzPEtRE-Nbeh3bP0w@mail.gmail.com>
  <AM4PR05MB3330F620C64B16F26B120F3DA2D60@AM4PR05MB3330.eurprd05.prod.outlook.com>
-Date: Mon, 03 Jul 2017 21:02:59 +0930
+ <1499081579.166788.1028828168.46976734@webmail.messagingengine.com>
+In-Reply-To: <1499081579.166788.1028828168.46976734@webmail.messagingengine.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: aj.id.au; dkim=none (message not signed)
+ header.d=none;aj.id.au; dmarc=none action=none header.from=mellanox.com;
+x-originating-ip: [193.47.165.251]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; HE1PR05MB1226;
+ 7:lVw3HY8bJWSJiavr9XC4s0sQnDF7QQojPlCEkuwj6vQvXohnEdgSvClWd00emYIAyQyTXNnqjbJnG4uVWsp2Ns0lu1BVrkHa5OwF8r9ig/G6EYwr0y2WRK2zGT9c2hcH7k0BufEfabAQeWCHut7/VLiy+uVXTw4bfxcLJgGuWGfuSQTV/xTgkcooGC6qQxkHeDiOj2WW7dAD/GtHMP543+b7rpBmQXN3katMuQxsIa8GlJKJYqHujOoqhS+GS4lvDJXSOfPVz4ETOuiAt69/4JQ4jd7QPQPj9NdTAS1jtPYfcLRMvvGh6lEW2KW4Jsge2NhzciQI0YQvgTPB7vXW8b9YZugLZ9U2pvGzoi+Vn5L6Zu1Y5d24uKt8U4I7yYrlFTTYsN12e5+H5NIMh48h74M36NKR5DexsWnLVE/nIcVxVQVCHF9+Wgh8yLY/6/71Ti76s3JO+79uVIZTGeYnrBNEOq1RpEsqwtWSlGSFC1wwOu9ANoyiqBg/yBW2FLcruGBXSW2BMs5OeD7wdv1hpwHTviMP0RlmdqKbdrBSN3PH2tARSqT3ZMRDgK/BmQeMV7iULNLmtLsqvf4YgR2U5RD2xiSPHuXAG1c5t1k/f1DgTWnrFZwX2So26W9pW7RqdhZsp1NegrAvxyNW4XOkZWdJaoC2PgkuO0UqIrksSBBJ/11Gb+U7QQZZyqA5RPruH03hfqdFQVPztrT0+UwcCRHKGYg+5f/c3VV3bPGiVZpBE26xTdZ6XWp5wlGjEbII4QcB23UDjqC7VPOWM2G644Elhv/GCbCUkbIe1hCIBck=
+x-ms-office365-filtering-correlation-id: b1b01ae3-ad07-4f98-ddad-08d4c208cda1
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
+ RULEID:(300000500095)(300135000095)(300000501095)(300135300095)(22001)(300000502095)(300135100095)(2017030254075)(48565401081)(300000503095)(300135400095)(2017052603031)(201703131423075)(201703031133081)(201702281549075)(300000504095)(300135200095)(300000505095)(300135600095)(300000506095)(300135500095);
+ SRVR:HE1PR05MB1226; 
+x-ms-traffictypediagnostic: HE1PR05MB1226:
+x-microsoft-antispam-prvs: <HE1PR05MB12266EC6F40DFE11602A5C83A2D60@HE1PR05MB1226.eurprd05.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(133145235818549)(278428928389397)(236129657087228)(189930954265078)(65623756079841)(274839183919467)(45079756050767)(104084551191319)(209349559609743);
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(100000700101)(100105000095)(100000701101)(100105300095)(100000702101)(100105100095)(6040450)(601004)(2401047)(8121501046)(5005006)(10201501046)(100000703101)(100105400095)(93006095)(93001095)(3002001)(6055026)(6041248)(20161123560025)(20161123562025)(201703131423075)(201702281528075)(201703061421075)(201703061406153)(20161123558100)(20161123555025)(20161123564025)(6072148)(100000704101)(100105200095)(100000705101)(100105500095);
+ SRVR:HE1PR05MB1226; BCL:0; PCL:0;
+ RULEID:(100000800101)(100110000095)(100000801101)(100110300095)(100000802101)(100110100095)(100000803101)(100110400095)(100000804101)(100110200095)(100000805101)(100110500095);
+ SRVR:HE1PR05MB1226; 
+x-forefront-prvs: 035748864E
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(6009001)(39400400002)(39850400002)(39410400002)(39860400002)(39840400002)(39450400003)(13464003)(377424004)(377454003)(24454002)(189998001)(3660700001)(3280700002)(2906002)(54356999)(76176999)(50986999)(81166006)(2900100001)(305945005)(7736002)(8676002)(8936002)(33656002)(93886004)(6436002)(8656002)(55016002)(9686003)(6306002)(6246003)(38730400002)(45080400002)(575784001)(86362001)(345774005)(5250100002)(74316002)(66066001)(229853002)(99286003)(54906002)(5660300001)(7696004)(3846002)(102836003)(2950100002)(6506006)(6116002)(25786009)(53546010)(4326008)(966005)(53936002)(14454004)(478600001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:HE1PR05MB1226;
+ H:AM4PR05MB3330.eurprd05.prod.outlook.com; FPR:; SPF:None; MLV:sfv; LANG:en; 
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: Mellanox.com
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jul 2017 11:44:02.8924 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR05MB1226
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,131 +87,107 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Jul 2017 11:33:10 -0000
+X-List-Received-Date: Mon, 03 Jul 2017 11:44:12 -0000
 
-Hi Vadim,
-
-On Mon, Jul 3, 2017, at 20:22, Vadim Pasternak wrote:
-> Hi Joel,
-> 
-> > -----Original Message-----
-> > From: joel.stan@gmail.com [mailto:joel.stan@gmail.com] On Behalf Of Joel
-> > Stanley
-> > Sent: Friday, June 30, 2017 8:31 AM
-> > To: Vadim Pasternak <vadimp@mellanox.com>
-> > Cc: Andrew Jeffery <andrew@aj.id.au>; Milton Miller II
-> > <miltonm@us.ibm.com>; Mykola Kostenok <c_mykolak@mellanox.com>;
-> > openbmc@lists.ozlabs.org
-> > Subject: Re: [PATCH linux dev-4.10] aspeed: Set max gpio num.
-> > 
-> > On Fri, Jun 30, 2017 at 2:21 PM, Vadim Pasternak <vadimp@mellanox.com>
-> > wrote:
-> > > Hi Andrew,
-> > >
-> > >> -----Original Message-----
-> > >> From: openbmc [mailto:openbmc-
-> > >> bounces+yanivab=mellanox.com@lists.ozlabs.org] On Behalf Of Andrew
-> > >> Jeffery
-> > >> Sent: Friday, June 30, 2017 4:31 AM
-> > >> To: Milton Miller II <miltonm@us.ibm.com>; Mykola Kostenok
-> > >> <c_mykolak@mellanox.com>
-> > >> Cc: openbmc@lists.ozlabs.org
-> > >> Subject: Re: [PATCH linux dev-4.10] aspeed: Set max gpio num.
-> > >>
-> > >> On Fri, 2017-06-30 at 00:34 +0000, Milton Miller II wrote:
-> > >> > On June 29 2017 at 8:31 in some time zone, Mykola Kostenok wrote:
-> > >> > >
-> > >> > > Set maximum number of gpio for ARCH_ASPEED.
-> > >> > >
-> > >> > > > > Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
-> > >> > > diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig index
-> > >> > > 186c4c214e0a..9d373685c628 100644
-> > >> > > --- a/arch/arm/Kconfig
-> > >> > > +++ b/arch/arm/Kconfig
-> > >> > > @@ -1492,6 +1492,7 @@ config ARCH_NR_GPIO
-> > >> > >   default 352 if ARCH_VT8500
-> > >> > >   default 288 if ARCH_ROCKCHIP
-> > >> > >   default 264 if MACH_H4700
-> > >> > > > > +     default 232 if ARCH_ASPEED
-> > >> > >   default 0
-> > >> > >   help
-> > >> > >     Maximum number of GPIOs in the system.
-> > >> >
-> > >> >
-> > >> > This is a bad idea.
-> > >>
-> > >> I agree.
-> > >>
-> > >> >  This sets the maximum total number of gpios supported by the
-> > >> > kernel, and setting it to this value would not allow any space for
-> > >> > the various pca expanders to define additional gpios.
-> > >> >
-> > >> > The logic in asm-generic/gpio.h says if the CONFIG number is 0 use
-> > >> > 512 else use the supplied value.
-> > >> >
-> > >> > I'm guessing this was motivated to make the gpio numbers match with
-> > >> > the controller.
-> > >>
-> > >> Right; what's missing is any mention of the motivation.
-> > >>
-> > >> Mykola: What problem are you trying to solve with this patch? As
-> > >> Milton mentions it might be making the GPIO numbers align with the
-> > >> controller, but why do you need that? It should already be possible
-> > >> to describe the system without this patch.
-> > >>
-> > >> >   Unfortunately the gpios from
-> > >> > the device tree are assigned numbers from the end of the number
-> > space.
-> > >> >
-> > >> > If we need to assign a specific range, we should try to define an
-> > >> > optional property in the gpio chip binding and assign the value to
-> > >> > gpio-chip.base in gpio-aspeed.c, but I am doubtful that such a
-> > >> > patch would be accepted upstream.
-> > >>
-> > >> I tend to doubt it as well. Describing GPIOs in the devicetree always
-> > >> uses the GPIO controller phandle for a base reference and the pin
-> > >> numbers are mapped at runtime as required.
-> > >>
-> > >> If it's a userspace problem, then there are means via sysfs and the
-> > >> chardev API to discover which controller you're talking to (e.g. chip
-> > >> labels, named gpios). Either of those approaches should suffice.
-> > >
-> > > The motivation to control GPIOs though SYSFS.
-> > > We have a couple of reasons for that:
-> > >
-> > > Need it to support production - they used to verify all the connected
-> > GPIOs.
-> > >
-> > > Some GPIOs used to allow access to remote  components like  NC-SI SPI
-> > flash, BIOS SPI flash, JTAG interface to CPLDs or some others devices.
-> > >
-> > > And we are doing it through /sys/class/gpio.
-> > 
-> > You should be able to achieve this without any further kernel changes.
-> > OpenBMC on Aspeed uses the sysfs API to do this.
-> > 
-> > Can you show is the code that is using the GPIOs?
-> 
-> We just getting in /sys/class/gpio all with offset 280, like:
-> gpio281      gpio511      gpiochip280
-
-This looks like what I'd expect.
-
-> 
-> It means we have to consider this offset in our user space applications,
-> in case we can't have gpiochip0 here. Right?
-
-Yes. For example, the openbmc userspace probes the GPIO chips here:
-
-https://github.com/openbmc/skeleton/blob/master/pysystemmgr/obmc/system/__init__.py#L4
-
-Hope that helps.
-
-Andrew
-
-> 
-> 
-> > 
-> > Cheers,
-> > 
-> > Joel
+SGkgQW5kcmV3LA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IEFuZHJl
+dyBKZWZmZXJ5IFttYWlsdG86YW5kcmV3QGFqLmlkLmF1XQ0KPiBTZW50OiBNb25kYXksIEp1bHkg
+MDMsIDIwMTcgMjozMyBQTQ0KPiBUbzogVmFkaW0gUGFzdGVybmFrIDx2YWRpbXBAbWVsbGFub3gu
+Y29tPjsgSm9lbCBTdGFubGV5DQo+IDxqb2VsQGptcy5pZC5hdT4NCj4gQ2M6IE1pbHRvbiBNaWxs
+ZXIgSUkgPG1pbHRvbm1AdXMuaWJtLmNvbT47IE15a29sYSBLb3N0ZW5vaw0KPiA8Y19teWtvbGFr
+QG1lbGxhbm94LmNvbT47IG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZw0KPiBTdWJqZWN0OiBSZTog
+W1BBVENIIGxpbnV4IGRldi00LjEwXSBhc3BlZWQ6IFNldCBtYXggZ3BpbyBudW0uDQo+IA0KPiBI
+aSBWYWRpbSwNCj4gDQo+IE9uIE1vbiwgSnVsIDMsIDIwMTcsIGF0IDIwOjIyLCBWYWRpbSBQYXN0
+ZXJuYWsgd3JvdGU6DQo+ID4gSGkgSm9lbCwNCj4gPg0KPiA+ID4gLS0tLS1PcmlnaW5hbCBNZXNz
+YWdlLS0tLS0NCj4gPiA+IEZyb206IGpvZWwuc3RhbkBnbWFpbC5jb20gW21haWx0bzpqb2VsLnN0
+YW5AZ21haWwuY29tXSBPbiBCZWhhbGYgT2YNCj4gPiA+IEpvZWwgU3RhbmxleQ0KPiA+ID4gU2Vu
+dDogRnJpZGF5LCBKdW5lIDMwLCAyMDE3IDg6MzEgQU0NCj4gPiA+IFRvOiBWYWRpbSBQYXN0ZXJu
+YWsgPHZhZGltcEBtZWxsYW5veC5jb20+DQo+ID4gPiBDYzogQW5kcmV3IEplZmZlcnkgPGFuZHJl
+d0Bhai5pZC5hdT47IE1pbHRvbiBNaWxsZXIgSUkNCj4gPiA+IDxtaWx0b25tQHVzLmlibS5jb20+
+OyBNeWtvbGEgS29zdGVub2sNCj4gPGNfbXlrb2xha0BtZWxsYW5veC5jb20+Ow0KPiA+ID4gb3Bl
+bmJtY0BsaXN0cy5vemxhYnMub3JnDQo+ID4gPiBTdWJqZWN0OiBSZTogW1BBVENIIGxpbnV4IGRl
+di00LjEwXSBhc3BlZWQ6IFNldCBtYXggZ3BpbyBudW0uDQo+ID4gPg0KPiA+ID4gT24gRnJpLCBK
+dW4gMzAsIDIwMTcgYXQgMjoyMSBQTSwgVmFkaW0gUGFzdGVybmFrDQo+ID4gPiA8dmFkaW1wQG1l
+bGxhbm94LmNvbT4NCj4gPiA+IHdyb3RlOg0KPiA+ID4gPiBIaSBBbmRyZXcsDQo+ID4gPiA+DQo+
+ID4gPiA+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiA+ID4gPj4gRnJvbTogb3BlbmJt
+YyBbbWFpbHRvOm9wZW5ibWMtDQo+ID4gPiA+PiBib3VuY2VzK3lhbml2YWI9bWVsbGFub3guY29t
+QGxpc3RzLm96bGFicy5vcmddIE9uIEJlaGFsZiBPZg0KPiA+ID4gPj4gYm91bmNlcytBbmRyZXcN
+Cj4gPiA+ID4+IEplZmZlcnkNCj4gPiA+ID4+IFNlbnQ6IEZyaWRheSwgSnVuZSAzMCwgMjAxNyA0
+OjMxIEFNDQo+ID4gPiA+PiBUbzogTWlsdG9uIE1pbGxlciBJSSA8bWlsdG9ubUB1cy5pYm0uY29t
+PjsgTXlrb2xhIEtvc3Rlbm9rDQo+ID4gPiA+PiA8Y19teWtvbGFrQG1lbGxhbm94LmNvbT4NCj4g
+PiA+ID4+IENjOiBvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcNCj4gPiA+ID4+IFN1YmplY3Q6IFJl
+OiBbUEFUQ0ggbGludXggZGV2LTQuMTBdIGFzcGVlZDogU2V0IG1heCBncGlvIG51bS4NCj4gPiA+
+ID4+DQo+ID4gPiA+PiBPbiBGcmksIDIwMTctMDYtMzAgYXQgMDA6MzQgKzAwMDAsIE1pbHRvbiBN
+aWxsZXIgSUkgd3JvdGU6DQo+ID4gPiA+PiA+IE9uIEp1bmUgMjkgMjAxNyBhdCA4OjMxIGluIHNv
+bWUgdGltZSB6b25lLCBNeWtvbGEgS29zdGVub2sgd3JvdGU6DQo+ID4gPiA+PiA+ID4NCj4gPiA+
+ID4+ID4gPiBTZXQgbWF4aW11bSBudW1iZXIgb2YgZ3BpbyBmb3IgQVJDSF9BU1BFRUQuDQo+ID4g
+PiA+PiA+ID4NCj4gPiA+ID4+ID4gPiA+ID4gU2lnbmVkLW9mZi1ieTogTXlrb2xhIEtvc3Rlbm9r
+IDxjX215a29sYWtAbWVsbGFub3guY29tPg0KPiA+ID4gPj4gPiA+IGRpZmYgLS1naXQgYS9hcmNo
+L2FybS9LY29uZmlnIGIvYXJjaC9hcm0vS2NvbmZpZyBpbmRleA0KPiA+ID4gPj4gPiA+IDE4NmM0
+YzIxNGUwYS4uOWQzNzM2ODVjNjI4IDEwMDY0NA0KPiA+ID4gPj4gPiA+IC0tLSBhL2FyY2gvYXJt
+L0tjb25maWcNCj4gPiA+ID4+ID4gPiArKysgYi9hcmNoL2FybS9LY29uZmlnDQo+ID4gPiA+PiA+
+ID4gQEAgLTE0OTIsNiArMTQ5Miw3IEBAIGNvbmZpZyBBUkNIX05SX0dQSU8NCj4gPiA+ID4+ID4g
+PiAgIGRlZmF1bHQgMzUyIGlmIEFSQ0hfVlQ4NTAwDQo+ID4gPiA+PiA+ID4gICBkZWZhdWx0IDI4
+OCBpZiBBUkNIX1JPQ0tDSElQDQo+ID4gPiA+PiA+ID4gICBkZWZhdWx0IDI2NCBpZiBNQUNIX0g0
+NzAwDQo+ID4gPiA+PiA+ID4gPiA+ICsgICAgIGRlZmF1bHQgMjMyIGlmIEFSQ0hfQVNQRUVEDQo+
+ID4gPiA+PiA+ID4gICBkZWZhdWx0IDANCj4gPiA+ID4+ID4gPiAgIGhlbHANCj4gPiA+ID4+ID4g
+PiAgICAgTWF4aW11bSBudW1iZXIgb2YgR1BJT3MgaW4gdGhlIHN5c3RlbS4NCj4gPiA+ID4+ID4N
+Cj4gPiA+ID4+ID4NCj4gPiA+ID4+ID4gVGhpcyBpcyBhIGJhZCBpZGVhLg0KPiA+ID4gPj4NCj4g
+PiA+ID4+IEkgYWdyZWUuDQo+ID4gPiA+Pg0KPiA+ID4gPj4gPiAgVGhpcyBzZXRzIHRoZSBtYXhp
+bXVtIHRvdGFsIG51bWJlciBvZiBncGlvcyBzdXBwb3J0ZWQgYnkgdGhlDQo+ID4gPiA+PiA+IGtl
+cm5lbCwgYW5kIHNldHRpbmcgaXQgdG8gdGhpcyB2YWx1ZSB3b3VsZCBub3QgYWxsb3cgYW55IHNw
+YWNlDQo+ID4gPiA+PiA+IGZvciB0aGUgdmFyaW91cyBwY2EgZXhwYW5kZXJzIHRvIGRlZmluZSBh
+ZGRpdGlvbmFsIGdwaW9zLg0KPiA+ID4gPj4gPg0KPiA+ID4gPj4gPiBUaGUgbG9naWMgaW4gYXNt
+LWdlbmVyaWMvZ3Bpby5oIHNheXMgaWYgdGhlIENPTkZJRyBudW1iZXIgaXMgMA0KPiA+ID4gPj4g
+PiB1c2UNCj4gPiA+ID4+ID4gNTEyIGVsc2UgdXNlIHRoZSBzdXBwbGllZCB2YWx1ZS4NCj4gPiA+
+ID4+ID4NCj4gPiA+ID4+ID4gSSdtIGd1ZXNzaW5nIHRoaXMgd2FzIG1vdGl2YXRlZCB0byBtYWtl
+IHRoZSBncGlvIG51bWJlcnMgbWF0Y2gNCj4gPiA+ID4+ID4gd2l0aCB0aGUgY29udHJvbGxlci4N
+Cj4gPiA+ID4+DQo+ID4gPiA+PiBSaWdodDsgd2hhdCdzIG1pc3NpbmcgaXMgYW55IG1lbnRpb24g
+b2YgdGhlIG1vdGl2YXRpb24uDQo+ID4gPiA+Pg0KPiA+ID4gPj4gTXlrb2xhOiBXaGF0IHByb2Js
+ZW0gYXJlIHlvdSB0cnlpbmcgdG8gc29sdmUgd2l0aCB0aGlzIHBhdGNoPyBBcw0KPiA+ID4gPj4g
+TWlsdG9uIG1lbnRpb25zIGl0IG1pZ2h0IGJlIG1ha2luZyB0aGUgR1BJTyBudW1iZXJzIGFsaWdu
+IHdpdGgNCj4gPiA+ID4+IHRoZSBjb250cm9sbGVyLCBidXQgd2h5IGRvIHlvdSBuZWVkIHRoYXQ/
+IEl0IHNob3VsZCBhbHJlYWR5IGJlDQo+ID4gPiA+PiBwb3NzaWJsZSB0byBkZXNjcmliZSB0aGUg
+c3lzdGVtIHdpdGhvdXQgdGhpcyBwYXRjaC4NCj4gPiA+ID4+DQo+ID4gPiA+PiA+ICAgVW5mb3J0
+dW5hdGVseSB0aGUgZ3Bpb3MgZnJvbQ0KPiA+ID4gPj4gPiB0aGUgZGV2aWNlIHRyZWUgYXJlIGFz
+c2lnbmVkIG51bWJlcnMgZnJvbSB0aGUgZW5kIG9mIHRoZSBudW1iZXINCj4gPiA+IHNwYWNlLg0K
+PiA+ID4gPj4gPg0KPiA+ID4gPj4gPiBJZiB3ZSBuZWVkIHRvIGFzc2lnbiBhIHNwZWNpZmljIHJh
+bmdlLCB3ZSBzaG91bGQgdHJ5IHRvIGRlZmluZQ0KPiA+ID4gPj4gPiBhbiBvcHRpb25hbCBwcm9w
+ZXJ0eSBpbiB0aGUgZ3BpbyBjaGlwIGJpbmRpbmcgYW5kIGFzc2lnbiB0aGUNCj4gPiA+ID4+ID4g
+dmFsdWUgdG8gZ3Bpby1jaGlwLmJhc2UgaW4gZ3Bpby1hc3BlZWQuYywgYnV0IEkgYW0gZG91YnRm
+dWwNCj4gPiA+ID4+ID4gdGhhdCBzdWNoIGEgcGF0Y2ggd291bGQgYmUgYWNjZXB0ZWQgdXBzdHJl
+YW0uDQo+ID4gPiA+Pg0KPiA+ID4gPj4gSSB0ZW5kIHRvIGRvdWJ0IGl0IGFzIHdlbGwuIERlc2Ny
+aWJpbmcgR1BJT3MgaW4gdGhlIGRldmljZXRyZWUNCj4gPiA+ID4+IGFsd2F5cyB1c2VzIHRoZSBH
+UElPIGNvbnRyb2xsZXIgcGhhbmRsZSBmb3IgYSBiYXNlIHJlZmVyZW5jZSBhbmQNCj4gPiA+ID4+
+IHRoZSBwaW4gbnVtYmVycyBhcmUgbWFwcGVkIGF0IHJ1bnRpbWUgYXMgcmVxdWlyZWQuDQo+ID4g
+PiA+Pg0KPiA+ID4gPj4gSWYgaXQncyBhIHVzZXJzcGFjZSBwcm9ibGVtLCB0aGVuIHRoZXJlIGFy
+ZSBtZWFucyB2aWEgc3lzZnMgYW5kDQo+ID4gPiA+PiB0aGUgY2hhcmRldiBBUEkgdG8gZGlzY292
+ZXIgd2hpY2ggY29udHJvbGxlciB5b3UncmUgdGFsa2luZyB0bw0KPiA+ID4gPj4gKGUuZy4gY2hp
+cCBsYWJlbHMsIG5hbWVkIGdwaW9zKS4gRWl0aGVyIG9mIHRob3NlIGFwcHJvYWNoZXMgc2hvdWxk
+DQo+IHN1ZmZpY2UuDQo+ID4gPiA+DQo+ID4gPiA+IFRoZSBtb3RpdmF0aW9uIHRvIGNvbnRyb2wg
+R1BJT3MgdGhvdWdoIFNZU0ZTLg0KPiA+ID4gPiBXZSBoYXZlIGEgY291cGxlIG9mIHJlYXNvbnMg
+Zm9yIHRoYXQ6DQo+ID4gPiA+DQo+ID4gPiA+IE5lZWQgaXQgdG8gc3VwcG9ydCBwcm9kdWN0aW9u
+IC0gdGhleSB1c2VkIHRvIHZlcmlmeSBhbGwgdGhlDQo+ID4gPiA+IGNvbm5lY3RlZA0KPiA+ID4g
+R1BJT3MuDQo+ID4gPiA+DQo+ID4gPiA+IFNvbWUgR1BJT3MgdXNlZCB0byBhbGxvdyBhY2Nlc3Mg
+dG8gcmVtb3RlICBjb21wb25lbnRzIGxpa2UgIE5DLVNJDQo+ID4gPiA+IFNQSQ0KPiA+ID4gZmxh
+c2gsIEJJT1MgU1BJIGZsYXNoLCBKVEFHIGludGVyZmFjZSB0byBDUExEcyBvciBzb21lIG90aGVy
+cyBkZXZpY2VzLg0KPiA+ID4gPg0KPiA+ID4gPiBBbmQgd2UgYXJlIGRvaW5nIGl0IHRocm91Z2gg
+L3N5cy9jbGFzcy9ncGlvLg0KPiA+ID4NCj4gPiA+IFlvdSBzaG91bGQgYmUgYWJsZSB0byBhY2hp
+ZXZlIHRoaXMgd2l0aG91dCBhbnkgZnVydGhlciBrZXJuZWwgY2hhbmdlcy4NCj4gPiA+IE9wZW5C
+TUMgb24gQXNwZWVkIHVzZXMgdGhlIHN5c2ZzIEFQSSB0byBkbyB0aGlzLg0KPiA+ID4NCj4gPiA+
+IENhbiB5b3Ugc2hvdyBpcyB0aGUgY29kZSB0aGF0IGlzIHVzaW5nIHRoZSBHUElPcz8NCj4gPg0K
+PiA+IFdlIGp1c3QgZ2V0dGluZyBpbiAvc3lzL2NsYXNzL2dwaW8gYWxsIHdpdGggb2Zmc2V0IDI4
+MCwgbGlrZToNCj4gPiBncGlvMjgxICAgICAgZ3BpbzUxMSAgICAgIGdwaW9jaGlwMjgwDQo+IA0K
+PiBUaGlzIGxvb2tzIGxpa2Ugd2hhdCBJJ2QgZXhwZWN0Lg0KPiANCj4gPg0KPiA+IEl0IG1lYW5z
+IHdlIGhhdmUgdG8gY29uc2lkZXIgdGhpcyBvZmZzZXQgaW4gb3VyIHVzZXIgc3BhY2UNCj4gPiBh
+cHBsaWNhdGlvbnMsIGluIGNhc2Ugd2UgY2FuJ3QgaGF2ZSBncGlvY2hpcDAgaGVyZS4gUmlnaHQ/
+DQo+IA0KPiBZZXMuIEZvciBleGFtcGxlLCB0aGUgb3BlbmJtYyB1c2Vyc3BhY2UgcHJvYmVzIHRo
+ZSBHUElPIGNoaXBzIGhlcmU6DQo+IA0KPiBodHRwczovL2VtZWEwMS5zYWZlbGlua3MucHJvdGVj
+dGlvbi5vdXRsb29rLmNvbS8/dXJsPWh0dHBzJTNBJTJGJTJGZ2l0DQo+IGh1Yi5jb20lMkZvcGVu
+Ym1jJTJGc2tlbGV0b24lMkZibG9iJTJGbWFzdGVyJTJGcHlzeXN0ZW1tZ3IlMkYNCj4gb2JtYyUy
+RnN5c3RlbSUyRl9faW5pdF9fLnB5JTIzTDQmZGF0YT0wMiU3QzAxJTdDdmFkaW1wJTQwbWVsbGEN
+Cj4gbm94LmNvbSU3QzdhYjE2NTUxYjMwZjQzM2UzYjFiMDhkNGMyMDc0MmZiJTdDYTY1Mjk3MWM3
+ZDJlNGQ5YmE2YQ0KPiA0ZDE0OTI1NmY0NjFiJTdDMCU3QzAlN0M2MzYzNDY3ODM4MzM3NTgwMDcm
+c2RhdGE9OURWNWU0ZEVSWE5qOTMNCj4gTWRldDRkYk1jUWVyeXFpd3lzSXp5U25meGFCSGslM0Qm
+cmVzZXJ2ZWQ9MA0KPiANCj4gSG9wZSB0aGF0IGhlbHBzLg0KDQpUaGFuayB5b3UgZm9yIHRoZSBw
+b2ludGVyLg0KVGhpcyBpcyBnb29kIHdpdGggdXMuDQoNCj4gDQo+IEFuZHJldw0KPiANCj4gPg0K
+PiA+DQo+ID4gPg0KPiA+ID4gQ2hlZXJzLA0KPiA+ID4NCj4gPiA+IEpvZWwNCg==
