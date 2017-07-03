@@ -1,53 +1,54 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x244.google.com (mail-yb0-x244.google.com
- [IPv6:2607:f8b0:4002:c09::244])
+Received: from mail-yw0-x243.google.com (mail-yw0-x243.google.com
+ [IPv6:2607:f8b0:4002:c05::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x1GFF6FGDzDr2R
- for <openbmc@lists.ozlabs.org>; Mon,  3 Jul 2017 15:40:33 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x1Gnp4Gc3zDr3V
+ for <openbmc@lists.ozlabs.org>; Mon,  3 Jul 2017 16:05:18 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="YBKTD8KO"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="qOBy2jEm"; 
  dkim-atps=neutral
-Received: by mail-yb0-x244.google.com with SMTP id 84so7402559ybe.0
- for <openbmc@lists.ozlabs.org>; Sun, 02 Jul 2017 22:40:33 -0700 (PDT)
+Received: by mail-yw0-x243.google.com with SMTP id a12so3688441ywh.1
+ for <openbmc@lists.ozlabs.org>; Sun, 02 Jul 2017 23:05:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=lj+hu93wyVcMxfLlyicRLEVlXP83O6RGnleIVYWAW/U=;
- b=YBKTD8KOYqBzjWLg3oWy92h5fuUnPlljbKKGcAwOfgQsaoaiJHL/kBEQWiNKZbyLHP
- F6Qm416BiPDUpLtQGN0XO4C7AS4cJqrjYSEVpvr3qtMJeoecApyo+SvZXc+iVt8fACFQ
- hPGoG9LnaVUcURf/hT/PD7dG3+dd2f+nwfuq412vxxrKLDdcqTEIR62ymxRWiAGnxhMW
- ZvrcrucHMxpfcpRqrzGiVTMuy7tI6Cqw6GlaI10fo/YVuFl32Bt7NO+WwB7ehbBynX4n
- EdwTIb+bgfvJzLBT+WNQSmC6t7waFU+NPJS4SeJi0tRZEGEe/M5n3XECA/24yq13dm1F
- bSMw==
+ bh=eUvOEPWDu8gxD0AkT3luJSXnl1R04oEdERoGmAQc4PE=;
+ b=qOBy2jEmuptIy7vTII4fvZ7t152JnXcDx0lKgdBhJ7QtcR6CkWfsg7GL6Ghsj/2i4v
+ HB47qQQtUd2SeGDyz1eC4hc6kZLSvs78ZcvheHkgVXbDybW7a/P0+W27gWB6WR9w01FR
+ rUi+QATJGpRO8fckueJpJLv4CidVpNWU64WKPK0js8TTSrZXt/0K72UnmejIobKPqULj
+ ARKcT8KhJaaeCUzphWQRZ++n+JW4OtWy3RlQfHs4EzDS/D7ilxMKx4fjLoEOngq5oxlq
+ NxN1tMg2ZY1xRTRFTdClPwWkZEYRxM16pTruhx9kH49MH40/uKXh54VCCOMCowvGrRr9
+ 0+SA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=lj+hu93wyVcMxfLlyicRLEVlXP83O6RGnleIVYWAW/U=;
- b=IWReSSKekoAQNCttCmw4SDbu2Ogcsvu/ku1BxVp0BuajDT6sPFbT2BcwKj4wso+VDS
- HJFVpWam5IJHFpeT2x/8WXCRfckZgcZa/HHF8rNE4dTxVtdgKfGwy21R8WdCc/clVoV5
- K5nEZ5GRvvok03qrZO+RIfZFlkuy4ODc8s+GhRRYvZoKg7yoqyIr7zkrj+ljBrdR3oEN
- Q5brrMAjOifH7Mij8dewzWar7b8paGgCjIv1l36ZpK5ZVwMmGJBx2Wq+26v/+AWkTKC3
- Hy7iAf9thVUsPZlECvYX5dvZOmm4KZcstvbhz7TqjtW53HxooyKVWpefd9Jw010DJCz8
- r0Fw==
-X-Gm-Message-State: AKS2vOzUUMqrfPlh23ghq/n5N85573cWVoe4Ypa5SM51kzleGbHtGGIW
- oL7lxVEhyPwPvB6JEWZUvME78lXIvg==
-X-Received: by 10.37.177.158 with SMTP id h30mr25640590ybj.214.1499060431519; 
- Sun, 02 Jul 2017 22:40:31 -0700 (PDT)
+ bh=eUvOEPWDu8gxD0AkT3luJSXnl1R04oEdERoGmAQc4PE=;
+ b=GE14tLTdrqFqHnL6nqukwa8Z0wdzQWLvw5tqxYiH7y3LSqNXg08QqMot7IhQ9m+4UW
+ P7Ro85ne6eV2uiew6hO92/qoz4DQPck375X407l8ScRPVk9JEFZTKo2WzNTwasSDFLm3
+ 7kMHEeLf3KQ7q0SXxWQ5drRYlKF9is3WHjuJwRirZ7R1MyyPFoNcKPSHGt7t2TEg59Ax
+ fJTzIKSMvTPqwaFj0e8VNX6Bfev2GtwnyMIDKymemhoysHm79cmYdr7864zX+SdQaiP7
+ 8Qg8YLqvS/vF4BY3DmmWlK0gh0hB3Gy6S+DLkyp3q7Wa/mr+VQYKfE4AWrvxwsv0UBxY
+ tB/w==
+X-Gm-Message-State: AKS2vOzveq/EQfhHQP65TqldwDh5phWuIW2zkgO7POa7sJF9wlpTRG6Z
+ cFcbjZi6M84K1IpuQ192GD9Lk8k8Ww==
+X-Received: by 10.129.93.133 with SMTP id r127mr25247128ywb.135.1499061916141; 
+ Sun, 02 Jul 2017 23:05:16 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.170.239 with HTTP; Sun, 2 Jul 2017 22:40:10 -0700 (PDT)
-In-Reply-To: <20170630225521.7612-1-cbostic@linux.vnet.ibm.com>
-References: <20170630225521.7612-1-cbostic@linux.vnet.ibm.com>
+Received: by 10.37.170.239 with HTTP; Sun, 2 Jul 2017 23:04:55 -0700 (PDT)
+In-Reply-To: <1498853815-12959-1-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1498853815-12959-1-git-send-email-eajames@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 3 Jul 2017 15:10:10 +0930
-X-Google-Sender-Auth: rBCPt8V36NYfURTieYpP2VjhTzk
-Message-ID: <CACPK8XeNz_paeutQF=ZjUURYWnWNHjWGr_Hb23C1S9tiqaRORg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] drivers/leds: Add GPIO keys for PCA955x
- and ast24/2500 gpio
-To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Mon, 3 Jul 2017 15:34:55 +0930
+X-Google-Sender-Auth: 06tnHybi0OC9VVH9yuMsODnrZT4
+Message-ID: <CACPK8Xf1xaN=sv5f-YGy0P5GYZxgLSbv3LNJnBUW6UZLp-PnHw@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] drivers/hwmon/occ: Add sysfs_notify on
+ error
+To: Eddie James <eajames@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ "Edward A. James" <eajames@us.ibm.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -60,214 +61,294 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Jul 2017 05:40:34 -0000
+X-List-Received-Date: Mon, 03 Jul 2017 06:05:19 -0000
 
-On Sat, Jul 1, 2017 at 8:25 AM, Christopher Bostic
-<cbostic@linux.vnet.ibm.com> wrote:
-> Define gpio keys for power supply presence, ucd alert, and fan presence.
+On Sat, Jul 1, 2017 at 5:46 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+> From: "Edward A. James" <eajames@us.ibm.com>
 >
-> Link pca955x to parent i2c interrupt controller so that new pca955x gpio
-> keys for fan presence haning off of pca955x can be defined.
+> For userspace polling, we need to notify sysfs that the state of our
+> error entry has changed.
 >
-> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+> Signed-off-by: Edward A. James <eajames@us.ibm.com>
 > ---
->  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 77 ++++++++++++++++++++++++
->  drivers/leds/leds-pca955x.c                      | 64 ++++++++++++++++++++
-
-The change to the source file and the .dts should be in separate patches.
-
->  2 files changed, 141 insertions(+)
+>  drivers/hwmon/occ/common.c | 40 ++++++++++++++++++++++++++++++----------
+>  drivers/hwmon/occ/common.h |  3 +++
+>  drivers/hwmon/occ/p8_i2c.c | 28 ++++++++++++++--------------
+>  drivers/hwmon/occ/p9_sbe.c | 34 ++++++++++++++++------------------
+>  4 files changed, 63 insertions(+), 42 deletions(-)
 >
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> index 31315d0..24ea9944 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> @@ -46,6 +46,48 @@
->                         gpios = <&gpio ASPEED_GPIO(J, 2) GPIO_ACTIVE_LOW>;
->                         linux,code = <ASPEED_GPIO(J, 2)>;
->                 };
-> +
-> +               ps0-presence {
-> +                       label = "ps0-presence";
-> +                       gpios = <&gpio ASPEED_GPIO(P, 7) GPIO_ACTIVE_LOW>;
-> +                       linux,code = <ASPEED_GPIO(P, 7)>;
-> +               };
-> +
-> +               ps1-presence {
-> +                       label = "ps1-presence";
-> +                       gpios = <&gpio ASPEED_GPIO(N, 0) GPIO_ACTIVE_LOW>;
-> +                       linux,code = <ASPEED_GPIO(N, 0)>;
-> +               };
-> +
-> +               ucd-alert {
-> +                       label = "ucd-alert";
-> +                       gpios = <&gpio ASPEED_GPIO(I, 2) GPIO_ACTIVE_LOW>;
-> +                       linux,code = <ASPEED_GPIO(I, 2)>;
-> +               };
-
-I don't think this is correct. Isn't the alert line part of the sbmus device?
-
-> +
-> +               fan0-presence {
-> +                       label = "fan0-presence";
-> +                       gpios = <&pca0 0 GPIO_ACTIVE_LOW>;
-> +                       linux,code = <0>;
-> +               };
-> +
-> +               fan1-presence {
-> +                       label = "fan1-presence";
-> +                       gpios = <&pca0 1 GPIO_ACTIVE_LOW>;
-> +                       linux,code = <1>;
-> +               };
-> +
-> +               fan2-presence {
-> +                       label = "fan2-presence";
-> +                       gpios = <&pca0 2 GPIO_ACTIVE_LOW>;
-> +                       linux,code = <2>;
-> +               };
-> +
-> +               fan3-presence {
-> +                       label = "fan3-presence";
-> +                       gpios = <&pca0 3 GPIO_ACTIVE_LOW>;
-> +                       linux,code = <3>;
-> +               };
->         };
->
->         leds {
-> @@ -203,6 +245,41 @@
->                 compatible = "infineon,dps310";
->                 reg = <0x76>;
->         };
-> +
-> +       pca0: pca9552@60 {
-> +               compatible = "nxp,pca9552";
-> +               reg = <0x60>;
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               gpio-controller;
-> +               #gpio-cells = <2>;
-> +
-> +               interrupt-parent = <&i2c_ic>;
-> +               interrupts = <3>;
-> +
-> +               gpio-line-names = "FAN0_PRESENSE_N", "FAN1_PRESENSE_N",
-> +                               "FAN2_PRESENSE_N", "FAN3_PRESENSE_N";
-> +
-> +               gpio@4 {
-> +                       reg = <4>;
-> +                       type = <PCA955X_TYPE_GPIO>;
-> +               };
-> +
-> +               gpio@5 {
-> +                       reg = <5>;
-> +                       type = <PCA955X_TYPE_GPIO>;
-> +               };
-> +
-> +               gpio@6 {
-> +                       reg = <6>;
-> +                       type = <PCA955X_TYPE_GPIO>;
-> +               };
-> +
-> +               gpio@7 {
-> +                       reg = <7>;
-> +                       type = <PCA955X_TYPE_GPIO>;
-> +               };
-> +       };
->  };
->
->  &i2c4 {
-> diff --git a/drivers/leds/leds-pca955x.c b/drivers/leds/leds-pca955x.c
-> index 9216742..88990f1 100644
-> --- a/drivers/leds/leds-pca955x.c
-> +++ b/drivers/leds/leds-pca955x.c
-> @@ -52,6 +52,7 @@
->  #include <linux/of.h>
->  #include <linux/slab.h>
->  #include <linux/string.h>
-> +#include <linux/interrupt.h>
->
->  #include <dt-bindings/leds/leds-pca955x.h>
->
-> @@ -389,6 +390,66 @@ static int pca955x_gpio_direction_output(struct gpio_chip *gc,
->  }
->  #endif
->
-> +static void pca955x_irq_mask(struct irq_data *d)
-> +{
-> +}
-> +
-> +static void pca955x_irq_unmask(struct irq_data *d)
-> +{
-> +}
-> +
-> +static void pca955x_irq_bus_lock(struct irq_data *d)
-> +{
-> +}
-> +
-> +static void pca955x_irq_bus_sync_unlock(struct irq_data *d)
-> +{
-> +}
-
-It looks like you sent a half-finished version.
-
-> +
-> +static int pca955x_irq_set_type(struct irq_data *d, unsigned int type)
-> +{
-> +       return 0;
-> +}
-> +
-> +static struct irq_chip pca955x_irq_chip = {
-> +       .name                   = "pca955x",
-> +       .irq_mask               = pca955x_irq_mask,
-> +       .irq_unmask             = pca955x_irq_unmask,
-> +       .irq_bus_lock           = pca955x_irq_bus_lock,
-> +       .irq_bus_sync_unlock    = pca955x_irq_bus_sync_unlock,
-> +       .irq_set_type           = pca955x_irq_set_type,
-> +};
-> +
-> +static int pca955x_irq_setup(struct pca955x *chip, int irq_base)
-> +{
-> +       struct i2c_client *client;
-> +       int ret;
-> +
-> +       if (!chip)
-> +               return 0;
-> +
-> +       client = chip->client;
-> +       if (!client)
-> +               return 0;
-> +
-> +       if (client->irq && irq_base >= 0) {
-> +               ret = gpiochip_irqchip_add_nested(&chip->gpio,
-> +                                               &pca955x_irq_chip,
-> +                                               irq_base,
-> +                                               handle_simple_irq,
-> +                                               IRQ_TYPE_NONE);
-> +               if (ret) {
-> +                       dev_err(&client->dev,
-> +                               "could not connect irqchip to gpiochip\n");
-> +                       return ret;
-> +               }
-> +               gpiochip_set_nested_irqchip(&chip->gpio,
-> +                                       &pca955x_irq_chip,
-> +                                       client->irq);
-> +       }
-> +       return 0;
-> +}
-> +
->  static int pca955x_probe(struct i2c_client *client,
->                                         const struct i2c_device_id *id)
->  {
-> @@ -543,6 +604,9 @@ static int pca955x_probe(struct i2c_client *client,
->                 }
+> diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
+> index 4e3e411..f62cc6d 100644
+> --- a/drivers/hwmon/occ/common.c
+> +++ b/drivers/hwmon/occ/common.c
+> @@ -163,9 +163,22 @@ void occ_parse_poll_response(struct occ *occ)
 >         }
->  #endif
-> +       err = pca955x_irq_setup(pca955x, 0);
-> +       if (err)
-> +               return err;
->
->         return 0;
 >  }
+>
+> +void occ_set_error(struct occ *occ, int error)
+> +{
+> +       occ->error_count++;
+> +       if (occ->error_count > OCC_ERROR_COUNT_THRESHOLD)
+> +               occ->error = error;
+
+This means we only record the error number for the last error that
+occurred. Is that desirable?
+
+> +}
+> +
+> +void occ_reset_error(struct occ *occ)
+> +{
+> +       occ->error_count = 0;
+> +       occ->error = 0;
+> +}
+> +
+>  int occ_poll(struct occ *occ)
+>  {
+> -       int rc;
+> +       int rc, error = occ->error;
+>         struct occ_poll_response_header *header;
+>         u16 checksum = occ->poll_cmd_data + 1;
+>         u8 cmd[8];
+> @@ -181,7 +194,7 @@ int occ_poll(struct occ *occ)
+>
+>         rc = occ->send_cmd(occ, cmd);
+>         if (rc)
+> -               return rc;
+> +               goto done;
+>
+>         header = (struct occ_poll_response_header *)occ->resp.data;
+>
+> @@ -198,18 +211,25 @@ int occ_poll(struct occ *occ)
+>         if (header->status & OCC_STAT_MASTER) {
+>                 if (hweight8(header->occs_present) !=
+>                     atomic_read(&occ_num_occs)) {
+> -                       occ->error = -EXDEV;
+>                         occ->bad_present_count++;
+> +
+> +                       if (occ->bad_present_count > OCC_ERROR_COUNT_THRESHOLD)
+
+Why do we have both bad_present_count and occ->occ_error?
+
+Could they be combined?
+
+> +                               occ->error = -EXDEV;
+
+What is EXDEV?
+
+#define   EXDEV           18      /* Cross-device link */
+
+I'm not sure what that is. Perhaps EIO? or EINVAL?
+
+>                 } else
+>                         occ->bad_present_count = 0;
+>         }
+> +done:
+> +       /* notify userspace if we change error state */
+> +       if (occ->error != error)
+> +               sysfs_notify(&occ->bus_dev->kobj, NULL, occ->error_attr_name);
+
+So from now on userspace will be notified of every error. Is that intentional?
+
+> +
+>         return rc;
+>  }
+>
+>  int occ_set_user_power_cap(struct occ *occ, u16 user_power_cap)
+>  {
+> -       int rc;
+> +       int rc, error = occ->error;
+>         u8 cmd[8];
+>         u16 checksum = 0x24;
+>         __be16 user_power_cap_be;
+> @@ -239,6 +259,10 @@ int occ_set_user_power_cap(struct occ *occ, u16 user_power_cap)
+>         rc = occ->send_cmd(occ, cmd);
+>         mutex_unlock(&occ->lock);
+>
+> +       /* notify userspace if we change error state */
+> +       if (occ->error != error)
+> +               sysfs_notify(&occ->bus_dev->kobj, NULL, occ->error_attr_name);
+> +
+>         return rc;
+>  }
+>
+> @@ -260,14 +284,9 @@ int occ_update_response(struct occ *occ)
+>  static ssize_t occ_show_error(struct device *dev,
+>                               struct device_attribute *attr, char *buf)
+>  {
+> -       int error = 0;
+>         struct occ *occ = dev_get_drvdata(dev);
+>
+> -       if (occ->error_count > OCC_ERROR_COUNT_THRESHOLD || occ->last_safe ||
+> -           occ->bad_present_count > OCC_ERROR_COUNT_THRESHOLD)
+> -               error = occ->error;
+> -
+> -       return snprintf(buf, PAGE_SIZE - 1, "%d\n", error);
+> +       return snprintf(buf, PAGE_SIZE - 1, "%d\n", occ->error);
+>  }
+>
+>  static ssize_t occ_show_status(struct device *dev,
+> @@ -1152,6 +1171,7 @@ int occ_create_status_attrs(struct occ *occ)
+>                 (struct sensor_device_attribute)SENSOR_ATTR(occ_error, 0444,
+>                                                             occ_show_error,
+>                                                             NULL, 0);
+> +       occ->error_attr_name = occ->status_attrs[7].dev_attr.attr.name;
+>
+>         for (i = 0; i < OCC_NUM_STATUS_ATTRS; ++i) {
+>                 rc = device_create_file(dev, &occ->status_attrs[i].dev_attr);
+> diff --git a/drivers/hwmon/occ/common.h b/drivers/hwmon/occ/common.h
+> index a5f86c3..3b4bd91 100644
+> --- a/drivers/hwmon/occ/common.h
+> +++ b/drivers/hwmon/occ/common.h
+> @@ -116,6 +116,7 @@ struct occ {
+>         struct attribute_group group;
+>         const struct attribute_group *groups[2];
+>         struct sensor_device_attribute *status_attrs;
+> +       const char *error_attr_name;
+>
+>         u8 poll_cmd_data;
+>         int (*send_cmd)(struct occ *occ, u8 *cmd);
+> @@ -143,6 +144,8 @@ struct occ {
+>  extern atomic_t occ_num_occs;
+>
+>  void occ_parse_poll_response(struct occ *occ);
+> +void occ_reset_error(struct occ *occ);
+> +void occ_set_error(struct occ *occ, int error);
+>  int occ_poll(struct occ *occ);
+>  int occ_set_user_power_cap(struct occ *occ, u16 user_power_cap);
+>  int occ_update_response(struct occ *occ);
+> diff --git a/drivers/hwmon/occ/p8_i2c.c b/drivers/hwmon/occ/p8_i2c.c
+> index 29233b4..a7b1d4c 100644
+> --- a/drivers/hwmon/occ/p8_i2c.c
+> +++ b/drivers/hwmon/occ/p8_i2c.c
+> @@ -98,7 +98,7 @@ static int p8_i2c_occ_putscom_be(struct i2c_client *client, u32 address,
+>
+>  static int p8_i2c_occ_send_cmd(struct occ *occ, u8 *cmd)
+>  {
+> -       int i, rc;
+> +       int i, rc, error;
+>         unsigned long start;
+>         u16 data_length;
+>         struct p8_i2c_occ *p8_i2c_occ = to_p8_i2c_occ(occ);
+> @@ -161,22 +161,18 @@ static int p8_i2c_occ_send_cmd(struct occ *occ, u8 *cmd)
+>                 rc = -EFAULT;
+>         }
+>
+> -       occ->error = resp->return_status;
+> -
+>         if (rc < 0) {
+> -               occ->error_count++;
+> -               dev_warn(&client->dev, "occ bad response:%d\n",
+> -                        resp->return_status);
+> -               return rc;
+> +               error = resp->return_status;
+> +               dev_warn(&client->dev, "occ bad response:%d\n", error);
+> +               goto done;
+>         }
+>
+>         data_length = get_unaligned_be16(&resp->data_length_be);
+>         if (data_length > OCC_RESP_DATA_BYTES) {
+> -               occ->error_count++;
+> -               occ->error = -EDOM;
+> +               rc = -EDOM;
+>                 dev_warn(&client->dev, "occ bad data length:%d\n",
+>                          data_length);
+> -               return occ->error;
+> +               goto assign;
+>         }
+>
+>         for (i = 8; i < data_length + 7; i += 8) {
+> @@ -185,13 +181,17 @@ static int p8_i2c_occ_send_cmd(struct occ *occ, u8 *cmd)
+>                         goto err;
+>         }
+>
+> -       occ->error_count = 0;
+> -       return data_length + 7;
+> +       occ_reset_error(occ);
+> +       return 0;
+>
+>  err:
+> -       occ->error_count++;
+> -       occ->error = rc;
+>         dev_err(&client->dev, "i2c scom op failed rc:%d\n", rc);
+> +
+> +assign:
+> +       error = rc;
+> +
+> +done:
+> +       occ_set_error(occ, error);
+>         return rc;
+>  }
+>
+> diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
+> index c85f133..db30a2d 100644
+> --- a/drivers/hwmon/occ/p9_sbe.c
+> +++ b/drivers/hwmon/occ/p9_sbe.c
+> @@ -25,7 +25,7 @@ struct p9_sbe_occ {
+>
+>  static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
+>  {
+> -       int rc;
+> +       int rc, error;
+>         unsigned long start;
+>         struct occ_client *client;
+>         struct occ_response *resp = &occ->resp;
+> @@ -35,9 +35,10 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
+>
+>  retry:
+>         client = occ_drv_open(p9_sbe_occ->sbe, 0);
+> -       if (!client)
+> -               /* don't increment occ error counter */
+> -               return -ENODEV;
+> +       if (!client) {
+> +               rc = -ENODEV;
+> +               goto assign;
+> +       }
+>
+>         rc = occ_drv_write(client, (const char *)&cmd[1], 7);
+>         if (rc < 0)
+> @@ -62,7 +63,8 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
+>                 }
+>                 break;
+>         case RESP_RETURN_SUCCESS:
+> -               rc = 0;
+> +               occ_reset_error(occ);
+> +               return 0;
+>                 break;
+>         case RESP_RETURN_CMD_INVAL:
+>         case RESP_RETURN_CMD_LEN:
+> @@ -77,23 +79,19 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
+>                 rc = -EFAULT;
+>         }
+>
+> -       occ->error = resp->return_status;
+> -
+> -       if (rc < 0) {
+> -               occ->error_count++;
+> -               dev_warn(occ->bus_dev, "occ bad response:%d\n",
+> -                        resp->return_status);
+> -               return rc;
+> -       }
+> -
+> -       occ->error_count = 0;
+> -       return 0;
+> +       error = resp->return_status;
+> +       dev_warn(occ->bus_dev, "occ bad response:%d\n", error);
+> +       goto done;
+>
+>  err:
+> -       occ->error_count++;
+> -       occ->error = rc;
+>         occ_drv_release(client);
+>         dev_err(occ->bus_dev, "occ bus op failed rc:%d\n", rc);
+> +
+> +assign:
+> +       error = rc;
+> +
+> +done:
+> +       occ_set_error(occ, error);
+>         return rc;
+>  }
+>
 > --
-> 1.8.2.2
+> 1.8.3.1
 >
