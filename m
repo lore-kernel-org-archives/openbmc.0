@@ -3,51 +3,52 @@ Received: from mail-yb0-x242.google.com (mail-yb0-x242.google.com
  [IPv6:2607:f8b0:4002:c09::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x1H0w1NWrzDr44
- for <openbmc@lists.ozlabs.org>; Mon,  3 Jul 2017 16:14:56 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x1HFM5N4rzDr44
+ for <openbmc@lists.ozlabs.org>; Mon,  3 Jul 2017 16:25:43 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="VFqfO7Bq"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="LVOSq3FY"; 
  dkim-atps=neutral
-Received: by mail-yb0-x242.google.com with SMTP id n205so2273261yba.1
- for <openbmc@lists.ozlabs.org>; Sun, 02 Jul 2017 23:14:56 -0700 (PDT)
+Received: by mail-yb0-x242.google.com with SMTP id 84so7436502ybe.0
+ for <openbmc@lists.ozlabs.org>; Sun, 02 Jul 2017 23:25:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=06ERUj3j8EtwOIMUPA3vWM7huM2kXZ9Nbr0/tGTzB1o=;
- b=VFqfO7BqrtFKLL6u3n1fQR4VZbn9PjP8zu9bG1AsiyKPretDohhb6ZJdNbz6hOCG2O
- 9xHVDh7fp1V53qUUl+lds6Hp2UQp7ggw2B0KQI6ttqI2zG3etX/hfTvlGOlt3V1ciy74
- sVZEpsTmhUW855PfnKL86t0qSGb2Ew4aDSv1xxGD/Cy69xQG5CKGR1+UXzQEoXjpXNf6
- lr3TspTvfRNd7wRhmZwRgmHg+3IIc4+ySxP5RsO8bsoQLcaFp5GeL7/vEoqiEU3+pK4D
- fgIt0JNhjgE2SBigg4ldvLfN/GozJBl9MCp3KmGioTrLVNWLPgxrxdWh4n3ha9nRzpM6
- 6irg==
+ bh=mAB21PvOiyD3EifqSrG7lDTEhWzWGwSqfa5I6jFRjpY=;
+ b=LVOSq3FYVGQ0UNfiPu2knMsRdzJyNWsmRG7CgdflRi66KQabvcmCwaxZx/YwVIz2lr
+ p0gyKvUNHuB3oq2wsXXhz5d5u8Sxe21sHZVYc9ez8nwUByWP8bvoeB6t6kdLDiMkAtcc
+ avE+EjuhOYaNw7dLc2++ZKDdrwCafWz3G/uNc3NrRucem4b6nXduxR+K6jC9g1mwvreI
+ 98x26F586aMyjjZvGZrBXa3LVj/TTqrWQ8f2MLHJhIGM4WI2yo4FWoskTfJYv00ozfkb
+ W5XO7ANQyD6G8zd7TerXeXsLhm6fhWNJR28DCdRYW5hAHp58rawYadefN7NXdmAMc5TC
+ el8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=06ERUj3j8EtwOIMUPA3vWM7huM2kXZ9Nbr0/tGTzB1o=;
- b=ep2f8VZx7vav3dfrwLiriqy9NCRivA6sCMJEHge9ptndpWo2ZXZFnuCZ0d+3i4yzIQ
- 3KmeHEpY5Zb7KS+aJ63Yg7urVY3QptFPmdZDzcrZCmu28dHmBbWwH2AKdV1dlI8sMETt
- qEr06BudAHWlghQYwZWV24ivf6pVpdx3D2OTiHHuv8bCF0XL9ZOxhuSn2mvkK92IFlWx
- LNDVQpPJW10nYGtsrtFtrAUWeBW7nhsaODyJ1TYuqPKq2z/7RNZNtFx7rosoO6F8zLUL
- YT5vxnHDP2HuZXunETY6Fg9MrJpheXP7OW/dSJSjvN/8eWNhR2WfkkFnXlgkr6I/3fDN
- dr/w==
-X-Gm-Message-State: AKS2vOyv/dd2vdDaoriS7yHN1W2gozyR9wQqB6lt1XVr8hTyQb73Nn0Q
- OM3iN5WUM8j/qpjCmFK2vsSioequYg==
-X-Received: by 10.37.88.193 with SMTP id m184mr25497003ybb.39.1499062494246;
- Sun, 02 Jul 2017 23:14:54 -0700 (PDT)
+ bh=mAB21PvOiyD3EifqSrG7lDTEhWzWGwSqfa5I6jFRjpY=;
+ b=iK9zXdvv8KQem8MOT8GRFOHxXp/BF3fxV0ZoAuDUgZ+gC++oiGRavUrL+7hkTv+APe
+ Bp01buL0JQqAj41nOTzzB2y+07eeeKFDCwTf8jRMDbvuG4NZzAnQWK/YhvgRpjnqSmCv
+ UZoSyI4SaLKvMU+/W9ISbc44eu7IFFBb6Olpjl+/COcgvqYvNq4lh2779kINMUcJQw7h
+ /00b2dRmC7tKi/UWZdARhfQRKTeW73vo0JCedDUal8cdPotHFomrZEGt/H8S7TQTtrPJ
+ hQSr5LVP0E2sGSoTYC7UIQyxsbdH7h6dUjgSJjmOfbWlwfGQrP12qqoVhkgt1JTYzzEt
+ CbcA==
+X-Gm-Message-State: AKS2vOwIslM2bdynqfUdNwn4SOBZ+nCEkTPe4j0VukV/QMBHC9FjcwVE
+ gJUUUTg2TDFae0D9Cxai5ydUR7lSyaf+
+X-Received: by 10.37.165.98 with SMTP id h89mr17537290ybi.169.1499063141557;
+ Sun, 02 Jul 2017 23:25:41 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.170.239 with HTTP; Sun, 2 Jul 2017 23:14:33 -0700 (PDT)
-In-Reply-To: <20170630114844.30027-1-c_mykolak@mellanox.com>
-References: <20170630114844.30027-1-c_mykolak@mellanox.com>
+Received: by 10.37.170.239 with HTTP; Sun, 2 Jul 2017 23:25:21 -0700 (PDT)
+In-Reply-To: <20170629033446.10782-1-joel@jms.id.au>
+References: <20170629033446.10782-1-joel@jms.id.au>
 From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 3 Jul 2017 15:44:33 +0930
-X-Google-Sender-Auth: v1vk0AxxkV-NCoceHv13bCbG--0
-Message-ID: <CACPK8Xe6g2VZUQBwJopcBBLwjzjsxAaX9arw6Gqh7ZO23htGGA@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] aspeed-g5: add aspeed,ast2500-pwm-tacho.
-To: Mykola Kostenok <c_mykolak@mellanox.com>,
- Patrick Venture <venture@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Mon, 3 Jul 2017 15:55:21 +0930
+X-Google-Sender-Auth: KMXGifD9tQbJAt4yBWtm5x5D9Y0
+Message-ID: <CACPK8Xffcw-6zGUpN_6Ni8spz-Nz9jsnr9tqGW-TDNze8DJzsw@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: barreleye: Correct bad
+ LED nodes
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: Sweta Potthuri <spotthur@in.ibm.com>,
+ Adi Gangidi <adi.gangidi@rackspace.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -60,112 +61,75 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Jul 2017 06:14:56 -0000
+X-List-Received-Date: Mon, 03 Jul 2017 06:25:44 -0000
 
-On Fri, Jun 30, 2017 at 9:18 PM, Mykola Kostenok <c_mykolak@mellanox.com> wrote:
-> Add aspeed,ast2500-pwm-tacho to dtsi.
-> Enable aspeed,ast2500-pwm-tacho for msn.
+On Thu, Jun 29, 2017 at 1:04 PM, Joel Stanley <joel@jms.id.au> wrote:
+> There was a bug in the definition of the heartbeat LED that meant we
+> were selecting the wrong GPIO for the driver. This fails now that we
+> have the correct pinmux settings for the Ethernet MAC.
 >
-> Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
+> When looking at the schematic for the correct number I found that the
+> other LEDs were mislabeled, and in the case of the power LED not
+> present at all.
+>
+> Finally, the keep property is reinstated. This was present in an older
+> version of the dts as it is the required behaviour.
+>
+> The LEDs are now accurate according to the Ingrasys document
+> 0101DAW00-000-G, dated Wednesday, April 20, 2016, rev A00. The file
+> name is BARRELEYE-IO_BOARD-MP-HW-SCH-A00_20160419_FINAL.pdf
+>
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
 
-Patrick, you're our pwm/tach expert. Can you please review this one?
+I got a:
+
+Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+
+off the list, so I will apply this fix.
 
 Cheers,
 
 Joel
 
 > ---
->  arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts | 45 +++++++++++++++++++++++++++
->  arch/arm/boot/dts/aspeed-g5.dtsi              | 16 ++++++++++
->  2 files changed, 61 insertions(+)
+>  arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts | 16 ++++++++++++++--
+>  1 file changed, 14 insertions(+), 2 deletions(-)
 >
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-> index c71a6dbe1410..55d5dc15d136 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-> @@ -144,3 +144,48 @@
->         status = "okay";
->  };
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+> index e4e853d0f561..2060831e579c 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+> @@ -34,16 +34,28 @@
+>         leds {
+>                 compatible = "gpio-leds";
 >
-> +&pwm_tacho {
-> +       status = "okay";
-> +       pinctrl-names = "default";
-> +       pinctrl-0 = <&pinctrl_pwm0_default>;
-> +
-> +       fan@0 {
-> +               reg = <0x00>;
-> +               aspeed,fan-tach-ch = /bits/ 8 <0x00>;
-> +       };
-> +
-> +       fan@1 {
-> +               reg = <0x00>;
-> +               aspeed,fan-tach-ch = /bits/ 8 <0x01>;
-> +       };
-> +
-> +       fan@2 {
-> +               reg = <0x00>;
-> +               aspeed,fan-tach-ch = /bits/ 8 <0x02>;
-> +       };
-> +
-> +       fan@3 {
-> +               reg = <0x00>;
-> +               aspeed,fan-tach-ch = /bits/ 8 <0x03>;
-> +       };
-> +
-> +       fan@4 {
-> +               reg = <0x00>;
-> +               aspeed,fan-tach-ch = /bits/ 8 <0x04>;
-> +       };
-> +
-> +       fan@5 {
-> +               reg = <0x00>;
-> +               aspeed,fan-tach-ch = /bits/ 8 <0x05>;
-> +       };
-> +
-> +       fan@6 {
-> +               reg = <0x00>;
-> +               aspeed,fan-tach-ch = /bits/ 8 <0x06>;
-> +       };
-> +
-> +       fan@7 {
-> +               reg = <0x00>;
-> +               aspeed,fan-tach-ch = /bits/ 8 <0x07>;
-> +       };
-> +};
-> diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-> index 992242d3b22e..01c86bb71932 100644
-> --- a/arch/arm/boot/dts/aspeed-g5.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-> @@ -35,6 +35,14 @@
->                 i2c13 = &i2c13;
->         };
+> +               /* BMC_HEARTBRAT_LED_N */
+>                 heartbeat {
+> -                       gpios = <&gpio ASPEED_GPIO(R, 17) GPIO_ACTIVE_HIGH>;
+> +                       gpios = <&gpio ASPEED_GPIO(R, 4) GPIO_ACTIVE_LOW>;
+> +                       default-state = "keep";
+>                 };
 >
-> +       clocks {
-> +               pwm_tacho_fixed_clk: fixedclk {
-> +                       compatible = "fixed-clock";
-> +                       #clock-cells = <0>;
-> +                       clock-frequency = <24000000>;
+> +               /* BMC_SYS_PWROK_IDLED_N */
+>                 identify {
+> -                       gpios = <&gpio ASPEED_GPIO(R, 2) GPIO_ACTIVE_LOW>;
+> +                       gpios = <&gpio ASPEED_GPIO(H, 2) GPIO_ACTIVE_LOW>;
+> +                       default-state = "keep";
+>                 };
+>
+> +               /* BMC_BEEP */
+>                 beep {
+>                         gpios = <&gpio ASPEED_GPIO(N, 7) GPIO_ACTIVE_HIGH>;
+> +                       default-state = "keep";
 > +               };
-> +       };
 > +
->         ahb {
->                 compatible = "simple-bus";
->                 #address-cells = <1>;
-> @@ -366,6 +374,14 @@
->                                 #size-cells = <1>;
->                                 ranges = <0 0x1e78a000 0x1000>;
->                         };
-> +                       pwm_tacho: pwm-tacho-controller@1e786000 {
-> +                               compatible = "aspeed,ast2500-pwm-tacho";
-> +                               #address-cells = <1>;
-> +                               #size-cells = <0>;
-> +                               reg = <0x1e786000 0x1000>;
-> +                               clocks = <&pwm_tacho_fixed_clk>;
-> +                               status = "disabled";
-> +                       };
+> +               /* BMC_PWR_LED_N */
+> +               power {
+> +                       gpios = <&gpio ASPEED_GPIO(R, 5) GPIO_ACTIVE_LOW>;
+> +                       default-state = "keep";
 >                 };
 >         };
 >  };
 > --
-> 2.11.0
+> 2.13.2
 >
