@@ -1,78 +1,53 @@
-Return-Path: <vadimp@mellanox.com>
-Received: from EUR03-VE1-obe.outbound.protection.outlook.com
- (mail-eopbgr50052.outbound.protection.outlook.com [40.107.5.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
+ [IPv6:2607:f8b0:4002:c05::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x1Ylr4xklzDr4B
- for <openbmc@lists.ozlabs.org>; Tue,  4 Jul 2017 03:19:35 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b="wrL0kw46";
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x1nM43QnxzDqhp
+ for <openbmc@lists.ozlabs.org>; Tue,  4 Jul 2017 12:02:24 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Y2qRptZB"; 
  dkim-atps=neutral
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
- s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=47VtxAAFYiwb3bkolsp4x9AoZj3pPLqeoDjNWtGarns=;
- b=wrL0kw468bl76hHPCsYYS9sm0mf34VGRrTbER5KwRdrdPaZ3xwe2NxNXdjkL0eYZcP5hNT/IySBlv/RW6ZYaIeASzMSFMe74EEwyAfnlfqQMsKLE5Hf0oysh/uFGcO8gs53ecZPbL6i1+tuFnMIQzpY2xsT823dc+scsLvAcA0M=
-Received: from AM4PR05MB3330.eurprd05.prod.outlook.com (10.171.187.15) by
- DB5PR05MB1223.eurprd05.prod.outlook.com (10.161.244.28) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1220.11; Mon, 3 Jul 2017 17:19:29 +0000
-Received: from AM4PR05MB3330.eurprd05.prod.outlook.com
- ([fe80::b139:dd6:ef32:aafd]) by AM4PR05MB3330.eurprd05.prod.outlook.com
- ([fe80::b139:dd6:ef32:aafd%13]) with mapi id 15.01.1220.015; Mon, 3 Jul 2017
- 17:19:28 +0000
-From: Vadim Pasternak <vadimp@mellanox.com>
-To: Patrick Venture <venture@google.com>, Mykola Kostenok
- <c_mykolak@mellanox.com>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: RE: [PATCH linux dev-4.10] aspeed-g5: add aspeed,ast2500-pwm-tacho.
-Thread-Topic: [PATCH linux dev-4.10] aspeed-g5: add aspeed,ast2500-pwm-tacho.
-Thread-Index: AQHS88O2eSxtLgQ2I06teWOVqub2f6JCMMeAgAAHMACAAAEeAIAAHsCg
-Date: Mon, 3 Jul 2017 17:19:28 +0000
-Message-ID: <AM4PR05MB33309565B8A039D9E92ECB7EA2D60@AM4PR05MB3330.eurprd05.prod.outlook.com>
-References: <20170630114844.30027-1-c_mykolak@mellanox.com>
- <CACPK8Xe6g2VZUQBwJopcBBLwjzjsxAaX9arw6Gqh7ZO23htGGA@mail.gmail.com>
- <CAO=notzKhBGwE-2f5jS4JhpL9mgmBouzig9NgWgjUGj_VcWjew@mail.gmail.com>
- <DB5PR05MB1224BD072CC2CA2A7E7FB58AEFD60@DB5PR05MB1224.eurprd05.prod.outlook.com>
- <CAO=notz7P3_KLyUP_8m+zP4qj50RMc8cTw+u-HN_d0YFnmh+XA@mail.gmail.com>
-In-Reply-To: <CAO=notz7P3_KLyUP_8m+zP4qj50RMc8cTw+u-HN_d0YFnmh+XA@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: google.com; dkim=none (message not signed)
- header.d=none;google.com; dmarc=none action=none header.from=mellanox.com;
-x-originating-ip: [193.47.165.251]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; DB5PR05MB1223;
- 7:d1qsMX4gIzj7AD8bTsBA86RLrjkKdxnDWYC3n0hOEGM/G51vsn/bx3GlL0yZRKvbVjyCzTnDaMEybg0HhbXDaojpd1IvMI4a0562v2Tri3FT8G+KYnWknNX3rr0jCqgWq1MN2998lmexmsJI82R4PpNbDR8RO1ok3okGwaG0F8soOUzMq3wacY8AgkK9Bu/QVwV/uDhk4xPuRLGjQ7PXI1epLUPqhO1CEmGtfzsmn8Wvqm5Zf94oEXRiuhcKCtdMaUJaOZgovOkElhmov8pXtfjZuUfWXVVCU9iYpYgSVuvigmixTqOCJ4AX9Aas3ZY+TsJ7XAY/0mHuAEe9H2DS2es6l1vEEhvtOO9ZDDZ399A6XRurOsncyRqUb5K3ImT2bTPALcWi0Vjf26AkV3lWFK8HFUXVij6XTJFu4BmATL586vTp+aBVWIc1Ov+t8amGmD5fA9loYnXBGZ0vb4MceNUNJgfeJH0xyviczsk1TLvmaoMpSEBWMX6w4KoZa+tw+0me666D3KVLpiApQz7yvkivnm8FSZebSmHDMjuwMdnwzsfcaHjbp+5q9WE2LcBnufQUCc8zVHUzy/SRk2yEY6xaxsiRNE+geKr6LHulhVziDeGcI7JD9XRouGbN9QSqay3S8eHMhflpxiE1fig9//pnfB4IR9HP1d5Ew64x8GTs6km7CQvbwbcFfMQmoW7aaCBKxV9HxbGF5rryU8pfkuQOuqgMwfEQ6ssYvak7uAZ1ZwKTuZijUBOG0qCFLRg4upAWZO4zrfN7Wgrb+qmlfialMoDu0xofHoMkSxd7Fow=
-x-ms-office365-filtering-correlation-id: 0085986f-6913-4970-d508-08d4c237a979
-x-ms-office365-filtering-ht: Tenant
-x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
- RULEID:(300000500095)(300135000095)(300000501095)(300135300095)(22001)(300000502095)(300135100095)(2017030254075)(48565401081)(300000503095)(300135400095)(2017052603031)(201703131423075)(201703031133081)(300000504095)(300135200095)(300000505095)(300135600095)(300000506095)(300135500095);
- SRVR:DB5PR05MB1223; 
-x-ms-traffictypediagnostic: DB5PR05MB1223:
-x-microsoft-antispam-prvs: <DB5PR05MB122383A5841FA0A82659636EA2D60@DB5PR05MB1223.eurprd05.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:(236129657087228)(65623756079841)(211936372134217)(247924648384137); 
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(100000700101)(100105000095)(100000701101)(100105300095)(100000702101)(100105100095)(6040450)(601004)(2401047)(8121501046)(5005006)(10201501046)(100000703101)(100105400095)(93006095)(93001095)(3002001)(6055026)(6041248)(20161123560025)(20161123564025)(20161123558100)(201703131423075)(201702281528075)(201703061421075)(201703061406153)(20161123555025)(20161123562025)(6072148)(100000704101)(100105200095)(100000705101)(100105500095);
- SRVR:DB5PR05MB1223; BCL:0; PCL:0;
- RULEID:(100000800101)(100110000095)(100000801101)(100110300095)(100000802101)(100110100095)(100000803101)(100110400095)(100000804101)(100110200095)(100000805101)(100110500095);
- SRVR:DB5PR05MB1223; 
-x-forefront-prvs: 035748864E
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(6009001)(39410400002)(39850400002)(39450400003)(39840400002)(39860400002)(39400400002)(377454003)(24454002)(13464003)(66066001)(7696004)(45080400002)(6246003)(2950100002)(14454004)(53936002)(189998001)(230783001)(93886004)(5250100002)(55016002)(2900100001)(74316002)(5660300001)(99286003)(53546010)(6436002)(478600001)(305945005)(229853002)(38730400002)(7736002)(9686003)(3280700002)(76176999)(54356999)(86362001)(6636002)(50986999)(4326008)(2906002)(8676002)(6506006)(3846002)(6116002)(3660700001)(81166006)(102836003)(33656002)(8936002)(25786009)(142933001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DB5PR05MB1223;
- H:AM4PR05MB3330.eurprd05.prod.outlook.com; FPR:; SPF:None; MLV:sfv; LANG:en; 
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-OriginatorOrg: Mellanox.com
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jul 2017 17:19:28.6665 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB5PR05MB1223
+Received: by mail-yw0-x244.google.com with SMTP id z21so10863403ywz.2
+ for <openbmc@lists.ozlabs.org>; Mon, 03 Jul 2017 19:02:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:from:to:subject:date:message-id;
+ bh=iaOXPVC3Pn/9hjRClXHhhT8citGVmfNjdtQjuAEYKIQ=;
+ b=Y2qRptZBqI47IWR8QgeLF1JQcD/zN3zxbgxjY26ixC7rSKZvUugOFeZ77myzUbz69L
+ rmBNz93Dz41AdzMtCWlPUavmVETqFdtwDtowXypylMvkU/K73jNu2ZBj3+vFPUuObpMs
+ 7gkjcOAAj4Dmp8M5Bib6Ew7u9jNPP6Dc1B0ZRi/g/wvC4JjhMnPexaBvrGEHdytIceVO
+ 8hgMOFg3OaUDZjRHyflNnKHdBrdH4eknLb4YGS8aS3O1589j3FmawZlL/Uh01fQ7L/oJ
+ 6qweevX3eQAglyySNWOrfre357bLJ2sz5EbEXASG158PHRUBN4yzbm/32RcwHF3DiESx
+ u3uA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:from:to:subject:date:message-id;
+ bh=iaOXPVC3Pn/9hjRClXHhhT8citGVmfNjdtQjuAEYKIQ=;
+ b=d8t5ou/37FtOCFnIkES7teIyvm5LOvLySycwaks4NK1BsXZNsGrE0fVghwlm4PsEO0
+ VYH2LzJk2QPfS1CXCWF3pGXt/fmcdx89fKGV7SHYF/YpTP48/2LwbgzUDZeBOkKUx2H1
+ rICMKLJZFS4JOstJAvct9vtNeCH+Xp0qHz50mB3PHBLfVlDZ1ZZaHvV3C8ujqqCkupcr
+ NuNWQr/LBKV6GsYJ86QxIbyTKaYXMPyT4hYGAiluQvObH4UgZa1/lWJVNCM7Y1B1paQR
+ Z7trDzkO7JytqTqMN8Q8YLpxbaO9g5MiRO1/yN5oxgk1tS1CCqpuCW8JMBnZgQ9aVnfy
+ 6abQ==
+X-Gm-Message-State: AKS2vOxHm6BEGQS3uGoHNuBz/h8hvLi0Mgj2mcYfnqkMDJkbAYGHvDem
+ VZzgnDiJtcWviQpvCwFBLQ==
+X-Received: by 10.129.117.213 with SMTP id q204mr28841844ywc.229.1499133742098; 
+ Mon, 03 Jul 2017 19:02:22 -0700 (PDT)
+Received: from aurora.jms.id.au ([203.0.153.9])
+ by smtp.gmail.com with ESMTPSA id j13sm7255440ywa.78.2017.07.03.19.02.19
+ for <openbmc@lists.ozlabs.org>
+ (version=TLS1 cipher=AES128-SHA bits=128/128);
+ Mon, 03 Jul 2017 19:02:21 -0700 (PDT)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+Received: by aurora.jms.id.au (sSMTP sendmail emulation);
+ Tue, 04 Jul 2017 10:40:13 +0930
+From: Joel Stanley <joel@jms.id.au>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.10] ARM: aspeed: Release UART1 from reset for all
+ platforms
+Date: Tue,  4 Jul 2017 10:40:12 +0930
+Message-Id: <20170704011012.26158-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.13.2
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -84,114 +59,50 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Jul 2017 17:19:38 -0000
+X-List-Received-Date: Tue, 04 Jul 2017 02:02:25 -0000
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogb3BlbmJtYyBbbWFpbHRv
-Om9wZW5ibWMtDQo+IGJvdW5jZXMreWFuaXZhYj1tZWxsYW5veC5jb21AbGlzdHMub3psYWJzLm9y
-Z10gT24gQmVoYWxmIE9mIFBhdHJpY2sNCj4gVmVudHVyZQ0KPiBTZW50OiBNb25kYXksIEp1bHkg
-MDMsIDIwMTcgNjoyMyBQTQ0KPiBUbzogTXlrb2xhIEtvc3Rlbm9rIDxjX215a29sYWtAbWVsbGFu
-b3guY29tPg0KPiBDYzogT3BlbkJNQyBNYWlsbGlzdCA8b3BlbmJtY0BsaXN0cy5vemxhYnMub3Jn
-Pg0KPiBTdWJqZWN0OiBSZTogW1BBVENIIGxpbnV4IGRldi00LjEwXSBhc3BlZWQtZzU6IGFkZCBh
-c3BlZWQsYXN0MjUwMC1wd20tDQo+IHRhY2hvLg0KPiANCj4gT24gTW9uLCBKdWwgMywgMjAxNyBh
-dCA4OjE5IEFNLCBNeWtvbGEgS29zdGVub2sNCj4gPGNfbXlrb2xha0BtZWxsYW5veC5jb20+IHdy
-b3RlOg0KPiA+IFRoYW5rcy4NCj4gPg0KPiA+IEJlc3QgcmVnYXJkcy4gTXlrb2xhIEtvc3Rlbm9r
-Lg0KPiA+DQo+ID4+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+ID4+IEZyb206IFBhdHJp
-Y2sgVmVudHVyZSBbbWFpbHRvOnZlbnR1cmVAZ29vZ2xlLmNvbV0NCj4gPj4gU2VudDogTW9uZGF5
-LCBKdWx5IDMsIDIwMTcgNTo1NCBQTQ0KPiA+PiBUbzogSm9lbCBTdGFubGV5IDxqb2VsQGptcy5p
-ZC5hdT4NCj4gPj4gQ2M6IE15a29sYSBLb3N0ZW5vayA8Y19teWtvbGFrQG1lbGxhbm94LmNvbT47
-IE9wZW5CTUMgTWFpbGxpc3QNCj4gPj4gPG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZz4NCj4gPj4g
-U3ViamVjdDogUmU6IFtQQVRDSCBsaW51eCBkZXYtNC4xMF0gYXNwZWVkLWc1OiBhZGQNCj4gPj4g
-YXNwZWVkLGFzdDI1MDAtcHdtLSB0YWNoby4NCj4gPj4NCj4gPj4gT24gU3VuLCBKdWwgMiwgMjAx
-NyBhdCAxMToxNCBQTSwgSm9lbCBTdGFubGV5IDxqb2VsQGptcy5pZC5hdT4gd3JvdGU6DQo+ID4+
-ID4gT24gRnJpLCBKdW4gMzAsIDIwMTcgYXQgOToxOCBQTSwgTXlrb2xhIEtvc3Rlbm9rDQo+ID4+
-IDxjX215a29sYWtAbWVsbGFub3guY29tPiB3cm90ZToNCj4gPj4gPj4gQWRkIGFzcGVlZCxhc3Qy
-NTAwLXB3bS10YWNobyB0byBkdHNpLg0KPiA+PiA+PiBFbmFibGUgYXNwZWVkLGFzdDI1MDAtcHdt
-LXRhY2hvIGZvciBtc24uDQo+ID4+ID4+DQo+ID4+ID4+IFNpZ25lZC1vZmYtYnk6IE15a29sYSBL
-b3N0ZW5vayA8Y19teWtvbGFrQG1lbGxhbm94LmNvbT4NCj4gPj4gPg0KPiA+PiA+IFBhdHJpY2ss
-IHlvdSdyZSBvdXIgcHdtL3RhY2ggZXhwZXJ0LiBDYW4geW91IHBsZWFzZSByZXZpZXcgdGhpcyBv
-bmU/DQo+ID4+ID4NCj4gPj4gPiBDaGVlcnMsDQo+ID4+ID4NCj4gPj4gPiBKb2VsDQo+ID4+ID4N
-Cj4gPj4gPj4gLS0tDQo+ID4+ID4+ICBhcmNoL2FybS9ib290L2R0cy9hc3BlZWQtYm1jLW1lbGxh
-bm94LW1zbi5kdHMgfCA0NQ0KPiA+PiArKysrKysrKysrKysrKysrKysrKysrKysrKysNCj4gPj4g
-Pj4gIGFyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1nNS5kdHNpICAgICAgICAgICAgICB8IDE2ICsr
-KysrKysrKysNCj4gPj4gPj4gIDIgZmlsZXMgY2hhbmdlZCwgNjEgaW5zZXJ0aW9ucygrKQ0KPiA+
-PiA+Pg0KPiA+PiA+PiBkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1t
-ZWxsYW5veC1tc24uZHRzDQo+ID4+ID4+IGIvYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1t
-ZWxsYW5veC1tc24uZHRzDQo+ID4+ID4+IGluZGV4IGM3MWE2ZGJlMTQxMC4uNTVkNWRjMTVkMTM2
-IDEwMDY0NA0KPiA+PiA+PiAtLS0gYS9hcmNoL2FybS9ib290L2R0cy9hc3BlZWQtYm1jLW1lbGxh
-bm94LW1zbi5kdHMNCj4gPj4gPj4gKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1t
-ZWxsYW5veC1tc24uZHRzDQo+ID4+ID4+IEBAIC0xNDQsMyArMTQ0LDQ4IEBADQo+ID4+ID4+ICAg
-ICAgICAgc3RhdHVzID0gIm9rYXkiOw0KPiA+PiA+PiAgfTsNCj4gPj4gPj4NCj4gPj4gPj4gKyZw
-d21fdGFjaG8gew0KPiA+PiA+PiArICAgICAgIHN0YXR1cyA9ICJva2F5IjsNCj4gPj4gPj4gKyAg
-ICAgICBwaW5jdHJsLW5hbWVzID0gImRlZmF1bHQiOw0KPiA+PiA+PiArICAgICAgIHBpbmN0cmwt
-MCA9IDwmcGluY3RybF9wd20wX2RlZmF1bHQ+Ow0KPiA+PiA+PiArDQo+ID4+ID4+ICsgICAgICAg
-ZmFuQDAgew0KPiA+PiA+PiArICAgICAgICAgICAgICAgcmVnID0gPDB4MDA+Ow0KPiA+PiA+PiAr
-ICAgICAgICAgICAgICAgYXNwZWVkLGZhbi10YWNoLWNoID0gL2JpdHMvIDggPDB4MDA+Ow0KPiA+
-PiA+PiArICAgICAgIH07DQo+ID4+ID4+ICsNCj4gPj4gPj4gKyAgICAgICBmYW5AMSB7DQo+ID4+
-ID4+ICsgICAgICAgICAgICAgICByZWcgPSA8MHgwMD47DQo+ID4+ID4+ICsgICAgICAgICAgICAg
-ICBhc3BlZWQsZmFuLXRhY2gtY2ggPSAvYml0cy8gOCA8MHgwMT47DQo+ID4+ID4+ICsgICAgICAg
-fTsNCj4gPj4gPj4gKw0KPiA+PiA+PiArICAgICAgIGZhbkAyIHsNCj4gPj4gPj4gKyAgICAgICAg
-ICAgICAgIHJlZyA9IDwweDAwPjsNCj4gPj4gPj4gKyAgICAgICAgICAgICAgIGFzcGVlZCxmYW4t
-dGFjaC1jaCA9IC9iaXRzLyA4IDwweDAyPjsNCj4gPj4gPj4gKyAgICAgICB9Ow0KPiA+PiA+PiAr
-DQo+ID4+ID4+ICsgICAgICAgZmFuQDMgew0KPiA+PiA+PiArICAgICAgICAgICAgICAgcmVnID0g
-PDB4MDA+Ow0KPiA+PiA+PiArICAgICAgICAgICAgICAgYXNwZWVkLGZhbi10YWNoLWNoID0gL2Jp
-dHMvIDggPDB4MDM+Ow0KPiA+PiA+PiArICAgICAgIH07DQo+ID4+ID4+ICsNCj4gPj4gPj4gKyAg
-ICAgICBmYW5ANCB7DQo+ID4+ID4+ICsgICAgICAgICAgICAgICByZWcgPSA8MHgwMD47DQo+ID4+
-ID4+ICsgICAgICAgICAgICAgICBhc3BlZWQsZmFuLXRhY2gtY2ggPSAvYml0cy8gOCA8MHgwND47
-DQo+ID4+ID4+ICsgICAgICAgfTsNCj4gPj4gPj4gKw0KPiA+PiA+PiArICAgICAgIGZhbkA1IHsN
-Cj4gPj4gPj4gKyAgICAgICAgICAgICAgIHJlZyA9IDwweDAwPjsNCj4gPj4gPj4gKyAgICAgICAg
-ICAgICAgIGFzcGVlZCxmYW4tdGFjaC1jaCA9IC9iaXRzLyA4IDwweDA1PjsNCj4gPj4gPj4gKyAg
-ICAgICB9Ow0KPiA+PiA+PiArDQo+ID4+ID4+ICsgICAgICAgZmFuQDYgew0KPiA+PiA+PiArICAg
-ICAgICAgICAgICAgcmVnID0gPDB4MDA+Ow0KPiA+PiA+PiArICAgICAgICAgICAgICAgYXNwZWVk
-LGZhbi10YWNoLWNoID0gL2JpdHMvIDggPDB4MDY+Ow0KPiA+PiA+PiArICAgICAgIH07DQo+ID4+
-ID4+ICsNCj4gPj4gPj4gKyAgICAgICBmYW5ANyB7DQo+ID4+ID4+ICsgICAgICAgICAgICAgICBy
-ZWcgPSA8MHgwMD47DQo+ID4+ID4+ICsgICAgICAgICAgICAgICBhc3BlZWQsZmFuLXRhY2gtY2gg
-PSAvYml0cy8gOCA8MHgwNz47DQo+ID4+ID4+ICsgICAgICAgfTsNCj4gPj4gPj4gK307DQo+ID4+
-DQo+ID4+IFRoZXNlIGFsbCB1c2UgdGhlIHNhbWUgcHdtPyBJcyB0aGF0IGRlbGliZXJhdGU/DQo+
-ID4+DQo+ID4NCj4gPiBZZXMsIHdlIGhhdmUgc28uDQo+IA0KPiBPaCwgb2suICBXZWxsLCB0aGVu
-IHRoYXQgbG9va3MgZmluZS4NCg0KR3V5cywNCldlIHdvdWxkIGxpa2UgdG8gc2VuZCBhIHBhdGNo
-IHdoaWNoIGFkZGVkIHB3bSBhcyBhIGNvb2xpbmcgZGV2aWNlLg0KQnV0IHRoaXMgY2hhbmdlIHJl
-cXVpcmVzIHNvbWUgY2hhbmdlcyBpbiBkdHMsIGxpa2U6DQoNCiZwd21fdGFjaG8gew0KCXN0YXR1
-cyA9ICJva2F5IjsNCglwaW5jdHJsLW5hbWVzID0gImRlZmF1bHQiOw0KCXBpbmN0cmwtMCA9IDwm
-cGluY3RybF9wd20wX2RlZmF1bHQ+Ow0KDQoJdGFjaC1jaGFubmVscyB7DQoJCSNhZGRyZXNzLWNl
-bGxzID0gPDE+Ow0KCQkjc2l6ZS1jZWxscyA9IDwwPjsNCg0KCQlmYW5AMCB7DQoJCQlyZWcgPSA8
-MHgwMD47DQoJCQlhc3BlZWQsZmFuLXRhY2gtY2ggPSAvYml0cy8gOCA8MHgwMD47DQoJCX07DQou
-Lg0KCXB3bS1jaGFubmVscyB7DQoJCSNhZGRyZXNzLWNlbGxzID0gPDE+Ow0KCQkjc2l6ZS1jZWxs
-cyA9IDwwPjsNCgkJI2Nvb2xpbmctY2VsbHMgPSA8Mj47DQoNCgkJcHdtQDAgew0KCQkJcmVnID0g
-PDB4MDA+Ow0KCQkJY29vbGluZy1sZXZlbHMgPSAvYml0cy8gOCA8MTI1IDE1MSAxNzcgMjAzIDIy
-OSAyNTU+Ow0KCQl9Ow0KLi4uDQoJfTsNCn07DQoNCldvdWxkIGl0IGJlIGFjY2VwdGFibGUgdG8g
-bW9kaWZ5IHB3bSBsYXlvdXQgaW4gZHRzPw0KDQpUaGFua3MsDQpWYWRpbS4NCg0KPiANCj4gPg0K
-PiA+PiA+PiBkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWc1LmR0c2kNCj4g
-Pj4gPj4gYi9hcmNoL2FybS9ib290L2R0cy9hc3BlZWQtZzUuZHRzaQ0KPiA+PiA+PiBpbmRleCA5
-OTIyNDJkM2IyMmUuLjAxYzg2YmI3MTkzMiAxMDA2NDQNCj4gPj4gPj4gLS0tIGEvYXJjaC9hcm0v
-Ym9vdC9kdHMvYXNwZWVkLWc1LmR0c2kNCj4gPj4gPj4gKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMv
-YXNwZWVkLWc1LmR0c2kNCj4gPj4gPj4gQEAgLTM1LDYgKzM1LDE0IEBADQo+ID4+ID4+ICAgICAg
-ICAgICAgICAgICBpMmMxMyA9ICZpMmMxMzsNCj4gPj4gPj4gICAgICAgICB9Ow0KPiA+PiA+Pg0K
-PiA+PiA+PiArICAgICAgIGNsb2NrcyB7DQo+ID4+ID4+ICsgICAgICAgICAgICAgICBwd21fdGFj
-aG9fZml4ZWRfY2xrOiBmaXhlZGNsayB7DQo+ID4+ID4+ICsgICAgICAgICAgICAgICAgICAgICAg
-IGNvbXBhdGlibGUgPSAiZml4ZWQtY2xvY2siOw0KPiA+PiA+PiArICAgICAgICAgICAgICAgICAg
-ICAgICAjY2xvY2stY2VsbHMgPSA8MD47DQo+ID4+ID4+ICsgICAgICAgICAgICAgICAgICAgICAg
-IGNsb2NrLWZyZXF1ZW5jeSA9IDwyNDAwMDAwMD47DQo+ID4+ID4+ICsgICAgICAgICAgICAgICB9
-Ow0KPiA+PiA+PiArICAgICAgIH07DQo+ID4+ID4+ICsNCj4gPj4gPj4gICAgICAgICBhaGIgew0K
-PiA+PiA+PiAgICAgICAgICAgICAgICAgY29tcGF0aWJsZSA9ICJzaW1wbGUtYnVzIjsNCj4gPj4g
-Pj4gICAgICAgICAgICAgICAgICNhZGRyZXNzLWNlbGxzID0gPDE+OyBAQCAtMzY2LDYgKzM3NCwx
-NCBAQA0KPiA+PiA+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICNzaXplLWNlbGxz
-ID0gPDE+Ow0KPiA+PiA+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJhbmdlcyA9
-IDwwIDB4MWU3OGEwMDAgMHgxMDAwPjsNCj4gPj4gPj4gICAgICAgICAgICAgICAgICAgICAgICAg
-fTsNCj4gPj4NCj4gPj4gSSBkaWRuJ3QgcHV0IG1pbmUgYmVoaW5kIHRoZSBhaGIuICBJIGFtIHN0
-aWxsIGxlYXJuaW5nIGRldmljZS10cmVlLWZ1Lg0KPiA+PiB0aGlzIGxpa2VseSBpc24ndCBhbiBp
-c3N1ZSBhdCBhbGwuDQo+ID4+DQo+ID4NCj4gPiBBY3R1YWxseSBJdCdzIHVuZGVyIGFwYi4NCj4g
-DQo+IEluIHRoZSBkaWFncmFtIG9mIHRoZSBhc3BlZWQgcGFydCwgaXQgaXMgdW5kZXIgdGhlIGFw
-Yi4gIEkgbWVhbnQgaW4gdGhlIGRldmljZQ0KPiB0cmVlIGxheW91dCwgYXQgbGVhc3QgaW4gbXkg
-dmVyc2lvbjsgSSBkb24ndCB0aGluayBJIHBsYWNlZCBpdCB1bmRlciB0aGF0IHBhcmVudC4NCj4g
-U28geW91cnMgaXMgX21vcmVfIGNvcnJlY3QuDQo+IA0KPiA+DQo+ID4+ID4+ICsgICAgICAgICAg
-ICAgICAgICAgICAgIHB3bV90YWNobzogcHdtLXRhY2hvLWNvbnRyb2xsZXJAMWU3ODYwMDAgew0K
-PiA+PiA+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAiYXNw
-ZWVkLGFzdDI1MDAtcHdtLXRhY2hvIjsNCj4gPj4gPj4gKyAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAjYWRkcmVzcy1jZWxscyA9IDwxPjsNCj4gPj4gPj4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAjc2l6ZS1jZWxscyA9IDwwPjsNCj4gPj4gPj4gKyAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICByZWcgPSA8MHgxZTc4NjAwMCAweDEwMDA+Ow0KPiA+PiA+PiArICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNsb2NrcyA9IDwmcHdtX3RhY2hvX2ZpeGVkX2Ns
-az47DQo+ID4+ID4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RhdHVzID0gImRp
-c2FibGVkIjsNCj4gPj4gPj4gKyAgICAgICAgICAgICAgICAgICAgICAgfTsNCj4gPj4gPj4gICAg
-ICAgICAgICAgICAgIH07DQo+ID4+ID4+ICAgICAgICAgfTsNCj4gPj4gPj4gIH07DQo+ID4+ID4+
-IC0tDQo+ID4+ID4+IDIuMTEuMA0KPiA+PiA+Pg0K
+This workaround was in place for Zaius. Make it common to all
+platforms as the held-in-reset behaviour breaks the Linux tty layer
+where users expect the existence of a device to mean it is usable.
+
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+---
+ arch/arm/mach-aspeed/aspeed.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+index 420a8d0344da..d3eb9e7c2d8b 100644
+--- a/arch/arm/mach-aspeed/aspeed.c
++++ b/arch/arm/mach-aspeed/aspeed.c
+@@ -173,14 +173,6 @@ static void __init do_zaius_setup(void)
+ 	/* Set pin high */
+ 	reg = readl(AST_IO(AST_BASE_GPIO | 0x00));
+ 	writel(reg | phy_reset_mask, AST_IO(AST_BASE_GPIO | 0x00));
+-
+-	/* Disable default behavior of UART1 being held in reset by LPCRST#.
+-	 * By releasing UART1 from being controlled by LPC reset, it becomes
+-	 * immediately available regardless of the host being up.
+-	 */
+-	reg = readl(AST_IO(AST_BASE_LPC | 0x98));
+-	/* Clear "Enable UART1 reset source from LPC" */
+-	writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC | 0x98));
+ }
+ 
+ static void __init do_witherspoon_setup(void)
+@@ -254,6 +246,14 @@ static void __init aspeed_init_early(void)
+ 	 */
+ 	writel(0x001fdff3, AST_IO(AST_BASE_SCU | 0x9c));
+ 
++	/* Disable default behavior of UART1 being held in reset by LPCRST#.
++	 * By releasing UART1 from being controlled by LPC reset, it becomes
++	 * immediately available regardless of the host being up.
++	 */
++	reg = readl(AST_IO(AST_BASE_LPC | 0x98));
++	/* Clear "Enable UART1 reset source from LPC" */
++	writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC | 0x98));
++
+ 	/*
+ 	 * Temporary setup of AST registers until pinmux driver is complete
+ 	 */
+-- 
+2.13.2
