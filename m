@@ -1,52 +1,55 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
- [IPv6:2607:f8b0:400e:c00::241])
+Received: from mail-yb0-x229.google.com (mail-yb0-x229.google.com
+ [IPv6:2607:f8b0:4002:c09::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x1tDl5LWMzDqj1
- for <openbmc@lists.ozlabs.org>; Tue,  4 Jul 2017 15:42:15 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x1tJK2ZcwzDqj1
+ for <openbmc@lists.ozlabs.org>; Tue,  4 Jul 2017 15:45:21 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="f93D02AT"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="kek+ix+v"; 
  dkim-atps=neutral
-Received: by mail-pf0-x241.google.com with SMTP id z6so28170707pfk.3
- for <openbmc@lists.ozlabs.org>; Mon, 03 Jul 2017 22:42:15 -0700 (PDT)
+Received: by mail-yb0-x229.google.com with SMTP id f194so1604931yba.3
+ for <openbmc@lists.ozlabs.org>; Mon, 03 Jul 2017 22:45:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:subject:date:message-id;
- bh=FZE8ZTcdekxwMTSbVSUf+Sp3LctWZkWy15Ig3t3Xims=;
- b=f93D02AT33PciGFbNZSeumWVE2SRMucGXWHyCIy7kdJ797UGAPnKtedfGpd0e7uCT2
- wdW+TsUryxI7O/TaCxh9zRUIJfsR/OJoiw3zGbkK9Ui4GJQeJfaMDMritGscCLUKMIK9
- y3EGgsnm8lpAA8K2dZNTS36DiXl0EVQEpgDF1a1KGpPt01gjRtybAA4zV2p/v24toOmq
- qiO5SRDwekqYpeJlqo3kyNGrsjyvmTYempQf1vf1rceCSH2ADUabP1D/52BPECnPvKqd
- wHza5J2N90CWSEq1Cew22/YnxqQO95DmbQfqfcy9ECvf8LV53Lxia6EtPkp0xkgrCkCl
- 7GNg==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=zMuedUt0zFW9itTrAKEX+6NUuSPI+hRElWQ2x2dQ0j8=;
+ b=kek+ix+vtDoHOgSwaO6zCqClU7L92Slv2ZLoHOKsUKyVxgiuxjYAzHadSNd8T30x64
+ 0fFQpTfm++tH5813SPaxPf/fEv4G93u6gjIUFkdOpR5CRpJi2b+za/xSApg/yB9NbjkQ
+ gacDPT/qR/mmAZcalmOnVzljBAgLwVVswSiSBSPgBCDO144Ka3YETsLrkDp9Zs7evU+a
+ XYf1hHP8WMD75JyWB7r5f2qZbyeu5Tgj68Grd3ebLmwLcqHmb6Jb2gGy04/diKPBQshw
+ 1tXpNHZngauisz91r/R22CHe5uPTOr5sL5zHr95K3OqQLa8l4dg224uFYz+HrIQsWHLq
+ G7Sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:subject:date:message-id;
- bh=FZE8ZTcdekxwMTSbVSUf+Sp3LctWZkWy15Ig3t3Xims=;
- b=Nct/wXjRUCOcgqF4QC9uBLSqjz+vgZxw3AI7ktBWGjnIJCvl65lklrfn1wuJMBYBb/
- QCmWdI+0hlFoOb1KN+DkabHQBScOCoWNsYwxyp05DH5Mx5pndbDAP4yQCsQyp4FqceI5
- uoW9CCxAxnquYY4tSjZIDV+jdFLgUigUBQzVnbRTm7NYLVdnWJcUBzR62GIs9TS1j1Xu
- Fsswxl4x1wnvj+VTyBu8Qmbmp7uY/DUXkixsQOtZr42kEur8EfD1EbmqCLFiQf0BtLau
- dcLkOQcqDyYk4hYmi7Fs3g/PfEnt9w7W4DEdYv5XThNcILmmS4qGt/UcjttOnMp4snNZ
- XASw==
-X-Gm-Message-State: AIVw1110ASHm5jt9g/nE2I69kWUXnY0Ux1bLAL9bUezEaOv/hfkUzzMd
- m9DKcpvx0s+FStzUhBokfQ==
-X-Received: by 10.99.55.19 with SMTP id e19mr14317527pga.28.1499146933173;
- Mon, 03 Jul 2017 22:42:13 -0700 (PDT)
-Received: from aurora.jms.id.au ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id p21sm34472383pgn.12.2017.07.03.22.42.10
- for <openbmc@lists.ozlabs.org>
- (version=TLS1 cipher=AES128-SHA bits=128/128);
- Mon, 03 Jul 2017 22:42:12 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Tue, 04 Jul 2017 15:12:07 +0930
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=zMuedUt0zFW9itTrAKEX+6NUuSPI+hRElWQ2x2dQ0j8=;
+ b=KRhaS4YH9mONIqkhmcU56b3jxwe/DblwBw2wOgX9c7E+vkZpNEioM9x+0FNvoOcv3q
+ vJRc9fNIxMEUNPItw8U+/MhhbGDMTzYjxnNWEDGrjTTjNUdB+m7M3emDhp2RIkfaA4m7
+ oSts5SlJbr0JTA+Vzt4Xp70z03vavC2lEz0W8kEAM/F5OED1LSJ1XV2r0Z/qqHmcvDPY
+ lNnODWYNeh6qfTg5MzYOdY+S/+YCynwUf86E14LQq0Zcid9F1zbiHRWPNQqnVX2Zxx10
+ 8sNu0I8Q5IOsARDJeG+WS5hg0pgbpk/F17WQZ8BCZOH+Wd5oy3GFvPhiTOKoy0M0bvDh
+ vQKg==
+X-Gm-Message-State: AKS2vOylhT8AS+wrGtza/qtiDjhhO2Zr4F55qKXmTGlwy45YxqJXC29S
+ sal+XbR5iQR/itltOMdqY0ROnhGSnA==
+X-Received: by 10.37.88.193 with SMTP id m184mr29238267ybb.39.1499147118645;
+ Mon, 03 Jul 2017 22:45:18 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.170.239 with HTTP; Mon, 3 Jul 2017 22:44:58 -0700 (PDT)
+In-Reply-To: <2fe59789-a468-8838-777f-7debae42e5a5@ozlabs.org>
+References: <20170704022928.1618-1-joel@jms.id.au>
+ <2fe59789-a468-8838-777f-7debae42e5a5@ozlabs.org>
 From: Joel Stanley <joel@jms.id.au>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10] ARM: dts: aspeed: Move serial aliases into dtsi
-Date: Tue,  4 Jul 2017 15:12:06 +0930
-Message-Id: <20170704054206.9160-1-joel@jms.id.au>
-X-Mailer: git-send-email 2.13.2
+Date: Tue, 4 Jul 2017 15:14:58 +0930
+X-Google-Sender-Auth: hT0O4Y9fMH7rgsZZ79XwlY5IvrQ
+Message-ID: <CACPK8Xeh8MDV8tF0oTzSU_r==nYWYsdbi7=x=TQgsO+n-vvBzA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v2] ARM: aspeed: Release UARTs from reset
+ for all platforms
+To: Jeremy Kerr <jk@ozlabs.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,243 +61,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 04 Jul 2017 05:42:16 -0000
+X-List-Received-Date: Tue, 04 Jul 2017 05:45:21 -0000
 
-Instead of specifying the same thing in each dts.
+On Tue, Jul 4, 2017 at 12:51 PM, Jeremy Kerr <jk@ozlabs.org> wrote:
+> Hi Joel,
+>
+>> This workaround was in place for Zaius. Make it common to all
+>> platforms as the held-in-reset behaviour breaks the Linux tty layer
+>> where users expect the existence of a device to mean it is usable.
+>>
+>> We release all four UARTs that are covered by this register from reset.
+>
+> This fixes issues where UART1 is non-functional, so meaning that the
+> obmc console infrastructure blocks when mirroring to a local tty.
+>
+> Resolves: https://github.com/openbmc/openbmc/issues/1882
+> Resolves: https://github.com/openbmc/openbmc/issues/1865
+>
+> Tested-by: Jeremy Kerr <jk@ozlabs.org>
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- arch/arm/boot/dts/aspeed-ast2500-evb.dts         | 4 ----
- arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts    | 4 ----
- arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts    | 5 -----
- arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts   | 4 ----
- arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts   | 7 -------
- arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts    | 4 ----
- arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts     | 4 ----
- arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts    | 4 ----
- arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     | 4 ----
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 4 ----
- arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts       | 4 ----
- arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts     | 4 ----
- arch/arm/boot/dts/aspeed-g4.dtsi                 | 5 +++++
- arch/arm/boot/dts/aspeed-g5.dtsi                 | 5 +++++
- 14 files changed, 10 insertions(+), 52 deletions(-)
+Thanks for the prompt testing and debugging of this one Jeremy.
 
-diff --git a/arch/arm/boot/dts/aspeed-ast2500-evb.dts b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-index 1088e1484421..f0786d67700f 100644
---- a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-+++ b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-@@ -6,10 +6,6 @@
- 	model = "AST2500 EVB";
- 	compatible = "aspeed,ast2500-evb", "aspeed,ast2500";
- 
--	aliases {
--		serial4 = &uart5;
--	};
--
- 	chosen {
- 		stdout-path = &uart5;
- 		bootargs = "console=ttyS4,115200 earlyprintk";
-diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
-index 9bfd5462ea9e..bf2e636c2187 100644
---- a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
-@@ -6,10 +6,6 @@
- 	model = "FACEBOOK CMM BMC";
- 	compatible = "facebook,cmm-bmc", "aspeed,ast2500";
- 
--	aliases {
--		serial1 = &uart1;
--	};
--
- 	chosen {
- 		stdout-path = &uart1;
- 		bootargs = "console=ttyS1,115200 earlyprintk";
-diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-index c71a6dbe1410..0774959b1222 100644
---- a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-@@ -7,11 +7,6 @@
- 	model = "MSN BMC";
- 	compatible = "mellanox,msn-bmc", "aspeed,ast2500";
- 
--	aliases {
--		serial0 = &uart1;
--		serial4 = &uart5;
--	};
--
- 	chosen {
- 		stdout-path = &uart5;
- 		bootargs = "console=ttyS4,115200n8 earlyprintk";
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-index 2060831e579c..d37d0ea99ffe 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-@@ -7,10 +7,6 @@
- 	model = "Barrelye BMC";
- 	compatible = "rackspace,barreleye-bmc", "aspeed,ast2400";
- 
--	aliases {
--		serial4 = &uart5;
--	};
--
- 	chosen {
- 		stdout-path = &uart5;
- 		bootargs = "console=ttyS4,115200 earlyprintk";
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-index 873e62ce6673..fef73ea7fd0c 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-@@ -8,13 +8,6 @@
- 	model = "Firestone BMC";
- 	compatible = "ibm,firestone-bmc", "aspeed,ast2400";
- 
--	aliases {
--		serial0 = &vuart;
--		serial1 = &uart1;
--		serial2 = &uart2;
--		serial4 = &uart5;
--	};
--
- 	chosen {
- 		stdout-path = &uart5;
- 		bootargs = "console=ttyS4,115200";
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-index b64edad3e050..c67fe587d609 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-@@ -7,10 +7,6 @@
- 	model = "Garrison BMC";
- 	compatible = "ibm,garrison-bmc", "aspeed,ast2400";
- 
--	aliases {
--		serial4 = &uart5;
--	};
--
- 	chosen {
- 		stdout-path = &uart5;
- 		bootargs = "console=ttyS4,115200 earlyprintk";
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
-index cd7fd3602b1d..833ef17f643e 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
-@@ -7,10 +7,6 @@
- 	model = "Lanyang BMC";
- 	compatible = "inventec,lanyang-bmc", "aspeed,ast2500";
- 
--	aliases {
--		serial4 = &uart5;
--	};
--
- 	chosen {
- 		stdout-path = &uart5;
- 		bootargs = "console=ttyS4,115200 earlyprintk";
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-index a171e41790c1..a282de09895a 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-@@ -7,10 +7,6 @@
- 	model = "Palmetto BMC";
- 	compatible = "tyan,palmetto-bmc", "aspeed,ast2400";
- 
--	aliases {
--		serial4 = &uart5;
--	};
--
- 	chosen {
- 		stdout-path = &uart5;
- 		bootargs = "console=ttyS4,115200 earlyprintk";
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-index d53dc597a0ce..a9e36157f1f5 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-@@ -7,10 +7,6 @@
- 	model = "Romulus BMC";
- 	compatible = "ibm,romulus-bmc", "aspeed,ast2500";
- 
--	aliases {
--		serial4 = &uart5;
--	};
--
- 	chosen {
- 		stdout-path = &uart5;
- 		bootargs = "console=ttyS4,115200 earlyprintk";
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-index 31315d03dfb8..355eb56fdb0f 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -8,10 +8,6 @@
- 	model = "Witherspoon BMC";
- 	compatible = "ibm,witherspoon-bmc", "aspeed,ast2500";
- 
--	aliases {
--		serial4 = &uart5;
--	};
--
- 	chosen {
- 		stdout-path = &uart5;
- 		bootargs = "console=ttyS4,115200 earlyprintk";
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-index ccf6cad2e382..c6200153a065 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-@@ -7,10 +7,6 @@
- 	model = "Zaius BMC";
- 	compatible = "ingrasys,zaius-bmc", "aspeed,ast2500";
- 
--	aliases {
--		serial4 = &uart5;
--	};
--
- 	chosen {
- 		stdout-path = &uart5;
- 		bootargs = "console=ttyS4,115200 earlyprintk";
-diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-index bb287fb46bb1..cab64e4230c5 100644
---- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-@@ -7,10 +7,6 @@
- 	model = "Quanta Q71L BMC";
- 	compatible = "quanta,q71l-bmc", "aspeed,ast2400";
- 
--	aliases {
--		serial4 = &uart5;
--	};
--
- 	chosen {
- 		stdout-path = &uart5;
- 		bootargs = "console=ttyS4,115200 earlyprintk";
-diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-index 9cc959fccfa0..6ec0c75f7786 100644
---- a/arch/arm/boot/dts/aspeed-g4.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-@@ -33,6 +33,11 @@
- 		i2c11 = &i2c11;
- 		i2c12 = &i2c12;
- 		i2c13 = &i2c13;
-+		serial0 = &uart1;
-+		serial1 = &uart2;
-+		serial2 = &uart3;
-+		serial3 = &uart4;
-+		serial4 = &uart5;
- 	};
- 
- 	clocks {
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index 992242d3b22e..4443403d71fb 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -33,6 +33,11 @@
- 		i2c11 = &i2c11;
- 		i2c12 = &i2c12;
- 		i2c13 = &i2c13;
-+		serial0 = &uart1;
-+		serial1 = &uart2;
-+		serial2 = &uart3;
-+		serial3 = &uart4;
-+		serial4 = &uart5;
- 	};
- 
- 	ahb {
--- 
-2.13.2
+Applied to dev-4.10.
+
+Cheers,
+
+Joel
