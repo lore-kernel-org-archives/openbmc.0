@@ -1,62 +1,51 @@
-Return-Path: <mtritz@us.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <venture@google.com>
+Received: from mail-pf0-x22a.google.com (mail-pf0-x22a.google.com
+ [IPv6:2607:f8b0:400e:c00::22a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x2rGP0CpqzDr2J
- for <openbmc@lists.ozlabs.org>; Thu,  6 Jul 2017 05:16:59 +1000 (AEST)
-Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v65JDdHa064925
- for <openbmc@lists.ozlabs.org>; Wed, 5 Jul 2017 15:16:57 -0400
-Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2bh0y4enpj-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 05 Jul 2017 15:16:56 -0400
-Received: from localhost
- by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <mtritz@us.ibm.com>;
- Wed, 5 Jul 2017 13:16:56 -0600
-Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
- by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Wed, 5 Jul 2017 13:16:53 -0600
-Received: from b03ledav001.gho.boulder.ibm.com
- (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v65JGrtC5308760; Wed, 5 Jul 2017 12:16:53 -0700
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 274806E041;
- Wed,  5 Jul 2017 13:16:53 -0600 (MDT)
-Received: from localhost.localdomain (unknown [9.85.184.113])
- by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP id 1333C6E03D;
- Wed,  5 Jul 2017 13:16:51 -0600 (MDT)
-From: Michael Tritz <mtritz@us.ibm.com>
-To: skiboot@lists.ozlabs.org, openbmc@lists.ozlabs.org
-Cc: Michael Tritz <mtritz@us.ibm.com>, cyrilbur@gmail.com,
- stewart@linux.vnet.ibm.com
-Subject: [PATCH v6] pflash option to retrieve PNOR partition flags
-Date: Wed,  5 Jul 2017 14:16:03 -0500
-X-Mailer: git-send-email 2.11.0 (Apple Git-81)
-X-TM-AS-GCONF: 00
-x-cbid: 17070519-0016-0000-0000-0000071C7856
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007325; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00883316; UDB=6.00440646; IPR=6.00663507; 
- BA=6.00005454; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016095; XFM=3.00000015;
- UTC=2017-07-05 19:16:55
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17070519-0017-0000-0000-00003A7022E2
-Message-Id: <20170705191603.33311-1-mtritz@us.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-07-05_12:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=2
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1707050319
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x2rqn4vN4zDq5b
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Jul 2017 05:42:29 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="Lv8QlIJ/"; 
+ dkim-atps=neutral
+Received: by mail-pf0-x22a.google.com with SMTP id c73so134466179pfk.2
+ for <openbmc@lists.ozlabs.org>; Wed, 05 Jul 2017 12:42:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=wbIP+4vSHM4KTJrvz0NJy7IOCwrU4ECn6Ob2RCUXksA=;
+ b=Lv8QlIJ/JToHYUELQKlFkIDXUMYcGpFeBPvoKMLj+gxwLfpZYDXQA48niEvxYynwPx
+ Nd8Pk/GaeF/CR2ntCOUIdvoBsjjOsletCQJBcxkVmmuDrIvOQgzzG3QmaK/td+6LKEbZ
+ thnqYvKGo+CRt7nEiXXa8ONCHnnrdurXrp9/P8274ACeiKCMoDR7JbZLDl/Hx9WhwtxJ
+ 8c9rovnKtkQwLg0bFmSkyxzJJoECoCsJcJ9VL3Ad9UXBgKc897iZlMylZCypJ6cGUzgi
+ dz5IW2I4MKFelSCsyVKjw6szrKPS+LYbWj7SB7GAJgzYRzQKL8YP3RT1gRp+XXbeg1xC
+ rBRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=wbIP+4vSHM4KTJrvz0NJy7IOCwrU4ECn6Ob2RCUXksA=;
+ b=egImODK4gOiIBDDg8o4NR9VQwLtewllu2jeuqAk9+0q5SsN+Q7gqCMgWT1+8KSQa2H
+ l0fVn3zaVy1CVUXsbgBce+D7ki9RwFjwkmErdAk/Y+x/hrokVmNmkqUuaxjR35RsSH+G
+ hYTYyI1BYdPZVyUwe8704R5Jl8ILffS616dchNLnrCbETMd7hxpB1dYJAmyOx1zkDshF
+ 24FEe2616/ToznHVIlwX7cOxkeqTEZ969HxQ/C6zMOMXvffHpGJtP89cANLIgql2BFQS
+ 6AEA9trUFLEuhHAuRhRiRlwTL2U2w5thjh+Xd3N8aKYodThyaQL6wTPibVsO8V8zh3Qr
+ sdDg==
+X-Gm-Message-State: AIVw110zIXGBX2YZJqqhqDxrYenXm9EFdbgnNj23VLke857fNoiODvF4
+ NyBNa9al/sdHQFfa3uZ5gnaxsEsk7HXn
+X-Received: by 10.84.192.3 with SMTP id b3mr24084956pld.76.1499283747097; Wed,
+ 05 Jul 2017 12:42:27 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.100.165.205 with HTTP; Wed, 5 Jul 2017 12:42:06 -0700 (PDT)
+In-Reply-To: <20170704135608.12334-1-c_mykolak@mellanox.com>
+References: <20170704135608.12334-1-c_mykolak@mellanox.com>
+From: Patrick Venture <venture@google.com>
+Date: Wed, 5 Jul 2017 12:42:06 -0700
+Message-ID: <CAO=notx8D46SqpVvGKzo-L_MD70SyOWprfLeosiWBKp4mgygcg@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] hwmon: (aspeed-pwm-tacho) cooling device
+ support
+To: Mykola Kostenok <c_mykolak@mellanox.com>
+Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,485 +57,464 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Jul 2017 19:17:01 -0000
+X-List-Received-Date: Wed, 05 Jul 2017 19:42:30 -0000
 
-This commit extends pflash with an option to retrieve and print
-information for a particular partition, including the content from
-"pflash -i" and a verbose list of set miscellaneous flags. -i option
-is also updated to print a short list of flags in addition to the
-ECC flag, with one character per flag. A test of the new option is
-included in libflash/test.
+On Tue, Jul 4, 2017 at 6:56 AM, Mykola Kostenok <c_mykolak@mellanox.com> wrote:
+> Add support in aspeed-pwm-tacho driver for cooling device creation.
+> This cooling device could be bound to a thermal zone
+> for the thermal control. Device will appear in /sys/class/thermal
+> folder as cooling_deviceX. Then it could be bound to particular
+> thermal zones. Allow specification of the cooling levels
+> vector - PWM duty cycle values in a range from 0 to 255
+> which correspond to thermal cooling states.
+>
+> Add basic pwm-tacho-controller node to ast-g5 dtsi.
+> Add basic pwm-tacho-controller node to ast-g4 dtsi.
+>
+> Change pwm-tacho in aspeed-bmc-quanta-q71l.dts according new
+> pwm-tacho structure.
+>
+> Add pwm-tacho to aspeed-bmc-mellanox-msn.dts.
+>
+> Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
+> ---
+>  arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts |  61 +++++++++++
+>  arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts  | 103 +++++++++----------
+>  arch/arm/boot/dts/aspeed-g4.dtsi              |   9 +-
+>  arch/arm/boot/dts/aspeed-g5.dtsi              |  17 ++++
+>  drivers/hwmon/aspeed-pwm-tacho.c              | 139 +++++++++++++++++++++++++-
+>  5 files changed, 273 insertions(+), 56 deletions(-)
+>
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+> index c71a6db..57d5951 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+> @@ -144,3 +144,64 @@
+>         status = "okay";
+>  };
+>
+> +&pwm_tacho {
+> +       status = "okay";
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&pinctrl_pwm0_default>;
+> +
+> +       tach-channels {
+> +               #address-cells = <1>;
+> +               #size-cells = <0>;
+> +
+> +               fan@0 {
+> +                       reg = <0x00>;
+> +                       aspeed,fan-tach-ch = /bits/ 8 <0x00>;
+> +               };
+> +
+> +               fan@1 {
+> +                       reg = <0x00>;
+> +                       aspeed,fan-tach-ch = /bits/ 8 <0x01>;
+> +               };
+> +
+> +               fan@2 {
+> +                       reg = <0x00>;
+> +                       aspeed,fan-tach-ch = /bits/ 8 <0x02>;
+> +               };
+> +
+> +               fan@3 {
+> +                       reg = <0x00>;
+> +                       aspeed,fan-tach-ch = /bits/ 8 <0x03>;
+> +               };
+> +
+> +               fan@4 {
+> +                       reg = <0x00>;
+> +                       aspeed,fan-tach-ch = /bits/ 8 <0x04>;
+> +               };
+> +
+> +               fan@5 {
+> +                       reg = <0x00>;
+> +                       aspeed,fan-tach-ch = /bits/ 8 <0x05>;
+> +               };
+> +
+> +               fan@6 {
+> +                       reg = <0x00>;
+> +                       aspeed,fan-tach-ch = /bits/ 8 <0x06>;
+> +               };
+> +
+> +               fan@7 {
+> +                       reg = <0x00>;
+> +                       aspeed,fan-tach-ch = /bits/ 8 <0x07>;
+> +               };
+> +       };
+> +
+> +       pwm-channels {
+> +               #address-cells = <1>;
+> +               #size-cells = <0>;
+> +               #cooling-cells = <2>;
+> +
+> +               pwm@0 {
+> +                       reg = <0x00>;
+> +                       cooling-levels = /bits/ 8 <125 151 177 203 229 255>;
+> +               };
+> +       };
+> +};
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+> index bb287fb..43ada5b 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+> @@ -46,57 +46,6 @@
+>                         gpios = <&gpio ASPEED_GPIO(B, 3) GPIO_ACTIVE_LOW>;
+>                 };
+>         };
+> -
+> -       pwm_tacho: pwm-tacho-controller@1e786000 {
+> -               compatible = "aspeed,ast2500-pwm-tacho";
+> -               #address-cells = <1>;
+> -               #size-cells = <0>;
+> -               reg = <0x1e786000 0x1000>;
+> -               clocks = <&pwm_tacho_fixed_clk>;
+> -               pinctrl-names = "default";
+> -               pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
+> -                       &pinctrl_pwm2_default &pinctrl_pwm3_default>;
+> -
+> -               fan@0 {
+> -                       reg = <0x00>;
+> -                       aspeed,fan-tach-ch = /bits/ 8 <0x00>;
+> -               };
+> -
+> -               fan@1 {
+> -                       reg = <0x01>;
+> -                       aspeed,fan-tach-ch = /bits/ 8 <0x01>;
+> -               };
+> -
+> -               fan@2 {
+> -                       reg = <0x02>;
+> -                       aspeed,fan-tach-ch = /bits/ 8 <0x02>;
+> -               };
+> -
+> -               fan@3 {
+> -                       reg = <0x03>;
+> -                       aspeed,fan-tach-ch = /bits/ 8 <0x03>;
+> -               };
+> -
+> -               fan@4 {
+> -                       reg = <0x00>;
+> -                       aspeed,fan-tach-ch = /bits/ 8 <0x04>;
+> -               };
+> -
+> -               fan@5 {
+> -                       reg = <0x01>;
+> -                       aspeed,fan-tach-ch = /bits/ 8 <0x05>;
+> -               };
+> -
+> -               fan@6 {
+> -                       reg = <0x02>;
+> -                       aspeed,fan-tach-ch = /bits/ 8 <0x06>;
+> -               };
+> -
+> -               fan@7 {
+> -                       reg = <0x03>;
+> -                       aspeed,fan-tach-ch = /bits/ 8 <0x07>;
+> -               };
+> -       };
+>  };
+>
+>  &fmc {
+> @@ -299,3 +248,55 @@
+>  &wdt2 {
+>         status = "okay";
+>  };
+> +
+> +&pwm_tacho {
+> +       status = "okay";
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
+> +                               &pinctrl_pwm2_default &pinctrl_pwm3_default>;
+> +
+> +       tach-channels {
+> +               #address-cells = <1>;
+> +               #size-cells = <0>;
+> +
+> +               fan@0 {
+> +                       reg = <0x00>;
+> +                       aspeed,fan-tach-ch = /bits/ 8 <0x00>;
+> +               };
+> +
+> +               fan@1 {
+> +                       reg = <0x01>;
+> +                       aspeed,fan-tach-ch = /bits/ 8 <0x01>;
+> +               };
+> +
+> +               fan@2 {
+> +                       reg = <0x02>;
+> +                       aspeed,fan-tach-ch = /bits/ 8 <0x02>;
+> +               };
+> +
+> +               fan@3 {
+> +                       reg = <0x03>;
+> +                       aspeed,fan-tach-ch = /bits/ 8 <0x03>;
+> +               };
+> +
+> +               fan@4 {
+> +                       reg = <0x00>;
+> +                       aspeed,fan-tach-ch = /bits/ 8 <0x04>;
+> +               };
+> +
+> +               fan@5 {
+> +                       reg = <0x01>;
+> +                       aspeed,fan-tach-ch = /bits/ 8 <0x05>;
+> +               };
+> +
+> +               fan@6 {
+> +                       reg = <0x02>;
+> +                       aspeed,fan-tach-ch = /bits/ 8 <0x06>;
+> +               };
+> +
+> +               fan@7 {
+> +                       reg = <0x03>;
+> +                       aspeed,fan-tach-ch = /bits/ 8 <0x07>;
+> +               };
+> +       };
+> +};
+> diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
+> index 9cc959f..c69ad77 100644
+> --- a/arch/arm/boot/dts/aspeed-g4.dtsi
+> +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+> @@ -318,7 +318,14 @@
+>                                 ranges = <0 0x1e78a000 0x1000>;
+>                         };
+>
+> -
+> +                       pwm_tacho: pwm-tacho-controller@1e786000 {
+> +                               compatible = "aspeed,ast2500-pwm-tacho";
+> +                               #address-cells = <1>;
+> +                               #size-cells = <0>;
+> +                               reg = <0x1e786000 0x1000>;
+> +                               clocks = <&pwm_tacho_fixed_clk>;
+> +                               status = "disabled";
+> +                       };
+>                 };
+>         };
+>  };
+> diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+> index 992242d..1ed29d9 100644
+> --- a/arch/arm/boot/dts/aspeed-g5.dtsi
+> +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+> @@ -35,6 +35,14 @@
+>                 i2c13 = &i2c13;
+>         };
+>
+> +       clocks {
+> +               pwm_tacho_fixed_clk: fixedclk {
+> +                       compatible = "fixed-clock";
+> +                       #clock-cells = <0>;
+> +                       clock-frequency = <24000000>;
+> +               };
+> +       };
+> +
+>         ahb {
+>                 compatible = "simple-bus";
+>                 #address-cells = <1>;
+> @@ -366,6 +374,15 @@
+>                                 #size-cells = <1>;
+>                                 ranges = <0 0x1e78a000 0x1000>;
+>                         };
+> +
+> +                       pwm_tacho: pwm-tacho-controller@1e786000 {
+> +                               compatible = "aspeed,ast2500-pwm-tacho";
+> +                               #address-cells = <1>;
+> +                               #size-cells = <0>;
+> +                               reg = <0x1e786000 0x1000>;
+> +                               clocks = <&pwm_tacho_fixed_clk>;
+> +                               status = "disabled";
+> +                       };
+>                 };
+>         };
+>  };
+> diff --git a/drivers/hwmon/aspeed-pwm-tacho.c b/drivers/hwmon/aspeed-pwm-tacho.c
+> index ddfe66b..eab18af 100644
+> --- a/drivers/hwmon/aspeed-pwm-tacho.c
+> +++ b/drivers/hwmon/aspeed-pwm-tacho.c
+> @@ -20,6 +20,7 @@
+>  #include <linux/platform_device.h>
+>  #include <linux/sysfs.h>
+>  #include <linux/regmap.h>
+> +#include <linux/thermal.h>
+>
+>  /* ASPEED PWM & FAN Tach Register Definition */
+>  #define ASPEED_PTCR_CTRL               0x00
+> @@ -166,6 +167,16 @@
+>  /* How long we sleep in us while waiting for an RPM result. */
+>  #define ASPEED_RPM_STATUS_SLEEP_USEC   500
+>
+> +struct aspeed_cooling_device {
+> +       char name[16];
+> +       struct aspeed_pwm_tacho_data *priv;
+> +       struct thermal_cooling_device *tcdev;
+> +       int pwm_port;
+> +       u8 *cooling_levels;
+> +       u8 max_state;
+> +       u8 cur_state;
+> +};
+> +
+>  struct aspeed_pwm_tacho_data {
+>         struct regmap *regmap;
+>         unsigned long clk_freq;
+> @@ -180,6 +191,7 @@ struct aspeed_pwm_tacho_data {
+>         u8 pwm_port_type[8];
+>         u8 pwm_port_fan_ctrl[8];
+>         u8 fan_tach_ch_source[16];
+> +       struct aspeed_cooling_device *cdev[8];
+>         const struct attribute_group *groups[3];
+>  };
+>
+> @@ -794,10 +806,111 @@ static int aspeed_create_fan(struct device *dev,
+>         return 0;
+>  }
+>
+> +static int
+> +aspeed_pwm_cz_get_max_state(struct thermal_cooling_device *tcdev,
+> +                           unsigned long *state)
+> +{
+> +       struct aspeed_cooling_device *cdev =
+> +                               (struct aspeed_cooling_device *)tcdev->devdata;
+> +
+> +       *state = cdev->max_state;
+> +
+> +       return 0;
+> +}
+> +
+> +static int
+> +aspeed_pwm_cz_get_cur_state(struct thermal_cooling_device *tcdev,
+> +                           unsigned long *state)
+> +{
+> +       struct aspeed_cooling_device *cdev =
+> +                               (struct aspeed_cooling_device *)tcdev->devdata;
+> +
+> +       *state = cdev->cur_state;
+> +
+> +       return 0;
+> +}
+> +
+> +static int
+> +aspeed_pwm_cz_set_cur_state(struct thermal_cooling_device *tcdev,
+> +                           unsigned long state)
+> +{
+> +       struct aspeed_cooling_device *cdev =
+> +                               (struct aspeed_cooling_device *)tcdev->devdata;
+> +
+> +       if (state > cdev->max_state)
+> +               return -EINVAL;
+> +
+> +       cdev->cur_state = state;
+> +       cdev->priv->pwm_port_fan_ctrl[cdev->pwm_port] = *(cdev->cooling_levels
+> +                                                         + cdev->cur_state);
+> +       aspeed_set_pwm_port_fan_ctrl(cdev->priv, cdev->pwm_port,
+> +                                    *(cdev->cooling_levels +
+> +                                      cdev->cur_state));
+> +
+> +       return 0;
+> +}
+> +
+> +static const struct thermal_cooling_device_ops aspeed_pwm_cool_ops = {
+> +       .get_max_state = aspeed_pwm_cz_get_max_state,
+> +       .get_cur_state = aspeed_pwm_cz_get_cur_state,
+> +       .set_cur_state = aspeed_pwm_cz_set_cur_state,
+> +};
+> +
+> +static int aspeed_create_pwm(struct device *dev,
+> +                            struct device_node *child,
+> +                            struct aspeed_pwm_tacho_data *priv)
 
-V6: Reverted change to has_ecc() to avoid breaking libffs
+For this, I would recommend just renaming to aspeed_create_pwm_cooling
 
-Change-Id: Iebb8a6d34c537cecd2eb44ddf41271c8fbe25258
-Signed-off-by: Michael Tritz <mtritz@us.ibm.com>
----
- external/pflash/pflash.c          | 134 ++++++++++++++++++++++++++++++++++----
- libflash/libffs.c                 |  11 +++-
- libflash/libffs.h                 |   4 ++
- libflash/test/Makefile.check      |   5 +-
- libflash/test/test-miscprint.pnor | 103 +++++++++++++++++++++++++++++
- libflash/test/test-miscprint.sh   |  27 ++++++++
- 6 files changed, 269 insertions(+), 15 deletions(-)
- create mode 100644 libflash/test/test-miscprint.pnor
- create mode 100644 libflash/test/test-miscprint.sh
+> +{
+> +       u32 pwm_port;
+> +       int ret;
+> +
+> +       ret = of_property_read_u32(child, "reg", &pwm_port);
+> +       if (ret)
+> +               return ret;
+> +
+> +       ret = of_property_count_u8_elems(child, "cooling-levels");
+> +       if (ret <= 0) {
+> +               dev_err(dev, "Wrong cooling-levels data.\n");
+> +               return -EINVAL;
+> +       }
+> +
+> +       priv->cdev[pwm_port] = devm_kzalloc(dev, sizeof(*priv->cdev[pwm_port]),
+> +                                           GFP_KERNEL);
+> +       if (!priv->cdev[pwm_port])
+> +               return -ENOMEM;
+> +
+> +       priv->cdev[pwm_port]->cooling_levels = devm_kzalloc(dev, ret *
+> +                                                           sizeof(u8),
+> +                                                           GFP_KERNEL);
+> +       if (!priv->cdev[pwm_port]->cooling_levels)
+> +               return -ENOMEM;
+> +
+> +       priv->cdev[pwm_port]->max_state = ret - 1;
+> +       ret = of_property_read_u8_array(child, "cooling-levels",
+> +                                       priv->cdev[pwm_port]->cooling_levels,
+> +                                       ret);
+> +       if (ret) {
+> +               dev_err(dev, "Property 'cooling-levels' cannot be read.\n");
+> +               return ret;
+> +       }
+> +
+> +       sprintf(priv->cdev[pwm_port]->name, "%s%d", child->name, pwm_port);
+> +       priv->cdev[pwm_port]->tcdev = thermal_of_cooling_device_register(child,
+> +                                               priv->cdev[pwm_port]->name,
+> +                                               priv->cdev[pwm_port],
+> +                                               &aspeed_pwm_cool_ops);
+> +       if (PTR_ERR_OR_ZERO(priv->cdev[pwm_port]->tcdev))
+> +               return PTR_ERR(priv->cdev[pwm_port]->tcdev);
+> +
+> +       priv->cdev[pwm_port]->priv = priv;
+> +       priv->cdev[pwm_port]->pwm_port = pwm_port;
+> +
+> +       return 0;
+> +}
+> +
+>  static int aspeed_pwm_tacho_probe(struct platform_device *pdev)
+>  {
+>         struct device *dev = &pdev->dev;
+> -       struct device_node *np, *child;
+> +       struct device_node *np, *child, *grandchild;
+>         struct aspeed_pwm_tacho_data *priv;
+>         void __iomem *regs;
+>         struct resource *res;
+> @@ -833,10 +946,28 @@ static int aspeed_pwm_tacho_probe(struct platform_device *pdev)
+>         aspeed_create_type(priv);
+>
+>         for_each_child_of_node(np, child) {
+> -               ret = aspeed_create_fan(dev, child, priv);
+> +               if (!of_node_cmp(child->name, "tach-channels")) {
+> +                       for_each_child_of_node(child, grandchild) {
+> +                               ret = aspeed_create_fan(dev, grandchild, priv);
+> +                               of_node_put(grandchild);
+> +                               if (ret) {
+> +                                       of_node_put(child);
+> +                                       return ret;
+> +                               }
+> +                       }
+> +               }
+> +
+> +               if (!of_node_cmp(child->name, "pwm-channels")) {
+> +                       for_each_child_of_node(child, grandchild) {
+> +                               ret = aspeed_create_pwm(dev, grandchild, priv);
+> +                               of_node_put(grandchild);
+> +                               if (ret) {
+> +                                       of_node_put(child);
+> +                                       return ret;
+> +                               }
+> +                       }
+> +               }
+>                 of_node_put(child);
+> -               if (ret)
+> -                       return ret;
+>         }
+>
+>         priv->groups[0] = &pwm_dev_group;
+> --
+> 2.8.4
+>
 
-diff --git a/external/pflash/pflash.c b/external/pflash/pflash.c
-index a344987e..9d57feea 100644
---- a/external/pflash/pflash.c
-+++ b/external/pflash/pflash.c
-@@ -14,6 +14,8 @@
-  * limitations under the License.
-  */
- 
-+#define _GNU_SOURCE
-+
- #include <stdio.h>
- #include <stdlib.h>
- #include <string.h>
-@@ -90,6 +92,7 @@ static void print_ffs_info(uint32_t toc_offset)
- {
- 	struct ffs_handle *ffs_handle;
- 	uint32_t other_side_offset = 0;
-+	struct ffs_entry *ent;
- 	int rc;
- 	uint32_t i;
- 
-@@ -103,25 +106,40 @@ static void print_ffs_info(uint32_t toc_offset)
- 		return;
- 	}
- 
--	for (i = 0;; i++) {
-+	for (i = 0; rc == 0; i++) {
- 		uint32_t start, size, act, end;
--		bool ecc;
--		char *name;
-+		char *name = NULL, *flags;
-+		int l;
- 
--		rc = ffs_part_info(ffs_handle, i, &name, &start, &size, &act, &ecc);
-+		rc = ffs_part_info(ffs_handle, i, &name, &start, &size, &act, NULL);
- 		if (rc == FFS_ERR_PART_NOT_FOUND)
- 			break;
--		if (rc) {
--			fprintf(stderr, "Error %d scanning partitions\n", rc);
--			break;
-+
-+		ent = ffs_entry_get(ffs_handle, i);
-+		if (rc || !ent) {
-+			fprintf(stderr, "Error %d scanning partitions\n",
-+					!ent ? FFS_ERR_PART_NOT_FOUND : rc);
-+		    goto out;
- 		}
-+
-+		l = asprintf(&flags, "[%c%c%c%c%c]",
-+				has_ecc(ent) ? 'E' : '-',
-+				has_flag(ent, FFS_MISCFLAGS_PRESERVED) ? 'P' : '-',
-+				has_flag(ent, FFS_MISCFLAGS_READONLY) ? 'R' : '-',
-+				has_flag(ent, FFS_MISCFLAGS_BACKUP) ? 'B' : '-',
-+				has_flag(ent, FFS_MISCFLAGS_REPROVISION) ? 'F' : '-');
-+		if (l < 0)
-+			goto out;
-+
- 		end = start + size;
- 		printf("ID=%02d %15s %08x..%08x (actual=%08x) %s\n",
--		       i, name, start, end, act, ecc ? "[ECC]" : "");
-+				i, name, start, end, act, flags);
- 
- 		if (strcmp(name, "OTHER_SIDE") == 0)
- 			other_side_offset = start;
- 
-+		free(flags);
-+out:
- 		free(name);
- 	}
- 
-@@ -413,6 +431,81 @@ static void disable_4B_addresses(void)
- 	}
- }
- 
-+static void print_partition_detail(uint32_t toc_offset, uint32_t part_id, char *name)
-+{
-+	uint32_t start, size, act, end;
-+	struct ffs_handle *ffs_handle;
-+	char *ent_name = NULL, *flags;
-+	struct ffs_entry *ent;
-+	int rc, l;
-+
-+	rc = ffs_init(toc_offset, fl_total_size, bl, &ffs_handle, 0);
-+	if (rc) {
-+		fprintf(stderr, "Error %d opening ffs !\n", rc);
-+		return;
-+	}
-+
-+	if (name) {
-+		uint32_t i;
-+
-+		for (i = 0;;i++) {
-+			rc = ffs_part_info(ffs_handle, i, &ent_name, &start, &size, &act,
-+            		NULL);
-+			if (rc == FFS_ERR_PART_NOT_FOUND) {
-+				fprintf(stderr, "Partition with name %s doesn't exist within TOC at 0x%08x\n", name, toc_offset);
-+				goto out;
-+			}
-+			if (rc || strncmp(ent_name, name, FFS_PART_NAME_MAX) == 0) {
-+				part_id = i;
-+				break;
-+			}
-+			free(ent_name);
-+			ent_name = NULL;
-+		}
-+	} else {
-+		rc = ffs_part_info(ffs_handle, part_id, &ent_name, &start, &size, &act,
-+				NULL);
-+		if (rc == FFS_ERR_PART_NOT_FOUND) {
-+			fprintf(stderr, "Partition with ID %d doesn't exist within TOC at 0x%08x\n",
-+			part_id, toc_offset);
-+			goto out;
-+		}
-+	}
-+	ent = ffs_entry_get(ffs_handle, part_id);
-+	if (rc || !ent) {
-+		fprintf(stderr, "Error %d scanning partitions\n", !ent ?
-+				FFS_ERR_PART_NOT_FOUND : rc);
-+		goto out;
-+	}
-+
-+	printf("Detailed partition information\n");
-+	end = start + size;
-+	printf("Name:\n");
-+	printf("%s (ID=%02d)\n\n", ent_name, part_id);
-+	printf("%-10s  %-10s  %-10s\n", "Start", "End", "Actual");
-+	printf("0x%08x  0x%08x  0x%08x\n\n", start, end, act);
-+
-+	printf("Flags:\n");
-+
-+	l = asprintf(&flags, "%s%s%s%s%s", has_ecc(ent) ? "ECC [E]\n" : "",
-+			has_flag(ent, FFS_MISCFLAGS_PRESERVED) ? "PRESERVED [P]\n" : "",
-+			has_flag(ent, FFS_MISCFLAGS_READONLY) ? "READONLY [R]\n" : "",
-+			has_flag(ent, FFS_MISCFLAGS_BACKUP) ? "BACKUP [B]\n" : "",
-+			has_flag(ent, FFS_MISCFLAGS_REPROVISION) ?
-+					"REPROVISION [F]\n" : "");
-+	if (l < 0) {
-+		fprintf(stderr, "Memory allocation failure printing flags!\n");
-+		goto out;
-+	}
-+
-+	printf("%s", flags);
-+	free(flags);
-+
-+out:
-+	ffs_close(ffs_handle);
-+	free(ent_name);
-+}
-+
- static void print_version(void)
- {
- 	printf("Open-Power Flash tool %s\n", version);
-@@ -494,6 +587,10 @@ static void print_help(const char *pname)
- 	printf("\t\tpartition and then set all the ECC bits as they should be\n\n");
- 	printf("\t-i, --info\n");
- 	printf("\t\tDisplay some information about the flash.\n\n");
-+	printf("\t--detail\n");
-+	printf("\t\tDisplays detailed info about a particular partition.\n");
-+	printf("\t\tAccepts a numeric partition or can be used in conjuction\n");
-+	printf("\t\twith the -P flag.\n\n");
- 	printf("\t-h, --help\n");
- 	printf("\t\tThis message.\n\n");
- }
-@@ -508,7 +605,7 @@ void exiting(void)
- int main(int argc, char *argv[])
- {
- 	const char *pname = argv[0];
--	uint32_t address = 0, read_size = 0, write_size = 0;
-+	uint32_t address = 0, read_size = 0, write_size = 0, detail_id = UINT_MAX;
- 	uint32_t erase_start = 0, erase_size = 0;
- 	bool erase = false, do_clear = false;
- 	bool program = false, erase_all = false, info = false, do_read = false;
-@@ -516,7 +613,7 @@ int main(int argc, char *argv[])
- 	bool show_help = false, show_version = false;
- 	bool no_action = false, tune = false;
- 	char *write_file = NULL, *read_file = NULL, *part_name = NULL;
--	bool ffs_toc_seen = false, direct = false;
-+	bool ffs_toc_seen = false, direct = false, print_detail = false;
- 	int rc;
- 
- 	while(1) {
-@@ -535,6 +632,7 @@ int main(int argc, char *argv[])
- 			{"force",	no_argument,		NULL,	'f'},
- 			{"flash-file",	required_argument,	NULL,	'F'},
- 			{"info",	no_argument,		NULL,	'i'},
-+			{"detail",  optional_argument,  NULL,   'm'},
- 			{"tune",	no_argument,		NULL,	't'},
- 			{"dummy",	no_argument,		NULL,	'd'},
- 			{"help",	no_argument,		NULL,	'h'},
-@@ -622,6 +720,11 @@ int main(int argc, char *argv[])
- 		case 'c':
- 			do_clear = true;
- 			break;
-+		case 'm':
-+			print_detail = true;
-+			if (optarg)
-+				detail_id = strtoul(optarg, NULL, 0);
-+			break;
- 		case ':':
- 			fprintf(stderr, "Unrecognised option \"%s\" to '%c'\n", optarg, optopt);
- 			no_action = true;
-@@ -651,7 +754,7 @@ int main(int argc, char *argv[])
- 	 * also tune them as a side effect
- 	 */
- 	no_action = no_action || (!erase && !program && !info && !do_read &&
--		!enable_4B && !disable_4B && !tune && !do_clear);
-+		!enable_4B && !disable_4B && !tune && !do_clear && !print_detail);
- 
- 	/* Nothing to do, if we didn't already, print usage */
- 	if (no_action && !show_version)
-@@ -684,6 +787,12 @@ int main(int argc, char *argv[])
- 		exit(1);
- 	}
- 
-+	if (print_detail && ((detail_id == UINT_MAX && !part_name)
-+			|| (detail_id != UINT_MAX && part_name))) {
-+		fprintf(stderr, "--detail requires either a partition id or\n");
-+		fprintf(stderr, "a partition name with -P\n");
-+	}
-+
- 	/* part-name and erase-all make no sense together */
- 	if (part_name && erase_all) {
- 		fprintf(stderr, "--partition and --erase-all are mutually"
-@@ -872,6 +981,9 @@ int main(int argc, char *argv[])
- 		print_flash_info(flash_side ? 0 : ffs_toc);
- 	}
- 
-+	if (print_detail)
-+		print_partition_detail(flash_side ? 0 : ffs_toc, detail_id, part_name);
-+
- 	/* Unlock flash (PNOR only) */
- 	if ((erase || program || do_clear) && !bmc_flash && !flashfilename) {
- 		need_relock = arch_flash_set_wrprotect(bl, false);
-diff --git a/libflash/libffs.c b/libflash/libffs.c
-index 763e061c..daa62da6 100644
---- a/libflash/libffs.c
-+++ b/libflash/libffs.c
-@@ -180,7 +180,12 @@ static int ffs_entry_to_cpu(struct ffs_hdr *hdr,
- 	return rc;
- }
- 
--static struct ffs_entry *ffs_get_part(struct ffs_handle *ffs, uint32_t index)
-+bool has_flag(struct ffs_entry *ent, uint16_t flag)
-+{
-+	return ((ent->user.miscflags & flag) != 0);
-+}
-+
-+struct ffs_entry *ffs_entry_get(struct ffs_handle *ffs, uint32_t index)
- {
- 	int i = 0;
- 	struct ffs_entry *ent = NULL;
-@@ -369,7 +374,7 @@ int ffs_part_info(struct ffs_handle *ffs, uint32_t part_idx,
- 	struct ffs_entry *ent;
- 	char *n;
- 
--	ent = ffs_get_part(ffs, part_idx);
-+	ent = ffs_entry_get(ffs, part_idx);
- 	if (!ent)
- 		return FFS_ERR_PART_NOT_FOUND;
- 
-@@ -776,7 +781,7 @@ int ffs_update_act_size(struct ffs_handle *ffs, uint32_t part_idx,
- 	uint32_t offset;
- 	int rc;
- 
--	ent = ffs_get_part(ffs, part_idx);
-+	ent = ffs_entry_get(ffs, part_idx);
- 	if (!ent) {
- 		FL_DBG("FFS: Entry not found\n");
- 		return FFS_ERR_PART_NOT_FOUND;
-diff --git a/libflash/libffs.h b/libflash/libffs.h
-index 2c1fbd83..a86c698f 100644
---- a/libflash/libffs.h
-+++ b/libflash/libffs.h
-@@ -92,6 +92,8 @@ struct ffs_entry_user {
- 
- bool has_ecc(struct ffs_entry *ent);
- 
-+bool has_flag(struct ffs_entry *ent, uint16_t flag);
-+
- /* Init */
- 
- int ffs_init(uint32_t offset, uint32_t max_size, struct blocklevel_device *bl,
-@@ -126,6 +128,8 @@ int ffs_part_info(struct ffs_handle *ffs, uint32_t part_idx,
- 		  char **name, uint32_t *start,
- 		  uint32_t *total_size, uint32_t *act_size, bool *ecc);
- 
-+struct ffs_entry *ffs_entry_get(struct ffs_handle *ffs, uint32_t index);
-+
- int ffs_update_act_size(struct ffs_handle *ffs, uint32_t part_idx,
- 			uint32_t act_size);
- 
-diff --git a/libflash/test/Makefile.check b/libflash/test/Makefile.check
-index 1f92b9d2..419a50a9 100644
---- a/libflash/test/Makefile.check
-+++ b/libflash/test/Makefile.check
-@@ -4,7 +4,7 @@ LIBFLASH_TEST := libflash/test/test-flash libflash/test/test-ecc libflash/test/t
- LCOV_EXCLUDE += $(LIBFLASH_TEST:%=%.c)
- 
- .PHONY : libflash-check libc-coverage
--libflash-check: $(LIBFLASH_TEST:%=%-check) $(CORE_TEST:%=%-gcov-run)
-+libflash-check: $(LIBFLASH_TEST:%=%-check) libflash/test/test-miscprint $(CORE_TEST:%=%-gcov-run)
- libflash-coverage: $(LIBFLASH_TEST:%=%-gcov-run)
- 
- check: libflash-check libc-coverage
-@@ -16,6 +16,9 @@ $(LIBFLASH_TEST:%=%-gcov-run) : %-run: %
- $(LIBFLASH_TEST:%=%-check) : %-check: %
- 	$(call QTEST, RUN-TEST ,$(VALGRIND) $<, $<)
- 
-+libflash/test/test-miscprint:
-+	$(call Q, RUN-TEST , ./libflash/test/test-miscprint.sh ,  $@)
-+
- libflash/test/stubs.o: libflash/test/stubs.c
- 	$(call Q, HOSTCC ,$(HOSTCC) $(HOSTCFLAGS) -g -c -o $@ $<, $<)
- 
-diff --git a/libflash/test/test-miscprint.pnor b/libflash/test/test-miscprint.pnor
-new file mode 100644
-index 00000000..e3f3d355
---- /dev/null
-+++ b/libflash/test/test-miscprint.pnor
-@@ -0,0 +1,103 @@
-+504152540000000100000001000000800000000500000300000000040000
-+0000000000000000000000000000504151d5706172740000000000000000
-+000000000000000000000001ffffffff0000000100000003000000010000
-+030000000000000000000000000000000000000000000000000000000000
-+000000000000000000000000000000000000000000000000000000000000
-+000000000000000000000000000000000000000000008f9e8e8950524553
-+4552564544000000000000000000000100000000ffffffff000000020000
-+000100000000000001000000000000000000000000000000000000000000
-+008000000000000000000000000000000000000000000000000000000000
-+000000000000000000000000000000000000000000000000000000000000
-+ae7fedeb524541444f4e4c5900000000000000000000000100000000ffff
-+ffff00000003000000010000000000000100000000000000000000000000
-+000000000000000000400000000000000000000000000000000000000000
-+000000000000000000000000000000000000000000000000000000000000
-+0000000000000000e2b4f3e1524550524f564953494f4e00000000000000
-+000100000000ffffffff0000000400000001000000000000010000000000
-+000000000000000000000000000000000010000000000000000000000000
-+000000000000000000000000000000000000000000000000000000000000
-+00000000000000000000000000000000abb3a9fa4241434b555000000000
-+0000000000000000000200000000ffffffff000000050000000100000000
-+000001000000000000000000000000000000000000000000002000000000
-+000000000000000000000000000000000000000000000000000000000000
-+000000000000000000000000000000000000000000000000e8cebdb2ffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-+ffffffffffffffffffffffff
-diff --git a/libflash/test/test-miscprint.sh b/libflash/test/test-miscprint.sh
-new file mode 100644
-index 00000000..224328be
---- /dev/null
-+++ b/libflash/test/test-miscprint.sh
-@@ -0,0 +1,27 @@
-+#!/bin/bash
-+
-+# test-miscprint.pnor is constructed as follows:
-+# PRESERVED,0x00000300,0x00000100,P,/dev/zero
-+# READONLY,0x00000400,0x00000100,R,/dev/zero
-+# REPROVISION,0x00000500,0x00000100,F,/dev/zero
-+# BACKUP,0x00000600,0x00000100,B,/dev/zero
-+
-+wd=$(dirname -- "$0")
-+
-+{
-+	xxd -p -r "$wd/test-miscprint.pnor" > "$wd/temp.pnor"
-+
-+	output1=$(pflash --detail=1 -F "$wd/temp.pnor" | grep "\[P\]")
-+	output2=$(pflash --detail=2 -F "$wd/temp.pnor" | grep "\[R\]")
-+	output3=$(pflash --detail=3 -F "$wd/temp.pnor" | grep "\[F\]")
-+	output4=$(pflash --detail=4 -F "$wd/temp.pnor" | grep "\[B\]")
-+
-+	if [[ $output1 == "PRESERVED [P]" && $output2 == "READONLY [R]" &&
-+	      $output3 == "REPROVISION [F]" && $output4 == "BACKUP [B]" ]]; then
-+	    echo "Test passed!"
-+	else
-+	    echo "Test failed!"
-+	fi
-+
-+	rm "$wd/temp.pnor"
-+} > "$wd/test-miscprint.o"
--- 
-2.11.0 (Apple Git-81)
+Presumably it's been tested and won't impact users who don't configure
+this behaviour, so I don't have a lot of feedback about functionality.
