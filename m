@@ -1,22 +1,60 @@
-Return-Path: <c_mykolak@mellanox.com>
-Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
- by lists.ozlabs.org (Postfix) with ESMTP id 3x25C50WqMzDqj1
- for <openbmc@lists.ozlabs.org>; Tue,  4 Jul 2017 23:56:32 +1000 (AEST)
-Received: from Internal Mail-Server by MTLPINE1 (envelope-from
- c?mykolak@mellanox.com)
- with ESMTPS (AES256-SHA encrypted); 4 Jul 2017 16:56:27 +0300
-Received: from r-vnc15.mtr.labs.mlnx (r-vnc15.mtr.labs.mlnx [10.208.0.15])
- by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id v64DuQOM007097;
- Tue, 4 Jul 2017 16:56:26 +0300
-From: Mykola Kostenok <c_mykolak@mellanox.com>
-To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org,
- Patrick Venture <venture@google.com>
-Cc: Mykola Kostenok <c_mykolak@mellanox.com>
-Subject: [PATCH linux dev-4.10] hwmon: (aspeed-pwm-tacho) cooling device
- support
-Date: Tue,  4 Jul 2017 16:56:08 +0300
-Message-Id: <20170704135608.12334-1-c_mykolak@mellanox.com>
-X-Mailer: git-send-email 2.8.4
+Return-Path: <andrew@aj.id.au>
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x2MKB3pVbzDqkF
+ for <openbmc@lists.ozlabs.org>; Wed,  5 Jul 2017 10:32:45 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="fnQHGUqp"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="IenXQpk4"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id E50F520A34;
+ Tue,  4 Jul 2017 20:32:42 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Tue, 04 Jul 2017 20:32:42 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=nqd8XhpEZekgJ4OyV2jMUfDkYs+gJOHOrtgXp1zN0
+ Lk=; b=fnQHGUqpQsmifVoas7MpK15K4mAdk3d5GDVDXlZlpUI9WXX6RPDJJq8jw
+ rS6IJB4+TAsB4E7MaoCBPm/ZY9rJ/JtpWDQo1rERwrBp8Ra30yAoSFvhHx5niQhb
+ sMGk6e9p5AWLGamOBMihft7XrFjt8wgCnLbHZTOiSriAtWl/sdytULEO2mLmhT3w
+ bgk5oCe131h4Rt+1Q5FXm7SVyIb2yqvcNhNa5LQSvmDnR5YMp7ak6c4MgO1gJ5VT
+ Db5X3TdcYusyzAVLwLUmZHTozgapnyM0e2qF9g5CF3pFF86t9hFhfJ608CvLvO6O
+ 1VblKR1jVK+M2zJB0M6HE56YgiE2w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=nqd8XhpEZekgJ4OyV2
+ jMUfDkYs+gJOHOrtgXp1zN0Lk=; b=IenXQpk4H+YJeYk4dSQcwDO6Py6hijO7EJ
+ N7h0pnjPLW1qjdLClgXubJYhtfK1UEuWfSXtdtBA23y0wO/NT+b5v8bGJp/WspHQ
+ cr6Q6eEOIuUJeCYfOI2zEoERY2L4iVf8+jaS5nL1CGDT503hLYZXWR6RuECHG3B1
+ JJ/P3lxuG4jnmHe35B//plQpqPrE8xuG800TSCOACyZwHBHex7EmjTF3Bm1t+Lt3
+ JqkWyklIWsVJubCLsTOuRPHmS9ycnzvJqFRE+JJFa8OjeSjUXi7NA0YawVykzkts
+ WWXhxQQMtcvWmDZcyaOjKSfOm+moOSTNxzNTzvRgGNOQU7zZluxw==
+X-ME-Sender: <xms:qjNcWUd0gqOrk3U7os7fWoONomsR4DMGlVS4JIY_KLTAfmylcYoP4w>
+X-Sasl-enc: wZKAmlZ5Db+ADcAPN3nHi6LkjIdQkBLzZtZMOF1KJX64 1499214761
+Received: from keelia (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 0774424253;
+ Tue,  4 Jul 2017 20:32:40 -0400 (EDT)
+Message-ID: <1499214754.4935.1.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: Set quality factor
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Rick Altherr
+ <raltherr@google.com>
+Date: Wed, 05 Jul 2017 10:02:34 +0930
+In-Reply-To: <CACPK8XfDNa_mUs=ARZMRVZWODnUQu3b8MQxZicyiTsEKzfVzYw@mail.gmail.com>
+References: <20170704060528.17290-1-joel@jms.id.au>
+ <1499163214.4990.1.camel@aj.id.au>
+ <CACPK8XfDNa_mUs=ARZMRVZWODnUQu3b8MQxZicyiTsEKzfVzYw@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-bHIZYBbNtSYwL8dv55J4"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -28,456 +66,138 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 04 Jul 2017 13:56:34 -0000
+X-List-Received-Date: Wed, 05 Jul 2017 00:32:48 -0000
 
-Add support in aspeed-pwm-tacho driver for cooling device creation.
-This cooling device could be bound to a thermal zone
-for the thermal control. Device will appear in /sys/class/thermal
-folder as cooling_deviceX. Then it could be bound to particular
-thermal zones. Allow specification of the cooling levels
-vector - PWM duty cycle values in a range from 0 to 255
-which correspond to thermal cooling states.
 
-Add basic pwm-tacho-controller node to ast-g5 dtsi.
-Add basic pwm-tacho-controller node to ast-g4 dtsi.
+--=-bHIZYBbNtSYwL8dv55J4
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Change pwm-tacho in aspeed-bmc-quanta-q71l.dts according new
-pwm-tacho structure.
+On Tue, 2017-07-04 at 21:51 +0930, Joel Stanley wrote:
+>=20
+>=20
+> > On 4 Jul. 2017 19:43, "Andrew Jeffery" <andrew@aj.id.au> wrote:
+> On Tue, 2017-07-04 at 15:35 +0930, Joel Stanley wrote:
+> > From the timeriomem_rng bindings:
+> >
+> > =C2=A0quality: estimated number of bits of true entropy per 1024 bits r=
+ead
+> > =C2=A0from the rng.=C2=A0=C2=A0Defaults to zero which causes the kernel=
+'s default
+> > =C2=A0quality to be used instead.=C2=A0=C2=A0Note that the default qual=
+ity is usually
+> > =C2=A0zero which disables using this rng to automatically fill the kern=
+el's
+> > =C2=A0entropy pool.
+>=20
+> This does not appear in the 4.12 kernel's bindings at
+> Documentation/devicetree/bindings/rng/timeriomem_rng.txt, and doesn't
+> appear in Ted T'so's dev branch[1].
+>=20
+> Where did you find this binding description?
+>=20
+> Herbet's tree. They will be in 4.13.
 
-Add pwm-tacho to aspeed-bmc-mellanox-msn.dts.
+Okay, I found it here:
 
-Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
----
- arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts |  61 +++++++++++
- arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts  | 103 +++++++++----------
- arch/arm/boot/dts/aspeed-g4.dtsi              |   9 +-
- arch/arm/boot/dts/aspeed-g5.dtsi              |  17 ++++
- drivers/hwmon/aspeed-pwm-tacho.c              | 139 +++++++++++++++++++++++++-
- 5 files changed, 273 insertions(+), 56 deletions(-)
+https://git.kernel.org/pub/scm/linux/kernel/git/herbert/cryptodev-2.6.git/t=
+ree/Documentation/devicetree/bindings/rng/timeriomem_rng.txt
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-index c71a6db..57d5951 100644
---- a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-@@ -144,3 +144,64 @@
- 	status = "okay";
- };
- 
-+&pwm_tacho {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_pwm0_default>;
-+
-+	tach-channels {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		fan@0 {
-+			reg = <0x00>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x00>;
-+		};
-+
-+		fan@1 {
-+			reg = <0x00>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x01>;
-+		};
-+
-+		fan@2 {
-+			reg = <0x00>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x02>;
-+		};
-+
-+		fan@3 {
-+			reg = <0x00>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x03>;
-+		};
-+
-+		fan@4 {
-+			reg = <0x00>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x04>;
-+		};
-+
-+		fan@5 {
-+			reg = <0x00>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x05>;
-+		};
-+
-+		fan@6 {
-+			reg = <0x00>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x06>;
-+		};
-+
-+		fan@7 {
-+			reg = <0x00>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x07>;
-+		};
-+	};
-+
-+	pwm-channels {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		#cooling-cells = <2>;
-+
-+		pwm@0 {
-+			reg = <0x00>;
-+			cooling-levels = /bits/ 8 <125 151 177 203 229 255>;
-+		};
-+	};
-+};
-diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-index bb287fb..43ada5b 100644
---- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-@@ -46,57 +46,6 @@
- 			gpios = <&gpio ASPEED_GPIO(B, 3) GPIO_ACTIVE_LOW>;
- 		};
- 	};
--
--	pwm_tacho: pwm-tacho-controller@1e786000 {
--		compatible = "aspeed,ast2500-pwm-tacho";
--		#address-cells = <1>;
--		#size-cells = <0>;
--		reg = <0x1e786000 0x1000>;
--		clocks = <&pwm_tacho_fixed_clk>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
--			&pinctrl_pwm2_default &pinctrl_pwm3_default>;
--
--		fan@0 {
--			reg = <0x00>;
--			aspeed,fan-tach-ch = /bits/ 8 <0x00>;
--		};
--
--		fan@1 {
--			reg = <0x01>;
--			aspeed,fan-tach-ch = /bits/ 8 <0x01>;
--		};
--
--		fan@2 {
--			reg = <0x02>;
--			aspeed,fan-tach-ch = /bits/ 8 <0x02>;
--		};
--
--		fan@3 {
--			reg = <0x03>;
--			aspeed,fan-tach-ch = /bits/ 8 <0x03>;
--		};
--
--		fan@4 {
--			reg = <0x00>;
--			aspeed,fan-tach-ch = /bits/ 8 <0x04>;
--		};
--
--		fan@5 {
--			reg = <0x01>;
--			aspeed,fan-tach-ch = /bits/ 8 <0x05>;
--		};
--
--		fan@6 {
--			reg = <0x02>;
--			aspeed,fan-tach-ch = /bits/ 8 <0x06>;
--		};
--
--		fan@7 {
--			reg = <0x03>;
--			aspeed,fan-tach-ch = /bits/ 8 <0x07>;
--		};
--	};
- };
- 
- &fmc {
-@@ -299,3 +248,55 @@
- &wdt2 {
- 	status = "okay";
- };
-+
-+&pwm_tacho {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
-+				&pinctrl_pwm2_default &pinctrl_pwm3_default>;
-+
-+	tach-channels {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		fan@0 {
-+			reg = <0x00>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x00>;
-+		};
-+
-+		fan@1 {
-+			reg = <0x01>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x01>;
-+		};
-+
-+		fan@2 {
-+			reg = <0x02>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x02>;
-+		};
-+
-+		fan@3 {
-+			reg = <0x03>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x03>;
-+		};
-+
-+		fan@4 {
-+			reg = <0x00>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x04>;
-+		};
-+
-+		fan@5 {
-+			reg = <0x01>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x05>;
-+		};
-+
-+		fan@6 {
-+			reg = <0x02>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x06>;
-+		};
-+
-+		fan@7 {
-+			reg = <0x03>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x07>;
-+		};
-+	};
-+};
-diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-index 9cc959f..c69ad77 100644
---- a/arch/arm/boot/dts/aspeed-g4.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-@@ -318,7 +318,14 @@
- 				ranges = <0 0x1e78a000 0x1000>;
- 			};
- 
--
-+			pwm_tacho: pwm-tacho-controller@1e786000 {
-+				compatible = "aspeed,ast2500-pwm-tacho";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				reg = <0x1e786000 0x1000>;
-+				clocks = <&pwm_tacho_fixed_clk>;
-+				status = "disabled";
-+			};
- 		};
- 	};
- };
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index 992242d..1ed29d9 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -35,6 +35,14 @@
- 		i2c13 = &i2c13;
- 	};
- 
-+	clocks {
-+		pwm_tacho_fixed_clk: fixedclk {
-+			compatible = "fixed-clock";
-+			#clock-cells = <0>;
-+			clock-frequency = <24000000>;
-+		};
-+	};
-+
- 	ahb {
- 		compatible = "simple-bus";
- 		#address-cells = <1>;
-@@ -366,6 +374,15 @@
- 				#size-cells = <1>;
- 				ranges = <0 0x1e78a000 0x1000>;
- 			};
-+
-+			pwm_tacho: pwm-tacho-controller@1e786000 {
-+				compatible = "aspeed,ast2500-pwm-tacho";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				reg = <0x1e786000 0x1000>;
-+				clocks = <&pwm_tacho_fixed_clk>;
-+				status = "disabled";
-+			};
- 		};
- 	};
- };
-diff --git a/drivers/hwmon/aspeed-pwm-tacho.c b/drivers/hwmon/aspeed-pwm-tacho.c
-index ddfe66b..eab18af 100644
---- a/drivers/hwmon/aspeed-pwm-tacho.c
-+++ b/drivers/hwmon/aspeed-pwm-tacho.c
-@@ -20,6 +20,7 @@
- #include <linux/platform_device.h>
- #include <linux/sysfs.h>
- #include <linux/regmap.h>
-+#include <linux/thermal.h>
- 
- /* ASPEED PWM & FAN Tach Register Definition */
- #define ASPEED_PTCR_CTRL		0x00
-@@ -166,6 +167,16 @@
- /* How long we sleep in us while waiting for an RPM result. */
- #define ASPEED_RPM_STATUS_SLEEP_USEC	500
- 
-+struct aspeed_cooling_device {
-+	char name[16];
-+	struct aspeed_pwm_tacho_data *priv;
-+	struct thermal_cooling_device *tcdev;
-+	int pwm_port;
-+	u8 *cooling_levels;
-+	u8 max_state;
-+	u8 cur_state;
-+};
-+
- struct aspeed_pwm_tacho_data {
- 	struct regmap *regmap;
- 	unsigned long clk_freq;
-@@ -180,6 +191,7 @@ struct aspeed_pwm_tacho_data {
- 	u8 pwm_port_type[8];
- 	u8 pwm_port_fan_ctrl[8];
- 	u8 fan_tach_ch_source[16];
-+	struct aspeed_cooling_device *cdev[8];
- 	const struct attribute_group *groups[3];
- };
- 
-@@ -794,10 +806,111 @@ static int aspeed_create_fan(struct device *dev,
- 	return 0;
- }
- 
-+static int
-+aspeed_pwm_cz_get_max_state(struct thermal_cooling_device *tcdev,
-+			    unsigned long *state)
-+{
-+	struct aspeed_cooling_device *cdev =
-+				(struct aspeed_cooling_device *)tcdev->devdata;
-+
-+	*state = cdev->max_state;
-+
-+	return 0;
-+}
-+
-+static int
-+aspeed_pwm_cz_get_cur_state(struct thermal_cooling_device *tcdev,
-+			    unsigned long *state)
-+{
-+	struct aspeed_cooling_device *cdev =
-+				(struct aspeed_cooling_device *)tcdev->devdata;
-+
-+	*state = cdev->cur_state;
-+
-+	return 0;
-+}
-+
-+static int
-+aspeed_pwm_cz_set_cur_state(struct thermal_cooling_device *tcdev,
-+			    unsigned long state)
-+{
-+	struct aspeed_cooling_device *cdev =
-+				(struct aspeed_cooling_device *)tcdev->devdata;
-+
-+	if (state > cdev->max_state)
-+		return -EINVAL;
-+
-+	cdev->cur_state = state;
-+	cdev->priv->pwm_port_fan_ctrl[cdev->pwm_port] = *(cdev->cooling_levels
-+							  + cdev->cur_state);
-+	aspeed_set_pwm_port_fan_ctrl(cdev->priv, cdev->pwm_port,
-+				     *(cdev->cooling_levels +
-+				       cdev->cur_state));
-+
-+	return 0;
-+}
-+
-+static const struct thermal_cooling_device_ops aspeed_pwm_cool_ops = {
-+	.get_max_state = aspeed_pwm_cz_get_max_state,
-+	.get_cur_state = aspeed_pwm_cz_get_cur_state,
-+	.set_cur_state = aspeed_pwm_cz_set_cur_state,
-+};
-+
-+static int aspeed_create_pwm(struct device *dev,
-+			     struct device_node *child,
-+			     struct aspeed_pwm_tacho_data *priv)
-+{
-+	u32 pwm_port;
-+	int ret;
-+
-+	ret = of_property_read_u32(child, "reg", &pwm_port);
-+	if (ret)
-+		return ret;
-+
-+	ret = of_property_count_u8_elems(child, "cooling-levels");
-+	if (ret <= 0) {
-+		dev_err(dev, "Wrong cooling-levels data.\n");
-+		return -EINVAL;
-+	}
-+
-+	priv->cdev[pwm_port] = devm_kzalloc(dev, sizeof(*priv->cdev[pwm_port]),
-+					    GFP_KERNEL);
-+	if (!priv->cdev[pwm_port])
-+		return -ENOMEM;
-+
-+	priv->cdev[pwm_port]->cooling_levels = devm_kzalloc(dev, ret *
-+							    sizeof(u8),
-+							    GFP_KERNEL);
-+	if (!priv->cdev[pwm_port]->cooling_levels)
-+		return -ENOMEM;
-+
-+	priv->cdev[pwm_port]->max_state = ret - 1;
-+	ret = of_property_read_u8_array(child, "cooling-levels",
-+					priv->cdev[pwm_port]->cooling_levels,
-+					ret);
-+	if (ret) {
-+		dev_err(dev, "Property 'cooling-levels' cannot be read.\n");
-+		return ret;
-+	}
-+
-+	sprintf(priv->cdev[pwm_port]->name, "%s%d", child->name, pwm_port);
-+	priv->cdev[pwm_port]->tcdev = thermal_of_cooling_device_register(child,
-+						priv->cdev[pwm_port]->name,
-+						priv->cdev[pwm_port],
-+						&aspeed_pwm_cool_ops);
-+	if (PTR_ERR_OR_ZERO(priv->cdev[pwm_port]->tcdev))
-+		return PTR_ERR(priv->cdev[pwm_port]->tcdev);
-+
-+	priv->cdev[pwm_port]->priv = priv;
-+	priv->cdev[pwm_port]->pwm_port = pwm_port;
-+
-+	return 0;
-+}
-+
- static int aspeed_pwm_tacho_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
--	struct device_node *np, *child;
-+	struct device_node *np, *child, *grandchild;
- 	struct aspeed_pwm_tacho_data *priv;
- 	void __iomem *regs;
- 	struct resource *res;
-@@ -833,10 +946,28 @@ static int aspeed_pwm_tacho_probe(struct platform_device *pdev)
- 	aspeed_create_type(priv);
- 
- 	for_each_child_of_node(np, child) {
--		ret = aspeed_create_fan(dev, child, priv);
-+		if (!of_node_cmp(child->name, "tach-channels")) {
-+			for_each_child_of_node(child, grandchild) {
-+				ret = aspeed_create_fan(dev, grandchild, priv);
-+				of_node_put(grandchild);
-+				if (ret) {
-+					of_node_put(child);
-+					return ret;
-+				}
-+			}
-+		}
-+
-+		if (!of_node_cmp(child->name, "pwm-channels")) {
-+			for_each_child_of_node(child, grandchild) {
-+				ret = aspeed_create_pwm(dev, grandchild, priv);
-+				of_node_put(grandchild);
-+				if (ret) {
-+					of_node_put(child);
-+					return ret;
-+				}
-+			}
-+		}
- 		of_node_put(child);
--		if (ret)
--			return ret;
- 	}
- 
- 	priv->groups[0] = &pwm_dev_group;
--- 
-2.8.4
+Looks like to be useful we need to cherry-pick https://patchwork.kernel
+.org/patch/9741401/ as well. Were you planning to do that (as the patch
+doesn't appear to be in dev-4.10 as of this morning), or is your intent
+just to future-proof us for=C2=A0when the patch gets pulled in through
+general progress?
+
+Andrew
+
+>=20
+> Cheers,
+>=20
+> Joel
+>=20
+>=20
+> Andrew
+>=20
+> [1] https://git.kernel.org/pub/scm/linux/kernel/git/tytso/random.git/tree=
+/Documentation/devicetree/bindings/rng/timeriomem_rng.txt?h=3Ddev
+>=20
+> >
+> > As to the recommended value for us to use:
+> >
+> > > > Rick Altherr <raltherr@google.com> wrote:
+> > > Quality is #bit of entropy per 1000 bits read.=C2=A0=C2=A0100 is a
+> > > conservative value that was suggested by those in the know.
+> >
+> > > Signed-off-by: Joel Stanley <joel@jms.id.au>
+> > ---
+> > =C2=A0arch/arm/boot/dts/aspeed-g4.dtsi | 1 +
+> > =C2=A0arch/arm/boot/dts/aspeed-g5.dtsi | 1 +
+> > =C2=A02 files changed, 2 insertions(+)
+> >
+> > diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspee=
+d-g4.dtsi
+> > index 9cc959fccfa0..470a6335399a 100644
+> > --- a/arch/arm/boot/dts/aspeed-g4.dtsi
+> > +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+> > @@ -193,6 +193,7 @@
+> > > =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0compatible =
+=3D "timeriomem_rng";
+> > > =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0reg =3D <0x1e=
+6e2078 0x4>;
+> > > =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0period =3D <1=
+>;
+> > > +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0quality =3D <100=
+>;
+> > > =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};
+> > =C2=A0
+> > > > > =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pinctrl: pinctrl@1e6e2000 {
+> > diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspee=
+d-g5.dtsi
+> > index 992242d3b22e..466b322951e1 100644
+> > --- a/arch/arm/boot/dts/aspeed-g5.dtsi
+> > +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+> > @@ -232,6 +232,7 @@
+> > > =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0compatible =3D "timeriomem_rng";
+> > > =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0reg =3D <0x1e6e2078 0x4>;
+> > > =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0period =3D <1>;
+> > > +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0quality =3D <100>;
+> > > =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0};
+> > =C2=A0
+> > > > > =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0gfx: display@1e6e6000 {
+>=20
+--=-bHIZYBbNtSYwL8dv55J4
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZXDOiAAoJEJ0dnzgO5LT5o/YP/34Wd7TtysSADgwNCfGWqe/7
+8UIB5ozh2CAVBOaO71cpBsZvRVqAWsVGtTdoGPmWk/6CMQ5SRedtAMUYlQi3wHFk
+081tfs7f6dqZhYgzt/Ue3qFtQ9w+MyLYP0TA5NIGarnIg15uzz95qjSnKTo446PE
+SrlGwmaExrQUOPg+FtGsMYBlw1bsxaRd6EKZLnsNniazlQIVcXP4MBkJJgLWoceS
+bq8ywViiu59xeNzstFqifTD+e6c9AVdQeWGNVEKfrGIUflT3IuRQzGsyLJPZcXjS
+B2DEJ165XIGN+GORCNxkRodGRvUjY7xdXg2KOtpVhA+9VgnjGVyFQPBv+5IsQ3KA
+nwwmwyOJesxLyN45TwLrLoN9NBZAntfhm1vsbIeZukUkJOZW3YYvb7Dd0UWO3mbl
+FxziHHnWY2wH34ig3vPY+/XHf0s9pjQ7qDXxxNF/B/2YShv6bmsU+cuc31P9KfPP
+jiYLW+8Z0CDgyyKQ1ovxo5rtSkGPKjb9qyfEZxeTaNxn7UIWELAgVkBsGvG9aCnL
+VktkRGjJL3zbuTxhmjH+EJ2MkT50kg/C2fE+9uv8EfnqzZqDD5VmTuRWUOpkPTv3
+eKS+Eo/kj+kQH+NDZHws0wiSRQKoOy1NEvMiV/4qztZioIhv5bBKw+t5I97pl3o6
+pmEg/BhxQZ5+3FPu0wL9
+=cTdg
+-----END PGP SIGNATURE-----
+
+--=-bHIZYBbNtSYwL8dv55J4--
