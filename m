@@ -1,51 +1,69 @@
-Return-Path: <venture@google.com>
-Received: from mail-pf0-x22a.google.com (mail-pf0-x22a.google.com
- [IPv6:2607:f8b0:400e:c00::22a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <cbostic@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x2rqn4vN4zDq5b
- for <openbmc@lists.ozlabs.org>; Thu,  6 Jul 2017 05:42:29 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="Lv8QlIJ/"; 
- dkim-atps=neutral
-Received: by mail-pf0-x22a.google.com with SMTP id c73so134466179pfk.2
- for <openbmc@lists.ozlabs.org>; Wed, 05 Jul 2017 12:42:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=wbIP+4vSHM4KTJrvz0NJy7IOCwrU4ECn6Ob2RCUXksA=;
- b=Lv8QlIJ/JToHYUELQKlFkIDXUMYcGpFeBPvoKMLj+gxwLfpZYDXQA48niEvxYynwPx
- Nd8Pk/GaeF/CR2ntCOUIdvoBsjjOsletCQJBcxkVmmuDrIvOQgzzG3QmaK/td+6LKEbZ
- thnqYvKGo+CRt7nEiXXa8ONCHnnrdurXrp9/P8274ACeiKCMoDR7JbZLDl/Hx9WhwtxJ
- 8c9rovnKtkQwLg0bFmSkyxzJJoECoCsJcJ9VL3Ad9UXBgKc897iZlMylZCypJ6cGUzgi
- dz5IW2I4MKFelSCsyVKjw6szrKPS+LYbWj7SB7GAJgzYRzQKL8YP3RT1gRp+XXbeg1xC
- rBRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=wbIP+4vSHM4KTJrvz0NJy7IOCwrU4ECn6Ob2RCUXksA=;
- b=egImODK4gOiIBDDg8o4NR9VQwLtewllu2jeuqAk9+0q5SsN+Q7gqCMgWT1+8KSQa2H
- l0fVn3zaVy1CVUXsbgBce+D7ki9RwFjwkmErdAk/Y+x/hrokVmNmkqUuaxjR35RsSH+G
- hYTYyI1BYdPZVyUwe8704R5Jl8ILffS616dchNLnrCbETMd7hxpB1dYJAmyOx1zkDshF
- 24FEe2616/ToznHVIlwX7cOxkeqTEZ969HxQ/C6zMOMXvffHpGJtP89cANLIgql2BFQS
- 6AEA9trUFLEuhHAuRhRiRlwTL2U2w5thjh+Xd3N8aKYodThyaQL6wTPibVsO8V8zh3Qr
- sdDg==
-X-Gm-Message-State: AIVw110zIXGBX2YZJqqhqDxrYenXm9EFdbgnNj23VLke857fNoiODvF4
- NyBNa9al/sdHQFfa3uZ5gnaxsEsk7HXn
-X-Received: by 10.84.192.3 with SMTP id b3mr24084956pld.76.1499283747097; Wed,
- 05 Jul 2017 12:42:27 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x2s8Y03trzDq5b
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Jul 2017 05:57:00 +1000 (AEST)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v65JrgJk138528
+ for <openbmc@lists.ozlabs.org>; Wed, 5 Jul 2017 15:56:58 -0400
+Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2bgv9tcumk-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 05 Jul 2017 15:56:57 -0400
+Received: from localhost
+ by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Wed, 5 Jul 2017 15:56:55 -0400
+Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
+ by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 5 Jul 2017 15:56:54 -0400
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v65Jurfh56426638; Wed, 5 Jul 2017 19:56:53 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A1667112047;
+ Wed,  5 Jul 2017 15:56:53 -0400 (EDT)
+Received: from Christophers-MacBook-Pro.local (unknown [9.83.0.237])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id D9017112040;
+ Wed,  5 Jul 2017 15:56:51 -0400 (EDT)
+Subject: Re: [PATCH linux dev-4.10] drivers/leds: Add GPIO keys for PCA955x
+ and ast24/2500 gpio
+To: Joel Stanley <joel@jms.id.au>
+References: <20170630225521.7612-1-cbostic@linux.vnet.ibm.com>
+ <CACPK8XeNz_paeutQF=ZjUURYWnWNHjWGr_Hb23C1S9tiqaRORg@mail.gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Date: Wed, 5 Jul 2017 14:56:48 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
+ Gecko/20100101 Thunderbird/45.7.0
 MIME-Version: 1.0
-Received: by 10.100.165.205 with HTTP; Wed, 5 Jul 2017 12:42:06 -0700 (PDT)
-In-Reply-To: <20170704135608.12334-1-c_mykolak@mellanox.com>
-References: <20170704135608.12334-1-c_mykolak@mellanox.com>
-From: Patrick Venture <venture@google.com>
-Date: Wed, 5 Jul 2017 12:42:06 -0700
-Message-ID: <CAO=notx8D46SqpVvGKzo-L_MD70SyOWprfLeosiWBKp4mgygcg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] hwmon: (aspeed-pwm-tacho) cooling device
- support
-To: Mykola Kostenok <c_mykolak@mellanox.com>
-Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <CACPK8XeNz_paeutQF=ZjUURYWnWNHjWGr_Hb23C1S9tiqaRORg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+x-cbid: 17070519-0048-0000-0000-000001BB96E5
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007325; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00883329; UDB=6.00440654; IPR=6.00663520; 
+ BA=6.00005454; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016095; XFM=3.00000015;
+ UTC=2017-07-05 19:56:55
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17070519-0049-0000-0000-000041C6F329
+Message-Id: <943d39f9-db00-5a97-e33f-9fca654a4949@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-07-05_13:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1707050331
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,464 +75,227 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Jul 2017 19:42:30 -0000
+X-List-Received-Date: Wed, 05 Jul 2017 19:57:01 -0000
 
-On Tue, Jul 4, 2017 at 6:56 AM, Mykola Kostenok <c_mykolak@mellanox.com> wrote:
-> Add support in aspeed-pwm-tacho driver for cooling device creation.
-> This cooling device could be bound to a thermal zone
-> for the thermal control. Device will appear in /sys/class/thermal
-> folder as cooling_deviceX. Then it could be bound to particular
-> thermal zones. Allow specification of the cooling levels
-> vector - PWM duty cycle values in a range from 0 to 255
-> which correspond to thermal cooling states.
->
-> Add basic pwm-tacho-controller node to ast-g5 dtsi.
-> Add basic pwm-tacho-controller node to ast-g4 dtsi.
->
-> Change pwm-tacho in aspeed-bmc-quanta-q71l.dts according new
-> pwm-tacho structure.
->
-> Add pwm-tacho to aspeed-bmc-mellanox-msn.dts.
->
-> Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts |  61 +++++++++++
->  arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts  | 103 +++++++++----------
->  arch/arm/boot/dts/aspeed-g4.dtsi              |   9 +-
->  arch/arm/boot/dts/aspeed-g5.dtsi              |  17 ++++
->  drivers/hwmon/aspeed-pwm-tacho.c              | 139 +++++++++++++++++++++++++-
->  5 files changed, 273 insertions(+), 56 deletions(-)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-> index c71a6db..57d5951 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-> @@ -144,3 +144,64 @@
->         status = "okay";
->  };
->
-> +&pwm_tacho {
-> +       status = "okay";
-> +       pinctrl-names = "default";
-> +       pinctrl-0 = <&pinctrl_pwm0_default>;
-> +
-> +       tach-channels {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +
-> +               fan@0 {
-> +                       reg = <0x00>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x00>;
-> +               };
-> +
-> +               fan@1 {
-> +                       reg = <0x00>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x01>;
-> +               };
-> +
-> +               fan@2 {
-> +                       reg = <0x00>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x02>;
-> +               };
-> +
-> +               fan@3 {
-> +                       reg = <0x00>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x03>;
-> +               };
-> +
-> +               fan@4 {
-> +                       reg = <0x00>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x04>;
-> +               };
-> +
-> +               fan@5 {
-> +                       reg = <0x00>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x05>;
-> +               };
-> +
-> +               fan@6 {
-> +                       reg = <0x00>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x06>;
-> +               };
-> +
-> +               fan@7 {
-> +                       reg = <0x00>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x07>;
-> +               };
-> +       };
-> +
-> +       pwm-channels {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #cooling-cells = <2>;
-> +
-> +               pwm@0 {
-> +                       reg = <0x00>;
-> +                       cooling-levels = /bits/ 8 <125 151 177 203 229 255>;
-> +               };
-> +       };
-> +};
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-> index bb287fb..43ada5b 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-> @@ -46,57 +46,6 @@
->                         gpios = <&gpio ASPEED_GPIO(B, 3) GPIO_ACTIVE_LOW>;
->                 };
->         };
-> -
-> -       pwm_tacho: pwm-tacho-controller@1e786000 {
-> -               compatible = "aspeed,ast2500-pwm-tacho";
-> -               #address-cells = <1>;
-> -               #size-cells = <0>;
-> -               reg = <0x1e786000 0x1000>;
-> -               clocks = <&pwm_tacho_fixed_clk>;
-> -               pinctrl-names = "default";
-> -               pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
-> -                       &pinctrl_pwm2_default &pinctrl_pwm3_default>;
-> -
-> -               fan@0 {
-> -                       reg = <0x00>;
-> -                       aspeed,fan-tach-ch = /bits/ 8 <0x00>;
-> -               };
-> -
-> -               fan@1 {
-> -                       reg = <0x01>;
-> -                       aspeed,fan-tach-ch = /bits/ 8 <0x01>;
-> -               };
-> -
-> -               fan@2 {
-> -                       reg = <0x02>;
-> -                       aspeed,fan-tach-ch = /bits/ 8 <0x02>;
-> -               };
-> -
-> -               fan@3 {
-> -                       reg = <0x03>;
-> -                       aspeed,fan-tach-ch = /bits/ 8 <0x03>;
-> -               };
-> -
-> -               fan@4 {
-> -                       reg = <0x00>;
-> -                       aspeed,fan-tach-ch = /bits/ 8 <0x04>;
-> -               };
-> -
-> -               fan@5 {
-> -                       reg = <0x01>;
-> -                       aspeed,fan-tach-ch = /bits/ 8 <0x05>;
-> -               };
-> -
-> -               fan@6 {
-> -                       reg = <0x02>;
-> -                       aspeed,fan-tach-ch = /bits/ 8 <0x06>;
-> -               };
-> -
-> -               fan@7 {
-> -                       reg = <0x03>;
-> -                       aspeed,fan-tach-ch = /bits/ 8 <0x07>;
-> -               };
-> -       };
->  };
->
->  &fmc {
-> @@ -299,3 +248,55 @@
->  &wdt2 {
->         status = "okay";
->  };
-> +
-> +&pwm_tacho {
-> +       status = "okay";
-> +       pinctrl-names = "default";
-> +       pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
-> +                               &pinctrl_pwm2_default &pinctrl_pwm3_default>;
-> +
-> +       tach-channels {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +
-> +               fan@0 {
-> +                       reg = <0x00>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x00>;
-> +               };
-> +
-> +               fan@1 {
-> +                       reg = <0x01>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x01>;
-> +               };
-> +
-> +               fan@2 {
-> +                       reg = <0x02>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x02>;
-> +               };
-> +
-> +               fan@3 {
-> +                       reg = <0x03>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x03>;
-> +               };
-> +
-> +               fan@4 {
-> +                       reg = <0x00>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x04>;
-> +               };
-> +
-> +               fan@5 {
-> +                       reg = <0x01>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x05>;
-> +               };
-> +
-> +               fan@6 {
-> +                       reg = <0x02>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x06>;
-> +               };
-> +
-> +               fan@7 {
-> +                       reg = <0x03>;
-> +                       aspeed,fan-tach-ch = /bits/ 8 <0x07>;
-> +               };
-> +       };
-> +};
-> diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-> index 9cc959f..c69ad77 100644
-> --- a/arch/arm/boot/dts/aspeed-g4.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-> @@ -318,7 +318,14 @@
->                                 ranges = <0 0x1e78a000 0x1000>;
->                         };
->
-> -
-> +                       pwm_tacho: pwm-tacho-controller@1e786000 {
-> +                               compatible = "aspeed,ast2500-pwm-tacho";
-> +                               #address-cells = <1>;
-> +                               #size-cells = <0>;
-> +                               reg = <0x1e786000 0x1000>;
-> +                               clocks = <&pwm_tacho_fixed_clk>;
-> +                               status = "disabled";
-> +                       };
->                 };
->         };
->  };
-> diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-> index 992242d..1ed29d9 100644
-> --- a/arch/arm/boot/dts/aspeed-g5.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-> @@ -35,6 +35,14 @@
->                 i2c13 = &i2c13;
->         };
->
-> +       clocks {
-> +               pwm_tacho_fixed_clk: fixedclk {
-> +                       compatible = "fixed-clock";
-> +                       #clock-cells = <0>;
-> +                       clock-frequency = <24000000>;
-> +               };
-> +       };
-> +
->         ahb {
->                 compatible = "simple-bus";
->                 #address-cells = <1>;
-> @@ -366,6 +374,15 @@
->                                 #size-cells = <1>;
->                                 ranges = <0 0x1e78a000 0x1000>;
->                         };
-> +
-> +                       pwm_tacho: pwm-tacho-controller@1e786000 {
-> +                               compatible = "aspeed,ast2500-pwm-tacho";
-> +                               #address-cells = <1>;
-> +                               #size-cells = <0>;
-> +                               reg = <0x1e786000 0x1000>;
-> +                               clocks = <&pwm_tacho_fixed_clk>;
-> +                               status = "disabled";
-> +                       };
->                 };
->         };
->  };
-> diff --git a/drivers/hwmon/aspeed-pwm-tacho.c b/drivers/hwmon/aspeed-pwm-tacho.c
-> index ddfe66b..eab18af 100644
-> --- a/drivers/hwmon/aspeed-pwm-tacho.c
-> +++ b/drivers/hwmon/aspeed-pwm-tacho.c
-> @@ -20,6 +20,7 @@
->  #include <linux/platform_device.h>
->  #include <linux/sysfs.h>
->  #include <linux/regmap.h>
-> +#include <linux/thermal.h>
->
->  /* ASPEED PWM & FAN Tach Register Definition */
->  #define ASPEED_PTCR_CTRL               0x00
-> @@ -166,6 +167,16 @@
->  /* How long we sleep in us while waiting for an RPM result. */
->  #define ASPEED_RPM_STATUS_SLEEP_USEC   500
->
-> +struct aspeed_cooling_device {
-> +       char name[16];
-> +       struct aspeed_pwm_tacho_data *priv;
-> +       struct thermal_cooling_device *tcdev;
-> +       int pwm_port;
-> +       u8 *cooling_levels;
-> +       u8 max_state;
-> +       u8 cur_state;
-> +};
-> +
->  struct aspeed_pwm_tacho_data {
->         struct regmap *regmap;
->         unsigned long clk_freq;
-> @@ -180,6 +191,7 @@ struct aspeed_pwm_tacho_data {
->         u8 pwm_port_type[8];
->         u8 pwm_port_fan_ctrl[8];
->         u8 fan_tach_ch_source[16];
-> +       struct aspeed_cooling_device *cdev[8];
->         const struct attribute_group *groups[3];
->  };
->
-> @@ -794,10 +806,111 @@ static int aspeed_create_fan(struct device *dev,
->         return 0;
->  }
->
-> +static int
-> +aspeed_pwm_cz_get_max_state(struct thermal_cooling_device *tcdev,
-> +                           unsigned long *state)
-> +{
-> +       struct aspeed_cooling_device *cdev =
-> +                               (struct aspeed_cooling_device *)tcdev->devdata;
-> +
-> +       *state = cdev->max_state;
-> +
-> +       return 0;
-> +}
-> +
-> +static int
-> +aspeed_pwm_cz_get_cur_state(struct thermal_cooling_device *tcdev,
-> +                           unsigned long *state)
-> +{
-> +       struct aspeed_cooling_device *cdev =
-> +                               (struct aspeed_cooling_device *)tcdev->devdata;
-> +
-> +       *state = cdev->cur_state;
-> +
-> +       return 0;
-> +}
-> +
-> +static int
-> +aspeed_pwm_cz_set_cur_state(struct thermal_cooling_device *tcdev,
-> +                           unsigned long state)
-> +{
-> +       struct aspeed_cooling_device *cdev =
-> +                               (struct aspeed_cooling_device *)tcdev->devdata;
-> +
-> +       if (state > cdev->max_state)
-> +               return -EINVAL;
-> +
-> +       cdev->cur_state = state;
-> +       cdev->priv->pwm_port_fan_ctrl[cdev->pwm_port] = *(cdev->cooling_levels
-> +                                                         + cdev->cur_state);
-> +       aspeed_set_pwm_port_fan_ctrl(cdev->priv, cdev->pwm_port,
-> +                                    *(cdev->cooling_levels +
-> +                                      cdev->cur_state));
-> +
-> +       return 0;
-> +}
-> +
-> +static const struct thermal_cooling_device_ops aspeed_pwm_cool_ops = {
-> +       .get_max_state = aspeed_pwm_cz_get_max_state,
-> +       .get_cur_state = aspeed_pwm_cz_get_cur_state,
-> +       .set_cur_state = aspeed_pwm_cz_set_cur_state,
-> +};
-> +
-> +static int aspeed_create_pwm(struct device *dev,
-> +                            struct device_node *child,
-> +                            struct aspeed_pwm_tacho_data *priv)
 
-For this, I would recommend just renaming to aspeed_create_pwm_cooling
 
-> +{
-> +       u32 pwm_port;
-> +       int ret;
-> +
-> +       ret = of_property_read_u32(child, "reg", &pwm_port);
-> +       if (ret)
-> +               return ret;
-> +
-> +       ret = of_property_count_u8_elems(child, "cooling-levels");
-> +       if (ret <= 0) {
-> +               dev_err(dev, "Wrong cooling-levels data.\n");
-> +               return -EINVAL;
-> +       }
-> +
-> +       priv->cdev[pwm_port] = devm_kzalloc(dev, sizeof(*priv->cdev[pwm_port]),
-> +                                           GFP_KERNEL);
-> +       if (!priv->cdev[pwm_port])
-> +               return -ENOMEM;
-> +
-> +       priv->cdev[pwm_port]->cooling_levels = devm_kzalloc(dev, ret *
-> +                                                           sizeof(u8),
-> +                                                           GFP_KERNEL);
-> +       if (!priv->cdev[pwm_port]->cooling_levels)
-> +               return -ENOMEM;
-> +
-> +       priv->cdev[pwm_port]->max_state = ret - 1;
-> +       ret = of_property_read_u8_array(child, "cooling-levels",
-> +                                       priv->cdev[pwm_port]->cooling_levels,
-> +                                       ret);
-> +       if (ret) {
-> +               dev_err(dev, "Property 'cooling-levels' cannot be read.\n");
-> +               return ret;
-> +       }
-> +
-> +       sprintf(priv->cdev[pwm_port]->name, "%s%d", child->name, pwm_port);
-> +       priv->cdev[pwm_port]->tcdev = thermal_of_cooling_device_register(child,
-> +                                               priv->cdev[pwm_port]->name,
-> +                                               priv->cdev[pwm_port],
-> +                                               &aspeed_pwm_cool_ops);
-> +       if (PTR_ERR_OR_ZERO(priv->cdev[pwm_port]->tcdev))
-> +               return PTR_ERR(priv->cdev[pwm_port]->tcdev);
-> +
-> +       priv->cdev[pwm_port]->priv = priv;
-> +       priv->cdev[pwm_port]->pwm_port = pwm_port;
-> +
-> +       return 0;
-> +}
-> +
->  static int aspeed_pwm_tacho_probe(struct platform_device *pdev)
->  {
->         struct device *dev = &pdev->dev;
-> -       struct device_node *np, *child;
-> +       struct device_node *np, *child, *grandchild;
->         struct aspeed_pwm_tacho_data *priv;
->         void __iomem *regs;
->         struct resource *res;
-> @@ -833,10 +946,28 @@ static int aspeed_pwm_tacho_probe(struct platform_device *pdev)
->         aspeed_create_type(priv);
+On 7/3/17 12:40 AM, Joel Stanley wrote:
+> On Sat, Jul 1, 2017 at 8:25 AM, Christopher Bostic
+> <cbostic@linux.vnet.ibm.com> wrote:
+>> Define gpio keys for power supply presence, ucd alert, and fan presence.
+>>
+>> Link pca955x to parent i2c interrupt controller so that new pca955x gpio
+>> keys for fan presence haning off of pca955x can be defined.
+>>
+>> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+>> ---
+>>   arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 77 ++++++++++++++++++++++++
+>>   drivers/leds/leds-pca955x.c                      | 64 ++++++++++++++++++++
+> The change to the source file and the .dts should be in separate patches.
+Will separate them.
 >
->         for_each_child_of_node(np, child) {
-> -               ret = aspeed_create_fan(dev, child, priv);
-> +               if (!of_node_cmp(child->name, "tach-channels")) {
-> +                       for_each_child_of_node(child, grandchild) {
-> +                               ret = aspeed_create_fan(dev, grandchild, priv);
-> +                               of_node_put(grandchild);
-> +                               if (ret) {
-> +                                       of_node_put(child);
-> +                                       return ret;
-> +                               }
-> +                       }
-> +               }
-> +
-> +               if (!of_node_cmp(child->name, "pwm-channels")) {
-> +                       for_each_child_of_node(child, grandchild) {
-> +                               ret = aspeed_create_pwm(dev, grandchild, priv);
-> +                               of_node_put(grandchild);
-> +                               if (ret) {
-> +                                       of_node_put(child);
-> +                                       return ret;
-> +                               }
-> +                       }
-> +               }
->                 of_node_put(child);
-> -               if (ret)
-> -                       return ret;
->         }
->
->         priv->groups[0] = &pwm_dev_group;
-> --
-> 2.8.4
->
+>>   2 files changed, 141 insertions(+)
+>>
+>> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+>> index 31315d0..24ea9944 100644
+>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+>> @@ -46,6 +46,48 @@
+>>                          gpios = <&gpio ASPEED_GPIO(J, 2) GPIO_ACTIVE_LOW>;
+>>                          linux,code = <ASPEED_GPIO(J, 2)>;
+>>                  };
+>> +
+>> +               ps0-presence {
+>> +                       label = "ps0-presence";
+>> +                       gpios = <&gpio ASPEED_GPIO(P, 7) GPIO_ACTIVE_LOW>;
+>> +                       linux,code = <ASPEED_GPIO(P, 7)>;
+>> +               };
+>> +
+>> +               ps1-presence {
+>> +                       label = "ps1-presence";
+>> +                       gpios = <&gpio ASPEED_GPIO(N, 0) GPIO_ACTIVE_LOW>;
+>> +                       linux,code = <ASPEED_GPIO(N, 0)>;
+>> +               };
+>> +
+>> +               ucd-alert {
+>> +                       label = "ucd-alert";
+>> +                       gpios = <&gpio ASPEED_GPIO(I, 2) GPIO_ACTIVE_LOW>;
+>> +                       linux,code = <ASPEED_GPIO(I, 2)>;
+>> +               };
+> I don't think this is correct. Isn't the alert line part of the sbmus device?
+According to the Box Elder schematic revision 03232017 page 24 there is 
+a line listed as 'BMC_UCD_ALERT_N' Connected to ast2500 GPIO I2 as an 
+input.   It appears this net is also connected to the smbus device.   
+Maybe I'm referencing the wrong signal?
 
-Presumably it's been tested and won't impact users who don't configure
-this behaviour, so I don't have a lot of feedback about functionality.
+>> +
+>> +               fan0-presence {
+>> +                       label = "fan0-presence";
+>> +                       gpios = <&pca0 0 GPIO_ACTIVE_LOW>;
+>> +                       linux,code = <0>;
+>> +               };
+>> +
+>> +               fan1-presence {
+>> +                       label = "fan1-presence";
+>> +                       gpios = <&pca0 1 GPIO_ACTIVE_LOW>;
+>> +                       linux,code = <1>;
+>> +               };
+>> +
+>> +               fan2-presence {
+>> +                       label = "fan2-presence";
+>> +                       gpios = <&pca0 2 GPIO_ACTIVE_LOW>;
+>> +                       linux,code = <2>;
+>> +               };
+>> +
+>> +               fan3-presence {
+>> +                       label = "fan3-presence";
+>> +                       gpios = <&pca0 3 GPIO_ACTIVE_LOW>;
+>> +                       linux,code = <3>;
+>> +               };
+>>          };
+>>
+>>          leds {
+>> @@ -203,6 +245,41 @@
+>>                  compatible = "infineon,dps310";
+>>                  reg = <0x76>;
+>>          };
+>> +
+>> +       pca0: pca9552@60 {
+>> +               compatible = "nxp,pca9552";
+>> +               reg = <0x60>;
+>> +               #address-cells = <1>;
+>> +               #size-cells = <0>;
+>> +               gpio-controller;
+>> +               #gpio-cells = <2>;
+>> +
+>> +               interrupt-parent = <&i2c_ic>;
+>> +               interrupts = <3>;
+>> +
+>> +               gpio-line-names = "FAN0_PRESENSE_N", "FAN1_PRESENSE_N",
+>> +                               "FAN2_PRESENSE_N", "FAN3_PRESENSE_N";
+>> +
+>> +               gpio@4 {
+>> +                       reg = <4>;
+>> +                       type = <PCA955X_TYPE_GPIO>;
+>> +               };
+>> +
+>> +               gpio@5 {
+>> +                       reg = <5>;
+>> +                       type = <PCA955X_TYPE_GPIO>;
+>> +               };
+>> +
+>> +               gpio@6 {
+>> +                       reg = <6>;
+>> +                       type = <PCA955X_TYPE_GPIO>;
+>> +               };
+>> +
+>> +               gpio@7 {
+>> +                       reg = <7>;
+>> +                       type = <PCA955X_TYPE_GPIO>;
+>> +               };
+>> +       };
+>>   };
+>>
+>>   &i2c4 {
+>> diff --git a/drivers/leds/leds-pca955x.c b/drivers/leds/leds-pca955x.c
+>> index 9216742..88990f1 100644
+>> --- a/drivers/leds/leds-pca955x.c
+>> +++ b/drivers/leds/leds-pca955x.c
+>> @@ -52,6 +52,7 @@
+>>   #include <linux/of.h>
+>>   #include <linux/slab.h>
+>>   #include <linux/string.h>
+>> +#include <linux/interrupt.h>
+>>
+>>   #include <dt-bindings/leds/leds-pca955x.h>
+>>
+>> @@ -389,6 +390,66 @@ static int pca955x_gpio_direction_output(struct gpio_chip *gc,
+>>   }
+>>   #endif
+>>
+>> +static void pca955x_irq_mask(struct irq_data *d)
+>> +{
+>> +}
+>> +
+>> +static void pca955x_irq_unmask(struct irq_data *d)
+>> +{
+>> +}
+>> +
+>> +static void pca955x_irq_bus_lock(struct irq_data *d)
+>> +{
+>> +}
+>> +
+>> +static void pca955x_irq_bus_sync_unlock(struct irq_data *d)
+>> +{
+>> +}
+> It looks like you sent a half-finished version.
+I added the basic capability required to register the GPIO key with 
+interrupt support.   The intent was to use the 'generic' interrupt 
+support provided by the kernel, handle_simple_irq( ) etc...   These 
+functions were left undefined since its not clear what need there will 
+be for them.  Maybe the best choice is to not define them in that case?
+
+
+Thanks,
+Chris
+>> +
+>> +static int pca955x_irq_set_type(struct irq_data *d, unsigned int type)
+>> +{
+>> +       return 0;
+>> +}
+>> +
+>> +static struct irq_chip pca955x_irq_chip = {
+>> +       .name                   = "pca955x",
+>> +       .irq_mask               = pca955x_irq_mask,
+>> +       .irq_unmask             = pca955x_irq_unmask,
+>> +       .irq_bus_lock           = pca955x_irq_bus_lock,
+>> +       .irq_bus_sync_unlock    = pca955x_irq_bus_sync_unlock,
+>> +       .irq_set_type           = pca955x_irq_set_type,
+>> +};
+>> +
+>> +static int pca955x_irq_setup(struct pca955x *chip, int irq_base)
+>> +{
+>> +       struct i2c_client *client;
+>> +       int ret;
+>> +
+>> +       if (!chip)
+>> +               return 0;
+>> +
+>> +       client = chip->client;
+>> +       if (!client)
+>> +               return 0;
+>> +
+>> +       if (client->irq && irq_base >= 0) {
+>> +               ret = gpiochip_irqchip_add_nested(&chip->gpio,
+>> +                                               &pca955x_irq_chip,
+>> +                                               irq_base,
+>> +                                               handle_simple_irq,
+>> +                                               IRQ_TYPE_NONE);
+>> +               if (ret) {
+>> +                       dev_err(&client->dev,
+>> +                               "could not connect irqchip to gpiochip\n");
+>> +                       return ret;
+>> +               }
+>> +               gpiochip_set_nested_irqchip(&chip->gpio,
+>> +                                       &pca955x_irq_chip,
+>> +                                       client->irq);
+>> +       }
+>> +       return 0;
+>> +}
+>> +
+>>   static int pca955x_probe(struct i2c_client *client,
+>>                                          const struct i2c_device_id *id)
+>>   {
+>> @@ -543,6 +604,9 @@ static int pca955x_probe(struct i2c_client *client,
+>>                  }
+>>          }
+>>   #endif
+>> +       err = pca955x_irq_setup(pca955x, 0);
+>> +       if (err)
+>> +               return err;
+>>
+>>          return 0;
+>>   }
+>> --
+>> 1.8.2.2
+>>
