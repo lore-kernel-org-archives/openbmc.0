@@ -1,54 +1,79 @@
-Return-Path: <venture@google.com>
-Received: from mail-pf0-x234.google.com (mail-pf0-x234.google.com
- [IPv6:2607:f8b0:400e:c00::234])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <vadimp@mellanox.com>
+Received: from EUR03-DB5-obe.outbound.protection.outlook.com
+ (mail-eopbgr40069.outbound.protection.outlook.com [40.107.4.69])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x2tKv68ZYzDq5b
- for <openbmc@lists.ozlabs.org>; Thu,  6 Jul 2017 06:50:11 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="E9eCV/Bq"; 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x2tWW5QP8zDr27
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Jul 2017 06:58:31 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b="HDn27nOI";
  dkim-atps=neutral
-Received: by mail-pf0-x234.google.com with SMTP id q86so270145pfl.3
- for <openbmc@lists.ozlabs.org>; Wed, 05 Jul 2017 13:50:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=SBfSJV1AD7zL5sX/Atlcpjp4dvg43TWSW2pp+vbBXME=;
- b=E9eCV/Bqwe8wT1ZhZSSHes2u/nCtDLjnDb0nkNAHlKyyDl4wwvE9F/vZKkFVPEznVG
- rUU6bZ5XeWe99YCHHZo85b7sI9nkqidp/TO8wHxyn6en3JqUmRN9RGbyFo6crdjVb1cm
- 0eE/KnkJGgskMMMmdHsu0moCj1Y/TVyQjmjgIO5xd/5zrSvOq1EJT47ySPccINRYOQ/v
- xM4wJ+aMi2IvuhSlvxsUNI7ryIWK8RMWQYUHdJVYuVjfk4+oWHHMYbh+iTUdkcAmNGWo
- XGvRpVikuX/AOKjbU/eEc6PfGproTFXAEBUdRGFuTGNoLa9iqmEyzamVNvhiWp3stg7A
- bfFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=SBfSJV1AD7zL5sX/Atlcpjp4dvg43TWSW2pp+vbBXME=;
- b=bE7Zk+ZOONrb7Rd34mZ6GllWEwJznfyXJKUk8PPGBYbyIS+4Z4cn/JKx3RpE8c7gPs
- FoQ4trS6CUAr2Bk+ATVt1t0PHqt4gdnCYGLKHxmPbdXVmOEDonUbb7JJgpzzInwaVzNp
- rk90bULyyJ7JvYqo+NewU3yty8gr5Tg2lYSiadg0sH6dAZbUiKKgaqz5Vc5STiO82Kjn
- bwRW2JTI3xSFBOr6inRR8aYMGbV4I04DDHNHpbRkmqenZYqzl0OobsMI3cYasRQUe8V5
- 8TdFI90z6guhOjc+qT3nrRebiOQfIf+x8rcuK8fXSkTGfnsgiS1GZrp5YOwbMuEf1bVl
- XBZw==
-X-Gm-Message-State: AIVw111S+mUddBphg89gk11R8jQsTWM7vuNZ7NlSM3RahMO2a3YhO+cU
- SKClhgPvxt/BQhg3QqdoRP/WBCHBhWhk
-X-Received: by 10.99.53.135 with SMTP id c129mr23057816pga.68.1499287807738;
- Wed, 05 Jul 2017 13:50:07 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.100.165.205 with HTTP; Wed, 5 Jul 2017 13:49:47 -0700 (PDT)
-In-Reply-To: <AM4PR05MB333081FCAE4A081AAC7CFA0CA2D40@AM4PR05MB3330.eurprd05.prod.outlook.com>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
+ s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=YdG5kHFB4xUP4zDs5Tj4O2zT48Ib6S6lCUJuzIZWk/s=;
+ b=HDn27nOIxilSGMviWfvBZbP48GIzaJSDJb6o/8RwxrCkSd9+vF83Iqt48OFneaIomBhrMdLCCh/QMl/z5bFBZ5KLzyjA9V7ukmsyj/DS3Ia8IWGChc4bydc5ltrqbU8yFeXckWmsGIxept7RF5VTFTaG+GB8iGnvRmgMV36uDf4=
+Received: from AM4PR05MB3330.eurprd05.prod.outlook.com (10.171.187.15) by
+ AM2PR05MB1219.eurprd05.prod.outlook.com (10.163.148.145) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.1220.11; Wed, 5 Jul 2017 20:58:24 +0000
+Received: from AM4PR05MB3330.eurprd05.prod.outlook.com
+ ([fe80::b139:dd6:ef32:aafd]) by AM4PR05MB3330.eurprd05.prod.outlook.com
+ ([fe80::b139:dd6:ef32:aafd%13]) with mapi id 15.01.1220.018; Wed, 5 Jul 2017
+ 20:58:24 +0000
+From: Vadim Pasternak <vadimp@mellanox.com>
+To: Patrick Venture <venture@google.com>
+CC: Mykola Kostenok <c_mykolak@mellanox.com>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>
+Subject: RE: [PATCH linux dev-4.10] hwmon: (aspeed-pwm-tacho) cooling device
+ support
+Thread-Topic: [PATCH linux dev-4.10] hwmon: (aspeed-pwm-tacho) cooling device
+ support
+Thread-Index: AQHS9cbeBARh94MoYE64gWgX1R26saJFpo6ggAAOXYCAAAHssA==
+Date: Wed, 5 Jul 2017 20:58:23 +0000
+Message-ID: <AM4PR05MB333060ECD8C07AD75418CA57A2D40@AM4PR05MB3330.eurprd05.prod.outlook.com>
 References: <20170704135608.12334-1-c_mykolak@mellanox.com>
  <CAO=notx8D46SqpVvGKzo-L_MD70SyOWprfLeosiWBKp4mgygcg@mail.gmail.com>
  <AM4PR05MB333081FCAE4A081AAC7CFA0CA2D40@AM4PR05MB3330.eurprd05.prod.outlook.com>
-From: Patrick Venture <venture@google.com>
-Date: Wed, 5 Jul 2017 13:49:47 -0700
-Message-ID: <CAO=notzfwT2YhoHU6qw9kd3Vw16QOMh+wp+Vmk7UcXanmz9eLg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] hwmon: (aspeed-pwm-tacho) cooling device
- support
-To: Vadim Pasternak <vadimp@mellanox.com>
-Cc: Mykola Kostenok <c_mykolak@mellanox.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ <CAO=notzfwT2YhoHU6qw9kd3Vw16QOMh+wp+Vmk7UcXanmz9eLg@mail.gmail.com>
+In-Reply-To: <CAO=notzfwT2YhoHU6qw9kd3Vw16QOMh+wp+Vmk7UcXanmz9eLg@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: google.com; dkim=none (message not signed)
+ header.d=none;google.com; dmarc=none action=none header.from=mellanox.com;
+x-originating-ip: [193.47.165.251]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; AM2PR05MB1219;
+ 7:v1OzahWVRzCuea0n6oO4gJuFswOZNhZ+QmKVTEEWUHWueI10KACk3Zb+ZAt4XD8y7IQ0McCwHykISFl/9kEGYLfLnyUmfGE5XCgFPbYNSstDTiWUBWmViRgBqSsc0hO169zb+NH8y6r3eqfeIazfUpe2qwK2iIiSE/zQdVAtZs4niIQ3TSgxNqjZ+FbyikIaFg8nqaIjzU/LZmEGV3OBjUksvUTsMECOEBS/8Cz19HUOyG6xZ6GucnAGUdUx4Rn+VFz4wvK9KLzMGRg59z7HjyXKESFDBwobXVjpjWkW5W1fm6eJPnWZ4HjU4UPVpOsw26GM3+ONL9SgdF0IkuG7t7PV7Q7D5/TArqbUvtDNLgD5HOI/RLrNGBFxIngeVHnYBJVAQ0Uc0uKKtyxlDkdFWdt9spru6DJNRKDAEu59yg9NlzMBO96Di3DtTQZMKLZQ3uvFKyvdYuOeyuev7alvkfajgChlPeQ4lpjdCQODGWvg8S9yI+36BacKHJ+WSrZnqU85mSN0K+NiggtDcusVaI9tQNQzE28g1plprWSwrjd1UPHL2p3V/tssjcbvCLDm/hHo+ih7bz0L4Hasnkq/sw8Sl+HkCMNIAur5n0tOu5IgxqZH8NqoWbXur2HucOH7K9azraZD24M3TdJ48dxVCVBGChVKi/EJiYmObD6UDoLWvD50S9N9qCRG+yW3Ip2Qf+YwRJXPRtdXQwSsvy2dsrXr5402Zvfhb5JSVZEvz5iQ7IkoEFgmboF5WTCs7tgNFIjlPUIf58uGUtVpz2La6Z/3SnUiCRsnPpeezMel/Xw=
+x-ms-office365-filtering-correlation-id: 03eaab66-10da-477f-c77b-08d4c3e8938a
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
+ RULEID:(300000500095)(300135000095)(300000501095)(300135300095)(22001)(300000502095)(300135100095)(2017030254075)(48565401081)(300000503095)(300135400095)(2017052603031)(201703131423075)(201703031133081)(300000504095)(300135200095)(300000505095)(300135600095)(300000506095)(300135500095);
+ SRVR:AM2PR05MB1219; 
+x-ms-traffictypediagnostic: AM2PR05MB1219:
+x-microsoft-antispam-prvs: <AM2PR05MB12199B34CE481B1641AA375DA2D40@AM2PR05MB1219.eurprd05.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(133145235818549)(236129657087228)(65623756079841)(48057245064654)(211936372134217)(148574349560750);
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(100000700101)(100105000095)(100000701101)(100105300095)(100000702101)(100105100095)(6040450)(601004)(2401047)(5005006)(8121501046)(3002001)(93006095)(93001095)(10201501046)(100000703101)(100105400095)(6055026)(6041248)(20161123555025)(20161123564025)(20161123562025)(201703131423075)(201702281528075)(201703061421075)(201703061406153)(20161123558100)(20161123560025)(6072148)(100000704101)(100105200095)(100000705101)(100105500095);
+ SRVR:AM2PR05MB1219; BCL:0; PCL:0;
+ RULEID:(100000800101)(100110000095)(100000801101)(100110300095)(100000802101)(100110100095)(100000803101)(100110400095)(100000804101)(100110200095)(100000805101)(100110500095);
+ SRVR:AM2PR05MB1219; 
+x-forefront-prvs: 0359162B6D
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(6009001)(39450400003)(39840400002)(39860400002)(39850400002)(39400400002)(39410400002)(377454003)(24454002)(13464003)(110136004)(6506006)(305945005)(2900100001)(81166006)(38730400002)(74316002)(229853002)(33656002)(86362001)(5250100002)(4326008)(6436002)(478600001)(8676002)(25786009)(189998001)(53546010)(3660700001)(53936002)(99286003)(6116002)(3846002)(45080400002)(66066001)(54906002)(7696004)(102836003)(93886004)(54356999)(2950100002)(76176999)(6246003)(50986999)(6916009)(5660300001)(230783001)(8936002)(55016002)(2906002)(7736002)(53946003)(9686003)(3280700002)(14454004)(579004);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:AM2PR05MB1219;
+ H:AM4PR05MB3330.eurprd05.prod.outlook.com; FPR:; SPF:None; MLV:sfv; LANG:en; 
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: Mellanox.com
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Jul 2017 20:58:23.9466 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM2PR05MB1219
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,508 +85,373 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Jul 2017 20:50:12 -0000
+X-List-Received-Date: Wed, 05 Jul 2017 20:58:33 -0000
 
-On Wed, Jul 5, 2017 at 1:10 PM, Vadim Pasternak <vadimp@mellanox.com> wrote:
->
->
->> -----Original Message-----
->> From: openbmc [mailto:openbmc-
->> bounces+yanivab=mellanox.com@lists.ozlabs.org] On Behalf Of Patrick
->> Venture
->> Sent: Wednesday, July 05, 2017 10:42 PM
->> To: Mykola Kostenok <c_mykolak@mellanox.com>
->> Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
->> Subject: Re: [PATCH linux dev-4.10] hwmon: (aspeed-pwm-tacho) cooling
->> device support
->>
->> On Tue, Jul 4, 2017 at 6:56 AM, Mykola Kostenok
->> <c_mykolak@mellanox.com> wrote:
->> > Add support in aspeed-pwm-tacho driver for cooling device creation.
->> > This cooling device could be bound to a thermal zone for the thermal
->> > control. Device will appear in /sys/class/thermal folder as
->> > cooling_deviceX. Then it could be bound to particular thermal zones.
->> > Allow specification of the cooling levels vector - PWM duty cycle
->> > values in a range from 0 to 255 which correspond to thermal cooling
->> > states.
->> >
->> > Add basic pwm-tacho-controller node to ast-g5 dtsi.
->> > Add basic pwm-tacho-controller node to ast-g4 dtsi.
->> >
->> > Change pwm-tacho in aspeed-bmc-quanta-q71l.dts according new pwm-
->> tacho
->> > structure.
->> >
->> > Add pwm-tacho to aspeed-bmc-mellanox-msn.dts.
->> >
->> > Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
->> > ---
->> >  arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts |  61 +++++++++++
->> > arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts  | 103 +++++++++---------
->> -
->> >  arch/arm/boot/dts/aspeed-g4.dtsi              |   9 +-
->> >  arch/arm/boot/dts/aspeed-g5.dtsi              |  17 ++++
->> >  drivers/hwmon/aspeed-pwm-tacho.c              | 139
->> +++++++++++++++++++++++++-
->> >  5 files changed, 273 insertions(+), 56 deletions(-)
->> >
->> > diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
->> > b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
->> > index c71a6db..57d5951 100644
->> > --- a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
->> > +++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
->> > @@ -144,3 +144,64 @@
->> >         status = "okay";
->> >  };
->> >
->> > +&pwm_tacho {
->> > +       status = "okay";
->> > +       pinctrl-names = "default";
->> > +       pinctrl-0 = <&pinctrl_pwm0_default>;
->> > +
->> > +       tach-channels {
->> > +               #address-cells = <1>;
->> > +               #size-cells = <0>;
->> > +
->> > +               fan@0 {
->> > +                       reg = <0x00>;
->> > +                       aspeed,fan-tach-ch = /bits/ 8 <0x00>;
->> > +               };
->> > +
->> > +               fan@1 {
->> > +                       reg = <0x00>;
->> > +                       aspeed,fan-tach-ch = /bits/ 8 <0x01>;
->> > +               };
->> > +
->> > +               fan@2 {
->> > +                       reg = <0x00>;
->> > +                       aspeed,fan-tach-ch = /bits/ 8 <0x02>;
->> > +               };
->> > +
->> > +               fan@3 {
->> > +                       reg = <0x00>;
->> > +                       aspeed,fan-tach-ch = /bits/ 8 <0x03>;
->> > +               };
->> > +
->> > +               fan@4 {
->> > +                       reg = <0x00>;
->> > +                       aspeed,fan-tach-ch = /bits/ 8 <0x04>;
->> > +               };
->> > +
->> > +               fan@5 {
->> > +                       reg = <0x00>;
->> > +                       aspeed,fan-tach-ch = /bits/ 8 <0x05>;
->> > +               };
->> > +
->> > +               fan@6 {
->> > +                       reg = <0x00>;
->> > +                       aspeed,fan-tach-ch = /bits/ 8 <0x06>;
->> > +               };
->> > +
->> > +               fan@7 {
->> > +                       reg = <0x00>;
->> > +                       aspeed,fan-tach-ch = /bits/ 8 <0x07>;
->> > +               };
->> > +       };
->> > +
->> > +       pwm-channels {
->> > +               #address-cells = <1>;
->> > +               #size-cells = <0>;
->> > +               #cooling-cells = <2>;
->> > +
->> > +               pwm@0 {
->> > +                       reg = <0x00>;
->> > +                       cooling-levels = /bits/ 8 <125 151 177 203 229 255>;
->> > +               };
->> > +       };
->> > +};
->> > diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
->> > b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
->> > index bb287fb..43ada5b 100644
->> > --- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
->> > +++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
->> > @@ -46,57 +46,6 @@
->> >                         gpios = <&gpio ASPEED_GPIO(B, 3) GPIO_ACTIVE_LOW>;
->> >                 };
->> >         };
->> > -
->> > -       pwm_tacho: pwm-tacho-controller@1e786000 {
->> > -               compatible = "aspeed,ast2500-pwm-tacho";
->> > -               #address-cells = <1>;
->> > -               #size-cells = <0>;
->> > -               reg = <0x1e786000 0x1000>;
->> > -               clocks = <&pwm_tacho_fixed_clk>;
->> > -               pinctrl-names = "default";
->> > -               pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
->> > -                       &pinctrl_pwm2_default &pinctrl_pwm3_default>;
->> > -
->> > -               fan@0 {
->> > -                       reg = <0x00>;
->> > -                       aspeed,fan-tach-ch = /bits/ 8 <0x00>;
->> > -               };
->> > -
->> > -               fan@1 {
->> > -                       reg = <0x01>;
->> > -                       aspeed,fan-tach-ch = /bits/ 8 <0x01>;
->> > -               };
->> > -
->> > -               fan@2 {
->> > -                       reg = <0x02>;
->> > -                       aspeed,fan-tach-ch = /bits/ 8 <0x02>;
->> > -               };
->> > -
->> > -               fan@3 {
->> > -                       reg = <0x03>;
->> > -                       aspeed,fan-tach-ch = /bits/ 8 <0x03>;
->> > -               };
->> > -
->> > -               fan@4 {
->> > -                       reg = <0x00>;
->> > -                       aspeed,fan-tach-ch = /bits/ 8 <0x04>;
->> > -               };
->> > -
->> > -               fan@5 {
->> > -                       reg = <0x01>;
->> > -                       aspeed,fan-tach-ch = /bits/ 8 <0x05>;
->> > -               };
->> > -
->> > -               fan@6 {
->> > -                       reg = <0x02>;
->> > -                       aspeed,fan-tach-ch = /bits/ 8 <0x06>;
->> > -               };
->> > -
->> > -               fan@7 {
->> > -                       reg = <0x03>;
->> > -                       aspeed,fan-tach-ch = /bits/ 8 <0x07>;
->> > -               };
->> > -       };
->> >  };
->> >
->> >  &fmc {
->> > @@ -299,3 +248,55 @@
->> >  &wdt2 {
->> >         status = "okay";
->> >  };
->> > +
->> > +&pwm_tacho {
->> > +       status = "okay";
->> > +       pinctrl-names = "default";
->> > +       pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
->> > +                               &pinctrl_pwm2_default
->> > +&pinctrl_pwm3_default>;
->> > +
->> > +       tach-channels {
->> > +               #address-cells = <1>;
->> > +               #size-cells = <0>;
->> > +
->> > +               fan@0 {
->> > +                       reg = <0x00>;
->> > +                       aspeed,fan-tach-ch = /bits/ 8 <0x00>;
->> > +               };
->> > +
->> > +               fan@1 {
->> > +                       reg = <0x01>;
->> > +                       aspeed,fan-tach-ch = /bits/ 8 <0x01>;
->> > +               };
->> > +
->> > +               fan@2 {
->> > +                       reg = <0x02>;
->> > +                       aspeed,fan-tach-ch = /bits/ 8 <0x02>;
->> > +               };
->> > +
->> > +               fan@3 {
->> > +                       reg = <0x03>;
->> > +                       aspeed,fan-tach-ch = /bits/ 8 <0x03>;
->> > +               };
->> > +
->> > +               fan@4 {
->> > +                       reg = <0x00>;
->> > +                       aspeed,fan-tach-ch = /bits/ 8 <0x04>;
->> > +               };
->> > +
->> > +               fan@5 {
->> > +                       reg = <0x01>;
->> > +                       aspeed,fan-tach-ch = /bits/ 8 <0x05>;
->> > +               };
->> > +
->> > +               fan@6 {
->> > +                       reg = <0x02>;
->> > +                       aspeed,fan-tach-ch = /bits/ 8 <0x06>;
->> > +               };
->> > +
->> > +               fan@7 {
->> > +                       reg = <0x03>;
->> > +                       aspeed,fan-tach-ch = /bits/ 8 <0x07>;
->> > +               };
->> > +       };
->> > +};
->> > diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi
->> > b/arch/arm/boot/dts/aspeed-g4.dtsi
->> > index 9cc959f..c69ad77 100644
->> > --- a/arch/arm/boot/dts/aspeed-g4.dtsi
->> > +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
->> > @@ -318,7 +318,14 @@
->> >                                 ranges = <0 0x1e78a000 0x1000>;
->> >                         };
->> >
->> > -
->> > +                       pwm_tacho: pwm-tacho-controller@1e786000 {
->> > +                               compatible = "aspeed,ast2500-pwm-tacho";
->> > +                               #address-cells = <1>;
->> > +                               #size-cells = <0>;
->> > +                               reg = <0x1e786000 0x1000>;
->> > +                               clocks = <&pwm_tacho_fixed_clk>;
->> > +                               status = "disabled";
->> > +                       };
->> >                 };
->> >         };
->> >  };
->> > diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi
->> > b/arch/arm/boot/dts/aspeed-g5.dtsi
->> > index 992242d..1ed29d9 100644
->> > --- a/arch/arm/boot/dts/aspeed-g5.dtsi
->> > +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
->> > @@ -35,6 +35,14 @@
->> >                 i2c13 = &i2c13;
->> >         };
->> >
->> > +       clocks {
->> > +               pwm_tacho_fixed_clk: fixedclk {
->> > +                       compatible = "fixed-clock";
->> > +                       #clock-cells = <0>;
->> > +                       clock-frequency = <24000000>;
->> > +               };
->> > +       };
->> > +
->> >         ahb {
->> >                 compatible = "simple-bus";
->> >                 #address-cells = <1>;
->> > @@ -366,6 +374,15 @@
->> >                                 #size-cells = <1>;
->> >                                 ranges = <0 0x1e78a000 0x1000>;
->> >                         };
->> > +
->> > +                       pwm_tacho: pwm-tacho-controller@1e786000 {
->> > +                               compatible = "aspeed,ast2500-pwm-tacho";
->> > +                               #address-cells = <1>;
->> > +                               #size-cells = <0>;
->> > +                               reg = <0x1e786000 0x1000>;
->> > +                               clocks = <&pwm_tacho_fixed_clk>;
->> > +                               status = "disabled";
->> > +                       };
->> >                 };
->> >         };
->> >  };
->> > diff --git a/drivers/hwmon/aspeed-pwm-tacho.c
->> > b/drivers/hwmon/aspeed-pwm-tacho.c
->> > index ddfe66b..eab18af 100644
->> > --- a/drivers/hwmon/aspeed-pwm-tacho.c
->> > +++ b/drivers/hwmon/aspeed-pwm-tacho.c
->> > @@ -20,6 +20,7 @@
->> >  #include <linux/platform_device.h>
->> >  #include <linux/sysfs.h>
->> >  #include <linux/regmap.h>
->> > +#include <linux/thermal.h>
->> >
->> >  /* ASPEED PWM & FAN Tach Register Definition */
->> >  #define ASPEED_PTCR_CTRL               0x00
->> > @@ -166,6 +167,16 @@
->> >  /* How long we sleep in us while waiting for an RPM result. */
->> >  #define ASPEED_RPM_STATUS_SLEEP_USEC   500
->> >
->> > +struct aspeed_cooling_device {
->> > +       char name[16];
->> > +       struct aspeed_pwm_tacho_data *priv;
->> > +       struct thermal_cooling_device *tcdev;
->> > +       int pwm_port;
->> > +       u8 *cooling_levels;
->> > +       u8 max_state;
->> > +       u8 cur_state;
->> > +};
->> > +
->> >  struct aspeed_pwm_tacho_data {
->> >         struct regmap *regmap;
->> >         unsigned long clk_freq;
->> > @@ -180,6 +191,7 @@ struct aspeed_pwm_tacho_data {
->> >         u8 pwm_port_type[8];
->> >         u8 pwm_port_fan_ctrl[8];
->> >         u8 fan_tach_ch_source[16];
->> > +       struct aspeed_cooling_device *cdev[8];
->> >         const struct attribute_group *groups[3];  };
->> >
->> > @@ -794,10 +806,111 @@ static int aspeed_create_fan(struct device *dev,
->> >         return 0;
->> >  }
->> >
->> > +static int
->> > +aspeed_pwm_cz_get_max_state(struct thermal_cooling_device *tcdev,
->> > +                           unsigned long *state) {
->> > +       struct aspeed_cooling_device *cdev =
->> > +                               (struct aspeed_cooling_device
->> > +*)tcdev->devdata;
->> > +
->> > +       *state = cdev->max_state;
->> > +
->> > +       return 0;
->> > +}
->> > +
->> > +static int
->> > +aspeed_pwm_cz_get_cur_state(struct thermal_cooling_device *tcdev,
->> > +                           unsigned long *state) {
->> > +       struct aspeed_cooling_device *cdev =
->> > +                               (struct aspeed_cooling_device
->> > +*)tcdev->devdata;
->> > +
->> > +       *state = cdev->cur_state;
->> > +
->> > +       return 0;
->> > +}
->> > +
->> > +static int
->> > +aspeed_pwm_cz_set_cur_state(struct thermal_cooling_device *tcdev,
->> > +                           unsigned long state) {
->> > +       struct aspeed_cooling_device *cdev =
->> > +                               (struct aspeed_cooling_device
->> > +*)tcdev->devdata;
->> > +
->> > +       if (state > cdev->max_state)
->> > +               return -EINVAL;
->> > +
->> > +       cdev->cur_state = state;
->> > +       cdev->priv->pwm_port_fan_ctrl[cdev->pwm_port] = *(cdev-
->> >cooling_levels
->> > +                                                         + cdev->cur_state);
->> > +       aspeed_set_pwm_port_fan_ctrl(cdev->priv, cdev->pwm_port,
->> > +                                    *(cdev->cooling_levels +
->> > +                                      cdev->cur_state));
->> > +
->> > +       return 0;
->> > +}
->> > +
->> > +static const struct thermal_cooling_device_ops aspeed_pwm_cool_ops =
->> {
->> > +       .get_max_state = aspeed_pwm_cz_get_max_state,
->> > +       .get_cur_state = aspeed_pwm_cz_get_cur_state,
->> > +       .set_cur_state = aspeed_pwm_cz_set_cur_state, };
->> > +
->> > +static int aspeed_create_pwm(struct device *dev,
->> > +                            struct device_node *child,
->> > +                            struct aspeed_pwm_tacho_data *priv)
->>
->> For this, I would recommend just renaming to aspeed_create_pwm_cooling
->>
->> > +{
->> > +       u32 pwm_port;
->> > +       int ret;
->> > +
->> > +       ret = of_property_read_u32(child, "reg", &pwm_port);
->> > +       if (ret)
->> > +               return ret;
->> > +
->> > +       ret = of_property_count_u8_elems(child, "cooling-levels");
->> > +       if (ret <= 0) {
->> > +               dev_err(dev, "Wrong cooling-levels data.\n");
->> > +               return -EINVAL;
->> > +       }
->> > +
->> > +       priv->cdev[pwm_port] = devm_kzalloc(dev, sizeof(*priv-
->> >cdev[pwm_port]),
->> > +                                           GFP_KERNEL);
->> > +       if (!priv->cdev[pwm_port])
->> > +               return -ENOMEM;
->> > +
->> > +       priv->cdev[pwm_port]->cooling_levels = devm_kzalloc(dev, ret *
->> > +                                                           sizeof(u8),
->> > +                                                           GFP_KERNEL);
->> > +       if (!priv->cdev[pwm_port]->cooling_levels)
->> > +               return -ENOMEM;
->> > +
->> > +       priv->cdev[pwm_port]->max_state = ret - 1;
->> > +       ret = of_property_read_u8_array(child, "cooling-levels",
->> > +                                       priv->cdev[pwm_port]->cooling_levels,
->> > +                                       ret);
->> > +       if (ret) {
->> > +               dev_err(dev, "Property 'cooling-levels' cannot be read.\n");
->> > +               return ret;
->> > +       }
->> > +
->> > +       sprintf(priv->cdev[pwm_port]->name, "%s%d", child->name,
->> pwm_port);
->> > +       priv->cdev[pwm_port]->tcdev =
->> thermal_of_cooling_device_register(child,
->> > +                                               priv->cdev[pwm_port]->name,
->> > +                                               priv->cdev[pwm_port],
->> > +                                               &aspeed_pwm_cool_ops);
->> > +       if (PTR_ERR_OR_ZERO(priv->cdev[pwm_port]->tcdev))
->> > +               return PTR_ERR(priv->cdev[pwm_port]->tcdev);
->> > +
->> > +       priv->cdev[pwm_port]->priv = priv;
->> > +       priv->cdev[pwm_port]->pwm_port = pwm_port;
->> > +
->> > +       return 0;
->> > +}
->> > +
->> >  static int aspeed_pwm_tacho_probe(struct platform_device *pdev)  {
->> >         struct device *dev = &pdev->dev;
->> > -       struct device_node *np, *child;
->> > +       struct device_node *np, *child, *grandchild;
->> >         struct aspeed_pwm_tacho_data *priv;
->> >         void __iomem *regs;
->> >         struct resource *res;
->> > @@ -833,10 +946,28 @@ static int aspeed_pwm_tacho_probe(struct
->> platform_device *pdev)
->> >         aspeed_create_type(priv);
->> >
->> >         for_each_child_of_node(np, child) {
->> > -               ret = aspeed_create_fan(dev, child, priv);
->> > +               if (!of_node_cmp(child->name, "tach-channels")) {
->> > +                       for_each_child_of_node(child, grandchild) {
->> > +                               ret = aspeed_create_fan(dev, grandchild, priv);
->> > +                               of_node_put(grandchild);
->> > +                               if (ret) {
->> > +                                       of_node_put(child);
->> > +                                       return ret;
->> > +                               }
->> > +                       }
->> > +               }
->> > +
->> > +               if (!of_node_cmp(child->name, "pwm-channels")) {
->> > +                       for_each_child_of_node(child, grandchild) {
->> > +                               ret = aspeed_create_pwm(dev, grandchild, priv);
->> > +                               of_node_put(grandchild);
->> > +                               if (ret) {
->> > +                                       of_node_put(child);
->> > +                                       return ret;
->> > +                               }
->> > +                       }
->> > +               }
->> >                 of_node_put(child);
->> > -               if (ret)
->> > -                       return ret;
->> >         }
->> >
->> >         priv->groups[0] = &pwm_dev_group;
->> > --
->> > 2.8.4
->> >
->>
->> Presumably it's been tested and won't impact users who don't configure this
->> behaviour, so I don't have a lot of feedback about functionality.
->
-> Hi Patrick,
->
-> Thanks for review.
->
-> If it's not configured, cooling device is not created and of course there is no impact of functionality.
-> If cooling device is created, but not bound to any thermal device there is also no impact.
->
-> We are using it along with kernel step wise thermal algorithm which  is supposed to set up or down pwm on crossing thermal zone boundary to the relevant cooling level and to perform PWM throttling  according to temperature trend.
-> It also can be enabled/disabled through sysfs.
->
-> Cheers,
-> Vadim.
-
-Fantastic.  I approve this change.  Have you sent this driver patch
-upstream to hwmon maintainers?
-
-Patrick
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogUGF0cmljayBWZW50dXJl
+IFttYWlsdG86dmVudHVyZUBnb29nbGUuY29tXQ0KPiBTZW50OiBXZWRuZXNkYXksIEp1bHkgMDUs
+IDIwMTcgMTE6NTAgUE0NCj4gVG86IFZhZGltIFBhc3Rlcm5hayA8dmFkaW1wQG1lbGxhbm94LmNv
+bT4NCj4gQ2M6IE15a29sYSBLb3N0ZW5vayA8Y19teWtvbGFrQG1lbGxhbm94LmNvbT47IE9wZW5C
+TUMgTWFpbGxpc3QNCj4gPG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZz4NCj4gU3ViamVjdDogUmU6
+IFtQQVRDSCBsaW51eCBkZXYtNC4xMF0gaHdtb246IChhc3BlZWQtcHdtLXRhY2hvKSBjb29saW5n
+DQo+IGRldmljZSBzdXBwb3J0DQo+IA0KPiBPbiBXZWQsIEp1bCA1LCAyMDE3IGF0IDE6MTAgUE0s
+IFZhZGltIFBhc3Rlcm5hayA8dmFkaW1wQG1lbGxhbm94LmNvbT4NCj4gd3JvdGU6DQo+ID4NCj4g
+Pg0KPiA+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiA+PiBGcm9tOiBvcGVuYm1jIFtt
+YWlsdG86b3BlbmJtYy0NCj4gPj4gYm91bmNlcyt5YW5pdmFiPW1lbGxhbm94LmNvbUBsaXN0cy5v
+emxhYnMub3JnXSBPbiBCZWhhbGYgT2YgUGF0cmljaw0KPiA+PiBWZW50dXJlDQo+ID4+IFNlbnQ6
+IFdlZG5lc2RheSwgSnVseSAwNSwgMjAxNyAxMDo0MiBQTQ0KPiA+PiBUbzogTXlrb2xhIEtvc3Rl
+bm9rIDxjX215a29sYWtAbWVsbGFub3guY29tPg0KPiA+PiBDYzogT3BlbkJNQyBNYWlsbGlzdCA8
+b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPg0KPiA+PiBTdWJqZWN0OiBSZTogW1BBVENIIGxpbnV4
+IGRldi00LjEwXSBod21vbjogKGFzcGVlZC1wd20tdGFjaG8pIGNvb2xpbmcNCj4gPj4gZGV2aWNl
+IHN1cHBvcnQNCj4gPj4NCj4gPj4gT24gVHVlLCBKdWwgNCwgMjAxNyBhdCA2OjU2IEFNLCBNeWtv
+bGEgS29zdGVub2sNCj4gPj4gPGNfbXlrb2xha0BtZWxsYW5veC5jb20+IHdyb3RlOg0KPiA+PiA+
+IEFkZCBzdXBwb3J0IGluIGFzcGVlZC1wd20tdGFjaG8gZHJpdmVyIGZvciBjb29saW5nIGRldmlj
+ZSBjcmVhdGlvbi4NCj4gPj4gPiBUaGlzIGNvb2xpbmcgZGV2aWNlIGNvdWxkIGJlIGJvdW5kIHRv
+IGEgdGhlcm1hbCB6b25lIGZvciB0aGUNCj4gPj4gPiB0aGVybWFsIGNvbnRyb2wuIERldmljZSB3
+aWxsIGFwcGVhciBpbiAvc3lzL2NsYXNzL3RoZXJtYWwgZm9sZGVyIGFzDQo+ID4+ID4gY29vbGlu
+Z19kZXZpY2VYLiBUaGVuIGl0IGNvdWxkIGJlIGJvdW5kIHRvIHBhcnRpY3VsYXIgdGhlcm1hbCB6
+b25lcy4NCj4gPj4gPiBBbGxvdyBzcGVjaWZpY2F0aW9uIG9mIHRoZSBjb29saW5nIGxldmVscyB2
+ZWN0b3IgLSBQV00gZHV0eSBjeWNsZQ0KPiA+PiA+IHZhbHVlcyBpbiBhIHJhbmdlIGZyb20gMCB0
+byAyNTUgd2hpY2ggY29ycmVzcG9uZCB0byB0aGVybWFsIGNvb2xpbmcNCj4gPj4gPiBzdGF0ZXMu
+DQo+ID4+ID4NCj4gPj4gPiBBZGQgYmFzaWMgcHdtLXRhY2hvLWNvbnRyb2xsZXIgbm9kZSB0byBh
+c3QtZzUgZHRzaS4NCj4gPj4gPiBBZGQgYmFzaWMgcHdtLXRhY2hvLWNvbnRyb2xsZXIgbm9kZSB0
+byBhc3QtZzQgZHRzaS4NCj4gPj4gPg0KPiA+PiA+IENoYW5nZSBwd20tdGFjaG8gaW4gYXNwZWVk
+LWJtYy1xdWFudGEtcTcxbC5kdHMgYWNjb3JkaW5nIG5ldw0KPiBwd20tDQo+ID4+IHRhY2hvDQo+
+ID4+ID4gc3RydWN0dXJlLg0KPiA+PiA+DQo+ID4+ID4gQWRkIHB3bS10YWNobyB0byBhc3BlZWQt
+Ym1jLW1lbGxhbm94LW1zbi5kdHMuDQo+ID4+ID4NCj4gPj4gPiBTaWduZWQtb2ZmLWJ5OiBNeWtv
+bGEgS29zdGVub2sgPGNfbXlrb2xha0BtZWxsYW5veC5jb20+DQo+ID4+ID4gLS0tDQo+ID4+ID4g
+IGFyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1ibWMtbWVsbGFub3gtbXNuLmR0cyB8ICA2MSArKysr
+KysrKysrKw0KPiA+PiA+IGFyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1ibWMtcXVhbnRhLXE3MWwu
+ZHRzICB8IDEwMw0KPiA+PiA+ICsrKysrKysrKy0tLS0tLS0tLQ0KPiA+PiAtDQo+ID4+ID4gIGFy
+Y2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1nNC5kdHNpICAgICAgICAgICAgICB8ICAgOSArLQ0KPiA+
+PiA+ICBhcmNoL2FybS9ib290L2R0cy9hc3BlZWQtZzUuZHRzaSAgICAgICAgICAgICAgfCAgMTcg
+KysrKw0KPiA+PiA+ICBkcml2ZXJzL2h3bW9uL2FzcGVlZC1wd20tdGFjaG8uYyAgICAgICAgICAg
+ICAgfCAxMzkNCj4gPj4gKysrKysrKysrKysrKysrKysrKysrKysrKy0NCj4gPj4gPiAgNSBmaWxl
+cyBjaGFuZ2VkLCAyNzMgaW5zZXJ0aW9ucygrKSwgNTYgZGVsZXRpb25zKC0pDQo+ID4+ID4NCj4g
+Pj4gPiBkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1tZWxsYW5veC1t
+c24uZHRzDQo+ID4+ID4gYi9hcmNoL2FybS9ib290L2R0cy9hc3BlZWQtYm1jLW1lbGxhbm94LW1z
+bi5kdHMNCj4gPj4gPiBpbmRleCBjNzFhNmRiLi41N2Q1OTUxIDEwMDY0NA0KPiA+PiA+IC0tLSBh
+L2FyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1ibWMtbWVsbGFub3gtbXNuLmR0cw0KPiA+PiA+ICsr
+KyBiL2FyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1ibWMtbWVsbGFub3gtbXNuLmR0cw0KPiA+PiA+
+IEBAIC0xNDQsMyArMTQ0LDY0IEBADQo+ID4+ID4gICAgICAgICBzdGF0dXMgPSAib2theSI7DQo+
+ID4+ID4gIH07DQo+ID4+ID4NCj4gPj4gPiArJnB3bV90YWNobyB7DQo+ID4+ID4gKyAgICAgICBz
+dGF0dXMgPSAib2theSI7DQo+ID4+ID4gKyAgICAgICBwaW5jdHJsLW5hbWVzID0gImRlZmF1bHQi
+Ow0KPiA+PiA+ICsgICAgICAgcGluY3RybC0wID0gPCZwaW5jdHJsX3B3bTBfZGVmYXVsdD47DQo+
+ID4+ID4gKw0KPiA+PiA+ICsgICAgICAgdGFjaC1jaGFubmVscyB7DQo+ID4+ID4gKyAgICAgICAg
+ICAgICAgICNhZGRyZXNzLWNlbGxzID0gPDE+Ow0KPiA+PiA+ICsgICAgICAgICAgICAgICAjc2l6
+ZS1jZWxscyA9IDwwPjsNCj4gPj4gPiArDQo+ID4+ID4gKyAgICAgICAgICAgICAgIGZhbkAwIHsN
+Cj4gPj4gPiArICAgICAgICAgICAgICAgICAgICAgICByZWcgPSA8MHgwMD47DQo+ID4+ID4gKyAg
+ICAgICAgICAgICAgICAgICAgICAgYXNwZWVkLGZhbi10YWNoLWNoID0gL2JpdHMvIDggPDB4MDA+
+Ow0KPiA+PiA+ICsgICAgICAgICAgICAgICB9Ow0KPiA+PiA+ICsNCj4gPj4gPiArICAgICAgICAg
+ICAgICAgZmFuQDEgew0KPiA+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgIHJlZyA9IDwweDAw
+PjsNCj4gPj4gPiArICAgICAgICAgICAgICAgICAgICAgICBhc3BlZWQsZmFuLXRhY2gtY2ggPSAv
+Yml0cy8gOCA8MHgwMT47DQo+ID4+ID4gKyAgICAgICAgICAgICAgIH07DQo+ID4+ID4gKw0KPiA+
+PiA+ICsgICAgICAgICAgICAgICBmYW5AMiB7DQo+ID4+ID4gKyAgICAgICAgICAgICAgICAgICAg
+ICAgcmVnID0gPDB4MDA+Ow0KPiA+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgIGFzcGVlZCxm
+YW4tdGFjaC1jaCA9IC9iaXRzLyA4IDwweDAyPjsNCj4gPj4gPiArICAgICAgICAgICAgICAgfTsN
+Cj4gPj4gPiArDQo+ID4+ID4gKyAgICAgICAgICAgICAgIGZhbkAzIHsNCj4gPj4gPiArICAgICAg
+ICAgICAgICAgICAgICAgICByZWcgPSA8MHgwMD47DQo+ID4+ID4gKyAgICAgICAgICAgICAgICAg
+ICAgICAgYXNwZWVkLGZhbi10YWNoLWNoID0gL2JpdHMvIDggPDB4MDM+Ow0KPiA+PiA+ICsgICAg
+ICAgICAgICAgICB9Ow0KPiA+PiA+ICsNCj4gPj4gPiArICAgICAgICAgICAgICAgZmFuQDQgew0K
+PiA+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgIHJlZyA9IDwweDAwPjsNCj4gPj4gPiArICAg
+ICAgICAgICAgICAgICAgICAgICBhc3BlZWQsZmFuLXRhY2gtY2ggPSAvYml0cy8gOCA8MHgwND47
+DQo+ID4+ID4gKyAgICAgICAgICAgICAgIH07DQo+ID4+ID4gKw0KPiA+PiA+ICsgICAgICAgICAg
+ICAgICBmYW5ANSB7DQo+ID4+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgcmVnID0gPDB4MDA+
+Ow0KPiA+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgIGFzcGVlZCxmYW4tdGFjaC1jaCA9IC9i
+aXRzLyA4IDwweDA1PjsNCj4gPj4gPiArICAgICAgICAgICAgICAgfTsNCj4gPj4gPiArDQo+ID4+
+ID4gKyAgICAgICAgICAgICAgIGZhbkA2IHsNCj4gPj4gPiArICAgICAgICAgICAgICAgICAgICAg
+ICByZWcgPSA8MHgwMD47DQo+ID4+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgYXNwZWVkLGZh
+bi10YWNoLWNoID0gL2JpdHMvIDggPDB4MDY+Ow0KPiA+PiA+ICsgICAgICAgICAgICAgICB9Ow0K
+PiA+PiA+ICsNCj4gPj4gPiArICAgICAgICAgICAgICAgZmFuQDcgew0KPiA+PiA+ICsgICAgICAg
+ICAgICAgICAgICAgICAgIHJlZyA9IDwweDAwPjsNCj4gPj4gPiArICAgICAgICAgICAgICAgICAg
+ICAgICBhc3BlZWQsZmFuLXRhY2gtY2ggPSAvYml0cy8gOCA8MHgwNz47DQo+ID4+ID4gKyAgICAg
+ICAgICAgICAgIH07DQo+ID4+ID4gKyAgICAgICB9Ow0KPiA+PiA+ICsNCj4gPj4gPiArICAgICAg
+IHB3bS1jaGFubmVscyB7DQo+ID4+ID4gKyAgICAgICAgICAgICAgICNhZGRyZXNzLWNlbGxzID0g
+PDE+Ow0KPiA+PiA+ICsgICAgICAgICAgICAgICAjc2l6ZS1jZWxscyA9IDwwPjsNCj4gPj4gPiAr
+ICAgICAgICAgICAgICAgI2Nvb2xpbmctY2VsbHMgPSA8Mj47DQo+ID4+ID4gKw0KPiA+PiA+ICsg
+ICAgICAgICAgICAgICBwd21AMCB7DQo+ID4+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgcmVn
+ID0gPDB4MDA+Ow0KPiA+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgIGNvb2xpbmctbGV2ZWxz
+ID0gL2JpdHMvIDggPDEyNSAxNTEgMTc3IDIwMyAyMjkgMjU1PjsNCj4gPj4gPiArICAgICAgICAg
+ICAgICAgfTsNCj4gPj4gPiArICAgICAgIH07DQo+ID4+ID4gK307DQo+ID4+ID4gZGlmZiAtLWdp
+dCBhL2FyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1ibWMtcXVhbnRhLXE3MWwuZHRzDQo+ID4+ID4g
+Yi9hcmNoL2FybS9ib290L2R0cy9hc3BlZWQtYm1jLXF1YW50YS1xNzFsLmR0cw0KPiA+PiA+IGlu
+ZGV4IGJiMjg3ZmIuLjQzYWRhNWIgMTAwNjQ0DQo+ID4+ID4gLS0tIGEvYXJjaC9hcm0vYm9vdC9k
+dHMvYXNwZWVkLWJtYy1xdWFudGEtcTcxbC5kdHMNCj4gPj4gPiArKysgYi9hcmNoL2FybS9ib290
+L2R0cy9hc3BlZWQtYm1jLXF1YW50YS1xNzFsLmR0cw0KPiA+PiA+IEBAIC00Niw1NyArNDYsNiBA
+QA0KPiA+PiA+ICAgICAgICAgICAgICAgICAgICAgICAgIGdwaW9zID0gPCZncGlvIEFTUEVFRF9H
+UElPKEIsIDMpIEdQSU9fQUNUSVZFX0xPVz47DQo+ID4+ID4gICAgICAgICAgICAgICAgIH07DQo+
+ID4+ID4gICAgICAgICB9Ow0KPiA+PiA+IC0NCj4gPj4gPiAtICAgICAgIHB3bV90YWNobzogcHdt
+LXRhY2hvLWNvbnRyb2xsZXJAMWU3ODYwMDAgew0KPiA+PiA+IC0gICAgICAgICAgICAgICBjb21w
+YXRpYmxlID0gImFzcGVlZCxhc3QyNTAwLXB3bS10YWNobyI7DQo+ID4+ID4gLSAgICAgICAgICAg
+ICAgICNhZGRyZXNzLWNlbGxzID0gPDE+Ow0KPiA+PiA+IC0gICAgICAgICAgICAgICAjc2l6ZS1j
+ZWxscyA9IDwwPjsNCj4gPj4gPiAtICAgICAgICAgICAgICAgcmVnID0gPDB4MWU3ODYwMDAgMHgx
+MDAwPjsNCj4gPj4gPiAtICAgICAgICAgICAgICAgY2xvY2tzID0gPCZwd21fdGFjaG9fZml4ZWRf
+Y2xrPjsNCj4gPj4gPiAtICAgICAgICAgICAgICAgcGluY3RybC1uYW1lcyA9ICJkZWZhdWx0IjsN
+Cj4gPj4gPiAtICAgICAgICAgICAgICAgcGluY3RybC0wID0gPCZwaW5jdHJsX3B3bTBfZGVmYXVs
+dCAmcGluY3RybF9wd20xX2RlZmF1bHQNCj4gPj4gPiAtICAgICAgICAgICAgICAgICAgICAgICAm
+cGluY3RybF9wd20yX2RlZmF1bHQgJnBpbmN0cmxfcHdtM19kZWZhdWx0PjsNCj4gPj4gPiAtDQo+
+ID4+ID4gLSAgICAgICAgICAgICAgIGZhbkAwIHsNCj4gPj4gPiAtICAgICAgICAgICAgICAgICAg
+ICAgICByZWcgPSA8MHgwMD47DQo+ID4+ID4gLSAgICAgICAgICAgICAgICAgICAgICAgYXNwZWVk
+LGZhbi10YWNoLWNoID0gL2JpdHMvIDggPDB4MDA+Ow0KPiA+PiA+IC0gICAgICAgICAgICAgICB9
+Ow0KPiA+PiA+IC0NCj4gPj4gPiAtICAgICAgICAgICAgICAgZmFuQDEgew0KPiA+PiA+IC0gICAg
+ICAgICAgICAgICAgICAgICAgIHJlZyA9IDwweDAxPjsNCj4gPj4gPiAtICAgICAgICAgICAgICAg
+ICAgICAgICBhc3BlZWQsZmFuLXRhY2gtY2ggPSAvYml0cy8gOCA8MHgwMT47DQo+ID4+ID4gLSAg
+ICAgICAgICAgICAgIH07DQo+ID4+ID4gLQ0KPiA+PiA+IC0gICAgICAgICAgICAgICBmYW5AMiB7
+DQo+ID4+ID4gLSAgICAgICAgICAgICAgICAgICAgICAgcmVnID0gPDB4MDI+Ow0KPiA+PiA+IC0g
+ICAgICAgICAgICAgICAgICAgICAgIGFzcGVlZCxmYW4tdGFjaC1jaCA9IC9iaXRzLyA4IDwweDAy
+PjsNCj4gPj4gPiAtICAgICAgICAgICAgICAgfTsNCj4gPj4gPiAtDQo+ID4+ID4gLSAgICAgICAg
+ICAgICAgIGZhbkAzIHsNCj4gPj4gPiAtICAgICAgICAgICAgICAgICAgICAgICByZWcgPSA8MHgw
+Mz47DQo+ID4+ID4gLSAgICAgICAgICAgICAgICAgICAgICAgYXNwZWVkLGZhbi10YWNoLWNoID0g
+L2JpdHMvIDggPDB4MDM+Ow0KPiA+PiA+IC0gICAgICAgICAgICAgICB9Ow0KPiA+PiA+IC0NCj4g
+Pj4gPiAtICAgICAgICAgICAgICAgZmFuQDQgew0KPiA+PiA+IC0gICAgICAgICAgICAgICAgICAg
+ICAgIHJlZyA9IDwweDAwPjsNCj4gPj4gPiAtICAgICAgICAgICAgICAgICAgICAgICBhc3BlZWQs
+ZmFuLXRhY2gtY2ggPSAvYml0cy8gOCA8MHgwND47DQo+ID4+ID4gLSAgICAgICAgICAgICAgIH07
+DQo+ID4+ID4gLQ0KPiA+PiA+IC0gICAgICAgICAgICAgICBmYW5ANSB7DQo+ID4+ID4gLSAgICAg
+ICAgICAgICAgICAgICAgICAgcmVnID0gPDB4MDE+Ow0KPiA+PiA+IC0gICAgICAgICAgICAgICAg
+ICAgICAgIGFzcGVlZCxmYW4tdGFjaC1jaCA9IC9iaXRzLyA4IDwweDA1PjsNCj4gPj4gPiAtICAg
+ICAgICAgICAgICAgfTsNCj4gPj4gPiAtDQo+ID4+ID4gLSAgICAgICAgICAgICAgIGZhbkA2IHsN
+Cj4gPj4gPiAtICAgICAgICAgICAgICAgICAgICAgICByZWcgPSA8MHgwMj47DQo+ID4+ID4gLSAg
+ICAgICAgICAgICAgICAgICAgICAgYXNwZWVkLGZhbi10YWNoLWNoID0gL2JpdHMvIDggPDB4MDY+
+Ow0KPiA+PiA+IC0gICAgICAgICAgICAgICB9Ow0KPiA+PiA+IC0NCj4gPj4gPiAtICAgICAgICAg
+ICAgICAgZmFuQDcgew0KPiA+PiA+IC0gICAgICAgICAgICAgICAgICAgICAgIHJlZyA9IDwweDAz
+PjsNCj4gPj4gPiAtICAgICAgICAgICAgICAgICAgICAgICBhc3BlZWQsZmFuLXRhY2gtY2ggPSAv
+Yml0cy8gOCA8MHgwNz47DQo+ID4+ID4gLSAgICAgICAgICAgICAgIH07DQo+ID4+ID4gLSAgICAg
+ICB9Ow0KPiA+PiA+ICB9Ow0KPiA+PiA+DQo+ID4+ID4gICZmbWMgew0KPiA+PiA+IEBAIC0yOTks
+MyArMjQ4LDU1IEBADQo+ID4+ID4gICZ3ZHQyIHsNCj4gPj4gPiAgICAgICAgIHN0YXR1cyA9ICJv
+a2F5IjsNCj4gPj4gPiAgfTsNCj4gPj4gPiArDQo+ID4+ID4gKyZwd21fdGFjaG8gew0KPiA+PiA+
+ICsgICAgICAgc3RhdHVzID0gIm9rYXkiOw0KPiA+PiA+ICsgICAgICAgcGluY3RybC1uYW1lcyA9
+ICJkZWZhdWx0IjsNCj4gPj4gPiArICAgICAgIHBpbmN0cmwtMCA9IDwmcGluY3RybF9wd20wX2Rl
+ZmF1bHQgJnBpbmN0cmxfcHdtMV9kZWZhdWx0DQo+ID4+ID4gKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAmcGluY3RybF9wd20yX2RlZmF1bHQNCj4gPj4gPiArJnBpbmN0cmxfcHdtM19k
+ZWZhdWx0PjsNCj4gPj4gPiArDQo+ID4+ID4gKyAgICAgICB0YWNoLWNoYW5uZWxzIHsNCj4gPj4g
+PiArICAgICAgICAgICAgICAgI2FkZHJlc3MtY2VsbHMgPSA8MT47DQo+ID4+ID4gKyAgICAgICAg
+ICAgICAgICNzaXplLWNlbGxzID0gPDA+Ow0KPiA+PiA+ICsNCj4gPj4gPiArICAgICAgICAgICAg
+ICAgZmFuQDAgew0KPiA+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgIHJlZyA9IDwweDAwPjsN
+Cj4gPj4gPiArICAgICAgICAgICAgICAgICAgICAgICBhc3BlZWQsZmFuLXRhY2gtY2ggPSAvYml0
+cy8gOCA8MHgwMD47DQo+ID4+ID4gKyAgICAgICAgICAgICAgIH07DQo+ID4+ID4gKw0KPiA+PiA+
+ICsgICAgICAgICAgICAgICBmYW5AMSB7DQo+ID4+ID4gKyAgICAgICAgICAgICAgICAgICAgICAg
+cmVnID0gPDB4MDE+Ow0KPiA+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgIGFzcGVlZCxmYW4t
+dGFjaC1jaCA9IC9iaXRzLyA4IDwweDAxPjsNCj4gPj4gPiArICAgICAgICAgICAgICAgfTsNCj4g
+Pj4gPiArDQo+ID4+ID4gKyAgICAgICAgICAgICAgIGZhbkAyIHsNCj4gPj4gPiArICAgICAgICAg
+ICAgICAgICAgICAgICByZWcgPSA8MHgwMj47DQo+ID4+ID4gKyAgICAgICAgICAgICAgICAgICAg
+ICAgYXNwZWVkLGZhbi10YWNoLWNoID0gL2JpdHMvIDggPDB4MDI+Ow0KPiA+PiA+ICsgICAgICAg
+ICAgICAgICB9Ow0KPiA+PiA+ICsNCj4gPj4gPiArICAgICAgICAgICAgICAgZmFuQDMgew0KPiA+
+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgIHJlZyA9IDwweDAzPjsNCj4gPj4gPiArICAgICAg
+ICAgICAgICAgICAgICAgICBhc3BlZWQsZmFuLXRhY2gtY2ggPSAvYml0cy8gOCA8MHgwMz47DQo+
+ID4+ID4gKyAgICAgICAgICAgICAgIH07DQo+ID4+ID4gKw0KPiA+PiA+ICsgICAgICAgICAgICAg
+ICBmYW5ANCB7DQo+ID4+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgcmVnID0gPDB4MDA+Ow0K
+PiA+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgIGFzcGVlZCxmYW4tdGFjaC1jaCA9IC9iaXRz
+LyA4IDwweDA0PjsNCj4gPj4gPiArICAgICAgICAgICAgICAgfTsNCj4gPj4gPiArDQo+ID4+ID4g
+KyAgICAgICAgICAgICAgIGZhbkA1IHsNCj4gPj4gPiArICAgICAgICAgICAgICAgICAgICAgICBy
+ZWcgPSA8MHgwMT47DQo+ID4+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgYXNwZWVkLGZhbi10
+YWNoLWNoID0gL2JpdHMvIDggPDB4MDU+Ow0KPiA+PiA+ICsgICAgICAgICAgICAgICB9Ow0KPiA+
+PiA+ICsNCj4gPj4gPiArICAgICAgICAgICAgICAgZmFuQDYgew0KPiA+PiA+ICsgICAgICAgICAg
+ICAgICAgICAgICAgIHJlZyA9IDwweDAyPjsNCj4gPj4gPiArICAgICAgICAgICAgICAgICAgICAg
+ICBhc3BlZWQsZmFuLXRhY2gtY2ggPSAvYml0cy8gOCA8MHgwNj47DQo+ID4+ID4gKyAgICAgICAg
+ICAgICAgIH07DQo+ID4+ID4gKw0KPiA+PiA+ICsgICAgICAgICAgICAgICBmYW5ANyB7DQo+ID4+
+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgcmVnID0gPDB4MDM+Ow0KPiA+PiA+ICsgICAgICAg
+ICAgICAgICAgICAgICAgIGFzcGVlZCxmYW4tdGFjaC1jaCA9IC9iaXRzLyA4IDwweDA3PjsNCj4g
+Pj4gPiArICAgICAgICAgICAgICAgfTsNCj4gPj4gPiArICAgICAgIH07DQo+ID4+ID4gK307DQo+
+ID4+ID4gZGlmZiAtLWdpdCBhL2FyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1nNC5kdHNpDQo+ID4+
+ID4gYi9hcmNoL2FybS9ib290L2R0cy9hc3BlZWQtZzQuZHRzaQ0KPiA+PiA+IGluZGV4IDljYzk1
+OWYuLmM2OWFkNzcgMTAwNjQ0DQo+ID4+ID4gLS0tIGEvYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVk
+LWc0LmR0c2kNCj4gPj4gPiArKysgYi9hcmNoL2FybS9ib290L2R0cy9hc3BlZWQtZzQuZHRzaQ0K
+PiA+PiA+IEBAIC0zMTgsNyArMzE4LDE0IEBADQo+ID4+ID4gICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICByYW5nZXMgPSA8MCAweDFlNzhhMDAwIDB4MTAwMD47DQo+ID4+ID4gICAgICAg
+ICAgICAgICAgICAgICAgICAgfTsNCj4gPj4gPg0KPiA+PiA+IC0NCj4gPj4gPiArICAgICAgICAg
+ICAgICAgICAgICAgICBwd21fdGFjaG86IHB3bS10YWNoby1jb250cm9sbGVyQDFlNzg2MDAwIHsN
+Cj4gPj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAiYXNw
+ZWVkLGFzdDI1MDAtcHdtLXRhY2hvIjsNCj4gPj4gPiArICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICNhZGRyZXNzLWNlbGxzID0gPDE+Ow0KPiA+PiA+ICsgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgI3NpemUtY2VsbHMgPSA8MD47DQo+ID4+ID4gKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICByZWcgPSA8MHgxZTc4NjAwMCAweDEwMDA+Ow0KPiA+PiA+ICsgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgY2xvY2tzID0gPCZwd21fdGFjaG9fZml4ZWRfY2xrPjsN
+Cj4gPj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0YXR1cyA9ICJkaXNhYmxl
+ZCI7DQo+ID4+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgfTsNCj4gPj4gPiAgICAgICAgICAg
+ICAgICAgfTsNCj4gPj4gPiAgICAgICAgIH07DQo+ID4+ID4gIH07DQo+ID4+ID4gZGlmZiAtLWdp
+dCBhL2FyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1nNS5kdHNpDQo+ID4+ID4gYi9hcmNoL2FybS9i
+b290L2R0cy9hc3BlZWQtZzUuZHRzaQ0KPiA+PiA+IGluZGV4IDk5MjI0MmQuLjFlZDI5ZDkgMTAw
+NjQ0DQo+ID4+ID4gLS0tIGEvYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWc1LmR0c2kNCj4gPj4g
+PiArKysgYi9hcmNoL2FybS9ib290L2R0cy9hc3BlZWQtZzUuZHRzaQ0KPiA+PiA+IEBAIC0zNSw2
+ICszNSwxNCBAQA0KPiA+PiA+ICAgICAgICAgICAgICAgICBpMmMxMyA9ICZpMmMxMzsNCj4gPj4g
+PiAgICAgICAgIH07DQo+ID4+ID4NCj4gPj4gPiArICAgICAgIGNsb2NrcyB7DQo+ID4+ID4gKyAg
+ICAgICAgICAgICAgIHB3bV90YWNob19maXhlZF9jbGs6IGZpeGVkY2xrIHsNCj4gPj4gPiArICAg
+ICAgICAgICAgICAgICAgICAgICBjb21wYXRpYmxlID0gImZpeGVkLWNsb2NrIjsNCj4gPj4gPiAr
+ICAgICAgICAgICAgICAgICAgICAgICAjY2xvY2stY2VsbHMgPSA8MD47DQo+ID4+ID4gKyAgICAg
+ICAgICAgICAgICAgICAgICAgY2xvY2stZnJlcXVlbmN5ID0gPDI0MDAwMDAwPjsNCj4gPj4gPiAr
+ICAgICAgICAgICAgICAgfTsNCj4gPj4gPiArICAgICAgIH07DQo+ID4+ID4gKw0KPiA+PiA+ICAg
+ICAgICAgYWhiIHsNCj4gPj4gPiAgICAgICAgICAgICAgICAgY29tcGF0aWJsZSA9ICJzaW1wbGUt
+YnVzIjsNCj4gPj4gPiAgICAgICAgICAgICAgICAgI2FkZHJlc3MtY2VsbHMgPSA8MT47IEBAIC0z
+NjYsNiArMzc0LDE1IEBADQo+ID4+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAj
+c2l6ZS1jZWxscyA9IDwxPjsNCj4gPj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHJhbmdlcyA9IDwwIDB4MWU3OGEwMDAgMHgxMDAwPjsNCj4gPj4gPiAgICAgICAgICAgICAgICAg
+ICAgICAgICB9Ow0KPiA+PiA+ICsNCj4gPj4gPiArICAgICAgICAgICAgICAgICAgICAgICBwd21f
+dGFjaG86IHB3bS10YWNoby1jb250cm9sbGVyQDFlNzg2MDAwIHsNCj4gPj4gPiArICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAiYXNwZWVkLGFzdDI1MDAtcHdtLXRh
+Y2hvIjsNCj4gPj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICNhZGRyZXNzLWNl
+bGxzID0gPDE+Ow0KPiA+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgI3NpemUt
+Y2VsbHMgPSA8MD47DQo+ID4+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZWcg
+PSA8MHgxZTc4NjAwMCAweDEwMDA+Ow0KPiA+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgY2xvY2tzID0gPCZwd21fdGFjaG9fZml4ZWRfY2xrPjsNCj4gPj4gPiArICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIHN0YXR1cyA9ICJkaXNhYmxlZCI7DQo+ID4+ID4gKyAgICAg
+ICAgICAgICAgICAgICAgICAgfTsNCj4gPj4gPiAgICAgICAgICAgICAgICAgfTsNCj4gPj4gPiAg
+ICAgICAgIH07DQo+ID4+ID4gIH07DQo+ID4+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvaHdtb24v
+YXNwZWVkLXB3bS10YWNoby5jDQo+ID4+ID4gYi9kcml2ZXJzL2h3bW9uL2FzcGVlZC1wd20tdGFj
+aG8uYw0KPiA+PiA+IGluZGV4IGRkZmU2NmIuLmVhYjE4YWYgMTAwNjQ0DQo+ID4+ID4gLS0tIGEv
+ZHJpdmVycy9od21vbi9hc3BlZWQtcHdtLXRhY2hvLmMNCj4gPj4gPiArKysgYi9kcml2ZXJzL2h3
+bW9uL2FzcGVlZC1wd20tdGFjaG8uYw0KPiA+PiA+IEBAIC0yMCw2ICsyMCw3IEBADQo+ID4+ID4g
+ICNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4gICNpbmNsdWRlIDxsaW51eC9zeXNm
+cy5oPg0KPiA+PiA+ICNpbmNsdWRlIDxsaW51eC9yZWdtYXAuaD4NCj4gPj4gPiArI2luY2x1ZGUg
+PGxpbnV4L3RoZXJtYWwuaD4NCj4gPj4gPg0KPiA+PiA+ICAvKiBBU1BFRUQgUFdNICYgRkFOIFRh
+Y2ggUmVnaXN0ZXIgRGVmaW5pdGlvbiAqLw0KPiA+PiA+ICAjZGVmaW5lIEFTUEVFRF9QVENSX0NU
+UkwgICAgICAgICAgICAgICAweDAwDQo+ID4+ID4gQEAgLTE2Niw2ICsxNjcsMTYgQEANCj4gPj4g
+PiAgLyogSG93IGxvbmcgd2Ugc2xlZXAgaW4gdXMgd2hpbGUgd2FpdGluZyBmb3IgYW4gUlBNIHJl
+c3VsdC4gKi8NCj4gPj4gPiAgI2RlZmluZSBBU1BFRURfUlBNX1NUQVRVU19TTEVFUF9VU0VDICAg
+NTAwDQo+ID4+ID4NCj4gPj4gPiArc3RydWN0IGFzcGVlZF9jb29saW5nX2RldmljZSB7DQo+ID4+
+ID4gKyAgICAgICBjaGFyIG5hbWVbMTZdOw0KPiA+PiA+ICsgICAgICAgc3RydWN0IGFzcGVlZF9w
+d21fdGFjaG9fZGF0YSAqcHJpdjsNCj4gPj4gPiArICAgICAgIHN0cnVjdCB0aGVybWFsX2Nvb2xp
+bmdfZGV2aWNlICp0Y2RldjsNCj4gPj4gPiArICAgICAgIGludCBwd21fcG9ydDsNCj4gPj4gPiAr
+ICAgICAgIHU4ICpjb29saW5nX2xldmVsczsNCj4gPj4gPiArICAgICAgIHU4IG1heF9zdGF0ZTsN
+Cj4gPj4gPiArICAgICAgIHU4IGN1cl9zdGF0ZTsNCj4gPj4gPiArfTsNCj4gPj4gPiArDQo+ID4+
+ID4gIHN0cnVjdCBhc3BlZWRfcHdtX3RhY2hvX2RhdGEgew0KPiA+PiA+ICAgICAgICAgc3RydWN0
+IHJlZ21hcCAqcmVnbWFwOw0KPiA+PiA+ICAgICAgICAgdW5zaWduZWQgbG9uZyBjbGtfZnJlcTsN
+Cj4gPj4gPiBAQCAtMTgwLDYgKzE5MSw3IEBAIHN0cnVjdCBhc3BlZWRfcHdtX3RhY2hvX2RhdGEg
+ew0KPiA+PiA+ICAgICAgICAgdTggcHdtX3BvcnRfdHlwZVs4XTsNCj4gPj4gPiAgICAgICAgIHU4
+IHB3bV9wb3J0X2Zhbl9jdHJsWzhdOw0KPiA+PiA+ICAgICAgICAgdTggZmFuX3RhY2hfY2hfc291
+cmNlWzE2XTsNCj4gPj4gPiArICAgICAgIHN0cnVjdCBhc3BlZWRfY29vbGluZ19kZXZpY2UgKmNk
+ZXZbOF07DQo+ID4+ID4gICAgICAgICBjb25zdCBzdHJ1Y3QgYXR0cmlidXRlX2dyb3VwICpncm91
+cHNbM107ICB9Ow0KPiA+PiA+DQo+ID4+ID4gQEAgLTc5NCwxMCArODA2LDExMSBAQCBzdGF0aWMg
+aW50IGFzcGVlZF9jcmVhdGVfZmFuKHN0cnVjdCBkZXZpY2UNCj4gKmRldiwNCj4gPj4gPiAgICAg
+ICAgIHJldHVybiAwOw0KPiA+PiA+ICB9DQo+ID4+ID4NCj4gPj4gPiArc3RhdGljIGludA0KPiA+
+PiA+ICthc3BlZWRfcHdtX2N6X2dldF9tYXhfc3RhdGUoc3RydWN0IHRoZXJtYWxfY29vbGluZ19k
+ZXZpY2UNCj4gKnRjZGV2LA0KPiA+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICB1bnNp
+Z25lZCBsb25nICpzdGF0ZSkgew0KPiA+PiA+ICsgICAgICAgc3RydWN0IGFzcGVlZF9jb29saW5n
+X2RldmljZSAqY2RldiA9DQo+ID4+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAo
+c3RydWN0IGFzcGVlZF9jb29saW5nX2RldmljZQ0KPiA+PiA+ICsqKXRjZGV2LT5kZXZkYXRhOw0K
+PiA+PiA+ICsNCj4gPj4gPiArICAgICAgICpzdGF0ZSA9IGNkZXYtPm1heF9zdGF0ZTsNCj4gPj4g
+PiArDQo+ID4+ID4gKyAgICAgICByZXR1cm4gMDsNCj4gPj4gPiArfQ0KPiA+PiA+ICsNCj4gPj4g
+PiArc3RhdGljIGludA0KPiA+PiA+ICthc3BlZWRfcHdtX2N6X2dldF9jdXJfc3RhdGUoc3RydWN0
+IHRoZXJtYWxfY29vbGluZ19kZXZpY2UNCj4gKnRjZGV2LA0KPiA+PiA+ICsgICAgICAgICAgICAg
+ICAgICAgICAgICAgICB1bnNpZ25lZCBsb25nICpzdGF0ZSkgew0KPiA+PiA+ICsgICAgICAgc3Ry
+dWN0IGFzcGVlZF9jb29saW5nX2RldmljZSAqY2RldiA9DQo+ID4+ID4gKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAoc3RydWN0IGFzcGVlZF9jb29saW5nX2RldmljZQ0KPiA+PiA+ICsq
+KXRjZGV2LT5kZXZkYXRhOw0KPiA+PiA+ICsNCj4gPj4gPiArICAgICAgICpzdGF0ZSA9IGNkZXYt
+PmN1cl9zdGF0ZTsNCj4gPj4gPiArDQo+ID4+ID4gKyAgICAgICByZXR1cm4gMDsNCj4gPj4gPiAr
+fQ0KPiA+PiA+ICsNCj4gPj4gPiArc3RhdGljIGludA0KPiA+PiA+ICthc3BlZWRfcHdtX2N6X3Nl
+dF9jdXJfc3RhdGUoc3RydWN0IHRoZXJtYWxfY29vbGluZ19kZXZpY2UNCj4gKnRjZGV2LA0KPiA+
+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICB1bnNpZ25lZCBsb25nIHN0YXRlKSB7DQo+
+ID4+ID4gKyAgICAgICBzdHJ1Y3QgYXNwZWVkX2Nvb2xpbmdfZGV2aWNlICpjZGV2ID0NCj4gPj4g
+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIChzdHJ1Y3QgYXNwZWVkX2Nvb2xpbmdf
+ZGV2aWNlDQo+ID4+ID4gKyopdGNkZXYtPmRldmRhdGE7DQo+ID4+ID4gKw0KPiA+PiA+ICsgICAg
+ICAgaWYgKHN0YXRlID4gY2Rldi0+bWF4X3N0YXRlKQ0KPiA+PiA+ICsgICAgICAgICAgICAgICBy
+ZXR1cm4gLUVJTlZBTDsNCj4gPj4gPiArDQo+ID4+ID4gKyAgICAgICBjZGV2LT5jdXJfc3RhdGUg
+PSBzdGF0ZTsNCj4gPj4gPiArICAgICAgIGNkZXYtPnByaXYtPnB3bV9wb3J0X2Zhbl9jdHJsW2Nk
+ZXYtPnB3bV9wb3J0XSA9ICooY2Rldi0NCj4gPj4gPmNvb2xpbmdfbGV2ZWxzDQo+ID4+ID4gKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICsg
+Y2Rldi0+Y3VyX3N0YXRlKTsNCj4gPj4gPiArICAgICAgIGFzcGVlZF9zZXRfcHdtX3BvcnRfZmFu
+X2N0cmwoY2Rldi0+cHJpdiwgY2Rldi0+cHdtX3BvcnQsDQo+ID4+ID4gKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICooY2Rldi0+Y29vbGluZ19sZXZlbHMgKw0KPiA+PiA+ICsg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNkZXYtPmN1cl9zdGF0ZSkpOw0K
+PiA+PiA+ICsNCj4gPj4gPiArICAgICAgIHJldHVybiAwOw0KPiA+PiA+ICt9DQo+ID4+ID4gKw0K
+PiA+PiA+ICtzdGF0aWMgY29uc3Qgc3RydWN0IHRoZXJtYWxfY29vbGluZ19kZXZpY2Vfb3BzDQo+
+IGFzcGVlZF9wd21fY29vbF9vcHMNCj4gPj4gPiArPQ0KPiA+PiB7DQo+ID4+ID4gKyAgICAgICAu
+Z2V0X21heF9zdGF0ZSA9IGFzcGVlZF9wd21fY3pfZ2V0X21heF9zdGF0ZSwNCj4gPj4gPiArICAg
+ICAgIC5nZXRfY3VyX3N0YXRlID0gYXNwZWVkX3B3bV9jel9nZXRfY3VyX3N0YXRlLA0KPiA+PiA+
+ICsgICAgICAgLnNldF9jdXJfc3RhdGUgPSBhc3BlZWRfcHdtX2N6X3NldF9jdXJfc3RhdGUsIH07
+DQo+ID4+ID4gKw0KPiA+PiA+ICtzdGF0aWMgaW50IGFzcGVlZF9jcmVhdGVfcHdtKHN0cnVjdCBk
+ZXZpY2UgKmRldiwNCj4gPj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBk
+ZXZpY2Vfbm9kZSAqY2hpbGQsDQo+ID4+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICBz
+dHJ1Y3QgYXNwZWVkX3B3bV90YWNob19kYXRhICpwcml2KQ0KPiA+Pg0KPiA+PiBGb3IgdGhpcywg
+SSB3b3VsZCByZWNvbW1lbmQganVzdCByZW5hbWluZyB0bw0KPiA+PiBhc3BlZWRfY3JlYXRlX3B3
+bV9jb29saW5nDQo+ID4+DQo+ID4+ID4gK3sNCj4gPj4gPiArICAgICAgIHUzMiBwd21fcG9ydDsN
+Cj4gPj4gPiArICAgICAgIGludCByZXQ7DQo+ID4+ID4gKw0KPiA+PiA+ICsgICAgICAgcmV0ID0g
+b2ZfcHJvcGVydHlfcmVhZF91MzIoY2hpbGQsICJyZWciLCAmcHdtX3BvcnQpOw0KPiA+PiA+ICsg
+ICAgICAgaWYgKHJldCkNCj4gPj4gPiArICAgICAgICAgICAgICAgcmV0dXJuIHJldDsNCj4gPj4g
+PiArDQo+ID4+ID4gKyAgICAgICByZXQgPSBvZl9wcm9wZXJ0eV9jb3VudF91OF9lbGVtcyhjaGls
+ZCwgImNvb2xpbmctbGV2ZWxzIik7DQo+ID4+ID4gKyAgICAgICBpZiAocmV0IDw9IDApIHsNCj4g
+Pj4gPiArICAgICAgICAgICAgICAgZGV2X2VycihkZXYsICJXcm9uZyBjb29saW5nLWxldmVscyBk
+YXRhLlxuIik7DQo+ID4+ID4gKyAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOw0KPiA+PiA+
+ICsgICAgICAgfQ0KPiA+PiA+ICsNCj4gPj4gPiArICAgICAgIHByaXYtPmNkZXZbcHdtX3BvcnRd
+ID0gZGV2bV9remFsbG9jKGRldiwgc2l6ZW9mKCpwcml2LQ0KPiA+PiA+Y2Rldltwd21fcG9ydF0p
+LA0KPiA+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgR0ZQ
+X0tFUk5FTCk7DQo+ID4+ID4gKyAgICAgICBpZiAoIXByaXYtPmNkZXZbcHdtX3BvcnRdKQ0KPiA+
+PiA+ICsgICAgICAgICAgICAgICByZXR1cm4gLUVOT01FTTsNCj4gPj4gPiArDQo+ID4+ID4gKyAg
+ICAgICBwcml2LT5jZGV2W3B3bV9wb3J0XS0+Y29vbGluZ19sZXZlbHMgPSBkZXZtX2t6YWxsb2Mo
+ZGV2LCByZXQgKg0KPiA+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIHNpemVvZih1OCksDQo+ID4+ID4gKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgR0ZQX0tFUk5FTCk7
+DQo+ID4+ID4gKyAgICAgICBpZiAoIXByaXYtPmNkZXZbcHdtX3BvcnRdLT5jb29saW5nX2xldmVs
+cykNCj4gPj4gPiArICAgICAgICAgICAgICAgcmV0dXJuIC1FTk9NRU07DQo+ID4+ID4gKw0KPiA+
+PiA+ICsgICAgICAgcHJpdi0+Y2Rldltwd21fcG9ydF0tPm1heF9zdGF0ZSA9IHJldCAtIDE7DQo+
+ID4+ID4gKyAgICAgICByZXQgPSBvZl9wcm9wZXJ0eV9yZWFkX3U4X2FycmF5KGNoaWxkLCAiY29v
+bGluZy1sZXZlbHMiLA0KPiA+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBwcml2LT5jZGV2W3B3bV9wb3J0XS0+Y29vbGluZ19sZXZlbHMsDQo+ID4+ID4gKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldCk7DQo+ID4+ID4gKyAgICAgICBp
+ZiAocmV0KSB7DQo+ID4+ID4gKyAgICAgICAgICAgICAgIGRldl9lcnIoZGV2LCAiUHJvcGVydHkg
+J2Nvb2xpbmctbGV2ZWxzJyBjYW5ub3QgYmUgcmVhZC5cbiIpOw0KPiA+PiA+ICsgICAgICAgICAg
+ICAgICByZXR1cm4gcmV0Ow0KPiA+PiA+ICsgICAgICAgfQ0KPiA+PiA+ICsNCj4gPj4gPiArICAg
+ICAgIHNwcmludGYocHJpdi0+Y2Rldltwd21fcG9ydF0tPm5hbWUsICIlcyVkIiwgY2hpbGQtPm5h
+bWUsDQo+ID4+IHB3bV9wb3J0KTsNCj4gPj4gPiArICAgICAgIHByaXYtPmNkZXZbcHdtX3BvcnRd
+LT50Y2RldiA9DQo+ID4+IHRoZXJtYWxfb2ZfY29vbGluZ19kZXZpY2VfcmVnaXN0ZXIoY2hpbGQs
+DQo+ID4+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+cHJpdi0+Y2Rldltwd21fcG9ydF0tPm5hbWUsDQo+ID4+ID4gKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgcHJpdi0+Y2Rldltwd21fcG9ydF0sDQo+ID4+ID4g
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJmFzcGVlZF9w
+d21fY29vbF9vcHMpOw0KPiA+PiA+ICsgICAgICAgaWYgKFBUUl9FUlJfT1JfWkVSTyhwcml2LT5j
+ZGV2W3B3bV9wb3J0XS0+dGNkZXYpKQ0KPiA+PiA+ICsgICAgICAgICAgICAgICByZXR1cm4gUFRS
+X0VSUihwcml2LT5jZGV2W3B3bV9wb3J0XS0+dGNkZXYpOw0KPiA+PiA+ICsNCj4gPj4gPiArICAg
+ICAgIHByaXYtPmNkZXZbcHdtX3BvcnRdLT5wcml2ID0gcHJpdjsNCj4gPj4gPiArICAgICAgIHBy
+aXYtPmNkZXZbcHdtX3BvcnRdLT5wd21fcG9ydCA9IHB3bV9wb3J0Ow0KPiA+PiA+ICsNCj4gPj4g
+PiArICAgICAgIHJldHVybiAwOw0KPiA+PiA+ICt9DQo+ID4+ID4gKw0KPiA+PiA+ICBzdGF0aWMg
+aW50IGFzcGVlZF9wd21fdGFjaG9fcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikg
+IHsNCj4gPj4gPiAgICAgICAgIHN0cnVjdCBkZXZpY2UgKmRldiA9ICZwZGV2LT5kZXY7DQo+ID4+
+ID4gLSAgICAgICBzdHJ1Y3QgZGV2aWNlX25vZGUgKm5wLCAqY2hpbGQ7DQo+ID4+ID4gKyAgICAg
+ICBzdHJ1Y3QgZGV2aWNlX25vZGUgKm5wLCAqY2hpbGQsICpncmFuZGNoaWxkOw0KPiA+PiA+ICAg
+ICAgICAgc3RydWN0IGFzcGVlZF9wd21fdGFjaG9fZGF0YSAqcHJpdjsNCj4gPj4gPiAgICAgICAg
+IHZvaWQgX19pb21lbSAqcmVnczsNCj4gPj4gPiAgICAgICAgIHN0cnVjdCByZXNvdXJjZSAqcmVz
+Ow0KPiA+PiA+IEBAIC04MzMsMTAgKzk0NiwyOCBAQCBzdGF0aWMgaW50IGFzcGVlZF9wd21fdGFj
+aG9fcHJvYmUoc3RydWN0DQo+ID4+IHBsYXRmb3JtX2RldmljZSAqcGRldikNCj4gPj4gPiAgICAg
+ICAgIGFzcGVlZF9jcmVhdGVfdHlwZShwcml2KTsNCj4gPj4gPg0KPiA+PiA+ICAgICAgICAgZm9y
+X2VhY2hfY2hpbGRfb2Zfbm9kZShucCwgY2hpbGQpIHsNCj4gPj4gPiAtICAgICAgICAgICAgICAg
+cmV0ID0gYXNwZWVkX2NyZWF0ZV9mYW4oZGV2LCBjaGlsZCwgcHJpdik7DQo+ID4+ID4gKyAgICAg
+ICAgICAgICAgIGlmICghb2Zfbm9kZV9jbXAoY2hpbGQtPm5hbWUsICJ0YWNoLWNoYW5uZWxzIikp
+IHsNCj4gPj4gPiArICAgICAgICAgICAgICAgICAgICAgICBmb3JfZWFjaF9jaGlsZF9vZl9ub2Rl
+KGNoaWxkLCBncmFuZGNoaWxkKSB7DQo+ID4+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICByZXQgPSBhc3BlZWRfY3JlYXRlX2ZhbihkZXYsIGdyYW5kY2hpbGQsIHByaXYpOw0KPiA+
+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgb2Zfbm9kZV9wdXQoZ3JhbmRjaGls
+ZCk7DQo+ID4+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpZiAocmV0KSB7DQo+
+ID4+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG9mX25vZGVfcHV0
+KGNoaWxkKTsNCj4gPj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+cmV0dXJuIHJldDsNCj4gPj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0NCj4g
+Pj4gPiArICAgICAgICAgICAgICAgICAgICAgICB9DQo+ID4+ID4gKyAgICAgICAgICAgICAgIH0N
+Cj4gPj4gPiArDQo+ID4+ID4gKyAgICAgICAgICAgICAgIGlmICghb2Zfbm9kZV9jbXAoY2hpbGQt
+Pm5hbWUsICJwd20tY2hhbm5lbHMiKSkgew0KPiA+PiA+ICsgICAgICAgICAgICAgICAgICAgICAg
+IGZvcl9lYWNoX2NoaWxkX29mX25vZGUoY2hpbGQsIGdyYW5kY2hpbGQpIHsNCj4gPj4gPiArICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldCA9IGFzcGVlZF9jcmVhdGVfcHdtKGRldiwg
+Z3JhbmRjaGlsZCwgcHJpdik7DQo+ID4+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBvZl9ub2RlX3B1dChncmFuZGNoaWxkKTsNCj4gPj4gPiArICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIGlmIChyZXQpIHsNCj4gPj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgb2Zfbm9kZV9wdXQoY2hpbGQpOw0KPiA+PiA+ICsgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gcmV0Ow0KPiA+PiA+ICsgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgfQ0KPiA+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgIH0NCj4g
+Pj4gPiArICAgICAgICAgICAgICAgfQ0KPiA+PiA+ICAgICAgICAgICAgICAgICBvZl9ub2RlX3B1
+dChjaGlsZCk7DQo+ID4+ID4gLSAgICAgICAgICAgICAgIGlmIChyZXQpDQo+ID4+ID4gLSAgICAg
+ICAgICAgICAgICAgICAgICAgcmV0dXJuIHJldDsNCj4gPj4gPiAgICAgICAgIH0NCj4gPj4gPg0K
+PiA+PiA+ICAgICAgICAgcHJpdi0+Z3JvdXBzWzBdID0gJnB3bV9kZXZfZ3JvdXA7DQo+ID4+ID4g
+LS0NCj4gPj4gPiAyLjguNA0KPiA+PiA+DQo+ID4+DQo+ID4+IFByZXN1bWFibHkgaXQncyBiZWVu
+IHRlc3RlZCBhbmQgd29uJ3QgaW1wYWN0IHVzZXJzIHdobyBkb24ndA0KPiA+PiBjb25maWd1cmUg
+dGhpcyBiZWhhdmlvdXIsIHNvIEkgZG9uJ3QgaGF2ZSBhIGxvdCBvZiBmZWVkYmFjayBhYm91dA0K
+PiBmdW5jdGlvbmFsaXR5Lg0KPiA+DQo+ID4gSGkgUGF0cmljaywNCj4gPg0KPiA+IFRoYW5rcyBm
+b3IgcmV2aWV3Lg0KPiA+DQo+ID4gSWYgaXQncyBub3QgY29uZmlndXJlZCwgY29vbGluZyBkZXZp
+Y2UgaXMgbm90IGNyZWF0ZWQgYW5kIG9mIGNvdXJzZSB0aGVyZSBpcyBubw0KPiBpbXBhY3Qgb2Yg
+ZnVuY3Rpb25hbGl0eS4NCj4gPiBJZiBjb29saW5nIGRldmljZSBpcyBjcmVhdGVkLCBidXQgbm90
+IGJvdW5kIHRvIGFueSB0aGVybWFsIGRldmljZSB0aGVyZSBpcw0KPiBhbHNvIG5vIGltcGFjdC4N
+Cj4gPg0KPiA+IFdlIGFyZSB1c2luZyBpdCBhbG9uZyB3aXRoIGtlcm5lbCBzdGVwIHdpc2UgdGhl
+cm1hbCBhbGdvcml0aG0gd2hpY2ggIGlzDQo+IHN1cHBvc2VkIHRvIHNldCB1cCBvciBkb3duIHB3
+bSBvbiBjcm9zc2luZyB0aGVybWFsIHpvbmUgYm91bmRhcnkgdG8gdGhlDQo+IHJlbGV2YW50IGNv
+b2xpbmcgbGV2ZWwgYW5kIHRvIHBlcmZvcm0gUFdNIHRocm90dGxpbmcgIGFjY29yZGluZyB0bw0K
+PiB0ZW1wZXJhdHVyZSB0cmVuZC4NCj4gPiBJdCBhbHNvIGNhbiBiZSBlbmFibGVkL2Rpc2FibGVk
+IHRocm91Z2ggc3lzZnMuDQo+ID4NCj4gPiBDaGVlcnMsDQo+ID4gVmFkaW0uDQo+IA0KPiBGYW50
+YXN0aWMuICBJIGFwcHJvdmUgdGhpcyBjaGFuZ2UuICBIYXZlIHlvdSBzZW50IHRoaXMgZHJpdmVy
+IHBhdGNoIHVwc3RyZWFtIHRvDQo+IGh3bW9uIG1haW50YWluZXJzPw0KDQpOb3QgeWV0LCB3ZSds
+bCBhcHBseSB5b3VyIGNvbW1lbnQgYW5kIHRoZW4gc2VuZCB0byBvcGVuYm1jIGFuZCB0byBod21v
+bi4NCg0KDQo+IA0KPiBQYXRyaWNrDQo=
