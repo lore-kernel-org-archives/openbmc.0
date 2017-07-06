@@ -1,30 +1,75 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Return-Path: <cbostic@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x3N985bfHzDr3x
- for <openbmc@lists.ozlabs.org>; Fri,  7 Jul 2017 02:14:20 +1000 (AEST)
-Received: from localhost (32.97.110.50 [32.97.110.50]) by mx.zohomail.com
- with SMTPS id 1499357656234957.1049205476018;
- Thu, 6 Jul 2017 09:14:16 -0700 (PDT)
-Date: Thu, 6 Jul 2017 11:14:09 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Patrick Venture <venture@google.com>
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: Swampd PID-driven Fan Controller
-Message-ID: <20170706161409.GC22100@asimov.austin.ibm.com>
-References: <CAO=notxJgr=+fyCaNWH+i6EL2v06aW5LkMp19uFbpYArv7FS3Q@mail.gmail.com>
- <FB3659C0-EF79-40D3-8001-17D9116FA522@fuzziesquirrel.com>
- <CAO=notzHV07bANYK=f+QsqBpx_t83rYAJxvYzSAZb9qeYUPwLw@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x3SS707C3zDr4v
+ for <openbmc@lists.ozlabs.org>; Fri,  7 Jul 2017 05:27:34 +1000 (AEST)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v66JNaqD075963
+ for <openbmc@lists.ozlabs.org>; Thu, 6 Jul 2017 15:27:31 -0400
+Received: from e19.ny.us.ibm.com (e19.ny.us.ibm.com [129.33.205.209])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2bhqu892hx-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 06 Jul 2017 15:27:30 -0400
+Received: from localhost
+ by e19.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Thu, 6 Jul 2017 15:27:29 -0400
+Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
+ by e19.ny.us.ibm.com (146.89.104.206) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Thu, 6 Jul 2017 15:27:26 -0400
+Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
+ [9.57.199.108])
+ by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v66JRPgt50004202; Thu, 6 Jul 2017 19:27:25 GMT
+Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 932E5B205A;
+ Thu,  6 Jul 2017 15:24:56 -0400 (EDT)
+Received: from Christophers-MacBook-Pro.local (unknown [9.83.0.237])
+ by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP id 22108B204D;
+ Thu,  6 Jul 2017 15:24:51 -0400 (EDT)
+Subject: Re: [PATCH v3 1/2] drivers/watchdog: Add optional ASPEED device tree
+ properties
+To: Rob Herring <robh@kernel.org>, Guenter Roeck <linux@roeck-us.net>
+References: <20170629002811.87199-1-cbostic@linux.vnet.ibm.com>
+ <20170629002811.87199-2-cbostic@linux.vnet.ibm.com>
+ <b51fedbb-837f-49ea-d050-4c3be82724c5@roeck-us.net>
+ <21f28ed9-b73a-5c21-5557-bec1fef0d874@linux.vnet.ibm.com>
+ <20170629150417.GA10226@roeck-us.net>
+ <20170706143512.bmjv2gnoqp5ew4py@rob-hp-laptop>
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-watchdog@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, wim@iguana.be
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Date: Thu, 6 Jul 2017 14:27:18 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
+ Gecko/20100101 Thunderbird/45.7.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="8NvZYKFJsRX2Djef"
-Content-Disposition: inline
-In-Reply-To: <CAO=notzHV07bANYK=f+QsqBpx_t83rYAJxvYzSAZb9qeYUPwLw@mail.gmail.com>
-User-Agent: Mutt/1.7.2 (2016-11-26)
-X-Zoho-Virus-Status: 1
-X-ZohoMailClient: External
+In-Reply-To: <20170706143512.bmjv2gnoqp5ew4py@rob-hp-laptop>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+x-cbid: 17070619-0056-0000-0000-0000039FD918
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007331; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00883799; UDB=6.00440936; IPR=6.00663986; 
+ BA=6.00005455; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016117; XFM=3.00000015;
+ UTC=2017-07-06 19:27:28
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17070619-0057-0000-0000-000007D5E03F
+Message-Id: <e36ab090-865c-f4d4-6173-1485f77c5d31@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-07-06_11:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1707060331
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -36,95 +81,120 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Jul 2017 16:14:21 -0000
+X-List-Received-Date: Thu, 06 Jul 2017 19:27:35 -0000
 
 
---8NvZYKFJsRX2Djef
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jun 28, 2017 at 06:13:27PM -0700, Patrick Venture wrote:
-> I would have liked to develop this in the open, but as you touched on
-> it, schedules.  My platform is under a compressed schedule.  Under any
-> situation, I'll be responsible for maintaining this code base.  And
-> expanding it to support other platforms.  As implementing it wasn't
-> done in a vacuum, I feel fairly confident that outside contributions
-> at least in furthering the design to make it simpler or more modular
-> would be warranted.
->=20
-> Obviously, it was designed around very specific execution
-> requirements, which drove my adding an interval to phosphor-hwmon and
-> quite a few downstream hacks.  That said, those specific execution
-> requirements do have an impact on the ability to change the design
-> from input.  If the design suggestions or ideas violate the terms of
-> service that we're providing the data centers -- it can be forked,
-> effectively.
+On 7/6/17 9:35 AM, Rob Herring wrote:
+> On Thu, Jun 29, 2017 at 08:04:17AM -0700, Guenter Roeck wrote:
+>> On Thu, Jun 29, 2017 at 08:39:59AM -0500, Christopher Bostic wrote:
+>>>
+>>> On 6/28/17 10:33 PM, Guenter Roeck wrote:
+>>>> On 06/28/2017 05:28 PM, Christopher Bostic wrote:
+>>>>> Describe device tree optional properties:
+>>>>>
+>>>>>    * aspeed,arm-reet - ARM CPU reset on signal
+>>>>>    * aspeed,no-soc-reset - SOC reset on signal
+>>>>>    * aspeed,no-sys-reset - System reset on signal
+>>>>>    * aspeed,interrupt - Interrupt CPU on signal
+>>>>>    * aspeed,external-signal - Generate external signal (WDT1 and WDT2
+>>>>> only)
+>>>>>    * aspeed,alt-boot - Boot from alternate block on signal
+>>>>>
+>>>>> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+>>>>> ---
+>>>>> v3 - Invert soc and sys reset to 'no' to preserve backwards
+>>>>>       compatibility.  SOC and SYS reset will be set by default
+>>>>>       without any optional parameters set
+>>>>> v2 - Add 'aspeed,' prefix to all optional properties
+>>>>>     - Add arm-reset, soc-reset, interrupt, alt-boot properties
+>>>>> ---
+>>>>>   .../devicetree/bindings/watchdog/aspeed-wdt.txt    | 24
+>>>>> ++++++++++++++++++++++
+>>>>>   1 file changed, 24 insertions(+)
+>>>>>
+>>>>> diff --git a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+>>>>> b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+>>>>> index c5e74d7..6f18005 100644
+>>>>> --- a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+>>>>> +++ b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+>>>>> @@ -8,9 +8,33 @@ Required properties:
+>>>>>    - reg: physical base address of the controller and length of memory
+>>>>> mapped
+>>>>>      region
+>>>>>   +Optional properties:
+>>>>> +   Signal behavior - Whenever a timeout occurs the watchdog can be
+>>>>> programmed
+>>>>> +   to generate/not generate 6 types of signals:
+>>>>> +
+>>>>> + - aspeed,arm-reset:    If property is present then reset ARM CPU only.
+>>>>> +            If not specified no ARM CPU reset is done.
+>>>>> +
+>>>>> + - aspeed,no-soc-reset: If property is present then do not reset SOC.
+>>>>> +            If not specified then SOC reset is done.
+>>>>> +
+>>>>> + - aspeed,no-sys-reset: If property is present then do not reset
+>>>>> system.
+>>>>> +            Typcally used in tandem with 'aspeed-external-signal'
+>>>> Is this correct ? As I understand the datasheet, it could also used in
+>>>> tandem with
+>>>> aspeed,interrupt.
+>>> True, that should be documented.  Will add that.
+>>>>> +            If not specified then system reset is done.
+>>>>> +
+>>>> I'll leave it up to Rob to decide, but for my part I don't understand
+>>>> no-soc-reset.
+>>> As the aspeed watchdog driver exists prior to this change an SOC reset is
+>>> done by
+>>> default.   In order to preserve backwards compatibility a missing optional
+>>> property
+>>> should result in default behavior.  I however need to be able to specify
+>>> that SOC
+>>> reset be disabled in some way.  This goes back to our discussion about why
+>>> we'd
+>>> ever want to disable SYSTEM reset in the first place.  Same reasoning
+>>> applies for
+>>> SOC reset.
+>>>
+>>>> I would instead use four properties.
+>>>>
+>>>>     aspeed,arm-reset
+>>>>     aspeed,soc-reset
+>>> Per my response above I think it should remain as aspeed,no-soc-reset due to
+>>> backwards compatibility requirements.
+>> The same can be accomplished with "aspeed,no-reset", which would avoid the, in
+>> my opinion, awkward "no-{sys,soc}-reset" poperties.
+>>
+>>>>     aspeed,sys-reset (which is the default)
+>>> Again as per our discussion yesterday I need some way to specify how system
+>>> reset is to  be done.  For backwards compatibility, a lack of parameter here
+>>> would
+>>> result in a system reset being configured.  Only way to indicate to the
+>>> driver
+>>> that no system reset is to be done is to indicate 'no' system reset in the
+>>> optional
+>>> parameter.
+>> Or "aspeed,no-reset".
+>>
+>>>>     aspeed,no-reset
+>>> This parameter seems ambiguous as we could be doing a 'no system reset'
+>>> or a 'no SOC reset' in theory.
+>> {arm,soc,sys}-reset are mutually exclusive per datasheet, and there is a
+>> separate configuration bit which enables the reset in the first place.
+>> I don't see how that is ambiguous.
+>>
+>> Anyway, I don't think we are making any progress here. Let's wait for
+>> guidance from Rob.
+> I tend to agree with Guenter.
+>
+> Maybe using the form 'aspeed,reset-type = "cpu|soc|system"' would be
+> more aligned to the type of reset being mutually exclusive.
 
-Patrick,
+OK I'll update to this method.
 
-It was hard to tell from your initial email if your intentions were to
-just give away some code you wrote (hence Brad's fears of a "code dump"
-approach) or if you were trying to get this integrated as a repo we
-would maintain long-term.  After discussions off-list it sounds like you
-are wanting to do the work to integrate this into OpenBMC proper, which
-is great.
+Thanks
+-Chris
 
-One way of reading your original email was that you were wanting to host
-this and maintain it in your own space and then add a recipe for the
-package to openbmc/openbmc.  Since this hasn't come up before, I should
-probably say formally I am really opposed to this.  I see it as a
-difficulty long-term for us to have a repository that links against
-phopshor-dbus-interfaces and recipe in openbmc, but the code itself is
-not able to be updated by us.  It is not uncommon that we need to change
-the dbus schema and the developer doing that is also generally responsible
-for the changes across the repositories using the schema.  Having this
-other code outside the project but that the project also relies on to
-build an officially supported machine would make a dbus schema change
-pretty painful.
-
-My suggestion would be that we tackle this code in a few phases:
-
-1. Place code on Github in your personal account for a high-level review
-   by interested parties.
-
-   1a.  We can take a look and get a feel for what lines up with
-        existing architecture and where one of us needs to make changes.
-
-2. We create a Gerrit repo for this code to live in long-term and you
-   submit any changes from phase 1 there.
-
-   2a.  We will then do a review and revisions per our normal process.
-
-3. After merge, the code is now an officially supported repo that we
-   will expect others to help maintain as, for example, APIs change.
-
-At any point here, if you decide it is not going to be worth the effort,
-we can stop or someone else can pick up where you leave off.  Does this
-sound workable?
-
---=20
-Patrick Williams
-
---8NvZYKFJsRX2Djef
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAlleYc8ACgkQqwNHzC0A
-wRlZzw/8D4WHRn1Ji06CSSxijjPSZj+A8jVfralwO6pYKB+F6iyJYoqis33Ti/Tu
-I097FFA+BqG5y8XP+sr5Qw6WNTMdvW4XUFnccg5UG9grl5yfcvtk/FFd7pMYCYUC
-RlaiX7W9Tgjz+effZoMgbVGyQedm2PLmZKNR5klUWsKGQ1BydHKVqJ4mHuOR95Hx
-QccuKGIpcz3dHvBA9w/4t7wKWA5xzFl7MOnS8WqhSmTBA+EBKELkpWjslToaBeoD
-xEjWy7jGS8EAHNa5QaffdR3IMC3kL4sT2td8qrpYh+XR2QNHbFzlxOaVkhumMLV3
-PTcQ5POcZflv1zqiUVmKEXpeHHktv6A/dqZEbO9QdOKCA9E2CUpYKaWUQiVu0Uqy
-Y0ud9txClA2t+BwXALUhLzxQaw3iVoibD1iW9wFgFVOdTh+JBkbyplSHC8uXD6GQ
-k7zWTLxozabusYb7gy10tdlYZaDY4rYGPzoNU15YrpM3WEx/GXfuTHGWBda3rco/
-60X9FCJJKpzA61/lJt/hrDlm6r1v0eRr1JGc0h6aOlsIgoc/P+yXpL9sFz8QFh6z
-yxT9ZhzNlwWuCX3UG129YlN3B/eD7PUmCBaf6fJg4Q37BpJGfeAwi8LCX9LdlZcu
-IeWdq+rWK4ZNvnQaS20bWIoIqH2Y+LJMxJavsISmCHq7GOTSETo=
-=uA5c
------END PGP SIGNATURE-----
-
---8NvZYKFJsRX2Djef--
+>
+> Rob
+>
