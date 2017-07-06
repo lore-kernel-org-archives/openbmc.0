@@ -1,52 +1,52 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-pg0-x242.google.com (mail-pg0-x242.google.com
- [IPv6:2607:f8b0:400e:c05::242])
+Return-Path: <robherring2@gmail.com>
+Received: from mail-yw0-f194.google.com (mail-yw0-f194.google.com
+ [209.85.161.194])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x3Kyq73NQzDr3x
- for <openbmc@lists.ozlabs.org>; Fri,  7 Jul 2017 00:35:15 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="g787/FtL"; 
- dkim-atps=neutral
-Received: by mail-pg0-x242.google.com with SMTP id u62so481765pgb.0
- for <openbmc@lists.ozlabs.org>; Thu, 06 Jul 2017 07:35:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:subject:date:message-id;
- bh=s6nNrXC3Lk/iJ0jl22DrNVIzlQomtB5QNe9/xZ30EwI=;
- b=g787/FtLnpFBIgqfLbHEygz5+ioZjODgFWiy5pN9WoUWLG61FCiXg3QQXixZizbJU1
- ObBNu2qTMhzpPHXjs0v5VwuIWI7yEl59YXRQd7QMN3MxyuwhPG8glvNhk/3FKLyEbtvT
- 4xJSn6NY5iCaEj7Z9RfPhOD6UYHpO1vpYniuLgmd84GIXDjjI2Avv5GTFo1bZZKRDoVB
- 9h9VLKVXAz3VIfTeIZkbVYoYEAk8PdBcZiCD/doNODuUpoUPWcNGVXq5TrUl8NGs5Yb/
- VNaXC/BqcwCyV+qNRO64+dQG0uCnH4awxbwidr4lQ7InevZT8O3mOHcBoNGtw37qeSXu
- LP6g==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x3Kyv0RKTzDr4M
+ for <openbmc@lists.ozlabs.org>; Fri,  7 Jul 2017 00:35:18 +1000 (AEST)
+Received: by mail-yw0-f194.google.com with SMTP id a12so239915ywh.1
+ for <openbmc@lists.ozlabs.org>; Thu, 06 Jul 2017 07:35:18 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:subject:date:message-id;
- bh=s6nNrXC3Lk/iJ0jl22DrNVIzlQomtB5QNe9/xZ30EwI=;
- b=X3zvUK37Xtqa7VCgLzDZjWVx7XjCf6mSqSO+jGwt7JVRFH5NSSEKln+2NxFvm5308W
- AHlMj/IQ4sgRFbvyycKHdoRWC94XUrV1qZCNk3rKKiNHZnqMtio1ozFUNMTSt4PVBpr1
- bEYjgt+geVBmjXJvvcmQ2vAeaHUiSLd3AiH3LifbhOLa8UhsMd6vM3tiXlMsLFeSXQ0H
- MacToTGrmgfrZDDq4gxsRaanMkLbacBZ6laxVIwzMhsvmbQI79r8bRDDVAJQDMXy4mb8
- COpfjVI0f36s8yN2Ckg8xLvl/mAQyPN4FAKO/SMONnCtgghfikewc9HapLhbznx7HG6q
- RsfQ==
-X-Gm-Message-State: AIVw110MKjVhvxQ8f79icSCzyp4A0FAnnbj91qasc3eJoa9zZSjwIuYN
- 3P+FNStdbsr6EIUlpMY=
-X-Received: by 10.99.134.199 with SMTP id x190mr26745899pgd.127.1499351713545; 
- Thu, 06 Jul 2017 07:35:13 -0700 (PDT)
-Received: from aurora.jms.id.au ([45.124.203.19])
- by smtp.gmail.com with ESMTPSA id q19sm1293805pfd.24.2017.07.06.07.35.10
- (version=TLS1 cipher=AES128-SHA bits=128/128);
- Thu, 06 Jul 2017 07:35:12 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Fri, 07 Jul 2017 00:05:06 +0930
-From: Joel Stanley <joel@jms.id.au>
-To: openbmc@lists.ozlabs.org,
-	Eddie James <eajames@linux.vnet.ibm.com>
-Subject: [PATCH linux dev-4.10 0/4] i2c fsi fixes
-Date: Fri,  7 Jul 2017 00:04:59 +0930
-Message-Id: <20170706143503.21888-1-joel@jms.id.au>
-X-Mailer: git-send-email 2.13.2
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=zQEUff21XyqJ6eIMBSnkYL4PJoOOI3MLjCSeNXvcZw8=;
+ b=ffoZU47WDr1iBkCbugc799RdmiDOUsMcKsbufqXglmMEL1aifY+trNk5AW8T8R1HlK
+ +jpfn2ai7fvKxeb05dGmBTGXyOWtTiA6S3KPVGjkSa0/DlwF6aRV1CWVIeyyDFxoTDd+
+ 9uJ+nb4Luqt1fJBLG5TifzBl+bHNJEyWR5uYOy22WosvlBe7n6yQb99AcImIaO3G1IzS
+ NWY314EWC5lmMR4Jxe9E3Fmr33hRxqxVpiV3FGZOKwVtCF+y5zbZaWNGq8TqtJ2k5z0y
+ v0AWYc1DfUd6eTcLFlhqmzER1957KvOWXafeUQCeHSVrv8+XUaFw3VL2kxJo8Dl6jZN2
+ WCew==
+X-Gm-Message-State: AKS2vOx4gda47+C2qVUfcVRRSAAYEaP9COkMV/gBNVDrllvnmJAQVn95
+ r4Udc4WITTBHsg==
+X-Received: by 10.129.84.195 with SMTP id i186mr38868465ywb.172.1499351715568; 
+ Thu, 06 Jul 2017 07:35:15 -0700 (PDT)
+Received: from localhost (24-223-123-72.static.usa-companies.net.
+ [24.223.123.72])
+ by smtp.gmail.com with ESMTPSA id c124sm142388ywd.31.2017.07.06.07.35.14
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Thu, 06 Jul 2017 07:35:15 -0700 (PDT)
+Date: Thu, 6 Jul 2017 09:35:12 -0500
+From: Rob Herring <robh@kernel.org>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, wim@iguana.be,
+ mark.rutland@arm.com, joel@jms.id.au,
+ linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] drivers/watchdog: Add optional ASPEED device tree
+ properties
+Message-ID: <20170706143512.bmjv2gnoqp5ew4py@rob-hp-laptop>
+References: <20170629002811.87199-1-cbostic@linux.vnet.ibm.com>
+ <20170629002811.87199-2-cbostic@linux.vnet.ibm.com>
+ <b51fedbb-837f-49ea-d050-4c3be82724c5@roeck-us.net>
+ <21f28ed9-b73a-5c21-5557-bec1fef0d874@linux.vnet.ibm.com>
+ <20170629150417.GA10226@roeck-us.net>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20170629150417.GA10226@roeck-us.net>
+User-Agent: NeoMutt/20170113 (1.7.2)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,66 +58,118 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Jul 2017 14:35:16 -0000
+X-List-Received-Date: Thu, 06 Jul 2017 14:35:19 -0000
 
-Hi Eddie,
+On Thu, Jun 29, 2017 at 08:04:17AM -0700, Guenter Roeck wrote:
+> On Thu, Jun 29, 2017 at 08:39:59AM -0500, Christopher Bostic wrote:
+> > 
+> > 
+> > On 6/28/17 10:33 PM, Guenter Roeck wrote:
+> > >On 06/28/2017 05:28 PM, Christopher Bostic wrote:
+> > >>Describe device tree optional properties:
+> > >>
+> > >>   * aspeed,arm-reet - ARM CPU reset on signal
+> > >>   * aspeed,no-soc-reset - SOC reset on signal
+> > >>   * aspeed,no-sys-reset - System reset on signal
+> > >>   * aspeed,interrupt - Interrupt CPU on signal
+> > >>   * aspeed,external-signal - Generate external signal (WDT1 and WDT2
+> > >>only)
+> > >>   * aspeed,alt-boot - Boot from alternate block on signal
+> > >>
+> > >>Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+> > >>---
+> > >>v3 - Invert soc and sys reset to 'no' to preserve backwards
+> > >>      compatibility.  SOC and SYS reset will be set by default
+> > >>      without any optional parameters set
+> > >>v2 - Add 'aspeed,' prefix to all optional properties
+> > >>    - Add arm-reset, soc-reset, interrupt, alt-boot properties
+> > >>---
+> > >>  .../devicetree/bindings/watchdog/aspeed-wdt.txt    | 24
+> > >>++++++++++++++++++++++
+> > >>  1 file changed, 24 insertions(+)
+> > >>
+> > >>diff --git a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> > >>b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> > >>index c5e74d7..6f18005 100644
+> > >>--- a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> > >>+++ b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> > >>@@ -8,9 +8,33 @@ Required properties:
+> > >>   - reg: physical base address of the controller and length of memory
+> > >>mapped
+> > >>     region
+> > >>  +Optional properties:
+> > >>+   Signal behavior - Whenever a timeout occurs the watchdog can be
+> > >>programmed
+> > >>+   to generate/not generate 6 types of signals:
+> > >>+
+> > >>+ - aspeed,arm-reset:    If property is present then reset ARM CPU only.
+> > >>+            If not specified no ARM CPU reset is done.
+> > >>+
+> > >>+ - aspeed,no-soc-reset: If property is present then do not reset SOC.
+> > >>+            If not specified then SOC reset is done.
+> > >>+
+> > >>+ - aspeed,no-sys-reset: If property is present then do not reset
+> > >>system.
+> > >>+            Typcally used in tandem with 'aspeed-external-signal'
+> > >
+> > >Is this correct ? As I understand the datasheet, it could also used in
+> > >tandem with
+> > >aspeed,interrupt.
+> > True, that should be documented.  Will add that.
+> > >
+> > >>+            If not specified then system reset is done.
+> > >>+
+> > >
+> > >I'll leave it up to Rob to decide, but for my part I don't understand
+> > >no-soc-reset.
+> > As the aspeed watchdog driver exists prior to this change an SOC reset is
+> > done by
+> > default.   In order to preserve backwards compatibility a missing optional
+> > property
+> > should result in default behavior.  I however need to be able to specify
+> > that SOC
+> > reset be disabled in some way.  This goes back to our discussion about why
+> > we'd
+> > ever want to disable SYSTEM reset in the first place.  Same reasoning
+> > applies for
+> > SOC reset.
+> > 
+> > >I would instead use four properties.
+> > >
+> > >    aspeed,arm-reset
+> > >    aspeed,soc-reset
+> > Per my response above I think it should remain as aspeed,no-soc-reset due to
+> > backwards compatibility requirements.
+> 
+> The same can be accomplished with "aspeed,no-reset", which would avoid the, in
+> my opinion, awkward "no-{sys,soc}-reset" poperties.
+> 
+> > >    aspeed,sys-reset (which is the default)
+> > Again as per our discussion yesterday I need some way to specify how system
+> > reset is to  be done.  For backwards compatibility, a lack of parameter here
+> > would
+> > result in a system reset being configured.  Only way to indicate to the
+> > driver
+> > that no system reset is to be done is to indicate 'no' system reset in the
+> > optional
+> > parameter.
+> 
+> Or "aspeed,no-reset".
+> 
+> > >    aspeed,no-reset
+> > This parameter seems ambiguous as we could be doing a 'no system reset'
+> > or a 'no SOC reset' in theory.
+> 
+> {arm,soc,sys}-reset are mutually exclusive per datasheet, and there is a
+> separate configuration bit which enables the reset in the first place.
+> I don't see how that is ambiguous.
+> 
+> Anyway, I don't think we are making any progress here. Let's wait for
+> guidance from Rob.
 
-These are some work in progress cleanups that I have created for the fsi i2c
-driver.
+I tend to agree with Guenter.
 
-Patch 4 causes the kernel to crash when scanning for devices. To reproduce,
-boot the system and do 'obmcutil poweron'. According to the device tree
-bindings, his change is correct:
+Maybe using the form 'aspeed,reset-type = "cpu|soc|system"' would be 
+more aligned to the type of reset being mutually exclusive. 
 
- https://github.com/openbmc/linux/blob/dev-4.10/Documentation/devicetree/bindings/fsi/fsi.txt#L56
-
- > Since the master nodes describe the top-level of the FSI topology, they also
- > need to declare the FSI-standard addressing scheme. This requires two cells for
- > addresses (link index and slave ID), and no size:
- >
- >  #address-cells = <2>;
- >  #size-cells = <0>;
-
-The code suggests the same:
-
- https://github.com/openbmc/linux/blob/dev-4.10/drivers/fsi/fsi-core.c#L628
-
- > na = of_n_addr_cells(np);
- > ns = of_n_size_cells(np);
- >
- > /* Ensure we have the correct format for addresses and sizes in
- >  * reg properties
- >  */
- > if (na != 2 || ns != 0)
- >	return false;
-
-If you don't apply that fix, we do get one of the chips probing correctly (I
-assume the hub, as it has the correct format).
-
-Another issue is patch 2, which removes the statically allocated port numbers,
-where you added 100 or 200 the port number. To retain the old behaviour, I
-suggest you send a patch that adds aliases instead:
-
- aliases {
-	 i2c100 = &cfam0_i2c1;
-	 i2c101 = &cfam0_i2c2;
- }
-
-That's a workaround though. We should get the people using these interfaces to
-discover them properly, instead of assuming they exist at a magic offset. sysfs
-is a good way to do this.
-
- /sys/devices/platform/gpio-fsi/fsi0/slave@00:00/00:00:00:03/i2c-19/
-
-Joel Stanley (4):
-  i2c: fsi: Remove ida counter
-  i2c: fsi: Dynamically allocate port numbers
-  i2c: fsi: Remove idx counter
-  ARM: dts: cfam: Fix hub node
-
- arch/arm/boot/dts/ibm-power9-cfam.dtsi |  4 ++--
- drivers/i2c/busses/i2c-fsi.c           | 28 ++++------------------------
- 2 files changed, 6 insertions(+), 26 deletions(-)
-
--- 
-2.13.2
+Rob
