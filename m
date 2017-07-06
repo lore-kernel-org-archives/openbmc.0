@@ -1,23 +1,30 @@
 Return-Path: <c_mykolak@mellanox.com>
 Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
- by lists.ozlabs.org (Postfix) with ESMTP id 3x3L3b3Dl0zDr3x
- for <openbmc@lists.ozlabs.org>; Fri,  7 Jul 2017 00:39:22 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTP id 3x3Lvx0Wq9zDr4j
+ for <openbmc@lists.ozlabs.org>; Fri,  7 Jul 2017 01:17:48 +1000 (AEST)
 Received: from Internal Mail-Server by MTLPINE1 (envelope-from
  c?mykolak@mellanox.com)
- with ESMTPS (AES256-SHA encrypted); 6 Jul 2017 17:38:44 +0300
-Received: from r-build-lowlevel.mtr.labs.mlnx. (r-build-lowlevel.mtr.labs.mlnx
- [10.209.0.190])
- by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id v66EciMJ007050;
- Thu, 6 Jul 2017 17:38:44 +0300
+ with ESMTPS (AES256-SHA encrypted); 6 Jul 2017 18:17:17 +0300
+Received: from r-vnc15.mtr.labs.mlnx (r-vnc15.mtr.labs.mlnx [10.208.0.15])
+ by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id v66FHHXb023096;
+ Thu, 6 Jul 2017 18:17:17 +0300
+Received: from r-vnc15.mtr.labs.mlnx (localhost [127.0.0.1])
+ by r-vnc15.mtr.labs.mlnx (8.14.4/8.14.4) with ESMTP id v66ENswB001030;
+ Thu, 6 Jul 2017 17:23:54 +0300
+Received: (from c_mykolak@localhost)
+ by r-vnc15.mtr.labs.mlnx (8.14.4/8.14.4/Submit) id v66ENnek000919;
+ Thu, 6 Jul 2017 17:23:49 +0300
 From: Mykola Kostenok <c_mykolak@mellanox.com>
-To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
+To: Guenter Roeck <linux@roeck-us.net>, Jean Delvare <jdelvare@suse.com>,
+ linux-hwmon@vger.kernel.org
 Cc: Mykola Kostenok <c_mykolak@mellanox.com>,
- Patrick Venture <venture@google.com>
-Subject: [PATCH linux dev-4.10 v2] hwmon: (aspeed-pwm-tacho) cooling device
- support
-Date: Thu,  6 Jul 2017 17:38:42 +0300
-Message-Id: <20170706143842.13800-1-c_mykolak@mellanox.com>
-X-Mailer: git-send-email 2.11.0
+ Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>,
+ openbmc@lists.ozlabs.org, Patrick Venture <venture@google.com>,
+ Vadim Pasternak <vadimp@mellanox.com>
+Subject: [patch v1] hwmon: (aspeed-pwm-tacho) cooling device support.
+Date: Thu,  6 Jul 2017 17:23:38 +0300
+Message-Id: <20170706142338.32732-1-c_mykolak@mellanox.com>
+X-Mailer: git-send-email 2.8.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -29,7 +36,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Jul 2017 14:39:24 -0000
+X-List-Received-Date: Thu, 06 Jul 2017 15:17:50 -0000
 
 Add support in aspeed-pwm-tacho driver for cooling device creation.
 This cooling device could be bound to a thermal zone
@@ -39,271 +46,92 @@ thermal zones. Allow specification of the cooling levels
 vector - PWM duty cycle values in a range from 0 to 255
 which correspond to thermal cooling states.
 
-Add basic pwm-tacho-controller node to ast-g5 dtsi.
-Add basic pwm-tacho-controller node to ast-g4 dtsi.
-
-Change pwm-tacho in aspeed-bmc-quanta-q71l.dts according new
-pwm-tacho structure.
-
-Add pwm-tacho to aspeed-bmc-mellanox-msn.dts.
-
-v1->v2
-Fix issues pointet out by Patrick:
-- rename aspeed_create_pwm to aspeed_create_pwm_cooling.
-
 Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
 ---
- arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts |  61 +++++++++++
- arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts  | 103 +++++++++----------
- arch/arm/boot/dts/aspeed-g4.dtsi              |   9 +-
- arch/arm/boot/dts/aspeed-g5.dtsi              |  17 ++++
- drivers/hwmon/aspeed-pwm-tacho.c              | 139 +++++++++++++++++++++++++-
- 5 files changed, 273 insertions(+), 56 deletions(-)
+ .../devicetree/bindings/hwmon/aspeed-pwm-tacho.txt |  52 ++++++--
+ drivers/hwmon/aspeed-pwm-tacho.c                   | 141 ++++++++++++++++++++-
+ 2 files changed, 179 insertions(+), 14 deletions(-)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-index c71a6dbe1410..57d595124dea 100644
---- a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-@@ -144,3 +144,64 @@
- 	status = "okay";
- };
+diff --git a/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt b/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
+index cf44605..293a994 100644
+--- a/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
++++ b/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
+@@ -23,9 +23,14 @@ Required properties for pwm-tacho node:
+ - clocks : a fixed clock providing input clock frequency(PWM
+ 	   and Fan Tach clock)
  
-+&pwm_tacho {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_pwm0_default>;
+-fan subnode format:
++tach-channels subnode format:
+ ===================
+-Under fan subnode there can upto 8 child nodes, with each child node
++Required properties for tach-channels node:
++- #address-cells : should be 1.
 +
++- #size-cells : should be 0.
++
++Under tach-channels subnode there can be upto 8 child nodes, with each child node
+ representing a fan. If there are 8 fans each fan can have one PWM port and
+ one/two Fan tach inputs.
+ 
+@@ -39,6 +44,22 @@ Required properties for each child node:
+ 		Fan tach channel 0 and 15 indicating Fan tach channel 15.
+ 		Atleast one Fan tach input channel is required.
+ 
++pwm-channels subnode format:
++Under pwm-channels subnode there can be pwm child nodes.
++Required properties for tach-channels node:
++- #address-cells : should be 1.
++
++- #size-cells : should be 0.
++
++- #cooling-cells : should be 2;
++
++pwm subnode format:
++- reg : should be <0x00>.
++
++- cooling-levels      : PWM duty cycle values in a range from 0 to 255
++			which correspond to thermal cooling states.
++
++
+ Examples:
+ 
+ pwm_tacho_fixed_clk: fixedclk {
+@@ -55,14 +76,25 @@ pwm_tacho: pwmtachocontroller@1e786000 {
+ 	clocks = <&pwm_tacho_fixed_clk>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
+-
+-	fan@0 {
+-		reg = <0x00>;
+-		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
 +	tach-channels {
 +		#address-cells = <1>;
 +		#size-cells = <0>;
-+
 +		fan@0 {
 +			reg = <0x00>;
 +			aspeed,fan-tach-ch = /bits/ 8 <0x00>;
 +		};
-+
 +		fan@1 {
-+			reg = <0x00>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x01>;
++			reg = <0x01>;
++			aspeed,fan-tach-ch = /bits/ 8 <0x01 0x02>;
 +		};
-+
-+		fan@2 {
-+			reg = <0x00>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x02>;
-+		};
-+
-+		fan@3 {
-+			reg = <0x00>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x03>;
-+		};
-+
-+		fan@4 {
-+			reg = <0x00>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x04>;
-+		};
-+
-+		fan@5 {
-+			reg = <0x00>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x05>;
-+		};
-+
-+		fan@6 {
-+			reg = <0x00>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x06>;
-+		};
-+
-+		fan@7 {
-+			reg = <0x00>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x07>;
-+		};
-+	};
-+
+ 	};
+-
+-	fan@1 {
+-		reg = <0x01>;
+-		aspeed,fan-tach-ch = /bits/ 8 <0x01 0x02>;
 +	pwm-channels {
 +		#address-cells = <1>;
 +		#size-cells = <0>;
 +		#cooling-cells = <2>;
-+
 +		pwm@0 {
 +			reg = <0x00>;
 +			cooling-levels = /bits/ 8 <125 151 177 203 229 255>;
 +		};
-+	};
-+};
-diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-index bb287fb46bb1..43ada5baea02 100644
---- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-@@ -46,57 +46,6 @@
- 			gpios = <&gpio ASPEED_GPIO(B, 3) GPIO_ACTIVE_LOW>;
- 		};
- 	};
--
--	pwm_tacho: pwm-tacho-controller@1e786000 {
--		compatible = "aspeed,ast2500-pwm-tacho";
--		#address-cells = <1>;
--		#size-cells = <0>;
--		reg = <0x1e786000 0x1000>;
--		clocks = <&pwm_tacho_fixed_clk>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
--			&pinctrl_pwm2_default &pinctrl_pwm3_default>;
--
--		fan@0 {
--			reg = <0x00>;
--			aspeed,fan-tach-ch = /bits/ 8 <0x00>;
--		};
--
--		fan@1 {
--			reg = <0x01>;
--			aspeed,fan-tach-ch = /bits/ 8 <0x01>;
--		};
--
--		fan@2 {
--			reg = <0x02>;
--			aspeed,fan-tach-ch = /bits/ 8 <0x02>;
--		};
--
--		fan@3 {
--			reg = <0x03>;
--			aspeed,fan-tach-ch = /bits/ 8 <0x03>;
--		};
--
--		fan@4 {
--			reg = <0x00>;
--			aspeed,fan-tach-ch = /bits/ 8 <0x04>;
--		};
--
--		fan@5 {
--			reg = <0x01>;
--			aspeed,fan-tach-ch = /bits/ 8 <0x05>;
--		};
--
--		fan@6 {
--			reg = <0x02>;
--			aspeed,fan-tach-ch = /bits/ 8 <0x06>;
--		};
--
--		fan@7 {
--			reg = <0x03>;
--			aspeed,fan-tach-ch = /bits/ 8 <0x07>;
--		};
--	};
- };
- 
- &fmc {
-@@ -299,3 +248,55 @@
- &wdt2 {
- 	status = "okay";
- };
-+
-+&pwm_tacho {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
-+				&pinctrl_pwm2_default &pinctrl_pwm3_default>;
-+
-+	tach-channels {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		fan@0 {
-+			reg = <0x00>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x00>;
-+		};
-+
-+		fan@1 {
-+			reg = <0x01>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x01>;
-+		};
-+
-+		fan@2 {
-+			reg = <0x02>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x02>;
-+		};
-+
-+		fan@3 {
-+			reg = <0x03>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x03>;
-+		};
-+
-+		fan@4 {
-+			reg = <0x00>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x04>;
-+		};
-+
-+		fan@5 {
-+			reg = <0x01>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x05>;
-+		};
-+
-+		fan@6 {
-+			reg = <0x02>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x06>;
-+		};
-+
-+		fan@7 {
-+			reg = <0x03>;
-+			aspeed,fan-tach-ch = /bits/ 8 <0x07>;
-+		};
-+	};
-+};
-diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-index 9cc959fccfa0..c69ad7744921 100644
---- a/arch/arm/boot/dts/aspeed-g4.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-@@ -318,7 +318,14 @@
- 				ranges = <0 0x1e78a000 0x1000>;
- 			};
- 
--
-+			pwm_tacho: pwm-tacho-controller@1e786000 {
-+				compatible = "aspeed,ast2500-pwm-tacho";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				reg = <0x1e786000 0x1000>;
-+				clocks = <&pwm_tacho_fixed_clk>;
-+				status = "disabled";
-+			};
- 		};
- 	};
- };
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index 992242d3b22e..1ed29d9fa959 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -35,6 +35,14 @@
- 		i2c13 = &i2c13;
- 	};
- 
-+	clocks {
-+		pwm_tacho_fixed_clk: fixedclk {
-+			compatible = "fixed-clock";
-+			#clock-cells = <0>;
-+			clock-frequency = <24000000>;
-+		};
-+	};
-+
- 	ahb {
- 		compatible = "simple-bus";
- 		#address-cells = <1>;
-@@ -366,6 +374,15 @@
- 				#size-cells = <1>;
- 				ranges = <0 0x1e78a000 0x1000>;
- 			};
-+
-+			pwm_tacho: pwm-tacho-controller@1e786000 {
-+				compatible = "aspeed,ast2500-pwm-tacho";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				reg = <0x1e786000 0x1000>;
-+				clocks = <&pwm_tacho_fixed_clk>;
-+				status = "disabled";
-+			};
- 		};
  	};
  };
 diff --git a/drivers/hwmon/aspeed-pwm-tacho.c b/drivers/hwmon/aspeed-pwm-tacho.c
-index ddfe66bdff86..c9aafed83f4e 100644
+index ddfe66b..c10a37e 100644
 --- a/drivers/hwmon/aspeed-pwm-tacho.c
 +++ b/drivers/hwmon/aspeed-pwm-tacho.c
 @@ -20,6 +20,7 @@
@@ -394,8 +222,8 @@ index ddfe66bdff86..c9aafed83f4e 100644
 +};
 +
 +static int aspeed_create_pwm_cooling(struct device *dev,
-+			     struct device_node *child,
-+			     struct aspeed_pwm_tacho_data *priv)
++				     struct device_node *child,
++				     struct aspeed_pwm_tacho_data *priv)
 +{
 +	u32 pwm_port;
 +	int ret;
@@ -452,7 +280,7 @@ index ddfe66bdff86..c9aafed83f4e 100644
  	struct aspeed_pwm_tacho_data *priv;
  	void __iomem *regs;
  	struct resource *res;
-@@ -833,10 +946,28 @@ static int aspeed_pwm_tacho_probe(struct platform_device *pdev)
+@@ -833,10 +946,30 @@ static int aspeed_pwm_tacho_probe(struct platform_device *pdev)
  	aspeed_create_type(priv);
  
  	for_each_child_of_node(np, child) {
@@ -470,7 +298,9 @@ index ddfe66bdff86..c9aafed83f4e 100644
 +
 +		if (!of_node_cmp(child->name, "pwm-channels")) {
 +			for_each_child_of_node(child, grandchild) {
-+				ret = aspeed_create_pwm_cooling(dev, grandchild, priv);
++				ret = aspeed_create_pwm_cooling(dev,
++								grandchild,
++								priv);
 +				of_node_put(grandchild);
 +				if (ret) {
 +					of_node_put(child);
@@ -485,4 +315,4 @@ index ddfe66bdff86..c9aafed83f4e 100644
  
  	priv->groups[0] = &pwm_dev_group;
 -- 
-2.11.0
+2.8.4
