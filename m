@@ -1,51 +1,64 @@
-Return-Path: <bjwyman@gmail.com>
-Received: from mail-qk0-x241.google.com (mail-qk0-x241.google.com
- [IPv6:2607:f8b0:400d:c09::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <linux@roeck-us.net>
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x3TxR194dzDr3s
- for <openbmc@lists.ozlabs.org>; Fri,  7 Jul 2017 06:34:34 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x3VG31sw6zDr3s
+ for <openbmc@lists.ozlabs.org>; Fri,  7 Jul 2017 06:48:59 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="VFSQJtpz"; 
+ unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.b="kBPzRYya";
  dkim-atps=neutral
-Received: by mail-qk0-x241.google.com with SMTP id 16so1859306qkg.2
- for <openbmc@lists.ozlabs.org>; Thu, 06 Jul 2017 13:34:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=eNnBnf4I5P6m1+GlePB104fkvy7RB/fMLkb/bWQl5gs=;
- b=VFSQJtpznsewFuTXRjZkcLbaWX0UF9MacZkWIlRdiTiICLdTdzXAhUZbgu3AD6DoMb
- vBMrCeqsxq2dGl1CMn0+8c6X0TF5G8xDwOxVT1tVLjy5CbiVGVVZmnfEgWRt9hrUd9dt
- YbNaEoj0ybYHaaKm3UX9kSLMKvzd+7OdsP7dT0VWdNrh+yU00Say1cSljc2POcwSw7PJ
- FZZvdX9JSsi0+2tfzGlwr/L1nOAl1sqQ8PFqA3z8Uhxx7WDlMVkqgxmf1kAcFOUxS45V
- I/mdzgjghZC/22DWVQWVtXwbWOmYqUGXS940i83612S6IAOk4gU92sFjoSaIBg6Gwx4y
- /TGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=eNnBnf4I5P6m1+GlePB104fkvy7RB/fMLkb/bWQl5gs=;
- b=ScR+qPP1ADKjeYtuP3W8DjLcg0KqYZJQ83me12NL7Y7PEQng/QUy+CYOBIpy5Gq3Fx
- ryojaCdLP2oV+9umB1IuXZxun2ofD4MjUeWnVDEGVMr9vjCWgAqNzHtLhGX12W4+qzvI
- me3XvJqHg73eRO+Xp2mLMr08eBgHzcYDQzbvdmc1fa048aaVG+xgbuGH20OVgozhz2AJ
- +OfJVnHu4M3v5WXhdXdQ2tFqDS/eK8Ti54jeMi0xCqcvvqr591KYCV/2MS+PKn5KX31m
- G353kJjz3Aw2oOtYMDqlmw/wbS3BQ7RaOA75FQP2a8HXjwELUQl4KhoVnp0OscVFciaB
- zsig==
-X-Gm-Message-State: AKS2vOypmKwbupjo84k+ZZhBcFWwbo8rlGRtYD9vybnMpIsltCEfQkL/
- FHInPwa6v+vhHA==
-X-Received: by 10.55.18.225 with SMTP id 94mr58317849qks.251.1499373272006;
- Thu, 06 Jul 2017 13:34:32 -0700 (PDT)
-Received: from gfwr703.rch.stglabs.ibm.com ([129.42.161.36])
- by smtp.gmail.com with ESMTPSA id v47sm982304qtb.11.2017.07.06.13.34.30
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 06 Jul 2017 13:34:31 -0700 (PDT)
-From: Brandon Wyman <bjwyman@gmail.com>
-To: joel@jms.id.au
-Cc: Brandon Wyman <bjwyman@gmail.com>,
-	openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10 v2] ARM: dts: aspeed: Add fan card PCA9552 to
- Witherspoon devicetree
-Date: Thu,  6 Jul 2017 15:33:55 -0500
-Message-Id: <1499373235-5412-1-git-send-email-bjwyman@gmail.com>
-X-Mailer: git-send-email 2.7.2
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+ :Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+ :Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ydAJJZhDlL7fHeQPbZBOvKmi7NTlr0K8fRdVKcSrySA=; b=kBPzRYyaLdFGgUaLUt2Ox7oYVR
+ SIkA4W40LSjbgisoSH1v8N466Db3n055H+vf9WkcVeovI3LH5idzosetS8kpc1gMlayx8D79/N93c
+ v3ehmwgCnLhGUyYHC53puRsXl9RFkv/w3qqGAEgMUUOiVk3ZrqQH/922k7RnkfIcij26DcKcJ/zUA
+ T0XX4aPty5IovzrvhwUpBNyvKQ0462V9g0Ow+tpE3ifTDCP1t5e//w5+Z/ZuYosDDz2aGViTKBvoq
+ 88YNOwDpTzOOvIeYeACbKfUaK4GXGQzip0gCXTpGlHrjh2NDfgBpA8bz5BuzhLE9pcSy+2KxTajS0
+ ouMetvZg==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net
+ ([108.223.40.66]:48078 helo=localhost)
+ by bh-25.webhostbox.net with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ (Exim 4.89) (envelope-from <linux@roeck-us.net>)
+ id 1dTDhn-001LqM-56; Thu, 06 Jul 2017 20:48:55 +0000
+Date: Thu, 6 Jul 2017 13:48:50 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Cc: Rob Herring <robh@kernel.org>, mark.rutland@arm.com,
+ devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, wim@iguana.be
+Subject: Re: [PATCH v3 1/2] drivers/watchdog: Add optional ASPEED device tree
+ properties
+Message-ID: <20170706204850.GA20079@roeck-us.net>
+References: <20170629002811.87199-1-cbostic@linux.vnet.ibm.com>
+ <20170629002811.87199-2-cbostic@linux.vnet.ibm.com>
+ <b51fedbb-837f-49ea-d050-4c3be82724c5@roeck-us.net>
+ <21f28ed9-b73a-5c21-5557-bec1fef0d874@linux.vnet.ibm.com>
+ <20170629150417.GA10226@roeck-us.net>
+ <20170706143512.bmjv2gnoqp5ew4py@rob-hp-laptop>
+ <e36ab090-865c-f4d4-6173-1485f77c5d31@linux.vnet.ibm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e36ab090-865c-f4d4-6173-1485f77c5d31@linux.vnet.ibm.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Authenticated_sender: guenter@roeck-us.net
+X-OutGoing-Spam-Status: No, score=-1.0
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - lists.ozlabs.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-Get-Message-Sender-Via: bh-25.webhostbox.net: authenticated_id:
+ guenter@roeck-us.net
+X-Authenticated-Sender: bh-25.webhostbox.net: guenter@roeck-us.net
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,81 +70,121 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Jul 2017 20:34:36 -0000
+X-List-Received-Date: Thu, 06 Jul 2017 20:48:59 -0000
 
-The Witherspoon OpenBMC system has a PCA9552 chip on the fan card that
-is used for fan fault and identify LED control. Adding this chip and the
-LED lines to the device tree.
+On Thu, Jul 06, 2017 at 02:27:18PM -0500, Christopher Bostic wrote:
+> 
+> 
+> On 7/6/17 9:35 AM, Rob Herring wrote:
+> >On Thu, Jun 29, 2017 at 08:04:17AM -0700, Guenter Roeck wrote:
+> >>On Thu, Jun 29, 2017 at 08:39:59AM -0500, Christopher Bostic wrote:
+> >>>
+> >>>On 6/28/17 10:33 PM, Guenter Roeck wrote:
+> >>>>On 06/28/2017 05:28 PM, Christopher Bostic wrote:
+> >>>>>Describe device tree optional properties:
+> >>>>>
+> >>>>>   * aspeed,arm-reet - ARM CPU reset on signal
+> >>>>>   * aspeed,no-soc-reset - SOC reset on signal
+> >>>>>   * aspeed,no-sys-reset - System reset on signal
+> >>>>>   * aspeed,interrupt - Interrupt CPU on signal
+> >>>>>   * aspeed,external-signal - Generate external signal (WDT1 and WDT2
+> >>>>>only)
+> >>>>>   * aspeed,alt-boot - Boot from alternate block on signal
+> >>>>>
+> >>>>>Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+> >>>>>---
+> >>>>>v3 - Invert soc and sys reset to 'no' to preserve backwards
+> >>>>>      compatibility.  SOC and SYS reset will be set by default
+> >>>>>      without any optional parameters set
+> >>>>>v2 - Add 'aspeed,' prefix to all optional properties
+> >>>>>    - Add arm-reset, soc-reset, interrupt, alt-boot properties
+> >>>>>---
+> >>>>>  .../devicetree/bindings/watchdog/aspeed-wdt.txt    | 24
+> >>>>>++++++++++++++++++++++
+> >>>>>  1 file changed, 24 insertions(+)
+> >>>>>
+> >>>>>diff --git a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> >>>>>b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> >>>>>index c5e74d7..6f18005 100644
+> >>>>>--- a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> >>>>>+++ b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> >>>>>@@ -8,9 +8,33 @@ Required properties:
+> >>>>>   - reg: physical base address of the controller and length of memory
+> >>>>>mapped
+> >>>>>     region
+> >>>>>  +Optional properties:
+> >>>>>+   Signal behavior - Whenever a timeout occurs the watchdog can be
+> >>>>>programmed
+> >>>>>+   to generate/not generate 6 types of signals:
+> >>>>>+
+> >>>>>+ - aspeed,arm-reset:    If property is present then reset ARM CPU only.
+> >>>>>+            If not specified no ARM CPU reset is done.
+> >>>>>+
+> >>>>>+ - aspeed,no-soc-reset: If property is present then do not reset SOC.
+> >>>>>+            If not specified then SOC reset is done.
+> >>>>>+
+> >>>>>+ - aspeed,no-sys-reset: If property is present then do not reset
+> >>>>>system.
+> >>>>>+            Typcally used in tandem with 'aspeed-external-signal'
+> >>>>Is this correct ? As I understand the datasheet, it could also used in
+> >>>>tandem with
+> >>>>aspeed,interrupt.
+> >>>True, that should be documented.  Will add that.
+> >>>>>+            If not specified then system reset is done.
+> >>>>>+
+> >>>>I'll leave it up to Rob to decide, but for my part I don't understand
+> >>>>no-soc-reset.
+> >>>As the aspeed watchdog driver exists prior to this change an SOC reset is
+> >>>done by
+> >>>default.   In order to preserve backwards compatibility a missing optional
+> >>>property
+> >>>should result in default behavior.  I however need to be able to specify
+> >>>that SOC
+> >>>reset be disabled in some way.  This goes back to our discussion about why
+> >>>we'd
+> >>>ever want to disable SYSTEM reset in the first place.  Same reasoning
+> >>>applies for
+> >>>SOC reset.
+> >>>
+> >>>>I would instead use four properties.
+> >>>>
+> >>>>    aspeed,arm-reset
+> >>>>    aspeed,soc-reset
+> >>>Per my response above I think it should remain as aspeed,no-soc-reset due to
+> >>>backwards compatibility requirements.
+> >>The same can be accomplished with "aspeed,no-reset", which would avoid the, in
+> >>my opinion, awkward "no-{sys,soc}-reset" poperties.
+> >>
+> >>>>    aspeed,sys-reset (which is the default)
+> >>>Again as per our discussion yesterday I need some way to specify how system
+> >>>reset is to  be done.  For backwards compatibility, a lack of parameter here
+> >>>would
+> >>>result in a system reset being configured.  Only way to indicate to the
+> >>>driver
+> >>>that no system reset is to be done is to indicate 'no' system reset in the
+> >>>optional
+> >>>parameter.
+> >>Or "aspeed,no-reset".
+> >>
+> >>>>    aspeed,no-reset
+> >>>This parameter seems ambiguous as we could be doing a 'no system reset'
+> >>>or a 'no SOC reset' in theory.
+> >>{arm,soc,sys}-reset are mutually exclusive per datasheet, and there is a
+> >>separate configuration bit which enables the reset in the first place.
+> >>I don't see how that is ambiguous.
+> >>
+> >>Anyway, I don't think we are making any progress here. Let's wait for
+> >>guidance from Rob.
+> >I tend to agree with Guenter.
+> >
+> >Maybe using the form 'aspeed,reset-type = "cpu|soc|system"' would be
+> >more aligned to the type of reset being mutually exclusive.
+> 
+> OK I'll update to this method.
+> 
 
-Signed-off-by: Brandon Wyman <bjwyman@gmail.com>
----
-v2 - Add required address-cells and size-cells.
-     Update aliases and labels to match up with MRW XML.
----
----
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 50 ++++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
+Maybe add 'aspeed,reset-type = "none"' ? The default (no property) would
+then be "system".
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-index 31315d0..45e63ba 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -203,6 +203,56 @@
- 		compatible = "infineon,dps310";
- 		reg = <0x76>;
- 	};
-+
-+	pca0: pca9552@60 {
-+		compatible = "nxp,pca9552";
-+		reg = <0x60>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		fan0: led@0 {
-+			label = "fan0";
-+			default-state = "keep";
-+			reg = <0>;
-+			type = <PCA955X_TYPE_LED>;
-+		};
-+		fan1: led@1 {
-+			label = "fan1";
-+			default-state = "keep";
-+			reg = <1>;
-+			type = <PCA955X_TYPE_LED>;
-+		};
-+		fan2: led@2 {
-+			label = "fan2";
-+			default-state = "keep";
-+			reg = <2>;
-+			type = <PCA955X_TYPE_LED>;
-+		};
-+		fan3: led@3 {
-+			label = "fan3";
-+			default-state = "keep";
-+			reg = <3>;
-+			type = <PCA955X_TYPE_LED>;
-+		};
-+		front_fault: led@13 {
-+			label = "front-fault";
-+			default-state = "keep";
-+			reg = <13>;
-+			type = <PCA955X_TYPE_LED>;
-+		};
-+		front_power: led@14 {
-+			label = "front-power";
-+			default-state = "keep";
-+			reg = <14>;
-+			type = <PCA955X_TYPE_LED>;
-+		};
-+		front_id: led@15 {
-+			label = "front-id";
-+			default-state = "keep";
-+			reg = <15>;
-+			type = <PCA955X_TYPE_LED>;
-+		};
-+	};
- };
- 
- &i2c4 {
--- 
-2.7.2
+Thanks,
+Guenter
