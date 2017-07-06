@@ -1,54 +1,52 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
- [IPv6:2607:f8b0:4002:c05::244])
+Received: from mail-pg0-x242.google.com (mail-pg0-x242.google.com
+ [IPv6:2607:f8b0:400e:c05::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x3KRn6Lv9zDr3x
- for <openbmc@lists.ozlabs.org>; Fri,  7 Jul 2017 00:11:49 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x3Kyq73NQzDr3x
+ for <openbmc@lists.ozlabs.org>; Fri,  7 Jul 2017 00:35:15 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="GgDI4wOP"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="g787/FtL"; 
  dkim-atps=neutral
-Received: by mail-yw0-x244.google.com with SMTP id a12so202517ywh.1
- for <openbmc@lists.ozlabs.org>; Thu, 06 Jul 2017 07:11:49 -0700 (PDT)
+Received: by mail-pg0-x242.google.com with SMTP id u62so481765pgb.0
+ for <openbmc@lists.ozlabs.org>; Thu, 06 Jul 2017 07:35:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=ETC+uk3ySbmaF2nTo7fEvVFiuGDuITw35CRbPoVZofE=;
- b=GgDI4wOP394jubTsycyjI5wML4cvelyfOdYaLp2wcWx75p+GPrkPe94ghylxvs1wP0
- LKzxSylZ+RKGN+Jgr5wP7x+fH5qmWSmO5jtbNni4uhlKBmrY4YoQClnGmtYj7SpqdzJR
- 9fDbm3Xpl9kGVlziUbP7jAL9BjmOn6iW3U90vy1AbEcyBDDqb93wqGbYNgBY42owe4yZ
- pMBlWi9leHBJM2YAeHwBvgkXGcSESFbEJrfHsgglHYwAAu3GUv9pt2Pq5sl/Pb9iRJBd
- vleE+K9QLv16jKcbajdCe8Hl8tYt/JBmDbd2tnjYYA/nZ5WUh1UeKSX6OLhy4S7sLZ3k
- etSw==
+ h=sender:from:to:subject:date:message-id;
+ bh=s6nNrXC3Lk/iJ0jl22DrNVIzlQomtB5QNe9/xZ30EwI=;
+ b=g787/FtLnpFBIgqfLbHEygz5+ioZjODgFWiy5pN9WoUWLG61FCiXg3QQXixZizbJU1
+ ObBNu2qTMhzpPHXjs0v5VwuIWI7yEl59YXRQd7QMN3MxyuwhPG8glvNhk/3FKLyEbtvT
+ 4xJSn6NY5iCaEj7Z9RfPhOD6UYHpO1vpYniuLgmd84GIXDjjI2Avv5GTFo1bZZKRDoVB
+ 9h9VLKVXAz3VIfTeIZkbVYoYEAk8PdBcZiCD/doNODuUpoUPWcNGVXq5TrUl8NGs5Yb/
+ VNaXC/BqcwCyV+qNRO64+dQG0uCnH4awxbwidr4lQ7InevZT8O3mOHcBoNGtw37qeSXu
+ LP6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=ETC+uk3ySbmaF2nTo7fEvVFiuGDuITw35CRbPoVZofE=;
- b=TWCcUxrQ/hiK/ZVz8D+w5H6mSeX10zcnhy6NMaXUmlJrDc1RZ2NzfR/3aO8iMhQdhZ
- Ddr8nnp1C6LKiuA4z5lAYaPCL5FQIHAUxLHS3CGGFtmAOSFUeeJBonw1IcU0BidMn4lN
- T73pKKG5zC7ef74uzuZbGMTY94OQHqMlPKPgMlKgmZWBsGJ1QHbvUXmYwMJqTmaEMVSZ
- FOdK5aJaiNhzOSqmJ8XP5xdMd7m/FsqTMeO/W3J7EOH5k1Oa4V5v3kWuDGnRAwtRgpxk
- JcJYIkuKU++gi7MiNsFFf4MwPWWc+sCvO0WOxxKV9aCuKqDEgdmS6ZESkQ7FgDp/jat0
- R/Jg==
-X-Gm-Message-State: AKS2vOwONaRL52MNUxjOQNjjnL4ElHgahaMIWfaQhyUEPzzi/pnaa4/b
- fB24FMAvpgkHJ5EKBBItfdsqBiazWAMTfCQ=
-X-Received: by 10.13.225.5 with SMTP id k5mr37709886ywe.178.1499350307142;
- Thu, 06 Jul 2017 07:11:47 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.170.239 with HTTP; Thu, 6 Jul 2017 07:11:26 -0700 (PDT)
-In-Reply-To: <20170706140642.22377-1-cbostic@linux.vnet.ibm.com>
-References: <20170706140642.22377-1-cbostic@linux.vnet.ibm.com>
+ h=x-gm-message-state:sender:from:to:subject:date:message-id;
+ bh=s6nNrXC3Lk/iJ0jl22DrNVIzlQomtB5QNe9/xZ30EwI=;
+ b=X3zvUK37Xtqa7VCgLzDZjWVx7XjCf6mSqSO+jGwt7JVRFH5NSSEKln+2NxFvm5308W
+ AHlMj/IQ4sgRFbvyycKHdoRWC94XUrV1qZCNk3rKKiNHZnqMtio1ozFUNMTSt4PVBpr1
+ bEYjgt+geVBmjXJvvcmQ2vAeaHUiSLd3AiH3LifbhOLa8UhsMd6vM3tiXlMsLFeSXQ0H
+ MacToTGrmgfrZDDq4gxsRaanMkLbacBZ6laxVIwzMhsvmbQI79r8bRDDVAJQDMXy4mb8
+ COpfjVI0f36s8yN2Ckg8xLvl/mAQyPN4FAKO/SMONnCtgghfikewc9HapLhbznx7HG6q
+ RsfQ==
+X-Gm-Message-State: AIVw110MKjVhvxQ8f79icSCzyp4A0FAnnbj91qasc3eJoa9zZSjwIuYN
+ 3P+FNStdbsr6EIUlpMY=
+X-Received: by 10.99.134.199 with SMTP id x190mr26745899pgd.127.1499351713545; 
+ Thu, 06 Jul 2017 07:35:13 -0700 (PDT)
+Received: from aurora.jms.id.au ([45.124.203.19])
+ by smtp.gmail.com with ESMTPSA id q19sm1293805pfd.24.2017.07.06.07.35.10
+ (version=TLS1 cipher=AES128-SHA bits=128/128);
+ Thu, 06 Jul 2017 07:35:12 -0700 (PDT)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+Received: by aurora.jms.id.au (sSMTP sendmail emulation);
+ Fri, 07 Jul 2017 00:05:06 +0930
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 6 Jul 2017 23:41:26 +0930
-X-Google-Sender-Auth: 79Z2fmPfzUfsutaHwfisd6AeIlo
-Message-ID: <CACPK8XcDKo4=Q=+=5OX0Zipp=0_QkxC7XRVg4w=EUY5Par6GSg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] arch/arm/boot/dts: Add watchdog 1 optional
- properties.
-To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+To: openbmc@lists.ozlabs.org,
+	Eddie James <eajames@linux.vnet.ibm.com>
+Subject: [PATCH linux dev-4.10 0/4] i2c fsi fixes
+Date: Fri,  7 Jul 2017 00:04:59 +0930
+Message-Id: <20170706143503.21888-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.13.2
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,46 +58,66 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Jul 2017 14:11:50 -0000
+X-List-Received-Date: Thu, 06 Jul 2017 14:35:16 -0000
 
-On Thu, Jul 6, 2017 at 11:36 PM, Christopher Bostic
-<cbostic@linux.vnet.ibm.com> wrote:
-> Define external-signal and no system reset optional parameters
-> to the dev tree so that watchdog 1 can be configured for these
-> modes.
+Hi Eddie,
 
-Thanks. Take a look at the history of the dts changes. Convention is
-to use the prefix:
+These are some work in progress cleanups that I have created for the fsi i2c
+driver.
 
- "ARM: dts: aspeed: Add watchdog 1 optional properties"
+Patch 4 causes the kernel to crash when scanning for devices. To reproduce,
+boot the system and do 'obmcutil poweron'. According to the device tree
+bindings, his change is correct:
 
-Keep it in mind for next time. I'll fix it up for you when I apply it.
+ https://github.com/openbmc/linux/blob/dev-4.10/Documentation/devicetree/bindings/fsi/fsi.txt#L56
 
-Cheers,
+ > Since the master nodes describe the top-level of the FSI topology, they also
+ > need to declare the FSI-standard addressing scheme. This requires two cells for
+ > addresses (link index and slave ID), and no size:
+ >
+ >  #address-cells = <2>;
+ >  #size-cells = <0>;
 
-Joel
->
-> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> index 31315d0..20bbda6 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> @@ -420,6 +420,11 @@
->         aspeed,external-nodes = <&gfx &lhc>;
->  };
->
-> +&wdt1 {
-> +       aspeed,no-sys-reset;
-> +       aspeed,external-signal;
-> +};
-> +
->  &wdt2 {
->         status = "okay";
->  };
-> --
-> 1.8.2.2
->
+The code suggests the same:
+
+ https://github.com/openbmc/linux/blob/dev-4.10/drivers/fsi/fsi-core.c#L628
+
+ > na = of_n_addr_cells(np);
+ > ns = of_n_size_cells(np);
+ >
+ > /* Ensure we have the correct format for addresses and sizes in
+ >  * reg properties
+ >  */
+ > if (na != 2 || ns != 0)
+ >	return false;
+
+If you don't apply that fix, we do get one of the chips probing correctly (I
+assume the hub, as it has the correct format).
+
+Another issue is patch 2, which removes the statically allocated port numbers,
+where you added 100 or 200 the port number. To retain the old behaviour, I
+suggest you send a patch that adds aliases instead:
+
+ aliases {
+	 i2c100 = &cfam0_i2c1;
+	 i2c101 = &cfam0_i2c2;
+ }
+
+That's a workaround though. We should get the people using these interfaces to
+discover them properly, instead of assuming they exist at a magic offset. sysfs
+is a good way to do this.
+
+ /sys/devices/platform/gpio-fsi/fsi0/slave@00:00/00:00:00:03/i2c-19/
+
+Joel Stanley (4):
+  i2c: fsi: Remove ida counter
+  i2c: fsi: Dynamically allocate port numbers
+  i2c: fsi: Remove idx counter
+  ARM: dts: cfam: Fix hub node
+
+ arch/arm/boot/dts/ibm-power9-cfam.dtsi |  4 ++--
+ drivers/i2c/busses/i2c-fsi.c           | 28 ++++------------------------
+ 2 files changed, 6 insertions(+), 26 deletions(-)
+
+-- 
+2.13.2
