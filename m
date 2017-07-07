@@ -1,54 +1,54 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x241.google.com (mail-yb0-x241.google.com
- [IPv6:2607:f8b0:4002:c09::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x3lMt1PwGzDqj8
- for <openbmc@lists.ozlabs.org>; Fri,  7 Jul 2017 16:39:53 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x3mPX2JFCzDqj8
+ for <openbmc@lists.ozlabs.org>; Fri,  7 Jul 2017 17:26:24 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="ccfsMDlM"; 
- dkim-atps=neutral
-Received: by mail-yb0-x241.google.com with SMTP id o195so1014912yba.3
- for <openbmc@lists.ozlabs.org>; Thu, 06 Jul 2017 23:39:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=UxDZTuWS5LUpLPkLqJ8wVXkjCHVVoOswSsFS8uSbkow=;
- b=ccfsMDlMM23jsRpspcHxln5aDtgOXnkjBNpLy856cLtKp6LZI24Pr9fqx6nQ2OctYA
- s/86u3Gbuea5AQCQY49eoAttNZghMS80PQp0ydnO/V7B6u2bXkOYyU4W4Yz225T7/+X7
- lC0cpHMf9yUpMv7vhG/BJMN7JE52TG75IIYli8Fjmid5k7ATuyXbTq3nMYXRJOFNzENL
- 9fgrVJo1zi4Uoe+XUyEUqVNZk7d+IftIJXaTk90Pvp+dvDLmmdN2GHe4le2eig5esSs6
- yfKTZ0YGdEqh4s9trxoc4+ghn+8k+snMuOCT0s4bvID3xTyOKXoYlGVFla+AlMfEBIvp
- JhKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=UxDZTuWS5LUpLPkLqJ8wVXkjCHVVoOswSsFS8uSbkow=;
- b=g48IjWKaqwxB8GLpKtj1fng6J/ijFZhUPqvDGchxNBAaPf/9iRFuNXhivGKiz7G8f+
- ihspSc9VrRfMyxBFeWmYoc5ioPOpwaF4JdegDrQkpRVd1O9FvxiYLuYpo4crwx6yYBE5
- y3hMspOxhwFk/j2s2zYRteTkMOLKC2xc0uWY0oTZMRAJ2lPVgiaWrEVQJ3N/6ZjtPIhD
- 83NjgFzGyqSP1IHac0Rdv1gFHNOQQaWTVacXJxqISJpMGf67mi81CH/1Eyj+BRuf+FuA
- oSIzcLwqQxioT6EWierH4fm8tAtOEGPGi/lKGGpKlMKj4mV53A5el4aNiOgEawY4TOTl
- esRw==
-X-Gm-Message-State: AIVw111tpXAV8WvKn4OK7keINZWP348oqf2p8J7xoamrQ/YtD+qvOu7I
- trbx4HddLnyIw6gAkT3SBpHq68nlqkCQ
-X-Received: by 10.37.35.212 with SMTP id j203mr2394956ybj.94.1499409591575;
- Thu, 06 Jul 2017 23:39:51 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.170.239 with HTTP; Thu, 6 Jul 2017 23:39:30 -0700 (PDT)
-In-Reply-To: <1499377469-30625-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1499377469-30625-1-git-send-email-eajames@linux.vnet.ibm.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 7 Jul 2017 16:09:30 +0930
-X-Google-Sender-Auth: cK6uIR0LWDGv817Rfoc6-KJTRJg
-Message-ID: <CACPK8XeYkeJUXh5cee9D_jij3iVMYMWupEbNTXr5gzLUdmcO9g@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 v3 0/3] Add I2C busses to P9 device tree
-To: Eddie James <eajames@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- "Edward A. James" <eajames@us.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="eg+sPqqk"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="AT8MfXZN"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 9AA9E20777;
+ Fri,  7 Jul 2017 03:26:18 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Fri, 07 Jul 2017 03:26:18 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :date:from:message-id:subject:to:x-me-sender:x-me-sender
+ :x-sasl-enc:x-sasl-enc; s=fm1; bh=aAnv0CpVAYyg3xtAjYFAFA3X9kFe4z
+ AsQEcqOuFHqes=; b=eg+sPqqkF2bkLkTBkb3FwdX12F1M4uJDZHktBpbpmV46U1
+ VH3JAiac1wUxUcMebFk3llPC6X9pzKxTTpjxT5debOWDtgXOwaqyJ+sjxjfC6fZ/
+ kNMQyEEMm2OXEoZU46AZN1BUO9m1bP2ezS0svtk/R9klomqSYdT/D/qHWLM0F6s0
+ rA2tV1nxpu7zljBvYsXXkYZc+DrkyYnAV2neII9PA0gAoLxcCIqgQr2tUYgZoDYm
+ sUi2FPp6WJDTRCXK5Cjou3NRNQf4NTrAwsqSkTOM1A9lyYge5GBThd24G8lLnEGH
+ iOmmsU01nAjna4MEIumXdtVH/2cSPE/kXn6jrurg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=aAnv0C
+ pVAYyg3xtAjYFAFA3X9kFe4zAsQEcqOuFHqes=; b=AT8MfXZNHoa6W3SP59b+Ze
+ aTuOPRTSqPVsSehWBFZRSMfdIyFlEUuWbxB0sGWgqKBA7paWV/JD494Q9o13dKcz
+ MfAF13OFrrklHZmO7156KAatr8WTQVYyMAzq0VFfYABPxdGa5ksRkJrupVugD6DV
+ oeC/A4wl5PcVtHfQNZ7PCcnv2C+jCliHTQrHS6gPMdbP50U5RcVIlk9nbI7cUYcR
+ tH3I4JWWhQPIqq18t9M1cN1czkjECS+UaH4WRbe2UVJ45v+8txmkRsjU111KgBHS
+ W5KmRq+c35/lxIEGkqcq2jZip+N2rmn0rjDQ5Q2F/kF2SuaZgNt2B2Q2uZz04HLw
+ ==
+X-ME-Sender: <xms:mjdfWSp1shx6_iKxWcYn7V9zqJiR1v2_35tPkHOonl684fhVOdoZ9g>
+X-Sasl-enc: uJ0gEZ9y8dz2zavy9m6LRLkvkKUD0EHUxT26sXWZYYiJ 1499412377
+Received: from keelia.aj.id.au (220-253-43-190.dyn.iinet.net.au
+ [220.253.43.190])
+ by mail.messagingengine.com (Postfix) with ESMTPA id AB09224251;
+ Fri,  7 Jul 2017 03:26:16 -0400 (EDT)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: joel@jms.id.au
+Cc: Andrew Jeffery <andrew@aj.id.au>, geissonator@gmail.com,
+ openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.10] ARM: aspeed: witherspoon: Add reset tolerance
+ for host power GPIOs
+Date: Fri,  7 Jul 2017 16:55:44 +0930
+Message-Id: <20170707072544.25003-1-andrew@aj.id.au>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,40 +60,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Jul 2017 06:39:54 -0000
+X-List-Received-Date: Fri, 07 Jul 2017 07:26:26 -0000
 
-On Fri, Jul 7, 2017 at 7:14 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
-> From: "Edward A. James" <eajames@us.ibm.com>
->
-> This series adds FSI-attached I2C controller and associated busses to the P9
-> FSI cfam device tree node. It also enables the devices in the P9 machine-
-> specific files, and adds aliases to preserve the expected /dev/ entries.
-> Also does a couple of dt parsing fixes in the driver.
+Enables the host to stay up across BMC reboots. This is a temporary
+approach. Ultimately bindings support and reset tolerance capability
+will be added to the GPIO driver, and the behaviour will be described
+in the devicetree.
 
-The code changes conflict with the fixes I posted. Please review the
-fixes I posted, and rebase your patches on them.
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ arch/arm/mach-aspeed/aspeed.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-Cheers,
-
-Joel
-
->
-> Changes since v2:
->  - Split adding and enabling busses into two patches.
->  - Add aliases.
->  - Add the device node to the I2C adapter dev (needed for alias).
->
-> Edward A. James (3):
->   arm/dts: Add I2C master and ports to FSI cfams
->   arm/dts: Enable FSI I2C busses for P9
->   drivers/i2c: Fix devicetree parsing in FSI-attached I2C master algo
->
->  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     | 150 +++++++++++++++++++++
->  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 150 +++++++++++++++++++++
->  arch/arm/boot/dts/ibm-power9-cfam.dtsi           | 164 +++++++++++++++++++++++
->  drivers/i2c/busses/i2c-fsi.c                     |  12 +-
->  4 files changed, 471 insertions(+), 5 deletions(-)
->
-> --
-> 1.8.3.1
->
+diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+index 74611a9c2c79..100805e8c263 100644
+--- a/arch/arm/mach-aspeed/aspeed.c
++++ b/arch/arm/mach-aspeed/aspeed.c
+@@ -177,7 +177,17 @@ static void __init do_zaius_setup(void)
+ 
+ static void __init do_witherspoon_setup(void)
+ {
++	unsigned long reg;
++
+ 	do_common_setup();
++
++	/* Reset tolerance for BMC_POWER_UP (GPIOD1) */
++	reg = readl(AST_IO(AST_BASE_GPIO | 0x01C));
++	writel(reg | BIT(25), AST_IO(AST_BASE_GPIO | 0x01C));
++
++	/* Reset tolerance for SOFTWARE_PGOOD (GPIOR1) */
++	reg = readl(AST_IO(AST_BASE_GPIO | 0x12C));
++	writel(reg | BIT(9), AST_IO(AST_BASE_GPIO | 0x12C));
+ }
+ 
+ static void __init do_romulus_setup(void)
+-- 
+2.11.0
