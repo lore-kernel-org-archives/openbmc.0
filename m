@@ -1,52 +1,69 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
- [IPv6:2607:f8b0:400e:c00::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <tomjose@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x3kW201qFzDqj8
- for <openbmc@lists.ozlabs.org>; Fri,  7 Jul 2017 16:01:01 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="McWHyzub"; 
- dkim-atps=neutral
-Received: by mail-pf0-x241.google.com with SMTP id c24so3209538pfe.1
- for <openbmc@lists.ozlabs.org>; Thu, 06 Jul 2017 23:01:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id;
- bh=jUbOMBPNDUCgBaD9h5OoYFV4KOZXNQpWJbGCMUSHCU0=;
- b=McWHyzubrrs4wGL3Bg6ti2F8wtIgniwiurYBr93gaatSJip415e/pK+Yg0f3G0cQZg
- /3JeuZKZpcpR0ToeowHwAGe887kbi//eEq6bbEbSTRF0VBV5J1PJLvre3JnjPHy2Q4wr
- aRZisNNJRezJvxYT96N1gjh9P3fov/hd6uS3g2Emh5JriBNWLYpvbIGa10vvvy4MxFRO
- YVggVLTDWMHSQMWewnQuMvyphriTzBAThS+oXp9Vn+MPamjp4v/C7SJIxGSHw+SCrJhy
- bYQD0XNM6PsXJ7cegCXq20461KiTVlPTOxottJuP8OhH4tF7X+fFdJrw0N4vNBP9wGKj
- yzjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
- bh=jUbOMBPNDUCgBaD9h5OoYFV4KOZXNQpWJbGCMUSHCU0=;
- b=BSkQCDYJNoqrs6wfO6JgjTM/Bk3K8mQeqNQDi3IocMaehRhnorTDwsnpG2jwX7TogF
- ddEW1I0ROLt9Ec6IH2Z4XEnZnGXds1SyQ4lABG6FKkJCvS4jRdRWQLURxkJcML74MBc4
- hie8w7MtXYPXo1Yat5nRFCvsqwPfJKxHqC/j/xiosZZDC1zUSi7B4v0RswtqH7g6wATx
- EG3tkv8bdckM6QCONBoyhbRDCc3hOl/dc5CXHIQb6d75QnKWG50lXXK0xXqi9cGvjWNl
- UomdVNdQN4IymtLz7DkFONlUpFcK82PihIw/ZwfLvDbV2ZRV7Xxinkt1xdiKQ/VSImdK
- mALw==
-X-Gm-Message-State: AIVw112jRGEoXLENhsU3yiqafbXRng3tuX3sZyBm9ijRdcCJ2X14hzlA
- SVcXigCpJR1xTWYBRUI=
-X-Received: by 10.98.47.194 with SMTP id v185mr3113115pfv.62.1499407259502;
- Thu, 06 Jul 2017 23:00:59 -0700 (PDT)
-Received: from aurora.jms.id.au ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id r84sm3924877pfa.57.2017.07.06.23.00.56
- (version=TLS1 cipher=AES128-SHA bits=128/128);
- Thu, 06 Jul 2017 23:00:58 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Fri, 07 Jul 2017 15:30:53 +0930
-From: Joel Stanley <joel@jms.id.au>
-To: openbmc@lists.ozlabs.org
-Cc: Eddie James <eajames@linux.vnet.ibm.com>
-Subject: [PATCH linux dev-4.10] fsi: occ: Fix spin_lock_irq errors
-Date: Fri,  7 Jul 2017 15:30:52 +0930
-Message-Id: <20170707060052.3471-1-joel@jms.id.au>
-X-Mailer: git-send-email 2.13.2
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x3kt45SwZzDqj8
+ for <openbmc@lists.ozlabs.org>; Fri,  7 Jul 2017 16:17:32 +1000 (AEST)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v676DjOY131128
+ for <openbmc@lists.ozlabs.org>; Fri, 7 Jul 2017 02:17:30 -0400
+Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2bhvrb64n5-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 07 Jul 2017 02:17:29 -0400
+Received: from localhost
+ by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <tomjose@linux.vnet.ibm.com>;
+ Fri, 7 Jul 2017 02:17:28 -0400
+Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
+ by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Fri, 7 Jul 2017 02:17:25 -0400
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
+ [9.57.199.111])
+ by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v676HOCw65994774; Fri, 7 Jul 2017 06:17:24 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 28719AC040;
+ Fri,  7 Jul 2017 02:17:30 -0400 (EDT)
+Received: from [9.124.158.108] (unknown [9.124.158.108])
+ by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id 0A53AAC03A;
+ Fri,  7 Jul 2017 02:17:28 -0400 (EDT)
+Subject: Re: phosphor-net-ipmid
+References: <201706230720.v5N7K755030029@mactruck.svl.corp.google.com>
+ <CAFd5g47f6Cd3GYnrZPKZ+Hnamm1narto9zmGffDpfyKdtAu-7g@mail.gmail.com>
+Cc: Vlad Vovchenko <v.vovchenko@yadro.com>, openbmc@lists.ozlabs.org,
+ Patrick Williams <patrick@stwcx.xyz>
+To: Ilya Kuznetsov <ilya@yadro.com>
+From: tomjose <tomjose@linux.vnet.ibm.com>
+Date: Fri, 7 Jul 2017 11:47:22 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
+ Thunderbird/38.8.0
+MIME-Version: 1.0
+In-Reply-To: <CAFd5g47f6Cd3GYnrZPKZ+Hnamm1narto9zmGffDpfyKdtAu-7g@mail.gmail.com>
+Content-Type: multipart/alternative;
+ boundary="------------010204060405070802070407"
+X-TM-AS-GCONF: 00
+x-cbid: 17070706-0044-0000-0000-000003672641
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007334; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00884016; UDB=6.00441066; IPR=6.00664203; 
+ BA=6.00005455; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016124; XFM=3.00000015;
+ UTC=2017-07-07 06:17:27
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17070706-0045-0000-0000-000007952813
+Message-Id: <595F2772.1020602@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-07-07_04:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
+ definitions=main-1707070101
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,197 +75,195 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Jul 2017 06:01:02 -0000
+X-List-Received-Date: Fri, 07 Jul 2017 06:17:33 -0000
 
-We are seeing warnings whenever this driver is in use:
+This is a multi-part message in MIME format.
+--------------010204060405070802070407
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
- WARNING: CPU: 0 PID: 991 at kernel/softirq.c:162 __local_bh_enable_ip+0xa0/0xe0
- CPU: 0 PID: 991 Comm: openpower-occ-c Not tainted 4.10.17-00313-g9165bdc8c418 #497
- Hardware name: ASpeed SoC
- [<80010060>] (unwind_backtrace) from [<8000d924>] (show_stack+0x20/0x24)
- [<8000d924>] (show_stack) from [<801daedc>] (dump_stack+0x20/0x28)
- [<801daedc>] (dump_stack) from [<80018d04>] (__warn+0xe0/0x108)
- [<80018d04>] (__warn) from [<80018df8>] (warn_slowpath_null+0x30/0x38)
- [<80018df8>] (warn_slowpath_null) from [<8001c350>] (__local_bh_enable_ip+0xa0/0xe0)
- [<8001c350>] (__local_bh_enable_ip) from [<803afdd0>] (unix_release_sock+0x68/0x250)
- [<803afdd0>] (unix_release_sock) from [<803affe4>] (unix_release+0x2c/0x3c)
- [<803affe4>] (unix_release) from [<803153a8>] (sock_release+0x2c/0xa0)
- [<803153a8>] (sock_release) from [<80315438>] (sock_close+0x1c/0x24)
- [<80315438>] (sock_close) from [<800e3e60>] (__fput+0x94/0x1c4)
- [<800e3e60>] (__fput) from [<800e3ff8>] (____fput+0x18/0x1c)
- [<800e3ff8>] (____fput) from [<80031d34>] (task_work_run+0x78/0xa0)
- [<80031d34>] (task_work_run) from [<8001b2b4>] (do_exit+0x274/0x8e0)
- [<8001b2b4>] (do_exit) from [<8001b9b8>] (do_group_exit+0x4c/0xb4)
- [<8001b9b8>] (do_group_exit) from [<800253a4>] (get_signal+0x290/0x5b4)
- [<800253a4>] (get_signal) from [<8000ccf0>] (do_signal+0xd4/0x3dc)
- [<8000ccf0>] (do_signal) from [<8000d1d4>] (do_work_pending+0xac/0xbc)
- [<8000d1d4>] (do_work_pending) from [<8000a58c>] (slow_work_pending+0xc/0x20)
 
-The driver lack spin_unlock_irq calls when releasing locks. Add them.
-Also add whitespace around the locking calls so they stand out.
+Hello Ilya,
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
-Eddie, the locking in this driver is a bit scary. We need to get the driver
-properly reviewed as a priority, or else it will need to be removed from the
-tree until it is fixed.
+Appreciate your interest in contributing to OpenBMC project!
 
-This patch is enough to avoid confusing users with WARN_ONs. It's not a full
-review or fix for the locking.
+There is some good progress with the Sensor & SEL commands. The review 
+is up in the
+gerrit server, please feel free to take a look.
 
- drivers/fsi/occ.c | 43 ++++++++++++++++++++++++++++---------------
- 1 file changed, 28 insertions(+), 15 deletions(-)
+https://gerrit.openbmc-project.xyz/#/c/5048/
+https://gerrit.openbmc-project.xyz/#/c/4162/8
 
-diff --git a/drivers/fsi/occ.c b/drivers/fsi/occ.c
-index f43ae51cd2e0..d984e519a80e 100644
---- a/drivers/fsi/occ.c
-+++ b/drivers/fsi/occ.c
-@@ -123,9 +123,11 @@ static void occ_enqueue_xfr(struct occ_xfr *xfr)
- 	struct occ *occ = client->occ;
- 
- 	spin_lock_irq(&occ->list_lock);
-+
- 	empty = list_empty(&occ->xfrs);
- 	list_add_tail(&xfr->link, &occ->xfrs);
--	spin_unlock(&occ->list_lock);
-+
-+	spin_unlock_irq(&occ->list_lock);
- 
- 	if (empty)
- 		queue_work(occ_wq, &occ->work);
-@@ -175,6 +177,7 @@ static ssize_t occ_read_common(struct occ_client *client, char __user *ubuf,
- 		return -EINVAL;
- 
- 	spin_lock_irq(&client->lock);
-+
- 	if (!test_bit(CLIENT_XFR_PENDING, &client->flags)) {
- 		/* we just finished reading all data, return 0 */
- 		if (client->read_offset) {
-@@ -193,15 +196,17 @@ static ssize_t occ_read_common(struct occ_client *client, char __user *ubuf,
- 		}
- 
- 		set_bit(XFR_WAITING, &xfr->flags);
--		spin_unlock(&client->lock);
-+
-+		spin_unlock_irq(&client->lock);
- 
- 		rc = wait_event_interruptible(client->wait,
- 			test_bit(XFR_COMPLETE, &xfr->flags) ||
- 			test_bit(XFR_CANCELED, &xfr->flags));
- 
- 		spin_lock_irq(&client->lock);
-+
- 		if (test_bit(XFR_CANCELED, &xfr->flags)) {
--			spin_unlock(&client->lock);
-+			spin_unlock_irq(&client->lock);
- 			kfree(client);
- 			return -EBADFD;
- 		}
-@@ -236,7 +241,7 @@ static ssize_t occ_read_common(struct occ_client *client, char __user *ubuf,
- 	rc = bytes;
- 
- done:
--	spin_unlock(&client->lock);
-+	spin_unlock_irq(&client->lock);
- 	return rc;
- }
- 
-@@ -307,7 +312,7 @@ static ssize_t occ_write_common(struct occ_client *client,
- 	rc = len;
- 
- done:
--	spin_unlock(&client->lock);
-+	spin_unlock_irq(&client->lock);
- 	return rc;
- }
- 
-@@ -331,36 +336,39 @@ static int occ_release_common(struct occ_client *client)
- 	struct occ *occ = client->occ;
- 
- 	spin_lock_irq(&client->lock);
-+
- 	if (!test_bit(CLIENT_XFR_PENDING, &client->flags)) {
--		spin_unlock(&client->lock);
-+		spin_unlock_irq(&client->lock);
- 		kfree(client);
- 		return 0;
- 	}
- 
- 	spin_lock_irq(&occ->list_lock);
-+
- 	set_bit(XFR_CANCELED, &xfr->flags);
- 	if (!test_bit(XFR_IN_PROGRESS, &xfr->flags)) {
- 		/* already deleted from list if complete */
- 		if (!test_bit(XFR_COMPLETE, &xfr->flags))
- 			list_del(&xfr->link);
- 
--		spin_unlock(&occ->list_lock);
-+		spin_unlock_irq(&occ->list_lock);
- 
- 		if (test_bit(XFR_WAITING, &xfr->flags)) {
- 			/* blocking read; let reader clean up */
- 			wake_up_interruptible(&client->wait);
--			spin_unlock(&client->lock);
-+			spin_unlock_irq(&client->lock);
- 			return 0;
- 		}
- 
--		spin_unlock(&client->lock);
-+		spin_unlock_irq(&client->lock);
-+
- 		kfree(client);
- 		return 0;
- 	}
- 
- 	/* operation is in progress; let worker clean up*/
--	spin_unlock(&occ->list_lock);
--	spin_unlock(&client->lock);
-+	spin_unlock_irq(&occ->list_lock);
-+	spin_unlock_irq(&client->lock);
- 	return 0;
- }
- 
-@@ -563,15 +571,16 @@ static void occ_worker(struct work_struct *work)
- 
- again:
- 	spin_lock_irq(&occ->list_lock);
-+
- 	xfr = list_first_entry(&occ->xfrs, struct occ_xfr, link);
- 	if (!xfr) {
--		spin_unlock(&occ->list_lock);
-+		spin_unlock_irq(&occ->list_lock);
- 		return;
- 	}
- 
- 	set_bit(XFR_IN_PROGRESS, &xfr->flags);
- 
--	spin_unlock(&occ->list_lock);
-+	spin_unlock_irq(&occ->list_lock);
- 	mutex_lock(&occ->occ_lock);
- 
- 	rc = occ_putsram(sbefifo, 0xFFFBE000, xfr->buf,
-@@ -611,16 +620,20 @@ static void occ_worker(struct work_struct *work)
- 
- 	/* lock client to prevent race with read() */
- 	spin_lock_irq(&client->lock);
-+
- 	set_bit(XFR_COMPLETE, &xfr->flags);
- 	waiting = test_bit(XFR_WAITING, &xfr->flags);
--	spin_unlock(&client->lock);
-+
-+	spin_unlock_irq(&client->lock);
- 
- 	spin_lock_irq(&occ->list_lock);
-+
- 	clear_bit(XFR_IN_PROGRESS, &xfr->flags);
- 	list_del(&xfr->link);
- 	empty = list_empty(&occ->xfrs);
- 	canceled = test_bit(XFR_CANCELED, &xfr->flags);
--	spin_unlock(&occ->list_lock);
-+
-+	spin_unlock_irq(&occ->list_lock);
- 
- 	if (waiting)
- 		wake_up_interruptible(&client->wait);
--- 
-2.13.2
+We have started off with the implementation of the DCMI specification 
+which is closely related to IPMI.
+
+https://www.intel.com/content/dam/www/public/us/en/documents/technical-specifications/dcmi-v1-5-rev-spec.pdf
+
+It would be great if you would be able to lend a helping hand with this 
+epic. The stories are getting
+broken down for this epic. If you are interested in this area, i would 
+assign the following issue.
+The issue is updated with the necessary information to carry out the task.
+
+https://github.com/openbmc/openbmc/issues/1855
+
+We can catch up on IRC or on the mailing list to discuss further.
+
+Regards,
+Tom
+
+On Saturday 24 June 2017 12:02 AM, Brendan Higgins wrote:
+> Whoops, looks like you already hopped on the IRC. Anyways, welcome!
+>
+> On Fri, Jun 23, 2017 at 12:20 AM <brendanhiggins@google.com 
+> <mailto:brendanhiggins@google.com>> wrote:
+>
+>     > Hello,
+>     > we would like to help with phosphor-net-ipmid and have
+>     volunteer. For us main
+>     > priorities are sensors and sel. Obviously work is in progress
+>     there and we don't
+>     > want to duplicate it, so please share tasks with us and tell how
+>     we can
+>     > contribute?
+>     > Thanks!
+>
+>     Awesome! Always great to see more people getting involved!
+>
+>     The first thing to do would be to hop on the IRC channel: #openbmc on
+>     freenode.net <http://freenode.net> and say hi to everyone.
+>
+>     Next, in order to see what tasks we have going on, install Zenhub:
+>     https://www.zenhub.com/. Then look at
+>     https://github.com/openbmc/openbmc#boards
+>
+>     Probably also a good idea to talk to Patrick and Tom (I CC'ed
+>     them). I am pretty
+>     sure they are more familiar with that codebase than anyone else.
+>
+>     Once you know what you want to work on, or even if you just need
+>     some help,
+>     either start a conversation on the IRC channel or send an email to
+>     the list.
+>
+>     phosphor-net-ipmid is not something I work on or am likely to work
+>     on in the
+>     near future, but I think I know most of the people on the list, so
+>     feel free to
+>     CC me on future emails and I will try to make sure the right
+>     people are involved
+>     in the conversation.
+>
+>     Cheers!
+>
+
+
+--------------010204060405070802070407
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <br>
+    Hello Ilya,<br>
+    <br>
+    Appreciate your interest in contributing to OpenBMC project!<br>
+    <br>
+    There is some good progress with the Sensor &amp; SEL commands. The
+    review is up in the<br>
+    gerrit server, please feel free to take a look.<br>
+    <br>
+    <a class="moz-txt-link-freetext" href="https://gerrit.openbmc-project.xyz/#/c/5048/">https://gerrit.openbmc-project.xyz/#/c/5048/</a><br>
+    <a class="moz-txt-link-freetext" href="https://gerrit.openbmc-project.xyz/#/c/4162/8">https://gerrit.openbmc-project.xyz/#/c/4162/8</a><br>
+    <br>
+    We have started off with the implementation of the DCMI
+    specification which is closely related to IPMI. <br>
+    <br>
+<a class="moz-txt-link-freetext" href="https://www.intel.com/content/dam/www/public/us/en/documents/technical-specifications/dcmi-v1-5-rev-spec.pdf">https://www.intel.com/content/dam/www/public/us/en/documents/technical-specifications/dcmi-v1-5-rev-spec.pdf</a><br>
+    <br>
+    It would be great if you would be able to lend a helping hand with
+    this epic. The stories are getting<br>
+    broken down for this epic. If you are interested in this area, i
+    would assign the following issue.<br>
+    The issue is updated with the necessary information to carry out the
+    task.<br>
+    <br>
+    <a class="moz-txt-link-freetext" href="https://github.com/openbmc/openbmc/issues/1855">https://github.com/openbmc/openbmc/issues/1855</a><br>
+    <br>
+    We can catch up on IRC or on the mailing list to discuss further.<br>
+    <br>
+    Regards,<br>
+    Tom<br>
+    <br>
+    <div class="moz-cite-prefix">On Saturday 24 June 2017 12:02 AM,
+      Brendan Higgins wrote:<br>
+    </div>
+    <blockquote
+cite="mid:CAFd5g47f6Cd3GYnrZPKZ+Hnamm1narto9zmGffDpfyKdtAu-7g@mail.gmail.com"
+      type="cite">
+      <div dir="ltr">Whoops, looks like you already hopped on the IRC.
+        Anyways, welcome!</div>
+      <br>
+      <div class="gmail_quote">
+        <div dir="ltr">On Fri, Jun 23, 2017 at 12:20 AM &lt;<a
+            moz-do-not-send="true"
+            href="mailto:brendanhiggins@google.com"><a class="moz-txt-link-abbreviated" href="mailto:brendanhiggins@google.com">brendanhiggins@google.com</a></a>&gt;
+          wrote:<br>
+        </div>
+        <blockquote class="gmail_quote" style="margin:0 0 0
+          .8ex;border-left:1px #ccc solid;padding-left:1ex">&gt; Hello,<br>
+          &gt; we would like to help with phosphor-net-ipmid and have
+          volunteer. For us main<br>
+          &gt; priorities are sensors and sel. Obviously work is in
+          progress there and we don't<br>
+          &gt; want to duplicate it, so please share tasks with us and
+          tell how we can<br>
+          &gt; contribute?<br>
+          &gt; Thanks!<br>
+          <br>
+          Awesome! Always great to see more people getting involved!<br>
+          <br>
+          The first thing to do would be to hop on the IRC channel:
+          #openbmc on<br>
+          <a moz-do-not-send="true" href="http://freenode.net"
+            rel="noreferrer" target="_blank">freenode.net</a> and say hi
+          to everyone.<br>
+          <br>
+          Next, in order to see what tasks we have going on, install
+          Zenhub:<br>
+          <a moz-do-not-send="true" href="https://www.zenhub.com/"
+            rel="noreferrer" target="_blank">https://www.zenhub.com/</a>.
+          Then look at <a moz-do-not-send="true"
+            href="https://github.com/openbmc/openbmc#boards"
+            rel="noreferrer" target="_blank">https://github.com/openbmc/openbmc#boards</a><br>
+          <br>
+          Probably also a good idea to talk to Patrick and Tom (I CC'ed
+          them). I am pretty<br>
+          sure they are more familiar with that codebase than anyone
+          else.<br>
+          <br>
+          Once you know what you want to work on, or even if you just
+          need some help,<br>
+          either start a conversation on the IRC channel or send an
+          email to the list.<br>
+          <br>
+          phosphor-net-ipmid is not something I work on or am likely to
+          work on in the<br>
+          near future, but I think I know most of the people on the
+          list, so feel free to<br>
+          CC me on future emails and I will try to make sure the right
+          people are involved<br>
+          in the conversation.<br>
+          <br>
+          Cheers!<br>
+        </blockquote>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------010204060405070802070407--
