@@ -1,57 +1,52 @@
-Return-Path: <cyrilbur@gmail.com>
-Received: from mail-it0-x244.google.com (mail-it0-x244.google.com
- [IPv6:2607:f8b0:4001:c0b::244])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
+ [IPv6:2607:f8b0:400e:c00::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x3k203ZNQzDqj8;
- Fri,  7 Jul 2017 15:39:20 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x3kW201qFzDqj8
+ for <openbmc@lists.ozlabs.org>; Fri,  7 Jul 2017 16:01:01 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="GVJrb1ld"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="McWHyzub"; 
  dkim-atps=neutral
-Received: by mail-it0-x244.google.com with SMTP id v193so3849862itc.2;
- Thu, 06 Jul 2017 22:39:20 -0700 (PDT)
+Received: by mail-pf0-x241.google.com with SMTP id c24so3209538pfe.1
+ for <openbmc@lists.ozlabs.org>; Thu, 06 Jul 2017 23:01:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=message-id:subject:from:to:cc:date:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=1EG+wqNr5Du2AWtVHZWVFnb9xtLHjqYIE2Dv+XW6A8Y=;
- b=GVJrb1ld1DWeCxRR2M0bVmKTSV1kWTPrZTDI+rhfoPAyYN87TLy97VNlCD6DSTwYDo
- AGx9jiwhXIfnxbCPWQMGWAuk/5kcqwx6jy1dYnFJUC3gnGHLQRp1DMiRx6gDdRXE031D
- 3telunDkLMbsHjlj6nAab9zkrTgjZarnFSC6EBJwnOwo/aExoVS3k+CxFwaFWXyYN/e9
- 2gkndpFb0QuwuNnLkw82KIZoWO2dgYhpwSQ7/t1CSHjsDDFS8T4tr9470knkcCii6yXR
- HB71P6saOu7ha7mXPTY23ebdhSjdwySKL1t3hqmCVYK+Rx1n4iOtFjV8krFnLncyyF3i
- EApw==
+ h=sender:from:to:cc:subject:date:message-id;
+ bh=jUbOMBPNDUCgBaD9h5OoYFV4KOZXNQpWJbGCMUSHCU0=;
+ b=McWHyzubrrs4wGL3Bg6ti2F8wtIgniwiurYBr93gaatSJip415e/pK+Yg0f3G0cQZg
+ /3JeuZKZpcpR0ToeowHwAGe887kbi//eEq6bbEbSTRF0VBV5J1PJLvre3JnjPHy2Q4wr
+ aRZisNNJRezJvxYT96N1gjh9P3fov/hd6uS3g2Emh5JriBNWLYpvbIGa10vvvy4MxFRO
+ YVggVLTDWMHSQMWewnQuMvyphriTzBAThS+oXp9Vn+MPamjp4v/C7SJIxGSHw+SCrJhy
+ bYQD0XNM6PsXJ7cegCXq20461KiTVlPTOxottJuP8OhH4tF7X+fFdJrw0N4vNBP9wGKj
+ yzjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=1EG+wqNr5Du2AWtVHZWVFnb9xtLHjqYIE2Dv+XW6A8Y=;
- b=AxrtixbQS+OCXLGPKxDKQZQdyVUl2iPlsvslnnUAHWbbPcDQ0DkT7gSBPxpbkPDUIM
- xje7xSkmq3VJwVnbPkgmf8bY3PeE8aXUifoIzwJ3Er82piLlhSNQm6E5S5NiElLu/PwP
- trreRWaqN8BCruKdVvfMZt7r0N5qa3oPS8VSmCAYFzQVXZpnkaNxBSZYS2RgnkDbTLwZ
- x+KeWRdETnEepr/mBn8WntCxXMWd+twLmXinYwNnVcPLsZckTBbtS8eTZFjzGFrnML8u
- pHbDknQ9FW20b/YjUKdm5+fwRTckGQBEXWkLvvj7KCDHc6T3bsNX0yt5FlSPl4zrN8RB
- 8R1Q==
-X-Gm-Message-State: AIVw1121XN3KWzwoKIX5bCg3vpDUhydBUEvHrsNVxcVPUqpczE5AocbV
- os5ULfPkN8ARZA==
-X-Received: by 10.36.17.142 with SMTP id 136mr1322171itf.90.1499405957448;
- Thu, 06 Jul 2017 22:39:17 -0700 (PDT)
-Received: from camb691.ozlabs.ibm.com ([122.99.82.10])
- by smtp.googlemail.com with ESMTPSA id y69sm1389475itb.20.2017.07.06.22.39.14
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 06 Jul 2017 22:39:16 -0700 (PDT)
-Message-ID: <1499405951.2572.0.camel@gmail.com>
-Subject: Re: [PATCH v6] pflash option to retrieve PNOR partition flags
-From: Cyril Bur <cyrilbur@gmail.com>
-To: Michael Tritz <mtritz@us.ibm.com>, skiboot@lists.ozlabs.org, 
- openbmc@lists.ozlabs.org
-Cc: stewart@linux.vnet.ibm.com
-Date: Fri, 07 Jul 2017 15:39:11 +1000
-In-Reply-To: <20170705191603.33311-1-mtritz@us.ibm.com>
-References: <20170705191603.33311-1-mtritz@us.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.24.3 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
+ bh=jUbOMBPNDUCgBaD9h5OoYFV4KOZXNQpWJbGCMUSHCU0=;
+ b=BSkQCDYJNoqrs6wfO6JgjTM/Bk3K8mQeqNQDi3IocMaehRhnorTDwsnpG2jwX7TogF
+ ddEW1I0ROLt9Ec6IH2Z4XEnZnGXds1SyQ4lABG6FKkJCvS4jRdRWQLURxkJcML74MBc4
+ hie8w7MtXYPXo1Yat5nRFCvsqwPfJKxHqC/j/xiosZZDC1zUSi7B4v0RswtqH7g6wATx
+ EG3tkv8bdckM6QCONBoyhbRDCc3hOl/dc5CXHIQb6d75QnKWG50lXXK0xXqi9cGvjWNl
+ UomdVNdQN4IymtLz7DkFONlUpFcK82PihIw/ZwfLvDbV2ZRV7Xxinkt1xdiKQ/VSImdK
+ mALw==
+X-Gm-Message-State: AIVw112jRGEoXLENhsU3yiqafbXRng3tuX3sZyBm9ijRdcCJ2X14hzlA
+ SVcXigCpJR1xTWYBRUI=
+X-Received: by 10.98.47.194 with SMTP id v185mr3113115pfv.62.1499407259502;
+ Thu, 06 Jul 2017 23:00:59 -0700 (PDT)
+Received: from aurora.jms.id.au ([203.0.153.9])
+ by smtp.gmail.com with ESMTPSA id r84sm3924877pfa.57.2017.07.06.23.00.56
+ (version=TLS1 cipher=AES128-SHA bits=128/128);
+ Thu, 06 Jul 2017 23:00:58 -0700 (PDT)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+Received: by aurora.jms.id.au (sSMTP sendmail emulation);
+ Fri, 07 Jul 2017 15:30:53 +0930
+From: Joel Stanley <joel@jms.id.au>
+To: openbmc@lists.ozlabs.org
+Cc: Eddie James <eajames@linux.vnet.ibm.com>
+Subject: [PATCH linux dev-4.10] fsi: occ: Fix spin_lock_irq errors
+Date: Fri,  7 Jul 2017 15:30:52 +0930
+Message-Id: <20170707060052.3471-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.13.2
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,487 +58,197 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Jul 2017 05:39:21 -0000
+X-List-Received-Date: Fri, 07 Jul 2017 06:01:02 -0000
 
-On Wed, 2017-07-05 at 14:16 -0500, Michael Tritz wrote:
-> This commit extends pflash with an option to retrieve and print
-> information for a particular partition, including the content from
-> "pflash -i" and a verbose list of set miscellaneous flags. -i option
-> is also updated to print a short list of flags in addition to the
-> ECC flag, with one character per flag. A test of the new option is
-> included in libflash/test.
-> 
-> V6: Reverted change to has_ecc() to avoid breaking libffs
-> 
-> Change-Id: Iebb8a6d34c537cecd2eb44ddf41271c8fbe25258
-> Signed-off-by: Michael Tritz <mtritz@us.ibm.com>
+We are seeing warnings whenever this driver is in use:
 
-Reviewed-by: Cyril Bur <cyril.bur@au1.ibm.com>
+ WARNING: CPU: 0 PID: 991 at kernel/softirq.c:162 __local_bh_enable_ip+0xa0/0xe0
+ CPU: 0 PID: 991 Comm: openpower-occ-c Not tainted 4.10.17-00313-g9165bdc8c418 #497
+ Hardware name: ASpeed SoC
+ [<80010060>] (unwind_backtrace) from [<8000d924>] (show_stack+0x20/0x24)
+ [<8000d924>] (show_stack) from [<801daedc>] (dump_stack+0x20/0x28)
+ [<801daedc>] (dump_stack) from [<80018d04>] (__warn+0xe0/0x108)
+ [<80018d04>] (__warn) from [<80018df8>] (warn_slowpath_null+0x30/0x38)
+ [<80018df8>] (warn_slowpath_null) from [<8001c350>] (__local_bh_enable_ip+0xa0/0xe0)
+ [<8001c350>] (__local_bh_enable_ip) from [<803afdd0>] (unix_release_sock+0x68/0x250)
+ [<803afdd0>] (unix_release_sock) from [<803affe4>] (unix_release+0x2c/0x3c)
+ [<803affe4>] (unix_release) from [<803153a8>] (sock_release+0x2c/0xa0)
+ [<803153a8>] (sock_release) from [<80315438>] (sock_close+0x1c/0x24)
+ [<80315438>] (sock_close) from [<800e3e60>] (__fput+0x94/0x1c4)
+ [<800e3e60>] (__fput) from [<800e3ff8>] (____fput+0x18/0x1c)
+ [<800e3ff8>] (____fput) from [<80031d34>] (task_work_run+0x78/0xa0)
+ [<80031d34>] (task_work_run) from [<8001b2b4>] (do_exit+0x274/0x8e0)
+ [<8001b2b4>] (do_exit) from [<8001b9b8>] (do_group_exit+0x4c/0xb4)
+ [<8001b9b8>] (do_group_exit) from [<800253a4>] (get_signal+0x290/0x5b4)
+ [<800253a4>] (get_signal) from [<8000ccf0>] (do_signal+0xd4/0x3dc)
+ [<8000ccf0>] (do_signal) from [<8000d1d4>] (do_work_pending+0xac/0xbc)
+ [<8000d1d4>] (do_work_pending) from [<8000a58c>] (slow_work_pending+0xc/0x20)
 
-> ---
->  external/pflash/pflash.c          | 134 ++++++++++++++++++++++++++++++++++----
->  libflash/libffs.c                 |  11 +++-
->  libflash/libffs.h                 |   4 ++
->  libflash/test/Makefile.check      |   5 +-
->  libflash/test/test-miscprint.pnor | 103 +++++++++++++++++++++++++++++
->  libflash/test/test-miscprint.sh   |  27 ++++++++
->  6 files changed, 269 insertions(+), 15 deletions(-)
->  create mode 100644 libflash/test/test-miscprint.pnor
->  create mode 100644 libflash/test/test-miscprint.sh
-> 
-> diff --git a/external/pflash/pflash.c b/external/pflash/pflash.c
-> index a344987e..9d57feea 100644
-> --- a/external/pflash/pflash.c
-> +++ b/external/pflash/pflash.c
-> @@ -14,6 +14,8 @@
->   * limitations under the License.
->   */
->  
-> +#define _GNU_SOURCE
-> +
->  #include <stdio.h>
->  #include <stdlib.h>
->  #include <string.h>
-> @@ -90,6 +92,7 @@ static void print_ffs_info(uint32_t toc_offset)
->  {
->  	struct ffs_handle *ffs_handle;
->  	uint32_t other_side_offset = 0;
-> +	struct ffs_entry *ent;
->  	int rc;
->  	uint32_t i;
->  
-> @@ -103,25 +106,40 @@ static void print_ffs_info(uint32_t toc_offset)
->  		return;
->  	}
->  
-> -	for (i = 0;; i++) {
-> +	for (i = 0; rc == 0; i++) {
->  		uint32_t start, size, act, end;
-> -		bool ecc;
-> -		char *name;
-> +		char *name = NULL, *flags;
-> +		int l;
->  
-> -		rc = ffs_part_info(ffs_handle, i, &name, &start, &size, &act, &ecc);
-> +		rc = ffs_part_info(ffs_handle, i, &name, &start, &size, &act, NULL);
->  		if (rc == FFS_ERR_PART_NOT_FOUND)
->  			break;
-> -		if (rc) {
-> -			fprintf(stderr, "Error %d scanning partitions\n", rc);
-> -			break;
-> +
-> +		ent = ffs_entry_get(ffs_handle, i);
-> +		if (rc || !ent) {
-> +			fprintf(stderr, "Error %d scanning partitions\n",
-> +					!ent ? FFS_ERR_PART_NOT_FOUND : rc);
-> +		    goto out;
->  		}
-> +
-> +		l = asprintf(&flags, "[%c%c%c%c%c]",
-> +				has_ecc(ent) ? 'E' : '-',
-> +				has_flag(ent, FFS_MISCFLAGS_PRESERVED) ? 'P' : '-',
-> +				has_flag(ent, FFS_MISCFLAGS_READONLY) ? 'R' : '-',
-> +				has_flag(ent, FFS_MISCFLAGS_BACKUP) ? 'B' : '-',
-> +				has_flag(ent, FFS_MISCFLAGS_REPROVISION) ? 'F' : '-');
-> +		if (l < 0)
-> +			goto out;
-> +
->  		end = start + size;
->  		printf("ID=%02d %15s %08x..%08x (actual=%08x) %s\n",
-> -		       i, name, start, end, act, ecc ? "[ECC]" : "");
-> +				i, name, start, end, act, flags);
->  
->  		if (strcmp(name, "OTHER_SIDE") == 0)
->  			other_side_offset = start;
->  
-> +		free(flags);
-> +out:
->  		free(name);
->  	}
->  
-> @@ -413,6 +431,81 @@ static void disable_4B_addresses(void)
->  	}
->  }
->  
-> +static void print_partition_detail(uint32_t toc_offset, uint32_t part_id, char *name)
-> +{
-> +	uint32_t start, size, act, end;
-> +	struct ffs_handle *ffs_handle;
-> +	char *ent_name = NULL, *flags;
-> +	struct ffs_entry *ent;
-> +	int rc, l;
-> +
-> +	rc = ffs_init(toc_offset, fl_total_size, bl, &ffs_handle, 0);
-> +	if (rc) {
-> +		fprintf(stderr, "Error %d opening ffs !\n", rc);
-> +		return;
-> +	}
-> +
-> +	if (name) {
-> +		uint32_t i;
-> +
-> +		for (i = 0;;i++) {
-> +			rc = ffs_part_info(ffs_handle, i, &ent_name, &start, &size, &act,
-> +            		NULL);
-> +			if (rc == FFS_ERR_PART_NOT_FOUND) {
-> +				fprintf(stderr, "Partition with name %s doesn't exist within TOC at 0x%08x\n", name, toc_offset);
-> +				goto out;
-> +			}
-> +			if (rc || strncmp(ent_name, name, FFS_PART_NAME_MAX) == 0) {
-> +				part_id = i;
-> +				break;
-> +			}
-> +			free(ent_name);
-> +			ent_name = NULL;
-> +		}
-> +	} else {
-> +		rc = ffs_part_info(ffs_handle, part_id, &ent_name, &start, &size, &act,
-> +				NULL);
-> +		if (rc == FFS_ERR_PART_NOT_FOUND) {
-> +			fprintf(stderr, "Partition with ID %d doesn't exist within TOC at 0x%08x\n",
-> +			part_id, toc_offset);
-> +			goto out;
-> +		}
-> +	}
-> +	ent = ffs_entry_get(ffs_handle, part_id);
-> +	if (rc || !ent) {
-> +		fprintf(stderr, "Error %d scanning partitions\n", !ent ?
-> +				FFS_ERR_PART_NOT_FOUND : rc);
-> +		goto out;
-> +	}
-> +
-> +	printf("Detailed partition information\n");
-> +	end = start + size;
-> +	printf("Name:\n");
-> +	printf("%s (ID=%02d)\n\n", ent_name, part_id);
-> +	printf("%-10s  %-10s  %-10s\n", "Start", "End", "Actual");
-> +	printf("0x%08x  0x%08x  0x%08x\n\n", start, end, act);
-> +
-> +	printf("Flags:\n");
-> +
-> +	l = asprintf(&flags, "%s%s%s%s%s", has_ecc(ent) ? "ECC [E]\n" : "",
-> +			has_flag(ent, FFS_MISCFLAGS_PRESERVED) ? "PRESERVED [P]\n" : "",
-> +			has_flag(ent, FFS_MISCFLAGS_READONLY) ? "READONLY [R]\n" : "",
-> +			has_flag(ent, FFS_MISCFLAGS_BACKUP) ? "BACKUP [B]\n" : "",
-> +			has_flag(ent, FFS_MISCFLAGS_REPROVISION) ?
-> +					"REPROVISION [F]\n" : "");
-> +	if (l < 0) {
-> +		fprintf(stderr, "Memory allocation failure printing flags!\n");
-> +		goto out;
-> +	}
-> +
-> +	printf("%s", flags);
-> +	free(flags);
-> +
-> +out:
-> +	ffs_close(ffs_handle);
-> +	free(ent_name);
-> +}
-> +
->  static void print_version(void)
->  {
->  	printf("Open-Power Flash tool %s\n", version);
-> @@ -494,6 +587,10 @@ static void print_help(const char *pname)
->  	printf("\t\tpartition and then set all the ECC bits as they should be\n\n");
->  	printf("\t-i, --info\n");
->  	printf("\t\tDisplay some information about the flash.\n\n");
-> +	printf("\t--detail\n");
-> +	printf("\t\tDisplays detailed info about a particular partition.\n");
-> +	printf("\t\tAccepts a numeric partition or can be used in conjuction\n");
-> +	printf("\t\twith the -P flag.\n\n");
->  	printf("\t-h, --help\n");
->  	printf("\t\tThis message.\n\n");
->  }
-> @@ -508,7 +605,7 @@ void exiting(void)
->  int main(int argc, char *argv[])
->  {
->  	const char *pname = argv[0];
-> -	uint32_t address = 0, read_size = 0, write_size = 0;
-> +	uint32_t address = 0, read_size = 0, write_size = 0, detail_id = UINT_MAX;
->  	uint32_t erase_start = 0, erase_size = 0;
->  	bool erase = false, do_clear = false;
->  	bool program = false, erase_all = false, info = false, do_read = false;
-> @@ -516,7 +613,7 @@ int main(int argc, char *argv[])
->  	bool show_help = false, show_version = false;
->  	bool no_action = false, tune = false;
->  	char *write_file = NULL, *read_file = NULL, *part_name = NULL;
-> -	bool ffs_toc_seen = false, direct = false;
-> +	bool ffs_toc_seen = false, direct = false, print_detail = false;
->  	int rc;
->  
->  	while(1) {
-> @@ -535,6 +632,7 @@ int main(int argc, char *argv[])
->  			{"force",	no_argument,		NULL,	'f'},
->  			{"flash-file",	required_argument,	NULL,	'F'},
->  			{"info",	no_argument,		NULL,	'i'},
-> +			{"detail",  optional_argument,  NULL,   'm'},
->  			{"tune",	no_argument,		NULL,	't'},
->  			{"dummy",	no_argument,		NULL,	'd'},
->  			{"help",	no_argument,		NULL,	'h'},
-> @@ -622,6 +720,11 @@ int main(int argc, char *argv[])
->  		case 'c':
->  			do_clear = true;
->  			break;
-> +		case 'm':
-> +			print_detail = true;
-> +			if (optarg)
-> +				detail_id = strtoul(optarg, NULL, 0);
-> +			break;
->  		case ':':
->  			fprintf(stderr, "Unrecognised option \"%s\" to '%c'\n", optarg, optopt);
->  			no_action = true;
-> @@ -651,7 +754,7 @@ int main(int argc, char *argv[])
->  	 * also tune them as a side effect
->  	 */
->  	no_action = no_action || (!erase && !program && !info && !do_read &&
-> -		!enable_4B && !disable_4B && !tune && !do_clear);
-> +		!enable_4B && !disable_4B && !tune && !do_clear && !print_detail);
->  
->  	/* Nothing to do, if we didn't already, print usage */
->  	if (no_action && !show_version)
-> @@ -684,6 +787,12 @@ int main(int argc, char *argv[])
->  		exit(1);
->  	}
->  
-> +	if (print_detail && ((detail_id == UINT_MAX && !part_name)
-> +			|| (detail_id != UINT_MAX && part_name))) {
-> +		fprintf(stderr, "--detail requires either a partition id or\n");
-> +		fprintf(stderr, "a partition name with -P\n");
-> +	}
-> +
->  	/* part-name and erase-all make no sense together */
->  	if (part_name && erase_all) {
->  		fprintf(stderr, "--partition and --erase-all are mutually"
-> @@ -872,6 +981,9 @@ int main(int argc, char *argv[])
->  		print_flash_info(flash_side ? 0 : ffs_toc);
->  	}
->  
-> +	if (print_detail)
-> +		print_partition_detail(flash_side ? 0 : ffs_toc, detail_id, part_name);
-> +
->  	/* Unlock flash (PNOR only) */
->  	if ((erase || program || do_clear) && !bmc_flash && !flashfilename) {
->  		need_relock = arch_flash_set_wrprotect(bl, false);
-> diff --git a/libflash/libffs.c b/libflash/libffs.c
-> index 763e061c..daa62da6 100644
-> --- a/libflash/libffs.c
-> +++ b/libflash/libffs.c
-> @@ -180,7 +180,12 @@ static int ffs_entry_to_cpu(struct ffs_hdr *hdr,
->  	return rc;
->  }
->  
-> -static struct ffs_entry *ffs_get_part(struct ffs_handle *ffs, uint32_t index)
-> +bool has_flag(struct ffs_entry *ent, uint16_t flag)
-> +{
-> +	return ((ent->user.miscflags & flag) != 0);
-> +}
-> +
-> +struct ffs_entry *ffs_entry_get(struct ffs_handle *ffs, uint32_t index)
->  {
->  	int i = 0;
->  	struct ffs_entry *ent = NULL;
-> @@ -369,7 +374,7 @@ int ffs_part_info(struct ffs_handle *ffs, uint32_t part_idx,
->  	struct ffs_entry *ent;
->  	char *n;
->  
-> -	ent = ffs_get_part(ffs, part_idx);
-> +	ent = ffs_entry_get(ffs, part_idx);
->  	if (!ent)
->  		return FFS_ERR_PART_NOT_FOUND;
->  
-> @@ -776,7 +781,7 @@ int ffs_update_act_size(struct ffs_handle *ffs, uint32_t part_idx,
->  	uint32_t offset;
->  	int rc;
->  
-> -	ent = ffs_get_part(ffs, part_idx);
-> +	ent = ffs_entry_get(ffs, part_idx);
->  	if (!ent) {
->  		FL_DBG("FFS: Entry not found\n");
->  		return FFS_ERR_PART_NOT_FOUND;
-> diff --git a/libflash/libffs.h b/libflash/libffs.h
-> index 2c1fbd83..a86c698f 100644
-> --- a/libflash/libffs.h
-> +++ b/libflash/libffs.h
-> @@ -92,6 +92,8 @@ struct ffs_entry_user {
->  
->  bool has_ecc(struct ffs_entry *ent);
->  
-> +bool has_flag(struct ffs_entry *ent, uint16_t flag);
-> +
->  /* Init */
->  
->  int ffs_init(uint32_t offset, uint32_t max_size, struct blocklevel_device *bl,
-> @@ -126,6 +128,8 @@ int ffs_part_info(struct ffs_handle *ffs, uint32_t part_idx,
->  		  char **name, uint32_t *start,
->  		  uint32_t *total_size, uint32_t *act_size, bool *ecc);
->  
-> +struct ffs_entry *ffs_entry_get(struct ffs_handle *ffs, uint32_t index);
-> +
->  int ffs_update_act_size(struct ffs_handle *ffs, uint32_t part_idx,
->  			uint32_t act_size);
->  
-> diff --git a/libflash/test/Makefile.check b/libflash/test/Makefile.check
-> index 1f92b9d2..419a50a9 100644
-> --- a/libflash/test/Makefile.check
-> +++ b/libflash/test/Makefile.check
-> @@ -4,7 +4,7 @@ LIBFLASH_TEST := libflash/test/test-flash libflash/test/test-ecc libflash/test/t
->  LCOV_EXCLUDE += $(LIBFLASH_TEST:%=%.c)
->  
->  .PHONY : libflash-check libc-coverage
-> -libflash-check: $(LIBFLASH_TEST:%=%-check) $(CORE_TEST:%=%-gcov-run)
-> +libflash-check: $(LIBFLASH_TEST:%=%-check) libflash/test/test-miscprint $(CORE_TEST:%=%-gcov-run)
->  libflash-coverage: $(LIBFLASH_TEST:%=%-gcov-run)
->  
->  check: libflash-check libc-coverage
-> @@ -16,6 +16,9 @@ $(LIBFLASH_TEST:%=%-gcov-run) : %-run: %
->  $(LIBFLASH_TEST:%=%-check) : %-check: %
->  	$(call QTEST, RUN-TEST ,$(VALGRIND) $<, $<)
->  
-> +libflash/test/test-miscprint:
-> +	$(call Q, RUN-TEST , ./libflash/test/test-miscprint.sh ,  $@)
-> +
->  libflash/test/stubs.o: libflash/test/stubs.c
->  	$(call Q, HOSTCC ,$(HOSTCC) $(HOSTCFLAGS) -g -c -o $@ $<, $<)
->  
-> diff --git a/libflash/test/test-miscprint.pnor b/libflash/test/test-miscprint.pnor
-> new file mode 100644
-> index 00000000..e3f3d355
-> --- /dev/null
-> +++ b/libflash/test/test-miscprint.pnor
-> @@ -0,0 +1,103 @@
-> +504152540000000100000001000000800000000500000300000000040000
-> +0000000000000000000000000000504151d5706172740000000000000000
-> +000000000000000000000001ffffffff0000000100000003000000010000
-> +030000000000000000000000000000000000000000000000000000000000
-> +000000000000000000000000000000000000000000000000000000000000
-> +000000000000000000000000000000000000000000008f9e8e8950524553
-> +4552564544000000000000000000000100000000ffffffff000000020000
-> +000100000000000001000000000000000000000000000000000000000000
-> +008000000000000000000000000000000000000000000000000000000000
-> +000000000000000000000000000000000000000000000000000000000000
-> +ae7fedeb524541444f4e4c5900000000000000000000000100000000ffff
-> +ffff00000003000000010000000000000100000000000000000000000000
-> +000000000000000000400000000000000000000000000000000000000000
-> +000000000000000000000000000000000000000000000000000000000000
-> +0000000000000000e2b4f3e1524550524f564953494f4e00000000000000
-> +000100000000ffffffff0000000400000001000000000000010000000000
-> +000000000000000000000000000000000010000000000000000000000000
-> +000000000000000000000000000000000000000000000000000000000000
-> +00000000000000000000000000000000abb3a9fa4241434b555000000000
-> +0000000000000000000200000000ffffffff000000050000000100000000
-> +000001000000000000000000000000000000000000000000002000000000
-> +000000000000000000000000000000000000000000000000000000000000
-> +000000000000000000000000000000000000000000000000e8cebdb2ffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-> +ffffffffffffffffffffffff
-> diff --git a/libflash/test/test-miscprint.sh b/libflash/test/test-miscprint.sh
-> new file mode 100644
-> index 00000000..224328be
-> --- /dev/null
-> +++ b/libflash/test/test-miscprint.sh
-> @@ -0,0 +1,27 @@
-> +#!/bin/bash
-> +
-> +# test-miscprint.pnor is constructed as follows:
-> +# PRESERVED,0x00000300,0x00000100,P,/dev/zero
-> +# READONLY,0x00000400,0x00000100,R,/dev/zero
-> +# REPROVISION,0x00000500,0x00000100,F,/dev/zero
-> +# BACKUP,0x00000600,0x00000100,B,/dev/zero
-> +
-> +wd=$(dirname -- "$0")
-> +
-> +{
-> +	xxd -p -r "$wd/test-miscprint.pnor" > "$wd/temp.pnor"
-> +
-> +	output1=$(pflash --detail=1 -F "$wd/temp.pnor" | grep "\[P\]")
-> +	output2=$(pflash --detail=2 -F "$wd/temp.pnor" | grep "\[R\]")
-> +	output3=$(pflash --detail=3 -F "$wd/temp.pnor" | grep "\[F\]")
-> +	output4=$(pflash --detail=4 -F "$wd/temp.pnor" | grep "\[B\]")
-> +
-> +	if [[ $output1 == "PRESERVED [P]" && $output2 == "READONLY [R]" &&
-> +	      $output3 == "REPROVISION [F]" && $output4 == "BACKUP [B]" ]]; then
-> +	    echo "Test passed!"
-> +	else
-> +	    echo "Test failed!"
-> +	fi
-> +
-> +	rm "$wd/temp.pnor"
-> +} > "$wd/test-miscprint.o"
+The driver lack spin_unlock_irq calls when releasing locks. Add them.
+Also add whitespace around the locking calls so they stand out.
+
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+---
+Eddie, the locking in this driver is a bit scary. We need to get the driver
+properly reviewed as a priority, or else it will need to be removed from the
+tree until it is fixed.
+
+This patch is enough to avoid confusing users with WARN_ONs. It's not a full
+review or fix for the locking.
+
+ drivers/fsi/occ.c | 43 ++++++++++++++++++++++++++++---------------
+ 1 file changed, 28 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/fsi/occ.c b/drivers/fsi/occ.c
+index f43ae51cd2e0..d984e519a80e 100644
+--- a/drivers/fsi/occ.c
++++ b/drivers/fsi/occ.c
+@@ -123,9 +123,11 @@ static void occ_enqueue_xfr(struct occ_xfr *xfr)
+ 	struct occ *occ = client->occ;
+ 
+ 	spin_lock_irq(&occ->list_lock);
++
+ 	empty = list_empty(&occ->xfrs);
+ 	list_add_tail(&xfr->link, &occ->xfrs);
+-	spin_unlock(&occ->list_lock);
++
++	spin_unlock_irq(&occ->list_lock);
+ 
+ 	if (empty)
+ 		queue_work(occ_wq, &occ->work);
+@@ -175,6 +177,7 @@ static ssize_t occ_read_common(struct occ_client *client, char __user *ubuf,
+ 		return -EINVAL;
+ 
+ 	spin_lock_irq(&client->lock);
++
+ 	if (!test_bit(CLIENT_XFR_PENDING, &client->flags)) {
+ 		/* we just finished reading all data, return 0 */
+ 		if (client->read_offset) {
+@@ -193,15 +196,17 @@ static ssize_t occ_read_common(struct occ_client *client, char __user *ubuf,
+ 		}
+ 
+ 		set_bit(XFR_WAITING, &xfr->flags);
+-		spin_unlock(&client->lock);
++
++		spin_unlock_irq(&client->lock);
+ 
+ 		rc = wait_event_interruptible(client->wait,
+ 			test_bit(XFR_COMPLETE, &xfr->flags) ||
+ 			test_bit(XFR_CANCELED, &xfr->flags));
+ 
+ 		spin_lock_irq(&client->lock);
++
+ 		if (test_bit(XFR_CANCELED, &xfr->flags)) {
+-			spin_unlock(&client->lock);
++			spin_unlock_irq(&client->lock);
+ 			kfree(client);
+ 			return -EBADFD;
+ 		}
+@@ -236,7 +241,7 @@ static ssize_t occ_read_common(struct occ_client *client, char __user *ubuf,
+ 	rc = bytes;
+ 
+ done:
+-	spin_unlock(&client->lock);
++	spin_unlock_irq(&client->lock);
+ 	return rc;
+ }
+ 
+@@ -307,7 +312,7 @@ static ssize_t occ_write_common(struct occ_client *client,
+ 	rc = len;
+ 
+ done:
+-	spin_unlock(&client->lock);
++	spin_unlock_irq(&client->lock);
+ 	return rc;
+ }
+ 
+@@ -331,36 +336,39 @@ static int occ_release_common(struct occ_client *client)
+ 	struct occ *occ = client->occ;
+ 
+ 	spin_lock_irq(&client->lock);
++
+ 	if (!test_bit(CLIENT_XFR_PENDING, &client->flags)) {
+-		spin_unlock(&client->lock);
++		spin_unlock_irq(&client->lock);
+ 		kfree(client);
+ 		return 0;
+ 	}
+ 
+ 	spin_lock_irq(&occ->list_lock);
++
+ 	set_bit(XFR_CANCELED, &xfr->flags);
+ 	if (!test_bit(XFR_IN_PROGRESS, &xfr->flags)) {
+ 		/* already deleted from list if complete */
+ 		if (!test_bit(XFR_COMPLETE, &xfr->flags))
+ 			list_del(&xfr->link);
+ 
+-		spin_unlock(&occ->list_lock);
++		spin_unlock_irq(&occ->list_lock);
+ 
+ 		if (test_bit(XFR_WAITING, &xfr->flags)) {
+ 			/* blocking read; let reader clean up */
+ 			wake_up_interruptible(&client->wait);
+-			spin_unlock(&client->lock);
++			spin_unlock_irq(&client->lock);
+ 			return 0;
+ 		}
+ 
+-		spin_unlock(&client->lock);
++		spin_unlock_irq(&client->lock);
++
+ 		kfree(client);
+ 		return 0;
+ 	}
+ 
+ 	/* operation is in progress; let worker clean up*/
+-	spin_unlock(&occ->list_lock);
+-	spin_unlock(&client->lock);
++	spin_unlock_irq(&occ->list_lock);
++	spin_unlock_irq(&client->lock);
+ 	return 0;
+ }
+ 
+@@ -563,15 +571,16 @@ static void occ_worker(struct work_struct *work)
+ 
+ again:
+ 	spin_lock_irq(&occ->list_lock);
++
+ 	xfr = list_first_entry(&occ->xfrs, struct occ_xfr, link);
+ 	if (!xfr) {
+-		spin_unlock(&occ->list_lock);
++		spin_unlock_irq(&occ->list_lock);
+ 		return;
+ 	}
+ 
+ 	set_bit(XFR_IN_PROGRESS, &xfr->flags);
+ 
+-	spin_unlock(&occ->list_lock);
++	spin_unlock_irq(&occ->list_lock);
+ 	mutex_lock(&occ->occ_lock);
+ 
+ 	rc = occ_putsram(sbefifo, 0xFFFBE000, xfr->buf,
+@@ -611,16 +620,20 @@ static void occ_worker(struct work_struct *work)
+ 
+ 	/* lock client to prevent race with read() */
+ 	spin_lock_irq(&client->lock);
++
+ 	set_bit(XFR_COMPLETE, &xfr->flags);
+ 	waiting = test_bit(XFR_WAITING, &xfr->flags);
+-	spin_unlock(&client->lock);
++
++	spin_unlock_irq(&client->lock);
+ 
+ 	spin_lock_irq(&occ->list_lock);
++
+ 	clear_bit(XFR_IN_PROGRESS, &xfr->flags);
+ 	list_del(&xfr->link);
+ 	empty = list_empty(&occ->xfrs);
+ 	canceled = test_bit(XFR_CANCELED, &xfr->flags);
+-	spin_unlock(&occ->list_lock);
++
++	spin_unlock_irq(&occ->list_lock);
+ 
+ 	if (waiting)
+ 		wake_up_interruptible(&client->wait);
+-- 
+2.13.2
