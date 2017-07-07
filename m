@@ -1,50 +1,58 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-wr0-x231.google.com (mail-wr0-x231.google.com
- [IPv6:2a00:1450:400c:c0c::231])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <linux@roeck-us.net>
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x41Vw25FLzDr5l
- for <openbmc@lists.ozlabs.org>; Sat,  8 Jul 2017 03:16:55 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x42fp3nKnzDqj8
+ for <openbmc@lists.ozlabs.org>; Sat,  8 Jul 2017 04:08:49 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="b3UJ3NTa"; 
+ unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.b="pyg7Cvsi";
  dkim-atps=neutral
-Received: by mail-wr0-x231.google.com with SMTP id c11so55488507wrc.3
- for <openbmc@lists.ozlabs.org>; Fri, 07 Jul 2017 10:16:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=b+Z/YoMNK9prCBHmwDD3RCc5vVzCTLwvtVapGJAWr54=;
- b=b3UJ3NTaKxN2wz2JPXn10+iQ949Ty4GKHFjCZJlZ7O0pKbJ0ZvDsn/8ehbYRaksi6R
- Bxhwio4/Y2OKR+xWUSDNJWXuA0wnlMd2YOLHcFhpUhSzpIIPKZ7mIVqwoV6WkcWAhlbf
- hMlQL2kZhmYVA2bXr1FiKB+DlhigVHNCbk0z6dxT3Wv6CrHKyuzS0KJsTtpyYyuDBOkj
- 59JxR+1StvB/2mi2+qxiVTOyoptkYAD5w5fXcGV92IzU0BlXYHGpKCUdg4i9KmDLU6B8
- XgZF7+uK9oZ6QL6dJFBf/35vyN7X+zLtRrJc0AJ7MmAFF9HYe2eCZirfittCVaOANZn1
- aoXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=b+Z/YoMNK9prCBHmwDD3RCc5vVzCTLwvtVapGJAWr54=;
- b=r3y56N75LbpRCLb13EaDatchThksT0RQo9AsMZ4lJKK/VPx983xmL8bavOn+OgRAIC
- mN33RnAWJaxSDgMqr6myMS1nelwN2Rr0UY530kCcgzsVgOuwfxRmrYA9w7kbntDZPgck
- IHOUV4T1ffXoRBGNoChytLlk+NvdNtR8YzkpocDo3+YP9u2JlygmOICm6s8dk1AJKAof
- J9ErTyxufWlSg5cljp6foeYLdPKDsKwwRpJWzDnmYUZS2RcscfMMcZtHx2haOdxB1e1a
- 0q5dXfB/U3HTV85+ZSXu0RH9I3tBwv5k/QPIyN1Xz951fR33ul9PIKJnW77sqkaECLDk
- c01w==
-X-Gm-Message-State: AIVw112eK6yF7b51GzXoatq10jzWO1gre6WEIjAsvmieEA1orjCvK13d
- 0okFN6aHMgam+bBfo/u9rKTY2H0XX1mb
-X-Received: by 10.28.46.3 with SMTP id u3mr3083346wmu.68.1499447810985; Fri,
- 07 Jul 2017 10:16:50 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.28.143.18 with HTTP; Fri, 7 Jul 2017 10:16:50 -0700 (PDT)
-In-Reply-To: <20170707091241.77250-1-c_mykolak@mellanox.com>
-References: <20170707091241.77250-1-c_mykolak@mellanox.com>
-From: Rick Altherr <raltherr@google.com>
-Date: Fri, 7 Jul 2017 10:16:50 -0700
-Message-ID: <CAPLgG=mFYpZcw8Y7PrSZHEx-c8kdHAqynHezfRd7ai2Nt8uWVw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] msn: add adc to msn dts.
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+ :Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+ :Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=SD4OCTWc4mWW3DiAbEhPvQ7L6zdhMq56vwZPQMBCb7U=; b=pyg7CvsitXu3L3l4lLygHmcGm5
+ O8reAi9x7wmrAjoqelk9hB6itUGhOY/VlvcesDDmsJQHliiB0FpGd/A3cE3LjUa6AhvWunzLjMy6j
+ 16d1oxufn+n22c0R6u5DEO8oYNylfdNFu37QB9yrnDICcUsBytyleQEM7bh5DaHsu6MR1H/7pef2s
+ wzkBvwmVt0aPhE7H637GcUkpDEvKJjgF7aHsKyGa9DMwIhpDO1EjDo1YTIiOpLVm5eUrfwxxdFWHk
+ Z4n0oTKZSxgQLAA/NQg76S/Ey0s+9bUf4teNHr6nwdZZidkJ6UPwtBwgcNSbbdKP3KF6ju8aBMd2o
+ G1f3IXWg==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net
+ ([108.223.40.66]:45280 helo=localhost)
+ by bh-25.webhostbox.net with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ (Exim 4.89) (envelope-from <linux@roeck-us.net>)
+ id 1dTXgL-003elM-5P; Fri, 07 Jul 2017 18:08:46 +0000
+Date: Fri, 7 Jul 2017 11:08:44 -0700
+From: Guenter Roeck <linux@roeck-us.net>
 To: Mykola Kostenok <c_mykolak@mellanox.com>
-Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="001a11424c1a22a4570553bd66c0"
+Cc: Jean Delvare <jdelvare@suse.com>, linux-hwmon@vger.kernel.org,
+ Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>,
+ openbmc@lists.ozlabs.org, Patrick Venture <venture@google.com>,
+ Vadim Pasternak <vadimp@mellanox.com>
+Subject: Re: [patch v1] hwmon: (aspeed-pwm-tacho) cooling device support.
+Message-ID: <20170707180844.GA25433@roeck-us.net>
+References: <20170706142338.32732-1-c_mykolak@mellanox.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20170706142338.32732-1-c_mykolak@mellanox.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Authenticated_sender: guenter@roeck-us.net
+X-OutGoing-Spam-Status: No, score=-1.0
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - lists.ozlabs.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-Get-Message-Sender-Via: bh-25.webhostbox.net: authenticated_id:
+ guenter@roeck-us.net
+X-Authenticated-Sender: bh-25.webhostbox.net: guenter@roeck-us.net
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,142 +64,299 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Jul 2017 17:16:57 -0000
+X-List-Received-Date: Fri, 07 Jul 2017 18:08:51 -0000
 
---001a11424c1a22a4570553bd66c0
-Content-Type: text/plain; charset="UTF-8"
-
-This doesn't match the bindings for the Aspeed ADC:
-https://github.com/openbmc/linux/blob/dev-4.7/Documentation/devicetree/bindings/iio/adc/aspeed_adc.txt.
-
-
-On Fri, Jul 7, 2017 at 2:12 AM, Mykola Kostenok <c_mykolak@mellanox.com>
-wrote:
-
-> Add adc for Mellanox msn platform to dts.
->
+On Thu, Jul 06, 2017 at 05:23:38PM +0300, Mykola Kostenok wrote:
+> Add support in aspeed-pwm-tacho driver for cooling device creation.
+> This cooling device could be bound to a thermal zone
+> for the thermal control. Device will appear in /sys/class/thermal
+> folder as cooling_deviceX. Then it could be bound to particular
+> thermal zones. Allow specification of the cooling levels
+> vector - PWM duty cycle values in a range from 0 to 255
+> which correspond to thermal cooling states.
+> 
 > Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
 > ---
->  arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts | 45
-> +++++++++++++++++++++++++++
->  1 file changed, 45 insertions(+)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-> b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-> index 0774959b1222..462a638e66c6 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-> @@ -139,3 +139,48 @@
->         status = "okay";
+>  .../devicetree/bindings/hwmon/aspeed-pwm-tacho.txt |  52 ++++++--
+
+You'll need devicetree maintainer approval for any devicetree
+changes.
+
+>  drivers/hwmon/aspeed-pwm-tacho.c                   | 141 ++++++++++++++++++++-
+>  2 files changed, 179 insertions(+), 14 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt b/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
+> index cf44605..293a994 100644
+> --- a/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
+> +++ b/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
+> @@ -23,9 +23,14 @@ Required properties for pwm-tacho node:
+>  - clocks : a fixed clock providing input clock frequency(PWM
+>  	   and Fan Tach clock)
+>  
+> -fan subnode format:
+> +tach-channels subnode format:
+
+I don't like the notion of renaming "fan subnode" to "tach-channels
+subnode". To me that is just a personal preference. Tomorrow I might
+get another patch changing it back or changing it to something else.
+
+But, as mentioned above, you'll need DT maintaier approval for those
+changes in the first place.
+
+Guenter
+
+>  ===================
+> -Under fan subnode there can upto 8 child nodes, with each child node
+> +Required properties for tach-channels node:
+> +- #address-cells : should be 1.
+> +
+> +- #size-cells : should be 0.
+> +
+> +Under tach-channels subnode there can be upto 8 child nodes, with each child node
+>  representing a fan. If there are 8 fans each fan can have one PWM port and
+>  one/two Fan tach inputs.
+>  
+> @@ -39,6 +44,22 @@ Required properties for each child node:
+>  		Fan tach channel 0 and 15 indicating Fan tach channel 15.
+>  		Atleast one Fan tach input channel is required.
+>  
+> +pwm-channels subnode format:
+> +Under pwm-channels subnode there can be pwm child nodes.
+> +Required properties for tach-channels node:
+> +- #address-cells : should be 1.
+> +
+> +- #size-cells : should be 0.
+> +
+> +- #cooling-cells : should be 2;
+> +
+> +pwm subnode format:
+> +- reg : should be <0x00>.
+> +
+> +- cooling-levels      : PWM duty cycle values in a range from 0 to 255
+> +			which correspond to thermal cooling states.
+> +
+> +
+>  Examples:
+>  
+>  pwm_tacho_fixed_clk: fixedclk {
+> @@ -55,14 +76,25 @@ pwm_tacho: pwmtachocontroller@1e786000 {
+>  	clocks = <&pwm_tacho_fixed_clk>;
+>  	pinctrl-names = "default";
+>  	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
+> -
+> -	fan@0 {
+> -		reg = <0x00>;
+> -		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
+> +	tach-channels {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +		fan@0 {
+> +			reg = <0x00>;
+> +			aspeed,fan-tach-ch = /bits/ 8 <0x00>;
+> +		};
+> +		fan@1 {
+> +			reg = <0x01>;
+> +			aspeed,fan-tach-ch = /bits/ 8 <0x01 0x02>;
+> +		};
+>  	};
+> -
+> -	fan@1 {
+> -		reg = <0x01>;
+> -		aspeed,fan-tach-ch = /bits/ 8 <0x01 0x02>;
+> +	pwm-channels {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +		#cooling-cells = <2>;
+> +		pwm@0 {
+> +			reg = <0x00>;
+> +			cooling-levels = /bits/ 8 <125 151 177 203 229 255>;
+> +		};
+>  	};
 >  };
->
-> +&adc {
-> +       status = "okay";
-> +       #address-cells = <1>;
-> +       #size-cells = <0>;
-> +       adc1 {
-> +               channel = <0>;
-> +               min = <677>;
-> +               max = <828>;
-> +       };
-> +       adc2 {
-> +               channel = <2>;
-> +               min = <684>;
-> +               max = <836>;
-> +       };
-> +       adc3 {
-> +               channel = <3>;
-> +               min = <684>;
-> +               max = <836>;
-> +       };
-> +       adc4 {
-> +               channel = <4>;
-> +               min = <676>;
-> +               max = <826>;
-> +       };
-> +       adc5 {
-> +               channel = <10>;
-> +               min = <691>;
-> +               max = <845>;
-> +       };
-> +       adc6 {
-> +               channel = <11>;
-> +               min = <640>;
-> +               max = <782>;
-> +       };
-> +       adc7 {
-> +               channel = <12>;
-> +               min = <615>;
-> +               max = <751>;
-> +       };
-> +       adc8 {
-> +               channel = <13>;
-> +               min = <587>;
-> +               max = <719>;
-> +       };
+> diff --git a/drivers/hwmon/aspeed-pwm-tacho.c b/drivers/hwmon/aspeed-pwm-tacho.c
+> index ddfe66b..c10a37e 100644
+> --- a/drivers/hwmon/aspeed-pwm-tacho.c
+> +++ b/drivers/hwmon/aspeed-pwm-tacho.c
+> @@ -20,6 +20,7 @@
+>  #include <linux/platform_device.h>
+>  #include <linux/sysfs.h>
+>  #include <linux/regmap.h>
+> +#include <linux/thermal.h>
+>  
+>  /* ASPEED PWM & FAN Tach Register Definition */
+>  #define ASPEED_PTCR_CTRL		0x00
+> @@ -166,6 +167,16 @@
+>  /* How long we sleep in us while waiting for an RPM result. */
+>  #define ASPEED_RPM_STATUS_SLEEP_USEC	500
+>  
+> +struct aspeed_cooling_device {
+> +	char name[16];
+> +	struct aspeed_pwm_tacho_data *priv;
+> +	struct thermal_cooling_device *tcdev;
+> +	int pwm_port;
+> +	u8 *cooling_levels;
+> +	u8 max_state;
+> +	u8 cur_state;
 > +};
-> --
-> 2.11.0
->
->
-
---001a11424c1a22a4570553bd66c0
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: base64
-
-PGRpdiBkaXI9Imx0ciI+VGhpcyBkb2VzbiYjMzk7dCBtYXRjaCB0aGUgYmluZGluZ3MgZm9yIHRo
-ZSBBc3BlZWQgQURDOsKgPGEgaHJlZj0iaHR0cHM6Ly9naXRodWIuY29tL29wZW5ibWMvbGludXgv
-YmxvYi9kZXYtNC43L0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9paW8vYWRjL2Fz
-cGVlZF9hZGMudHh0Ij5odHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9saW51eC9ibG9iL2Rldi00
-LjcvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2lpby9hZGMvYXNwZWVkX2FkYy50
-eHQ8L2E+LiDCoDwvZGl2PjxkaXYgY2xhc3M9ImdtYWlsX2V4dHJhIj48YnI+PGRpdiBjbGFzcz0i
-Z21haWxfcXVvdGUiPk9uIEZyaSwgSnVsIDcsIDIwMTcgYXQgMjoxMiBBTSwgTXlrb2xhIEtvc3Rl
-bm9rIDxzcGFuIGRpcj0ibHRyIj4mbHQ7PGEgaHJlZj0ibWFpbHRvOmNfbXlrb2xha0BtZWxsYW5v
-eC5jb20iIHRhcmdldD0iX2JsYW5rIj5jX215a29sYWtAbWVsbGFub3guY29tPC9hPiZndDs8L3Nw
-YW4+IHdyb3RlOjxicj48YmxvY2txdW90ZSBjbGFzcz0iZ21haWxfcXVvdGUiIHN0eWxlPSJtYXJn
-aW46MCAwIDAgLjhleDtib3JkZXItbGVmdDoxcHggI2NjYyBzb2xpZDtwYWRkaW5nLWxlZnQ6MWV4
-Ij5BZGQgYWRjIGZvciBNZWxsYW5veCBtc24gcGxhdGZvcm0gdG8gZHRzLjxicj4NCjxicj4NClNp
-Z25lZC1vZmYtYnk6IE15a29sYSBLb3N0ZW5vayAmbHQ7PGEgaHJlZj0ibWFpbHRvOmNfbXlrb2xh
-a0BtZWxsYW5veC5jb20iPmNfbXlrb2xha0BtZWxsYW5veC5jb208L2E+Jmd0Ozxicj4NCi0tLTxi
-cj4NCsKgYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy08d2JyPm1lbGxhbm94LW1zbi5kdHMg
-fCA0NSArKysrKysrKysrKysrKysrKysrKysrKysrKys8YnI+DQrCoDEgZmlsZSBjaGFuZ2VkLCA0
-NSBpbnNlcnRpb25zKCspPGJyPg0KPGJyPg0KZGlmZiAtLWdpdCBhL2FyY2gvYXJtL2Jvb3QvZHRz
-L2FzcGVlZC08d2JyPmJtYy1tZWxsYW5veC1tc24uZHRzIGIvYXJjaC9hcm0vYm9vdC9kdHMvYXNw
-ZWVkLTx3YnI+Ym1jLW1lbGxhbm94LW1zbi5kdHM8YnI+DQppbmRleCAwNzc0OTU5YjEyMjIuLjQ2
-MmE2MzhlNjZjNiAxMDA2NDQ8YnI+DQotLS0gYS9hcmNoL2FybS9ib290L2R0cy9hc3BlZWQtPHdi
-cj5ibWMtbWVsbGFub3gtbXNuLmR0czxicj4NCisrKyBiL2FyY2gvYXJtL2Jvb3QvZHRzL2FzcGVl
-ZC08d2JyPmJtYy1tZWxsYW5veC1tc24uZHRzPGJyPg0KQEAgLTEzOSwzICsxMzksNDggQEA8YnI+
-DQrCoCDCoCDCoCDCoCBzdGF0dXMgPSAmcXVvdDtva2F5JnF1b3Q7Ozxicj4NCsKgfTs8YnI+DQo8
-YnI+DQorJmFtcDthZGMgezxicj4NCivCoCDCoCDCoCDCoHN0YXR1cyA9ICZxdW90O29rYXkmcXVv
-dDs7PGJyPg0KK8KgIMKgIMKgIMKgI2FkZHJlc3MtY2VsbHMgPSAmbHQ7MSZndDs7PGJyPg0KK8Kg
-IMKgIMKgIMKgI3NpemUtY2VsbHMgPSAmbHQ7MCZndDs7PGJyPg0KK8KgIMKgIMKgIMKgYWRjMSB7
-PGJyPg0KK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgY2hhbm5lbCA9ICZsdDswJmd0Ozs8YnI+DQor
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqBtaW4gPSAmbHQ7Njc3Jmd0Ozs8YnI+DQorwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqBtYXggPSAmbHQ7ODI4Jmd0Ozs8YnI+DQorwqAgwqAgwqAgwqB9Ozxicj4N
-CivCoCDCoCDCoCDCoGFkYzIgezxicj4NCivCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGNoYW5uZWwg
-PSAmbHQ7MiZndDs7PGJyPg0KK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgbWluID0gJmx0OzY4NCZn
-dDs7PGJyPg0KK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgbWF4ID0gJmx0OzgzNiZndDs7PGJyPg0K
-K8KgIMKgIMKgIMKgfTs8YnI+DQorwqAgwqAgwqAgwqBhZGMzIHs8YnI+DQorwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqBjaGFubmVsID0gJmx0OzMmZ3Q7Ozxicj4NCivCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoG1pbiA9ICZsdDs2ODQmZ3Q7Ozxicj4NCivCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoG1heCA9
-ICZsdDs4MzYmZ3Q7Ozxicj4NCivCoCDCoCDCoCDCoH07PGJyPg0KK8KgIMKgIMKgIMKgYWRjNCB7
-PGJyPg0KK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgY2hhbm5lbCA9ICZsdDs0Jmd0Ozs8YnI+DQor
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqBtaW4gPSAmbHQ7Njc2Jmd0Ozs8YnI+DQorwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqBtYXggPSAmbHQ7ODI2Jmd0Ozs8YnI+DQorwqAgwqAgwqAgwqB9Ozxicj4N
-CivCoCDCoCDCoCDCoGFkYzUgezxicj4NCivCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGNoYW5uZWwg
-PSAmbHQ7MTAmZ3Q7Ozxicj4NCivCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoG1pbiA9ICZsdDs2OTEm
-Z3Q7Ozxicj4NCivCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoG1heCA9ICZsdDs4NDUmZ3Q7Ozxicj4N
-CivCoCDCoCDCoCDCoH07PGJyPg0KK8KgIMKgIMKgIMKgYWRjNiB7PGJyPg0KK8KgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgY2hhbm5lbCA9ICZsdDsxMSZndDs7PGJyPg0KK8KgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgbWluID0gJmx0OzY0MCZndDs7PGJyPg0KK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgbWF4
-ID0gJmx0Ozc4MiZndDs7PGJyPg0KK8KgIMKgIMKgIMKgfTs8YnI+DQorwqAgwqAgwqAgwqBhZGM3
-IHs8YnI+DQorwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqBjaGFubmVsID0gJmx0OzEyJmd0Ozs8YnI+
-DQorwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqBtaW4gPSAmbHQ7NjE1Jmd0Ozs8YnI+DQorwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqBtYXggPSAmbHQ7NzUxJmd0Ozs8YnI+DQorwqAgwqAgwqAgwqB9Ozxi
-cj4NCivCoCDCoCDCoCDCoGFkYzggezxicj4NCivCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGNoYW5u
-ZWwgPSAmbHQ7MTMmZ3Q7Ozxicj4NCivCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoG1pbiA9ICZsdDs1
-ODcmZ3Q7Ozxicj4NCivCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoG1heCA9ICZsdDs3MTkmZ3Q7Ozxi
-cj4NCivCoCDCoCDCoCDCoH07PGJyPg0KK307PGJyPg0KPHNwYW4gY2xhc3M9IkhPRW5aYiI+PGZv
-bnQgY29sb3I9IiM4ODg4ODgiPi0tPGJyPg0KMi4xMS4wPGJyPg0KPGJyPg0KPC9mb250Pjwvc3Bh
-bj48L2Jsb2NrcXVvdGU+PC9kaXY+PGJyPjwvZGl2Pg0K
---001a11424c1a22a4570553bd66c0--
+> +
+>  struct aspeed_pwm_tacho_data {
+>  	struct regmap *regmap;
+>  	unsigned long clk_freq;
+> @@ -180,6 +191,7 @@ struct aspeed_pwm_tacho_data {
+>  	u8 pwm_port_type[8];
+>  	u8 pwm_port_fan_ctrl[8];
+>  	u8 fan_tach_ch_source[16];
+> +	struct aspeed_cooling_device *cdev[8];
+>  	const struct attribute_group *groups[3];
+>  };
+>  
+> @@ -794,10 +806,111 @@ static int aspeed_create_fan(struct device *dev,
+>  	return 0;
+>  }
+>  
+> +static int
+> +aspeed_pwm_cz_get_max_state(struct thermal_cooling_device *tcdev,
+> +			    unsigned long *state)
+> +{
+> +	struct aspeed_cooling_device *cdev =
+> +				(struct aspeed_cooling_device *)tcdev->devdata;
+> +
+> +	*state = cdev->max_state;
+> +
+> +	return 0;
+> +}
+> +
+> +static int
+> +aspeed_pwm_cz_get_cur_state(struct thermal_cooling_device *tcdev,
+> +			    unsigned long *state)
+> +{
+> +	struct aspeed_cooling_device *cdev =
+> +				(struct aspeed_cooling_device *)tcdev->devdata;
+> +
+> +	*state = cdev->cur_state;
+> +
+> +	return 0;
+> +}
+> +
+> +static int
+> +aspeed_pwm_cz_set_cur_state(struct thermal_cooling_device *tcdev,
+> +			    unsigned long state)
+> +{
+> +	struct aspeed_cooling_device *cdev =
+> +				(struct aspeed_cooling_device *)tcdev->devdata;
+> +
+> +	if (state > cdev->max_state)
+> +		return -EINVAL;
+> +
+> +	cdev->cur_state = state;
+> +	cdev->priv->pwm_port_fan_ctrl[cdev->pwm_port] = *(cdev->cooling_levels
+> +							  + cdev->cur_state);
+> +	aspeed_set_pwm_port_fan_ctrl(cdev->priv, cdev->pwm_port,
+> +				     *(cdev->cooling_levels +
+> +				       cdev->cur_state));
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct thermal_cooling_device_ops aspeed_pwm_cool_ops = {
+> +	.get_max_state = aspeed_pwm_cz_get_max_state,
+> +	.get_cur_state = aspeed_pwm_cz_get_cur_state,
+> +	.set_cur_state = aspeed_pwm_cz_set_cur_state,
+> +};
+> +
+> +static int aspeed_create_pwm_cooling(struct device *dev,
+> +				     struct device_node *child,
+> +				     struct aspeed_pwm_tacho_data *priv)
+> +{
+> +	u32 pwm_port;
+> +	int ret;
+> +
+> +	ret = of_property_read_u32(child, "reg", &pwm_port);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = of_property_count_u8_elems(child, "cooling-levels");
+> +	if (ret <= 0) {
+> +		dev_err(dev, "Wrong cooling-levels data.\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	priv->cdev[pwm_port] = devm_kzalloc(dev, sizeof(*priv->cdev[pwm_port]),
+> +					    GFP_KERNEL);
+> +	if (!priv->cdev[pwm_port])
+> +		return -ENOMEM;
+> +
+> +	priv->cdev[pwm_port]->cooling_levels = devm_kzalloc(dev, ret *
+> +							    sizeof(u8),
+> +							    GFP_KERNEL);
+> +	if (!priv->cdev[pwm_port]->cooling_levels)
+> +		return -ENOMEM;
+> +
+> +	priv->cdev[pwm_port]->max_state = ret - 1;
+> +	ret = of_property_read_u8_array(child, "cooling-levels",
+> +					priv->cdev[pwm_port]->cooling_levels,
+> +					ret);
+> +	if (ret) {
+> +		dev_err(dev, "Property 'cooling-levels' cannot be read.\n");
+> +		return ret;
+> +	}
+> +
+> +	sprintf(priv->cdev[pwm_port]->name, "%s%d", child->name, pwm_port);
+> +	priv->cdev[pwm_port]->tcdev = thermal_of_cooling_device_register(child,
+> +						priv->cdev[pwm_port]->name,
+> +						priv->cdev[pwm_port],
+> +						&aspeed_pwm_cool_ops);
+> +	if (PTR_ERR_OR_ZERO(priv->cdev[pwm_port]->tcdev))
+> +		return PTR_ERR(priv->cdev[pwm_port]->tcdev);
+> +
+> +	priv->cdev[pwm_port]->priv = priv;
+> +	priv->cdev[pwm_port]->pwm_port = pwm_port;
+> +
+> +	return 0;
+> +}
+> +
+>  static int aspeed_pwm_tacho_probe(struct platform_device *pdev)
+>  {
+>  	struct device *dev = &pdev->dev;
+> -	struct device_node *np, *child;
+> +	struct device_node *np, *child, *grandchild;
+>  	struct aspeed_pwm_tacho_data *priv;
+>  	void __iomem *regs;
+>  	struct resource *res;
+> @@ -833,10 +946,30 @@ static int aspeed_pwm_tacho_probe(struct platform_device *pdev)
+>  	aspeed_create_type(priv);
+>  
+>  	for_each_child_of_node(np, child) {
+> -		ret = aspeed_create_fan(dev, child, priv);
+> +		if (!of_node_cmp(child->name, "tach-channels")) {
+> +			for_each_child_of_node(child, grandchild) {
+> +				ret = aspeed_create_fan(dev, grandchild, priv);
+> +				of_node_put(grandchild);
+> +				if (ret) {
+> +					of_node_put(child);
+> +					return ret;
+> +				}
+> +			}
+> +		}
+> +
+> +		if (!of_node_cmp(child->name, "pwm-channels")) {
+> +			for_each_child_of_node(child, grandchild) {
+> +				ret = aspeed_create_pwm_cooling(dev,
+> +								grandchild,
+> +								priv);
+> +				of_node_put(grandchild);
+> +				if (ret) {
+> +					of_node_put(child);
+> +					return ret;
+> +				}
+> +			}
+> +		}
+>  		of_node_put(child);
+> -		if (ret)
+> -			return ret;
+>  	}
+>  
+>  	priv->groups[0] = &pwm_dev_group;
+> -- 
+> 2.8.4
+> 
