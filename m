@@ -1,51 +1,58 @@
-Return-Path: <xow@google.com>
-Received: from mail-wr0-x233.google.com (mail-wr0-x233.google.com
- [IPv6:2a00:1450:400c:c0c::233])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <linux@roeck-us.net>
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x496K6rlszDr67
- for <openbmc@lists.ozlabs.org>; Sat,  8 Jul 2017 08:59:37 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x4ZKP663hzDr9C
+ for <openbmc@lists.ozlabs.org>; Sun,  9 Jul 2017 00:55:36 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="KIHoAa4w"; 
+ unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.b="NxvdQ/97";
  dkim-atps=neutral
-Received: by mail-wr0-x233.google.com with SMTP id k67so65248081wrc.2
- for <openbmc@lists.ozlabs.org>; Fri, 07 Jul 2017 15:59:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=9WxZUkjHgPfLXPO5+dFt8hB7FcQBP+KzrmBn4UgBkMs=;
- b=KIHoAa4wJ/7BisSjFObaJKeTrVcA4f5kKdKQital0qY/F3F98IICjJQCXTDZPaVyFJ
- KQkfNkLs3eWdCAddJPthFcgfJBBPwQNP3hLpB/Nt1okXp3Y+Nlk2jQzEO+teNtdVrNYc
- li+X3ay2HwkvYROv6uqNbOLKXlirQKQ2CYYTZ/6Ayx8kgYD7MGmduHpREvIH74Q69ktE
- NVZvjiLwj2uj4GRQbnSDg1j2FxHE/XgXtxDspx/iFjlMiyc3fweGf3GXWLjStvr4SHJT
- ngzNQIh+pJJfw1zLA//lD+VKIJXcf4YbqCjGP1YsLHzIfopBcQcu8uB9UQaW1ZCmiOtp
- RVEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=9WxZUkjHgPfLXPO5+dFt8hB7FcQBP+KzrmBn4UgBkMs=;
- b=nonY3xxnhtVwzV5VEcv7At6hgiIwtQgAwC9e3l51v2ifxhWDeyXdgBX9162lrt/lgK
- b1B24EPRBZqQXmjSsHEWaNnWPGWum4f6eXBoNR4jJ7UxzfL2SFw446gJLsIB+/IM1XM6
- WHTlCeUS9gaeN/KH84qerDu1ZQMBegpn4XROsK0pLprk+akJ30743jKge3HzdfCw49wc
- xyBZptQfAoXFMd+Ipy622DslQ/N3lv4K0TSDVX4oX7Nnpc12sCFfMDtOiXgkWQygOzU3
- 3nwEojcinMW74Kl9a0O6ozc7I5EsSmKYsa3CsBVeN4s6I3dvzFhTnQFb8wVLg9uVm3F3
- adaw==
-X-Gm-Message-State: AIVw113KxCpckz76M2vPsgvDjYJBcDc01mzmvPHwf1KLmNFLnwo9UA4/
- IqBUXUyCtsgCN3rk2oRLJq2EfVaSAdClt0RlyQ==
-X-Received: by 10.223.176.119 with SMTP id g52mr2003862wra.26.1499468375024;
- Fri, 07 Jul 2017 15:59:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+ :Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+ :Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=J4wb6N4SM9lBpR2tzjdWcWslp8g/DtTwAtb7tjiQVJA=; b=NxvdQ/97MYxY75iyPY3Ou9Egz+
+ BdJ1FOy69k1VYqpnRngChD6gQlZ51ETM+H6CWAoENarCBfDWJJWJsfSitHWWc31SmQuQyYNo540tO
+ 4Q/1EscEtMDM+ppxf1UbpUPHydwszjDYUtwFf7qa4/dhBZR7+ecMZYmQRCRdOIn5A0r5ZmT2QsB0H
+ w2RpHWY1ZuIesmsrekGpuRvGlx/qV8YisvRkm1bXj14QsIOsphazS5fvV4YuFz7PcBFFxAYrxBNyR
+ KE+SIMqxZl/vNX7pm1kPVXbQpbVXr7r03c1X/7H+RUNSnhpyu/0rZS6kDWyHAsPeTE7LQJloPeQQY
+ BzaptYpQ==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net
+ ([108.223.40.66]:33276 helo=localhost)
+ by bh-25.webhostbox.net with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ (Exim 4.89) (envelope-from <linux@roeck-us.net>)
+ id 1dTr8u-0049Lc-0N; Sat, 08 Jul 2017 14:55:32 +0000
+Date: Sat, 8 Jul 2017 07:55:30 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Cc: wim@iguana.be, robh+dt@kernel.org, mark.rutland@arm.com, joel@jms.id.au,
+ linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+Subject: Re: [v4, 2/2] drivers/watchdog: ASPEED reference dev tree properties
+ for config
+Message-ID: <20170708145530.GA3436@roeck-us.net>
+References: <20170707004901.26780-3-cbostic@linux.vnet.ibm.com>
 MIME-Version: 1.0
-Received: by 10.28.64.131 with HTTP; Fri, 7 Jul 2017 15:59:34 -0700 (PDT)
-In-Reply-To: <20170704054206.9160-1-joel@jms.id.au>
-References: <20170704054206.9160-1-joel@jms.id.au>
-From: Xo Wang <xow@google.com>
-Date: Fri, 7 Jul 2017 15:59:34 -0700
-Message-ID: <CAPH-5w6AmhNybP2is_bB3pmnqTG+8hdxn8MXw1vwcG6+WcFYjQ@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: Move serial aliases into
- dtsi
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20170707004901.26780-3-cbostic@linux.vnet.ibm.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Authenticated_sender: guenter@roeck-us.net
+X-OutGoing-Spam-Status: No, score=-1.0
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - lists.ozlabs.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-Get-Message-Sender-Via: bh-25.webhostbox.net: authenticated_id:
+ guenter@roeck-us.net
+X-Authenticated-Sender: bh-25.webhostbox.net: guenter@roeck-us.net
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,247 +64,113 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Jul 2017 22:59:39 -0000
+X-List-Received-Date: Sat, 08 Jul 2017 14:55:38 -0000
 
-On Mon, Jul 3, 2017 at 10:42 PM, Joel Stanley <joel@jms.id.au> wrote:
-> Instead of specifying the same thing in each dts.
->
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
+On Thu, Jul 06, 2017 at 07:49:00PM -0500, Christopher Bostic wrote:
+> Reference the system device tree when configuring the watchdog
+> engines. If property 'aspeed,reset_type' is present then set
+> reset behavior based on the specified value.  This can be one of
+> three different mutually exclusive values
+>   * cpu - Reset CPU only on watchdog timeout
+>   * soc - Reset System on Chip
+>   * system - Full system reset
+> 
+> No reset can also be specified by indicating:
+>   * none - No reset, assumes another watchdog is responsible for
+>            this.
+> 
+> Add optional property 'aspeed,external-signal'. If present then
+> configure to generate external signal on watchdog timeout.
+> 
+> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 > ---
->  arch/arm/boot/dts/aspeed-ast2500-evb.dts         | 4 ----
->  arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts    | 4 ----
->  arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts    | 5 -----
->  arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts   | 4 ----
->  arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts   | 7 -------
->  arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts    | 4 ----
->  arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts     | 4 ----
->  arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts    | 4 ----
->  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     | 4 ----
->  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 4 ----
->  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts       | 4 ----
->  arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts     | 4 ----
->  arch/arm/boot/dts/aspeed-g4.dtsi                 | 5 +++++
->  arch/arm/boot/dts/aspeed-g5.dtsi                 | 5 +++++
->  14 files changed, 10 insertions(+), 52 deletions(-)
->
-> diff --git a/arch/arm/boot/dts/aspeed-ast2500-evb.dts b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-> index 1088e1484421..f0786d67700f 100644
-> --- a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-> +++ b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-> @@ -6,10 +6,6 @@
->         model = "AST2500 EVB";
->         compatible = "aspeed,ast2500-evb", "aspeed,ast2500";
->
-> -       aliases {
-> -               serial4 = &uart5;
-> -       };
-> -
->         chosen {
->                 stdout-path = &uart5;
->                 bootargs = "console=ttyS4,115200 earlyprintk";
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
-> index 9bfd5462ea9e..bf2e636c2187 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
-> @@ -6,10 +6,6 @@
->         model = "FACEBOOK CMM BMC";
->         compatible = "facebook,cmm-bmc", "aspeed,ast2500";
->
-> -       aliases {
-> -               serial1 = &uart1;
-> -       };
-> -
->         chosen {
->                 stdout-path = &uart1;
->                 bootargs = "console=ttyS1,115200 earlyprintk";
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-> index c71a6dbe1410..0774959b1222 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-> @@ -7,11 +7,6 @@
->         model = "MSN BMC";
->         compatible = "mellanox,msn-bmc", "aspeed,ast2500";
->
-> -       aliases {
-> -               serial0 = &uart1;
-> -               serial4 = &uart5;
-> -       };
-> -
->         chosen {
->                 stdout-path = &uart5;
->                 bootargs = "console=ttyS4,115200n8 earlyprintk";
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-> index 2060831e579c..d37d0ea99ffe 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-> @@ -7,10 +7,6 @@
->         model = "Barrelye BMC";
->         compatible = "rackspace,barreleye-bmc", "aspeed,ast2400";
->
-> -       aliases {
-> -               serial4 = &uart5;
-> -       };
-> -
->         chosen {
->                 stdout-path = &uart5;
->                 bootargs = "console=ttyS4,115200 earlyprintk";
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-> index 873e62ce6673..fef73ea7fd0c 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-> @@ -8,13 +8,6 @@
->         model = "Firestone BMC";
->         compatible = "ibm,firestone-bmc", "aspeed,ast2400";
->
-> -       aliases {
-> -               serial0 = &vuart;
-> -               serial1 = &uart1;
-> -               serial2 = &uart2;
-> -               serial4 = &uart5;
-> -       };
-> -
->         chosen {
->                 stdout-path = &uart5;
->                 bootargs = "console=ttyS4,115200";
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-> index b64edad3e050..c67fe587d609 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-> @@ -7,10 +7,6 @@
->         model = "Garrison BMC";
->         compatible = "ibm,garrison-bmc", "aspeed,ast2400";
->
-> -       aliases {
-> -               serial4 = &uart5;
-> -       };
-> -
->         chosen {
->                 stdout-path = &uart5;
->                 bootargs = "console=ttyS4,115200 earlyprintk";
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
-> index cd7fd3602b1d..833ef17f643e 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
-> @@ -7,10 +7,6 @@
->         model = "Lanyang BMC";
->         compatible = "inventec,lanyang-bmc", "aspeed,ast2500";
->
-> -       aliases {
-> -               serial4 = &uart5;
-> -       };
-> -
->         chosen {
->                 stdout-path = &uart5;
->                 bootargs = "console=ttyS4,115200 earlyprintk";
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> index a171e41790c1..a282de09895a 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> @@ -7,10 +7,6 @@
->         model = "Palmetto BMC";
->         compatible = "tyan,palmetto-bmc", "aspeed,ast2400";
->
-> -       aliases {
-> -               serial4 = &uart5;
-> -       };
-> -
->         chosen {
->                 stdout-path = &uart5;
->                 bootargs = "console=ttyS4,115200 earlyprintk";
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> index d53dc597a0ce..a9e36157f1f5 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> @@ -7,10 +7,6 @@
->         model = "Romulus BMC";
->         compatible = "ibm,romulus-bmc", "aspeed,ast2500";
->
-> -       aliases {
-> -               serial4 = &uart5;
-> -       };
-> -
->         chosen {
->                 stdout-path = &uart5;
->                 bootargs = "console=ttyS4,115200 earlyprintk";
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> index 31315d03dfb8..355eb56fdb0f 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> @@ -8,10 +8,6 @@
->         model = "Witherspoon BMC";
->         compatible = "ibm,witherspoon-bmc", "aspeed,ast2500";
->
-> -       aliases {
-> -               serial4 = &uart5;
-> -       };
-> -
->         chosen {
->                 stdout-path = &uart5;
->                 bootargs = "console=ttyS4,115200 earlyprintk";
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> index ccf6cad2e382..c6200153a065 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> @@ -7,10 +7,6 @@
->         model = "Zaius BMC";
->         compatible = "ingrasys,zaius-bmc", "aspeed,ast2500";
->
-> -       aliases {
-> -               serial4 = &uart5;
-> -       };
-> -
->         chosen {
->                 stdout-path = &uart5;
->                 bootargs = "console=ttyS4,115200 earlyprintk";
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-> index bb287fb46bb1..cab64e4230c5 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-> @@ -7,10 +7,6 @@
->         model = "Quanta Q71L BMC";
->         compatible = "quanta,q71l-bmc", "aspeed,ast2400";
->
-> -       aliases {
-> -               serial4 = &uart5;
-> -       };
-> -
->         chosen {
->                 stdout-path = &uart5;
->                 bootargs = "console=ttyS4,115200 earlyprintk";
-> diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-> index 9cc959fccfa0..6ec0c75f7786 100644
-> --- a/arch/arm/boot/dts/aspeed-g4.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-> @@ -33,6 +33,11 @@
->                 i2c11 = &i2c11;
->                 i2c12 = &i2c12;
->                 i2c13 = &i2c13;
-> +               serial0 = &uart1;
-> +               serial1 = &uart2;
-> +               serial2 = &uart3;
-> +               serial3 = &uart4;
-> +               serial4 = &uart5;
->         };
->
->         clocks {
-> diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-> index 992242d3b22e..4443403d71fb 100644
-> --- a/arch/arm/boot/dts/aspeed-g5.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-> @@ -33,6 +33,11 @@
->                 i2c11 = &i2c11;
->                 i2c12 = &i2c12;
->                 i2c13 = &i2c13;
-> +               serial0 = &uart1;
-> +               serial1 = &uart2;
-> +               serial2 = &uart3;
-> +               serial3 = &uart4;
-> +               serial4 = &uart5;
->         };
->
->         ahb {
-> --
-> 2.13.2
->
+> v4 - Change the three reset type parameters to a new property
+>      'aspeed,reset_type' and check assignment for one of four
+>      different values, cpu, soc, system, none
+> v3 - Invert the logic for system reset dev tree property to
+>      preserve backwards compatibility. If not specified the
+>      default is to configure for system reset
+>    - Add check for 'aspeed,no-soc-reset' property and only if
+>      not present is SOC reset to be configured.  This preserves
+>      backwards compatibility.
+> v2 - Change of_get_property() to of_property_read_bool()
+>    - Remove redundant check for NULL struct device_node pointer
+>    - Optional property names now start with prefix 'aspeed,'
+> ---
+>  drivers/watchdog/aspeed_wdt.c | 27 ++++++++++++++++++++++-----
+>  1 file changed, 22 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/watchdog/aspeed_wdt.c b/drivers/watchdog/aspeed_wdt.c
+> index 1c65258..3ca79565 100644
+> --- a/drivers/watchdog/aspeed_wdt.c
+> +++ b/drivers/watchdog/aspeed_wdt.c
+> @@ -36,6 +36,7 @@ struct aspeed_wdt {
+>  #define WDT_CTRL		0x0C
+>  #define   WDT_CTRL_RESET_MODE_SOC	(0x00 << 5)
+>  #define   WDT_CTRL_RESET_MODE_FULL_CHIP	(0x01 << 5)
+> +#define   WDT_CTRL_RESET_MODE_ARM_CPU	(0x10 << 5)
+>  #define   WDT_CTRL_1MHZ_CLK		BIT(4)
+>  #define   WDT_CTRL_WDT_EXT		BIT(3)
+>  #define   WDT_CTRL_WDT_INTR		BIT(2)
+> @@ -140,6 +141,8 @@ static int aspeed_wdt_probe(struct platform_device *pdev)
+>  {
+>  	struct aspeed_wdt *wdt;
+>  	struct resource *res;
+> +	struct device_node *np;
+> +	const char *reset_type;
+>  	int ret;
+>  
+>  	wdt = devm_kzalloc(&pdev->dev, sizeof(*wdt), GFP_KERNEL);
+> @@ -164,14 +167,28 @@ static int aspeed_wdt_probe(struct platform_device *pdev)
+>  	wdt->wdd.timeout = WDT_DEFAULT_TIMEOUT;
+>  	watchdog_init_timeout(&wdt->wdd, 0, &pdev->dev);
+>  
+> +	wdt->ctrl = WDT_CTRL_1MHZ_CLK;
+> +
+>  	/*
+>  	 * Control reset on a per-device basis to ensure the
+> -	 * host is not affected by a BMC reboot, so only reset
+> -	 * the SOC and not the full chip
+> +	 * host is not affected by a BMC reboot
+>  	 */
+> -	wdt->ctrl = WDT_CTRL_RESET_MODE_SOC |
+> -		WDT_CTRL_1MHZ_CLK |
+> -		WDT_CTRL_RESET_SYSTEM;
+> +	np = pdev->dev.of_node;
+> +	ret = of_property_read_string(np, "aspeed,reset-type", &reset_type);
+> +	if (ret) {
+> +		wdt->ctrl |= WDT_CTRL_RESET_SYSTEM;
+> +	} else {
+> +		if (!strcmp(reset_type, "cpu"))
+> +			wdt->ctrl |= WDT_CTRL_RESET_MODE_ARM_CPU;
+> +		else if (!strcmp(reset_type, "soc"))
+> +			wdt->ctrl |= WDT_CTRL_RESET_MODE_SOC; 
+> +		else if (!strcmp(reset_type, "system"))
+> +			wdt->ctrl |= WDT_CTRL_RESET_SYSTEM;
 
-Reviewed-By: Xo Wang <xow@google.com>
+This silently accepts 'aspeed,reset-type="junk"' as "none".
+I think it would be better to explicitly check for "none".
+
+Also, if I remember the datasheet correctly, bit 1 (WDT_CTRL_RESET_SYSTEM)
+enables the reset in general, and bit 5/6 specify the reset type.
+With that in mind, I don't think the above will work as expected.
+I think it would have to be
+
+	WDT_CTRL_RESET_MODE_FULL_CHIP | WDT_CTRL_RESET_SYSTEM
+	WDT_CTRL_RESET_MODE_SOC | WDT_CTRL_RESET_SYSTEM
+	WDT_CTRL_RESET_MODE_ARM_CPU | WDT_CTRL_RESET_SYSTEM
+
+To match the original code, the default should be
+
+	WDT_CTRL_RESET_MODE_SOC | WDT_CTRL_RESET_SYSTEM
+
+> +	}
+> +	if (of_property_read_bool(np, "aspeed,external-signal"))
+> +		wdt->ctrl |= WDT_CTRL_WDT_EXT;
+> +
+No plan to support the other new configuration flags ?
+
+> +	writel(wdt->ctrl, wdt->base + WDT_CTRL);
+>  
+>  	if (readl(wdt->base + WDT_CTRL) & WDT_CTRL_ENABLE)  {
+>  		aspeed_wdt_start(&wdt->wdd);
