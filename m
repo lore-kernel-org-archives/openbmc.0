@@ -1,58 +1,77 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <c_mykolak@mellanox.com>
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur01on0075.outbound.protection.outlook.com [104.47.2.75])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x5mx90ZzhzDqBr
- for <openbmc@lists.ozlabs.org>; Mon, 10 Jul 2017 23:57:17 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="cy5WGCYG"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="O4FcwCzC"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id C5AC8209FD;
- Mon, 10 Jul 2017 09:57:14 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Mon, 10 Jul 2017 09:57:14 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=OP6MpW
- 8JP2n3JdcbQNI3DLqM1cbzARHgzD9togk0ASU=; b=cy5WGCYG3LHdN9UchqxcbC
- YYUSfNhvgGxZzhdtLWE71lxJczYC/ImNq21H+eq14/uOCt3Azwp2Jx3l8uvhabT3
- un5G1Q1zd1DOpmkF0CDtbWQ805xuBddbWRrZeqJ2ovIP7v4q9yh1/FcAHZqE6dc7
- Gvo2VvVeI7b4oIbKh3VtvAp/VhGmMb59MdBlBDT7JV11rpmn03K9hnyIaIB1fvee
- /KdvNeJ+8NZ6jU+SVEVukCoOWg6NpzlbV7PKm3jfBJcNpfeg1etNd9gybUgkY32F
- pciXZx/nNiUaB+MHN7SqLNozVJ0Es+5u/Wg+L4ls9kYgUW+SLZRYr5XazgO+D1yw
- ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:in-reply-to:message-id
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=OP6MpW8JP2n3JdcbQNI3DLqM1cbzARHgzD9togk0A
- SU=; b=O4FcwCzCs11TvcMDRVebor82oN+rgKVPxXoRhStX0r0ygOo1rUb0vnwBh
- QFNl6cQuZNZCZAqPn6Wkzxc2fNJ2b/DrIRxl+uIESnon4xL/t0bJW9PBH5QKg5fH
- GZ861+NuiHrGCxjWNOlQtaZ2rljKR6zIhstWqKFsS2l2wjSOrRBp1QiYowybIbWs
- obdSoIPwdsCiA/KcrSn3821UWZG6+KXZGu2cS1d2GA5rZJtCT4UQIh1572rcu965
- rn8uRCLbo9Zmp8l4AvsROAgYxla9Hq+JNg5clj75i2OTXibr55WTtZeiAy97DA4R
- oWR2wAMR/9BjsO9/LdEKN8WxnA2SQ==
-X-ME-Sender: <xms:uodjWbsyhtkTcqT3KaxAXsud_6lGyg0u0dwlshVly_e0El65FlUtuw>
-X-Sasl-enc: /fZ3ONtNE8UldCxgIZsADilewBnmOvJ8aNUndhZI81ju 1499695033
-Received: from keelia.aj.id.au (220-253-43-190.dyn.iinet.net.au
- [220.253.43.190])
- by mail.messagingengine.com (Postfix) with ESMTPA id 4D14A7E2B6;
- Mon, 10 Jul 2017 09:57:11 -0400 (EDT)
-From: Andrew Jeffery <andrew@aj.id.au>
-To: linux@roeck-us.net,
-	linux-hwmon@vger.kernel.org
-Cc: Andrew Jeffery <andrew@aj.id.au>, jdelvare@suse.com,
- linux-kernel@vger.kernel.org, joel@jms.id.au, openbmc@lists.ozlabs.org,
- msbarth@linux.vnet.ibm.com, mspinler@linux.vnet.ibm.com
-Subject: [RFC PATCH 4/4] pmbus: Add MAX31785 driver
-Date: Mon, 10 Jul 2017 23:26:18 +0930
-Message-Id: <20170710135618.13661-5-andrew@aj.id.au>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20170710135618.13661-1-andrew@aj.id.au>
-References: <20170710135618.13661-1-andrew@aj.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x5npR3yNyzDqBr
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Jul 2017 00:36:30 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b="m93viTKr";
+ dkim-atps=neutral
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
+ s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=KVHNSwhQdqlLtB9gQFj1gKVkHE5l3cJT4+XbNMX2aBQ=;
+ b=m93viTKrs8UkPRdn6ubzJbpZnyfu1DSgZvWzYtndT3pli7g+GmhKcMnrsagPG7GYg6F2hoAQYP4+08BMpmtRgn7tkn4awJtBK8xB+eMVQUeeU6hBJ6iYK/GZC0VWQIqvyDf7Q2xhzTdAPu9msXBJdp+N4lNFG2mYQXTnxr6twr0=
+Received: from DB5PR05MB1224.eurprd05.prod.outlook.com (10.161.245.11) by
+ VI1PR05MB3343.eurprd05.prod.outlook.com (10.170.238.144) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.1240.13; Mon, 10 Jul 2017 14:36:18 +0000
+Received: from DB5PR05MB1224.eurprd05.prod.outlook.com
+ ([fe80::21e6:bfbb:dbbc:3bd5]) by DB5PR05MB1224.eurprd05.prod.outlook.com
+ ([fe80::21e6:bfbb:dbbc:3bd5%14]) with mapi id 15.01.1240.020; Mon, 10 Jul
+ 2017 14:36:17 +0000
+From: Mykola Kostenok <c_mykolak@mellanox.com>
+To: Guenter Roeck <linux@roeck-us.net>
+CC: Jean Delvare <jdelvare@suse.com>, "linux-hwmon@vger.kernel.org"
+ <linux-hwmon@vger.kernel.org>, Jaghathiswari Rankappagounder Natarajan
+ <jaghu@google.com>, "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ Patrick Venture <venture@google.com>, Vadim Pasternak <vadimp@mellanox.com>
+Subject: RE: [patch v1] hwmon: (aspeed-pwm-tacho) cooling device support.
+Thread-Topic: [patch v1] hwmon: (aspeed-pwm-tacho) cooling device support.
+Thread-Index: AQHS9msIRawOhM8MdkWqg+N4A53AyKJIq04AgAR1dmA=
+Date: Mon, 10 Jul 2017 14:36:17 +0000
+Message-ID: <DB5PR05MB1224342E024F68EE43790E53EFA90@DB5PR05MB1224.eurprd05.prod.outlook.com>
+References: <20170706142338.32732-1-c_mykolak@mellanox.com>
+ <20170707180844.GA25433@roeck-us.net>
+In-Reply-To: <20170707180844.GA25433@roeck-us.net>
+Accept-Language: ru-RU, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: roeck-us.net; dkim=none (message not signed)
+ header.d=none;roeck-us.net; dmarc=none action=none header.from=mellanox.com;
+x-originating-ip: [80.90.224.13]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; VI1PR05MB3343;
+ 7:TWlOM28BWJjYpKMsKHlKnWvUXgh9KG47Z1NqgvuZoKFrH4yFbd9H6/E8h7JveqR56kzFfeLAH33NnDzItUrxGbQsYowtmPmTUxVfO8f+47JViBQoitsc4vWE9w3r0vVfFEO+7dthvs8rWrLNwrJ6olle5ioEkEBOo6PfZtX3u92CEC2AiE5mUwbHQS3RaiDWsHCvwxEdEgYi93VVzqZbz4UTs8jNIwCTe3klW4CPt33YRV+/q4QEASvON4FtWyHKYc4S0sHCd4pG7rK3fkBZ+ZAn934JKxYat+doN4JXne6kMXgyf/yS5xK/AdhWkZLqdJX/vW+GYjoF6GKXwsb6x+K1IZ/5U15XYQR2HQ3FNI+2Nub78Dlp1KTmWVE7kMVTBJzUTziJu9gKqyrYg7leSLXa6RNHBXrakdPAl4fL/JljiBM3aMJnfR0mmDslA+oWU0nfZDjSZh5mdWfJeeR+uMLgZ1tlKpEoAKM0y0Orq1oEzcynptBF99Nix3PjdrZcA5/0k1txMLf6GatHJUJxm1HBfiImjQXm4qXLTQOYQsVWT9g/PI/qheHfiZU61tF80A0YgsJZezUb3XDwbIywObW4hqZWmctuJmULBtOH/3zamUlIoIQeP2oVd1Ng2lQ9Wu5sAJKk8DJCJA8Z9qgWnBudLNZbFUv0rNLJvQa/T4goKdj9w94SlI4dhk+Zuf1rdsZYK28EuMAXvRNxQKb6Anu0vOfKROT1V9bJvKVMU5Bzu9Bw3h0eAOOysWN58cF8h7B8jku6cWqlIf8Z2/C43ozo2+wAtSxBHVNAOZ4aIhk=
+x-ms-office365-filtering-correlation-id: 1f8d7bf8-f61a-4141-83df-08d4c7a1067c
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
+ RULEID:(300000500095)(300135000095)(300000501095)(300135300095)(22001)(300000502095)(300135100095)(2017030254075)(48565401081)(300000503095)(300135400095)(2017052603031)(201703131423075)(201703031133081)(201702281549075)(300000504095)(300135200095)(300000505095)(300135600095)(300000506095)(300135500095);
+ SRVR:VI1PR05MB3343; 
+x-ms-traffictypediagnostic: VI1PR05MB3343:
+x-microsoft-antispam-prvs: <VI1PR05MB3343B4E5F318C288AE7BE50CEFA90@VI1PR05MB3343.eurprd05.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(133145235818549)(236129657087228)(9452136761055)(65623756079841)(211936372134217)(209349559609743)(247924648384137)(17755550239193);
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(100000700101)(100105000095)(100000701101)(100105300095)(100000702101)(100105100095)(6040450)(601004)(2401047)(2017060910075)(5005006)(8121501046)(100000703101)(100105400095)(3002001)(10201501046)(93006095)(93001095)(6055026)(6041248)(20161123564025)(20161123560025)(20161123562025)(20161123555025)(201703131423075)(201702281528075)(201703061421075)(201703061406153)(20161123558100)(6072148)(100000704101)(100105200095)(100000705101)(100105500095);
+ SRVR:VI1PR05MB3343; BCL:0; PCL:0;
+ RULEID:(100000800101)(100110000095)(100000801101)(100110300095)(100000802101)(100110100095)(100000803101)(100110400095)(100000804101)(100110200095)(100000805101)(100110500095);
+ SRVR:VI1PR05MB3343; 
+x-forefront-prvs: 03648EFF89
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(6009001)(39450400003)(39400400002)(39410400002)(39850400002)(39860400002)(39840400002)(377454003)(24454002)(57704003)(13464003)(2906002)(6916009)(86362001)(5660300001)(2950100002)(33656002)(8676002)(575784001)(3280700002)(6436002)(53936002)(478600001)(3660700001)(229853002)(9686003)(6506006)(54356999)(99286003)(55016002)(54906002)(74316002)(76176999)(50986999)(7696004)(6116002)(102836003)(2900100001)(6246003)(305945005)(14454004)(5250100002)(3846002)(25786009)(8936002)(38730400002)(66066001)(4326008)(107886003)(110136004)(81166006)(53546010)(189998001)(230783001)(345774005);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR05MB3343;
+ H:DB5PR05MB1224.eurprd05.prod.outlook.com; FPR:; SPF:None; MLV:sfv; LANG:en; 
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: Mellanox.com
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Jul 2017 14:36:17.7318 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR05MB3343
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -64,255 +83,340 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Jul 2017 13:57:17 -0000
+X-List-Received-Date: Mon, 10 Jul 2017 14:36:34 -0000
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- drivers/hwmon/pmbus/Kconfig    |  10 ++
- drivers/hwmon/pmbus/Makefile   |   1 +
- drivers/hwmon/pmbus/max31785.c | 201 +++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 212 insertions(+)
- create mode 100644 drivers/hwmon/pmbus/max31785.c
+> -----Original Message-----
+> From: Guenter Roeck [mailto:linux@roeck-us.net]
+> Sent: Friday, July 7, 2017 9:09 PM
+> To: Mykola Kostenok <c_mykolak@mellanox.com>
+> Cc: Jean Delvare <jdelvare@suse.com>; linux-hwmon@vger.kernel.org;
+> Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>;
+> openbmc@lists.ozlabs.org; Patrick Venture <venture@google.com>; Vadim
+> Pasternak <vadimp@mellanox.com>
+> Subject: Re: [patch v1] hwmon: (aspeed-pwm-tacho) cooling device support.
+>=20
+> On Thu, Jul 06, 2017 at 05:23:38PM +0300, Mykola Kostenok wrote:
+> > Add support in aspeed-pwm-tacho driver for cooling device creation.
+> > This cooling device could be bound to a thermal zone for the thermal
+> > control. Device will appear in /sys/class/thermal folder as
+> > cooling_deviceX. Then it could be bound to particular thermal zones.
+> > Allow specification of the cooling levels vector - PWM duty cycle
+> > values in a range from 0 to 255 which correspond to thermal cooling
+> > states.
+> >
+> > Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
+> > ---
+> >  .../devicetree/bindings/hwmon/aspeed-pwm-tacho.txt |  52 ++++++--
+>=20
+> You'll need devicetree maintainer approval for any devicetree changes.
+>=20
+> >  drivers/hwmon/aspeed-pwm-tacho.c                   | 141
+> ++++++++++++++++++++-
+> >  2 files changed, 179 insertions(+), 14 deletions(-)
+> >
+> > diff --git
+> > a/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
+> > b/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
+> > index cf44605..293a994 100644
+> > --- a/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
+> > +++ b/Documentation/devicetree/bindings/hwmon/aspeed-pwm-
+> tacho.txt
+> > @@ -23,9 +23,14 @@ Required properties for pwm-tacho node:
+> >  - clocks : a fixed clock providing input clock frequency(PWM
+> >  	   and Fan Tach clock)
+> >
+> > -fan subnode format:
+> > +tach-channels subnode format:
+>=20
+> I don't like the notion of renaming "fan subnode" to "tach-channels
+> subnode". To me that is just a personal preference. Tomorrow I might get
+> another patch changing it back or changing it to something else.
+>=20
+> But, as mentioned above, you'll need DT maintaier approval for those
+> changes in the first place.
+>=20
+> Guenter
+>=20
 
-diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-index cad1229b7e17..5f2f3c6c7499 100644
---- a/drivers/hwmon/pmbus/Kconfig
-+++ b/drivers/hwmon/pmbus/Kconfig
-@@ -95,6 +95,16 @@ config SENSORS_MAX20751
- 	  This driver can also be built as a module. If so, the module will
- 	  be called max20751.
- 
-+config SENSORS_MAX31785
-+	tristate "Maxim MAX31785 and compatibles"
-+	default n
-+	help
-+	  If you say yes here you get hardware monitoring support for Maxim
-+	  MAX31785.
-+
-+	  This driver can also be built as a module. If so, the module will
-+	  be called max31785.
-+
- config SENSORS_MAX34440
- 	tristate "Maxim MAX34440 and compatibles"
- 	default n
-diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
-index 24ff7ee7f8bb..acba1be0d9ad 100644
---- a/drivers/hwmon/pmbus/Makefile
-+++ b/drivers/hwmon/pmbus/Makefile
-@@ -10,6 +10,7 @@ obj-$(CONFIG_SENSORS_PMBUS)	+= pmbus.o
- # obj-$(CONFIG_SENSORS_LTC3815)	+= ltc3815.o
- # obj-$(CONFIG_SENSORS_MAX16064)	+= max16064.o
- # obj-$(CONFIG_SENSORS_MAX20751)	+= max20751.o
-+obj-$(CONFIG_SENSORS_MAX31785)	+= max31785.o
- # obj-$(CONFIG_SENSORS_MAX34440)	+= max34440.o
- # obj-$(CONFIG_SENSORS_MAX8688)	+= max8688.o
- # obj-$(CONFIG_SENSORS_TPS40422)	+= tps40422.o
-diff --git a/drivers/hwmon/pmbus/max31785.c b/drivers/hwmon/pmbus/max31785.c
-new file mode 100644
-index 000000000000..8432ed5a0ad6
---- /dev/null
-+++ b/drivers/hwmon/pmbus/max31785.c
-@@ -0,0 +1,201 @@
-+/*
-+ * Copyright (C) 2017 IBM Corp.
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License as published by
-+ * the Free Software Foundation; either version 2 of the License, or
-+ * (at your option) any later version.
-+ */
-+
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/init.h>
-+#include <linux/err.h>
-+#include <linux/i2c.h>
-+#include "pmbus.h"
-+
-+enum max31785_regs {
-+	PMBUS_MFR_FAN_CONFIG		= 0xF1,
-+	PMBUS_MFR_READ_FAN_PWM		= 0xF3,
-+	PMBUS_MFR_FAN_FAULT_LIMIT	= 0xF5,
-+	PMBUS_MFR_FAN_WARN_LIMIT	= 0xF6,
-+	PMBUS_MFR_FAN_PWM_AVG		= 0xF8,
-+};
-+
-+static const struct pmbus_coeffs fan_coeffs[] = {
-+	[percent]	= { .m = 1, .b = 0, .R = 2 },
-+	[rpm]		= { .m = 1, .b = 0, .R = 0 },
-+};
-+
-+static const struct pmbus_coeffs *max31785_get_fan_coeffs(
-+		const struct pmbus_driver_info *info, int index,
-+		enum pmbus_fan_mode mode, int command)
-+{
-+	switch (command) {
-+	case PMBUS_FAN_COMMAND_1:
-+	case PMBUS_MFR_FAN_FAULT_LIMIT:
-+	case PMBUS_MFR_FAN_WARN_LIMIT:
-+		return &fan_coeffs[mode];
-+	case PMBUS_READ_FAN_SPEED_1:
-+		return &fan_coeffs[rpm];
-+	case PMBUS_MFR_FAN_PWM_AVG:
-+		return &fan_coeffs[percent];
-+	default:
-+		break;
-+	}
-+
-+	return NULL;
-+}
-+
-+static int max31785_get_pwm_mode(int id, u8 fan_config, u16 fan_command)
-+{
-+	enum pmbus_fan_mode mode;
-+
-+	/* MAX31785 only supports fan 1 on the fan pages */
-+	if (WARN_ON(id > 0))
-+		return -ENODEV;
-+
-+	mode = (fan_config & PB_FAN_1_RPM) ? rpm : percent;
-+
-+	switch (mode) {
-+	case percent:
-+		if (fan_command >= 0x8000)
-+			return 2;
-+		else if (fan_command >= 0x2711)
-+			return 0;
-+		else
-+			return 1;
-+	case rpm:
-+		if (fan_command >= 0x8000)
-+			return 2;
-+		else
-+			return 1;
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static const int max31785_pwm_modes[] = { 0x7fff, 0x2710, 0xffff };
-+
-+int max31785_set_pwm_mode(int id, long mode, u8 *fan_config, u16 *fan_command)
-+{
-+	/* MAX31785 only supports fan 1 on the fan pages */
-+	if (WARN_ON(id > 0))
-+		return -ENODEV;
-+
-+	*fan_config &= ~PB_FAN_1_RPM;
-+
-+	if (mode >= ARRAY_SIZE(max31785_pwm_modes))
-+		return -ENOTSUPP;
-+
-+	*fan_command = max31785_pwm_modes[mode];
-+
-+	return 0;
-+}
-+
-+static struct pmbus_driver_info max31785_info = {
-+	.pages = 23,
-+
-+	.get_fan_coeffs = max31785_get_fan_coeffs,
-+	.get_pwm_mode = max31785_get_pwm_mode,
-+	.set_pwm_mode = max31785_set_pwm_mode,
-+
-+	.format[PSC_FAN] = direct,
-+	.func[0] = PMBUS_HAVE_FAN12 | PMBUS_HAVE_STATUS_FAN12,
-+	.func[1] = PMBUS_HAVE_FAN12 | PMBUS_HAVE_STATUS_FAN12,
-+	.func[2] = PMBUS_HAVE_FAN12 | PMBUS_HAVE_STATUS_FAN12,
-+	.func[3] = PMBUS_HAVE_FAN12 | PMBUS_HAVE_STATUS_FAN12,
-+	.func[4] = PMBUS_HAVE_FAN12 | PMBUS_HAVE_STATUS_FAN12,
-+	.func[5] = PMBUS_HAVE_FAN12 | PMBUS_HAVE_STATUS_FAN12,
-+
-+	.format[PSC_TEMPERATURE] = direct,
-+	.coeffs[PSC_TEMPERATURE].m = 1,
-+	.coeffs[PSC_TEMPERATURE].b = 0,
-+	.coeffs[PSC_TEMPERATURE].R = 2,
-+	.func[6]  = PMBUS_HAVE_STATUS_TEMP,
-+	.func[7]  = PMBUS_HAVE_STATUS_TEMP,
-+	.func[8]  = PMBUS_HAVE_STATUS_TEMP,
-+	.func[9]  = PMBUS_HAVE_STATUS_TEMP,
-+	.func[10] = PMBUS_HAVE_STATUS_TEMP,
-+	.func[11] = PMBUS_HAVE_STATUS_TEMP,
-+	.func[12] = PMBUS_HAVE_STATUS_TEMP,
-+	.func[13] = PMBUS_HAVE_STATUS_TEMP,
-+	.func[14] = PMBUS_HAVE_STATUS_TEMP,
-+	.func[15] = PMBUS_HAVE_STATUS_TEMP,
-+	.func[16] = PMBUS_HAVE_STATUS_TEMP,
-+
-+	.format[PSC_VOLTAGE_OUT] = direct,
-+	.coeffs[PSC_VOLTAGE_OUT].m = 1,
-+	.coeffs[PSC_VOLTAGE_OUT].b = 0,
-+	.coeffs[PSC_VOLTAGE_OUT].R = 0,
-+	.func[17] = PMBUS_HAVE_STATUS_VOUT,
-+	.func[18] = PMBUS_HAVE_STATUS_VOUT,
-+	.func[19] = PMBUS_HAVE_STATUS_VOUT,
-+	.func[20] = PMBUS_HAVE_STATUS_VOUT,
-+	.func[21] = PMBUS_HAVE_STATUS_VOUT,
-+	.func[22] = PMBUS_HAVE_STATUS_VOUT,
-+};
-+
-+#define MFR_FAN_CONFIG_TSFO		BIT(9)
-+#define MFR_FAN_CONFIG_TACHO		BIT(8)
-+
-+static int max31785_probe(struct i2c_client *client,
-+			  const struct i2c_device_id *id)
-+{
-+	int rv;
-+	int i;
-+
-+	rv = pmbus_do_probe(client, id, &max31785_info);
-+	if (rv < 0)
-+		return rv;
-+
-+	for (i = 0; i < max31785_info.pages; i++) {
-+		int reg;
-+
-+		if (!(max31785_info.func[i] & (PMBUS_HAVE_FAN12)))
-+			continue;
-+
-+		reg = pmbus_read_word_data(client, i, PMBUS_MFR_FAN_CONFIG);
-+		if (reg < 0)
-+			continue;
-+
-+		/*
-+		 * XXX: Purely for RFC/testing purposes, don't ramp fans on fan
-+		 * or temperature sensor fault, or a failure to write
-+		 * FAN_COMMAND_1 inside a 10s window (watchdog mode).
-+		 *
-+		 * The TSFO bit controls both ramping on temp sensor failure
-+		 * AND whether FAN_COMMAND_1 is in watchdog mode.
-+		 */
-+		reg = (reg | MFR_FAN_CONFIG_TSFO | MFR_FAN_CONFIG_TACHO);
-+		reg &= 0xffff;
-+
-+		rv = pmbus_write_word_data(client, i, PMBUS_MFR_FAN_CONFIG,
-+					   reg);
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct i2c_device_id max31785_id[] = {
-+	{ "max31785", 0 },
-+	{ },
-+};
-+
-+MODULE_DEVICE_TABLE(i2c, max31785_id);
-+
-+static struct i2c_driver max31785_driver = {
-+	.driver = {
-+		.name = "max31785",
-+	},
-+	.probe = max31785_probe,
-+	.remove = pmbus_do_remove,
-+	.id_table = max31785_id,
-+};
-+
-+module_i2c_driver(max31785_driver);
-+
-+MODULE_AUTHOR("Andrew Jeffery <andrew@aj.id.au>");
-+MODULE_DESCRIPTION("PMBus driver for the Maxim MAX31785");
-+MODULE_LICENSE("GPL");
--- 
-2.11.0
+Hi, Guenter.
+Thank you for reply.
+
+Actually we didn't rename fan subnode. We add one more level hierarchy
+tach-channels and put fan subnodes inside it.
+And also we add pwm-channels subnode with pwm subnodes inside=20
+for cooling device.
+
+We found issue with of_node_put in this patch, so we want to send=20
+you patch v2.
+
+Do we need send this changes in 2 separated patches,=20
+one with driver aspeed-pwm-tacho.c to you, and another=20
+with doc aspeed-pwm-tacho.txt to DT maintainer?
+
+Best regards. Mykola Kostenok.
+
+> >  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > -Under fan subnode there can upto 8 child nodes, with each child node
+> > +Required properties for tach-channels node:
+> > +- #address-cells : should be 1.
+> > +
+> > +- #size-cells : should be 0.
+> > +
+> > +Under tach-channels subnode there can be upto 8 child nodes, with
+> > +each child node
+> >  representing a fan. If there are 8 fans each fan can have one PWM
+> > port and  one/two Fan tach inputs.
+> >
+> > @@ -39,6 +44,22 @@ Required properties for each child node:
+> >  		Fan tach channel 0 and 15 indicating Fan tach channel 15.
+> >  		Atleast one Fan tach input channel is required.
+> >
+> > +pwm-channels subnode format:
+> > +Under pwm-channels subnode there can be pwm child nodes.
+> > +Required properties for tach-channels node:
+> > +- #address-cells : should be 1.
+> > +
+> > +- #size-cells : should be 0.
+> > +
+> > +- #cooling-cells : should be 2;
+> > +
+> > +pwm subnode format:
+> > +- reg : should be <0x00>.
+> > +
+> > +- cooling-levels      : PWM duty cycle values in a range from 0 to 255
+> > +			which correspond to thermal cooling states.
+> > +
+> > +
+> >  Examples:
+> >
+> >  pwm_tacho_fixed_clk: fixedclk {
+> > @@ -55,14 +76,25 @@ pwm_tacho: pwmtachocontroller@1e786000 {
+> >  	clocks =3D <&pwm_tacho_fixed_clk>;
+> >  	pinctrl-names =3D "default";
+> >  	pinctrl-0 =3D <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
+> > -
+> > -	fan@0 {
+> > -		reg =3D <0x00>;
+> > -		aspeed,fan-tach-ch =3D /bits/ 8 <0x00>;
+> > +	tach-channels {
+> > +		#address-cells =3D <1>;
+> > +		#size-cells =3D <0>;
+> > +		fan@0 {
+> > +			reg =3D <0x00>;
+> > +			aspeed,fan-tach-ch =3D /bits/ 8 <0x00>;
+> > +		};
+> > +		fan@1 {
+> > +			reg =3D <0x01>;
+> > +			aspeed,fan-tach-ch =3D /bits/ 8 <0x01 0x02>;
+> > +		};
+> >  	};
+> > -
+> > -	fan@1 {
+> > -		reg =3D <0x01>;
+> > -		aspeed,fan-tach-ch =3D /bits/ 8 <0x01 0x02>;
+> > +	pwm-channels {
+> > +		#address-cells =3D <1>;
+> > +		#size-cells =3D <0>;
+> > +		#cooling-cells =3D <2>;
+> > +		pwm@0 {
+> > +			reg =3D <0x00>;
+> > +			cooling-levels =3D /bits/ 8 <125 151 177 203 229 255>;
+> > +		};
+> >  	};
+> >  };
+> > diff --git a/drivers/hwmon/aspeed-pwm-tacho.c
+> > b/drivers/hwmon/aspeed-pwm-tacho.c
+> > index ddfe66b..c10a37e 100644
+> > --- a/drivers/hwmon/aspeed-pwm-tacho.c
+> > +++ b/drivers/hwmon/aspeed-pwm-tacho.c
+> > @@ -20,6 +20,7 @@
+> >  #include <linux/platform_device.h>
+> >  #include <linux/sysfs.h>
+> >  #include <linux/regmap.h>
+> > +#include <linux/thermal.h>
+> >
+> >  /* ASPEED PWM & FAN Tach Register Definition */
+> >  #define ASPEED_PTCR_CTRL		0x00
+> > @@ -166,6 +167,16 @@
+> >  /* How long we sleep in us while waiting for an RPM result. */
+> >  #define ASPEED_RPM_STATUS_SLEEP_USEC	500
+> >
+> > +struct aspeed_cooling_device {
+> > +	char name[16];
+> > +	struct aspeed_pwm_tacho_data *priv;
+> > +	struct thermal_cooling_device *tcdev;
+> > +	int pwm_port;
+> > +	u8 *cooling_levels;
+> > +	u8 max_state;
+> > +	u8 cur_state;
+> > +};
+> > +
+> >  struct aspeed_pwm_tacho_data {
+> >  	struct regmap *regmap;
+> >  	unsigned long clk_freq;
+> > @@ -180,6 +191,7 @@ struct aspeed_pwm_tacho_data {
+> >  	u8 pwm_port_type[8];
+> >  	u8 pwm_port_fan_ctrl[8];
+> >  	u8 fan_tach_ch_source[16];
+> > +	struct aspeed_cooling_device *cdev[8];
+> >  	const struct attribute_group *groups[3];  };
+> >
+> > @@ -794,10 +806,111 @@ static int aspeed_create_fan(struct device *dev,
+> >  	return 0;
+> >  }
+> >
+> > +static int
+> > +aspeed_pwm_cz_get_max_state(struct thermal_cooling_device *tcdev,
+> > +			    unsigned long *state)
+> > +{
+> > +	struct aspeed_cooling_device *cdev =3D
+> > +				(struct aspeed_cooling_device *)tcdev-
+> >devdata;
+> > +
+> > +	*state =3D cdev->max_state;
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int
+> > +aspeed_pwm_cz_get_cur_state(struct thermal_cooling_device *tcdev,
+> > +			    unsigned long *state)
+> > +{
+> > +	struct aspeed_cooling_device *cdev =3D
+> > +				(struct aspeed_cooling_device *)tcdev-
+> >devdata;
+> > +
+> > +	*state =3D cdev->cur_state;
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int
+> > +aspeed_pwm_cz_set_cur_state(struct thermal_cooling_device *tcdev,
+> > +			    unsigned long state)
+> > +{
+> > +	struct aspeed_cooling_device *cdev =3D
+> > +				(struct aspeed_cooling_device *)tcdev-
+> >devdata;
+> > +
+> > +	if (state > cdev->max_state)
+> > +		return -EINVAL;
+> > +
+> > +	cdev->cur_state =3D state;
+> > +	cdev->priv->pwm_port_fan_ctrl[cdev->pwm_port] =3D *(cdev-
+> >cooling_levels
+> > +							  + cdev->cur_state);
+> > +	aspeed_set_pwm_port_fan_ctrl(cdev->priv, cdev->pwm_port,
+> > +				     *(cdev->cooling_levels +
+> > +				       cdev->cur_state));
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static const struct thermal_cooling_device_ops aspeed_pwm_cool_ops =3D
+> {
+> > +	.get_max_state =3D aspeed_pwm_cz_get_max_state,
+> > +	.get_cur_state =3D aspeed_pwm_cz_get_cur_state,
+> > +	.set_cur_state =3D aspeed_pwm_cz_set_cur_state, };
+> > +
+> > +static int aspeed_create_pwm_cooling(struct device *dev,
+> > +				     struct device_node *child,
+> > +				     struct aspeed_pwm_tacho_data *priv) {
+> > +	u32 pwm_port;
+> > +	int ret;
+> > +
+> > +	ret =3D of_property_read_u32(child, "reg", &pwm_port);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret =3D of_property_count_u8_elems(child, "cooling-levels");
+> > +	if (ret <=3D 0) {
+> > +		dev_err(dev, "Wrong cooling-levels data.\n");
+> > +		return -EINVAL;
+> > +	}
+> > +
+> > +	priv->cdev[pwm_port] =3D devm_kzalloc(dev, sizeof(*priv-
+> >cdev[pwm_port]),
+> > +					    GFP_KERNEL);
+> > +	if (!priv->cdev[pwm_port])
+> > +		return -ENOMEM;
+> > +
+> > +	priv->cdev[pwm_port]->cooling_levels =3D devm_kzalloc(dev, ret *
+> > +							    sizeof(u8),
+> > +							    GFP_KERNEL);
+> > +	if (!priv->cdev[pwm_port]->cooling_levels)
+> > +		return -ENOMEM;
+> > +
+> > +	priv->cdev[pwm_port]->max_state =3D ret - 1;
+> > +	ret =3D of_property_read_u8_array(child, "cooling-levels",
+> > +					priv->cdev[pwm_port]-
+> >cooling_levels,
+> > +					ret);
+> > +	if (ret) {
+> > +		dev_err(dev, "Property 'cooling-levels' cannot be read.\n");
+> > +		return ret;
+> > +	}
+> > +
+> > +	sprintf(priv->cdev[pwm_port]->name, "%s%d", child->name,
+> pwm_port);
+> > +	priv->cdev[pwm_port]->tcdev =3D
+> thermal_of_cooling_device_register(child,
+> > +						priv->cdev[pwm_port]-
+> >name,
+> > +						priv->cdev[pwm_port],
+> > +						&aspeed_pwm_cool_ops);
+> > +	if (PTR_ERR_OR_ZERO(priv->cdev[pwm_port]->tcdev))
+> > +		return PTR_ERR(priv->cdev[pwm_port]->tcdev);
+> > +
+> > +	priv->cdev[pwm_port]->priv =3D priv;
+> > +	priv->cdev[pwm_port]->pwm_port =3D pwm_port;
+> > +
+> > +	return 0;
+> > +}
+> > +
+> >  static int aspeed_pwm_tacho_probe(struct platform_device *pdev)  {
+> >  	struct device *dev =3D &pdev->dev;
+> > -	struct device_node *np, *child;
+> > +	struct device_node *np, *child, *grandchild;
+> >  	struct aspeed_pwm_tacho_data *priv;
+> >  	void __iomem *regs;
+> >  	struct resource *res;
+> > @@ -833,10 +946,30 @@ static int aspeed_pwm_tacho_probe(struct
+> platform_device *pdev)
+> >  	aspeed_create_type(priv);
+> >
+> >  	for_each_child_of_node(np, child) {
+> > -		ret =3D aspeed_create_fan(dev, child, priv);
+> > +		if (!of_node_cmp(child->name, "tach-channels")) {
+> > +			for_each_child_of_node(child, grandchild) {
+> > +				ret =3D aspeed_create_fan(dev, grandchild,
+> priv);
+> > +				of_node_put(grandchild);
+> > +				if (ret) {
+> > +					of_node_put(child);
+> > +					return ret;
+> > +				}
+> > +			}
+> > +		}
+> > +
+> > +		if (!of_node_cmp(child->name, "pwm-channels")) {
+> > +			for_each_child_of_node(child, grandchild) {
+> > +				ret =3D aspeed_create_pwm_cooling(dev,
+> > +								grandchild,
+> > +								priv);
+> > +				of_node_put(grandchild);
+> > +				if (ret) {
+> > +					of_node_put(child);
+> > +					return ret;
+> > +				}
+> > +			}
+> > +		}
+> >  		of_node_put(child);
+> > -		if (ret)
+> > -			return ret;
+> >  	}
+> >
+> >  	priv->groups[0] =3D &pwm_dev_group;
+> > --
+> > 2.8.4
+> >
