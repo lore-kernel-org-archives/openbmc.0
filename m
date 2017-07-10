@@ -1,71 +1,74 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <c_mykolak@mellanox.com>
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur01on0049.outbound.protection.outlook.com [104.47.2.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x5pVc41F6zDqBr
- for <openbmc@lists.ozlabs.org>; Tue, 11 Jul 2017 01:07:52 +1000 (AEST)
-Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v6AF4cRw108784
- for <openbmc@lists.ozlabs.org>; Mon, 10 Jul 2017 11:07:50 -0400
-Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2bmb55jc7h-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 10 Jul 2017 11:07:50 -0400
-Received: from localhost
- by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Mon, 10 Jul 2017 09:07:49 -0600
-Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
- by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 10 Jul 2017 09:07:47 -0600
-Received: from b03ledav003.gho.boulder.ibm.com
- (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v6AF7kEJ8389056; Mon, 10 Jul 2017 08:07:46 -0700
-Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id EB3E46A03D;
- Mon, 10 Jul 2017 09:07:46 -0600 (MDT)
-Received: from Christophers-MacBook-Pro.local (unknown [9.81.210.46])
- by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP id 050B46A03F;
- Mon, 10 Jul 2017 09:07:42 -0600 (MDT)
-Subject: Re: [v4, 1/2] drivers/watchdog: Add optional ASPEED device tree
- properties
-To: Guenter Roeck <linux@roeck-us.net>
-References: <20170707004901.26780-2-cbostic@linux.vnet.ibm.com>
- <20170708145907.GA19078@roeck-us.net>
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- linux-watchdog@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, wim@iguana.be, robh+dt@kernel.org
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Mon, 10 Jul 2017 10:07:40 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
- Gecko/20100101 Thunderbird/45.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x5pVh55vYzDqGG
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Jul 2017 01:07:56 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b="L7Nvd0eY";
+ dkim-atps=neutral
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
+ s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=890SkhMDM7YWpmA5XJFbLtC+X0L5luDITiK0xaWsBXs=;
+ b=L7Nvd0eYmLm2SxI1m2RMrKcyzUNtr4qIQTBa5ob+OqKWz75YIXytXTLJ+YhslfDsVCpBy9TVhmLS1WnEBc8noJWvzVIo62E6eneQ53ZirvYfDOtyker4IuwcCbGJJKmNeS0IwhmMBJISb4LI8ITjkhEafh+G+Jzu+eIzyBCFqO0=
+Received: from DB5PR05MB1224.eurprd05.prod.outlook.com (10.161.245.11) by
+ DB5PR05MB1223.eurprd05.prod.outlook.com (10.161.244.28) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.1240.13; Mon, 10 Jul 2017 15:07:50 +0000
+Received: from DB5PR05MB1224.eurprd05.prod.outlook.com
+ ([fe80::21e6:bfbb:dbbc:3bd5]) by DB5PR05MB1224.eurprd05.prod.outlook.com
+ ([fe80::21e6:bfbb:dbbc:3bd5%14]) with mapi id 15.01.1240.020; Mon, 10 Jul
+ 2017 15:07:50 +0000
+From: Mykola Kostenok <c_mykolak@mellanox.com>
+To: Rick Altherr <raltherr@google.com>
+CC: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: RE: [PATCH linux dev-4.10] msn: add adc to msn dts.
+Thread-Topic: [PATCH linux dev-4.10] msn: add adc to msn dts.
+Thread-Index: AQHS9wE2IcMan4QQ50a0quCeqYTshKJIm6EAgASRkcA=
+Date: Mon, 10 Jul 2017 15:07:50 +0000
+Message-ID: <DB5PR05MB122424DA4480DB7579533285EFA90@DB5PR05MB1224.eurprd05.prod.outlook.com>
+References: <20170707091241.77250-1-c_mykolak@mellanox.com>
+ <CAPLgG=mFYpZcw8Y7PrSZHEx-c8kdHAqynHezfRd7ai2Nt8uWVw@mail.gmail.com>
+In-Reply-To: <CAPLgG=mFYpZcw8Y7PrSZHEx-c8kdHAqynHezfRd7ai2Nt8uWVw@mail.gmail.com>
+Accept-Language: ru-RU, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: google.com; dkim=none (message not signed)
+ header.d=none;google.com; dmarc=none action=none header.from=mellanox.com;
+x-originating-ip: [80.90.224.13]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; DB5PR05MB1223;
+ 7:nYIJlG+H97P2My3BtcJ0JnMUiXVkSLwuMAT5RM54OkBUCarOK+Pj6GQ/a7gGnFlr0SwL7ydXUGdAMHgYaK1cnIL2fHNHukcEo9kYpEAvTEqfgG7gqhJMT+KRP3LX/nikM0GVN1eE1bV/5sfynUE/auvrTTqitgG6mv5WkZs4rcxkl0AHMwOyIbqlUbnCZD5tMa+EkTIHEILylYYUz7s4Yt33sNoQIajt1RrGwnrM8qNhSoZBt9pHiAbq4PXbBasnJbg6jSePJYj9ceNe2DV1bHGD/mSDLvHP6/5KOf9emn6cVrHeMosYcAmcOVk1Ntpv9OJjMqclj5v+X39pDPkFXboJrtBISOZ5DWP+XkhfW5G4eunjnwGzFcAy6sz+dtDk3PEVfZdEYAoQQ7BBqEq9KWW02qtUanJgy9fW4Cz9vGuc0mbHi4wjwa9Fy/dMup7/JJDH0V18P3KBJQ+eRGYzDPC4OWFZxrM4ApM9GEtuJTA/YZ+TBMlIb9YLslhE/nSLDDlfX4pvQNC8aRblNrfH+auzd0FcKQvzJ2K0LZjEVDv1j5X2WoB7//DLmOBgN2dgQugLWCLYAExDwOd8RKeQUrdNMXoRilY11548HgCjkDR9qH7MiL6YVtYzuo3lKRu4vtbi3CP91UDhtI5LDTezt60+TyLpEU169xaK4dczLPoIHqUQ7KXOHMovCWqRnBsfTG+sGFQ3ZqWHZoysr3HXS6W43Z+zap9L418wbGEY+UT87MWtIrtdG4K4bcQqs6IGu1tFjjKdGMu1b+50lmjk9v7APt4pDa/Z/mKeuDdoOqo=
+x-ms-office365-filtering-correlation-id: 3644c119-d047-4e97-c712-08d4c7a56e7e
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
+ RULEID:(300000500095)(300135000095)(300000501095)(300135300095)(22001)(300000502095)(300135100095)(2017030254075)(48565401081)(300000503095)(300135400095)(2017052603031)(201703131423075)(201703031133081)(300000504095)(300135200095)(300000505095)(300135600095)(300000506095)(300135500095);
+ SRVR:DB5PR05MB1223; 
+x-ms-traffictypediagnostic: DB5PR05MB1223:
+x-microsoft-antispam-prvs: <DB5PR05MB12232E31D6845E5C0E5B6186EFA90@DB5PR05MB1223.eurprd05.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(151999592597050)(166708455590820)(26388249023172)(236129657087228)(189930954265078)(65623756079841)(211936372134217)(148574349560750)(45079756050767)(21748063052155);
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(100000700101)(100105000095)(100000701101)(100105300095)(100000702101)(100105100095)(6040450)(601004)(2401047)(2017060910075)(5005006)(8121501046)(3002001)(10201501046)(93006095)(93001095)(100000703101)(100105400095)(6055026)(6041248)(201703131423075)(201702281528075)(201703061421075)(201703061406153)(20161123558100)(20161123562025)(20161123560025)(20161123555025)(20161123564025)(6072148)(100000704101)(100105200095)(100000705101)(100105500095);
+ SRVR:DB5PR05MB1223; BCL:0; PCL:0;
+ RULEID:(100000800101)(100110000095)(100000801101)(100110300095)(100000802101)(100110100095)(100000803101)(100110400095)(100000804101)(100110200095)(100000805101)(100110500095);
+ SRVR:DB5PR05MB1223; 
+x-forefront-prvs: 03648EFF89
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(39450400003)(39410400002)(39400400002)(39860400002)(39840400002)(39850400002)(24454002)(377454003)(38730400002)(76176999)(2906002)(50986999)(110136004)(102836003)(9326002)(3846002)(6246003)(86362001)(4326008)(790700001)(9686003)(236005)(6506006)(54896002)(6306002)(2950100002)(189998001)(6436002)(6916009)(6116002)(54906002)(99286003)(74316002)(55016002)(54356999)(229853002)(345774005)(45080400002)(19609705001)(5660300001)(25786009)(3660700001)(66066001)(7696004)(3280700002)(14454004)(81166006)(8676002)(53936002)(33656002)(478600001)(8936002)(966005)(606006)(2900100001)(5250100002)(53546010);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DB5PR05MB1223;
+ H:DB5PR05MB1224.eurprd05.prod.outlook.com; FPR:; SPF:None; MLV:sfv; LANG:en; 
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: multipart/alternative;
+ boundary="_000_DB5PR05MB122424DA4480DB7579533285EFA90DB5PR05MB1224eurp_"
 MIME-Version: 1.0
-In-Reply-To: <20170708145907.GA19078@roeck-us.net>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 17071015-0016-0000-0000-000007246530
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007343; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00885582; UDB=6.00441967; IPR=6.00665731; 
- BA=6.00005464; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016160; XFM=3.00000015;
- UTC=2017-07-10 15:07:49
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17071015-0017-0000-0000-00003A82B34E
-Message-Id: <61225254-6b6c-672f-23f8-b7c9f24aa46e@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-07-10_06:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1707100269
+X-OriginatorOrg: Mellanox.com
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Jul 2017 15:07:50.2009 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB5PR05MB1223
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -77,104 +80,222 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Jul 2017 15:07:53 -0000
+X-List-Received-Date: Mon, 10 Jul 2017 15:07:58 -0000
 
+--_000_DB5PR05MB122424DA4480DB7579533285EFA90DB5PR05MB1224eurp_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
+SGksIFJpY2suDQpUaGFuayB5b3UgZm9yIHBvaW50aW5nIHRoYXQgb3V0Lg0KSSBoYWQgYW5vdGhl
+ciBhc3BlZWQtYWRjIGRyaXZlciBiZWZvcmUuDQoNCkkgd2lsbCBzZW5kIHBhdGNoIHYyIHdpdGgg
+Y29ycmVjdCBiaW5kaW5ncy4NCg0KQmVzdCByZWdhcmRzLiBNeWtvbGEgS29zdGVub2suDQoNCkZy
+b206IFJpY2sgQWx0aGVyciBbbWFpbHRvOnJhbHRoZXJyQGdvb2dsZS5jb21dDQpTZW50OiBGcmlk
+YXksIEp1bHkgNywgMjAxNyA4OjE3IFBNDQpUbzogTXlrb2xhIEtvc3Rlbm9rIDxjX215a29sYWtA
+bWVsbGFub3guY29tPg0KQ2M6IEpvZWwgU3RhbmxleSA8am9lbEBqbXMuaWQuYXU+OyBPcGVuQk1D
+IE1haWxsaXN0IDxvcGVuYm1jQGxpc3RzLm96bGFicy5vcmc+DQpTdWJqZWN0OiBSZTogW1BBVENI
+IGxpbnV4IGRldi00LjEwXSBtc246IGFkZCBhZGMgdG8gbXNuIGR0cy4NCg0KVGhpcyBkb2Vzbid0
+IG1hdGNoIHRoZSBiaW5kaW5ncyBmb3IgdGhlIEFzcGVlZCBBREM6IGh0dHBzOi8vZ2l0aHViLmNv
+bS9vcGVuYm1jL2xpbnV4L2Jsb2IvZGV2LTQuNy9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmlu
+ZGluZ3MvaWlvL2FkYy9hc3BlZWRfYWRjLnR4dDxodHRwczovL2VtZWEwMS5zYWZlbGlua3MucHJv
+dGVjdGlvbi5vdXRsb29rLmNvbS8/dXJsPWh0dHBzJTNBJTJGJTJGZ2l0aHViLmNvbSUyRm9wZW5i
+bWMlMkZsaW51eCUyRmJsb2IlMkZkZXYtNC43JTJGRG9jdW1lbnRhdGlvbiUyRmRldmljZXRyZWUl
+MkZiaW5kaW5ncyUyRmlpbyUyRmFkYyUyRmFzcGVlZF9hZGMudHh0JmRhdGE9MDIlN0MwMSU3Q2Nf
+bXlrb2xhayU0MG1lbGxhbm94LmNvbSU3Q2JiMWRjZDMyZmJjZTQ1ODhkOGNmMDhkNGM1NWJmNjMx
+JTdDYTY1Mjk3MWM3ZDJlNGQ5YmE2YTRkMTQ5MjU2ZjQ2MWIlN0MwJTdDMCU3QzYzNjM1MDQ0NjE2
+MTYxNDE4MyZzZGF0YT1YZzRhTWhNZGRDcnZCZDhTOGF1MERqV1pyUnNyZ1dRQjJGTzdPMHhBS1Z3
+JTNEJnJlc2VydmVkPTA+Lg0KDQpPbiBGcmksIEp1bCA3LCAyMDE3IGF0IDI6MTIgQU0sIE15a29s
+YSBLb3N0ZW5vayA8Y19teWtvbGFrQG1lbGxhbm94LmNvbTxtYWlsdG86Y19teWtvbGFrQG1lbGxh
+bm94LmNvbT4+IHdyb3RlOg0KQWRkIGFkYyBmb3IgTWVsbGFub3ggbXNuIHBsYXRmb3JtIHRvIGR0
+cy4NCg0KU2lnbmVkLW9mZi1ieTogTXlrb2xhIEtvc3Rlbm9rIDxjX215a29sYWtAbWVsbGFub3gu
+Y29tPG1haWx0bzpjX215a29sYWtAbWVsbGFub3guY29tPj4NCi0tLQ0KIGFyY2gvYXJtL2Jvb3Qv
+ZHRzL2FzcGVlZC1ibWMtbWVsbGFub3gtbXNuLmR0cyB8IDQ1ICsrKysrKysrKysrKysrKysrKysr
+KysrKysrKw0KIDEgZmlsZSBjaGFuZ2VkLCA0NSBpbnNlcnRpb25zKCspDQoNCmRpZmYgLS1naXQg
+YS9hcmNoL2FybS9ib290L2R0cy9hc3BlZWQtYm1jLW1lbGxhbm94LW1zbi5kdHMgYi9hcmNoL2Fy
+bS9ib290L2R0cy9hc3BlZWQtYm1jLW1lbGxhbm94LW1zbi5kdHMNCmluZGV4IDA3NzQ5NTliMTIy
+Mi4uNDYyYTYzOGU2NmM2IDEwMDY0NA0KLS0tIGEvYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJt
+Yy1tZWxsYW5veC1tc24uZHRzDQorKysgYi9hcmNoL2FybS9ib290L2R0cy9hc3BlZWQtYm1jLW1l
+bGxhbm94LW1zbi5kdHMNCkBAIC0xMzksMyArMTM5LDQ4IEBADQogICAgICAgIHN0YXR1cyA9ICJv
+a2F5IjsNCiB9Ow0KDQorJmFkYyB7DQorICAgICAgIHN0YXR1cyA9ICJva2F5IjsNCisgICAgICAg
+I2FkZHJlc3MtY2VsbHMgPSA8MT47DQorICAgICAgICNzaXplLWNlbGxzID0gPDA+Ow0KKyAgICAg
+ICBhZGMxIHsNCisgICAgICAgICAgICAgICBjaGFubmVsID0gPDA+Ow0KKyAgICAgICAgICAgICAg
+IG1pbiA9IDw2Nzc+Ow0KKyAgICAgICAgICAgICAgIG1heCA9IDw4Mjg+Ow0KKyAgICAgICB9Ow0K
+KyAgICAgICBhZGMyIHsNCisgICAgICAgICAgICAgICBjaGFubmVsID0gPDI+Ow0KKyAgICAgICAg
+ICAgICAgIG1pbiA9IDw2ODQ+Ow0KKyAgICAgICAgICAgICAgIG1heCA9IDw4MzY+Ow0KKyAgICAg
+ICB9Ow0KKyAgICAgICBhZGMzIHsNCisgICAgICAgICAgICAgICBjaGFubmVsID0gPDM+Ow0KKyAg
+ICAgICAgICAgICAgIG1pbiA9IDw2ODQ+Ow0KKyAgICAgICAgICAgICAgIG1heCA9IDw4MzY+Ow0K
+KyAgICAgICB9Ow0KKyAgICAgICBhZGM0IHsNCisgICAgICAgICAgICAgICBjaGFubmVsID0gPDQ+
+Ow0KKyAgICAgICAgICAgICAgIG1pbiA9IDw2NzY+Ow0KKyAgICAgICAgICAgICAgIG1heCA9IDw4
+MjY+Ow0KKyAgICAgICB9Ow0KKyAgICAgICBhZGM1IHsNCisgICAgICAgICAgICAgICBjaGFubmVs
+ID0gPDEwPjsNCisgICAgICAgICAgICAgICBtaW4gPSA8NjkxPjsNCisgICAgICAgICAgICAgICBt
+YXggPSA8ODQ1PjsNCisgICAgICAgfTsNCisgICAgICAgYWRjNiB7DQorICAgICAgICAgICAgICAg
+Y2hhbm5lbCA9IDwxMT47DQorICAgICAgICAgICAgICAgbWluID0gPDY0MD47DQorICAgICAgICAg
+ICAgICAgbWF4ID0gPDc4Mj47DQorICAgICAgIH07DQorICAgICAgIGFkYzcgew0KKyAgICAgICAg
+ICAgICAgIGNoYW5uZWwgPSA8MTI+Ow0KKyAgICAgICAgICAgICAgIG1pbiA9IDw2MTU+Ow0KKyAg
+ICAgICAgICAgICAgIG1heCA9IDw3NTE+Ow0KKyAgICAgICB9Ow0KKyAgICAgICBhZGM4IHsNCisg
+ICAgICAgICAgICAgICBjaGFubmVsID0gPDEzPjsNCisgICAgICAgICAgICAgICBtaW4gPSA8NTg3
+PjsNCisgICAgICAgICAgICAgICBtYXggPSA8NzE5PjsNCisgICAgICAgfTsNCit9Ow0KLS0NCjIu
+MTEuMA0KDQo=
 
-On 7/8/17 9:59 AM, Guenter Roeck wrote:
-> On Thu, Jul 06, 2017 at 07:48:59PM -0500, Christopher Bostic wrote:
->> Describe device tree optional properties:
->>
->>    * aspeed,reset-type = "cpu|soc|system|none"
->>       One of three different, mutually exclusive, values
->>
->> 	"cpu" : ARM CPU reset on signal
->> 	"soc" : 'System on chip' reset
->> 	"system" : Full system reset
->>
->>       The value can also be set to "none" which indicates that no
->>       reset of any kind is to be done via this watchdog.  This assumes
->>       another watchdog on the chip is to take care of resets.
->>
->>    * aspeed,interrupt - Interrupt CPU on signal
-> After thinking about that, I wonder if this is necessary. It could be
-> implied by providing an interrupt to the driver. The driver could then
-> set the interrupt configuration bit automatically.
->
-> [ And the bit by itself doesn't really make sense if the driver doesn't
->    also register an interrupt handler ]
+--_000_DB5PR05MB122424DA4480DB7579533285EFA90DB5PR05MB1224eurp_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-The 'aspeed,interrupt' property was added for the sake of documenting 
-all potential hardware configurations.  There is no plan as of now to 
-enable this so I'm inclined to just remove this part from the 
-documentation.  When and if this function is ever used the optional 
-property can be documented at that time.
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
+PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+IkNhbWJyaWEgTWF0aCI7DQoJcGFub3NlLTE6MiA0IDUgMyA1IDQgNiAzIDIgNDt9DQpAZm9udC1m
+YWNlDQoJe2ZvbnQtZmFtaWx5OkNhbGlicmk7DQoJcGFub3NlLTE6MiAxNSA1IDIgMiAyIDQgMyAy
+IDQ7fQ0KLyogU3R5bGUgRGVmaW5pdGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5Nc29Ob3JtYWws
+IGRpdi5Nc29Ob3JtYWwNCgl7bWFyZ2luOjBpbjsNCgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJ
+Zm9udC1zaXplOjEyLjBwdDsNCglmb250LWZhbWlseToiVGltZXMgTmV3IFJvbWFuIixzZXJpZjt9
+DQphOmxpbmssIHNwYW4uTXNvSHlwZXJsaW5rDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCglj
+b2xvcjpibHVlOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0KYTp2aXNpdGVkLCBzcGFu
+Lk1zb0h5cGVybGlua0ZvbGxvd2VkDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCgljb2xvcjpw
+dXJwbGU7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQpwLm1zb25vcm1hbDAsIGxpLm1z
+b25vcm1hbDAsIGRpdi5tc29ub3JtYWwwDQoJe21zby1zdHlsZS1uYW1lOm1zb25vcm1hbDsNCglt
+c28tbWFyZ2luLXRvcC1hbHQ6YXV0bzsNCgltYXJnaW4tcmlnaHQ6MGluOw0KCW1zby1tYXJnaW4t
+Ym90dG9tLWFsdDphdXRvOw0KCW1hcmdpbi1sZWZ0OjBpbjsNCglmb250LXNpemU6MTIuMHB0Ow0K
+CWZvbnQtZmFtaWx5OiJUaW1lcyBOZXcgUm9tYW4iLHNlcmlmO30NCnNwYW4uaG9lbnpiDQoJe21z
+by1zdHlsZS1uYW1lOmhvZW56Yjt9DQpzcGFuLkVtYWlsU3R5bGUxOQ0KCXttc28tc3R5bGUtdHlw
+ZTpwZXJzb25hbC1yZXBseTsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjsNCglj
+b2xvcjp3aW5kb3d0ZXh0O30NCi5Nc29DaHBEZWZhdWx0DQoJe21zby1zdHlsZS10eXBlOmV4cG9y
+dC1vbmx5O30NCkBwYWdlIFdvcmRTZWN0aW9uMQ0KCXtzaXplOjguNWluIDExLjBpbjsNCgltYXJn
+aW46MS4waW4gMS4waW4gMS4waW4gMS4waW47fQ0KZGl2LldvcmRTZWN0aW9uMQ0KCXtwYWdlOldv
+cmRTZWN0aW9uMTt9DQotLT48L3N0eWxlPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1sPg0KPG86c2hh
+cGVkZWZhdWx0cyB2OmV4dD0iZWRpdCIgc3BpZG1heD0iMTAyNiIgLz4NCjwveG1sPjwhW2VuZGlm
+XS0tPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1sPg0KPG86c2hhcGVsYXlvdXQgdjpleHQ9ImVkaXQi
+Pg0KPG86aWRtYXAgdjpleHQ9ImVkaXQiIGRhdGE9IjEiIC8+DQo8L286c2hhcGVsYXlvdXQ+PC94
+bWw+PCFbZW5kaWZdLS0+DQo8L2hlYWQ+DQo8Ym9keSBsYW5nPSJFTi1VUyIgbGluaz0iYmx1ZSIg
+dmxpbms9InB1cnBsZSI+DQo8ZGl2IGNsYXNzPSJXb3JkU2VjdGlvbjEiPg0KPHAgY2xhc3M9Ik1z
+b05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7
+Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmIj5IaSw8L3NwYW4+PHNwYW4gc3R5bGU9ImZvbnQtc2l6
+ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmIj4gUmlj
+ay48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHls
+ZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMt
+c2VyaWYiPlRoYW5rIHlvdSBmb3IgcG9pbnRpbmcgdGhhdCBvdXQuPG86cD48L286cD48L3NwYW4+
+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7
+Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmIj5JIGhhZCBhbm90aGVy
+IGFzcGVlZC1hZGMgZHJpdmVyIGJlZm9yZS48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFz
+cz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTom
+cXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWYiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwv
+cD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2Zv
+bnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZiI+SSB3aWxsIHNlbmQgcGF0
+Y2ggdjIgd2l0aCBjb3JyZWN0IGJpbmRpbmdzLjwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1zaXpl
+OjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWYiPjxvOnA+
+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250
+LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZiI+
+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4g
+c3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90Oyxz
+YW5zLXNlcmlmIj5CZXN0IHJlZ2FyZHMuIE15a29sYSBLb3N0ZW5vay48bzpwPjwvbzpwPjwvc3Bh
+bj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBw
+dDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWYiPjxvOnA+Jm5ic3A7
+PC9vOnA+PC9zcGFuPjwvcD4NCjxkaXYgc3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci1sZWZ0OnNv
+bGlkIGJsdWUgMS41cHQ7cGFkZGluZzowaW4gMGluIDBpbiA0LjBwdCI+DQo8ZGl2Pg0KPGRpdiBz
+dHlsZT0iYm9yZGVyOm5vbmU7Ym9yZGVyLXRvcDpzb2xpZCAjRTFFMUUxIDEuMHB0O3BhZGRpbmc6
+My4wcHQgMGluIDBpbiAwaW4iPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PGI+PHNwYW4gc3R5bGU9
+ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNl
+cmlmIj5Gcm9tOjwvc3Bhbj48L2I+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1m
+YW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmIj4gUmljayBBbHRoZXJyIFttYWls
+dG86cmFsdGhlcnJAZ29vZ2xlLmNvbV0NCjxicj4NCjxiPlNlbnQ6PC9iPiBGcmlkYXksIEp1bHkg
+NywgMjAxNyA4OjE3IFBNPGJyPg0KPGI+VG86PC9iPiBNeWtvbGEgS29zdGVub2sgJmx0O2NfbXlr
+b2xha0BtZWxsYW5veC5jb20mZ3Q7PGJyPg0KPGI+Q2M6PC9iPiBKb2VsIFN0YW5sZXkgJmx0O2pv
+ZWxAam1zLmlkLmF1Jmd0OzsgT3BlbkJNQyBNYWlsbGlzdCAmbHQ7b3BlbmJtY0BsaXN0cy5vemxh
+YnMub3JnJmd0Ozxicj4NCjxiPlN1YmplY3Q6PC9iPiBSZTogW1BBVENIIGxpbnV4IGRldi00LjEw
+XSBtc246IGFkZCBhZGMgdG8gbXNuIGR0cy48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4N
+CjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8ZGl2
+Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+VGhpcyBkb2Vzbid0IG1hdGNoIHRoZSBiaW5kaW5ncyBm
+b3IgdGhlIEFzcGVlZCBBREM6Jm5ic3A7PGEgaHJlZj0iaHR0cHM6Ly9lbWVhMDEuc2FmZWxpbmtz
+LnByb3RlY3Rpb24ub3V0bG9vay5jb20vP3VybD1odHRwcyUzQSUyRiUyRmdpdGh1Yi5jb20lMkZv
+cGVuYm1jJTJGbGludXglMkZibG9iJTJGZGV2LTQuNyUyRkRvY3VtZW50YXRpb24lMkZkZXZpY2V0
+cmVlJTJGYmluZGluZ3MlMkZpaW8lMkZhZGMlMkZhc3BlZWRfYWRjLnR4dCZhbXA7ZGF0YT0wMiU3
+QzAxJTdDY19teWtvbGFrJTQwbWVsbGFub3guY29tJTdDYmIxZGNkMzJmYmNlNDU4OGQ4Y2YwOGQ0
+YzU1YmY2MzElN0NhNjUyOTcxYzdkMmU0ZDliYTZhNGQxNDkyNTZmNDYxYiU3QzAlN0MwJTdDNjM2
+MzUwNDQ2MTYxNjE0MTgzJmFtcDtzZGF0YT1YZzRhTWhNZGRDcnZCZDhTOGF1MERqV1pyUnNyZ1dR
+QjJGTzdPMHhBS1Z3JTNEJmFtcDtyZXNlcnZlZD0wIj5odHRwczovL2dpdGh1Yi5jb20vb3BlbmJt
+Yy9saW51eC9ibG9iL2Rldi00LjcvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2lp
+by9hZGMvYXNwZWVkX2FkYy50eHQ8L2E+Lg0KICZuYnNwOzxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+
+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8ZGl2
+Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+T24gRnJpLCBKdWwgNywgMjAxNyBhdCAyOjEyIEFNLCBN
+eWtvbGEgS29zdGVub2sgJmx0OzxhIGhyZWY9Im1haWx0bzpjX215a29sYWtAbWVsbGFub3guY29t
+IiB0YXJnZXQ9Il9ibGFuayI+Y19teWtvbGFrQG1lbGxhbm94LmNvbTwvYT4mZ3Q7IHdyb3RlOjxv
+OnA+PC9vOnA+PC9wPg0KPGJsb2NrcXVvdGUgc3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci1sZWZ0
+OnNvbGlkICNDQ0NDQ0MgMS4wcHQ7cGFkZGluZzowaW4gMGluIDBpbiA2LjBwdDttYXJnaW4tbGVm
+dDo0LjhwdDttYXJnaW4tcmlnaHQ6MGluIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJt
+YXJnaW4tYm90dG9tOjEyLjBwdCI+QWRkIGFkYyBmb3IgTWVsbGFub3ggbXNuIHBsYXRmb3JtIHRv
+IGR0cy48YnI+DQo8YnI+DQpTaWduZWQtb2ZmLWJ5OiBNeWtvbGEgS29zdGVub2sgJmx0OzxhIGhy
+ZWY9Im1haWx0bzpjX215a29sYWtAbWVsbGFub3guY29tIj5jX215a29sYWtAbWVsbGFub3guY29t
+PC9hPiZndDs8YnI+DQotLS08YnI+DQombmJzcDthcmNoL2FybS9ib290L2R0cy9hc3BlZWQtYm1j
+LW1lbGxhbm94LW1zbi5kdHMgfCA0NSAmIzQzOyYjNDM7JiM0MzsmIzQzOyYjNDM7JiM0MzsmIzQz
+OyYjNDM7JiM0MzsmIzQzOyYjNDM7JiM0MzsmIzQzOyYjNDM7JiM0MzsmIzQzOyYjNDM7JiM0Mzsm
+IzQzOyYjNDM7JiM0MzsmIzQzOyYjNDM7JiM0MzsmIzQzOyYjNDM7JiM0Mzs8YnI+DQombmJzcDsx
+IGZpbGUgY2hhbmdlZCwgNDUgaW5zZXJ0aW9ucygmIzQzOyk8YnI+DQo8YnI+DQpkaWZmIC0tZ2l0
+IGEvYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1tZWxsYW5veC1tc24uZHRzIGIvYXJjaC9h
+cm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1tZWxsYW5veC1tc24uZHRzPGJyPg0KaW5kZXggMDc3NDk1
+OWIxMjIyLi40NjJhNjM4ZTY2YzYgMTAwNjQ0PGJyPg0KLS0tIGEvYXJjaC9hcm0vYm9vdC9kdHMv
+YXNwZWVkLWJtYy1tZWxsYW5veC1tc24uZHRzPGJyPg0KJiM0MzsmIzQzOyYjNDM7IGIvYXJjaC9h
+cm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1tZWxsYW5veC1tc24uZHRzPGJyPg0KQEAgLTEzOSwzICYj
+NDM7MTM5LDQ4IEBAPGJyPg0KJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IHN0YXR1cyA9ICZx
+dW90O29rYXkmcXVvdDs7PGJyPg0KJm5ic3A7fTs8YnI+DQo8YnI+DQomIzQzOyZhbXA7YWRjIHs8
+YnI+DQomIzQzOyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwO3N0YXR1cyA9ICZxdW90O29rYXkm
+cXVvdDs7PGJyPg0KJiM0MzsmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsjYWRkcmVzcy1jZWxs
+cyA9ICZsdDsxJmd0Ozs8YnI+DQomIzQzOyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyNzaXpl
+LWNlbGxzID0gJmx0OzAmZ3Q7Ozxicj4NCiYjNDM7Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+YWRjMSB7PGJyPg0KJiM0MzsmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
+OyAmbmJzcDsgJm5ic3A7Y2hhbm5lbCA9ICZsdDswJmd0Ozs8YnI+DQomIzQzOyZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDttaW4gPSAmbHQ7Njc3
+Jmd0Ozs8YnI+DQomIzQzOyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDttYXggPSAmbHQ7ODI4Jmd0Ozs8YnI+DQomIzQzOyZuYnNwOyAmbmJzcDsg
+Jm5ic3A7ICZuYnNwO307PGJyPg0KJiM0MzsmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDthZGMy
+IHs8YnI+DQomIzQzOyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
+YnNwOyAmbmJzcDtjaGFubmVsID0gJmx0OzImZ3Q7Ozxicj4NCiYjNDM7Jm5ic3A7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwO21pbiA9ICZsdDs2ODQmZ3Q7
+Ozxicj4NCiYjNDM7Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
+c3A7ICZuYnNwO21heCA9ICZsdDs4MzYmZ3Q7Ozxicj4NCiYjNDM7Jm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7fTs8YnI+DQomIzQzOyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwO2FkYzMgezxi
+cj4NCiYjNDM7Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwO2NoYW5uZWwgPSAmbHQ7MyZndDs7PGJyPg0KJiM0MzsmbmJzcDsgJm5ic3A7ICZuYnNw
+OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7bWluID0gJmx0OzY4NCZndDs7PGJy
+Pg0KJiM0MzsmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
+Jm5ic3A7bWF4ID0gJmx0OzgzNiZndDs7PGJyPg0KJiM0MzsmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
+bmJzcDt9Ozxicj4NCiYjNDM7Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7YWRjNCB7PGJyPg0K
+JiM0MzsmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
+c3A7Y2hhbm5lbCA9ICZsdDs0Jmd0Ozs8YnI+DQomIzQzOyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
+YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDttaW4gPSAmbHQ7Njc2Jmd0Ozs8YnI+DQom
+IzQzOyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDttYXggPSAmbHQ7ODI2Jmd0Ozs8YnI+DQomIzQzOyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
+O307PGJyPg0KJiM0MzsmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDthZGM1IHs8YnI+DQomIzQz
+OyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtj
+aGFubmVsID0gJmx0OzEwJmd0Ozs8YnI+DQomIzQzOyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
+OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDttaW4gPSAmbHQ7NjkxJmd0Ozs8YnI+DQomIzQz
+OyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtt
+YXggPSAmbHQ7ODQ1Jmd0Ozs8YnI+DQomIzQzOyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwO307
+PGJyPg0KJiM0MzsmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDthZGM2IHs8YnI+DQomIzQzOyZu
+YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtjaGFu
+bmVsID0gJmx0OzExJmd0Ozs8YnI+DQomIzQzOyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDttaW4gPSAmbHQ7NjQwJmd0Ozs8YnI+DQomIzQzOyZu
+YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDttYXgg
+PSAmbHQ7NzgyJmd0Ozs8YnI+DQomIzQzOyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwO307PGJy
+Pg0KJiM0MzsmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDthZGM3IHs8YnI+DQomIzQzOyZuYnNw
+OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtjaGFubmVs
+ID0gJmx0OzEyJmd0Ozs8YnI+DQomIzQzOyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDttaW4gPSAmbHQ7NjE1Jmd0Ozs8YnI+DQomIzQzOyZuYnNw
+OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDttYXggPSAm
+bHQ7NzUxJmd0Ozs8YnI+DQomIzQzOyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwO307PGJyPg0K
+JiM0MzsmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDthZGM4IHs8YnI+DQomIzQzOyZuYnNwOyAm
+bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtjaGFubmVsID0g
+Jmx0OzEzJmd0Ozs8YnI+DQomIzQzOyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
+Jm5ic3A7ICZuYnNwOyAmbmJzcDttaW4gPSAmbHQ7NTg3Jmd0Ozs8YnI+DQomIzQzOyZuYnNwOyAm
+bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDttYXggPSAmbHQ7
+NzE5Jmd0Ozs8YnI+DQomIzQzOyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwO307PGJyPg0KJiM0
+Mzt9Ozxicj4NCjxzcGFuIGNsYXNzPSJob2VuemIiPjxzcGFuIHN0eWxlPSJjb2xvcjojODg4ODg4
+Ij4tLTwvc3Bhbj48L3NwYW4+PHNwYW4gc3R5bGU9ImNvbG9yOiM4ODg4ODgiPjxicj4NCjxzcGFu
+IGNsYXNzPSJob2VuemIiPjIuMTEuMDwvc3Bhbj48L3NwYW4+PG86cD48L286cD48L3A+DQo8L2Js
+b2NrcXVvdGU+DQo8L2Rpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+
+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9ib2R5Pg0KPC9odG1sPg0K
 
-Thanks,
-Chris
-
->>    * aspeed,external-signal - Generate external signal (WDT1 and WDT2 only)
->>    * aspeed,alt-boot - Boot from alternate block on signal
->>
->> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
->> ---
->> v4 - Add aspeed-reset-type and assign one of four values,
->>       cpu, soc, system, none.
->> v3 - Invert soc and sys reset to 'no' to preserve backwards
->>       compatibility.  SOC and SYS reset will be set by default
->>       without any optional parameters set
->> v2 - Add 'aspeed,' prefix to all optional properties
->>     - Add arm-reset, soc-reset, interrupt, alt-boot properties
->> ---
->>   .../devicetree/bindings/watchdog/aspeed-wdt.txt    | 35 ++++++++++++++++++++++
->>   1 file changed, 35 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
->> index c5e74d7..f526b00 100644
->> --- a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
->> +++ b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
->> @@ -8,9 +8,44 @@ Required properties:
->>    - reg: physical base address of the controller and length of memory mapped
->>      region
->>   
->> +Optional properties:
->> +
->> + - aspeed,reset-type = "cpu|soc|system|none"
->> +
->> +   Reset behavior - Whenever a timeout occurs the watchdog can be programmed
->> +   to generate one of three different, mutually exclusive, types of resets.
->> +
->> +   Type "none" can be specified to indicate that no resets are to be done.
->> +   This is useful in situations where another watchdog engine on chip is
->> +   to perform the reset.
->> +
->> +   If 'aspeed,reset-type=' is not specfied the default is to enable system
->> +   reset.
->> +
->> +   Reset types:
->> +
->> +        - cpu: Reset CPU on watchdog timeout
->> +
->> +        - soc: Reset 'System on Chip' on watchdog timeout
->> +
->> +        - system: Reset system on watchdog timeout
->> +
->> +        - none: No reset is performed on timeout. Assumes another watchdog
->> +                engine is responsible for this.
->> +
->> + - aspeed,interrupt:	If property is present then interrupt CPU.
->> +			If not specified then don't interrupt CPU.
->> +
->> + - aspeed,external-signal: If property is present then signal is sent to
->> +			external reset counter (only WDT1 and WDT2). If not
->> +			specified no external signal is sent.
->> + - aspeed,alt-boot:    If property is present then boot from alternate block.
->> +
->>   Example:
->>   
->>   	wdt1: watchdog@1e785000 {
->>   		compatible = "aspeed,ast2400-wdt";
->>   		reg = <0x1e785000 0x1c>;
->> +		aspeed,reset-type = "system";
->> +		aspeed,external-signal;
->>   	};
+--_000_DB5PR05MB122424DA4480DB7579533285EFA90DB5PR05MB1224eurp_--
