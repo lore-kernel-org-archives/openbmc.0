@@ -1,62 +1,60 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Return-Path: <linux@roeck-us.net>
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x5qg40XQbzDqBr
- for <openbmc@lists.ozlabs.org>; Tue, 11 Jul 2017 02:00:15 +1000 (AEST)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v6AFx2o2069668
- for <openbmc@lists.ozlabs.org>; Mon, 10 Jul 2017 12:00:13 -0400
-Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2bmb3e4fqh-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 10 Jul 2017 12:00:13 -0400
-Received: from localhost
- by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Mon, 10 Jul 2017 10:00:12 -0600
-Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
- by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 10 Jul 2017 10:00:11 -0600
-Received: from b03ledav002.gho.boulder.ibm.com
- (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
- by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v6AG06J166846956; Mon, 10 Jul 2017 09:00:10 -0700
-Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 581B713603C;
- Mon, 10 Jul 2017 10:00:10 -0600 (MDT)
-Received: from Christophers-MacBook-Pro.local.com (unknown [9.81.210.46])
- by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id 4CD6B136044;
- Mon, 10 Jul 2017 10:00:05 -0600 (MDT)
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-To: joel@jms.id.au
-Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10] ARM: dts: aspeed: Add fan fault optional
- parameter for max 31785
-Date: Mon, 10 Jul 2017 10:59:58 -0500
-X-Mailer: git-send-email 2.10.1 (Apple Git-78)
-X-TM-AS-GCONF: 00
-x-cbid: 17071016-0012-0000-0000-000014A2812B
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007343; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00885599; UDB=6.00441978; IPR=6.00665749; 
- BA=6.00005464; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016160; XFM=3.00000015;
- UTC=2017-07-10 16:00:12
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17071016-0013-0000-0000-00004E87D10B
-Message-Id: <20170710155958.7644-1-cbostic@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-07-10_07:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1707100283
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x5tcq2SCZzDqBr
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Jul 2017 04:13:30 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.b="yshwWO8/";
+ dkim-atps=neutral
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+ :Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+ :Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=OoNKebIxM7qGjEiFfvlJZ6T0D/e8SP3HoWpFuc6CDAo=; b=yshwWO8/yvrn69XEmyPbHFDwbP
+ Duww5xxhY8ffSWKGxG9q6byhI4QwdVtNTsVpunxlaaVwSDdK3A9WIpOeUHFBaoYqfmlGqKwO5+siD
+ RdeJb4Xm+BvCcuJ5AEUoCCElU87+ABWK0QKg5RITvvHZXz4KVs0iv48diWRA7pj87L0S33Po9wjzA
+ mnjr2cjOA2LZyL/4YKTggrBweXJTrOFx1y/qqw+DZjBEBWfsc0e4AovO75brwY0wb4FiO6z3d3Lxr
+ BIk6r8VmJeTEgptqiMjopYb7BQAAdH+Rh1yHzSaDDprdqBnrJMIMsy9ttoAl7sL/TUUPlIFmaWLd7
+ wRPRvRBA==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net
+ ([108.223.40.66]:35916 helo=localhost)
+ by bh-25.webhostbox.net with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ (Exim 4.89) (envelope-from <linux@roeck-us.net>)
+ id 1dUdBW-000y2w-2M; Mon, 10 Jul 2017 18:13:26 +0000
+Date: Mon, 10 Jul 2017 11:13:25 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-watchdog@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, wim@iguana.be, robh+dt@kernel.org
+Subject: Re: [v4, 1/2] drivers/watchdog: Add optional ASPEED device tree
+ properties
+Message-ID: <20170710181325.GA31335@roeck-us.net>
+References: <20170707004901.26780-2-cbostic@linux.vnet.ibm.com>
+ <20170708145907.GA19078@roeck-us.net>
+ <61225254-6b6c-672f-23f8-b7c9f24aa46e@linux.vnet.ibm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <61225254-6b6c-672f-23f8-b7c9f24aa46e@linux.vnet.ibm.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Authenticated_sender: guenter@roeck-us.net
+X-OutGoing-Spam-Status: No, score=-1.0
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - lists.ozlabs.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-Get-Message-Sender-Via: bh-25.webhostbox.net: authenticated_id:
+ guenter@roeck-us.net
+X-Authenticated-Sender: bh-25.webhostbox.net: guenter@roeck-us.net
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,27 +66,109 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Jul 2017 16:00:16 -0000
+X-List-Received-Date: Mon, 10 Jul 2017 18:13:32 -0000
 
-Add optional parameter 'fault-max-fan' to indicate to device driver
-to set max fan mode when fault condition encountered.
+On Mon, Jul 10, 2017 at 10:07:40AM -0500, Christopher Bostic wrote:
+> 
+> 
+> On 7/8/17 9:59 AM, Guenter Roeck wrote:
+> >On Thu, Jul 06, 2017 at 07:48:59PM -0500, Christopher Bostic wrote:
+> >>Describe device tree optional properties:
+> >>
+> >>   * aspeed,reset-type = "cpu|soc|system|none"
+> >>      One of three different, mutually exclusive, values
+> >>
+> >>	"cpu" : ARM CPU reset on signal
+> >>	"soc" : 'System on chip' reset
+> >>	"system" : Full system reset
+> >>
+> >>      The value can also be set to "none" which indicates that no
+> >>      reset of any kind is to be done via this watchdog.  This assumes
+> >>      another watchdog on the chip is to take care of resets.
+> >>
+> >>   * aspeed,interrupt - Interrupt CPU on signal
+> >After thinking about that, I wonder if this is necessary. It could be
+> >implied by providing an interrupt to the driver. The driver could then
+> >set the interrupt configuration bit automatically.
+> >
+> >[ And the bit by itself doesn't really make sense if the driver doesn't
+> >   also register an interrupt handler ]
+> 
+> The 'aspeed,interrupt' property was added for the sake of documenting all
+> potential hardware configurations.  There is no plan as of now to enable
+> this so I'm inclined to just remove this part from the documentation.  When
+> and if this function is ever used the optional property can be documented at
+> that time.
+> 
+Ok.
 
-Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 1 +
- 1 file changed, 1 insertion(+)
+Thanks,
+Guenter
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-index 5e06385..ac5c6b7 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -193,6 +193,7 @@
- 	max31785@52 {
- 		compatible = "maxim,max31785";
- 		reg = <0x52>;
-+		fault-max-fan;
- 	};
- 
- 	dps310@76 {
--- 
-1.8.2.2
+> Thanks,
+> Chris
+> 
+> >>   * aspeed,external-signal - Generate external signal (WDT1 and WDT2 only)
+> >>   * aspeed,alt-boot - Boot from alternate block on signal
+> >>
+> >>Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+> >>---
+> >>v4 - Add aspeed-reset-type and assign one of four values,
+> >>      cpu, soc, system, none.
+> >>v3 - Invert soc and sys reset to 'no' to preserve backwards
+> >>      compatibility.  SOC and SYS reset will be set by default
+> >>      without any optional parameters set
+> >>v2 - Add 'aspeed,' prefix to all optional properties
+> >>    - Add arm-reset, soc-reset, interrupt, alt-boot properties
+> >>---
+> >>  .../devicetree/bindings/watchdog/aspeed-wdt.txt    | 35 ++++++++++++++++++++++
+> >>  1 file changed, 35 insertions(+)
+> >>
+> >>diff --git a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> >>index c5e74d7..f526b00 100644
+> >>--- a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> >>+++ b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> >>@@ -8,9 +8,44 @@ Required properties:
+> >>   - reg: physical base address of the controller and length of memory mapped
+> >>     region
+> >>+Optional properties:
+> >>+
+> >>+ - aspeed,reset-type = "cpu|soc|system|none"
+> >>+
+> >>+   Reset behavior - Whenever a timeout occurs the watchdog can be programmed
+> >>+   to generate one of three different, mutually exclusive, types of resets.
+> >>+
+> >>+   Type "none" can be specified to indicate that no resets are to be done.
+> >>+   This is useful in situations where another watchdog engine on chip is
+> >>+   to perform the reset.
+> >>+
+> >>+   If 'aspeed,reset-type=' is not specfied the default is to enable system
+> >>+   reset.
+> >>+
+> >>+   Reset types:
+> >>+
+> >>+        - cpu: Reset CPU on watchdog timeout
+> >>+
+> >>+        - soc: Reset 'System on Chip' on watchdog timeout
+> >>+
+> >>+        - system: Reset system on watchdog timeout
+> >>+
+> >>+        - none: No reset is performed on timeout. Assumes another watchdog
+> >>+                engine is responsible for this.
+> >>+
+> >>+ - aspeed,interrupt:	If property is present then interrupt CPU.
+> >>+			If not specified then don't interrupt CPU.
+> >>+
+> >>+ - aspeed,external-signal: If property is present then signal is sent to
+> >>+			external reset counter (only WDT1 and WDT2). If not
+> >>+			specified no external signal is sent.
+> >>+ - aspeed,alt-boot:    If property is present then boot from alternate block.
+> >>+
+> >>  Example:
+> >>  	wdt1: watchdog@1e785000 {
+> >>  		compatible = "aspeed,ast2400-wdt";
+> >>  		reg = <0x1e785000 0x1c>;
+> >>+		aspeed,reset-type = "system";
+> >>+		aspeed,external-signal;
+> >>  	};
+> 
