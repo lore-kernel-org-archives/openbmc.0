@@ -1,60 +1,30 @@
-Return-Path: <linux@roeck-us.net>
-Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x6NVy2Y01zDqb4
- for <openbmc@lists.ozlabs.org>; Tue, 11 Jul 2017 23:40:10 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.b="beNh8RK7";
- dkim-atps=neutral
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=YabKjBJrNylJ+2yWL9/2eBIzqLXTHxq//G/23SjBueM=; b=beNh8RK7ehf2inVDPtBVfJh88w
- 4uTe/J9PaGS6w+5ArOcIQPWhzGR4ny6yo9+flCX+jDqCUGR2jv0Ks9FxtaxpCiOMzjjkIiYrIBIVx
- cxQ3wn66JO+6kfwINog74lZhqmtoKlvAUO+KXJYr2BpiN5JeuKE9Pxjwq3kFcsp/L0hhSurbtlCxj
- u9EyzLBf13rg7iHw8xDa5EjJOgyaFZa8emmf+ua0370Soni0b2gUrD/bI1Prx9QoDaKqJBBIoyqIX
- IhSjq/YS9+sMR+g4udVrnNNTx5R33ZPQ1+DfQrJEB42LQ4V/2dU8AZFaGuOKJXJurwbwXfb/HeP8g
- +vOd9dWg==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net
- ([108.223.40.66]:42840 helo=server.roeck-us.net)
- by bh-25.webhostbox.net with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
- (Exim 4.89) (envelope-from <linux@roeck-us.net>)
- id 1dUvOZ-003Nf1-Al; Tue, 11 Jul 2017 13:40:08 +0000
-Subject: Re: [RFC PATCH 2/4] pmbus: Add fan configuration support
-To: Andrew Jeffery <andrew@aj.id.au>, linux-hwmon@vger.kernel.org
-Cc: jdelvare@suse.com, linux-kernel@vger.kernel.org, joel@jms.id.au,
- openbmc@lists.ozlabs.org, msbarth@linux.vnet.ibm.com,
- mspinler@linux.vnet.ibm.com
-References: <20170710135618.13661-1-andrew@aj.id.au>
- <20170710135618.13661-3-andrew@aj.id.au>
-From: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <196d7c83-c5fd-cb85-e7bb-2f1a5ba189ae@roeck-us.net>
-Date: Tue, 11 Jul 2017 06:40:04 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.2.1
-MIME-Version: 1.0
-In-Reply-To: <20170710135618.13661-3-andrew@aj.id.au>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Authenticated_sender: linux@roeck-us.net
-X-OutGoing-Spam-Status: No, score=-1.0
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - lists.ozlabs.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-Get-Message-Sender-Via: bh-25.webhostbox.net: authenticated_id:
- linux@roeck-us.net
-X-Authenticated-Sender: bh-25.webhostbox.net: linux@roeck-us.net
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Return-Path: <c_mykolak@mellanox.com>
+Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
+ by lists.ozlabs.org (Postfix) with ESMTP id 3x6PL81kznzDqb4
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Jul 2017 00:17:35 +1000 (AEST)
+Received: from Internal Mail-Server by MTLPINE1 (envelope-from
+ c?mykolak@mellanox.com)
+ with ESMTPS (AES256-SHA encrypted); 11 Jul 2017 17:17:23 +0300
+Received: from r-vnc15.mtr.labs.mlnx (r-vnc15.mtr.labs.mlnx [10.208.0.15])
+ by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id v6BEHMLi007710;
+ Tue, 11 Jul 2017 17:17:22 +0300
+Received: from r-vnc15.mtr.labs.mlnx (localhost [127.0.0.1])
+ by r-vnc15.mtr.labs.mlnx (8.14.4/8.14.4) with ESMTP id v6BDJ1wx009740;
+ Tue, 11 Jul 2017 16:19:01 +0300
+Received: (from c_mykolak@localhost)
+ by r-vnc15.mtr.labs.mlnx (8.14.4/8.14.4/Submit) id v6BDIsO2009595;
+ Tue, 11 Jul 2017 16:18:54 +0300
+From: Mykola Kostenok <c_mykolak@mellanox.com>
+To: Guenter Roeck <linux@roeck-us.net>, Jean Delvare <jdelvare@suse.com>,
+ linux-hwmon@vger.kernel.org
+Cc: Mykola Kostenok <c_mykolak@mellanox.com>, Rob Herring <robh+dt@kernel.org>,
+ Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>,
+ openbmc@lists.ozlabs.org, Patrick Venture <venture@google.com>,
+ Vadim Pasternak <vadimp@mellanox.com>, Ohad Oz <ohado@mellanox.com>
+Subject: [patch v2] hwmon: (aspeed-pwm-tacho) cooling device support.
+Date: Tue, 11 Jul 2017 16:18:49 +0300
+Message-Id: <20170711131849.9388-1-c_mykolak@mellanox.com>
+X-Mailer: git-send-email 2.8.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -66,471 +36,216 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Jul 2017 13:40:10 -0000
+X-List-Received-Date: Tue, 11 Jul 2017 14:17:37 -0000
 
-On 07/10/2017 06:56 AM, Andrew Jeffery wrote:
-> Augment PMBus support to include control of fans via the
-> FAN_COMMAND_[1-4] registers, both in RPM and PWM modes. The behaviour
-> of FAN_CONFIG_{1_2,3_4} and FAN_COMMAND_[1-4] are tightly coupled, and
-> their interactions do not fit the existing use of struct pmbus_sensor.
-> The patch introduces struct pmbus_fan_ctrl to distinguish from the
-> simple sensor case, along with associated sysfs show/set implementations.
-> 
-> Further, the interpreting the value of FAN_COMMAND_[1-4] depends on both
-> the current fan mode (RPM or PWM, as configured in
-> FAN_CONFIG_{1_2,3_4}), and the device-specific behaviour for the
-> register. For example, the MAX31785 chip defines the following:
-> 
-> PWM (m = 1, b = 0, R = 2):
->           0x0000 - 0x2710: 0 - 100% fan PWM duty cycle
->           0x2711 - 0x7fff: 100% fan PWM duty cycle
->           0x8000 - 0xffff: Ignore FAN_COMMAND_[1-4], use automatic fan control
-> 
-> RPM (m = 1, b = 0, R = 0):
->           0x0000 - 0x7FFF: 0 - 32,767 RPM
->           0x8000 - 0xFFFF: Ignore FAN_COMMAND_[1-4], use automatic fan control
-> 
-> To handle the device-specific interpretation of the FAN_COMMAND_[1-4],
-> add an optional callbacks to the info struct to get/set the 'mode'
-> value required for the pwm[1-n]_enable sysfs attribute. A fallback
-> calculation exists if the callbacks are not populated; the fallback
-> ignores device-specific ranges and tries to determine a reasonable value
-> from FAN_CONFIG_{1_2,3_4} and FAN_COMMAND_[1-4].
-> 
+Add support in aspeed-pwm-tacho driver for cooling device creation.
+This cooling device could be bound to a thermal zone
+for the thermal control. Device will appear in /sys/class/thermal
+folder as cooling_deviceX. Then it could be bound to particular
+thermal zones. Allow specification of the cooling levels
+vector - PWM duty cycle values in a range from 0 to 255
+which correspond to thermal cooling states.
 
-This seems overly complex, but unfortunately I don't have time for a detailed
-analysis right now. Couple of comments below.
+v1 -> v2:
+ - Remove device tree binding file from the patch.
+ - Move of_node_put out of cycle because of_get_next_child
+   already do of_put_node on previous child.
 
-Guenter
+Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
+---
+ drivers/hwmon/aspeed-pwm-tacho.c | 144 +++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 139 insertions(+), 5 deletions(-)
 
-> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> ---
->   drivers/hwmon/pmbus/pmbus.h      |   7 +
->   drivers/hwmon/pmbus/pmbus_core.c | 335 +++++++++++++++++++++++++++++++++++++++
->   2 files changed, 342 insertions(+)
-> 
-> diff --git a/drivers/hwmon/pmbus/pmbus.h b/drivers/hwmon/pmbus/pmbus.h
-> index bfcb13bae34b..927eabc1b273 100644
-> --- a/drivers/hwmon/pmbus/pmbus.h
-> +++ b/drivers/hwmon/pmbus/pmbus.h
-> @@ -223,6 +223,8 @@ enum pmbus_regs {
->   #define PB_FAN_1_RPM			BIT(6)
->   #define PB_FAN_1_INSTALLED		BIT(7)
->   
-> +enum pmbus_fan_mode { percent = 0, rpm };
-> +
->   /*
->    * STATUS_BYTE, STATUS_WORD (lower)
->    */
-> @@ -380,6 +382,11 @@ struct pmbus_driver_info {
->   	int (*identify)(struct i2c_client *client,
->   			struct pmbus_driver_info *info);
->   
-> +	/* Allow the driver to interpret the fan command value */
-> +	int (*get_pwm_mode)(int id, u8 fan_config, u16 fan_command);
-> +	int (*set_pwm_mode)(int id, long mode, u8 *fan_config,
-> +			    u16 *fan_command);
-> +
-
-It is not entirely obvious to me why this would require new callback functions.
-Can you overload PMBUS_FAN_CONFIG_12 / PMBUS_FAN_CONFIG_34 or, if that does not
-work for some reason, introduce a virtual register, such as PMBUS_VIRT_PWM_MODE ?
-
->   	/* Regulator functionality, if supported by this chip driver. */
->   	int num_regulators;
->   	const struct regulator_desc *reg_desc;
-> diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
-> index ba59eaef2e07..3b0a55bbbd2c 100644
-> --- a/drivers/hwmon/pmbus/pmbus_core.c
-> +++ b/drivers/hwmon/pmbus/pmbus_core.c
-> @@ -69,6 +69,38 @@ struct pmbus_sensor {
->   #define to_pmbus_sensor(_attr) \
->   	container_of(_attr, struct pmbus_sensor, attribute)
->   
-> +#define PB_FAN_CONFIG_RPM		PB_FAN_2_RPM
-> +#define PB_FAN_CONFIG_INSTALLED		PB_FAN_2_INSTALLEDBUS_VIRT_
-
-Something seems odd here. PB_FAN_2_INSTALLEDBUS_VIRT_ ?
-
-> +#define PB_FAN_CONFIG_MASK(i)		(0xff << (4 * !((i) & 1)))
-> +#define PB_FAN_CONFIG_GET(i, n)		(((n) >> (4 * !((i) & 1))) & 0xff)
-> +#define PB_FAN_CONFIG_PUT(i, n)		(((n) & 0xff) << (4 * !((i) & 1)))
-> +
-
-Aren't there standard bit manipulation macros for that ? Either case, this is just to avoid
-having to use the existing defines. Ok, but then I think it would make more sense to
-make it generic, ie change the core to not use PB_FAN_2_RPM / PB_FAN_1_RPM etc.
-but PB_FAN_RPM(index) everywhere.
-
-> +struct pmbus_fan_ctrl_attr {
-> +	struct device_attribute attribute;
-> +	char name[PMBUS_NAME_SIZE];
-> +};
-> +
-> +struct pmbus_fan_ctrl {
-> +	struct pmbus_fan_ctrl_attr fan_target;
-> +	struct pmbus_fan_ctrl_attr pwm;
-> +	struct pmbus_fan_ctrl_attr pwm_enable;
-> +	int index;
-> +	u8 page;
-> +	u8 id;
-> +	u8 config;
-> +	u16 command;
-> +};
-> +#define to_pmbus_fan_ctrl_attr(_attr) \
-> +	container_of(_attr, struct pmbus_fan_ctrl_attr, attribute)
-> +#define fan_target_to_pmbus_fan_ctrl(_attr) \
-> +	container_of(to_pmbus_fan_ctrl_attr(_attr), struct pmbus_fan_ctrl, \
-> +			fan_target)
-> +#define pwm_to_pmbus_fan_ctrl(_attr) \
-> +	container_of(to_pmbus_fan_ctrl_attr(_attr), struct pmbus_fan_ctrl, pwm)
-> +#define pwm_enable_to_pmbus_fan_ctrl(_attr) \
-> +	container_of(to_pmbus_fan_ctrl_attr(_attr), struct pmbus_fan_ctrl, \
-> +			pwm_enable)
-> +
->   struct pmbus_boolean {
->   	char name[PMBUS_NAME_SIZE];	/* sysfs boolean name */
->   	struct sensor_device_attribute attribute;
-> @@ -806,6 +838,219 @@ static ssize_t pmbus_show_label(struct device *dev,
->   	return snprintf(buf, PAGE_SIZE, "%s\n", label->label);
->   }
->   
-> +static ssize_t pmbus_show_fan_command(struct device *dev,
-> +				      enum pmbus_fan_mode mode,
-> +				      struct pmbus_fan_ctrl *fan, char *buf)
-> +{
-> +	struct i2c_client *client = to_i2c_client(dev->parent);
-> +	struct pmbus_data *data = i2c_get_clientdata(client);
-> +	struct pmbus_sensor sensor;
-> +	long val;
-> +
-> +	mutex_lock(&data->update_lock);
-> +
-> +	if ((mode == percent && (fan->config & PB_FAN_CONFIG_RPM)) ||
-> +			(mode == rpm && !(fan->config & PB_FAN_CONFIG_RPM))) {
-> +		mutex_unlock(&data->update_lock);
-> +		return -ENOTSUPP; /* XXX: This seems dodgy, but what to do? */
-
-Not create the attribute in question in the first place, or return 0. The above
-messes up the 'sensors' command.
-
-> +	}
-> +
-> +	sensor.class = PSC_FAN;
-> +	if (mode == percent)
-> +		sensor.data = fan->command * 255 / 100;
-> +	else
-> +		sensor.data = fan->command;
-> +
-> +	val = pmbus_reg2data(data, &sensor);
-> +
-> +	mutex_unlock(&data->update_lock);
-> +
-> +	return snprintf(buf, PAGE_SIZE, "%ld\n", val);
-> +}
-> +
-> +static ssize_t pmbus_show_fan_target(struct device *dev,
-> +				     struct device_attribute *da, char *buf)
-> +{
-> +	return pmbus_show_fan_command(dev, rpm,
-> +				      fan_target_to_pmbus_fan_ctrl(da), buf);
-> +}
-> +
-> +static ssize_t pmbus_show_pwm(struct device *dev,
-> +			      struct device_attribute *da, char *buf)
-> +{
-> +	return pmbus_show_fan_command(dev, percent, pwm_to_pmbus_fan_ctrl(da),
-> +				      buf);
-> +}
-> +
-> +static ssize_t pmbus_set_fan_command(struct device *dev,
-> +				     enum pmbus_fan_mode mode,
-> +				     struct pmbus_fan_ctrl *fan,
-> +				     const char *buf, ssize_t count)
-> +{
-> +	struct i2c_client *client = to_i2c_client(dev->parent);
-> +	struct pmbus_data *data = i2c_get_clientdata(client);
-> +	int config_addr, command_addr;
-> +	struct pmbus_sensor sensor;
-> +	ssize_t rv;
-> +	long val;
-> +
-> +	if (kstrtol(buf, 10, &val) < 0)
-> +		return -EINVAL;
-> +
-> +	mutex_lock(&data->update_lock);
-> +
-> +	sensor.class = PSC_FAN;
-> +
-> +	val = pmbus_data2reg(data, &sensor, val);
-> +
-> +	if (mode == percent)
-> +		val = val * 100 / 255;
-> +
-> +	config_addr = (fan->id < 2) ? PMBUS_FAN_CONFIG_12 : PMBUS_FAN_CONFIG_34;
-> +	command_addr = config_addr + 1 + (fan->id & 1);
-> +
-> +	if (mode == rpm)
-> +		fan->config |= PB_FAN_CONFIG_RPM;
-> +	else
-> +		fan->config &= ~PB_FAN_CONFIG_RPM;
-> +
-> +	rv = pmbus_update_byte_data(client, fan->page, config_addr,
-> +				    PB_FAN_CONFIG_PUT(fan->id, fan->config),
-> +				    PB_FAN_CONFIG_MASK(fan->id));
-> +	if (rv < 0)
-> +		goto done;
-> +
-> +	fan->command = val;
-> +	rv = pmbus_write_word_data(client, fan->page, command_addr,
-> +				   fan->command);
-> +
-> +done:
-> +	mutex_unlock(&data->update_lock);
-> +
-> +	if (rv < 0)
-> +		return rv;
-> +
-> +	return count;
-> +}
-> +
-> +static ssize_t pmbus_set_fan_target(struct device *dev,
-> +				    struct device_attribute *da,
-> +				    const char *buf, size_t count)
-> +{
-> +	return pmbus_set_fan_command(dev, rpm,
-> +				     fan_target_to_pmbus_fan_ctrl(da), buf,
-> +				     count);
-> +}
-> +
-> +static ssize_t pmbus_set_pwm(struct device *dev, struct device_attribute *da,
-> +			     const char *buf, size_t count)
-> +{
-> +	return pmbus_set_fan_command(dev, percent, pwm_to_pmbus_fan_ctrl(da),
-> +				     buf, count);
-> +}
-> +
-> +static ssize_t pmbus_show_pwm_enable(struct device *dev,
-> +				     struct device_attribute *da, char *buf)
-> +{
-> +	struct pmbus_fan_ctrl *fan = pwm_enable_to_pmbus_fan_ctrl(da);
-> +	struct i2c_client *client = to_i2c_client(dev->parent);
-> +	struct pmbus_data *data = i2c_get_clientdata(client);
-> +	long mode;
-> +
-> +	mutex_lock(&data->update_lock);
-> +
-> +
-> +	if (data->info->get_pwm_mode) {
-> +		u8 config = PB_FAN_CONFIG_PUT(fan->id, fan->config);
-> +
-> +		mode = data->info->get_pwm_mode(fan->id, config, fan->command);
-> +	} else {
-> +		struct pmbus_sensor sensor = {
-> +			.class = PSC_FAN,
-> +			.data = fan->command,
-> +		};
-> +		long command;
-> +
-> +		command = pmbus_reg2data(data, &sensor);
-> +
-> +		/* XXX: Need to do something sensible */
-> +		if (fan->config & PB_FAN_CONFIG_RPM)
-> +			mode = 2;
-> +		else
-> +			mode = (command >= 0 && command < 100);
-> +	}
-> +
-> +	mutex_unlock(&data->update_lock);
-> +
-> +	return snprintf(buf, PAGE_SIZE, "%ld\n", mode);
-> +}
-> +
-> +static ssize_t pmbus_set_pwm_enable(struct device *dev,
-> +				    struct device_attribute *da,
-> +				    const char *buf, size_t count)
-> +{
-> +	struct pmbus_fan_ctrl *fan = pwm_enable_to_pmbus_fan_ctrl(da);
-> +	struct i2c_client *client = to_i2c_client(dev->parent);
-> +	struct pmbus_data *data = i2c_get_clientdata(client);
-> +	int config_addr, command_addr;
-> +	struct pmbus_sensor sensor;
-> +	ssize_t rv = count;
-> +	long mode;
-> +
-> +	if (kstrtol(buf, 10, &mode) < 0)
-> +		return -EINVAL;
-> +
-> +	mutex_lock(&data->update_lock);
-> +
-> +	sensor.class = PSC_FAN;
-> +
-> +	config_addr = (fan->id < 2) ? PMBUS_FAN_CONFIG_12 : PMBUS_FAN_CONFIG_34;
-> +	command_addr = config_addr + 1 + (fan->id & 1);
-> +
-> +	if (data->info->set_pwm_mode) {
-> +		u8 config = PB_FAN_CONFIG_PUT(fan->id, fan->config);
-> +		u16 command = fan->command;
-> +
-> +		rv = data->info->set_pwm_mode(fan->id, mode, &config, &command);
-> +		if (rv < 0)
-> +			goto done;
-> +
-> +		fan->config = PB_FAN_CONFIG_GET(fan->id, config);
-> +		fan->command = command;
-> +	} else {
-> +		fan->config &= ~PB_FAN_CONFIG_RPM;
-> +		switch (mode) {
-> +		case 0:
-> +		case 1:
-> +			/* XXX: Safe at least? */
-> +			fan->command = pmbus_data2reg(data, &sensor, 100);
-> +			break;
-> +		case 2:
-> +		default:
-> +			/* XXX: Safe at least? */
-> +			fan->command = 0xffff;
-> +			break;
-> +		}
-> +	}
-> +
-> +	rv = pmbus_update_byte_data(client, fan->page, config_addr,
-> +				    PB_FAN_CONFIG_PUT(fan->id, fan->config),
-> +				    PB_FAN_CONFIG_MASK(fan->id));
-> +	if (rv < 0)
-> +		goto done;
-> +
-> +	rv = pmbus_write_word_data(client, fan->page, command_addr,
-> +				   fan->command);
-> +
-> +done:
-> +	mutex_unlock(&data->update_lock);
-> +
-> +	if (rv < 0)
-> +		return rv;
-> +
-> +	return count;
-> +}
-> +
->   static int pmbus_add_attribute(struct pmbus_data *data, struct attribute *attr)
->   {
->   	if (data->num_attributes >= data->max_attributes - 1) {
-> @@ -1094,6 +1339,51 @@ static int pmbus_add_sensor_attrs(struct i2c_client *client,
->   	return 0;
->   }
->   
-> +static int pmbus_add_fan_ctrl_attr(struct pmbus_data *data,
-> +				   struct pmbus_fan_ctrl_attr *fa,
-> +				   const char *name_fmt,
-> +				   ssize_t (*show)(struct device *dev,
-> +					   struct device_attribute *attr,
-> +					   char *buf),
-> +				   ssize_t (*store)(struct device *dev,
-> +					   struct device_attribute *attr,
-> +					   const char *buf, size_t count),
-> +				   int idx)
-> +{
-> +	struct device_attribute *da;
-> +
-> +	da = &fa->attribute;
-> +
-> +	snprintf(fa->name, sizeof(fa->name), name_fmt, idx);
-> +	pmbus_dev_attr_init(da, fa->name, 0644, show, store);
-> +
-> +	return pmbus_add_attribute(data, &da->attr);
-> +}
-> +
-> +static inline int pmbus_add_fan_target_attr(struct pmbus_data *data,
-> +					    struct pmbus_fan_ctrl *fan)
-> +{
-> +	return pmbus_add_fan_ctrl_attr(data, &fan->fan_target, "fan%d_target",
-> +				       pmbus_show_fan_target,
-> +				       pmbus_set_fan_target, fan->index);
-> +}
-> +
-> +static inline int pmbus_add_pwm_attr(struct pmbus_data *data,
-> +				     struct pmbus_fan_ctrl *fan)
-> +{
-> +
-> +	return pmbus_add_fan_ctrl_attr(data, &fan->pwm, "pwm%d", pmbus_show_pwm,
-> +				       pmbus_set_pwm, fan->index);
-> +}
-> +
-> +static inline int pmbus_add_pwm_enable_attr(struct pmbus_data *data,
-> +					    struct pmbus_fan_ctrl *fan)
-> +{
-> +	return pmbus_add_fan_ctrl_attr(data, &fan->pwm_enable, "pwm%d_enable",
-> +				       pmbus_show_pwm_enable,
-> +				       pmbus_set_pwm_enable, fan->index);
-> +}
-> +
->   static const struct pmbus_limit_attr vin_limit_attrs[] = {
->   	{
->   		.reg = PMBUS_VIN_UV_WARN_LIMIT,
-> @@ -1565,6 +1855,13 @@ static const int pmbus_fan_config_registers[] = {
->   	PMBUS_FAN_CONFIG_34
->   };
->   
-> +static const int pmbus_fan_command_registers[] = {
-> +	PMBUS_FAN_COMMAND_1,
-> +	PMBUS_FAN_COMMAND_2,
-> +	PMBUS_FAN_COMMAND_3,
-> +	PMBUS_FAN_COMMAND_4,
-> +};
-> +
->   static const int pmbus_fan_status_registers[] = {
->   	PMBUS_STATUS_FAN_12,
->   	PMBUS_STATUS_FAN_12,
-> @@ -1587,6 +1884,39 @@ static const u32 pmbus_fan_status_flags[] = {
->   };
->   
->   /* Fans */
-> +static int pmbus_add_fan_ctrl(struct i2c_client *client,
-> +		struct pmbus_data *data, int index, int page, int id,
-> +		u8 config)
-> +{
-> +	struct pmbus_fan_ctrl *fan;
-> +	int rv;
-> +
-> +	fan = devm_kzalloc(data->dev, sizeof(*fan), GFP_KERNEL);
-> +	if (!fan)
-> +		return -ENOMEM;
-> +
-> +	fan->index = index;
-> +	fan->page = page;
-> +	fan->id = id;
-> +	fan->config = config;
-> +
-> +	rv = _pmbus_read_word_data(client, page,
-> +			pmbus_fan_command_registers[id]);
-> +	if (rv < 0)
-> +		return rv;
-> +	fan->command = rv;
-> +
-> +	rv = pmbus_add_fan_target_attr(data, fan);
-> +	if (rv < 0)
-> +		return rv;
-> +
-> +	rv = pmbus_add_pwm_attr(data, fan);
-> +	if (rv < 0)
-> +		return rv;
-> +
-> +	return pmbus_add_pwm_enable_attr(data, fan);
-> +}
-> +
->   static int pmbus_add_fan_attributes(struct i2c_client *client,
->   				    struct pmbus_data *data)
->   {
-> @@ -1624,6 +1954,11 @@ static int pmbus_add_fan_attributes(struct i2c_client *client,
->   					     PSC_FAN, true, true) == NULL)
->   				return -ENOMEM;
->   
-> +			ret = pmbus_add_fan_ctrl(client, data, index, page, f,
-> +						 regval);
-> +			if (ret < 0)
-> +				return ret;
-> +
->   			/*
->   			 * Each fan status register covers multiple fans,
->   			 * so we have to do some magic.
-> 
+diff --git a/drivers/hwmon/aspeed-pwm-tacho.c b/drivers/hwmon/aspeed-pwm-tacho.c
+index ddfe66b..0c50ff8 100644
+--- a/drivers/hwmon/aspeed-pwm-tacho.c
++++ b/drivers/hwmon/aspeed-pwm-tacho.c
+@@ -20,6 +20,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/sysfs.h>
+ #include <linux/regmap.h>
++#include <linux/thermal.h>
+ 
+ /* ASPEED PWM & FAN Tach Register Definition */
+ #define ASPEED_PTCR_CTRL		0x00
+@@ -166,6 +167,16 @@
+ /* How long we sleep in us while waiting for an RPM result. */
+ #define ASPEED_RPM_STATUS_SLEEP_USEC	500
+ 
++struct aspeed_cooling_device {
++	char name[16];
++	struct aspeed_pwm_tacho_data *priv;
++	struct thermal_cooling_device *tcdev;
++	int pwm_port;
++	u8 *cooling_levels;
++	u8 max_state;
++	u8 cur_state;
++};
++
+ struct aspeed_pwm_tacho_data {
+ 	struct regmap *regmap;
+ 	unsigned long clk_freq;
+@@ -180,6 +191,7 @@ struct aspeed_pwm_tacho_data {
+ 	u8 pwm_port_type[8];
+ 	u8 pwm_port_fan_ctrl[8];
+ 	u8 fan_tach_ch_source[16];
++	struct aspeed_cooling_device *cdev[8];
+ 	const struct attribute_group *groups[3];
+ };
+ 
+@@ -794,10 +806,111 @@ static int aspeed_create_fan(struct device *dev,
+ 	return 0;
+ }
+ 
++static int
++aspeed_pwm_cz_get_max_state(struct thermal_cooling_device *tcdev,
++			    unsigned long *state)
++{
++	struct aspeed_cooling_device *cdev =
++				(struct aspeed_cooling_device *)tcdev->devdata;
++
++	*state = cdev->max_state;
++
++	return 0;
++}
++
++static int
++aspeed_pwm_cz_get_cur_state(struct thermal_cooling_device *tcdev,
++			    unsigned long *state)
++{
++	struct aspeed_cooling_device *cdev =
++				(struct aspeed_cooling_device *)tcdev->devdata;
++
++	*state = cdev->cur_state;
++
++	return 0;
++}
++
++static int
++aspeed_pwm_cz_set_cur_state(struct thermal_cooling_device *tcdev,
++			    unsigned long state)
++{
++	struct aspeed_cooling_device *cdev =
++				(struct aspeed_cooling_device *)tcdev->devdata;
++
++	if (state > cdev->max_state)
++		return -EINVAL;
++
++	cdev->cur_state = state;
++	cdev->priv->pwm_port_fan_ctrl[cdev->pwm_port] = *(cdev->cooling_levels
++							  + cdev->cur_state);
++	aspeed_set_pwm_port_fan_ctrl(cdev->priv, cdev->pwm_port,
++				     *(cdev->cooling_levels +
++				       cdev->cur_state));
++
++	return 0;
++}
++
++static const struct thermal_cooling_device_ops aspeed_pwm_cool_ops = {
++	.get_max_state = aspeed_pwm_cz_get_max_state,
++	.get_cur_state = aspeed_pwm_cz_get_cur_state,
++	.set_cur_state = aspeed_pwm_cz_set_cur_state,
++};
++
++static int aspeed_create_pwm_cooling(struct device *dev,
++				     struct device_node *child,
++				     struct aspeed_pwm_tacho_data *priv)
++{
++	u32 pwm_port;
++	int ret;
++
++	ret = of_property_read_u32(child, "reg", &pwm_port);
++	if (ret)
++		return ret;
++
++	ret = of_property_count_u8_elems(child, "cooling-levels");
++	if (ret <= 0) {
++		dev_err(dev, "Wrong cooling-levels data.\n");
++		return -EINVAL;
++	}
++
++	priv->cdev[pwm_port] = devm_kzalloc(dev, sizeof(*priv->cdev[pwm_port]),
++					    GFP_KERNEL);
++	if (!priv->cdev[pwm_port])
++		return -ENOMEM;
++
++	priv->cdev[pwm_port]->cooling_levels = devm_kzalloc(dev, ret *
++							    sizeof(u8),
++							    GFP_KERNEL);
++	if (!priv->cdev[pwm_port]->cooling_levels)
++		return -ENOMEM;
++
++	priv->cdev[pwm_port]->max_state = ret - 1;
++	ret = of_property_read_u8_array(child, "cooling-levels",
++					priv->cdev[pwm_port]->cooling_levels,
++					ret);
++	if (ret) {
++		dev_err(dev, "Property 'cooling-levels' cannot be read.\n");
++		return ret;
++	}
++
++	sprintf(priv->cdev[pwm_port]->name, "%s%d", child->name, pwm_port);
++	priv->cdev[pwm_port]->tcdev = thermal_of_cooling_device_register(child,
++						priv->cdev[pwm_port]->name,
++						priv->cdev[pwm_port],
++						&aspeed_pwm_cool_ops);
++	if (PTR_ERR_OR_ZERO(priv->cdev[pwm_port]->tcdev))
++		return PTR_ERR(priv->cdev[pwm_port]->tcdev);
++
++	priv->cdev[pwm_port]->priv = priv;
++	priv->cdev[pwm_port]->pwm_port = pwm_port;
++
++	return 0;
++}
++
+ static int aspeed_pwm_tacho_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+-	struct device_node *np, *child;
++	struct device_node *np, *child, *grandchild;
+ 	struct aspeed_pwm_tacho_data *priv;
+ 	void __iomem *regs;
+ 	struct resource *res;
+@@ -833,11 +946,31 @@ static int aspeed_pwm_tacho_probe(struct platform_device *pdev)
+ 	aspeed_create_type(priv);
+ 
+ 	for_each_child_of_node(np, child) {
+-		ret = aspeed_create_fan(dev, child, priv);
+-		of_node_put(child);
+-		if (ret)
+-			return ret;
++		if (!of_node_cmp(child->name, "tach-channels")) {
++			for_each_child_of_node(child, grandchild) {
++				ret = aspeed_create_fan(dev, grandchild, priv);
++				if (ret) {
++					of_node_put(grandchild);
++					of_node_put(child);
++					return ret;
++				}
++			}
++		}
++		of_node_put(grandchild);
++		if (!of_node_cmp(child->name, "pwm-channels")) {
++			for_each_child_of_node(child, grandchild) {
++				ret = aspeed_create_pwm_cooling(dev, grandchild,
++								priv);
++				if (ret) {
++					of_node_put(grandchild);
++					of_node_put(child);
++					return ret;
++				}
++			}
++		}
++		of_node_put(grandchild);
+ 	}
++	of_node_put(child);
+ 
+ 	priv->groups[0] = &pwm_dev_group;
+ 	priv->groups[1] = &fan_dev_group;
+@@ -868,3 +1001,4 @@ module_platform_driver(aspeed_pwm_tacho_driver);
+ MODULE_AUTHOR("Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>");
+ MODULE_DESCRIPTION("ASPEED PWM and Fan Tacho device driver");
+ MODULE_LICENSE("GPL");
++
+-- 
+2.8.4
