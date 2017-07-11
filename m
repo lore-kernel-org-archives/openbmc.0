@@ -1,47 +1,46 @@
 Return-Path: <anoo@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x63Xq60CVzDq66
- for <openbmc@lists.ozlabs.org>; Tue, 11 Jul 2017 10:55:39 +1000 (AEST)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x64hN37jfzDqBn
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Jul 2017 11:47:15 +1000 (AEST)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v6B0ru0T056507
- for <openbmc@lists.ozlabs.org>; Mon, 10 Jul 2017 20:55:37 -0400
-Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2bmd1peehh-1
+ v6B1hufM020193
+ for <openbmc@lists.ozlabs.org>; Mon, 10 Jul 2017 21:47:12 -0400
+Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2bmahcf0mx-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 10 Jul 2017 20:55:37 -0400
+ for <openbmc@lists.ozlabs.org>; Mon, 10 Jul 2017 21:47:12 -0400
 Received: from localhost
- by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <anoo@linux.vnet.ibm.com>;
- Mon, 10 Jul 2017 18:55:36 -0600
-Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
- by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
+ Mon, 10 Jul 2017 19:47:11 -0600
+Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
+ by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Mon, 10 Jul 2017 18:55:33 -0600
+ Mon, 10 Jul 2017 19:47:10 -0600
 Received: from b03ledav006.gho.boulder.ibm.com
  (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v6B0tXHP56754230; Mon, 10 Jul 2017 17:55:33 -0700
+ by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v6B1lAtA1900806; Mon, 10 Jul 2017 18:47:10 -0700
 Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 42D15C6037;
- Mon, 10 Jul 2017 18:55:33 -0600 (MDT)
+ by IMSVA (Postfix) with ESMTP id 32FD6C6047;
+ Mon, 10 Jul 2017 19:47:10 -0600 (MDT)
 Received: from [9.80.215.18] (unknown [9.80.215.18])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTPS id 8FB18C603C;
- Mon, 10 Jul 2017 18:55:32 -0600 (MDT)
+ by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTPS id 95F42C6042;
+ Mon, 10 Jul 2017 19:47:09 -0600 (MDT)
 From: Adriana Kobylak <anoo@linux.vnet.ibm.com>
 Content-Type: multipart/alternative;
- boundary="Apple-Mail=_4F738DA1-DF75-4B9B-918F-87BA9A4C661D"
+ boundary="Apple-Mail=_779A331D-7623-4B9C-9B4B-E40BFCEF86F7"
 Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
 Subject: Re: OpenBMC Image Management
-Date: Mon, 10 Jul 2017 19:53:12 -0500
-In-Reply-To: <OFAF8C53AE.6841FFA9-ON86258145.00526192-86258145.0052B9D4@notes.na.collabserv.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- openbmc <openbmc-bounces+austenc=us.ibm.com@lists.ozlabs.org>
-To: Chris Austen <austenc@us.ibm.com>
+Date: Mon, 10 Jul 2017 20:47:08 -0500
+In-Reply-To: <87wp8528xc.fsf@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+To: Stewart Smith <stewart@linux.vnet.ibm.com>
 References: <75C63AB7-E340-4A78-BA82-80F96EAEA051@linux.vnet.ibm.com>
  <OF3E869A3E.DB3E43DE-ON862580B3.008284D7-862580B3.0082FDDB@notes.na.collabserv.com>
  <20170127030706.GB5504@heinlein.lan> <87o9ypw13y.fsf@linux.vnet.ibm.com>
@@ -52,26 +51,26 @@ References: <75C63AB7-E340-4A78-BA82-80F96EAEA051@linux.vnet.ibm.com>
  <DF60C6B0-BEF2-4CBA-B5D8-6B85EF0F158A@linux.vnet.ibm.com>
  <87mv945y5r.fsf@linux.vnet.ibm.com>
  <C82D2909-D48E-4F2E-9C84-C0AAAB763AFA@linux.vnet.ibm.com>
- <OFAF8C53AE.6841FFA9-ON86258145.00526192-86258145.0052B9D4@notes.na.collabserv.com>
+ <87wp8528xc.fsf@linux.vnet.ibm.com>
 X-Mailer: Apple Mail (2.3273)
 X-TM-AS-GCONF: 00
-x-cbid: 17071100-0024-0000-0000-000016D36705
+x-cbid: 17071101-0016-0000-0000-0000072571A9
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00007346; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00885777; UDB=6.00442085; IPR=6.00665927; 
+ PH=3.00000004; SC=3.00000214; SDB=6.00885795; UDB=6.00442095; IPR=6.00665944; 
  BA=6.00005465; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016167; XFM=3.00000015;
- UTC=2017-07-11 00:55:35
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016168; XFM=3.00000015;
+ UTC=2017-07-11 01:47:11
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17071100-0025-0000-0000-00004BC61926
-Message-Id: <6975C49A-9B3C-4CD7-8A2E-A36612F51781@linux.vnet.ibm.com>
+x-cbparentid: 17071101-0017-0000-0000-00003A84BFA4
+Message-Id: <ED39C0D3-EE2E-4D03-9B70-D6F0AD0F3AC7@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-07-10_09:, , signatures=0
+ definitions=2017-07-11_01:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  spamscore=0 suspectscore=0
  malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
  adjust=0 reason=mlx scancount=1 engine=8.0.1-1703280000
- definitions=main-1707110011
+ definitions=main-1707110025
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -83,59 +82,70 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Jul 2017 00:55:40 -0000
+X-List-Received-Date: Tue, 11 Jul 2017 01:47:16 -0000
 
 
---Apple-Mail=_4F738DA1-DF75-4B9B-918F-87BA9A4C661D
+--Apple-Mail=_779A331D-7623-4B9C-9B4B-E40BFCEF86F7
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain;
 	charset=utf-8
 
 
-> On Jun 20, 2017, at 10:03 AM, Chris Austen <austenc@us.ibm.com> wrote:
+> On Jun 21, 2017, at 12:42 AM, Stewart Smith =
+<stewart@linux.vnet.ibm.com> wrote:
 >=20
-> "openbmc" <openbmc-bounces+austenc=3Dus.ibm.com@lists.ozlabs.org =
-<mailto:openbmc-bounces+austenc=3Dus.ibm.com@lists.ozlabs.org>> wrote on =
-06/20/2017 09:38:40 AM:
+> Adriana Kobylak <anoo@linux.vnet.ibm.com =
+<mailto:anoo@linux.vnet.ibm.com>> writes:
+>>> On Jun 19, 2017, at 12:44 AM, Stewart Smith =
+<stewart@linux.vnet.ibm.com> wrote:
+>>>=20
+>>> Adriana Kobylak <anoo@linux.vnet.ibm.com> writes:
+>>>>> Why is there mboxbridge separate from phosphor-mboxd?
+>>>>=20
+>>>> Because the mboxbridge is being used by other companies as a =
+reference
+>>>> to be able to implement the mailbox daemon in their own BMC =
+firmware
+>>>> stack for other openpower systems, we didn=E2=80=99t want to =
+=E2=80=9Cpollute=E2=80=9D the
+>>>> repository with openbmc-specific and c++ implementation that could
+>>>> confuse them.
+>>>=20
+>>> Why are there OpenBMC specific things in mboxd?
+>>>=20
+>>> Why can't the reference implementation be used? What's deficient in =
+it?
+>>=20
+>> For OpenBMC, we=E2=80=99re having the PNOR chip with a filesystem, so =
+mboxd
+>> would read/write files instead of looking for the data at an offset =
+in
+>> the chip. Nothing deficient with it, just a different implementation
+>> that needs to be handled.
 >=20
+> Why not have an MBOX protocol that supports partitions/files natively
+> then? Why not develop this upstream? Surely this is something others
+> could be interested in.
 >=20
-> >=20
-> > For OpenBMC, we=E2=80=99re having the PNOR chip with a filesystem, =
-so mboxd=20
-> > would read/write files instead of looking for the data at an offset=20=
+It=E2=80=99d be available in the openbmc/phosphor-mboxd repo for anybody =
+that wants to use it. Or what do you mean by develop it upstream?
+=20
+> It seems really backwards having a bunch of things convert to/from FFS
+> for no reason.
 
-> > in the chip. Nothing deficient with it, just a different=20
-> > implementation that needs to be handled.
->=20
-> I have been recommending that if you want to try OpenBMC on your =
-system (that is not running  OpenBMC now) that the BMC chip be swapped.  =
-Does the offset vs filesystem change force the PNOR flash image to be =
-forever changed too?
->=20
->=20
-Not forever, it can be reflashed back to ffs using pflash. If the =
-virtual pnor is not desired to be used on that system (since in this =
-example the user just wants to try out openbmc) it can be disabled via a =
-config flag when building the bmc image. Ex:
+We=E2=80=99re not converting back and forth, if the pnor is blank, =
+we=E2=80=99ll attach ubi to it, and if the pnor is formatted as ffs =
+it=E2=80=99ll be reformatted once to ubi.
 
-=
-https://github.com/openbmc/openbmc/commit/dd05b963e1847a1f56b11825a7d39602=
-b6151165 =
-<https://github.com/openbmc/openbmc/commit/dd05b963e1847a1f56b11825a7d3960=
-2b6151165>
-
-> >=20
-> > >=20
-> > > --=20
-> > > Stewart Smith
-> > > OPAL Architect, IBM.
-> >=20
-> Chris Austen
-> POWER Systems Enablement Manager=20
 >=20
+> The host already has such abstractions as we have it for FSP systems.
+>=20
+> --=20
+> Stewart Smith
+> OPAL Architect, IBM.
 
 
---Apple-Mail=_4F738DA1-DF75-4B9B-918F-87BA9A4C661D
+--Apple-Mail=_779A331D-7623-4B9C-9B4B-E40BFCEF86F7
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/html;
 	charset=utf-8
@@ -144,55 +154,166 @@ Content-Type: text/html;
 charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
 -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;" =
 class=3D""><br class=3D""><div><blockquote type=3D"cite" class=3D""><div =
-class=3D"">On Jun 20, 2017, at 10:03 AM, Chris Austen &lt;<a =
-href=3D"mailto:austenc@us.ibm.com" class=3D"">austenc@us.ibm.com</a>&gt; =
-wrote:</div><br class=3D"Apple-interchange-newline"><div class=3D""><p =
+class=3D"">On Jun 21, 2017, at 12:42 AM, Stewart Smith &lt;<a =
+href=3D"mailto:stewart@linux.vnet.ibm.com" =
+class=3D"">stewart@linux.vnet.ibm.com</a>&gt; wrote:</div><br =
+class=3D"Apple-interchange-newline"><div class=3D""><span =
+style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+float: none; display: inline !important;" class=3D"">Adriana Kobylak =
+&lt;</span><a href=3D"mailto:anoo@linux.vnet.ibm.com" =
+style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; orphans: auto; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; widows: auto; word-spacing: =
+0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;" =
+class=3D"">anoo@linux.vnet.ibm.com</a><span style=3D"font-family: =
+ArialUnicodeMS; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; display: =
+inline !important;" class=3D"">&gt; writes:</span><br =
 style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
 normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
 normal; text-align: start; text-indent: 0px; text-transform: none; =
 white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px;" =
-class=3D""><tt class=3D""><font size=3D"2" class=3D"">"openbmc" &lt;<a =
-href=3D"mailto:openbmc-bounces+austenc=3Dus.ibm.com@lists.ozlabs.org" =
-class=3D"">openbmc-bounces+austenc=3Dus.ibm.com@lists.ozlabs.org</a>&gt; =
-wrote on 06/20/2017 09:38:40 AM:<br class=3D""><br =
-class=3D""></font></tt><tt class=3D""><font size=3D"2" class=3D""><br =
-class=3D"">&gt;<span class=3D"Apple-converted-space">&nbsp;</span><br =
-class=3D"">&gt; For OpenBMC, we=E2=80=99re having the PNOR chip with a =
-filesystem, so mboxd<span class=3D"Apple-converted-space">&nbsp;</span><br=
- class=3D"">&gt; would read/write files instead of looking for the data =
-at an offset<span class=3D"Apple-converted-space">&nbsp;</span><br =
-class=3D"">&gt; in the chip. Nothing deficient with it, just a =
-different<span class=3D"Apple-converted-space">&nbsp;</span><br =
-class=3D"">&gt; implementation that needs to be handled.<br =
-class=3D""></font></tt><br class=3D""><tt class=3D""><font size=3D"2" =
-class=3D"">I have been recommending that if you want to try OpenBMC on =
-your system (that is not running &nbsp;OpenBMC now) that the BMC chip be =
-swapped. &nbsp;Does the offset vs filesystem change force the PNOR flash =
-image to be forever changed too?</font></tt><br class=3D""><br =
-class=3D""></p></div></blockquote>Not forever, it can be reflashed back =
-to ffs using pflash. If the virtual pnor is not desired to be used on =
-that system (since in this example the user just wants to try out =
-openbmc) it can be disabled via a config flag when building the bmc =
-image. Ex:</div><div><br class=3D""></div><div><a =
-href=3D"https://github.com/openbmc/openbmc/commit/dd05b963e1847a1f56b11825=
-a7d39602b6151165" =
-class=3D"">https://github.com/openbmc/openbmc/commit/dd05b963e1847a1f56b11=
-825a7d39602b6151165</a></div><div><br class=3D""><blockquote type=3D"cite"=
- class=3D""><div class=3D""><p style=3D"font-family: ArialUnicodeMS; =
+class=3D""><blockquote type=3D"cite" style=3D"font-family: =
+ArialUnicodeMS; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; orphans: auto; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto; =
+-webkit-text-stroke-width: 0px;" class=3D""><blockquote type=3D"cite" =
+class=3D"">On Jun 19, 2017, at 12:44 AM, Stewart Smith &lt;<a =
+href=3D"mailto:stewart@linux.vnet.ibm.com" =
+class=3D"">stewart@linux.vnet.ibm.com</a>&gt; wrote:<br class=3D""><br =
+class=3D"">Adriana Kobylak &lt;<a href=3D"mailto:anoo@linux.vnet.ibm.com" =
+class=3D"">anoo@linux.vnet.ibm.com</a>&gt; writes:<br =
+class=3D""><blockquote type=3D"cite" class=3D""><blockquote type=3D"cite" =
+class=3D"">Why is there mboxbridge separate from phosphor-mboxd?<br =
+class=3D""></blockquote><br class=3D"">Because the mboxbridge is being =
+used by other companies as a reference<br class=3D"">to be able to =
+implement the mailbox daemon in their own BMC firmware<br class=3D"">stack=
+ for other openpower systems, we didn=E2=80=99t want to =E2=80=9Cpollute=E2=
+=80=9D the<br class=3D"">repository with openbmc-specific and c++ =
+implementation that could<br class=3D"">confuse them.<br =
+class=3D""></blockquote><br class=3D"">Why are there OpenBMC specific =
+things in mboxd?<br class=3D""><br class=3D"">Why can't the reference =
+implementation be used? What's deficient in it?<br =
+class=3D""></blockquote><br class=3D"">For OpenBMC, we=E2=80=99re having =
+the PNOR chip with a filesystem, so mboxd<br class=3D"">would read/write =
+files instead of looking for the data at an offset in<br class=3D"">the =
+chip. Nothing deficient with it, just a different implementation<br =
+class=3D"">that needs to be handled.<br class=3D""></blockquote><br =
+style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px;" =
+class=3D""><span style=3D"font-family: ArialUnicodeMS; font-size: 12px; =
+font-style: normal; font-variant-caps: normal; font-weight: normal; =
+letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; float: none; display: inline =
+!important;" class=3D"">Why not have an MBOX protocol that supports =
+partitions/files natively</span><br style=3D"font-family: =
+ArialUnicodeMS; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px;" class=3D""><span =
+style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+float: none; display: inline !important;" class=3D"">then? Why not =
+develop this upstream? Surely this is something others</span><br =
+style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px;" =
+class=3D""><span style=3D"font-family: ArialUnicodeMS; font-size: 12px; =
+font-style: normal; font-variant-caps: normal; font-weight: normal; =
+letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; float: none; display: inline =
+!important;" class=3D"">could be interested in.</span><br =
+style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px;" =
+class=3D""><br style=3D"font-family: ArialUnicodeMS; font-size: 12px; =
+font-style: normal; font-variant-caps: normal; font-weight: normal; =
+letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px;" class=3D""></div></blockquote>It=E2=80=99=
+d be available in the openbmc/phosphor-mboxd repo for anybody that wants =
+to use it. Or what do you mean by develop it =
+upstream?</div><div>&nbsp;<br class=3D""><blockquote type=3D"cite" =
+class=3D""><div class=3D""><span style=3D"font-family: ArialUnicodeMS; =
 font-size: 12px; font-style: normal; font-variant-caps: normal; =
 font-weight: normal; letter-spacing: normal; text-align: start; =
 text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px;" class=3D""><tt =
-class=3D""><font size=3D"2" class=3D"">&gt;<span =
-class=3D"Apple-converted-space">&nbsp;</span></font></tt><br =
-class=3D""><tt class=3D""><font size=3D"2" class=3D"">&gt; &gt;<span =
-class=3D"Apple-converted-space">&nbsp;</span><br class=3D"">&gt; &gt; =
---<span class=3D"Apple-converted-space">&nbsp;</span><br class=3D"">&gt; =
-&gt; Stewart Smith<br class=3D"">&gt; &gt; OPAL Architect, IBM.<br =
-class=3D"">&gt;<span class=3D"Apple-converted-space">&nbsp;</span><br =
-class=3D""></font></tt><font size=3D"2" class=3D"">Chris Austen<br =
-class=3D"">POWER Systems Enablement Manager<span =
-class=3D"Apple-converted-space">&nbsp;</span></font></p></div></blockquote=
-></div><br class=3D""></body></html>=
+word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; display: =
+inline !important;" class=3D"">It seems really backwards having a bunch =
+of things convert to/from FFS</span><br style=3D"font-family: =
+ArialUnicodeMS; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px;" class=3D""><span =
+style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+float: none; display: inline !important;" class=3D"">for no =
+reason.</span></div></blockquote><div><br class=3D""></div>We=E2=80=99re =
+not converting back and forth, if the pnor is blank, we=E2=80=99ll =
+attach ubi to it, and if the pnor is formatted as ffs it=E2=80=99ll be =
+reformatted once to ubi.</div><div><br class=3D""><blockquote =
+type=3D"cite" class=3D""><div class=3D""><br style=3D"font-family: =
+ArialUnicodeMS; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px;" class=3D""><span =
+style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+float: none; display: inline !important;" class=3D"">The host already =
+has such abstractions as we have it for FSP systems.</span><br =
+style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px;" =
+class=3D""><br style=3D"font-family: ArialUnicodeMS; font-size: 12px; =
+font-style: normal; font-variant-caps: normal; font-weight: normal; =
+letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px;" class=3D""><span style=3D"font-family: =
+ArialUnicodeMS; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; display: =
+inline !important;" class=3D"">--<span =
+class=3D"Apple-converted-space">&nbsp;</span></span><br =
+style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px;" =
+class=3D""><span style=3D"font-family: ArialUnicodeMS; font-size: 12px; =
+font-style: normal; font-variant-caps: normal; font-weight: normal; =
+letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; float: none; display: inline =
+!important;" class=3D"">Stewart Smith</span><br style=3D"font-family: =
+ArialUnicodeMS; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px;" class=3D""><span =
+style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+float: none; display: inline !important;" class=3D"">OPAL Architect, =
+IBM.</span></div></blockquote></div><br class=3D""></body></html>=
 
---Apple-Mail=_4F738DA1-DF75-4B9B-918F-87BA9A4C661D--
+--Apple-Mail=_779A331D-7623-4B9C-9B4B-E40BFCEF86F7--
