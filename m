@@ -1,49 +1,50 @@
 Return-Path: <xow@google.com>
-Received: from mail-pg0-x22f.google.com (mail-pg0-x22f.google.com
- [IPv6:2607:f8b0:400e:c05::22f])
+Received: from mail-pf0-x22c.google.com (mail-pf0-x22c.google.com
+ [IPv6:2607:f8b0:400e:c00::22c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x63Gn2G7yzDq66
- for <openbmc@lists.ozlabs.org>; Tue, 11 Jul 2017 10:43:29 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x63Gp50WQzDq60
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Jul 2017 10:43:30 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="e+Eu7hey"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="BzuIXi5o"; 
  dkim-atps=neutral
-Received: by mail-pg0-x22f.google.com with SMTP id k14so57758896pgr.0
- for <openbmc@lists.ozlabs.org>; Mon, 10 Jul 2017 17:43:29 -0700 (PDT)
+Received: by mail-pf0-x22c.google.com with SMTP id q85so57938697pfq.1
+ for <openbmc@lists.ozlabs.org>; Mon, 10 Jul 2017 17:43:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=UvdbvzPiX4W9ybRF0F8tlxjU0gaiSnm2xCdz7ozABvk=;
- b=e+Eu7hey9DM2DJEytBXUIZk749TMLOw9Ola0MD65m4lnsBU9NT8JF9+SqW6lg85InC
- Hs142iV6o7EOt/Nuv3zAFxtQs2aakcnYvwfmYicnf1YNWvzzUpnHAaH+F7/631m/i0oI
- lKsvcuM3OjC9LlVYYtZU8wUtCaOjejBN2Mwzp1lUPP0Wa4VDm2aI0JnrABZ4LKgZW75b
- WfA7DCzv2dCXXRvhk0QgDMrLyqohG2tIPa707VPcFtiIJCvm5Ci/1q7IjDPsHnG9eHrp
- FuPOsru0VgE3MPYsGD8Vi9pMk0/bx1PVOYLHlC43JNlpeOgfnaATYdWi7NgX166S0rdS
- Ccrg==
+ bh=sfqZMMkaSTVouefzI6i84tLzOU+WrKd7qMwXhwC8S7E=;
+ b=BzuIXi5oofOB4HZMvlxBmCsG6VqxN4exW//g1wgmI6f403PY89yje72qSKe8sqUd78
+ +Xi3dasyRH0ysBdtl16LKUsgIIaMyqoY5CGCXOIPA636ouj16j/x/J9C2DVjhSH7YyEI
+ bd0qTJie3zytNcL4P93t5SACbi7fsg9/nUmQAy1EFgab8W00QlVGwGBXDdY3TNYl71u8
+ /NzZ4x9FDFQdniDgFSCXzxyAn4i3JvM02375TNcsEUE4YvtWddzbDgPKa+pcmHbwJPSA
+ 9/3/Exy/uYijx4LBDgDEFlHleZUk4zYxfNkLoG1a22URlXBiw2m29avitXaMEKV2P5a8
+ 1r5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=UvdbvzPiX4W9ybRF0F8tlxjU0gaiSnm2xCdz7ozABvk=;
- b=mY2C68IxvjKLIZIhOm1XpVHpKrywBEzqWdAoB/ihWw5Xg0RS+OFQzp1ey2BIjqcL2v
- BAdwVl/OATEh89YEYmDOwSPYzYdnCPfBsm65zepiItwosvSnkqjNosU8jQbs+DIsapje
- yicfevrAyZTJ6kosgRuR5CXOylQgD5BqoflYl3HlRuh1meeC7s1c9ygYTtUukfGJF9fJ
- BCp/GCak1q95mMIPBS1phGVrUJk6XDgOS8uJoNHKWvG8KUPj2ZjvWLIPiEAutVgQUsE8
- xGoBKp3xeRo3auEu+dqGJy+5GMqcY49wxuL90bOhJboO0URArh2NorDZ/SOhVJfQA5IO
- hpiA==
-X-Gm-Message-State: AIVw112k139yD0yoxosAt7u5fzYTZtZmhTmUo8aSlORXv9hajqQ/p+9j
- qFiNTcZvvlFH//NYz5B0fQ==
-X-Received: by 10.84.172.131 with SMTP id n3mr20548914plb.14.1499733806821;
- Mon, 10 Jul 2017 17:43:26 -0700 (PDT)
+ bh=sfqZMMkaSTVouefzI6i84tLzOU+WrKd7qMwXhwC8S7E=;
+ b=melwqAvlGnSm26HyUko1pDLCqy6EX+2z8mVFkLtEI6nuhjj9iNp/VbKwZxEk7GjTaq
+ 6hQNcLo7DpS9DRVHWsjDGNRPwenVOQiSPbRc6ADbTA7fC120gDDLNmG9t8f6fbI/ivQ3
+ DmQdF7LmfvDzng/gmvBxdlX9yPdft0lgVCtlN+IMelt444b9mCmR20oqN3gQ+ZaqnOfl
+ w+U5UlMDPlQrec8q55ukKL5z6cqjpcz6J3FAcjz5Ern7RMz3GR0FyOHjfimwmadTbiKR
+ IWV8D6aL5gvfh9BeHnsnoDTFcBrNd2tWOVy1zGfHApmMmMc9lOgD891pEIPWAHDffdf3
+ EcrQ==
+X-Gm-Message-State: AIVw113JbVF9sYSDuOq+93KJzz69c9d1mO9c9T/8xoEfKIU/nsJTYgSy
+ 7M6MbBWp3HHD2rfJYJWJWA==
+X-Received: by 10.84.247.15 with SMTP id n15mr21368588pll.296.1499733808321;
+ Mon, 10 Jul 2017 17:43:28 -0700 (PDT)
 Received: from pewter.svl.corp.google.com ([100.123.242.121])
- by smtp.gmail.com with ESMTPSA id k194sm21956146pgc.31.2017.07.10.17.43.25
+ by smtp.gmail.com with ESMTPSA id k194sm21956146pgc.31.2017.07.10.17.43.26
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Mon, 10 Jul 2017 17:43:25 -0700 (PDT)
+ Mon, 10 Jul 2017 17:43:27 -0700 (PDT)
 From: Xo Wang <xow@google.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux 1/4] HWMon Driver for Intersil ISL68137 PWM Controller
-Date: Mon, 10 Jul 2017 17:42:58 -0700
-Message-Id: <20170711004301.10515-2-xow@google.com>
+Subject: [PATCH linux 2/4] hwmon: (isl68137) add accessors to enable/disable
+ AVS mode
+Date: Mon, 10 Jul 2017 17:42:59 -0700
+Message-Id: <20170711004301.10515-3-xow@google.com>
 X-Mailer: git-send-email 2.13.2.725.g09c95d1e9-goog
 In-Reply-To: <20170711004301.10515-1-xow@google.com>
 References: <20170711004301.10515-1-xow@google.com>
@@ -60,142 +61,168 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Jul 2017 00:43:30 -0000
+X-List-Received-Date: Tue, 11 Jul 2017 00:43:31 -0000
 
-From: Maxim Sloyko <maxims@google.com>
+From: Robert Lippert <rlippert@google.com>
 
-Signed-off-by: Maxim Sloyko <maxims@google.com>
+This patch adds sysfs files avs(0|1)_enabled underneath the I2C device
+to control the AVS state of each rail and perform the appropriate
+hacks when enabling AVS.
+
+The ISL68137 has issues wrt AVS operation mode that require it
+to be enabled/disabled at runtime.
+
+Additionally enabling AVS mode requires a hack to set the VOUT value
+before enabling to make sure that the device does not switch to
+an old cached AVS provided value and is instead in a "clean" state
+before booting.
+
+Signed-off-by: Robert Lippert <rlippert@google.com>
 ---
- drivers/hwmon/pmbus/Kconfig    | 10 +++++
- drivers/hwmon/pmbus/Makefile   |  1 +
- drivers/hwmon/pmbus/isl68137.c | 86 ++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 97 insertions(+)
- create mode 100644 drivers/hwmon/pmbus/isl68137.c
+ drivers/hwmon/pmbus/isl68137.c | 112 ++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 110 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-index 68d717a3fd59..e4f101e0c504 100644
---- a/drivers/hwmon/pmbus/Kconfig
-+++ b/drivers/hwmon/pmbus/Kconfig
-@@ -47,6 +47,16 @@ config SENSORS_IR35221
- 	  This driver can also be built as a module. If so, the module will
- 	  be called ir35521.
- 
-+config SENSORS_ISL68137
-+	tristate "Intersil ISL68137"
-+	default y
-+	help
-+	  If you say yes here you get hardware monitoring support for Intersil
-+	  ISL68137.
-+
-+	  This driver can also be built as a module. If so, the module will
-+	  be called isl68137.
-+
- config SENSORS_LM25066
- 	tristate "National Semiconductor LM25066 and compatibles"
- 	default n
-diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
-index 75bb7ca619d9..252048a8985a 100644
---- a/drivers/hwmon/pmbus/Makefile
-+++ b/drivers/hwmon/pmbus/Makefile
-@@ -6,6 +6,7 @@ obj-$(CONFIG_PMBUS)		+= pmbus_core.o
- obj-$(CONFIG_SENSORS_PMBUS)	+= pmbus.o
- obj-$(CONFIG_SENSORS_ADM1275)	+= adm1275.o
- obj-$(CONFIG_SENSORS_IR35221)	+= ir35221.o
-+obj-$(CONFIG_SENSORS_ISL68137)	+= isl68137.o
- obj-$(CONFIG_SENSORS_LM25066)	+= lm25066.o
- obj-$(CONFIG_SENSORS_LTC2978)	+= ltc2978.o
- obj-$(CONFIG_SENSORS_LTC3815)	+= ltc3815.o
 diff --git a/drivers/hwmon/pmbus/isl68137.c b/drivers/hwmon/pmbus/isl68137.c
-new file mode 100644
-index 000000000000..2a5322e4a286
---- /dev/null
+index 2a5322e4a286..cc95a3d339af 100644
+--- a/drivers/hwmon/pmbus/isl68137.c
 +++ b/drivers/hwmon/pmbus/isl68137.c
-@@ -0,0 +1,86 @@
-+/*
-+ * Hardware monitoring driver for Intersil ISL68137
-+ *
-+ * Copyright (c) 2017 Google Inc
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License as published by
-+ * the Free Software Foundation; either version 2 of the License, or
-+ * (at your option) any later version.
-+ *
-+ * This program is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-+ * GNU General Public License for more details.
-+ */
+@@ -19,8 +19,11 @@
+ #include <linux/init.h>
+ #include <linux/err.h>
+ #include <linux/i2c.h>
++#include <linux/hwmon-sysfs.h>
+ #include "pmbus.h"
+ 
++#define ISL68137_VOUT_AVS 0x30
 +
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/init.h>
-+#include <linux/err.h>
-+#include <linux/i2c.h>
-+#include "pmbus.h"
-+
-+static struct pmbus_driver_info isl68137_info = {
-+	.pages = 2,
-+	.format[PSC_VOLTAGE_IN] = direct,
-+	.format[PSC_VOLTAGE_OUT] = direct,
-+	.format[PSC_CURRENT_IN] = direct,
-+	.format[PSC_CURRENT_OUT] = direct,
-+	.format[PSC_POWER] = direct,
-+	.format[PSC_TEMPERATURE] = direct,
-+	.m[PSC_VOLTAGE_IN] = 1,
-+	.b[PSC_VOLTAGE_IN] = 0,
-+	.R[PSC_VOLTAGE_IN] = 3,
-+	.m[PSC_VOLTAGE_OUT] = 1,
-+	.b[PSC_VOLTAGE_OUT] = 0,
-+	.R[PSC_VOLTAGE_OUT] = 3,
-+	.m[PSC_CURRENT_IN] = 1,
-+	.b[PSC_CURRENT_IN] = 0,
-+	.R[PSC_CURRENT_IN] = 2,
-+	.m[PSC_CURRENT_OUT] = 1,
-+	.b[PSC_CURRENT_OUT] = 0,
-+	.R[PSC_CURRENT_OUT] = 1,
-+	.m[PSC_POWER] = 1,
-+	.b[PSC_POWER] = 0,
-+	.R[PSC_POWER] = 0,
-+	.m[PSC_TEMPERATURE] = 1,
-+	.b[PSC_TEMPERATURE] = 0,
-+	.R[PSC_TEMPERATURE] = 0,
-+	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_IIN | PMBUS_HAVE_PIN
-+	    | PMBUS_HAVE_STATUS_INPUT | PMBUS_HAVE_TEMP | PMBUS_HAVE_TEMP2
-+	    | PMBUS_HAVE_TEMP3 | PMBUS_HAVE_STATUS_TEMP
-+	    | PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT
-+	    | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT | PMBUS_HAVE_POUT,
-+	.func[1] = PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT
-+	    | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT | PMBUS_HAVE_POUT,
-+};
-+
-+static int isl68137_probe(struct i2c_client *client,
-+			  const struct i2c_device_id *id)
+ static struct pmbus_driver_info isl68137_info = {
+ 	.pages = 2,
+ 	.format[PSC_VOLTAGE_IN] = direct,
+@@ -56,10 +59,115 @@ static struct pmbus_driver_info isl68137_info = {
+ 	    | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT | PMBUS_HAVE_POUT,
+ };
+ 
++static ssize_t isl68137_avs_enable_show_page(struct i2c_client *client,
++					     int page,
++					     char *buf)
 +{
-+	return pmbus_do_probe(client, id, &isl68137_info);
++	int val = pmbus_read_byte_data(client, page, PMBUS_OPERATION);
++
++	return sprintf(buf, "%d\n",
++		       (val & ISL68137_VOUT_AVS) == ISL68137_VOUT_AVS ? 1 : 0);
 +}
 +
-+static const struct i2c_device_id isl68137_id[] = {
-+	{"isl68137", 0},
-+	{}
-+};
++static ssize_t isl68137_avs_enable_store_page(struct i2c_client *client,
++					      int page,
++					      const char *buf, size_t count)
++{
++	int rc, op_val;
 +
-+MODULE_DEVICE_TABLE(i2c, isl68137_id);
++	if (count < 1) {
++		rc = -EINVAL;
++		goto out;
++	}
 +
-+/* This is the driver that will be inserted */
-+static struct i2c_driver isl68137_driver = {
-+	.driver = {
-+		   .name = "isl68137",
-+		   },
-+	.probe = isl68137_probe,
-+	.remove = pmbus_do_remove,
-+	.id_table = isl68137_id,
-+};
++	switch (buf[0]) {
++		case '0': op_val = 0; break;
++		case '1': op_val = ISL68137_VOUT_AVS; break;
++		default: rc = -EINVAL; goto out; break;
++	}
 +
-+module_i2c_driver(isl68137_driver);
++	/*
++	 * Writes to VOUT setpoint over AVSBus will persist after the VRM is
++	 * switched to PMBus control. Switching back to AVSBus control
++	 * restores this persisted setpoint rather than re-initializing to
++	 * PMBus VOUT_COMMAND. Writing VOUT_COMMAND first over PMBus before
++	 * enabling AVS control is the workaround.
++	 */
++	if (op_val == ISL68137_VOUT_AVS) {
++		int vout_command = pmbus_read_byte_data(client, page,
++							PMBUS_VOUT_COMMAND);
++		rc = pmbus_write_byte_data(client, page, PMBUS_VOUT_COMMAND,
++					   vout_command);
++		if (rc)
++			goto out;
++	}
 +
-+MODULE_AUTHOR("Maxim Sloyko <maxims@google.com>");
-+MODULE_DESCRIPTION("PMBus driver for Intersil ISL68137");
-+MODULE_LICENSE("GPL");
++	rc = pmbus_update_byte_data(client, page, PMBUS_OPERATION,
++				    ISL68137_VOUT_AVS, op_val);
++
++out:
++	return rc < 0 ? rc : count;
++}
++
++static ssize_t isl68137_avs_enable_show(struct device *dev,
++					struct device_attribute *devattr,
++					char *buf)
++{
++	struct i2c_client *client = kobj_to_i2c_client(&dev->kobj);
++	struct sensor_device_attribute_2 *attr = to_sensor_dev_attr_2(devattr);
++	return isl68137_avs_enable_show_page(client, attr->index, buf);
++}
++
++static ssize_t isl68137_avs_enable_store(struct device *dev,
++				struct device_attribute *devattr,
++				const char *buf, size_t count)
++{
++	struct i2c_client *client = kobj_to_i2c_client(&dev->kobj);
++	struct sensor_device_attribute_2 *attr = to_sensor_dev_attr_2(devattr);
++	return isl68137_avs_enable_store_page(client, attr->index, buf, count);
++}
++
++static SENSOR_DEVICE_ATTR_2(avs0_enabled, 0644,
++			    isl68137_avs_enable_show, isl68137_avs_enable_store,
++			    0, 0);
++static SENSOR_DEVICE_ATTR_2(avs1_enabled, 0644,
++			    isl68137_avs_enable_show, isl68137_avs_enable_store,
++			    0, 1);
++
++static int isl68137_remove(struct i2c_client *client);
++
+ static int isl68137_probe(struct i2c_client *client,
+ 			  const struct i2c_device_id *id)
+ {
+-	return pmbus_do_probe(client, id, &isl68137_info);
++	int rc;
++
++	rc = pmbus_do_probe(client, id, &isl68137_info);
++	if (rc)
++		return rc;
++
++	rc = device_create_file(&client->dev,
++				&sensor_dev_attr_avs0_enabled.dev_attr);
++	if (rc)
++		goto out_fail;
++	rc = device_create_file(&client->dev,
++				&sensor_dev_attr_avs1_enabled.dev_attr);
++	if (rc)
++		goto out_fail;
++
++	return rc;
++
++out_fail:
++	isl68137_remove(client);
++	return rc;
++}
++
++static int isl68137_remove(struct i2c_client *client)
++{
++	device_remove_file(&client->dev,
++			   &sensor_dev_attr_avs1_enabled.dev_attr);
++	device_remove_file(&client->dev,
++			   &sensor_dev_attr_avs0_enabled.dev_attr);
++	return pmbus_do_remove(client);
+ }
+ 
+ static const struct i2c_device_id isl68137_id[] = {
+@@ -75,7 +183,7 @@ static struct i2c_driver isl68137_driver = {
+ 		   .name = "isl68137",
+ 		   },
+ 	.probe = isl68137_probe,
+-	.remove = pmbus_do_remove,
++	.remove = isl68137_remove,
+ 	.id_table = isl68137_id,
+ };
+ 
 -- 
 2.13.2.725.g09c95d1e9-goog
