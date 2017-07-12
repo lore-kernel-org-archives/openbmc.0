@@ -1,78 +1,61 @@
-Return-Path: <stewart@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x6bKF3lP4zDqgQ
- for <openbmc@lists.ozlabs.org>; Wed, 12 Jul 2017 07:47:29 +1000 (AEST)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v6BLiBTZ080701
- for <openbmc@lists.ozlabs.org>; Tue, 11 Jul 2017 17:47:27 -0400
-Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2bn0mw8v35-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 11 Jul 2017 17:47:26 -0400
-Received: from localhost
- by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
- Tue, 11 Jul 2017 17:47:25 -0400
-Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
- by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Tue, 11 Jul 2017 17:47:24 -0400
-Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
- [9.57.199.107])
- by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v6BLlOML53870824; Tue, 11 Jul 2017 21:47:24 GMT
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3DE3E124035;
- Tue, 11 Jul 2017 17:44:52 -0400 (EDT)
-Received: from birb.localdomain (unknown [9.81.208.142])
- by b01ledav002.gho.pok.ibm.com (Postfix) with SMTP id 3FB7E124037;
- Tue, 11 Jul 2017 17:44:51 -0400 (EDT)
-Received: by birb.localdomain (Postfix, from userid 1000)
- id C184E4EC748; Wed, 12 Jul 2017 07:47:18 +1000 (AEST)
-From: Stewart Smith <stewart@linux.vnet.ibm.com>
-To: Adriana Kobylak <anoo@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: OpenBMC Image Management
-In-Reply-To: <ED39C0D3-EE2E-4D03-9B70-D6F0AD0F3AC7@linux.vnet.ibm.com>
-References: <75C63AB7-E340-4A78-BA82-80F96EAEA051@linux.vnet.ibm.com>
- <OF3E869A3E.DB3E43DE-ON862580B3.008284D7-862580B3.0082FDDB@notes.na.collabserv.com>
- <20170127030706.GB5504@heinlein.lan> <87o9ypw13y.fsf@linux.vnet.ibm.com>
- <20170131181641.k3jnv73ha5v2kjsh@asimov>
- <CAPLgG=nY-_A6HvVmY45U5U=wrz4iRK5P=R0e_0NPVs=B--CLdw@mail.gmail.com>
- <2DA4883E-3015-4FDF-92FC-F6761436585D@linux.vnet.ibm.com>
- <87y3sv8str.fsf@linux.vnet.ibm.com>
- <DF60C6B0-BEF2-4CBA-B5D8-6B85EF0F158A@linux.vnet.ibm.com>
- <87mv945y5r.fsf@linux.vnet.ibm.com>
- <C82D2909-D48E-4F2E-9C84-C0AAAB763AFA@linux.vnet.ibm.com>
- <87wp8528xc.fsf@linux.vnet.ibm.com>
- <ED39C0D3-EE2E-4D03-9B70-D6F0AD0F3AC7@linux.vnet.ibm.com>
-Date: Wed, 12 Jul 2017 07:47:18 +1000
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-TM-AS-GCONF: 00
-x-cbid: 17071121-0048-0000-0000-000001C16B76
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007351; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00886195; UDB=6.00442335; IPR=6.00666344; 
- BA=6.00005468; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016184; XFM=3.00000015;
- UTC=2017-07-11 21:47:25
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17071121-0049-0000-0000-000041DA1AFE
-Message-Id: <87a84abq8p.fsf@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-07-11_11:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
- definitions=main-1707110347
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x6g8G5STBzDqgP
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Jul 2017 10:39:57 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ZZns8Kva"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="FhID0ZEj"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id D74C42078D;
+ Tue, 11 Jul 2017 20:39:52 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Tue, 11 Jul 2017 20:39:52 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=ynoZQlJiXnpZkyKNMJ98X1ujgoTt/eIrhH3Y9EYqV
+ Jk=; b=ZZns8KvaQcp2aWTI2EAHQy0maORIvunWhJU27ItDF6zmCQCuSdDqCkZmg
+ iPdAbWk2fHaKa+ODclQk4j32kHsV0r6TrcDrWJsWNljoZg3trYaB2Nm2UOaEqQCO
+ faaqQjFBD8sInA/YWMowYMUi09WcJR9NJONXxb8Oh1BkU9XXbPlnzlE5NE5VmtKQ
+ 7kBtpWtll4ABQCGuk0vagiPiCgQuYItgkuHh0RMrQ+xL9ONCuOIGtq9HpSSI6TEM
+ gzK1dHi4D4+CW9v9NPKEGNcOe2sy2vABVesEdjhKYxkuRHTifyXPwuYq489HU0K5
+ kawH3QsBZ53HEp0iTYeFO/Bkce8tA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=ynoZQlJiXnpZkyKNMJ
+ 98X1ujgoTt/eIrhH3Y9EYqVJk=; b=FhID0ZEj0FHIUu2FWntWapebkEmabBp5Cf
+ kdAifTR3Q8jLxia0YsMpsJID+bpsL/qC8aeUP+6CATh+uxGRnqh4Dll77lH3RPdt
+ sYUdwnjzO12+umbOkYa9Gtq2xOVN/DzkF17st80Vu9BtoWyUV0t/POoF61T4y+2p
+ eDz74YXJFJa4xpArKIyVoO9tOU8dG9oaY0X9xjsZU3XU7Q4Cd7e+6gYMOLLSMl5r
+ W0wu+Hgj066qggFJh3veD55cZFdbF1zAM4ZPZaID30nU7a0oYEryVZumqXzu6aCC
+ z1HrWKe1QV4kRP66XVXrfPlZkzmEY1ZNDmHLeivc3qX7xQeKE6CQ==
+X-ME-Sender: <xms:2G9lWZkzbDmEVPL-lOEvsxEKgVaWZvMH7sVfMs7ewn4X-tlv7_9F2Q>
+X-Sasl-enc: ClfjTS+qYt9iO3sAc2KZXVZmEC6F3ztrD2EHb3KWRTp+ 1499819992
+Received: from keelia (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id CE8757E855;
+ Tue, 11 Jul 2017 20:39:49 -0400 (EDT)
+Message-ID: <1499819983.4935.7.camel@aj.id.au>
+Subject: Re: [RFC PATCH 2/4] pmbus: Add fan configuration support
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Guenter Roeck <linux@roeck-us.net>, linux-hwmon@vger.kernel.org
+Cc: jdelvare@suse.com, linux-kernel@vger.kernel.org, joel@jms.id.au, 
+ openbmc@lists.ozlabs.org, msbarth@linux.vnet.ibm.com, 
+ mspinler@linux.vnet.ibm.com
+Date: Wed, 12 Jul 2017 10:09:43 +0930
+In-Reply-To: <196d7c83-c5fd-cb85-e7bb-2f1a5ba189ae@roeck-us.net>
+References: <20170710135618.13661-1-andrew@aj.id.au>
+ <20170710135618.13661-3-andrew@aj.id.au>
+ <196d7c83-c5fd-cb85-e7bb-2f1a5ba189ae@roeck-us.net>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-ZRMt9a+Ncov3R5UOOCRU"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -84,60 +67,604 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Jul 2017 21:47:29 -0000
+X-List-Received-Date: Wed, 12 Jul 2017 00:40:01 -0000
 
-Adriana Kobylak <anoo@linux.vnet.ibm.com> writes:
->> On Jun 21, 2017, at 12:42 AM, Stewart Smith <stewart@linux.vnet.ibm.com>=
- wrote:
->>=20
->> Adriana Kobylak <anoo@linux.vnet.ibm.com <mailto:anoo@linux.vnet.ibm.com=
->> writes:
->>>> On Jun 19, 2017, at 12:44 AM, Stewart Smith <stewart@linux.vnet.ibm.co=
-m> wrote:
->>>>=20
->>>> Adriana Kobylak <anoo@linux.vnet.ibm.com> writes:
->>>>>> Why is there mboxbridge separate from phosphor-mboxd?
->>>>>=20
->>>>> Because the mboxbridge is being used by other companies as a reference
->>>>> to be able to implement the mailbox daemon in their own BMC firmware
->>>>> stack for other openpower systems, we didn=E2=80=99t want to =E2=80=
-=9Cpollute=E2=80=9D the
->>>>> repository with openbmc-specific and c++ implementation that could
->>>>> confuse them.
->>>>=20
->>>> Why are there OpenBMC specific things in mboxd?
->>>>=20
->>>> Why can't the reference implementation be used? What's deficient in it?
->>>=20
->>> For OpenBMC, we=E2=80=99re having the PNOR chip with a filesystem, so m=
-boxd
->>> would read/write files instead of looking for the data at an offset in
->>> the chip. Nothing deficient with it, just a different implementation
->>> that needs to be handled.
->>=20
->> Why not have an MBOX protocol that supports partitions/files natively
->> then? Why not develop this upstream? Surely this is something others
->> could be interested in.
->>=20
-> It=E2=80=99d be available in the openbmc/phosphor-mboxd repo for anybody =
-that
-> wants to use it. Or what do you mean by develop it upstream?
 
-I mean in https://github.com/openbmc/mboxbridge - the reference
-implementation.
+--=-ZRMt9a+Ncov3R5UOOCRU
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
->> It seems really backwards having a bunch of things convert to/from FFS
->> for no reason.
->
-> We=E2=80=99re not converting back and forth, if the pnor is blank, we=E2=
-=80=99ll
-> attach ubi to it, and if the pnor is formatted as ffs it=E2=80=99ll be
-> reformatted once to ubi.
+On Tue, 2017-07-11 at 06:40 -0700, Guenter Roeck wrote:
+> On 07/10/2017 06:56 AM, Andrew Jeffery wrote:
+> > Augment PMBus support to include control of fans via the
+> > FAN_COMMAND_[1-4] registers, both in RPM and PWM modes. The behaviour
+> > of FAN_CONFIG_{1_2,3_4} and FAN_COMMAND_[1-4] are tightly coupled, and
+> > their interactions do not fit the existing use of struct pmbus_sensor.
+> > The patch introduces struct pmbus_fan_ctrl to distinguish from the
+> > simple sensor case, along with associated sysfs show/set implementation=
+s.
+> >=20
+> > Further, the interpreting the value of FAN_COMMAND_[1-4] depends on bot=
+h
+> > the current fan mode (RPM or PWM, as configured in
+> > FAN_CONFIG_{1_2,3_4}), and the device-specific behaviour for the
+> > register. For example, the MAX31785 chip defines the following:
+> >=20
+> > PWM (m =3D 1, b =3D 0, R =3D 2):
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A00x0000 - 0x=
+2710: 0 - 100% fan PWM duty cycle
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A00x2711 - 0x=
+7fff: 100% fan PWM duty cycle
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A00x8000 - 0x=
+ffff: Ignore FAN_COMMAND_[1-4], use automatic fan control
+> >=20
+> > RPM (m =3D 1, b =3D 0, R =3D 0):
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A00x0000 - 0x=
+7FFF: 0 - 32,767 RPM
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A00x8000 - 0x=
+FFFF: Ignore FAN_COMMAND_[1-4], use automatic fan control
+> >=20
+> > To handle the device-specific interpretation of the FAN_COMMAND_[1-4],
+> > add an optional callbacks to the info struct to get/set the 'mode'
+> > value required for the pwm[1-n]_enable sysfs attribute. A fallback
+> > calculation exists if the callbacks are not populated; the fallback
+> > ignores device-specific ranges and tries to determine a reasonable valu=
+e
+> > from FAN_CONFIG_{1_2,3_4} and FAN_COMMAND_[1-4].
+> >=20
+>=20
+> This seems overly complex, but unfortunately I don't have time for a deta=
+iled
+> analysis right now.=20
 
-I mean that I don't see any patches changing how we build things in
-op-build, so there has to be some unpacking of the content going on
-there.
+No worries. It turned out more complex than I was hoping as well, and I
+ am keen to hear any insights to trim it down.=20
 
---=20
-Stewart Smith
-OPAL Architect, IBM.
+> Couple of comments below.
+
+Yep, thanks for taking a look.
+
+>=20
+> Guenter
+>=20
+> > > > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> > ---
+> > =C2=A0 drivers/hwmon/pmbus/pmbus.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0|=
+=C2=A0=C2=A0=C2=A07 +
+> > =C2=A0 drivers/hwmon/pmbus/pmbus_core.c | 335 +++++++++++++++++++++++++=
+++++++++++++++
+> > =C2=A0 2 files changed, 342 insertions(+)
+> >=20
+> > diff --git a/drivers/hwmon/pmbus/pmbus.h b/drivers/hwmon/pmbus/pmbus.h
+> > index bfcb13bae34b..927eabc1b273 100644
+> > --- a/drivers/hwmon/pmbus/pmbus.h
+> > +++ b/drivers/hwmon/pmbus/pmbus.h
+> > @@ -223,6 +223,8 @@ enum pmbus_regs {
+> > > > =C2=A0 #define PB_FAN_1_RPM			BIT(6)
+> > > > =C2=A0 #define PB_FAN_1_INSTALLED		BIT(7)
+> > =C2=A0=C2=A0
+> > +enum pmbus_fan_mode { percent =3D 0, rpm };
+> > +
+> > =C2=A0 /*
+> > =C2=A0=C2=A0=C2=A0* STATUS_BYTE, STATUS_WORD (lower)
+> > =C2=A0=C2=A0=C2=A0*/
+> > @@ -380,6 +382,11 @@ struct pmbus_driver_info {
+> > > > =C2=A0=C2=A0	int (*identify)(struct i2c_client *client,
+> > > > =C2=A0=C2=A0			struct pmbus_driver_info *info);
+> > =C2=A0=C2=A0
+> > > > +	/* Allow the driver to interpret the fan command value */
+> > > > +	int (*get_pwm_mode)(int id, u8 fan_config, u16 fan_command);
+> > > > +	int (*set_pwm_mode)(int id, long mode, u8 *fan_config,
+> > > > +			=C2=A0=C2=A0=C2=A0=C2=A0u16 *fan_command);
+> > +
+>=20
+> It is not entirely obvious to me why this would require new callback func=
+tions.
+> Can you overload PMBUS_FAN_CONFIG_12 / PMBUS_FAN_CONFIG_34 or, if that do=
+es not
+> work for some reason, introduce a virtual register, such as PMBUS_VIRT_PW=
+M_MODE ?
+
+Can you expand on the thought of overloading PMBUS_FAN_CONFIG_{12,34}?
+
+Regarding virtual registers, I saw references to them whilst I was
+working my way through the core code but didn't stop to investigate.
+I'll take a deeper look.
+
+However, the addition of the callbacks was driven by the behaviour of
+the MAX31785, where some values written to PMBUS_FAN_COMMAND_1 trigger
+automated control, while others retain manual control. Patch 4/4 should
+provide a bit more context, though I've also outlined the behaviour in
+the commit message for this patch. I don't have a lot of experience
+with PMBus devices so I don't have a good idea if there's a better way
+to capture the behaviour that isn't so unconstrained in its approach.
+
+>=20
+> > > > =C2=A0=C2=A0	/* Regulator functionality, if supported by this chip =
+driver. */
+> > > > =C2=A0=C2=A0	int num_regulators;
+> > > > =C2=A0=C2=A0	const struct regulator_desc *reg_desc;
+> > diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmb=
+us_core.c
+> > index ba59eaef2e07..3b0a55bbbd2c 100644
+> > --- a/drivers/hwmon/pmbus/pmbus_core.c
+> > +++ b/drivers/hwmon/pmbus/pmbus_core.c
+> > @@ -69,6 +69,38 @@ struct pmbus_sensor {
+> > =C2=A0 #define to_pmbus_sensor(_attr) \
+> > > > =C2=A0=C2=A0	container_of(_attr, struct pmbus_sensor, attribute)
+> > =C2=A0=C2=A0
+> > > > +#define PB_FAN_CONFIG_RPM		PB_FAN_2_RPM
+> > +#define PB_FAN_CONFIG_INSTALLED		PB_FAN_2_INSTALLEDBUS_VIRT_
+>=20
+> Something seems odd here. PB_FAN_2_INSTALLEDBUS_VIRT_ ?
+
+Yes, that's busted. Not sure what went wrong, but I'll clean it up.
+
+>=20
+> > > > +#define PB_FAN_CONFIG_MASK(i)		(0xff << (4 * !((i) & 1)))
+> > > > +#define PB_FAN_CONFIG_GET(i, n)		(((n) >> (4 * !((i) & 1))) & 0xff=
+)
+> > > > +#define PB_FAN_CONFIG_PUT(i, n)		(((n) & 0xff) << (4 * !((i) & 1))=
+)
+> > +
+>=20
+> Aren't there standard bit manipulation macros for that ? Either case, thi=
+s is just to avoid
+> having to use the existing defines.=20
+
+As I store the configuration for each fan in a struct pmbus_fan_ctrl
+dedicated to the fan, I reasoned that intermediate code should not have
+to deal with the details of which nibble to access with respect to the
+fan's (per-page) ID. Rather, code reading or writing
+PMBUS_FAN_COMMAND_[1-4] should deal with ensuring the correct values
+are provided.
+
+> Ok, but then I think it would make more sense to
+> make it generic, ie change the core to not use PB_FAN_2_RPM / PB_FAN_1_RP=
+M etc.
+> but PB_FAN_RPM(index) everywhere.
+
+I'll make the change throughout pmbus core.
+
+>=20
+> > +struct pmbus_fan_ctrl_attr {
+> > > > +	struct device_attribute attribute;
+> > > > +	char name[PMBUS_NAME_SIZE];
+> > +};
+> > +
+> > +struct pmbus_fan_ctrl {
+> > > > +	struct pmbus_fan_ctrl_attr fan_target;
+> > > > +	struct pmbus_fan_ctrl_attr pwm;
+> > > > +	struct pmbus_fan_ctrl_attr pwm_enable;
+> > > > +	int index;
+> > > > +	u8 page;
+> > > > +	u8 id;
+> > > > +	u8 config;
+> > > > +	u16 command;
+> > +};
+> > +#define to_pmbus_fan_ctrl_attr(_attr) \
+> > > > +	container_of(_attr, struct pmbus_fan_ctrl_attr, attribute)
+> > +#define fan_target_to_pmbus_fan_ctrl(_attr) \
+> > > > +	container_of(to_pmbus_fan_ctrl_attr(_attr), struct pmbus_fan_ctrl=
+, \
+> > > > +			fan_target)
+> > +#define pwm_to_pmbus_fan_ctrl(_attr) \
+> > > > +	container_of(to_pmbus_fan_ctrl_attr(_attr), struct pmbus_fan_ctrl=
+, pwm)
+> > +#define pwm_enable_to_pmbus_fan_ctrl(_attr) \
+> > > > +	container_of(to_pmbus_fan_ctrl_attr(_attr), struct pmbus_fan_ctrl=
+, \
+> > > > +			pwm_enable)
+> > +
+> > =C2=A0 struct pmbus_boolean {
+> > > > > > =C2=A0=C2=A0	char name[PMBUS_NAME_SIZE];	/* sysfs boolean name =
+*/
+> > > > =C2=A0=C2=A0	struct sensor_device_attribute attribute;
+> > @@ -806,6 +838,219 @@ static ssize_t pmbus_show_label(struct device *de=
+v,
+> > > > =C2=A0=C2=A0	return snprintf(buf, PAGE_SIZE, "%s\n", label->label);
+> > =C2=A0 }
+> > =C2=A0=C2=A0
+> > +static ssize_t pmbus_show_fan_command(struct device *dev,
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0enum pmbus_fan_mode mode,
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct pmbus_fan_ctrl *fan=
+, char *buf)
+> > +{
+> > > > +	struct i2c_client *client =3D to_i2c_client(dev->parent);
+> > > > +	struct pmbus_data *data =3D i2c_get_clientdata(client);
+> > > > +	struct pmbus_sensor sensor;
+> > > > +	long val;
+> > +
+> > > > +	mutex_lock(&data->update_lock);
+> > +
+> > > > +	if ((mode =3D=3D percent && (fan->config & PB_FAN_CONFIG_RPM)) ||
+> > > > +			(mode =3D=3D rpm && !(fan->config & PB_FAN_CONFIG_RPM))) {
+> > > > +		mutex_unlock(&data->update_lock);
+> > +		return -ENOTSUPP; /* XXX: This seems dodgy, but what to do? */
+>=20
+> Not create the attribute in question in the first place, or return 0. The=
+ above
+> messes up the 'sensors' command.
+
+I think returning 0 is the only valid option of the two, given that we
+can dynamically switch between RPM and PWM modes.
+
+Thanks for the feedback.
+
+Andrew
+
+>=20
+> > > > +	}
+> > +
+> > > > +	sensor.class =3D PSC_FAN;
+> > > > +	if (mode =3D=3D percent)
+> > > > +		sensor.data =3D fan->command * 255 / 100;
+> > > > +	else
+> > > > +		sensor.data =3D fan->command;
+> > +
+> > > > +	val =3D pmbus_reg2data(data, &sensor);
+> > +
+> > > > +	mutex_unlock(&data->update_lock);
+> > +
+> > > > +	return snprintf(buf, PAGE_SIZE, "%ld\n", val);
+> > +}
+> > +
+> > +static ssize_t pmbus_show_fan_target(struct device *dev,
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct device_attribute *da, cha=
+r *buf)
+> > +{
+> > > > +	return pmbus_show_fan_command(dev, rpm,
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0fan_target_to_pmbus_fan_ct=
+rl(da), buf);
+> > +}
+> > +
+> > +static ssize_t pmbus_show_pwm(struct device *dev,
+> > > > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct device_attribute *da=
+, char *buf)
+> > +{
+> > > > +	return pmbus_show_fan_command(dev, percent, pwm_to_pmbus_fan_ctrl=
+(da),
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0buf);
+> > +}
+> > +
+> > +static ssize_t pmbus_set_fan_command(struct device *dev,
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0enum pmbus_fan_mode mode,
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct pmbus_fan_ctrl *fan,
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0const char *buf, ssize_t count)
+> > +{
+> > > > +	struct i2c_client *client =3D to_i2c_client(dev->parent);
+> > > > +	struct pmbus_data *data =3D i2c_get_clientdata(client);
+> > > > +	int config_addr, command_addr;
+> > > > +	struct pmbus_sensor sensor;
+> > > > +	ssize_t rv;
+> > > > +	long val;
+> > +
+> > > > +	if (kstrtol(buf, 10, &val) < 0)
+> > > > +		return -EINVAL;
+> > +
+> > > > +	mutex_lock(&data->update_lock);
+> > +
+> > > > +	sensor.class =3D PSC_FAN;
+> > +
+> > > > +	val =3D pmbus_data2reg(data, &sensor, val);
+> > +
+> > > > +	if (mode =3D=3D percent)
+> > > > +		val =3D val * 100 / 255;
+> > +
+> > > > +	config_addr =3D (fan->id < 2) ? PMBUS_FAN_CONFIG_12 : PMBUS_FAN_C=
+ONFIG_34;
+> > > > +	command_addr =3D config_addr + 1 + (fan->id & 1);
+> > +
+> > > > +	if (mode =3D=3D rpm)
+> > > > +		fan->config |=3D PB_FAN_CONFIG_RPM;
+> > > > +	else
+> > > > +		fan->config &=3D ~PB_FAN_CONFIG_RPM;
+> > +
+> > > > +	rv =3D pmbus_update_byte_data(client, fan->page, config_addr,
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0PB_FAN_CONFIG_PUT(fan->id, fan->config=
+),
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0PB_FAN_CONFIG_MASK(fan->id));
+> > > > +	if (rv < 0)
+> > > > +		goto done;
+> > +
+> > > > +	fan->command =3D val;
+> > > > +	rv =3D pmbus_write_word_data(client, fan->page, command_addr,
+> > > > +				=C2=A0=C2=A0=C2=A0fan->command);
+> > +
+> > +done:
+> > > > +	mutex_unlock(&data->update_lock);
+> > +
+> > > > +	if (rv < 0)
+> > > > +		return rv;
+> > +
+> > > > +	return count;
+> > +}
+> > +
+> > +static ssize_t pmbus_set_fan_target(struct device *dev,
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0struct device_attribute *da,
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0const char *buf, size_t count)
+> > +{
+> > > > +	return pmbus_set_fan_command(dev, rpm,
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0fan_target_to_pmbus_fan_ctrl(da)=
+, buf,
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0count);
+> > +}
+> > +
+> > +static ssize_t pmbus_set_pwm(struct device *dev, struct device_attribu=
+te *da,
+> > > > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0const char *buf, size_t count)
+> > +{
+> > > > +	return pmbus_set_fan_command(dev, percent, pwm_to_pmbus_fan_ctrl(=
+da),
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0buf, count);
+> > +}
+> > +
+> > +static ssize_t pmbus_show_pwm_enable(struct device *dev,
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct device_attribute *da, cha=
+r *buf)
+> > +{
+> > > > +	struct pmbus_fan_ctrl *fan =3D pwm_enable_to_pmbus_fan_ctrl(da);
+> > > > +	struct i2c_client *client =3D to_i2c_client(dev->parent);
+> > > > +	struct pmbus_data *data =3D i2c_get_clientdata(client);
+> > > > +	long mode;
+> > +
+> > > > +	mutex_lock(&data->update_lock);
+> > +
+> > +
+> > > > +	if (data->info->get_pwm_mode) {
+> > > > +		u8 config =3D PB_FAN_CONFIG_PUT(fan->id, fan->config);
+> > +
+> > > > +		mode =3D data->info->get_pwm_mode(fan->id, config, fan->command)=
+;
+> > > > +	} else {
+> > > > +		struct pmbus_sensor sensor =3D {
+> > > > +			.class =3D PSC_FAN,
+> > > > +			.data =3D fan->command,
+> > > > +		};
+> > > > +		long command;
+> > +
+> > > > +		command =3D pmbus_reg2data(data, &sensor);
+> > +
+> > > > +		/* XXX: Need to do something sensible */
+> > > > +		if (fan->config & PB_FAN_CONFIG_RPM)
+> > > > +			mode =3D 2;
+> > > > +		else
+> > > > +			mode =3D (command >=3D 0 && command < 100);
+> > > > +	}
+> > +
+> > > > +	mutex_unlock(&data->update_lock);
+> > +
+> > > > +	return snprintf(buf, PAGE_SIZE, "%ld\n", mode);
+> > +}
+> > +
+> > +static ssize_t pmbus_set_pwm_enable(struct device *dev,
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0struct device_attribute *da,
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0const char *buf, size_t count)
+> > +{
+> > > > +	struct pmbus_fan_ctrl *fan =3D pwm_enable_to_pmbus_fan_ctrl(da);
+> > > > +	struct i2c_client *client =3D to_i2c_client(dev->parent);
+> > > > +	struct pmbus_data *data =3D i2c_get_clientdata(client);
+> > > > +	int config_addr, command_addr;
+> > > > +	struct pmbus_sensor sensor;
+> > > > +	ssize_t rv =3D count;
+> > > > +	long mode;
+> > +
+> > > > +	if (kstrtol(buf, 10, &mode) < 0)
+> > > > +		return -EINVAL;
+> > +
+> > > > +	mutex_lock(&data->update_lock);
+> > +
+> > > > +	sensor.class =3D PSC_FAN;
+> > +
+> > > > +	config_addr =3D (fan->id < 2) ? PMBUS_FAN_CONFIG_12 : PMBUS_FAN_C=
+ONFIG_34;
+> > > > +	command_addr =3D config_addr + 1 + (fan->id & 1);
+> > +
+> > > > +	if (data->info->set_pwm_mode) {
+> > > > +		u8 config =3D PB_FAN_CONFIG_PUT(fan->id, fan->config);
+> > > > +		u16 command =3D fan->command;
+> > +
+> > > > +		rv =3D data->info->set_pwm_mode(fan->id, mode, &config, &command=
+);
+> > > > +		if (rv < 0)
+> > > > +			goto done;
+> > +
+> > > > +		fan->config =3D PB_FAN_CONFIG_GET(fan->id, config);
+> > > > +		fan->command =3D command;
+> > > > +	} else {
+> > > > +		fan->config &=3D ~PB_FAN_CONFIG_RPM;
+> > > > +		switch (mode) {
+> > > > +		case 0:
+> > > > +		case 1:
+> > > > +			/* XXX: Safe at least? */
+> > > > +			fan->command =3D pmbus_data2reg(data, &sensor, 100);
+> > > > +			break;
+> > > > +		case 2:
+> > > > +		default:
+> > > > +			/* XXX: Safe at least? */
+> > > > +			fan->command =3D 0xffff;
+> > > > +			break;
+> > > > +		}
+> > > > +	}
+> > +
+> > > > +	rv =3D pmbus_update_byte_data(client, fan->page, config_addr,
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0PB_FAN_CONFIG_PUT(fan->id, fan->config=
+),
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0PB_FAN_CONFIG_MASK(fan->id));
+> > > > +	if (rv < 0)
+> > > > +		goto done;
+> > +
+> > > > +	rv =3D pmbus_write_word_data(client, fan->page, command_addr,
+> > > > +				=C2=A0=C2=A0=C2=A0fan->command);
+> > +
+> > +done:
+> > > > +	mutex_unlock(&data->update_lock);
+> > +
+> > > > +	if (rv < 0)
+> > > > +		return rv;
+> > +
+> > > > +	return count;
+> > +}
+> > +
+> > =C2=A0 static int pmbus_add_attribute(struct pmbus_data *data, struct a=
+ttribute *attr)
+> > =C2=A0 {
+> > > > =C2=A0=C2=A0	if (data->num_attributes >=3D data->max_attributes - 1=
+) {
+> > @@ -1094,6 +1339,51 @@ static int pmbus_add_sensor_attrs(struct i2c_cli=
+ent *client,
+> > > > =C2=A0=C2=A0	return 0;
+> > =C2=A0 }
+> > =C2=A0=C2=A0
+> > +static int pmbus_add_fan_ctrl_attr(struct pmbus_data *data,
+> > > > +				=C2=A0=C2=A0=C2=A0struct pmbus_fan_ctrl_attr *fa,
+> > > > +				=C2=A0=C2=A0=C2=A0const char *name_fmt,
+> > > > +				=C2=A0=C2=A0=C2=A0ssize_t (*show)(struct device *dev,
+> > > > +					=C2=A0=C2=A0=C2=A0struct device_attribute *attr,
+> > > > +					=C2=A0=C2=A0=C2=A0char *buf),
+> > > > +				=C2=A0=C2=A0=C2=A0ssize_t (*store)(struct device *dev,
+> > > > +					=C2=A0=C2=A0=C2=A0struct device_attribute *attr,
+> > > > +					=C2=A0=C2=A0=C2=A0const char *buf, size_t count),
+> > > > +				=C2=A0=C2=A0=C2=A0int idx)
+> > +{
+> > > > +	struct device_attribute *da;
+> > +
+> > > > +	da =3D &fa->attribute;
+> > +
+> > > > +	snprintf(fa->name, sizeof(fa->name), name_fmt, idx);
+> > > > +	pmbus_dev_attr_init(da, fa->name, 0644, show, store);
+> > +
+> > > > +	return pmbus_add_attribute(data, &da->attr);
+> > +}
+> > +
+> > +static inline int pmbus_add_fan_target_attr(struct pmbus_data *data,
+> > > > +					=C2=A0=C2=A0=C2=A0=C2=A0struct pmbus_fan_ctrl *fan)
+> > +{
+> > > > +	return pmbus_add_fan_ctrl_attr(data, &fan->fan_target, "fan%d_tar=
+get",
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0pmbus_show_fan_targe=
+t,
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0pmbus_set_fan_target=
+, fan->index);
+> > +}
+> > +
+> > +static inline int pmbus_add_pwm_attr(struct pmbus_data *data,
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct pmbus_fan_ctrl *fan)
+> > +{
+> > +
+> > > > +	return pmbus_add_fan_ctrl_attr(data, &fan->pwm, "pwm%d", pmbus_sh=
+ow_pwm,
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0pmbus_set_pwm, fan->=
+index);
+> > +}
+> > +
+> > +static inline int pmbus_add_pwm_enable_attr(struct pmbus_data *data,
+> > > > +					=C2=A0=C2=A0=C2=A0=C2=A0struct pmbus_fan_ctrl *fan)
+> > +{
+> > > > +	return pmbus_add_fan_ctrl_attr(data, &fan->pwm_enable, "pwm%d_ena=
+ble",
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0pmbus_show_pwm_enabl=
+e,
+> > > > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0pmbus_set_pwm_enable=
+, fan->index);
+> > +}
+> > +
+> > =C2=A0 static const struct pmbus_limit_attr vin_limit_attrs[] =3D {
+> > > > =C2=A0=C2=A0	{
+> > > > =C2=A0=C2=A0		.reg =3D PMBUS_VIN_UV_WARN_LIMIT,
+> > @@ -1565,6 +1855,13 @@ static const int pmbus_fan_config_registers[] =
+=3D {
+> > > > =C2=A0=C2=A0	PMBUS_FAN_CONFIG_34
+> > =C2=A0 };
+> > =C2=A0=C2=A0
+> > +static const int pmbus_fan_command_registers[] =3D {
+> > > > +	PMBUS_FAN_COMMAND_1,
+> > > > +	PMBUS_FAN_COMMAND_2,
+> > > > +	PMBUS_FAN_COMMAND_3,
+> > > > +	PMBUS_FAN_COMMAND_4,
+> > +};
+> > +
+> > =C2=A0 static const int pmbus_fan_status_registers[] =3D {
+> > > > =C2=A0=C2=A0	PMBUS_STATUS_FAN_12,
+> > > > =C2=A0=C2=A0	PMBUS_STATUS_FAN_12,
+> > @@ -1587,6 +1884,39 @@ static const u32 pmbus_fan_status_flags[] =3D {
+> > =C2=A0 };
+> > =C2=A0=C2=A0
+> > =C2=A0 /* Fans */
+> > +static int pmbus_add_fan_ctrl(struct i2c_client *client,
+> > > > +		struct pmbus_data *data, int index, int page, int id,
+> > > > +		u8 config)
+> > +{
+> > > > +	struct pmbus_fan_ctrl *fan;
+> > > > +	int rv;
+> > +
+> > > > +	fan =3D devm_kzalloc(data->dev, sizeof(*fan), GFP_KERNEL);
+> > > > +	if (!fan)
+> > > > +		return -ENOMEM;
+> > +
+> > > > +	fan->index =3D index;
+> > > > +	fan->page =3D page;
+> > > > +	fan->id =3D id;
+> > > > +	fan->config =3D config;
+> > +
+> > > > +	rv =3D _pmbus_read_word_data(client, page,
+> > > > +			pmbus_fan_command_registers[id]);
+> > > > +	if (rv < 0)
+> > > > +		return rv;
+> > > > +	fan->command =3D rv;
+> > +
+> > > > +	rv =3D pmbus_add_fan_target_attr(data, fan);
+> > > > +	if (rv < 0)
+> > > > +		return rv;
+> > +
+> > > > +	rv =3D pmbus_add_pwm_attr(data, fan);
+> > > > +	if (rv < 0)
+> > > > +		return rv;
+> > +
+> > > > +	return pmbus_add_pwm_enable_attr(data, fan);
+> > +}
+> > +
+> > =C2=A0 static int pmbus_add_fan_attributes(struct i2c_client *client,
+> > > > =C2=A0=C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0struct pmbus_data *data)
+> > =C2=A0 {
+> > @@ -1624,6 +1954,11 @@ static int pmbus_add_fan_attributes(struct i2c_c=
+lient *client,
+> > > > =C2=A0=C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0PSC_FAN, true, true)=
+ =3D=3D NULL)
+> > > > =C2=A0=C2=A0				return -ENOMEM;
+> > =C2=A0=C2=A0
+> > > > +			ret =3D pmbus_add_fan_ctrl(client, data, index, page, f,
+> > > > +						=C2=A0regval);
+> > > > +			if (ret < 0)
+> > > > +				return ret;
+> > +
+> > > > =C2=A0=C2=A0			/*
+> > > > =C2=A0=C2=A0			=C2=A0* Each fan status register covers multiple fan=
+s,
+> > > > =C2=A0=C2=A0			=C2=A0* so we have to do some magic.
+> >=20
+>=20
+>=20
+--=-ZRMt9a+Ncov3R5UOOCRU
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZZW/PAAoJEJ0dnzgO5LT5HfsP/1xLQJzenHHIEIIKyWukHBPb
+GjT3YSK0rsZL83WbtgyLTKYHGESvAPncJz2Q2U4mM63j5nPCBF8kI+kU7VWre8JG
+crxJkrtDQHF/DsBdqVqjIqGxmQPbhUuH+2PfHbJbNdsEZD5t483OK4JpXUqeCHSS
+8W5glyNt0FLiJWnBZmzaa1uqd97D2PEfXnKErqj7O7rBss/6dnP2nJWsoLQ9xA7G
+Ujc/lgwxmzhxNdmGx8H+W+N5jCVYZf27RWFzeQfoPqiV4v62JvBraiXg+We509rF
+oP977AUo8QSwjL+1zcV4UDUy3wS5YUFqyR7rtXopSDCv1YWZnzQsB3wbqCxsqAx7
+ZuGDhSh9WbeJizcSWHUfOLsumLg3OrTacnBGc759iAzP111Y/yCfy8yawQTF8qXq
+f6j30/s1JlU9x82gro4ytDP7xsQu6Gjh/ovEP9PB89LO2WlwU9FYgThFMTWnJBOD
+uN/kx0eYmj80MAPIPCORYPzAYmCyTzIq/ckUA4yu8ijMk/fXImFk81bkmsKRXnfK
+1aJBgDbQnmA7kDguaZ+d5QmxXDOvq1jbh/KRBZasc2Tqk+1tMrA1rCxnzI3aJ8Q0
+X/YOTmHeqY3c5d31jL3Kc0yiAEFfT8wHV5MDbdReQJqRS8WVeoC8LSieTq24+H57
+GyqxE5NOFs36cxGY3tQ/
+=c4XW
+-----END PGP SIGNATURE-----
+
+--=-ZRMt9a+Ncov3R5UOOCRU--
