@@ -1,51 +1,62 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-wm0-x229.google.com (mail-wm0-x229.google.com
- [IPv6:2a00:1450:400c:c09::229])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <cbostic@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x7l086J5MzDqkY
- for <openbmc@lists.ozlabs.org>; Fri, 14 Jul 2017 04:36:40 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="Wu0+R3wE"; 
- dkim-atps=neutral
-Received: by mail-wm0-x229.google.com with SMTP id 62so938020wmw.1
- for <openbmc@lists.ozlabs.org>; Thu, 13 Jul 2017 11:36:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=2P/eaUbXavrbZ17aUpJ24btcWvlFSRp3skFg5kcgxbM=;
- b=Wu0+R3wEHrushMr9m6zeiTa+rYZa682T30AJLZD3Bj7n1EQqohh7oaeGnL1qG5suvP
- +bw3UimSKdwA8UcL2J0za54oOps5BiarHH9XNP1TPxBcwLJsQBJ0NsoI4rwTdu/lqzRy
- +nh/ism7fu8K748tneBopVAu2f0PAsZWRCJf2iFt7pi9sw5gINaVamq6y3osZ9edT2wN
- bz4z3YhQ/6hT0sjvOqtDOBt8Xw8t+MrpZ+uY6gJduCNWCed9bcFVMrRrpMSBQz/tbRZI
- fjMicEppHrgFMSNMkl8tQTFUpAaOFiSZUKVQUdTH8+tjO0KLUGGwl4zCRFY4TLAdtH0x
- lK0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=2P/eaUbXavrbZ17aUpJ24btcWvlFSRp3skFg5kcgxbM=;
- b=Wny/slvjA1+xlz8HX/j9mM1TgGK24h4wban0MaQkOZ643/pbPWLzAUcuOr7BNtYhb7
- zxyTTt7XKq777us9EY9GmS2eCOJLkaEe1i8sGer1OltMzxldGTwblnd0Hf6GMAmt7/gN
- Jvd2yN1iDdyaB9QKJRGHh9OSuuCyQ6qn4pqD6/waq3/CR+vcJjhqwHLUUgeMDkgz9BP7
- NDqAE0mrnU5HPP8Pubkm+oujHFuGyols7azxoHDUHaTHLSAAZBD6QGP+68pgmxqn41iA
- SyYK024vMThKaFcH43O7UK8Zp7+MPP8U+BbDj/2eoOWXtfzGWf6WBYTCUO8lujUuCvJZ
- mIuQ==
-X-Gm-Message-State: AIVw112J6vj/fIaVCkfR0LQYJioiH5elrMGx5ZHSseRENCQxcx8ma9YQ
- Hvb+0P0dW+DYanCr+ADmxkI4cEWV0NzCEuM=
-X-Received: by 10.28.109.26 with SMTP id i26mr116781wmc.64.1499970997406; Thu,
- 13 Jul 2017 11:36:37 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.28.153.69 with HTTP; Thu, 13 Jul 2017 11:36:36 -0700 (PDT)
-In-Reply-To: <20170713141537.4759-1-c_mykolak@mellanox.com>
-References: <20170713141537.4759-1-c_mykolak@mellanox.com>
-From: Rick Altherr <raltherr@google.com>
-Date: Thu, 13 Jul 2017 11:36:36 -0700
-Message-ID: <CAPLgG=nt=tJC-jWQdW_jf9T0=sqERo97u3uOEr=1mm1WZgn0KQ@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 v2] msn: add adc to msn dts.
-To: Mykola Kostenok <c_mykolak@mellanox.com>
-Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Vadim Pasternak <vadimp@mellanox.com>, Ohad Oz <ohado@mellanox.com>
-Content-Type: multipart/alternative; boundary="001a1146778679e3a9055437367e"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x7mJv6wvRzDqkm
+ for <openbmc@lists.ozlabs.org>; Fri, 14 Jul 2017 05:36:15 +1000 (AEST)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v6DJYNJg025548
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Jul 2017 15:36:11 -0400
+Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2bp1sr8932-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Jul 2017 15:36:11 -0400
+Received: from localhost
+ by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Thu, 13 Jul 2017 15:36:10 -0400
+Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
+ by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Thu, 13 Jul 2017 15:36:08 -0400
+Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
+ [9.57.199.107])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v6DJa8o726673316; Thu, 13 Jul 2017 19:36:08 GMT
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C98F6124037;
+ Thu, 13 Jul 2017 15:33:35 -0400 (EDT)
+Received: from christophersmbp.austin.ibm.com (unknown [9.41.175.36])
+ by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP id 7D020124035;
+ Thu, 13 Jul 2017 15:33:35 -0400 (EDT)
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+To: joel@jms.id.au
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.10] ARM: dts: aspeed: Add gpio keys for power
+ supply presence, ucd alert
+Date: Thu, 13 Jul 2017 14:36:06 -0500
+X-Mailer: git-send-email 2.10.1 (Apple Git-78)
+X-TM-AS-GCONF: 00
+x-cbid: 17071319-0052-0000-0000-0000023F9B2E
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007362; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00887100; UDB=6.00442879; IPR=6.00667240; 
+ BA=6.00005470; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016215; XFM=3.00000015;
+ UTC=2017-07-13 19:36:09
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17071319-0053-0000-0000-000051519797
+Message-Id: <20170713193606.56374-1-cbostic@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-07-13_09:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
+ definitions=main-1707130302
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,83 +68,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Jul 2017 18:36:41 -0000
+X-List-Received-Date: Thu, 13 Jul 2017 19:36:16 -0000
 
---001a1146778679e3a9055437367e
-Content-Type: text/plain; charset="UTF-8"
+Add GPIO keys for power supply 0 and 1 presence as well as ucd alert
+to the device tree.
 
-This isn't necessary as the default set in aspeed-g5.dtsi is enabled.
-You'll probably want the iio-hwmon bridge though.
+Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-On Thu, Jul 13, 2017 at 7:15 AM, Mykola Kostenok <c_mykolak@mellanox.com>
-wrote:
-
-> Add adc to Mellanox msn dts.
->
-> v1 -> v2:
->  Pointed by Rick Altherr:
->  - Remove unsupported fileds. Make adc node match bindings.
->
-> Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-> b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-> index 0774959..17ad2d3 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-> @@ -139,3 +139,6 @@
->         status = "okay";
->  };
->
-> +&adc {
-> +       status = "okay";
-> +};
-> --
-> 2.8.4
->
->
-
---001a1146778679e3a9055437367e
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">This isn&#39;t necessary as the default set in aspeed-g5.d=
-tsi is enabled.=C2=A0 You&#39;ll probably want the iio-hwmon bridge though.=
-</div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Thu, Jul=
- 13, 2017 at 7:15 AM, Mykola Kostenok <span dir=3D"ltr">&lt;<a href=3D"mail=
-to:c_mykolak@mellanox.com" target=3D"_blank">c_mykolak@mellanox.com</a>&gt;=
-</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .=
-8ex;border-left:1px #ccc solid;padding-left:1ex">Add adc to Mellanox msn dt=
-s.<br>
-<br>
-v1 -&gt; v2:<br>
-=C2=A0Pointed by Rick Altherr:<br>
-=C2=A0- Remove unsupported fileds. Make adc node match bindings.<br>
-<br>
-Signed-off-by: Mykola Kostenok &lt;<a href=3D"mailto:c_mykolak@mellanox.com=
-">c_mykolak@mellanox.com</a>&gt;<br>
----<br>
-=C2=A0arch/arm/boot/dts/aspeed-bmc-<wbr>mellanox-msn.dts | 3 +++<br>
-=C2=A01 file changed, 3 insertions(+)<br>
-<br>
-diff --git a/arch/arm/boot/dts/aspeed-<wbr>bmc-mellanox-msn.dts b/arch/arm/=
-boot/dts/aspeed-<wbr>bmc-mellanox-msn.dts<br>
-index 0774959..17ad2d3 100644<br>
---- a/arch/arm/boot/dts/aspeed-<wbr>bmc-mellanox-msn.dts<br>
-+++ b/arch/arm/boot/dts/aspeed-<wbr>bmc-mellanox-msn.dts<br>
-@@ -139,3 +139,6 @@<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 status =3D &quot;okay&quot;;<br>
-=C2=A0};<br>
-<br>
-+&amp;adc {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0status =3D &quot;okay&quot;;<br>
-+};<br>
-<span class=3D"HOEnZb"><font color=3D"#888888">--<br>
-2.8.4<br>
-<br>
-</font></span></blockquote></div><br></div>
-
---001a1146778679e3a9055437367e--
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index 76a5b28..34c5dfc 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -42,6 +42,24 @@
+ 			gpios = <&gpio ASPEED_GPIO(J, 2) GPIO_ACTIVE_LOW>;
+ 			linux,code = <ASPEED_GPIO(J, 2)>;
+ 		};
++
++		ps0-presence {
++			label = "ps0-presence";
++			gpios = <&gpio ASPEED_GPIO(P, 7) GPIO_ACTIVE_LOW>;
++			linux,code = <ASPEED_GPIO(P, 7)>;
++		};
++
++		ps1-presence {
++			label = "ps1-presence";
++			gpios = <&gpio ASPEED_GPIO(N, 0) GPIO_ACTIVE_LOW>;
++			linux,code = <ASPEED_GPIO(N, 0)>;
++		};
++
++		ucd-alert {
++			label = "ucd-alert";
++			gpios = <&gpio ASPEED_GPIO(I, 2) GPIO_ACTIVE_LOW>;
++			linux,code = <ASPEED_GPIO(I, 2)>;
++		};
+ 	};
+ 
+ 	leds {
+-- 
+1.8.2.2
