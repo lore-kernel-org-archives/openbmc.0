@@ -1,56 +1,28 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x243.google.com (mail-yw0-x243.google.com
- [IPv6:2607:f8b0:4002:c05::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x7Mk60JsnzDqk6
- for <openbmc@lists.ozlabs.org>; Thu, 13 Jul 2017 14:08:14 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="sMt4DbXT"; 
- dkim-atps=neutral
-Received: by mail-yw0-x243.google.com with SMTP id a12so2453909ywh.1
- for <openbmc@lists.ozlabs.org>; Wed, 12 Jul 2017 21:08:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=dSk8Y1k2+XIqxD4bMvFtRdpTBRyt1aLXgIQjJsGHv1I=;
- b=sMt4DbXTod0NW4aK323pSNiyqPTKxJQeybl/10FFCz4mxNaWbjy4CU3PnRpEmHSLX9
- KSTtaTmvzCDrQV0yyQjbJhO4BAVVTAtyAsspsA8BatBpzLJoxmGHhiAy6ZCMUzQTVS05
- lPbbA3lUC6LjO+VDGF0nNwQnBELIchSUiuFkcSCxNNMhrEoCUPZ37zeoqfbNcoGd7gxr
- wVLVuDNHtaLmV1N26Lrx2xU86ANAvKcEdZT+maQDXBJvuyR8yma0GYcM0rlks7xU0G51
- MFglCKv6eA/k2drjs89/4BzEr9Ra8/K5ZSk/Sk2JJP0DWReyUEifmkBnrMXVAmGmAYes
- 68hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=dSk8Y1k2+XIqxD4bMvFtRdpTBRyt1aLXgIQjJsGHv1I=;
- b=po22eHIfe4IirZvrWthZkmW0xT2RZAULfBnrM1H+EnR+iogohtMbIom2jAWB40IqM9
- zuyWeLWaw26o58uL9FhPzNTqVL/kmd5xoJwVxGL1nWvZkcL1XK8+kQOhxYafDSipBxnZ
- Ud7EdPt5mErn1ehhdQIld3l9omPvfCAl5y+RCGSUtJEDGjHkPIwF9JXm4gzgrJbeEBvD
- b9O3u/5qiV4mVAuo2MLDSaUjoSErH8hGgcUn9Jy9/UmM6Gq1AkfMfZWaCu9miSH8qcit
- cZsAtTFXXfU75vY/sFYGMIw2HioMWiW7WPissYtj7GRt1LPL1TiZebHQCIr1P+d+O1U3
- 9wRA==
-X-Gm-Message-State: AIVw1131Tq6uMkBArh9CiGG+Thhwd2eBybtFWYRiFEHu4qzrwqFfL+sG
- 13qiKp1p15jLIzzKyHza5y5gjKINrA==
-X-Received: by 10.13.233.70 with SMTP id s67mr520125ywe.93.1499918891899; Wed,
- 12 Jul 2017 21:08:11 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.170.239 with HTTP; Wed, 12 Jul 2017 21:07:51 -0700 (PDT)
-In-Reply-To: <CALLMt=qTEZn5zNYRVad8+pBGuns4ekCxHgvct8zkwy888mw70w@mail.gmail.com>
-References: <20170707072544.25003-1-andrew@aj.id.au>
- <CALLMt=qTEZn5zNYRVad8+pBGuns4ekCxHgvct8zkwy888mw70w@mail.gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 13 Jul 2017 13:37:51 +0930
-X-Google-Sender-Auth: NaG2rQiskjvcCyVMq6y0vurenQ4
-Message-ID: <CACPK8Xd3ADMj9ioYrFNguxPBZNTPjgNvxPCdu-ep5Sy=cHhnSw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] ARM: aspeed: witherspoon: Add reset
- tolerance for host power GPIOs
-To: Andrew Geissler <geissonator@gmail.com>
-Cc: Andrew Jeffery <andrew@aj.id.au>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Return-Path: <c_mykolak@mellanox.com>
+Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
+ by lists.ozlabs.org (Postfix) with ESMTP id 3x7dCf4WFxzDqk3
+ for <openbmc@lists.ozlabs.org>; Fri, 14 Jul 2017 00:16:13 +1000 (AEST)
+Received: from Internal Mail-Server by MTLPINE1 (envelope-from
+ c?mykolak@mellanox.com)
+ with ESMTPS (AES256-SHA encrypted); 13 Jul 2017 17:16:08 +0300
+Received: from r-vnc15.mtr.labs.mlnx (r-vnc15.mtr.labs.mlnx [10.208.0.15])
+ by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id v6DEG8cN021603;
+ Thu, 13 Jul 2017 17:16:08 +0300
+Received: from r-vnc15.mtr.labs.mlnx (localhost [127.0.0.1])
+ by r-vnc15.mtr.labs.mlnx (8.14.4/8.14.4) with ESMTP id v6DEG0e5005419;
+ Thu, 13 Jul 2017 17:16:00 +0300
+Received: (from c_mykolak@localhost)
+ by r-vnc15.mtr.labs.mlnx (8.14.4/8.14.4/Submit) id v6DEFlNv005087;
+ Thu, 13 Jul 2017 17:15:47 +0300
+From: Mykola Kostenok <c_mykolak@mellanox.com>
+To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
+Cc: Mykola Kostenok <c_mykolak@mellanox.com>,
+ Rick Altherr <raltherr@google.com>,
+ Vadim Pasternak <vadimp@mellanox.com>, Ohad Oz <ohado@mellanox.com>
+Subject: [PATCH linux dev-4.10 v2] msn: add adc to msn dts.
+Date: Thu, 13 Jul 2017 17:15:37 +0300
+Message-Id: <20170713141537.4759-1-c_mykolak@mellanox.com>
+X-Mailer: git-send-email 2.8.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,24 +34,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Jul 2017 04:08:15 -0000
+X-List-Received-Date: Thu, 13 Jul 2017 14:16:15 -0000
 
-On Thu, Jul 13, 2017 at 11:18 AM, Andrew Geissler <geissonator@gmail.com> wrote:
-> On Fri, Jul 7, 2017 at 2:25 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
->> Enables the host to stay up across BMC reboots. This is a temporary
->> approach. Ultimately bindings support and reset tolerance capability
->> will be added to the GPIO driver, and the behaviour will be described
->> in the devicetree.
->>
->> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
->
-> Our test team took for a spin last night on a witherspoon, looked good.
->
-> Acked-by: Andrew Geissler <geissonator@gmail.com>
-> Tested-by: Andrew Geissler <geissonator@gmail.com>
+Add adc to Mellanox msn dts.
 
-Thanks for the testing Andrew. Applied to dev-4.10.
+v1 -> v2:
+ Pointed by Rick Altherr:
+ - Remove unsupported fileds. Make adc node match bindings.
 
-Cheers,
+Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Joel
+diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+index 0774959..17ad2d3 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+@@ -139,3 +139,6 @@
+ 	status = "okay";
+ };
+ 
++&adc {
++	status = "okay";
++};
+-- 
+2.8.4
