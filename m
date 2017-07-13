@@ -1,53 +1,61 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-wm0-x236.google.com (mail-wm0-x236.google.com
- [IPv6:2a00:1450:400c:c09::236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x7CG5420VzDq60
- for <openbmc@lists.ozlabs.org>; Thu, 13 Jul 2017 07:46:52 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x7GhX53TGzDqBs
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Jul 2017 10:21:32 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="px94YLes"; 
- dkim-atps=neutral
-Received: by mail-wm0-x236.google.com with SMTP id f67so7161468wmh.1
- for <openbmc@lists.ozlabs.org>; Wed, 12 Jul 2017 14:46:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=Ovx9+l/12S0K0CpUtM8tT/8TUn31pwK1zrrXBwLxeOw=;
- b=px94YLesC16EWuZWhwrMqHsMFmbnQIiJ6b4Hc/LjTYxYJ9l3MA7vG7jBa2qDpL3Udy
- 3PtbLpv6H0S/sHcXlFuxcecD8ytLFiWl8nCNj1n7eEBZwqk0hzwR3DiYqDI8xed/0vZr
- 4BUWrMn2ghGrulmoGULMBddqWjGXObqtAMmLrgNqdBT6eo2ENi597Kv5f+OKl7XuRXz7
- C6g/ww02NHMXI+tuAvWjGuXyDdQHaltTkKKCjYgdcY1OxtUST98p/nl1Oe/6CQFSO4T/
- ia6+BRZ3Ofp9Po1JhADPI//7N8H4RkdCwM2HNlUyW242ykGDgwfS49+QDK8K/UBSFqNI
- 9n9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=Ovx9+l/12S0K0CpUtM8tT/8TUn31pwK1zrrXBwLxeOw=;
- b=jqtkyeJ3TLqWMH/rLkFfxzA0BvV9hSSH0i+xcCEd5CvXRCxtHyTyzRDLh5DvzDXU/K
- vfnF2zqMTabsoKuAhA43jAsYruLVQaWTNn9RcRtXCOyH3OwpLvJ+y2EQ1lcDg6Yjr6q+
- W0pBv6jU4qsfwlL5n8JdMqlwCeqRxaX73RKbV2xeMn9bSZIZ4ZowdQJVtibzN+uVn7FX
- pRpstzP5BjMBSuLf3Xv5OwXgG/hRDUiwZjz2XIQkzm1Q/CaFyWiN1Yx7PKJ8DTCDTsg5
- 5bodudi2jEuW9k+VVhhejSYwZZMG0U1ZAE+znKWhRrzxUwPdTkeyc/JVQq9IrA40uTjf
- t/Aw==
-X-Gm-Message-State: AIVw112+W0/qRt96KxznN4kzu4AIGdM1UzUVmsT/E4mzTpNuKh8vFoKM
- Db4AEIZ/uWuP1WmipEbYY6+r4tq0TvGL
-X-Received: by 10.28.228.134 with SMTP id b128mr4126737wmh.64.1499896009521;
- Wed, 12 Jul 2017 14:46:49 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.28.153.69 with HTTP; Wed, 12 Jul 2017 14:46:48 -0700 (PDT)
-In-Reply-To: <CAFR_W8rJ1iQ4CLe+fBd8_pB8b8LP=Mn5oTb0bamAETY0vC2ErQ@mail.gmail.com>
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="XAcfWzhB"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="q+qsoSs2"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id B6B8F20A7F;
+ Wed, 12 Jul 2017 20:21:29 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Wed, 12 Jul 2017 20:21:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=HE5/7bKU1HCy+PNSpd72vJurQDaBvNZG3CEN64JWc
+ 84=; b=XAcfWzhBmLAi80D0a8BNkT2E4cQpIjEGK+zxVJ9LCq0hm3nhPfR2VGU+1
+ LBIZAxQvzmVv8G5YA0WbBEuWsOwR/a3NxoBJ7JjvA8d2UlgRi4gG+MKWVtrWRPGO
+ puyQKeQGCduQjcfI7FwpzMmJP5yG1EBXLJapyy+nq0Bp5psOt8Gl8fHVRy6hYdJ4
+ zcuycT/8ZXEQOzsxhE1NC2+/dunhCHTg25tr2xA3PHmGOjl8+CmSxREKSvUy/pag
+ J0RcsPft3YpMBctd6ljH9umUSUxJpuOM5xfpt+nmh/uR8xGEtsGAbc86cnYI2gAg
+ PomiYaQKEuq3Ou4uG9xKZGwDD/fYA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=HE5/7bKU1HCy+PNSpd
+ 72vJurQDaBvNZG3CEN64JWc84=; b=q+qsoSs2N3kNsze/Z/uR1u3iixjrcut5Vd
+ 31vsELyoWK7/fMnyINiWh1UDC5drU+TaZE1/9oJtpri1jI23Qb7OakxUVcQeFI0o
+ F+Hyu7a4LPFUx8XVqOTJgT3CGKNM28PsK5E0e0P9MHPFJnEIM2694sD08WIKGMwr
+ uTnkfiImKruuDakoXrwpaqZUDRLIGGQQBmxBM+anGk3iWrqC8SKPy5f6eUa2En4u
+ 7RB8kS5HLdWEyC1LIfQZeA9HViLTq+t5786c+tGnT96bB/kIUKIPlwflz5HL1zcj
+ qdJ0U9nL9cAVs6i9TGWVCBkbBvngpCAUgxf/cmK6dUiFivCWRPrw==
+X-ME-Sender: <xms:Cb1mWfESPqWqvL95oArJCYwEWj784qkg8LYQLWVjrWeaVJM49cB-GQ>
+X-Sasl-enc: vvtr9Z1BnypKlDdaErjbQnsispeaIm4KPEubrO3WAElx 1499905288
+Received: from keelia (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id A7DE97E057;
+ Wed, 12 Jul 2017 20:21:27 -0400 (EDT)
+Message-ID: <1499905281.4935.13.camel@aj.id.au>
+Subject: Re: Linux Kernel PMBus drivers
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Rick Altherr <raltherr@google.com>, Maxim Sloyko <maxims@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Brad Bishop
+ <bradleyb@fuzziesquirrel.com>
+Date: Thu, 13 Jul 2017 09:51:21 +0930
+In-Reply-To: <CAPLgG=k=Tvtp3JuC601eiS6jHPF=F_Ye5e=z9BC1h1OyzAR1xQ@mail.gmail.com>
 References: <CAFR_W8pJRVbb75NKmZcE=S1tHsQ8F4NSUToGgJ0vavaJKkEaWQ@mail.gmail.com>
  <BF2D9544-F30B-445F-A336-2A5C0CF5E3AF@fuzziesquirrel.com>
  <CAFR_W8rJ1iQ4CLe+fBd8_pB8b8LP=Mn5oTb0bamAETY0vC2ErQ@mail.gmail.com>
-From: Rick Altherr <raltherr@google.com>
-Date: Wed, 12 Jul 2017 14:46:48 -0700
-Message-ID: <CAPLgG=k=Tvtp3JuC601eiS6jHPF=F_Ye5e=z9BC1h1OyzAR1xQ@mail.gmail.com>
-Subject: Re: Linux Kernel PMBus drivers
-To: Maxim Sloyko <maxims@google.com>
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="001a114b1032d990fb055425c017"
+ <CAPLgG=k=Tvtp3JuC601eiS6jHPF=F_Ye5e=z9BC1h1OyzAR1xQ@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-AUKpkmeDNRU++Jnbr1q+"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,89 +67,116 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Jul 2017 21:46:54 -0000
+X-List-Received-Date: Thu, 13 Jul 2017 00:21:34 -0000
 
---001a114b1032d990fb055425c017
+
+--=-AUKpkmeDNRU++Jnbr1q+
 Content-Type: text/plain; charset="UTF-8"
-
-Look in the MAINTAINERS file for the longest file path match.  They specify
-mailing list, git repo, and maintainer emails.
-
-On Wed, Jul 12, 2017 at 2:17 PM, Maxim Sloyko <maxims@google.com> wrote:
-
-> Hi Brad,
->
-> Thanks for the info. Do you know which kernel subtree should I be basing
-> my patches on?
->
-> On Wed, Jul 12, 2017 at 1:56 PM, Brad Bishop <bradleyb@fuzziesquirrel.com>
-> wrote:
->
->>
->> > On Jul 12, 2017, at 1:32 PM, Maxim Sloyko <maxims@google.com> wrote:
->> >
->> > Hi Joel,
->> >
->> > I have a couple of small PMBus HWMon Linux Kernel drivers for Zaius
->> (Infineon and Intersil parts). Do you know which subtree/mailing list I
->> should send these to or how can I figure this out?
->> >
->>
->> linux-hwmon@vger.kernel.org
->>
->> > Thanks.
->> >
->> > --
->> > Maxim Sloyko
->>
->
->
->
-> --
-> *M*axim *S*loyko
->
-
---001a114b1032d990fb055425c017
-Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Look in the MAINTAINERS file for the longest file path mat=
-ch.=C2=A0 They specify mailing list, git repo, and maintainer emails.</div>=
-<div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Wed, Jul 12, 2=
-017 at 2:17 PM, Maxim Sloyko <span dir=3D"ltr">&lt;<a href=3D"mailto:maxims=
-@google.com" target=3D"_blank">maxims@google.com</a>&gt;</span> wrote:<br><=
-blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px=
- #ccc solid;padding-left:1ex"><div dir=3D"ltr">Hi Brad,<div><br></div><div>=
-Thanks for the info. Do you know which kernel subtree should I be basing my=
- patches on?<br><div class=3D"gmail_extra"><div><div class=3D"h5"><br><div =
-class=3D"gmail_quote">On Wed, Jul 12, 2017 at 1:56 PM, Brad Bishop <span di=
-r=3D"ltr">&lt;<a href=3D"mailto:bradleyb@fuzziesquirrel.com" target=3D"_bla=
-nk">bradleyb@fuzziesquirrel.com</a>&gt;</span> wrote:<br><blockquote class=
-=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
-ing-left:1ex"><span><br>
-&gt; On Jul 12, 2017, at 1:32 PM, Maxim Sloyko &lt;<a href=3D"mailto:maxims=
-@google.com" target=3D"_blank">maxims@google.com</a>&gt; wrote:<br>
-&gt;<br>
-&gt; Hi Joel,<br>
-&gt;<br>
-&gt; I have a couple of small PMBus HWMon Linux Kernel drivers for Zaius (I=
-nfineon and Intersil parts). Do you know which subtree/mailing list I shoul=
-d send these to or how can I figure this out?<br>
-&gt;<br>
-<br>
-</span><a href=3D"mailto:linux-hwmon@vger.kernel.org" target=3D"_blank">lin=
-ux-hwmon@vger.kernel.org</a><br>
-<br>
-&gt; Thanks.<br>
-<span class=3D"m_8650645105761474846HOEnZb"><font color=3D"#888888">&gt;<br=
->
-&gt; --<br>
-&gt; Maxim Sloyko<br>
-</font></span></blockquote></div><br><br clear=3D"all"><div><br></div></div=
-></div><span class=3D"HOEnZb"><font color=3D"#888888">-- <br><div class=3D"=
-m_8650645105761474846gmail_signature" data-smartmail=3D"gmail_signature"><d=
-iv><b>M</b>axim <b>S</b>loyko</div></div>
-</font></span></div></div></div>
-</blockquote></div><br></div>
+On Wed, 2017-07-12 at 14:46 -0700, Rick Altherr wrote:
+> Look in the MAINTAINERS file for the longest file path match.=C2=A0 They
+> specify mailing list, git repo, and maintainer emails.
 
---001a114b1032d990fb055425c017--
+Well, less manually, you can use ./scripts/get_maintainer.pl in the
+Linux source tree:
+
+3 09:45:11 andrew@keelia:~/src/linux/aspeed$ ls -1 patches/pmbus-max31785-r=
+fc-v1/
+0000-cover-letter.patch
+0001-hwmon-pmbus-Disable-build-of-non-max31785-drivers.patch
+0002-pmbus-Add-fan-configuration-support.patch
+0003-pmbus-Allow-dynamic-fan-coefficient-values.patch
+0004-pmbus-Add-MAX31785-driver.patch
+3 09:45:24 andrew@keelia:~/src/linux/aspeed$ ./scripts/get_maintainer.pl pa=
+tches/pmbus-max31785-rfc-v1/000[1-4]*
+Guenter Roeck <linux@roeck-us.net> (maintainer:PMBUS HARDWARE MONITORING DR=
+IVERS)
+Jean Delvare <jdelvare@suse.com> (maintainer:HARDWARE MONITORING)
+linux-kernel@vger.kernel.org (open list)
+linux-hwmon@vger.kernel.org (open list:PMBUS HARDWARE MONITORING DRIVERS)
+
+With a few options you can trim it down a bit:
+
+3 09:47:03 andrew@keelia:~/src/linux/aspeed$ ./scripts/get_maintainer.pl --=
+no-roles --no-rolestats --no-n patches/pmbus-max31785-rfc-v1/000[1-4]*
+linux@roeck-us.net
+jdelvare@suse.com
+linux-kernel@vger.kernel.org
+linux-hwmon@vger.kernel.org
+
+
+> On Wed, Jul 12, 2017 at 2:17 PM, Maxim Sloyko <maxims@google.com>
+> wrote:
+> > Hi Brad,
+> >=20
+> > Thanks for the info. Do you know which kernel subtree should I be
+> > basing my patches on?
+
+If they're new drivers I'd just base them on the latest stable release
+- for the patches above I'm working against v4.12 at the moment.
+However, Guenter's tree (maintainer) lives here:
+
+3 09:47:37 andrew@keelia:~/src/linux/aspeed$ git remote -v show | grep roec=
+k
+hwmon   https://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-stagin=
+g.git (fetch)
+hwmon   https://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-stagin=
+g.git (push)
+
+Hope that helps.
+
+Andrew
+
+> >=20
+> > On Wed, Jul 12, 2017 at 1:56 PM, Brad Bishop <bradleyb@fuzziesquirr
+> > el.com> wrote:
+> > > > On Jul 12, 2017, at 1:32 PM, Maxim Sloyko <maxims@google.com>
+> > > wrote:
+> > > >
+> > > > Hi Joel,
+> > > >
+> > > > I have a couple of small PMBus HWMon Linux Kernel drivers for
+> > > Zaius (Infineon and Intersil parts). Do you know which
+> > > subtree/mailing list I should send these to or how can I figure
+> > > this out?
+> > > >
+> > >=20
+> > > linux-hwmon@vger.kernel.org
+> > >=20
+> > > > Thanks.
+> > > >
+> > > > --
+> > > > Maxim Sloyko
+> > >=20
+> >=20
+> >=20
+> >=20
+> > --=C2=A0
+> > Maxim Sloyko
+> >=20
+>=20
+>=20
+--=-AUKpkmeDNRU++Jnbr1q+
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZZr0BAAoJEJ0dnzgO5LT52HUP/AmlykSnO/TsdNE/F8vsWCDt
+sdwrJnyPo4HsfvgFycZGS/WiJXsHct+Z+CD7InDc01giZK3P+MysAvHJLs9euqTl
+avYCL4pRy3Him1iaQfF9HQlZEma2CS2256WDFvYsb1xdnzxlSnYuMb22eDuH9ysH
+ZpS2dHTLZeU/F+28GmxMX1Qo0RuA+LkRDe1VnBEPyS1ezj9eckmHoSYC1ZKeXIZa
+DkZukb0LyPAGkbSG21f9DBNCMd0FgRmD8TLwbU4e6IrqbFtBwLsUSesHXuCCEc9+
+loitatw/970yM7gbqogncAGiKGvQ/gMZF3zGWeKkwnA/i84OuUS7fO90Zho7NgzS
+unWILj5/nUJuy9AXuXsqJ6IGoNoe1EMGSmcKaoGlLxDJFT8l/TfYSBiMr4SCvAnK
+Dkn1bAAsCKVBsnIOgVMepcoN7rxrig6zK3DPN+TiywTvhD71Z7J6k6LGGzYr1HOP
+ppwqvavXCe8rpqOe5JhA97Wyo1Z0TtjghTedWwt8NV/kgmXpW/wb3qJGd53axJbq
+N3iEiVlGZu8YT/u93qRyfCSFiCrvfsjvacaAzyzmToUWmg0BgClD8nengQ8+k9R1
+S4l8uYavk/kK4UeQTPUJfQSHxeFDmbpqZKo9Qz7DyftVz/6a4zQZyuOxdocUFuXz
+756A0EwdL7tVC18JHH0f
+=18Fk
+-----END PGP SIGNATURE-----
+
+--=-AUKpkmeDNRU++Jnbr1q+--
