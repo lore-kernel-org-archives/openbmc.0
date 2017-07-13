@@ -1,50 +1,53 @@
-Return-Path: <geissonator@gmail.com>
-Received: from mail-it0-x243.google.com (mail-it0-x243.google.com
- [IPv6:2607:f8b0:4001:c0b::243])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yb0-x242.google.com (mail-yb0-x242.google.com
+ [IPv6:2607:f8b0:4002:c09::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x7JdJ4GWpzDqjx
- for <openbmc@lists.ozlabs.org>; Thu, 13 Jul 2017 11:48:52 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x7Mj14yGvzDqk6
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Jul 2017 14:07:17 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="cPMa0WF8"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="YV43af4z"; 
  dkim-atps=neutral
-Received: by mail-it0-x243.google.com with SMTP id v193so4952050itc.2
- for <openbmc@lists.ozlabs.org>; Wed, 12 Jul 2017 18:48:52 -0700 (PDT)
+Received: by mail-yb0-x242.google.com with SMTP id n205so2017680yba.1
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Jul 2017 21:07:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=fSqeiElay58xBDMGvdr/doGmy6oOe1YOR57y26rAvrE=;
- b=cPMa0WF89aNxWjBVe5C1pANkTBZzgcWMsUJmc7/WJtempn5XmU51Md6+cG1LD3XtiQ
- Dd3UsjR/9/APPZpGmp1xCZ4IxTHEQdmAvq4zFHiQazNjv0SveemOJ05ShMNTjupn4V/6
- RaK1VxYzb6h+pFd8T83Z2s+uInL56wjYXi/CpyaWliLSbKP81wD9cBJG1nQf7BWOv3DF
- fOhERbNd8jawmqwAYqyiGJEmlXUyMqwG2JNYN1RlVBzljp5sup7QtB4jwnQmbKK/SrLG
- 11HGWy+lrKvuQ/xabjIRRzzFrdbNHtX6vXh36o1BoG1kvCmYEFbvbPRNDZW/MCVV43mx
- Zw1A==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=mLiWkrqTlIQKbLcZjqPDzLjC362bkGwRxdDEJsO0uBM=;
+ b=YV43af4zj8YbE54rE03xEW7TFzTwOKpqVsgfXb+sXDJQcLR7aLab25InrGLQS2XUIn
+ oo+2RtbJuAU68xuo0iHZ+sfC0NMkIi9mR13phyYGAQGbfEfny+O0VyX9DXoY4oXii+dW
+ vtNABwH9dyVRmofC28gY6a2k4NMh+Z/BAEUPHVZMzAhC23u8A6edjnTbmFkHm99n8AMq
+ 96LtztEo6f6DsGz9cUxJYoTir6XpMX+0sXqVT2CUednOLxNGBX4YLiw6PRISl1dCq1nd
+ BFgMWDK7/zhalFIJMJsophB3nQV1EU4OPyY8sIYXj4IIN/PojXFs/VjNHVkbPfdHO0CO
+ xfAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=fSqeiElay58xBDMGvdr/doGmy6oOe1YOR57y26rAvrE=;
- b=Ei5uBX4HyxnMCJPz08/OgmEse3wOY9GBiuuLRdOsJ56CCpkDrLGqrbAwuFysLvli3f
- E2iygMykxtt1opyeiT9xOI97DaZq0tJ0qqEk/W7yWZhplQcH9bOjpIVFoQTUHbqhwtRd
- EGmyNxdHpCfe0OQtPa3EGHHU6cjqtcf+X5Etvp2OSXHBcQKChV1qKdppBfSoWQMdtm5v
- aGrDyZR2d5YYxgq2gC1Uzkf0nhapSDtdB9VsEh98p42wiXuAsp0ulazvDtojT9GgfhqB
- /pauI41bNWW/lVztKeEvAP7lkIIIVfoWQhTeA8lJ7yMSAqQXh1V6k5znQOmVhX7uqQ1a
- 9Tbg==
-X-Gm-Message-State: AIVw1107Bz6BdpCaFvKiqDzKWDt6Nb3bX+U5lkZ8RhgSaYEqgpruO8q1
- WOieLoQp02T1PldR6maaR84f+CAUb9eS
-X-Received: by 10.36.172.29 with SMTP id s29mr15990691ite.32.1499910530822;
- Wed, 12 Jul 2017 18:48:50 -0700 (PDT)
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=mLiWkrqTlIQKbLcZjqPDzLjC362bkGwRxdDEJsO0uBM=;
+ b=m5p+VLG/U2GDMdIP4pEfWfV2IbX1jhiUwABltYay6fHS64/NaxD3eMy2ZjLEOdNNn+
+ 6kaxsY50rguKEUJPCVp7nskLHxfV1D2s4sREwCbOiTwxKnu0TF+M6on7eblY/xDbXZjY
+ hN4F3FHxM/ASytH4gPoH97MQlm7CZovtssEErL2+B8b6YGE4e05SKpgLtiQ0lGZHhbfw
+ MuXTGxIxem3kJADNumMQAZ7oUo1hUKcy8p1G7Xi+LEk0KhdTYTYeUjlXeKoekGpXT4IY
+ ZrIuONlC8PG6uuZBywx8iWPu+3o+hRcgRMtpzQh6v6GOe62w3rgHcVSEOxIrJjtiovsI
+ Pokg==
+X-Gm-Message-State: AIVw113Sd9Xp4p/IBkhDfbiSYbMGNEwspf67BlEfhh1dpkD37GgvBww4
+ KMUlmbWp6TCfUX+tqQyS/uLOxLYpQg==
+X-Received: by 10.37.119.70 with SMTP id s67mr1442628ybc.214.1499918835368;
+ Wed, 12 Jul 2017 21:07:15 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.107.170.160 with HTTP; Wed, 12 Jul 2017 18:48:50 -0700 (PDT)
-In-Reply-To: <20170707072544.25003-1-andrew@aj.id.au>
-References: <20170707072544.25003-1-andrew@aj.id.au>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Wed, 12 Jul 2017 20:48:50 -0500
-Message-ID: <CALLMt=qTEZn5zNYRVad8+pBGuns4ekCxHgvct8zkwy888mw70w@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] ARM: aspeed: witherspoon: Add reset
- tolerance for host power GPIOs
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Sender: joel.stan@gmail.com
+Received: by 10.37.170.239 with HTTP; Wed, 12 Jul 2017 21:06:54 -0700 (PDT)
+In-Reply-To: <1499373235-5412-1-git-send-email-bjwyman@gmail.com>
+References: <1499373235-5412-1-git-send-email-bjwyman@gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 13 Jul 2017 13:36:54 +0930
+X-Google-Sender-Auth: NBQ9sDX3n1Mi5_2ITXl0YGxx5dk
+Message-ID: <CACPK8XeD4-o0yvEoppP9JKLg9g9uEpV_JNLLsrUSmjt9CUx_4Q@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v2] ARM: dts: aspeed: Add fan card PCA9552
+ to Witherspoon devicetree
+To: Brandon Wyman <bjwyman@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -57,46 +60,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Jul 2017 01:48:53 -0000
+X-List-Received-Date: Thu, 13 Jul 2017 04:07:18 -0000
 
-On Fri, Jul 7, 2017 at 2:25 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> Enables the host to stay up across BMC reboots. This is a temporary
-> approach. Ultimately bindings support and reset tolerance capability
-> will be added to the GPIO driver, and the behaviour will be described
-> in the devicetree.
+On Fri, Jul 7, 2017 at 6:03 AM, Brandon Wyman <bjwyman@gmail.com> wrote:
+> The Witherspoon OpenBMC system has a PCA9552 chip on the fan card that
+> is used for fan fault and identify LED control. Adding this chip and the
+> LED lines to the device tree.
 >
-> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> Signed-off-by: Brandon Wyman <bjwyman@gmail.com>
 > ---
->  arch/arm/mach-aspeed/aspeed.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
-> index 74611a9c2c79..100805e8c263 100644
-> --- a/arch/arm/mach-aspeed/aspeed.c
-> +++ b/arch/arm/mach-aspeed/aspeed.c
-> @@ -177,7 +177,17 @@ static void __init do_zaius_setup(void)
->
->  static void __init do_witherspoon_setup(void)
->  {
-> +       unsigned long reg;
-> +
->         do_common_setup();
-> +
-> +       /* Reset tolerance for BMC_POWER_UP (GPIOD1) */
-> +       reg = readl(AST_IO(AST_BASE_GPIO | 0x01C));
-> +       writel(reg | BIT(25), AST_IO(AST_BASE_GPIO | 0x01C));
-> +
-> +       /* Reset tolerance for SOFTWARE_PGOOD (GPIOR1) */
-> +       reg = readl(AST_IO(AST_BASE_GPIO | 0x12C));
-> +       writel(reg | BIT(9), AST_IO(AST_BASE_GPIO | 0x12C));
->  }
->
->  static void __init do_romulus_setup(void)
-> --
-> 2.11.0
->
+> v2 - Add required address-cells and size-cells.
+>      Update aliases and labels to match up with MRW XML.
 
-Our test team took for a spin last night on a witherspoon, looked good.
+Thanks, applied to dev-4.10.
 
-Acked-by: Andrew Geissler <geissonator@gmail.com>
-Tested-by: Andrew Geissler <geissonator@gmail.com>
+Cheers,
+
+Joel
