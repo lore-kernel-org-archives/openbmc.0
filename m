@@ -1,58 +1,53 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x233.google.com (mail-yw0-x233.google.com
- [IPv6:2607:f8b0:4002:c05::233])
+Received: from mail-yw0-x241.google.com (mail-yw0-x241.google.com
+ [IPv6:2607:f8b0:4002:c05::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x7HdP31hlzDqjY
- for <openbmc@lists.ozlabs.org>; Thu, 13 Jul 2017 11:03:53 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x7HfL51Z7zDqjY
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Jul 2017 11:04:42 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="UIK00SJ3"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="gH9MUwpP"; 
  dkim-atps=neutral
-Received: by mail-yw0-x233.google.com with SMTP id a12so16669973ywh.3
- for <openbmc@lists.ozlabs.org>; Wed, 12 Jul 2017 18:03:53 -0700 (PDT)
+Received: by mail-yw0-x241.google.com with SMTP id l21so2270866ywb.3
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Jul 2017 18:04:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=74eTBV8n9vABB9YBOuk0LAgXr64a15cq8oBdQKQHzbY=;
- b=UIK00SJ3cSGTbZJCD1bgf2a4Gct3jeNMKJoh62LnSiz05jVHnss9g+3F3ujadRsOF6
- QfusOAARicx+ew/6Ieg8BRCRVtXrpiaKEKH/eVu58EoNMKbGyWOFgeCXu2WrM14hq0+Y
- O33LuxgmVP28IqF5YZyL0ZT/6Tbn4HZ19wMUrH8HF3qE6B4RnVZDIbx9eBxV0YSRERyp
- 0LTx9HvrdibRrxFqLQhUPwp1+97nHGYXjqVncQ9mLJWT/PSObvpMWbooHAo7M3Eh38Aw
- 7i741wns0bgpycJYt49JjU3Yo4mbR2UmQLiQOl/0uwnHvUlc8rFxN8V10E8CR8kqij0u
- DjvQ==
+ bh=XQ27X5HuL1yT8jDTzeGIGjHhljlrGOFd0deGjKwIKhI=;
+ b=gH9MUwpPQREC0i/p89h1xza0mxYtpL+IUV/aJY1/XTglCmpUQPkXtf92L8qgg+Z9Gu
+ 4a56AsKVlzIPOrmSZ/QQh+7s1GiPXLwpeFyHBVQjCF8nGbZC5H1vFtU6mLzryKHwQwRS
+ Zn45sGPJnXwVjLGRUCiivcVDEpuzWrSw3ZKsHFJJDbWorHa3jbszTWjHdvzqx+FzxF0A
+ kQ5kQCR6VZQkjSI1yHI6jPv4o0jlRWwXl/ZmcmCBUMG/mz2SRKibtIcnQUodDwT5h8sK
+ 2qKqQqL4f1L4jEHxNzU5TT1ThMwekyb+Ja+9z0sjV9fG6ML1BiJQSWOqoY2DZcpCweSU
+ t2+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=74eTBV8n9vABB9YBOuk0LAgXr64a15cq8oBdQKQHzbY=;
- b=BSy4bc+khdM3IdV9sfOapmCsd2uGLvVZ9LZGCcY1cXAlca+qu4A8ejdCnd5Q3JeQAu
- GDYFk/lsN+aL4C0v6FvImV2VLcdSahExrruAaZthQwDVeXkKuqj3QChb9/pWf8CMXYD4
- pwUuwHRCk9hW2ApuFM0Wdf9ji1I6AwX7sofMP/mzuIOWBqrHN+p+uGm6cjTovgUq4K1p
- A59Rkl4Src5WxD+kn3g9ByBBKOZ6OKOPSvYIPJOFwZeGPn9CSotyuhd2uIE+9sz4UPLZ
- rbGmBw49WzUmsEucPs/Wz3DNlVgmEU2fCLVbtb3SW9uGkN8qgHMmPaqRwnDLbq8m4YJp
- dC8Q==
-X-Gm-Message-State: AIVw110bzbS5w3vnuUy9LfF+tFnfTV5Aqso/OGtW9UxNnk2syjQVN68c
- sW7244HEgKfQcYRwUi93WQMbwcTmIg==
-X-Received: by 10.129.102.8 with SMTP id a8mr87557ywc.2.1499907831099; Wed, 12
- Jul 2017 18:03:51 -0700 (PDT)
+ bh=XQ27X5HuL1yT8jDTzeGIGjHhljlrGOFd0deGjKwIKhI=;
+ b=ZD+Cknna+6Hv8PKP+5AFjllzPzDoy58ak/kfIGWIObwX90vr6QhQ0fM2sE3scP5Phm
+ UYf9x2HZjtc9GlHHODfHkWBSxPCNEWtHaL0TYQgzEVJTGnEfONRRAh+GyDsqOqoHAFKA
+ HIpMHgx/iX0CJQRWLjIUyaswOi5zHTX6qaivvD00kq5GoHn1UM4P8/x9VGpwigWwlH2v
+ I2DHfE5Y9QWdq8tJEs3+XbHmD8Ioz5UHxGS945xXw630eGeMsUohlnNAUj9pZxAROirx
+ sP/VVspHynmbkzfKZq+uJD+F+tRcw5JFOW2SXi+1m+l2eMAqcxWZNMZO98JdW00tWw15
+ 5Cdw==
+X-Gm-Message-State: AIVw113y4Rc+JUAt6YhnyV4jjJyXTHqmLbyWg012yZpkZnf8C70/zI06
+ mkeWgrEfDvEgQpC2HjwItC4Ob7FnF/DO
+X-Received: by 10.13.252.131 with SMTP id m125mr50134ywf.293.1499907880777;
+ Wed, 12 Jul 2017 18:04:40 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.170.239 with HTTP; Wed, 12 Jul 2017 18:03:30 -0700 (PDT)
-In-Reply-To: <1499905281.4935.13.camel@aj.id.au>
-References: <CAFR_W8pJRVbb75NKmZcE=S1tHsQ8F4NSUToGgJ0vavaJKkEaWQ@mail.gmail.com>
- <BF2D9544-F30B-445F-A336-2A5C0CF5E3AF@fuzziesquirrel.com>
- <CAFR_W8rJ1iQ4CLe+fBd8_pB8b8LP=Mn5oTb0bamAETY0vC2ErQ@mail.gmail.com>
- <CAPLgG=k=Tvtp3JuC601eiS6jHPF=F_Ye5e=z9BC1h1OyzAR1xQ@mail.gmail.com>
- <1499905281.4935.13.camel@aj.id.au>
+Received: by 10.37.170.239 with HTTP; Wed, 12 Jul 2017 18:04:20 -0700 (PDT)
+In-Reply-To: <1499889964-23262-1-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1499889964-23262-1-git-send-email-eajames@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 13 Jul 2017 10:33:30 +0930
-X-Google-Sender-Auth: YiVPZTarDdL0dguK1TtH51AGrd4
-Message-ID: <CACPK8Xfg+=fdvpUu2epQMdtMaCu6Be1cLxELJ0OM+ac5ZMQWSQ@mail.gmail.com>
-Subject: Re: Linux Kernel PMBus drivers
-To: Maxim Sloyko <maxims@google.com>
-Cc: Rick Altherr <raltherr@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Brad Bishop <bradleyb@fuzziesquirrel.com>, Andrew Jeffery <andrew@aj.id.au>
+Date: Thu, 13 Jul 2017 10:34:20 +0930
+X-Google-Sender-Auth: 6ZV2ogY_mrSUjiacdNM1WhVu86g
+Message-ID: <CACPK8XdMbJsov9o-OWHNw8RPwXSJgMuVrdouT5w8zQAne7omkQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: Add FSI devices for Zaius
+To: Eddie James <eajames@linux.vnet.ibm.com>, Xo Wang <xow@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ "Edward A. James" <eajames@us.ibm.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -65,21 +60,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Jul 2017 01:03:54 -0000
+X-List-Received-Date: Thu, 13 Jul 2017 01:04:43 -0000
 
-Hey Maxim
+On Thu, Jul 13, 2017 at 5:36 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+> From: "Edward A. James" <eajames@us.ibm.com>
+>
+> Missing label, properties, and include file.
+>
+> Signed-off-by: Edward A. James <eajames@us.ibm.com>
 
-On Thu, Jul 13, 2017 at 9:51 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
->> On Wed, Jul 12, 2017 at 2:17 PM, Maxim Sloyko <maxims@google.com>
->> wrote:
->> > Hi Brad,
->> >
->> > Thanks for the info. Do you know which kernel subtree should I be
->> > basing my patches on?
-
-Looks like everyone has you sorted :) Ping me if you need help with
-anything else.
+Hey Xo, can I get an ack on this?
 
 Cheers,
 
 Joel
+
+> ---
+>  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+>
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> index c620015..750ec12 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> @@ -71,10 +71,10 @@
+>                 };
+>         };
+>
+> -       gpio-fsi {
+> +       fsi: gpio-fsi {
+>                 compatible = "fsi-master-gpio", "fsi-master";
+> -
+> -               status = "okay";
+> +               #address-cells = <2>;
+> +               #size-cells = <0>;
+>
+>                 /*
+>                  * These 2 GPIOs are set per board revision in aspeed.c.
+> @@ -96,6 +96,8 @@
+>         };
+>  };
+>
+> +#include "ibm-power9-cfam.dtsi"
+> +
+>  &fmc {
+>         status = "okay";
+>         flash@0 {
+> --
+> 1.8.3.1
+>
