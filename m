@@ -1,61 +1,53 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <xow@google.com>
+Received: from mail-wm0-x236.google.com (mail-wm0-x236.google.com
+ [IPv6:2a00:1450:400c:c09::236])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x8Kcc19b2zDqg2
- for <openbmc@lists.ozlabs.org>; Sat, 15 Jul 2017 03:36:47 +1000 (AEST)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v6EHYJDn073770
- for <openbmc@lists.ozlabs.org>; Fri, 14 Jul 2017 13:36:45 -0400
-Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2bpmfwr68p-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 14 Jul 2017 13:36:45 -0400
-Received: from localhost
- by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Fri, 14 Jul 2017 11:36:44 -0600
-Received: from b03cxnp08026.gho.boulder.ibm.com (9.17.130.18)
- by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Fri, 14 Jul 2017 11:36:42 -0600
-Received: from b03ledav004.gho.boulder.ibm.com
- (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
- by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v6EHagO762455964; Fri, 14 Jul 2017 10:36:42 -0700
-Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 09B2378047;
- Fri, 14 Jul 2017 11:36:42 -0600 (MDT)
-Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
- by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP id BF81F78051;
- Fri, 14 Jul 2017 11:36:41 -0600 (MDT)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH u-boot] configs/ast: Add redundnant env
-Date: Fri, 14 Jul 2017 12:36:40 -0500
-X-Mailer: git-send-email 1.8.3.1
-X-TM-AS-GCONF: 00
-x-cbid: 17071417-0016-0000-0000-0000072D4611
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007365; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00887529; UDB=6.00443143; IPR=6.00667679; 
- BA=6.00005471; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016226; XFM=3.00000015;
- UTC=2017-07-14 17:36:43
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17071417-0017-0000-0000-00003A95308A
-Message-Id: <1500053800-3923-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-07-14_12:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
- definitions=main-1707140283
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x8Sg22nM0zDqlg
+ for <openbmc@lists.ozlabs.org>; Sat, 15 Jul 2017 08:54:22 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="iBXpZIbd"; 
+ dkim-atps=neutral
+Received: by mail-wm0-x236.google.com with SMTP id w126so31774555wme.0
+ for <openbmc@lists.ozlabs.org>; Fri, 14 Jul 2017 15:54:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=yZDpi+pfkFaHafZKz8BBBY9rAa3IhB8MeIUerN6mMtA=;
+ b=iBXpZIbd3Pc+WnTu9E3cA9fcqGNv1h/cfhXJl1OxX+PmH5r1erGY2T/CHv+QHj0e+J
+ UbnDzM1VFgPwKpboV703z+HxdG1JUHaSuZTqZIbus+ayCkMNSjCuSpLvqOoVu+ilYpbS
+ J+d25ffOHRKRC7UcPKzjkndIQ6DCL6IswugxMl9aS0E/eHmiUaXvpP+jlvBoNOxnz2Rw
+ qve4Xcwia13j08MkQowVuEzPLue7rCZG3MuYpWF8UpKcmbyVLeIliflQQzjoq+H++osD
+ hOiyyiM15Tns3mMXH6SOJV4WWzZGPoj3KfS/6HcwZcNaY10sg1Sn0+Dc0dY8QxDmkd28
+ R47A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=yZDpi+pfkFaHafZKz8BBBY9rAa3IhB8MeIUerN6mMtA=;
+ b=OIikp4rU1zIszr62jDqavoL2fI57hqfhQ791aKEjzv7YQF8uWafiSthGRn2awoqluP
+ oZvOzwp6ypxXJ38IdluzS3KiGYDi9HeZ3AmUX35zh36MZpf2jJmw1eO7c2YY0iW8cnMR
+ 06OgUR7xycGMFMT8nYTfbMYzcWMOapAwH6lM9QzZSLFpEwQ+WXOf4RNFmVrZhbLR6Er4
+ 7y90HEZDkEGbp34WP7GleM+F/sZ1HsOpqiimvgRFrmakoR08J9dv4NAJ6PCMT6VK1N+W
+ LFcF4jrJxVkXIhD6rqIfqCr9lOhPQIZO0zYZhIr7wvnbE9pBmTp53t3p6cYYGGUC0wZ0
+ DxIA==
+X-Gm-Message-State: AIVw113pc+jSUZ/F57Klq3qRyiu0pmroldJl+RLN828uh8wL7y3dtt3X
+ 264nZMwIGbZMSnKbhmOKgcawZpqLT8Nt
+X-Received: by 10.28.128.16 with SMTP id b16mr272986wmd.79.1500072859126; Fri,
+ 14 Jul 2017 15:54:19 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.28.87.82 with HTTP; Fri, 14 Jul 2017 15:54:18 -0700 (PDT)
+In-Reply-To: <CACPK8XdMbJsov9o-OWHNw8RPwXSJgMuVrdouT5w8zQAne7omkQ@mail.gmail.com>
+References: <1499889964-23262-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <CACPK8XdMbJsov9o-OWHNw8RPwXSJgMuVrdouT5w8zQAne7omkQ@mail.gmail.com>
+From: Xo Wang <xow@google.com>
+Date: Fri, 14 Jul 2017 15:54:18 -0700
+Message-ID: <CAPH-5w4TQnpAby2q2nFi58iCUtB9c07mHx+nOHdAN4676OtN4w@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: Add FSI devices for Zaius
+To: Joel Stanley <joel@jms.id.au>
+Cc: Eddie James <eajames@linux.vnet.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ "Edward A. James" <eajames@us.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,34 +59,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 14 Jul 2017 17:36:48 -0000
+X-List-Received-Date: Fri, 14 Jul 2017 22:54:23 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
+On Wed, Jul 12, 2017 at 6:04 PM, Joel Stanley <joel@jms.id.au> wrote:
+> On Thu, Jul 13, 2017 at 5:36 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+>> From: "Edward A. James" <eajames@us.ibm.com>
+>>
+>> Missing label, properties, and include file.
+>>
+>> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+>
+> Hey Xo, can I get an ack on this?
+>
+> Cheers,
+>
+> Joel
+>
 
-Configure ast chips to run redundant u-boot environments.
+Ah, missed this.
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
----
- include/configs/ast-common.h | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Thanks.
 
-diff --git a/include/configs/ast-common.h b/include/configs/ast-common.h
-index 110c780..15e1db4 100644
---- a/include/configs/ast-common.h
-+++ b/include/configs/ast-common.h
-@@ -92,9 +92,12 @@
- #define CONFIG_SYS_MAX_FLASH_SECT	(8192)		/* max number of sectors on one chip */
- #define CONFIG_ENV_IS_IN_FLASH		1
- #define CONFIG_ENV_ADDR			(AST_FMC_CS0_BASE + 0x60000)
-+#define CONFIG_ENV_ADDR_REDUND		(AST_FMC_CS0_BASE + 0x70000)
- 
- #define CONFIG_ENV_OFFSET		0x60000	/* environment starts here  */
--#define CONFIG_ENV_SIZE			0x20000	/* Total Size of Environment Sector */
-+#define CONFIG_ENV_OFFSET_REDUND	0x70000
-+#define CONFIG_ENV_SIZE			0x10000	/* Total Size of Environment Sector */
-+#define CONFIG_ENV_SIZE_REDUND		0x10000
- 
- #define CONFIG_BOOTCOMMAND	\
- 	"fdt addr 20080000; " \
--- 
-1.8.3.1
+Acked-by: Xo Wang <xow@google.com>
+
+>> ---
+>>  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 8 +++++---
+>>  1 file changed, 5 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+>> index c620015..750ec12 100644
+>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+>> @@ -71,10 +71,10 @@
+>>                 };
+>>         };
+>>
+>> -       gpio-fsi {
+>> +       fsi: gpio-fsi {
+>>                 compatible = "fsi-master-gpio", "fsi-master";
+>> -
+>> -               status = "okay";
+>> +               #address-cells = <2>;
+>> +               #size-cells = <0>;
+>>
+>>                 /*
+>>                  * These 2 GPIOs are set per board revision in aspeed.c.
+>> @@ -96,6 +96,8 @@
+>>         };
+>>  };
+>>
+>> +#include "ibm-power9-cfam.dtsi"
+>> +
+>>  &fmc {
+>>         status = "okay";
+>>         flash@0 {
+>> --
+>> 1.8.3.1
+>>
