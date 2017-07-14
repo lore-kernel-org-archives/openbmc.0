@@ -1,77 +1,54 @@
-Return-Path: <c_mykolak@mellanox.com>
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur01on0046.outbound.protection.outlook.com [104.47.2.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Return-Path: <raltherr@google.com>
+Received: from mail-wm0-x22a.google.com (mail-wm0-x22a.google.com
+ [IPv6:2a00:1450:400c:c09::22a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x82xn1gqbzDqg2
- for <openbmc@lists.ozlabs.org>; Fri, 14 Jul 2017 16:35:40 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b="qKnG1Y1F";
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x83hb6zyKzDqgP
+ for <openbmc@lists.ozlabs.org>; Fri, 14 Jul 2017 17:09:19 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="kv9JMc6/"; 
  dkim-atps=neutral
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
- s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=FjgL6xU8SvUgQbOLN+Alx+JTSZGgJLduHtL7xduMHUI=;
- b=qKnG1Y1FfU8UeQauJrWPZK9ArjlR14ihJ4MojMAEFdPdFC4EKrVj2LfO5Eq1V1jISeIzoHKB/cEjktigdXdCPTXUkJHVok53zqjEjnwh1rA452MpNGix4bR9/O+8ilcoprv/J0NwQ8E7NJdChXFcxd1I831KyF4fz7B9EdRTF7Q=
-Received: from DB5PR05MB1224.eurprd05.prod.outlook.com (10.161.245.11) by
- DB5PR05MB1253.eurprd05.prod.outlook.com (10.162.157.14) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1261.13; Fri, 14 Jul 2017 06:35:33 +0000
-Received: from DB5PR05MB1224.eurprd05.prod.outlook.com
- ([fe80::21e6:bfbb:dbbc:3bd5]) by DB5PR05MB1224.eurprd05.prod.outlook.com
- ([fe80::21e6:bfbb:dbbc:3bd5%14]) with mapi id 15.01.1240.021; Fri, 14 Jul
- 2017 06:35:33 +0000
-From: Mykola Kostenok <c_mykolak@mellanox.com>
-To: Rick Altherr <raltherr@google.com>
-CC: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>, Vadim Pasternak <vadimp@mellanox.com>, Ohad Oz
- <ohado@mellanox.com>
-Subject: RE: [PATCH linux dev-4.10] iio: aspeed-adc: wait for initial sequence.
-Thread-Topic: [PATCH linux dev-4.10] iio: aspeed-adc: wait for initial
- sequence.
-Thread-Index: AQHS/AZzLRoXgGgoMUWmy7eNsfQqm6JS2XdQ
-Date: Fri, 14 Jul 2017 06:35:33 +0000
-Message-ID: <DB5PR05MB12243A3B21C02B7A4B5B639BEFAD0@DB5PR05MB1224.eurprd05.prod.outlook.com>
+Received: by mail-wm0-x22a.google.com with SMTP id 62so12194128wmw.1
+ for <openbmc@lists.ozlabs.org>; Fri, 14 Jul 2017 00:09:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=lSJ8g5Eg35k91U8Nlupa2MvnJ33fxMxLKynasjJLXxQ=;
+ b=kv9JMc6/MumkouHLFbiXaHNv42Af76cdZYpR++n7McZNuY8a7wHbgv+75uBpfJPRD3
+ d5rY99m0Nkqxz1zH7RtXyAjlrBP0Xauv6Fyb0aWlT2ciHCCUoK4gA8nnZlis4FYTmaZr
+ otl3rd7s/m1yWqlS+wYCbHnaNuKjfPWwt0MGMM/XM2e/mvavg4PjS589RIlLNj7fA9wh
+ 7UpFtpweMGmM2CnDDaCxA9Z7OUI4SysFfmPa/33OA6uFcP67Yo+RgjyIewz2vm8SwMwl
+ LAXjBz7+Bsu0Uc6yT9Topb4EUr4DThsVyOomqudFpgwT+TL7mKXraq9Lt/clnPIx6O0v
+ GPsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=lSJ8g5Eg35k91U8Nlupa2MvnJ33fxMxLKynasjJLXxQ=;
+ b=mnQucvHzwzBiaBQ6vP/5ijpnqwNwFZdOgWUAelpqVjB5PlwEbhjRcdwwUuu/zf8QW2
+ dmrYppc3Vb8HH5QnL/cPnxT2UxQJwb3AW2v63uU/6vi78nlGXW+wr52CzURiH1Om0giC
+ /cIxuBdLbbg1FGPa4UmWRFf77bbWSciguSSL/hdbNbWIhK2eQ0BjB92vOmRxudlh6jjl
+ cmJOks7424m2TC5UqWNBCfNfWbGZtepDUvSlDPbthm5IoRs0/stlxhB7ak3ke5UwKaP8
+ xu579E17y1iZ8VtPTt38vCFzL2DcisGH60p4X5G84mMrJOVeF3MzmQHj51DA65h6iYXr
+ 3zMQ==
+X-Gm-Message-State: AIVw113k6g8XyEal1oq5IkSVAFgrQn+mg25aH26CzmmjWp7flxw7WqaU
+ aWpjXOdXhpvSXrdEkM7ARQzy9dzzWUFB
+X-Received: by 10.28.228.134 with SMTP id b128mr1807028wmh.64.1500016156036;
+ Fri, 14 Jul 2017 00:09:16 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.28.153.69 with HTTP; Fri, 14 Jul 2017 00:09:14 -0700 (PDT)
+Received: by 10.28.153.69 with HTTP; Fri, 14 Jul 2017 00:09:14 -0700 (PDT)
+In-Reply-To: <DB5PR05MB12243A3B21C02B7A4B5B639BEFAD0@DB5PR05MB1224.eurprd05.prod.outlook.com>
 References: <20170713142856.25302-1-c_mykolak@mellanox.com>
  <CAPLgG==vk4AHm5V8PG66QDx-M1GUvahRhsYu=YtOHwXEXm_=Lw@mail.gmail.com>
-In-Reply-To: <CAPLgG==vk4AHm5V8PG66QDx-M1GUvahRhsYu=YtOHwXEXm_=Lw@mail.gmail.com>
-Accept-Language: ru-RU, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: google.com; dkim=none (message not signed)
- header.d=none;google.com; dmarc=none action=none header.from=mellanox.com;
-x-originating-ip: [80.90.224.13]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; DB5PR05MB1253;
- 7:SgE2Sdt1GEm8O5e9pU28mFHNaz4IHfte7qXQZnRNaj+oDRoZS6fl7Fqk232u+A5SRxK33sKoyYLvW4Br/vonxgCfh+fSP/JpeilxWa2a4SZvJ59qILvG+/1dvDB4NCiii7I6RdJ7a2s08g1g2PvFOqQcy7EZSFr4mvyHYB2fj+MwDIQonzUxYNM4Elz2jFLIKplMDYPdeQdnbN+Rfm+N4r3E3MVtQ5MmGTUEwYC+xvi6YNXGp9VtD1Utc7yBlEtwfMELeBfRzhyXGX4Y2PGUrTWsMKtMX9UA8oIr6OMVzlcA1cKwmjgQSRZG+r9k+I2Jlj6BnEKuJqZ+20+1NUdzI+5N70M45gp5/klee+2LN1JMZ5EmJXKXSqZtmFmCVktiBA/EbzpQNB5p0IVGFuAYmLUjGzXca3Gj6Tnoe/RRoOzld/0W54/WXuOCJ1uBZZtwFdmwPaXCMYv1PrdE4u2WR7uIstRVNoNtzvr5hS7PydYWnzKA6RrmL3MfS8ON3KE97ql55MlUWs6RAsrULcg14XE9gCNXywTV87gstmUnD5BMIn9dN6FMn/Od94vy3zBowpdlSfAmDBNnue+cEwL6SdDWy2nht1zcRT0lPv1j9P+WayeNARr+ypcOGGw9VGL+G7brU3D5g+fyfa/Rb6a8T6lLaLJutUi5QE624isR3To75UbCh54a7acd7l9pVZgb1Dgmd2PWQtWh2POHZEPaTX/YCOR4GKlZE5CTm2EMrh2mCqSi9WvP+2b+poTVHmUYWBcMHd7MqfFc1SPwbj/AWbvQugB7a0muOAtpPat3X4Y=
-x-ms-office365-filtering-correlation-id: 459c1945-272b-4ecf-d24b-08d4ca8287a5
-x-ms-office365-filtering-ht: Tenant
-x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
- RULEID:(300000500095)(300135000095)(300000501095)(300135300095)(22001)(300000502095)(300135100095)(2017030254075)(48565401081)(300000503095)(300135400095)(2017052603031)(201703131423075)(201703031133081)(300000504095)(300135200095)(300000505095)(300135600095)(300000506095)(300135500095);
- SRVR:DB5PR05MB1253; 
-x-ms-traffictypediagnostic: DB5PR05MB1253:
-x-exchange-antispam-report-test: UriScan:(151999592597050)(26388249023172)(236129657087228)(65623756079841)(211936372134217)(148574349560750)(21748063052155);
-x-microsoft-antispam-prvs: <DB5PR05MB1253149B9A2F759C1B8D4E20EFAD0@DB5PR05MB1253.eurprd05.prod.outlook.com>
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(100000700101)(100105000095)(100000701101)(100105300095)(100000702101)(100105100095)(6040450)(601004)(2401047)(2017060910075)(5005006)(8121501046)(3002001)(10201501046)(93006095)(93001095)(100000703101)(100105400095)(6055026)(6041248)(20161123555025)(20161123560025)(20161123562025)(20161123564025)(201703131423075)(201702281528075)(201703061421075)(201703061406153)(20161123558100)(6072148)(100000704101)(100105200095)(100000705101)(100105500095);
- SRVR:DB5PR05MB1253; BCL:0; PCL:0;
- RULEID:(100000800101)(100110000095)(100000801101)(100110300095)(100000802101)(100110100095)(100000803101)(100110400095)(100000804101)(100110200095)(100000805101)(100110500095);
- SRVR:DB5PR05MB1253; 
-x-forefront-prvs: 0368E78B5B
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(39410400002)(39400400002)(39850400002)(39840400002)(39450400003)(377454003)(24454002)(790700001)(81166006)(102836003)(66066001)(14454004)(3846002)(5250100002)(74316002)(7696004)(478600001)(33656002)(53546010)(50986999)(76176999)(54356999)(5660300001)(2900100001)(8936002)(86362001)(6116002)(8676002)(25786009)(55016002)(6436002)(189998001)(6306002)(6506006)(229853002)(54906002)(54896002)(4326008)(9686003)(45080400002)(6916009)(53936002)(99286003)(19609705001)(3280700002)(2950100002)(3660700001)(2906002)(236005)(7736002)(6246003)(38730400002)(110136004)(107886003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DB5PR05MB1253;
- H:DB5PR05MB1224.eurprd05.prod.outlook.com; FPR:; SPF:None; MLV:sfv; LANG:en; 
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: multipart/alternative;
- boundary="_000_DB5PR05MB12243A3B21C02B7A4B5B639BEFAD0DB5PR05MB1224eurp_"
-MIME-Version: 1.0
-X-OriginatorOrg: Mellanox.com
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Jul 2017 06:35:33.4089 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB5PR05MB1253
+ <DB5PR05MB12243A3B21C02B7A4B5B639BEFAD0@DB5PR05MB1224.eurprd05.prod.outlook.com>
+From: Rick Altherr <raltherr@google.com>
+Date: Fri, 14 Jul 2017 00:09:14 -0700
+Message-ID: <CAPLgG=nh7JNUsCiGr6oToLZcmzRMceAP22W0Tm6FsTdVfXzCQA@mail.gmail.com>
+Subject: RE: [PATCH linux dev-4.10] iio: aspeed-adc: wait for initial sequence.
+To: Mykola Kostenok <c_mykolak@mellanox.com>
+Cc: Vadim Pasternak <vadimp@mellanox.com>, Ohad Oz <ohado@mellanox.com>, 
+ Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="001a114b103223c41d055441ba5a"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -83,336 +60,471 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 14 Jul 2017 06:35:44 -0000
+X-List-Received-Date: Fri, 14 Jul 2017 07:09:21 -0000
 
---_000_DB5PR05MB12243A3B21C02B7A4B5B639BEFAD0DB5PR05MB1224eurp_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+--001a114b103223c41d055441ba5a
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-SGksIFJpY2suDQpUaGFua3MgZm9yIHJlcGx5Lg0KDQpXZSBkZWZpbml0ZWx5IGhhdmUgYW4gaXNz
-dWUgd2l0aCBhZGMsIHdpdGhvdXQgdGhpcyBpbml0aWFsaXphdGlvbi4NCg0KVGhpcyB3aXRob3V0
-IG91ciBjaGFuZ2VzOg0Kcm9vdEBtc246fiMgY2F0IC9zeXMvYnVzL2lpby9kZXZpY2VzL2lpb1w6
-ZGV2aWNlMC9pKg0KNjUzDQowDQowDQowDQowDQowDQowDQowDQowDQowDQowDQowDQowDQowDQow
-DQowDQpBbmQgd2l0aDoNCnJvb3RAbXNuOn4jIGNhdCAvc3lzL2J1cy9paW8vZGV2aWNlcy9paW9c
-OmRldmljZTAvaSoNCjc1NQ0KNzc2DQo3MTUNCjY4MQ0KNjU3DQowDQowDQowDQo3NzENCjc3MA0K
-NzU5DQowDQowDQowDQowDQowDQoNCldlIHVzaW5nIEFTVDI1MjAsIGJ1dCBpdCBzaG91bGQgbm90
-IG1ha2UgYW55IGRpZmZlcmVuY2UuDQpBY2NvcmRpbmcgdG8gb3VyIG91dHB1dCwgdGhpcyBpbml0
-aWFsaXphdGlvbiBpcyBuZWNlc3NhcnkuIFBvc3NpYmx5IGl0IGNvdWxkIHdvcmsgd2l0aG91dCBp
-dCwgYnV0IGluIG91ciBjYXNlIGl0IGRvZXNu4oCZdC4NCg0KV2lsbCBpdCBiZSBPSyB0byBkbyB0
-aGlzIGluaXRpYWxpemF0aW9uIG9ubHkgZm9yIGFzdDI1MDA6DQppZiAoc3RyY21wKG1vZGVsX2Rh
-dGEtPm1vZGVsX25hbWUgLCBhc3QyNTAwX21vZGVsX2RhdGEubW9kZWxfbmFtZSkgPT0gMCkNCj8N
-Cg0KDQpCZXN0IHJlZ2FyZHMuIE15a29sYSBLb3N0ZW5vay4NCg0KRnJvbTogUmljayBBbHRoZXJy
-IFttYWlsdG86cmFsdGhlcnJAZ29vZ2xlLmNvbV0NClNlbnQ6IFRodXJzZGF5LCBKdWx5IDEzLCAy
-MDE3IDk6MzMgUE0NClRvOiBNeWtvbGEgS29zdGVub2sgPGNfbXlrb2xha0BtZWxsYW5veC5jb20+
-DQpDYzogSm9lbCBTdGFubGV5IDxqb2VsQGptcy5pZC5hdT47IE9wZW5CTUMgTWFpbGxpc3QgPG9w
-ZW5ibWNAbGlzdHMub3psYWJzLm9yZz47IFZhZGltIFBhc3Rlcm5hayA8dmFkaW1wQG1lbGxhbm94
-LmNvbT47IE9oYWQgT3ogPG9oYWRvQG1lbGxhbm94LmNvbT4NClN1YmplY3Q6IFJlOiBbUEFUQ0gg
-bGludXggZGV2LTQuMTBdIGlpbzogYXNwZWVkLWFkYzogd2FpdCBmb3IgaW5pdGlhbCBzZXF1ZW5j
-ZS4NCg0KSHVoLiAgV2UndmUgYmVlbiBnZXR0aW5nIHZhbGlkIHJlYWRpbmdzIHdpdGhvdXQgdGhp
-cyBvbiBvdXIgQVNUMjUwMCBzeXN0ZW1zLiAgUmVnYXJkbGVzcywgaXQgaXMgY29ycmVjdCBmb3Ig
-QVNUMjUwMC4gIE9uIEFTVDI0MDAgdGhvdWdoLCB0aGVyZSBpcyBubyBJTklUX1JEWSBiaXQuDQoN
-Ck9uIFRodSwgSnVsIDEzLCAyMDE3IGF0IDc6MjggQU0sIE15a29sYSBLb3N0ZW5vayA8Y19teWtv
-bGFrQG1lbGxhbm94LmNvbTxtYWlsdG86Y19teWtvbGFrQG1lbGxhbm94LmNvbT4+IHdyb3RlOg0K
-VGhpcyBwYXRjaCBlbmFibGVzIGFkYyBlbmdpbmUgYXQgaW5pdGlhbGl6YXRpb24gdGltZSBhbmQg
-d2FpdHMNCmZvciB0aGUgaW5pdGlhbCBzZXF1ZW5jZSBjb21wbGV0aW9uIGJlZm9yZSBlbmFibGlu
-ZyBhZGMgY2hhbm5lbHMuDQoNCldpdGhvdXQgdGhpcyBjb2RlIGFkYyBjaGFubmVscyBhcmUgbm90
-IGZ1bmN0aW9uYWwgYW5kIHNob3dzDQp6ZXJvcyBmb3IgYWxsIGNvbm5lY3RlZCBjaGFubmVscy4N
-Cg0KVGVzdGVkIG9uIG1lbGxhbm94IG1zbiBwbGF0Zm9ybS4NCg0KU2lnbmVkLW9mZi1ieTogTXlr
-b2xhIEtvc3Rlbm9rIDxjX215a29sYWtAbWVsbGFub3guY29tPG1haWx0bzpjX215a29sYWtAbWVs
-bGFub3guY29tPj4NCi0tLQ0KIGRyaXZlcnMvaWlvL2FkYy9hc3BlZWRfYWRjLmMgfCAyMCArKysr
-KysrKysrKysrKysrKysrKw0KIDEgZmlsZSBjaGFuZ2VkLCAyMCBpbnNlcnRpb25zKCspDQoNCmRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2lpby9hZGMvYXNwZWVkX2FkYy5jIGIvZHJpdmVycy9paW8vYWRj
-L2FzcGVlZF9hZGMuYw0KaW5kZXggMjI4M2VkMi4uZTRhZDZlZiAxMDA2NDQNCi0tLSBhL2RyaXZl
-cnMvaWlvL2FkYy9hc3BlZWRfYWRjLmMNCisrKyBiL2RyaXZlcnMvaWlvL2FkYy9hc3BlZWRfYWRj
-LmMNCkBAIC0yMiw2ICsyMiw3IEBADQoNCiAjaW5jbHVkZSA8bGludXgvaWlvL2lpby5oPg0KICNp
-bmNsdWRlIDxsaW51eC9paW8vZHJpdmVyLmg+DQorI2luY2x1ZGUgPGxpbnV4L2lvcG9sbC5oPg0K
-DQogI2RlZmluZSBBU1BFRURfUkVTT0xVVElPTl9CSVRTICAgICAgICAgMTANCiAjZGVmaW5lIEFT
-UEVFRF9DTE9DS1NfUEVSX1NBTVBMRSAgICAgICAxMg0KQEAgLTM4LDYgKzM5LDExIEBADQoNCiAj
-ZGVmaW5lIEFTUEVFRF9FTkdJTkVfRU5BQkxFICAgICAgICAgICBCSVQoMCkNCg0KKyNkZWZpbmUg
-QVNQRUVEX0FEQ19DVFJMX0lOSVRfUkRZICAgICAgIEJJVCg4KQ0KKw0KKyNkZWZpbmUgQVNQRUVE
-X0FEQ19JTklUX1BPTExJTkdfVElNRSAgIDUwMA0KKyNkZWZpbmUgQVNQRUVEX0FEQ19JTklUX1RJ
-TUVPVVQgICAgICAgICAgICAgICAgNTAwMDAwDQorDQogc3RydWN0IGFzcGVlZF9hZGNfbW9kZWxf
-ZGF0YSB7DQogICAgICAgIGNvbnN0IGNoYXIgKm1vZGVsX25hbWU7DQogICAgICAgIHVuc2lnbmVk
-IGludCBtaW5fc2FtcGxpbmdfcmF0ZTsgLy8gSHoNCkBAIC0yMTAsNiArMjE2LDIwIEBAIHN0YXRp
-YyBpbnQgYXNwZWVkX2FkY19wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQ0KICAg
-ICAgICAgICAgICAgIGdvdG8gc2NhbGVyX2Vycm9yOw0KICAgICAgICB9DQoNCisgICAgICAgLyog
-RW5hYmxlIGVuZ2luZSBpbiBub3JtYWwgbW9kZS4gKi8NCisgICAgICAgd3JpdGVsKEFTUEVFRF9P
-UEVSQVRJT05fTU9ERV9OT1JNQUwgfCBBU1BFRURfRU5HSU5FX0VOQUJMRSwNCisgICAgICAgICAg
-ICAgIGRhdGEtPmJhc2UgKyBBU1BFRURfUkVHX0VOR0lORV9DT05UUk9MKTsNCisNCisgICAgICAg
-LyogV2FpdCBmb3IgaW5pdGlhbCBzZXF1ZW5jZSBjb21wbGV0ZS4gKi8NCisgICAgICAgcmV0ID0g
-cmVhZGxfcG9sbF90aW1lb3V0KGRhdGEtPmJhc2UgKyBBU1BFRURfUkVHX0VOR0lORV9DT05UUk9M
-LA0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYWRjX2VuZ2luZV9jb250cm9sX3Jl
-Z192YWwsDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhZGNfZW5naW5lX2NvbnRy
-b2xfcmVnX3ZhbCAmDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBU1BFRURfQURD
-X0NUUkxfSU5JVF9SRFksDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBU1BFRURf
-QURDX0lOSVRfUE9MTElOR19USU1FLA0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-QVNQRUVEX0FEQ19JTklUX1RJTUVPVVQpOw0KKyAgICAgICBpZiAocmV0KQ0KKyAgICAgICAgICAg
-ICAgIGdvdG8gc2NhbGVyX2Vycm9yOw0KKw0KICAgICAgICAvKiBTdGFydCBhbGwgY2hhbm5lbHMg
-aW4gbm9ybWFsIG1vZGUuICovDQogICAgICAgIGNsa19wcmVwYXJlX2VuYWJsZShkYXRhLT5jbGtf
-c2NhbGVyLT5jbGspOw0KICAgICAgICBhZGNfZW5naW5lX2NvbnRyb2xfcmVnX3ZhbCA9IEdFTk1B
-U0soMzEsIDE2KSB8DQotLQ0KMi44LjQNCg0K
+Better to extend the match data struct that is set in the OF match table.
+That is already used to specify the reference voltage as it is different
+between ast2400 and ast2500.  Either add a bool or a hook for running init
+code.
 
---_000_DB5PR05MB12243A3B21C02B7A4B5B639BEFAD0DB5PR05MB1224eurp_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+On Jul 13, 2017 11:35 PM, "Mykola Kostenok" <c_mykolak@mellanox.com> wrote:
 
-PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
-bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
-YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
-cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
-VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
-Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
-ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
-PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
-IkNhbWJyaWEgTWF0aCI7DQoJcGFub3NlLTE6MiA0IDUgMyA1IDQgNiAzIDIgNDt9DQpAZm9udC1m
-YWNlDQoJe2ZvbnQtZmFtaWx5OkNhbGlicmk7DQoJcGFub3NlLTE6MiAxNSA1IDIgMiAyIDQgMyAy
-IDQ7fQ0KLyogU3R5bGUgRGVmaW5pdGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5Nc29Ob3JtYWws
-IGRpdi5Nc29Ob3JtYWwNCgl7bWFyZ2luOjBpbjsNCgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJ
-Zm9udC1zaXplOjEyLjBwdDsNCglmb250LWZhbWlseToiVGltZXMgTmV3IFJvbWFuIixzZXJpZjt9
-DQphOmxpbmssIHNwYW4uTXNvSHlwZXJsaW5rDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCglj
-b2xvcjpibHVlOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0KYTp2aXNpdGVkLCBzcGFu
-Lk1zb0h5cGVybGlua0ZvbGxvd2VkDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCgljb2xvcjpw
-dXJwbGU7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQpwLm1zb25vcm1hbDAsIGxpLm1z
-b25vcm1hbDAsIGRpdi5tc29ub3JtYWwwDQoJe21zby1zdHlsZS1uYW1lOm1zb25vcm1hbDsNCglt
-c28tbWFyZ2luLXRvcC1hbHQ6YXV0bzsNCgltYXJnaW4tcmlnaHQ6MGluOw0KCW1zby1tYXJnaW4t
-Ym90dG9tLWFsdDphdXRvOw0KCW1hcmdpbi1sZWZ0OjBpbjsNCglmb250LXNpemU6MTIuMHB0Ow0K
-CWZvbnQtZmFtaWx5OiJUaW1lcyBOZXcgUm9tYW4iLHNlcmlmO30NCnNwYW4uaG9lbnpiDQoJe21z
-by1zdHlsZS1uYW1lOmhvZW56Yjt9DQpzcGFuLkVtYWlsU3R5bGUxOQ0KCXttc28tc3R5bGUtdHlw
-ZTpwZXJzb25hbC1yZXBseTsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjsNCglj
-b2xvcjp3aW5kb3d0ZXh0O30NCi5Nc29DaHBEZWZhdWx0DQoJe21zby1zdHlsZS10eXBlOmV4cG9y
-dC1vbmx5O30NCkBwYWdlIFdvcmRTZWN0aW9uMQ0KCXtzaXplOjguNWluIDExLjBpbjsNCgltYXJn
-aW46MS4waW4gMS4waW4gMS4waW4gMS4waW47fQ0KZGl2LldvcmRTZWN0aW9uMQ0KCXtwYWdlOldv
-cmRTZWN0aW9uMTt9DQotLT48L3N0eWxlPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1sPg0KPG86c2hh
-cGVkZWZhdWx0cyB2OmV4dD0iZWRpdCIgc3BpZG1heD0iMTAyNiIgLz4NCjwveG1sPjwhW2VuZGlm
-XS0tPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1sPg0KPG86c2hhcGVsYXlvdXQgdjpleHQ9ImVkaXQi
-Pg0KPG86aWRtYXAgdjpleHQ9ImVkaXQiIGRhdGE9IjEiIC8+DQo8L286c2hhcGVsYXlvdXQ+PC94
-bWw+PCFbZW5kaWZdLS0+DQo8L2hlYWQ+DQo8Ym9keSBsYW5nPSJFTi1VUyIgbGluaz0iYmx1ZSIg
-dmxpbms9InB1cnBsZSI+DQo8ZGl2IGNsYXNzPSJXb3JkU2VjdGlvbjEiPg0KPHAgY2xhc3M9Ik1z
-b05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7
-Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmIj5IaSwgUmljay48bzpwPjwvbzpwPjwvc3Bhbj48L3A+
-DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250
-LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWYiPlRoYW5rcyBmb3IgcmVwbHku
-PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9
-ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNl
-cmlmIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48
-c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1
-b3Q7LHNhbnMtc2VyaWYiPldlIGRlZmluaXRlbHkgaGF2ZSBhbiBpc3N1ZSB3aXRoIGFkYywgd2l0
-aG91dCB0aGlzIGluaXRpYWxpemF0aW9uLjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNz
-PSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZx
-dW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZiI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9w
-Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9u
-dC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmIj5UaGlzIHdpdGhvdXQgb3Vy
-IGNoYW5nZXM6PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5
-bGU9Im1hcmdpbi1sZWZ0Oi41aW4iPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxp
-YnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6YmxhY2siPnJvb3RAbXNuOn4jIGNhdCAvc3lzL2J1
-cy9paW8vZGV2aWNlcy9paW9cOmRldmljZTAvaSo8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBj
-bGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibWFyZ2luLWxlZnQ6LjVpbiI+PHNwYW4gc3R5bGU9ImZv
-bnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjpibGFjayI+NjUz
-PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdp
-bi1sZWZ0Oi41aW4iPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7
-LHNhbnMtc2VyaWY7Y29sb3I6YmxhY2siPjA8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFz
-cz0iTXNvTm9ybWFsIiBzdHlsZT0ibWFyZ2luLWxlZnQ6LjVpbiI+PHNwYW4gc3R5bGU9ImZvbnQt
-ZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjpibGFjayI+MDxvOnA+
-PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtYXJnaW4tbGVm
-dDouNWluIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5z
-LXNlcmlmO2NvbG9yOmJsYWNrIj4wPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1z
-b05vcm1hbCIgc3R5bGU9Im1hcmdpbi1sZWZ0Oi41aW4iPjxzcGFuIHN0eWxlPSJmb250LWZhbWls
-eTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6YmxhY2siPjA8bzpwPjwvbzpw
-Pjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibWFyZ2luLWxlZnQ6LjVp
-biI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJp
-Zjtjb2xvcjpibGFjayI+MDxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3Jt
-YWwiIHN0eWxlPSJtYXJnaW4tbGVmdDouNWluIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1
-b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9yOmJsYWNrIj4wPG86cD48L286cD48L3Nw
-YW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdpbi1sZWZ0Oi41aW4iPjxz
-cGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29s
-b3I6YmxhY2siPjA8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBz
-dHlsZT0ibWFyZ2luLWxlZnQ6LjVpbiI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0Nh
-bGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjpibGFjayI+MDxvOnA+PC9vOnA+PC9zcGFuPjwv
-cD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtYXJnaW4tbGVmdDouNWluIj48c3BhbiBz
-dHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9yOmJs
-YWNrIj4wPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9
-Im1hcmdpbi1sZWZ0Oi41aW4iPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJp
-JnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6YmxhY2siPjA8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8
-cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibWFyZ2luLWxlZnQ6LjVpbiI+PHNwYW4gc3R5bGU9
-ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjpibGFjayI+
-MDxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtYXJn
-aW4tbGVmdDouNWluIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90
-OyxzYW5zLXNlcmlmO2NvbG9yOmJsYWNrIj4wPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xh
-c3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdpbi1sZWZ0Oi41aW4iPjxzcGFuIHN0eWxlPSJmb250
-LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6YmxhY2siPjA8bzpw
-PjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibWFyZ2luLWxl
-ZnQ6LjVpbiI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fu
-cy1zZXJpZjtjb2xvcjpibGFjayI+MDxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJN
-c29Ob3JtYWwiIHN0eWxlPSJtYXJnaW4tbGVmdDouNWluIj48c3BhbiBzdHlsZT0iZm9udC1mYW1p
-bHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9yOmJsYWNrIj4wPG86cD48L286
-cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6
-ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmIj5BbmQg
-d2l0aDo8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0i
-bWFyZ2luLWxlZnQ6LjVpbiI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkm
-cXVvdDssc2Fucy1zZXJpZjtjb2xvcjpibGFjayI+cm9vdEBtc246fiMgY2F0IC9zeXMvYnVzL2lp
-by9kZXZpY2VzL2lpb1w6ZGV2aWNlMC9pKjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNz
-PSJNc29Ob3JtYWwiIHN0eWxlPSJtYXJnaW4tbGVmdDouNWluIj48c3BhbiBzdHlsZT0iZm9udC1m
-YW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9yOmJsYWNrIj43NTU8bzpw
-PjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibWFyZ2luLWxl
-ZnQ6LjVpbiI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fu
-cy1zZXJpZjtjb2xvcjpibGFjayI+Nzc2PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9
-Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdpbi1sZWZ0Oi41aW4iPjxzcGFuIHN0eWxlPSJmb250LWZh
-bWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6YmxhY2siPjcxNTxvOnA+
-PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtYXJnaW4tbGVm
-dDouNWluIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5z
-LXNlcmlmO2NvbG9yOmJsYWNrIj42ODE8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0i
-TXNvTm9ybWFsIiBzdHlsZT0ibWFyZ2luLWxlZnQ6LjVpbiI+PHNwYW4gc3R5bGU9ImZvbnQtZmFt
-aWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjpibGFjayI+NjU3PG86cD48
-L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdpbi1sZWZ0
-Oi41aW4iPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMt
-c2VyaWY7Y29sb3I6YmxhY2siPjA8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNv
-Tm9ybWFsIiBzdHlsZT0ibWFyZ2luLWxlZnQ6LjVpbiI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5
-OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjpibGFjayI+MDxvOnA+PC9vOnA+
-PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtYXJnaW4tbGVmdDouNWlu
-Ij48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlm
-O2NvbG9yOmJsYWNrIj4wPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1h
-bCIgc3R5bGU9Im1hcmdpbi1sZWZ0Oi41aW4iPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVv
-dDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6YmxhY2siPjc3MTxvOnA+PC9vOnA+PC9z
-cGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtYXJnaW4tbGVmdDouNWluIj48
-c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2Nv
-bG9yOmJsYWNrIj43NzA8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
-IiBzdHlsZT0ibWFyZ2luLWxlZnQ6LjVpbiI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90
-O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjpibGFjayI+NzU5PG86cD48L286cD48L3Nw
-YW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdpbi1sZWZ0Oi41aW4iPjxz
-cGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29s
-b3I6YmxhY2siPjA8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBz
-dHlsZT0ibWFyZ2luLWxlZnQ6LjVpbiI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0Nh
-bGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjpibGFjayI+MDxvOnA+PC9vOnA+PC9zcGFuPjwv
-cD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtYXJnaW4tbGVmdDouNWluIj48c3BhbiBz
-dHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9yOmJs
-YWNrIj4wPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9
-Im1hcmdpbi1sZWZ0Oi41aW4iPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJp
-JnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6YmxhY2siPjA8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8
-cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibWFyZ2luLWxlZnQ6LjVpbiI+PHNwYW4gc3R5bGU9
-ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjpibGFjayI+
-MDxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxl
-PSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1z
-ZXJpZiI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
-PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZx
-dW90OyxzYW5zLXNlcmlmIj5XZSB1c2luZyBBU1QyNTIwLCBidXQgaXQgc2hvdWxkIG5vdCBtYWtl
-IGFueSBkaWZmZXJlbmNlLjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3Jt
-YWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGli
-cmkmcXVvdDssc2Fucy1zZXJpZiI+QWNjb3JkaW5nIHRvIG91ciBvdXRwdXQsIHRoaXMgaW5pdGlh
-bGl6YXRpb24gaXMgbmVjZXNzYXJ5LiBQb3NzaWJseSBpdCBjb3VsZCB3b3JrIHdpdGhvdXQgaXQs
-IGJ1dCBpbiBvdXIgY2FzZSBpdCBkb2VzbuKAmXQuPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAg
-Y2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1p
-bHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bh
-bj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBw
-dDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWYiPldpbGwgaXQgYmUg
-T0sgdG8gZG8gdGhpcyBpbml0aWFsaXphdGlvbiBvbmx5IGZvciBhc3QyNTAwOjxvOnA+PC9vOnA+
-PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJ0ZXh0LWluZGVudDouNWlu
-Ij48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJp
-JnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+aWYgKHN0cmNtcChtb2RlbF9kYXRhLSZn
-dDttb2RlbF9uYW1lICwgYXN0MjUwMF9tb2RlbF9kYXRhLm1vZGVsX25hbWUpID09IDApPG86cD48
-L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQt
-c2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmIj4/
-PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9
-ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNl
-cmlmIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48
-c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1
-b3Q7LHNhbnMtc2VyaWYiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJN
-c29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90
-O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZiI+QmVzdCByZWdhcmRzLiBNeWtvbGEgS29zdGVub2su
-PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9
-ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNl
-cmlmIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8ZGl2IHN0eWxlPSJib3JkZXI6bm9u
-ZTtib3JkZXItbGVmdDpzb2xpZCBibHVlIDEuNXB0O3BhZGRpbmc6MGluIDBpbiAwaW4gNC4wcHQi
-Pg0KPGRpdj4NCjxkaXYgc3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci10b3A6c29saWQgI0UxRTFF
-MSAxLjBwdDtwYWRkaW5nOjMuMHB0IDBpbiAwaW4gMGluIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
-PjxiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGli
-cmkmcXVvdDssc2Fucy1zZXJpZiI+RnJvbTo8L3NwYW4+PC9iPjxzcGFuIHN0eWxlPSJmb250LXNp
-emU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZiI+IFJp
-Y2sgQWx0aGVyciBbbWFpbHRvOnJhbHRoZXJyQGdvb2dsZS5jb21dDQo8YnI+DQo8Yj5TZW50Ojwv
-Yj4gVGh1cnNkYXksIEp1bHkgMTMsIDIwMTcgOTozMyBQTTxicj4NCjxiPlRvOjwvYj4gTXlrb2xh
-IEtvc3Rlbm9rICZsdDtjX215a29sYWtAbWVsbGFub3guY29tJmd0Ozxicj4NCjxiPkNjOjwvYj4g
-Sm9lbCBTdGFubGV5ICZsdDtqb2VsQGptcy5pZC5hdSZndDs7IE9wZW5CTUMgTWFpbGxpc3QgJmx0
-O29wZW5ibWNAbGlzdHMub3psYWJzLm9yZyZndDs7IFZhZGltIFBhc3Rlcm5hayAmbHQ7dmFkaW1w
-QG1lbGxhbm94LmNvbSZndDs7IE9oYWQgT3ogJmx0O29oYWRvQG1lbGxhbm94LmNvbSZndDs8YnI+
-DQo8Yj5TdWJqZWN0OjwvYj4gUmU6IFtQQVRDSCBsaW51eCBkZXYtNC4xMF0gaWlvOiBhc3BlZWQt
-YWRjOiB3YWl0IGZvciBpbml0aWFsIHNlcXVlbmNlLjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwv
-ZGl2Pg0KPC9kaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4N
-CjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5IdWguJm5ic3A7IFdlJ3ZlIGJlZW4gZ2V0dGlu
-ZyB2YWxpZCByZWFkaW5ncyB3aXRob3V0IHRoaXMgb24gb3VyIEFTVDI1MDAgc3lzdGVtcy4mbmJz
-cDsgUmVnYXJkbGVzcywgaXQgaXMgY29ycmVjdCBmb3IgQVNUMjUwMC4mbmJzcDsgT24gQVNUMjQw
-MCB0aG91Z2gsIHRoZXJlIGlzIG5vIElOSVRfUkRZIGJpdC48bzpwPjwvbzpwPjwvcD4NCjwvZGl2
-Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPGRp
-dj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPk9uIFRodSwgSnVsIDEzLCAyMDE3IGF0IDc6MjggQU0s
-IE15a29sYSBLb3N0ZW5vayAmbHQ7PGEgaHJlZj0ibWFpbHRvOmNfbXlrb2xha0BtZWxsYW5veC5j
-b20iIHRhcmdldD0iX2JsYW5rIj5jX215a29sYWtAbWVsbGFub3guY29tPC9hPiZndDsgd3JvdGU6
-PG86cD48L286cD48L3A+DQo8YmxvY2txdW90ZSBzdHlsZT0iYm9yZGVyOm5vbmU7Ym9yZGVyLWxl
-ZnQ6c29saWQgI0NDQ0NDQyAxLjBwdDtwYWRkaW5nOjBpbiAwaW4gMGluIDYuMHB0O21hcmdpbi1s
-ZWZ0OjQuOHB0O21hcmdpbi1yaWdodDowaW4iPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9
-Im1hcmdpbi1ib3R0b206MTIuMHB0Ij5UaGlzIHBhdGNoIGVuYWJsZXMgYWRjIGVuZ2luZSBhdCBp
-bml0aWFsaXphdGlvbiB0aW1lIGFuZCB3YWl0czxicj4NCmZvciB0aGUgaW5pdGlhbCBzZXF1ZW5j
-ZSBjb21wbGV0aW9uIGJlZm9yZSBlbmFibGluZyBhZGMgY2hhbm5lbHMuPGJyPg0KPGJyPg0KV2l0
-aG91dCB0aGlzIGNvZGUgYWRjIGNoYW5uZWxzIGFyZSBub3QgZnVuY3Rpb25hbCBhbmQgc2hvd3M8
-YnI+DQp6ZXJvcyBmb3IgYWxsIGNvbm5lY3RlZCBjaGFubmVscy48YnI+DQo8YnI+DQpUZXN0ZWQg
-b24gbWVsbGFub3ggbXNuIHBsYXRmb3JtLjxicj4NCjxicj4NClNpZ25lZC1vZmYtYnk6IE15a29s
-YSBLb3N0ZW5vayAmbHQ7PGEgaHJlZj0ibWFpbHRvOmNfbXlrb2xha0BtZWxsYW5veC5jb20iPmNf
-bXlrb2xha0BtZWxsYW5veC5jb208L2E+Jmd0Ozxicj4NCi0tLTxicj4NCiZuYnNwO2RyaXZlcnMv
-aWlvL2FkYy9hc3BlZWRfYWRjLmMgfCAyMCAmIzQzOyYjNDM7JiM0MzsmIzQzOyYjNDM7JiM0Mzsm
-IzQzOyYjNDM7JiM0MzsmIzQzOyYjNDM7JiM0MzsmIzQzOyYjNDM7JiM0MzsmIzQzOyYjNDM7JiM0
-MzsmIzQzOyYjNDM7PGJyPg0KJm5ic3A7MSBmaWxlIGNoYW5nZWQsIDIwIGluc2VydGlvbnMoJiM0
-MzspPGJyPg0KPGJyPg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvaWlvL2FkYy9hc3BlZWRfYWRjLmMg
-Yi9kcml2ZXJzL2lpby9hZGMvYXNwZWVkX2FkYy5jPGJyPg0KaW5kZXggMjI4M2VkMi4uZTRhZDZl
-ZiAxMDA2NDQ8YnI+DQotLS0gYS9kcml2ZXJzL2lpby9hZGMvYXNwZWVkX2FkYy5jPGJyPg0KJiM0
-MzsmIzQzOyYjNDM7IGIvZHJpdmVycy9paW8vYWRjL2FzcGVlZF9hZGMuYzxicj4NCkBAIC0yMiw2
-ICYjNDM7MjIsNyBAQDxicj4NCjxicj4NCiZuYnNwOyNpbmNsdWRlICZsdDtsaW51eC9paW8vaWlv
-LmgmZ3Q7PGJyPg0KJm5ic3A7I2luY2x1ZGUgJmx0O2xpbnV4L2lpby9kcml2ZXIuaCZndDs8YnI+
-DQomIzQzOyNpbmNsdWRlICZsdDtsaW51eC9pb3BvbGwuaCZndDs8YnI+DQo8YnI+DQombmJzcDsj
-ZGVmaW5lIEFTUEVFRF9SRVNPTFVUSU9OX0JJVFMmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
-Jm5ic3A7MTA8YnI+DQombmJzcDsjZGVmaW5lIEFTUEVFRF9DTE9DS1NfUEVSX1NBTVBMRSZuYnNw
-OyAmbmJzcDsgJm5ic3A7ICZuYnNwOzEyPGJyPg0KQEAgLTM4LDYgJiM0MzszOSwxMSBAQDxicj4N
-Cjxicj4NCiZuYnNwOyNkZWZpbmUgQVNQRUVEX0VOR0lORV9FTkFCTEUmbmJzcDsgJm5ic3A7ICZu
-YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwO0JJVCgwKTxicj4NCjxicj4NCiYjNDM7I2RlZmluZSBB
-U1BFRURfQURDX0NUUkxfSU5JVF9SRFkmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtCSVQoOCk8
-YnI+DQomIzQzOzxicj4NCiYjNDM7I2RlZmluZSBBU1BFRURfQURDX0lOSVRfUE9MTElOR19USU1F
-Jm5ic3A7ICZuYnNwOzUwMDxicj4NCiYjNDM7I2RlZmluZSBBU1BFRURfQURDX0lOSVRfVElNRU9V
-VCZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
-NTAwMDAwPGJyPg0KJiM0Mzs8YnI+DQombmJzcDtzdHJ1Y3QgYXNwZWVkX2FkY19tb2RlbF9kYXRh
-IHs8YnI+DQombmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgY29uc3QgY2hhciAqbW9kZWxfbmFt
-ZTs8YnI+DQombmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgdW5zaWduZWQgaW50IG1pbl9zYW1w
-bGluZ19yYXRlOyAvLyBIejxicj4NCkBAIC0yMTAsNiAmIzQzOzIxNiwyMCBAQCBzdGF0aWMgaW50
-IGFzcGVlZF9hZGNfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldik8YnI+DQombmJz
-cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IGdvdG8g
-c2NhbGVyX2Vycm9yOzxicj4NCiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyB9PGJyPg0KPGJy
-Pg0KJiM0MzsmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsvKiBFbmFibGUgZW5naW5lIGluIG5v
-cm1hbCBtb2RlLiAqLzxicj4NCiYjNDM7Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7d3JpdGVs
-KEFTUEVFRF9PUEVSQVRJT05fTU9ERV9OT1JNQUwgfCBBU1BFRURfRU5HSU5FX0VOQUJMRSw8YnI+
-DQomIzQzOyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyBk
-YXRhLSZndDtiYXNlICYjNDM7IEFTUEVFRF9SRUdfRU5HSU5FX0NPTlRST0wpOzxicj4NCiYjNDM7
-PGJyPg0KJiM0MzsmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsvKiBXYWl0IGZvciBpbml0aWFs
-IHNlcXVlbmNlIGNvbXBsZXRlLiAqLzxicj4NCiYjNDM7Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
-c3A7cmV0ID0gcmVhZGxfcG9sbF90aW1lb3V0KGRhdGEtJmd0O2Jhc2UgJiM0MzsgQVNQRUVEX1JF
-R19FTkdJTkVfQ09OVFJPTCw8YnI+DQomIzQzOyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
-bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
-YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyBhZGNfZW5naW5lX2NvbnRyb2xfcmVnX3ZhbCw8YnI+
-DQomIzQzOyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
-bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
-YnNwOyBhZGNfZW5naW5lX2NvbnRyb2xfcmVnX3ZhbCAmYW1wOzxicj4NCiYjNDM7Jm5ic3A7ICZu
-YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
-c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IEFTUEVFRF9BRENf
-Q1RSTF9JTklUX1JEWSw8YnI+DQomIzQzOyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
-cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
-OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyBBU1BFRURfQURDX0lOSVRfUE9MTElOR19USU1FLDxicj4N
-CiYjNDM7Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
-YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
-c3A7IEFTUEVFRF9BRENfSU5JVF9USU1FT1VUKTs8YnI+DQomIzQzOyZuYnNwOyAmbmJzcDsgJm5i
-c3A7ICZuYnNwO2lmIChyZXQpPGJyPg0KJiM0MzsmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
-Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7Z290byBzY2FsZXJfZXJyb3I7PGJyPg0KJiM0Mzs8
-YnI+DQombmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgLyogU3RhcnQgYWxsIGNoYW5uZWxzIGlu
-IG5vcm1hbCBtb2RlLiAqLzxicj4NCiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyBjbGtfcHJl
-cGFyZV9lbmFibGUoZGF0YS0mZ3Q7Y2xrX3NjYWxlci0mZ3Q7Y2xrKTs8YnI+DQombmJzcDsgJm5i
-c3A7ICZuYnNwOyAmbmJzcDsgYWRjX2VuZ2luZV9jb250cm9sX3JlZ192YWwgPSBHRU5NQVNLKDMx
-LCAxNikgfDxicj4NCjxzcGFuIGNsYXNzPSJob2VuemIiPjxzcGFuIHN0eWxlPSJjb2xvcjojODg4
-ODg4Ij4tLTwvc3Bhbj48L3NwYW4+PHNwYW4gc3R5bGU9ImNvbG9yOiM4ODg4ODgiPjxicj4NCjxz
-cGFuIGNsYXNzPSJob2VuemIiPjIuOC40PC9zcGFuPjwvc3Bhbj48bzpwPjwvbzpwPjwvcD4NCjwv
-YmxvY2txdW90ZT4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286
-cD48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2JvZHk+DQo8L2h0bWw+DQo=
+> Hi, Rick.
+>
+> Thanks for reply.
+>
+>
+>
+> We definitely have an issue with adc, without this initialization.
+>
+>
+>
+> This without our changes:
+>
+> root@msn:~# cat /sys/bus/iio/devices/iio\:device0/i*
+>
+> 653
+>
+> 0
+>
+> 0
+>
+> 0
+>
+> 0
+>
+> 0
+>
+> 0
+>
+> 0
+>
+> 0
+>
+> 0
+>
+> 0
+>
+> 0
+>
+> 0
+>
+> 0
+>
+> 0
+>
+> 0
+>
+> And with:
+>
+> root@msn:~# cat /sys/bus/iio/devices/iio\:device0/i*
+>
+> 755
+>
+> 776
+>
+> 715
+>
+> 681
+>
+> 657
+>
+> 0
+>
+> 0
+>
+> 0
+>
+> 771
+>
+> 770
+>
+> 759
+>
+> 0
+>
+> 0
+>
+> 0
+>
+> 0
+>
+> 0
+>
+>
+>
+> We using AST2520, but it should not make any difference.
+>
+> According to our output, this initialization is necessary. Possibly it
+> could work without it, but in our case it doesn=E2=80=99t.
+>
+>
+>
+> Will it be OK to do this initialization only for ast2500:
+>
+> if (strcmp(model_data->model_name , ast2500_model_data.model_name) =3D=3D=
+ 0)
+>
+> ?
+>
+>
+>
+>
+>
+> Best regards. Mykola Kostenok.
+>
+>
+>
+> *From:* Rick Altherr [mailto:raltherr@google.com]
+> *Sent:* Thursday, July 13, 2017 9:33 PM
+> *To:* Mykola Kostenok <c_mykolak@mellanox.com>
+> *Cc:* Joel Stanley <joel@jms.id.au>; OpenBMC Maillist <
+> openbmc@lists.ozlabs.org>; Vadim Pasternak <vadimp@mellanox.com>; Ohad Oz
+> <ohado@mellanox.com>
+> *Subject:* Re: [PATCH linux dev-4.10] iio: aspeed-adc: wait for initial
+> sequence.
+>
+>
+>
+> Huh.  We've been getting valid readings without this on our AST2500
+> systems.  Regardless, it is correct for AST2500.  On AST2400 though, ther=
+e
+> is no INIT_RDY bit.
+>
+>
+>
+> On Thu, Jul 13, 2017 at 7:28 AM, Mykola Kostenok <c_mykolak@mellanox.com>
+> wrote:
+>
+> This patch enables adc engine at initialization time and waits
+> for the initial sequence completion before enabling adc channels.
+>
+> Without this code adc channels are not functional and shows
+> zeros for all connected channels.
+>
+> Tested on mellanox msn platform.
+>
+> Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
+> ---
+>  drivers/iio/adc/aspeed_adc.c | 20 ++++++++++++++++++++
+>  1 file changed, 20 insertions(+)
+>
+> diff --git a/drivers/iio/adc/aspeed_adc.c b/drivers/iio/adc/aspeed_adc.c
+> index 2283ed2..e4ad6ef 100644
+> --- a/drivers/iio/adc/aspeed_adc.c
+> +++ b/drivers/iio/adc/aspeed_adc.c
+> @@ -22,6 +22,7 @@
+>
+>  #include <linux/iio/iio.h>
+>  #include <linux/iio/driver.h>
+> +#include <linux/iopoll.h>
+>
+>  #define ASPEED_RESOLUTION_BITS         10
+>  #define ASPEED_CLOCKS_PER_SAMPLE       12
+> @@ -38,6 +39,11 @@
+>
+>  #define ASPEED_ENGINE_ENABLE           BIT(0)
+>
+> +#define ASPEED_ADC_CTRL_INIT_RDY       BIT(8)
+> +
+> +#define ASPEED_ADC_INIT_POLLING_TIME   500
+> +#define ASPEED_ADC_INIT_TIMEOUT                500000
+> +
+>  struct aspeed_adc_model_data {
+>         const char *model_name;
+>         unsigned int min_sampling_rate; // Hz
+> @@ -210,6 +216,20 @@ static int aspeed_adc_probe(struct platform_device
+> *pdev)
+>                 goto scaler_error;
+>         }
+>
+> +       /* Enable engine in normal mode. */
+> +       writel(ASPEED_OPERATION_MODE_NORMAL | ASPEED_ENGINE_ENABLE,
+> +              data->base + ASPEED_REG_ENGINE_CONTROL);
+> +
+> +       /* Wait for initial sequence complete. */
+> +       ret =3D readl_poll_timeout(data->base + ASPEED_REG_ENGINE_CONTROL=
+,
+> +                                adc_engine_control_reg_val,
+> +                                adc_engine_control_reg_val &
+> +                                ASPEED_ADC_CTRL_INIT_RDY,
+> +                                ASPEED_ADC_INIT_POLLING_TIME,
+> +                                ASPEED_ADC_INIT_TIMEOUT);
+> +       if (ret)
+> +               goto scaler_error;
+> +
+>         /* Start all channels in normal mode. */
+>         clk_prepare_enable(data->clk_scaler->clk);
+>         adc_engine_control_reg_val =3D GENMASK(31, 16) |
+> --
+> 2.8.4
+>
+>
+>
 
---_000_DB5PR05MB12243A3B21C02B7A4B5B639BEFAD0DB5PR05MB1224eurp_--
+--001a114b103223c41d055441ba5a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">Better to extend the match data struct that is set in the=
+ OF match table. That is already used to specify the reference voltage as i=
+t is different between ast2400 and ast2500.=C2=A0 Either add a bool or a ho=
+ok for running init code.</div><div class=3D"gmail_extra"><br><div class=3D=
+"gmail_quote">On Jul 13, 2017 11:35 PM, &quot;Mykola Kostenok&quot; &lt;<a =
+href=3D"mailto:c_mykolak@mellanox.com">c_mykolak@mellanox.com</a>&gt; wrote=
+:<br type=3D"attribution"><blockquote class=3D"gmail_quote" style=3D"margin=
+:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+
+
+
+
+
+<div lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"m_-6752518815872725745WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif">Hi, Rick.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif">Thanks for reply.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif"><u></u>=C2=A0<u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif">We definitely have an issue with adc, without this =
+initialization.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif"><u></u>=C2=A0<u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif">This without our changes:<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">root@msn:~# cat /sys/bus/iio/=
+devices/iio\:<wbr>device0/i*<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">653<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">0<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">0<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">0<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">0<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">0<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">0<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">0<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">0<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">0<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">0<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">0<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">0<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">0<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">0<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">0<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif">And with:<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">root@msn:~# cat /sys/bus/iio/=
+devices/iio\:<wbr>device0/i*<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">755<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">776<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">715<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">681<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">657<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">0<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">0<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">0<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">771<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">770<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">759<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">0<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">0<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">0<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">0<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:black">0<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif"><u></u>=C2=A0<u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif">We using AST2520, but it should not make any differ=
+ence.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif">According to our output, this initialization is nec=
+essary. Possibly it could work without it, but in our case it doesn=E2=80=
+=99t.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif"><u></u>=C2=A0<u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif">Will it be OK to do this initialization only for as=
+t2500:<u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"text-indent:.5in"><span style=3D"font-size:=
+11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1f497d">if (strcmp=
+(model_data-&gt;model_name , ast2500_model_data.model_name) =3D=3D 0)<u></u=
+><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif">?<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif"><u></u>=C2=A0<u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif"><u></u>=C2=A0<u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif">Best regards. Mykola Kostenok.<u></u><u></u></span>=
+</p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif"><u></u>=C2=A0<u></u></span></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #e1e1e1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
+;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0pt;=
+font-family:&quot;Calibri&quot;,sans-serif"> Rick Altherr [mailto:<a href=
+=3D"mailto:raltherr@google.com" target=3D"_blank">raltherr@google.com</a>]
+<br>
+<b>Sent:</b> Thursday, July 13, 2017 9:33 PM<br>
+<b>To:</b> Mykola Kostenok &lt;<a href=3D"mailto:c_mykolak@mellanox.com" ta=
+rget=3D"_blank">c_mykolak@mellanox.com</a>&gt;<br>
+<b>Cc:</b> Joel Stanley &lt;<a href=3D"mailto:joel@jms.id.au" target=3D"_bl=
+ank">joel@jms.id.au</a>&gt;; OpenBMC Maillist &lt;<a href=3D"mailto:openbmc=
+@lists.ozlabs.org" target=3D"_blank">openbmc@lists.ozlabs.org</a>&gt;; Vadi=
+m Pasternak &lt;<a href=3D"mailto:vadimp@mellanox.com" target=3D"_blank">va=
+dimp@mellanox.com</a>&gt;; Ohad Oz &lt;<a href=3D"mailto:ohado@mellanox.com=
+" target=3D"_blank">ohado@mellanox.com</a>&gt;<br>
+<b>Subject:</b> Re: [PATCH linux dev-4.10] iio: aspeed-adc: wait for initia=
+l sequence.<u></u><u></u></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<div>
+<p class=3D"MsoNormal">Huh.=C2=A0 We&#39;ve been getting valid readings wit=
+hout this on our AST2500 systems.=C2=A0 Regardless, it is correct for AST25=
+00.=C2=A0 On AST2400 though, there is no INIT_RDY bit.<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<div>
+<p class=3D"MsoNormal">On Thu, Jul 13, 2017 at 7:28 AM, Mykola Kostenok &lt=
+;<a href=3D"mailto:c_mykolak@mellanox.com" target=3D"_blank">c_mykolak@mell=
+anox.com</a>&gt; wrote:<u></u><u></u></p>
+<blockquote style=3D"border:none;border-left:solid #cccccc 1.0pt;padding:0i=
+n 0in 0in 6.0pt;margin-left:4.8pt;margin-right:0in">
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">This patch enables ad=
+c engine at initialization time and waits<br>
+for the initial sequence completion before enabling adc channels.<br>
+<br>
+Without this code adc channels are not functional and shows<br>
+zeros for all connected channels.<br>
+<br>
+Tested on mellanox msn platform.<br>
+<br>
+Signed-off-by: Mykola Kostenok &lt;<a href=3D"mailto:c_mykolak@mellanox.com=
+" target=3D"_blank">c_mykolak@mellanox.com</a>&gt;<br>
+---<br>
+=C2=A0drivers/iio/adc/aspeed_adc.c | 20 ++++++++++++++++++++<br>
+=C2=A01 file changed, 20 insertions(+)<br>
+<br>
+diff --git a/drivers/iio/adc/aspeed_adc.c b/drivers/iio/adc/aspeed_adc.c<br=
+>
+index 2283ed2..e4ad6ef 100644<br>
+--- a/drivers/iio/adc/aspeed_adc.c<br>
++++ b/drivers/iio/adc/aspeed_adc.c<br>
+@@ -22,6 +22,7 @@<br>
+<br>
+=C2=A0#include &lt;linux/iio/iio.h&gt;<br>
+=C2=A0#include &lt;linux/iio/driver.h&gt;<br>
++#include &lt;linux/iopoll.h&gt;<br>
+<br>
+=C2=A0#define ASPEED_RESOLUTION_BITS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A010<br=
+>
+=C2=A0#define ASPEED_CLOCKS_PER_SAMPLE=C2=A0 =C2=A0 =C2=A0 =C2=A012<br>
+@@ -38,6 +39,11 @@<br>
+<br>
+=C2=A0#define ASPEED_ENGINE_ENABLE=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+BIT(0)<br>
+<br>
++#define ASPEED_ADC_CTRL_INIT_RDY=C2=A0 =C2=A0 =C2=A0 =C2=A0BIT(8)<br>
++<br>
++#define ASPEED_ADC_INIT_POLLING_TIME=C2=A0 =C2=A0500<br>
++#define ASPEED_ADC_INIT_TIMEOUT=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 500000<br>
++<br>
+=C2=A0struct aspeed_adc_model_data {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 const char *model_name;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 unsigned int min_sampling_rate; // Hz<br>
+@@ -210,6 +216,20 @@ static int aspeed_adc_probe(struct platform_device *pd=
+ev)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto scaler_error;<=
+br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Enable engine in normal mode. */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0writel(ASPEED_OPERATION_MODE_<wbr>NORMAL | ASPE=
+ED_ENGINE_ENABLE,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 data-&gt;base + ASPEED_RE=
+G_ENGINE_CONTROL);<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Wait for initial sequence complete. */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D readl_poll_timeout(data-&gt;base + ASPE=
+ED_REG_ENGINE_CONTROL,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adc_engine_control_reg_val,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adc_engine_control_reg_val &amp;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ASPEED_ADC_CTRL_INIT_RDY,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ASPEED_ADC_INIT_POLLING_TIME,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ASPEED_ADC_INIT_TIMEOUT);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (ret)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto scaler_error;<=
+br>
++<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Start all channels in normal mode. */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 clk_prepare_enable(data-&gt;clk_<wbr>scaler-&gt=
+;clk);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 adc_engine_control_reg_val =3D GENMASK(31, 16) =
+|<br>
+<span class=3D"m_-6752518815872725745hoenzb"><span style=3D"color:#888888">=
+--</span></span><span style=3D"color:#888888"><br>
+<span class=3D"m_-6752518815872725745hoenzb">2.8.4</span></span><u></u><u><=
+/u></p>
+</blockquote>
+</div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+</div>
+</div>
+</div>
+
+</blockquote></div></div>
+
+--001a114b103223c41d055441ba5a--
