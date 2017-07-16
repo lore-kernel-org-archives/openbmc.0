@@ -1,47 +1,50 @@
-Return-Path: <sacnaik@gmail.com>
-Received: from mail-ua0-x22b.google.com (mail-ua0-x22b.google.com
- [IPv6:2607:f8b0:400c:c08::22b])
+Return-Path: <geissonator@gmail.com>
+Received: from mail-io0-x229.google.com (mail-io0-x229.google.com
+ [IPv6:2607:f8b0:4001:c06::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3x97qP64ppzDqm0
- for <openbmc@lists.ozlabs.org>; Sun, 16 Jul 2017 11:18:57 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3x9dvC5gX1zDrCb
+ for <openbmc@lists.ozlabs.org>; Mon, 17 Jul 2017 06:53:59 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="MIeO3lce"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="cHe3GGQp"; 
  dkim-atps=neutral
-Received: by mail-ua0-x22b.google.com with SMTP id 35so22128030uax.3
- for <openbmc@lists.ozlabs.org>; Sat, 15 Jul 2017 18:18:57 -0700 (PDT)
+Received: by mail-io0-x229.google.com with SMTP id h134so34680742iof.2
+ for <openbmc@lists.ozlabs.org>; Sun, 16 Jul 2017 13:53:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=W2bMuEiy67uAy/on7/bqrfQW8pVX0xvrarnDFbJLbmU=;
- b=MIeO3lcerVAWDcBCDCpHOwGdrpVEQJxs7jDbU6O7xqiMhuHsws6QdPcOUWWF78Ei1S
- vJ8bUSkuyXNHnPlKrYnpPMOMb/G5JilambsFchhLUFelqI01n7kEJOvoiprLrKrMerOt
- 9mf80ANpMECqwzsnZYWDmGGENSSncuExbqbYRNWsR3uMOLOgo9iUnGHIoSc6uVI3PYV7
- 88d1/5NOhT1V672VqKb5jhPSujFNxM/dPmKv1INeQTip8/LpoFQnXY1Lqpb2QlyCG/k0
- IXzW6cI2Jg3IJWq50xMe5R4mSegD0MwmBAQRCYsuWBKALvKQ3m1bEF4oUtCpOkigP2eN
- LFpw==
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=nvYAjEofNmraBX/bBCutbza6H3/TprEYGbwK90Payoo=;
+ b=cHe3GGQpAxDo7/UO2+zzuLQ3cqbLCIxOypxpniJHj1I3WibPjaMXZ8jgjLU3j5FDAs
+ gCkQBxRj6SZfGP4wt7KOhLpf0au2zhUXOKCoCgBb+kti/aKaOgg70SNYsuoDeybYSgWt
+ 0LjluZdb4de57exQAH9lvuJryAJg/0jn/urJ8N2DbXnD66WZQv5ad5L9y5IUsFeKmPq4
+ 0AybdXo45ntXRMfKd6oyeZo8zaUs/cgT/tgeiRG0XdrDLcUyz48sho55RwkqkDR5K14T
+ Wb/cYyF1bN4zuJ5Q5+oumP8iCt9vSzUgrOHz7HZK1hMFYIAmLSif+3DIIduYgi/v6oAB
+ tCRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=W2bMuEiy67uAy/on7/bqrfQW8pVX0xvrarnDFbJLbmU=;
- b=FUj8K1hk6Xte+Hc4jO4xwRUTJ8s2GDaLGern/PHMRQb7Dt2wtHuo3in298SAqy3KJZ
- 7QeaA/b3iXpUS6hAL4Jj0MJejK3LiUwLGeRyBz75CmxBLSXhHJIw7bY1HTGaUrw5A8SY
- vfTN5ywoF18DKDFEXhmLga2mJ6XWSIOM4ovGmlV0gOHBcbr7qhiInXmWof1aqGovUu0A
- w3xfsMpwErrXevq000YJmg8uNqRFETOr0DTE2htA6UxIYHFXW/lUjMpi4rBx/Mj7sXg/
- DBMUx+ajKl0S/w5iLvk2Me1RfrtaMti8ww3mGY4zzMjJ6WxfrVRNJKZprq+LMr5Hj4i9
- Qu3A==
-X-Gm-Message-State: AIVw110Ku7HATxcbO5gq1AW0Vg9ixAuIpkFAfso0amx92Bj/p3fze5Q0
- Xcb8GvkO4efUWVZXV8uQbPXFtvX7iHkN
-X-Received: by 10.176.91.19 with SMTP id u19mr7899209uae.152.1500167934477;
- Sat, 15 Jul 2017 18:18:54 -0700 (PDT)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=nvYAjEofNmraBX/bBCutbza6H3/TprEYGbwK90Payoo=;
+ b=DBa+8a953iw+phC8TzQxU7tn/NudnD0ixLSWOkPek3MwFgLiJU1KCGHMGi+eeTuIfX
+ uNMO4dk5LirZmltEEmgMkoUS6dZCumB24idH1sKeKd6OkG1UjK62FmAsSpMjk0Pexf8E
+ XzrJKVF5LdZyrZklc5A9kjlHniFXpmWUSVmzrM7uVf8Dd6wzA0z4GEo55dhtYkTn88a0
+ 5hO10rhRYwwZNVnXdAAKNAScwnGzOLWqpHRUy0RJWEQ/KehCK9ItYkRpKqwuDWM5t9wi
+ g8NfZ6jIkD7zPLxMnBdD8ZYPFKAWXqdF6+bJu94sKl+YTJYdnw58K44gZ1QsSAkS99QX
+ 2kvw==
+X-Gm-Message-State: AIVw110Ot9S0ozCrp083jAdj4x0smKOhW/Y/SIIQYS/vmb9z6lypjS7+
+ tp7/rlzbMHZF1gg8pOo69f7KKm3a/A==
+X-Received: by 10.107.18.132 with SMTP id 4mr16129787ios.240.1500238437076;
+ Sun, 16 Jul 2017 13:53:57 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.159.51.101 with HTTP; Sat, 15 Jul 2017 18:18:54 -0700 (PDT)
-From: sachin naik <sacnaik@gmail.com>
-Date: Sat, 15 Jul 2017 18:18:54 -0700
-Message-ID: <CALFfRJOOB=AJaEKzhW9yiCqbn1ymozyaTnyG9+bTn9YdPFsU_Q@mail.gmail.com>
-Subject: Adding new platform
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="f403045f8b74d68da5055465100b"
-X-Mailman-Approved-At: Sun, 16 Jul 2017 21:16:10 +1000
+Received: by 10.107.170.160 with HTTP; Sun, 16 Jul 2017 13:53:56 -0700 (PDT)
+In-Reply-To: <CALFfRJOOB=AJaEKzhW9yiCqbn1ymozyaTnyG9+bTn9YdPFsU_Q@mail.gmail.com>
+References: <CALFfRJOOB=AJaEKzhW9yiCqbn1ymozyaTnyG9+bTn9YdPFsU_Q@mail.gmail.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Sun, 16 Jul 2017 15:53:56 -0500
+Message-ID: <CALLMt=q9qMFHoZ93Ph3X0CuXBUUFU356YFeTdStuFuUYsbzF6w@mail.gmail.com>
+Subject: Re: Adding new platform
+To: sachin naik <sacnaik@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -53,44 +56,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 16 Jul 2017 01:18:58 -0000
+X-List-Received-Date: Sun, 16 Jul 2017 20:54:00 -0000
 
---f403045f8b74d68da5055465100b
-Content-Type: text/plain; charset="UTF-8"
+On Sat, Jul 15, 2017 at 8:18 PM, sachin naik <sacnaik@gmail.com> wrote:
+> Hi All
+>
+> I need to add new platform to openBMC. My platform is based on AST2500 SOC.
+> I have created BSP layers on BSP and added all required linux standard
+> drivers for my platform. I brought up the openBMC on my platform. Now I need
+> a help to add all environmental device info
+>
+> For example I need to add all temperature sensors of my platform to BMC
+> application stack so that the IPMI host/net  and REST services will work
+> seamlessly.
+>
+> How shall I integrate my platform temperature sensors(All are hwmon class
+> device) to openBMC application stack ?
 
-Hi All
+Hey Sachin,
 
-I need to add new platform to openBMC. My platform is based on AST2500 SOC.
-I have created BSP layers on BSP and added all required linux standard
-drivers for my platform. I brought up the openBMC on my platform. Now I
-need a help to add all environmental device info
+Adding in hwmon devices, is pretty easy, here's a recent example of
+adding in OCC one's for Zaius:
+https://gerrit.openbmc-project.xyz/#/c/5258/
 
-For example I need to add all temperature sensors of my platform to BMC
-application stack so that the IPMI host/net  and REST services will work
-seamlessly.
+Here's some other examples to look at for witherspoon.  You'll want
+similar files in your machine config directory.
+https://gerrit.openbmc-project.xyz/#/c/4338/
+https://gerrit.openbmc-project.xyz/#/c/4401/
 
-How shall I integrate my platform temperature sensors(All are hwmon class
-device) to openBMC application stack ?
+Andrew
 
-Any help or pointer will help me a lot.
-
-Thanks and regards
-Sachin
-
---f403045f8b74d68da5055465100b
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi All<div><br></div><div>I need to add new platform to op=
-enBMC. My platform is based on AST2500 SOC.</div><div>I have created BSP la=
-yers on BSP and added all required linux standard drivers for my platform. =
-I brought up the openBMC on my platform. Now I need a help to add all envir=
-onmental device info</div><div><br></div><div>For example I need to add all=
- temperature sensors of my platform to BMC application stack so that the IP=
-MI host/net =C2=A0and REST services will work seamlessly.=C2=A0</div><div><=
-br></div><div>How shall I integrate my platform temperature sensors(All are=
- hwmon class device) to openBMC application stack ?</div><div><br></div><di=
-v>Any help or pointer will help me a lot.</div><div><br></div><div>Thanks a=
-nd regards</div><div>Sachin</div></div>
-
---f403045f8b74d68da5055465100b--
+>
+> Any help or pointer will help me a lot.
+>
+> Thanks and regards
+> Sachin
