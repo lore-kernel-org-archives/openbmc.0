@@ -1,56 +1,52 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <geissonator@gmail.com>
+Received: from mail-it0-x242.google.com (mail-it0-x242.google.com
+ [IPv6:2607:f8b0:4001:c0b::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xBMvb1ys2zDrFQ
- for <openbmc@lists.ozlabs.org>; Tue, 18 Jul 2017 11:26:51 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xBNKV4CV1zDrFQ
+ for <openbmc@lists.ozlabs.org>; Tue, 18 Jul 2017 11:45:49 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="mlqTxA4I"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Kyeo448p"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id B919420809;
- Mon, 17 Jul 2017 21:26:46 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Mon, 17 Jul 2017 21:26:46 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=uBO78U5O3Iiw3V6OLRds7cvC6l+EaHwRCQ7NuMgGy
- IY=; b=mlqTxA4I1CyYEZ2h8GwBKTybwcWtZPdpJGDxoVuO6heCEeYbOKpZe/doT
- 7zkkCFREyUkKEqrpvKSZ8WjBAfZsUjUpPFIUhhV+/C3AImvQ6QCH7JF1zcGm/W0t
- sGtAmewZThjzYqjngXcP8yGeDMX739Ug27au4f3FzOs0deE/HahOw+coeT7XthWC
- +q/zAE171GSuJnfedchNWNe0QOau52thRTVQT4X5U8DlFYFMhaJqFITB4EWFUkPn
- 9AAbhCxMVtfGuRyrmhlz9k5bzLUI9Qpd6Pz+fCAVg6LlyUiH15fE2Dxs1LT21ULV
- uEnmEppB+WRD1IEfvrudQHGDEIY3g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=uBO78U5O3Iiw3V6OLR
- ds7cvC6l+EaHwRCQ7NuMgGyIY=; b=Kyeo448pTTu8zA6HLye268eaBaWUmHWWn3
- 0nyEmz2ACRhSrb1RMX0tbBXrp0JTNeaI6l53DlbPqyc5/hJ+u1yOKQvwSJi0dbti
- 0FNUGp1+LCHbPOttBJ9Ttl29aTW1jYDbKQsyNxQUFS6POXQx/HxFe+IjExEmkkE+
- z32y7fle9CUn7ksESBrDT1/M41aMp3tqZmESruYvD8SJwA9F8Pb/hsEAdDmEqUWX
- Q++3MK1assGhIlLi7Oly5+h2RTRUvSlbrVlSVBA/bjxONXmcTU+KcoaGT56xyk39
- sIPOKBncNsmz610phZ3qQYQ0+O8dSWs1qVcU1EXiXCHRFmRjnwBA==
-X-ME-Sender: <xms:1mNtWeT74atZWp4drSd1NS17olm7ghZpNlcnjPf2DDcp_tjZio0QHQ>
-X-Sasl-enc: uh7e+kQ62NRSWkfSx6tDJpnkoh40+Fgr3iSE9rIEU3CC 1500341206
-Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 81B7924570;
- Mon, 17 Jul 2017 21:26:45 -0400 (EDT)
-Message-ID: <1500341199.500.1.camel@aj.id.au>
-Subject: Re: Adding new platform
-From: Andrew Jeffery <andrew@aj.id.au>
-To: sachin naik <sacnaik@gmail.com>, openbmc@lists.ozlabs.org
-Date: Tue, 18 Jul 2017 10:56:39 +0930
-In-Reply-To: <CALFfRJOOB=AJaEKzhW9yiCqbn1ymozyaTnyG9+bTn9YdPFsU_Q@mail.gmail.com>
-References: <CALFfRJOOB=AJaEKzhW9yiCqbn1ymozyaTnyG9+bTn9YdPFsU_Q@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-yNa9ULizSsYUFKbgna1E"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="tu5Yts5D"; 
+ dkim-atps=neutral
+Received: by mail-it0-x242.google.com with SMTP id o202so1063380itc.1
+ for <openbmc@lists.ozlabs.org>; Mon, 17 Jul 2017 18:45:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=oPAZEgDlIN0Y5LIlon2Z6FpHaiTwrAU9GXnalXlnY9o=;
+ b=tu5Yts5DcwfJ3tchn/pr5VuLtJObmT2vQhbbUHdl8wrgj3TgPx+auGobXxe4Uq8rqt
+ iHL8dIoF/UJ3iwF+jw3IactsT3ZlNOsg8ivwjcrrETcY3Jkg1Ua38LFA8TsKJys853jm
+ d8ClRjSYzEGENLjO7KDVrB07LCf3QilmqcT0VsAY3h3EdSY5tPnnpe/HWJA8+g/4QBye
+ /ZBMJrZKuir+Hh4dna4ksbWwzvYbPRgWoeTBK/rFQiHzYEk0UBpec31wQ9npCSH80lft
+ kl46sJQ+v88KJ8xqp9BQmwAHS6s5jjbfbIJ/X+R4PglLf+bqTSTw6nKuL5xnkITlruUr
+ HHdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=oPAZEgDlIN0Y5LIlon2Z6FpHaiTwrAU9GXnalXlnY9o=;
+ b=i/uIzUQqiCNaJp2wfrtslU+3wpoctgC2KtzHjxQ7+tEToZ8N5CJnCv6H0oSRT93aXM
+ Wa5lTU9imLqz/fEpf5rNkpN27H0AljZG7SgG8WNmGumYyfjovMpd51DgA6r12SnG/tO9
+ x5MdcMbvOqu9Y0H2EjhNumGdPIz2HtlIINdYeRpnw/DM8gP7cKVLtxBWKuXLWuuJB9xJ
+ wuj6867SQ2qvVh2LIJQfjGRqxr1JhMbyl4XGE9VlzO1esNtd5jgdOz04ZKKftBfiZw17
+ 3Jz3OAo7q5SSiZgzGUvXtLPbLIt4IW2Z/tcl1wXpbVY39yVHL2zhOejgwvzXVqHxlosL
+ dVdw==
+X-Gm-Message-State: AIVw112vhAq3DG0z0IENn0ZOjNR+aKClnmLtXiH7NiOJmr33Ndtr7tox
+ gsmk4ClCgbqPxehwQUGko4PeQO55FLoQ
+X-Received: by 10.36.61.1 with SMTP id n1mr379581itn.32.1500342347779; Mon, 17
+ Jul 2017 18:45:47 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.107.36.205 with HTTP; Mon, 17 Jul 2017 18:45:46 -0700 (PDT)
+In-Reply-To: <1500321334-11189-1-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1500321334-11189-1-git-send-email-eajames@linux.vnet.ibm.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Mon, 17 Jul 2017 20:45:46 -0500
+Message-ID: <CALLMt=pRW8N=CoC7zVOgDcRcZiD_f336w4Mwh0EGOqK3RwR-Dg@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] drivers/hwmon/occ: Change power sensor
+ type a0 attributes
+To: Eddie James <eajames@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ "Edward A. James" <eajames@us.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,73 +58,193 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Jul 2017 01:26:53 -0000
+X-List-Received-Date: Tue, 18 Jul 2017 01:45:51 -0000
 
+On Mon, Jul 17, 2017 at 2:55 PM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+> From: "Edward A. James" <eajames@us.ibm.com>
+>
+> Needed to be more standard.
+>
+> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+> ---
+>  drivers/hwmon/occ/common.c | 74 ++++++++++++++++++++++++++++++++++++----------
+>  1 file changed, 58 insertions(+), 16 deletions(-)
+>
+> diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
+> index 4e3e411..8b0a008 100644
+> --- a/drivers/hwmon/occ/common.c
+> +++ b/drivers/hwmon/occ/common.c
+> @@ -565,6 +565,14 @@ static ssize_t occ_show_power_a0(struct device *dev,
+>         case 14:
+>                 val = get_unaligned_be64(&power->vdn.accumulator);
+>                 break;
+> +       case 15:
+> +               return snprintf(buf, PAGE_SIZE - 1, "system\n");
+> +       case 16:
+> +               return snprintf(buf, PAGE_SIZE - 1, "proc\n");
+> +       case 17:
+> +               return snprintf(buf, PAGE_SIZE - 1, "vdd\n");
+> +       case 18:
+> +               return snprintf(buf, PAGE_SIZE - 1, "vdn\n");
+>         }
+>
+>         return snprintf(buf, PAGE_SIZE - 1, "%llu\n", val);
+> @@ -804,7 +812,7 @@ int occ_setup_sensor_attrs(struct occ *occ)
+>                 show_power = occ_show_power_2;
+>                 break;
+>         case 0xA0:
+> -               occ->num_attrs += (sensors->power.num_sensors * 15);
+> +               occ->num_attrs += (sensors->power.num_sensors * 19);
+>                 show_power = occ_show_power_a0;
+>                 break;
+>         default:
+> @@ -888,91 +896,125 @@ int occ_setup_sensor_attrs(struct occ *occ)
+>                         s = i + 1;
+>
+>                         snprintf(attr->name, sizeof(attr->name),
+> -                                "power%d_label", s);
+> +                                "power%d_id", s);
+>                         attr->sensor = OCC_INIT_ATTR(attr->name, 0444,
+>                                                      show_power, NULL, 0, i);
+>                         attr++;
+>
+> +                       /* system power attributes */
+>                         snprintf(attr->name, sizeof(attr->name),
+> -                                "power%d_system_update_time", s);
+> +                                "power%d_label", s);
+> +                       attr->sensor = OCC_INIT_ATTR(attr->name, 0444,
+> +                                                    show_power, NULL, 15, i);
+> +                       attr++;
+> +
+> +                       snprintf(attr->name, sizeof(attr->name),
+> +                                "power%d_update_time", s);
+>                         attr->sensor = OCC_INIT_ATTR(attr->name, 0444,
+>                                                      show_power, NULL, 1, i);
+>                         attr++;
+>
+>                         snprintf(attr->name, sizeof(attr->name),
+> -                                "power%d_system_value", s);
+> +                                "power%d_input", s);
+>                         attr->sensor = OCC_INIT_ATTR(attr->name, 0444,
+>                                                      show_power, NULL, 2, i);
+>                         attr++;
+>
+>                         snprintf(attr->name, sizeof(attr->name),
+> -                                "power%d_system_update_tag", s);
+> +                                "power%d_update_tag", s);
+>                         attr->sensor = OCC_INIT_ATTR(attr->name, 0444,
+>                                                      show_power, NULL, 3, i);
+>                         attr++;
+>
+>                         snprintf(attr->name, sizeof(attr->name),
+> -                                "power%d_system_accumulator", s);
+> +                                "power%d_accumulator", s);
+>                         attr->sensor = OCC_INIT_ATTR(attr->name, 0444,
+>                                                      show_power, NULL, 4, i);
+>                         attr++;
+>
+> +                       s++;
+> +
+> +                       /* proc power attributes */
+>                         snprintf(attr->name, sizeof(attr->name),
+> -                                "power%d_proc_update_time", s);
+> +                                "power%d_label", s);
+> +                       attr->sensor = OCC_INIT_ATTR(attr->name, 0444,
+> +                                                    show_power, NULL, 16, i);
+> +                       attr++;
+> +
+> +                       snprintf(attr->name, sizeof(attr->name),
+> +                                "power%d_update_time", s);
+>                         attr->sensor = OCC_INIT_ATTR(attr->name, 0444,
+>                                                      show_power, NULL, 5, i);
+>                         attr++;
+>
+>                         snprintf(attr->name, sizeof(attr->name),
+> -                                "power%d_proc_value", s);
+> +                                "power%d_input", s);
+>                         attr->sensor = OCC_INIT_ATTR(attr->name, 0444,
+>                                                      show_power, NULL, 6, i);
+>                         attr++;
+>
+>                         snprintf(attr->name, sizeof(attr->name),
+> -                                "power%d_proc_update_tag", s);
+> +                                "power%d_update_tag", s);
+>                         attr->sensor = OCC_INIT_ATTR(attr->name, 0444,
+>                                                      show_power, NULL, 7, i);
+>                         attr++;
+>
+>                         snprintf(attr->name, sizeof(attr->name),
+> -                                "power%d_proc_accumulator", s);
+> +                                "power%d_accumulator", s);
+>                         attr->sensor = OCC_INIT_ATTR(attr->name, 0444,
+>                                                      show_power, NULL, 8, i);
+>                         attr++;
+>
+> +                       s++;
+> +
+> +                       /* vdd power attributes */
+>                         snprintf(attr->name, sizeof(attr->name),
+> -                                "power%d_vdd_value", s);
+> +                                "power%d_label", s);
+> +                       attr->sensor = OCC_INIT_ATTR(attr->name, 0444,
+> +                                                    show_power, NULL, 17, i);
+> +                       attr++;
+> +
+> +                       snprintf(attr->name, sizeof(attr->name),
+> +                                "power%d_input", s);
+>                         attr->sensor = OCC_INIT_ATTR(attr->name, 0444,
+>                                                      show_power, NULL, 9, i);
+>                         attr++;
+>
+>                         snprintf(attr->name, sizeof(attr->name),
+> -                                "power%d_vdd_update_tag", s);
+> +                                "power%d_update_tag", s);
+>                         attr->sensor = OCC_INIT_ATTR(attr->name, 0444,
+>                                                      show_power, NULL, 10, i);
+>                         attr++;
+>
+>                         snprintf(attr->name, sizeof(attr->name),
+> -                                "power%d_vdd_accumulator", s);
+> +                                "power%d_accumulator", s);
+>                         attr->sensor = OCC_INIT_ATTR(attr->name, 0444,
+>                                                      show_power, NULL, 11, i);
+>                         attr++;
+>
+> +                       s++;
+> +
+> +                       /* vdn power attributes */
+>                         snprintf(attr->name, sizeof(attr->name),
+> -                                "power%d_vdn_value", s);
+> +                                "power%d_label", s);
+> +                       attr->sensor = OCC_INIT_ATTR(attr->name, 0444,
+> +                                                    show_power, NULL, 18, i);
+> +                       attr++;
+> +
+> +                       snprintf(attr->name, sizeof(attr->name),
+> +                                "power%d_input", s);
+>                         attr->sensor = OCC_INIT_ATTR(attr->name, 0444,
+>                                                      show_power, NULL, 12, i);
+>                         attr++;
+>
+>                         snprintf(attr->name, sizeof(attr->name),
+> -                                "power%d_vdn_update_tag", s);
+> +                                "power%d_update_tag", s);
+>                         attr->sensor = OCC_INIT_ATTR(attr->name, 0444,
+>                                                      show_power, NULL, 13, i);
+>                         attr++;
+>
+>                         snprintf(attr->name, sizeof(attr->name),
+> -                                "power%d_vdn_accumulator", s);
+> +                                "power%d_accumulator", s);
+>                         attr->sensor = OCC_INIT_ATTR(attr->name, 0444,
+>                                                      show_power, NULL, 14, i);
+>                         attr++;
+> --
+> 1.8.3.1
+>
 
---=-yNa9ULizSsYUFKbgna1E
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Tested-by: Andrew Geissler <geissonator@gmail.com>
 
-Hi Sachin,
-
-On Sat, 2017-07-15 at 18:18 -0700, sachin naik wrote:
-> Hi All
->=20
-> I need to add new platform to openBMC. My platform is based on
-> AST2500 SOC.
-> I have created BSP layers on BSP and added all required linux
-> standard drivers for my platform. I brought up the openBMC on my
-> platform.=20
-
-Great!
-
-> Now I need a help to add all environmental device info
->=20
-> For example I need to add all temperature sensors of my platform to
-> BMC application stack so that the IPMI host/net =C2=A0and REST services
-> will work seamlessly.=C2=A0
->=20
-> How=C2=A0shall I integrate my platform temperature sensors(All are hwmon
-> class device) to openBMC application stack ?
->=20
-> Any help or pointer will help me a lot.
-
-Taking a different tack to Andrew's reply, have you published an
-OpenBMC repository (and/or any other relevant repositories) with the
-changes for your platform? Can you provide any information on the
-platform?
-
-Having access to your git trees and some information will give us
-something concrete to talk about and might allow us to better help you
-with specific integration questions.
-
-Thanks for your interest in OpenBMC!
-
-Andrew
-
->=20
-> Thanks and regards
-> Sachin
---=-yNa9ULizSsYUFKbgna1E
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJZbWPPAAoJEJ0dnzgO5LT5V+8QAJrs8+7F7maqtRKUMGUpA9mO
-DwjYuoyn+T5cb02iwyefoC9jT6v14VEdnGyhNxrkkzU4IWTfxD3WEJylGeE6lcSH
-z7MS/6cUZcfdx5dZGGNk3z1alwAk/ELYztpFMAuB/rHDsRDBRzh/4XPMzTHFKWjx
-x4j+LhEhB0McyAG1AbPHKgAEiSDo0C5HGdSZJ2XkAUb6Fq1ggv1Ru4xn04DH+89O
-pZqzUs8MoZ0EM+4OQg/iKQ0ioriS8GQ2xUb+4uZKfiDQWDvNcdv1fUIpsbB7vGgY
-B2SQUZ567z7CSDMZIhC1m+e6puiKyG6pPSOWoOPK1YhcbWAXzERUpcGfc20qMxbt
-wf3dkfRLEQi1/JmXJlM/F999gaA0f67XtdglXZ9PHD40zyOD0h4f3/LLg3pfNYsg
-AWIT57LHYE+ssnas4USsf0zs+T7MuAK5k6BVU/WVgHVRPIQyo0B2kVxJ70ulRXig
-SH4qxWFbQnT6YnEs12fac/O3150XGrySS5Vax5QfiOROkBx85z+61SUSq2D6H1vU
-yi+AAH6IojRTNu0gleANFbAbo54/DTX8VYhc8PQCuJfWLdwGRThzM+Khw9QNKQAS
-Ig528d/vXwTS/ahCaFHsQ5KfY1eSfGKrQlvCPS4LX1awLlQEY/buxAdMSY9CPuT/
-kRcn4AkNLXSEMrAc59Sp
-=trpS
------END PGP SIGNATURE-----
-
---=-yNa9ULizSsYUFKbgna1E--
+Eddie provided me this patch (plus his zaius gpio one) up in gerrit
+via https://gerrit.openbmc-project.xyz/#/c/5243/ which I then verified
+my hwmon conf files on top of.
