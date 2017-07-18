@@ -1,68 +1,61 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <cbostic@linux.vnet.ibm.com>
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xBp5c5bMczDrJ2
- for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 04:07:00 +1000 (AEST)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xBsZF5dq0zDrHv
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 06:43:33 +1000 (AEST)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v6II6n5r009284
- for <openbmc@lists.ozlabs.org>; Tue, 18 Jul 2017 14:06:58 -0400
-Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2bsdcfxtqr-1
+ v6IKd19a094776
+ for <openbmc@lists.ozlabs.org>; Tue, 18 Jul 2017 16:43:30 -0400
+Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2bspj70dxf-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 18 Jul 2017 14:06:58 -0400
+ for <openbmc@lists.ozlabs.org>; Tue, 18 Jul 2017 16:43:30 -0400
 Received: from localhost
- by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Tue, 18 Jul 2017 14:06:57 -0400
-Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
- by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Tue, 18 Jul 2017 16:43:29 -0400
+Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
+ by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Tue, 18 Jul 2017 14:06:55 -0400
-Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
- [9.57.199.111])
- by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v6II6tgA16580860; Tue, 18 Jul 2017 18:06:55 GMT
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id D95DEAC03F;
- Tue, 18 Jul 2017 14:07:04 -0400 (EDT)
-Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
- by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id 6ADD5AC046;
- Tue, 18 Jul 2017 14:07:04 -0400 (EDT)
-Subject: Re: [PATCH u-boot] configs/ast: Add redundnant env
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: "Edward A. James" <eajames@us.ibm.com>
-References: <1500053800-3923-1-git-send-email-eajames@linux.vnet.ibm.com>
-Date: Tue, 18 Jul 2017 13:06:54 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.2.0
-MIME-Version: 1.0
-In-Reply-To: <1500053800-3923-1-git-send-email-eajames@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+ Tue, 18 Jul 2017 16:43:27 -0400
+Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
+ [9.57.199.108])
+ by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v6IKhQMb21233784; Tue, 18 Jul 2017 20:43:26 GMT
+Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 55BE0B204E;
+ Tue, 18 Jul 2017 16:40:56 -0400 (EDT)
+Received: from christophersmbp.austin.ibm.com (unknown [9.41.175.36])
+ by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP id 084ADB2046;
+ Tue, 18 Jul 2017 16:40:55 -0400 (EDT)
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+To: joel@jms.id.au
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Subject: [PATCH v2 0/2] Add GPIO keys polled for pca955x
+Date: Tue, 18 Jul 2017 15:43:22 -0500
+X-Mailer: git-send-email 2.10.1 (Apple Git-78)
 X-TM-AS-GCONF: 00
-x-cbid: 17071818-0044-0000-0000-0000036FE7F7
+x-cbid: 17071820-0040-0000-0000-00000382372B
 X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007382; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00889435; UDB=6.00444276; IPR=6.00669607; 
+X-IBM-SpamModules-Versions: BY=3.00007383; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00889487; UDB=6.00444308; IPR=6.00669659; 
  BA=6.00005479; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016262; XFM=3.00000015;
- UTC=2017-07-18 18:06:56
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016265; XFM=3.00000015;
+ UTC=2017-07-18 20:43:28
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17071818-0045-0000-0000-0000079DEDC6
-Message-Id: <9085e08c-e2cf-16d8-ada8-2b1a3e0025e1@linux.vnet.ibm.com>
+x-cbparentid: 17071820-0041-0000-0000-000007764B40
+Message-Id: <20170718204324.32945-1-cbostic@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-07-18_09:, , signatures=0
+ definitions=2017-07-18_11:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  spamscore=0 suspectscore=1
  malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
  adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
- definitions=main-1707180283
+ definitions=main-1707180323
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -74,47 +67,18 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Jul 2017 18:07:01 -0000
+X-List-Received-Date: Tue, 18 Jul 2017 20:43:34 -0000
 
+Define gpio keys polled devices in the device tree for fan presence lines off of
+the pca955x. Enable GPIO keys polled config option.
 
+Christopher Bostic (2):
+  ARM: dts: aspeed: Add gpio-keys-polled for fan presence
+  ARM: configs: aspeed: Add GPIO_KEYS_POLLED
 
-On 07/14/2017 12:36 PM, Eddie James wrote:
-> From: "Edward A. James" <eajames@us.ibm.com>
->
-> Configure ast chips to run redundant u-boot environments.
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 34 ++++++++++++++++++++++++
+ arch/arm/configs/aspeed_g5_defconfig             | 1 +
+ 2 files changed, 35 insertions(+)
 
-This will need some userspace changes to work properly. The BMC will 
-still boot if this is merged by itself, but there might be trouble 
-updating environment variables without a serial connection (of 
-particular concern would be the MAC address...). fw_setenv may update 
-the flash without the correct "valid" byte that exists for redundant 
-environments, and so u-boot will probably consider the updated flash 
-invalid and switch to the other copy every time you reboot.
-
-Thanks,
-Eddie
-
->
-> Signed-off-by: Edward A. James <eajames@us.ibm.com>
-> ---
->   include/configs/ast-common.h | 5 ++++-
->   1 file changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/include/configs/ast-common.h b/include/configs/ast-common.h
-> index 110c780..15e1db4 100644
-> --- a/include/configs/ast-common.h
-> +++ b/include/configs/ast-common.h
-> @@ -92,9 +92,12 @@
->   #define CONFIG_SYS_MAX_FLASH_SECT	(8192)		/* max number of sectors on one chip */
->   #define CONFIG_ENV_IS_IN_FLASH		1
->   #define CONFIG_ENV_ADDR			(AST_FMC_CS0_BASE + 0x60000)
-> +#define CONFIG_ENV_ADDR_REDUND		(AST_FMC_CS0_BASE + 0x70000)
->
->   #define CONFIG_ENV_OFFSET		0x60000	/* environment starts here  */
-> -#define CONFIG_ENV_SIZE			0x20000	/* Total Size of Environment Sector */
-> +#define CONFIG_ENV_OFFSET_REDUND	0x70000
-> +#define CONFIG_ENV_SIZE			0x10000	/* Total Size of Environment Sector */
-> +#define CONFIG_ENV_SIZE_REDUND		0x10000
->
->   #define CONFIG_BOOTCOMMAND	\
->   	"fdt addr 20080000; " \
+-- 
+1.8.2.2
