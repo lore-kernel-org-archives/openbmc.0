@@ -1,63 +1,56 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xBGbv2QtmzDrFL
- for <openbmc@lists.ozlabs.org>; Tue, 18 Jul 2017 07:27:55 +1000 (AEST)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v6HLOFr0031437
- for <openbmc@lists.ozlabs.org>; Mon, 17 Jul 2017 17:27:52 -0400
-Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2brqc0cf61-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 17 Jul 2017 17:27:52 -0400
-Received: from localhost
- by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Mon, 17 Jul 2017 17:27:52 -0400
-Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
- by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 17 Jul 2017 17:27:49 -0400
-Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
- [9.57.199.111])
- by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v6HLRnnV19529906; Mon, 17 Jul 2017 21:27:49 GMT
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 5CDB2AC041;
- Mon, 17 Jul 2017 17:27:58 -0400 (EDT)
-Received: from Christophers-MacBook-Pro.local.com (unknown [9.81.207.188])
- by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id 61111AC040;
- Mon, 17 Jul 2017 17:27:55 -0400 (EDT)
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-To: joel@jms.id.au
-Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10 2/2] ARM: configs: aspeed: Add GPIO_KEYS_POLLED
-Date: Mon, 17 Jul 2017 16:27:32 -0500
-X-Mailer: git-send-email 2.10.1 (Apple Git-78)
-In-Reply-To: <20170717212732.8629-1-cbostic@linux.vnet.ibm.com>
-References: <20170717212732.8629-1-cbostic@linux.vnet.ibm.com>
-X-TM-AS-GCONF: 00
-x-cbid: 17071721-0040-0000-0000-000003819AB5
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007379; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00889021; UDB=6.00444028; IPR=6.00669194; 
- BA=6.00005476; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016253; XFM=3.00000015;
- UTC=2017-07-17 21:27:51
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17071721-0041-0000-0000-00000775AD7E
-Message-Id: <20170717212732.8629-3-cbostic@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-07-17_16:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
- definitions=main-1707170345
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xBMvb1ys2zDrFQ
+ for <openbmc@lists.ozlabs.org>; Tue, 18 Jul 2017 11:26:51 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="mlqTxA4I"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="Kyeo448p"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id B919420809;
+ Mon, 17 Jul 2017 21:26:46 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Mon, 17 Jul 2017 21:26:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=uBO78U5O3Iiw3V6OLRds7cvC6l+EaHwRCQ7NuMgGy
+ IY=; b=mlqTxA4I1CyYEZ2h8GwBKTybwcWtZPdpJGDxoVuO6heCEeYbOKpZe/doT
+ 7zkkCFREyUkKEqrpvKSZ8WjBAfZsUjUpPFIUhhV+/C3AImvQ6QCH7JF1zcGm/W0t
+ sGtAmewZThjzYqjngXcP8yGeDMX739Ug27au4f3FzOs0deE/HahOw+coeT7XthWC
+ +q/zAE171GSuJnfedchNWNe0QOau52thRTVQT4X5U8DlFYFMhaJqFITB4EWFUkPn
+ 9AAbhCxMVtfGuRyrmhlz9k5bzLUI9Qpd6Pz+fCAVg6LlyUiH15fE2Dxs1LT21ULV
+ uEnmEppB+WRD1IEfvrudQHGDEIY3g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=uBO78U5O3Iiw3V6OLR
+ ds7cvC6l+EaHwRCQ7NuMgGyIY=; b=Kyeo448pTTu8zA6HLye268eaBaWUmHWWn3
+ 0nyEmz2ACRhSrb1RMX0tbBXrp0JTNeaI6l53DlbPqyc5/hJ+u1yOKQvwSJi0dbti
+ 0FNUGp1+LCHbPOttBJ9Ttl29aTW1jYDbKQsyNxQUFS6POXQx/HxFe+IjExEmkkE+
+ z32y7fle9CUn7ksESBrDT1/M41aMp3tqZmESruYvD8SJwA9F8Pb/hsEAdDmEqUWX
+ Q++3MK1assGhIlLi7Oly5+h2RTRUvSlbrVlSVBA/bjxONXmcTU+KcoaGT56xyk39
+ sIPOKBncNsmz610phZ3qQYQ0+O8dSWs1qVcU1EXiXCHRFmRjnwBA==
+X-ME-Sender: <xms:1mNtWeT74atZWp4drSd1NS17olm7ghZpNlcnjPf2DDcp_tjZio0QHQ>
+X-Sasl-enc: uh7e+kQ62NRSWkfSx6tDJpnkoh40+Fgr3iSE9rIEU3CC 1500341206
+Received: from keelia (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 81B7924570;
+ Mon, 17 Jul 2017 21:26:45 -0400 (EDT)
+Message-ID: <1500341199.500.1.camel@aj.id.au>
+Subject: Re: Adding new platform
+From: Andrew Jeffery <andrew@aj.id.au>
+To: sachin naik <sacnaik@gmail.com>, openbmc@lists.ozlabs.org
+Date: Tue, 18 Jul 2017 10:56:39 +0930
+In-Reply-To: <CALFfRJOOB=AJaEKzhW9yiCqbn1ymozyaTnyG9+bTn9YdPFsU_Q@mail.gmail.com>
+References: <CALFfRJOOB=AJaEKzhW9yiCqbn1ymozyaTnyG9+bTn9YdPFsU_Q@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-yNa9ULizSsYUFKbgna1E"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -69,26 +62,73 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Jul 2017 21:27:56 -0000
+X-List-Received-Date: Tue, 18 Jul 2017 01:26:53 -0000
 
-Configure to build gpio_keys_polled device driver.
 
-Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
----
- arch/arm/configs/aspeed_g5_defconfig | 1 +
- 1 file changed, 1 insertion(+)
+--=-yNa9ULizSsYUFKbgna1E
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/arch/arm/configs/aspeed_g5_defconfig b/arch/arm/configs/aspeed_g5_defconfig
-index ad121ed..1868442 100644
---- a/arch/arm/configs/aspeed_g5_defconfig
-+++ b/arch/arm/configs/aspeed_g5_defconfig
-@@ -106,6 +106,7 @@ CONFIG_REALTEK_PHY=y
- CONFIG_INPUT_EVDEV=y
- # CONFIG_KEYBOARD_ATKBD is not set
- CONFIG_KEYBOARD_GPIO=y
-+CONFIG_KEYBOARD_GPIO_POLLED=y
- # CONFIG_INPUT_MOUSE is not set
- # CONFIG_SERIO is not set
- # CONFIG_VT is not set
--- 
-1.8.2.2
+Hi Sachin,
+
+On Sat, 2017-07-15 at 18:18 -0700, sachin naik wrote:
+> Hi All
+>=20
+> I need to add new platform to openBMC. My platform is based on
+> AST2500 SOC.
+> I have created BSP layers on BSP and added all required linux
+> standard drivers for my platform. I brought up the openBMC on my
+> platform.=20
+
+Great!
+
+> Now I need a help to add all environmental device info
+>=20
+> For example I need to add all temperature sensors of my platform to
+> BMC application stack so that the IPMI host/net =C2=A0and REST services
+> will work seamlessly.=C2=A0
+>=20
+> How=C2=A0shall I integrate my platform temperature sensors(All are hwmon
+> class device) to openBMC application stack ?
+>=20
+> Any help or pointer will help me a lot.
+
+Taking a different tack to Andrew's reply, have you published an
+OpenBMC repository (and/or any other relevant repositories) with the
+changes for your platform? Can you provide any information on the
+platform?
+
+Having access to your git trees and some information will give us
+something concrete to talk about and might allow us to better help you
+with specific integration questions.
+
+Thanks for your interest in OpenBMC!
+
+Andrew
+
+>=20
+> Thanks and regards
+> Sachin
+--=-yNa9ULizSsYUFKbgna1E
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZbWPPAAoJEJ0dnzgO5LT5V+8QAJrs8+7F7maqtRKUMGUpA9mO
+DwjYuoyn+T5cb02iwyefoC9jT6v14VEdnGyhNxrkkzU4IWTfxD3WEJylGeE6lcSH
+z7MS/6cUZcfdx5dZGGNk3z1alwAk/ELYztpFMAuB/rHDsRDBRzh/4XPMzTHFKWjx
+x4j+LhEhB0McyAG1AbPHKgAEiSDo0C5HGdSZJ2XkAUb6Fq1ggv1Ru4xn04DH+89O
+pZqzUs8MoZ0EM+4OQg/iKQ0ioriS8GQ2xUb+4uZKfiDQWDvNcdv1fUIpsbB7vGgY
+B2SQUZ567z7CSDMZIhC1m+e6puiKyG6pPSOWoOPK1YhcbWAXzERUpcGfc20qMxbt
+wf3dkfRLEQi1/JmXJlM/F999gaA0f67XtdglXZ9PHD40zyOD0h4f3/LLg3pfNYsg
+AWIT57LHYE+ssnas4USsf0zs+T7MuAK5k6BVU/WVgHVRPIQyo0B2kVxJ70ulRXig
+SH4qxWFbQnT6YnEs12fac/O3150XGrySS5Vax5QfiOROkBx85z+61SUSq2D6H1vU
+yi+AAH6IojRTNu0gleANFbAbo54/DTX8VYhc8PQCuJfWLdwGRThzM+Khw9QNKQAS
+Ig528d/vXwTS/ahCaFHsQ5KfY1eSfGKrQlvCPS4LX1awLlQEY/buxAdMSY9CPuT/
+kRcn4AkNLXSEMrAc59Sp
+=trpS
+-----END PGP SIGNATURE-----
+
+--=-yNa9ULizSsYUFKbgna1E--
