@@ -1,48 +1,67 @@
-Return-Path: <mine260309@gmail.com>
-Received: from mail-pg0-x244.google.com (mail-pg0-x244.google.com
- [IPv6:2607:f8b0:400e:c05::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <stewart@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xBSqT15jLzDrFd
- for <openbmc@lists.ozlabs.org>; Tue, 18 Jul 2017 15:08:37 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="KFReivFB"; 
- dkim-atps=neutral
-Received: by mail-pg0-x244.google.com with SMTP id v190so1394505pgv.1
- for <openbmc@lists.ozlabs.org>; Mon, 17 Jul 2017 22:08:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=7Ctgi3NMUJzjM7LAqT+8tEPBX1CcaQcJOxdUhr/aUYo=;
- b=KFReivFBgWPwpMtbxjUS6pkr2b4fzv88K3urO9sEluikGAlNGeihR5WYL19RhJpGUh
- LCiA4GqPHlDS48QigvGu3Qm1NNPtdMwFmMjMTKD3btIMTDmqhBt/szGB6nulR24Fn0qW
- VTnpqqdg85jl3014Lme/yVyt09j9YhKXMwgAtym+1aDnx+9H9SgYsILC5PSwSD17Ihfh
- 8rXMm38LXHh4PaBhvCvW+AIxEUPcfIWj/zCszUPkwBuCmUlFXDp+S496saykoGzhGbeM
- KKOwipJqmI6TiVFK5XY7IU8HnkBcyvAAKWnxvOEA9sPKAVRSbaITnFJCughmeALDFyvi
- ci2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=7Ctgi3NMUJzjM7LAqT+8tEPBX1CcaQcJOxdUhr/aUYo=;
- b=ZXPT5TbdjzXBwjJh1N//cAM8/Kd359N4xNWz1zdG337GwsvyJYAiiPvYSm1Tg89WpL
- 4B+kC0DsjLtaR0FcQ5BtGuttOxsjLoWegA8NdFoAg1UePP20Dz4wdmbAzRS3phsPhvqk
- BfRCks7MATz7LZS1M/ttxm9LwX/1/GTSwYHycDIRUjCimlkeE1piNIVsqA0fpWJ/BHO/
- WeqhJjyyUTN/Ztm+eFWz6S0zyi0Z4XdR1n+uLMYDG+i1ES18Bh1NZyS2Tfkvql9dcX99
- 3TKvQC0sud2pheIcavei7kpc8tSoO3XrZ9N7Y53STk/UKSnUneypX0tT+NQcxx1CzIOR
- pq6Q==
-X-Gm-Message-State: AIVw112HEAunrfw9AhmFgWCFtSOA4TZQGxA4SsUAIqJ1BOZu6b1gRoee
- 4wNHi9xeCTsmw/dibIs=
-X-Received: by 10.98.102.129 with SMTP id s1mr1147641pfj.239.1500354515065;
- Mon, 17 Jul 2017 22:08:35 -0700 (PDT)
-Received: from localhost ([159.203.222.251])
- by smtp.gmail.com with ESMTPSA id j29sm1803489pfj.68.2017.07.17.22.08.33
- (version=TLS1_2 cipher=AES128-SHA bits=128/128);
- Mon, 17 Jul 2017 22:08:34 -0700 (PDT)
-From: Lei YU <mine260309@gmail.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10] ARM: aspeed: palmetto: Fix FSI gpios
-Date: Tue, 18 Jul 2017 13:07:18 +0800
-Message-Id: <1500354438-25577-1-git-send-email-mine260309@gmail.com>
-X-Mailer: git-send-email 1.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xBY3d6jnnzDrFj
+ for <openbmc@lists.ozlabs.org>; Tue, 18 Jul 2017 18:19:25 +1000 (AEST)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v6I8J6De122457
+ for <openbmc@lists.ozlabs.org>; Tue, 18 Jul 2017 04:19:21 -0400
+Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2bsbm2fs9e-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 18 Jul 2017 04:19:21 -0400
+Received: from localhost
+ by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
+ Tue, 18 Jul 2017 02:19:20 -0600
+Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
+ by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Tue, 18 Jul 2017 02:19:18 -0600
+Received: from b03ledav001.gho.boulder.ibm.com
+ (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
+ by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v6I8JEGZ4194664; Tue, 18 Jul 2017 01:19:18 -0700
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 654A26E03F;
+ Tue, 18 Jul 2017 02:19:18 -0600 (MDT)
+Received: from birb.localdomain (unknown [9.81.211.57])
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with SMTP id 67DED6E03A;
+ Tue, 18 Jul 2017 02:19:17 -0600 (MDT)
+Received: by birb.localdomain (Postfix, from userid 1000)
+ id BA6FB4EC746; Tue, 18 Jul 2017 18:19:13 +1000 (AEST)
+From: Stewart Smith <stewart@linux.vnet.ibm.com>
+To: Michael Tritz <mtritz@us.ibm.com>, skiboot@lists.ozlabs.org,
+ openbmc@lists.ozlabs.org
+Cc: Michael Tritz <mtritz@us.ibm.com>, cyrilbur@gmail.com
+Subject: Re: [PATCH v8] pflash option to retrieve PNOR partition flags
+In-Reply-To: <20170712203149.12123-1-mtritz@us.ibm.com>
+References: <20170712203149.12123-1-mtritz@us.ibm.com>
+Date: Tue, 18 Jul 2017 18:19:13 +1000
+MIME-Version: 1.0
+Content-Type: text/plain
+X-TM-AS-GCONF: 00
+x-cbid: 17071808-0008-0000-0000-00000840D0DA
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007380; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00889238; UDB=6.00444158; IPR=6.00669411; 
+ BA=6.00005478; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016258; XFM=3.00000015;
+ UTC=2017-07-18 08:19:20
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17071808-0009-0000-0000-000043238307
+Message-Id: <874luacg3i.fsf@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-07-18_04:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
+ definitions=main-1707180138
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,42 +73,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Jul 2017 05:08:37 -0000
+X-List-Received-Date: Tue, 18 Jul 2017 08:19:26 -0000
 
-Palmetto as P8 system still uses GPIO bit banging for FSI operations.
-So the gpio-fsi driver shall be disabled and GPIOH6 hog shall be added.
-Otherwise Palmetto fails to boot host.
+Michael Tritz <mtritz@us.ibm.com> writes:
+> This commit extends pflash with an option to retrieve and print
+> information for a particular partition, including the content from
+> "pflash -i" and a verbose list of set miscellaneous flags. -i option
+> is also updated to print a short list of flags in addition to the
+> ECC flag, with one character per flag. A test of the new option is
+> included in libflash/test.
+>
+> V8: Make check target now depends on having built pflash. Updated 
+>     the path to pflash in the test script. Test script runs now.
+> V7: Fixed whitespace error and changed permissions on test script
+> V6: Reverted change to has_ecc() to avoid breaking libffs
+>
+> Change-Id: Iebb8a6d34c537cecd2eb44ddf41271c8fbe25258
+> Signed-off-by: Michael Tritz <mtritz@us.ibm.com>
 
-Signed-off-by: Lei YU <mine260309@gmail.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Thanks! I made a few minor changes to how the test was run (including
+going and fixing up some of our code coverage infrasturcture) and merged
+to master as of 360d0a394d8ce8f2f4cd0573cd51c56784f6faa4.
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-index a282de0..4690e53 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-@@ -49,6 +49,7 @@
-         };
- 
- 	gpio-fsi {
-+		status = "disabled";
- 		compatible = "fsi-master-gpio", "fsi-master";
- 
- 		clock-gpios = <&gpio ASPEED_GPIO(A, 4) GPIO_ACTIVE_HIGH>;
-@@ -291,6 +292,13 @@
- 		line-name = "SYS_PWROK_BMC";
- 	};
- 
-+	pin_gpio_h6 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(H, 6) GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "SCM1_FSI0_DATA_EN";
-+	};
-+
- 	pin_gpio_h7 {
- 		gpio-hog;
- 		gpios = <ASPEED_GPIO(H, 7) GPIO_ACTIVE_HIGH>;
 -- 
-1.9.1
+Stewart Smith
+OPAL Architect, IBM.
