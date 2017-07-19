@@ -1,56 +1,54 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x242.google.com (mail-yw0-x242.google.com
- [IPv6:2607:f8b0:4002:c05::242])
+Received: from mail-yb0-x242.google.com (mail-yb0-x242.google.com
+ [IPv6:2607:f8b0:4002:c09::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xCBjt674WzDrVn
- for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 19:36:18 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xCBr8391ZzDrVn
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 19:41:44 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="rj1EkRHy"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="D3TbjB+m"; 
  dkim-atps=neutral
-Received: by mail-yw0-x242.google.com with SMTP id a12so2325164ywh.1
- for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 02:36:18 -0700 (PDT)
+Received: by mail-yb0-x242.google.com with SMTP id f135so1819575yba.2
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 02:41:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=AyVyyL7UaAjkO8spd1+II9vHgPBjoYpcg0mYimYy7rA=;
- b=rj1EkRHyeCqKPV9ebo0uV4C84QnSnkiTOwGKWJZA5rH3n1hvdtXAPK/oeCyGa+GnhU
- 48neqLL6On6UKehgJZs9ZzhisZImfpabiRPe0tJu/p8UV4iM2aQRxfo8urxPWQvp3kIz
- EWmlfErAHvN1KfmLG2n56UFEhehcs/HMxaH4raDYZyKMHyZSIieecwy15It+Ok0WFcQv
- QDc1rXel+sZMvs6QOHDdOx0n+4QI4JKnq7CQvXVQNt4nTTUN9oxosvH0JE/Atbiy+0G2
- RZER1SGzAibI8UIxAdwO1ySc6Kt8Mtuu44DuxPi2s/NR9K4mKZa2DJIWy3LG6LBH+pwK
- 0vkg==
+ bh=/taERNhtSfuXPS3W6EH9DCHWTPeQm2iEJ2iWKBsKU4o=;
+ b=D3TbjB+mVubWo4t3gA9tVIaNtkVLakc+gVx5GacNyOWFyXKOJg4yYcoxJ6hW6wNtXX
+ fYMrfSVSbT1KS8fu7rg1LqOQdJK8hCWwrgEwfdbrz1YiXPI9z0GjlGX7ArNra0JN4ePo
+ iFE/BbxKQhtbe9GL519oQd1+3qsMf08sfl5v+kV2lMAQyeYGTw7pu6T9xekmMh3N2Igi
+ NfV+XMqFsKTdfoneJBaSX0b5tEkw2Putwxg851ow8NOEtUqmxu4G+FYoVdMtbW0DslV3
+ 6uWD/QajkB71YaqyiZM5DQcrIAGrmQY/1ctMV6cNlrFJDX8eJIJc+ZjOinoMzqDTcy9/
+ NjKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=AyVyyL7UaAjkO8spd1+II9vHgPBjoYpcg0mYimYy7rA=;
- b=MyMGlbU4VNuMCyBvpHhhnaQ7FaqZ15zB8pbZj6KtjxGTQ73qg+9r7hGnBdbRleRt+W
- AaCu7+LylNoi6Wvd03T2KMOmRK8V29GLgLiDPc+y2ot302Hgk5Auj5SzMs2I40wr3wf7
- igmrqJ+LnT7WNjo4d8bxTMF6nJZMZ+Mv5rPmRhxGr0Uzjez46sWsrLvGaSOeqKuZjDj4
- vcWPdRNuS77ZkbYVI8SG27N/+93KELLUIAK7ffnF8UjM5qc/ng/nIlQIUE1/RLOEkjO8
- ROBGLWTXg63wPbOtLUyt93G73NQLGZBHndoudzo4MTEz5GbDV17E2hCp+8MmTssg2Why
- ZMfw==
-X-Gm-Message-State: AIVw1113van0c8hXDt+t97ms21G7ermbwm03+9X2wzYtAPrA+JNGhIkC
- BORGNBuzT0Ue2CJONn0VmkeucngQFQbioYs=
-X-Received: by 10.129.201.4 with SMTP id o4mr1571199ywi.2.1500456976635; Wed,
- 19 Jul 2017 02:36:16 -0700 (PDT)
+ bh=/taERNhtSfuXPS3W6EH9DCHWTPeQm2iEJ2iWKBsKU4o=;
+ b=lzwpBNJ+jnYY9UPgJ/vRAY2WVzdsE8BD5RUXYUJMbUUn2nillfujRe2Cns55b9vnxl
+ AwjqwlEjd3l6BIoL80UYF9DHtF/bo1olbaSxKNUAE623cAAZOfiyZabJpcq76uNXUISI
+ LTj9DTcRUAsTzdT29YPWw4FtAUryLCUqqevC/FzuXKchBeAoL3SzMmes3RXJLUFGoBT+
+ vckOeceKqjuW5xyi3PeWfLMfa3tLfGYQW3keHdxsfqLQNpZjxlTWeIAgWc4TQagb97NF
+ OUxXtjbEvpTjT4oKuMoFQuiJOdQOtBstCpb2MpKQUQhQDOm1zC1LZX/fnvzd4MBg96rg
+ TXYg==
+X-Gm-Message-State: AIVw112mzu5IvrwHvrbgLMG+mG3Em+2s5AaU4ldiDulHYpSIOhKeEmxr
+ J1SboWBpuFt1ZPABygKTE0Sbtwkd2Osp1Vg=
+X-Received: by 10.37.182.197 with SMTP id f5mr1496247ybm.182.1500457302485;
+ Wed, 19 Jul 2017 02:41:42 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.170.177 with HTTP; Wed, 19 Jul 2017 02:35:56 -0700 (PDT)
-In-Reply-To: <CALLMt=pRW8N=CoC7zVOgDcRcZiD_f336w4Mwh0EGOqK3RwR-Dg@mail.gmail.com>
-References: <1500321334-11189-1-git-send-email-eajames@linux.vnet.ibm.com>
- <CALLMt=pRW8N=CoC7zVOgDcRcZiD_f336w4Mwh0EGOqK3RwR-Dg@mail.gmail.com>
+Received: by 10.37.170.177 with HTTP; Wed, 19 Jul 2017 02:41:21 -0700 (PDT)
+In-Reply-To: <20170713193606.56374-1-cbostic@linux.vnet.ibm.com>
+References: <20170713193606.56374-1-cbostic@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 19 Jul 2017 19:05:56 +0930
-X-Google-Sender-Auth: LO_YqzfD852pmMgV77gL15ieWI0
-Message-ID: <CACPK8XfJ5KJ1RO5yD=Lr_Nvor0J8-u7DBgNoGqO2Bea_SVzbfw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] drivers/hwmon/occ: Change power sensor
- type a0 attributes
-To: Andrew Geissler <geissonator@gmail.com>
-Cc: Eddie James <eajames@linux.vnet.ibm.com>,
- "Edward A. James" <eajames@us.ibm.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Wed, 19 Jul 2017 19:11:21 +0930
+X-Google-Sender-Auth: PwSvT2O0e1m1FcCjn9ReRlU_tvI
+Message-ID: <CACPK8XfbX3VqQcvtMpmiDeJhyPBx5rqh3L5grep5gL+SmS+PDQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: Add gpio keys for power
+ supply presence, ucd alert
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>,
+ Andrew Jeffery <andrew@aj.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -63,24 +61,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Jul 2017 09:36:19 -0000
+X-List-Received-Date: Wed, 19 Jul 2017 09:41:45 -0000
 
-On Tue, Jul 18, 2017 at 11:15 AM, Andrew Geissler <geissonator@gmail.com> wrote:
-> On Mon, Jul 17, 2017 at 2:55 PM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
->> From: "Edward A. James" <eajames@us.ibm.com>
->>
->> Needed to be more standard.
->>
->> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+On Fri, Jul 14, 2017 at 5:06 AM, Christopher Bostic
+<cbostic@linux.vnet.ibm.com> wrote:
+> Add GPIO keys for power supply 0 and 1 presence as well as ucd alert
+> to the device tree.
 >
-> Tested-by: Andrew Geissler <geissonator@gmail.com>
+> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+> ---
+>  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 18 ++++++++++++++++++
+>  1 file changed, 18 insertions(+)
 >
-> Eddie provided me this patch (plus his zaius gpio one) up in gerrit
-> via https://gerrit.openbmc-project.xyz/#/c/5243/ which I then verified
-> my hwmon conf files on top of.
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> index 76a5b28..34c5dfc 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> @@ -42,6 +42,24 @@
+>                         gpios = <&gpio ASPEED_GPIO(J, 2) GPIO_ACTIVE_LOW>;
+>                         linux,code = <ASPEED_GPIO(J, 2)>;
+>                 };
+> +
+> +               ps0-presence {
+> +                       label = "ps0-presence";
+> +                       gpios = <&gpio ASPEED_GPIO(P, 7) GPIO_ACTIVE_LOW>;
+> +                       linux,code = <ASPEED_GPIO(P, 7)>;
+> +               };
+> +
+> +               ps1-presence {
+> +                       label = "ps1-presence";
+> +                       gpios = <&gpio ASPEED_GPIO(N, 0) GPIO_ACTIVE_LOW>;
+> +                       linux,code = <ASPEED_GPIO(N, 0)>;
+> +               };
 
-Thanks for the testing Andrew. Applied to dev-4.10.
+Chris, these two look fine. I applied these two and fixed the commit
+message to not mention the UCD.
+
+> +
+> +               ucd-alert {
+> +                       label = "ucd-alert";
+> +                       gpios = <&gpio ASPEED_GPIO(I, 2) GPIO_ACTIVE_LOW>;
+> +                       linux,code = <ASPEED_GPIO(I, 2)>;
+> +               };
+
+Andrew, are we sure this should be exposed to userspace? Is it
+something that should be hooked up to the SMBus driver instead?
 
 Cheers,
 
 Joel
+
+>         };
+>
+>         leds {
+> --
+> 1.8.2.2
+>
