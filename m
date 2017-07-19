@@ -1,54 +1,56 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x230.google.com (mail-yw0-x230.google.com
- [IPv6:2607:f8b0:4002:c05::230])
+Received: from mail-yw0-x242.google.com (mail-yw0-x242.google.com
+ [IPv6:2607:f8b0:4002:c05::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xCBYY06dczDrVF
- for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 19:29:04 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xCBjt674WzDrVn
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 19:36:18 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="SAjpY4ko"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="rj1EkRHy"; 
  dkim-atps=neutral
-Received: by mail-yw0-x230.google.com with SMTP id a12so17711722ywh.3
- for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 02:29:04 -0700 (PDT)
+Received: by mail-yw0-x242.google.com with SMTP id a12so2325164ywh.1
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 02:36:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=tnzML6X8G5dTQ1uqPN0KczjHLwgI4/SLxsGX12GU8U0=;
- b=SAjpY4koIWJWNYCBPSt9ncQM9xjDSmBnu0N7BSIRdL5Nxv7XBaU7dwOHlZ4IbvynNJ
- 2hInrHAOSrLwiho+3N+dTXbHik1CxBRDBduGN1daSs/S2mi2EgtDZA8uZffWKS2KPJO+
- SpAFwHmke6g3LlbIXsStCCghHy5A43K/pPfuxpTG7qe60MGBIwo/LP8JtB+acFKZI5bL
- A9qFWKNQRtKN+IlHFxodqaVQOuXw2Y7nGLQ6rDd2aodTE/TX/3yMuTgYfHsDAf+JbL+Q
- D1x7zVUSNxhXdL76uvOJCl53fennKnAvOjHKZ0C/8zyMpX/8HEj+/vEnGVg37k8fzqL7
- CebA==
+ bh=AyVyyL7UaAjkO8spd1+II9vHgPBjoYpcg0mYimYy7rA=;
+ b=rj1EkRHyeCqKPV9ebo0uV4C84QnSnkiTOwGKWJZA5rH3n1hvdtXAPK/oeCyGa+GnhU
+ 48neqLL6On6UKehgJZs9ZzhisZImfpabiRPe0tJu/p8UV4iM2aQRxfo8urxPWQvp3kIz
+ EWmlfErAHvN1KfmLG2n56UFEhehcs/HMxaH4raDYZyKMHyZSIieecwy15It+Ok0WFcQv
+ QDc1rXel+sZMvs6QOHDdOx0n+4QI4JKnq7CQvXVQNt4nTTUN9oxosvH0JE/Atbiy+0G2
+ RZER1SGzAibI8UIxAdwO1ySc6Kt8Mtuu44DuxPi2s/NR9K4mKZa2DJIWy3LG6LBH+pwK
+ 0vkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=tnzML6X8G5dTQ1uqPN0KczjHLwgI4/SLxsGX12GU8U0=;
- b=MGV2Om4gAmbjhw+1mJ2qmM+YAKNfwRZwI25CYFermmR1bXL9Ml7My6j0Qoxz9LSKS5
- mZyTwwzkmG306Uw/E6ASnm8Kfot61LjH8LHO/ezP41jMd5whcYq+bTXtZDWMrsV1XX66
- FHn/1oNmHOvI+EcbbrQlWp9cYzM/tUqh5EOrHOmo5YFcSox+evL6JZNxvwZ6dlTwbnI3
- xIYBx//vG3kn4hHHCH9KtDE/xUMbirXzz2lMUVuGItEr8cGqsmpR72Vza/TfZc5iSlCV
- O6yW5lxgLmt2GdJqt8iyqBTkxNbhlQNR36FOFekdA+92EyKesHDpD8+cvE0X4fsruISM
- oxgQ==
-X-Gm-Message-State: AIVw112f3zJ7ZuO54W6nka2z32r5wghb6qq252paoy+ue1wBJk0u6PyM
- 3v6UuyIXGCdaGveZVdstc9gsf+4Bew==
-X-Received: by 10.13.239.199 with SMTP id y190mr1402731ywe.296.1500456542061; 
- Wed, 19 Jul 2017 02:29:02 -0700 (PDT)
+ bh=AyVyyL7UaAjkO8spd1+II9vHgPBjoYpcg0mYimYy7rA=;
+ b=MyMGlbU4VNuMCyBvpHhhnaQ7FaqZ15zB8pbZj6KtjxGTQ73qg+9r7hGnBdbRleRt+W
+ AaCu7+LylNoi6Wvd03T2KMOmRK8V29GLgLiDPc+y2ot302Hgk5Auj5SzMs2I40wr3wf7
+ igmrqJ+LnT7WNjo4d8bxTMF6nJZMZ+Mv5rPmRhxGr0Uzjez46sWsrLvGaSOeqKuZjDj4
+ vcWPdRNuS77ZkbYVI8SG27N/+93KELLUIAK7ffnF8UjM5qc/ng/nIlQIUE1/RLOEkjO8
+ ROBGLWTXg63wPbOtLUyt93G73NQLGZBHndoudzo4MTEz5GbDV17E2hCp+8MmTssg2Why
+ ZMfw==
+X-Gm-Message-State: AIVw1113van0c8hXDt+t97ms21G7ermbwm03+9X2wzYtAPrA+JNGhIkC
+ BORGNBuzT0Ue2CJONn0VmkeucngQFQbioYs=
+X-Received: by 10.129.201.4 with SMTP id o4mr1571199ywi.2.1500456976635; Wed,
+ 19 Jul 2017 02:36:16 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.170.177 with HTTP; Wed, 19 Jul 2017 02:28:41 -0700 (PDT)
-In-Reply-To: <20170718204324.32945-2-cbostic@linux.vnet.ibm.com>
-References: <20170718204324.32945-1-cbostic@linux.vnet.ibm.com>
- <20170718204324.32945-2-cbostic@linux.vnet.ibm.com>
+Received: by 10.37.170.177 with HTTP; Wed, 19 Jul 2017 02:35:56 -0700 (PDT)
+In-Reply-To: <CALLMt=pRW8N=CoC7zVOgDcRcZiD_f336w4Mwh0EGOqK3RwR-Dg@mail.gmail.com>
+References: <1500321334-11189-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <CALLMt=pRW8N=CoC7zVOgDcRcZiD_f336w4Mwh0EGOqK3RwR-Dg@mail.gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 19 Jul 2017 18:58:41 +0930
-X-Google-Sender-Auth: 4q3Rj46nufIRGvdCy0uwNXb1WA8
-Message-ID: <CACPK8XcGBH8NOu0BvpmWarJKaD5nG+jUhVz7fFpamx-oX_fBHA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] ARM: dts: aspeed: Add gpio-keys-polled for fan
- presence
-To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Wed, 19 Jul 2017 19:05:56 +0930
+X-Google-Sender-Auth: LO_YqzfD852pmMgV77gL15ieWI0
+Message-ID: <CACPK8XfJ5KJ1RO5yD=Lr_Nvor0J8-u7DBgNoGqO2Bea_SVzbfw@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] drivers/hwmon/occ: Change power sensor
+ type a0 attributes
+To: Andrew Geissler <geissonator@gmail.com>
+Cc: Eddie James <eajames@linux.vnet.ibm.com>,
+ "Edward A. James" <eajames@us.ibm.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -61,37 +63,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Jul 2017 09:29:06 -0000
+X-List-Received-Date: Wed, 19 Jul 2017 09:36:19 -0000
 
-On Wed, Jul 19, 2017 at 6:13 AM, Christopher Bostic
-<cbostic@linux.vnet.ibm.com> wrote:
+On Tue, Jul 18, 2017 at 11:15 AM, Andrew Geissler <geissonator@gmail.com> wrote:
+> On Mon, Jul 17, 2017 at 2:55 PM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+>> From: "Edward A. James" <eajames@us.ibm.com>
+>>
+>> Needed to be more standard.
+>>
+>> Signed-off-by: Edward A. James <eajames@us.ibm.com>
 >
-> +       gpio-keys-polled {
-> +               compatible = "gpio-keys-polled";
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               #poll-interval = <100>;
+> Tested-by: Andrew Geissler <geissonator@gmail.com>
+>
+> Eddie provided me this patch (plus his zaius gpio one) up in gerrit
+> via https://gerrit.openbmc-project.xyz/#/c/5243/ which I then verified
+> my hwmon conf files on top of.
 
-Are you sure that this needs to be polled this often?
-
-We should consider how much traffic this generates on the bus (how
-often it is contended), and how that fits in with other devices on
-that master. If you've done these calculations then please amend your
-commit message with that information.
-
-> +               autorepeat;
-
-None of the other gpio-keys nodes have this set. Can you expand your
-commit message to explain why you set this please.
-
-> @@ -224,6 +256,8 @@
->                 reg = <0x60>;
->                 #address-cells = <1>;
->                 #size-cells = <0>;
-> +               gpio-controller;
-> +               #gpio-cells = <2>;
-
-This appears to be an unrelated change?
+Thanks for the testing Andrew. Applied to dev-4.10.
 
 Cheers,
 
