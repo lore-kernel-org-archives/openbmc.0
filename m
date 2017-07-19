@@ -1,52 +1,54 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x22c.google.com (mail-yw0-x22c.google.com
- [IPv6:2607:f8b0:4002:c05::22c])
+Received: from mail-yb0-x229.google.com (mail-yb0-x229.google.com
+ [IPv6:2607:f8b0:4002:c09::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xCBBL1ydnzDrVQ
- for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 19:12:26 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xCBBw4pShzDrVp
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 19:12:56 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="KjoAOL4C"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="i/nve76S"; 
  dkim-atps=neutral
-Received: by mail-yw0-x22c.google.com with SMTP id x125so17742613ywa.0
- for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 02:12:26 -0700 (PDT)
+Received: by mail-yb0-x229.google.com with SMTP id 70so14232483ybn.2
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 02:12:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=td4RG25x9sFW9FnFFLZplLfowfYeVoSaF5LP1v8/Pkc=;
- b=KjoAOL4CoFjzCHuuu7G1f6uDVQgJM4pHflMpGGKN/wv+I+/7AbSNlksu+BDRNhh7oG
- AIv66WHdmknUMU2JbUxzH9axTi2XirdmfliDWrta5qSpkHS1AaRrEsX538tb/99a3ock
- ue9Yvut8Fu0tEBzh+1OWY4/PNLnImBf/xg4RfIu4yLO1/RPEauJ38KeGKoww1jegYneF
- QzKLkBjgWu1kDIRLHNS1hfq5hfuEy4IQC4ANeBroq+LMLsFiZdl8NOkRmTArZn/FJKKe
- WYX6o+uhzwF76qom+2hGnd0nN+P8/63B+OxfcjClYMziqMeARbVKtFLnaHbqb5btw47s
- ceuA==
+ bh=JQneK5pzPllwO+yTtyj0/dpdhFnyHDW4aYFUZK1/Qz8=;
+ b=i/nve76StKDnKvO7Tv3eeyMNiTtzJJxzqD+HIGI+q1hAA8SmpKLOJ8PmnAX7Ra9By8
+ OjO58KnvyaoP9Bu/wQxo4/4gcR8AMVFPXXeJYgJ//QbsogDanYW7wuTI0oK4eQw0v8e0
+ PZLCZVAIAoJ6oyxvZIvb4Z3lc52cmCgbPdLCWdo8CFRNi8OIQsJ3YfMexayzLpHvRCLo
+ +4sBxc2Hk2NuTHMkq8Q5U9wk/lvAEgoKkiqdYGavPfSIga8Srlm3m2I/tKBjnUA01TIn
+ 6h5pNS2Op+MGkAqvjb9o9WtGDcS2vBFmoWYPC2zo/cFUQXqU1DA4jZkJbIfTpHgc4rTX
+ S/2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=td4RG25x9sFW9FnFFLZplLfowfYeVoSaF5LP1v8/Pkc=;
- b=mV2Jc/jpqC8BC9VGWnXoAwABPHkzFykNdzZO8tFlZYtKX7u4PX2ftC9GthXnX1jBIT
- ELk6rdRVJvtbwXJlTP1Q9LXdSaqOrbOKp7DJSWX12kjrlqWuMZuip12+Xv8oBFDZ4hdU
- R4yWK9G/XZB2goSAHDuJama0F6mdG8+Va/xTFAG46WsNdhC1rFqPVGvG8wCfaXHV3CjE
- 0bF0q8cJ0Vow+rWusaR6RhGdOABRLGHawPpJRizZjaM6sxCozdVASSIWvZ4zuYfgwJQ2
- /yL3DVoazOget00emm1BfcPq+1LFa0eOndUii88Bi3TLJCZtfmgukA1vJOZ5yeimobCr
- oXGA==
-X-Gm-Message-State: AIVw110KNDB0+Dhn7i7y7glfUaw+5wrFJRoUwXerNgjVURpDbkezauUH
- ZvdX1TgPkyzoIeHwCbghS59nEswKGVaO
-X-Received: by 10.129.201.4 with SMTP id o4mr1501364ywi.2.1500455544111; Wed,
- 19 Jul 2017 02:12:24 -0700 (PDT)
+ bh=JQneK5pzPllwO+yTtyj0/dpdhFnyHDW4aYFUZK1/Qz8=;
+ b=AbxXphBkujNYemyx9PkzZerHpYV90TGta32X1eKMav1ZoYqrNlqCFv542J554NryeA
+ 2Vl+0zc905LVnOCjL1Psc6syN65WuuXTirHiCrw4i506D/bGXPIr05SRjoBSZP04FhTh
+ w5Z2U4gxjM8wjODiDMoAO8rKw3ziDjtZ+UTmhTdN09PFB3UGqXPQyPcSw8Xs39BzScml
+ QT6Epx0xXWhWVg4S9rpCq+4Se6wPTDSXMEWm/Q5UI46rOiATZpO10p4BbaxBCRLv9mqn
+ mK+7t24Hbl4j/0nv5EnUrs9TTjbA6bvVDcomUkcEdLik1rQrHhPGI23TLj6WYh5ovQTr
+ LvFQ==
+X-Gm-Message-State: AIVw111ngxXNDNLuBud54BtpMs7DwBJhh4x7lP2vStiGnSqP3F6Emzn3
+ W6Jdb76rOHaQPmIfh/YjIfdnWfwG+37k
+X-Received: by 10.37.170.101 with SMTP id s92mr1291434ybi.169.1500455574274;
+ Wed, 19 Jul 2017 02:12:54 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.170.177 with HTTP; Wed, 19 Jul 2017 02:12:03 -0700 (PDT)
-In-Reply-To: <1500354438-25577-1-git-send-email-mine260309@gmail.com>
-References: <1500354438-25577-1-git-send-email-mine260309@gmail.com>
+Received: by 10.37.170.177 with HTTP; Wed, 19 Jul 2017 02:12:33 -0700 (PDT)
+In-Reply-To: <9085e08c-e2cf-16d8-ada8-2b1a3e0025e1@linux.vnet.ibm.com>
+References: <1500053800-3923-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <9085e08c-e2cf-16d8-ada8-2b1a3e0025e1@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 19 Jul 2017 18:42:03 +0930
-X-Google-Sender-Auth: Nls7T6xImLD_HXGk6LHR-kizlqE
-Message-ID: <CACPK8XfC7cQsqHKez0hCn2e5RaCzwxwn3fXxP4oJ7JOvfn1vwQ@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] ARM: aspeed: palmetto: Fix FSI gpios
-To: Lei YU <mine260309@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Wed, 19 Jul 2017 18:42:33 +0930
+X-Google-Sender-Auth: cJ2ZGXMLMTKDPypSiqfY5T9poNQ
+Message-ID: <CACPK8XdHHxFj8fojxS_cBSoGAogfOqWz=jpsZoWv=QxTtb-_Vw@mail.gmail.com>
+Subject: Re: [PATCH u-boot] configs/ast: Add redundnant env
+To: Eddie James <eajames@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ "Edward A. James" <eajames@us.ibm.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -59,16 +61,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Jul 2017 09:12:26 -0000
+X-List-Received-Date: Wed, 19 Jul 2017 09:12:57 -0000
 
-On Tue, Jul 18, 2017 at 2:37 PM, Lei YU <mine260309@gmail.com> wrote:
-> Palmetto as P8 system still uses GPIO bit banging for FSI operations.
-> So the gpio-fsi driver shall be disabled and GPIOH6 hog shall be added.
-> Otherwise Palmetto fails to boot host.
+On Wed, Jul 19, 2017 at 3:36 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
 >
-> Signed-off-by: Lei YU <mine260309@gmail.com>
+>
+> On 07/14/2017 12:36 PM, Eddie James wrote:
+>>
+>> From: "Edward A. James" <eajames@us.ibm.com>
+>>
+>> Configure ast chips to run redundant u-boot environments.
+>
+>
+> This will need some userspace changes to work properly. The BMC will still
+> boot if this is merged by itself, but there might be trouble updating
+> environment variables without a serial connection (of particular concern
+> would be the MAC address...). fw_setenv may update the flash without the
+> correct "valid" byte that exists for redundant environments, and so u-boot
+> will probably consider the updated flash invalid and switch to the other
+> copy every time you reboot.
 
-Thanks for hunting this down Lei. Applied to dev-4.10.
+Thanks. I will hold off until the userspace change is ready to go.
 
 Cheers,
 
