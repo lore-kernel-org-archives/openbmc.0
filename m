@@ -1,53 +1,52 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x243.google.com (mail-yw0-x243.google.com
- [IPv6:2607:f8b0:4002:c05::243])
+Received: from mail-yw0-x241.google.com (mail-yw0-x241.google.com
+ [IPv6:2607:f8b0:4002:c05::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xCBvv5JnmzDq60
- for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 19:44:59 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xCBx6356VzDq60
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 19:46:02 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="n2Ag+Tmt"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="T/j/azah"; 
  dkim-atps=neutral
-Received: by mail-yw0-x243.google.com with SMTP id v193so2340627ywg.0
- for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 02:44:59 -0700 (PDT)
+Received: by mail-yw0-x241.google.com with SMTP id v193so2342071ywg.0
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 02:46:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=+bNmfOqQ9l35lme/OhLJpZPI0HwQ6OCklf1h/RHbPos=;
- b=n2Ag+Tmtzz744RvUnwTo+54SA/6DHlpO7gFAu6Zt/dEVts2sDITXQpTIg7HXtwmBDp
- AYWgECbKRPfA7I0rxqwG/e4yEw0d7F9rMg3r+Ro41QAPMlYBdUgWY8Xexdu+QWuIJRWV
- xzBx7ge1IEw72Nj8NvwjPpsJDBr9rh6/R035xgcSSkUYatIMwKxbjHJkYWlgKScY6VQV
- wHTA+HcNGEQ55zS+rhLs0RMFV2T0lWpFA9svC9vScnfFe7/Vd2SXeC0QkQepBj519mRZ
- FRaNaTKODTSs9LXX/DQFZC7ZMpetcZDd5BphAqJzZh50tKwi3m9zoDaA3464mlpSbDB8
- ilqg==
+ :subject:to; bh=zWtbpkW826C9NN1A+vH0PGOSvjoTBXmmg5FinXLlcrA=;
+ b=T/j/azahaz0jzh4IBt3wHXahgtn4JC0UUyTgp3z7HL1Ia80HxqlTbpegsdffF+XyES
+ qWwxKzNWFLqHD7UqdVmgtjrvEFCuQOZOUwDqvHdr4ORcVFXI5WqAsJAmxp+R/bLHFDTh
+ rQJE3rLip/Vqm+1Yraih9M50SlSeqol/219WAMcw1oPNYbqn4cAuzM7SRDGfvzHkTW+P
+ oHcUPlIAbf4XqZM3VRYyIdbCfZfcplKZxLOSLK7P2HLmDnHrcbeqptqMJxBCqyZqU52S
+ AFZvJ5o3+8qP5Xx85V1mbUxq1U4WJcxTgm+bt234dxDmuqVMmDdy+6zEnKI1iZ6JmO5n
+ a+fA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=+bNmfOqQ9l35lme/OhLJpZPI0HwQ6OCklf1h/RHbPos=;
- b=ar8tMFMrxk3OG81Yh62jaJwd1rcI8dPHPk+b072slatsP/o4RjF1uwM3aMR3rIme8n
- sBlhzwoxZqTM+SVhP7iOKQLf4Xn5cdThc+Rmj8zV7Yuq0wzbB+S6ynStfFRKug+7HzuD
- 9nEPjxTWfbA4LbnH9cxntftSdtBxWoGVWupTSoiq8R7FGJdt7vcNB3z/uqArDhXi97tq
- k3QgbORHmOCtVv8pDXdUgx9nJW8U7M3GAmvRUh9PK7GwZlSlfK4z3yxW3dqM/WDHUgM9
- uVQ/qMQXuwD71+D6ikQfZMeUHs9vbbhY6DCTNwfv86XXsSBcNU6QL+jKs/OEb8njdFZT
- maOQ==
-X-Gm-Message-State: AIVw111X0fYG/VLKK2iTlcVLe6kShi2/4Gl/5w9lzR6dpkHxyqxGBRmG
- zzHoLz5nh1OvMb9uG/1gBVgA9keaxA==
-X-Received: by 10.129.164.77 with SMTP id b74mr1384252ywh.235.1500457496985;
- Wed, 19 Jul 2017 02:44:56 -0700 (PDT)
+ :date:message-id:subject:to;
+ bh=zWtbpkW826C9NN1A+vH0PGOSvjoTBXmmg5FinXLlcrA=;
+ b=M3FyMlnyeYbwb9SAd1PeH/RYNKkqZ29eN5yTCm9gtrQ1y+G26liFR/3Y9PTTSkhtU/
+ dRAyrAQTiJXeJWvNg3eYljNv3n0/iPttcuRDTo3IRLIYUIJnKay483aXWAaVPXQyDvyM
+ zOeJi6afHwqkahluoqicRXfB/lXQdH2l1ux5oownQNzpddtdNu7cG1JVWXxcMBC6hnLu
+ XGctC8JwgaoTt4tgpo+YpO+R8Q3FU1sK6NR307YW3ryKYxBg1gPPRnRnMMpv8bTta96u
+ JwuOEs8x8rXgM+hPU9kcitpK5woxyMq+pUaRUJJYTees7d1eWXvlDQPbzCvAYEmYAHXO
+ 3rIw==
+X-Gm-Message-State: AIVw110w518sYqiYGBREIzr6SfB9RzG/NJiFogCE9MYS82XDX8l7eWYy
+ VD4FLU4xnteOZ/PTSOFoMowByCSYkMomAIQ=
+X-Received: by 10.129.201.4 with SMTP id o4mr1596846ywi.2.1500457560284; Wed,
+ 19 Jul 2017 02:46:00 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.170.177 with HTTP; Wed, 19 Jul 2017 02:44:36 -0700 (PDT)
-In-Reply-To: <20170710155958.7644-1-cbostic@linux.vnet.ibm.com>
-References: <20170710155958.7644-1-cbostic@linux.vnet.ibm.com>
+Received: by 10.37.170.177 with HTTP; Wed, 19 Jul 2017 02:45:39 -0700 (PDT)
+In-Reply-To: <20170706064443.16972-1-joel@jms.id.au>
+References: <20170706064443.16972-1-joel@jms.id.au>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 19 Jul 2017 19:14:36 +0930
-X-Google-Sender-Auth: LnT5ypftutTd9Fsolq5SQcG3DQs
-Message-ID: <CACPK8Xe=YJdw6-bbHzTnSE6we8Nvx=ieJ11AAu7KtREknsv24A@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: Add fan fault optional
- parameter for max 31785
-To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Wed, 19 Jul 2017 19:15:39 +0930
+X-Google-Sender-Auth: hxA2THuhsBj-aIb8rp72gxgyhCw
+Message-ID: <CACPK8XfxufScBjxK5_V9Hz3aerZLxg6WFvK_eZfhB0nH1NAs1g@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] i2c: fsi: Add SMBUS emulation
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Eddie James <eajames.ibm@gmail.com>, 
+ Edward James <eajames@us.ibm.com>, eajames <eajames@linux.vnet.ibm.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -60,17 +59,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Jul 2017 09:45:00 -0000
+X-List-Received-Date: Wed, 19 Jul 2017 09:46:02 -0000
 
-On Tue, Jul 11, 2017 at 1:29 AM, Christopher Bostic
-<cbostic@linux.vnet.ibm.com> wrote:
-> Add optional parameter 'fault-max-fan' to indicate to device driver
-> to set max fan mode when fault condition encountered.
+On Thu, Jul 6, 2017 at 4:14 PM, Joel Stanley <joel@jms.id.au> wrote:
+> Userspace expects this to be enabled. For example, it is required for
+> using i2cdetect.
 >
-> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
 
-Applied to dev-4.10.
+What do you think Eddie?
 
-Cheers,
-
-Joel
+> ---
+>  drivers/i2c/busses/i2c-fsi.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
+> index d5135b4bc607..952cf8f392b4 100644
+> --- a/drivers/i2c/busses/i2c-fsi.c
+> +++ b/drivers/i2c/busses/i2c-fsi.c
+> @@ -467,7 +467,8 @@ static int fsi_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
+>
+>  static u32 fsi_i2c_functionality(struct i2c_adapter *adap)
+>  {
+> -       return I2C_FUNC_I2C | I2C_FUNC_PROTOCOL_MANGLING | I2C_FUNC_10BIT_ADDR;
+> +       return I2C_FUNC_I2C | I2C_FUNC_PROTOCOL_MANGLING | I2C_FUNC_10BIT_ADDR
+> +               | I2C_FUNC_SMBUS_EMUL | I2C_FUNC_SMBUS_BLOCK_DATA;
+>  }
+>
+>  static int fsi_i2c_low_level_recover_bus(struct fsi_i2c_master *i2c)
+> --
+> 2.13.2
+>
