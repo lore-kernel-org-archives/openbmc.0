@@ -1,63 +1,57 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x241.google.com (mail-yw0-x241.google.com
+ [IPv6:2607:f8b0:4002:c05::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xBsZH4RSLzDrHv
- for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 06:43:35 +1000 (AEST)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v6IKfNqY137901
- for <openbmc@lists.ozlabs.org>; Tue, 18 Jul 2017 16:43:33 -0400
-Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2bsh24b24q-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 18 Jul 2017 16:43:32 -0400
-Received: from localhost
- by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Tue, 18 Jul 2017 16:43:31 -0400
-Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
- by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Tue, 18 Jul 2017 16:43:30 -0400
-Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
- [9.57.199.108])
- by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v6IKhT0s21889138; Tue, 18 Jul 2017 20:43:29 GMT
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 28FFFB204D;
- Tue, 18 Jul 2017 16:40:59 -0400 (EDT)
-Received: from christophersmbp.austin.ibm.com (unknown [9.41.175.36])
- by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP id D1869B204E;
- Tue, 18 Jul 2017 16:40:58 -0400 (EDT)
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-To: joel@jms.id.au
-Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Subject: [PATCH v2 2/2] ARM: configs: aspeed: Add GPIO_KEYS_POLLED
-Date: Tue, 18 Jul 2017 15:43:24 -0500
-X-Mailer: git-send-email 2.10.1 (Apple Git-78)
-In-Reply-To: <20170718204324.32945-1-cbostic@linux.vnet.ibm.com>
-References: <20170718204324.32945-1-cbostic@linux.vnet.ibm.com>
-X-TM-AS-GCONF: 00
-x-cbid: 17071820-0048-0000-0000-000001C63642
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007383; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00889487; UDB=6.00444307; IPR=6.00669659; 
- BA=6.00005479; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016265; XFM=3.00000015;
- UTC=2017-07-18 20:43:31
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17071820-0049-0000-0000-000041EE6B7B
-Message-Id: <20170718204324.32945-3-cbostic@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-07-18_11:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
- definitions=main-1707180323
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xCB9t5kSXzDrV5
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 19:12:02 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ehp+Xxg5"; 
+ dkim-atps=neutral
+Received: by mail-yw0-x241.google.com with SMTP id v193so2308772ywg.0
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 02:12:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=MkDd2YPiwgyQnF1cWcp0HZCW8MdODXO/3wyL/dxyaNo=;
+ b=ehp+Xxg5k8ENoVTac4lPqwl0UcWQWhQ2t1rGKBz2TneCWb3h3WIjBnt0sFlBwBo1TP
+ ixMEb0Dv56O2lLw5W7AtjJjN46SSmnpXQVuW7kmkHmm5KxMOkfaoqSWXuuLbZ3uZ+Kcy
+ a3Tysi9lJwBaLN3xu7hARNs8I85k3Dgy4CVRYmWM282gS8QlkgpJxACEolc2XVVHnjMw
+ ZDaOFfJ6ZjxUk5WJAkcaQli0yxuoZhWKmB6yBEsUQ9KNGLNV1DP3JVFyZCoetRCZSKyR
+ GRlfpvF8LCshHF3g/ANujRtGVdNnx3nMOY89cSpnC6c11heRl8WnhElhQZTBmZbr7a/1
+ a6aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=MkDd2YPiwgyQnF1cWcp0HZCW8MdODXO/3wyL/dxyaNo=;
+ b=hzFXkPPpRJS5rFH2f8ydnHVGXu0ZXfERCfj1jL3D8Xr430x4Hpfq7e6fQ4LmqJvji8
+ McfRAOfGzBkml6Uju8DPS8Fkd8h6OVkUxw24QWqcD+8o2y3QdQbywMCH41PYGbj1hIhK
+ KApyVL6xrCo7eVPrWpDynC4KpL1BeHtCrGmKJN5+sVFOdJJJlZYqOU8qE5Q1T//j2HOS
+ Nt02m6I1Jfu7RessNda//3bh6O8tVTXHN51XQQ2eqGNsG+d+WXCBJE0tdMOZ+6deHiah
+ ufDDVh4Cj3n68s6oe0ZgpCwquyCmyXpJyRZxJjnGeno/5IbG7aQqXMZqq0NxVP/F8jQU
+ 6Xzw==
+X-Gm-Message-State: AIVw113Sq8Fn8iiSpw2Si1W055D9PE44A/AWI9B+N1oE9t4AbrGc7nO/
+ wIIOB8r4N5tJdx7vBplbjb5MJlY/Ng==
+X-Received: by 10.129.164.77 with SMTP id b74mr1299820ywh.235.1500455519230;
+ Wed, 19 Jul 2017 02:11:59 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.37.170.177 with HTTP; Wed, 19 Jul 2017 02:11:38 -0700 (PDT)
+In-Reply-To: <CAPH-5w4TQnpAby2q2nFi58iCUtB9c07mHx+nOHdAN4676OtN4w@mail.gmail.com>
+References: <1499889964-23262-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <CACPK8XdMbJsov9o-OWHNw8RPwXSJgMuVrdouT5w8zQAne7omkQ@mail.gmail.com>
+ <CAPH-5w4TQnpAby2q2nFi58iCUtB9c07mHx+nOHdAN4676OtN4w@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 19 Jul 2017 18:41:38 +0930
+X-Google-Sender-Auth: 2k71tPLlpF6zwPfrCK87JM1uEts
+Message-ID: <CACPK8XekADo4rSVkRAoUqYk=QWf-XDyyCMXp74KcY_xfpfE3kA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: Add FSI devices for Zaius
+To: Xo Wang <xow@google.com>
+Cc: Eddie James <eajames@linux.vnet.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ "Edward A. James" <eajames@us.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -69,27 +63,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Jul 2017 20:43:36 -0000
+X-List-Received-Date: Wed, 19 Jul 2017 09:12:03 -0000
 
-Configure to build gpio_keys_polled device driver.
+On Sat, Jul 15, 2017 at 8:24 AM, Xo Wang <xow@google.com> wrote:
+> On Wed, Jul 12, 2017 at 6:04 PM, Joel Stanley <joel@jms.id.au> wrote:
+>> On Thu, Jul 13, 2017 at 5:36 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+>>> From: "Edward A. James" <eajames@us.ibm.com>
+>>>
+>>> Missing label, properties, and include file.
+>>>
+>>> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+>>
+>> Hey Xo, can I get an ack on this?
+>>
+>> Cheers,
+>>
+>> Joel
+>>
+>
+> Ah, missed this.
+>
+> Thanks.
+>
+> Acked-by: Xo Wang <xow@google.com>
 
-Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
----
- arch/arm/configs/aspeed_g5_defconfig | 1 +
- 1 file changed, 1 insertion(+)
+Applied to dev-4.10.
 
-diff --git a/arch/arm/configs/aspeed_g5_defconfig b/arch/arm/configs/aspeed_g5_defconfig
-index ad121ed..1868442 100644
---- a/arch/arm/configs/aspeed_g5_defconfig
-+++ b/arch/arm/configs/aspeed_g5_defconfig
-@@ -106,6 +106,7 @@ CONFIG_REALTEK_PHY=y
- CONFIG_INPUT_EVDEV=y
- # CONFIG_KEYBOARD_ATKBD is not set
- CONFIG_KEYBOARD_GPIO=y
-+CONFIG_KEYBOARD_GPIO_POLLED=y
- # CONFIG_INPUT_MOUSE is not set
- # CONFIG_SERIO is not set
- # CONFIG_VT is not set
--- 
-1.8.2.2
+Cheers,
+
+Joel
