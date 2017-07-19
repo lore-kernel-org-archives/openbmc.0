@@ -1,62 +1,62 @@
-Return-Path: <linux@roeck-us.net>
-Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+Return-Path: <cbostic@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xCQ7x2skjzDqm4
- for <openbmc@lists.ozlabs.org>; Thu, 20 Jul 2017 04:11:09 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.b="dAEMZdAK";
- dkim-atps=neutral
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
- :Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
- :Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=G6xgijSJsU1Tiq4fssSldoig75HtUnJdba7vRaFDGe8=; b=dAEMZdAKPdCoh9GVhCU6A5w3dx
- MVe0ocEPhC/74mCQFFUtVTnKE684P1xwCjde24QaAi0sY8svPGSkFH6cZfWmXmCD5jo2BNDA5W1Jw
- zcghOQ4b9rwJ9WDcXCCK9mNqJy5zmdZGQfjB2d8ptnRakIK+CJWfPRyYngj7zzuTc65AGXO9odhgf
- cKVy3zzpRmFkybIghJTmxz6Fp5JF/+HVFM8La3AkNkJmgWtAzcvnyRn1C1EJ5/WjoQB5GQL2GE9+O
- oT8Lhdd8cl8Ht7L9N0cGyrI3TdrJkaMrof+jj8iVkJ2T6Fwa6sOzz/PL0DjXX7VsvKnL8jSh8bQgC
- /imf5ZpQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net
- ([108.223.40.66]:47676 helo=localhost)
- by bh-25.webhostbox.net with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
- (Exim 4.89) (envelope-from <linux@roeck-us.net>)
- id 1dXtRA-0017GS-Nv; Wed, 19 Jul 2017 18:11:05 +0000
-Date: Wed, 19 Jul 2017 11:11:03 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Joel Stanley <joel@jms.id.au>
-Cc: Andrew Jeffery <andrew@aj.id.au>, linux-hwmon@vger.kernel.org,
- Jean Delvare <jdelvare@suse.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- msbarth <msbarth@linux.vnet.ibm.com>,
- Matt Spinler <mspinler@linux.vnet.ibm.com>
-Subject: Re: [RFC PATCH v2 3/3] pmbus: Add MAX31785 driver
-Message-ID: <20170719181103.GE11439@roeck-us.net>
-References: <20170718033653.10298-1-andrew@aj.id.au>
- <20170718033653.10298-4-andrew@aj.id.au>
- <CACPK8XewOXhT4bvUHhhSoPu1t2=DefeutkrLRnVhhu2+B7nLSw@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CACPK8XewOXhT4bvUHhhSoPu1t2=DefeutkrLRnVhhu2+B7nLSw@mail.gmail.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Authenticated_sender: guenter@roeck-us.net
-X-OutGoing-Spam-Status: No, score=-1.0
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - lists.ozlabs.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-Get-Message-Sender-Via: bh-25.webhostbox.net: authenticated_id:
- guenter@roeck-us.net
-X-Authenticated-Sender: bh-25.webhostbox.net: guenter@roeck-us.net
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xCR7f5Wh8zDqnr
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Jul 2017 04:55:58 +1000 (AEST)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v6JImwOU052713
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 14:55:56 -0400
+Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2btcgksffv-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 14:55:56 -0400
+Received: from localhost
+ by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Wed, 19 Jul 2017 14:55:55 -0400
+Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
+ by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 19 Jul 2017 14:55:53 -0400
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v6JItrge24903902; Wed, 19 Jul 2017 18:55:53 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id E86A3112040;
+ Wed, 19 Jul 2017 14:55:49 -0400 (EDT)
+Received: from christophersmbp.austin.ibm.com (unknown [9.41.175.36])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id 95254112056;
+ Wed, 19 Jul 2017 14:55:49 -0400 (EDT)
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+To: joel@jms.id.au
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.10 v3] ARM: dts: aspeed: Add gpio-keys-polled for
+ fan presence
+Date: Wed, 19 Jul 2017 13:55:52 -0500
+X-Mailer: git-send-email 2.10.1 (Apple Git-78)
+X-TM-AS-GCONF: 00
+x-cbid: 17071918-2213-0000-0000-000001FCABD5
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007388; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00889926; UDB=6.00444569; IPR=6.00670097; 
+ BA=6.00005479; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016278; XFM=3.00000015;
+ UTC=2017-07-19 18:55:55
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17071918-2214-0000-0000-000056EE05BA
+Message-Id: <20170719185552.44033-1-cbostic@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-07-19_12:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
+ definitions=main-1707190294
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,546 +68,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Jul 2017 18:11:11 -0000
+X-List-Received-Date: Wed, 19 Jul 2017 18:55:59 -0000
 
-On Thu, Jul 20, 2017 at 12:35:09AM +0930, Joel Stanley wrote:
-> On Tue, Jul 18, 2017 at 1:06 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> > The driver features fan control and basic dual-tachometer support.
-> 
-> Say something about the hardware?
-> 
->  max31785 is a fancy fan controller with temp measurement, pwm, tach,
-> breakfast making from Maxim.
-> 
-> 
-> >
-> > The fan control makes use of the new virtual registers exposed by the
-> > pmbus core, mixing use of the default implementations with some
-> > overrides via the read/write handlers. FAN_COMMAND_1 on the MAX31785
-> > breaks the values into bands that depend on the RPM or PWM control mode.
-> >
-> > The dual tachometer feature is implemented in hardware with a TACHSEL
-> > input to indicate the rotor under measurement, and exposed on the bus by
-> > extending the READ_FAN_SPEED_1 word with two extra bytes*.
-> > The need to read the non-standard four-byte response leads to a cut-down
-> > implementation of i2c_smbus_xfer_emulated() included in the driver.
-> > Further, to expose the second rotor tachometer value to userspace,
-> > virtual fans are implemented by re-routing the FAN_CONFIG_1_2 register
-> > from the undefined (in hardware) pages 23-28 to the same register on
-> > pages 0-5, and similarly re-routing READ_FAN_SPEED_1 requests on 23-28
-> > to pages 0-5 but extracting the second word of the four-byte response.
-> >
-> > * The documentation recommends the slower rotor be associated with
-> > TACHSEL=0, which is the input used by the controller's closed-loop fan
-> > management.
-> >
-> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> > ---
-> > v1 -> v2:
-> >
-> > * Implement in terms of virtual registers
-> > * Add support for dual-tachometer readings through 'virtual fans' (unused pages)
-> >
-> >  drivers/hwmon/pmbus/Kconfig    |  10 ++
-> >  drivers/hwmon/pmbus/Makefile   |   1 +
-> >  drivers/hwmon/pmbus/max31785.c | 372 +++++++++++++++++++++++++++++++++++++++++
-> >  3 files changed, 383 insertions(+)
-> >  create mode 100644 drivers/hwmon/pmbus/max31785.c
-> >
-> > diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-> > index cad1229b7e17..5f2f3c6c7499 100644
-> > --- a/drivers/hwmon/pmbus/Kconfig
-> > +++ b/drivers/hwmon/pmbus/Kconfig
-> > @@ -95,6 +95,16 @@ config SENSORS_MAX20751
-> >           This driver can also be built as a module. If so, the module will
-> >           be called max20751.
-> >
-> > +config SENSORS_MAX31785
-> > +       tristate "Maxim MAX31785 and compatibles"
-> > +       default n
-> > +       help
-> > +         If you say yes here you get hardware monitoring support for Maxim
-> > +         MAX31785.
-> > +
-> > +         This driver can also be built as a module. If so, the module will
-> > +         be called max31785.
-> > +
-> >  config SENSORS_MAX34440
-> >         tristate "Maxim MAX34440 and compatibles"
-> >         default n
-> > diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
-> > index 562132054aaf..4ea548a8af46 100644
-> > --- a/drivers/hwmon/pmbus/Makefile
-> > +++ b/drivers/hwmon/pmbus/Makefile
-> > @@ -10,6 +10,7 @@ obj-$(CONFIG_SENSORS_LTC2978) += ltc2978.o
-> >  obj-$(CONFIG_SENSORS_LTC3815)  += ltc3815.o
-> >  obj-$(CONFIG_SENSORS_MAX16064) += max16064.o
-> >  obj-$(CONFIG_SENSORS_MAX20751) += max20751.o
-> > +obj-$(CONFIG_SENSORS_MAX31785) += max31785.o
-> >  obj-$(CONFIG_SENSORS_MAX34440) += max34440.o
-> >  obj-$(CONFIG_SENSORS_MAX8688)  += max8688.o
-> >  obj-$(CONFIG_SENSORS_TPS40422) += tps40422.o
-> > diff --git a/drivers/hwmon/pmbus/max31785.c b/drivers/hwmon/pmbus/max31785.c
-> > new file mode 100644
-> > index 000000000000..1baa961f2eb1
-> > --- /dev/null
-> > +++ b/drivers/hwmon/pmbus/max31785.c
-> > @@ -0,0 +1,372 @@
-> > +/*
-> > + * Copyright (C) 2017 IBM Corp.
-> > + *
-> > + * This program is free software; you can redistribute it and/or modify
-> > + * it under the terms of the GNU General Public License as published by
-> > + * the Free Software Foundation; either version 2 of the License, or
-> > + * (at your option) any later version.
-> > + */
-> > +
-> > +#include <linux/kernel.h>
-> > +#include <linux/module.h>
-> > +#include <linux/init.h>
-> > +#include <linux/err.h>
-> > +#include <linux/i2c.h>
-> > +#include "pmbus.h"
-> > +
-> > +#define MFR_FAN_CONFIG_DUAL_TACH       BIT(12)
-> > +#define MFR_FAN_CONFIG_TSFO            BIT(9)
-> > +#define MFR_FAN_CONFIG_TACHO           BIT(8)
-> > +
-> > +#define MAX31785_CAP_DUAL_TACH         BIT(0)
-> > +
-> > +struct max31785 {
-> > +       struct pmbus_driver_info info;
-> > +
-> > +       u32 capabilities;
-> > +};
-> > +
-> > +enum max31785_regs {
-> > +       PMBUS_MFR_FAN_CONFIG            = 0xF1,
-> > +       PMBUS_MFR_READ_FAN_PWM          = 0xF3,
-> > +       PMBUS_MFR_FAN_FAULT_LIMIT       = 0xF5,
-> > +       PMBUS_MFR_FAN_WARN_LIMIT        = 0xF6,
-> > +       PMBUS_MFR_FAN_PWM_AVG           = 0xF8,
-> > +};
-> > +
-> > +#define to_max31785(_c) container_of(pmbus_get_info(_c), struct max31785, info)
-> > +
-> > +static int max31785_read_byte_data(struct i2c_client *client, int page,
-> > +                                  int reg)
-> > +{
-> > +       struct max31785 *chip = to_max31785(client);
-> > +       int rv = -ENODATA;
-> 
-> I'd drop this.
-> 
-> > +
-> > +       switch (reg) {
-> > +       case PMBUS_VOUT_MODE:
-> > +               if (page < 23)
-> > +                       return -ENODATA;
-> > +
-> > +               return -ENOTSUPP;
-> > +       case PMBUS_FAN_CONFIG_12:
-> > +               if (page < 23)
-> > +                       return -ENODATA;
-> > +
-> > +               if (WARN_ON(!(chip->capabilities & MAX31785_CAP_DUAL_TACH)))
-> 
-> Not sure about the WARN_ON here - won't users get spammed every time
-> someone reads a byte of data? When do we expect this case to happen?
-> 
-Presumably this would be an implementation error (there is no page numbered 23
-or larger if the bit is not set). This can't happen, thus the check is really
-unnecessary and just bloats the code.
+Define gpio-keys-polled.  Add pca-955x chip IO as GPIO source.
 
-This also means that the 'capabilities' variable is also unecessary, since it
-is only used to verify that the PMBus core really understood that there are
-only 24 pages if MAX31785_CAP_DUAL_TACH is not set (and, to be _really_ sure,
-it keeps verifying it over and over again).
+Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+---
+v3 - Remove 'autorepeat'
+   - Increase polling period to 1 second
+   - Remove GPIO specifiers from pca955x in dev tree
+v2 - Change 'linux,code' from a unique global value to a local one
+     for all the gpio-keys-polled devices.
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 31 ++++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 
-> > +                       return -ENOTSUPP;
-> > +
-> > +               rv = pmbus_read_byte_data(client, page - 23, reg);
-> 
-> return pmbus_read_byte_data(client, page - 23, reg);
-> > +               break;
-> > +       }
-> > +
-> > +       return rv;
-> 
-> return -ENODATA;
-> 
-
--ENODATA: Calling code is expected to handle the command.
-
-> Or something like ESUPP or EINVAL?
-> 
-
-Only if you want to redefine the entire internal PMBus driver API.
-
-> Interestingly max34440_read_byte_data (may) return zero in this case.
-> 
-
-zero: No error. Command has been handled.
-
-> > +}
-> > +
-> > +static long max31785_read_long_data(struct i2c_client *client, int page,
-> > +                                   int reg)
-> > +{
-> > +       unsigned char cmdbuf[1];
-> > +       unsigned char rspbuf[4];
-> > +       s64 rc;
-> 
-> This should be the same type as the function returns.
-> 
-
-Also, long is likely s32 on 32-bit architectures, making it quite pointless
-as return type. In this case, it may be better to handle data and error return
-as separate parameters, such as in
-
-static init max31785_read32(struct i2c_client *client, int page, int reg,
-			    u32 *data)
-
-> > +
-> > +       struct i2c_msg msg[2] = {
-> > +               {
-> > +                       .addr = client->addr,
-> > +                       .flags = 0,
-> > +                       .len = sizeof(cmdbuf),
-> > +                       .buf = cmdbuf,
-> > +               },
-> > +               {
-> > +                       .addr = client->addr,
-> > +                       .flags = I2C_M_RD,
-> > +                       .len = sizeof(rspbuf),
-> > +                       .buf = rspbuf,
-> > +               },
-> > +       };
-> > +
-> > +       cmdbuf[0] = reg;
-> > +
-> > +       rc = pmbus_set_page(client, page);
-> > +       if (rc < 0)
-> > +               return rc;
-> > +
-> > +       rc = i2c_transfer(client->adapter, msg, ARRAY_SIZE(msg));
-> > +       if (rc < 0)
-> > +               return rc;
-> > +
-> > +       rc = (rspbuf[0] << (0 * 8)) | (rspbuf[1] << (1 * 8)) |
-> > +            (rspbuf[2] << (2 * 8)) | (rspbuf[3] << (3 * 8));
-> 
-> It's getting late, so I might have confused myself. But can you just do:
-> 
-> rc = le32_to_cpup(rspbuf);
-> 
-> > +
-> > +       return rc;
-> > +}
-> > +
-> > +static int max31785_get_pwm(struct i2c_client *client, int page)
-> > +{
-> > +       int config;
-> > +       int command;
-> > +
-> > +       config = pmbus_read_byte_data(client, page, PMBUS_FAN_CONFIG_12);
-> > +       if (config < 0)
-> > +               return config;
-> > +
-> > +       command = pmbus_read_word_data(client, page, PMBUS_FAN_COMMAND_1);
-> > +       if (command < 0)
-> > +               return command;
-> > +
-> > +       if (!(config & PB_FAN_1_RPM)) {
-> > +               if (command >= 0x8000)
-> > +                       return 0;
-> > +               else if (command >= 0x2711)
-> > +                       return 0x2710;
-> 
-> What are the magic numbers?
-> 
-> > +               else
-
-unnecessary else
-
-> > +                       return command;
-> > +       }
-> > +
-> > +       return 0;
-> > +}
-> > +
-> > +static int max31785_get_pwm_mode(struct i2c_client *client, int page)
-> > +{
-> > +       int config;
-> > +       int command;
-> > +
-> > +       config = pmbus_read_byte_data(client, page, PMBUS_FAN_CONFIG_12);
-> > +       if (config < 0)
-> > +               return config;
-> > +
-> > +       command = pmbus_read_word_data(client, page, PMBUS_FAN_COMMAND_1);
-> > +       if (command < 0)
-> > +               return command;
-> > +
-> > +       if (!(config & PB_FAN_1_RPM)) {
-> > +               if (command >= 0x8000)
-> > +                       return 2;
-> > +               else if (command >= 0x2711)
-> > +                       return 0;
-> > +               else
-
-Unecessary else
-
-> > +                       return 1;
-> > +       }
-> > +
-> > +       return (command >= 0x8000) ? 2 : 1;
-> > +}
-> > +
-> > +static int max31785_read_word_data(struct i2c_client *client, int page,
-> > +                                  int reg)
-> > +{
-> > +       struct max31785 *chip = to_max31785(client);
-> > +       long rv = -ENODATA;
-> > +
-> > +       switch (reg) {
-> > +       case PMBUS_READ_FAN_SPEED_1:
-> > +               if (likely(page < 23))
-> > +                       return -ENODATA;
-> > +
-> > +               if (WARN_ON(!(chip->capabilities & MAX31785_CAP_DUAL_TACH)))
-> > +                       return -ENOTSUPP;
-> > +
-> > +               rv = max31785_read_long_data(client, page - 23, reg);
-> > +               if (rv < 0)
-> > +                       return rv;
-> > +
-> > +               rv = (rv >> 16) & 0xffff;
-> > +               break;
-> > +       case PMBUS_VIRT_PWM_1:
-> > +               rv = max31785_get_pwm(client, page);
-
-And ignore the error ?
-
-> > +               rv *= 255;
-> > +               rv /= 100;
-
-max31785_get_pwm() returns 0..0x2710 (or 10000). This is translated to 0..25500.
-Not really sure if that makes sense. We don't report pwm values in fractions of
-100 to user space.
-
-> > +               break;
-> > +       case PMBUS_VIRT_PWM_ENABLE_1:
-> > +               rv = max31785_get_pwm_mode(client, page);
-> > +               break;
-
-Not sure if PMBUS_VIRT_PWM_1 and PMBUS_VIRT_PWM_ENABLE_1 should return
--ENOTSUPP for pages 23+.
-
-> > +       }
-> > +
-> > +       if (rv == -ENODATA && page >= 23)
-> > +               return -ENXIO;
-
-That looks like another verification. Please drop.
-
-> > +
-> > +       return rv;
-> > +}
-> > +
-> > +static const int max31785_pwm_modes[] = { 0x7fff, 0x2710, 0xffff };
-> > +
-> > +static int max31785_write_word_data(struct i2c_client *client, int page,
-> > +                                   int reg, u16 word)
-> > +{
-> > +       int rv = -ENODATA;
-> > +
-> > +       if (page >= 23)
-> > +               return -ENXIO;
-> > +
-> > +       switch (reg) {
-> > +       case PMBUS_VIRT_PWM_ENABLE_1:
-> > +               if (word >= ARRAY_SIZE(max31785_pwm_modes))
-> > +                       return -ENOTSUPP;
-
-That doesn't look correct. -EINVAL, possibly.
-
-> > +
-> > +               rv = pmbus_update_fan(client, page, 0, 0, PB_FAN_1_RPM,
-> > +                                        max31785_pwm_modes[word]);
-> > +               break;
-> > +       }
-> > +
-> > +       return rv;
-> > +}
-> > +
-> > +static int max31785_write_byte(struct i2c_client *client, int page, u8 value)
-> > +{
-> > +       if (page < 23)
-> > +               return -ENODATA;
-> > +
-> > +       return -ENOTSUPP;
-> > +}
-> > +
-> > +static struct pmbus_driver_info max31785_info = {
-> > +       .pages = 23,
-> > +
-> > +       .write_word_data = max31785_write_word_data,
-> > +       .read_byte_data = max31785_read_byte_data,
-> > +       .read_word_data = max31785_read_word_data,
-> > +       .write_byte = max31785_write_byte,
-> > +
-> > +       /* RPM */
-> > +       .format[PSC_FAN] = direct,
-> > +       .m[PSC_FAN] = 1,
-> > +       .b[PSC_FAN] = 0,
-> > +       .R[PSC_FAN] = 0,
-> > +       /* PWM */
-> > +       .format[PSC_PWM] = direct,
-> > +       .m[PSC_PWM] = 1,
-> > +       .b[PSC_PWM] = 0,
-> > +       .R[PSC_PWM] = 2,
-> > +       .func[0] = PMBUS_HAVE_FAN12 | PMBUS_HAVE_STATUS_FAN12,
-> > +       .func[1] = PMBUS_HAVE_FAN12 | PMBUS_HAVE_STATUS_FAN12,
-> > +       .func[2] = PMBUS_HAVE_FAN12 | PMBUS_HAVE_STATUS_FAN12,
-> > +       .func[3] = PMBUS_HAVE_FAN12 | PMBUS_HAVE_STATUS_FAN12,
-> > +       .func[4] = PMBUS_HAVE_FAN12 | PMBUS_HAVE_STATUS_FAN12,
-> > +       .func[5] = PMBUS_HAVE_FAN12 | PMBUS_HAVE_STATUS_FAN12,
-> > +
-> > +       .format[PSC_TEMPERATURE] = direct,
-> > +       .m[PSC_TEMPERATURE] = 1,
-> > +       .b[PSC_TEMPERATURE] = 0,
-> > +       .R[PSC_TEMPERATURE] = 2,
-> > +       .func[6]  = PMBUS_HAVE_STATUS_TEMP,
-> > +       .func[7]  = PMBUS_HAVE_STATUS_TEMP,
-> > +       .func[8]  = PMBUS_HAVE_STATUS_TEMP,
-> > +       .func[9]  = PMBUS_HAVE_STATUS_TEMP,
-> > +       .func[10] = PMBUS_HAVE_STATUS_TEMP,
-> > +       .func[11] = PMBUS_HAVE_STATUS_TEMP,
-> > +       .func[12] = PMBUS_HAVE_STATUS_TEMP,
-> > +       .func[13] = PMBUS_HAVE_STATUS_TEMP,
-> > +       .func[14] = PMBUS_HAVE_STATUS_TEMP,
-> > +       .func[15] = PMBUS_HAVE_STATUS_TEMP,
-> > +       .func[16] = PMBUS_HAVE_STATUS_TEMP,
-> > +
-> > +       .format[PSC_VOLTAGE_OUT] = direct,
-> > +       .m[PSC_VOLTAGE_OUT] = 1,
-> > +       .b[PSC_VOLTAGE_OUT] = 0,
-> > +       .R[PSC_VOLTAGE_OUT] = 0,
-> > +       .func[17] = PMBUS_HAVE_STATUS_VOUT,
-> > +       .func[18] = PMBUS_HAVE_STATUS_VOUT,
-> > +       .func[19] = PMBUS_HAVE_STATUS_VOUT,
-> > +       .func[20] = PMBUS_HAVE_STATUS_VOUT,
-> > +       .func[21] = PMBUS_HAVE_STATUS_VOUT,
-> > +       .func[22] = PMBUS_HAVE_STATUS_VOUT,
-> > +};
-> > +
-> > +static int max31785_probe(struct i2c_client *client,
-> > +                         const struct i2c_device_id *id)
-> > +{
-> > +       struct max31785 *chip;
-> > +       int rv;
-> > +       int i;
-> > +
-> > +       chip = devm_kzalloc(&client->dev, sizeof(*chip), GFP_KERNEL);
-> > +       if (!chip)
-> > +               return -ENOMEM;
-> > +
-> > +       chip->info = max31785_info;
-> > +
-> > +       /*
-> > +        * Identify the chip firmware and configure capabilities.
-> > +        *
-> > +        * Bootstrap with i2c_smbus_*() calls as we need to understand the chip
-> > +        * capabilities for before invoking pmbus_do_probe(). The pmbus_*()
-> > +        * calls need access to memory that is only valid after
-> > +        * pmbus_do_probe().
-> 
-> I think this is common enough in pmbus drivers that the comment is redundant.
-> 
-> > +        */
-> > +       rv = i2c_smbus_write_byte_data(client, PMBUS_PAGE, 255);
-> > +       if (rv < 0)
-> > +               return rv;
-> > +
-> > +       rv = i2c_smbus_read_word_data(client, PMBUS_MFR_REVISION);
-> > +       if (rv < 0)
-> > +               return rv;
-> > +
-> > +       if ((rv & 0xff) == 0x40) {
-> 
-> DUAL_TACH_REV? Or a better name from the docs we have?
-> 
-> > +               chip->capabilities |= MAX31785_CAP_DUAL_TACH;
-> > +
-> > +               /*
-> > +                * Punt the dual tach virtual fans to non-existent pages. This
-> > +                * ensures the pwm attributes appear in a contiguous block
-> > +                */
-> > +               chip->info.pages = 29;
-> > +               chip->info.func[23] = PMBUS_HAVE_FAN12;
-> > +               chip->info.func[24] = PMBUS_HAVE_FAN12;
-> > +               chip->info.func[25] = PMBUS_HAVE_FAN12;
-> > +               chip->info.func[26] = PMBUS_HAVE_FAN12;
-> > +               chip->info.func[27] = PMBUS_HAVE_FAN12;
-> > +               chip->info.func[28] = PMBUS_HAVE_FAN12;
-> > +       }
-> > +
-> > +       rv = pmbus_do_probe(client, id, &chip->info);
-> > +       if (rv < 0)
-> > +               return rv;
-> > +
-> > +       for (i = 0; i < max31785_info.pages; i++) {
-> > +               int reg;
-> > +
-> > +               if (!(max31785_info.func[i] & (PMBUS_HAVE_FAN12)))
-> > +                       continue;
-> > +
-> > +               reg = pmbus_read_word_data(client, i, PMBUS_MFR_FAN_CONFIG);
-> > +               if (reg < 0)
-> > +                       continue;
-> > +
-> > +               /*
-> > +                * XXX: Purely for RFC/testing purposes, don't ramp fans on fan
-> > +                * or temperature sensor fault, or a failure to write
-> > +                * FAN_COMMAND_1 inside a 10s window (watchdog mode).
-> > +                *
-> > +                * The TSFO bit controls both ramping on temp sensor failure
-> > +                * AND whether FAN_COMMAND_1 is in watchdog mode.
-> > +                */
-> > +               reg |= MFR_FAN_CONFIG_TSFO | MFR_FAN_CONFIG_TACHO;
-> > +               if (chip->capabilities & MAX31785_CAP_DUAL_TACH)
-> > +                       reg |= MFR_FAN_CONFIG_DUAL_TACH;
-> > +               reg &= 0xffff;
-> > +
-> > +               rv = pmbus_write_word_data(client, i, PMBUS_MFR_FAN_CONFIG,
-> > +                                          reg);
-> > +       }
-> > +
-> > +       return 0;
-> > +}
-> > +
-> > +static const struct i2c_device_id max31785_id[] = {
-> > +       { "max31785", 0 },
-> > +       { },
-> > +};
-> > +
-> > +MODULE_DEVICE_TABLE(i2c, max31785_id);
-> > +
-> > +static struct i2c_driver max31785_driver = {
-> > +       .driver = {
-> > +               .name = "max31785",
-> > +       },
-> > +       .probe = max31785_probe,
-> > +       .remove = pmbus_do_remove,
-> > +       .id_table = max31785_id,
-> > +};
-> > +
-> > +module_i2c_driver(max31785_driver);
-> > +
-> > +MODULE_AUTHOR("Andrew Jeffery <andrew@aj.id.au>");
-> > +MODULE_DESCRIPTION("PMBus driver for the Maxim MAX31785");
-> > +MODULE_LICENSE("GPL");
-> > --
-> > 2.11.0
-> >
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index 34c5dfc..b18e747 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -62,6 +62,37 @@
+ 		};
+ 	};
+ 
++	gpio-keys-polled {
++		compatible = "gpio-keys-polled";
++		#address-cells = <1>;
++		#size-cells = <0>;
++		#poll-interval = <1000>;
++
++		fan0-presence {
++			label = "fan0-presence";
++			gpios = <&pca0 4 GPIO_ACTIVE_LOW>;
++			linux,code = <4>;
++		};
++
++		fan1-presence {
++			label = "fan1-presence";
++			gpios = <&pca0 5 GPIO_ACTIVE_LOW>;
++			linux,code = <5>;
++		};
++
++		fan2-presence {
++			label = "fan2-presence";
++			gpios = <&pca0 6 GPIO_ACTIVE_LOW>;
++			linux,code = <6>;
++		};
++
++		fan3-presence {
++			label = "fan3-presence";
++			gpios = <&pca0 7 GPIO_ACTIVE_LOW>;
++			linux,code = <7>;
++		};
++	};
++
+ 	leds {
+ 		compatible = "gpio-leds";
+ 
+-- 
+1.8.2.2
