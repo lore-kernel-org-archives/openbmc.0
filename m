@@ -1,53 +1,69 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x241.google.com (mail-yw0-x241.google.com
- [IPv6:2607:f8b0:4002:c05::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xCBx6356VzDq60
- for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 19:46:02 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="T/j/azah"; 
- dkim-atps=neutral
-Received: by mail-yw0-x241.google.com with SMTP id v193so2342071ywg.0
- for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 02:46:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to; bh=zWtbpkW826C9NN1A+vH0PGOSvjoTBXmmg5FinXLlcrA=;
- b=T/j/azahaz0jzh4IBt3wHXahgtn4JC0UUyTgp3z7HL1Ia80HxqlTbpegsdffF+XyES
- qWwxKzNWFLqHD7UqdVmgtjrvEFCuQOZOUwDqvHdr4ORcVFXI5WqAsJAmxp+R/bLHFDTh
- rQJE3rLip/Vqm+1Yraih9M50SlSeqol/219WAMcw1oPNYbqn4cAuzM7SRDGfvzHkTW+P
- oHcUPlIAbf4XqZM3VRYyIdbCfZfcplKZxLOSLK7P2HLmDnHrcbeqptqMJxBCqyZqU52S
- AFZvJ5o3+8qP5Xx85V1mbUxq1U4WJcxTgm+bt234dxDmuqVMmDdy+6zEnKI1iZ6JmO5n
- a+fA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to;
- bh=zWtbpkW826C9NN1A+vH0PGOSvjoTBXmmg5FinXLlcrA=;
- b=M3FyMlnyeYbwb9SAd1PeH/RYNKkqZ29eN5yTCm9gtrQ1y+G26liFR/3Y9PTTSkhtU/
- dRAyrAQTiJXeJWvNg3eYljNv3n0/iPttcuRDTo3IRLIYUIJnKay483aXWAaVPXQyDvyM
- zOeJi6afHwqkahluoqicRXfB/lXQdH2l1ux5oownQNzpddtdNu7cG1JVWXxcMBC6hnLu
- XGctC8JwgaoTt4tgpo+YpO+R8Q3FU1sK6NR307YW3ryKYxBg1gPPRnRnMMpv8bTta96u
- JwuOEs8x8rXgM+hPU9kcitpK5woxyMq+pUaRUJJYTees7d1eWXvlDQPbzCvAYEmYAHXO
- 3rIw==
-X-Gm-Message-State: AIVw110w518sYqiYGBREIzr6SfB9RzG/NJiFogCE9MYS82XDX8l7eWYy
- VD4FLU4xnteOZ/PTSOFoMowByCSYkMomAIQ=
-X-Received: by 10.129.201.4 with SMTP id o4mr1596846ywi.2.1500457560284; Wed,
- 19 Jul 2017 02:46:00 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.170.177 with HTTP; Wed, 19 Jul 2017 02:45:39 -0700 (PDT)
-In-Reply-To: <20170706064443.16972-1-joel@jms.id.au>
-References: <20170706064443.16972-1-joel@jms.id.au>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 19 Jul 2017 19:15:39 +0930
-X-Google-Sender-Auth: hxA2THuhsBj-aIb8rp72gxgyhCw
-Message-ID: <CACPK8XfxufScBjxK5_V9Hz3aerZLxg6WFvK_eZfhB0nH1NAs1g@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xCJ7G1d0czDrWG
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 23:40:09 +1000 (AEST)
+Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v6JDcurg139291
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 09:40:07 -0400
+Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2bt4rhaxtw-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 09:40:07 -0400
+Received: from localhost
+ by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Wed, 19 Jul 2017 07:40:06 -0600
+Received: from b03cxnp08028.gho.boulder.ibm.com (9.17.130.20)
+ by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 19 Jul 2017 07:40:03 -0600
+Received: from b03ledav003.gho.boulder.ibm.com
+ (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
+ by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v6JDe2fl27066510; Wed, 19 Jul 2017 06:40:02 -0700
+Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 014106A042;
+ Wed, 19 Jul 2017 07:40:03 -0600 (MDT)
+Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
+ by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP id AD6276A03D;
+ Wed, 19 Jul 2017 07:40:02 -0600 (MDT)
 Subject: Re: [PATCH linux dev-4.10] i2c: fsi: Add SMBUS emulation
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Eddie James <eajames.ibm@gmail.com>, 
- Edward James <eajames@us.ibm.com>, eajames <eajames@linux.vnet.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
+To: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Eddie James <eajames.ibm@gmail.com>, Edward James <eajames@us.ibm.com>
+References: <20170706064443.16972-1-joel@jms.id.au>
+ <CACPK8XfxufScBjxK5_V9Hz3aerZLxg6WFvK_eZfhB0nH1NAs1g@mail.gmail.com>
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Wed, 19 Jul 2017 08:40:01 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.2.0
+MIME-Version: 1.0
+In-Reply-To: <CACPK8XfxufScBjxK5_V9Hz3aerZLxg6WFvK_eZfhB0nH1NAs1g@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 17071913-0024-0000-0000-000016E31CBE
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007387; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00889820; UDB=6.00444507; IPR=6.00669993; 
+ BA=6.00005479; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016274; XFM=3.00000015;
+ UTC=2017-07-19 13:40:04
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17071913-0025-0000-0000-00004BE8DD85
+Message-Id: <ed70c991-112f-265d-8712-4a28173ebc97@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-07-19_09:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
+ definitions=main-1707190222
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,34 +75,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Jul 2017 09:46:02 -0000
+X-List-Received-Date: Wed, 19 Jul 2017 13:40:10 -0000
 
-On Thu, Jul 6, 2017 at 4:14 PM, Joel Stanley <joel@jms.id.au> wrote:
-> Userspace expects this to be enabled. For example, it is required for
-> using i2cdetect.
->
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
 
-What do you think Eddie?
 
-> ---
->  drivers/i2c/busses/i2c-fsi.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+On 07/19/2017 04:45 AM, Joel Stanley wrote:
+> On Thu, Jul 6, 2017 at 4:14 PM, Joel Stanley <joel@jms.id.au> wrote:
+>> Userspace expects this to be enabled. For example, it is required for
+>> using i2cdetect.
+>>
+>> Signed-off-by: Joel Stanley <joel@jms.id.au>
+> What do you think Eddie?
+
+Sorry, forgot about this one. Looks good, thanks.
+
+Acked-by: Eddie James <eajames@linux.vnet.ibm.com>
+
 >
-> diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
-> index d5135b4bc607..952cf8f392b4 100644
-> --- a/drivers/i2c/busses/i2c-fsi.c
-> +++ b/drivers/i2c/busses/i2c-fsi.c
-> @@ -467,7 +467,8 @@ static int fsi_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
->
->  static u32 fsi_i2c_functionality(struct i2c_adapter *adap)
->  {
-> -       return I2C_FUNC_I2C | I2C_FUNC_PROTOCOL_MANGLING | I2C_FUNC_10BIT_ADDR;
-> +       return I2C_FUNC_I2C | I2C_FUNC_PROTOCOL_MANGLING | I2C_FUNC_10BIT_ADDR
-> +               | I2C_FUNC_SMBUS_EMUL | I2C_FUNC_SMBUS_BLOCK_DATA;
->  }
->
->  static int fsi_i2c_low_level_recover_bus(struct fsi_i2c_master *i2c)
-> --
-> 2.13.2
->
+>> ---
+>>   drivers/i2c/busses/i2c-fsi.c | 3 ++-
+>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
+>> index d5135b4bc607..952cf8f392b4 100644
+>> --- a/drivers/i2c/busses/i2c-fsi.c
+>> +++ b/drivers/i2c/busses/i2c-fsi.c
+>> @@ -467,7 +467,8 @@ static int fsi_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
+>>
+>>   static u32 fsi_i2c_functionality(struct i2c_adapter *adap)
+>>   {
+>> -       return I2C_FUNC_I2C | I2C_FUNC_PROTOCOL_MANGLING | I2C_FUNC_10BIT_ADDR;
+>> +       return I2C_FUNC_I2C | I2C_FUNC_PROTOCOL_MANGLING | I2C_FUNC_10BIT_ADDR
+>> +               | I2C_FUNC_SMBUS_EMUL | I2C_FUNC_SMBUS_BLOCK_DATA;
+>>   }
+>>
+>>   static int fsi_i2c_low_level_recover_bus(struct fsi_i2c_master *i2c)
+>> --
+>> 2.13.2
+>>
