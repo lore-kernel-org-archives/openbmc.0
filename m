@@ -1,56 +1,56 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yb0-x236.google.com (mail-yb0-x236.google.com
- [IPv6:2607:f8b0:4002:c09::236])
+Received: from mail-yb0-x233.google.com (mail-yb0-x233.google.com
+ [IPv6:2607:f8b0:4002:c09::233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xCftr1s5hzDrCy
- for <openbmc@lists.ozlabs.org>; Thu, 20 Jul 2017 13:45:40 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xCg3v4XBbzDrCy
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Jul 2017 13:53:30 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="bsErVdJS"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="TUcuu2Vr"; 
  dkim-atps=neutral
-Received: by mail-yb0-x236.google.com with SMTP id 70so4137712ybn.2
- for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 20:45:40 -0700 (PDT)
+Received: by mail-yb0-x233.google.com with SMTP id v129so1086014ybv.5
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Jul 2017 20:53:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=ixtj/sg1STaBNXdl2uxEAqxKjWG+mFojtR3R3Yp34hc=;
- b=bsErVdJS54wrg4v8tjrQziFDKsngj1opVBr4cUigsn6h+liAL8VBsnrJeHR92MyZ/v
- DVSVcCk5LrEwp64CIpG5ZBaQ9Anws50PV8hg/ocMuSAbZ+PXmjFOlINaPRIugNjDvBoi
- AI5Te9rY0Ejsptz4qxS0vzPwCu9/KEhzfERQRIv9sbAvg3vlKnMBZVs1kuCWQmyH32Xz
- 1Cy3/tkYA0ylJ2ZEPyJP7dq+KhcrMRmfwLefYKLCp2mX6n9xu3AOYUfigeK8bDpBmZS4
- 5sWS1CDY+E/J9tDppdYJf5hFq5NqLkCmT5uYPFHqo7EhFuUsrzcVN2vowaUSyVrUsv4i
- Le8A==
+ bh=sTglC2u4OpIcmzZBBZfgs35SiOiGAR3STSZbySieNfA=;
+ b=TUcuu2Vr+bH918YoRPzg/4y37eKOPgfDZkVgzCaHcg+kY4zSD1n+zUPrl6kEmALVdt
+ 0qOoC490xcyp46YjhRnl7XwzSzjzE5AISHJX7KQhdDg08wfolzvdazc3OvMoBGGESdxN
+ FVKsKowWePzvZyzufxpywWEac2tWzoUNZX5Qur3eOWd69SWgCrAQxedJ75oe5Ay0fFeO
+ w4n7lYpNgTZrtkliO1YuyuGe0UGhl/n5gCya675SB2H/B7NgkVuVu1UD6MfoaIg1q7Kt
+ 4xSUnleI7MreennXFRQ66FDJgB10NJR6ZDovk8RzcljxVDXpYOCuV9FBvawW7Ti3xxBv
+ 5b0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=ixtj/sg1STaBNXdl2uxEAqxKjWG+mFojtR3R3Yp34hc=;
- b=ETcZ5CGottgOEqo1PfBkfwCLR4iezPuW8qRWtMpZs0tT9gut6MtyQLtYhx2VJpn0yd
- cUN/JGFyv2CBBeyB+w6G8GqnDqGS4Q7O7zJ2viqFmn7icriVAjaR88NlpyEi+usABWE4
- C4qMExfocTfib0dSAs06+TfCfnKKgkdGxq2xOvw3WgORQe4cU9mfZzp7cr7kFAG392Qz
- DdDqomE0nApSpSjgyYovw1jQ8VaLyCkUztaqgjfH22qDZGyKPRlJliPoX+nLe5txPSbP
- eeYnmuTsSmpMrxmSIsM/iP3cCqUJVMw1t4oxpN0tndaEyaA73TNtu/H3ErASux4RZfP4
- ihhA==
-X-Gm-Message-State: AIVw1127f2M7gcDM+cUKJ3a2RJ4/aAo/MGSyWSTTi7NlkY5vgq0eMLh5
- lkIyc5bkKo0vAwhzr0qyU99Z1yqtmA==
-X-Received: by 10.37.114.198 with SMTP id n189mr1962852ybc.21.1500522337908;
- Wed, 19 Jul 2017 20:45:37 -0700 (PDT)
+ bh=sTglC2u4OpIcmzZBBZfgs35SiOiGAR3STSZbySieNfA=;
+ b=EQC5eaZW1WO40DrxqdcXRg242PNjwOVSta0yoDN74svHoqfKGZPgUmdGc1yQXa9yWQ
+ 9En5VqsdogMH9ugJ/iBeYaJKp176BC1knwdO0wrLbdEvrx6j1rm9kWKn7HRPJ+fEdtRg
+ JZEfMgM5O05OMooWWtB9ySLHspHGhtuNAzFh6880LlftJRnzEsJcvwOSPeBVKOJ9gz6a
+ whmP78iRTnofTxUclNPogNvSS+9Ar9jJUifBLFkFnmxcs/kdfgPM5tLfAtK9YL0qN4zj
+ Rm8WNDdO0gThJ3Y5Ej1ncCokswRjiBLHSKDLqdnfwklVzrcnuzuNrryOzXQnfTnHaUa8
+ CdJg==
+X-Gm-Message-State: AIVw112LSbBw49/Mt+KaBLpHK+aqNUEunG21VCCcx6uJhJFQKydqSHkF
+ bZJ6LP/QmS5aNIkXibC5vOtlYC2WluDV8Ck=
+X-Received: by 10.37.230.141 with SMTP id d135mr2029116ybh.281.1500522808666; 
+ Wed, 19 Jul 2017 20:53:28 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.170.177 with HTTP; Wed, 19 Jul 2017 20:45:17 -0700 (PDT)
-In-Reply-To: <1500516109.500.13.camel@aj.id.au>
-References: <20170713193606.56374-1-cbostic@linux.vnet.ibm.com>
- <CACPK8XfbX3VqQcvtMpmiDeJhyPBx5rqh3L5grep5gL+SmS+PDQ@mail.gmail.com>
- <1500516109.500.13.camel@aj.id.au>
+Received: by 10.37.170.177 with HTTP; Wed, 19 Jul 2017 20:53:08 -0700 (PDT)
+In-Reply-To: <c1102639-5e4c-fd43-f941-e676560a2590@linux.vnet.ibm.com>
+References: <20170718204324.32945-1-cbostic@linux.vnet.ibm.com>
+ <20170718204324.32945-2-cbostic@linux.vnet.ibm.com>
+ <CACPK8XcGBH8NOu0BvpmWarJKaD5nG+jUhVz7fFpamx-oX_fBHA@mail.gmail.com>
+ <c1102639-5e4c-fd43-f941-e676560a2590@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 20 Jul 2017 13:15:17 +0930
-X-Google-Sender-Auth: lob40g3PjnnUqbFOum5IYQBCTPw
-Message-ID: <CACPK8XfnqqrzxSs8Nzr9yiytg_nK1bZ39HAAE3hwdmGA8SbQ7w@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: Add gpio keys for power
- supply presence, ucd alert
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Thu, 20 Jul 2017 13:23:08 +0930
+X-Google-Sender-Auth: 3ZTAufyHM25JLKpNbu-jyT8qKGk
+Message-ID: <CACPK8XfXagO06-o+p6vC6093kqRamhfhogV=Tx7NVabis5=VVg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] ARM: dts: aspeed: Add gpio-keys-polled for fan
+ presence
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -63,30 +63,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Jul 2017 03:45:41 -0000
+X-List-Received-Date: Thu, 20 Jul 2017 03:53:32 -0000
 
-On Thu, Jul 20, 2017 at 11:31 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
->> > +
->> > +               ucd-alert {
->> > +                       label = "ucd-alert";
->> > +                       gpios = <&gpio ASPEED_GPIO(I, 2) GPIO_ACTIVE_LOW>;
->> > +                       linux,code = <ASPEED_GPIO(I, 2)>;
->> > +               };
->>
->> Andrew, are we sure this should be exposed to userspace? Is it
->> something that should be hooked up to the SMBus driver instead?
+On Thu, Jul 20, 2017 at 1:24 AM, Christopher Bostic
+<cbostic@linux.vnet.ibm.com> wrote:
 >
-> I've looked at the relevant schematics and datasheets, and the GPIO of
-> interest (I2) appears to be correct for the UCD alert. However, GPIOI2
-> is *not* capable of being muxed as an SMBus Alert (SALT) line and
-> therefore the alert will not be propagated to the I2C master. It
-> appears we must handle it in userspace. Configuring it as GPIO key will
-> give us an interrupt.
+>
+> On 7/19/17 4:28 AM, Joel Stanley wrote:
+>>
+>> On Wed, Jul 19, 2017 at 6:13 AM, Christopher Bostic
+>> <cbostic@linux.vnet.ibm.com> wrote:
+>>>
+>>> +       gpio-keys-polled {
+>>> +               compatible = "gpio-keys-polled";
+>>> +               #address-cells = <1>;
+>>> +               #size-cells = <0>;
+>>> +               #poll-interval = <100>;
+>>
+>> Are you sure that this needs to be polled this often?
+>>
+>> We should consider how much traffic this generates on the bus (how
+>> often it is contended), and how that fits in with other devices on
+>> that master. If you've done these calculations then please amend your
+>> commit message with that information.
+>
+> Discussed with Brad Bishop and Matt Spinler - agreed to increase period to 1
+> second.
 
-We discussed this today, and decided that we would look in to hooking
-the GPIO up to the ucd driver. From there it will initiate the reading
-of the fault registers, and allow the implementation of a poll()
-response on the fault files in sysfs.
+Okay. You forgot to add this to the commit message.
 
 Cheers,
 
