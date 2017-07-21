@@ -1,72 +1,53 @@
-Return-Path: <mspinler@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xD40X2mRpzDrHB
- for <openbmc@lists.ozlabs.org>; Fri, 21 Jul 2017 05:37:00 +1000 (AEST)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v6KJTqTL088408
- for <openbmc@lists.ozlabs.org>; Thu, 20 Jul 2017 15:36:58 -0400
-Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2bu1meb8wy-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 20 Jul 2017 15:36:57 -0400
-Received: from localhost
- by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
- Thu, 20 Jul 2017 13:36:56 -0600
-Received: from b03cxnp08028.gho.boulder.ibm.com (9.17.130.20)
- by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 20 Jul 2017 13:36:55 -0600
-Received: from b03ledav002.gho.boulder.ibm.com
- (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
- by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v6KJas4e27590904; Thu, 20 Jul 2017 12:36:54 -0700
-Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 89EFA136049;
- Thu, 20 Jul 2017 13:36:54 -0600 (MDT)
-Received: from [9.10.99.182] (unknown [9.10.99.182])
- by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id 50145136048;
- Thu, 20 Jul 2017 13:36:54 -0600 (MDT)
-Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: Add gpio keys for power
- supply presence, ucd alert
-To: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>
-References: <20170713193606.56374-1-cbostic@linux.vnet.ibm.com>
- <CACPK8XfbX3VqQcvtMpmiDeJhyPBx5rqh3L5grep5gL+SmS+PDQ@mail.gmail.com>
- <1500516109.500.13.camel@aj.id.au>
- <CACPK8XfnqqrzxSs8Nzr9yiytg_nK1bZ39HAAE3hwdmGA8SbQ7w@mail.gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Christopher Bostic <cbostic@linux.vnet.ibm.com>
-From: Matt Spinler <mspinler@linux.vnet.ibm.com>
-Date: Thu, 20 Jul 2017 14:36:58 -0500
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101
- Thunderbird/45.8.0
-MIME-Version: 1.0
-In-Reply-To: <CACPK8XfnqqrzxSs8Nzr9yiytg_nK1bZ39HAAE3hwdmGA8SbQ7w@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 17072019-0008-0000-0000-000008451CEA
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007394; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00890420; UDB=6.00444865; IPR=6.00670587; 
- BA=6.00005482; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016302; XFM=3.00000015;
- UTC=2017-07-20 19:36:56
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17072019-0009-0000-0000-0000432DA6AD
-Message-Id: <625bc46f-e07c-bc59-6b0b-a669bd9e4a59@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-07-20_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
- definitions=main-1707200300
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xDHBP5TwpzDqs2
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Jul 2017 14:01:16 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="AtoOXwZT"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="e32T6jCx"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 16114209CC;
+ Fri, 21 Jul 2017 00:01:13 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Fri, 21 Jul 2017 00:01:13 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :date:from:message-id:subject:to:x-me-sender:x-me-sender
+ :x-sasl-enc:x-sasl-enc; s=fm1; bh=3Wwah4FeQvdAKHpwg8s4/3bm6ud6Ap
+ Xu6dFRcsOdjVQ=; b=AtoOXwZTPPA6ppTBNpot+P28w8cdjiLkoAPqKrXR81rCQS
+ uWS3SONzAb+syFefEe+6J9+if6CQg/lq6m7r2xQi7djTRlzdvSqa1gyVxQEbR5IB
+ mAPaOBfZWIMANi8pDybxeToTRUtG1WHmQU3kFxgWykNcmNzRNo5xehNpYSpCOyBs
+ LOmHtFparS2XExPnMKYpZGVOnFs3D9mTEUrTpqwDaevMP4WKRUi2FTR9smTv2rZ7
+ /OezHJ8JrqLRwUBnQeZ2y2Q6CbYFRv5OIvvfL1VSVJFuwsNObyXxh+TiKDl0SsJ2
+ UQONIO4uaE17hoIbaFVqqQveZIbqwDUmJlsNCZQw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=3Wwah4
+ FeQvdAKHpwg8s4/3bm6ud6ApXu6dFRcsOdjVQ=; b=e32T6jCxCm/WNUOlU5M1Vs
+ mWnRE4wiZI3vWttuEkiMu2hXbraKQYroOGYIyeutyd8pflwMDmgRKy1KH27WNRpK
+ SyaB2mLfOEcwsjOpNBumSVPqOld7BndBQcJ5pgcUgZvGhuHZ5f8wj+yOgX9Oz6UC
+ APTaIRCvNbpAgzI55nKPG2v7JTlZnQZ8co0L5o1Ieeqt7jKG8KWPKlSQk7vThkoz
+ ozkTLFMlW2BwERiUfjN+3MFEUz8RUmcW+jYCjZDWVR6qzO3EQcnk+9RGsn3LJ9fY
+ odS+q80oGwLzjsMY/aZzp8Ef3mtm/VqdoQvM4Dcr+jdwjHPlFqKau7DZKA9MO+ZQ
+ ==
+X-ME-Sender: <xms:iXxxWVpLijF80Sj1eaQ10mFM30zaneXqGU6gMSXMxoA7kfBC8Q1vLA>
+X-Sasl-enc: K2Nwwaq3JedNoUHYHufamO+4xriFLdgU2zj6hoGoEUdt 1500609672
+Received: from keelia.aj.id.au (ppp118-210-176-216.bras2.adl6.internode.on.net
+ [118.210.176.216])
+ by mail.messagingengine.com (Postfix) with ESMTPA id AE8A47E43A;
+ Fri, 21 Jul 2017 00:01:10 -0400 (EDT)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: joel@jms.id.au
+Cc: Andrew Jeffery <andrew@aj.id.au>, bradleyb@fuzziesquirrel.com,
+ openbmc@lists.ozlabs.org
+Subject: [PATCH] max31785: Fix fan configuration at probe and runtime
+Date: Fri, 21 Jul 2017 13:30:31 +0930
+Message-Id: <20170721040031.8390-1-andrew@aj.id.au>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -78,41 +59,77 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Jul 2017 19:37:00 -0000
+X-List-Received-Date: Fri, 21 Jul 2017 04:01:19 -0000
 
+Several issues regarding configuration were present:
 
+1. Failure to probe if MFR_FAN_CONFIG was non-zero
+2. Failure to configure DUAL_TACH mode in MFR_FAN_CONFIG
+3. Failure to configure RPM or PWM mode on attribute writes
 
-On 7/19/2017 10:45 PM, Joel Stanley wrote:
-> On Thu, Jul 20, 2017 at 11:31 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
->>>> +
->>>> +               ucd-alert {
->>>> +                       label = "ucd-alert";
->>>> +                       gpios = <&gpio ASPEED_GPIO(I, 2) GPIO_ACTIVE_LOW>;
->>>> +                       linux,code = <ASPEED_GPIO(I, 2)>;
->>>> +               };
->>> Andrew, are we sure this should be exposed to userspace? Is it
->>> something that should be hooked up to the SMBus driver instead?
->> I've looked at the relevant schematics and datasheets, and the GPIO of
->> interest (I2) appears to be correct for the UCD alert. However, GPIOI2
->> is *not* capable of being muxed as an SMBus Alert (SALT) line and
->> therefore the alert will not be propagated to the I2C master. It
->> appears we must handle it in userspace. Configuring it as GPIO key will
->> give us an interrupt.
-> We discussed this today, and decided that we would look in to hooking
-> the GPIO up to the ucd driver. From there it will initiate the reading
-> of the fault registers, and allow the implementation of a poll()
-> response on the fault files in sysfs.
-How does this affect the userspace side of things?  I am planning on 
-giving up support of
-doing UCD fault analysis based on interrupts because there are 6 GPUs 
-wired to a single STATUS_WORD
-bit, so after one faults we'd just keep getting called back again since 
-there's no way to mask at the GPU level,
-assuming we can even get the interrupt to retrigger again at all.
+Combined these prevented fanX_input attributes reporting expected
+values for the second rotors.
 
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ drivers/hwmon/max31785.c | 20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
 
-
-> Cheers,
->
-> Joel
->
+diff --git a/drivers/hwmon/max31785.c b/drivers/hwmon/max31785.c
+index 4c858c5234c6..011354df587d 100644
+--- a/drivers/hwmon/max31785.c
++++ b/drivers/hwmon/max31785.c
+@@ -297,6 +297,11 @@ static ssize_t max31785_fan_set_target(struct max31785 *data, int channel,
+ 
+ 	mutex_lock(&data->lock);
+ 
++	data->fan_config[channel] |= MAX31785_FAN_CFG_CONTROL_MODE_RPM;
++	rc = max31785_write_fan_byte(data->client, channel,
++				MAX31785_REG_FAN_CONFIG_1_2,
++				data->fan_config[channel]);
++
+ 	/* Write new RPM value */
+ 	data->fan_command[channel] = rpm;
+ 	rc = max31785_write_fan_word(data->client, channel,
+@@ -342,6 +347,11 @@ static ssize_t max31785_pwm_set(struct max31785 *data, int channel, long pwm)
+ 
+ 	mutex_lock(&data->lock);
+ 
++	data->fan_config[channel] &= ~MAX31785_FAN_CFG_CONTROL_MODE_RPM;
++	rc = max31785_write_fan_byte(data->client, channel,
++				MAX31785_REG_FAN_CONFIG_1_2,
++				data->fan_config[channel]);
++
+ 	/* Write new PWM value */
+ 	data->fan_command[channel] = pwm * MAX31785_FAN_COMMAND_PWM_RATIO;
+ 	rc = max31785_write_fan_word(data->client, channel,
+@@ -458,7 +468,7 @@ static int max31785_init_fans(struct max31785 *data)
+ 		}
+ 	}
+ 
+-	return rv;
++	return 0;
+ }
+ 
+ /* Return 0 if detection is successful, -ENODEV otherwise */
+@@ -840,14 +850,14 @@ static int max31785_probe(struct i2c_client *client,
+ 	if (rc)
+ 		return rc;
+ 
+-	rc = max31785_init_fans(data);
+-	if (rc)
+-		return rc;
+-
+ 	rc = max31785_get_capabilities(data);
+ 	if (rc < 0)
+ 		return rc;
+ 
++	rc = max31785_init_fans(data);
++	if (rc)
++		return rc;
++
+ 	if (max31785_has_dual_rotor(data))
+ 		chip = &max31785_chip_info_0x3040;
+ 	else
+-- 
+2.11.0
