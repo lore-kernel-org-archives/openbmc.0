@@ -1,69 +1,54 @@
-Return-Path: <mspinler@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xDXvL428zzDqv7
- for <openbmc@lists.ozlabs.org>; Sat, 22 Jul 2017 00:19:09 +1000 (AEST)
-Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v6LEJ0ND174514
- for <openbmc@lists.ozlabs.org>; Fri, 21 Jul 2017 10:19:06 -0400
-Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2bugn6fbs2-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 21 Jul 2017 10:19:05 -0400
-Received: from localhost
- by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
- Fri, 21 Jul 2017 10:18:40 -0400
-Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
- by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Fri, 21 Jul 2017 10:18:38 -0400
-Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
- [9.57.199.110])
- by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v6LEIbhu25231534; Fri, 21 Jul 2017 14:18:37 GMT
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 1F3ABAE04E;
- Fri, 21 Jul 2017 10:18:48 -0400 (EDT)
-Received: from [9.10.99.182] (unknown [9.10.99.182])
- by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP id E2730AE03B;
- Fri, 21 Jul 2017 10:18:47 -0400 (EDT)
-Subject: Re: DPS310 sampling
-To: Joel Stanley <joel@jms.id.au>
-References: <efef70a7-4c02-e459-c21f-9862ae6f0156@linux.vnet.ibm.com>
- <CACPK8XejX5hFeOMkRUDqvPP-V2XWz9PBtG2PO0vEuQO=A0erQQ@mail.gmail.com>
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: Matt Spinler <mspinler@linux.vnet.ibm.com>
-Date: Fri, 21 Jul 2017 09:18:42 -0500
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101
- Thunderbird/45.8.0
-MIME-Version: 1.0
-In-Reply-To: <CACPK8XejX5hFeOMkRUDqvPP-V2XWz9PBtG2PO0vEuQO=A0erQQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 17072114-2213-0000-0000-000001FDD6CB
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007399; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00890794; UDB=6.00445089; IPR=6.00670961; 
- BA=6.00005482; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016314; XFM=3.00000015;
- UTC=2017-07-21 14:18:39
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17072114-2214-0000-0000-000056F3808B
-Message-Id: <7219c569-4c02-bf48-6e98-6d0f7083745e@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-07-21_08:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
- definitions=main-1707210224
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xDdcj3gxfzDqwK
+ for <openbmc@lists.ozlabs.org>; Sat, 22 Jul 2017 03:51:49 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="RlMsWjdf"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="sB2ZjtuL"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id D0D4420816;
+ Fri, 21 Jul 2017 13:51:46 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Fri, 21 Jul 2017 13:51:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :date:from:message-id:subject:to:x-me-sender:x-me-sender
+ :x-sasl-enc:x-sasl-enc; s=fm1; bh=nypDFg7+fqq5pj3BtNFhYUgVbRdUkl
+ VlbAI2rFKixZo=; b=RlMsWjdfMxmJZXA810GVAYKG1Z9X/VzuWkQPGSHVbqxs2+
+ 5uLP+43ny7Jw5UcDpAFAWvzKaKx4AHhf1ENA03y7AyKFh9xCzdguE+6yOyupQ25Z
+ 2MnNeiQUUUhOKK6N04PqhTyB5hKUiXk2rVlgdq0W6tWZ6Kj2B6yGANlozRP7bLAG
+ ATeGE4RBso+ZGzPI1Kl/3Ivf5byVwe3cG67WQoNqIcbdeiEdCKbAYtayukT1H9FN
+ N43KTeeXDMKJW8lOVbQL2rtWZbw2OC/IKzoF6LCTfsuE3GzE8nCAMukvW4Qr4w1z
+ gRzb2hr7Lw/zq2Arlyai3+wMIAsnmHPOxKm4Suew==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=nypDFg
+ 7+fqq5pj3BtNFhYUgVbRdUklVlbAI2rFKixZo=; b=sB2ZjtuLFXkIfR/N38kCSE
+ 8eEnzwikXshytvJiaMH93ZBjaNAmlXWvbkgR57Z76IpYX87cc+oXNFOHK2iVnodm
+ aKJHEVjteiMPQAoma7BxSQYS7FtGCC7X5bYRh0Lc2Y45NOcCsEAMD+BNxVkIyzPW
+ Fykv5kPvrteFd0oNTwVofaUeQCQUVj8CGa1T/n1E2ap1t0KEdNp40eR4uiP5sRMO
+ rGn6pjbaJrhKZUzkpcMjaJSf7qbxZ1vb9BVli5keiBKnQXP0qfJgOzLprZhae87M
+ k2dbNQuAR1Bd4kYceeQU1KR/T2oOAbb9HVl5UiWmgm4KKNrp6Ney+VyoBilq5XLA
+ ==
+X-ME-Sender: <xms:Mj9yWb4vxbzzxxx5hRH_V4jCgfD-uf_BsVILmaTvkyLn9CV6MvfPjg>
+X-Sasl-enc: HXJNtwslRhB6o4tc8xxARNmmasml9rGbmYf6L16hmvzp 1500659506
+Received: from keelia.aj.id.au (ppp118-210-176-216.bras2.adl6.internode.on.net
+ [118.210.176.216])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 33B377E1FC;
+ Fri, 21 Jul 2017 13:51:43 -0400 (EDT)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: joel@jms.id.au
+Cc: Andrew Jeffery <andrew@aj.id.au>, bradleyb@fuzziesquirrel.com,
+ mspinler@linux.vnet.ibm.com, msbarth@linux.vnet.ibm.com,
+ openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.10 0/5] pmbus: Add MAX31785 driver
+Date: Sat, 22 Jul 2017 03:21:26 +0930
+Message-Id: <20170721175131.17840-1-andrew@aj.id.au>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -75,56 +60,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Jul 2017 14:19:11 -0000
+X-List-Received-Date: Fri, 21 Jul 2017 17:51:52 -0000
+X-List-Received-Date: Fri, 21 Jul 2017 17:51:52 -0000
+X-List-Received-Date: Fri, 21 Jul 2017 17:51:52 -0000
 
+Hello,
 
+This is a backport to dev-4.10 of the series I intend to send upstream,
+which implements the MAX31785 driver using the PMBus subsystem.
 
-On 7/21/2017 12:17 AM, Joel Stanley wrote:
-> On Fri, Jul 21, 2017 at 2:22 AM, Matt Spinler
-> <mspinler@linux.vnet.ibm.com> wrote:
->> Hi Joel,
->>
->> Now that phosphor-hwmon-readd tries to read the DPS310 temp, we keep hitting
->> EAGAINs from the driver.
-> Can you elaborate here. What happens when it hits EAGAIN?
+I'd like to see it cook for a bit in the OpenBMC tree to get some confidence
+in the implementation (after recent indiscretions).
 
-The phosphor-hwmon app creates an error log and crashes, and it all goes 
-downhill from there.
+Some caveats:
 
->
->> It turns out that the delay call within
->> phosphor-hwmon doesn't always wait a full second because it pops out of the
->> delay if there is some dbus work to handle.  It would take a nontrivial
->> refactoring to fix that properly, and I think even if we did we'd just
->> barely be avoiding a race between that being done and the temp being
->> available every 1s.
->>
->> What do you think of changing the rate to be faster than 1 measurement per
->> second?  Is that a device tree binding?  In combination with that change and
->> phosphor-hwmon doing retries, we should be able to get things to work.
-> This is not configurable with the current implementation, so changing
-> the sample rate would require reworking the driver. It's unfortunate
-> we didn't bring up this requirement before the driver was developed.
->
-> There are a set of parameters that need to be set to configure the
-> device's sampling rate, and the wrong combination results in invalid
-> readings. It took me a few days to get this right, but it might be
-> easier now that we have a working driver.
+1. I've only updated the Witherspoon devicetree. Romulus and Firestone also need
+   to be updated, but I'm not sure what configuration they require (it may not
+   be too different to Witherspoon). If someone could provide feedback here I
+   can send more patches.
+2. There may be some userspace breakage around what fans are exposed: Only
+   fans configured in the devicetree will have attributes in sysfs, and the
+   first and second tach input attributes are always contiguous. That is, if
+   only one fan is specified in the devicetree and it is configured as dual
+   tach, then the input attributes will be fan1_input and fan2_input.
 
-Alternatively, what about just putting it into 'command mode'  to do an 
-on-demand read?
+Anyway please review and test! I've given it a spin on a Witherspoon system and
+it looks to be functional. I haven't done much testing with the OpenBMC
+userspace to shore up the second issue mentioned above, so that needs further
+investigation.
 
->
-> I'd be happy to take a patch to change this.
+Cheers,
 
-I plan on calling into (my time's) Sunday night meeting where we can 
-discuss the options.
+Andrew
 
-> Cheers,
->
-> Joel
->
->> Alternatively I could just add in up to a second of retries from within
->> phosphor-hwmon, but that would slow down users that request data from it on
->> dbus.
->>
+Andrew Jeffery (5):
+  dt-bindings: hwmon: pmbus: Add Maxim MAX31785 documentation
+  ARM: aspeed: Update max31785 node in Witherspoon devicetree
+  hwmon: pmbus: Add fan control support
+  hwmon: Remove MAX31785 implementation
+  pmbus: Add driver for Maxim MAX31785 Intelligent Fan Controller
+
+ .../devicetree/bindings/hwmon/pmbus/max31785.txt   | 113 +++
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts   |  55 +-
+ drivers/hwmon/Kconfig                              |  10 -
+ drivers/hwmon/Makefile                             |   1 -
+ drivers/hwmon/max31785.c                           | 893 ---------------------
+ drivers/hwmon/pmbus/Kconfig                        |  10 +
+ drivers/hwmon/pmbus/Makefile                       |   1 +
+ drivers/hwmon/pmbus/max31785.c                     | 655 +++++++++++++++
+ drivers/hwmon/pmbus/pmbus.h                        |  29 +
+ drivers/hwmon/pmbus/pmbus_core.c                   | 222 ++++-
+ 10 files changed, 1068 insertions(+), 921 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt
+ delete mode 100644 drivers/hwmon/max31785.c
+ create mode 100644 drivers/hwmon/pmbus/max31785.c
+
+-- 
+2.11.0
