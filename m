@@ -1,53 +1,59 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x22e.google.com (mail-yw0-x22e.google.com
- [IPv6:2607:f8b0:4002:c05::22e])
+Received: from mail-yw0-x236.google.com (mail-yw0-x236.google.com
+ [IPv6:2607:f8b0:4002:c05::236])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xDJtH57CfzDqsx
- for <openbmc@lists.ozlabs.org>; Fri, 21 Jul 2017 15:17:27 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xDJxf6VtLzDqpM
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Jul 2017 15:20:22 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="VLYYpfLB"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ahCeF9TN"; 
  dkim-atps=neutral
-Received: by mail-yw0-x22e.google.com with SMTP id v193so20608584ywg.2
- for <openbmc@lists.ozlabs.org>; Thu, 20 Jul 2017 22:17:27 -0700 (PDT)
+Received: by mail-yw0-x236.google.com with SMTP id a12so20562450ywh.3
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Jul 2017 22:20:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=G7BtKyqKJGkCzflL4jx9bTsV/RxActocczmTUpDiPZ4=;
- b=VLYYpfLBo9kACNFykExCiirJzEFKIFR9cTS6Zs6i9ANT9q56I5ZKJjKf3qZtPv21tV
- S/xTj7VBy2ateReSninBSE3SMl33MBiyWKyOCf+y1QEMXUZy/K2Jv2NTVWLKbJdVgQYr
- 0SesHDqIvJcymeUkoresNAUIMMBpQS8CnFI8pT1DvMUcj5yr6TPCozyZYcrw05J+g2uN
- q3TJnvz/hPyyTKzYUb/LLURmCId7436TMVamEFh/cpUDe9xSFOzEi5Q+fNLWNpQiJRxy
- tZRV3/gVdPnpF4N0Pqnudu3mtHu/gf0EL6KUVvEc2NdEcQ8POyxnuEyZKot6srohMMcA
- J7tA==
+ bh=U60j9HG9DFUAzXYu+CJXueo3NDxl/ab+KaYKu5ukuAE=;
+ b=ahCeF9TNlJCAElH8SS9//fQTx/4PwThMS8jAHYLrxoRTGBmW1nikD8amu4se4OlvUr
+ p7JJfvBHsxMNULDxjLNxnS11QZmGrTPueG4SI27GOwmH2Luh+w5HUlPRYq98+m8WwQLh
+ /s684rWQJvHk5dJ/I46X05zKlhB4gsMDxm2d9r6wQ7lSDOFr26xpVtjybskILiaSt9MG
+ s5M7hYNgwwr7dI4LYwhIAlwiR061OUA7EJ754TugH8KmESNreF2gnvgZLlzqixxryQJd
+ gyOdniTEwcqMx+fKw3hK0iXFyTj/4ZpfAOZLbiDOTZq5JrDLbHbnR0tyARp8w9l7S9u4
+ 6xxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=G7BtKyqKJGkCzflL4jx9bTsV/RxActocczmTUpDiPZ4=;
- b=Hu8EI2qEnE3LYElmmzr9deiNv622j23LRR6FT0A7omFRXLgrt67pJXCTawX7zkOFjn
- aYXX9LBFNyB4835Pm++3zoNqqCWqWn2W7wJrZ67SK5NPr2NjVWqxVp2iDJAtGM4FL6Wr
- UoYndrnkyORzEGRVgwBz/ZWamqCOt9l1FzitYGI5anLREf1QTTXJMoxw16AXtZPwkqGQ
- I38vkFWAHFoQa6BQERycGQGE+gnr+bg/rQahk7CRp7KwrdOSsTcRgZ7XRXNH0xcWEvsO
- wjKbZLmCsJR7tQ8BE/P2BCca6SfUoPALkWVr68IFtAYx4ME417dkKrfprLl2SySqlt57
- 3/4g==
-X-Gm-Message-State: AIVw111MZw67/Oh2UuW/uEEvqAjmvxaYyQGduEqvmVnC8YgxRqjpSkC/
- XD1kffNn1s1AHwFujRYG7EL34HUFPQ==
-X-Received: by 10.129.53.140 with SMTP id c134mr5133674ywa.439.1500614245283; 
- Thu, 20 Jul 2017 22:17:25 -0700 (PDT)
+ bh=U60j9HG9DFUAzXYu+CJXueo3NDxl/ab+KaYKu5ukuAE=;
+ b=LYm2fk47i3D0vBa1n+mlMSwtewlxek+XDAyvkZrO/xmoeZ0m5Ia8aDcnTaiBsXKBHI
+ ViFyN3UB45cDngKGVoXD2CBsy/svQ6hALE18l9TFDJp67e1qpqvkPgiIy1+UQ8P60GYd
+ 7aUxtx73oLWUtO1mMKGTOOVAjj9YIZjoEfQCxRIqZoGRPNLCLHVWc/sAB4ps0Xn4sS9D
+ bSvy9RicLR1T9h0RgCAMuo2LluJf6bMHsREaXJq3rNrq6tv6JmdJbh5wL7bH+IFfYmLI
+ 3P4Vp0Yy+biJBIJMhor4TPtf2o8RAFLs5wNR/vemJP6lcHMlLVOLqnZiylLl0Qpz6xOy
+ 8xAQ==
+X-Gm-Message-State: AIVw1125sZBCuuvg+RyT2pSwpJOTrDK3v77MgLfjtrmt5N+2f6bBNQ2q
+ el0LC+COmkxA7VR7Qt4uwAuigkTSTiyY
+X-Received: by 10.129.172.75 with SMTP id z11mr5584358ywj.369.1500614420047;
+ Thu, 20 Jul 2017 22:20:20 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.170.177 with HTTP; Thu, 20 Jul 2017 22:17:04 -0700 (PDT)
-In-Reply-To: <efef70a7-4c02-e459-c21f-9862ae6f0156@linux.vnet.ibm.com>
-References: <efef70a7-4c02-e459-c21f-9862ae6f0156@linux.vnet.ibm.com>
+Received: by 10.37.170.177 with HTTP; Thu, 20 Jul 2017 22:19:59 -0700 (PDT)
+In-Reply-To: <625bc46f-e07c-bc59-6b0b-a669bd9e4a59@linux.vnet.ibm.com>
+References: <20170713193606.56374-1-cbostic@linux.vnet.ibm.com>
+ <CACPK8XfbX3VqQcvtMpmiDeJhyPBx5rqh3L5grep5gL+SmS+PDQ@mail.gmail.com>
+ <1500516109.500.13.camel@aj.id.au>
+ <CACPK8XfnqqrzxSs8Nzr9yiytg_nK1bZ39HAAE3hwdmGA8SbQ7w@mail.gmail.com>
+ <625bc46f-e07c-bc59-6b0b-a669bd9e4a59@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 21 Jul 2017 14:47:04 +0930
-X-Google-Sender-Auth: kbPPn5UN908jxcinsx--KLW8N74
-Message-ID: <CACPK8XejX5hFeOMkRUDqvPP-V2XWz9PBtG2PO0vEuQO=A0erQQ@mail.gmail.com>
-Subject: Re: DPS310 sampling
+Date: Fri, 21 Jul 2017 14:49:59 +0930
+X-Google-Sender-Auth: HJz9aN67dH5fZaADJP6xQrqIgmM
+Message-ID: <CACPK8XeqwJO_8d1kVwDQU0ooHbciXHoooDk5e0SJCauPmkLN4A@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: Add gpio keys for power
+ supply presence, ucd alert
 To: Matt Spinler <mspinler@linux.vnet.ibm.com>
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Christopher Bostic <cbostic@linux.vnet.ibm.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -60,44 +66,61 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Jul 2017 05:17:28 -0000
+X-List-Received-Date: Fri, 21 Jul 2017 05:20:23 -0000
 
-On Fri, Jul 21, 2017 at 2:22 AM, Matt Spinler
+On Fri, Jul 21, 2017 at 5:06 AM, Matt Spinler
 <mspinler@linux.vnet.ibm.com> wrote:
-> Hi Joel,
 >
-> Now that phosphor-hwmon-readd tries to read the DPS310 temp, we keep hitting
-> EAGAINs from the driver.
-
-Can you elaborate here. What happens when it hits EAGAIN?
-
-> It turns out that the delay call within
-> phosphor-hwmon doesn't always wait a full second because it pops out of the
-> delay if there is some dbus work to handle.  It would take a nontrivial
-> refactoring to fix that properly, and I think even if we did we'd just
-> barely be avoiding a race between that being done and the temp being
-> available every 1s.
+> On 7/19/2017 10:45 PM, Joel Stanley wrote:
+>>
+>> On Thu, Jul 20, 2017 at 11:31 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+>>>>>
+>>>>> +
+>>>>> +               ucd-alert {
+>>>>> +                       label = "ucd-alert";
+>>>>> +                       gpios = <&gpio ASPEED_GPIO(I, 2)
+>>>>> GPIO_ACTIVE_LOW>;
+>>>>> +                       linux,code = <ASPEED_GPIO(I, 2)>;
+>>>>> +               };
+>>>>
+>>>> Andrew, are we sure this should be exposed to userspace? Is it
+>>>> something that should be hooked up to the SMBus driver instead?
+>>>
+>>> I've looked at the relevant schematics and datasheets, and the GPIO of
+>>> interest (I2) appears to be correct for the UCD alert. However, GPIOI2
+>>> is *not* capable of being muxed as an SMBus Alert (SALT) line and
+>>> therefore the alert will not be propagated to the I2C master. It
+>>> appears we must handle it in userspace. Configuring it as GPIO key will
+>>> give us an interrupt.
+>>
+>> We discussed this today, and decided that we would look in to hooking
+>> the GPIO up to the ucd driver. From there it will initiate the reading
+>> of the fault registers, and allow the implementation of a poll()
+>> response on the fault files in sysfs.
 >
-> What do you think of changing the rate to be faster than 1 measurement per
-> second?  Is that a device tree binding?  In combination with that change and
-> phosphor-hwmon doing retries, we should be able to get things to work.
+> How does this affect the userspace side of things?
 
-This is not configurable with the current implementation, so changing
-the sample rate would require reworking the driver. It's unfortunate
-we didn't bring up this requirement before the driver was developed.
-
-There are a set of parameters that need to be set to configure the
-device's sampling rate, and the wrong combination results in invalid
-readings. It took me a few days to get this right, but it might be
-easier now that we have a working driver.
-
-I'd be happy to take a patch to change this.
+This relates to the pmbus spec's status and error handling. I don't
+think it would affect the way you interpret the status data in
+userspace, however I haven't seen the design for what you propose so
+you would be in a better position to answer that question than me.
 
 Cheers,
 
 Joel
 
-> Alternatively I could just add in up to a second of retries from within
-> phosphor-hwmon, but that would slow down users that request data from it on
-> dbus.
+> I am planning on giving
+> up support of
+> doing UCD fault analysis based on interrupts because there are 6 GPUs wired
+> to a single STATUS_WORD
+> bit, so after one faults we'd just keep getting called back again since
+> there's no way to mask at the GPU level,
+> assuming we can even get the interrupt to retrigger again at all.
+>
+>
+>
+>> Cheers,
+>>
+>> Joel
+>>
 >
