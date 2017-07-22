@@ -1,23 +1,33 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Return-Path: <d.mueller@elsoft.ch>
+X-Greylist: delayed 484 seconds by postgrey-1.36 at bilbo;
+ Sat, 22 Jul 2017 18:41:06 AEST
+Received: from mail.hostpark.net (mail.hostpark.net [212.243.197.30])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xDlt82Zy7zDqyQ
- for <openbmc@lists.ozlabs.org>; Sat, 22 Jul 2017 08:33:52 +1000 (AEST)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1500676427418893.4154731951277;
- Fri, 21 Jul 2017 15:33:47 -0700 (PDT)
-From: Patrick Williams <patrick@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH u-boot 1/1] config/ast-common: hack bootopts
-Date: Fri, 21 Jul 2017 17:33:26 -0500
-Message-Id: <20170721223326.28674-2-patrick@stwcx.xyz>
-X-Mailer: git-send-email 2.13.0
-In-Reply-To: <20170721223326.28674-1-patrick@stwcx.xyz>
-References: <20170721223326.28674-1-patrick@stwcx.xyz>
-X-ZohoMailClient: External
-X-ZohoMail: Z_56716065 SPT_1 Z_56716064 SPT_1 SLF_D
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xF1Lp2NgszDqy0
+ for <openbmc@lists.ozlabs.org>; Sat, 22 Jul 2017 18:41:05 +1000 (AEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.hostpark.net (Postfix) with ESMTP id 8F65C1679C
+ for <openbmc@lists.ozlabs.org>; Sat, 22 Jul 2017 10:32:55 +0200 (CEST)
+X-Virus-Scanned: by Hostpark/NetZone Mailprotection at hostpark.net
+Received: from mail.hostpark.net ([127.0.0.1])
+ by localhost (mail1.hostpark.net [127.0.0.1]) (amavisd-new, port 10124)
+ with ESMTP id oym1a9sKpIng for <openbmc@lists.ozlabs.org>;
+ Sat, 22 Jul 2017 10:32:55 +0200 (CEST)
+Received: from [192.168.11.10] (80-219-76-43.dclient.hispeed.ch [80.219.76.43])
+ by mail.hostpark.net (Postfix) with ESMTPA id D719E16799
+ for <openbmc@lists.ozlabs.org>; Sat, 22 Jul 2017 10:32:51 +0200 (CEST)
+From: =?UTF-8?Q?David_M=c3=bcller_=28ELSOFT_AG=29?= <d.mueller@elsoft.ch>
+Subject: How to define pins as open-collector?
+To: OpenBMC <openbmc@lists.ozlabs.org>
+Organization: ELSOFT AG
+Message-ID: <0077221b-4d1d-26b5-ccf6-ede3b474443c@elsoft.ch>
+Date: Sat, 22 Jul 2017 10:32:50 +0200
+User-Agent: Mozilla/5.0 (X11; Linux i686; rv:49.0) Gecko/20100101 Firefox/49.0
+ SeaMonkey/2.46
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -29,42 +39,16 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Jul 2017 22:33:53 -0000
+X-List-Received-Date: Sat, 22 Jul 2017 08:41:07 -0000
 
-Signed-off-by: Patrick Williams <patrick@stwcx.xyz>
----
- include/configs/ast-common.h | 6 ++++++
- 1 file changed, 6 insertions(+)
+Hello
 
-diff --git a/include/configs/ast-common.h b/include/configs/ast-common.h
-index 110c780070..6f2a50b854 100644
---- a/include/configs/ast-common.h
-+++ b/include/configs/ast-common.h
-@@ -84,7 +84,10 @@
- #define CONFIG_SYS_MAXARGS		16
- #define CONFIG_SYS_BARGSIZE		CONFIG_SYS_CBSIZE
- 
-+#if 0
- #define CONFIG_BOOTARGS			"console=ttyS4,115200n8 root=/dev/ram rw"
-+#endif
-+#define CONFIG_BOOTARGS                         "console=ttyS4,115200n8 root=/dev/mtdblock4 ro"
- 
- #define CONFIG_AST_SPI_NOR    /* AST SPI NOR Flash */
- #define CONFIG_FMC_CS			1
-@@ -96,11 +99,14 @@
- #define CONFIG_ENV_OFFSET		0x60000	/* environment starts here  */
- #define CONFIG_ENV_SIZE			0x20000	/* Total Size of Environment Sector */
- 
-+#if 0
- #define CONFIG_BOOTCOMMAND	\
- 	"fdt addr 20080000; " \
- 	"if fdt get value ramdisk_conf /configurations/conf@1 ramdisk; then " \
- 	"    bootm 20080000; else bootm 20080000 20300000; " \
- 	"fi"
-+#endif
-+#define CONFIG_BOOTCOMMAND                      "fdt addr 20080000; bootm 20080000"
- #define CONFIG_ENV_OVERWRITE
- 
- #define ASPEED_ENV_SETTINGS \
--- 
-2.13.0
+On our design we have several signals between the BMC and the rest of
+the system which are driven by more than one source, therefore the
+correspondig pins have to be defined as open-collector.
+
+How can I define a pin as open-collector in the OpenBMC board wiring
+conf file?
+
+
+Dave
