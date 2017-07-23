@@ -1,56 +1,34 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
+Return-Path: <jic23@kernel.org>
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xFNql324JzDqxn
- for <openbmc@lists.ozlabs.org>; Sun, 23 Jul 2017 09:18:58 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="H4QgAeFd"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="dP4vFLU8"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id F1C69208AD;
- Sat, 22 Jul 2017 19:18:55 -0400 (EDT)
-Received: from web1 ([10.202.2.211])
- by compute4.internal (MEProxy); Sat, 22 Jul 2017 19:18:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=nxUEiGRQbKm7XBX5YV5PMReP6htki
- pXLu7tTNb1y/Ng=; b=H4QgAeFdIO3aSwMgH6jEp6HzokDdeeTMCxfk0tf6dUIO9
- DP9zgtQNMh6Z8mkmRiJ7lKep/2IDGQO5BX3E+BFcEvHkG7bYjtsCfLBJBxka87V/
- vTNDQPgVnaaqF8n0v9cM+nBwz4Ak/RSrmSk4oGDihpXEHWpkUCbM91n67H6lKEJb
- C8oAORGLwx+ZGLv+tTwK1QrrzvB5GPx6X3ncBZ/iDfb4KTtmK1wC/nWbWYxUNQI4
- QLwdu4kUT6TqFAuj6VE8O+z6wRDNgHxORJX2HarGcHkqEKWFzpjp0KN/rWYij3aM
- k+1obmKyTk0s/3tYl26jeiogIXclQrrdWXufcUrsQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=nxUEiG
- RQbKm7XBX5YV5PMReP6htkipXLu7tTNb1y/Ng=; b=dP4vFLU8qXRIxpBfx0zFOI
- BFsXK7lQ0zSVrBvG0cIQR+OPfP9Hi+x5Yw/pCMo0ACmXTcEfkj+XEnU2SA++VS0V
- njFg0WkjKH86gHFbKNCWz/E3OMUao4KkKbn8HCz/RhOWBJ9Al6Qz0M71rrlV+vSv
- f7fLg4fdE0cj6pqnsKS+4lkNUkZXAJJ5c3Q5PHAbGBh5plxnWkCkMXobfx+Vd6nt
- PIFnklR/XwQZJL3HWTYzCWTHBWl0LG+Idrt5i7M74YwbCpb+2C4yvKT1fYtA2SLI
- HvUPP6IuqiTGSNOQNSD29ctmTyhcZ+1p1u5cngGoMpHgT2+rrchrWBV+dUMmTX1Q
- ==
-X-ME-Sender: <xms:X91zWcDek24JFPBa3ejY8Vyc581oUjsAXWrQIMjSoQcm8GAV9nwGfw>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id D5DC894770; Sat, 22 Jul 2017 19:18:55 -0400 (EDT)
-Message-Id: <1500765535.3132573.1049426776.498A1460@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: =?utf-8?Q?David=20M=C3=BCller=20=28ELSOFT=20AG=29?=
- <d.mueller@elsoft.ch>, OpenBMC <openbmc@lists.ozlabs.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xFhTL561RzDqyB
+ for <openbmc@lists.ozlabs.org>; Sun, 23 Jul 2017 21:04:06 +1000 (AEST)
+Received: from localhost.localdomain
+ (cpc91196-cmbg18-2-0-cust659.5-4.cable.virginm.net [81.96.234.148])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 76ACF22B4B;
+ Sun, 23 Jul 2017 11:04:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 76ACF22B4B
+Authentication-Results: mail.kernel.org;
+ dmarc=none (p=none dis=none) header.from=kernel.org
+Authentication-Results: mail.kernel.org;
+ spf=none smtp.mailfrom=jic23@kernel.org
+Date: Sun, 23 Jul 2017 12:03:59 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Mykola Kostenok <c_mykolak@mellanox.com>
+Cc: linux-iio@vger.kernel.org, Rick Altherr <raltherr@google.com>,
+ openbmc@lists.ozlabs.org, Vadim Pasternak <vadimp@mellanox.com>, Ohad Oz
+ <ohado@mellanox.com>
+Subject: Re: [patch v2] iio: aspeed-adc: wait for initial sequence.
+Message-ID: <20170723120359.6fdae971@kernel.org>
+In-Reply-To: <20170717090035.11691-1-c_mykolak@mellanox.com>
+References: <20170717090035.11691-1-c_mykolak@mellanox.com>
+X-Mailer: Claws Mail 3.15.0-dirty (GTK+ 2.24.31; x86_64-unknown-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-095ee039
-Subject: Re: How to define pins as open-collector?
-Date: Sun, 23 Jul 2017 08:48:55 +0930
-In-Reply-To: <0077221b-4d1d-26b5-ccf6-ede3b474443c@elsoft.ch>
-References: <0077221b-4d1d-26b5-ccf6-ede3b474443c@elsoft.ch>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,39 +40,98 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 22 Jul 2017 23:19:01 -0000
+X-List-Received-Date: Sun, 23 Jul 2017 11:04:07 -0000
 
-Hi David,
+On Mon, 17 Jul 2017 12:00:35 +0300
+Mykola Kostenok <c_mykolak@mellanox.com> wrote:
 
-On Sat, Jul 22, 2017, at 18:02, David M=C3=BCller (ELSOFT AG) wrote:
-> Hello
->=20
-> On our design we have several signals between the BMC and the rest of
-> the system which are driven by more than one source, therefore the
-> correspondig pins have to be defined as open-collector.
->=20
-> How can I define a pin as open-collector in the OpenBMC board wiring
-> conf file?
+> This patch enables adc engine at initialization time and waits
+> for the initial sequence completion before enabling adc channels.
+> 
+> Without this code adc channels are not functional and shows
+> zeros for all connected channels.
+> 
+> Tested on mellanox msn platform.
+> 
+> v1 -> v2:
+> Pointed by Rick Altherr:
+>  - Wait init sequence code enabled by bool
+> from OF match table.
+> 
+> Reviewed-by: Rick Altherr <raltherr@google.com>
+> 
+> Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
 
-If you're trying to do this via the python machine config file then it
-looks like you're out of luck, as the GPIO sysfs interface doesn't
-support configuring a pin in single-ended mode. Open-collector needs the
-single-ended and active-low properties configured on the pin. The sysfs
-interface does support setting active low, but it's not quite enough.
+Applied to the fixes-togreg branch of iio.git and marked for
+stable.
 
-For GPIOs requested by kernel drivers it's specified  through the
-devicetree via the bindings:
+Thanks,
 
-https://github.com/openbmc/linux/blob/dev-4.10/Documentation/devicetree/bin=
-dings/gpio/gpio.txt
-
-There is a helper header you can include in the dts files that defines
-the GPIO_OPEN_DRAIN flags macro, which will configure the pin as you
-need.
-
-https://github.com/openbmc/linux/blob/dev-4.10/include/dt-bindings/gpio/gpi=
-o.h
-
-Hope that helps.
-
-Andrew
+Jonathan
+> ---
+>  drivers/iio/adc/aspeed_adc.c | 26 ++++++++++++++++++++++++++
+>  1 file changed, 26 insertions(+)
+> 
+> diff --git a/drivers/iio/adc/aspeed_adc.c b/drivers/iio/adc/aspeed_adc.c
+> index 2283ed2..cfa7ee1 100644
+> --- a/drivers/iio/adc/aspeed_adc.c
+> +++ b/drivers/iio/adc/aspeed_adc.c
+> @@ -22,6 +22,7 @@
+>  
+>  #include <linux/iio/iio.h>
+>  #include <linux/iio/driver.h>
+> +#include <linux/iopoll.h>
+>  
+>  #define ASPEED_RESOLUTION_BITS		10
+>  #define ASPEED_CLOCKS_PER_SAMPLE	12
+> @@ -38,11 +39,17 @@
+>  
+>  #define ASPEED_ENGINE_ENABLE		BIT(0)
+>  
+> +#define ASPEED_ADC_CTRL_INIT_RDY	BIT(8)
+> +
+> +#define ASPEED_ADC_INIT_POLLING_TIME	500
+> +#define ASPEED_ADC_INIT_TIMEOUT		500000
+> +
+>  struct aspeed_adc_model_data {
+>  	const char *model_name;
+>  	unsigned int min_sampling_rate;	// Hz
+>  	unsigned int max_sampling_rate;	// Hz
+>  	unsigned int vref_voltage;	// mV
+> +	bool wait_init_sequence;
+>  };
+>  
+>  struct aspeed_adc_data {
+> @@ -210,6 +217,24 @@ static int aspeed_adc_probe(struct platform_device *pdev)
+>  		goto scaler_error;
+>  	}
+>  
+> +	model_data = of_device_get_match_data(&pdev->dev);
+> +
+> +	if (model_data->wait_init_sequence) {
+> +		/* Enable engine in normal mode. */
+> +		writel(ASPEED_OPERATION_MODE_NORMAL | ASPEED_ENGINE_ENABLE,
+> +		       data->base + ASPEED_REG_ENGINE_CONTROL);
+> +
+> +		/* Wait for initial sequence complete. */
+> +		ret = readl_poll_timeout(data->base + ASPEED_REG_ENGINE_CONTROL,
+> +					 adc_engine_control_reg_val,
+> +					 adc_engine_control_reg_val &
+> +					 ASPEED_ADC_CTRL_INIT_RDY,
+> +					 ASPEED_ADC_INIT_POLLING_TIME,
+> +					 ASPEED_ADC_INIT_TIMEOUT);
+> +		if (ret)
+> +			goto scaler_error;
+> +	}
+> +
+>  	/* Start all channels in normal mode. */
+>  	clk_prepare_enable(data->clk_scaler->clk);
+>  	adc_engine_control_reg_val = GENMASK(31, 16) |
+> @@ -269,6 +294,7 @@ static const struct aspeed_adc_model_data ast2500_model_data = {
+>  	.vref_voltage = 1800, // mV
+>  	.min_sampling_rate = 1,
+>  	.max_sampling_rate = 1000000,
+> +	.wait_init_sequence = true,
+>  };
+>  
+>  static const struct of_device_id aspeed_adc_matches[] = {
