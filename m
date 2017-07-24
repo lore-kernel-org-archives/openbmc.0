@@ -1,67 +1,48 @@
-Return-Path: <ratagupt@in.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <robherring2@gmail.com>
+Received: from mail-pf0-f196.google.com (mail-pf0-f196.google.com
+ [209.85.192.196])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xGRw60nN3zDrK8
- for <openbmc@lists.ozlabs.org>; Tue, 25 Jul 2017 02:41:24 +1000 (AEST)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v6OGcalY086986
- for <openbmc@lists.ozlabs.org>; Mon, 24 Jul 2017 12:41:22 -0400
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.67])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2bwkyx9uv5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 24 Jul 2017 12:41:21 -0400
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <ratagupt@in.ibm.com>;
- Mon, 24 Jul 2017 16:41:21 -0000
-Received: from us1a3-smtp04.a3.dal06.isc4sb.com (10.106.154.237)
- by smtp.notes.na.collabserv.com (10.106.227.16) with
- smtp.notes.na.collabserv.com ESMTP; Mon, 24 Jul 2017 16:41:20 -0000
-Received: from us1a3-mail111.a3.dal06.isc4sb.com ([10.146.45.113])
- by us1a3-smtp04.a3.dal06.isc4sb.com
- with ESMTP id 2017072416411977-709253 ;
- Mon, 24 Jul 2017 16:41:19 +0000 
-In-Reply-To: 
-Subject: VLAN support on OpenBMC
-From: "Ratan K Gupta" <ratagupt@in.ibm.com>
-To: "Shawn Gavin" <shawn_gavin@us.ibm.com>
-Cc: openbmc@lists.ozlabs.org
-Date: Mon, 24 Jul 2017 16:41:19 +0000
-Sensitivity: 
-References: 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xGTQj3nKFzDrJM
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Jul 2017 03:49:33 +1000 (AEST)
+Received: by mail-pf0-f196.google.com with SMTP id q85so11010855pfq.2
+ for <openbmc@lists.ozlabs.org>; Mon, 24 Jul 2017 10:49:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=L+87i+NpV1k2vcApRPjisy4EFREM+Mb1j60CznnpEoI=;
+ b=YLo5cWREXTw55rhU7P151nVTZufq+IfdX3I52XCuvKdV1kgSMDp04ieLQeWYrZVL0X
+ 19KGybTYUdD6Ezs6uIdmkliwKcEHgqOeE/ECSP916If4jjzQ8ruAcmTSjyvTEtFm+pmt
+ iQrNMnyAOgjieOv7WKSBoV2U6rkkRONnb4M9c2QqrWFaDhYwLbghO9FV0j62bKFo7V4E
+ awP12nhPTxohdbcRxllcnuY6Iz0PzTrpTxjZKtYMtssr1cyPCP8g97asVEM7UIOKP5DI
+ ugY0FfydzJsFRnh6W3U33Ubxjoas3Yt8+HdqMmgq6p/8MVNrY630IpC25ShNni4PS47A
+ x5Mw==
+X-Gm-Message-State: AIVw113+jjtMB6llKYro+d+Lwt1Q0DskoseZbiWVZQJbhCgR3E8/30Ve
+ yxgTc/7gtjFE4Q==
+X-Received: by 10.99.170.1 with SMTP id e1mr11860643pgf.411.1500918571163;
+ Mon, 24 Jul 2017 10:49:31 -0700 (PDT)
+Received: from localhost (24-223-123-72.static.usa-companies.net.
+ [24.223.123.72])
+ by smtp.gmail.com with ESMTPSA id k26sm22377920pfb.145.2017.07.24.10.49.30
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 24 Jul 2017 10:49:30 -0700 (PDT)
+Date: Mon, 24 Jul 2017 12:49:29 -0500
+From: Rob Herring <robh@kernel.org>
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Cc: wim@iguana.be, linux@roeck-us.net, mark.rutland@arm.com, joel@jms.id.au,
+ linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v5 1/2] drivers/watchdog: Add optional ASPEED device tree
+ properties
+Message-ID: <20170724174929.wtf5ifjr2h7eixdc@rob-hp-laptop>
+References: <20170717192539.7950-1-cbostic@linux.vnet.ibm.com>
+ <20170717192539.7950-2-cbostic@linux.vnet.ibm.com>
 MIME-Version: 1.0
-Importance: Normal
-X-Priority: 3 (Normal)
-X-Mailer: IBM Verse Build 14893-1220 | IBM Domino Build
- SCN17178_20170627T0038_FP6.2 July 11, 2017 at 09:53
-X-LLNOutbound: False
-X-Disclaimed: 61727
-X-TNEFEvaluated: 1
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html; charset=UTF-8
-x-cbid: 17072416-0327-0000-0000-00000282BF50
-X-IBM-SpamModules-Scores: FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0; SC=0.423878;
- ST=0; TS=0; UL=0; ISC=; MB=0.000000
-X-IBM-SpamModules-Versions: BY=3.00007418; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00892271; UDB=6.00445961; IPR=6.00672435; 
- BA=6.00005489; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016351; XFM=3.00000015;
- UTC=2017-07-24 16:41:21
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2017-07-24 13:00:30 - 6.00007072
-x-cbparentid: 17072416-0328-0000-0000-000015DB6AF5
-Message-Id: <OF84667D4E.6E526AD9-ON00258167.005AB6A0-00258167.005BACA5@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-07-24_11:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
- definitions=main-1707240255
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20170717192539.7950-2-cbostic@linux.vnet.ibm.com>
+User-Agent: NeoMutt/20170113 (1.7.2)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -73,37 +54,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 24 Jul 2017 16:41:26 -0000
+X-List-Received-Date: Mon, 24 Jul 2017 17:49:33 -0000
 
-<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
-elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" ><div>Hi Gavin,</d=
-iv>
-<div>&nbsp;</div>
-<div>OpenBMC has requirement to support the VLAN,After doing the necessary =
-VLAN configurations we observed that the openbmc/ncsi chip is not sending t=
-he tagged packet out.</div>
-<div>&nbsp;</div>
-<div>On the other side,if I ping the openbmc machine from some other linux =
-machine<br>then tagged packet doesn't reach to openbmc machine.</div>
-<div>&nbsp;</div>
-<div>In order to simplify the testing setup,We made a direct connection wit=
-h some linux machine to openbmc.</div>
-<div>&nbsp;</div>
-<div>Scenario 1: Ping test from test/linux machine to the openbmc machine.<=
-br>=3D=3D=3D=3D=3D=3D=3D=3D<br>Observation:- We captured the packet on the =
-test machine which shows that packet<br>were going out from the test machin=
-e and it was having 8021.q tag<br>but it was not reaching to openbmc machin=
-e.</div>
-<div>&nbsp;</div>
-<div>Scenario 2: Ping test from openbmc machine to test/linux machine<br>=
-=3D=3D=3D=3D=3D=3D=3D=3D<br>Observation:- Captured packet shows that packet=
- were going out<br>from the openbmc machine and it was having 8021.q tag bu=
-t it was<br>not reaching to test machine.</div>
-<div>&nbsp;</div>
-<div>Note:- We made sure that packet were going out from the VLAN interface=
-.</div>
-<div>&nbsp;</div>
-<div>Is it related to the NCSI driver? Do we have NCSI driver support on op=
-enbmc to create the<br>VLAN.</div>
-<div>&nbsp;</div>
-<div>Thanks &amp; Regards<br>Ratan Gupta</div></div></div><BR>
+On Mon, Jul 17, 2017 at 02:25:38PM -0500, Christopher Bostic wrote:
+> Describe device tree optional properties:
+> 
+>   * aspeed,reset-type = "cpu|soc|system|none"
+>      One of three different, mutually exclusive, values
+> 
+> 	"cpu" : ARM CPU reset on signal
+> 	"soc" : 'System on chip' reset
+> 	"system" : Full system reset
+> 
+>      The value can also be set to "none" which indicates that no
+>      reset of any kind is to be done via this watchdog.  This assumes
+>      another watchdog on the chip is to take care of resets.
+> 
+>   * aspeed,external-signal - Generate external signal (WDT1 and WDT2 only)
+>   * aspeed,alt-boot - Boot from alternate block on signal
+> 
+> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+> ---
+> v5 - Removed aspeed,interrupt property - no plans at this point to
+>      need this functionality in the driver.
+> v4 - Add aspeed-reset-type and assign one of four values,
+>      cpu, soc, system, none.
+> v3 - Invert soc and sys reset to 'no' to preserve backwards
+>      compatibility.  SOC and SYS reset will be set by default
+>      without any optional parameters set
+> v2 - Add 'aspeed,' prefix to all optional properties
+>    - Add arm-reset, soc-reset, interrupt, alt-boot properties
+> ---
+>  .../devicetree/bindings/watchdog/aspeed-wdt.txt    | 32 ++++++++++++++++++++++
+>  1 file changed, 32 insertions(+)
+
+Acked-by: Rob Herring <robh@kernel.org>
