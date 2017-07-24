@@ -1,47 +1,61 @@
-Return-Path: <robherring2@gmail.com>
-Received: from mail-pg0-f66.google.com (mail-pg0-f66.google.com [74.125.83.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <cbostic@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xGXkG3h7WzDrCs
- for <openbmc@lists.ozlabs.org>; Tue, 25 Jul 2017 06:18:14 +1000 (AEST)
-Received: by mail-pg0-f66.google.com with SMTP id y129so12621949pgy.3
- for <openbmc@lists.ozlabs.org>; Mon, 24 Jul 2017 13:18:14 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=/ga2FgPoc+HVfanMCA6sIqdkebg14OyI7rKW6QezmGQ=;
- b=b+PSTQzBGd4kXKoCo+6TcJF1LEC15hQsyXyHkd1BdW1jct7GP/DPxuqSu/NJ2UK44y
- EDmCirIxTafxK8T3gXaqddJQxJtwX/Ao7FQC19p2MN2NK3wfQaegWLslSG/mc2d3+toX
- 8Ca4YWJppvTN48pqxAEAAog103LiaiVuCN7zGVJ8aTNiNsjJ7y7Dkwd6DW62sb13zKlY
- klrn3DZyKkeqbMPtnvn5EaJj4JbwYduh+d1DWH5spWAwbLD/ApL8ql1moNxDqsncW+BV
- Md3QG0faROjcs4YMmLpsD8k50sZhX/Sbo5bCsJlGmUqolcaNToHQNF9ggidyjVVAZIKg
- MLPw==
-X-Gm-Message-State: AIVw1115IRVHyDRenw4ec07PsiNlyQaIdTQBZsJkJ0/nY9z6VTtjAJHf
- PjYd9svtgHv1Ig==
-X-Received: by 10.99.105.201 with SMTP id e192mr16950529pgc.158.1500927492401; 
- Mon, 24 Jul 2017 13:18:12 -0700 (PDT)
-Received: from localhost (24-223-123-72.static.usa-companies.net.
- [24.223.123.72])
- by smtp.gmail.com with ESMTPSA id r62sm25027874pfl.45.2017.07.24.13.18.11
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 24 Jul 2017 13:18:11 -0700 (PDT)
-Date: Mon, 24 Jul 2017 15:18:10 -0500
-From: Rob Herring <robh@kernel.org>
-To: Mykola Kostenok <c_mykolak@mellanox.com>
-Cc: devicetree@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>,
- Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>,
- openbmc@lists.ozlabs.org, Patrick Venture <venture@google.com>,
- Vadim Pasternak <vadimp@mellanox.com>, Ohad Oz <ohado@mellanox.com>
-Subject: Re: [patch v2] Documentation: dt-bindings: aspeed-pwm-tacho cooling
- device.
-Message-ID: <20170724201810.qws2drb3aknyefom@rob-hp-laptop>
-References: <20170720143039.821-1-c_mykolak@mellanox.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20170720143039.821-1-c_mykolak@mellanox.com>
-User-Agent: NeoMutt/20170113 (1.7.2)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xGZCl2k6BzDqv6
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Jul 2017 07:25:23 +1000 (AEST)
+Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v6OLOdLu018641
+ for <openbmc@lists.ozlabs.org>; Mon, 24 Jul 2017 17:25:20 -0400
+Received: from e15.ny.us.ibm.com (e15.ny.us.ibm.com [129.33.205.205])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2bwnf3ggp1-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 24 Jul 2017 17:25:20 -0400
+Received: from localhost
+ by e15.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Mon, 24 Jul 2017 17:25:19 -0400
+Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
+ by e15.ny.us.ibm.com (146.89.104.202) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Mon, 24 Jul 2017 17:25:17 -0400
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v6OLPGJd24182970; Mon, 24 Jul 2017 21:25:16 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 3D5072803D;
+ Mon, 24 Jul 2017 17:25:10 -0400 (EDT)
+Received: from Christophers-MacBook-Pro.local.com (unknown [9.83.3.94])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id 31D1F2803A;
+ Mon, 24 Jul 2017 17:25:07 -0400 (EDT)
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+To: joel@jms.id.au
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.10 0/2] IIO: DPS310 fixes
+Date: Mon, 24 Jul 2017 16:25:07 -0500
+X-Mailer: git-send-email 2.10.1 (Apple Git-78)
+X-TM-AS-GCONF: 00
+x-cbid: 17072421-0036-0000-0000-0000024E0D2E
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007419; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00892366; UDB=6.00446018; IPR=6.00672530; 
+ BA=6.00005489; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016356; XFM=3.00000015;
+ UTC=2017-07-24 21:25:18
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17072421-0037-0000-0000-000041349813
+Message-Id: <20170724212509.85197-1-cbostic@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-07-24_13:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
+ definitions=main-1707240327
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -53,115 +67,18 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 24 Jul 2017 20:18:15 -0000
+X-List-Received-Date: Mon, 24 Jul 2017 21:25:23 -0000
 
-On Thu, Jul 20, 2017 at 05:30:39PM +0300, Mykola Kostenok wrote:
-> This controller supports fan tacho channels and pwm channels.
-> Without this change only tachometer channels can be configured.
-> Add extra level of hierarchy - for tachometer channel
-> with fan subnodes and pwm channels with pwm subnodes.
-> 
-> It's add support for cooling device creation to
-> aspeed-pwm-tacho.
-> Cooling device could be bound to a thermal zone
-> for the thermal control.
-> 
-> v1 -> v2:
->  - Fix commit message.
-> 
-> Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
-> ---
->  .../devicetree/bindings/hwmon/aspeed-pwm-tacho.txt | 56 ++++++++++++++++++----
->  1 file changed, 47 insertions(+), 9 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt b/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
-> index cf44605..df85aa7 100644
-> --- a/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
-> +++ b/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
-> @@ -23,9 +23,18 @@ Required properties for pwm-tacho node:
->  - clocks : a fixed clock providing input clock frequency(PWM
->  	   and Fan Tach clock)
->  
-> +tach-channels subnode format:
-> +===================
-> +Under tach-channels subnode there can be fan child nodes.
-> +
-> +Required properties for tach-channels node:
-> +- #address-cells : should be 1.
-> +
-> +- #size-cells : should be 0.
-> +
->  fan subnode format:
->  ===================
-> -Under fan subnode there can upto 8 child nodes, with each child node
-> +Under fan subnode there can be upto 8 child nodes, with each child node
->  representing a fan. If there are 8 fans each fan can have one PWM port and
->  one/two Fan tach inputs.
->  
-> @@ -39,6 +48,24 @@ Required properties for each child node:
->  		Fan tach channel 0 and 15 indicating Fan tach channel 15.
->  		Atleast one Fan tach input channel is required.
->  
-> +pwm-channels subnode format:
-> +===================
-> +Under pwm-channels subnode there can be pwm child nodes.
-> +Required properties for tach-channels node:
-> +- #address-cells : should be 1.
-> +
-> +- #size-cells : should be 0.
-> +
-> +- #cooling-cells : should be 2;
-> +
-> +pwm subnode format:
-> +===================
-> +- reg : should be <0x00>.
-> +
-> +- cooling-levels      : PWM duty cycle values in a range from 0 to 255
-> +			which correspond to thermal cooling states.
-> +
-> +
->  Examples:
->  
->  pwm_tacho_fixed_clk: fixedclk {
-> @@ -55,14 +82,25 @@ pwm_tacho: pwmtachocontroller@1e786000 {
->  	clocks = <&pwm_tacho_fixed_clk>;
->  	pinctrl-names = "default";
->  	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
-> -
-> -	fan@0 {
-> -		reg = <0x00>;
+* Add manufacturer's recommended workaround for known temperature reading error
+* Return previous measured value if current reading isn't finshed
 
-The 0 here was the "pwm channel". Otherwise, the reg value is just 
-some made up index with no correlation to the h/w. So why can't you 
-accomplish the same thing adding cooling-levels here?
+Christopher Bostic (2):
+  drivers/iio: dps310 Temperature measurement fix.
+  drivers/iio: dps310 Use previous value if new reading not available
+    yet
 
-> -		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
-> +	tach-channels {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +		fan@0 {
-> +			reg = <0x00>;
-> +			aspeed,fan-tach-ch = /bits/ 8 <0x00>;
-> +		};
-> +		fan@1 {
-> +			reg = <0x01>;
-> +			aspeed,fan-tach-ch = /bits/ 8 <0x01 0x02>;
-> +		};
->  	};
-> -
-> -	fan@1 {
-> -		reg = <0x01>;
-> -		aspeed,fan-tach-ch = /bits/ 8 <0x01 0x02>;
-> +	pwm-channels {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +		#cooling-cells = <2>;
-> +		pwm@0 {
-> +			reg = <0x00>;
-> +			cooling-levels = /bits/ 8 <125 151 177 203 229 255>;
-> +		};
->  	};
->  };
-> -- 
-> 2.8.4
-> 
+ drivers/iio/pressure/dps310.c | 53 ++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 50 insertions(+), 3 deletions(-)
+
+-- 
+1.8.2.2
