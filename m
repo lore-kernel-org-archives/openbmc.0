@@ -1,25 +1,23 @@
 Return-Path: <c_mykolak@mellanox.com>
 Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
- by lists.ozlabs.org (Postfix) with ESMTP id 3xH0cX2B2RzDqmj
- for <openbmc@lists.ozlabs.org>; Wed, 26 Jul 2017 00:14:51 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTP id 3xH0gy71jMzDqmj
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Jul 2017 00:17:43 +1000 (AEST)
 Received: from Internal Mail-Server by MTLPINE1 (envelope-from
  c?mykolak@mellanox.com)
- with ESMTPS (AES256-SHA encrypted); 25 Jul 2017 17:14:23 +0300
+ with ESMTPS (AES256-SHA encrypted); 25 Jul 2017 17:17:29 +0300
 Received: from r-vnc15.mtr.labs.mlnx (r-vnc15.mtr.labs.mlnx [10.208.0.15])
- by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id v6PEENFs029941;
- Tue, 25 Jul 2017 17:14:23 +0300
+ by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id v6PEHTPt008623;
+ Tue, 25 Jul 2017 17:17:29 +0300
 From: Mykola Kostenok <c_mykolak@mellanox.com>
-To: system-sw-low-level@mellanox.com, Rob Herring <robh+dt@kernel.org>,
- devicetree@vger.kernel.org
-Cc: Mykola Kostenok <c_mykolak@mellanox.com>,
- Guenter Roeck <linux@roeck-us.net>,
+To: Guenter Roeck <linux@roeck-us.net>, Jean Delvare <jdelvare@suse.com>,
+ linux-hwmon@vger.kernel.org
+Cc: Mykola Kostenok <c_mykolak@mellanox.com>, Rob Herring <robh+dt@kernel.org>,
  Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>,
  openbmc@lists.ozlabs.org, Patrick Venture <venture@google.com>,
  Vadim Pasternak <vadimp@mellanox.com>, Ohad Oz <ohado@mellanox.com>
-Subject: [patch v3] Documentation: dt-bindings: aspeed-pwm-tacho cooling
- device.
-Date: Tue, 25 Jul 2017 17:14:22 +0300
-Message-Id: <20170725141422.7924-1-c_mykolak@mellanox.com>
+Subject: [patch v3] hwmon: (aspeed-pwm-tacho) cooling device support.
+Date: Tue, 25 Jul 2017 17:17:27 +0300
+Message-Id: <20170725141727.13105-1-c_mykolak@mellanox.com>
 X-Mailer: git-send-email 2.8.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -32,70 +30,195 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Jul 2017 14:14:53 -0000
+X-List-Received-Date: Tue, 25 Jul 2017 14:17:52 -0000
 
-It's add support for cooling device creation to
-aspeed-pwm-tacho.
-Cooling device could be bound to a thermal zone
-for the thermal control.
+Add support in aspeed-pwm-tacho driver for cooling device creation.
+This cooling device could be bound to a thermal zone
+for the thermal control. Device will appear in /sys/class/thermal
+folder as cooling_deviceX. Then it could be bound to particular
+thermal zones. Allow specification of the cooling levels
+vector - PWM duty cycle values in a range from 0 to 255
+which correspond to thermal cooling states.
 
 v1 -> v2:
- - Fix commit message.
+ - Remove device tree binding file from the patch.
+ - Move of_node_put out of cycle because of_get_next_child
+   already do of_put_node on previous child.
+
 v2 -> v3:
  Pointed out by Rob Herring:
  - Put cooling-levels under fan subnodes.
 
 Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
 ---
- Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/hwmon/aspeed-pwm-tacho.c | 118 ++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 116 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt b/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
-index cf44605..367c820 100644
---- a/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
-+++ b/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
-@@ -11,6 +11,8 @@ Required properties for pwm-tacho node:
+diff --git a/drivers/hwmon/aspeed-pwm-tacho.c b/drivers/hwmon/aspeed-pwm-tacho.c
+index ddfe66b..ae8dfee 100644
+--- a/drivers/hwmon/aspeed-pwm-tacho.c
++++ b/drivers/hwmon/aspeed-pwm-tacho.c
+@@ -20,6 +20,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/sysfs.h>
+ #include <linux/regmap.h>
++#include <linux/thermal.h>
  
- - #size-cells : should be 1.
+ /* ASPEED PWM & FAN Tach Register Definition */
+ #define ASPEED_PTCR_CTRL		0x00
+@@ -166,6 +167,16 @@
+ /* How long we sleep in us while waiting for an RPM result. */
+ #define ASPEED_RPM_STATUS_SLEEP_USEC	500
  
-+- #cooling-cells: should be 2.
++struct aspeed_cooling_device {
++	char name[16];
++	struct aspeed_pwm_tacho_data *priv;
++	struct thermal_cooling_device *tcdev;
++	int pwm_port;
++	u8 *cooling_levels;
++	u8 max_state;
++	u8 cur_state;
++};
 +
- - reg : address and length of the register set for the device.
+ struct aspeed_pwm_tacho_data {
+ 	struct regmap *regmap;
+ 	unsigned long clk_freq;
+@@ -180,6 +191,7 @@ struct aspeed_pwm_tacho_data {
+ 	u8 pwm_port_type[8];
+ 	u8 pwm_port_fan_ctrl[8];
+ 	u8 fan_tach_ch_source[16];
++	struct aspeed_cooling_device *cdev[8];
+ 	const struct attribute_group *groups[3];
+ };
  
- - pinctrl-names : a pinctrl state named "default" must be defined.
-@@ -28,12 +30,17 @@ fan subnode format:
- Under fan subnode there can upto 8 child nodes, with each child node
- representing a fan. If there are 8 fans each fan can have one PWM port and
- one/two Fan tach inputs.
-+For PWM port can be configured cooling-levels to create cooling device.
-+Cooling device could be bound to a thermal zone for the thermal control.
+@@ -765,6 +777,97 @@ static void aspeed_create_fan_tach_channel(struct aspeed_pwm_tacho_data *priv,
+ 	}
+ }
  
- Required properties for each child node:
- - reg : should specify PWM source port.
- 	integer value in the range 0 to 7 with 0 indicating PWM port A and
- 	7 indicating PWM port H.
- 
-+- cooling-levels: PWM duty cycle values in a range from 0 to 255
-+                  which correspond to thermal cooling states.
++static int
++aspeed_pwm_cz_get_max_state(struct thermal_cooling_device *tcdev,
++			    unsigned long *state)
++{
++	struct aspeed_cooling_device *cdev =
++				(struct aspeed_cooling_device *)tcdev->devdata;
 +
- - aspeed,fan-tach-ch : should specify the Fan tach input channel.
-                 integer value in the range 0 through 15, with 0 indicating
- 		Fan tach channel 0 and 15 indicating Fan tach channel 15.
-@@ -50,6 +57,7 @@ pwm_tacho_fixed_clk: fixedclk {
- pwm_tacho: pwmtachocontroller@1e786000 {
- 	#address-cells = <1>;
- 	#size-cells = <1>;
-+	#cooling-cells = <2>;
- 	reg = <0x1E786000 0x1000>;
- 	compatible = "aspeed,ast2500-pwm-tacho";
- 	clocks = <&pwm_tacho_fixed_clk>;
-@@ -58,6 +66,7 @@ pwm_tacho: pwmtachocontroller@1e786000 {
++	*state = cdev->max_state;
++
++	return 0;
++}
++
++static int
++aspeed_pwm_cz_get_cur_state(struct thermal_cooling_device *tcdev,
++			    unsigned long *state)
++{
++	struct aspeed_cooling_device *cdev =
++				(struct aspeed_cooling_device *)tcdev->devdata;
++
++	*state = cdev->cur_state;
++
++	return 0;
++}
++
++static int
++aspeed_pwm_cz_set_cur_state(struct thermal_cooling_device *tcdev,
++			    unsigned long state)
++{
++	struct aspeed_cooling_device *cdev =
++				(struct aspeed_cooling_device *)tcdev->devdata;
++
++	if (state > cdev->max_state)
++		return -EINVAL;
++
++	cdev->cur_state = state;
++	cdev->priv->pwm_port_fan_ctrl[cdev->pwm_port] = *(cdev->cooling_levels
++							  + cdev->cur_state);
++	aspeed_set_pwm_port_fan_ctrl(cdev->priv, cdev->pwm_port,
++				     *(cdev->cooling_levels +
++				       cdev->cur_state));
++
++	return 0;
++}
++
++static const struct thermal_cooling_device_ops aspeed_pwm_cool_ops = {
++	.get_max_state = aspeed_pwm_cz_get_max_state,
++	.get_cur_state = aspeed_pwm_cz_get_cur_state,
++	.set_cur_state = aspeed_pwm_cz_set_cur_state,
++};
++
++static int aspeed_create_pwm_cooling(struct device *dev,
++			     struct device_node *child,
++			     struct aspeed_pwm_tacho_data *priv,
++			     u32 pwm_port, u8 num_level)
++{
++	int ret;
++
++	priv->cdev[pwm_port] = devm_kzalloc(dev, sizeof(*priv->cdev[pwm_port]),
++					    GFP_KERNEL);
++	if (!priv->cdev[pwm_port])
++		return -ENOMEM;
++
++	priv->cdev[pwm_port]->cooling_levels = devm_kzalloc(dev, num_level *
++							    sizeof(u8),
++							    GFP_KERNEL);
++	if (!priv->cdev[pwm_port]->cooling_levels)
++		return -ENOMEM;
++
++	priv->cdev[pwm_port]->max_state = num_level - 1;
++	ret = of_property_read_u8_array(child, "cooling-levels",
++					priv->cdev[pwm_port]->cooling_levels,
++					num_level);
++	if (ret) {
++		dev_err(dev, "Property 'cooling-levels' cannot be read.\n");
++		return ret;
++	}
++	sprintf(priv->cdev[pwm_port]->name, "%s%d", child->name, pwm_port);
++
++	priv->cdev[pwm_port]->tcdev = thermal_of_cooling_device_register(child,
++						priv->cdev[pwm_port]->name,
++						priv->cdev[pwm_port],
++						&aspeed_pwm_cool_ops);
++	if (PTR_ERR_OR_ZERO(priv->cdev[pwm_port]->tcdev))
++		return PTR_ERR(priv->cdev[pwm_port]->tcdev);
++
++	priv->cdev[pwm_port]->priv = priv;
++	priv->cdev[pwm_port]->pwm_port = pwm_port;
++
++	return 0;
++}
++
+ static int aspeed_create_fan(struct device *dev,
+ 			     struct device_node *child,
+ 			     struct aspeed_pwm_tacho_data *priv)
+@@ -778,6 +881,15 @@ static int aspeed_create_fan(struct device *dev,
+ 		return ret;
+ 	aspeed_create_pwm_port(priv, (u8)pwm_port);
  
- 	fan@0 {
- 		reg = <0x00>;
-+		cooling-levels = /bits/ 8 <125 151 177 203 229 255>;
- 		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
- 	};
++	ret = of_property_count_u8_elems(child, "cooling-levels");
++
++	if (ret > 0) {
++		ret = aspeed_create_pwm_cooling(dev, child, priv, pwm_port,
++						ret);
++		if (ret)
++			return ret;
++	}
++
+ 	count = of_property_count_u8_elems(child, "aspeed,fan-tach-ch");
+ 	if (count < 1)
+ 		return -EINVAL;
+@@ -834,10 +946,12 @@ static int aspeed_pwm_tacho_probe(struct platform_device *pdev)
  
+ 	for_each_child_of_node(np, child) {
+ 		ret = aspeed_create_fan(dev, child, priv);
+-		of_node_put(child);
+-		if (ret)
++		if (ret) {
++			of_node_put(child);
+ 			return ret;
++		}
+ 	}
++	of_node_put(child);
+ 
+ 	priv->groups[0] = &pwm_dev_group;
+ 	priv->groups[1] = &fan_dev_group;
 -- 
 2.8.4
