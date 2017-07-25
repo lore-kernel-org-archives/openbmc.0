@@ -3,54 +3,54 @@ Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xGlF946WMzDqxh
- for <openbmc@lists.ozlabs.org>; Tue, 25 Jul 2017 14:12:13 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xGlHs3hbTzDqry
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Jul 2017 14:14:33 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="W3hzMSEq"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="U8aik0kQ"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Xr1svHCk"; dkim-atps=neutral
+ header.b="BbGZXfnl"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 391DA20A79;
- Tue, 25 Jul 2017 00:12:11 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 7767820A99;
+ Tue, 25 Jul 2017 00:14:31 -0400 (EDT)
 Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Tue, 25 Jul 2017 00:12:11 -0400
+ by compute4.internal (MEProxy); Tue, 25 Jul 2017 00:14:31 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
  content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=1ulCNWuGicrOBFqZvIuEidwJlTjzvIkElQVk3almc
- 6c=; b=W3hzMSEqf01gf1Pvxo/ANBM2ieRe4rao/wSXwWsHx+6B8ni/NolaNk4Qi
- DHWNatYjDwfV3HEBUEntiG0+xMPUq5fsiI/5twaVyIku2qcFCI+lUORFKchEg2QK
- EaNcBtN2I98q1AzG1zeCvxZybu3yfSe1xs5V5rTNjzRW+KxoE+F79aE5CEQN9agh
- 2QO8etRmSH2uYNCgXwWOlM7azp3IlvmNuOrpu74sQHY+9UvJKSdpPggizH8aE4kB
- 9nqpWdQoscwBxY+x1pZ0a8Ez1P/knPkUAN4BN7xAyNeFFyzRJBQ9G3QnSK+9LtAC
- ZIDasvQwmMnOw3vf5bNyw8ra68oog==
+ :x-sasl-enc; s=fm1; bh=8UTq9QBx1Uy2O9O3YXNfBilsJLQahWjS2eufOElNg
+ bI=; b=U8aik0kQLlkE/0VQgCP48ViehNckPpuufo704tp+BJN+BfsWOqW5GaqY6
+ laL/iXiQLCGlOhyW4wcQUnHfD8wjiMg/RTHjmtZ8VJio2ZFn0g5k5YPLgsE/qyh+
+ kx6ugTClD8OXQEV9/tAkkXAcwjESMFI7Dq2OXwkMC6R39gOdZ8p7bnnH3iEIfndS
+ Vz2iZq0VCvaP6O+qpjrf3+a8lmC9VoY45XCPxF72lCKAE3z/g17dmAcg3V24cV5c
+ JfCRTIZaxV/b3rGV47wSzHr245rnuAqDrf5o5awSXgPsZYfACg3CP1Cui+FaZB8i
+ r+ekHYifxhuMeVmZ/ad4nRobJLpcQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=1ulCNWuGicrOBFqZvI
- uEidwJlTjzvIkElQVk3almc6c=; b=Xr1svHCkLJwlNCNt2sfoSvzTdigjhG6Cev
- 8mAAp2PLbC5aUOALlBycAiKGOL+Lr+QIvrOK1L2CCbQOtkDcUYUCL5rczuhBTXI2
- in6rm7UHI3zkJRHs3qpzyaie3QISDdHt4Vo85tc7gtUxNK9wfSCPu/1BXfRZEiaa
- V9NLLPr/W/QP7HpJuye0Re3Rg08cfAdqG+3+OupSZj9GHRllIcwwlMjl3EswgNO8
- fYONKzcricgAdgte4djsmUHsBkOVN5Wp0Ua2enjCH9vCf+E7ZLlnRFx6XG5mWMnw
- oExSLxrwpL1la3bJ6oC49bbL15FPysOftMuWhUnrEesjY7KGU/rQ==
-X-ME-Sender: <xms:GsV2WQbJQ0SNtSGqxl0dME-BHdRPPPkv3omwAEpjwn08NO-1jYwbXw>
-X-Sasl-enc: m3LKuwTVrE/FHZpUeH/kJ/KEHlUVYzqvpxEU+qrzzfi7 1500955930
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=8UTq9QBx1Uy2O9O3YX
+ NfBilsJLQahWjS2eufOElNgbI=; b=BbGZXfnlGPzOdK9l0r56lp7qgyCt3qZHjp
+ kIVmvmzDssKJfn2DkiZ1MA8etHuXBIzqJ3M2IehVcp/utYMcBFlLQ8JbsGjCAQRt
+ wGMeN9hMu5snInikHbjC7Tl4MuEZe2P5UAFwTNWC7dCnRB+DEP6CmrK3cOGHuLDr
+ cNt7/mKtHzEUdOA8e+6sS6Anpe/uV3hhVLX9RKdbX0+EgsYpDhZWv0I4CB9+KcGZ
+ 4tfhR8K1p8dW6lpltjdlOZ2ySxHgshLaPRIbVeB69ArPGHKwi3+3N/R/I2O6h03U
+ Ud4QawKvN9RSUJP0vXfd2yFmx1nHtTAPtejWruonVrzcXdA4EAdQ==
+X-ME-Sender: <xms:p8V2WYOdt7gZkSI9yFuVCx9ELMJnzKO1vyQV0RXYOwNqoJXG8H11_A>
+X-Sasl-enc: NaBg08FxZJe81RoVedH6W6tISLGwkB10PRRJQEZX7Zdf 1500956070
 Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 896147E1D9;
- Tue, 25 Jul 2017 00:12:09 -0400 (EDT)
-Message-ID: <1500955926.5179.8.camel@aj.id.au>
+ by mail.messagingengine.com (Postfix) with ESMTPA id 0B3507E16E;
+ Tue, 25 Jul 2017 00:14:29 -0400 (EDT)
+Message-ID: <1500956066.5179.10.camel@aj.id.au>
 Subject: Re: [PATCH linux dev-4.10 2/2] ARM: dts: aspeed: firestone: Request
  UART pins
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
-Date: Tue, 25 Jul 2017 13:42:06 +0930
-In-Reply-To: <20170724120935.1862-2-joel@jms.id.au>
+Date: Tue, 25 Jul 2017 13:44:26 +0930
+In-Reply-To: <1500955926.5179.8.camel@aj.id.au>
 References: <20170724120935.1862-1-joel@jms.id.au>
- <20170724120935.1862-2-joel@jms.id.au>
+ <20170724120935.1862-2-joel@jms.id.au> <1500955926.5179.8.camel@aj.id.au>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-J9JHHFYDuDBt1S7dYws7"
+ protocol="application/pgp-signature"; boundary="=-f6Qud2xSZwSbqiwos2a6"
 X-Mailer: Evolution 3.22.6-1ubuntu1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -64,77 +64,88 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Jul 2017 04:12:14 -0000
+X-List-Received-Date: Tue, 25 Jul 2017 04:14:34 -0000
 
 
---=-J9JHHFYDuDBt1S7dYws7
+--=-f6Qud2xSZwSbqiwos2a6
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2017-07-24 at 21:39 +0930, Joel Stanley wrote:
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
-
-> ---
-> =C2=A0arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts | 18 +++++++++++++++=
-+++
-> =C2=A01 file changed, 18 insertions(+)
+On Tue, 2017-07-25 at 13:42 +0930, Andrew Jeffery wrote:
+> On Mon, 2017-07-24 at 21:39 +0930, Joel Stanley wrote:
+> > Signed-off-by: Joel Stanley <joel@jms.id.au>
 >=20
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/bo=
-ot/dts/aspeed-bmc-opp-firestone.dts
-> index cc479efd1763..39a836cbdfa5 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-> @@ -75,10 +75,28 @@
-> =C2=A0
-> =C2=A0&uart1 {
-> > =C2=A0	status =3D "okay";
-> +
-> > +	pinctrl-0 =3D <&pinctrl_txd1_default
-> > +			&pinctrl_rxd1_default
-> > +			&pinctrl_nrts1_default
-> > +			&pinctrl_ndtr1_default
-> > +			&pinctrl_ndsr1_default
-> > +			&pinctrl_ncts1_default
-> > +			&pinctrl_ndcd1_default
-> > +			&pinctrl_nri1_default>;
-> =C2=A0};
-> =C2=A0
-> =C2=A0&uart2 {
-> > =C2=A0	status =3D "okay";
-> +
-> > +	pinctrl-0 =3D <&pinctrl_txd2_default
-> > +			&pinctrl_rxd2_default
-> > +			&pinctrl_nrts2_default
-> > +			&pinctrl_ndtr2_default
-> > +			&pinctrl_ndsr2_default
-> > +			&pinctrl_ncts2_default
-> > +			&pinctrl_ndcd2_default
-> > +			&pinctrl_nri2_default>;
-> =C2=A0};
-> =C2=A0
-> =C2=A0&uart5 {
---=-J9JHHFYDuDBt1S7dYws7
+> Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+
+On the condition that you add 'pinctrl-names =3D "default";' to both
+nodes.
+
+Thought popped into my head literally moments after I hit send.
+
+>=20
+> > ---
+> > =C2=A0arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts | 18 +++++++++++++=
++++++
+> > =C2=A01 file changed, 18 insertions(+)
+> >=20
+> > diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/=
+boot/dts/aspeed-bmc-opp-firestone.dts
+> > index cc479efd1763..39a836cbdfa5 100644
+> > --- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+> > +++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+> > @@ -75,10 +75,28 @@
+> > =C2=A0
+> > =C2=A0&uart1 {
+> > > =C2=A0	status =3D "okay";
+> >=20
+> > +
+> > > > > > +	pinctrl-0 =3D <&pinctrl_txd1_default
+> > > > > > +			&pinctrl_rxd1_default
+> > > > > > +			&pinctrl_nrts1_default
+> > > > > > +			&pinctrl_ndtr1_default
+> > > > > > +			&pinctrl_ndsr1_default
+> > > > > > +			&pinctrl_ncts1_default
+> > > > > > +			&pinctrl_ndcd1_default
+> > > +			&pinctrl_nri1_default>;
+> >=20
+> > =C2=A0};
+> > =C2=A0
+> > =C2=A0&uart2 {
+> > > =C2=A0	status =3D "okay";
+> >=20
+> > +
+> > > > > > +	pinctrl-0 =3D <&pinctrl_txd2_default
+> > > > > > +			&pinctrl_rxd2_default
+> > > > > > +			&pinctrl_nrts2_default
+> > > > > > +			&pinctrl_ndtr2_default
+> > > > > > +			&pinctrl_ndsr2_default
+> > > > > > +			&pinctrl_ncts2_default
+> > > > > > +			&pinctrl_ndcd2_default
+> > > +			&pinctrl_nri2_default>;
+> >=20
+> > =C2=A0};
+> > =C2=A0
+> > =C2=A0&uart5 {
+--=-f6Qud2xSZwSbqiwos2a6
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJZdsUWAAoJEJ0dnzgO5LT5MeUP/2mstTagfBmmn2JE5hAvcWvf
-KwwTSpJsywWDnMjpzME/9ynlvCvsIt29w5ghTPuJc7PMgEiGo0DEhpchChmcRB3V
-xjIENfZV+M+MZ3uJMnRJt1dUN+FGG8dx557QzsCj9vz9BAMo3jmp1EWK0eQBIdHX
-2dlQsIEgfTlZb+o4KvvdrSQQbzA4UqtsYevAD5mehsJyMQlxzEB2HFIp0AEKgcXs
-1DUGfyZ3okUCaQAYHfd6+QRHz4cVhELrwR3TIZob+UDsMtFbihjPARrrddqL3X5P
-dYtjWwUzaVgE4xO9Xriv57viLTd5x/PrRTxd6vYrbhcwf0LOG2pUXvP+kM3EGlhq
-V26XQ8JweNiD0SxTO+YSOvmegkaIogqw2TJmMrSeEl+jHFZ0m7CpL1itP4C7xfka
-yizrDFCxc2FHcz7yBGDi9/YacxUMNY6p2sz5XL4FgZVnMJNxsQOfKXVn75SBjoK4
-Ve98J75I5kZa6VLd0ZF05D8zzoH5bprzxf9uKFsR7wom8FMOSkaV4e1167Cg63N3
-6hbclmFpSIoDbQ2SdYcn6X/GFopnO1lqhc/r2mmnjvox/FOCNFxVzrsSAZ9XZ9A5
-v+KHvALBtJb6eNO7Ko4k4fTCKy5uaVXzVAum359EJ/PN008L7u/4Dca06y5rB3Iq
-9ERCavh86O06fy0KEX3q
-=P20s
+iQIcBAABCgAGBQJZdsWiAAoJEJ0dnzgO5LT55HEP/1CAvOKOJjw6SNfkKZLAv4Hi
+otZvznkQeDy0AxLWUM9UV7jLtgA7czmtCKO9BFAy7NTFhfSc3IBeI58uSk5C0mk2
+mw0VgWa2WYagXqD4momCRKdjm5lvm+2IUvFxKlQ1LfMam0QKOAU3yphsy+MCmJEd
+PROJ+kg260dJ0I6Mf/hpqcATOfYlGedcXqZ1yvbX/38gKBmHgsXElv2Csyqb0waU
+YYHfubCyWawPc2fvjYQFr92fasc9wM9MpXPzi7Fz7ieXrbdjcUEaJAu7feD6PLx8
+ZnlA/i/cjeo3uZnMpQ7xFBDgejblRn0JXDExmsp2UkFfnALNZs0mtewupa8ubGUA
+S9nCRbAtTdRKps6lNnPpu2ZsFThjgEd7xVk7XZuptjem0x/fG+ImHYKeKSocLECa
+cCxxGznFWCsp6EqSt/K4Gb2GU2ikmjreIvHGjnHIsqSEBQN77Ll63W/5c5eqInKI
+JW5XUGCl+9EOoRfqmEx3LnbZMw8QaJiC6O4mwujqnXizyHGtTFSdEWw3hmDCmH9c
+aUOhPL/NL6bK+VTUD0+zvork3ytM5YDFIqv9Di7Hb8ES8tmFSLb5W5pxS9GT3Trg
+Ev0oMlB4KcCNDrCHyKZ9oza6khRQX7MF1w6/Pqnt+B0ZoU7HbHaEerJoI2KvIYik
+fgvzVw+FDRAZVXqoit3/
+=gjJy
 -----END PGP SIGNATURE-----
 
---=-J9JHHFYDuDBt1S7dYws7--
+--=-f6Qud2xSZwSbqiwos2a6--
