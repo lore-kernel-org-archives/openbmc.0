@@ -1,53 +1,31 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-pf0-x243.google.com (mail-pf0-x243.google.com
- [IPv6:2607:f8b0:400e:c00::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <jk@ozlabs.org>
+Received: from ozlabs.org (bilbo.ozlabs.org [103.22.144.67])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xGqWb1YDFzDqm7
- for <openbmc@lists.ozlabs.org>; Tue, 25 Jul 2017 17:24:59 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xGsb42CDgzDqlC
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Jul 2017 18:58:08 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="hi/YOoVX"; 
+ secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="uP1qdyEr"; 
  dkim-atps=neutral
-Received: by mail-pf0-x243.google.com with SMTP id 1so4231188pfi.3
- for <openbmc@lists.ozlabs.org>; Tue, 25 Jul 2017 00:24:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:subject:date:message-id;
- bh=0eOm4DDwAfpuxha+aH0/HjROLeXZ0H2cFzbU4NMCj2E=;
- b=hi/YOoVXBg0h7ywZH56agl69Sg4BTNdsTD9pEKq2EgIpiTdr0eygtXOIMQngAlbJpv
- +JzbZgXBMad6FmmEBnPIEdpA9sZkWcwW/AYjmCa6FoiImCGfP+4IKuEaTgw0GR/0NLI8
- XX31n6VTzGTloBOM8epHY2GHPdKiJiKwqejkKypAhNp/WsonFVQ7uyf1X+2TrxVKmuF5
- 9BdYhQV/KAkp+2qYBaU2A8646l2zAFt0J7hXlKqNPnYmZ2+21H7Q8u6oKgyntIHywKIU
- BKRXLNDaGXnJ73jbiuHR8T2vNKmZlV9ThFjmdfEVGcKEcZvytNZisOF6mro/5RFcPfDF
- orgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:subject:date:message-id;
- bh=0eOm4DDwAfpuxha+aH0/HjROLeXZ0H2cFzbU4NMCj2E=;
- b=oeiSzZSGKQRLtUJeNSA4Yu0cyRohRO+AqqnNRO3wSc3YiUAOPJKBaFe/Ykgw2x8OC5
- m5Wp9ee8iV6PbtjI3+X1f77tAnpCQ+54zwSsMngudt6Os9Gf9HVIbSDGD33SjPVK7mpK
- sC+WpVcPhK/Pg3Hxj1zTP5OtwS4Yw+3Gq3Kg/0OE7MusL/kt9nQUf8eJT3vIShK4ZO83
- nEK5FBP6YnZOZ2KPOaULvw0RwZVg8E4bvlduckpGckR3OkSzqZWh+xLdUaq31xx2lUyg
- p3XdFgLxqpuLV7DM6DsqEO5J/Q3ZV2lQvmm7RznkGxPIpxhQdZdbJJlD4B6hzwQwRY3k
- ff0g==
-X-Gm-Message-State: AIVw110RYOUKaLq0wtS2GH8h0rWnOYC3yV/si7JxfU0MxdLGq1SiePgl
- jj4sb6EgCDpT8VJ03oQ=
-X-Received: by 10.84.142.133 with SMTP id 5mr4440778plx.148.1500967497261;
- Tue, 25 Jul 2017 00:24:57 -0700 (PDT)
-Received: from aurora.jms.id.au ([45.124.203.15])
- by smtp.gmail.com with ESMTPSA id e10sm811578pgu.16.2017.07.25.00.24.54
- (version=TLS1 cipher=AES128-SHA bits=128/128);
- Tue, 25 Jul 2017 00:24:56 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Tue, 25 Jul 2017 16:54:49 +0930
-From: Joel Stanley <joel@jms.id.au>
-To: andrew@aj.id.au,
-	openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10 v2] ARM: dts: aspeed: firestone: Fix i2c
- addresses
-Date: Tue, 25 Jul 2017 16:54:47 +0930
-Message-Id: <20170725072447.1947-1-joel@jms.id.au>
-X-Mailer: git-send-email 2.13.3
+Received: by ozlabs.org (Postfix, from userid 1023)
+ id 3xGsb4192xz9s78; Tue, 25 Jul 2017 18:58:08 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
+ t=1500973088; bh=0+kl/ECSz+Ugsjab5pJaCG93FDPsjjd+FXywMo2FYV8=;
+ h=From:To:Cc:Subject:Date:From;
+ b=uP1qdyErx2AXzFFHEVmPeGDJ+LjtzkR4gyYK7G+qfNXDtwOBzyLLvBLXVArls2Qiz
+ KpDnwqGHt15WtTSCEm3TgnZXGMBznV85pgwhjLIo4ybrZmUMnMnHMBqSIu9nZqRzEt
+ Kb16p9+bNnfx4LnVCKAdOrB+L/IcUM1782xwjaH9MrnLncSMu9A0YW+jaenHqgvYMt
+ Z4OewuHXlj7QH1VL5JN9L+lBfCJpJdf6DTtQ+/rRsHlcr5MqwSnTHVRxEzSIe2lqxI
+ oI7Fvu5p82937B+hVlr35viUZ3F4pqrDVgL4kJsqTYpfCXz8AQZUxm1R7It3X3hnaK
+ BR97tJCa8Fw+w==
+From: Jeremy Kerr <jk@ozlabs.org>
+To: linux-kernel@vger.kernel.org
+Cc: openbmc@lists.ozlabs.org, Jeremy Kerr <jk@ozlabs.org>,
+ Peter Hurley <peter@hurleysoftware.com>
+Subject: [PATCH RFC] tty: don't force !TTYB_NORMAL flip buffers if not required
+Date: Tue, 25 Jul 2017 16:57:26 +0800
+Message-Id: <1500973046-14268-1-git-send-email-jk@ozlabs.org>
+X-Mailer: git-send-email 2.7.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,97 +37,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Jul 2017 07:25:00 -0000
+X-List-Received-Date: Tue, 25 Jul 2017 08:58:10 -0000
 
-With the 10 bit addresses we fail to probe.
+In change acc0f67f30, we introduced flip buffers that skipped allocation
+of the flags buffer for characters received with TTY_NORMAL flags.
 
-After this change, the drivers correctly probe on a Firestone system with this
-kernel.
+However, the slow path of tty_insert_flip_char() calls
+tty_insert_flip_string_flags() (providing a flag buffer pointer), which
+forces the buffer code to allocate a !TTYB_NORMAL buffer. If we took the
+slow path due to running out of buffer space, rather than seeing
+!TTY_NORMAL flags, we've needlessly allocated a flags buffer.
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
+This change uses tty_insert_flip_string_fixed_flag instead, which will
+allocate TTYB_NORMAL buffers if flag == TTY_NORMAL. Since we're only
+inserting one character, it's fine for the flag to be "fixed".
+
+Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
+CC: Peter Hurley <peter@hurleysoftware.com>
+
 ---
-v2:
- - match node names to addresses
- - fix tpm address
- - add ucd, found this was present while browsing datasheet
+RFC: I'm certainly no expert on the tty layer, and perhaps there's a
+good reason to always allocate a flags buffer. However, this seems to
+relieve buffer pressure in my tests.
 
- arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts | 33 +++++++++++++++-----------
- 1 file changed, 19 insertions(+), 14 deletions(-)
+---
+ include/linux/tty_flip.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-index 794e8fafbd3e..3d4232975b7f 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-@@ -142,9 +142,9 @@
- 		reg = <0x50>;
- 	};
+diff --git a/include/linux/tty_flip.h b/include/linux/tty_flip.h
+index c28dd52..15d03a1 100644
+--- a/include/linux/tty_flip.h
++++ b/include/linux/tty_flip.h
+@@ -26,7 +26,7 @@ static inline int tty_insert_flip_char(struct tty_port *port,
+ 		*char_buf_ptr(tb, tb->used++) = ch;
+ 		return 1;
+ 	}
+-	return tty_insert_flip_string_flags(port, &ch, &flag, 1);
++	return tty_insert_flip_string_fixed_flag(port, &ch, flag, 1);
+ }
  
--	tmp423@98 {
-+	tmp423@4c {
- 		compatible = "ti,tmp423";
--		reg = <0x80000098>;
-+		reg = <0x4c>;
- 	};
- };
- 
-@@ -157,9 +157,9 @@
- 		reg = <0x50>;
- 	};
- 
--	tmp423@98 {
-+	tmp423@4c {
- 		compatible = "ti,tmp423";
--		reg = <0x80000098>;
-+		reg = <0x4c>;
- 	};
- };
- 
-@@ -189,31 +189,36 @@
- &i2c11 {
- 	status = "okay";
- 
--	leds@c0 {
-+	leds@60 {
- 		compatible = "pca,pca9552led";
--		reg = <0x800000c0>;
-+		reg = <0x60>;
- 		// led9 - led_fault_n
- 		// led10 - pwr_led_n
- 		// led11 - rear_id_led_n
- 	};
- 
--	rtc@d0 {
-+	rtc@68 {
- 		compatible = "dallas,ds3231";
--		reg = <0x800000d0>;
-+		reg = <0x68>;
- 	};
- 
--	si5338a@e2 {
-+	si5338a@71 {
- 		// SiLabs clock generator
--		reg =<0x800000e2>;
-+		reg =<0x71>;
- 	};
- 
--	idt@d6 {
-+	idt@6b {
- 		// IDT 9DBV0641 clock buffer
--		reg = <0x800000d6>;
-+		reg = <0x6b>;
- 	};
- 
--	tpm@a3 {
--		reg = <0x800000a3>;
-+	tpm@57 {
-+		reg = <0x57>;
-+	};
-+
-+	ucd@64 {
-+		compatible = "ti,ucd90160";
-+		reg = <0x64>
- 	};
- };
- 
+ static inline int tty_insert_flip_string(struct tty_port *port,
 -- 
-2.13.3
+2.7.4
