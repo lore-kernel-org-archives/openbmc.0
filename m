@@ -1,55 +1,57 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x243.google.com (mail-yw0-x243.google.com
- [IPv6:2607:f8b0:4002:c05::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xGkp8404hzDqsH
- for <openbmc@lists.ozlabs.org>; Tue, 25 Jul 2017 13:52:15 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xGlBR73FNzDqxh
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Jul 2017 14:09:51 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="fr6Kb6QO"; 
- dkim-atps=neutral
-Received: by mail-yw0-x243.google.com with SMTP id s143so345703ywg.4
- for <openbmc@lists.ozlabs.org>; Mon, 24 Jul 2017 20:52:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=2iKUtTVDtRymBRxIzywFjucY8A8OCEyqyXXtvqyLXtM=;
- b=fr6Kb6QODRCdWAOtkf5zfPDhV1FdzQWByd1mX2OlqSK2am6npqc2jxOGyhArUL8GgB
- 8SMpn+lE5qx1FObNdx7KsJX6pjmbA5UdQ3nXLuLRSrANwhtrrDsAdE2zjMQs73Wh22yv
- wJ9j+ku8PGJ+a9PKulB4doVr0q408WCwyvAylDSzjs1knYWaQh9FfuA/5Wd+fGfR0F19
- i+uKE0gZYNPJUWc2O6s92AdROsFddkk/5hhFfsTr+J89WYO1imP9Q4pLsUpgqTno8sss
- JJZt6Ee3saTHd6dhQe5Py1gRfL7oUAK+LFNSTY9bkso3jZnKuWxK7/VYHezCZqsgowoK
- QJBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=2iKUtTVDtRymBRxIzywFjucY8A8OCEyqyXXtvqyLXtM=;
- b=L7vxso5IJWD60jKDT3C41i3rEzXBWY8FdOtTIlSMVcv/remk1eH2QQW0B3Kh1Os5F0
- 9fCwqHn3MzQYGy8FZy8wXKPyI8BlQ5BQmOwTr8/mIymaLCljdn64Kc/SPtXDp/rLRecJ
- HF1+gm3RDpQsVKygYb4SiIT1oAfVpRZZYyuNLDhQ2kjhmSMjclulRUCHOBmMDn1TW/FI
- 25By3EyNaPqBEyF6p9q/UHNAnhrmShK3z9049wlmj8YwDRVyzyIlS4GPMD65RLPDoOi7
- eY5s0GE1glAjPy7myZ4CYgYlh5JIOSB+FvdW6SuNne6Dae9ED/zX1TmmCt6mMv9FHjLK
- 9aew==
-X-Gm-Message-State: AIVw11339UCWOCW6dcPzTOnE67WZ0VGrvU9qX9DR36huLyayGCWFcuFg
- KL3vLHSMYJeTNJum7pUdnWQYugiW5i8CLbE=
-X-Received: by 10.37.214.214 with SMTP id n205mr1327925ybg.233.1500954733280; 
- Mon, 24 Jul 2017 20:52:13 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.170.177 with HTTP; Mon, 24 Jul 2017 20:51:52 -0700 (PDT)
-In-Reply-To: <1500889206-25863-1-git-send-email-clg@kaod.org>
-References: <1500889206-25863-1-git-send-email-clg@kaod.org>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 25 Jul 2017 13:21:52 +0930
-X-Google-Sender-Auth: BHERPJh_uEmpfB5s8wJv1MaWstU
-Message-ID: <CACPK8XeO-MwMR4Yd6G-0MoJiW2AWZpM_EMDCmnPrQ89R2Ot8pg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] mtd: spi-nor: aspeed: set 4B setting for
- all chips
-To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Y15t5tW/"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="jJ1rw9Ab"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id C439B20AB1;
+ Tue, 25 Jul 2017 00:09:49 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Tue, 25 Jul 2017 00:09:49 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=bHk6xMlH7p1Etxek2fFNVqfYhkey0qlFM5PJunBjO
+ 6I=; b=Y15t5tW/Z73Jor/XBkVOQ7QT2jIhXAuCVgVeo+daCGDCdP6erMBR35c26
+ 87qx6AxVyqRsApquMGzrQJ+6t1wpCKBOzQjeD1sV/SOrcKXERF+4Ep/7vNhQadng
+ 1AXPTf4eqi7zN+MATjPFf33Ed+q89wlO0rSJHZ9+GBUYqh2V3eIW5N9/+FrPQ8QM
+ rFekd9PSxcA6TUslbyx2YnO6yU+T3uGNpARcnPmYIihL94f6qX1NGcZyjZRQ/sQG
+ flaZkdOnfwknh6leu4lRl/pGkAyWnb1IED3ZTggjoEZtHlBmfE6XD0Q+p1KgZUBP
+ OoUAMMUfxOUi1NMC3l28y7l08Kbgg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=bHk6xMlH7p1Etxek2f
+ FNVqfYhkey0qlFM5PJunBjO6I=; b=jJ1rw9AbH6zae8PvFaZXR1YLXqFwTW9u3h
+ F8Nvpb+1txzqN3XV2yApppf/R6x6zz4wPbwcVQdOmzrJdVfOy8VVkM6BYOzc0q3U
+ vP6tw4dwjmHYQsvANbOrarKMEFbdSdSr2qmqRgOxwoMl0YPlbHUju9fYop8LJcQe
+ oW5eqOBTXw7v5uIHqhhuW8HOVP1SLZ31QO2aipQoY9DHm6LxV97g0LUS4G/kampo
+ vC9gqd4sA0i92yDrWY3yySMUnmxWyOTxgplfD2pG/ls/+EQssE9OheE65SpYTLeq
+ yezGGKPUkgwiASKCNHdIdfTemwbfeEg3SRn0TuICtJayHuA4+YZQ==
+X-ME-Sender: <xms:jcR2WbBqQ0lO01Rn7d1HRjPXtBUUZQpvDgQkhHj4SO0Rpx5Hfc-Igg>
+X-Sasl-enc: CUwGDIJQbzBOCnB2MtrtrzJwL2FslTRAQdqo2wiC+W1V 1500955788
+Received: from keelia (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 55B197E1DB;
+ Tue, 25 Jul 2017 00:09:48 -0400 (EDT)
+Message-ID: <1500955781.5179.7.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.10 1/2] ARM: dts: aspeed: firestone: Fix i2c
+ addresses
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
+Date: Tue, 25 Jul 2017 13:39:41 +0930
+In-Reply-To: <20170724120935.1862-1-joel@jms.id.au>
+References: <20170724120935.1862-1-joel@jms.id.au>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-wOuK7BB0f9bG5xeNeutP"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,66 +63,116 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Jul 2017 03:52:17 -0000
-
-On Mon, Jul 24, 2017 at 7:10 PM, C=C3=A9dric Le Goater <clg@kaod.org> wrote=
-:
-> The driver made the wrong assumption that the 4B setting was
-> autodetected for all chips of the AST2500 FMC flash controller. This
-> is only the case for the CS0.
->
-> Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
-
-I tested this on a witherspoon and it appeared to work. I have applied
-it to dev-4.10. Thanks for hunting it down!
-
-root@spoon1-bmc:~# time flashcp /tmp/flash-witherspoon /dev/mtd6
-real 3m44.212s
-user 0m0.750s
-sys 3m42.620s
-
-Cheers,
-
-Joel
+X-List-Received-Date: Tue, 25 Jul 2017 04:09:54 -0000
 
 
+--=-wOuK7BB0f9bG5xeNeutP
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, 2017-07-24 at 21:39 +0930, Joel Stanley wrote:
+> With the 10 bit addresses we fail to probe.
+>=20
+> After this change, the drivers correctly probe on a Firestone system
+> with this
+> kernel.
+>=20
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
 > ---
->
->  To be noted that the speed setting of CS1 is quite low because the
->  HCLK/16 divider is used. It can be improved.
->
->  drivers/mtd/spi-nor/aspeed-smc.c |   13 ++++++-------
->  1 file changed, 6 insertions(+), 7 deletions(-)
->
-> Index: linux-openbmc-4.10.git/drivers/mtd/spi-nor/aspeed-smc.c
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> --- linux-openbmc-4.10.git.orig/drivers/mtd/spi-nor/aspeed-smc.c
-> +++ linux-openbmc-4.10.git/drivers/mtd/spi-nor/aspeed-smc.c
-> @@ -794,19 +794,18 @@ static void aspeed_smc_chip_set_type(str
->  }
->
->  /*
-> - * The AST2500 FMC flash controller should be strapped by hardware, or
-> - * autodetected, but the AST2500 SPI flash needs to be set.
-> + * The first chip of the AST2500 FMC flash controller is strapped by
-> + * hardware, or autodetected, but other chips need to be set. Enforce
-> + * the 4B setting for all chips.
->   */
->  static void aspeed_smc_chip_set_4b(struct aspeed_smc_chip *chip)
->  {
->         struct aspeed_smc_controller *controller =3D chip->controller;
->         u32 reg;
->
-> -       if (chip->controller->info =3D=3D &spi_2500_info) {
-> -               reg =3D readl(controller->regs + CE_CONTROL_REG);
-> -               reg |=3D 1 << chip->cs;
-> -               writel(reg, controller->regs + CE_CONTROL_REG);
-> -       }
-> +       reg =3D readl(controller->regs + CE_CONTROL_REG);
-> +       reg |=3D 1 << chip->cs;
-> +       writel(reg, controller->regs + CE_CONTROL_REG);
->  }
->
->  /*
+> =C2=A0arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts | 14 +++++++-------
+> =C2=A01 file changed, 7 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+> b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+> index fef73ea7fd0c..cc479efd1763 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+> @@ -124,7 +124,7 @@
+> =C2=A0
+> =C2=A0	tmp423@98 {
+
+We should fix the node name as well. Applies to any other instances
+below.=09
+
+> =C2=A0		compatible =3D "ti,tmp423";
+> -		reg =3D <0x80000098>;
+> +		reg =3D <0x4c>;
+> =C2=A0	};
+> =C2=A0};
+> =C2=A0
+> @@ -139,7 +139,7 @@
+> =C2=A0
+> =C2=A0	tmp423@98 {
+> =C2=A0		compatible =3D "ti,tmp423";
+> -		reg =3D <0x80000098>;
+> +		reg =3D <0x4c>;
+
+> =C2=A0	};
+> =C2=A0};
+> =C2=A0
+> @@ -171,7 +171,7 @@
+> =C2=A0
+> =C2=A0	leds@c0 {
+> =C2=A0		compatible =3D "pca,pca9552led";
+> -		reg =3D <0x800000c0>;
+> +		reg =3D <0x60>;
+> =C2=A0		// led9 - led_fault_n
+> =C2=A0		// led10 - pwr_led_n
+> =C2=A0		// led11 - rear_id_led_n
+> @@ -179,21 +179,21 @@
+> =C2=A0
+> =C2=A0	rtc@d0 {
+> =C2=A0		compatible =3D "dallas,ds3231";
+> -		reg =3D <0x800000d0>;
+> +		reg =3D <0x68>;
+> =C2=A0	};
+> =C2=A0
+> =C2=A0	si5338a@e2 {
+> =C2=A0		// SiLabs clock generator
+> -		reg =3D<0x800000e2>;
+> +		reg =3D<0x71>;
+> =C2=A0	};
+> =C2=A0
+> =C2=A0	idt@d6 {
+> =C2=A0		// IDT 9DBV0641 clock buffer
+> -		reg =3D <0x800000d6>;
+> +		reg =3D <0x6b>;
+> =C2=A0	};
+> =C2=A0
+> =C2=A0	tpm@a3 {
+> -		reg =3D <0x800000a3>;
+
+This is weird though right? Usually the 0th bit is cleared (7 bits
+counted from the 7th bit, 0th bit ignored), but in this case it's set.
+Seems something was broken with the address to start with?
+
+> +		reg =3D <0x51>;
+
+So is this the right address?
+
+> =C2=A0	};
+> =C2=A0};
+> =C2=A0
+--=-wOuK7BB0f9bG5xeNeutP
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZdsSFAAoJEJ0dnzgO5LT5AskP/2WKi5MCePsSp5LIka8VaYUR
+sjVdQ9ijCKzj0iPNXP26dOLoOa4t1nWffyxGVOeX1AxR/QN1imQspGzi4eev64MJ
+EjzzMoQWw0Ovof2/B7uYN1OYeinmvQRTaIIflMm7a7EqDty4ShjuS1FVPll6oj1o
+djrAmHwAooV8gsTtiEQtSUDde9qDGkAh/xBbbWEhB0IHBzzNiFVwpmh6WybtnfPv
+8m6c6M58McYtMMmZixCBX+tWfU1VSqyDukMGuwZLPKJqBY7riqD/gxN0xJkKhYc0
+969RltFqCrf/KxQTj6Aw6IRiniPlrhVrEJ9lE+pBnCMnmJJaCCuzqz1c5v5mlUZu
+1Fz8+0delmtIfzVztGU3c/O1jMIB2CWJ2Iwl7yNUx+NiMo9Z/X/y/W20li9lTkXY
+HIkHU7J7mKM7RVYjAZOrGx6PjVtuzjo8OWvJRri3gwchXscq0qmQHRKyX5mZfTJa
+KzVVnD8eMH4t15FzT5MmB+WKwuiB331F9BWD0Ad28nbFyW60wxitTWnKh0ETmV+A
+KfNl8v9Nt/5ZrpjhBF3zDh4hlfnnq0TjMvoAEIcBvQkcZ3Mo/Tg5l90vvxhRDDY/
+2MmeuocS7w8VnXmGj9Kil97k6gt9xxvhVWg1oyWIPp8z0Bu29FlUqnOxN0xVp5Qs
+Nhvxg/KlPSnMY1m4xgDg
+=IPCe
+-----END PGP SIGNATURE-----
+
+--=-wOuK7BB0f9bG5xeNeutP--
