@@ -1,31 +1,56 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (bilbo.ozlabs.org [103.22.144.67])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xGsb42CDgzDqlC
- for <openbmc@lists.ozlabs.org>; Tue, 25 Jul 2017 18:58:08 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xGtrM4SMkzDqm2
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Jul 2017 19:54:43 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="uP1qdyEr"; 
- dkim-atps=neutral
-Received: by ozlabs.org (Postfix, from userid 1023)
- id 3xGsb4192xz9s78; Tue, 25 Jul 2017 18:58:08 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
- t=1500973088; bh=0+kl/ECSz+Ugsjab5pJaCG93FDPsjjd+FXywMo2FYV8=;
- h=From:To:Cc:Subject:Date:From;
- b=uP1qdyErx2AXzFFHEVmPeGDJ+LjtzkR4gyYK7G+qfNXDtwOBzyLLvBLXVArls2Qiz
- KpDnwqGHt15WtTSCEm3TgnZXGMBznV85pgwhjLIo4ybrZmUMnMnHMBqSIu9nZqRzEt
- Kb16p9+bNnfx4LnVCKAdOrB+L/IcUM1782xwjaH9MrnLncSMu9A0YW+jaenHqgvYMt
- Z4OewuHXlj7QH1VL5JN9L+lBfCJpJdf6DTtQ+/rRsHlcr5MqwSnTHVRxEzSIe2lqxI
- oI7Fvu5p82937B+hVlr35viUZ3F4pqrDVgL4kJsqTYpfCXz8AQZUxm1R7It3X3hnaK
- BR97tJCa8Fw+w==
-From: Jeremy Kerr <jk@ozlabs.org>
-To: linux-kernel@vger.kernel.org
-Cc: openbmc@lists.ozlabs.org, Jeremy Kerr <jk@ozlabs.org>,
- Peter Hurley <peter@hurleysoftware.com>
-Subject: [PATCH RFC] tty: don't force !TTYB_NORMAL flip buffers if not required
-Date: Tue, 25 Jul 2017 16:57:26 +0800
-Message-Id: <1500973046-14268-1-git-send-email-jk@ozlabs.org>
-X-Mailer: git-send-email 2.7.4
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="iNUlkzA1"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="JJSqrL2J"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 7816C20BAF;
+ Tue, 25 Jul 2017 05:54:41 -0400 (EDT)
+Received: from web1 ([10.202.2.211])
+ by compute4.internal (MEProxy); Tue, 25 Jul 2017 05:54:41 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; bh=DL6t2s9mi1wpT8oy6lJp9vnSA0KuQ
+ lxtLOZMsAFUGIg=; b=iNUlkzA1pOUikW25mutrjyLSr3a2dNTRy5Mpirq54KXc5
+ nhA3nzrhMx5R9/2ThaOl75Fb+UqDYC4V2u1z+sYO7ILilyoA+MRBE3hFf6Eyiokw
+ R/RvUY3FU2fIJ6LGhZSrRHVDiIjWyhNGiETo8JgQEhkTDlrHZhZTfzP1GzY6VExL
+ r5B1oOsXaeOqjOfJNOuBWwIGyDJ7H6J7+1qkHyHGGYONdcXFmC6xQJjVUjyyVtAK
+ e/dssmnxemdnUYFmY4vOavmqndu20/B5JFGSyraigvtNJenraYujxHCNkSqlBCZX
+ amqPC93ycNkhIb85UwhF2nO96B2uDAIP+Dg/fJLVA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=DL6t2s
+ 9mi1wpT8oy6lJp9vnSA0KuQlxtLOZMsAFUGIg=; b=JJSqrL2J8nzvN9tnG7qb0v
+ q9BZcDmAInvqnO6HCriSMqj1RQLUq23wgdZmCUIeA5uZh795oTqJHReCP4aCiwOg
+ 4rr5izlSPsPP1ufZp1xt6XEwtoL/EV/eER4w/x8K3TCvLpaVBS7ph3RxefJs5q/+
+ viBQC+AmAxH5490NInV/VDkuXK8syrqAzX3NLM9AQkf4aJv2aje9vtx0VsUnW5S6
+ gdUxBTICxm5GpkaSdsBo6KKG74FI88d3q7TZQNicELnPuoVwzCSlfI7glHrECMZa
+ vZ6mhEcCB0bKlTT3xshtGPLwAnmsdMZaM1MBwIDfu+zc/HvDfjUhaSt9UR2bTquA
+ ==
+X-ME-Sender: <xms:YRV3WfkRn0dENxTalgPtdUjnve0w6oO3J6ROu-AFAxj-6bQqDX8TUw>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id 4ADEA9477D; Tue, 25 Jul 2017 05:54:41 -0400 (EDT)
+Message-Id: <1500976481.2257375.1051777576.34CF7DAC@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-c8af44bc
+Subject: Re: [PATCH linux dev-4.10 v2] ARM: dts: aspeed: firestone: Fix i2c
+ addresses
+References: <20170725072447.1947-1-joel@jms.id.au>
+Date: Tue, 25 Jul 2017 19:24:41 +0930
+In-Reply-To: <20170725072447.1947-1-joel@jms.id.au>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -37,45 +62,106 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Jul 2017 08:58:10 -0000
+X-List-Received-Date: Tue, 25 Jul 2017 09:54:44 -0000
 
-In change acc0f67f30, we introduced flip buffers that skipped allocation
-of the flags buffer for characters received with TTY_NORMAL flags.
 
-However, the slow path of tty_insert_flip_char() calls
-tty_insert_flip_string_flags() (providing a flag buffer pointer), which
-forces the buffer code to allocate a !TTYB_NORMAL buffer. If we took the
-slow path due to running out of buffer space, rather than seeing
-!TTY_NORMAL flags, we've needlessly allocated a flags buffer.
+On Tue, Jul 25, 2017, at 16:54, Joel Stanley wrote:
+> With the 10 bit addresses we fail to probe.
+> 
+> After this change, the drivers correctly probe on a Firestone system with
+> this
+> kernel.
+> 
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
 
-This change uses tty_insert_flip_string_fixed_flag instead, which will
-allocate TTYB_NORMAL buffers if flag == TTY_NORMAL. Since we're only
-inserting one character, it's fine for the flag to be "fixed".
+Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 
-Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
-CC: Peter Hurley <peter@hurleysoftware.com>
-
----
-RFC: I'm certainly no expert on the tty layer, and perhaps there's a
-good reason to always allocate a flags buffer. However, this seems to
-relieve buffer pressure in my tests.
-
----
- include/linux/tty_flip.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/include/linux/tty_flip.h b/include/linux/tty_flip.h
-index c28dd52..15d03a1 100644
---- a/include/linux/tty_flip.h
-+++ b/include/linux/tty_flip.h
-@@ -26,7 +26,7 @@ static inline int tty_insert_flip_char(struct tty_port *port,
- 		*char_buf_ptr(tb, tb->used++) = ch;
- 		return 1;
- 	}
--	return tty_insert_flip_string_flags(port, &ch, &flag, 1);
-+	return tty_insert_flip_string_fixed_flag(port, &ch, flag, 1);
- }
- 
- static inline int tty_insert_flip_string(struct tty_port *port,
--- 
-2.7.4
+> ---
+> v2:
+>  - match node names to addresses
+>  - fix tpm address
+>  - add ucd, found this was present while browsing datasheet
+> 
+>  arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts | 33
+>  +++++++++++++++-----------
+>  1 file changed, 19 insertions(+), 14 deletions(-)
+> 
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+> b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+> index 794e8fafbd3e..3d4232975b7f 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+> @@ -142,9 +142,9 @@
+>  		reg = <0x50>;
+>  	};
+>  
+> -       tmp423@98 {
+> +       tmp423@4c {
+>  		compatible = "ti,tmp423";
+> -               reg = <0x80000098>;
+> +               reg = <0x4c>;
+>  	};
+>  };
+>  
+> @@ -157,9 +157,9 @@
+>  		reg = <0x50>;
+>  	};
+>  
+> -       tmp423@98 {
+> +       tmp423@4c {
+>  		compatible = "ti,tmp423";
+> -               reg = <0x80000098>;
+> +               reg = <0x4c>;
+>  	};
+>  };
+>  
+> @@ -189,31 +189,36 @@
+>  &i2c11 {
+>  	status = "okay";
+>  
+> -       leds@c0 {
+> +       leds@60 {
+>  		compatible = "pca,pca9552led";
+> -               reg = <0x800000c0>;
+> +               reg = <0x60>;
+>  		// led9 - led_fault_n
+>  		// led10 - pwr_led_n
+>  		// led11 - rear_id_led_n
+>  	};
+>  
+> -       rtc@d0 {
+> +       rtc@68 {
+>  		compatible = "dallas,ds3231";
+> -               reg = <0x800000d0>;
+> +               reg = <0x68>;
+>  	};
+>  
+> -       si5338a@e2 {
+> +       si5338a@71 {
+>  		// SiLabs clock generator
+> -               reg =<0x800000e2>;
+> +               reg =<0x71>;
+>  	};
+>  
+> -       idt@d6 {
+> +       idt@6b {
+>  		// IDT 9DBV0641 clock buffer
+> -               reg = <0x800000d6>;
+> +               reg = <0x6b>;
+>  	};
+>  
+> -       tpm@a3 {
+> -               reg = <0x800000a3>;
+> +       tpm@57 {
+> +               reg = <0x57>;
+> +       };
+> +
+> +       ucd@64 {
+> +               compatible = "ti,ucd90160";
+> +               reg = <0x64>
+>  	};
+>  };
+>  
+> -- 
+> 2.13.3
+> 
