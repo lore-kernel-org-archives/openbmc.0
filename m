@@ -2,25 +2,24 @@ Return-Path: <patrick@stwcx.xyz>
 Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xHCqY4YXxzDqmD
- for <openbmc@lists.ozlabs.org>; Wed, 26 Jul 2017 08:40:08 +1000 (AEST)
-Received: from localhost (32.97.110.52 [32.97.110.52]) by mx.zohomail.com
- with SMTPS id 1501022402147859.1043513191682;
- Tue, 25 Jul 2017 15:40:02 -0700 (PDT)
-Date: Tue, 25 Jul 2017 17:39:55 -0500
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xHCtP4sLCzDqmD
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Jul 2017 08:42:37 +1000 (AEST)
+Received: from localhost (32.97.110.53 [32.97.110.53]) by mx.zohomail.com
+ with SMTPS id 1501022551128732.860517535548;
+ Tue, 25 Jul 2017 15:42:31 -0700 (PDT)
+Date: Tue, 25 Jul 2017 17:42:24 -0500
 From: Patrick Williams <patrick@stwcx.xyz>
 To: Rick Altherr <raltherr@google.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: [PATCH u-boot 1/1] config/ast-common: hack bootopts
-Message-ID: <20170725223955.GA473@asimov.austin.ibm.com>
+Subject: Re: [PATCH u-boot 0/1] RFC: How to configure boot options?
+Message-ID: <20170725224224.GB473@asimov.austin.ibm.com>
 References: <20170721223326.28674-1-patrick@stwcx.xyz>
- <20170721223326.28674-2-patrick@stwcx.xyz>
- <CAPLgG=m6jr8iatPtYCMGRfoR-DKUEXQHqzZ6O2Hueodqucav2g@mail.gmail.com>
+ <CAPLgG==ZSsfgAm38616-32W5P6vZJsKJ+e8-XfhPxK3CVvVDmw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="k+w/mQv8wyuph6w0"
+ protocol="application/pgp-signature"; boundary="5/uDoXvLw7AC5HRs"
 Content-Disposition: inline
-In-Reply-To: <CAPLgG=m6jr8iatPtYCMGRfoR-DKUEXQHqzZ6O2Hueodqucav2g@mail.gmail.com>
+In-Reply-To: <CAPLgG==ZSsfgAm38616-32W5P6vZJsKJ+e8-XfhPxK3CVvVDmw@mail.gmail.com>
 User-Agent: Mutt/1.7.2 (2016-11-26)
 X-Zoho-Virus-Status: 1
 X-ZohoMailClient: External
@@ -35,70 +34,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Jul 2017 22:40:10 -0000
+X-List-Received-Date: Tue, 25 Jul 2017 22:42:38 -0000
 
 
---k+w/mQv8wyuph6w0
+--5/uDoXvLw7AC5HRs
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jul 24, 2017 at 11:16:20AM -0700, Rick Altherr wrote:
-> Why?
+On Mon, Jul 24, 2017 at 11:19:52AM -0700, Rick Altherr wrote:
+> The current bootcmd script is there to provide backward compatibility for
+> pre-FIT ramdisks.  That can probably be removed but we now want fallback
+> behavior for images that still use a ramdisk.
 
-Hopefully my previous email in the thread explains.  The main thing I
-need to be able to change is the BOOTARGS in order to switch from an
-initramfs-based boot to a direct-to-squashfs boot.  The BOOTCOMMAND
-maybe isn't needed yet until we move the kernel into UBI.
+Thanks for giving me the history on that BOOTCOMMAND snippet.  It wasn't
+obvious what it was doing to me.
+
+Agreed.  It seems a little odd to me that this is all controlled in the
+u-boot repository directly, hence my questions.  I would have expected
+that an IMAGE_FEATURE or MACHINE_FEATURE of Yocto would have triggered
+FIT vs non-FIT.  Same now with the transition to UBI with kernel and
+squashfs instead of distinct MTD devices.
 
 >=20
 > On Fri, Jul 21, 2017 at 3:33 PM, Patrick Williams <patrick@stwcx.xyz> wro=
 te:
 >=20
-> > Signed-off-by: Patrick Williams <patrick@stwcx.xyz>
-> > ---
+> > As part of the change-over from an initramfs-based boot sequence to a
+> > direct rootfs boot, we need to change some of the boot options for
+> > u-boot.  I expect these to change a few times in the near future as we
+> > also transition to UBI-managed volumes and we figure out how to set
+> > u-boot environment options to switch between different UBI kernels and
+> > rootfses.
+> >
+> > This is really independent from the current ast-*-defconfigs, in that
+> > those currently select between different network options.  I suspect
+> > we do not N*M combinations of defconfigs for network*image-structure.
+> > I plan to make a MACHINE_FEATURE (or DISTRO_FEATURE) in bitbake to
+> > control this, but looking for feedback on how we should change u-boot.
+> >
+> > Ideally, to me, this would have been passed in via the config file and
+> > we could have used config-snippets in Yocto like we do for the kernel.
+> > Due to the way u-boot builds, I could not find a simple way to even
+> > change this option from a include/config/ast-common.h #define into a
+> > machine_config driven option.
+> >
+> > Anyone have ideas?
+> >
+> > Patrick Williams (1):
+> >   config/ast-common: hack bootopts
+> >
 > >  include/configs/ast-common.h | 6 ++++++
 > >  1 file changed, 6 insertions(+)
 > >
-> > diff --git a/include/configs/ast-common.h b/include/configs/ast-common.h
-> > index 110c780070..6f2a50b854 100644
-> > --- a/include/configs/ast-common.h
-> > +++ b/include/configs/ast-common.h
-> > @@ -84,7 +84,10 @@
-> >  #define CONFIG_SYS_MAXARGS             16
-> >  #define CONFIG_SYS_BARGSIZE            CONFIG_SYS_CBSIZE
-> >
-> > +#if 0
-> >  #define CONFIG_BOOTARGS                        "console=3DttyS4,115200=
-n8
-> > root=3D/dev/ram rw"
-> > +#endif
-> > +#define CONFIG_BOOTARGS                         "console=3DttyS4,11520=
-0n8
-> > root=3D/dev/mtdblock4 ro"
-> >
-> >  #define CONFIG_AST_SPI_NOR    /* AST SPI NOR Flash */
-> >  #define CONFIG_FMC_CS                  1
-> > @@ -96,11 +99,14 @@
-> >  #define CONFIG_ENV_OFFSET              0x60000 /* environment starts
-> > here  */
-> >  #define CONFIG_ENV_SIZE                        0x20000 /* Total Size of
-> > Environment Sector */
-> >
-> > +#if 0
-> >  #define CONFIG_BOOTCOMMAND     \
-> >         "fdt addr 20080000; " \
-> >         "if fdt get value ramdisk_conf /configurations/conf@1 ramdisk;
-> > then " \
-> >         "    bootm 20080000; else bootm 20080000 20300000; " \
-> >         "fi"
-> > +#endif
-> > +#define CONFIG_BOOTCOMMAND                      "fdt addr 20080000; bo=
-otm
-> > 20080000"
-> >  #define CONFIG_ENV_OVERWRITE
-> >
-> >  #define ASPEED_ENV_SETTINGS \
 > > --
 > > 2.13.0
 > >
@@ -108,25 +96,25 @@ otm
 --=20
 Patrick Williams
 
---k+w/mQv8wyuph6w0
+--5/uDoXvLw7AC5HRs
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAll3yLkACgkQqwNHzC0A
-wRnlxg/+K+KL1ETVasNcrUW60PEAfpGQaIhBzDTFQBVNfSmXOcNuvoVkELxt89Qf
-VXpr2yfDOnpPR58wQDoFsmFHV50ac+9kyiTS62KbbQh8iMj/SXa53ci5X5QawXLl
-aGTi7MYgwoku+RRBbHJlKqpU4vQCeg4oGW0a8MmL5LukPXMAger0T/duEfGWdZ7W
-Ym3ZNz6SI34obsxQG2VRGOyjARCGhWGU9MAWykLqK6caCFajtBhKE3WkDTHj9WBU
-cf5QjGmQ7Kk+WWsVXRjceNUyIgVqeozchj8vQ0Qtc2TL+rFC49pa35tHZxooUBcc
-tD4/SU273XyQnfJy2PA9hcSj9lr4CwomZSUzu1k/ye/aN28bPV7D6ZlTyr781Pv5
-2H8q/CdLEP13yPTy2ysiW8dHlh/hqoMM7nMGMQnDUGtLnMGZCDgsMJSbOnBW4aXn
-8o6AVgU4fOPXc6q1OwzHT77DPa4VxxqAM8ZpLl/XLAcoBFDxMT5jN8amq+R97wfj
-67GImXNIDLP36b1KemX0VYvEX1UbOsQs57ad4sNH4PJMUWxI5eGeywKso8PSqI2o
-asDu692moas05jbzRghYm5fLDwTdx4jUszntYTIuyFiHHNDHbOQyXHe5Lwmvl4QN
-UHumYZOz3TIK+c+y1jtxRxiiZRTKBiLsZHqix/gq9skbkzOM4do=
-=kCxN
+iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAll3yVAACgkQqwNHzC0A
+wRnzLxAAhQ3i5ffCXR21AsioSFGM9fdnT6i7cD86cY6jyRvg8L6+BN2CQBE+t9OK
+nL1+EFCkIHa7jyh3vUHlnmt9Qx+ruA4nJM1jGmk6ZC1OsUgahwWnzllcCi07vmhT
+zrPg5M5VDw8DIvgIE5BvHLzpbj/pcAZOVzzt9+5WZnSmS/jDkshqzJHS8BIWNjYV
+aDBIPSSkrkw7vp76tDHKHk89R/2JA7AGNseAVyTaOcEwVAmQc++AR/xbZ18OSerC
+tRc5wvUcN/oBifChavdjX+5F6QJmu0U50IA7j60VdP2FRYPoiRCL7Bjtq3ao1gSq
+iYLj3azjv4bjRv8n2FSKQN0v2V6Sf/0lE3Anqj3O9ruMjcZjAHtIHGYe7vVqTcyj
+kNclTzlX9cE7tCW57ZElLbpFvdJOILUSD525J0Ny1GbNFBcTbeqcOtK8b7ZCI4j0
+MkAPWRnfI4UvLB6C54wGCnofyTEx2JqDyLhvU7ErR1J9+9pSx5gVW/x65OwJqnrg
+FWfBYQTisMZ2puJkbgyhT7qYDn8sgPGbYGRcxikQ8BMyQg+PAFfMcae4q7mto2s8
+oeycrRa/963qhqCCp8HO1nP+YVa2OLc0zlo2SoEpL08ZB4yO1+WGvqNvpiO6/ca2
+eIHOLfXpLGHcT64goWR6+HFI9OxZZ0o06Vp4gNst9sOSyQ77y+o=
+=g4bX
 -----END PGP SIGNATURE-----
 
---k+w/mQv8wyuph6w0--
+--5/uDoXvLw7AC5HRs--
