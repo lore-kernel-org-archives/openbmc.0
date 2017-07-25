@@ -1,70 +1,55 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x243.google.com (mail-yw0-x243.google.com
+ [IPv6:2607:f8b0:4002:c05::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xGhlY46mYzDrCn
- for <openbmc@lists.ozlabs.org>; Tue, 25 Jul 2017 12:19:53 +1000 (AEST)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v6P2JBbH069224
- for <openbmc@lists.ozlabs.org>; Mon, 24 Jul 2017 22:19:51 -0400
-Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2bwqux3rhq-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 24 Jul 2017 22:19:51 -0400
-Received: from localhost
- by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Mon, 24 Jul 2017 22:19:50 -0400
-Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
- by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 24 Jul 2017 22:19:47 -0400
-Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
- [9.57.199.109])
- by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v6P2Jl9831391780; Tue, 25 Jul 2017 02:19:47 GMT
-Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 5996E11204B;
- Mon, 24 Jul 2017 22:19:42 -0400 (EDT)
-Received: from Christophers-MacBook-Pro.local (unknown [9.83.3.94])
- by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id 05642112040;
- Mon, 24 Jul 2017 22:19:40 -0400 (EDT)
-Subject: Re: [PATCH linux dev-4.10 2/2] drivers/iio: dps310 Use previous value
- if new reading not available yet
-To: Joel Stanley <joel@jms.id.au>
-References: <20170724212509.85197-1-cbostic@linux.vnet.ibm.com>
- <20170724212509.85197-3-cbostic@linux.vnet.ibm.com>
- <CACPK8XdK3D_QiEfvS_BsTbvaA_uqb6rYPU13urFn2f8yR8LFLA@mail.gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Mon, 24 Jul 2017 21:19:43 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
- Gecko/20100101 Thunderbird/45.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xGkp8404hzDqsH
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Jul 2017 13:52:15 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="fr6Kb6QO"; 
+ dkim-atps=neutral
+Received: by mail-yw0-x243.google.com with SMTP id s143so345703ywg.4
+ for <openbmc@lists.ozlabs.org>; Mon, 24 Jul 2017 20:52:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=2iKUtTVDtRymBRxIzywFjucY8A8OCEyqyXXtvqyLXtM=;
+ b=fr6Kb6QODRCdWAOtkf5zfPDhV1FdzQWByd1mX2OlqSK2am6npqc2jxOGyhArUL8GgB
+ 8SMpn+lE5qx1FObNdx7KsJX6pjmbA5UdQ3nXLuLRSrANwhtrrDsAdE2zjMQs73Wh22yv
+ wJ9j+ku8PGJ+a9PKulB4doVr0q408WCwyvAylDSzjs1knYWaQh9FfuA/5Wd+fGfR0F19
+ i+uKE0gZYNPJUWc2O6s92AdROsFddkk/5hhFfsTr+J89WYO1imP9Q4pLsUpgqTno8sss
+ JJZt6Ee3saTHd6dhQe5Py1gRfL7oUAK+LFNSTY9bkso3jZnKuWxK7/VYHezCZqsgowoK
+ QJBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=2iKUtTVDtRymBRxIzywFjucY8A8OCEyqyXXtvqyLXtM=;
+ b=L7vxso5IJWD60jKDT3C41i3rEzXBWY8FdOtTIlSMVcv/remk1eH2QQW0B3Kh1Os5F0
+ 9fCwqHn3MzQYGy8FZy8wXKPyI8BlQ5BQmOwTr8/mIymaLCljdn64Kc/SPtXDp/rLRecJ
+ HF1+gm3RDpQsVKygYb4SiIT1oAfVpRZZYyuNLDhQ2kjhmSMjclulRUCHOBmMDn1TW/FI
+ 25By3EyNaPqBEyF6p9q/UHNAnhrmShK3z9049wlmj8YwDRVyzyIlS4GPMD65RLPDoOi7
+ eY5s0GE1glAjPy7myZ4CYgYlh5JIOSB+FvdW6SuNne6Dae9ED/zX1TmmCt6mMv9FHjLK
+ 9aew==
+X-Gm-Message-State: AIVw11339UCWOCW6dcPzTOnE67WZ0VGrvU9qX9DR36huLyayGCWFcuFg
+ KL3vLHSMYJeTNJum7pUdnWQYugiW5i8CLbE=
+X-Received: by 10.37.214.214 with SMTP id n205mr1327925ybg.233.1500954733280; 
+ Mon, 24 Jul 2017 20:52:13 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CACPK8XdK3D_QiEfvS_BsTbvaA_uqb6rYPU13urFn2f8yR8LFLA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 17072502-0040-0000-0000-000003853B24
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007420; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00892464; UDB=6.00446077; IPR=6.00672628; 
- BA=6.00005489; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016360; XFM=3.00000015;
- UTC=2017-07-25 02:19:48
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17072502-0041-0000-0000-00000779587B
-Message-Id: <cb86874c-e81f-ae96-9e46-fc78bfbc59c0@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-07-25_01:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
- definitions=main-1707250036
+Sender: joel.stan@gmail.com
+Received: by 10.37.170.177 with HTTP; Mon, 24 Jul 2017 20:51:52 -0700 (PDT)
+In-Reply-To: <1500889206-25863-1-git-send-email-clg@kaod.org>
+References: <1500889206-25863-1-git-send-email-clg@kaod.org>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 25 Jul 2017 13:21:52 +0930
+X-Google-Sender-Auth: BHERPJh_uEmpfB5s8wJv1MaWstU
+Message-ID: <CACPK8XeO-MwMR4Yd6G-0MoJiW2AWZpM_EMDCmnPrQ89R2Ot8pg@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] mtd: spi-nor: aspeed: set 4B setting for
+ all chips
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -76,58 +61,66 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Jul 2017 02:19:54 -0000
+X-List-Received-Date: Tue, 25 Jul 2017 03:52:17 -0000
+
+On Mon, Jul 24, 2017 at 7:10 PM, C=C3=A9dric Le Goater <clg@kaod.org> wrote=
+:
+> The driver made the wrong assumption that the 4B setting was
+> autodetected for all chips of the AST2500 FMC flash controller. This
+> is only the case for the CS0.
+>
+> Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
+
+I tested this on a witherspoon and it appeared to work. I have applied
+it to dev-4.10. Thanks for hunting it down!
+
+root@spoon1-bmc:~# time flashcp /tmp/flash-witherspoon /dev/mtd6
+real 3m44.212s
+user 0m0.750s
+sys 3m42.620s
+
+Cheers,
+
+Joel
 
 
-
-On 7/24/17 8:31 PM, Joel Stanley wrote:
-> On Tue, Jul 25, 2017 at 6:55 AM, Christopher Bostic
-> <cbostic@linux.vnet.ibm.com> wrote:
->> In cases where temperature is queried before the latest value is finished
->> reading then use the previously measured value instead of returning error.
->>
->> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
->> ---
->>   drivers/iio/pressure/dps310.c | 4 ++--
->>   1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
->> index f351c26..c7ee99e 100644
->> --- a/drivers/iio/pressure/dps310.c
->> +++ b/drivers/iio/pressure/dps310.c
->> @@ -202,8 +202,8 @@ static int dps310_read_temp(struct dps310_data *data)
->>          if (r < 0)
->>                  return r;
->>          if (!(ready & DPS310_TMP_RDY)) {
->> -               dev_dbg(dev, "temperature not ready\n");
->> -               return -EAGAIN;
->> +               dev_dbg(dev, "temperature not ready, use last temp value\n");
->> +               return 0;
-> We can't hide these errors in the kernel driver. The user of this API
-> will have no way of knowing if it actually has a new value, or if the
-> value is days old. In the extreme case, the driver may nave never
-> received a value from the hardware, but we will happily report zero.
+> ---
 >
-> If you want to go down the path of using old values, there's a defined
-> iio API for doing triggered readings that put data into a timestamped
-> buffer of values. This could be used by userspace when it needs a
-> reading, regardless of it's age. I've not used this before so it would
-> require further investigation to decide if it's useful.
-
-I had thought there was consensus in the Sunday night (Central US time) 
-meeting on using the old value in case where a new measurement wasn't 
-ready.  I see your point that we'd not know if the last measurement was 
-days old.   Maybe we can take some time in Tuesday night's meeting to 
-discuss further.
-
-Thanks,
-Chris
+>  To be noted that the speed setting of CS1 is quite low because the
+>  HCLK/16 divider is used. It can be improved.
 >
-> Alternatively, if the userspace application doesn't care about the
-> latest value then it could cache the previously read value and use
-> that.
+>  drivers/mtd/spi-nor/aspeed-smc.c |   13 ++++++-------
+>  1 file changed, 6 insertions(+), 7 deletions(-)
 >
-> Cheers,
+> Index: linux-openbmc-4.10.git/drivers/mtd/spi-nor/aspeed-smc.c
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> --- linux-openbmc-4.10.git.orig/drivers/mtd/spi-nor/aspeed-smc.c
+> +++ linux-openbmc-4.10.git/drivers/mtd/spi-nor/aspeed-smc.c
+> @@ -794,19 +794,18 @@ static void aspeed_smc_chip_set_type(str
+>  }
 >
-> Joel
+>  /*
+> - * The AST2500 FMC flash controller should be strapped by hardware, or
+> - * autodetected, but the AST2500 SPI flash needs to be set.
+> + * The first chip of the AST2500 FMC flash controller is strapped by
+> + * hardware, or autodetected, but other chips need to be set. Enforce
+> + * the 4B setting for all chips.
+>   */
+>  static void aspeed_smc_chip_set_4b(struct aspeed_smc_chip *chip)
+>  {
+>         struct aspeed_smc_controller *controller =3D chip->controller;
+>         u32 reg;
 >
+> -       if (chip->controller->info =3D=3D &spi_2500_info) {
+> -               reg =3D readl(controller->regs + CE_CONTROL_REG);
+> -               reg |=3D 1 << chip->cs;
+> -               writel(reg, controller->regs + CE_CONTROL_REG);
+> -       }
+> +       reg =3D readl(controller->regs + CE_CONTROL_REG);
+> +       reg |=3D 1 << chip->cs;
+> +       writel(reg, controller->regs + CE_CONTROL_REG);
+>  }
+>
+>  /*
