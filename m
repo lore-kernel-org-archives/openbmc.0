@@ -1,25 +1,53 @@
-Return-Path: <c_mykolak@mellanox.com>
-Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
- by lists.ozlabs.org (Postfix) with ESMTP id 3xHdQ60WFKzDqmV
- for <openbmc@lists.ozlabs.org>; Thu, 27 Jul 2017 00:53:01 +1000 (AEST)
-Received: from Internal Mail-Server by MTLPINE1 (envelope-from
- c?mykolak@mellanox.com)
- with ESMTPS (AES256-SHA encrypted); 26 Jul 2017 17:52:28 +0300
-Received: from r-vnc15.mtr.labs.mlnx (r-vnc15.mtr.labs.mlnx [10.208.0.15])
- by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id v6QEqSUN003844;
- Wed, 26 Jul 2017 17:52:28 +0300
-From: Mykola Kostenok <c_mykolak@mellanox.com>
-To: Guenter Roeck <linux@roeck-us.net>, Jean Delvare <jdelvare@suse.com>,
- linux-hwmon@vger.kernel.org
-Cc: Mykola Kostenok <c_mykolak@mellanox.com>, Rob Herring <robh+dt@kernel.org>,
- Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>,
- openbmc@lists.ozlabs.org, Patrick Venture <venture@google.com>,
- Vadim Pasternak <vadimp@mellanox.com>, Ohad Oz <ohado@mellanox.com>,
- Joel Stanley <joel@jms.id.au>
-Subject: [patch v5] hwmon: (aspeed-pwm-tacho) cooling device support.
-Date: Wed, 26 Jul 2017 17:52:27 +0300
-Message-Id: <20170726145227.26466-1-c_mykolak@mellanox.com>
-X-Mailer: git-send-email 2.8.4
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xHg5S1d2qzDqmV
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Jul 2017 02:08:44 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="qpyV2e6a"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="FW6jWmOE"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id BD3F420823;
+ Wed, 26 Jul 2017 12:08:41 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Wed, 26 Jul 2017 12:08:41 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :date:from:message-id:subject:to:x-me-sender:x-me-sender
+ :x-sasl-enc:x-sasl-enc; s=fm1; bh=tslbIAN1T6416RyyG35aorNhAOB1jj
+ O6ZocGUjTekd0=; b=qpyV2e6aLxCM5MBaucCuhlrGow0GNDEAAryRj/LfmV/MDa
+ a8II9fNJYYf5BWcwU5hha8COV+Ny0lVEDlmVZNS05eS37dkyWj6aZJmaE51hVMM5
+ yXkfId0iPuA9edPGGj6gDC72iCo5J885Xu9Gbh5e+2ipX0jADpqb6bkR+6MsR6vc
+ TOC0DlNBCYY0O4nxD5Myp2wsDC2Cg64tMI7eqn3gXonQ70iyIh2OZYhG2bpReE52
+ 91Ch4yy4qpB74MvQpL/nsoYXlnDEJaW+hTRZcjYeyNWO6FlDSEzvPNnVoFD3yby/
+ Txrw7zNLeqPzdl/C2xi9OFktYA3iEUe2wdxE/Ozw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=tslbIA
+ N1T6416RyyG35aorNhAOB1jjO6ZocGUjTekd0=; b=FW6jWmOE6kuVMs/y7YFwet
+ JTopPqybC3dQqSNT2v3t+TZVMX4cE+UTUSluIsztHVs8TcJH5tsT5PJx2DBTLB+j
+ weFFliNMT/Z390H8MxhcDYC6hCvkNY4mUBPpziaTZ0moCNrg9v3zbvYD9kflATa8
+ PrGg2mhRqDOivoSNwSdTNzJuG54ym3YMc71O+6Kt06I2b3kgdRrka7YHCsFtiIvu
+ +HcGMwPvMMkhMpa49api2oPxRbLWBWzog3yO72y+QiO8BOKAnJFm2Tl0XfpsvKC4
+ yD1liaaAaaLOX7mb4vi/fRzcQxcdK/rRUcjPwSMh3S7DF9PNr/Yh8kDyc+cfOsFQ
+ ==
+X-ME-Sender: <xms:ib54WbKh0N1722SkTQOAj2gs8ayMXS26-l7h4HeonkdfbYUR2EYAfA>
+X-Sasl-enc: FhN1YKcFgrGQdnzRTenVl1JEOh3Zd75/pvDN+Gy2Phs8 1501085321
+Received: from keelia.aj.id.au (ppp118-210-176-216.bras2.adl6.internode.on.net
+ [118.210.176.216])
+ by mail.messagingengine.com (Postfix) with ESMTPA id A8C902466E;
+ Wed, 26 Jul 2017 12:08:39 -0400 (EDT)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: joel@jms.id.au
+Cc: Andrew Jeffery <andrew@aj.id.au>, mspinler@linux.vnet.ibm.com,
+ msbarth@linux.vnet.ibm.com, openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.10 v2 0/4] Witherspoon WDTRST1 enablement
+Date: Thu, 27 Jul 2017 01:38:27 +0930
+Message-Id: <20170726160831.17867-1-andrew@aj.id.au>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -31,208 +59,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Jul 2017 14:53:03 -0000
+X-List-Received-Date: Wed, 26 Jul 2017 16:08:45 -0000
 
-Add support in aspeed-pwm-tacho driver for cooling device creation.
-This cooling device could be bound to a thermal zone
-for the thermal control. Device will appear in /sys/class/thermal
-folder as cooling_deviceX. Then it could be bound to particular
-thermal zones. Allow specification of the cooling levels
-vector - PWM duty cycle values in a range from 0 to 255
-which correspond to thermal cooling states.
+Hello,
 
-Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
+Earlier I sent a patch fixing the wdt1 pinctrl bindings so that we request the
+WDTRST1 function:
 
-v1 -> v2:
- - Remove device tree binding file from the patch.
- - Move of_node_put out of cycle because of_get_next_child
-   already do of_put_node on previous child.
+  https://lists.ozlabs.org/pipermail/openbmc/2017-July/008373.html
 
-v2 -> v3:
- Pointed out by Rob Herring:
- - Put cooling-levels under fan subnodes.
+This series builds on top of that patch (and contains it, hence v2), adding
+new bindings to further configure the pin's behaviour through the watchdog
+controller itself. This is necessary for correct behaviour of the latch
+asserting the MAX31785 FAULT pin across a BMC reset.
 
-v3 -> v4:
- Pointed out by Joel Stanley:
- - Move patch history after Signoff.
- - Remove unnecessary type cast.
- - Use array instead of pointers for colling_levels.
- - Rename num_level to num_levels.
- - Use local variable to make function easier to read.
- - Drop unnesesary sizeof(u8).
- - Use IS_ERR instead of PTR_ERR_OR_ZERO.
+Cheers,
 
-v4 -> v5:
- Pointed out by Joel Stanley:
- - Use snprintf to fill cdev->name[16].
----
- drivers/hwmon/aspeed-pwm-tacho.c | 117 ++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 115 insertions(+), 2 deletions(-)
+Andrew
 
-diff --git a/drivers/hwmon/aspeed-pwm-tacho.c b/drivers/hwmon/aspeed-pwm-tacho.c
-index ddfe66b..049e4eb 100644
---- a/drivers/hwmon/aspeed-pwm-tacho.c
-+++ b/drivers/hwmon/aspeed-pwm-tacho.c
-@@ -20,6 +20,7 @@
- #include <linux/platform_device.h>
- #include <linux/sysfs.h>
- #include <linux/regmap.h>
-+#include <linux/thermal.h>
- 
- /* ASPEED PWM & FAN Tach Register Definition */
- #define ASPEED_PTCR_CTRL		0x00
-@@ -166,6 +167,18 @@
- /* How long we sleep in us while waiting for an RPM result. */
- #define ASPEED_RPM_STATUS_SLEEP_USEC	500
- 
-+#define MAX_CDEV_NAME_LEN 16
-+
-+struct aspeed_cooling_device {
-+	char name[16];
-+	struct aspeed_pwm_tacho_data *priv;
-+	struct thermal_cooling_device *tcdev;
-+	int pwm_port;
-+	u8 *cooling_levels;
-+	u8 max_state;
-+	u8 cur_state;
-+};
-+
- struct aspeed_pwm_tacho_data {
- 	struct regmap *regmap;
- 	unsigned long clk_freq;
-@@ -180,6 +193,7 @@ struct aspeed_pwm_tacho_data {
- 	u8 pwm_port_type[8];
- 	u8 pwm_port_fan_ctrl[8];
- 	u8 fan_tach_ch_source[16];
-+	struct aspeed_cooling_device *cdev[8];
- 	const struct attribute_group *groups[3];
- };
- 
-@@ -765,6 +779,94 @@ static void aspeed_create_fan_tach_channel(struct aspeed_pwm_tacho_data *priv,
- 	}
- }
- 
-+static int
-+aspeed_pwm_cz_get_max_state(struct thermal_cooling_device *tcdev,
-+			    unsigned long *state)
-+{
-+	struct aspeed_cooling_device *cdev = tcdev->devdata;
-+
-+	*state = cdev->max_state;
-+
-+	return 0;
-+}
-+
-+static int
-+aspeed_pwm_cz_get_cur_state(struct thermal_cooling_device *tcdev,
-+			    unsigned long *state)
-+{
-+	struct aspeed_cooling_device *cdev = tcdev->devdata;
-+
-+	*state = cdev->cur_state;
-+
-+	return 0;
-+}
-+
-+static int
-+aspeed_pwm_cz_set_cur_state(struct thermal_cooling_device *tcdev,
-+			    unsigned long state)
-+{
-+	struct aspeed_cooling_device *cdev = tcdev->devdata;
-+
-+	if (state > cdev->max_state)
-+		return -EINVAL;
-+
-+	cdev->cur_state = state;
-+	cdev->priv->pwm_port_fan_ctrl[cdev->pwm_port] =
-+					cdev->cooling_levels[cdev->cur_state];
-+	aspeed_set_pwm_port_fan_ctrl(cdev->priv, cdev->pwm_port,
-+				     cdev->cooling_levels[cdev->cur_state]);
-+
-+	return 0;
-+}
-+
-+static const struct thermal_cooling_device_ops aspeed_pwm_cool_ops = {
-+	.get_max_state = aspeed_pwm_cz_get_max_state,
-+	.get_cur_state = aspeed_pwm_cz_get_cur_state,
-+	.set_cur_state = aspeed_pwm_cz_set_cur_state,
-+};
-+
-+static int aspeed_create_pwm_cooling(struct device *dev,
-+				     struct device_node *child,
-+				     struct aspeed_pwm_tacho_data *priv,
-+				     u32 pwm_port, u8 num_levels)
-+{
-+	int ret;
-+	struct aspeed_cooling_device *cdev;
-+
-+	cdev = devm_kzalloc(dev, sizeof(*cdev), GFP_KERNEL);
-+
-+	if (!cdev)
-+		return -ENOMEM;
-+
-+	cdev->cooling_levels = devm_kzalloc(dev, num_levels, GFP_KERNEL);
-+	if (!cdev->cooling_levels)
-+		return -ENOMEM;
-+
-+	cdev->max_state = num_levels - 1;
-+	ret = of_property_read_u8_array(child, "cooling-levels",
-+					cdev->cooling_levels,
-+					num_levels);
-+	if (ret) {
-+		dev_err(dev, "Property 'cooling-levels' cannot be read.\n");
-+		return ret;
-+	}
-+	snprintf(cdev->name, MAX_CDEV_NAME_LEN, "%s%d", child->name, pwm_port);
-+
-+	cdev->tcdev = thermal_of_cooling_device_register(child,
-+							 cdev->name,
-+							 cdev,
-+							 &aspeed_pwm_cool_ops);
-+	if (IS_ERR(cdev->tcdev))
-+		return PTR_ERR(cdev->tcdev);
-+
-+	cdev->priv = priv;
-+	cdev->pwm_port = pwm_port;
-+
-+	priv->cdev[pwm_port] = cdev;
-+
-+	return 0;
-+}
-+
- static int aspeed_create_fan(struct device *dev,
- 			     struct device_node *child,
- 			     struct aspeed_pwm_tacho_data *priv)
-@@ -778,6 +880,15 @@ static int aspeed_create_fan(struct device *dev,
- 		return ret;
- 	aspeed_create_pwm_port(priv, (u8)pwm_port);
- 
-+	ret = of_property_count_u8_elems(child, "cooling-levels");
-+
-+	if (ret > 0) {
-+		ret = aspeed_create_pwm_cooling(dev, child, priv, pwm_port,
-+						ret);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	count = of_property_count_u8_elems(child, "aspeed,fan-tach-ch");
- 	if (count < 1)
- 		return -EINVAL;
-@@ -834,10 +945,12 @@ static int aspeed_pwm_tacho_probe(struct platform_device *pdev)
- 
- 	for_each_child_of_node(np, child) {
- 		ret = aspeed_create_fan(dev, child, priv);
--		of_node_put(child);
--		if (ret)
-+		if (ret) {
-+			of_node_put(child);
- 			return ret;
-+		}
- 	}
-+	of_node_put(child);
- 
- 	priv->groups[0] = &pwm_dev_group;
- 	priv->groups[1] = &fan_dev_group;
+Andrew Jeffery (4):
+  ARM: aspeed: Request WDTRST1 pinctrl function
+  dt-bindings: watchdog: aspeed: External reset signal properties
+  watchdog: aspeed: Support external signal drive and polarity bindings
+  ARM: dts: aspeed: Witherspoon WDT1 external signal is push-pull
+
+ .../devicetree/bindings/watchdog/aspeed-wdt.txt     |  7 +++++++
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts    |  4 ++++
+ drivers/watchdog/aspeed_wdt.c                       | 21 +++++++++++++++++++++
+ 3 files changed, 32 insertions(+)
+
 -- 
-2.8.4
+2.11.0
