@@ -1,30 +1,58 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x241.google.com (mail-yw0-x241.google.com
+ [IPv6:2607:f8b0:4002:c05::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xHb3Z0hTmzDqnM
- for <openbmc@lists.ozlabs.org>; Wed, 26 Jul 2017 23:06:48 +1000 (AEST)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 150107440391843.85640886394549;
- Wed, 26 Jul 2017 06:06:43 -0700 (PDT)
-Date: Wed, 26 Jul 2017 08:06:41 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Joel Stanley <joel@jms.id.au>
-Cc: Adriana Kobylak <anoo@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: [PATCH] arm: configs: aspeed_g5_defconfig: Enable Automount
-Message-ID: <20170726130641.GC473@asimov.austin.ibm.com>
-References: <1500567765-4990-1-git-send-email-anoo@linux.vnet.ibm.com>
- <CACPK8Xcz3wqR4Y_t7=y6AWy3soH4cPm=gCw=8zMa7s-EQU+vJw@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xHcRh4yvxzDqnv
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Jul 2017 00:09:20 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="MlET7vqS"; 
+ dkim-atps=neutral
+Received: by mail-yw0-x241.google.com with SMTP id u207so4752009ywc.0
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Jul 2017 07:09:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=hpFo352qb5ApC6G1dI/iHpCfzHhDajapFGyph0kiAuA=;
+ b=MlET7vqSlI8tysi7UTiQZKxwIBne8LbzLscnbrPUHe+/+2Q/3OVQVD39dM9jEnClYV
+ G2iKkid5UmoJhWx62HT0sWCxWeaFCxxpcmfI9lk4DpRxa4nbNvD3C8Tke71waq2rP9AP
+ UQlxgB6j3yy4dSwHdFdf7fnxkoZtUdU+rQQdGZizWi1B1vtCmdGxWJfWT0Q0w5gDJ/kj
+ jIkuuOsezdRo88rZtx5/zWFj9iMFy1QUwH14gY1b3WcGLL0fl7gup2Y0sEcZOGUVapFo
+ NubzdrYuk2RjmSEfzbUxw+xxSGbEhKBskWozwVbnzpxNZUMCvt72ks3f1OmkNfubnWzN
+ lAsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=hpFo352qb5ApC6G1dI/iHpCfzHhDajapFGyph0kiAuA=;
+ b=U7w1vBBCKwhNvHR3RQBRT5sjxwia2FsVTYmuto/z6pKfBQVbSuiLIwGEJ2dfawbwsZ
+ JLhioV5nwiKeCVXbi3kLkXTMRb0Q9ZWFi4HkMDQXgUkXUq+beSkoGEY+tEUS82t6i6qH
+ b2dXxONl6w9Tk56XpoZvI5mM6LN+THhnLAziKWkZ8Bm3b3Quz5zi3Hly/TWKcS4495r2
+ k1tUth5iHVybE56zzPNWi8U3ZJP4URb01WYdBHLJEVGXD940XO9IuD1u8YlLA9xbLcyU
+ MaKFNxbAswwcmP9YbiJuH2gFhP2F0caDxzyvrHddgXwbpLsXe+7MQOhOlJwVCIkq5Gxa
+ hWGg==
+X-Gm-Message-State: AIVw112g2hTZ4Szhh9DvcY3T3PN+WPHbUk70DK/5AAsPJrsjOU6V31Mo
+ n1eKGTsvc3xnEmdjX4IEkoVig2jH+w==
+X-Received: by 10.129.53.140 with SMTP id c134mr907208ywa.439.1501078157989;
+ Wed, 26 Jul 2017 07:09:17 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="xesSdrSSBC0PokLI"
-Content-Disposition: inline
-In-Reply-To: <CACPK8Xcz3wqR4Y_t7=y6AWy3soH4cPm=gCw=8zMa7s-EQU+vJw@mail.gmail.com>
-User-Agent: Mutt/1.7.2 (2016-11-26)
-X-Zoho-Virus-Status: 1
-X-ZohoMailClient: External
+Sender: joel.stan@gmail.com
+Received: by 10.37.170.177 with HTTP; Wed, 26 Jul 2017 07:08:57 -0700 (PDT)
+In-Reply-To: <20170726112435.32575-1-c_mykolak@mellanox.com>
+References: <20170726112435.32575-1-c_mykolak@mellanox.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 26 Jul 2017 23:38:57 +0930
+X-Google-Sender-Auth: tWnXWlkhnvt6_6bw1ofEbpA8wT8
+Message-ID: <CACPK8XcgN2-X_LyTn+KJZ-fsibdCjwkGJocBRGK4U3qsYa1BWA@mail.gmail.com>
+Subject: Re: [patch v4] hwmon: (aspeed-pwm-tacho) cooling device support.
+To: Mykola Kostenok <c_mykolak@mellanox.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Jean Delvare <jdelvare@suse.com>,
+ linux-hwmon@vger.kernel.org, Rob Herring <robh+dt@kernel.org>, 
+ Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Patrick Venture <venture@google.com>, Vadim Pasternak <vadimp@mellanox.com>,
+ Ohad Oz <ohado@mellanox.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -36,85 +64,73 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Jul 2017 13:06:50 -0000
+X-List-Received-Date: Wed, 26 Jul 2017 14:09:21 -0000
 
+On Wed, Jul 26, 2017 at 8:54 PM, Mykola Kostenok <c_mykolak@mellanox.com> wrote:
+> Add support in aspeed-pwm-tacho driver for cooling device creation.
+> This cooling device could be bound to a thermal zone
+> for the thermal control. Device will appear in /sys/class/thermal
+> folder as cooling_deviceX. Then it could be bound to particular
+> thermal zones. Allow specification of the cooling levels
+> vector - PWM duty cycle values in a range from 0 to 255
+> which correspond to thermal cooling states.
+>
+> Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
+>
+> v1 -> v2:
+>  - Remove device tree binding file from the patch.
+>  - Move of_node_put out of cycle because of_get_next_child
+>    already do of_put_node on previous child.
+>
+> v2 -> v3:
+>  Pointed out by Rob Herring:
+>  - Put cooling-levels under fan subnodes.
+>
+> v3 -> v4:
+>  Pointed out by Joel Stanley:
+>  - Move patch history after Signoff.
+>  - Remove unnecessary type cast.
+>  - Use array instead of pointers for colling_levels.
+>  - Rename num_level to num_levels.
+>  - Use local variable to make function easier to read.
+>  - Drop unnesesary sizeof(u8).
+>  - Use IS_ERR instead of PTR_ERR_OR_ZERO.
 
---xesSdrSSBC0PokLI
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Changes look good!
 
-On Wed, Jul 26, 2017 at 03:52:50PM +0930, Joel Stanley wrote:
-> On Fri, Jul 21, 2017 at 1:52 AM, Adriana Kobylak
-> <anoo@linux.vnet.ibm.com> wrote:
-> > Enable CONFIG_AUTOFS4_FS to be able to support systemd
-> > automount units.
-> > This config is already present in the aspeed_g4_defconfig.
->=20
-> The kconfig help for this option says:
->=20
->  If you are not a part of a fairly large, distributed network or
->  don't have a laptop which needs to dynamically reconfigure to the
->  local network, you probably do not need an automounter, and can say
->  N here.
->=20
-> I'm not overly familiar with systemd automount units. Can you explain
-> why we need this option enabled?
+> +static int aspeed_create_pwm_cooling(struct device *dev,
+> +                                    struct device_node *child,
+> +                                    struct aspeed_pwm_tacho_data *priv,
+> +                                    u32 pwm_port, u8 num_levels)
+> +{
+> +       int ret;
+> +       struct aspeed_cooling_device *cdev;
+> +
+> +       cdev = devm_kzalloc(dev, sizeof(*cdev), GFP_KERNEL);
+> +
+> +       if (!cdev)
+> +               return -ENOMEM;
+> +
+> +       cdev->cooling_levels = devm_kzalloc(dev, num_levels, GFP_KERNEL);
+> +       if (!cdev->cooling_levels)
+> +               return -ENOMEM;
+> +
+> +       cdev->max_state = num_levels - 1;
+> +       ret = of_property_read_u8_array(child, "cooling-levels",
+> +                                       cdev->cooling_levels,
+> +                                       num_levels);
+> +       if (ret) {
+> +               dev_err(dev, "Property 'cooling-levels' cannot be read.\n");
+> +               return ret;
+> +       }
+> +       sprintf(cdev->name, "%s%d", child->name, pwm_port);
 
-This is not needed.  I similarly turned down the changes in Yocto.  We
-can accomplish the same thing with a static mount.
+Oops, I missed this one. It looks like if child->name is too long then
+this will overflow name[16]. You could dynamically allocate
+cdev->name[16], or use snprintf.
 
->=20
-> Cheers,
->=20
-> Joel
->=20
->=20
-> >
-> > Signed-off-by: Adriana Kobylak <anoo@linux.vnet.ibm.com>
-> > ---
-> >  arch/arm/configs/aspeed_g5_defconfig | 1 +
-> >  1 file changed, 1 insertion(+)
-> >
-> > diff --git a/arch/arm/configs/aspeed_g5_defconfig b/arch/arm/configs/as=
-peed_g5_defconfig
-> > index 1868442..c8bd79e 100644
-> > --- a/arch/arm/configs/aspeed_g5_defconfig
-> > +++ b/arch/arm/configs/aspeed_g5_defconfig
-> > @@ -193,6 +193,7 @@ CONFIG_FSI_SBEFIFO=3Dy
-> >  CONFIG_OCCFIFO=3Dy
-> >  CONFIG_FIRMWARE_MEMMAP=3Dy
-> >  CONFIG_FANOTIFY=3Dy
-> > +CONFIG_AUTOFS4_FS=3Dy
-> >  CONFIG_OVERLAY_FS=3Dy
-> >  CONFIG_TMPFS=3Dy
-> >  CONFIG_JFFS2_FS=3Dy
-> > --
-> > 1.8.2.2
-> >
+Once you've fixed that I will add my reviewed-by.
 
---=20
-Patrick Williams
+Cheers,
 
---xesSdrSSBC0PokLI
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAll4k98ACgkQqwNHzC0A
-wRkmxQ/+Pgu56NUxDbblxh7QDVCpKHxNuPYc/2Di+cciHyZowtuZ2CnWTIQSWC8v
-UvpiVxAIO89T4duS6zThqVXHQijtmgk9P7cTAxx8b8mydVp1MBQoy5Gin3rlt/ve
-SktkRqU90QdHVvZAC2gf6tHIHUaXawy0AN0JrMRB+qPWcBRHkrC50PI8z2gGjx3E
-1cdnHzmZ/nFaicP1LJN5D+HXxOyRlf1z/K39x+Lq+US/VER5909EuNFYcVUlCqSB
-+aN9H9QWD+FRo8hD0xwFCGzVApkVjnWNi+4cObLUe2wzZJW9n0WxpONuIB1VCLC9
-R+97mANP4W3D+1Q+WGQ74MN98QmOCoTsjxGDes5/ssjV8p5h9MelTBRG38la4X+o
-c/+O2viLTv9xx4sNWMLshNVvIPhXZGHWR9+YrjEAIZluH3Bp4i4pw9LdZFvvPM0G
-26ibAnaNVOLxgmsr4KXV/5rLbUOG4uc6SiFA5+MM1c4BT7l9BexZvZr/CVY/X5eE
-YKqZ4XKTVu0HuBDiEeN1gHiwzbWrkUONuE9fBj99uQr9CP/+Fi+wFr4b0BCOjuzt
-WIDRqHoPc6YO5oy5AlmCcRD3Oe29+v0+CZmDV2Ly1Uae9KHq6GQnXJtqI8HzRjTx
-B4O3g0isPCwCedNRNLqoK09FKbN7BerzbG6olNQKdbfxZJhuoZA=
-=viaT
------END PGP SIGNATURE-----
-
---xesSdrSSBC0PokLI--
+Joel
