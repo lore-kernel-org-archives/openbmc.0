@@ -1,58 +1,31 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
+Return-Path: <d.mueller@elsoft.ch>
+Received: from mail.hostpark.net (mail.hostpark.net [212.243.197.30])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xHSjz6Pq1zDqmg
- for <openbmc@lists.ozlabs.org>; Wed, 26 Jul 2017 18:21:11 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="neoZ/Pi3"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="GjykhyKA"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 141BA2094E;
- Wed, 26 Jul 2017 04:21:09 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Wed, 26 Jul 2017 04:21:09 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=9YA4xDu4MK0vce2JN29wmAUUSWNzsnJN9d/uowJFZ
- Tg=; b=neoZ/Pi3XOlDpR4mBvoNnSdgXwu9sMGH9ewEmGXZXUV/PRmB16bwQDm7V
- L5duYPGKpRcfaa8xyU34lHInngVKU16hAEBGdDajvUTr6ym8Sa1VNXWjASKG9JWE
- tP7eewybZC2kC9fhIayXUKFVNysiNl+DRHph/hbPy49jn4fy9sW1J8NBuwgj33TB
- kyuVlx2y18Y9zGXvEpw2wF9M96kCiJiz60DtKpv36oEGsAM+BaHzPhZdwIWG8TV1
- Emmh2eErv5SF/rDxj1LteOLX1RJf64aTSmaBnrX7IKHvfzucdacrEvnYdqR+Xp+B
- vqEJ+eFKAl2hRbxW2NC78z0B5NFrA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=9YA4xDu4MK0vce2JN2
- 9wmAUUSWNzsnJN9d/uowJFZTg=; b=GjykhyKAJBWh3OdPYDQypHO4X9YlrHZbvc
- 3RqUZ9Txj9CmHmxCSUGBWIRusI/ytUreFsVFphtRceClZ78EGnYkJBSEeztTB+te
- 9iuvQSmcwAbnpEDT+EQfSn82bW1z64HJ/XRs/imp1yTRfrxfrCigHLgWFSxQajq9
- KzhWIwy+rtwI75DXRTyDc65UaCgjulSq+kGDLJ+KSwBaJPfXT49lJ7ffCeeUHvqO
- iVub5MkhgofF8BDlzVWhv6Tnhu5IPsyxuTgjaQP6HywESkQLZSXa8JKc/h+O/R+m
- heWl1hGHfvMvU1TGepIHqWlDVJNnqrfo3+7x8Eov+WTxOGOddNVA==
-X-ME-Sender: <xms:9FB4WWJ2L94xaCLPArizntv_8dsxC7SRrHzv1o-yusBwQ9K3Ih8GJA>
-X-Sasl-enc: hkuVQ+JdAQ4SDvM/FV4ouSbN1q+mA8NmY3lnWYnhKj9+ 1501057268
-Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 97881244C6;
- Wed, 26 Jul 2017 04:21:06 -0400 (EDT)
-Message-ID: <1501057262.5179.14.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10 0/5] pmbus: Add MAX31785 driver
-From: Andrew Jeffery <andrew@aj.id.au>
-To: joel@jms.id.au
-Cc: bradleyb@fuzziesquirrel.com, mspinler@linux.vnet.ibm.com, 
- msbarth@linux.vnet.ibm.com, openbmc@lists.ozlabs.org
-Date: Wed, 26 Jul 2017 17:51:02 +0930
-In-Reply-To: <20170721175131.17840-1-andrew@aj.id.au>
-References: <20170721175131.17840-1-andrew@aj.id.au>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-FKb4jC8VHRfaxEybUEIX"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xHT7R5skbzDqmj
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Jul 2017 18:39:47 +1000 (AEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.hostpark.net (Postfix) with ESMTP id 481EC16906
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Jul 2017 10:39:43 +0200 (CEST)
+X-Virus-Scanned: by Hostpark/NetZone Mailprotection at hostpark.net
+Received: from mail.hostpark.net ([127.0.0.1])
+ by localhost (mail0.hostpark.net [127.0.0.1]) (amavisd-new, port 10124)
+ with ESMTP id kbqPcD2xKq5z for <openbmc@lists.ozlabs.org>;
+ Wed, 26 Jul 2017 10:39:42 +0200 (CEST)
+Received: from [192.168.11.10] (80-219-76-43.dclient.hispeed.ch [80.219.76.43])
+ by mail.hostpark.net (Postfix) with ESMTPA id 5FD67168EA
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Jul 2017 10:39:39 +0200 (CEST)
+From: =?UTF-8?Q?David_M=c3=bcller_=28ELSOFT_AG=29?= <d.mueller@elsoft.ch>
+To: OpenBMC <openbmc@lists.ozlabs.org>
+Organization: ELSOFT AG
+Subject: Crashing Phosphor Settings Manager
+Message-ID: <f332da14-43c6-ccf9-b602-ca5358dd124e@elsoft.ch>
+Date: Wed, 26 Jul 2017 10:39:49 +0200
+User-Agent: Mozilla/5.0 (X11; Linux i686; rv:49.0) Gecko/20100101 Firefox/49.0
+ SeaMonkey/2.46
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -64,151 +37,151 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Jul 2017 08:21:12 -0000
+X-List-Received-Date: Wed, 26 Jul 2017 08:39:48 -0000
+
+Hello
+
+I have some trouble to bring up OpenBMC on your custom, AST2500 based
+design. I suspect some kind of misconfiguration but was unable to
+pin-point it so far.
+Any idea what could be wrong with my setup or hints how to debug this issue?
 
 
---=-FKb4jC8VHRfaxEybUEIX
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+root@test:~# cat /etc/os-release
+ID="openbmc-phosphor"
+NAME="Phosphor OpenBMC (Phosphor OpenBMC Project Reference Distro)"
+VERSION="v1.99.8-94"
+VERSION_ID="v1.99.8-94-g4699a110-dirty"
+PRETTY_NAME="Phosphor OpenBMC (Phosphor OpenBMC Project Reference
+Distro) v1.99.8-94"
+BUILD_ID="v1.99.8"
 
-Some follow-up notes:
 
-On Sat, 2017-07-22 at 03:21 +0930, Andrew Jeffery wrote:
-> Hello,
->=20
-> This is a backport to dev-4.10 of the series I intend to send upstream,
-> which implements the MAX31785 driver using the PMBus subsystem.
->=20
-> I'd like to see it cook for a bit in the OpenBMC tree to get some confide=
-nce
-> in the implementation (after recent indiscretions).
->=20
-> Some caveats:
->=20
-> 1. I've only updated the Witherspoon devicetree. Romulus and Firestone al=
-so need
-> =C2=A0=C2=A0=C2=A0to be updated, but I'm not sure what configuration they=
- require (it may not
-> =C2=A0=C2=A0=C2=A0be too different to Witherspoon). If someone could prov=
-ide feedback here I
-> =C2=A0=C2=A0=C2=A0can send more patches.
+The message log is full of this kind of messages:
 
-Given Romulus and Firestone are IBM designs my expectation is the
-max37185 configuration should be the same as Witherspoon, and we can
-copy the nodes from Witherspoon into both devicetrees. Further, I've
-taken a look at the Romulus schematic and it requires all 6 fans to be
-configured. I haven't hunted down the relevant Firestone schematics,
-but there's no harm in specifying nodes for all 6 fans (the driver will
-simply ignore any fans that the hardware claims are not installed).
-There is harm in *not* specifying the nodes, as the driver will mark
-fans the hardware reports present as not installed if there is not a
-corresponding devicetree node, as the devicetree should reflect the
-system design.
+Jul 26 07:11:36 test daemon.info systemd[1]: Starting Phosphor Settings
+Manager...
+Jul 26 07:11:38 test daemon.info settings_manager.py[1222]: Traceback
+(most recent call last):
+Jul 26 07:11:38 test daemon.info settings_manager.py[1222]:   File
+"/usr/sbin/settings_manager.py", line 262, in <module>
+Jul 26 07:11:38 test daemon.info settings_manager.py[1222]:
+allobjects = create_object(s.SETTINGS)
+Jul 26 07:11:38 test daemon.info settings_manager.py[1222]:   File
+"/usr/sbin/settings_manager.py", line 72, in create_object
+Jul 26 07:11:38 test daemon.info settings_manager.py[1222]:
+retries=10, interval=0.1)
+Jul 26 07:11:38 test daemon.info settings_manager.py[1222]:   File
+"/usr/lib/python2.7/site-packages/obmc/mapper/bindings.py", line 66, in
+get_subtree_paths
+Jul 26 07:11:38 test daemon.info settings_manager.py[1222]:     retries,
+interval)
+Jul 26 07:11:38 test daemon.info settings_manager.py[1222]:   File
+"/usr/lib/python2.7/site-packages/obmc/mapper/bindings.py", line 42, in
+retry
+Jul 26 07:11:38 test daemon.info settings_manager.py[1222]:     return
+func()
+Jul 26 07:11:38 test daemon.info settings_manager.py[1222]:   File
+"/usr/lib/python2.7/site-packages/obmc/mapper/bindings.py", line 65, in
+<lambda>
+Jul 26 07:11:38 test daemon.info settings_manager.py[1222]:     path,
+depth, interfaces, signature='sias'),
+Jul 26 07:11:38 test daemon.info settings_manager.py[1222]:   File
+"/usr/lib/python2.7/site-packages/dbus/proxies.py", line 145, in __call__
+Jul 26 07:11:38 test daemon.info settings_manager.py[1222]:     **keywords)
+Jul 26 07:11:38 test daemon.info settings_manager.py[1222]:   File
+"/usr/lib/python2.7/site-packages/dbus/connection.py", line 651, in
+call_blocking
+Jul 26 07:11:38 test daemon.info settings_manager.py[1222]:     message,
+timeout)
+Jul 26 07:11:38 test daemon.info settings_manager.py[1222]:
+dbus.exceptions.DBusException: org.freedesktop.DBus.Error.FileNotFound:
+path or object not found: /org/openbmc/control
+Jul 26 07:11:39 test daemon.notice systemd[1]:
+org.openbmc.settings.Host.service: Main process exited, code=exited,
+status=1/FAILURE
+Jul 26 07:11:39 test daemon.err systemd[1]: Failed to start Phosphor
+Settings Manager.
+Jul 26 07:11:39 test daemon.notice systemd[1]:
+org.openbmc.settings.Host.service: Unit entered failed state.
+Jul 26 07:11:39 test daemon.warn systemd[1]:
+org.openbmc.settings.Host.service: Failed with result 'exit-code'.
+Jul 26 07:11:39 test daemon.info systemd[1]:
+org.openbmc.settings.Host.service: Service hold-off time over,
+scheduling restart.
+Jul 26 07:11:39 test daemon.info systemd[1]: Stopped Phosphor Settings
+Manager.
 
-> 2. There may be some userspace breakage around what fans are exposed: Onl=
-y
-> =C2=A0=C2=A0=C2=A0fans configured in the devicetree will have attributes =
-in sysfs, and the
-> =C2=A0=C2=A0=C2=A0first and second tach input attributes are always conti=
-guous. That is, if
-> =C2=A0=C2=A0=C2=A0only one fan is specified in the devicetree and it is c=
-onfigured as dual
-> =C2=A0=C2=A0=C2=A0tach, then the input attributes will be fan1_input and =
-fan2_input.
->=20
-> Anyway please review and test! I've given it a spin on a Witherspoon syst=
-em and
-> it looks to be functional. I haven't done much testing with the OpenBMC
-> userspace to shore up the second issue mentioned above, so that needs fur=
-ther
-> investigation.
->=20
 
-As a note, I have been tracking down an issue where I occasionally see
-IO errors when writing e.g. fan1_target. It turns out that the max31785
-is NACK'ing a transfer, but doesn't appear to set any bits in
-STATUS_BYTE to indicate a problem. Issuing the same command immediately
-after succeeds. I was concerned I may have some undefined behaviour in
-the driver but it appears that's not the case in this instance.
+The "obmcutil" tool crashes with the following dump:
 
-It turns out that I can hit the NACK issue with the current hwmon
-implementation, and I suspect Timothy's original driver was susceptible
-to it as well. As such the new driver is issue-compatible with what we
-have currently, and applying it is not a regression. Some more
-investigation needs to be done to resolve whether it's there are issues
-in PMBus core, the max31785 and/or the I2C bus driver.
+root@test:~# obmcutil state
+Traceback (most recent call last):
+  File "/usr/sbin/obmcutil", line 168, in <module>
+    obj = bus.get_object(bus_name, obj_path)
+  File "/usr/lib/python2.7/site-packages/dbus/bus.py", line 241, in
+get_object
+    follow_name_owner_changes=follow_name_owner_changes)
+  File "/usr/lib/python2.7/site-packages/dbus/proxies.py", line 248, in
+__init__
+    self._named_service = conn.activate_name_owner(bus_name)
+  File "/usr/lib/python2.7/site-packages/dbus/bus.py", line 180, in
+activate_name_owner
+    self.start_service_by_name(bus_name)
+  File "/usr/lib/python2.7/site-packages/dbus/bus.py", line 278, in
+start_service_by_name
+    'su', (bus_name, flags)))
+  File "/usr/lib/python2.7/site-packages/dbus/connection.py", line 651,
+in call_blocking
+    message, timeout)
+dbus.exceptions.DBusException:
+org.freedesktop.DBus.Error.ServiceUnknown: The name
+xyz.openbmc_project.State.BMC was not provided by any .service files
 
-Cheers,
 
-Andrew
+I have stripped down the board wiring config file to the bare minimum
+(at least I think so), but also this does not help.
 
-> Cheers,
->=20
-> Andrew
->=20
-> Andrew Jeffery (5):
-> =C2=A0 dt-bindings: hwmon: pmbus: Add Maxim MAX31785 documentation
-> =C2=A0 ARM: aspeed: Update max31785 node in Witherspoon devicetree
-> =C2=A0 hwmon: pmbus: Add fan control support
-> =C2=A0 hwmon: Remove MAX31785 implementation
-> =C2=A0 pmbus: Add driver for Maxim MAX31785 Intelligent Fan Controller
->=20
-> =C2=A0.../devicetree/bindings/hwmon/pmbus/max31785.txt=C2=A0=C2=A0=C2=A0|=
- 113 +++
-> =C2=A0arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts=C2=A0=C2=A0=C2=A0|=
-=C2=A0=C2=A055 +-
-> =C2=A0drivers/hwmon/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0|=C2=A0=C2=A010=
- -
-> =C2=A0drivers/hwmon/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0|=C2=A0=C2=A0=C2=A01 =
--
-> =C2=A0drivers/hwmon/max31785.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0| 893 ---------------------
-> =C2=A0drivers/hwmon/pmbus/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0|=C2=A0=C2=A010 +
-> =C2=A0drivers/hwmon/pmbus/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0|=C2=A0=C2=A0=C2=A01 +
-> =C2=A0drivers/hwmon/pmbus/max31785.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0| 655 +++++++++++++++
-> =C2=A0drivers/hwmon/pmbus/pmbus.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0|=C2=A0=C2=A029 +
-> =C2=A0drivers/hwmon/pmbus/pmbus_core.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0| 222 ++++-
-> =C2=A010 files changed, 1068 insertions(+), 921 deletions(-)
-> =C2=A0create mode 100644 Documentation/devicetree/bindings/hwmon/pmbus/ma=
-x31785.txt
-> =C2=A0delete mode 100644 drivers/hwmon/max31785.c
-> =C2=A0create mode 100644 drivers/hwmon/pmbus/max31785.c
->=20
---=-FKb4jC8VHRfaxEybUEIX
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+root@test:~# cat /usr/lib/python2.7/site-packages/obmc_system_config.py
+## System states
+##   state can change to next state in 2 ways:
+##   - a process emits a GotoSystemState signal with state name to goto
+##   - objects specified in EXIT_STATE_DEPEND have started
+SYSTEM_STATES = [
+    'BASE_APPS',
+    'BMC_STARTING',
+    'BMC_READY',
+    'HOST_POWERING_ON',
+    'HOST_POWERED_ON',
+    'HOST_BOOTING',
+    'HOST_BOOTED',
+    'HOST_POWERED_OFF',
+]
 
------BEGIN PGP SIGNATURE-----
+EXIT_STATE_DEPEND = {
+    'BASE_APPS' : {
+        '/xyz/openbmc_project/sensors': 0,
+    },
+    'BMC_STARTING' : {
+        '/xyz/openbmc_project/control/chassis0': 0,
+    },
+}
 
-iQIcBAABCgAGBQJZeFDuAAoJEJ0dnzgO5LT5Hc8QAJQBE9Z3m3ZcyxAeUYYclP5k
-onAUqWBPZaQ44PQZLjvksNzzXY9tZPc14+TneGk5T14yT/B1HEn3js4LxBc4QBIa
-oEvLlk/eVANXbp1Q8DpsVk6xgfxdChwTWvtc4b8t7D2mJ3m2bdhDN+t3lj3GO/GG
-TbpcvN/ETD6ilNVHnYCsH2Duj71u/8MfmcpRCh06I7wEjPgQ49fdTx2gQfC48o2Q
-FR2lsXyHr1UyPM4JYSd5ICdz0vWcZIN+gKNfwtByI8L1VtCYzJshH9c8SVZMPZCf
-pdoN9r+3qIpPpF/a3I3VMPBAZnW1HW/xmBaXvzy1u3y/HMmD7XLVydiJZe5O82jT
-/6avnw5s1/BrEiPeS/WcE9FeWF0WKA8CfEtM2XiFYCELW/kHvB2N8xStj+m2+QKi
-8QjbfJwpVAW6e3YHMaf1HPsjyErNMnUVQtbiJfoiYNYamiWvNC7c7X0ACPhjDJC2
-jYB9vwixYBD7cOpt6cT8alduwEe8t8OwSGEDmyqcaoFUtp5xpGkNs+1j5fNviW9x
-RlauohpuukKsmF5KuDJB3UlV4vpcO3EiOosykWSblSTRUeQJfaQsw810EEHiDFr/
-UpmglyqjshLoo7yjektQ6+LrllKr31OBMes+jif54dtzZo1FfdzCcoVV/EYofFrb
-IqTG2glSYfe4BXTgL7BH
-=NfpJ
------END PGP SIGNATURE-----
+FRU_INSTANCES = {}
 
---=-FKb4jC8VHRfaxEybUEIX--
+ID_LOOKUP = {
+    'FRU' : {},
+    'FRU_STR' : {},
+    'SENSOR' : {},
+    'GPIO_PRESENT' : {}
+}
+
+GPIO_CONFIG = {}
+
+HWMON_CONFIG = {}
+GPIO_CONFIGS = {}
+
+MISC_SENSORS = {}
+
+
+Dave
