@@ -3,52 +3,52 @@ Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xHg5b6DPhzDqpP
- for <openbmc@lists.ozlabs.org>; Thu, 27 Jul 2017 02:08:51 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xHg5g0DTLzDqpR
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Jul 2017 02:08:54 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Vwp2mEaG"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="pAiGeZ2Y"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="h59x/GBJ"; dkim-atps=neutral
+ header.b="IYCqv+OM"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id C3CBE20ACE;
- Wed, 26 Jul 2017 12:08:49 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 7F62B20963;
+ Wed, 26 Jul 2017 12:08:52 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Wed, 26 Jul 2017 12:08:49 -0400
+ by compute4.internal (MEProxy); Wed, 26 Jul 2017 12:08:52 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=I1H1VX
- U1KD0yi4yn6fpdIhMnfqG/pvyrNQ/k9pS5DVs=; b=Vwp2mEaGgXylH4zpTO/71Q
- OF7w0q+ZzNlIztX5D5R0oOAZBr73LjL/uGDgyREWpNnaYhLIMqUXHa3Hx1NzDbYW
- EgNd1B2KwsvyYzhB9wR65BL/oAsV/4EvksPm380vD2tHroLFYGk4Oygzna4OVE7D
- Ddz2cu0qKD76+x+wYrZrBlPGBv2xpBpbApxT1aMOfhaRShz/lymID/rSCMi3c+4G
- s0+G5dD1R8t3VYsH+CARKGY8hybiWM3wA3mB1RF+/eOMKPddXizx8D5JqDq2QeNN
- c8tiEtz1SWDzGHMhseCnShfT3hZbTnkzWCudw8mHLml5rskch1DuuaQhb5oToEbg
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=m7L/RS
+ FhL+NFLottki82G/2cjcZC7vNXPJlOHqrTHaM=; b=pAiGeZ2YAuS4J7+0cGIw7E
+ R36y5KxaootdmfIubV+W0ZTpMJQcdw/5W3i9VmvZWdIloO+FpPjOq4KbIaaq2oiI
+ S0Wlqm/GlGOBb71tfL5S1CfRxaC1MD/0MsMoUHE5583x6geCXdVOWSj1ZoQHDn8C
+ 95gBkAL2a40Nu6OSV4vyv3kM56MZo8ieqiyKufctuqk/y15FqPVQs6SAYAvGdekE
+ IaUfj3c5UgSQnS1xjIZwztT0/6wGlPc6WRvfo5vGsJB90AcVoKI0iTUcaSEsteFf
+ 5ctpiJrwmvay9sPAC0kdJPg2qhu0EJ+hOuP37yDEONqu2Ov3AejgGXVqboTE4G7Q
  ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:date:from:in-reply-to:message-id
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=I1H1VXU1KD0yi4yn6fpdIhMnfqG/pvyrNQ/k9pS5D
- Vs=; b=h59x/GBJdskcu9hOm1UTuUK1hMC3CGOM43a5wy0qdXK3bI3IHOE3ZKno1
- lK4Yr6SBcYZ+qwd/wavpezaryAEUfaYRv4u3kwAc7WklXqB1aImFrZ7SoW8N+tGw
- 3w2Jxp7Vy5WccE76E682CMd29vSoMJdWFa79duH2u6S2EObo7uWHAMZcV7P1hPoZ
- BOjnAwrxBaXbna0wB0EPDVK7qb0bL74lLJaoJOmr/ZS+8LgNSJhw/c2q9GIYwNBx
- ex88ZAyJxuRnmhBEh3WJP1WMdf0QJ0ODPAw8EUBvXJgVXBYk/9JDYTxtH94kSc+c
- Qm/cxZpK3Rk0O81vZ5H8Myhj+erQw==
-X-ME-Sender: <xms:kb54WRm8iW3us1xLpUb4d4zgdW9kMaT07wLf1wbdyoHnetshpVDrdQ>
-X-Sasl-enc: ve1XsN3xOFMJpzL9YNOPJnXMNN2bqb1RO5/56K3FaYCV 1501085329
+ :x-sasl-enc; s=fm1; bh=m7L/RSFhL+NFLottki82G/2cjcZC7vNXPJlOHqrTH
+ aM=; b=IYCqv+OM45KX4UAH0my2myPfMixklaSkJDRibiWgCOPMqvehiXzzuz/Ui
+ QeSQbqOTmDU8FTVNsRAmIrs9BeV658awiRRbnKVOkJ3PH4XpfBd95ElVRiNxGimA
+ GntTjnbN7Wx3PoqsLO4osQF/m6O7TXCCjWM7Qjz4Q6lggXiEzbTNRXkCozz1XncH
+ wSF5dGsLU4561FE7CO1M0USI7Cbvqn+9mM9yerHkeQoElSat0YuRV6NkTONlsCJE
+ KYfIa42aCKdYw6YU7E8JiT2QMBpwBOjoroorfuwmSRD9dsfCFOULSLufoXwLZaT7
+ jv9/9KgI1SfS2yKHDOPShm72Bu1gw==
+X-ME-Sender: <xms:lL54WU7hQfCZl6qs08Bq2JY4lKQWPfHvfCTAxcDyIAQG3AqIgFnxAg>
+X-Sasl-enc: 9NC1yA7W3t5uDtXSEL82/44CzOTSFjpuNn3qVRpM9+PX 1501085331
 Received: from keelia.aj.id.au (ppp118-210-176-216.bras2.adl6.internode.on.net
  [118.210.176.216])
- by mail.messagingengine.com (Postfix) with ESMTPA id 7AC8A24515;
- Wed, 26 Jul 2017 12:08:47 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 284A82414B;
+ Wed, 26 Jul 2017 12:08:49 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: joel@jms.id.au
 Cc: Andrew Jeffery <andrew@aj.id.au>, mspinler@linux.vnet.ibm.com,
  msbarth@linux.vnet.ibm.com, openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10 v2 3/4] watchdog: aspeed: Support external
- signal drive and polarity bindings
-Date: Thu, 27 Jul 2017 01:38:30 +0930
-Message-Id: <20170726160831.17867-4-andrew@aj.id.au>
+Subject: [PATCH linux dev-4.10 v2 4/4] ARM: dts: aspeed: Witherspoon WDT1
+ external signal is push-pull
+Date: Thu, 27 Jul 2017 01:38:31 +0930
+Message-Id: <20170726160831.17867-5-andrew@aj.id.au>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20170726160831.17867-1-andrew@aj.id.au>
 References: <20170726160831.17867-1-andrew@aj.id.au>
@@ -63,54 +63,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Jul 2017 16:08:52 -0000
+X-List-Received-Date: Wed, 26 Jul 2017 16:08:55 -0000
 
-These bindings are optional, and only relevant on the AST2500 and
-compatible watchdog controllers.
+Correctly drive the latch asserting the FAULT pin on the MAX31785 when
+the watchdog bites. This ensures the fan outputs are ramped to 100% PWM
+duty.
 
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 ---
- drivers/watchdog/aspeed_wdt.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/watchdog/aspeed_wdt.c b/drivers/watchdog/aspeed_wdt.c
-index d29f75e90bb6..9a07ef176054 100644
---- a/drivers/watchdog/aspeed_wdt.c
-+++ b/drivers/watchdog/aspeed_wdt.c
-@@ -42,6 +42,9 @@ MODULE_DEVICE_TABLE(of, aspeed_wdt_of_table);
- #define   WDT_CTRL_WDT_INTR		BIT(2)
- #define   WDT_CTRL_RESET_SYSTEM		BIT(1)
- #define   WDT_CTRL_ENABLE		BIT(0)
-+#define WDT_RESET_WIDTH		0x18
-+#define   WDT_RESET_WIDTH_ACTIVE_HIGH	BIT(31)
-+#define   WDT_RESET_WIDTH_PUSHPULL	BIT(30)
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index c28222c17d03..df36b87ba105 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -488,6 +488,7 @@
+ &wdt1 {
+ 	aspeed,reset-type = "none";
+ 	aspeed,external-signal;
++	aspeed,ext-push-pull;
  
- #define WDT_RESTART_MAGIC	0x4755
- 
-@@ -204,6 +207,24 @@ static int aspeed_wdt_probe(struct platform_device *pdev)
- 		set_bit(WDOG_HW_RUNNING, &wdt->wdd.status);
- 	}
- 
-+	if (of_device_is_compatible(np, "aspeed,ast2500-wdt")) {
-+		u32 from = readl(wdt->base + WDT_RESET_WIDTH);
-+		u32 to = from;
-+
-+		if (of_property_read_bool(np, "aspeed,ext-push-pull"))
-+			to |= WDT_RESET_WIDTH_PUSHPULL;
-+		else
-+			to &= ~WDT_RESET_WIDTH_PUSHPULL;
-+
-+		if (of_property_read_bool(np, "aspeed,ext-active-high"))
-+			to |= WDT_RESET_WIDTH_ACTIVE_HIGH;
-+		else
-+			to &= ~WDT_RESET_WIDTH_ACTIVE_HIGH;
-+
-+		if (from != to)
-+			writel(to, wdt->base + WDT_RESET_WIDTH);
-+	}
-+
- 	ret = watchdog_register_device(&wdt->wdd);
- 	if (ret) {
- 		dev_err(&pdev->dev, "failed to register\n");
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_wdtrst1_default>;
 -- 
 2.11.0
