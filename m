@@ -1,53 +1,52 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
- [IPv6:2607:f8b0:4002:c05::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xHQ5r6v9KzDqmV
- for <openbmc@lists.ozlabs.org>; Wed, 26 Jul 2017 16:23:12 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xHQ9z3gGSzDqmV
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Jul 2017 16:26:47 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="t5YaSI91"; 
- dkim-atps=neutral
-Received: by mail-yw0-x244.google.com with SMTP id i6so4858900ywb.3
- for <openbmc@lists.ozlabs.org>; Tue, 25 Jul 2017 23:23:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=AZMRdoNDAV1PJLryWev5ajpxLSmM87/J5K/r5BWzswo=;
- b=t5YaSI91I1ldCF9jjgxPoOVHpGvDaOQidMjyIWV1dwESTNGFrZI/UzfMuioQLTkTIa
- UM1UQMcB+Le8f1ZC4tAgtRwJq/hHyzdqMloEOWuw4CpggzwgA92/PiKUpb3sK07/Mrbg
- eRcK2FtlK5TFORZiul7szfL31NlkFULsc0LgHFSjKttw4/TRJG6utWRj352TO3AlcXte
- ZUDk+NV2Y/YCfxEkBKwvuhqRIYoWzrdUimnY/30zNie+ddJqpad8JoPKydhoH+V5fnzF
- wBHZGwvEKQd3qSm5g+aZ/fjmWvSbXHQido38wCaL5JWQIf+tVt+y2u6/SU6EK99eQ+4l
- G6Ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=AZMRdoNDAV1PJLryWev5ajpxLSmM87/J5K/r5BWzswo=;
- b=o93xNhqhk3vMSwtqCVH1MXYtsBlQmWgJ1dVQWe5wxtfFUlppi1+oVvdHfMhURJ4y18
- lBX5+fxqOzgwq2F+M/waK40f5PY7iVD8ZqM5a5O9QL38CVyUjqijPGi1sFWEUcgz4qup
- C76Gf5dczKrWO+DPzjiPrTZnh+DVb8g/eX27jzCF1HcnYaezcadHlmy3EDXf6nSik2xe
- OEJae0W5+GNGE8rzbx+KO1mq2i5fgYepGrajRAPqPFxMncLYI41SKa7SV82LwB74/C9D
- 3dRDZsBYLNhLcYVh5kut6U74Qq+BIVjAR8C76ODNhUq9c8wvWpoN8Zf/411wg05mmvR1
- NHYg==
-X-Gm-Message-State: AIVw111qxz4E1M8wC7nD+aXwKtpaRhecaMlqNMVhlDhCci6P6Olb483J
- FZeyX3h2K4tCZwzlahuG9C5J7H3XzQ==
-X-Received: by 10.37.174.34 with SMTP id a34mr5461532ybj.331.1501050190549;
- Tue, 25 Jul 2017 23:23:10 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.170.177 with HTTP; Tue, 25 Jul 2017 23:22:50 -0700 (PDT)
-In-Reply-To: <1500567765-4990-1-git-send-email-anoo@linux.vnet.ibm.com>
-References: <1500567765-4990-1-git-send-email-anoo@linux.vnet.ibm.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 26 Jul 2017 15:52:50 +0930
-X-Google-Sender-Auth: AkzzXxOrHzOzuKxuDaSn56liE7Q
-Message-ID: <CACPK8Xcz3wqR4Y_t7=y6AWy3soH4cPm=gCw=8zMa7s-EQU+vJw@mail.gmail.com>
-Subject: Re: [PATCH] arm: configs: aspeed_g5_defconfig: Enable Automount
-To: Adriana Kobylak <anoo@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="i2/S/TLQ"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="gsKsT5g9"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id DB47120B7C;
+ Wed, 26 Jul 2017 02:26:42 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Wed, 26 Jul 2017 02:26:42 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :date:from:message-id:subject:to:x-me-sender:x-me-sender
+ :x-sasl-enc:x-sasl-enc; s=fm1; bh=5kIi4JBPCJjhg6cZAGiO7Zcp9e8NLY
+ AhsJwzbMUmcOg=; b=i2/S/TLQAlTFhRCouC0P+jUeyIoIIZhgMGilUDyZhnsc/6
+ cAApRDWYqpG55aR0ueL6GjwKUwHxKQ1xOaqnHpZrbtci8dTZlHGu9IZ94mzk5QxG
+ r3DVEWy0j874kwsLwEjGzTvYRYxjMuzd7bEt7J2UQs1cLzCCxWD+3Xs2P8TYhRfR
+ JdrCDQ0LjvtjKjMFN+8k2ZvOiew0tzKcevzI/Aak2F5nR8vLTjry1qEUKkiSLnDx
+ IuIn0GCb3Xreu084LW++L6pTwbY3Y6X2mKACtpb25Pdgg0oYtyIUsHBJsRzsKihG
+ YcTDWXdZ/NDQONOBz7YDX32+0Y5UYEcVLAp1kt8w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=5kIi4J
+ BPCJjhg6cZAGiO7Zcp9e8NLYAhsJwzbMUmcOg=; b=gsKsT5g9rYqzrOmtWrQw+E
+ QPqHc6dsa91lr5gtV8iwSJQ4JtmXxA5R3kT8Y2Pyi1bCA6+Q3O4k9i86bnssQrq8
+ 16QxKJp6d3Ah8JdPOmuU29TsRjsYcsxAMChSvzbnIPmCNEd8kAXe49iBF4zmhiVr
+ c1F/q9OKjXY6+ufwNmRggozei1JyGypNiSjYTwXkgnDxVeJ/PkvS7b6iziv7GNTh
+ WCBA1AH4PxHBj2kdojzIYfnefTC0oFoWFVqGkg1RHeCadt65VKH0bPWdUAKLA0g2
+ aFJ7mVatIQ3czpMTH+8JiJ848+hJgwfZxXb1TA4xXlNKMVmM3qJOKAV9CVEiftZw
+ ==
+X-ME-Sender: <xms:IjZ4WY9zGteZlf5u63jHDW_aDu-Z5g7F9iMR8dKnV853YsFt1UAAvQ>
+X-Sasl-enc: 0sAablMhy4tgMUOktgrqZLcT6xD9TZkGFpT33F0yL+yW 1501050401
+Received: from keelia.base64.com.au (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id ACDC52459C;
+ Wed, 26 Jul 2017 02:26:40 -0400 (EDT)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: joel@jms.id.au
+Cc: openbmc@lists.ozlabs.org, Andrew Jeffery <andrew@aj.id.au>,
+ Matt Spinler <mspinler@linux.vnet.ibm.com>
+Subject: [PATCH linux dev-4.10] ARM: aspeed: Request WDTRST1 pinctrl function
+Date: Wed, 26 Jul 2017 15:56:30 +0930
+Message-Id: <20170726062630.17507-1-andrew@aj.id.au>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,47 +58,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Jul 2017 06:23:13 -0000
+X-List-Received-Date: Wed, 26 Jul 2017 06:26:49 -0000
 
-On Fri, Jul 21, 2017 at 1:52 AM, Adriana Kobylak
-<anoo@linux.vnet.ibm.com> wrote:
-> Enable CONFIG_AUTOFS4_FS to be able to support systemd
-> automount units.
-> This config is already present in the aspeed_g4_defconfig.
+On Witherspoon, the Aspeed SoC's WDTRST1 pin is wired to the FAULT pin
+on the MAX31785 fan controller, which drives the fans to 100% PWM duty
+when asserted. The pulse generated by the watchdog is latched to ensure
+the fans stay at full speed across the BMC reboot. The latch is reset
+when the BMC transitions through the chassis-poweron systemd target.
 
-The kconfig help for this option says:
+The SoC's WDTRST1 pinctrl function needs to be requested for
+aspeed,external-signal to be effective, otherwise the pin is not
+associated with the watchdog controller.
 
- If you are not a part of a fairly large, distributed network or
- don't have a laptop which needs to dynamically reconfigure to the
- local network, you probably do not need an automounter, and can say
- N here.
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+Cc: Matt Spinler <mspinler@linux.vnet.ibm.com>
+---
+I gave this a quick spin under QEMU to verify the right SCU bits were set. That
+seems to be the case.
 
-I'm not overly familiar with systemd automount units. Can you explain
-why we need this option enabled?
+Matt: Can you please give it a try and reply with a Tested-by tag?
 
-Cheers,
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Joel
-
-
->
-> Signed-off-by: Adriana Kobylak <anoo@linux.vnet.ibm.com>
-> ---
->  arch/arm/configs/aspeed_g5_defconfig | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/arch/arm/configs/aspeed_g5_defconfig b/arch/arm/configs/aspeed_g5_defconfig
-> index 1868442..c8bd79e 100644
-> --- a/arch/arm/configs/aspeed_g5_defconfig
-> +++ b/arch/arm/configs/aspeed_g5_defconfig
-> @@ -193,6 +193,7 @@ CONFIG_FSI_SBEFIFO=y
->  CONFIG_OCCFIFO=y
->  CONFIG_FIRMWARE_MEMMAP=y
->  CONFIG_FANOTIFY=y
-> +CONFIG_AUTOFS4_FS=y
->  CONFIG_OVERLAY_FS=y
->  CONFIG_TMPFS=y
->  CONFIG_JFFS2_FS=y
-> --
-> 1.8.2.2
->
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index d9649013ee78..c28222c17d03 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -488,6 +488,9 @@
+ &wdt1 {
+ 	aspeed,reset-type = "none";
+ 	aspeed,external-signal;
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_wdtrst1_default>;
+ };
+ 
+ &wdt2 {
+-- 
+2.11.0
