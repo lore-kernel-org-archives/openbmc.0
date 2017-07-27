@@ -3,51 +3,55 @@ Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xJ7Fd3nFjzDrH2
- for <openbmc@lists.ozlabs.org>; Thu, 27 Jul 2017 20:17:24 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xJ7Fg08vrzDrH2
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Jul 2017 20:17:27 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="HqTOzfmZ"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="hj0tNnDR"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="H/2UrbxI"; dkim-atps=neutral
+ header.b="S4eGxGm2"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 560CC2095B;
- Thu, 27 Jul 2017 06:17:22 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id E5114208EA;
+ Thu, 27 Jul 2017 06:17:24 -0400 (EDT)
 Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Thu, 27 Jul 2017 06:17:22 -0400
+ by compute4.internal (MEProxy); Thu, 27 Jul 2017 06:17:24 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:message-id:subject:to:x-me-sender:x-me-sender
- :x-sasl-enc:x-sasl-enc; s=fm1; bh=QTXbEk4q4UOQroBUrJ4ZzsONK7EPoI
- hWGAV0EG8a9WA=; b=HqTOzfmZZ6mIsfSkFx6nOD8WW/ACVdfAwgipepFBz87otd
- ooGBKuS0aaCWLn0GeJHPKm2YS1OXOqsYR//MqTWcZk7Vco9zx+zsRaiodPEMwIsX
- haqD2JTUkvRXq9I7L34NpXtQ0DvsjiWAVA9JhgNkG/cO2C7WQL2z+8hf5FJHUZQW
- 3NEWfS5JnyQBMax1tCPlrh2WYFyEH3O8u6IOBaR3CUFBFB4oHyyLpyVCnjPYmEST
- RDq+AqfYQcsVSsYLq+KN/OJWYeLjTb027A5xJSUW3a2l6LLuGDQP+ix5AiHmhQxE
- Wf6AhtfsO55rKj/C5iZ2SiT+11J9cN+GgpfS7xmA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=QTXbEk
- 4q4UOQroBUrJ4ZzsONK7EPoIhWGAV0EG8a9WA=; b=H/2UrbxIUxryByE9sJmYx4
- /+tpIGXBpc5qcy9oPI5gEVmaNDa5HQeseNewRzdqUB7qMifnBAME1UI7sBgE4QIx
- u2CodlvtpbBLKENK5aH+SSaKcNTriq6u/2Sx8ukiMmXUKPAdjQ9pkaf2UiERFYmU
- oQ4aIfpdwObRNWJ5NgIYcPzW2eODg2taKkf7e+AR9F0HXiigQ3xJRIjVDSai6cIt
- tEsjPAb0HfDWYhlE+eDz08Nc3lABoW1yUpla+nIJ7dyNoAerJlOdP0RxuAbKxL+K
- xmxSsEqp800j8+UU7U5t7b9SdgoNoF2Y05yufSi2/drSOfNzYSB8lcQSITmkA6vw
+ :date:from:in-reply-to:message-id:references:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=HUa0ct
+ WXwLDDe97H8Yq4e5kY3mhUFWn6cgF/PrjtzgA=; b=hj0tNnDRXWpt8QeLWHtV5p
+ YNTWvPohUNGCxVqJP9/4TQjdmg1Ixxc+YAnYBrspOZGSIskU33RvPeYrjtXqhakx
+ g+kdfrNksVOJ3wJqeMPd86cqBs0FdqIPxW5MCqVFLJvtkVn0hXYVkV4eZInwpQpS
+ zhBi+M/BWBQHoYZ0toFS/kDM9CiQCl2P+Zaa2iQDww6nrAGkTPdCzFk7mVKoDfTw
+ AedPjym3PSma6G2HsfYdWK1+R3rSsyx6O8FlOOgBTnMOTmHBcZp5AwW0Cmf6dn5L
+ IBKwBl66+FEdZwJnJpQ4Z+WAys++yZPSLYb5dAIqAoZYfrN7NWlGAnQqtf9rzD6w
  ==
-X-ME-Sender: <xms:sr15WatNyk71N6Ir-l4F5osbE8M7ejwYn_WFEAqWkOu_Yqer9TNiQw>
-X-Sasl-enc: yqnXo9EIRzPvjS1h/5WnBzFo19k0j5x+dHrxpx7XRgfI 1501150641
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:in-reply-to:message-id
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=HUa0ctWXwLDDe97H8Yq4e5kY3mhUFWn6cgF/Prjtz
+ gA=; b=S4eGxGm2FePFWYVQGYev+jbDr4n13p9ztKHp/cBIAh31XbvXajfd9rdmE
+ zXqO4mBLmsBOTyVFiD49touwrR2lS7AFV+P6GZIZKBtusq8A5dWeMVGrnoCD9G5S
+ lGIBag55Bk9PAqC0CtG39lo1anvOEomAqKyURxgOmey+zYVjajzUsPZ5jM31vNzU
+ N5Z/TyAYDRR459cJGKGJzpapNVAnLMDeAE9QSD5vBGOc6CJkQ1tJPsvmv3545yvC
+ zcAydP8J8tqhTKtIzK6vGRJRfq9ZbDGW1cnZooreF3W5LquhmUSb6zOARVVo9oXi
+ DHcSQxtHM9FApNFS6FjaukkyeRAUQ==
+X-ME-Sender: <xms:tL15WdWdbwQU5p5ph4w8863YaTPEn8lD7CpRvsVUBV7klTFpLncfnw>
+X-Sasl-enc: JpIcS/sFI7br8rD7ju+ly8Zg3Ynm4/If2EBr7H/+8AuG 1501150644
 Received: from keelia.aj.id.au (ppp118-210-176-216.bras2.adl6.internode.on.net
  [118.210.176.216])
- by mail.messagingengine.com (Postfix) with ESMTPA id E64D87E2DE;
- Thu, 27 Jul 2017 06:17:19 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id AB3577E1BE;
+ Thu, 27 Jul 2017 06:17:22 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: joel@jms.id.au
 Cc: Andrew Jeffery <andrew@aj.id.au>, mspinler@linux.vnet.ibm.com,
  msbarth@linux.vnet.ibm.com, openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10 v3 0/4] Witherspoon WDTRST1 enablement
-Date: Thu, 27 Jul 2017 19:46:43 +0930
-Message-Id: <20170727101647.26960-1-andrew@aj.id.au>
+Subject: [PATCH linux dev-4.10 v3 1/4] ARM: aspeed: Request WDTRST1 pinctrl
+ function
+Date: Thu, 27 Jul 2017 19:46:44 +0930
+Message-Id: <20170727101647.26960-2-andrew@aj.id.au>
 X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20170727101647.26960-1-andrew@aj.id.au>
+References: <20170727101647.26960-1-andrew@aj.id.au>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,35 +63,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Jul 2017 10:17:25 -0000
+X-List-Received-Date: Thu, 27 Jul 2017 10:17:27 -0000
 
-Hello,
+On Witherspoon, the Aspeed SoC's WDTRST1 pin is wired to the FAULT pin
+on the MAX31785 fan controller, which drives the fans to 100% PWM duty
+when asserted. The pulse generated by the watchdog is latched to ensure
+the fans stay at full speed across the BMC reboot. The latch is reset
+when the BMC transitions through the chassis-poweron systemd target.
 
-v3 corrects some glaring flaws in v2 that I'm going to blame on hacking too
-late at night. Critically:
+The SoC's WDTRST1 pinctrl function needs to be requested for
+aspeed,external-signal to be effective, otherwise the pin is not
+associated with the watchdog controller.
 
-* Use the right bit patterns to select push-pull vs open-drain, active-high vs
-  active low.
-* Fix some wording in the bindings.
-* Specify the external signal pulse as active-high in the devicetree.
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+Cc: Matt Spinler <mspinler@linux.vnet.ibm.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Matt(s): Please test and report back. I'll send the patches upstream if they're
-fit-for-purpose.
-
-Cheers,
-
-Andrew
-
-Andrew Jeffery (4):
-  ARM: aspeed: Request WDTRST1 pinctrl function
-  dt-bindings: watchdog: aspeed: External reset signal properties
-  watchdog: aspeed: Support configuration of external signal properties
-  ARM: dts: aspeed: Witherspoon WDT1 external signal is push-pull
-
- .../devicetree/bindings/watchdog/aspeed-wdt.txt    | 10 +++++-
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts   |  5 +++
- drivers/watchdog/aspeed_wdt.c                      | 42 ++++++++++++++++++++++
- 3 files changed, 56 insertions(+), 1 deletion(-)
-
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index d9649013ee78..c28222c17d03 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -488,6 +488,9 @@
+ &wdt1 {
+ 	aspeed,reset-type = "none";
+ 	aspeed,external-signal;
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_wdtrst1_default>;
+ };
+ 
+ &wdt2 {
 -- 
 2.11.0
