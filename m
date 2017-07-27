@@ -1,63 +1,45 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <austenc@us.ibm.com>
+Received: from nm18-vm0.bullet.mail.bf1.yahoo.com
+ (nm18-vm0.bullet.mail.bf1.yahoo.com [98.139.213.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xJLJ55Z4rzDrLL
- for <openbmc@lists.ozlabs.org>; Fri, 28 Jul 2017 04:35:17 +1000 (AEST)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v6RIY8Kv108120
- for <openbmc@lists.ozlabs.org>; Thu, 27 Jul 2017 14:35:14 -0400
-Received: from e13.ny.us.ibm.com (e13.ny.us.ibm.com [129.33.205.203])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2byjfugs0c-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 27 Jul 2017 14:35:14 -0400
-Received: from localhost
- by e13.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 27 Jul 2017 14:35:13 -0400
-Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
- by e13.ny.us.ibm.com (146.89.104.200) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 27 Jul 2017 14:35:11 -0400
-Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
- [9.57.199.108])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v6RIZA5f26542092; Thu, 27 Jul 2017 18:35:10 GMT
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0F931B204D;
- Thu, 27 Jul 2017 14:32:39 -0400 (EDT)
-Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP id AFF5EB2052;
- Thu, 27 Jul 2017 14:32:38 -0400 (EDT)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, cbostic@linux.vnet.ibm.com,
- "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10] drivers/fsi: Remove scan from master
- registration
-Date: Thu, 27 Jul 2017 13:35:08 -0500
-X-Mailer: git-send-email 1.8.3.1
-X-TM-AS-GCONF: 00
-x-cbid: 17072718-0008-0000-0000-0000026599FC
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007436; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00893749; UDB=6.00446848; IPR=6.00673909; 
- BA=6.00005495; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016411; XFM=3.00000015;
- UTC=2017-07-27 18:35:12
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17072718-0009-0000-0000-0000362CFA50
-Message-Id: <1501180508-4009-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-07-27_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
- definitions=main-1707270289
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xJLdJ2bdfzDrLR
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Jul 2017 04:50:11 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=yahoo.com header.i=@yahoo.com header.b="sp2j4y1/"; 
+ dkim-atps=neutral
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1501181406; bh=pdjG8UlTlCHaqALfmrp5kcubf0+1XW1F6tGTFKmyNkg=;
+ h=From:To:Cc:Subject:Date:From:Subject;
+ b=sp2j4y1/ZrDP5SfpW54bVPvpAyQg0vAOMZfaxWEaCPUiudInlMxSEZddlgCQjz8Tol3V/Qm5hv0crscbuQtc1M6usrPJscvwDlEni1T5x+WFdVNWucinxcJug9tN5rnS0gHxAnIbR9oRUWwZ3JxHgXpiGwe1P6dakZMiqK8uGYFFCXzcqPV4GfTaBGH+h6zEc6BPalscw6QDHDjHdegLs0QKklFTShbWTbGazVQ20yd6FcVJwHrJa/IuZXe98LkMXtXuhMGh5ugQXQ1zx0C6MTnjHpkkDIo10zkQ2zO+fsIXiH3KsG+YUkaoIysGnrWrveerYvWiAuifi8arkLEXjw==
+Received: from [66.196.81.174] by nm18.bullet.mail.bf1.yahoo.com with NNFMP;
+ 27 Jul 2017 18:50:06 -0000
+Received: from [68.142.230.74] by tm20.bullet.mail.bf1.yahoo.com with NNFMP;
+ 27 Jul 2017 18:50:06 -0000
+Received: from [127.0.0.1] by smtp231.mail.bf1.yahoo.com with NNFMP;
+ 27 Jul 2017 18:50:06 -0000
+X-Yahoo-Newman-Id: 586222.83977.bm@smtp231.mail.bf1.yahoo.com
+X-Yahoo-Newman-Property: ymail-3
+X-YMail-OSG: c9xLhV4VM1m.CLznfLBPE9OETb3..8ub4LWXA9XzJJjiUvf
+ Ca3GdNr8hpR78wp88eTs5gbajcCtY2DnUcD1_kVboatv4PXv1J3NqVCLPRUN
+ DCoJHRtrSMoLCBoG0s6S4zUjxgMzcEmYJLjVrfH1K7YiokjY9dqA.gSSvxuJ
+ t1_9k5BH7D42aUGagJB0OU.RpgcAWP6g2xLuFpKLBXAszyZKZ6OYrYLM8pC_
+ wGfAs6gLsRbGNzzTmy01l2ENcbLZq1pLuTwLl6TXAQovATNsw30ARUWT.vpa
+ o6uhf9Co88pMNXdUyESGWfu1lAJ2.nRy_FwCWN7rMQou6in3e0kvNCGTNM1S
+ CUEDieKRfZCjEdY5QnuQu7nvLJ6IctSab6uqXnCZdXf_eRHOo7WolgojuyA8
+ ITJP2uX1DjXt2nAnwZfbuDnqXxwR5TjIvD0y_sEhIejNjSzJeE2ve.kAfbAD
+ gEwv.DI9KQJvq85s3zapRIr_y11GyMM6rVy6CjF3tvW5bg.KyyMLntbZQyx5
+ jiYd5bdoD9GS_F.Q-
+X-Yahoo-SMTP: kKQA4hiswBAsDtB7Rz5b18fkdN7u
+From: causten <austenc@us.ibm.com>
+To: openbmc@lists.ozlabs.org,
+	joel@jms.id.au
+Cc: causten <austenc@us.ibm.com>,
+	Chris Austen <austencj@yahoo.com>
+Subject: [PATCH linux dev-4.10] ARM: dts: Romulus: Identify LED is too active
+Date: Thu, 27 Jul 2017 13:50:00 -0500
+Message-Id: <1501181400-31373-1-git-send-email-austenc@us.ibm.com>
+X-Mailer: git-send-email 2.7.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -69,49 +51,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Jul 2017 18:35:19 -0000
+X-List-Received-Date: Thu, 27 Jul 2017 18:50:14 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
+Identify LED is coming on ever boot.  This is because
+it should have been set to ACTIVE_HIGH
 
-Scanning during master registration is problematic because the gpio fsi
-master will be registered during boot if it is present in device-tree
-(it's a platform device). That means that the whole fsi scan occurs
-during boot, which can cause problems.
-
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
+Signed-Off-By: Chris Austen <austencj@yahoo.com>
 ---
- drivers/fsi/fsi-core.c       | 2 --
- drivers/fsi/fsi-master-hub.c | 4 +++-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
-index 9b83f1a..348ed45 100644
---- a/drivers/fsi/fsi-core.c
-+++ b/drivers/fsi/fsi-core.c
-@@ -927,8 +927,6 @@ int fsi_master_register(struct fsi_master *master)
- 		return rc;
- 	}
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+index a9e3615..45a3c99 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+@@ -35,7 +35,7 @@
+ 		};
  
--	fsi_master_scan(master);
--
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(fsi_master_register);
-diff --git a/drivers/fsi/fsi-master-hub.c b/drivers/fsi/fsi-master-hub.c
-index 3223a67..b5bb064 100644
---- a/drivers/fsi/fsi-master-hub.c
-+++ b/drivers/fsi/fsi-master-hub.c
-@@ -288,8 +288,10 @@ static int hub_master_probe(struct device *dev)
- 	hub_master_init(hub);
+ 		identify {
+-			gpios = <&gpio ASPEED_GPIO(N, 4) GPIO_ACTIVE_LOW>;
++			gpios = <&gpio ASPEED_GPIO(N, 4) GPIO_ACTIVE_HIGH>;
+ 		};
  
- 	rc = fsi_master_register(&hub->master);
--	if (!rc)
-+	if (!rc) {
-+		fsi_master_rescan(&hub->master);
- 		return 0;
-+	}
- 
- 	kfree(hub);
- err_release:
+ 		power {
 -- 
-1.8.3.1
+2.7.4
