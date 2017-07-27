@@ -1,64 +1,55 @@
-Return-Path: <stewart@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x242.google.com (mail-yw0-x242.google.com
+ [IPv6:2607:f8b0:4002:c05::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xHt4d67kdzDrD4
- for <openbmc@lists.ozlabs.org>; Thu, 27 Jul 2017 10:23:45 +1000 (AEST)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v6R0NYRW065743
- for <openbmc@lists.ozlabs.org>; Wed, 26 Jul 2017 20:23:42 -0400
-Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2by4fxtfqe-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 26 Jul 2017 20:23:42 -0400
-Received: from localhost
- by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
- Wed, 26 Jul 2017 20:23:41 -0400
-Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
- by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Wed, 26 Jul 2017 20:23:38 -0400
-Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
- [9.57.199.107])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v6R0Nctj26148868
- for <openbmc@lists.ozlabs.org>; Thu, 27 Jul 2017 00:23:38 GMT
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id EF68E124037
- for <openbmc@lists.ozlabs.org>; Wed, 26 Jul 2017 20:21:03 -0400 (EDT)
-Received: from birb.localdomain (unknown [9.83.3.98])
- by b01ledav002.gho.pok.ibm.com (Postfix) with SMTP id 1584C124035
- for <openbmc@lists.ozlabs.org>; Wed, 26 Jul 2017 20:21:02 -0400 (EDT)
-Received: by birb.localdomain (Postfix, from userid 1000)
- id 3E72851BD2E; Thu, 27 Jul 2017 10:23:31 +1000 (AEST)
-From: Stewart Smith <stewart@linux.vnet.ibm.com>
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: FFDC tool?
-Date: Thu, 27 Jul 2017 10:23:31 +1000
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xHvZs1jk6zDrD6
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Jul 2017 11:31:33 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="YrXcdegJ"; 
+ dkim-atps=neutral
+Received: by mail-yw0-x242.google.com with SMTP id s143so3807684ywg.4
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Jul 2017 18:31:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=N8Sp/Hul/VcW5ZGTSC2vV6ItN+taV4hef/FvbP4NSqM=;
+ b=YrXcdegJOI791FrEXeDS7idMcSdgQZcknOUaT16EIowlddrlOe/g8UINPIyGJWxvir
+ qzUCOm58pYCI9VFZSQRIhzF2YoEpsyT2hghX7WzHHyVVG3oIZS0HydogWq5PoJktbo0k
+ 69nDgZGraG44/cC9kCtcigX4g+DVQ/9KGS0Kv4lYyzXG3CEHDRkiVOSDDQtQk5wgixe7
+ nuiniZuO0tbOUENQRuoWqyQf1PpJvmpfxroTadf4NB0EAXZafJ7+9+bIBIiZXdl8ZWUJ
+ Y10kBHEQhyFYJPK12jvId9/UOsyaSIew3+xcdU2T7QhUpvIL+IonJrCKAnVZ7iGn5HUK
+ AnSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=N8Sp/Hul/VcW5ZGTSC2vV6ItN+taV4hef/FvbP4NSqM=;
+ b=ATD2xrwXOcqBlJCZw/JwRKPxfb5kX2AoGoFC3jMMJkSyvB0Sobs9/QC0bki16rRsZB
+ Dq8+6v1DOMAzmDvvI41U+kur6EoXUeSKZyAoX8cR1irK/HxHKSUAGZhfNq7ufKwHFQP5
+ oLUBXsgaaZKp44o81cnPr5OVVeiHn8A9HnL660EA2+tpba4dig8pTgJ6Sqatxx0tUbcP
+ ZEtGrdBV+iUFpMQ+ksDrKG6NlD5or9iegNWsUBD7Nsr1S7otEPrl4ItFfOtuxgV8GtPb
+ hFicuNoRyfNt8Tb34IupNsb/TzmLN0J9IkAGUebJaqCnQyM7uz87PYFBmrvfBe0pRRZa
+ vwPw==
+X-Gm-Message-State: AIVw112hS4WndTRrkY/8yxAlgNoXZJOk/qhyF1cU/MFzXhpc6gZiUKTb
+ dfvHFOJ1+hFY0DXaR/tHL9NvfQ4FAQ==
+X-Received: by 10.129.211.12 with SMTP id y12mr2411102ywi.220.1501119091055;
+ Wed, 26 Jul 2017 18:31:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-AS-GCONF: 00
-x-cbid: 17072700-0044-0000-0000-00000373C52D
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007432; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00893385; UDB=6.00446630; IPR=6.00673549; 
- BA=6.00005492; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016397; XFM=3.00000015;
- UTC=2017-07-27 00:23:40
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17072700-0045-0000-0000-000007A1CFFD
-Message-Id: <87bmo6sp6k.fsf@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-07-26_12:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
- definitions=main-1707270005
+Sender: joel.stan@gmail.com
+Received: by 10.37.170.177 with HTTP; Wed, 26 Jul 2017 18:31:10 -0700 (PDT)
+In-Reply-To: <1501105213-13881-1-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1501105213-13881-1-git-send-email-eajames@linux.vnet.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 27 Jul 2017 11:01:10 +0930
+X-Google-Sender-Auth: 4SqbiY6w4iA0ZRbSepbHwLYLnW0
+Message-ID: <CACPK8Xc33U5Wu8EWmxnw0dJ9eEo2opDoykpDs2Mb606EpvgthA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] drivers/hwmon/pmbus: Add IBM P178531 driver
+To: Eddie James <eajames@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Matt Spinler <mspinler@linux.vnet.ibm.com>, 
+ "Edward A. James" <eajames@us.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -70,23 +61,156 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Jul 2017 00:23:46 -0000
+X-List-Received-Date: Thu, 27 Jul 2017 01:31:33 -0000
 
-So, I spotted https://gerrit.openbmc-project.xyz/#/c/4881/ (well, an
-associated internal bug report), and it appears there is a FFDC tool in
-existence?
+On Thu, Jul 27, 2017 at 7:10 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+> From: "Edward A. James" <eajames@us.ibm.com>
+>
+> Add the driver to monitor power supply with hwmon.
+>
+> Signed-off-by: Edward A. James <eajames@us.ibm.com>
 
-(FFDC seems like a bit of an IBM specific term, First Failure Data
-Capture - i.e. gather all the things when something goes wrong and
-attach it to a bug report)
+Very neat! Great work.
 
-I'm wondering where I missed any announce/info on its availability and
-use?
+I assume there are no public datasheets for this one? Mention that in
+your commit message if so.
 
-Perhaps an idea would be to put it in the motd and/or /etc/issue(.net)
-so that it's prominently documented (we do this for petitboot for
-OpenPOWER host firmware, and I think that helps)?
+Can you please post this to the upstream list? I want to get their
+opinion on the fault clearing. I don't have a suggestion for an
+alternative, unless we make this part of the pmbus core so that all
+devices have a clear_fault sysfs knob.
 
--- 
-Stewart Smith
-OPAL Architect, IBM.
+Cheers,
+
+Joel
+
+> ---
+>  drivers/hwmon/pmbus/Kconfig  | 10 ++++++
+>  drivers/hwmon/pmbus/Makefile |  1 +
+>  drivers/hwmon/pmbus/p17531.c | 81 ++++++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 92 insertions(+)
+>  create mode 100644 drivers/hwmon/pmbus/p17531.c
+>
+> diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
+> index 68d717a..808ef2f 100644
+> --- a/drivers/hwmon/pmbus/Kconfig
+> +++ b/drivers/hwmon/pmbus/Kconfig
+> @@ -125,6 +125,16 @@ config SENSORS_MAX8688
+>           This driver can also be built as a module. If so, the module will
+>           be called max8688.
+>
+> +config SENSORS_P17531
+> +       tristate "IBM P17531"
+> +       default n
+> +       help
+> +         If you say yes here you get hardware monitoring support for IBM
+> +         P17531 power supply.
+> +
+> +         This driver can also be built as a module. If so, the module will
+> +         be called p17531.
+> +
+>  config SENSORS_TPS40422
+>         tristate "TI TPS40422"
+>         default n
+> diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
+> index 75bb7ca..f43628f 100644
+> --- a/drivers/hwmon/pmbus/Makefile
+> +++ b/drivers/hwmon/pmbus/Makefile
+> @@ -13,6 +13,7 @@ obj-$(CONFIG_SENSORS_MAX16064)        += max16064.o
+>  obj-$(CONFIG_SENSORS_MAX20751) += max20751.o
+>  obj-$(CONFIG_SENSORS_MAX34440) += max34440.o
+>  obj-$(CONFIG_SENSORS_MAX8688)  += max8688.o
+> +obj-$(CONFIG_SENSORS_P17531)   += p17531.o
+>  obj-$(CONFIG_SENSORS_TPS40422) += tps40422.o
+>  obj-$(CONFIG_SENSORS_UCD9000)  += ucd9000.o
+>  obj-$(CONFIG_SENSORS_UCD9200)  += ucd9200.o
+> diff --git a/drivers/hwmon/pmbus/p17531.c b/drivers/hwmon/pmbus/p17531.c
+> new file mode 100644
+> index 0000000..ae6a19f
+> --- /dev/null
+> +++ b/drivers/hwmon/pmbus/p17531.c
+> @@ -0,0 +1,81 @@
+> +/*
+> + * Copyright 2017 IBM Corp.
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License as published by
+> + * the Free Software Foundation; either version 2 of the License, or
+> + * (at your option) any later version.
+> + */
+> +
+> +#include <linux/device.h>
+> +#include <linux/i2c.h>
+> +#include <linux/jiffies.h>
+> +#include <linux/module.h>
+> +
+> +#include "pmbus.h"
+> +
+> +static struct pmbus_driver_info p17531_info = {
+> +       .pages = 1,
+> +       .func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_VOUT | PMBUS_HAVE_IOUT |
+> +               PMBUS_HAVE_PIN | PMBUS_HAVE_FAN12 | PMBUS_HAVE_TEMP |
+> +               PMBUS_HAVE_TEMP2 | PMBUS_HAVE_TEMP3 | PMBUS_HAVE_STATUS_VOUT |
+> +               PMBUS_HAVE_STATUS_IOUT | PMBUS_HAVE_STATUS_INPUT |
+> +               PMBUS_HAVE_STATUS_TEMP | PMBUS_HAVE_STATUS_FAN12,
+> +};
+> +
+> +static ssize_t p17531_clear_fault(struct device *dev,
+> +                                 struct device_attribute *dev_attr,
+> +                                 const char *buf, size_t count)
+> +{
+> +       struct i2c_client *client = to_i2c_client(dev);
+> +
+> +       pmbus_clear_faults(client);
+> +
+> +       return count;
+> +}
+> +
+> +static DEVICE_ATTR(clear_fault, 0200, NULL, p17531_clear_fault);
+> +
+> +static int p17531_probe(struct i2c_client *client,
+> +                       const struct i2c_device_id *id)
+> +{
+> +       int rc;
+> +
+> +       rc = pmbus_do_probe(client, id, &p17531_info);
+> +       if (rc < 0)
+> +               return rc;
+> +
+> +       rc = device_create_file(&client->dev, &dev_attr_clear_fault);
+> +
+> +       return rc;
+> +}
+> +
+> +static int p17531_remove(struct i2c_client *client)
+> +{
+> +       device_remove_file(&client->dev, &dev_attr_clear_fault);
+> +
+> +       return pmbus_do_remove(client);
+> +}
+> +
+> +enum chips { p17531 };
+> +
+> +static const struct i2c_device_id p17531_id[] = {
+> +       { "p17531", p17531 },
+> +       { }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, p17531_id);
+> +
+> +static struct i2c_driver p17531_driver = {
+> +       .driver = {
+> +               .name = "p17531",
+> +       },
+> +       .probe = p17531_probe,
+> +       .remove = p17531_remove,
+> +       .id_table = p17531_id,
+> +};
+> +
+> +module_i2c_driver(p17531_driver);
+> +
+> +MODULE_AUTHOR("Eddie James");
+> +MODULE_DESCRIPTION("PMBus driver for IBM P17531");
+> +MODULE_LICENSE("GPL");
+> --
+> 1.8.3.1
+>
