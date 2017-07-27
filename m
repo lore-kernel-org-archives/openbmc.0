@@ -3,52 +3,53 @@ Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xJ6qL5NgqzDrJG
- for <openbmc@lists.ozlabs.org>; Thu, 27 Jul 2017 19:58:06 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xJ6qP60WBzDrH5
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Jul 2017 19:58:09 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="DR6DnqSP"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="C9BBAEi4"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="MZ8Km9zR"; dkim-atps=neutral
+ header.b="a2DfZKfG"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 95371207FD;
- Thu, 27 Jul 2017 05:58:04 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 914D320A5E;
+ Thu, 27 Jul 2017 05:58:07 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Thu, 27 Jul 2017 05:58:04 -0400
+ by compute4.internal (MEProxy); Thu, 27 Jul 2017 05:58:07 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=R6ygFL
- b/3p5ogWYBQHXjcViWCSZPUmddSV9Oh65Q6Sw=; b=DR6DnqSPvuGe9WP3LhGIa7
- N5uJiAm/kQ0GsHA1VS8YCnyxLtjBTx431Ztw9DAvp1PpAHyqZ7R4/chNezMF4xpj
- PG1QI2gukSzhQ4Iw59uKstzmIYBAhRNgh4YUQbmAPz8U89/GUHd8CEGbk8ovYh65
- iwugQxbtN3ZhXkUwnpXLcx3pwiyvVR7J4yG2e0O0FMEL9rpKOObGh6uQ8OrkSwLC
- sGPkxPQFIndzJGYzFF5dW8e0Zdc63d2SGcCBIOHdCbjIFK3AIJFBr+AoSblAsWu5
- GRyFlmdQ6PxIZUR2ybVjFqwML8oI9oJ8Mk/pWlQLoKVJk/Hegb3NGgB72mY0zLfA
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=vjvFjl
+ Xgh9kRK0g2XHo7UmfdyQzN7gITAiJIre56yE0=; b=C9BBAEi44qEDJq4z/jGQtk
+ DnFMMUJBMBB4ajdEeVWKFM8xSByJBy4YbNYPIvT2UhErUZ/U0xyp0frAjoGZCtaq
+ p5E6vUByKr/ns98/OoOWoNYfiDcQp2swjldUQx/DgCd7F85hqAQm4woI9cjIrUwu
+ sVw5GTKks7AxckYyETvSEVLzrd9jHTuArf/fimRxKtK6tRdqaOd4RvvPAaQIrHa/
+ 2/VIKEPcAeBSP10hCprzYGdG7J0XCgRPjgMRNwH9X8C5scU4kCTwJ5eIb7sLU7Zf
+ QhW1I40a027hgsry459tBEVtvObLrZX63BBujgKQSS3ZCAPU2mfuVW5rnqkf39Ag
  ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:date:from:in-reply-to:message-id
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=R6ygFLb/3p5ogWYBQHXjcViWCSZPUmddSV9Oh65Q6
- Sw=; b=MZ8Km9zRvEeXX6IGxf0+2Tcl1x5qNXfwYUnKwOVzhYm14DFkeGJCZAQSp
- St6+4Uxg5h/bqbHe+tVwnwJw7H1z/eTtcoElsZ3Kp1bcHNku2pwMss5YQXUtxAIE
- rM1ZntqfIwBd0PLG3MOMID9Eq20CirepVvqjWo80niqZb/R1lRO9OpY6N40KU0HK
- O62GjOtXb8ftJhhkJYLUvrfTkyApQXUopAG97lBtOhLlTuPfp27aYckB506Ws9Ns
- fNisJleyinpaKXxSRQJP6DwGkjNM7fgjrbDD67k7qBZFvX51mSaIdTnqI6BLTuvt
- PsHmt7TKflzRwXW6OG1+UlDMMBTmA==
-X-ME-Sender: <xms:LLl5WR1Swp3kfEUv7vDRm4r2qxayd4P7uT8ZBrA-WbD9J_vYa0LNpg>
-X-Sasl-enc: fqVSUmLTMjgGWqg6YEyIGxqUSkj5frqWNxAswAxQ+re4 1501149483
+ :x-sasl-enc; s=fm1; bh=vjvFjlXgh9kRK0g2XHo7UmfdyQzN7gITAiJIre56y
+ E0=; b=a2DfZKfGZY2S09Erq84Pv/pgLW7rtg6f/UJaqxpUVka5QBrFCGdbmnFCY
+ 33qmXydgzMPxTllIUa/Z6KtB5WiUMegyijUHs8zp7vwjyS+4QuL5g2mjmEUeNoBw
+ TwUo4OtCKPBeWQ9EBk+4/NRmz0p/vwDkK4p6fdNY370VsHuwcPkr0VYaxGocfW/Q
+ hIvPgOkWkgC91m2huUwjB3mBIeB5dnOwovmcV2KDV7c8YWVbgu6Wvo/efJp1K97q
+ akfda3XdqcooB53fIZkXqBsOpKH9JY4/lDP38FH+19sdtylRE9il9bTuaq0aLPkS
+ 1WmtC8+aP6v4r2qvuFs3UuIazsnrQ==
+X-ME-Sender: <xms:L7l5WcS9ku4-KSIDnYpXKYNnf92KpvNzCGz4fMr7uQJM275fMN9ozg>
+X-Sasl-enc: EEPsaF0AnxQHEfE698sTVWbESyvU1vC6F3s0YX8R3rGE 1501149486
 Received: from keelia.aj.id.au (ppp118-210-176-216.bras2.adl6.internode.on.net
  [118.210.176.216])
- by mail.messagingengine.com (Postfix) with ESMTPA id 2D7F124287;
- Thu, 27 Jul 2017 05:58:01 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 0CB7E24130;
+ Thu, 27 Jul 2017 05:58:04 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: joel@jms.id.au
-Cc: msbarth@linux.vnet.ibm.com, mspinler@linux.vnet.ibm.com,
- bradleyb@fuzziesquirrel.com, openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10 v2 3/8] ARM: dts: aspeed: firestone: Update
+Cc: Andrew Jeffery <andrew@aj.id.au>, msbarth@linux.vnet.ibm.com,
+ mspinler@linux.vnet.ibm.com, bradleyb@fuzziesquirrel.com,
+ openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.10 v2 4/8] ARM: dts: aspeed: witherspoon: Update
  max31785 node
-Date: Thu, 27 Jul 2017 19:27:12 +0930
-Message-Id: <20170727095717.25479-4-andrew@aj.id.au>
+Date: Thu, 27 Jul 2017 19:27:13 +0930
+Message-Id: <20170727095717.25479-5-andrew@aj.id.au>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20170727095717.25479-1-andrew@aj.id.au>
 References: <20170727095717.25479-1-andrew@aj.id.au>
@@ -63,32 +64,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Jul 2017 09:58:07 -0000
+X-List-Received-Date: Thu, 27 Jul 2017 09:58:10 -0000
 
-From: Joel Stanley <joel@jms.id.au>
+Witherspoon contains four dual-tach fans. We configure them go to 100%
+when the fault pin is asserted, and disable the fan ramp watchdog. This
+preserves the behaviour of the previous driver.
 
-We set 6 fans, the maxium number of possible fans for the Maxim
-chip. The driver will detect which fans are installed and enable those.
-
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
- arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts | 84 +++++++++++++++++++++++++-
- 1 file changed, 82 insertions(+), 2 deletions(-)
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 57 +++++++++++++++++++++++-
+ 1 file changed, 55 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-index fef73ea7fd0c..7b4055f99e2b 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-@@ -105,12 +105,92 @@
- 	// i2c hub PCA9516A
- 	// spruce / madrone PDB
- 	// APSS
-+
- 	// FIR (fan / SATA backplane)
--	fanctl@52 {
-+	max31785@52 {
- 		compatible = "max,max31785";
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index d9649013ee78..a474b3f58350 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -197,7 +197,7 @@
+ 	 *    Power Supply 0
+ 	 *    Power Supply 1
+ 	 *    Fir Card ->
+-	 *      MAX31785 Fan Cntl
++	 *	MAX31785 Fan Cntl
+ 	 *    Regs 3.3VS, 1.1VCS, 5VCS, 1.8V
+ 	 */
+ 
+@@ -210,7 +210,60 @@
+ 	max31785@52 {
+ 		compatible = "maxim,max31785";
  		reg = <0x52>;
+-		fault-max-fan;
 +		#address-cells = <1>;
 +		#size-cells = <0>;
 +
@@ -143,36 +148,8 @@ index fef73ea7fd0c..7b4055f99e2b 100644
 +			maxim,fan-ramp = <2>;
 +			maxim,fan-fault-pin-mon;
 +		};
-+
-+		fan@4 {
-+			compatible = "pmbus-fan";
-+			reg = <4>;
-+			tach-pulses = <2>;
-+			maxim,fan-rotor-input = "tach";
-+			maxim,fan-pwm-freq = <25000>;
-+			maxim,fan-dual-tach;
-+			maxim,fan-no-watchdog;
-+			maxim,fan-no-fault-ramp;
-+			maxim,fan-ramp = <2>;
-+			maxim,fan-fault-pin-mon;
-+		};
-+
-+		fan@5 {
-+			compatible = "pmbus-fan";
-+			reg = <5>;
-+			tach-pulses = <2>;
-+			maxim,fan-rotor-input = "tach";
-+			maxim,fan-pwm-freq = <25000>;
-+			maxim,fan-dual-tach;
-+			maxim,fan-no-watchdog;
-+			maxim,fan-no-fault-ramp;
-+			maxim,fan-ramp = <2>;
-+			maxim,fan-fault-pin-mon;
-+		};
  	};
--
- };
  
- &i2c4 {
+ 	dps: dps310@76 {
 -- 
 2.11.0
