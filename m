@@ -1,84 +1,56 @@
-Return-Path: <c_mykolak@mellanox.com>
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur01on0072.outbound.protection.outlook.com [104.47.1.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xJ5192rCHzDrGD
- for <openbmc@lists.ozlabs.org>; Thu, 27 Jul 2017 18:36:29 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b="xs2xps+c";
- dkim-atps=neutral
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
- s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=q26lzD2RME3+q96GCV4J0qxnGwqwE0Xqn11WpKVUY+A=;
- b=xs2xps+cLVz/4TT+O6mdMKqF3pfbqD8iY8zqnkVZD1Mdxm2iwR7HO7lz2fUmhg1kiynzjGc/du8javkEfqOLRV80YwAxCXOHwMCf3s8v9nlumP2SMwhdNPALR4Ax/fBVPFyTs9zAwIw503hhchWI/nTZRofjq1uFf5Xzny6V9ME=
-Received: from DB5PR05MB1224.eurprd05.prod.outlook.com (10.161.245.11) by
- DB5PR05MB1255.eurprd05.prod.outlook.com (10.162.157.141) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1282.10; Thu, 27 Jul 2017 08:36:21 +0000
-Received: from DB5PR05MB1224.eurprd05.prod.outlook.com
- ([fe80::21e6:bfbb:dbbc:3bd5]) by DB5PR05MB1224.eurprd05.prod.outlook.com
- ([fe80::21e6:bfbb:dbbc:3bd5%14]) with mapi id 15.01.1282.021; Thu, 27 Jul
- 2017 08:36:21 +0000
-From: Mykola Kostenok <c_mykolak@mellanox.com>
-To: Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>
-CC: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
- "Jaghathiswari Rankappagounder Natarajan" <jaghu@google.com>, Jean Delvare
- <jdelvare@suse.com>, Ohad Oz <ohado@mellanox.com>, Vadim Pasternak
- <vadimp@mellanox.com>, Patrick Venture <venture@google.com>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>, Rob Herring <robh+dt@kernel.org>, Guenter Roeck
- <linux@roeck-us.net>
-Subject: RE: [patch v3] hwmon: (aspeed-pwm-tacho) cooling device support.
-Thread-Topic: [patch v3] hwmon: (aspeed-pwm-tacho) cooling device support.
-Thread-Index: AQHTBds7jY4kJVimWEKWJ2Y0xFIwFqJl8WVggAE+c4CAACYwIA==
-Date: Thu, 27 Jul 2017 08:36:21 +0000
-Message-ID: <DB5PR05MB1224E9363B110E787E3C16C3EFBE0@DB5PR05MB1224.eurprd05.prod.outlook.com>
-References: <20170725141727.13105-1-c_mykolak@mellanox.com>
- <CACPK8XeidChD_LT6o8MQBmyJ4r3mPCPfwEX_1REmQJkMNGELeQ@mail.gmail.com>
- <DB5PR05MB1224F329AA1C5BA4B37B4B86EFB90@DB5PR05MB1224.eurprd05.prod.outlook.com>
- <1501135285.5179.16.camel@aj.id.au>
-In-Reply-To: <1501135285.5179.16.camel@aj.id.au>
-Accept-Language: ru-RU, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=c_mykolak@mellanox.com; 
-x-originating-ip: [80.90.224.13]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; DB5PR05MB1255;
- 7:hESspIfm67j5avbUWLsLJ5P8yltoECb0qy9Vpuw+rRSXagC/aMFLIg3koc0+zmc+NKlc9QWLDPeHOtTpAbmHEKs0GvJRUFKlka5l1Sq/ahzmVApT8fqZIUh+avIHQUNfvGOLp6sepIzyQFkaVD60mwtx8dDgYVKfQebQOCljXbHCkFaaWJ0UIO4S0vJqsObgzghUU+GSF+vhDrAUb4Lf5ixS6LwxgnSHBOcLWhkoIyA6VkMS70+tb02mDmUAQa5NJmjxad1kIN9g4cskm4FNbZ41oT589wZAthIrU/h6BjnpFDXaxPAn21GDvLBIqvHI5MbgIVi5w1NZBx98B1b/wUQRSmGHyIhiXd4eMRQm28HLIcL0xv8eEXqmvvcUS988dWr8Vc/APSfqBU/U5m6PC2p3il1IGLHMUcEXfEY2JOGvvoA4l9tJ812zHlZLP1D6MvwVJxsxSI9fogRhvvs+h3grwuxCEJKo/vIVWtfqHElTQaNfV5gKPZhYC/Bosi4b8ycY+nMppVDqNQXGb09S3WMZyKoVaKGKZCNnsMtHiI4c66UIUNbq3YF7Ie7BvASvzHRVuxqCw7TXrVGFp/1s2Ttyq14qcCK11zG+k+ETkw2HlYGDEgNKuiFfGitYUzmnBVliwEfSkN7bSuediuH1avvHWentNxHuBfuMiEzm3V90R/MWkVNTdgIop618271vcMLTUN+iguq+sCBbb/aEZtdaAbnbkydhg1Y4hJVKsZw7Mtx6f4QfDgtezzlAcqAdFGBpbKcKrc8Fku7RLdWmJcyhfRlMwLrtjyiuZTmHNYc=
-x-ms-office365-filtering-correlation-id: 1ddad114-331b-4383-46d9-08d4d4ca8f0f
-x-ms-office365-filtering-ht: Tenant
-x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
- RULEID:(300000500095)(300135000095)(300000501095)(300135300095)(22001)(300000502095)(300135100095)(2017030254075)(48565401081)(300000503095)(300135400095)(2017052603031)(201703131423075)(201703031133081)(300000504095)(300135200095)(300000505095)(300135600095)(300000506095)(300135500095);
- SRVR:DB5PR05MB1255; 
-x-ms-traffictypediagnostic: DB5PR05MB1255:
-x-exchange-antispam-report-test: UriScan:(9452136761055)(65623756079841)(211936372134217)(153496737603132)(17755550239193)(107004242121476);
-x-microsoft-antispam-prvs: <DB5PR05MB1255D11E44AB3A42A78DE63CEFBE0@DB5PR05MB1255.eurprd05.prod.outlook.com>
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(100000700101)(100105000095)(100000701101)(100105300095)(100000702101)(100105100095)(6040450)(601004)(2401047)(8121501046)(5005006)(10201501046)(93006095)(93001095)(100000703101)(100105400095)(3002001)(920507026)(920511095)(6055026)(6041248)(20161123560025)(20161123558100)(20161123564025)(201703131423075)(201702281528075)(201703061421075)(201703061406153)(20161123555025)(20161123562025)(6072148)(100000704101)(100105200095)(100000705101)(100105500095);
- SRVR:DB5PR05MB1255; BCL:0; PCL:0;
- RULEID:(100000800101)(100110000095)(100000801101)(100110300095)(100000802101)(100110100095)(100000803101)(100110400095)(100000804101)(100110200095)(100000805101)(100110500095);
- SRVR:DB5PR05MB1255; 
-x-forefront-prvs: 03818C953D
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(6009001)(39850400002)(39400400002)(39840400002)(39860400002)(39410400002)(39450400003)(24454002)(199003)(13464003)(189002)(377424004)(377454003)(2950100002)(33656002)(575784001)(38730400002)(9686003)(5890100001)(34040400001)(102836003)(66066001)(6116002)(8936002)(54356999)(50986999)(81166006)(93886004)(3846002)(14454004)(74316002)(189998001)(3280700002)(5660300001)(4326008)(6506006)(106356001)(86362001)(25786009)(3660700001)(101416001)(2906002)(5250100002)(81156014)(7736002)(53546010)(229853002)(8676002)(53936002)(105586002)(76176999)(305945005)(7696004)(68736007)(6246003)(99286003)(230783001)(2900100001)(97736004)(54906002)(6436002)(55016002)(478600001)(17260700006);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DB5PR05MB1255;
- H:DB5PR05MB1224.eurprd05.prod.outlook.com; FPR:; SPF:None; PTR:InfoNoRecords;
- A:1; MX:1; LANG:en; 
-received-spf: None (protection.outlook.com: mellanox.com does not designate
- permitted sender hosts)
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-OriginatorOrg: Mellanox.com
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Jul 2017 08:36:21.2832 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB5PR05MB1255
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xJ5Dr4dXmzDrFw
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Jul 2017 18:46:36 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="DWvcsnRr"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="BbVWPDu1"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id A7A1B20699;
+ Thu, 27 Jul 2017 04:46:32 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Thu, 27 Jul 2017 04:46:32 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :date:from:message-id:subject:to:x-me-sender:x-me-sender
+ :x-sasl-enc:x-sasl-enc; s=fm1; bh=UyDLk34FdF9p43m8PvleswvklrYrEh
+ ncSvjc3gpJfX0=; b=DWvcsnRrEzffS/GQTUnDTJVuGJlmLpqIGDgyfr+95VU6cW
+ lP8GKeeANKdCSvZsaK/NieFBx+0yBQ6YDRTjbKfJ0PUy1C0XY09OvBZrRK9rITUp
+ TTU6QE77LjTYK2D9wIvLEyWj7zvnnmkFgMtq0ObymUPVL2wqVVSWe2ZXylJXLItg
+ 1i67tEXWna2uN1hqBvxOdq0b5xMKQucVEPIXTspN0AjVcX0aytx9o3+jMx08fcmw
+ yIJylaLc5Wy+hfYdpHdOdj7tzUqfUrMRxtxjArwrGxejwqS1VpJpA0289Of7jFqh
+ ZLQEeaav6IaN/DK1an66SysMuP9s66Akr6kMgtTA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=UyDLk3
+ 4FdF9p43m8PvleswvklrYrEhncSvjc3gpJfX0=; b=BbVWPDu1/1Q9PnD2RsH0fo
+ ZAvKONXp9iS6/HT2piuV+BpX050WYKV7jot5Oo3Rx04S9BdQ1BxqSatHvOqOBSfl
+ hj9IW4oX31e5fuF7houwm2K2/0P2tBjBn1XSegvKKYZQ+vPqLW5t4jR1Ns90k4gc
+ 6w1XDIuAz1QNeRZuxcwgzGKL4u3ozMumX19bVuLxX7RTXbkiooKYw/Ray2uD7eQ8
+ gVZsAAdB0TsBvtw31hp8AmKxyFYgsIOcfFOe6pj8XR/rURoEA8FV4k0h/mlupmbU
+ b0N1JuUo1PJVrOJ47uJ3EbGmfQvV23pditBmSU7iuS3EhERSHKlxr5O+JYKsZ2tQ
+ ==
+X-ME-Sender: <xms:aKh5WYrpf0q16nDEvRf1D-Jduf-2XRtR5_prngPUofeYX7-HCagc-Q>
+X-Sasl-enc: F8Pjkz5ELNolobhHdkVmUV5rBd3h8wpypYQd08v1yw/N 1501145191
+Received: from keelia.aj.id.au (ppp118-210-176-216.bras2.adl6.internode.on.net
+ [118.210.176.216])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 08148244DA;
+ Thu, 27 Jul 2017 04:46:27 -0400 (EDT)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: linux@roeck-us.net,
+	linux-hwmon@vger.kernel.org
+Cc: Andrew Jeffery <andrew@aj.id.au>, robh+dt@kernel.org, mark.rutland@arm.com,
+ jdelvare@suse.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, joel@jms.id.au, mspinler@linux.vnet.ibm.com,
+ msbarth@linux.vnet.ibm.com, openbmc@lists.ozlabs.org
+Subject: [PATCH 0/3] pmbus: Expand fan support and add MAX31785 driver
+Date: Thu, 27 Jul 2017 18:15:51 +0930
+Message-Id: <20170727084554.8794-1-andrew@aj.id.au>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -90,117 +62,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Jul 2017 08:36:31 -0000
+X-List-Received-Date: Thu, 27 Jul 2017 08:46:39 -0000
+X-List-Received-Date: Thu, 27 Jul 2017 08:46:39 -0000
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBBbmRyZXcgSmVmZmVyeSBbbWFp
-bHRvOmFuZHJld0Bhai5pZC5hdV0NCj4gU2VudDogVGh1cnNkYXksIEp1bHkgMjcsIDIwMTcgOTow
-MSBBTQ0KPiBUbzogTXlrb2xhIEtvc3Rlbm9rIDxjX215a29sYWtAbWVsbGFub3guY29tPjsgSm9l
-bCBTdGFubGV5DQo+IDxqb2VsQGptcy5pZC5hdT4NCj4gQ2M6IGxpbnV4LWh3bW9uQHZnZXIua2Vy
-bmVsLm9yZzsgSmFnaGF0aGlzd2FyaSBSYW5rYXBwYWdvdW5kZXINCj4gTmF0YXJhamFuIDxqYWdo
-dUBnb29nbGUuY29tPjsgSmVhbiBEZWx2YXJlIDxqZGVsdmFyZUBzdXNlLmNvbT47IE9oYWQNCj4g
-T3ogPG9oYWRvQG1lbGxhbm94LmNvbT47IFZhZGltIFBhc3Rlcm5hayA8dmFkaW1wQG1lbGxhbm94
-LmNvbT47DQo+IFBhdHJpY2sgVmVudHVyZSA8dmVudHVyZUBnb29nbGUuY29tPjsgT3BlbkJNQyBN
-YWlsbGlzdA0KPiA8b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPjsgUm9iIEhlcnJpbmcgPHJvYmgr
-ZHRAa2VybmVsLm9yZz47IEd1ZW50ZXINCj4gUm9lY2sgPGxpbnV4QHJvZWNrLXVzLm5ldD4NCj4g
-U3ViamVjdDogUmU6IFtwYXRjaCB2M10gaHdtb246IChhc3BlZWQtcHdtLXRhY2hvKSBjb29saW5n
-IGRldmljZSBzdXBwb3J0Lg0KPiANCj4gSGkgTXlrb2xhLA0KPiANCj4gSSBrbm93IHlvdSd2ZSBz
-ZW50IG91dCBzdWJzZXF1ZW50IHZlcnNpb25zLCBidXQgSSB3YW50ZWQgdG8gYWRkcmVzcyBvbmUg
-b2YNCj4geW91ciBhcmd1bWVudHMgaGVyZToNCj4gDQo+IE9uIFdlZCwgMjAxNy0wNy0yNiBhdCAx
-MTowOCArMDAwMCwgTXlrb2xhIEtvc3Rlbm9rIHdyb3RlOg0KPiA+ID4gPiBAQCAtODM0LDEwICs5
-NDYsMTIgQEAgc3RhdGljIGludCBhc3BlZWRfcHdtX3RhY2hvX3Byb2JlKHN0cnVjdA0KPiA+ID4g
-PiBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpDQo+ID4gPiA+DQo+ID4gPiA+IMKgwqDCoMKgwqDCoMKg
-wqAgZm9yX2VhY2hfY2hpbGRfb2Zfbm9kZShucCwgY2hpbGQpIHsNCj4gPiA+ID4gwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0ID0gYXNwZWVkX2NyZWF0ZV9mYW4oZGV2LCBjaGls
-ZCwgcHJpdik7DQo+ID4gPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIG9mX25vZGVf
-cHV0KGNoaWxkKTsNCj4gPiA+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKHJl
-dCkNCj4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKHJldCkgew0KPiA+
-ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgb2Zfbm9k
-ZV9wdXQoY2hpbGQpOw0KPiA+ID4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgcmV0dXJuIHJldDsNCj4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgfQ0KPiA+ID4gPiDCoMKgwqDCoMKgwqDCoMKgIH0NCj4gPiA+ID4gK8KgwqDCoMKg
-wqDCoCBvZl9ub2RlX3B1dChjaGlsZCk7DQo+ID4gPg0KPiA+ID4gSSdtIG5vdCBzdXJlIGFib3V0
-IHRoZXNlLg0KPiA+ID4NCj4gPiA+IENoZWVycywNCj4gPiA+DQo+ID4gPiBKb2VsDQo+ID4NCj4g
-PiBJZiBDT05GSUdfT0ZfVU5JVFRFU1QgaXMgc2V0LCBzeXN0ZW0gaW5pdGlhbGl6YXRpb27CoCBm
-YWlscyBvbiB0aGlzDQo+IG9mX25vZGVfcHV0Lg0KPiA+IEkgY2hlY2tlZCBhbmQgZm91bmQgdGhh
-dCBmb3JfZWFjaF9jaGlsZF9vZl9ub2RlIGlzIG1hY3JvIHdpdGNoIHVzZQ0KPiA+IF9fb2ZfZ2V0
-X25leHRfY2hpbGQNCj4gPiDCoGluIGN5Y2xlLiBfX29mX2dldF9uZXh0X2NoaWxkIGRvIG9mX25v
-ZGVfcHV0IHByZXZpb3VzIGNoaWxkIGJ1dCBub3QgbGFzdC4NCj4gPg0KPiA+IHN0YXRpYyBzdHJ1
-Y3QgZGV2aWNlX25vZGUgKl9fb2ZfZ2V0X25leHRfY2hpbGQoY29uc3Qgc3RydWN0DQo+ID4gZGV2
-aWNlX25vZGUgKm5vZGUsDQo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgc3RydWN0IGRldmljZV9ub2RlDQo+ID4gKnByZXYpIHsNCj4gPiDCoMKgwqDCoMKgwqDCoMKg
-c3RydWN0IGRldmljZV9ub2RlICpuZXh0Ow0KPiA+DQo+ID4gwqDCoMKgwqDCoMKgwqDCoGlmICgh
-bm9kZSkNCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJldHVybiBOVUxMOw0K
-PiA+DQo+ID4gwqDCoMKgwqDCoMKgwqDCoG5leHQgPSBwcmV2ID8gcHJldi0+c2libGluZyA6IG5v
-ZGUtPmNoaWxkOw0KPiA+IMKgwqDCoMKgwqDCoMKgwqBmb3IgKDsgbmV4dDsgbmV4dCA9IG5leHQt
-PnNpYmxpbmcpDQo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBpZiAob2Zfbm9k
-ZV9nZXQobmV4dCkpDQo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgYnJlYWs7DQo+ID4gwqDCoMKgwqDCoMKgwqDCoG9mX25vZGVfcHV0KHByZXYpOw0K
-PiA+IMKgwqDCoMKgwqDCoMKgwqByZXR1cm4gbmV4dDsNCj4gPiB9DQo+ID4gI2RlZmluZSBfX2Zv
-cl9lYWNoX2NoaWxkX29mX25vZGUocGFyZW50LCBjaGlsZCkgXA0KPiA+IMKgwqDCoMKgwqDCoMKg
-wqBmb3IgKGNoaWxkID0gX19vZl9nZXRfbmV4dF9jaGlsZChwYXJlbnQsIE5VTEwpOyBjaGlsZCAh
-PSBOVUxMOw0KPiA+IFwNCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY2hpbGQgPSBfX29m
-X2dldF9uZXh0X2NoaWxkKHBhcmVudCwgY2hpbGQpKQ0KPiA+DQo+ID4gU28gaW5zaWRlIGN5Y2xl
-IHdlIHNob3VsZCBub3QgdXNlIG9mX25vZGVfcHV0IG9uIGVhY2ggY2hpbGQuIFdlIG11c3QgdXNl
-DQo+IGl0IG9ubHkgb24gbGFzdCBjaGlsZCBpbiBjeWNsZS4NCj4gDQo+IEkgd2FzIGp1c3QgbG9v
-a2luZyBhdCB0aGlzIG15c2VsZiBmb3IgYSBkaWZmZXJlbnQgZHJpdmVyLCBhbmQgSSBkb24ndCB0
-aGluayB0aGlzDQo+IGFyZ3VtZW50IGlzIHJpZ2h0LiBUaGUgbmF0dXJhbCB0ZXJtaW5hdGluZyBj
-b25kaXRpb24gb2YgdGhlIGxvb3AgaXMgY2hpbGQgPT0NCj4gTlVMTC4gY2hpbGQgPT0gTlVMTCBv
-Y2N1cnMgaWYgd2UgaGF2ZSB6ZXJvLW9yLW1vcmUtIGNoaWxkcmVuOyB0aGUgY2hpbGQgaXMNCj4g
-YWx3YXlzIGluaXRpYWxpc2VkIGFzIHBhcnQgb2YgdGhlIGxvb3AgaGVhZGVyIGFuZCB3b3VsZCBi
-ZSBOVUxMIGlmIHRoZXJlIGFyZQ0KPiBubyBjaGlsZHJlbi4gSWYgd2UgaGF2ZSBtb3JlIHRoYW4g
-b25lIGNoaWxkLCB0aGUgcmVmZXJlbmNlIHRvIHRoZSBsYXN0IHZhbGlkDQo+IGNoaWxkIGlzIHBh
-c3NlZCB0byBvZl9ub2RlX3B1dCgpIGluIF9fb2ZfZ2V0X25leHRfY2hpbGQoKSBpbiBvcmRlciB0
-byByZXR1cm4NCj4gdGhlIHRlcm1pbmF0aW5nIE5VTEwuIEdpdmVuDQo+IF9fb2ZfZ2V0X25leHRf
-Y2hpbGQoKSBpcyBwYXNzZWQgdGhlIGxhc3Qgbm9kZSBhbmQgdGhlIHJlc3VsdCBpcyBOVUxMLCB0
-aGUgY2FsbA0KPiB0byBvZl9ub2RlX3B1dCgpIGFmdGVyIHRoZSBsb29wIGlzIGFsd2F5cyBpbnZv
-a2VkIG9uIE5VTEwsIHdoaWNoIHBlcmZvcm1zDQo+IGFuIGVhcmx5IHJldHVybi4NCj4gDQo+IEFz
-IHN1Y2ggSSB0aGluayBpdCBpcyB1bm5lY2Vzc2FyeS4NCj4gDQo+IENoZWVycywNCj4gDQo+IEFu
-ZHJldw0KDQpPaywgSSBhZ3JlZSB0aGF0IHdlIGRvbuKAmXQgbmVlZCBvZl9ub2RlX3B1dCBhZnRl
-ciBsb29wLiANCldlIG11c3QgZG8gb2Zfbm9kZV9wdXQgb25seSBpbiBjYXNlIG9mIGVycm9yLg0K
-DQpTbyBJIHdpbGwgc2VuZCBuZXh0IHBhdGNoIHY2IHdpdGggdGhpczoNCiAgICAgICAgICAgZm9y
-X2VhY2hfY2hpbGRfb2Zfbm9kZShucCwgY2hpbGQpIHsNCiAgICAgICAgICAgICAgICAgICByZXQg
-PSBhc3BlZWRfY3JlYXRlX2ZhbihkZXYsIGNoaWxkLCBwcml2KTsNCiAgLSAgICAgICAgICAgICAg
-IG9mX25vZGVfcHV0KGNoaWxkKTsNCiAgLSAgICAgICAgICAgICAgIGlmIChyZXQpDQogKyAgICAg
-ICAgICAgICAgIGlmIChyZXQpIHsNCiArICAgICAgICAgICAgICAgICAgICAgICBvZl9ub2RlX3B1
-dChjaGlsZCk7DQogICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiByZXQ7DQogKyAgICAg
-ICAgICAgICAgIH0NCiAgICAgICAgICB9DQoNCldpdGhvdXQgaXQgYW5kIHdpdGggQ09ORklHX09G
-X1VOSVRURVNUIHdlIHNlZSB0aGlzOg0KWyAgICAzLjAwMDAwMF0gWzw4MDAxMDA4MD5dICh1bndp
-bmRfYmFja3RyYWNlKSBmcm9tIFs8ODAwMGQ5MzQ+XSAoc2hvd19zdGFjaysweDIwLzB4MjQpDQpb
-ICAgIDMuMDAwMDAwXSBbPDgwMDBkOTM0Pl0gKHNob3dfc3RhY2spIGZyb20gWzw4MDFkYmY4Yz5d
-IChkdW1wX3N0YWNrKzB4MjAvMHgyOCkNClsgICAgMy4wMDAwMDBdIFs8ODAxZGJmOGM+XSAoZHVt
-cF9zdGFjaykgZnJvbSBbPDgwMzBhZDE0Pl0gKG9mX25vZGVfcmVsZWFzZSsweDk4LzB4YTApDQpb
-ICAgIDMuMDAwMDAwXSBbPDgwMzBhZDE0Pl0gKG9mX25vZGVfcmVsZWFzZSkgZnJvbSBbPDgwMWRl
-MGVjPl0gKGtvYmplY3RfcHV0KzB4ZjgvMHgxZWMpDQpbICAgIDMuMDAwMDAwXSBbPDgwMWRlMGVj
-Pl0gKGtvYmplY3RfcHV0KSBmcm9tIFs8ODAzMGEzNDA+XSAob2Zfbm9kZV9wdXQrMHgyNC8weDI4
-KQ0KWyAgICAzLjAwMDAwMF0gWzw4MDMwYTM0MD5dIChvZl9ub2RlX3B1dCkgZnJvbSBbPDgwMzA1
-ZmU0Pl0gKF9fb2ZfZ2V0X25leHRfY2hpbGQrMHg1OC8weDcwKQ0KWyAgICAzLjAwMDAwMF0gWzw4
-MDMwNWZlND5dIChfX29mX2dldF9uZXh0X2NoaWxkKSBmcm9tIFs8ODAzMDY2OGM+XSAob2ZfZ2V0
-X25leHRfY2hpbGQrMHgyMC8weDI4KQ0KWyAgICAzLjAwMDAwMF0gWzw4MDMwNjY4Yz5dIChvZl9n
-ZXRfbmV4dF9jaGlsZCkgZnJvbSBbPDgwMmUzOWFjPl0gKGFzcGVlZF9wd21fdGFjaG9fcHJvYmUr
-MHg0OTAvMHg1NzQpDQpbICAgIDMuMDAwMDAwXSBbPDgwMmUzOWFjPl0gKGFzcGVlZF9wd21fdGFj
-aG9fcHJvYmUpIGZyb20gWzw4MDI0NDA5MD5dIChwbGF0Zm9ybV9kcnZfcHJvYmUrMHg2MC8weGMw
-KQ0KWyAgICAzLjAwMDAwMF0gWzw4MDI0NDA5MD5dIChwbGF0Zm9ybV9kcnZfcHJvYmUpIGZyb20g
-Wzw4MDI0MjQwOD5dIChkcml2ZXJfcHJvYmVfZGV2aWNlKzB4MjgwLzB4NDRjKQ0KWyAgICAzLjAw
-MDAwMF0gWzw4MDI0MjQwOD5dIChkcml2ZXJfcHJvYmVfZGV2aWNlKSBmcm9tIFs8ODAyNDI2YzQ+
-XSAoX19kcml2ZXJfYXR0YWNoKzB4ZjAvMHgxMDQpDQpbICAgIDMuMDAwMDAwXSBbPDgwMjQyNmM0
-Pl0gKF9fZHJpdmVyX2F0dGFjaCkgZnJvbSBbPDgwMjQwM2Q4Pl0gKGJ1c19mb3JfZWFjaF9kZXYr
-MHg3Yy8weGIwKQ0KWyAgICAzLjAwMDAwMF0gWzw4MDI0MDNkOD5dIChidXNfZm9yX2VhY2hfZGV2
-KSBmcm9tIFs8ODAyNDI4NmM+XSAoZHJpdmVyX2F0dGFjaCsweDI4LzB4MzApDQpbICAgIDMuMDAw
-MDAwXSBbPDgwMjQyODZjPl0gKGRyaXZlcl9hdHRhY2gpIGZyb20gWzw4MDI0MGUzOD5dIChidXNf
-YWRkX2RyaXZlcisweDE0Yy8weDI2OCkNClsgICAgMy4wMDAwMDBdIFs8ODAyNDBlMzg+XSAoYnVz
-X2FkZF9kcml2ZXIpIGZyb20gWzw4MDI0MzJmOD5dIChkcml2ZXJfcmVnaXN0ZXIrMHg4OC8weDEw
-NCkNClsgICAgMy4wMDAwMDBdIFs8ODAyNDMyZjg+XSAoZHJpdmVyX3JlZ2lzdGVyKSBmcm9tIFs8
-ODAyNDRjZDA+XSAoX19wbGF0Zm9ybV9kcml2ZXJfcmVnaXN0ZXIrMHg0MC8weDU0KQ0KWyAgICAz
-LjAwMDAwMF0gWzw4MDI0NGNkMD5dIChfX3BsYXRmb3JtX2RyaXZlcl9yZWdpc3RlcikgZnJvbSBb
-PDgwNWJmYzY0Pl0gKGFzcGVlZF9wd21fdGFjaG9fZHJpdmVyX2luaXQrMHgxOC8weDIwKQ0KWyAg
-ICAzLjAwMDAwMF0gWzw4MDViZmM2ND5dIChhc3BlZWRfcHdtX3RhY2hvX2RyaXZlcl9pbml0KSBm
-cm9tIFs8ODA1OWRlNzA+XSAoZG9fb25lX2luaXRjYWxsKzB4YWMvMHgxNjgpDQpbICAgIDMuMDAw
-MDAwXSBbPDgwNTlkZTcwPl0gKGRvX29uZV9pbml0Y2FsbCkgZnJvbSBbPDgwNTllMDQwPl0gKGtl
-cm5lbF9pbml0X2ZyZWVhYmxlKzB4MTE0LzB4MWNjKQ0KWyAgICAzLjAwMDAwMF0gWzw4MDU5ZTA0
-MD5dIChrZXJuZWxfaW5pdF9mcmVlYWJsZSkgZnJvbSBbPDgwNDA3MmEwPl0gKGtlcm5lbF9pbml0
-KzB4MTgvMHgxMDQpDQpbICAgIDMuMDAwMDAwXSBbPDgwNDA3MmEwPl0gKGtlcm5lbF9pbml0KSBm
-cm9tIFs8ODAwMGE1ZTg+XSAocmV0X2Zyb21fZm9yaysweDE0LzB4MmMpDQpbICAgIDMuMjAwMDAw
-XSBPRjogRVJST1I6IEJhZCBvZl9ub2RlX3B1dCgpIG9uIC9haGIvYXBiL3B3bS10YWNoby1jb250
-cm9sbGVyQDFlNzg2MDAwL2ZhbkAxDQpBbmQga2VybmVsIHBhbmljIGF0IHRoZSBlbmQuDQoNCkJl
-c3QgcmVnYXJkcy4gTXlrb2xhIEtvc3Rlbm9rLg0K
+Hello,
+
+Previously I'd posted a second RFC series implementing fan control support in
+PMBus core and adding a driver for the MAX31785 fan controller:
+
+  https://www.spinics.net/lists/kernel/msg2558128.html
+
+I think the core changes have settled enough to move the effort out of RFC-land.
+
+This series is some modest refinements on the core based on previous feedback,
+and polishes the driver implementation by defining and implementing devicetree
+bindings for the controller.
+
+The series has been tested on a number of IBM Witherspoon systems, which
+contain the fan controller of interest.
+
+Please review!
+
+Andrew
+
+Changes between RFC v2 to (non-RFC) v1
+
+* Clean up issues identified in comments on the pmbus core changes 
+* Define and implement bindings for the MAX31785
+* Clean up issues identified in comments on the max31785 driver
+
+Andrew Jeffery (3):
+  dt-bindings: hwmon: pmbus: Add Maxim MAX31785 documentation
+  hwmon: pmbus: Add fan control support
+  pmbus: Add driver for Maxim MAX31785 Intelligent Fan Controller
+
+ .../devicetree/bindings/hwmon/pmbus/max31785.txt   | 117 ++++
+ drivers/hwmon/pmbus/Kconfig                        |  10 +
+ drivers/hwmon/pmbus/Makefile                       |   1 +
+ drivers/hwmon/pmbus/max31785.c                     | 670 +++++++++++++++++++++
+ drivers/hwmon/pmbus/pmbus.h                        |  29 +
+ drivers/hwmon/pmbus/pmbus_core.c                   | 222 ++++++-
+ 6 files changed, 1034 insertions(+), 15 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt
+ create mode 100644 drivers/hwmon/pmbus/max31785.c
+
+-- 
+2.11.0
