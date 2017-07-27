@@ -1,54 +1,57 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x242.google.com (mail-yw0-x242.google.com
- [IPv6:2607:f8b0:4002:c05::242])
+Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
+ [IPv6:2607:f8b0:4002:c05::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xHvZs1jk6zDrD6
- for <openbmc@lists.ozlabs.org>; Thu, 27 Jul 2017 11:31:33 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xHvhj0gmRzDrD6
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Jul 2017 11:36:36 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="YrXcdegJ"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="PI8cbb+x"; 
  dkim-atps=neutral
-Received: by mail-yw0-x242.google.com with SMTP id s143so3807684ywg.4
- for <openbmc@lists.ozlabs.org>; Wed, 26 Jul 2017 18:31:33 -0700 (PDT)
+Received: by mail-yw0-x244.google.com with SMTP id l82so6181476ywc.2
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Jul 2017 18:36:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=N8Sp/Hul/VcW5ZGTSC2vV6ItN+taV4hef/FvbP4NSqM=;
- b=YrXcdegJOI791FrEXeDS7idMcSdgQZcknOUaT16EIowlddrlOe/g8UINPIyGJWxvir
- qzUCOm58pYCI9VFZSQRIhzF2YoEpsyT2hghX7WzHHyVVG3oIZS0HydogWq5PoJktbo0k
- 69nDgZGraG44/cC9kCtcigX4g+DVQ/9KGS0Kv4lYyzXG3CEHDRkiVOSDDQtQk5wgixe7
- nuiniZuO0tbOUENQRuoWqyQf1PpJvmpfxroTadf4NB0EAXZafJ7+9+bIBIiZXdl8ZWUJ
- Y10kBHEQhyFYJPK12jvId9/UOsyaSIew3+xcdU2T7QhUpvIL+IonJrCKAnVZ7iGn5HUK
- AnSA==
+ bh=4NNx2826IKRPWjkca4qcV16cfkQpS/4eiNgLB9+uc0k=;
+ b=PI8cbb+xMfAuTS8hHB9qaJGQ4G/rMR/r9TFlYogbtV91Ob2MHFwNJueyqZfOxSc1Hf
+ ij9DIJiYLsP/PMVHOBSltNEKT4TsRYdasHDs4j6OqGMX+fRvuz7Oo9VaSYs/F8dVwyHn
+ nFhcES3AA3iPNPkjzVogIHK0qtW9AVUr9U7kucInnpo3/Zbf3xpf7uysYJz2bPa3y/Q4
+ xHGm1b+F0COF6nPA2nBpme5imJcP4Rr3iESnSRfbYg8k/mzucSqeGzrzACq+RkOWE9zb
+ wZxZ/Ma8yul5DYjXhioBCrE9IadGUCdu0rFlo54K6W7v1MYnB3j+M8Ifag/kJtubcCa/
+ UcHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=N8Sp/Hul/VcW5ZGTSC2vV6ItN+taV4hef/FvbP4NSqM=;
- b=ATD2xrwXOcqBlJCZw/JwRKPxfb5kX2AoGoFC3jMMJkSyvB0Sobs9/QC0bki16rRsZB
- Dq8+6v1DOMAzmDvvI41U+kur6EoXUeSKZyAoX8cR1irK/HxHKSUAGZhfNq7ufKwHFQP5
- oLUBXsgaaZKp44o81cnPr5OVVeiHn8A9HnL660EA2+tpba4dig8pTgJ6Sqatxx0tUbcP
- ZEtGrdBV+iUFpMQ+ksDrKG6NlD5or9iegNWsUBD7Nsr1S7otEPrl4ItFfOtuxgV8GtPb
- hFicuNoRyfNt8Tb34IupNsb/TzmLN0J9IkAGUebJaqCnQyM7uz87PYFBmrvfBe0pRRZa
- vwPw==
-X-Gm-Message-State: AIVw112hS4WndTRrkY/8yxAlgNoXZJOk/qhyF1cU/MFzXhpc6gZiUKTb
- dfvHFOJ1+hFY0DXaR/tHL9NvfQ4FAQ==
-X-Received: by 10.129.211.12 with SMTP id y12mr2411102ywi.220.1501119091055;
- Wed, 26 Jul 2017 18:31:31 -0700 (PDT)
+ bh=4NNx2826IKRPWjkca4qcV16cfkQpS/4eiNgLB9+uc0k=;
+ b=kxtgPHG+4lW9X0jdyqYSJHwVM9mwDAYZiT6ojxT1F0qk32yHOk+hdmUFk8C9MmJyIG
+ OxYY5d9ZjLZmHXgiva+3dRRV7ybw993uAcSbh7sn1YGaugyzxoXIrjG+8FTWfqy3ajFY
+ IiJAID3HFm2ounPpdABufdJwKC04PdaH4Hj7+Go6h6bfXTOmzYD3PSlM8g0Z3F9wVdjK
+ HeZHjOJsbTB1ZXNT3jvaaVKextXtnqrUQgNzppjh4iqwGtut+La5ABn05Io7NKCy4TmH
+ yUE2hsuVTw9RJHZs8yCHhf2OAr6DoVVB0lOXteAbcAF6OKuV0GGZfmo97DavyLXfDQ/J
+ nxgA==
+X-Gm-Message-State: AIVw112qJ2Vi6TkgYRqoAn8MKozN0DLzf0BNCkdCkrZrkNklVJbd+LgX
+ m+/9z9blQVUjS4OyzdQTp3WiPr3RXg==
+X-Received: by 10.37.114.198 with SMTP id n189mr2391121ybc.21.1501119394382;
+ Wed, 26 Jul 2017 18:36:34 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.170.177 with HTTP; Wed, 26 Jul 2017 18:31:10 -0700 (PDT)
-In-Reply-To: <1501105213-13881-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1501105213-13881-1-git-send-email-eajames@linux.vnet.ibm.com>
+Received: by 10.37.170.177 with HTTP; Wed, 26 Jul 2017 18:36:13 -0700 (PDT)
+In-Reply-To: <20170726145227.26466-1-c_mykolak@mellanox.com>
+References: <20170726145227.26466-1-c_mykolak@mellanox.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 27 Jul 2017 11:01:10 +0930
-X-Google-Sender-Auth: 4SqbiY6w4iA0ZRbSepbHwLYLnW0
-Message-ID: <CACPK8Xc33U5Wu8EWmxnw0dJ9eEo2opDoykpDs2Mb606EpvgthA@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] drivers/hwmon/pmbus: Add IBM P178531 driver
-To: Eddie James <eajames@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Matt Spinler <mspinler@linux.vnet.ibm.com>, 
- "Edward A. James" <eajames@us.ibm.com>
+Date: Thu, 27 Jul 2017 11:06:13 +0930
+X-Google-Sender-Auth: PcT7l6_W5mqnXUbS5hEx2XCIUIc
+Message-ID: <CACPK8XedO05y1r54rkGfByQ7sWZSsMZ1JGztdwFHQe9gs_HmVA@mail.gmail.com>
+Subject: Re: [patch v5] hwmon: (aspeed-pwm-tacho) cooling device support.
+To: Mykola Kostenok <c_mykolak@mellanox.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Jean Delvare <jdelvare@suse.com>,
+ linux-hwmon@vger.kernel.org, Rob Herring <robh+dt@kernel.org>, 
+ Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Patrick Venture <venture@google.com>, Vadim Pasternak <vadimp@mellanox.com>,
+ Ohad Oz <ohado@mellanox.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -61,156 +64,216 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Jul 2017 01:31:33 -0000
+X-List-Received-Date: Thu, 27 Jul 2017 01:36:37 -0000
 
-On Thu, Jul 27, 2017 at 7:10 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
-> From: "Edward A. James" <eajames@us.ibm.com>
+On Thu, Jul 27, 2017 at 12:22 AM, Mykola Kostenok
+<c_mykolak@mellanox.com> wrote:
+> Add support in aspeed-pwm-tacho driver for cooling device creation.
+> This cooling device could be bound to a thermal zone
+> for the thermal control. Device will appear in /sys/class/thermal
+> folder as cooling_deviceX. Then it could be bound to particular
+> thermal zones. Allow specification of the cooling levels
+> vector - PWM duty cycle values in a range from 0 to 255
+> which correspond to thermal cooling states.
 >
-> Add the driver to monitor power supply with hwmon.
+> Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
+
+Looks good.
+
+Reviewed-by: Joel Stanley <joel@jms.id.au>
+
 >
-> Signed-off-by: Edward A. James <eajames@us.ibm.com>
-
-Very neat! Great work.
-
-I assume there are no public datasheets for this one? Mention that in
-your commit message if so.
-
-Can you please post this to the upstream list? I want to get their
-opinion on the fault clearing. I don't have a suggestion for an
-alternative, unless we make this part of the pmbus core so that all
-devices have a clear_fault sysfs knob.
-
-Cheers,
-
-Joel
-
+> v1 -> v2:
+>  - Remove device tree binding file from the patch.
+>  - Move of_node_put out of cycle because of_get_next_child
+>    already do of_put_node on previous child.
+>
+> v2 -> v3:
+>  Pointed out by Rob Herring:
+>  - Put cooling-levels under fan subnodes.
+>
+> v3 -> v4:
+>  Pointed out by Joel Stanley:
+>  - Move patch history after Signoff.
+>  - Remove unnecessary type cast.
+>  - Use array instead of pointers for colling_levels.
+>  - Rename num_level to num_levels.
+>  - Use local variable to make function easier to read.
+>  - Drop unnesesary sizeof(u8).
+>  - Use IS_ERR instead of PTR_ERR_OR_ZERO.
+>
+> v4 -> v5:
+>  Pointed out by Joel Stanley:
+>  - Use snprintf to fill cdev->name[16].
 > ---
->  drivers/hwmon/pmbus/Kconfig  | 10 ++++++
->  drivers/hwmon/pmbus/Makefile |  1 +
->  drivers/hwmon/pmbus/p17531.c | 81 ++++++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 92 insertions(+)
->  create mode 100644 drivers/hwmon/pmbus/p17531.c
+>  drivers/hwmon/aspeed-pwm-tacho.c | 117 ++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 115 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-> index 68d717a..808ef2f 100644
-> --- a/drivers/hwmon/pmbus/Kconfig
-> +++ b/drivers/hwmon/pmbus/Kconfig
-> @@ -125,6 +125,16 @@ config SENSORS_MAX8688
->           This driver can also be built as a module. If so, the module will
->           be called max8688.
+> diff --git a/drivers/hwmon/aspeed-pwm-tacho.c b/drivers/hwmon/aspeed-pwm-tacho.c
+> index ddfe66b..049e4eb 100644
+> --- a/drivers/hwmon/aspeed-pwm-tacho.c
+> +++ b/drivers/hwmon/aspeed-pwm-tacho.c
+> @@ -20,6 +20,7 @@
+>  #include <linux/platform_device.h>
+>  #include <linux/sysfs.h>
+>  #include <linux/regmap.h>
+> +#include <linux/thermal.h>
 >
-> +config SENSORS_P17531
-> +       tristate "IBM P17531"
-> +       default n
-> +       help
-> +         If you say yes here you get hardware monitoring support for IBM
-> +         P17531 power supply.
+>  /* ASPEED PWM & FAN Tach Register Definition */
+>  #define ASPEED_PTCR_CTRL               0x00
+> @@ -166,6 +167,18 @@
+>  /* How long we sleep in us while waiting for an RPM result. */
+>  #define ASPEED_RPM_STATUS_SLEEP_USEC   500
+>
+> +#define MAX_CDEV_NAME_LEN 16
 > +
-> +         This driver can also be built as a module. If so, the module will
-> +         be called p17531.
-> +
->  config SENSORS_TPS40422
->         tristate "TI TPS40422"
->         default n
-> diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
-> index 75bb7ca..f43628f 100644
-> --- a/drivers/hwmon/pmbus/Makefile
-> +++ b/drivers/hwmon/pmbus/Makefile
-> @@ -13,6 +13,7 @@ obj-$(CONFIG_SENSORS_MAX16064)        += max16064.o
->  obj-$(CONFIG_SENSORS_MAX20751) += max20751.o
->  obj-$(CONFIG_SENSORS_MAX34440) += max34440.o
->  obj-$(CONFIG_SENSORS_MAX8688)  += max8688.o
-> +obj-$(CONFIG_SENSORS_P17531)   += p17531.o
->  obj-$(CONFIG_SENSORS_TPS40422) += tps40422.o
->  obj-$(CONFIG_SENSORS_UCD9000)  += ucd9000.o
->  obj-$(CONFIG_SENSORS_UCD9200)  += ucd9200.o
-> diff --git a/drivers/hwmon/pmbus/p17531.c b/drivers/hwmon/pmbus/p17531.c
-> new file mode 100644
-> index 0000000..ae6a19f
-> --- /dev/null
-> +++ b/drivers/hwmon/pmbus/p17531.c
-> @@ -0,0 +1,81 @@
-> +/*
-> + * Copyright 2017 IBM Corp.
-> + *
-> + * This program is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License as published by
-> + * the Free Software Foundation; either version 2 of the License, or
-> + * (at your option) any later version.
-> + */
-> +
-> +#include <linux/device.h>
-> +#include <linux/i2c.h>
-> +#include <linux/jiffies.h>
-> +#include <linux/module.h>
-> +
-> +#include "pmbus.h"
-> +
-> +static struct pmbus_driver_info p17531_info = {
-> +       .pages = 1,
-> +       .func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_VOUT | PMBUS_HAVE_IOUT |
-> +               PMBUS_HAVE_PIN | PMBUS_HAVE_FAN12 | PMBUS_HAVE_TEMP |
-> +               PMBUS_HAVE_TEMP2 | PMBUS_HAVE_TEMP3 | PMBUS_HAVE_STATUS_VOUT |
-> +               PMBUS_HAVE_STATUS_IOUT | PMBUS_HAVE_STATUS_INPUT |
-> +               PMBUS_HAVE_STATUS_TEMP | PMBUS_HAVE_STATUS_FAN12,
+> +struct aspeed_cooling_device {
+> +       char name[16];
+> +       struct aspeed_pwm_tacho_data *priv;
+> +       struct thermal_cooling_device *tcdev;
+> +       int pwm_port;
+> +       u8 *cooling_levels;
+> +       u8 max_state;
+> +       u8 cur_state;
 > +};
 > +
-> +static ssize_t p17531_clear_fault(struct device *dev,
-> +                                 struct device_attribute *dev_attr,
-> +                                 const char *buf, size_t count)
+>  struct aspeed_pwm_tacho_data {
+>         struct regmap *regmap;
+>         unsigned long clk_freq;
+> @@ -180,6 +193,7 @@ struct aspeed_pwm_tacho_data {
+>         u8 pwm_port_type[8];
+>         u8 pwm_port_fan_ctrl[8];
+>         u8 fan_tach_ch_source[16];
+> +       struct aspeed_cooling_device *cdev[8];
+>         const struct attribute_group *groups[3];
+>  };
+>
+> @@ -765,6 +779,94 @@ static void aspeed_create_fan_tach_channel(struct aspeed_pwm_tacho_data *priv,
+>         }
+>  }
+>
+> +static int
+> +aspeed_pwm_cz_get_max_state(struct thermal_cooling_device *tcdev,
+> +                           unsigned long *state)
 > +{
-> +       struct i2c_client *client = to_i2c_client(dev);
+> +       struct aspeed_cooling_device *cdev = tcdev->devdata;
 > +
-> +       pmbus_clear_faults(client);
+> +       *state = cdev->max_state;
 > +
-> +       return count;
+> +       return 0;
 > +}
 > +
-> +static DEVICE_ATTR(clear_fault, 0200, NULL, p17531_clear_fault);
-> +
-> +static int p17531_probe(struct i2c_client *client,
-> +                       const struct i2c_device_id *id)
+> +static int
+> +aspeed_pwm_cz_get_cur_state(struct thermal_cooling_device *tcdev,
+> +                           unsigned long *state)
 > +{
-> +       int rc;
+> +       struct aspeed_cooling_device *cdev = tcdev->devdata;
 > +
-> +       rc = pmbus_do_probe(client, id, &p17531_info);
-> +       if (rc < 0)
-> +               return rc;
+> +       *state = cdev->cur_state;
 > +
-> +       rc = device_create_file(&client->dev, &dev_attr_clear_fault);
-> +
-> +       return rc;
+> +       return 0;
 > +}
 > +
-> +static int p17531_remove(struct i2c_client *client)
+> +static int
+> +aspeed_pwm_cz_set_cur_state(struct thermal_cooling_device *tcdev,
+> +                           unsigned long state)
 > +{
-> +       device_remove_file(&client->dev, &dev_attr_clear_fault);
+> +       struct aspeed_cooling_device *cdev = tcdev->devdata;
 > +
-> +       return pmbus_do_remove(client);
+> +       if (state > cdev->max_state)
+> +               return -EINVAL;
+> +
+> +       cdev->cur_state = state;
+> +       cdev->priv->pwm_port_fan_ctrl[cdev->pwm_port] =
+> +                                       cdev->cooling_levels[cdev->cur_state];
+> +       aspeed_set_pwm_port_fan_ctrl(cdev->priv, cdev->pwm_port,
+> +                                    cdev->cooling_levels[cdev->cur_state]);
+> +
+> +       return 0;
 > +}
 > +
-> +enum chips { p17531 };
-> +
-> +static const struct i2c_device_id p17531_id[] = {
-> +       { "p17531", p17531 },
-> +       { }
+> +static const struct thermal_cooling_device_ops aspeed_pwm_cool_ops = {
+> +       .get_max_state = aspeed_pwm_cz_get_max_state,
+> +       .get_cur_state = aspeed_pwm_cz_get_cur_state,
+> +       .set_cur_state = aspeed_pwm_cz_set_cur_state,
 > +};
-> +MODULE_DEVICE_TABLE(i2c, p17531_id);
 > +
-> +static struct i2c_driver p17531_driver = {
-> +       .driver = {
-> +               .name = "p17531",
-> +       },
-> +       .probe = p17531_probe,
-> +       .remove = p17531_remove,
-> +       .id_table = p17531_id,
-> +};
+> +static int aspeed_create_pwm_cooling(struct device *dev,
+> +                                    struct device_node *child,
+> +                                    struct aspeed_pwm_tacho_data *priv,
+> +                                    u32 pwm_port, u8 num_levels)
+> +{
+> +       int ret;
+> +       struct aspeed_cooling_device *cdev;
 > +
-> +module_i2c_driver(p17531_driver);
+> +       cdev = devm_kzalloc(dev, sizeof(*cdev), GFP_KERNEL);
 > +
-> +MODULE_AUTHOR("Eddie James");
-> +MODULE_DESCRIPTION("PMBus driver for IBM P17531");
-> +MODULE_LICENSE("GPL");
+> +       if (!cdev)
+> +               return -ENOMEM;
+> +
+> +       cdev->cooling_levels = devm_kzalloc(dev, num_levels, GFP_KERNEL);
+> +       if (!cdev->cooling_levels)
+> +               return -ENOMEM;
+> +
+> +       cdev->max_state = num_levels - 1;
+> +       ret = of_property_read_u8_array(child, "cooling-levels",
+> +                                       cdev->cooling_levels,
+> +                                       num_levels);
+> +       if (ret) {
+> +               dev_err(dev, "Property 'cooling-levels' cannot be read.\n");
+> +               return ret;
+> +       }
+> +       snprintf(cdev->name, MAX_CDEV_NAME_LEN, "%s%d", child->name, pwm_port);
+> +
+> +       cdev->tcdev = thermal_of_cooling_device_register(child,
+> +                                                        cdev->name,
+> +                                                        cdev,
+> +                                                        &aspeed_pwm_cool_ops);
+> +       if (IS_ERR(cdev->tcdev))
+> +               return PTR_ERR(cdev->tcdev);
+> +
+> +       cdev->priv = priv;
+> +       cdev->pwm_port = pwm_port;
+> +
+> +       priv->cdev[pwm_port] = cdev;
+> +
+> +       return 0;
+> +}
+> +
+>  static int aspeed_create_fan(struct device *dev,
+>                              struct device_node *child,
+>                              struct aspeed_pwm_tacho_data *priv)
+> @@ -778,6 +880,15 @@ static int aspeed_create_fan(struct device *dev,
+>                 return ret;
+>         aspeed_create_pwm_port(priv, (u8)pwm_port);
+>
+> +       ret = of_property_count_u8_elems(child, "cooling-levels");
+> +
+> +       if (ret > 0) {
+> +               ret = aspeed_create_pwm_cooling(dev, child, priv, pwm_port,
+> +                                               ret);
+> +               if (ret)
+> +                       return ret;
+> +       }
+> +
+>         count = of_property_count_u8_elems(child, "aspeed,fan-tach-ch");
+>         if (count < 1)
+>                 return -EINVAL;
+> @@ -834,10 +945,12 @@ static int aspeed_pwm_tacho_probe(struct platform_device *pdev)
+>
+>         for_each_child_of_node(np, child) {
+>                 ret = aspeed_create_fan(dev, child, priv);
+> -               of_node_put(child);
+> -               if (ret)
+> +               if (ret) {
+> +                       of_node_put(child);
+>                         return ret;
+> +               }
+>         }
+> +       of_node_put(child);
+>
+>         priv->groups[0] = &pwm_dev_group;
+>         priv->groups[1] = &fan_dev_group;
 > --
-> 1.8.3.1
+> 2.8.4
 >
