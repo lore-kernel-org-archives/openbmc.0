@@ -1,65 +1,57 @@
-Return-Path: <miltonm@us.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x241.google.com (mail-yw0-x241.google.com
+ [IPv6:2607:f8b0:4002:c05::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xJT4h5L0BzDrLW
- for <openbmc@lists.ozlabs.org>; Fri, 28 Jul 2017 09:40:52 +1000 (AEST)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v6RNeTNn140100
- for <openbmc@lists.ozlabs.org>; Thu, 27 Jul 2017 19:40:50 -0400
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [158.85.210.104])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2bymq4mkf6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 27 Jul 2017 19:40:50 -0400
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <miltonm@us.ibm.com>;
- Thu, 27 Jul 2017 23:40:50 -0000
-Received: from us1b3-smtp01.a3dr.sjc01.isc4sb.com (10.122.7.174)
- by smtp.notes.na.collabserv.com (10.122.47.44) with
- smtp.notes.na.collabserv.com ESMTP; Thu, 27 Jul 2017 23:40:46 -0000
-Received: from us1b3-mail79.a3dr.sjc01.isc4sb.com ([10.122.105.126])
- by us1b3-smtp01.a3dr.sjc01.isc4sb.com
- with ESMTP id 2017072723404575-945409 ;
- Thu, 27 Jul 2017 23:40:45 +0000 
-In-Reply-To: <1501181400-31373-1-git-send-email-austenc@us.ibm.com>
-Subject: Re: [PATCH linux dev-4.10] ARM: dts: Romulus: Identify LED is too
- active
-From: "Milton Miller II" <miltonm@us.ibm.com>
-To: "Chris Austen" <austenc@us.ibm.com>
-Cc: openbmc@lists.ozlabs.org, joel@jms.id.au, Chris Austen <austencj@yahoo.com>
-Date: Thu, 27 Jul 2017 23:40:46 +0000
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xJWm25v1LzDrLw
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Jul 2017 11:41:38 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="FOxp61iI"; 
+ dkim-atps=neutral
+Received: by mail-yw0-x241.google.com with SMTP id t139so5321067ywg.1
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Jul 2017 18:41:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=mVhAb8x1hLsP3ZsGn0yv/omGlh3SYwokmrMCa6rtiiY=;
+ b=FOxp61iI+ClMCE/2uYf/C9QPvakl+uo+lgyZJ9ohaAtJqwfeJ3gY1piUGf1raA7lph
+ 9UdS78+NLtLJ8uvekbw+Fofc3T1F3rdEmkOrPb2qqbbwTEUc0vRU+LTGEHe5rQeQBfOn
+ Vk6F72CB3VxgvSp/dp3Z2vCJL3f3CktxmXewaQge66Sg1HKWCmgIlSX01zFYUtC0I0uS
+ KbvhlpbnmCbsmjgzzLVAYSLb6i4H+94LEUvX1YU880Ahc4CzLj78kf1dPLI15UffE8PM
+ V/48ZyPiMOZASSKb6dciGUgJJ7gxItDbKrj2TosutOywD4AWEz2dHfW0kXTAOSaIwmgR
+ +Sfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=mVhAb8x1hLsP3ZsGn0yv/omGlh3SYwokmrMCa6rtiiY=;
+ b=X1G7NY3I06AXvbD87IJWFPthyuXhg9yI++En9pFRhSKoiWeZ9N7iI8bu85trAWFY0B
+ o590ur9bEo1v1n3R9dAwH7OOzFwh0O83R9acj9tYQRAsDlYL1RSsdOJd1mMehBu+jE2q
+ frIGdLxc4rwfKyl97zd7CSDPaaJ7GQFdDng4VghPJtuFBVlCMlZZqX5HYOhZRVkj3Sgo
+ 8gR2P6z9OFio24DXcLDU32HpG5LBodw9nRaIb4y5w2xi/G5zoxdZg09dC1fdoJwgt61u
+ THxu5RV70iXzcr0pirAmOXw2Ay0omrFKZOitHrBppBzYdo6PP0cOVoSVNGeYbuGGZ4xZ
+ TPzg==
+X-Gm-Message-State: AIVw113P/ndAiqKErIayBHaJ0Am/2USLGZAIyV4VvpiNSGQJ13mSekC+
+ BK3K/PEVnje2qLD/+6ZGSSz+0tf4qA==
+X-Received: by 10.13.199.195 with SMTP id j186mr5600128ywd.41.1501206096026;
+ Thu, 27 Jul 2017 18:41:36 -0700 (PDT)
 MIME-Version: 1.0
-Sensitivity: 
-Importance: Normal
-X-Priority: 3 (Normal)
-References: <1501181400-31373-1-git-send-email-austenc@us.ibm.com>
-X-Mailer: IBM iNotes ($HaikuForm 971.2) | IBM Domino Build
- SCN17178_20170627T0038_FP6.2 July 11, 2017 at 09:53
-X-LLNOutbound: False
-X-Disclaimed: 42615
-X-TNEFEvaluated: 1
-X-LLNXfer: False
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-x-cbid: 17072723-7301-0000-0000-00000184D783
-X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.411265; ST=0; TS=0; UL=0; ISC=; MB=0.028687
-X-IBM-SpamModules-Versions: BY=3.00007437; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00893851; UDB=6.00446908; IPR=6.00674011; 
- BA=6.00005495; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016414; XFM=3.00000015;
- UTC=2017-07-27 23:40:48
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2017-07-27 22:00:01 - 6.00007089
-x-cbparentid: 17072723-7302-0000-0000-00006B350773
-Message-Id: <OF4576094D.35522701-ON0025816A.008206D6-0025816A.00821340@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-07-27_14:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+Sender: joel.stan@gmail.com
+Received: by 10.37.197.148 with HTTP; Thu, 27 Jul 2017 18:41:15 -0700 (PDT)
+In-Reply-To: <20170727101647.26960-3-andrew@aj.id.au>
+References: <20170727101647.26960-1-andrew@aj.id.au>
+ <20170727101647.26960-3-andrew@aj.id.au>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 28 Jul 2017 11:11:15 +0930
+X-Google-Sender-Auth: 1avbuleUwVyHVNSP1NsN0TwVdjQ
+Message-ID: <CACPK8XeAF5bDPbi6Z5MOv0d-xD8Fj2YyVSNFdVa0P4o32FYMYw@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v3 2/4] dt-bindings: watchdog: aspeed:
+ External reset signal properties
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Matt Spinler <mspinler@linux.vnet.ibm.com>,
+ msbarth <msbarth@linux.vnet.ibm.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -71,47 +63,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Jul 2017 23:40:53 -0000
+X-List-Received-Date: Fri, 28 Jul 2017 01:41:39 -0000
 
+On Thu, Jul 27, 2017 at 7:46 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> For the AST2500 and compatible watchdog controllers the external reset
+> signal can be configured for push-pull or open-drain drive types, and in
+> the case of open-drain driving, active low or high.
 
+In addition to this we should document the pinctrl phandle: the fact
+that it exists, but more importantly how that interacts with the
+hardware.
 
------"openbmc" <openbmc-bounces+miltonm=3Dus.ibm.com@lists.ozlabs.org> wrot=
-e: -----
-
->To: openbmc@lists.ozlabs.org, joel@jms.id.au
->From: causten=20
->Sent by: "openbmc"=20
->Date: 07/27/2017 01:50PM
->Cc: Chris Austen <austencj@yahoo.com>
->Subject: [PATCH linux dev-4.10] ARM: dts: Romulus: Identify LED is
->too active
 >
->Identify LED is coming on ever boot.  This is because
-
-every boot?
-
->it should have been set to ACTIVE=5FHIGH
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> ---
+>  Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
 >
->Signed-Off-By: Chris Austen <austencj@yahoo.com>
->---
-> arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 2 +-
-> 1 file changed, 1 insertion(+), 1 deletion(-)
+> diff --git a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> index f526b003b2e0..7aa885f620ef 100644
+> --- a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> +++ b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> @@ -36,10 +36,18 @@ Optional properties:
+>   - aspeed,interrupt:   If property is present then interrupt CPU.
+>                         If not specified then don't interrupt CPU.
 >
->diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
->b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
->index a9e3615..45a3c99 100644
->--- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
->+++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
->@@ -35,7 +35,7 @@
-> 		};
->=20
-> 		identify {
->-			gpios =3D <&gpio ASPEED=5FGPIO(N, 4) GPIO=5FACTIVE=5FLOW>;
->+			gpios =3D <&gpio ASPEED=5FGPIO(N, 4) GPIO=5FACTIVE=5FHIGH>;
-> 		};
->=20
-> 		power {
->--=20
->2.7.4
+> + - aspeed,alt-boot:    If property is present then boot from alternate block.
+>   - aspeed,external-signal: If property is present then signal is sent to
+>                         external reset counter (only WDT1 and WDT2). If not
+>                         specified no external signal is sent.
+> - - aspeed,alt-boot:    If property is present then boot from alternate block.
+> + - aspeed,ext-pulse-duration: External signal pulse duration in microseconds
+> +
+> +Optional properties for AST2500-compatible watchdogs:
+> + - aspeed,ext-push-pull: If aspeed,external-signal is present, set the pin's
+> +                        drive type to push-pull. The default is open-drain.
+> + - aspeed,ext-active-high: If aspeed,external-signal is present and and the pin
+> +                          is configured as push-pull, then set the pulse
+> +                          polarity to active-high. The default is active-low.
 >
+>  Example:
+>
+> --
+> 2.11.0
 >
