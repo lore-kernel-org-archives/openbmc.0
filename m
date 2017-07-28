@@ -1,32 +1,57 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xJsns3qJvzDrSh
- for <openbmc@lists.ozlabs.org>; Sat, 29 Jul 2017 01:14:25 +1000 (AEST)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1501254847340528.2513132030205;
- Fri, 28 Jul 2017 08:14:07 -0700 (PDT)
-Date: Fri, 28 Jul 2017 10:14:05 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Eddie James <eajames@linux.vnet.ibm.com>
-Cc: Jeremy Kerr <jk@ozlabs.org>, openbmc@lists.ozlabs.org,
- "Edward A. James" <eajames@us.ibm.com>, cbostic@linux.vnet.ibm.com
-Subject: Re: [PATCH linux dev-4.10] drivers/fsi: Remove scan from master
- registration
-Message-ID: <20170728151405.GB14987@asimov>
-References: <1501180508-4009-1-git-send-email-eajames@linux.vnet.ibm.com>
- <0a2cb633-ae2a-7dd2-fe7d-cf565be4d8c2@ozlabs.org>
- <9d456a46-bf10-a977-1f38-a84995b08764@linux.vnet.ibm.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="eAbsdosE1cNLO4uF"
-Content-Disposition: inline
-In-Reply-To: <9d456a46-bf10-a977-1f38-a84995b08764@linux.vnet.ibm.com>
-User-Agent: Mutt/1.7.2 (2016-11-26)
-X-Zoho-Virus-Status: 1
-X-ZohoMailClient: External
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xJvK474Z1zDrS4
+ for <openbmc@lists.ozlabs.org>; Sat, 29 Jul 2017 02:23:04 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="h4eQPbCC"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="A3mz+WyA"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id E3FF520FC8;
+ Fri, 28 Jul 2017 12:23:02 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Fri, 28 Jul 2017 12:23:02 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :date:from:in-reply-to:message-id:references:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=cKe2p4
+ hVqgvTaQOegnUenG8f4eYuEd2ZWymt7OiRJnw=; b=h4eQPbCCqaaAQqYlL+21pN
+ 7ih4sInL8hZEwJKhW1JNjP9szPTRauoi74VS1Pm5z4C7oHoDO2TUoWJL3nnIFicu
+ jI0yi1jsHt47PniTwE9YuKKK7fQDItjmqGMb0VcRs+WB3OuMVwg5cNtnO0rVVxx0
+ d0tj8eoV1nBhaMp11lPpkdhNOADm+6gEvdlCx2c6WOBR84wZ8QTUbRYQ/rEt4vQf
+ X8czn+T7DUSjJpKEIeytE34q3olQZRjt9ewAECY448GIDruAocZop7zl3ls7a9BN
+ a4aheoFbVM+UiYUKIhL70jrFpn1qzY5Ud6iYNHwOZB3R99EN5u+AMOU+yZO8Sq7A
+ ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:in-reply-to:message-id
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=cKe2p4hVqgvTaQOegnUenG8f4eYuEd2ZWymt7OiRJ
+ nw=; b=A3mz+WyAcqzz/0QtBK6yOrOUn/CLlGeHuixqczU3vQ6o/z6vHV53ZCUKW
+ jy1ERMoUI8Ek/wAdM7/Wnm3dj42r+jKOd3gYiVZnbDPq59uEjygMxst4d/MQRygB
+ EEY/6jlYrzqqW8j8edHiPhMCS0Bvn3DUuqVzxtdjkSKObu5AIkL68fymbqrNRQr0
+ vKFQcFXxhTSouYGklyQRg8iv2Z2TZkr7ezmzbjMmsItTMobk/cjSIxAnaLZX/W5y
+ fLhm6NsO/yDUSHgLBRMAEOApv4pvDi+vktt10k4I6MGJJNRKAgLK3xDNsWJYop8C
+ OrZFaEDs0LFaBANG7RSsxTEyTIytw==
+X-ME-Sender: <xms:5mR7WS8opXXq0lulc6WlbiYWglCGqVunXoh-_3zMrD8uS2zHHayBaw>
+X-Sasl-enc: aBCKnDx31yhmUEANLwBYJrvj5HHZ7tNF2b+9gD4/DsQm 1501258982
+Received: from keelia.au.ibm.com
+ (ppp118-210-176-216.bras2.adl6.internode.on.net [118.210.176.216])
+ by mail.messagingengine.com (Postfix) with ESMTPA id A438A7E057;
+ Fri, 28 Jul 2017 12:23:00 -0400 (EDT)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: joel@jms.id.au
+Cc: Andrew Jeffery <andrew@aj.id.au>, mspinler@linux.vnet.ibm.com,
+ msbarth@linux.vnet.ibm.com, openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.10 1/6] dt-bindings: max31785: Add
+ mark-fan-installed property
+Date: Sat, 29 Jul 2017 01:52:44 +0930
+Message-Id: <20170728162249.9145-2-andrew@aj.id.au>
+X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20170728162249.9145-1-andrew@aj.id.au>
+References: <20170728162249.9145-1-andrew@aj.id.au>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -38,55 +63,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Jul 2017 15:14:26 -0000
+X-List-Received-Date: Fri, 28 Jul 2017 16:23:06 -0000
+X-List-Received-Date: Fri, 28 Jul 2017 16:23:06 -0000
 
+It's a system design decision with regards to managing the default
+values of registers such as FAN_CONFIG_1_2. Do not assume the hardware
+is configured such as the fans are marked as installed, rather expose a
+devicetree option to inform the driver of whether it should mark the
+fan as installed itself.
 
---eAbsdosE1cNLO4uF
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt | 2 ++
+ 1 file changed, 2 insertions(+)
 
-On Fri, Jul 28, 2017 at 09:57:23AM -0500, Eddie James wrote:
-> 2) FSI operations while the host is booting can cause FSI failures.=20
-> Since we don't know the state of the host while booting the BMC, it's=20
-> generally not safe to do FSI ops as we may disrupt the host.
-
-=46rom my perspective this is especially bad because it would only surface
-in specific timing conditions.  The FSI bus is, by the system
-architecture, under the control of the Host for a period during the
-boot.  Both FSP in the past and BMC now are required to stay clear of
-the FSI bus when the Host owns it.  If we do not, it can, in the best
-case, cause unexpected FSI errors for the Host resulting in extra parts
-being "guarded" and, in the worst case, cause silent corruption of
-chip initialization registers leading to an unknown data integrity
-problem at some future point.
-
-When the BMC reboots, the kernel cannot know the ownership state of the
-FSI bus, so we should assume it is un-owned and not do any activity
-until userspace has had time to "assess the situation".
-
---=20
-Patrick Williams
-
---eAbsdosE1cNLO4uF
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAll7VLoACgkQqwNHzC0A
-wRnuPQ/+PH/K59HTA14/IjIl+sVF/+TlXxcaZHrLwtwssxaZSKktlnDbgX7sSr3B
-+J45VK7h7nEOUaCKSZ61zJP6pAwlMgBv7sNDda70/+6pGf83cCK1XSA5v8Cvp9Db
-B+1GKLrfcY/R67+nFzi5ylh56K2Z+SAt93VvRYHA+HWp6n219xTVtuMMi5E9ybGi
-qySphjlmDmRaW/rv/8zWibKbPR7uwgnmCX8pWirDdJ8Z5eUO07TJVcsS4PEtKNrj
-BJXuzCKvxCmf1kM/aFIZQcrje0XXDGK0NGPOTqnKieM/qux10GiFYd4/AyDG6Kxx
-Dr2Ecqbq3HZv4r6n/HdV1afn+uSdqYr2NaFUT2nbnmlQZoqVtIOTV5haqM2LngZN
-Y8WQLdTqt0UeIjyGk+owsNJbhDZ+8JZIeEUoOKnfvzgxlkpEspfuR+eFOyrmfJiq
-dxyJDXPJVfsyGs1exJBu6cPoMuYRl5LmnJLytVW1cPkk0SNw5hoYsUu4sP4FhCSI
-7GgI0GcCNtLh8qC4F+1Z+AGmay7CAtQ0SiUhqdbmQQavze+xVX8i/pCO1Kykt/Uo
-lU9DIgH0yNzQIO9VnyjkppFtfEwO3KirM7fXoe/y65vEomsBU+krjdqNOJWiJ1+c
-XBCG+2X1QG01B8LjsE50alqik/JMYreXvVntrJeJwtax1kRyuBs=
-=PRL9
------END PGP SIGNATURE-----
-
---eAbsdosE1cNLO4uF--
+diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt b/Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt
+index 96e705434a59..f2ab18f5f503 100644
+--- a/Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt
++++ b/Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt
+@@ -31,6 +31,8 @@ Optional subnode properties:
+ - fan-mode               : "rpm" or "pwm". Default value is "pwm".
+ - tach-pulses            : Tachometer pulses per revolution. Valid values are
+                            1, 2, 3 or 4. The default is 1.
++- mark-fan-installed     : Mark the fan as installed if the hardware doesn't
++                           already report it so
+ - maxim,fan-no-fault-ramp: Do not ramp the fan to 100% PWM duty on detecting a
+                            fan fault
+ - maxim,fan-startup      : The number of rotations required before taking
+-- 
+2.11.0
