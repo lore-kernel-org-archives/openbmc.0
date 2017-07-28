@@ -1,57 +1,51 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <brendanhiggins@google.com>
+Received: from mail-pg0-x22c.google.com (mail-pg0-x22c.google.com
+ [IPv6:2607:f8b0:400e:c05::22c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xJvKL2PLfzDrS6
- for <openbmc@lists.ozlabs.org>; Sat, 29 Jul 2017 02:23:18 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xK18X5QqfzDqmV
+ for <openbmc@lists.ozlabs.org>; Sat, 29 Jul 2017 06:46:04 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="qbd6IXAw"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="mOFr65H5"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 569FE209F7;
- Fri, 28 Jul 2017 12:23:16 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Fri, 28 Jul 2017 12:23:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=2s4jxR
- nRmdaYIazH7QsBLquYB7+2M4teSUyFA3JQr/Y=; b=qbd6IXAw1kL5Ncg7V2AiO2
- L0lyv/xBJBpTZ9T9u8E9GHqwyxvgYi9jLXcyf7y36bZkf3UQIZpd5/3dCjQSDBo5
- ujdPAcnHT1rRc9avANy6GmqWqGbSZe5TC6sEqtsG/K7LtWtMeoP++0eBQOk0qeZN
- 8rR7mOKVIKDsGQcyDLVeFHpQN5A5SPdhuCP0ZE3S0nQDyNl4dMT+fnzJpQkp97L3
- VH/acxVKxXFgezQLiS9IHTvmrQRkEEiSrdccKRFa5lLeYmrnFQPVepuAT90nf2gl
- 9JkUcrCzcoJW3Mld8kNZxr8PcevZ8ll6QDhu/OPr2qI/5eUlQIyxKL8UYZ7ep45Q
- ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:in-reply-to:message-id
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=2s4jxRnRmdaYIazH7QsBLquYB7+2M4teSUyFA3JQr
- /Y=; b=mOFr65H5favHXZWcOn9+YlCrWWj146ZxtkL9bP0xQZL158kgH8+IBPQs2
- a3YGqHydsRE+58KbIf/by0PUI/dCn/XebAXYePGxS2sn8n5NSzSdw7ELPSQzdJvj
- 7klf/SpawfvxN74ylNwMNbGIOue3DdLQL8WNsUvUK4U3/MlGoHEBhuV93Us2x6ip
- kmI3nb4M+4BWrVEoW59eI4TGgbkllv7YY9n+V/bKZujEy3GiWCbTZup6/IjKq40Z
- Ymp+NVud90RKo8nRkZ/qhwuBK5pWOkb2P1GKrnMlBkri6DtgXnfboB4tyfH7IUbE
- xDwdinX9pq+dvtujDN4cF5U3rUvSg==
-X-ME-Sender: <xms:9GR7WXUPFM5LMN67B4tEYpBiVKvmpS3BUqvWckWLym7Ztf1zfUKasQ>
-X-Sasl-enc: MikwdrJ69imulQBIzrE1AHUeFVUv8WGOAypnDOii5VXN 1501258995
-Received: from keelia.au.ibm.com
- (ppp118-210-176-216.bras2.adl6.internode.on.net [118.210.176.216])
- by mail.messagingengine.com (Postfix) with ESMTPA id 1518C7E351;
- Fri, 28 Jul 2017 12:23:13 -0400 (EDT)
-From: Andrew Jeffery <andrew@aj.id.au>
-To: joel@jms.id.au
-Cc: Andrew Jeffery <andrew@aj.id.au>, mspinler@linux.vnet.ibm.com,
- msbarth@linux.vnet.ibm.com, openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10 6/6] pmbus: max31785: Work around back-to-back
- writes with FAN_CONFIG_1_2
-Date: Sat, 29 Jul 2017 01:52:49 +0930
-Message-Id: <20170728162249.9145-7-andrew@aj.id.au>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20170728162249.9145-1-andrew@aj.id.au>
-References: <20170728162249.9145-1-andrew@aj.id.au>
+ unprotected) header.d=google.com header.i=@google.com header.b="hEjoRoTt"; 
+ dkim-atps=neutral
+Received: by mail-pg0-x22c.google.com with SMTP id u185so9564301pgb.1
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Jul 2017 13:46:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=StfNdUdffgsN+fIkKahc9yypHWyebxVJCilZL6F/Sf8=;
+ b=hEjoRoTt9keNwuopbSxLQkhuGfmifHxl6nuG3dq0BvQSv95zGsU/fHqjuCaQ8JCQaw
+ K/9PnTZ1Wv56ifKBdXqzNj3S/kuRPB8SQbcF9v46sgpAf3R9+ODK6plmqMjUAPpmWfia
+ FqoiaFYiV3tiXAH20uz2x1gbkggP2BLLtBKILkSkKYIavDroHU90VqarutIDwW0QWcj5
+ B/Uuoar8LgfjiEr9tgXIUd0MzsZoVN+uUWADoLDFmTFnVvr7iECmw14Y6+VdmwK76HB3
+ ndczLT9RcxvgQg/6MMfhoEOmSqdSCd1sXknxtcUh7qO1SjPSatkf50939kXGtC8qkVJz
+ /Cyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=StfNdUdffgsN+fIkKahc9yypHWyebxVJCilZL6F/Sf8=;
+ b=PL01a7H7xhNeF73p14i/D8LzbphC+im2Sc/DRHyWStJGF5q3rWEV7pspbEyBL0fgfJ
+ GMPfal3rkho/i4h9tB2FATNlPpNqXDuOtv1IVGXnaijbFmKHOda7HptCY4AmBvWq0KTn
+ 9TRCp6Fe80eThfMo54SvSr6oQBAp/qliuFUkJq9MyJ44RORtNN3pDnQmKB3xjkY9rQK0
+ bu3mM+Sbt/oXlDEvgPq48RIxiX36hdkPQnHhwJxRxxJ9XLADsyBUw8s8AdbOKE/OMqyF
+ uB/W4yzUElhR0UF0yWtkAoEebImSdhk4eWpBl47VthhjV1QDYLIabzBxaNcjjbBzDLQT
+ X8WQ==
+X-Gm-Message-State: AIVw110dpwpZiYbE4irZHFQ3Lyr3x2zqVgGiKFFouP8QPZ5ctt+qa3fq
+ lFmz5JeUzjidapcx
+X-Received: by 10.99.117.19 with SMTP id q19mr8457489pgc.442.1501274762970;
+ Fri, 28 Jul 2017 13:46:02 -0700 (PDT)
+Received: from mactruck.svl.corp.google.com ([100.123.242.94])
+ by smtp.gmail.com with ESMTPSA id y16sm4527836pfa.120.2017.07.28.13.46.01
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Fri, 28 Jul 2017 13:46:02 -0700 (PDT)
+From: Brendan Higgins <brendanhiggins@google.com>
+To: wsa@the-dreams.de, benh@kernel.crashing.org, joel@jms.id.au,
+ rburanyi@google.com
+Cc: linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/1] i2c: aspeed: add proper support fo 24xx clock params
+Date: Fri, 28 Jul 2017 13:45:57 -0700
+Message-Id: <20170728204558.6455-1-brendanhiggins@google.com>
+X-Mailer: git-send-email 2.14.0.rc0.400.g1c36432dff-goog
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,193 +57,9 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Jul 2017 16:23:18 -0000
+X-List-Received-Date: Fri, 28 Jul 2017 20:46:05 -0000
 
-Testing of the pmbus max31785 driver implementation revealed occasional
-NACKs from the device. Attempting the same transaction immediately after
-the failure appears to always succeed. The NACK has consistently been
-observed to happen on the second write of back-to-back writes to the
-device, where the first write is to FAN_CONFIG_1_2. The NACK occurs
-against the first data byte transmitted by the master on the second
-write. The behaviour has the hallmarks of a PMBus Device Busy response,
-but the busy bit is not set in the status byte.
+This fixes a minor issue pointed out by Robi <rburanyi@google.com> and also adds
+a couple improvements that he suggested outside of the mailing list.
 
-Work around this undocumented behaviour by retrying any back-to-back
-writes that occur after first writing FAN_CONFIG_1_2.
-
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- drivers/hwmon/pmbus/max31785.c | 105 +++++++++++++++++++++++++++++++++++++----
- 1 file changed, 97 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/hwmon/pmbus/max31785.c b/drivers/hwmon/pmbus/max31785.c
-index a86919bc7294..1911658ffcf6 100644
---- a/drivers/hwmon/pmbus/max31785.c
-+++ b/drivers/hwmon/pmbus/max31785.c
-@@ -48,6 +48,55 @@ enum max31785_regs {
- 
- #define MAX31785_NR_PAGES		23
- 
-+/*
-+ * MAX31785 dragons ahead
-+ *
-+ * It seems there's an undocumented timing constraint when performing
-+ * back-to-back writes where the first write is to FAN_CONFIG_1_2. The device
-+ * provides no indication of this besides NACK'ing master Txs; no bits are set
-+ * in STATUS_BYTE to suggest anything has gone wrong.
-+ *
-+ * Given that, do a one-shot retry of the write.
-+ *
-+ * The __max31785_*_write_*_data() functions should be used at any point where
-+ * the prior write is to FAN_CONFIG_1_2.
-+ */
-+static int __max31785_i2c_smbus_write_byte_data(struct i2c_client *client,
-+						int command, u16 data)
-+{
-+	int ret;
-+
-+	ret = i2c_smbus_write_byte_data(client, command, data);
-+	if (ret == -EIO)
-+		ret = i2c_smbus_write_byte_data(client, command, data);
-+
-+	return ret;
-+}
-+
-+static int __max31785_i2c_smbus_write_word_data(struct i2c_client *client,
-+						int command, u16 data)
-+{
-+	int ret;
-+
-+	ret = i2c_smbus_write_word_data(client, command, data);
-+	if (ret == -EIO)
-+		ret = i2c_smbus_write_word_data(client, command, data);
-+
-+	return ret;
-+}
-+
-+static int __max31785_pmbus_write_word_data(struct i2c_client *client, int page,
-+					    int command, u16 data)
-+{
-+	int ret;
-+
-+	ret = pmbus_write_word_data(client, page, command, data);
-+	if (ret == -EIO)
-+		ret = pmbus_write_word_data(client, page, command, data);
-+
-+	return ret;
-+}
-+
- static int max31785_read_byte_data(struct i2c_client *client, int page,
- 				   int reg)
- {
-@@ -210,6 +259,31 @@ static int max31785_read_word_data(struct i2c_client *client, int page,
- 	return rv;
- }
- 
-+static int __max31785_update_fan(struct i2c_client *client, int page,
-+			       u8 config, u8 mask, u16 command)
-+{
-+	int from, rv;
-+	u8 to;
-+
-+	from = pmbus_read_byte_data(client, page, PMBUS_FAN_CONFIG_12);
-+	if (from < 0)
-+		return from;
-+
-+	to = (from & ~mask) | (config & mask);
-+
-+	if (to != from) {
-+		rv = pmbus_write_byte_data(client, page, PMBUS_FAN_CONFIG_12,
-+					   to);
-+		if (rv < 0)
-+			return rv;
-+	}
-+
-+	rv = __max31785_pmbus_write_word_data(client, page, PMBUS_FAN_COMMAND_1,
-+					      command);
-+
-+	return rv;
-+}
-+
- static const int max31785_pwm_modes[] = { 0x7fff, 0x2710, 0xffff };
- 
- static int max31785_write_word_data(struct i2c_client *client, int page,
-@@ -219,12 +293,24 @@ static int max31785_write_word_data(struct i2c_client *client, int page,
- 		return -ENXIO;
- 
- 	switch (reg) {
-+	case PMBUS_VIRT_FAN_TARGET_1:
-+		return __max31785_update_fan(client, page, PB_FAN_1_RPM,
-+					     PB_FAN_1_RPM, word);
-+	case PMBUS_VIRT_PWM_1:
-+	{
-+		u32 command = word;
-+
-+		command *= 100;
-+		command /= 255;
-+		return __max31785_update_fan(client, page, 0, PB_FAN_1_RPM,
-+					     command);
-+	}
- 	case PMBUS_VIRT_PWM_ENABLE_1:
- 		if (word >= ARRAY_SIZE(max31785_pwm_modes))
- 			return -EINVAL;
- 
--		return pmbus_update_fan(client, page, 0, 0, PB_FAN_1_RPM,
--					max31785_pwm_modes[word]);
-+		return __max31785_update_fan(client, page, 0, PB_FAN_1_RPM,
-+					     max31785_pwm_modes[word]);
- 	default:
- 		break;
- 	}
-@@ -262,7 +348,7 @@ static int max31785_of_fan_config(struct i2c_client *client,
- 		return -ENXIO;
- 	}
- 
--	ret = i2c_smbus_write_byte_data(client, PMBUS_PAGE, page);
-+	ret = __max31785_i2c_smbus_write_byte_data(client, PMBUS_PAGE, page);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -421,7 +507,8 @@ static int max31785_of_fan_config(struct i2c_client *client,
- 	if (ret < 0)
- 		return ret;
- 
--	ret = i2c_smbus_write_word_data(client, MFR_FAN_CONFIG, mfr_cfg);
-+	ret = __max31785_i2c_smbus_write_word_data(client, MFR_FAN_CONFIG,
-+						   mfr_cfg);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -475,7 +562,7 @@ static int max31785_of_tmp_config(struct i2c_client *client,
- 		return -ENXIO;
- 	}
- 
--	ret = i2c_smbus_write_byte_data(client, PMBUS_PAGE, page);
-+	ret = __max31785_i2c_smbus_write_byte_data(client, PMBUS_PAGE, page);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -633,7 +720,8 @@ static int max31785_probe(struct i2c_client *client,
- 		if (!have_fan || fan_configured)
- 			continue;
- 
--		ret = i2c_smbus_write_byte_data(client, PMBUS_PAGE, i);
-+		ret = __max31785_i2c_smbus_write_byte_data(client, PMBUS_PAGE,
-+							   i);
- 		if (ret < 0)
- 			return ret;
- 
-@@ -642,8 +730,9 @@ static int max31785_probe(struct i2c_client *client,
- 			return ret;
- 
- 		ret &= ~PB_FAN_1_INSTALLED;
--		ret = i2c_smbus_write_word_data(client, PMBUS_FAN_CONFIG_12,
--						ret);
-+		ret = __max31785_i2c_smbus_write_word_data(client,
-+							   PMBUS_FAN_CONFIG_12,
-+							   ret);
- 		if (ret < 0)
- 			return ret;
- 	}
--- 
-2.11.0
+Tested on the Aspeed 2500.
