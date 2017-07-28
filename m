@@ -1,62 +1,41 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <jk@ozlabs.org>
+Received: from ozlabs.org (bilbo.ozlabs.org [103.22.144.67])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xJWtZ0njrzDrLw
- for <openbmc@lists.ozlabs.org>; Fri, 28 Jul 2017 11:47:18 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xJXLC61kkzDrLX
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Jul 2017 12:07:47 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="O9UGRAr5"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="GLqseipl"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id C5BDD20A93;
- Thu, 27 Jul 2017 21:47:15 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Thu, 27 Jul 2017 21:47:15 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=rdU7lcKs2E1e3OWQTY0cYjS8Plra49hdU7VHzNMfx
- Ak=; b=O9UGRAr5WCDRTavMqO7J1X6kpp3Ry3u22miCJzTY0/svI92YQC447oTjR
- smfnq1Q1aEcnjC77Wwww49iEjrm2N8kjVinpPAZni0y3tl2UHRZr+CYSiztgyui+
- CepFOCjmQay2/t70tdncqrK6ws7S1JizcqhmbY1Ec4GlsNGIS5D6iXQ94+WjH25O
- hwpOeOwEOXuALx03TOfMNcREU4JLHYLmv9Pioa1i1TvvNIfpMyY6nlXqVipXrxig
- mRvZrrxY9CGgsiWYk4Mi94ajoHYfS0xn15jhHO6oVtsC6q4Sz47Y7ynGybW5MONV
- /3O1fx2Bh7+EQUfsmqncIodBZ4+Lw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=rdU7lcKs2E1e3OWQTY
- 0cYjS8Plra49hdU7VHzNMfxAk=; b=GLqseiplZS0UKPZJVN2Kb3vLM3udNlDgLG
- E+8Unx83SszjW6fIzP+w9if6jSxLkN452h/LUvRfaRSswIjXMH7Zlg+Eqghs9MOr
- wJfbwqpx8c70iFKdnVKX0g3cwkSKjBWnduuDtGVv4Qy2AqAlnaIvRDi3JRh8K20J
- Kf5VorhHLMJGYMdoueSPqrbGz8Mx97JVRkPTRj79tfTb2oInomDkYmdZSnMEWp06
- eDWmZJ90YchrkJJxDErxU5ekNrysG06hy7B7H8+eqsOn472JiWlB0aFirY3RhEEG
- dLfc70imQiuSCadqOBcIaCiNmp1MDeIhnlU+fope68MB6KdT5NyA==
-X-ME-Sender: <xms:o5d6Wc0eiTACIswGYqLHoUyx-7zL7Khx-4_petPUVQiuPAup2260cw>
-X-Sasl-enc: AtX464vwxEfUexq//pw/b5VALzqyre69nsmis+uciPdg 1501206434
-Received: from keelia (ppp118-210-176-216.bras2.adl6.internode.on.net
- [118.210.176.216])
- by mail.messagingengine.com (Postfix) with ESMTPA id B10727E1BE;
- Thu, 27 Jul 2017 21:47:13 -0400 (EDT)
-Message-ID: <1501206427.5179.24.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10 v3 2/4] dt-bindings: watchdog: aspeed:
- External reset signal properties
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>
-Cc: Matt Spinler <mspinler@linux.vnet.ibm.com>, msbarth
- <msbarth@linux.vnet.ibm.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Fri, 28 Jul 2017 11:17:07 +0930
-In-Reply-To: <CACPK8XeAF5bDPbi6Z5MOv0d-xD8Fj2YyVSNFdVa0P4o32FYMYw@mail.gmail.com>
-References: <20170727101647.26960-1-andrew@aj.id.au>
- <20170727101647.26960-3-andrew@aj.id.au>
- <CACPK8XeAF5bDPbi6Z5MOv0d-xD8Fj2YyVSNFdVa0P4o32FYMYw@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-SMm5wX0+CITAqd4Oa4U/"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="gc4raqjX"; 
+ dkim-atps=neutral
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.org (Postfix) with ESMTPSA id 3xJXLC2w67z9s3T;
+ Fri, 28 Jul 2017 12:07:47 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
+ t=1501207667; bh=GNEzUXtOX9mZ2lLp26VwUz0QguMDsD9XVE4LeNHOghQ=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=gc4raqjX6B3XFbdTUI/rur5ohNnoo0WhINM3x+ohGzbgmxILEjdt/baYhKb1isyZt
+ KdpNypSrzYj20AgFx6DSLaFSBY5sRjj9paRQ4XnmtNksA0X4jWRx+HuVJ+Po/ZbI57
+ Y1yiqW+d7MBB2+3UKiV8epkpIDOZVDYtqWEBfRzKh9N9DpJ2s4bw0afqM/sgc0ZmoE
+ zQ5OYu+MVn5XYfjAWIc0P9K0n1D89pvVGGYpjGFBVacaPZee9x52H7kWcgcJ214fYw
+ cwlYYXSCNzOextfijltvbEJKR1bEHXhuGLWu5DEPm+d1AafF5jmtU4pIb/iVjlXexF
+ 8j8RE9I4t/zqw==
+Subject: Re: [PATCH linux dev-4.10] drivers/fsi: Remove scan from master
+ registration
+To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Cc: "Edward A. James" <eajames@us.ibm.com>, cbostic@linux.vnet.ibm.com
+References: <1501180508-4009-1-git-send-email-eajames@linux.vnet.ibm.com>
+From: Jeremy Kerr <jk@ozlabs.org>
+Message-ID: <0a2cb633-ae2a-7dd2-fe7d-cf565be4d8c2@ozlabs.org>
+Date: Fri, 28 Jul 2017 10:07:45 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.2.1
+MIME-Version: 1.0
+In-Reply-To: <1501180508-4009-1-git-send-email-eajames@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-AU
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,105 +47,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Jul 2017 01:47:19 -0000
+X-List-Received-Date: Fri, 28 Jul 2017 02:07:49 -0000
+
+Hi Chris,
+
+> Scanning during master registration is problematic because the gpio fsi
+> master will be registered during boot if it is present in device-tree
+> (it's a platform device). That means that the whole fsi scan occurs
+> during boot, which can cause problems.
+
+What kind of problems?
+
+This sounds a bit awkward to me - it's fairly reasonable to expect the
+master to probe immediately. Requiring manual scan adds some unusual
+dependencies to the bus initialisation process.
+
+Cheers,
 
 
---=-SMm5wX0+CITAqd4Oa4U/
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, 2017-07-28 at 11:11 +0930, Joel Stanley wrote:
-> > On Thu, Jul 27, 2017 at 7:46 PM, Andrew Jeffery <andrew@aj.id.au> wrote=
-:
-> > For the AST2500 and compatible watchdog controllers the external reset
-> > signal can be configured for push-pull or open-drain drive types, and i=
-n
-> > the case of open-drain driving, active low or high.
->=20
-> In addition to this we should document the pinctrl phandle: the fact
-> that it exists, but more importantly how that interacts with the
-> hardware.
-
-Yeah that's a good suggestion. I'll make a separate patch augmenting
-Chris' words for aspeed,external-signal, and I'll hold off on resending
-the series until I get some feedback from Matt Spinler on whether it's
-fit for purpose.
-
->=20
-> >=20
-> > > > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> > ---
-> > =C2=A0Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt | 10 ++=
-+++++++-
-> > =C2=A01 file changed, 9 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt =
-b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
-> > index f526b003b2e0..7aa885f620ef 100644
-> > --- a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
-> > +++ b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
-> > @@ -36,10 +36,18 @@ Optional properties:
-> > =C2=A0 - aspeed,interrupt:=C2=A0=C2=A0=C2=A0If property is present then=
- interrupt CPU.
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-If not specified then don't interrupt CPU.
-> >=20
-> > + - aspeed,alt-boot:=C2=A0=C2=A0=C2=A0=C2=A0If property is present then=
- boot from alternate block.
-> > =C2=A0 - aspeed,external-signal: If property is present then signal is =
-sent to
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-external reset counter (only WDT1 and WDT2). If not
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-specified no external signal is sent.
-> > - - aspeed,alt-boot:=C2=A0=C2=A0=C2=A0=C2=A0If property is present then=
- boot from alternate block.
-> > + - aspeed,ext-pulse-duration: External signal pulse duration in micros=
-econds
-> > +
-> > +Optional properties for AST2500-compatible watchdogs:
-> > + - aspeed,ext-push-pull: If aspeed,external-signal is present, set the=
- pin's
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-drive type to push-pull. The default is open-drain.
-> > + - aspeed,ext-active-high: If aspeed,external-signal is present and an=
-d the pin
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0is configured as push-pull, then set the pulse
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0polarity to active-high. The default is active-low.
-> >=20
-> > =C2=A0Example:
-> >=20
-> > --
-> > 2.11.0
-> >=20
---=-SMm5wX0+CITAqd4Oa4U/
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJZepecAAoJEJ0dnzgO5LT5OEsQALi9WiS9JhxGt0cCAfxQcrtM
-MmUt6GgT0Kf6AFucgK+546FJdk4ZWkd8SpYMTQuBBxLLy/rvqmvBUVskEi3sRmfP
-BVoqSIxAoVsq1jLutSjK13EGdLNmy86dybwDfGT39U/NHr9F7wa7as58WjPw2UAG
-p1LlKpQ6rCZgtAQlIVy5PnCeGQN0ylCpsq8mn4FIzDRNt6S6Ie8wFDa94IhGXF2w
-CwcRZDuwFCLUWWXOZKgTqU1/R9+w9OIGAB2AnrF3bhU91EUPgcB8h79lgm1Xhy/J
-9MmpFp9keEQO0VzERMl/KeIofNNp/BJvWbgS4pQjmhBPn/WaNcJIIeeIkB8Br2QT
-BI6J8QIVqRjgD04AsZ2qAe0MEQmxhfUYVrxNs7wAe+Sdyi+KxREYNJeCr+CxFks3
-q+0hXLSt26t/AKXSYhz7x8sW4pAanpHhxSIq7TL3CryjAbczuZaoC571Rpx1iRDV
-h+/6Qtmlv/cpAI09pTmKgxYt4NNosXYUyiCM2dKgAlbCrQufILG6JviC/Bnz3Q4I
-R1D9PER3p0JJPe3w44lcYoY2SOMP+OP64yBdce1r2XpU8D+/P+PaLTTJbn9uEc1Z
-liyJNoBKPWK2wWhBrxzVck4jyKllYx7EV/r6nz+QjFO+L5kMiWE1MskPjak6G3t8
-LBq5EdN/Sqso2yOBFd2L
-=aEZS
------END PGP SIGNATURE-----
-
---=-SMm5wX0+CITAqd4Oa4U/--
+Jeremy
