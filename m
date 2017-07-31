@@ -1,57 +1,41 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
- [IPv6:2607:f8b0:4002:c05::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <clg@kaod.org>
+X-Greylist: delayed 4200 seconds by postgrey-1.36 at bilbo;
+ Mon, 31 Jul 2017 19:52:17 AEST
+Received: from 7.mo68.mail-out.ovh.net (7.mo68.mail-out.ovh.net
+ [46.105.63.230])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xLYyF2CZdzDrLg
- for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 19:27:32 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="NJwnH7eM"; 
- dkim-atps=neutral
-Received: by mail-yw0-x244.google.com with SMTP id n83so2401242ywn.3
- for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 02:27:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=n3XKCaY0gRrBqIMm+0CcS++7aWJV+w6E6Z5ey4VePJI=;
- b=NJwnH7eM5sP7w+mXOQFY3LovynAXUxwCe/DWdIPK5ERkK+pBKoTVd9JdKrjT3amYCL
- YwI1h8KF/Ty54wmsadQJke20unKD4sg58bD727eGLT+DoDU/BtHHjEDVukMqP0dfX+aT
- RsB1BIvJ/YQx4q2/Sr2NMzjVeNjL/ycRVHoNVpCxLcN7zuzcc8IGk21EgFLM/OkoCe7N
- Gdmat5bUIBweAUGHeEK+qkei9T5MwDI6n/7M8/+VILsP50PwiTZ0W2vrMg7uFo0S7mmu
- ggcWKsOEjIz3dv70PcdGVCFrQGSLPvuHGolg4DE7ME1j2PbZfppUewSRSNBuauZ+UxKv
- wIIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=n3XKCaY0gRrBqIMm+0CcS++7aWJV+w6E6Z5ey4VePJI=;
- b=mH9X6sIUU+pwYoSPCx8XwFLL5Z59wgkXfTFCf5RLLk6GglZZKWa1w7Z71O++FkC0KT
- hvkjJbTDtkeAAM3Aw3VCg5EW2aK3YoK6Ny9x5ySJuMconKfBb1YcGRrEVgp90r4X8lKr
- dFxsJ3WwlC1TxxG/lBcpS8NTFk686tH6A6pFDt70mH89AlLhnrqz1bOHMp3iJbjkmRQc
- B4LJ6dc9A7KL2KYf2n+wYxRwbqtAlRva47CXfgw4aI5R29rTg4OmOQM98aTyyfTw5o/A
- 2nWmYqy/o9BtVazX3lruhsjl8iTfwRGbEEDhZehp323ppwJn5HSZjv/Ajvj4otpt4b5r
- BQVw==
-X-Gm-Message-State: AIVw110haqOxNIc/cUN3Zo97oRqi0yAJR7+igxKCEuLbFh2p7j6Ru8+T
- GgT6AO38FW8VVHzSMfEcErv9qGnT/w==
-X-Received: by 10.37.11.211 with SMTP id 202mr7198712ybl.194.1501493250448;
- Mon, 31 Jul 2017 02:27:30 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xLZVn5RmZzDqpc
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 19:52:16 +1000 (AEST)
+Received: from player789.ha.ovh.net (b9.ovh.net [213.186.33.59])
+ by mo68.mail-out.ovh.net (Postfix) with ESMTP id 5FF3A71FA2
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 09:26:26 +0200 (CEST)
+Received: from zorba.kaod.org (LFbn-1-10652-153.w90-89.abo.wanadoo.fr
+ [90.89.238.153]) (Authenticated sender: postmaster@kaod.org)
+ by player789.ha.ovh.net (Postfix) with ESMTPSA id CF04826006C;
+ Mon, 31 Jul 2017 09:26:21 +0200 (CEST)
+Subject: Re: [PATCH linux dev-4.10 v6 2/2] drivers/leds: pca955x count LED
+ lines as GPIO
+To: Joel Stanley <joel@jms.id.au>, Brad Bishop <bradleyb@fuzziesquirrel.com>
+References: <20170729183638.17503-1-cbostic@linux.vnet.ibm.com>
+ <20170729183638.17503-3-cbostic@linux.vnet.ibm.com>
+ <16278DBF-DA73-4BFB-AEEE-1D07E7A89DEE@fuzziesquirrel.com>
+ <CACPK8XdhG7Jks3m0v7yrXShQCSW0Zv8Ad_ymdepF-kKJk5javw@mail.gmail.com>
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <21b55916-b1b3-f417-05f6-64e08e704920@kaod.org>
+Date: Mon, 31 Jul 2017 09:26:16 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.8.0
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.197.148 with HTTP; Mon, 31 Jul 2017 02:27:09 -0700 (PDT)
-In-Reply-To: <20170729010012.5032-1-brendanhiggins@google.com>
-References: <20170729010012.5032-1-brendanhiggins@google.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 31 Jul 2017 18:57:09 +0930
-X-Google-Sender-Auth: qCRyWgmsaTFWUrGuDOrPRlWLXcw
-Message-ID: <CACPK8XdT5yxKFj75JCuXZ+3GT1Q6x0EYADmFdu6we6SHwTMnLw@mail.gmail.com>
-Subject: Re: [PATCH v1] i2c: aspeed: fixed potential null pointer dereference
-To: Brendan Higgins <brendanhiggins@google.com>
-Cc: Wolfram Sang <wsa@the-dreams.de>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
- Patrick Venture <venture@google.com>, linux-i2c@vger.kernel.org, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <CACPK8XdhG7Jks3m0v7yrXShQCSW0Zv8Ad_ymdepF-kKJk5javw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Ovh-Tracer-Id: 15825930568758168322
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelkedrieeigdduvdeiucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,45 +47,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Jul 2017 09:27:34 -0000
+X-List-Received-Date: Mon, 31 Jul 2017 09:52:18 -0000
 
-On Sat, Jul 29, 2017 at 10:30 AM, Brendan Higgins
-<brendanhiggins@google.com> wrote:
-> Before I skipped null checks when the master is in the STOP state; this
-> fixes that.
->
-> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+On 07/31/2017 04:16 AM, Joel Stanley wrote:
+> On Sun, Jul 30, 2017 at 10:20 AM, Brad Bishop
+> <bradleyb@fuzziesquirrel.com> wrote:
+>>
+>>> On Jul 29, 2017, at 2:36 PM, Christopher Bostic <cbostic@linux.vnet.ibm.com> wrote:
+>>>
+>>> In order for gpio-keys-polled driver to properly register pins
+>>> connected to the pca955x chip it is necessary to count 'LED' lines
+>>> as part of the total gpio count.  The assocated gpio_chip struct
+>>> for the pca955x is then set to all available I/O (LEDS and 'GPIO').
+>>> Failure to do so will cause any pin # > GPIO pin count to fail
+>>> gpio-keys-polled probe/registration as it falls outside the bounds
+>>> of what the gpio_chip struct indicates is available.
+>>>
+>>> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+>> Tested-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
+>>
+>>> ---
+>>> drivers/leds/leds-pca955x.c | 2 ++
+>>> 1 file changed, 2 insertions(+)
+>>>
+>>> diff --git a/drivers/leds/leds-pca955x.c b/drivers/leds/leds-pca955x.c
+>>> index 9216742..4fa58b9 100644
+>>> --- a/drivers/leds/leds-pca955x.c
+>>> +++ b/drivers/leds/leds-pca955x.c
+>>> @@ -472,6 +472,8 @@ static int pca955x_probe(struct i2c_client *client,
+>>>                       ngpios++;
+>>>                       break;
+>>>               case PCA955X_TYPE_LED:
+>>> +                     ngpios++;
+>>> +
+> 
+> Hey Cedric, does this look like the correct fix?
+> 
 
-Acked-by: Joel Stanley <joel@jms.id.au>
+At first glance, I would say no. I will take a look.
 
-Out of interest, was this found by code review, or did you hit this in testing?
-
-Cheers,
-
-Joel
-
-> ---
->  drivers/i2c/busses/i2c-aspeed.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
-> index f19348328a71..6fdf9231c23c 100644
-> --- a/drivers/i2c/busses/i2c-aspeed.c
-> +++ b/drivers/i2c/busses/i2c-aspeed.c
-> @@ -410,10 +410,11 @@ static bool aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus)
->         }
->
->         /* We are in an invalid state; reset bus to a known state. */
-> -       if (!bus->msgs && bus->master_state != ASPEED_I2C_MASTER_STOP) {
-> +       if (!bus->msgs) {
->                 dev_err(bus->dev, "bus in unknown state");
->                 bus->cmd_err = -EIO;
-> -               aspeed_i2c_do_stop(bus);
-> +               if (bus->master_state != ASPEED_I2C_MASTER_STOP)
-> +                       aspeed_i2c_do_stop(bus);
->                 goto out_no_complete;
->         }
->         msg = &bus->msgs[bus->msgs_index];
-> --
-> 2.14.0.rc0.400.g1c36432dff-goog
->
+C.
