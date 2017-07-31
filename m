@@ -1,34 +1,37 @@
 Return-Path: <clg@kaod.org>
-X-Greylist: delayed 695 seconds by postgrey-1.36 at bilbo;
- Mon, 31 Jul 2017 17:53:49 AEST
-Received: from 1.mo68.mail-out.ovh.net (1.mo68.mail-out.ovh.net
- [46.105.41.146])
+X-Greylist: delayed 1138 seconds by postgrey-1.36 at bilbo;
+ Mon, 31 Jul 2017 18:07:17 AEST
+Received: from 3.mo68.mail-out.ovh.net (3.mo68.mail-out.ovh.net [46.105.58.60])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xLWt53tb6zDr14
- for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 17:53:49 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xLX9d1FmTzDrJT
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 18:07:17 +1000 (AEST)
 Received: from player789.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo68.mail-out.ovh.net (Postfix) with ESMTP id 7513E71EBD
- for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 09:53:46 +0200 (CEST)
-Received: from zorba.kaod.org.com (LFbn-1-10652-153.w90-89.abo.wanadoo.fr
- [90.89.238.153]) (Authenticated sender: clg@kaod.org)
- by player789.ha.ovh.net (Postfix) with ESMTPSA id 4D4AB260082;
- Mon, 31 Jul 2017 09:53:44 +0200 (CEST)
-From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-To: openbmc@lists.ozlabs.org
-Cc: Joel Stanley <joel@jms.id.au>,
- =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-Subject: [PATCH linux dev-4.10] leds: pca955x: fix typo
-Date: Mon, 31 Jul 2017 09:53:39 +0200
-Message-Id: <1501487619-26582-1-git-send-email-clg@kaod.org>
-X-Mailer: git-send-email 2.7.5
+ by mo68.mail-out.ovh.net (Postfix) with ESMTP id 892F670178
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 09:48:14 +0200 (CEST)
+Received: from zorba.kaod.org (LFbn-1-10652-153.w90-89.abo.wanadoo.fr
+ [90.89.238.153]) (Authenticated sender: postmaster@kaod.org)
+ by player789.ha.ovh.net (Postfix) with ESMTPSA id 4D91526009C;
+ Mon, 31 Jul 2017 09:48:12 +0200 (CEST)
+Subject: Re: [PATCH linux dev-4.10 v6 1/2] ARM: dts: aspeed: Witherspoon add
+ gpio-keys-polled for fan presence
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>, joel@jms.id.au
+References: <20170729183638.17503-1-cbostic@linux.vnet.ibm.com>
+ <20170729183638.17503-2-cbostic@linux.vnet.ibm.com>
+Cc: openbmc@lists.ozlabs.org
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <fda3e51f-6c91-dddb-2999-657efdcae829@kaod.org>
+Date: Mon, 31 Jul 2017 09:48:12 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 16287831006608984834
+In-Reply-To: <20170729183638.17503-2-cbostic@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 7bit
+X-Ovh-Tracer-Id: 16194381310108338946
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelkedrieeigddufeduucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelkedrieeigddufedtucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -40,30 +43,115 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Jul 2017 07:53:49 -0000
+X-List-Received-Date: Mon, 31 Jul 2017 08:07:17 -0000
 
-Spotted by the 01 bot when compiling without OF support :
+On 07/29/2017 08:36 PM, Christopher Bostic wrote:
+> Add gpio-keys-polled  node for pca955x fan presence lines.
+> Add GPIO details to pca955x for the presence lines as well.
+> 
+> Polling period of 1 second determined to be the max acceptable
+> value based on discussions with Brad Bishop and Matt Spinler.
+> Tested with gpiomon program - verified.
+> 
+> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+> ---
+> v6 - Add gpio pin details for fan presence to pca955x node
+> v5 - Fix gpio-keys-polled driver probe errors.  Missing pca955x
+>      gpio cells property and wrong format for poll-interval.
+> v4 - Add details regarding polling period to commit message.
+> v3 - Remove 'autorepeat'
+>    - Increase polling period to 1 second.
+>    - Remove GPIO specifiers from pca955x in dev tree
+> v2 - Change 'linux,code' from a unique global value to a local one
+>      for all the gpio-keys-polled devices.
+> ---
+>  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 52 ++++++++++++++++++++++++
+>  1 file changed, 52 insertions(+)
+> 
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> index 5afc03a..70328668 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> @@ -56,6 +56,37 @@
+>  		};
+>  	};
+>  
+> +	gpio-keys-polled {
+> +		compatible = "gpio-keys-polled";
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +		poll-interval = <1000>;
+> +
+> +		fan0-presence {
+> +			label = "fan0-presence";
+> +			gpios = <&pca0 4 GPIO_ACTIVE_LOW>;
+> +			linux,code = <4>;
+> +		};
+> +
+> +		fan1-presence {
+> +			label = "fan1-presence";
+> +			gpios = <&pca0 5 GPIO_ACTIVE_LOW>;
+> +			linux,code = <5>;
+> +		};
+> +
+> +		fan2-presence {
+> +			label = "fan2-presence";
+> +			gpios = <&pca0 6 GPIO_ACTIVE_LOW>;
+> +			linux,code = <6>;
+> +		};
+> +
+> +		fan3-presence {
+> +			label = "fan3-presence";
+> +			gpios = <&pca0 7 GPIO_ACTIVE_LOW>;
+> +			linux,code = <7>;
+> +		};
+> +	};
+> +
+>  	leds {
+>  		compatible = "gpio-leds";
+>  
+> @@ -277,6 +308,7 @@
+>  		reg = <0x60>;
+>  		#address-cells = <1>;
+>  		#size-cells = <0>;
+> +		#gpio-cells = <2>;
 
-   drivers/leds/leds-pca955x.c:319:1: note: expected 'struct pca963x_chipdef *' but argument is of type 'struct pca955x_chipdef *'
-    pca955x_pdata_of_init(struct i2c_client *client, struct pca963x_chipdef *chip)
-    ^~~~~~~~~~~~~~~~~~~~~
-   cc1: some warnings being treated as errors
+you should also add a :
 
-Signed-off-by: Cédric Le Goater <clg@kaod.org>
----
- drivers/leds/leds-pca955x.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+		gpio-controller;
 
-Index: linux-openbmc-4.10.git/drivers/leds/leds-pca955x.c
-===================================================================
---- linux-openbmc-4.10.git.orig/drivers/leds/leds-pca955x.c
-+++ linux-openbmc-4.10.git/drivers/leds/leds-pca955x.c
-@@ -383,7 +383,7 @@ static const struct of_device_id of_pca9
- MODULE_DEVICE_TABLE(of, of_pca955x_match);
- #else
- static struct pca955x_platform_data *
--pca955x_pdata_of_init(struct i2c_client *client, struct pca963x_chipdef *chip)
-+pca955x_pdata_of_init(struct i2c_client *client, struct pca955x_chipdef *chip)
- {
- 	return ERR_PTR(-ENODEV);
- }
+if you want to use the lines as GPIOs
+
+C.
+
+>  
+>  		fan0: led@0 {
+>  			label = "fan0";
+> @@ -302,6 +334,26 @@
+>  			reg = <3>;
+>  			type = <PCA955X_TYPE_LED>;
+>  		};
+> +		fan0_pres_gpio: gpio@4 {
+> +			label = "fan0_presence";
+> +			reg = <4>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +		fan1_pres_gpio: gpio@5 {
+> +			label = "fan1_presence";
+> +			reg = <5>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +		fan2_pres_gpio: gpio@6 {
+> +			label = "fan2_presence";
+> +			reg = <6>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +		fan3_pres_gpio: gpio@7 {
+> +			label = "fan3_presence";
+> +			reg = <7>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+>  		front_fault: led@13 {
+>  			label = "front-fault";
+>  			default-state = "keep";
+> 
