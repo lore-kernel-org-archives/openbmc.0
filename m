@@ -1,53 +1,54 @@
-Return-Path: <venture@google.com>
-Received: from mail-vk0-x22e.google.com (mail-vk0-x22e.google.com
- [IPv6:2607:f8b0:400c:c05::22e])
+Return-Path: <brendanhiggins@google.com>
+Received: from mail-qt0-x231.google.com (mail-qt0-x231.google.com
+ [IPv6:2607:f8b0:400d:c0d::231])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xLlVf3TftzDrHD
- for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 02:37:46 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xLnnD4MxNzDrKW
+ for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 04:20:32 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="SWwov8Gr"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="bf5+q/fg"; 
  dkim-atps=neutral
-Received: by mail-vk0-x22e.google.com with SMTP id n125so37552238vke.1
- for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 09:37:45 -0700 (PDT)
+Received: by mail-qt0-x231.google.com with SMTP id 16so73281491qtz.4
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 11:20:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=WT/MrO8c9Hfp/OYyV276afbyhGQ+moOyVYiuFDvPF20=;
- b=SWwov8GrAbwnhK+0Ojkz4VKO0tvfPclFl/IdxW+bknZjp94N8fdkrifjZZIqegqw0Z
- UBgeknJk0EY5c8dLgniTONw57XO7N5oUEdEAEjTiAK4G88OAn3iaF8GVf2j8ScKkXYxn
- rPOSXACN1cEsuBIJ+cxD0txetI8A6Xi3zT0qA4QI83jpmFG+mSO417J/4QUt3lCluSxB
- 6J54ZCG5IsGbxXp9yRSU7yzS8J7DHWAHSiV+LoaJ5BZTfMVmIjSh1MPVElQHdQbHZZL1
- TkKIiOCQSHUWMt/Gs7n7UZRByfQTVVDaYypVms2vWjI+ndGQoqsj8bwYeRwsetmDOfZB
- I1cQ==
+ :cc; bh=nUWxnVGUqhMtDaPFNGT/MopBQskVjB3gAIGISPGc9X4=;
+ b=bf5+q/fgPIMP7wjWgg8mdXDEy03ijh2VfACNNQWLGIEr9g6ni26Oup04rAR2qV5YkF
+ P3Ddbx9CprBNjKvlkvMsXJIf9Otbka2nD6dl10ojNl4Q3Quik1tHVll91gYEwrU8pTIF
+ M5pajjJH+PhVQHr6urquPgs+EB80CZpHRR5cwQFnPSyi0E4FdhN3Rk64Gu1g5PrASUEw
+ bFUAp7rlhHOwnTTkcA7U+yzwoH1z68ceGtuD7sRIKcMbPMQzsm0DW44U0kgUFQfjWxM8
+ CfUKJ8WMgnAHChfVD2OzU5JbBxbj0so0pjQaRx2psXuxgBMSPwzQY3QHs/MSljyLLWBZ
+ Spjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=WT/MrO8c9Hfp/OYyV276afbyhGQ+moOyVYiuFDvPF20=;
- b=FhuNwqcgrqgv+hFpOURE+OGjiL0s4uOWqAm1wFq+qSNdrmiQKjZ4vJiiokkJc+Ms/g
- qF3Q1qYSC1JuT1O3JiGDdGi3WBXj/EsoiiZVpQMqcm9+ZCsQGHyKhi2inzkeFnnRkwSM
- 5TL5jJWR9Rv3WWr4G8W+bDPNnIy3kJ3eHI4QFAUozb6zqrGhnYpcCuKDtkMYN6zGr4U+
- EpFWqIMeWPTco/b1OIH/ig1+/tx5uP6ijd2cNcLPb/Z+8vJ9m1BgVgoEfD53JSwvWdii
- Ii8Cf632pqk2wJcVBZdj4NN7GboiF1G+FkJCYyZg4Iu2pw1ub76+bZj1iSX98coG7CDU
- Mldw==
-X-Gm-Message-State: AIVw111kli+XS3QdlrttZk0qIHkGd/8OEvScEEX9XRhNdgn/SqM0QTBl
- PtRhS6nnViRRxp1mMWepx0Q9D/P25/481hg=
-X-Received: by 10.31.63.130 with SMTP id m124mr9916835vka.213.1501519063745;
- Mon, 31 Jul 2017 09:37:43 -0700 (PDT)
+ bh=nUWxnVGUqhMtDaPFNGT/MopBQskVjB3gAIGISPGc9X4=;
+ b=rcQZQqH9GC9PGktucwbWPQ8ATgGcLftAPgJp0YvjofWmjpmv4DHG/YKftlpMbFiTFg
+ BDxOFZB2mP+fCCFwfMqu6jE9WYuDDgnhughwicVyYpapEU/MBi6rf+BQ6/mRlVzuWmfq
+ cMDQd6LPRYw71yKfo0XVXig+yl7mRaKvZvhZTNzztED7oEwxGi2cezbnlSThQp3Kyty9
+ 7lDQ65Cgqr0u1sskCXmrUDkg6dJ8liqrl2g47h6IrdJZMG27ZfQDqOnWMrV3DpX8O8L9
+ 8YedozzZKw0si70CaUfLvuk+rfzU1DMo52+/n0hqKCSxCf0XiE/bJf29Xxw8LBxL6NVs
+ fwDQ==
+X-Gm-Message-State: AIVw111SCAcHu7IMG42WVNxELNmy/EPNGn+Ny//kUAGanxod4rhXyRkT
+ nmPU0PJ6CkHNgRFgQBHhipHXwnnqN0eO
+X-Received: by 10.200.8.113 with SMTP id x46mr22046209qth.195.1501525229893;
+ Mon, 31 Jul 2017 11:20:29 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.159.48.94 with HTTP; Mon, 31 Jul 2017 09:37:23 -0700 (PDT)
-In-Reply-To: <20170706161409.GC22100@asimov.austin.ibm.com>
-References: <CAO=notxJgr=+fyCaNWH+i6EL2v06aW5LkMp19uFbpYArv7FS3Q@mail.gmail.com>
- <FB3659C0-EF79-40D3-8001-17D9116FA522@fuzziesquirrel.com>
- <CAO=notzHV07bANYK=f+QsqBpx_t83rYAJxvYzSAZb9qeYUPwLw@mail.gmail.com>
- <20170706161409.GC22100@asimov.austin.ibm.com>
-From: Patrick Venture <venture@google.com>
-Date: Mon, 31 Jul 2017 09:37:23 -0700
-Message-ID: <CAO=notw08xcRNXtud+wAT=c45LQ1m9eR4jPfJyet+4aTjWFaOA@mail.gmail.com>
-Subject: Re: Swampd PID-driven Fan Controller
-To: Patrick Williams <patrick@stwcx.xyz>
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Received: by 10.237.61.130 with HTTP; Mon, 31 Jul 2017 11:20:29 -0700 (PDT)
+In-Reply-To: <CACPK8XdT5yxKFj75JCuXZ+3GT1Q6x0EYADmFdu6we6SHwTMnLw@mail.gmail.com>
+References: <20170729010012.5032-1-brendanhiggins@google.com>
+ <CACPK8XdT5yxKFj75JCuXZ+3GT1Q6x0EYADmFdu6we6SHwTMnLw@mail.gmail.com>
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Mon, 31 Jul 2017 11:20:29 -0700
+Message-ID: <CAFd5g44UjOfGwpCdCTQ7-0rPTXoWLvDcYAbekQ-JMtNsYHZneQ@mail.gmail.com>
+Subject: Re: [PATCH v1] i2c: aspeed: fixed potential null pointer dereference
+To: Joel Stanley <joel@jms.id.au>
+Cc: Wolfram Sang <wsa@the-dreams.de>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
+ Patrick Venture <venture@google.com>, linux-i2c@vger.kernel.org, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -60,82 +61,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Jul 2017 16:37:47 -0000
+X-List-Received-Date: Mon, 31 Jul 2017 18:20:33 -0000
 
-On Thu, Jul 6, 2017 at 9:14 AM, Patrick Williams <patrick@stwcx.xyz> wrote:
-> On Wed, Jun 28, 2017 at 06:13:27PM -0700, Patrick Venture wrote:
->> I would have liked to develop this in the open, but as you touched on
->> it, schedules.  My platform is under a compressed schedule.  Under any
->> situation, I'll be responsible for maintaining this code base.  And
->> expanding it to support other platforms.  As implementing it wasn't
->> done in a vacuum, I feel fairly confident that outside contributions
->> at least in furthering the design to make it simpler or more modular
->> would be warranted.
+On Mon, Jul 31, 2017 at 2:27 AM, Joel Stanley <joel@jms.id.au> wrote:
+> On Sat, Jul 29, 2017 at 10:30 AM, Brendan Higgins
+> <brendanhiggins@google.com> wrote:
+>> Before I skipped null checks when the master is in the STOP state; this
+>> fixes that.
 >>
->> Obviously, it was designed around very specific execution
->> requirements, which drove my adding an interval to phosphor-hwmon and
->> quite a few downstream hacks.  That said, those specific execution
->> requirements do have an impact on the ability to change the design
->> from input.  If the design suggestions or ideas violate the terms of
->> service that we're providing the data centers -- it can be forked,
->> effectively.
+>> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
 >
-> Patrick,
+> Acked-by: Joel Stanley <joel@jms.id.au>
 >
-> It was hard to tell from your initial email if your intentions were to
-> just give away some code you wrote (hence Brad's fears of a "code dump"
-> approach) or if you were trying to get this integrated as a repo we
-> would maintain long-term.  After discussions off-list it sounds like you
-> are wanting to do the work to integrate this into OpenBMC proper, which
-> is great.
+> Out of interest, was this found by code review, or did you hit this in testing?
 
-My plan is to work on integrating it in.  I've been preoccupied lately
-with an upcoming deployment of OpenBMC: so basically all other things
-are temporarily back-burner-ed.
+I am pretty sure we hit it in testing. Unfortunately, we had trouble reproducing
+it, but we did see a null pointer dereference.
 
 >
-> One way of reading your original email was that you were wanting to host
-> this and maintain it in your own space and then add a recipe for the
-> package to openbmc/openbmc.  Since this hasn't come up before, I should
-> probably say formally I am really opposed to this.  I see it as a
-> difficulty long-term for us to have a repository that links against
-> phopshor-dbus-interfaces and recipe in openbmc, but the code itself is
-> not able to be updated by us.  It is not uncommon that we need to change
-> the dbus schema and the developer doing that is also generally responsible
-> for the changes across the repositories using the schema.  Having this
-> other code outside the project but that the project also relies on to
-> build an officially supported machine would make a dbus schema change
-> pretty painful.
+> Cheers,
 >
-> My suggestion would be that we tackle this code in a few phases:
->
-> 1. Place code on Github in your personal account for a high-level review
->    by interested parties.
-
-I have to reach out to the legal team to see if that's feasible.
-There are guidelines for publishing to the Google owned repos, and
-guidelines for personal open source projects, but not quite this type
-of hybrid where it's non-personal project but isn't aiming to live
-outside of the Google namespace.  So, i'll reach out and figure it
-out.
-
->
->    1a.  We can take a look and get a feel for what lines up with
->         existing architecture and where one of us needs to make changes.
->
-> 2. We create a Gerrit repo for this code to live in long-term and you
->    submit any changes from phase 1 there.
->
->    2a.  We will then do a review and revisions per our normal process.
->
-> 3. After merge, the code is now an officially supported repo that we
->    will expect others to help maintain as, for example, APIs change.
->
-> At any point here, if you decide it is not going to be worth the effort,
-> we can stop or someone else can pick up where you leave off.  Does this
-> sound workable?
->
-It sounds workable.
-
-> --
-> Patrick Williams
+> Joel
