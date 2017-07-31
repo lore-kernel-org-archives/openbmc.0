@@ -1,65 +1,69 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Return-Path: <mspinler@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xLrGv5ty3zDrLV
- for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 06:12:55 +1000 (AEST)
-Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v6VK9HWe003633
- for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 16:12:53 -0400
-Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2c24sj4ke7-1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xLrXb629XzDrfp
+ for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 06:24:47 +1000 (AEST)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v6VKOg2L033511
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 16:24:45 -0400
+Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2c26yxwkv0-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 16:12:53 -0400
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 16:24:42 -0400
 Received: from localhost
- by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Mon, 31 Jul 2017 14:12:52 -0600
-Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
- by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
+ for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
+ Mon, 31 Jul 2017 16:24:20 -0400
+Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
+ by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Mon, 31 Jul 2017 14:12:50 -0600
-Received: from b03ledav002.gho.boulder.ibm.com
- (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
- by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v6VKCo5K1376584; Mon, 31 Jul 2017 13:12:50 -0700
-Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 38C9313603C;
- Mon, 31 Jul 2017 14:12:50 -0600 (MDT)
-Received: from oc3016140333.ibm.com (unknown [9.80.232.39])
- by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id 6012F136040;
- Mon, 31 Jul 2017 14:12:49 -0600 (MDT)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, mspinler@linux.vnet.ibm.com, bjwyman@gmail.com,
- "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10 v2 5/5] Documentation: ABI: Add P17531 sysfs
- documentation
-Date: Mon, 31 Jul 2017 15:12:32 -0500
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1501531952-490-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1501531952-490-1-git-send-email-eajames@linux.vnet.ibm.com>
+ Mon, 31 Jul 2017 16:24:18 -0400
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v6VKOI9T24707268; Mon, 31 Jul 2017 20:24:18 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A805A2803E;
+ Mon, 31 Jul 2017 16:24:11 -0400 (EDT)
+Received: from [9.10.223.138] (unknown [9.10.223.138])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id 639FF2803F;
+ Mon, 31 Jul 2017 16:24:11 -0400 (EDT)
+Subject: Re: [PATCH linux dev-4.10 v3 1/4] ARM: aspeed: Request WDTRST1
+ pinctrl function
+To: Andrew Jeffery <andrew@aj.id.au>, joel@jms.id.au
+References: <20170727101647.26960-1-andrew@aj.id.au>
+ <20170727101647.26960-2-andrew@aj.id.au>
+Cc: msbarth@linux.vnet.ibm.com, openbmc@lists.ozlabs.org
+From: Matt Spinler <mspinler@linux.vnet.ibm.com>
+Date: Mon, 31 Jul 2017 15:24:17 -0500
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101
+ Thunderbird/45.8.0
+MIME-Version: 1.0
+In-Reply-To: <20170727101647.26960-2-andrew@aj.id.au>
+Content-Type: multipart/alternative;
+ boundary="------------427A0078D4B09A7E547A96CC"
 X-TM-AS-GCONF: 00
-x-cbid: 17073120-8235-0000-0000-00000C072EC0
+x-cbid: 17073120-0040-0000-0000-000003888DC2
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00007460; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00895668; UDB=6.00447984; IPR=6.00675855; 
+ PH=3.00000004; SC=3.00000214; SDB=6.00895671; UDB=6.00447986; IPR=6.00675858; 
  BA=6.00005503; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016469; XFM=3.00000015;
- UTC=2017-07-31 20:12:51
+ UTC=2017-07-31 20:24:20
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17073120-8236-0000-0000-00003D026573
-Message-Id: <1501531952-490-6-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 17073120-0041-0000-0000-0000077CB6B6
+Message-Id: <f1881146-d761-e5c7-090d-bf22c595460c@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-07-31_07:, , signatures=0
+ definitions=2017-07-31_08:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
+ spamscore=0 suspectscore=0
  malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
  adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
- definitions=main-1707310337
+ definitions=main-1707310341
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -71,70 +75,100 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Jul 2017 20:12:56 -0000
+X-List-Received-Date: Mon, 31 Jul 2017 20:24:48 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
+This is a multi-part message in MIME format.
+--------------427A0078D4B09A7E547A96CC
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
+Tested-by: Matt Spinler   mspinler@linux.vnet.ibm.com
+
+
+On 7/27/2017 5:16 AM, Andrew Jeffery wrote:
+> On Witherspoon, the Aspeed SoC's WDTRST1 pin is wired to the FAULT pin
+> on the MAX31785 fan controller, which drives the fans to 100% PWM duty
+> when asserted. The pulse generated by the watchdog is latched to ensure
+> the fans stay at full speed across the BMC reboot. The latch is reset
+> when the BMC transitions through the chassis-poweron systemd target.
+>
+> The SoC's WDTRST1 pinctrl function needs to be requested for
+> aspeed,external-signal to be effective, otherwise the pin is not
+> associated with the watchdog controller.
+>
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> Cc: Matt Spinler <mspinler@linux.vnet.ibm.com>
+> ---
+>   arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 3 +++
+>   1 file changed, 3 insertions(+)
+>
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> index d9649013ee78..c28222c17d03 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> @@ -488,6 +488,9 @@
+>   &wdt1 {
+>   	aspeed,reset-type = "none";
+>   	aspeed,external-signal;
+> +
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_wdtrst1_default>;
+>   };
+>
+>   &wdt2 {
+
+
+--------------427A0078D4B09A7E547A96CC
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=windows-1252"
+      http-equiv="Content-Type">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <p><font face="sans-serif" size="2">Tested-by: Matt Spinler   <a class="moz-txt-link-abbreviated" href="mailto:mspinler@linux.vnet.ibm.com">mspinler@linux.vnet.ibm.com</a></font></p>
+    <br>
+    <div class="moz-cite-prefix">On 7/27/2017 5:16 AM, Andrew Jeffery
+      wrote:<br>
+    </div>
+    <blockquote cite="mid:20170727101647.26960-2-andrew@aj.id.au"
+      type="cite">
+      <pre wrap="">On Witherspoon, the Aspeed SoC's WDTRST1 pin is wired to the FAULT pin
+on the MAX31785 fan controller, which drives the fans to 100% PWM duty
+when asserted. The pulse generated by the watchdog is latched to ensure
+the fans stay at full speed across the BMC reboot. The latch is reset
+when the BMC transitions through the chassis-poweron systemd target.
+
+The SoC's WDTRST1 pinctrl function needs to be requested for
+aspeed,external-signal to be effective, otherwise the pin is not
+associated with the watchdog controller.
+
+Signed-off-by: Andrew Jeffery <a class="moz-txt-link-rfc2396E" href="mailto:andrew@aj.id.au">&lt;andrew@aj.id.au&gt;</a>
+Cc: Matt Spinler <a class="moz-txt-link-rfc2396E" href="mailto:mspinler@linux.vnet.ibm.com">&lt;mspinler@linux.vnet.ibm.com&gt;</a>
 ---
- Documentation/ABI/testing/sysfs-driver-p17531 | 49 +++++++++++++++++++++++++++
- 1 file changed, 49 insertions(+)
- create mode 100644 Documentation/ABI/testing/sysfs-driver-p17531
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/Documentation/ABI/testing/sysfs-driver-p17531 b/Documentation/ABI/testing/sysfs-driver-p17531
-new file mode 100644
-index 0000000..1645685
---- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-driver-p17531
-@@ -0,0 +1,49 @@
-+What:		/sys/bus/i2c/devices/<dev>/clear_faults
-+KernelVersion:	4.13
-+Contact:	eajames@us.ibm.com
-+Description:	Clears pmbus faults for this power supply.
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index d9649013ee78..c28222c17d03 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -488,6 +488,9 @@
+ &amp;wdt1 {
+ 	aspeed,reset-type = "none";
+ 	aspeed,external-signal;
 +
-+What:		/sys/bus/i2c/devices/<dev>/status_word
-+KernelVersion:	4.13
-+Contact:	eajames@us.ibm.com
-+Description:	Displays the STATUS_WORD register.
-+
-+What:		/sys/bus/i2c/devices/<dev>/status_vout
-+KernelVersion:	4.13
-+Contact:	eajames@us.ibm.com
-+Description:	Displays the STATUS_VOUT register.
-+
-+What:		/sys/bus/i2c/devices/<dev>/status_iout
-+KernelVersion:	4.13
-+Contact:	eajames@us.ibm.com
-+Description:	Displays the STATUS_IOUT register.
-+
-+What:		/sys/bus/i2c/devices/<dev>/status_input
-+KernelVersion:	4.13
-+Contact:	eajames@us.ibm.com
-+Description:	Displays the STATUS_INPUT register.
-+
-+What:		/sys/bus/i2c/devices/<dev>/status_temp
-+KernelVersion:	4.13
-+Contact:	eajames@us.ibm.com
-+Description:	Displays the STATUS_TEMPERATURE register.
-+
-+What:		/sys/bus/i2c/devices/<dev>/status_cml
-+KernelVersion:	4.13
-+Contact:	eajames@us.ibm.com
-+Description:	Displays the STATUS_CML register.
-+
-+What:		/sys/bus/i2c/devices/<dev>/status_other
-+KernelVersion:	4.13
-+Contact:	eajames@us.ibm.com
-+Description:	Displays the STATUS_OTHER register.
-+
-+What:		/sys/bus/i2c/devices/<dev>/status_mfr
-+KernelVersion:	4.13
-+Contact:	eajames@us.ibm.com
-+Description:	Displays the STATUS_MFR_SPECIFIC register.
-+
-+What:		/sys/bus/i2c/devices/<dev>/status_fan
-+KernelVersion:	4.13
-+Contact:	eajames@us.ibm.com
-+Description:	Displays the STATUS_FAN register.
--- 
-1.8.3.1
++	pinctrl-names = "default";
++	pinctrl-0 = &lt;&amp;pinctrl_wdtrst1_default&gt;;
+ };
+
+ &amp;wdt2 {
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------427A0078D4B09A7E547A96CC--
