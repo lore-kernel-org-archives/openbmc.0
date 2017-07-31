@@ -1,62 +1,62 @@
 Return-Path: <mspinler@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xLrXb629XzDrfp
- for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 06:24:47 +1000 (AEST)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v6VKOg2L033511
- for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 16:24:45 -0400
-Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2c26yxwkv0-1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xLrXc6nqKzDrfp
+ for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 06:24:48 +1000 (AEST)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v6VKOGpJ005478
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 16:24:47 -0400
+Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2c27csvcq1-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 16:24:42 -0400
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 16:24:46 -0400
 Received: from localhost
- by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
- Mon, 31 Jul 2017 16:24:20 -0400
+ Mon, 31 Jul 2017 16:24:44 -0400
 Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
- by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
+ by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Mon, 31 Jul 2017 16:24:18 -0400
+ Mon, 31 Jul 2017 16:24:31 -0400
 Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
  [9.57.199.106])
  by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v6VKOI9T24707268; Mon, 31 Jul 2017 20:24:18 GMT
+ v6VKOVx225886924; Mon, 31 Jul 2017 20:24:31 GMT
 Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A805A2803E;
- Mon, 31 Jul 2017 16:24:11 -0400 (EDT)
+ by IMSVA (Postfix) with ESMTP id E07902803A;
+ Mon, 31 Jul 2017 16:24:24 -0400 (EDT)
 Received: from [9.10.223.138] (unknown [9.10.223.138])
- by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id 639FF2803F;
- Mon, 31 Jul 2017 16:24:11 -0400 (EDT)
-Subject: Re: [PATCH linux dev-4.10 v3 1/4] ARM: aspeed: Request WDTRST1
- pinctrl function
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id 993622803F;
+ Mon, 31 Jul 2017 16:24:24 -0400 (EDT)
+Subject: Re: [PATCH linux dev-4.10 v3 2/4] dt-bindings: watchdog: aspeed:
+ External reset signal properties
 To: Andrew Jeffery <andrew@aj.id.au>, joel@jms.id.au
 References: <20170727101647.26960-1-andrew@aj.id.au>
- <20170727101647.26960-2-andrew@aj.id.au>
+ <20170727101647.26960-3-andrew@aj.id.au>
 Cc: msbarth@linux.vnet.ibm.com, openbmc@lists.ozlabs.org
 From: Matt Spinler <mspinler@linux.vnet.ibm.com>
-Date: Mon, 31 Jul 2017 15:24:17 -0500
+Date: Mon, 31 Jul 2017 15:24:30 -0500
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101
  Thunderbird/45.8.0
 MIME-Version: 1.0
-In-Reply-To: <20170727101647.26960-2-andrew@aj.id.au>
+In-Reply-To: <20170727101647.26960-3-andrew@aj.id.au>
 Content-Type: multipart/alternative;
- boundary="------------427A0078D4B09A7E547A96CC"
+ boundary="------------44A364E095E0F1A4019A5D55"
 X-TM-AS-GCONF: 00
-x-cbid: 17073120-0040-0000-0000-000003888DC2
+x-cbid: 17073120-2213-0000-0000-000002028907
 X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007460; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00895671; UDB=6.00447986; IPR=6.00675858; 
+X-IBM-SpamModules-Versions: BY=3.00007461; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00895672; UDB=6.00447986; IPR=6.00675859; 
  BA=6.00005503; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016469; XFM=3.00000015;
- UTC=2017-07-31 20:24:20
+ UTC=2017-07-31 20:24:43
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17073120-0041-0000-0000-0000077CB6B6
-Message-Id: <f1881146-d761-e5c7-090d-bf22c595460c@linux.vnet.ibm.com>
+x-cbparentid: 17073120-2214-0000-0000-0000571091E1
+Message-Id: <2d7f1027-3fa6-08a0-0d5e-7fbcd66a445e@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-07-31_08:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -75,50 +75,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Jul 2017 20:24:48 -0000
+X-List-Received-Date: Mon, 31 Jul 2017 20:24:49 -0000
 
 This is a multi-part message in MIME format.
---------------427A0078D4B09A7E547A96CC
+--------------44A364E095E0F1A4019A5D55
 Content-Type: text/plain; charset=windows-1252; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Tested-by: Matt Spinler   mspinler@linux.vnet.ibm.com
+Tested-by: Matt Spinler mspinler@linux.vnet.ibm.com
 
 
 On 7/27/2017 5:16 AM, Andrew Jeffery wrote:
-> On Witherspoon, the Aspeed SoC's WDTRST1 pin is wired to the FAULT pin
-> on the MAX31785 fan controller, which drives the fans to 100% PWM duty
-> when asserted. The pulse generated by the watchdog is latched to ensure
-> the fans stay at full speed across the BMC reboot. The latch is reset
-> when the BMC transitions through the chassis-poweron systemd target.
->
-> The SoC's WDTRST1 pinctrl function needs to be requested for
-> aspeed,external-signal to be effective, otherwise the pin is not
-> associated with the watchdog controller.
+> For the AST2500 and compatible watchdog controllers the external reset
+> signal can be configured for push-pull or open-drain drive types, and in
+> the case of open-drain driving, active low or high.
 >
 > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> Cc: Matt Spinler <mspinler@linux.vnet.ibm.com>
 > ---
->   arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 3 +++
->   1 file changed, 3 insertions(+)
+>   Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt | 10 +++++++++-
+>   1 file changed, 9 insertions(+), 1 deletion(-)
 >
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> index d9649013ee78..c28222c17d03 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> @@ -488,6 +488,9 @@
->   &wdt1 {
->   	aspeed,reset-type = "none";
->   	aspeed,external-signal;
+> diff --git a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> index f526b003b2e0..7aa885f620ef 100644
+> --- a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> +++ b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> @@ -36,10 +36,18 @@ Optional properties:
+>    - aspeed,interrupt:	If property is present then interrupt CPU.
+>   			If not specified then don't interrupt CPU.
+>
+> + - aspeed,alt-boot:    If property is present then boot from alternate block.
+>    - aspeed,external-signal: If property is present then signal is sent to
+>   			external reset counter (only WDT1 and WDT2). If not
+>   			specified no external signal is sent.
+> - - aspeed,alt-boot:    If property is present then boot from alternate block.
+> + - aspeed,ext-pulse-duration: External signal pulse duration in microseconds
 > +
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_wdtrst1_default>;
->   };
+> +Optional properties for AST2500-compatible watchdogs:
+> + - aspeed,ext-push-pull: If aspeed,external-signal is present, set the pin's
+> +			 drive type to push-pull. The default is open-drain.
+> + - aspeed,ext-active-high: If aspeed,external-signal is present and and the pin
+> +			   is configured as push-pull, then set the pulse
+> +			   polarity to active-high. The default is active-low.
 >
->   &wdt2 {
+>   Example:
+>
 
 
---------------427A0078D4B09A7E547A96CC
+--------------44A364E095E0F1A4019A5D55
 Content-Type: text/html; charset=windows-1252
 Content-Transfer-Encoding: 8bit
 
@@ -128,47 +131,51 @@ Content-Transfer-Encoding: 8bit
       http-equiv="Content-Type">
   </head>
   <body bgcolor="#FFFFFF" text="#000000">
-    <p><font face="sans-serif" size="2">Tested-by: Matt Spinler   <a class="moz-txt-link-abbreviated" href="mailto:mspinler@linux.vnet.ibm.com">mspinler@linux.vnet.ibm.com</a></font></p>
+    <p><font face="sans-serif" size="2">Tested-by: Matt Spinler  
+        <a class="moz-txt-link-abbreviated" href="mailto:mspinler@linux.vnet.ibm.com">mspinler@linux.vnet.ibm.com</a></font></p>
     <br>
     <div class="moz-cite-prefix">On 7/27/2017 5:16 AM, Andrew Jeffery
       wrote:<br>
     </div>
-    <blockquote cite="mid:20170727101647.26960-2-andrew@aj.id.au"
+    <blockquote cite="mid:20170727101647.26960-3-andrew@aj.id.au"
       type="cite">
-      <pre wrap="">On Witherspoon, the Aspeed SoC's WDTRST1 pin is wired to the FAULT pin
-on the MAX31785 fan controller, which drives the fans to 100% PWM duty
-when asserted. The pulse generated by the watchdog is latched to ensure
-the fans stay at full speed across the BMC reboot. The latch is reset
-when the BMC transitions through the chassis-poweron systemd target.
-
-The SoC's WDTRST1 pinctrl function needs to be requested for
-aspeed,external-signal to be effective, otherwise the pin is not
-associated with the watchdog controller.
+      <pre wrap="">For the AST2500 and compatible watchdog controllers the external reset
+signal can be configured for push-pull or open-drain drive types, and in
+the case of open-drain driving, active low or high.
 
 Signed-off-by: Andrew Jeffery <a class="moz-txt-link-rfc2396E" href="mailto:andrew@aj.id.au">&lt;andrew@aj.id.au&gt;</a>
-Cc: Matt Spinler <a class="moz-txt-link-rfc2396E" href="mailto:mspinler@linux.vnet.ibm.com">&lt;mspinler@linux.vnet.ibm.com&gt;</a>
 ---
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 3 +++
- 1 file changed, 3 insertions(+)
+ Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-index d9649013ee78..c28222c17d03 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -488,6 +488,9 @@
- &amp;wdt1 {
- 	aspeed,reset-type = "none";
- 	aspeed,external-signal;
+diff --git a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+index f526b003b2e0..7aa885f620ef 100644
+--- a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
++++ b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+@@ -36,10 +36,18 @@ Optional properties:
+  - aspeed,interrupt:	If property is present then interrupt CPU.
+ 			If not specified then don't interrupt CPU.
+
++ - aspeed,alt-boot:    If property is present then boot from alternate block.
+  - aspeed,external-signal: If property is present then signal is sent to
+ 			external reset counter (only WDT1 and WDT2). If not
+ 			specified no external signal is sent.
+- - aspeed,alt-boot:    If property is present then boot from alternate block.
++ - aspeed,ext-pulse-duration: External signal pulse duration in microseconds
 +
-+	pinctrl-names = "default";
-+	pinctrl-0 = &lt;&amp;pinctrl_wdtrst1_default&gt;;
- };
++Optional properties for AST2500-compatible watchdogs:
++ - aspeed,ext-push-pull: If aspeed,external-signal is present, set the pin's
++			 drive type to push-pull. The default is open-drain.
++ - aspeed,ext-active-high: If aspeed,external-signal is present and and the pin
++			   is configured as push-pull, then set the pulse
++			   polarity to active-high. The default is active-low.
 
- &amp;wdt2 {
+ Example:
+
 </pre>
     </blockquote>
     <br>
   </body>
 </html>
 
---------------427A0078D4B09A7E547A96CC--
+--------------44A364E095E0F1A4019A5D55--
