@@ -1,41 +1,57 @@
-Return-Path: <clg@kaod.org>
-X-Greylist: delayed 4200 seconds by postgrey-1.36 at bilbo;
- Mon, 31 Jul 2017 19:52:17 AEST
-Received: from 7.mo68.mail-out.ovh.net (7.mo68.mail-out.ovh.net
- [46.105.63.230])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x241.google.com (mail-yw0-x241.google.com
+ [IPv6:2607:f8b0:4002:c05::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xLZVn5RmZzDqpc
- for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 19:52:16 +1000 (AEST)
-Received: from player789.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo68.mail-out.ovh.net (Postfix) with ESMTP id 5FF3A71FA2
- for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 09:26:26 +0200 (CEST)
-Received: from zorba.kaod.org (LFbn-1-10652-153.w90-89.abo.wanadoo.fr
- [90.89.238.153]) (Authenticated sender: postmaster@kaod.org)
- by player789.ha.ovh.net (Postfix) with ESMTPSA id CF04826006C;
- Mon, 31 Jul 2017 09:26:21 +0200 (CEST)
-Subject: Re: [PATCH linux dev-4.10 v6 2/2] drivers/leds: pca955x count LED
- lines as GPIO
-To: Joel Stanley <joel@jms.id.au>, Brad Bishop <bradleyb@fuzziesquirrel.com>
-References: <20170729183638.17503-1-cbostic@linux.vnet.ibm.com>
- <20170729183638.17503-3-cbostic@linux.vnet.ibm.com>
- <16278DBF-DA73-4BFB-AEEE-1D07E7A89DEE@fuzziesquirrel.com>
- <CACPK8XdhG7Jks3m0v7yrXShQCSW0Zv8Ad_ymdepF-kKJk5javw@mail.gmail.com>
-Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <21b55916-b1b3-f417-05f6-64e08e704920@kaod.org>
-Date: Mon, 31 Jul 2017 09:26:16 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.8.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xLccn4bfDzDrMt
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 21:27:37 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="V4Rc7Rz4"; 
+ dkim-atps=neutral
+Received: by mail-yw0-x241.google.com with SMTP id l82so12325226ywc.2
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 04:27:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=lSJSXK4C9fT5TIsbriTmm0Q/zb1knb+GEOO45TuYz/k=;
+ b=V4Rc7Rz44yVxcAKIA8qeS7UC92ISlQA7V1ZD37O9YYt6Z7RchpqvnR7x4vaZpTtrEn
+ +HFQkqwx3Zcvh4obJtmQxoA3rrRB5Fnjn4XWXp4MC0vzHziDgxUHy4bWUtWn4FDArFPw
+ bkVwBwlOfROmATWUxPD8QzUCeCnXSr0rQ92Xnf1CrRLn5hz4ZE/HcvlFcHlmIb7aFbL9
+ 1eGvfHsiApEnV9XUHjWhHMQSauljVDtav+pCn94XnjilBhnNtKtlNF4gl9ZRZLP3WZ1e
+ +zK3ysJzDArWaQzcJ6gxw4pRxyQ3L6SfSJbWQFq7lc+HeOP+ijkzYE0SkwOGvUvckxhf
+ BH9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=lSJSXK4C9fT5TIsbriTmm0Q/zb1knb+GEOO45TuYz/k=;
+ b=qYXd38OwsImv5LUjbGZ0A5sJlYRMppPOBJ4zwmLCqMFoDGwonZW+fCBYWo6L6pvN5r
+ lggsNP4UvJqtri7lqsqjhe3LCZORK4ih7b23lIuhmuHrY03WDvD0XXKTxsFtyA0xxcJ3
+ SkoTwQlRXwZM8Ox3w+M6hE6jvq3CP1dilTt16eX4adKqDeRfPylk4EvJS1GJcyYDyb/w
+ eyKoBC9kQVKp3W6nDsErA6CqbHCc6GM5EpDFIi1LLpXCKqw3jIxM/p3SW6ov/H+NGa5T
+ xOE/7Do//SzdwZvtosUkI2PQ54IaVPOB1F1QYpQv2k2Wf2b0/S5O4EsCVBeeUvKJJ5so
+ apjA==
+X-Gm-Message-State: AIVw113N12rAWG6SlXRdfjP2awIVhobkAFKI+rDcgf9RlOAFhtL23hTb
+ n3FSoHBASgaDef5BA4aPtKDeKqfW5A==
+X-Received: by 10.129.74.7 with SMTP id x7mr13304307ywa.193.1501500455537;
+ Mon, 31 Jul 2017 04:27:35 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CACPK8XdhG7Jks3m0v7yrXShQCSW0Zv8Ad_ymdepF-kKJk5javw@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Ovh-Tracer-Id: 15825930568758168322
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelkedrieeigdduvdeiucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+Sender: joel.stan@gmail.com
+Received: by 10.37.197.148 with HTTP; Mon, 31 Jul 2017 04:27:15 -0700 (PDT)
+In-Reply-To: <20170728162249.9145-7-andrew@aj.id.au>
+References: <20170728162249.9145-1-andrew@aj.id.au>
+ <20170728162249.9145-7-andrew@aj.id.au>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 31 Jul 2017 20:57:15 +0930
+X-Google-Sender-Auth: ym0YHU8OUPrN02x-PV9Iq9MmypM
+Message-ID: <CACPK8Xd56iJ4MrLqRXvcgH9M230nR+ghiGnOZ-4LvF-rtncFvw@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 6/6] pmbus: max31785: Work around
+ back-to-back writes with FAN_CONFIG_1_2
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Matt Spinler <mspinler@linux.vnet.ibm.com>,
+ msbarth <msbarth@linux.vnet.ibm.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,43 +63,98 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Jul 2017 09:52:18 -0000
+X-List-Received-Date: Mon, 31 Jul 2017 11:27:38 -0000
 
-On 07/31/2017 04:16 AM, Joel Stanley wrote:
-> On Sun, Jul 30, 2017 at 10:20 AM, Brad Bishop
-> <bradleyb@fuzziesquirrel.com> wrote:
->>
->>> On Jul 29, 2017, at 2:36 PM, Christopher Bostic <cbostic@linux.vnet.ibm.com> wrote:
->>>
->>> In order for gpio-keys-polled driver to properly register pins
->>> connected to the pca955x chip it is necessary to count 'LED' lines
->>> as part of the total gpio count.  The assocated gpio_chip struct
->>> for the pca955x is then set to all available I/O (LEDS and 'GPIO').
->>> Failure to do so will cause any pin # > GPIO pin count to fail
->>> gpio-keys-polled probe/registration as it falls outside the bounds
->>> of what the gpio_chip struct indicates is available.
->>>
->>> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
->> Tested-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
->>
->>> ---
->>> drivers/leds/leds-pca955x.c | 2 ++
->>> 1 file changed, 2 insertions(+)
->>>
->>> diff --git a/drivers/leds/leds-pca955x.c b/drivers/leds/leds-pca955x.c
->>> index 9216742..4fa58b9 100644
->>> --- a/drivers/leds/leds-pca955x.c
->>> +++ b/drivers/leds/leds-pca955x.c
->>> @@ -472,6 +472,8 @@ static int pca955x_probe(struct i2c_client *client,
->>>                       ngpios++;
->>>                       break;
->>>               case PCA955X_TYPE_LED:
->>> +                     ngpios++;
->>> +
-> 
-> Hey Cedric, does this look like the correct fix?
-> 
+On Sat, Jul 29, 2017 at 1:52 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> Testing of the pmbus max31785 driver implementation revealed occasional
+> NACKs from the device. Attempting the same transaction immediately after
+> the failure appears to always succeed. The NACK has consistently been
+> observed to happen on the second write of back-to-back writes to the
+> device, where the first write is to FAN_CONFIG_1_2. The NACK occurs
+> against the first data byte transmitted by the master on the second
+> write. The behaviour has the hallmarks of a PMBus Device Busy response,
+> but the busy bit is not set in the status byte.
+>
+> Work around this undocumented behaviour by retrying any back-to-back
+> writes that occur after first writing FAN_CONFIG_1_2.
+>
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> ---
+>  drivers/hwmon/pmbus/max31785.c | 105 +++++++++++++++++++++++++++++++++++++----
+>  1 file changed, 97 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/hwmon/pmbus/max31785.c b/drivers/hwmon/pmbus/max31785.c
+> index a86919bc7294..1911658ffcf6 100644
+> --- a/drivers/hwmon/pmbus/max31785.c
+> +++ b/drivers/hwmon/pmbus/max31785.c
+> @@ -48,6 +48,55 @@ enum max31785_regs {
+>
+>  #define MAX31785_NR_PAGES              23
+>
+> +/*
+> + * MAX31785 dragons ahead
 
-At first glance, I would say no. I will take a look.
+                \||/
+                |  @___oo
+      /\  /\   / (__,,,,|
+     ) /^\) ^\/ _)
+     )   /^\/   _)
+     )   _ /  / _)
+ /\  )/\/ ||  | )_)
+<  >      |(,,) )__)
+ ||      /    \)___)\
+ | \____(      )___) )___
+  \______(_______;;; __;;;
 
-C.
+
+
+> + *
+> + * It seems there's an undocumented timing constraint when performing
+> + * back-to-back writes where the first write is to FAN_CONFIG_1_2. The device
+> + * provides no indication of this besides NACK'ing master Txs; no bits are set
+> + * in STATUS_BYTE to suggest anything has gone wrong.
+> + *
+> + * Given that, do a one-shot retry of the write.
+> + *
+> + * The __max31785_*_write_*_data() functions should be used at any point where
+> + * the prior write is to FAN_CONFIG_1_2.
+> + */
+> +static int __max31785_i2c_smbus_write_byte_data(struct i2c_client *client,
+> +                                               int command, u16 data)
+
+Drop the __ prefix for these functions.
+
+> +{
+> +       int ret;
+> +
+> +       ret = i2c_smbus_write_byte_data(client, command, data);
+> +       if (ret == -EIO)
+> +               ret = i2c_smbus_write_byte_data(client, command, data);
+> +
+> +       return ret;
+> +}
+> +
+
+>  static int max31785_write_word_data(struct i2c_client *client, int page,
+> @@ -219,12 +293,24 @@ static int max31785_write_word_data(struct i2c_client *client, int page,
+>                 return -ENXIO;
+>
+>         switch (reg) {
+> +       case PMBUS_VIRT_FAN_TARGET_1:
+> +               return __max31785_update_fan(client, page, PB_FAN_1_RPM,
+> +                                            PB_FAN_1_RPM, word);
+> +       case PMBUS_VIRT_PWM_1:
+> +       {
+> +               u32 command = word;
+> +
+> +               command *= 100;
+> +               command /= 255;
+> +               return __max31785_update_fan(client, page, 0, PB_FAN_1_RPM,
+> +                                            command);
+
+This looks like code from the pmbus core. Does this override the code
+from the core so we can use the magic try-twice update?
+
+Cheers,
+
+Joel
