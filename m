@@ -1,55 +1,63 @@
-Return-Path: <brendanhiggins@google.com>
-Received: from mail-qt0-x231.google.com (mail-qt0-x231.google.com
- [IPv6:2607:f8b0:400d:c0d::231])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xLnnD4MxNzDrKW
- for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 04:20:32 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="bf5+q/fg"; 
- dkim-atps=neutral
-Received: by mail-qt0-x231.google.com with SMTP id 16so73281491qtz.4
- for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 11:20:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=nUWxnVGUqhMtDaPFNGT/MopBQskVjB3gAIGISPGc9X4=;
- b=bf5+q/fgPIMP7wjWgg8mdXDEy03ijh2VfACNNQWLGIEr9g6ni26Oup04rAR2qV5YkF
- P3Ddbx9CprBNjKvlkvMsXJIf9Otbka2nD6dl10ojNl4Q3Quik1tHVll91gYEwrU8pTIF
- M5pajjJH+PhVQHr6urquPgs+EB80CZpHRR5cwQFnPSyi0E4FdhN3Rk64Gu1g5PrASUEw
- bFUAp7rlhHOwnTTkcA7U+yzwoH1z68ceGtuD7sRIKcMbPMQzsm0DW44U0kgUFQfjWxM8
- CfUKJ8WMgnAHChfVD2OzU5JbBxbj0so0pjQaRx2psXuxgBMSPwzQY3QHs/MSljyLLWBZ
- Spjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=nUWxnVGUqhMtDaPFNGT/MopBQskVjB3gAIGISPGc9X4=;
- b=rcQZQqH9GC9PGktucwbWPQ8ATgGcLftAPgJp0YvjofWmjpmv4DHG/YKftlpMbFiTFg
- BDxOFZB2mP+fCCFwfMqu6jE9WYuDDgnhughwicVyYpapEU/MBi6rf+BQ6/mRlVzuWmfq
- cMDQd6LPRYw71yKfo0XVXig+yl7mRaKvZvhZTNzztED7oEwxGi2cezbnlSThQp3Kyty9
- 7lDQ65Cgqr0u1sskCXmrUDkg6dJ8liqrl2g47h6IrdJZMG27ZfQDqOnWMrV3DpX8O8L9
- 8YedozzZKw0si70CaUfLvuk+rfzU1DMo52+/n0hqKCSxCf0XiE/bJf29Xxw8LBxL6NVs
- fwDQ==
-X-Gm-Message-State: AIVw111SCAcHu7IMG42WVNxELNmy/EPNGn+Ny//kUAGanxod4rhXyRkT
- nmPU0PJ6CkHNgRFgQBHhipHXwnnqN0eO
-X-Received: by 10.200.8.113 with SMTP id x46mr22046209qth.195.1501525229893;
- Mon, 31 Jul 2017 11:20:29 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.237.61.130 with HTTP; Mon, 31 Jul 2017 11:20:29 -0700 (PDT)
-In-Reply-To: <CACPK8XdT5yxKFj75JCuXZ+3GT1Q6x0EYADmFdu6we6SHwTMnLw@mail.gmail.com>
-References: <20170729010012.5032-1-brendanhiggins@google.com>
- <CACPK8XdT5yxKFj75JCuXZ+3GT1Q6x0EYADmFdu6we6SHwTMnLw@mail.gmail.com>
-From: Brendan Higgins <brendanhiggins@google.com>
-Date: Mon, 31 Jul 2017 11:20:29 -0700
-Message-ID: <CAFd5g44UjOfGwpCdCTQ7-0rPTXoWLvDcYAbekQ-JMtNsYHZneQ@mail.gmail.com>
-Subject: Re: [PATCH v1] i2c: aspeed: fixed potential null pointer dereference
-To: Joel Stanley <joel@jms.id.au>
-Cc: Wolfram Sang <wsa@the-dreams.de>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
- Patrick Venture <venture@google.com>, linux-i2c@vger.kernel.org, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xLrGg0MF2zDr6m
+ for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 06:12:42 +1000 (AEST)
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v6VK9L0c114408
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 16:12:40 -0400
+Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2c26e0ex9h-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 16:12:40 -0400
+Received: from localhost
+ by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Mon, 31 Jul 2017 14:12:39 -0600
+Received: from b03cxnp08028.gho.boulder.ibm.com (9.17.130.20)
+ by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Mon, 31 Jul 2017 14:12:36 -0600
+Received: from b03ledav002.gho.boulder.ibm.com
+ (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
+ by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v6VKCaTM27852868; Mon, 31 Jul 2017 13:12:36 -0700
+Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 23FED13603A;
+ Mon, 31 Jul 2017 14:12:36 -0600 (MDT)
+Received: from oc3016140333.ibm.com (unknown [9.80.232.39])
+ by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id 5E2B0136048;
+ Mon, 31 Jul 2017 14:12:35 -0600 (MDT)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, mspinler@linux.vnet.ibm.com, bjwyman@gmail.com,
+ "Edward A. James" <eajames@us.ibm.com>
+Subject: [PATCH linux dev-4.10 v2 0/5] drivers/hwmon/pmbus: Add IBM P17531
+ driver
+Date: Mon, 31 Jul 2017 15:12:27 -0500
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+x-cbid: 17073120-0024-0000-0000-000016F43117
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007460; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00895667; UDB=6.00447984; IPR=6.00675855; 
+ BA=6.00005503; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016469; XFM=3.00000015;
+ UTC=2017-07-31 20:12:38
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17073120-0025-0000-0000-00004C171A0C
+Message-Id: <1501531952-490-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-07-31_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
+ definitions=main-1707310337
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,24 +69,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Jul 2017 18:20:33 -0000
+X-List-Received-Date: Mon, 31 Jul 2017 20:12:43 -0000
+X-List-Received-Date: Mon, 31 Jul 2017 20:12:43 -0000
 
-On Mon, Jul 31, 2017 at 2:27 AM, Joel Stanley <joel@jms.id.au> wrote:
-> On Sat, Jul 29, 2017 at 10:30 AM, Brendan Higgins
-> <brendanhiggins@google.com> wrote:
->> Before I skipped null checks when the master is in the STOP state; this
->> fixes that.
->>
->> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
->
-> Acked-by: Joel Stanley <joel@jms.id.au>
->
-> Out of interest, was this found by code review, or did you hit this in testing?
+From: "Edward A. James" <eajames@us.ibm.com>
 
-I am pretty sure we hit it in testing. Unfortunately, we had trouble reproducing
-it, but we did see a null pointer dereference.
+This series adds a hwmon pmbus driver for the IBM P17531 power supply. The core
+monitoring functionality is provided by pmbus. The driver also exports some
+sysfs entries for raw status register access.
 
->
-> Cheers,
->
-> Joel
+The driver should be probed automatically, so I added it to the witherspoon
+device-tree.
+
+Edward A. James (5):
+  drivers/hwmon/pmbus: Add IBM P17531 driver
+  drivers/hwmon/pmbus: p17531: Add non-hwmon attributes
+  ARM: dts: aspeed: witherspoon: Add P17531 power supply to I2C bus
+  Documentation: hwmon: Add P17531 documentation
+  Documentation: ABI: Add P17531 sysfs documentation
+
+ Documentation/ABI/testing/sysfs-driver-p17531    |  49 +++++
+ Documentation/hwmon/p17531                       |  53 +++++
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts |  10 +
+ drivers/hwmon/pmbus/Kconfig                      |  10 +
+ drivers/hwmon/pmbus/Makefile                     |   1 +
+ drivers/hwmon/pmbus/p17531.c                     | 245 +++++++++++++++++++++++
+ 6 files changed, 368 insertions(+)
+ create mode 100644 Documentation/ABI/testing/sysfs-driver-p17531
+ create mode 100644 Documentation/hwmon/p17531
+ create mode 100644 drivers/hwmon/pmbus/p17531.c
+
+-- 
+1.8.3.1
