@@ -3,60 +3,60 @@ Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xLrXj432KzDrnK
- for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 06:24:53 +1000 (AEST)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xLrXz2V5JzDrnD
+ for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 06:25:07 +1000 (AEST)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v6VKOG6F091091
- for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 16:24:51 -0400
-Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2c28cxs9w2-1
+ v6VKOEoX070847
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 16:25:05 -0400
+Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2c2a2v49mn-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 16:24:51 -0400
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 16:25:05 -0400
 Received: from localhost
- by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
- Mon, 31 Jul 2017 16:24:50 -0400
-Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
- by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
+ Mon, 31 Jul 2017 16:25:03 -0400
+Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
+ by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Mon, 31 Jul 2017 16:24:47 -0400
+ Mon, 31 Jul 2017 16:25:01 -0400
 Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
  [9.57.199.106])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v6VKOlPU26214646; Mon, 31 Jul 2017 20:24:47 GMT
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v6VKP1ji24707226; Mon, 31 Jul 2017 20:25:01 GMT
 Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id CE6AD28058;
- Mon, 31 Jul 2017 16:24:40 -0400 (EDT)
+ by IMSVA (Postfix) with ESMTP id 2057728048;
+ Mon, 31 Jul 2017 16:24:55 -0400 (EDT)
 Received: from [9.10.223.138] (unknown [9.10.223.138])
- by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id 7E92A2803F;
- Mon, 31 Jul 2017 16:24:40 -0400 (EDT)
-Subject: Re: [PATCH linux dev-4.10 v3 3/4] watchdog: aspeed: Support
- configuration of external signal properties
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id D03A42803A;
+ Mon, 31 Jul 2017 16:24:54 -0400 (EDT)
+Subject: Re: [PATCH linux dev-4.10 v3 4/4] ARM: dts: aspeed: Witherspoon WDT1
+ external signal is push-pull
 To: Andrew Jeffery <andrew@aj.id.au>, joel@jms.id.au
 References: <20170727101647.26960-1-andrew@aj.id.au>
- <20170727101647.26960-4-andrew@aj.id.au>
+ <20170727101647.26960-5-andrew@aj.id.au>
 Cc: msbarth@linux.vnet.ibm.com, openbmc@lists.ozlabs.org
 From: Matt Spinler <mspinler@linux.vnet.ibm.com>
-Date: Mon, 31 Jul 2017 15:24:46 -0500
+Date: Mon, 31 Jul 2017 15:25:01 -0500
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101
  Thunderbird/45.8.0
 MIME-Version: 1.0
-In-Reply-To: <20170727101647.26960-4-andrew@aj.id.au>
+In-Reply-To: <20170727101647.26960-5-andrew@aj.id.au>
 Content-Type: multipart/alternative;
- boundary="------------41484908BB86712B5027ECD7"
+ boundary="------------552DBC6DD38A9E9A14C1A0B9"
 X-TM-AS-GCONF: 00
-x-cbid: 17073120-0044-0000-0000-000003762178
+x-cbid: 17073120-0048-0000-0000-000001CC8C08
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00007460; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000214; SDB=6.00895672; UDB=6.00447986; IPR=6.00675859; 
+ PH=3.00000004; SC=3.00000214; SDB=6.00895671; UDB=6.00447987; IPR=6.00675859; 
  BA=6.00005503; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016469; XFM=3.00000015;
- UTC=2017-07-31 20:24:48
+ UTC=2017-07-31 20:25:03
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17073120-0045-0000-0000-000007A431E5
-Message-Id: <e8c434f7-5c9f-37d6-4736-c63ebbcfff7b@linux.vnet.ibm.com>
+x-cbparentid: 17073120-0049-0000-0000-00004213975C
+Message-Id: <1777614c-7b97-f08c-2e33-d65cf7d06c89@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-07-31_08:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -75,10 +75,10 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Jul 2017 20:24:53 -0000
+X-List-Received-Date: Mon, 31 Jul 2017 20:25:07 -0000
 
 This is a multi-part message in MIME format.
---------------41484908BB86712B5027ECD7
+--------------552DBC6DD38A9E9A14C1A0B9
 Content-Type: text/plain; charset=windows-1252; format=flowed
 Content-Transfer-Encoding: 7bit
 
@@ -86,84 +86,32 @@ Tested-by: Matt Spinler mspinler@linux.vnet.ibm.com
 
 
 On 7/27/2017 5:16 AM, Andrew Jeffery wrote:
-> Add support for configuring the drive strength and polarity on the
-> AST2500, and the pulse duration on both the AST2400 and AST2500.
+> Fix the drive and polarity of WDTRST1 with respect to the latch design
+> which assert the FAULT pin on the MAX31785 across a BMC reset. This
+> ensures the fan outputs are ramped to 100% PWM duty.
 >
 > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> Cc: Matt Spinler <mspinler@linux.vnet.ibm.com>
 > ---
->   drivers/watchdog/aspeed_wdt.c | 42 ++++++++++++++++++++++++++++++++++++++++++
->   1 file changed, 42 insertions(+)
+>   arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 2 ++
+>   1 file changed, 2 insertions(+)
 >
-> diff --git a/drivers/watchdog/aspeed_wdt.c b/drivers/watchdog/aspeed_wdt.c
-> index d29f75e90bb6..334e43f0164b 100644
-> --- a/drivers/watchdog/aspeed_wdt.c
-> +++ b/drivers/watchdog/aspeed_wdt.c
-> @@ -42,6 +42,14 @@ MODULE_DEVICE_TABLE(of, aspeed_wdt_of_table);
->   #define   WDT_CTRL_WDT_INTR		BIT(2)
->   #define   WDT_CTRL_RESET_SYSTEM		BIT(1)
->   #define   WDT_CTRL_ENABLE		BIT(0)
-> +#define WDT_RESET_WIDTH		0x18
-> +#define   WDT_RESET_WIDTH_ACTIVE_HIGH	BIT(31)
-> +#define     WDT_ACTIVE_HIGH_MAGIC	(0xA5 << 24)
-> +#define     WDT_ACTIVE_LOW_MAGIC	(0x5A << 24)
-> +#define   WDT_RESET_WIDTH_PUSH_PULL	BIT(30)
-> +#define     WDT_PUSH_PULL_MAGIC		(0xA8 << 24)
-> +#define     WDT_OPEN_DRAIN_MAGIC	(0x8A << 24)
-> +#define   WDT_RESET_WIDTH_DURATION	0xFFF
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> index c28222c17d03..6a7ab9648984 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> @@ -488,6 +488,8 @@
+>   &wdt1 {
+>   	aspeed,reset-type = "none";
+>   	aspeed,external-signal;
+> +	aspeed,ext-push-pull;
+> +	aspeed,ext-active-high;
 >
->   #define WDT_RESTART_MAGIC	0x4755
->
-> @@ -152,6 +160,7 @@ static int aspeed_wdt_probe(struct platform_device *pdev)
->   	struct resource *res;
->   	struct device_node *np;
->   	const char *reset_type;
-> +	u32 duration;
->   	int ret;
->
->   	wdt = devm_kzalloc(&pdev->dev, sizeof(*wdt), GFP_KERNEL);
-> @@ -204,6 +213,39 @@ static int aspeed_wdt_probe(struct platform_device *pdev)
->   		set_bit(WDOG_HW_RUNNING, &wdt->wdd.status);
->   	}
->
-> +	if (of_device_is_compatible(np, "aspeed,ast2500-wdt")) {
-> +		u32 reg = readl(wdt->base + WDT_RESET_WIDTH);
-> +
-> +		reg &= WDT_RESET_WIDTH_DURATION;
-> +		if (of_property_read_bool(np, "aspeed,ext-push-pull"))
-> +			reg |= WDT_PUSH_PULL_MAGIC;
-> +		else
-> +			reg |= WDT_OPEN_DRAIN_MAGIC;
-> +
-> +		writel(reg, wdt->base + WDT_RESET_WIDTH);
-> +
-> +		reg &= WDT_RESET_WIDTH_DURATION;
-> +		if (of_property_read_bool(np, "aspeed,ext-active-high"))
-> +			reg |= WDT_ACTIVE_HIGH_MAGIC;
-> +		else
-> +			reg |= WDT_ACTIVE_LOW_MAGIC;
-> +
-> +		writel(reg, wdt->base + WDT_RESET_WIDTH);
-> +	}
-> +
-> +	if (!of_property_read_u32(np, "aspeed,ext-pulse-duration", &duration)) {
-> +		if (duration > WDT_RESET_WIDTH_DURATION) {
-> +			dev_err(&pdev->dev, "Invalid reset width\n");
-> +			return -EINVAL;
-> +		}
-> +
-> +		/*
-> +		 * The watchdog is always configured with a 1MHz source, so
-> +		 * there is no need to scale the microsecond value.
-> +		 */
-> +		writel(duration, wdt->base + WDT_RESET_WIDTH);
-> +	}
-> +
->   	ret = watchdog_register_device(&wdt->wdd);
->   	if (ret) {
->   		dev_err(&pdev->dev, "failed to register\n");
+>   	pinctrl-names = "default";
+>   	pinctrl-0 = <&pinctrl_wdtrst1_default>;
 
 
---------------41484908BB86712B5027ECD7
+--------------552DBC6DD38A9E9A14C1A0B9
 Content-Type: text/html; charset=windows-1252
 Content-Transfer-Encoding: 8bit
 
@@ -179,87 +127,35 @@ Content-Transfer-Encoding: 8bit
     <div class="moz-cite-prefix">On 7/27/2017 5:16 AM, Andrew Jeffery
       wrote:<br>
     </div>
-    <blockquote cite="mid:20170727101647.26960-4-andrew@aj.id.au"
+    <blockquote cite="mid:20170727101647.26960-5-andrew@aj.id.au"
       type="cite">
-      <pre wrap="">Add support for configuring the drive strength and polarity on the
-AST2500, and the pulse duration on both the AST2400 and AST2500.
+      <pre wrap="">Fix the drive and polarity of WDTRST1 with respect to the latch design
+which assert the FAULT pin on the MAX31785 across a BMC reset. This
+ensures the fan outputs are ramped to 100% PWM duty.
 
 Signed-off-by: Andrew Jeffery <a class="moz-txt-link-rfc2396E" href="mailto:andrew@aj.id.au">&lt;andrew@aj.id.au&gt;</a>
+Cc: Matt Spinler <a class="moz-txt-link-rfc2396E" href="mailto:mspinler@linux.vnet.ibm.com">&lt;mspinler@linux.vnet.ibm.com&gt;</a>
 ---
- drivers/watchdog/aspeed_wdt.c | 42 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 42 insertions(+)
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/watchdog/aspeed_wdt.c b/drivers/watchdog/aspeed_wdt.c
-index d29f75e90bb6..334e43f0164b 100644
---- a/drivers/watchdog/aspeed_wdt.c
-+++ b/drivers/watchdog/aspeed_wdt.c
-@@ -42,6 +42,14 @@ MODULE_DEVICE_TABLE(of, aspeed_wdt_of_table);
- #define   WDT_CTRL_WDT_INTR		BIT(2)
- #define   WDT_CTRL_RESET_SYSTEM		BIT(1)
- #define   WDT_CTRL_ENABLE		BIT(0)
-+#define WDT_RESET_WIDTH		0x18
-+#define   WDT_RESET_WIDTH_ACTIVE_HIGH	BIT(31)
-+#define     WDT_ACTIVE_HIGH_MAGIC	(0xA5 &lt;&lt; 24)
-+#define     WDT_ACTIVE_LOW_MAGIC	(0x5A &lt;&lt; 24)
-+#define   WDT_RESET_WIDTH_PUSH_PULL	BIT(30)
-+#define     WDT_PUSH_PULL_MAGIC		(0xA8 &lt;&lt; 24)
-+#define     WDT_OPEN_DRAIN_MAGIC	(0x8A &lt;&lt; 24)
-+#define   WDT_RESET_WIDTH_DURATION	0xFFF
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index c28222c17d03..6a7ab9648984 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -488,6 +488,8 @@
+ &amp;wdt1 {
+ 	aspeed,reset-type = "none";
+ 	aspeed,external-signal;
++	aspeed,ext-push-pull;
++	aspeed,ext-active-high;
 
- #define WDT_RESTART_MAGIC	0x4755
-
-@@ -152,6 +160,7 @@ static int aspeed_wdt_probe(struct platform_device *pdev)
- 	struct resource *res;
- 	struct device_node *np;
- 	const char *reset_type;
-+	u32 duration;
- 	int ret;
-
- 	wdt = devm_kzalloc(&amp;pdev-&gt;dev, sizeof(*wdt), GFP_KERNEL);
-@@ -204,6 +213,39 @@ static int aspeed_wdt_probe(struct platform_device *pdev)
- 		set_bit(WDOG_HW_RUNNING, &amp;wdt-&gt;wdd.status);
- 	}
-
-+	if (of_device_is_compatible(np, "aspeed,ast2500-wdt")) {
-+		u32 reg = readl(wdt-&gt;base + WDT_RESET_WIDTH);
-+
-+		reg &amp;= WDT_RESET_WIDTH_DURATION;
-+		if (of_property_read_bool(np, "aspeed,ext-push-pull"))
-+			reg |= WDT_PUSH_PULL_MAGIC;
-+		else
-+			reg |= WDT_OPEN_DRAIN_MAGIC;
-+
-+		writel(reg, wdt-&gt;base + WDT_RESET_WIDTH);
-+
-+		reg &amp;= WDT_RESET_WIDTH_DURATION;
-+		if (of_property_read_bool(np, "aspeed,ext-active-high"))
-+			reg |= WDT_ACTIVE_HIGH_MAGIC;
-+		else
-+			reg |= WDT_ACTIVE_LOW_MAGIC;
-+
-+		writel(reg, wdt-&gt;base + WDT_RESET_WIDTH);
-+	}
-+
-+	if (!of_property_read_u32(np, "aspeed,ext-pulse-duration", &amp;duration)) {
-+		if (duration &gt; WDT_RESET_WIDTH_DURATION) {
-+			dev_err(&amp;pdev-&gt;dev, "Invalid reset width\n");
-+			return -EINVAL;
-+		}
-+
-+		/*
-+		 * The watchdog is always configured with a 1MHz source, so
-+		 * there is no need to scale the microsecond value.
-+		 */
-+		writel(duration, wdt-&gt;base + WDT_RESET_WIDTH);
-+	}
-+
- 	ret = watchdog_register_device(&amp;wdt-&gt;wdd);
- 	if (ret) {
- 		dev_err(&amp;pdev-&gt;dev, "failed to register\n");
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = &lt;&amp;pinctrl_wdtrst1_default&gt;;
 </pre>
     </blockquote>
     <br>
   </body>
 </html>
 
---------------41484908BB86712B5027ECD7--
+--------------552DBC6DD38A9E9A14C1A0B9--
