@@ -3,60 +3,51 @@ Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xM0g06RmpzDrLS
- for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 12:30:52 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xM1lz2gKCzDsPN
+ for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 13:20:15 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="c15yg6LZ"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="efET53Ri"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="XkpUwzIh"; dkim-atps=neutral
+ header.b="b+a4FG9K"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id EA882207AE;
- Mon, 31 Jul 2017 22:30:49 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Mon, 31 Jul 2017 22:30:49 -0400
+ by mailout.nyi.internal (Postfix) with ESMTP id 388F720775;
+ Mon, 31 Jul 2017 23:20:11 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Mon, 31 Jul 2017 23:20:11 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=ZPqCbsY0iELHhIzoVRFBHv6Z0gO+n5fGS4RiO1VkV
- tc=; b=c15yg6LZ5Qnhut1wBfz3T/pQa09wIMXuv2Hizn8AZLQFRsqj3Gm4FJRt9
- ZVESZLWO8E/1NKffZ0XE6v9U3j2QO7Lp9VMEFbQZgJqBi0WZW9pE2zBwzyrGBPhZ
- jvkXS9VLIVhxbqBuaJanenOgI4BQIBfQ7NeJYGvnW7SrHp5+Xh9LRJ0+UX9oId5K
- qWFPduvIKW2FRg/ERnwuPBya9ztZQe7XnAeySlTWbQaPPpGUB0C5YOS6NeFWAH8G
- EVzBnAGfCPf69qj0+uYPOnPypNoIclxiwhjzxLYOOh3adwu6aTNUEmrdAOd69XIe
- CD19HxYWaXop1pqLs9ahHR00m4+Fg==
+ :date:from:message-id:subject:to:x-me-sender:x-me-sender
+ :x-sasl-enc:x-sasl-enc; s=fm1; bh=BLUlDsJDLLz23TxdFaD9S9KrZM4aAY
+ N6Av6uVb65r5k=; b=efET53RiOg2RxsuuMflN4OlqvIDm8vfI+mW1IN+sRUB7Kj
+ N0uwHjV2Svbnb7mfNmlILC5ZXhNa+b9eBsJUZqPeGwpETrSuSQJ06xh5o8zXk1T1
+ qVAL0jbv9kKOYfquxIR1/R0Juobey6Pawcglp1G8KYKLztlrUJ1nHzqaCN2Ts51+
+ Y9/RL2C/RpKzsvA/ihxgrvqIa79wIMkfloMvzk0kNs8sWcgSln1XBTdHNi2+hDNq
+ 9pqsixAMddJ4cZsEw12Tggf3vMKxcZd7F5QwxqMf3KA44v2c7mObuLmGVDNcdGnc
+ bssGJp/LT7kWzyzJa0NjEntQvbGZwLi+lTiFJAsA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=ZPqCbsY0iELHhIzoVR
- FBHv6Z0gO+n5fGS4RiO1VkVtc=; b=XkpUwzIhaVithfQLMe3fvNrUhzW1duVcQP
- Mr+B0qwpCinNXLFkO2fCVk7VnKcWTttv6GYv21GP2hNUmJWZ8Dgke4AXig4IQis/
- 4pg1Au/OV0tUhlm6s0mNmAHAYSr0DiMMfd1o78vxJZFQ2jYH9D4spMJxnK12HIYg
- 8HM/xEEB+WzzXjaGM+AuNqJ97n70sdK2OINQZ2oneYSnzS16+Nu47NMuG95ps2MD
- PQWcxeFEkanMTPtMdYK4RcPgw+gapN+pbFG+0FVqG0FqESQMijeaL/3v3VnPVC7K
- tprLZwtXszEJVwpgBPoT72dyC1NCfc9GRAHmr1Vvm85KE/LdOcuQ==
-X-ME-Sender: <xms:2ed_WYjmevEG5RbA3diCKYocpN_eiBZo5eLi1Ie9nO4UB_2a1DqynA>
-X-Sasl-enc: nqP+qMdU018Y7ed3n7NR+HypdiN8rPUkHYwa9+wVVofb 1501554649
-Received: from keelia (ppp118-210-176-216.bras2.adl6.internode.on.net
- [118.210.176.216])
- by mail.messagingengine.com (Postfix) with ESMTPA id 054402464E;
- Mon, 31 Jul 2017 22:30:47 -0400 (EDT)
-Message-ID: <1501554640.5179.32.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10 6/6] pmbus: max31785: Work around
- back-to-back writes with FAN_CONFIG_1_2
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=BLUlDs
+ JDLLz23TxdFaD9S9KrZM4aAYN6Av6uVb65r5k=; b=b+a4FG9KVvi1iyCCbgUUJw
+ r+3WykH7207BP6j88l3nnacGIAO/LTOvz2gp6w1k0I8g+em/k5x56gD3bi12yDYQ
+ trMXZDdXIbG1dWJAOz0/HMyRiFYjIi1SZPWKd6bZ5hpyt7xut1kR/O+6ELNU2XM0
+ AS3j6hhUvAv5R4g44WPhXW/FD6J3yb8L5QfO38kXnwD25w/JKHkJVzsJ2lYmQx7H
+ 7YwSQV51mihFeC05YdyXtX7WgAbi+QhXrPRl++h8agffFqvb+x+MuuGn7HT1AtZV
+ 5t31LjNva5vP49Ck89y3lW1XuNTZHfW41JD9GBiYHQcgWa5ZDjjvCcoj5twySwQw
+ ==
+X-ME-Sender: <xms:a_N_WdHe74Wsjd5GjOlMIjFQ0-SXXCzPwRFb5Qa3iXqw3Xh36fCc3g>
+X-Sasl-enc: ZNHkP7mPHBDUyjDxfJe3P/QbDOrhYADQwGOKtkoXTGbV 1501557610
+Received: from keelia.au.ibm.com
+ (ppp118-210-176-216.bras2.adl6.internode.on.net [118.210.176.216])
+ by mail.messagingengine.com (Postfix) with ESMTPA id B9B087E1D9;
+ Mon, 31 Jul 2017 23:20:08 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>
-Cc: Matt Spinler <mspinler@linux.vnet.ibm.com>, msbarth
- <msbarth@linux.vnet.ibm.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Tue, 01 Aug 2017 12:00:40 +0930
-In-Reply-To: <CACPK8Xd56iJ4MrLqRXvcgH9M230nR+ghiGnOZ-4LvF-rtncFvw@mail.gmail.com>
-References: <20170728162249.9145-1-andrew@aj.id.au>
- <20170728162249.9145-7-andrew@aj.id.au>
- <CACPK8Xd56iJ4MrLqRXvcgH9M230nR+ghiGnOZ-4LvF-rtncFvw@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-TqzLICIx7Y/VpSNavXaP"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+To: joel@jms.id.au
+Cc: Andrew Jeffery <andrew@aj.id.au>, mspinler@linux.vnet.ibm.com,
+ msbarth@linux.vnet.ibm.com, openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.10 v2 0/3] Hardware work-arounds for max31785
+Date: Tue,  1 Aug 2017 12:49:29 +0930
+Message-Id: <20170801031932.4328-1-andrew@aj.id.au>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,107 +59,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Aug 2017 02:30:54 -0000
+X-List-Received-Date: Tue, 01 Aug 2017 03:20:15 -0000
 
+Hello,
 
---=-TqzLICIx7Y/VpSNavXaP
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+I've reworked the initial series[1] to invert the meaning of the devicetree
+property, and as such the devicetree patches have gone away. We now have a
+device-level `use-stored-presence` property instead, which marks the device
+state as canonical. In the abscense of the property, the driver should set the
+installed bit for all fans described in the devicetree and clear the installed
+bit for any which are not.
 
-T24gTW9uLCAyMDE3LTA3LTMxIGF0IDIwOjU3ICswOTMwLCBKb2VsIFN0YW5sZXkgd3JvdGU6Cj4g
-PiBPbiBTYXQsIEp1bCAyOSwgMjAxNyBhdCAxOjUyIEFNLCBBbmRyZXcgSmVmZmVyeSA8YW5kcmV3
-QGFqLmlkLmF1PiB3cm90ZToKPiA+IFRlc3Rpbmcgb2YgdGhlIHBtYnVzIG1heDMxNzg1IGRyaXZl
-ciBpbXBsZW1lbnRhdGlvbiByZXZlYWxlZCBvY2Nhc2lvbmFsCj4gPiBOQUNLcyBmcm9tIHRoZSBk
-ZXZpY2UuIEF0dGVtcHRpbmcgdGhlIHNhbWUgdHJhbnNhY3Rpb24gaW1tZWRpYXRlbHkgYWZ0ZXIK
-PiA+IHRoZSBmYWlsdXJlIGFwcGVhcnMgdG8gYWx3YXlzIHN1Y2NlZWQuIFRoZSBOQUNLIGhhcyBj
-b25zaXN0ZW50bHkgYmVlbgo+ID4gb2JzZXJ2ZWQgdG8gaGFwcGVuIG9uIHRoZSBzZWNvbmQgd3Jp
-dGUgb2YgYmFjay10by1iYWNrIHdyaXRlcyB0byB0aGUKPiA+IGRldmljZSwgd2hlcmUgdGhlIGZp
-cnN0IHdyaXRlIGlzIHRvIEZBTl9DT05GSUdfMV8yLiBUaGUgTkFDSyBvY2N1cnMKPiA+IGFnYWlu
-c3QgdGhlIGZpcnN0IGRhdGEgYnl0ZSB0cmFuc21pdHRlZCBieSB0aGUgbWFzdGVyIG9uIHRoZSBz
-ZWNvbmQKPiA+IHdyaXRlLiBUaGUgYmVoYXZpb3VyIGhhcyB0aGUgaGFsbG1hcmtzIG9mIGEgUE1C
-dXMgRGV2aWNlIEJ1c3kgcmVzcG9uc2UsCj4gPiBidXQgdGhlIGJ1c3kgYml0IGlzIG5vdCBzZXQg
-aW4gdGhlIHN0YXR1cyBieXRlLgo+ID4gCj4gPiBXb3JrIGFyb3VuZCB0aGlzIHVuZG9jdW1lbnRl
-ZCBiZWhhdmlvdXIgYnkgcmV0cnlpbmcgYW55IGJhY2stdG8tYmFjawo+ID4gd3JpdGVzIHRoYXQg
-b2NjdXIgYWZ0ZXIgZmlyc3Qgd3JpdGluZyBGQU5fQ09ORklHXzFfMi4KPiA+IAo+ID4gPiA+IFNp
-Z25lZC1vZmYtYnk6IEFuZHJldyBKZWZmZXJ5IDxhbmRyZXdAYWouaWQuYXU+Cj4gPiAtLS0KPiA+
-IMKgZHJpdmVycy9od21vbi9wbWJ1cy9tYXgzMTc4NS5jIHwgMTA1ICsrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKystLS0tCj4gPiDCoDEgZmlsZSBjaGFuZ2VkLCA5NyBpbnNlcnRp
-b25zKCspLCA4IGRlbGV0aW9ucygtKQo+ID4gCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9od21v
-bi9wbWJ1cy9tYXgzMTc4NS5jIGIvZHJpdmVycy9od21vbi9wbWJ1cy9tYXgzMTc4NS5jCj4gPiBp
-bmRleCBhODY5MTliYzcyOTQuLjE5MTE2NThmZmNmNiAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMv
-aHdtb24vcG1idXMvbWF4MzE3ODUuYwo+ID4gKysrIGIvZHJpdmVycy9od21vbi9wbWJ1cy9tYXgz
-MTc4NS5jCj4gPiBAQCAtNDgsNiArNDgsNTUgQEAgZW51bSBtYXgzMTc4NV9yZWdzIHsKPiA+IAo+
-ID4gwqAjZGVmaW5lIE1BWDMxNzg1X05SX1BBR0VTwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oDIzCj4gPiAKPiA+ICsvKgo+ID4gKyAqIE1BWDMxNzg1IGRyYWdvbnMgYWhlYWQKPiAKPiDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoFx8fC8KPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoHzCoMKgQF9fX29vCj4gwqDCoMKgwqDCoMKgL1zCoMKgL1zCoMKgwqAvIChfXyws
-LCx8Cj4gwqDCoMKgwqDCoCkgL15cKSBeXC8gXykKPiDCoMKgwqDCoMKgKcKgwqDCoC9eXC/CoMKg
-wqBfKQo+IMKgwqDCoMKgwqApwqDCoMKgXyAvwqDCoC8gXykKPiDCoC9cwqDCoCkvXC8gfHzCoMKg
-fCApXykKPiA8wqDCoD7CoMKgwqDCoMKgwqB8KCwsKSApX18pCj4gwqB8fMKgwqDCoMKgwqDCoC/C
-oMKgwqDCoFwpX19fKVwKPiDCoHwgXF9fX18owqDCoMKgwqDCoMKgKV9fXykgKV9fXwo+IMKgIFxf
-X19fX18oX19fX19fXzs7OyBfXzs7OwoKCkl0J3MgdGVtcHRpbmcgdG8gc3RpY2sgdGhhdCBpbiB0
-aGUgY29tbWVudC4KCj4gCj4gCj4gCj4gPiArICoKPiA+ICsgKiBJdCBzZWVtcyB0aGVyZSdzIGFu
-IHVuZG9jdW1lbnRlZCB0aW1pbmcgY29uc3RyYWludCB3aGVuIHBlcmZvcm1pbmcKPiA+ICsgKiBi
-YWNrLXRvLWJhY2sgd3JpdGVzIHdoZXJlIHRoZSBmaXJzdCB3cml0ZSBpcyB0byBGQU5fQ09ORklH
-XzFfMi4gVGhlIGRldmljZQo+ID4gKyAqIHByb3ZpZGVzIG5vIGluZGljYXRpb24gb2YgdGhpcyBi
-ZXNpZGVzIE5BQ0snaW5nIG1hc3RlciBUeHM7IG5vIGJpdHMgYXJlIHNldAo+ID4gKyAqIGluIFNU
-QVRVU19CWVRFIHRvIHN1Z2dlc3QgYW55dGhpbmcgaGFzIGdvbmUgd3JvbmcuCj4gPiArICoKPiA+
-ICsgKiBHaXZlbiB0aGF0LCBkbyBhIG9uZS1zaG90IHJldHJ5IG9mIHRoZSB3cml0ZS4KPiA+ICsg
-Kgo+ID4gKyAqIFRoZSBfX21heDMxNzg1Xypfd3JpdGVfKl9kYXRhKCkgZnVuY3Rpb25zIHNob3Vs
-ZCBiZSB1c2VkIGF0IGFueSBwb2ludCB3aGVyZQo+ID4gKyAqIHRoZSBwcmlvciB3cml0ZSBpcyB0
-byBGQU5fQ09ORklHXzFfMi4KPiA+ICsgKi8KPiA+ICtzdGF0aWMgaW50IF9fbWF4MzE3ODVfaTJj
-X3NtYnVzX3dyaXRlX2J5dGVfZGF0YShzdHJ1Y3QgaTJjX2NsaWVudCAqY2xpZW50LAo+ID4gK8Kg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBpbnQgY29tbWFuZCwgdTE2IGRhdGEp
-Cj4gCj4gRHJvcCB0aGUgX18gcHJlZml4IGZvciB0aGVzZSBmdW5jdGlvbnMuCgpBd3cuIEkgbGlr
-ZWQgaG93IGRhbmdlcm91cyB0aGV5IGxvb2tlZC4KCj4gCj4gPiArewo+ID4gK8KgwqDCoMKgwqDC
-oMKgaW50IHJldDsKPiA+ICsKPiA+ICvCoMKgwqDCoMKgwqDCoHJldCA9IGkyY19zbWJ1c193cml0
-ZV9ieXRlX2RhdGEoY2xpZW50LCBjb21tYW5kLCBkYXRhKTsKPiA+ICvCoMKgwqDCoMKgwqDCoGlm
-IChyZXQgPT0gLUVJTykKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqByZXQgPSBp
-MmNfc21idXNfd3JpdGVfYnl0ZV9kYXRhKGNsaWVudCwgY29tbWFuZCwgZGF0YSk7Cj4gPiArCj4g
-PiArwqDCoMKgwqDCoMKgwqByZXR1cm4gcmV0Owo+ID4gK30KPiA+ICsKPiA+IMKgc3RhdGljIGlu
-dCBtYXgzMTc4NV93cml0ZV93b3JkX2RhdGEoc3RydWN0IGkyY19jbGllbnQgKmNsaWVudCwgaW50
-IHBhZ2UsCj4gPiBAQCAtMjE5LDEyICsyOTMsMjQgQEAgc3RhdGljIGludCBtYXgzMTc4NV93cml0
-ZV93b3JkX2RhdGEoc3RydWN0IGkyY19jbGllbnQgKmNsaWVudCwgaW50IHBhZ2UsCj4gPiDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJldHVybiAtRU5YSU87Cj4gPiAKPiA+IMKgwqDC
-oMKgwqDCoMKgwqBzd2l0Y2ggKHJlZykgewo+ID4gK8KgwqDCoMKgwqDCoMKgY2FzZSBQTUJVU19W
-SVJUX0ZBTl9UQVJHRVRfMToKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqByZXR1
-cm4gX19tYXgzMTc4NV91cGRhdGVfZmFuKGNsaWVudCwgcGFnZSwgUEJfRkFOXzFfUlBNLAo+ID4g
-K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBQQl9GQU5fMV9SUE0sIHdvcmQpOwo+ID4g
-K8KgwqDCoMKgwqDCoMKgY2FzZSBQTUJVU19WSVJUX1BXTV8xOgo+ID4gK8KgwqDCoMKgwqDCoMKg
-ewo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHUzMiBjb21tYW5kID0gd29yZDsK
-PiA+ICsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBjb21tYW5kICo9IDEwMDsK
-PiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBjb21tYW5kIC89IDI1NTsKPiA+ICvC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqByZXR1cm4gX19tYXgzMTc4NV91cGRhdGVfZmFu
-KGNsaWVudCwgcGFnZSwgMCwgUEJfRkFOXzFfUlBNLAo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqBjb21tYW5kKTsKPiAKPiBUaGlzIGxvb2tzIGxpa2UgY29kZSBmcm9tIHRoZSBw
-bWJ1cyBjb3JlLiBEb2VzIHRoaXMgb3ZlcnJpZGUgdGhlIGNvZGUKPiBmcm9tIHRoZSBjb3JlIHNv
-IHdlIGNhbiB1c2UgdGhlIG1hZ2ljIHRyeS10d2ljZSB1cGRhdGU/CgpZZXMuCgpDaGVlcnMsCgpB
-bmRyZXc=
+I've also addressed Joel's comments on the work-around for back-to-back writes,
+removing the double-underscores from the helper functions.
 
+Please review.
 
---=-TqzLICIx7Y/VpSNavXaP
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Andrew
 
------BEGIN PGP SIGNATURE-----
+[1] https://lists.ozlabs.org/pipermail/openbmc/2017-July/008438.html
 
-iQIcBAABCgAGBQJZf+fQAAoJEJ0dnzgO5LT5tBgP/3o3MeTcpwNXFeNGex3khxXO
-HdGhwTu29reNzwBzVsyC4ByVeKrdqNL4Y1Mdk4E/XDf9EZYtSMoea7rNxUQjck3I
-aFP9PlC0bBn6d0NMMsnW3RVpyMmgU1yKgSHoEF1AmT/TWU7iYOylScS7nzJWJuUq
-38xIkC/LqZJ8hw+u1YqJVgFq50iMtMrTa4QlbNHyOnQygHR9WeN4g39VOL2ne5Pq
-4IqH/SxsN6RgypMKC8cPM0zsuBssic8O2IfALXQQyoZydlWp7+0Jabojzeoh5skJ
-qC2VDJ4pMmNA/8SBGaSrVjo0hNkVczlRs/CAHaNu3ZxDQzKLZnr6Ox1564CyM9+6
-VoJPVL9R9Mwt29vrKQRFRv5ioaQkXZeB9J/W2Zg+sPKvT7qf82WDC4YwxirjxqWs
-xm+yNaZ6tKkbyXdCDwpWZ2U5q7xEymYuaM+Y0XUxav4j8dUmAjUSD2nejFBouEwA
-BzUCJwnA+72UBUTc8Yk1KdxwtFNW4jHsfZmIwkzsW7Mg3ZLxcENevljokXrSmd5W
-x8slKZvtj3eChs9lJ3hF7r1Ufp3I1TY+HmY10a6lW5uecz1TfqI9b/8QdlEhSzrH
-jb7ZKr4gXUuxtOjgzQqTxzgvxrh9Lx//lUTWv3zXIccS6yoWLDaVoy1EJ2UfM8Tu
-Afr6lJeFZMPgnkYANLjN
-=Sf5i
------END PGP SIGNATURE-----
+Andrew Jeffery (3):
+  dt-bindings: max31785: Add use-stored-presence property
+  max31785: Support use-stored-presence devicetree property
+  pmbus: max31785: Work around back-to-back writes with FAN_CONFIG_1_2
 
---=-TqzLICIx7Y/VpSNavXaP--
+ .../devicetree/bindings/hwmon/pmbus/max31785.txt   |   6 ++
+ drivers/hwmon/pmbus/max31785.c                     | 114 +++++++++++++++++++--
+ 2 files changed, 109 insertions(+), 11 deletions(-)
+
+-- 
+2.11.0
