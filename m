@@ -1,57 +1,62 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
- [IPv6:2607:f8b0:4002:c05::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xM3GN6gv3zDsQS
- for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 14:28:12 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xM3MP0JGQzDsPm
+ for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 14:32:32 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="QWOSNdgx"; 
- dkim-atps=neutral
-Received: by mail-yw0-x244.google.com with SMTP id p68so327053ywg.5
- for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 21:28:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=dVEJJZ9BVHANl4Lc/smkIniuzoynXdYduYRDyNkGd6w=;
- b=QWOSNdgxJTibd1/eokV8p8kcU7oWIhyB3qIxWFcjtOf7gNUUAQuYznzXGDAElPga0g
- lFTV6iORZAIbK6pJsjbOPX4uLOIQrKO6ARz1eClh8hscf2WBs3HAD5u9tQp1h5K/vXIS
- U5+uuQARiNGwiPr1UuvSsPMzyYcrbenGVxbU+Xwiy3/RKahhv/mohPt0NB6516gXWWSA
- DAxhaKUidIZZDn7M0UR+31rnGSmizEf/21qIGo4L1lVF/723asyycUzxkjq+6AuGwJWe
- g67zUMH5Lt6lsGSw6QpiEpnaICRUItDI9S48Yvo6UyvHCrF7/vzh1c6CnTkh5SzTFoYv
- G3Dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=dVEJJZ9BVHANl4Lc/smkIniuzoynXdYduYRDyNkGd6w=;
- b=DgQkoUOW7zqiWoux5eQF4Az69HxJX42L0dkjc3p0ZVkJRJU3qwu5cW6oztpUrbfS0O
- JWJb6lVvY+52FH4YmJzUJXvHNaTf97qh+MNcIkGeGNKAWEqXiIZi5pqUeAUCx0lg8P8i
- xiQYAIX4etS1VfqabzYXLdAzR4JgQl/hzhkPVRNFH3N57+xYYW92tOO8WC+vf9v8Culi
- txnxNJ0NraZh7LW8P3u0rU6sL8ZFK5mF8gwNIa25kE7+BqGF1311HCpe1T14mzJ811fl
- ddYsISBR0U0O9Nm49+I0mSuOmpMFmCAAFaGiU1d6DM1yOkATYiMTb1XSo28TkLRSESMa
- /mrQ==
-X-Gm-Message-State: AIVw110ekEhF4HcE7rVMKiBYFEtFmD/aDk1u23aVDA+VAtmiy13inQvf
- WjlQ/oRwnEnG0hSjlDolzIQgHTEqwg==
-X-Received: by 10.13.240.4 with SMTP id z4mr15448509ywe.276.1501561690017;
- Mon, 31 Jul 2017 21:28:10 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.197.148 with HTTP; Mon, 31 Jul 2017 21:27:49 -0700 (PDT)
-In-Reply-To: <20170801031932.4328-4-andrew@aj.id.au>
-References: <20170801031932.4328-1-andrew@aj.id.au>
- <20170801031932.4328-4-andrew@aj.id.au>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 1 Aug 2017 13:57:49 +0930
-X-Google-Sender-Auth: MPz_oLMGYxV6SCehOi6rMWoT78Y
-Message-ID: <CACPK8XcrJCxuGcbBoij41-5r2JSe=DhzyoXni=3hqh3PJQ_AEw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 v2 3/3] pmbus: max31785: Work around
- back-to-back writes with FAN_CONFIG_1_2
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Matt Spinler <mspinler@linux.vnet.ibm.com>,
- msbarth <msbarth@linux.vnet.ibm.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Mr0XaaAD"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="gZhMoiPA"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id B78A8207CC;
+ Tue,  1 Aug 2017 00:32:30 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Tue, 01 Aug 2017 00:32:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=vVbHIfMce1OQFj3hTh0ONX+J4bBAVyxdoZ5bmgJE8
+ h8=; b=Mr0XaaADXk/RUmHCQKXFVMthktgdu9VaXIXp7FBMuNHgbQsn42xNdHYXw
+ tg+e0zNDM5oTRdoNqfN+cMuH2koVLgzztj7xFpuffRXEDJXM88i7Sc5CvIZ4WNfz
+ GTyzWJcPrm/oFhg0OxcOdYg6tGO5GRL5sG6GXHmhE68Tzv8WPrsjzPoq/iwNaSQ2
+ lRXnDoPCkibby2WmafwYo163lceZGVIut36JhJfP2FBffcronHB1tB0TUOLkgZs3
+ PKSz4NlJmrtVTX+tRqphu8ujgaf6CUBwOLOI+0H+l6CL2pMO/xZVLSqeVk/Kagcl
+ 8nXCK5LeGxBmS8QZVyKV5XxQmATrw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=vVbHIfMce1OQFj3hTh
+ 0ONX+J4bBAVyxdoZ5bmgJE8h8=; b=gZhMoiPAppK6iXcAvHo9wc9CpBTvWHfGvv
+ T9yiN8i507uLbVh7DGXqssqdVXUOWWDDvo77AysQP9+d6slKrTu1iwVfqpNYN+Nt
+ T5abYNiNSieSit1gW4EZDqy9ZsN46QWdmfcstp8UJlAUInUVBjAPOoOv5SG3A0qS
+ z9S1APe3wJRuefJLaQ9pIcWJBH1VkC1PldHYAzB36SlCYE0thCuid1dRiCXD+Wsu
+ 1XWx7TP26jKn3w+bIXXJG2XQ6iGZT2+/gvzvsHhwi59MviA3vMLKPgPo4QKjZlIi
+ wpXceCSajvIg7rU225osUdGdq93vLL5j9cKEXMzh2aSZ0JaGoavA==
+X-ME-Sender: <xms:XgSAWVyiinfgtsMQvyBXBsg6FsekMsStAfWAylQU47wYMS_lL413Mg>
+X-Sasl-enc: hqCEd+BsptKOYX4w9/1Vkmy2vgeUHg2ykbKFly4OFpXn 1501561949
+Received: from keelia (ppp118-210-176-216.bras2.adl6.internode.on.net
+ [118.210.176.216])
+ by mail.messagingengine.com (Postfix) with ESMTPA id CB39D24604;
+ Tue,  1 Aug 2017 00:32:27 -0400 (EDT)
+Message-ID: <1501561942.5179.34.camel@aj.id.au>
+Subject: Re: [Qemu-arm] [PATCH] watchdog: wdt_aspeed: Add support for the
+ reset width register
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Philippe =?ISO-8859-1?Q?Mathieu-Daud=E9?= <f4bug@amsat.org>, 
+ qemu-arm@nongnu.org
+Cc: peter.maydell@linaro.org, openbmc@lists.ozlabs.org,
+ qemu-devel@nongnu.org,  joel@jms.id.au, clg@kaod.org
+Date: Tue, 01 Aug 2017 14:02:22 +0930
+In-Reply-To: <a2f01f69-13cb-dcb9-6dcb-e5ccc3bb504d@amsat.org>
+References: <20170801010425.25778-1-andrew@aj.id.au>
+ <a2f01f69-13cb-dcb9-6dcb-e5ccc3bb504d@amsat.org>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-mw8h11HAz22QEgQhmKe5"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,38 +68,352 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Aug 2017 04:28:13 -0000
+X-List-Received-Date: Tue, 01 Aug 2017 04:32:34 -0000
 
-On Tue, Aug 1, 2017 at 12:49 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> --- a/drivers/hwmon/pmbus/max31785.c
-> +++ b/drivers/hwmon/pmbus/max31785.c
-> @@ -48,6 +48,55 @@ enum max31785_regs {
->
->  #define MAX31785_NR_PAGES              23
->
-> +/*
-> + * MAX31785 dragons ahead
 
-ENODRAGONS. Daenerys will not be pleased.
+--=-mw8h11HAz22QEgQhmKe5
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> + *
-> + * It seems there's an undocumented timing constraint when performing
-> + * back-to-back writes where the first write is to FAN_CONFIG_1_2. The device
-> + * provides no indication of this besides NACK'ing master Txs; no bits are set
-> + * in STATUS_BYTE to suggest anything has gone wrong.
-> + *
-> + * Given that, do a one-shot retry of the write.
-> + *
-> + * The max31785_*_write_*_data() functions should be used at any point where
-> + * the prior write is to FAN_CONFIG_1_2.
-> + */
-> +static int max31785_i2c_smbus_write_byte_data(struct i2c_client *client,
-> +                                             int command, u16 data)
+Hi Phil,
 
-nit: data should be a u8.
+On Tue, 2017-08-01 at 00:23 -0300, Philippe Mathieu-Daud=C3=A9 wrote:
+> Hi Andrew,
+>=20
+> On 07/31/2017 10:04 PM, Andrew Jeffery wrote:
+> > The reset width register controls how the pulse on the SoC's WDTRST{1,2=
+}
+> > pins behaves. A pulse is emitted if the external reset bit is set in
+> > WDT_CTRL. WDT_RESET_WIDTH requires magic bit patterns to configure both
+> > push-pull/open-drain and active-high/active-low behaviours and thus
+> > needs some special handling in the write path.
+>=20
+> I wanted to verify the datashit but it seems to unavailable, looking ther=
+e:
+> https://www.verical.com/datasheet/aspeed-technology-inc-interface-misc-as=
+t2050a3-gp-4078885.pdf
+>=20
+> Can you point out which cpu model you are modeling and where to get this=
+=C2=A0
+> watchdog datashit please? You might also add this to the header, for the=
+=C2=A0
+> next one looking at this file :)
 
-I will fix it when I apply. Thanks for the patches!
+The watchdog model is common to at least the Aspeed AST2400- and
+AST2500- SoC families, which I have datasheets for. However, they are
+not available to the public and therefore (unfortunately) I can't point
+you to them. You may be able to access them if you have appropriate
+arrangements with Aspeed.
 
-Cheers,
+Regarding the features exposed by the patch, configuration of the
+electrical properties of the  external reset signal is only provided in
+the AST2500's watchdog IP, but the bits used in the reset width
+register are marked as reserved on the AST2400. Therefore I thought it
+was reasonable not to guard them behind some kind of revision test.
 
-Joel
+>=20
+> >=20
+> > > > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> > ---
+> > I understand that we're in stabilisation mode, but I thought I'd send t=
+his out
+> > to provoke any feedback. Happy to resend after the 2.10 release if requ=
+ired.
+>=20
+> you can subject it "PATCH for 2.11" so ppl testing/closing 2.10 can keep=
+=C2=A0
+> focused but still queue your mail for when 2.10 release is out.
+
+Thanks for the tip.
+
+>=20
+> >=20
+> > =C2=A0 hw/watchdog/wdt_aspeed.c | 47 ++++++++++++++++++++++++++++++++++=
++++----------
+> > =C2=A0 1 file changed, 37 insertions(+), 10 deletions(-)
+> >=20
+> > diff --git a/hw/watchdog/wdt_aspeed.c b/hw/watchdog/wdt_aspeed.c
+> > index 8bbe579b6b66..4ef1412e99fc 100644
+> > --- a/hw/watchdog/wdt_aspeed.c
+> > +++ b/hw/watchdog/wdt_aspeed.c
+> > @@ -14,10 +14,10 @@
+> > =C2=A0 #include "qemu/timer.h"
+> > =C2=A0 #include "hw/watchdog/wdt_aspeed.h"
+> > =C2=A0=C2=A0
+> > -#define WDT_STATUS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0(0x00 / 4)
+> > -#define WDT_RELOAD_VALUE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0(0x04 / 4)
+> > -#define WDT_RESTART=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0(0x08 / 4)
+> > -#define WDT_CTRL=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0(0x0C / 4)
+> > +#define WDT_STATUS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0(0x00 / 4)
+> > +#define WDT_RELOAD_VALUE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0(0x04 / 4)
+> > +#define WDT_RESTART=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+(0x08 / 4)
+> > +#define WDT_CTRL=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0(0x0C / 4)
+> > =C2=A0 #define=C2=A0=C2=A0=C2=A0WDT_CTRL_RESET_MODE_SOC=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0(0x00 << 5)
+> > =C2=A0 #define=C2=A0=C2=A0=C2=A0WDT_CTRL_RESET_MODE_FULL_CHIP (0x01 << =
+5)
+> > =C2=A0 #define=C2=A0=C2=A0=C2=A0WDT_CTRL_1MHZ_CLK=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0BIT(4)
+> > @@ -25,12 +25,21 @@
+> > =C2=A0 #define=C2=A0=C2=A0=C2=A0WDT_CTRL_WDT_INTR=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0BIT(2)
+> > =C2=A0 #define=C2=A0=C2=A0=C2=A0WDT_CTRL_RESET_SYSTEM=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0BIT(1)
+> > =C2=A0 #define=C2=A0=C2=A0=C2=A0WDT_CTRL_ENABLE=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0BIT(0)
+> > +#define WDT_RESET_WIDTH=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0(0x18 / 4)
+> > +#define=C2=A0=C2=A0=C2=A0WDT_RESET_WIDTH_ACTIVE_HIGH=C2=A0=C2=A0=C2=A0=
+BIT(31)
+> > +#define=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0WDT_POLARITY_MASK=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0(0xFF << 24)
+> > +#define=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0WDT_ACTIVE_HIGH_MAGIC=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0(0xA5 << 24)
+> > +#define=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0WDT_ACTIVE_LOW_MAGIC=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0(0x5A << 24)
+> > +#define=C2=A0=C2=A0=C2=A0WDT_RESET_WIDTH_PUSH_PULL=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0BIT(30)
+> > +#define=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0WDT_DRIVE_TYPE_MASK=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0(0xFF << 24)
+> > +#define=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0WDT_PUSH_PULL_MAGIC=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0(0xA8 << 24)
+> > +#define=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0WDT_OPEN_DRAIN_MAGIC=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0(0x8A << 24)
+> > +#define=C2=A0=C2=A0=C2=A0WDT_RESET_WIDTH_DURATION=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A00xFFF;
+>=20
+> Which model? the AST2050 seems to be 0xff.
+
+Ah, good catch, this is also the case in the AST2400. The AST2500
+extends this field. Host code for the AST2400 and AST2050 *shouldn't*
+set any greater values; is it worth enforcing?
+
+>=20
+> > =C2=A0=C2=A0
+> > -#define WDT_TIMEOUT_STATUS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0(0x10 / =
+4)
+> > -#define WDT_TIMEOUT_CLEAR=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0(0x=
+14 / 4)
+> > -#define WDT_RESET_WDITH=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0(0x18 / 4)
+> > +#define WDT_TIMEOUT_STATUS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0(0x10 / 4)
+> > +#define WDT_TIMEOUT_CLEAR=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0(0x14 / 4)
+> > =C2=A0=C2=A0
+> > -#define WDT_RESTART_MAGIC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A00x4=
+755
+> > +#define WDT_RESTART_MAGIC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A00x4755
+> > =C2=A0=C2=A0
+> > =C2=A0 static bool aspeed_wdt_is_enabled(const AspeedWDTState *s)
+> > =C2=A0 {
+> > @@ -55,9 +64,10 @@ static uint64_t aspeed_wdt_read(void *opaque, hwaddr=
+ offset, unsigned size)
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0return 0;
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0case WDT_CTRL:
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0return s->r=
+egs[WDT_CTRL];
+> > +=C2=A0=C2=A0=C2=A0=C2=A0case WDT_RESET_WIDTH:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0return s->regs[WDT_RES=
+ET_WIDTH];
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0case WDT_TIMEOUT_STATUS:
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0case WDT_TIMEOUT_CLEAR:
+> > -=C2=A0=C2=A0=C2=A0=C2=A0case WDT_RESET_WDITH:
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0qemu_log_ma=
+sk(LOG_UNIMP,
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+"%s: uninmplemented read at offset 0x%" HWADDR_PRIx "\n",
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+__func__, offset);
+> > @@ -119,9 +129,25 @@ static void aspeed_wdt_write(void *opaque, hwaddr =
+offset, uint64_t data,
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0timer_del(s->timer);
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0}
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0break;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0case WDT_RESET_WIDTH:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0{
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0uint32_t property =3D =
+data & WDT_POLARITY_MASK;
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0if (property =3D=3D WD=
+T_ACTIVE_HIGH_MAGIC) {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0s->regs[WDT_RESET_WIDTH] |=3D WDT_RESET_WIDTH_ACTIVE_HIGH;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0} else if (property =
+=3D=3D WDT_ACTIVE_LOW_MAGIC) {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0s->regs[WDT_RESET_WIDTH] &=3D ~WDT_RESET_WIDTH_ACTIVE_HIGH;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0} else if (property =
+=3D=3D WDT_PUSH_PULL_MAGIC) {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0s->regs[WDT_RESET_WIDTH] |=3D WDT_RESET_WIDTH_PUSH_PULL;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0} else if (property =
+=3D=3D WDT_OPEN_DRAIN_MAGIC) {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0s->regs[WDT_RESET_WIDTH] &=3D ~WDT_RESET_WIDTH_PUSH_PULL;
+>=20
+> } else {
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0qemu_log_mask(LOG_GUEST_ERROR, ...
+>=20
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0}
+
+=46rom the datasheet: "For others value, this bit will keep old value
+without change." So it is not a guest error to write a value not
+matching the cases above.
+
+>=20
+> Anyway I'm not sure about this if().
+> Usually watchdogs have a state machine, if you don't do all unlock steps=
+=C2=A0
+> ordered, the SM get reset. This is why magic is involved, else you could=
+=C2=A0
+> use it as a regular register.
+> I'd expect a guest writing ACTIVE_HIGH_MAGIC then PUSH_PULL_MAGIC to not=
+=C2=A0
+> modify the RESET_WIDTH register, since the correct behavior would be to=
+=C2=A0
+> write ordered RESTART_MAGIC, then HIGH_MAGIC, then LOW_MAGIC and finally=
+=C2=A0
+> the PULL/DRAIN change, but I'm just trying to model this wdg in my head=
+=C2=A0
+> without having study the DS so you can't rely on my comments :)
+
+Well, given I have it handy, I think the behaviour of the hardware
+resolves this query:
+
+root@romulus:~# devmem 0x1e785018
+0x000000FF
+root@romulus:~# devmem 0x1e785018 32 0xa80000ff
+root@romulus:~# devmem 0x1e785018
+0x400000FF
+root@romulus:~# devmem 0x1e785018 32 0x8a0000ff
+root@romulus:~# devmem 0x1e785018
+0x000000FF
+root@romulus:~# devmem 0x1e785018 32 0xa50000ff
+root@romulus:~# devmem 0x1e785018
+0x800000FF
+root@romulus:~# devmem 0x1e785018 32 0x5a0000ff
+root@romulus:~# devmem 0x1e785018
+0x000000FF
+root@romulus:~# devmem 0x1e785018 32 0xa80000ff
+root@romulus:~# devmem
+0x1e785018 32 0xa50000ff
+root@romulus:~# devmem 0x1e785018
+0xC00000FF
+root
+@romulus:~# devmem 0x1e785018 32 0x5a0000ff
+root@romulus:~# devmem
+0x1e785018 32 0x8a0000ff
+root@romulus:~# devmem 0x1e785018
+0x000000FF
+root@romulus:~# devmem 0x1e785018 32 0xa50000ff
+root@romulus:~# devmem 0x1e785018
+0x800000FF
+root@romulus:~# devmem 0x1e785018 32 0x000a5a5a
+root@romulus:~# devmem
+0x1e785018
+0x800A5A5A
+root@romulus:~# devmem 0x1e785018 32 0x5a0000ff
+root@romulus:~# devmem 0x1e785018
+0x000000FF
+
+Bear in mind the driver is loaded, so maybe it's messing with the test,
+but I haven't seen any indication to the contrary.
+
+>=20
+> Also it seems unsafe to modify that kind of property while the watchdog=
+=C2=A0
+> is running, usually you disable it before modifying it, else while=C2=A0
+> running changes are automagically ignored.
+
+But that's a host-code problem, right? I don't see any hardware
+restriction noted in the datasheet along these lines.
+
+>=20
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0s->regs[WDT_RESET_WIDT=
+H] &=3D ~WDT_RESET_WIDTH_DURATION;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0s->regs[WDT_RESET_WIDT=
+H] |=3D data & WDT_RESET_WIDTH_DURATION;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0break;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0}
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0case WDT_TIMEOUT_STATUS:
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0case WDT_TIMEOUT_CLEAR:
+> > -=C2=A0=C2=A0=C2=A0=C2=A0case WDT_RESET_WDITH:
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0qemu_log_ma=
+sk(LOG_UNIMP,
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+"%s: uninmplemented write at offset 0x%" HWADDR_PRIx "\n",
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+__func__, offset);
+> > @@ -167,6 +193,7 @@ static void aspeed_wdt_reset(DeviceState *dev)
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0s->regs[WDT_RELOAD_VALUE] =3D 0x03E=
+F1480;
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0s->regs[WDT_RESTART] =3D 0;
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0s->regs[WDT_CTRL] =3D 0;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0s->regs[WDT_RESET_WIDTH] =3D 0XFF;
+>=20
+> why different than your define WDT_RESET_WIDTH_DURATION?
+
+Maybe WDT_RESET_WIDTH_DURATION is poorly named, but it's a mask, not a
+value. The 0xFF here (somehow I got an upper-case X in there) is the
+default value for the register as documented in both the AST2400 and
+AST2500 datasheets. However, this *has* lead me to discover that I've
+defined the WDT_RESET_WIDTH_DURATION mask too narrow for the AST2500,
+it should be 0xFFFFF (19:0). The AST2400 datasheet documents the field
+as 7:0 (0xFF).
+
+I'll respin, taking into account the 2.11 note above, unless you have
+any more comments.
+
+Thanks for taking a look!
+
+Andrew
+
+> > =C2=A0=C2=A0
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0timer_del(s->timer);
+> > =C2=A0 }
+> >=20
+>=20
+> Regards,
+>=20
+> Phil.
+--=-mw8h11HAz22QEgQhmKe5
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZgARWAAoJEJ0dnzgO5LT5yzoP/A/dsr7O61gySJwGn3+TGSsF
+DmyLfDlDzPpG2vHpG+lE/ipgd0hnnkXF3JakEfpfDfR1Oj0fayrF1NfGVIHFpoTz
+kAlsztmg6mZssDHraPTmBON2cftPN1+rT4mX96XCWJRN072CNY/MTSAG9xVm7ph4
+yYi6hkX7cQA9hozTNOSJV0KIsBkH3vJBbxSN8NG/0/M24KghYOzLagOs3Od+63ES
+A2HDfAISniXpXeuvWWuNb46ZMSuMJTJoV8PBp8VT8SIkF5aKgT0vJQouJE7JkAAu
+DU3f+cbmBslXL6ZLlzS4uFK2K9XCD4FPCCbJi66UJiQnmIACa6NJZiKol4eXyy7P
+yQB1+bNPzsOxf2jI866Q5JsTxIclhWBYXTW0OQ4E0iPlJpVCFctEMiKwNn7/C+y6
+WdN54SbPJn/8TLpepd7lehg4yN3XLchWzowCgYUhyeOkGny7gYmWt2fl0ZXoCWhe
+j0w/+1zc9ZxRvak+X74pyFQ9AsyJqhRdtt7e8D0GVpBCLr/OJX0JNDRreyT+mpBp
+deAwgVEx4EJ6AQc7H76Y6nnqBOz6hm8UI0QK/X/3EXsUL9sx6h5FT5LD39u0U7r+
+W2HbduAEIM4Z22arM/Cqq+NgkYANhYd9KngSIbETLvDQMKJ0dnvWewrKjEH5URqb
+I4qzEZb+utZmwyyA64ky
+=AWxP
+-----END PGP SIGNATURE-----
+
+--=-mw8h11HAz22QEgQhmKe5--
