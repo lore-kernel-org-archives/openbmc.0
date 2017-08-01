@@ -3,51 +3,60 @@ Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xLylx2f6KzDr2y
- for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 11:05:01 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xM0g06RmpzDrLS
+ for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 12:30:52 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="NGbswFBk"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="c15yg6LZ"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="KOdZRttc"; dkim-atps=neutral
+ header.b="XkpUwzIh"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id EE88820774;
- Mon, 31 Jul 2017 21:04:58 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id EA882207AE;
+ Mon, 31 Jul 2017 22:30:49 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Mon, 31 Jul 2017 21:04:58 -0400
+ by compute4.internal (MEProxy); Mon, 31 Jul 2017 22:30:49 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:message-id:subject:to:x-me-sender:x-me-sender
- :x-sasl-enc:x-sasl-enc; s=fm1; bh=I1691WBr92xTPpnV9ROVgEHnl2VH5e
- pIO4BQtBbcP70=; b=NGbswFBkj4ktUx3msNwJAOb2SHNWiIIhPzF7026H1lQ1wx
- 3TnaoN7+iEQ7431sNjF1UPZpjV3ds5ZtClNxkdn2AlheE5uekZsYuySllJLMfIgy
- NK1RCZUPB9TfV7s98RsorJcGQFQwOEwUqZsslXlKC+ojQ++UZHl6GVmjhnDq/dL0
- EcDbsazIyWLdIdCiQMemXP0g29PSv7bLsp4RYIWAKXwbZ5O5AWqQZvGVX0Zt/z61
- hfAiYQkUHzfvLtED29B2G59rwFOnqfAiMhcFwqhwUxbrDl2+TJ9jnlk1m8q9RN+f
- 6LRyp1P3FgJlLs1dvuWLB4LWWBudCAg34tShD6cQ==
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=ZPqCbsY0iELHhIzoVRFBHv6Z0gO+n5fGS4RiO1VkV
+ tc=; b=c15yg6LZ5Qnhut1wBfz3T/pQa09wIMXuv2Hizn8AZLQFRsqj3Gm4FJRt9
+ ZVESZLWO8E/1NKffZ0XE6v9U3j2QO7Lp9VMEFbQZgJqBi0WZW9pE2zBwzyrGBPhZ
+ jvkXS9VLIVhxbqBuaJanenOgI4BQIBfQ7NeJYGvnW7SrHp5+Xh9LRJ0+UX9oId5K
+ qWFPduvIKW2FRg/ERnwuPBya9ztZQe7XnAeySlTWbQaPPpGUB0C5YOS6NeFWAH8G
+ EVzBnAGfCPf69qj0+uYPOnPypNoIclxiwhjzxLYOOh3adwu6aTNUEmrdAOd69XIe
+ CD19HxYWaXop1pqLs9ahHR00m4+Fg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=I1691W
- Br92xTPpnV9ROVgEHnl2VH5epIO4BQtBbcP70=; b=KOdZRttcgVuLi++CnMTJt4
- J5VjZL6l74kwKrFwadivTSGhZHPoGO8N1ut5lHrTGJLBG2WTZQAO4NsU22u5WxU7
- bfkY4zeUqbfzcSrpPCteOtZKtc5fdg078Mw9FwQLa/XM722TkRxCzE60zBFaRlsE
- Kel/5Hgd5P2QWBKDtFTQhR8GKQ3mUcMso3Nrs2DUj3WjX85xvZUJZW6iDBJ7BcbV
- Efltp2fwTPLy05yCv6OnwSCWnDkgrdgrMbCoYTh75MDh3r/hhhbg80X/3STWsJxK
- PieDekpdjr91MXWpM7GcesegsjGA2kSpLpBvnNLX/madboG3Cit0DpIHuo7vG82A
- ==
-X-ME-Sender: <xms:utN_WdZoUuCYpZB2tvHDfmrvxUTNxhR_Szn6fSqltD3iYhEJ2WZdUg>
-X-Sasl-enc: 1Jk5tillm/lewo4YH0LXbJShF+dYi0nccB97rrsx6Ay5 1501549498
-Received: from keelia.au.ibm.com
- (ppp118-210-176-216.bras2.adl6.internode.on.net [118.210.176.216])
- by mail.messagingengine.com (Postfix) with ESMTPA id 18F4624604;
- Mon, 31 Jul 2017 21:04:55 -0400 (EDT)
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=ZPqCbsY0iELHhIzoVR
+ FBHv6Z0gO+n5fGS4RiO1VkVtc=; b=XkpUwzIhaVithfQLMe3fvNrUhzW1duVcQP
+ Mr+B0qwpCinNXLFkO2fCVk7VnKcWTttv6GYv21GP2hNUmJWZ8Dgke4AXig4IQis/
+ 4pg1Au/OV0tUhlm6s0mNmAHAYSr0DiMMfd1o78vxJZFQ2jYH9D4spMJxnK12HIYg
+ 8HM/xEEB+WzzXjaGM+AuNqJ97n70sdK2OINQZ2oneYSnzS16+Nu47NMuG95ps2MD
+ PQWcxeFEkanMTPtMdYK4RcPgw+gapN+pbFG+0FVqG0FqESQMijeaL/3v3VnPVC7K
+ tprLZwtXszEJVwpgBPoT72dyC1NCfc9GRAHmr1Vvm85KE/LdOcuQ==
+X-ME-Sender: <xms:2ed_WYjmevEG5RbA3diCKYocpN_eiBZo5eLi1Ie9nO4UB_2a1DqynA>
+X-Sasl-enc: nqP+qMdU018Y7ed3n7NR+HypdiN8rPUkHYwa9+wVVofb 1501554649
+Received: from keelia (ppp118-210-176-216.bras2.adl6.internode.on.net
+ [118.210.176.216])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 054402464E;
+ Mon, 31 Jul 2017 22:30:47 -0400 (EDT)
+Message-ID: <1501554640.5179.32.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.10 6/6] pmbus: max31785: Work around
+ back-to-back writes with FAN_CONFIG_1_2
 From: Andrew Jeffery <andrew@aj.id.au>
-To: qemu-arm@nongnu.org
-Cc: Andrew Jeffery <andrew@aj.id.au>, qemu-devel@nongnu.org, clg@kaod.org,
- peter.maydell@linaro.org, joel@jms.id.au, openbmc@lists.ozlabs.org
-Subject: [PATCH] watchdog: wdt_aspeed: Add support for the reset width register
-Date: Tue,  1 Aug 2017 10:34:25 +0930
-Message-Id: <20170801010425.25778-1-andrew@aj.id.au>
-X-Mailer: git-send-email 2.11.0
+To: Joel Stanley <joel@jms.id.au>
+Cc: Matt Spinler <mspinler@linux.vnet.ibm.com>, msbarth
+ <msbarth@linux.vnet.ibm.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Tue, 01 Aug 2017 12:00:40 +0930
+In-Reply-To: <CACPK8Xd56iJ4MrLqRXvcgH9M230nR+ghiGnOZ-4LvF-rtncFvw@mail.gmail.com>
+References: <20170728162249.9145-1-andrew@aj.id.au>
+ <20170728162249.9145-7-andrew@aj.id.au>
+ <CACPK8Xd56iJ4MrLqRXvcgH9M230nR+ghiGnOZ-4LvF-rtncFvw@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-TqzLICIx7Y/VpSNavXaP"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,113 +68,107 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Aug 2017 01:05:02 -0000
+X-List-Received-Date: Tue, 01 Aug 2017 02:30:54 -0000
 
-The reset width register controls how the pulse on the SoC's WDTRST{1,2}
-pins behaves. A pulse is emitted if the external reset bit is set in
-WDT_CTRL. WDT_RESET_WIDTH requires magic bit patterns to configure both
-push-pull/open-drain and active-high/active-low behaviours and thus
-needs some special handling in the write path.
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
-I understand that we're in stabilisation mode, but I thought I'd send this out
-to provoke any feedback. Happy to resend after the 2.10 release if required.
+--=-TqzLICIx7Y/VpSNavXaP
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
- hw/watchdog/wdt_aspeed.c | 47 +++++++++++++++++++++++++++++++++++++----------
- 1 file changed, 37 insertions(+), 10 deletions(-)
+T24gTW9uLCAyMDE3LTA3LTMxIGF0IDIwOjU3ICswOTMwLCBKb2VsIFN0YW5sZXkgd3JvdGU6Cj4g
+PiBPbiBTYXQsIEp1bCAyOSwgMjAxNyBhdCAxOjUyIEFNLCBBbmRyZXcgSmVmZmVyeSA8YW5kcmV3
+QGFqLmlkLmF1PiB3cm90ZToKPiA+IFRlc3Rpbmcgb2YgdGhlIHBtYnVzIG1heDMxNzg1IGRyaXZl
+ciBpbXBsZW1lbnRhdGlvbiByZXZlYWxlZCBvY2Nhc2lvbmFsCj4gPiBOQUNLcyBmcm9tIHRoZSBk
+ZXZpY2UuIEF0dGVtcHRpbmcgdGhlIHNhbWUgdHJhbnNhY3Rpb24gaW1tZWRpYXRlbHkgYWZ0ZXIK
+PiA+IHRoZSBmYWlsdXJlIGFwcGVhcnMgdG8gYWx3YXlzIHN1Y2NlZWQuIFRoZSBOQUNLIGhhcyBj
+b25zaXN0ZW50bHkgYmVlbgo+ID4gb2JzZXJ2ZWQgdG8gaGFwcGVuIG9uIHRoZSBzZWNvbmQgd3Jp
+dGUgb2YgYmFjay10by1iYWNrIHdyaXRlcyB0byB0aGUKPiA+IGRldmljZSwgd2hlcmUgdGhlIGZp
+cnN0IHdyaXRlIGlzIHRvIEZBTl9DT05GSUdfMV8yLiBUaGUgTkFDSyBvY2N1cnMKPiA+IGFnYWlu
+c3QgdGhlIGZpcnN0IGRhdGEgYnl0ZSB0cmFuc21pdHRlZCBieSB0aGUgbWFzdGVyIG9uIHRoZSBz
+ZWNvbmQKPiA+IHdyaXRlLiBUaGUgYmVoYXZpb3VyIGhhcyB0aGUgaGFsbG1hcmtzIG9mIGEgUE1C
+dXMgRGV2aWNlIEJ1c3kgcmVzcG9uc2UsCj4gPiBidXQgdGhlIGJ1c3kgYml0IGlzIG5vdCBzZXQg
+aW4gdGhlIHN0YXR1cyBieXRlLgo+ID4gCj4gPiBXb3JrIGFyb3VuZCB0aGlzIHVuZG9jdW1lbnRl
+ZCBiZWhhdmlvdXIgYnkgcmV0cnlpbmcgYW55IGJhY2stdG8tYmFjawo+ID4gd3JpdGVzIHRoYXQg
+b2NjdXIgYWZ0ZXIgZmlyc3Qgd3JpdGluZyBGQU5fQ09ORklHXzFfMi4KPiA+IAo+ID4gPiA+IFNp
+Z25lZC1vZmYtYnk6IEFuZHJldyBKZWZmZXJ5IDxhbmRyZXdAYWouaWQuYXU+Cj4gPiAtLS0KPiA+
+IMKgZHJpdmVycy9od21vbi9wbWJ1cy9tYXgzMTc4NS5jIHwgMTA1ICsrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKysrKystLS0tCj4gPiDCoDEgZmlsZSBjaGFuZ2VkLCA5NyBpbnNlcnRp
+b25zKCspLCA4IGRlbGV0aW9ucygtKQo+ID4gCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9od21v
+bi9wbWJ1cy9tYXgzMTc4NS5jIGIvZHJpdmVycy9od21vbi9wbWJ1cy9tYXgzMTc4NS5jCj4gPiBp
+bmRleCBhODY5MTliYzcyOTQuLjE5MTE2NThmZmNmNiAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMv
+aHdtb24vcG1idXMvbWF4MzE3ODUuYwo+ID4gKysrIGIvZHJpdmVycy9od21vbi9wbWJ1cy9tYXgz
+MTc4NS5jCj4gPiBAQCAtNDgsNiArNDgsNTUgQEAgZW51bSBtYXgzMTc4NV9yZWdzIHsKPiA+IAo+
+ID4gwqAjZGVmaW5lIE1BWDMxNzg1X05SX1BBR0VTwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oDIzCj4gPiAKPiA+ICsvKgo+ID4gKyAqIE1BWDMxNzg1IGRyYWdvbnMgYWhlYWQKPiAKPiDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoFx8fC8KPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoHzCoMKgQF9fX29vCj4gwqDCoMKgwqDCoMKgL1zCoMKgL1zCoMKgwqAvIChfXyws
+LCx8Cj4gwqDCoMKgwqDCoCkgL15cKSBeXC8gXykKPiDCoMKgwqDCoMKgKcKgwqDCoC9eXC/CoMKg
+wqBfKQo+IMKgwqDCoMKgwqApwqDCoMKgXyAvwqDCoC8gXykKPiDCoC9cwqDCoCkvXC8gfHzCoMKg
+fCApXykKPiA8wqDCoD7CoMKgwqDCoMKgwqB8KCwsKSApX18pCj4gwqB8fMKgwqDCoMKgwqDCoC/C
+oMKgwqDCoFwpX19fKVwKPiDCoHwgXF9fX18owqDCoMKgwqDCoMKgKV9fXykgKV9fXwo+IMKgIFxf
+X19fX18oX19fX19fXzs7OyBfXzs7OwoKCkl0J3MgdGVtcHRpbmcgdG8gc3RpY2sgdGhhdCBpbiB0
+aGUgY29tbWVudC4KCj4gCj4gCj4gCj4gPiArICoKPiA+ICsgKiBJdCBzZWVtcyB0aGVyZSdzIGFu
+IHVuZG9jdW1lbnRlZCB0aW1pbmcgY29uc3RyYWludCB3aGVuIHBlcmZvcm1pbmcKPiA+ICsgKiBi
+YWNrLXRvLWJhY2sgd3JpdGVzIHdoZXJlIHRoZSBmaXJzdCB3cml0ZSBpcyB0byBGQU5fQ09ORklH
+XzFfMi4gVGhlIGRldmljZQo+ID4gKyAqIHByb3ZpZGVzIG5vIGluZGljYXRpb24gb2YgdGhpcyBi
+ZXNpZGVzIE5BQ0snaW5nIG1hc3RlciBUeHM7IG5vIGJpdHMgYXJlIHNldAo+ID4gKyAqIGluIFNU
+QVRVU19CWVRFIHRvIHN1Z2dlc3QgYW55dGhpbmcgaGFzIGdvbmUgd3JvbmcuCj4gPiArICoKPiA+
+ICsgKiBHaXZlbiB0aGF0LCBkbyBhIG9uZS1zaG90IHJldHJ5IG9mIHRoZSB3cml0ZS4KPiA+ICsg
+Kgo+ID4gKyAqIFRoZSBfX21heDMxNzg1Xypfd3JpdGVfKl9kYXRhKCkgZnVuY3Rpb25zIHNob3Vs
+ZCBiZSB1c2VkIGF0IGFueSBwb2ludCB3aGVyZQo+ID4gKyAqIHRoZSBwcmlvciB3cml0ZSBpcyB0
+byBGQU5fQ09ORklHXzFfMi4KPiA+ICsgKi8KPiA+ICtzdGF0aWMgaW50IF9fbWF4MzE3ODVfaTJj
+X3NtYnVzX3dyaXRlX2J5dGVfZGF0YShzdHJ1Y3QgaTJjX2NsaWVudCAqY2xpZW50LAo+ID4gK8Kg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBpbnQgY29tbWFuZCwgdTE2IGRhdGEp
+Cj4gCj4gRHJvcCB0aGUgX18gcHJlZml4IGZvciB0aGVzZSBmdW5jdGlvbnMuCgpBd3cuIEkgbGlr
+ZWQgaG93IGRhbmdlcm91cyB0aGV5IGxvb2tlZC4KCj4gCj4gPiArewo+ID4gK8KgwqDCoMKgwqDC
+oMKgaW50IHJldDsKPiA+ICsKPiA+ICvCoMKgwqDCoMKgwqDCoHJldCA9IGkyY19zbWJ1c193cml0
+ZV9ieXRlX2RhdGEoY2xpZW50LCBjb21tYW5kLCBkYXRhKTsKPiA+ICvCoMKgwqDCoMKgwqDCoGlm
+IChyZXQgPT0gLUVJTykKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqByZXQgPSBp
+MmNfc21idXNfd3JpdGVfYnl0ZV9kYXRhKGNsaWVudCwgY29tbWFuZCwgZGF0YSk7Cj4gPiArCj4g
+PiArwqDCoMKgwqDCoMKgwqByZXR1cm4gcmV0Owo+ID4gK30KPiA+ICsKPiA+IMKgc3RhdGljIGlu
+dCBtYXgzMTc4NV93cml0ZV93b3JkX2RhdGEoc3RydWN0IGkyY19jbGllbnQgKmNsaWVudCwgaW50
+IHBhZ2UsCj4gPiBAQCAtMjE5LDEyICsyOTMsMjQgQEAgc3RhdGljIGludCBtYXgzMTc4NV93cml0
+ZV93b3JkX2RhdGEoc3RydWN0IGkyY19jbGllbnQgKmNsaWVudCwgaW50IHBhZ2UsCj4gPiDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJldHVybiAtRU5YSU87Cj4gPiAKPiA+IMKgwqDC
+oMKgwqDCoMKgwqBzd2l0Y2ggKHJlZykgewo+ID4gK8KgwqDCoMKgwqDCoMKgY2FzZSBQTUJVU19W
+SVJUX0ZBTl9UQVJHRVRfMToKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqByZXR1
+cm4gX19tYXgzMTc4NV91cGRhdGVfZmFuKGNsaWVudCwgcGFnZSwgUEJfRkFOXzFfUlBNLAo+ID4g
+K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBQQl9GQU5fMV9SUE0sIHdvcmQpOwo+ID4g
+K8KgwqDCoMKgwqDCoMKgY2FzZSBQTUJVU19WSVJUX1BXTV8xOgo+ID4gK8KgwqDCoMKgwqDCoMKg
+ewo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHUzMiBjb21tYW5kID0gd29yZDsK
+PiA+ICsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBjb21tYW5kICo9IDEwMDsK
+PiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBjb21tYW5kIC89IDI1NTsKPiA+ICvC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqByZXR1cm4gX19tYXgzMTc4NV91cGRhdGVfZmFu
+KGNsaWVudCwgcGFnZSwgMCwgUEJfRkFOXzFfUlBNLAo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqBjb21tYW5kKTsKPiAKPiBUaGlzIGxvb2tzIGxpa2UgY29kZSBmcm9tIHRoZSBw
+bWJ1cyBjb3JlLiBEb2VzIHRoaXMgb3ZlcnJpZGUgdGhlIGNvZGUKPiBmcm9tIHRoZSBjb3JlIHNv
+IHdlIGNhbiB1c2UgdGhlIG1hZ2ljIHRyeS10d2ljZSB1cGRhdGU/CgpZZXMuCgpDaGVlcnMsCgpB
+bmRyZXc=
 
-diff --git a/hw/watchdog/wdt_aspeed.c b/hw/watchdog/wdt_aspeed.c
-index 8bbe579b6b66..4ef1412e99fc 100644
---- a/hw/watchdog/wdt_aspeed.c
-+++ b/hw/watchdog/wdt_aspeed.c
-@@ -14,10 +14,10 @@
- #include "qemu/timer.h"
- #include "hw/watchdog/wdt_aspeed.h"
- 
--#define WDT_STATUS              (0x00 / 4)
--#define WDT_RELOAD_VALUE        (0x04 / 4)
--#define WDT_RESTART             (0x08 / 4)
--#define WDT_CTRL                (0x0C / 4)
-+#define WDT_STATUS                      (0x00 / 4)
-+#define WDT_RELOAD_VALUE                (0x04 / 4)
-+#define WDT_RESTART                     (0x08 / 4)
-+#define WDT_CTRL                        (0x0C / 4)
- #define   WDT_CTRL_RESET_MODE_SOC       (0x00 << 5)
- #define   WDT_CTRL_RESET_MODE_FULL_CHIP (0x01 << 5)
- #define   WDT_CTRL_1MHZ_CLK             BIT(4)
-@@ -25,12 +25,21 @@
- #define   WDT_CTRL_WDT_INTR             BIT(2)
- #define   WDT_CTRL_RESET_SYSTEM         BIT(1)
- #define   WDT_CTRL_ENABLE               BIT(0)
-+#define WDT_RESET_WIDTH                 (0x18 / 4)
-+#define   WDT_RESET_WIDTH_ACTIVE_HIGH   BIT(31)
-+#define     WDT_POLARITY_MASK           (0xFF << 24)
-+#define     WDT_ACTIVE_HIGH_MAGIC       (0xA5 << 24)
-+#define     WDT_ACTIVE_LOW_MAGIC        (0x5A << 24)
-+#define   WDT_RESET_WIDTH_PUSH_PULL     BIT(30)
-+#define     WDT_DRIVE_TYPE_MASK         (0xFF << 24)
-+#define     WDT_PUSH_PULL_MAGIC         (0xA8 << 24)
-+#define     WDT_OPEN_DRAIN_MAGIC        (0x8A << 24)
-+#define   WDT_RESET_WIDTH_DURATION      0xFFF;
- 
--#define WDT_TIMEOUT_STATUS      (0x10 / 4)
--#define WDT_TIMEOUT_CLEAR       (0x14 / 4)
--#define WDT_RESET_WDITH         (0x18 / 4)
-+#define WDT_TIMEOUT_STATUS              (0x10 / 4)
-+#define WDT_TIMEOUT_CLEAR               (0x14 / 4)
- 
--#define WDT_RESTART_MAGIC       0x4755
-+#define WDT_RESTART_MAGIC               0x4755
- 
- static bool aspeed_wdt_is_enabled(const AspeedWDTState *s)
- {
-@@ -55,9 +64,10 @@ static uint64_t aspeed_wdt_read(void *opaque, hwaddr offset, unsigned size)
-         return 0;
-     case WDT_CTRL:
-         return s->regs[WDT_CTRL];
-+    case WDT_RESET_WIDTH:
-+        return s->regs[WDT_RESET_WIDTH];
-     case WDT_TIMEOUT_STATUS:
-     case WDT_TIMEOUT_CLEAR:
--    case WDT_RESET_WDITH:
-         qemu_log_mask(LOG_UNIMP,
-                       "%s: uninmplemented read at offset 0x%" HWADDR_PRIx "\n",
-                       __func__, offset);
-@@ -119,9 +129,25 @@ static void aspeed_wdt_write(void *opaque, hwaddr offset, uint64_t data,
-             timer_del(s->timer);
-         }
-         break;
-+    case WDT_RESET_WIDTH:
-+    {
-+        uint32_t property = data & WDT_POLARITY_MASK;
-+
-+        if (property == WDT_ACTIVE_HIGH_MAGIC) {
-+            s->regs[WDT_RESET_WIDTH] |= WDT_RESET_WIDTH_ACTIVE_HIGH;
-+        } else if (property == WDT_ACTIVE_LOW_MAGIC) {
-+            s->regs[WDT_RESET_WIDTH] &= ~WDT_RESET_WIDTH_ACTIVE_HIGH;
-+        } else if (property == WDT_PUSH_PULL_MAGIC) {
-+            s->regs[WDT_RESET_WIDTH] |= WDT_RESET_WIDTH_PUSH_PULL;
-+        } else if (property == WDT_OPEN_DRAIN_MAGIC) {
-+            s->regs[WDT_RESET_WIDTH] &= ~WDT_RESET_WIDTH_PUSH_PULL;
-+        }
-+        s->regs[WDT_RESET_WIDTH] &= ~WDT_RESET_WIDTH_DURATION;
-+        s->regs[WDT_RESET_WIDTH] |= data & WDT_RESET_WIDTH_DURATION;
-+        break;
-+    }
-     case WDT_TIMEOUT_STATUS:
-     case WDT_TIMEOUT_CLEAR:
--    case WDT_RESET_WDITH:
-         qemu_log_mask(LOG_UNIMP,
-                       "%s: uninmplemented write at offset 0x%" HWADDR_PRIx "\n",
-                       __func__, offset);
-@@ -167,6 +193,7 @@ static void aspeed_wdt_reset(DeviceState *dev)
-     s->regs[WDT_RELOAD_VALUE] = 0x03EF1480;
-     s->regs[WDT_RESTART] = 0;
-     s->regs[WDT_CTRL] = 0;
-+    s->regs[WDT_RESET_WIDTH] = 0XFF;
- 
-     timer_del(s->timer);
- }
--- 
-2.11.0
+
+--=-TqzLICIx7Y/VpSNavXaP
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZf+fQAAoJEJ0dnzgO5LT5tBgP/3o3MeTcpwNXFeNGex3khxXO
+HdGhwTu29reNzwBzVsyC4ByVeKrdqNL4Y1Mdk4E/XDf9EZYtSMoea7rNxUQjck3I
+aFP9PlC0bBn6d0NMMsnW3RVpyMmgU1yKgSHoEF1AmT/TWU7iYOylScS7nzJWJuUq
+38xIkC/LqZJ8hw+u1YqJVgFq50iMtMrTa4QlbNHyOnQygHR9WeN4g39VOL2ne5Pq
+4IqH/SxsN6RgypMKC8cPM0zsuBssic8O2IfALXQQyoZydlWp7+0Jabojzeoh5skJ
+qC2VDJ4pMmNA/8SBGaSrVjo0hNkVczlRs/CAHaNu3ZxDQzKLZnr6Ox1564CyM9+6
+VoJPVL9R9Mwt29vrKQRFRv5ioaQkXZeB9J/W2Zg+sPKvT7qf82WDC4YwxirjxqWs
+xm+yNaZ6tKkbyXdCDwpWZ2U5q7xEymYuaM+Y0XUxav4j8dUmAjUSD2nejFBouEwA
+BzUCJwnA+72UBUTc8Yk1KdxwtFNW4jHsfZmIwkzsW7Mg3ZLxcENevljokXrSmd5W
+x8slKZvtj3eChs9lJ3hF7r1Ufp3I1TY+HmY10a6lW5uecz1TfqI9b/8QdlEhSzrH
+jb7ZKr4gXUuxtOjgzQqTxzgvxrh9Lx//lUTWv3zXIccS6yoWLDaVoy1EJ2UfM8Tu
+Afr6lJeFZMPgnkYANLjN
+=Sf5i
+-----END PGP SIGNATURE-----
+
+--=-TqzLICIx7Y/VpSNavXaP--
