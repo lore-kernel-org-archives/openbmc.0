@@ -1,38 +1,28 @@
-Return-Path: <clg@kaod.org>
-X-Greylist: delayed 84609 seconds by postgrey-1.36 at bilbo;
- Tue, 01 Aug 2017 17:27:25 AEST
-Received: from 8.mo178.mail-out.ovh.net (8.mo178.mail-out.ovh.net
- [46.105.74.227])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xM7F91BR5zDrDC
- for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 17:27:25 +1000 (AEST)
-Received: from player715.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo178.mail-out.ovh.net (Postfix) with ESMTP id 7455E4B0FA
- for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 09:21:15 +0200 (CEST)
-Received: from zorba.kaod.org (LFbn-1-10652-153.w90-89.abo.wanadoo.fr
- [90.89.238.153]) (Authenticated sender: postmaster@kaod.org)
- by player715.ha.ovh.net (Postfix) with ESMTPSA id 5FC581C008F;
- Tue,  1 Aug 2017 09:21:07 +0200 (CEST)
-Subject: Re: [PATCH] watchdog: wdt_aspeed: Add support for the reset width
- register
-To: Andrew Jeffery <andrew@aj.id.au>, qemu-arm@nongnu.org
-References: <20170801010425.25778-1-andrew@aj.id.au>
-Cc: qemu-devel@nongnu.org, peter.maydell@linaro.org, joel@jms.id.au,
- openbmc@lists.ozlabs.org
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <855a154a-4cdf-b29a-6440-5deadbeed12e@kaod.org>
-Date: Tue, 1 Aug 2017 09:21:07 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.8.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xMTvt4f37zDrCV
+ for <openbmc@lists.ozlabs.org>; Wed,  2 Aug 2017 07:28:40 +1000 (AEST)
+Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
+ [76.250.84.236]) by mx.zohomail.com
+ with SMTPS id 1501622913778641.9540588426279;
+ Tue, 1 Aug 2017 14:28:33 -0700 (PDT)
+Date: Tue, 1 Aug 2017 16:28:32 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Stewart Smith <stewart@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: REST API docs
+Message-ID: <20170801212832.GC14987@asimov>
+References: <87y3r3ooyv.fsf@linux.vnet.ibm.com>
 MIME-Version: 1.0
-In-Reply-To: <20170801010425.25778-1-andrew@aj.id.au>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-X-Ovh-Tracer-Id: 3164341688418077442
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelkedrieekgdduvddvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="WfZ7S8PLGjBY9Voh"
+Content-Disposition: inline
+In-Reply-To: <87y3r3ooyv.fsf@linux.vnet.ibm.com>
+User-Agent: Mutt/1.7.2 (2016-11-26)
+X-Zoho-Virus-Status: 1
+X-ZohoMailClient: External
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -44,123 +34,109 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Aug 2017 07:27:25 -0000
-
-On 08/01/2017 03:04 AM, Andrew Jeffery wrote:
-> The reset width register controls how the pulse on the SoC's WDTRST{1,2}
-> pins behaves. A pulse is emitted if the external reset bit is set in
-> WDT_CTRL. WDT_RESET_WIDTH requires magic bit patterns to configure both
-> push-pull/open-drain and active-high/active-low behaviours and thus
-> needs some special handling in the write path.
-> 
-> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> ---
-> I understand that we're in stabilisation mode, but I thought I'd send this out
-> to provoke any feedback. Happy to resend after the 2.10 release if required.
-> 
->  hw/watchdog/wdt_aspeed.c | 47 +++++++++++++++++++++++++++++++++++++----------
->  1 file changed, 37 insertions(+), 10 deletions(-)
-> 
-> diff --git a/hw/watchdog/wdt_aspeed.c b/hw/watchdog/wdt_aspeed.c
-> index 8bbe579b6b66..4ef1412e99fc 100644
-> --- a/hw/watchdog/wdt_aspeed.c
-> +++ b/hw/watchdog/wdt_aspeed.c
-> @@ -14,10 +14,10 @@
->  #include "qemu/timer.h"
->  #include "hw/watchdog/wdt_aspeed.h"
->  
-> -#define WDT_STATUS              (0x00 / 4)
-> -#define WDT_RELOAD_VALUE        (0x04 / 4)
-> -#define WDT_RESTART             (0x08 / 4)
-> -#define WDT_CTRL                (0x0C / 4)
-> +#define WDT_STATUS                      (0x00 / 4)
-> +#define WDT_RELOAD_VALUE                (0x04 / 4)
-> +#define WDT_RESTART                     (0x08 / 4)
-> +#define WDT_CTRL                        (0x0C / 4)
->  #define   WDT_CTRL_RESET_MODE_SOC       (0x00 << 5)
->  #define   WDT_CTRL_RESET_MODE_FULL_CHIP (0x01 << 5)
->  #define   WDT_CTRL_1MHZ_CLK             BIT(4)
-> @@ -25,12 +25,21 @@
->  #define   WDT_CTRL_WDT_INTR             BIT(2)
->  #define   WDT_CTRL_RESET_SYSTEM         BIT(1)
->  #define   WDT_CTRL_ENABLE               BIT(0)
-> +#define WDT_RESET_WIDTH                 (0x18 / 4)
-> +#define   WDT_RESET_WIDTH_ACTIVE_HIGH   BIT(31)
-> +#define     WDT_POLARITY_MASK           (0xFF << 24)
-> +#define     WDT_ACTIVE_HIGH_MAGIC       (0xA5 << 24)
-> +#define     WDT_ACTIVE_LOW_MAGIC        (0x5A << 24)
-> +#define   WDT_RESET_WIDTH_PUSH_PULL     BIT(30)
-> +#define     WDT_DRIVE_TYPE_MASK         (0xFF << 24)
-> +#define     WDT_PUSH_PULL_MAGIC         (0xA8 << 24)
-> +#define     WDT_OPEN_DRAIN_MAGIC        (0x8A << 24)
-> +#define   WDT_RESET_WIDTH_DURATION      0xFFF;
-
-I would call this define WDT_RESET_WIDTH_DEFAULT (0xFF) and 
-use it also in the aspeed_wdt_reset()
-
-I have checked the specs and the bits definitions are correct.
-What else could we model ? Would the pulse be interesting ? 
-
-C.
+X-List-Received-Date: Tue, 01 Aug 2017 21:28:43 -0000
 
 
->  
-> -#define WDT_TIMEOUT_STATUS      (0x10 / 4)
-> -#define WDT_TIMEOUT_CLEAR       (0x14 / 4)
-> -#define WDT_RESET_WDITH         (0x18 / 4)
-> +#define WDT_TIMEOUT_STATUS              (0x10 / 4)
-> +#define WDT_TIMEOUT_CLEAR               (0x14 / 4)
->  
-> -#define WDT_RESTART_MAGIC       0x4755
-> +#define WDT_RESTART_MAGIC               0x4755
->  
->  static bool aspeed_wdt_is_enabled(const AspeedWDTState *s)
->  {
-> @@ -55,9 +64,10 @@ static uint64_t aspeed_wdt_read(void *opaque, hwaddr offset, unsigned size)
->          return 0;
->      case WDT_CTRL:
->          return s->regs[WDT_CTRL];
-> +    case WDT_RESET_WIDTH:
-> +        return s->regs[WDT_RESET_WIDTH];
->      case WDT_TIMEOUT_STATUS:
->      case WDT_TIMEOUT_CLEAR:
-> -    case WDT_RESET_WDITH:
->          qemu_log_mask(LOG_UNIMP,
->                        "%s: uninmplemented read at offset 0x%" HWADDR_PRIx "\n",
->                        __func__, offset);
-> @@ -119,9 +129,25 @@ static void aspeed_wdt_write(void *opaque, hwaddr offset, uint64_t data,
->              timer_del(s->timer);
->          }
->          break;
-> +    case WDT_RESET_WIDTH:
-> +    {
-> +        uint32_t property = data & WDT_POLARITY_MASK;
-> +
-> +        if (property == WDT_ACTIVE_HIGH_MAGIC) {
-> +            s->regs[WDT_RESET_WIDTH] |= WDT_RESET_WIDTH_ACTIVE_HIGH;
-> +        } else if (property == WDT_ACTIVE_LOW_MAGIC) {
-> +            s->regs[WDT_RESET_WIDTH] &= ~WDT_RESET_WIDTH_ACTIVE_HIGH;
-> +        } else if (property == WDT_PUSH_PULL_MAGIC) {
-> +            s->regs[WDT_RESET_WIDTH] |= WDT_RESET_WIDTH_PUSH_PULL;
-> +        } else if (property == WDT_OPEN_DRAIN_MAGIC) {
-> +            s->regs[WDT_RESET_WIDTH] &= ~WDT_RESET_WIDTH_PUSH_PULL;
-> +        }
-> +        s->regs[WDT_RESET_WIDTH] &= ~WDT_RESET_WIDTH_DURATION;
-> +        s->regs[WDT_RESET_WIDTH] |= data & WDT_RESET_WIDTH_DURATION;
-> +        break;
-> +    }
->      case WDT_TIMEOUT_STATUS:
->      case WDT_TIMEOUT_CLEAR:
-> -    case WDT_RESET_WDITH:
->          qemu_log_mask(LOG_UNIMP,
->                        "%s: uninmplemented write at offset 0x%" HWADDR_PRIx "\n",
->                        __func__, offset);
-> @@ -167,6 +193,7 @@ static void aspeed_wdt_reset(DeviceState *dev)
->      s->regs[WDT_RELOAD_VALUE] = 0x03EF1480;
->      s->regs[WDT_RESTART] = 0;
->      s->regs[WDT_CTRL] = 0;
-> +    s->regs[WDT_RESET_WIDTH] = 0XFF;
->  
->      timer_del(s->timer);
->  }
-> 
+--WfZ7S8PLGjBY9Voh
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Aug 01, 2017 at 03:07:36PM +1000, Stewart Smith wrote:
+> The documentation up at:
+> https://github.com/openbmc/docs/blob/master/host-management.md
+> says /org/openbmc but we here tales in internal bug reports that
+> everything is switching to /xyz/openbmc_project.
+>=20
+> Except, I don't recall seeing any deprecation plan.... is there
+> one?
+>=20
+> We're heavily using this now for op-test-framework, and there's a patch
+> to switch it, but I need to know how far back/forwards the existing/new
+> interfaces are supported.
+>=20
+> See:
+> https://github.com/open-power/op-test-framework/pull/150/commits/e05b1a89=
+e032b1bbe14d9a177afa46f1a2c6413c
+>=20
+> Also, could some more effort please be put into communicating these
+> changes. These kind of surprises aren't great for our already
+> constrained team.
+
+Stewart,
+
+I don't know why this is a surprise.  We have been communicating in
+various avenues that the /org/openbmc APIs defined for Barreleye
+were all deprecated the day we split the 2.0 development branch.
+I alluded to this even in the email announcing the v1.0 tag:
+    https://lists.ozlabs.org/pipermail/openbmc/2016-June/003707.html
+
+It is a violation of the dbus spec for us to be using /org/openbmc since
+it is not a domain name we have control over.
+
+None of the /org/openbmc interfaces went through any proper interface
+design.  They were all defined and implemented ad-hoc by individual
+developers as part of the Barreleye proof-of-concept work.  There are
+numerous inconsistencies in their original form.
+
+One of the first pieces of work we defined and began working on was a
+dbus interface YAML specification, from which we generate compile-time
+enforced dbus bindings to ensure compatibility between applications.
+All of the xyz.openbmc_project interfaces have formal documentation in
+the phosphor-dbus-interfaces repository, which had its first commits in
+October of last year.
+
+The dbus interfaces you are _moving to_ were defined and implemented
+in December of last year and we moved over to them as a whole within
+the code base by Feb.  Your first commit "Initial OpenBMC support" in
+your repository wasn't until late Feb, so you were already using the
+wrong interfaces.
+
+We have been working very closely with the automated test group that
+works on the openbmc-test-automation repository.  I was pretty certain
+that within IBM there is some affinity between the team working on this
+repository and the team working on your repository, isn't there?  In
+fact, I clearly recall discussions within IBM questioning why the
+op-test-framework would not be building on top of the existing Robot
+support provided by openbmc-test-automation rather than implement
+a different custom framework.
+
+I was not aware that you had written your own test automation suite that
+was using REST APIs and you were not relying on the existing and
+supported openbmc-test-automation repository.  I also did not hear any
+inquiry from you, either publicly or privately, on which APIs you should
+be targeting for work you were doing.
+
+The deprecation plan is, and has for the entire 2.0 development branch,
+that 1.0 and 2.0 have a complete API break and there is no attempt at
+backwards compatibility.  A clear requirement of a 2.0 tag is that all
+/org/openbmc interfaces have been removed and replaced by something
+documented in phosphor-dbus-interfaces and implemented within the code
+base.  We have been doing that at a fairly regular pace the entire
+year.
+
+--=20
+Patrick Williams
+
+--WfZ7S8PLGjBY9Voh
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAlmA8n4ACgkQqwNHzC0A
+wRnt1Q//UxyZGAHHy7M5xzgl6EzWVgmhMeljH6hbOSMSUw7NL35Om2DeJNhVOV1N
+rq2Ique14fD1ABlVnfSgH8CdXuzyx0Jr82FC3w9rerTY57PCYKCAgjxwM7bUttc3
+LLTPKW8ooe7hE2TEvpsMJOQOmiKowhK+tnnhjHVFa3j0YH0QmMyx4lK2qCEm0GTn
+1onzEwaTuMo8dPIThdDWcaRyFHC7E04AxS4Rzig1sM6pk/NhzTTbD7jG1mZen6br
+A9XHlB76/nl0yy0tvLO0c2yQMZ0yaedtJwjcz8pffn5IDgShTyy6U4kxmWy4nQ9y
+ZZ8GzBk+nfNKJE/a71CgvMeSabfZ6y/EzDyJQj52VxeOzc/JQmeMAaUX6CwZsEKT
+q6Zb2IGytRO8SjoU8cuZXXc2mGb9vqj1t6imH541dcsa5GCJMCQI2XIhDQUS4n+k
++Du+mn0MXBVMXqszdUVntOeVUdzc3bKWRg+OqSsAXCo7U/42quaDjthM8xG2hd2t
+7sptHEQoAYIGwx3euICv9LvdT+uTTlc8OjXj2wX5Dm9dvg8vrb7aAfr5LvURBDhc
+t7ZvSkQA++GiyD1QCrj0A2IDyQQFxPYxHf938XFgfQVXD1O816VJow58crruaP5Z
+zEXnkIcINik0M6CgX1JRV7oWBIe0v5tM7y9TPS+IDbMEJ6PxB0g=
+=YrZb
+-----END PGP SIGNATURE-----
+
+--WfZ7S8PLGjBY9Voh--
