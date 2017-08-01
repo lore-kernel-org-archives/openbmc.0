@@ -1,57 +1,62 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x241.google.com (mail-yw0-x241.google.com
- [IPv6:2607:f8b0:4002:c05::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xLxfV5Wr8zDsT1
- for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 10:15:14 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="gKvQd9Xx"; 
- dkim-atps=neutral
-Received: by mail-yw0-x241.google.com with SMTP id t139so94175ywg.1
- for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 17:15:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=buq1sU6XErrmx/UtpGYfKo5CxQ+oH/Wt5mhaFh9PEpY=;
- b=gKvQd9Xx/CM9OxcNPEeAVLEEGPPwqqmA1Jh7wr1cm1E/a2xCEOWp7LHdHT3XTEVxIB
- amVlo0FLqfW5qlv58uZqGUcifyBRBYqtXDHERb37g0bRgGMHIB8uPaEzwrcrKKbSwAgj
- KrJJ6qNpSe6YesxgYrUQIg2UG1Te36x5CTYlynMWkrsbzMhsUnL3fXjev/xPHe/wYs1j
- 7aAR7gT9Nh9d3bSwlL1h50z6dzTp+ssvbP3xzJ5DkFAWnnR7YwPCmtzs43h1GcMcwMzI
- TVvPMMqK4TgzQEWuHBeTaeZl42Is5kYaMVk3sYP2UGFgabbSap45UUwj1DJ7BPWbUqpz
- +0BA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=buq1sU6XErrmx/UtpGYfKo5CxQ+oH/Wt5mhaFh9PEpY=;
- b=Pf7/GO69J6fvq98Zor7fxB1e8YiR3PWJ/xDArsuoLXWbSj6hHMJVdTOBPbUrSVMXMo
- uS5xfyz9vkY8oYaFBOFRMJLxL/plDddMw1XeZ/U0WDxpWxp2H23xWfWWiahr9t/JiS9T
- km6E4WYyavKRDCw2aM7udrye5hEc6PgftmFZbRfPLMS0rnq5V8MqMnjg8Go5F1USiUcR
- ng9dwtFW3D9SLItums9UcrBy4uNoF1uy8UstAta1NkR7lSkPo2k88hu+hSPOaqn717rp
- x5BDFxaAsn0kDwbZFxsdz0w4jYttaR5xLD8N+7iV16pMzIcivoBU7ZAAS/o4pjj+T94W
- 4Psw==
-X-Gm-Message-State: AIVw113FxC92CTQY5cWFTHK5v/L4o8qpO9pr1gwtY046HPN8cHL3EWRy
- 23/SqDplV5STgf6bX1RLY4g4T23jGQ==
-X-Received: by 10.37.54.5 with SMTP id d5mr15916342yba.270.1501546512651; Mon,
- 31 Jul 2017 17:15:12 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.37.197.148 with HTTP; Mon, 31 Jul 2017 17:14:52 -0700 (PDT)
-In-Reply-To: <f1881146-d761-e5c7-090d-bf22c595460c@linux.vnet.ibm.com>
-References: <20170727101647.26960-1-andrew@aj.id.au>
- <20170727101647.26960-2-andrew@aj.id.au>
- <f1881146-d761-e5c7-090d-bf22c595460c@linux.vnet.ibm.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 1 Aug 2017 09:44:52 +0930
-X-Google-Sender-Auth: 5BVG9Fm-USfH2WYM9AsHTYS9r3A
-Message-ID: <CACPK8XdbhsABQwU8-kz2HMcSX6wEGBqpZYU7MP6wHV+jFb66zw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 v3 1/4] ARM: aspeed: Request WDTRST1
- pinctrl function
-To: Matt Spinler <mspinler@linux.vnet.ibm.com>
-Cc: Andrew Jeffery <andrew@aj.id.au>, msbarth <msbarth@linux.vnet.ibm.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xLyPp4n6YzDsQS
+ for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 10:49:18 +1000 (AEST)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v710moC8060280
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 20:49:16 -0400
+Received: from e13.ny.us.ibm.com (e13.ny.us.ibm.com [129.33.205.203])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2c28y506kn-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 20:49:15 -0400
+Received: from localhost
+ by e13.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Mon, 31 Jul 2017 20:49:14 -0400
+Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
+ by e13.ny.us.ibm.com (146.89.104.200) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Mon, 31 Jul 2017 20:49:13 -0400
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v710nC0822479018; Tue, 1 Aug 2017 00:49:12 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id E637B112040;
+ Mon, 31 Jul 2017 20:49:05 -0400 (EDT)
+Received: from oc3016140333.ibm.com (unknown [9.85.136.69])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id 9229D112034;
+ Mon, 31 Jul 2017 20:49:05 -0400 (EDT)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
+Subject: [PATCH linux dev-4.12 0/6] drivers/i2c: Add FSI-attached I2C master
+ algorithm
+Date: Mon, 31 Jul 2017 19:49:00 -0500
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+x-cbid: 17080100-0008-0000-0000-0000026796A3
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007462; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000214; SDB=6.00895760; UDB=6.00448039; IPR=6.00675947; 
+ BA=6.00005503; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016472; XFM=3.00000015;
+ UTC=2017-08-01 00:49:14
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17080100-0009-0000-0000-00003638D2AF
+Message-Id: <1501548546-21096-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-07-31_11:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
+ definitions=main-1708010009
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,33 +68,33 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Aug 2017 00:15:15 -0000
+X-List-Received-Date: Tue, 01 Aug 2017 00:49:19 -0000
 
-On Tue, Aug 1, 2017 at 5:54 AM, Matt Spinler
-<mspinler@linux.vnet.ibm.com> wrote:
->
->
-> On 7/27/2017 5:16 AM, Andrew Jeffery wrote:
->
-> On Witherspoon, the Aspeed SoC's WDTRST1 pin is wired to the FAULT pin
-> on the MAX31785 fan controller, which drives the fans to 100% PWM duty
-> when asserted. The pulse generated by the watchdog is latched to ensure
-> the fans stay at full speed across the BMC reboot. The latch is reset
-> when the BMC transitions through the chassis-poweron systemd target.
->
-> The SoC's WDTRST1 pinctrl function needs to be requested for
-> aspeed,external-signal to be effective, otherwise the pin is not
-> associated with the watchdog controller.
->
-> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> Cc: Matt Spinler <mspinler@linux.vnet.ibm.com>
+From: "Edward A. James" <eajames@us.ibm.com>
 
-> Tested-by: Matt Spinler   mspinler@linux.vnet.ibm.com
+This series adds an algorithm for an I2C master physically located on an FSI
+slave device. The I2C master has multiple ports, each of which may be connected
+to an I2C slave. Access to the I2C master registers is achieved over FSI bus.
 
-Applied to dev-4.10.
+Due to the multi-port nature of the I2C master, the driver instantiates a new
+I2C adapter for each port connected to a slave. The connected ports should be
+defined in the device tree under the I2C master device.
 
-Thanks for the testing Matt!
+Edward A. James (6):
+  drivers/i2c: Add FSI-attached I2C master algorithm
+  drivers/i2c: Add port structure to FSI algorithm
+  drivers/i2c: Add transfer implementation for FSI algorithm
+  drivers/i2c: Add I2C master locking to FSI algorithm
+  drivers/i2c: Add bus recovery for FSI algorithm
+  dt-bindings: i2c: Add FSI-attached I2C master dt binding documentation
 
-Cheers,
+ Documentation/devicetree/bindings/i2c/i2c-fsi.txt |  40 ++
+ drivers/i2c/busses/Kconfig                        |  11 +
+ drivers/i2c/busses/Makefile                       |   1 +
+ drivers/i2c/busses/i2c-fsi.c                      | 643 ++++++++++++++++++++++
+ 4 files changed, 695 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/i2c/i2c-fsi.txt
+ create mode 100644 drivers/i2c/busses/i2c-fsi.c
 
-Joel
+-- 
+1.8.3.1
