@@ -3,52 +3,52 @@ Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xM1m24X39zDsPN
- for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 13:20:18 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xM1m56Y8BzDsPv
+ for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 13:20:21 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="TiYBWEVL"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="QKLy2N/j"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="pCHFuiX6"; dkim-atps=neutral
+ header.b="iJOpgi0J"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 9D8ED207DA;
- Mon, 31 Jul 2017 23:20:16 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 85080207DA;
+ Mon, 31 Jul 2017 23:20:19 -0400 (EDT)
 Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Mon, 31 Jul 2017 23:20:16 -0400
+ by compute4.internal (MEProxy); Mon, 31 Jul 2017 23:20:19 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=HGBVte
- GHe3D8kDCNe5kpxPj0bpZoNhDIJTDEd9NX5IE=; b=TiYBWEVLKWCsxHPMXPTvPb
- DAUFLTcI/G32P8uNhyyJgq8qorPRniPprZJsOTmYpRh0wcmCBphAaTYSgtqXp4DD
- 50KljhjCg9OEfNR9xVkXC1NGJVmgsUHTczWXjio36rls5IRaH23aukec1DIZtFpF
- FzfgrlOjN0aR7wUzRoLZgZeBK991DRV+WhvabxFbQRULmyrh5VNdGqQD8DpsEABp
- 6GFpqgbrO90HPsalTYD9HjQUAw55vC7hpMMjTQRPJSbXBfCiJVMWFGvTmKExRXVg
- YQrfsG6vAWVwl/3rDVQRQuAEnxT+LLVMB4+Mm+rlpbGYdYvMIrk09cgQJda1TKFQ
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=sq+OGd
+ /uBTY/p1vNePM4I1k99Rymb6C+94g5CoZh+34=; b=QKLy2N/jkn5qmTMOjh5h8V
+ mDph7lTC4+Hgdmiwnqi0qE5VGIx6mb/SO+29esCLtXZWz2szDTiRw/bCSUEPkfpd
+ z2FHNJ3zByKU01v4za9KEZqIKIwFIq1gnoynkwtC0/HSMv/Pb6oN1/JDzxuuzRlp
+ 7HnnfTpjT0jDuk+FfRrJ5j057LQjTqPdXPjUmwLgKVE09CpZKEwAkakWS2EKd4Jw
+ mzQ10rT9d0cSfqNy2uPtjlH6FxO9PLSqY8Uoj/M6gV4xdblDjVEMBBLViBHQh/nS
+ eHprN4BLCXoqBp1CB+FeX7Lm2em5l7v0jEPTtkQndOXT7pO82MsxiHRbULqQDLsw
  ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:date:from:in-reply-to:message-id
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=HGBVteGHe3D8kDCNe5kpxPj0bpZoNhDIJTDEd9NX5
- IE=; b=pCHFuiX6vjzlcGzNsf7bSOvEl3zPgYbbZtynJit9QWHRgcWggXamXSzdy
- FKif9QoaoUO0163agxyCNiOSXoW6c4YGSUB7WFxBQc7l2BDSuUox4XO1YdfDfZLi
- Z3XIiTDTvbpVvjvgnekwZts5XHqxnETEl0QKvdHpmqsoCNdTeagTZPw5uESFJ0Lq
- Igr8wHQPAsRvoO32p39O/Y1qB91PfoLwjRlSbfPUg/dQDYKYq0/8qgRgfasb3a1w
- Uw1HudWB7tabKqFY+jqxwOpRIGiyCTrMwt7MrQ54kmp7mMhS/buKwDCBmc3V/O/L
- EH8QQ0DhKV31lqCU7nfB/yW3m07NA==
-X-ME-Sender: <xms:cPN_WbCwpwjqT2KAUQ8sFvIrghIbqulyS3pRTP_gTAXeALItTJLptg>
-X-Sasl-enc: PVkjrfRWtW32D0IfCM/C1xkAE2p4F6lKXuTSMBkwtwIt 1501557615
+ :x-sasl-enc; s=fm1; bh=sq+OGd/uBTY/p1vNePM4I1k99Rymb6C+94g5CoZh+
+ 34=; b=iJOpgi0JqgeMRjfXK+u9YgoxnLWmnc6YIy/ORpsU+4O0G0N+syhi7kALa
+ 07PdRK7DvUqBVUVTfhSVMBg4ROEUne5dsJfPJsLR4omWQB+sCxMxpWHX/dHPPEVU
+ +zCqBnZmT9AXFlvm/0A1bJCUixkfXOjg+gH7EikIP1soqc3aeZFFQ5kdLuuZTXYe
+ zbhGLZevBNJiZyNM6Xi+6DLtf0kPhN9IKhALmvAiNp/SI5HIWDLo0oYDExSvZxt9
+ sQKzTULxfQV2nBgZsHGMPyFKHlirWRB02jgs8DhYRo/Ds03PMZO5eK0d/ishTztn
+ T7l16qsFxBOmgQSZ1nMbMWPi6IIhA==
+X-ME-Sender: <xms:c_N_WdBZXnDAc1uU3N5bRhKpFVe61A3NgrGfYDAmgEaUVH87_EYloA>
+X-Sasl-enc: P/L9jjYk0ArmDooP7yjRkUD+BSi4fxxlUCdi3Cxo9r0i 1501557618
 Received: from keelia.au.ibm.com
  (ppp118-210-176-216.bras2.adl6.internode.on.net [118.210.176.216])
- by mail.messagingengine.com (Postfix) with ESMTPA id 3A7A67E1D9;
- Mon, 31 Jul 2017 23:20:13 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 250717E1D9;
+ Mon, 31 Jul 2017 23:20:16 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: joel@jms.id.au
 Cc: Andrew Jeffery <andrew@aj.id.au>, mspinler@linux.vnet.ibm.com,
  msbarth@linux.vnet.ibm.com, openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10 v2 2/3] max31785: Support use-stored-presence
- devicetree property
-Date: Tue,  1 Aug 2017 12:49:31 +0930
-Message-Id: <20170801031932.4328-3-andrew@aj.id.au>
+Subject: [PATCH linux dev-4.10 v2 3/3] pmbus: max31785: Work around
+ back-to-back writes with FAN_CONFIG_1_2
+Date: Tue,  1 Aug 2017 12:49:32 +0930
+Message-Id: <20170801031932.4328-4-andrew@aj.id.au>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20170801031932.4328-1-andrew@aj.id.au>
 References: <20170801031932.4328-1-andrew@aj.id.au>
@@ -63,34 +63,193 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Aug 2017 03:20:19 -0000
+X-List-Received-Date: Tue, 01 Aug 2017 03:20:22 -0000
 
-Allows fans to be marked as installed to reflect the devicetree, or not.
+Testing of the pmbus max31785 driver implementation revealed occasional
+NACKs from the device. Attempting the same transaction immediately after
+the failure appears to always succeed. The NACK has consistently been
+observed to happen on the second write of back-to-back writes to the
+device, where the first write is to FAN_CONFIG_1_2. The NACK occurs
+against the first data byte transmitted by the master on the second
+write. The behaviour has the hallmarks of a PMBus Device Busy response,
+but the busy bit is not set in the status byte.
+
+Work around this undocumented behaviour by retrying any back-to-back
+writes that occur after first writing FAN_CONFIG_1_2.
 
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 ---
- drivers/hwmon/pmbus/max31785.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/hwmon/pmbus/max31785.c | 105 +++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 97 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/hwmon/pmbus/max31785.c b/drivers/hwmon/pmbus/max31785.c
-index 1c2648ce5322..c2b693badcea 100644
+index c2b693badcea..509b1a5a49b9 100644
 --- a/drivers/hwmon/pmbus/max31785.c
 +++ b/drivers/hwmon/pmbus/max31785.c
-@@ -270,9 +270,12 @@ static int max31785_of_fan_config(struct i2c_client *client,
- 	if (pb_cfg < 0)
- 		return pb_cfg;
+@@ -48,6 +48,55 @@ enum max31785_regs {
  
--	if (!(pb_cfg & PB_FAN_1_INSTALLED)) {
--		dev_warn(dev, "Fan %d is configured but not installed\n", page);
--		return 0;
-+	if (of_property_read_bool(child->parent, "use-stored-presence")) {
-+		if (!(pb_cfg & PB_FAN_1_INSTALLED))
-+			dev_info(dev, "Fan %d is configured but not installed\n",
-+				 page);
-+	} else {
-+		pb_cfg |= PB_FAN_1_INSTALLED;
+ #define MAX31785_NR_PAGES		23
+ 
++/*
++ * MAX31785 dragons ahead
++ *
++ * It seems there's an undocumented timing constraint when performing
++ * back-to-back writes where the first write is to FAN_CONFIG_1_2. The device
++ * provides no indication of this besides NACK'ing master Txs; no bits are set
++ * in STATUS_BYTE to suggest anything has gone wrong.
++ *
++ * Given that, do a one-shot retry of the write.
++ *
++ * The max31785_*_write_*_data() functions should be used at any point where
++ * the prior write is to FAN_CONFIG_1_2.
++ */
++static int max31785_i2c_smbus_write_byte_data(struct i2c_client *client,
++					      int command, u16 data)
++{
++	int ret;
++
++	ret = i2c_smbus_write_byte_data(client, command, data);
++	if (ret == -EIO)
++		ret = i2c_smbus_write_byte_data(client, command, data);
++
++	return ret;
++}
++
++static int max31785_i2c_smbus_write_word_data(struct i2c_client *client,
++					      int command, u16 data)
++{
++	int ret;
++
++	ret = i2c_smbus_write_word_data(client, command, data);
++	if (ret == -EIO)
++		ret = i2c_smbus_write_word_data(client, command, data);
++
++	return ret;
++}
++
++static int max31785_pmbus_write_word_data(struct i2c_client *client, int page,
++					  int command, u16 data)
++{
++	int ret;
++
++	ret = pmbus_write_word_data(client, page, command, data);
++	if (ret == -EIO)
++		ret = pmbus_write_word_data(client, page, command, data);
++
++	return ret;
++}
++
+ static int max31785_read_byte_data(struct i2c_client *client, int page,
+ 				   int reg)
+ {
+@@ -210,6 +259,31 @@ static int max31785_read_word_data(struct i2c_client *client, int page,
+ 	return rv;
+ }
+ 
++static int max31785_update_fan(struct i2c_client *client, int page,
++			       u8 config, u8 mask, u16 command)
++{
++	int from, rv;
++	u8 to;
++
++	from = pmbus_read_byte_data(client, page, PMBUS_FAN_CONFIG_12);
++	if (from < 0)
++		return from;
++
++	to = (from & ~mask) | (config & mask);
++
++	if (to != from) {
++		rv = pmbus_write_byte_data(client, page, PMBUS_FAN_CONFIG_12,
++					   to);
++		if (rv < 0)
++			return rv;
++	}
++
++	rv = max31785_pmbus_write_word_data(client, page, PMBUS_FAN_COMMAND_1,
++					    command);
++
++	return rv;
++}
++
+ static const int max31785_pwm_modes[] = { 0x7fff, 0x2710, 0xffff };
+ 
+ static int max31785_write_word_data(struct i2c_client *client, int page,
+@@ -219,12 +293,24 @@ static int max31785_write_word_data(struct i2c_client *client, int page,
+ 		return -ENXIO;
+ 
+ 	switch (reg) {
++	case PMBUS_VIRT_FAN_TARGET_1:
++		return max31785_update_fan(client, page, PB_FAN_1_RPM,
++					   PB_FAN_1_RPM, word);
++	case PMBUS_VIRT_PWM_1:
++	{
++		u32 command = word;
++
++		command *= 100;
++		command /= 255;
++		return max31785_update_fan(client, page, 0, PB_FAN_1_RPM,
++					   command);
++	}
+ 	case PMBUS_VIRT_PWM_ENABLE_1:
+ 		if (word >= ARRAY_SIZE(max31785_pwm_modes))
+ 			return -EINVAL;
+ 
+-		return pmbus_update_fan(client, page, 0, 0, PB_FAN_1_RPM,
+-					max31785_pwm_modes[word]);
++		return max31785_update_fan(client, page, 0, PB_FAN_1_RPM,
++					   max31785_pwm_modes[word]);
+ 	default:
+ 		break;
+ 	}
+@@ -262,7 +348,7 @@ static int max31785_of_fan_config(struct i2c_client *client,
+ 		return -ENXIO;
  	}
  
- 	ret = of_property_read_string(child, "maxim,fan-rotor-input", &sval);
+-	ret = i2c_smbus_write_byte_data(client, PMBUS_PAGE, page);
++	ret = max31785_i2c_smbus_write_byte_data(client, PMBUS_PAGE, page);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -419,7 +505,8 @@ static int max31785_of_fan_config(struct i2c_client *client,
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ret = i2c_smbus_write_word_data(client, MFR_FAN_CONFIG, mfr_cfg);
++	ret = max31785_i2c_smbus_write_word_data(client, MFR_FAN_CONFIG,
++						 mfr_cfg);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -473,7 +560,7 @@ static int max31785_of_tmp_config(struct i2c_client *client,
+ 		return -ENXIO;
+ 	}
+ 
+-	ret = i2c_smbus_write_byte_data(client, PMBUS_PAGE, page);
++	ret = max31785_i2c_smbus_write_byte_data(client, PMBUS_PAGE, page);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -631,7 +718,8 @@ static int max31785_probe(struct i2c_client *client,
+ 		if (!have_fan || fan_configured)
+ 			continue;
+ 
+-		ret = i2c_smbus_write_byte_data(client, PMBUS_PAGE, i);
++		ret = max31785_i2c_smbus_write_byte_data(client, PMBUS_PAGE,
++							 i);
+ 		if (ret < 0)
+ 			return ret;
+ 
+@@ -640,8 +728,9 @@ static int max31785_probe(struct i2c_client *client,
+ 			return ret;
+ 
+ 		ret &= ~PB_FAN_1_INSTALLED;
+-		ret = i2c_smbus_write_word_data(client, PMBUS_FAN_CONFIG_12,
+-						ret);
++		ret = max31785_i2c_smbus_write_word_data(client,
++							 PMBUS_FAN_CONFIG_12,
++							 ret);
+ 		if (ret < 0)
+ 			return ret;
+ 	}
 -- 
 2.11.0
