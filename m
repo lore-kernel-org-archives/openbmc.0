@@ -3,55 +3,55 @@ Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
  [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xLyPy0Q6YzDsSf
- for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 10:49:25 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xLyPz1mzgzDsSy
+ for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 10:49:27 +1000 (AEST)
 Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
  by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v710mm6a028141
- for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 20:49:23 -0400
-Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2c2bqug4p5-1
+ v710mmNx028146
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 20:49:24 -0400
+Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2c2bqug4pr-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
  for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 20:49:23 -0400
 Received: from localhost
- by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Mon, 31 Jul 2017 20:49:22 -0400
-Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
- by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
+ Mon, 31 Jul 2017 20:49:23 -0400
+Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
+ by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Mon, 31 Jul 2017 20:49:19 -0400
+ Mon, 31 Jul 2017 20:49:21 -0400
 Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
  [9.57.199.109])
- by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v710nJVh21299230; Tue, 1 Aug 2017 00:49:19 GMT
+ by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v710nLq123003386; Tue, 1 Aug 2017 00:49:21 GMT
 Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 82BB5112034;
- Mon, 31 Jul 2017 20:49:12 -0400 (EDT)
+ by IMSVA (Postfix) with ESMTP id 8A4F0112034;
+ Mon, 31 Jul 2017 20:49:14 -0400 (EDT)
 Received: from oc3016140333.ibm.com (unknown [9.85.136.69])
- by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id 20DEB112040;
- Mon, 31 Jul 2017 20:49:12 -0400 (EDT)
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id 343CE112040;
+ Mon, 31 Jul 2017 20:49:14 -0400 (EDT)
 From: Eddie James <eajames@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.12 3/6] drivers/i2c: Add transfer implementation
- for FSI algorithm
-Date: Mon, 31 Jul 2017 19:49:03 -0500
+Subject: [PATCH linux dev-4.12 4/6] drivers/i2c: Add I2C master locking to FSI
+ algorithm
+Date: Mon, 31 Jul 2017 19:49:04 -0500
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1501548546-21096-1-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1501548546-21096-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-TM-AS-GCONF: 00
-x-cbid: 17080100-2213-0000-0000-000002029D40
+x-cbid: 17080100-0040-0000-0000-00000388A183
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00007462; HX=3.00000241; KW=3.00000007;
  PH=3.00000004; SC=3.00000214; SDB=6.00895760; UDB=6.00448039; IPR=6.00675947; 
  BA=6.00005503; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016472; XFM=3.00000015;
- UTC=2017-08-01 00:49:21
+ UTC=2017-08-01 00:49:23
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17080100-2214-0000-0000-000057111155
-Message-Id: <1501548546-21096-4-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 17080100-0041-0000-0000-0000077CCABA
+Message-Id: <1501548546-21096-5-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-07-31_11:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -70,252 +70,115 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Aug 2017 00:49:26 -0000
+X-List-Received-Date: Tue, 01 Aug 2017 00:49:27 -0000
 
 From: "Edward A. James" <eajames@us.ibm.com>
 
-Execute I2C transfers from the FSI-attached I2C master. Use polling
-instead of interrupts as we have no hardware IRQ over FSI.
+Since there are many ports per master, each with it's own adapter and
+chardev, we need some locking to prevent transfers from changing the\
+master state while other transfers are in progress.
 
 Signed-off-by: Edward A. James <eajames@us.ibm.com>
 ---
- drivers/i2c/busses/i2c-fsi.c | 197 ++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 195 insertions(+), 2 deletions(-)
+ drivers/i2c/busses/i2c-fsi.c | 43 +++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 39 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
-index 4ad5d68..d37f2c8 100644
+index d37f2c8..3a1f317 100644
 --- a/drivers/i2c/busses/i2c-fsi.c
 +++ b/drivers/i2c/busses/i2c-fsi.c
-@@ -13,10 +13,12 @@
- #include <linux/errno.h>
- #include <linux/fsi.h>
- #include <linux/i2c.h>
-+#include <linux/jiffies.h>
- #include <linux/kernel.h>
- #include <linux/list.h>
+@@ -19,6 +19,8 @@
  #include <linux/module.h>
  #include <linux/of.h>
-+#include <linux/sched.h>
+ #include <linux/sched.h>
++#include <linux/semaphore.h>
++#include <linux/wait.h>
  
  #define FSI_ENGID_I2C		0x7
  
-@@ -140,6 +142,7 @@ struct fsi_i2c_port {
- 	struct i2c_adapter	adapter;
- 	struct fsi_i2c_master	*master;
- 	u16			port;
-+	u16			xfrd;
+@@ -135,6 +137,8 @@ struct fsi_i2c_master {
+ 	struct fsi_device	*fsi;
+ 	u8			fifo_size;
+ 	struct list_head	ports;
++	wait_queue_head_t	wait;
++	struct semaphore	lock;
  };
  
- static int fsi_i2c_read_reg(struct fsi_device *fsi, unsigned int reg,
-@@ -224,17 +227,207 @@ static int fsi_i2c_set_port(struct fsi_i2c_port *port)
- 	return rc;
+ struct fsi_i2c_port {
+@@ -168,6 +172,29 @@ static int fsi_i2c_write_reg(struct fsi_device *fsi, unsigned int reg,
+ 	return fsi_device_write(fsi, reg, &data_be, sizeof(data_be));
  }
  
-+static int fsi_i2c_start(struct fsi_i2c_port *port, struct i2c_msg *msg,
-+			 bool stop)
++static int fsi_i2c_lock_master(struct fsi_i2c_master *i2c, int timeout)
 +{
 +	int rc;
-+	struct fsi_i2c_master *i2c = port->master;
-+	u32 cmd = I2C_CMD_WITH_START | I2C_CMD_WITH_ADDR;
 +
-+	port->xfrd = 0;
++	rc = down_trylock(&i2c->lock);
++	if (!rc)
++		return 0;
 +
-+	if (msg->flags & I2C_M_RD)
-+		cmd |= I2C_CMD_READ;
++	rc = wait_event_interruptible_timeout(i2c->wait,
++					      !down_trylock(&i2c->lock),
++					      timeout);
++	if (rc > 0)
++		return 0;
 +
-+	if (stop || msg->flags & I2C_M_STOP)
-+		cmd |= I2C_CMD_WITH_STOP;
-+
-+	cmd = SETFIELD(I2C_CMD_ADDR, cmd, msg->addr >> 1);
-+	cmd = SETFIELD(I2C_CMD_LEN, cmd, msg->len);
-+
-+	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_CMD, &cmd);
-+
-+	return rc;
++	return -EBUSY;
 +}
 +
-+static int fsi_i2c_write_fifo(struct fsi_i2c_port *port, struct i2c_msg *msg,
-+			      u8 fifo_count)
++static void fsi_i2c_unlock_master(struct fsi_i2c_master *i2c)
 +{
-+	int write;
-+	int rc = 0;
-+	struct fsi_i2c_master *i2c = port->master;
-+	int bytes_to_write = i2c->fifo_size - fifo_count;
-+	int bytes_remaining = msg->len - port->xfrd;
-+
-+	if (bytes_to_write > bytes_remaining)
-+		bytes_to_write = bytes_remaining;
-+
-+	while (bytes_to_write > 0) {
-+		write = bytes_to_write;
-+		/* fsi limited to max 4 byte aligned ops */
-+		if (bytes_to_write > 4)
-+			write = 4;
-+		else if (write == 3)
-+			write = 2;
-+
-+		rc = fsi_device_write(i2c->fsi, I2C_FSI_FIFO,
-+				      &msg->buf[port->xfrd], write);
-+		if (rc)
-+			return rc;
-+
-+		port->xfrd += write;
-+		bytes_to_write -= write;
-+	}
-+
-+	return rc;
++	up(&i2c->lock);
++	wake_up(&i2c->wait);
 +}
 +
-+static int fsi_i2c_read_fifo(struct fsi_i2c_port *port, struct i2c_msg *msg,
-+			     u8 fifo_count)
-+{
-+	int read;
-+	int rc = 0;
-+	struct fsi_i2c_master *i2c = port->master;
-+	int xfr_remaining = msg->len - port->xfrd;
-+	u32 dummy;
-+
-+	while (fifo_count) {
-+		read = fifo_count;
-+		/* fsi limited to max 4 byte aligned ops */
-+		if (fifo_count > 4)
-+			read = 4;
-+		else if (read == 3)
-+			read = 2;
-+
-+		if (xfr_remaining) {
-+			if (xfr_remaining < read)
-+				read = xfr_remaining;
-+
-+			rc = fsi_device_read(i2c->fsi, I2C_FSI_FIFO,
-+					     &msg->buf[port->xfrd], read);
-+			if (rc)
-+				return rc;
-+
-+			port->xfrd += read;
-+			xfr_remaining -= read;
-+		} else {
-+			/* no more buffer but data in fifo, need to clear it */
-+			rc = fsi_device_read(i2c->fsi, I2C_FSI_FIFO, &dummy,
-+					     read);
-+			if (rc)
-+				return rc;
-+		}
-+
-+		fifo_count -= read;
-+	}
-+
-+	return rc;
-+}
-+
-+static int fsi_i2c_handle_status(struct fsi_i2c_port *port,
-+				 struct i2c_msg *msg, u32 status)
-+{
-+	int rc;
-+	u8 fifo_count;
-+	struct fsi_i2c_master *i2c = port->master;
-+	u32 dummy = 0;
-+
-+	if (status & I2C_STAT_ERR) {
-+		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_ERR, &dummy);
-+		if (rc)
-+			return rc;
-+
-+		if (status & I2C_STAT_NACK)
-+			return -EFAULT;
-+
-+		return -EIO;
-+	}
-+
-+	if (status & I2C_STAT_DAT_REQ) {
-+		fifo_count = GETFIELD(I2C_STAT_FIFO_COUNT, status);
-+
-+		if (msg->flags & I2C_M_RD)
-+			rc = fsi_i2c_read_fifo(port, msg, fifo_count);
-+		else
-+			rc = fsi_i2c_write_fifo(port, msg, fifo_count);
-+
-+		return rc;
-+	}
-+
-+	if (status & I2C_STAT_CMD_COMP) {
-+		if (port->xfrd < msg->len)
-+			rc = -ENODATA;
-+		else
-+			rc = msg->len;
-+
-+		return rc;
-+	}
-+
-+	return 0;
-+}
-+
-+static int fsi_i2c_wait(struct fsi_i2c_port *port, struct i2c_msg *msg,
-+			unsigned long timeout)
-+{
-+	const unsigned long local_timeout = 2; /* jiffies */
-+	u32 status = 0;
-+	int rc;
-+
-+	do {
-+		rc = fsi_i2c_read_reg(port->master->fsi, I2C_FSI_STAT,
-+				      &status);
-+		if (rc)
-+			return rc;
-+
-+		if (status & I2C_STAT_ANY_RESP) {
-+			rc = fsi_i2c_handle_status(port, msg, status);
-+			if (rc < 0)
-+				return rc;
-+
-+			/* cmd complete and all data xfrd */
-+			if (rc == msg->len)
-+				return 0;
-+
-+			/* need to xfr more data, but maybe don't need wait */
-+			continue;
-+		}
-+
-+		set_current_state(TASK_UNINTERRUPTIBLE);
-+		schedule_timeout(local_timeout);
-+		timeout = (timeout < local_timeout) ? 0 :
-+			timeout - local_timeout;
-+	} while (timeout);
-+
-+	return -ETIME;
-+}
-+
- static int fsi_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
- 			int num)
+ static int fsi_i2c_dev_init(struct fsi_i2c_master *i2c)
  {
--	int rc;
-+	int i, rc;
-+	unsigned long start_time;
+ 	int rc;
+@@ -409,25 +436,31 @@ static int fsi_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
  	struct fsi_i2c_port *port = adap->algo_data;
-+	struct i2c_msg *msg;
+ 	struct i2c_msg *msg;
  
- 	rc = fsi_i2c_set_port(port);
+-	rc = fsi_i2c_set_port(port);
++	rc = fsi_i2c_lock_master(port->master, adap->timeout);
  	if (rc)
  		return rc;
  
--	return -EOPNOTSUPP;
-+	for (i = 0; i < num; ++i) {
-+		msg = msgs + i;
-+		start_time = jiffies;
++	rc = fsi_i2c_set_port(port);
++	if (rc)
++		goto unlock;
 +
-+		rc = fsi_i2c_start(port, msg, i == num - 1);
-+		if (rc)
-+			return rc;
-+
-+		rc = fsi_i2c_wait(port, msg,
-+				  adap->timeout - (jiffies - start_time));
-+		if (rc)
-+			return rc;
-+	}
-+
-+	return 0;
+ 	for (i = 0; i < num; ++i) {
+ 		msg = msgs + i;
+ 		start_time = jiffies;
+ 
+ 		rc = fsi_i2c_start(port, msg, i == num - 1);
+ 		if (rc)
+-			return rc;
++			goto unlock;
+ 
+ 		rc = fsi_i2c_wait(port, msg,
+ 				  adap->timeout - (jiffies - start_time));
+ 		if (rc)
+-			return rc;
++			goto unlock;
+ 	}
+ 
+-	return 0;
++unlock:
++	fsi_i2c_unlock_master(port->master);
++	return rc;
  }
  
  static u32 fsi_i2c_functionality(struct i2c_adapter *adap)
+@@ -453,6 +486,8 @@ static int fsi_i2c_probe(struct device *dev)
+ 	if (!i2c)
+ 		return -ENOMEM;
+ 
++	init_waitqueue_head(&i2c->wait);
++	sema_init(&i2c->lock, 1);
+ 	i2c->fsi = to_fsi_dev(dev);
+ 	INIT_LIST_HEAD(&i2c->ports);
+ 
 -- 
 1.8.3.1
