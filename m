@@ -1,57 +1,57 @@
 Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xLych3pqfzDsRL
- for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 10:58:44 +1000 (AEST)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v710wfKr002056
- for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 20:58:42 -0400
-Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2c26yy6qy3-1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xLyck2P9TzDsRw
+ for <openbmc@lists.ozlabs.org>; Tue,  1 Aug 2017 10:58:46 +1000 (AEST)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v710wiCd071175
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 20:58:44 -0400
+Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2c2ch0pmx6-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 20:58:41 -0400
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Jul 2017 20:58:37 -0400
 Received: from localhost
- by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Mon, 31 Jul 2017 20:58:41 -0400
-Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
- by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
+ Mon, 31 Jul 2017 20:58:36 -0400
+Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
+ by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Mon, 31 Jul 2017 20:58:39 -0400
+ Mon, 31 Jul 2017 20:58:35 -0400
 Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
  [9.57.199.111])
- by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v710wcOe20971692; Tue, 1 Aug 2017 00:58:38 GMT
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v710wY2623986292; Tue, 1 Aug 2017 00:58:34 GMT
 Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C3074AC03F;
- Mon, 31 Jul 2017 20:58:52 -0400 (EDT)
+ by IMSVA (Postfix) with ESMTP id E745DAC041;
+ Mon, 31 Jul 2017 20:58:48 -0400 (EDT)
 Received: from oc3016140333.ibm.com (unknown [9.85.136.69])
- by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id 6E23EAC03A;
- Mon, 31 Jul 2017 20:58:52 -0400 (EDT)
+ by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id 9035EAC03F;
+ Mon, 31 Jul 2017 20:58:48 -0400 (EDT)
 From: Eddie James <eajames@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.12 04/10] drivers/hwmon/occ: Add sensor types and
- versions
-Date: Mon, 31 Jul 2017 19:58:21 -0500
+Subject: [PATCH linux dev-4.12 02/10] drivers/hwmon/occ: Add command transport
+ method for P8 and P9
+Date: Mon, 31 Jul 2017 19:58:19 -0500
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1501549107-22323-1-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1501549107-22323-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-TM-AS-GCONF: 00
-x-cbid: 17080100-0048-0000-0000-000001CCA08D
+x-cbid: 17080100-0052-0000-0000-000002489698
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00007462; HX=3.00000241; KW=3.00000007;
  PH=3.00000004; SC=3.00000214; SDB=6.00895763; UDB=6.00448041; IPR=6.00675950; 
  BA=6.00005503; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016472; XFM=3.00000015;
- UTC=2017-08-01 00:58:40
+ UTC=2017-08-01 00:58:36
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17080100-0049-0000-0000-000042141B5C
-Message-Id: <1501549107-22323-5-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 17080100-0053-0000-0000-00005184C31F
+Message-Id: <1501549107-22323-3-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-07-31_11:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -70,677 +70,296 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Aug 2017 00:58:45 -0000
+X-List-Received-Date: Tue, 01 Aug 2017 00:58:46 -0000
 
 From: "Edward A. James" <eajames@us.ibm.com>
 
-Add structures to define all sensor types and versions. Add sysfs show
-and store functions for each sensor type. Add a method to construct the
-"set user power cap" command and send it to the OCC. Add rate limit to
-polling the OCC (in case user-space reads our hwmon entries rapidly).
+For the P8 OCC, add the procedure to send a command to the OCC over I2C
+bus. This involves writing the OCC command registers with serial
+communication operations (SCOMs) interpreted by the I2C slave. For the
+P9 OCC, add a procedure to use the OCC in-kernel API to send a command
+to the OCC through the SBE engine.
 
 Signed-off-by: Edward A. James <eajames@us.ibm.com>
 ---
- drivers/hwmon/occ/common.c | 602 +++++++++++++++++++++++++++++++++++++++++++++
- drivers/hwmon/occ/common.h |   5 +
- 2 files changed, 607 insertions(+)
+ drivers/hwmon/occ/p8_i2c.c | 184 ++++++++++++++++++++++++++++++++++++++++++++-
+ drivers/hwmon/occ/p9_sbe.c |  50 +++++++++++-
+ 2 files changed, 232 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
-index c55aec0..5243e54 100644
---- a/drivers/hwmon/occ/common.c
-+++ b/drivers/hwmon/occ/common.c
-@@ -8,10 +8,114 @@
-  */
- 
- #include <linux/device.h>
-+#include <linux/hwmon-sysfs.h>
- #include <linux/kernel.h>
-+#include <linux/mutex.h>
+diff --git a/drivers/hwmon/occ/p8_i2c.c b/drivers/hwmon/occ/p8_i2c.c
+index 025471f..745fb52 100644
+--- a/drivers/hwmon/occ/p8_i2c.c
++++ b/drivers/hwmon/occ/p8_i2c.c
+@@ -11,9 +11,26 @@
+ #include <linux/errno.h>
+ #include <linux/i2c.h>
+ #include <linux/module.h>
++#include <linux/occ.h>
++#include <linux/sched.h>
 +#include <asm/unaligned.h>
  
  #include "common.h"
  
-+#define OCC_UPDATE_FREQUENCY		msecs_to_jiffies(1000)
++#define OCC_TIMEOUT_MS			1000
++#define OCC_CMD_IN_PRG_WAIT_MS		50
 +
-+/* OCC sensor type and version definitions */
++/* OCB (on-chip control bridge - interface to OCC) registers */
++#define OCB_DATA1			0x6B035
++#define OCB_ADDR			0x6B070
++#define OCB_DATA3			0x6B075
 +
-+struct temp_sensor_1 {
-+	u16 sensor_id;
-+	u16 value;
-+} __packed;
++/* OCC SRAM address space */
++#define OCC_SRAM_ADDR_CMD		0xFFFF6000
++#define OCC_SRAM_ADDR_RESP		0xFFFF7000
 +
-+struct temp_sensor_2 {
-+	u32 sensor_id;
-+	u8 fru_type;
-+	u8 value;
-+} __packed;
++#define OCC_DATA_ATTN			0x20010000
 +
-+struct freq_sensor_1 {
-+	u16 sensor_id;
-+	u16 value;
-+} __packed;
-+
-+struct freq_sensor_2 {
-+	u32 sensor_id;
-+	u16 value;
-+} __packed;
-+
-+struct power_sensor_1 {
-+	u16 sensor_id;
-+	u32 update_tag;
-+	u32 accumulator;
-+	u16 value;
-+} __packed;
-+
-+struct power_sensor_2 {
-+	u32 sensor_id;
-+	u8 function_id;
-+	u8 apss_channel;
-+	u16 reserved;
-+	u32 update_tag;
-+	u64 accumulator;
-+	u16 value;
-+} __packed;
-+
-+struct power_sensor_data {
-+	u16 value;
-+	u32 update_tag;
-+	u64 accumulator;
-+} __packed;
-+
-+struct power_sensor_data_and_time {
-+	u16 update_time;
-+	u16 value;
-+	u32 update_tag;
-+	u64 accumulator;
-+} __packed;
-+
-+struct power_sensor_a0 {
-+	u32 sensor_id;
-+	struct power_sensor_data_and_time system;
-+	u32 reserved;
-+	struct power_sensor_data_and_time proc;
-+	struct power_sensor_data vdd;
-+	struct power_sensor_data vdn;
-+} __packed;
-+
-+struct caps_sensor_1 {
-+	u16 curr_powercap;
-+	u16 curr_powerreading;
-+	u16 norm_powercap;
-+	u16 max_powercap;
-+	u16 min_powercap;
-+	u16 user_powerlimit;
-+} __packed;
-+
-+struct caps_sensor_2 {
-+	u16 curr_powercap;
-+	u16 curr_powerreading;
-+	u16 norm_powercap;
-+	u16 max_powercap;
-+	u16 min_powercap;
-+	u16 user_powerlimit;
-+	u8 user_powerlimit_source;
-+} __packed;
-+
-+struct caps_sensor_3 {
-+	u16 curr_powercap;
-+	u16 curr_powerreading;
-+	u16 norm_powercap;
-+	u16 max_powercap;
-+	u16 hard_min_powercap;
-+	u16 soft_min_powercap;
-+	u16 user_powerlimit;
-+	u8 user_powerlimit_source;
-+} __packed;
-+
-+struct extended_sensor {
-+	u8 name[4];
-+	u8 flags;
-+	u8 reserved;
-+	u8 data[6];
-+} __packed;
-+
- static int occ_poll(struct occ *occ)
- {
- 	u16 checksum = occ->poll_cmd_data + 1;
-@@ -27,9 +131,504 @@ static int occ_poll(struct occ *occ)
- 	cmd[6] = checksum & 0xFF;	/* checksum lsb */
- 	cmd[7] = 0;
+ struct p8_i2c_occ {
+ 	struct occ occ;
+ 	struct i2c_client *client;
+@@ -21,9 +38,174 @@ struct p8_i2c_occ {
  
-+	/* mutex should already be locked if necessary */
- 	return occ->send_cmd(occ, cmd);
+ #define to_p8_i2c_occ(x)	container_of((x), struct p8_i2c_occ, occ)
+ 
++static int p8_i2c_occ_getscom(struct i2c_client *client, u32 address, u8 *data)
++{
++	ssize_t rc;
++	__be64 buf;
++	struct i2c_msg msgs[2];
++
++	/* p8 i2c slave requires shift */
++	address <<= 1;
++
++	msgs[0].addr = client->addr;
++	msgs[0].flags = client->flags & I2C_M_TEN;
++	msgs[0].len = sizeof(u32);
++	/* address is a scom address; bus-endian */
++	msgs[0].buf = (char *)&address;
++
++	/* data from OCC is big-endian */
++	msgs[1].addr = client->addr;
++	msgs[1].flags = (client->flags & I2C_M_TEN) | I2C_M_RD;
++	msgs[1].len = sizeof(u64);
++	msgs[1].buf = (char *)&buf;
++
++	rc = i2c_transfer(client->adapter, msgs, 2);
++	if (rc < 0)
++		return rc;
++
++	*(u64 *)data = be64_to_cpu(buf);
++
++	return 0;
++}
++
++static int p8_i2c_occ_putscom(struct i2c_client *client, u32 address, u8 *data)
++{
++	u32 buf[3];
++	ssize_t rc;
++
++	/* p8 i2c slave requires shift */
++	address <<= 1;
++
++	/* address is bus-endian; data passed through from user as-is */
++	buf[0] = address;
++	memcpy(&buf[1], &data[4], sizeof(u32));
++	memcpy(&buf[2], data, sizeof(u32));
++
++	rc = i2c_master_send(client, (const char *)buf, sizeof(buf));
++	if (rc < 0)
++		return rc;
++	else if (rc != sizeof(buf))
++		return -EIO;
++
++	return 0;
++}
++
++static int p8_i2c_occ_putscom_u32(struct i2c_client *client, u32 address,
++				  u32 data0, u32 data1)
++{
++	u8 buf[8];
++
++	memcpy(buf, &data0, 4);
++	memcpy(buf + 4, &data1, 4);
++
++	return p8_i2c_occ_putscom(client, address, buf);
++}
++
++static int p8_i2c_occ_putscom_be(struct i2c_client *client, u32 address,
++				 u8 *data)
++{
++	__be32 data0, data1;
++
++	memcpy(&data0, data, 4);
++	memcpy(&data1, data + 4, 4);
++
++	return p8_i2c_occ_putscom_u32(client, address, be32_to_cpu(data0),
++				      be32_to_cpu(data1));
++}
++
+ static int p8_i2c_occ_send_cmd(struct occ *occ, u8 *cmd)
+ {
+-	return -EOPNOTSUPP;
++	int i, rc;
++	unsigned long start;
++	u16 data_length;
++	const unsigned long timeout = msecs_to_jiffies(OCC_TIMEOUT_MS);
++	const long int wait_time = msecs_to_jiffies(OCC_CMD_IN_PRG_WAIT_MS);
++	struct p8_i2c_occ *p8_i2c_occ = to_p8_i2c_occ(occ);
++	struct i2c_client *client = p8_i2c_occ->client;
++	struct occ_response *resp = &occ->resp;
++
++	start = jiffies;
++
++	/* set sram address for command */
++	rc = p8_i2c_occ_putscom_u32(client, OCB_ADDR, OCC_SRAM_ADDR_CMD, 0);
++	if (rc)
++		return rc;
++
++	/* write command (expected to already be BE), we need bus-endian... */
++	rc = p8_i2c_occ_putscom_be(client, OCB_DATA3, cmd);
++	if (rc)
++		return rc;
++
++	/* trigger OCC attention */
++	rc = p8_i2c_occ_putscom_u32(client, OCB_DATA1, OCC_DATA_ATTN, 0);
++	if (rc)
++		return rc;
++
++	do {
++		/* set sram address for response */
++		rc = p8_i2c_occ_putscom_u32(client, OCB_ADDR,
++					    OCC_SRAM_ADDR_RESP, 0);
++		if (rc)
++			return rc;
++
++		rc = p8_i2c_occ_getscom(client, OCB_DATA3, (u8 *)resp);
++		if (rc)
++			return rc;
++
++		/* wait for OCC */
++		if (resp->return_status == OCC_RESP_CMD_IN_PRG) {
++			rc = -EALREADY;
++
++			if (time_after(jiffies, start + timeout))
++				break;
++
++			set_current_state(TASK_INTERRUPTIBLE);
++			schedule_timeout(wait_time);
++		}
++	} while (rc);
++
++	/* check the OCC response */
++	switch (resp->return_status) {
++	case OCC_RESP_CMD_IN_PRG:
++		rc = -ETIMEDOUT;
++		break;
++	case OCC_RESP_SUCCESS:
++		rc = 0;
++		break;
++	case OCC_RESP_CMD_INVAL:
++	case OCC_RESP_CMD_LEN_INVAL:
++	case OCC_RESP_DATA_INVAL:
++	case OCC_RESP_CHKSUM_ERR:
++		rc = -EINVAL;
++		break;
++	case OCC_RESP_INT_ERR:
++	case OCC_RESP_BAD_STATE:
++	case OCC_RESP_CRIT_EXCEPT:
++	case OCC_RESP_CRIT_INIT:
++	case OCC_RESP_CRIT_WATCHDOG:
++	case OCC_RESP_CRIT_OCB:
++	case OCC_RESP_CRIT_HW:
++		rc = -EREMOTEIO;
++		break;
++	default:
++		rc = -EPROTO;
++	}
++
++	if (rc < 0)
++		return rc;
++
++	data_length = get_unaligned_be16(&resp->data_length);
++	if (data_length > OCC_RESP_DATA_BYTES)
++		return -EMSGSIZE;
++
++	/* fetch the rest of the response data */
++	for (i = 8; i < data_length + 7; i += 8) {
++		rc = p8_i2c_occ_getscom(client, OCB_DATA3, ((u8 *)resp) + i);
++		if (rc)
++			return rc;
++	}
++
++	return 0;
  }
  
-+static int occ_set_user_power_cap(struct occ *occ, u16 user_power_cap)
-+{
-+	int rc;
-+	u8 cmd[8];
-+	u16 checksum = 0x24;
-+	__be16 user_power_cap_be = cpu_to_be16(user_power_cap);
-+
-+	cmd[0] = 0;
-+	cmd[1] = 0x22;
-+	cmd[2] = 0;
-+	cmd[3] = 2;
-+
-+	memcpy(&cmd[4], &user_power_cap_be, 2);
-+
-+	checksum += cmd[4] + cmd[5];
-+	cmd[6] = checksum >> 8;
-+	cmd[7] = checksum & 0xFF;
-+
-+	rc = mutex_lock_interruptible(&occ->lock);
-+	if (rc)
-+		return rc;
-+
-+	rc = occ->send_cmd(occ, cmd);
-+
-+	mutex_unlock(&occ->lock);
-+
-+	return rc;
-+}
-+
-+static int occ_update_response(struct occ *occ)
-+{
-+	int rc = mutex_lock_interruptible(&occ->lock);
-+
-+	if (rc)
-+		return rc;
-+
-+	/* limit the maximum rate of polling the OCC */
-+	if (time_after(jiffies, occ->last_update + OCC_UPDATE_FREQUENCY)) {
-+		rc = occ_poll(occ);
-+		occ->last_update = jiffies;
-+	}
-+
-+	mutex_unlock(&occ->lock);
-+	return rc;
-+}
-+
-+static ssize_t occ_show_temp_1(struct device *dev,
-+			       struct device_attribute *attr, char *buf)
-+{
-+	int rc;
-+	u16 val = 0;
-+	struct temp_sensor_1 *temp;
-+	struct occ *occ = dev_get_drvdata(dev);
-+	struct occ_sensors *sensors = &occ->sensors;
-+	struct sensor_device_attribute_2 *sattr = to_sensor_dev_attr_2(attr);
-+
-+	rc = occ_update_response(occ);
-+	if (rc)
-+		return rc;
-+
-+	temp = ((struct temp_sensor_1 *)sensors->temp.data) + sattr->index;
-+
-+	switch (sattr->nr) {
-+	case 0:
-+		val = get_unaligned_be16(&temp->sensor_id);
-+		break;
-+	case 1:
-+		/* millidegrees */
-+		val = get_unaligned_be16(&temp->value) * 1000;
-+		break;
-+	}
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%u\n", val);
-+}
-+
-+static ssize_t occ_show_temp_2(struct device *dev,
-+			       struct device_attribute *attr, char *buf)
-+{
-+	int rc;
-+	u32 val = 0;
-+	struct temp_sensor_2 *temp;
-+	struct occ *occ = dev_get_drvdata(dev);
-+	struct occ_sensors *sensors = &occ->sensors;
-+	struct sensor_device_attribute_2 *sattr = to_sensor_dev_attr_2(attr);
-+
-+	rc = occ_update_response(occ);
-+	if (rc)
-+		return rc;
-+
-+	temp = ((struct temp_sensor_2 *)sensors->temp.data) + sattr->index;
-+
-+	switch (sattr->nr) {
-+	case 0:
-+		val = get_unaligned_be32(&temp->sensor_id);
-+		break;
-+	case 1:
-+		val = temp->value * 1000;	/* millidegrees */
-+		break;
-+	case 2:
-+		val = temp->fru_type;
-+		break;
-+	}
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%u\n", val);
-+}
-+
-+static ssize_t occ_show_freq_1(struct device *dev,
-+			       struct device_attribute *attr, char *buf)
-+{
-+	int rc;
-+	u16 val = 0;
-+	struct freq_sensor_1 *freq;
-+	struct occ *occ = dev_get_drvdata(dev);
-+	struct occ_sensors *sensors = &occ->sensors;
-+	struct sensor_device_attribute_2 *sattr = to_sensor_dev_attr_2(attr);
-+
-+	rc = occ_update_response(occ);
-+	if (rc)
-+		return rc;
-+
-+	freq = ((struct freq_sensor_1 *)sensors->freq.data) + sattr->index;
-+
-+	switch (sattr->nr) {
-+	case 0:
-+		val = get_unaligned_be16(&freq->sensor_id);
-+		break;
-+	case 1:
-+		val = get_unaligned_be16(&freq->value);
-+		break;
-+	}
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%u\n", val);
-+}
-+
-+static ssize_t occ_show_freq_2(struct device *dev,
-+			       struct device_attribute *attr, char *buf)
-+{
-+	int rc;
-+	u32 val = 0;
-+	struct freq_sensor_2 *freq;
-+	struct occ *occ = dev_get_drvdata(dev);
-+	struct occ_sensors *sensors = &occ->sensors;
-+	struct sensor_device_attribute_2 *sattr = to_sensor_dev_attr_2(attr);
-+
-+	rc = occ_update_response(occ);
-+	if (rc)
-+		return rc;
-+
-+	freq = ((struct freq_sensor_2 *)sensors->freq.data) + sattr->index;
-+
-+	switch (sattr->nr) {
-+	case 0:
-+		val = get_unaligned_be32(&freq->sensor_id);
-+		break;
-+	case 1:
-+		val = get_unaligned_be16(&freq->value);
-+		break;
-+	}
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%u\n", val);
-+}
-+
-+static ssize_t occ_show_power_1(struct device *dev,
-+				struct device_attribute *attr, char *buf)
-+{
-+	int rc;
-+	u32 val = 0;
-+	struct power_sensor_1 *power;
-+	struct occ *occ = dev_get_drvdata(dev);
-+	struct occ_sensors *sensors = &occ->sensors;
-+	struct sensor_device_attribute_2 *sattr = to_sensor_dev_attr_2(attr);
-+
-+	rc = occ_update_response(occ);
-+	if (rc)
-+		return rc;
-+
-+	power = ((struct power_sensor_1 *)sensors->power.data) + sattr->index;
-+
-+	switch (sattr->nr) {
-+	case 0:
-+		val = get_unaligned_be16(&power->sensor_id);
-+		break;
-+	case 1:
-+		val = get_unaligned_be32(&power->update_tag);
-+		break;
-+	case 2:
-+		val = get_unaligned_be32(&power->accumulator);
-+		break;
-+	case 3:
-+		val = get_unaligned_be16(&power->value);
-+		break;
-+	}
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%u\n", val);
-+}
-+
-+static ssize_t occ_show_power_2(struct device *dev,
-+				struct device_attribute *attr, char *buf)
-+{
-+	int rc;
-+	u64 val = 0;
-+	struct power_sensor_2 *power;
-+	struct occ *occ = dev_get_drvdata(dev);
-+	struct occ_sensors *sensors = &occ->sensors;
-+	struct sensor_device_attribute_2 *sattr = to_sensor_dev_attr_2(attr);
-+
-+	rc = occ_update_response(occ);
-+	if (rc)
-+		return rc;
-+
-+	power = ((struct power_sensor_2 *)sensors->power.data) + sattr->index;
-+
-+	switch (sattr->nr) {
-+	case 0:
-+		val = get_unaligned_be32(&power->sensor_id);
-+		break;
-+	case 1:
-+		val = get_unaligned_be32(&power->update_tag);
-+		break;
-+	case 2:
-+		val = get_unaligned_be64(&power->accumulator);
-+		break;
-+	case 3:
-+		val = get_unaligned_be16(&power->value);
-+		break;
-+	case 4:
-+		val = power->function_id;
-+		break;
-+	case 5:
-+		val = power->apss_channel;
-+		break;
-+	}
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%llu\n", val);
-+}
-+
-+static ssize_t occ_show_power_a0(struct device *dev,
-+				 struct device_attribute *attr, char *buf)
-+{
-+	int rc;
-+	u64 val = 0;
-+	struct power_sensor_a0 *power;
-+	struct occ *occ = dev_get_drvdata(dev);
-+	struct occ_sensors *sensors = &occ->sensors;
-+	struct sensor_device_attribute_2 *sattr = to_sensor_dev_attr_2(attr);
-+
-+	rc = occ_update_response(occ);
-+	if (rc)
-+		return rc;
-+
-+	power = ((struct power_sensor_a0 *)sensors->power.data) + sattr->index;
-+
-+	switch (sattr->nr) {
-+	case 0:
-+		val = get_unaligned_be32(&power->sensor_id);
-+		break;
-+	case 1:
-+		return snprintf(buf, PAGE_SIZE - 1, "system\n");
-+	case 2:
-+		val = get_unaligned_be16(&power->system.update_time);
-+		break;
-+	case 3:
-+		val = get_unaligned_be16(&power->system.value);
-+		break;
-+	case 4:
-+		val = get_unaligned_be32(&power->system.update_tag);
-+		break;
-+	case 5:
-+		val = get_unaligned_be64(&power->system.accumulator);
-+		break;
-+	case 6:
-+		return snprintf(buf, PAGE_SIZE - 1, "proc\n");
-+	case 7:
-+		val = get_unaligned_be16(&power->proc.update_time);
-+		break;
-+	case 8:
-+		val = get_unaligned_be16(&power->proc.value);
-+		break;
-+	case 9:
-+		val = get_unaligned_be32(&power->proc.update_tag);
-+		break;
-+	case 10:
-+		val = get_unaligned_be64(&power->proc.accumulator);
-+		break;
-+	case 11:
-+		return snprintf(buf, PAGE_SIZE - 1, "vdd\n");
-+	case 12:
-+		val = get_unaligned_be16(&power->vdd.value);
-+		break;
-+	case 13:
-+		val = get_unaligned_be32(&power->vdd.update_tag);
-+		break;
-+	case 14:
-+		val = get_unaligned_be64(&power->vdd.accumulator);
-+		break;
-+	case 15:
-+		return snprintf(buf, PAGE_SIZE - 1, "vdn\n");
-+	case 16:
-+		val = get_unaligned_be16(&power->vdn.value);
-+		break;
-+	case 17:
-+		val = get_unaligned_be32(&power->vdn.update_tag);
-+		break;
-+	case 18:
-+		val = get_unaligned_be64(&power->vdn.accumulator);
-+		break;
-+	}
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%llu\n", val);
-+}
-+
-+static ssize_t occ_show_caps_1(struct device *dev,
-+			       struct device_attribute *attr, char *buf)
-+{
-+	int rc;
-+	u16 val = 0;
-+	struct caps_sensor_1 *caps;
-+	struct occ *occ = dev_get_drvdata(dev);
-+	struct occ_sensors *sensors = &occ->sensors;
-+	struct sensor_device_attribute_2 *sattr = to_sensor_dev_attr_2(attr);
-+
-+	rc = occ_update_response(occ);
-+	if (rc)
-+		return rc;
-+
-+	caps = ((struct caps_sensor_1 *)sensors->caps.data) + sattr->index;
-+
-+	switch (sattr->nr) {
-+	case 0:
-+		val = get_unaligned_be16(&caps->curr_powercap);
-+		break;
-+	case 1:
-+		val = get_unaligned_be16(&caps->curr_powerreading);
-+		break;
-+	case 2:
-+		val = get_unaligned_be16(&caps->norm_powercap);
-+		break;
-+	case 3:
-+		val = get_unaligned_be16(&caps->max_powercap);
-+		break;
-+	case 4:
-+		val = get_unaligned_be16(&caps->min_powercap);
-+		break;
-+	case 5:
-+		val = get_unaligned_be16(&caps->user_powerlimit);
-+		break;
-+	}
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%u\n", val);
-+}
-+
-+static ssize_t occ_show_caps_2(struct device *dev,
-+			       struct device_attribute *attr, char *buf)
-+{
-+	int rc;
-+	u16 val = 0;
-+	struct caps_sensor_2 *caps;
-+	struct occ *occ = dev_get_drvdata(dev);
-+	struct occ_sensors *sensors = &occ->sensors;
-+	struct sensor_device_attribute_2 *sattr = to_sensor_dev_attr_2(attr);
-+
-+	rc = occ_update_response(occ);
-+	if (rc)
-+		return rc;
-+
-+	caps = ((struct caps_sensor_2 *)sensors->caps.data) + sattr->index;
-+
-+	switch (sattr->nr) {
-+	case 0:
-+		val = get_unaligned_be16(&caps->curr_powercap);
-+		break;
-+	case 1:
-+		val = get_unaligned_be16(&caps->curr_powerreading);
-+		break;
-+	case 2:
-+		val = get_unaligned_be16(&caps->norm_powercap);
-+		break;
-+	case 3:
-+		val = get_unaligned_be16(&caps->max_powercap);
-+		break;
-+	case 4:
-+		val = get_unaligned_be16(&caps->min_powercap);
-+		break;
-+	case 5:
-+		val = get_unaligned_be16(&caps->user_powerlimit);
-+		break;
-+	case 6:
-+		val = caps->user_powerlimit_source;
-+		break;
-+	}
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%u\n", val);
-+}
-+
-+static ssize_t occ_show_caps_3(struct device *dev,
-+			       struct device_attribute *attr, char *buf)
-+{
-+	int rc;
-+	u16 val = 0;
-+	struct caps_sensor_3 *caps;
-+	struct occ *occ = dev_get_drvdata(dev);
-+	struct occ_sensors *sensors = &occ->sensors;
-+	struct sensor_device_attribute_2 *sattr = to_sensor_dev_attr_2(attr);
-+
-+	rc = occ_update_response(occ);
-+	if (rc)
-+		return rc;
-+
-+	caps = ((struct caps_sensor_3 *)sensors->caps.data) + sattr->index;
-+
-+	switch (sattr->nr) {
-+	case 0:
-+		val = get_unaligned_be16(&caps->curr_powercap);
-+		break;
-+	case 1:
-+		val = get_unaligned_be16(&caps->curr_powerreading);
-+		break;
-+	case 2:
-+		val = get_unaligned_be16(&caps->norm_powercap);
-+		break;
-+	case 3:
-+		val = get_unaligned_be16(&caps->max_powercap);
-+		break;
-+	case 4:
-+		val = get_unaligned_be16(&caps->hard_min_powercap);
-+		break;
-+	case 5:
-+		val = get_unaligned_be16(&caps->user_powerlimit);
-+		break;
-+	case 6:
-+		val = caps->user_powerlimit_source;
-+		break;
-+	case 7:
-+		val = get_unaligned_be16(&caps->soft_min_powercap);
-+		break;
-+	}
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%u\n", val);
-+}
-+
-+static ssize_t occ_store_caps_user(struct device *dev,
-+				   struct device_attribute *attr,
-+				   const char *buf, size_t count)
-+{
-+	int rc;
-+	u16 user_power_cap;
-+	struct occ *occ = dev_get_drvdata(dev);
-+
-+	rc = kstrtou16(buf, 0, &user_power_cap);
-+	if (rc)
-+		return rc;
-+
-+	rc = occ_set_user_power_cap(occ, user_power_cap);
-+	if (rc)
-+		return rc;
-+
-+	return count;
-+}
-+
-+static ssize_t occ_show_extended(struct device *dev,
-+				 struct device_attribute *attr, char *buf)
-+{
-+	int rc;
-+	struct extended_sensor *extn;
-+	struct occ *occ = dev_get_drvdata(dev);
-+	struct occ_sensors *sensors = &occ->sensors;
-+	struct sensor_device_attribute_2 *sattr = to_sensor_dev_attr_2(attr);
-+
-+	rc = occ_update_response(occ);
-+	if (rc)
-+		return rc;
-+
-+	extn = ((struct extended_sensor *)sensors->extended.data) +
-+		sattr->index;
-+
-+	switch (sattr->nr) {
-+	case 0:
-+		rc = snprintf(buf, PAGE_SIZE - 1, "%02x%02x%02x%02x\n",
-+			      extn->name[0], extn->name[1], extn->name[2],
-+			      extn->name[3]);
-+		break;
-+	case 1:
-+		rc = snprintf(buf, PAGE_SIZE - 1, "%02x\n", extn->flags);
-+		break;
-+	case 2:
-+		rc = snprintf(buf, PAGE_SIZE - 1, "%02x%02x%02x%02x%02x%02x\n",
-+			      extn->data[0], extn->data[1], extn->data[2],
-+			      extn->data[3], extn->data[4], extn->data[5]);
-+		break;
-+	}
-+
-+	return rc;
-+}
-+
- /* only need to do this once at startup, as OCC won't change sensors on us */
- static void occ_parse_poll_response(struct occ *occ)
+ static int p8_i2c_occ_probe(struct i2c_client *client,
+diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
+index 58c3bb2..667d190 100644
+--- a/drivers/hwmon/occ/p9_sbe.c
++++ b/drivers/hwmon/occ/p9_sbe.c
+@@ -10,6 +10,7 @@
+ #include <linux/device.h>
+ #include <linux/errno.h>
+ #include <linux/module.h>
++#include <linux/occ.h>
+ #include <linux/platform_device.h>
+ 
+ #include "common.h"
+@@ -23,7 +24,54 @@ struct p9_sbe_occ {
+ 
+ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
  {
-@@ -81,6 +680,9 @@ int occ_setup(struct occ *occ, const char *name)
- {
- 	int rc;
- 
-+	mutex_init(&occ->lock);
+-	return -EOPNOTSUPP;
++	int rc;
++	struct occ_client *client;
++	struct occ_response *resp = &occ->resp;
++	struct p9_sbe_occ *p9_sbe_occ = to_p9_sbe_occ(occ);
 +
-+	/* no need to lock */
- 	rc = occ_poll(occ);
- 	if (rc < 0) {
- 		dev_err(occ->bus_dev, "failed to get OCC poll response: %d\n",
-diff --git a/drivers/hwmon/occ/common.h b/drivers/hwmon/occ/common.h
-index f52d45a..3e4ca4d 100644
---- a/drivers/hwmon/occ/common.h
-+++ b/drivers/hwmon/occ/common.h
-@@ -10,6 +10,8 @@
- #ifndef OCC_COMMON_H
- #define OCC_COMMON_H
- 
-+#include <linux/mutex.h>
++	client = occ_drv_open(p9_sbe_occ->sbe, 0);
++	if (!client)
++		return -ENODEV;
 +
- struct device;
- 
- #define OCC_RESP_DATA_BYTES		4089
-@@ -87,6 +89,9 @@ struct occ {
- 
- 	u8 poll_cmd_data;		/* to perform OCC poll command */
- 	int (*send_cmd)(struct occ *occ, u8 *cmd);
++	/* skip first byte (sequence number), OCC driver handles it */
++	rc = occ_drv_write(client, (const char *)&cmd[1], 7);
++	if (rc < 0)
++		goto err;
 +
-+	unsigned long last_update;
-+	struct mutex lock;		/* lock OCC access */
- };
++	rc = occ_drv_read(client, (char *)resp, sizeof(*resp));
++	if (rc < 0)
++		goto err;
++
++	/* check the OCC response */
++	switch (resp->return_status) {
++	case OCC_RESP_CMD_IN_PRG:
++		rc = -ETIMEDOUT;
++		break;
++	case OCC_RESP_SUCCESS:
++		rc = 0;
++		break;
++	case OCC_RESP_CMD_INVAL:
++	case OCC_RESP_CMD_LEN_INVAL:
++	case OCC_RESP_DATA_INVAL:
++	case OCC_RESP_CHKSUM_ERR:
++		rc = -EINVAL;
++		break;
++	case OCC_RESP_INT_ERR:
++	case OCC_RESP_BAD_STATE:
++	case OCC_RESP_CRIT_EXCEPT:
++	case OCC_RESP_CRIT_INIT:
++	case OCC_RESP_CRIT_WATCHDOG:
++	case OCC_RESP_CRIT_OCB:
++	case OCC_RESP_CRIT_HW:
++		rc = -EREMOTEIO;
++		break;
++	default:
++		rc = -EPROTO;
++	}
++
++err:
++	occ_drv_release(client);
++	return rc;
+ }
  
- int occ_setup(struct occ *occ, const char *name);
+ static int p9_sbe_occ_probe(struct platform_device *pdev)
 -- 
 1.8.3.1
