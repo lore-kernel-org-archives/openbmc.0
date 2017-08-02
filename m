@@ -1,66 +1,38 @@
-Return-Path: <stewart@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Return-Path: <clg@kaod.org>
+Received: from 7.mo178.mail-out.ovh.net (7.mo178.mail-out.ovh.net
+ [46.105.58.91])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xMkfM6FsJzDrSK
- for <openbmc@lists.ozlabs.org>; Wed,  2 Aug 2017 17:02:51 +1000 (AEST)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v7271nhN018775
- for <openbmc@lists.ozlabs.org>; Wed, 2 Aug 2017 03:02:49 -0400
-Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2c33502e92-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 02 Aug 2017 03:02:49 -0400
-Received: from localhost
- by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
- Wed, 2 Aug 2017 01:02:47 -0600
-Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
- by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Wed, 2 Aug 2017 01:02:46 -0600
-Received: from b03ledav005.gho.boulder.ibm.com
- (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v7272jgo4915464; Wed, 2 Aug 2017 00:02:45 -0700
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A3FD2BE04C;
- Wed,  2 Aug 2017 01:02:45 -0600 (MDT)
-Received: from birb.localdomain (unknown [9.83.5.250])
- by b03ledav005.gho.boulder.ibm.com (Postfix) with SMTP id C925EBE04A;
- Wed,  2 Aug 2017 01:02:44 -0600 (MDT)
-Received: by birb.localdomain (Postfix, from userid 1000)
- id 3DF7B4EC562; Wed,  2 Aug 2017 17:02:41 +1000 (AEST)
-From: Stewart Smith <stewart@linux.vnet.ibm.com>
-To: Patrick Williams <patrick@stwcx.xyz>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: REST API docs
-In-Reply-To: <20170801212832.GC14987@asimov>
-References: <87y3r3ooyv.fsf@linux.vnet.ibm.com> <20170801212832.GC14987@asimov>
-Date: Wed, 02 Aug 2017 17:02:41 +1000
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xMkqg3k05zDrfj
+ for <openbmc@lists.ozlabs.org>; Wed,  2 Aug 2017 17:10:55 +1000 (AEST)
+Received: from player715.ha.ovh.net (b9.ovh.net [213.186.33.59])
+ by mo178.mail-out.ovh.net (Postfix) with ESMTP id BA45D4B0E4
+ for <openbmc@lists.ozlabs.org>; Wed,  2 Aug 2017 09:10:49 +0200 (CEST)
+Received: from zorba.kaod.org (LFbn-1-10652-153.w90-89.abo.wanadoo.fr
+ [90.89.238.153]) (Authenticated sender: postmaster@kaod.org)
+ by player715.ha.ovh.net (Postfix) with ESMTPSA id 723941C0091;
+ Wed,  2 Aug 2017 09:10:46 +0200 (CEST)
+Subject: Re: [PATCH linux dev-4.10 v6 1/2] ARM: dts: aspeed: Witherspoon add
+ gpio-keys-polled for fan presence
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>, joel@jms.id.au
+References: <20170729183638.17503-1-cbostic@linux.vnet.ibm.com>
+ <20170729183638.17503-2-cbostic@linux.vnet.ibm.com>
+ <fda3e51f-6c91-dddb-2999-657efdcae829@kaod.org>
+ <b687fd39-2fb4-5533-0a11-271e1bca68cd@linux.vnet.ibm.com>
+Cc: openbmc@lists.ozlabs.org
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <277552bc-20bc-9bd2-07d1-65153d73139a@kaod.org>
+Date: Wed, 2 Aug 2017 09:10:45 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.8.0
 MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-AS-GCONF: 00
-x-cbid: 17080207-0008-0000-0000-0000085639BC
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007469; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000215; SDB=6.00896364; UDB=6.00448402; IPR=6.00676551; 
- BA=6.00005506; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016492; XFM=3.00000015;
- UTC=2017-08-02 07:02:47
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17080207-0009-0000-0000-0000435CF31B
-Message-Id: <87bmnymoz2.fsf@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-08-02_04:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=2
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
- definitions=main-1708020114
+In-Reply-To: <b687fd39-2fb4-5533-0a11-271e1bca68cd@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 8861113745222634242
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelkedrjedtgdduudehucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -72,178 +44,134 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Aug 2017 07:02:52 -0000
+X-List-Received-Date: Wed, 02 Aug 2017 07:10:55 -0000
 
-Patrick Williams <patrick@stwcx.xyz> writes:
+On 08/02/2017 04:33 AM, Christopher Bostic wrote:
+> 
+> 
+> On 7/31/17 2:48 AM, Cédric Le Goater wrote:
+>> On 07/29/2017 08:36 PM, Christopher Bostic wrote:
+>>> Add gpio-keys-polled  node for pca955x fan presence lines.
+>>> Add GPIO details to pca955x for the presence lines as well.
+>>>
+>>> Polling period of 1 second determined to be the max acceptable
+>>> value based on discussions with Brad Bishop and Matt Spinler.
+>>> Tested with gpiomon program - verified.
+>>>
+>>> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+>>> ---
+>>> v6 - Add gpio pin details for fan presence to pca955x node
+>>> v5 - Fix gpio-keys-polled driver probe errors.  Missing pca955x
+>>>       gpio cells property and wrong format for poll-interval.
+>>> v4 - Add details regarding polling period to commit message.
+>>> v3 - Remove 'autorepeat'
+>>>     - Increase polling period to 1 second.
+>>>     - Remove GPIO specifiers from pca955x in dev tree
+>>> v2 - Change 'linux,code' from a unique global value to a local one
+>>>       for all the gpio-keys-polled devices.
+>>> ---
+>>>   arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 52 ++++++++++++++++++++++++
+>>>   1 file changed, 52 insertions(+)
+>>>
+>>> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+>>> index 5afc03a..70328668 100644
+>>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+>>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+>>> @@ -56,6 +56,37 @@
+>>>           };
+>>>       };
+>>>   +    gpio-keys-polled {
+>>> +        compatible = "gpio-keys-polled";
+>>> +        #address-cells = <1>;
+>>> +        #size-cells = <0>;
+>>> +        poll-interval = <1000>;
+>>> +
+>>> +        fan0-presence {
+>>> +            label = "fan0-presence";
+>>> +            gpios = <&pca0 4 GPIO_ACTIVE_LOW>;
+>>> +            linux,code = <4>;
+>>> +        };
+>>> +
+>>> +        fan1-presence {
+>>> +            label = "fan1-presence";
+>>> +            gpios = <&pca0 5 GPIO_ACTIVE_LOW>;
+>>> +            linux,code = <5>;
+>>> +        };
+>>> +
+>>> +        fan2-presence {
+>>> +            label = "fan2-presence";
+>>> +            gpios = <&pca0 6 GPIO_ACTIVE_LOW>;
+>>> +            linux,code = <6>;
+>>> +        };
+>>> +
+>>> +        fan3-presence {
+>>> +            label = "fan3-presence";
+>>> +            gpios = <&pca0 7 GPIO_ACTIVE_LOW>;
+>>> +            linux,code = <7>;
+>>> +        };
+>>> +    };
+>>> +
+>>>       leds {
+>>>           compatible = "gpio-leds";
+>>>   @@ -277,6 +308,7 @@
+>>>           reg = <0x60>;
+>>>           #address-cells = <1>;
+>>>           #size-cells = <0>;
+>>> +        #gpio-cells = <2>;
+>> you should also add a :
+>>
+>>         gpio-controller;
+>>
+>> if you want to use the lines as GPIOs
+>>
+>> C.
+> Hi Cedric,
+> 
+> If I add 'gpio-controller' here are you indicating that would not 
+> require any modifications I made to the leds-pca955x.c file?  
 
-> On Tue, Aug 01, 2017 at 03:07:36PM +1000, Stewart Smith wrote:
->> The documentation up at:
->> https://github.com/openbmc/docs/blob/master/host-management.md
->> says /org/openbmc but we here tales in internal bug reports that
->> everything is switching to /xyz/openbmc_project.
->> 
->> Except, I don't recall seeing any deprecation plan.... is there
->> one?
->> 
->> We're heavily using this now for op-test-framework, and there's a patch
->> to switch it, but I need to know how far back/forwards the existing/new
->> interfaces are supported.
->> 
->> See:
->> https://github.com/open-power/op-test-framework/pull/150/commits/e05b1a89e032b1bbe14d9a177afa46f1a2c6413c
->> 
->> Also, could some more effort please be put into communicating these
->> changes. These kind of surprises aren't great for our already
->> constrained team.
->
-> Stewart,
->
-> I don't know why this is a surprise.  We have been communicating in
-> various avenues that the /org/openbmc APIs defined for Barreleye
-> were all deprecated the day we split the 2.0 development branch.
-> I alluded to this even in the email announcing the v1.0 tag:
->     https://lists.ozlabs.org/pipermail/openbmc/2016-June/003707.html
+yes.
 
-API changes are reading a bit too much between the lines there to
-reasonably be actionable on.
+> I've tried that and found I still need that leds-pca955x.c change 
+> even if I add 'gpio-controller' attribute to get gpio-keys-polled 
+>  device driver to properly probe the pca955x lines.
 
-> It is a violation of the dbus spec for us to be using /org/openbmc since
-> it is not a domain name we have control over.
+OK. I will give it a try on a QEMU. Maybe there are some incompatibilities 
+with the gpio-keys driver bindings
 
-ok, that's reasonable.
+C.
 
-> None of the /org/openbmc interfaces went through any proper interface
-> design.  They were all defined and implemented ad-hoc by individual
-> developers as part of the Barreleye proof-of-concept work.  There are
-> numerous inconsistencies in their original form.
-
-ok.
-
-> One of the first pieces of work we defined and began working on was a
-> dbus interface YAML specification, from which we generate compile-time
-> enforced dbus bindings to ensure compatibility between applications.
-> All of the xyz.openbmc_project interfaces have formal documentation in
-> the phosphor-dbus-interfaces repository, which had its first commits in
-> October of last year.
-
-So something like this
-https://github.com/openbmc/phosphor-dbus-interfaces/tree/master/xyz/openbmc_project/Inventory
-supercedes
-https://github.com/openbmc/docs/blob/master/host-management.md#inventory
-?
-
-The former certainly isn't too clear, while the original docs are. In
-fact, we explicitly call out to /usr/bin/curl and print the command line
-we're running so that we have an easy way to see what our test suite was
-doing in case somebody wants to manually recreate it for debugging purposes.
-
-> The dbus interfaces you are _moving to_ were defined and implemented
-> in December of last year and we moved over to them as a whole within
-> the code base by Feb.  Your first commit "Initial OpenBMC support" in
-> your repository wasn't until late Feb, so you were already using the
-> wrong interfaces.
-
-The inital commit (738db7943eb0f090fa3db07c5200df536d0e3a4a) just used
-the SSH host console and that's it, it wasn't until June
-(64312b69acff30de8d75d80ab208c759a522a8ee) that we started to use the
-REST API at all as when we started to poke at the IPMI support in March
-(b19d231096ac27fa137eaf07b22c6deb61032e24), we quickly discovered that
-it wasn't going to be sufficient in a near enough timeframe to be
-suitable for OPAL testing.
-
-I personally spent a bunch of time getting our test suite to be BMC
-agnostic just to accomodate the backwards incompatibility of OpenBMC
-(notably P9 FSP systems and P9 SMC systems are backwards compatibile,
-and I don't think we had to add *any* code to accomodate them over the
-P8 systems, with one patch for SMC versus AMI BMCs).
-
-As of the time I pulled in the code to speak the OpenBMC REST API, that
-was what was in the docs, and indeed, it's what is still there. The docs
-repository is exclusively /org/openbmc/.
-
-[stewart@birb openbmc-docs]$ ack -l 'org/openbmc'
-cheatsheet.md
-code-update.md
-dbus-interfaces.md
-host-management.md
-rest-api.md
-rfc-obmc-service-iface.md
-[stewart@birb openbmc-docs]$ ack -l 'xyz/openbmc_project'
-LED-architecture.md
-openbmc-systemd.md
-sensor-architecture.md
-
-> We have been working very closely with the automated test group that
-> works on the openbmc-test-automation repository.  I was pretty certain
-> that within IBM there is some affinity between the team working on this
-> repository and the team working on your repository, isn't there?  In
-> fact, I clearly recall discussions within IBM questioning why the
-> op-test-framework would not be building on top of the existing Robot
-> support provided by openbmc-test-automation rather than implement
-> a different custom framework.
-
-There hasn't been. Recently we re-synced a bit, but just on a discussion
-level.
-
-There are two very different goals of the test suites too. One is to
-test OpenBMC itself, while the other is to test host firmware, and
-largely incidentally test the BMC implementation.
-
-A while ago (January) there was a pull request r.e. Robot tests for
-op-test-framework
-(https://github.com/open-power/op-test-framework/pull/74 ) but for a
-couple of reasons this didn't go anywhere. My biggest issues were that it
-just added Robot files to the repository and didn't integrate at all
-with the existing tests, nor re-implement any of them, and certainly
-didn't support running the same tests against systems based on FSP,
-OpenBMC, AMI and SMC. We have to be able to run against any of them, and
-preferably also against any/all of the simulators we use.
-
-I'm certainly not fundamentally opposed to Robot, it's possibly useful
-for writing some small tests. But we do get a lot of power from just
-having python
-available... e.g. https://github.com/open-power/op-test-framework/blob/v0.8/testcases/IpmiTorture.py
-which was instrumental in finding and fixing a critical customer
-issue. We can write quite sophisticated tests that do a lot of things
-concurrently (in and out of band).
-
-While the Robot syntax may be nicer for a bunch of basic tests, it's not
-*too* bad with what we have
-(e.g. https://github.com/open-power/op-test-framework/blob/v0.8/testcases/OpalMsglog.py
-greps the OPAL log for warnings/errors on the host both at the petitboot
-shell and in a booted OS).
-
-> I was not aware that you had written your own test automation suite that
-> was using REST APIs and you were not relying on the existing and
-> supported openbmc-test-automation repository.  I also did not hear any
-> inquiry from you, either publicly or privately, on which APIs you should
-> be targeting for work you were doing.
-
-We just read the docs, and code seemed to work written to the docs (if
-it didn't, we likely would have filed a bug).
-
-> The deprecation plan is, and has for the entire 2.0 development branch,
-> that 1.0 and 2.0 have a complete API break and there is no attempt at
-> backwards compatibility.  A clear requirement of a 2.0 tag is that all
-> /org/openbmc interfaces have been removed and replaced by something
-> documented in phosphor-dbus-interfaces and implemented within the code
-> base.  We have been doing that at a fairly regular pace the entire
-> year.
-
-It'd be great if the docs repo could be updated so it was clear with the
-examples and the transition. Additionally, it'd be good if there'd be
-posts to the list saying, say "the new xyz/openbmc_project sensors API
-is now in master, we'll keep the org/openbmc/ one for the next 60 days
-before dropping it" or along those lines.
-
-Reality is that different P9 platforms are on (slightly) different
-OpenBMC builds, and not every machine we get pointed at is up to date
-with OpenBMC, so we do need to support a range of OpenBMC
-builds. Especially considering we're pretty agile in being able to swap
-between host and BMC development whenever we spot a problem in the other
-system to help someone debug (even if the solution is 'yeah, I've
-upgraded it for you').
-
--- 
-Stewart Smith
-OPAL Architect, IBM.
+> Thanks
+> Chris
+> 
+>>>             fan0: led@0 {
+>>>               label = "fan0";
+>>> @@ -302,6 +334,26 @@
+>>>               reg = <3>;
+>>>               type = <PCA955X_TYPE_LED>;
+>>>           };
+>>> +        fan0_pres_gpio: gpio@4 {
+>>> +            label = "fan0_presence";
+>>> +            reg = <4>;
+>>> +            type = <PCA955X_TYPE_GPIO>;
+>>> +        };
+>>> +        fan1_pres_gpio: gpio@5 {
+>>> +            label = "fan1_presence";
+>>> +            reg = <5>;
+>>> +            type = <PCA955X_TYPE_GPIO>;
+>>> +        };
+>>> +        fan2_pres_gpio: gpio@6 {
+>>> +            label = "fan2_presence";
+>>> +            reg = <6>;
+>>> +            type = <PCA955X_TYPE_GPIO>;
+>>> +        };
+>>> +        fan3_pres_gpio: gpio@7 {
+>>> +            label = "fan3_presence";
+>>> +            reg = <7>;
+>>> +            type = <PCA955X_TYPE_GPIO>;
+>>> +        };
+>>>           front_fault: led@13 {
+>>>               label = "front-fault";
+>>>               default-state = "keep";
+>>>
+> 
