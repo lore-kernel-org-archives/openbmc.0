@@ -1,70 +1,61 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xMcgB4gBPzDrLk
- for <openbmc@lists.ozlabs.org>; Wed,  2 Aug 2017 12:33:10 +1000 (AEST)
-Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v722SfxA136855
- for <openbmc@lists.ozlabs.org>; Tue, 1 Aug 2017 22:33:07 -0400
-Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2c35p3gxd0-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 01 Aug 2017 22:33:06 -0400
-Received: from localhost
- by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Tue, 1 Aug 2017 22:33:05 -0400
-Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
- by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Tue, 1 Aug 2017 22:33:02 -0400
-Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
- [9.57.199.107])
- by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v722X2G120250702; Wed, 2 Aug 2017 02:33:02 GMT
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0D98712403F;
- Tue,  1 Aug 2017 22:30:27 -0400 (EDT)
-Received: from Christophers-MacBook-Pro.local (unknown [9.85.181.170])
- by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP id C419D124037;
- Tue,  1 Aug 2017 22:30:26 -0400 (EDT)
-Subject: Re: [PATCH linux dev-4.10 v6 1/2] ARM: dts: aspeed: Witherspoon add
- gpio-keys-polled for fan presence
-To: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>, joel@jms.id.au
-References: <20170729183638.17503-1-cbostic@linux.vnet.ibm.com>
- <20170729183638.17503-2-cbostic@linux.vnet.ibm.com>
- <fda3e51f-6c91-dddb-2999-657efdcae829@kaod.org>
-Cc: openbmc@lists.ozlabs.org
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Tue, 1 Aug 2017 21:33:01 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
- Gecko/20100101 Thunderbird/45.7.0
-MIME-Version: 1.0
-In-Reply-To: <fda3e51f-6c91-dddb-2999-657efdcae829@kaod.org>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-x-cbid: 17080202-0044-0000-0000-00000376D12B
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007468; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000215; SDB=6.00896274; UDB=6.00448348; IPR=6.00676462; 
- BA=6.00005506; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016489; XFM=3.00000015;
- UTC=2017-08-02 02:33:04
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17080202-0045-0000-0000-000007A4E2C7
-Message-Id: <b687fd39-2fb4-5533-0a11-271e1bca68cd@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-08-01_15:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
- definitions=main-1708020039
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xMgDP32GKzDr4R
+ for <openbmc@lists.ozlabs.org>; Wed,  2 Aug 2017 14:28:37 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="aGJ1VmA5"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="TiEt8lOE"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 1F5E520A33;
+ Wed,  2 Aug 2017 00:28:35 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Wed, 02 Aug 2017 00:28:35 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=icHo0OepidnUxmPZonAkeUzUZKUNMnzT8OMDO89og
+ 6k=; b=aGJ1VmA51KdpO4BWfP6kGctUbSUAwTT0JNY0ajldtrRPUa9aRUBEgW6V1
+ JOUJ4SwR5kvS5s0j4OqN0tkjrriMjEDJjG33Xrf7PBqBNwzLSt2DwiKr7J6bODXT
+ p/wicil9AvoTCkdwvR9Y0qR82MQVd7El/DLQkVpXTCgU4ydYCi3ZTUKLJRlDcmY2
+ p18nJeWQSotDrc/rl/vbc0ctzcqtWUyIS9ZmEcs0kUzz2XAw/SnbySRv7Fkck7/6
+ 8/f2jEMFpBQE7smIDOf5aoo24HpwPuLz42ppyZ1OFRhuN8zKiCDWtdq1Tp9qAbw5
+ nt4YHFSbq4iTK7XKakWY2clFtS+Ww==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=icHo0OepidnUxmPZon
+ AkeUzUZKUNMnzT8OMDO89og6k=; b=TiEt8lOEzRwp1MSM05XVyFlY1nPVdO5Ykf
+ 7bvSh8TVht+MfBmuFErLqt4n2fJ+543dfcCYcv4UqOpsoCb9U4jh06rBzx0WYT1c
+ 8FepwksXvWgwPdKHwAr4wauADJWRpLCHodg/H6x85faBZcI1w/dKIn+LWJpwzlo2
+ atwWlcnNxof+dLts6EkPhk5M+WIVS0MkNDfIGYGrZ/cxJUW+eneurkXVyWa1lPTo
+ IP/YxCJ1TtKef0MxVv74fHZr5bTaMuXQ350twtw9meeMJUPAASdlGcKM6mERdhtD
+ NnocUci+1Uzzh/IP+2TGayq9VJmP0N5MRRQk4qWwbC/nxhWCcxsQ==
+X-ME-Sender: <xms:81SBWU18nLq9EzfIlOTNZbCfR7JdvOSS1Hj7YfBSWvdu4a0AxNh9Uw>
+X-Sasl-enc: rZdbvFDeQBtcpp95sgUzwBj86IRob0OGqPxHuZ4wXwFs 1501648114
+Received: from keelia (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 236657E683;
+ Wed,  2 Aug 2017 00:28:30 -0400 (EDT)
+Message-ID: <1501648105.29409.1.camel@aj.id.au>
+Subject: Re: [PATCH v5 1/2] drivers/watchdog: Add optional ASPEED device
+ tree properties
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>, wim@iguana.be, 
+ linux@roeck-us.net, robh+dt@kernel.org, mark.rutland@arm.com,
+ joel@jms.id.au,  linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org
+Cc: openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Date: Wed, 02 Aug 2017 13:58:25 +0930
+In-Reply-To: <20170717192539.7950-2-cbostic@linux.vnet.ibm.com>
+References: <20170717192539.7950-1-cbostic@linux.vnet.ibm.com>
+ <20170717192539.7950-2-cbostic@linux.vnet.ibm.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-Dr2FYtSncrw5R+vjynQB"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -76,127 +67,149 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Aug 2017 02:33:11 -0000
+X-List-Received-Date: Wed, 02 Aug 2017 04:28:39 -0000
 
 
+--=-Dr2FYtSncrw5R+vjynQB
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 7/31/17 2:48 AM, Cédric Le Goater wrote:
-> On 07/29/2017 08:36 PM, Christopher Bostic wrote:
->> Add gpio-keys-polled  node for pca955x fan presence lines.
->> Add GPIO details to pca955x for the presence lines as well.
->>
->> Polling period of 1 second determined to be the max acceptable
->> value based on discussions with Brad Bishop and Matt Spinler.
->> Tested with gpiomon program - verified.
->>
->> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
->> ---
->> v6 - Add gpio pin details for fan presence to pca955x node
->> v5 - Fix gpio-keys-polled driver probe errors.  Missing pca955x
->>       gpio cells property and wrong format for poll-interval.
->> v4 - Add details regarding polling period to commit message.
->> v3 - Remove 'autorepeat'
->>     - Increase polling period to 1 second.
->>     - Remove GPIO specifiers from pca955x in dev tree
->> v2 - Change 'linux,code' from a unique global value to a local one
->>       for all the gpio-keys-polled devices.
->> ---
->>   arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 52 ++++++++++++++++++++++++
->>   1 file changed, 52 insertions(+)
->>
->> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
->> index 5afc03a..70328668 100644
->> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
->> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
->> @@ -56,6 +56,37 @@
->>   		};
->>   	};
->>   
->> +	gpio-keys-polled {
->> +		compatible = "gpio-keys-polled";
->> +		#address-cells = <1>;
->> +		#size-cells = <0>;
->> +		poll-interval = <1000>;
->> +
->> +		fan0-presence {
->> +			label = "fan0-presence";
->> +			gpios = <&pca0 4 GPIO_ACTIVE_LOW>;
->> +			linux,code = <4>;
->> +		};
->> +
->> +		fan1-presence {
->> +			label = "fan1-presence";
->> +			gpios = <&pca0 5 GPIO_ACTIVE_LOW>;
->> +			linux,code = <5>;
->> +		};
->> +
->> +		fan2-presence {
->> +			label = "fan2-presence";
->> +			gpios = <&pca0 6 GPIO_ACTIVE_LOW>;
->> +			linux,code = <6>;
->> +		};
->> +
->> +		fan3-presence {
->> +			label = "fan3-presence";
->> +			gpios = <&pca0 7 GPIO_ACTIVE_LOW>;
->> +			linux,code = <7>;
->> +		};
->> +	};
->> +
->>   	leds {
->>   		compatible = "gpio-leds";
->>   
->> @@ -277,6 +308,7 @@
->>   		reg = <0x60>;
->>   		#address-cells = <1>;
->>   		#size-cells = <0>;
->> +		#gpio-cells = <2>;
-> you should also add a :
->
-> 		gpio-controller;
->
-> if you want to use the lines as GPIOs
->
-> C.
-Hi Cedric,
+On Mon, 2017-07-17 at 14:25 -0500, Christopher Bostic wrote:
+> Describe device tree optional properties:
+>=20
+> =C2=A0 * aspeed,reset-type =3D "cpu|soc|system|none"
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0One of three different, mutually exclusive,=
+ values
+>=20
+> 	"cpu" : ARM CPU reset on signal
+> 	"soc" : 'System on chip' reset
+> 	"system" : Full system reset
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0The value can also be set to "none" which i=
+ndicates that no
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0reset of any kind is to be done via this wa=
+tchdog.=C2=A0=C2=A0This assumes
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0another watchdog on the chip is to take car=
+e of resets.
+>=20
+> =C2=A0 * aspeed,external-signal - Generate external signal (WDT1 and WDT2=
+ only)
+> =C2=A0 * aspeed,alt-boot - Boot from alternate block on signal
+>=20
+> > Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+> ---
+> v5 - Removed aspeed,interrupt property - no plans at this point to
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0need this functionality in the driver.
+> v4 - Add aspeed-reset-type and assign one of four values,
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0cpu, soc, system, none.
+> v3 - Invert soc and sys reset to 'no' to preserve backwards
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0compatibility.=C2=A0=C2=A0SOC and SYS reset=
+ will be set by default
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0without any optional parameters set
+> v2 - Add 'aspeed,' prefix to all optional properties
+> =C2=A0=C2=A0=C2=A0- Add arm-reset, soc-reset, interrupt, alt-boot propert=
+ies
+> ---
+> =C2=A0.../devicetree/bindings/watchdog/aspeed-wdt.txt=C2=A0=C2=A0=C2=A0=
+=C2=A0| 32 ++++++++++++++++++++++
+> =C2=A01 file changed, 32 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt b/=
+Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> index c5e74d7..2b34ce9 100644
+> --- a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> +++ b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+> @@ -8,9 +8,41 @@ Required properties:
+> =C2=A0 - reg: physical base address of the controller and length of memor=
+y mapped
+> =C2=A0=C2=A0=C2=A0=C2=A0region
+> =C2=A0
+> +Optional properties:
+> +
+> + - aspeed,reset-type =3D "cpu|soc|system|none"
+> +
+> +=C2=A0=C2=A0=C2=A0Reset behavior - Whenever a timeout occurs the watchdo=
+g can be programmed
+> +=C2=A0=C2=A0=C2=A0to generate one of three different, mutually exclusive=
+, types of resets.
+> +
+> +=C2=A0=C2=A0=C2=A0Type "none" can be specified to indicate that no reset=
+s are to be done.
+> +=C2=A0=C2=A0=C2=A0This is useful in situations where another watchdog en=
+gine on chip is
+> +=C2=A0=C2=A0=C2=A0to perform the reset.
+> +
+> +=C2=A0=C2=A0=C2=A0If 'aspeed,reset-type=3D' is not specfied the default =
+is to enable system
+> +=C2=A0=C2=A0=C2=A0reset.
+> +
+> +=C2=A0=C2=A0=C2=A0Reset types:
+> +
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- cpu: Reset CPU on watc=
+hdog timeout
+> +
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- soc: Reset 'System on =
+Chip' on watchdog timeout
+> +
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- system: Reset system o=
+n watchdog timeout
+> +
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- none: No reset is perf=
+ormed on timeout. Assumes another watchdog
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0engine is responsible for this.
+> +
+> + - aspeed,external-signal: If property is present then signal is sent to
+> > +			external reset counter (only WDT1 and WDT2). If not
+> +			specified no external signal is sent.
 
-If I add 'gpio-controller' here are you indicating that would not 
-require any modifications I made to the leds-pca955x.c file?   I've 
-tried that and found I still need that leds-pca955x.c change even if I 
-add 'gpio-controller' attribute to get gpio-keys-polled device driver to 
-properly probe the pca955x lines.
+Sorry I'm a little late on this one, but we should probably also add
+some words to the effect that if you specify aspeed,external-signal,
+then you also need to ensure the pinmux is configured for this to work.
+For example in the devicetree we need to add:
 
-Thanks
-Chris
+    pinctrl-names =3D "default";
+    pinctrl-0 =3D <&pinctrl_wdtrst1_default>;
 
->>   
->>   		fan0: led@0 {
->>   			label = "fan0";
->> @@ -302,6 +334,26 @@
->>   			reg = <3>;
->>   			type = <PCA955X_TYPE_LED>;
->>   		};
->> +		fan0_pres_gpio: gpio@4 {
->> +			label = "fan0_presence";
->> +			reg = <4>;
->> +			type = <PCA955X_TYPE_GPIO>;
->> +		};
->> +		fan1_pres_gpio: gpio@5 {
->> +			label = "fan1_presence";
->> +			reg = <5>;
->> +			type = <PCA955X_TYPE_GPIO>;
->> +		};
->> +		fan2_pres_gpio: gpio@6 {
->> +			label = "fan2_presence";
->> +			reg = <6>;
->> +			type = <PCA955X_TYPE_GPIO>;
->> +		};
->> +		fan3_pres_gpio: gpio@7 {
->> +			label = "fan3_presence";
->> +			reg = <7>;
->> +			type = <PCA955X_TYPE_GPIO>;
->> +		};
->>   		front_fault: led@13 {
->>   			label = "front-fault";
->>   			default-state = "keep";
->>
+Now the name of the pinctrl node isn't set in stone, so I don't think
+we should mention it directly. However this is the essence of what we
+want to describe.
+
+Cheers,
+
+Andrew
+
+> + - aspeed,alt-boot:=C2=A0=C2=A0=C2=A0=C2=A0If property is present then b=
+oot from alternate block.
+> +
+> =C2=A0Example:
+> =C2=A0
+> > > =C2=A0	wdt1: watchdog@1e785000 {
+> > =C2=A0		compatible =3D "aspeed,ast2400-wdt";
+> > =C2=A0		reg =3D <0x1e785000 0x1c>;
+> > +		aspeed,reset-type =3D "system";
+> > +		aspeed,external-signal;
+> > =C2=A0	};
+--=-Dr2FYtSncrw5R+vjynQB
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZgVTpAAoJEJ0dnzgO5LT5eSYP+gLHNgL+aMLX2ZWeGtRUnd/M
+WkX2ML7G1MQgwk6mRcIx+CJcKCCrN2JcS2Um60K3d60xeYvRSS3eOWRt1uEqsbez
+/C5dKwmxTiZl+vwbKCt4z+tWoAhL3LTk+7AZYmrbDC24EXIFSRfYeFNfHRkYab3Y
+VxkbSeLNQzXpfYRXijQ1Tuq1+rCN7adOVLfeQ3M+2HmHi/v8sHl2FZ0ggoDi5Gdp
+uQJdeSpa3cXSh+E3CLB/6OBuH1oLkFzutmLiV3nKz6oW7gT6YMGBDZiZnMD1urCy
+duBMgnimuasyA4ufZ7lNfpZj656K7KD6dXjiXMNqc4MnZAycNh1U3hZpEQNcczqH
+uExNVYl0SU3HqLEaFPEZVWI6zY0M+uf9Dw+4M8p79c8na3hLNx8xcaIjBekBbpBp
+b2iUenYAT3Zac2fyagQyNGCx5UHqFWhcS9aDxOxcKL+OopUK/vXFLu0nJMbjub4n
+kHKswwAHwuMEOO4VOPrQh2c7rXFxvgV0M6uP/PZGXlkkpxSsVNYq25zA+HvkIlDy
+q2hziRuD2nLvDisCGUN6kzB42TfGN+kyamKadFP+6+3kQzN1wvieG262kDb/pfRr
+PKBkWlgcWh88MA8dLFWBpSU6eXYeWiS4sC2GRveSNrdz2lx/BMBAUnmZK48Ei2Wh
+aVA/SOcEQN+gMoFHKiGI
+=hPce
+-----END PGP SIGNATURE-----
+
+--=-Dr2FYtSncrw5R+vjynQB--
