@@ -1,38 +1,59 @@
-Return-Path: <clg@kaod.org>
-Received: from 7.mo178.mail-out.ovh.net (7.mo178.mail-out.ovh.net
- [46.105.58.91])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xMkqg3k05zDrfj
- for <openbmc@lists.ozlabs.org>; Wed,  2 Aug 2017 17:10:55 +1000 (AEST)
-Received: from player715.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo178.mail-out.ovh.net (Postfix) with ESMTP id BA45D4B0E4
- for <openbmc@lists.ozlabs.org>; Wed,  2 Aug 2017 09:10:49 +0200 (CEST)
-Received: from zorba.kaod.org (LFbn-1-10652-153.w90-89.abo.wanadoo.fr
- [90.89.238.153]) (Authenticated sender: postmaster@kaod.org)
- by player715.ha.ovh.net (Postfix) with ESMTPSA id 723941C0091;
- Wed,  2 Aug 2017 09:10:46 +0200 (CEST)
-Subject: Re: [PATCH linux dev-4.10 v6 1/2] ARM: dts: aspeed: Witherspoon add
- gpio-keys-polled for fan presence
-To: Christopher Bostic <cbostic@linux.vnet.ibm.com>, joel@jms.id.au
-References: <20170729183638.17503-1-cbostic@linux.vnet.ibm.com>
- <20170729183638.17503-2-cbostic@linux.vnet.ibm.com>
- <fda3e51f-6c91-dddb-2999-657efdcae829@kaod.org>
- <b687fd39-2fb4-5533-0a11-271e1bca68cd@linux.vnet.ibm.com>
-Cc: openbmc@lists.ozlabs.org
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <277552bc-20bc-9bd2-07d1-65153d73139a@kaod.org>
-Date: Wed, 2 Aug 2017 09:10:45 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.8.0
-MIME-Version: 1.0
-In-Reply-To: <b687fd39-2fb4-5533-0a11-271e1bca68cd@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 8861113745222634242
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelkedrjedtgdduudehucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xMky06Md9zDsQb
+ for <openbmc@lists.ozlabs.org>; Wed,  2 Aug 2017 17:16:24 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Fa/mNfUI"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="EcMDrkZ+"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id D743320992;
+ Wed,  2 Aug 2017 03:16:22 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Wed, 02 Aug 2017 03:16:22 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :date:from:in-reply-to:message-id:references:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=Q3erT7
+ cSIAH/UvN3pSdaecPR6FjVD7gjGIZd0tEdS3I=; b=Fa/mNfUIAf/hjDnV6wGaKc
+ 9l2d9jf4Ym6inF+IoDdj4iMCiBdD/26y11NPRoTIrCDemuueok2uHtcl4zP8c0N0
+ S1fV3L2G9c+bxYdVBlKNv9AKLMkimm1CjApUpbOSxl35VynVcPao2Nw3b4fOyqDG
+ YZMJFM2xuErBB+TBzVuvTMrh6gCV/dkHnVhSa9NYiCnrrk/TsYurFaq4GlvofTyB
+ qTIahmQkC3C+JQgpVwLAQFimuvh2LK8Opa38qV9OEtOjZPhBluF1GB4d14OKlwzR
+ V8SEQbaett7aDczWBhokeZ/w2xOPtIWuVQqzkVHHUmY17YNydWlO9/aDVhoqjyFw
+ ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:in-reply-to:message-id
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=Q3erT7cSIAH/UvN3pSdaecPR6FjVD7gjGIZd0tEdS
+ 3I=; b=EcMDrkZ+9B9ALCVx8GiJRAptTCrNX2I0rHu1soyUvSdEkm8bcaM5VuZ/p
+ VEZrVJR4q0dkFYMITC5KPSIIb2S+COVisLOyPD+6do8B0eFlcaj3/K3DvFFonGuD
+ 7DEJnehYPxRPP1AHudgwA1rGNlIABvlACoUBrtOTXcO2SF5wInZgy2jAoWEaTQ5G
+ 0M5Alsqv2M7DIcps5QNZvyWJOUQ41kEm/xejxdjZa93RIGNd3XdLXMYQOSx7K22K
+ 9aCD+ocGvOTG7Vc9DDZVjnuIbYVs1Q0BMsghugzCs4ZX8pKSmqc61yMh9CZKMlzF
+ 2rG2E5x7LjljFmWJWFNvlR5VJNd0A==
+X-ME-Sender: <xms:RnyBWfVBTc64wbB9aQZlwDELPn2ATQeiPl1z4TIWpSp5brJfXOduXQ>
+X-Sasl-enc: 0tjByQGM53DaJNq/YVPkj9ov9bvi5PgrCsnsoUUD/o3T 1501658182
+Received: from keelia.au.ibm.com (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 426817E4AA;
+ Wed,  2 Aug 2017 03:16:17 -0400 (EDT)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: linux@roeck-us.net,
+	linux-hwmon@vger.kernel.org
+Cc: Andrew Jeffery <andrew@aj.id.au>, robh+dt@kernel.org, mark.rutland@arm.com,
+ jdelvare@suse.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, joel@jms.id.au, mspinler@linux.vnet.ibm.com,
+ msbarth@linux.vnet.ibm.com, openbmc@lists.ozlabs.org
+Subject: [PATCH v2 1/4] dt-bindings: hwmon: pmbus: Add Maxim MAX31785
+ documentation
+Date: Wed,  2 Aug 2017 16:45:38 +0930
+Message-Id: <20170802071541.3121-2-andrew@aj.id.au>
+X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20170802071541.3121-1-andrew@aj.id.au>
+References: <20170802071541.3121-1-andrew@aj.id.au>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -44,134 +65,145 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Aug 2017 07:10:55 -0000
+X-List-Received-Date: Wed, 02 Aug 2017 07:16:25 -0000
 
-On 08/02/2017 04:33 AM, Christopher Bostic wrote:
-> 
-> 
-> On 7/31/17 2:48 AM, Cédric Le Goater wrote:
->> On 07/29/2017 08:36 PM, Christopher Bostic wrote:
->>> Add gpio-keys-polled  node for pca955x fan presence lines.
->>> Add GPIO details to pca955x for the presence lines as well.
->>>
->>> Polling period of 1 second determined to be the max acceptable
->>> value based on discussions with Brad Bishop and Matt Spinler.
->>> Tested with gpiomon program - verified.
->>>
->>> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
->>> ---
->>> v6 - Add gpio pin details for fan presence to pca955x node
->>> v5 - Fix gpio-keys-polled driver probe errors.  Missing pca955x
->>>       gpio cells property and wrong format for poll-interval.
->>> v4 - Add details regarding polling period to commit message.
->>> v3 - Remove 'autorepeat'
->>>     - Increase polling period to 1 second.
->>>     - Remove GPIO specifiers from pca955x in dev tree
->>> v2 - Change 'linux,code' from a unique global value to a local one
->>>       for all the gpio-keys-polled devices.
->>> ---
->>>   arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 52 ++++++++++++++++++++++++
->>>   1 file changed, 52 insertions(+)
->>>
->>> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
->>> index 5afc03a..70328668 100644
->>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
->>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
->>> @@ -56,6 +56,37 @@
->>>           };
->>>       };
->>>   +    gpio-keys-polled {
->>> +        compatible = "gpio-keys-polled";
->>> +        #address-cells = <1>;
->>> +        #size-cells = <0>;
->>> +        poll-interval = <1000>;
->>> +
->>> +        fan0-presence {
->>> +            label = "fan0-presence";
->>> +            gpios = <&pca0 4 GPIO_ACTIVE_LOW>;
->>> +            linux,code = <4>;
->>> +        };
->>> +
->>> +        fan1-presence {
->>> +            label = "fan1-presence";
->>> +            gpios = <&pca0 5 GPIO_ACTIVE_LOW>;
->>> +            linux,code = <5>;
->>> +        };
->>> +
->>> +        fan2-presence {
->>> +            label = "fan2-presence";
->>> +            gpios = <&pca0 6 GPIO_ACTIVE_LOW>;
->>> +            linux,code = <6>;
->>> +        };
->>> +
->>> +        fan3-presence {
->>> +            label = "fan3-presence";
->>> +            gpios = <&pca0 7 GPIO_ACTIVE_LOW>;
->>> +            linux,code = <7>;
->>> +        };
->>> +    };
->>> +
->>>       leds {
->>>           compatible = "gpio-leds";
->>>   @@ -277,6 +308,7 @@
->>>           reg = <0x60>;
->>>           #address-cells = <1>;
->>>           #size-cells = <0>;
->>> +        #gpio-cells = <2>;
->> you should also add a :
->>
->>         gpio-controller;
->>
->> if you want to use the lines as GPIOs
->>
->> C.
-> Hi Cedric,
-> 
-> If I add 'gpio-controller' here are you indicating that would not 
-> require any modifications I made to the leds-pca955x.c file?  
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ .../devicetree/bindings/hwmon/pmbus/max31785.txt   | 126 +++++++++++++++++++++
+ 1 file changed, 126 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt
 
-yes.
-
-> I've tried that and found I still need that leds-pca955x.c change 
-> even if I add 'gpio-controller' attribute to get gpio-keys-polled 
->  device driver to properly probe the pca955x lines.
-
-OK. I will give it a try on a QEMU. Maybe there are some incompatibilities 
-with the gpio-keys driver bindings
-
-C.
-
-> Thanks
-> Chris
-> 
->>>             fan0: led@0 {
->>>               label = "fan0";
->>> @@ -302,6 +334,26 @@
->>>               reg = <3>;
->>>               type = <PCA955X_TYPE_LED>;
->>>           };
->>> +        fan0_pres_gpio: gpio@4 {
->>> +            label = "fan0_presence";
->>> +            reg = <4>;
->>> +            type = <PCA955X_TYPE_GPIO>;
->>> +        };
->>> +        fan1_pres_gpio: gpio@5 {
->>> +            label = "fan1_presence";
->>> +            reg = <5>;
->>> +            type = <PCA955X_TYPE_GPIO>;
->>> +        };
->>> +        fan2_pres_gpio: gpio@6 {
->>> +            label = "fan2_presence";
->>> +            reg = <6>;
->>> +            type = <PCA955X_TYPE_GPIO>;
->>> +        };
->>> +        fan3_pres_gpio: gpio@7 {
->>> +            label = "fan3_presence";
->>> +            reg = <7>;
->>> +            type = <PCA955X_TYPE_GPIO>;
->>> +        };
->>>           front_fault: led@13 {
->>>               label = "front-fault";
->>>               default-state = "keep";
->>>
-> 
+diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt b/Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt
+new file mode 100644
+index 000000000000..8ddc4ea1958d
+--- /dev/null
++++ b/Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt
+@@ -0,0 +1,126 @@
++Bindings for the Maxim MAX31785 Intelligent Fan Controller
++==========================================================
++
++Reference:
++[1] https://datasheets.maximintegrated.com/en/ds/MAX31785.pdf
++
++Required properties:
++- compatible     : One of "maxim,max31785" or "maxim,max31785a"
++- reg            : I2C address, one of 0x52, 0x53, 0x54, 0x55.
++- #address-cells : Must be 1
++- #size-cells    : Must be 0
++
++Optional properties:
++- use-stored-presence    : Do not treat the devicetree description as canon for
++                           fan presence (the 'installed' bit of FAN_CONFIG_*).
++                           Instead, rely on the on the default value store of
++                           the device to populate it.
++
++Capabilities are configured through subnodes of the controller's node.
++
++Fans
++----
++
++Only fans with subnodes present will be considered as installed. If
++use-stored-presence is present in the parent node, then only fans that are both
++defined in the devicetree and have their installed bit set are considered
++installed.
++
++Required subnode properties:
++- compatible             : Must be "pmbus-fan"
++- reg                    : The PMBus page the properties apply to.
++- maxim,fan-rotor-input  : The type of rotor measurement provided to the
++                           controller. Must be either "tach" for tachometer
++                           pulses or "lock" for a locked-rotor signal.
++- maxim,fan-lock-polarity: Required iff maxim,fan-rotor-input is "lock". Valid
++                           values are "low" for active low, "high" for active
++                           high.
++
++Optional subnode properties:
++- fan-mode               : "rpm" or "pwm". Default value is "pwm".
++- tach-pulses            : Tachometer pulses per revolution. Valid values are
++                           1, 2, 3 or 4. The default is 1.
++- maxim,fan-no-fault-ramp: Do not ramp the fan to 100% PWM duty on detecting a
++                           fan fault
++- maxim,fan-startup      : The number of rotations required before taking
++                           emergency action for an unresponsive fan and driving
++                           it with 100% or 0% PWM duty, depending on the state
++                           of maxim,fan-no-fault-ramp. Valid values are 0
++                           (automatic spin-up disabled), 2, 4, or 8. Default
++                           value is 0.
++- maxim,fan-health       : Enable automated fan health check
++- maxim,fan-ramp         : Configures how fast the device ramps the PWM duty
++                           cycle from one value to another. Valid values are 0
++                           to 7 inclusive, with values 0 - 2 configuring a
++                           1000ms update rate and 1 - 3% duty respective duty
++                           increase, and 3 - 7 a 200ms update rate with a 1 -
++                           5% respective duty increase. Default value is 0.
++- maxim,fan-no-watchdog  : Do not ramp fan to 100% PWM duty on failure to
++                           update desired fan rate inside 10s. This implies
++                           maxim,tmp-no-fault-ramp
++- maxim,tmp-no-fault-ramp: Do not ramp fan to 100% PWM duty on temperature
++                           sensor fault detection. This implies
++                           maxim,fan-no-watchdog
++- maxim,tmp-hysteresis   : The temperature hysteresis used to determine
++                           transitions to lower fan speed bands in the
++                           temperature/fan rate lookup table. Valid values are
++                           2, 4, 6 or 8 (degrees celcius). Default value is 2.
++- maxim,fan-dual-tach    : Enable dual tachometer functionality
++- maxim,fan-pwm-freq     : The PWM frequency. Valid values are 30, 50, 100, 150
++                           and 25000 (Hz). Default value is 30Hz.
++- maxim,fan-lookup-table : A 16-element cell array of alternating temperature
++                           and rate values representing the look up table. The
++                           rate units are set through the fan-mode property.
++- maxim,fan-fault-pin-mon: Ramp fans to 100% PWM duty when the FAULT pin is
++                           asserted
++
++Temperature
++-----------
++
++Required subnode properties:
++- compatible    : Must be "pmbus-temperature"
++- reg           : The PMBus page the properties apply to.
++
++Optional subnode properties:
++- maxim,tmp-offset      : Valid values are 0 - 30 (degrees celcius) inclusive.
++                          Default value is 0.
++- maxim,tmp-fans        : An array of fan indexes whose fans are controlled by
++                          the current temperature sensor. Fans are indexed from
++                          zero. The valid values are 0 - 5 inclusive.
++
++Example:
++	fan-max31785: max31785@52 {
++		reg = <0x52>;
++		compatible = "maxim,max31785";
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                fan@0 {
++                        compatible = "pmbus-fan";
++                        reg = <0>;
++                        mode = "rpm";
++                        tach-pulses = <1>;
++                        maxim,fan-rotor-input = "tach";
++                        maxim,fan-dual-tach;
++                };
++
++                fan@1 {
++                        compatible = "pmbus-fan";
++                        reg = <1>;
++                        mode = "rpm";
++                        tach-pulses = <1>;
++                        maxim,fan-rotor-input = "tach";
++                        maxim,tmp-hysteresis = <2>;
++                        maxim,fan-lookup-table = <
++                        /*  Temperature    RPM  */
++                                 0        1000
++                                10        2000
++                                20        3000
++                                30        4000
++                                40        5000
++                                50        6000
++                                60        7000
++                                70        8000
++                        >;
++                };
++	};
+-- 
+2.11.0
