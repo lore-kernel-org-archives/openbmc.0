@@ -1,61 +1,63 @@
 Return-Path: <arndbergmann@gmail.com>
-Received: from mail-oi0-x243.google.com (mail-oi0-x243.google.com
- [IPv6:2607:f8b0:4003:c06::243])
+Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
+ [IPv6:2607:f8b0:4003:c06::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xMx780zY9zDsVF
- for <openbmc@lists.ozlabs.org>; Thu,  3 Aug 2017 00:55:00 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xMx8r0RkvzDsVj
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Aug 2017 00:56:28 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="OX086XMb"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="lIe8WUDS"; 
  dkim-atps=neutral
-Received: by mail-oi0-x243.google.com with SMTP id s21so5858915oie.5
- for <openbmc@lists.ozlabs.org>; Wed, 02 Aug 2017 07:55:00 -0700 (PDT)
+Received: by mail-oi0-x241.google.com with SMTP id b130so5876578oii.3
+ for <openbmc@lists.ozlabs.org>; Wed, 02 Aug 2017 07:56:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=jlN7oaBs8ATVTHInhs529BMiaXoKWWJ2gKElA060GQw=;
- b=OX086XMbG/CrJ3qcYT2GB7AD2l+A0Fj72DbTu77sm1qARWdHYwtcjsQ4MK5vcF3XCo
- yyTOlxIrtuDOzeXUxuVNvBIFxMUbu6hdamtaTm3htf++Bi5zWqDVzikkftXl3ODzcQ0g
- HOZZqQXL9mKrKfUCGIrIBevYAZtjjgJNnRAEm6s8bsj6U26Kd0akMTmPtlZxojcjzHLk
- XpNjMrZ9/OtMJhZz+yDqCGLCLriyL5XHXMUzOgQzHl0w5lggO+arj5XFAVW6dA0PJ1ot
- fJIM70kf/SpgYchStiijvwvuGCdPzZAN08bORwXOpAnOzttr7QmXWd2LN7BJlRcEC+B2
- 7J7w==
+ bh=cDKsZznBvj4Exzx+82ifRPMcJxGsDjTyKauw3DZ48BY=;
+ b=lIe8WUDSOyFPW5L+wA2x4TxAb2EK5IJdLqneYtOLZjy2qQPJ/hMppWqjEYNQz6sowH
+ t4iX9y1TtCXMbgIDND+Em4kKekt3CV25dUST39f2nG9Nplz1r7gduNmFAtMgGjqbT1Bf
+ VLprszjK4VEdUZRKoCDe7rZZu8Q0LXR+B4GjRec66NlSPwk8vTqBlKLXTegcbMPyVc33
+ d31QBZn2/vz9WwkSqIVkcmBRm8uGr9x6DJlK1uBBKs9b/Qzro47C83mDRXep891iTWp4
+ kyaDLGmHoZaRQTTD9/i0A8pT4BTKS77UIaG/Zzs0uoFCGj/LZWbIHn0+L1VFSw/lrrNW
+ dFsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=jlN7oaBs8ATVTHInhs529BMiaXoKWWJ2gKElA060GQw=;
- b=qn7INrS97s57gfOuxkUol2de0MZ7hyvNYjcJ9Fbj2SHtYxO/f5l1lntVNB7K4AZl4o
- JFJR+ykvY2aTJTpupjMvi3tK53kQOhP+xF0Ym9Ao6jiHoGNoWwSkaC2AhvxO3Fjc+2wq
- x4UqVKVYXHBCczlm+VycY2bvnvH8rykI8hILI4flH5qJRo3lu9Dxl3u2fPDTl5VP43Mf
- IlEplgM2I/DRRTNDoUc5YZOU4IX5yi2lXc3dhNCoQ/l0aljPapkPvOSdCjoqh4K1lhS7
- ZLIJdgw6tdA48tbjNWHJ8GVqrxcbvO3uUa5Cl3noMlYL8ivZVuZgdkzZxNAxVwByUrn1
- euSQ==
-X-Gm-Message-State: AIVw113fnJKvxYrO9dCmvx6qkv0ucnpQYZ0xO0a/yNv+jpwB8K5XxhzS
- Ep6GqZOSioL2eM5JiTJH5jaoRuUJeA==
-X-Received: by 10.202.193.9 with SMTP id r9mr11894619oif.199.1501685697732;
- Wed, 02 Aug 2017 07:54:57 -0700 (PDT)
+ bh=cDKsZznBvj4Exzx+82ifRPMcJxGsDjTyKauw3DZ48BY=;
+ b=rvVd5B+8GWQAfi3Gi+i/7RFB1nT/PU6WJbZnEySc/SDLQe8nh2rLQWpZQ0UM5wPWl5
+ bDCAR6Cj/1eoRT8DVgm5QlmupRE86aFgV/jLICM8mrzRKkpBzzWLr9d507+S88HytxUw
+ Sh7wFK71bZCNRXucqvl42EvBz85eyqFVcbNimVf+TT/mF7rtZzBueHBCuC28ZgFmPcj8
+ bSgHquTpcBCnyI+Dz5/TpwwHXTwGwJbq+i/gFF4zgMQbxRKmI3EQa41Vl3gDfsVKv+W/
+ Kj7moWZPaTzvuWaFVhBw+kZ+Nlx4HpPWvNqw1puzEfIL1BR5eV5gNbGkPSpZO3VUfDZ0
+ 8q7A==
+X-Gm-Message-State: AIVw110EsjGXHOma42YjHA54sSKIb64S1a9Q58euXDbnpuFyRFLPWqNc
+ slWrPWy5syldJ0vzOjQ+Hyb0xlTTk+XM
+X-Received: by 10.202.114.151 with SMTP id p145mr21205362oic.41.1501685785952; 
+ Wed, 02 Aug 2017 07:56:25 -0700 (PDT)
 MIME-Version: 1.0
 Sender: arndbergmann@gmail.com
-Received: by 10.182.29.34 with HTTP; Wed, 2 Aug 2017 07:54:57 -0700 (PDT)
-In-Reply-To: <1501679918-20486-3-git-send-email-oleksandrs@mellanox.com>
+Received: by 10.182.29.34 with HTTP; Wed, 2 Aug 2017 07:56:25 -0700 (PDT)
+In-Reply-To: <2578d94a-fd1b-9598-251d-59764a870933@baylibre.com>
 References: <1501679918-20486-1-git-send-email-oleksandrs@mellanox.com>
  <1501679918-20486-3-git-send-email-oleksandrs@mellanox.com>
+ <2578d94a-fd1b-9598-251d-59764a870933@baylibre.com>
 From: Arnd Bergmann <arnd@arndb.de>
-Date: Wed, 2 Aug 2017 16:54:57 +0200
-X-Google-Sender-Auth: mFW1RK1q-2VKs6Dij9SKV10t2HU
-Message-ID: <CAK8P3a02O4Xrt+HECjs+GQLw8s9novYLdUUmk_V+oK=EX-HqfQ@mail.gmail.com>
+Date: Wed, 2 Aug 2017 16:56:25 +0200
+X-Google-Sender-Auth: geKTYqfnBuJY3Rwcl_MkCXVLbbc
+Message-ID: <CAK8P3a20dXeeNkRCgs8BNWOo1zvNpBLqkQNwpj8dS2bOq1cq+A@mail.gmail.com>
 Subject: Re: [patch v1 2/2] drivers: jtag: Add Aspeed SoC 24xx and 25xx
  families JTAG master driver
-To: Oleksandr Shamray <oleksandrs@mellanox.com>
-Cc: gregkh <gregkh@linuxfoundation.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- Linux ARM <linux-arm-kernel@lists.infradead.org>, devicetree@vger.kernel.org, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>, 
- =?UTF-8?B?SmnFmcOtIFDDrXJrbw==?= <jiri@resnulli.us>, 
- Tobias Klauser <tklauser@distanz.ch>, linux-serial@vger.kernel.org,
- mec@shout.net, vadimp@maellanox.com, system-sw-low-level@mellanox.com, 
- Jiri Pirko <jiri@mellanox.com>
+To: Neil Armstrong <narmstrong@baylibre.com>
+Cc: Oleksandr Shamray <oleksandrs@mellanox.com>,
+ gregkh <gregkh@linuxfoundation.org>, 
+ devicetree@vger.kernel.org, =?UTF-8?B?SmnFmcOtIFDDrXJrbw==?= <jiri@resnulli.us>,
+ system-sw-low-level@mellanox.com, OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, mec@shout.net, 
+ Jiri Pirko <jiri@mellanox.com>, Joel Stanley <joel@jms.id.au>,
+ linux-serial@vger.kernel.org, 
+ vadimp@maellanox.com, Tobias Klauser <tklauser@distanz.ch>, 
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -68,64 +70,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Aug 2017 14:55:01 -0000
+X-List-Received-Date: Wed, 02 Aug 2017 14:56:28 -0000
 
-On Wed, Aug 2, 2017 at 3:18 PM, Oleksandr Shamray
-<oleksandrs@mellanox.com> wrote:
-> Driver adds support of Aspeed 2500/2400 series SOC JTAG master controller.
+On Wed, Aug 2, 2017 at 4:30 PM, Neil Armstrong <narmstrong@baylibre.com> wrote:
+> On 08/02/2017 03:18 PM, Oleksandr Shamray wrote:
+>> Driver adds support of Aspeed 2500/2400 series SOC JTAG master controller.
+
+>> +static u32 aspeed_jtag_read(struct aspeed_jtag *aspeed_jtag, u32 reg)
+>> +{
+>> +     return readl(aspeed_jtag->reg_base + reg);
+>> +}
+>> +
+>> +static void
+>> +aspeed_jtag_write(struct aspeed_jtag *aspeed_jtag, u32 val, u32 reg)
+>> +{
+>> +     writel(val, aspeed_jtag->reg_base + reg);
+>> +}
 >
-> Driver implements the following jtag ops:
-> - freq_get;
-> - freq_set;
-> - status_get;
-> - idle;
-> - xfer;
->
-> It has been tested on Mellanox system with BMC equipped with
-> Aspeed 2520 SoC for programming CPLD devices.
->
-> Signed-off-by: Oleksandr Shamray <oleksandrs@mellanox.com>
-> Signed-off-by: Jiri Pirko <jiri@mellanox.com>
+> Maybe readl_relaxed/writel_relaxed would be enough here.
 
-Looking at this one before the subsystem. Overall looks really nice,
-it seems you got a good abstraction between the subsystem and the
-driver.
+I'd prefer keeping the regular accessors here, unless this is shown
+to be a performance bottleneck, and there is a comment to explain
+how the relaxed accessors are determined to be safe.
 
-> +
-> +static int aspeed_jtag_freq_set(struct jtag *jtag, unsigned long freq);
-> +static int aspeed_jtag_freq_get(struct jtag *jtag, unsigned long *frq);
-> +static int aspeed_jtag_status_get(struct jtag *jtag,
-> +                                 enum jtag_endstate *status);
-> +static int aspeed_jtag_idle(struct jtag *jtag,
-> +                           struct jtag_run_test_idle *runtest);
-> +static int aspeed_jtag_xfer(struct jtag *jtag, struct jtag_xfer *xfer);
-
-Please try to reorder the functions definitions in a way that lets you
-remove the forward declarations.
-
-> +
-> +static void aspeed_jtag_run_test_idle_sw(struct aspeed_jtag *aspeed_jtag,
-> +                                        struct jtag_run_test_idle *runtest)
-> +{
-> +       char sm_pause_irpause[] = {1, 1, 1, 1, 0, 1, 0};
-> +       char sm_pause_drpause[] = {1, 1, 1, 0, 1, 0};
-> +       char sm_idle_irpause[] = {1, 1, 0, 1, 0};
-> +       char sm_idle_drpause[] = {1, 0, 1, 0};
-> +       char sm_pause_idle[] = {1, 1, 0};
-
-These could be 'static const' if you adapt the aspeed_jtag_sm_cycle
-prototype accordingly.
-
-> +
-> +static const struct of_device_id aspeed_jtag_of_match[] = {
-> +       { .compatible = "aspeed,aspeed-jtag", },
-> +       {}
-> +};
-
-The series should include a patch for the DT binding for this device.
-You may want to be a little more specific here, to avoid problems if
-aspeed ever makes an updated version of this device with a slightly
-different register interface. Usually we include the full name of the
-SoC in the "compatible" string for that.
-
-       Arnd
+        Arnd
