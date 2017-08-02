@@ -3,43 +3,42 @@ Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xMky06Md9zDsQb
- for <openbmc@lists.ozlabs.org>; Wed,  2 Aug 2017 17:16:24 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xMkxv6vzLzDsQb
+ for <openbmc@lists.ozlabs.org>; Wed,  2 Aug 2017 17:16:19 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Fa/mNfUI"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="YedNLnoU"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="EcMDrkZ+"; dkim-atps=neutral
+ header.b="kkgQsyYk"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id D743320992;
- Wed,  2 Aug 2017 03:16:22 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Wed, 02 Aug 2017 03:16:22 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=Q3erT7
- cSIAH/UvN3pSdaecPR6FjVD7gjGIZd0tEdS3I=; b=Fa/mNfUIAf/hjDnV6wGaKc
- 9l2d9jf4Ym6inF+IoDdj4iMCiBdD/26y11NPRoTIrCDemuueok2uHtcl4zP8c0N0
- S1fV3L2G9c+bxYdVBlKNv9AKLMkimm1CjApUpbOSxl35VynVcPao2Nw3b4fOyqDG
- YZMJFM2xuErBB+TBzVuvTMrh6gCV/dkHnVhSa9NYiCnrrk/TsYurFaq4GlvofTyB
- qTIahmQkC3C+JQgpVwLAQFimuvh2LK8Opa38qV9OEtOjZPhBluF1GB4d14OKlwzR
- V8SEQbaett7aDczWBhokeZ/w2xOPtIWuVQqzkVHHUmY17YNydWlO9/aDVhoqjyFw
- ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:in-reply-to:message-id
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=Q3erT7cSIAH/UvN3pSdaecPR6FjVD7gjGIZd0tEdS
- 3I=; b=EcMDrkZ+9B9ALCVx8GiJRAptTCrNX2I0rHu1soyUvSdEkm8bcaM5VuZ/p
- VEZrVJR4q0dkFYMITC5KPSIIb2S+COVisLOyPD+6do8B0eFlcaj3/K3DvFFonGuD
- 7DEJnehYPxRPP1AHudgwA1rGNlIABvlACoUBrtOTXcO2SF5wInZgy2jAoWEaTQ5G
- 0M5Alsqv2M7DIcps5QNZvyWJOUQ41kEm/xejxdjZa93RIGNd3XdLXMYQOSx7K22K
- 9aCD+ocGvOTG7Vc9DDZVjnuIbYVs1Q0BMsghugzCs4ZX8pKSmqc61yMh9CZKMlzF
- 2rG2E5x7LjljFmWJWFNvlR5VJNd0A==
-X-ME-Sender: <xms:RnyBWfVBTc64wbB9aQZlwDELPn2ATQeiPl1z4TIWpSp5brJfXOduXQ>
-X-Sasl-enc: 0tjByQGM53DaJNq/YVPkj9ov9bvi5PgrCsnsoUUD/o3T 1501658182
-Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 426817E4AA;
+ by mailout.nyi.internal (Postfix) with ESMTP id D43C5208AB;
  Wed,  2 Aug 2017 03:16:17 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Wed, 02 Aug 2017 03:16:17 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :date:from:message-id:subject:to:x-me-sender:x-me-sender
+ :x-sasl-enc:x-sasl-enc; s=fm1; bh=4j5LJzrLy0pmckJ13KFF6wKqX/YOzk
+ lwNmrEJsnq8FQ=; b=YedNLnoUX4WX7Q4uvR/pF8gFyGBiO0F97zHSXvxbFuidDo
+ 9s7xDEfofX5ZkY8SKbRFhuKPjnxE8t65UFaRWkluyoCC4Jup3lKhrRectJKGUd1z
+ iRdW/64iYR6jyRcLK3Ra+qgs/wmWMvJd2/2LnTATwNQ2332xoH4dDHW115bYN/DY
+ uW4WmpsTvGunWmGrHVEBXZAum9/DDU1f3qXt0OcTPQAMd0tHJnWOsQKD1V0RcIYY
+ GPXsHkwcaKVtWotydta1hWcSIF2Fx06foDMfe4UI+Zy9EJoVZy6FdslKmGPFbubh
+ nfi/mRUSuPim9l/RfXKzyLDkX3nMns0c6t81E0Gw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=4j5LJz
+ rLy0pmckJ13KFF6wKqX/YOzklwNmrEJsnq8FQ=; b=kkgQsyYkKXPMZ8Sbwc3tZ9
+ ACto8iHtNEB4P/o56+Aivdc5MY7GosBu5MNqMO0f0C/qR1hHNSJHd/42MDLl5Hwb
+ ofBD/6xJ1TM8iJtsFCBwHwT85Urvph06HeXB/RhSd3XfrC7p0VCPV4AUImzaApFI
+ lBCTDM4p5jfuWoBPsNLjulfeE1dE0t5zutpn/lqW7C+oW4XHKJcFHlkIyfssf4p8
+ eVpWIdkGfAscoqaStHPI99qhlJbmzodxeG6xjt385Zp25Tv1wD60RMdn7sNUChty
+ 38B+xwcZu/4xiMRHKb908BNqo6Hg79b/IewLVoJCnTWMXkB3b/bbpIP7ISIBsRZQ
+ ==
+X-ME-Sender: <xms:QXyBWYz3P0JA4eEAqv5m6YviLkXJIOs7nsBh_8kq1rLRGad7j-embg>
+X-Sasl-enc: 8dHT6U6wdAG0hbYIUPt3hITG9+EAehWAALVseWEWFEkq 1501658177
+Received: from keelia.au.ibm.com (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 44BC47E335;
+ Wed,  2 Aug 2017 03:16:12 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: linux@roeck-us.net,
 	linux-hwmon@vger.kernel.org
@@ -47,13 +46,10 @@ Cc: Andrew Jeffery <andrew@aj.id.au>, robh+dt@kernel.org, mark.rutland@arm.com,
  jdelvare@suse.com, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, joel@jms.id.au, mspinler@linux.vnet.ibm.com,
  msbarth@linux.vnet.ibm.com, openbmc@lists.ozlabs.org
-Subject: [PATCH v2 1/4] dt-bindings: hwmon: pmbus: Add Maxim MAX31785
- documentation
-Date: Wed,  2 Aug 2017 16:45:38 +0930
-Message-Id: <20170802071541.3121-2-andrew@aj.id.au>
+Subject: [PATCH v2 0/4] pmbus: Expand fan support and add MAX31785 driver
+Date: Wed,  2 Aug 2017 16:45:37 +0930
+Message-Id: <20170802071541.3121-1-andrew@aj.id.au>
 X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20170802071541.3121-1-andrew@aj.id.au>
-References: <20170802071541.3121-1-andrew@aj.id.au>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -65,145 +61,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Aug 2017 07:16:25 -0000
+X-List-Received-Date: Wed, 02 Aug 2017 07:16:21 -0000
+X-List-Received-Date: Wed, 02 Aug 2017 07:16:21 -0000
+X-List-Received-Date: Wed, 02 Aug 2017 07:16:21 -0000
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- .../devicetree/bindings/hwmon/pmbus/max31785.txt   | 126 +++++++++++++++++++++
- 1 file changed, 126 insertions(+)
+Hello,
+
+v1[1] spent some time in the OpenBMC kernel tree and it shook out a few issues:
+
+1. The machines I was testing against had pre-prammed the installed-bit in
+   FAN_CONFIG_1_2
+2. There appears to be a hardware issue with some back-to-back writes to the
+   MAX31785
+
+Point 1. is a policy issue so we should have the ability to specify behaviour
+in the devicetree. As such the bindings documentation has been updated to suit.
+
+Point 2, well, it's a little ugly. We're in contact with Maxim to better
+understand the nature of the issue. Patch 4 introduces a work-around. I've kept
+this separate from the introduction of the driver so it's implementation and
+the demonstration of new pmbus core features isn't obscured. The work-around
+has proved reliable so-far, across a number of machines.
+
+[1] https://lkml.org/lkml/2017/7/27/116
+
+Changes from v1 to v2:
+
+* Add the use-stored-presence devicetree property describing the hardware as
+  canonical in terms of fan presence.
+* Small optimsation in pmbus_update_fans(): Don't write FAN_CONFIG_x_y unless
+  the new value is different to the current value
+* Update the MAX31785 driver to consume use-stored-presence from the devicetree
+* Add the back-to-back write work-around
+
+Changes between RFC v2 to (non-RFC) v1
+
+* Clean up issues identified in comments on the pmbus core changes 
+* Define and implement bindings for the MAX31785
+* Clean up issues identified in comments on the max31785 driver
+
+Andrew Jeffery (4):
+  dt-bindings: hwmon: pmbus: Add Maxim MAX31785 documentation
+  hwmon: pmbus: Add fan control support
+  pmbus: Add driver for Maxim MAX31785 Intelligent Fan Controller
+  pmbus: max31785: Work around back-to-back writes with FAN_CONFIG_1_2
+
+ .../devicetree/bindings/hwmon/pmbus/max31785.txt   | 126 ++++
+ drivers/hwmon/pmbus/Kconfig                        |  10 +
+ drivers/hwmon/pmbus/Makefile                       |   1 +
+ drivers/hwmon/pmbus/max31785.c                     | 762 +++++++++++++++++++++
+ drivers/hwmon/pmbus/pmbus.h                        |  29 +
+ drivers/hwmon/pmbus/pmbus_core.c                   | 224 +++++-
+ 6 files changed, 1137 insertions(+), 15 deletions(-)
  create mode 100644 Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt
+ create mode 100644 drivers/hwmon/pmbus/max31785.c
 
-diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt b/Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt
-new file mode 100644
-index 000000000000..8ddc4ea1958d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt
-@@ -0,0 +1,126 @@
-+Bindings for the Maxim MAX31785 Intelligent Fan Controller
-+==========================================================
-+
-+Reference:
-+[1] https://datasheets.maximintegrated.com/en/ds/MAX31785.pdf
-+
-+Required properties:
-+- compatible     : One of "maxim,max31785" or "maxim,max31785a"
-+- reg            : I2C address, one of 0x52, 0x53, 0x54, 0x55.
-+- #address-cells : Must be 1
-+- #size-cells    : Must be 0
-+
-+Optional properties:
-+- use-stored-presence    : Do not treat the devicetree description as canon for
-+                           fan presence (the 'installed' bit of FAN_CONFIG_*).
-+                           Instead, rely on the on the default value store of
-+                           the device to populate it.
-+
-+Capabilities are configured through subnodes of the controller's node.
-+
-+Fans
-+----
-+
-+Only fans with subnodes present will be considered as installed. If
-+use-stored-presence is present in the parent node, then only fans that are both
-+defined in the devicetree and have their installed bit set are considered
-+installed.
-+
-+Required subnode properties:
-+- compatible             : Must be "pmbus-fan"
-+- reg                    : The PMBus page the properties apply to.
-+- maxim,fan-rotor-input  : The type of rotor measurement provided to the
-+                           controller. Must be either "tach" for tachometer
-+                           pulses or "lock" for a locked-rotor signal.
-+- maxim,fan-lock-polarity: Required iff maxim,fan-rotor-input is "lock". Valid
-+                           values are "low" for active low, "high" for active
-+                           high.
-+
-+Optional subnode properties:
-+- fan-mode               : "rpm" or "pwm". Default value is "pwm".
-+- tach-pulses            : Tachometer pulses per revolution. Valid values are
-+                           1, 2, 3 or 4. The default is 1.
-+- maxim,fan-no-fault-ramp: Do not ramp the fan to 100% PWM duty on detecting a
-+                           fan fault
-+- maxim,fan-startup      : The number of rotations required before taking
-+                           emergency action for an unresponsive fan and driving
-+                           it with 100% or 0% PWM duty, depending on the state
-+                           of maxim,fan-no-fault-ramp. Valid values are 0
-+                           (automatic spin-up disabled), 2, 4, or 8. Default
-+                           value is 0.
-+- maxim,fan-health       : Enable automated fan health check
-+- maxim,fan-ramp         : Configures how fast the device ramps the PWM duty
-+                           cycle from one value to another. Valid values are 0
-+                           to 7 inclusive, with values 0 - 2 configuring a
-+                           1000ms update rate and 1 - 3% duty respective duty
-+                           increase, and 3 - 7 a 200ms update rate with a 1 -
-+                           5% respective duty increase. Default value is 0.
-+- maxim,fan-no-watchdog  : Do not ramp fan to 100% PWM duty on failure to
-+                           update desired fan rate inside 10s. This implies
-+                           maxim,tmp-no-fault-ramp
-+- maxim,tmp-no-fault-ramp: Do not ramp fan to 100% PWM duty on temperature
-+                           sensor fault detection. This implies
-+                           maxim,fan-no-watchdog
-+- maxim,tmp-hysteresis   : The temperature hysteresis used to determine
-+                           transitions to lower fan speed bands in the
-+                           temperature/fan rate lookup table. Valid values are
-+                           2, 4, 6 or 8 (degrees celcius). Default value is 2.
-+- maxim,fan-dual-tach    : Enable dual tachometer functionality
-+- maxim,fan-pwm-freq     : The PWM frequency. Valid values are 30, 50, 100, 150
-+                           and 25000 (Hz). Default value is 30Hz.
-+- maxim,fan-lookup-table : A 16-element cell array of alternating temperature
-+                           and rate values representing the look up table. The
-+                           rate units are set through the fan-mode property.
-+- maxim,fan-fault-pin-mon: Ramp fans to 100% PWM duty when the FAULT pin is
-+                           asserted
-+
-+Temperature
-+-----------
-+
-+Required subnode properties:
-+- compatible    : Must be "pmbus-temperature"
-+- reg           : The PMBus page the properties apply to.
-+
-+Optional subnode properties:
-+- maxim,tmp-offset      : Valid values are 0 - 30 (degrees celcius) inclusive.
-+                          Default value is 0.
-+- maxim,tmp-fans        : An array of fan indexes whose fans are controlled by
-+                          the current temperature sensor. Fans are indexed from
-+                          zero. The valid values are 0 - 5 inclusive.
-+
-+Example:
-+	fan-max31785: max31785@52 {
-+		reg = <0x52>;
-+		compatible = "maxim,max31785";
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                fan@0 {
-+                        compatible = "pmbus-fan";
-+                        reg = <0>;
-+                        mode = "rpm";
-+                        tach-pulses = <1>;
-+                        maxim,fan-rotor-input = "tach";
-+                        maxim,fan-dual-tach;
-+                };
-+
-+                fan@1 {
-+                        compatible = "pmbus-fan";
-+                        reg = <1>;
-+                        mode = "rpm";
-+                        tach-pulses = <1>;
-+                        maxim,fan-rotor-input = "tach";
-+                        maxim,tmp-hysteresis = <2>;
-+                        maxim,fan-lookup-table = <
-+                        /*  Temperature    RPM  */
-+                                 0        1000
-+                                10        2000
-+                                20        3000
-+                                30        4000
-+                                40        5000
-+                                50        6000
-+                                60        7000
-+                                70        8000
-+                        >;
-+                };
-+	};
 -- 
 2.11.0
