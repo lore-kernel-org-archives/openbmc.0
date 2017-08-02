@@ -1,69 +1,54 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <bjwyman@gmail.com>
+Received: from mail-qk0-x244.google.com (mail-qk0-x244.google.com
+ [IPv6:2607:f8b0:400d:c09::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xN4Vl49HJzDqJq
- for <openbmc@lists.ozlabs.org>; Thu,  3 Aug 2017 06:27:27 +1000 (AEST)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v72KO0LY147239
- for <openbmc@lists.ozlabs.org>; Wed, 2 Aug 2017 16:27:25 -0400
-Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2c3mxwabbp-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 02 Aug 2017 16:27:25 -0400
-Received: from localhost
- by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Wed, 2 Aug 2017 14:27:24 -0600
-Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
- by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Wed, 2 Aug 2017 14:27:21 -0600
-Received: from b03ledav005.gho.boulder.ibm.com
- (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v72KRKx0262514; Wed, 2 Aug 2017 13:27:20 -0700
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A1E5CBE03A;
- Wed,  2 Aug 2017 14:27:20 -0600 (MDT)
-Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
- by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP id 54F77BE038;
- Wed,  2 Aug 2017 14:27:20 -0600 (MDT)
-Subject: Re: [PATCH linux dev-4.10 v3 0/5] drivers/hwmon/pmbus: Add IBM power
- supply hwmon driver
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: "Edward A. James" <eajames@us.ibm.com>, bjwyman@gmail.com
-References: <1501705534-27606-1-git-send-email-eajames@linux.vnet.ibm.com>
-Date: Wed, 2 Aug 2017 15:27:19 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.2.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xN6qH4pgwzDrG2
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Aug 2017 08:11:55 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="k68bP2+Z"; 
+ dkim-atps=neutral
+Received: by mail-qk0-x244.google.com with SMTP id a77so5937445qkb.2
+ for <openbmc@lists.ozlabs.org>; Wed, 02 Aug 2017 15:11:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=g5sZIJ93W9N0CbPgc2u+azlK2Tn5S2+bhNfzgEJdA0A=;
+ b=k68bP2+ZcZ72TEx1tO5Zj9kzPfdSnz3NXcPgcwVtWswWJJy2wchrsm/sz0g1cuwyzH
+ K+Ga35a+e5q7I327A/Dw/wGb7bP8MRW3dCfCjFMTmOgxzJc3XI56OHhmqC51AxLiXYx5
+ AjqlhPIEj7LPj4hfQc7EoBWPbWVB3uJe16W8sj1SHwsc1LQMN8trklY8HSEe3caEQjt1
+ S53TLQL4NqbjsnzvOoLLdCIZqjdtoJAb50Rpl0gJf/ii+scvDegxFYjRJHS0LNfTV/xA
+ mfw4NClsQ/RKeyubgqVVHuaeTKan48dlTILwGc2Zt0p+k5qX9K5Xd0WIYL9yqMyRiZLj
+ YX2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=g5sZIJ93W9N0CbPgc2u+azlK2Tn5S2+bhNfzgEJdA0A=;
+ b=QB/Yjg1Du0C7Z+z0YEAV8ecAa64fjxCQjsm0qN8nLOEp/gsBdnADAeqNF/armhDkVX
+ oagm+SK0F+31iIos8MY2/n9TxK4Ua0i77VIflGo+nwKtQo4xCk0zcyX24n2AVgQ9MoV9
+ Jy5BWDgGqZ2N++ELLYfy+UfvOvoGUgWn8VuwotgrNuqnt1eXbuNpKGBOLYeW0Y+DSYRt
+ IBeQi6qBMwzeOnoqk/c0iZaR2oLWPFOqRKMouzo6WvQ01dtmpwWT+aUevh5zvagDMwFs
+ MqbVMADobwUJeTTzaQsGTJoXz9nCNQd7L4h0nXjd9QuXqCbpwzbAmJMOhsXpnBG8mKzy
+ +Ztw==
+X-Gm-Message-State: AIVw113a0dlEGLLgGhXPS6sKgh7kYgvufUPKNUGU1LOyExc14YvH7+zJ
+ czdE8fmM54lY2X2QATgtJDXJdBOnhQ==
+X-Received: by 10.55.160.135 with SMTP id j129mr30912652qke.341.1501711913024; 
+ Wed, 02 Aug 2017 15:11:53 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1501705534-27606-1-git-send-email-eajames@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 17080220-0020-0000-0000-00000C7B1F65
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007472; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000216; SDB=6.00896632; UDB=6.00448563; IPR=6.00676819; 
- BA=6.00005506; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016502; XFM=3.00000015;
- UTC=2017-08-02 20:27:22
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17080220-0021-0000-0000-00005D88B410
-Message-Id: <430c9527-2926-e78b-7669-d02e2214e3a4@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-08-02_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
- definitions=main-1708020329
+Received: by 10.140.82.232 with HTTP; Wed, 2 Aug 2017 15:11:52 -0700 (PDT)
+In-Reply-To: <1501705534-27606-4-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1501705534-27606-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <1501705534-27606-4-git-send-email-eajames@linux.vnet.ibm.com>
+From: Brandon Wyman <bjwyman@gmail.com>
+Date: Wed, 2 Aug 2017 17:11:52 -0500
+Message-ID: <CAK_vbW1GJAaV9OLWTcyY=2s55zMELs1qZ59PZZc-6H1mcm=gEg@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v3 3/5] Documentation: hwmon: Add IBM power
+ supply documentation
+To: Eddie James <eajames@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>,
+ Matt Spinler <mspinler@linux.vnet.ibm.com>,
+ "Edward A. James" <eajames@us.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -75,38 +60,83 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Aug 2017 20:27:28 -0000
+X-List-Received-Date: Wed, 02 Aug 2017 22:11:57 -0000
 
-
-
-On 08/02/2017 03:25 PM, Eddie James wrote:
+On Wed, Aug 2, 2017 at 3:25 PM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
 > From: "Edward A. James" <eajames@us.ibm.com>
 >
-> This series adds a hwmon pmbus driver for the IBM power supply. The core
-> monitoring functionality is provided by pmbus. The driver also exports some
-> sysfs entries for raw status register access.
+> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+> ---
+>  Documentation/hwmon/ibmps | 53 +++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 53 insertions(+)
+>  create mode 100644 Documentation/hwmon/ibmps
 >
-> The driver should be probed automatically, so I added it to the witherspoon
-> device-tree.
+> diff --git a/Documentation/hwmon/ibmps b/Documentation/hwmon/ibmps
+> new file mode 100644
+> index 0000000..7f13fd4
+> --- /dev/null
+> +++ b/Documentation/hwmon/ibmps
+> @@ -0,0 +1,53 @@
+> +Kernel driver ibmps
+> +====================
+> +
+> +Supported chips:
+> +  * IBM Witherspoon power supply
+> +
+> +Author: Eddie James <eajames@us.ibm.com>
+> +
+> +Description
+> +-----------
+> +
+> +This driver supports the IBM power supply. This driver is a client to the core
+> +PMBus driver.
+> +
+> +Usage Notes
+> +-----------
+> +
+> +This driver should auto-detect devices. In the event that it does not, you will
+> +have to instantiate the devices explicitly. Please see
+> +Documentation/i2c/instantiating-devices for details.
+> +
+> +Sysfs entries
+> +-------------
+> +
+> +The following attributes are supported:
+> +
+> +curr1_alarm            Output current over-current fault.
+> +curr1_input            Measured output current in mA.
+> +curr1_label            "iout1"
+> +
+> +fan1_alarm             Fan 1 warning.
+> +fan1_fault             Fan 1 fault.
+> +fan1_input             Fan 1 speed in RPM.
+> +fan2_alarm             Fan 2 warning.
+> +fan2_fault             Fan 2 fault.
+> +fan2_input             Fan 2 speed in RPM.
+> +
+> +in1_alarm              Input voltage under-voltage fault.
 
-Forgot to mention; only change since v2 was to rename the driver to ibmps.
+Is this the normal/regular file to put this under-voltage fault in? I
+noticed that the UCD9200 device driver appears to be the only one
+looking for that right now, and it has it updating in1_lcrit_alarm:
+ucd9200:in1_lcrit_alarm         Voltage critical low alarm. From
+VIN_UV_FAULT status.
 
->
-> Edward A. James (5):
->    drivers/hwmon/pmbus: Add IBM power supply hwmon driver
->    drivers/hwmon/pmbus: ibmps: Add non-hwmon attributes
->    Documentation: hwmon: Add IBM power supply documentation
->    Documentation: ABI: Add IBM power supply sysfs documentation
->    ARM: dts: aspeed: witherspoon: Add IBM power supply to I2C bus
->
->   Documentation/ABI/testing/sysfs-driver-ibmps     |  49 +++++
->   Documentation/hwmon/ibmps                        |  53 +++++
->   arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts |  10 +
->   drivers/hwmon/pmbus/Kconfig                      |  10 +
->   drivers/hwmon/pmbus/Makefile                     |   1 +
->   drivers/hwmon/pmbus/ibmps.c                      | 242 +++++++++++++++++++++++
->   6 files changed, 365 insertions(+)
->   create mode 100644 Documentation/ABI/testing/sysfs-driver-ibmps
->   create mode 100644 Documentation/hwmon/ibmps
->   create mode 100644 drivers/hwmon/pmbus/ibmps.c
+> +in1_input              Measured input voltage in mV.
+> +in1_label              "vin"
+> +in2_alarm              Output voltage over-voltage fault.
+> +in2_input              Measured output voltage in mV.
+> +in2_label              "vout1"
+> +
+> +power1_input           Measured input power in uW.
+> +power1_label           "pin"
+> +
+> +temp1_alarm            PSU inlet ambient temperature over-temperature fault.
+> +temp1_input            Measured PSU inlet ambient temp in millidegrees C.
+> +temp2_alarm            Secondary rectifier temp over-temperature fault.
+> +temp2_input            Measured secondary rectifier temp in millidegrees C.
+> +temp3_alarm            ORing FET temperature over-temperature fault.
+> +temp3_input            Measured ORing FET temperature in millidegrees C.
+> --
+> 1.8.3.1
 >
