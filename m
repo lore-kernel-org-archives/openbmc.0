@@ -3,59 +3,62 @@ Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xNH2Z1kNHzDr51
- for <openbmc@lists.ozlabs.org>; Thu,  3 Aug 2017 14:22:13 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xNHqv4twszDqjC
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Aug 2017 14:58:03 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="F4kt08jL"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="s2RPKfSG"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="DCl4y0rj"; dkim-atps=neutral
+ header.b="I+9l4nQt"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 560C120982;
- Thu,  3 Aug 2017 00:22:09 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Thu, 03 Aug 2017 00:22:09 -0400
+ by mailout.nyi.internal (Postfix) with ESMTP id C4F592085F;
+ Thu,  3 Aug 2017 00:58:00 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Thu, 03 Aug 2017 00:58:00 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=1tIkwDrJEmabp6x4pQJiDdflGr3WlqSLAl82L+j7e
- yg=; b=F4kt08jLVeLMh+he0cTMVb3hICesh2QSC/Hvg09cjBqMfI/+EQJ8U9nZa
- 8FO8KWDU0NPURRyWU5VXYZCNXP6+EoPKwMPQRf7C59hbSLVaikjHVqeIoFDAubsy
- ideVModirzLVJF2Q17f14zcNkYchIvYbVV9f6dJEWXRsmfYQbQW8aCgLxuFuwhKo
- d3A5/J0nhuwJrsjKSEaZLdBQwgxsIaEZKPhgfX1DWoVdieTrRG+G3VHnmPg9upuo
- LDwSOWX69do4c+T+RDv/dOo7qGuj/63a0G3yV0g3YGN01hWg4irOX0SDcJKlNsGf
- lEPt9sC6Io15Lzvul58s1H/cfxEHA==
+ :x-sasl-enc; s=fm1; bh=GZUTjVBABjr7aLtMV44rhM2FEbsJCm7geQu16BUiT
+ 6k=; b=s2RPKfSGgOZawS95f2ZskVxG/tHVeBgiJRazNE7CUuVWnW+Zhp9S5HfuD
+ V5kyMmh2o3NaFHXknafBHRiRWFMUecBYM2qXMPJU2PrNJL1aTS/BWOeXzU2aWlS1
+ 6s7AkshE2renegeDTya4tjrKxYPU6SDAljNNSniG6fG7ZvlI0VLNWVbGjDzeciNN
+ /+rhdp7O/QwMzvjVGtwHzgw75uEuRT7hhwADglswxkEQj4c2s8QNKeCJW+qM1BjE
+ v5U/4/sOqiLyje073PiGG9Z5FyS/PfaAy774H+wy7GGOicl4sw4wyJAJAAXNhmWq
+ qMWlhckvLjM8nY6GamVIPjXH0IQ4Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=1tIkwDrJEmabp6x4pQ
- JiDdflGr3WlqSLAl82L+j7eyg=; b=DCl4y0rjQk51GrYy562Ojb48ujuvi6Vr+d
- xnOKh/lQ7h9i5P+wlMzAnqE/GezvKPqOhBwQkpWKu8uvQXFpYC1FYULAD1iVJ+QT
- WUWYnh5bVu6XdwZfiWUOKzFJGEsnRzsMUw0OnXD5zWZjvHlOVoGFVFfqbipzsZFu
- T6IBh7umWnBWzNW3dBIwI3tR4jlRTw41vbvQ7CCrlP/RsmkGqkdV61tDeY1ZZ/wl
- VMmNR7w224cU4zwhz02oVGXpTs0dbWo0gkID+c6DztHRa0Z29MLYr7rwTxJ5mPxc
- UoOL3VJwAUGBR9f1O5HFIkj3bCCCFWIC6ClpVxsemr3afC7rlcHA==
-X-ME-Sender: <xms:8aSCWdhrq_WrCfqQ3iNgwZdO6x1thgnGKjgtAVWngcYjDSRR8gI-Tg>
-X-Sasl-enc: J3194d1tw9RcU3RtOOpSs3kujuPN4oz2pyqVuCN5XRxC 1501734128
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=GZUTjVBABjr7aLtMV4
+ 4rhM2FEbsJCm7geQu16BUiT6k=; b=I+9l4nQtKvHmWGevTo4CtX8//w0KeEI6PK
+ +V/sBpr08ht39t/vmhheJgW58KKVIJLAOmCAvYRrymfkAeFn6U5BP1MX+WDtFuZ/
+ 9FyJ0DLBfLf2Ba9SFtR3O3Oc2vltaNBrtsNYQwmj8Yyb31zyVaVFfBNYP/bKkJdl
+ jetSm2tgKXlKaUylbhKwXha2fR5+TyfcpnGYnrNs0dmLCtK9A8Q6MIvLd1C+jUZo
+ qVnhXEqm7cNJhqL2N0ZqeCrGJCSyVKAeXpx5SRRzbDI9fxSI5TGy4wp+YudGJccM
+ gSW8aVv7eLW0DxteUig5run8qxVXYfHC9YZnBjjINAdRomcvkW+A==
+X-ME-Sender: <xms:WK2CWZy3pTUlD-fZQHsFMI4Ud6gadNJufbAVqdJMB3IE3GfE3lGyrA>
+X-Sasl-enc: 9Mk1f6rkj/jCzeBpXHp6h6Y0k43k9fw98K8GmY/xbC/g 1501736280
 Received: from keelia (ppp118-210-176-216.bras2.adl6.internode.on.net
  [118.210.176.216])
- by mail.messagingengine.com (Postfix) with ESMTPA id 221D67FA6C;
- Thu,  3 Aug 2017 00:22:06 -0400 (EDT)
-Message-ID: <1501734120.29409.5.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10 v3 3/5] Documentation: hwmon: Add IBM
- power supply documentation
+ by mail.messagingengine.com (Postfix) with ESMTPA id AF73D24038;
+ Thu,  3 Aug 2017 00:57:58 -0400 (EDT)
+Message-ID: <1501736274.29409.7.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.10 v6 1/2] ARM: dts: aspeed: Witherspoon add
+ gpio-keys-polled for fan presence
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Eddie James <eajames@linux.vnet.ibm.com>, Brandon Wyman <bjwyman@gmail.com>
-Cc: "Edward A. James" <eajames@us.ibm.com>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>
-Date: Thu, 03 Aug 2017 13:52:00 +0930
-In-Reply-To: <e6d6cc0f-8337-2228-9c28-da98d424131f@linux.vnet.ibm.com>
-References: <1501705534-27606-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1501705534-27606-4-git-send-email-eajames@linux.vnet.ibm.com>
- <CAK_vbW1GJAaV9OLWTcyY=2s55zMELs1qZ59PZZc-6H1mcm=gEg@mail.gmail.com>
- <e6d6cc0f-8337-2228-9c28-da98d424131f@linux.vnet.ibm.com>
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>, 
+ =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, joel@jms.id.au
+Cc: openbmc@lists.ozlabs.org
+Date: Thu, 03 Aug 2017 14:27:54 +0930
+In-Reply-To: <51a7aefd-3e95-6dbc-c19b-b0fdac9aa74f@linux.vnet.ibm.com>
+References: <20170729183638.17503-1-cbostic@linux.vnet.ibm.com>
+ <20170729183638.17503-2-cbostic@linux.vnet.ibm.com>
+ <fda3e51f-6c91-dddb-2999-657efdcae829@kaod.org>
+ <b687fd39-2fb4-5533-0a11-271e1bca68cd@linux.vnet.ibm.com>
+ <277552bc-20bc-9bd2-07d1-65153d73139a@kaod.org>
+ <0f8cbd95-db70-4ba4-3c4b-7d6b091e7778@kaod.org>
+ <51a7aefd-3e95-6dbc-c19b-b0fdac9aa74f@linux.vnet.ibm.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-J+wIyUBlCbHUCiEtbjjt"
+ protocol="application/pgp-signature"; boundary="=-UjBIvC7G+2YQsrdVdBvY"
 X-Mailer: Evolution 3.22.6-1ubuntu1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -69,179 +72,178 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Aug 2017 04:22:16 -0000
+X-List-Received-Date: Thu, 03 Aug 2017 04:58:04 -0000
 
 
---=-J+wIyUBlCbHUCiEtbjjt
+--=-UjBIvC7G+2YQsrdVdBvY
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
 
-On Wed, 2017-08-02 at 21:23 -0500, Eddie James wrote:
->=20
-> On 08/02/2017 05:11 PM, Brandon Wyman wrote:
-> > On Wed, Aug 2, 2017 at 3:25 PM, Eddie James <eajames@linux.vnet.ibm.com=
-> wrote:
-> > > > > > From: "Edward A. James" <eajames@us.ibm.com>
-> > >=20
-> > > > > > Signed-off-by: Edward A. James <eajames@us.ibm.com>
-> > > ---
-> > > =C2=A0 Documentation/hwmon/ibmps | 53 +++++++++++++++++++++++++++++++=
-++++++++++++++++
-> > > =C2=A0 1 file changed, 53 insertions(+)
-> > > =C2=A0 create mode 100644 Documentation/hwmon/ibmps
-> > >=20
-> > > diff --git a/Documentation/hwmon/ibmps b/Documentation/hwmon/ibmps
-> > > new file mode 100644
-> > > index 0000000..7f13fd4
-> > > --- /dev/null
-> > > +++ b/Documentation/hwmon/ibmps
-> > > @@ -0,0 +1,53 @@
-> > > +Kernel driver ibmps
-> > > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > +
-> > > +Supported chips:
-> > > +=C2=A0=C2=A0* IBM Witherspoon power supply
-> > > +
-> > > > > > +Author: Eddie James <eajames@us.ibm.com>
-> > > +
-> > > +Description
-> > > +-----------
-> > > +
-> > > +This driver supports the IBM power supply. This driver is a client t=
-o the core
-> > > +PMBus driver.
-> > > +
-> > > +Usage Notes
-> > > +-----------
-> > > +
-> > > +This driver should auto-detect devices. In the event that it does no=
-t, you will
-> > > +have to instantiate the devices explicitly. Please see
-> > > +Documentation/i2c/instantiating-devices for details.
-> > > +
-> > > +Sysfs entries
-> > > +-------------
-> > > +
-> > > +The following attributes are supported:
-> > > +
-> > > +curr1_alarm=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0Output current over-current fault.
-> > > +curr1_input=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0Measured output current in mA.
-> > > +curr1_label=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0"iout1"
-> > > +
-> > > +fan1_alarm=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0Fan 1 warning.
-> > > +fan1_fault=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0Fan 1 fault.
-> > > +fan1_input=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0Fan 1 speed in RPM.
-> > > +fan2_alarm=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0Fan 2 warning.
-> > > +fan2_fault=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0Fan 2 fault.
-> > > +fan2_input=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0Fan 2 speed in RPM.
-> > > +
-> > > +in1_alarm=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0Input voltage under-voltage fault.
-> >=20
-> > Is this the normal/regular file to put this under-voltage fault in? I
-> > noticed that the UCD9200 device driver appears to be the only one
-> > looking for that right now, and it has it updating in1_lcrit_alarm:
-> > ucd9200:in1_lcrit_alarm=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0Voltage critical low alarm. From
-> > VIN_UV_FAULT status.
->=20
-> Since this is "vin" this will provide the status of VIN_UV_FAULT.=C2=A0
-> Similarly, VOUT_OV_FAULT will be provided by the in2_alarm ("vout"). The=
-=C2=A0
-> power supply doesn't provide limit ranges for it's values, so in order=C2=
-=A0
-> to get lcrit_alarm or similar I'd have to "trick" pmbus into thinking=C2=
-=A0
-> limits are being provided by the PS. This seems more simple.
+T24gV2VkLCAyMDE3LTA4LTAyIGF0IDIxOjI3IC0wNTAwLCBDaHJpc3RvcGhlciBCb3N0aWMgd3Jv
+dGU6Cj4gCj4gT24gOC8yLzE3IDM6MjAgQU0sIEPDqWRyaWMgTGUgR29hdGVyIHdyb3RlOgo+ID4g
+T24gMDgvMDIvMjAxNyAwOToxMCBBTSwgQ8OpZHJpYyBMZSBHb2F0ZXIgd3JvdGU6Cj4gPiA+IE9u
+IDA4LzAyLzIwMTcgMDQ6MzMgQU0sIENocmlzdG9waGVyIEJvc3RpYyB3cm90ZToKPiA+ID4gPiAK
+PiA+ID4gPiBPbiA3LzMxLzE3IDI6NDggQU0sIEPDqWRyaWMgTGUgR29hdGVyIHdyb3RlOgo+ID4g
+PiA+ID4gT24gMDcvMjkvMjAxNyAwODozNiBQTSwgQ2hyaXN0b3BoZXIgQm9zdGljIHdyb3RlOgo+
+ID4gPiA+ID4gPiBBZGQgZ3Bpby1rZXlzLXBvbGxlZMKgwqBub2RlIGZvciBwY2E5NTV4IGZhbiBw
+cmVzZW5jZSBsaW5lcy4KPiA+ID4gPiA+ID4gQWRkIEdQSU8gZGV0YWlscyB0byBwY2E5NTV4IGZv
+ciB0aGUgcHJlc2VuY2UgbGluZXMgYXMgd2VsbC4KPiA+ID4gPiA+ID4gCj4gPiA+ID4gPiA+IFBv
+bGxpbmcgcGVyaW9kIG9mIDEgc2Vjb25kIGRldGVybWluZWQgdG8gYmUgdGhlIG1heCBhY2NlcHRh
+YmxlCj4gPiA+ID4gPiA+IHZhbHVlIGJhc2VkIG9uIGRpc2N1c3Npb25zIHdpdGggQnJhZCBCaXNo
+b3AgYW5kIE1hdHQgU3Bpbmxlci4KPiA+ID4gPiA+ID4gVGVzdGVkIHdpdGggZ3Bpb21vbiBwcm9n
+cmFtIC0gdmVyaWZpZWQuCj4gPiA+ID4gPiA+IAo+ID4gPiA+ID4gPiBTaWduZWQtb2ZmLWJ5OiBD
+aHJpc3RvcGhlciBCb3N0aWMgPGNib3N0aWNAbGludXgudm5ldC5pYm0uY29tPgo+ID4gPiA+ID4g
+PiAtLS0KPiA+ID4gPiA+ID4gdjYgLSBBZGQgZ3BpbyBwaW4gZGV0YWlscyBmb3IgZmFuIHByZXNl
+bmNlIHRvIHBjYTk1NXggbm9kZQo+ID4gPiA+ID4gPiB2NSAtIEZpeCBncGlvLWtleXMtcG9sbGVk
+IGRyaXZlciBwcm9iZSBlcnJvcnMuwqDCoE1pc3NpbmcgcGNhOTU1eAo+ID4gPiA+ID4gPiDCoMKg
+wqDCoMKgwqDCoGdwaW8gY2VsbHMgcHJvcGVydHkgYW5kIHdyb25nIGZvcm1hdCBmb3IgcG9sbC1p
+bnRlcnZhbC4KPiA+ID4gPiA+ID4gdjQgLSBBZGQgZGV0YWlscyByZWdhcmRpbmcgcG9sbGluZyBw
+ZXJpb2QgdG8gY29tbWl0IG1lc3NhZ2UuCj4gPiA+ID4gPiA+IHYzIC0gUmVtb3ZlICdhdXRvcmVw
+ZWF0Jwo+ID4gPiA+ID4gPiDCoMKgwqDCoMKgLSBJbmNyZWFzZSBwb2xsaW5nIHBlcmlvZCB0byAx
+IHNlY29uZC4KPiA+ID4gPiA+ID4gwqDCoMKgwqDCoC0gUmVtb3ZlIEdQSU8gc3BlY2lmaWVycyBm
+cm9tIHBjYTk1NXggaW4gZGV2IHRyZWUKPiA+ID4gPiA+ID4gdjIgLSBDaGFuZ2UgJ2xpbnV4LGNv
+ZGUnIGZyb20gYSB1bmlxdWUgZ2xvYmFsIHZhbHVlIHRvIGEgbG9jYWwgb25lCj4gPiA+ID4gPiA+
+IMKgwqDCoMKgwqDCoMKgZm9yIGFsbCB0aGUgZ3Bpby1rZXlzLXBvbGxlZCBkZXZpY2VzLgo+ID4g
+PiA+ID4gPiAtLS0KPiA+ID4gPiA+ID4gwqDCoMKgYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJt
+Yy1vcHAtd2l0aGVyc3Bvb24uZHRzIHwgNTIgKysrKysrKysrKysrKysrKysrKysrKysrCj4gPiA+
+ID4gPiA+IMKgwqDCoDEgZmlsZSBjaGFuZ2VkLCA1MiBpbnNlcnRpb25zKCspCj4gPiA+ID4gPiA+
+IAo+ID4gPiA+ID4gPiBkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1v
+cHAtd2l0aGVyc3Bvb24uZHRzIGIvYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1vcHAtd2l0
+aGVyc3Bvb24uZHRzCj4gPiA+ID4gPiA+IGluZGV4IDVhZmMwM2EuLjcwMzI4NjY4IDEwMDY0NAo+
+ID4gPiA+ID4gPiAtLS0gYS9hcmNoL2FybS9ib290L2R0cy9hc3BlZWQtYm1jLW9wcC13aXRoZXJz
+cG9vbi5kdHMKPiA+ID4gPiA+ID4gKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1v
+cHAtd2l0aGVyc3Bvb24uZHRzCj4gPiA+ID4gPiA+IEBAIC01Niw2ICs1NiwzNyBAQAo+ID4gPiA+
+ID4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgfTsKPiA+ID4gPiA+ID4gwqDCoMKgwqDCoMKgwqB9
+Owo+ID4gPiA+ID4gPiDCoMKgwqArwqDCoMKgwqBncGlvLWtleXMtcG9sbGVkIHsKPiA+ID4gPiA+
+ID4gK8KgwqDCoMKgwqDCoMKgwqBjb21wYXRpYmxlID0gImdwaW8ta2V5cy1wb2xsZWQiOwo+ID4g
+PiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoCNhZGRyZXNzLWNlbGxzID0gPDE+Owo+ID4gPiA+ID4g
+PiArwqDCoMKgwqDCoMKgwqDCoCNzaXplLWNlbGxzID0gPDA+Owo+ID4gPiA+ID4gPiArwqDCoMKg
+wqDCoMKgwqDCoHBvbGwtaW50ZXJ2YWwgPSA8MTAwMD47Cj4gPiA+ID4gPiA+ICsKPiA+ID4gPiA+
+ID4gK8KgwqDCoMKgwqDCoMKgwqBmYW4wLXByZXNlbmNlIHsKPiA+ID4gPiA+ID4gK8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoGxhYmVsID0gImZhbjAtcHJlc2VuY2UiOwo+ID4gPiA+ID4gPiArwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgZ3Bpb3MgPSA8JnBjYTAgNCBHUElPX0FDVElWRV9MT1c+Owo+
+ID4gPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgbGludXgsY29kZSA9IDw0PjsKPiA+
+ID4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqB9Owo+ID4gPiA+ID4gPiArCj4gPiA+ID4gPiA+ICvC
+oMKgwqDCoMKgwqDCoMKgZmFuMS1wcmVzZW5jZSB7Cj4gPiA+ID4gPiA+ICvCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqBsYWJlbCA9ICJmYW4xLXByZXNlbmNlIjsKPiA+ID4gPiA+ID4gK8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoGdwaW9zID0gPCZwY2EwIDUgR1BJT19BQ1RJVkVfTE9XPjsKPiA+ID4g
+PiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGxpbnV4LGNvZGUgPSA8NT47Cj4gPiA+ID4g
+PiA+ICvCoMKgwqDCoMKgwqDCoMKgfTsKPiA+ID4gPiA+ID4gKwo+ID4gPiA+ID4gPiArwqDCoMKg
+wqDCoMKgwqDCoGZhbjItcHJlc2VuY2Ugewo+ID4gPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgbGFiZWwgPSAiZmFuMi1wcmVzZW5jZSI7Cj4gPiA+ID4gPiA+ICvCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqBncGlvcyA9IDwmcGNhMCA2IEdQSU9fQUNUSVZFX0xPVz47Cj4gPiA+ID4gPiA+
+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBsaW51eCxjb2RlID0gPDY+Owo+ID4gPiA+ID4gPiAr
+wqDCoMKgwqDCoMKgwqDCoH07Cj4gPiA+ID4gPiA+ICsKPiA+ID4gPiA+ID4gK8KgwqDCoMKgwqDC
+oMKgwqBmYW4zLXByZXNlbmNlIHsKPiA+ID4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oGxhYmVsID0gImZhbjMtcHJlc2VuY2UiOwo+ID4gPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgZ3Bpb3MgPSA8JnBjYTAgNyBHUElPX0FDVElWRV9MT1c+Owo+ID4gPiA+ID4gPiArwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgbGludXgsY29kZSA9IDw3PjsKPiA+ID4gPiA+ID4gK8KgwqDC
+oMKgwqDCoMKgwqB9Owo+ID4gPiA+ID4gPiArwqDCoMKgwqB9Owo+ID4gPiA+ID4gPiArCj4gPiA+
+ID4gPiA+IMKgwqDCoMKgwqDCoMKgbGVkcyB7Cj4gPiA+ID4gPiA+IMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqBjb21wYXRpYmxlID0gImdwaW8tbGVkcyI7Cj4gPiA+ID4gPiA+IMKgwqDCoEBAIC0yNzcs
+NiArMzA4LDcgQEAKPiA+ID4gPiA+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJlZyA9IDwweDYw
+PjsKPiA+ID4gPiA+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCNhZGRyZXNzLWNlbGxzID0gPDE+
+Owo+ID4gPiA+ID4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgI3NpemUtY2VsbHMgPSA8MD47Cj4g
+PiA+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgI2dwaW8tY2VsbHMgPSA8Mj47Cj4gPiA+ID4gPiAK
+PiA+ID4gPiA+IHlvdSBzaG91bGQgYWxzbyBhZGQgYSA6Cj4gPiA+ID4gPiAKPiA+ID4gPiA+IMKg
+wqDCoMKgwqDCoMKgwqDCoGdwaW8tY29udHJvbGxlcjsKPiA+ID4gPiA+IAo+ID4gPiA+ID4gaWYg
+eW91IHdhbnQgdG8gdXNlIHRoZSBsaW5lcyBhcyBHUElPcwo+ID4gPiA+ID4gCj4gPiA+ID4gPiBD
+Lgo+ID4gPiA+IAo+ID4gPiA+IEhpIENlZHJpYywKPiA+ID4gPiAKPiA+ID4gPiBJZiBJIGFkZCAn
+Z3Bpby1jb250cm9sbGVyJyBoZXJlIGFyZSB5b3UgaW5kaWNhdGluZyB0aGF0IHdvdWxkIG5vdAo+
+ID4gPiA+IHJlcXVpcmUgYW55IG1vZGlmaWNhdGlvbnMgSSBtYWRlIHRvIHRoZSBsZWRzLXBjYTk1
+NXguYyBmaWxlPwo+ID4gPiAKPiA+ID4geWVzLgo+ID4gPiAKPiA+ID4gPiBJJ3ZlIHRyaWVkIHRo
+YXQgYW5kIGZvdW5kIEkgc3RpbGwgbmVlZCB0aGF0IGxlZHMtcGNhOTU1eC5jIGNoYW5nZQo+ID4g
+PiA+IGV2ZW4gaWYgSSBhZGQgJ2dwaW8tY29udHJvbGxlcicgYXR0cmlidXRlIHRvIGdldCBncGlv
+LWtleXMtcG9sbGVkCj4gPiA+ID4gwqAgZGV2aWNlIGRyaXZlciB0byBwcm9wZXJseSBwcm9iZSB0
+aGUgcGNhOTU1eCBsaW5lcy4KPiA+ID4gCj4gPiA+IE9LLiBJIHdpbGwgZ2l2ZSBpdCBhIHRyeSBv
+biBhIFFFTVUuIE1heWJlIHRoZXJlIGFyZSBzb21lIGluY29tcGF0aWJpbGl0aWVzCj4gPiA+IHdp
+dGggdGhlIGdwaW8ta2V5cyBkcml2ZXIgYmluZGluZ3MKPiA+IAo+ID4gSXQgZmFpbHMgaW5kZWVk
+LCBidXQgdGhlIGZpeCB5b3UgYXJlIHByb3Bvc2luZyBkb2VzIG5vdCBsb29rIHJpZ2h0Cj4gPiBl
+aXRoZXIuCj4gPiAKPiA+IE1heWJlIHdlIHNob3VsZCBmdWxseSBkZWZpbmUgdGhlIHBjYTk1NTIg
+YXMgYSBncGlvIGNvbnRyb2xsZXIgYW5kCj4gPiB0aGVuIGRlZmluZSBhIGdwaW8tbGVkcyBhbmQg
+YSBncGlvLWtleXMtcG9sbGVkIG9uIHRvcCBvZiBpdCA/Cj4gCj4gSGkgQ2VkcmljLAo+IAo+IFdo
+YXQgd291bGQgYmUgZW50YWlsZWQgaW4gZnVsbHkgZGVmaW5pbmcgdGhlIHBjYTk1NTIgYXMgYSBn
+cGlvwqAKPiBjb250cm9sbGVyP8KgwqDCoEFueSBvdGhlciBkcml2ZXIgZXhhbXBsZXMgd291bGQg
+aGVscCBpZiB5b3Uga25vdyBvZiBhbnkuCj4gCj4gQ3VycmVudGx5IEkgc2VlIHRoYXQgaXQgaGFz
+IGEgc3RydWN0IGdwaW9fY2hpcCBlbWJlZGRlZCBpbiBpdHMgOTU1eCBjaGlwwqAKPiBzdHJ1Y3R1
+cmUgYW5kIHRoYXQgaXQgZGVmaW5lcyBpdHMgdmFyaW91cyBwcm9wZXJ0aWVzLCAuZGlyZWN0aW9u
+X2lucHV0LMKgCj4gLmRpcmVjdGlvbl9vdXRwdXQsIGV0Yy4uLsKgwqDCoFRoZSBzdHJ1Y3QgZ3Bp
+b19jaGlwIG5ncGlvIGZpZWxkIGlzIHNldCB0byBhwqAKPiBzdWJzZXQgb2YgcGlucyB0aGF0IGFy
+ZSBub3QgbGFiZWxlZCBhcyBMRURTLsKgwqBIZW5jZSBteSBhZGRlZCBjaGFuZ2UgdG/CoAo+IGNv
+dW50IExFRFMgdG93YXJkcyB0b3RhbCBuZ3BpbydzLiBHaXZlbiB0aGF0IHRoZSBwaW5zIEknbSBp
+bnRlcmVzdGVkIGluwqAKPiBhcmUgNC03IHRoaXMgZmFsbHMgb3V0c2lkZSB0aGUgYm91bmRzIG9m
+IHdoYXQgdGhlIGdwaW8gY2hpcCBjb25zaWRlcnPCoAo+IHRvdGFsIGdwaW8gY291bnQuwqDCoMKg
+QXMgYSByZXN1bHQgZ3Bpby1rZXlzLXBvbGxlZCBkcml2ZXIgcHJvYmUgZmFpbHMuCgpJJ20gc3Rh
+cnRpbmcgdG8gdGhpbmsgaXQncyBiZXN0IHRvIGRlc2NyaWJlIHRoZSBkZXZpY2UgYXMgYSBwaW4t
+CmNvbnRyb2xsZXIsIGFuZCAibXV4IiB0aGUgbGluZXMgYmV0d2VlbiBHUElPIGFuZCBMRUQuIFRo
+aXMgYWxsb3dzCmRlc2NyaWJpbmcgdGhlIGFsbCB0aGUgbGluZXMgYXMgR1BJTywgb3IgcHJvdmlk
+aW5nIGEgbWFwIGJldHdlZW4gdGhlCkdQSU8gYW5kIExFRCBsaW5lIG51bWJlciBzcGFjZXMuIFRo
+aXMgd291bGQgcmVzb2x2ZSB0aGUgImluZGV4IGlzCmdyZWF0ZXIgdGhhbiB0aGUgY291bnQiIHBy
+b2JsZW0gdGhhdCB5b3UncmUgcnVubmluZyBpbnRvLgoKU2VlOgoKaHR0cHM6Ly9naXQua2VybmVs
+Lm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvdG9ydmFsZHMvbGludXguZ2l0L3RyZWUvRG9j
+dW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2dwaW8vZ3Bpby50eHQ/aD12NC4xMiNuMjMw
+CgpBbmQKCmh0dHBzOi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwvZ2l0L3Rv
+cnZhbGRzL2xpbnV4LmdpdC90cmVlL0RvY3VtZW50YXRpb24vcGluY3RybC50eHQ/aD12NC4xMiNu
+MjgyCgpOb3cgSSBkb24ndCBrbm93IHdoZXRoZXIgdGhlcmUgaXMgYSBiaXQgdG8gZGVzY3JpYmUg
+dGhlIGxpbmUgYXMgTEVEIG9yCkdQSU8sIGJ1dCBldmVuIGlmIHRoZXJlJ3Mgbm90IHlvdSBjYW4g
+anVzdCBzdHViLW91dCB0aGUgc2V0X211eCgpIGFuZApyZXF1ZXN0X2dwaW9fZW5hYmxlKCkgY2Fs
+bGJhY2tzLiBJdCBzaG91bGRuJ3QgYmUgdG9vIG11Y2ggZWZmb3J0LiBCdXQgSQphbHNvIGhhdmVu
+J3QgdGhvdWdodCBhYm91dCBpdCBpbiBncmVhdCBkZXB0aCAtIGl0J3MgYSB0cmFpbi1vZi10aG91
+Z2h0CnN1Z2dlc3Rpb24gYXQgdGhlIG1vbWVudC4KCkNoZWVycywKCkFuZHJldwoKCj4gCj4gTWF5
+YmUgYSBxdWljayBjb25mZXJlbmNlIGNhbGwgbWlnaHQgYmUgdXNlZnVsPwo+IAo+IFRoYW5rcywK
+PiBDaHJpcwo+IAo+IAo+ID4gVGhhbmtzLAo+ID4gCj4gPiBDLgo+ID4gCj4gPiAKPiA+ID4gQy4K
+PiA+ID4gCj4gPiA+ID4gVGhhbmtzCj4gPiA+ID4gQ2hyaXMKPiA+ID4gPiAKPiA+ID4gPiA+ID4g
+PiA+ID4gPiA+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBmYW4wOiBsZWRAMCB7Cj4gPiA+
+ID4gPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGxhYmVsID0gImZhbjAiOwo+ID4g
+PiA+ID4gPiBAQCAtMzAyLDYgKzMzNCwyNiBAQAo+ID4gPiA+ID4gPiDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqByZWcgPSA8Mz47Cj4gPiA+ID4gPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoHR5cGUgPSA8UENBOTU1WF9UWVBFX0xFRD47Cj4gPiA+ID4gPiA+IMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqB9Owo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDC
+oGZhbjBfcHJlc19ncGlvOiBncGlvQDQgewo+ID4gPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgbGFiZWwgPSAiZmFuMF9wcmVzZW5jZSI7Cj4gPiA+ID4gPiA+ICvCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqByZWcgPSA8ND47Cj4gPiA+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqB0eXBlID0gPFBDQTk1NVhfVFlQRV9HUElPPjsKPiA+ID4gPiA+ID4gK8KgwqDCoMKgwqDCoMKg
+wqB9Owo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoGZhbjFfcHJlc19n
+cGlvOiBncGlvQDUgewo+ID4gPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgbGFiZWwg
+PSAiZmFuMV9wcmVzZW5jZSI7Cj4gPiA+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBy
+ZWcgPSA8NT47Cj4gPiA+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqB0eXBlID0gPFBD
+QTk1NVhfVFlQRV9HUElPPjsKPiA+ID4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqB9Owo+ID4gPiA+
+ID4gPiA+ID4gPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoGZhbjJfcHJlc19ncGlvOiBncGlvQDYg
+ewo+ID4gPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgbGFiZWwgPSAiZmFuMl9wcmVz
+ZW5jZSI7Cj4gPiA+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqByZWcgPSA8Nj47Cj4g
+PiA+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqB0eXBlID0gPFBDQTk1NVhfVFlQRV9H
+UElPPjsKPiA+ID4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqB9Owo+ID4gPiA+ID4gPiA+ID4gPiA+
+ID4gPiArwqDCoMKgwqDCoMKgwqDCoGZhbjNfcHJlc19ncGlvOiBncGlvQDcgewo+ID4gPiA+ID4g
+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgbGFiZWwgPSAiZmFuM19wcmVzZW5jZSI7Cj4gPiA+
+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqByZWcgPSA8Nz47Cj4gPiA+ID4gPiA+ICvC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqB0eXBlID0gPFBDQTk1NVhfVFlQRV9HUElPPjsKPiA+ID4g
+PiA+ID4gK8KgwqDCoMKgwqDCoMKgwqB9Owo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgZnJvbnRfZmF1bHQ6IGxlZEAxMyB7Cj4gPiA+ID4gPiA+IMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoGxhYmVsID0gImZyb250LWZhdWx0IjsKPiA+ID4gPiA+ID4g
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgZGVmYXVsdC1zdGF0ZSA9ICJrZWVwIjsKPiA+
+ID4gPiA+ID4gCj4gCj4g
 
-I'm not across the context, but tricking pmbus is straight forward:
-Implement the {read,write}_{byte,word}_data callbacks, and provide an
-implementation of the register whose value you want to to fake out.
 
-However, from Documentation/hwmon/sysfs-interface:
-
-
-    Each channel or limit may have an associated alarm file, containing a
-    boolean value. 1 means than an alarm condition exists, 0 means no alarm=
-.
-
-    Usually a given chip will either use channel-related alarms, or
-    limit-related alarms, not both. The driver should just reflect the hard=
-ware.
-
-Sounds like what Eddie's describing maybe fits the channel-related
-case? Again, I haven't read though the whole series so take that with a
-grain of salt.
-
-Andrew
-
->=20
-> Thanks,
-> Eddie
->=20
-> >=20
-> > > +in1_input=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0Measured input voltage in mV.
-> > > +in1_label=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0"vin"
-> > > +in2_alarm=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0Output voltage over-voltage fault.
-> > > +in2_input=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0Measured output voltage in mV.
-> > > +in2_label=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0"vout1"
-> > > +
-> > > +power1_input=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0Measured input power in uW.
-> > > +power1_label=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0"pin"
-> > > +
-> > > +temp1_alarm=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0PSU inlet ambient temperature over-temperature fault.
-> > > +temp1_input=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0Measured PSU inlet ambient temp in millidegrees C.
-> > > +temp2_alarm=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0Secondary rectifier temp over-temperature fault.
-> > > +temp2_input=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0Measured secondary rectifier temp in millidegrees C.
-> > > +temp3_alarm=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0ORing FET temperature over-temperature fault.
-> > > +temp3_input=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0Measured ORing FET temperature in millidegrees C.
-> > > --
-> > > 1.8.3.1
-> > >=20
->=20
->=20
---=-J+wIyUBlCbHUCiEtbjjt
+--=-UjBIvC7G+2YQsrdVdBvY
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIbBAABCgAGBQJZgqToAAoJEJ0dnzgO5LT5HbYP8wbx4OUArrwS+JNNDvTnQ73e
-uw+GQtHugNFARqrND4hJk8w/LDvuEMInBnzcrzOW48DgXKTSXl3KaRWdxz1W/AyR
-Cl7YJF88c0OiZVQsKcrcIIb22poPPskm8sz2t21GXg2lKPYX0qI09AHU7KMs1UzE
-g11c4u8lhNCUbjbGhwxRbEF6vQQRZrSSW5JHNHwRPWdrAgo2zkhtMHVplqbSEhbe
-/07ineLjo0gjDhUf/jgL7hSCIgGm6JJOrYuPgdOv9a69Hw5/p/oAXntrARxFr6OB
-1IaFW+JpJlZk85KVbevMawTf+5U8n+YW0fBDjU/LAWfEOqEmnDjjBWdYaQjfplD4
-Tefk+MDsDVKS8rB2buNNxY2O0v1kV4RHaeUqJ3gd7yS9CiZNZUt2q37SxwvQaVx4
-GvPMfqe97VLiXDyeccdetaj3evuf2JCwDnVqKMqHwB67eR9Oth9xgzJ27QrsGaa9
-KoKZpby1kVODnCsScxG8oK/r0ZvC1axW3It7e6+BdyHbaa4ZqCcgNK9aLOWn2/JY
-IMJGmws8SusKxPZyBGJ5ZDUlgFHkc/6jLhytKHesD8Ee80qZe3Z4NIAgXB4tbAWE
-yUXsPiXYy3hTjseA6xX8KBj4YZQc2BS9YBwQJ8PgZAu+rPkWGIy0STr9Y2EAt4HG
-Z8roTnZGjI0gYjGGFZo=
-=GGYj
+iQIcBAABCgAGBQJZgq1SAAoJEJ0dnzgO5LT5tXwP/3kXgR5xxdJ942dWRKuQv77q
+0XFb2FbEGszSBtGmahtx+s3aR8kzfUSE9LMiZknrsqPjaiWd1Fjh4oiIL3jMgAQv
+XMD3256v99IdEQDDFI925vRK1vuDZ2ped3zHwORsGux+dxXBFdUqneBqUeOwkqYb
+QZIJ2yzs+wk1aYON17nqu6a7m9xE5M6H72jLuTtWjULWaedI6GVOFYg+zFM5e98/
+RCS9VHSY1apiT9O/rucrZvZnLI3HeDtI1lX6lG3I7EZ8YPfnE/8xT1QIy5MDbKNx
+WNLGRu8P/AOYWTZVFZtbSHKi4fHDM08TrGDxSZwwItcek63yr/an7cQZpj7rmFGR
+/r++bCZ9wYhLwGL3/fj/sznZ+VvUcwJZO96GCsXGbo9zJpbj7iK487lA6y063xKP
+bnFg1U+PncryIr+ecBNRjwpMrSP3adNIs4NgjXGAOP+Mu2FP5hFOAGK1j5EypRoG
+2dFJVXromTGYnglQhAKaA5XftoIDj05Jd5s0yMSPSQLL2UFe+TOUfFL+V0eia0kj
+4DvmhCyyF31jWLhVLW4yFcvg/ffrdRogIjdg9MhH6oxf1m3aRtvUlAVYaMaJiJMv
+ElJMUm3iMLACQ2g8qNYm4Xel8c0OgkABsIrwPHIsYbNUbD93oApr/NQw3bwujeXl
+U3axk/GO4xWlxC7m3/bm
+=PRMQ
 -----END PGP SIGNATURE-----
 
---=-J+wIyUBlCbHUCiEtbjjt--
+--=-UjBIvC7G+2YQsrdVdBvY--
