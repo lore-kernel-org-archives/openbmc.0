@@ -1,56 +1,72 @@
-Return-Path: <geissonator@gmail.com>
-Received: from mail-io0-x22a.google.com (mail-io0-x22a.google.com
- [IPv6:2607:f8b0:4001:c06::22a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xNCkW4QsPzDqlS
- for <openbmc@lists.ozlabs.org>; Thu,  3 Aug 2017 11:53:07 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="tuyKR05a"; 
- dkim-atps=neutral
-Received: by mail-io0-x22a.google.com with SMTP id o9so1722987iod.1
- for <openbmc@lists.ozlabs.org>; Wed, 02 Aug 2017 18:53:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=vfRfchPGMYpu4q3Lci9v1S3kzoLzr/LSbszs7KucCs8=;
- b=tuyKR05aEyG+d+gcsBUK5avDOUFCouXlGsRcHN70JInSzrNfsHOgaW8+hpfQAmP0Tg
- jBDVFnNQL/Z7LRyymtl8kO+pc3TY8E2RADxI4Dt/hY9QiudmfKpx+PDRhEZinPomTn9H
- +gtLFoKoQx63/0eMlnwSon2jhEisBzM2R7AcOfXNL/00CRbvd66bZJjTGTAD60BYTtdO
- s8JETzcSnQyCwTnnZ/knXwgX3dT5SJMyA5uSl6ST45HprOcvxTEfDlTZFAhDf6sZ/IJS
- zGzxOwAEz48yvNZIVxYSeTFZO63ksQtCJEGIcanHXXSFQcuZ+6WVMedHaPRMFN/8st8z
- Kslg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=vfRfchPGMYpu4q3Lci9v1S3kzoLzr/LSbszs7KucCs8=;
- b=nq79UgFOyXxCb2RpmXnLpFTfQnCsuas9cfHfZC98WY0G6Ra04O+3OvYGsAu7MKh0eN
- MEQglGVC1jtTOrI1jOXjvgvG7H6hgggu2mrxWhpuzy0XeGMH4jCDhCT/PB2TzsZf6fjN
- CzEIZ9b/l2rMZUCqf1cWd50JRXXvurTOxn2QxeR/wiQbYYA+KTPkryioNr7yP2ieXBu+
- o24U/3BLDGT17ke0/rMB8TpX2iSYCqStBrXSmfLQk1QcqMZ+Y6F1cAks7rWscW+lYlvc
- AMZXKNHAbLlS6okTfV8aHsj9GczOmeEhbHK15K1orb/qdNeJpeDFEyFMbOz6dhnCFb59
- J3Dg==
-X-Gm-Message-State: AIVw111kcPI/b3/AxamSClaLYEkop+sw/bl9WOIFOwqcKYFg4Dp5rsv4
- yQq0Soe3AR8tR2u/LYHMRPSaSd6c6ift
-X-Received: by 10.107.172.198 with SMTP id v189mr20482ioe.159.1501725185381;
- Wed, 02 Aug 2017 18:53:05 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xNDQD1WyHzDrD6
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Aug 2017 12:24:03 +1000 (AEST)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v732NarN006551
+ for <openbmc@lists.ozlabs.org>; Wed, 2 Aug 2017 22:24:01 -0400
+Received: from e13.ny.us.ibm.com (e13.ny.us.ibm.com [129.33.205.203])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2c3mxwpvrp-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 02 Aug 2017 22:24:01 -0400
+Received: from localhost
+ by e13.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Wed, 2 Aug 2017 22:24:00 -0400
+Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
+ by e13.ny.us.ibm.com (146.89.104.200) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 2 Aug 2017 22:23:58 -0400
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v732Nvmo25100384; Thu, 3 Aug 2017 02:23:57 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 450DB2803F;
+ Wed,  2 Aug 2017 22:23:51 -0400 (EDT)
+Received: from oc3016140333.ibm.com (unknown [9.85.151.122])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id A7E0D2803E;
+ Wed,  2 Aug 2017 22:23:50 -0400 (EDT)
+Subject: Re: [PATCH linux dev-4.10 v3 3/5] Documentation: hwmon: Add IBM power
+ supply documentation
+To: Brandon Wyman <bjwyman@gmail.com>
+Cc: "Edward A. James" <eajames@us.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <1501705534-27606-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <1501705534-27606-4-git-send-email-eajames@linux.vnet.ibm.com>
+ <CAK_vbW1GJAaV9OLWTcyY=2s55zMELs1qZ59PZZc-6H1mcm=gEg@mail.gmail.com>
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Wed, 2 Aug 2017 21:23:55 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.2.0
 MIME-Version: 1.0
-Received: by 10.107.40.77 with HTTP; Wed, 2 Aug 2017 18:53:04 -0700 (PDT)
-In-Reply-To: <5E11AC40-EE32-479D-90F2-9F684B0DBE2A@linux.vnet.ibm.com>
-References: <75C63AB7-E340-4A78-BA82-80F96EAEA051@linux.vnet.ibm.com>
- <OF3E869A3E.DB3E43DE-ON862580B3.008284D7-862580B3.0082FDDB@notes.na.collabserv.com>
- <20170127030706.GB5504@heinlein.lan> <87o9ypw13y.fsf@linux.vnet.ibm.com>
- <20170131181641.k3jnv73ha5v2kjsh@asimov>
- <CAPLgG=nY-_A6HvVmY45U5U=wrz4iRK5P=R0e_0NPVs=B--CLdw@mail.gmail.com>
- <2DA4883E-3015-4FDF-92FC-F6761436585D@linux.vnet.ibm.com>
- <5E11AC40-EE32-479D-90F2-9F684B0DBE2A@linux.vnet.ibm.com>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Wed, 2 Aug 2017 20:53:04 -0500
-Message-ID: <CALLMt=pivzRrQFU=h7jm=-GriN2cg8XbZzCSxVHBOuWSYWW7Kg@mail.gmail.com>
-Subject: Re: OpenBMC Image Management - Witherspoon
-To: Adriana Kobylak <anoo@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <CAK_vbW1GJAaV9OLWTcyY=2s55zMELs1qZ59PZZc-6H1mcm=gEg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 17080302-0008-0000-0000-00000268BDCB
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007474; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000216; SDB=6.00896751; UDB=6.00448634; IPR=6.00676938; 
+ BA=6.00005506; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016507; XFM=3.00000015;
+ UTC=2017-08-03 02:23:59
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17080302-0009-0000-0000-0000363EFCEC
+Message-Id: <e6d6cc0f-8337-2228-9c28-da98d424131f@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-08-03_01:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
+ definitions=main-1708030035
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,67 +78,95 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Aug 2017 01:53:08 -0000
+X-List-Received-Date: Thu, 03 Aug 2017 02:24:04 -0000
 
-This went live tonight in master with commit 0bf11809a80f88
-(https://github.com/openbmc/openbmc/commit/0bf11809a80f8829ffc47fd0ea06ffab93199638).
-This commit and any after it will now require the new PNOR update
-images and process documented by Adriana below.
 
-To make it all work well, first upgrade the BMC to the new level, then
-upgrade the PNOR using the new squashfs.tar file (see directions in
-doc updates on getting this).  The first time you update to using this
-new PNOR image type you need to reboot the BMC after you've done the
-bmc and pnor update.  After that, just boot the system up like normal.
-PNOR updates now take on the order of 30s vs. 4.5 minutes!  You can
-have multiple versions of PNOR loaded, with the ability to choose
-which one you want at boot time, and the ability to easily patch any
-of the partitions in PNOR via simple filesystem operations.
 
-This robot test can be used directly to do the updates, or as a
-reference - https://github.com/openbmc/openbmc-test-automation/blob/master/extended/code_update/code_update.robot
+On 08/02/2017 05:11 PM, Brandon Wyman wrote:
+> On Wed, Aug 2, 2017 at 3:25 PM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+>> From: "Edward A. James" <eajames@us.ibm.com>
+>>
+>> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+>> ---
+>>   Documentation/hwmon/ibmps | 53 +++++++++++++++++++++++++++++++++++++++++++++++
+>>   1 file changed, 53 insertions(+)
+>>   create mode 100644 Documentation/hwmon/ibmps
+>>
+>> diff --git a/Documentation/hwmon/ibmps b/Documentation/hwmon/ibmps
+>> new file mode 100644
+>> index 0000000..7f13fd4
+>> --- /dev/null
+>> +++ b/Documentation/hwmon/ibmps
+>> @@ -0,0 +1,53 @@
+>> +Kernel driver ibmps
+>> +====================
+>> +
+>> +Supported chips:
+>> +  * IBM Witherspoon power supply
+>> +
+>> +Author: Eddie James <eajames@us.ibm.com>
+>> +
+>> +Description
+>> +-----------
+>> +
+>> +This driver supports the IBM power supply. This driver is a client to the core
+>> +PMBus driver.
+>> +
+>> +Usage Notes
+>> +-----------
+>> +
+>> +This driver should auto-detect devices. In the event that it does not, you will
+>> +have to instantiate the devices explicitly. Please see
+>> +Documentation/i2c/instantiating-devices for details.
+>> +
+>> +Sysfs entries
+>> +-------------
+>> +
+>> +The following attributes are supported:
+>> +
+>> +curr1_alarm            Output current over-current fault.
+>> +curr1_input            Measured output current in mA.
+>> +curr1_label            "iout1"
+>> +
+>> +fan1_alarm             Fan 1 warning.
+>> +fan1_fault             Fan 1 fault.
+>> +fan1_input             Fan 1 speed in RPM.
+>> +fan2_alarm             Fan 2 warning.
+>> +fan2_fault             Fan 2 fault.
+>> +fan2_input             Fan 2 speed in RPM.
+>> +
+>> +in1_alarm              Input voltage under-voltage fault.
+> Is this the normal/regular file to put this under-voltage fault in? I
+> noticed that the UCD9200 device driver appears to be the only one
+> looking for that right now, and it has it updating in1_lcrit_alarm:
+> ucd9200:in1_lcrit_alarm         Voltage critical low alarm. From
+> VIN_UV_FAULT status.
 
-Switching back to older BMC code is pretty painless.  Just flash the
-old BMC level then pflash your PNOR like the old days.
+Since this is "vin" this will provide the status of VIN_UV_FAULT. 
+Similarly, VOUT_OV_FAULT will be provided by the in2_alarm ("vout"). The 
+power supply doesn't provide limit ranges for it's values, so in order 
+to get lcrit_alarm or similar I'd have to "trick" pmbus into thinking 
+limits are being provided by the PS. This seems more simple.
 
-On Wed, Aug 2, 2017 at 12:23 PM, Adriana Kobylak
-<anoo@linux.vnet.ibm.com> wrote:
-> This week, the support for virtual pnor on witherspoon (which reformats the
-> pnor chip to ubi) will be turned on.
-> REST interfaces and copying partition files for patching replace pflash for
-> updating and patching the pnor.
+Thanks,
+Eddie
+
 >
-> Additional details of the implementation and instructions are documented
-> here:
-> https://gerrit.openbmc-project.xyz/#/c/4756/
-> https://gerrit.openbmc-project.xyz/#/c/5433/
->
->
-> On Jun 13, 2017, at 1:10 PM, Adriana Kobylak <anoo@linux.vnet.ibm.com>
-> wrote:
->
-> In the next coming days, the changes to the host bios update procedure will
-> be available for use.
->
-> Notable changes are using a squashfs image that includes individual pnor
-> partition files instead of the ffs (.pnor) image, formatting the pnor chip
-> as ubi to store these files (allowing for the storage of more than one
-> image), and mailbox daemon updates to support these changes (new
-> phosphor-mboxd repo).
->
-> Regarding the mailbox daemon, the mboxbridge repository is staying as a
-> reference implementation and has been cloned into phosphor-mboxd. Any system
-> using mailbox and running with a flashed ffs pnor image (instead of updating
-> to the ubi layout) would still need the reference mboxbridge implementation.
-> The openbmc build is being updated to build phosphor-mboxd as the default.
->
-> A system can be updated transparently from running with an ffs pnor image to
-> the squashfs image via the Software dbus interfaces. In a similar way, a
-> system with a ubi-formatted pnor can be flashed with an ffs pnor image using
-> pflash.
->
-> The first round of documentation updates are here:
-> https://gerrit.openbmc-project.xyz/#/c/4756/
-> Reviewers welcome :)
->
->
+>> +in1_input              Measured input voltage in mV.
+>> +in1_label              "vin"
+>> +in2_alarm              Output voltage over-voltage fault.
+>> +in2_input              Measured output voltage in mV.
+>> +in2_label              "vout1"
+>> +
+>> +power1_input           Measured input power in uW.
+>> +power1_label           "pin"
+>> +
+>> +temp1_alarm            PSU inlet ambient temperature over-temperature fault.
+>> +temp1_input            Measured PSU inlet ambient temp in millidegrees C.
+>> +temp2_alarm            Secondary rectifier temp over-temperature fault.
+>> +temp2_input            Measured secondary rectifier temp in millidegrees C.
+>> +temp3_alarm            ORing FET temperature over-temperature fault.
+>> +temp3_input            Measured ORing FET temperature in millidegrees C.
+>> --
+>> 1.8.3.1
+>>
