@@ -1,52 +1,60 @@
-Return-Path: <mine260309@gmail.com>
-Received: from mail-io0-x243.google.com (mail-io0-x243.google.com
- [IPv6:2607:f8b0:4001:c06::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <vishwa@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xNQKB6fJ3zDrD7
- for <openbmc@lists.ozlabs.org>; Thu,  3 Aug 2017 19:50:22 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="tIK9Mdvf"; 
- dkim-atps=neutral
-Received: by mail-io0-x243.google.com with SMTP id j32so915118iod.3
- for <openbmc@lists.ozlabs.org>; Thu, 03 Aug 2017 02:50:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=+EXZG6L6t3bELC6i4WLWyoYtcRVFWF1Dd9hAmGJl5Qg=;
- b=tIK9Mdvfd6q3DeBV3hPvRCWHWutNSUyE1f3Kx2RySPMSdoZdXfisfcfiNjol9usIuU
- FRZ0xILEzLS1lDUZ/K4o14BvLuDzMM/MQvhFapxpWtm8YW54quhc1xSqsU2ZPJT9vsUi
- +FhBOdXeU+IzQ3g+mOeTXLsr8cqkQtp2XZCtBcfvE/8Z9slUmkF351sxh+ytVAh33hrn
- lSpmRP2Qih8rI3WNxKssZX7/hXLCbKRQw8nkLiU8v+KL2gKEWBI+9O8dlOHMdF8gtLY1
- eXwYsfAnqqN4xK2wd7htD3fSssv65ia0TDcte1i/r6W+V/LtXD9OluXdBJkJuniueUnQ
- BivA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=+EXZG6L6t3bELC6i4WLWyoYtcRVFWF1Dd9hAmGJl5Qg=;
- b=DxAq3En3eTVaymDu6tkEiS+CwhDAKE88KQ4fXTpQvYglrtkrxLwngnO6JQ9dEqJEWi
- z62GJmCnt7L7rPk9xSpU7UH2uV5EpzEHx2/tz4KTUjHnuIoQIbUBwh7JnUyzYdvDHP8/
- r9uFnPbqLmGJa51W5XhmUFQpKZ2jYZJBQ0rPTJLjcL4tcQuK16Ak09ZuvY1t7+XxpImE
- H6hWs0VqGdM1JiQXgoQyaoqRRx0bDEPhnFVdIkFzRjdxOj4uS3SZCp5EHCqdG8ArenG3
- 0uLysc34r6v5RWNgz0a14ui4jdkdneNTJDAyKvBA368JcPqu1yv+WLE3PCc8LUBkzerg
- D5HA==
-X-Gm-Message-State: AHYfb5g1dV5+ltzmsIBbWTqmEYdbAGcpLVEE62tlTfPWu5QFcBOwI/BF
- qzKS/X32WbvRskDuQOQks6/65wIG4gSzGbY=
-X-Received: by 10.107.137.142 with SMTP id t14mr1050768ioi.215.1501753820955; 
- Thu, 03 Aug 2017 02:50:20 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xNSRN0yr6zDqjD
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Aug 2017 21:25:51 +1000 (AEST)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v73BNevp051366
+ for <openbmc@lists.ozlabs.org>; Thu, 3 Aug 2017 07:25:48 -0400
+Received: from e23smtp01.au.ibm.com (e23smtp01.au.ibm.com [202.81.31.143])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2c40eu6r01-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 03 Aug 2017 07:25:46 -0400
+Received: from localhost
+ by e23smtp01.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <vishwa@linux.vnet.ibm.com>;
+ Thu, 3 Aug 2017 21:25:44 +1000
+Received: from d23relay08.au.ibm.com (202.81.31.227)
+ by e23smtp01.au.ibm.com (202.81.31.207) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Thu, 3 Aug 2017 21:25:29 +1000
+Received: from d23av03.au.ibm.com (d23av03.au.ibm.com [9.190.234.97])
+ by d23relay08.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v73BPSCa26017870
+ for <openbmc@lists.ozlabs.org>; Thu, 3 Aug 2017 21:25:28 +1000
+Received: from d23av03.au.ibm.com (localhost [127.0.0.1])
+ by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ v73BPJb3025891
+ for <openbmc@lists.ozlabs.org>; Thu, 3 Aug 2017 21:25:19 +1000
+Received: from [9.77.196.55] ([9.77.196.55])
+ by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ v73BPHEV025871
+ for <openbmc@lists.ozlabs.org>; Thu, 3 Aug 2017 21:25:18 +1000
+From: vishwa <vishwa@linux.vnet.ibm.com>
+Subject: Design proposal on removing /org/openbmc/settings/boot_policy"
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Thu, 3 Aug 2017 16:55:21 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.7.0
 MIME-Version: 1.0
-Received: by 10.79.30.129 with HTTP; Thu, 3 Aug 2017 02:50:20 -0700 (PDT)
-In-Reply-To: <1499294830-8843-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1499294830-8843-1-git-send-email-eajames@linux.vnet.ibm.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Thu, 3 Aug 2017 17:50:20 +0800
-Message-ID: <CAARXrt=iaoPw5evb2b3v8Rtcxdp1vsFiok4+1tSA6RW5aG484Q@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 v2] drivers/hwmon/occ: Add sysfs_notify on
- error
-To: Eddie James <eajames@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- "Edward A. James" <eajames@us.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/alternative;
+ boundary="------------63FC02D03F57ECC9B5D92F2F"
+X-TM-AS-MML: disable
+x-cbid: 17080311-1617-0000-0000-000001F9B341
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17080311-1618-0000-0000-00004843C0E2
+Message-Id: <b820c5bf-3f9c-b59d-97d1-549df44aa1e5@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-08-03_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
+ definitions=main-1708030174
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,295 +66,155 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Aug 2017 09:50:23 -0000
+X-List-Received-Date: Thu, 03 Aug 2017 11:25:52 -0000
 
-Tested-by: Lei YU <mine260309@gmail.com>
+This is a multi-part message in MIME format.
+--------------63FC02D03F57ECC9B5D92F2F
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Without this patch, the occ hwmon sensor readings are all empty on P8.
-With this patch the issue is fixed and all the readings are OK.
+This email is about the IPMI chassis command: Get-Boot-Options and 
+Set-Boot-Options.
 
-Note: I replied to the [v3] mail but it's found archived.
-So reply here again, but I meant to acknowledge the [v3] version.
+IPMI boot_flags could have one of these ["Network", "Disk", "Safe", 
+"CDROM", "Setup", "Default"]
+
+Original Settings implementation had any of the above values settable 
+via "/org/openbmc/settings/host0:boot_flags"
+
+There was another setting called "boot_policy" exported via 
+"/org/openbmc/settings/host0:boot_policy" and the valid values were
+[ONETIME, PERMANENT].
+
+User would update "boot_flag" and "boot_policy" with the values and 
+BMC-IPMID would supply these values when asked by Petitboot via 
+Get-Boot-Options.
+
+Petit boot would consume these and then if a setting was [ONETIME], then 
+it would write boot_flag to [Default] via Set-Boot-Options IPMI command 
+and IPMID would update /org/openbmc/settings/host0:boot_flags.
+
+*Jeremy*, please help confirm.
+
+As part of Settings refactoring, `boot_flags` was divided into 2 parts, 
+still using "/org/openbmc/settings/host0:boot_policy"
+
+*/xyz/openbmc_project/Control/Boot/Mode* : Catering to "Safe", "Setup" 
+and "Regular", Where Regular meaning : 0
+
+*/xyz/openbmc_project/Control/Boot/Source* : Catering to "Network", 
+"Disk", "ExternalMedia". "Default", Where Default meaning : 0
+
+Since IPMI could take any single value from either Mode or Source, IPMID 
+code looked at Source first and if set, it used it and if not, it 
+checked Mode and used if set. If none was set, it returned default as it 
+used to do before.
+
+Similiarly, as part of Set-Boot-Options, IPMID processed Source and then 
+Mode and updated respective dbus objects.
+
+Now, the proposal is to remove 
+'"/org/openbmc/settings/host0:boot_policy"' and then put this as a 
+boolean into 'persist' property into:
+
+/xyz/openbmc_project/Control/Boot/Mode and 
+/xyz/openbmc_project/Control/Boot/Source.
+
+IPMID would then look at this new boolean to see if its ONETIME ( 
+boolean : 0 ) or PERMANENT ( boolean : 1 ) and respond to Get-Boot-Options.
+
+Similarly, for Set-Boot-Options, it would update 'persist' property 
+depending on what is sent by Petit boot.
+
+As part of persistency, Settings would save the data that gets written 
+to /xyz/openbmc_project/Control/Boot/Mode and 
+/xyz/openbmc_project/Control/Boot/Source D-Bus object.
+
+Please provide your feedback on this.
+
+Thank you.
+
+!! Vishwa !!
 
 
-On Thu, Jul 6, 2017 at 6:47 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
-> From: "Edward A. James" <eajames@us.ibm.com>
->
-> For userspace polling, we need to notify sysfs that the state of our
-> error entry has changed.
->
-> Signed-off-by: Edward A. James <eajames@us.ibm.com>
-> ---
->  drivers/hwmon/occ/common.c | 44 +++++++++++++++++++++++++++++++-------------
->  drivers/hwmon/occ/common.h |  4 +++-
->  drivers/hwmon/occ/p8_i2c.c | 28 ++++++++++++++--------------
->  drivers/hwmon/occ/p9_sbe.c | 34 ++++++++++++++++------------------
->  4 files changed, 64 insertions(+), 46 deletions(-)
->
-> diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
-> index 4e3e411..a676f20 100644
-> --- a/drivers/hwmon/occ/common.c
-> +++ b/drivers/hwmon/occ/common.c
-> @@ -163,9 +163,22 @@ void occ_parse_poll_response(struct occ *occ)
->         }
->  }
->
-> +void occ_set_error(struct occ *occ, int error)
-> +{
-> +       occ->error_count++;
-> +       if (occ->error_count > OCC_ERROR_COUNT_THRESHOLD)
-> +               occ->error = error;
-> +}
-> +
-> +void occ_reset_error(struct occ *occ)
-> +{
-> +       occ->error_count = 0;
-> +       occ->error = 0;
-> +}
-> +
->  int occ_poll(struct occ *occ)
->  {
-> -       int rc;
-> +       int rc, error = occ->error;
->         struct occ_poll_response_header *header;
->         u16 checksum = occ->poll_cmd_data + 1;
->         u8 cmd[8];
-> @@ -181,7 +194,7 @@ int occ_poll(struct occ *occ)
->
->         rc = occ->send_cmd(occ, cmd);
->         if (rc)
-> -               return rc;
-> +               goto done;
->
->         header = (struct occ_poll_response_header *)occ->resp.data;
->
-> @@ -197,19 +210,21 @@ int occ_poll(struct occ *occ)
->
->         if (header->status & OCC_STAT_MASTER) {
->                 if (hweight8(header->occs_present) !=
-> -                   atomic_read(&occ_num_occs)) {
-> -                       occ->error = -EXDEV;
-> -                       occ->bad_present_count++;
-> -               } else
-> -                       occ->bad_present_count = 0;
-> +                   atomic_read(&occ_num_occs))
-> +                       occ->error = -ENXIO;
->         }
->
-> +done:
-> +       /* notify userspace if we change error state and have an error */
-> +       if (occ->error != error && occ->error && occ->error_attr_name)
-> +               sysfs_notify(&occ->bus_dev->kobj, NULL, occ->error_attr_name);
-> +
->         return rc;
->  }
->
->  int occ_set_user_power_cap(struct occ *occ, u16 user_power_cap)
->  {
-> -       int rc;
-> +       int rc, error = occ->error;
->         u8 cmd[8];
->         u16 checksum = 0x24;
->         __be16 user_power_cap_be;
-> @@ -239,6 +254,10 @@ int occ_set_user_power_cap(struct occ *occ, u16 user_power_cap)
->         rc = occ->send_cmd(occ, cmd);
->         mutex_unlock(&occ->lock);
->
-> +       /* notify userspace if we change error state and have an error*/
-> +       if (occ->error != error && occ->error && occ->error_attr_name)
-> +               sysfs_notify(&occ->bus_dev->kobj, NULL, occ->error_attr_name);
-> +
->         return rc;
->  }
->
-> @@ -260,14 +279,12 @@ int occ_update_response(struct occ *occ)
->  static ssize_t occ_show_error(struct device *dev,
->                               struct device_attribute *attr, char *buf)
->  {
-> -       int error = 0;
->         struct occ *occ = dev_get_drvdata(dev);
->
-> -       if (occ->error_count > OCC_ERROR_COUNT_THRESHOLD || occ->last_safe ||
-> -           occ->bad_present_count > OCC_ERROR_COUNT_THRESHOLD)
-> -               error = occ->error;
-> +       if (occ->error)
-> +               return snprintf(buf, PAGE_SIZE - 1, "%d\n", occ->error);
->
-> -       return snprintf(buf, PAGE_SIZE - 1, "%d\n", error);
-> +       return 0;
->  }
->
->  static ssize_t occ_show_status(struct device *dev,
-> @@ -1152,6 +1169,7 @@ int occ_create_status_attrs(struct occ *occ)
->                 (struct sensor_device_attribute)SENSOR_ATTR(occ_error, 0444,
->                                                             occ_show_error,
->                                                             NULL, 0);
-> +       occ->error_attr_name = occ->status_attrs[7].dev_attr.attr.name;
->
->         for (i = 0; i < OCC_NUM_STATUS_ATTRS; ++i) {
->                 rc = device_create_file(dev, &occ->status_attrs[i].dev_attr);
-> diff --git a/drivers/hwmon/occ/common.h b/drivers/hwmon/occ/common.h
-> index a5f86c3..acb50bc 100644
-> --- a/drivers/hwmon/occ/common.h
-> +++ b/drivers/hwmon/occ/common.h
-> @@ -103,7 +103,6 @@ struct occ {
->
->         int error;
->         unsigned int error_count;
-> -       unsigned int bad_present_count;
->         unsigned long last_safe;
->         unsigned long last_update;
->         struct mutex lock;
-> @@ -116,6 +115,7 @@ struct occ {
->         struct attribute_group group;
->         const struct attribute_group *groups[2];
->         struct sensor_device_attribute *status_attrs;
-> +       const char *error_attr_name;
->
->         u8 poll_cmd_data;
->         int (*send_cmd)(struct occ *occ, u8 *cmd);
-> @@ -143,6 +143,8 @@ struct occ {
->  extern atomic_t occ_num_occs;
->
->  void occ_parse_poll_response(struct occ *occ);
-> +void occ_reset_error(struct occ *occ);
-> +void occ_set_error(struct occ *occ, int error);
->  int occ_poll(struct occ *occ);
->  int occ_set_user_power_cap(struct occ *occ, u16 user_power_cap);
->  int occ_update_response(struct occ *occ);
-> diff --git a/drivers/hwmon/occ/p8_i2c.c b/drivers/hwmon/occ/p8_i2c.c
-> index 29233b4..a7b1d4c 100644
-> --- a/drivers/hwmon/occ/p8_i2c.c
-> +++ b/drivers/hwmon/occ/p8_i2c.c
-> @@ -98,7 +98,7 @@ static int p8_i2c_occ_putscom_be(struct i2c_client *client, u32 address,
->
->  static int p8_i2c_occ_send_cmd(struct occ *occ, u8 *cmd)
->  {
-> -       int i, rc;
-> +       int i, rc, error;
->         unsigned long start;
->         u16 data_length;
->         struct p8_i2c_occ *p8_i2c_occ = to_p8_i2c_occ(occ);
-> @@ -161,22 +161,18 @@ static int p8_i2c_occ_send_cmd(struct occ *occ, u8 *cmd)
->                 rc = -EFAULT;
->         }
->
-> -       occ->error = resp->return_status;
-> -
->         if (rc < 0) {
-> -               occ->error_count++;
-> -               dev_warn(&client->dev, "occ bad response:%d\n",
-> -                        resp->return_status);
-> -               return rc;
-> +               error = resp->return_status;
-> +               dev_warn(&client->dev, "occ bad response:%d\n", error);
-> +               goto done;
->         }
->
->         data_length = get_unaligned_be16(&resp->data_length_be);
->         if (data_length > OCC_RESP_DATA_BYTES) {
-> -               occ->error_count++;
-> -               occ->error = -EDOM;
-> +               rc = -EDOM;
->                 dev_warn(&client->dev, "occ bad data length:%d\n",
->                          data_length);
-> -               return occ->error;
-> +               goto assign;
->         }
->
->         for (i = 8; i < data_length + 7; i += 8) {
-> @@ -185,13 +181,17 @@ static int p8_i2c_occ_send_cmd(struct occ *occ, u8 *cmd)
->                         goto err;
->         }
->
-> -       occ->error_count = 0;
-> -       return data_length + 7;
-> +       occ_reset_error(occ);
-> +       return 0;
->
->  err:
-> -       occ->error_count++;
-> -       occ->error = rc;
->         dev_err(&client->dev, "i2c scom op failed rc:%d\n", rc);
-> +
-> +assign:
-> +       error = rc;
-> +
-> +done:
-> +       occ_set_error(occ, error);
->         return rc;
->  }
->
-> diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
-> index c85f133..db30a2d 100644
-> --- a/drivers/hwmon/occ/p9_sbe.c
-> +++ b/drivers/hwmon/occ/p9_sbe.c
-> @@ -25,7 +25,7 @@ struct p9_sbe_occ {
->
->  static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
->  {
-> -       int rc;
-> +       int rc, error;
->         unsigned long start;
->         struct occ_client *client;
->         struct occ_response *resp = &occ->resp;
-> @@ -35,9 +35,10 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
->
->  retry:
->         client = occ_drv_open(p9_sbe_occ->sbe, 0);
-> -       if (!client)
-> -               /* don't increment occ error counter */
-> -               return -ENODEV;
-> +       if (!client) {
-> +               rc = -ENODEV;
-> +               goto assign;
-> +       }
->
->         rc = occ_drv_write(client, (const char *)&cmd[1], 7);
->         if (rc < 0)
-> @@ -62,7 +63,8 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
->                 }
->                 break;
->         case RESP_RETURN_SUCCESS:
-> -               rc = 0;
-> +               occ_reset_error(occ);
-> +               return 0;
->                 break;
->         case RESP_RETURN_CMD_INVAL:
->         case RESP_RETURN_CMD_LEN:
-> @@ -77,23 +79,19 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
->                 rc = -EFAULT;
->         }
->
-> -       occ->error = resp->return_status;
-> -
-> -       if (rc < 0) {
-> -               occ->error_count++;
-> -               dev_warn(occ->bus_dev, "occ bad response:%d\n",
-> -                        resp->return_status);
-> -               return rc;
-> -       }
-> -
-> -       occ->error_count = 0;
-> -       return 0;
-> +       error = resp->return_status;
-> +       dev_warn(occ->bus_dev, "occ bad response:%d\n", error);
-> +       goto done;
->
->  err:
-> -       occ->error_count++;
-> -       occ->error = rc;
->         occ_drv_release(client);
->         dev_err(occ->bus_dev, "occ bus op failed rc:%d\n", rc);
-> +
-> +assign:
-> +       error = rc;
-> +
-> +done:
-> +       occ_set_error(occ, error);
->         return rc;
->  }
->
-> --
-> 1.8.3.1
->
+--------------63FC02D03F57ECC9B5D92F2F
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <p>This email is about the IPMI chassis command: Get-Boot-Options
+      and Set-Boot-Options.<br>
+      <br>
+      IPMI boot_flags could have one of these ["Network", "Disk",
+      "Safe", "CDROM", "Setup", "Default"]<br>
+      <br>
+      Original Settings implementation had any of the above values
+      settable via "/org/openbmc/settings/host0:boot_flags"<br>
+      <br>
+      There was another setting called "boot_policy" exported via
+      "/org/openbmc/settings/host0:boot_policy" and the valid values
+      were <br>
+      [ONETIME, PERMANENT].<br>
+      <br>
+      User would update "boot_flag" and "boot_policy" with the values
+      and BMC-IPMID would supply these values when asked by Petitboot
+      via Get-Boot-Options.<br>
+      <br>
+      Petit boot would consume these and then if a setting was
+      [ONETIME], then it would write boot_flag to [Default] via
+      Set-Boot-Options IPMI command and IPMID would update
+      /org/openbmc/settings/host0:boot_flags.<br>
+      <br>
+      <b>Jeremy</b>, please help confirm.<br>
+      <br>
+      As part of Settings refactoring, `boot_flags` was divided into 2
+      parts, still using "/org/openbmc/settings/host0:boot_policy" <br>
+      <br>
+      */xyz/openbmc_project/Control/Boot/Mode* : Catering to "Safe",
+      "Setup" and "Regular", Where Regular meaning : 0<br>
+      <br>
+      */xyz/openbmc_project/Control/Boot/Source* : Catering to
+      "Network", "Disk", "ExternalMedia". "Default", Where Default
+      meaning : 0<br>
+      <br>
+      Since IPMI could take any single value from either Mode or Source,
+      IPMID code looked at Source first and if set, it used it and if
+      not, it checked Mode and used if set. If none was set, it returned
+      default as it used to do before.<br>
+      <br>
+      Similiarly, as part of Set-Boot-Options, IPMID processed Source
+      and then Mode and updated respective dbus objects.<br>
+      <br>
+      Now, the proposal is to remove
+      '"/org/openbmc/settings/host0:boot_policy"' and then put this as a
+      boolean into 'persist' property into:<br>
+      <br>
+      /xyz/openbmc_project/Control/Boot/Mode and
+      /xyz/openbmc_project/Control/Boot/Source.<br>
+      <br>
+      IPMID would then look at this new boolean to see if its ONETIME (
+      boolean : 0 ) or PERMANENT ( boolean : 1 ) and respond to
+      Get-Boot-Options.<br>
+      <br>
+      Similarly, for Set-Boot-Options, it would update 'persist'
+      property depending on what is sent by Petit boot.<br>
+      <br>
+      As part of persistency, Settings would save the data that gets
+      written to /xyz/openbmc_project/Control/Boot/Mode and
+      /xyz/openbmc_project/Control/Boot/Source D-Bus object.<br>
+      <br>
+      Please provide your feedback on this.<br>
+      <br>
+      Thank you.<br>
+      <br>
+      !! Vishwa !!<br>
+    </p>
+  </body>
+</html>
+
+--------------63FC02D03F57ECC9B5D92F2F--
