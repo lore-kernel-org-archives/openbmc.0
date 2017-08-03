@@ -1,35 +1,55 @@
-Return-Path: <clg@kaod.org>
-Received: from 7.mo7.mail-out.ovh.net (7.mo7.mail-out.ovh.net [46.105.43.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xNl0k1nZ8zDqHq
- for <openbmc@lists.ozlabs.org>; Fri,  4 Aug 2017 08:22:14 +1000 (AEST)
-Received: from player697.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo7.mail-out.ovh.net (Postfix) with ESMTP id AACCD65925
- for <openbmc@lists.ozlabs.org>; Fri,  4 Aug 2017 00:16:32 +0200 (CEST)
-Received: from zorba.kaod.org (bad36-1-78-202-132-1.fbx.proxad.net
- [78.202.132.1]) (Authenticated sender: postmaster@kaod.org)
- by player697.ha.ovh.net (Postfix) with ESMTPSA id EBC6748008B;
- Fri,  4 Aug 2017 00:16:25 +0200 (CEST)
-Subject: Re: [PATCH linux dev-4.10 v7] ARM: dts: aspeed: witherspoon: Add
- gpio-keys-polled for fan presence
-To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-References: <1501786248-5447-1-git-send-email-eajames@linux.vnet.ibm.com>
-Cc: cbostic@linux.vnet.ibm.com, joel@jms.id.au,
- "Edward A. James" <eajames@us.ibm.com>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <0afaecee-1c26-2283-5fc1-138396455bbd@kaod.org>
-Date: Fri, 4 Aug 2017 00:16:20 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.8.0
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xNlFV4PGQzDqJ0
+ for <openbmc@lists.ozlabs.org>; Fri,  4 Aug 2017 08:33:18 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="nDUuvU5w"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="jZa7eQ1W"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 2CFF320B8A;
+ Thu,  3 Aug 2017 18:33:16 -0400 (EDT)
+Received: from web1 ([10.202.2.211])
+ by compute4.internal (MEProxy); Thu, 03 Aug 2017 18:33:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; bh=NE8n+1hKyjISDNFbxzhGTW8dHMNll
+ 4/VQBsfvxVODz4=; b=nDUuvU5wl5SsetUJwMO2HCgaMWPlFISeLIXyfNxoQg0Ix
+ jV2dTTXTow79TZ+e781SdU8DH0m4mp/Fk+GkXWISLt72QHYFUkiH83TZsFQUkENm
+ Hmr2sWzCVmmqU4mbaBB7D6zQv1pppzh8phFVh9+UCLtCC7qq5tjPwIErjGoLtl4s
+ O+XdPVb2n5A2OqH5972vHamkDtCeqzt2fNaRNWigJj3r6fXcpyTWRdyRfXmqqYKI
+ l15nsf1oRMY4CZRUlrQ55kJVIdtaFhOzl0YUB/lRxDt4S0X6YQKao2j0nA/Qb9Rg
+ ens2Z1fOdVQzcNqgFswCRksXTzza5vCNiZ6IJwjRA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=NE8n+1
+ hKyjISDNFbxzhGTW8dHMNll4/VQBsfvxVODz4=; b=jZa7eQ1W2tcvRxT9ZKF1EB
+ PwO1XmWBQ/KkX8nTrG+TB4kuQRk0ngXgwWNjGSba3832+HxyuaMDtABnIp/i3rEp
+ C1sehulJF3qSmbh0vIfLpaKm3Q/F2y6OXdcsRAgaoiIiXbGWOjcf1a7uRi47/+1I
+ Kv2Ou0o8pe15bMCsoCsHS+avw2Qu8V3WkF0gvXSTBtUaOxMBtyoUhg/rJuzH9dLm
+ I4ELAKyRHMlJgviDEq0EsZsAZUPi8yQsOTAkRskDd1KIt1fepwowmK5WHwd683PV
+ I041nYfOqGX00u403ebBsdJOl8Ux1DjflPP0HY37p9SYYiRQVN1S+Wa0wnhnZ1tw
+ ==
+X-ME-Sender: <xms:rKSDWUOeLCcaD-v16WHIl7o8aqWKDYB-q8KEDnn9GYVsJCEqKjoelQ>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id F10D695237; Thu,  3 Aug 2017 18:33:15 -0400 (EDT)
+Message-Id: <1501799595.3655825.1062562904.7DA58D45@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Anton Novikov <a.novikov@yadro.com>, openbmc@lists.ozlabs.org
 MIME-Version: 1.0
-In-Reply-To: <1501786248-5447-1-git-send-email-eajames@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 11583258242451934193
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelkedrjeeggdduvdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-7b2cde4a
+Subject: Re: Arch Linux OpenSSL build fails
+References: <9242f324-6e74-158f-9349-13b47088e2af@yadro.com>
+In-Reply-To: <9242f324-6e74-158f-9349-13b47088e2af@yadro.com>
+Date: Fri, 04 Aug 2017 08:03:15 +0930
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -41,217 +61,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Aug 2017 22:22:14 -0000
+X-List-Received-Date: Thu, 03 Aug 2017 22:33:20 -0000
 
-On 08/03/2017 08:50 PM, Eddie James wrote:
-> From: "Edward A. James" <eajames@us.ibm.com>
+
+On Fri, Aug 4, 2017, at 02:27, Anton Novikov wrote:
+> | make[2]: Entering directory 
+> '/home/anton/src/openbmc/build/tmp/work/x86_64-linux/openssl-native/1.0.2j-r0/openssl-1.0.2j'
+> | [ -z "" ] || gcc  -fPIC -DOPENSSL_PIC -DOPENSSL_THREADS -D_REENTRANT 
+> -DDSO_DLFCN -DHAVE_DLFCN_H -DOPENSSL_NO_ERR -DL_ENDIAN      -DTERMIO 
+> -isystem/home/anton/src/openbmc/build/tmp/sysroots/x86_64-linux/usr/include 
+> -O2 -pipe -Wall -Wa,--noexecstack -DHAVE_CRYPTODEV 
+> -DUSE_CRYPTODEV_DIGESTS -DOPENSSL_IA32_SSE2 -DOPENSSL_BN_ASM_MONT 
+> -DOPENSSL_BN_ASM_MONT5 -DOPENSSL_BN_ASM_GF2m -DRC4_ASM -DSHA1_ASM 
+> -DSHA256_ASM -DSHA512_ASM -DMD5_ASM -DAES_ASM -DVPAES_ASM -DBSAES_ASM 
+> -DGHASH_ASM -DECP_NISTZ256_ASM -Iinclude \
+> |     -DFINGERPRINT_PREMAIN_DSO_LOAD -o fips_premain_dso  \
+> |     fips_premain.c fipscanister.o \
+> |     libcrypto.a -lgcc -ldl
+> | make[3]: Entering directory 
+> '/home/anton/src/openbmc/build/tmp/work/x86_64-linux/openssl-native/1.0.2j-r0/openssl-1.0.2j'
+> | make[4]: Entering directory 
+> '/home/anton/src/openbmc/build/tmp/work/x86_64-linux/openssl-native/1.0.2j-r0/openssl-1.0.2j'
+> | /usr/bin/ld: libcrypto.a(sha1-x86_64.o): relocation R_X86_64_PC32 
+> against undefined symbol `OPENSSL_ia32cap_P' can not be used when making 
+> a shared object; recompile with -fPIC
+> | /usr/bin/ld: final link failed: Bad value
+> | collect2: error: ld returned 1 exit status
+> | make[4]: *** [Makefile.shared:171: link_a.gnu] Error 1
 > 
-> Add gpio-keys-polled node for pca955x fan presence lines. Change the binding
-> of the pca9552 to remove the leds and instead define all the provided gpio pins
-> there. Add back the leds in a 'gpio-leds' compatible entry.
-> 
-> Polling period of 1 second to be determined to be the max acceptable
-> value based on discussions with Brad Bishop and Matt Spinler. Tested
-> with gpiomon program - verified.
-> 
-> Patch based on Cedric's example - thanks! Tested on witherspoon.
 
-You did the most difficult part: testing. 
-
-Acked-by: Cédric Le Goater <clg@kaod.org>
-
-Thanks,
-
-C. 
-
-
-> 
-> Signed-off-by: Edward A. James <eajames@us.ibm.com>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 152 ++++++++++++++++++-----
->  1 file changed, 124 insertions(+), 28 deletions(-)
-> 
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> index c0f992e..9ab8e46 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> @@ -56,6 +56,77 @@
->  		};
->  	};
->  
-> +	gpio-keys-polled {
-> +		compatible = "gpio-keys-polled";
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +		poll-interval = <1000>;
-> +
-> +		fan0-presence {
-> +			label = "fan0-presence";
-> +			gpios = <&pca0 4 GPIO_ACTIVE_LOW>;
-> +			linux,code = <4>;
-> +		};
-> +
-> +		fan1-presence {
-> +			label = "fan1-presence";
-> +			gpios = <&pca0 5 GPIO_ACTIVE_LOW>;
-> +			linux,code = <5>;
-> +		};
-> +
-> +		fan2-presence {
-> +			label = "fan2-presence";
-> +			gpios = <&pca0 6 GPIO_ACTIVE_LOW>;
-> +			linux,code = <6>;
-> +		};
-> +
-> +		fan3-presence {
-> +			label = "fan3-presence";
-> +			gpios = <&pca0 7 GPIO_ACTIVE_LOW>;
-> +			linux,code = <7>;
-> +		};
-> +	};
-> +
-> +	pca_leds {
-> +		compatible = "gpio-leds";
-> +
-> +		fan0 {
-> +			label = "fan0";
-> +			default-state = "keep";
-> +			gpios = <&pca0 0 GPIO_ACTIVE_LOW>;
-> +		};
-> +		fan1 {
-> +			label = "fan1";
-> +			default-state = "keep";
-> +			gpios = <&pca0 1 GPIO_ACTIVE_LOW>;
-> +		};
-> +		fan2 {
-> +			label = "fan2";
-> +			default-state = "keep";
-> +			gpios = <&pca0 2 GPIO_ACTIVE_LOW>;
-> +		};
-> +		fan3 {
-> +			label = "fan3";
-> +			default-state = "keep";
-> +			gpios = <&pca0 3 GPIO_ACTIVE_LOW>;
-> +		};
-> +		front_fault {
-> +			label = "front-fault";
-> +			default-state = "keep";
-> +			gpios = <&pca0 13 GPIO_ACTIVE_LOW>;
-> +		};
-> +		front_power {
-> +			label = "front-power";
-> +			default-state = "keep";
-> +			gpios = <&pca0 14 GPIO_ACTIVE_LOW>;
-> +		};
-> +		front_id {
-> +			label = "front-id";
-> +			default-state = "keep";
-> +			gpios = <&pca0 15 GPIO_ACTIVE_LOW>;
-> +		};
-> +	};
-> +
->  	leds {
->  		compatible = "gpio-leds";
->  
-> @@ -278,47 +349,72 @@
->  		#address-cells = <1>;
->  		#size-cells = <0>;
->  
-> -		fan0: led@0 {
-> -			label = "fan0";
-> -			default-state = "keep";
-> +		gpio-controller;
-> +		#gpio-cells = <2>;
-> +
-> +		gpio@0 {
->  			reg = <0>;
-> -			type = <PCA955X_TYPE_LED>;
-> +			type = <PCA955X_TYPE_GPIO>;
->  		};
-> -		fan1: led@1 {
-> -			label = "fan1";
-> -			default-state = "keep";
-> +		gpio@1 {
->  			reg = <1>;
-> -			type = <PCA955X_TYPE_LED>;
-> +			type = <PCA955X_TYPE_GPIO>;
->  		};
-> -		fan2: led@2 {
-> -			label = "fan2";
-> -			default-state = "keep";
-> +		gpio@2 {
->  			reg = <2>;
-> -			type = <PCA955X_TYPE_LED>;
-> +			type = <PCA955X_TYPE_GPIO>;
->  		};
-> -		fan3: led@3 {
-> -			label = "fan3";
-> -			default-state = "keep";
-> +		gpio@3 {
->  			reg = <3>;
-> -			type = <PCA955X_TYPE_LED>;
-> +			type = <PCA955X_TYPE_GPIO>;
->  		};
-> -		front_fault: led@13 {
-> -			label = "front-fault";
-> -			default-state = "keep";
-> +		gpio@4 {
-> +			reg = <4>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +		gpio@5 {
-> +			reg = <5>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +		gpio@6 {
-> +			reg = <6>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +		gpio@7 {
-> +			reg = <7>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +		gpio@8 {
-> +			reg = <8>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +		gpio@9 {
-> +			reg = <9>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +		gpio@10 {
-> +			reg = <10>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +		gpio@11 {
-> +			reg = <11>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +		gpio@12 {
-> +			reg = <12>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +		gpio@13 {
->  			reg = <13>;
-> -			type = <PCA955X_TYPE_LED>;
-> +			type = <PCA955X_TYPE_GPIO>;
->  		};
-> -		front_power: led@14 {
-> -			label = "front-power";
-> -			default-state = "keep";
-> +		gpio@14 {
->  			reg = <14>;
-> -			type = <PCA955X_TYPE_LED>;
-> +			type = <PCA955X_TYPE_GPIO>;
->  		};
-> -		front_id: led@15 {
-> -			label = "front-id";
-> -			default-state = "keep";
-> +		gpio@15 {
->  			reg = <15>;
-> -			type = <PCA955X_TYPE_LED>;
-> +			type = <PCA955X_TYPE_GPIO>;
->  		};
->  	};
->  };
-> 
+Possibly a gcc/binutils bug:
+https://gcc.gnu.org/bugzilla/show_bug.cgi?id=65248
