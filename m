@@ -1,70 +1,55 @@
-Return-Path: <mspinler@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <a.novikov@yadro.com>
+X-Greylist: delayed 350 seconds by postgrey-1.36 at bilbo;
+ Fri, 04 Aug 2017 03:02:40 AEST
+Authentication-Results: lists.ozlabs.org;
+ dkim=fail reason="signature verification failed" (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="OGer0iDH"; 
+ dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xNZ7C3JypzDqJM
- for <openbmc@lists.ozlabs.org>; Fri,  4 Aug 2017 01:42:14 +1000 (AEST)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v73FfoV0013585
- for <openbmc@lists.ozlabs.org>; Thu, 3 Aug 2017 11:42:12 -0400
-Received: from e15.ny.us.ibm.com (e15.ny.us.ibm.com [129.33.205.205])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2c45a6nu4c-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 03 Aug 2017 11:42:11 -0400
-Received: from localhost
- by e15.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
- Thu, 3 Aug 2017 11:42:11 -0400
-Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
- by e15.ny.us.ibm.com (146.89.104.202) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 3 Aug 2017 11:42:10 -0400
-Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
- [9.57.199.110])
- by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v73Fg9cJ26280036; Thu, 3 Aug 2017 15:42:09 GMT
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3EDCEAE04E;
- Thu,  3 Aug 2017 11:42:24 -0400 (EDT)
-Received: from [9.10.99.182] (unknown [9.10.99.182])
- by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP id D3317AE043;
- Thu,  3 Aug 2017 11:42:23 -0400 (EDT)
-Subject: Re: [PATCH linux dev-4.10 v3 4/5] Documentation: ABI: Add IBM power
- supply sysfs documentation
-To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org,
- cbostic@linux.vnet.ibm.com
-References: <1501705534-27606-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1501705534-27606-5-git-send-email-eajames@linux.vnet.ibm.com>
-Cc: joel@jms.id.au, bjwyman@gmail.com, "Edward A. James" <eajames@us.ibm.com>
-From: Matt Spinler <mspinler@linux.vnet.ibm.com>
-Date: Thu, 3 Aug 2017 10:42:13 -0500
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101
- Thunderbird/45.8.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xNbw04gRHzDq7c
+ for <openbmc@lists.ozlabs.org>; Fri,  4 Aug 2017 03:02:40 +1000 (AEST)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id A63CA450A9
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Aug 2017 16:56:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-language:content-transfer-encoding:content-type
+ :content-type:mime-version:user-agent:date:date:message-id
+ :subject:subject:from:from:received:received:received; s=mta-01;
+ t=1501779404; x=1503593805; bh=gwlpk4Bdbig5Zwbp647V2tSgthRKhHgm
+ cw7C26O0tMo=; b=OGer0iDH0oOalKI+RojM4PMlOILbnG3TFDXAZMYmY7+qNz3L
+ xFSB96XAxlVSbPzCRb3mjryPRQRy9fCFtWc4dP/u1D+k2Zm/wgf/N3QTRpyx/4rE
+ kVkKqh85xWcU26GQNyrI9NZnDixW9qFCvqwiBpBBB98AHpTIE9VyFr9KtmE=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id 5bXwYOu5JY3j for <openbmc@lists.ozlabs.org>;
+ Thu,  3 Aug 2017 19:56:44 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
+ [172.17.10.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id D38F044F5C
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Aug 2017 19:56:44 +0300 (MSK)
+Received: from [172.17.15.146] (172.17.15.146) by T-EXCH-02.corp.yadro.com
+ (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Thu, 3 Aug
+ 2017 19:56:42 +0300
+To: <openbmc@lists.ozlabs.org>
+From: Anton Novikov <a.novikov@yadro.com>
+Subject: Arch Linux OpenSSL build fails
+Message-ID: <9242f324-6e74-158f-9349-13b47088e2af@yadro.com>
+Date: Thu, 3 Aug 2017 19:57:41 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.2.1
 MIME-Version: 1.0
-In-Reply-To: <1501705534-27606-5-git-send-email-eajames@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 17080315-0036-0000-0000-000002533ADD
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007477; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000216; SDB=6.00897017; UDB=6.00448794; IPR=6.00677200; 
- BA=6.00005509; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016516; XFM=3.00000015;
- UTC=2017-08-03 15:42:11
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17080315-0037-0000-0000-0000415115A6
-Message-Id: <bbd91224-bece-095b-440a-beb24236455a@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-08-03_08:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
- definitions=main-1708030241
+Content-Language: en-US
+X-Originating-IP: [172.17.15.146]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-02.corp.yadro.com (172.17.10.102)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -76,76 +61,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Aug 2017 15:42:16 -0000
+X-List-Received-Date: Thu, 03 Aug 2017 17:02:42 -0000
 
-
-
-On 8/2/2017 3:25 PM, Eddie James wrote:
-> From: "Edward A. James" <eajames@us.ibm.com>
->
-> Signed-off-by: Edward A. James <eajames@us.ibm.com>
-> ---
->   Documentation/ABI/testing/sysfs-driver-ibmps | 49 ++++++++++++++++++++++++++++
->   1 file changed, 49 insertions(+)
->   create mode 100644 Documentation/ABI/testing/sysfs-driver-ibmps
->
-> diff --git a/Documentation/ABI/testing/sysfs-driver-ibmps b/Documentation/ABI/testing/sysfs-driver-ibmps
-> new file mode 100644
-> index 0000000..1645685
-> --- /dev/null
-> +++ b/Documentation/ABI/testing/sysfs-driver-ibmps
-> @@ -0,0 +1,49 @@
-> +What:		/sys/bus/i2c/devices/<dev>/clear_faults
-> +KernelVersion:	4.13
-> +Contact:	eajames@us.ibm.com
-> +Description:	Clears pmbus faults for this power supply.
-> +
-> +What:		/sys/bus/i2c/devices/<dev>/status_word
-> +KernelVersion:	4.13
-> +Contact:	eajames@us.ibm.com
-> +Description:	Displays the STATUS_WORD register.
-
-Hey Chris,  I think you did some research and found that upstream 
-wouldn't allow capturing full registers like this?  Was that the case?  
-Or does it not matter as long as it isn't in hwmon?
-
-> +
-> +What:		/sys/bus/i2c/devices/<dev>/status_vout
-> +KernelVersion:	4.13
-> +Contact:	eajames@us.ibm.com
-> +Description:	Displays the STATUS_VOUT register.
-> +
-> +What:		/sys/bus/i2c/devices/<dev>/status_iout
-> +KernelVersion:	4.13
-> +Contact:	eajames@us.ibm.com
-> +Description:	Displays the STATUS_IOUT register.
-> +
-> +What:		/sys/bus/i2c/devices/<dev>/status_input
-> +KernelVersion:	4.13
-> +Contact:	eajames@us.ibm.com
-> +Description:	Displays the STATUS_INPUT register.
-> +
-> +What:		/sys/bus/i2c/devices/<dev>/status_temp
-> +KernelVersion:	4.13
-> +Contact:	eajames@us.ibm.com
-> +Description:	Displays the STATUS_TEMPERATURE register.
-> +
-> +What:		/sys/bus/i2c/devices/<dev>/status_cml
-> +KernelVersion:	4.13
-> +Contact:	eajames@us.ibm.com
-> +Description:	Displays the STATUS_CML register.
-> +
-> +What:		/sys/bus/i2c/devices/<dev>/status_other
-> +KernelVersion:	4.13
-> +Contact:	eajames@us.ibm.com
-> +Description:	Displays the STATUS_OTHER register.
-> +
-> +What:		/sys/bus/i2c/devices/<dev>/status_mfr
-> +KernelVersion:	4.13
-> +Contact:	eajames@us.ibm.com
-> +Description:	Displays the STATUS_MFR_SPECIFIC register.
-> +
-> +What:		/sys/bus/i2c/devices/<dev>/status_fan
-> +KernelVersion:	4.13
-> +Contact:	eajames@us.ibm.com
-> +Description:	Displays the STATUS_FAN register.
+| make[2]: Entering directory 
+'/home/anton/src/openbmc/build/tmp/work/x86_64-linux/openssl-native/1.0.2j-r0/openssl-1.0.2j'
+| [ -z "" ] || gcc  -fPIC -DOPENSSL_PIC -DOPENSSL_THREADS -D_REENTRANT 
+-DDSO_DLFCN -DHAVE_DLFCN_H -DOPENSSL_NO_ERR -DL_ENDIAN      -DTERMIO 
+-isystem/home/anton/src/openbmc/build/tmp/sysroots/x86_64-linux/usr/include 
+-O2 -pipe -Wall -Wa,--noexecstack -DHAVE_CRYPTODEV 
+-DUSE_CRYPTODEV_DIGESTS -DOPENSSL_IA32_SSE2 -DOPENSSL_BN_ASM_MONT 
+-DOPENSSL_BN_ASM_MONT5 -DOPENSSL_BN_ASM_GF2m -DRC4_ASM -DSHA1_ASM 
+-DSHA256_ASM -DSHA512_ASM -DMD5_ASM -DAES_ASM -DVPAES_ASM -DBSAES_ASM 
+-DGHASH_ASM -DECP_NISTZ256_ASM -Iinclude \
+|     -DFINGERPRINT_PREMAIN_DSO_LOAD -o fips_premain_dso  \
+|     fips_premain.c fipscanister.o \
+|     libcrypto.a -lgcc -ldl
+| make[3]: Entering directory 
+'/home/anton/src/openbmc/build/tmp/work/x86_64-linux/openssl-native/1.0.2j-r0/openssl-1.0.2j'
+| make[4]: Entering directory 
+'/home/anton/src/openbmc/build/tmp/work/x86_64-linux/openssl-native/1.0.2j-r0/openssl-1.0.2j'
+| /usr/bin/ld: libcrypto.a(sha1-x86_64.o): relocation R_X86_64_PC32 
+against undefined symbol `OPENSSL_ia32cap_P' can not be used when making 
+a shared object; recompile with -fPIC
+| /usr/bin/ld: final link failed: Bad value
+| collect2: error: ld returned 1 exit status
+| make[4]: *** [Makefile.shared:171: link_a.gnu] Error 1
