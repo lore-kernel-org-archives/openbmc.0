@@ -1,42 +1,52 @@
-Return-Path: <clg@kaod.org>
-X-Greylist: delayed 599 seconds by postgrey-1.36 at bilbo;
- Thu, 03 Aug 2017 19:22:04 AEST
-Received: from 6.mo1.mail-out.ovh.net (6.mo1.mail-out.ovh.net [46.105.43.205])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xNPhX5d8gzDrRg
- for <openbmc@lists.ozlabs.org>; Thu,  3 Aug 2017 19:22:04 +1000 (AEST)
-Received: from player795.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo1.mail-out.ovh.net (Postfix) with ESMTP id 277318A24A
- for <openbmc@lists.ozlabs.org>; Thu,  3 Aug 2017 11:06:09 +0200 (CEST)
-Received: from zorba.kaod.org (LFbn-1-10652-153.w90-89.abo.wanadoo.fr
- [90.89.238.153]) (Authenticated sender: postmaster@kaod.org)
- by player795.ha.ovh.net (Postfix) with ESMTPSA id BDAC91200A2;
- Thu,  3 Aug 2017 11:06:06 +0200 (CEST)
-Subject: Re: [PATCH linux dev-4.10 v6 1/2] ARM: dts: aspeed: Witherspoon add
- gpio-keys-polled for fan presence
-To: Christopher Bostic <cbostic@linux.vnet.ibm.com>, joel@jms.id.au
-References: <20170729183638.17503-1-cbostic@linux.vnet.ibm.com>
- <20170729183638.17503-2-cbostic@linux.vnet.ibm.com>
- <fda3e51f-6c91-dddb-2999-657efdcae829@kaod.org>
- <b687fd39-2fb4-5533-0a11-271e1bca68cd@linux.vnet.ibm.com>
- <277552bc-20bc-9bd2-07d1-65153d73139a@kaod.org>
- <0f8cbd95-db70-4ba4-3c4b-7d6b091e7778@kaod.org>
- <51a7aefd-3e95-6dbc-c19b-b0fdac9aa74f@linux.vnet.ibm.com>
-Cc: openbmc@lists.ozlabs.org
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <1e553221-3149-fa6b-d158-bd172480ede4@kaod.org>
-Date: Thu, 3 Aug 2017 11:06:06 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.8.0
+Return-Path: <mine260309@gmail.com>
+Received: from mail-io0-x243.google.com (mail-io0-x243.google.com
+ [IPv6:2607:f8b0:4001:c06::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xNQKB6fJ3zDrD7
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Aug 2017 19:50:22 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="tIK9Mdvf"; 
+ dkim-atps=neutral
+Received: by mail-io0-x243.google.com with SMTP id j32so915118iod.3
+ for <openbmc@lists.ozlabs.org>; Thu, 03 Aug 2017 02:50:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=+EXZG6L6t3bELC6i4WLWyoYtcRVFWF1Dd9hAmGJl5Qg=;
+ b=tIK9Mdvfd6q3DeBV3hPvRCWHWutNSUyE1f3Kx2RySPMSdoZdXfisfcfiNjol9usIuU
+ FRZ0xILEzLS1lDUZ/K4o14BvLuDzMM/MQvhFapxpWtm8YW54quhc1xSqsU2ZPJT9vsUi
+ +FhBOdXeU+IzQ3g+mOeTXLsr8cqkQtp2XZCtBcfvE/8Z9slUmkF351sxh+ytVAh33hrn
+ lSpmRP2Qih8rI3WNxKssZX7/hXLCbKRQw8nkLiU8v+KL2gKEWBI+9O8dlOHMdF8gtLY1
+ eXwYsfAnqqN4xK2wd7htD3fSssv65ia0TDcte1i/r6W+V/LtXD9OluXdBJkJuniueUnQ
+ BivA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=+EXZG6L6t3bELC6i4WLWyoYtcRVFWF1Dd9hAmGJl5Qg=;
+ b=DxAq3En3eTVaymDu6tkEiS+CwhDAKE88KQ4fXTpQvYglrtkrxLwngnO6JQ9dEqJEWi
+ z62GJmCnt7L7rPk9xSpU7UH2uV5EpzEHx2/tz4KTUjHnuIoQIbUBwh7JnUyzYdvDHP8/
+ r9uFnPbqLmGJa51W5XhmUFQpKZ2jYZJBQ0rPTJLjcL4tcQuK16Ak09ZuvY1t7+XxpImE
+ H6hWs0VqGdM1JiQXgoQyaoqRRx0bDEPhnFVdIkFzRjdxOj4uS3SZCp5EHCqdG8ArenG3
+ 0uLysc34r6v5RWNgz0a14ui4jdkdneNTJDAyKvBA368JcPqu1yv+WLE3PCc8LUBkzerg
+ D5HA==
+X-Gm-Message-State: AHYfb5g1dV5+ltzmsIBbWTqmEYdbAGcpLVEE62tlTfPWu5QFcBOwI/BF
+ qzKS/X32WbvRskDuQOQks6/65wIG4gSzGbY=
+X-Received: by 10.107.137.142 with SMTP id t14mr1050768ioi.215.1501753820955; 
+ Thu, 03 Aug 2017 02:50:20 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <51a7aefd-3e95-6dbc-c19b-b0fdac9aa74f@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 16681614496398281474
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelkedrjeefgdduudcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+Received: by 10.79.30.129 with HTTP; Thu, 3 Aug 2017 02:50:20 -0700 (PDT)
+In-Reply-To: <1499294830-8843-1-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1499294830-8843-1-git-send-email-eajames@linux.vnet.ibm.com>
+From: Lei YU <mine260309@gmail.com>
+Date: Thu, 3 Aug 2017 17:50:20 +0800
+Message-ID: <CAARXrt=iaoPw5evb2b3v8Rtcxdp1vsFiok4+1tSA6RW5aG484Q@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v2] drivers/hwmon/occ: Add sysfs_notify on
+ error
+To: Eddie James <eajames@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ "Edward A. James" <eajames@us.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -48,327 +58,295 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Aug 2017 09:22:05 -0000
+X-List-Received-Date: Thu, 03 Aug 2017 09:50:23 -0000
 
-On 08/03/2017 04:27 AM, Christopher Bostic wrote:
-> 
-> 
-> On 8/2/17 3:20 AM, Cédric Le Goater wrote:
->> On 08/02/2017 09:10 AM, Cédric Le Goater wrote:
->>> On 08/02/2017 04:33 AM, Christopher Bostic wrote:
->>>>
->>>> On 7/31/17 2:48 AM, Cédric Le Goater wrote:
->>>>> On 07/29/2017 08:36 PM, Christopher Bostic wrote:
->>>>>> Add gpio-keys-polled  node for pca955x fan presence lines.
->>>>>> Add GPIO details to pca955x for the presence lines as well.
->>>>>>
->>>>>> Polling period of 1 second determined to be the max acceptable
->>>>>> value based on discussions with Brad Bishop and Matt Spinler.
->>>>>> Tested with gpiomon program - verified.
->>>>>>
->>>>>> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
->>>>>> ---
->>>>>> v6 - Add gpio pin details for fan presence to pca955x node
->>>>>> v5 - Fix gpio-keys-polled driver probe errors.  Missing pca955x
->>>>>>        gpio cells property and wrong format for poll-interval.
->>>>>> v4 - Add details regarding polling period to commit message.
->>>>>> v3 - Remove 'autorepeat'
->>>>>>      - Increase polling period to 1 second.
->>>>>>      - Remove GPIO specifiers from pca955x in dev tree
->>>>>> v2 - Change 'linux,code' from a unique global value to a local one
->>>>>>        for all the gpio-keys-polled devices.
->>>>>> ---
->>>>>>    arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 52 ++++++++++++++++++++++++
->>>>>>    1 file changed, 52 insertions(+)
->>>>>>
->>>>>> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
->>>>>> index 5afc03a..70328668 100644
->>>>>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
->>>>>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
->>>>>> @@ -56,6 +56,37 @@
->>>>>>            };
->>>>>>        };
->>>>>>    +    gpio-keys-polled {
->>>>>> +        compatible = "gpio-keys-polled";
->>>>>> +        #address-cells = <1>;
->>>>>> +        #size-cells = <0>;
->>>>>> +        poll-interval = <1000>;
->>>>>> +
->>>>>> +        fan0-presence {
->>>>>> +            label = "fan0-presence";
->>>>>> +            gpios = <&pca0 4 GPIO_ACTIVE_LOW>;
->>>>>> +            linux,code = <4>;
->>>>>> +        };
->>>>>> +
->>>>>> +        fan1-presence {
->>>>>> +            label = "fan1-presence";
->>>>>> +            gpios = <&pca0 5 GPIO_ACTIVE_LOW>;
->>>>>> +            linux,code = <5>;
->>>>>> +        };
->>>>>> +
->>>>>> +        fan2-presence {
->>>>>> +            label = "fan2-presence";
->>>>>> +            gpios = <&pca0 6 GPIO_ACTIVE_LOW>;
->>>>>> +            linux,code = <6>;
->>>>>> +        };
->>>>>> +
->>>>>> +        fan3-presence {
->>>>>> +            label = "fan3-presence";
->>>>>> +            gpios = <&pca0 7 GPIO_ACTIVE_LOW>;
->>>>>> +            linux,code = <7>;
->>>>>> +        };
->>>>>> +    };
->>>>>> +
->>>>>>        leds {
->>>>>>            compatible = "gpio-leds";
->>>>>>    @@ -277,6 +308,7 @@
->>>>>>            reg = <0x60>;
->>>>>>            #address-cells = <1>;
->>>>>>            #size-cells = <0>;
->>>>>> +        #gpio-cells = <2>;
->>>>> you should also add a :
->>>>>
->>>>>          gpio-controller;
->>>>>
->>>>> if you want to use the lines as GPIOs
->>>>>
->>>>> C.
->>>> Hi Cedric,
->>>>
->>>> If I add 'gpio-controller' here are you indicating that would not
->>>> require any modifications I made to the leds-pca955x.c file?
->>> yes.
->>>
->>>> I've tried that and found I still need that leds-pca955x.c change
->>>> even if I add 'gpio-controller' attribute to get gpio-keys-polled
->>>>   device driver to properly probe the pca955x lines.
->>> OK. I will give it a try on a QEMU. Maybe there are some incompatibilities
->>> with the gpio-keys driver bindings
->> It fails indeed, but the fix you are proposing does not look right
->> either.
->>
->> Maybe we should fully define the pca9552 as a gpio controller and
->> then define a gpio-leds and a gpio-keys-polled on top of it ?
-> Hi Cedric,
-> 
-> What would be entailed in fully defining the pca9552 as a gpio controller?   
-> Any other driver examples would help if you know of any.
+Tested-by: Lei YU <mine260309@gmail.com>
 
-See below for an example. Quickly tested on QEMU.
+Without this patch, the occ hwmon sensor readings are all empty on P8.
+With this patch the issue is fixed and all the readings are OK.
 
-> Currently I see that it has a struct gpio_chip embedded in its 955x chip 
-> structure and that it defines its various properties, .direction_input, 
-> .direction_output, etc...   The struct gpio_chip ngpio field is set to a 
-> subset of pins that are not labeled as LEDS.  Hence my added change to count 
-> LEDS towards total ngpio's. Given that the pins I'm interested in are 4-7 
-> this falls outside the bounds of what the gpio chip considers total gpio 
-> count.   As a result gpio-keys-polled driver probe fails.
-> 
-> Maybe a quick conference call might be useful?
-
-Sure if needed.
-
-Thanks,
-
-C. 
+Note: I replied to the [v3] mail but it's found archived.
+So reply here again, but I meant to acknowledge the [v3] version.
 
 
-From: Cédric Le Goater <clg@kaod.org>
-Subject: [PATCH] ARM: dts: aspeed: witherspoon: add a gpio-keys-polled binding
-Date: Fri, 05 May 2017 09:30:25 +0200
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-Change the current binding of the pca9552 device to be a GPIO expander
-and add on top of it a 'gpio-leds' binding to redefine the led pins of
-the pca9552. Finally add a 'gpio-keys-polled' binding.
-
-Signed-off-by: Cédric Le Goater <clg@kaod.org>
----
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts |  151 ++++++++++++++++++-----
- 1 file changed, 123 insertions(+), 28 deletions(-)
-
-Index: linux-openbmc-4.10.git/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-===================================================================
---- linux-openbmc-4.10.git.orig/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ linux-openbmc-4.10.git/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -93,6 +93,77 @@
- 		compatible = "iio-hwmon";
- 		io-channels = <&bmp 1>;
- 	};
-+
-+	gpio-keys-polled {
-+		compatible = "gpio-keys-polled";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		poll-interval = <1000>;
-+
-+		fan0-presence {
-+			label = "fan0-presence";
-+			gpios = <&pca0 4 GPIO_ACTIVE_LOW>;
-+			linux,code = <4>;
-+		};
-+
-+		fan1-presence {
-+			label = "fan1-presence";
-+			gpios = <&pca0 5 GPIO_ACTIVE_LOW>;
-+			linux,code = <5>;
-+		};
-+
-+		fan2-presence {
-+			label = "fan2-presence";
-+			gpios = <&pca0 6 GPIO_ACTIVE_LOW>;
-+			linux,code = <6>;
-+		};
-+
-+		fan3-presence {
-+			label = "fan3-presence";
-+			gpios = <&pca0 7 GPIO_ACTIVE_LOW>;
-+			linux,code = <7>;
-+		};
-+	};
-+
-+	pca_leds {
-+		compatible = "gpio-leds";
-+
-+		fan0 {
-+			label = "fan0";
-+			default-state = "keep";
-+			gpios = <&pca0 0 GPIO_ACTIVE_LOW>;
-+		};
-+		fan1 {
-+			label = "fan1";
-+			default-state = "keep";
-+			gpios = <&pca0 1 GPIO_ACTIVE_LOW>;
-+		};
-+		fan2 {
-+			label = "fan2";
-+			default-state = "keep";
-+			gpios = <&pca0 2 GPIO_ACTIVE_LOW>;
-+		};
-+		fan3 {
-+			label = "fan3";
-+			default-state = "keep";
-+			gpios = <&pca0 3 GPIO_ACTIVE_LOW>;
-+		};
-+		front_fault {
-+			label = "front-fault";
-+			default-state = "keep";
-+			gpios = <&pca0 13 GPIO_ACTIVE_LOW>;
-+		};
-+		front_power {
-+			label = "front-power";
-+			default-state = "keep";
-+			gpios = <&pca0 14 GPIO_ACTIVE_LOW>;
-+		};
-+		front_id {
-+			label = "front-id";
-+			default-state = "keep";
-+			gpios = <&pca0 15 GPIO_ACTIVE_LOW>;
-+		};
-+	};
- };
- 
- #include "ibm-power9-cfam.dtsi"
-@@ -280,48 +351,72 @@
- 		reg = <0x60>;
- 		#address-cells = <1>;
- 		#size-cells = <0>;
-+                gpio-controller;
-+		#gpio-cells = <2>;
- 
--		fan0: led@0 {
--			label = "fan0";
--			default-state = "keep";
-+		gpio@0 {
- 			reg = <0>;
--			type = <PCA955X_TYPE_LED>;
-+			type = <PCA955X_TYPE_GPIO>;
- 		};
--		fan1: led@1 {
--			label = "fan1";
--			default-state = "keep";
-+		gpio@1 {
- 			reg = <1>;
--			type = <PCA955X_TYPE_LED>;
-+			type = <PCA955X_TYPE_GPIO>;
- 		};
--		fan2: led@2 {
--			label = "fan2";
--			default-state = "keep";
-+		gpio@2 {
- 			reg = <2>;
--			type = <PCA955X_TYPE_LED>;
-+			type = <PCA955X_TYPE_GPIO>;
- 		};
--		fan3: led@3 {
--			label = "fan3";
--			default-state = "keep";
-+		gpio@3 {
- 			reg = <3>;
--			type = <PCA955X_TYPE_LED>;
-+			type = <PCA955X_TYPE_GPIO>;
- 		};
--		front_fault: led@13 {
--			label = "front-fault";
--			default-state = "keep";
-+		gpio@4 {
-+			reg = <4>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+		gpio@5 {
-+			reg = <5>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+		gpio@6 {
-+			reg = <6>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+		gpio@7 {
-+			reg = <7>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+		gpio@8 {
-+			reg = <8>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+		gpio@9 {
-+			reg = <9>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+		gpio@10 {
-+			reg = <10>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+		gpio@11 {
-+			reg = <11>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+		gpio@12 {
-+			reg = <12>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+		gpio@13 {
- 			reg = <13>;
--			type = <PCA955X_TYPE_LED>;
-+			type = <PCA955X_TYPE_GPIO>;
- 		};
--		front_power: led@14 {
--			label = "front-power";
--			default-state = "keep";
-+		gpio@14 {
- 			reg = <14>;
--			type = <PCA955X_TYPE_LED>;
-+			type = <PCA955X_TYPE_GPIO>;
- 		};
--		front_id: led@15 {
--			label = "front-id";
--			default-state = "keep";
-+		gpio@15 {
- 			reg = <15>;
--			type = <PCA955X_TYPE_LED>;
-+			type = <PCA955X_TYPE_GPIO>;
- 		};
- 	};
- };
+On Thu, Jul 6, 2017 at 6:47 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+> From: "Edward A. James" <eajames@us.ibm.com>
+>
+> For userspace polling, we need to notify sysfs that the state of our
+> error entry has changed.
+>
+> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+> ---
+>  drivers/hwmon/occ/common.c | 44 +++++++++++++++++++++++++++++++-------------
+>  drivers/hwmon/occ/common.h |  4 +++-
+>  drivers/hwmon/occ/p8_i2c.c | 28 ++++++++++++++--------------
+>  drivers/hwmon/occ/p9_sbe.c | 34 ++++++++++++++++------------------
+>  4 files changed, 64 insertions(+), 46 deletions(-)
+>
+> diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
+> index 4e3e411..a676f20 100644
+> --- a/drivers/hwmon/occ/common.c
+> +++ b/drivers/hwmon/occ/common.c
+> @@ -163,9 +163,22 @@ void occ_parse_poll_response(struct occ *occ)
+>         }
+>  }
+>
+> +void occ_set_error(struct occ *occ, int error)
+> +{
+> +       occ->error_count++;
+> +       if (occ->error_count > OCC_ERROR_COUNT_THRESHOLD)
+> +               occ->error = error;
+> +}
+> +
+> +void occ_reset_error(struct occ *occ)
+> +{
+> +       occ->error_count = 0;
+> +       occ->error = 0;
+> +}
+> +
+>  int occ_poll(struct occ *occ)
+>  {
+> -       int rc;
+> +       int rc, error = occ->error;
+>         struct occ_poll_response_header *header;
+>         u16 checksum = occ->poll_cmd_data + 1;
+>         u8 cmd[8];
+> @@ -181,7 +194,7 @@ int occ_poll(struct occ *occ)
+>
+>         rc = occ->send_cmd(occ, cmd);
+>         if (rc)
+> -               return rc;
+> +               goto done;
+>
+>         header = (struct occ_poll_response_header *)occ->resp.data;
+>
+> @@ -197,19 +210,21 @@ int occ_poll(struct occ *occ)
+>
+>         if (header->status & OCC_STAT_MASTER) {
+>                 if (hweight8(header->occs_present) !=
+> -                   atomic_read(&occ_num_occs)) {
+> -                       occ->error = -EXDEV;
+> -                       occ->bad_present_count++;
+> -               } else
+> -                       occ->bad_present_count = 0;
+> +                   atomic_read(&occ_num_occs))
+> +                       occ->error = -ENXIO;
+>         }
+>
+> +done:
+> +       /* notify userspace if we change error state and have an error */
+> +       if (occ->error != error && occ->error && occ->error_attr_name)
+> +               sysfs_notify(&occ->bus_dev->kobj, NULL, occ->error_attr_name);
+> +
+>         return rc;
+>  }
+>
+>  int occ_set_user_power_cap(struct occ *occ, u16 user_power_cap)
+>  {
+> -       int rc;
+> +       int rc, error = occ->error;
+>         u8 cmd[8];
+>         u16 checksum = 0x24;
+>         __be16 user_power_cap_be;
+> @@ -239,6 +254,10 @@ int occ_set_user_power_cap(struct occ *occ, u16 user_power_cap)
+>         rc = occ->send_cmd(occ, cmd);
+>         mutex_unlock(&occ->lock);
+>
+> +       /* notify userspace if we change error state and have an error*/
+> +       if (occ->error != error && occ->error && occ->error_attr_name)
+> +               sysfs_notify(&occ->bus_dev->kobj, NULL, occ->error_attr_name);
+> +
+>         return rc;
+>  }
+>
+> @@ -260,14 +279,12 @@ int occ_update_response(struct occ *occ)
+>  static ssize_t occ_show_error(struct device *dev,
+>                               struct device_attribute *attr, char *buf)
+>  {
+> -       int error = 0;
+>         struct occ *occ = dev_get_drvdata(dev);
+>
+> -       if (occ->error_count > OCC_ERROR_COUNT_THRESHOLD || occ->last_safe ||
+> -           occ->bad_present_count > OCC_ERROR_COUNT_THRESHOLD)
+> -               error = occ->error;
+> +       if (occ->error)
+> +               return snprintf(buf, PAGE_SIZE - 1, "%d\n", occ->error);
+>
+> -       return snprintf(buf, PAGE_SIZE - 1, "%d\n", error);
+> +       return 0;
+>  }
+>
+>  static ssize_t occ_show_status(struct device *dev,
+> @@ -1152,6 +1169,7 @@ int occ_create_status_attrs(struct occ *occ)
+>                 (struct sensor_device_attribute)SENSOR_ATTR(occ_error, 0444,
+>                                                             occ_show_error,
+>                                                             NULL, 0);
+> +       occ->error_attr_name = occ->status_attrs[7].dev_attr.attr.name;
+>
+>         for (i = 0; i < OCC_NUM_STATUS_ATTRS; ++i) {
+>                 rc = device_create_file(dev, &occ->status_attrs[i].dev_attr);
+> diff --git a/drivers/hwmon/occ/common.h b/drivers/hwmon/occ/common.h
+> index a5f86c3..acb50bc 100644
+> --- a/drivers/hwmon/occ/common.h
+> +++ b/drivers/hwmon/occ/common.h
+> @@ -103,7 +103,6 @@ struct occ {
+>
+>         int error;
+>         unsigned int error_count;
+> -       unsigned int bad_present_count;
+>         unsigned long last_safe;
+>         unsigned long last_update;
+>         struct mutex lock;
+> @@ -116,6 +115,7 @@ struct occ {
+>         struct attribute_group group;
+>         const struct attribute_group *groups[2];
+>         struct sensor_device_attribute *status_attrs;
+> +       const char *error_attr_name;
+>
+>         u8 poll_cmd_data;
+>         int (*send_cmd)(struct occ *occ, u8 *cmd);
+> @@ -143,6 +143,8 @@ struct occ {
+>  extern atomic_t occ_num_occs;
+>
+>  void occ_parse_poll_response(struct occ *occ);
+> +void occ_reset_error(struct occ *occ);
+> +void occ_set_error(struct occ *occ, int error);
+>  int occ_poll(struct occ *occ);
+>  int occ_set_user_power_cap(struct occ *occ, u16 user_power_cap);
+>  int occ_update_response(struct occ *occ);
+> diff --git a/drivers/hwmon/occ/p8_i2c.c b/drivers/hwmon/occ/p8_i2c.c
+> index 29233b4..a7b1d4c 100644
+> --- a/drivers/hwmon/occ/p8_i2c.c
+> +++ b/drivers/hwmon/occ/p8_i2c.c
+> @@ -98,7 +98,7 @@ static int p8_i2c_occ_putscom_be(struct i2c_client *client, u32 address,
+>
+>  static int p8_i2c_occ_send_cmd(struct occ *occ, u8 *cmd)
+>  {
+> -       int i, rc;
+> +       int i, rc, error;
+>         unsigned long start;
+>         u16 data_length;
+>         struct p8_i2c_occ *p8_i2c_occ = to_p8_i2c_occ(occ);
+> @@ -161,22 +161,18 @@ static int p8_i2c_occ_send_cmd(struct occ *occ, u8 *cmd)
+>                 rc = -EFAULT;
+>         }
+>
+> -       occ->error = resp->return_status;
+> -
+>         if (rc < 0) {
+> -               occ->error_count++;
+> -               dev_warn(&client->dev, "occ bad response:%d\n",
+> -                        resp->return_status);
+> -               return rc;
+> +               error = resp->return_status;
+> +               dev_warn(&client->dev, "occ bad response:%d\n", error);
+> +               goto done;
+>         }
+>
+>         data_length = get_unaligned_be16(&resp->data_length_be);
+>         if (data_length > OCC_RESP_DATA_BYTES) {
+> -               occ->error_count++;
+> -               occ->error = -EDOM;
+> +               rc = -EDOM;
+>                 dev_warn(&client->dev, "occ bad data length:%d\n",
+>                          data_length);
+> -               return occ->error;
+> +               goto assign;
+>         }
+>
+>         for (i = 8; i < data_length + 7; i += 8) {
+> @@ -185,13 +181,17 @@ static int p8_i2c_occ_send_cmd(struct occ *occ, u8 *cmd)
+>                         goto err;
+>         }
+>
+> -       occ->error_count = 0;
+> -       return data_length + 7;
+> +       occ_reset_error(occ);
+> +       return 0;
+>
+>  err:
+> -       occ->error_count++;
+> -       occ->error = rc;
+>         dev_err(&client->dev, "i2c scom op failed rc:%d\n", rc);
+> +
+> +assign:
+> +       error = rc;
+> +
+> +done:
+> +       occ_set_error(occ, error);
+>         return rc;
+>  }
+>
+> diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
+> index c85f133..db30a2d 100644
+> --- a/drivers/hwmon/occ/p9_sbe.c
+> +++ b/drivers/hwmon/occ/p9_sbe.c
+> @@ -25,7 +25,7 @@ struct p9_sbe_occ {
+>
+>  static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
+>  {
+> -       int rc;
+> +       int rc, error;
+>         unsigned long start;
+>         struct occ_client *client;
+>         struct occ_response *resp = &occ->resp;
+> @@ -35,9 +35,10 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
+>
+>  retry:
+>         client = occ_drv_open(p9_sbe_occ->sbe, 0);
+> -       if (!client)
+> -               /* don't increment occ error counter */
+> -               return -ENODEV;
+> +       if (!client) {
+> +               rc = -ENODEV;
+> +               goto assign;
+> +       }
+>
+>         rc = occ_drv_write(client, (const char *)&cmd[1], 7);
+>         if (rc < 0)
+> @@ -62,7 +63,8 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
+>                 }
+>                 break;
+>         case RESP_RETURN_SUCCESS:
+> -               rc = 0;
+> +               occ_reset_error(occ);
+> +               return 0;
+>                 break;
+>         case RESP_RETURN_CMD_INVAL:
+>         case RESP_RETURN_CMD_LEN:
+> @@ -77,23 +79,19 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
+>                 rc = -EFAULT;
+>         }
+>
+> -       occ->error = resp->return_status;
+> -
+> -       if (rc < 0) {
+> -               occ->error_count++;
+> -               dev_warn(occ->bus_dev, "occ bad response:%d\n",
+> -                        resp->return_status);
+> -               return rc;
+> -       }
+> -
+> -       occ->error_count = 0;
+> -       return 0;
+> +       error = resp->return_status;
+> +       dev_warn(occ->bus_dev, "occ bad response:%d\n", error);
+> +       goto done;
+>
+>  err:
+> -       occ->error_count++;
+> -       occ->error = rc;
+>         occ_drv_release(client);
+>         dev_err(occ->bus_dev, "occ bus op failed rc:%d\n", rc);
+> +
+> +assign:
+> +       error = rc;
+> +
+> +done:
+> +       occ_set_error(occ, error);
+>         return rc;
+>  }
+>
+> --
+> 1.8.3.1
+>
