@@ -1,54 +1,70 @@
-Return-Path: <bjwyman@gmail.com>
-Received: from mail-qk0-x244.google.com (mail-qk0-x244.google.com
- [IPv6:2607:f8b0:400d:c09::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <benh@au1.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xN6qH4pgwzDrG2
- for <openbmc@lists.ozlabs.org>; Thu,  3 Aug 2017 08:11:55 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="k68bP2+Z"; 
- dkim-atps=neutral
-Received: by mail-qk0-x244.google.com with SMTP id a77so5937445qkb.2
- for <openbmc@lists.ozlabs.org>; Wed, 02 Aug 2017 15:11:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=g5sZIJ93W9N0CbPgc2u+azlK2Tn5S2+bhNfzgEJdA0A=;
- b=k68bP2+ZcZ72TEx1tO5Zj9kzPfdSnz3NXcPgcwVtWswWJJy2wchrsm/sz0g1cuwyzH
- K+Ga35a+e5q7I327A/Dw/wGb7bP8MRW3dCfCjFMTmOgxzJc3XI56OHhmqC51AxLiXYx5
- AjqlhPIEj7LPj4hfQc7EoBWPbWVB3uJe16W8sj1SHwsc1LQMN8trklY8HSEe3caEQjt1
- S53TLQL4NqbjsnzvOoLLdCIZqjdtoJAb50Rpl0gJf/ii+scvDegxFYjRJHS0LNfTV/xA
- mfw4NClsQ/RKeyubgqVVHuaeTKan48dlTILwGc2Zt0p+k5qX9K5Xd0WIYL9yqMyRiZLj
- YX2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=g5sZIJ93W9N0CbPgc2u+azlK2Tn5S2+bhNfzgEJdA0A=;
- b=QB/Yjg1Du0C7Z+z0YEAV8ecAa64fjxCQjsm0qN8nLOEp/gsBdnADAeqNF/armhDkVX
- oagm+SK0F+31iIos8MY2/n9TxK4Ua0i77VIflGo+nwKtQo4xCk0zcyX24n2AVgQ9MoV9
- Jy5BWDgGqZ2N++ELLYfy+UfvOvoGUgWn8VuwotgrNuqnt1eXbuNpKGBOLYeW0Y+DSYRt
- IBeQi6qBMwzeOnoqk/c0iZaR2oLWPFOqRKMouzo6WvQ01dtmpwWT+aUevh5zvagDMwFs
- MqbVMADobwUJeTTzaQsGTJoXz9nCNQd7L4h0nXjd9QuXqCbpwzbAmJMOhsXpnBG8mKzy
- +Ztw==
-X-Gm-Message-State: AIVw113a0dlEGLLgGhXPS6sKgh7kYgvufUPKNUGU1LOyExc14YvH7+zJ
- czdE8fmM54lY2X2QATgtJDXJdBOnhQ==
-X-Received: by 10.55.160.135 with SMTP id j129mr30912652qke.341.1501711913024; 
- Wed, 02 Aug 2017 15:11:53 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.140.82.232 with HTTP; Wed, 2 Aug 2017 15:11:52 -0700 (PDT)
-In-Reply-To: <1501705534-27606-4-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1501705534-27606-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1501705534-27606-4-git-send-email-eajames@linux.vnet.ibm.com>
-From: Brandon Wyman <bjwyman@gmail.com>
-Date: Wed, 2 Aug 2017 17:11:52 -0500
-Message-ID: <CAK_vbW1GJAaV9OLWTcyY=2s55zMELs1qZ59PZZc-6H1mcm=gEg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 v3 3/5] Documentation: hwmon: Add IBM power
- supply documentation
-To: Eddie James <eajames@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>,
- Matt Spinler <mspinler@linux.vnet.ibm.com>,
- "Edward A. James" <eajames@us.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xN9ZV5MpWzDr2Q
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Aug 2017 10:16:02 +1000 (AEST)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v730E3rt011625
+ for <openbmc@lists.ozlabs.org>; Wed, 2 Aug 2017 20:15:59 -0400
+Received: from e23smtp08.au.ibm.com (e23smtp08.au.ibm.com [202.81.31.141])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2c3r5a20a9-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 02 Aug 2017 20:15:59 -0400
+Received: from localhost
+ by e23smtp08.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <benh@au1.ibm.com>;
+ Thu, 3 Aug 2017 10:15:56 +1000
+Received: from d23relay06.au.ibm.com (202.81.31.225)
+ by e23smtp08.au.ibm.com (202.81.31.205) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Thu, 3 Aug 2017 10:15:54 +1000
+Received: from d23av05.au.ibm.com (d23av05.au.ibm.com [9.190.234.119])
+ by d23relay06.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v730Fk2h15269906
+ for <openbmc@lists.ozlabs.org>; Thu, 3 Aug 2017 10:15:54 +1000
+Received: from d23av05.au.ibm.com (localhost [127.0.0.1])
+ by d23av05.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ v730FL0k009530
+ for <openbmc@lists.ozlabs.org>; Thu, 3 Aug 2017 10:15:22 +1000
+Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
+ by d23av05.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ v730FLUW008821; Thu, 3 Aug 2017 10:15:21 +1000
+Received: from pasglop (unknown [9.192.176.176])
+ (using TLSv1.2 with cipher AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 47C1FA01E5;
+ Thu,  3 Aug 2017 10:14:57 +1000 (AEST)
+Subject: Re: OpenBMC Image Management
+From: Benjamin Herrenschmidt <benh@au1.ibm.com>
+Reply-To: benh@au1.ibm.com
+To: Adriana Kobylak <anoo@linux.vnet.ibm.com>, Maxim Sloyko <maxims@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Thu, 03 Aug 2017 10:14:55 +1000
+In-Reply-To: <9DAA22C7-7A31-47F1-8F14-B0227892DA57@linux.vnet.ibm.com>
+References: <75C63AB7-E340-4A78-BA82-80F96EAEA051@linux.vnet.ibm.com>
+ <CAFR_W8pDQxg9sGmOVOhfJUAo1MqO0LOALrm9uuUDU2Dp836Y8g@mail.gmail.com>
+ <9DAA22C7-7A31-47F1-8F14-B0227892DA57@linux.vnet.ibm.com>
+Organization: IBM Australia
 Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.24.4 (3.24.4-1.fc26) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-TM-AS-MML: disable
+x-cbid: 17080300-0048-0000-0000-0000025775ED
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17080300-0049-0000-0000-0000480A3E34
+Message-Id: <1501719295.2664.14.camel@au1.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-08-02_11:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
+ definitions=main-1708030002
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,83 +76,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Aug 2017 22:11:57 -0000
+X-List-Received-Date: Thu, 03 Aug 2017 00:16:03 -0000
 
-On Wed, Aug 2, 2017 at 3:25 PM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
-> From: "Edward A. James" <eajames@us.ibm.com>
->
-> Signed-off-by: Edward A. James <eajames@us.ibm.com>
-> ---
->  Documentation/hwmon/ibmps | 53 +++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 53 insertions(+)
->  create mode 100644 Documentation/hwmon/ibmps
->
-> diff --git a/Documentation/hwmon/ibmps b/Documentation/hwmon/ibmps
-> new file mode 100644
-> index 0000000..7f13fd4
-> --- /dev/null
-> +++ b/Documentation/hwmon/ibmps
-> @@ -0,0 +1,53 @@
-> +Kernel driver ibmps
-> +====================
-> +
-> +Supported chips:
-> +  * IBM Witherspoon power supply
-> +
-> +Author: Eddie James <eajames@us.ibm.com>
-> +
-> +Description
-> +-----------
-> +
-> +This driver supports the IBM power supply. This driver is a client to the core
-> +PMBus driver.
-> +
-> +Usage Notes
-> +-----------
-> +
-> +This driver should auto-detect devices. In the event that it does not, you will
-> +have to instantiate the devices explicitly. Please see
-> +Documentation/i2c/instantiating-devices for details.
-> +
-> +Sysfs entries
-> +-------------
-> +
-> +The following attributes are supported:
-> +
-> +curr1_alarm            Output current over-current fault.
-> +curr1_input            Measured output current in mA.
-> +curr1_label            "iout1"
-> +
-> +fan1_alarm             Fan 1 warning.
-> +fan1_fault             Fan 1 fault.
-> +fan1_input             Fan 1 speed in RPM.
-> +fan2_alarm             Fan 2 warning.
-> +fan2_fault             Fan 2 fault.
-> +fan2_input             Fan 2 speed in RPM.
-> +
-> +in1_alarm              Input voltage under-voltage fault.
+On Wed, 2017-08-02 at 12:15 -0500, Adriana Kobylak wrote:
+> General:
+> * Move to UBI volume management (on the BMC and PNOR chips), which
+> provides dynamic partitioning and wear-leveling. In a limited flash
+> space environment there might be the need to re-allocate partition
+> space and resizing in a static partitioning implementation can be
+> very painful.
+> * Use CRAMFS for read-only partitions, and UBIFS for read-write
+> partitions.
 
-Is this the normal/regular file to put this under-voltage fault in? I
-noticed that the UCD9200 device driver appears to be the only one
-looking for that right now, and it has it updating in1_lcrit_alarm:
-ucd9200:in1_lcrit_alarm         Voltage critical low alarm. From
-VIN_UV_FAULT status.
+I still don't understand what is the point of using UBI on a 32M or 64M
+NOR flash. Other than wasting space and time.
 
-> +in1_input              Measured input voltage in mV.
-> +in1_label              "vin"
-> +in2_alarm              Output voltage over-voltage fault.
-> +in2_input              Measured output voltage in mV.
-> +in2_label              "vout1"
-> +
-> +power1_input           Measured input power in uW.
-> +power1_label           "pin"
-> +
-> +temp1_alarm            PSU inlet ambient temperature over-temperature fault.
-> +temp1_input            Measured PSU inlet ambient temp in millidegrees C.
-> +temp2_alarm            Secondary rectifier temp over-temperature fault.
-> +temp2_input            Measured secondary rectifier temp in millidegrees C.
-> +temp3_alarm            ORing FET temperature over-temperature fault.
-> +temp3_input            Measured ORing FET temperature in millidegrees C.
-> --
-> 1.8.3.1
->
+Ben.
