@@ -3,68 +3,59 @@ Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
  [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xNrsK1sSmzDq7Z
- for <openbmc@lists.ozlabs.org>; Fri,  4 Aug 2017 12:46:13 +1000 (AEST)
-Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xNslw5zPgzDqG5
+ for <openbmc@lists.ozlabs.org>; Fri,  4 Aug 2017 13:26:36 +1000 (AEST)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
  by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v742hc0O183559
- for <openbmc@lists.ozlabs.org>; Thu, 3 Aug 2017 22:46:10 -0400
-Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2c4bk6jfq2-1
+ v743PdU5128593
+ for <openbmc@lists.ozlabs.org>; Thu, 3 Aug 2017 23:26:34 -0400
+Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2c4aeqf5e0-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 03 Aug 2017 22:46:09 -0400
+ for <openbmc@lists.ozlabs.org>; Thu, 03 Aug 2017 23:26:33 -0400
 Received: from localhost
- by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Thu, 3 Aug 2017 22:46:09 -0400
+ Thu, 3 Aug 2017 23:26:33 -0400
 Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
- by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
+ by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Thu, 3 Aug 2017 22:46:05 -0400
-Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
- [9.57.199.110])
+ Thu, 3 Aug 2017 23:26:30 -0400
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
+ [9.57.199.111])
  by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v742k5r833030314; Fri, 4 Aug 2017 02:46:05 GMT
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 03C71AE03C;
- Thu,  3 Aug 2017 22:46:20 -0400 (EDT)
-Received: from Christophers-MacBook-Pro.local (unknown [9.83.5.232])
- by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP id 327CFAE034;
- Thu,  3 Aug 2017 22:46:17 -0400 (EDT)
-Subject: Re: [PATCH linux dev-4.10 1/2] drivers/fsi: Defer hub master scan on
- probe
-To: Jeremy Kerr <jk@ozlabs.org>, joel@jms.id.au
-References: <20170803185306.85007-1-cbostic@linux.vnet.ibm.com>
- <20170803185306.85007-2-cbostic@linux.vnet.ibm.com>
- <2c647116-8b52-f234-4b99-1a52d2b27ea9@ozlabs.org>
-Cc: openbmc@lists.ozlabs.org
+ v743QUus33030232; Fri, 4 Aug 2017 03:26:30 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 44335AC040;
+ Thu,  3 Aug 2017 23:26:45 -0400 (EDT)
+Received: from Christophers-MacBook-Pro.local.com (unknown [9.83.5.232])
+ by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id BD2CEAC03F;
+ Thu,  3 Aug 2017 23:26:42 -0400 (EDT)
 From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Thu, 3 Aug 2017 21:46:00 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
- Gecko/20100101 Thunderbird/45.7.0
-MIME-Version: 1.0
-In-Reply-To: <2c647116-8b52-f234-4b99-1a52d2b27ea9@ozlabs.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+To: joel@jms.id.au, jk@ozlabs.org
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.10 v2 0/3] Add FSI master scan conditional
+Date: Thu,  3 Aug 2017 22:26:19 -0500
+X-Mailer: git-send-email 2.10.1 (Apple Git-78)
 X-TM-AS-GCONF: 00
-x-cbid: 17080402-0040-0000-0000-0000038A8548
+x-cbid: 17080403-0048-0000-0000-000001CE85D0
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00007480; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000216; SDB=6.00897239; UDB=6.00448925; IPR=6.00677422; 
+ PH=3.00000004; SC=3.00000216; SDB=6.00897252; UDB=6.00448933; IPR=6.00677435; 
  BA=6.00005509; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016524; XFM=3.00000015;
- UTC=2017-08-04 02:46:07
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016525; XFM=3.00000015;
+ UTC=2017-08-04 03:26:31
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17080402-0041-0000-0000-0000077EB0D7
-Message-Id: <607ed6ed-df73-b63d-86bc-f9ca74ec66a3@linux.vnet.ibm.com>
+x-cbparentid: 17080403-0049-0000-0000-0000421D8632
+Message-Id: <20170804032622.88674-1-cbostic@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-08-03_14:, , signatures=0
+ definitions=2017-08-04_01:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  spamscore=0 suspectscore=0
  malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
  adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
- definitions=main-1708040040
+ definitions=main-1708040050
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -76,72 +67,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Aug 2017 02:46:13 -0000
+X-List-Received-Date: Fri, 04 Aug 2017 03:26:37 -0000
+
+Add new optional FSI master device tree property no-scan-on-init to
+indicate that it should not be scanned at init time.  This is
+necessary in cases where such a scan would interfere with other
+FSI masters on the bus.  For example, Hub FSI masters scanning while
+Host boot FSI bus operations are in progress causing arbitration
+errors.
+
+Christopher Bostic (3):
+  dt-bindings: fsi: Add optional property no-scan-on-init
+  ARM: dts: fsi: Add optional master property no-scan-on-init
+  fsi: core: Add check for master property no-scan-on-init
 
 
-
-On 8/3/17 8:43 PM, Jeremy Kerr wrote:
-> Hi Chris,
->
->> Prevent hub master from scanning its connected links/slaves
->> at probe time.  Needed to keep from creating arbitration
->> conflicts on the hub connected links during host boot
->> FSI bus accesses.
-> This change doesn't need to be specific to the hub code - this just
-> makes it more complex.
->
-> As I mentioned yesterday, this can be done entirely in the fsi core.
-> When a master is registered, it has a reference to the of_node; just
-> check that. This way, we don't need to a) assume behaviour of different
-> master types, or 2) implement this logic in every master.
->
-> So, the basis of the change will just be something like:
->
->      diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
->      --- a/drivers/fsi/fsi-core.c
->      +++ b/drivers/fsi/fsi-core.c
->      @@ -927,7 +927,9 @@ int fsi_master_register(struct fsi_master *master)
->       		return rc;
->       	}
->
->      -	fsi_master_scan(master);
->      +	np = dev_of_node(&master->dev);
->      +	if (!np || !of_property_read_bool(np, "no-scan-on-init"))
->      +		fsi_master_scan(master);
->
->       	return 0;
->       }
->
-> This way, the no-scan-on-init (or whatever would be a better name)
-> node applies to the core, rather than every master implementation.
-> Consequently, this property is related to compatible = fsi-master and
-> not fsi-master-gpio or fsi-master-whatever-else.
->
-> [Also, don't forget to add this to the binding doc; it'd go in fsi.txt,
-> under the "FSI Masters" section].
->
-> Regarding names, I wouldn't use "probe" in the property name, as it's a
-> linux implementation detail. Some ideas:
->
->   - no-scan-on-init
->   - explicit-scan
->   - arbitration-required
->   - multiple-access
->
->   : the latter two indicating that other entities can access the device, so
->   we need to be careful when scanning, and scan explicitly. Or, anything
->   else that you think is appropriate (but doesn't imply any specific OS
->   implementation.
-Hi Jeremy,
-
-Ok thanks for the detailed description.  Will get version 2 out shortly.
-
-Thanks,
-Chris
-
-
-> Cheers,
->
->
-> Jeremy
->
+-- 
+1.8.2.2
