@@ -1,64 +1,42 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <jk@ozlabs.org>
+Received: from ozlabs.org (bilbo.ozlabs.org [103.22.144.67])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xNsm93W0szDqJ7
- for <openbmc@lists.ozlabs.org>; Fri,  4 Aug 2017 13:26:49 +1000 (AEST)
-Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v743O2hd047572
- for <openbmc@lists.ozlabs.org>; Thu, 3 Aug 2017 23:26:47 -0400
-Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2c4ckg28tw-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 03 Aug 2017 23:26:46 -0400
-Received: from localhost
- by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Thu, 3 Aug 2017 23:26:46 -0400
-Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
- by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 3 Aug 2017 23:26:44 -0400
-Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
- [9.57.199.111])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v743QhPZ26542278; Fri, 4 Aug 2017 03:26:43 GMT
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id F1C2AAC03F;
- Thu,  3 Aug 2017 23:26:58 -0400 (EDT)
-Received: from Christophers-MacBook-Pro.local.com (unknown [9.83.5.232])
- by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id 46787AC040;
- Thu,  3 Aug 2017 23:26:55 -0400 (EDT)
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-To: joel@jms.id.au, jk@ozlabs.org
-Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10 v2 3/3] fsi: core: Add check for master
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xNsvZ6BVQzDqJC
+ for <openbmc@lists.ozlabs.org>; Fri,  4 Aug 2017 13:33:14 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="Iq+50jZO"; 
+ dkim-atps=neutral
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.org (Postfix) with ESMTPSA id 3xNsvZ3DGSz9s7g;
+ Fri,  4 Aug 2017 13:33:14 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
+ t=1501817594; bh=xEiIJ2O87gH1U+gypDLR9cjTHRBhLY8OBeSXIFu48hQ=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=Iq+50jZO6ylEaPuz4eazZj1kA/PjP1Dfo3BQDPP0//js+41siG/G9LK6kXuuDiByP
+ DD2cBBFtK0plytHoe3WKhnh5zA+6Ufjg7kGE1jvCAYcGFHvQOSCz3Mfi2ey78U5FWh
+ Gu9vvYfjhWa/NVqABlLf1WhR+9uQkAyebAfx2HBw20qY5XxYJ2e/0Bs/JIrd1ukHNP
+ Ob5GKyAhEkpgdDxe7mrkAtcMyRC1AAAuYbPLFhK7m7rzlC/yaOkTcJf0tcZayvYbew
+ SNBcd+yjanimJK27AicTdavU9ZcvmLTeto5p1M8Np8fvX7FPvm8IrF3xgM27y7UKBp
+ ZtYYMqy5w+mqw==
+Subject: Re: [PATCH linux dev-4.10 v2 3/3] fsi: core: Add check for master
  property no-scan-on-init
-Date: Thu,  3 Aug 2017 22:26:22 -0500
-X-Mailer: git-send-email 2.10.1 (Apple Git-78)
-In-Reply-To: <20170804032622.88674-1-cbostic@linux.vnet.ibm.com>
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>, joel@jms.id.au
+Cc: openbmc@lists.ozlabs.org
 References: <20170804032622.88674-1-cbostic@linux.vnet.ibm.com>
-X-TM-AS-GCONF: 00
-x-cbid: 17080403-0044-0000-0000-000003781A8C
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007480; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000216; SDB=6.00897252; UDB=6.00448933; IPR=6.00677436; 
- BA=6.00005509; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016525; XFM=3.00000015;
- UTC=2017-08-04 03:26:45
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17080403-0045-0000-0000-000007A62D71
-Message-Id: <20170804032622.88674-4-cbostic@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-08-04_01:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
- definitions=main-1708040050
+ <20170804032622.88674-4-cbostic@linux.vnet.ibm.com>
+From: Jeremy Kerr <jk@ozlabs.org>
+Message-ID: <4e9e5404-c8f7-51f0-f886-46010d5bfe68@ozlabs.org>
+Date: Fri, 4 Aug 2017 11:33:13 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.2.1
+MIME-Version: 1.0
+In-Reply-To: <20170804032622.88674-4-cbostic@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-AU
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -70,43 +48,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Aug 2017 03:26:50 -0000
+X-List-Received-Date: Fri, 04 Aug 2017 03:33:15 -0000
 
-Prior to scanning a master check if the optional property
-no-scan-on-init is present.  If it is then avoid scanning.  This is
-necessary in cases where a master scan could interfere with another
-FSI master on the same bus.
+Hi Chris,
 
-Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
----
-v2 - Remove changes in hub and gpio masters and make check for device
-     tree property in the core itself.
----
- drivers/fsi/fsi-core.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+> Prior to scanning a master check if the optional property
+> no-scan-on-init is present.  If it is then avoid scanning.  This is
+> necessary in cases where a master scan could interfere with another
+> FSI master on the same bus.
 
-diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
-index 9b83f1a..7b06b0d 100644
---- a/drivers/fsi/fsi-core.c
-+++ b/drivers/fsi/fsi-core.c
-@@ -900,6 +900,7 @@ static ssize_t master_break_store(struct device *dev,
- int fsi_master_register(struct fsi_master *master)
- {
- 	int rc;
-+	struct device_node *np;
- 
- 	if (!master)
- 		return -EINVAL;
-@@ -927,7 +928,9 @@ int fsi_master_register(struct fsi_master *master)
- 		return rc;
- 	}
- 
--	fsi_master_scan(master);
-+	np = dev_of_node(&master->dev);
-+	if (!of_property_read_bool(np, "no-scan-on-init"))
-+		fsi_master_scan(master);
- 
- 	return 0;
- }
--- 
-1.8.2.2
+Looks good to me. We may need to be flexible with the property name
+(based on feedback from the DT folks, when we send to them for review),
+but that should be fine regardless.
+
+Acked-by: Jeremy Kerr <jk@ozlabs.org>
+
+Cheers,
+
+
+Jeremy
