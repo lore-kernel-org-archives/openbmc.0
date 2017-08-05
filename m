@@ -1,53 +1,56 @@
 Return-Path: <brendanhiggins@google.com>
-Received: from mail-pf0-x232.google.com (mail-pf0-x232.google.com
- [IPv6:2607:f8b0:400e:c00::232])
+Received: from mail-pg0-x22e.google.com (mail-pg0-x22e.google.com
+ [IPv6:2607:f8b0:400e:c05::22e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xPQtJ62LDzDqG5
- for <openbmc@lists.ozlabs.org>; Sat,  5 Aug 2017 11:19:04 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xPQtK228WzDqJ0
+ for <openbmc@lists.ozlabs.org>; Sat,  5 Aug 2017 11:19:05 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="UhydT3xX"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="sYDC0WBv"; 
  dkim-atps=neutral
-Received: by mail-pf0-x232.google.com with SMTP id o86so13764315pfj.1
- for <openbmc@lists.ozlabs.org>; Fri, 04 Aug 2017 18:19:03 -0700 (PDT)
+Received: by mail-pg0-x22e.google.com with SMTP id v77so13802814pgb.3
+ for <openbmc@lists.ozlabs.org>; Fri, 04 Aug 2017 18:19:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=sdkGc4k75VgiVHW6xXNjLtFvDG30FEjXFLCTkWTpWfs=;
- b=UhydT3xXyR6cDQktw4EsE7hzs7ACMjF35uWDHkkVaZA72b/0nnl4htHuYFwAQGAmGq
- jXeGHFihiB//uhnvhpZcQqLsFrk25Foclh1rlNs2aojjJWs+mzItYYgYiX2QeEC0h7ar
- HqFbzDBXw5mm4m0MoxnCIp8PNz34FjtdexkhdvYZ8ihCKiGMC1DGaci5vQUTJPFqk3eV
- l9u++v1ZYZ84Q+o9VQlIXo6GUevnkq02Be0v37vNl/l9LbiyrtpfJs1YLCRpNrT52ihz
- m/pMSn8LquijwwxHLAd1h06E/P2BWUXV6KYuwClRhGCdCvgmcK8XfwoCjZUukKewRsl7
- kCGA==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=a4JGJjgOszeq8OTIZ+LmWrI0ECXMKJDpPuQOcxAQxl4=;
+ b=sYDC0WBvJlNLuMn2/pYOsBgQAU8THpDrKgoE6xNR3VRYYSaKTXIF0ObQ8LHiPLcHRC
+ r0QTJxiqFVFr2NtpV40v0qvV+hYxW9y+EF2AjkP6sS1nDKARL63FbFcCAFOP0/NzICCr
+ Zz7FCaUMq9oHwOhID+DxtUDW5YbY1Ag0decrvXcaSOkL6//iiAM4X8UT8YnPrFeuBUDP
+ omWHjsMjUKLoqPfFyO2gCizSequ2WPVsxW3M7b0aj7E/NzJ0Tek+GT0mH3L11qVOiqJ5
+ yVN0a8kCeg6x6yeX0+m3AP/3KULAMVnz3EGGDUMdTZ2LR3tqZV+Q3t+KSXQEUl796LDs
+ ajLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=sdkGc4k75VgiVHW6xXNjLtFvDG30FEjXFLCTkWTpWfs=;
- b=I+84e5K40CxhFeQ8w34c0vxPmMCYMP6UM6e51oN7uj8ZisuyVCI3K3gODE+HYV+RHb
- 9eV3Llq+SamvEynSpIS0nKMoSuJAeLzTl5p/8yqvatURiFrc+mVMK8ma8CDnsXWT44PD
- IMRYMpAvRUZ4YUw1gePgwOTVqQc0GlxwnukySHRJxRkyxMZA+hNyTW8Jye5q5AdI2RcH
- a3evR5rfACunryaW4hEYcZSggWJc4OTsVHxgZT8YAOYIR9hXS7rUdh1pBPfMQzSsPjbS
- 5iY/mZAvzHaudCVNnjydRUarMfOBHhD0LgQRwUAqyAvUiHSTMPf59xeGt8xYGo5garYn
- zE/A==
-X-Gm-Message-State: AIVw112MgzE3Wvjx4KdDPYFdJTd29ZAOh2E3eDOEMEgXjVxVP1R2HSBc
- 1BzDDoQ1cLAmP63U
-X-Received: by 10.84.211.110 with SMTP id b101mr4987737pli.441.1501895941581; 
- Fri, 04 Aug 2017 18:19:01 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=a4JGJjgOszeq8OTIZ+LmWrI0ECXMKJDpPuQOcxAQxl4=;
+ b=IjLYWOJEGJW30MC+y9wZypvaCPEjIoaI3XZwUQQaH7cNDHBO9kvnYT+RIXLD5Kv538
+ ECkWrLVTkebPk8Tm5PDk1qvSdMFJOX/k30hfp2VljmduWauqQPOr7v6aFd3A+b3qpTc1
+ /eJsWkxFYHU0h5/PaKrYQWVHL8cDPevN5Xlh6IMsX/w3HgutOAQkWHOr3ovytkKPCfFy
+ +xsBFzZCOAImUIRBFkNiF/4LbM24wZ1GNE4I956vL/z+eIKx5HYeg/SKlwp5M55RqhVV
+ wzREXfcJFQFkFOdQC8YxKA46A6n+zvYVQapqRR0vViQR9pcv+e4eOJOsSUErsVQBV4E/
+ D8OA==
+X-Gm-Message-State: AIVw110ZsJvycOT4rqdMkl6o9St87ItkOu1qErYttOQERpX6sCKdSkym
+ rSev+LCJzvPN8nxo
+X-Received: by 10.98.19.138 with SMTP id 10mr4479334pft.87.1501895942981;
+ Fri, 04 Aug 2017 18:19:02 -0700 (PDT)
 Received: from mactruck.svl.corp.google.com ([100.123.242.94])
- by smtp.gmail.com with ESMTPSA id x81sm5050721pfi.20.2017.08.04.18.18.59
+ by smtp.gmail.com with ESMTPSA id x81sm5050721pfi.20.2017.08.04.18.19.01
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Fri, 04 Aug 2017 18:19:00 -0700 (PDT)
+ Fri, 04 Aug 2017 18:19:02 -0700 (PDT)
 From: Brendan Higgins <brendanhiggins@google.com>
 To: corbet@lwn.net, robh+dt@kernel.org, mark.rutland@arm.com, arnd@arndb.de,
  gregkh@linuxfoundation.org, minyard@acm.org, joel@jms.id.au,
  benh@kernel.crashing.org, benjaminfair@google.com
 Cc: linux-doc@vger.kernel.org, devicetree@vger.kernel.org,
  openipmi-developer@lists.sourceforge.net, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/4] ipmi: bt-i2c: added IPMI Block Transfer over I2C
-Date: Fri,  4 Aug 2017 18:18:51 -0700
-Message-Id: <20170805011855.1027-1-brendanhiggins@google.com>
+ linux-kernel@vger.kernel.org, Brendan Higgins <brendanhiggins@google.com>
+Subject: [PATCH v2 1/4] ipmi: bt-i2c: added documentation for bt-i2c drivers
+Date: Fri,  4 Aug 2017 18:18:52 -0700
+Message-Id: <20170805011855.1027-2-brendanhiggins@google.com>
 X-Mailer: git-send-email 2.14.0.rc1.383.gd1ce394fe2-goog
+In-Reply-To: <20170805011855.1027-1-brendanhiggins@google.com>
+References: <20170805011855.1027-1-brendanhiggins@google.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,31 +63,195 @@ List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Sat, 05 Aug 2017 01:19:05 -0000
-X-List-Received-Date: Sat, 05 Aug 2017 01:19:05 -0000
 
-This patchset introduces IPMI Block Transfer over I2C (BT-I2C), which has the
-same semantics as IPMI Block Transfer except it done over I2C.
+Added device tree binding documentation for ipmi-bt-i2c (host) and
+ipmi-bmc-bt-i2c (BMC) and documentation for the Block Transfer over I2C
+(bt-i2c) protocol.
 
-For the OpenBMC people, this is based on an RFC:
-https://lists.ozlabs.org/pipermail/openbmc/2016-September/004505.html
+Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+---
+Changes for v2:
+  - Fixed a typo
+  - Reworded a sentence to make it clear that I was talking about IBM's BT-BMC
+  - Deleted an unnecessary discussion of the host side interface (unnecessary
+    since the OpenIPMI stuff already has its own documentation).
+---
+ Documentation/bt-i2c.txt                           | 109 +++++++++++++++++++++
+ .../devicetree/bindings/ipmi/ipmi-bt-i2c.txt       |  21 ++++
+ .../bindings/ipmi_bmc/ipmi-bmc-bt-i2c.txt          |  21 ++++
+ 3 files changed, 151 insertions(+)
+ create mode 100644 Documentation/bt-i2c.txt
+ create mode 100644 Documentation/devicetree/bindings/ipmi/ipmi-bt-i2c.txt
+ create mode 100644 Documentation/devicetree/bindings/ipmi_bmc/ipmi-bmc-bt-i2c.txt
 
-The documentation discusses the reason for this in greater detail, suffice it to
-say SSIF cannot be correctly implemented on some naive I2C devices. There are
-some additional reasons why we don't like SSIF, but those are again covered in
-the documentation for all those who are interested.
-
-In addition, since I am adding both host side and BMC side support, I figured
-that now is a good time to resolve the problem of where to put BMC side IPMI
-drivers; right now we have it (there is only one) in drivers/char/ipmi/ with the
-rest of the host side IPMI drivers, but I think it makes sense to put all of the
-host side IPMI drivers in one directory and all of the BMC side drivers in
-another, preferably in a way that does not effect all of the current OpenIPMI
-users. I have not created a MAINTAINERS entry for the new directory yet, as I
-figured there might be some discussion to be had about it.
-
-I have tested this patchset on the Aspeed 2500 EVB.
-
-Changes since previous update:
-  - Cleaned up some documentation.
-  - Added patch which moves the Aspeed BT-BMC driver to the new ipmi_bmc
-    directory.
+diff --git a/Documentation/bt-i2c.txt b/Documentation/bt-i2c.txt
+new file mode 100644
+index 000000000000..499931b02e6c
+--- /dev/null
++++ b/Documentation/bt-i2c.txt
+@@ -0,0 +1,109 @@
++Linux Block Transfer over I2C (bt-i2c) interface description
++============================================================
++
++by Brendan Higgins <brendanhiggins@google.com> in 2016
++
++Introduction
++------------
++
++IPMI defines an interface for communication between a CPU, a BMC (Baseboard
++Management Controller), and sensors and various other peripherals. For a more
++complete description of IPMI please see:
++http://www.intel.com/content/www/us/en/servers/ipmi/ipmi-second-gen-interface-spec-v2-rev1-1.html
++
++IPMI defines a *common* message format, as in a set of fields that are common
++across all IPMI messages; they could be viewed as part of the framing
++information for an IPMI message. They include:
++
++	- netfn
++	- lun
++	- cmd
++
++netfn and cmd together define the type of the message; netfn can be viewed as a
++message class and cmd is a subtype of sorts. lun (logical unit number) is used
++for routing between messages between different interfaces. After the last field
++there is usually a variable length payload. Despite these common fields, the
++remainder of the framing varies widely between the IPMI defined hardware
++interfaces; some specify a length as part of the framing which is never more
++than a byte in length; others use a special signal to denote the end of message.
++Some IPMI hardware interfaces, the Block Transfer interface in particular,
++support a sequence number that aids in support of multiple in-flight IPMI
++messages.
++
++IPMI defines SSIF (SMBus System Interface) as the IPMI hardware interface for
++SMBus/I2C. It supports a maximum total message length of 255 bytes that is
++broken up across several SMBus block operations. It does not define a sequence
++field in the IPMI framing making it very difficult to support multiple in flight
++messages (it is also intentionally left out of the specification). SSIF also
++requires the slave device to NACK until it is ready to accept data (technically
++it only specifies that it may NACK until it is ready, but must NACK on attempted
++reads if it does not support SMBus Alert; however, this is an effective
++requirements since a slave device is supposed to start with SMBus Alert
++disabled); this again makes SSIF very difficult to support for some slave
++devices which may not support NACKing arbitrary messages; indeed, at the time of
++writing, the Linux I2C slave driver framework did not have support for sending
++NACKs.
++
++Block Transfer over I2C defines a new IPMI compatible interface that uses Block
++Transfer messages and semantics on top of plain old I2C; it does not assume that
++the I2C slave is capable of NACKing arbitrary messages; however, it is designed
++such that it could take advantage of SMBus Alert so that the master does not
++have to poll (the Linux I2C core slave mode does not currently support SMBus
++Alert, but a patch adding this support is currently on the way).
++
++Protocol Definition
++-------------------
++
++Block Transfer over I2C uses the IPMI defined Block Transfer message format; it
++supports variable length messages with a maximum length of 255 bytes (limited by
++the IPMI Block Transfer length byte).
++
++A Block Transfer over I2C Request is structured as follows:
++
++------------------------------------------------------------------------------------------------------
++| I2C start | slave address / RW bit unset | Block Transfer message | ... (another message or stop ) |
++------------------------------------------------------------------------------------------------------
++
++Multiple requests can be sent before any responses are received. Sequence
++numbers are to be handled by the users of the drivers; thus, no semantics are
++prescribed to their usage; however, the slave driver is required to buffer at
++least 256 requests before dropping requests; this can be used in conjunction
++with sequence numbers to prevent messages from being dropped by the slave.
++
++A Block Transfer over I2C Response is structured as follows:
++
++----------------------------------------------------------------------------------------------------
++| I2C start | slave address / RW bit set | Block Transfer message | ... (another message or stop ) |
++----------------------------------------------------------------------------------------------------
++
++Until a response is ready to send, the slave will respond only with zero bytes.
++If the slave receives a start or a stop before it was done sending a response,
++it will resend the entire response the next time a read is requested; in this
++way, an I2C master may poll for responses by reading a single byte until it is
++non-zero and then perform the read transaction shown above.
++
++In the future, it is planned that the slave will support using SMBus Alert to
++notify the master of an available response, but will never be required.
++
++Driver Interface
++----------------
++
++The device file interface for the slave side is modeled after bt-bmc, a Block
++Transfer over LPC driver for the Aspeed 24xx/255xx.
++
++A read (request) should be large enough to fit a Block Transfer message
++(including the length byte) of 256 bytes; if the provided buffer is smaller, the
++message will be truncated.
++
++A write (response) must be no greater than the maximum valid length of a Block
++Transfer message (including the length byte), 256 bytes; if the provided buffer
++is larger, the write will fail with EINVAL. The driver also enforces a valid
++length byte which must contain the total length of the message not including the
++length byte; thus, the write will fail with EINVAL if the buffer length is less
++than the length field plus one. The driver will also only send length field plus
++one bytes.
++
++The slave device file interface also supports the poll system call; it will
++report when a request is available to read or it is ready to accept a response.
++
++The master side conforms to the OpenIPMI kernel framework.
+diff --git a/Documentation/devicetree/bindings/ipmi/ipmi-bt-i2c.txt b/Documentation/devicetree/bindings/ipmi/ipmi-bt-i2c.txt
+new file mode 100644
+index 000000000000..bd956f2805e4
+--- /dev/null
++++ b/Documentation/devicetree/bindings/ipmi/ipmi-bt-i2c.txt
+@@ -0,0 +1,21 @@
++Device tree configuration for the ipmi-bt-i2c driver.
++
++Required Properties:
++- compatible 	: should be "ipmi-bt-i2c"
++- reg		: the I2C slave address of the ipmi-bmc-bt-i2c
++
++i2c0: i2c-bus@40 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++	reg = <0x40 0x40>;
++	compatible = "aspeed,ast2400-i2c-bus";
++	clock-frequency = <100000>;
++	status = "disabled";
++	interrupts = <0>;
++	interrupt-parent = <&i2c>;
++
++	bt-i2c-master@41 {
++		compatible = "ipmi-bt-i2c";
++		reg = <0x41>;
++	};
++};
+diff --git a/Documentation/devicetree/bindings/ipmi_bmc/ipmi-bmc-bt-i2c.txt b/Documentation/devicetree/bindings/ipmi_bmc/ipmi-bmc-bt-i2c.txt
+new file mode 100644
+index 000000000000..6e82693ee50e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/ipmi_bmc/ipmi-bmc-bt-i2c.txt
+@@ -0,0 +1,21 @@
++Device tree configuration for the ipmi-bmc-bt-i2c driver.
++
++Required Properties:
++- compatible 	: should be "ipmi-bmc-bt-i2c"
++- reg		: the I2C slave address of this driver.
++
++i2c0: i2c-bus@40 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++	reg = <0x40 0x40>;
++	compatible = "aspeed,ast2400-i2c-bus";
++	clock-frequency = <100000>;
++	status = "disabled";
++	interrupts = <0>;
++	interrupt-parent = <&i2c>;
++
++	bt-i2c-slave@41 {
++		compatible = "ipmi-bmc-bt-i2c";
++		reg = <0x41>;
++	};
++};
+-- 
+2.14.0.rc1.383.gd1ce394fe2-goog
