@@ -1,66 +1,43 @@
-Return-Path: <anoo@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Return-Path: <rashmi.r.v@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xQjs44rMCzDql1
- for <openbmc@lists.ozlabs.org>; Mon,  7 Aug 2017 13:37:28 +1000 (AEST)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v773Y1wk089769
- for <openbmc@lists.ozlabs.org>; Sun, 6 Aug 2017 23:37:25 -0400
-Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2c5xrg4aqq-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Sun, 06 Aug 2017 23:37:25 -0400
-Received: from localhost
- by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <anoo@linux.vnet.ibm.com>;
- Sun, 6 Aug 2017 23:37:24 -0400
-Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
- by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Sun, 6 Aug 2017 23:37:21 -0400
-Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
- [9.57.199.107])
- by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v773bKfk23527520; Mon, 7 Aug 2017 03:37:20 GMT
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id B0664124044;
- Sun,  6 Aug 2017 23:34:44 -0400 (EDT)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP id 5F57E124047;
- Sun,  6 Aug 2017 23:34:44 -0400 (EDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xQlTd1YyQzDqkM
+ for <openbmc@lists.ozlabs.org>; Mon,  7 Aug 2017 14:50:44 +1000 (AEST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 06 Aug 2017 21:50:36 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.41,336,1498546800"; 
+ d="scan'208,217";a="120618423"
+Received: from kmsmsx155.gar.corp.intel.com ([172.21.73.106])
+ by orsmga002.jf.intel.com with ESMTP; 06 Aug 2017 21:50:35 -0700
+Received: from pgsmsx109.gar.corp.intel.com (10.221.44.109) by
+ KMSMSX155.gar.corp.intel.com (172.21.73.106) with Microsoft SMTP Server (TLS)
+ id 14.3.319.2; Mon, 7 Aug 2017 12:50:24 +0800
+Received: from pgsmsx105.gar.corp.intel.com ([169.254.4.132]) by
+ PGSMSX109.gar.corp.intel.com ([10.221.44.109]) with mapi id 14.03.0319.002;
+ Mon, 7 Aug 2017 12:50:24 +0800
+From: "R V, Rashmi" <rashmi.r.v@intel.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: openbmc query
+Thread-Topic: openbmc query
+Thread-Index: AdMPOG/wV1Puis/hQDOyRN2YyU6kLA==
+Date: Mon, 7 Aug 2017 04:50:23 +0000
+Message-ID: <3C172728F540394F8A2EF3E1015F59312BED48@PGSMSX105.gar.corp.intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-version: 10.0.102.7
+dlp-reaction: no-action
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiMmFjNWJkMTEtZjE2Ni00NDQyLTk4MGQtMWYwYTkwOTg2OGQxIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX0lDIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE2LjUuOS4zIiwiVHJ1c3RlZExhYmVsSGFzaCI6IkVCMFlhMEhaZFlYbzYyMUd3N0VRYW1TUEZkUlYwNkVjMVVLcUdYbHRkMjA9In0=
+x-ctpclassification: CTP_IC
+x-originating-ip: [172.30.20.206]
+Content-Type: multipart/alternative;
+ boundary="_000_3C172728F540394F8A2EF3E1015F59312BED48PGSMSX105garcorpi_"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-Date: Sun, 06 Aug 2017 22:39:09 -0500
-From: anoo <anoo@linux.vnet.ibm.com>
-To: joel@jms.id.au
-Cc: openbmc@lists.ozlabs.org
-Subject: u-boot: load a kernel that's in a ubi volume
-X-Sender: anoo@linux.vnet.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 17080703-2213-0000-0000-00000205ABAC
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007498; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000217; SDB=6.00898666; UDB=6.00449735; IPR=6.00678871; 
- BA=6.00005512; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016565; XFM=3.00000015;
- UTC=2017-08-07 03:37:22
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17080703-2214-0000-0000-000057229623
-Message-Id: <2d17aa79d1cd24f26f7dc026bb3fed88@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-08-07_01:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
- definitions=main-1708070061
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -72,59 +49,98 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Aug 2017 03:37:29 -0000
+X-List-Received-Date: Mon, 07 Aug 2017 04:50:45 -0000
 
-Hi Joel,
-
-Per our discussion, here are the details of what we’re trying to do 
-and the things I’ve tried.
-
-Goal: Have u-boot load a kernel that's in a ubi volume.
-
-1. Added ubi support to uboot by adding the following macros to 
-include/configs/ast-g5-ncsi.h temporarily for testing purposes (a new 
-config header would probably need to be created for a final 
-implementation):
-
-| +#define CONFIG_CMD_UBI
-| +#define CONFIG_CMD_UBIFS
-| +#define CONFIG_RBTREE
-| +#define CONFIG_MTD_DEVICE
-| +#define CONFIG_MTD_PARTITIONS
-| +#define CONFIG_CMD_MTDPARTS
-| +#define CONFIG_LZO
-
-2. Built a romulus image with the above u-boot change plus commit 
-https://gerrit.openbmc-project.xyz/#/c/5812/ which is the top-most 
-commit for a set of changes to remove the initramfs and create a flash 
-image that builds the kernel and rootsfs into ubi volumes.
-
-3. Used the generated obmc-phosphor-image-romulus.ubi.mtd to boot qemu.
-
-4. To be able to use ubi in u-boot, the mtdparts and mtdids variables 
-need to be set (reference: 
-https://fossies.org/linux/qemu/roms/u-boot/doc/README.ubi).
-
-Here is where I’ve been unable to get u-boot to recognize the existing 
-mtd. I’ve tried multiple combinations for mtdids, such as nor0=bmc, 
-nor0=<addr>.flash, etc etc. But when running “mtdparts” command from 
-u-boot, or a ubi command, always get "Device nor0 not found!”. Ex:
-
-ast# mtdparts
-Device nor0 not found!
-
-ast# ubi part kernel0
-Device nor0 not found!
-Error initializing mtdparts!
-
-I’ve also taken a stab at adding the romulus device tree to u-boot to 
-see if that may be the reason, by copying from the kernel and adding to 
-u-boot the files arch/arm/dts/aspeed-g5.dtsi, 
-aspeed-bmc-opp-flash-layout.dtsi, aspeed-bmc-opp-romulus.dts, and adding 
-the dts to the Makefile. Also added a CONFIG_DEFAULT_DEVICE_TREE macro. 
-This might not be the correct or complete way to add the device tree to 
-the openbmc version of u-boot.
+--_000_3C172728F540394F8A2EF3E1015F59312BED48PGSMSX105garcorpi_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
 
-Let me know if you need additional details and thanks in advance for 
-your insight.
+Hi
+
+I am trying to learn about openbmc. I have gone through the link given belo=
+w and tried to use the image to build on AST2500 EVB. But it doesn't work f=
+or me. Can you please guide me on how to run the built image file(build num=
+ber 1016 in the link) and the test cases for it?
+
+https://openpower.xyz/job/openbmc-test-qemu/
+
+Regards
+Rashmi
+
+
+--_000_3C172728F540394F8A2EF3E1015F59312BED48PGSMSX105garcorpi_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Hi <o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I am trying to learn about openbmc. I have gone thro=
+ugh the link given below and tried to use the image to build on AST2500 EVB=
+. But it doesn&#8217;t work for me. Can you please guide me on how to run t=
+he built image file(build number 1016 in
+ the link) and the test cases for it? <o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><a href=3D"https://openpower.xyz/job/openbmc-test-qe=
+mu/">https://openpower.xyz/job/openbmc-test-qemu/</a><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Regards<o:p></o:p></p>
+<p class=3D"MsoNormal">Rashmi<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_3C172728F540394F8A2EF3E1015F59312BED48PGSMSX105garcorpi_--
