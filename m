@@ -1,72 +1,69 @@
-Return-Path: <anoo@linux.vnet.ibm.com>
+Return-Path: <miltonm@us.ibm.com>
 Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
  [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xR9wr3P9nzDqp7
- for <openbmc@lists.ozlabs.org>; Tue,  8 Aug 2017 07:42:20 +1000 (AEST)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xRBNl3Qz7zDqp7
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Aug 2017 08:03:03 +1000 (AEST)
+Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
  by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v77Le1IM057839
- for <openbmc@lists.ozlabs.org>; Mon, 7 Aug 2017 17:42:17 -0400
-Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2c6snw92xh-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 07 Aug 2017 17:42:17 -0400
+ v77Lwgk2105457
+ for <openbmc@lists.ozlabs.org>; Mon, 7 Aug 2017 18:03:00 -0400
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.90])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2c6t950c68-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 07 Aug 2017 18:03:00 -0400
 Received: from localhost
- by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <anoo@linux.vnet.ibm.com>;
- Mon, 7 Aug 2017 15:42:16 -0600
-Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
- by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 7 Aug 2017 15:42:14 -0600
-Received: from b03ledav001.gho.boulder.ibm.com
- (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
- by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v77LgE1d66912458; Mon, 7 Aug 2017 14:42:14 -0700
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 24FD56E045;
- Mon,  7 Aug 2017 15:42:14 -0600 (MDT)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP id F31506E044;
- Mon,  7 Aug 2017 15:42:13 -0600 (MDT)
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <miltonm@us.ibm.com>;
+ Mon, 7 Aug 2017 22:02:59 -0000
+Received: from us1a3-smtp07.a3.dal06.isc4sb.com (10.146.103.14)
+ by smtp.notes.na.collabserv.com (10.106.227.141) with
+ smtp.notes.na.collabserv.com ESMTP; Mon, 7 Aug 2017 22:02:58 -0000
+Received: from us1a3-mail79.a3.dal09.isc4sb.com ([10.142.3.136])
+ by us1a3-smtp07.a3.dal06.isc4sb.com
+ with ESMTP id 2017080722025750-936992 ;
+ Mon, 7 Aug 2017 22:02:57 +0000 
+In-Reply-To: <1501739988.2664.33.camel@au1.ibm.com>
+Subject: Re: OpenBMC Image Management
+From: "Milton Miller II" <miltonm@us.ibm.com>
+To: benh@ozlabs.au.ibm.com
+Cc: Patrick Williams <patrick@stwcx.xyz>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>
+Date: Mon, 7 Aug 2017 22:02:57 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-Date: Mon, 07 Aug 2017 16:44:05 -0500
-From: anoo <anoo@linux.vnet.ibm.com>
-To: Rick Altherr <raltherr@google.com>, Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley
- <joel.stan@gmail.com>
-Subject: Re: u-boot: load a kernel that's in a ubi volume
-In-Reply-To: <CAPLgG==3QTFkFpAr=C6HosKmdSbCAY_iPieByGHKNXLEadbJYQ@mail.gmail.com>
-References: <2d17aa79d1cd24f26f7dc026bb3fed88@linux.vnet.ibm.com>
- <CACPK8Xcjh7LCDNfsR7s9fJXTHh_cz8O224dHw8grTrhgyiyCbg@mail.gmail.com>
- <fc11d97ef36876f10cc083a776737fbd@linux.vnet.ibm.com>
- <CAPLgG==3QTFkFpAr=C6HosKmdSbCAY_iPieByGHKNXLEadbJYQ@mail.gmail.com>
-X-Sender: anoo@linux.vnet.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 17080721-0004-0000-0000-000012B69B41
-X-IBM-SpamModules-Scores: 
+Sensitivity: 
+Importance: Normal
+X-Priority: 3 (Normal)
+References: <1501739988.2664.33.camel@au1.ibm.com>,
+ <75C63AB7-E340-4A78-BA82-80F96EAEA051@linux.vnet.ibm.com>
+ <CAFR_W8pDQxg9sGmOVOhfJUAo1MqO0LOALrm9uuUDU2Dp836Y8g@mail.gmail.com>
+ <9DAA22C7-7A31-47F1-8F14-B0227892DA57@linux.vnet.ibm.com>
+ <1501719295.2664.14.camel@au1.ibm.com>
+ <20170803055546.A99FA112040@b01ledav004.gho.pok.ibm.com>
+X-Mailer: IBM iNotes ($HaikuForm 984.1) | IBM Domino Build
+ SCN17194_20170713T0023_FP2.1 July 18, 2017 at 09:50
+X-LLNOutbound: False
+X-Disclaimed: 50731
+X-TNEFEvaluated: 1
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+x-cbid: 17080722-9717-0000-0000-000003B79CAC
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.40962; ST=0; TS=0; UL=0; ISC=; MB=0.195885
 X-IBM-SpamModules-Versions: BY=3.00007503; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000217; SDB=6.00899027; UDB=6.00449952; IPR=6.00679232; 
+ PH=3.00000004; SC=3.00000217; SDB=6.00899034; UDB=6.00449956; IPR=6.00679239; 
  BA=6.00005516; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016579; XFM=3.00000015;
- UTC=2017-08-07 21:42:16
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17080721-0005-0000-0000-00008096474B
-Message-Id: <c03b2c2d57759c1db145d1e2be9924df@linux.vnet.ibm.com>
+ UTC=2017-08-07 22:02:59
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2017-08-07 16:22:05 - 6.00007144
+x-cbparentid: 17080722-9718-0000-0000-000094715E4E
+Message-Id: <OF8B7A4403.5F8D0C2D-ON00258175.00786E55-00258175.00791EEE@notes.na.collabserv.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-08-07_13:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
- definitions=main-1708070358
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -78,230 +75,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Aug 2017 21:42:20 -0000
+X-List-Received-Date: Mon, 07 Aug 2017 22:03:04 -0000
 
-Milton got mtdparts working by enabling the macro CONFIG_FLASH_CFI_MTD 
-plus the u-boot patch I just sent to the mailing list.
-Something to discuss would be where to add the UBI and MTD macros 
-(instead of ast-g5-ncsi.h). Perhaps a new header file but maybe not 
-generic a generic base one so that it's off by default.
+On 08/03/2017 around 1:00am in some time zone, Benjamin Herrenschmidt wrote:
+>On Thu, 2017-08-03 at 00:55 -0500, Patrick Williams wrote:
+>> But ok, I'll bite.  There are two main reasons we went this path:
+>>=20
+>>     *  UBIFS is, to the best of my knowledge, a better file system
+>than
+>>        JFFS2 in pretty much every metric.
+>>=20
+>>     *  Dynamic volumes are easier to deal with than static volumes,
+>>        which Adriana spelled out above.
+>>=20
+>> Is your real question why do we have a file system instead of a raw
+>FFS
+>> image?=20
+>
+>No that wasn't my real question. I was just wondering why ubifs
+>compared to jffs2, I was under the impression that ubifs was designed
+>for large NAND flashes.
+>
+>I might be wrong, mind you, but I remember reading that it had
+>significant overhead for a small flash.
 
-On 2017-08-07 12:39, Rick Altherr wrote:
-> I'm surprised you are putting the kernel in a bare UBI volume.  AFAIK,
-> U-Boot can load kernels from UBIFS.  Why wouldn't you create a UBIFS
-> volume for /boot and put the fitImage in there?
 
-Is there an advantage with UBIFS? Talking with Milton there’s no need 
-to access it during runtime, and we’d just have a couple kernels as 
-static volumes.
+There was some discussion about the OLPC decision to not use UBI on=20
+their flash because of space.
 
-> On Mon, Aug 7, 2017 at 8:34 AM, anoo <anoo@linux.vnet.ibm.com> wrote:
->> On 2017-08-07 02:36, Joel Stanley wrote:
->>> 
->>> On Mon, Aug 7, 2017 at 1:39 PM, anoo <anoo@linux.vnet.ibm.com> wrote:
->>>> 
->>>> Hi Joel,
->>>> 
->>>> Per our discussion, here are the details of what we’re trying to 
->>>> do and
->>>> the
->>>> things I’ve tried.
->>> 
->>> 
->>> Thanks. I spent the afternoon attempting to recreate your results.
->>> 
->>>> 
->>>> Goal: Have u-boot load a kernel that's in a ubi volume.
->>>> 
->>>> 1. Added ubi support to uboot by adding the following macros to
->>>> include/configs/ast-g5-ncsi.h temporarily for testing purposes (a 
->>>> new
->>>> config
->>>> header would probably need to be created for a final 
->>>> implementation):
->>>> 
->>>> | +#define CONFIG_CMD_UBI
->>>> | +#define CONFIG_CMD_UBIFS
->>>> | +#define CONFIG_RBTREE
->>>> | +#define CONFIG_MTD_DEVICE
->>>> | +#define CONFIG_MTD_PARTITIONS
->>>> | +#define CONFIG_CMD_MTDPARTS
->>>> | +#define CONFIG_LZO
->>> 
->>> 
->>> I replicated this. I noted that this increases the size of the u-boot
->>> image a lot:
->>> 
->>> Old size: 232632
->>> New size: 358320
->>> 
->>> This is an extra 122kB, or a 54% increase in the u-boot size.
->>> 
->>> It does still fit in the partition we have, which is 384 KB.
->> 
->> 
->> Definitely something to keep in mind.
->> 
->>> 
->>>> 
->>>> 2. Built a romulus image with the above u-boot change plus commit
->>>> https://gerrit.openbmc-project.xyz/#/c/5812/ which is the top-most 
->>>> commit
->>>> for a set of changes to remove the initramfs and create a flash 
->>>> image
->>>> that
->>>> builds the kernel and rootsfs into ubi volumes.
->>> 
->>> 
->>> Why Romulus? Isn't this work being done for Witherspoon?
->> 
->> 
->> Yeah, this is being done for witherspoon. I've tested with witherspoon 
->> as
->> well but also Romulus in case there were device tree changes that 
->> needed to
->> be done that's a smaller system.
->> 
->>>> 3. Used the generated obmc-phosphor-image-romulus.ubi.mtd to boot 
->>>> qemu.
->>> 
->>> 
->>> What was the Qemu command line you used?
->> 
->> 
->> After cloning the openbmc/qemu repo and building (using as reference
->> https://github.com/openbmc/docs/blob/master/cheatsheet.md#using-qemu):
->> 
->> ./build/arm-softmmu/qemu-system-arm -m 256 -M romulus-bmc -nographic 
->> -drive
->> file=/<path_to>/obmc-phosphor-image-romulus.ubi.mtd,format=raw,if=mtd 
->> -net
->> nic -net
->> user,hostfwd=:127.0.0.1:2222-:22,hostfwd=:127.0.0.1:2443-:443,hostfwd=:127.0.0.1:2300-:3000,hostname=qemu
->> 
->> For witherspoon, I use the same command, just pointing to a withespoon
->> image.
->> 
->>> 
->>> Can you share a mkfs.ubifs command line that I can use to create a 
->>> ubi
->>> image?
->> 
->> 
->> You can create a config test file (named ubi.cfg in this example) in a
->> directory where you have the kernel fit image fitImage-<system>.bin, 
->> ex:
->> 
->> $ cat ubi.cfg
->> [kernel0]
->> mode=ubi
->> image=fitImage-<system>.bin
->> vol_type=static
->> vol_name=kernel0
->> vol_id=0
->> 
->> Then use ubinize command:
->> $ ubinize -p 64 -m 1 -o <outputfilename> ubi.cfg
->> 
->> The ubinize command is being added to the openbmc build with this 
->> commit:
->> https://gerrit.openbmc-project.xyz/#/c/5801/3/meta-phosphor/classes/image_types_phosphor.bbclass
->> 
->> The rwfs is built with:
->> "UBIFS_RWFS_CMD = "mkfs.ubifs -r ubifs -c ${FLASH_UBI_RWFS_LEBS} -m
->> ${FLASH_PAGE_SIZE} -e ${FLASH_LEB_SIZE}KiB rwfs.ubifs"
->> 
->> Then the ubi image is built with:
->> "ubinize -p ${FLASH_PEB_SIZE}KiB -m ${FLASH_PAGE_SIZE} -o ubi-img 
->> $cfg"
->> 
->>> 
->>> When I tried to boot the image I downloaded from the gerrit job, none
->>> of the uboot commands you listed worked:
->> 
->> 
->> An image needs to built with the u-boot changes that enable ubi, since 
->> that
->> is not in gerrit. You'd need to build an openbmc image with the u-boot
->> recipe pointing to a local u-boot repo that has the ubi macros 
->> enabled.
->> 
->> I'll pass you in a separate msg the image I have built.
->> 
->> 
->>> 
->>> U-Boot 2016.07 (Jul 27 2017 - 21:13:25 +0000)
->>> 
->>>        Watchdog enabled
->>> DRAM:  496 MiB
->>> Flash: 32 MiB
->>> *** Warning - bad CRC, using default environment
->>> 
->>> In:    serial
->>> Out:   serial
->>> Err:   serial
->>> Net:   aspeednic#0
->>> Error: aspeednic#0 address not set.
->>> 
->>> Hit any key to stop autoboot:  0
->>> libfdt fdt_check_header(): FDT_ERR_BADMAGIC
->>> Wrong Image Format for bootm command
->>> ERROR: can't get kernel image!
->>> ast# mtdparts
->>> Unknown command 'mtdparts' - try 'help'
->>> ast# ubi part kernel0
->>> Unknown command 'ubi' - try 'help'
->>> 
->>> 
->>>> 
->>>> 4. To be able to use ubi in u-boot, the mtdparts and mtdids 
->>>> variables
->>>> need
->>>> to be set (reference:
->>>> https://fossies.org/linux/qemu/roms/u-boot/doc/README.ubi).
->>>> 
->>>> Here is where I’ve been unable to get u-boot to recognize the 
->>>> existing
->>>> mtd.
->>>> I’ve tried multiple combinations for mtdids, such as nor0=bmc,
->>>> nor0=<addr>.flash, etc etc. But when running “mtdparts” command 
->>>> from
->>>> u-boot,
->>>> or a ubi command, always get "Device nor0 not found!”. Ex:
->>>> 
->>>> ast# mtdparts
->>>> Device nor0 not found!
->>>> 
->>>> ast# ubi part kernel0
->>>> Device nor0 not found!
->>>> Error initializing mtdparts!
->>>> 
->>>> I’ve also taken a stab at adding the romulus device tree to u-boot 
->>>> to see
->>>> if
->>>> that may be the reason, by copying from the kernel and adding to 
->>>> u-boot
->>>> the
->>>> files arch/arm/dts/aspeed-g5.dtsi, aspeed-bmc-opp-flash-layout.dtsi,
->>>> aspeed-bmc-opp-romulus.dts, and adding the dts to the Makefile. Also
->>>> added a
->>>> CONFIG_DEFAULT_DEVICE_TREE macro. This might not be the correct or
->>>> complete
->>>> way to add the device tree to the openbmc version of u-boot.
->>> 
->>> 
->>> Can you explain what you were trying to do there?
->> 
->> 
->> I was trying to add the system device tree to u-boot. The device trees 
->> for
->> the openbmc systems are defined in the kernel, but they may be 
->> required to
->> be defined in u-boot for u-boot to find the mtd partitions.
->> 
->>> 
->>> Cheers,
->>> 
->>> Joel
->> 
->> 
+UBI requires two write programming units to hold two units of metadata=20
+for each erase block.  One block holds the wear leveling counter and is=20
+written immediately after erase, and the second holds the assigned volume=20
+and logical erase block theirin.  On NAND, each of these are a write=20
+program unit and can be upuwards of 256 bytes, and erase units might be=20
+a few kbytes.  On NOR, which we are using, these are each assigned a=20
+minimum size of 64 bytes.  Also ubi enforces each erase block must=20
+be at least 16kB, this means we have to use 64kB sectors not 4kB.
+
+Thus the overhead for ubi is 128 bytes per 65536 bytes, and in return=20
+we get volume management and wear leveling across the whole device.
+
+We have to use 64k blocks vs 4k but can share 1 floating block across
+all volumes in the device.
+
+I have not analyzed the efficency of jffs2 vs ubifs for storage and=20
+journaling.   jffs2 mantains all inodes in ram, it appears that ubifs
+presently does but would not be required to.  Both have shutdown fast
+mount support and both have some degree of support for compressed file
+fragments.
+
+jffs2 only supports synchronous updates to the flash, ubifs has a mount=20
+option to do the same but can do async writeback to the flash.  This may=20
+expose our applications to needing to add fsync code.
+
+milton
