@@ -1,62 +1,62 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xRJQW2MqdzDqkp
- for <openbmc@lists.ozlabs.org>; Tue,  8 Aug 2017 12:34:59 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="FBVCtiSW"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="O5sa8s3q"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 17D9F2075E;
- Mon,  7 Aug 2017 22:34:57 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Mon, 07 Aug 2017 22:34:57 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=y3Gy76DIMisjOy5h++S66yUK0Tu8O1nBW0UxijUJ6
- ME=; b=FBVCtiSWwh2UdLb0FMn/j0Ul1NPC30ifINDQ6rYPWBh8v2Dj5S5ZokRFd
- 43/v6pMs2ji0ZnXk6v/LqCH/Me3Wc4O4UtbJMsmM0tqwdNi0BmRKiQF+bpVGk8cT
- TDl7ip8uS+sEux2cq+SN74A35L6LKB8oOeKAVAfW1SsnTyuegaO4f3B++sNp9lE9
- 4OJ98yHwzsG1mlOC+27nMt9PDhiPC9QDqcqjDc6ujmFIVyBiuJFsKODN36tgTI4x
- crrAqgq/1o0kfz/k7jo7A7nCSXlKKBhmOWxqR5w8UIC84/sE8mr4UVHe2g0j3Is3
- e69NufpkyJlqeeacg6mOJWnetgGVA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=y3Gy76DIMisjOy5h++
- S66yUK0Tu8O1nBW0UxijUJ6ME=; b=O5sa8s3qVWPe5QBn1sHcIaHAPo2+R3GvtE
- 7X6X0irnAFrZLODFBtSZGb9lbGs96SAnJc3LaaN1OCLSXKdi0KHeiOyY5DpX1FNG
- 2ursWgYxd8jXwR8JaXLdDpPbSC3NcHqjAObV7ULDIGKWVw+M2C8NyMyfB0PDaH6f
- 9RRt1P+MwwsyDyh+mUsVJ2tEhOUKt8BkrKMHB4AcHsipTD7gszHowhNEGoSbxicG
- xHQT/kpEenpEN6ZgHnh0JFXGxYF5RrWTY2e1AO+WAxDAVxZ/Fg+tJsmlWht95D5l
- +Fz6FDiE20IgrR3d2DcbkZuWPyO2ENOTQiQScPGUR5/veGusyMvQ==
-X-ME-Sender: <xms:USOJWUg5GuT82xF2jYJUW7J3wPYoJ62LdjS78m-POJccpOHDmu00mQ>
-X-Sasl-enc: Jf0LlL+9qe4pcqCHkIZvVma8eQBHCmwod8unslU84mdh 1502159696
-Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 010357E317;
- Mon,  7 Aug 2017 22:34:54 -0400 (EDT)
-Message-ID: <1502159688.7946.6.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10 v3 1/5] drivers/hwmon/pmbus: Add IBM
- power supply hwmon driver
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Cc: "Edward A. James" <eajames@us.ibm.com>, bjwyman@gmail.com
-Date: Tue, 08 Aug 2017 12:04:48 +0930
-In-Reply-To: <1502084490.7709.1.camel@aj.id.au>
-References: <1501705534-27606-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1501705534-27606-2-git-send-email-eajames@linux.vnet.ibm.com>
- <1501806869.29409.14.camel@aj.id.au>
- <80c3981a-b3b3-f9da-2fcb-f64dd06ac9b8@linux.vnet.ibm.com>
- <1502084490.7709.1.camel@aj.id.au>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-zENx58Wg8qu51u6J4k1e"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xRK1W2r3mzDqkp
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Aug 2017 13:01:51 +1000 (AEST)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v7831Ols022801
+ for <openbmc@lists.ozlabs.org>; Mon, 7 Aug 2017 23:01:49 -0400
+Received: from e13.ny.us.ibm.com (e13.ny.us.ibm.com [129.33.205.203])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2c6usqxwvt-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 07 Aug 2017 23:01:48 -0400
+Received: from localhost
+ by e13.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Mon, 7 Aug 2017 23:01:47 -0400
+Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
+ by e13.ny.us.ibm.com (146.89.104.200) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Mon, 7 Aug 2017 23:01:45 -0400
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v7831j3132833728; Tue, 8 Aug 2017 03:01:45 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C01682803F;
+ Mon,  7 Aug 2017 23:01:38 -0400 (EDT)
+Received: from oc3016140333.ibm.com (unknown [9.85.166.253])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id 4FA212803E;
+ Mon,  7 Aug 2017 23:01:38 -0400 (EDT)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, jk@ozlabs.org, "Edward A. James" <eajames@us.ibm.com>
+Subject: [PATCH linux dev-4.10] drivers/i2c: FSI: Fix bug on remove() and
+ reset to upstream state
+Date: Mon,  7 Aug 2017 22:01:42 -0500
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+x-cbid: 17080803-0008-0000-0000-0000026B21A7
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007504; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000217; SDB=6.00899134; UDB=6.00450016; IPR=6.00679339; 
+ BA=6.00005516; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016585; XFM=3.00000015;
+ UTC=2017-08-08 03:01:46
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17080803-0009-0000-0000-0000364CE47F
+Message-Id: <1502161302-23286-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-08-08_01:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
+ definitions=main-1708080048
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,71 +68,189 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Aug 2017 02:35:01 -0000
+X-List-Received-Date: Tue, 08 Aug 2017 03:01:51 -0000
 
+From: "Edward A. James" <eajames@us.ibm.com>
 
---=-zENx58Wg8qu51u6J4k1e
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Deleting entries in list on remove() even if the list was empty...
+Also a few other fixes just to get it in line with what I've sent
+upstream.
 
-On Mon, 2017-08-07 at 15:11 +0930, Andrew Jeffery wrote:
-> >=C2=A0
-> > >=C2=A0
-> > > > +
-> > > > +static const struct i2c_device_id ibmps_id[] =3D {
-> > > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0{ "witherspoon=
-", witherspoon },
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0{ }
-> > > >=C2=A0
-> > > > +};
-> > > > +MODULE_DEVICE_TABLE(i2c, ibmps_id);
-> > > > +
-> > > > +static const struct of_device_id ibmps_of_match[] =3D {
-> > > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0{ .compatible =
-=3D "ibm,ibmps" },
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0{}
-> > > >=C2=A0
-> > > > +};
-> > > > +MODULE_DEVICE_TABLE(of, p8_i2c_occ_of_match);
-> > >=C2=A0
-> > > p8_i2c_occ_of_match isn't right. Do we need both device tables?
-> > > "witherspoon" as a device ID also seems unusual. What's going on ther=
-e?
-> >=C2=A0
-> > Uhh, not sure how that got in there... How does this compile?? I'll fix=
-=C2=A0
-> > it. The power supply doesn't have any device id or anything, so I just=
-=C2=A0
-> > went with witherspoon...
->=20
-> My issue is "withersoon" identifies a class of machine, not a power
-> supply, even if the powersupply is specific to Witherspoon.
+Resolves openbmc/linux#138
 
-Further to this, I've just got hold of the datasheet. My reading of it
-says the part number is "01KL054". Maybe the driver should include that
-in its name and compatible.
+Signed-off-by: Edward A. James <eajames@us.ibm.com>
+---
+ drivers/i2c/busses/i2c-fsi.c | 57 +++++++++++++++++++++++++-------------------
+ 1 file changed, 32 insertions(+), 25 deletions(-)
 
-Andrew
---=-zENx58Wg8qu51u6J4k1e
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJZiSNIAAoJEJ0dnzgO5LT5wloQAI3zs8iltBN0RXjDOh8FOT7D
-tNKCfng0CUnMXM2efcqxaYlrX9eSZdHccTym8hcxpbP9ZujCRt+Qh92WDhCOy+6A
-0q1JgeQOPyJpKBEYm/3mxwpnW8375Delq1X2znFDbi67yT5+P7nxmlyyU/Fvzu4t
-QPUL7IHqX9OmoIAnNvMCabV0SeKhlh16x066c2A7PaNxVLzHJbgtKy7KaX4J+UWC
-59RGhHOAhbh+U1vzDeFUJcHzDW6JFEmuZxrbMGDhRF4mBw3gUEMJ3cevYmgFLXHk
-ds2Ww6nte8XKcYTf3btq+hZEFgDp5pUyZ4NXPN8qFz5gjK/5JDXOz1RRPSt/Vrzt
-mzTCK9Rc4NxrIy+c2wmmAhE6Nx39GC+Od5GW/tPyIGjhKonzLA0J9trrQ4NbcbZr
-jyKWmrWOC7u5q/2zGwT6M6YTxVBSbjrBKtzzRtXaZi/gGz2m9qbEsbwG9dVf+GmR
-X6TTp+MdbvR3eTdGd22E+maO5aCExVKIQOu0BDabkDT9TdTPmt36kEBl8/fsf6z3
-0me+aJauLiqnx3z6SR49kLXPrb1zkItpXRCxf1/NjcfbrrudUAuU5E0cdO6iJ4pV
-xcHycwVi+Is8zxYlgU/A+EMeBZbbiohzKQo68rYDuKUsryTQ9sabiKK/+zg6SZ5r
-ES8ynDTWdOBVwEAHLg/O
-=XYOD
------END PGP SIGNATURE-----
-
---=-zENx58Wg8qu51u6J4k1e--
+diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
+index 7f59ec0..1af9c01 100644
+--- a/drivers/i2c/busses/i2c-fsi.c
++++ b/drivers/i2c/busses/i2c-fsi.c
+@@ -9,16 +9,20 @@
+  * 2 of the License, or (at your option) any later version.
+  */
+ 
++#include <linux/device.h>
++#include <linux/errno.h>
+ #include <linux/fsi.h>
+ #include <linux/i2c.h>
+ #include <linux/jiffies.h>
++#include <linux/kernel.h>
++#include <linux/list.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/sched.h>
+ #include <linux/semaphore.h>
+ #include <linux/wait.h>
+ 
+-#define FSI_ENGID_I2C_FSI	0x7
++#define FSI_ENGID_I2C		0x7
+ 
+ /* Find left shift from first set bit in m */
+ #define MASK_TO_LSH(m)		(__builtin_ffsll(m) - 1ULL)
+@@ -30,7 +34,6 @@
+ #define SETFIELD(m, v, val)	\
+ 	(((v) & ~(m)) | ((((typeof(v))(val)) << MASK_TO_LSH(m)) & (m)))
+ 
+-#define I2C_MASTER_NR_OFFSET	100
+ #define I2C_DEFAULT_CLK_DIV	6
+ 
+ /* i2c registers */
+@@ -150,13 +153,13 @@ static int fsi_i2c_read_reg(struct fsi_device *fsi, unsigned int reg,
+ 			    u32 *data)
+ {
+ 	int rc;
+-	u32 raw_data;
++	__be32 data_be;
+ 
+-	rc = fsi_device_read(fsi, reg, &raw_data, sizeof(raw_data));
++	rc = fsi_device_read(fsi, reg, &data_be, sizeof(data_be));
+ 	if (rc)
+ 		return rc;
+ 
+-	*data = be32_to_cpu(raw_data);
++	*data = be32_to_cpu(data_be);
+ 
+ 	return 0;
+ }
+@@ -164,9 +167,9 @@ static int fsi_i2c_read_reg(struct fsi_device *fsi, unsigned int reg,
+ static int fsi_i2c_write_reg(struct fsi_device *fsi, unsigned int reg,
+ 			     u32 *data)
+ {
+-	u32 raw_data = cpu_to_be32(*data);
++	__be32 data_be = cpu_to_be32(*data);
+ 
+-	return fsi_device_write(fsi, reg, &raw_data, sizeof(raw_data));
++	return fsi_device_write(fsi, reg, &data_be, sizeof(data_be));
+ }
+ 
+ static int fsi_i2c_lock_master(struct fsi_i2c_master *i2c, int timeout)
+@@ -351,12 +354,12 @@ static int fsi_i2c_read_fifo(struct fsi_i2c_port *port, struct i2c_msg *msg,
+ static int fsi_i2c_handle_status(struct fsi_i2c_port *port,
+ 				 struct i2c_msg *msg, u32 status)
+ {
+-	struct fsi_i2c_master *i2c = port->master;
+-	u8 fifo_count;
+ 	int rc;
++	u8 fifo_count;
++	struct fsi_i2c_master *i2c = port->master;
++	u32 dummy = 0;
+ 
+ 	if (status & I2C_STAT_ERR) {
+-		u32 dummy = 0;
+ 		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_ERR, &dummy);
+ 		if (rc)
+ 			return rc;
+@@ -383,11 +386,10 @@ static int fsi_i2c_handle_status(struct fsi_i2c_port *port,
+ 			rc = -ENODATA;
+ 		else
+ 			rc = msg->len;
++
+ 		return rc;
+ 	}
+ 
+-	dev_warn(&port->adapter.dev, "no status to handle\n");
+-
+ 	return 0;
+ }
+ 
+@@ -563,7 +565,11 @@ static int fsi_i2c_probe(struct device *dev)
+ 	i2c->fsi = to_fsi_dev(dev);
+ 	INIT_LIST_HEAD(&i2c->ports);
+ 
+-	/* Add adapter for each i2c port of the master */
++	rc = fsi_i2c_dev_init(i2c);
++	if (rc)
++		return rc;
++
++	/* Add adapter for each i2c port of the master. */
+ 	for_each_available_child_of_node(dev->of_node, np) {
+ 		rc = of_property_read_u32(np, "reg", &port_no);
+ 		if (rc || port_no > USHRT_MAX)
+@@ -571,7 +577,7 @@ static int fsi_i2c_probe(struct device *dev)
+ 
+ 		port = devm_kzalloc(dev, sizeof(*port), GFP_KERNEL);
+ 		if (!port)
+-			return -ENOMEM;
++			break;
+ 
+ 		port->master = i2c;
+ 		port->port = port_no;
+@@ -584,19 +590,18 @@ static int fsi_i2c_probe(struct device *dev)
+ 		port->adapter.algo_data = port;
+ 
+ 		snprintf(port->adapter.name, sizeof(port->adapter.name),
+-				"fsi_i2c-%u", port_no);
++			 "i2c_bus-%u", port_no);
+ 
+ 		rc = i2c_add_adapter(&port->adapter);
+-		if (rc < 0)
+-			return rc;
++		if (rc < 0) {
++			dev_err(dev, "Failed to register adapter: %d\n", rc);
++			devm_kfree(dev, port);
++			continue;
++		}
+ 
+ 		list_add(&port->list, &i2c->ports);
+ 	}
+ 
+-	rc = fsi_i2c_dev_init(i2c);
+-	if (rc)
+-		return rc;
+-
+ 	dev_set_drvdata(dev, i2c);
+ 
+ 	return 0;
+@@ -607,22 +612,24 @@ static int fsi_i2c_remove(struct device *dev)
+ 	struct fsi_i2c_master *i2c = dev_get_drvdata(dev);
+ 	struct fsi_i2c_port *port;
+ 
+-	list_for_each_entry(port, &i2c->ports, list) {
+-		i2c_del_adapter(&port->adapter);
++	if (!list_empty(&i2c->ports)) {
++		list_for_each_entry(port, &i2c->ports, list) {
++			i2c_del_adapter(&port->adapter);
++		}
+ 	}
+ 
+ 	return 0;
+ }
+ 
+ static const struct fsi_device_id fsi_i2c_ids[] = {
+-	{ FSI_ENGID_I2C_FSI, FSI_VERSION_ANY },
++	{ FSI_ENGID_I2C, FSI_VERSION_ANY },
+ 	{ 0 }
+ };
+ 
+ static struct fsi_driver fsi_i2c_driver = {
+ 	.id_table = fsi_i2c_ids,
+ 	.drv = {
+-		.name = "fsi_i2c_master",
++		.name = "i2c-fsi",
+ 		.bus = &fsi_bus_type,
+ 		.probe = fsi_i2c_probe,
+ 		.remove = fsi_i2c_remove,
+-- 
+1.8.3.1
