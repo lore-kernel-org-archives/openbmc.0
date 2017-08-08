@@ -1,54 +1,56 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
- [IPv6:2607:f8b0:4002:c05::244])
+Received: from mail-it0-x243.google.com (mail-it0-x243.google.com
+ [IPv6:2607:f8b0:4001:c0b::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xRZCQ1sfrzDqp9
- for <openbmc@lists.ozlabs.org>; Tue,  8 Aug 2017 22:56:18 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xRZMF2hR8zDqp8
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Aug 2017 23:03:04 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="uDtvoYrO"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="DXRC9qWe"; 
  dkim-atps=neutral
-Received: by mail-yw0-x244.google.com with SMTP id s143so2305511ywg.4
- for <openbmc@lists.ozlabs.org>; Tue, 08 Aug 2017 05:56:18 -0700 (PDT)
+Received: by mail-it0-x243.google.com with SMTP id r9so2534828ita.3
+ for <openbmc@lists.ozlabs.org>; Tue, 08 Aug 2017 06:03:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=XQryuBlDp8uygb8l9k2c3N3UqmfQ/SoFACoyTXWzG2Q=;
- b=uDtvoYrOGGwUATZOiU/3nqzFEGadSnW3Mdq93UeYOCaqF0lMTOpJ1dvkPezRvcNM0C
- 46WrM1l+A0mGAp0xWdRCA9+jX4tLf0cQkODAaw2ROo5VGoYeNQH7KO69NmXvhzamLxmB
- i983kn0CWxLINVrYk8+TNZ+6+DsVbitz98+mBvFcfST3l51I6R+ZazJaPTNNTsAKkxHc
- HpBx7HprNwtAMDY6CTL2cfCscZM2IvwzwP5x7WiFqHAjiWCYLpTpoBsX8zCOwWQ3ZjxP
- 1R7CKuBp8Tp8YD3Sr2IaY/zD6lAmCmwIW6yHNJgfcldoMfOnGBt/ADH4BSjfUMDcYz/p
- xYcA==
+ bh=u0wknLexucj9/iXIjnSRHsEjoqjA3WCncaFfihf9Vpg=;
+ b=DXRC9qWe0xiPcTiIavSWC/py33Bn3H1aYLoDnSSxA6MTwukPWgw3c/r3HF9Xb3wCgT
+ tiCNXuS9wKmLP3bJlsc3Zbcs6V7DkJFEM5tpg5reOUBZhJqNMoHbIBscOpN7d0TGdKaD
+ /x9hamLMQceIng5BzmtSWAJtc2lV4eajYQ6iKqNrhfcv0ZpjhbBkAEqljuXGk/fub1xg
+ A+pQILOk2lRm07/NK2TKMXuYsURbiLP5XiBSv0vlRKsuTDQFj+EaN3uSSOTvwsb49A4O
+ +rkhrcggkNebKeUYIVHV2jb0ptU7bVIq5U6X9TrsWCPQuFQ1POP+ofB1IHfmgC+oNxBI
+ WiDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=XQryuBlDp8uygb8l9k2c3N3UqmfQ/SoFACoyTXWzG2Q=;
- b=KYlDqtw/EaSsaRetdwmFOQaWY8QOznhktMnR8ThEX7lBujqL+X/+hjUtORuDBcpnc5
- iC3vNHRIsVnZnhZ86TKHrMfiV1D74U2ovyaVA0ol+nqF+DGmgf8UPqtcUOiFeEnInUx/
- FutNJk4pAyk8kDnOrTcf/fULZpd0yID3BSdyVHBVB/zdZpBg6G9WU5hD2yI2uTIfK6cy
- E5XkMkUrBDhmrMYPaRRhAHbLqLYsJw6VLTblCFwv4iyYOoogiXEHGTH7tMDz0EXFJc1C
- KczLFRfclyq/ecLTis/e1sV5RsWNKlcD7BCTmnaXMxPsqlgkXrWPcq5+Up5LneycH77V
- Y2zg==
-X-Gm-Message-State: AHYfb5hWEL4ekH6Y2tOR/VKqcD4o+1aljydE4QALD4hbndzKFv7NAwGU
- fw8mLbgc83BIPVAetAHdBGYGSBoEKw==
-X-Received: by 10.37.90.84 with SMTP id o81mr3357164ybb.350.1502196976060;
- Tue, 08 Aug 2017 05:56:16 -0700 (PDT)
+ bh=u0wknLexucj9/iXIjnSRHsEjoqjA3WCncaFfihf9Vpg=;
+ b=iWF0/yGZbAlfDzhlgkT0HNxXEKY/mK1YKAOYcnZbnFnkQ2Vcwhs1W+PSC9vNlvzg1T
+ rkhKcMTPdVfH/xYAENYwhVSQzREsDZqnmh6zc3wpItJPSdShxYIIzTYSkXCsjFedEVGo
+ ozt//xchdmn9K31QcPnZgZgQUuUA57uv2oIrxKgB17o1wlrTY6Ru4eOSb0wcGj6DYcT3
+ igcoD7Sz519PeOwvkVh3/svRPb7hw6+OWjAZ6y+nwF+bqtDUT+O3+kJgC/fJtjr9d++d
+ 5nuJNfm7eFRnELEZqeXiMvCwX4zmf+vEpn18HXb+sD7a4zxhZbxDsB0O7TeegBoztsNf
+ l4VQ==
+X-Gm-Message-State: AHYfb5jFFNs/TY6Xx4VMICyDrbcdZ4d4T9aF+2Ao4gy0c6iuUQJFjoxF
+ 8CcrPkgEz70GTZo+2iwCjTmOdNnIkQ==
+X-Received: by 10.37.11.83 with SMTP id 80mr3242625ybl.194.1502197381718; Tue,
+ 08 Aug 2017 06:03:01 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.197.148 with HTTP; Tue, 8 Aug 2017 05:55:55 -0700 (PDT)
-In-Reply-To: <7078c05a-dfa7-f6ae-62e5-70e2c9d019b5@linux.vnet.ibm.com>
-References: <1502097540-10201-1-git-send-email-mine260309@gmail.com>
- <7078c05a-dfa7-f6ae-62e5-70e2c9d019b5@linux.vnet.ibm.com>
+Received: by 10.37.197.148 with HTTP; Tue, 8 Aug 2017 06:02:41 -0700 (PDT)
+In-Reply-To: <4e9e5404-c8f7-51f0-f886-46010d5bfe68@ozlabs.org>
+References: <20170804032622.88674-1-cbostic@linux.vnet.ibm.com>
+ <20170804032622.88674-4-cbostic@linux.vnet.ibm.com>
+ <4e9e5404-c8f7-51f0-f886-46010d5bfe68@ozlabs.org>
 From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 8 Aug 2017 22:55:55 +1000
-X-Google-Sender-Auth: np4DYN1y4ylHep0PuP05y_q0_iE
-Message-ID: <CACPK8XfheEx3FkcuXhCOJsgrtUZpP4HsrR5_awpBg+wUPdiigg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: palmetto: Use new
- occ-hwmon driver
-To: Eddie James <eajames@linux.vnet.ibm.com>
-Cc: Lei YU <mine260309@gmail.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Tue, 8 Aug 2017 23:02:41 +1000
+X-Google-Sender-Auth: VVZGf9iks_jloKS1UxsE82Qm5PI
+Message-ID: <CACPK8XeT1EFbYTgRgwHOZM1iYyLp_9HoGeV2NnVUkL+tbgjNig@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v2 3/3] fsi: core: Add check for master
+ property no-scan-on-init
+To: Jeremy Kerr <jk@ozlabs.org>
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -61,26 +63,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Aug 2017 12:56:19 -0000
+X-List-Received-Date: Tue, 08 Aug 2017 13:03:06 -0000
 
-On Tue, Aug 8, 2017 at 12:33 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+On Fri, Aug 4, 2017 at 1:33 PM, Jeremy Kerr <jk@ozlabs.org> wrote:
+> Hi Chris,
 >
+>> Prior to scanning a master check if the optional property
+>> no-scan-on-init is present.  If it is then avoid scanning.  This is
+>> necessary in cases where a master scan could interfere with another
+>> FSI master on the same bus.
 >
-> On 08/07/2017 04:19 AM, Lei YU wrote:
->>
->> P8 OCC hwmon driver is updated.
->> Use the new driver and compatible name for Palmetto.
->>
->> Signed-off-by: Lei YU <mine260309@gmail.com>
+> Looks good to me. We may need to be flexible with the property name
+> (based on feedback from the DT folks, when we send to them for review),
+> but that should be fine regardless.
 >
->
-> Thanks Lei!
->
-> Acked-by: Eddie James <eajames@linux.vnet.ibm.com>
+> Acked-by: Jeremy Kerr <jk@ozlabs.org>
 
-Thanks for the ack Eddie.
-
-Applied to dev-4.10.
+I've applied the series to dev-4.10.
 
 Cheers,
 
