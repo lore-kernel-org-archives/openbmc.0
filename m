@@ -3,56 +3,57 @@ Received: from mail-yw0-x243.google.com (mail-yw0-x243.google.com
  [IPv6:2607:f8b0:4002:c05::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xRYWP74n3zDqp8
- for <openbmc@lists.ozlabs.org>; Tue,  8 Aug 2017 22:25:05 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xRYfg1yxszDqrN
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Aug 2017 22:31:23 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="mGd3RzFb"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="VfBm0bcJ"; 
  dkim-atps=neutral
-Received: by mail-yw0-x243.google.com with SMTP id u207so2261433ywc.0
- for <openbmc@lists.ozlabs.org>; Tue, 08 Aug 2017 05:25:05 -0700 (PDT)
+Received: by mail-yw0-x243.google.com with SMTP id n83so2270047ywn.3
+ for <openbmc@lists.ozlabs.org>; Tue, 08 Aug 2017 05:31:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=PYAzyWWZoPgpgF+p2mXfkdj+LUNm0iWYrMVgTJyhKOA=;
- b=mGd3RzFbzd7mVYZzeZnD932EJYKIC7RjrIfCQQ8u3ZzdaGfNdCKJEwG4R4BWWp1tEI
- lET7YSbvcjXL/70HmAEsOn2y+h8+o/mi0mExSqkN/bcT9oQ+MCNhzi4gjnQme4vk8saB
- Aud2Tu8jY8qN4KWicezgQOWmI+vB8GKEo6YBTvnmz3NhyodJvNJb2O5FQNiyMBsVspSO
- ydtyxnQv99/MPzQZcNucRoQVJ7FLfn54xx3VKQpSCkOXY7uY384sLsB9lYa/0TzRVKiV
- AjZDPk1dmJzHvGzowFjk00x1gTupppygBxO/K54JbEQkqn5wA6AThU+hiyFuuuie1JCa
- rI3A==
+ :subject:to:cc:content-transfer-encoding;
+ bh=ds6Nhd7RTXtqjgWsHZ7mox50JHHA5+vcb3J8vmSUOE8=;
+ b=VfBm0bcJSbYz2+9XJQJlKXvefmBMEVuBM/65ou5u4OExwXJiy4isvKb7ViOZIIIbAP
+ l/1bE9KZt6zsXPKoaKqpG28R06xopf0R2J7RjyIj4SMHu+A3IbALak5R/JNTh2Ugt6IT
+ CjSDwLOZ0lT4e2IyP+pugzY9ZKi+L3nIJexzWD0nXulsoDWtX7JYj3MF3cwrJEONXnmg
+ iIWs1QGNFNEYV0jKWtxwqEd4MtIZTquINsfzwUCDO+ksoZyRnW4TxMomoAbB8q2qaB8e
+ NCng8aAn4XEx7Buy0VqkkqtAzSSLYUtR4FFDjt5k3JLZtBfWxs2bXGzYOh5UDKIXc4h2
+ vTUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=PYAzyWWZoPgpgF+p2mXfkdj+LUNm0iWYrMVgTJyhKOA=;
- b=LGJWa6LPs+zH4HUbEkJhxnIhxlcu40Row+eWMwjqrjs27QQX3MPyLq3PRZnBLr/5I5
- kyQqQvC6uOCG9+2GRFb2NRSuwKa9Si9w/Ukpzqj2ZCewNzyZyjNE02pGzjXexhZtHeyF
- d7XYCaaNe0o1jeZnmRR09BPPz03Vohyc2FC8sjqctgLZdh01IoVGfPSf+dJBJT52vTeA
- CEDsvqz9p90TasP3KWLo134h9G+zjy9k66ybbLNr4o1h+cixkUiitAGoS0h8Zd1+b+UA
- rwfjUBu7WzCgHr83yeyacVhXKJYkABSljn61jBYzDjiGCE1Olr5bcylPCYMr0JIJ+bXf
- Xg1w==
-X-Gm-Message-State: AHYfb5j6wo4gOa8vyw3Dp0beQXaTXpSzIqaHQ6mdiFhrmGh7eYBdk32b
- mvauUgnjDmft6YywMPNepDKkD0F2Lw==
-X-Received: by 10.129.42.138 with SMTP id q132mr3196755ywq.276.1502195103368; 
- Tue, 08 Aug 2017 05:25:03 -0700 (PDT)
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=ds6Nhd7RTXtqjgWsHZ7mox50JHHA5+vcb3J8vmSUOE8=;
+ b=BJzDJg6m2m0MsIsPDZUCRVhP3zWu5VzYb0eKKUtBzKv92nvSiUjMMl1BKwQu8Wx37R
+ e1gC6INeZJw6jTXBrUmvEKPDhM41CGAkYatI4H8ybbIF1pycri2vHWbPqcVUEZK7PwiR
+ xuq8nPczJFN27XaKkcI/m2QnHksVqpzKAyjtWS2Pt4/iRzlXCobsqQHZ6SA4W6Dzzdip
+ VKUvFFyW9xHT8thfevGbkDF+CoZiqFXcgpoBF76rdnU508aqW7LVtCgAG55axwGY1yF4
+ BtqljFACZfQ9ED4ldiUedtpINHiwvPlOjI2TSUwU3tcy/lnYadmKVAvQsVEjB7B4iy65
+ L6eA==
+X-Gm-Message-State: AHYfb5hEtIVKEHRZP5YjeIcNgpZ+mJc5h24IrpRaHwgJKDouH3ALA64v
+ 08VotSksO5LX6kHaNoSTk7JrBZ+FVA==
+X-Received: by 10.129.156.198 with SMTP id t189mr3363870ywg.392.1502195480066; 
+ Tue, 08 Aug 2017 05:31:20 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.197.148 with HTTP; Tue, 8 Aug 2017 05:24:42 -0700 (PDT)
-In-Reply-To: <b8ec235e-b4bb-2fd3-75f5-54d96d500522@linux.vnet.ibm.com>
-References: <1500562258-20214-1-git-send-email-eajames@linux.vnet.ibm.com>
- <ed57c99d-4ff6-300e-71c8-7afde6a61bed@ozlabs.org>
- <b8ec235e-b4bb-2fd3-75f5-54d96d500522@linux.vnet.ibm.com>
+Received: by 10.37.197.148 with HTTP; Tue, 8 Aug 2017 05:30:59 -0700 (PDT)
+In-Reply-To: <0afaecee-1c26-2283-5fc1-138396455bbd@kaod.org>
+References: <1501786248-5447-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <0afaecee-1c26-2283-5fc1-138396455bbd@kaod.org>
 From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 8 Aug 2017 22:24:42 +1000
-X-Google-Sender-Auth: hMfIqK3jnzJMrUaONf45VOYzFPI
-Message-ID: <CACPK8XfE_f0sLWD5ffk3PL4jSenKo2u0rt1xj4EXmdPHbgBPeQ@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] drivers/fsi/scom: Remove reset before
- every putscom
-To: Eddie James <eajames@linux.vnet.ibm.com>
-Cc: Jeremy Kerr <jk@ozlabs.org>, OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- "Edward A. James" <eajames@us.ibm.com>,
- Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Date: Tue, 8 Aug 2017 22:30:59 +1000
+X-Google-Sender-Auth: TEidn-wZqPXV2ho-E9Mx_zF2v78
+Message-ID: <CACPK8XdK7RHiVQGQ_v-2zc660jasn8G8so1XaYDgZ49HL2nWwA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v7] ARM: dts: aspeed: witherspoon: Add
+ gpio-keys-polled for fan presence
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Cc: Eddie James <eajames@linux.vnet.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Christopher Bostic <cbostic@linux.vnet.ibm.com>,
+ "Edward A. James" <eajames@us.ibm.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -64,36 +65,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Aug 2017 12:25:06 -0000
+X-List-Received-Date: Tue, 08 Aug 2017 12:31:24 -0000
 
-Hello Eddie,
-
-On Sat, Jul 29, 2017 at 12:30 AM, Eddie James
-<eajames@linux.vnet.ibm.com> wrote:
-> On 07/27/2017 09:10 PM, Jeremy Kerr wrote:
->>> Reset causes problems for operations requiring multiple scoms (e.g. i2c
->>> over scom). Instead, reset scom engine during probe.
+On Fri, Aug 4, 2017 at 8:16 AM, C=C3=A9dric Le Goater <clg@kaod.org> wrote:
+> On 08/03/2017 08:50 PM, Eddie James wrote:
+>> From: "Edward A. James" <eajames@us.ibm.com>
 >>
->> Looks good to me. Out of curiosity, what kind of problems?
+>> Add gpio-keys-polled node for pca955x fan presence lines. Change the bin=
+ding
+>> of the pca9552 to remove the leds and instead define all the provided gp=
+io pins
+>> there. Add back the leds in a 'gpio-leds' compatible entry.
+>>
+>> Polling period of 1 second to be determined to be the max acceptable
+>> value based on discussions with Brad Bishop and Matt Spinler. Tested
+>> with gpiomon program - verified.
+>>
+>> Patch based on Cedric's example - thanks! Tested on witherspoon.
 >
+> You did the most difficult part: testing.
 >
-> Mainly I2C bus arbitration errors. I guess the reset interrupted the I2C
-> clock line control during an operation.
+> Acked-by: C=C3=A9dric Le Goater <clg@kaod.org>
 
-I've applied this to dev-4.10. One clarification:
+Woot, we got there in the end.
 
-> @@ -202,6 +197,9 @@ static int scom_probe(struct device *dev)
->         scom->mdev.parent = dev;
->         list_add(&scom->link, &scom_devices);
->
-> +       data = cpu_to_be32(SCOM_RESET_CMD);
-> +       fsi_device_write(fsi_dev, SCOM_RESET_REG, &data, sizeof(uint32_t));
-> +
->         return misc_register(&scom->mdev);
-
-I wanted to check that you were ignoring the return value of
-fsi_device_write here intentionally. If not, please send a follow up
-that adds a check.
+Applied to dev-4.10.
 
 Cheers,
 
