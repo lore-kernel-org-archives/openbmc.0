@@ -1,84 +1,74 @@
-Return-Path: <c_mykolak@mellanox.com>
-Received: from EUR02-AM5-obe.outbound.protection.outlook.com
- (mail-eopbgr00042.outbound.protection.outlook.com [40.107.0.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xRcCG4LnHzDqpP
- for <openbmc@lists.ozlabs.org>; Wed,  9 Aug 2017 00:26:18 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b="JVnhVXSy";
- dkim-atps=neutral
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
- s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=OX5rAY7xcZmy/EkgVrulSf8zyTjiWq3m7E8Zrld+RHM=;
- b=JVnhVXSyK9PIRTbQ8HmHwd6/Fvhar8OS5FK48/hO/h4s8NFAdCtlBcvnxzW9nioEWrv35Tj0GbAWrNsUqj/x0jygyGbaqzhyyvS06hjIfWJALKku+1aiMhkofBp2/IscB9xbx2P8RDTj1urrXsJ2FSINjBiqkqcBUD9vTN4dHv4=
-Received: from HE1PR05MB1227.eurprd05.prod.outlook.com (10.161.119.25) by
- HE1PR05MB1257.eurprd05.prod.outlook.com (10.162.250.14) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id
- 15.1.1320.16; Tue, 8 Aug 2017 14:26:11 +0000
-Received: from HE1PR05MB1227.eurprd05.prod.outlook.com
- ([fe80::cd50:e6d5:b987:d0ad]) by HE1PR05MB1227.eurprd05.prod.outlook.com
- ([fe80::cd50:e6d5:b987:d0ad%18]) with mapi id 15.01.1304.025; Tue, 8 Aug 2017
- 14:26:11 +0000
-From: Mykola Kostenok <c_mykolak@mellanox.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xRcYp70XSzDqyJ
+ for <openbmc@lists.ozlabs.org>; Wed,  9 Aug 2017 00:42:22 +1000 (AEST)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v78EdUJ2033903
+ for <openbmc@lists.ozlabs.org>; Tue, 8 Aug 2017 10:42:20 -0400
+Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2c7f3v8wh8-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 08 Aug 2017 10:42:20 -0400
+Received: from localhost
+ by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Tue, 8 Aug 2017 10:42:19 -0400
+Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
+ by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Tue, 8 Aug 2017 10:42:17 -0400
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v78EgG1823527558; Tue, 8 Aug 2017 14:42:16 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 53C22112040;
+ Tue,  8 Aug 2017 10:42:08 -0400 (EDT)
+Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id DB4B4112034;
+ Tue,  8 Aug 2017 10:42:07 -0400 (EDT)
+Subject: Re: [PATCH linux dev-4.10] drivers/fsi/scom: Remove reset before
+ every putscom
 To: Joel Stanley <joel@jms.id.au>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Vadim Pasternak
- <vadimp@mellanox.com>, Ohad Oz <ohado@mellanox.com>, Benjamin Herrenschmidt
- <benh@kernel.crashing.org>, Michael Ellerman <mpe@ellerman.id.au>, "Jeremy
- Kerr" <jk@ozlabs.org>
-Subject: RE: [PATCH linux dev-4.10] aspeed_g5_defconfig: add CONFIG_OF_DYNAMIC.
-Thread-Topic: [PATCH linux dev-4.10] aspeed_g5_defconfig: add
- CONFIG_OF_DYNAMIC.
-Thread-Index: AQHTEEeGjXmiw4MdfUaW3puuzmn576J6gSVQ
-Date: Tue, 8 Aug 2017 14:26:11 +0000
-Message-ID: <HE1PR05MB1227ECACCB6080B179026C54EF8A0@HE1PR05MB1227.eurprd05.prod.outlook.com>
-References: <20170803144813.28010-1-c_mykolak@mellanox.com>
- <CACPK8XfC6=K7MUak2AQa9c1L-C4WBBWoxd8AbpXiM2KukQMUVQ@mail.gmail.com>
-In-Reply-To: <CACPK8XfC6=K7MUak2AQa9c1L-C4WBBWoxd8AbpXiM2KukQMUVQ@mail.gmail.com>
-Accept-Language: ru-RU, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=c_mykolak@mellanox.com; 
-x-originating-ip: [80.90.224.13]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; HE1PR05MB1257;
- 6:fcZ3NigXYEDshWDF1G3gWAeHyLQ7pv4Ys0U9L8/up8k7fZ50DrxcJjy50x5I9MPjbkoo0vuJH7T3ZQaO0FFpGnkQxl8M9o8zbm4oMZxaU54FzYotkWqNPQPk1JcRBx+wJ9xF3nDahjHYfIcJaGS070CkznTCVSJfJzdIt27TPUd+FZnT1j+CR4D9rRB+1fP4IWnri0De+6VDGV3kY7dCOG3RkbHd1asEQWMJNrG65bPU3KNPKcNjR/bzmFW5iu08H7oe0VRv/rwGrBodIMICq7wQ1y0emwVVHfvaFAhH31pkwxRFlAzOMUAR6E7VD4FHNMHs9oJJW7KUqlTzPZhrAA==;
- 5:jx4J904/8idguAB35WgueT4r5iEWcQ3Il1BX1Bfk1fjiwky7SJrOz2bDGzfwCiDO7ec6BZra54VF0BazWKJrkpykUPXV3CW32PEdYuS8By+zl8CMTBLALYKi16/gP7X4oGg6khm6nE/Bt6tYmm6uww==;
- 24:7yMkvqYbDVSWGAQL1lXJtBL3RskliczvXgfr4jE4Po/GzgNTM+HGDB/+dEdw5Dk+UqMmC8laRsJBQJgKtDbyQ/oxvc7RLUPnOzE1cdSANV8=;
- 7:tIMpSDOZvf0iTZ6+4qUSpWnkp9B1Q6T4nr9jVVUPnsk74Xj1nsy+bja4Do3jbTDuA36tbTx/3WzG5ZOYCsoGocNIkOlO+cRh9Qm4SDVzH41rghUTCZjguhXZqO3b1xQrc33QYCplfQKP+NXKvz2Xf19WWykApdjbZ6WvNoBkFKl4oyit0BH6LNConfXU6ZsZ45v3TUZEypmv5umfKEHKe7mUTh//GzXExNviwcZTwbk=
-x-ms-office365-filtering-correlation-id: d5ecc83f-8c2f-4496-53ef-08d4de696b11
-x-ms-office365-filtering-ht: Tenant
-x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
- RULEID:(300000500095)(300135000095)(300000501095)(300135300095)(22001)(300000502095)(300135100095)(2017030254152)(300000503095)(300135400095)(48565401081)(2017052603031)(201703131423075)(201703031133081)(201702281549075)(300000504095)(300135200095)(300000505095)(300135600095)(300000506095)(300135500095);
- SRVR:HE1PR05MB1257; 
-x-ms-traffictypediagnostic: HE1PR05MB1257:
-x-exchange-antispam-report-test: UriScan:(65623756079841);
-x-microsoft-antispam-prvs: <HE1PR05MB1257E68E3D6EB77953F27D12EF8A0@HE1PR05MB1257.eurprd05.prod.outlook.com>
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(100000700101)(100105000095)(100000701101)(100105300095)(100000702101)(100105100095)(6040450)(601004)(2401047)(5005006)(8121501046)(100000703101)(100105400095)(10201501046)(3002001)(93006095)(93001095)(6055026)(6041248)(20161123562025)(20161123564025)(20161123558100)(201703131423075)(201702281528075)(201703061421075)(201703061406153)(20161123560025)(20161123555025)(6072148)(201708071742011)(100000704101)(100105200095)(100000705101)(100105500095);
- SRVR:HE1PR05MB1257; BCL:0; PCL:0;
- RULEID:(100000800101)(100110000095)(100000801101)(100110300095)(100000802101)(100110100095)(100000803101)(100110400095)(100000804101)(100110200095)(100000805101)(100110500095);
- SRVR:HE1PR05MB1257; 
-x-forefront-prvs: 03932714EB
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(6009001)(39450400003)(39840400002)(39400400002)(39410400002)(39860400002)(39850400002)(199003)(377454003)(13464003)(24454002)(189002)(101416001)(189998001)(4326008)(25786009)(478600001)(81156014)(81166006)(33656002)(66066001)(68736007)(8676002)(53546010)(14454004)(86362001)(8936002)(97736004)(74316002)(2900100001)(54906002)(9686003)(2906002)(55016002)(110136004)(99286003)(6246003)(38730400002)(6436002)(305945005)(53936002)(5660300001)(6916009)(2950100002)(3660700001)(105586002)(229853002)(54356999)(76176999)(50986999)(3280700002)(106356001)(7736002)(5250100002)(3846002)(7696004)(6506006)(102836003)(6116002)(15760500002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:HE1PR05MB1257;
- H:HE1PR05MB1227.eurprd05.prod.outlook.com; FPR:; SPF:None; PTR:InfoNoRecords;
- A:1; MX:1; LANG:en; 
-received-spf: None (protection.outlook.com: mellanox.com does not designate
- permitted sender hosts)
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Jeremy Kerr <jk@ozlabs.org>, OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ "Edward A. James" <eajames@us.ibm.com>,
+ Christopher Bostic <cbostic@linux.vnet.ibm.com>
+References: <1500562258-20214-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <ed57c99d-4ff6-300e-71c8-7afde6a61bed@ozlabs.org>
+ <b8ec235e-b4bb-2fd3-75f5-54d96d500522@linux.vnet.ibm.com>
+ <CACPK8XfE_f0sLWD5ffk3PL4jSenKo2u0rt1xj4EXmdPHbgBPeQ@mail.gmail.com>
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Tue, 8 Aug 2017 09:42:10 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.2.0
 MIME-Version: 1.0
-X-OriginatorOrg: Mellanox.com
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Aug 2017 14:26:11.3020 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR05MB1257
+In-Reply-To: <CACPK8XfE_f0sLWD5ffk3PL4jSenKo2u0rt1xj4EXmdPHbgBPeQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 17080814-2213-0000-0000-00000206652D
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007507; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000217; SDB=6.00899367; UDB=6.00450156; IPR=6.00679573; 
+ BA=6.00005519; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016596; XFM=3.00000015;
+ UTC=2017-08-08 14:42:18
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17080814-2214-0000-0000-000057269940
+Message-Id: <0704428e-aef6-dbe3-2df0-691570511024@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-08-08_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
+ definitions=main-1708080237
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -90,75 +80,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Aug 2017 14:26:20 -0000
+X-List-Received-Date: Tue, 08 Aug 2017 14:42:23 -0000
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBqb2VsLnN0YW5AZ21haWwuY29t
-IFttYWlsdG86am9lbC5zdGFuQGdtYWlsLmNvbV0gT24gQmVoYWxmIE9mIEpvZWwNCj4gU3Rhbmxl
-eQ0KPiBTZW50OiBUdWVzZGF5LCBBdWd1c3QgOCwgMjAxNyA0OjA5IFBNDQo+IFRvOiBNeWtvbGEg
-S29zdGVub2sgPGNfbXlrb2xha0BtZWxsYW5veC5jb20+DQo+IENjOiBPcGVuQk1DIE1haWxsaXN0
-IDxvcGVuYm1jQGxpc3RzLm96bGFicy5vcmc+OyBWYWRpbSBQYXN0ZXJuYWsNCj4gPHZhZGltcEBt
-ZWxsYW5veC5jb20+OyBPaGFkIE96IDxvaGFkb0BtZWxsYW5veC5jb20+OyBCZW5qYW1pbg0KPiBI
-ZXJyZW5zY2htaWR0IDxiZW5oQGtlcm5lbC5jcmFzaGluZy5vcmc+OyBNaWNoYWVsIEVsbGVybWFu
-DQo+IDxtcGVAZWxsZXJtYW4uaWQuYXU+OyBKZXJlbXkgS2VyciA8amtAb3psYWJzLm9yZz4NCj4g
-U3ViamVjdDogUmU6IFtQQVRDSCBsaW51eCBkZXYtNC4xMF0gYXNwZWVkX2c1X2RlZmNvbmZpZzog
-YWRkDQo+IENPTkZJR19PRl9EWU5BTUlDLg0KPiANCj4gSGV5IE15a29sYSwNCj4gDQo+IE9uIEZy
-aSwgQXVnIDQsIDIwMTcgYXQgMTI6NDggQU0sIE15a29sYSBLb3N0ZW5vaw0KPiA8Y19teWtvbGFr
-QG1lbGxhbm94LmNvbT4gd3JvdGU6DQo+ID4gQWRkIENPTkZJR19PRl9EWU5BTUlDIGZvciBob3Rw
-bHVnIG9wZXJhdGlvbnMuDQo+ID4gSXQgcmVxdWlyZXMgQ09ORklHX09GX1VOSVRURVNUIHNvIGl0
-IGFkZGVkIHRvby4NCj4gPg0KPiA+IFNpZ25lZC1vZmYtYnk6IE15a29sYSBLb3N0ZW5vayA8Y19t
-eWtvbGFrQG1lbGxhbm94LmNvbT4NCj4gPiAtLS0NCj4gPiAgYXJjaC9hcm0vY29uZmlncy9hc3Bl
-ZWRfZzVfZGVmY29uZmlnIHwgMiArKw0KPiA+ICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25z
-KCspDQo+ID4NCj4gPiBkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vY29uZmlncy9hc3BlZWRfZzVfZGVm
-Y29uZmlnDQo+ID4gYi9hcmNoL2FybS9jb25maWdzL2FzcGVlZF9nNV9kZWZjb25maWcNCj4gPiBp
-bmRleCAyMDI1ZTQ1Li5lNzhlMzA2IDEwMDY0NA0KPiA+IC0tLSBhL2FyY2gvYXJtL2NvbmZpZ3Mv
-YXNwZWVkX2c1X2RlZmNvbmZpZw0KPiA+ICsrKyBiL2FyY2gvYXJtL2NvbmZpZ3MvYXNwZWVkX2c1
-X2RlZmNvbmZpZw0KPiA+IEBAIC0yMTUsMyArMjE1LDUgQEAgQ09ORklHX0RFQlVHX1VTRVI9eSAg
-Iw0KPiBDT05GSUdfWFpfREVDX1BPV0VSUEMgaXMNCj4gPiBub3Qgc2V0ICAjIENPTkZJR19YWl9E
-RUNfSUE2NCBpcyBub3Qgc2V0ICAjIENPTkZJR19YWl9ERUNfU1BBUkMgaXMNCj4gbm90DQo+ID4g
-c2V0DQo+ID4gK0NPTkZJR19PRl9VTklUVEVTVD15DQo+ID4gK0NPTkZJR19PRl9EWU5BTUlDPXkN
-Cj4gDQo+IEknbSBub3Qgc3VyZSB0aGF0IHRoaXMgaXMgc29tZXRoaW5nIHdlIHdhbnQgZW5hYmxl
-ZDoNCj4gDQo+IENPTkZJR19PRl9VTklUVEVTVDoNCj4gIFRoaXMgb3B0aW9uIGJ1aWxkcyBpbiB0
-ZXN0IGNhc2VzIGZvciB0aGUgZGV2aWNlIHRyZWUgaW5mcmFzdHJ1Y3R1cmUgIHRoYXQgYXJlDQo+
-IGV4ZWN1dGVkIG9uY2UgYXQgYm9vdCB0aW1lLCBhbmQgdGhlIHJlc3VsdHMgZHVtcGVkIHRvIHRo
-ZSAgY29uc29sZS4NCj4gDQo+IENPTkZJR19PRl9EWU5BTUlDOg0KPiAgT24gc29tZSBwbGF0Zm9y
-bXMsIHRoZSBkZXZpY2UgdHJlZSBjYW4gYmUgbWFuaXB1bGF0ZWQgYXQgcnVudGltZS4NCj4gIFdo
-aWxlIHRoaXMgb3B0aW9uIGlzIHNlbGVjdGVkIGF1dG9tYXRpY2FsbHkgb24gc3VjaCBwbGF0Zm9y
-bXMsIHlvdSAgY2FuDQo+IGVuYWJsZSBpdCBtYW51YWxseSB0byBpbXByb3ZlIGRldmljZSB0cmVl
-IHVuaXQgdGVzdCBjb3ZlcmFnZS4NCj4gDQo+IENhbiB5b3UgZXhwbGFpbiB3aGF0IHlvdSdyZSB3
-YW50aW5nIHRvIGRvIGhlcmU/DQo+IA0KPiBJJ3ZlIGFkZGVkIHNvbWUgb2Ygb3VyIGRldmljZSB0
-cmVlIGV4cGVydHMgdG8gY2Mgc28gdGhleSBjYW4gb2ZmZXIgYWR2aWNlLg0KPiANCj4gQ2hlZXJz
-LA0KPiANCj4gSm9lbA0KDQpIaSwgSm9lbC4NCg0KV2UgaGF2ZSBub3cgcGF0Y2hzZXQgc3VwcG9y
-dGluZyBvdXIgQ1BMRCBkZXZpY2UgaW4gdXBzdHJlYW0gcmV2aWV3Lg0KVGhlcmUgd2UgaGF2ZSBz
-dXBwb3J0IGZvciBkeW5hbWljIChob3RwbHVnKSBkZXZpY2VzLCBsaWtlIFBTVXMsIEZBTnMsIEFT
-SUMsIGV0Yy4gIA0KDQpUaGVzZSBkZXZpY2VzIGFyZSBkZXNjcmliZWQgaW4gRFRTIGxpa2UsIGYu
-ZS4gDQomaTJjMyB7DQoJc3RhdHVzID0gIm9rYXkiOw0KCSNhZGRyZXNzLWNlbGxzID0gPDE+Ow0K
-CSNzaXplLWNlbGxzID0gPDA+Ow0KDQoJcHN1MV9lZXByb206IGVlcHJvbUA1MSB7DQoJCWNvbXBh
-dGlibGUgPSAiYXRtZWwsMjRjMDIiOw0KCQlyZWcgPSA8MHg1MT47DQoJCXN0YXR1cyA9ICJkaXNh
-YmxlZCI7DQoJfTsNCg0KCXBzdTJfZWVwcm9tOiBlZXByb21ANTAgew0KCQljb21wYXRpYmxlID0g
-ImF0bWVsLDI0YzAyIjsNCgkJcmVnID0gPDB4NTA+Ow0KCQlzdGF0dXMgPSAiZGlzYWJsZWQiOw0K
-CX07DQoNCglwc3UxX2N0cmw6IGRwczQ2MEA1OSB7DQoJCWNvbXBhdGlibGUgPSAiZHBzNDYwIjsN
-CgkJcmVnID0gPDB4NTk+Ow0KCQlzdGF0dXMgPSAiZGlzYWJsZWQiOw0KCX07DQoNCglwc3UyX2N0
-cmw6IGRwczQ2MEA1OCB7DQoJCWNvbXBhdGlibGUgPSAiZHBzNDYwIjsNCgkJcmVnID0gPDB4NTg+
-Ow0KCQlzdGF0dXMgPSAiZGlzYWJsZWQiOw0KCX07DQp9Ow0KDQomaTJjMTIgew0KCXN0YXR1cyA9
-ICJva2F5IjsNCgkjYWRkcmVzcy1jZWxscyA9IDwxPjsNCgkjc2l6ZS1jZWxscyA9IDwwPjsNCg0K
-CWFzaWNfdGhlcm1hbDogbWx4c3dfbWluaW1hbEA0OCB7DQoJCWNvbXBhdGlibGUgPSAibWx4c3df
-bWluaW1hbCI7DQoJCXJlZyA9IDwweDQ4PjsNCgkJc3RhdHVzID0gImRpc2FibGVkIjsNCgkJY29v
-bGluZy1waGFuZGxlID0gPCZjb29saW5nPjsNCg0KCQl0cmlwcyB7DQoJCQkvKiB0cmlwIHR5cGUs
-IHRlbXAgaW4gbWNlbHNpdXMsIHRlbXAgbWluLCB0ZW1wIG1heCAqLw0KCQkJdHJpcEAwIHsNCgkJ
-CQl0cmlwID0gPDAgNzUwMDAgMCAwPjsNCgkJCX07DQoJCQl0cmlwQDEgew0KCQkJCXRyaXAgPSA8
-MiA4NTAwMCAxIDU+Ow0KCQkJfTsNCgkJCXRyaXBAMyB7DQoJCQkJdHJpcCA9IDwyIDEwNTAwMCA1
-IDU+Ow0KCQkJfTsNCgkJfTsNCgl9Ow0KfTsNCg0KVGhleSBhbGwgc2V0cyB3aXRoIHRoZSBzdGF0
-ZSAiZGlzYWJsZWQiLCBhbmQgZHJpdmVyIGFjdGl2YXRlcyBpdCB3aXRoIHRoZSBiZWxvdyBjYWxs
-cywgd2hlbiByZWxhdGVkIGhvdHBsdWcgZXZlbnQgaXMgcmVjZWl2ZWQgaW4gaW50ZXJydXB0IGhh
-bmRsZXI6DQoNCnN0YXRpYyBzdHJ1Y3QgcHJvcGVydHkgbWx4cmVnX2NvcmVfZGV2aWNlX2RpcyA9
-IHsNCgkubmFtZSA9IE1MWFJFR19DT1JFX1BST1BfU1RBVFVTLA0KCS52YWx1ZSA9IE1MWFJFR19D
-T1JFX1BST1BfRElTQUJMRUQsDQoJLmxlbmd0aCA9IHNpemVvZihNTFhSRUdfQ09SRV9QUk9QX0RJ
-U0FCTEVEKSwNCn07DQoNCnN0YXRpYyB2b2lkIG1seHJlZ19jb3JlX2Rldl9lbmFibGUoc3RydWN0
-IGRldmljZV9ub2RlICpucCkgew0KCS8qIEVuYWJsZSBhbmQgY3JlYXRlIGRldmljZS4gKi8NCglv
-Zl91cGRhdGVfcHJvcGVydHkobnAsICZtbHhyZWdfY29yZV9kZXZpY2VfZW4pOyB9DQoNCnN0YXRp
-YyB2b2lkIG1seHJlZ19jb3JlX2Rldl9kaXNhYmxlKHN0cnVjdCBkZXZpY2Vfbm9kZSAqbnApIHsN
-CgkvKiBEaXNhYmxlIGFuZCB1bnJlZ2lzdGVyIHBsYXRmb3JtIGRldmljZS4gKi8NCglvZl91cGRh
-dGVfcHJvcGVydHkobnAsICZtbHhyZWdfY29yZV9kZXZpY2VfZGlzKTsNCglvZl9ub2RlX2NsZWFy
-X2ZsYWcobnAsIE9GX1BPUFVMQVRFRCk7DQp9DQoNCkZvciB0aGF0IHdlIG11c3QgaGF2ZSBPRl9E
-WU5BTUlDIHNldCwgYW5kIGxhc3Qgb25lIHJlcXVpcmVkIE9GX1VOSVRFU1QuDQoNCkJlc3QgcmVn
-YXJkcy4gTXlrb2xhIEtvc3Rlbm9rLg0K
+
+
+On 08/08/2017 07:24 AM, Joel Stanley wrote:
+> Hello Eddie,
+>
+> On Sat, Jul 29, 2017 at 12:30 AM, Eddie James
+> <eajames@linux.vnet.ibm.com> wrote:
+>> On 07/27/2017 09:10 PM, Jeremy Kerr wrote:
+>>>> Reset causes problems for operations requiring multiple scoms (e.g. i2c
+>>>> over scom). Instead, reset scom engine during probe.
+>>> Looks good to me. Out of curiosity, what kind of problems?
+>>
+>> Mainly I2C bus arbitration errors. I guess the reset interrupted the I2C
+>> clock line control during an operation.
+> I've applied this to dev-4.10. One clarification:
+>
+>> @@ -202,6 +197,9 @@ static int scom_probe(struct device *dev)
+>>          scom->mdev.parent = dev;
+>>          list_add(&scom->link, &scom_devices);
+>>
+>> +       data = cpu_to_be32(SCOM_RESET_CMD);
+>> +       fsi_device_write(fsi_dev, SCOM_RESET_REG, &data, sizeof(uint32_t));
+>> +
+>>          return misc_register(&scom->mdev);
+> I wanted to check that you were ignoring the return value of
+> fsi_device_write here intentionally. If not, please send a follow up
+> that adds a check.
+
+That is correct, I did not want to check the return value.
+
+Thanks,
+Eddie
+
+>
+> Cheers,
+>
+> Joel
+>
