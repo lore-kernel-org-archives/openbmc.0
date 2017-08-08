@@ -1,56 +1,55 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-it0-x243.google.com (mail-it0-x243.google.com
- [IPv6:2607:f8b0:4001:c0b::243])
+Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
+ [IPv6:2607:f8b0:4002:c05::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xRZMF2hR8zDqp8
- for <openbmc@lists.ozlabs.org>; Tue,  8 Aug 2017 23:03:04 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xRZVD3vjxzDqp8
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Aug 2017 23:09:08 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="DXRC9qWe"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="AQ5FGBjI"; 
  dkim-atps=neutral
-Received: by mail-it0-x243.google.com with SMTP id r9so2534828ita.3
- for <openbmc@lists.ozlabs.org>; Tue, 08 Aug 2017 06:03:04 -0700 (PDT)
+Received: by mail-yw0-x244.google.com with SMTP id u207so2344636ywc.0
+ for <openbmc@lists.ozlabs.org>; Tue, 08 Aug 2017 06:09:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=u0wknLexucj9/iXIjnSRHsEjoqjA3WCncaFfihf9Vpg=;
- b=DXRC9qWe0xiPcTiIavSWC/py33Bn3H1aYLoDnSSxA6MTwukPWgw3c/r3HF9Xb3wCgT
- tiCNXuS9wKmLP3bJlsc3Zbcs6V7DkJFEM5tpg5reOUBZhJqNMoHbIBscOpN7d0TGdKaD
- /x9hamLMQceIng5BzmtSWAJtc2lV4eajYQ6iKqNrhfcv0ZpjhbBkAEqljuXGk/fub1xg
- A+pQILOk2lRm07/NK2TKMXuYsURbiLP5XiBSv0vlRKsuTDQFj+EaN3uSSOTvwsb49A4O
- +rkhrcggkNebKeUYIVHV2jb0ptU7bVIq5U6X9TrsWCPQuFQ1POP+ofB1IHfmgC+oNxBI
- WiDw==
+ bh=EdizQ5x5+5O/TWR8hzPKI0yfrSREg5k5TYVtynGQrFU=;
+ b=AQ5FGBjIXppvetuHfHu1z8fBOb4FRfkM4aPtuSlrh0xuM78hEkMVM2ITSgPKJXSHye
+ 6fY/vLBw3iZiqz1Kl8/iSFRbMp2naEAlLx0MpNauuGRNymhiJHpuMEy3Tp2o0N4UEsmg
+ RMOQejRR2Hryp02PGmpCCR0OmFhKLlImRH1kZSTGvMkyq5NKCuQKhtfYO0yfxh6XJ+bW
+ 9f0P/nyeV9hY/nvR35FefJWXLRaiaPXz3roUqC9+z1J7y3aO7BlOBTJsh0CWr+yPiA1m
+ GXQKGNcM7JqAgp3osix/W9jR0viNDAOEMbIEY1PRevDZ1zkGOzA3cODf0Iy+Rj2MzuIA
+ UlQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=u0wknLexucj9/iXIjnSRHsEjoqjA3WCncaFfihf9Vpg=;
- b=iWF0/yGZbAlfDzhlgkT0HNxXEKY/mK1YKAOYcnZbnFnkQ2Vcwhs1W+PSC9vNlvzg1T
- rkhKcMTPdVfH/xYAENYwhVSQzREsDZqnmh6zc3wpItJPSdShxYIIzTYSkXCsjFedEVGo
- ozt//xchdmn9K31QcPnZgZgQUuUA57uv2oIrxKgB17o1wlrTY6Ru4eOSb0wcGj6DYcT3
- igcoD7Sz519PeOwvkVh3/svRPb7hw6+OWjAZ6y+nwF+bqtDUT+O3+kJgC/fJtjr9d++d
- 5nuJNfm7eFRnELEZqeXiMvCwX4zmf+vEpn18HXb+sD7a4zxhZbxDsB0O7TeegBoztsNf
- l4VQ==
-X-Gm-Message-State: AHYfb5jFFNs/TY6Xx4VMICyDrbcdZ4d4T9aF+2Ao4gy0c6iuUQJFjoxF
- 8CcrPkgEz70GTZo+2iwCjTmOdNnIkQ==
-X-Received: by 10.37.11.83 with SMTP id 80mr3242625ybl.194.1502197381718; Tue,
- 08 Aug 2017 06:03:01 -0700 (PDT)
+ bh=EdizQ5x5+5O/TWR8hzPKI0yfrSREg5k5TYVtynGQrFU=;
+ b=XH+mixS0s2p6EkVSI6gQwagEOuCQL2m7HO5tsziQkmuOX2NjHNUlELQJYcvw8R88hF
+ s00lH5IadmGb00YpGXjHTG1nnsZUo9llfPtEXTZGOnr+AM8xkvRfh2rxvhsQshcD7Ufz
+ QIZI3il+7AHBpN7uEVprz3IAjQ/vBl17UsqocDwaxHWTLvfAvQqhKX72bc0jcnpf45FJ
+ hT1fPZDu6pnPkRCDwqLSK/FjLpvmYDyWdnjya1MgAcj8TGI+FXPcGZzydgdVHhhwwlBS
+ FNeYHj/daAh+zSlot0KRl3PSAzrDgyNskO8Al1YqQttAvNxJIDXJqecTtT3rkdmWrF8a
+ rASA==
+X-Gm-Message-State: AHYfb5iQWYij1jdwUUENx1VvyoZTu8SVPhu08iP0LoEf7tR9OB/9XBoV
+ vb3xgFAf9Qm4fhDBhJAFhsJVMes/d7KGj3IP7Q==
+X-Received: by 10.129.42.138 with SMTP id q132mr3320171ywq.276.1502197746560; 
+ Tue, 08 Aug 2017 06:09:06 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.37.197.148 with HTTP; Tue, 8 Aug 2017 06:02:41 -0700 (PDT)
-In-Reply-To: <4e9e5404-c8f7-51f0-f886-46010d5bfe68@ozlabs.org>
-References: <20170804032622.88674-1-cbostic@linux.vnet.ibm.com>
- <20170804032622.88674-4-cbostic@linux.vnet.ibm.com>
- <4e9e5404-c8f7-51f0-f886-46010d5bfe68@ozlabs.org>
+Received: by 10.37.197.148 with HTTP; Tue, 8 Aug 2017 06:08:46 -0700 (PDT)
+In-Reply-To: <20170803144813.28010-1-c_mykolak@mellanox.com>
+References: <20170803144813.28010-1-c_mykolak@mellanox.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 8 Aug 2017 23:02:41 +1000
-X-Google-Sender-Auth: VVZGf9iks_jloKS1UxsE82Qm5PI
-Message-ID: <CACPK8XeT1EFbYTgRgwHOZM1iYyLp_9HoGeV2NnVUkL+tbgjNig@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 v2 3/3] fsi: core: Add check for master
- property no-scan-on-init
-To: Jeremy Kerr <jk@ozlabs.org>
-Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Tue, 8 Aug 2017 23:08:46 +1000
+X-Google-Sender-Auth: Ip6tGdi-UiKP2S4kdpluXizWlMM
+Message-ID: <CACPK8XfC6=K7MUak2AQa9c1L-C4WBBWoxd8AbpXiM2KukQMUVQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] aspeed_g5_defconfig: add CONFIG_OF_DYNAMIC.
+To: Mykola Kostenok <c_mykolak@mellanox.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Vadim Pasternak <vadimp@mellanox.com>, 
+ Ohad Oz <ohado@mellanox.com>, Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Michael Ellerman <mpe@ellerman.id.au>, Jeremy Kerr <jk@ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -63,23 +62,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Aug 2017 13:03:06 -0000
+X-List-Received-Date: Tue, 08 Aug 2017 13:09:09 -0000
 
-On Fri, Aug 4, 2017 at 1:33 PM, Jeremy Kerr <jk@ozlabs.org> wrote:
-> Hi Chris,
->
->> Prior to scanning a master check if the optional property
->> no-scan-on-init is present.  If it is then avoid scanning.  This is
->> necessary in cases where a master scan could interfere with another
->> FSI master on the same bus.
->
-> Looks good to me. We may need to be flexible with the property name
-> (based on feedback from the DT folks, when we send to them for review),
-> but that should be fine regardless.
->
-> Acked-by: Jeremy Kerr <jk@ozlabs.org>
+Hey Mykola,
 
-I've applied the series to dev-4.10.
+On Fri, Aug 4, 2017 at 12:48 AM, Mykola Kostenok <c_mykolak@mellanox.com> wrote:
+> Add CONFIG_OF_DYNAMIC for hotplug operations.
+> It requires CONFIG_OF_UNITTEST so it added too.
+>
+> Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
+> ---
+>  arch/arm/configs/aspeed_g5_defconfig | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/arch/arm/configs/aspeed_g5_defconfig b/arch/arm/configs/aspeed_g5_defconfig
+> index 2025e45..e78e306 100644
+> --- a/arch/arm/configs/aspeed_g5_defconfig
+> +++ b/arch/arm/configs/aspeed_g5_defconfig
+> @@ -215,3 +215,5 @@ CONFIG_DEBUG_USER=y
+>  # CONFIG_XZ_DEC_POWERPC is not set
+>  # CONFIG_XZ_DEC_IA64 is not set
+>  # CONFIG_XZ_DEC_SPARC is not set
+> +CONFIG_OF_UNITTEST=y
+> +CONFIG_OF_DYNAMIC=y
+
+I'm not sure that this is something we want enabled:
+
+CONFIG_OF_UNITTEST:
+ This option builds in test cases for the device tree infrastructure
+ that are executed once at boot time, and the results dumped to the
+ console.
+
+CONFIG_OF_DYNAMIC:
+ On some platforms, the device tree can be manipulated at runtime.
+ While this option is selected automatically on such platforms, you
+ can enable it manually to improve device tree unit test coverage.
+
+Can you explain what you're wanting to do here?
+
+I've added some of our device tree experts to cc so they can offer advice.
 
 Cheers,
 
