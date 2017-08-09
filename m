@@ -3,55 +3,53 @@ Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
  [66.111.4.224])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xS4xb5rqyzDqyx
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xS4xb5knszDqyp
  for <openbmc@lists.ozlabs.org>; Wed,  9 Aug 2017 19:01:07 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
- header.b="mUKYWUMm"; dkim=pass (2048-bit key;
+ header.b="CiPcwO5M"; dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="gne386iR"; dkim-atps=neutral
+ header.b="lmw25T0L"; dkim-atps=neutral
 Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailnew.nyi.internal (Postfix) with ESMTP id F23D49FF;
- Wed,  9 Aug 2017 04:55:20 -0400 (EDT)
+ by mailnew.nyi.internal (Postfix) with ESMTP id A387F9A8;
+ Wed,  9 Aug 2017 04:55:15 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute2.internal (MEProxy); Wed, 09 Aug 2017 04:55:20 -0400
+ by compute2.internal (MEProxy); Wed, 09 Aug 2017 04:55:15 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- mendozajonas.com; h=cc:date:from:in-reply-to:message-id
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=ptBuXqCiHcIYlfyCZuf7E2rWVXQGBugwavrAXvTCE
- 10=; b=mUKYWUMm/OU9NPdNxEDfRngJflv+qhc2kqBsTtwPPJURtwB/qEmAUA7Rk
- Jinh+cxgv8jEQ6+lYSDdUHgexkfzWBolplVkWLYp1fOLyJbBqNIq114AzPSj+fyv
- wwCO6j368/dHa3odZIniDYN8TIMTV0LhrQkYoive9klAFk1vyWP0sHY82pjXmccG
- mdYgpP0hQOqBMrfSS1Og13SjJmY2Mar57SpccuwVEdM/gtnfB4qxyV7y14gczrQR
- 6IrSglDnxl8L3ljS2TQAIarPY/YONqQtZwr1OjmI2D/5rJbT5Um0T/y6k4Jd2AtF
- v6Z9Q0nN3bkoDZsHOiZVE1/RcjCwg==
+ mendozajonas.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=Umr5cz
+ YELzs17qq0I0juPwyYqjeMo0PANVIJs0oJdIU=; b=CiPcwO5Mg5kdQ9BN7+SjEM
+ xh7pJ2pxUr6h0zO+xgEeXrH0py+dvW43K4yJlQmnaWCOAbTGJJpzTrpJIExBrc2R
+ ju+ZsMAf0oiS2hSZ4Ny3KCyFnJTbASBaEA5Mz3HvYYt4ghjmOYJAYSZrM2/440F/
+ q41YWUKOJiZTVcAVFqzafkRCAnSrGUoFEm8XDpt+g84nAG8YafE3SFfY72lpdBdC
+ RCQXOnOaO+fe/R111/zljxc0l8EghnQVD0b1pv703e/rguRG+kTDcAWr5pKlUa1T
+ g62nm84UIzH0WHrM93iI2vNM9JEWSUf76kGZdu1f9ud/055l3MJMgGJvTYPEue+w
+ ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:in-reply-to:message-id
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=ptBuXqCiHcIYlfyCZuf7E2rWVXQGBugwavrAXvTCE
- 10=; b=gne386iRph7JWWzC0elVd0Rva9pOFDUQzvU0WLshyUzBV880XH5FcyWTE
- jNsxyB4i8SrfawWJ7zi3n1Hn+C/J1oYcUH8yK4B3WuLMXbdP+MOdAo0vPp5uwNR9
- 73+4oSavYrvjV2JLGNDh3lTLKP8Kky53xzV/LoRDRHaTI4gfOUeGxdVdBv07Ddmk
- dNy+DSAxDoV7UaMbc60aG2iJNWxd6ukFcs/poMpmpwf7vz2kv665Q/J1FSRXtYB9
- i6M0c25OcymSD3a8Rn3HYw6dKBfBgih+yTI5zQghG3bCBWKraDEf5GdUtarYnuoC
- AAdbmBMkH2pTYrdWzFHE7+QossIrg==
-X-ME-Sender: <xms:-M2KWbNa7R9STJTosNWc5Y7h42jFx6uLVKSfISnLkYpHLMkMXCHyLg>
-X-Sasl-enc: JUeUW+MTcUxZVpsVCELNtqUkG6HdzgXNOAgrHg2gmr/8 1502268920
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=Umr5cz
+ YELzs17qq0I0juPwyYqjeMo0PANVIJs0oJdIU=; b=lmw25T0LGUgOzwy3hICpJi
+ ik5o5wiYM+xkBt9+dtrwashbSvbETjYy51bM4b72KhUMz40zRJLjeRnC7Lx3G9nh
+ LA4K8Tfb5oxOrjFYxWvN0kcDCmsShK7IMOHEU1QdCIznK8X6wqCXmtWHK+eozXbl
+ QloO19xGDp17XwzhZ/infQ1wkjhg/jrL6Xb0PEAIh2r/VKRkEcC1uZ/pKotZw06u
+ /gGG0DqokEAasuHLkJLYmZuXzPnPBRR1D+6ne1vogWBZSD6/u9ORJ2VpmvQmW86C
+ 9EXNruiWVWyUsNtleuqSYHVCYXJX1VoOuq7891gP5XZD8pX4223pOxzXJixsZaSQ
+ ==
+X-ME-Sender: <xms:882KWXDzWwMRlptDgS-2sjRrTKixJf_4f5ECpBrjYMQqfiTkjHx5ww>
+X-Sasl-enc: catCJ7Ozbm4regRWGE4tgnRFZvpa/hypNMWve8HWTZM3 1502268914
 Received: from v4.ozlabs.ibm.com (unknown [122.99.82.10])
- by mail.messagingengine.com (Postfix) with ESMTPA id 736C1240A4;
- Wed,  9 Aug 2017 04:55:18 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 3B8E82459C;
+ Wed,  9 Aug 2017 04:55:13 -0400 (EDT)
 From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
 To: openbmc@lists.ozlabs.org
 Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>, Joel Stanley <joel@jms.id.au>,
  Ravindra S Rao1 <ravindra.s@in.ibm.com>, Leonard Low <leolow@au1.ibm.com>,
  Benjamin Herrenschmidt <benh@kernel.crashing.org>,
  Ratan K Gupta <ratagupt@in.ibm.com>
-Subject: [RFC PATCH 2/3] net/ncsi: Fix several packet definitions
-Date: Wed,  9 Aug 2017 18:54:42 +1000
-Message-Id: <20170809085443.13148-3-sam@mendozajonas.com>
+Subject: [RFC PATCH 0/3] NCSI VLAN Filtering Support
+Date: Wed,  9 Aug 2017 18:54:40 +1000
+Message-Id: <20170809085443.13148-1-sam@mendozajonas.com>
 X-Mailer: git-send-email 2.13.3
-In-Reply-To: <20170809085443.13148-1-sam@mendozajonas.com>
-References: <20170809085443.13148-1-sam@mendozajonas.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,61 +61,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Aug 2017 09:01:08 -0000
+X-List-Received-Date: Wed, 09 Aug 2017 09:01:09 -0000
 
-Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
----
- net/ncsi/ncsi-cmd.c | 10 +++++-----
- net/ncsi/ncsi-pkt.h |  2 +-
- 2 files changed, 6 insertions(+), 6 deletions(-)
+This RFC series adds VLAN filtering support for NCSI-capable network devices.
+This supports adding and removing VLAN tags up to the limit of the actual
+NCSI channel. In it's present form the NCSI driver will default to the
+"Accept specific VLAN-tagged traffic as well as non-tagged traffic" mode.
 
-diff --git a/net/ncsi/ncsi-cmd.c b/net/ncsi/ncsi-cmd.c
-index db7083bfd476..1fec9fda7f60 100644
---- a/net/ncsi/ncsi-cmd.c
-+++ b/net/ncsi/ncsi-cmd.c
-@@ -146,9 +146,9 @@ static int ncsi_cmd_handler_svf(struct sk_buff *skb,
- 
- 	cmd = (struct ncsi_cmd_svf_pkt *)skb_put(skb, sizeof(*cmd));
- 	memset(cmd, 0, sizeof(*cmd));
--	cmd->vlan = htons(nca->words[0]);
--	cmd->index = nca->bytes[2];
--	cmd->enable = nca->bytes[3];
-+	cmd->vlan = htons(nca->words[1]);
-+	cmd->index = nca->bytes[6];
-+	cmd->enable = nca->bytes[7];
- 	ncsi_cmd_build_header(&cmd->cmd.common, nca);
- 
- 	return 0;
-@@ -161,7 +161,7 @@ static int ncsi_cmd_handler_ev(struct sk_buff *skb,
- 
- 	cmd = (struct ncsi_cmd_ev_pkt *)skb_put(skb, sizeof(*cmd));
- 	memset(cmd, 0, sizeof(*cmd));
--	cmd->mode = nca->bytes[0];
-+	cmd->mode = nca->bytes[3];
- 	ncsi_cmd_build_header(&cmd->cmd.common, nca);
- 
- 	return 0;
-@@ -240,7 +240,7 @@ static struct ncsi_cmd_handler {
- 	{ NCSI_PKT_CMD_AE,     8, ncsi_cmd_handler_ae      },
- 	{ NCSI_PKT_CMD_SL,     8, ncsi_cmd_handler_sl      },
- 	{ NCSI_PKT_CMD_GLS,    0, ncsi_cmd_handler_default },
--	{ NCSI_PKT_CMD_SVF,    4, ncsi_cmd_handler_svf     },
-+	{ NCSI_PKT_CMD_SVF,    8, ncsi_cmd_handler_svf     },
- 	{ NCSI_PKT_CMD_EV,     4, ncsi_cmd_handler_ev      },
- 	{ NCSI_PKT_CMD_DV,     0, ncsi_cmd_handler_default },
- 	{ NCSI_PKT_CMD_SMA,    8, ncsi_cmd_handler_sma     },
-diff --git a/net/ncsi/ncsi-pkt.h b/net/ncsi/ncsi-pkt.h
-index 3ea49ed0a935..91b4b66438df 100644
---- a/net/ncsi/ncsi-pkt.h
-+++ b/net/ncsi/ncsi-pkt.h
-@@ -104,7 +104,7 @@ struct ncsi_cmd_svf_pkt {
- 	unsigned char           index;     /* VLAN table index  */
- 	unsigned char           enable;    /* Enable or disable */
- 	__be32                  checksum;  /* Checksum          */
--	unsigned char           pad[14];
-+	unsigned char           pad[18];
- };
- 
- /* Enable VLAN */
+This is still a bit rough, but sending out to the OpenBMC list for some
+eyeballing.
+
+Samuel Mendoza-Jonas (3):
+  ftgmac: Include NETIF_F_HW_VLAN_CTAG_FILTER in features
+  net/ncsi: Fix several packet definitions
+  net/ncsi: Configure VLAN tag filter
+
+ drivers/net/ethernet/faraday/ftgmac100.c |   5 +
+ include/net/ncsi.h                       |   2 +
+ net/ncsi/internal.h                      |  11 ++
+ net/ncsi/ncsi-cmd.c                      |  10 +-
+ net/ncsi/ncsi-manage.c                   | 257 ++++++++++++++++++++++++++++++-
+ net/ncsi/ncsi-pkt.h                      |   2 +-
+ net/ncsi/ncsi-rsp.c                      |  13 +-
+ 7 files changed, 290 insertions(+), 10 deletions(-)
+
 -- 
 2.13.3
