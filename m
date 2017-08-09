@@ -1,68 +1,61 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Return-Path: <linux@roeck-us.net>
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xRxLv5sjrzDqtM
- for <openbmc@lists.ozlabs.org>; Wed,  9 Aug 2017 13:19:03 +1000 (AEST)
-Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v793J0BM119355
- for <openbmc@lists.ozlabs.org>; Tue, 8 Aug 2017 23:19:01 -0400
-Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2c7qbursur-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 08 Aug 2017 23:18:58 -0400
-Received: from localhost
- by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Tue, 8 Aug 2017 23:18:55 -0400
-Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
- by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Tue, 8 Aug 2017 23:18:53 -0400
-Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
- [9.57.199.107])
- by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v793IrKV59179174; Wed, 9 Aug 2017 03:18:53 GMT
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 915B3124044;
- Tue,  8 Aug 2017 23:16:16 -0400 (EDT)
-Received: from oc3016140333.ibm.com (unknown [9.80.230.94])
- by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP id 3E254124037;
- Tue,  8 Aug 2017 23:16:16 -0400 (EDT)
-Subject: Re: [PATCH linux dev-4.10 v4] hwmon (occ): Add sysfs_notify on error
-To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
-Cc: "Edward A. James" <eajames@us.ibm.com>
-References: <20170809031313.22306-1-joel@jms.id.au>
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Tue, 8 Aug 2017 22:18:46 -0500
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xRySN5G3tzDqy9
+ for <openbmc@lists.ozlabs.org>; Wed,  9 Aug 2017 14:08:52 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.b="aPGRinrG";
+ dkim-atps=neutral
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=IF5LUxh7vXI8Yh0KiCaGYhldbpv4E//ZI/hNEkJ6yTg=; b=aPGRinrGQkBC8T8LWAjRtJO8aF
+ 1W0UnlvdSFMg5tx0B3EMzEHXLa7O42e6irfKUm3w8D/60KqF64H3sWOf2CG+EDxn3qfisiD+fmf3Q
+ ZjVy7wClBrc0HXGURvRyGsSAG1bcZS3hH6+7Sq43byyUhcGpaXCfmOn805XmXb7J8XDW4K1ogsGit
+ x+5LU40NhiKhKYC5X/0RD2fAlYZzXt1Slq94gneqQW69xn90pJk7JZh677PuVlXlkLPieuwqvp5DF
+ smcsidSJPU3kP8F8ULjBjXO6rnvFpp85hn41rzBi2aYOjQoYV7rD+Bn/TFIK9HEyS4JQPID9jsyUe
+ bYxYAfKQ==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net
+ ([108.223.40.66]:50834 helo=server.roeck-us.net)
+ by bh-25.webhostbox.net with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ (Exim 4.89) (envelope-from <linux@roeck-us.net>)
+ id 1dfIIb-002ugN-LB; Wed, 09 Aug 2017 04:08:50 +0000
+Subject: Re: [patch v3 resend] Documentation: dt-bindings: aspeed-pwm-tacho
+ cooling device.
+To: Mykola Kostenok <c_mykolak@mellanox.com>, Rob Herring
+ <robh+dt@kernel.org>, devicetree@vger.kernel.org
+Cc: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>,
+ openbmc@lists.ozlabs.org, Patrick Venture <venture@google.com>,
+ Vadim Pasternak <vadimp@mellanox.com>, Ohad Oz <ohado@mellanox.com>
+References: <20170803084650.22298-1-c_mykolak@mellanox.com>
+From: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <3c427ddd-aab6-13d4-bfb2-ae22848c0d13@roeck-us.net>
+Date: Tue, 8 Aug 2017 21:08:48 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.2.0
+ Thunderbird/52.2.1
 MIME-Version: 1.0
-In-Reply-To: <20170809031313.22306-1-joel@jms.id.au>
+In-Reply-To: <20170803084650.22298-1-c_mykolak@mellanox.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
 Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 17080903-0040-0000-0000-0000038CC580
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007510; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000217; SDB=6.00899619; UDB=6.00450307; IPR=6.00679825; 
- BA=6.00005519; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016605; XFM=3.00000015;
- UTC=2017-08-09 03:18:54
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17080903-0041-0000-0000-00000780F30E
-Message-Id: <1d5cb513-0525-844a-0a16-3dd98b42d352@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-08-09_01:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
- definitions=main-1708090051
+Content-Transfer-Encoding: 7bit
+X-Authenticated_sender: linux@roeck-us.net
+X-OutGoing-Spam-Status: No, score=-1.0
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - lists.ozlabs.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-Get-Message-Sender-Via: bh-25.webhostbox.net: authenticated_id:
+ linux@roeck-us.net
+X-Authenticated-Sender: bh-25.webhostbox.net: linux@roeck-us.net
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -74,303 +67,79 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Aug 2017 03:19:04 -0000
+X-List-Received-Date: Wed, 09 Aug 2017 04:08:53 -0000
 
+On 08/03/2017 01:46 AM, Mykola Kostenok wrote:
+> It's add support for cooling device creation to
+> aspeed-pwm-tacho.
+> Cooling device could be bound to a thermal zone
+> for the thermal control.
+> 
+> v1 -> v2:
+>   - Fix commit message.
+> v2 -> v3:
+>   Pointed out by Rob Herring:
+>   - Put cooling-levels under fan subnodes.
+> 
+> Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
 
+Did Rob ever Ack this patch ?
 
-On 08/08/2017 10:13 PM, Joel Stanley wrote:
-> From: "Edward A. James" <eajames@us.ibm.com>
->
-> For userspace polling, we need to notify sysfs that the state of our
-> error entry has changed.
->
-> Signed-off-by: Edward A. James <eajames@us.ibm.com>
-> Tested-by: Lei YU <mine260309@gmail.com>
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
->
-> --
-> Changes since v2:
->   * don't return empty sysfs file
-> Changes since v3:
->   - remove hard-coded number of errors before reporting
->   - remove use of unusual error code
+Note you didn't copy the hwmon mailing list, which doesn't exactly help
+to keep track of it, and I may have lost Rob's Ack. My apologies if that
+is the case.
 
-Looks good. Thanks!
+Guenter
 
-Acked-by: Eddie James <eajames@linux.vnet.ibm.com>
-
->
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
 > ---
->   drivers/hwmon/occ/common.c | 42 ++++++++++++++++++++++++++++--------------
->   drivers/hwmon/occ/common.h |  6 +++---
->   drivers/hwmon/occ/p8_i2c.c | 26 ++++++++++++--------------
->   drivers/hwmon/occ/p9_sbe.c | 32 ++++++++++++++------------------
->   4 files changed, 57 insertions(+), 49 deletions(-)
->
-> diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
-> index 8b0a00867cfa..a79383435ac9 100644
-> --- a/drivers/hwmon/occ/common.c
-> +++ b/drivers/hwmon/occ/common.c
-> @@ -163,9 +163,21 @@ void occ_parse_poll_response(struct occ *occ)
->   	}
->   }
->
-> +void occ_set_error(struct occ *occ, int error)
-> +{
-> +	occ->error_count++;
-> +	occ->error = error;
-> +}
+>   Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt | 9 +++++++++
+>   1 file changed, 9 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt b/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
+> index cf44605..367c820 100644
+> --- a/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
+> +++ b/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
+> @@ -11,6 +11,8 @@ Required properties for pwm-tacho node:
+>   
+>   - #size-cells : should be 1.
+>   
+> +- #cooling-cells: should be 2.
 > +
-> +void occ_reset_error(struct occ *occ)
-> +{
-> +	occ->error_count = 0;
-> +	occ->error = 0;
-> +}
+>   - reg : address and length of the register set for the device.
+>   
+>   - pinctrl-names : a pinctrl state named "default" must be defined.
+> @@ -28,12 +30,17 @@ fan subnode format:
+>   Under fan subnode there can upto 8 child nodes, with each child node
+>   representing a fan. If there are 8 fans each fan can have one PWM port and
+>   one/two Fan tach inputs.
+> +For PWM port can be configured cooling-levels to create cooling device.
+> +Cooling device could be bound to a thermal zone for the thermal control.
+>   
+>   Required properties for each child node:
+>   - reg : should specify PWM source port.
+>   	integer value in the range 0 to 7 with 0 indicating PWM port A and
+>   	7 indicating PWM port H.
+>   
+> +- cooling-levels: PWM duty cycle values in a range from 0 to 255
+> +                  which correspond to thermal cooling states.
 > +
->   int occ_poll(struct occ *occ)
->   {
-> -	int rc;
-> +	int rc, error = occ->error;
->   	struct occ_poll_response_header *header;
->   	u16 checksum = occ->poll_cmd_data + 1;
->   	u8 cmd[8];
-> @@ -181,7 +193,7 @@ int occ_poll(struct occ *occ)
->
->   	rc = occ->send_cmd(occ, cmd);
->   	if (rc)
-> -		return rc;
-> +		goto done;
->
->   	header = (struct occ_poll_response_header *)occ->resp.data;
->
-> @@ -197,19 +209,21 @@ int occ_poll(struct occ *occ)
->
->   	if (header->status & OCC_STAT_MASTER) {
->   		if (hweight8(header->occs_present) !=
-> -		    atomic_read(&occ_num_occs)) {
-> -			occ->error = -EXDEV;
-> -			occ->bad_present_count++;
-> -		} else
-> -			occ->bad_present_count = 0;
-> +		    atomic_read(&occ_num_occs))
-> +			occ->error = -ENXIO;
->   	}
->
-> +done:
-> +	/* notify userspace if we change error state and have an error */
-> +	if (occ->error != error && occ->error && occ->error_attr_name)
-> +		sysfs_notify(&occ->bus_dev->kobj, NULL, occ->error_attr_name);
-> +
->   	return rc;
->   }
->
->   int occ_set_user_power_cap(struct occ *occ, u16 user_power_cap)
->   {
-> -	int rc;
-> +	int rc, error = occ->error;
->   	u8 cmd[8];
->   	u16 checksum = 0x24;
->   	__be16 user_power_cap_be;
-> @@ -239,6 +253,10 @@ int occ_set_user_power_cap(struct occ *occ, u16 user_power_cap)
->   	rc = occ->send_cmd(occ, cmd);
->   	mutex_unlock(&occ->lock);
->
-> +	/* notify userspace if we change error state and have an error*/
-> +	if (occ->error != error && occ->error && occ->error_attr_name)
-> +		sysfs_notify(&occ->bus_dev->kobj, NULL, occ->error_attr_name);
-> +
->   	return rc;
->   }
->
-> @@ -260,14 +278,9 @@ int occ_update_response(struct occ *occ)
->   static ssize_t occ_show_error(struct device *dev,
->   			      struct device_attribute *attr, char *buf)
->   {
-> -	int error = 0;
->   	struct occ *occ = dev_get_drvdata(dev);
->
-> -	if (occ->error_count > OCC_ERROR_COUNT_THRESHOLD || occ->last_safe ||
-> -	    occ->bad_present_count > OCC_ERROR_COUNT_THRESHOLD)
-> -		error = occ->error;
-> -
-> -	return snprintf(buf, PAGE_SIZE - 1, "%d\n", error);
-> +	return snprintf(buf, PAGE_SIZE - 1, "%d\n", occ->error);
->   }
->
->   static ssize_t occ_show_status(struct device *dev,
-> @@ -1194,6 +1207,7 @@ int occ_create_status_attrs(struct occ *occ)
->   		(struct sensor_device_attribute)SENSOR_ATTR(occ_error, 0444,
->   							    occ_show_error,
->   							    NULL, 0);
-> +	occ->error_attr_name = occ->status_attrs[7].dev_attr.attr.name;
->
->   	for (i = 0; i < OCC_NUM_STATUS_ATTRS; ++i) {
->   		rc = device_create_file(dev, &occ->status_attrs[i].dev_attr);
-> diff --git a/drivers/hwmon/occ/common.h b/drivers/hwmon/occ/common.h
-> index a5f86c3175f9..ca5969c9df96 100644
-> --- a/drivers/hwmon/occ/common.h
-> +++ b/drivers/hwmon/occ/common.h
-> @@ -13,8 +13,6 @@
->   #include <linux/hwmon-sysfs.h>
->   #include <linux/sysfs.h>
->
-> -#define OCC_ERROR_COUNT_THRESHOLD	2
-> -
->   #define OCC_UPDATE_FREQUENCY		msecs_to_jiffies(1000)
->   #define OCC_RESP_DATA_BYTES		4089
->
-> @@ -103,7 +101,6 @@ struct occ {
->
->   	int error;
->   	unsigned int error_count;
-> -	unsigned int bad_present_count;
->   	unsigned long last_safe;
->   	unsigned long last_update;
->   	struct mutex lock;
-> @@ -116,6 +113,7 @@ struct occ {
->   	struct attribute_group group;
->   	const struct attribute_group *groups[2];
->   	struct sensor_device_attribute *status_attrs;
-> +	const char *error_attr_name;
->
->   	u8 poll_cmd_data;
->   	int (*send_cmd)(struct occ *occ, u8 *cmd);
-> @@ -143,6 +141,8 @@ struct occ {
->   extern atomic_t occ_num_occs;
->
->   void occ_parse_poll_response(struct occ *occ);
-> +void occ_reset_error(struct occ *occ);
-> +void occ_set_error(struct occ *occ, int error);
->   int occ_poll(struct occ *occ);
->   int occ_set_user_power_cap(struct occ *occ, u16 user_power_cap);
->   int occ_update_response(struct occ *occ);
-> diff --git a/drivers/hwmon/occ/p8_i2c.c b/drivers/hwmon/occ/p8_i2c.c
-> index 29233b473746..05af16b376bb 100644
-> --- a/drivers/hwmon/occ/p8_i2c.c
-> +++ b/drivers/hwmon/occ/p8_i2c.c
-> @@ -98,7 +98,7 @@ static int p8_i2c_occ_putscom_be(struct i2c_client *client, u32 address,
->
->   static int p8_i2c_occ_send_cmd(struct occ *occ, u8 *cmd)
->   {
-> -	int i, rc;
-> +	int i, rc, error;
->   	unsigned long start;
->   	u16 data_length;
->   	struct p8_i2c_occ *p8_i2c_occ = to_p8_i2c_occ(occ);
-> @@ -161,22 +161,18 @@ static int p8_i2c_occ_send_cmd(struct occ *occ, u8 *cmd)
->   		rc = -EFAULT;
->   	}
->
-> -	occ->error = resp->return_status;
-> -
->   	if (rc < 0) {
-> -		occ->error_count++;
-> -		dev_warn(&client->dev, "occ bad response:%d\n",
-> -			 resp->return_status);
-> -		return rc;
-> +		error = resp->return_status;
-> +		dev_warn(&client->dev, "occ bad response:%d\n", error);
-> +		goto done;
->   	}
->
->   	data_length = get_unaligned_be16(&resp->data_length_be);
->   	if (data_length > OCC_RESP_DATA_BYTES) {
-> -		occ->error_count++;
-> -		occ->error = -EDOM;
-> +		rc = -EIO;
->   		dev_warn(&client->dev, "occ bad data length:%d\n",
->   			 data_length);
-> -		return occ->error;
-> +		goto assign;
->   	}
->
->   	for (i = 8; i < data_length + 7; i += 8) {
-> @@ -185,13 +181,15 @@ static int p8_i2c_occ_send_cmd(struct occ *occ, u8 *cmd)
->   			goto err;
->   	}
->
-> -	occ->error_count = 0;
-> -	return data_length + 7;
-> +	occ_reset_error(occ);
-> +	return 0;
->
->   err:
-> -	occ->error_count++;
-> -	occ->error = rc;
->   	dev_err(&client->dev, "i2c scom op failed rc:%d\n", rc);
-> +assign:
-> +	error = rc;
-> +done:
-> +	occ_set_error(occ, error);
->   	return rc;
->   }
->
-> diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
-> index c85f1339ec33..2d50a94150b1 100644
-> --- a/drivers/hwmon/occ/p9_sbe.c
-> +++ b/drivers/hwmon/occ/p9_sbe.c
-> @@ -25,7 +25,7 @@ struct p9_sbe_occ {
->
->   static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
->   {
-> -	int rc;
-> +	int rc, error;
->   	unsigned long start;
->   	struct occ_client *client;
->   	struct occ_response *resp = &occ->resp;
-> @@ -35,9 +35,10 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
->
->   retry:
->   	client = occ_drv_open(p9_sbe_occ->sbe, 0);
-> -	if (!client)
-> -		/* don't increment occ error counter */
-> -		return -ENODEV;
-> +	if (!client) {
-> +		rc = -ENODEV;
-> +		goto assign;
-> +	}
->
->   	rc = occ_drv_write(client, (const char *)&cmd[1], 7);
->   	if (rc < 0)
-> @@ -62,7 +63,8 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
->   		}
->   		break;
->   	case RESP_RETURN_SUCCESS:
-> -		rc = 0;
-> +		occ_reset_error(occ);
-> +		return 0;
->   		break;
->   	case RESP_RETURN_CMD_INVAL:
->   	case RESP_RETURN_CMD_LEN:
-> @@ -77,23 +79,17 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
->   		rc = -EFAULT;
->   	}
->
-> -	occ->error = resp->return_status;
-> -
-> -	if (rc < 0) {
-> -		occ->error_count++;
-> -		dev_warn(occ->bus_dev, "occ bad response:%d\n",
-> -			 resp->return_status);
-> -		return rc;
-> -	}
-> -
-> -	occ->error_count = 0;
-> -	return 0;
-> +	error = resp->return_status;
-> +	dev_warn(occ->bus_dev, "occ bad response:%d\n", error);
-> +	goto done;
->
->   err:
-> -	occ->error_count++;
-> -	occ->error = rc;
->   	occ_drv_release(client);
->   	dev_err(occ->bus_dev, "occ bus op failed rc:%d\n", rc);
-> +assign:
-> +	error = rc;
-> +done:
-> +	occ_set_error(occ, error);
->   	return rc;
->   }
->
+>   - aspeed,fan-tach-ch : should specify the Fan tach input channel.
+>                   integer value in the range 0 through 15, with 0 indicating
+>   		Fan tach channel 0 and 15 indicating Fan tach channel 15.
+> @@ -50,6 +57,7 @@ pwm_tacho_fixed_clk: fixedclk {
+>   pwm_tacho: pwmtachocontroller@1e786000 {
+>   	#address-cells = <1>;
+>   	#size-cells = <1>;
+> +	#cooling-cells = <2>;
+>   	reg = <0x1E786000 0x1000>;
+>   	compatible = "aspeed,ast2500-pwm-tacho";
+>   	clocks = <&pwm_tacho_fixed_clk>;
+> @@ -58,6 +66,7 @@ pwm_tacho: pwmtachocontroller@1e786000 {
+>   
+>   	fan@0 {
+>   		reg = <0x00>;
+> +		cooling-levels = /bits/ 8 <125 151 177 203 229 255>;
+>   		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
+>   	};
+>   
+> 
