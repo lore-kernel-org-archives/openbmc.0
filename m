@@ -1,86 +1,62 @@
-Return-Path: <c_mykolak@mellanox.com>
-Received: from EUR02-AM5-obe.outbound.protection.outlook.com
- (mail-eopbgr00057.outbound.protection.outlook.com [40.107.0.57])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Return-Path: <cbostic@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xSF794SFqzDqjk
- for <openbmc@lists.ozlabs.org>; Thu, 10 Aug 2017 01:09:57 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b="SIFghVYb";
- dkim-atps=neutral
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
- s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=UBdUbl6fIAMjE5exHrYlm3pXB+hyD7todNCByX+45cI=;
- b=SIFghVYbvL5TKzdPqeq3A+5up/LY9kzFHcdLdtP5Ss0LctLKy8pTxUaTmr0hUfkuseF5jElcB/6hNWcnnK/boiURBqe11RLNLi041jPM1pfJkjFQkM7tx9SBZH10tb3mIlznqdHdbhNITVJkkx6nYDy/uEbeEla+l2ngcxV/z0o=
-Received: from DB5PR05MB1224.eurprd05.prod.outlook.com (10.161.245.11) by
- DB5PR05MB1255.eurprd05.prod.outlook.com (10.162.157.141) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id
- 15.1.1320.16; Wed, 9 Aug 2017 15:09:51 +0000
-Received: from DB5PR05MB1224.eurprd05.prod.outlook.com
- ([fe80::e96a:76a1:8f05:384e]) by DB5PR05MB1224.eurprd05.prod.outlook.com
- ([fe80::e96a:76a1:8f05:384e%18]) with mapi id 15.01.1320.012; Wed, 9 Aug 2017
- 15:09:51 +0000
-From: Mykola Kostenok <c_mykolak@mellanox.com>
-To: Michael Ellerman <mpe@ellerman.id.au>, Joel Stanley <joel@jms.id.au>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Vadim Pasternak
- <vadimp@mellanox.com>, Ohad Oz <ohado@mellanox.com>, Benjamin Herrenschmidt
- <benh@kernel.crashing.org>, Jeremy Kerr <jk@ozlabs.org>
-Subject: RE: [PATCH linux dev-4.10] aspeed_g5_defconfig: add CONFIG_OF_DYNAMIC.
-Thread-Topic: [PATCH linux dev-4.10] aspeed_g5_defconfig: add
- CONFIG_OF_DYNAMIC.
-Thread-Index: AQHTEEeGjXmiw4MdfUaW3puuzmn576J6gSVQgAF9UwCAABAv0A==
-Date: Wed, 9 Aug 2017 15:09:51 +0000
-Message-ID: <DB5PR05MB122479BEFABDDF4A5DB75868EF8B0@DB5PR05MB1224.eurprd05.prod.outlook.com>
-References: <20170803144813.28010-1-c_mykolak@mellanox.com>
- <CACPK8XfC6=K7MUak2AQa9c1L-C4WBBWoxd8AbpXiM2KukQMUVQ@mail.gmail.com>
- <HE1PR05MB1227ECACCB6080B179026C54EF8A0@HE1PR05MB1227.eurprd05.prod.outlook.com>
- <87shh0nbep.fsf@concordia.ellerman.id.au>
-In-Reply-To: <87shh0nbep.fsf@concordia.ellerman.id.au>
-Accept-Language: ru-RU, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=c_mykolak@mellanox.com; 
-x-originating-ip: [80.90.224.13]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; DB5PR05MB1255;
- 6:72AScduk+lnryTfyQ41pJ/IZINcFO7jBCaIpDLlMHU/i771u7Vjt0Xh1TliY76O2nQvQ2+XWPLH/0MDpkPt0ZWbHZz/Nn6qF++3xmwGYq9ulfeWCYEorh8wGXkHQeJX0aACjHw8yH/FWaWvTmazVzb1XojJX5ZGYxTd2ieHlBmKkiuCulMzRESSDSOHdJKX+kaLTRJ+SCCK/TnpKp1ixZ7VqWM6qyQf4BqIC4iMFMd8Gf2ZJX3wXysq8TD5lnAG2RPhrBI5Xj0vi0+LugN2yLSIH2MOwilsJ7++S/ZwFPtMgzH7VbuEDGR63EENBtpuu0Y1aLgZ2jhjap63mPyivwg==;
- 5:AT6rY28mji0MYPSZb/bqlCT7MDtywBm03csdTqbfmBs4eAfq3s4yfJnBfj8SUplzLIskCsXzEXXZkboxNjsq46i6ESnHz7bwpHRmQ9qOHT/DK5Wpt377QfhzjDaCpDv9WPYL3jJuH1CubjaLfVYKVw==;
- 24:ThOtw7pgElSERNnXQxKdf3tbFG8dNC+J3FBVE38tj/iYm1TaxYS7yTv3+rHqaiul3G/yFu0WQAkzIPvmuIJ+PYX2CXjsTaEt7HrPxz+ZEjE=;
- 7:wk3o6Lqvm030KfDAUS9HhifupmZ6AiCC2/nF4OzvZLpRMfOPCRA7PcYzUAhq84VlAdykMvUqPy3qby9EjFWMnR9YAprPJ8ehqhXzYdp9zkmKEkjkSgMkEgw9EGyK8+tRs+HPrxvNxnExYzDjo0J+TABXYKZure3VFpOUbEZCDq/Pp7+WaxotG3b93x3Tb1B3zT+DifqIePfd2xedscT2M3QkDDvJ+j5bvL1wsjPMlCM=
-x-ms-exchange-antispam-srfa-diagnostics: SSOS;
-x-ms-office365-filtering-correlation-id: 24070efd-b719-4363-b0dc-08d4df38aef4
-x-ms-office365-filtering-ht: Tenant
-x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
- RULEID:(300000500095)(300135000095)(300000501095)(300135300095)(22001)(300000502095)(300135100095)(2017030254152)(48565401081)(300000503095)(300135400095)(2017052603031)(201703131423075)(201703031133081)(201702281549075)(300000504095)(300135200095)(300000505095)(300135600095)(300000506095)(300135500095);
- SRVR:DB5PR05MB1255; 
-x-ms-traffictypediagnostic: DB5PR05MB1255:
-x-exchange-antispam-report-test: UriScan:(65623756079841);
-x-microsoft-antispam-prvs: <DB5PR05MB1255281F04BD02379733B859EF8B0@DB5PR05MB1255.eurprd05.prod.outlook.com>
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(100000700101)(100105000095)(100000701101)(100105300095)(100000702101)(100105100095)(6040450)(601004)(2401047)(5005006)(8121501046)(100000703101)(100105400095)(93006095)(93001095)(3002001)(10201501046)(6055026)(6041248)(20161123560025)(20161123555025)(20161123562025)(20161123558100)(20161123564025)(201703131423075)(201702281528075)(201703061421075)(201703061406153)(6072148)(201708071742011)(100000704101)(100105200095)(100000705101)(100105500095);
- SRVR:DB5PR05MB1255; BCL:0; PCL:0;
- RULEID:(100000800101)(100110000095)(100000801101)(100110300095)(100000802101)(100110100095)(100000803101)(100110400095)(100000804101)(100110200095)(100000805101)(100110500095);
- SRVR:DB5PR05MB1255; 
-x-forefront-prvs: 0394259C80
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(6009001)(39400400002)(39450400003)(39840400002)(39860400002)(39850400002)(39410400002)(189002)(13464003)(199003)(377454003)(97736004)(66066001)(478600001)(7736002)(33656002)(305945005)(93886004)(102836003)(3846002)(6116002)(25786009)(105586002)(53936002)(106356001)(38730400002)(9686003)(6246003)(81166006)(81156014)(3660700001)(8936002)(189998001)(8676002)(2906002)(4326008)(99286003)(55016002)(86362001)(3280700002)(229853002)(68736007)(101416001)(74316002)(2900100001)(53546010)(76176999)(50986999)(14454004)(54906002)(6506006)(5660300001)(5250100002)(2950100002)(7696004)(6436002)(54356999)(15760500002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DB5PR05MB1255;
- H:DB5PR05MB1224.eurprd05.prod.outlook.com; FPR:; SPF:None; PTR:InfoNoRecords;
- MX:1; A:1; LANG:en; 
-received-spf: None (protection.outlook.com: mellanox.com does not designate
- permitted sender hosts)
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-OriginatorOrg: Mellanox.com
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Aug 2017 15:09:51.0798 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB5PR05MB1255
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xSLcP47KjzDqrP
+ for <openbmc@lists.ozlabs.org>; Thu, 10 Aug 2017 05:17:08 +1000 (AEST)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v79JEL4f128140
+ for <openbmc@lists.ozlabs.org>; Wed, 9 Aug 2017 15:17:05 -0400
+Received: from e16.ny.us.ibm.com (e16.ny.us.ibm.com [129.33.205.206])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2c81bwt8br-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 09 Aug 2017 15:17:05 -0400
+Received: from localhost
+ by e16.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Wed, 9 Aug 2017 15:17:05 -0400
+Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
+ by e16.ny.us.ibm.com (146.89.104.203) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 9 Aug 2017 15:17:01 -0400
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
+ [9.57.199.111])
+ by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v79JH1oT59179114; Wed, 9 Aug 2017 19:17:01 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 54E0FAC040;
+ Wed,  9 Aug 2017 15:17:18 -0400 (EDT)
+Received: from christophersmbp.austin.ibm.com (unknown [9.41.175.36])
+ by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id 06A71AC03A;
+ Wed,  9 Aug 2017 15:17:17 -0400 (EDT)
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+To: joel@jms.id.au
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.10] fsi: core: Reduce console output during normal
+ scan
+Date: Wed,  9 Aug 2017 14:16:59 -0500
+X-Mailer: git-send-email 2.10.1 (Apple Git-78)
+X-TM-AS-GCONF: 00
+x-cbid: 17080919-0024-0000-0000-000002BD10AB
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007514; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000219; SDB=6.00899939; UDB=6.00450499; IPR=6.00680144; 
+ BA=6.00005520; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016615; XFM=3.00000015;
+ UTC=2017-08-09 19:17:03
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17080919-0025-0000-0000-0000450A9B7D
+Message-Id: <20170809191659.33078-1-cbostic@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-08-09_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
+ definitions=main-1708090300
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -92,74 +68,65 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Aug 2017 15:09:59 -0000
+X-List-Received-Date: Wed, 09 Aug 2017 19:17:10 -0000
 
-> -----Original Message-----
-> From: Michael Ellerman [mailto:mpe@ellerman.id.au]
-> Sent: Wednesday, August 9, 2017 4:01 PM
-> To: Mykola Kostenok <c_mykolak@mellanox.com>; Joel Stanley
-> <joel@jms.id.au>
-> Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>; Vadim Pasternak
-> <vadimp@mellanox.com>; Ohad Oz <ohado@mellanox.com>; Benjamin
-> Herrenschmidt <benh@kernel.crashing.org>; Jeremy Kerr <jk@ozlabs.org>
-> Subject: RE: [PATCH linux dev-4.10] aspeed_g5_defconfig: add
-> CONFIG_OF_DYNAMIC.
->=20
-> Mykola Kostenok <c_mykolak@mellanox.com> writes:
-> >> -----Original Message-----
-> >> From: joel.stan@gmail.com [mailto:joel.stan@gmail.com] On Behalf Of
-> >> Joel >> Stanley
-> >>
-> >> Can you explain what you're wanting to do here?
-> >>
-> >> I've added some of our device tree experts to cc so they can offer adv=
-ice.
-> >
-> > Hi, Joel.
-> >
-> > We have now patchset supporting our CPLD device in upstream review.
-> > There we have support for dynamic (hotplug) devices, like PSUs, FANs,
-> ASIC, etc.
-> >
-> ...
-> >
-> > They all sets with the state "disabled", and driver activates it with t=
-he
-> below calls, when related hotplug event is received in interrupt handler:
-> >
-> > static struct property mlxreg_core_device_dis =3D {
-> > 	.name =3D MLXREG_CORE_PROP_STATUS,
-> > 	.value =3D MLXREG_CORE_PROP_DISABLED,
-> > 	.length =3D sizeof(MLXREG_CORE_PROP_DISABLED),
-> > };
-> >
-> > static void mlxreg_core_dev_enable(struct device_node *np) {
-> > 	/* Enable and create device. */
-> > 	of_update_property(np, &mlxreg_core_device_en); }
-> >
-> > static void mlxreg_core_dev_disable(struct device_node *np) {
-> > 	/* Disable and unregister platform device. */
-> > 	of_update_property(np, &mlxreg_core_device_dis);
-> > 	of_node_clear_flag(np, OF_POPULATED); }
-> >
-> > For that we must have OF_DYNAMIC set, and last one required
-> OF_UNITEST.
->=20
-> But are you actually changing the structure of the device tree at run tim=
-e?
->=20
-> If all you're doing is using of_update_property() to change the status
-> property I don't think you need OF_DYNAMIC.
->=20
-> cheers
+To reduce amount of console output during boot / power up make
+all good path scan related messages debug type.
 
-Hi, Michael.
+Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+---
+ drivers/fsi/fsi-core.c       | 4 ++--
+ drivers/fsi/fsi-master-hub.c | 2 +-
+ drivers/fsi/fsi-sbefifo.c    | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-In drivers/i2c/i2c-core.c:
-
-#if IS_ENABLED(CONFIG_OF_DYNAMIC)
-static int of_i2c_notify(struct notifier_block *nb, unsigned long action,
-			 void *arg)
-So we need it.
-
-Best regards. Mykola Kostenok.
+diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
+index 7b06b0d..0f19bd3 100644
+--- a/drivers/fsi/fsi-core.c
++++ b/drivers/fsi/fsi-core.c
+@@ -450,7 +450,7 @@ static int fsi_slave_scan(struct fsi_slave *slave)
+ 			dev->addr = engine_addr;
+ 			dev->size = slots * engine_page_size;
+ 
+-			dev_info(&slave->dev,
++			dev_dbg(&slave->dev,
+ 			"engine[%i]: type %x, version %x, addr %x size %x\n",
+ 					dev->unit, dev->engine_type, version,
+ 					dev->addr, dev->size);
+@@ -690,7 +690,7 @@ static int fsi_slave_init(struct fsi_master *master, int link, uint8_t id)
+ 		return -EIO;
+ 	}
+ 
+-	dev_info(&master->dev, "fsi: found chip %08x at %02x:%02x:%02x\n",
++	dev_dbg(&master->dev, "fsi: found chip %08x at %02x:%02x:%02x\n",
+ 			chip_id, master->idx, link, id);
+ 
+ 	rc = fsi_slave_set_smode(master, link, id);
+diff --git a/drivers/fsi/fsi-master-hub.c b/drivers/fsi/fsi-master-hub.c
+index 3223a67..5e4cd31 100644
+--- a/drivers/fsi/fsi-master-hub.c
++++ b/drivers/fsi/fsi-master-hub.c
+@@ -254,7 +254,7 @@ static int hub_master_probe(struct device *dev)
+ 
+ 	reg = be32_to_cpu(__reg);
+ 	links = (reg >> 8) & 0xff;
+-	dev_info(dev, "hub version %08x (%d links)\n", reg, links);
++	dev_dbg(dev, "hub version %08x (%d links)\n", reg, links);
+ 
+ 	rc = fsi_slave_claim_range(fsi_dev->slave, FSI_HUB_LINK_OFFSET,
+ 			FSI_HUB_LINK_SIZE * links);
+diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
+index d7dccf9..1c37ff7 100644
+--- a/drivers/fsi/fsi-sbefifo.c
++++ b/drivers/fsi/fsi-sbefifo.c
+@@ -802,7 +802,7 @@ static int sbefifo_probe(struct device *dev)
+ 	u32 sts;
+ 	int ret, child_idx = 0;
+ 
+-	dev_info(dev, "Found sbefifo device\n");
++	dev_dbg(dev, "Found sbefifo device\n");
+ 	sbefifo = kzalloc(sizeof(*sbefifo), GFP_KERNEL);
+ 	if (!sbefifo)
+ 		return -ENOMEM;
+-- 
+1.8.2.2
