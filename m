@@ -1,59 +1,65 @@
-Return-Path: <mouse@yandex-team.ru>
-X-Greylist: delayed 436 seconds by postgrey-1.36 at bilbo;
- Wed, 09 Aug 2017 21:03:40 AEST
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yandex-team.ru header.i=@yandex-team.ru
- header.b="Cpq638+P"; dkim-atps=neutral
-Received: from forwardcorp1m.cmail.yandex.net (forwardcorp1m.cmail.yandex.net
- [5.255.216.198])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <linux@roeck-us.net>
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xS7g026m8zDr2g
- for <openbmc@lists.ozlabs.org>; Wed,  9 Aug 2017 21:03:40 +1000 (AEST)
-Received: from mxbackcorp1g.mail.yandex.net (mxbackcorp1g.mail.yandex.net
- [IPv6:2a02:6b8:0:1402::301])
- by forwardcorp1m.cmail.yandex.net (Yandex) with ESMTP id AD82420718;
- Wed,  9 Aug 2017 13:56:17 +0300 (MSK)
-Received: from webcorp01h.yandex-team.ru (webcorp01h.yandex-team.ru
- [37.9.109.45])
- by mxbackcorp1g.mail.yandex.net (nwsmtp/Yandex) with ESMTP id
- bzd2wfetTB-uGj89ZVW; Wed, 09 Aug 2017 13:56:17 +0300
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
- s=default; 
- t=1502276177; bh=KOHHa5bs0649eqdaB5SQPaQzDGiDvKRJrjuwwlFgsbA=;
- h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date;
- b=Cpq638+PotbiKQFg8FJqN4PjpD8j/KE3dnF7l/YPnqsredfEsqRiGyKFMEEHXr2Hz
- p/SmgnBwkZ8Z3FnmRdmDTvFUKHbWKO+NnQrvN5BbjDfetGb5Kv7X0rt6KoaQHzVpJ/
- sShxIUp88j8itIg0o19mQHva0cAWFmFSWJN47k5k=
-Authentication-Results: mxbackcorp1g.mail.yandex.net;
- dkim=pass header.i=@yandex-team.ru
-X-Yandex-Sender-Uid: 1120000000001030
-Received: by webcorp01h.yandex-team.ru with HTTP;
- Wed, 09 Aug 2017 13:56:16 +0300
-From: Anton D. Kachalov <mouse@yandex-team.ru>
-To: Brendan Higgins <brendanhiggins@google.com>,
- "corbet@lwn.net" <corbet@lwn.net>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "mark.rutland@arm.com" <mark.rutland@arm.com>,
- "arnd@arndb.de" <arnd@arndb.de>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "minyard@acm.org" <minyard@acm.org>, "joel@jms.id.au" <joel@jms.id.au>,
- "benh@kernel.crashing.org" <benh@kernel.crashing.org>
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "openipmi-developer@lists.sourceforge.net"
- <openipmi-developer@lists.sourceforge.net>, 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xSBww34jlzDqZy
+ for <openbmc@lists.ozlabs.org>; Wed,  9 Aug 2017 23:30:55 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.b="23cpzPaV";
+ dkim-atps=neutral
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ZIzH3FmR+jdPaHcnj/+8X36OsSh9MgG5KiPQLC0p4qo=; b=23cpzPaVjZGhG/V0s7yE5b44yR
+ nLX37sr7en3mJZhPIO20pvl6SyCtZk8BjCgu0M5MKU3uXOBTU7KYGFL0Q301tqC6KVBxxlH/tIsZH
+ yegXcW70aLPqXznxcIYF8mW2O8F45kUiKfjl/XQ81L/HvwaEid2Vd3pmyBL3VHoYkaI/XUSE0ynbW
+ Sjq4k2xm84pYSjSihr7aV1CBlxXmXcOr0TflXVl8UnDemMYCcr8w4nHkSMIjbfTn5lBxh86+nowRr
+ jrKj3jvc/hVkWUv934guNh04g84JEIGwgpk8hPsYSSuC3ums4Z/XkjiJmUCKf3VL5QY1JKhac16pV
+ 64VwubMg==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net
+ ([108.223.40.66]:56694 helo=server.roeck-us.net)
+ by bh-25.webhostbox.net with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ (Exim 4.89) (envelope-from <linux@roeck-us.net>)
+ id 1dfR4W-002urJ-Vp; Wed, 09 Aug 2017 13:30:53 +0000
+Subject: Re: [patch v3 resend] Documentation: dt-bindings: aspeed-pwm-tacho
+ cooling device.
+To: Mykola Kostenok <c_mykolak@mellanox.com>, Rob Herring
+ <robh+dt@kernel.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>
+Cc: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>,
  "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
-In-Reply-To: <20170804231854.19730-1-brendanhiggins@google.com>
-References: <20170804231854.19730-1-brendanhiggins@google.com>
-Subject: Re: [PATCH v1 0/3] ipmi: bt-i2c: added IPMI Block Transfer over I2C
+ Patrick Venture <venture@google.com>, Vadim Pasternak <vadimp@mellanox.com>,
+ Ohad Oz <ohado@mellanox.com>
+References: <20170803084650.22298-1-c_mykolak@mellanox.com>
+ <3c427ddd-aab6-13d4-bfb2-ae22848c0d13@roeck-us.net>
+ <DB5PR05MB122451EAD6E4A470ED2FCFBEEF8B0@DB5PR05MB1224.eurprd05.prod.outlook.com>
+From: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <a1b34c1d-b00e-7a8f-7950-c2007d6b5eb7@roeck-us.net>
+Date: Wed, 9 Aug 2017 06:30:51 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.2.1
 MIME-Version: 1.0
-Message-Id: <57021502276176@webcorp01h.yandex-team.ru>
-X-Mailer: Yamail [ http://yandex.ru ] 5.0
-Date: Wed, 09 Aug 2017 13:56:16 +0300
-Content-Transfer-Encoding: base64
-Content-Type: text/html; charset=utf-8
+In-Reply-To: <DB5PR05MB122451EAD6E4A470ED2FCFBEEF8B0@DB5PR05MB1224.eurprd05.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Authenticated_sender: linux@roeck-us.net
+X-OutGoing-Spam-Status: No, score=-1.0
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - lists.ozlabs.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-Get-Message-Sender-Via: bh-25.webhostbox.net: authenticated_id:
+ linux@roeck-us.net
+X-Authenticated-Sender: bh-25.webhostbox.net: linux@roeck-us.net
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -65,47 +71,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Aug 2017 11:03:42 -0000
+X-List-Received-Date: Wed, 09 Aug 2017 13:30:57 -0000
 
-PGRpdj5IZWxsbyw8L2Rpdj48ZGl2PsKgPC9kaXY+PGRpdj5JIHdvdWxkIGxpa2UgdG8gbWVudGlv
-biBvbmUgb2YgdGhlIG91ciByZWxhdGVkIHdvcmsgZm9yIElQTUkgYW5kIEkyQy48L2Rpdj48ZGl2
-PsKgPC9kaXY+PGRpdj5XZSB1c2UgT3BlbklQTUkgc3RhY2sgdG8gY29ubmVjdCB0byB0aGUgY29t
-cHV0aW5nIG5vZGVzIHRocm91Z2ggdGhlIEkyQyB1c2luZyBJUE1CIChCVCBpcyBub3Qgc3VwcG9y
-dGVkIGJ5IG5vZGVzKTo8L2Rpdj48ZGl2PsKgPC9kaXY+PGRpdj48YSBocmVmPSJodHRwczovL2dp
-dGh1Yi5jb20veWEtbW91c2UvbWV0YS1vcGVuYm1jLXlhbmRleC9ibG9iL21hc3Rlci9tZXRhLXlh
-bmRleC9tZXRhLW9wZW5yYWNrL21ldGEtc2hhb3NpL3JlY2lwZXMta2VybmVsL2xpbnV4L2xpbnV4
-LW9ibWMvaXBtaV9pMmMuYyI+aHR0cHM6Ly9naXRodWIuY29tL3lhLW1vdXNlL21ldGEtb3BlbmJt
-Yy15YW5kZXgvYmxvYi9tYXN0ZXIvbWV0YS15YW5kZXgvbWV0YS1vcGVucmFjay9tZXRhLXNoYW9z
-aS9yZWNpcGVzLWtlcm5lbC9saW51eC9saW51eC1vYm1jL2lwbWlfaTJjLmM8L2E+PC9kaXY+PGRp
-dj7CoDwvZGl2PjxkaXY+SXQgbGFja3MgY29tcGxldGUgc2xhdmUgc3VwcG9ydCAoc2xhdmUgcGFy
-dCBpcyBvbmx5IGZvciByZWNlaXZpbmcga25vd24gcGFja2V0cyB3aXRoIHF1ZXJ5IHJlc3VsdHMg
-ZHVlIHRvIE9wZW5JUE1JIGltcGxlbWVudGF0aW9uIGluIGtlcm5lbCkgYW5kIHVzZSBvbmUgbG9j
-YWwgc2xhdmUgdG8gY29tbXVuaWNhdGUgd2l0aCBhIG51bWJlciBvZiB0YXJnZXQgc3lzdGVtcyBv
-biB0aGUgc2FtZSBidXMgKGN1cnJlbnRseSBzdXBwb3J0ZWQgb25seSAxLXRvLTEgc2NoZW1hKS48
-L2Rpdj48ZGl2PsKgPC9kaXY+PGRpdj5XaXRoIHRoaXMgc3R1ZmYgd2UgYWJsZSB0byB1c2UgaXBt
-aXRvb2wgYWNyb3NzIGRpZmZlcmVudCAvZGV2L2lwbWlYIGRldmljZXMgdG8gY29tbXVuaWNhdGUg
-d2l0aCBub2Rlcy48L2Rpdj48ZGl2PsKgPC9kaXY+PGRpdj4wNS4wOC4yMDE3LCAwMjoxOSwgIkJy
-ZW5kYW4gSGlnZ2lucyIgJmx0O2JyZW5kYW5oaWdnaW5zQGdvb2dsZS5jb20mZ3Q7OjwvZGl2Pjxi
-bG9ja3F1b3RlIHR5cGU9ImNpdGUiPjxwPlRoaXMgcGF0Y2hzZXQgaW50cm9kdWNlcyBJUE1JIEJs
-b2NrIFRyYW5zZmVyIG92ZXIgSTJDIChCVC1JMkMpLCB3aGljaCBoYXMgdGhlPGJyIC8+c2FtZSBz
-ZW1hbnRpY3MgYXMgSVBNSSBCbG9jayBUcmFuc2ZlciBleGNlcHQgaXQgZG9uZSBvdmVyIEkyQy48
-YnIgLz48YnIgLz5UaGUgZG9jdW1lbnRhdGlvbiBkaXNjdXNzZXMgdGhlIHJlYXNvbiBmb3IgdGhp
-cyBpbiBncmVhdGVyIGRldGFpbCwgc3VmZmljZSBpdCB0bzxiciAvPnNheSBTU0lGIGNhbm5vdCBi
-ZSBjb3JyZWN0bHkgaW1wbGVtZW50ZWQgb24gc29tZSBuYWl2ZSBJMkMgZGV2aWNlcy4gVGhlcmUg
-YXJlPGJyIC8+c29tZSBhZGRpdGlvbmFsIHJlYXNvbnMgd2h5IHdlIGRvbid0IGxpa2UgU1NJRiwg
-YnV0IHRob3NlIGFyZSBhZ2FpbiBjb3ZlcmVkIGluPGJyIC8+dGhlIGRvY3VtZW50YXRpb24gZm9y
-IGFsbCB0aG9zZSB3aG8gYXJlIGludGVyZXN0ZWQuPGJyIC8+PGJyIC8+SW4gYWRkaXRpb24sIHNp
-bmNlIEkgYW0gYWRkaW5nIGJvdGggaG9zdCBzaWRlIGFuZCBCTUMgc2lkZSBzdXBwb3J0LCBJIGZp
-Z3VyZWQ8YnIgLz50aGF0IG5vdyBpcyBhIGdvb2QgdGltZSB0byByZXNvbHZlIHRoZSBwcm9ibGVt
-IG9mIHdoZXJlIHRvIHB1dCBCTUMgc2lkZSBJUE1JPGJyIC8+ZHJpdmVyczsgcmlnaHQgbm93IHdl
-IGhhdmUgaXQgKHRoZXJlIGlzIG9ubHkgb25lKSBpbiBkcml2ZXJzL2NoYXIvaXBtaS8gd2l0aCB0
-aGU8YnIgLz5yZXN0IG9mIHRoZSBob3N0IHNpZGUgSVBNSSBkcml2ZXJzLCBidXQgSSB0aGluayBp
-dCBtYWtlcyBzZW5zZSB0byBwdXQgYWxsIG9mIHRoZTxiciAvPmhvc3Qgc2lkZSBJUE1JIGRyaXZl
-cnMgaW4gb25lIGRpcmVjdG9yeSBhbmQgYWxsIG9mIHRoZSBCTUMgc2lkZSBkcml2ZXJzIGluPGJy
-IC8+YW5vdGhlciwgcHJlZmVyYWJseSBpbiBhIHdheSB0aGF0IGRvZXMgbm90IGVmZmVjdCBhbGwg
-b2YgdGhlIGN1cnJlbnQgT3BlbklQTUk8YnIgLz51c2Vycy4gSSBoYXZlIG5vdCBjcmVhdGVkIGEg
-TUFJTlRBSU5FUlMgZW50cnkgZm9yIHRoZSBuZXcgZGlyZWN0b3J5IHlldCwgYXMgSTxiciAvPmZp
-Z3VyZWQgdGhlcmUgbWlnaHQgYmUgc29tZSBkaXNjdXNzaW9uIHRvIGJlIGhhZCBhYm91dCBpdC48
-YnIgLz48YnIgLz5JIGhhdmUgdGVzdGVkIHRoaXMgcGF0Y2hzZXQgb24gdGhlIEFzcGVlZCAyNTAw
-IEVWQi48L3A+PC9ibG9ja3F1b3RlPjxkaXY+wqA8L2Rpdj48ZGl2PsKgPC9kaXY+PGRpdj4tLcKg
-PGJyIC8+QW50b24gRC4gS2FjaGFsb3Y8YnIgLz7CoDwvZGl2PjxkaXY+wqA8L2Rpdj4=
+On 08/09/2017 12:15 AM, Mykola Kostenok wrote:
+>> -----Original Message-----
+>> From: Guenter Roeck [mailto:linux@roeck-us.net]
+>> Sent: Wednesday, August 9, 2017 7:09 AM
+>> To: Mykola Kostenok <c_mykolak@mellanox.com>; Rob Herring
+>> <robh+dt@kernel.org>; devicetree@vger.kernel.org
+>> Cc: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>;
+>> openbmc@lists.ozlabs.org; Patrick Venture <venture@google.com>; Vadim
+>> Pasternak <vadimp@mellanox.com>; Ohad Oz <ohado@mellanox.com>
+>> Subject: Re: [patch v3 resend] Documentation: dt-bindings: aspeed-pwm-
+>> tacho cooling device.
+>>
+>> On 08/03/2017 01:46 AM, Mykola Kostenok wrote:
+>>> It's add support for cooling device creation to aspeed-pwm-tacho.
+>>> Cooling device could be bound to a thermal zone for the thermal
+>>> control.
+>>>
+>>> v1 -> v2:
+>>>    - Fix commit message.
+>>> v2 -> v3:
+>>>    Pointed out by Rob Herring:
+>>>    - Put cooling-levels under fan subnodes.
+>>>
+>>> Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
+>>
+>> Did Rob ever Ack this patch ?
+>>
+>> Note you didn't copy the hwmon mailing list, which doesn't exactly help to
+>> keep track of it, and I may have lost Rob's Ack. My apologies if that is the
+>> case.
+>>
+>> Guenter
+> 
+> Hi, Guenter.
+> 
+> No, Rob Herring did not ack patch yet. Just comment.
+> 
+> Yes, since I split initial patch to 2 patches, I have sent one to you and hwmon mail list,
+> and another to Rob and devicetree mail list. And added you both to cc.
+> Am I need to add both mail lists to both patches in such cases?
+> 
+
+Normally the dt patch would still be pushed through the same subsystem as the driver,
+so, yes, it would be useful to have hwmon copied. Otherwise it won't be in the hwmon
+patchwork and can easily get lost.
+
+Guenter
