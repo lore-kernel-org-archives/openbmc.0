@@ -1,60 +1,59 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
+Return-Path: <mouse@yandex-team.ru>
+X-Greylist: delayed 436 seconds by postgrey-1.36 at bilbo;
+ Wed, 09 Aug 2017 21:03:40 AEST
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yandex-team.ru header.i=@yandex-team.ru
+ header.b="Cpq638+P"; dkim-atps=neutral
+Received: from forwardcorp1m.cmail.yandex.net (forwardcorp1m.cmail.yandex.net
+ [5.255.216.198])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xS6wX19jxzDr4K
- for <openbmc@lists.ozlabs.org>; Wed,  9 Aug 2017 20:30:20 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="t6bgbRL/"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="njhl3Eql"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id E050B20958;
- Wed,  9 Aug 2017 06:30:17 -0400 (EDT)
-Received: from web2 ([10.202.2.212])
- by compute4.internal (MEProxy); Wed, 09 Aug 2017 06:30:17 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=weuV/nlyoPanR4Dz089WDkLD91w0h
- ARLHdOdov2iF6k=; b=t6bgbRL/vxIEnwnKD3XiDEJ7/VxpQCIVJS6eQuij8bZpN
- wEr2IYYQeUNznZrLy4537pFvmY47W+meeIMfp6fs4dJmdlgHLcgE1PS1gwuDmToG
- IIrRhE5eZnh8JHbMaUVdBhq9FBhXGKqWe+ycjVHcO/4I7Szkkmx5UX0LQvHH+u9u
- ilTwkWHtaPD1qAvUw/y6Odxg6DjGCNu4/nOlh3VsiYwZHHtHKZ6+IIUJm36s+eFo
- 2K2q+JZboAHMZU/UVxniOff8WfLgYmWUFgtk7FwoB0AX7zv4qlF6Y+uSDJmEOYP1
- ohfttIYcGBQOiQQhBNFAMkiD2XGTtwZpNGM6Wyrkw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=weuV/n
- lyoPanR4Dz089WDkLD91w0hARLHdOdov2iF6k=; b=njhl3EqlpJfKKtL4jjZgwc
- cYwrSGKu+2FQKKylujxYXLguyychtzJeCDvC0tUvoz/IQ5KUm+CAP2d7ZW2nh7RU
- 6zSy3e2Uczg3+Gq9F3hQtVEi4AEQ8zZR3JCI9uHcUnhr4SIzhpWBVNxRuxQXw0tH
- SYJWUgoEdMWsP1wnRExxCD6vRf80gSS9gufp4Ka54shlyPvUjT7lBn0XZmajaFNi
- 1RgI1JISidGE2gL7disXTbwK63FWePwTXHAVxNsuhB9hxKdTo+1YItivsHAhDvFt
- +XYgS6CYI29a31/tgIxjm+X6+LXlU1412pC/+hSL0j5dH+pD1fQ09Qx4kQ7wCsVQ
- ==
-X-ME-Sender: <xms:OeSKWaVuSZut020J839tFeuX-WSJEhLDQHnKFRPJf2w4lNy-1kQN6Q>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id BBEDA6264D; Wed,  9 Aug 2017 06:30:17 -0400 (EDT)
-Message-Id: <1502274617.2058464.1067857056.3F238295@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: =?utf-8?Q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>, qemu-arm@nongnu.org
-Cc: qemu-devel@nongnu.org, peter.maydell@linaro.org, joel@jms.id.au,
- f4bug@amsat.org, ryan_chen@aspeedtech.com, openbmc@lists.ozlabs.org
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xS7g026m8zDr2g
+ for <openbmc@lists.ozlabs.org>; Wed,  9 Aug 2017 21:03:40 +1000 (AEST)
+Received: from mxbackcorp1g.mail.yandex.net (mxbackcorp1g.mail.yandex.net
+ [IPv6:2a02:6b8:0:1402::301])
+ by forwardcorp1m.cmail.yandex.net (Yandex) with ESMTP id AD82420718;
+ Wed,  9 Aug 2017 13:56:17 +0300 (MSK)
+Received: from webcorp01h.yandex-team.ru (webcorp01h.yandex-team.ru
+ [37.9.109.45])
+ by mxbackcorp1g.mail.yandex.net (nwsmtp/Yandex) with ESMTP id
+ bzd2wfetTB-uGj89ZVW; Wed, 09 Aug 2017 13:56:17 +0300
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
+ s=default; 
+ t=1502276177; bh=KOHHa5bs0649eqdaB5SQPaQzDGiDvKRJrjuwwlFgsbA=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date;
+ b=Cpq638+PotbiKQFg8FJqN4PjpD8j/KE3dnF7l/YPnqsredfEsqRiGyKFMEEHXr2Hz
+ p/SmgnBwkZ8Z3FnmRdmDTvFUKHbWKO+NnQrvN5BbjDfetGb5Kv7X0rt6KoaQHzVpJ/
+ sShxIUp88j8itIg0o19mQHva0cAWFmFSWJN47k5k=
+Authentication-Results: mxbackcorp1g.mail.yandex.net;
+ dkim=pass header.i=@yandex-team.ru
+X-Yandex-Sender-Uid: 1120000000001030
+Received: by webcorp01h.yandex-team.ru with HTTP;
+ Wed, 09 Aug 2017 13:56:16 +0300
+From: Anton D. Kachalov <mouse@yandex-team.ru>
+To: Brendan Higgins <brendanhiggins@google.com>,
+ "corbet@lwn.net" <corbet@lwn.net>,
+ "robh+dt@kernel.org" <robh+dt@kernel.org>,
+ "mark.rutland@arm.com" <mark.rutland@arm.com>,
+ "arnd@arndb.de" <arnd@arndb.de>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "minyard@acm.org" <minyard@acm.org>, "joel@jms.id.au" <joel@jms.id.au>,
+ "benh@kernel.crashing.org" <benh@kernel.crashing.org>
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "openipmi-developer@lists.sourceforge.net"
+ <openipmi-developer@lists.sourceforge.net>, 
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
+In-Reply-To: <20170804231854.19730-1-brendanhiggins@google.com>
+References: <20170804231854.19730-1-brendanhiggins@google.com>
+Subject: Re: [PATCH v1 0/3] ipmi: bt-i2c: added IPMI Block Transfer over I2C
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-4448c6f4
-Date: Wed, 09 Aug 2017 20:00:17 +0930
-References: <20170809062828.3673-1-andrew@aj.id.au>
- <20170809062828.3673-2-andrew@aj.id.au>
- <8d122179-665f-2cbe-939e-2e466b98b28d@kaod.org>
-Subject: Re: [PATCH for 2.11 v2 1/2] watchdog: wdt_aspeed: Add support for the
- reset width register
-In-Reply-To: <8d122179-665f-2cbe-939e-2e466b98b28d@kaod.org>
+Message-Id: <57021502276176@webcorp01h.yandex-team.ru>
+X-Mailer: Yamail [ http://yandex.ru ] 5.0
+Date: Wed, 09 Aug 2017 13:56:16 +0300
+Content-Transfer-Encoding: base64
+Content-Type: text/html; charset=utf-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -66,247 +65,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Aug 2017 10:30:21 -0000
+X-List-Received-Date: Wed, 09 Aug 2017 11:03:42 -0000
 
-
-
-On Wed, Aug 9, 2017, at 18:28, C=C3=A9dric Le Goater wrote:
-> On 08/09/2017 08:28 AM, Andrew Jeffery wrote:
-> > The reset width register controls how the pulse on the SoC's WDTRST{1,2}
-> > pins behaves. A pulse is emitted if the external reset bit is set in
-> > WDT_CTRL. On the AST2500 WDT_RESET_WIDTH can consume magic bit patterns
-> > to configure push-pull/open-drain and active-high/active-low
-> > behaviours and thus needs some special handling in the write path.
-> >=20
-> > As some of the capabilities depend on the SoC version a silicon-rev
-> > property is introduced, which is used to guard version-specific
-> > behaviour.
-> >=20
-> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
->=20
-> One minor comment below. Nevertheless :
->=20
-> Reviewed-by: C=C3=A9dric Le Goater <clg@kaod.org>
->=20
-> > ---
-> >  hw/watchdog/wdt_aspeed.c         | 93 ++++++++++++++++++++++++++++++++=
-+++-----
-> >  include/hw/watchdog/wdt_aspeed.h |  2 +
-> >  2 files changed, 84 insertions(+), 11 deletions(-)
-> >=20
-> > diff --git a/hw/watchdog/wdt_aspeed.c b/hw/watchdog/wdt_aspeed.c
-> > index 8bbe579b6b66..22bce364d7b5 100644
-> > --- a/hw/watchdog/wdt_aspeed.c
-> > +++ b/hw/watchdog/wdt_aspeed.c
-> > @@ -8,16 +8,19 @@
-> >   */
-> >=20=20
-> >  #include "qemu/osdep.h"
-> > +
-> > +#include "qapi/error.h"
-> >  #include "qemu/log.h"
-> > +#include "qemu/timer.h"
-> >  #include "sysemu/watchdog.h"
-> > +#include "hw/misc/aspeed_scu.h"
-> >  #include "hw/sysbus.h"
-> > -#include "qemu/timer.h"
-> >  #include "hw/watchdog/wdt_aspeed.h"
-> >=20=20
-> > -#define WDT_STATUS              (0x00 / 4)
-> > -#define WDT_RELOAD_VALUE        (0x04 / 4)
-> > -#define WDT_RESTART             (0x08 / 4)
-> > -#define WDT_CTRL                (0x0C / 4)
-> > +#define WDT_STATUS                      (0x00 / 4)
-> > +#define WDT_RELOAD_VALUE                (0x04 / 4)
-> > +#define WDT_RESTART                     (0x08 / 4)
-> > +#define WDT_CTRL                        (0x0C / 4)
-> >  #define   WDT_CTRL_RESET_MODE_SOC       (0x00 << 5)
-> >  #define   WDT_CTRL_RESET_MODE_FULL_CHIP (0x01 << 5)
-> >  #define   WDT_CTRL_1MHZ_CLK             BIT(4)
-> > @@ -25,18 +28,41 @@
-> >  #define   WDT_CTRL_WDT_INTR             BIT(2)
-> >  #define   WDT_CTRL_RESET_SYSTEM         BIT(1)
-> >  #define   WDT_CTRL_ENABLE               BIT(0)
-> > +#define WDT_RESET_WIDTH                 (0x18 / 4)
-> > +#define   WDT_RESET_WIDTH_ACTIVE_HIGH   BIT(31)
-> > +#define     WDT_POLARITY_MASK           (0xFF << 24)
-> > +#define     WDT_ACTIVE_HIGH_MAGIC       (0xA5 << 24)
-> > +#define     WDT_ACTIVE_LOW_MAGIC        (0x5A << 24)
-> > +#define   WDT_RESET_WIDTH_PUSH_PULL     BIT(30)
-> > +#define     WDT_DRIVE_TYPE_MASK         (0xFF << 24)
-> > +#define     WDT_PUSH_PULL_MAGIC         (0xA8 << 24)
-> > +#define     WDT_OPEN_DRAIN_MAGIC        (0x8A << 24)
-> >=20=20
-> > -#define WDT_TIMEOUT_STATUS      (0x10 / 4)
-> > -#define WDT_TIMEOUT_CLEAR       (0x14 / 4)
-> > -#define WDT_RESET_WDITH         (0x18 / 4)
-> > +#define WDT_TIMEOUT_STATUS              (0x10 / 4)
-> > +#define WDT_TIMEOUT_CLEAR               (0x14 / 4)
-> >=20=20
-> > -#define WDT_RESTART_MAGIC       0x4755
-> > +#define WDT_RESTART_MAGIC               0x4755
-> >=20=20
-> >  static bool aspeed_wdt_is_enabled(const AspeedWDTState *s)
-> >  {
-> >      return s->regs[WDT_CTRL] & WDT_CTRL_ENABLE;
-> >  }
-> >=20=20
-> > +static bool is_ast2500(const AspeedWDTState *s)
->=20
-> I think we could use this routine in other controllers (scu, sdmc).=20
-> So may be, in a follow-up patch, we could move it in aspeed_scu.h
-
-Right, I figured we would move it when we came to need it elsewhere.
-
-Thanks for the review.
-
-Cheers,
-
-Andrew
-
->=20
-> Thanks,
->=20
-> C.=20
->=20=20
-> > +{
-> > +    switch (s->silicon_rev) {
-> > +    case AST2500_A0_SILICON_REV:
-> > +    case AST2500_A1_SILICON_REV:
-> > +        return true;
-> > +    case AST2400_A0_SILICON_REV:
-> > +    case AST2400_A1_SILICON_REV:
-> > +    default:
-> > +        break;
-> > +    }
-> > +
-> > +    return false;
-> > +}
-> > +
-> >  static uint64_t aspeed_wdt_read(void *opaque, hwaddr offset, unsigned =
-size)
-> >  {
-> >      AspeedWDTState *s =3D ASPEED_WDT(opaque);
-> > @@ -55,9 +81,10 @@ static uint64_t aspeed_wdt_read(void *opaque, hwaddr=
- offset, unsigned size)
-> >          return 0;
-> >      case WDT_CTRL:
-> >          return s->regs[WDT_CTRL];
-> > +    case WDT_RESET_WIDTH:
-> > +        return s->regs[WDT_RESET_WIDTH];
-> >      case WDT_TIMEOUT_STATUS:
-> >      case WDT_TIMEOUT_CLEAR:
-> > -    case WDT_RESET_WDITH:
-> >          qemu_log_mask(LOG_UNIMP,
-> >                        "%s: uninmplemented read at offset 0x%" HWADDR_P=
-RIx "\n",
-> >                        __func__, offset);
-> > @@ -119,9 +146,27 @@ static void aspeed_wdt_write(void *opaque, hwaddr =
-offset, uint64_t data,
-> >              timer_del(s->timer);
-> >          }
-> >          break;
-> > +    case WDT_RESET_WIDTH:
-> > +    {
-> > +        uint32_t property =3D data & WDT_POLARITY_MASK;
-> > +
-> > +        if (property && is_ast2500(s)) {
-> > +            if (property =3D=3D WDT_ACTIVE_HIGH_MAGIC) {
-> > +                s->regs[WDT_RESET_WIDTH] |=3D WDT_RESET_WIDTH_ACTIVE_H=
-IGH;
-> > +            } else if (property =3D=3D WDT_ACTIVE_LOW_MAGIC) {
-> > +                s->regs[WDT_RESET_WIDTH] &=3D ~WDT_RESET_WIDTH_ACTIVE_=
-HIGH;
-> > +            } else if (property =3D=3D WDT_PUSH_PULL_MAGIC) {
-> > +                s->regs[WDT_RESET_WIDTH] |=3D WDT_RESET_WIDTH_PUSH_PUL=
-L;
-> > +            } else if (property =3D=3D WDT_OPEN_DRAIN_MAGIC) {
-> > +                s->regs[WDT_RESET_WIDTH] &=3D ~WDT_RESET_WIDTH_PUSH_PU=
-LL;
-> > +            }
-> > +        }
-> > +        s->regs[WDT_RESET_WIDTH] &=3D ~s->ext_pulse_width_mask;
-> > +        s->regs[WDT_RESET_WIDTH] |=3D data & s->ext_pulse_width_mask;
-> > +        break;
-> > +    }
-> >      case WDT_TIMEOUT_STATUS:
-> >      case WDT_TIMEOUT_CLEAR:
-> > -    case WDT_RESET_WDITH:
-> >          qemu_log_mask(LOG_UNIMP,
-> >                        "%s: uninmplemented write at offset 0x%" HWADDR_=
-PRIx "\n",
-> >                        __func__, offset);
-> > @@ -167,6 +212,7 @@ static void aspeed_wdt_reset(DeviceState *dev)
-> >      s->regs[WDT_RELOAD_VALUE] =3D 0x03EF1480;
-> >      s->regs[WDT_RESTART] =3D 0;
-> >      s->regs[WDT_CTRL] =3D 0;
-> > +    s->regs[WDT_RESET_WIDTH] =3D 0xFF;
-> >=20=20
-> >      timer_del(s->timer);
-> >  }
-> > @@ -187,6 +233,25 @@ static void aspeed_wdt_realize(DeviceState *dev, E=
-rror **errp)
-> >      SysBusDevice *sbd =3D SYS_BUS_DEVICE(dev);
-> >      AspeedWDTState *s =3D ASPEED_WDT(dev);
-> >=20=20
-> > +    if (!is_supported_silicon_rev(s->silicon_rev)) {
-> > +        error_setg(errp, "Unknown silicon revision: 0x%" PRIx32,
-> > +                s->silicon_rev);
-> > +        return;
-> > +    }
-> > +
-> > +    switch (s->silicon_rev) {
-> > +    case AST2400_A0_SILICON_REV:
-> > +    case AST2400_A1_SILICON_REV:
-> > +        s->ext_pulse_width_mask =3D 0xff;
-> > +        break;
-> > +    case AST2500_A0_SILICON_REV:
-> > +    case AST2500_A1_SILICON_REV:
-> > +        s->ext_pulse_width_mask =3D 0xfffff;
-> > +        break;
-> > +    default:
-> > +        g_assert_not_reached();
-> > +    }
-> > +
-> >      s->timer =3D timer_new_ns(QEMU_CLOCK_VIRTUAL, aspeed_wdt_timer_exp=
-ired, dev);
-> >=20=20
-> >      /* FIXME: This setting should be derived from the SCU hw strapping
-> > @@ -199,6 +264,11 @@ static void aspeed_wdt_realize(DeviceState *dev, E=
-rror **errp)
-> >      sysbus_init_mmio(sbd, &s->iomem);
-> >  }
-> >=20=20
-> > +static Property aspeed_wdt_properties[] =3D {
-> > +    DEFINE_PROP_UINT32("silicon-rev", AspeedWDTState, silicon_rev, 0),
-> > +    DEFINE_PROP_END_OF_LIST(),
-> > +};
-> > +
-> >  static void aspeed_wdt_class_init(ObjectClass *klass, void *data)
-> >  {
-> >      DeviceClass *dc =3D DEVICE_CLASS(klass);
-> > @@ -207,6 +277,7 @@ static void aspeed_wdt_class_init(ObjectClass *klas=
-s, void *data)
-> >      dc->reset =3D aspeed_wdt_reset;
-> >      set_bit(DEVICE_CATEGORY_MISC, dc->categories);
-> >      dc->vmsd =3D &vmstate_aspeed_wdt;
-> > +    dc->props =3D aspeed_wdt_properties;
-> >  }
-> >=20=20
-> >  static const TypeInfo aspeed_wdt_info =3D {
-> > diff --git a/include/hw/watchdog/wdt_aspeed.h b/include/hw/watchdog/wdt=
-_aspeed.h
-> > index 080c2231222e..7de3e5c224fb 100644
-> > --- a/include/hw/watchdog/wdt_aspeed.h
-> > +++ b/include/hw/watchdog/wdt_aspeed.h
-> > @@ -27,6 +27,8 @@ typedef struct AspeedWDTState {
-> >      uint32_t regs[ASPEED_WDT_REGS_MAX];
-> >=20=20
-> >      uint32_t pclk_freq;
-> > +    uint32_t silicon_rev;
-> > +    uint32_t ext_pulse_width_mask;
-> >  } AspeedWDTState;
-> >=20=20
-> >  #endif  /* ASPEED_WDT_H */
-> >=20
->=20
+PGRpdj5IZWxsbyw8L2Rpdj48ZGl2PsKgPC9kaXY+PGRpdj5JIHdvdWxkIGxpa2UgdG8gbWVudGlv
+biBvbmUgb2YgdGhlIG91ciByZWxhdGVkIHdvcmsgZm9yIElQTUkgYW5kIEkyQy48L2Rpdj48ZGl2
+PsKgPC9kaXY+PGRpdj5XZSB1c2UgT3BlbklQTUkgc3RhY2sgdG8gY29ubmVjdCB0byB0aGUgY29t
+cHV0aW5nIG5vZGVzIHRocm91Z2ggdGhlIEkyQyB1c2luZyBJUE1CIChCVCBpcyBub3Qgc3VwcG9y
+dGVkIGJ5IG5vZGVzKTo8L2Rpdj48ZGl2PsKgPC9kaXY+PGRpdj48YSBocmVmPSJodHRwczovL2dp
+dGh1Yi5jb20veWEtbW91c2UvbWV0YS1vcGVuYm1jLXlhbmRleC9ibG9iL21hc3Rlci9tZXRhLXlh
+bmRleC9tZXRhLW9wZW5yYWNrL21ldGEtc2hhb3NpL3JlY2lwZXMta2VybmVsL2xpbnV4L2xpbnV4
+LW9ibWMvaXBtaV9pMmMuYyI+aHR0cHM6Ly9naXRodWIuY29tL3lhLW1vdXNlL21ldGEtb3BlbmJt
+Yy15YW5kZXgvYmxvYi9tYXN0ZXIvbWV0YS15YW5kZXgvbWV0YS1vcGVucmFjay9tZXRhLXNoYW9z
+aS9yZWNpcGVzLWtlcm5lbC9saW51eC9saW51eC1vYm1jL2lwbWlfaTJjLmM8L2E+PC9kaXY+PGRp
+dj7CoDwvZGl2PjxkaXY+SXQgbGFja3MgY29tcGxldGUgc2xhdmUgc3VwcG9ydCAoc2xhdmUgcGFy
+dCBpcyBvbmx5IGZvciByZWNlaXZpbmcga25vd24gcGFja2V0cyB3aXRoIHF1ZXJ5IHJlc3VsdHMg
+ZHVlIHRvIE9wZW5JUE1JIGltcGxlbWVudGF0aW9uIGluIGtlcm5lbCkgYW5kIHVzZSBvbmUgbG9j
+YWwgc2xhdmUgdG8gY29tbXVuaWNhdGUgd2l0aCBhIG51bWJlciBvZiB0YXJnZXQgc3lzdGVtcyBv
+biB0aGUgc2FtZSBidXMgKGN1cnJlbnRseSBzdXBwb3J0ZWQgb25seSAxLXRvLTEgc2NoZW1hKS48
+L2Rpdj48ZGl2PsKgPC9kaXY+PGRpdj5XaXRoIHRoaXMgc3R1ZmYgd2UgYWJsZSB0byB1c2UgaXBt
+aXRvb2wgYWNyb3NzIGRpZmZlcmVudCAvZGV2L2lwbWlYIGRldmljZXMgdG8gY29tbXVuaWNhdGUg
+d2l0aCBub2Rlcy48L2Rpdj48ZGl2PsKgPC9kaXY+PGRpdj4wNS4wOC4yMDE3LCAwMjoxOSwgIkJy
+ZW5kYW4gSGlnZ2lucyIgJmx0O2JyZW5kYW5oaWdnaW5zQGdvb2dsZS5jb20mZ3Q7OjwvZGl2Pjxi
+bG9ja3F1b3RlIHR5cGU9ImNpdGUiPjxwPlRoaXMgcGF0Y2hzZXQgaW50cm9kdWNlcyBJUE1JIEJs
+b2NrIFRyYW5zZmVyIG92ZXIgSTJDIChCVC1JMkMpLCB3aGljaCBoYXMgdGhlPGJyIC8+c2FtZSBz
+ZW1hbnRpY3MgYXMgSVBNSSBCbG9jayBUcmFuc2ZlciBleGNlcHQgaXQgZG9uZSBvdmVyIEkyQy48
+YnIgLz48YnIgLz5UaGUgZG9jdW1lbnRhdGlvbiBkaXNjdXNzZXMgdGhlIHJlYXNvbiBmb3IgdGhp
+cyBpbiBncmVhdGVyIGRldGFpbCwgc3VmZmljZSBpdCB0bzxiciAvPnNheSBTU0lGIGNhbm5vdCBi
+ZSBjb3JyZWN0bHkgaW1wbGVtZW50ZWQgb24gc29tZSBuYWl2ZSBJMkMgZGV2aWNlcy4gVGhlcmUg
+YXJlPGJyIC8+c29tZSBhZGRpdGlvbmFsIHJlYXNvbnMgd2h5IHdlIGRvbid0IGxpa2UgU1NJRiwg
+YnV0IHRob3NlIGFyZSBhZ2FpbiBjb3ZlcmVkIGluPGJyIC8+dGhlIGRvY3VtZW50YXRpb24gZm9y
+IGFsbCB0aG9zZSB3aG8gYXJlIGludGVyZXN0ZWQuPGJyIC8+PGJyIC8+SW4gYWRkaXRpb24sIHNp
+bmNlIEkgYW0gYWRkaW5nIGJvdGggaG9zdCBzaWRlIGFuZCBCTUMgc2lkZSBzdXBwb3J0LCBJIGZp
+Z3VyZWQ8YnIgLz50aGF0IG5vdyBpcyBhIGdvb2QgdGltZSB0byByZXNvbHZlIHRoZSBwcm9ibGVt
+IG9mIHdoZXJlIHRvIHB1dCBCTUMgc2lkZSBJUE1JPGJyIC8+ZHJpdmVyczsgcmlnaHQgbm93IHdl
+IGhhdmUgaXQgKHRoZXJlIGlzIG9ubHkgb25lKSBpbiBkcml2ZXJzL2NoYXIvaXBtaS8gd2l0aCB0
+aGU8YnIgLz5yZXN0IG9mIHRoZSBob3N0IHNpZGUgSVBNSSBkcml2ZXJzLCBidXQgSSB0aGluayBp
+dCBtYWtlcyBzZW5zZSB0byBwdXQgYWxsIG9mIHRoZTxiciAvPmhvc3Qgc2lkZSBJUE1JIGRyaXZl
+cnMgaW4gb25lIGRpcmVjdG9yeSBhbmQgYWxsIG9mIHRoZSBCTUMgc2lkZSBkcml2ZXJzIGluPGJy
+IC8+YW5vdGhlciwgcHJlZmVyYWJseSBpbiBhIHdheSB0aGF0IGRvZXMgbm90IGVmZmVjdCBhbGwg
+b2YgdGhlIGN1cnJlbnQgT3BlbklQTUk8YnIgLz51c2Vycy4gSSBoYXZlIG5vdCBjcmVhdGVkIGEg
+TUFJTlRBSU5FUlMgZW50cnkgZm9yIHRoZSBuZXcgZGlyZWN0b3J5IHlldCwgYXMgSTxiciAvPmZp
+Z3VyZWQgdGhlcmUgbWlnaHQgYmUgc29tZSBkaXNjdXNzaW9uIHRvIGJlIGhhZCBhYm91dCBpdC48
+YnIgLz48YnIgLz5JIGhhdmUgdGVzdGVkIHRoaXMgcGF0Y2hzZXQgb24gdGhlIEFzcGVlZCAyNTAw
+IEVWQi48L3A+PC9ibG9ja3F1b3RlPjxkaXY+wqA8L2Rpdj48ZGl2PsKgPC9kaXY+PGRpdj4tLcKg
+PGJyIC8+QW50b24gRC4gS2FjaGFsb3Y8YnIgLz7CoDwvZGl2PjxkaXY+wqA8L2Rpdj4=
