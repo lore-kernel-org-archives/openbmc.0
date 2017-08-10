@@ -1,65 +1,61 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <brendanhiggins@google.com>
+Received: from mail-oi0-x229.google.com (mail-oi0-x229.google.com
+ [IPv6:2607:f8b0:4003:c06::229])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xST446lhQzDqrP
- for <openbmc@lists.ozlabs.org>; Thu, 10 Aug 2017 10:08:04 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xSVK11TB1zDqp7
+ for <openbmc@lists.ozlabs.org>; Thu, 10 Aug 2017 11:04:20 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Vwws7F8U"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="qtk7z8tN"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id E3DD921D5C;
- Wed,  9 Aug 2017 20:08:01 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Wed, 09 Aug 2017 20:08:01 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=X7WDWgF6kGzxbAU9zqwdzLWZPYHaSwFUNAxWsRscT
- XI=; b=Vwws7F8UNKZ24tU1l+AaK/ppUyoIgWwSx+E4Tf+2avWmM5uhwFiAhnNQq
- f+NIgg+zwMMZJZEJeu74yHilxp8kpaFvRivHGDtfXhVNbhta9g+jQiNKtuGwpo75
- U5ZoGtivbH2W4jASb6JT1vRQzX6R9W/nUqcUvnMBJ2cXMCS8dWzite3tCRydCkEn
- jiBgpv650uBCExuNmNy0eXsSa7fY0z2a+A88rydQaMHz7U32tjmPlvnG95/tKhcv
- ChzYWOnUA86dm7ZbgoNX5KlBoWdEWffNUL3zPzT+Dz/y3APjEkAzrdXNGAt8z6Rf
- 8ZArzqmksO0B5hEohI5RF4X9J8asA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=X7WDWgF6kGzxbAU9zq
- wdzLWZPYHaSwFUNAxWsRscTXI=; b=qtk7z8tNI+zuSeRJWFAaq59jmNG5wQJgzF
- YWxINtz6F7mCToamPThd2AwxXu8swVYaCHhXs9s7Po4QcoRwmzR0k7tdRowcELBT
- uluDig9JmygGllE4SJy09AEEJxjohqaSvBlc3rEn15GJ0GF3E74VYob8EOtUK2Vc
- sOrMQ6HR69UVO5QQjey0nOhcA6WHw56xZKr6FNDPJLKKXIM/F3a18XsmdqO5rJEN
- aHT5sbWhSYOZwmbIqvxy5i6BUDT9o/edh6/BrMjNAulzTFCIhaa9rIUznHRAvVLG
- XwUbM3Kh7pCZvlnqCYcotLtTPwLxWAzs0vhVELnoxDAdA5KuTQqw==
-X-ME-Sender: <xms:4aOLWU2RBCnis1l8CXPsGgU63AcUD25fw85AkF37nb2i9hmkMVEaLg>
-X-Sasl-enc: d2FZaB81YONESdpr7MaLq4GqGybQhb6QvXa8RnCzkC2O 1502323681
-Received: from keelia (ppp118-210-176-216.bras2.adl6.internode.on.net
- [118.210.176.216])
- by mail.messagingengine.com (Postfix) with ESMTPA id CF5C67E5DF;
- Wed,  9 Aug 2017 20:07:59 -0400 (EDT)
-Message-ID: <1502323673.7946.10.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10 v3 1/5] drivers/hwmon/pmbus: Add IBM
- power supply hwmon driver
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Brandon Wyman <bjwyman@gmail.com>
-Cc: Eddie James <eajames@linux.vnet.ibm.com>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>, "Edward A. James" <eajames@us.ibm.com>
-Date: Thu, 10 Aug 2017 09:37:53 +0930
-In-Reply-To: <CAK_vbW1yFzg6MUiPJzZ7M=8TjsH8kR-01aDKWsQMz=749a+2mQ@mail.gmail.com>
-References: <1501705534-27606-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1501705534-27606-2-git-send-email-eajames@linux.vnet.ibm.com>
- <1501806869.29409.14.camel@aj.id.au>
- <80c3981a-b3b3-f9da-2fcb-f64dd06ac9b8@linux.vnet.ibm.com>
- <1502084490.7709.1.camel@aj.id.au> <1502159688.7946.6.camel@aj.id.au>
- <CAK_vbW1yFzg6MUiPJzZ7M=8TjsH8kR-01aDKWsQMz=749a+2mQ@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-Rd5Q9tVIwDbNoj6WK/ct"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ unprotected) header.d=google.com header.i=@google.com header.b="cOdALIN+"; 
+ dkim-atps=neutral
+Received: by mail-oi0-x229.google.com with SMTP id e124so77407178oig.2
+ for <openbmc@lists.ozlabs.org>; Wed, 09 Aug 2017 18:04:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=AO+W+20knssfNe95Ni7E+19RvhCXUlVhRINhoFmdEWM=;
+ b=cOdALIN+LdEXrzidf7Eb6cfkNzbYta/CZXjKPDwgOn6C26sGoYe6zeLXA+fHBRY/eP
+ LOZfYaAwzPtMRp0xjuHeJlDVP6RZzC/HizxrG0iNk0ezldXV/w2NHU0VcOuPXDbHm0hA
+ euPqgACDqPwt6CuWFPfEB+3gx5FEzn4pmtRTyHcigw8aXxD0K1OMSge8KlJWjheTVG44
+ CcZRTMs1xXmpnAlvJ7T9WvPBoMbKIYVyjX02ujZ8uNFNmMr4mYMGSHl2MCU96FJ68VnD
+ RlDFICy3zjjXMSXt+uzZX80aYnEL/PBiOX7Kz0u2RfespZk6FOuVt3ItlI74O63W55Ir
+ AUVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=AO+W+20knssfNe95Ni7E+19RvhCXUlVhRINhoFmdEWM=;
+ b=J0Q+q/dnroJI6CCjLeo/tKEZnP0qy7m5M7Ni+jonyqkHz37TU6TQdLwo6WDLcQD8Sg
+ w2lt5qW5uhW/cgKaQQiUdNatZQ/Mzfq1COYr2nv9Z8M06pd1zf2JsPl3hhoKLKu2TWNP
+ 8Ys46rvAKPg89l7HlX93BLxjbMApXRNszSWJC7XswY8IkCPsOsCy2M46APHF5xleZPzo
+ pRb7S5DIhd20Cj77dcMhUVWNFn0YsmHPmDZ7/u6QYqgv4UuOHf3UE1WkOQkJqUoUCT1c
+ g/wnn+uhIsXsDPLQbSakloQWz+r6yOL0qRxJpk2P+CmkBETMBv8NHN89W4ifLRXSCZMd
+ hQMA==
+X-Gm-Message-State: AHYfb5ikpznyzj5O+fxy+IvdGDzJZ7BBAM/ANMMUy4Ej98cAEXFsg/4l
+ 16XvPYMmyZGo+VNBVKReGjzchLujIVS8
+X-Received: by 10.202.244.129 with SMTP id s123mr11506667oih.318.1502327058278; 
+ Wed, 09 Aug 2017 18:04:18 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.168.69.205 with HTTP; Wed, 9 Aug 2017 18:04:17 -0700 (PDT)
+In-Reply-To: <fd82d68b-0ca4-fa43-4ed4-e18f684f6dee@acm.org>
+References: <20170805011855.1027-1-brendanhiggins@google.com>
+ <8f5579cb-2c4d-2cd0-e874-a44374e08417@acm.org>
+ <CAFd5g46LmyjPnjKis7c-F9FbjzyU1MgvrVkR7vjrEC4oWV1doQ@mail.gmail.com>
+ <fd82d68b-0ca4-fa43-4ed4-e18f684f6dee@acm.org>
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Wed, 9 Aug 2017 18:04:17 -0700
+Message-ID: <CAFd5g47FmTiygHDjm0-h2NAz8qa85zZVLKgCf9vGYP8iK6_+ZQ@mail.gmail.com>
+Subject: Re: [PATCH v2 0/4] ipmi: bt-i2c: added IPMI Block Transfer over I2C
+To: Corey Minyard <minyard@acm.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh+dt@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg KH <gregkh@linuxfoundation.org>, Joel Stanley <joel@jms.id.au>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Benjamin Fair <benjaminfair@google.com>, 
+ linux-doc@vger.kernel.org, devicetree <devicetree@vger.kernel.org>, 
+ openipmi-developer@lists.sourceforge.net, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -71,96 +67,98 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Aug 2017 00:08:06 -0000
+X-List-Received-Date: Thu, 10 Aug 2017 01:04:21 -0000
 
+> Perhaps that is some level of abuse, but it's pretty common.  I'm not
+> against it.
+>
+> There is standard IPMI firmware NetFN (though no commands defined) that if
+> you use
+> the driver automatically goes into "Maintenance mode" and modified the
+> timeouts
+> and handling to some extent to help with this.
 
---=-Rd5Q9tVIwDbNoj6WK/ct
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+That is a really good point, I missed that.
+...
+>
+>
+> There are ways to accomplish this that aren't that complex.  You can create
+> an OEM
+> command that can query the maximum message size and the ability to do
+> sequence
+> numbers in the messages.
+>
+> If messages larger than 32-bytes are supported, and the host I2C/SMBus
+> driver
+> supports it, you could use the standard SSIF SMBus commands to do this, they
+> have an 8-bit length field.
+>
+> If sequence numbers are supported, The SSIF could use different SMBus
+> commands
+> to do the write and read requests.  Since this is only if you get an OEM
+> command,
+> and if you put the sequence numbers at the end where they are easy to add on
+> the send side, this is a small change to the driver.
 
-On Wed, 2017-08-09 at 17:43 -0500, Brandon Wyman wrote:
-> > On Mon, Aug 7, 2017 at 9:34 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> > On Mon, 2017-08-07 at 15:11 +0930, Andrew Jeffery wrote:
-> > > >=20
-> > > > >=20
-> > > > > > +
-> > > > > > +static const struct i2c_device_id ibmps_id[] =3D {
-> > > > > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0{ "withers=
-poon", witherspoon },
-> > > > > > >=20
-> > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0{ }
-> > > > > >=20
-> > > > > > +};
-> > > > > > +MODULE_DEVICE_TABLE(i2c, ibmps_id);
-> > > > > > +
-> > > > > > +static const struct of_device_id ibmps_of_match[] =3D {
-> > > > > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0{ .compati=
-ble =3D "ibm,ibmps" },
-> > > > > > >=20
-> > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0{}
-> > > > > >=20
-> > > > > > +};
-> > > > > > +MODULE_DEVICE_TABLE(of, p8_i2c_occ_of_match);
-> > > > >=20
-> > > > > p8_i2c_occ_of_match isn't right. Do we need both device tables?
-> > > > > "witherspoon" as a device ID also seems unusual. What's going on =
-there?
-> > > >=20
-> > > > Uhh, not sure how that got in there... How does this compile?? I'll=
- fix
-> > > > it. The power supply doesn't have any device id or anything, so I j=
-ust
-> > > > went with witherspoon...
-> > >=20
-> > > My issue is "withersoon" identifies a class of machine, not a power
-> > > supply, even if the powersupply is specific to Witherspoon.
-> >=20
-> > Further to this, I've just got hold of the datasheet. My reading of it
-> > says the part number is "01KL054". Maybe the driver should include that
-> > in its name and compatible.
->=20
-> I don't know that this part number value always remains the same, for
-> the part used in a particular system. There was a similar 2000W PMBus
-> power supply that had one part number, and it stuck. However, a
-> previous 1720W power supply had at least four different part numbers
-> before it finally stuck on the final one.
->=20
-> That being said, there quite probably are some differences between
-> various part numbers, but most of what this device driver is doing
-> would still be compatible. I can see have 01KL054 in the compatible
-> list, but trying to shoe-horn it into the device driver name doesn't
-> feel like it makes sense to me.
+What if we just had an OEM command that changed the message structure from
+that point on? We could abuse the "maintenance mode" NetFN to get back into
+normal SSIF if necessary.
 
-Right; without the context you've provided above I wouldn't consider it
-shoe-horning. However, since having a diversity of part numbers is a
-thing, I agree with your assessment. It should be part of a compatible,
-but maybe we do need something generic for the driver name.
+>
+> So I think the changes would be small and contained.  I'm actually ok with a
+> different driver, but I think it would be more valuable to the OpenBMC
+> project
+> to have a standardized interface that would work (in a not quite as
+> efficient
+> mode) with software that does not use the Linux IPMI driver.
 
-Andrew
+I guess I see the all of my asks as hacky things which we can hopefully remove
+at some point. Hopefully, most OpenBMC users won't want or need these things.
+...
+>>
+>> Regardless of what we do with the "BT-I2C" stuff, I am still interested in
+>> what
+>> you think about this.
+>
+>
+> I think you are right, it probably belongs some place else.  The way that
+> makes the most
+> sense to me would be to have an "ipmi" directory with a "host" and "slave"
+> side, and since
+> ipmi is not really a char driver, to move it to the main driver directory.
+> That might be
+> fairly disruptive, though.
 
->=20
-> >=20
-> > Andrew
---=-Rd5Q9tVIwDbNoj6WK/ct
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+That was my thinking exactly.
 
------BEGIN PGP SIGNATURE-----
+>
+> The other option that makes sense to me would be to add a
+> drivers/char/ipmi_slave directory,
+> or something like that, and put the slave code there.  That would be less
+> disruptive.
 
-iQIcBAABCgAGBQJZi6PZAAoJEJ0dnzgO5LT5EEQP/i8goMkIYVsqhgcA2EQw97xw
-pm57ld9UcpvrZ6J/cbjof8VCwNvcyPbAcE/5F1GbvO17bBbxnN2WtXxwrG7Jre+O
-7FTrge0EMiXUBgXhmsc1hPwSumMjKlsIZYrc9K5aQ5zVVENaovXhfHYy77dCNVGb
-5F0dKDp2VueeN3Tm82jF2BuJtIwZWUF3AugvgsmLKyeF5F1pB1F8MX6wBUgpPElC
-3cqQqC+a00c5u0t5jH5uUDZGDsU8CQNmI3D9LBGAq/Cg3c8UCMBdNgGMtZ2YSLCp
-F7PotjcCigpaU9EPC7AJAdlPdOTpuLE5M7AXIh0LG6LnihImIhvHBZbGK324pvt7
-X6N0ZvNH2C4UrYqEgrRzRYM43ho4EVt5i7K7fGE1F4Sd1d5AtKgpNcN41gTyeiEi
-c/MLxlqDvO1iBVJtU9/D8m7GzIHp9eHusf0WtJLhJ/Uvaz6k+Nkjz0qyf0i4VES+
-QtbNBCVlCsw1RoyFPyMwJhkA0hG7TMll3nFI0t/PTRySm5sJXtQwetP82ufKPrU3
-whLKxt9/5KVJmowkBv0vN2QxTbeONEQuNrz3Xw/sYEPsYwfKeklMql+SNkGZrV3B
-U7ZtTP8r+c6EJCzFyGLrX/PJulKXamd1VrRWW+JCAJ5GLkeWImYgxQcamrjTW6Ki
-Drgh7bhwo8S/pC9r0Le3
-=etrf
------END PGP SIGNATURE-----
+Right that is the approach I took, except I called it drivers/char/ipmi_bmc.
 
---=-Rd5Q9tVIwDbNoj6WK/ct--
+I originally thought doing the less disruptive thing is best; however, I know
+there are also some OpenBMC people who are interested in implementing
+IPMB. So maybe now is the time to bite the bullet and create an ipmi
+directory under drivers/.
+
+>
+> -corey
+
+In summary, I think I can live with making it a mangled form of SSIF, but
+I would prefer to put it in its own driver.
+
+In any case, I think I would rather focus on the the BMC side IPMI framework
+now, since it is a bigger change and would also reduce the work of
+implementing a BMC side SSIF driver.
+
+Here is what I propose: we focus on the BMC side IPMI framework RFC that
+I sent out the other day:
+https://www.mail-archive.com/linux-kernel@vger.kernel.org/msg1463473.html
+I will add a change to the BMC side IPMI framework patchset to move all the
+IPMI stuff to the new drivers/ipmi directory as discussed and then drop the
+patch in that patchset that depends on this patchset.
+
+Let me know what you think
