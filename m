@@ -1,65 +1,63 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <sam@mendozajonas.com>
+Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
+ [66.111.4.224])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xT33963SQzDr5g
- for <openbmc@lists.ozlabs.org>; Fri, 11 Aug 2017 08:39:17 +1000 (AEST)
-Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v7AMdFFe031842
- for <openbmc@lists.ozlabs.org>; Thu, 10 Aug 2017 18:39:15 -0400
-Received: from e19.ny.us.ibm.com (e19.ny.us.ibm.com [129.33.205.209])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2c903cgv49-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 10 Aug 2017 18:39:15 -0400
-Received: from localhost
- by e19.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 10 Aug 2017 18:39:10 -0400
-Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
- by e19.ny.us.ibm.com (146.89.104.206) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 10 Aug 2017 18:39:08 -0400
-Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
- [9.57.199.110])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v7AMd8Cb18022498; Thu, 10 Aug 2017 22:39:08 GMT
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 85494AE03C;
- Thu, 10 Aug 2017 18:39:25 -0400 (EDT)
-Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP id F351AAE034;
- Thu, 10 Aug 2017 18:39:24 -0400 (EDT)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, cbostic@linux.vnet.ibm.com, bjwyman@gmail.com,
- mspinler@linux.vnet.ibm.com, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10 v4 4/4] ARM: dts: aspeed: Witherspoon: Add
- power supplies to i2c bus
-Date: Thu, 10 Aug 2017 17:38:56 -0500
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1502404736-23655-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1502404736-23655-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-TM-AS-GCONF: 00
-x-cbid: 17081022-0056-0000-0000-000003B4FE02
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007521; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000219; SDB=6.00900486; UDB=6.00450827; IPR=6.00680687; 
- BA=6.00005522; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016634; XFM=3.00000015;
- UTC=2017-08-10 22:39:09
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17081022-0057-0000-0000-000007EB2B5B
-Message-Id: <1502404736-23655-5-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-08-10_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
- definitions=main-1708100353
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xT33K19mmzDr3N
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Aug 2017 08:39:25 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
+ header.b="nh1nRnKF"; dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="N57ylqUu"; dkim-atps=neutral
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 6B3663718;
+ Thu, 10 Aug 2017 18:39:18 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute2.internal (MEProxy); Thu, 10 Aug 2017 18:39:18 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ mendozajonas.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=
+ fm1; bh=YpC1RrJTQjM3lHDoa5gfEhOu+5O2TmtZ41Kk913jPY0=; b=nh1nRnKF
+ 6p17En1KCHjvPQY6C8Ot8lOpXZ+svNCqaDuWn3FT2MqBBvkcVdPYO+1g+RhE0BL2
+ ZkmJDshxCJ9m2twnDByPPpXIna4cfO0JT7AREimHBEL7lyLiTPVe3JoFNiFpdU2V
+ yck+9cTuwGd0h0RDe4N83U2+LKFW3oX1rfQF0JAa9kmdqXErDVB7dJMuBcR/Vipu
+ sDmGf2I3Y+ZzoNWfM8kuXHA/j/3L9HPGyfijtWdA6G3kVyOhF0yEMpGQClf1a1Oe
+ l/RIaffdJ2UwHPANPUWabjDZyPVoPr1xKMS+Yh1oRd6vpkZUX5JQ+lxRtqORFcD0
+ lps5lxjcD3jIgg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=
+ fm1; bh=YpC1RrJTQjM3lHDoa5gfEhOu+5O2TmtZ41Kk913jPY0=; b=N57ylqUu
+ p5jWJ4Hf6/1M/CPyvOHVCvb0vE6Xuz5cEpNtWtPZT1ybjWflxZHyyVlyZvFvj7Jc
+ hm4hlnRISAkH3oAnTlJrkS3fBNt+WqJdsw97BpyBM8CTaEYBgPgrAlHOnNshbknA
+ th/h0o0LoZm5rbhhNQvldN+RWEh3E5dF9YLVqZTSkKNcq3chRtYvz7wIPEC9Gp5w
+ xS8rSEOxEtmEvjF6877C+fiEwft5y/tyK7tJGGmXHwnpWpbUCb+Na99VR9iQ94Ik
+ Qbm57ZJ5hkV/YtrNGElLp7js5ZEFTYfRWQaGwae9o4zw2CuvLCQIouuOYKmKzNTE
+ GjAp/GRXEFf6Zg==
+X-ME-Sender: <xms:luCMWXoXkyWEu35qsyilv5Czb_kHFarLcRnF4pnMpu84T_0-9bCDjQ>
+X-Sasl-enc: zRe02HZ92Ilr0jdA9ZB5BqhGauHJWA7Fm1Wmuh1BSwIo 1502404757
+Received: from v4.ozlabs.ibm.com (unknown [122.99.82.10])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 403087F9CE;
+ Thu, 10 Aug 2017 18:39:16 -0400 (EDT)
+Message-ID: <1502404753.9340.1.camel@mendozajonas.com>
+Subject: Re: [RFC PATCH 2/3] net/ncsi: Fix several packet definitions
+From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Ravindra S Rao1
+ <ravindra.s@in.ibm.com>, Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Ratan K Gupta <ratagupt@in.ibm.com>
+Date: Fri, 11 Aug 2017 08:39:13 +1000
+In-Reply-To: <CACPK8Xeoyx6b4-yP-fprhZi0uPgt6UpsFwGcQJUNhtf6pWGkDg@mail.gmail.com>
+References: <20170809085443.13148-1-sam@mendozajonas.com>
+ <20170809085443.13148-3-sam@mendozajonas.com>
+ <CACPK8Xeoyx6b4-yP-fprhZi0uPgt6UpsFwGcQJUNhtf6pWGkDg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.24.5 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -71,35 +69,74 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Aug 2017 22:39:18 -0000
+X-List-Received-Date: Thu, 10 Aug 2017 22:39:26 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
+On Thu, 2017-08-10 at 16:33 +0930, Joel Stanley wrote:
+> On Wed, Aug 9, 2017 at 6:24 PM, Samuel Mendoza-Jonas
+> <sam@mendozajonas.com> wrote:
+> > Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+> > ---
+> >  net/ncsi/ncsi-cmd.c | 10 +++++-----
+> >  net/ncsi/ncsi-pkt.h |  2 +-
+> >  2 files changed, 6 insertions(+), 6 deletions(-)
+> > 
+> > diff --git a/net/ncsi/ncsi-cmd.c b/net/ncsi/ncsi-cmd.c
+> > index db7083bfd476..1fec9fda7f60 100644
+> > --- a/net/ncsi/ncsi-cmd.c
+> > +++ b/net/ncsi/ncsi-cmd.c
+> > @@ -146,9 +146,9 @@ static int ncsi_cmd_handler_svf(struct sk_buff *skb,
+> > 
+> >         cmd = (struct ncsi_cmd_svf_pkt *)skb_put(skb, sizeof(*cmd));
+> >         memset(cmd, 0, sizeof(*cmd));
+> > -       cmd->vlan = htons(nca->words[0]);
+> > -       cmd->index = nca->bytes[2];
+> > -       cmd->enable = nca->bytes[3];
+> > +       cmd->vlan = htons(nca->words[1]);
+> > +       cmd->index = nca->bytes[6];
+> > +       cmd->enable = nca->bytes[7];
+> 
+> These look like straight up bugs. Should we send them off as fixes?
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+These are straight up bugs except... without my changes we never call
+this code. As Ben says as time provides a lot of the current definitions
+need to be gone over, there's a few command/response code paths that are
+never triggered and could be broken in similar ways.
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-index 9ab8e46..841d9ab 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -417,6 +417,16 @@
- 			type = <PCA955X_TYPE_GPIO>;
- 		};
- 	};
-+
-+	power_ps@68 {
-+		compatible = "ibm,power-ps"
-+		reg = <0x68>;
-+	};
-+
-+	power_ps@69 {
-+		compatible = "ibm,power-ps";
-+		reg = <0x69>;
-+	};
- };
- 
- &i2c4 {
--- 
-1.8.3.1
+> 
+> >         ncsi_cmd_build_header(&cmd->cmd.common, nca);
+> > 
+> >         return 0;
+> > @@ -161,7 +161,7 @@ static int ncsi_cmd_handler_ev(struct sk_buff *skb,
+> > 
+> >         cmd = (struct ncsi_cmd_ev_pkt *)skb_put(skb, sizeof(*cmd));
+> >         memset(cmd, 0, sizeof(*cmd));
+> > -       cmd->mode = nca->bytes[0];
+> > +       cmd->mode = nca->bytes[3];
+> >         ncsi_cmd_build_header(&cmd->cmd.common, nca);
+> > 
+> >         return 0;
+> > @@ -240,7 +240,7 @@ static struct ncsi_cmd_handler {
+> >         { NCSI_PKT_CMD_AE,     8, ncsi_cmd_handler_ae      },
+> >         { NCSI_PKT_CMD_SL,     8, ncsi_cmd_handler_sl      },
+> >         { NCSI_PKT_CMD_GLS,    0, ncsi_cmd_handler_default },
+> > -       { NCSI_PKT_CMD_SVF,    4, ncsi_cmd_handler_svf     },
+> > +       { NCSI_PKT_CMD_SVF,    8, ncsi_cmd_handler_svf     },
+> >         { NCSI_PKT_CMD_EV,     4, ncsi_cmd_handler_ev      },
+> >         { NCSI_PKT_CMD_DV,     0, ncsi_cmd_handler_default },
+> >         { NCSI_PKT_CMD_SMA,    8, ncsi_cmd_handler_sma     },
+> > diff --git a/net/ncsi/ncsi-pkt.h b/net/ncsi/ncsi-pkt.h
+> > index 3ea49ed0a935..91b4b66438df 100644
+> > --- a/net/ncsi/ncsi-pkt.h
+> > +++ b/net/ncsi/ncsi-pkt.h
+> > @@ -104,7 +104,7 @@ struct ncsi_cmd_svf_pkt {
+> >         unsigned char           index;     /* VLAN table index  */
+> >         unsigned char           enable;    /* Enable or disable */
+> >         __be32                  checksum;  /* Checksum          */
+> > -       unsigned char           pad[14];
+> > +       unsigned char           pad[18];
+> >  };
+> > 
+> >  /* Enable VLAN */
+> > --
+> > 2.13.3
+> > 
