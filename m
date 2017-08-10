@@ -1,69 +1,72 @@
-Return-Path: <v.vovchenko@yadro.com>
-X-Greylist: delayed 343 seconds by postgrey-1.36 at bilbo;
- Thu, 10 Aug 2017 10:22:44 AEST
-Authentication-Results: lists.ozlabs.org;
- dkim=fail reason="signature verification failed" (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="qJ/kdUTd"; 
+Return-Path: <tcminyard@gmail.com>
+Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
+ [IPv6:2607:f8b0:4003:c06::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xSX8B4Q9hzDqrx
+ for <openbmc@lists.ozlabs.org>; Thu, 10 Aug 2017 12:26:50 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="DdxLco0I"; 
  dkim-atps=neutral
-Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xSTP04L0szDqrP
- for <openbmc@lists.ozlabs.org>; Thu, 10 Aug 2017 10:22:44 +1000 (AEST)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id 0E0F8460A8;
- Thu, 10 Aug 2017 00:16:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- mime-version:content-type:content-type:content-language
- :accept-language:in-reply-to:references:message-id:date:date
- :subject:subject:from:from:received:received:received:received
- :received; s=mta-01; t=1502324212; x=1504138613; bh=ClMnzaW8Ixh7
- xB/gTQLkPHNAojaQdRQs3847naePj+g=; b=qJ/kdUTdI0lfj6L0CI0MEUAA/epq
- PX5lyxQVhlJVrQ954axNADYkZlzx/YMbUIc+fPSORxmmYBHWX//3bt1VN3FR0gZP
- ZPQYneSk9p1sp8tnnZjm2aZkhlAxeYrAK2fRVU5rvY39pVpvl08Il6eLS0+9P9Ry
- arJ0ZQGjTTt8FXM=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id sTQIQJ_YcmUr; Thu, 10 Aug 2017 03:16:52 +0300 (MSK)
-Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
- [172.17.10.102])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 7572F45F54;
- Thu, 10 Aug 2017 03:16:52 +0300 (MSK)
-Received: from T-EXCH-01.corp.yadro.com (172.17.10.101) by
- T-EXCH-02.corp.yadro.com (172.17.10.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id
- 15.1.669.32; Thu, 10 Aug 2017 03:16:52 +0300
-Received: from T-EXCH-02.corp.yadro.com (172.17.10.102) by
- T-EXCH-01.corp.yadro.com (172.17.10.101) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id
- 15.1.669.32; Thu, 10 Aug 2017 03:16:51 +0300
-Received: from T-EXCH-02.corp.yadro.com ([fe80::54b6:fc59:bf02:491c]) by
- T-EXCH-02.corp.yadro.com ([fe80::54b6:fc59:bf02:491c%14]) with mapi id
- 15.01.0669.032; Thu, 10 Aug 2017 03:16:51 +0300
-From: Vlad Vochenko <v.vovchenko@yadro.com>
-To: tomjose <tomjose@linux.vnet.ibm.com>, Ilya Kuznetsov <ilya@yadro.com>
-CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, Patrick Williams
- <patrick@stwcx.xyz>
-Subject: Re: phosphor-net-ipmid
-Thread-Topic: phosphor-net-ipmid
-Thread-Index: AQHS9ui5rlnY6CJ3+0aVUcYBjSIWd6J87e3E
-Date: Thu, 10 Aug 2017 00:16:51 +0000
-Message-ID: <e480ae55aed543da94febf325a0c8713@yadro.com>
-References: <201706230720.v5N7K755030029@mactruck.svl.corp.google.com>
- <CAFd5g47f6Cd3GYnrZPKZ+Hnamm1narto9zmGffDpfyKdtAu-7g@mail.gmail.com>,
- <595F2772.1020602@linux.vnet.ibm.com>
-In-Reply-To: <595F2772.1020602@linux.vnet.ibm.com>
-Accept-Language: en-US, ru-RU
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [172.17.1.166]
-Content-Type: multipart/alternative;
- boundary="_000_e480ae55aed543da94febf325a0c8713yadrocom_"
+Received: by mail-oi0-x241.google.com with SMTP id q70so7389892oic.2
+ for <openbmc@lists.ozlabs.org>; Wed, 09 Aug 2017 19:26:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language;
+ bh=/Mmt3oc2pA70bOPKoVJOw5dLxCgZ3C3LzUrkrQ3EEKc=;
+ b=DdxLco0IsFdPmBQkO6nLcMmVVa3BevXiL7SYYNSIlknARg9dmKkWpRI1xod9yfpRGy
+ 5YXGUYlk/fN22iprKW/EQzS0AtE5JWg2gYhh6clxTj8doeo4KmllF29s5rryRwId/PjF
+ y1KVAtNJoXfo6Nht9pzV1MPe4CRI9CV2ig6slaubAzI5/3mjfCJARsNv+YiEJfBb7rig
+ +rNqYhqAwoO+R9kmHQsYQfp6tYT122KO8fRVvKl15KoemewbvL79DbArhuTBUUBc6RG0
+ NPfk/uL8BEmnMZ+e2nNiUjvCZI5JO5e2QEU01E8wHC+xqXD3ucrE/Kq4OAh9l62LW7Cy
+ XzFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-language;
+ bh=/Mmt3oc2pA70bOPKoVJOw5dLxCgZ3C3LzUrkrQ3EEKc=;
+ b=VmylB/othHRjEAwA243sC2SCl9duLp9OZRddnheAd5o/+H96nbSK0bNUFSSfWiYtSt
+ 8exld9Y9khVhJWFfynnQuYVAVDPnBacGmXWLnhJt+vb2LajOoNE/5gjwndom1rPlPPxR
+ 9rDdLX4szSVfwJLYyA/oTwHGJ9bDZUNDNDWEkGHj2gCvMJ8Dhv51F4oh4CfxVobEDth/
+ R7thiyc/PsyQB4eM4ItTZys65iWtSwMn00EFDk2vbG6hDKJSH8d3goPN3/xtCXtbhpj9
+ Ry1RyZlo61veRS3bd6zzsGolWDWijSn4ykphyyZodXheK8v0Q5EJw02HTS1CeNxUf4x5
+ VpeA==
+X-Gm-Message-State: AHYfb5hq0w70ZAIzCziPLBbIBOaaurocrQbXOtWYQE7WBhWoanxDLMrv
+ ZtDhz+vQOdkNNw==
+X-Received: by 10.202.44.148 with SMTP id s142mr11561592ois.206.1502332008268; 
+ Wed, 09 Aug 2017 19:26:48 -0700 (PDT)
+Received: from [192.168.27.3] ([47.184.154.34])
+ by smtp.gmail.com with ESMTPSA id f204sm4414326oih.41.2017.08.09.19.26.45
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 09 Aug 2017 19:26:46 -0700 (PDT)
+Reply-To: minyard@acm.org
+Subject: Re: [PATCH v2 0/4] ipmi: bt-i2c: added IPMI Block Transfer over I2C
+To: Brendan Higgins <brendanhiggins@google.com>,
+ Corey Minyard <minyard@acm.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh+dt@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg KH <gregkh@linuxfoundation.org>, Joel Stanley <joel@jms.id.au>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Benjamin Fair <benjaminfair@google.com>, linux-doc@vger.kernel.org,
+ devicetree <devicetree@vger.kernel.org>,
+ openipmi-developer@lists.sourceforge.net,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+References: <20170805011855.1027-1-brendanhiggins@google.com>
+ <8f5579cb-2c4d-2cd0-e874-a44374e08417@acm.org>
+ <CAFd5g46LmyjPnjKis7c-F9FbjzyU1MgvrVkR7vjrEC4oWV1doQ@mail.gmail.com>
+ <fd82d68b-0ca4-fa43-4ed4-e18f684f6dee@acm.org>
+ <CAFd5g47FmTiygHDjm0-h2NAz8qa85zZVLKgCf9vGYP8iK6_+ZQ@mail.gmail.com>
+From: Corey Minyard <tcminyard@gmail.com>
+Message-ID: <9c0aef7c-6dcc-2328-f712-d35ef81ebc41@gmail.com>
+Date: Wed, 9 Aug 2017 21:26:40 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.2.1
 MIME-Version: 1.0
+In-Reply-To: <CAFd5g47FmTiygHDjm0-h2NAz8qa85zZVLKgCf9vGYP8iK6_+ZQ@mail.gmail.com>
+Content-Type: multipart/mixed; boundary="------------47B7031DEBBC6A1C1BCC5C0B"
+Content-Language: en-GB
 X-Mailman-Approved-At: Thu, 10 Aug 2017 13:05:18 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -76,245 +79,284 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Aug 2017 00:22:46 -0000
+X-List-Received-Date: Thu, 10 Aug 2017 02:26:51 -0000
 
---_000_e480ae55aed543da94febf325a0c8713yadrocom_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+This is a multi-part message in MIME format.
+--------------47B7031DEBBC6A1C1BCC5C0B
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello,
+On 08/09/2017 08:04 PM, Brendan Higgins wrote:
+>> Perhaps that is some level of abuse, but it's pretty common.  I'm not
+>> against it.
+>>
+>> There is standard IPMI firmware NetFN (though no commands defined) that if
+>> you use
+>> the driver automatically goes into "Maintenance mode" and modified the
+>> timeouts
+>> and handling to some extent to help with this.
+> That is a really good point, I missed that.
+> ...
+>>
+>> There are ways to accomplish this that aren't that complex.  You can create
+>> an OEM
+>> command that can query the maximum message size and the ability to do
+>> sequence
+>> numbers in the messages.
+>>
+>> If messages larger than 32-bytes are supported, and the host I2C/SMBus
+>> driver
+>> supports it, you could use the standard SSIF SMBus commands to do this, they
+>> have an 8-bit length field.
+>>
+>> If sequence numbers are supported, The SSIF could use different SMBus
+>> commands
+>> to do the write and read requests.  Since this is only if you get an OEM
+>> command,
+>> and if you put the sequence numbers at the end where they are easy to add on
+>> the send side, this is a small change to the driver.
+> What if we just had an OEM command that changed the message structure from
+> that point on? We could abuse the "maintenance mode" NetFN to get back into
+> normal SSIF if necessary.
 
-I'm gonna implement issue #1855. Is it already assigned to someone?
+Actually, I wouldn't have a separate "openbmc mode".  I would have 
+OpenBMC always
+work with standard SSIF, and have separate SMBus commands for messages with
+the sequence number and messages larger than 32 bytes.
 
+I've attached a patch with what I would expect the changes to be to the 
+host driver.
+It doesn't handle multiple outstanding messages, but it shows what 
+detection and a
+separate SMBus command would look like.
 
-Have a nice day!
-
-
-Regards,
-
-Vladislav
-
-________________________________
-From: tomjose <tomjose@linux.vnet.ibm.com>
-Sent: Friday, July 7, 2017 9:17:22 AM
-To: Ilya Kuznetsov
-Cc: Vlad Vochenko; openbmc@lists.ozlabs.org; Patrick Williams
-Subject: Re: phosphor-net-ipmid
-
-
-Hello Ilya,
-
-Appreciate your interest in contributing to OpenBMC project!
-
-There is some good progress with the Sensor & SEL commands. The review is u=
-p in the
-gerrit server, please feel free to take a look.
-
-https://gerrit.openbmc-project.xyz/#/c/5048/
-https://gerrit.openbmc-project.xyz/#/c/4162/8
-
-We have started off with the implementation of the DCMI specification which=
- is closely related to IPMI.
-
-https://www.intel.com/content/dam/www/public/us/en/documents/technical-spec=
-ifications/dcmi-v1-5-rev-spec.pdf
-
-It would be great if you would be able to lend a helping hand with this epi=
-c. The stories are getting
-broken down for this epic. If you are interested in this area, i would assi=
-gn the following issue.
-The issue is updated with the necessary information to carry out the task.
-
-https://github.com/openbmc/openbmc/issues/1855
-
-We can catch up on IRC or on the mailing list to discuss further.
-
-Regards,
-Tom
-
-On Saturday 24 June 2017 12:02 AM, Brendan Higgins wrote:
-Whoops, looks like you already hopped on the IRC. Anyways, welcome!
-
-On Fri, Jun 23, 2017 at 12:20 AM <<mailto:brendanhiggins@google.com>brendan=
-higgins@google.com<mailto:brendanhiggins@google.com>> wrote:
-> Hello,
-> we would like to help with phosphor-net-ipmid and have volunteer. For us =
-main
-> priorities are sensors and sel. Obviously work is in progress there and w=
-e don't
-> want to duplicate it, so please share tasks with us and tell how we can
-> contribute?
-> Thanks!
-
-Awesome! Always great to see more people getting involved!
-
-The first thing to do would be to hop on the IRC channel: #openbmc on
-freenode.net<http://freenode.net> and say hi to everyone.
-
-Next, in order to see what tasks we have going on, install Zenhub:
-https://www.zenhub.com/. Then look at https://github.com/openbmc/openbmc#bo=
-ards
-
-Probably also a good idea to talk to Patrick and Tom (I CC'ed them). I am p=
-retty
-sure they are more familiar with that codebase than anyone else.
-
-Once you know what you want to work on, or even if you just need some help,
-either start a conversation on the IRC channel or send an email to the list=
-.
-
-phosphor-net-ipmid is not something I work on or am likely to work on in th=
-e
-near future, but I think I know most of the people on the list, so feel fre=
-e to
-CC me on future emails and I will try to make sure the right people are inv=
-olved
-in the conversation.
-
-Cheers!
-
-
---_000_e480ae55aed543da94febf325a0c8713yadrocom_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>> So I think the changes would be small and contained.  I'm actually ok with a
+>> different driver, but I think it would be more valuable to the OpenBMC
+>> project
+>> to have a standardized interface that would work (in a not quite as
+>> efficient
+>> mode) with software that does not use the Linux IPMI driver.
+> I guess I see the all of my asks as hacky things which we can hopefully remove
+> at some point. Hopefully, most OpenBMC users won't want or need these things.
+> ...
+>>> Regardless of what we do with the "BT-I2C" stuff, I am still interested in
+>>> what
+>>> you think about this.
+>>
+>> I think you are right, it probably belongs some place else.  The way that
+>> makes the most
+>> sense to me would be to have an "ipmi" directory with a "host" and "slave"
+>> side, and since
+>> ipmi is not really a char driver, to move it to the main driver directory.
+>> That might be
+>> fairly disruptive, though.
+> That was my thinking exactly.
 >
-</head>
-<body text=3D"#000000" bgcolor=3D"#FFFFFF">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Arial,Helvetica,sans-serif;">
-<p>Hello,<br>
-<br>
-I'm gonna implement issue #1855. Is it already assigned to someone?</p>
-<p><br>
-</p>
-<div id=3D"Signature">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt; color:#000000; ba=
-ckground-color:#FFFFFF; font-family:Calibri,Arial,Helvetica,sans-serif">
-<p>Have a nice day!</p>
-<p><br>
-</p>
-<p>Regards,</p>
-<p>Vladislav</p>
-</div>
-</div>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> tomjose &lt;tomjose@l=
-inux.vnet.ibm.com&gt;<br>
-<b>Sent:</b> Friday, July 7, 2017 9:17:22 AM<br>
-<b>To:</b> Ilya Kuznetsov<br>
-<b>Cc:</b> Vlad Vochenko; openbmc@lists.ozlabs.org; Patrick Williams<br>
-<b>Subject:</b> Re: phosphor-net-ipmid</font>
-<div>&nbsp;</div>
-</div>
-<div><br>
-Hello Ilya,<br>
-<br>
-Appreciate your interest in contributing to OpenBMC project!<br>
-<br>
-There is some good progress with the Sensor &amp; SEL commands. The review =
-is up in the<br>
-gerrit server, please feel free to take a look.<br>
-<br>
-<a class=3D"moz-txt-link-freetext" href=3D"https://gerrit.openbmc-project.x=
-yz/#/c/5048/">https://gerrit.openbmc-project.xyz/#/c/5048/</a><br>
-<a class=3D"moz-txt-link-freetext" href=3D"https://gerrit.openbmc-project.x=
-yz/#/c/4162/8">https://gerrit.openbmc-project.xyz/#/c/4162/8</a><br>
-<br>
-We have started off with the implementation of the DCMI specification which=
- is closely related to IPMI.
-<br>
-<br>
-<a class=3D"moz-txt-link-freetext" href=3D"https://www.intel.com/content/da=
-m/www/public/us/en/documents/technical-specifications/dcmi-v1-5-rev-spec.pd=
-f">https://www.intel.com/content/dam/www/public/us/en/documents/technical-s=
-pecifications/dcmi-v1-5-rev-spec.pdf</a><br>
-<br>
-It would be great if you would be able to lend a helping hand with this epi=
-c. The stories are getting<br>
-broken down for this epic. If you are interested in this area, i would assi=
-gn the following issue.<br>
-The issue is updated with the necessary information to carry out the task.<=
-br>
-<br>
-<a class=3D"moz-txt-link-freetext" href=3D"https://github.com/openbmc/openb=
-mc/issues/1855">https://github.com/openbmc/openbmc/issues/1855</a><br>
-<br>
-We can catch up on IRC or on the mailing list to discuss further.<br>
-<br>
-Regards,<br>
-Tom<br>
-<br>
-<div class=3D"moz-cite-prefix">On Saturday 24 June 2017 12:02 AM, Brendan H=
-iggins wrote:<br>
-</div>
-<blockquote cite=3D"mid:CAFd5g47f6Cd3GYnrZPKZ&#43;Hnamm1narto9zmGffDpfyKdtA=
-u-7g@mail.gmail.com" type=3D"cite">
-<div dir=3D"ltr">Whoops, looks like you already hopped on the IRC. Anyways,=
- welcome!</div>
-<br>
-<div class=3D"gmail_quote">
-<div dir=3D"ltr">On Fri, Jun 23, 2017 at 12:20 AM &lt;<a moz-do-not-send=3D=
-"true" href=3D"mailto:brendanhiggins@google.com"></a><a class=3D"moz-txt-li=
-nk-abbreviated" href=3D"mailto:brendanhiggins@google.com">brendanhiggins@go=
-ogle.com</a>&gt; wrote:<br>
-</div>
-<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0
-          .8ex;border-left:1px #ccc solid;padding-left:1ex">
-&gt; Hello,<br>
-&gt; we would like to help with phosphor-net-ipmid and have volunteer. For =
-us main<br>
-&gt; priorities are sensors and sel. Obviously work is in progress there an=
-d we don't<br>
-&gt; want to duplicate it, so please share tasks with us and tell how we ca=
-n<br>
-&gt; contribute?<br>
-&gt; Thanks!<br>
-<br>
-Awesome! Always great to see more people getting involved!<br>
-<br>
-The first thing to do would be to hop on the IRC channel: #openbmc on<br>
-<a moz-do-not-send=3D"true" href=3D"http://freenode.net" rel=3D"noreferrer"=
- target=3D"_blank">freenode.net</a> and say hi to everyone.<br>
-<br>
-Next, in order to see what tasks we have going on, install Zenhub:<br>
-<a moz-do-not-send=3D"true" href=3D"https://www.zenhub.com/" rel=3D"norefer=
-rer" target=3D"_blank">https://www.zenhub.com/</a>. Then look at
-<a moz-do-not-send=3D"true" href=3D"https://github.com/openbmc/openbmc#boar=
-ds" rel=3D"noreferrer" target=3D"_blank">
-https://github.com/openbmc/openbmc#boards</a><br>
-<br>
-Probably also a good idea to talk to Patrick and Tom (I CC'ed them). I am p=
-retty<br>
-sure they are more familiar with that codebase than anyone else.<br>
-<br>
-Once you know what you want to work on, or even if you just need some help,=
-<br>
-either start a conversation on the IRC channel or send an email to the list=
-.<br>
-<br>
-phosphor-net-ipmid is not something I work on or am likely to work on in th=
-e<br>
-near future, but I think I know most of the people on the list, so feel fre=
-e to<br>
-CC me on future emails and I will try to make sure the right people are inv=
-olved<br>
-in the conversation.<br>
-<br>
-Cheers!<br>
-</blockquote>
-</div>
-</blockquote>
-<br>
-</div>
-</body>
-</html>
+>> The other option that makes sense to me would be to add a
+>> drivers/char/ipmi_slave directory,
+>> or something like that, and put the slave code there.  That would be less
+>> disruptive.
+> Right that is the approach I took, except I called it drivers/char/ipmi_bmc.
+>
+> I originally thought doing the less disruptive thing is best; however, I know
+> there are also some OpenBMC people who are interested in implementing
+> IPMB. So maybe now is the time to bite the bullet and create an ipmi
+> directory under drivers/.
 
---_000_e480ae55aed543da94febf325a0c8713yadrocom_--
+I'm not sure IPMB would make much difference, there's no host side 
+change as it's
+already supported.  I don't think there would be any significant code 
+sharing
+between the two.
+
+If there end up being a significant amount of common code, then it would
+definitely be worth the effort to move it.
+
+>> -corey
+> In summary, I think I can live with making it a mangled form of SSIF, but
+> I would prefer to put it in its own driver.
+
+You can look at the patch and consider it, and consider that you would 
+need to
+implement flag and event handling.  On an x86 host there would be SMBIOS
+and ACPI stuff to deal with somehow for discovery.  There's probably few 
+other
+things to deal with.
+
+> In any case, I think I would rather focus on the the BMC side IPMI framework
+> now, since it is a bigger change and would also reduce the work of
+> implementing a BMC side SSIF driver.
+>
+> Here is what I propose: we focus on the BMC side IPMI framework RFC that
+> I sent out the other day:
+> https://www.mail-archive.com/linux-kernel@vger.kernel.org/msg1463473.html
+> I will add a change to the BMC side IPMI framework patchset to move all the
+> IPMI stuff to the new drivers/ipmi directory as discussed and then drop the
+> patch in that patchset that depends on this patchset.
+>
+> Let me know what you think
+
+Let's hold off on the new directory, there's probably some convincing of 
+the "powers
+that be" for that.
+
+I'll look at the patch set tomorrow, unless something critical comes up.
+
+Thanks,
+
+-corey
+
+
+--------------47B7031DEBBC6A1C1BCC5C0B
+Content-Type: text/x-patch;
+ name="ssif-openbmc.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename="ssif-openbmc.patch"
+
+diff --git a/drivers/char/ipmi/ipmi_ssif.c b/drivers/char/ipmi/ipmi_ssif.c
+index 11237e8..d467b1a 100644
+--- a/drivers/char/ipmi/ipmi_ssif.c
++++ b/drivers/char/ipmi/ipmi_ssif.c
+@@ -60,6 +60,11 @@
+ 
+ #define IPMI_GET_SYSTEM_INTERFACE_CAPABILITIES_CMD	0x57
+ 
++static u8 openbmc_iana[3] = { 0x10, 0x20, 0x30 };
++#define IPMI_OPENBMC_CAPABILITY_REQUEST_CMD	0x01
++#define SSIF_OPENBMC_REQUEST	0x80
++#define SSIF_OPENBMC_RESPONSE	0x81
++
+ #define	SSIF_IPMI_REQUEST			2
+ #define	SSIF_IPMI_MULTI_PART_REQUEST_START	6
+ #define	SSIF_IPMI_MULTI_PART_REQUEST_MIDDLE	7
+@@ -224,6 +229,12 @@ struct ssif_info {
+ 	bool		    supports_alert;
+ 
+ 	/*
++	 * OpenBMC mode, with large message and sequence number
++	 * support.  An int because we use it as a number, too.
++	 */
++	unsigned int	    is_openbmc;
++
++	/*
+ 	 * Used to tell what we should do with alerts.  If we are
+ 	 * waiting on a response, read the data immediately.
+ 	 */
+@@ -537,12 +548,13 @@ static void msg_done_handler(struct ssif_info *ssif_info, int result,
+ static void start_get(struct ssif_info *ssif_info)
+ {
+ 	int rv;
++	int command = ssif_info->is_openbmc ? SSIF_OPENBMC_RESPONSE :
++			SSIF_IPMI_RESPONSE;
+ 
+ 	ssif_info->rtc_us_timer = 0;
+ 	ssif_info->multi_pos = 0;
+ 
+-	rv = ssif_i2c_send(ssif_info, msg_done_handler, I2C_SMBUS_READ,
+-			  SSIF_IPMI_RESPONSE,
++	rv = ssif_i2c_send(ssif_info, msg_done_handler, I2C_SMBUS_READ, command,
+ 			  ssif_info->recv, I2C_SMBUS_BLOCK_DATA);
+ 	if (rv < 0) {
+ 		/* request failed, just return the error. */
+@@ -611,7 +623,8 @@ static void msg_done_handler(struct ssif_info *ssif_info, int result,
+ 	 * start messing with driver states or the queues.
+ 	 */
+ 
+-	if (result < 0) {
++	if (result < 0 || len < 3) {
++	ignore_msg:
+ 		ssif_info->retries_left--;
+ 		if (ssif_info->retries_left > 0) {
+ 			ssif_inc_stat(ssif_info, receive_retries);
+@@ -633,7 +646,13 @@ static void msg_done_handler(struct ssif_info *ssif_info, int result,
+ 		goto continue_op;
+ 	}
+ 
+-	if ((len > 1) && (ssif_info->multi_pos == 0)
++	if (ssif_info->is_openbmc) {
++		if (len < 4)
++			goto ignore_msg;
++		/* Eventually extract sequence number from data[0]. */
++		data++;
++		len--;
++	} else if ((len > 1) && (ssif_info->multi_pos == 0)
+ 				&& (data[0] == 0x00) && (data[1] == 0x01)) {
+ 		/* Start of multi-part read.  Start the next transaction. */
+ 		int i;
+@@ -966,7 +985,11 @@ static int start_resend(struct ssif_info *ssif_info)
+ 
+ 	ssif_info->got_alert = false;
+ 
+-	if (ssif_info->data_len > 32) {
++	if (ssif_info->is_openbmc) {
++		ssif_info->multi_data = NULL;
++		command = SSIF_OPENBMC_REQUEST;
++		ssif_info->data[0] = ssif_info->data_len;
++	} else if (ssif_info->data_len > 32) {
+ 		command = SSIF_IPMI_MULTI_PART_REQUEST_START;
+ 		ssif_info->multi_data = ssif_info->data;
+ 		ssif_info->multi_len = ssif_info->data_len;
+@@ -1000,7 +1023,11 @@ static int start_send(struct ssif_info *ssif_info,
+ 		return -E2BIG;
+ 
+ 	ssif_info->retries_left = SSIF_SEND_RETRIES;
+-	memcpy(ssif_info->data + 1, data, len);
++	memcpy(ssif_info->data + 1 + ssif_info->is_openbmc, data, len);
++	if (ssif_info->is_openbmc) {
++		ssif_info->data[1] = 0; /* Sequence number eventually. */
++		len++;
++	}
+ 	ssif_info->data_len = len;
+ 	return start_resend(ssif_info);
+ }
+@@ -1507,7 +1534,7 @@ static struct ipmi_fw_revision_range ssif_broken_alert_bmcs[] = {
+ 
+ static int ssif_probe(struct i2c_client *client, const struct i2c_device_id *id)
+ {
+-	unsigned char     msg[3];
++	unsigned char     msg[6];
+ 	unsigned char     *resp;
+ 	struct ssif_info   *ssif_info;
+ 	int               rv = 0;
+@@ -1643,6 +1670,24 @@ static int ssif_probe(struct i2c_client *client, const struct i2c_device_id *id)
+ 		ssif_info->supports_pec = 0;
+ 	}
+ 
++	msg[0] = IPMI_NETFN_OEM_GROUP_REQUEST << 2;
++	msg[1] = IPMI_OPENBMC_CAPABILITY_REQUEST_CMD;
++	memcpy(msg, openbmc_iana, sizeof(openbmc_iana));
++	rv = do_cmd(client, 5, msg, &len, resp);
++	if (!rv && (len >= 3) && (resp[2] == 0)) {
++		/* It appears we have an OpenBMC device. */
++
++		/* Turn of multi support. */
++		ssif_info->multi_support = SSIF_NO_MULTI;
++		ssif_info->max_xmit_msg_size = 32;
++		ssif_info->max_recv_msg_size = 32;
++		if (len > 3)
++			ssif_info->max_xmit_msg_size = resp[3];
++		if (len > 4)
++			ssif_info->max_recv_msg_size = resp[4];
++		ssif_info->is_openbmc = 1;
++	}
++
+ 	/* Make sure the NMI timeout is cleared. */
+ 	msg[0] = IPMI_NETFN_APP_REQUEST << 2;
+ 	msg[1] = IPMI_CLEAR_MSG_FLAGS_CMD;
+diff --git a/include/uapi/linux/ipmi_msgdefs.h b/include/uapi/linux/ipmi_msgdefs.h
+index df97e6e..bb0af2e 100644
+--- a/include/uapi/linux/ipmi_msgdefs.h
++++ b/include/uapi/linux/ipmi_msgdefs.h
+@@ -71,6 +71,9 @@
+ #define IPMI_NETFN_FIRMWARE_REQUEST		0x08
+ #define IPMI_NETFN_FIRMWARE_RESPONSE		0x09
+ 
++#define IPMI_NETFN_OEM_GROUP_REQUEST		0x2e
++#define IPMI_NETFN_OEM_GROUP_RESPONSE		0x2f
++
+ /* The default slave address */
+ #define IPMI_BMC_SLAVE_ADDR	0x20
+ 
+
+--------------47B7031DEBBC6A1C1BCC5C0B--
