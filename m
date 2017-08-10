@@ -1,62 +1,44 @@
-Return-Path: <brendanhiggins@google.com>
-Received: from mail-oi0-x232.google.com (mail-oi0-x232.google.com
- [IPv6:2607:f8b0:4003:c06::232])
+Return-Path: <jk@ozlabs.org>
+Received: from ozlabs.org (bilbo.ozlabs.org [103.22.144.67])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xSXFN0tpVzDqrx
+ for <openbmc@lists.ozlabs.org>; Thu, 10 Aug 2017 12:31:20 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="FicpYbuO"; 
+ dkim-atps=neutral
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xSVY270tlzDqtM
- for <openbmc@lists.ozlabs.org>; Thu, 10 Aug 2017 11:14:46 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="D8nueFrh"; 
- dkim-atps=neutral
-Received: by mail-oi0-x232.google.com with SMTP id f11so62222281oic.0
- for <openbmc@lists.ozlabs.org>; Wed, 09 Aug 2017 18:14:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=QNFxKkMwui0Ct/Mm5RmGlueouq6LRGnbZvN741g6p/U=;
- b=D8nueFrhoBq4aiPsHPtj4Sudb8CPKvfJ+AARnBucEBnDWMNv6YA65jutn+LCrsEaFG
- CU+HzSMUOWvpjiZTcuDy3JarRmMjS760P8ABCPPfh1AOxV5Ry9eOg1twLjVh74qJuFdN
- nUONKt002XDgIibFjKkMKunR3i6nI/yRxxVnyrEo3Dr0pCJf8dH/R34OgTKqiB54bIE7
- Nj31sB5ZbkaewJwKG8CMzxpyU1eip5wxtbsTTBRBKo2t61gk2Igyr2VTXwO5ORq5omOk
- vuGs8vvCf9GG/nmFKiD2frGIHcQiG50cgl44EvzL93u5AFNkfUnPK0Q2qzZIK6uqj7eC
- MxbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=QNFxKkMwui0Ct/Mm5RmGlueouq6LRGnbZvN741g6p/U=;
- b=r6juMZwV7TPdNlJwSxr4ypfUGwQMTUlcE8l2639ZF4nfoYmS/IxBT6SZo6qg2VQW0w
- bFnoaJ/KlHsoLlrTnNJ7tUSozMJdcP4mt/s7bDp1Iu5EQ53OsTa3phb0J/2jbkznYs1p
- /bo1qrZMei2ckhRiVXBNvav1lRzQS5s1y0t41FxIivXGbInP/d3EX9AixOINVgQGXufs
- 9K/ASmA5a2h+H+lVMMBgTEW5t4iA7DCaYagtazYWNM686I+y/1aw01nfoA4AaSNiamNT
- ukek1YFGN4kAfxNQroYgbbUtacwEQ/YFZuPhCr6Aw+aMNNitKkY0gfBwl1V4FiUEVXdM
- zYJA==
-X-Gm-Message-State: AHYfb5imFczyG721q9ZmqdRZPBeAH3xcM3W8D/ym3aKVRMxoGSrCaXaC
- dfwCxprN+fq6UIBExAKBrxYFYJ+HWM3s
-X-Received: by 10.202.253.20 with SMTP id b20mr10242513oii.236.1502327683901; 
- Wed, 09 Aug 2017 18:14:43 -0700 (PDT)
+ by ozlabs.org (Postfix) with ESMTPSA id 3xSXFM2JTGz9s82;
+ Thu, 10 Aug 2017 12:31:19 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
+ t=1502332279; bh=BaSSRcIqqWsooZNSOOzzCqrz0LslJWUc3n+MxG76Bxg=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=FicpYbuOv390D+iHsjSIb7kFOKukOz0DoVks6BXjsO/xAqZp8GvGgShLEESHO+p05
+ I1Es7Fah/0WNivCBTPgCMWATNUrYB77OFTJkYyMMzwi7e5QkaN60HE8pMJX7ss9jUs
+ fxdrn8XxeYMRQwkoLJZ2Swnv+gias/9jJk/727O1ErwOzTf2eZql2ZHSGt7GSpfovK
+ RoOQyvi3/fDFIzv0efcELYAOocMjGc0/bBI/jr8j3HRVfXgmnOu8DA7V9yv5eje0bS
+ GsS8cQMioeZU/U9wnCjrK3S84y3MnLJNqev2tyS8+9sGfCyL8Ga85pRSwJHo7Mdn3y
+ Wx0CxJ2Xg33fA==
+Subject: Re: [RFC v1 4/4] ipmi_bmc: bt-aspeed: port driver to IPMI BMC
+ framework
+To: Brendan Higgins <brendanhiggins@google.com>, minyard@acm.org,
+ benjaminfair@google.com, clg@kaod.org, joel@jms.id.au, andrew@aj.id.au
+Cc: openipmi-developer@lists.sourceforge.net, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org
+References: <20170808035301.1980-1-brendanhiggins@google.com>
+ <20170808035301.1980-5-brendanhiggins@google.com>
+From: Jeremy Kerr <jk@ozlabs.org>
+Message-ID: <99a298c1-6241-f835-9587-31c526126453@ozlabs.org>
+Date: Thu, 10 Aug 2017 10:31:18 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.2.1
 MIME-Version: 1.0
-Received: by 10.168.69.205 with HTTP; Wed, 9 Aug 2017 18:14:43 -0700 (PDT)
-In-Reply-To: <57021502276176@webcorp01h.yandex-team.ru>
-References: <20170804231854.19730-1-brendanhiggins@google.com>
- <57021502276176@webcorp01h.yandex-team.ru>
-From: Brendan Higgins <brendanhiggins@google.com>
-Date: Wed, 9 Aug 2017 18:14:43 -0700
-Message-ID: <CAFd5g47LA0jyhvnRb4i6GXsQOdPbJJrn+uCsQgnMRQgah6gKfA@mail.gmail.com>
-Subject: Re: [PATCH v1 0/3] ipmi: bt-i2c: added IPMI Block Transfer over I2C
-To: "Anton D. Kachalov" <mouse@yandex-team.ru>
-Cc: "corbet@lwn.net" <corbet@lwn.net>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>, 
- "mark.rutland@arm.com" <mark.rutland@arm.com>, "arnd@arndb.de" <arnd@arndb.de>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "minyard@acm.org" <minyard@acm.org>, "joel@jms.id.au" <joel@jms.id.au>,
- "benh@kernel.crashing.org" <benh@kernel.crashing.org>, 
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
- "openipmi-developer@lists.sourceforge.net"
- <openipmi-developer@lists.sourceforge.net>, 
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20170808035301.1980-5-brendanhiggins@google.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-AU
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,31 +50,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Aug 2017 01:14:47 -0000
+X-List-Received-Date: Thu, 10 Aug 2017 02:31:20 -0000
 
-On Wed, Aug 9, 2017 at 3:56 AM, Anton D. Kachalov <mouse@yandex-team.ru> wrote:
-> Hello,
->
-> I would like to mention one of the our related work for IPMI and I2C.
->
-> We use OpenIPMI stack to connect to the computing nodes through the I2C
-> using IPMB (BT is not supported by nodes):
->
-> https://github.com/ya-mouse/meta-openbmc-yandex/blob/master/meta-yandex/meta-openrack/meta-shaosi/recipes-kernel/linux/linux-obmc/ipmi_i2c.c
->
-> It lacks complete slave support (slave part is only for receiving known
-> packets with query results due to OpenIPMI implementation in kernel) and use
-> one local slave to communicate with a number of target systems on the same
-> bus (currently supported only 1-to-1 schema).
->
-> With this stuff we able to use ipmitool across different /dev/ipmiX devices
-> to communicate with nodes.
+Hi Brendan,
 
-Cool, I met someone else who had a similar use case which is part of why
-I decided to share this (not sure if should say who).
+> The driver was handling interaction with userspace on its own. This
+> patch changes it to use the functionality of the ipmi_bmc framework
+> instead.
+> 
+> Note that this removes the ability for the BMC to set SMS_ATN by making
+> an ioctl. If this functionality is required, it can be added back in
+> with a later patch.
 
-So it sounds like we are probably not going to go with the approach I proposed;
-if you indeed find this useful, I would suggest that we put this in our OpenBMC
-repository and switch it out with the suggested method at some point.
+As Chris has mentioned, we do use this actively at the moment, so I'd
+prefer if we could not drop the support for SMS_ATN. However, using a
+different interface should be fine, if that helps.
 
-Let me know what you think
+Cheers,
+
+
+Jeremy
