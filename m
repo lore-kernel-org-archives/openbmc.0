@@ -1,60 +1,63 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <brendanhiggins@google.com>
+Received: from mail-oi0-x229.google.com (mail-oi0-x229.google.com
+ [IPv6:2607:f8b0:4003:c06::229])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xSbJJ0ZcWzDqrP
- for <openbmc@lists.ozlabs.org>; Thu, 10 Aug 2017 14:49:04 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xSc9z3fpMzDqrx
+ for <openbmc@lists.ozlabs.org>; Thu, 10 Aug 2017 15:28:38 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Qke4rQOM"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Zaa2C3KT"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id D748A219E2;
- Thu, 10 Aug 2017 00:49:01 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Thu, 10 Aug 2017 00:49:01 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=VwFxaFZWuH/foIeYFsUry/0THEtzylmd36YwAXBd4
- io=; b=Qke4rQOME12U6tCRdsurHcrVMnnvSWKKo1AbnfcSgxGrS6SVddx2B6Lo1
- UMY1AdF8COO/lY/4aIQynyzAAHgpTaBkq84Hd6Ak5mMFNWW3Rv9rJock1skI42Kf
- Jh3hMNBZZiMUclH/VPW/qd7VwY+eTisZ5co77Ubvpipis1MQo1x/L920+/ZVSz0y
- ngSwKgGxirmR3oHeSuH7RrotmH7Bbz5iLNK/9Yj6vJL+SODlw8SHaHkYhNqZeMY9
- +sK3ooyTrQGKNxJrERMg5P9K8/h7DIIDQbAyKzvOhrxM5Vvv4tJezcjGh8YO3XEI
- KV93C3VYL9QJzLsNi8JWMUtNoHSpA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=VwFxaFZWuH/foIeYFs
- Ury/0THEtzylmd36YwAXBd4io=; b=Zaa2C3KTinnZTtba9DOfz328PyaKtPSwCj
- E+2jdo6oZCDjEkI0UR52vpmgjn9AavlpgSD96pJKwcgb7CrXseRn9hKWdv0XQQ1T
- vMK9sEZrHTtG5z6ZtWccQK9Gi0vJ21rb0rZn//r2iRM8Ag24aBWzmjgF0Jqn7pNm
- noMZMRBJxmbDHDCAXuuH8XbvlbE74SXiwUdwiusLchSw5fz82gpBJgGyQN/HgRUb
- TCK4imwSHKOykO3mNamZcVOpilrlCOOjQQzrmyL5mqEh+IsW1w+vEknVzpyolFzr
- P284eIILLlEHCnrmzW0edNRWWoLLoRxx+CsjFjBJ0+jlB+sTp65A==
-X-ME-Sender: <xms:veWLWQfpC3fVlVPiy7W9evtv81Uo3jLaDiUMDEg8vALhJmvvc6t9jQ>
-X-Sasl-enc: EC4tTeYBY4JaJdy2p8X3yB4ScOtTVbdhkRoG8c7EHOFU 1502340541
-Received: from keelia (ppp118-210-176-216.bras2.adl6.internode.on.net
- [118.210.176.216])
- by mail.messagingengine.com (Postfix) with ESMTPA id 012822418B;
- Thu, 10 Aug 2017 00:48:59 -0400 (EDT)
-Message-ID: <1502340533.7946.12.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10] hwmon: (ucd9000) Add user space access
- of status and config
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Christopher Bostic <cbostic@linux.vnet.ibm.com>, joel@jms.id.au, 
- eajames@linux.vnet.ibm.com
-Cc: openbmc@lists.ozlabs.org
-Date: Thu, 10 Aug 2017 14:18:53 +0930
-In-Reply-To: <20170809013436.21050-1-cbostic@linux.vnet.ibm.com>
-References: <20170809013436.21050-1-cbostic@linux.vnet.ibm.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-7X4qhl6jkhQKguVqMISj"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ unprotected) header.d=google.com header.i=@google.com header.b="srVdi1Go"; 
+ dkim-atps=neutral
+Received: by mail-oi0-x229.google.com with SMTP id g131so80512767oic.3
+ for <openbmc@lists.ozlabs.org>; Wed, 09 Aug 2017 22:28:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=uVUMj6VHUbWxNJRGOmuaLChbYJ5YZv+WnWNzUMFMNnQ=;
+ b=srVdi1GolQeoBNcI9n9wG46n20rHytPQl6dfm1cF/79muvY4eRPtTZyW1utSZgQ4Wf
+ fTEo+ugDyg7yYF3eBPcnIXTvSpbfCs11tiP97neEf/6osv85M4MgTgDDZAWfKp6vN2hf
+ fu548szTCoBlHwmY86j32wy0U3j1+Dk1KpdgBmTy98HmfhkuXxEpjOzkfb+XcOkc7fvs
+ 7yxbTk5x28NtFuqBZ98qD6rEA4qcOqwRpSd1vb7jxSAkTSenFK+S6q7fWws+e1cmwWIo
+ e2BYmM7DEKeHoS7SBsJiePUSb/lNiULqrAeoB/ob8lusJsUpjiVCMy3aNJ0nEaNupo9d
+ zCPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=uVUMj6VHUbWxNJRGOmuaLChbYJ5YZv+WnWNzUMFMNnQ=;
+ b=eiMq3G/DXlAHif2iyQPG692eN10xD1t7THxcMl/uvgOqxq4WLxPt86EaUqY8LbZokf
+ HVVgaPp6WIFDYQf/diMAHye+/3B9gRUIDrSCK9SirPiW51glcnH0p0YKytL4a0TyG0hI
+ hvxbb7HcbEU0w0/pB+C4fCnVw+uuuT890V5xoevq3eEhKtFdUEu4xRFCQ5odV0Z0RTJP
+ B0X9BsnFCQXASltBEBXYXlhgC6+5E3kplgd54YsQ27KG45PuF++OAA/CkNqDHvk0WIw4
+ ZG7XBCqjH29Jd2hNHE6ca9PP2i7HcgPNSRDV57yjDUv7mh9P3bcJiBTuf8AG7/dSnEL/
+ 9V/Q==
+X-Gm-Message-State: AHYfb5h0T4/iJmpGjJpZwV3W+O6j2+3T8c2mv7cZuHDWNGH/v+txwSoY
+ EqSzN2uBUkVojGrn2jt8MAxpTuDprZ4h
+X-Received: by 10.202.86.77 with SMTP id k74mr11129029oib.213.1502342916553;
+ Wed, 09 Aug 2017 22:28:36 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.168.69.205 with HTTP; Wed, 9 Aug 2017 22:28:36 -0700 (PDT)
+In-Reply-To: <9c0aef7c-6dcc-2328-f712-d35ef81ebc41@gmail.com>
+References: <20170805011855.1027-1-brendanhiggins@google.com>
+ <8f5579cb-2c4d-2cd0-e874-a44374e08417@acm.org>
+ <CAFd5g46LmyjPnjKis7c-F9FbjzyU1MgvrVkR7vjrEC4oWV1doQ@mail.gmail.com>
+ <fd82d68b-0ca4-fa43-4ed4-e18f684f6dee@acm.org>
+ <CAFd5g47FmTiygHDjm0-h2NAz8qa85zZVLKgCf9vGYP8iK6_+ZQ@mail.gmail.com>
+ <9c0aef7c-6dcc-2328-f712-d35ef81ebc41@gmail.com>
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Wed, 9 Aug 2017 22:28:36 -0700
+Message-ID: <CAFd5g45BYV702x+PnN5DWcXo=P+yU=zhSEHJA21=z_gP8QD_Xw@mail.gmail.com>
+Subject: Re: [PATCH v2 0/4] ipmi: bt-i2c: added IPMI Block Transfer over I2C
+To: Corey Minyard <minyard@acm.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh+dt@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg KH <gregkh@linuxfoundation.org>, Joel Stanley <joel@jms.id.au>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Benjamin Fair <benjaminfair@google.com>, 
+ linux-doc@vger.kernel.org, devicetree <devicetree@vger.kernel.org>, 
+ openipmi-developer@lists.sourceforge.net, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -66,547 +69,175 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Aug 2017 04:49:05 -0000
+X-List-Received-Date: Thu, 10 Aug 2017 05:28:40 -0000
 
+On Wed, Aug 9, 2017 at 7:26 PM, Corey Minyard <tcminyard@gmail.com> wrote:
+> On 08/09/2017 08:04 PM, Brendan Higgins wrote:
+>>>
+>>> Perhaps that is some level of abuse, but it's pretty common.  I'm not
+>>> against it.
+>>>
+>>> There is standard IPMI firmware NetFN (though no commands defined) that
+>>> if
+>>> you use
+>>> the driver automatically goes into "Maintenance mode" and modified the
+>>> timeouts
+>>> and handling to some extent to help with this.
+>>
+>> That is a really good point, I missed that.
+>> ...
+>>>
+>>>
+>>> There are ways to accomplish this that aren't that complex.  You can
+>>> create
+>>> an OEM
+>>> command that can query the maximum message size and the ability to do
+>>> sequence
+>>> numbers in the messages.
+>>>
+>>> If messages larger than 32-bytes are supported, and the host I2C/SMBus
+>>> driver
+>>> supports it, you could use the standard SSIF SMBus commands to do this,
+>>> they
+>>> have an 8-bit length field.
+>>>
+>>> If sequence numbers are supported, The SSIF could use different SMBus
+>>> commands
+>>> to do the write and read requests.  Since this is only if you get an OEM
+>>> command,
+>>> and if you put the sequence numbers at the end where they are easy to add
+>>> on
+>>> the send side, this is a small change to the driver.
+>>
+>> What if we just had an OEM command that changed the message structure from
+>> that point on? We could abuse the "maintenance mode" NetFN to get back
+>> into
+>> normal SSIF if necessary.
+>
+>
+> Actually, I wouldn't have a separate "openbmc mode".  I would have OpenBMC
+> always
+> work with standard SSIF, and have separate SMBus commands for messages with
+> the sequence number and messages larger than 32 bytes.
+>
+> I've attached a patch with what I would expect the changes to be to the host
+> driver.
+> It doesn't handle multiple outstanding messages, but it shows what detection
+> and a
+> separate SMBus command would look like.
 
---=-7X4qhl6jkhQKguVqMISj
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+I took a look at the patch, it seems reasonable. If I was maintaining
+SSIF, I probably
+would not want that kind of clutter for my admittedly weird use case,
+but if you're
+okay with it, then so am I.
 
-Hi Chris,
+>
+>
+>>> So I think the changes would be small and contained.  I'm actually ok
+>>> with a
+>>> different driver, but I think it would be more valuable to the OpenBMC
+>>> project
+>>> to have a standardized interface that would work (in a not quite as
+>>> efficient
+>>> mode) with software that does not use the Linux IPMI driver.
+>>
+>> I guess I see the all of my asks as hacky things which we can hopefully
+>> remove
+>> at some point. Hopefully, most OpenBMC users won't want or need these
+>> things.
+>> ...
+>>>>
+>>>> Regardless of what we do with the "BT-I2C" stuff, I am still interested
+>>>> in
+>>>> what
+>>>> you think about this.
+>>>
+>>>
+>>> I think you are right, it probably belongs some place else.  The way that
+>>> makes the most
+>>> sense to me would be to have an "ipmi" directory with a "host" and
+>>> "slave"
+>>> side, and since
+>>> ipmi is not really a char driver, to move it to the main driver
+>>> directory.
+>>> That might be
+>>> fairly disruptive, though.
+>>
+>> That was my thinking exactly.
+>>
+>>> The other option that makes sense to me would be to add a
+>>> drivers/char/ipmi_slave directory,
+>>> or something like that, and put the slave code there.  That would be less
+>>> disruptive.
+>>
+>> Right that is the approach I took, except I called it
+>> drivers/char/ipmi_bmc.
+>>
+>> I originally thought doing the less disruptive thing is best; however, I
+>> know
+>> there are also some OpenBMC people who are interested in implementing
+>> IPMB. So maybe now is the time to bite the bullet and create an ipmi
+>> directory under drivers/.
+>
+>
+> I'm not sure IPMB would make much difference, there's no host side change as
+> it's
+> already supported.  I don't think there would be any significant code
+> sharing
+> between the two.
 
-On Tue, 2017-08-08 at 20:34 -0500, Christopher Bostic wrote:
-> Create sysfs files to export status_word, status_vout, gpio_config
-> and other properties of the ucd90160 device.=C2=A0=C2=A0There are separat=
-e
-> files for each parsed bit.
->=20
-> Note that status_word and ton / toff has not yet been moved
-> into the pmbus core.=C2=A0=C2=A0Once the final decision from the communit=
-y
-> has been received I'll updating.
->=20
-> > Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-> ---
-> =C2=A0drivers/hwmon/pmbus/ucd9000.c | 390 +++++++++++++++++++++++++++++++=
-++++++++++-
-> =C2=A01 file changed, 389 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/hwmon/pmbus/ucd9000.c b/drivers/hwmon/pmbus/ucd9000.=
-c
-> index 3e3aa95..f384a39 100644
-> --- a/drivers/hwmon/pmbus/ucd9000.c
-> +++ b/drivers/hwmon/pmbus/ucd9000.c
-> @@ -26,6 +26,8 @@
-> =C2=A0#include <linux/slab.h>
-> =C2=A0#include <linux/i2c.h>
-> =C2=A0#include <linux/i2c/pmbus.h>
-> +#include <linux/sysfs.h>
-> +#include <linux/hwmon-sysfs.h>
-> =C2=A0#include "pmbus.h"
-> =C2=A0
-> =C2=A0enum chips { ucd9000, ucd90120, ucd90124, ucd90160, ucd9090, ucd909=
-10 };
-> @@ -34,6 +36,10 @@
-> > =C2=A0#define UCD9000_NUM_PAGES		0xd6
-> > =C2=A0#define UCD9000_FAN_CONFIG_INDEX	0xe7
-> > =C2=A0#define UCD9000_FAN_CONFIG		0xe8
-> > +#define UCD9000_LOGGED_FAULTS		0xea
-> > +#define UCD9000_MFR_STATUS		0xf3
-> > +#define UCD9000_GPIO_SELECT		0xfa
-> > +#define UCD9000_GPIO_CONFIG		0xfb
-> > =C2=A0#define UCD9000_DEVICE_ID		0xfd
-> =C2=A0
-> > =C2=A0#define UCD9000_MON_TYPE(x)	(((x) >> 5) & 0x07)
-> @@ -119,6 +125,378 @@ static int ucd9000_read_byte_data(struct i2c_client=
- *client, int page, int reg)
-> =C2=A0};
-> =C2=A0MODULE_DEVICE_TABLE(i2c, ucd9000_id);
-> =C2=A0
-> +static ssize_t ucd9000_clear_faults(struct device *dev,
-> > +				struct device_attribute *attr, const char *buf,
-> > +				size_t count)
-> +{
-> > +	struct i2c_client *client =3D to_i2c_client(dev);
-> +
-> > +	pmbus_clear_faults(client);
-> +
-> > +	return count;
-> +}
+No, I don't expect much code sharing between them. I just thought it would be a
+reasonable place to put IPMB, sort of like how we have a bunch of "character"
+device drivers in drivers/char, but I suppose that might be somewhat of an
+anti-pattern ;-)
 
-Eddie was exposing this in the core. I don't think we should need to
-carry it here.
+>
+> If there end up being a significant amount of common code, then it would
+> definitely be worth the effort to move it.
+>
+>>> -corey
+>>
+>> In summary, I think I can live with making it a mangled form of SSIF, but
+>> I would prefer to put it in its own driver.
+>
+>
+> You can look at the patch and consider it, and consider that you would need
+> to
+> implement flag and event handling.  On an x86 host there would be SMBIOS
+> and ACPI stuff to deal with somehow for discovery.  There's probably few
+> other
+> things to deal with.
+>
+>> In any case, I think I would rather focus on the the BMC side IPMI
+>> framework
+>> now, since it is a bigger change and would also reduce the work of
+>> implementing a BMC side SSIF driver.
+>>
+>> Here is what I propose: we focus on the BMC side IPMI framework RFC that
+>> I sent out the other day:
+>> https://www.mail-archive.com/linux-kernel@vger.kernel.org/msg1463473.html
+>> I will add a change to the BMC side IPMI framework patchset to move all
+>> the
+>> IPMI stuff to the new drivers/ipmi directory as discussed and then drop
+>> the
+>> patch in that patchset that depends on this patchset.
+>>
+>> Let me know what you think
+>
+>
+> Let's hold off on the new directory, there's probably some convincing of the
+> "powers
+> that be" for that.
+>
+> I'll look at the patch set tomorrow, unless something critical comes up.
 
-> +
-> +static ssize_t ucd9000_clear_logged_faults(struct device *dev,
-> > +				struct device_attribute *attr, const char *buf,
-> > +				size_t count)
-> +{
-> > +	struct i2c_client *client =3D to_i2c_client(dev);
-> > +	int ret;
-> +
-> > +	ret =3D i2c_smbus_write_byte_data(client, UCD9000_LOGGED_FAULTS, 0);
-> > +	if (ret) {
-> > +		dev_err(&client->dev, "Failed to clear logged faults\n");
-> > +		return ret;
-> > +	}
-> +
-> > +	return count;
-> +}
-> +
-> +static ssize_t ucd9000_mfr_status(struct device *dev,
-> > +				struct device_attribute *attr,
-> > +				char *buf)
-> +{
-> > +	struct sensor_device_attribute *sensor_attr =3D to_sensor_dev_attr(at=
-tr);
-> > +	struct i2c_client *client =3D to_i2c_client(dev);
-> > +	int nr =3D sensor_attr->index, ret;
-> > +	u32 block_buffer;
-> +
-> > +	ret =3D pmbus_set_page(client, 0);
-> > +	if (ret < 0) {
-> > +		dev_err(&client->dev, "i2c_smbus_write failed. rc:%d\n", ret);
-> > +		return ret;
-> > +	}
-> +
-> > +	ret =3D i2c_smbus_read_block_data(client, UCD9000_MFR_STATUS,
-> > +					(u8 *)&block_buffer);
-> > +	if (ret < 0) {
-> > +		dev_err(&client->dev,
-> > +			"Failed to read mfr status. rc:%d\n", ret);
-> > +		return ret;
-> > +	}
-> +
-> > +	return sprintf(buf, "%1d\n", ret & BIT(nr) ? 1 : 0);
-> +}
-> +
-> +static ssize_t ucd9000_gpi_config(struct device *dev,
-> > +				struct device_attribute *attr,
-> > +				char *buf)
-> +{
-> > +	struct sensor_device_attribute *sensor_attr =3D to_sensor_dev_attr(at=
-tr);
-> > +	struct i2c_client *client =3D to_i2c_client(dev);
-> > +	int nr =3D (sensor_attr->index & 0xf00) >> 8;
-> +	int reg =3D sensor_attr->index & 0xff, ret;
+Sounds good
 
-Do we need to set the page?
+>
+> Thanks,
+>
+> -corey
+>
 
-> +
-> > +	ret =3D i2c_smbus_write_byte_data(client, UCD9000_GPIO_SELECT, reg);
-> > +	if (ret) {
-> > +		dev_err(&client->dev, "Failed to set gpio select %d\n", reg);
-> > +		return ret;
-> > +	}
-> +
-> > +	ret =3D i2c_smbus_read_byte_data(client, UCD9000_GPIO_CONFIG);
-> > +	if (ret < 0) {
-> > +		dev_err(&client->dev,
-> > +			"Failed to read gpi%02d config\n", reg);
-> > +	}
-> +
-> > +	return sprintf(buf, "%1d\n", ret & BIT(nr) ? 1 : 0);
-> +}
-> +
-> +static ssize_t ucd9000_status_vout(struct device *dev,
-> > +				struct device_attribute *attr,
-> > +				char *buf)
-> +{
-> > +	struct sensor_device_attribute *sensor_attr =3D to_sensor_dev_attr(at=
-tr);
-> > +	struct i2c_client *client =3D to_i2c_client(dev);
-> > +	int nr =3D (sensor_attr->index & 0xf00) >> 8;
-> > +	int page =3D sensor_attr->index & 0xff, ret;
-> +
-> > +	ret =3D pmbus_set_page(client, page);
-> > +	if (ret < 0) {
-> > +		dev_err(&client->dev, "i2c_smbus_write failed. page:%d rc:%d\n",
-> > +			page, ret);
-> > +		return ret;
-> > +	}
-> +
-> > +	ret =3D i2c_smbus_read_byte_data(client, PMBUS_STATUS_VOUT);
-> > +	if (ret < 0) {
-> > +		dev_err(&client->dev,
-> > +			"Failed to read status_vout(%d) rc:%d\n", page, ret);
-> +	}
-
-The set_page()/read_byte() dance can be performed with
-pmbus_read_byte_data()
-
-> +
-> > +	return sprintf(buf, "%1d", ret & BIT(nr) ? 1 : 0);
-> +}
-> +
-> +static ssize_t ucd9000_status_word(struct device *dev,
-> > +				struct device_attribute *attr,
-> > +				char *buf)
-> +{
-> > +	struct sensor_device_attribute *sensor_attr =3D to_sensor_dev_attr(at=
-tr);
-> > +	struct i2c_client *client =3D to_i2c_client(dev);
-> > +	int nr =3D sensor_attr->index, ret;
-> +
-> > +	ret =3D i2c_smbus_read_word_data(client, PMBUS_STATUS_WORD);
-> > +	if (ret < 0) {
-> > +		dev_err(&client->dev,
-> > +			"Failed to read number of active pages\n");
-> > +		return ret;
-> > +	}
-> +
-> > +	return sprintf(buf, "%1d", ret & BIT(nr) ? 1 : 0);
-> +}
-> +
-> +static DEVICE_ATTR(clear_faults, 0200, NULL, ucd9000_clear_faults);
-> +static DEVICE_ATTR(clear_logged_faults, 0200,
-> > +			=C2=A0=C2=A0NULL, ucd9000_clear_logged_faults);
-> +
-> +/* MFR status */
-> +static SENSOR_DEVICE_ATTR(gpi8_fault, 0444, ucd9000_mfr_status, NULL, 23=
-);
-> +static SENSOR_DEVICE_ATTR(gpi7_fault, 0444, ucd9000_mfr_status, NULL, 22=
-);
-> +static SENSOR_DEVICE_ATTR(gpi6_fault, 0444, ucd9000_mfr_status, NULL, 21=
-);
-> +static SENSOR_DEVICE_ATTR(gpi5_fault, 0444, ucd9000_mfr_status, NULL, 20=
-);
-> +static SENSOR_DEVICE_ATTR(gpi4_fault, 0444, ucd9000_mfr_status, NULL, 19=
-);
-> +static SENSOR_DEVICE_ATTR(gpi3_fault, 0444, ucd9000_mfr_status, NULL, 18=
-);
-> +static SENSOR_DEVICE_ATTR(gpi2_fault, 0444, ucd9000_mfr_status, NULL, 17=
-);
-> +static SENSOR_DEVICE_ATTR(gpi1_fault, 0444, ucd9000_mfr_status, NULL, 16=
-);
-> +static SENSOR_DEVICE_ATTR(new_logged_fault_detail, 0444,
-> > +			ucd9000_mfr_status, NULL, 12);
-> +static SENSOR_DEVICE_ATTR(system_watchdog_timeout, 0444,
-> > +			ucd9000_mfr_status, NULL, 11);
-> +static SENSOR_DEVICE_ATTR(store_default_all_error, 0444,
-> > +			ucd9000_mfr_status, NULL, 10);
-> +static SENSOR_DEVICE_ATTR(store_default_all_done, 0444,
-> > +			ucd9000_mfr_status, NULL, 9);
-> +static SENSOR_DEVICE_ATTR(watchdog_timeout, 0444,
-> > +			ucd9000_mfr_status, NULL, 8);
-> +static SENSOR_DEVICE_ATTR(invalid_logs, 0444,
-> > +			ucd9000_mfr_status, NULL, 7);
-> +static SENSOR_DEVICE_ATTR(logged_fault_detail, 0444,
-> > +			ucd9000_mfr_status, NULL, 6);
-> +static SENSOR_DEVICE_ATTR(resequence_error, 0444, ucd9000_mfr_status, NU=
-LL, 5);
-> +static SENSOR_DEVICE_ATTR(pkgid_mismatch, 0444, ucd9000_mfr_status, NULL=
-, 4);
-> +static SENSOR_DEVICE_ATTR(hardcoded_parms, 0444, ucd9000_mfr_status, NUL=
-L, 3);
-> +static SENSOR_DEVICE_ATTR(seq_off_timeout, 0444, ucd9000_mfr_status, NUL=
-L, 2);
-> +static SENSOR_DEVICE_ATTR(seq_on_timeout, 0444, ucd9000_mfr_status, NULL=
-, 1);
-
-Is this impacted by the debugfs approach that Eddie's developing?
-
-> +
-> +/* GPIO config */
-> +static SENSOR_DEVICE_ATTR(gpio8_enab, 0444, ucd9000_gpi_config, NULL, 8)=
-;
-> +static SENSOR_DEVICE_ATTR(gpio8_out_enab, 0444, ucd9000_gpi_config,
-> > +			NULL, 0x0108);
-> +static SENSOR_DEVICE_ATTR(gpio8_out_val, 0444, ucd9000_gpi_config,
-> > +			NULL, 0x0208);
-> +static SENSOR_DEVICE_ATTR(gpio8_stat, 0444, ucd9000_gpi_config,
-> > +			NULL, 0x0308);
-> +static SENSOR_DEVICE_ATTR(gpio9_enab, 0444, ucd9000_gpi_config, NULL, 9)=
-;
-> +static SENSOR_DEVICE_ATTR(gpio9_out_enab, 0444, ucd9000_gpi_config,
-> > +			NULL, 0x0109);
-> +static SENSOR_DEVICE_ATTR(gpio9_out_val, 0444, ucd9000_gpi_config,
-> > +			NULL, 0x0209);
-> +static SENSOR_DEVICE_ATTR(gpio9_stat, 0444, ucd9000_gpi_config,
-> > +			NULL, 0x0309);
-> +static SENSOR_DEVICE_ATTR(gpio10_enab, 0444, ucd9000_gpi_config, NULL, 1=
-0);
-> +static SENSOR_DEVICE_ATTR(gpio10_out_enab, 0444, ucd9000_gpi_config,
-> > +			NULL, 0x010a);
-> +static SENSOR_DEVICE_ATTR(gpio10_out_val, 0444, ucd9000_gpi_config,
-> > +			NULL, 0x020a);
-> +static SENSOR_DEVICE_ATTR(gpio10_stat, 0444, ucd9000_gpi_config,
-> > +			NULL, 0x030a);
-> +static SENSOR_DEVICE_ATTR(gpio11_enab, 0444, ucd9000_gpi_config, NULL, 1=
-1);
-> +static SENSOR_DEVICE_ATTR(gpio11_out_enab, 0444, ucd9000_gpi_config,
-> > +			NULL, 0x010b);
-> +static SENSOR_DEVICE_ATTR(gpio11_out_val, 0444, ucd9000_gpi_config,
-> > +			NULL, 0x020b);
-> +static SENSOR_DEVICE_ATTR(gpio11_stat, 0444, ucd9000_gpi_config,
-> > +			NULL, 0x030b);
-> +static SENSOR_DEVICE_ATTR(gpio14_enab, 0444, ucd9000_gpi_config, NULL, 1=
-4);
-> +static SENSOR_DEVICE_ATTR(gpio14_out_enab, 0444, ucd9000_gpi_config,
-> > +			NULL, 0x010e);
-> +static SENSOR_DEVICE_ATTR(gpio14_out_val, 0444, ucd9000_gpi_config,
-> > +			NULL, 0x020e);
-> +static SENSOR_DEVICE_ATTR(gpio14_stat, 0444, ucd9000_gpi_config,
-> > +			NULL, 0x030e);
-> +static SENSOR_DEVICE_ATTR(gpio17_enab, 0444, ucd9000_gpi_config, NULL, 1=
-7);
-> +static SENSOR_DEVICE_ATTR(gpio17_out_enab, 0444, ucd9000_gpi_config,
-> > +			NULL, 0x0111);
-> +static SENSOR_DEVICE_ATTR(gpio17_out_val, 0444, ucd9000_gpi_config,
-> > +			NULL, 0x0211);
-> +static SENSOR_DEVICE_ATTR(gpio17_stat, 0444, ucd9000_gpi_config,
-> +			NULL, 0x0311);
-
-Seems like it should implement a gpio_chip?
-
-> +
-> +
-> +/* Status VOUT : Should be moved to PMBUS core */
-
-Did you investigate implementing these in the PMBus core? If so, why
-didn't you take that route? If not, why not?
-
-> +static SENSOR_DEVICE_ATTR(ton1_max_fault, 0444, ucd9000_status_vout,
-> > +			NULL, 0x0201);
-> +static SENSOR_DEVICE_ATTR(toff1_max_warning, 0444, ucd9000_status_vout,
-> > +			NULL, 0x0101);
-> +static SENSOR_DEVICE_ATTR(ton2_max_fault, 0444, ucd9000_status_vout,
-> > +			NULL, 0x0202);
-> +static SENSOR_DEVICE_ATTR(toff2_max_warning, 0444, ucd9000_status_vout,
-> > +			NULL, 0x0102);
-> +static SENSOR_DEVICE_ATTR(ton3_max_fault, 0444, ucd9000_status_vout,
-> > +			NULL, 0x0203);
-> +static SENSOR_DEVICE_ATTR(toff3_max_warning, 0444, ucd9000_status_vout,
-> > +			NULL, 0x0103);
-> +static SENSOR_DEVICE_ATTR(ton4_max_fault, 0444, ucd9000_status_vout,
-> > +			NULL, 0x0204);
-> +static SENSOR_DEVICE_ATTR(toff4_max_warning, 0444, ucd9000_status_vout,
-> > +			NULL, 0x0104);
-> +static SENSOR_DEVICE_ATTR(ton5_max_fault, 0444, ucd9000_status_vout,
-> > +			NULL, 0x0205);
-> +static SENSOR_DEVICE_ATTR(toff5_max_warning, 0444, ucd9000_status_vout,
-> > +			NULL, 0x0105);
-> +static SENSOR_DEVICE_ATTR(ton6_max_fault, 0444, ucd9000_status_vout,
-> > +			NULL, 0x0206);
-> +static SENSOR_DEVICE_ATTR(toff6_max_warning, 0444, ucd9000_status_vout,
-> > +			NULL, 0x0106);
-> +static SENSOR_DEVICE_ATTR(ton7_max_fault, 0444, ucd9000_status_vout,
-> > +			NULL, 0x0207);
-> +static SENSOR_DEVICE_ATTR(toff7_max_warning, 0444, ucd9000_status_vout,
-> > +			NULL, 0x0107);
-> +static SENSOR_DEVICE_ATTR(ton8_max_fault, 0444, ucd9000_status_vout,
-> > +			NULL, 0x0208);
-> +static SENSOR_DEVICE_ATTR(toff8_max_warning, 0444, ucd9000_status_vout,
-> > +			NULL, 0x0108);
-> +static SENSOR_DEVICE_ATTR(ton9_max_fault, 0444, ucd9000_status_vout,
-> > +			NULL, 0x0209);
-> +static SENSOR_DEVICE_ATTR(toff9_max_warning, 0444, ucd9000_status_vout,
-> > +			NULL, 0x0109);
-> +static SENSOR_DEVICE_ATTR(ton10_max_fault, 0444, ucd9000_status_vout,
-> > +			NULL, 0x020a);
-> +static SENSOR_DEVICE_ATTR(toff10_max_warning, 0444, ucd9000_status_vout,
-> > +			NULL, 0x010a);
-> +static SENSOR_DEVICE_ATTR(ton11_max_fault, 0444, ucd9000_status_vout,
-> > +			NULL, 0x020b);
-> +static SENSOR_DEVICE_ATTR(toff11_max_warning, 0444, ucd9000_status_vout,
-> > +			NULL, 0x010b);
-> +static SENSOR_DEVICE_ATTR(ton12_max_fault, 0444, ucd9000_status_vout,
-> > +			NULL, 0x020c);
-> +static SENSOR_DEVICE_ATTR(toff12_max_warning, 0444, ucd9000_status_vout,
-> > +			NULL, 0x010c);
-> +static SENSOR_DEVICE_ATTR(ton13_max_fault, 0444, ucd9000_status_vout,
-> > +			NULL, 0x020d);
-> +static SENSOR_DEVICE_ATTR(toff13_max_warning, 0444, ucd9000_status_vout,
-> > +			NULL, 0x010d);
-> +static SENSOR_DEVICE_ATTR(ton14_max_fault, 0444, ucd9000_status_vout,
-> > +			NULL, 0x020e);
-> +static SENSOR_DEVICE_ATTR(toff14_max_warning, 0444, ucd9000_status_vout,
-> > +			NULL, 0x010e);
-> +static SENSOR_DEVICE_ATTR(ton15_max_fault, 0444, ucd9000_status_vout,
-> > +			NULL, 0x020f);
-> +static SENSOR_DEVICE_ATTR(toff15_max_warning, 0444, ucd9000_status_vout,
-> > +			NULL, 0x010f);
-> +static SENSOR_DEVICE_ATTR(ton16_max_fault, 0444, ucd9000_status_vout,
-> > +			NULL, 0x0210);
-> +static SENSOR_DEVICE_ATTR(toff16_max_warning, 0444, ucd9000_status_vout,
-> > +			NULL, 0x0110);
-> +
-> +/*
-> + * Status Word
-> + * Why is this not in the core?=C2=A0=C2=A0In process of being added to =
-pmbus core
-> + * but for the mean time its local for testing purposes
-> + */
-> +static SENSOR_DEVICE_ATTR(misc_alarm, 0444, ucd9000_status_word, NULL, 0=
-);
-> +static SENSOR_DEVICE_ATTR(cml_alarm, 0444, ucd9000_status_word, NULL, 1)=
-;
-> +static SENSOR_DEVICE_ATTR(vout_crit_alarm, 0444, ucd9000_status_word, NU=
-LL, 5);
-> +static SENSOR_DEVICE_ATTR(off_alarm, 0444, ucd9000_status_word, NULL, 6)=
-;
-> +static SENSOR_DEVICE_ATTR(fans_alarm, 0444, ucd9000_status_word, NULL, 1=
-0);
-> +static SENSOR_DEVICE_ATTR(pgood_alarm, 0444, ucd9000_status_word, NULL, =
-11);
-> +static SENSOR_DEVICE_ATTR(mfr_alarm, 0444, ucd9000_status_word, NULL, 12=
-);
-> +static SENSOR_DEVICE_ATTR(vout_alarm, 0444, ucd9000_status_word, NULL, 1=
-5);
-
-So Eddie's patch addresses some of these - can you please rework your
-patch in terms of his?
-
-Cheers,
-
-Andrew
-
-> +
-> +static struct attribute *ucd9000_attributes[] =3D {
-> > +	&dev_attr_clear_faults.attr,
-> > +	&dev_attr_clear_logged_faults.attr,
-> > +	&sensor_dev_attr_misc_alarm.dev_attr.attr,
-> > +	&sensor_dev_attr_cml_alarm.dev_attr.attr,
-> > +	&sensor_dev_attr_vout_crit_alarm.dev_attr.attr,
-> > +	&sensor_dev_attr_off_alarm.dev_attr.attr,
-> > +	&sensor_dev_attr_fans_alarm.dev_attr.attr,
-> > +	&sensor_dev_attr_pgood_alarm.dev_attr.attr,
-> > +	&sensor_dev_attr_mfr_alarm.dev_attr.attr,
-> > +	&sensor_dev_attr_vout_alarm.dev_attr.attr,
-> > +	&sensor_dev_attr_gpi8_fault.dev_attr.attr,
-> > +	&sensor_dev_attr_gpi7_fault.dev_attr.attr,
-> > +	&sensor_dev_attr_gpi6_fault.dev_attr.attr,
-> > +	&sensor_dev_attr_gpi5_fault.dev_attr.attr,
-> > +	&sensor_dev_attr_gpi4_fault.dev_attr.attr,
-> > +	&sensor_dev_attr_gpi3_fault.dev_attr.attr,
-> > +	&sensor_dev_attr_gpi2_fault.dev_attr.attr,
-> > +	&sensor_dev_attr_gpi1_fault.dev_attr.attr,
-> > +	&sensor_dev_attr_new_logged_fault_detail.dev_attr.attr,
-> > +	&sensor_dev_attr_system_watchdog_timeout.dev_attr.attr,
-> > +	&sensor_dev_attr_store_default_all_error.dev_attr.attr,
-> > +	&sensor_dev_attr_store_default_all_done.dev_attr.attr,
-> > +	&sensor_dev_attr_watchdog_timeout.dev_attr.attr,
-> > +	&sensor_dev_attr_invalid_logs.dev_attr.attr,
-> > +	&sensor_dev_attr_logged_fault_detail.dev_attr.attr,
-> > +	&sensor_dev_attr_resequence_error.dev_attr.attr,
-> > +	&sensor_dev_attr_pkgid_mismatch.dev_attr.attr,
-> > +	&sensor_dev_attr_hardcoded_parms.dev_attr.attr,
-> > +	&sensor_dev_attr_seq_off_timeout.dev_attr.attr,
-> > +	&sensor_dev_attr_seq_on_timeout.dev_attr.attr,
-> > +	&sensor_dev_attr_gpio8_enab.dev_attr.attr,
-> > +	&sensor_dev_attr_gpio8_out_enab.dev_attr.attr,
-> > +	&sensor_dev_attr_gpio8_out_val.dev_attr.attr,
-> > +	&sensor_dev_attr_gpio8_stat.dev_attr.attr,
-> > +	&sensor_dev_attr_gpio9_enab.dev_attr.attr,
-> > +	&sensor_dev_attr_gpio9_out_enab.dev_attr.attr,
-> > +	&sensor_dev_attr_gpio9_out_val.dev_attr.attr,
-> > +	&sensor_dev_attr_gpio9_stat.dev_attr.attr,
-> > +	&sensor_dev_attr_gpio10_enab.dev_attr.attr,
-> > +	&sensor_dev_attr_gpio10_out_enab.dev_attr.attr,
-> > +	&sensor_dev_attr_gpio10_out_val.dev_attr.attr,
-> > +	&sensor_dev_attr_gpio10_stat.dev_attr.attr,
-> > +	&sensor_dev_attr_gpio11_enab.dev_attr.attr,
-> > +	&sensor_dev_attr_gpio11_out_enab.dev_attr.attr,
-> > +	&sensor_dev_attr_gpio11_out_val.dev_attr.attr,
-> > +	&sensor_dev_attr_gpio11_stat.dev_attr.attr,
-> > +	&sensor_dev_attr_gpio14_enab.dev_attr.attr,
-> > +	&sensor_dev_attr_gpio14_out_enab.dev_attr.attr,
-> > +	&sensor_dev_attr_gpio14_out_val.dev_attr.attr,
-> > +	&sensor_dev_attr_gpio14_stat.dev_attr.attr,
-> > +	&sensor_dev_attr_gpio17_enab.dev_attr.attr,
-> > +	&sensor_dev_attr_gpio17_out_enab.dev_attr.attr,
-> > +	&sensor_dev_attr_gpio17_out_val.dev_attr.attr,
-> > +	&sensor_dev_attr_gpio17_stat.dev_attr.attr,
-> > +	&sensor_dev_attr_toff1_max_warning.dev_attr.attr,
-> > +	&sensor_dev_attr_toff2_max_warning.dev_attr.attr,
-> > +	&sensor_dev_attr_toff3_max_warning.dev_attr.attr,
-> > +	&sensor_dev_attr_toff4_max_warning.dev_attr.attr,
-> > +	&sensor_dev_attr_toff5_max_warning.dev_attr.attr,
-> > +	&sensor_dev_attr_toff6_max_warning.dev_attr.attr,
-> > +	&sensor_dev_attr_toff7_max_warning.dev_attr.attr,
-> > +	&sensor_dev_attr_toff8_max_warning.dev_attr.attr,
-> > +	&sensor_dev_attr_toff9_max_warning.dev_attr.attr,
-> > +	&sensor_dev_attr_toff10_max_warning.dev_attr.attr,
-> > +	&sensor_dev_attr_toff11_max_warning.dev_attr.attr,
-> > +	&sensor_dev_attr_toff12_max_warning.dev_attr.attr,
-> > +	&sensor_dev_attr_toff13_max_warning.dev_attr.attr,
-> > +	&sensor_dev_attr_toff14_max_warning.dev_attr.attr,
-> > +	&sensor_dev_attr_toff15_max_warning.dev_attr.attr,
-> > +	&sensor_dev_attr_toff16_max_warning.dev_attr.attr,
-> > +	&sensor_dev_attr_ton1_max_fault.dev_attr.attr,
-> > +	&sensor_dev_attr_ton2_max_fault.dev_attr.attr,
-> > +	&sensor_dev_attr_ton3_max_fault.dev_attr.attr,
-> > +	&sensor_dev_attr_ton4_max_fault.dev_attr.attr,
-> > +	&sensor_dev_attr_ton5_max_fault.dev_attr.attr,
-> > +	&sensor_dev_attr_ton6_max_fault.dev_attr.attr,
-> > +	&sensor_dev_attr_ton7_max_fault.dev_attr.attr,
-> > +	&sensor_dev_attr_ton8_max_fault.dev_attr.attr,
-> > +	&sensor_dev_attr_ton9_max_fault.dev_attr.attr,
-> > +	&sensor_dev_attr_ton10_max_fault.dev_attr.attr,
-> > +	&sensor_dev_attr_ton11_max_fault.dev_attr.attr,
-> > +	&sensor_dev_attr_ton12_max_fault.dev_attr.attr,
-> > +	&sensor_dev_attr_ton13_max_fault.dev_attr.attr,
-> > +	&sensor_dev_attr_ton14_max_fault.dev_attr.attr,
-> > +	&sensor_dev_attr_ton15_max_fault.dev_attr.attr,
-> > +	&sensor_dev_attr_ton16_max_fault.dev_attr.attr,
-> > +	NULL
-> +};
-> +
-> +static const struct attribute_group ucd9000_attr_group =3D {
-> > +	.attrs =3D ucd9000_attributes,
-> +};
-> +
-> =C2=A0static int ucd9000_probe(struct i2c_client *client,
-> > =C2=A0			=C2=A0const struct i2c_device_id *id)
-> =C2=A0{
-> @@ -227,16 +605,26 @@ static int ucd9000_probe(struct i2c_client *client,
-> > =C2=A0		=C2=A0=C2=A0| PMBUS_HAVE_FAN34 | PMBUS_HAVE_STATUS_FAN34;
-> > =C2=A0	}
-> =C2=A0
-> > +	ret =3D sysfs_create_group(&client->dev.kobj, &ucd9000_attr_group);
-> > +	if (ret < 0)
-> > +		return ret;
-> +
-> > =C2=A0	return pmbus_do_probe(client, mid, info);
-> =C2=A0}
-> =C2=A0
-> +static int ucd9000_remove(struct i2c_client *client)
-> +{
-> > +	sysfs_remove_group(&client->dev.kobj, &ucd9000_attr_group);
-> > +	return pmbus_do_remove(client);
-> +}
-> +
-> =C2=A0/* This is the driver that will be inserted */
-> =C2=A0static struct i2c_driver ucd9000_driver =3D {
-> > =C2=A0	.driver =3D {
-> > =C2=A0		.name =3D "ucd9000",
-> > =C2=A0	},
-> > =C2=A0	.probe =3D ucd9000_probe,
-> > -	.remove =3D pmbus_do_remove,
-> > +	.remove =3D ucd9000_remove,
-> > =C2=A0	.id_table =3D ucd9000_id,
-> =C2=A0};
-> =C2=A0
---=-7X4qhl6jkhQKguVqMISj
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJZi+W1AAoJEJ0dnzgO5LT5/BoQAI4tFAqADo2yRKS+VDs8MV4E
-fqv5/hYxJhBn/mZCxrEdXtcmtL7GC6xqcvkihr26GLvSmnQ/gR17I7XRsnqjTorx
-scxxPdx7s7jCYDdJ0Ls3JXgTS/8r6rTJK5ZzKMLWR3NgBLi8ENqWhqtrzC8u/ZQK
-+h0aKk/WUorIri9+zg32dFXuirpY1qmq4k9bRTRnCTY+vGYf6WyQLzST2RHYYwzA
-VvMHYSGXtquultablYvXZ3iVEln+3RptEJQ89f8whDxdjTiKbm0Kmi/7I1fw/K3g
-5mtY4tDnjuQII5GGuAJr3wvATbYam+vn74QTnf/QizpixExmPizCr63/0fEAsY56
-NaBb19sQrzd/gZTtlpEbguIW87tYUGqEv3aY8jccM/LBRp3BbMCqAOU1TkLwN/hX
-gpKJxrFpwntIDKqFFdaiFKmX3NYQAR79pQPKHtDjoJKQa0N9V7RgQrsNfH+/eDjJ
-5Cu0oVDnHRZpNNuSsFgInggJZ69VNQ8o3lAhwa49cnGEy9NskqPWUfpO7x3LYjED
-je9pWII1Dz8oVcCDdXedoZ8I59fzYfCbzK4TXLTFT6OWy3Zz06R+vv4cdiB6MGo2
-Pt5KpBDowoiYPmsTY5h0TbGtqEab3OoSFrHP2IutL52Fh0enaCRFV1FHbUHY/q0x
-gFlUqBnnyVAthEXiKAKy
-=1XH0
------END PGP SIGNATURE-----
-
---=-7X4qhl6jkhQKguVqMISj--
+Cheers
