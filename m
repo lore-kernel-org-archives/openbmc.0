@@ -1,63 +1,63 @@
-Return-Path: <vishwa@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+Return-Path: <eajames@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xTWk85PX9zDqkX
- for <openbmc@lists.ozlabs.org>; Sat, 12 Aug 2017 03:11:12 +1000 (AEST)
-Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v7BH9RfC020976
- for <openbmc@lists.ozlabs.org>; Fri, 11 Aug 2017 13:11:09 -0400
-Received: from e23smtp02.au.ibm.com (e23smtp02.au.ibm.com [202.81.31.144])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2c9fksu0g0-1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xTXkv3ywGzDr2m
+ for <openbmc@lists.ozlabs.org>; Sat, 12 Aug 2017 03:56:55 +1000 (AEST)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v7BHtTZW038697
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Aug 2017 13:56:52 -0400
+Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2c9fts3wey-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 11 Aug 2017 13:11:08 -0400
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Aug 2017 13:56:52 -0400
 Received: from localhost
- by e23smtp02.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <vishwa@linux.vnet.ibm.com>;
- Sat, 12 Aug 2017 03:11:05 +1000
-Received: from d23relay08.au.ibm.com (202.81.31.227)
- by e23smtp02.au.ibm.com (202.81.31.208) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Sat, 12 Aug 2017 03:11:04 +1000
-Received: from d23av01.au.ibm.com (d23av01.au.ibm.com [9.190.234.96])
- by d23relay08.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v7BHB37226411058
- for <openbmc@lists.ozlabs.org>; Sat, 12 Aug 2017 03:11:03 +1000
-Received: from d23av01.au.ibm.com (localhost [127.0.0.1])
- by d23av01.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- v7BHB3iX022295
- for <openbmc@lists.ozlabs.org>; Sat, 12 Aug 2017 03:11:03 +1000
-Received: from [9.77.206.116] ([9.77.206.116])
- by d23av01.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- v7BHB1IN022191; Sat, 12 Aug 2017 03:11:02 +1000
-Subject: Re: Design proposal to Non-Interactive password update for REST client
-To: Kenneth Wilke <kenneth.wilke@RACKSPACE.COM>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-References: <f2f1b160-cb20-e02f-1a88-3dffbeacc76e@linux.vnet.ibm.com>
- <SN1PR20MB049686AE976A7994AA7949E8EF890@SN1PR20MB0496.namprd20.prod.outlook.com>
-From: vishwa <vishwa@linux.vnet.ibm.com>
-Date: Fri, 11 Aug 2017 22:41:01 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.7.0
-MIME-Version: 1.0
-In-Reply-To: <SN1PR20MB049686AE976A7994AA7949E8EF890@SN1PR20MB0496.namprd20.prod.outlook.com>
-Content-Type: multipart/alternative;
- boundary="------------3C26D6DF5F588645A72D16CB"
-X-TM-AS-MML: disable
-x-cbid: 17081117-0004-0000-0000-00000229F142
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Fri, 11 Aug 2017 13:56:50 -0400
+Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
+ by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Fri, 11 Aug 2017 13:56:47 -0400
+Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
+ [9.57.199.108])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v7BHullc24641564; Fri, 11 Aug 2017 17:56:47 GMT
+Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id AED81B2054;
+ Fri, 11 Aug 2017 13:54:13 -0400 (EDT)
+Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
+ by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP id 448BFB2052;
+ Fri, 11 Aug 2017 13:54:13 -0400 (EDT)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, bjwyman@gmail.com, mspinler@linux.vnet.ibm.com,
+ "Edward A. James" <eajames@us.ibm.com>
+Subject: [PATCH linux dev-4.10 v5 0/4] hwmon: (pmbus): Add IBM Common Form
+ Factor (CFF) power supply driver
+Date: Fri, 11 Aug 2017 12:56:41 -0500
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+x-cbid: 17081117-0040-0000-0000-0000038E5924
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007526; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000220; SDB=6.00900858; UDB=6.00451050; IPR=6.00681061; 
+ BA=6.00005523; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016647; XFM=3.00000015;
+ UTC=2017-08-11 17:56:49
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17081117-0005-0000-0000-00005E105E4C
-Message-Id: <5ed0dda9-4581-aa0a-f63d-13ac7e4f5057@linux.vnet.ibm.com>
+x-cbparentid: 17081117-0041-0000-0000-00000782876A
+Message-Id: <1502474205-1557-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-08-11_07:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
+ spamscore=0 suspectscore=1
  malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
  adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
- definitions=main-1708110266
+ definitions=main-1708110279
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -69,150 +69,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Aug 2017 17:11:13 -0000
+X-List-Received-Date: Fri, 11 Aug 2017 17:56:57 -0000
 
-This is a multi-part message in MIME format.
---------------3C26D6DF5F588645A72D16CB
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
+From: "Edward A. James" <eajames@us.ibm.com>
 
-Sorry, I should have mentioned that I had looked at that option.
+This series adds a hwmon pmbus driver for a POWER System power supply. The
+core monitoring functionality is provided by pmbus.
 
-For `chpasswd`, I need to fork a process but with `putspent` I can do in 
-same process.
+These devices should be auto-probed on the I2C bus, so I added them to the
+witherspoon device tree.
 
-On 08/11/2017 10:20 PM, Kenneth Wilke wrote:
->
-> Could chpasswd be used for that?
->
-> ------------------------------------------------------------------------
-> *From:* openbmc 
-> <openbmc-bounces+kenneth.wilke=rackspace.com@lists.ozlabs.org> on 
-> behalf of vishwa <vishwa@linux.vnet.ibm.com>
-> *Sent:* Friday, August 11, 2017 11:18:48 AM
-> *To:* OpenBMC Maillist
-> *Subject:* Design proposal to Non-Interactive password update for REST 
-> client
-> This email is about openbmc/openbmc#1714 ( REST API to update root
-> password )
->
-> Goal is to do Non-interactive password updates to enable a REST client
-> to update the root password.
->
-> My proposal is to use `getspent(3)` and `putspent(3)` and here is the 
-> flow.
->
-> REST client will provide a method that takes std::string as parameter.
->
-> The Provider at the BMC will receive the password and does these:
->
->   - Executes `getspent(3)` for "root" and gets the entries.
->   - Parses the `sp_pwdp` and extracts `encryption method` , `salt`.
->   - Makes a call to `crypt(3)` with the extracted `salt` and `user
-> input` and generates encrypted pass-code
->   - Populates the structure and calls `putspent(3)` to update the password
->
-> Please let me know your opinion on this.
->
-> Thank you,
->
-> !! Vishwa !!
->
+Changes since v4:
+ * Rename the driver again...
+ * Change compatible property; we can't have any '-' in the compatible
+   property because pmbus will use that string for hwmon registration name,
+   which disallows that character.
+ * Remove debugfs bool from pmbus_driver_info
+ * Add comment about returning rc when reading STATUS_MFR_SPECIFIC fails.
 
+Edward A. James (4):
+  dt-bindings: i2c: Document the IBM CCF power supply version 1
+  hwmon: (pmbus): Add IBM Common Form Factor (CFF) power supply driver
+  Documentation: hwmon: Document the IBM CFF power supply
+  ARM: dts: aspeed: Witherspoon: Add power supplies to i2c bus
 
---------------3C26D6DF5F588645A72D16CB
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: 8bit
+ .../devicetree/bindings/i2c/ibm,cffps1.txt         |  21 +++
+ Documentation/hwmon/ibm-cffps                      |  54 ++++++++
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts   |  10 ++
+ drivers/hwmon/pmbus/Kconfig                        |  10 ++
+ drivers/hwmon/pmbus/Makefile                       |   1 +
+ drivers/hwmon/pmbus/ibm-cffps.c                    | 151 +++++++++++++++++++++
+ 6 files changed, 247 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/i2c/ibm,cffps1.txt
+ create mode 100644 Documentation/hwmon/ibm-cffps
+ create mode 100644 drivers/hwmon/pmbus/ibm-cffps.c
 
-<html>
-  <head>
-    <meta content="text/html; charset=windows-1252"
-      http-equiv="Content-Type">
-  </head>
-  <body bgcolor="#FFFFFF" text="#000000">
-    Sorry, I should have mentioned that I had looked at that option.<br>
-    <br>
-    For `chpasswd`, I need to fork a process but with `putspent` I can
-    do in same process.<br>
-    <br>
-    <div class="moz-cite-prefix">On 08/11/2017 10:20 PM, Kenneth Wilke
-      wrote:<br>
-    </div>
-    <blockquote
-cite="mid:SN1PR20MB049686AE976A7994AA7949E8EF890@SN1PR20MB0496.namprd20.prod.outlook.com"
-      type="cite">
-      <meta http-equiv="Content-Type" content="text/html;
-        charset=windows-1252">
-      <meta name="Generator" content="Microsoft Exchange Server">
-      <!-- converted from text -->
-      <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
-      <meta content="text/html; charset=UTF-8">
-      <style type="text/css" style="">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-      <div dir="ltr">
-        <div id="x_divtagdefaultwrapper" dir="ltr"
-          style="font-size:12pt; color:#000000;
-          font-family:Calibri,Helvetica,sans-serif">
-          <p>Could chpasswd be used for that?<br>
-          </p>
-        </div>
-        <hr tabindex="-1" style="display:inline-block; width:98%">
-        <div id="x_divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-            color="#000000" face="Calibri, sans-serif"><b>From:</b>
-            openbmc
-            <a class="moz-txt-link-rfc2396E" href="mailto:openbmc-bounces+kenneth.wilke=rackspace.com@lists.ozlabs.org">&lt;openbmc-bounces+kenneth.wilke=rackspace.com@lists.ozlabs.org&gt;</a>
-            on behalf of vishwa <a class="moz-txt-link-rfc2396E" href="mailto:vishwa@linux.vnet.ibm.com">&lt;vishwa@linux.vnet.ibm.com&gt;</a><br>
-            <b>Sent:</b> Friday, August 11, 2017 11:18:48 AM<br>
-            <b>To:</b> OpenBMC Maillist<br>
-            <b>Subject:</b> Design proposal to Non-Interactive password
-            update for REST client</font>
-          <div> </div>
-        </div>
-      </div>
-      <font size="2"><span style="font-size:10pt;">
-          <div class="PlainText">This email is about
-            openbmc/openbmc#1714 ( REST API to update root
-            <br>
-            password )<br>
-            <br>
-            Goal is to do Non-interactive password updates to enable a
-            REST client <br>
-            to update the root password.<br>
-            <br>
-            My proposal is to use `getspent(3)` and `putspent(3)` and
-            here is the flow.<br>
-            <br>
-            REST client will provide a method that takes std::string as
-            parameter.<br>
-            <br>
-            The Provider at the BMC will receive the password and does
-            these:<br>
-            <br>
-              - Executes `getspent(3)` for "root" and gets the entries.<br>
-              - Parses the `sp_pwdp` and extracts `encryption method` ,
-            `salt`.<br>
-              - Makes a call to `crypt(3)` with the extracted `salt` and
-            `user <br>
-            input` and generates encrypted pass-code<br>
-              - Populates the structure and calls `putspent(3)` to
-            update the password<br>
-            <br>
-            Please let me know your opinion on this.<br>
-            <br>
-            Thank you,<br>
-            <br>
-            !! Vishwa !!<br>
-            <br>
-          </div>
-        </span></font>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------3C26D6DF5F588645A72D16CB--
+-- 
+1.8.3.1
