@@ -1,64 +1,94 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Return-Path: <kenneth.wilke@RACKSPACE.COM>
+X-Greylist: delayed 955 seconds by postgrey-1.36 at bilbo;
+ Sat, 12 Aug 2017 04:26:19 AEST
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=raxglobal.onmicrosoft.com
+ header.i=@raxglobal.onmicrosoft.com header.b="zoHEoVds"; 
+ dkim-atps=neutral
+Received: from esg01.rackspace.com (esg04.rackspace.com [104.130.178.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xTXtr1tbjzDr39
- for <openbmc@lists.ozlabs.org>; Sat, 12 Aug 2017 04:03:47 +1000 (AEST)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v7BI3VH5042966
- for <openbmc@lists.ozlabs.org>; Fri, 11 Aug 2017 14:03:46 -0400
-Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2c9cvhxa24-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 11 Aug 2017 14:03:45 -0400
-Received: from localhost
- by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Fri, 11 Aug 2017 14:03:42 -0400
-Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
- by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Fri, 11 Aug 2017 14:03:39 -0400
-Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
- [9.57.199.109])
- by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v7BI3cu324248562; Fri, 11 Aug 2017 18:03:38 GMT
-Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 8CFF711204B;
- Fri, 11 Aug 2017 14:03:29 -0400 (EDT)
-Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id 2C3CA112051;
- Fri, 11 Aug 2017 14:03:29 -0400 (EDT)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10 v2 4/4] hwmon: (pmbus): Add debugfs for status
- registers
-Date: Fri, 11 Aug 2017 13:03:28 -0500
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1502474608-2674-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1502474608-2674-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-TM-AS-GCONF: 00
-x-cbid: 17081118-0044-0000-0000-0000037BEB72
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007526; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000220; SDB=6.00900861; UDB=6.00451051; IPR=6.00681064; 
- BA=6.00005523; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016647; XFM=3.00000015;
- UTC=2017-08-11 18:03:40
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17081118-0045-0000-0000-000007AA0108
-Message-Id: <1502474608-2674-5-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-08-11_07:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1706020000
- definitions=main-1708110280
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xTYNq0DYYzDr2j
+ for <openbmc@lists.ozlabs.org>; Sat, 12 Aug 2017 04:26:18 +1000 (AEST)
+Received: from smtpout.rackspace.com (unknown [10.12.51.28])
+ by Websense Email with ESMTPS id CE5FDA0CA6393;
+ Fri, 11 Aug 2017 18:10:19 +0000 (UTC)
+Received: from 543818-OEXCH01.ror-uc.rackspace.com (10.12.51.21) by
+ 544150-OEXCH11.ror-uc.rackspace.com (10.12.51.28) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id
+ 15.1.845.32; Fri, 11 Aug 2017 13:10:19 -0500
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com (207.46.163.55)
+ by rackermail.rackspace.com (10.12.51.21) with Microsoft SMTP Server (TLS) id
+ 15.0.1293.1 via Frontend Transport; Fri, 11 Aug 2017 13:10:18 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=raxglobal.onmicrosoft.com; s=selector1-rackspace-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=Holi7X6sfOw8RjKBvzQ52XyPuPj7UgsQMgB4+INNJfU=;
+ b=zoHEoVdsyRkSWwyrVdzXIu2xFiAEWRqv7VoWaRpLz2szBinLdu+4TiETuQAIO2JK+sKUj+bR9HN5twTjndyrCRpbrAlDcKYCKi5N/v679NROYs2LO6akxgyj2hv5g9c81SaMiKBAGSolLnJJGQTk/8p8QgwfEZn7yNIoaxavHl0=
+Received: from SN1PR20MB0496.namprd20.prod.outlook.com (10.163.224.26) by
+ SN1PR20MB0494.namprd20.prod.outlook.com (10.163.224.158) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id
+ 15.1.1320.16; Fri, 11 Aug 2017 18:10:17 +0000
+Received: from SN1PR20MB0496.namprd20.prod.outlook.com ([10.163.224.26]) by
+ SN1PR20MB0496.namprd20.prod.outlook.com ([10.163.224.26]) with mapi id
+ 15.01.1320.021; Fri, 11 Aug 2017 18:10:17 +0000
+From: Kenneth Wilke <kenneth.wilke@RACKSPACE.COM>
+To: vishwa <vishwa@linux.vnet.ibm.com>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>
+Subject: Re: Design proposal to Non-Interactive password update for REST client
+Thread-Topic: Design proposal to Non-Interactive password update for REST
+ client
+Thread-Index: AQHTEr3d8XIEpoVyrkq96OffnQL306J/XkxXgAAF1YCAABB52A==
+Date: Fri, 11 Aug 2017 18:10:17 +0000
+Message-ID: <SN1PR20MB04962A116A342DF0D9359ACDEF890@SN1PR20MB0496.namprd20.prod.outlook.com>
+References: <f2f1b160-cb20-e02f-1a88-3dffbeacc76e@linux.vnet.ibm.com>
+ <SN1PR20MB049686AE976A7994AA7949E8EF890@SN1PR20MB0496.namprd20.prod.outlook.com>,
+ <5ed0dda9-4581-aa0a-f63d-13ac7e4f5057@linux.vnet.ibm.com>
+In-Reply-To: <5ed0dda9-4581-aa0a-f63d-13ac7e4f5057@linux.vnet.ibm.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=kenneth.wilke@RACKSPACE.COM; 
+x-originating-ip: [72.32.180.183]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; SN1PR20MB0494;
+ 6:PQfz8IZkIG+W4oobvE3zeqE9Zdjk0mXOKIRclthSsFvE6ICp2iXEc7ote2j1qwCowJ7aR1r8ukZQt/Bp06wlRFcBBShlmvDfvLk8zo5CvpkTZLO2uctratAkWqnrCXyldimfxAHcb/y0sLAaa2GzVUO+trswaWztKUTj1kN6li/cr89AxJZkbYp16S7B0U19+W5vEbJdW2ZLuzlxJy0wzcphTAudDWhuswZ6b1N5aJGKhymGXXGIMejHJVxTFQvQEB42mL/bHpesYKG9YV3SupDl7aOIIPK5aXBlHCq5w4FrgmNLUscCF6cDXCfj3xKQvxjGKMiJ+u8WADCnR6r4Jw==;
+ 5:WitvCyXnDjCuBTKfuAuEEkAOfY95UZXQXUStt4U5TiyULBR57wWRoHeJu/XvHIwWVVWQgvpE81ILoqrn/tiRwDE7HpxLWdYAoRsqM4MVw1etC30Mf3EHMklxfY5yHYzt1WGfuKYhFai5cuxSCL3qdw==;
+ 24:EUmEdIB1HfKRzCDH2OfAFdc0Ej3p42IIqmK8Imz44qfkdPKCM10nWvuDH9rQXlLvMn4Hg55C8dnr7eW07UgN+QpUasbiJixLEeoAlLbLwpA=;
+ 7:ED8Qb3X4YRkR8KkRnzUrQuCRetAk4q/jWkm69NA8LDCB80AbjMMeF/quQovZnfF0SQ2ENY29iJNpNvj8dhIFiOQhw9JD7UAl1ODWYf5hpfod1GGq3eGYvPfhhtnn0SkQCelERZIX2WP+DoxavC5epwg9sCWbAMgVLbNK86SKgNMnvj60eaVCpDDtVApstIoTSbGuyNLWDA6+qzMLK1eB5nljZKn5fj5PnX05nCAeJVc=
+x-ms-exchange-antispam-srfa-diagnostics: SSOS;
+x-ms-office365-filtering-correlation-id: 2a051105-ae93-4731-3fa5-08d4e0e438be
+x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
+ RULEID:(300000500095)(300135000095)(300000501095)(300135300095)(22001)(300000502095)(300135100095)(2017030254152)(300000503095)(300135400095)(2017052603031)(201703131423075)(201703031133081)(201702281549075)(300000504095)(300135200095)(300000505095)(300135600095)(300000506095)(300135500095);
+ SRVR:SN1PR20MB0494; 
+x-ms-traffictypediagnostic: SN1PR20MB0494:
+x-exchange-antispam-report-test: UriScan:(158342451672863)(189930954265078)(65623756079841)(104084551191319); 
+x-microsoft-antispam-prvs: <SN1PR20MB0494A6DBD637F38EBE56BA1EEF890@SN1PR20MB0494.namprd20.prod.outlook.com>
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(100000700101)(100105000095)(100000701101)(100105300095)(100000702101)(100105100095)(6040450)(601004)(2401047)(5005006)(8121501046)(93006095)(93001095)(100000703101)(100105400095)(3002001)(10201501046)(6041248)(20161123558100)(20161123555025)(20161123560025)(201703131423075)(201702281528075)(201703061421075)(201703061406153)(20161123564025)(20161123562025)(6072148)(201708071742011)(100000704101)(100105200095)(100000705101)(100105500095);
+ SRVR:SN1PR20MB0494; BCL:0; PCL:0;
+ RULEID:(100000800101)(100110000095)(100000801101)(100110300095)(100000802101)(100110100095)(100000803101)(100110400095)(100000804101)(100110200095)(100000805101)(100110500095);
+ SRVR:SN1PR20MB0494; 
+x-forefront-prvs: 03965EFC76
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(24454002)(189002)(199003)(377454003)(8676002)(53546010)(7696004)(81156014)(105586002)(6246003)(15650500001)(7736002)(229853002)(236005)(99286003)(478600001)(2950100002)(9686003)(55016002)(3660700001)(106356001)(81166006)(54896002)(3846002)(77096006)(6506006)(8936002)(25786009)(6436002)(53936002)(74316002)(551544002)(3280700002)(68736007)(6116002)(102836003)(66066001)(2906002)(97736004)(189998001)(14454004)(19627405001)(5660300001)(50986999)(54356999)(86362001)(76176999)(33656002)(561944003)(2900100001)(101416001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:SN1PR20MB0494;
+ H:SN1PR20MB0496.namprd20.prod.outlook.com; FPR:; SPF:None; PTR:InfoNoRecords;
+ MX:1; A:1; LANG:en; 
+received-spf: None (protection.outlook.com: RACKSPACE.COM does not designate
+ permitted sender hosts)
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: multipart/alternative;
+ boundary="_000_SN1PR20MB04962A116A342DF0D9359ACDEF890SN1PR20MB0496namp_"
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Aug 2017 18:10:17.4458 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 570057f4-73ef-41c8-bcbb-08db2fc15c2b
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR20MB0494
+X-OriginatorOrg: rackspace.com
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -70,269 +100,173 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Aug 2017 18:03:48 -0000
+X-List-Received-Date: Fri, 11 Aug 2017 18:26:20 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
+--_000_SN1PR20MB04962A116A342DF0D9359ACDEF890SN1PR20MB0496namp_
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
 
-Export all the available status registers through debugfs, if the client
-driver wants them.
+Makes sense, sounds like a good route to me
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
----
- drivers/hwmon/pmbus/pmbus_core.c | 200 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 200 insertions(+)
+________________________________
+From: vishwa <vishwa@linux.vnet.ibm.com>
+Sent: Friday, August 11, 2017 12:11:01 PM
+To: Kenneth Wilke; OpenBMC Maillist
+Subject: Re: Design proposal to Non-Interactive password update for REST cl=
+ient
 
-diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
-index 40ceb5a..c491cc4 100644
---- a/drivers/hwmon/pmbus/pmbus_core.c
-+++ b/drivers/hwmon/pmbus/pmbus_core.c
-@@ -19,6 +19,7 @@
-  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-  */
- 
-+#include <linux/debugfs.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/init.h>
-@@ -102,6 +103,7 @@ struct pmbus_data {
- 	int num_attributes;
- 	struct attribute_group group;
- 	const struct attribute_group *groups[2];
-+	struct dentry *debugfs;		/* debugfs device directory */
- 
- 	struct pmbus_sensor *sensors;
- 
-@@ -142,6 +144,12 @@ struct pmbus_data {
- 	PMBUS_FAN_COMMAND_4,
- };
- 
-+struct pmbus_debugfs_entry {
-+	struct i2c_client *client;
-+	u8 page;
-+	u8 reg;
-+};
-+
- void pmbus_clear_cache(struct i2c_client *client)
- {
- 	struct pmbus_data *data = i2c_get_clientdata(client);
-@@ -2085,6 +2093,174 @@ static int pmbus_regulator_register(struct pmbus_data *data)
- }
- #endif
- 
-+static struct dentry *pmbus_debugfs_dir;	/* pmbus debugfs directory */
-+
-+#if IS_ENABLED(CONFIG_DEBUG_FS)
-+static int pmbus_debugfs_get(void *data, u64 *val)
-+{
-+	struct pmbus_debugfs_entry *entry = data;
-+
-+	*val = _pmbus_read_byte_data(entry->client, entry->page, entry->reg);
-+
-+	return 0;
-+}
-+DEFINE_DEBUGFS_ATTRIBUTE(pmbus_debugfs_ops, pmbus_debugfs_get, NULL,
-+			 "0x%02llx\n");
-+
-+static int pmbus_debugfs_get_status(void *data, u64 *val)
-+{
-+	struct pmbus_debugfs_entry *entry = data;
-+	struct pmbus_data *pdata = i2c_get_clientdata(entry->client);
-+
-+	*val = pdata->read_status(entry->client, entry->page);
-+
-+	return 0;
-+}
-+DEFINE_DEBUGFS_ATTRIBUTE(pmbus_debugfs_ops_status, pmbus_debugfs_get_status,
-+			 NULL, "0x%04llx\n");
-+
-+static int pmbus_init_debugfs(struct i2c_client *client,
-+			      struct pmbus_data *data)
-+{
-+	int i, idx = 0;
-+	char name[PMBUS_NAME_SIZE];
-+	struct pmbus_debugfs_entry *entries;
-+
-+	if (!pmbus_debugfs_dir)
-+		return -ENODEV;
-+
-+	/*
-+	 * Create the debugfs directory for this device. Use the hwmon device
-+	 * name to avoid conflicts (hwmon numbers are globally unique).
-+	 */
-+	data->debugfs = debugfs_create_dir(dev_name(data->hwmon_dev),
-+					   pmbus_debugfs_dir);
-+	if (IS_ERR_OR_NULL(data->debugfs)) {
-+		data->debugfs = NULL;
-+		return -ENODEV;
-+	}
-+
-+	/* Allocate the max possible entries we need. */
-+	entries = devm_kzalloc(data->dev,
-+			       sizeof(*entries) * (data->info->pages * 10),
-+			       GFP_KERNEL);
-+	if (!entries)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < data->info->pages; ++i) {
-+		/* Check accessibility of status register if it's not page 0 */
-+		if (!i || pmbus_check_status_register(client, i)) {
-+			/* No need to set reg as we have special read op. */
-+			entries[idx].client = client;
-+			entries[idx].page = i;
-+			scnprintf(name, PMBUS_NAME_SIZE, "status%d", i);
-+			debugfs_create_file(name, 0444, data->debugfs,
-+					    &entries[idx++],
-+					    &pmbus_debugfs_ops_status);
-+		}
-+
-+		if (data->info->func[i] & PMBUS_HAVE_STATUS_VOUT) {
-+			entries[idx].client = client;
-+			entries[idx].page = i;
-+			entries[idx].reg = PMBUS_STATUS_VOUT;
-+			scnprintf(name, PMBUS_NAME_SIZE, "status%d_vout", i);
-+			debugfs_create_file(name, 0444, data->debugfs,
-+					    &entries[idx++],
-+					    &pmbus_debugfs_ops);
-+		}
-+
-+		if (data->info->func[i] & PMBUS_HAVE_STATUS_IOUT) {
-+			entries[idx].client = client;
-+			entries[idx].page = i;
-+			entries[idx].reg = PMBUS_STATUS_IOUT;
-+			scnprintf(name, PMBUS_NAME_SIZE, "status%d_iout", i);
-+			debugfs_create_file(name, 0444, data->debugfs,
-+					    &entries[idx++],
-+					    &pmbus_debugfs_ops);
-+		}
-+
-+		if (data->info->func[i] & PMBUS_HAVE_STATUS_INPUT) {
-+			entries[idx].client = client;
-+			entries[idx].page = i;
-+			entries[idx].reg = PMBUS_STATUS_INPUT;
-+			scnprintf(name, PMBUS_NAME_SIZE, "status%d_input", i);
-+			debugfs_create_file(name, 0444, data->debugfs,
-+					    &entries[idx++],
-+					    &pmbus_debugfs_ops);
-+		}
-+
-+		if (data->info->func[i] & PMBUS_HAVE_STATUS_TEMP) {
-+			entries[idx].client = client;
-+			entries[idx].page = i;
-+			entries[idx].reg = PMBUS_STATUS_TEMPERATURE;
-+			scnprintf(name, PMBUS_NAME_SIZE, "status%d_temp", i);
-+			debugfs_create_file(name, 0444, data->debugfs,
-+					    &entries[idx++],
-+					    &pmbus_debugfs_ops);
-+		}
-+
-+		if (pmbus_check_byte_register(client, i, PMBUS_STATUS_CML)) {
-+			entries[idx].client = client;
-+			entries[idx].page = i;
-+			entries[idx].reg = PMBUS_STATUS_CML;
-+			scnprintf(name, PMBUS_NAME_SIZE, "status%d_cml", i);
-+			debugfs_create_file(name, 0444, data->debugfs,
-+					    &entries[idx++],
-+					    &pmbus_debugfs_ops);
-+		}
-+
-+		if (pmbus_check_byte_register(client, i, PMBUS_STATUS_OTHER)) {
-+			entries[idx].client = client;
-+			entries[idx].page = i;
-+			entries[idx].reg = PMBUS_STATUS_OTHER;
-+			scnprintf(name, PMBUS_NAME_SIZE, "status%d_other", i);
-+			debugfs_create_file(name, 0444, data->debugfs,
-+					    &entries[idx++],
-+					    &pmbus_debugfs_ops);
-+		}
-+
-+		if (pmbus_check_byte_register(client, i,
-+					      PMBUS_STATUS_MFR_SPECIFIC)) {
-+			entries[idx].client = client;
-+			entries[idx].page = i;
-+			entries[idx].reg = PMBUS_STATUS_MFR_SPECIFIC;
-+			scnprintf(name, PMBUS_NAME_SIZE, "status%d_mfr", i);
-+			debugfs_create_file(name, 0444, data->debugfs,
-+					    &entries[idx++],
-+					    &pmbus_debugfs_ops);
-+		}
-+
-+		if (data->info->func[i] & PMBUS_HAVE_STATUS_FAN12) {
-+			entries[idx].client = client;
-+			entries[idx].page = i;
-+			entries[idx].reg = PMBUS_STATUS_FAN_12;
-+			scnprintf(name, PMBUS_NAME_SIZE, "status%d_fan12", i);
-+			debugfs_create_file(name, 0444, data->debugfs,
-+					    &entries[idx++],
-+					    &pmbus_debugfs_ops);
-+		}
-+
-+		if (data->info->func[i] & PMBUS_HAVE_STATUS_FAN34) {
-+			entries[idx].client = client;
-+			entries[idx].page = i;
-+			entries[idx].reg = PMBUS_STATUS_FAN_34;
-+			scnprintf(name, PMBUS_NAME_SIZE, "status%d_fan34", i);
-+			debugfs_create_file(name, 0444, data->debugfs,
-+					    &entries[idx++],
-+					    &pmbus_debugfs_ops);
-+		}
-+	}
-+
-+	return 0;
-+}
-+#else
-+static int pmbus_init_debugfs(struct i2c_client *client,
-+			      struct pmbus_data *data)
-+{
-+	return 0;
-+}
-+#endif	/* IS_ENABLED(CONFIG_DEBUG_FS) */
-+
- int pmbus_do_probe(struct i2c_client *client, const struct i2c_device_id *id,
- 		   struct pmbus_driver_info *info)
- {
-@@ -2144,6 +2320,10 @@ int pmbus_do_probe(struct i2c_client *client, const struct i2c_device_id *id,
- 	if (ret)
- 		goto out_unregister;
- 
-+	ret = pmbus_init_debugfs(client, data);
-+	if (ret)
-+		dev_warn(dev, "Failed to register debugfs\n");
-+
- 	return 0;
- 
- out_unregister:
-@@ -2157,12 +2337,32 @@ int pmbus_do_probe(struct i2c_client *client, const struct i2c_device_id *id,
- int pmbus_do_remove(struct i2c_client *client)
- {
- 	struct pmbus_data *data = i2c_get_clientdata(client);
-+
-+	debugfs_remove_recursive(data->debugfs);
-+
- 	hwmon_device_unregister(data->hwmon_dev);
- 	kfree(data->group.attrs);
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(pmbus_do_remove);
- 
-+static int __init pmbus_core_init(void)
-+{
-+	pmbus_debugfs_dir = debugfs_create_dir("pmbus", NULL);
-+	if (IS_ERR(pmbus_debugfs_dir))
-+		pmbus_debugfs_dir = NULL;
-+
-+	return 0;
-+}
-+
-+static void __exit pmbus_core_exit(void)
-+{
-+	debugfs_remove_recursive(pmbus_debugfs_dir);
-+}
-+
-+module_init(pmbus_core_init);
-+module_exit(pmbus_core_exit);
-+
- MODULE_AUTHOR("Guenter Roeck");
- MODULE_DESCRIPTION("PMBus core driver");
- MODULE_LICENSE("GPL");
--- 
-1.8.3.1
+Sorry, I should have mentioned that I had looked at that option.
+
+For `chpasswd`, I need to fork a process but with `putspent` I can do in sa=
+me process.
+
+On 08/11/2017 10:20 PM, Kenneth Wilke wrote:
+
+Could chpasswd be used for that?
+
+________________________________
+From: openbmc <openbmc-bounces+kenneth.wilke=3Drackspace.com@lists.ozlabs.o=
+rg><mailto:openbmc-bounces+kenneth.wilke=3Drackspace.com@lists.ozlabs.org> =
+on behalf of vishwa <vishwa@linux.vnet.ibm.com><mailto:vishwa@linux.vnet.ib=
+m.com>
+Sent: Friday, August 11, 2017 11:18:48 AM
+To: OpenBMC Maillist
+Subject: Design proposal to Non-Interactive password update for REST client
+
+This email is about openbmc/openbmc#1714 ( REST API to update root
+password )
+
+Goal is to do Non-interactive password updates to enable a REST client
+to update the root password.
+
+My proposal is to use `getspent(3)` and `putspent(3)` and here is the flow.
+
+REST client will provide a method that takes std::string as parameter.
+
+The Provider at the BMC will receive the password and does these:
+
+  - Executes `getspent(3)` for "root" and gets the entries.
+  - Parses the `sp_pwdp` and extracts `encryption method` , `salt`.
+  - Makes a call to `crypt(3)` with the extracted `salt` and `user
+input` and generates encrypted pass-code
+  - Populates the structure and calls `putspent(3)` to update the password
+
+Please let me know your opinion on this.
+
+Thank you,
+
+!! Vishwa !!
+
+
+
+--_000_SN1PR20MB04962A116A342DF0D9359ACDEF890SN1PR20MB0496namp_
+Content-Type: text/html; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252">
+</head>
+<body bgcolor=3D"#FFFFFF" text=3D"#000000">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p>Makes sense, sounds like a good route to me<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> vishwa &lt;vishwa@lin=
+ux.vnet.ibm.com&gt;<br>
+<b>Sent:</b> Friday, August 11, 2017 12:11:01 PM<br>
+<b>To:</b> Kenneth Wilke; OpenBMC Maillist<br>
+<b>Subject:</b> Re: Design proposal to Non-Interactive password update for =
+REST client</font>
+<div>&nbsp;</div>
+</div>
+<div>Sorry, I should have mentioned that I had looked at that option.<br>
+<br>
+For `chpasswd`, I need to fork a process but with `putspent` I can do in sa=
+me process.<br>
+<br>
+<div class=3D"moz-cite-prefix">On 08/11/2017 10:20 PM, Kenneth Wilke wrote:=
+<br>
+</div>
+<blockquote cite=3D"mid:SN1PR20MB049686AE976A7994AA7949E8EF890@SN1PR20MB049=
+6.namprd20.prod.outlook.com" type=3D"cite">
+<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
+<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
+ding-left: 4pt; border-left: #800000 2px solid; } --></style>
+<meta content=3D"text/html; charset=3DUTF-8">
+<style type=3D"text/css" style=3D"">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
+or:#000000;
+          font-family:Calibri,Helvetica,sans-serif">
+<p>Could chpasswd be used for that?<br>
+</p>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" colo=
+r=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> openbmc
+<a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:openbmc-bounces&#43;kenne=
+th.wilke=3Drackspace.com@lists.ozlabs.org">
+&lt;openbmc-bounces&#43;kenneth.wilke=3Drackspace.com@lists.ozlabs.org&gt;<=
+/a> on behalf of vishwa
+<a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:vishwa@linux.vnet.ibm.com=
+">&lt;vishwa@linux.vnet.ibm.com&gt;</a><br>
+<b>Sent:</b> Friday, August 11, 2017 11:18:48 AM<br>
+<b>To:</b> OpenBMC Maillist<br>
+<b>Subject:</b> Design proposal to Non-Interactive password update for REST=
+ client</font>
+<div>&nbsp;</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:10pt;">
+<div class=3D"PlainText">This email is about openbmc/openbmc#1714 ( REST AP=
+I to update root
+<br>
+password )<br>
+<br>
+Goal is to do Non-interactive password updates to enable a REST client <br>
+to update the root password.<br>
+<br>
+My proposal is to use `getspent(3)` and `putspent(3)` and here is the flow.=
+<br>
+<br>
+REST client will provide a method that takes std::string as parameter.<br>
+<br>
+The Provider at the BMC will receive the password and does these:<br>
+<br>
+&nbsp; - Executes `getspent(3)` for &quot;root&quot; and gets the entries.<=
+br>
+&nbsp; - Parses the `sp_pwdp` and extracts `encryption method` , `salt`.<br=
+>
+&nbsp; - Makes a call to `crypt(3)` with the extracted `salt` and `user <br=
+>
+input` and generates encrypted pass-code<br>
+&nbsp; - Populates the structure and calls `putspent(3)` to update the pass=
+word<br>
+<br>
+Please let me know your opinion on this.<br>
+<br>
+Thank you,<br>
+<br>
+!! Vishwa !!<br>
+<br>
+</div>
+</span></font></blockquote>
+<br>
+</div>
+</body>
+</html>
+
+--_000_SN1PR20MB04962A116A342DF0D9359ACDEF890SN1PR20MB0496namp_--
