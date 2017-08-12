@@ -1,35 +1,34 @@
-Return-Path: <davem@davemloft.net>
-X-Greylist: delayed 545 seconds by postgrey-1.36 at bilbo;
- Sat, 12 Aug 2017 07:57:43 AEST
-Received: from shards.monkeyblade.net (shards.monkeyblade.net
- [184.105.139.130])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xTf4l2kMXzDr51
- for <openbmc@lists.ozlabs.org>; Sat, 12 Aug 2017 07:57:42 +1000 (AEST)
-Received: from localhost (74-93-104-98-Washington.hfc.comcastbusiness.net
- [74.93.104.98]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
- (Client did not present a certificate)
- (Authenticated sender: davem-davemloft)
- by shards.monkeyblade.net (Postfix) with ESMTPSA id 277AF124C291E;
- Fri, 11 Aug 2017 14:48:24 -0700 (PDT)
-Date: Fri, 11 Aug 2017 14:48:23 -0700 (PDT)
-Message-Id: <20170811.144823.1928647996484981190.davem@davemloft.net>
-To: sam@mendozajonas.com
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org, joel@jms.id.au, benh@kernel.crashing.org,
- gwshan@linux.vnet.ibm.com, ratagupt@in.ibm.com
-Subject: Re: [PATCH 0/3] NCSI VLAN Filtering Support
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <20170811061648.19661-1-sam@mendozajonas.com>
-References: <20170811061648.19661-1-sam@mendozajonas.com>
-X-Mailer: Mew version 6.7 on Emacs 25.2 / Mule 6.0 (HANACHIRUSATO)
-Mime-Version: 1.0
-Content-Type: Text/Plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
- (shards.monkeyblade.net [149.20.54.216]);
- Fri, 11 Aug 2017 14:48:24 -0700 (PDT)
+Return-Path: <wsa@the-dreams.de>
+X-Greylist: delayed 414 seconds by postgrey-1.36 at bilbo;
+ Sat, 12 Aug 2017 21:37:11 AEST
+Received: from pokefinder.org (sauhun.de [88.99.104.3])
+ by lists.ozlabs.org (Postfix) with ESMTP id 3xV0GH30FhzDr5G
+ for <openbmc@lists.ozlabs.org>; Sat, 12 Aug 2017 21:37:11 +1000 (AEST)
+Received: from localhost (p54B33FD3.dip0.t-ipconnect.de [84.179.63.211])
+ by pokefinder.org (Postfix) with ESMTPSA id 6C9A12C3187;
+ Sat, 12 Aug 2017 13:30:13 +0200 (CEST)
+Date: Sat, 12 Aug 2017 13:30:13 +0200
+From: Wolfram Sang <wsa@the-dreams.de>
+To: Brendan Higgins <brendanhiggins@google.com>
+Cc: Rick Altherr <raltherr@google.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Joel Stanley <joel@jms.id.au>, Robi Buranyi <rburanyi@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, linux-i2c@vger.kernel.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 1/1] i2c: aspeed: add proper support fo 24xx clock
+ params
+Message-ID: <20170812113013.2ajkurbj7ongg5cq@ninjato>
+References: <20170728204558.6455-1-brendanhiggins@google.com>
+ <20170728204558.6455-2-brendanhiggins@google.com>
+ <CAPLgG==69mNpqoqKUf-0tT4iJJ5-aCg+1uaAoLJ5QSe+8LGYkw@mail.gmail.com>
+ <CAPLgG=kUxfriYRq-fc+AD=eo1T+6xa4imzda7Fd_aXmAb2pD3Q@mail.gmail.com>
+ <CAFd5g45O7rJymFgnWj3SnSKhCvXoX4_xCO8FqeBFCe0-Du9AYg@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="dfq5twjtmfw3izn6"
+Content-Disposition: inline
+In-Reply-To: <CAFd5g45O7rJymFgnWj3SnSKhCvXoX4_xCO8FqeBFCe0-Du9AYg@mail.gmail.com>
+User-Agent: NeoMutt/20170113 (1.7.2)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -41,17 +40,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Aug 2017 21:57:43 -0000
+X-List-Received-Date: Sat, 12 Aug 2017 11:37:11 -0000
 
-From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-Date: Fri, 11 Aug 2017 16:16:45 +1000
 
-> This series (mainly patch 3) adds VLAN filtering to the NCSI implementation.
-> A fair amount of code already exists in the NCSI stack for VLAN filtering but
-> none of it is actually hooked up. This goes the final mile and fixes a few
-> bugs in the existing code found along the way (patch 2).
-> 
-> Patch 1 adds the appropriate flag to the ftgmac100 driver to enable filtering
-> as it's a large consumer of NCSI (and what I've been testing on).
+--dfq5twjtmfw3izn6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-This patch series does not apply cleanly to net-next, you need to respin.
+
+> That being said, I could implement this as a custom clock subclass, which
+> would probably be cleaner that what I have done.
+
+Shall I wait for that one or do you want this patch to be included?
+I don't mind, your call here...
+
+
+--dfq5twjtmfw3izn6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAlmO5sUACgkQFA3kzBSg
+KbYtYQ//YVHAHTJsF1rzm5WDWGLL+Uk4TEOdRPorqp2AxYnVEcMTzleESf02YxcG
+N1aiweTaAf78m6fjFakG1iOX2ud6qRldr/RWw5LtoIW5JhXu5WXpDZ5bgg7NfUi+
+shiiJ2QlNw8RTXgdvq3f7j/5PB03eImj4wnF/oL3AcTX/bSXm+RU36JBh6Grw8RA
+eypNJyw78WTpnq5Dzn9XYGEcoRTJUyPTIYSPapIE5Vjvz13RKggnP5VZEV8+td1r
+DK+i83g3SCWsc/+JqEfF8MO1KvPB0m23EfL8vfjERdKWWsayIfBhJFskYS/K7750
+tGO50ZIUiRHTKBbkzq0msAlxxPE41HjiY2hP3gGRP/0ORMLRN0ahBVoDkA8D1wyQ
+uszICZgb07T7utrfpfoGY3gybmihwdW19JBqJNhwSQAWBrjbKi+OUiG/oz+Dtefw
+JkB4wl+G1EL6B2oPNYw/XmVZJcMpSC1ec05bFGg6t5/LYMVosV8dSow1JDW6ffxt
+FLPtIRqbYaoyyWqXn5iGkb796A8ZlLKjPu5Hwz7ZK0ceSVqR6/w4k9ekA0z2dOba
+Wx/Do25welfgVLjn0v9LH1z1rPzhUNMXvJzFyITBEmUkQaIeq3OnVwsPRSiBI3c/
+EBvvvNIpoBJ7ZNW0J3+ot5gHXoJgvY91/6audsaBquZCulmlV7k=
+=6hK4
+-----END PGP SIGNATURE-----
+
+--dfq5twjtmfw3izn6--
