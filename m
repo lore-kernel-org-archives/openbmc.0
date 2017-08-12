@@ -1,25 +1,53 @@
-Return-Path: <wsa@the-dreams.de>
-Received: from pokefinder.org (sauhun.de [88.99.104.3])
- by lists.ozlabs.org (Postfix) with ESMTP id 3xV0N23FlTzDr5m
- for <openbmc@lists.ozlabs.org>; Sat, 12 Aug 2017 21:42:10 +1000 (AEST)
-Received: from localhost (p54B33FD3.dip0.t-ipconnect.de [84.179.63.211])
- by pokefinder.org (Postfix) with ESMTPSA id 2E23F2C31E4;
- Sat, 12 Aug 2017 13:32:51 +0200 (CEST)
-Date: Sat, 12 Aug 2017 13:32:50 +0200
-From: Wolfram Sang <wsa@the-dreams.de>
-To: Brendan Higgins <brendanhiggins@google.com>
-Cc: benh@kernel.crashing.org, joel@jms.id.au, venture@google.com,
- linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] i2c: aspeed: fixed potential null pointer dereference
-Message-ID: <20170812113250.iydbbggbcvfvhxyo@ninjato>
-References: <20170729010012.5032-1-brendanhiggins@google.com>
+Return-Path: <bjwyman@gmail.com>
+Received: from mail-qt0-x244.google.com (mail-qt0-x244.google.com
+ [IPv6:2607:f8b0:400d:c0d::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xV3kf1d2HzDr5F
+ for <openbmc@lists.ozlabs.org>; Sun, 13 Aug 2017 00:13:29 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="iHKti2a5"; 
+ dkim-atps=neutral
+Received: by mail-qt0-x244.google.com with SMTP id i19so6071012qte.1
+ for <openbmc@lists.ozlabs.org>; Sat, 12 Aug 2017 07:13:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=p4kwysos5uGeLTxMPkCBFN63floFfxLj21EDmnPnOSQ=;
+ b=iHKti2a5ygK/I6kLbW6JFnoRLAxTPkyt6cBcNsOB3LGC7dR9RoDJYAkjrq/XTc36MU
+ VUi+BP7xx7njrJnt1cAgso6RCMVp9EFFLnzDOtrKjFe4vDIZ6xi6sgzIXoJaJVT0dbfE
+ EobE+l56R+H7PSTaOSBmNoaEatoqjnPkpHAoe/meQJUCDs0H2hXfD31sy0opgaK8q1vt
+ TMI7rcbR3x1uqahxKusXtgx4n2F/CYjJN/2peZGcaFZW+ukZmGSp7NIeJ3gVaKOEGzxG
+ C6eGwP6RcH9HKCc2/Tl2F/tQnJK3Q9pIf206uSxeNyJayKYOwwEObZNoMJZqIuf2LfyL
+ MWLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=p4kwysos5uGeLTxMPkCBFN63floFfxLj21EDmnPnOSQ=;
+ b=I0xtAzk/alyz30p/QqQfCI1vBVTPBFTQF1I3gpKusyTXKeSp3uyT22eSoOkkasGYu1
+ gKvym1Kt76zZlK3dHm7lWp1UrYq6Dv8Tu2JBELh6UP0/reaPOSDoxePmH47ywGYHBS5r
+ /8v6fXW5b5IYCq0gKXkbRNhUTBO/focYWrUzZUnlDPWhKeEeveRO1Hg1Y8pjdiI4V5D5
+ RL9RxoK7DOxNZi9/oIzs7/iQlj+gnJfdSpjfy/mI6QFmt9RM1X1i8HY0a6uZug3f3I1s
+ yxpT2IQwCOHakN0r7U6lszh3yp/ZCeq9Ii+tlMYdAIO4Vn4TAQZmDcAdBOaiwImdv/M1
+ 5SrA==
+X-Gm-Message-State: AHYfb5iC0Cl1HCdkE3Z/HG0iYK1XE10px/Bi3ahi3mTXkEMjFPGHDdH4
+ MYEsVlXw2jQ7x1GoZHro5WyG/v/T3Q==
+X-Received: by 10.200.38.155 with SMTP id 27mr26976264qto.228.1502547205468;
+ Sat, 12 Aug 2017 07:13:25 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="v4pwb3ql6rtpdzc6"
-Content-Disposition: inline
-In-Reply-To: <20170729010012.5032-1-brendanhiggins@google.com>
-User-Agent: NeoMutt/20170113 (1.7.2)
+Received: by 10.140.82.232 with HTTP; Sat, 12 Aug 2017 07:13:24 -0700 (PDT)
+In-Reply-To: <1502474205-1557-1-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1502474205-1557-1-git-send-email-eajames@linux.vnet.ibm.com>
+From: Brandon Wyman <bjwyman@gmail.com>
+Date: Sat, 12 Aug 2017 09:13:24 -0500
+Message-ID: <CAK_vbW02752Bz4bCe2FKk_6A+=B6Pp6qBBMfDrQei2xph5U0eg@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v5 0/4] hwmon: (pmbus): Add IBM Common Form
+ Factor (CFF) power supply driver
+To: Eddie James <eajames@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>,
+ Matt Spinler <mspinler@linux.vnet.ibm.com>,
+ "Edward A. James" <eajames@us.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -31,41 +59,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 12 Aug 2017 11:42:10 -0000
+X-List-Received-Date: Sat, 12 Aug 2017 14:13:30 -0000
 
+On Fri, Aug 11, 2017 at 12:56 PM, Eddie James
+<eajames@linux.vnet.ibm.com> wrote:
+> From: "Edward A. James" <eajames@us.ibm.com>
+>
+> This series adds a hwmon pmbus driver for a POWER System power supply. The
+> core monitoring functionality is provided by pmbus.
+>
+> These devices should be auto-probed on the I2C bus, so I added them to the
+> witherspoon device tree.
+>
+> Changes since v4:
+>  * Rename the driver again...
+>  * Change compatible property; we can't have any '-' in the compatible
+>    property because pmbus will use that string for hwmon registration name,
+>    which disallows that character.
+>  * Remove debugfs bool from pmbus_driver_info
+>  * Add comment about returning rc when reading STATUS_MFR_SPECIFIC fails.
+>
+> Edward A. James (4):
+>   dt-bindings: i2c: Document the IBM CCF power supply version 1
+>   hwmon: (pmbus): Add IBM Common Form Factor (CFF) power supply driver
+>   Documentation: hwmon: Document the IBM CFF power supply
+>   ARM: dts: aspeed: Witherspoon: Add power supplies to i2c bus
+>
+>  .../devicetree/bindings/i2c/ibm,cffps1.txt         |  21 +++
+>  Documentation/hwmon/ibm-cffps                      |  54 ++++++++
+>  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts   |  10 ++
+>  drivers/hwmon/pmbus/Kconfig                        |  10 ++
+>  drivers/hwmon/pmbus/Makefile                       |   1 +
+>  drivers/hwmon/pmbus/ibm-cffps.c                    | 151 +++++++++++++++++++++
+>  6 files changed, 247 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/i2c/ibm,cffps1.txt
+>  create mode 100644 Documentation/hwmon/ibm-cffps
+>  create mode 100644 drivers/hwmon/pmbus/ibm-cffps.c
+>
+> --
+> 1.8.3.1
+>
 
---v4pwb3ql6rtpdzc6
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Jul 28, 2017 at 06:00:12PM -0700, Brendan Higgins wrote:
-> Before I skipped null checks when the master is in the STOP state; this
-> fixes that.
->=20
-> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
-
-Is there a suitable "Fixes:" tag for this?
-
-
---v4pwb3ql6rtpdzc6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAlmO52IACgkQFA3kzBSg
-KbY2CQ/+Lxze5qPyy9atMVEydykqYJU5F1NFE5B9ps/wfvZvs1i0ndiRa/BKCHj/
-XslkQsH+bIHJRXaOmj9UkGscUOnff4gUn+YOQ0U+6TCmET0rujLpRoBNEP0VWj5b
-drhhHd5/zPEKU3e3r7uualNxuDpv8JRZco9JCwC8Jp0DnW3mu4kIy2TV9dzgs7Pw
-H3SrUknCzpIx4RxpUafSSiG3ueqmnrDHHkwevYJd5NojMru25/9xbawOb4kXlCnW
-PMlkuBzXG9Od8uBVsTLSooG8DOCjKmR5z5nqoyBXeSTpwJXBFfmTrnHlnEuLyTBj
-8Mu4kntUvb7v19gXaTnTr/G8wkLxuiHztwTA8WE3hj/8cCWDp6KZ4tdntYdxNbOK
-7Cl17i7tBtkU8Bh73hMdU7gPh0PCL45sjR1qD2l+AZSjdW9oP16sqV7kPWCXIRhe
-hsRguDM7iADHbtsSoMnhjbFrNl62N21Nhmdj4cZflvOk7M66eu31wd0aRZQlYAdo
-Dt8D05z9FdCowhbS1ONv4OswNxMFkyBt7R61EWK0shjtcJFtU+1f+w8RBSaltq5k
-Vsroax95+GsmpeDNjCdqdKz6LH+UAS6AKsNwxWlP+uLDKIraVWM8yPXY9aaL9g6c
-EYCNj+rwmLH4xpWHqK6g5XAsHoUCvFHnCCUj/h8Dfybrujvgtcc=
-=9OJ2
------END PGP SIGNATURE-----
-
---v4pwb3ql6rtpdzc6--
+Tested-by: Brandon Wyman <bjwyman@gmail.com>
