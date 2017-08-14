@@ -1,60 +1,62 @@
-Return-Path: <linux@roeck-us.net>
-Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <sam@mendozajonas.com>
+Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
+ [66.111.4.224])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xVg7D6fS8zDrF9
- for <openbmc@lists.ozlabs.org>; Sun, 13 Aug 2017 23:48:24 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xVy7G1H2BzDqYY
+ for <openbmc@lists.ozlabs.org>; Mon, 14 Aug 2017 11:04:25 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.b="37O8u9va";
- dkim-atps=neutral
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
- :Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
- :Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=PuF+7JgJinvQcP4DTD3mrPhXD/kyr7l4u4p6D22al/A=; b=37O8u9vagYs7UbJy8MUkq1E9Fn
- h8m7Rqu0mQ5lioyjcc3KupQimYMp7IeK3vWTFpRDzLjfSLvkatwIQN9OUE1MrlB8in/C2qwZBLRDq
- ytGHZ4tloPXuhe6g7Kl8c8MA87yeR8pxsuoHSj4UY8LUdJpYd4wykSsba3BZ+FuEtKuTYb3cBU14L
- KAAmTacO5AGdpWf7iqVpAC5JiVZhtHqRGLU95FeXJU9e+UiDMo2Yv2Esnj7dX0B7wNBVFAptCz9sk
- QoQDVvw8ztZvaICsEgg3LYL6upgJP/68eMQNydbS3HBTddWlDmWQDGIBSG7s2OnxpVjrt0QMDaNpy
- 8Oz2YHFQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net
- ([108.223.40.66]:49426 helo=localhost)
- by bh-25.webhostbox.net with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
- (Exim 4.89) (envelope-from <linux@roeck-us.net>)
- id 1dgtFd-000UnO-Mw; Sun, 13 Aug 2017 13:48:22 +0000
-Date: Sun, 13 Aug 2017 06:48:20 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Mykola Kostenok <c_mykolak@mellanox.com>
-Cc: Jean Delvare <jdelvare@suse.com>, linux-hwmon@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>,
- Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>,
- openbmc@lists.ozlabs.org, Patrick Venture <venture@google.com>,
- Vadim Pasternak <vadimp@mellanox.com>, Ohad Oz <ohado@mellanox.com>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>
-Subject: Re: [v6,resend] hwmon: (aspeed-pwm-tacho) cooling device support.
-Message-ID: <20170813134820.GA6258@roeck-us.net>
-References: <20170803085044.55456-1-c_mykolak@mellanox.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20170803085044.55456-1-c_mykolak@mellanox.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Authenticated_sender: guenter@roeck-us.net
-X-OutGoing-Spam-Status: No, score=-1.0
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - lists.ozlabs.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-Get-Message-Sender-Via: bh-25.webhostbox.net: authenticated_id:
- guenter@roeck-us.net
-X-Authenticated-Sender: bh-25.webhostbox.net: guenter@roeck-us.net
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+ unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
+ header.b="TQyeaJ9q"; dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="bFVtKwta"; dkim-atps=neutral
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 868E81A77;
+ Sun, 13 Aug 2017 21:04:21 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute2.internal (MEProxy); Sun, 13 Aug 2017 21:04:21 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ mendozajonas.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=
+ fm1; bh=1Kq7yMOZR+IuhgzRGPMxcFDo77knlOHUMM/XLDhIWyA=; b=TQyeaJ9q
+ gZC783dzD0137npPz92s5hge5B0DtRTuqyRBTlmdoGedtOniksFiZuu9K06UMLMy
+ bMfkt4CbU76m7I2y1fEI8IQQzMckThVx0x/t6aXseYzgdE5Y11fKReU7SVA1K7Xp
+ UNG9ILRa1c7kNTBRZUKMdRYYc2e2ixr8HxUmnQg4DXnbKV4R3AJoU/fskpisabND
+ D2lbzFNc8tNm8QMs4Nh9TAZZBsNxB9ZmMxbl+Wg+qwGznsRqj2iDPCQG7Kv9THwB
+ NoRbD9s1nGm2FWZQqnLCk/ybO4j+6M1ZFPKlC+mYnMG36JiZCSzbAiaMBlF1yZlb
+ vRWI0r+v9TeXGA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=
+ fm1; bh=1Kq7yMOZR+IuhgzRGPMxcFDo77knlOHUMM/XLDhIWyA=; b=bFVtKwta
+ IUyLA+G3tnZIwwESsnhNjVheOtHxuZlp7nfuY/iLKMkGgN3fFEjs23PFpMHXNiYf
+ pmedewSxBjeVijd12gZloTlNXbhoDwYYLwEGr7hBEgeRelrwwVTzWtkDmHzdErwD
+ RgI4YpBGDYFPlkEvyYaOUZ6u1yHVKgVzjXzVcFV2xuoRZAZLjrU3OEY32pzijHTm
+ RXYkKYfZj/wyYa2U41W1xhz7ZOfJY3ilLNRJ49n0JB0jW1OyGFU+17BqSxSvWYAW
+ IHtVftqsC8Rp9IbLfjX0MlEwQGpmql4qBKP1SC7I7GgdSsMERuOO9Akz1dFPBtk3
+ y1p3HaRwwZV8AQ==
+X-ME-Sender: <xms:FfeQWfQRzsGhfszRIy4sbwV446K9EJquyxZao5fdyGVu8zlh3G2ICA>
+X-Sasl-enc: P3UkrN7m1GCUgBoaDrUl9HY1GkJS3g5LXVDMEH2LzZk1 1502672660
+Received: from v4.ozlabs.ibm.com (unknown [122.99.82.10])
+ by mail.messagingengine.com (Postfix) with ESMTPA id A43317E70C;
+ Sun, 13 Aug 2017 21:04:18 -0400 (EDT)
+Message-ID: <1502672656.913.1.camel@mendozajonas.com>
+Subject: Re: [PATCH 0/3] NCSI VLAN Filtering Support
+From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+To: David Miller <davem@davemloft.net>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, joel@jms.id.au, benh@kernel.crashing.org, 
+ gwshan@linux.vnet.ibm.com, ratagupt@in.ibm.com
+Date: Mon, 14 Aug 2017 11:04:16 +1000
+In-Reply-To: <20170811.144823.1928647996484981190.davem@davemloft.net>
+References: <20170811061648.19661-1-sam@mendozajonas.com>
+ <20170811.144823.1928647996484981190.davem@davemloft.net>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.24.5 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -66,216 +68,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 13 Aug 2017 13:48:25 -0000
+X-List-Received-Date: Mon, 14 Aug 2017 01:04:27 -0000
 
-On Thu, Aug 03, 2017 at 11:50:44AM +0300, Mykola Kostenok wrote:
-> Add support in aspeed-pwm-tacho driver for cooling device creation.
-> This cooling device could be bound to a thermal zone
-> for the thermal control. Device will appear in /sys/class/thermal
-> folder as cooling_deviceX. Then it could be bound to particular
-> thermal zones. Allow specification of the cooling levels
-> vector - PWM duty cycle values in a range from 0 to 255
-> which correspond to thermal cooling states.
+On Fri, 2017-08-11 at 14:48 -0700, David Miller wrote:
+> From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+> Date: Fri, 11 Aug 2017 16:16:45 +1000
 > 
-> Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
-> Reviewed-by: Joel Stanley <joel@jms.id.au>
+> > This series (mainly patch 3) adds VLAN filtering to the NCSI implementation.
+> > A fair amount of code already exists in the NCSI stack for VLAN filtering but
+> > none of it is actually hooked up. This goes the final mile and fixes a few
+> > bugs in the existing code found along the way (patch 2).
+> > 
+> > Patch 1 adds the appropriate flag to the ftgmac100 driver to enable filtering
+> > as it's a large consumer of NCSI (and what I've been testing on).
+> 
+> This patch series does not apply cleanly to net-next, you need to respin.
 
-Applied to hwmon-next.
+Sorry about that, silly Friday mistake :)
+I noticed I've also squashed an ftgmac100 change into the wrong patch,
+I'll fix that up along with the respin.
 
-Thanks,
-Guenter
-
-> ---
-> v5 -> v6:
->  Pointed out by Andrew Jeffery:
->  - remove unnecessary of_node_put() after loop.
-> 
-> v4 -> v5:
->  Pointed out by Joel Stanley:
->  - Use snprintf to fill cdev->name[16].
-> 
-> v3 -> v4:
->  Pointed out by Joel Stanley:
->  - Move patch history after Signoff.
->  - Remove unnecessary type cast.
->  - Use array instead of pointers for colling_levels.
->  - Rename num_level to num_levels.
->  - Use local variable to make function easier to read.
->  - Drop unnecessary sizeof(u8).
->  - Use IS_ERR instead of PTR_ERR_OR_ZERO.
-> 
-> v2 -> v3:
->  Pointed out by Rob Herring:
->  - Put cooling-levels under fan subnodes.
-> 
-> v1 -> v2:
->  - Remove device tree binding file from the patch.
->  - Move of_node_put out of cycle because of_get_next_child
->    already do of_put_node on previous child.
-> ---
->  drivers/hwmon/aspeed-pwm-tacho.c | 116 ++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 114 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/hwmon/aspeed-pwm-tacho.c b/drivers/hwmon/aspeed-pwm-tacho.c
-> index ddfe66b..69b97d4 100644
-> --- a/drivers/hwmon/aspeed-pwm-tacho.c
-> +++ b/drivers/hwmon/aspeed-pwm-tacho.c
-> @@ -20,6 +20,7 @@
->  #include <linux/platform_device.h>
->  #include <linux/sysfs.h>
->  #include <linux/regmap.h>
-> +#include <linux/thermal.h>
->  
->  /* ASPEED PWM & FAN Tach Register Definition */
->  #define ASPEED_PTCR_CTRL		0x00
-> @@ -166,6 +167,18 @@
->  /* How long we sleep in us while waiting for an RPM result. */
->  #define ASPEED_RPM_STATUS_SLEEP_USEC	500
->  
-> +#define MAX_CDEV_NAME_LEN 16
-> +
-> +struct aspeed_cooling_device {
-> +	char name[16];
-> +	struct aspeed_pwm_tacho_data *priv;
-> +	struct thermal_cooling_device *tcdev;
-> +	int pwm_port;
-> +	u8 *cooling_levels;
-> +	u8 max_state;
-> +	u8 cur_state;
-> +};
-> +
->  struct aspeed_pwm_tacho_data {
->  	struct regmap *regmap;
->  	unsigned long clk_freq;
-> @@ -180,6 +193,7 @@ struct aspeed_pwm_tacho_data {
->  	u8 pwm_port_type[8];
->  	u8 pwm_port_fan_ctrl[8];
->  	u8 fan_tach_ch_source[16];
-> +	struct aspeed_cooling_device *cdev[8];
->  	const struct attribute_group *groups[3];
->  };
->  
-> @@ -765,6 +779,94 @@ static void aspeed_create_fan_tach_channel(struct aspeed_pwm_tacho_data *priv,
->  	}
->  }
->  
-> +static int
-> +aspeed_pwm_cz_get_max_state(struct thermal_cooling_device *tcdev,
-> +			    unsigned long *state)
-> +{
-> +	struct aspeed_cooling_device *cdev = tcdev->devdata;
-> +
-> +	*state = cdev->max_state;
-> +
-> +	return 0;
-> +}
-> +
-> +static int
-> +aspeed_pwm_cz_get_cur_state(struct thermal_cooling_device *tcdev,
-> +			    unsigned long *state)
-> +{
-> +	struct aspeed_cooling_device *cdev = tcdev->devdata;
-> +
-> +	*state = cdev->cur_state;
-> +
-> +	return 0;
-> +}
-> +
-> +static int
-> +aspeed_pwm_cz_set_cur_state(struct thermal_cooling_device *tcdev,
-> +			    unsigned long state)
-> +{
-> +	struct aspeed_cooling_device *cdev = tcdev->devdata;
-> +
-> +	if (state > cdev->max_state)
-> +		return -EINVAL;
-> +
-> +	cdev->cur_state = state;
-> +	cdev->priv->pwm_port_fan_ctrl[cdev->pwm_port] =
-> +					cdev->cooling_levels[cdev->cur_state];
-> +	aspeed_set_pwm_port_fan_ctrl(cdev->priv, cdev->pwm_port,
-> +				     cdev->cooling_levels[cdev->cur_state]);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct thermal_cooling_device_ops aspeed_pwm_cool_ops = {
-> +	.get_max_state = aspeed_pwm_cz_get_max_state,
-> +	.get_cur_state = aspeed_pwm_cz_get_cur_state,
-> +	.set_cur_state = aspeed_pwm_cz_set_cur_state,
-> +};
-> +
-> +static int aspeed_create_pwm_cooling(struct device *dev,
-> +				     struct device_node *child,
-> +				     struct aspeed_pwm_tacho_data *priv,
-> +				     u32 pwm_port, u8 num_levels)
-> +{
-> +	int ret;
-> +	struct aspeed_cooling_device *cdev;
-> +
-> +	cdev = devm_kzalloc(dev, sizeof(*cdev), GFP_KERNEL);
-> +
-> +	if (!cdev)
-> +		return -ENOMEM;
-> +
-> +	cdev->cooling_levels = devm_kzalloc(dev, num_levels, GFP_KERNEL);
-> +	if (!cdev->cooling_levels)
-> +		return -ENOMEM;
-> +
-> +	cdev->max_state = num_levels - 1;
-> +	ret = of_property_read_u8_array(child, "cooling-levels",
-> +					cdev->cooling_levels,
-> +					num_levels);
-> +	if (ret) {
-> +		dev_err(dev, "Property 'cooling-levels' cannot be read.\n");
-> +		return ret;
-> +	}
-> +	snprintf(cdev->name, MAX_CDEV_NAME_LEN, "%s%d", child->name, pwm_port);
-> +
-> +	cdev->tcdev = thermal_of_cooling_device_register(child,
-> +							 cdev->name,
-> +							 cdev,
-> +							 &aspeed_pwm_cool_ops);
-> +	if (IS_ERR(cdev->tcdev))
-> +		return PTR_ERR(cdev->tcdev);
-> +
-> +	cdev->priv = priv;
-> +	cdev->pwm_port = pwm_port;
-> +
-> +	priv->cdev[pwm_port] = cdev;
-> +
-> +	return 0;
-> +}
-> +
->  static int aspeed_create_fan(struct device *dev,
->  			     struct device_node *child,
->  			     struct aspeed_pwm_tacho_data *priv)
-> @@ -778,6 +880,15 @@ static int aspeed_create_fan(struct device *dev,
->  		return ret;
->  	aspeed_create_pwm_port(priv, (u8)pwm_port);
->  
-> +	ret = of_property_count_u8_elems(child, "cooling-levels");
-> +
-> +	if (ret > 0) {
-> +		ret = aspeed_create_pwm_cooling(dev, child, priv, pwm_port,
-> +						ret);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
->  	count = of_property_count_u8_elems(child, "aspeed,fan-tach-ch");
->  	if (count < 1)
->  		return -EINVAL;
-> @@ -834,9 +945,10 @@ static int aspeed_pwm_tacho_probe(struct platform_device *pdev)
->  
->  	for_each_child_of_node(np, child) {
->  		ret = aspeed_create_fan(dev, child, priv);
-> -		of_node_put(child);
-> -		if (ret)
-> +		if (ret) {
-> +			of_node_put(child);
->  			return ret;
-> +		}
->  	}
->  
->  	priv->groups[0] = &pwm_dev_group;
+Cheers,
+Sam
