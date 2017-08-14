@@ -3,59 +3,56 @@ Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xW56g3HRVzDqm8
- for <openbmc@lists.ozlabs.org>; Mon, 14 Aug 2017 16:19:23 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xW6mV2CbgzDqFw
+ for <openbmc@lists.ozlabs.org>; Mon, 14 Aug 2017 17:33:46 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="r2T3FqoU"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="CI1lOd8v"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="hhf2ZbYj"; dkim-atps=neutral
+ header.b="YAnah6Kw"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 4071D20D43;
- Mon, 14 Aug 2017 02:19:21 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Mon, 14 Aug 2017 02:19:21 -0400
+ by mailout.nyi.internal (Postfix) with ESMTP id BB72C20D31;
+ Mon, 14 Aug 2017 03:33:43 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Mon, 14 Aug 2017 03:33:43 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=Fq/0W+2r+lXyOLhHo922mqxgBzDOjvzWcIUGcwVP+
- O0=; b=r2T3FqoUr+DrX8QrSJ3HVhgYdm5+nCzxImCToqiB4l/9Yw5h2IgtxUD8T
- wvtxBOliXhBofzlH07veW+ABHdkBPynT8bHq2zuVQ2/MRz2NLUksD8xlY2IvzK1E
- 1tZDrDRPoBz4CxUf+mL6UmhXTOd7CX9ssP5A4ewk1dzhiccfkVUd5RDL3V6Zvp/p
- Bc8dQpP5AlMzshaETLzxRr10/O0Qn8WPfj8Ou465bJYkSc3r+Nd5lXhDPFEqGVtM
- MY480uqpLGKoCvYAygsvXsBrUJHayUTt5KsOd3gOMkgM9lP1yvOyNAjsJCIYsiZe
- njujJwIhDcjYOOG40EbsHrTwU060Q==
+ :x-sasl-enc; s=fm1; bh=jFDhW81+rj4M6Dc7UA1BzqWvkPAH2K6YoqrN9c6Fh
+ Fk=; b=CI1lOd8vBZxmFLQZM7IRdCTe2S9ADhKYkchlNsYckwLbcnRS9LLWOWYFe
+ perZ6OIa5to1ti6L1wXwLF50JxayWjFuMRzui/HIGdaSWyQVq1zM7JUZvEga5x5A
+ hAl0WZ1A04NIFguWHkzgwel8fl3Z+ee+9ADOqCOlSq3bb2x48/KzmnbwcKuFaKXU
+ E0xfEsmFmLGKlluAfWDqvcbQhlIlpruOVnwppvQX3YDoFjFp5ZUcpo9uaILe7/ln
+ 70n3ng3ApHlRT4yHk6C35/t+wInIm/Xs4LwsOD9Kvuja1TF7XAEbThqN/ki7UjcH
+ GCwjgL3x6KW4+sTXB90y4plFRIBpg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=Fq/0W+2r+lXyOLhHo9
- 22mqxgBzDOjvzWcIUGcwVP+O0=; b=hhf2ZbYjiJt4/EKyYzanPSud/NL1JgBG5a
- /zasZC+ci7u9b//CzJYPwcWjKHWe60qM13RE8zadwwTinZavUP0jESKd+9HPSDMH
- WcchFuIIZet4zgtCopo7RSuMF3yL1gmrx6ZAZfFKkIyxHXnd0PapjUjFXYOYwQKn
- S78C4KXfEKcsY0INO7UizPYody29HblYRDNyZRahqVIOdg4w4mPRviWeQe7lVnE4
- /Hhfkzttkpsf1T8lnyB4EennWabAbv+Rbtyd5JyMafHFLiGqbXWBHqvXaFIXt4PF
- hxEMpCg+MjQ3JQqMyChq1uZ+uHUpU0wj1WZMCBuHcjnYHr4x6tqw==
-X-ME-Sender: <xms:6UCRWVQK0SL7_cpCBFO543y06m51YQT6_IRc2lYcZslmSME6ed6ABQ>
-X-Sasl-enc: 8gTuowyqCECYZvtC+Vj/Txjs8EMv56Ezu4b3LTb6AyUk 1502691560
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=jFDhW81+rj4M6Dc7UA
+ 1BzqWvkPAH2K6YoqrN9c6FhFk=; b=YAnah6KwDERe8incj4ljhKrunQf61H+SFm
+ uJACuGtTU0AAhCxmQ3A9H2esS+NqC3iRlXM9t8+2SguJyK82nHx1sl73MzeM7Dso
+ FTo9yZ8FsOdF0bhSucx93QY58d7fdIQb6nSDaqbSCKj5u6u59fibpHF5woy/mTR1
+ i+8ABOHwIg5pUJ9uQq4O2HB++ylJPiNCuSsa4Cj5lar6YMPS1j4OgzOygk5q8EP5
+ OXvOaiuUypYlqmyuaFsKGM1Pnuwishbvu/SdYBvUOxSqu6Fkt1s+saJygN/vQqdS
+ Gp+yNyr3el8/FGe1lj3g6RzDt4EkcSzt9uk+TJddKdVdn5MCA72g==
+X-ME-Sender: <xms:V1KRWbEqejJaMQhQqtxWaV9Fxu9S5OUjus7PrGkzhqQ1W0ot6TAGNA>
+X-Sasl-enc: NxWXcgTgO5liw76MDHWM2QJ6OWIAEtRk87iHv5bLUVQ6 1502696022
 Received: from keelia (ppp118-210-176-216.bras2.adl6.internode.on.net
  [118.210.176.216])
- by mail.messagingengine.com (Postfix) with ESMTPA id 439777E6AD;
- Mon, 14 Aug 2017 02:19:18 -0400 (EDT)
-Message-ID: <1502691553.14932.9.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10 v2 3/4] hwmon: (pmbus): Add generic alarm
- bit for iin and pin
+ by mail.messagingengine.com (Postfix) with ESMTPA id A6051240B1;
+ Mon, 14 Aug 2017 03:33:41 -0400 (EDT)
+Message-ID: <1502696018.14932.20.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.10 v5 1/4] dt-bindings: i2c: Document the
+ IBM CCF power supply version 1
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>, Eddie James <eajames@linux.vnet.ibm.com>
-Cc: "Edward A. James" <eajames@us.ibm.com>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>
-Date: Mon, 14 Aug 2017 15:49:13 +0930
-In-Reply-To: <CACPK8XeYV+kHR0M3JAyzUTYoM7Q==ULV1mHg8phMVTRSRNNUHg@mail.gmail.com>
-References: <1502474608-2674-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1502474608-2674-4-git-send-email-eajames@linux.vnet.ibm.com>
- <CACPK8Xee32=f0pDV40NSBKffTqAJz5DXeCBgEH-Af_jyo8EYVA@mail.gmail.com>
- <CACPK8XeYV+kHR0M3JAyzUTYoM7Q==ULV1mHg8phMVTRSRNNUHg@mail.gmail.com>
+To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Cc: "Edward A. James" <eajames@us.ibm.com>, bjwyman@gmail.com
+Date: Mon, 14 Aug 2017 17:03:38 +0930
+In-Reply-To: <1502474205-1557-2-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1502474205-1557-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <1502474205-1557-2-git-send-email-eajames@linux.vnet.ibm.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-yDr2VFqzSqOZPdKUoZRA"
+ protocol="application/pgp-signature"; boundary="=-KucG5YVOPciyZ/y2p3q0"
 X-Mailer: Evolution 3.22.6-1ubuntu1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -69,53 +66,90 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Aug 2017 06:19:24 -0000
+X-List-Received-Date: Mon, 14 Aug 2017 07:33:47 -0000
 
 
---=-yDr2VFqzSqOZPdKUoZRA
+--=-KucG5YVOPciyZ/y2p3q0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2017-08-14 at 14:36 +0930, Joel Stanley wrote:
-> > On Mon, Aug 14, 2017 at 2:03 PM, Joel Stanley <joel@jms.id.au> wrote:
-> > On Sat, Aug 12, 2017 at 3:33 AM, Eddie James <eajames@linux.vnet.ibm.co=
-m> wrote:
-> > > > > > From: "Edward A. James" <eajames@us.ibm.com>
-> > >=C2=A0
-> > > Add PB_STATUS_INPUT as the generic alarm bit for iin and pin. We also
-> > > need to redo the status register checking before setting up the boole=
-an
-> > > attribute, since it won't necessarily check STATUS_WORD if the device
-> > > doesn't support it, which we need for this bit.
-> > >=C2=A0
-> > > Signed-off-by: Edward A. James <eajames@us.ibm.com>
-> >=C2=A0
-> > I have merged the upstream commit
-> > (cbcdec6202c934bd72fca4fe9db255d84f907dbe) into dev-4.10.
+On Fri, 2017-08-11 at 12:56 -0500, Eddie James wrote:
+> > From: "Edward A. James" <eajames@us.ibm.com>
 >=C2=A0
-> That should say c159be9e902a59a117e67d466c872ecc46240ba5.
+> > Signed-off-by: Edward A. James <eajames@us.ibm.com>
+> ---
+> =C2=A0.../devicetree/bindings/i2c/ibm,cffps1.txt=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0| 21
++++++++++++++++++++++
+> =C2=A01 file changed, 21 insertions(+)
+> =C2=A0create mode 100644
+Documentation/devicetree/bindings/i2c/ibm,cffps1.txt
+>=C2=A0
+> diff --git a/Documentation/devicetree/bindings/i2c/ibm,cffps1.txt
+b/Documentation/devicetree/bindings/i2c/ibm,cffps1.txt
+> new file mode 100644
+> index 0000000..f68a0a6
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/i2c/ibm,cffps1.txt
+> @@ -0,0 +1,21 @@
+> +Device-tree bindings for IBM Common Form Factor Power Supply Version
+1
+> +------------------------------------------------------------------
+----
+> +
+> +Required properties:
+> + - compatible =3D "ibm,cffps1";
+> > + - reg =3D < I2C bus address >;		: Address of the
+power supply on the
+> > +					=C2=A0=C2=A0I2C bus.
 
-It was in the ballpark - it started with a 'c' at least.
---=-yDr2VFqzSqOZPdKUoZRA
+Should we define properties for these registers?
+
+* OPERATION
+* ON_OFF_CONFIG
+* SYS_CONFIG
+
+Cheers,
+
+Andrew
+
+> +
+> +Example:
+> +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0i2c-bus@100 {
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0#address-cells =3D <1>;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0#size-cells =3D <0>;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0#interrupt-cells =3D <1>=
+;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0< more properties >
+> +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0power-supply@68 {
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+compatible =3D "ibm,cffps1";
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+reg =3D <0x68>;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0};
+> +=C2=A0=C2=A0=C2=A0=C2=A0};
+--=-KucG5YVOPciyZ/y2p3q0
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJZkUDhAAoJEJ0dnzgO5LT5mecP/3dbH4vQf/f2C26havXDmtsZ
-iKkN7SM10Z0HDAHjQGMPo8mlZq1pQd03KrefgFiWL/j7M4WlXtwd1djYG6nzf9/3
-X/dKCPPRSRb5UdIC9KbWEuHdqbgSpgfpSYAUz0LR4jak/u2kwoTUSOxsVP2MTzd4
-q+u3xFZ/XA+fOPvlbjQX1ClGbqkLwgaxIim35uE80mm65mC5i9G+bYNaEPeqmExy
-MUVrlXK06xwWC4FBx4jU6j0+m6JRjunzuGoBhFty7HV2cu5nBXZ+Z2Zpvmy4ZpDj
-/TQX1jU1Bp9QHeS5wMASI3Zsm3LWBG0Z331dAiOCUlYNtl4hlKDgJF5eiOaivzRy
-1v994Kh/o/eJTFHo+Vg18F5/GPpNJGFQsQhtbriTXUp9qgyl9QCN/Sy4XIBV0E0w
-RJGEUzc2r5U72Dj9WvDvedV0mnevOnvBpb1ULPeIWWYie9zCX/d0X9HpEtdgxsz2
-ByJ1/VxJe/OYBSpvHzdcEz8O2lvvc+ToryyFMdPf2ecSc3F4PD8uEjCCXww+ustS
-UJaNZtOZVtATGAaUIYHHvuRbYJAafIfXXmTKsnkCjGEpZijTRdSB8pg8yF3csSp6
-ItaGyCB+HAPPEbLUIwyQV4xGEGsyYb1s8egGaCkZ8APObtATlVHMIbkYp+u5DbID
-WppPeU5Kgoe4vn+looZQ
-=pgpC
+iQIcBAABCgAGBQJZkVJSAAoJEJ0dnzgO5LT5sKwP/0s/BDLJr+O32qj+iqk/1y9x
+hjhDBdNj8k7mUW0XqDLaNtdBTllQobVXgoyE/1WWffWVVKMQkl2XUpisev8iXNLl
+ymJRWpO4Ha4OjWLkPJCCr40YVLY/w925CiAPMcVGU6X4CMA9DYw+f6ewAuBFBkQy
+W/QzVhuoDRLHC+3/QXuxlRXSilPmlDDYqcszV08PysKb7tpg2s7Fy3pxByJ1Koyc
+Tq0LeBf6NJ4L2LUUVmByVLt3YjPJa4SprOJt/zQUD7OQCnNyOTFZOypxVtYz29nL
+s1iYn8ARtfB7V0OXPiP+8/mTOkkvcjRdV7E3QTraJI75928Gzs7Xc5xN9o4CgSZ8
+8bjtuavrQh/eonA1ZxkarqV9cA7lI67CgEaIVc+U/wMS+IH1vuplsrx7ZIcP2JRb
+0NyiMRvyIFbrS591oPuAWa67noyERd93ytYi1Qlnc93YFRORgMdVNDwUKS9lSG14
+EmrVVUDpNWNwu74q2ZhyGcOafvNRFsCkhp08iqOvq2c9VSCW/3sJ3qm+vaDy8bDy
+DVRHwS724sYLRrRwSBvXHMrQTrlwMrAkceChmJtxjPeqlFQBXUjjY+t22USX9jA3
+cUsphwkfEJNfmxs7bMLq/MRobj6BLITePlJP8FEz+zBFcZeeCNzmEMJILNIudBSI
+pSGRdJREOiqptKJ7KTbZ
+=y903
 -----END PGP SIGNATURE-----
 
---=-yDr2VFqzSqOZPdKUoZRA--
+--=-KucG5YVOPciyZ/y2p3q0--
