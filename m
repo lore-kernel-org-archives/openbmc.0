@@ -1,56 +1,58 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-lf0-x22a.google.com (mail-lf0-x22a.google.com
- [IPv6:2a00:1450:4010:c07::22a])
+Return-Path: <brendanhiggins@google.com>
+Received: from mail-oi0-x229.google.com (mail-oi0-x229.google.com
+ [IPv6:2607:f8b0:4003:c06::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xW1rH5gV8zDqlm
- for <openbmc@lists.ozlabs.org>; Mon, 14 Aug 2017 13:51:43 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xW1s937NKzDqm5
+ for <openbmc@lists.ozlabs.org>; Mon, 14 Aug 2017 13:52:29 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="W9Ah1AWg"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="BJDWz2lH"; 
  dkim-atps=neutral
-Received: by mail-lf0-x22a.google.com with SMTP id t128so34867145lff.2
- for <openbmc@lists.ozlabs.org>; Sun, 13 Aug 2017 20:51:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=OKiSARMDRMpxxx6Voooiy667hsqAhpxMCk6zKp/leBg=;
- b=W9Ah1AWgO4w8AQ9gJ33IJGX/6U8WzuC4DsGo7q/x9r33WFl/3tShmdKXNmnpPbX8t0
- 9tczBWgT6KtKSdLnwBiELk7a6xdp6KvNP31hXsUvFqn/jKrYOn6hi+LpnrNBVIK6ic+b
- OqDfw51WfuBumQmsOcXuTf/chvmVuiumbv35MsDFWhHO0/hZ6MyrNidyw8KJA2UJrRHT
- pRXjw2qsK/sCAnuss7hbiyZb2AcjPYvWOZNkTMv3Vp42WyOGZr8UDGsWjqDsnYFKcuIy
- OX4ZpRILRPxbnUMM1ASp7Rrk6JNyWraQs+r7qxsqOzVO93ZgUpDivGOm4qzbhRoxymt5
- E+4A==
+Received: by mail-oi0-x229.google.com with SMTP id x3so74335837oia.1
+ for <openbmc@lists.ozlabs.org>; Sun, 13 Aug 2017 20:52:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=ZbEjEUBn08q/SKm0EWItrmVoWBqWVnqUJKUPflmUUyA=;
+ b=BJDWz2lH6pYcYnMcopcD8wHlxn/YASY8aB/p7sALl5T05fkGECF5qfI8CHwtzzTbNE
+ mkEr1OWcXEuPYS5unw9lcZg+hO8V1VsWl3NoFdtsKqS89xbKhSxf2A4dLVbKW+yh7hYc
+ 4HszKbOVFcbhQWhOPUBdpoih57auCthhHoBLJgCV1fU9KmCuWjUbY/lKw0kwkSxpz3Dc
+ 7fMrDfhJvKgsgbmXFXjbunVHEcGY4FEWCdYElSISafov3AxbWuqS4chDtRX/055wNBRU
+ nLPbIVGCQoMEq2Yl4euvESjI94BAR0/ypRPGgCqrTerX3s+ByntQpNMqzQKQV3IgHpwO
+ Lx5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=OKiSARMDRMpxxx6Voooiy667hsqAhpxMCk6zKp/leBg=;
- b=RhCDNnpSY5rlEEXvBEiQtTLDQZw+S6N2sBgOm7lnNOjBSl7TOeJaUjHlkSa9kEXWmH
- I3fwp/6lXmqodvA5DHnpP3tN0JcVodD4T3FGWynZp4SMiKYm4qMQ8lk0c2Y286I2L/8a
- vf4TnnF/MaswSmB7GbBKgrNQ+MHZPXav1eGk1il/maicG2HZtX3g8hJtLJWjAq/o4joO
- AJsDDFlwYQyVsauR+WxIyExpwlcveeiJM+XDHvGjCxtsF5MkSm7SVhLTY892apbQIFIg
- tLnCJaeFTpeH2IaquT+Ur727rSOpRVdQ1JytWPbkQObKjwxOTgSzgaVtEoZu/HPgQz6q
- hWhA==
-X-Gm-Message-State: AHYfb5iiIg/jZpz87+Anczc6CZd1W+s+PNtUiCJSXM1qtSqzxYTmT3RW
- qeK7nEW+UceGm7SRytD0FuojaA78Ig==
-X-Received: by 10.25.168.3 with SMTP id r3mr8132587lfe.111.1502682699458; Sun,
- 13 Aug 2017 20:51:39 -0700 (PDT)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=ZbEjEUBn08q/SKm0EWItrmVoWBqWVnqUJKUPflmUUyA=;
+ b=qji+aAPh9YQwSNVEQdF+ApaJxZp0vFaqunEJ0OCwnYXTUjjgwVz18BIqx2Xc5B58J3
+ YJerqatGXhZ8QUWiFRMalDggdzt0dqWhgk6bn8CIUvoUEIQckroEofT7bnoJkaPHxLgn
+ o3NhtB1fHHCLjpnMq6DMOe14LR6D0s9LAeFYUUzCV7GZEWYy4EwIBdfjXZzmy+w7SwOF
+ YEWaKwtUy/u7eaTVPV0CwalsWUmwGOF6zzID3h73yLSCZZ4YeKKJPT0whjudVxu44l9M
+ daa4UsGd36tVnIBHCXYN0ndE+uz1kfNQYu8W6QS32UfqwTsrm1mk698M6mPaUwIkl47Y
+ c1CA==
+X-Gm-Message-State: AHYfb5iqPeeFv2h8psP0Evn74SqyX/tbKyPM4Uf59hRqlXHz9qvYr4lH
+ tsPC6nBZx0MMWmcXmox3G39R67WjAwj1
+X-Received: by 10.202.244.129 with SMTP id s123mr27249190oih.318.1502682746555; 
+ Sun, 13 Aug 2017 20:52:26 -0700 (PDT)
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.25.72.77 with HTTP; Sun, 13 Aug 2017 20:51:19 -0700 (PDT)
-In-Reply-To: <20170812113250.iydbbggbcvfvhxyo@ninjato>
-References: <20170729010012.5032-1-brendanhiggins@google.com>
- <20170812113250.iydbbggbcvfvhxyo@ninjato>
-From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 14 Aug 2017 13:21:19 +0930
-X-Google-Sender-Auth: 1sRSsbBVuL2egod4aPdqQw9UFsE
-Message-ID: <CACPK8XfVrsg1KyxQBRJZf4Qn6mZaL2XPDMUwFoKgEAYL8SmP_A@mail.gmail.com>
-Subject: Re: [PATCH v1] i2c: aspeed: fixed potential null pointer dereference
+Received: by 10.168.69.205 with HTTP; Sun, 13 Aug 2017 20:52:26 -0700 (PDT)
+In-Reply-To: <20170812113013.2ajkurbj7ongg5cq@ninjato>
+References: <20170728204558.6455-1-brendanhiggins@google.com>
+ <20170728204558.6455-2-brendanhiggins@google.com>
+ <CAPLgG==69mNpqoqKUf-0tT4iJJ5-aCg+1uaAoLJ5QSe+8LGYkw@mail.gmail.com>
+ <CAPLgG=kUxfriYRq-fc+AD=eo1T+6xa4imzda7Fd_aXmAb2pD3Q@mail.gmail.com>
+ <CAFd5g45O7rJymFgnWj3SnSKhCvXoX4_xCO8FqeBFCe0-Du9AYg@mail.gmail.com>
+ <20170812113013.2ajkurbj7ongg5cq@ninjato>
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Sun, 13 Aug 2017 20:52:26 -0700
+Message-ID: <CAFd5g470uRHdW_ZgN3MkCW8=ztow7vJobtye5-BBbUN+=R9SUg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/1] i2c: aspeed: add proper support fo 24xx clock
+ params
 To: Wolfram Sang <wsa@the-dreams.de>
-Cc: Brendan Higgins <brendanhiggins@google.com>, 
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Patrick Venture <venture@google.com>, linux-i2c@vger.kernel.org, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+Cc: Rick Altherr <raltherr@google.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
+ Joel Stanley <joel@jms.id.au>, Robi Buranyi <rburanyi@google.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, linux-i2c@vger.kernel.org, 
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -64,22 +66,18 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Aug 2017 03:51:44 -0000
+X-List-Received-Date: Mon, 14 Aug 2017 03:52:30 -0000
 
-On Sat, Aug 12, 2017 at 9:02 PM, Wolfram Sang <wsa@the-dreams.de> wrote:
-> On Fri, Jul 28, 2017 at 06:00:12PM -0700, Brendan Higgins wrote:
->> Before I skipped null checks when the master is in the STOP state; this
->> fixes that.
->>
->> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+On Sat, Aug 12, 2017 at 4:30 AM, Wolfram Sang <wsa@the-dreams.de> wrote:
 >
-> Is there a suitable "Fixes:" tag for this?
+>> That being said, I could implement this as a custom clock subclass, which
+>> would probably be cleaner that what I have done.
+>
+> Shall I wait for that one or do you want this patch to be included?
+> I don't mind, your call here...
 >
 
-The driver was introduced in 4.13, so we could add:
+Let's go ahead with this patch. I do not have too much experience with the
+clock stuff, so I imagine that will probably take some back and forth.
 
-Fixes: f327c686d3ba ("i2c: aspeed: added driver for Aspeed I2C")
-
-Cheers,
-
-Joel
+Thanks!
