@@ -1,28 +1,25 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xWQPR21dqzDr54
- for <openbmc@lists.ozlabs.org>; Tue, 15 Aug 2017 05:18:18 +1000 (AEST)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1502738292698419.4870317670493;
- Mon, 14 Aug 2017 12:18:12 -0700 (PDT)
-Date: Mon, 14 Aug 2017 14:18:11 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: vishwa <vishwa@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: Design proposal on removing /org/openbmc/settings/boot_policy"
-Message-ID: <20170814191811.GD20526@asimov.lan>
-References: <b820c5bf-3f9c-b59d-97d1-549df44aa1e5@linux.vnet.ibm.com>
+Return-Path: <wsa@the-dreams.de>
+Received: from pokefinder.org (sauhun.de [88.99.104.3])
+ by lists.ozlabs.org (Postfix) with ESMTP id 3xWRXF690PzDqYP
+ for <openbmc@lists.ozlabs.org>; Tue, 15 Aug 2017 06:09:16 +1000 (AEST)
+Received: from localhost (p54B33755.dip0.t-ipconnect.de [84.179.55.85])
+ by pokefinder.org (Postfix) with ESMTPSA id 0DCF62C0058;
+ Mon, 14 Aug 2017 22:09:14 +0200 (CEST)
+Date: Mon, 14 Aug 2017 22:09:13 +0200
+From: Wolfram Sang <wsa@the-dreams.de>
+To: Brendan Higgins <brendanhiggins@google.com>
+Cc: benh@kernel.crashing.org, joel@jms.id.au, venture@google.com,
+ linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] i2c: aspeed: fixed potential null pointer dereference
+Message-ID: <20170814200913.l7wan6wpmv3tcjoj@ninjato>
+References: <20170729010012.5032-1-brendanhiggins@google.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="osDK9TLjxFScVI/L"
+ protocol="application/pgp-signature"; boundary="32qhdm5jlgtls5kd"
 Content-Disposition: inline
-In-Reply-To: <b820c5bf-3f9c-b59d-97d1-549df44aa1e5@linux.vnet.ibm.com>
-User-Agent: Mutt/1.7.2 (2016-11-26)
-X-Zoho-Virus-Status: 1
-X-ZohoMailClient: External
+In-Reply-To: <20170729010012.5032-1-brendanhiggins@google.com>
+User-Agent: NeoMutt/20170113 (1.7.2)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -34,75 +31,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Aug 2017 19:18:20 -0000
+X-List-Received-Date: Mon, 14 Aug 2017 20:09:18 -0000
 
 
---osDK9TLjxFScVI/L
+--32qhdm5jlgtls5kd
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 03, 2017 at 04:55:21PM +0530, vishwa wrote:
-> Now, the proposal is to remove=20
-> '"/org/openbmc/settings/host0:boot_policy"' and then put this as a=20
-> boolean into 'persist' property into:
+On Fri, Jul 28, 2017 at 06:00:12PM -0700, Brendan Higgins wrote:
+> Before I skipped null checks when the master is in the STOP state; this
+> fixes that.
 >=20
-> /xyz/openbmc_project/Control/Boot/Mode and=20
-> /xyz/openbmc_project/Control/Boot/Source.
+> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
 
-I understand we have two different interfaces for these two different
-properties but do we want them on a single object path?  It seems like
-having multiple properties on /xyz/.../control/hostN/boot would be
-better, but this will preclude using the same property name in both
-interfaces.
+Applied to for-current, thanks!
 
->=20
-> IPMID would then look at this new boolean to see if its ONETIME (=20
-> boolean : 0 ) or PERMANENT ( boolean : 1 ) and respond to Get-Boot-Option=
-s.
 
-Why are we not instead creating two objects?  This proposal creates a
-bit of undefined behavior in my mind:
-
-1. Since only one dbus property ca be updated at a time, which order is
-the user suppose to update?
-
-2. What happens when the property is ONETIME (false), the value of Mode
-itself is changed, and then the property is changed to PERMANENT (true)?
-Does this restore the old value persisted or does it now persist the
-previous ONETIME value?
-
-3. As a user, how can I identify what the PERMANENT value is if someone
-has temporarily done a ONETIME?  I have to wait until the ONETIME is
-consumed?
-
-It seems like having an optional, perhaps dynamically create, second
-object to separate PERMANENT and ONETIME would take care of this,
-wouldn't it?  Is there a reason you did not want to have two settings
-objects to represent this?
-
---=20
-Patrick Williams
-
---osDK9TLjxFScVI/L
+--32qhdm5jlgtls5kd
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAlmR93EACgkQqwNHzC0A
-wRlMBg//Q1CNUefs7ugexkZPMacW0psXQCAs6N27NbaGhSiLI6ntWr9bUDRqJHqX
-zxOD7tqBCdLr/GOtNDhN+ayxdj2YWJcX7+jmSNKsQRHY3ieuCZaFkJwTNN7aQNEx
-rieUlYpZS+Fy2G4YULgLOG++XNOTm6tf6P/xOlT/lBz8/J0/tjsEzqCy22zGeTd/
-LojRHiU6W3+wOjbJQiphaoWDPW+eSJbG3cKwDkMu1DM8aCCj+ftl42UWI/rzPXlf
-VhZdaDKDZa6DvD8aS8xjFiaNI8cNg0zJpkvsmzczJQ5UsDQehsHHM5e9cYNlCTO4
-xuw/qJ0pCNh0MPhUbhy4IquTi8rKiIYCPXKGivwQS+qn1mCT9DOo475NccUwR6cl
-lyjpxbpV4mMem1mvQsZXXXp0o77hW/rnliUlKVVbVxOpg76m4ZciULYnrEHRTM1o
-bFe2b/xCtapEWnpRY9Muh0nx9rivgwiG4X0s/ktXspH/hjVXUVpLbo3qp1NNEbHF
-5LYPXYOOO9+4KCuKJn6wmlEb33IP+ZtUl2rDmTLH0v+u3oDs9Jv833ZBJR/7wD7y
-Bic7wXdJopONHcyIy2wehDdAvx7hgLBSGdNL9Y87JGBIzVMM1mx8tt+Z/o6CiOH+
-ENBSHpnHd0B7kq0JrMnbOlWnu1D0UwsWbHJMPV2tslN6UYoksBg=
-=TSeJ
+iQIzBAABCAAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAlmSA2UACgkQFA3kzBSg
+KbYXlQ//WqOJtd9dUU6wKQ3MeWBN42GNgv+nBB2+31uKroACemCZFRuyRJ7ZCVkQ
+V/uOxPBCG9hu2zyya0x/qUJGeM3mUYIv3CghO6I5QVz06xGJZD1YHGrualy692Pn
+Jr1lCzd00cheC2SMjM5NWRYyExd37o93Akib3yocfXNFtDUuf4nexSc6WLj0pZz6
+zDx9sa1FUAr5dZ/N7Gc8wnfScbn5qPqrsup0fdIJvKIvCJLmmOsT3c1FL/sBwo89
+gM8EJcj+ZC/nf/f7osKDP5NMb0Leh377m5A5sbvcRl4NSf3hf2JVXA+a2ggTcVUN
+pDuRkbzK54KsbAUUOKrKyj7lsHxL9ty/wWifvfQ9vzsTa5B6DPMsE+r1E+rlyYUa
+clmwtFYt8ydQgDZnIw1r5s9gmtGTJx7FZS0uFrbuExH1Veyv1m79yXLKo0uS0T8z
+lJBW9LZdP2Cn1gjz8Tz3XNkhDHksuZYDkUOzO+EjlSLe43LkLoSp59GbM5h5eGTv
+6m/JKpC99dGHDjOA9J8yPe3SyOWXyhCPARFBy71YjcKV8VvhT/8tQDAbj0GczWLW
+Lb8VxMY5pdvTcFp3eZrAxP0QW5YQ7ppN3O6Y4curjWlImDiw9uln6nj/t95xU4i/
+21Vq/8dmhX+NuIf/2tEVBwfT1WTy53PeOjHiGsXvJ2ig1M8Fq6M=
+=HC57
 -----END PGP SIGNATURE-----
 
---osDK9TLjxFScVI/L--
+--32qhdm5jlgtls5kd--
