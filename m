@@ -3,60 +3,53 @@ Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
  [66.111.4.224])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xVy7G1H2BzDqYY
- for <openbmc@lists.ozlabs.org>; Mon, 14 Aug 2017 11:04:25 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xVyjF5MbdzDqb3
+ for <openbmc@lists.ozlabs.org>; Mon, 14 Aug 2017 11:30:25 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
- header.b="TQyeaJ9q"; dkim=pass (2048-bit key;
+ header.b="HU2j7fyt"; dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="bFVtKwta"; dkim-atps=neutral
+ header.b="mRvvB/8i"; dkim-atps=neutral
 Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailnew.nyi.internal (Postfix) with ESMTP id 868E81A77;
- Sun, 13 Aug 2017 21:04:21 -0400 (EDT)
+ by mailnew.nyi.internal (Postfix) with ESMTP id 53A5D2E29;
+ Sun, 13 Aug 2017 21:30:23 -0400 (EDT)
 Received: from frontend1 ([10.202.2.160])
- by compute2.internal (MEProxy); Sun, 13 Aug 2017 21:04:21 -0400
+ by compute2.internal (MEProxy); Sun, 13 Aug 2017 21:30:23 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- mendozajonas.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=
- fm1; bh=1Kq7yMOZR+IuhgzRGPMxcFDo77knlOHUMM/XLDhIWyA=; b=TQyeaJ9q
- gZC783dzD0137npPz92s5hge5B0DtRTuqyRBTlmdoGedtOniksFiZuu9K06UMLMy
- bMfkt4CbU76m7I2y1fEI8IQQzMckThVx0x/t6aXseYzgdE5Y11fKReU7SVA1K7Xp
- UNG9ILRa1c7kNTBRZUKMdRYYc2e2ixr8HxUmnQg4DXnbKV4R3AJoU/fskpisabND
- D2lbzFNc8tNm8QMs4Nh9TAZZBsNxB9ZmMxbl+Wg+qwGznsRqj2iDPCQG7Kv9THwB
- NoRbD9s1nGm2FWZQqnLCk/ybO4j+6M1ZFPKlC+mYnMG36JiZCSzbAiaMBlF1yZlb
- vRWI0r+v9TeXGA==
+ mendozajonas.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=q5DOwU
+ +FrGSOZ8Ip0GZdVe6WsYHXAyqPxZ7XkykM7VU=; b=HU2j7fytk9sLWcg6mI03N5
+ LH602WScY8XH8kNv2ZzszlrsN/lfUGqqZvBTimILrvuJNLhiOGictjL7mYM5MWnB
+ AS5nqamT0GFJpEaBXfMmLCORypOJUkaRKa6vzsVtNqx0IaaCBCxs9Dj+12HD69nH
+ H685bR7wZJBSo8JbJ7/4c3WGnA9oly2sHxm0zh98iaQoXQKeHTN0PsavZ1Y6ZM6w
+ J/0zEE/MQoBUtIIrRX202uMs7+2wzf3nh8IXWhbmmHkZ2OSSiMjS9ycvLKp+DKQe
+ tT8kZotcU/KqfN8h7FT9gzzwRsh0TU6L5GsjX6vXrCWA5Op6TB2uz1h0ziflYqrw
+ ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=
- fm1; bh=1Kq7yMOZR+IuhgzRGPMxcFDo77knlOHUMM/XLDhIWyA=; b=bFVtKwta
- IUyLA+G3tnZIwwESsnhNjVheOtHxuZlp7nfuY/iLKMkGgN3fFEjs23PFpMHXNiYf
- pmedewSxBjeVijd12gZloTlNXbhoDwYYLwEGr7hBEgeRelrwwVTzWtkDmHzdErwD
- RgI4YpBGDYFPlkEvyYaOUZ6u1yHVKgVzjXzVcFV2xuoRZAZLjrU3OEY32pzijHTm
- RXYkKYfZj/wyYa2U41W1xhz7ZOfJY3ilLNRJ49n0JB0jW1OyGFU+17BqSxSvWYAW
- IHtVftqsC8Rp9IbLfjX0MlEwQGpmql4qBKP1SC7I7GgdSsMERuOO9Akz1dFPBtk3
- y1p3HaRwwZV8AQ==
-X-ME-Sender: <xms:FfeQWfQRzsGhfszRIy4sbwV446K9EJquyxZao5fdyGVu8zlh3G2ICA>
-X-Sasl-enc: P3UkrN7m1GCUgBoaDrUl9HY1GkJS3g5LXVDMEH2LzZk1 1502672660
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=q5DOwU
+ +FrGSOZ8Ip0GZdVe6WsYHXAyqPxZ7XkykM7VU=; b=mRvvB/8ixn3ze/tQZ2oA54
+ W4Hgom/8CTzNVsmagLoZ0InFUXVd2dOeU4rBnj4wbNe6IT3Se5oFD6FLRBuScGiE
+ p9u8+x2JY3frvBA74ukkRtpi+/3J/4CtdeLsP63CqSFWMp2fRdVOke78YdyZG2FK
+ fZI+hheuAkMyKzspKfypENZWqvpBf60A1ZUW9fdYGn/d5Trs+IuzNk6j6VazijFB
+ +TjDjcyHPCw6Y0z0gz7sErb1RdZtneOt/i1arnt6Lp8itlX18+wRR9mg666gGN44
+ c9x9m5YxK2qCq6O0FYmarKy2mwsCUpLsoehxTsOkQqZXz7ZTvFLOirVG/iZJTpjQ
+ ==
+X-ME-Sender: <xms:L_2QWShdRh8HIYmALx2JU8sPt2gth1ulZ5bs8-smJvi6Qcg_W4BcjA>
+X-Sasl-enc: yOfvnmHD3I5vzhEdM7Mig9W2DJlTt56/gGeObbrjbI0t 1502674222
 Received: from v4.ozlabs.ibm.com (unknown [122.99.82.10])
- by mail.messagingengine.com (Postfix) with ESMTPA id A43317E70C;
- Sun, 13 Aug 2017 21:04:18 -0400 (EDT)
-Message-ID: <1502672656.913.1.camel@mendozajonas.com>
-Subject: Re: [PATCH 0/3] NCSI VLAN Filtering Support
+ by mail.messagingengine.com (Postfix) with ESMTPA id 5DE367E317;
+ Sun, 13 Aug 2017 21:30:20 -0400 (EDT)
 From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-To: David Miller <davem@davemloft.net>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- openbmc@lists.ozlabs.org, joel@jms.id.au, benh@kernel.crashing.org, 
- gwshan@linux.vnet.ibm.com, ratagupt@in.ibm.com
-Date: Mon, 14 Aug 2017 11:04:16 +1000
-In-Reply-To: <20170811.144823.1928647996484981190.davem@davemloft.net>
-References: <20170811061648.19661-1-sam@mendozajonas.com>
- <20170811.144823.1928647996484981190.davem@davemloft.net>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.24.5 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+To: "David S . Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>, Joel Stanley <joel@jms.id.au>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Gavin Shan <gwshan@linux.vnet.ibm.com>, ratagupt@in.ibm.com
+Subject: [PATCH net-next v2 0/3] NCSI VLAN Filtering Support
+Date: Mon, 14 Aug 2017 11:29:49 +1000
+Message-Id: <20170814012952.13740-1-sam@mendozajonas.com>
+X-Mailer: git-send-email 2.14.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,25 +61,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Aug 2017 01:04:27 -0000
+X-List-Received-Date: Mon, 14 Aug 2017 01:30:26 -0000
+X-List-Received-Date: Mon, 14 Aug 2017 01:30:26 -0000
 
-On Fri, 2017-08-11 at 14:48 -0700, David Miller wrote:
-> From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-> Date: Fri, 11 Aug 2017 16:16:45 +1000
-> 
-> > This series (mainly patch 3) adds VLAN filtering to the NCSI implementation.
-> > A fair amount of code already exists in the NCSI stack for VLAN filtering but
-> > none of it is actually hooked up. This goes the final mile and fixes a few
-> > bugs in the existing code found along the way (patch 2).
-> > 
-> > Patch 1 adds the appropriate flag to the ftgmac100 driver to enable filtering
-> > as it's a large consumer of NCSI (and what I've been testing on).
-> 
-> This patch series does not apply cleanly to net-next, you need to respin.
+This series (mainly patch 2) adds VLAN filtering to the NCSI implementation.
+A fair amount of code already exists in the NCSI stack for VLAN filtering but
+none of it is actually hooked up. This goes the final mile and fixes a few
+bugs in the existing code found along the way (patch 1).
 
-Sorry about that, silly Friday mistake :)
-I noticed I've also squashed an ftgmac100 change into the wrong patch,
-I'll fix that up along with the respin.
+Patch 3 adds the appropriate flag and callbacks to the ftgmac100 driver to
+enable filtering as it's a large consumer of NCSI (and what I've been
+testing on).
 
-Cheers,
-Sam
+Samuel Mendoza-Jonas (3):
+  net/ncsi: Fix several packet definitions
+  net/ncsi: Configure VLAN tag filter
+  ftgmac100: Support NCSI VLAN filtering when available
+
+ drivers/net/ethernet/faraday/ftgmac100.c |   5 +
+ include/net/ncsi.h                       |   2 +
+ net/ncsi/internal.h                      |  11 ++
+ net/ncsi/ncsi-cmd.c                      |  10 +-
+ net/ncsi/ncsi-manage.c                   | 295 ++++++++++++++++++++++++++++++-
+ net/ncsi/ncsi-pkt.h                      |   2 +-
+ net/ncsi/ncsi-rsp.c                      |  12 +-
+ 7 files changed, 326 insertions(+), 11 deletions(-)
+
+-- 
+2.14.0
