@@ -1,60 +1,58 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-lf0-x244.google.com (mail-lf0-x244.google.com
+ [IPv6:2a00:1450:4010:c07::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xW6nK5J2XzDr9Q
- for <openbmc@lists.ozlabs.org>; Mon, 14 Aug 2017 17:34:29 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xW71Y5DgPzDr1B
+ for <openbmc@lists.ozlabs.org>; Mon, 14 Aug 2017 17:45:05 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="SI2PHlwp"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="iM1Md97P"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 8EEAC2103F;
- Mon, 14 Aug 2017 03:34:27 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Mon, 14 Aug 2017 03:34:27 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=WUKCyrQmVZXe9pSZ+HvDJwVc9gmVVs5rbKLovzX1U
- 6I=; b=SI2PHlwpg4zPMc8CPDmiR5baJ1BL/B/EVbSYCrNYsTSE0NWYb+7GrbssL
- mKOoCTC3DermF0FjAgdei+Ara9P0zUuCPhm/88TgXwL1VbGLGv5ipRDMjPmmRMlp
- J1c/lTBz/IvsHGVlEOME8QZ4Zv+roedAa/jAuv9j2IwTzGdcC1fERKj0EzrpyAVk
- RCAEPC1FmRkc2lxKJjs5BqnlVOFPUOilVCvVz596qO17PlZ7JnQ0tpR3UwrmA+C/
- K3DVGSgLxHH+G/yVifUgG8PJJ4yBMY2WTVhF2946e0fBxYvtX3uPNXZPnITP4qHX
- tjWgYA8U1yL3TR3zdjUexbnGjm79g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=WUKCyrQmVZXe9pSZ+H
- vDJwVc9gmVVs5rbKLovzX1U6I=; b=iM1Md97PP36ShFwEmGw9A/IOKbUTSY5o5V
- H0gjhfHYhfl/68gp7teg+VQi1U4P600SFth5rhyweOM4v6Q+Pr1r0SF0CONPPnPK
- UoUxNDr3fq1u0SfcvlBVtz7Sh4gzF7+EgJiqTEkofg7zxQao5pCAmIvioiJFo8s2
- W7sPPJ75H4jVkV/n4AAI30q8VRsfrzW12V8NK2g49blJl3mFGM4i8jE//eFXMRY3
- DHZiYMJH0MYGrMacAGbex/ZJKJoPMI+ROTP4PmirgDNSeKwdio+r6YaCC4+e+S1A
- oeND1GBbnzfRZdOhFO10oEcs7JnCiuzZiv3uDKk11QG/rvT9rrgQ==
-X-ME-Sender: <xms:g1KRWYd_FEhAIC8h7Qdh8yB6F9OTIVha4-WmsSyKhi8mKZ7Y9XURQw>
-X-Sasl-enc: Uf5qqn/txjd1268ex2m/5Sc8wvYiGaIr38UD3SAeu7kq 1502696066
-Received: from keelia (ppp118-210-176-216.bras2.adl6.internode.on.net
- [118.210.176.216])
- by mail.messagingengine.com (Postfix) with ESMTPA id BDD94246A3;
- Mon, 14 Aug 2017 03:34:25 -0400 (EDT)
-Message-ID: <1502696062.14932.23.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10 v5 4/4] ARM: dts: aspeed: Witherspoon:
- Add power supplies to i2c bus
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Cc: "Edward A. James" <eajames@us.ibm.com>, bjwyman@gmail.com
-Date: Mon, 14 Aug 2017 17:04:22 +0930
-In-Reply-To: <1502474205-1557-5-git-send-email-eajames@linux.vnet.ibm.com>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="tEsxuCNH"; 
+ dkim-atps=neutral
+Received: by mail-lf0-x244.google.com with SMTP id o85so6075674lff.1
+ for <openbmc@lists.ozlabs.org>; Mon, 14 Aug 2017 00:45:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=NogBFEwDFh7Nxj141hw/+3/JD6S+yI+CkGO1jdQJTbw=;
+ b=tEsxuCNHae0ZGy7sSiXcO12A5M7kurJui8kI4/e2db2Zv1YM/MeyB/s27rKS/SL9qM
+ Kvn9DyBjmXxfC20oqSbhOLqlrlZByCUDlEdaa4dDaLSp1svQ+ofKH7Mi/nR9KWnjxI31
+ q15+Br4cPEziGlb4pU9eeXx+rA08iAHzMA8AmZQWNUk7ZfF1vdiu1LY0i+Sqmv0sfSJR
+ oa6O1+GKBnAbQ0bBSuU9rGqK55drNtkagjKtTuVazI/Ah1OTzsOJ+QS0J3hMF+12kQGj
+ z5MWQFsyW4/+DV7MC65L7dR72Ze0zBKrpbHmPzOuOw8YndnSLi7u3bp2l9PFR7YQlDBR
+ hmfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=NogBFEwDFh7Nxj141hw/+3/JD6S+yI+CkGO1jdQJTbw=;
+ b=c4OQddtYFa/rdi/izsReIsMwqbLB/ntuI/80/vep4BGH8GyrO6MR1iRdUCbTt18B0N
+ rNyEoKMKesvKwLDaM63EnWy9qqhFD3O0ChbNcUFFNjnUIEZXNnTc3R0M+ggGg2Xhqy5A
+ DGwMX3L5H06jXxEqPdO1nFIiyiUy+MOWQZk3PWxQc3ZMbnmDJ0K4W+w6AOnMLIIwyCfF
+ lzxfgG9/k6vKvEgYpZtsFZW8AxWU9/zNG8yzt6oBYnH3EHBZBbLCud5gnGkg8m+OKpq8
+ sOhR7XPTYyGfin52wUQFHCFD21tHVwlxP4vjEvtPW4KNBh++kXRUZQ9ZaSggFV/tlsp5
+ f60g==
+X-Gm-Message-State: AHYfb5gvOjTB885e1r/W4VSRPzQjK+lU0frCupzJDCkHtY639a85dzdH
+ o3w0PWKsj0+9MOxJxhadhVoBgt11Iw==
+X-Received: by 10.25.168.3 with SMTP id r3mr8358848lfe.111.1502696702693; Mon,
+ 14 Aug 2017 00:45:02 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.25.72.77 with HTTP; Mon, 14 Aug 2017 00:44:42 -0700 (PDT)
+In-Reply-To: <CAK_vbW02752Bz4bCe2FKk_6A+=B6Pp6qBBMfDrQei2xph5U0eg@mail.gmail.com>
 References: <1502474205-1557-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1502474205-1557-5-git-send-email-eajames@linux.vnet.ibm.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-q3eW+2BYDVEO5kajU9YB"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ <CAK_vbW02752Bz4bCe2FKk_6A+=B6Pp6qBBMfDrQei2xph5U0eg@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 14 Aug 2017 17:14:42 +0930
+X-Google-Sender-Auth: 81Q06USZq-BLa6_DnJZC2rJXZGg
+Message-ID: <CACPK8XeQ2sxiSV6sbRhxhCoqo640b4fYGVsO4UOdNhON59dr2Q@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 v5 0/4] hwmon: (pmbus): Add IBM Common Form
+ Factor (CFF) power supply driver
+To: Brandon Wyman <bjwyman@gmail.com>
+Cc: Eddie James <eajames@linux.vnet.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Matt Spinler <mspinler@linux.vnet.ibm.com>,
+ "Edward A. James" <eajames@us.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -66,65 +64,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Aug 2017 07:34:30 -0000
+X-List-Received-Date: Mon, 14 Aug 2017 07:45:06 -0000
 
+On Sat, Aug 12, 2017 at 11:43 PM, Brandon Wyman <bjwyman@gmail.com> wrote:
+> On Fri, Aug 11, 2017 at 12:56 PM, Eddie James
+> <eajames@linux.vnet.ibm.com> wrote:
+>> From: "Edward A. James" <eajames@us.ibm.com>
+>>
+>> This series adds a hwmon pmbus driver for a POWER System power supply. The
+>> core monitoring functionality is provided by pmbus.
+>>
+>> These devices should be auto-probed on the I2C bus, so I added them to the
+>> witherspoon device tree.
+>>
+>> Changes since v4:
+>>  * Rename the driver again...
+>>  * Change compatible property; we can't have any '-' in the compatible
+>>    property because pmbus will use that string for hwmon registration name,
+>>    which disallows that character.
+>>  * Remove debugfs bool from pmbus_driver_info
+>>  * Add comment about returning rc when reading STATUS_MFR_SPECIFIC fails.
+>>
 
---=-q3eW+2BYDVEO5kajU9YB
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> Tested-by: Brandon Wyman <bjwyman@gmail.com>
 
-On Fri, 2017-08-11 at 12:56 -0500, Eddie James wrote:
-> > From: "Edward A. James" <eajames@us.ibm.com>
->=C2=A0
-> > Signed-off-by: Edward A. James <eajames@us.ibm.com>
-> ---
-> =C2=A0arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 10 ++++++++++
-> =C2=A01 file changed, 10 insertions(+)
->=C2=A0
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> index 9ab8e46..dd30c20 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> @@ -417,6 +417,16 @@
-> > =C2=A0			type =3D <PCA955X_TYPE_GPIO>;
-> > =C2=A0		};
-> > =C2=A0	};
-> +
-> > +	power-supply@68 {
-> > +		compatible =3D "ibm,cffps1";
-> > +		reg =3D <0x68>;
-> > +	};
-> +
-> > +	power-supply@69 {
-> > +		compatible =3D "ibm,cffps1";
-> > +		reg =3D <0x69>;
-> > +	};
-> =C2=A0};
-> =C2=A0
-> =C2=A0&i2c4 {
+Thanks for the testing Brandon.
 
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
---=-q3eW+2BYDVEO5kajU9YB
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+I've applied this series to dev-4.10, along with Andrew's reviewed-by tags.
 
------BEGIN PGP SIGNATURE-----
+Cheers,
 
-iQIcBAABCgAGBQJZkVJ+AAoJEJ0dnzgO5LT5+DgP/0JELBpanXSEZJ1hJt06D2lQ
-U/WGXcQfI7mJnegHkQYXw+EKr/i/Oj0cgFbA8RWegj+FBadGb1icBavr5mjbQ0r6
-lx5NFAskkBnzFEaRt7ypDUhP1zpP0yZQlekPhamgHH45ZvUvw0IYr6An4O57GCkN
-jWB24Aec1UKGroIn+entdeZiB2O89561JlqIx+jfgfalwdJ9fajom6soZQ/9Yt/W
-huH93dpU277xRhHv/Xhf7mHYsctetaBwMUFxnw9ynT7ltyKIAwx8o0IG0Iwe3oIf
-U/tE9mw7/uX9OnMvvEop/jkkju6L4wCn8emICwT2N8+tlLERZ4l9gCO5Tf1rZmma
-b6AGMwy8RgZw73tX70qiywYFg7bOckwsOuNg1MtuL5EFVkQ66BpE2teVQQYAEl3d
-dB7idLu4tIWJ4XuPbp/pFKRTdTyzKY9kcjOrY6S5wKSLi8uzpKWtKgsQMNUjqE8u
-ZN6VoUcvRFzLVfc1BVFmzgareVYVAReP7HdmlnJRJMcfG5xgiywLN9aCinx54H4o
-UydExEUhYBoNnL/YMh/Uew1SmdoCtsWyzdl3Ku4Zez2Srrx1mrrVvdFBumclEUY+
-VRdBnReJ9V2wt6fShYhBhyCTyfPOA90bI+cm5WUIv6YWdho6bo2G7tQy99bpLtZP
-nxyg3KWweGeaM405bN7r
-=uhub
------END PGP SIGNATURE-----
-
---=-q3eW+2BYDVEO5kajU9YB--
+Joel
