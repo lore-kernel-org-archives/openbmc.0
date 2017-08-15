@@ -1,56 +1,58 @@
-Return-Path: <brendanhiggins@google.com>
-Received: from mail-oi0-x234.google.com (mail-oi0-x234.google.com
- [IPv6:2607:f8b0:4003:c06::234])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <linux@roeck-us.net>
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xWVcb6y8LzDqXc
- for <openbmc@lists.ozlabs.org>; Tue, 15 Aug 2017 08:28:15 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xWbjM0tzlzDr39
+ for <openbmc@lists.ozlabs.org>; Tue, 15 Aug 2017 12:17:42 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="JyqFe5Av"; 
+ unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.b="E4qGavJ9";
  dkim-atps=neutral
-Received: by mail-oi0-x234.google.com with SMTP id g131so97105130oic.3
- for <openbmc@lists.ozlabs.org>; Mon, 14 Aug 2017 15:28:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=2VrNy//vsqM7LfS81B19SAdkblrXr3ghHD8VzFJU69c=;
- b=JyqFe5Av4p/4c8n5NBy+AI3bZ7p9TC4g/HQMcyGqKhaSjhRDLraFv9bMfpLHGgo+V2
- U53xzuqmUyDPNSXW8neLpXrwZ8XbWsTvAORgCmxtiLpLd5Yl0oG8Qj0vcicpaHH79OqZ
- KyzrsRh/cu17l7sqsLtKXnGgfQ3CqCHmE8oTM/D6sp927yjGFBOeC5Z3mGD0zrLRUgab
- FpikqYbD1pMAQ/SLsaUHZ8V+eyd2bEebJhUHuLSYdMBZqO2cJmgUafjWHvoMNNZOgYCe
- xNHSMeb5HQrf6pLHhgItFrtHnOvHM5smL90f5kpyB1AWHeLl+oO51DVvyqWvj6zaSVx+
- eK/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=2VrNy//vsqM7LfS81B19SAdkblrXr3ghHD8VzFJU69c=;
- b=hvZGU2r5ET8IrJ1xrXnA2oISjj0eqnANWAE4hl+U84z9uPlp8EAOZCANt5JO3tfiIN
- camRGmZgCGxtw5BT0fcydYl7Y0BNAGKrmTWM+gC490v9QLGqJu1bSMT8yLjVLOa57rr0
- rk2baGWkvefAeMhlnmWT1MoHvViYu2hW2IRva7Qfq+jobgAHakaBvwmEBDfnr7Gm0mXS
- yZTCNWDJaiq2QLVJYMk6EeT+HUhXTfX68eFuC3V+nlCzinks5MzVYQGmrReYo3T7z0VE
- 6Ib9IiavW51l7KRigYL2ifaka8MU+70lrFMGX/mIttpB/R9nRF1KQh+Gai41xb3jimku
- pf2w==
-X-Gm-Message-State: AHYfb5j/E+6bRodKA1sLfkpw8YU/NH6SUNcgQIrIsYiMN5S3Ulmp0gfD
- DQ1ge3Sadm1XqNfW2m3tt+1QmXbceEl5
-X-Received: by 10.202.86.77 with SMTP id k74mr27613886oib.213.1502749694019;
- Mon, 14 Aug 2017 15:28:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+ :Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+ :Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=UXLK3ifG5GsB5nWHn+6iMxJZkIKQVvKWts2pDswZOGc=; b=E4qGavJ98rPfONKYKwss5mwFjC
+ y9OQVqPb7Y/gmFtgSrmGk9ughaL3+ledAN/wpS0+fxeY5fC0JEyDENDlzfEt9TCahvCG2FNZiSDOA
+ /juPx0WvkPRVlT0V0u8zqRosP/cU6cYXwkTX+dbzWUUz5QnIYeKdlmKbL49NRwoBVEHunyJ2CcfcI
+ gpuAjRlz2qcrJrgcEfpnfsmGYdzAVsmynHYwIN6rcJFCFu52UascGY0spl229+BtNn2MwvKopOObt
+ keWxYMXuxSTsO0PY05ZscYJtefIMdUejGMjR6KFTZ4RkMEzCwkeiMKPTtBFJLf34yjrJT7sGHo37w
+ z4PY45Hg==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net
+ ([108.223.40.66]:58326 helo=localhost)
+ by bh-25.webhostbox.net with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ (Exim 4.89) (envelope-from <linux@roeck-us.net>)
+ id 1dhRQI-0007l5-UZ; Tue, 15 Aug 2017 02:17:39 +0000
+Date: Mon, 14 Aug 2017 19:17:38 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Cc: wim@iguana.be, robh+dt@kernel.org, mark.rutland@arm.com, joel@jms.id.au,
+ linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+Subject: Re: [v5, 2/2] drivers/watchdog: ASPEED reference dev tree properties
+ for config
+Message-ID: <20170815021738.GA1787@roeck-us.net>
+References: <20170717192539.7950-3-cbostic@linux.vnet.ibm.com>
 MIME-Version: 1.0
-Received: by 10.168.69.205 with HTTP; Mon, 14 Aug 2017 15:28:13 -0700 (PDT)
-In-Reply-To: <20170814160312.GA20526@asimov.lan>
-References: <20170808035301.1980-1-brendanhiggins@google.com>
- <20170814160312.GA20526@asimov.lan>
-From: Brendan Higgins <brendanhiggins@google.com>
-Date: Tue, 15 Aug 2017 01:28:13 +0300
-Message-ID: <CAFd5g468_etjbWY3TgE5iHhn7mNuDDTdUoijaMff_ZXXR1e6QA@mail.gmail.com>
-Subject: Re: [RFC v1 0/4] ipmi_bmc: framework for IPMI on BMCs
-To: Patrick Williams <patrick@stwcx.xyz>
-Cc: Corey Minyard <minyard@acm.org>, Benjamin Fair <benjaminfair@google.com>, 
- =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>, 
- openipmi-developer@lists.sourceforge.net, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20170717192539.7950-3-cbostic@linux.vnet.ibm.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Authenticated_sender: guenter@roeck-us.net
+X-OutGoing-Spam-Status: No, score=-1.0
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - lists.ozlabs.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-Get-Message-Sender-Via: bh-25.webhostbox.net: authenticated_id:
+ guenter@roeck-us.net
+X-Authenticated-Sender: bh-25.webhostbox.net: guenter@roeck-us.net
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,66 +64,103 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Aug 2017 22:28:16 -0000
+X-List-Received-Date: Tue, 15 Aug 2017 02:17:43 -0000
 
-On Mon, Aug 14, 2017 at 7:03 PM, Patrick Williams <patrick@stwcx.xyz> wrote:
-> On Mon, Aug 07, 2017 at 08:52:57PM -0700, Brendan Higgins wrote:
->> Currently, OpenBMC handles all IPMI message routing and handling in userland;
->> the existing drivers simply provide a file interface for the hardware on the
->> device. In this patchset, we propose a common file interface to be shared by all
->> IPMI hardware interfaces, but also a framework for implementing handlers at the
->> kernel level, similar to how the existing OpenIPMI framework supports both
->> kernel users, as well as misc device file interface.
->
-> Brendan,
->
-> Can you expand on why this is a good thing from an OpenBMC perspective?
+On Mon, Jul 17, 2017 at 02:25:39PM -0500, Christopher Bostic wrote:
+> Reference the system device tree when configuring the watchdog
+> engines. If property 'aspeed,reset_type' is present then set
+> reset behavior based on the specified value.  This can be one of
+> three different mutually exclusive values
+>   * cpu - Reset CPU only on watchdog timeout
+>   * soc - Reset System on Chip
+>   * system - Full system reset
+> 
+> No reset can also be specified by indicating:
+>   * none - No reset, assumes another watchdog is responsible for
+>            this.
+> 
+> Add optional property 'aspeed,external-signal'. If present then
+> configure to generate external signal on watchdog timeout.
+> 
+> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 
-Sure, so in addition to the individual handlers; this does introduce a
-common file
-system interface for BMC side IPMI hardware interfaces. I think that is pretty
-straightforward.
+Reviewed-by: Guenter Roeck <linux@roeck-us.net>
 
-Corey and I are still exploring the handlers. My original intention
-was not to replace
-any of the handlers implemented in userspace. My motivating use case is for some
-OEM commands that would be easier to implement inside of the kernel.
-
-I was hoping to send out an overview of that, but the internet in my
-hotel sucks,
-so I will do it the next time I get decent internet access. :-P
-
-In any case, Corey raised some interesting points on the subject; the
-most recent
-round I have not responded to yet.
-
-> We have a pretty significant set of IPMI providers that run in the
-> userspace daemon(s) and I can't picture more than a very small subset
-> even being possible to run in kernel space without userspace assistance.
-
-Like I said, I have an example of some OEM commands. Also, as I have said,
-my intention is not to replace any of the userland stuff. That being said, I am
-not sure the approach we have taken so far is the best when it comes to some
-of the new protocols we are looking at like IPMB and MCTP. Having some
-consistency of where we draw these interface boundaries would be nice; so
-maybe that means rethinking some of that. I don't know, but it sounds like
-Corey has already tried some of this stuff out on his own BMC side
-implementation.
-
-Regardless, I think there is a lot of interesting conversation to be had.
-
-> We also already have an implementation of a RMCP+ daemon that can, and
-> does, share most of its providers with the host-side daemon.
-
-That's great. Like I said, my original intention was not to rewrite any of that.
-
->
-> --
-> Patrick Williams
-
-By the way, Corey suggested that we have a BoF session at the Linux Plumbers
-Conference, so I set one up:
-https://linuxplumbersconf.org/2017/ocw/proposals/4723
-I highly encourage anyone who is interested in this discussion to attend.
-
-Thanks!
+> ---
+> v5 - Add explicit check for property type "none". Return error
+>      if property type is not a known value.
+>    - Default reset type when no property present changed to
+>      match original code: SOC + SYSTEM reset
+> v4 - Change the three reset type parameters to a new property
+>      'aspeed,reset_type' and check assignment for one of four
+>      different values, cpu, soc, system, none
+> v3 - Invert the logic for system reset dev tree property to
+>      preserve backwards compatibility. If not specified the
+>      default is to configure for system reset
+>    - Add check for 'aspeed,no-soc-reset' property and only if
+>      not present is SOC reset to be configured.  This preserves
+>      backwards compatibility.
+> v2 - Change of_get_property() to of_property_read_bool()
+>    - Remove redundant check for NULL struct device_node pointer
+>    - Optional property names now start with prefix 'aspeed,'
+> ---
+>  drivers/watchdog/aspeed_wdt.c | 29 ++++++++++++++++++++++++-----
+>  1 file changed, 24 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/watchdog/aspeed_wdt.c b/drivers/watchdog/aspeed_wdt.c
+> index 1c65258..c707ab6 100644
+> --- a/drivers/watchdog/aspeed_wdt.c
+> +++ b/drivers/watchdog/aspeed_wdt.c
+> @@ -36,6 +36,7 @@ struct aspeed_wdt {
+>  #define WDT_CTRL		0x0C
+>  #define   WDT_CTRL_RESET_MODE_SOC	(0x00 << 5)
+>  #define   WDT_CTRL_RESET_MODE_FULL_CHIP	(0x01 << 5)
+> +#define   WDT_CTRL_RESET_MODE_ARM_CPU	(0x10 << 5)
+>  #define   WDT_CTRL_1MHZ_CLK		BIT(4)
+>  #define   WDT_CTRL_WDT_EXT		BIT(3)
+>  #define   WDT_CTRL_WDT_INTR		BIT(2)
+> @@ -140,6 +141,8 @@ static int aspeed_wdt_probe(struct platform_device *pdev)
+>  {
+>  	struct aspeed_wdt *wdt;
+>  	struct resource *res;
+> +	struct device_node *np;
+> +	const char *reset_type;
+>  	int ret;
+>  
+>  	wdt = devm_kzalloc(&pdev->dev, sizeof(*wdt), GFP_KERNEL);
+> @@ -164,14 +167,30 @@ static int aspeed_wdt_probe(struct platform_device *pdev)
+>  	wdt->wdd.timeout = WDT_DEFAULT_TIMEOUT;
+>  	watchdog_init_timeout(&wdt->wdd, 0, &pdev->dev);
+>  
+> +	wdt->ctrl = WDT_CTRL_1MHZ_CLK;
+> +
+>  	/*
+>  	 * Control reset on a per-device basis to ensure the
+> -	 * host is not affected by a BMC reboot, so only reset
+> -	 * the SOC and not the full chip
+> +	 * host is not affected by a BMC reboot
+>  	 */
+> -	wdt->ctrl = WDT_CTRL_RESET_MODE_SOC |
+> -		WDT_CTRL_1MHZ_CLK |
+> -		WDT_CTRL_RESET_SYSTEM;
+> +	np = pdev->dev.of_node;
+> +	ret = of_property_read_string(np, "aspeed,reset-type", &reset_type);
+> +	if (ret) {
+> +		wdt->ctrl |= WDT_CTRL_RESET_MODE_SOC | WDT_CTRL_RESET_SYSTEM;
+> +	} else {
+> +		if (!strcmp(reset_type, "cpu"))
+> +			wdt->ctrl |= WDT_CTRL_RESET_MODE_ARM_CPU;
+> +		else if (!strcmp(reset_type, "soc"))
+> +			wdt->ctrl |= WDT_CTRL_RESET_MODE_SOC;
+> +		else if (!strcmp(reset_type, "system"))
+> +			wdt->ctrl |= WDT_CTRL_RESET_SYSTEM;
+> +		else if (strcmp(reset_type, "none"))
+> +			return -EINVAL;
+> +	}
+> +	if (of_property_read_bool(np, "aspeed,external-signal"))
+> +		wdt->ctrl |= WDT_CTRL_WDT_EXT;
+> +
+> +	writel(wdt->ctrl, wdt->base + WDT_CTRL);
+>  
+>  	if (readl(wdt->base + WDT_CTRL) & WDT_CTRL_ENABLE)  {
+>  		aspeed_wdt_start(&wdt->wdd);
