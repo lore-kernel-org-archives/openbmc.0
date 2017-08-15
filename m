@@ -1,55 +1,25 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xWkS82XP1zDrJD;
- Tue, 15 Aug 2017 17:21:43 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="l2Onq2+6"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="llInxmLf"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 4A68A2083F;
- Tue, 15 Aug 2017 03:21:40 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Tue, 15 Aug 2017 03:21:40 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:message-id:subject:to:x-me-sender:x-me-sender
- :x-sasl-enc:x-sasl-enc; s=fm1; bh=OgKfMeb2Y9tE1TVykTcqQUGm11+u9B
- LmCxt1DDfx4O4=; b=l2Onq2+6+wT9UPaW9vQQf/1auTDId8hCV/xpRQQhghfjL9
- ItefnjtGvZyw6UssHQo1R0XBRTNftnY65hw8VLrwFLpJSuRu0ll4AxmbrZzb2jhw
- +FuipAha5yeqemfpEvAx+43k7ezoFrK4219BQIa3FrUlhuK8oqrfeEt3m1kCJVD2
- AOrtsUb3NWJ3LrdbvEnR1bbsbfMkFUxwQc2D7lPuBRT662gAQS509lF9oOd3bjVO
- yCm3Cv+vq922cfU0evT2qK9qr1wFON9kbDm2sQEmE1xrR3WdCXhGnihZH9C+a+XW
- qi0NdMRkS3BgzTG6GeiGgeF4AABQY397NbismPlw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=OgKfMe
- b2Y9tE1TVykTcqQUGm11+u9BLmCxt1DDfx4O4=; b=llInxmLfLQVVzVXhzjELdQ
- bbm72m4UqYfSvI3z4eBTjZtJ7N8V1dI0KL/OFuUMDZsH6g7Vd9MOh7UOPU9lmfgI
- bpBE8zygqaqxGLptJLAC6rWqJ+dan5JFNYfxI8jq1rMnrrx45gY/FiIgWnfADylt
- O+frk5Bo8YEIZiLupCFWktzalPKTTtq0R5xSxUxJR4dhhFax0TGsmn0vzhClZmvY
- BeYJiUOFV0X/1I570FulvGAGMv4JjM/HNWLKZb4R+qRN13DNSQuZheqrl8HZ51qk
- LpTm7/0HaMkjy2lDvDrjjXBTLkoLDnoTRejCtdLDECdzp5aE/cxAXvzd5Dbh4NhQ
- ==
-X-ME-Sender: <xms:BKGSWf1D8y_PzbvU_oxfzW1oPCv3LFLu8l9PuPo6bX30fqD4P3TZHw>
-X-Sasl-enc: XAJMdXutb/OF+0vpf8QojVymBc5bo71OzcGHCO3ZIQbV 1502781699
-Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 75E56244B4;
- Tue, 15 Aug 2017 03:21:36 -0400 (EDT)
-From: Andrew Jeffery <andrew@aj.id.au>
-To: linux-i2c@vger.kernel.org
-Cc: Andrew Jeffery <andrew@aj.id.au>, wsa@the-dreams.de,
- brendanhiggins@google.com, benh@kernel.crashing.org, joel@jms.id.au,
- openbmc@lists.ozlabs.org, linux-aspeed@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, ryan_chen@aspeedtech.com
-Subject: [PATCH] i2c: aspeed: Retain delay/setup/hold values when configuring
- bus frequency
-Date: Tue, 15 Aug 2017 16:51:02 +0930
-Message-Id: <20170815072102.23067-1-andrew@aj.id.au>
-X-Mailer: git-send-email 2.11.0
+Return-Path: <oleksandrs@mellanox.com>
+Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
+ by lists.ozlabs.org (Postfix) with ESMTP id 3xWnzM1t2ZzDr56
+ for <openbmc@lists.ozlabs.org>; Tue, 15 Aug 2017 20:00:30 +1000 (AEST)
+Received: from Internal Mail-Server by MTLPINE1 (envelope-from
+ oleksandrs@mellanox.com)
+ with ESMTPS (AES256-SHA encrypted); 15 Aug 2017 13:00:14 +0300
+Received: from r-vnc16.mtr.labs.mlnx (r-vnc16.mtr.labs.mlnx [10.208.0.16])
+ by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id v7FA0EEQ007828;
+ Tue, 15 Aug 2017 13:00:14 +0300
+From: Oleksandr Shamray <oleksandrs@mellanox.com>
+To: gregkh@linuxfoundation.org, arnd@arndb.de
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, joel@jms.id.au,
+ jiri@resnulli.us, tklauser@distanz.ch, linux-serial@vger.kernel.org,
+ mec@shout.net, vadimp@maellanox.com, system-sw-low-level@mellanox.com,
+ robh+dt@kernel.org, openocd-devel-owner@lists.sourceforge.net,
+ Oleksandr Shamray <oleksandrs@mellanox.com>
+Subject: [patch v3 0/3] JTAG driver introduction
+Date: Tue, 15 Aug 2017 13:00:04 +0300
+Message-Id: <1502791207-26951-1-git-send-email-oleksandrs@mellanox.com>
+X-Mailer: git-send-email 1.7.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,58 +31,108 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Aug 2017 07:21:46 -0000
+X-List-Received-Date: Tue, 15 Aug 2017 10:00:32 -0000
 
-In addition to the base, low and high clock configuration, the AC timing
-register #1 on the AST2400 houses fields controlling:
+When a need raise up to use JTAG interface for system's devices
+programming or CPU debugging, it could be done from the external
+JTAG master controller.
 
-1. tBUF: Minimum delay between Stop and Start conditions
-2. tHDSTA: Hold time for the Start condition
-3. tACST: Setup time for Start and Stop conditions, and hold time for the
-   Repeated Start condition
-
-These values are defined in hardware on the AST2500 and therefore don't
-need to be set.
-
-aspeed_i2c_init_clk() was performing a direct write of the generated
-clock values rather than a read/mask/modify/update sequence to retain
-tBUF, tHDSTA and tACST, and therefore cleared the tBUF, tHDSTA and tACST
-fields on the AST2400. This resulted in a delay/setup/hold time of 1
-base clock, which in some configurations is not enough for some devices
-(e.g. the MAX31785 fan controller, with an APB of 48MHz and a desired
-bus speed of 100kHz).
-
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- drivers/i2c/busses/i2c-aspeed.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
-index ee76e6dddc4b..284f8670dbeb 100644
---- a/drivers/i2c/busses/i2c-aspeed.c
-+++ b/drivers/i2c/busses/i2c-aspeed.c
-@@ -53,6 +53,9 @@
- #define ASPEED_I2CD_MASTER_EN				BIT(0)
+For such purpose, usually the user layer
+application implements jtag protocol or using a proprietary
+connection to vendor hardware.
+This method is slow and not generic.
  
- /* 0x04 : I2CD Clock and AC Timing Control Register #1 */
-+#define ASPEED_I2CD_TIME_TBUF_MASK			GENMASK(31, 28)
-+#define ASPEED_I2CD_TIME_THDSTA_MASK			GENMASK(27, 24)
-+#define ASPEED_I2CD_TIME_TACST_MASK			GENMASK(23, 20)
- #define ASPEED_I2CD_TIME_SCL_HIGH_SHIFT			16
- #define ASPEED_I2CD_TIME_SCL_HIGH_MASK			GENMASK(19, 16)
- #define ASPEED_I2CD_TIME_SCL_LOW_SHIFT			12
-@@ -744,7 +747,11 @@ static int aspeed_i2c_init_clk(struct aspeed_i2c_bus *bus)
- 	u32 divisor, clk_reg_val;
+We propose to implement general JTAG interface and infrastructure
+to communicate with user layer application. In such way, we can
+have the standard JTAG interface core part and separation from
+specific HW implementation.
+This allow new capability to debug the CPU or program system's 
+device via BMC without additional devices nor cost. 
+
+This patch purpose is to add JTAG master core infrastructure by 
+defining new JTAG class and provide generic JTAG interface
+to allow hardware specific drivers to connect this interface.
+This will enable all JTAG drivers to use the common interface
+part and will have separate for hardware implementation.
+
+The JTAG (Joint Test Action Group) core driver provides minimal generic
+JTAG interface, which can be used by hardware specific JTAG master
+controllers. By providing common interface for the JTAG controllers,
+user space device programing is hardware independent.
  
- 	divisor = DIV_ROUND_UP(bus->parent_clk_frequency, bus->bus_frequency);
--	clk_reg_val = bus->get_clk_reg_val(divisor);
-+	clk_reg_val = readl(bus->base + ASPEED_I2C_AC_TIMING_REG1);
-+	clk_reg_val &= (ASPEED_I2CD_TIME_TBUF_MASK |
-+			ASPEED_I2CD_TIME_THDSTA_MASK |
-+			ASPEED_I2CD_TIME_TACST_MASK);
-+	clk_reg_val |= bus->get_clk_reg_val(divisor);
- 	writel(clk_reg_val, bus->base + ASPEED_I2C_AC_TIMING_REG1);
- 	writel(ASPEED_NO_TIMEOUT_CTRL, bus->base + ASPEED_I2C_AC_TIMING_REG2);
+Modern SoC which in use for embedded system' equipped with
+internal JTAG master interface.
+This interface is used for programming and debugging system's
+hardware components, like CPLD, FPGA, CPU, voltage and
+industrial controllers.
+Firmware for such devices can be upgraded through JTAG interface during
+Runtime. The JTAG standard support for multiple devices programming,
+is in case their lines are daisy-chained together.
+
+For example, systems which equipped with host CPU, BMC SoC or/and 
+number of programmable devices are capable to connect a pin and
+select system components dynamically for programming and debugging,
+This is using by the BMC which is equipped with internal SoC master
+controller.
+For example:
+
+BMC JTAG master --> pin selected to CPLDs chain for programming (filed
+upgrade, production) 
+BMC JTAG master --> pin selected to voltage monitors for programming 
+(field upgrade, production) 
+BMC JTAG master --> pin selected to host CPU (on-site debugging 
+and developers debugging)
+
+For example, we can have application in user space which using calls
+to JTAG driver executes CPLD programming directly from SVF file
  
--- 
-2.11.0
+The JTAG standard (IEEE 1149.1) defines the next connector pins:
+- TDI (Test Data In);
+- TDO (Test Data Out);
+- TCK (Test Clock);
+- TMS (Test Mode Select);
+- TRST (Test Reset) (Optional);
+
+The SoC equipped with JTAG master controller, performs
+device programming on command or vector level. For example
+a file in a standard SVF (Serial Vector Format) that contains
+boundary scan vectors, can be used by sending each vector
+to the JTAG interface and the JTAG controller will execute
+the programming.
+
+Initial version provides the system calls set for:
+- SIR (Scan Instruction Register, IEEE 1149.1 Data Register scan);
+- SDR (Scan Data Register, IEEE 1149.1 Instruction Register scan);
+- RUNTEST (Forces the IEEE 1149.1 bus to a run state for a specified
+  number of clocks.
+
+SoC which are not equipped with JTAG master interface, can be built
+on top of JTAG core driver infrastructure, by applying bit-banging of
+TDI, TDO, TCK and TMS pins within the hardware specific driver.
+
+Oleksandr Shamray (3):
+  drivers: jtag: Add JTAG core driver
+  drivers: jtag: Add Aspeed SoC 24xx and 25xx families JTAG master
+    driver
+  doccumentation: jtag: Add bindings for Aspeed SoC 24xx and 25xx
+    families     JTAG master driver
+
+ .../devicetree/bindings/jtag/aspeed-jtag.txt       |   19 +
+ Documentation/ioctl/ioctl-number.txt               |    2 +
+ MAINTAINERS                                        |    8 +
+ drivers/Kconfig                                    |    2 +
+ drivers/Makefile                                   |    1 +
+ drivers/jtag/Kconfig                               |   29 +
+ drivers/jtag/Makefile                              |    2 +
+ drivers/jtag/jtag-aspeed.c                         |  774 ++++++++++++++++++++
+ drivers/jtag/jtag.c                                |  313 ++++++++
+ include/linux/jtag.h                               |   46 ++
+ include/uapi/linux/jtag.h                          |  113 +++
+ 11 files changed, 1309 insertions(+), 0 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/jtag/aspeed-jtag.txt
+ create mode 100644 drivers/jtag/Kconfig
+ create mode 100644 drivers/jtag/Makefile
+ create mode 100644 drivers/jtag/jtag-aspeed.c
+ create mode 100644 drivers/jtag/jtag.c
+ create mode 100644 include/linux/jtag.h
+ create mode 100644 include/uapi/linux/jtag.h
