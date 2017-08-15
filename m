@@ -1,59 +1,55 @@
-Return-Path: <linux@roeck-us.net>
-Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xWbnY1bMLzDr9G
- for <openbmc@lists.ozlabs.org>; Tue, 15 Aug 2017 12:21:20 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xWkS82XP1zDrJD;
+ Tue, 15 Aug 2017 17:21:43 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.b="unTz88H3";
- dkim-atps=neutral
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
- :Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
- :Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=dhwByP0Ua1V6SxsF6D87sa2VRXh5Ay3v8zLl7S+SOfw=; b=unTz88H3Wz/w12tRhUL/6yoKGE
- HQtea6KxpUS82uuR5W19cLkXOz+PWEs1WsXW09TdieBHroWRMOx/ZYwpfZKmfNyvMi98JjWZx72L7
- LZbcQIt3ja5fH2znzxD7EIjtO5fcdcJsVgAbGCBDEcuG+Yl3bSkwAIbH6fCM2H/GVzcoa62m+VvG6
- OWB4BZkCxINaP9ux04gU9xMsRhQWzgPndChA0TlnzbJq5gLUuMJUMJ5wtLRBEo4CoXi908+v+g/s4
- tPEpqsUdckCIfgsFJSXThB0cWCUgSZHoh9LQDCPXKwL0A7PPnly96lGhjxNeeUYTmNS9Dc0Z9/39T
- IzmnV3zg==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net
- ([108.223.40.66]:58408 helo=localhost)
- by bh-25.webhostbox.net with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
- (Exim 4.89) (envelope-from <linux@roeck-us.net>)
- id 1dhRTp-000EaR-EW; Tue, 15 Aug 2017 02:21:18 +0000
-Date: Mon, 14 Aug 2017 19:21:16 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: linux-watchdog@vger.kernel.org, wim@iguana.be, robh+dt@kernel.org,
- mark.rutland@arm.com, joel@jms.id.au, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- openbmc@lists.ozlabs.org
-Subject: Re: [2/2] watchdog: aspeed: Support configuration of external signal
- properties
-Message-ID: <20170815022116.GA2201@roeck-us.net>
-References: <20170802044529.30032-3-andrew@aj.id.au>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20170802044529.30032-3-andrew@aj.id.au>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Authenticated_sender: guenter@roeck-us.net
-X-OutGoing-Spam-Status: No, score=-1.0
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - lists.ozlabs.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-Get-Message-Sender-Via: bh-25.webhostbox.net: authenticated_id:
- guenter@roeck-us.net
-X-Authenticated-Sender: bh-25.webhostbox.net: guenter@roeck-us.net
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="l2Onq2+6"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="llInxmLf"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 4A68A2083F;
+ Tue, 15 Aug 2017 03:21:40 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Tue, 15 Aug 2017 03:21:40 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :date:from:message-id:subject:to:x-me-sender:x-me-sender
+ :x-sasl-enc:x-sasl-enc; s=fm1; bh=OgKfMeb2Y9tE1TVykTcqQUGm11+u9B
+ LmCxt1DDfx4O4=; b=l2Onq2+6+wT9UPaW9vQQf/1auTDId8hCV/xpRQQhghfjL9
+ ItefnjtGvZyw6UssHQo1R0XBRTNftnY65hw8VLrwFLpJSuRu0ll4AxmbrZzb2jhw
+ +FuipAha5yeqemfpEvAx+43k7ezoFrK4219BQIa3FrUlhuK8oqrfeEt3m1kCJVD2
+ AOrtsUb3NWJ3LrdbvEnR1bbsbfMkFUxwQc2D7lPuBRT662gAQS509lF9oOd3bjVO
+ yCm3Cv+vq922cfU0evT2qK9qr1wFON9kbDm2sQEmE1xrR3WdCXhGnihZH9C+a+XW
+ qi0NdMRkS3BgzTG6GeiGgeF4AABQY397NbismPlw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=OgKfMe
+ b2Y9tE1TVykTcqQUGm11+u9BLmCxt1DDfx4O4=; b=llInxmLfLQVVzVXhzjELdQ
+ bbm72m4UqYfSvI3z4eBTjZtJ7N8V1dI0KL/OFuUMDZsH6g7Vd9MOh7UOPU9lmfgI
+ bpBE8zygqaqxGLptJLAC6rWqJ+dan5JFNYfxI8jq1rMnrrx45gY/FiIgWnfADylt
+ O+frk5Bo8YEIZiLupCFWktzalPKTTtq0R5xSxUxJR4dhhFax0TGsmn0vzhClZmvY
+ BeYJiUOFV0X/1I570FulvGAGMv4JjM/HNWLKZb4R+qRN13DNSQuZheqrl8HZ51qk
+ LpTm7/0HaMkjy2lDvDrjjXBTLkoLDnoTRejCtdLDECdzp5aE/cxAXvzd5Dbh4NhQ
+ ==
+X-ME-Sender: <xms:BKGSWf1D8y_PzbvU_oxfzW1oPCv3LFLu8l9PuPo6bX30fqD4P3TZHw>
+X-Sasl-enc: XAJMdXutb/OF+0vpf8QojVymBc5bo71OzcGHCO3ZIQbV 1502781699
+Received: from keelia.au.ibm.com (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 75E56244B4;
+ Tue, 15 Aug 2017 03:21:36 -0400 (EDT)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: linux-i2c@vger.kernel.org
+Cc: Andrew Jeffery <andrew@aj.id.au>, wsa@the-dreams.de,
+ brendanhiggins@google.com, benh@kernel.crashing.org, joel@jms.id.au,
+ openbmc@lists.ozlabs.org, linux-aspeed@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, ryan_chen@aspeedtech.com
+Subject: [PATCH] i2c: aspeed: Retain delay/setup/hold values when configuring
+ bus frequency
+Date: Tue, 15 Aug 2017 16:51:02 +0930
+Message-Id: <20170815072102.23067-1-andrew@aj.id.au>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -65,173 +61,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Aug 2017 02:21:21 -0000
+X-List-Received-Date: Tue, 15 Aug 2017 07:21:46 -0000
 
-On Wed, Aug 02, 2017 at 02:15:29PM +0930, Andrew Jeffery wrote:
-> Add support for configuring the drive strength and polarity on the
-> AST2500, and the pulse duration on both the AST2400 and AST2500.
-> 
-> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> Tested-by: Matt Spinler <mspinler@linux.vnet.ibm.com>
+In addition to the base, low and high clock configuration, the AC timing
+register #1 on the AST2400 houses fields controlling:
 
-Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+1. tBUF: Minimum delay between Stop and Start conditions
+2. tHDSTA: Hold time for the Start condition
+3. tACST: Setup time for Start and Stop conditions, and hold time for the
+   Repeated Start condition
 
-> ---
->  drivers/watchdog/aspeed_wdt.c | 105 ++++++++++++++++++++++++++++++++++++++++--
->  1 file changed, 102 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/watchdog/aspeed_wdt.c b/drivers/watchdog/aspeed_wdt.c
-> index c707ab647922..79cc766cd30f 100644
-> --- a/drivers/watchdog/aspeed_wdt.c
-> +++ b/drivers/watchdog/aspeed_wdt.c
-> @@ -23,9 +23,21 @@ struct aspeed_wdt {
->  	u32			ctrl;
->  };
->  
-> +struct aspeed_wdt_config {
-> +	u32 ext_pulse_width_mask;
-> +};
-> +
-> +static const struct aspeed_wdt_config ast2400_config = {
-> +	.ext_pulse_width_mask = 0xff,
-> +};
-> +
-> +static const struct aspeed_wdt_config ast2500_config = {
-> +	.ext_pulse_width_mask = 0xfffff,
-> +};
-> +
->  static const struct of_device_id aspeed_wdt_of_table[] = {
-> -	{ .compatible = "aspeed,ast2400-wdt" },
-> -	{ .compatible = "aspeed,ast2500-wdt" },
-> +	{ .compatible = "aspeed,ast2400-wdt", .data = &ast2400_config },
-> +	{ .compatible = "aspeed,ast2500-wdt", .data = &ast2500_config },
->  	{ },
->  };
->  MODULE_DEVICE_TABLE(of, aspeed_wdt_of_table);
-> @@ -43,6 +55,38 @@ MODULE_DEVICE_TABLE(of, aspeed_wdt_of_table);
->  #define   WDT_CTRL_RESET_SYSTEM		BIT(1)
->  #define   WDT_CTRL_ENABLE		BIT(0)
->  
-> +/*
-> + * WDT_RESET_WIDTH controls the characteristics of the external pulse (if
-> + * enabled), specifically:
-> + *
-> + * * Pulse duration
-> + * * Drive mode: push-pull vs open-drain
-> + * * Polarity: Active high or active low
-> + *
-> + * Pulse duration configuration is available on both the AST2400 and AST2500,
-> + * though the field changes between SoCs:
-> + *
-> + * AST2400: Bits 7:0
-> + * AST2500: Bits 19:0
-> + *
-> + * This difference is captured in struct aspeed_wdt_config.
-> + *
-> + * The AST2500 exposes the drive mode and polarity options, but not in a
-> + * regular fashion. For read purposes, bit 31 represents active high or low,
-> + * and bit 30 represents push-pull or open-drain. With respect to write, magic
-> + * values need to be written to the top byte to change the state of the drive
-> + * mode and polarity bits. Any other value written to the top byte has no
-> + * effect on the state of the drive mode or polarity bits. However, the pulse
-> + * width value must be preserved (as desired) if written.
-> + */
-> +#define WDT_RESET_WIDTH		0x18
-> +#define   WDT_RESET_WIDTH_ACTIVE_HIGH	BIT(31)
-> +#define     WDT_ACTIVE_HIGH_MAGIC	(0xA5 << 24)
-> +#define     WDT_ACTIVE_LOW_MAGIC	(0x5A << 24)
-> +#define   WDT_RESET_WIDTH_PUSH_PULL	BIT(30)
-> +#define     WDT_PUSH_PULL_MAGIC		(0xA8 << 24)
-> +#define     WDT_OPEN_DRAIN_MAGIC	(0x8A << 24)
-> +
->  #define WDT_RESTART_MAGIC	0x4755
->  
->  /* 32 bits at 1MHz, in milliseconds */
-> @@ -139,10 +183,13 @@ static const struct watchdog_info aspeed_wdt_info = {
->  
->  static int aspeed_wdt_probe(struct platform_device *pdev)
->  {
-> +	const struct aspeed_wdt_config *config;
-> +	const struct of_device_id *ofdid;
->  	struct aspeed_wdt *wdt;
->  	struct resource *res;
->  	struct device_node *np;
->  	const char *reset_type;
-> +	u32 duration;
->  	int ret;
->  
->  	wdt = devm_kzalloc(&pdev->dev, sizeof(*wdt), GFP_KERNEL);
-> @@ -167,13 +214,19 @@ static int aspeed_wdt_probe(struct platform_device *pdev)
->  	wdt->wdd.timeout = WDT_DEFAULT_TIMEOUT;
->  	watchdog_init_timeout(&wdt->wdd, 0, &pdev->dev);
->  
-> +	np = pdev->dev.of_node;
-> +
-> +	ofdid = of_match_node(aspeed_wdt_of_table, np);
-> +	if (!ofdid)
-> +		return -EINVAL;
-> +	config = ofdid->data;
-> +
->  	wdt->ctrl = WDT_CTRL_1MHZ_CLK;
->  
->  	/*
->  	 * Control reset on a per-device basis to ensure the
->  	 * host is not affected by a BMC reboot
->  	 */
-> -	np = pdev->dev.of_node;
->  	ret = of_property_read_string(np, "aspeed,reset-type", &reset_type);
->  	if (ret) {
->  		wdt->ctrl |= WDT_CTRL_RESET_MODE_SOC | WDT_CTRL_RESET_SYSTEM;
-> @@ -197,6 +250,52 @@ static int aspeed_wdt_probe(struct platform_device *pdev)
->  		set_bit(WDOG_HW_RUNNING, &wdt->wdd.status);
->  	}
->  
-> +	if (of_device_is_compatible(np, "aspeed,ast2500-wdt")) {
-> +		u32 reg = readl(wdt->base + WDT_RESET_WIDTH);
-> +
-> +		reg &= config->ext_pulse_width_mask;
-> +		if (of_property_read_bool(np, "aspeed,ext-push-pull"))
-> +			reg |= WDT_PUSH_PULL_MAGIC;
-> +		else
-> +			reg |= WDT_OPEN_DRAIN_MAGIC;
-> +
-> +		writel(reg, wdt->base + WDT_RESET_WIDTH);
-> +
-> +		reg &= config->ext_pulse_width_mask;
-> +		if (of_property_read_bool(np, "aspeed,ext-active-high"))
-> +			reg |= WDT_ACTIVE_HIGH_MAGIC;
-> +		else
-> +			reg |= WDT_ACTIVE_LOW_MAGIC;
-> +
-> +		writel(reg, wdt->base + WDT_RESET_WIDTH);
-> +	}
-> +
-> +	if (!of_property_read_u32(np, "aspeed,ext-pulse-duration", &duration)) {
-> +		u32 max_duration = config->ext_pulse_width_mask + 1;
-> +
-> +		if (duration == 0 || duration > max_duration) {
-> +			dev_err(&pdev->dev, "Invalid pulse duration: %uus\n",
-> +					duration);
-> +			duration = max(1U, min(max_duration, duration));
-> +			dev_info(&pdev->dev, "Pulse duration set to %uus\n",
-> +					duration);
-> +		}
-> +
-> +		/*
-> +		 * The watchdog is always configured with a 1MHz source, so
-> +		 * there is no need to scale the microsecond value. However we
-> +		 * need to offset it - from the datasheet:
-> +		 *
-> +		 * "This register decides the asserting duration of wdt_ext and
-> +		 * wdt_rstarm signal. The default value is 0xFF. It means the
-> +		 * default asserting duration of wdt_ext and wdt_rstarm is
-> +		 * 256us."
-> +		 *
-> +		 * This implies a value of 0 gives a 1us pulse.
-> +		 */
-> +		writel(duration - 1, wdt->base + WDT_RESET_WIDTH);
-> +	}
-> +
->  	ret = devm_watchdog_register_device(&pdev->dev, &wdt->wdd);
->  	if (ret) {
->  		dev_err(&pdev->dev, "failed to register\n");
+These values are defined in hardware on the AST2500 and therefore don't
+need to be set.
+
+aspeed_i2c_init_clk() was performing a direct write of the generated
+clock values rather than a read/mask/modify/update sequence to retain
+tBUF, tHDSTA and tACST, and therefore cleared the tBUF, tHDSTA and tACST
+fields on the AST2400. This resulted in a delay/setup/hold time of 1
+base clock, which in some configurations is not enough for some devices
+(e.g. the MAX31785 fan controller, with an APB of 48MHz and a desired
+bus speed of 100kHz).
+
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ drivers/i2c/busses/i2c-aspeed.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
+index ee76e6dddc4b..284f8670dbeb 100644
+--- a/drivers/i2c/busses/i2c-aspeed.c
++++ b/drivers/i2c/busses/i2c-aspeed.c
+@@ -53,6 +53,9 @@
+ #define ASPEED_I2CD_MASTER_EN				BIT(0)
+ 
+ /* 0x04 : I2CD Clock and AC Timing Control Register #1 */
++#define ASPEED_I2CD_TIME_TBUF_MASK			GENMASK(31, 28)
++#define ASPEED_I2CD_TIME_THDSTA_MASK			GENMASK(27, 24)
++#define ASPEED_I2CD_TIME_TACST_MASK			GENMASK(23, 20)
+ #define ASPEED_I2CD_TIME_SCL_HIGH_SHIFT			16
+ #define ASPEED_I2CD_TIME_SCL_HIGH_MASK			GENMASK(19, 16)
+ #define ASPEED_I2CD_TIME_SCL_LOW_SHIFT			12
+@@ -744,7 +747,11 @@ static int aspeed_i2c_init_clk(struct aspeed_i2c_bus *bus)
+ 	u32 divisor, clk_reg_val;
+ 
+ 	divisor = DIV_ROUND_UP(bus->parent_clk_frequency, bus->bus_frequency);
+-	clk_reg_val = bus->get_clk_reg_val(divisor);
++	clk_reg_val = readl(bus->base + ASPEED_I2C_AC_TIMING_REG1);
++	clk_reg_val &= (ASPEED_I2CD_TIME_TBUF_MASK |
++			ASPEED_I2CD_TIME_THDSTA_MASK |
++			ASPEED_I2CD_TIME_TACST_MASK);
++	clk_reg_val |= bus->get_clk_reg_val(divisor);
+ 	writel(clk_reg_val, bus->base + ASPEED_I2C_AC_TIMING_REG1);
+ 	writel(ASPEED_NO_TIMEOUT_CTRL, bus->base + ASPEED_I2C_AC_TIMING_REG2);
+ 
+-- 
+2.11.0
