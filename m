@@ -1,62 +1,62 @@
-Return-Path: <arndbergmann@gmail.com>
-Received: from mail-oi0-x243.google.com (mail-oi0-x243.google.com
- [IPv6:2607:f8b0:4003:c06::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <anoo@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xWqfd36MKzDqln
- for <openbmc@lists.ozlabs.org>; Tue, 15 Aug 2017 21:16:09 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="X/hRHLzQ"; 
- dkim-atps=neutral
-Received: by mail-oi0-x243.google.com with SMTP id v11so469146oif.1
- for <openbmc@lists.ozlabs.org>; Tue, 15 Aug 2017 04:16:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=dn0JPB21nMGVGJFe0hX1J/gMkwua7fYpwv1hqOk/uJ8=;
- b=X/hRHLzQ/Z7HvJUi5MuPLq0QKl0ldPh/sF3ni7nL/JxtKSAoxy+sBD2bqZ2/lmavny
- +QpvNmC0KJq44FyRFspmmNAyrLoWVdqOm159qxRpm2/e4sJeqIsttA5So+Le9y5XkPy0
- n4gSCT/lOmQhdmMY32dOK0HUdtVhyRlyDu/Sb20dvaasIiNxqphWsCVIv2ifOqXR5YhU
- 6cQhYiYf5zbPMrsvoMESHvGN6SfwfFAFmpBWrZYzJt+yT/okaOcCUXXCAlSodRcCTpyV
- xZmpcH0Qj1y0PbZWgtqRYEH6DHQOSTTohNXbaOjSJ80HPEwyUuLj9dP8kX6bz5+9Y0C/
- A/XA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=dn0JPB21nMGVGJFe0hX1J/gMkwua7fYpwv1hqOk/uJ8=;
- b=Z094twAcNj4fd46PQUJwEj14hyyYzcAGfF5orusPBgHMT/zGwQ5YabLTTj6YVEPwI0
- /XMti65gsncg4rfDAQtRxca7JabP7WW0gyq+rYEzkFmrNdFqenV9jKrJlNoJO1qNhxU8
- FycG1MBQMA/d+vxAs5KIrwYIpM08xJsMwxtdnLHCXdrMiltAdFcMU35Oq7HaJjJDUIaP
- 1Kngo90lw7tw7JHrFt8/6pnH6+VcFDSu39BtFjiECHt1mb4NWBn39wXXg/4OEPjQxG6m
- aRthy3USvtiI8FZp0DAvhhV4WDwFQ7ckOjn7EbLBrjv0suzwtLZv8coh/QRg3WFHCGUy
- AsvA==
-X-Gm-Message-State: AHYfb5hVbuxxxMuKNqzlk62w5Klhe4M1GC4GGr0cl3AQYlysD8o2y8Pf
- uPM0qY/hiUrtZ0FwTwOdbSR9owrsXQ==
-X-Received: by 10.202.83.6 with SMTP id h6mr29012572oib.138.1502795767571;
- Tue, 15 Aug 2017 04:16:07 -0700 (PDT)
-MIME-Version: 1.0
-Sender: arndbergmann@gmail.com
-Received: by 10.182.29.34 with HTTP; Tue, 15 Aug 2017 04:16:06 -0700 (PDT)
-In-Reply-To: <1502791207-26951-2-git-send-email-oleksandrs@mellanox.com>
-References: <1502791207-26951-1-git-send-email-oleksandrs@mellanox.com>
- <1502791207-26951-2-git-send-email-oleksandrs@mellanox.com>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Tue, 15 Aug 2017 13:16:06 +0200
-X-Google-Sender-Auth: ChDZz4Mpao2Jh-pAEcbxkB383cE
-Message-ID: <CAK8P3a3DutrfhGrd9MnDFbzhfvnZXSyrV2RbTgrFGgpbAs=H0w@mail.gmail.com>
-Subject: Re: [patch v3 1/3] drivers: jtag: Add JTAG core driver
-To: Oleksandr Shamray <oleksandrs@mellanox.com>
-Cc: gregkh <gregkh@linuxfoundation.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- Linux ARM <linux-arm-kernel@lists.infradead.org>, devicetree@vger.kernel.org, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>, 
- =?UTF-8?B?SmnFmcOtIFDDrXJrbw==?= <jiri@resnulli.us>, 
- Tobias Klauser <tklauser@distanz.ch>, linux-serial@vger.kernel.org,
- mec@shout.net, vadimp@maellanox.com, system-sw-low-level@mellanox.com, 
- Rob Herring <robh+dt@kernel.org>, openocd-devel-owner@lists.sourceforge.net, 
- Jiri Pirko <jiri@mellanox.com>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xXCTD26hGzDqgD
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Aug 2017 12:09:20 +1000 (AEST)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v7G28k6j102773
+ for <openbmc@lists.ozlabs.org>; Tue, 15 Aug 2017 22:09:17 -0400
+Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2cc6f8q7qj-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 15 Aug 2017 22:09:17 -0400
+Received: from localhost
+ by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <anoo@linux.vnet.ibm.com>;
+ Tue, 15 Aug 2017 20:09:16 -0600
+Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
+ by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Tue, 15 Aug 2017 20:09:13 -0600
+Received: from b03ledav006.gho.boulder.ibm.com
+ (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
+ by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v7G29Du365732622; Tue, 15 Aug 2017 19:09:13 -0700
+Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 07B0CC603E;
+ Tue, 15 Aug 2017 20:09:13 -0600 (MDT)
+Received: from habcap11p1.aus.stglabs.ibm.com (unknown [9.41.164.53])
+ by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id AAEAEC6037;
+ Tue, 15 Aug 2017 20:09:12 -0600 (MDT)
+From: Adriana Kobylak <anoo@linux.vnet.ibm.com>
+To: joel@jms.id.au, raltherr@google.com, maxims@google.com, miltonm@us.ibm.com
+Cc: openbmc@lists.ozlabs.org, Adriana Kobylak <anoo@linux.vnet.ibm.com>
+Subject: [PATCH u-boot v2016.07-aspeed-openbmc] Add MTD and UBI support to
+ ast-g5
+Date: Tue, 15 Aug 2017 21:09:10 -0500
+X-Mailer: git-send-email 2.5.0
+X-TM-AS-GCONF: 00
+x-cbid: 17081602-0020-0000-0000-00000C8B5841
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007552; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000221; SDB=6.00902927; UDB=6.00452269; IPR=6.00683143; 
+ BA=6.00005534; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016713; XFM=3.00000015;
+ UTC=2017-08-16 02:09:14
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17081602-0021-0000-0000-00005DB77D4B
+Message-Id: <1502849350-40252-1-git-send-email-anoo@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-08-15_16:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
+ definitions=main-1708160034
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,82 +68,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Aug 2017 11:16:10 -0000
+X-List-Received-Date: Wed, 16 Aug 2017 02:09:20 -0000
 
-On Tue, Aug 15, 2017 at 12:00 PM, Oleksandr Shamray
-<oleksandrs@mellanox.com> wrote:
+Add MTD and UBI support to the default g5 include, conditioned to
+having MTDPARTS_DEFAULT defined.
 
-> +       case JTAG_IOCXFER:
-> +               if (copy_from_user(&xfer, varg, sizeof(struct jtag_xfer)))
-> +                       return -EFAULT;
-> +
-> +               if (xfer.length >= JTAG_MAX_XFER_DATA_LEN)
-> +                       return -EFAULT;
-> +
-> +               user_tdio_data = xfer.tdio;
-> +               xfer.tdio = jtag_copy_from_user((void __user *)user_tdio_data,
-> +                                               xfer.length);
-> +               if (!xfer.tdio)
-> +                       return -ENOMEM;
+This allows platforms to enable this support if desired without
+adding it by default since it increases the size of u-boot.
 
-This is not safe for 32-bit processes on 64-bit kernels, since the
-structure layout differs for the pointer member. It's better to always
-use either rework the structure to avoid the pointer, or to use a
-__u64 member to store it, and then use u64_to_user_ptr()
-to convert it in the kernel.
+Signed-off-by: Adriana Kobylak <anoo@linux.vnet.ibm.com>
+---
+ include/configs/ast-g5-ncsi.h | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-> +       case JTAG_GIOCSTATUS:
-> +               if (jtag->ops->status_get)
-> +                       err = jtag->ops->status_get(jtag,
-> +                                               (enum jtag_endstate *)&value);
-
-This pointer cast is also not safe, as an enum might have a different
-size than the 'value' variable that is not an enum. I think you need to
-change the argument type for the callback, or maybe use another
-intermediate.
-
-> +static int jtag_open(struct inode *inode, struct file *file)
-> +{
-> +       struct jtag *jtag = container_of(inode->i_cdev, struct jtag, cdev);
-> +
-> +       spin_lock(&jtag->lock);
-> +
-> +       if (jtag->is_open) {
-> +               dev_info(NULL, "jtag already opened\n");
-> +               spin_unlock(&jtag->lock);
-> +               return -EBUSY;
-> +       }
-> +
-> +       jtag->is_open = true;
-> +       file->private_data = jtag;
-> +       spin_unlock(&jtag->lock);
-> +       return 0;
-> +}
-
-Does the 'is_open' flag protect you from something that doesn't
-also happen after a 'dup()' call on the file descriptor?
-
-> + * @mode: access mode
-> + * @type: transfer type
-> + * @direction: xfer direction
-> + * @length: xfer bits len
-> + * @tdio : xfer data array
-> + * @endir: xfer end state
-> + *
-> + * Structure represents interface to Aspeed JTAG device for jtag sdr xfer
-> + * execution.
-> + */
-> +struct jtag_xfer {
-> +       __u8    mode;
-> +       __u8    type;
-> +       __u8    direction;
-> +       __u32   length;
-> +       __u8    *tdio;
-> +       __u8    endstate;
-> +};
-
-As mentioned above, the pointer in here makes it incompatible. Also,
-you should reorder the members to avoid the implied padding.
-Moving the 'endstate' before 'length' is sufficient.
-
-        Arnd
+diff --git a/include/configs/ast-g5-ncsi.h b/include/configs/ast-g5-ncsi.h
+index 12d6684..b126e6e 100644
+--- a/include/configs/ast-g5-ncsi.h
++++ b/include/configs/ast-g5-ncsi.h
+@@ -28,4 +28,14 @@
+ 
+ #define CONFIG_HW_WATCHDOG
+ 
++/* MTD and UBI */
++#ifdef MTDPARTS_DEFAULT
++#define CONFIG_FLASH_CFI_MTD
++#define CONFIG_CMD_UBI
++#define CONFIG_RBTREE
++#define CONFIG_MTD_DEVICE
++#define CONFIG_MTD_PARTITIONS
++#define CONFIG_CMD_MTDPARTS
++#endif
++
+ #endif	/* __AST_G5_NCSI_CONFIG_H */
+-- 
+1.8.2.2
