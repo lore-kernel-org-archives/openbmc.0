@@ -1,53 +1,57 @@
-Return-Path: <brendanhiggins@google.com>
-Received: from mail-qk0-x236.google.com (mail-qk0-x236.google.com
- [IPv6:2607:f8b0:400d:c09::236])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-lf0-x242.google.com (mail-lf0-x242.google.com
+ [IPv6:2a00:1450:4010:c07::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xXKGQ57J5zDqY3
- for <openbmc@lists.ozlabs.org>; Wed, 16 Aug 2017 16:30:22 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xXKjT3xL3zDqZy;
+ Wed, 16 Aug 2017 16:50:21 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="hzxP6ZD+"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="nlNdghwF"; 
  dkim-atps=neutral
-Received: by mail-qk0-x236.google.com with SMTP id x191so15267039qka.5
- for <openbmc@lists.ozlabs.org>; Tue, 15 Aug 2017 23:30:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=QAoVSNh2qBweUI4CnasldT+G4w4hmUSIELVKR1g3hdI=;
- b=hzxP6ZD+FvdYbre3IxCJIMrdILjSHpD/AZWFYuoBcQaJAPktxpse4WdnP0NlL0MR1G
- CLpLUewkDX8Jv5OAOVO8A6QM35DKyZTZD/srZQP2pc6dkZIl8UUKhVxlS9bY10qzUCSW
- UqUwiUR38QqTBu400ydazbrBBad6MveI9O2QcdTJ6d81gZxGb7ySyt45Dlm/3vsLrGua
- RrT8xBXp50ydlPgHvdhNImwOTNxVQqXkAqDWunLRQPu/q7FHUMNIVnOvN0UeSUfCWh/Y
- L+Agpmbypa6N2vRILjcGvSdOZojRgkOTjU2g6LEEQx3T1HgfZeY8JyVGQEprgG3M9K6f
- 3sog==
+Received: by mail-lf0-x242.google.com with SMTP id w199so1873869lff.2;
+ Tue, 15 Aug 2017 23:50:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=l+q+WkswTBF8Uiz+ilqlN7zWUzttWKRnK7mHBoIgP6Y=;
+ b=nlNdghwFAUcNCDCe1cJO/y96SR9bc3zMXg784mMBPMcQElzRqO8Qj7exlSpbLx27jb
+ g1fizAb7eJAinv4rYC4iEXsUVVZ/pIoEBH6cX+tCEZ7uJNOGOnI09auwQifnsTlN0n/l
+ AH2lj44+MoUZiZyBbKh80tqR+6w8pNZ1Rze+EfCOBksJiKSok4s2JLmWD5tTaof3mrjW
+ 7dRfdnz0vnQ7VIJdh6gJH2dX3QRE7I83vyLl5NF+zSg7clXCQFyNdojQy3W5xZTLBkRR
+ WAgcBp9Oo/9qosMflEwqJl8cpnlfe8sbjSn5V4fHyLBjRuXX2Jhlhhue/g0ZXy/xy0lV
+ 14kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=QAoVSNh2qBweUI4CnasldT+G4w4hmUSIELVKR1g3hdI=;
- b=DvtguYUoFjM7cOc5ambFhh9aTEs15c7fhKTblncw/dDMnMbciP8pvum/rP4nGZgczL
- BzAg2KG6sAxCiqNB73WZcKEt+cJhjg0ZN73T3ujHDuvYN05PPfXO/CGff1V2RNhoHwpx
- jpCCmBMlW677MMypswWMqgnfvHUPYAsxFIYO7R0SiiMXRUtgxpwz0pTytHhYiR53Ipk/
- LkWBjySsP3R1hxcrKjKL2urWHZQBRKXvfBsyW75bm8LYXJ7Al8Uq7iUMVhOaiu/oWssY
- wJABHarx0gSwdQP2Lc5B0o9ELPWC1QUW9OwzzDISfDetVjsO9BEjb+YqkrBRziDbRMxG
- bdFw==
-X-Gm-Message-State: AHYfb5hFRXQUO7uCJ0eQbzAIvGFyi9lROFlYq2es3t/favWETVO2J/hm
- zS/3m0z+ibh9w/kzujraUtjvUnFEG5nD
-X-Received: by 10.55.207.211 with SMTP id v80mr751364qkl.51.1502865019401;
- Tue, 15 Aug 2017 23:30:19 -0700 (PDT)
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=l+q+WkswTBF8Uiz+ilqlN7zWUzttWKRnK7mHBoIgP6Y=;
+ b=t4frhMD01wFxuy7OCB80ieKi5sVMETpkYo0B9mQ1P4VlqUg83RqSe1Q3IYSSpbwxVb
+ FzJGjYlkMocQJ/I+A9UN0pH4jf0vberD0DxUF4NLopuKE7ZqC5vmE8Z55ColLCWOiCe1
+ ee9H1vGWqIQiQnYMKnFFlx0jhVSlYgnJsY2aChT8CbwQUTTYsMGUPFzaYV1euXaZhWGk
+ J1kIQ49fRjCVLNAE+ssQLu6SKZJZXbbko9976Bnn/bugD8G1TAfAz5HAncn2ikyHRGsq
+ dDGrLGRJX2IBE8lCrD2CpYl29nhCpf42DOES8+k381GVjzCP0vFvhHAUdgAj84bu7STf
+ ECiQ==
+X-Gm-Message-State: AHYfb5jx2yh4j4VXdQX1Njne3ZLBIFmFff3iqzbTabd7192/aZUHX/BF
+ cqacyhesMeHGTfodydZmEIK+mJHGVQ==
+X-Received: by 10.25.235.18 with SMTP id j18mr260934lfh.257.1502866217923;
+ Tue, 15 Aug 2017 23:50:17 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.140.44.53 with HTTP; Tue, 15 Aug 2017 23:30:18 -0700 (PDT)
+Sender: joel.stan@gmail.com
+Received: by 10.25.72.77 with HTTP; Tue, 15 Aug 2017 23:49:57 -0700 (PDT)
 In-Reply-To: <20170815072102.23067-1-andrew@aj.id.au>
 References: <20170815072102.23067-1-andrew@aj.id.au>
-From: Brendan Higgins <brendanhiggins@google.com>
-Date: Wed, 16 Aug 2017 09:30:18 +0300
-Message-ID: <CAFd5g45r+YAz706Uhwj9_Gf6iJy8P92K_JZmo22skDWNOXf8rw@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 16 Aug 2017 16:19:57 +0930
+X-Google-Sender-Auth: AQ8qr6ETJz1vQ4gT11ELm8aFiuw
+Message-ID: <CACPK8XeNDxo14KRsAqo3a0Rs26h-1vRsLyqSX+bt2jfZHq=5yA@mail.gmail.com>
 Subject: Re: [PATCH] i2c: aspeed: Retain delay/setup/hold values when
  configuring bus frequency
 To: Andrew Jeffery <andrew@aj.id.au>
 Cc: linux-i2c@vger.kernel.org, Wolfram Sang <wsa@the-dreams.de>, 
+ Brendan Higgins <brendanhiggins@google.com>, 
  Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Joel Stanley <joel@jms.id.au>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, linux-aspeed@lists.ozlabs.org, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ linux-aspeed@lists.ozlabs.org, 
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Ryan Chen <ryan_chen@aspeedtech.com>
 Content-Type: text/plain; charset="UTF-8"
@@ -62,9 +66,9 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Aug 2017 06:30:23 -0000
+X-List-Received-Date: Wed, 16 Aug 2017 06:50:22 -0000
 
-On Tue, Aug 15, 2017 at 10:21 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+On Tue, Aug 15, 2017 at 4:51 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
 > In addition to the base, low and high clock configuration, the AC timing
 > register #1 on the AST2400 houses fields controlling:
 >
@@ -112,13 +116,10 @@ On Tue, Aug 15, 2017 at 10:21 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
 > +       clk_reg_val &= (ASPEED_I2CD_TIME_TBUF_MASK |
 > +                       ASPEED_I2CD_TIME_THDSTA_MASK |
 > +                       ASPEED_I2CD_TIME_TACST_MASK);
-> +       clk_reg_val |= bus->get_clk_reg_val(divisor);
->         writel(clk_reg_val, bus->base + ASPEED_I2C_AC_TIMING_REG1);
->         writel(ASPEED_NO_TIMEOUT_CTRL, bus->base + ASPEED_I2C_AC_TIMING_REG2);
->
-> --
-> 2.11.0
->
 
-Awesome! I think this might fix an issue we saw on one of our boards.
-I am out of the country right now, so I cannot test this myself, until Monday.
+Instead of keeping the u-boot values (which appear to be hard-coded),
+should we instead put the known working values in the register?
+
+Cheers,
+
+Joel
