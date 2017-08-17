@@ -1,30 +1,66 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Return-Path: <vishwa@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xY7GB5NjtzDqn3
- for <openbmc@lists.ozlabs.org>; Fri, 18 Aug 2017 00:02:58 +1000 (AEST)
-Received: from localhost (32.97.110.57 [32.97.110.57]) by mx.zohomail.com
- with SMTPS id 1502978573089190.35283873427693;
- Thu, 17 Aug 2017 07:02:53 -0700 (PDT)
-Date: Thu, 17 Aug 2017 09:02:46 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
-Cc: vishwa <vishwa@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xY9HC2jVqzDrKp
+ for <openbmc@lists.ozlabs.org>; Fri, 18 Aug 2017 01:33:59 +1000 (AEST)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v7HFUOHx076840
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Aug 2017 11:33:56 -0400
+Received: from e23smtp01.au.ibm.com (e23smtp01.au.ibm.com [202.81.31.143])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2cd9wh00uq-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Aug 2017 11:33:56 -0400
+Received: from localhost
+ by e23smtp01.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <vishwa@linux.vnet.ibm.com>;
+ Fri, 18 Aug 2017 01:33:53 +1000
+Received: from d23relay10.au.ibm.com (202.81.31.229)
+ by e23smtp01.au.ibm.com (202.81.31.207) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Fri, 18 Aug 2017 01:33:52 +1000
+Received: from d23av04.au.ibm.com (d23av04.au.ibm.com [9.190.235.139])
+ by d23relay10.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v7HFXpOn36962530
+ for <openbmc@lists.ozlabs.org>; Fri, 18 Aug 2017 01:33:51 +1000
+Received: from d23av04.au.ibm.com (localhost [127.0.0.1])
+ by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ v7HFXovW031357
+ for <openbmc@lists.ozlabs.org>; Fri, 18 Aug 2017 01:33:51 +1000
+Received: from [9.77.198.178] ([9.77.198.178])
+ by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ v7HFXm0G031271; Fri, 18 Aug 2017 01:33:50 +1000
 Subject: Re: Design proposal on removing /org/openbmc/settings/boot_policy"
-Message-ID: <20170817140246.GA28585@asimov>
+To: Patrick Williams <patrick@stwcx.xyz>,
+ Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
 References: <b820c5bf-3f9c-b59d-97d1-549df44aa1e5@linux.vnet.ibm.com>
  <20170814191811.GD20526@asimov.lan>
  <85a8a445-8445-7beb-0107-5f11e78dda3b@linux.vnet.ibm.com>
+ <20170817140246.GA28585@asimov>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: vishwa <vishwa@linux.vnet.ibm.com>
+Date: Thu, 17 Aug 2017 21:03:48 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.7.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="45Z9DzgjV8m4Oswq"
-Content-Disposition: inline
-In-Reply-To: <85a8a445-8445-7beb-0107-5f11e78dda3b@linux.vnet.ibm.com>
-User-Agent: Mutt/1.7.2 (2016-11-26)
-X-Zoho-Virus-Status: 1
-X-ZohoMailClient: External
+In-Reply-To: <20170817140246.GA28585@asimov>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-MML: disable
+x-cbid: 17081715-1617-0000-0000-000001FB99B6
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17081715-1618-0000-0000-000048474F64
+Message-Id: <b5f6893b-ac0b-8437-72c3-58bae8bbc53f@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-08-17_08:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
+ definitions=main-1708170257
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -36,135 +72,101 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Aug 2017 14:02:59 -0000
+X-List-Received-Date: Thu, 17 Aug 2017 15:33:59 -0000
 
 
---45Z9DzgjV8m4Oswq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 17, 2017 at 03:06:47PM +0530, Deepak Kodihalli wrote:
-> On 15/08/17 12:48 am, Patrick Williams wrote:
-> > On Thu, Aug 03, 2017 at 04:55:21PM +0530, vishwa wrote:
-> >> Now, the proposal is to remove
-> >> '"/org/openbmc/settings/host0:boot_policy"' and then put this as a
-> >> boolean into 'persist' property into:
-> >>
-> >> /xyz/openbmc_project/Control/Boot/Mode and
-> >> /xyz/openbmc_project/Control/Boot/Source.
-> >
-> > I understand we have two different interfaces for these two different
-> > properties but do we want them on a single object path?  It seems like
-> > having multiple properties on /xyz/.../control/hostN/boot would be
-> > better, but this will preclude using the same property name in both
-> > interfaces.
->=20
-> The settings app creates distinct objects=20
-> (https://github.com/openbmc/openbmc/blob/master/meta-phosphor/common/reci=
-pes-phosphor/settings/phosphor-settings-defaults/defaults.yaml).=20
-> One of the reasons for doing this was that it is possible to enable or=20
-> disable settings not applicable to a system.=20
+On 08/17/2017 07:32 PM, Patrick Williams wrote:
+> On Thu, Aug 17, 2017 at 03:06:47PM +0530, Deepak Kodihalli wrote:
+>> On 15/08/17 12:48 am, Patrick Williams wrote:
+>>> On Thu, Aug 03, 2017 at 04:55:21PM +0530, vishwa wrote:
+>>>> Now, the proposal is to remove
+>>>> '"/org/openbmc/settings/host0:boot_policy"' and then put this as a
+>>>> boolean into 'persist' property into:
+>>>>
+>>>> /xyz/openbmc_project/Control/Boot/Mode and
+>>>> /xyz/openbmc_project/Control/Boot/Source.
+>>> I understand we have two different interfaces for these two different
+>>> properties but do we want them on a single object path?  It seems like
+>>> having multiple properties on /xyz/.../control/hostN/boot would be
+>>> better, but this will preclude using the same property name in both
+>>> interfaces.
+>> The settings app creates distinct objects
+>> (https://github.com/openbmc/openbmc/blob/master/meta-phosphor/common/recipes-phosphor/settings/phosphor-settings-defaults/defaults.yaml).
+>> One of the reasons for doing this was that it is possible to enable or
+>> disable settings not applicable to a system.
+>> If the thought is that
+>> these settings (mode and source) will always co-exist, we can have one
+>> object, although the settings app today has a limitation that it assumes
+>> each settings object implements a single settings interface, so that
+>> would need to change.
+> I think the multiple interface / single object limitation of settingsd
+> is what is causing us to go down this path.  Having two interfaces is
+> fine to me, but we probably should enhance settingsd to allow same
+> object path with two different interfaces.
+>
+>>>> IPMID would then look at this new boolean to see if its ONETIME (
+>>>> boolean : 0 ) or PERMANENT ( boolean : 1 ) and respond to Get-Boot-Options.
+>>> Why are we not instead creating two objects?  This proposal creates a
+>>> bit of undefined behavior in my mind:
+>>>
+>>> 1. Since only one dbus property ca be updated at a time, which order is
+>>> the user suppose to update?
+>> Why would the order matter to the user?
+> Other aspects of your reply indicate that it doesn't matter because we
+> are persisting everything.  I don't think this is the right solution
+> though; more below.
+>
+>>> 2. What happens when the property is ONETIME (false), the value of Mode
+>>> itself is changed, and then the property is changed to PERMANENT (true)?
+>>> Does this restore the old value persisted or does it now persist the
+>>> previous ONETIME value?
+>> The changed value of the Mode property is persisted.
+> So 'persist' property as defined here is a meaningless?  Or at least it
+> doesn't have the same meaning as the word in English does?  It seems
+> like you are _really_ letting the specific IPMI behavior of this
+> particular host firmware dictate the DBus object definition.  This is a
+> huge problem.
+>
+>>> 3. As a user, how can I identify what the PERMANENT value is if someone
+>>> has temporarily done a ONETIME?  I have to wait until the ONETIME is
+>>> consumed?
+>> Yes, and the settings app doesn't do anything today to restore the
+>> permanent value.
+>>
+>>> It seems like having an optional, perhaps dynamically create, second
+>>> object to separate PERMANENT and ONETIME would take care of this,
+>>> wouldn't it?  Is there a reason you did not want to have two settings
+>>> objects to represent this?
+>> What I've understood from Vishwa is that what's happening with
+>> host-ipmid is, the host consumes the ONETIME setting and then restores a
+>> value to be used as PERMANENT and also sets the policy as PERMANENT. The
+>> settings application at the moment has no logic to specially handle
+>> ONETIME vs PERMANENT. It's based on the assumption that a user will
+>> consume the ONETIME setting, and then that (or possibly another) user
+>> will restore the PERMANENT setting.
+>>
+> We should not have a design that relies exclusively on some host
+> firmware (or user after-the-fact) behavior.  If something is a "onetime"
+> / "temporary" setting, it should not be overwriting the "permanent"
+> value we are storing.  If we ever should revert to a non-temporary
+> version it should always be the previous permanent.
+>
+One of the comment from Deepak in the review was : "If something is 
+ONETIME, then should we save the corresponding Mode / Source to the 
+Flash and I said the answer was "Yes". I see what is being said here in 
+the email is different from what the comment was before.
 
-> If the thought is that=20
-> these settings (mode and source) will always co-exist, we can have one=20
-> object, although the settings app today has a limitation that it assumes=
-=20
-> each settings object implements a single settings interface, so that=20
-> would need to change.
+If a setting is ONETIME, then the host comes down and sets the property 
+to DEFAULT and does not do anything with PERMANENT.
 
-I think the multiple interface / single object limitation of settingsd
-is what is causing us to go down this path.  Having two interfaces is
-fine to me, but we probably should enhance settingsd to allow same
-object path with two different interfaces.
+https://github.com/open-power/petitboot/blob/master/discover/platform-powerpc.c#L874
 
->=20
-> >> IPMID would then look at this new boolean to see if its ONETIME (
-> >> boolean : 0 ) or PERMANENT ( boolean : 1 ) and respond to Get-Boot-Opt=
-ions.
-> >
-> > Why are we not instead creating two objects?  This proposal creates a
-> > bit of undefined behavior in my mind:
-> >
-> > 1. Since only one dbus property ca be updated at a time, which order is
-> > the user suppose to update?
->=20
-> Why would the order matter to the user?
+I don't think so we are introducing any new behavior here. All that was 
+done before is being moved to this new D-Bus object.
+If something needs to be treated PERMANENT, then it needs to be set by 
+the user as it was before.
 
-Other aspects of your reply indicate that it doesn't matter because we
-are persisting everything.  I don't think this is the right solution
-though; more below.
-
->=20
-> > 2. What happens when the property is ONETIME (false), the value of Mode
-> > itself is changed, and then the property is changed to PERMANENT (true)?
-> > Does this restore the old value persisted or does it now persist the
-> > previous ONETIME value?
->=20
-> The changed value of the Mode property is persisted.
-
-So 'persist' property as defined here is a meaningless?  Or at least it
-doesn't have the same meaning as the word in English does?  It seems
-like you are _really_ letting the specific IPMI behavior of this
-particular host firmware dictate the DBus object definition.  This is a
-huge problem.
-
->=20
-> > 3. As a user, how can I identify what the PERMANENT value is if someone
-> > has temporarily done a ONETIME?  I have to wait until the ONETIME is
-> > consumed?
->=20
-> Yes, and the settings app doesn't do anything today to restore the=20
-> permanent value.
->=20
-> > It seems like having an optional, perhaps dynamically create, second
-> > object to separate PERMANENT and ONETIME would take care of this,
-> > wouldn't it?  Is there a reason you did not want to have two settings
-> > objects to represent this?
->=20
-> What I've understood from Vishwa is that what's happening with=20
-> host-ipmid is, the host consumes the ONETIME setting and then restores a=
-=20
-> value to be used as PERMANENT and also sets the policy as PERMANENT. The=
-=20
-> settings application at the moment has no logic to specially handle=20
-> ONETIME vs PERMANENT. It's based on the assumption that a user will=20
-> consume the ONETIME setting, and then that (or possibly another) user=20
-> will restore the PERMANENT setting.
->=20
-
-We should not have a design that relies exclusively on some host
-firmware (or user after-the-fact) behavior.  If something is a "onetime"
-/ "temporary" setting, it should not be overwriting the "permanent"
-value we are storing.  If we ever should revert to a non-temporary
-version it should always be the previous permanent.
-
-> Regards,
-> Deepak
->=20
-
---=20
-Patrick Williams
-
---45Z9DzgjV8m4Oswq
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAlmVogQACgkQqwNHzC0A
-wRkOKRAAn5bBlMFAlX+IBTNJFsHPyQlmmwIXo5dNt4+QW/fBFvEAYMP56N/YFTxb
-zHQ9rZ2r2e7hHE6fszJfEAxoQSlwShg8YrQaBLRI61/IEJtRWnh0584qnuYPxRTy
-oyFGRd4L/CJ6js7QELjIfnT6fWslowUGqakctGoKDqehTV7VFN1ItKuoQyQXm7cX
-Q8TBDtmNw37Iqo5AU7X2kehiEQNihllGbg/qRd0Xw4Fj93/pPiGOymCLneXKZLrl
-nzTPwBy10Ts3HOvvC44vX29qRfaalVR4FE2nC0xbBXPC6mpo6udyWSpwAR5atFma
-jVTQGK+DlOB9svrvWhkHfesgcFZe28Rk5e+FyIi7ptzL0vKIXPYCepWyJtz570wp
-j4C9u4AoHehPST4uPThx3Hndg524psnqFvvc3Ez/a+KsfKKhsvZd+8RlbTS1dIPE
-6OZdjm//0pFgFvPnujk5SfdHkqisapuWzMuFaJygiQiXPUWlp5mMKaDxKhiF/rk6
-d+y6fFz8RL7PjVi4Y7E91Zskv+i0FKb2K6iBxeW5eYYlyTmuGFL+x7rJaL+Y3XM8
-OjoKc7JT6eQnEQ5W7A1tWsC6KjXOPdiZ6DgdrhKXBYytRxVZyi+bDs7Mx+oHM+W8
-syntPefwlkZtrQppZHWt0zxc2glgwJRVnt2mikjl1+87jWzvDh8=
-=OOnv
------END PGP SIGNATURE-----
-
---45Z9DzgjV8m4Oswq--
+>> Regards,
+>> Deepak
+>>
