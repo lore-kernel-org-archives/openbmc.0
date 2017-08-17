@@ -1,66 +1,66 @@
-Return-Path: <vishwa@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+Return-Path: <dkodihal@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xY9HC2jVqzDrKp
- for <openbmc@lists.ozlabs.org>; Fri, 18 Aug 2017 01:33:59 +1000 (AEST)
-Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xYByb3Vt7zDr4X
+ for <openbmc@lists.ozlabs.org>; Fri, 18 Aug 2017 02:49:43 +1000 (AEST)
+Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v7HFUOHx076840
- for <openbmc@lists.ozlabs.org>; Thu, 17 Aug 2017 11:33:56 -0400
+ v7HGn36J133663
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Aug 2017 12:49:41 -0400
 Received: from e23smtp01.au.ibm.com (e23smtp01.au.ibm.com [202.81.31.143])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2cd9wh00uq-1
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2cdccs9pw8-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 17 Aug 2017 11:33:56 -0400
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Aug 2017 12:49:40 -0400
 Received: from localhost
  by e23smtp01.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <vishwa@linux.vnet.ibm.com>;
- Fri, 18 Aug 2017 01:33:53 +1000
+ for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
+ Fri, 18 Aug 2017 02:49:38 +1000
 Received: from d23relay10.au.ibm.com (202.81.31.229)
  by e23smtp01.au.ibm.com (202.81.31.207) with IBM ESMTP SMTP Gateway:
  Authorized Use Only! Violators will be prosecuted; 
- Fri, 18 Aug 2017 01:33:52 +1000
-Received: from d23av04.au.ibm.com (d23av04.au.ibm.com [9.190.235.139])
+ Fri, 18 Aug 2017 02:49:36 +1000
+Received: from d23av03.au.ibm.com (d23av03.au.ibm.com [9.190.234.97])
  by d23relay10.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v7HFXpOn36962530
- for <openbmc@lists.ozlabs.org>; Fri, 18 Aug 2017 01:33:51 +1000
-Received: from d23av04.au.ibm.com (localhost [127.0.0.1])
- by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- v7HFXovW031357
- for <openbmc@lists.ozlabs.org>; Fri, 18 Aug 2017 01:33:51 +1000
-Received: from [9.77.198.178] ([9.77.198.178])
- by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- v7HFXm0G031271; Fri, 18 Aug 2017 01:33:50 +1000
+ v7HGnawV39387140
+ for <openbmc@lists.ozlabs.org>; Fri, 18 Aug 2017 02:49:36 +1000
+Received: from d23av03.au.ibm.com (localhost [127.0.0.1])
+ by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ v7HGnR6o003159
+ for <openbmc@lists.ozlabs.org>; Fri, 18 Aug 2017 02:49:27 +1000
+Received: from Deepaks-MacBook-Pro.local ([9.79.243.179])
+ by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ v7HGnPwq003112; Fri, 18 Aug 2017 02:49:26 +1000
 Subject: Re: Design proposal on removing /org/openbmc/settings/boot_policy"
-To: Patrick Williams <patrick@stwcx.xyz>,
- Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+To: vishwa <vishwa@linux.vnet.ibm.com>, Patrick Williams <patrick@stwcx.xyz>
 References: <b820c5bf-3f9c-b59d-97d1-549df44aa1e5@linux.vnet.ibm.com>
  <20170814191811.GD20526@asimov.lan>
  <85a8a445-8445-7beb-0107-5f11e78dda3b@linux.vnet.ibm.com>
  <20170817140246.GA28585@asimov>
+ <b5f6893b-ac0b-8437-72c3-58bae8bbc53f@linux.vnet.ibm.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: vishwa <vishwa@linux.vnet.ibm.com>
-Date: Thu, 17 Aug 2017 21:03:48 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.7.0
+From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+Date: Thu, 17 Aug 2017 22:19:34 +0530
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:45.0)
+ Gecko/20100101 Thunderbird/45.8.0
 MIME-Version: 1.0
-In-Reply-To: <20170817140246.GA28585@asimov>
+In-Reply-To: <b5f6893b-ac0b-8437-72c3-58bae8bbc53f@linux.vnet.ibm.com>
 Content-Type: text/plain; charset=windows-1252; format=flowed
 Content-Transfer-Encoding: 7bit
 X-TM-AS-MML: disable
-x-cbid: 17081715-1617-0000-0000-000001FB99B6
+x-cbid: 17081716-1617-0000-0000-000001FB9D9A
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17081715-1618-0000-0000-000048474F64
-Message-Id: <b5f6893b-ac0b-8437-72c3-58bae8bbc53f@linux.vnet.ibm.com>
+x-cbparentid: 17081716-1618-0000-0000-000048475400
+Message-Id: <12950927-32da-00bb-9afa-db6728aedd21@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-08-17_08:, , signatures=0
+ definitions=2017-08-17_09:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  spamscore=0 suspectscore=0
  malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
  adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
- definitions=main-1708170257
+ definitions=main-1708170276
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -72,101 +72,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Aug 2017 15:33:59 -0000
+X-List-Received-Date: Thu, 17 Aug 2017 16:49:43 -0000
 
+On 17/08/17 9:03 pm, vishwa wrote:
 
-
-On 08/17/2017 07:32 PM, Patrick Williams wrote:
-> On Thu, Aug 17, 2017 at 03:06:47PM +0530, Deepak Kodihalli wrote:
->> On 15/08/17 12:48 am, Patrick Williams wrote:
->>> On Thu, Aug 03, 2017 at 04:55:21PM +0530, vishwa wrote:
->>>> Now, the proposal is to remove
->>>> '"/org/openbmc/settings/host0:boot_policy"' and then put this as a
->>>> boolean into 'persist' property into:
->>>>
->>>> /xyz/openbmc_project/Control/Boot/Mode and
->>>> /xyz/openbmc_project/Control/Boot/Source.
->>> I understand we have two different interfaces for these two different
->>> properties but do we want them on a single object path?  It seems like
->>> having multiple properties on /xyz/.../control/hostN/boot would be
->>> better, but this will preclude using the same property name in both
->>> interfaces.
->> The settings app creates distinct objects
->> (https://github.com/openbmc/openbmc/blob/master/meta-phosphor/common/recipes-phosphor/settings/phosphor-settings-defaults/defaults.yaml).
->> One of the reasons for doing this was that it is possible to enable or
->> disable settings not applicable to a system.
->> If the thought is that
->> these settings (mode and source) will always co-exist, we can have one
->> object, although the settings app today has a limitation that it assumes
->> each settings object implements a single settings interface, so that
->> would need to change.
-> I think the multiple interface / single object limitation of settingsd
-> is what is causing us to go down this path.  Having two interfaces is
-> fine to me, but we probably should enhance settingsd to allow same
-> object path with two different interfaces.
+> One of the comment from Deepak in the review was : "If something is
+> ONETIME, then should we save the corresponding Mode / Source to the
+> Flash and I said the answer was "Yes". I see what is being said here in
+> the email is different from what the comment was before.
 >
->>>> IPMID would then look at this new boolean to see if its ONETIME (
->>>> boolean : 0 ) or PERMANENT ( boolean : 1 ) and respond to Get-Boot-Options.
->>> Why are we not instead creating two objects?  This proposal creates a
->>> bit of undefined behavior in my mind:
->>>
->>> 1. Since only one dbus property ca be updated at a time, which order is
->>> the user suppose to update?
->> Why would the order matter to the user?
-> Other aspects of your reply indicate that it doesn't matter because we
-> are persisting everything.  I don't think this is the right solution
-> though; more below.
+> If a setting is ONETIME, then the host comes down and sets the property
+> to DEFAULT and does not do anything with PERMANENT.
 >
->>> 2. What happens when the property is ONETIME (false), the value of Mode
->>> itself is changed, and then the property is changed to PERMANENT (true)?
->>> Does this restore the old value persisted or does it now persist the
->>> previous ONETIME value?
->> The changed value of the Mode property is persisted.
-> So 'persist' property as defined here is a meaningless?  Or at least it
-> doesn't have the same meaning as the word in English does?  It seems
-> like you are _really_ letting the specific IPMI behavior of this
-> particular host firmware dictate the DBus object definition.  This is a
-> huge problem.
+> https://github.com/open-power/petitboot/blob/master/discover/platform-powerpc.c#L874
 >
->>> 3. As a user, how can I identify what the PERMANENT value is if someone
->>> has temporarily done a ONETIME?  I have to wait until the ONETIME is
->>> consumed?
->> Yes, and the settings app doesn't do anything today to restore the
->> permanent value.
->>
->>> It seems like having an optional, perhaps dynamically create, second
->>> object to separate PERMANENT and ONETIME would take care of this,
->>> wouldn't it?  Is there a reason you did not want to have two settings
->>> objects to represent this?
->> What I've understood from Vishwa is that what's happening with
->> host-ipmid is, the host consumes the ONETIME setting and then restores a
->> value to be used as PERMANENT and also sets the policy as PERMANENT. The
->> settings application at the moment has no logic to specially handle
->> ONETIME vs PERMANENT. It's based on the assumption that a user will
->> consume the ONETIME setting, and then that (or possibly another) user
->> will restore the PERMANENT setting.
->>
-> We should not have a design that relies exclusively on some host
-> firmware (or user after-the-fact) behavior.  If something is a "onetime"
-> / "temporary" setting, it should not be overwriting the "permanent"
-> value we are storing.  If we ever should revert to a non-temporary
-> version it should always be the previous permanent.
 >
-One of the comment from Deepak in the review was : "If something is 
-ONETIME, then should we save the corresponding Mode / Source to the 
-Flash and I said the answer was "Yes". I see what is being said here in 
-the email is different from what the comment was before.
+> I don't think so we are introducing any new behavior here. All that was
+> done before is being moved to this new D-Bus object.
+> If something needs to be treated PERMANENT, then it needs to be set by
+> the user as it was before.
 
-If a setting is ONETIME, then the host comes down and sets the property 
-to DEFAULT and does not do anything with PERMANENT.
+Vishwa, I suppose the concern is that we're relying on a specific host 
+behavior, and we're also assuming the host will perform certain actions 
+as per the IPMI specification. So all this is fine as long as these 
+assumptions hold, but they may not always.
 
-https://github.com/open-power/petitboot/blob/master/discover/platform-powerpc.c#L874
+In other words, the BMC must not assume it's safe to overwrite a 
+persisted permanent setting with a onetime setting in the assumption 
+that a host will overwrite that value again with a default/permanently 
+desired setting.
 
-I don't think so we are introducing any new behavior here. All that was 
-done before is being moved to this new D-Bus object.
-If something needs to be treated PERMANENT, then it needs to be set by 
-the user as it was before.
-
->> Regards,
->> Deepak
->>
+Regards,
+Deepak
