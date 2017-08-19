@@ -1,70 +1,42 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+Return-Path: <fengguang.wu@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xYvzs33X9zDqh9
- for <openbmc@lists.ozlabs.org>; Sat, 19 Aug 2017 06:38:17 +1000 (AEST)
-Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v7IKY15p036042
- for <openbmc@lists.ozlabs.org>; Fri, 18 Aug 2017 16:38:14 -0400
-Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2ce3sajhtr-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 18 Aug 2017 16:38:14 -0400
-Received: from localhost
- by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Fri, 18 Aug 2017 14:38:13 -0600
-Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
- by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Fri, 18 Aug 2017 14:38:10 -0600
-Received: from b03ledav005.gho.boulder.ibm.com
- (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v7IKc9pP8454410; Fri, 18 Aug 2017 13:38:09 -0700
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 83E72BE03A;
- Fri, 18 Aug 2017 14:38:09 -0600 (MDT)
-Received: from Christophers-MacBook-Pro.local (unknown [9.83.3.230])
- by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP id 44E94BE047;
- Fri, 18 Aug 2017 14:38:06 -0600 (MDT)
-Subject: Re: [PATCH linux dev-4.10 v3 1/2] hwmon: (ucd9000) Add gpio chip
- interface and clear logged faults
-To: Andrew Jeffery <andrew@aj.id.au>, joel@jms.id.au
-References: <20170818013526.35678-1-cbostic@linux.vnet.ibm.com>
- <20170818013526.35678-2-cbostic@linux.vnet.ibm.com>
- <1503035048.681.14.camel@aj.id.au>
-Cc: openbmc@lists.ozlabs.org
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Fri, 18 Aug 2017 15:38:04 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
- Gecko/20100101 Thunderbird/45.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xZ2J10Bq6zDqh1
+ for <openbmc@lists.ozlabs.org>; Sat, 19 Aug 2017 11:22:34 +1000 (AEST)
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2017 18:22:30 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.41,394,1498546800"; 
+ d="gz'50?scan'50,208,50";a="142067081"
+Received: from bee.sh.intel.com (HELO bee) ([10.239.97.14])
+ by fmsmga006.fm.intel.com with ESMTP; 18 Aug 2017 18:22:27 -0700
+Received: from kbuild by bee with local (Exim 4.84_2)
+ (envelope-from <fengguang.wu@intel.com>)
+ id 1disXb-0009zF-VQ; Sat, 19 Aug 2017 09:27:07 +0800
+Date: Sat, 19 Aug 2017 09:21:29 +0800
+From: kbuild test robot <lkp@intel.com>
+To: Oleksandr Shamray <oleksandrs@mellanox.com>
+Cc: kbuild-all@01.org, gregkh@linuxfoundation.org, arnd@arndb.de,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, openbmc@lists.ozlabs.org,
+ joel@jms.id.au, jiri@resnulli.us, tklauser@distanz.ch,
+ linux-serial@vger.kernel.org, mec@shout.net, vadimp@maellanox.com,
+ system-sw-low-level@mellanox.com, robh+dt@kernel.org,
+ openocd-devel-owner@lists.sourceforge.net,
+ Oleksandr Shamray <oleksandrs@mellanox.com>, Jiri Pirko <jiri@mellanox.com>
+Subject: Re: [patch v3 2/3] drivers: jtag: Add Aspeed SoC 24xx and 25xx
+ families JTAG master driver
+Message-ID: <201708190909.9GRNaEaj%fengguang.wu@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <1503035048.681.14.camel@aj.id.au>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 17081820-0024-0000-0000-0000170B6411
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007569; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000223; SDB=6.00904256; UDB=6.00453066; IPR=6.00684468; 
- BA=6.00005539; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016759; XFM=3.00000015;
- UTC=2017-08-18 20:38:11
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17081820-0025-0000-0000-00004C582C1E
-Message-Id: <42d093a3-3567-00e1-6eb7-009033b2919b@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-08-18_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
- definitions=main-1708180329
+Content-Type: multipart/mixed; boundary="AhhlLboLdkugWU4S"
+Content-Disposition: inline
+In-Reply-To: <1502791207-26951-3-git-send-email-oleksandrs@mellanox.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-SA-Exim-Connect-IP: <locally generated>
+X-SA-Exim-Mail-From: fengguang.wu@intel.com
+X-SA-Exim-Scanned: No (on bee); SAEximRunCond expanded to false
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -76,369 +48,484 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Aug 2017 20:38:18 -0000
+X-List-Received-Date: Sat, 19 Aug 2017 01:22:42 -0000
 
 
+--AhhlLboLdkugWU4S
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 8/18/17 12:44 AM, Andrew Jeffery wrote:
-> Hi Chris,
->
-> On Thu, 2017-08-17 at 20:35 -0500, Christopher Bostic wrote:
->> Add a struct gpio_chip and define some methods so that this device's
->> I/O can be accessed via /sys/class/gpio.
->>   
->> Add capability to clear logged faults via sysfs.
->>   
->>> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
->> ---
->> v3 - Correct bug in gpio_chip get method.  Wasn't retrieving
->>       gpio config information correctly.
->>     - Remove old debugfs flag from previous pmbus core changes.
->>     - Remove all sysfs files for mfr_status command.
->>     - Add comments on direct i2c_smbus calls to clarify that no page
->>       set is required.
->> v2 - Remove clear_faults file - redundant since all other sysfs
->>       core accesses result in an automatic clear fault.
->>     - Removed local status_word and status_vout register dumps and
->>       use the new pmbus core status facilities instead.
->>     - Rename gpi<x>_fault to gpi<x>_alarm to better match core naming
->>       conventions.
->>     - Add full register dump for mfr_status.
->>     - Add gpio chip to device structure and use gpio interfaces.
->> ---
->>   drivers/hwmon/pmbus/ucd9000.c | 136 +++++++++++++++++++++++++++++++++++++++++-
->>   1 file changed, 134 insertions(+), 2 deletions(-)
->>   
->> diff --git a/drivers/hwmon/pmbus/ucd9000.c b/drivers/hwmon/pmbus/ucd9000.c
->> index 3e3aa95..af44c1e 100644
->> --- a/drivers/hwmon/pmbus/ucd9000.c
->> +++ b/drivers/hwmon/pmbus/ucd9000.c
->> @@ -26,6 +26,9 @@
->>   #include <linux/slab.h>
->>   #include <linux/i2c.h>
->>   #include <linux/i2c/pmbus.h>
->> +#include <linux/sysfs.h>
->> +#include <linux/hwmon-sysfs.h>
->> +#include <linux/gpio.h>
->>   #include "pmbus.h"
->>   
->>   enum chips { ucd9000, ucd90120, ucd90124, ucd90160, ucd9090, ucd90910 };
->> @@ -34,8 +37,16 @@
->>>   #define UCD9000_NUM_PAGES		0xd6
->>>   #define UCD9000_FAN_CONFIG_INDEX	0xe7
->>>   #define UCD9000_FAN_CONFIG		0xe8
->>> +#define UCD9000_LOGGED_FAULTS		0xea
->>> +#define UCD9000_GPIO_SELECT		0xfa
->>> +#define UCD9000_GPIO_CONFIG		0xfb
->>>   #define UCD9000_DEVICE_ID		0xfd
->>   
->> +/* GPIO CONFIG bits */
->>> +#define UCD9000_GPIO_CONFIG_ENABLE	BIT(0)
->>> +#define UCD9000_GPIO_CONFIG_OUT_ENABLE	BIT(1)
->>> +#define UCD9000_GPIO_CONFIG_STATUS	BIT(3)
->> +
->>>   #define UCD9000_MON_TYPE(x)	(((x) >> 5) & 0x07)
->>>   #define UCD9000_MON_PAGE(x)	((x) & 0x0f)
->>   
->> @@ -46,9 +57,12 @@
->>   
->>>   #define UCD9000_NUM_FAN		4
->>   
->>> +#define UCD90160_NUM_GPIOS	26
-> This is mostly true, though there are only 22 physical GPIOs, plus 4 GPIs.
-> We're additionally constrained on the UCD90160 by "Table 3. GPIO Pin
-> Configuration Options" in "16-Rail Power Supply Sequencer and Monitor with ACPI
-> Support datasheet (Rev. C)" (ucd90160.pdf, page 22) to 8/26 as GPIs and 16/22
-> as GPOs. It would probably pay to think about how these constraints would
-> impact the implementation.
+Hi Oleksandr,
 
-Hi Andrew,
+[auto build test ERROR on linus/master]
+[also build test ERROR on v4.13-rc5 next-20170817]
+[if your patch is applied to the wrong git tree, please drop us a note to help improve the system]
 
-Will go through and review the data for the various ucd9000 devs. I 
-understand the need to cover all these device types but want to also be 
-able to deliver internally what is needed which is just the gpi faults.  
-Maybe we can discuss further on Sunday's call.
+url:    https://github.com/0day-ci/linux/commits/Oleksandr-Shamray/drivers-jtag-Add-JTAG-core-driver/20170818-114739
+config: um-allyesconfig (attached as .config)
+compiler: gcc-6 (Debian 6.2.0-3) 6.2.0 20160901
+reproduce:
+        # save the attached .config to linux build tree
+        make ARCH=um 
 
->> +
->>   struct ucd9000_data {
->>>   	u8 fan_data[UCD9000_NUM_FAN][I2C_SMBUS_BLOCK_MAX];
->>>   	struct pmbus_driver_info info;
->>> +	struct gpio_chip gpio;
->>   };
->>   #define to_ucd9000_data(_info) container_of(_info, struct ucd9000_data, info)
->>   
->> @@ -119,6 +133,92 @@ static int ucd9000_read_byte_data(struct i2c_client *client, int page, int reg)
->>   };
->>   MODULE_DEVICE_TABLE(i2c, ucd9000_id);
->>   
->> +static int ucd9000_gpio_read_config(struct i2c_client *client,
->>> +				unsigned int offset)
->> +{
->>> +	int ret;
->> +
->>> +	/* No page set required */
->>> +	ret = i2c_smbus_write_byte_data(client, UCD9000_GPIO_SELECT, offset);
->>> +	if (ret < 0) {
->>> +		dev_err(&client->dev,
-> Why is there a linebreak here?
-No good reason, will correct.
+All errors (new ones prefixed by >>):
 
->
->>> +			"Failed to read pin ID %d\n", offset);
-> The error message is confusing - it relates to the semantics of
-> ucd9000_gpio_read_config() and not the operation on which the error occurred.
->
-> I feel strongly that we should also report the error code as well: It provides
-> additional context on what went wrong.
->
-> As a consequence I would suggest something like:
->
-> 		dev_err(&client->dev, "Failed to select GPIO %d: %d\n", offset,
-> 			ret);
-OK, will go with your suggestion.
+   arch/um/drivers/vde.o: In function `vde_open_real':
+   (.text+0xfb1): warning: Using 'getgrnam' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+   arch/um/drivers/vde.o: In function `vde_open_real':
+   (.text+0xdfc): warning: Using 'getpwuid' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+   arch/um/drivers/vde.o: In function `vde_open_real':
+   (.text+0x1115): warning: Using 'getaddrinfo' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+   arch/um/drivers/pcap.o: In function `pcap_nametoaddr':
+   (.text+0xe475): warning: Using 'gethostbyname' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+   arch/um/drivers/pcap.o: In function `pcap_nametonetaddr':
+   (.text+0xe515): warning: Using 'getnetbyname' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+   arch/um/drivers/pcap.o: In function `pcap_nametoproto':
+   (.text+0xe735): warning: Using 'getprotobyname' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+   arch/um/drivers/pcap.o: In function `pcap_nametoport':
+   (.text+0xe567): warning: Using 'getservbyname' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+   drivers/auxdisplay/img-ascii-lcd.o: In function `img_ascii_lcd_probe':
+   drivers/auxdisplay/img-ascii-lcd.c:386: undefined reference to `devm_ioremap_resource'
+   drivers/jtag/jtag-aspeed.o: In function `aspeed_jtag_init':
+>> drivers/jtag/jtag-aspeed.c:635: undefined reference to `devm_ioremap_resource'
+   collect2: error: ld returned 1 exit status
 
->>> +		return ret;
->>> +	}
->> +
->>> +	return i2c_smbus_read_byte_data(client, UCD9000_GPIO_CONFIG);
->> +}
->> +
->> +static int ucd9000_gpio_get(struct gpio_chip *gc, unsigned int offset)
->> +{
->>> +	struct i2c_client *client  = gpiochip_get_data(gc);
->>> +	int ret;
->> +
->>> +	ret = ucd9000_gpio_read_config(client, offset);
->>> +	if (ret < 0) {
->>> +		dev_err(&client->dev,
->>> +			"failed to read GPIO config\n");
-> Again, we don't need a linebreak above, but we probably should have one between
-> the dev_err() and the return statement.
+vim +635 drivers/jtag/jtag-aspeed.c
 
-Will take care of that.
+   627	
+   628	int aspeed_jtag_init(struct platform_device *pdev,
+   629			     struct aspeed_jtag *aspeed_jtag)
+   630	{
+   631		struct resource *res;
+   632		int err;
+   633	
+   634		res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+ > 635		aspeed_jtag->reg_base = devm_ioremap_resource(aspeed_jtag->dev, res);
+   636		if (IS_ERR(aspeed_jtag->reg_base)) {
+   637			err = -ENOMEM;
+   638			goto out_region;
+   639		}
+   640	
+   641		aspeed_jtag->pclk = devm_clk_get(aspeed_jtag->dev, NULL);
+   642		if (IS_ERR(aspeed_jtag->pclk)) {
+   643			dev_err(aspeed_jtag->dev, "devm_clk_get failed\n");
+   644			return PTR_ERR(aspeed_jtag->pclk);
+   645		}
+   646	
+   647		clk_prepare_enable(aspeed_jtag->pclk);
+   648	
+   649		aspeed_jtag->irq = platform_get_irq(pdev, 0);
+   650		if (aspeed_jtag->irq < 0) {
+   651			dev_err(aspeed_jtag->dev, "no irq specified\n");
+   652			err = -ENOENT;
+   653			goto out_region;
+   654		}
+   655	
+   656		/* Enable clock */
+   657		aspeed_jtag_write(aspeed_jtag, ASPEED_JTAG_CTL_ENG_EN |
+   658				  ASPEED_JTAG_CTL_ENG_OUT_EN, ASPEED_JTAG_CTRL);
+   659		aspeed_jtag_write(aspeed_jtag, ASPEED_JTAG_SW_MODE_EN |
+   660				  ASPEED_JTAG_SW_MODE_TDIO, ASPEED_JTAG_SW);
+   661	
+   662		err = devm_request_irq(aspeed_jtag->dev, aspeed_jtag->irq,
+   663				       aspeed_jtag_interrupt, 0,
+   664				       "aspeed-jtag", aspeed_jtag);
+   665		if (err) {
+   666			dev_err(aspeed_jtag->dev, "aspeed_jtag unable to get IRQ");
+   667			goto out_region;
+   668		}
+   669		dev_dbg(&pdev->dev, "aspeed_jtag:IRQ %d.\n", aspeed_jtag->irq);
+   670	
+   671		aspeed_jtag_write(aspeed_jtag, ASPEED_JTAG_ISR_INST_PAUSE |
+   672				  ASPEED_JTAG_ISR_INST_COMPLETE |
+   673				  ASPEED_JTAG_ISR_DATA_PAUSE |
+   674				  ASPEED_JTAG_ISR_DATA_COMPLETE |
+   675				  ASPEED_JTAG_ISR_INST_PAUSE_EN |
+   676				  ASPEED_JTAG_ISR_INST_COMPLETE_EN |
+   677				  ASPEED_JTAG_ISR_DATA_PAUSE_EN |
+   678				  ASPEED_JTAG_ISR_DATA_COMPLETE_EN,
+   679				  ASPEED_JTAG_ISR);
+   680	
+   681		aspeed_jtag->flag = 0;
+   682		init_waitqueue_head(&aspeed_jtag->jtag_wq);
+   683		return 0;
+   684	
+   685	out_region:
+   686		release_mem_region(res->start, resource_size(res));
+   687		return err;
+   688	}
+   689	
 
+---
+0-DAY kernel test infrastructure                Open Source Technology Center
+https://lists.01.org/pipermail/kbuild-all                   Intel Corporation
 
->>> +		return ret;
->>> +	}
->> +
->>> +	return ret & UCD9000_GPIO_CONFIG_STATUS ? 1 : 0;
-> We can avoid the branch with:
->
-> 	return !!(ret & UCD9000_GPIO_CONFIG_STATUS);
-Will update.
+--AhhlLboLdkugWU4S
+Content-Type: application/gzip
+Content-Disposition: attachment; filename=".config.gz"
+Content-Transfer-Encoding: base64
 
-> Interestingly it's not clear from the datasheet whether the status bit contains
-> a relevant value when the pin is in output mode, as there's a separate bit (bit
-> 2) to set the value. Have you tested the behaviour?
+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
+/h8muVw5MioBAA==
 
-I've not tested this in output mode.  Up to this point there isn't any 
-means to set direction so, at least for how we're using it currently 
-these are all set to inputs.
-Will see how this behaves in output mode.
->> +}
->> +
->> +static int ucd9000_gpio_get_direction(struct gpio_chip *gc,
->>> +					unsigned int offset)
->> +{
->>> +	struct i2c_client *client  = gpiochip_get_data(gc);
->>> +	int ret;
->> +
->>> +	ret = ucd9000_gpio_read_config(client, offset);
->>> +	if (ret < 0) {
->>> +		dev_err(&client->dev,
->>> +			"failed to read GPIO config\n");
->>> +		return ret;
->>> +	}
->> +
->>> +	return ret & UCD9000_GPIO_CONFIG_OUT_ENABLE ? 0 : 1;
->> +}
->> +
->> +/*
->> + * Defined so that libgpiod tool can access pin states.  No plan to actually
->> + * change pin direction within this driver.
-> That's not true - the driver is general purpose. Lets not limit it too much to
-> *how you intend to use it* vs the actual hardware capability.
-Understand.  Will implement direction switch for next revision in any case.
-
->> + */
->> +static int ucd9000_gpio_direction_input(struct gpio_chip *gc,
->>> +					unsigned int offset)
->> +{
->>> +	return 0;
-> I don't think we should do this for several reasons:
->
-> 1) It's not that hard to implement the functionality
-> 2) It's not true that all GPIOs are inputs with factory defaults
-> 3) There will be uncertainty if custom defaults are programmed
->
-> Again from ucd90160.pdf, on page 34:
->
-> 	7.5 Programming
-> 	7.5.1 Device Configuration and Programming
-> 	From the factory, the device contains the sequencing and monitoring
-> 	firmware. It is also configured so that all GPOs are high-impedance
-> 	(except for FPWM/GPIO pins 17-24, which are driven low), with no
-> 	sequencing or fault-response operation. See Configuration Programming
-> 	of UCD Devices, available from the Documentation & Help Center that can
-> 	be selected from the Fusion GUI Help menu, for full UCD90160
-> 	configuration details.
->
-> The FPWM pins are driven low, implying they are configured for output mode.
-> It's not obvious to me from this whether the other GPIOs are input or output
-> out-of-the-box as the chip supports active and open-drain drive types. It does
-> say "GPOs" in the paragraph above, but I haven't found documentation on which
-> pins are in what state from factory, and I don't know how we're configuring it
-> for production.
->
-> Regardless, the driver shouldn't make assumptions about how the device is
-> pre-programmed - without further information there's already ambiguity as to
-> whether the default settings are in play or whether the system integrator has
-> configured the chip. We need information from the platform about how the device
-> is/should be managed.
->
-> Further, the note in section 10.43 (FBh) GPIO_CONFIG (MFR_SPECIFIC_43) says:
->
-> 	Configuring a pin that is also being used by another function (enable,
-> 	fan control, and so forth) may likely result in unexpected and unwanted
-> 	behavior.
-All good points.  Will implement direction switching for next submit.
-
-> This suggests my favourite topic: pinctrl.
->
-> Twenty-two of the pins on the UCD90160 are GPIO-capable. Of these 22 pins, 16
-> of them have alternate functions. See "Table 3. GPIO Pin Configuration Options"
-> on page 22 of ucd90160.pdf. But a quick rundown:
->
-> 1. 4 PWM pins (GPIOs 1-4, pins 31, 32, 42, 41)
-> 2. 8 FPWM (Fast PWM) pins (GPIOs 5-12, pins 17-24)
-> 3. 4 pins shared with JTAG (GPIOs 19-22, pins 36-39)
->
-> Now, in terms of devicetree we'd be breaking things in the future by specifying
-> a GPIO controller that relies on a pinmux in hardware without also specifying
-> the pin controller in the devicetree. This necessitates at least *some* pinctrl
-> capability be baked into the driver as well, so we can point the gpiochip to
-> the relevant pin controller (the same device, but the bindings are general) and
-> map the pin spaces in the devicetree (the gpio and pin spaces are different).
-
-I'd like to avoid implementing pinctrl for the time being given the 
-limited function we need internally.   I do see the advantages as you 
-point out so maybe we can phase this in?
-
->> +}
->> +
->> +static ssize_t ucd9000_clear_logged_faults(struct device *dev,
->>> +				struct device_attribute *attr, const char *buf,
->>> +				size_t count)
->> +{
->>> +	struct i2c_client *client = to_i2c_client(dev);
->>> +	int ret;
->> +
->>> +	/* No page set required */
->>> +	ret = i2c_smbus_write_byte_data(client, UCD9000_LOGGED_FAULTS, 0);
->>> +	if (ret) {
->>> +		dev_err(&client->dev, "Failed to clear logged faults\n");
->>> +		return ret;
->>> +	}
->> +
->>> +	return count;
->> +}
->> +
->> +static DEVICE_ATTR(clear_logged_faults, 0200, NULL,
->>> +		ucd9000_clear_logged_faults);
->> +
->> +static struct attribute *ucd9000_attributes[] = {
->>> +	&dev_attr_clear_logged_faults.attr,
->>> +	NULL
->> +};
->> +
->> +static const struct attribute_group ucd9000_attr_group = {
->>> +	.attrs = ucd9000_attributes,
->> +};
->> +
-> Joel's made a fair comment here regarding upstream. Please address that.
-Next patch set will be sent upstream.
-
->>   static int ucd9000_probe(struct i2c_client *client,
->>>   			 const struct i2c_device_id *id)
->>   {
->> @@ -227,7 +327,39 @@ static int ucd9000_probe(struct i2c_client *client,
->>>   		  | PMBUS_HAVE_FAN34 | PMBUS_HAVE_STATUS_FAN34;
->>>   	}
->>   
->>> -	return pmbus_do_probe(client, mid, info);
->>> +	data->gpio.label = "gpio-ucd9000";
->>> +	data->gpio.get_direction = ucd9000_gpio_get_direction;
->>> +	data->gpio.direction_input = ucd9000_gpio_direction_input;
->>> +	data->gpio.get = ucd9000_gpio_get;
-> I feel like it wouldn't be much effort to make this more complete and specify
-> the direction_output() and set() callbacks as well.
-
-Right, will do that.
-
->
->>> +	data->gpio.can_sleep = 1;
->>> +	data->gpio.base = -1;
->>> +	if (mid->driver_data == ucd90160)
->>> +		data->gpio.ngpio = UCD90160_NUM_GPIOS;
-> This might need some rework in the future as the other ucd9000 variants want
-> GPIO support.
->
-> In fact, what's the behaviour of the other drivers now given we're
-> unconditionally registering a gpiochip?
-The other drivers would have a gpio_chip that is available but if they 
-don't use it I'm not thinking this would break them in any way.  Would 
-it be better to only register a gpiochip if its a ucd90160 in particular?
-
->>> +	data->gpio.parent = &client->dev;
->>> +	data->gpio.owner = THIS_MODULE;
-> At some point we should think about pinconf as well (push-pull vs open-drain).
-Ok, will make a note of that.
-
-
->> +
->>> +	ret = devm_gpiochip_add_data(&client->dev, &data->gpio, client);
->>> +	if (ret) {
->>> +		data->gpio.parent = NULL;
->>> +		dev_warn(&client->dev, "Count not add gpiochip\n");
->>> +		return ret;
->>> +	}
->> +
->>> +	dev_info(&client->dev, "gpios %i...%i\n", data->gpio.base,
->>> +		data->gpio.base + data->gpio.ngpio - 1);
-> Let's drop this.
-Will remove.
-
-Thanks,
-Chris
-
-
->
-> Cheers,
->
-> Andrew
->
->> +
->>> +	ret = sysfs_create_group(&client->dev.kobj,
->>> +				&ucd9000_attr_group);
->>> +	if (ret < 0)
->>> +		return ret;
->> +
->>> +	return  pmbus_do_probe(client, mid, info);
->> +}
->> +
->> +static int ucd9000_remove(struct i2c_client *client)
->> +{
->>> +	sysfs_remove_group(&client->dev.kobj, &ucd9000_attr_group);
->>> +	return pmbus_do_remove(client);
->>   }
->>   
->>   /* This is the driver that will be inserted */
->> @@ -236,7 +368,7 @@ static int ucd9000_probe(struct i2c_client *client,
->>>   		.name = "ucd9000",
->>>   	},
->>>   	.probe = ucd9000_probe,
->>> -	.remove = pmbus_do_remove,
->>> +	.remove = ucd9000_remove,
->>>   	.id_table = ucd9000_id,
->>   };
->>   
+--AhhlLboLdkugWU4S--
