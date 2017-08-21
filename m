@@ -1,55 +1,52 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-lf0-x244.google.com (mail-lf0-x244.google.com
- [IPv6:2a00:1450:4010:c07::244])
+Received: from mail-lf0-x22a.google.com (mail-lf0-x22a.google.com
+ [IPv6:2a00:1450:4010:c07::22a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xbW9M6PZ5zDrLH
- for <openbmc@lists.ozlabs.org>; Mon, 21 Aug 2017 21:07:03 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xbWW93DnwzDqMM
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Aug 2017 21:22:29 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="JJrSqnnU"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="BpVcNjEy"; 
  dkim-atps=neutral
-Received: by mail-lf0-x244.google.com with SMTP id y15so10088599lfd.5
- for <openbmc@lists.ozlabs.org>; Mon, 21 Aug 2017 04:07:03 -0700 (PDT)
+Received: by mail-lf0-x22a.google.com with SMTP id y15so65301201lfd.5
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Aug 2017 04:22:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=s9sKfksSh5F6p98/YQd2TmXHOZCHsL+iDcgobnjXxVE=;
- b=JJrSqnnU9mq5ITVbN1O4M/HzXY9WVc/y3tj0RN+LFILOqpqonKZ9ED4la8Qh+4eTeo
- A4FsnAvYxJV65feolwI23AJ56utGwjp0FvYv2lbmUQPhvmxVpDWr9j9/BI9tBM9hejlV
- yQ/BkhMxw/LaS+UTWovaiQTCc/AQhnt4Tc7N4U4FcQSduD8aZTdEd9+rRcvSguIedlur
- D6YYHll9NoEP/E5quGtWyQEjGzG2OJ1ohmsauLaQGG0RUruWUWMaksEyzw7eE4VxQp7n
- 1t//bsLRvJFbnVGJwQSfsSTkd7soBL58Ni/x9tkKsw/z6b7gTP812DjoxpbFncLVUa5R
- bBcA==
+ bh=9ln/1OuizNXphA+sOvtVxHbEXf0KtzBuUN/HQaH84As=;
+ b=BpVcNjEy291c9cVv6CoxoFDIRDBRnHQwH3rTcid+2jSuyJXGPZAQeQR+gJTsjuLssO
+ CHomK50yxv8xVrCLnRnH+rTZ/U7ubAr4JFoJTh1bJFMkyaLHAlYGqx5dwFa3anfmX6xA
+ MO+eNhEBVdB6p7ryIBExMI6avwLv+3WOz97fSNUuj0jbP48PX2UllABi2eNtMx8iTBFv
+ ggLkxngpuNBmg9QHDqNTeh/w4RzkGJ1Gho4HG9E/e7EvANNdYvazgztd1oydKmgnIBmE
+ jFncDR/JkreViZ8sRxfGLpmHanMUzS5Yb0UJvTCqYxuFEaZtZoo1PnxtcXmjUZw/TCf8
+ 2SHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=s9sKfksSh5F6p98/YQd2TmXHOZCHsL+iDcgobnjXxVE=;
- b=JzAE8vVPCd7mwZcOTzalRiN9UZbZ5T/PF2DX2J6uUtSa6suZT6iOCLsBGrP2R/knnX
- LkKOsOdinVV5ua2QHI7XBwVqhFN/v+w2fxoIFFwfkpu/I6vSG+Qyp09Auk7cuA9lAfjp
- /O/94WRJMNFFxS0pNIYZOMbOX6beC0TsrweTsZCwUbjJQBZC0nCec0vvEoUs/65peM4T
- xyZX5tgAnevCImr7BTGgBSZQQB3aSxIWcWHpCaSnhjLUVNXBWm/4SirU8Qteqe3eAlJP
- cU9iL2r31IZgKGSiUIxMmxnJk4dTm30sax1qQBVVrjRCf6vdeiMWDNxrv4d9+fnLjjWe
- HHTw==
-X-Gm-Message-State: AHYfb5jYT8lBMP1MU6T0YaSef30d8ThnyjdzAc5T6n/HySnq7jALVu78
- A+fgwdvqrOnFhx9Cc6JZhG6CwjZYWw==
-X-Received: by 10.46.87.25 with SMTP id l25mr5203976ljb.138.1503313620625;
- Mon, 21 Aug 2017 04:07:00 -0700 (PDT)
+ bh=9ln/1OuizNXphA+sOvtVxHbEXf0KtzBuUN/HQaH84As=;
+ b=pdDWaOvbTuVij4+du6bZLyicMeqnuON0r+xT2AcXnCRVClNg3WtHdlCa0YYLBZx8/Z
+ cmmVVoSSgptg6MM6G+Y6LBapKSyOUSTMvAtrKkJPbZmfrqELIX7DYbgMduJOFtkSUjgZ
+ 7RsqexPCLxHk8vd8/O4uxSCYOOiV8Sj6rc68jrI4dL5kdHEiBfhLIOAWTsr2Cb5Vxbmn
+ dpSQ1T7nPIc0OWtSUJFGX2/pwuHCB1Ggsm1Ku58OmRKeol6/tAbsup6ABSDnVW0ywZlL
+ GEcL3WXQchcLZ0rKGErUByDvGizu6hNm/LWMvpZQbUCjzEe88+DsuhlmMQ59gUYcMife
+ fNQw==
+X-Gm-Message-State: AHYfb5gQZyzZ/b4Nb0N3K6BTr300WlNwMDR5E1+q+4bQ4rYbxMIPvZOM
+ sygSaC7Kpa5aP4z5Gw+bR8S1WoCE8OArKJY=
+X-Received: by 10.25.202.9 with SMTP id a9mr597774lfg.85.1503314545524; Mon,
+ 21 Aug 2017 04:22:25 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.25.72.77 with HTTP; Mon, 21 Aug 2017 04:06:40 -0700 (PDT)
-In-Reply-To: <1502140837-48939-1-git-send-email-anoo@linux.vnet.ibm.com>
-References: <1502140837-48939-1-git-send-email-anoo@linux.vnet.ibm.com>
+Received: by 10.25.72.77 with HTTP; Mon, 21 Aug 2017 04:22:04 -0700 (PDT)
+In-Reply-To: <DM5PR1201MB0171FC7B8400A4193427C5D5B8880@DM5PR1201MB0171.namprd12.prod.outlook.com>
+References: <DM5PR1201MB0171FC7B8400A4193427C5D5B8880@DM5PR1201MB0171.namprd12.prod.outlook.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 21 Aug 2017 20:36:40 +0930
-X-Google-Sender-Auth: yACVL3-ydGdp2DRPVGmuIrmMtbM
-Message-ID: <CACPK8XcR3ZX6X_DZTttvHj5t=Cvnz3eS7uVPc3g_3afSkTULhw@mail.gmail.com>
-Subject: Re: [PATCH u-boot v2016.07-aspeed-openbmc] Add MTD support to Aspeed
- Flash driver
-To: Adriana Kobylak <anoo@linux.vnet.ibm.com>
-Cc: Rick Altherr <raltherr@google.com>, Maxim Sloyko <maxims@google.com>, 
- Milton Miller II <miltonm@us.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Mon, 21 Aug 2017 20:52:04 +0930
+X-Google-Sender-Auth: ma_kIbhq4C00hS5Mo6wYLrgJVXw
+Message-ID: <CACPK8XdWGzL1B5-yMB-V1Zr-v28UHKjwPR3fF24LzydCgCHS9Q@mail.gmail.com>
+Subject: Re: New design for file system layout and code update
+To: Milton Miller <mdmii@outlook.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -62,64 +59,91 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Aug 2017 11:07:04 -0000
+X-List-Received-Date: Mon, 21 Aug 2017 11:22:30 -0000
 
-On Tue, Aug 8, 2017 at 6:50 AM, Adriana Kobylak <anoo@linux.vnet.ibm.com> wrote:
-> Add support to the aspeed flash driver to enable the common mtd layer
-> through CONFIG_FLASH_CFI_MTD.
->
-> This enables the flash to be used by u-boot mtd drivers including
-> the mtdparts and ubi commands.
->
-> Signed-off-by: Adriana Kobylak <anoo@linux.vnet.ibm.com>
-> Acked-by: Milton Miller <miltonm@us.ibm.com>
-> ---
->  arch/arm/mach-aspeed/flash.c | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
->
-> diff --git a/arch/arm/mach-aspeed/flash.c b/arch/arm/mach-aspeed/flash.c
-> index 9c5ead6..e1e3cf8 100644
-> --- a/arch/arm/mach-aspeed/flash.c
-> +++ b/arch/arm/mach-aspeed/flash.c
-> @@ -124,6 +124,22 @@ flash_info_t flash_info[CONFIG_SYS_MAX_FLASH_BANKS];               /* FLASH chips info */
->  /* specificspi */
->  #define SpecificSPI_N25Q512    0x00000001
->
-> +#ifdef CONFIG_FLASH_CFI_MTD
-> +static uint flash_verbose=1;
-> +void flash_set_verbose(uint v)
-> +{
-> +       flash_verbose = v;
-> +}
-> +
-> +unsigned long flash_sector_size(flash_info_t *info, flash_sect_t sect)
-> +{
-> +       if (sect != (info->sector_count - 1))
-> +               return info->start[sect + 1] - info->start[sect];
-> +       else
-> +               return info->start[0] + info->size - info->start[sect];
-> +}
+Hi Milton,
 
-This function looks like it's copied from cfi_flash.c (line 197).
+Thanks for the write-up. We weren't yet looking for something as comprehensive,
+but thanks for the attention to detail here. Before we get too far ahead though,
+there are a few questions about the higher-level design (quotes are from your
+doc):
 
-Can you explain why we're duplicating it here?
+Firstly, a clarification about the kernel: your doc mentions that
+it'll be present (as the raw kernel binary) in a UBI volume, but
+the discussion today you mentioned that it will be a raw flash area.
+Can you clear that up?
 
-> +#endif
-> +
->  /*-----------------------------------------------------------------------*/
->  static u32 ast_spi_calculate_divisor(u32 max_speed_hz)
->  {
-> @@ -1372,6 +1388,10 @@ unsigned long flash_init (void)
->                        flash_get_info(CONFIG_ENV_ADDR_REDUND));
->  #endif
+> All distribution images (except Das U-boot and its environemnt)
+> will be stored in seperate ubi volumes named by their image type.
+> A hash of version identifiers will be generated during deployment
+> to make unique image names.
 >
-> +#ifdef CONFIG_FLASH_CFI_MTD
-> +       cfi_mtd_init();
-> +#endif
-> +
->         return (size);
->  }
+> The kernel and its device tree will be stored in a fit image
+> in a ubi volume.
+
+Am I correct in assuming that this allows us to be flexible in the
+partition sizing? ie, we can perform single-volume updates at runtime
+that may be larger than the space originally allocated for that volume?
+
+[ie, with the partitioned mtd scheme that we have now, increasing
+a partition beyond its original size isn't possible without
+having to shuffle the data around]
+
+If so, this would be a fairly significant reason for adopting the
+UBI-volume-based approach.
+
+> To support a total flash chip failure, each flash chip will
+> contain an independent ubi device.  The mtd_concat driver will not
+> be used to form an ubi device that spans flash chip boundaries.
 >
-> --
-> 1.8.2.2
->
+> Both the primary chip (mtd label bmc) and alternate chip (mtd
+> label alt) will contain a complete copy of u-boot, and a redundant
+> environment, and kernel images.  For space reasons root squashfs
+> volumes may be on a different ubi device than the kernel.
+
+Do we really need this though? It seems that the functionality that the
+hardware provides here (flipping to a completely independent backup flash)
+gives us a simple, fail-safe mechanism for disaster recovery.
+
+Using some components from "primary" and some from "secondary" seems
+like an invitation for incompatibility issues.
+
+If we do continue with this approach, how will it interact with the
+auto-fallback via chip-select?
+
+> Since all binaries will exist in the root file system, systemd can
+> be started directly from the squashfs without an intermediate
+> initramfs.  Eliminating the initramfs will remove the requirement
+> to build and store it, however, it also requires the bootloader
+> to will need to specify how to locate the root filesystem.
+
+So we'd also be moving from the current initramfs-based flashing
+mechanism to something that requires the rootfs to be working, right?
+That is a bit concerning, as it means that more infrastrcuture
+needs to be working & correct to be able to boot *anything*,
+including recovery. Or have I read the design incorrectly here?
+
+How about something like:
+
+ - completely independent primary & backup images, and use the
+   BMC's watchdog to revert to the backup on severe boot problems
+
+ - kernel and initramfs as (raw) UBI volumes, with u-boot having
+   support to boot from those
+
+ - rootfs (ro) + /var (rw) [plus whatever else is required] as
+   UBI volumes, likely with squashfs for ro and jffs2 for rw.
+
+That means:
+
+ - we still have a fairly simple path to boot to initramfs, which
+   allows for system recovery
+
+ - kernel, initramfs and filesystem sizes are not fixed, and can be
+   modified during firmware update
+
+How does that sound?
+
+Cheers,
+
+Joel
