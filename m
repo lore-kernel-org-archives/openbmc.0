@@ -3,58 +3,57 @@ Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xbGZs1PsBzDrK5
- for <openbmc@lists.ozlabs.org>; Mon, 21 Aug 2017 11:39:48 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xbGzK3yDrzDqGs
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Aug 2017 11:57:33 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="g1GkFTp0"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="dlnkuFR4"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="arC3v8vC"; dkim-atps=neutral
+ header.b="Na6Uc/Eu"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 2DEA820D4F;
- Sun, 20 Aug 2017 21:39:44 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Sun, 20 Aug 2017 21:39:44 -0400
+ by mailout.nyi.internal (Postfix) with ESMTP id 476FF20EF6;
+ Sun, 20 Aug 2017 21:57:31 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Sun, 20 Aug 2017 21:57:31 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=bY/khITlRpePLqA3I6ZTDYg0yh+Gr2yP9do8fMsKK
- SI=; b=g1GkFTp0erHx8dHo1GyZxDudwpBc0LaHO0Ei3ftG0QZ+BkRxZSBG6Uadv
- gVfhZwbA05jY4TnnIQtcc8WtKcZkb81xyel6Osge5qGK3u94bop6BzrR//mLd/Lu
- e9z7uruqZvdnHyXZ2HobnIu4CrYN7qU69KcWLJnzEe3ONyuEP2yXewODgv1d1kYC
- WXLqjjskj96c+sTX+n7omhMpaPt1BDq0ma8EbunjQUqlmmqIaPX1lIJFAJcOE35x
- SCtGg20hI0SjoU+qWMJftKektqlLyeVGMmhULDN+8if5Uo4FODP0jFCTu2BIECp+
- JhRX5N6edK6micBjgl8xGM09IB7Qg==
+ :x-sasl-enc; s=fm1; bh=6UMmqA3+lnXM75S9vkmA1pV+GG/powPKDtaoQVBMD
+ G4=; b=dlnkuFR4ggkasa/wF5tweD1LHt9i/qmdgN8UZrFDLF0k4tbAGKU4WgzvW
+ epZcvP+4yutMtrcxYdmi1yqFjnYAgqLhMKNoDGY9ZWHLfnI+Hd/nkrbaFSYXDZHG
+ EooHIv9JomscWoXafpqvGSJqlpQbixr6JNnVwNIpz+04Ou02m1Z5/OEShPOG29jj
+ gXLWec4wDEX8UyY4BKvtSpVv5vNInRH+3nV2G39KLUOJtOWrNxDa7E8AUpvtI35Z
+ bdQqsyjgq5YeS1gC62flTjDDOyC74rv3pzPOlPN6W/BqXZuBlVfVoNpTUMHscrEu
+ otKeF0BHVkJu+A2pbLrM1C5h9ti9A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=bY/khITlRpePLqA3I6
- ZTDYg0yh+Gr2yP9do8fMsKKSI=; b=arC3v8vC3qH/qhO491Lr9vj2vyGKOuC7qQ
- s5kXZHv/npVpp94yrTOG7BMVhDl4h1oxbYOuBSzm+UYGEdZ4INFWvavrNoo4MP8T
- HSn6TTGcDUaNDhGKlqWd8F1Rwa9jiYMO5TC+9KdVWLfHqAEwoxlzgV9qiaOX7smr
- /9RgnEISk2HotNleVAxnEVWvd1f/uQumDVuwPbLhLuZ//C12gnPoveyfkDBzCPtF
- 3zpi+4ihR1JGx2kJYG/jYP7HUCpbeNHnFbASwyBtNvvPjKHG1MPKUdn0ojViMFA+
- TIgp/STXDT8/Bx9/AURXY+To4P3tSXEU3gRpHuUpngDTM1vQFYtA==
-X-ME-Sender: <xms:4DmaWTBAiipRqz3X_k09VOWM93nkyjGCO2o4pSLTaPOnEFUritc-oQ>
-X-Sasl-enc: tXltGEqZ+M9iSOjNdXedYuzKvmOmLOxwjXw3Qh2Ar/Fc 1503279583
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=6UMmqA3+lnXM75S9vk
+ mA1pV+GG/powPKDtaoQVBMDG4=; b=Na6Uc/Eu4IhtVdWZjy38Ayzdnu8fTm8hdf
+ 34RIKGmBnzpdrDc60H/6q3grYWVuAtN5CVju1jcr8/iPQdGBZN6bHcz/blvhAANf
+ 3g+hQbeWJD6s0Ic0sY5kjpjYSJ0y2fkkapqzxJcQX6YZI6ik6hjvxFkKCp8Hf2EU
+ lyCo0W7O+a/kLvS3g/3reQMZN8uMrGpo8cnh/Fzp2PaOcxKVXWZV323JvSmLeqKV
+ NxmjqKtIsxX3RuxeaWjMlWejz8eIGrxqyMZSznxO9+Xd7KKOKc7+5fQ7m0oSL6TC
+ Zx1U0tph2cvNXsMqkal26WZWkhS70nOb/BNyi1CtsZB35BgZkrxQ==
+X-ME-Sender: <xms:Cz6aWY5ZIS2wmOuJwTq__M_jS764ygPh5gewMjKBLjnUJndG10fiDg>
+X-Sasl-enc: uOIc8DHp5bT3DMucKVfRadrpyEWaIDq4TBvh7BiN9uRg 1503280650
 Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 203267FA6D;
- Sun, 20 Aug 2017 21:39:41 -0400 (EDT)
-Message-ID: <1503279575.7266.2.camel@aj.id.au>
+ by mail.messagingengine.com (Postfix) with ESMTPA id 914AA248A1;
+ Sun, 20 Aug 2017 21:57:29 -0400 (EDT)
+Message-ID: <1503280646.7266.4.camel@aj.id.au>
 Subject: Re: [PATCH linux dev-4.10 v3 1/2] hwmon: (ucd9000) Add gpio chip
  interface and clear logged faults
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Matt Spinler <mspinler@linux.vnet.ibm.com>, Christopher Bostic
- <cbostic@linux.vnet.ibm.com>, joel@jms.id.au
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>, joel@jms.id.au
 Cc: openbmc@lists.ozlabs.org
-Date: Mon, 21 Aug 2017 11:09:35 +0930
-In-Reply-To: <a9fa48ac-78df-3136-f881-299780e97bef@linux.vnet.ibm.com>
+Date: Mon, 21 Aug 2017 11:27:26 +0930
+In-Reply-To: <42d093a3-3567-00e1-6eb7-009033b2919b@linux.vnet.ibm.com>
 References: <20170818013526.35678-1-cbostic@linux.vnet.ibm.com>
  <20170818013526.35678-2-cbostic@linux.vnet.ibm.com>
  <1503035048.681.14.camel@aj.id.au>
- <a9fa48ac-78df-3136-f881-299780e97bef@linux.vnet.ibm.com>
+ <42d093a3-3567-00e1-6eb7-009033b2919b@linux.vnet.ibm.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-6Juvmg5K49R5NdqsbpJb"
+ protocol="application/pgp-signature"; boundary="=-66jwDdOb4J5fJv/mSQA1"
 X-Mailer: Evolution 3.22.6-1ubuntu1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -68,101 +67,18 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Aug 2017 01:39:51 -0000
+X-List-Received-Date: Mon, 21 Aug 2017 01:57:34 -0000
 
 
---=-6Juvmg5K49R5NdqsbpJb
+--=-66jwDdOb4J5fJv/mSQA1
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Matt,
+Hi Chris,
 
-Thanks for clarifying your requirements. I have some comments inline below.
-
-On Fri, 2017-08-18 at 09:35 -0500, Matt Spinler wrote:
-> Hi Andrew,
+On Fri, 2017-08-18 at 15:38 -0500, Christopher Bostic wrote:
 >=C2=A0
-> At this point, we just need a working driver so we can deliver the=C2=A0
-> function.=C2=A0=C2=A0This is all I need:
->=C2=A0
-> * read status_word
->=C2=A0
-> * read mfr_status (though it isn't that useful because the pmbus core=C2=
-=A0
-> code that Chris had to start using sends a clear faults every second and=
-=C2=A0
-> clears out the edge triggered bits I'm interested in)
-
-That's a valid complaint. At the moment pmbus_clear_faults() is driven by c=
-alls
-to pmbus_update_device() if the sensor value needs to be updated (values ar=
-e
-cached for a time-period by the core).
-
-There's no timer that clears the faults, it's purely the accesses from
-userspace. So if the accesses are ordered such that MFR_STATUS is read befo=
-re
-any sensors then you should not miss any edge-triggered faults.
-
-However that's not to say that this behaviour is sane. Some work should be =
-done
-to figure out if we can avoid sending a CLEAR_FAULTS on every update.
-
->=C2=A0
-> * read status_vout from each page
->=C2=A0
-> * read the realtime GPI status using regs 0xFA and 0xFB for the 6 inputs=
-=C2=A0
-> that are wired on this system
->=C2=A0
-> Chris's current code does all that, as did several of his previous=C2=A0
-> versions, so I think we need the path of least resistance and just go=C2=
-=A0
-> with one of them.
-
-I disagree on several fronts:
-
-1. We've seen how frustrating userspace-breaking changes are with FSI and i=
-t
-follows (in my mind) that we'd want to minimise such problems going forward=
-.
-This driver has evolved from defining many new, non-standard ABIs in v1 and=
- v2
-down to one in v3, which we're looking to get a blessing on from upstream. =
-I
-would be *very* surprised if v1 or v2 were accepted with no complaints by
-upstream, and thus v3 is a big improvement over what we had (through minimi=
-sing
-new ABIs).
-
-2. The implementation of v2 would have seriously disrupted the behaviour of=
- the
-device or given incorrect values for queries of the GPIO state.
-
-3. v3 makes many assumptions about how the device is programmed but documen=
-ts
-none of them. In light of that I can only review for the general case of
-needing to put the device in the state required to read off the values you
-need. Prior to your email the exact requirements on the implementation were=
- not
-clear to me either. The flexibility and complexity of the UCD90160 means th=
-is
-is non-trivial, so either we implement the required functionality to achiev=
-e
-generality OR we heavily document the assumptions about how the device is
-programmed so it's *obvious* to the reader why the implementation is hamstr=
-ung
-the way it is. The latter approach makes it unsuitable for sending upstream=
-,
-but at least it documents the path that should be followed before doing so.
-
-Cheers,
-
-Andrew
-
->=C2=A0
->=C2=A0
-> On 8/18/2017 12:44 AM, Andrew Jeffery wrote:
+> On 8/18/17 12:44 AM, Andrew Jeffery wrote:
 > > Hi Chris,
 > >=C2=A0
 > > On Thu, 2017-08-17 at 20:35 -0500, Christopher Bostic wrote:
@@ -256,7 +172,23 @@ ith ACPI
 > > as GPOs. It would probably pay to think about how these constraints wou=
 ld
 > > impact the implementation.
-> >=C2=A0
+>=C2=A0
+> Hi Andrew,
+>=C2=A0
+> Will go through and review the data for the various ucd9000 devs. I=C2=A0
+> understand the need to cover all these device types but want to also be=
+=C2=A0
+> able to deliver internally what is needed which is just the gpi faults.=
+=C2=A0=C2=A0
+> Maybe we can discuss further on Sunday's call.
+
+Yeah, understood, it was a thinking-out-loud comment. However I would hate =
+to
+get too deep on an implementation only to find that it's not appropriate fo=
+r
+the device's behaviour.
+
+>=C2=A0
 > > > +
 > > > =C2=A0 struct ucd9000_data {
 > > > > > > > > =C2=A0=C2=A0	u8 fan_data[UCD9000_NUM_FAN][I2C_SMBUS_BLOCK_M=
@@ -287,6 +219,9 @@ LECT, offset);
 > > > > +		dev_err(&client->dev,
 > >=C2=A0
 > > Why is there a linebreak here?
+>=C2=A0
+> No good reason, will correct.
+>=C2=A0
 > >=C2=A0
 > > > > +			"Failed to read pin ID %d\n", offset);
 > >=C2=A0
@@ -302,8 +237,10 @@ rovides
 > >=C2=A0
 > > > >=C2=A0		dev_err(&client->dev, "Failed to select GPIO %d: %d\n", offs=
 et,
-> > > >=C2=A0			ret);
-> >=C2=A0
+> >=C2=A0			ret);
+>=C2=A0
+> OK, will go with your suggestion.
+>=C2=A0
 > > > > > > > > +		return ret;
 > > > > +	}
 > > >=C2=A0
@@ -328,7 +265,10 @@ a(gc);
 > > Again, we don't need a linebreak above, but we probably should have one=
  between
 > > the dev_err() and the return statement.
-> >=C2=A0
+>=C2=A0
+> Will take care of that.
+>=C2=A0
+>=C2=A0
 > > > > > > > > +		return ret;
 > > > > +	}
 > > >=C2=A0
@@ -338,13 +278,27 @@ a(gc);
 > > We can avoid the branch with:
 > >=C2=A0
 > >=C2=A0	return !!(ret & UCD9000_GPIO_CONFIG_STATUS);
-> >=C2=A0
+>=C2=A0
+> Will update.
+>=C2=A0
 > > Interestingly it's not clear from the datasheet whether the status bit =
 contains
 > > a relevant value when the pin is in output mode, as there's a separate =
 bit (bit
 > > 2) to set the value. Have you tested the behaviour?
-> >=C2=A0
+>=C2=A0
+> I've not tested this in output mode.=C2=A0=C2=A0Up to this point there is=
+n't any=C2=A0
+> means to set direction so, at least for how we're using it currently=C2=
+=A0
+> these are all set to inputs.
+> Will see how this behaves in output mode.
+
+Do it as you have time - as you point out there's not support for output
+currently so it's not the end of the world. I just wanted to note the behav=
+iour
+so we didn't forget about it.
+
 > > > +}
 > > > +
 > > > +static int ucd9000_gpio_get_direction(struct gpio_chip *gc,
@@ -376,7 +330,13 @@ o plan to actually
 > > That's not true - the driver is general purpose. Lets not limit it too =
 much to
 > > *how you intend to use it* vs the actual hardware capability.
-> >=C2=A0
+>=C2=A0
+> Understand.=C2=A0=C2=A0Will implement direction switch for next revision =
+in any case.
+
+Great.
+
+>=C2=A0
 > > > + */
 > > > +static int ucd9000_gpio_direction_input(struct gpio_chip *gc,
 > > > > +					unsigned int offset)
@@ -436,7 +396,13 @@ able,
 > >=C2=A0	fan control, and so forth) may likely result in unexpected and un=
 wanted
 > >=C2=A0	behavior.
-> >=C2=A0
+>=C2=A0
+> All good points.=C2=A0=C2=A0Will implement direction switching for next s=
+ubmit.
+
+Thanks.
+
+>=C2=A0
 > > This suggests my favourite topic: pinctrl.
 > >=C2=A0
 > > Twenty-two of the pins on the UCD90160 are GPIO-capable. Of these 22 pi=
@@ -461,7 +427,37 @@ ip to
 ral) and
 > > map the pin spaces in the devicetree (the gpio and pin spaces are diffe=
 rent).
-> >=C2=A0
+>=C2=A0
+> I'd like to avoid implementing pinctrl for the time being given the=C2=A0
+> limited function we need internally.=C2=A0=C2=A0=C2=A0I do see the advant=
+ages as you=C2=A0
+> point out so maybe we can phase this in?
+
+I think it should be possible to do a bare-bones pinctrl implementation tha=
+t
+describes no pinmux functions but allows allocation of GPIOs. That way the
+devicetree won't have to change in a breaking way. See how the GPIO control=
+ler
+defers to the pinctrl node to allocate pins in the Aspeed DTSIs:
+
+	https://github.com/openbmc/linux/blob/dev-4.10/Documentation/devicetree/bi=
+ndings/gpio/gpio.txt#L230
+	https://github.com/openbmc/linux/blob/dev-4.10/arch/arm/boot/dts/aspeed-g5=
+.dtsi#L271
+	https://github.com/openbmc/linux/blob/dev-4.10/drivers/pinctrl/aspeed/pinc=
+trl-aspeed-g5.c#L2439
+	https://github.com/openbmc/linux/blob/dev-4.10/drivers/pinctrl/aspeed/pinc=
+trl-aspeed.c#L453
+
+The implementation should be no-where near as complex as the Aspeed pinmux,=
+ and
+hopefully we only need the GPIO portions of it.
+
+Cheers,
+
+Andrew
+
+>=C2=A0
 > > > +}
 > > > +
 > > > +static ssize_t ucd9000_clear_logged_faults(struct device *dev,
@@ -479,7 +475,7 @@ FAULTS, 0);
 > > > > > > > > +	if (ret) {
 > > > > > > > > +		dev_err(&client->dev, "Failed to clear logged faults\n")=
 ;
-> > > > > > > > +		return ret;
+"> > > > > > > > +		return ret;
 > > > > +	}
 > > >=C2=A0
 > > > +
@@ -505,7 +501,9 @@ FAULTS, 0);
 > >=C2=A0
 > > Joel's made a fair comment here regarding upstream. Please address that=
 .
-> >=C2=A0
+>=C2=A0
+> Next patch set will be sent upstream.
+>=C2=A0
 > > > =C2=A0 static int ucd9000_probe(struct i2c_client *client,
 > > > > =C2=A0=C2=A0			=C2=A0const struct i2c_device_id *id)
 > > >=C2=A0
@@ -527,6 +525,9 @@ ut;
 > > I feel like it wouldn't be much effort to make this more complete and s=
 pecify
 > > the direction_output() and set() callbacks as well.
+>=C2=A0
+> Right, will do that.
+>=C2=A0
 > >=C2=A0
 > > > > > > > > +	data->gpio.can_sleep =3D 1;
 > > > > > > > > +	data->gpio.base =3D -1;
@@ -539,13 +540,22 @@ pecify
 > >=C2=A0
 > > In fact, what's the behaviour of the other drivers now given we're
 > > unconditionally registering a gpiochip?
-> >=C2=A0
+>=C2=A0
+> The other drivers would have a gpio_chip that is available but if they=C2=
+=A0
+> don't use it I'm not thinking this would break them in any way.=C2=A0=C2=
+=A0Would=C2=A0
+> it be better to only register a gpiochip if its a ucd90160 in particular?
+>=C2=A0
 > > > > > > > > +	data->gpio.parent =3D &client->dev;
 > > > > +	data->gpio.owner =3D THIS_MODULE;
 > >=C2=A0
 > > At some point we should think about pinconf as well (push-pull vs open-=
 drain).
-> >=C2=A0
+>=C2=A0
+> Ok, will make a note of that.
+>=C2=A0
+>=C2=A0
 > > > +
 > > > > > > > > +	ret =3D devm_gpiochip_add_data(&client->dev, &data->gpio,=
  client);
@@ -561,6 +571,13 @@ drain).
 > > > > +		data->gpio.base + data->gpio.ngpio - 1);
 > >=C2=A0
 > > Let's drop this.
+>=C2=A0
+> Will remove.
+>=C2=A0
+> Thanks,
+> Chris
+>=C2=A0
+>=C2=A0
 > >=C2=A0
 > > Cheers,
 > >=C2=A0
@@ -599,26 +616,26 @@ t,
 > > > =C2=A0=C2=A0
 >=C2=A0
 >=C2=A0
---=-6Juvmg5K49R5NdqsbpJb
+--=-66jwDdOb4J5fJv/mSQA1
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJZmjnXAAoJEJ0dnzgO5LT5r8gP/3R25rq+jpWTuY4phccj8zhQ
-nS2fw4lj2Qm6c+P/oEb+Mffu9hS+FVT9YGucHtiP+O2lgkTaZR/G+6VZd7+uuCM0
-DrdLC9cwsRSq1PUIe7UICjpXDCot5kmtMxn7yTe1BU+cYs3bAsIno1SDKWJhPyiZ
-b+OmoLZfNttpMt//HtipaZY0C06WCyYj79QdTa79eKygMosxK43Edv6p+o0AM+sH
-rcJaa5x0SE2U9pTxdbNwhi4dCtC5YCoJAeDbygxEoV31Kr4ZCse6qNnvJOzMnaxf
-OfJaydL6B2VezxNKVV/80gQs/6oVjQQr250BeSmyUac3RV54ba7qUmhITOs8KwS3
-/LwGwdW99lEAJwVm8kFyTAHOaigfM/NPHRoDe1QDTHZSVMz+UFW7oHyw0fnUHiBz
-lv6o9XjDjeRCtyV/P+cRVAQWo4/s/PsoMpSpmvmvjbXgjzi8UzmIEskU7qWmPp25
-uko4MpAVjURG9rYXRt/xMD8o48NCymAWexzmAFmU8DsAZOEP6OXJ6dNAuNyAbbN5
-FQto7LV8HjVGTriTrVR3oVngMRyJiVBbaTQ8lpsL5ZztHd6UOEZc9GCMk1OHgCKG
-4sEoy/8cl9TJNTxAwcNmm3/RvaeVk6pp0blXpxuReZPd2hVvOD8tvHWK+In2F+gr
-g/u95h7UThUPWuBtuK4i
-=eqFb
+iQIcBAABCgAGBQJZmj4GAAoJEJ0dnzgO5LT5vc4QAJFSab59XEPDmpLsD1Vb7ql3
+LahOULwyq11qrry4VaxdxfJgQQV8Iu0GP5rioit5jWFCopbh8+9RTlOeDiWbeh2v
+krgjO0+Ulo9422RktwQ13b0LuaDJubeP65JUba6GiFOYjaInSewdDD0tXU6gKrLU
+/2f/1tPfyhIX865ESayTwdOwtvdH+tNHXhp+PRxi4sAYT12FL+X/h85Ul4UsAMpG
+Fc3/Q5hG/v5bUqBcCsrnpc9X+syw1VZPY8ZNprH3Pyr5CvG6K+hzdso7XejkWTZG
+eXIbPIfjQWc1E8PBUaqPP9dGtSmueAKFbU+IbfFW48YZETMEzNdEV0B2+iNaqmwg
+v5IK4p5HRfPPYVzKLx1IjBVDT5VdoMVih9uqSt8k6Dqo34CUXbiZbeABJlpPUJ89
+xVmKbPsRPlpXi1zw9qOXfpDJTiaoLd9dQdRL814/EJYzcCFTGEkp2w/ev1eAMG0k
+Q5VIC9+kB+T3YQzNNt10Z/SY3DseP7WV35eLjMGDi7JzO5sWCCmHd0tWy2/7eWRw
+g41d/o1OwSChVJMkLCt/9eV13qmkm09ISKySeXfPqVUWznYYZuZEdLdCSZe4mMqW
+9nTBZQ8gwT6V1EZwkeK0K8ijZM1sA+b3er5N22ytGUQ6tWAp2oLkvTZGCs+1Lm+C
+feiN4WqpxfdG6DkdmhSw
+=Va0b
 -----END PGP SIGNATURE-----
 
---=-6Juvmg5K49R5NdqsbpJb--
+--=-66jwDdOb4J5fJv/mSQA1--
