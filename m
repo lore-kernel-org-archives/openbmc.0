@@ -1,51 +1,51 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-lf0-x243.google.com (mail-lf0-x243.google.com
- [IPv6:2a00:1450:4010:c07::243])
+Received: from mail-lf0-x244.google.com (mail-lf0-x244.google.com
+ [IPv6:2a00:1450:4010:c07::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xbW5K3wQzzDrKf
- for <openbmc@lists.ozlabs.org>; Mon, 21 Aug 2017 21:03:33 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xbW9M6PZ5zDrLH
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Aug 2017 21:07:03 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="dirfdLUA"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="JJrSqnnU"; 
  dkim-atps=neutral
-Received: by mail-lf0-x243.google.com with SMTP id z12so2019096lfd.4
- for <openbmc@lists.ozlabs.org>; Mon, 21 Aug 2017 04:03:33 -0700 (PDT)
+Received: by mail-lf0-x244.google.com with SMTP id y15so10088599lfd.5
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Aug 2017 04:07:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=eDxIUKYF7ezZ3tA1qRtWsgRBQxpYIJUjdLLwouINALE=;
- b=dirfdLUAiOjHhlegzu20uZtTaKe9EnI4siDoZqtFYrsTyypFzVUXAWM/yT8dA+fHGy
- puQwanIz4Yc6fah7oJhh5DRTQnZVZ9ihKK7B6T+hu/XNGLoDR3q17LqfRZ9q/h/MjhFx
- zMwB1mii01Hrojwp/HWWJTDo7mqlbJZZps4WxJ4hKbt/6jT8rS7vvGfcF7Amhcb1smd8
- AVu3o3hKRdUOgO2gjRCmyLuIa7xXmzn9C1P5uBOak21Ybwle6SX6idFbla5K5QPeRtrm
- zJaCisT7dVn+SPY9Lt4cSxup7I5WYyyH6G64er59uuHidb9thwuQ+4OwtfG7HZhytCNQ
- +Opg==
+ bh=s9sKfksSh5F6p98/YQd2TmXHOZCHsL+iDcgobnjXxVE=;
+ b=JJrSqnnU9mq5ITVbN1O4M/HzXY9WVc/y3tj0RN+LFILOqpqonKZ9ED4la8Qh+4eTeo
+ A4FsnAvYxJV65feolwI23AJ56utGwjp0FvYv2lbmUQPhvmxVpDWr9j9/BI9tBM9hejlV
+ yQ/BkhMxw/LaS+UTWovaiQTCc/AQhnt4Tc7N4U4FcQSduD8aZTdEd9+rRcvSguIedlur
+ D6YYHll9NoEP/E5quGtWyQEjGzG2OJ1ohmsauLaQGG0RUruWUWMaksEyzw7eE4VxQp7n
+ 1t//bsLRvJFbnVGJwQSfsSTkd7soBL58Ni/x9tkKsw/z6b7gTP812DjoxpbFncLVUa5R
+ bBcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=eDxIUKYF7ezZ3tA1qRtWsgRBQxpYIJUjdLLwouINALE=;
- b=h1Oq2K+cT5/PIpokH5flz7KcB2tbYD93fFwEZ6aO4Yus/Mb/ZzoAMdosRZa4abopv5
- mUkH4XdwQ3/XfBasgH0IGPPY4FWmTE5urGjZfyE2/JpBgaucbeUrdj81N0EQLF2rrwmJ
- 3g5poTlrlYHo2uG5J5UwpdMMf6w3Acw0V4NFC+ZDdvBBE0HwfcpTr2HpEP/mO/Vo7bzH
- 6MVlPLbLuuYTKvLmWie3VYMQ3kVy4/3qaoB5npw33W9zCbrsYpFtf8T/AxClyRLuqg77
- v+o1Xsom9WU67Rm+Ba8RvBvOec3s2ow6oLZDO4zi6KXmSJ7h0Eum2NKvdwV3EjhB5kO7
- dbUw==
-X-Gm-Message-State: AHYfb5hRmiNA79NVw9CAs9sba7lZOjccNsIt+3XkuwdxrTCIF5gjRQxH
- 1m7YSXp3rpevTO85NqRGAX5l8VjBCQ==
-X-Received: by 10.46.83.25 with SMTP id h25mr6743093ljb.46.1503313410180; Mon,
- 21 Aug 2017 04:03:30 -0700 (PDT)
+ bh=s9sKfksSh5F6p98/YQd2TmXHOZCHsL+iDcgobnjXxVE=;
+ b=JzAE8vVPCd7mwZcOTzalRiN9UZbZ5T/PF2DX2J6uUtSa6suZT6iOCLsBGrP2R/knnX
+ LkKOsOdinVV5ua2QHI7XBwVqhFN/v+w2fxoIFFwfkpu/I6vSG+Qyp09Auk7cuA9lAfjp
+ /O/94WRJMNFFxS0pNIYZOMbOX6beC0TsrweTsZCwUbjJQBZC0nCec0vvEoUs/65peM4T
+ xyZX5tgAnevCImr7BTGgBSZQQB3aSxIWcWHpCaSnhjLUVNXBWm/4SirU8Qteqe3eAlJP
+ cU9iL2r31IZgKGSiUIxMmxnJk4dTm30sax1qQBVVrjRCf6vdeiMWDNxrv4d9+fnLjjWe
+ HHTw==
+X-Gm-Message-State: AHYfb5jYT8lBMP1MU6T0YaSef30d8ThnyjdzAc5T6n/HySnq7jALVu78
+ A+fgwdvqrOnFhx9Cc6JZhG6CwjZYWw==
+X-Received: by 10.46.87.25 with SMTP id l25mr5203976ljb.138.1503313620625;
+ Mon, 21 Aug 2017 04:07:00 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.25.72.77 with HTTP; Mon, 21 Aug 2017 04:03:09 -0700 (PDT)
-In-Reply-To: <1502849350-40252-1-git-send-email-anoo@linux.vnet.ibm.com>
-References: <1502849350-40252-1-git-send-email-anoo@linux.vnet.ibm.com>
+Received: by 10.25.72.77 with HTTP; Mon, 21 Aug 2017 04:06:40 -0700 (PDT)
+In-Reply-To: <1502140837-48939-1-git-send-email-anoo@linux.vnet.ibm.com>
+References: <1502140837-48939-1-git-send-email-anoo@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 21 Aug 2017 20:33:09 +0930
-X-Google-Sender-Auth: b0OZn2gqPDfntDPff0K4I8S27qY
-Message-ID: <CACPK8Xc1zk+uYf-ZJTPZM83u_6i8aQRNNUogk2PGKhGjSBntEQ@mail.gmail.com>
-Subject: Re: [PATCH u-boot v2016.07-aspeed-openbmc] Add MTD and UBI support to
- ast-g5
+Date: Mon, 21 Aug 2017 20:36:40 +0930
+X-Google-Sender-Auth: yACVL3-ydGdp2DRPVGmuIrmMtbM
+Message-ID: <CACPK8XcR3ZX6X_DZTttvHj5t=Cvnz3eS7uVPc3g_3afSkTULhw@mail.gmail.com>
+Subject: Re: [PATCH u-boot v2016.07-aspeed-openbmc] Add MTD support to Aspeed
+ Flash driver
 To: Adriana Kobylak <anoo@linux.vnet.ibm.com>
 Cc: Rick Altherr <raltherr@google.com>, Maxim Sloyko <maxims@google.com>, 
  Milton Miller II <miltonm@us.ibm.com>,
@@ -62,53 +62,64 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Aug 2017 11:03:34 -0000
+X-List-Received-Date: Mon, 21 Aug 2017 11:07:04 -0000
 
-On Wed, Aug 16, 2017 at 11:39 AM, Adriana Kobylak
-<anoo@linux.vnet.ibm.com> wrote:
-> Add MTD and UBI support to the default g5 include, conditioned to
-> having MTDPARTS_DEFAULT defined.
-
-Can you explain what we're planning on using mtdparts for? As I
-understand it this is for specifying the mtd partitions on the command
-line.
-
-Are you proposing to move away from the device tree description?
-
-> This allows platforms to enable this support if desired without
-> adding it by default since it increases the size of u-boot.
-
-Do you have numbers? It's good to keep track in case we need to go
-back and save space in the future.
-
+On Tue, Aug 8, 2017 at 6:50 AM, Adriana Kobylak <anoo@linux.vnet.ibm.com> wrote:
+> Add support to the aspeed flash driver to enable the common mtd layer
+> through CONFIG_FLASH_CFI_MTD.
+>
+> This enables the flash to be used by u-boot mtd drivers including
+> the mtdparts and ubi commands.
+>
 > Signed-off-by: Adriana Kobylak <anoo@linux.vnet.ibm.com>
+> Acked-by: Milton Miller <miltonm@us.ibm.com>
 > ---
->  include/configs/ast-g5-ncsi.h | 10 ++++++++++
->  1 file changed, 10 insertions(+)
+>  arch/arm/mach-aspeed/flash.c | 20 ++++++++++++++++++++
+>  1 file changed, 20 insertions(+)
 >
-> diff --git a/include/configs/ast-g5-ncsi.h b/include/configs/ast-g5-ncsi.h
-> index 12d6684..b126e6e 100644
-> --- a/include/configs/ast-g5-ncsi.h
-> +++ b/include/configs/ast-g5-ncsi.h
-> @@ -28,4 +28,14 @@
+> diff --git a/arch/arm/mach-aspeed/flash.c b/arch/arm/mach-aspeed/flash.c
+> index 9c5ead6..e1e3cf8 100644
+> --- a/arch/arm/mach-aspeed/flash.c
+> +++ b/arch/arm/mach-aspeed/flash.c
+> @@ -124,6 +124,22 @@ flash_info_t flash_info[CONFIG_SYS_MAX_FLASH_BANKS];               /* FLASH chips info */
+>  /* specificspi */
+>  #define SpecificSPI_N25Q512    0x00000001
 >
->  #define CONFIG_HW_WATCHDOG
->
-> +/* MTD and UBI */
-> +#ifdef MTDPARTS_DEFAULT
-> +#define CONFIG_FLASH_CFI_MTD
-> +#define CONFIG_CMD_UBI
+> +#ifdef CONFIG_FLASH_CFI_MTD
+> +static uint flash_verbose=1;
+> +void flash_set_verbose(uint v)
+> +{
+> +       flash_verbose = v;
+> +}
+> +
+> +unsigned long flash_sector_size(flash_info_t *info, flash_sect_t sect)
+> +{
+> +       if (sect != (info->sector_count - 1))
+> +               return info->start[sect + 1] - info->start[sect];
+> +       else
+> +               return info->start[0] + info->size - info->start[sect];
+> +}
 
-I thought Milton mentioned today that we didn't need to enable the UBI
-command in u-boot, but I may have misunderstood.
+This function looks like it's copied from cfi_flash.c (line 197).
 
-> +#define CONFIG_RBTREE
-> +#define CONFIG_MTD_DEVICE
-> +#define CONFIG_MTD_PARTITIONS
-> +#define CONFIG_CMD_MTDPARTS
+Can you explain why we're duplicating it here?
+
 > +#endif
 > +
->  #endif /* __AST_G5_NCSI_CONFIG_H */
+>  /*-----------------------------------------------------------------------*/
+>  static u32 ast_spi_calculate_divisor(u32 max_speed_hz)
+>  {
+> @@ -1372,6 +1388,10 @@ unsigned long flash_init (void)
+>                        flash_get_info(CONFIG_ENV_ADDR_REDUND));
+>  #endif
+>
+> +#ifdef CONFIG_FLASH_CFI_MTD
+> +       cfi_mtd_init();
+> +#endif
+> +
+>         return (size);
+>  }
+>
 > --
 > 1.8.2.2
 >
