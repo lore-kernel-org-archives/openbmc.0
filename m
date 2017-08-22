@@ -1,55 +1,59 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <austenc@us.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xc17K3JLNzDqgx;
- Tue, 22 Aug 2017 16:37:01 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="a7xcnBW7"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="nkOLwj+9"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 371A920F53;
- Tue, 22 Aug 2017 02:36:58 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Tue, 22 Aug 2017 02:36:58 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:message-id:subject:to:x-me-sender:x-me-sender
- :x-sasl-enc:x-sasl-enc; s=fm1; bh=2b8YRjAVN493Zf0T6HUU0wWg1zzRG6
- Qg7kR/VFNX5dc=; b=a7xcnBW7pDkUdTi7AqTh+1OTNMmpqLYS5BPaJ1x0p1D8sb
- ZpFQ5xQQrK1pOK685d82vGyGxd3lvXTeOVzuYPxtOKSCCn1VEH5SdwNb71QsgIWy
- lwUYk8QTAj3CtvJu0qr9Yn9T/POE9qx91nxfyFdM0jwKKqruPLwv/JvkWPZiiBDj
- AvryZVUn6D7bfeb1EHQhQ1HtWWT57/aaF31W7kJIHkigHlU44bZFb3v9wQGC27JH
- CiM8qztJuppEtIkuXgd6w/zUC6ylYLUeAY/+ZszKBgy//ot1j0uG8A1m5uGnbMfj
- 1cTcSiGkU3bd4ZxRJu3JhbKrwjU5EkLjx9460Sdg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=2b8YRj
- AVN493Zf0T6HUU0wWg1zzRG6Qg7kR/VFNX5dc=; b=nkOLwj+96J4eGIBZAWdJUL
- a/p7IeHsz22XVSWFmGyrw7FTo4tKd9CBkijAV96GwXCV/YYNksvBMXfpzkUexwzV
- 7tbvXD7ZllVHXWEvw/mGkTIUZnQwH1+wEVTc5P+OSIA5mACiYkeYmxfgDtP3y3V2
- DLNZKQC1yo8gJSL1XjqBwqV+dEQCwKDKS67hPZkYVFZvTlxwqnIMTWEOKCpldJgB
- hHKnZt4FeEzDsrL7KDwG7atUuFva4ZHOfbYdb7LSlzn8IfjjxFmmxQA09jR89Mw9
- K2gtacj8TavpbhfkGbo2ZdIz2v1ZGXjnCSVX+ywBkoJrqsZh/RH1N3GQygBO1QhQ
- ==
-X-ME-Sender: <xms:CtGbWcWFlKCsUIzJORaF2JFyLcQgvbh6o5S_qvvRXb0JzghVz61e_g>
-X-Sasl-enc: OdF7qmL230gC9/S7bipu3d+u14IvGCrKrRMwVEFCnjmE 1503383817
-Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 6E4907F988;
- Tue, 22 Aug 2017 02:36:54 -0400 (EDT)
-From: Andrew Jeffery <andrew@aj.id.au>
-To: netdev@vger.kernel.org
-Cc: Andrew Jeffery <andrew@aj.id.au>, davem@davemloft.net,
- benh@kernel.crashing.org, joel@jms.id.au, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-aspeed@lists.ozlabs.org,
- ryan_chen@aspeedtech.com
-Subject: [PATCH] net: ftgmac100: Fix oops in probe on failure to find
- associated PHY
-Date: Tue, 22 Aug 2017 16:06:22 +0930
-Message-Id: <20170822063622.21550-1-andrew@aj.id.au>
-X-Mailer: git-send-email 2.11.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xcDv94Tc2zDqlN
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Aug 2017 01:27:17 +1000 (AEST)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v7MFPoll110979
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Aug 2017 11:27:14 -0400
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.82])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2cgjnfebhx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Aug 2017 11:27:14 -0400
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Tue, 22 Aug 2017 15:27:13 -0000
+Received: from us1a3-smtp01.a3.dal06.isc4sb.com (10.106.154.95)
+ by smtp.notes.na.collabserv.com (10.106.227.105) with
+ smtp.notes.na.collabserv.com ESMTP; Tue, 22 Aug 2017 15:27:10 -0000
+Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
+ by us1a3-smtp01.a3.dal06.isc4sb.com
+ with ESMTP id 2017082215271016-697185 ;
+ Tue, 22 Aug 2017 15:27:10 +0000 
+MIME-Version: 1.0
+Subject: What does it take for OpenBMC to merge code
+To: openbmc@lists.ozlabs.org
+From: "Chris Austen" <austenc@us.ibm.com>
+Date: Tue, 22 Aug 2017 10:27:08 -0500
+X-KeepSent: BCEEB1DF:062FDE5A-86258184:004F4953;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1EXT SHF766 December 14, 2016
+X-LLNOutbound: False
+X-Disclaimed: 46483
+X-TNEFEvaluated: 1
+Content-type: multipart/alternative; 
+ Boundary="0__=09BB0B17DFDCCFC38f9e8a93df938690918c09BB0B17DFDCCFC3"
+Content-Disposition: inline
+x-cbid: 17082215-5101-0000-0000-0000061E95BF
+X-IBM-SpamModules-Scores: FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0; SC=0.451295;
+ ST=0; TS=0; UL=0; ISC=; MB=0.281396
+X-IBM-SpamModules-Versions: BY=3.00007591; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000223; SDB=6.00906052; UDB=6.00454085; IPR=6.00686254; 
+ BA=6.00005550; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016813; XFM=3.00000015;
+ UTC=2017-08-22 15:27:11
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2017-08-22 11:29:05 - 6.00007217
+x-cbparentid: 17082215-5102-0000-0000-0000D29C3A62
+Message-Id: <OFBCEEB1DF.062FDE5A-ON86258184.004F4953-86258184.0054E20B@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-08-22_06:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,89 +65,90 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Aug 2017 06:37:03 -0000
+X-List-Received-Date: Tue, 22 Aug 2017 15:27:17 -0000
 
-netif_napi_del() should be paired with netif_napi_add(), however no
-such call takes place in ftgmac100_probe(). This triggers a NULL
-pointer dereference if e.g. no PHY is found by the MDIO probe:
 
-	 [ 2.770000] libphy: Fixed MDIO Bus: probed
-	 [ 2.770000] ftgmac100 1e660000.ethernet: Generated random MAC address 66:58:c0:5a:50:b8
-	 [ 2.790000] libphy: ftgmac100_mdio: probed
-	 [ 2.790000] ftgmac100 1e660000.ethernet (unnamed net_device) (uninitialized): eth%d: no PHY found
-	 [ 2.790000] ftgmac100 1e660000.ethernet: MII Probe failed!
-	 [ 2.810000] Unable to handle kernel NULL pointer dereference at virtual address 00000004
-	 [ 2.810000] pgd = 80004000
-	 [ 2.810000] [00000004] *pgd=00000000
-	 [ 2.810000] Internal error: Oops: 805 [#1] ARM
-	 [ 2.810000] CPU: 0 PID: 1 Comm: swapper Not tainted 4.10.17-1a4df30c39cf5ee0e3d2528c409787ccbb4a672a #1
-	 [ 2.810000] Hardware name: ASpeed SoC
-	 [ 2.810000] task: 9e421b60 task.stack: 9e4a0000
-	 [ 2.810000] PC is at netif_napi_del+0x74/0xa4
-	 [ 2.810000] LR is at ftgmac100_probe+0x290/0x674
-	 [ 2.810000] pc : [<80331004>] lr : [<80292b30>] psr: 60000013
-	 [ 2.810000] sp : 9e4a1d70 ip : 9e4a1d88 fp : 9e4a1d84
-	 [ 2.810000] r10: 9e565000 r9 : ffffffed r8 : 00000007
-	 [ 2.810000] r7 : 9e565480 r6 : 9ec072c0 r5 : 00000000 r4 : 9e5654d8
-	 [ 2.810000] r3 : 9e565530 r2 : 00000000 r1 : 00000000 r0 : 9e5654d8
-	 [ 2.810000] Flags: nZCv IRQs on FIQs on Mode SVC_32 ISA ARM Segment user
-	 [ 2.810000] Control: 00c5387d Table: 80004008 DAC: 00000055
-	 [ 2.810000] Process swapper (pid: 1, stack limit = 0x9e4a0188)
-	 [ 2.810000] Stack: (0x9e4a1d70 to 0x9e4a2000)
-	 [ 2.810000] 1d60: 9e565000 9e549e10 9e4a1dcc 9e4a1d88
-	 [ 2.810000] 1d80: 80292b30 80330f9c ffffffff 9e4a1d98 80146058 9ec072c0 00009e10 00000000
-	 [ 2.810000] 1da0: 9e549e18 9e549e10 ffffffed 805f81f4 fffffdfb 00000000 00000000 00000000
-	 [ 2.810000] 1dc0: 9e4a1dec 9e4a1dd0 80243df8 802928ac 9e549e10 8062cbd8 8062cbe0 805f81f4
-	 [ 2.810000] 1de0: 9e4a1e24 9e4a1df0 80242178 80243da4 803001d0 802ffa60 9e4a1e24 9e549e10
-	 [ 2.810000] 1e00: 9e549e44 805f81f4 00000000 00000000 805b8840 8058a6b0 9e4a1e44 9e4a1e28
-	 [ 2.810000] 1e20: 80242434 80241f04 00000000 805f81f4 80242344 00000000 9e4a1e6c 9e4a1e48
-	 [ 2.810000] 1e40: 80240148 80242350 9e425bac 9e4fdc90 9e790e94 805f81f4 9e790e60 805f5640
-	 [ 2.810000] 1e60: 9e4a1e7c 9e4a1e70 802425dc 802400d8 9e4a1ea4 9e4a1e80 80240ba8 802425c0
-	 [ 2.810000] 1e80: 8050b6ac 9e4a1e90 805f81f4 ffffe000 805b8838 80616720 9e4a1ebc 9e4a1ea8
-	 [ 2.810000] 1ea0: 80243068 80240a68 805ab24c ffffe000 9e4a1ecc 9e4a1ec0 80244a38 80242fec
-	 [ 2.810000] 1ec0: 9e4a1edc 9e4a1ed0 805ab264 80244a04 9e4a1f4c 9e4a1ee0 8058ae70 805ab258
-	 [ 2.810000] 1ee0: 80032c68 801e3fd8 8052f800 8041af2c 9e4a1f4c 9e4a1f00 80032f90 8058a6bc
-	 [ 2.810000] 1f00: 9e4a1f2c 9e4a1f10 00000006 00000006 00000000 8052f220 805112f0 00000000
-	 [ 2.810000] 1f20: 9e4a1f4c 00000006 80616720 805cf400 80616720 805b8838 80616720 00000057
-	 [ 2.810000] 1f40: 9e4a1f94 9e4a1f50 8058b040 8058add0 00000006 00000006 00000000 8058a6b0
-	 [ 2.810000] 1f60: 3940bf3d 00000007 f115c2e8 00000000 803fd158 00000000 00000000 00000000
-	 [ 2.810000] 1f80: 00000000 00000000 9e4a1fac 9e4a1f98 803fd170 8058af38 00000000 803fd158
-	 [ 2.810000] 1fa0: 00000000 9e4a1fb0 8000a5e8 803fd164 00000000 00000000 00000000 00000000
-	 [ 2.810000] 1fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
-	 [ 2.810000] 1fe0: 00000000 00000000 00000000 00000000 00000013 00000000 d11dcae8 af8ddec5
-	 [ 2.810000] [<80331004>] (netif_napi_del) from [<80292b30>] (ftgmac100_probe+0x290/0x674)
-	 [ 2.810000] [<80292b30>] (ftgmac100_probe) from [<80243df8>] (platform_drv_probe+0x60/0xc0)
-	 [ 2.810000] [<80243df8>] (platform_drv_probe) from [<80242178>] (driver_probe_device+0x280/0x44c)
-	 [ 2.810000] [<80242178>] (driver_probe_device) from [<80242434>] (__driver_attach+0xf0/0x104)
-	 [ 2.810000] [<80242434>] (__driver_attach) from [<80240148>] (bus_for_each_dev+0x7c/0xb0)
-	 [ 2.810000] [<80240148>] (bus_for_each_dev) from [<802425dc>] (driver_attach+0x28/0x30)
-	 [ 2.810000] [<802425dc>] (driver_attach) from [<80240ba8>] (bus_add_driver+0x14c/0x268)
-	 [ 2.810000] [<80240ba8>] (bus_add_driver) from [<80243068>] (driver_register+0x88/0x104)
-	 [ 2.810000] [<80243068>] (driver_register) from [<80244a38>] (__platform_driver_register+0x40/0x54)
-	 [ 2.810000] [<80244a38>] (__platform_driver_register) from [<805ab264>] (ftgmac100_driver_init+0x18/0x20)
-	 [ 2.810000] [<805ab264>] (ftgmac100_driver_init) from [<8058ae70>] (do_one_initcall+0xac/0x168)
-	 [ 2.810000] [<8058ae70>] (do_one_initcall) from [<8058b040>] (kernel_init_freeable+0x114/0x1cc)
-	 [ 2.810000] [<8058b040>] (kernel_init_freeable) from [<803fd170>] (kernel_init+0x18/0x104)
-	 [ 2.810000] [<803fd170>] (kernel_init) from [<8000a5e8>] (ret_from_fork+0x14/0x2c)
-	 [ 2.810000] Code: e594205c e5941058 e2843058 e3a05000 (e5812004)
-	 [ 3.210000] ---[ end trace f32811052fd3860c ]---
+--0__=09BB0B17DFDCCFC38f9e8a93df938690918c09BB0B17DFDCCFC3
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/plain; charset=US-ASCII
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- drivers/net/ethernet/faraday/ftgmac100.c | 1 -
- 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
-index 34dae51effd4..59da7ac3c108 100644
---- a/drivers/net/ethernet/faraday/ftgmac100.c
-+++ b/drivers/net/ethernet/faraday/ftgmac100.c
-@@ -1863,7 +1863,6 @@ static int ftgmac100_probe(struct platform_device *pdev)
- err_ioremap:
- 	release_resource(priv->res);
- err_req_mem:
--	netif_napi_del(&priv->napi);
- 	free_netdev(netdev);
- err_alloc_etherdev:
- 	return err;
--- 
-2.11.0
+
+For a some time now a question keeps popping up.  I ask others for an
+answer and get I different responses.  It's time I bring this to the
+mailing list for further discussion... what will the OpenBMC project merge?
+If I add my own meta layer will it be accepted?  What if I wrote a device
+driver that satisfies my own hardware needs?  What if I wrote a dbus
+telemetry monitor with the capability to download results in python?   The
+https://github.com/openbmc/docs/blob/master/contributing.md file goes in to
+some detail but is pretty blank on the practice of what kind of code will
+go in.
+
+So, what should the policy be?
+
+Should the OpenBMC project be a collection of random software or a
+structured framework or somewhere in between?  Some pieces may need to be
+hosted independently... hosting non-comformant parts implies a level of
+support and maintenance which is something we should not be doing.
+
+What about code with existing modeled concepts.  IPC is done via dbus, LEDs
+and Sensors too have established meta-phosphor implementations.  Changing
+those idea would break down the fundamentals of what OpenBMC is.  For
+models that have not been established yet perhaps the developer should be
+active on the mailing list describing the issue so that we can provide
+guidance?
+
+Is there a place for staging?  The Linux kernel uses them for less stable
+code.  Using a staging area does at least two things...
+1) Recognizes anyone coming to the table brings their own companies history
+and business requirements
+2) Allows developers to share ideas that could build in to an approved
+model
+
+
+There are groups that want to get involved and are at various stages of
+OpenBMC understanding.  We owe it to them to be very upfront about what the
+community will and will not accept.
+
+Thoughts?
+
+Chris Austen
+
+--0__=09BB0B17DFDCCFC38f9e8a93df938690918c09BB0B17DFDCCFC3
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/html; charset=US-ASCII
+Content-Disposition: inline
+
+<html><body><p><font size=3D"2">For a some time now a question keeps poppin=
+g up.  I ask others for an answer and get I different responses.  It's time=
+ I bring this to the mailing list for further discussion... what will the O=
+penBMC project merge?  If I add my own meta layer will it be accepted?  Wha=
+t if I wrote a device driver that satisfies my own hardware needs?  What if=
+ I wrote a dbus telemetry monitor with the capability to download results i=
+n python?   The </font><a href=3D"https://github.com/openbmc/docs/blob/mast=
+er/contributing.md"><font size=3D"2">https://github.com/openbmc/docs/blob/m=
+aster/contributing.md</font></a><font size=3D"2"> file goes in to some deta=
+il but is pretty blank on the practice of what kind of code will go in.</fo=
+nt><br><br><font size=3D"2">So, what should the policy be?</font><br><br><f=
+ont size=3D"2">Should the OpenBMC project be a collection of random softwar=
+e or a structured framework or somewhere in between?  Some pieces may need =
+to be hosted independently... hosting non-comformant parts implies a level =
+of support and maintenance which is something we should not be doing.  </fo=
+nt><br><br><font size=3D"2">What about code with existing modeled concepts.=
+  IPC is done via dbus, LEDs and Sensors too have established meta-phosphor=
+ implementations.  Changing those idea would break down the fundamentals of=
+ what OpenBMC is.  For models that have not been established yet perhaps th=
+e developer should be active on the mailing list describing the issue so th=
+at we can provide guidance?</font><br><br><font size=3D"2">Is there a place=
+ for staging?  The Linux kernel uses them for less stable code.  Using a st=
+aging area does at least two things...</font><br><font size=3D"2">1) Recogn=
+izes anyone coming to the table brings their own companies history and busi=
+ness requirements</font><br><font size=3D"2">2) Allows developers to share =
+ideas that could build in to an approved model </font><br><br><br><font siz=
+e=3D"2">There are groups that want to get involved and are at various stage=
+s of OpenBMC understanding.  We owe it to them to be very upfront about wha=
+t the community will and will not accept.</font><br><br><font size=3D"2">Th=
+oughts?</font><br><br><font size=3D"2">Chris Austen<br></font><BR>
+</body></html>
+
+--0__=09BB0B17DFDCCFC38f9e8a93df938690918c09BB0B17DFDCCFC3--
