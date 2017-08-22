@@ -1,59 +1,29 @@
-Return-Path: <austenc@us.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xcDv94Tc2zDqlN
- for <openbmc@lists.ozlabs.org>; Wed, 23 Aug 2017 01:27:17 +1000 (AEST)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v7MFPoll110979
- for <openbmc@lists.ozlabs.org>; Tue, 22 Aug 2017 11:27:14 -0400
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.82])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2cgjnfebhx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 22 Aug 2017 11:27:14 -0400
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
- Tue, 22 Aug 2017 15:27:13 -0000
-Received: from us1a3-smtp01.a3.dal06.isc4sb.com (10.106.154.95)
- by smtp.notes.na.collabserv.com (10.106.227.105) with
- smtp.notes.na.collabserv.com ESMTP; Tue, 22 Aug 2017 15:27:10 -0000
-Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
- by us1a3-smtp01.a3.dal06.isc4sb.com
- with ESMTP id 2017082215271016-697185 ;
- Tue, 22 Aug 2017 15:27:10 +0000 
-MIME-Version: 1.0
-Subject: What does it take for OpenBMC to merge code
-To: openbmc@lists.ozlabs.org
-From: "Chris Austen" <austenc@us.ibm.com>
-Date: Tue, 22 Aug 2017 10:27:08 -0500
-X-KeepSent: BCEEB1DF:062FDE5A-86258184:004F4953;
- type=4; name=$KeepSent
-X-Mailer: IBM Notes Release 9.0.1EXT SHF766 December 14, 2016
-X-LLNOutbound: False
-X-Disclaimed: 46483
-X-TNEFEvaluated: 1
-Content-type: multipart/alternative; 
- Boundary="0__=09BB0B17DFDCCFC38f9e8a93df938690918c09BB0B17DFDCCFC3"
-Content-Disposition: inline
-x-cbid: 17082215-5101-0000-0000-0000061E95BF
-X-IBM-SpamModules-Scores: FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0; SC=0.451295;
- ST=0; TS=0; UL=0; ISC=; MB=0.281396
-X-IBM-SpamModules-Versions: BY=3.00007591; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000223; SDB=6.00906052; UDB=6.00454085; IPR=6.00686254; 
- BA=6.00005550; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016813; XFM=3.00000015;
- UTC=2017-08-22 15:27:11
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2017-08-22 11:29:05 - 6.00007217
-x-cbparentid: 17082215-5102-0000-0000-0000D29C3A62
-Message-Id: <OFBCEEB1DF.062FDE5A-ON86258184.004F4953-86258184.0054E20B@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-08-22_06:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+Return-Path: <oleksandrs@mellanox.com>
+Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
+ by lists.ozlabs.org (Postfix) with ESMTP id 3xcFtL2RkwzDqh0
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Aug 2017 02:11:37 +1000 (AEST)
+Received: from Internal Mail-Server by MTLPINE1 (envelope-from
+ oleksandrs@mellanox.com)
+ with ESMTPS (AES256-SHA encrypted); 22 Aug 2017 19:10:58 +0300
+Received: from r-vnc16.mtr.labs.mlnx (r-vnc16.mtr.labs.mlnx [10.208.0.16])
+ by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id v7MGAv0g001938;
+ Tue, 22 Aug 2017 19:10:58 +0300
+From: Oleksandr Shamray <oleksandrs@mellanox.com>
+To: gregkh@linuxfoundation.org, arnd@arndb.de
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, joel@jms.id.au,
+ jiri@resnulli.us, tklauser@distanz.ch, linux-serial@vger.kernel.org,
+ mec@shout.net, vadimp@maellanox.com, system-sw-low-level@mellanox.com,
+ robh+dt@kernel.org, openocd-devel-owner@lists.sourceforge.net,
+ linux-api@vger.kernel.org, Oleksandr Shamray <oleksandrs@mellanox.com>,
+ Jiri Pirko <jiri@mellanox.com>
+Subject: [patch v6 3/3] Doccumentation: jtag: Add bindings for Aspeed SoC 24xx
+ and 25xx families JTAG master driver
+Date: Tue, 22 Aug 2017 19:10:56 +0300
+Message-Id: <1503418256-5215-4-git-send-email-oleksandrs@mellanox.com>
+X-Mailer: git-send-email 1.7.1
+In-Reply-To: <1503418256-5215-1-git-send-email-oleksandrs@mellanox.com>
+References: <1503418256-5215-1-git-send-email-oleksandrs@mellanox.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -65,90 +35,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Aug 2017 15:27:17 -0000
+X-List-Received-Date: Tue, 22 Aug 2017 16:11:39 -0000
+X-List-Received-Date: Tue, 22 Aug 2017 16:11:39 -0000
 
+It has been tested on Mellanox system with BMC equipped with
+Aspeed 2520 SoC for programming CPLD devices.
 
---0__=09BB0B17DFDCCFC38f9e8a93df938690918c09BB0B17DFDCCFC3
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/plain; charset=US-ASCII
+Signed-off-by: Oleksandr Shamray <oleksandrs@mellanox.com>
+Signed-off-by: Jiri Pirko <jiri@mellanox.com>
+Acked-by: Rob Herring <robh@kernel.org>
+---
+v5->v6
+Comments pointed by Tobias Klauser <tklauser@distanz.ch>
+- Small nit: s/doccumentation/Documentation/
 
+v4->v5
 
+V3->v4
+Comments pointed by Rob Herring <robh@kernel.org>
+- delete unnecessary "status" and "reg-shift" descriptions in
+  bndings file
 
-For a some time now a question keeps popping up.  I ask others for an
-answer and get I different responses.  It's time I bring this to the
-mailing list for further discussion... what will the OpenBMC project merge?
-If I add my own meta layer will it be accepted?  What if I wrote a device
-driver that satisfies my own hardware needs?  What if I wrote a dbus
-telemetry monitor with the capability to download results in python?   The
-https://github.com/openbmc/docs/blob/master/contributing.md file goes in to
-some detail but is pretty blank on the practice of what kind of code will
-go in.
+v2->v3
+Comments pointed by Rob Herring <robh@kernel.org>
+- split Aspeed jtag driver and binding to sepatrate patches
+- delete unnecessary "status" and "reg-shift" descriptions in
+  bndings file
+---
+ .../devicetree/bindings/jtag/aspeed-jtag.txt       |   18 ++++++++++++++++++
+ 1 files changed, 18 insertions(+), 0 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/jtag/aspeed-jtag.txt
 
-So, what should the policy be?
-
-Should the OpenBMC project be a collection of random software or a
-structured framework or somewhere in between?  Some pieces may need to be
-hosted independently... hosting non-comformant parts implies a level of
-support and maintenance which is something we should not be doing.
-
-What about code with existing modeled concepts.  IPC is done via dbus, LEDs
-and Sensors too have established meta-phosphor implementations.  Changing
-those idea would break down the fundamentals of what OpenBMC is.  For
-models that have not been established yet perhaps the developer should be
-active on the mailing list describing the issue so that we can provide
-guidance?
-
-Is there a place for staging?  The Linux kernel uses them for less stable
-code.  Using a staging area does at least two things...
-1) Recognizes anyone coming to the table brings their own companies history
-and business requirements
-2) Allows developers to share ideas that could build in to an approved
-model
-
-
-There are groups that want to get involved and are at various stages of
-OpenBMC understanding.  We owe it to them to be very upfront about what the
-community will and will not accept.
-
-Thoughts?
-
-Chris Austen
-
---0__=09BB0B17DFDCCFC38f9e8a93df938690918c09BB0B17DFDCCFC3
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/html; charset=US-ASCII
-Content-Disposition: inline
-
-<html><body><p><font size=3D"2">For a some time now a question keeps poppin=
-g up.  I ask others for an answer and get I different responses.  It's time=
- I bring this to the mailing list for further discussion... what will the O=
-penBMC project merge?  If I add my own meta layer will it be accepted?  Wha=
-t if I wrote a device driver that satisfies my own hardware needs?  What if=
- I wrote a dbus telemetry monitor with the capability to download results i=
-n python?   The </font><a href=3D"https://github.com/openbmc/docs/blob/mast=
-er/contributing.md"><font size=3D"2">https://github.com/openbmc/docs/blob/m=
-aster/contributing.md</font></a><font size=3D"2"> file goes in to some deta=
-il but is pretty blank on the practice of what kind of code will go in.</fo=
-nt><br><br><font size=3D"2">So, what should the policy be?</font><br><br><f=
-ont size=3D"2">Should the OpenBMC project be a collection of random softwar=
-e or a structured framework or somewhere in between?  Some pieces may need =
-to be hosted independently... hosting non-comformant parts implies a level =
-of support and maintenance which is something we should not be doing.  </fo=
-nt><br><br><font size=3D"2">What about code with existing modeled concepts.=
-  IPC is done via dbus, LEDs and Sensors too have established meta-phosphor=
- implementations.  Changing those idea would break down the fundamentals of=
- what OpenBMC is.  For models that have not been established yet perhaps th=
-e developer should be active on the mailing list describing the issue so th=
-at we can provide guidance?</font><br><br><font size=3D"2">Is there a place=
- for staging?  The Linux kernel uses them for less stable code.  Using a st=
-aging area does at least two things...</font><br><font size=3D"2">1) Recogn=
-izes anyone coming to the table brings their own companies history and busi=
-ness requirements</font><br><font size=3D"2">2) Allows developers to share =
-ideas that could build in to an approved model </font><br><br><br><font siz=
-e=3D"2">There are groups that want to get involved and are at various stage=
-s of OpenBMC understanding.  We owe it to them to be very upfront about wha=
-t the community will and will not accept.</font><br><br><font size=3D"2">Th=
-oughts?</font><br><br><font size=3D"2">Chris Austen<br></font><BR>
-</body></html>
-
---0__=09BB0B17DFDCCFC38f9e8a93df938690918c09BB0B17DFDCCFC3--
+diff --git a/Documentation/devicetree/bindings/jtag/aspeed-jtag.txt b/Documentation/devicetree/bindings/jtag/aspeed-jtag.txt
+new file mode 100644
+index 0000000..f4ded49
+--- /dev/null
++++ b/Documentation/devicetree/bindings/jtag/aspeed-jtag.txt
+@@ -0,0 +1,18 @@
++Aspeed JTAG driver for ast2400 and ast2500 SoC
++
++Required properties:
++- compatible:		Should be one of
++      - "aspeed,aspeed2400-jtag"
++      - "aspeed,aspeed2500-jtag"
++- reg			contains the offset and length of the JTAG memory
++			region
++- clocks		root clock of bus, should reference the APB clock
++- interrupts		should contain JTAG controller interrupt
++
++Example:
++jtag: jtag@1e6e4000 {
++	compatible = "aspeed,aspeed2500-jtag";
++	reg = <0x1e6e4000 0x1c>;
++	clocks = <&clk_apb>;
++	interrupts = <43>;
++};
+-- 
+1.7.1
