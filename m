@@ -1,51 +1,56 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-vk0-x22d.google.com (mail-vk0-x22d.google.com
- [IPv6:2607:f8b0:400c:c05::22d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xbsXj48jfzDqhB
- for <openbmc@lists.ozlabs.org>; Tue, 22 Aug 2017 10:55:01 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xbsZM2xmmzDqhL
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Aug 2017 10:56:27 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="ZAACVchr"; 
- dkim-atps=neutral
-Received: by mail-vk0-x22d.google.com with SMTP id r199so54892432vke.4
- for <openbmc@lists.ozlabs.org>; Mon, 21 Aug 2017 17:55:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=RDU9I+qwLopKMrmFJMvWRAUXzI3hMCRK9LBQsp7Y6Vc=;
- b=ZAACVchrPyV80ym3ZT1UY/1/tFDAk4DQHncyehfhb1EfI3SNrrqB4smWtUZVuX7Nlg
- U0MBVXJwQYgO121cGEKm7BEw/apcrXH3/Nb9178UjlpJEksIOwDHsAw4NzBbJqq9MPK6
- JYeJkFfS4+0mIkA6HbIgMx+Aa8To8nu62ERtMftYr0LBFg/S9xLndwleBWQFIjtB+g+D
- 8a39OOOlQDOifMVqlDXSgHuKtxngm4F9kN77nUfCL2XK6YtY5gH5Vp7B8we2pZLLK/Ew
- VKiLwiBSk7jqFuSTWyCZChbNzDSL3AAhqfTCiC/U/jgOEqRzaEXRpbsFRGdURWnqCppY
- prIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=RDU9I+qwLopKMrmFJMvWRAUXzI3hMCRK9LBQsp7Y6Vc=;
- b=DRbq+qo3MwYQPzLZ/nyBJ2iWaC0Pp03/lxePyv7RB/lsmo2ErbnpBegwYn/6v3EYa0
- VdNuA6eqwtfiAeoJzXxHEJizSeHm4iLVYt+7FRrd7tNxCspvcZ5dpmu6ZIO7v7MJrC+f
- 4B5SI4iySzxfN8mVHucVwH3YigXVFXv6XLIKVKLTt/p27rFV5566zhl17+4N3kvK5KzQ
- b4bll1j3zLdkgrquaHoNIzcW7996Ps+Q5y0ybToXWERz462oULuWqaBxMWA4Sho0Mf++
- ubHCDiw6BsJpvOIsn75G5eQpYasAH9ml+9Z9Rv8F1AusuOkEFOk6Y7+YcTTCjk5EUndC
- Wlvw==
-X-Gm-Message-State: AHYfb5iwFJ1H/9dWfZT7Y7vJ8VGLnuN7Y2vqP6UiFHCl76ZGIwZyWBfs
- T7mycpJiFrF5xBP0ELB+DH9E9r3fUZHo
-X-Received: by 10.31.242.69 with SMTP id q66mr4137798vkh.66.1503363298177;
- Mon, 21 Aug 2017 17:54:58 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.31.169.139 with HTTP; Mon, 21 Aug 2017 17:54:57 -0700 (PDT)
-Received: by 10.31.169.139 with HTTP; Mon, 21 Aug 2017 17:54:57 -0700 (PDT)
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="b7Xp2FuH"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="ZKL4m0LR"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 3718021B39;
+ Mon, 21 Aug 2017 20:56:25 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Mon, 21 Aug 2017 20:56:25 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=KaZOZoxi7X07sDkdAdvaANlFX8g90RAIxdEmqjsSi
+ 4Q=; b=b7Xp2FuHO4cHYSncNaWAfdFI+xZjRDNEqZYMNDsA2/Ov+e064rOi0zGuw
+ WnG+ssOW0S1juZgwdCO8mY2AGXWvjvp5YyBruOpLh/2ulL8t7Qs5cjQ+lA74CZ6j
+ FW8+hOrjQIIBrkHYJmaLcmdqUfFflt2tZcNUeKJcy84zZbbmJAHSYJg9jD5V4prp
+ Jo057VLKoexUuGajY+Pe6zOtRP5ndl7agBpyxo1DgFXu1qs//BocciuUgE2apYvo
+ wNSl0izcz0UqXjARX/kOCnj1304s+RbcSRqhgCaX7DZJZcN9stgj8Y0oirV7cVjy
+ akRW4hym03GewjMl/U+eQThWFcShw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=KaZOZoxi7X07sDkdAd
+ vaANlFX8g90RAIxdEmqjsSi4Q=; b=ZKL4m0LRs5NKIRy0P/IP9hcVAo/vmMYY6+
+ HFu6JwymZHEAaYn21vE4hcV6DGhDFscuFJ8dI+DGN2MTaiMmaV0dBpjLoAOMCLq7
+ dRbaeI8a/NchVrW/VYdNC9MHeuTIjjUF9KOJOu2O2Nv5QBKgMuM/tgbb47GAvtTf
+ WmPR1YyFX52UDmh9qeO+vNG3t3FAMqyHJL8Vs9D1lYSdn9H+SEgJlbM6/WRnGCHy
+ gwHb8SjA59pespHZvt6zO1hRg46klHH8UDRz/nOKxNNnk3yz7lwTqkI4lUoYkSVk
+ jUDkZfoFjtjRktDgtc8PBumIHdNmz6nE7ZcfwsCwEQ5+E35FHOFg==
+X-ME-Sender: <xms:OYGbWTfXU2G7-h58tW8gqfo3EB30F4mahWqtcdomWSP4-QGETJS3rg>
+X-Sasl-enc: 1dp/iXp467LulAKTUJkqQTB+LvJTqcB97EHoHW8ieVKV 1503363384
+Received: from keelia (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id B58077F988;
+ Mon, 21 Aug 2017 20:56:23 -0400 (EDT)
+Message-ID: <1503363377.7266.9.camel@aj.id.au>
+Subject: Re: BMC chip
+From: Andrew Jeffery <andrew@aj.id.au>
+To: sachin naik <sacnaik@gmail.com>, openbmc@lists.ozlabs.org
+Date: Tue, 22 Aug 2017 10:26:17 +0930
 In-Reply-To: <CALFfRJOvnOYdj72UfMhFQoF9CH8nZKTYQuxQNEYd7VoSENw_MQ@mail.gmail.com>
 References: <CALFfRJOvnOYdj72UfMhFQoF9CH8nZKTYQuxQNEYd7VoSENw_MQ@mail.gmail.com>
-From: Rick Altherr <raltherr@google.com>
-Date: Mon, 21 Aug 2017 17:54:57 -0700
-Message-ID: <CAPLgG=k80akAf-GyqffDagTpfB80x-ip5jQWZL+r4i7hVf6ofw@mail.gmail.com>
-Subject: Re: BMC chip
-To: sachin naik <sacnaik@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="94eb2c149df05ba40605574d0b75"
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-0VYwd1DXGXVMFGISB1PE"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,43 +62,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Aug 2017 00:55:02 -0000
+X-List-Received-Date: Tue, 22 Aug 2017 00:56:28 -0000
 
---94eb2c149df05ba40605574d0b75
+
+--=-0VYwd1DXGXVMFGISB1PE
 Content-Type: text/plain; charset="UTF-8"
-
-Currently only Aspeed is supported although Nuvoton attended the Developers
-Congress earlier this year. Are there any other BMC manufacturers you'd
-like to see supported? In general Joel and I are willing to help any BMC
-manufacturer get onboard.
-
-Rick
-
-On Aug 21, 2017 5:35 PM, "sachin naik" <sacnaik@gmail.com> wrote:
-
-> Hi All
->
-> Other than Aspeed what other BMC chip is supported by openBMC?
->
-> Thanks and regards
-> Sachin
->
-
---94eb2c149df05ba40605574d0b75
-Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"auto">Currently only Aspeed is supported although Nuvoton atten=
-ded the Developers Congress earlier this year. Are there any other BMC manu=
-facturers you&#39;d like to see supported? In general Joel and I are willin=
-g to help any BMC manufacturer get onboard.<div dir=3D"auto"><br></div><div=
- dir=3D"auto">Rick</div></div><div class=3D"gmail_extra"><br><div class=3D"=
-gmail_quote">On Aug 21, 2017 5:35 PM, &quot;sachin naik&quot; &lt;<a href=
-=3D"mailto:sacnaik@gmail.com">sacnaik@gmail.com</a>&gt; wrote:<br type=3D"a=
-ttribution"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bo=
-rder-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr">Hi All<div><br>=
-</div><div>Other than Aspeed what other BMC chip is supported by openBMC?</=
-div><div><br></div><div>Thanks and regards</div><div>Sachin</div></div>
-</blockquote></div></div>
+Hi Sachin,
 
---94eb2c149df05ba40605574d0b75--
+On Mon, 2017-08-21 at 12:06 -0700, sachin naik wrote:
+> Hi All
+>=20
+> Other than Aspeed what other BMC chip is supported by openBMC?
+
+Currently only Aspeed BMC chips are supported, mainly because the
+parties active in the community make heavy use of them. However from a
+open-source project standpoint we're happy to help/provide feedback
+with enablement on any BMC chip.
+
+Cheers,
+
+Andrew
+
+>=20
+> Thanks and regards
+> Sachin
+--=-0VYwd1DXGXVMFGISB1PE
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZm4ExAAoJEJ0dnzgO5LT5RskP+wZhqjTpzodEOsNtbtP/dFXp
+TXc4e+iAqy/HNS5T0FlBy1B+ScRkyHiZMKGL9ZQqQRZ1m0/DGgvTjt2azZPEs57v
+JcyR/+v/0+hUdnaqvcuiql2f5TSfKt8crXVRxb2EVcQYY53VylUUVeL/dCjIiMDj
+irjY7Q9CcpfTwTYehRo27U1SGJvLu20HFpqJZkITy/a+a9WL/WwgrjvRsGelOp+0
+jL6gMTy7ABpzqT3BiQoM8p9mj3X5S7S4LeWbYhqP6vlm7uxMrJBKrk+UQbYdSjKh
+y4he1cx38NrZI1bSTkMtQn1Zrr3IuX0ZZ14RbYHknLjK2HO1O/rB1sREb7XOBAwj
+cv7fH+1hb9V7vacIvN2fV2DvqTTxTXLgplpsQRfFTP7sOjaL/Fq8NK91kM2KUQiq
+gM2rtzZYTxiqYZFM5jFCRluMzu2rUVSgZy/thUuVPrdB75dqggF2e/OVNk41u0TU
+leOS+ETrU99TJ4yg2QBHvu+I2Yk2kKbW1Fvet4XRmSL+Vnvl6HgDXzOFgxueDjpP
+CTVZujLZNmWWswd4QpAd6Ks9LgaRoNo/szAH6ydfUlMigyDOwLH7YO2B1igq1e7x
+qmOcf1raB2neaAVtItL4PJcU25DN6ygYd6ESXiQOfmbOzxM5HV2j3Gkb9ZncjCjR
+6ZWzKBBAK56Pp28muIaH
+=klxd
+-----END PGP SIGNATURE-----
+
+--=-0VYwd1DXGXVMFGISB1PE--
