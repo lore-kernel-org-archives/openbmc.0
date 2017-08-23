@@ -1,27 +1,47 @@
-Return-Path: <c_mykolak@mellanox.com>
-Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
- by lists.ozlabs.org (Postfix) with ESMTP id 3xcfLJ1NwHzDrJ3
- for <openbmc@lists.ozlabs.org>; Wed, 23 Aug 2017 17:33:43 +1000 (AEST)
-Received: from Internal Mail-Server by MTLPINE1 (envelope-from
- c?mykolak@mellanox.com)
- with ESMTPS (AES256-SHA encrypted); 23 Aug 2017 10:33:39 +0300
-Received: from r-vnc15.mtr.labs.mlnx (r-vnc15.mtr.labs.mlnx [10.208.0.15])
- by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id v7N7XdsW017830;
- Wed, 23 Aug 2017 10:33:39 +0300
-Received: from r-vnc15.mtr.labs.mlnx (localhost [127.0.0.1])
- by r-vnc15.mtr.labs.mlnx (8.14.4/8.14.4) with ESMTP id v7N7XTkd001703;
- Wed, 23 Aug 2017 10:33:29 +0300
-Received: (from c_mykolak@localhost)
- by r-vnc15.mtr.labs.mlnx (8.14.4/8.14.4/Submit) id v7N7XFuK001423;
- Wed, 23 Aug 2017 10:33:15 +0300
-From: Mykola Kostenok <c_mykolak@mellanox.com>
-To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
-Cc: Mykola Kostenok <c_mykolak@mellanox.com>,
- Vadim Pasternak <vadimp@mellanox.com>, Ohad Oz <ohado@mellanox.com>
-Subject: [PATCH linux dev-4.10 resend] dts: add aspeed-pwm-tacho to msn dts.
-Date: Wed, 23 Aug 2017 10:33:13 +0300
-Message-Id: <20170823073313.1294-1-c_mykolak@mellanox.com>
-X-Mailer: git-send-email 2.8.4
+Return-Path: <sacnaik@gmail.com>
+Received: from mail-vk0-x232.google.com (mail-vk0-x232.google.com
+ [IPv6:2607:f8b0:400c:c05::232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xcTdT1zr4zDrJQ
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Aug 2017 11:01:17 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="eCetAEBz"; 
+ dkim-atps=neutral
+Received: by mail-vk0-x232.google.com with SMTP id s199so1021491vke.1
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Aug 2017 18:01:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=ojNULfQrvUcSNLIiYHZr0w02+vs07oxXroprfNyE6B4=;
+ b=eCetAEBz7vH3Wj760E7Tdkol+QLpvoOT+bT+u/lKwXoBCSHMP8xIFkecQmDKghi10F
+ z6TFVX2VGumg1mPL4oi2LmXH287ZpgWCdynjPmtOs5hZVa61AonMiVxlGhSHigbDT0n0
+ dfgkX6s+qQNFUJs0WRsfzsaoBPTozTjCo1YwO3dF+ylDcUjPUyV0A1QMPfsfIoN1x4iI
+ 9q4lJw9Z9D4JwHjOxhwyIJW8Re8RHAEJ+Eq9IfI+VPRTTRmGjFBJgu0xpMARyJdcuWmc
+ wWp2GEGSBDSvlwLmHSgMlnfQoaSOysG2VHR33anrHEaPlkl4RC37WN9LWtsBHEJhArH9
+ Z3JA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=ojNULfQrvUcSNLIiYHZr0w02+vs07oxXroprfNyE6B4=;
+ b=ZsU3gX6TPrUhfoik1Jim+SWgdtWOwupbxdKKFmO8Ddz5tzZD3W1URNYiJEiGiBJh9v
+ 3bmM0DoD7Wj1YeAKDSwfOqnwE8HOlo1FpyxxlEeBNLXoBfE84PN7ftD3HXy4o6UIQoGm
+ myWgmd0b/zmLzZam7/asCBU/CkiK+yokWriAp2nKiy2Cit+4PzcUipTWk39me4i0SPE5
+ Xr4oOX1n7HWobax5kasW9Nk+82rMkJWl86KM92GiLkYqYVtlPiT8hrwKR0SbAPwvvyfz
+ e+wLljP7i9hzEhlynNNlqTNUXrl9LtgvpcSQxNTrkNWkQc22Tvp62hvpjnd2zLEcnCIk
+ quxA==
+X-Gm-Message-State: AHYfb5j0Ra58DiU+/OrOPi5Dr7AYq6Dps+EsB9kwzBUUzSlETTPSYUiN
+ p6xB4Yr4SftqCX2+/j6bYze4+QOQZs1ayp8=
+X-Received: by 10.31.171.21 with SMTP id u21mr609212vke.153.1503450074686;
+ Tue, 22 Aug 2017 18:01:14 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.176.28.30 with HTTP; Tue, 22 Aug 2017 18:01:14 -0700 (PDT)
+From: sachin naik <sacnaik@gmail.com>
+Date: Tue, 22 Aug 2017 18:01:14 -0700
+Message-ID: <CALFfRJNnOwgdKt9GixopVhk_6nMZQJB==_RjwosyUcoYNg8K-g@mail.gmail.com>
+Subject: Regarding oe-core2.4
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="001a11438934a3ade60557613f71"
+X-Mailman-Approved-At: Wed, 23 Aug 2017 20:59:14 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -33,109 +53,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Aug 2017 07:33:45 -0000
+X-List-Received-Date: Wed, 23 Aug 2017 01:01:18 -0000
 
-Add basic pwm-tacho-controller node to ast-g5 dtsi.
+--001a11438934a3ade60557613f71
+Content-Type: text/plain; charset="UTF-8"
 
-Add pwm-tacho to aspeed-bmc-mellanox-msn.dts.
+I see that oe-core 2.4 is coming on 2017 October.
 
-Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
----
- arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts | 49 +++++++++++++++++++++++++++
- arch/arm/boot/dts/aspeed-g5.dtsi              | 17 ++++++++++
- 2 files changed, 66 insertions(+)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-index 0774959..d790927 100644
---- a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-@@ -139,3 +139,52 @@
- 	status = "okay";
- };
- 
-+&pwm_tacho {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_pwm0_default>;
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	#cooling-cells = <2>;
-+
-+	fan@0 {
-+		reg = <0x00>;
-+		cooling-levels = /bits/ 8 <125 151 177 203 229 255>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
-+	};
-+
-+	fan@1 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x01>;
-+	};
-+
-+	fan@2 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x02>;
-+	};
-+
-+	fan@3 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x03>;
-+	};
-+
-+	fan@4 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x04>;
-+	};
-+
-+	fan@5 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x05>;
-+	};
-+
-+	fan@6 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x06>;
-+	};
-+
-+	fan@7 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x07>;
-+	};
-+};
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index 72b6638..4c012af 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -40,6 +40,14 @@
- 		serial4 = &uart5;
- 	};
- 
-+	clocks {
-+		pwm_tacho_fixed_clk: fixedclk {
-+			compatible = "fixed-clock";
-+			#clock-cells = <0>;
-+			clock-frequency = <24000000>;
-+		};
-+	};
-+
- 	ahb {
- 		compatible = "simple-bus";
- 		#address-cells = <1>;
-@@ -372,6 +380,15 @@
- 				#size-cells = <1>;
- 				ranges = <0 0x1e78a000 0x1000>;
- 			};
-+
-+			pwm_tacho: pwm-tacho-controller@1e786000 {
-+				compatible = "aspeed,ast2500-pwm-tacho";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				reg = <0x1e786000 0x1000>;
-+				clocks = <&pwm_tacho_fixed_clk>;
-+				status = "disabled";
-+			};
- 		};
- 	};
- };
--- 
-2.8.4
+Is there anything planned taking openBMC to oe-core 2.4. If Yes I would be
+more interested to know the dates?
+
+Thanks and regards
+Sachin
+
+--001a11438934a3ade60557613f71
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><span style=3D"color:rgb(51,51,51);font-family:Verdana,San=
+s,sans-serif;font-size:medium">I see that oe-core 2.4 is coming on 2017=C2=
+=A0</span><font color=3D"#333333" face=3D"Verdana, Sans, sans-serif" size=
+=3D"3">October.=C2=A0</font><div><font color=3D"#333333" face=3D"Verdana, S=
+ans, sans-serif" size=3D"3"><br></font><div><br></div><div><font color=3D"#=
+333333" face=3D"Verdana, Sans, sans-serif" size=3D"3">Is there anything pla=
+nned taking openBMC to oe-core 2.4. If Yes I would be more interested to kn=
+ow the dates?</font></div><div><font color=3D"#333333" face=3D"Verdana, San=
+s, sans-serif" size=3D"3"><br></font></div><div><font color=3D"#333333" fac=
+e=3D"Verdana, Sans, sans-serif" size=3D"3">Thanks and regards</font></div><=
+div><font color=3D"#333333" face=3D"Verdana, Sans, sans-serif" size=3D"3">S=
+achin</font></div></div></div>
+
+--001a11438934a3ade60557613f71--
