@@ -1,59 +1,64 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <anoo@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xd6K31SdNzDqYY
- for <openbmc@lists.ozlabs.org>; Thu, 24 Aug 2017 11:34:14 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="KZzqUWgv"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="ANf/Ku3J"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 4528620FA8;
- Wed, 23 Aug 2017 21:34:11 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Wed, 23 Aug 2017 21:34:11 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=MuSpFP1Zlopg9I9BjLMaUJGXVwN1w5Bn7DnDY4U7z
- Qg=; b=KZzqUWgvpUpDHhpzmqOg/eyHd5cTVdiyEO1sexb6o4vhp4g4KghMi/vES
- jE6FIN/OovEMRujeBRzY56ASTotWUnWkDEcLlRkEpSaD0LMzZ/uoJuZmwcWMz859
- EvLUfhCUxsRPCultKOigI8FGMbPpqGhSggQriQfyFN1eiX3/Q1CR91Gx7LQkr6at
- EiTMq6azUbFrutXhz6xmj121AbG5cPZ4oGTHpa8eEtoIlRLKCt6SzLGwpWdJLQRq
- U15m1sh2yHT8lsYd58ZZ4KpHEeJuaW/Jxz5lyAT2+Z6uT20vReM8eOKrXCpIagM3
- dsxjYRHtN+80W6ugUEA+59G7Uk3Gw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=MuSpFP1Zlopg9I9BjL
- MaUJGXVwN1w5Bn7DnDY4U7zQg=; b=ANf/Ku3JwLN32yAICmQlh0YJokpp1We18u
- 8M2cWpPhl9enNs+wuVnRNUxiQACkK9DnD+VoPpwnKKSfFTI73ySVWPxQmRCUve6P
- 79YcLjPDKe56M+E+4VhlEzPvJfHlgIlxfhM6UFpwkpF9QYGZK/XOyTcUk0EDX1iL
- hWMUeZ9WbqLQHMCWsvM6cX/zz5H7kTs6bQTQ14hRQV/gt9ubCD34K1xTqGlQLuJe
- vJAuo00Jn8xU6jsdiY+E/Pa0U6uN9G4xBNSr23HNG0i1lFCHSrpTgtdOteEY8jQL
- LRAR415fD1BPjfOhSAQJnAO4x6AgBI+mafnodVC0O3zbYD1C2XsA==
-X-ME-Sender: <xms:Ey2eWRIfYt4qqoWbGQKlOhl9xAxErTaRBJXEZQAFn8_isgTAqX6haA>
-X-Sasl-enc: W/HJBffHhukKFRDKLzN2aqRYXS29xsRDegvQ9kW7iFP+ 1503538450
-Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id BEB0324A95;
- Wed, 23 Aug 2017 21:34:08 -0400 (EDT)
-Message-ID: <1503538442.4231.1.camel@aj.id.au>
-Subject: Re: [PATCH u-boot v2016.07-aspeed-openbmc] Add MTD and UBI support
- to ast-g5
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Adriana Kobylak <anoo@linux.vnet.ibm.com>, joel@jms.id.au, 
- raltherr@google.com, maxims@google.com, miltonm@us.ibm.com
-Cc: openbmc@lists.ozlabs.org
-Date: Thu, 24 Aug 2017 11:04:02 +0930
-In-Reply-To: <1502849350-40252-1-git-send-email-anoo@linux.vnet.ibm.com>
-References: <1502849350-40252-1-git-send-email-anoo@linux.vnet.ibm.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-YI8E5a2/+QZwpVHMtmI6"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xd6wy3VPjzDqm5
+ for <openbmc@lists.ozlabs.org>; Thu, 24 Aug 2017 12:01:54 +1000 (AEST)
+Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v7O1x00Z116348
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Aug 2017 22:01:51 -0400
+Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2chm6s4sjd-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Aug 2017 22:01:51 -0400
+Received: from localhost
+ by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <anoo@linux.vnet.ibm.com>;
+ Wed, 23 Aug 2017 22:01:49 -0400
+Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
+ by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 23 Aug 2017 22:01:48 -0400
+Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
+ [9.57.199.108])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v7O21l5f30081070; Thu, 24 Aug 2017 02:01:47 GMT
+Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 45270B2054;
+ Wed, 23 Aug 2017 21:59:12 -0400 (EDT)
+Received: from habcap11p1.aus.stglabs.ibm.com (unknown [9.41.164.53])
+ by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP id EC701B204D;
+ Wed, 23 Aug 2017 21:59:11 -0400 (EDT)
+From: Adriana Kobylak <anoo@linux.vnet.ibm.com>
+To: andrew@aj.id.au, joel@jms.id.au
+Cc: openbmc@lists.ozlabs.org, Adriana Kobylak <anoo@linux.vnet.ibm.com>
+Subject: Re: [PATCH u-boot v2016.07-aspeed-openbmc] Add optional MTD and UBI
+ support to ast-g4 and ast-g5
+Date: Wed, 23 Aug 2017 21:01:45 -0500
+X-Mailer: git-send-email 2.5.0
+In-Reply-To: <1503538442.4231.1.camel@aj.id.au>
+References: <1503538442.4231.1.camel@aj.id.au>
+X-TM-AS-GCONF: 00
+x-cbid: 17082402-0052-0000-0000-000002548F36
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007600; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000224; SDB=6.00906744; UDB=6.00454500; IPR=6.00686945; 
+ BA=6.00005550; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016838; XFM=3.00000015;
+ UTC=2017-08-24 02:01:49
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17082402-0053-0000-0000-000051C4FE7A
+Message-Id: <1503540105-33337-1-git-send-email-anoo@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-08-23_11:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
+ definitions=main-1708240029
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -65,79 +70,95 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 24 Aug 2017 01:34:16 -0000
+X-List-Received-Date: Thu, 24 Aug 2017 02:01:55 -0000
 
+Add MTD and UBI support conditioned to having MTDPARTS_DEFAULT defined.
+This allows platforms to enable this support if desired without
+adding it by default since it increases the size of u-boot by about 70kB.
 
---=-YI8E5a2/+QZwpVHMtmI6
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Adriana Kobylak <anoo@linux.vnet.ibm.com>
+---
+ include/configs/ast-g4-ncsi.h | 10 ++++++++++
+ include/configs/ast-g4-phy.h  | 10 ++++++++++
+ include/configs/ast-g5-ncsi.h | 10 ++++++++++
+ include/configs/ast-g5-phy.h  | 10 ++++++++++
+ 4 files changed, 40 insertions(+)
 
-On Tue, 2017-08-15 at 21:09 -0500, Adriana Kobylak wrote:
-> Add MTD and UBI support to the default g5 include, conditioned to
-> having MTDPARTS_DEFAULT defined.
->=C2=A0
-> This allows platforms to enable this support if desired without
-> adding it by default since it increases the size of u-boot.
->=C2=A0
-> Signed-off-by: Adriana Kobylak <anoo@linux.vnet.ibm.com>
-> ---
-> =C2=A0include/configs/ast-g5-ncsi.h | 10 ++++++++++
-> =C2=A01 file changed, 10 insertions(+)
->=C2=A0
-> diff --git a/include/configs/ast-g5-ncsi.h b/include/configs/ast-g5-
-> ncsi.h
-> index 12d6684..b126e6e 100644
-> --- a/include/configs/ast-g5-ncsi.h
-> +++ b/include/configs/ast-g5-ncsi.h
-
-I suggest we make this common to all platforms to reduce the configuration
-headache. Putting the #defines in ast-g5-ncsi doesn't isolate the change to
-Witherspoon, and I think we should avoid further fragmentation e.g. by
-introducing a Witherspoon-specific configuration.
-
-If other platforms need to recover the extra space required we can deal wit=
-h
-that on an as-needed basis in the future.
-
-Cheers,
-
-Andrew
-
-> @@ -28,4 +28,14 @@
-> =C2=A0
-> =C2=A0#define CONFIG_HW_WATCHDOG
-> =C2=A0
-> +/* MTD and UBI */
-> +#ifdef MTDPARTS_DEFAULT
-> +#define CONFIG_FLASH_CFI_MTD
-> +#define CONFIG_CMD_UBI
-> +#define CONFIG_RBTREE
-> +#define CONFIG_MTD_DEVICE
-> +#define CONFIG_MTD_PARTITIONS
-> +#define CONFIG_CMD_MTDPARTS
-> +#endif
-> +
-> =C2=A0#endif	/* __AST_G5_NCSI_CONFIG_H */
---=-YI8E5a2/+QZwpVHMtmI6
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJZni0KAAoJEJ0dnzgO5LT5MLAP/A+RwiUZXiiJWeaSLUuV/uG8
-cDq+4oNcJTqX0Y4kN7qomRMSpyLrJBlQ3Y8TOQTLk9WeKErbFFs2VnTg/C2qirEE
-WZksYZTIyUNePNsdwHsKMrkev5b0VJD5YzJgUE+9E1DnuA7wpdm9WpEcSgD5yOcb
-nTL/HELPd7MoTCbiz+MeYh2F+WZFihgBp3EHsKrIAKua/sgCreTbe15BAcw3zPSy
-IPQDiNRZ4LEn88DZagCV2E0GbglFb820y59Op8CikEpPzaWtfCTUFZp4/nFimD+k
-wk0WxNUyCzqtaDaEsEoGa2TNbm+hk10pj3bhX4bvSbL5mm47wKfzS82chYYLkecz
-iq88fFX9qP+/tWKAl3fnpAJGTsddqw7B9aTjDD/6wazQgwFa0H8lPzY1k+DgsYkm
-vIEBxKED772wU83PHEVlyTIsA0KADslpCR1YaYOiIPe0Z4nwvshON6HphrZGMNmH
-o8wc28Iny30LMHK4T6cCgpR5M/n3XUNVVVMtoi1XKBD2wcRwMPv7qcC6B+5olEsh
-lNofi0leLUfvVoyp7o4JMuhB+OVu2xCcUNo6UUgqJFC5OJXY73ty4jAnWkaXVfVH
-D9zobHyqK+pcr5kHgq7vy9IRGgntDldjwFQTdYkEXiJu3Z0BaViMaJXaREDk4A/n
-Qwbyk1gL+9D/ykwhkUM2
-=KeBC
------END PGP SIGNATURE-----
-
---=-YI8E5a2/+QZwpVHMtmI6--
+diff --git a/include/configs/ast-g4-ncsi.h b/include/configs/ast-g4-ncsi.h
+index 8191dfc..0ba5a43 100644
+--- a/include/configs/ast-g4-ncsi.h
++++ b/include/configs/ast-g4-ncsi.h
+@@ -26,4 +26,14 @@
+ #define CONFIG_CPU_420			1
+ #define CONFIG_DRAM_528			1
+ 
++/* Optional MTD and UBI */
++#ifdef MTDPARTS_DEFAULT
++#define CONFIG_FLASH_CFI_MTD
++#define CONFIG_CMD_UBI
++#define CONFIG_RBTREE
++#define CONFIG_MTD_DEVICE
++#define CONFIG_MTD_PARTITIONS
++#define CONFIG_CMD_MTDPARTS
++#endif
++
+ #endif	/* __AST_G4_NCSI_CONFIG_H */
+diff --git a/include/configs/ast-g4-phy.h b/include/configs/ast-g4-phy.h
+index baa522f..8b26fa6 100644
+--- a/include/configs/ast-g4-phy.h
++++ b/include/configs/ast-g4-phy.h
+@@ -28,4 +28,14 @@
+ #define CONFIG_CPU_420			1
+ #define CONFIG_DRAM_528			1
+ 
++/* Optional MTD and UBI */
++#ifdef MTDPARTS_DEFAULT
++#define CONFIG_FLASH_CFI_MTD
++#define CONFIG_CMD_UBI
++#define CONFIG_RBTREE
++#define CONFIG_MTD_DEVICE
++#define CONFIG_MTD_PARTITIONS
++#define CONFIG_CMD_MTDPARTS
++#endif
++
+ #endif	/* __AST_G4_NCSI_CONFIG_H */
+diff --git a/include/configs/ast-g5-ncsi.h b/include/configs/ast-g5-ncsi.h
+index 12d6684..167835f 100644
+--- a/include/configs/ast-g5-ncsi.h
++++ b/include/configs/ast-g5-ncsi.h
+@@ -28,4 +28,14 @@
+ 
+ #define CONFIG_HW_WATCHDOG
+ 
++/* Optional MTD and UBI */
++#ifdef MTDPARTS_DEFAULT
++#define CONFIG_FLASH_CFI_MTD
++#define CONFIG_CMD_UBI
++#define CONFIG_RBTREE
++#define CONFIG_MTD_DEVICE
++#define CONFIG_MTD_PARTITIONS
++#define CONFIG_CMD_MTDPARTS
++#endif
++
+ #endif	/* __AST_G5_NCSI_CONFIG_H */
+diff --git a/include/configs/ast-g5-phy.h b/include/configs/ast-g5-phy.h
+index 62ddb84..c3e2552 100644
+--- a/include/configs/ast-g5-phy.h
++++ b/include/configs/ast-g5-phy.h
+@@ -30,4 +30,14 @@
+ /* platform.S */
+ #define	CONFIG_DRAM_ECC_SIZE		0x10000000
+ 
++/* Optional MTD and UBI */
++#ifdef MTDPARTS_DEFAULT
++#define CONFIG_FLASH_CFI_MTD
++#define CONFIG_CMD_UBI
++#define CONFIG_RBTREE
++#define CONFIG_MTD_DEVICE
++#define CONFIG_MTD_PARTITIONS
++#define CONFIG_CMD_MTDPARTS
++#endif
++
+ #endif	/* __AST_G5_PHY_CONFIG_H */
+-- 
+1.8.2.2
