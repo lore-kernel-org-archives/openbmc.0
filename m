@@ -1,70 +1,58 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <linus.walleij@linaro.org>
+Received: from mail-oi0-x22d.google.com (mail-oi0-x22d.google.com
+ [IPv6:2607:f8b0:4003:c06::22d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xdYNJ3scpzDrJw
- for <openbmc@lists.ozlabs.org>; Fri, 25 Aug 2017 04:53:36 +1000 (AEST)
-Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v7OIodQE088902
- for <openbmc@lists.ozlabs.org>; Thu, 24 Aug 2017 14:53:34 -0400
-Received: from e13.ny.us.ibm.com (e13.ny.us.ibm.com [129.33.205.203])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2chyq0a8x2-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 24 Aug 2017 14:53:33 -0400
-Received: from localhost
- by e13.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Thu, 24 Aug 2017 14:53:33 -0400
-Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
- by e13.ny.us.ibm.com (146.89.104.200) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 24 Aug 2017 14:53:32 -0400
-Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
- [9.57.199.109])
- by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v7OIrVO123855206; Thu, 24 Aug 2017 18:53:31 GMT
-Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0B7DE112034;
- Thu, 24 Aug 2017 14:53:19 -0400 (EDT)
-Received: from christophersmbp.austin.ibm.com (unknown [9.41.175.36])
- by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id AF7E9112040;
- Thu, 24 Aug 2017 14:53:18 -0400 (EDT)
-Subject: Re: [PATCH linux dev-4.10 v4 2/2] hwmon: (ucd9000) Add debugfs for
- mfr_status info
-To: Andrew Jeffery <andrew@aj.id.au>, joel@jms.id.au
-References: <20170821220946.85617-1-cbostic@linux.vnet.ibm.com>
- <20170821220946.85617-3-cbostic@linux.vnet.ibm.com>
- <1503367279.7266.18.camel@aj.id.au>
-Cc: openbmc@lists.ozlabs.org
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Thu, 24 Aug 2017 13:53:30 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
- Gecko/20100101 Thunderbird/45.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xdcLr1ThczDqF7
+ for <openbmc@lists.ozlabs.org>; Fri, 25 Aug 2017 07:07:32 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=linaro.org header.i=@linaro.org header.b="O3N0uiN8"; 
+ dkim-atps=neutral
+Received: by mail-oi0-x22d.google.com with SMTP id r9so6077301oie.3
+ for <openbmc@lists.ozlabs.org>; Thu, 24 Aug 2017 14:07:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=7XiEb5XvZM+n+ABvgrJxMu2sDfdvEl3grI/Dnaib6HU=;
+ b=O3N0uiN8EzCSLd/6Sn+ZnQkBHXgU3VmXoZtrpaJP5wsxZjJp395tXcVxowNyNWOd1b
+ VqnVndxpFqUHXEMYO38miYnfKEfyAsYUXXS+j+fBFW74Tx0W6mVQnREf45xx4XwMKHbw
+ ePTum3Vzy89bM+/C7d0BFNc1vY2buCGN+qiwE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=7XiEb5XvZM+n+ABvgrJxMu2sDfdvEl3grI/Dnaib6HU=;
+ b=anKqFyqgxy98voUu3EBohFQ8u9fXlyHXjCLbUpJ/dxBewtFNzy9MIN1TGWUaEqtlI1
+ PgKh57/BHOCqudWyqI0Vx742PDJ4mJEYYp1DVCdKc57fAJZSmVv4ddI9wZnAhm548QjI
+ o6ffDZwF10Vsp19s249bCZooVwe2Mm/gPyc4kXgw3p612ecWr4A8iFbgOprNzdppLf8Q
+ Os0lSiia0jvMCVsdNGv0IjYmEr1G+Z1MxGBSkqnw9jdjo9vKZrjNN2G7jnbZlBWEshii
+ bMr4Qx4b6MpnhanGCrmyQvzw+UDjl1eLYs2IKL6SJThk6qTvFcjm56bNlsmsjOZmRoJX
+ sVmQ==
+X-Gm-Message-State: AHYfb5iTB7lIU4Hk4RXD41KRuZxc5CByV8l8Szqx7b6sSMWXAqhatnXc
+ qXnQg2sA/LhakMsn2mwWXPHGSuOHGQN0
+X-Received: by 10.202.102.199 with SMTP id m68mr9139492oik.297.1503608849700; 
+ Thu, 24 Aug 2017 14:07:29 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1503367279.7266.18.camel@aj.id.au>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 17082418-0008-0000-0000-00000273CE9B
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007604; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000225; SDB=6.00907081; UDB=6.00454700; IPR=6.00687278; 
- BA=6.00005552; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016851; XFM=3.00000015;
- UTC=2017-08-24 18:53:33
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17082418-0009-0000-0000-0000367AD2F4
-Message-Id: <bfb1a381-280b-b1dd-2c9f-5fe9d61111a0@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-08-24_07:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
- definitions=main-1708240289
+Received: by 10.157.58.74 with HTTP; Thu, 24 Aug 2017 14:07:29 -0700 (PDT)
+In-Reply-To: <1503418256-5215-1-git-send-email-oleksandrs@mellanox.com>
+References: <1503418256-5215-1-git-send-email-oleksandrs@mellanox.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Thu, 24 Aug 2017 23:07:29 +0200
+Message-ID: <CACRpkdZePXyo8Q36mBH7OnJU3E=yWPWSGkGUOH=zJFMjM=Yrhw@mail.gmail.com>
+Subject: Re: [patch v6 0/3] JTAG driver introduction
+To: Oleksandr Shamray <oleksandrs@mellanox.com>
+Cc: Greg KH <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Joel Stanley <joel@jms.id.au>, jiri@resnulli.us,
+ Tobias Klauser <tklauser@distanz.ch>, 
+ "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>, mec@shout.net,
+ vadimp@maellanox.com, 
+ system-sw-low-level@mellanox.com, Rob Herring <robh+dt@kernel.org>, 
+ openocd-devel-owner@lists.sourceforge.net, 
+ "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -76,243 +64,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 24 Aug 2017 18:53:37 -0000
+X-List-Received-Date: Thu, 24 Aug 2017 21:07:33 -0000
 
+On Tue, Aug 22, 2017 at 6:10 PM, Oleksandr Shamray
+<oleksandrs@mellanox.com> wrote:
 
+> SoC which are not equipped with JTAG master interface, can be built
+> on top of JTAG core driver infrastructure, by applying bit-banging of
+> TDI, TDO, TCK and TMS pins within the hardware specific driver.
 
-On 8/21/17 9:01 PM, Andrew Jeffery wrote:
-> On Mon, 2017-08-21 at 17:09 -0500, Christopher Bostic wrote:
->> Add debugfs to list the mfr_status register and its gpiN_fault
->> fields.
->>   
->>> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
->> ---
->> v2 - Remove mfr_status directory in debugfs and place the files
->>       up in the parent ucd9000 directory.
->> ---
->>   drivers/hwmon/pmbus/ucd9000.c | 122 ++++++++++++++++++++++++++++++++++++++++++
->>   1 file changed, 122 insertions(+)
->>   
->> diff --git a/drivers/hwmon/pmbus/ucd9000.c b/drivers/hwmon/pmbus/ucd9000.c
->> index 5cea5f6..f906d8e 100644
->> --- a/drivers/hwmon/pmbus/ucd9000.c
->> +++ b/drivers/hwmon/pmbus/ucd9000.c
->> @@ -19,6 +19,7 @@
->>    * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
->>    */
->>   
->> +#include <linux/debugfs.h>
->>   #include <linux/kernel.h>
->>   #include <linux/module.h>
->>   #include <linux/init.h>
->> @@ -38,6 +39,7 @@
->>>   #define UCD9000_FAN_CONFIG_INDEX	0xe7
->>>   #define UCD9000_FAN_CONFIG		0xe8
->>>   #define UCD9000_LOGGED_FAULTS		0xea
->>> +#define UCD9000_MFR_STATUS		0xf3
->>>   #define UCD9000_GPIO_SELECT		0xfa
->>>   #define UCD9000_GPIO_CONFIG		0xfb
->>>   #define UCD9000_DEVICE_ID		0xfd
->> @@ -56,16 +58,25 @@
->>>   #define UCD9000_MON_VOLTAGE_HW	4
->>   
->>>   #define UCD9000_NUM_FAN		4
->>> +#define UCD9000_NAME_SIZE	24
->>   
->>>   #define UCD90160_NUM_GPIOS	26
->>> +#define UCD90160_GPI_COUNT	8
->>> +#define UCD90160_GPI_FAULT_BASE	16
->>   
->>   struct ucd9000_data {
->>>   	u8 fan_data[UCD9000_NUM_FAN][I2C_SMBUS_BLOCK_MAX];
->>>   	struct pmbus_driver_info info;
->>>   	struct gpio_chip gpio;
->>>> +	struct dentry *debugfs;	/* debugfs device directory */
->>   };
->>   #define to_ucd9000_data(_info) container_of(_info, struct ucd9000_data, info)
->>   
->> +struct ucd9000_debugfs_entry {
->>> +	struct i2c_client *client;
->>> +	u8 index;
->> +};
->> +
->>   static int ucd9000_get_fan_config(struct i2c_client *client, int fan)
->>   {
->>>   	int fan_config = 0;
->> @@ -143,6 +154,7 @@ static int ucd9000_gpio_read_config(struct i2c_client *client,
->>>   	if (ret < 0) {
->>>   		dev_err(&client->dev, "Failed to select GPIO %d: %d\n", offset,
->>>   			ret);
->> +
-> Can we fold the whitespace cleanups into the appropriate patch? Please audit
-> the rest of the patch for similar issues.
-Yes, will do that.
+I guess you mean it should then use GPIO lines for bit-banging?
 
+I was wondering about how some JTAG clients like openOCD does
+this in some cases.
 
->>>   		return ret;
->>>   	}
->>   
->> @@ -157,6 +169,7 @@ static int ucd9000_gpio_get(struct gpio_chip *gc, unsigned int offset)
->>>   	ret = ucd9000_gpio_read_config(client, offset);
->>>   	if (ret < 0) {
->>>   		dev_err(&client->dev, "failed to read GPIO config\n");
->> +
->>>   		return ret;
->>>   	}
->>   
->> @@ -185,6 +198,108 @@ static int ucd9000_gpio_direction_input(struct gpio_chip *gc,
->>>   	return 0;
->>   }
->>   
->> +static struct dentry *ucd9000_debugfs_dir;
->> +
->> +#if IS_ENABLED(CONFIG_DEBUG_FS)
->> +static int ucd9000_get_mfr_status(struct i2c_client *client, u32 *buffer)
->> +{
->>> +	int ret;
->> +
->>> +	ret = pmbus_set_page(client, 0);
->>> +	if (ret < 0) {
->>> +		dev_err(&client->dev, "pmbus_set_page failed. rc:%d\n", ret);
->>> +		return ret;
->>> +	}
->>> +	return i2c_smbus_read_block_data(client, UCD9000_MFR_STATUS,
->>> +					(u8 *)buffer);
-> I know you don't intend to support the device but this will cause stack
-> corruption on the ucd90240. Maybe it's not worth fixing at the moment, but it's
-> probably worth a comment. From the command reference, page 81:
->
-> 	With the UCD90120 and UCD90124 devices, this command [MFR_STATUS] is 2
-> 	bytes long (bits 0-15). With the UCD90240, this command is 5 bytes
-> 	long. With all other devices, it is 4 bytes long.
+In my worst nightmare they export GPIO lines using
+the horrid ABI in /sys/gpio/*
 
-Will add a comment.
->
->> +}
->> +
->> +static int ucd9000_debugfs_get_mfr_status_bit(void *data, u64 *val)
->> +{
->>> +	struct ucd9000_debugfs_entry *entry = data;
->>> +	struct i2c_client *client = entry->client;
->>> +	int nr = entry->index;
->>> +	u32 buffer;
->>> +	int ret;
->> +
->>> +	ret = ucd9000_get_mfr_status(client, &buffer);
->>> +	if (ret < 0) {
->>> +		dev_err(&client->dev,
->>> +			"Failed to read mfr status. rc:%d\n", ret);
->>> +		return ret;
->>> +	}
->> +
->>> +	*val = ret & BIT(nr) ? 1 : 0;
-> We should switch this to the non-branchy solution.
+In best case they use the GPIO character device or even
+libgpiod.
 
-Will fix.
->
->> +
->>> +	return 0;
->> +}
->> +DEFINE_DEBUGFS_ATTRIBUTE(ucd9000_debugfs_ops_mfr_status_bit,
->>> +			ucd9000_debugfs_get_mfr_status_bit, NULL, "%1lld\n");
->> +
->> +static int ucd9000_debugfs_get_mfr_status_word(void *data, u64 *val)
->> +{
->>> +	struct ucd9000_debugfs_entry *entry = data;
->>> +	struct i2c_client *client = entry->client;
->>> +	u32 buffer;
->>> +	int ret;
->> +
->>> +	ret = ucd9000_get_mfr_status(client, &buffer);
->>> +	if (ret < 0) {
->>> +		dev_err(&client->dev,
->>> +			"Failed to read mfr status. rc:%d\n", ret);
->>> +		return ret;
->>> +	}
->> +
->>> +	*val = ret;
->> +
->>> +	return 0;
->> +}
->> +DEFINE_DEBUGFS_ATTRIBUTE(ucd9000_debugfs_ops_mfr_status_word,
->>> +			ucd9000_debugfs_get_mfr_status_word, NULL, "%08llx\n");
->> +
->> +static int ucd9000_init_debugfs(struct i2c_client *client,
->>> +				struct ucd9000_data *data)
->> +{
->>> +	struct ucd9000_debugfs_entry *entries;
->>> +	char name[UCD9000_NAME_SIZE];
->>> +	int i;
->> +
->>> +	ucd9000_debugfs_dir = debugfs_create_dir("ucd9000", NULL);
->>> +	if (IS_ERR(ucd9000_debugfs_dir)) {
->>> +		ucd9000_debugfs_dir = NULL;
->>> +		dev_warn(&client->dev, "Failed to create debugfs dir\n");
->>> +		return 0;
->>> +	}
->> +
->>> +	entries = devm_kzalloc(&client->dev, sizeof(*entries) *
->>> +				(UCD90160_GPI_COUNT + 1) * 10,
->>> +				GFP_KERNEL);
->>> +	if (!entries)
->>> +		return -ENOMEM;
->> +
->>> +	for (i = 0; i < UCD90160_GPI_COUNT; i++) {
->>> +		entries[i].client = client;
->>> +		entries[i].index = UCD90160_GPI_FAULT_BASE + i;
->>> +		scnprintf(name, UCD9000_NAME_SIZE, "gpi%d_alarm", i+1);
->>> +		debugfs_create_file(name, 0444, ucd9000_debugfs_dir,
->>> +				&entries[i],
->>> +				&ucd9000_debugfs_ops_mfr_status_bit);
->>> +	}
->>> +	entries[i].client = client;
->>> +	scnprintf(name, UCD9000_NAME_SIZE, "mfr_status");
->>> +	debugfs_create_file(name, 0444, ucd9000_debugfs_dir, &entries[i],
->>> +				&ucd9000_debugfs_ops_mfr_status_word);
-> Given the static ucd9000_debugfs_dir, how does this work if there are multiple
-> devices? It's a naive question - I haven't looked into it at all, but I'm
-> curious.
-Right, this won't work well given that.   Will add some unique 
-identifier for each device.
+But having a JTAG abstraction inside the kernel that can
+grab a few lines for JTAG defined in a device tree, ACPI DSDT
+or similar makes sense too, as it abstracts the hardware so the
+JTAG client can then just open whatever /dev/jtag0 is on the machine
+and go ahead without having to bother about what GPIO lines
+are connected exactly where.
 
-Thanks,
-Chris
-
-> Cheers,
->
-> Andrew
->
->> +
->>> +	return 0;
->> +}
->> +#else
->> +static int ucd9000_init_debugfs(struct i2c_client *client,
->>> +				struct ucd9000_data *data)
->> +{
->>> +	return 0;
->> +}
->> +#endif /* IS_ENABLED(CONFIG_DEBUG_FS) */
->> +
->>   static ssize_t ucd9000_clear_logged_faults(struct device *dev,
->>>   				struct device_attribute *attr, const char *buf,
->>>   				size_t count)
->> @@ -345,12 +460,19 @@ static int ucd9000_probe(struct i2c_client *client,
->>>   	if (ret < 0)
->>>   		return ret;
->>   
->>> +	if (mid->driver_data == ucd90160) {
->>> +		ret = ucd9000_init_debugfs(client, data);
->>> +		if (ret < 0)
->>> +			dev_warn(&client->dev, "Failed to register debugfs\n");
->>> +	}
->> +
->>>   	return  pmbus_do_probe(client, mid, info);
->>   }
->>   
->>   static int ucd9000_remove(struct i2c_client *client)
->>   {
->>>   	sysfs_remove_group(&client->dev.kobj, &ucd9000_attr_group);
->>> +	debugfs_remove_recursive(ucd9000_debugfs_dir);
->>>   	return pmbus_do_remove(client);
->>   }
->>   
+Yours,
+Linus Walleij
