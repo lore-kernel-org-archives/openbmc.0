@@ -1,48 +1,49 @@
-Return-Path: <robherring2@gmail.com>
-Received: from mail-oi0-f65.google.com (mail-oi0-f65.google.com
- [209.85.218.65])
+Return-Path: <geissonator@gmail.com>
+Received: from mail-io0-x234.google.com (mail-io0-x234.google.com
+ [IPv6:2607:f8b0:4001:c06::234])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xf8l80FHWzDrVt
- for <openbmc@lists.ozlabs.org>; Sat, 26 Aug 2017 04:26:59 +1000 (AEST)
-Received: by mail-oi0-f65.google.com with SMTP id d66so178403oib.3
- for <openbmc@lists.ozlabs.org>; Fri, 25 Aug 2017 11:26:59 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xfBBr1tQqzDrVp
+ for <openbmc@lists.ozlabs.org>; Sat, 26 Aug 2017 05:32:36 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="b6d4snN8"; 
+ dkim-atps=neutral
+Received: by mail-io0-x234.google.com with SMTP id g33so2487540ioj.3
+ for <openbmc@lists.ozlabs.org>; Fri, 25 Aug 2017 12:32:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to
+ :content-transfer-encoding;
+ bh=pzZJGd1GBmK3WBcYDnflfTjcMW9C8DxgS8vYa4lJOVQ=;
+ b=b6d4snN8gwNFg/mrv0twyvFtwLIC0POq7LBsq6S2iI+KO38Wp9uDV5jaIJFcaYeSFO
+ NVYcL6LLu8w9JAAZf3Aaxqxu07SUMSujJ5NC68+REqpj1NJGEfZINPnQkD7c8V6e2KE7
+ cdJwP05CzjZ9OF4KcfLCw6s9DNjV6eMMsxK4jGM+8dvaRmAurPhpxUdpRoO30qJppkVE
+ iTmHakPSh5GT8aCbT4Xa4U+kLh7Kx2T2vV0W40HQwLIIohChuNXRysGqTi8KWaSNLfsp
+ hi66ih89jDlfXR1sEhtwr1r3Qn+IXK74uC2Mzjq7fmbXLBMnLUo5553GJEbe1W94MK6D
+ TJWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=XMui96qrRFRY3GE7MLfFPrsJDHJXGc/WOcUz+wsoxrQ=;
- b=J+Tt0cGYk6e+TGA7HQCKTqA4z0w6H2ucmHuHfUvDDbejweYyq7poEtJpzeIgQr7G46
- 1z9MlzeEdshx7HypbJPc8zNNvOR7Q7s+E+kqMYMxBax7Dp0pSEbIqIPMEggfTvm67uC8
- Rueaf0lTT0moeQGbsrGXyK0YPZl8bMlpqMJttGONNq7L6QVrP+MQCko5VeHK3exkuXwx
- onfx+KMJmRopIIXv/trQThg/NuXfFL/JjJTJzNvxIyuTJCT3XiilpA6W9gWuz4AsHO4P
- F+zJM7YnI4LM9pBsxMVF1iRkOR02GxhLmlVWYpNpfJ1QyCjucVfT5UHOAUMeUybo12Ka
- uqpQ==
-X-Gm-Message-State: AHYfb5iAVuuQYTRGDSxKc4BzxV7SbcuwUuIntB26a0qgWnt8rYn07P2m
- QCGhQ/CyejBuoA==
-X-Received: by 10.202.117.2 with SMTP id q2mr11479295oic.275.1503685616631;
- Fri, 25 Aug 2017 11:26:56 -0700 (PDT)
-Received: from localhost (216-188-254-6.dyn.grandenetworks.net.
- [216.188.254.6])
- by smtp.gmail.com with ESMTPSA id i9sm7286668oif.35.2017.08.25.11.26.55
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Fri, 25 Aug 2017 11:26:56 -0700 (PDT)
-Date: Fri, 25 Aug 2017 13:26:55 -0500
-From: Rob Herring <robh@kernel.org>
-To: Brendan Higgins <brendanhiggins@google.com>
-Cc: mark.rutland@arm.com, linux@armlinux.org.uk, avifishman70@gmail.com,
- tmaimon77@gmail.com, raltherr@google.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH v1 2/3] arm: dts: add Nuvoton NPCM750 device tree
-Message-ID: <20170825182655.4bgkr63ar27dwp4e@rob-hp-laptop>
-References: <20170822033502.4100-1-brendanhiggins@google.com>
- <20170822033502.4100-3-brendanhiggins@google.com>
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to
+ :content-transfer-encoding;
+ bh=pzZJGd1GBmK3WBcYDnflfTjcMW9C8DxgS8vYa4lJOVQ=;
+ b=Zy2dpbNijoSP+ot5zFEDb5hE9tJqJgm5tU5X+nKHpA7MtJtoLNW53UB+83/2AEqjsK
+ 44+b9AIUg2Gjix1Bn48zBjlo0JMiXfHG0zBwi7Jv+D1WKJYgkTOPxBXdwtgz/GWVJitv
+ H2L09ynvi1ghNx2xq0yIFAO9fRMsZNsLTJsrRoZkbG9+PlY2h6b/Fjjino76lc74osYc
+ d1z4MoH47ehlMj2euNLXc4/bBlBFKzxrtVJW2BduXQ1GGVNF2KaUOojRc19k/1ywmeFS
+ iuEI6qK59vB88S/IV4kaeC7WcSZHHGZ1bx+kWWptVVY6E9xPoa4xMa72tQmf4eZ5Napt
+ aECg==
+X-Gm-Message-State: AHYfb5jV3FGAfIxVkFoFrK7UQ3y7MiONaZWBt2vtczKzI1EaViXV4iEk
+ txFEba4LjwwbTQSJRPkCRRCMH1DBtwW+
+X-Received: by 10.107.2.77 with SMTP id 74mr3637893ioc.76.1503689553694; Fri,
+ 25 Aug 2017 12:32:33 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20170822033502.4100-3-brendanhiggins@google.com>
-User-Agent: NeoMutt/20170113 (1.7.2)
+Received: by 10.107.182.139 with HTTP; Fri, 25 Aug 2017 12:32:33 -0700 (PDT)
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Fri, 25 Aug 2017 14:32:33 -0500
+Message-ID: <CALLMt=rD633fC_qLVzUZAtQwuU_EoQZ+1yD9okrd1tngp1cpzg@mail.gmail.com>
+Subject: Power Restore Policy
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,417 +55,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 25 Aug 2017 18:27:01 -0000
+X-List-Received-Date: Fri, 25 Aug 2017 19:32:37 -0000
 
-On Mon, Aug 21, 2017 at 08:35:01PM -0700, Brendan Higgins wrote:
-> Add a common device tree for all Nuvoton NPCM750 BMCs and a board
-> specific device tree for the NPCM750 (Poleg) evaluation board.
-> 
-> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
-> ---
->  .../devicetree/bindings/arm/npcm/npcm.txt          |   6 +
->  arch/arm/boot/dts/nuvoton-npcm750-evb.dts          |  63 ++++++
->  arch/arm/boot/dts/nuvoton-npcm750.dtsi             | 222 +++++++++++++++++++++
->  include/dt-bindings/clock/nuvoton,npcm7xx-clks.h   |  39 ++++
->  4 files changed, 330 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/arm/npcm/npcm.txt
->  create mode 100644 arch/arm/boot/dts/nuvoton-npcm750-evb.dts
->  create mode 100644 arch/arm/boot/dts/nuvoton-npcm750.dtsi
->  create mode 100644 include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/npcm/npcm.txt b/Documentation/devicetree/bindings/arm/npcm/npcm.txt
-> new file mode 100644
-> index 000000000000..19aabe9a7414
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/arm/npcm/npcm.txt
-> @@ -0,0 +1,6 @@
-> +NPCM Platforms Device Tree Bindings
-> +-----------------------------------
-> +NPCM750 SoC
-> +Required root node properties:
-> +	- compatible = "nuvoton,npcm750";
-> +	- enable-method = "nuvoton,npcm7xx-smp"; required for dual core variant.
+The BMC has the concept of a Power Restore Policy.  It=E2=80=99s defined
+within https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/=
+openbmc_project/Control/Power/RestorePolicy.interface.yaml
 
-enable-method is not a root node property. There's a file to document 
-all of these.
+The point of this policy is to define the host boot behavior by the
+BMC if it is rebooted.  The policies are:
+o AlwaysOn
+o AlwaysOff
+o Restore
 
-> diff --git a/arch/arm/boot/dts/nuvoton-npcm750-evb.dts b/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
-> new file mode 100644
-> index 000000000000..10f523388dc1
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
-> @@ -0,0 +1,63 @@
-> +/*
-> + * DTS file for all NPCM750 SoCs
-> + *
-> + * Copyright 2012 Tomer Maimon <tomer.maimon@nuvoton.com>
-> + *
-> + * The code contained herein is licensed under the GNU General Public
-> + * License. You may obtain a copy of the GNU General Public License
-> + * Version 2 or later at the following locations:
-> + *
-> + * http://www.opensource.org/licenses/gpl-license.html
-> + * http://www.gnu.org/copyleft/gpl.html
-> + */
-> +
-> +/dts-v1/;
-> +#include "nuvoton-npcm750.dtsi"
-> +
-> +/ {
-> +	model = "Nuvoton npcm750 Development Board (Device Tree)";
-> +	compatible = "nuvoton,npcm750";
-> +	enable-method = "nuvoton,npcm7xx-smp";
-> +
-> +	aliases {
-> +		serial0 = &uart0;
-> +		serial1 = &uart1;
-> +		serial2 = &uart2;
-> +		serial3 = &uart3;
-> +	};
-> +
-> +	memory {
-> +		reg = <0 0x40000000>;
-> +	};
-> +
-> +	clocks {
-> +		clk: clock-controller@f0801000 {
-> +			status = "okay";
-> +		};
-> +	};
-> +
-> +	ahb {
-> +	};
+What complicates things a bit is the scenario where the BMC is
+rebooted, but the host is booted.  Rule number one in bmc management
+firmware is don=E2=80=99t mess with the host if it=E2=80=99s up and running=
+.  So
+basically, if the host is up and running, and the bmc is rebooted, the
+bmc should do no actions other then to get it=E2=80=99s chassis and host st=
+ate
+objects to reflect that of the chassis and host (on and running).
 
-You don't need this.
+If the host is not running, then here=E2=80=99s what the policies mean:
 
-> +
-> +	apb {
-> +		watchdog1: watchdog@f0009000 {
-> +			status = "okay";
-> +		};
-> +
-> +		uart0: uart0@f0001000 {
+o AlwaysOn -> Power on
+o AlwaysOff -> Leave system in off state
+o Restore -> Read last requested host state and re-request it
 
-Use generic node names.
+OBMC has an application, somewhat misnamed, discover_system_state
+which enforces the AlwaysOn logic.  The Restore logic was put into
+phosphor-host-state-manager but I don=E2=80=99t believe this is the correct
+place for it.  It does it when it reads it=E2=80=99s persisted value for th=
+e
+last requested state when it starts.  I=E2=80=99d like to move the Restore
+logic in with the discover_system_state application.
 
-s/uart/serial/
+The reasons are the following:
+o discover_system_state=E2=80=99s service can easily be configured to not r=
+un
+when the host is already running
+o phosphor-host-state-manager has to be started always and early, so
+that it can monitor for any state change requests (like in the case
+where the bmc is rebooted while the host is still up).
+o Having all the policy in a single application is more testable and obviou=
+s
 
-> +			status = "okay";
-> +		};
-> +
-> +		uart1: uart1@f0002000 {
-> +			status = "okay";
-> +		};
-> +
-> +		uart2: uart2@f0003000 {
-> +			status = "okay";
-> +		};
-> +
-> +		uart3: uart3@f0004000 {
-> +			status = "okay";
-> +		};
-> +	};
-> +};
-> diff --git a/arch/arm/boot/dts/nuvoton-npcm750.dtsi b/arch/arm/boot/dts/nuvoton-npcm750.dtsi
-> new file mode 100644
-> index 000000000000..fc64550c49a6
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/nuvoton-npcm750.dtsi
-> @@ -0,0 +1,222 @@
-> +/*
-> + * DTSi file for the NPCM750 SoC
-> + *
-> + * Copyright 2012 Tomer Maimon <tomer.maimon@nuvoton.com>
-> + *
-> + * The code contained herein is licensed under the GNU General Public
-> + * License. You may obtain a copy of the GNU General Public License
-> + * Version 2 or later at the following locations:
-> + *
-> + * http://www.opensource.org/licenses/gpl-license.html
-> + * http://www.gnu.org/copyleft/gpl.html
-> + */
-> +
-> +#include "skeleton.dtsi"
-> +#include <dt-bindings/interrupt-controller/arm-gic.h>
-> +#include <dt-bindings/clock/nuvoton,npcm7xx-clks.h>
-> +
-> +/ {
-> +	interrupt-parent = <&gic>;
-> +
-> +	cpus {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		cpu@0 {
-> +			device_type = "cpu";
-> +			compatible = "arm,cortex-a9";
-> +			clocks = <&clk NPCM7XX_CLK_CPU>;
-> +			clock-names = "clk_cpu";
-> +			reg = <0>;
-> +			next-level-cache = <&L2>;
-> +		};
-> +
-> +		cpu@1 {
-> +			device_type = "cpu";
-> +			compatible = "arm,cortex-a9";
-> +			clocks = <&clk NPCM7XX_CLK_CPU>;
-> +			clock-names = "clk_cpu";
-> +			reg = <1>;
-> +			next-level-cache = <&L2>;
-> +		};
-> +
-> +	};
-> +
-> +	L2: l2-cache {
-> +		compatible = "arm,pl310-cache";
-> +		reg = <0xf03fc000 0x80000>;
+https://github.com/openbmc/openbmc/issues/2210 is tracking this.
 
-Pretty sure the PL310 doesn't have 512KB of address space.
+Thoughts or questions?
 
-> +		interrupts = <0 21 4>;
-> +		cache-unified;
-> +		cache-level = <2>;
-> +		clocks = <&clk NPCM7XX_CLK_AXI>;
-> +		clock-names = "clk_axi";
-
-> +	    };
-> +
-> +	    clocks {
-
-Indentation is wrong.
-
-> +		compatible = "simple-bus";
-> +		#address-cells = <1>;
-> +		#size-cells = <1>;
-> +		ranges;
-> +
-> +		clk: clock-controller@f0801000 {
-
-unit-address is not valid without a reg property. 
-
-> +			compatible = "nuvoton,npcm750-clk";
-> +			#clock-cells = <1>;
-> +		};
-> +
-> +		/* external clock signal rg1refck, supplied by the phy */
-> +		clk_rg1refck: clk_rg1refck {
-> +			compatible = "fixed-clock";
-> +			#clock-cells = <0>;
-> +			clock-frequency = <125000000>;
-> +			clock-output-names = "clk_rg1refck";
-> +		};
-> +
-> +		/* external clock signal rg2refck, supplied by the phy */
-> +		clk_rg2refck: clk_rg2refck {
-> +			compatible = "fixed-clock";
-> +			#clock-cells = <0>;
-> +			clock-frequency = <125000000>;
-> +			clock-output-names = "clk_rg2refck";
-> +		};
-> +
-> +		clk_xin: clk_xin {
-> +			compatible = "fixed-clock";
-> +			#clock-cells = <0>;
-> +			clock-frequency = <50000000>;
-> +			clock-output-names = "clk_xin";
-> +		};
-
-These 3 clocks are not part of the bus, so move to top level.
-
-> +	};
-> +
-> +	ahb {
-> +		#address-cells = <1>;
-> +		#size-cells = <1>;
-> +		compatible = "simple-bus";
-> +		interrupt-parent = <&gic>;
-> +		ranges = <0x80000000 0x80000000 0x20000000 /* AHB18 */
-> +			0xa0000000 0xa0000000 0x28000000 /* AHB3  */
-> +			0xe0000000 0xe0000000 0x10000000 /* AHB14 */
-> +			0xf0000000 0xf0000000 0x00800000 /* AHB1  */
-> +			0xf0800000 0xf0800000 0x00800000 /* AHB8  */
-> +			0xf8000000 0xf8000000 0x04000000  /* AHB18 - cont */
-> +			0xfffd0000 0xfffd0000 0x00040000>;   /* RAM2 */
-> +
-> +		gic: interrupt-controller@f03ff000 {
-> +			compatible = "arm,cortex-a9-gic";
-> +			interrupt-controller;
-> +			#interrupt-cells = <3>;
-> +			reg = <0xf03ff000 0x1000>,
-> +			    <0xf03fe100 0x100>;
-> +		};
-> +
-> +		gcr: gcr@f0800000 {
-> +			#address-cells = <1>;
-> +			#size-cells = <1>;
-> +			compatible = "nuvoton,npcm750-gcr", "syscon",
-> +				"simple-mfd";
-> +			reg = <0xf0800000 0x1000>;
-> +		};
-> +
-> +		scu: scu@f03fe000 {
-> +			#address-cells = <1>;
-> +			#size-cells = <1>;
-> +			compatible = "arm,cortex-a9-scu";
-> +			reg = <0xf03fe000 0x1000>;
-> +		};
-> +
-> +		clk_rst: clk_rst@f0801000 {
-
-Don't use '_' in node or property names.
-
-Build your dtb with W=2 and fix any warnings.
-
-> +			#address-cells = <1>;
-> +			#size-cells = <1>;
-> +			compatible = "nuvoton,npcm750-clk_rst", "syscon",
-> +				"simple-mfd";
-> +			reg = <0xF0801000 0x1000>;
-> +		};
-> +
-> +		twd: timer@f03fe600 {
-> +			compatible = "arm,cortex-a9-twd-timer";
-> +			reg = <0xf03fe600 0x20>;
-> +			interrupts = <1 13 0x304>;
-> +		};
-> +	};
-> +
-> +	apb {
-> +		#address-cells = <1>;
-> +		#size-cells = <1>;
-> +		compatible = "simple-bus";
-> +		interrupt-parent = <&gic>;
-> +		ranges = <0xf0000000 0xf0000000 0x00080000
-> +			0xf0080000 0xf0080000 0x00080000
-
-You have overlapping addresses at least in the ranges. Make sure you 
-don't actually have any regions overlapping.
-
-It looks like you don't really need this entry.
-
-> +			0xf0100000 0xf0100000 0x00080000
-> +			0xf0180000 0xf0180000 0x00080000
-> +			0xf0200000 0xf0200000 0x00600000>;
-> +
-> +		timer0: timer@f0000000 {
-> +			compatible = "nuvoton,npcm750-timer";
-> +			interrupts = <0 32 4>;
-> +			clocks = <&clk NPCM7XX_CLK_TIMER>;
-> +			clock-names = "clk_timer";
-
--names is pointless when there is only 1.
-
-> +		};
-> +
-> +		watchdog0: watchdog@f0008000 {
-> +			compatible = "nuvoton,npcm750-wdt";
-> +			interrupts = <0 47 4>;
-> +			reg = <0xf0008000 0x1000>;
-> +			status = "disabled";
-> +			clocks = <&clk NPCM7XX_CLK_TIMER>;
-> +			clock-names = "clk_timer";
-> +		};
-> +
-> +		watchdog1: watchdog@f0009000 {
-> +			compatible = "nuvoton,npcm750-wdt";
-> +			interrupts = <0 48 4>;
-> +			reg = <0xf0009000 0x1000>;
-> +			status = "disabled";
-> +			clocks = <&clk NPCM7XX_CLK_TIMER>;
-> +			clock-names = "clk_timer";
-> +		};
-> +
-> +		watchdog2: watchdog@f000a000 {
-> +			compatible = "nuvoton,npcm750-wdt";
-> +			interrupts = <0 49 4>;
-> +			reg = <0xf000a000 0x1000>;
-> +			status = "disabled";
-> +			clocks = <&clk NPCM7XX_CLK_TIMER>;
-> +			clock-names = "clk_timer";
-> +		};
-> +
-> +		uart0: uart0@f0001000 {
-> +			compatible = "nuvoton,npcm750-uart";
-> +			reg = <0xf0001000 0x1000>;
-> +			clocks = <&clk NPCM7XX_CLK_UART_CORE>;
-> +			clock-names = "clk_uart";
-> +			interrupts = <0 2 4>;
-> +			status = "disabled";
-> +		};
-> +
-> +		uart1: uart1@f0002000 {
-> +			compatible = "nuvoton,npcm750-uart";
-> +			reg = <0xf0002000 0x1000>;
-> +			clocks = <&clk NPCM7XX_CLK_UART_CORE>;
-> +			clock-names = "clk_uart";
-> +			interrupts = <0 3 4>;
-> +			status = "disabled";
-> +		};
-> +
-> +		uart2: uart2@f0003000 {
-> +			compatible = "nuvoton,npcm750-uart";
-> +			reg = <0xf0003000 0x1000>;
-> +			clocks = <&clk NPCM7XX_CLK_UART_CORE>;
-> +			clock-names = "clk_uart";
-> +			interrupts = <0 4 4>;
-> +			status = "disabled";
-> +		};
-> +
-> +		uart3: uart3@f0004000 {
-> +			compatible = "nuvoton,npcm750-uart";
-> +			reg = <0xf0004000 0x1000>;
-> +			clocks = <&clk NPCM7XX_CLK_UART_CORE>;
-> +			clock-names = "clk_uart";
-> +			interrupts = <0 5 4>;
-> +			status = "disabled";
-> +		};
-> +	};
-> +};
-> diff --git a/include/dt-bindings/clock/nuvoton,npcm7xx-clks.h b/include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
-> new file mode 100644
-> index 000000000000..c69d3bbf7e42
-> --- /dev/null
-> +++ b/include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
-> @@ -0,0 +1,39 @@
-> +/*
-> + * Copyright (C) 2016 Nuvoton Technologies,  tali.perry@nuvoton.com
-> + *
-> + * This software is licensed under the terms of the GNU General Public
-> + * License version 2, as published by the Free Software Foundation, and
-> + * may be copied, distributed, and modified under those terms.
-> + */
-> +
-> +#ifndef _DT_BINDINGS_CLK_NPCM7XX_H
-> +#define _DT_BINDINGS_CLK_NPCM7XX_H
-> +
-> +#define NPCM7XX_CLK_PLL0	0
-> +#define NPCM7XX_CLK_PLL1	1
-> +#define NPCM7XX_CLK_PLL2	2
-> +#define NPCM7XX_CLK_GFX		3
-> +#define NPCM7XX_CLK_APB1	4
-> +#define NPCM7XX_CLK_APB2	5
-> +#define NPCM7XX_CLK_APB3	6
-> +#define NPCM7XX_CLK_APB4	7
-> +#define NPCM7XX_CLK_APB5	8
-> +#define NPCM7XX_CLK_MC		9
-> +#define NPCM7XX_CLK_CPU		10
-> +#define NPCM7XX_CLK_SPI0	11
-> +#define NPCM7XX_CLK_SPI3	12
-> +#define NPCM7XX_CLK_SPIX	13
-> +#define NPCM7XX_CLK_UART_CORE	14
-> +#define NPCM7XX_CLK_TIMER	15
-> +#define NPCM7XX_CLK_HOST_UART	16
-> +#define NPCM7XX_CLK_MMC		17
-> +#define NPCM7XX_CLK_SDHC	18
-> +#define NPCM7XX_CLK_ADC		19
-> +#define NPCM7XX_CLK_GFX_MEM	20
-> +#define NPCM7XX_CLK_USB_BRIDGE	21
-> +#define NPCM7XX_CLK_AXI		22
-> +#define NPCM7XX_CLK_AHB		23
-> +#define NPCM7XX_CLK_EMC		24
-> +#define NPCM7XX_CLK_GMAC	25
-> +
-> +#endif
-> -- 
-> 2.14.1.480.gb18f417b89-goog
-> 
+Andrew
