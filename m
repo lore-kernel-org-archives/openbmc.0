@@ -1,38 +1,61 @@
-Return-Path: <clg@kaod.org>
-Received: from 1.mo178.mail-out.ovh.net (1.mo178.mail-out.ovh.net
- [178.33.251.53])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <linus.walleij@linaro.org>
+Received: from mail-oi0-x229.google.com (mail-oi0-x229.google.com
+ [IPv6:2607:f8b0:4003:c06::229])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xdvBl3Y8xzDrTh
- for <openbmc@lists.ozlabs.org>; Fri, 25 Aug 2017 18:16:30 +1000 (AEST)
-Received: from player715.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo178.mail-out.ovh.net (Postfix) with ESMTP id 8CE2B510EE
- for <openbmc@lists.ozlabs.org>; Fri, 25 Aug 2017 09:40:40 +0200 (CEST)
-Received: from zorba.kaod.org (i15-les03-th2-31-37-69-229.sfr.lns.abo.bbox.fr
- [31.37.69.229]) (Authenticated sender: postmaster@kaod.org)
- by player715.ha.ovh.net (Postfix) with ESMTPSA id 15F951C009F;
- Fri, 25 Aug 2017 09:40:32 +0200 (CEST)
-Subject: Re: [PATCH linux dev-4.10 2/5] leds: gpio: Allow LED to retain state
- at shutdown
-To: Andrew Jeffery <andrew@aj.id.au>, joel@jms.id.au
-Cc: vishwa@linux.vnet.ibm.com, bjwyman@gmail.com, geissonator@gmail.com,
- eajames@linux.vnet.ibm.com, openbmc@lists.ozlabs.org
-References: <20170825065244.488-1-andrew@aj.id.au>
- <20170825065244.488-3-andrew@aj.id.au>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <38dac127-c8ac-739b-82ba-806d36355cb9@kaod.org>
-Date: Fri, 25 Aug 2017 09:40:32 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.2.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xdvYZ0LG2zDrSb
+ for <openbmc@lists.ozlabs.org>; Fri, 25 Aug 2017 18:32:49 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=linaro.org header.i=@linaro.org header.b="hV5geJQj"; 
+ dkim-atps=neutral
+Received: by mail-oi0-x229.google.com with SMTP id j144so15459602oib.1
+ for <openbmc@lists.ozlabs.org>; Fri, 25 Aug 2017 01:32:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=ac/PLIdHhlHrBhmjVL8NcT/6PvvWTLDaNYk9g9UKxxo=;
+ b=hV5geJQjrdbQBvnQ+ma/SAKp1rBb56YdgsgMqrhw6pyeLExZ3Sc9ZC9a19wa1YdQMG
+ OrFMwy6yd4eBKS63I5fs76/JkfWgl41Xxrx7N/ez43A+YKiKSj5NSNSOkSaF7yXH0Vyc
+ pN7zmrzMZf4McnCaHr7HUhYChFCmwdMvZnfhs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=ac/PLIdHhlHrBhmjVL8NcT/6PvvWTLDaNYk9g9UKxxo=;
+ b=eEKtjrzx9h9nml3xtNS4hQF4mXg4oOwdesCdtMZxU5Ti8JV7BHhYsRLo8NQncK78nR
+ x6fGx9ChLvN7bfT9JvkhyD25wpc/tt1WgDEM4W+MMd63s5eG80yHoWH4sD3LMR7UkDP7
+ qWwtI5/tpmuLFuh63XHVhtltgjsez33wwVkdd3fRj/3UGMydbnMFRG+63rj8oavu02Jp
+ v1iH9m/s9AcvweTpw1JB/bBNZxEDl4FR3q98dfuJ4ZzngvNP5r3KSl74YovlnvcyFLQ+
+ AhX6gFGD38ry4pOA4krK+J15s59AtSfLI5eC4DgvuQuw8fUN/ERD/B/LIXgthJYVZ+gC
+ ODqw==
+X-Gm-Message-State: AHYfb5gu1chQXVBx/pe8wcJMa/WREog4fdfLEIh8n0Z5rB/IVM6NwB3O
+ 65saDs3Azu5LTypL0GKpMPw5Cdsy/YNd
+X-Received: by 10.202.102.199 with SMTP id m68mr11023300oik.297.1503649965192; 
+ Fri, 25 Aug 2017 01:32:45 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20170825065244.488-3-andrew@aj.id.au>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Ovh-Tracer-Id: 15309705459661114114
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelledrtdehgddufedvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+Received: by 10.157.58.74 with HTTP; Fri, 25 Aug 2017 01:32:44 -0700 (PDT)
+In-Reply-To: <CAPLgG==Jj=Ys=SvhOCspSfunbWnuqPySvW9RfuqE8HYnG4C=ZQ@mail.gmail.com>
+References: <1503418256-5215-1-git-send-email-oleksandrs@mellanox.com>
+ <CACRpkdZePXyo8Q36mBH7OnJU3E=yWPWSGkGUOH=zJFMjM=Yrhw@mail.gmail.com>
+ <CAPLgG==Jj=Ys=SvhOCspSfunbWnuqPySvW9RfuqE8HYnG4C=ZQ@mail.gmail.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Fri, 25 Aug 2017 10:32:44 +0200
+Message-ID: <CACRpkdbozWaL0RXyZXjzxYK3JHiqYziSkTGSgGORdptX-rwR8A@mail.gmail.com>
+Subject: Re: [patch v6 0/3] JTAG driver introduction
+To: Rick Altherr <raltherr@google.com>
+Cc: Oleksandr Shamray <oleksandrs@mellanox.com>, 
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ =?UTF-8?B?SmnFmcOtIFDDrXJrbw==?= <jiri@resnulli.us>, 
+ Arnd Bergmann <arnd@arndb.de>, system-sw-low-level@mellanox.com, 
+ Greg KH <gregkh@linuxfoundation.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ openocd-devel-owner@lists.sourceforge.net, 
+ mec@shout.net, Rob Herring <robh+dt@kernel.org>, 
+ "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
+ vadimp@maellanox.com, Tobias Klauser <tklauser@distanz.ch>, 
+ "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>, 
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -44,76 +67,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 25 Aug 2017 08:16:31 -0000
+X-List-Received-Date: Fri, 25 Aug 2017 08:32:51 -0000
 
-On 08/25/2017 08:52 AM, Andrew Jeffery wrote:
-> In some systems, such as BMCs, we want to retain the state of LEDs
-> across a reboot of the BMC whilst the host remains up.
-> 
-> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> ---
->  drivers/leds/leds-gpio.c | 7 ++++++-
->  include/linux/leds.h     | 3 +++
->  2 files changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/leds/leds-gpio.c b/drivers/leds/leds-gpio.c
-> index d400dcaf4d29..061ab9220048 100644
-> --- a/drivers/leds/leds-gpio.c
-> +++ b/drivers/leds/leds-gpio.c
-> @@ -134,6 +134,8 @@ static int create_gpio_led(const struct gpio_led *template,
->  		led_dat->cdev.flags |= LED_CORE_SUSPENDRESUME;
->  	if (template->panic_indicator)
->  		led_dat->cdev.flags |= LED_PANIC_INDICATOR;
-> +	if (template->retain_state_shutdown)
-> +		led_dat->cdev.flags |= LED_RETAIN_AT_SHUTDOWN;
->  
->  	ret = gpiod_direction_output(led_dat->gpiod, state);
->  	if (ret < 0)
-> @@ -203,6 +205,8 @@ static struct gpio_leds_priv *gpio_leds_create(struct platform_device *pdev)
->  
->  		if (fwnode_property_present(child, "retain-state-suspended"))
->  			led.retain_state_suspended = 1;
-> +		if (fwnode_property_present(child, "retain-state-shutdown"))
-> +			led.retain_state_shutdown = 1;
->  		if (fwnode_property_present(child, "panic-indicator"))
->  			led.panic_indicator = 1;
->  
-> @@ -265,7 +269,8 @@ static void gpio_led_shutdown(struct platform_device *pdev)
->  	for (i = 0; i < priv->num_leds; i++) {
->  		struct gpio_led_data *led = &priv->leds[i];
->  
-> -		gpio_led_set(&led->cdev, LED_OFF);
-> +		if (!(led->cdev.flags & LED_RETAIN_AT_SHUTDOWN))
-> +			gpio_led_set(&led->cdev, LED_OFF);
->  	}
->  }
->  
-> diff --git a/include/linux/leds.h b/include/linux/leds.h
-> index 569cb531094c..4d39f767f34a 100644
-> --- a/include/linux/leds.h
-> +++ b/include/linux/leds.h
-> @@ -46,6 +46,8 @@ struct led_classdev {
->  #define LED_DEV_CAP_FLASH	(1 << 18)
->  #define LED_HW_PLUGGABLE	(1 << 19)
->  #define LED_PANIC_INDICATOR	(1 << 20)
-> +#define LED_BRIGHT_HW_CHANGED	(1 << 21)
+On Thu, Aug 24, 2017 at 11:37 PM, Rick Altherr <raltherr@google.com> wrote:
+> On Thu, Aug 24, 2017 at 2:07 PM, Linus Walleij <linus.walleij@linaro.org> wrote:
+>> On Tue, Aug 22, 2017 at 6:10 PM, Oleksandr Shamray
+>> <oleksandrs@mellanox.com> wrote:
+>>
+>>> SoC which are not equipped with JTAG master interface, can be built
+>>> on top of JTAG core driver infrastructure, by applying bit-banging of
+>>> TDI, TDO, TCK and TMS pins within the hardware specific driver.
+>>
+>> I guess you mean it should then use GPIO lines for bit-banging?
+>>
+>> I was wondering about how some JTAG clients like openOCD does
+>> this in some cases.
+>
+> Many common uses of OpenOCD leverage USB devices, such as FTDI FT232R,
+> that have a command queue for bitbanging operations.  Managing these
+> via libusb is ugly but platform-agnostic.
 
-where does this come from ? is it used ?
+Incidentally, people are sending patches to expose the FTDI
+expanders as common GPIO chips under Linux, so we can
+internally in the kernel or from the usersapce character device
+access them as "some GPIOs".
 
-Thanks,
+>> In my worst nightmare they export GPIO lines using
+>> the horrid ABI in /sys/gpio/*
+>
+> https://sourceforge.net/p/openocd/code/ci/v0.10.0/tree/src/jtag/drivers/sysfsgpio.c
 
-C.
+Gnah!
+Whoever writes a slot-in replacement making the character device
+take precendence wins lots of karma.
 
-> +#define LED_RETAIN_AT_SHUTDOWN	(1 << 22)
->  
->  	/* set_brightness_work / blink_timer flags, atomic, private. */
->  	unsigned long		work_flags;
-> @@ -378,6 +380,7 @@ struct gpio_led {
->  	unsigned	retain_state_suspended : 1;
->  	unsigned	panic_indicator : 1;
->  	unsigned	default_state : 2;
-> +	unsigned	retain_state_shutdown : 1;
->  	/* default_state should be one of LEDS_GPIO_DEFSTATE_(ON|OFF|KEEP) */
->  	struct gpio_desc *gpiod;
->  };
-> 
+> While that is certainly horrible (and slow), mapping in the GPIO
+> registers via /dev/mem strikes me as worse:
+>
+> https://sourceforge.net/p/openocd/code/ci/v0.10.0/tree/src/jtag/drivers/bcm2835gpio.c
+
+Yeah that is quite horrible.
+
+There were reasons to do things like that, but since we have
+developed .set_multiple() to hammer several lines in a register
+at once, the same efficiency can be achieved using the standard
+character device.
+
+Yours,
+Linus Walleij
