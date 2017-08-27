@@ -1,31 +1,31 @@
 Return-Path: <clg@kaod.org>
-Received: from 13.mo6.mail-out.ovh.net (13.mo6.mail-out.ovh.net
- [188.165.56.124])
+Received: from 15.mo6.mail-out.ovh.net (15.mo6.mail-out.ovh.net
+ [188.165.39.161])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xgLmP4B7kzDqMh
- for <openbmc@lists.ozlabs.org>; Mon, 28 Aug 2017 03:02:12 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xgN5k6hDTzDqG4
+ for <openbmc@lists.ozlabs.org>; Mon, 28 Aug 2017 04:02:18 +1000 (AEST)
 Received: from player787.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo6.mail-out.ovh.net (Postfix) with ESMTP id A4A36103D1F
- for <openbmc@lists.ozlabs.org>; Sun, 27 Aug 2017 18:46:07 +0200 (CEST)
+ by mo6.mail-out.ovh.net (Postfix) with ESMTP id C4E67103D0A
+ for <openbmc@lists.ozlabs.org>; Sun, 27 Aug 2017 18:46:11 +0200 (CEST)
 Received: from zorba.kaod.org (LFbn-1-2231-173.w90-76.abo.wanadoo.fr
  [90.76.52.173]) (Authenticated sender: clg@kaod.org)
- by player787.ha.ovh.net (Postfix) with ESMTPSA id 7D490600072;
- Sun, 27 Aug 2017 18:46:03 +0200 (CEST)
+ by player787.ha.ovh.net (Postfix) with ESMTPSA id A2A32600072;
+ Sun, 27 Aug 2017 18:46:07 +0200 (CEST)
 From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
 To: openbmc@lists.ozlabs.org
 Cc: Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>,
  =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-Subject: [PATCH linux dev-4.10 1/2] leds: pca955x: sync with mainline driver
-Date: Sun, 27 Aug 2017 18:45:45 +0200
-Message-Id: <20170827164546.22903-2-clg@kaod.org>
+Subject: [PATCH linux dev-4.10 2/2] leds: pca955x: check for I2C errors
+Date: Sun, 27 Aug 2017 18:45:46 +0200
+Message-Id: <20170827164546.22903-3-clg@kaod.org>
 X-Mailer: git-send-email 2.13.5
 In-Reply-To: <20170827164546.22903-1-clg@kaod.org>
 References: <20170827164546.22903-1-clg@kaod.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 17820462253373557506
+X-Ovh-Tracer-Id: 17821588154200394498
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
 X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelledruddtgddutdekucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
@@ -40,116 +40,214 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 27 Aug 2017 17:02:13 -0000
+X-List-Received-Date: Sun, 27 Aug 2017 18:02:19 -0000
 
-The result should be in sync with kernel 4.14 once the gpio extension
-is merged in the pca955x driver.
+This should also allow probing to fail when a pca955x chip is not
+found on a I2C bus.
 
 Signed-off-by: Cédric Le Goater <clg@kaod.org>
 ---
- drivers/leds/leds-pca955x.c | 49 ++++++++++++++++++---------------------------
- 1 file changed, 19 insertions(+), 30 deletions(-)
+ drivers/leds/leds-pca955x.c | 93 +++++++++++++++++++++++++++++++++++----------
+ 1 file changed, 72 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/leds/leds-pca955x.c b/drivers/leds/leds-pca955x.c
-index 0217bac2f47b..f062d1e7640f 100644
+index f062d1e7640f..5f12d55550a4 100644
 --- a/drivers/leds/leds-pca955x.c
 +++ b/drivers/leds/leds-pca955x.c
-@@ -342,7 +342,8 @@ pca955x_pdata_of_init(struct i2c_client *client, struct pca955x_chipdef *chip)
- 		return ERR_PTR(-ENOMEM);
+@@ -165,13 +165,18 @@ static inline u8 pca955x_ledsel(u8 oldval, int led_num, int state)
+  * Write to frequency prescaler register, used to program the
+  * period of the PWM output.  period = (PSCx + 1) / 38
+  */
+-static void pca955x_write_psc(struct i2c_client *client, int n, u8 val)
++static int pca955x_write_psc(struct i2c_client *client, int n, u8 val)
+ {
+ 	struct pca955x *pca955x = i2c_get_clientdata(client);
++	int ret;
  
- 	pdata->leds = devm_kzalloc(&client->dev,
--			   sizeof(struct pca955x_led) * chip->bits, GFP_KERNEL);
-+				   sizeof(struct pca955x_led) * chip->bits,
-+				   GFP_KERNEL);
- 	if (!pdata->leds)
- 		return ERR_PTR(-ENOMEM);
+-	i2c_smbus_write_byte_data(client,
++	ret = i2c_smbus_write_byte_data(client,
+ 		pca95xx_num_input_regs(pca955x->chipdef->bits) + 2*n,
+ 		val);
++	if (ret < 0)
++		dev_err(&client->dev, "%s: reg 0x%x, val 0x%x, err %d\n",
++			__func__, n, val, ret);
++	return ret;
+ }
  
-@@ -430,16 +431,14 @@ static int pca955x_probe(struct i2c_client *client,
- 			"slave address 0x%02x\n",
- 			client->name, chip->bits, client->addr);
+ /*
+@@ -181,38 +186,57 @@ static void pca955x_write_psc(struct i2c_client *client, int n, u8 val)
+  *
+  * Duty cycle is (256 - PWMx) / 256
+  */
+-static void pca955x_write_pwm(struct i2c_client *client, int n, u8 val)
++static int pca955x_write_pwm(struct i2c_client *client, int n, u8 val)
+ {
+ 	struct pca955x *pca955x = i2c_get_clientdata(client);
++	int ret;
  
--	if (!i2c_check_functionality(adapter, I2C_FUNC_I2C))
-+	if (!i2c_check_functionality(adapter, I2C_FUNC_SMBUS_BYTE_DATA))
- 		return -EIO;
+-	i2c_smbus_write_byte_data(client,
++	ret = i2c_smbus_write_byte_data(client,
+ 		pca95xx_num_input_regs(pca955x->chipdef->bits) + 1 + 2*n,
+ 		val);
++	if (ret < 0)
++		dev_err(&client->dev, "%s: reg 0x%x, val 0x%x, err %d\n",
++			__func__, n, val, ret);
++	return ret;
+ }
  
--	if (pdata) {
--		if (pdata->num_leds != chip->bits) {
--			dev_err(&client->dev, "board info claims %d LEDs"
--					" on a %d-bit chip\n",
--					pdata->num_leds, chip->bits);
--			return -ENODEV;
--		}
-+	if (pdata->num_leds != chip->bits) {
-+		dev_err(&client->dev,
-+			"board info claims %d LEDs on a %d-bit chip\n",
-+			pdata->num_leds, chip->bits);
-+		return -ENODEV;
++
+ /*
+  * Write to LED selector register, which determines the source that
+  * drives the LED output.
+  */
+-static void pca955x_write_ls(struct i2c_client *client, int n, u8 val)
++static int pca955x_write_ls(struct i2c_client *client, int n, u8 val)
+ {
+ 	struct pca955x *pca955x = i2c_get_clientdata(client);
++	int ret;
+ 
+-	i2c_smbus_write_byte_data(client,
++	ret = i2c_smbus_write_byte_data(client,
+ 		pca95xx_num_input_regs(pca955x->chipdef->bits) + 4 + n,
+ 		val);
++	if (ret < 0)
++		dev_err(&client->dev, "%s: reg 0x%x, val 0x%x, err %d\n",
++			__func__, n, val, ret);
++	return ret;
+ }
+ 
+ /*
+  * Read the LED selector register, which determines the source that
+  * drives the LED output.
+  */
+-static u8 pca955x_read_ls(struct i2c_client *client, int n)
++static int pca955x_read_ls(struct i2c_client *client, int n, u8 *val)
+ {
+ 	struct pca955x *pca955x = i2c_get_clientdata(client);
++	int ret;
+ 
+-	return (u8) i2c_smbus_read_byte_data(client,
++	ret = i2c_smbus_read_byte_data(client,
+ 		pca95xx_num_input_regs(pca955x->chipdef->bits) + 4 + n);
++	if (ret < 0) {
++		dev_err(&client->dev, "%s: reg 0x%x, err %d\n",
++			__func__, n, ret);
++		return ret;
++	}
++	*val = (u8) ret;
++	return 0;
+ }
+ 
+ static int pca955x_led_set(struct led_classdev *led_cdev,
+@@ -223,6 +247,7 @@ static int pca955x_led_set(struct led_classdev *led_cdev,
+ 	u8 ls;
+ 	int chip_ls;	/* which LSx to use (0-3 potentially) */
+ 	int ls_led;	/* which set of bits within LSx to use (0-3) */
++	int ret;
+ 
+ 	pca955x_led = container_of(led_cdev, struct pca955x_led, led_cdev);
+ 	pca955x = pca955x_led->pca955x;
+@@ -232,7 +257,9 @@ static int pca955x_led_set(struct led_classdev *led_cdev,
+ 
+ 	mutex_lock(&pca955x->lock);
+ 
+-	ls = pca955x_read_ls(pca955x->client, chip_ls);
++	ret = pca955x_read_ls(pca955x->client, chip_ls, &ls);
++	if (ret)
++		goto out;
+ 
+ 	switch (value) {
+ 	case LED_FULL:
+@@ -252,26 +279,37 @@ static int pca955x_led_set(struct led_classdev *led_cdev,
+ 		 * OFF, HALF, or FULL.  But, this is probably better than
+ 		 * just turning off for all other values.
+ 		 */
+-		pca955x_write_pwm(pca955x->client, 1,
+-				255 - value);
++		ret = pca955x_write_pwm(pca955x->client, 1, 255 - value);
++		if (ret)
++			goto out;
+ 		ls = pca955x_ledsel(ls, ls_led, PCA955X_LS_BLINK1);
+ 		break;
  	}
  
- 	pca955x = devm_kzalloc(&client->dev, sizeof(*pca955x), GFP_KERNEL);
-@@ -458,12 +457,10 @@ static int pca955x_probe(struct i2c_client *client,
- 	pca955x->chipdef = chip;
+-	pca955x_write_ls(pca955x->client, chip_ls, ls);
++	ret = pca955x_write_ls(pca955x->client, chip_ls, ls);
  
- 	for (i = 0; i < chip->bits; i++) {
--		struct pca955x_led *pdata_led = &pdata->leds[i];
--
- 		pca955x_led = &pca955x->leds[i];
- 		pca955x_led->led_num = i;
- 		pca955x_led->pca955x = pca955x;
--		pca955x_led->type = pdata_led->type;
-+		pca955x_led->type = pdata->leds[i].type;
++out:
+ 	mutex_unlock(&pca955x->lock);
  
- 		switch (pca955x_led->type) {
- 		case PCA955X_TYPE_NONE:
-@@ -476,27 +473,20 @@ static int pca955x_probe(struct i2c_client *client,
- 			 * Platform data can specify LED names and
- 			 * default triggers
- 			 */
--			if (pdata) {
--				if (pdata->leds[i].name)
--					snprintf(pca955x_led->name,
--						 sizeof(pca955x_led->name),
--						 "pca955x:%s",
--						 pdata->leds[i].name);
--				if (pdata->leds[i].default_trigger)
--					pca955x_led->led_cdev.default_trigger =
--						pdata->leds[i].default_trigger;
--			} else {
-+			if (pdata->leds[i].name)
- 				snprintf(pca955x_led->name,
--					 sizeof(pca955x_led->name),
--					 "pca955x:%d", i);
--			}
-+					sizeof(pca955x_led->name), "pca955x:%s",
-+					pdata->leds[i].name);
-+			if (pdata->leds[i].default_trigger)
-+				pca955x_led->led_cdev.default_trigger =
-+					pdata->leds[i].default_trigger;
+-	return 0;
++	return ret;
+ }
  
- 			pca955x_led->led_cdev.name = pca955x_led->name;
- 			pca955x_led->led_cdev.brightness_set_blocking =
- 				pca955x_led_set;
+ #ifdef CONFIG_LEDS_PCA955X_GPIO
+ /*
+  * Read the INPUT register, which contains the state of LEDs.
+  */
+-static u8 pca955x_read_input(struct i2c_client *client, int n)
++static int pca955x_read_input(struct i2c_client *client, int n, u8 *val)
+ {
+-	return (u8)i2c_smbus_read_byte_data(client, n);
++	int ret = i2c_smbus_read_byte_data(client, n);
++
++	if (ret < 0) {
++		dev_err(&client->dev, "%s: reg 0x%x, err %d\n",
++			__func__, n, ret);
++		return ret;
++	}
++	*val = (u8) ret;
++	return 0;
++
+ }
  
- 			err = devm_led_classdev_register(&client->dev,
--						 &pca955x_led->led_cdev);
-+							&pca955x_led->led_cdev);
- 			if (err)
+ static int pca955x_gpio_request_pin(struct gpio_chip *gc, unsigned int offset)
+@@ -301,7 +339,10 @@ static int pca955x_gpio_get_value(struct gpio_chip *gc, unsigned int offset)
+ {
+ 	struct pca955x *pca955x = gpiochip_get_data(gc);
+ 	struct pca955x_led *led = &pca955x->leds[offset];
+-	u8 reg = pca955x_read_input(pca955x->client, led->led_num / 8);
++	u8 reg = 0;
++
++	/* There is nothing we can do about errors */
++	pca955x_read_input(pca955x->client, led->led_num / 8, &reg);
+ 
+ 	return !!(reg & (1 << (led->led_num % 8)));
+ }
+@@ -491,19 +532,29 @@ static int pca955x_probe(struct i2c_client *client,
  				return err;
  
-@@ -536,11 +526,10 @@ static int pca955x_probe(struct i2c_client *client,
- 			pca955x->gpio.parent = NULL;
- 			dev_warn(&client->dev, "could not add gpiochip\n");
- 			return err;
--		} else {
--			dev_info(&client->dev, "gpios %i...%i\n",
--				 pca955x->gpio.base, pca955x->gpio.base +
--				 pca955x->gpio.ngpio - 1);
+ 			/* Turn off LED */
+-			pca955x_led_set(&pca955x_led->led_cdev, LED_OFF);
++			err = pca955x_led_set(&pca955x_led->led_cdev, LED_OFF);
++			if (err)
++				return err;
  		}
-+		dev_info(&client->dev, "gpios %i...%i\n",
-+			 pca955x->gpio.base, pca955x->gpio.base +
-+			 pca955x->gpio.ngpio - 1);
  	}
- #endif
  
+ 	/* PWM0 is used for half brightness or 50% duty cycle */
+-	pca955x_write_pwm(client, 0, 255-LED_HALF);
++	err = pca955x_write_pwm(client, 0, 255-LED_HALF);
++	if (err)
++		return err;
+ 
+ 	/* PWM1 is used for variable brightness, default to OFF */
+-	pca955x_write_pwm(client, 1, 0);
++	err = pca955x_write_pwm(client, 1, 0);
++	if (err)
++		return err;
+ 
+ 	/* Set to fast frequency so we do not see flashing */
+-	pca955x_write_psc(client, 0, 0);
+-	pca955x_write_psc(client, 1, 0);
++	err = pca955x_write_psc(client, 0, 0);
++	if (err)
++		return err;
++	err = pca955x_write_psc(client, 1, 0);
++	if (err)
++		return err;
+ 
+ #ifdef CONFIG_LEDS_PCA955X_GPIO
+ 	if (ngpios) {
 -- 
 2.13.5
