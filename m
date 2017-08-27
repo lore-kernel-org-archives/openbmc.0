@@ -1,48 +1,38 @@
-Return-Path: <geissonator@gmail.com>
-Received: from mail-it0-x232.google.com (mail-it0-x232.google.com
- [IPv6:2607:f8b0:4001:c0b::232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <clg@kaod.org>
+Received: from 19.mo6.mail-out.ovh.net (19.mo6.mail-out.ovh.net
+ [188.165.56.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xfpbD5GCFzDqXy
- for <openbmc@lists.ozlabs.org>; Sun, 27 Aug 2017 05:52:24 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="XEhawBje"; 
- dkim-atps=neutral
-Received: by mail-it0-x232.google.com with SMTP id n5so11183881itb.1
- for <openbmc@lists.ozlabs.org>; Sat, 26 Aug 2017 12:52:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=ZC1RzIT00I4QakB0vaX5xdoAKBs0vYQHuljxCtg1qM4=;
- b=XEhawBjecOXVqJXjC19vEWvcD+U48zNw+nN21I6teC/UYIZXhIjpdAf/0SJM1jAfMq
- UzVbo6JCUYdAcDyESLALo9MAtRDcN6tsrQvg2Eg27oCeu/Sk5ypyN4+dZTJSRh6ziVUD
- Tk1EryppPT1cTb9MX0CKLF5RzUxLxFqiLzC4XCiBDPjamrlBRhm8oQawRqrcg8H7ViLW
- Jiyjo3RWKO1cjCcRMT6U/slRqD66ACL/01m2IYmu1SCqPnM2ftwMU8in8wGMXtPjP3eZ
- ANkieeuGBnPeLOKTtsRjZ0D45qDvBQK1N7+QqqEVxCM0Tey3XC6HwMwq/VgVZkrtZ2C/
- Q2Tg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=ZC1RzIT00I4QakB0vaX5xdoAKBs0vYQHuljxCtg1qM4=;
- b=NqcYAqLAgZT07/yf4nmeILBtd0UFWlvEvM8THuq5jHhaiEJmOhO7viC6rGIQOfvoqV
- kTZD6IP+mzjj9GoSn65FofFw/rhsQmGX4dO8gS40fWgU5PdoFoVQue0+1b5HctYlADAc
- XWO9E330AueB8yJFCkx5KYIdw0o1obwIChU7gRh5nK2v1IHdnC5ZIYYa0zgDl8K+ZpPq
- oGFGJJfK7xBXIoMeIs3EicJWr2VqQN4hmC+Y81FJDh96GRVPzWIUsaDQ9m9GB9aQpVfR
- gJO2A0p4GoLP89rhXc/N8ydWQWAc3sbt6q1JuV7Ecr5FSoWOkDWtShBA5gxqMWYSx9I8
- iP8A==
-X-Gm-Message-State: AHYfb5gUSgAJnEsbP6NaamhP4THMJl1FXhNsyZK9HdW5U/VUsMo9xdmL
- 4KKQELfjNfHf1ZsLZU+NIC5ypFa6AQ==
-X-Received: by 10.36.91.21 with SMTP id g21mr2059957itb.73.1503777142448; Sat,
- 26 Aug 2017 12:52:22 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xg5vF1z7RzDqg5
+ for <openbmc@lists.ozlabs.org>; Sun, 27 Aug 2017 17:22:15 +1000 (AEST)
+Received: from player787.ha.ovh.net (b9.ovh.net [213.186.33.59])
+ by mo6.mail-out.ovh.net (Postfix) with ESMTP id 3402F1038C2
+ for <openbmc@lists.ozlabs.org>; Sun, 27 Aug 2017 09:03:36 +0200 (CEST)
+Received: from zorba.kaod.org (LFbn-1-2231-173.w90-76.abo.wanadoo.fr
+ [90.76.52.173]) (Authenticated sender: postmaster@kaod.org)
+ by player787.ha.ovh.net (Postfix) with ESMTPSA id 121F1600076;
+ Sun, 27 Aug 2017 09:03:30 +0200 (CEST)
+Subject: Re: [PATCH linux dev-4.10 3/5] leds: pca955x: Don't invert requested
+ value in pca955x_gpio_set_value()
+To: Andrew Jeffery <andrew@aj.id.au>, joel@jms.id.au
+Cc: vishwa@linux.vnet.ibm.com, bjwyman@gmail.com, geissonator@gmail.com,
+ eajames@linux.vnet.ibm.com, openbmc@lists.ozlabs.org
+References: <20170825065244.488-1-andrew@aj.id.au>
+ <20170825065244.488-4-andrew@aj.id.au>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <503ada3f-cabe-0f73-1907-f1b62470c5ed@kaod.org>
+Date: Sun, 27 Aug 2017 09:03:29 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.2.1
 MIME-Version: 1.0
-Received: by 10.107.182.139 with HTTP; Sat, 26 Aug 2017 12:52:22 -0700 (PDT)
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Sat, 26 Aug 2017 14:52:22 -0500
-Message-ID: <CALLMt=rjGMFrugpQ_Ofzz0ymN7JpM7KpNDn9xffVFmYgR6ChOw@mail.gmail.com>
-Subject: openpower.xyz is down
-To: Jeremy Kerr <jk@ozlabs.org>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@aj.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20170825065244.488-4-andrew@aj.id.au>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 7982630341510138626
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelledrtdelgdejfecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,10 +44,167 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 26 Aug 2017 19:52:25 -0000
+X-List-Received-Date: Sun, 27 Aug 2017 07:22:29 -0000
 
-Hey guys,
+On 08/25/2017 08:52 AM, Andrew Jeffery wrote:
+> The PCA9552 lines can be used either for driving LEDs or as GPIOs. The
+> manual states that for LEDs, the operation is open-drain:
+> 
+>          The LSn LED select registers determine the source of the LED data.
+> 
+>            00 = output is set LOW (LED on)
+>            01 = output is set high-impedance (LED off; default)
+>            10 = output blinks at PWM0 rate
+>            11 = output blinks at PWM1 rate
+> 
+> For GPIOs it suggests a pull-up so that the open-case drives the line
+> high:
+> 
+>          For use as output, connect external pull-up resistor to the pin
+>          and size it according to the DC recommended operating
+>          characteristics.  LED output pin is HIGH when the output is
+>          programmed as high-impedance, and LOW when the output is
+>          programmed LOW through the ‘LED selector’ register.  The output
+>          can be pulse-width controlled when PWM0 or PWM1 are used.
+> 
+> Now, I have a hardware design that uses the LED controller to control
+> LEDs. However, for $reasons, we're using the leds-gpio driver to drive
+> the LEDs which means wending our way through the gpiochip abstractions.
+> So with that in mind we need to describe an active-low GPIO
+> configuration to drive the LEDs as though they were GPIOs.
+> 
+> The set() gpiochip callback in leds-pca955x does the following:
+> 
+>          ...
+>          if (val)
+>                 pca955x_led_set(&led->led_cdev, LED_FULL);
+>          else
+>                 pca955x_led_set(&led->led_cdev, LED_OFF);
+>          ...
+> 
+> Where LED_FULL = 255. pca955x_led_set() in turn does:
+> 
+>          ...
+>          switch (value) {
+>          case LED_FULL:
+>                 ls = pca955x_ledsel(ls, ls_led, PCA955X_LS_LED_ON);
+>                 break;
+>          ...
+> 
+> Where PCA955X_LS_LED_ON is defined as:
+> 
+>          #define PCA955X_LS_LED_ON	0x0	/* Output LOW */
+> 
+> So here we have some type confusion: We've crossed domains from GPIO
+> behaviour to LED behaviour without accounting for possible inversions
+> in the process.
+> 
+> Stepping back to leds-gpio for a moment, during probe() we call
+> create_gpio_led(), which eventually executes:
+> 
+>          if (template->default_state == LEDS_GPIO_DEFSTATE_KEEP) {
+>                 state = gpiod_get_value_cansleep(led_dat->gpiod);
+>                 if (state < 0)
+>                         return state;
+>          } else {
+>                 state = (template->default_state == LEDS_GPIO_DEFSTATE_ON);
+>          }
+>          ...
+>          ret = gpiod_direction_output(led_dat->gpiod, state);
+> 
+> In the devicetree the GPIO is annotated as active-low, and
+> gpiod_get_value_cansleep() handles this for us:
+> 
+>          int gpiod_get_value_cansleep(const struct gpio_desc *desc)
+>          {
+>                  int value;
+> 
+>                  might_sleep_if(extra_checks);
+>                  VALIDATE_DESC(desc);
+>                  value = _gpiod_get_raw_value(desc);
+>                  if (value < 0)
+>                          return value;
+> 
+>                  if (test_bit(FLAG_ACTIVE_LOW, &desc->flags))
+>                          value = !value;
+> 
+>                  return value;
+>          }
+> 
+> _gpiod_get_raw_value() in turn calls through the get() callback for the
+> gpiochip implementation, so returning to our get() implementation in
+> leds-pca955x we find we extract the raw value from hardware:
+> 
+>          static int pca955x_gpio_get_value(struct gpio_chip *gc, unsigned int offset)
+>          {
+>                  struct pca955x *pca955x = gpiochip_get_data(gc);
+>                  struct pca955x_led *led = &pca955x->leds[offset];
+>                  u8 reg = pca955x_read_input(pca955x->client, led->led_num / 8);
+> 
+>                  return !!(reg & (1 << (led->led_num % 8)));
+>          }
+> 
+> This behaviour is not symmetric with that of set(), where the val is
+> inverted by the driver.
+> 
+> Closing the loop on the GPIO_ACTIVE_LOW inversions,
+> gpiod_direction_output(), like gpiod_get_value_cansleep, handles it for
+> us:
+> 
+>          int gpiod_direction_output(struct gpio_desc *desc, int value)
+>          {
+>                   VALIDATE_DESC(desc);
+>                   if (test_bit(FLAG_ACTIVE_LOW, &desc->flags))
+>                            value = !value;
+>                   else
+>                            value = !!value;
+>                   return _gpiod_direction_output_raw(desc, value);
+>          }
+> 
+> All-in-all, with a value of 'keep' for default-state property in the
+> gpio-leds child node, the current state of the hardware will in-fact be
+> inverted; precisely the opposite of what was intended.
+> 
+> Rework leds-pca955x so that we avoid the incorrect inversion and clarify
+> the semantics with respect to GPIO.
 
-Hopefully the jenkins container just needs a reboot.
+I suppose this is correct. Have we made some tests on the pins directly
+driven as GPIOs ? 
 
-Andrew
+Thanks,
+
+C.
+
+> 
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> ---
+>  drivers/leds/leds-pca955x.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/leds/leds-pca955x.c b/drivers/leds/leds-pca955x.c
+> index 0217bac2f47b..a02c1fd5dee9 100644
+> --- a/drivers/leds/leds-pca955x.c
+> +++ b/drivers/leds/leds-pca955x.c
+> @@ -61,6 +61,9 @@
+>  #define PCA955X_LS_BLINK0	0x2	/* Blink at PWM0 rate */
+>  #define PCA955X_LS_BLINK1	0x3	/* Blink at PWM1 rate */
+>  
+> +#define PCA955X_GPIO_HIGH	LED_OFF
+> +#define PCA955X_GPIO_LOW	LED_FULL
+> +
+>  enum pca955x_type {
+>  	pca9550,
+>  	pca9551,
+> @@ -292,9 +295,9 @@ static void pca955x_gpio_set_value(struct gpio_chip *gc, unsigned int offset,
+>  	struct pca955x_led *led = &pca955x->leds[offset];
+>  
+>  	if (val)
+> -		pca955x_led_set(&led->led_cdev, LED_FULL);
+> +		pca955x_led_set(&led->led_cdev, PCA955X_GPIO_HIGH);
+>  	else
+> -		pca955x_led_set(&led->led_cdev, LED_OFF);
+> +		pca955x_led_set(&led->led_cdev, PCA955X_GPIO_LOW);
+>  }
+>  
+>  static int pca955x_gpio_get_value(struct gpio_chip *gc, unsigned int offset)
+> 
