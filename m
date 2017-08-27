@@ -1,34 +1,64 @@
-Return-Path: <clg@kaod.org>
-Received: from 15.mo6.mail-out.ovh.net (15.mo6.mail-out.ovh.net
- [188.165.39.161])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <linus.walleij@linaro.org>
+Received: from mail-oi0-x231.google.com (mail-oi0-x231.google.com
+ [IPv6:2607:f8b0:4003:c06::231])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xgN5k6hDTzDqG4
- for <openbmc@lists.ozlabs.org>; Mon, 28 Aug 2017 04:02:18 +1000 (AEST)
-Received: from player787.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo6.mail-out.ovh.net (Postfix) with ESMTP id C4E67103D0A
- for <openbmc@lists.ozlabs.org>; Sun, 27 Aug 2017 18:46:11 +0200 (CEST)
-Received: from zorba.kaod.org (LFbn-1-2231-173.w90-76.abo.wanadoo.fr
- [90.76.52.173]) (Authenticated sender: clg@kaod.org)
- by player787.ha.ovh.net (Postfix) with ESMTPSA id A2A32600072;
- Sun, 27 Aug 2017 18:46:07 +0200 (CEST)
-From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-To: openbmc@lists.ozlabs.org
-Cc: Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>,
- =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-Subject: [PATCH linux dev-4.10 2/2] leds: pca955x: check for I2C errors
-Date: Sun, 27 Aug 2017 18:45:46 +0200
-Message-Id: <20170827164546.22903-3-clg@kaod.org>
-X-Mailer: git-send-email 2.13.5
-In-Reply-To: <20170827164546.22903-1-clg@kaod.org>
-References: <20170827164546.22903-1-clg@kaod.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xgTxB6DzgzDqYf
+ for <openbmc@lists.ozlabs.org>; Mon, 28 Aug 2017 08:25:17 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=linaro.org header.i=@linaro.org header.b="LtMIiiWY"; 
+ dkim-atps=neutral
+Received: by mail-oi0-x231.google.com with SMTP id r9so32880362oie.3
+ for <openbmc@lists.ozlabs.org>; Sun, 27 Aug 2017 15:25:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=4uaCU5QHrsYxMFoNH/4uVchmvYg0rLt4smSyGFSp8M8=;
+ b=LtMIiiWY4AfKv0gocZtbENZfdnuYmK2o7vsXnMYYY+Td/HiSj//8p3Q8QC1QGAqx9b
+ /T/ui0pDfQgPXRr/Tkri2eexFIqZzTfuSlwinM6BmL4R/F0go46oB5/VC92BtnJEhqlk
+ jrsGw1nABMlVscoAKu37ygXS5/3NY2ap8r4/E=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=4uaCU5QHrsYxMFoNH/4uVchmvYg0rLt4smSyGFSp8M8=;
+ b=DEMegGQhbwClmHDelWOVfyAuFucPuXlmylgVdGbuVhTElM5/ALlcGG13370pacxFyw
+ xEiNtgqcbFyPb5EmI9WavnKhff2lA5pMvk8wVHN9MVk3ut6e3B13XdhOD2a+tDU8WLOQ
+ J0GCNrZ7UTEAfMhMzRXtV0OyNX6xD6xcSdrAT7Q4Lql12kBjsgfIIqSHFxC/MMG6VDE3
+ AcuOqeiy2dYy7L+EbeKI7MlkijqNm42XDkJOWU5FGxZTCc1hljMocfOPYlZ8py6jVBeI
+ 1sHB7a4toXmIdIXCzZKuSpRovrYAo0JI5cE65uSn6s8lUjZbKLdITP9sBQQE2/Q3ls6y
+ A6Qg==
+X-Gm-Message-State: AHYfb5gOoqlwTIfUYY1Ca2xMDttE81zOKs6TvQudh5hF0cEOuWEwYY31
+ xFugzYqluiikm6AMk1j561Q5Xg3y/QpW
+X-Received: by 10.202.170.73 with SMTP id t70mr7420949oie.78.1503872715591;
+ Sun, 27 Aug 2017 15:25:15 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 17821588154200394498
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelledruddtgddutdekucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+Received: by 10.157.58.74 with HTTP; Sun, 27 Aug 2017 15:25:14 -0700 (PDT)
+In-Reply-To: <593cd0d3-8e06-0992-c155-1322014c0477@longlandclan.id.au>
+References: <1503418256-5215-1-git-send-email-oleksandrs@mellanox.com>
+ <CACRpkdZePXyo8Q36mBH7OnJU3E=yWPWSGkGUOH=zJFMjM=Yrhw@mail.gmail.com>
+ <CAPLgG==Jj=Ys=SvhOCspSfunbWnuqPySvW9RfuqE8HYnG4C=ZQ@mail.gmail.com>
+ <CACRpkdbozWaL0RXyZXjzxYK3JHiqYziSkTGSgGORdptX-rwR8A@mail.gmail.com>
+ <593cd0d3-8e06-0992-c155-1322014c0477@longlandclan.id.au>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Mon, 28 Aug 2017 00:25:14 +0200
+Message-ID: <CACRpkdbgbRgqi=sVs0Rk_qPLUFC6wwvcWKKdiDjfXHdUZ4EXjg@mail.gmail.com>
+Subject: Re: [patch v6 0/3] JTAG driver introduction
+To: Stuart Longland <stuartl@longlandclan.id.au>
+Cc: Rick Altherr <raltherr@google.com>,
+ Oleksandr Shamray <oleksandrs@mellanox.com>, 
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ =?UTF-8?B?SmnFmcOtIFDDrXJrbw==?= <jiri@resnulli.us>, 
+ Arnd Bergmann <arnd@arndb.de>, system-sw-low-level@mellanox.com, 
+ Greg KH <gregkh@linuxfoundation.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ openocd-devel-owner@lists.sourceforge.net, 
+ mec@shout.net, Rob Herring <robh+dt@kernel.org>, 
+ "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
+ Tobias Klauser <tklauser@distanz.ch>, 
+ "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>, 
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -40,214 +70,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 27 Aug 2017 18:02:19 -0000
+X-List-Received-Date: Sun, 27 Aug 2017 22:25:20 -0000
 
-This should also allow probing to fail when a pca955x chip is not
-found on a I2C bus.
+On Fri, Aug 25, 2017 at 10:50 AM, Stuart Longland
+<stuartl@longlandclan.id.au> wrote:
+> [Note: dropping vadimp@maellanox.com as SMTP server complained about the
+> DNS server returning NXDOMAIN.  Apologies.]
+> On 25/08/17 18:32, Linus Walleij wrote:
+>> Gnah!
+>> Whoever writes a slot-in replacement making the character device
+>> take precendence wins lots of karma.
+>
+> What would such a replacement look like though?
 
-Signed-off-by: Cédric Le Goater <clg@kaod.org>
----
- drivers/leds/leds-pca955x.c | 93 +++++++++++++++++++++++++++++++++++----------
- 1 file changed, 72 insertions(+), 21 deletions(-)
+Something that looks for /dev/gpiochipN and if it exists open the GPIOs
+from there and make that take precedence over any /sys/gpio/*
+poking.
 
-diff --git a/drivers/leds/leds-pca955x.c b/drivers/leds/leds-pca955x.c
-index f062d1e7640f..5f12d55550a4 100644
---- a/drivers/leds/leds-pca955x.c
-+++ b/drivers/leds/leds-pca955x.c
-@@ -165,13 +165,18 @@ static inline u8 pca955x_ledsel(u8 oldval, int led_num, int state)
-  * Write to frequency prescaler register, used to program the
-  * period of the PWM output.  period = (PSCx + 1) / 38
-  */
--static void pca955x_write_psc(struct i2c_client *client, int n, u8 val)
-+static int pca955x_write_psc(struct i2c_client *client, int n, u8 val)
- {
- 	struct pca955x *pca955x = i2c_get_clientdata(client);
-+	int ret;
- 
--	i2c_smbus_write_byte_data(client,
-+	ret = i2c_smbus_write_byte_data(client,
- 		pca95xx_num_input_regs(pca955x->chipdef->bits) + 2*n,
- 		val);
-+	if (ret < 0)
-+		dev_err(&client->dev, "%s: reg 0x%x, val 0x%x, err %d\n",
-+			__func__, n, val, ret);
-+	return ret;
- }
- 
- /*
-@@ -181,38 +186,57 @@ static void pca955x_write_psc(struct i2c_client *client, int n, u8 val)
-  *
-  * Duty cycle is (256 - PWMx) / 256
-  */
--static void pca955x_write_pwm(struct i2c_client *client, int n, u8 val)
-+static int pca955x_write_pwm(struct i2c_client *client, int n, u8 val)
- {
- 	struct pca955x *pca955x = i2c_get_clientdata(client);
-+	int ret;
- 
--	i2c_smbus_write_byte_data(client,
-+	ret = i2c_smbus_write_byte_data(client,
- 		pca95xx_num_input_regs(pca955x->chipdef->bits) + 1 + 2*n,
- 		val);
-+	if (ret < 0)
-+		dev_err(&client->dev, "%s: reg 0x%x, val 0x%x, err %d\n",
-+			__func__, n, val, ret);
-+	return ret;
- }
- 
-+
- /*
-  * Write to LED selector register, which determines the source that
-  * drives the LED output.
-  */
--static void pca955x_write_ls(struct i2c_client *client, int n, u8 val)
-+static int pca955x_write_ls(struct i2c_client *client, int n, u8 val)
- {
- 	struct pca955x *pca955x = i2c_get_clientdata(client);
-+	int ret;
- 
--	i2c_smbus_write_byte_data(client,
-+	ret = i2c_smbus_write_byte_data(client,
- 		pca95xx_num_input_regs(pca955x->chipdef->bits) + 4 + n,
- 		val);
-+	if (ret < 0)
-+		dev_err(&client->dev, "%s: reg 0x%x, val 0x%x, err %d\n",
-+			__func__, n, val, ret);
-+	return ret;
- }
- 
- /*
-  * Read the LED selector register, which determines the source that
-  * drives the LED output.
-  */
--static u8 pca955x_read_ls(struct i2c_client *client, int n)
-+static int pca955x_read_ls(struct i2c_client *client, int n, u8 *val)
- {
- 	struct pca955x *pca955x = i2c_get_clientdata(client);
-+	int ret;
- 
--	return (u8) i2c_smbus_read_byte_data(client,
-+	ret = i2c_smbus_read_byte_data(client,
- 		pca95xx_num_input_regs(pca955x->chipdef->bits) + 4 + n);
-+	if (ret < 0) {
-+		dev_err(&client->dev, "%s: reg 0x%x, err %d\n",
-+			__func__, n, ret);
-+		return ret;
-+	}
-+	*val = (u8) ret;
-+	return 0;
- }
- 
- static int pca955x_led_set(struct led_classdev *led_cdev,
-@@ -223,6 +247,7 @@ static int pca955x_led_set(struct led_classdev *led_cdev,
- 	u8 ls;
- 	int chip_ls;	/* which LSx to use (0-3 potentially) */
- 	int ls_led;	/* which set of bits within LSx to use (0-3) */
-+	int ret;
- 
- 	pca955x_led = container_of(led_cdev, struct pca955x_led, led_cdev);
- 	pca955x = pca955x_led->pca955x;
-@@ -232,7 +257,9 @@ static int pca955x_led_set(struct led_classdev *led_cdev,
- 
- 	mutex_lock(&pca955x->lock);
- 
--	ls = pca955x_read_ls(pca955x->client, chip_ls);
-+	ret = pca955x_read_ls(pca955x->client, chip_ls, &ls);
-+	if (ret)
-+		goto out;
- 
- 	switch (value) {
- 	case LED_FULL:
-@@ -252,26 +279,37 @@ static int pca955x_led_set(struct led_classdev *led_cdev,
- 		 * OFF, HALF, or FULL.  But, this is probably better than
- 		 * just turning off for all other values.
- 		 */
--		pca955x_write_pwm(pca955x->client, 1,
--				255 - value);
-+		ret = pca955x_write_pwm(pca955x->client, 1, 255 - value);
-+		if (ret)
-+			goto out;
- 		ls = pca955x_ledsel(ls, ls_led, PCA955X_LS_BLINK1);
- 		break;
- 	}
- 
--	pca955x_write_ls(pca955x->client, chip_ls, ls);
-+	ret = pca955x_write_ls(pca955x->client, chip_ls, ls);
- 
-+out:
- 	mutex_unlock(&pca955x->lock);
- 
--	return 0;
-+	return ret;
- }
- 
- #ifdef CONFIG_LEDS_PCA955X_GPIO
- /*
-  * Read the INPUT register, which contains the state of LEDs.
-  */
--static u8 pca955x_read_input(struct i2c_client *client, int n)
-+static int pca955x_read_input(struct i2c_client *client, int n, u8 *val)
- {
--	return (u8)i2c_smbus_read_byte_data(client, n);
-+	int ret = i2c_smbus_read_byte_data(client, n);
-+
-+	if (ret < 0) {
-+		dev_err(&client->dev, "%s: reg 0x%x, err %d\n",
-+			__func__, n, ret);
-+		return ret;
-+	}
-+	*val = (u8) ret;
-+	return 0;
-+
- }
- 
- static int pca955x_gpio_request_pin(struct gpio_chip *gc, unsigned int offset)
-@@ -301,7 +339,10 @@ static int pca955x_gpio_get_value(struct gpio_chip *gc, unsigned int offset)
- {
- 	struct pca955x *pca955x = gpiochip_get_data(gc);
- 	struct pca955x_led *led = &pca955x->leds[offset];
--	u8 reg = pca955x_read_input(pca955x->client, led->led_num / 8);
-+	u8 reg = 0;
-+
-+	/* There is nothing we can do about errors */
-+	pca955x_read_input(pca955x->client, led->led_num / 8, &reg);
- 
- 	return !!(reg & (1 << (led->led_num % 8)));
- }
-@@ -491,19 +532,29 @@ static int pca955x_probe(struct i2c_client *client,
- 				return err;
- 
- 			/* Turn off LED */
--			pca955x_led_set(&pca955x_led->led_cdev, LED_OFF);
-+			err = pca955x_led_set(&pca955x_led->led_cdev, LED_OFF);
-+			if (err)
-+				return err;
- 		}
- 	}
- 
- 	/* PWM0 is used for half brightness or 50% duty cycle */
--	pca955x_write_pwm(client, 0, 255-LED_HALF);
-+	err = pca955x_write_pwm(client, 0, 255-LED_HALF);
-+	if (err)
-+		return err;
- 
- 	/* PWM1 is used for variable brightness, default to OFF */
--	pca955x_write_pwm(client, 1, 0);
-+	err = pca955x_write_pwm(client, 1, 0);
-+	if (err)
-+		return err;
- 
- 	/* Set to fast frequency so we do not see flashing */
--	pca955x_write_psc(client, 0, 0);
--	pca955x_write_psc(client, 1, 0);
-+	err = pca955x_write_psc(client, 0, 0);
-+	if (err)
-+		return err;
-+	err = pca955x_write_psc(client, 1, 0);
-+	if (err)
-+		return err;
- 
- #ifdef CONFIG_LEDS_PCA955X_GPIO
- 	if (ngpios) {
--- 
-2.13.5
+> Some sort of system whereby you can read/write single-line commands as
+> if talking to a GPIO expander over a UART?
+
+I don't really understand the question. All GPIO expanders become
+a gpiochip, and have their own character device in /dev.
+
+> Would you access the GPIOs one by one, or would you perhaps map them
+> into a bitmap (maybe arbitrarily, up to 64-bits wide) and perform masked
+> operations on the bitmap?
+
+The character device supports up to 64bits of simultaneous line
+switches, but the in-kernel API can only handle 32bits
+in a single register write.
+
+> I'm no fan of the sysfs GPIO interface, but it beats poking around at
+> registers behind the kernel's back.
+
+Have a look at libgpiod and tools/gpio/* in the kernel.
+
+Yours,
+Linus Walleij
