@@ -3,56 +3,58 @@ Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xgdK251wbzDqMh
- for <openbmc@lists.ozlabs.org>; Mon, 28 Aug 2017 13:57:58 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xgg3V0cy5zDqZ0
+ for <openbmc@lists.ozlabs.org>; Mon, 28 Aug 2017 15:16:21 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ZmBt4Xri"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="YXcZJ1z0"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="arlEI7T7"; dkim-atps=neutral
+ header.b="rJM+euGr"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 56F8E20B3E;
- Sun, 27 Aug 2017 23:57:56 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Sun, 27 Aug 2017 23:57:56 -0400
+ by mailout.nyi.internal (Postfix) with ESMTP id AA12820DF0;
+ Mon, 28 Aug 2017 01:16:19 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Mon, 28 Aug 2017 01:16:19 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=iba5dMFAIoPesV75iPmQHixtcXSQqlHSO/5Rf+nwm
- Q4=; b=ZmBt4Xri+ysv1kui9AXkWVYmGQDL4lPbxi26TpQAdxs/vZVuHWG0qs6q4
- /sqP54OAx/Y9oGBNJm7/6qvkHvUDkJvXYuiwWwOzn7CCdIjceXfhh1SwwjQJQrBn
- UojlhCLrgPez9eFyglkersDlKv9qd7dmd0ST4DJl3AFMwtYgkXgGGDmYlO2QyacR
- HyvjUmtEDkAei2KDZJn9oycR6PwxiRofs1W0vasDnrEpx25UweGF0HUAaLoSvavx
- KUk3i1DwHOAFYfAUGJb3w4sZSZQij1PAER3oZRTdoMUlkEGohKP25sQPhJN+SLHI
- oDFbmkiNGJmtFROCEdyP0AKrPZ+ZQ==
+ :x-sasl-enc; s=fm1; bh=/JWyY79hZLNJdXJY/ROIkD+oqaSsIDl8u8sydzB8A
+ ug=; b=YXcZJ1z0kjVSqRPXj2UOKuV5X3P6QtMKeFPpFjPrhOJfrZewDecTAxAAs
+ GnKLqFphEeiGT8E1pQaL8depQ3RUq4OQ0U+kuqXrkt3KUT33L7ojpa5i99hObtSW
+ dzreXaZ81rajw09/epdSzglLtdsxnjciDpIzznf6sDAtKW5jqcAVcbH1sObIfI/o
+ 1YHnkEQDk7hU6HCM7afiTmj/iflE7tu4QYcNA4FetIYCpdmTIRH/KnrYXSWv9lwH
+ Zwc8kiP43Z3T1e0g1z8ATVQJdXnc/EgFTs/BAdwTFV0XPg49uuUMqDuKPvSFQ7aM
+ n/WDILNZah9rT5JiEAT7vOovzsPkQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=iba5dMFAIoPesV75iP
- mQHixtcXSQqlHSO/5Rf+nwmQ4=; b=arlEI7T7QAaFhG7xUxe3vsxSPkzJ4fMkHs
- tpDrb638AVE1JiZpfFesQpR220N2MWTcVvx1gA+I2CXbeS3gFgvl87AbHGeKmPOL
- pXsXkCxJ2qPHKTiHRo3KHmleV7Btcj8IOl6oPA2bgsUT/N1Egf1ndG11gsGfBmjM
- zuHs+AevGn7lLe8rP/NWABzYD4JrAufa54EvYuXwMajjwmEh71+nzkZGL3fn4grF
- BckeHyf8xOEuSLgp3cgA4VOu+D9Y04JV4x+aqQl0bzZZZE1/uzIwlyl19gDQFwBn
- At3TnbBnIJaNBqNA1dWm0Oaqjqom4Dsgnk7pLl66zEKCnLGhh+LQ==
-X-ME-Sender: <xms:xJSjWXbkNrO5fAtptYO8eQpQ2UsVWy_m6pm2z6SGpns6pHGUfcvoww>
-X-Sasl-enc: E2gj6PENbwtXjcG1XTkLsNxRCELyDDfw7DCBGz7Pqy+y 1503892675
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=/JWyY79hZLNJdXJY/R
+ OIkD+oqaSsIDl8u8sydzB8Aug=; b=rJM+euGr0f//tZy3McEVG6MjaQ2ezKQcyH
+ skxTbq1JUubdBvN7JacE8Eh5ftD7QmdMnioyshMUOH1o17Apzl1dqji7UWvxleoR
+ NXHh0PeV8vjwm+whvhveNJEpMahio6jUsKle7TRIp83bm8q75X3LYC00dIp7mrN8
+ ofpw+eKeFaebPGDGCZ7gnWHvirulgHjwIDEcOpSow0/Fa7al9DVF7AZLVXt1jV9v
+ fxEg97N75AW2KxweftJ52x17PFQOGWb2I4rBjqk8zHxbZM5e3f9F5cWNC38tsWfF
+ rw/uXLToSTlyXtqEb7v3F//rie7Tg/ugkFxahh6yeEQfTDRJ60UQ==
+X-ME-Sender: <xms:I6ejWdipMfcRSuW45JjPwsd6pcvFTMYEvxobAe3gDx6WUrTD0bDdeQ>
+X-Sasl-enc: C1sahnY8R/LgcoAGSRyiLVx6P8EjZ+pO3byP1fcGbTM5 1503897378
 Received: from keelia (ppp118-210-176-216.bras2.adl6.internode.on.net
  [118.210.176.216])
- by mail.messagingengine.com (Postfix) with ESMTPA id 9C34E7E271;
- Sun, 27 Aug 2017 23:57:54 -0400 (EDT)
-Message-ID: <1503892668.32695.14.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10 1/2] leds: pca955x: sync with mainline
- driver
+ by mail.messagingengine.com (Postfix) with ESMTPA id CDF67248E6;
+ Mon, 28 Aug 2017 01:16:16 -0400 (EDT)
+Message-ID: <1503897371.32695.16.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.10 3/5] leds: pca955x: Don't invert
+ requested value in pca955x_gpio_set_value()
 From: Andrew Jeffery <andrew@aj.id.au>
-To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, 
- openbmc@lists.ozlabs.org
-Date: Mon, 28 Aug 2017 13:27:48 +0930
-In-Reply-To: <20170827164546.22903-2-clg@kaod.org>
-References: <20170827164546.22903-1-clg@kaod.org>
- <20170827164546.22903-2-clg@kaod.org>
+To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, joel@jms.id.au
+Cc: vishwa@linux.vnet.ibm.com, bjwyman@gmail.com, geissonator@gmail.com, 
+ eajames@linux.vnet.ibm.com, openbmc@lists.ozlabs.org
+Date: Mon, 28 Aug 2017 14:46:11 +0930
+In-Reply-To: <503ada3f-cabe-0f73-1907-f1b62470c5ed@kaod.org>
+References: <20170825065244.488-1-andrew@aj.id.au>
+ <20170825065244.488-4-andrew@aj.id.au>
+ <503ada3f-cabe-0f73-1907-f1b62470c5ed@kaod.org>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-p2nyrHJNsnV5yNIlp29C"
+ protocol="application/pgp-signature"; boundary="=-y/hSXVuRQoTbm5Ypiqxp"
 X-Mailer: Evolution 3.22.6-1ubuntu1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -66,177 +68,172 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Aug 2017 03:58:00 -0000
+X-List-Received-Date: Mon, 28 Aug 2017 05:16:23 -0000
 
 
---=-p2nyrHJNsnV5yNIlp29C
+--=-y/hSXVuRQoTbm5Ypiqxp
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
 
-On Sun, 2017-08-27 at 18:45 +0200, C=C3=A9dric Le Goater wrote:
-> The result should be in sync with kernel 4.14 once the gpio extension
-> is merged in the pca955x driver.
->=20
-> Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
+T24gU3VuLCAyMDE3LTA4LTI3IGF0IDA5OjAzICswMjAwLCBDw6lkcmljIExlIEdvYXRlciB3cm90
+ZToKPiBPbiAwOC8yNS8yMDE3IDA4OjUyIEFNLCBBbmRyZXcgSmVmZmVyeSB3cm90ZToKPiA+IFRo
+ZSBQQ0E5NTUyIGxpbmVzIGNhbiBiZSB1c2VkIGVpdGhlciBmb3IgZHJpdmluZyBMRURzIG9yIGFz
+IEdQSU9zLiBUaGUKPiA+IG1hbnVhbCBzdGF0ZXMgdGhhdCBmb3IgTEVEcywgdGhlIG9wZXJhdGlv
+biBpcyBvcGVuLWRyYWluOgo+ID4gCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqBUaGUgTFNuIExFRCBz
+ZWxlY3QgcmVnaXN0ZXJzIGRldGVybWluZSB0aGUgc291cmNlIG9mIHRoZSBMRUQgZGF0YS4KPiA+
+IAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoDAwID0gb3V0cHV0IGlzIHNldCBMT1cgKExFRCBv
+bikKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAwMSA9IG91dHB1dCBpcyBzZXQgaGlnaC1pbXBl
+ZGFuY2UgKExFRCBvZmY7IGRlZmF1bHQpCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgMTAgPSBv
+dXRwdXQgYmxpbmtzIGF0IFBXTTAgcmF0ZQo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoDExID0g
+b3V0cHV0IGJsaW5rcyBhdCBQV00xIHJhdGUKPiA+IAo+ID4gRm9yIEdQSU9zIGl0IHN1Z2dlc3Rz
+IGEgcHVsbC11cCBzbyB0aGF0IHRoZSBvcGVuLWNhc2UgZHJpdmVzIHRoZSBsaW5lCj4gPiBoaWdo
+Ogo+ID4gCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqBGb3IgdXNlIGFzIG91dHB1dCwgY29ubmVjdCBl
+eHRlcm5hbCBwdWxsLXVwIHJlc2lzdG9yIHRvIHRoZSBwaW4KPiA+IMKgwqDCoMKgwqDCoMKgwqDC
+oGFuZCBzaXplIGl0IGFjY29yZGluZyB0byB0aGUgREMgcmVjb21tZW5kZWQgb3BlcmF0aW5nCj4g
+PiDCoMKgwqDCoMKgwqDCoMKgwqBjaGFyYWN0ZXJpc3RpY3MuwqDCoExFRCBvdXRwdXQgcGluIGlz
+IEhJR0ggd2hlbiB0aGUgb3V0cHV0IGlzCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqBwcm9ncmFtbWVk
+IGFzIGhpZ2gtaW1wZWRhbmNlLCBhbmQgTE9XIHdoZW4gdGhlIG91dHB1dCBpcwo+ID4gwqDCoMKg
+wqDCoMKgwqDCoMKgcHJvZ3JhbW1lZCBMT1cgdGhyb3VnaCB0aGUg4oCYTEVEIHNlbGVjdG9y4oCZ
+IHJlZ2lzdGVyLsKgwqBUaGUgb3V0cHV0Cj4gPiDCoMKgwqDCoMKgwqDCoMKgwqBjYW4gYmUgcHVs
+c2Utd2lkdGggY29udHJvbGxlZCB3aGVuIFBXTTAgb3IgUFdNMSBhcmUgdXNlZC4KPiA+IAo+ID4g
+Tm93LCBJIGhhdmUgYSBoYXJkd2FyZSBkZXNpZ24gdGhhdCB1c2VzIHRoZSBMRUQgY29udHJvbGxl
+ciB0byBjb250cm9sCj4gPiBMRURzLiBIb3dldmVyLCBmb3IgJHJlYXNvbnMsIHdlJ3JlIHVzaW5n
+IHRoZSBsZWRzLWdwaW8gZHJpdmVyIHRvIGRyaXZlCj4gPiB0aGUgTEVEcyB3aGljaCBtZWFucyB3
+ZW5kaW5nIG91ciB3YXkgdGhyb3VnaCB0aGUgZ3Bpb2NoaXAgYWJzdHJhY3Rpb25zLgo+ID4gU28g
+d2l0aCB0aGF0IGluIG1pbmQgd2UgbmVlZCB0byBkZXNjcmliZSBhbiBhY3RpdmUtbG93IEdQSU8K
+PiA+IGNvbmZpZ3VyYXRpb24gdG8gZHJpdmUgdGhlIExFRHMgYXMgdGhvdWdoIHRoZXkgd2VyZSBH
+UElPcy4KPiA+IAo+ID4gVGhlIHNldCgpIGdwaW9jaGlwIGNhbGxiYWNrIGluIGxlZHMtcGNhOTU1
+eCBkb2VzIHRoZSBmb2xsb3dpbmc6Cj4gPiAKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoC4uLgo+ID4g
+wqDCoMKgwqDCoMKgwqDCoMKgaWYgKHZhbCkKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgcGNhOTU1eF9sZWRfc2V0KCZsZWQtPmxlZF9jZGV2LCBMRURfRlVMTCk7Cj4gPiDCoMKg
+wqDCoMKgwqDCoMKgwqBlbHNlCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHBj
+YTk1NXhfbGVkX3NldCgmbGVkLT5sZWRfY2RldiwgTEVEX09GRik7Cj4gPiDCoMKgwqDCoMKgwqDC
+oMKgwqAuLi4KPiA+IAo+ID4gV2hlcmUgTEVEX0ZVTEwgPSAyNTUuIHBjYTk1NXhfbGVkX3NldCgp
+IGluIHR1cm4gZG9lczoKPiA+IAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgLi4uCj4gPiDCoMKgwqDC
+oMKgwqDCoMKgwqBzd2l0Y2ggKHZhbHVlKSB7Cj4gPiDCoMKgwqDCoMKgwqDCoMKgwqBjYXNlIExF
+RF9GVUxMOgo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBscyA9IHBjYTk1NXhf
+bGVkc2VsKGxzLCBsc19sZWQsIFBDQTk1NVhfTFNfTEVEX09OKTsKPiA+IMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgYnJlYWs7Cj4gPiDCoMKgwqDCoMKgwqDCoMKgwqAuLi4KPiA+IAo+
+ID4gV2hlcmUgUENBOTU1WF9MU19MRURfT04gaXMgZGVmaW5lZCBhczoKPiA+IAo+ID4gPiA+ID4g
+PiDCoMKgwqDCoMKgwqDCoMKgwqAjZGVmaW5lIFBDQTk1NVhfTFNfTEVEX09OCTB4MAkvKiBPdXRw
+dXQgTE9XICovCj4gPiAKPiA+IFNvIGhlcmUgd2UgaGF2ZSBzb21lIHR5cGUgY29uZnVzaW9uOiBX
+ZSd2ZSBjcm9zc2VkIGRvbWFpbnMgZnJvbSBHUElPCj4gPiBiZWhhdmlvdXIgdG8gTEVEIGJlaGF2
+aW91ciB3aXRob3V0IGFjY291bnRpbmcgZm9yIHBvc3NpYmxlIGludmVyc2lvbnMKPiA+IGluIHRo
+ZSBwcm9jZXNzLgo+ID4gCj4gPiBTdGVwcGluZyBiYWNrIHRvIGxlZHMtZ3BpbyBmb3IgYSBtb21l
+bnQsIGR1cmluZyBwcm9iZSgpIHdlIGNhbGwKPiA+IGNyZWF0ZV9ncGlvX2xlZCgpLCB3aGljaCBl
+dmVudHVhbGx5IGV4ZWN1dGVzOgo+ID4gCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqBpZiAodGVtcGxh
+dGUtPmRlZmF1bHRfc3RhdGUgPT0gTEVEU19HUElPX0RFRlNUQVRFX0tFRVApIHsKPiA+IMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgc3RhdGUgPSBncGlvZF9nZXRfdmFsdWVfY2Fuc2xl
+ZXAobGVkX2RhdC0+Z3Bpb2QpOwo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBp
+ZiAoc3RhdGUgPCAwKQo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgcmV0dXJuIHN0YXRlOwo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgfSBlbHNlIHsKPiA+
+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgc3RhdGUgPSAodGVtcGxhdGUtPmRlZmF1
+bHRfc3RhdGUgPT0gTEVEU19HUElPX0RFRlNUQVRFX09OKTsKPiA+IMKgwqDCoMKgwqDCoMKgwqDC
+oH0KPiA+IMKgwqDCoMKgwqDCoMKgwqDCoC4uLgo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgcmV0ID0g
+Z3Bpb2RfZGlyZWN0aW9uX291dHB1dChsZWRfZGF0LT5ncGlvZCwgc3RhdGUpOwo+ID4gCj4gPiBJ
+biB0aGUgZGV2aWNldHJlZSB0aGUgR1BJTyBpcyBhbm5vdGF0ZWQgYXMgYWN0aXZlLWxvdywgYW5k
+Cj4gPiBncGlvZF9nZXRfdmFsdWVfY2Fuc2xlZXAoKSBoYW5kbGVzIHRoaXMgZm9yIHVzOgo+ID4g
+Cj4gPiDCoMKgwqDCoMKgwqDCoMKgwqBpbnQgZ3Bpb2RfZ2V0X3ZhbHVlX2NhbnNsZWVwKGNvbnN0
+IHN0cnVjdCBncGlvX2Rlc2MgKmRlc2MpCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqB7Cj4gPiDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgaW50IHZhbHVlOwo+ID4gCj4gPiDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgbWlnaHRfc2xlZXBfaWYoZXh0cmFfY2hlY2tzKTsK
+PiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBWQUxJREFURV9ERVNDKGRlc2Mp
+Owo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHZhbHVlID0gX2dwaW9kX2dl
+dF9yYXdfdmFsdWUoZGVzYyk7Cj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+aWYgKHZhbHVlIDwgMCkKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgcmV0dXJuIHZhbHVlOwo+ID4gCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgaWYgKHRlc3RfYml0KEZMQUdfQUNUSVZFX0xPVywgJmRlc2MtPmZsYWdzKSkK
+PiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgdmFs
+dWUgPSAhdmFsdWU7Cj4gPiAKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBy
+ZXR1cm4gdmFsdWU7Cj4gPiDCoMKgwqDCoMKgwqDCoMKgwqB9Cj4gPiAKPiA+IF9ncGlvZF9nZXRf
+cmF3X3ZhbHVlKCkgaW4gdHVybiBjYWxscyB0aHJvdWdoIHRoZSBnZXQoKSBjYWxsYmFjayBmb3Ig
+dGhlCj4gPiBncGlvY2hpcCBpbXBsZW1lbnRhdGlvbiwgc28gcmV0dXJuaW5nIHRvIG91ciBnZXQo
+KSBpbXBsZW1lbnRhdGlvbiBpbgo+ID4gbGVkcy1wY2E5NTV4IHdlIGZpbmQgd2UgZXh0cmFjdCB0
+aGUgcmF3IHZhbHVlIGZyb20gaGFyZHdhcmU6Cj4gPiAKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoHN0
+YXRpYyBpbnQgcGNhOTU1eF9ncGlvX2dldF92YWx1ZShzdHJ1Y3QgZ3Bpb19jaGlwICpnYywgdW5z
+aWduZWQgaW50IG9mZnNldCkKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoHsKPiA+IMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBzdHJ1Y3QgcGNhOTU1eCAqcGNhOTU1eCA9IGdwaW9jaGlw
+X2dldF9kYXRhKGdjKTsKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBzdHJ1
+Y3QgcGNhOTU1eF9sZWQgKmxlZCA9ICZwY2E5NTV4LT5sZWRzW29mZnNldF07Cj4gPiDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgdTggcmVnID0gcGNhOTU1eF9yZWFkX2lucHV0KHBj
+YTk1NXgtPmNsaWVudCwgbGVkLT5sZWRfbnVtIC8gOCk7Cj4gPiAKPiA+IMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqByZXR1cm4gISEocmVnICYgKDEgPDwgKGxlZC0+bGVkX251bSAl
+IDgpKSk7Cj4gPiDCoMKgwqDCoMKgwqDCoMKgwqB9Cj4gPiAKPiA+IFRoaXMgYmVoYXZpb3VyIGlz
+IG5vdCBzeW1tZXRyaWMgd2l0aCB0aGF0IG9mIHNldCgpLCB3aGVyZSB0aGUgdmFsIGlzCj4gPiBp
+bnZlcnRlZCBieSB0aGUgZHJpdmVyLgo+ID4gCj4gPiBDbG9zaW5nIHRoZSBsb29wIG9uIHRoZSBH
+UElPX0FDVElWRV9MT1cgaW52ZXJzaW9ucywKPiA+IGdwaW9kX2RpcmVjdGlvbl9vdXRwdXQoKSwg
+bGlrZSBncGlvZF9nZXRfdmFsdWVfY2Fuc2xlZXAsIGhhbmRsZXMgaXQgZm9yCj4gPiB1czoKPiA+
+IAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgaW50IGdwaW9kX2RpcmVjdGlvbl9vdXRwdXQoc3RydWN0
+IGdwaW9fZGVzYyAqZGVzYywgaW50IHZhbHVlKQo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgewo+ID4g
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgVkFMSURBVEVfREVTQyhkZXNjKTsK
+PiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGlmICh0ZXN0X2JpdChGTEFH
+X0FDVElWRV9MT1csICZkZXNjLT5mbGFncykpCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqB2YWx1ZSA9ICF2YWx1ZTsKPiA+IMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGVsc2UKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHZhbHVlID0gISF2YWx1ZTsKPiA+IMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJldHVybiBfZ3Bpb2RfZGlyZWN0aW9u
+X291dHB1dF9yYXcoZGVzYywgdmFsdWUpOwo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgfQo+ID4gCj4g
+PiBBbGwtaW4tYWxsLCB3aXRoIGEgdmFsdWUgb2YgJ2tlZXAnIGZvciBkZWZhdWx0LXN0YXRlIHBy
+b3BlcnR5IGluIHRoZQo+ID4gZ3Bpby1sZWRzIGNoaWxkIG5vZGUsIHRoZSBjdXJyZW50IHN0YXRl
+IG9mIHRoZSBoYXJkd2FyZSB3aWxsIGluLWZhY3QgYmUKPiA+IGludmVydGVkOyBwcmVjaXNlbHkg
+dGhlIG9wcG9zaXRlIG9mIHdoYXQgd2FzIGludGVuZGVkLgo+ID4gCj4gPiBSZXdvcmsgbGVkcy1w
+Y2E5NTV4IHNvIHRoYXQgd2UgYXZvaWQgdGhlIGluY29ycmVjdCBpbnZlcnNpb24gYW5kIGNsYXJp
+ZnkKPiA+IHRoZSBzZW1hbnRpY3Mgd2l0aCByZXNwZWN0IHRvIEdQSU8uCj4gCj4gSSBzdXBwb3Nl
+IHRoaXMgaXMgY29ycmVjdC4gSGF2ZSB3ZSBtYWRlIHNvbWUgdGVzdHMgb24gdGhlIHBpbnMgZGly
+ZWN0bHkKPiBkcml2ZW4gYXMgR1BJT3MgP8KgCgpXZWxsLCBub3RoaW5nIGJlc2lkZXMgYW4gTEVE
+LiBCdXQgaXMgYW4gTEVEIG5vdCBhIHNhdGlzZmFjdG9yeSB1c2UtCmNhc2U/IEl0J3Mgc3RpbGwg
+YSBHUElPLiBBcyBmb3IgYWN0aXZlLWhpZ2gvYWN0aXZlLWxvdywgd2VsbCB0aGV5J3JlCnByZXR0
+eSB0aG9yb3VnaGx5IHRlc3RlZCBieSB0aGUgR1BJTyBzdWJzeXN0ZW0uCgpCcmFuZG9uIFd5bWFu
+IGhhcyBleWViYWxsZWQgdGhlIExFRHMgb24gYSBXaXRoZXJzcG9vbiBhbmQgY29uZmlybXMgdGhl
+CnByb2JsZW0gaXMgcmVzb2x2ZWQgKHdpdGggYSBjYXZlYXQpWzFdLgoKSSd2ZSByZWJhc2VkIG9u
+IHRvcCBvZiB0aGUgbGVkcyB0cmVlIHdpdGhvdXQgaXNzdWUuIEknbGwgc2VuZCB0aGlzCnBhdGNo
+IHVwc3RyZWFtIHRvIGdldCBzb21lIGZlZWRiYWNrLgoKQ2hlZXJzLAoKQW5kcmV3CgpbMV0gaHR0
+cHM6Ly9naXRodWIuY29tL29wZW5ibWMvb3BlbmJtYy9pc3N1ZXMvMjE1NiNpc3N1ZWNvbW1lbnQt
+MzI1MDM1MTg1Cgo+IAo+IFRoYW5rcywKPiAKPiBDLgo+IAo+ID4gCj4gPiA+ID4gU2lnbmVkLW9m
+Zi1ieTogQW5kcmV3IEplZmZlcnkgPGFuZHJld0Bhai5pZC5hdT4KPiA+IC0tLQo+ID4gwqBkcml2
+ZXJzL2xlZHMvbGVkcy1wY2E5NTV4LmMgfCA3ICsrKysrLS0KPiA+IMKgMSBmaWxlIGNoYW5nZWQs
+IDUgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPiA+IAo+ID4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvbGVkcy9sZWRzLXBjYTk1NXguYyBiL2RyaXZlcnMvbGVkcy9sZWRzLXBjYTk1NXguYwo+
+ID4gaW5kZXggMDIxN2JhYzJmNDdiLi5hMDJjMWZkNWRlZTkgMTAwNjQ0Cj4gPiAtLS0gYS9kcml2
+ZXJzL2xlZHMvbGVkcy1wY2E5NTV4LmMKPiA+ICsrKyBiL2RyaXZlcnMvbGVkcy9sZWRzLXBjYTk1
+NXguYwo+ID4gQEAgLTYxLDYgKzYxLDkgQEAKPiA+ID4gPiA+ID4gwqAjZGVmaW5lIFBDQTk1NVhf
+TFNfQkxJTkswCTB4MgkvKiBCbGluayBhdCBQV00wIHJhdGUgKi8KPiA+ID4gPiA+ID4gwqAjZGVm
+aW5lIFBDQTk1NVhfTFNfQkxJTksxCTB4MwkvKiBCbGluayBhdCBQV00xIHJhdGUgKi8KPiA+IMKg
+Cj4gPiA+ID4gKyNkZWZpbmUgUENBOTU1WF9HUElPX0hJR0gJTEVEX09GRgo+ID4gPiA+ICsjZGVm
+aW5lIFBDQTk1NVhfR1BJT19MT1cJTEVEX0ZVTEwKPiA+ICsKPiA+IMKgZW51bSBwY2E5NTV4X3R5
+cGUgewo+ID4gPiA+IMKgCXBjYTk1NTAsCj4gPiA+ID4gwqAJcGNhOTU1MSwKPiA+IEBAIC0yOTIs
+OSArMjk1LDkgQEAgc3RhdGljIHZvaWQgcGNhOTU1eF9ncGlvX3NldF92YWx1ZShzdHJ1Y3QgZ3Bp
+b19jaGlwICpnYywgdW5zaWduZWQgaW50IG9mZnNldCwKPiA+ID4gPiDCoAlzdHJ1Y3QgcGNhOTU1
+eF9sZWQgKmxlZCA9ICZwY2E5NTV4LT5sZWRzW29mZnNldF07Cj4gPiDCoAo+ID4gPiA+IMKgCWlm
+ICh2YWwpCj4gPiA+ID4gLQkJcGNhOTU1eF9sZWRfc2V0KCZsZWQtPmxlZF9jZGV2LCBMRURfRlVM
+TCk7Cj4gPiA+ID4gKwkJcGNhOTU1eF9sZWRfc2V0KCZsZWQtPmxlZF9jZGV2LCBQQ0E5NTVYX0dQ
+SU9fSElHSCk7Cj4gPiA+ID4gwqAJZWxzZQo+ID4gPiA+IC0JCXBjYTk1NXhfbGVkX3NldCgmbGVk
+LT5sZWRfY2RldiwgTEVEX09GRik7Cj4gPiA+ID4gKwkJcGNhOTU1eF9sZWRfc2V0KCZsZWQtPmxl
+ZF9jZGV2LCBQQ0E5NTVYX0dQSU9fTE9XKTsKPiA+IMKgfQo+ID4gwqAKPiA+IMKgc3RhdGljIGlu
+dCBwY2E5NTV4X2dwaW9fZ2V0X3ZhbHVlKHN0cnVjdCBncGlvX2NoaXAgKmdjLCB1bnNpZ25lZCBp
+bnQgb2Zmc2V0KQo+ID4gCj4gCj4g
 
-Thanks, applied to dev-4.10.
 
-Andrew
-
-> ---
-> =C2=A0drivers/leds/leds-pca955x.c | 49 ++++++++++++++++++----------------=
--
-> ----------
-> =C2=A01 file changed, 19 insertions(+), 30 deletions(-)
->=20
-> diff --git a/drivers/leds/leds-pca955x.c b/drivers/leds/leds-
-> pca955x.c
-> index 0217bac2f47b..f062d1e7640f 100644
-> --- a/drivers/leds/leds-pca955x.c
-> +++ b/drivers/leds/leds-pca955x.c
-> @@ -342,7 +342,8 @@ pca955x_pdata_of_init(struct i2c_client *client,
-> struct pca955x_chipdef *chip)
-> =C2=A0		return ERR_PTR(-ENOMEM);
-> =C2=A0
-> =C2=A0	pdata->leds =3D devm_kzalloc(&client->dev,
-> -			=C2=A0=C2=A0=C2=A0sizeof(struct pca955x_led) * chip->bits,
-> GFP_KERNEL);
-> +				=C2=A0=C2=A0=C2=A0sizeof(struct pca955x_led) *
-> chip->bits,
-> +				=C2=A0=C2=A0=C2=A0GFP_KERNEL);
-> =C2=A0	if (!pdata->leds)
-> =C2=A0		return ERR_PTR(-ENOMEM);
-> =C2=A0
-> @@ -430,16 +431,14 @@ static int pca955x_probe(struct i2c_client
-> *client,
-> =C2=A0			"slave address 0x%02x\n",
-> =C2=A0			client->name, chip->bits, client->addr);
-> =C2=A0
-> -	if (!i2c_check_functionality(adapter, I2C_FUNC_I2C))
-> +	if (!i2c_check_functionality(adapter,
-> I2C_FUNC_SMBUS_BYTE_DATA))
-> =C2=A0		return -EIO;
-> =C2=A0
-> -	if (pdata) {
-> -		if (pdata->num_leds !=3D chip->bits) {
-> -			dev_err(&client->dev, "board info claims %d
-> LEDs"
-> -					" on a %d-bit chip\n",
-> -					pdata->num_leds, chip-
-> >bits);
-> -			return -ENODEV;
-> -		}
-> +	if (pdata->num_leds !=3D chip->bits) {
-> +		dev_err(&client->dev,
-> +			"board info claims %d LEDs on a %d-bit
-> chip\n",
-> +			pdata->num_leds, chip->bits);
-> +		return -ENODEV;
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	pca955x =3D devm_kzalloc(&client->dev, sizeof(*pca955x),
-> GFP_KERNEL);
-> @@ -458,12 +457,10 @@ static int pca955x_probe(struct i2c_client
-> *client,
-> =C2=A0	pca955x->chipdef =3D chip;
-> =C2=A0
-> =C2=A0	for (i =3D 0; i < chip->bits; i++) {
-> -		struct pca955x_led *pdata_led =3D &pdata->leds[i];
-> -
-> =C2=A0		pca955x_led =3D &pca955x->leds[i];
-> =C2=A0		pca955x_led->led_num =3D i;
-> =C2=A0		pca955x_led->pca955x =3D pca955x;
-> -		pca955x_led->type =3D pdata_led->type;
-> +		pca955x_led->type =3D pdata->leds[i].type;
-> =C2=A0
-> =C2=A0		switch (pca955x_led->type) {
-> =C2=A0		case PCA955X_TYPE_NONE:
-> @@ -476,27 +473,20 @@ static int pca955x_probe(struct i2c_client
-> *client,
-> =C2=A0			=C2=A0* Platform data can specify LED names and
-> =C2=A0			=C2=A0* default triggers
-> =C2=A0			=C2=A0*/
-> -			if (pdata) {
-> -				if (pdata->leds[i].name)
-> -					snprintf(pca955x_led->name,
-> -						=C2=A0sizeof(pca955x_led-
-> >name),
-> -						=C2=A0"pca955x:%s",
-> -						=C2=A0pdata-
-> >leds[i].name);
-> -				if (pdata->leds[i].default_trigger)
-> -					pca955x_led-
-> >led_cdev.default_trigger =3D
-> -						pdata-
-> >leds[i].default_trigger;
-> -			} else {
-> +			if (pdata->leds[i].name)
-> =C2=A0				snprintf(pca955x_led->name,
-> -					=C2=A0sizeof(pca955x_led->name),
-> -					=C2=A0"pca955x:%d", i);
-> -			}
-> +					sizeof(pca955x_led->name),
-> "pca955x:%s",
-> +					pdata->leds[i].name);
-> +			if (pdata->leds[i].default_trigger)
-> +				pca955x_led-
-> >led_cdev.default_trigger =3D
-> +					pdata-
-> >leds[i].default_trigger;
-> =C2=A0
-> =C2=A0			pca955x_led->led_cdev.name =3D pca955x_led-
-> >name;
-> =C2=A0			pca955x_led-
-> >led_cdev.brightness_set_blocking =3D
-> =C2=A0				pca955x_led_set;
-> =C2=A0
-> =C2=A0			err =3D devm_led_classdev_register(&client-
-> >dev,
-> -						=C2=A0&pca955x_led-
-> >led_cdev);
-> +							&pca955x_led
-> ->led_cdev);
-> =C2=A0			if (err)
-> =C2=A0				return err;
-> =C2=A0
-> @@ -536,11 +526,10 @@ static int pca955x_probe(struct i2c_client
-> *client,
-> =C2=A0			pca955x->gpio.parent =3D NULL;
-> =C2=A0			dev_warn(&client->dev, "could not add
-> gpiochip\n");
-> =C2=A0			return err;
-> -		} else {
-> -			dev_info(&client->dev, "gpios %i...%i\n",
-> -				=C2=A0pca955x->gpio.base, pca955x-
-> >gpio.base +
-> -				=C2=A0pca955x->gpio.ngpio - 1);
-> =C2=A0		}
-> +		dev_info(&client->dev, "gpios %i...%i\n",
-> +			=C2=A0pca955x->gpio.base, pca955x->gpio.base +
-> +			=C2=A0pca955x->gpio.ngpio - 1);
-> =C2=A0	}
-> =C2=A0#endif
-> =C2=A0
---=-p2nyrHJNsnV5yNIlp29C
+--=-y/hSXVuRQoTbm5Ypiqxp
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJZo5S8AAoJEJ0dnzgO5LT53L8P/3016QwocbuIEZEtkv4epROx
-9m1xpm6uBT/BumYArAQKacCs6/7RiO4lWOV3LrKdvEc0wqMCaPUUdtBCt/6hgBY9
-ow3fvUnFghrlpBWkF8dEbZkheorSIURmyOlVCMkILyqG9vvs0z3MGCzWDtkKYdHv
-4KVvy1auszHyqdJjie+VY6VBrNECWNYWDL8h9PEgx/yStCuaOZB60ILDKCAAv5/k
-Rc7YdITdn67zHeKm6R5U3t0/lD1CJVBfz9VNUyGnRCrENNogqZFEWgQoALy3xGFp
-mFqxyhHgnVTZ8rT6YACcY0b/rc10rVQ4Z6CAbYhjAMAwy1mIsejZu0u40dvwH+d3
-a8PxXwojMQ1pIOUA2uK65lItF4FIht3r7kfAieRWRQXGWVk0EdtGcsOiUTGy37HF
-eUn888BomzhvsoGyw2CwGxGX4z1HWbrQCc+9WZ8hLMd+rihUXXu8+TdTEEz5h9aQ
-/37rS/ssJVTBDqaG1vC0z2MH2wivZf4L3gFzD8vbqw2SnsFtJnJXjPEW1SLc2KsJ
-DmtlItL2ajVmDXsJG1uoa4+NeYWua5Q3M4eYSO7l60m99Wgbfhyq5l5IYWcgnXSh
-WzqIbC2WqR/NSILHpptk0fea3J9I3KYcda8chjl9H3AjDI8saRSd/0kDtlLdsa60
-Ds5FNyTtHEIFS+R/sMLH
-=pdZY
+iQIcBAABCgAGBQJZo6cbAAoJEJ0dnzgO5LT5ObwP/3/DYA5mN2Um9BJ9TeFsepCs
+lBAT53NBpz+hcjIcctd6iEUNyzYmwEbkXFBuLbSnVNs1Z9dBe8UuSr3kXkbn25IO
+Frw+TzHvV+g60lYaeDKy6eCGBjZopVgbfn0pei3NYbvivThu1pmfnwi5W4dTHffK
+ZgPfXujC7iYNF+SpWvJEkoWsHjtYWzMkHNc4lGzAcodV1suAX0FZ/ZRIyiU6adCS
+lRq8onfFEBPoa6pksXQHBmbgExiM76JFcwd0ely/ay1WAY4p8uDwVKxe9WPby9bP
+yoEWIvjx4BOsokAf+v3GQ4035gHYUymfT2GKygMWkuVTNE6ItGmZlF+KVsJ/qcfx
+FdUVo0Q7/fdYtzy5L1BIdpEtRjQyeeKuxuX32kAWhksTkQUmty9vXHtt2kk4k0ML
+bjS3cUwdE1hBMFHAKJHVHYDjyvIND9uO4O8ebUIrdGUeaTV+qE6X4emsIAbI4gSL
+E8b7hIWIybiehG4yX4NsgHZO3XCPV5m1S8DFtouukuEhnRvMxUx18ClTgAE/Ixox
+DZVYCtIUFwbhvQS94e9hrlLFHn5l5MaoqinduUe8Gb9Opk673CnP6V6ta/PqQNME
+3RzQ7Qlb+/MrBlapysIbi2Up4vijzZX3keUOxYZS3nK0IzCZ7cpNNNbH3oMI7raq
+4sC8epjtDjHUfXYIMS/O
+=IFOD
 -----END PGP SIGNATURE-----
 
---=-p2nyrHJNsnV5yNIlp29C--
+--=-y/hSXVuRQoTbm5Ypiqxp--
