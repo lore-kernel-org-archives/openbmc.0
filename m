@@ -3,52 +3,52 @@ Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xghRp0l0fzDq5m
- for <openbmc@lists.ozlabs.org>; Mon, 28 Aug 2017 16:19:01 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xghRs4L8JzDq8f
+ for <openbmc@lists.ozlabs.org>; Mon, 28 Aug 2017 16:19:05 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
- header.b="DbNIJZSU"; dkim=pass (2048-bit key;
+ header.b="nbhyz3oo"; dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="f0EoIR9z"; dkim-atps=neutral
+ header.b="oeFt3/dY"; dkim-atps=neutral
 Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id CCF4120D7A;
- Mon, 28 Aug 2017 02:18:59 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 41C9020DE1;
+ Mon, 28 Aug 2017 02:19:03 -0400 (EDT)
 Received: from frontend1 ([10.202.2.160])
- by compute2.internal (MEProxy); Mon, 28 Aug 2017 02:18:59 -0400
+ by compute2.internal (MEProxy); Mon, 28 Aug 2017 02:19:03 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  mendozajonas.com; h=cc:date:from:in-reply-to:message-id
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=hD3fJANsQ6JKbuDu8M2wjyaLPLMzwDRi8SOeZxzuM
- 20=; b=DbNIJZSUNRm/R6Ov1D7s2CZ20weLYPJ5tNJ7QbgMK739/hZOfo/fteUbL
- H3LH7322FE/wxgsUoZqwr5Q9s/Oi2EjuHdtOtI0Gj9fx+IxvA6j783gP0Yy3IrIw
- rFewz2lwElKkBiQN9+fg9FctS7HVxgiRXTJjN3ELY7T6OH6gF55Jjv/Nw0TSyyLM
- jHKJyr6tuBJXdADazZ9Lsi++CsjI2RxHkmxllKgb9aDwBGS9wm9drjHNsusZbK8M
- 9PXTBzPXgpN4BKwVLVVDrpB3Dohs55X7vQOB6OubezcmVOoAqKmJT8/uwEG3Rff5
- iuVvYsuBlQq0Zd6m5E9p6T3EvRseg==
+ :x-sasl-enc; s=fm1; bh=3tQYV5rCtjqdK0ACPaw/bmizGokKMFhn1r/PLJMby
+ bM=; b=nbhyz3ooCTHUBGzDMOMubVtetuUP9AvvASyBAQCiI/10hqlKxSa7QIl6Q
+ ar+PHl8lIXWCJGxhCsW0VJJNbziQktDwmdBY8uNE1EJrff6QkUDmjmyxDWCPX1wd
+ eM9btBhSN4zGaJZb0fIxGcaeWtQCePFbrsUoWz+/B+b4BMJx5xK2FVTeePQPmke/
+ Y7FbeN5FohHTdFIHf1hk39udj+UYgNczgkTl1mZAJj02UsqgiC26ujYXJzLyynNY
+ S06j670EWwuyTB1Qsm3yIlfrHgnJl7zdkuTzLNIWLi0rdQfLla2/QABOXdDA7FYK
+ X9uWta7acVCiZs6eFjk/UNWcw03TA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:date:from:in-reply-to:message-id
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=hD3fJANsQ6JKbuDu8M2wjyaLPLMzwDRi8SOeZxzuM
- 20=; b=f0EoIR9zypmEFUkKGvSy6wfQLMmVGeOxaGGbvK3U66VLLS/6fSsOGE554
- kKmP+LZXigBg2+hkeWIJkmVqzbqLl7Ncv3lzTWJVbuWJJ9mPnqhLwuakJo/+6cnr
- 5xuU76OkbAQ9ZXZalcWFAXnOviaXivHUo5W4FfzWsCjtbNQ68El/4e7ucZ8n6r/k
- smXYa8oV2aTU8S/s1NH6q8Uhh3FLKC6UB4HJvfkfaDLNzDk9GxgN+/W++zBz5kHw
- NjjPsfaIgU+17E3KeHIEoCyb4m8xgVSKtXq5fWYW9jRnNgMDF/YWk5Wp4TWzOlpz
- gbGSZY6rrpe6JUl/5nA1GMz2KEiug==
-X-ME-Sender: <xms:07WjWf5sIuymwH8hM0DmWUSvC1gF5JdUNH2DOGxNPMtjrSmzbJ7Nnw>
-X-Sasl-enc: XclAxYspnVAYFcMwUAB80FSV0flgAX1UDGN4y+O9jSBp 1503901139
+ :x-sasl-enc; s=fm1; bh=3tQYV5rCtjqdK0ACPaw/bmizGokKMFhn1r/PLJMby
+ bM=; b=oeFt3/dYWp16YqlhWCXuNqHIV/o0VEiGmxRqsrfd0QmXOysB4Rrfealkw
+ qQ0Gm/gXwLkyftgX9ZL9osTMb1VEonxteoRl/S5OWdS8XgWZd37rliKU80lLCZ1R
+ UrsJECIE3bqZWhS7ZJu5NPxfYIzrtbn31ABhROpr3ZsEdGq1UjTuowpKolu1ovTk
+ SxbDKRtkNIgZq9En38KwSQPpKgyNMPetl0ZhSG2f3whc7SDyUFxTdac3Hc9THW6p
+ pk0l5dKG3/QqE1tvTNRBPnXt5fjdeBd4+SdwC4+pTZbNLzh0+wVx5XFzeRhDLgf8
+ ovIduFbAtpZ1tYG7y7+T+GRZUHgHg==
+X-ME-Sender: <xms:17WjWf2i_NhAi1pGB2TMfwWtzXGHjDHs-u-KrzQ3yjiQpenh1ohPKA>
+X-Sasl-enc: 9ftzqka1stQ5oA8pRiDkaL3il/zLmUZIc/gq6jAU0wYS 1503901142
 Received: from v4.ozlabs.ibm.com (unknown [122.99.82.10])
- by mail.messagingengine.com (Postfix) with ESMTPA id 0AFDF7E271;
- Mon, 28 Aug 2017 02:18:56 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 2054A7E271;
+ Mon, 28 Aug 2017 02:18:59 -0400 (EDT)
 From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
 To: "David S . Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>, Joel Stanley <joel@jms.id.au>,
  Benjamin Herrenschmidt <benh@kernel.crashing.org>,
  Gavin Shan <gwshan@linux.vnet.ibm.com>, ratagupt@in.ibm.com
-Subject: [PATCH net-next v3 1/3] net/ncsi: Fix several packet definitions
-Date: Mon, 28 Aug 2017 16:18:41 +1000
-Message-Id: <20170828061843.24349-2-sam@mendozajonas.com>
+Subject: [PATCH net-next v3 2/3] net/ncsi: Configure VLAN tag filter
+Date: Mon, 28 Aug 2017 16:18:42 +1000
+Message-Id: <20170828061843.24349-3-sam@mendozajonas.com>
 X-Mailer: git-send-email 2.14.0
 In-Reply-To: <20170828061843.24349-1-sam@mendozajonas.com>
 References: <20170828061843.24349-1-sam@mendozajonas.com>
@@ -63,78 +63,480 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Aug 2017 06:19:02 -0000
+X-List-Received-Date: Mon, 28 Aug 2017 06:19:06 -0000
+
+Make use of the ndo_vlan_rx_{add,kill}_vid callbacks to have the NCSI
+stack process new VLAN tags and configure the channel VLAN filter
+appropriately.
+Several VLAN tags can be set and a "Set VLAN Filter" packet must be sent
+for each one, meaning the ncsi_dev_state_config_svf state must be
+repeated. An internal list of VLAN tags is maintained, and compared
+against the current channel's ncsi_channel_filter in order to keep track
+within the state. VLAN filters are removed in a similar manner, with the
+introduction of the ncsi_dev_state_config_clear_vids state. The maximum
+number of VLAN tag filters is determined by the "Get Capabilities"
+response from the channel.
 
 Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
 ---
-v2: Rebased on latest net-next
+v3:	- Add comment describing change to ncsi_find_filter()
+	- Catch NULL in clear_one_vid() from ncsi_get_filter()
+	- Simplify state changes when kicking updated channel
 
- net/ncsi/ncsi-cmd.c | 10 +++++-----
- net/ncsi/ncsi-pkt.h |  2 +-
- net/ncsi/ncsi-rsp.c |  3 ++-
- 3 files changed, 8 insertions(+), 7 deletions(-)
+ include/net/ncsi.h     |   2 +
+ net/ncsi/internal.h    |  11 ++
+ net/ncsi/ncsi-manage.c | 308 ++++++++++++++++++++++++++++++++++++++++++++++++-
+ net/ncsi/ncsi-rsp.c    |   9 +-
+ 4 files changed, 326 insertions(+), 4 deletions(-)
 
-diff --git a/net/ncsi/ncsi-cmd.c b/net/ncsi/ncsi-cmd.c
-index 5e03ed190e18..7567ca63aae2 100644
---- a/net/ncsi/ncsi-cmd.c
-+++ b/net/ncsi/ncsi-cmd.c
-@@ -139,9 +139,9 @@ static int ncsi_cmd_handler_svf(struct sk_buff *skb,
- 	struct ncsi_cmd_svf_pkt *cmd;
- 
- 	cmd = skb_put_zero(skb, sizeof(*cmd));
--	cmd->vlan = htons(nca->words[0]);
--	cmd->index = nca->bytes[2];
--	cmd->enable = nca->bytes[3];
-+	cmd->vlan = htons(nca->words[1]);
-+	cmd->index = nca->bytes[6];
-+	cmd->enable = nca->bytes[7];
- 	ncsi_cmd_build_header(&cmd->cmd.common, nca);
- 
- 	return 0;
-@@ -153,7 +153,7 @@ static int ncsi_cmd_handler_ev(struct sk_buff *skb,
- 	struct ncsi_cmd_ev_pkt *cmd;
- 
- 	cmd = skb_put_zero(skb, sizeof(*cmd));
--	cmd->mode = nca->bytes[0];
-+	cmd->mode = nca->bytes[3];
- 	ncsi_cmd_build_header(&cmd->cmd.common, nca);
- 
- 	return 0;
-@@ -228,7 +228,7 @@ static struct ncsi_cmd_handler {
- 	{ NCSI_PKT_CMD_AE,     8, ncsi_cmd_handler_ae      },
- 	{ NCSI_PKT_CMD_SL,     8, ncsi_cmd_handler_sl      },
- 	{ NCSI_PKT_CMD_GLS,    0, ncsi_cmd_handler_default },
--	{ NCSI_PKT_CMD_SVF,    4, ncsi_cmd_handler_svf     },
-+	{ NCSI_PKT_CMD_SVF,    8, ncsi_cmd_handler_svf     },
- 	{ NCSI_PKT_CMD_EV,     4, ncsi_cmd_handler_ev      },
- 	{ NCSI_PKT_CMD_DV,     0, ncsi_cmd_handler_default },
- 	{ NCSI_PKT_CMD_SMA,    8, ncsi_cmd_handler_sma     },
-diff --git a/net/ncsi/ncsi-pkt.h b/net/ncsi/ncsi-pkt.h
-index 3ea49ed0a935..91b4b66438df 100644
---- a/net/ncsi/ncsi-pkt.h
-+++ b/net/ncsi/ncsi-pkt.h
-@@ -104,7 +104,7 @@ struct ncsi_cmd_svf_pkt {
- 	unsigned char           index;     /* VLAN table index  */
- 	unsigned char           enable;    /* Enable or disable */
- 	__be32                  checksum;  /* Checksum          */
--	unsigned char           pad[14];
-+	unsigned char           pad[18];
+diff --git a/include/net/ncsi.h b/include/net/ncsi.h
+index 68680baac0fd..1f96af46df49 100644
+--- a/include/net/ncsi.h
++++ b/include/net/ncsi.h
+@@ -28,6 +28,8 @@ struct ncsi_dev {
  };
  
- /* Enable VLAN */
+ #ifdef CONFIG_NET_NCSI
++int ncsi_vlan_rx_add_vid(struct net_device *dev, __be16 proto, u16 vid);
++int ncsi_vlan_rx_kill_vid(struct net_device *dev, __be16 proto, u16 vid);
+ struct ncsi_dev *ncsi_register_dev(struct net_device *dev,
+ 				   void (*notifier)(struct ncsi_dev *nd));
+ int ncsi_start_dev(struct ncsi_dev *nd);
+diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
+index 1308a56f2591..af3d636534ef 100644
+--- a/net/ncsi/internal.h
++++ b/net/ncsi/internal.h
+@@ -180,6 +180,7 @@ struct ncsi_channel {
+ #define NCSI_CHANNEL_INACTIVE		1
+ #define NCSI_CHANNEL_ACTIVE		2
+ #define NCSI_CHANNEL_INVISIBLE		3
++	bool                        reconfigure_needed;
+ 	spinlock_t                  lock;	/* Protect filters etc */
+ 	struct ncsi_package         *package;
+ 	struct ncsi_channel_version version;
+@@ -235,6 +236,9 @@ enum {
+ 	ncsi_dev_state_probe_dp,
+ 	ncsi_dev_state_config_sp	= 0x0301,
+ 	ncsi_dev_state_config_cis,
++	ncsi_dev_state_config_clear_vids,
++	ncsi_dev_state_config_svf,
++	ncsi_dev_state_config_ev,
+ 	ncsi_dev_state_config_sma,
+ 	ncsi_dev_state_config_ebf,
+ #if IS_ENABLED(CONFIG_IPV6)
+@@ -253,6 +257,12 @@ enum {
+ 	ncsi_dev_state_suspend_done
+ };
+ 
++struct vlan_vid {
++	struct list_head list;
++	__be16 proto;
++	u16 vid;
++};
++
+ struct ncsi_dev_priv {
+ 	struct ncsi_dev     ndev;            /* Associated NCSI device     */
+ 	unsigned int        flags;           /* NCSI device flags          */
+@@ -276,6 +286,7 @@ struct ncsi_dev_priv {
+ 	struct work_struct  work;            /* For channel management     */
+ 	struct packet_type  ptype;           /* NCSI packet Rx handler     */
+ 	struct list_head    node;            /* Form NCSI device list      */
++	struct list_head    vlan_vids;       /* List of active VLAN IDs */
+ };
+ 
+ struct ncsi_cmd_arg {
+diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
+index a3bd5fa8ad09..11904b3b702d 100644
+--- a/net/ncsi/ncsi-manage.c
++++ b/net/ncsi/ncsi-manage.c
+@@ -38,6 +38,25 @@ static inline int ncsi_filter_size(int table)
+ 	return sizes[table];
+ }
+ 
++u32 *ncsi_get_filter(struct ncsi_channel *nc, int table, int index)
++{
++	struct ncsi_channel_filter *ncf;
++	int size;
++
++	ncf = nc->filters[table];
++	if (!ncf)
++		return NULL;
++
++	size = ncsi_filter_size(table);
++	if (size < 0)
++		return NULL;
++
++	return ncf->data + size * index;
++}
++
++/* Find the first active filter in a filter table that matches the given
++ * data parameter. If data is NULL, this returns the first active filter.
++ */
+ int ncsi_find_filter(struct ncsi_channel *nc, int table, void *data)
+ {
+ 	struct ncsi_channel_filter *ncf;
+@@ -58,7 +77,7 @@ int ncsi_find_filter(struct ncsi_channel *nc, int table, void *data)
+ 	index = -1;
+ 	while ((index = find_next_bit(bitmap, ncf->total, index + 1))
+ 	       < ncf->total) {
+-		if (!memcmp(ncf->data + size * index, data, size)) {
++		if (!data || !memcmp(ncf->data + size * index, data, size)) {
+ 			spin_unlock_irqrestore(&nc->lock, flags);
+ 			return index;
+ 		}
+@@ -639,6 +658,95 @@ static void ncsi_suspend_channel(struct ncsi_dev_priv *ndp)
+ 	nd->state = ncsi_dev_state_functional;
+ }
+ 
++/* Check the VLAN filter bitmap for a set filter, and construct a
++ * "Set VLAN Filter - Disable" packet if found.
++ */
++static int clear_one_vid(struct ncsi_dev_priv *ndp, struct ncsi_channel *nc,
++			 struct ncsi_cmd_arg *nca)
++{
++	int index;
++	u32 *data;
++	u16 vid;
++
++	index = ncsi_find_filter(nc, NCSI_FILTER_VLAN, NULL);
++	if (index < 0) {
++		/* Filter table empty */
++		return -1;
++	}
++
++	data = ncsi_get_filter(nc, NCSI_FILTER_VLAN, index);
++	if (!data) {
++		netdev_err(ndp->ndev.dev,
++			   "ncsi: failed to retrieve filter %d\n", index);
++		/* Set the VLAN id to 0 - this will still disable the entry in
++		 * the filter table, but we won't know what it was.
++		 */
++		vid = 0;
++	} else {
++		vid = *(u16 *)data;
++	}
++
++	netdev_printk(KERN_DEBUG, ndp->ndev.dev,
++		      "ncsi: removed vlan tag %u at index %d\n",
++		      vid, index + 1);
++	ncsi_remove_filter(nc, NCSI_FILTER_VLAN, index);
++
++	nca->type = NCSI_PKT_CMD_SVF;
++	nca->words[1] = vid;
++	/* HW filter index starts at 1 */
++	nca->bytes[6] = index + 1;
++	nca->bytes[7] = 0x00;
++	return 0;
++}
++
++/* Find an outstanding VLAN tag and constuct a "Set VLAN Filter - Enable"
++ * packet.
++ */
++static int set_one_vid(struct ncsi_dev_priv *ndp, struct ncsi_channel *nc,
++		       struct ncsi_cmd_arg *nca)
++{
++	struct vlan_vid *vlan = NULL;
++	int index = 0;
++
++	list_for_each_entry_rcu(vlan, &ndp->vlan_vids, list) {
++		index = ncsi_find_filter(nc, NCSI_FILTER_VLAN, &vlan->vid);
++		if (index < 0) {
++			/* New tag to add */
++			netdev_printk(KERN_DEBUG, ndp->ndev.dev,
++				      "ncsi: new vlan id to set: %u\n",
++				      vlan->vid);
++			break;
++		}
++		netdev_printk(KERN_DEBUG, ndp->ndev.dev,
++			      "vid %u already at filter pos %d\n",
++			      vlan->vid, index);
++	}
++
++	if (!vlan || index >= 0) {
++		netdev_printk(KERN_DEBUG, ndp->ndev.dev,
++			      "no vlan ids left to set\n");
++		return -1;
++	}
++
++	index = ncsi_add_filter(nc, NCSI_FILTER_VLAN, &vlan->vid);
++	if (index < 0) {
++		netdev_err(ndp->ndev.dev,
++			   "Failed to add new VLAN tag, error %d\n", index);
++		return -1;
++	}
++
++	netdev_printk(KERN_DEBUG, ndp->ndev.dev,
++		      "ncsi: set vid %u in packet, index %u\n",
++		      vlan->vid, index + 1);
++	nca->type = NCSI_PKT_CMD_SVF;
++	nca->words[1] = vlan->vid;
++	/* HW filter index starts at 1 */
++	nca->bytes[6] = index + 1;
++	nca->bytes[7] = 0x01;
++
++	return 0;
++}
++
+ static void ncsi_configure_channel(struct ncsi_dev_priv *ndp)
+ {
+ 	struct ncsi_dev *nd = &ndp->ndev;
+@@ -683,8 +791,11 @@ static void ncsi_configure_channel(struct ncsi_dev_priv *ndp)
+ 		if (ret)
+ 			goto error;
+ 
+-		nd->state = ncsi_dev_state_config_sma;
++		nd->state = ncsi_dev_state_config_clear_vids;
+ 		break;
++	case ncsi_dev_state_config_clear_vids:
++	case ncsi_dev_state_config_svf:
++	case ncsi_dev_state_config_ev:
+ 	case ncsi_dev_state_config_sma:
+ 	case ncsi_dev_state_config_ebf:
+ #if IS_ENABLED(CONFIG_IPV6)
+@@ -699,11 +810,40 @@ static void ncsi_configure_channel(struct ncsi_dev_priv *ndp)
+ 		nca.package = np->id;
+ 		nca.channel = nc->id;
+ 
++		/* Clear any active filters on the channel before setting */
++		if (nd->state == ncsi_dev_state_config_clear_vids) {
++			ret = clear_one_vid(ndp, nc, &nca);
++			if (ret) {
++				nd->state = ncsi_dev_state_config_svf;
++				schedule_work(&ndp->work);
++				break;
++			}
++			/* Repeat */
++			nd->state = ncsi_dev_state_config_clear_vids;
++		/* Add known VLAN tags to the filter */
++		} else if (nd->state == ncsi_dev_state_config_svf) {
++			ret = set_one_vid(ndp, nc, &nca);
++			if (ret) {
++				nd->state = ncsi_dev_state_config_ev;
++				schedule_work(&ndp->work);
++				break;
++			}
++			/* Repeat */
++			nd->state = ncsi_dev_state_config_svf;
++		/* Enable/Disable the VLAN filter */
++		} else if (nd->state == ncsi_dev_state_config_ev) {
++			if (list_empty(&ndp->vlan_vids)) {
++				nca.type = NCSI_PKT_CMD_DV;
++			} else {
++				nca.type = NCSI_PKT_CMD_EV;
++				nca.bytes[3] = NCSI_CAP_VLAN_NO;
++			}
++			nd->state = ncsi_dev_state_config_sma;
++		} else if (nd->state == ncsi_dev_state_config_sma) {
+ 		/* Use first entry in unicast filter table. Note that
+ 		 * the MAC filter table starts from entry 1 instead of
+ 		 * 0.
+ 		 */
+-		if (nd->state == ncsi_dev_state_config_sma) {
+ 			nca.type = NCSI_PKT_CMD_SMA;
+ 			for (index = 0; index < 6; index++)
+ 				nca.bytes[index] = dev->dev_addr[index];
+@@ -751,6 +891,25 @@ static void ncsi_configure_channel(struct ncsi_dev_priv *ndp)
+ 		break;
+ 	case ncsi_dev_state_config_done:
+ 		spin_lock_irqsave(&nc->lock, flags);
++		if (nc->reconfigure_needed) {
++			/* This channel's configuration has been updated
++			 * part-way during the config state - start the
++			 * channel configuration over
++			 */
++			nc->reconfigure_needed = false;
++			nc->state = NCSI_CHANNEL_INACTIVE;
++			spin_unlock_irqrestore(&nc->lock, flags);
++
++			spin_lock_irqsave(&ndp->lock, flags);
++			list_add_tail_rcu(&nc->link, &ndp->channel_queue);
++			spin_unlock_irqrestore(&ndp->lock, flags);
++
++			netdev_printk(KERN_DEBUG, dev,
++				      "Dirty NCSI channel state reset\n");
++			ncsi_process_next_channel(ndp);
++			break;
++		}
++
+ 		if (nc->modes[NCSI_MODE_LINK].data[2] & 0x1) {
+ 			hot_nc = nc;
+ 			nc->state = NCSI_CHANNEL_ACTIVE;
+@@ -1191,6 +1350,148 @@ static struct notifier_block ncsi_inet6addr_notifier = {
+ };
+ #endif /* CONFIG_IPV6 */
+ 
++static int ncsi_kick_channels(struct ncsi_dev_priv *ndp)
++{
++	struct ncsi_dev *nd = &ndp->ndev;
++	struct ncsi_channel *nc;
++	struct ncsi_package *np;
++	unsigned long flags;
++	unsigned int n = 0;
++
++	NCSI_FOR_EACH_PACKAGE(ndp, np) {
++		NCSI_FOR_EACH_CHANNEL(np, nc) {
++			spin_lock_irqsave(&nc->lock, flags);
++
++			/* Channels may be busy, mark dirty instead of
++			 * kicking if;
++			 * a) not ACTIVE (configured)
++			 * b) in the channel_queue (to be configured)
++			 * c) it's ndev is in the config state
++			 */
++			if (nc->state != NCSI_CHANNEL_ACTIVE) {
++				if ((ndp->ndev.state & 0xff00) ==
++						ncsi_dev_state_config ||
++						!list_empty(&nc->link)) {
++					netdev_printk(KERN_DEBUG, nd->dev,
++						      "ncsi: channel %p marked dirty\n",
++						      nc);
++					nc->reconfigure_needed = true;
++				}
++				spin_unlock_irqrestore(&nc->lock, flags);
++				continue;
++			}
++
++			spin_unlock_irqrestore(&nc->lock, flags);
++
++			ncsi_stop_channel_monitor(nc);
++			spin_lock_irqsave(&nc->lock, flags);
++			nc->state = NCSI_CHANNEL_INACTIVE;
++			spin_unlock_irqrestore(&nc->lock, flags);
++
++			spin_lock_irqsave(&ndp->lock, flags);
++			list_add_tail_rcu(&nc->link, &ndp->channel_queue);
++			spin_unlock_irqrestore(&ndp->lock, flags);
++
++			netdev_printk(KERN_DEBUG, nd->dev,
++				      "ncsi: kicked channel %p\n", nc);
++			n++;
++		}
++	}
++
++	return n;
++}
++
++int ncsi_vlan_rx_add_vid(struct net_device *dev, __be16 proto, u16 vid)
++{
++	struct ncsi_channel_filter *ncf;
++	struct ncsi_dev_priv *ndp;
++	unsigned int n_vids = 0;
++	struct vlan_vid *vlan;
++	struct ncsi_dev *nd;
++	bool found = false;
++
++	if (vid == 0)
++		return 0;
++
++	nd = ncsi_find_dev(dev);
++	if (!nd) {
++		netdev_warn(dev, "ncsi: No net_device?\n");
++		return 0;
++	}
++
++	ndp = TO_NCSI_DEV_PRIV(nd);
++	ncf = ndp->hot_channel->filters[NCSI_FILTER_VLAN];
++
++	/* Add the VLAN id to our internal list */
++	list_for_each_entry_rcu(vlan, &ndp->vlan_vids, list) {
++		n_vids++;
++		if (vlan->vid == vid) {
++			netdev_printk(KERN_DEBUG, dev,
++				      "vid %u already registered\n", vid);
++			return 0;
++		}
++	}
++
++	if (n_vids >= ncf->total) {
++		netdev_info(dev,
++			    "NCSI Channel supports up to %u VLAN tags but %u are already set\n",
++			    ncf->total, n_vids);
++		return -EINVAL;
++	}
++
++	vlan = kzalloc(sizeof(*vlan), GFP_KERNEL);
++	if (!vlan)
++		return -ENOMEM;
++
++	vlan->proto = proto;
++	vlan->vid = vid;
++	list_add_rcu(&vlan->list, &ndp->vlan_vids);
++
++	netdev_printk(KERN_DEBUG, dev, "Added new vid %u\n", vid);
++
++	found = ncsi_kick_channels(ndp) != 0;
++
++	return found ? ncsi_process_next_channel(ndp) : 0;
++}
++
++int ncsi_vlan_rx_kill_vid(struct net_device *dev, __be16 proto, u16 vid)
++{
++	struct vlan_vid *vlan, *tmp;
++	struct ncsi_dev_priv *ndp;
++	struct ncsi_dev *nd;
++	bool found = false;
++
++	if (vid == 0)
++		return 0;
++
++	nd = ncsi_find_dev(dev);
++	if (!nd) {
++		netdev_warn(dev, "ncsi: no net_device?\n");
++		return 0;
++	}
++
++	ndp = TO_NCSI_DEV_PRIV(nd);
++
++	/* Remove the VLAN id from our internal list */
++	list_for_each_entry_safe(vlan, tmp, &ndp->vlan_vids, list)
++		if (vlan->vid == vid) {
++			netdev_printk(KERN_DEBUG, dev,
++				      "vid %u found, removing\n", vid);
++			list_del_rcu(&vlan->list);
++			found = true;
++			kfree(vlan);
++		}
++
++	if (!found) {
++		netdev_err(dev, "ncsi: vid %u wasn't registered!\n", vid);
++		return -EINVAL;
++	}
++
++	found = ncsi_kick_channels(ndp) != 0;
++
++	return found ? ncsi_process_next_channel(ndp) : 0;
++}
++
+ struct ncsi_dev *ncsi_register_dev(struct net_device *dev,
+ 				   void (*handler)(struct ncsi_dev *ndev))
+ {
+@@ -1215,6 +1516,7 @@ struct ncsi_dev *ncsi_register_dev(struct net_device *dev,
+ 	nd->handler = handler;
+ 	ndp->pending_req_num = 0;
+ 	INIT_LIST_HEAD(&ndp->channel_queue);
++	INIT_LIST_HEAD(&ndp->vlan_vids);
+ 	INIT_WORK(&ndp->work, ncsi_dev_work);
+ 
+ 	/* Initialize private NCSI device */
 diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
-index 087db775b3dc..c1a191d790e2 100644
+index c1a191d790e2..265b9a892d41 100644
 --- a/net/ncsi/ncsi-rsp.c
 +++ b/net/ncsi/ncsi-rsp.c
-@@ -354,7 +354,8 @@ static int ncsi_rsp_handler_svf(struct ncsi_request *nr)
+@@ -694,7 +694,14 @@ static int ncsi_rsp_handler_gc(struct ncsi_request *nr)
  
- 	/* Add or remove the VLAN filter */
- 	if (!(cmd->enable & 0x1)) {
--		ret = ncsi_remove_filter(nc, NCSI_FILTER_VLAN, cmd->index);
-+		/* HW indexes from 1 */
-+		ret = ncsi_remove_filter(nc, NCSI_FILTER_VLAN, cmd->index - 1);
- 	} else {
- 		vlan = ntohs(cmd->vlan);
- 		ret = ncsi_add_filter(nc, NCSI_FILTER_VLAN, &vlan);
+ 		ncf->index = i;
+ 		ncf->total = cnt;
+-		ncf->bitmap = 0x0ul;
++		if (i == NCSI_FILTER_VLAN) {
++			/* Set VLAN filters active so they are cleared in
++			 * first configuration state
++			 */
++			ncf->bitmap = U64_MAX;
++		} else {
++			ncf->bitmap = 0x0ul;
++		}
+ 		nc->filters[i] = ncf;
+ 	}
+ 
 -- 
 2.14.0
