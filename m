@@ -3,53 +3,55 @@ Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xghRl0CR2zDq5m
- for <openbmc@lists.ozlabs.org>; Mon, 28 Aug 2017 16:18:58 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xghRp0l0fzDq5m
+ for <openbmc@lists.ozlabs.org>; Mon, 28 Aug 2017 16:19:01 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
- header.b="W45dxc0I"; dkim=pass (2048-bit key;
+ header.b="DbNIJZSU"; dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="MZsm48RL"; dkim-atps=neutral
+ header.b="f0EoIR9z"; dkim-atps=neutral
 Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id BEA3D20B5A;
- Mon, 28 Aug 2017 02:18:56 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id CCF4120D7A;
+ Mon, 28 Aug 2017 02:18:59 -0400 (EDT)
 Received: from frontend1 ([10.202.2.160])
- by compute2.internal (MEProxy); Mon, 28 Aug 2017 02:18:56 -0400
+ by compute2.internal (MEProxy); Mon, 28 Aug 2017 02:18:59 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- mendozajonas.com; h=cc:date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=hAT0bY
- 7mFLEJWjKXtP3plk4ej4Ox5uCNAjP7614Sa7o=; b=W45dxc0I+eLjd0ncyLofNn
- 2cCFJ75gkQGyzDGWoWr0HTdSciFX6tHUrp+KetJbwyAwkASiwRomlUJUxajYccUF
- 4CdtAzGX/4IIenNewAtIlzetS+YlgO4stMxnW+/58oRI5Wa3gbt/ZkW+P1nK92zi
- Jtxn0xMUY3sIi+yaveh+Ps1NAUyec6DbVK+8iFuLgfxM0VPnqCjaQnwXQRJ+rV/3
- gGGv3sYgmjCnPpEphAgsIK44D29owfaX8xLdJHSbn54hlOCOoR87AUQaj3q15kb7
- 8ZwcE8Cq7/rWA3ZbbLnpR1VvkBqbxmY/PXhzfgAIF05Y0qUyhTiw0ujVieK/zghw
- ==
+ mendozajonas.com; h=cc:date:from:in-reply-to:message-id
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=hD3fJANsQ6JKbuDu8M2wjyaLPLMzwDRi8SOeZxzuM
+ 20=; b=DbNIJZSUNRm/R6Ov1D7s2CZ20weLYPJ5tNJ7QbgMK739/hZOfo/fteUbL
+ H3LH7322FE/wxgsUoZqwr5Q9s/Oi2EjuHdtOtI0Gj9fx+IxvA6j783gP0Yy3IrIw
+ rFewz2lwElKkBiQN9+fg9FctS7HVxgiRXTJjN3ELY7T6OH6gF55Jjv/Nw0TSyyLM
+ jHKJyr6tuBJXdADazZ9Lsi++CsjI2RxHkmxllKgb9aDwBGS9wm9drjHNsusZbK8M
+ 9PXTBzPXgpN4BKwVLVVDrpB3Dohs55X7vQOB6OubezcmVOoAqKmJT8/uwEG3Rff5
+ iuVvYsuBlQq0Zd6m5E9p6T3EvRseg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=hAT0bY
- 7mFLEJWjKXtP3plk4ej4Ox5uCNAjP7614Sa7o=; b=MZsm48RL4vSL2h9c/p2f+G
- MVrk0r0zKuGKXHV1LI/RAJBm8rVqW1p6bTnrY34MNNzL6aGiDbFQUGYJCt3CQTyS
- hr9B4XgRywi6tECqAA7r2gW6UdZvL/fXu9+TI+mcYErtqf2sS1PWoPaRWfRMjP0r
- IrZhSmeXqeMnigFdaQpBeeQFPMSCqL/A7Hd2BR89aimCnqxpw0Nebkg9O9np0+17
- aKwkSlReqL2qb/xpErq0PI+dyYNqh7Jiu7vui4ln+o404u1SCKeohA4kRhfiHh/+
- kwvBL1+ikR6scnj9PZ9mgW0iclsb+nvAHGLSmwAPr84Rw+armvOkbyumEfAGUs+A
- ==
-X-ME-Sender: <xms:0LWjWTHup6RE3j1GypjWokGklqHuQ3m4Yzkqo12gW7_wbG8Zw-tm6w>
-X-Sasl-enc: k4JlxF7xstoHKKAG4qfvl90DoqUxBBrUsjqKR/xHafIV 1503901136
+ messagingengine.com; h=cc:date:from:in-reply-to:message-id
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=hD3fJANsQ6JKbuDu8M2wjyaLPLMzwDRi8SOeZxzuM
+ 20=; b=f0EoIR9zypmEFUkKGvSy6wfQLMmVGeOxaGGbvK3U66VLLS/6fSsOGE554
+ kKmP+LZXigBg2+hkeWIJkmVqzbqLl7Ncv3lzTWJVbuWJJ9mPnqhLwuakJo/+6cnr
+ 5xuU76OkbAQ9ZXZalcWFAXnOviaXivHUo5W4FfzWsCjtbNQ68El/4e7ucZ8n6r/k
+ smXYa8oV2aTU8S/s1NH6q8Uhh3FLKC6UB4HJvfkfaDLNzDk9GxgN+/W++zBz5kHw
+ NjjPsfaIgU+17E3KeHIEoCyb4m8xgVSKtXq5fWYW9jRnNgMDF/YWk5Wp4TWzOlpz
+ gbGSZY6rrpe6JUl/5nA1GMz2KEiug==
+X-ME-Sender: <xms:07WjWf5sIuymwH8hM0DmWUSvC1gF5JdUNH2DOGxNPMtjrSmzbJ7Nnw>
+X-Sasl-enc: XclAxYspnVAYFcMwUAB80FSV0flgAX1UDGN4y+O9jSBp 1503901139
 Received: from v4.ozlabs.ibm.com (unknown [122.99.82.10])
- by mail.messagingengine.com (Postfix) with ESMTPA id DFDA97E271;
- Mon, 28 Aug 2017 02:18:53 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 0AFDF7E271;
+ Mon, 28 Aug 2017 02:18:56 -0400 (EDT)
 From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
 To: "David S . Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>, Joel Stanley <joel@jms.id.au>,
  Benjamin Herrenschmidt <benh@kernel.crashing.org>,
  Gavin Shan <gwshan@linux.vnet.ibm.com>, ratagupt@in.ibm.com
-Subject: [PATCH net-next v3 0/3] NCSI VLAN Filtering Support
-Date: Mon, 28 Aug 2017 16:18:40 +1000
-Message-Id: <20170828061843.24349-1-sam@mendozajonas.com>
+Subject: [PATCH net-next v3 1/3] net/ncsi: Fix several packet definitions
+Date: Mon, 28 Aug 2017 16:18:41 +1000
+Message-Id: <20170828061843.24349-2-sam@mendozajonas.com>
 X-Mailer: git-send-email 2.14.0
+In-Reply-To: <20170828061843.24349-1-sam@mendozajonas.com>
+References: <20170828061843.24349-1-sam@mendozajonas.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,35 +63,78 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Aug 2017 06:19:00 -0000
-X-List-Received-Date: Mon, 28 Aug 2017 06:19:00 -0000
+X-List-Received-Date: Mon, 28 Aug 2017 06:19:02 -0000
 
-This series (mainly patch 2) adds VLAN filtering to the NCSI implementation.
-A fair amount of code already exists in the NCSI stack for VLAN filtering but
-none of it is actually hooked up. This goes the final mile and fixes a few
-bugs in the existing code found along the way (patch 1).
+Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+---
+v2: Rebased on latest net-next
 
-Patch 3 adds the appropriate flag and callbacks to the ftgmac100 driver to
-enable filtering as it's a large consumer of NCSI (and what I've been
-testing on).
+ net/ncsi/ncsi-cmd.c | 10 +++++-----
+ net/ncsi/ncsi-pkt.h |  2 +-
+ net/ncsi/ncsi-rsp.c |  3 ++-
+ 3 files changed, 8 insertions(+), 7 deletions(-)
 
-v3:	- Add comment describing change to ncsi_find_filter()
-	- Catch NULL in clear_one_vid() from ncsi_get_filter()
-	- Simplify state changes when kicking updated channel
-
-Samuel Mendoza-Jonas (3):
-  net/ncsi: Fix several packet definitions
-  net/ncsi: Configure VLAN tag filter
-  ftgmac100: Support NCSI VLAN filtering when available
-
- drivers/net/ethernet/faraday/ftgmac100.c |   5 +
- include/net/ncsi.h                       |   2 +
- net/ncsi/internal.h                      |  11 ++
- net/ncsi/ncsi-cmd.c                      |  10 +-
- net/ncsi/ncsi-manage.c                   | 308 ++++++++++++++++++++++++++++++-
- net/ncsi/ncsi-pkt.h                      |   2 +-
- net/ncsi/ncsi-rsp.c                      |  12 +-
- 7 files changed, 339 insertions(+), 11 deletions(-)
-
+diff --git a/net/ncsi/ncsi-cmd.c b/net/ncsi/ncsi-cmd.c
+index 5e03ed190e18..7567ca63aae2 100644
+--- a/net/ncsi/ncsi-cmd.c
++++ b/net/ncsi/ncsi-cmd.c
+@@ -139,9 +139,9 @@ static int ncsi_cmd_handler_svf(struct sk_buff *skb,
+ 	struct ncsi_cmd_svf_pkt *cmd;
+ 
+ 	cmd = skb_put_zero(skb, sizeof(*cmd));
+-	cmd->vlan = htons(nca->words[0]);
+-	cmd->index = nca->bytes[2];
+-	cmd->enable = nca->bytes[3];
++	cmd->vlan = htons(nca->words[1]);
++	cmd->index = nca->bytes[6];
++	cmd->enable = nca->bytes[7];
+ 	ncsi_cmd_build_header(&cmd->cmd.common, nca);
+ 
+ 	return 0;
+@@ -153,7 +153,7 @@ static int ncsi_cmd_handler_ev(struct sk_buff *skb,
+ 	struct ncsi_cmd_ev_pkt *cmd;
+ 
+ 	cmd = skb_put_zero(skb, sizeof(*cmd));
+-	cmd->mode = nca->bytes[0];
++	cmd->mode = nca->bytes[3];
+ 	ncsi_cmd_build_header(&cmd->cmd.common, nca);
+ 
+ 	return 0;
+@@ -228,7 +228,7 @@ static struct ncsi_cmd_handler {
+ 	{ NCSI_PKT_CMD_AE,     8, ncsi_cmd_handler_ae      },
+ 	{ NCSI_PKT_CMD_SL,     8, ncsi_cmd_handler_sl      },
+ 	{ NCSI_PKT_CMD_GLS,    0, ncsi_cmd_handler_default },
+-	{ NCSI_PKT_CMD_SVF,    4, ncsi_cmd_handler_svf     },
++	{ NCSI_PKT_CMD_SVF,    8, ncsi_cmd_handler_svf     },
+ 	{ NCSI_PKT_CMD_EV,     4, ncsi_cmd_handler_ev      },
+ 	{ NCSI_PKT_CMD_DV,     0, ncsi_cmd_handler_default },
+ 	{ NCSI_PKT_CMD_SMA,    8, ncsi_cmd_handler_sma     },
+diff --git a/net/ncsi/ncsi-pkt.h b/net/ncsi/ncsi-pkt.h
+index 3ea49ed0a935..91b4b66438df 100644
+--- a/net/ncsi/ncsi-pkt.h
++++ b/net/ncsi/ncsi-pkt.h
+@@ -104,7 +104,7 @@ struct ncsi_cmd_svf_pkt {
+ 	unsigned char           index;     /* VLAN table index  */
+ 	unsigned char           enable;    /* Enable or disable */
+ 	__be32                  checksum;  /* Checksum          */
+-	unsigned char           pad[14];
++	unsigned char           pad[18];
+ };
+ 
+ /* Enable VLAN */
+diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
+index 087db775b3dc..c1a191d790e2 100644
+--- a/net/ncsi/ncsi-rsp.c
++++ b/net/ncsi/ncsi-rsp.c
+@@ -354,7 +354,8 @@ static int ncsi_rsp_handler_svf(struct ncsi_request *nr)
+ 
+ 	/* Add or remove the VLAN filter */
+ 	if (!(cmd->enable & 0x1)) {
+-		ret = ncsi_remove_filter(nc, NCSI_FILTER_VLAN, cmd->index);
++		/* HW indexes from 1 */
++		ret = ncsi_remove_filter(nc, NCSI_FILTER_VLAN, cmd->index - 1);
+ 	} else {
+ 		vlan = ntohs(cmd->vlan);
+ 		ret = ncsi_add_filter(nc, NCSI_FILTER_VLAN, &vlan);
 -- 
 2.14.0
