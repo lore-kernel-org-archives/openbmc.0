@@ -1,23 +1,27 @@
-Return-Path: <c_mykolak@mellanox.com>
-Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
- by lists.ozlabs.org (Postfix) with ESMTP id 3xhXS52dLSzDqYK
- for <openbmc@lists.ozlabs.org>; Wed, 30 Aug 2017 01:22:11 +1000 (AEST)
-Received: from Internal Mail-Server by MTLPINE1 (envelope-from
- c?mykolak@mellanox.com)
- with ESMTPS (AES256-SHA encrypted); 29 Aug 2017 18:22:05 +0300
-Received: from r-build-lowlevel.mtr.labs.mlnx. (r-build-lowlevel.mtr.labs.mlnx
- [10.209.0.190])
- by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id v7TFM4st021104;
- Tue, 29 Aug 2017 18:22:05 +0300
-From: Mykola Kostenok <c_mykolak@mellanox.com>
-To: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- openbmc@lists.ozlabs.org
-Cc: Mykola Kostenok <c_mykolak@mellanox.com>,
- Vadim Pasternak <vadimp@mellanox.com>, Ohad Oz <ohado@mellanox.com>
-Subject: [PATCH linux dev-4.10 v2] dts: add aspeed-pwm-tacho to msn dts.
-Date: Tue, 29 Aug 2017 18:22:02 +0300
-Message-Id: <20170829152202.122188-1-c_mykolak@mellanox.com>
-X-Mailer: git-send-email 2.11.0
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender-of-o51.zoho.com (sender-of-o51.zoho.com [135.84.80.216])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xhXTs5HKHzDqYK
+ for <openbmc@lists.ozlabs.org>; Wed, 30 Aug 2017 01:23:45 +1000 (AEST)
+Received: from localhost (32.97.110.57 [32.97.110.57]) by mx.zohomail.com
+ with SMTPS id 1504020218095738.7138203762155;
+ Tue, 29 Aug 2017 08:23:38 -0700 (PDT)
+Date: Tue, 29 Aug 2017 10:23:36 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Swapna.M3@dell.com
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: OpenBMC issues
+Message-ID: <20170829152336.GD3583@asimov.austin.ibm.com>
+References: <76fff282c45a440bb794bea3c7f1a812@BLRX13MDC414.AMER.DELL.COM>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="pZs/OQEoSSbxGlYw"
+Content-Disposition: inline
+In-Reply-To: <76fff282c45a440bb794bea3c7f1a812@BLRX13MDC414.AMER.DELL.COM>
+User-Agent: Mutt/1.7.2 (2016-11-26)
+X-Zoho-Virus-Status: 1
+X-ZohoMailClient: External
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -29,112 +33,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 Aug 2017 15:22:14 -0000
+X-List-Received-Date: Tue, 29 Aug 2017 15:23:46 -0000
 
-Add basic pwm-tacho-controller node to ast-g5 dtsi.
 
-Add pwm-tacho to aspeed-bmc-mellanox-msn.dts.
+--pZs/OQEoSSbxGlYw
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
---
-v1 -> v2:
- Pointed out by Andrew Jeffery:
- - rebased.
- - remove exist #size-cells and #adress-cells in dtsi from dts.
----
- arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts | 47 +++++++++++++++++++++++++++
- arch/arm/boot/dts/aspeed-g5.dtsi              | 17 ++++++++++
- 2 files changed, 64 insertions(+)
+On Tue, Aug 29, 2017 at 05:50:46AM +0000, Swapna.M3@dell.com wrote:
+> Hi
+>=20
+> In OpenBMC we found driver stability issues. Is that because of OEM vendo=
+rs or any other reason for the stability issue?
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-index 0774959b1222..b7854e36f052 100644
---- a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-@@ -139,3 +139,50 @@
- 	status = "okay";
- };
- 
-+&pwm_tacho {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_pwm0_default>;
-+	#cooling-cells = <2>;
-+
-+	cooling: fan@0 {
-+		reg = <0x00>;
-+		cooling-levels = /bits/ 8 <125 151 177 203 229 255>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
-+	};
-+
-+	fan@1 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x01>;
-+	};
-+
-+	fan@2 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x02>;
-+	};
-+
-+	fan@3 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x03>;
-+	};
-+
-+	fan@4 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x04>;
-+	};
-+
-+	fan@5 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x05>;
-+	};
-+
-+	fan@6 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x06>;
-+	};
-+
-+	fan@7 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x07>;
-+	};
-+};
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index cdea4f4eb77c..bb7652a61bec 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -41,6 +41,14 @@
- 		serial5 = &vuart;
- 	};
- 
-+	clocks {
-+		pwm_tacho_fixed_clk: fixedclk {
-+			compatible = "fixed-clock";
-+			#clock-cells = <0>;
-+			clock-frequency = <24000000>;
-+		};
-+	};
-+
- 	ahb {
- 		compatible = "simple-bus";
- 		#address-cells = <1>;
-@@ -373,6 +381,15 @@
- 				#size-cells = <1>;
- 				ranges = <0 0x1e78a000 0x1000>;
- 			};
-+
-+			pwm_tacho: pwm-tacho-controller@1e786000 {
-+				compatible = "aspeed,ast2500-pwm-tacho";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				reg = <0x1e786000 0x1000>;
-+				clocks = <&pwm_tacho_fixed_clk>;
-+				status = "disabled";
-+			};
- 		};
- 	};
- };
--- 
-2.11.0
+Sorry, but that is a very vague question.  What kind of drivers and what
+do you mean by stability issues?  Are these something you have reported
+on Github?
+
+--=20
+Patrick Williams
+
+--pZs/OQEoSSbxGlYw
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAlmlhvUACgkQqwNHzC0A
+wRnuiA//SlqkwVQJ62uiaht1gBQ4LgRi1EHfM5cLHED/E3eTyG82LZtvTbqOrN8M
+Rm9xBzyjFFo5vu8IcTUGHPLkis0D6gxbvmRL4IXyGkdb3ZmlsqaDairK+pIObeJJ
+64VJXBKpudvB2atNI13tBcdIYQ6cSlavhQvW8h4YA6sQ9LA4zwZHGjU4N6ME4YB1
+0bUHUXAIfykxlphwgKj7RaH6ObszrxM+KNYAO8UKL63QEZ5ByvjiWxOnNHNaotqt
+3U0yTJUutH11vHZ+4VuoVGuy4/XsqcR+fqMQzX58m8SHGDv9XQg/8O2JDlU6FNkb
+aN+m5vqB2VfJ7wdBmX9jkcocXp0WRN5EwGA3h7f6aoeH8clb1BiseA53lPZ4YPvQ
+TCrPYAfJUi0rJFwY9JXt5HaYcrObm/MNASn5YzTjAsa9/DdEPCQBhmGpeCa2zMAQ
+H6BzDwUJOiIkojamFdW0dYzaWP8weYdAz4oLPWandMdbqX+w6lvEPxbjPjJEBH4u
+WfRb6pxeDmeqcCGgeuFZb+dieoQIuJFzf60HsdQCkJ0n/wEuQyqCcuY6sJSy9f/J
+oDY8TR/GjderhdoECIagQDEv5txckFCbhG6ULfwqmtAY52OXgy/4lLIROTYlkJ0D
+cD7hqIII7IApHywIO0UOcz3hV7kTbVnv4ZbM587T67x6/2nV8B0=
+=SHkB
+-----END PGP SIGNATURE-----
+
+--pZs/OQEoSSbxGlYw--
