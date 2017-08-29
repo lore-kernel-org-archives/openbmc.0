@@ -1,36 +1,63 @@
-Return-Path: <clg@kaod.org>
-X-Greylist: delayed 168373 seconds by postgrey-1.36 at bilbo;
- Tue, 29 Aug 2017 15:58:25 AEST
-Received: from 4.mo1.mail-out.ovh.net (4.mo1.mail-out.ovh.net [46.105.76.26])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xhHxY5wYKzDqRM
- for <openbmc@lists.ozlabs.org>; Tue, 29 Aug 2017 15:58:24 +1000 (AEST)
-Received: from player730.ha.ovh.net (b6.ovh.net [213.186.33.56])
- by mo1.mail-out.ovh.net (Postfix) with ESMTP id F16BC903DA
- for <openbmc@lists.ozlabs.org>; Tue, 29 Aug 2017 07:58:20 +0200 (CEST)
-Received: from zorba.kaod.org (LFbn-1-2231-173.w90-76.abo.wanadoo.fr
- [90.76.52.173]) (Authenticated sender: postmaster@kaod.org)
- by player730.ha.ovh.net (Postfix) with ESMTPSA id EDFD5440074;
- Tue, 29 Aug 2017 07:58:17 +0200 (CEST)
-Subject: Re: [PATCH linux dev-4.10 v2] leds: pca955x: check for I2C errors
-To: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org
-References: <20170828063705.21783-1-clg@kaod.org>
- <1503985506.5933.3.camel@aj.id.au>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <f5461d76-40df-eea1-1541-cd1405c36397@kaod.org>
-Date: Tue, 29 Aug 2017 07:58:17 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.3.0
-MIME-Version: 1.0
-In-Reply-To: <1503985506.5933.3.camel@aj.id.au>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 179018088691370963
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelledrudefgdduuddtucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+Return-Path: <andrew@aj.id.au>
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xhKF90Z4JzDqR9;
+ Tue, 29 Aug 2017 16:57:00 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="jAMoCs1E"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="kxGzu92r"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id BB3CE20E15;
+ Tue, 29 Aug 2017 02:56:58 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Tue, 29 Aug 2017 02:56:58 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=/GvQ3kLLuzHCW/5WdWDKUk9vOoaKpcCkT63tqRpIB
+ ic=; b=jAMoCs1E07wXyvMa9do7O8YkqtZ70fu5ivvtz355CenuXqi/yOZluwtA9
+ 36q7RL30reZxVwgdKKZY2EfL+T4HMKaeAzLg7l7B1zrW4I1UCc9Hb/jrYZHCi9zq
+ H5Up3WuFv7eOmsrVe7BGOar6iENsaqBvsjW73aC127JTWmLhlADmBor03+aExenl
+ BoluuYe+7dv5zILJhOvqpp17FLLT1I4Fz1iZ5shyXbInu/DcpZJnBc1z/wZ/V9r0
+ I+1lI2wHVTsaWTDLB6PNpgumxq3/V9xKY8Kplv+EIPXKO5wMV3TVSTjLL8qyoqKG
+ QzNbpdVR484RCIVjLNp207QpnlcCQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=/GvQ3kLLuzHCW/5WdW
+ DKUk9vOoaKpcCkT63tqRpIBic=; b=kxGzu92rMAdCbgOROb2hKRHi4hOOrOoQZV
+ kyLwksK7g7H13XskRsR+f+4KpwGdkXe2y37vNGtsU1gmmgt5wrClQ8JvIHZmZjvZ
+ QQyZZQKxBKPHx9/729g+skADoYs82+6XgztiZdo3ck6LYeCUvbhRvtFMG376E1Aq
+ zJdQVUgpK1NPlczbTbGP7vbwwZfrzSeWLu9SOavCBZLU4Uz1sVvSLxE6nCIk56cK
+ 9RLo+jiYkZcYrVm6RXYTgo+qeoTB6vPb0Fgn6cM4K7pBJYKGfFV/ZBSGpXvQ4aQR
+ ay6jtUmsvXE1vvmMGjKrhnow2C4RGxGR6UJSOhC+YMEK/z4eP+qQ==
+X-ME-Sender: <xms:OhClWWXDs981kGDxdLwUzMuSZP1pWKvCLhoTI_C35LZJcCtQQp9pLg>
+X-Sasl-enc: ZJKIqS1Mqwvo6ZpeqC3NIBRM5NrjKqiyo1u4S/qUzVlm 1503989817
+Received: from keelia (ppp118-210-176-216.bras2.adl6.internode.on.net
+ [118.210.176.216])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 2F5572418B;
+ Tue, 29 Aug 2017 02:56:54 -0400 (EDT)
+Message-ID: <1503989809.5933.5.camel@aj.id.au>
+Subject: Re: [PATCH] i2c: aspeed: Retain delay/setup/hold values when
+ configuring bus frequency
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Wolfram Sang <wsa@the-dreams.de>
+Cc: linux-i2c@vger.kernel.org, brendanhiggins@google.com, 
+ benh@kernel.crashing.org, joel@jms.id.au, openbmc@lists.ozlabs.org, 
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+ ryan_chen@aspeedtech.com
+Date: Tue, 29 Aug 2017 16:26:49 +0930
+In-Reply-To: <20170828160702.x45hagij4kkm5zzc@ninjato>
+References: <20170815072102.23067-1-andrew@aj.id.au>
+ <20170828160702.x45hagij4kkm5zzc@ninjato>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-5SFIj/aZuTWk4Ss2sI3E"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -42,277 +69,80 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 Aug 2017 05:58:26 -0000
-
-On 08/29/2017 07:45 AM, Andrew Jeffery wrote:
-> On Mon, 2017-08-28 at 08:37 +0200, Cédric Le Goater wrote:
->> This should also allow probing to fail when a pca955x chip is not
->> found on a I2C bus.
->>
->> Signed-off-by: Cédric Le Goater <clg@kaod.org>
-> 
-> Thanks Cédric. I've applied this to dev-4.10, fixing up the conflicts
-> with my series. I felt this was reasonable given we've both been
-> discussing the changes.
+X-List-Received-Date: Tue, 29 Aug 2017 06:57:03 -0000
 
 
-yes. Thanks,
+--=-5SFIj/aZuTWk4Ss2sI3E
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-C.
+On Mon, 2017-08-28 at 18:07 +0200, Wolfram Sang wrote:
+> On Tue, Aug 15, 2017 at 04:51:02PM +0930, Andrew Jeffery wrote:
+> > In addition to the base, low and high clock configuration, the AC timin=
+g
+> > register #1 on the AST2400 houses fields controlling:
+> >=20
+> > 1. tBUF: Minimum delay between Stop and Start conditions
+> > 2. tHDSTA: Hold time for the Start condition
+> > 3. tACST: Setup time for Start and Stop conditions, and hold time for t=
+he
+> > =C2=A0=C2=A0=C2=A0Repeated Start condition
+> >=20
+> > These values are defined in hardware on the AST2500 and therefore don't
+> > need to be set.
+> >=20
+> > aspeed_i2c_init_clk() was performing a direct write of the generated
+> > clock values rather than a read/mask/modify/update sequence to retain
+> > tBUF, tHDSTA and tACST, and therefore cleared the tBUF, tHDSTA and tACS=
+T
+> > fields on the AST2400. This resulted in a delay/setup/hold time of 1
+> > base clock, which in some configurations is not enough for some devices
+> > (e.g. the MAX31785 fan controller, with an APB of 48MHz and a desired
+> > bus speed of 100kHz).
+> >=20
+> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+>=20
+> Applied to for-next, thanks!=20
 
+Thanks!
 
-> Andrew
-> 
->> ---
->>  Changes since v1:
->>
->>  - introduced a pca955x_set_value() routine returning an errno
->>  - modified pca955x_gpio_direction_{in,out}put to return an errno
->>  
->>  drivers/leds/leds-pca955x.c | 114 ++++++++++++++++++++++++++++++++------------
->>  1 file changed, 83 insertions(+), 31 deletions(-)
->>
->> diff --git a/drivers/leds/leds-pca955x.c b/drivers/leds/leds-pca955x.c
->> index 09303fd1fdc6..905729191d3e 100644
->> --- a/drivers/leds/leds-pca955x.c
->> +++ b/drivers/leds/leds-pca955x.c
->> @@ -165,13 +165,18 @@ static inline u8 pca955x_ledsel(u8 oldval, int led_num, int state)
->>   * Write to frequency prescaler register, used to program the
->>   * period of the PWM output.  period = (PSCx + 1) / 38
->>   */
->> -static void pca955x_write_psc(struct i2c_client *client, int n, u8 val)
->> +static int pca955x_write_psc(struct i2c_client *client, int n, u8 val)
->>  {
->>>  	struct pca955x *pca955x = i2c_get_clientdata(client);
->>> +	int ret;
->>  
->>> -	i2c_smbus_write_byte_data(client,
->>> +	ret = i2c_smbus_write_byte_data(client,
->>>  		pca95xx_num_input_regs(pca955x->chipdef->bits) + 2*n,
->>>  		val);
->>> +	if (ret < 0)
->>> +		dev_err(&client->dev, "%s: reg 0x%x, val 0x%x, err %d\n",
->>> +			__func__, n, val, ret);
->>> +	return ret;
->>  }
->>  
->>  /*
->> @@ -181,38 +186,56 @@ static void pca955x_write_psc(struct i2c_client *client, int n, u8 val)
->>   *
->>   * Duty cycle is (256 - PWMx) / 256
->>   */
->> -static void pca955x_write_pwm(struct i2c_client *client, int n, u8 val)
->> +static int pca955x_write_pwm(struct i2c_client *client, int n, u8 val)
->>  {
->>>  	struct pca955x *pca955x = i2c_get_clientdata(client);
->>> +	int ret;
->>  
->>> -	i2c_smbus_write_byte_data(client,
->>> +	ret = i2c_smbus_write_byte_data(client,
->>>  		pca95xx_num_input_regs(pca955x->chipdef->bits) + 1 + 2*n,
->>>  		val);
->>> +	if (ret < 0)
->>> +		dev_err(&client->dev, "%s: reg 0x%x, val 0x%x, err %d\n",
->>> +			__func__, n, val, ret);
->>> +	return ret;
->>  }
->>  
->>  /*
->>   * Write to LED selector register, which determines the source that
->>   * drives the LED output.
->>   */
->> -static void pca955x_write_ls(struct i2c_client *client, int n, u8 val)
->> +static int pca955x_write_ls(struct i2c_client *client, int n, u8 val)
->>  {
->>>  	struct pca955x *pca955x = i2c_get_clientdata(client);
->>> +	int ret;
->>  
->>> -	i2c_smbus_write_byte_data(client,
->>> +	ret = i2c_smbus_write_byte_data(client,
->>>  		pca95xx_num_input_regs(pca955x->chipdef->bits) + 4 + n,
->>>  		val);
->>> +	if (ret < 0)
->>> +		dev_err(&client->dev, "%s: reg 0x%x, val 0x%x, err %d\n",
->>> +			__func__, n, val, ret);
->>> +	return ret;
->>  }
->>  
->>  /*
->>   * Read the LED selector register, which determines the source that
->>   * drives the LED output.
->>   */
->> -static u8 pca955x_read_ls(struct i2c_client *client, int n)
->> +static int pca955x_read_ls(struct i2c_client *client, int n, u8 *val)
->>  {
->>>  	struct pca955x *pca955x = i2c_get_clientdata(client);
->>> +	int ret;
->>  
->>> -	return (u8) i2c_smbus_read_byte_data(client,
->>> +	ret = i2c_smbus_read_byte_data(client,
->>>  		pca95xx_num_input_regs(pca955x->chipdef->bits) + 4 + n);
->>> +	if (ret < 0) {
->>> +		dev_err(&client->dev, "%s: reg 0x%x, err %d\n",
->>> +			__func__, n, ret);
->>> +		return ret;
->>> +	}
->>> +	*val = (u8)ret;
->>> +	return 0;
->>  }
->>  
->>  static int pca955x_led_set(struct led_classdev *led_cdev,
->> @@ -223,6 +246,7 @@ static int pca955x_led_set(struct led_classdev *led_cdev,
->>>  	u8 ls;
->>>>  	int chip_ls;	/* which LSx to use (0-3 potentially) */
->>>>  	int ls_led;	/* which set of bits within LSx to use (0-3) */
->>> +	int ret;
->>  
->>>  	pca955x_led = container_of(led_cdev, struct pca955x_led, led_cdev);
->>>  	pca955x = pca955x_led->pca955x;
->> @@ -232,7 +256,9 @@ static int pca955x_led_set(struct led_classdev *led_cdev,
->>  
->>>  	mutex_lock(&pca955x->lock);
->>  
->>> -	ls = pca955x_read_ls(pca955x->client, chip_ls);
->>> +	ret = pca955x_read_ls(pca955x->client, chip_ls, &ls);
->>> +	if (ret)
->>> +		goto out;
->>  
->>>  	switch (value) {
->>>  	case LED_FULL:
->> @@ -252,26 +278,37 @@ static int pca955x_led_set(struct led_classdev *led_cdev,
->>>  		 * OFF, HALF, or FULL.  But, this is probably better than
->>>  		 * just turning off for all other values.
->>>  		 */
->>> -		pca955x_write_pwm(pca955x->client, 1,
->>> -				255 - value);
->>> +		ret = pca955x_write_pwm(pca955x->client, 1, 255 - value);
->>> +		if (ret)
->>> +			goto out;
->>>  		ls = pca955x_ledsel(ls, ls_led, PCA955X_LS_BLINK1);
->>>  		break;
->>>  	}
->>  
->>> -	pca955x_write_ls(pca955x->client, chip_ls, ls);
->>> +	ret = pca955x_write_ls(pca955x->client, chip_ls, ls);
->>  
->> +out:
->>>  	mutex_unlock(&pca955x->lock);
->>  
->>> -	return 0;
->>> +	return ret;
->>  }
->>  
->>  #ifdef CONFIG_LEDS_PCA955X_GPIO
->>  /*
->>   * Read the INPUT register, which contains the state of LEDs.
->>   */
->> -static u8 pca955x_read_input(struct i2c_client *client, int n)
->> +static int pca955x_read_input(struct i2c_client *client, int n, u8 *val)
->>  {
->>> -	return (u8)i2c_smbus_read_byte_data(client, n);
->>> +	int ret = i2c_smbus_read_byte_data(client, n);
->> +
->>> +	if (ret < 0) {
->>> +		dev_err(&client->dev, "%s: reg 0x%x, err %d\n",
->>> +			__func__, n, ret);
->>> +		return ret;
->>> +	}
->>> +	*val = (u8)ret;
->>> +	return 0;
->> +
->>  }
->>  
->>  static int pca955x_gpio_request_pin(struct gpio_chip *gc, unsigned int offset)
->> @@ -285,23 +322,32 @@ static int pca955x_gpio_request_pin(struct gpio_chip *gc, unsigned int offset)
->>>  	return -EBUSY;
->>  }
->>  
->> -static void pca955x_gpio_set_value(struct gpio_chip *gc, unsigned int offset,
->>> -				   int val)
->> +static int pca955x_set_value(struct gpio_chip *gc, unsigned int offset,
->>> +			     int val)
->>  {
->>>  	struct pca955x *pca955x = gpiochip_get_data(gc);
->>>  	struct pca955x_led *led = &pca955x->leds[offset];
->>  
->>>  	if (val)
->>> -		pca955x_led_set(&led->led_cdev, LED_FULL);
->>> +		return pca955x_led_set(&led->led_cdev, LED_FULL);
->>>  	else
->>> -		pca955x_led_set(&led->led_cdev, LED_OFF);
->>> +		return pca955x_led_set(&led->led_cdev, LED_OFF);
->> +}
->> +
->> +static void pca955x_gpio_set_value(struct gpio_chip *gc, unsigned int offset,
->>> +				   int val)
->> +{
->>> +	pca955x_set_value(gc, offset, val);
->>  }
->>  
->>  static int pca955x_gpio_get_value(struct gpio_chip *gc, unsigned int offset)
->>  {
->>>  	struct pca955x *pca955x = gpiochip_get_data(gc);
->>>  	struct pca955x_led *led = &pca955x->leds[offset];
->>> -	u8 reg = pca955x_read_input(pca955x->client, led->led_num / 8);
->>> +	u8 reg = 0;
->> +
->>> +	/* There is nothing we can do about errors */
->>> +	pca955x_read_input(pca955x->client, led->led_num / 8, &reg);
->>  
->>>  	return !!(reg & (1 << (led->led_num % 8)));
->>  }
->> @@ -310,17 +356,13 @@ static int pca955x_gpio_direction_input(struct gpio_chip *gc,
->>>  					unsigned int offset)
->>  {
->>>  	/* To use as input ensure pin is not driven */
->>> -	pca955x_gpio_set_value(gc, offset, 0);
->> -
->>> -	return 0;
->>> +	return pca955x_set_value(gc, offset, 0);
->>  }
->>  
->>  static int pca955x_gpio_direction_output(struct gpio_chip *gc,
->>>  					 unsigned int offset, int val)
->>  {
->>> -	pca955x_gpio_set_value(gc, offset, val);
->> -
->>> -	return 0;
->>> +	return pca955x_set_value(gc, offset, val);
->>  }
->>  #endif /* CONFIG_LEDS_PCA955X_GPIO */
->>  
->> @@ -495,19 +537,29 @@ static int pca955x_probe(struct i2c_client *client,
->>>  				return err;
->>  
->>>  			/* Turn off LED */
->>> -			pca955x_led_set(&pca955x_led->led_cdev, LED_OFF);
->>> +			err = pca955x_led_set(&pca955x_led->led_cdev, LED_OFF);
->>> +			if (err)
->>> +				return err;
->>>  		}
->>>  	}
->>  
->>>  	/* PWM0 is used for half brightness or 50% duty cycle */
->>> -	pca955x_write_pwm(client, 0, 255-LED_HALF);
->>> +	err = pca955x_write_pwm(client, 0, 255 - LED_HALF);
->>> +	if (err)
->>> +		return err;
->>  
->>>  	/* PWM1 is used for variable brightness, default to OFF */
->>> -	pca955x_write_pwm(client, 1, 0);
->>> +	err = pca955x_write_pwm(client, 1, 0);
->>> +	if (err)
->>> +		return err;
->>  
->>>  	/* Set to fast frequency so we do not see flashing */
->>> -	pca955x_write_psc(client, 0, 0);
->>> -	pca955x_write_psc(client, 1, 0);
->>> +	err = pca955x_write_psc(client, 0, 0);
->>> +	if (err)
->>> +		return err;
->>> +	err = pca955x_write_psc(client, 1, 0);
->>> +	if (err)
->>> +		return err;
->>  
->>  #ifdef CONFIG_LEDS_PCA955X_GPIO
->>>  	if (ngpios) {
+> I even considered for-current but it does
+> not apply there. So, I leave the backporting for the interested parties
+> :)
+>=20
+
+It depends on Brendan's clock divisor calculation fix, which appears to
+be in for-next but not for-current:
+
+    87b59ff8d1d9 i2c: aspeed: add proper support fo 24xx clock params
+
+I'd argue that Brendan's patch should go in for-current as well,
+because it fixes a divisor rounding error for the ast2500 (bus is
+clocked faster than requested).
+
+Cheers,
+
+Andrew
+--=-5SFIj/aZuTWk4Ss2sI3E
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZpRAxAAoJEJ0dnzgO5LT5aeMP/1rp0owg8dov/DKlzF+JUiL2
+UCsX8o0X+nnZhuoBFTx03yf4ghvxrzgQnH/gtCOTWhcJOV2Pf4S+aosaz99e0UvY
+oy5MdNGXgerzNRbTbtfPCe7yzixEkFCHwcjeOF48jICq0pknA+JxQyotZnGvY6Eo
+5RghPA0LZoqrgPw18DzFR0zuqcup17NjSdajFd0bM855FJZV93HlaTkN3Du+o2h2
+d+6HqSm9ZWPZf47qwiOb2Mh5zxSXR7QhMfxQ1sBq659M0Aohh0Gq7dGT+hzdImJ2
+5nlVAG8iUNZrzhiyszri+VFWz/L3SKhUMRKOSnIGEluGv7EfQWLXuFYB31WE1HqU
+fJetN9uFjyfpp+GWwH7SAKcvdvio+sswxrgcki6o1p0EKk8NW8uV2coqY7CVMDIj
+2hI0TJbWvjqAB9oYj41TOR5TTrUeVQJqtZeRaFkUKDYNSa8WnjD6BtZWiueVKVg+
+t/bR/DKhvBxrHyqVg8zycD/MaFKowxn/N+PBz7hmpol6mD0g1byfsOReqvnRxU5v
+JZA/TnmSw2R6y+hrgB2WehYuVbFLfe/7XLy39BwroDtcZ305VI0bGjspsCKoDK7m
+LsFUhYRE+eZthZwFE5KDTxdS4VJd63pV2XkmP2jdOmlaw2eg3WBD8c2242yRbMW1
+n08P6xrFanr2dgsHsLyG
+=dYzu
+-----END PGP SIGNATURE-----
+
+--=-5SFIj/aZuTWk4Ss2sI3E--
