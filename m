@@ -1,59 +1,49 @@
-Return-Path: <jacek.anaszewski@gmail.com>
-Received: from mail-wm0-x243.google.com (mail-wm0-x243.google.com
- [IPv6:2a00:1450:400c:c09::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xh3BL1ftczDqD0
- for <openbmc@lists.ozlabs.org>; Tue, 29 Aug 2017 06:23:37 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="TNnofatA"; 
+Return-Path: <Swapna.M3@dell.com>
+X-Greylist: delayed 613 seconds by postgrey-1.36 at bilbo;
+ Tue, 29 Aug 2017 16:01:14 AEST
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=dell.com header.i=@dell.com header.b="FAacCYns"; 
  dkim-atps=neutral
-Received: by mail-wm0-x243.google.com with SMTP id j72so1691727wmi.3
- for <openbmc@lists.ozlabs.org>; Mon, 28 Aug 2017 13:23:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:cc:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding;
- bh=gUg2ZXOH6m0G2BEjygSU33ao7+NSc2iJwyNgIJ8HBfU=;
- b=TNnofatAlgljgZL54bvQeTq502IEt9RoRIGTMf0/U77xUvnv9GzHXsCfLGnFFBW34X
- VC2BlDAoB0wPHy8LCyhFETHQ9wJ/3qpNjh2okmAfSHe/rY6Dtw6oHX3K8edOAoJ+3cAe
- 5icDEgdBa7Axo92BFq0+6XeqqnjQthr5LsgGspzQSGLiJ2wPSc9or+jtyvTjs62K1eUw
- NVCSOHYVF8T/E109raIckIK5MuV/sueDt8QeA2qFHF7ex6d9IFvGRyY1haEBLbFtT9X7
- M2Z3lXh8ifoLBZhS7yEC4Cwd4RyatAk3EwdNL74UE7HdYK8Wkzccz48ZSZZi/5Soj6Dk
- s9oA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:cc:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding;
- bh=gUg2ZXOH6m0G2BEjygSU33ao7+NSc2iJwyNgIJ8HBfU=;
- b=LXCfprCCzQahGIl9YH6oGvwgJifAFNxHh6ThrxmdVftmspPQUxC6UtC3O1DATa8HL4
- EUzgQPPpdVoPwCJ0qXjppLCEyQUHGWqkN94NQSSJzAjvMEx4fV7u7wC5WONRS+gGffyc
- vK9CNOAvnxypkBoEQrDbPTk+QtNIhZfkilRt04uWXCDrAvfKsMvZ3oQqt36CciW8Fixd
- pOqcVRD+BGx39K9X6+JnUM0fal8H1hbOxPyqp1sN2I+Do0Oy2DeerHYwdYIaNCDQ9GVL
- lqueeB5/s8nXFEmhnHD5GpSmVIuS1EaLMf+E2+SzZV4uuETiqFEqbknjDWl37BIsqZ/f
- Mz8Q==
-X-Gm-Message-State: AHYfb5gJhi43nqkRtwcezanFloqFYLAdSZC22AI3+No+Dk+ptvux/4B1
- xQ4EYpygXrmYfKmHQC4=
-X-Received: by 10.28.175.213 with SMTP id y204mr5548wme.67.1503951813933;
- Mon, 28 Aug 2017 13:23:33 -0700 (PDT)
-Received: from [192.168.1.18] (dly86.neoplus.adsl.tpnet.pl. [83.24.54.86])
- by smtp.gmail.com with ESMTPSA id a6sm1050301wrh.66.2017.08.28.13.23.32
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 28 Aug 2017 13:23:33 -0700 (PDT)
-Subject: Re: [PATCH v2 0/2] leds: gpio: Allow retaining state on shutdown
-To: Andrew Jeffery <andrew@aj.id.au>, linux-leds@vger.kernel.org
-References: <20170828001711.19662-1-andrew@aj.id.au>
-Cc: rpurdie@rpsys.net, pavel@ucw.cz, robh+dt@kernel.org,
- mark.rutland@arm.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, joel@jms.id.au, openbmc@lists.ozlabs.org
-From: Jacek Anaszewski <jacek.anaszewski@gmail.com>
-Message-ID: <abb247bd-fc16-54cf-3dc1-fbba575e5fdb@gmail.com>
-Date: Mon, 28 Aug 2017 22:22:49 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.8.0
+Received: from esa4.dell-outbound.iphmx.com (esa4.dell-outbound.iphmx.com
+ [68.232.149.214])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xhJ0p6b7gzDqRM
+ for <openbmc@lists.ozlabs.org>; Tue, 29 Aug 2017 16:01:14 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
+ t=1503986475; x=1535522475;
+ h=from:to:subject:date:message-id:mime-version;
+ bh=5kzofX3+olkO8t2kBFtDEo3RXNof8VjuSu2v1y/Qhqg=;
+ b=FAacCYnsC2sbLAJZO5RpzkJB+80UVt5dxvkGT/MvniBKFHmuJReslhab
+ 1DKgglMpqfOjgIqiHpmH2Jfng2edWuxKPNty9yYjX7f+ZYf4PN3zvUhTj
+ tLw2zhQN3mbCoiWpjBx0QjHaDcRpQRtLI48Hn1neQaj0OuH2/87SorNZU 4=;
+Received: from esa6.dell-outbound2.iphmx.com ([68.232.154.99])
+ by esa4.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 29 Aug 2017 00:50:58 -0500
+From: <Swapna.M3@dell.com>
+Received: from ausc60pc101.us.dell.com ([143.166.85.206])
+ by esa6.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 29 Aug 2017 11:50:58 +0600
+X-LoopCount0: from 10.175.218.62
+X-IronPort-AV: E=Sophos;i="5.41,443,1498539600"; 
+ d="scan'208,217";a="1146891015"
+X-DLP: DLP_GlobalPCIDSS
+To: <openbmc@lists.ozlabs.org>
+Subject: OpenBMC issues
+Thread-Topic: OpenBMC issues
+Thread-Index: AdMgipERRrkWFpUrToubqGeJtjZ4Zw==
+Date: Tue, 29 Aug 2017 05:50:46 +0000
+Message-ID: <76fff282c45a440bb794bea3c7f1a812@BLRX13MDC414.AMER.DELL.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [163.244.186.30]
+Content-Type: multipart/alternative;
+ boundary="_000_76fff282c45a440bb794bea3c7f1a812BLRX13MDC414AMERDELLCOM_"
 MIME-Version: 1.0
-In-Reply-To: <20170828001711.19662-1-andrew@aj.id.au>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Wed, 30 Aug 2017 01:19:22 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -66,45 +56,89 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Aug 2017 20:23:39 -0000
+X-List-Received-Date: Tue, 29 Aug 2017 06:01:16 -0000
 
-Hi Andrew,
+--_000_76fff282c45a440bb794bea3c7f1a812BLRX13MDC414AMERDELLCOM_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Thanks for the update.
+Hi
 
-On 08/28/2017 02:17 AM, Andrew Jeffery wrote:
-> Hello,
-> 
-> LEDs controlled by Baseboard Management Controllers (BMCs) are sometimes
-> required to retain their state across BMC resets. BMC resets may occur whilst
-> the host is alive, thus the chassis and host system remain powered up. In these
-> two patches I define an new devicetree property to describe the behaviour for
-> GPIO LEDs and add support to the leds-gpio driver.
-> 
-> Changes in v2:
-> * Expand BMC to Baseboard Management Controller at least once in each commit
->   message.
-> 
-> v1: https://lkml.org/lkml/2017/8/25/44
-> 
-> Please review!
-> 
-> Cheers,
-> 
-> Andrew
-> 
-> Andrew Jeffery (2):
->   dt-bindings: leds: gpio: Add optional retain-state-shutdown property
->   leds: gpio: Allow LED to retain state at shutdown
-> 
->  Documentation/devicetree/bindings/leds/leds-gpio.txt | 3 +++
->  drivers/leds/leds-gpio.c                             | 7 ++++++-
->  include/linux/leds.h                                 | 2 ++
->  3 files changed, 11 insertions(+), 1 deletion(-)
-> 
+In OpenBMC we found driver stability issues. Is that because of OEM vendors=
+ or any other reason for the stability issue?
 
-Patchset applied to the for-next branch of linux-leds.git, thanks.
 
--- 
-Best regards,
-Jacek Anaszewski
+
+Regards,
+Swapna
+
+--_000_76fff282c45a440bb794bea3c7f1a812BLRX13MDC414AMERDELLCOM_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hi <o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">In OpenBMC we found driver stability issues. Is that=
+ because of OEM vendors or any other reason for the stability issue?<o:p></=
+o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
+<p class=3D"MsoNormal">Swapna<o:p></o:p></p>
+</div>
+</body>
+</html>
+
+--_000_76fff282c45a440bb794bea3c7f1a812BLRX13MDC414AMERDELLCOM_--
