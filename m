@@ -3,53 +3,55 @@ Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xjK1D4GLgzDqNY
- for <openbmc@lists.ozlabs.org>; Thu, 31 Aug 2017 07:50:08 +1000 (AEST)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xjK1J2n15zDqNY
+ for <openbmc@lists.ozlabs.org>; Thu, 31 Aug 2017 07:50:12 +1000 (AEST)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v7ULo6Gk132948
- for <openbmc@lists.ozlabs.org>; Wed, 30 Aug 2017 17:50:06 -0400
-Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2cp4be4515-1
+ v7ULo4DH127551
+ for <openbmc@lists.ozlabs.org>; Wed, 30 Aug 2017 17:50:09 -0400
+Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2cny3cey0t-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 30 Aug 2017 17:50:06 -0400
+ for <openbmc@lists.ozlabs.org>; Wed, 30 Aug 2017 17:50:09 -0400
 Received: from localhost
- by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Wed, 30 Aug 2017 17:50:04 -0400
-Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
- by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
+ Wed, 30 Aug 2017 17:50:08 -0400
+Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
+ by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Wed, 30 Aug 2017 17:50:02 -0400
+ Wed, 30 Aug 2017 17:50:06 -0400
 Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
  [9.57.199.110])
- by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v7ULo1X031064160; Wed, 30 Aug 2017 21:50:01 GMT
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v7ULo5pX25231466; Wed, 30 Aug 2017 21:50:05 GMT
 Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id CD3EAAE03C;
- Wed, 30 Aug 2017 17:50:25 -0400 (EDT)
+ by IMSVA (Postfix) with ESMTP id E2C68AE052;
+ Wed, 30 Aug 2017 17:50:29 -0400 (EDT)
 Received: from christophersmbp.austin.ibm.com (unknown [9.83.1.36])
- by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP id BF711AE034;
- Wed, 30 Aug 2017 17:50:23 -0400 (EDT)
+ by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP id AE359AE03C;
+ Wed, 30 Aug 2017 17:50:27 -0400 (EDT)
 From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 To: joel@jms.id.au
 Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10 v6 0/3] Add user space accessibility for
- ucd9000 stats
-Date: Wed, 30 Aug 2017 16:49:50 -0500
+Subject: [PATCH linux dev-4.10 v6 1/3] hwmon: (ucd9000) Add interface to clear
+ logged faults.
+Date: Wed, 30 Aug 2017 16:49:51 -0500
 X-Mailer: git-send-email 2.10.1 (Apple Git-78)
+In-Reply-To: <20170830214953.73327-1-cbostic@linux.vnet.ibm.com>
+References: <20170830214953.73327-1-cbostic@linux.vnet.ibm.com>
 X-TM-AS-GCONF: 00
-x-cbid: 17083021-0048-0000-0000-000001DBEFA3
+x-cbid: 17083021-0052-0000-0000-000002583F19
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00007638; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000226; SDB=6.00909906; UDB=6.00456396; IPR=6.00690190; 
+ PH=3.00000004; SC=3.00000226; SDB=6.00909906; UDB=6.00456395; IPR=6.00690190; 
  BA=6.00005562; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016932; XFM=3.00000015;
- UTC=2017-08-30 21:50:02
+ UTC=2017-08-30 21:50:07
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17083021-0049-0000-0000-00004266BF88
-Message-Id: <20170830214953.73327-1-cbostic@linux.vnet.ibm.com>
+x-cbparentid: 17083021-0053-0000-0000-000051D70B4F
+Message-Id: <20170830214953.73327-2-cbostic@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-08-30_08:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -68,41 +70,107 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 Aug 2017 21:50:09 -0000
+X-List-Received-Date: Wed, 30 Aug 2017 21:50:12 -0000
 
-This set provides means to allow user space to access various properties of the
-ucd9000 type chips.
+Provide a means for user space to clear out any logged faults
+on these types of devices.  Ability to do so allows user to
+start with a clean slate at system poweron which can be done
+multiple times after this driver loads.
 
-Patch 0001 Adds a user space means of clearing logged faults.  This ability is
-useful in cases where one wants to start with a clean slate during each system
-power on.
+Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+---
+ drivers/hwmon/pmbus/ucd9000.c | 49 ++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 48 insertions(+), 1 deletion(-)
 
-patch 0002 Adds gpio_chip interface for user to access various GPIO pin states
-via the /sys/class/gpio interface.
-
-Patch 0003 adds a debugfs for mfr_status information so user space can gain
-visibility of gpi type faults. Note that there are limitations on type of devices
-that debugfs supports.  Presently only ucd90160 is supported.  Any assumptions made
-as to formatting of data is commented inline in the code.  Any expansion to other
-ucd9000 types will need to take this into consideration.
-
-Note also that no pinmux support is provided at this point.  The ucd9000 devs do
-have mux capability so this should be added.
-
-Patch 0003 (was patch v5-0002... previously) has been reviewed by Andrew Jeffery,
-I did, however, add some small updates to this one:
-
-* Remove ida in bad and unbind paths.
-* Remove type ucd90160 check when adding debugfs. Add for all ucd9000 devs.
-  Results in cleaner ida code in the remove path.
-
-Christopher Bostic (3):
-  hwmon: (ucd9000) Add interface to clear logged faults.
-  hwmon: (ucd9000) Add gpio chip interface
-  hwmon: (ucd9000) Add debugfs to list mfr_status info
-
- drivers/hwmon/pmbus/ucd9000.c | 415 +++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 413 insertions(+), 2 deletions(-)
-
+diff --git a/drivers/hwmon/pmbus/ucd9000.c b/drivers/hwmon/pmbus/ucd9000.c
+index 3e3aa95..c401e5b 100644
+--- a/drivers/hwmon/pmbus/ucd9000.c
++++ b/drivers/hwmon/pmbus/ucd9000.c
+@@ -26,6 +26,8 @@
+ #include <linux/slab.h>
+ #include <linux/i2c.h>
+ #include <linux/i2c/pmbus.h>
++#include <linux/sysfs.h>
++#include <linux/hwmon-sysfs.h>
+ #include "pmbus.h"
+ 
+ enum chips { ucd9000, ucd90120, ucd90124, ucd90160, ucd9090, ucd90910 };
+@@ -34,6 +36,7 @@
+ #define UCD9000_NUM_PAGES		0xd6
+ #define UCD9000_FAN_CONFIG_INDEX	0xe7
+ #define UCD9000_FAN_CONFIG		0xe8
++#define UCD9000_LOGGED_FAULTS		0xea
+ #define UCD9000_DEVICE_ID		0xfd
+ 
+ #define UCD9000_MON_TYPE(x)	(((x) >> 5) & 0x07)
+@@ -119,6 +122,37 @@ static int ucd9000_read_byte_data(struct i2c_client *client, int page, int reg)
+ };
+ MODULE_DEVICE_TABLE(i2c, ucd9000_id);
+ 
++static ssize_t ucd9000_clear_logged_faults(struct device *dev,
++				struct device_attribute *attr, const char *buf,
++				size_t count)
++{
++	struct i2c_client *client = to_i2c_client(dev);
++	int ret;
++
++	/* No page set required */
++	ret = i2c_smbus_write_byte_data(client, UCD9000_LOGGED_FAULTS, 0);
++	if (ret) {
++		dev_err(&client->dev, "Failed to clear logged faults: %d\n",
++			ret);
++
++		return ret;
++	}
++
++	return count;
++}
++
++static DEVICE_ATTR(clear_logged_faults, 0200, NULL,
++		ucd9000_clear_logged_faults);
++
++static struct attribute *ucd9000_attributes[] = {
++	&dev_attr_clear_logged_faults.attr,
++	NULL
++};
++
++static const struct attribute_group ucd9000_attr_group = {
++	.attrs = ucd9000_attributes,
++};
++
+ static int ucd9000_probe(struct i2c_client *client,
+ 			 const struct i2c_device_id *id)
+ {
+@@ -227,16 +261,29 @@ static int ucd9000_probe(struct i2c_client *client,
+ 		  | PMBUS_HAVE_FAN34 | PMBUS_HAVE_STATUS_FAN34;
+ 	}
+ 
++	ret = sysfs_create_group(&client->dev.kobj, &ucd9000_attr_group);
++	if (ret < 0) {
++		dev_warn(&client->dev, "Failed to add sysfs files: %d\n", ret);
++
++		return ret;
++	}
++
+ 	return pmbus_do_probe(client, mid, info);
+ }
+ 
++static int ucd9000_remove(struct i2c_client *client)
++{
++	sysfs_remove_group(&client->dev.kobj, &ucd9000_attr_group);
++	return pmbus_do_remove(client);
++}
++
+ /* This is the driver that will be inserted */
+ static struct i2c_driver ucd9000_driver = {
+ 	.driver = {
+ 		.name = "ucd9000",
+ 	},
+ 	.probe = ucd9000_probe,
+-	.remove = pmbus_do_remove,
++	.remove = ucd9000_remove,
+ 	.id_table = ucd9000_id,
+ };
+ 
 -- 
 1.8.2.2
