@@ -1,60 +1,57 @@
-Return-Path: <xow@google.com>
-Received: from mail-pf0-x233.google.com (mail-pf0-x233.google.com
- [IPv6:2607:f8b0:400e:c00::233])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <linux@roeck-us.net>
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xhhQn3c45zDqMM
- for <openbmc@lists.ozlabs.org>; Wed, 30 Aug 2017 07:21:37 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xhpfn6qZXzDq5b
+ for <openbmc@lists.ozlabs.org>; Wed, 30 Aug 2017 12:02:25 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="hxI8HCWg"; 
+ unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.b="0pQvQSNq";
  dkim-atps=neutral
-Received: by mail-pf0-x233.google.com with SMTP id r62so13654858pfj.0
- for <openbmc@lists.ozlabs.org>; Tue, 29 Aug 2017 14:21:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=3F94VPxALuJJiiDT1fEXGiS2dfya392cnISXh4pshr4=;
- b=hxI8HCWg9mn6vX3r0LdYcoJ2SWY8NVuKzOL1AyaVGeSsaGnemzzwcvWeL+F71wtkTj
- EuHk5PNrvhDOo8WCXklyym01FFF8bLCUDVG32HsQj+hJw0Be1usvZLsGYyGRyPON3qiD
- 3EdXMW3SGz63xKEbPu9a883pKcBKKWWdrvit5TKo1DkzIZ62u10MHlR2gVHnYeuGSyzQ
- S5/FQx3iuL9m2WfPYrAM15q+KOC83fMRLeJg1+7zlYsOqqu13RHh8z1utYxDHQcxhGAq
- ayOjg1sWpWgIpt5AdshlvtGwVliYPWEdx20Os3HmC+yq8409t+BUxHMqPYBYXWAEXNW7
- HRcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=3F94VPxALuJJiiDT1fEXGiS2dfya392cnISXh4pshr4=;
- b=FGGWx8mlwwxW46dwzOq0jjz9bzt6AfxkhtdOktr5P8/QEp+yE5tV5BmH48/og4wHD3
- 2MNotvbdplUd9mjnEM7nQ/IXmxs7OKbEZl96PBhE+baNOT/0YYMvhy7xVysoym8hmPoS
- frn4Gc26pW3DbXhK+sV+92H6ppGxLNXBOT8+21iLi112RNm4OiGLEGEJIT/M3ENCGNa4
- tx9x8nrwGydn01BnuRDSPZ+zVmJkG94fF+qCihyFEk38TJy69ucN/ATBgsyJ8tUuh9nT
- sCve5QuGhHbVJWHTw4DHVBGzxIpxAuYB3/Xo8v6gvpQRcnT5WXWmO7oDXWYNMpA+ZpQN
- CWPQ==
-X-Gm-Message-State: AHYfb5iY4IPylnDPt3Efpw8gCl+uPiN9tSmvcUuz1Z/nUKNSBzpL6RzS
- hIuXh6wklng/Pflg
-X-Google-Smtp-Source: ADKCNb7TCb2LyftN+hpGwti8/3QwyGhUgekfrQnzuuD5mnB8b4D488lAnLbO/tZLtlBE0ne5ePqXZA==
-X-Received: by 10.101.77.6 with SMTP id i6mr1597402pgt.129.1504041695279;
- Tue, 29 Aug 2017 14:21:35 -0700 (PDT)
-Received: from pewter.svl.corp.google.com ([100.123.242.121])
- by smtp.gmail.com with ESMTPSA id s77sm5558445pfa.163.2017.08.29.14.21.33
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Tue, 29 Aug 2017 14:21:34 -0700 (PDT)
-From: Xo Wang <xow@google.com>
-To: jdelvare@suse.com,
-	linux@roeck-us.net,
-	corbet@lwn.net
-Cc: Xo Wang <xow@google.com>, linux-hwmon@vger.kernel.org,
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+ :Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+ :Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=xI+fWmdYlTDx65/Fj7bAUSm72QvCmLOuw1ZgfgA5MxI=; b=0pQvQSNq8njwWh7OOZZ+Pe0D75
+ tKKN/TfY2QpwQtjvbbaMZBGLKy20vZsPaUi5WSLkfwWBAXxyC28FEIWpRpLteGmZ7SDTLxrN3OgYI
+ 9dda79u0fJsD2AAUfo37ihhX93VcXCishr7pRPfuSAkz3rVR7zXU6iHvEoFKofBcS2HPOuefT0QK6
+ 3jJbcG61rCrJiVcULZBdX97MAOwBKMNy6eXctbyqrMZeMOq5XQ4UTMnpjMufa96WDRbym1TP5Bo5W
+ aYF30CWK9ajWwo2tcZaF9gpJRH6QUOd2Kt12oGUPer8SOGIHmkpLj71dhMHKDqbxPsmMLzNHWtWVU
+ E1EpcoLA==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net
+ ([108.223.40.66]:49808 helo=localhost)
+ by bh-25.webhostbox.net with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ (Exim 4.89) (envelope-from <linux@roeck-us.net>)
+ id 1dmsKj-003RJy-M2; Wed, 30 Aug 2017 02:02:22 +0000
+Date: Tue, 29 Aug 2017 19:02:15 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Xo Wang <xow@google.com>
+Cc: jdelvare@suse.com, corbet@lwn.net, linux-hwmon@vger.kernel.org,
  linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
  openbmc@lists.ozlabs.org
-Subject: [PATCH 2/2] hwmon: (pmbus/lm25066) Add support for TI LM5066I
-Date: Tue, 29 Aug 2017 14:21:17 -0700
-Message-Id: <20170829212117.143441-3-xow@google.com>
-X-Mailer: git-send-email 2.14.1.342.g6490525c54-goog
-In-Reply-To: <20170829212117.143441-1-xow@google.com>
-References: <20170829212117.143441-1-xow@google.com>
+Subject: Re: [1/2] hwmon: (pmbus/lm25066) Offset coefficient depends on CL
+Message-ID: <20170830020214.GA21901@roeck-us.net>
+References: <20170829212117.143441-2-xow@google.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20170829212117.143441-2-xow@google.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Authenticated_sender: guenter@roeck-us.net
+X-OutGoing-Spam-Status: No, score=-1.0
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - lists.ozlabs.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-Get-Message-Sender-Via: bh-25.webhostbox.net: authenticated_id:
+ guenter@roeck-us.net
+X-Authenticated-Sender: bh-25.webhostbox.net: guenter@roeck-us.net
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -66,125 +63,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 Aug 2017 21:21:38 -0000
+X-List-Received-Date: Wed, 30 Aug 2017 02:02:26 -0000
 
-The TI LM5066I hotswap controller is a more accurate version of the
-LM5066 device already supported. It has different measurement conversion
-coefficients than the LM5066, so it needs to be recognized as a
-different device.
+On Tue, Aug 29, 2017 at 02:21:16PM -0700, Xo Wang wrote:
+> When converting the DIRECT format CURRENT_IN and POWER commands, make
+> the offset coefficient ("b") predicate on the value of the current limit
+> setting.
+> 
+> Signed-off-by: Xo Wang <xow@google.com>
 
-Signed-off-by: Xo Wang <xow@google.com>
----
- Documentation/hwmon/lm25066   |  9 +++++++--
- drivers/hwmon/pmbus/lm25066.c | 41 +++++++++++++++++++++++++++++++++++++++--
- 2 files changed, 46 insertions(+), 4 deletions(-)
+Applied to hwmon-next.
 
-diff --git a/Documentation/hwmon/lm25066 b/Documentation/hwmon/lm25066
-index 2cb20ebb234d..3fa6bf820c88 100644
---- a/Documentation/hwmon/lm25066
-+++ b/Documentation/hwmon/lm25066
-@@ -29,6 +29,11 @@ Supported chips:
-     Addresses scanned: -
-     Datasheet:
- 	http://www.national.com/pf/LM/LM5066.html
-+  * Texas Instruments LM5066I
-+    Prefix: 'lm5066i'
-+    Addresses scanned: -
-+	Datasheet:
-+    http://www.ti.com/product/LM5066I
- 
- Author: Guenter Roeck <linux@roeck-us.net>
- 
-@@ -37,8 +42,8 @@ Description
- -----------
- 
- This driver supports hardware monitoring for National Semiconductor / TI LM25056,
--LM25063, LM25066, LM5064, and LM5066 Power Management, Monitoring, Control, and
--Protection ICs.
-+LM25063, LM25066, LM5064, and LM5066/LM5066I Power Management, Monitoring,
-+Control, and Protection ICs.
- 
- The driver is a client driver to the core PMBus driver. Please see
- Documentation/hwmon/pmbus for details on PMBus client drivers.
-diff --git a/drivers/hwmon/pmbus/lm25066.c b/drivers/hwmon/pmbus/lm25066.c
-index 232b4af13e12..10d17fb8f283 100644
---- a/drivers/hwmon/pmbus/lm25066.c
-+++ b/drivers/hwmon/pmbus/lm25066.c
-@@ -28,7 +28,7 @@
- #include <linux/i2c.h>
- #include "pmbus.h"
- 
--enum chips { lm25056, lm25063, lm25066, lm5064, lm5066 };
-+enum chips { lm25056, lm25063, lm25066, lm5064, lm5066, lm5066i };
- 
- #define LM25066_READ_VAUX		0xd0
- #define LM25066_MFR_READ_IIN		0xd1
-@@ -65,7 +65,7 @@ struct __coeff {
- #define PSC_CURRENT_IN_L	(PSC_NUM_CLASSES)
- #define PSC_POWER_L		(PSC_NUM_CLASSES + 1)
- 
--static struct __coeff lm25066_coeff[5][PSC_NUM_CLASSES + 2] = {
-+static struct __coeff lm25066_coeff[6][PSC_NUM_CLASSES + 2] = {
- 	[lm25056] = {
- 		[PSC_VOLTAGE_IN] = {
- 			.m = 16296,
-@@ -210,6 +210,41 @@ static struct __coeff lm25066_coeff[5][PSC_NUM_CLASSES + 2] = {
- 			.m = 16,
- 		},
- 	},
-+	[lm5066i] = {
-+		[PSC_VOLTAGE_IN] = {
-+			.m = 4617,
-+			.b = -140,
-+			.R = -2,
-+		},
-+		[PSC_VOLTAGE_OUT] = {
-+			.m = 4602,
-+			.b = 500,
-+			.R = -2,
-+		},
-+		[PSC_CURRENT_IN] = {
-+			.m = 15076,
-+			.b = -504,
-+			.R = -2,
-+		},
-+		[PSC_CURRENT_IN_L] = {
-+			.m = 7645,
-+			.b = 100,
-+			.R = -2,
-+		},
-+		[PSC_POWER] = {
-+			.m = 1701,
-+			.b = -4000,
-+			.R = -3,
-+		},
-+		[PSC_POWER_L] = {
-+			.m = 861,
-+			.b = -965,
-+			.R = -3,
-+		},
-+		[PSC_TEMPERATURE] = {
-+			.m = 16,
-+		},
-+	},
- };
- 
- struct lm25066_data {
-@@ -250,6 +285,7 @@ static int lm25066_read_word_data(struct i2c_client *client, int page, int reg)
- 			ret = DIV_ROUND_CLOSEST(ret * 70, 453);
- 			break;
- 		case lm5066:
-+		case lm5066i:
- 			/* VIN: 2.18 mV VAUX: 725 uV LSB */
- 			ret = DIV_ROUND_CLOSEST(ret * 725, 2180);
- 			break;
-@@ -511,6 +547,7 @@ static const struct i2c_device_id lm25066_id[] = {
- 	{"lm25066", lm25066},
- 	{"lm5064", lm5064},
- 	{"lm5066", lm5066},
-+	{"lm5066i", lm5066i},
- 	{ }
- };
- 
--- 
-2.14.1.342.g6490525c54-goog
+Thanks,
+Guenter
+
+> ---
+>  drivers/hwmon/pmbus/lm25066.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/hwmon/pmbus/lm25066.c b/drivers/hwmon/pmbus/lm25066.c
+> index a3d912cd3b8d..232b4af13e12 100644
+> --- a/drivers/hwmon/pmbus/lm25066.c
+> +++ b/drivers/hwmon/pmbus/lm25066.c
+> @@ -488,16 +488,18 @@ static int lm25066_probe(struct i2c_client *client,
+>  	info->m[PSC_VOLTAGE_OUT] = coeff[PSC_VOLTAGE_OUT].m;
+>  	info->b[PSC_VOLTAGE_OUT] = coeff[PSC_VOLTAGE_OUT].b;
+>  	info->R[PSC_VOLTAGE_OUT] = coeff[PSC_VOLTAGE_OUT].R;
+> -	info->b[PSC_CURRENT_IN] = coeff[PSC_CURRENT_IN].b;
+>  	info->R[PSC_CURRENT_IN] = coeff[PSC_CURRENT_IN].R;
+> -	info->b[PSC_POWER] = coeff[PSC_POWER].b;
+>  	info->R[PSC_POWER] = coeff[PSC_POWER].R;
+>  	if (config & LM25066_DEV_SETUP_CL) {
+>  		info->m[PSC_CURRENT_IN] = coeff[PSC_CURRENT_IN_L].m;
+> +		info->b[PSC_CURRENT_IN] = coeff[PSC_CURRENT_IN_L].b;
+>  		info->m[PSC_POWER] = coeff[PSC_POWER_L].m;
+> +		info->b[PSC_POWER] = coeff[PSC_POWER_L].b;
+>  	} else {
+>  		info->m[PSC_CURRENT_IN] = coeff[PSC_CURRENT_IN].m;
+> +		info->b[PSC_CURRENT_IN] = coeff[PSC_CURRENT_IN].b;
+>  		info->m[PSC_POWER] = coeff[PSC_POWER].m;
+> +		info->b[PSC_POWER] = coeff[PSC_POWER].b;
+>  	}
+>  
+>  	return pmbus_do_probe(client, id, info);
