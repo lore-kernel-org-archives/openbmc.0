@@ -1,62 +1,70 @@
-Return-Path: <groeck7@gmail.com>
-Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
- [IPv6:2607:f8b0:400e:c00::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <tomjose@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xjTSy0hprzDq5b
- for <openbmc@lists.ozlabs.org>; Thu, 31 Aug 2017 14:11:14 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="AamSQdUx"; 
- dkim-atps=neutral
-Received: by mail-pf0-x241.google.com with SMTP id r62so2762604pfj.0
- for <openbmc@lists.ozlabs.org>; Wed, 30 Aug 2017 21:11:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=iDzJYs80a1lTw+1+osTP5Rdh2cht5lAyZei4afmzi58=;
- b=AamSQdUxjsrGyj5rXTyo794NSqPqCUx4QxPc+8sMBxni4HnqFKpnAiPv+75i42h+wL
- LPbdwJQUhGfsd1asUQD+DvoaQ9JhZwpmCbZlAO++HcEeq6GFgmFKmX0AA7dUV/pgSfdJ
- h2DDRIZmFRNz/+OPzcZbKEe2uyRZPtjdxEmH/G4jU9gjeYPNyKID6xK8dlXSVVI+53+O
- 6QLi4uudM3oETKG1pEEAC+3t41q+EE7ZkeruHFrateySoMtV07tSfo3LU1wSOcaTxc+K
- qeFZ/0ZQJopepQxmtGeDnRQJuryVmiXZqOXHhX2SIWz3n4W979lVoGylresBUfMyR0Ps
- kjBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :references:mime-version:content-disposition:in-reply-to:user-agent;
- bh=iDzJYs80a1lTw+1+osTP5Rdh2cht5lAyZei4afmzi58=;
- b=Cctykp+Rf1868ek835L3yrDheCcZCpZLmRM2s27ahuF4kyy2PZT6rVHNgjAWm1m0NY
- zCu7FcaPjJ8mhy1l6iRSaUYmH7+mHFcVEEODRGcKryDgmnk7dip+b/z9XJWfxqun5R+M
- p1HkpLakztpIrcnY2CH86pItS3+8FcwRqheAT3+gpqXzUTVKyFU4H00SuGHFerDF+IMI
- 3JtuZBX5G5judarjUxoN7RA0KyH+sGM7OMXoK+m2RRQkfl6E32epU/nzNghhPxsGazyu
- XV/psYqbmpygIhnx0GlaBI1Pg44beDbIBceoBuCMPMOpTzfXmyEJlQFYayTd1e71oVSA
- z+ag==
-X-Gm-Message-State: AHYfb5i7vITBXkeaGJ0HZkvTvYh5jLK/GN6Ry8L6PA//JrhlJCujkH+I
- 1b2xoZV97NX6EA==
-X-Received: by 10.98.58.220 with SMTP id v89mr918007pfj.19.1504152672399;
- Wed, 30 Aug 2017 21:11:12 -0700 (PDT)
-Received: from localhost (108-223-40-66.lightspeed.sntcca.sbcglobal.net.
- [108.223.40.66])
- by smtp.gmail.com with ESMTPSA id u187sm10938117pfu.140.2017.08.30.21.11.11
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 30 Aug 2017 21:11:11 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 30 Aug 2017 21:11:11 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Cc: jdelvare@suse.com, corbet@lwn.net, linux-hwmon@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org
-Subject: Re: [PATCH 2/2] hwmon: (ucd9000) Add sysfs attribute to clear logged
- faults
-Message-ID: <20170831041111.GC26660@roeck-us.net>
-References: <20170830185536.71307-1-cbostic@linux.vnet.ibm.com>
- <20170830185536.71307-3-cbostic@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xjVl05hgszDqGZ
+ for <openbmc@lists.ozlabs.org>; Thu, 31 Aug 2017 15:08:28 +1000 (AEST)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v7V549rf045986
+ for <openbmc@lists.ozlabs.org>; Thu, 31 Aug 2017 01:08:25 -0400
+Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2cpar755yb-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 31 Aug 2017 01:08:25 -0400
+Received: from localhost
+ by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <tomjose@linux.vnet.ibm.com>;
+ Thu, 31 Aug 2017 01:08:24 -0400
+Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
+ by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Thu, 31 Aug 2017 01:08:22 -0400
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v7V58Lfe23986406; Thu, 31 Aug 2017 05:08:21 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 6EF80112047;
+ Thu, 31 Aug 2017 01:08:07 -0400 (EDT)
+Received: from [9.202.32.168] (unknown [9.202.32.168])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id 8CA32112034;
+ Thu, 31 Aug 2017 01:08:06 -0400 (EDT)
+Subject: Re: Design proposal to Non-Interactive password update for REST client
+To: vishwa <vishwa@linux.vnet.ibm.com>, Patrick Williams <patrick@stwcx.xyz>
+References: <f2f1b160-cb20-e02f-1a88-3dffbeacc76e@linux.vnet.ibm.com>
+ <20170814163515.GB20526@asimov.lan>
+ <51653e69-4ef6-d7b4-e688-1055382e2c46@linux.vnet.ibm.com>
+ <5e6e106f-2c3b-ab45-bdd7-a6a72f1376b3@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: tomjose <tomjose@linux.vnet.ibm.com>
+Date: Thu, 31 Aug 2017 10:38:19 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
+ Thunderbird/38.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20170830185536.71307-3-cbostic@linux.vnet.ibm.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+In-Reply-To: <5e6e106f-2c3b-ab45-bdd7-a6a72f1376b3@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+x-cbid: 17083105-0048-0000-0000-000001DC4328
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007640; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000226; SDB=6.00910052; UDB=6.00456483; IPR=6.00690332; 
+ BA=6.00005562; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016938; XFM=3.00000015;
+ UTC=2017-08-31 05:08:23
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17083105-0049-0000-0000-00004267AFCB
+Message-Id: <59A799C3.3090304@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-08-30_10:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
+ definitions=main-1708310076
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,133 +76,93 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 Aug 2017 04:11:14 -0000
+X-List-Received-Date: Thu, 31 Aug 2017 05:08:29 -0000
 
-On Wed, Aug 30, 2017 at 01:55:36PM -0500, Christopher Bostic wrote:
-> Add ability to clear logged faults via sysfs.
-> 
-I am not in favor of such chip specific commands, in this case for several
-reasons (besides it being a non-standard attribute).
+If the non-standard crypt algorithm is supported, then the 
+/etc/security/policy.conf would have be updated with a custom identifier.
+The custom crypt algorithm would interpret the id appropriately and 
+invoke the custom algorithm to generated the hash.
 
-The logged faults are not read or used by the driver in the first place.
-Clearing them doesn't add any benefit for the driver.
+In the current implementation, it doesn't seem to have a way to plugin a 
+custom algorithm to the standard crypt function.
 
-The command as written only clears non-paged logged faults, but no paged
-faults.
+https://docs.oracle.com/cd/E23824_01/html/821-1456/secsys-15.html
 
-While PMBus "lingo" talks of faults, those are really often just status bits,
-not "faults" from hwmon perspective.
-
-The content of the various fault bits and bites is highly chip specific.
-On top of that, each chip supported by the driver has different fault bits
-and bytes.
-
-To read the logged faults you have to access the chip directly, not through
-the driver. I don't see the benefit of providing a sysfs attribute to clear
-non-paged logged faults, but not doing anything else with it.
-
-If you want to do something special with those faults (or status bits/nytes),
-it might be more appropriate to create debugfs entries.
-
-Thanks,
-Guenter
-
-> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-> ---
->  drivers/hwmon/pmbus/ucd9000.c | 45 ++++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 44 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/hwmon/pmbus/ucd9000.c b/drivers/hwmon/pmbus/ucd9000.c
-> index b74dbec..8bd8cb1 100644
-> --- a/drivers/hwmon/pmbus/ucd9000.c
-> +++ b/drivers/hwmon/pmbus/ucd9000.c
-> @@ -27,6 +27,8 @@
->  #include <linux/slab.h>
->  #include <linux/i2c.h>
->  #include <linux/pmbus.h>
-> +#include <linux/sysfs.h>
-> +#include <linux/hwmon-sysfs.h>
->  #include "pmbus.h"
->  
->  enum chips { ucd9000, ucd90120, ucd90124, ucd90160, ucd9090, ucd90910 };
-> @@ -35,6 +37,7 @@
->  #define UCD9000_NUM_PAGES		0xd6
->  #define UCD9000_FAN_CONFIG_INDEX	0xe7
->  #define UCD9000_FAN_CONFIG		0xe8
-> +#define UCD9000_LOGGED_FAULTS		0xea
->  #define UCD9000_DEVICE_ID		0xfd
->  
->  #define UCD9000_MON_TYPE(x)	(((x) >> 5) & 0x07)
-> @@ -109,6 +112,36 @@ static int ucd9000_read_byte_data(struct i2c_client *client, int page, int reg)
->  	return ret;
->  }
->  
-> +static ssize_t ucd9000_clear_logged_faults(struct device *dev,
-> +			struct device_attribute *attr, const char *buf,
-> +			size_t count)
-> +{
-> +	struct i2c_client *client = to_i2c_client(dev);
-> +	int ret;
-> +
-> +	/* No page set required */
-> +	ret = i2c_smbus_write_byte_data(client, UCD9000_LOGGED_FAULTS, 0);
-> +	if (ret) {
-> +		dev_err(&client->dev, "Failed to clear logged faults: %d\n",
-> +			ret);
-> +		return ret;
-> +	}
-> +
-> +	return count;
-> +}
-> +
-> +static DEVICE_ATTR(clear_logged_faults, 0200, NULL,
-> +			ucd9000_clear_logged_faults);
-> +
-> +static struct attribute *ucd9000_attributes[] = {
-> +	&dev_attr_clear_logged_faults.attr,
-> +	NULL
-> +};
-> +
-> +static const struct attribute_group ucd9000_attr_group = {
-> +	.attrs = ucd9000_attributes,
-> +};
-> +
->  static const struct i2c_device_id ucd9000_id[] = {
->  	{"ucd9000", ucd9000},
->  	{"ucd90120", ucd90120},
-> @@ -263,9 +296,19 @@ static int ucd9000_probe(struct i2c_client *client,
->  		  | PMBUS_HAVE_FAN34 | PMBUS_HAVE_STATUS_FAN34;
->  	}
->  
-> +	ret = sysfs_create_group(&client->dev.kobj, &ucd9000_attr_group);
-> +	if (ret < 0)
-> +		return ret;
-> +
->  	return pmbus_do_probe(client, mid, info);
->  }
->  
-> +static int ucd9000_remove(struct i2c_client *client)
-> +{
-> +	sysfs_remove_group(&client->dev.kobj, &ucd9000_attr_group);
-> +	return pmbus_do_remove(client);
-> +}
-> +
->  /* This is the driver that will be inserted */
->  static struct i2c_driver ucd9000_driver = {
->  	.driver = {
-> @@ -273,7 +316,7 @@ static int ucd9000_probe(struct i2c_client *client,
->  		.of_match_table = of_match_ptr(ucd9000_of_match),
->  	},
->  	.probe = ucd9000_probe,
-> -	.remove = pmbus_do_remove,
-> +	.remove = ucd9000_remove,
->  	.id_table = ucd9000_id,
->  };
->  
-> -- 
-> 1.8.2.2
-> 
-> --
-> To unsubscribe from this list: send the line "unsubscribe linux-hwmon" in
-> the body of a message to majordomo@vger.kernel.org
-> More majordomo info at  http://vger.kernel.org/majordomo-info.html
+On Wednesday 30 August 2017 12:17 PM, vishwa wrote:
+> Tom and I talked and we should be fine with my current proposal.
+>
+> Here is what we talked:
+>
+> There would be a new encryption algorithm which would be denoted by 
+> some number ( Like 1 is for MD5 ) and crypt(3) would be enhanced to 
+> handle that. Since my proposal does not interpret the number and uses 
+> AS IS to generate the hash, we should be fine.
+>
+> On 08/28/2017 05:04 PM, vishwa wrote:
+>> On 08/14/2017 10:05 PM, Patrick Williams wrote:
+>>> On Fri, Aug 11, 2017 at 09:48:48PM +0530, vishwa wrote:
+>>>> This email is about openbmc/openbmc#1714 ( REST API to update root
+>>>> password )
+>>>>
+>>>> Goal is to do Non-interactive password updates to enable a REST client
+>>>> to update the root password.
+>>>>
+>>>> My proposal is to use `getspent(3)` and `putspent(3)` and here is 
+>>>> the flow.
+>>>>
+>>>> REST client will provide a method that takes std::string as parameter.
+>>>>
+>>>> The Provider at the BMC will receive the password and does these:
+>>>>
+>>>>    - Executes `getspent(3)` for "root" and gets the entries.
+>>> Make sure you're using getspent_r for this.
+>> Sure
+>>>
+>>> Should be done based on any user, not just 'root'.  We might only
+>>> support 'root' now but will want to easily add support for other users
+>>> in the near future.
+>>
+>> Okay. I will have [User] and [Password] in the yaml.
+>>>>    - Parses the `sp_pwdp` and extracts `encryption method` , `salt`.
+>>> Is there a portable way to do this?  Is there any library that exists
+>>> already?
+>> I tried to look for that and did not find. I will continue looking.
+>>> Tom and I spoke previously about a possible non-standard crypt 
+>>> algorithm
+>>> in order to satisfy some of the requirements of IPMI RMCP+'s
+>>> authentication protocol without storing plaintext passwords. Please
+>>> follow up with him and see if what you are proposing here will mesh 
+>>> with
+>>> what he was planning.
+>>
+>> I told Tom about this and he would get back to me.
+>>
+>> BTW, I put the proposal of using crypt() after looking at:
+>>
+>> https://urldefense.proofpoint.com/v2/url?u=https-3A__github.com_shadow-2Dmaint_shadow_blob_master_src_passwd.c-23L245&d=DwIC-g&c=jf_iaSHvJObTbx-siA1ZOg&r=GM5LgBdrkHptZeS659KO05vpYZn7jOXt0dSR6XkNziE&m=0NWe9soH7zsqWvgyvCxg--peP4EPF2q4uNIf6lSSfMc&s=RwItfMYVZCBZ5am5cCX1wrs0O6FF8rjD7x2GGOMrmH0&e= 
+>>
+>> and
+>>
+>> https://urldefense.proofpoint.com/v2/url?u=https-3A__github.com_shadow-2Dmaint_shadow_blob_6fbc11ce2178205968c37853db752729359c9893_lib_encrypt.c&d=DwIC-g&c=jf_iaSHvJObTbx-siA1ZOg&r=GM5LgBdrkHptZeS659KO05vpYZn7jOXt0dSR6XkNziE&m=0NWe9soH7zsqWvgyvCxg--peP4EPF2q4uNIf6lSSfMc&s=eXkgvg7YljMlii9b_K46o3btJh4J_QEH0Z-V2gSsQyI&e= 
+>>
+>>
+>>>>    - Makes a call to `crypt(3)` with the extracted `salt` and `user
+>>>> input` and generates encrypted pass-code
+>>> The salt can/should be random for each password, shouldn't it? It
+>>> sounds like you are attempting to reuse the salt from the previous
+>>> password and that is not required nor preferred to the best of my
+>>> knowledge.
+>>>
+>> Okay. I can generate a random string from [a-zA-Z0-9./] as needed by 
+>> crypt()
+>>>>    - Populates the structure and calls `putspent(3)` to update the 
+>>>> password
+>>>>
+>>>> Please let me know your opinion on this.
+>>>>
+>>>> Thank you,
+>>>>
+>>>> !! Vishwa !!
+>>>>
+>>
+>
