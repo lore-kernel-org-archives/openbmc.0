@@ -1,53 +1,56 @@
-Return-Path: <geissonator@gmail.com>
-Received: from mail-io0-x236.google.com (mail-io0-x236.google.com
- [IPv6:2607:f8b0:4001:c06::236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <sam@mendozajonas.com>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xjQKl4ZT6zDqR9
- for <openbmc@lists.ozlabs.org>; Thu, 31 Aug 2017 11:49:47 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xjSlh31rGzDqF4
+ for <openbmc@lists.ozlabs.org>; Thu, 31 Aug 2017 13:38:56 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="InhjaWKR"; 
- dkim-atps=neutral
-Received: by mail-io0-x236.google.com with SMTP id n71so14327553iod.1
- for <openbmc@lists.ozlabs.org>; Wed, 30 Aug 2017 18:49:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=wZZYFDTKiUceYyAIYzbREGjK92dAkfisfFF3swcaYTw=;
- b=InhjaWKRzUscQdSA7Uirk/Wi5V54fOcmlYTG3M+Q2dRkoQeUATskPkD99YOQN91lG0
- hiOAO1RqEUPV36MgLnr5E5ln6TWF7IQmJ7XvDP8GyHK0fyx/0GogYgf0DbvZhm4abvBJ
- 9HOtSi3j5WJo93HATSU8ZD0Ll7jBYEyffs1Gm0SBRCi1JEqlE9WLYGDqIIsLiYWdCmDg
- uNM6u6WpFE5fhgxV7w5rJPu/M5Nb0xMM4UksTm4wUJadr5mJjgPiXa3vw5euk4elaT+N
- mttKnTGL5dTL7iPyEQfUydvUyjazR1bEQ4bmJoqlzcH+Eif1D90aWRGCp3fH6lZxSASg
- e9Hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=wZZYFDTKiUceYyAIYzbREGjK92dAkfisfFF3swcaYTw=;
- b=XAP8Ssf7DCMuclrJjF+80x2hCzcSWfiOwTzCx/kA2o3kom3eOYtQhLFtMFhKVYiG9M
- HAxtFPHDxKe3JXUO4Q/wMapga5/lR1E8+jlztrXWT7SrQmYTpNo+uIWCOwjZcWhTIT4/
- i1tG/0QED1DAcc6KtwKBKVU9Dc5/jVirUrZYeR6v2PzEGlwCMPxVEb9dPWwILpYeRjln
- Dp3GRbgqGjUgmwQhYk45ZfWzve9HohpWAvUODS7j2lm3WDgU0O3SCPWufxP/etoEpq+R
- P3SexpXadl1nmxUTJcCNt58hVPggEjaPf8zcu58lc6UGuemGq7Wzyem2EOtHnq0263ee
- 9FMw==
-X-Gm-Message-State: AHPjjUgnKT0xaUKd9CaGd2rrrl2osI1RZq/6CLYe/Uiubsew6RXP0VQ2
- eqshY9bVduEf9CIsxs+DoLeaqrwI5A==
-X-Received: by 10.107.3.153 with SMTP id e25mr3392415ioi.292.1504144185370;
- Wed, 30 Aug 2017 18:49:45 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.107.182.139 with HTTP; Wed, 30 Aug 2017 18:49:44 -0700 (PDT)
-In-Reply-To: <1503877767.32695.8.camel@aj.id.au>
-References: <CALLMt=rD633fC_qLVzUZAtQwuU_EoQZ+1yD9okrd1tngp1cpzg@mail.gmail.com>
- <1503877767.32695.8.camel@aj.id.au>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Wed, 30 Aug 2017 20:49:44 -0500
-Message-ID: <CALLMt=oZ16Fv7XKRkHJZSEiQExpOOmS0Ddhw3dpx5FcsWF4rPQ@mail.gmail.com>
-Subject: Re: Power Restore Policy
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
+ header.b="pWGbfMK4"; dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="VYKFKdiD"; dkim-atps=neutral
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.nyi.internal (Postfix) with ESMTP id 2C40121B9C;
+ Wed, 30 Aug 2017 23:38:54 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute2.internal (MEProxy); Wed, 30 Aug 2017 23:38:54 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ mendozajonas.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=JXJECG
+ 3H6ciM/5gVUYz80mVFOrhDE0+4TToYiQcz0Ao=; b=pWGbfMK46l3uXGQseLWelm
+ 5oCyKXvQpZfpk1/7voYl5sC+cPraf/fbK4o8sfleRNaROLJ4TXS2Y48+KLKCWNb0
+ 14XroXgJccg/fkG1xaKYZbL42YrJ0uYNt0VmvI1Y2hhES7UFBp9WCLmqxVu/qKyJ
+ L69yQJunk3EI8XdpJ3192ctpqGRicVJdwlkkAKrW+wIPsP9Nqsc5OKs8iad3EOkO
+ fq4LjIakmJspceVparMZ1eH0pdMz//f19qJ4+2mFpgzKu+NdSa0EeViXVm8gjqAT
+ UJIkVOYEPgZ+ZbHKl+HrSswXY+5JdCs2u5mPJDyWCl+ZC1LTnBthC0rlOjYHJFBQ
+ ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=JXJECG
+ 3H6ciM/5gVUYz80mVFOrhDE0+4TToYiQcz0Ao=; b=VYKFKdiDZgVaNcY3fxwX7v
+ zaSmkN6Z8QU7u20EDFnhAhgPv9IsquvzT9gN1+sJhCmQdgGShR6qvyD7VuVdqj/p
+ e60tLmP97WnBBdibN0qo3238uzaBltJM0YFP5NLTSsXxOYrbEEPcKVQ+AxDjqem6
+ YF6ujMdqTQ/aSzYwhnHxAxdkfkKdv1IIdbMZ3+ylJmAc0I7+FcixHlpOdqi+7r/8
+ crErG75xI8Gk8RYs3toPSf4Gt5cUBIjush+1pDEFDZx4EU8+OZd0N9JWOGClExQI
+ o7R7qrh+R0dqbItoh2EUFdeYXkKspz6hOBUR1AuGEWhAygE+FBbBvaGdRjPqrGdQ
+ ==
+X-ME-Sender: <xms:zoSnWbDn1uotw6Lt6x9FHwQuAiBh2V-v1PSAt0if8jSm8c-926nqdA>
+X-Sasl-enc: y3pcSWo2N44HlpTsdsYWbj6RazPd5ZOtrQJ18+3O8aiO 1504150733
+Received: from v4.ozlabs.ibm.com (unknown [122.99.82.10])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 9443724253;
+ Wed, 30 Aug 2017 23:38:51 -0400 (EDT)
+From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+To: "David S . Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>, Joel Stanley <joel@jms.id.au>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Gavin Shan <gwshan@linux.vnet.ibm.com>
+Subject: [PATCH net-next] net/ncsi: Define {add,
+ kill}_vid callbacks for !CONFIG_NET_NCSI
+Date: Thu, 31 Aug 2017 13:38:46 +1000
+Message-Id: <20170831033846.23538-1-sam@mendozajonas.com>
+X-Mailer: git-send-email 2.14.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,135 +62,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 Aug 2017 01:49:48 -0000
+X-List-Received-Date: Thu, 31 Aug 2017 03:38:57 -0000
 
-On Sun, Aug 27, 2017 at 6:49 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> Hi Andrew,
->
-> On Fri, 2017-08-25 at 14:32 -0500, Andrew Geissler wrote:
->> The BMC has the concept of a Power Restore Policy.  It=E2=80=99s defined
->> within https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/x=
-yz/openbmc_project/Control/Power/RestorePolicy.interface.yaml
->>
->> The point of this policy is to define the host boot behavior by the
->> BMC if it is rebooted.  The policies are:
->> o AlwaysOn
->> o AlwaysOff
->> o Restore
->>
->> What complicates things a bit is the scenario where the BMC is
->> rebooted, but the host is booted.  Rule number one in bmc management
->> firmware is don=E2=80=99t mess with the host if it=E2=80=99s up and runn=
-ing.  So
->> basically, if the host is up and running, and the bmc is rebooted, the
->> bmc should do no actions other then to get it=E2=80=99s chassis and host=
- state
->> objects to reflect that of the chassis and host (on and running).
->>
->> If the host is not running, then here=E2=80=99s what the policies mean:
->>
->> o AlwaysOn -> Power on
->> o AlwaysOff -> Leave system in off state
->> o Restore -> Read last requested host state and re-request it
->>
->> OBMC has an application, somewhat misnamed, discover_system_state
->> which enforces the AlwaysOn logic.
->
-> Out of curiousity, why do you think it is misnamed? Is it the ambiguity o=
-f
-> 'system' with respect to BMC vs host? Or something else? Is there a bette=
-r
-> name?
->
+Patch "net/ncsi: Configure VLAN tag filter" defined two new callback
+functions in include/net/ncsi.h, but neglected the !CONFIG_NET_NCSI
+case. This can cause a build error if these are referenced elsewhere
+without NCSI enabled, for example in ftgmac100:
 
-discover_system_state implies discovery of a state but what this
-application is really doing is applying_system_restore_policy
-I may rename some day but not with this set of changes.
+>>> ERROR: "ncsi_vlan_rx_kill_vid" [drivers/net/ethernet/faraday/ftgmac100.ko] undefined!
+>>> ERROR: "ncsi_vlan_rx_add_vid" [drivers/net/ethernet/faraday/ftgmac100.ko] undefined!
 
->> The Restore logic was put into
->> phosphor-host-state-manager but I don=E2=80=99t believe this is the corr=
-ect
->> place for it.
->
-> Naive question as I'm not intimately familiar with the details: why not (=
-on
-> reflection, this is probably answered below)?
->
->> It does it when it reads it=E2=80=99s
->
-> Mate.
->
-> Can you rephrase that for clarity?
+Add definitions for !CONFIG_NET_NCSI to bring it into line with the rest
+of ncsi.h
 
-The host-state application currently reads the last requested state
-from the BMC filesystem and then blindly tries to enforce that state.
-The main goal I'm going for here is to take that enforcement out of
-host-state and put it in discover_state so this "what do I do after a
-bmc reboot" logic is all in one place.
+Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+---
+ include/net/ncsi.h | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
->
->> persisted value for the
->> last requested state when it starts.  I=E2=80=99d like to move the Resto=
-re
->> logic in with the discover_system_state application.
->>
->> The reasons are the following:
->> o discover_system_state=E2=80=99s service can easily be configured to no=
-t run
->> when the host is already running
->
-> Is this also part of your suggestion to rename the service? Because to me=
-, from
-> the name, it seems crucial to run it precisely because we want to know th=
-e
-> system's (host's) state. But it seems we know the state before running th=
-e
-> service? What does the actual discovery?
->
-
-The application rename would be good, but not something I'm looking to
-tackle here.  The discovery of the system state (i.e. is the host up)
-is actually done within the chassis and host reset targets.  That
-drives the discovery of pgood and host status and sets up the
-host-state applications appropriately.
-
->> o phosphor-host-state-manager has to be started always and early, so
->> that it can monitor for any state change requests (like in the case
->> where the bmc is rebooted while the host is still up).
->
-> This isn't a state change for the host though, if it remains up?
->
-> I guess the idea is to start phosphor-host-state-manager seeded with the
-> discovered state, and then let a service (started after
-> phosphor-host-state-manager) poke phosphor-host-state-manager to enforce =
-the
-> policy?
->
-
-Yep!  Except phosphor-host-state-manager initially just uses the value
-written to the BMC filesystem (it does no real discovery).  The
-discover_state service will then enforce the policy.
-
->> o Having all the policy in a single application is more testable and obv=
-ious
->
-> Sounds ideal on the surface of things.
->
->>
->> https://github.com/openbmc/openbmc/issues/2210 is tracking this.
->>
->> Thoughts or questions?
->
-> Yeah - well a comment more than anything: From reading your email and the=
-n
-> reading #2210, it was not at all clear in the email that the *host reboot=
-* case
-> is what you're trying to resolve. It seemed like you were just trying to =
-clean
-> up a case of misplaced code ("[have] all policy in a single application")=
-.
->
-> Andrew
->
->>
->> Andrew
+diff --git a/include/net/ncsi.h b/include/net/ncsi.h
+index 1f96af46df49..2b13b6b91a4d 100644
+--- a/include/net/ncsi.h
++++ b/include/net/ncsi.h
+@@ -36,6 +36,14 @@ int ncsi_start_dev(struct ncsi_dev *nd);
+ void ncsi_stop_dev(struct ncsi_dev *nd);
+ void ncsi_unregister_dev(struct ncsi_dev *nd);
+ #else /* !CONFIG_NET_NCSI */
++int ncsi_vlan_rx_add_vid(struct net_device *dev, __be16 proto, u16 vid)
++{
++	return -ENOTTY;
++}
++int ncsi_vlan_rx_kill_vid(struct net_device *dev, __be16 proto, u16 vid)
++{
++	return -ENOTTY;
++}
+ static inline struct ncsi_dev *ncsi_register_dev(struct net_device *dev,
+ 					void (*notifier)(struct ncsi_dev *nd))
+ {
+-- 
+2.14.1
