@@ -1,64 +1,62 @@
-Return-Path: <f.fainelli@gmail.com>
-Received: from mail-oi0-x243.google.com (mail-oi0-x243.google.com
- [IPv6:2607:f8b0:4003:c06::243])
+Return-Path: <groeck7@gmail.com>
+Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
+ [IPv6:2607:f8b0:400e:c00::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xjTD43WsFzDq5b
- for <openbmc@lists.ozlabs.org>; Thu, 31 Aug 2017 14:00:03 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xjTSy0hprzDq5b
+ for <openbmc@lists.ozlabs.org>; Thu, 31 Aug 2017 14:11:14 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="fTSxr493"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="AamSQdUx"; 
  dkim-atps=neutral
-Received: by mail-oi0-x243.google.com with SMTP id r203so7202807oih.5
- for <openbmc@lists.ozlabs.org>; Wed, 30 Aug 2017 21:00:03 -0700 (PDT)
+Received: by mail-pf0-x241.google.com with SMTP id r62so2762604pfj.0
+ for <openbmc@lists.ozlabs.org>; Wed, 30 Aug 2017 21:11:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:user-agent:in-reply-to:references:mime-version
- :content-transfer-encoding:subject:to:cc:from:message-id;
- bh=uaxoGPM+1BmnC9oJLP/82CLGBze5aO0tiLEphLVN4xE=;
- b=fTSxr493wzaR2jSfl+lnCpwsmkUsfScm//HrVl9rmQyZWeTbdvvOAk84g2wkpe1jyH
- DfSeKuKajJg2WmGc0npQLkkgNU2FuYnkVc6OlYYP5qwee7Boqt9ON+XHwSR/YftAIm7Z
- p0BJ3xXpmHg1B2txvl4XDbf8BX7JqUekm8z8Qv32f3J3FUQFbriV/vovCEILIZk+A0Cp
- cfDm7CojZzz2KD33E+iaTy2Mau7jGIKPb69J51TPHUH/AAcbtz21PpxVQFUMZ/08FoyS
- /o8aUqc3jYR95TlfEhtUNuYiTNW+d33+TNQO7brpi4msrWYsmuyB6N+ybFWinHhdT6yr
- qMjw==
+ h=sender:date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=iDzJYs80a1lTw+1+osTP5Rdh2cht5lAyZei4afmzi58=;
+ b=AamSQdUxjsrGyj5rXTyo794NSqPqCUx4QxPc+8sMBxni4HnqFKpnAiPv+75i42h+wL
+ LPbdwJQUhGfsd1asUQD+DvoaQ9JhZwpmCbZlAO++HcEeq6GFgmFKmX0AA7dUV/pgSfdJ
+ h2DDRIZmFRNz/+OPzcZbKEe2uyRZPtjdxEmH/G4jU9gjeYPNyKID6xK8dlXSVVI+53+O
+ 6QLi4uudM3oETKG1pEEAC+3t41q+EE7ZkeruHFrateySoMtV07tSfo3LU1wSOcaTxc+K
+ qeFZ/0ZQJopepQxmtGeDnRQJuryVmiXZqOXHhX2SIWz3n4W979lVoGylresBUfMyR0Ps
+ kjBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:user-agent:in-reply-to:references
- :mime-version:content-transfer-encoding:subject:to:cc:from
- :message-id;
- bh=uaxoGPM+1BmnC9oJLP/82CLGBze5aO0tiLEphLVN4xE=;
- b=AdHKXZvJYF5IVZQjZBhDQh7G4Fwi0SsS59HiZIte5h4U6OKihvuSRkkbH2eY7ZetwS
- 33qJfDCnQ9cmo7BlmZDx+1cxUWO9F+lNwq545xxEP+nvSE0leGHDxANzHI+UwFNrX8ON
- 3HivGnUXPKGJAr0X0hQVhq71KZLWCprcD9PlPjHAtN3+nCB4kfZp6d7B7xECZwDQFwVR
- me37kBQSnQ6713TtXlEU4HrZT5CEIZzEa3D0a+ZtsKIeHqH2CPP6YjmVAFIbpQwhQqvc
- OiihohY3OKj0SxCTZlIDED3dDdFhk4ALtEd4tJJBtVNVuw/NiZf1OcJ2EULyDcCC92KN
- M5PQ==
-X-Gm-Message-State: AHYfb5h0fhUv7QmnEAK2PvdhvvihvsWbkf1HkG6AWw/k5YWU73nRCndj
- SYK6RYWH5EWqzQ==
-X-Received: by 10.202.4.6 with SMTP id 6mr3425822oie.114.1504152000245;
- Wed, 30 Aug 2017 21:00:00 -0700 (PDT)
-Received: from ?IPv6:2001:470:d:73f:10ca:f176:623b:9249?
- ([2001:470:d:73f:10ca:f176:623b:9249])
- by smtp.gmail.com with ESMTPSA id m3sm7833903oif.17.2017.08.30.20.59.58
+ h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+ :references:mime-version:content-disposition:in-reply-to:user-agent;
+ bh=iDzJYs80a1lTw+1+osTP5Rdh2cht5lAyZei4afmzi58=;
+ b=Cctykp+Rf1868ek835L3yrDheCcZCpZLmRM2s27ahuF4kyy2PZT6rVHNgjAWm1m0NY
+ zCu7FcaPjJ8mhy1l6iRSaUYmH7+mHFcVEEODRGcKryDgmnk7dip+b/z9XJWfxqun5R+M
+ p1HkpLakztpIrcnY2CH86pItS3+8FcwRqheAT3+gpqXzUTVKyFU4H00SuGHFerDF+IMI
+ 3JtuZBX5G5judarjUxoN7RA0KyH+sGM7OMXoK+m2RRQkfl6E32epU/nzNghhPxsGazyu
+ XV/psYqbmpygIhnx0GlaBI1Pg44beDbIBceoBuCMPMOpTzfXmyEJlQFYayTd1e71oVSA
+ z+ag==
+X-Gm-Message-State: AHYfb5i7vITBXkeaGJ0HZkvTvYh5jLK/GN6Ry8L6PA//JrhlJCujkH+I
+ 1b2xoZV97NX6EA==
+X-Received: by 10.98.58.220 with SMTP id v89mr918007pfj.19.1504152672399;
+ Wed, 30 Aug 2017 21:11:12 -0700 (PDT)
+Received: from localhost (108-223-40-66.lightspeed.sntcca.sbcglobal.net.
+ [108.223.40.66])
+ by smtp.gmail.com with ESMTPSA id u187sm10938117pfu.140.2017.08.30.21.11.11
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 30 Aug 2017 20:59:59 -0700 (PDT)
-Date: Wed, 30 Aug 2017 20:59:55 -0700
-User-Agent: K-9 Mail for Android
-In-Reply-To: <20170831033846.23538-1-sam@mendozajonas.com>
-References: <20170831033846.23538-1-sam@mendozajonas.com>
+ Wed, 30 Aug 2017 21:11:11 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Wed, 30 Aug 2017 21:11:11 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Cc: jdelvare@suse.com, corbet@lwn.net, linux-hwmon@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org
+Subject: Re: [PATCH 2/2] hwmon: (ucd9000) Add sysfs attribute to clear logged
+ faults
+Message-ID: <20170831041111.GC26660@roeck-us.net>
+References: <20170830185536.71307-1-cbostic@linux.vnet.ibm.com>
+ <20170830185536.71307-3-cbostic@linux.vnet.ibm.com>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH net-next] net/ncsi: Define {add,
- kill}_vid callbacks for !CONFIG_NET_NCSI
-To: Samuel Mendoza-Jonas <sam@mendozajonas.com>,
- "David S . Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-CC: Joel Stanley <joel@jms.id.au>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Gavin Shan <gwshan@linux.vnet.ibm.com>
-From: Florian Fainelli <f.fainelli@gmail.com>
-Message-ID: <6D0042A3-C029-4CAC-86B1-F570E541D8C0@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20170830185536.71307-3-cbostic@linux.vnet.ibm.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -70,58 +68,133 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 Aug 2017 04:00:05 -0000
+X-List-Received-Date: Thu, 31 Aug 2017 04:11:14 -0000
 
-On August 30, 2017 8:38:46 PM PDT, Samuel Mendoza-Jonas <sam@mendozajonas=
-=2Ecom> wrote:
->Patch "net/ncsi: Configure VLAN tag filter" defined two new callback
->functions in include/net/ncsi=2Eh, but neglected the !CONFIG_NET_NCSI
->case=2E This can cause a build error if these are referenced elsewhere
->without NCSI enabled, for example in ftgmac100:
->
->>>> ERROR: "ncsi_vlan_rx_kill_vid"
->[drivers/net/ethernet/faraday/ftgmac100=2Eko] undefined!
->>>> ERROR: "ncsi_vlan_rx_add_vid"
->[drivers/net/ethernet/faraday/ftgmac100=2Eko] undefined!
->
->Add definitions for !CONFIG_NET_NCSI to bring it into line with the
->rest
->of ncsi=2Eh
->
->Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas=2Ecom>
->---
-> include/net/ncsi=2Eh | 8 ++++++++
-> 1 file changed, 8 insertions(+)
->
->diff --git a/include/net/ncsi=2Eh b/include/net/ncsi=2Eh
->index 1f96af46df49=2E=2E2b13b6b91a4d 100644
->--- a/include/net/ncsi=2Eh
->+++ b/include/net/ncsi=2Eh
->@@ -36,6 +36,14 @@ int ncsi_start_dev(struct ncsi_dev *nd);
-> void ncsi_stop_dev(struct ncsi_dev *nd);
-> void ncsi_unregister_dev(struct ncsi_dev *nd);
-> #else /* !CONFIG_NET_NCSI */
->+int ncsi_vlan_rx_add_vid(struct net_device *dev, __be16 proto, u16
->vid)
->+{
->+	return -ENOTTY;
+On Wed, Aug 30, 2017 at 01:55:36PM -0500, Christopher Bostic wrote:
+> Add ability to clear logged faults via sysfs.
+> 
+I am not in favor of such chip specific commands, in this case for several
+reasons (besides it being a non-standard attribute).
 
-Returning -EOPNOTSUPP would probably be more correct here=2E
+The logged faults are not read or used by the driver in the first place.
+Clearing them doesn't add any benefit for the driver.
 
->+}
->+int ncsi_vlan_rx_kill_vid(struct net_device *dev, __be16 proto, u16
->vid)
->+{
->+	return -ENOTTY;
+The command as written only clears non-paged logged faults, but no paged
+faults.
 
-Likewise=2E
+While PMBus "lingo" talks of faults, those are really often just status bits,
+not "faults" from hwmon perspective.
 
->+}
->static inline struct ncsi_dev *ncsi_register_dev(struct net_device
->*dev,
-> 					void (*notifier)(struct ncsi_dev *nd))
-> {
+The content of the various fault bits and bites is highly chip specific.
+On top of that, each chip supported by the driver has different fault bits
+and bytes.
 
+To read the logged faults you have to access the chip directly, not through
+the driver. I don't see the benefit of providing a sysfs attribute to clear
+non-paged logged faults, but not doing anything else with it.
 
---=20
-Florian
+If you want to do something special with those faults (or status bits/nytes),
+it might be more appropriate to create debugfs entries.
+
+Thanks,
+Guenter
+
+> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+> ---
+>  drivers/hwmon/pmbus/ucd9000.c | 45 ++++++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 44 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/hwmon/pmbus/ucd9000.c b/drivers/hwmon/pmbus/ucd9000.c
+> index b74dbec..8bd8cb1 100644
+> --- a/drivers/hwmon/pmbus/ucd9000.c
+> +++ b/drivers/hwmon/pmbus/ucd9000.c
+> @@ -27,6 +27,8 @@
+>  #include <linux/slab.h>
+>  #include <linux/i2c.h>
+>  #include <linux/pmbus.h>
+> +#include <linux/sysfs.h>
+> +#include <linux/hwmon-sysfs.h>
+>  #include "pmbus.h"
+>  
+>  enum chips { ucd9000, ucd90120, ucd90124, ucd90160, ucd9090, ucd90910 };
+> @@ -35,6 +37,7 @@
+>  #define UCD9000_NUM_PAGES		0xd6
+>  #define UCD9000_FAN_CONFIG_INDEX	0xe7
+>  #define UCD9000_FAN_CONFIG		0xe8
+> +#define UCD9000_LOGGED_FAULTS		0xea
+>  #define UCD9000_DEVICE_ID		0xfd
+>  
+>  #define UCD9000_MON_TYPE(x)	(((x) >> 5) & 0x07)
+> @@ -109,6 +112,36 @@ static int ucd9000_read_byte_data(struct i2c_client *client, int page, int reg)
+>  	return ret;
+>  }
+>  
+> +static ssize_t ucd9000_clear_logged_faults(struct device *dev,
+> +			struct device_attribute *attr, const char *buf,
+> +			size_t count)
+> +{
+> +	struct i2c_client *client = to_i2c_client(dev);
+> +	int ret;
+> +
+> +	/* No page set required */
+> +	ret = i2c_smbus_write_byte_data(client, UCD9000_LOGGED_FAULTS, 0);
+> +	if (ret) {
+> +		dev_err(&client->dev, "Failed to clear logged faults: %d\n",
+> +			ret);
+> +		return ret;
+> +	}
+> +
+> +	return count;
+> +}
+> +
+> +static DEVICE_ATTR(clear_logged_faults, 0200, NULL,
+> +			ucd9000_clear_logged_faults);
+> +
+> +static struct attribute *ucd9000_attributes[] = {
+> +	&dev_attr_clear_logged_faults.attr,
+> +	NULL
+> +};
+> +
+> +static const struct attribute_group ucd9000_attr_group = {
+> +	.attrs = ucd9000_attributes,
+> +};
+> +
+>  static const struct i2c_device_id ucd9000_id[] = {
+>  	{"ucd9000", ucd9000},
+>  	{"ucd90120", ucd90120},
+> @@ -263,9 +296,19 @@ static int ucd9000_probe(struct i2c_client *client,
+>  		  | PMBUS_HAVE_FAN34 | PMBUS_HAVE_STATUS_FAN34;
+>  	}
+>  
+> +	ret = sysfs_create_group(&client->dev.kobj, &ucd9000_attr_group);
+> +	if (ret < 0)
+> +		return ret;
+> +
+>  	return pmbus_do_probe(client, mid, info);
+>  }
+>  
+> +static int ucd9000_remove(struct i2c_client *client)
+> +{
+> +	sysfs_remove_group(&client->dev.kobj, &ucd9000_attr_group);
+> +	return pmbus_do_remove(client);
+> +}
+> +
+>  /* This is the driver that will be inserted */
+>  static struct i2c_driver ucd9000_driver = {
+>  	.driver = {
+> @@ -273,7 +316,7 @@ static int ucd9000_probe(struct i2c_client *client,
+>  		.of_match_table = of_match_ptr(ucd9000_of_match),
+>  	},
+>  	.probe = ucd9000_probe,
+> -	.remove = pmbus_do_remove,
+> +	.remove = ucd9000_remove,
+>  	.id_table = ucd9000_id,
+>  };
+>  
+> -- 
+> 1.8.2.2
+> 
+> --
+> To unsubscribe from this list: send the line "unsubscribe linux-hwmon" in
+> the body of a message to majordomo@vger.kernel.org
+> More majordomo info at  http://vger.kernel.org/majordomo-info.html
