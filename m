@@ -1,59 +1,26 @@
-Return-Path: <austenc@us.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xkP1f2hqwzDqy3
- for <openbmc@lists.ozlabs.org>; Sat,  2 Sep 2017 01:54:14 +1000 (AEST)
-Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v81FmmwJ020896
- for <openbmc@lists.ozlabs.org>; Fri, 1 Sep 2017 11:54:11 -0400
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.73])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2cq9x0auvr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 01 Sep 2017 11:54:11 -0400
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
- Fri, 1 Sep 2017 15:54:10 -0000
-Received: from us1a3-smtp08.a3.dal06.isc4sb.com (10.146.103.57)
- by smtp.notes.na.collabserv.com (10.106.227.90) with
- smtp.notes.na.collabserv.com ESMTP; Fri, 1 Sep 2017 15:54:07 -0000
-Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
- by us1a3-smtp08.a3.dal06.isc4sb.com
- with ESMTP id 2017090115540697-585675 ;
- Fri, 1 Sep 2017 15:54:06 +0000 
-MIME-Version: 1.0
-Subject: RFC Adding Interfaces to OpenBMC 
-To: openbmc@lists.ozlabs.org
-From: "Chris Austen" <austenc@us.ibm.com>
-Date: Fri, 1 Sep 2017 10:54:06 -0500
-X-KeepSent: 056E09BF:B373E650-8625818E:00432DAB;
- type=4; name=$KeepSent
-X-Mailer: IBM Notes Release 9.0.1EXT SHF766 December 14, 2016
-X-LLNOutbound: False
-X-Disclaimed: 62971
-X-TNEFEvaluated: 1
-Content-type: multipart/alternative; 
- Boundary="0__=09BB0B1DDFD0AB3B8f9e8a93df938690918c09BB0B1DDFD0AB3B"
-Content-Disposition: inline
-x-cbid: 17090115-3107-0000-0000-000002F77200
-X-IBM-SpamModules-Scores: BY=0.039566; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.43978; ST=0; TS=0; UL=0; ISC=; MB=0.157704
-X-IBM-SpamModules-Versions: BY=3.00007647; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000226; SDB=6.00910747; UDB=6.00456898; IPR=6.00691027; 
- BA=6.00005563; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016962; XFM=3.00000015;
- UTC=2017-09-01 15:54:08
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2017-09-01 12:27:48 - 6.00007265
-x-cbparentid: 17090115-3108-0000-0000-000043E4CB67
-Message-Id: <OF056E09BF.B373E650-ON8625818E.00432DAB-8625818E.005759D2@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-09-01_04:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+Return-Path: <oleksandrs@mellanox.com>
+Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
+ by lists.ozlabs.org (Postfix) with ESMTP id 3xkPHq1dBTzDqZw
+ for <openbmc@lists.ozlabs.org>; Sat,  2 Sep 2017 02:06:30 +1000 (AEST)
+Received: from Internal Mail-Server by MTLPINE1 (envelope-from
+ oleksandrs@mellanox.com)
+ with ESMTPS (AES256-SHA encrypted); 1 Sep 2017 19:06:26 +0300
+Received: from r-vnc16.mtr.labs.mlnx (r-vnc16.mtr.labs.mlnx [10.208.0.16])
+ by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id v81G6P6O002351;
+ Fri, 1 Sep 2017 19:06:25 +0300
+From: Oleksandr Shamray <oleksandrs@mellanox.com>
+To: gregkh@linuxfoundation.org, arnd@arndb.de
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, joel@jms.id.au,
+ jiri@resnulli.us, tklauser@distanz.ch, linux-serial@vger.kernel.org,
+ mec@shout.net, vadimp@maellanox.com, system-sw-low-level@mellanox.com,
+ robh+dt@kernel.org, openocd-devel-owner@lists.sourceforge.net,
+ linux-api@vger.kernel.org, davem@davemloft.net, mchehab@kernel.org,
+ Oleksandr Shamray <oleksandrs@mellanox.com>
+Subject: [patch v7 0/4] JTAG driver introduction
+Date: Fri,  1 Sep 2017 19:06:02 +0300
+Message-Id: <1504281966-6199-1-git-send-email-oleksandrs@mellanox.com>
+X-Mailer: git-send-email 1.7.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -65,137 +32,109 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Sep 2017 15:54:14 -0000
+X-List-Received-Date: Fri, 01 Sep 2017 16:06:32 -0000
+X-List-Received-Date: Fri, 01 Sep 2017 16:06:32 -0000
 
+When a need raise up to use JTAG interface for system's devices
+programming or CPU debugging, usually the user layer
+application implements jtag protocol by bit-bang or using a 
+proprietary connection to vendor hardware.
+This method can be slow and not generic.
+ 
+We propose to implement general JTAG interface and infrastructure
+to communicate with user layer application. In such way, we can
+have the standard JTAG interface core part and separation from
+specific HW implementation.
+This allow new capability to debug the CPU or program system's 
+device via BMC without additional devices nor cost. 
 
---0__=09BB0B1DDFD0AB3B8f9e8a93df938690918c09BB0B1DDFD0AB3B
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/plain; charset=US-ASCII
+This patch purpose is to add JTAG master core infrastructure by 
+defining new JTAG class and provide generic JTAG interface
+to allow hardware specific drivers to connect this interface.
+This will enable all JTAG drivers to use the common interface
+part and will have separate for hardware implementation.
 
+The JTAG (Joint Test Action Group) core driver provides minimal generic
+JTAG interface, which can be used by hardware specific JTAG master
+controllers. By providing common interface for the JTAG controllers,
+user space device programing is hardware independent.
+ 
+Modern SoC which in use for embedded system' equipped with
+internal JTAG master interface.
+This interface is used for programming and debugging system's
+hardware components, like CPLD, FPGA, CPU, voltage and
+industrial controllers.
+Firmware for such devices can be upgraded through JTAG interface during
+Runtime. The JTAG standard support for multiple devices programming,
+is in case their lines are daisy-chained together.
 
+For example, systems which equipped with host CPU, BMC SoC or/and 
+number of programmable devices are capable to connect a pin and
+select system components dynamically for programming and debugging,
+This is using by the BMC which is equipped with internal SoC master
+controller.
+For example:
 
-I'd like to get some feed back on draft...
+BMC JTAG master --> pin selected to CPLDs chain for programming (filed
+upgrade, production) 
+BMC JTAG master --> pin selected to voltage monitors for programming 
+(field upgrade, production) 
+BMC JTAG master --> pin selected to host CPU (on-site debugging 
+and developers debugging)
 
-It should not be any surprise that we are trying to implement a web user
-interface and Redfish.  I think requiring every implementation of OpenBMC
-to now support a webui and Redfish goes against the basic principals of the
-project.  A better approach would be to allow the machine configuration to
-determine what features/apps to support.  The OpenBMC core would provide
-the infrastructure to reverse(?) proxy incoming requests to the various
-applications based on the application defining which routes it can handle.
-With those thoughts in mind, the current design needs to be tweaked
-slightly.
+For example, we can have application in user space which using calls
+to JTAG driver executes CPLD programming directly from SVF file
+ 
+The JTAG standard (IEEE 1149.1) defines the next connector pins:
+- TDI (Test Data In);
+- TDO (Test Data Out);
+- TCK (Test Clock);
+- TMS (Test Mode Select);
+- TRST (Test Reset) (Optional);
 
-FROM:
-| server | app (dbus) |
-TO:
-| server | reverse | app (dbus)    |
-|        |  proxy  | app (web)     |
-|        |         | app (redfish) |
-|        |         | app (...)     |
-Route handler added at service startup to create the proxy environment
-(figure 1: In todays design the single app defines all routes at compile
-time.  Adding routes to that single app forces all OpenBMC machines to pick
-up the new routes which is undesirable)
+The SoC equipped with JTAG master controller, performs
+device programming on command or vector level. For example
+a file in a standard SVF (Serial Vector Format) that contains
+boundary scan vectors, can be used by sending each vector
+to the JTAG interface and the JTAG controller will execute
+the programming.
 
-Note: due to legacy decisions the '/' and '/xyz' route are owned by the
-dbus app.  (Could the dbus route be helpful here?  All browsers use
-'text/html' and our rest uses 'application/json', perhaps a nudge/redirect
-the user to the correct uri)
+Initial version provides the system calls set for:
+- SIR (Scan Instruction Register, IEEE 1149.1 Data Register scan);
+- SDR (Scan Data Register, IEEE 1149.1 Instruction Register scan);
+- RUNTEST (Forces the IEEE 1149.1 bus to a run state for a specified
+  number of clocks.
 
+SoC which are not equipped with JTAG master interface, can be built
+on top of JTAG core driver infrastructure, by applying bit-banging of
+TDI, TDO, TCK and TMS pins within the hardware specific driver.
 
-Security:
-~~~~~~~~
-None at the proxy level
+Oleksandr Shamray (4):
+  drivers: jtag: Add JTAG core driver
+  drivers: jtag: Add Aspeed SoC 24xx and 25xx families JTAG master
+    driver
+  Documentation: jtag: Add bindings for Aspeed SoC 24xx and 25xx
+    families     JTAG master driver
+  Documentation: jtag: Add ABI documentation
 
-
-Registering Routes:
-~~~~~~~~~~~~~~~
-Route registration will happen at service start up.  An application
-configuration file placed in to a predetermined location will be parsed by
-the proxy code
-
-
-Application Requirements:
-~~~~~~~~~~~~~~~~~~~~~~
-1) The cfg file will be based on a common xxx format
-- likely need a decision as to proxy or reverse proxy before declaring
-config format type
-
-2) Create a bb file in the appropriate layer.  Keep in mind the openbmc/
-meta-phosphor/common/recipes-phosphor/interfaces/ is for core functionality
-only.
-i.e.    PROVIDES =3D 'phosphor-webui'
-         <example of how to copy the apps config file to the correct route
-registration location>
-
-3) Declare in the appropriate machine conf file the bb file which contains
-your application
-i.e.    OBMC=5FMACHINE=5FFEATURES +=3D 'phosphor-webui'
-
-
-
-
-Chris Austen
-POWER Systems Enablement Manager
-(512) 286-5184 (T/L: 363-5184)
-
---0__=09BB0B1DDFD0AB3B8f9e8a93df938690918c09BB0B1DDFD0AB3B
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/html; charset=US-ASCII
-Content-Disposition: inline
-
-<html><body><p><font size=3D"2">I'd like to get some feed back on draft...<=
-/font><br><br><font size=3D"2">It should not be any surprise that we are tr=
-ying to implement a web user interface and Redfish.  I think requiring ever=
-y implementation of OpenBMC to now support a webui and Redfish goes against=
- the basic principals of the project.  A better approach would be to allow =
-the machine configuration to determine what features/apps to support.  The =
-OpenBMC core would provide the infrastructure to reverse(?) proxy incoming =
-requests to the various applications based on the application defining whic=
-h routes it can handle.  With those thoughts in mind, the current design ne=
-eds to be tweaked slightly.</font><br><br><font size=3D"2">FROM:</font><br>=
-<font size=3D"2" face=3D"Courier New">| server | app (dbus) |</font><br><fo=
-nt size=3D"2">TO:</font><br><font size=3D"2" face=3D"Courier New">| server =
-| reverse | app (dbus)    |</font><br><font size=3D"2" face=3D"Courier New"=
->|        |  proxy  | app (web)     |</font><br><font size=3D"2" face=3D"Co=
-urier New">|        |         | app (redfish) |</font><br><font size=3D"2" =
-face=3D"Courier New">|        |         | app (...)     |</font><br><font s=
-ize=3D"2" face=3D"Courier New">Route handler added at service startup to cr=
-eate the proxy environment</font><br><font size=3D"2">(figure 1: In todays =
-design the single app defines all routes at compile time.  Adding routes to=
- that single app forces all OpenBMC machines to pick up the new routes whic=
-h is undesirable) </font><br><br><font size=3D"2">Note: due to legacy decis=
-ions the '/' and '/xyz' route are owned by the dbus app.  (Could the dbus r=
-oute be helpful here?  All browsers use 'text/html' and our rest uses 'appl=
-ication/json', perhaps a nudge/redirect the user to the correct uri) </font=
-><br><br><br><font size=3D"2">Security:</font><br><font size=3D"2">~~~~~~~~=
-</font><br><font size=3D"2">None at the proxy level</font><br><br><br><font=
- size=3D"2">Registering Routes:</font><br><font size=3D"2">~~~~~~~~~~~~~~~<=
-/font><br><font size=3D"2">Route registration will happen at service start =
-up.  An application configuration file placed in to a predetermined locatio=
-n will be parsed by the proxy code</font><br><br><br><font size=3D"2">Appli=
-cation Requirements:</font><br><font size=3D"2">~~~~~~~~~~~~~~~~~~~~~~</fon=
-t><br><font size=3D"2">1) The cfg file will be based on a common xxx format=
-</font><br><font size=3D"2">- likely need a decision as to proxy or reverse=
- proxy before declaring config format type </font><br><br><font size=3D"2">=
-2) Create a bb file in the appropriate layer.  Keep in mind the </font><a h=
-ref=3D"https://github.com/openbmc/openbmc"><u><font color=3D"#0000FF">openb=
-mc</font></u></a>/<a href=3D"https://github.com/openbmc/openbmc/tree/master=
-/meta-phosphor"><u><font color=3D"#0000FF">meta-phosphor</font></u></a>/<a =
-href=3D"https://github.com/openbmc/openbmc/tree/master/meta-phosphor/common=
-"><u><font color=3D"#0000FF">common</font></u></a>/<a href=3D"https://githu=
-b.com/openbmc/openbmc/tree/master/meta-phosphor/common/recipes-phosphor"><u=
-><font color=3D"#0000FF">recipes-phosphor</font></u></a>/<b>interfaces</b>/=
-<font size=3D"2"> is for core functionality only.  </font><br><font size=3D=
-"2">i.e.    PROVIDES =3D 'phosphor-webui'</font><br><font size=3D"2">      =
-   &lt;example of how to copy the apps config file to the correct route reg=
-istration location&gt;</font><br><font size=3D"2"> </font><br><font size=3D=
-"2">3) Declare in the appropriate machine conf file the bb file which conta=
-ins your application </font><br><font size=3D"2">i.e.    </font>OBMC=5FMACH=
-INE=5FFEATURES<font size=3D"2"> +=3D 'phosphor-webui'</font><br><br><br><br=
-><font size=3D"2"><br>Chris Austen<br>POWER Systems Enablement Manager <br>=
-(512) 286-5184 (T/L: 363-5184)</font><BR>
-</body></html>
-
---0__=09BB0B1DDFD0AB3B8f9e8a93df938690918c09BB0B1DDFD0AB3B--
+ Documentation/ABI/testing/jatg-cdev                |   27 +
+ .../devicetree/bindings/jtag/aspeed-jtag.txt       |   18 +
+ Documentation/ioctl/ioctl-number.txt               |    2 +
+ MAINTAINERS                                        |   10 +
+ drivers/Kconfig                                    |    2 +
+ drivers/Makefile                                   |    1 +
+ drivers/jtag/Kconfig                               |   29 +
+ drivers/jtag/Makefile                              |    2 +
+ drivers/jtag/jtag-aspeed.c                         |  773 ++++++++++++++++++++
+ drivers/jtag/jtag.c                                |  312 ++++++++
+ include/linux/jtag.h                               |   48 ++
+ include/uapi/linux/jtag.h                          |  111 +++
+ 12 files changed, 1335 insertions(+), 0 deletions(-)
+ create mode 100644 Documentation/ABI/testing/jatg-cdev
+ create mode 100644 Documentation/devicetree/bindings/jtag/aspeed-jtag.txt
+ create mode 100644 drivers/jtag/Kconfig
+ create mode 100644 drivers/jtag/Makefile
+ create mode 100644 drivers/jtag/jtag-aspeed.c
+ create mode 100644 drivers/jtag/jtag.c
+ create mode 100644 include/linux/jtag.h
+ create mode 100644 include/uapi/linux/jtag.h
