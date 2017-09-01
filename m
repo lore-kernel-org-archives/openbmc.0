@@ -3,60 +3,55 @@ Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xjyZD3Xj4zDqYf
- for <openbmc@lists.ozlabs.org>; Fri,  1 Sep 2017 09:02:28 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xk18q36gqzDqgk
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Sep 2017 10:59:07 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="JznPUxwx"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="r7E6DoOD"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="gsPt/TWd"; dkim-atps=neutral
+ header.b="clOOZgvE"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 3742A20B61;
- Thu, 31 Aug 2017 19:02:26 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Thu, 31 Aug 2017 19:02:26 -0400
+ by mailout.nyi.internal (Postfix) with ESMTP id F3EA020D54;
+ Thu, 31 Aug 2017 20:59:04 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Thu, 31 Aug 2017 20:59:04 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=67FDt8jmXmd8OOwfqvsnnYQcCDQaKiZAdBZ7h6rpl
- o8=; b=JznPUxwxxffaiqkJdYSg5SDHfw1Sx3XszOfHLPmUHdA34o96kMV44Swc1
- MYOodtJb8r/92InEOz3DoZeskYycWmWUMp86AtpnhVqBYNUDzEN0JMPtanUeKvZV
- Kbx6Msu01HPCtvpV6tDp15mBcq2vkETk3toA+oGRToald4mPTHv/dHs5msZyrHMa
- IjVO1IkdHaKRwOn5U1FS2IQ6wl0mYCy88OYAIJ4mdnNUXG+NObEL4mDym6aysm+w
- znmj0EWNqwMMvHobI6z5UxQbS5jahOG8PfSwAXwDO7hLG/I4E9ec9Fj9trmepojg
- AlanEeyGciwY2+FDpEIAjMyQOErbA==
+ :x-sasl-enc; s=fm1; bh=o2Jf9yo+1G3eiVreB7KitNoITKNxHifnLn19DipJc
+ HE=; b=r7E6DoOD8yX+y17FnNjmugz6O0KoMhRDWRgk6vm7WBxn9fzoVP3n//qrj
+ U5shEc6o6azrAfKkV/ovnVnny3HOroZKEbzcl3IrEKnnCqtCYVDKN9/JF/j1TdoA
+ 335iIOKS7po5h2TgR+0nl+UJRqpP/5ODDprzIy8/iiUYNm4GWecPw5Gnf1tIkRd2
+ t9jsxbY538yMIG4FcUwCidZ8LVT5mS29VGn9iXGiVz1P+dRh8TG5E+PV255yH91+
+ cATQKzfKCH6guxSHeCo178LlUoA/pD7o/JpOIDXD0aYhLidYf41/MoZ9UBIE87K+
+ zV5EnPMQucJJy9m7IYcNx3Bm+TF6Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=67FDt8jmXmd8OOwfqv
- snnYQcCDQaKiZAdBZ7h6rplo8=; b=gsPt/TWdlhl2odeS9O+2Al3hJVqKBxpRzW
- WRPx44+Gk0+bOsF8GZLuPAofikM65DOdWRre0DCgswo3z2aPDzmRRm0n1EcCyQ26
- lpYs5rqL84FAHEPxzppiQc0EVzcTGanHtpk4MefJ/SNCE+KVdYnomjXo+hc7NfTQ
- ofqyqm6Fe0s0akBwStnoi3iopxsQlNRt7sn9pHHXEIRY9hzL3yU8gNbekGskSWaT
- HMiVFvoLpwmwYD4YBDSOt1rEXnaEHCWEKhWCdZwjxgSxNXXIGEJS2wyJAgm0xeVe
- tuJWsto6xS807JcIi/dbQIE2AlMpFo5gly0wSB1n8MQmNNcXkRYA==
-X-ME-Sender: <xms:gpWoWTmpU7DETm9mwfh2dT6HsDVQFFbQP6htGzr8c5gPnLO6y50nqg>
-X-Sasl-enc: hIpWRw3IF3ZiO3URlXvvL43Ag3zIpE5CftROlHgx6x7y 1504220545
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=o2Jf9yo+1G3eiVreB7
+ KitNoITKNxHifnLn19DipJcHE=; b=clOOZgvEHkGp+Am6uj++d3jZhCc/vaQd+o
+ piuphj073LAQW9UHK+WO6mPj8DmhU+lPo+CzLnu6OTIucZlEYFuKMYUG0gepLbhp
+ 4huPdYUHZYrLFi8ELLi4b6Gsb85fqpCNKVLCIvhYI2cA79AI8WqgJUsVfrPHl33w
+ OKPp8ANBfg2rUvo8WthzUsCPwLkrOKzG8UyKg1XY2GpdJHTSo7PMXaCXbzuAwM3R
+ Je4RjeNSOQKaos9Fm/BRcKMln2XlVqSnT3APjzZQkEkjUtU1Z2DMNH5N7kRyq5c2
+ ViN0+TMfAzYsggoHns4KBmuTYQ5WUP5EzK5RLU6LGd+ks9fisSlw==
+X-ME-Sender: <xms:2LCoWQoz4ztFI5uAEeLyHO62uNK_mhm-tuVPDvFG1LLZtOvCcoTzrQ>
+X-Sasl-enc: Nw+CSBfl7xU+frbYJMdbJiRMTG4cAgjZZp6T2kkiqI69 1504227544
 Received: from keelia (ppp14-2-65-251.bras21.adl6.internode.on.net
  [14.2.65.251])
- by mail.messagingengine.com (Postfix) with ESMTPA id 6503324640;
- Thu, 31 Aug 2017 19:02:22 -0400 (EDT)
-Message-ID: <1504220536.5933.32.camel@aj.id.au>
-Subject: Re: [PATCH v2 1/2] dt-bindings: leds: gpio: Add optional
- retain-state-shutdown property
+ by mail.messagingengine.com (Postfix) with ESMTPA id 59A437E7AD;
+ Thu, 31 Aug 2017 20:59:03 -0400 (EDT)
+Message-ID: <1504227536.5933.34.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.10 v6 0/3] Add user space accessibility for
+ ucd9000 stats
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Rob Herring <robh@kernel.org>
-Cc: linux-leds@vger.kernel.org, rpurdie@rpsys.net,
- jacek.anaszewski@gmail.com,  pavel@ucw.cz, mark.rutland@arm.com,
- devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org, joel@jms.id.au,
- openbmc@lists.ozlabs.org
-Date: Fri, 01 Sep 2017 08:32:16 +0930
-In-Reply-To: <20170831212840.ecr2p4nra52xvzrz@rob-hp-laptop>
-References: <20170828001711.19662-1-andrew@aj.id.au>
- <20170828001711.19662-2-andrew@aj.id.au>
- <20170831212840.ecr2p4nra52xvzrz@rob-hp-laptop>
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>, joel@jms.id.au
+Cc: openbmc@lists.ozlabs.org
+Date: Fri, 01 Sep 2017 10:28:56 +0930
+In-Reply-To: <20170830214953.73327-1-cbostic@linux.vnet.ibm.com>
+References: <20170830214953.73327-1-cbostic@linux.vnet.ibm.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-eP7A03YBeSElujE3UVdG"
+ protocol="application/pgp-signature"; boundary="=-8S/H6TPAWpXngKLKUTyz"
 X-Mailer: Evolution 3.22.6-1ubuntu1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -70,111 +65,98 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 Aug 2017 23:02:31 -0000
+X-List-Received-Date: Fri, 01 Sep 2017 00:59:08 -0000
 
 
---=-eP7A03YBeSElujE3UVdG
+--=-8S/H6TPAWpXngKLKUTyz
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Rob,
+On Wed, 2017-08-30 at 16:49 -0500, Christopher Bostic wrote:
+> This set provides means to allow user space to access various properties =
+of the
+> ucd9000 type chips.
+>=20
+> Patch 0001 Adds a user space means of clearing logged faults.=C2=A0=C2=A0=
+This ability is
+> useful in cases where one wants to start with a clean slate during each s=
+ystem
+> power on.
+>=20
+> patch 0002 Adds gpio_chip interface for user to access various GPIO pin s=
+tates
+> via the /sys/class/gpio interface.
+>=20
+> Patch 0003 adds a debugfs for mfr_status information so user space can ga=
+in
+> visibility of gpi type faults. Note that there are limitations on type of=
+ devices
+> that debugfs supports.=C2=A0=C2=A0Presently only ucd90160 is supported.=
+=C2=A0=C2=A0Any assumptions made
+> as to formatting of data is commented inline in the code.=C2=A0=C2=A0Any =
+expansion to other
+> ucd9000 types will need to take this into consideration.
+>=20
+> Note also that no pinmux support is provided at this point.=C2=A0=C2=A0Th=
+e ucd9000 devs do
+> have mux capability so this should be added.
+>=20
+> Patch 0003 (was patch v5-0002... previously) has been reviewed by Andrew =
+Jeffery,
+> I did, however, add some small updates to this one:
+>=20
+> * Remove ida in bad and unbind paths.
+> * Remove type ucd90160 check when adding debugfs. Add for all ucd9000 dev=
+s.
+> =C2=A0 Results in cleaner ida code in the remove path.
 
-On Thu, 2017-08-31 at 16:28 -0500, Rob Herring wrote:
-> On Mon, Aug 28, 2017 at 09:47:10AM +0930, Andrew Jeffery wrote:
-> > On Baseboard Management Controller (BMC) systems it's sometimes
-> > necessary for a LED to retain its state across a BMC reset (which is
-> > independent of the host system state). Add a devicetree property to
-> > describe this behaviour. The property would typically be used in
-> > conjunction with 'default-state =3D "keep"'.
->=C2=A0
-> A bit quick on the applying of this...
->=C2=A0
-> I don't understand how this works. The BMC usecase is interesting but=C2=
-=A0
-> that's fairly irrelevant to the binding. How do you know the GPIO state=
-=C2=A0
-> thru a reset?
+Thanks for the summary and for splitting out the patch introducing the
+new ABI.
 
-The answer to that is a property of the system design in my opinion.
+Unfortunately upstream NACKed what you've put as the first patch in
+your series. In the future, it's best to order controversial patches
+later, that way we can apply the uncontroversial patches without fuzz
+or failures from context/content dependencies.
 
-> You're doing a core reset, but not reseting the GPIO=C2=A0
-> controller?
-
-Well, in my specific case, the GPIO controller in question isn't on the SoC=
-,
-it's off-chip behind an I2C bus. Powering off a BMC doesn't necessarily mea=
-n
-removing power from its peripherals, so in this case the their state is
-maintained.
-
-Alternatively, and again in my specific (Aspeed) case, the on-SoC GPIO
-controller can be selectively reset with respect to the rest of the SoC, or
-individual GPIO lines can be marked as reset-tolerant. This gives the same
-capability and is what you've suggested above.
-
->=C2=A0
-> When you use 'default-state =3D "keep"' but not this property? Seems like=
-=C2=A0 the
-> same thing to me.
-
-Is that not also true of retain-state-suspend?
-
-The existing behaviour of leds-gpio was to turn the managed LEDs off in the
-remove() path. To me this was unexpected behaviour, but it is what it is. M=
-y
-first pass at the patch (before I sent it out) was to do as you suggest and
-only turn it off in the absence of 'default-state =3D "keep"'.=C2=A0=C2=A0H=
-owever there
-were quite a number of users of that configuration, and this could be an
-unexpected change of behaviour. Given retain-state-suspend was already defi=
-ned,
-it seemed that the non-breaking way to get the behaviour I desired was to
-introduce retain-state-shutdown.
-
-Sure, this is dealing with problems in the driver and not describing hardwa=
-re,
-but at this point the behaviour is already in place and people might be rel=
-ying
-on it.
-
-> Presumably the bootloader would just distinguish=C2=A0 between a
-> warm and cold reset to decide whether to re-init the state.
->=C2=A0
-> Finally, if we do have this property, why is it GPIO specific. You could=
-=C2=A0
-> just as easily have a LED controller IC and want to do the same thing.
-
-I don't think we're precluded from making it more general even if it's
-submitted as specific to leds-gpio? I don't have anything against making it
-more generic. I was tossing up about doing so, but went for the specific ca=
-se
-first because we could make it more generic without problems. Going the oth=
-er
-way is harder.
+So given I can't apply the first patch as we know it won't go upstream,
+I can't apply the rest either due to hunks failing or fuzzing. Can you
+please respin, and given you need to do that, take into account
+Guenter's feedback?
 
 Cheers,
 
 Andrew
---=-eP7A03YBeSElujE3UVdG
+
+>=20
+> Christopher Bostic (3):
+> =C2=A0 hwmon: (ucd9000) Add interface to clear logged faults.
+> =C2=A0 hwmon: (ucd9000) Add gpio chip interface
+> =C2=A0 hwmon: (ucd9000) Add debugfs to list mfr_status info
+>=20
+> =C2=A0drivers/hwmon/pmbus/ucd9000.c | 415 +++++++++++++++++++++++++++++++=
+++++++++++-
+> =C2=A01 file changed, 413 insertions(+), 2 deletions(-)
+>=20
+--=-8S/H6TPAWpXngKLKUTyz
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJZqJV4AAoJEJ0dnzgO5LT5mF4P/0egTA7vdWrGTQhuNK+zv017
-ms8+ioro5fatH1hywcEUCTciyq+lIBtzMIswqcTa9WazyP0COh3k5kK30vYNrz6Q
-44HOTFDKYUieohf9SMsuakcHhzYyB/+fgM60zGQ7Nbe8COtEFPutLUUjT3GvSiFt
-Y/iSaP6r5/xcK0ZvcV8YKhq1ZUgN77yiSIk2r5rBwlMYFY1pj5Ue7IKvsSjlRMTs
-CWe0YrGqu+KrytzzmlJToBnko2qUSumxmBKWPOD5etFPGuK3B7WfBRPGmucBr7mS
-OtE6GR3iAiYYXZ+xUUFX/XWq9SohhM1V4Fl9/181HMiZnccTNfiji8xKW8+lRnOQ
-e+K3k9ErwIU3ZG8FIixjjwMEwQN2URiHTQytVSaoNd8jhoI+P30Gc9wKdKQhniaH
-xA/zku7+dtRBqcASWLBTUm464ZQOq214lrCVVWiOqW8ZQzZ+msc3ZfkFh/Flq9Lc
-K0LxsD8E1wgOXLR//NYon0xsMtj7CHI+W9S5Z+CC5Rc9PMkHCmJPkW8VWIPvPWUp
-vC687X/iN2mXSpwMZXEn6mXeB6xXrQS4qFPB7iCs89saiC9074pO5/KuTKBy3YkJ
-JWjr5X85+2w6/oRS5GkFt1KPD+ynlQ0Q/75HwuZscFh2OnM/0ulcY2mHQH8TwEnf
-3mcJgnsjTmZIRf7g7ZhW
-=PgUn
+iQIcBAABCgAGBQJZqLDQAAoJEJ0dnzgO5LT57F4P/358SbO1Z57Wgfm+wJX4OM7Y
+W7RPIE2CBfocqr76g4G/J2SoM7U6PNwB0Dsa0LPUO+qpdnY76jUpaX2n/uaqRflO
+OPneQvTghGD8c0weso9IQhjRdHR2Sz3RpgQ3cqTRNGHtscGK3qHBU8/3HDEyDfHQ
+7dKJFSKw9U1pavyyDRPu+SV/19zUkEJQj9mgUa7MPFi4crxQfLI8xLxBJV0BlXz/
+hyFQRL+256+unS6EZAmVNUYBlTXEisTuaOBWpjEXwtBVgZxVntWKvNVCsGzAPcat
+7abOB/Auio+22KuZeoXxeJ5lEn4bx5McQajdJ63dQhuTZbTR4MKO6EuRHnxnr0wx
+gkjXAY+QaFt+cfBBYPc1qQ+Kct/dYu2Z/PhanwowNjdkErkJrSSqc7jySSvstSWt
+Bxp33U5op7uyQgtGncjmrRHzYQVTBRRcdMqe4pCqyHwbj+aSiRfb3MmZLSx2SZmf
+u/alqyiXKytmUzYrlxnmAD//tW5AYG6VEMwhggnO28t4xuTQUNqHU2S+oR1aoYrg
++iERnweLm0saR4Y3wQWB3R0bYpEmqes/RaatAczBdmmF09vsoJ+IbCaOcsWTNu09
+/iMAISmqQsu4yEE96MYE7vQram6IAUocGynOP4PTFlzhFhZxkNid+4Vf6LoasTKD
+kZ2hq6J+IJKIYg5baqzv
+=ZMVb
 -----END PGP SIGNATURE-----
 
---=-eP7A03YBeSElujE3UVdG--
+--=-8S/H6TPAWpXngKLKUTyz--
