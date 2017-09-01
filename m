@@ -1,61 +1,64 @@
-Return-Path: <cyrilbur@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c06::242; helo=mail-io0-x242.google.com;
- envelope-from=cyrilbur@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="I7DTraek"; 
- dkim-atps=neutral
-Received: from mail-io0-x242.google.com (mail-io0-x242.google.com
- [IPv6:2607:f8b0:4001:c06::242])
+Return-Path: <moritz.fischer@ettus.com>
+Received: from mail-wm0-x22f.google.com (mail-wm0-x22f.google.com
+ [IPv6:2a00:1450:400c:c09::22f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xm1Qc18T2zDqRM
- for <openbmc@lists.ozlabs.org>; Mon,  4 Sep 2017 17:17:58 +1000 (AEST)
-Received: by mail-io0-x242.google.com with SMTP id n74so3274927ioe.2
- for <openbmc@lists.ozlabs.org>; Mon, 04 Sep 2017 00:17:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=message-id:subject:from:to:cc:date:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=qEBn/7oRgsuPhcvznPq906kQIL7kiGSo8npAAkc7dlw=;
- b=I7DTraekIazDGrCthphj870JdaLc+hXMe4j7DvNflACmh+KPAhz8yBetqikeO+f3J5
- SxP0GQ9U6vj+fwS3K2gPKf7stTbl+IoB78uyavoVNtE5uTUz2Sixb9wMfYqXSVNpx+ec
- u7ZGRLQwcaKVrdEGJfo5PWuwJDvgbzgo+1LlB64N+G4ZqMxyj1JnO5JXO3b3YxRuk/Ha
- DJohi421GmWxP+ns34axEzwmYHAizhazdtfV8/x+1RwBriYKxGYFJUd4FuRp5BmAHOQA
- jMgcm8G7xwcC5Df9DTPs3kaH+IqcbWFN40bVVR4Lp4DYoHxPQEj6zptA8GuzIIsP215o
- pRJw==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xkRYG3WBPzDqh4
+ for <openbmc@lists.ozlabs.org>; Sat,  2 Sep 2017 03:48:17 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=ettus-com.20150623.gappssmtp.com
+ header.i=@ettus-com.20150623.gappssmtp.com header.b="s+rGGVPH"; 
+ dkim-atps=neutral
+Received: by mail-wm0-x22f.google.com with SMTP id u26so5604071wma.0
+ for <openbmc@lists.ozlabs.org>; Fri, 01 Sep 2017 10:48:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ettus-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=qPxKqT5m2tsSNG31s7P2zOQm4HTRKNXj3V/m5D3gBME=;
+ b=s+rGGVPH9bD78R6eEwsV16Xx2UALLwsapATM6Hn30gQJJ0zxKF2Zi12XuRJXHFqQfv
+ tA7RrbOrxYu0YoPDqONNhaVJ9D4xaS9yfaEl3Y+K0CzKKk2LsoCiu9GsVQjLkzDyjehr
+ pezm7OqpYc2sgLs7sWg1e10HhDjOfJrIljZvKHSX9w+MDC60XZkiESi/+AaovRIMb0YR
+ wjEOn0mZnsFK/9bsoa7tcjcaeANmTMtCJWRG0gC82IpXzpLr9mfz3mQncF0p5Sq6n1nU
+ o+UYcwRWzW8Us1hTieizkMqm5zsCTXGh74cFLexbSnLym0II97Jkgk6Y81mV/qtU8DRo
+ DvnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=qEBn/7oRgsuPhcvznPq906kQIL7kiGSo8npAAkc7dlw=;
- b=BJz8NKcziUwtovp5q6xTlJOYWQLlUD/SNBmX2GB4yXAqQACFn4Pn4Ts5anGOWTnUBg
- KnDyeXbwfVh6j7AxCEn0iZUzzxdQ87UKdQM7I8Ekpxa5xw4dUFwiEH8/pmckoSx7eDjs
- EOvj1uSv6JA8Hb12qVlkzcsbQXH3OmiBP47fAfFNnP5oTGjbL7y08VBKCQb4tTVzjIDx
- BsH6CTUl8pVLSxohOMxOWeqE8oJdsPBMAJoPAhkxLCpWytHcinrV2jkGxFO8qd3l/Nxe
- F7S0wt5QwNBsivpPKTei4LsntUO7PW1eqJ72kBOomNSb6dsiPN2m75XEBlc37UD9X4n4
- SUoA==
-X-Gm-Message-State: AHPjjUjwgDSruT7SDlblqD8EJC803Fd3SA7DupHfyrl1JcsnmCR/rqvP
- zqKWyDqTkX3PWA==
-X-Google-Smtp-Source: ADKCNb5GorO2bCfMCFR2xrn1RLo03Fj6o/nNigwroMXl5AxqLakwLxVu4G6NbAt2FcUqY85WIl8nDQ==
-X-Received: by 10.107.46.199 with SMTP id u68mr7890367iou.88.1504509475915;
- Mon, 04 Sep 2017 00:17:55 -0700 (PDT)
-Received: from camb691.ozlabs.ibm.com ([122.99.82.10])
- by smtp.googlemail.com with ESMTPSA id 23sm3110052itj.24.2017.09.04.00.17.52
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 04 Sep 2017 00:17:55 -0700 (PDT)
-Message-ID: <1504509469.4080.6.camel@gmail.com>
-Subject: Re: [PATCH v2] drivers/mailbox: Add Aspeed mailbox driver
-From: Cyril Bur <cyrilbur@gmail.com>
-To: jassisinghbrar@gmail.com, linux-kernel@vger.kernel.org
-Cc: openbmc@lists.ozlabs.org, Joel Stanley <joel.stan@gmail.com>, Greg KH
- <greg@kroah.com>
-Date: Mon, 04 Sep 2017 17:17:49 +1000
-In-Reply-To: <20170207233623.18737-1-cyrilbur@gmail.com>
-References: <20170207233623.18737-1-cyrilbur@gmail.com>
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=qPxKqT5m2tsSNG31s7P2zOQm4HTRKNXj3V/m5D3gBME=;
+ b=NjvJJCF5QoziwJzLuIt7x+xzpkRh8VjO/CNmoB9wgmsEvKmwVmrtN68AFLv5mGhrjN
+ Bqu+CnfG+YNB81EHc44W6ODDrgBfI7SyTE247UeZYEU+cADJ5yg1f7DMZxNPAjslaeZr
+ M6nnMM7XO+i/Fpfv0lxowANjBZSsvZlpDXZ7eDabxuybY06CLqxwlz05DgbaPokvJ1Nt
+ p+kBLIa20C96LViURiHmp6oh5FPQawETe15Qwjah8P4bh79eDbXFXh/LO7VlAlZ2vpp5
+ SwXQKVdFenmnIETOjyQOM7CwYK1GqWOCGZj1Wz1Ttosueb5ziYOZtlGXfB9p+jgdJ4wI
+ rdMQ==
+X-Gm-Message-State: AHPjjUhhmPDMXMH7l1ldSq0PA7u8YIOf56w9LuLYMDJUZJX9Z8Bx0G1V
+ WdkCb+21Lu4Ujke7m0MzdbsbPkis0UtF
+X-Google-Smtp-Source: ADKCNb5xaEp2beEMcFeryWssQ+grdoXaPUMwPi3MpUXdbW4fNCrzFM5qxfkeslHYP/rAI5d8lq7TZq6SXHBFfptULlg=
+X-Received: by 10.28.107.76 with SMTP id g73mr893474wmc.66.1504288094176; Fri,
+ 01 Sep 2017 10:48:14 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.28.216.140 with HTTP; Fri, 1 Sep 2017 10:48:13 -0700 (PDT)
+In-Reply-To: <1504281966-6199-2-git-send-email-oleksandrs@mellanox.com>
+References: <1504281966-6199-1-git-send-email-oleksandrs@mellanox.com>
+ <1504281966-6199-2-git-send-email-oleksandrs@mellanox.com>
+From: Moritz Fischer <moritz.fischer@ettus.com>
+Date: Fri, 1 Sep 2017 10:48:13 -0700
+Message-ID: <CAAtXAHdgjJLBse8fjTWKcM3BBx+1C3G30TkkrrAKT2qmJo7z_g@mail.gmail.com>
+Subject: Re: [patch v7 1/4] drivers: jtag: Add JTAG core driver
+To: Oleksandr Shamray <oleksandrs@mellanox.com>
+Cc: Greg KH <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, 
+ Devicetree List <devicetree@vger.kernel.org>, openbmc@lists.ozlabs.org,
+ joel@jms.id.au, 
+ jiri@resnulli.us, tklauser@distanz.ch, linux-serial@vger.kernel.org, 
+ mec@shout.net, vadimp@maellanox.com, system-sw-low-level@mellanox.com, 
+ Rob Herring <robh+dt@kernel.org>, openocd-devel-owner@lists.sourceforge.net, 
+ linux-api@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+ mchehab@kernel.org, Jiri Pirko <jiri@mellanox.com>
 Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.24.5 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Mon, 04 Sep 2017 23:57:05 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,413 +70,681 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Sep 2017 07:18:01 -0000
+X-List-Received-Date: Fri, 01 Sep 2017 17:48:24 -0000
 
-Hi,
+Nit inline ;-)
 
-I haven't heard anything about this driver. I'm trying to interpret if
-the silence is because there is something fundamentally wrong with the
-driver or is it because it doesn't use any of the mailbox
-infrastructure it is being ignored.
+On Fri, Sep 1, 2017 at 9:06 AM, Oleksandr Shamray
+<oleksandrs@mellanox.com> wrote:
+> Initial patch for JTAG friver
 
-Either way I'm happy to address the problems - in the event of there
-being something wrong, I'm more than happy to take feedback and address
-problems. If you would prefer to see it moved somewhere into char/misc,
-this is also something I can do. Moving into char/misc is my preferred
-option, I had a look at the mailbox infrastructure and it seems a bit
-heavyweight for what this ultimately very simple driver is doing.
-
-If you would be so kind as to let me know which direction to take.
+s/friver/driver
+> JTAG class driver provide infrastructure to support hardware/software
+> JTAG platform drivers. It provide user layer API interface for flashing
+> and debugging external devices which equipped with JTAG interface
+> using standard transactions.
+>
+> Driver exposes set of IOCTL to user space for:
+> - XFER:
+> - SIR (Scan Instruction Register, IEEE 1149.1 Data Register scan);
+> - SDR (Scan Data Register, IEEE 1149.1 Instruction Register scan);
+> - RUNTEST (Forces the IEEE 1149.1 bus to a run state for a specified
+>   number of clocks).
+> - SIOCFREQ/GIOCFREQ for setting and reading JTAG frequency.
+>
+> Driver core provides set of internal APIs for allocation and
+> registration:
+> - jtag_register;
+> - jtag_unregister;
+> - jtag_alloc;
+> - jtag_free;
+>
+> Platform driver on registration with jtag-core creates the next
+> entry in dev folder:
+> /dev/jtagX
+>
+> Signed-off-by: Oleksandr Shamray <oleksandrs@mellanox.com>
+> Signed-off-by: Jiri Pirko <jiri@mellanox.com>
+> ---
+> v6->v7
+> Notifications from kbuild test robot <lkp@intel.com>
+> - Remove include asm/types.h from jtag.h
+> - Add include <linux/types.h> to jtag.c
+>
+> v5->v6
+> v4->v5
+>
+> v3->v4
+> Comments pointed by Arnd Bergmann <arnd@arndb.de>
+> - change transaction pointer tdio type  to __u64
+> - change internal status type from enum to __u32
+> - reorder jtag_xfer members to aviod the implied padding
+> - add __packed attribute to jtag_xfer and jtag_run_test_idle
+>
+> v2->v3
+> Notifications from kbuild test robot <lkp@intel.com>
+> - Change include path to <linux/types.h> in jtag.h
+>
+> v1->v2
+> Comments pointed by Greg KH <gregkh@linuxfoundation.org>
+> - Change license type from GPLv2/BSD to GPLv2
+> - Change type of variables which crossed user/kernel to __type
+> - Remove "default n" from Kconfig
+>
+> Comments pointed by Andrew Lunn <andrew@lunn.ch>
+> - Change list_add_tail in jtag_unregister to list_del
+>
+> Comments pointed by Neil Armstrong <narmstrong@baylibre.com>
+> - Add SPDX-License-Identifier instead of license text
+>
+> Comments pointed by Arnd Bergmann <arnd@arndb.de>
+> - Change __copy_to_user to memdup_user
+> - Change __put_user to put_user
+> - Change type of variables to __type for compatible 32 and 64-bit systems
+> - Add check for maximum xfer data size
+> - Change lookup data mechanism to get jtag data from inode
+> - Add .compat_ioctl to file ops
+> - Add mem alignment for jtag priv data
+>
+> Comments pointed by Tobias Klauser <tklauser@distanz.ch>
+> - Change function names to avoid match with variable types
+> - Fix description for jtag_ru_test_idle in uapi jtag.h
+> - Fix misprints IDEL/IDLE, trough/through
+> ---
+>  Documentation/ioctl/ioctl-number.txt |    2 +
+>  MAINTAINERS                          |    8 +
+>  drivers/Kconfig                      |    2 +
+>  drivers/Makefile                     |    1 +
+>  drivers/jtag/Kconfig                 |   16 ++
+>  drivers/jtag/Makefile                |    1 +
+>  drivers/jtag/jtag.c                  |  312 ++++++++++++++++++++++++++++++++++
+>  include/linux/jtag.h                 |   48 +++++
+>  include/uapi/linux/jtag.h            |  111 ++++++++++++
+>  9 files changed, 501 insertions(+), 0 deletions(-)
+>  create mode 100644 drivers/jtag/Kconfig
+>  create mode 100644 drivers/jtag/Makefile
+>  create mode 100644 drivers/jtag/jtag.c
+>  create mode 100644 include/linux/jtag.h
+>  create mode 100644 include/uapi/linux/jtag.h
+>
+> diff --git a/Documentation/ioctl/ioctl-number.txt b/Documentation/ioctl/ioctl-number.txt
+> index 3e3fdae..1af2508 100644
+> --- a/Documentation/ioctl/ioctl-number.txt
+> +++ b/Documentation/ioctl/ioctl-number.txt
+> @@ -321,6 +321,8 @@ Code  Seq#(hex)     Include File            Comments
+>  0xB0   all     RATIO devices           in development:
+>                                         <mailto:vgo@ratio.de>
+>  0xB1   00-1F   PPPoX                   <mailto:mostrows@styx.uwaterloo.ca>
+> +0xB2   00-0f   linux/jtag.h            JTAG driver
+> +                                       <mailto:oleksandrs@mellanox.com>
+>  0xB3   00      linux/mmc/ioctl.h
+>  0xB4   00-0F   linux/gpio.h            <mailto:linux-gpio@vger.kernel.org>
+>  0xB5   00-0F   uapi/linux/rpmsg.h      <mailto:linux-remoteproc@vger.kernel.org>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 205d397..141aeaf 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -7292,6 +7292,14 @@ L:       linux-serial@vger.kernel.org
+>  S:     Maintained
+>  F:     drivers/tty/serial/jsm/
+>
+> +JTAG SUBSYSTEM
+> +M:     Oleksandr Shamray <oleksandrs@mellanox.com>
+> +M:     Vadim Pasternak <vadimp@mellanox.com>
+> +S:     Maintained
+> +F:     include/linux/jtag.h
+> +F:     include/uapi/linux/jtag.h
+> +F:     drivers/jtag/
+> +
+>  K10TEMP HARDWARE MONITORING DRIVER
+>  M:     Clemens Ladisch <clemens@ladisch.de>
+>  L:     linux-hwmon@vger.kernel.org
+> diff --git a/drivers/Kconfig b/drivers/Kconfig
+> index 505c676..2214678 100644
+> --- a/drivers/Kconfig
+> +++ b/drivers/Kconfig
+> @@ -208,4 +208,6 @@ source "drivers/tee/Kconfig"
+>
+>  source "drivers/mux/Kconfig"
+>
+> +source "drivers/jtag/Kconfig"
+> +
+>  endmenu
+> diff --git a/drivers/Makefile b/drivers/Makefile
+> index dfdcda0..6a2059b 100644
+> --- a/drivers/Makefile
+> +++ b/drivers/Makefile
+> @@ -182,3 +182,4 @@ obj-$(CONFIG_FPGA)          += fpga/
+>  obj-$(CONFIG_FSI)              += fsi/
+>  obj-$(CONFIG_TEE)              += tee/
+>  obj-$(CONFIG_MULTIPLEXER)      += mux/
+> +obj-$(CONFIG_JTAG)             += jtag/
+> diff --git a/drivers/jtag/Kconfig b/drivers/jtag/Kconfig
+> new file mode 100644
+> index 0000000..0fad1a3
+> --- /dev/null
+> +++ b/drivers/jtag/Kconfig
+> @@ -0,0 +1,16 @@
+> +menuconfig JTAG
+> +       tristate "JTAG support"
+> +       ---help---
+> +         This provides basic core functionality support for jtag class devices
+> +         Hardware equipped with JTAG microcontroller which can be built
+> +         on top of this drivers. Driver exposes the set of IOCTL to the
+> +         user space for:
+> +         SIR (Scan Instruction Register, IEEE 1149.1 Data Register scan);
+> +         SDR (Scan Data Register, IEEE 1149.1 Instruction Register scan);
+> +         RUNTEST (Forces IEEE 1149.1 bus to a run state for specified
+> +         number of clocks).
+> +
+> +         If you want this support, you should say Y here.
+> +
+> +         To compile this driver as a module, choose M here: the module will
+> +         be called jtag.
+> diff --git a/drivers/jtag/Makefile b/drivers/jtag/Makefile
+> new file mode 100644
+> index 0000000..af37493
+> --- /dev/null
+> +++ b/drivers/jtag/Makefile
+> @@ -0,0 +1 @@
+> +obj-$(CONFIG_JTAG)             += jtag.o
+> diff --git a/drivers/jtag/jtag.c b/drivers/jtag/jtag.c
+> new file mode 100644
+> index 0000000..f948d4c
+> --- /dev/null
+> +++ b/drivers/jtag/jtag.c
+> @@ -0,0 +1,312 @@
+> +/*
+> + * drivers/jtag/jtag.c
+> + *
+> + * Copyright (c) 2017 Mellanox Technologies. All rights reserved.
+> + * Copyright (c) 2017 Oleksandr Shamray <oleksandrs@mellanox.com>
+> + *
+> + * Released under the GPLv2 only.
+> + * SPDX-License-Identifier: GPL-2.0
+> + */
+> +
+> +#include <linux/cdev.h>
+> +#include <linux/device.h>
+> +#include <linux/jtag.h>
+> +#include <linux/kernel.h>
+> +#include <linux/list.h>
+> +#include <linux/module.h>
+> +#include <linux/rtnetlink.h>
+> +#include <linux/spinlock.h>
+> +#include <linux/types.h>
+> +#include <uapi/linux/jtag.h>
+> +
+> +struct jtag {
+> +       struct list_head list;
+> +       struct device *dev;
+> +       struct cdev cdev;
+> +       int id;
+> +       spinlock_t lock;
+> +       int open;
+> +       const struct jtag_ops *ops;
+> +       unsigned long priv[0] __aligned(ARCH_DMA_MINALIGN);
+> +};
+> +
+> +static dev_t jtag_devt;
+> +static LIST_HEAD(jtag_list);
+> +static DEFINE_MUTEX(jtag_mutex);
+> +static DEFINE_IDA(jtag_ida);
+> +
+> +void *jtag_priv(struct jtag *jtag)
+> +{
+> +       return jtag->priv;
+> +}
+> +EXPORT_SYMBOL_GPL(jtag_priv);
+> +
+> +static __u64 jtag_copy_from_user(__u64 udata, unsigned long bit_size)
+> +{
+> +       unsigned long size;
+> +       void *kdata;
+> +
+> +       size = DIV_ROUND_UP(bit_size, BITS_PER_BYTE);
+> +       kdata = memdup_user(u64_to_user_ptr(udata), size);
+> +
+> +       return (__u64)(uintptr_t)kdata;
+> +}
+> +
+> +static unsigned long jtag_copy_to_user(__u64 udata, __u64 kdata,
+> +                                      unsigned long bit_size)
+> +{
+> +       unsigned long size;
+> +
+> +       size = DIV_ROUND_UP(bit_size, BITS_PER_BYTE);
+> +
+> +       return copy_to_user(u64_to_user_ptr(udata), jtag_u64_to_ptr(kdata),
+> +                           size);
+> +}
+> +
+> +static struct class jtag_class = {
+> +       .name = "jtag",
+> +       .owner = THIS_MODULE,
+> +};
+> +
+> +static int jtag_run_test_idle_op(struct jtag *jtag,
+> +                                struct jtag_run_test_idle *idle)
+> +{
+> +       if (jtag->ops->idle)
+> +               return jtag->ops->idle(jtag, idle);
+> +       else
+> +               return -EOPNOTSUPP;
+> +}
+> +
+> +static int jtag_xfer_op(struct jtag *jtag, struct jtag_xfer *xfer)
+> +{
+> +       if (jtag->ops->xfer)
+> +               return jtag->ops->xfer(jtag, xfer);
+> +       else
+> +               return -EOPNOTSUPP;
+> +}
+> +
+> +static long jtag_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+> +{
+> +       struct jtag *jtag = file->private_data;
+> +       __u32 *uarg = (__u32 __user *)arg;
+> +       void  *varg = (void __user *)arg;
+> +       struct jtag_run_test_idle idle;
+> +       struct jtag_xfer xfer;
+> +       __u64 tdio_user;
+> +       __u32 value;
+> +       int err;
+> +
+> +       switch (cmd) {
+> +       case JTAG_GIOCFREQ:
+> +               if (jtag->ops->freq_get)
+> +                       err = jtag->ops->freq_get(jtag, &value);
+> +               else
+> +                       err = -EOPNOTSUPP;
+> +               if (err)
+> +                       break;
+> +
+> +               err = put_user(value, uarg);
+> +               break;
+> +
+> +       case JTAG_SIOCFREQ:
+> +               err = __get_user(value, uarg);
+> +
+> +               if (value == 0)
+> +                       err = -EINVAL;
+> +               if (err)
+> +                       break;
+> +
+> +               if (jtag->ops->freq_set)
+> +                       err = jtag->ops->freq_set(jtag, value);
+> +               else
+> +                       err = -EOPNOTSUPP;
+> +               break;
+> +
+> +       case JTAG_IOCRUNTEST:
+> +               if (copy_from_user(&idle, varg,
+> +                                  sizeof(struct jtag_run_test_idle)))
+> +                       return -ENOMEM;
+> +               err = jtag_run_test_idle_op(jtag, &idle);
+> +               break;
+> +
+> +       case JTAG_IOCXFER:
+> +               if (copy_from_user(&xfer, varg, sizeof(struct jtag_xfer)))
+> +                       return -EFAULT;
+> +
+> +               if (xfer.length >= JTAG_MAX_XFER_DATA_LEN)
+> +                       return -EFAULT;
+> +
+> +               tdio_user = xfer.tdio;
+> +               xfer.tdio = jtag_copy_from_user(xfer.tdio, xfer.length);
+> +               if (!xfer.tdio)
+> +                       return -ENOMEM;
+> +
+> +               err = jtag_xfer_op(jtag, &xfer);
+> +               if (jtag_copy_to_user(tdio_user, xfer.tdio, xfer.length)) {
+> +                       kfree(jtag_u64_to_ptr(xfer.tdio));
+> +                       return -EFAULT;
+> +               }
+> +
+> +               kfree(jtag_u64_to_ptr(xfer.tdio));
+> +               xfer.tdio = tdio_user;
+> +               if (copy_to_user(varg, &xfer, sizeof(struct jtag_xfer)))
+> +                       return -EFAULT;
+> +               break;
+> +
+> +       case JTAG_GIOCSTATUS:
+> +               if (jtag->ops->status_get)
+> +                       err = jtag->ops->status_get(jtag, &value);
+> +               else
+> +                       err = -EOPNOTSUPP;
+> +               if (err)
+> +                       break;
+> +
+> +               err = put_user(value, uarg);
+> +               break;
+> +
+> +       default:
+> +               return -EINVAL;
+> +       }
+> +       return err;
+> +}
+> +
+> +#ifdef CONFIG_COMPAT
+> +static long jtag_ioctl_compat(struct file *file, unsigned int cmd,
+> +                             unsigned long arg)
+> +{
+> +       return jtag_ioctl(file, cmd, (unsigned long)compat_ptr(arg));
+> +}
+> +#endif
+> +
+> +static int jtag_open(struct inode *inode, struct file *file)
+> +{
+> +       struct jtag *jtag = container_of(inode->i_cdev, struct jtag, cdev);
+> +
+> +       spin_lock(&jtag->lock);
+> +
+> +       if (jtag->open) {
+> +               dev_info(NULL, "jtag already opened\n");
+> +               spin_unlock(&jtag->lock);
+> +               return -EBUSY;
+> +       }
+> +
+> +       jtag->open++;
+> +       file->private_data = jtag;
+> +       spin_unlock(&jtag->lock);
+> +       return 0;
+> +}
+> +
+> +static int jtag_release(struct inode *inode, struct file *file)
+> +{
+> +       struct jtag *jtag = file->private_data;
+> +
+> +       spin_lock(&jtag->lock);
+> +       jtag->open--;
+> +       spin_unlock(&jtag->lock);
+> +       return 0;
+> +}
+> +
+> +static const struct file_operations jtag_fops = {
+> +       .owner          = THIS_MODULE,
+> +       .open           = jtag_open,
+> +       .release        = jtag_release,
+> +       .llseek         = noop_llseek,
+> +       .unlocked_ioctl = jtag_ioctl,
+> +#ifdef CONFIG_COMPAT
+> +       .compat_ioctl   = jtag_ioctl_compat,
+> +#endif
+> +};
+> +
+> +struct jtag *jtag_alloc(size_t priv_size, const struct jtag_ops *ops)
+> +{
+> +       struct jtag *jtag;
+> +
+> +       jtag = kzalloc(sizeof(*jtag) + round_up(priv_size, ARCH_DMA_MINALIGN),
+> +                      GFP_KERNEL);
+> +       if (!jtag)
+> +               return NULL;
+> +
+> +       jtag->ops = ops;
+> +       return jtag;
+> +}
+> +EXPORT_SYMBOL_GPL(jtag_alloc);
+> +
+> +void jtag_free(struct jtag *jtag)
+> +{
+> +       kfree(jtag);
+> +}
+> +EXPORT_SYMBOL_GPL(jtag_free);
+> +
+> +int jtag_register(struct jtag *jtag)
+> +{
+> +       int id;
+> +       int err;
+> +
+> +       id = ida_simple_get(&jtag_ida, 0, 0, GFP_KERNEL);
+> +       if (id < 0)
+> +               return id;
+> +
+> +       jtag->id = id;
+> +       cdev_init(&jtag->cdev, &jtag_fops);
+> +       jtag->cdev.owner = THIS_MODULE;
+> +       err = cdev_add(&jtag->cdev, MKDEV(MAJOR(jtag_devt), jtag->id), 1);
+> +       if (err)
+> +               goto err_cdev;
+> +
+> +       /* Register this jtag device with the driver core */
+> +       jtag->dev = device_create(&jtag_class, NULL, MKDEV(MAJOR(jtag_devt),
+> +                                                          jtag->id),
+> +                                 NULL, "jtag%d", jtag->id);
+> +       if (!jtag->dev)
+> +               goto err_device_create;
+> +
+> +       jtag->open = 0;
+> +       dev_set_drvdata(jtag->dev, jtag);
+> +       spin_lock_init(&jtag->lock);
+> +       mutex_lock(&jtag_mutex);
+> +       list_add_tail(&jtag->list, &jtag_list);
+> +       mutex_unlock(&jtag_mutex);
+> +       return err;
+> +
+> +err_device_create:
+> +       cdev_del(&jtag->cdev);
+> +err_cdev:
+> +       ida_simple_remove(&jtag_ida, id);
+> +       return err;
+> +}
+> +EXPORT_SYMBOL_GPL(jtag_register);
+> +
+> +void jtag_unregister(struct jtag *jtag)
+> +{
+> +       struct device *dev = jtag->dev;
+> +
+> +       mutex_lock(&jtag_mutex);
+> +       list_del(&jtag->list);
+> +       mutex_unlock(&jtag_mutex);
+> +       cdev_del(&jtag->cdev);
+> +       device_unregister(dev);
+> +       ida_simple_remove(&jtag_ida, jtag->id);
+> +}
+> +EXPORT_SYMBOL_GPL(jtag_unregister);
+> +
+> +static int __init jtag_init(void)
+> +{
+> +       int err;
+> +
+> +       err = alloc_chrdev_region(&jtag_devt, 0, 1, "jtag");
+> +       if (err)
+> +               return err;
+> +       return class_register(&jtag_class);
+> +}
+> +
+> +static void __exit jtag_exit(void)
+> +{
+> +       class_unregister(&jtag_class);
+> +}
+> +
+> +module_init(jtag_init);
+> +module_exit(jtag_exit);
+> +
+> +MODULE_AUTHOR("Oleksandr Shamray <oleksandrs@mellanox.com>");
+> +MODULE_DESCRIPTION("Generic jtag support");
+> +MODULE_LICENSE("GPL v2");
+> diff --git a/include/linux/jtag.h b/include/linux/jtag.h
+> new file mode 100644
+> index 0000000..f48ae9d
+> --- /dev/null
+> +++ b/include/linux/jtag.h
+> @@ -0,0 +1,48 @@
+> +/*
+> + * drivers/jtag/jtag.c
+> + *
+> + * Copyright (c) 2017 Mellanox Technologies. All rights reserved.
+> + * Copyright (c) 2017 Oleksandr Shamray <oleksandrs@mellanox.com>
+> + *
+> + * Released under the GPLv2 only.
+> + * SPDX-License-Identifier: GPL-2.0
+> + */
+> +
+> +#ifndef __JTAG_H
+> +#define __JTAG_H
+> +
+> +#include <uapi/linux/jtag.h>
+> +
+> +#ifndef ARCH_DMA_MINALIGN
+> +#define ARCH_DMA_MINALIGN 1
+> +#endif
+> +
+> +#define jtag_u64_to_ptr(arg) ((void *)(uintptr_t)arg)
+> +
+> +#define JTAG_MAX_XFER_DATA_LEN 65535
+> +
+> +struct jtag;
+> +/**
+> + * struct jtag_ops - callbacks for jtag control functions:
+> + *
+> + * @freq_get: get frequency function. Filled by device driver
+> + * @freq_set: set frequency function. Filled by device driver
+> + * @status_get: set status function. Filled by device driver
+> + * @idle: set JTAG to idle state function. Filled by device driver
+> + * @xfer: send JTAG xfer function. Filled by device driver
+> + */
+> +struct jtag_ops {
+> +       int (*freq_get)(struct jtag *jtag, __u32 *freq);
+> +       int (*freq_set)(struct jtag *jtag, __u32 freq);
+> +       int (*status_get)(struct jtag *jtag, __u32 *state);
+> +       int (*idle)(struct jtag *jtag, struct jtag_run_test_idle *idle);
+> +       int (*xfer)(struct jtag *jtag, struct jtag_xfer *xfer);
+> +};
+> +
+> +void *jtag_priv(struct jtag *jtag);
+> +int jtag_register(struct jtag *jtag);
+> +void jtag_unregister(struct jtag *jtag);
+> +struct jtag *jtag_alloc(size_t priv_size, const struct jtag_ops *ops);
+> +void jtag_free(struct jtag *jtag);
+> +
+> +#endif /* __JTAG_H */
+> diff --git a/include/uapi/linux/jtag.h b/include/uapi/linux/jtag.h
+> new file mode 100644
+> index 0000000..af22ea6
+> --- /dev/null
+> +++ b/include/uapi/linux/jtag.h
+> @@ -0,0 +1,111 @@
+> +/*
+> + * JTAG class driver
+> + *
+> + * Copyright (c) 2017 Mellanox Technologies. All rights reserved.
+> + * Copyright (c) 2017 Oleksandr Shamray <oleksandrs@mellanox.com>
+> + *
+> + * Released under the GPLv2/BSD.
+> + * SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
+> + */
+> +
+> +#ifndef __UAPI_LINUX_JTAG_H
+> +#define __UAPI_LINUX_JTAG_H
+> +
+> +/**
+> + * enum jtag_xfer_mode:
+> + *
+> + * @JTAG_XFER_HW_MODE: hardware mode transfer
+> + * @JTAG_XFER_SW_MODE: software mode transfer
+> + */
+> +enum jtag_xfer_mode {
+> +       JTAG_XFER_HW_MODE,
+> +       JTAG_XFER_SW_MODE,
+> +};
+> +
+> +/**
+> + * enum jtag_endstate:
+> + *
+> + * @JTAG_STATE_IDLE: JTAG state machine IDLE state
+> + * @JTAG_STATE_PAUSEIR: JTAG state machine PAUSE_IR state
+> + * @JTAG_STATE_PAUSEDR: JTAG state machine PAUSE_DR state
+> + */
+> +enum jtag_endstate {
+> +       JTAG_STATE_IDLE,
+> +       JTAG_STATE_PAUSEIR,
+> +       JTAG_STATE_PAUSEDR,
+> +};
+> +
+> +/**
+> + * enum jtag_xfer_type:
+> + *
+> + * @JTAG_SIR_XFER: SIR transfer
+> + * @JTAG_SDR_XFER: SDR transfer
+> + */
+> +enum jtag_xfer_type {
+> +       JTAG_SIR_XFER,
+> +       JTAG_SDR_XFER,
+> +};
+> +
+> +/**
+> + * enum jtag_xfer_direction:
+> + *
+> + * @JTAG_READ_XFER: read transfer
+> + * @JTAG_WRITE_XFER: write transfer
+> + */
+> +enum jtag_xfer_direction {
+> +       JTAG_READ_XFER,
+> +       JTAG_WRITE_XFER,
+> +};
+> +
+> +/**
+> + * struct jtag_run_test_idle - forces JTAG state machine to
+> + * RUN_TEST/IDLE state
+> + *
+> + * @mode: access mode
+> + * @reset: 0 - run IDLE/PAUSE from current state
+> + *         1 - go through TEST_LOGIC/RESET state before  IDLE/PAUSE
+> + * @end: completion flag
+> + * @tck: clock counter
+> + *
+> + * Structure represents interface to JTAG device for jtag idle
+> + * execution.
+> + */
+> +struct jtag_run_test_idle {
+> +       __u8    mode;
+> +       __u8    reset;
+> +       __u8    endstate;
+> +       __u8    tck;
+> +};
+> +
+> +/**
+> + * struct jtag_xfer - jtag xfer:
+> + *
+> + * @mode: access mode
+> + * @type: transfer type
+> + * @direction: xfer direction
+> + * @length: xfer bits len
+> + * @tdio : xfer data array
+> + * @endir: xfer end state
+> + *
+> + * Structure represents interface to Aspeed JTAG device for jtag sdr xfer
+> + * execution.
+> + */
+> +struct jtag_xfer {
+> +       __u8    mode;
+> +       __u8    type;
+> +       __u8    direction;
+> +       __u8    endstate;
+> +       __u32   length;
+> +       __u64   tdio;
+> +};
+> +
+> +#define __JTAG_IOCTL_MAGIC     0xb2
+> +
+> +#define JTAG_IOCRUNTEST        _IOW(__JTAG_IOCTL_MAGIC, 0,\
+> +                            struct jtag_run_test_idle)
+> +#define JTAG_SIOCFREQ  _IOW(__JTAG_IOCTL_MAGIC, 1, unsigned int)
+> +#define JTAG_GIOCFREQ  _IOR(__JTAG_IOCTL_MAGIC, 2, unsigned int)
+> +#define JTAG_IOCXFER   _IOWR(__JTAG_IOCTL_MAGIC, 3, struct jtag_xfer)
+> +#define JTAG_GIOCSTATUS _IOWR(__JTAG_IOCTL_MAGIC, 4, enum jtag_endstate)
+> +
+> +#endif /* __UAPI_LINUX_JTAG_H */
+> --
+> 1.7.1
+>
+> --
+> To unsubscribe from this list: send the line "unsubscribe devicetree" in
+> the body of a message to majordomo@vger.kernel.org
+> More majordomo info at  http://vger.kernel.org/majordomo-info.html
 
 Thanks,
 
-Cyril
-
-On Wed, 2017-02-08 at 10:36 +1100, Cyril Bur wrote:
-> This provides access to the mbox registers on the ast2400 and ast2500
-> SoCs.
-> 
-> This driver allows arbitrary reads and writes to the 16 data registers as
-> the other end may have configured the mbox hardware to provide an
-> interrupt when a specific register gets written to.
-> 
-> Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
-> ---
-> V2:
->    s/ASpeed/Aspeed/
->    Reword Kconfig options
->    Use tristate for config symbol
-> 
->  drivers/mailbox/Kconfig       |   8 +
->  drivers/mailbox/Makefile      |   2 +
->  drivers/mailbox/aspeed-mbox.c | 334 ++++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 344 insertions(+)
->  create mode 100644 drivers/mailbox/aspeed-mbox.c
-> 
-> diff --git a/drivers/mailbox/Kconfig b/drivers/mailbox/Kconfig
-> index ceff415f201c..e24044d5c219 100644
-> --- a/drivers/mailbox/Kconfig
-> +++ b/drivers/mailbox/Kconfig
-> @@ -152,4 +152,12 @@ config BCM_PDC_MBOX
->  	  Mailbox implementation for the Broadcom PDC ring manager,
->  	  which provides access to various offload engines on Broadcom
->  	  SoCs. Say Y here if you want to use the Broadcom PDC.
-> +
-> +config ASPEED_LPC_MBOX
-> +	depends on (ARCH_ASPEED || COMPILE_TEST) && REGMAP && MFD_SYSCON
-> +	tristate "Aspeed LPC Mailbox Controller"
-> +	---help---
-> +	  Provides a driver for the MBOX registers found on Aspeed SOCs
-> +	  (AST2400 and AST2500). This driver provides a device for aspeed
-> +	  mbox registers
->  endif
-> diff --git a/drivers/mailbox/Makefile b/drivers/mailbox/Makefile
-> index 7dde4f609ae8..73165a79b517 100644
-> --- a/drivers/mailbox/Makefile
-> +++ b/drivers/mailbox/Makefile
-> @@ -31,3 +31,5 @@ obj-$(CONFIG_HI6220_MBOX)	+= hi6220-mailbox.o
->  obj-$(CONFIG_BCM_PDC_MBOX)	+= bcm-pdc-mailbox.o
->  
->  obj-$(CONFIG_TEGRA_HSP_MBOX)	+= tegra-hsp.o
-> +
-> +obj-$(CONFIG_ASPEED_LPC_MBOX)	+= aspeed-mbox.o
-> diff --git a/drivers/mailbox/aspeed-mbox.c b/drivers/mailbox/aspeed-mbox.c
-> new file mode 100644
-> index 000000000000..0f0c711bafee
-> --- /dev/null
-> +++ b/drivers/mailbox/aspeed-mbox.c
-> @@ -0,0 +1,334 @@
-> +/*
-> + * Copyright 2017 IBM Corporation
-> + *
-> + * This program is free software; you can redistribute it and/or
-> + * modify it under the terms of the GNU General Public License
-> + * as published by the Free Software Foundation; either version
-> + * 2 of the License, or (at your option) any later version.
-> + */
-> +
-> +#include <linux/interrupt.h>
-> +#include <linux/mfd/syscon.h>
-> +#include <linux/miscdevice.h>
-> +#include <linux/module.h>
-> +#include <linux/of_irq.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/poll.h>
-> +#include <linux/regmap.h>
-> +#include <linux/slab.h>
-> +
-> +#define DEVICE_NAME	"aspeed-mbox"
-> +
-> +#define ASPEED_MBOX_NUM_REGS 16
-> +
-> +#define ASPEED_MBOX_DATA_0 0x00
-> +#define ASPEED_MBOX_STATUS_0 0x40
-> +#define ASPEED_MBOX_STATUS_1 0x44
-> +#define ASPEED_MBOX_BMC_CTRL 0x48
-> +#define   ASPEED_MBOX_CTRL_RECV BIT(7)
-> +#define   ASPEED_MBOX_CTRL_MASK BIT(1)
-> +#define   ASPEED_MBOX_CTRL_SEND BIT(0)
-> +#define ASPEED_MBOX_HOST_CTRL 0x4c
-> +#define ASPEED_MBOX_INTERRUPT_0 0x50
-> +#define ASPEED_MBOX_INTERRUPT_1 0x54
-> +
-> +struct aspeed_mbox {
-> +	struct miscdevice	miscdev;
-> +	struct regmap		*regmap;
-> +	unsigned int		base;
-> +	wait_queue_head_t	queue;
-> +	struct mutex		mutex;
-> +};
-> +
-> +static atomic_t aspeed_mbox_open_count = ATOMIC_INIT(0);
-> +
-> +static u8 aspeed_mbox_inb(struct aspeed_mbox *mbox, int reg)
-> +{
-> +	/*
-> +	 * The mbox registers are actually only one byte but are addressed
-> +	 * four bytes apart. The other three bytes are marked 'reserved',
-> +	 * they *should* be zero but lets not rely on it.
-> +	 * I am going to rely on the fact we can casually read/write to them...
-> +	 */
-> +	unsigned int val = 0xff; /* If regmap throws an error return 0xff */
-> +	int rc = regmap_read(mbox->regmap, mbox->base + reg, &val);
-> +
-> +	if (rc)
-> +		dev_err(mbox->miscdev.parent, "regmap_read() failed with "
-> +				"%d (reg: 0x%08x)\n", rc, reg);
-> +
-> +	return val & 0xff;
-> +}
-> +
-> +static void aspeed_mbox_outb(struct aspeed_mbox *mbox, u8 data, int reg)
-> +{
-> +	int rc = regmap_write(mbox->regmap, mbox->base + reg, data);
-> +
-> +	if (rc)
-> +		dev_err(mbox->miscdev.parent, "regmap_write() failed with "
-> +				"%d (data: %u reg: 0x%08x)\n", rc, data, reg);
-> +}
-> +
-> +static struct aspeed_mbox *file_mbox(struct file *file)
-> +{
-> +	return container_of(file->private_data, struct aspeed_mbox, miscdev);
-> +}
-> +
-> +static int aspeed_mbox_open(struct inode *inode, struct file *file)
-> +{
-> +	struct aspeed_mbox *mbox = file_mbox(file);
-> +
-> +	if (atomic_inc_return(&aspeed_mbox_open_count) == 1) {
-> +		/*
-> +		 * Clear the interrupt status bit if it was left on and unmask
-> +		 * interrupts.
-> +		 * ASPEED_MBOX_CTRL_RECV bit is W1C, this also unmasks in 1 step
-> +		 */
-> +		aspeed_mbox_outb(mbox, ASPEED_MBOX_CTRL_RECV, ASPEED_MBOX_BMC_CTRL);
-> +		return 0;
-> +	}
-> +
-> +	atomic_dec(&aspeed_mbox_open_count);
-> +	return -EBUSY;
-> +}
-> +
-> +static ssize_t aspeed_mbox_read(struct file *file, char __user *buf,
-> +				size_t count, loff_t *ppos)
-> +{
-> +	struct aspeed_mbox *mbox = file_mbox(file);
-> +	char __user *p = buf;
-> +	ssize_t ret;
-> +	int i;
-> +
-> +	if (!access_ok(VERIFY_WRITE, buf, count))
-> +		return -EFAULT;
-> +
-> +	if (count + *ppos > ASPEED_MBOX_NUM_REGS)
-> +		return -EINVAL;
-> +
-> +	if (file->f_flags & O_NONBLOCK) {
-> +		if (!(aspeed_mbox_inb(mbox, ASPEED_MBOX_BMC_CTRL) &
-> +				ASPEED_MBOX_CTRL_RECV))
-> +			return -EAGAIN;
-> +	} else if (wait_event_interruptible(mbox->queue,
-> +				aspeed_mbox_inb(mbox, ASPEED_MBOX_BMC_CTRL) &
-> +				ASPEED_MBOX_CTRL_RECV)) {
-> +		return -ERESTARTSYS;
-> +	}
-> +
-> +	mutex_lock(&mbox->mutex);
-> +
-> +	for (i = *ppos; count > 0 && i < ASPEED_MBOX_NUM_REGS; i++) {
-> +		uint8_t reg = aspeed_mbox_inb(mbox, ASPEED_MBOX_DATA_0 + (i * 4));
-> +
-> +		ret = __put_user(reg, p);
-> +		if (ret)
-> +			goto out_unlock;
-> +
-> +		p++;
-> +		count--;
-> +	}
-> +
-> +	/* ASPEED_MBOX_CTRL_RECV bit is write to clear, this also unmasks in 1 step */
-> +	aspeed_mbox_outb(mbox, ASPEED_MBOX_CTRL_RECV, ASPEED_MBOX_BMC_CTRL);
-> +	ret = p - buf;
-> +
-> +out_unlock:
-> +	mutex_unlock(&mbox->mutex);
-> +	return ret;
-> +}
-> +
-> +static ssize_t aspeed_mbox_write(struct file *file, const char __user *buf,
-> +				size_t count, loff_t *ppos)
-> +{
-> +	struct aspeed_mbox *mbox = file_mbox(file);
-> +	const char __user *p = buf;
-> +	ssize_t ret;
-> +	char c;
-> +	int i;
-> +
-> +	if (!access_ok(VERIFY_READ, buf, count))
-> +		return -EFAULT;
-> +
-> +	if (count + *ppos > ASPEED_MBOX_NUM_REGS)
-> +		return -EINVAL;
-> +
-> +	mutex_lock(&mbox->mutex);
-> +
-> +	for (i = *ppos; count > 0 && i < ASPEED_MBOX_NUM_REGS; i++) {
-> +		ret = __get_user(c, p);
-> +		if (ret)
-> +			goto out_unlock;
-> +
-> +		aspeed_mbox_outb(mbox, c, ASPEED_MBOX_DATA_0 + (i * 4));
-> +		p++;
-> +		count--;
-> +	}
-> +
-> +	aspeed_mbox_outb(mbox, ASPEED_MBOX_CTRL_SEND, ASPEED_MBOX_BMC_CTRL);
-> +	ret = p - buf;
-> +
-> +out_unlock:
-> +	mutex_unlock(&mbox->mutex);
-> +	return ret;
-> +}
-> +
-> +static unsigned int aspeed_mbox_poll(struct file *file, poll_table *wait)
-> +{
-> +	struct aspeed_mbox *mbox = file_mbox(file);
-> +	unsigned int mask = 0;
-> +
-> +	poll_wait(file, &mbox->queue, wait);
-> +
-> +	if (aspeed_mbox_inb(mbox, ASPEED_MBOX_BMC_CTRL) & ASPEED_MBOX_CTRL_RECV)
-> +		mask |= POLLIN;
-> +
-> +	return mask;
-> +}
-> +
-> +static int aspeed_mbox_release(struct inode *inode, struct file *file)
-> +{
-> +	atomic_dec(&aspeed_mbox_open_count);
-> +	return 0;
-> +}
-> +
-> +static const struct file_operations aspeed_mbox_fops = {
-> +	.owner		= THIS_MODULE,
-> +	.llseek		= no_seek_end_llseek,
-> +	.read		= aspeed_mbox_read,
-> +	.write		= aspeed_mbox_write,
-> +	.open		= aspeed_mbox_open,
-> +	.release	= aspeed_mbox_release,
-> +	.poll		= aspeed_mbox_poll,
-> +};
-> +
-> +static irqreturn_t aspeed_mbox_irq(int irq, void *arg)
-> +{
-> +	struct aspeed_mbox *mbox = arg;
-> +
-> +	if (!(aspeed_mbox_inb(mbox, ASPEED_MBOX_BMC_CTRL) & ASPEED_MBOX_CTRL_RECV))
-> +		return IRQ_NONE;
-> +
-> +	/*
-> +	 * Leave the status bit set so that we know the data is for us,
-> +	 * clear it once it has been read.
-> +	 */
-> +
-> +	/* Mask it off, we'll clear it when we the data gets read */
-> +	aspeed_mbox_outb(mbox, ASPEED_MBOX_CTRL_MASK, ASPEED_MBOX_BMC_CTRL);
-> +
-> +	wake_up(&mbox->queue);
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static int aspeed_mbox_config_irq(struct aspeed_mbox *mbox,
-> +		struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	int rc, irq;
-> +
-> +	irq = irq_of_parse_and_map(dev->of_node, 0);
-> +	if (!irq)
-> +		return -ENODEV;
-> +
-> +	rc = devm_request_irq(dev, irq, aspeed_mbox_irq,
-> +			IRQF_SHARED, DEVICE_NAME, mbox);
-> +	if (rc < 0) {
-> +		dev_err(dev, "Unable to request IRQ %d\n", irq);
-> +		return rc;
-> +	}
-> +
-> +	/*
-> +	 * Disable all register based interrupts.
-> +	 */
-> +	aspeed_mbox_outb(mbox, 0x00, ASPEED_MBOX_INTERRUPT_0); /* regs 0 - 7 */
-> +	aspeed_mbox_outb(mbox, 0x00, ASPEED_MBOX_INTERRUPT_1); /* regs 8 - 15 */
-> +
-> +	/* These registers are write one to clear. Clear them. */
-> +	aspeed_mbox_outb(mbox, 0xff, ASPEED_MBOX_STATUS_0);
-> +	aspeed_mbox_outb(mbox, 0xff, ASPEED_MBOX_STATUS_1);
-> +
-> +	aspeed_mbox_outb(mbox, ASPEED_MBOX_CTRL_RECV, ASPEED_MBOX_BMC_CTRL);
-> +	return 0;
-> +}
-> +
-> +static int aspeed_mbox_probe(struct platform_device *pdev)
-> +{
-> +	struct aspeed_mbox *mbox;
-> +	struct device *dev;
-> +	int rc;
-> +
-> +	dev = &pdev->dev;
-> +
-> +	mbox = devm_kzalloc(dev, sizeof(*mbox), GFP_KERNEL);
-> +	if (!mbox)
-> +		return -ENOMEM;
-> +
-> +	dev_set_drvdata(&pdev->dev, mbox);
-> +
-> +	rc = of_property_read_u32(dev->of_node, "reg", &mbox->base);
-> +	if (rc) {
-> +		dev_err(dev, "Couldn't read reg device-tree property\n");
-> +		return rc;
-> +	}
-> +
-> +	mbox->regmap = syscon_node_to_regmap(
-> +			pdev->dev.parent->of_node);
-> +	if (IS_ERR(mbox->regmap)) {
-> +		dev_err(dev, "Couldn't get regmap\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	mutex_init(&mbox->mutex);
-> +	init_waitqueue_head(&mbox->queue);
-> +
-> +	mbox->miscdev.minor = MISC_DYNAMIC_MINOR;
-> +	mbox->miscdev.name = DEVICE_NAME;
-> +	mbox->miscdev.fops = &aspeed_mbox_fops;
-> +	mbox->miscdev.parent = dev;
-> +	rc = misc_register(&mbox->miscdev);
-> +	if (rc) {
-> +		dev_err(dev, "Unable to register device\n");
-> +		return rc;
-> +	}
-> +
-> +	rc = aspeed_mbox_config_irq(mbox, pdev);
-> +	if (rc) {
-> +		dev_err(dev, "Failed to configure IRQ\n");
-> +		misc_deregister(&mbox->miscdev);
-> +		return rc;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int aspeed_mbox_remove(struct platform_device *pdev)
-> +{
-> +	struct aspeed_mbox *mbox = dev_get_drvdata(&pdev->dev);
-> +
-> +	misc_deregister(&mbox->miscdev);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct of_device_id aspeed_mbox_match[] = {
-> +	{ .compatible = "aspeed,ast2400-mbox" },
-> +	{ .compatible = "aspeed,ast2500-mbox" },
-> +	{ },
-> +};
-> +
-> +static struct platform_driver aspeed_mbox_driver = {
-> +	.driver = {
-> +		.name		= DEVICE_NAME,
-> +		.of_match_table = aspeed_mbox_match,
-> +	},
-> +	.probe = aspeed_mbox_probe,
-> +	.remove = aspeed_mbox_remove,
-> +};
-> +
-> +module_platform_driver(aspeed_mbox_driver);
-> +
-> +MODULE_DEVICE_TABLE(of, aspeed_mbox_match);
-> +MODULE_LICENSE("GPL");
-> +MODULE_AUTHOR("Cyril Bur <cyrilbur@gmail.com>");
-> +MODULE_DESCRIPTION("Aspeed mailbox device driver");
+Moritz
