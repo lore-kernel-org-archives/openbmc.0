@@ -1,37 +1,59 @@
-Return-Path: <clg@kaod.org>
-Received: from 6.mo68.mail-out.ovh.net (6.mo68.mail-out.ovh.net
- [46.105.63.100])
+Return-Path: <austenc@us.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xkQrS6ytbzDqhL
- for <openbmc@lists.ozlabs.org>; Sat,  2 Sep 2017 03:16:23 +1000 (AEST)
-Received: from player776.ha.ovh.net (b6.ovh.net [213.186.33.56])
- by mo68.mail-out.ovh.net (Postfix) with ESMTP id 4681974E03
- for <openbmc@lists.ozlabs.org>; Fri,  1 Sep 2017 19:06:45 +0200 (CEST)
-Received: from zorba.kaod.org (LFbn-1-2231-173.w90-76.abo.wanadoo.fr
- [90.76.52.173]) (Authenticated sender: postmaster@kaod.org)
- by player776.ha.ovh.net (Postfix) with ESMTPSA id 4AFC8400084;
- Fri,  1 Sep 2017 19:06:35 +0200 (CEST)
-Subject: Re: [PATCH v2] leds: pca955x: Don't invert requested value in
- pca955x_gpio_set_value()
-To: Andrew Jeffery <andrew@aj.id.au>, linux-leds@vger.kernel.org
-Cc: rpurdie@rpsys.net, jacek.anaszewski@gmail.com, pavel@ucw.cz,
- linux-kernel@vger.kernel.org, bjwyman@gmail.com, openbmc@lists.ozlabs.org
-References: <20170901053858.10070-1-andrew@aj.id.au>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <f07313a1-c609-f760-9578-4d6889fd89d9@kaod.org>
-Date: Fri, 1 Sep 2017 19:06:30 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.3.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xkR5B1Fn7zDqh9
+ for <openbmc@lists.ozlabs.org>; Sat,  2 Sep 2017 03:27:25 +1000 (AEST)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v81HNgbo019456
+ for <openbmc@lists.ozlabs.org>; Fri, 1 Sep 2017 13:27:21 -0400
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.81])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2cq9ww01dw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 01 Sep 2017 13:27:21 -0400
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Fri, 1 Sep 2017 17:27:20 -0000
+Received: from us1a3-smtp06.a3.dal06.isc4sb.com (10.146.103.243)
+ by smtp.notes.na.collabserv.com (10.106.227.88) with
+ smtp.notes.na.collabserv.com ESMTP; Fri, 1 Sep 2017 17:27:19 -0000
+Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
+ by us1a3-smtp06.a3.dal06.isc4sb.com
+ with ESMTP id 2017090117271874-703811 ;
+ Fri, 1 Sep 2017 17:27:18 +0000 
 MIME-Version: 1.0
-In-Reply-To: <20170901053858.10070-1-andrew@aj.id.au>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 10638628221295037186
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelledrvddtgdeludcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+Subject: layers and adding a new system
+To: openbmc@lists.ozlabs.org
+From: "Chris Austen" <austenc@us.ibm.com>
+Date: Fri, 1 Sep 2017 12:27:17 -0500
+X-KeepSent: 2D430B1C:0ECB52AA-86258177:0076016C;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1EXT SHF766 December 14, 2016
+X-LLNOutbound: False
+X-Disclaimed: 50599
+X-TNEFEvaluated: 1
+Content-type: multipart/alternative; 
+ Boundary="0__=09BB0BE4DFE587FC8f9e8a93df938690918c09BB0BE4DFE587FC"
+Content-Disposition: inline
+x-cbid: 17090117-7093-0000-0000-000003330D6B
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.380009; ST=0; TS=0; UL=0; ISC=; MB=0.252151
+X-IBM-SpamModules-Versions: BY=3.00007647; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000226; SDB=6.00910778; UDB=6.00456917; IPR=6.00691059; 
+ BA=6.00005563; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00016963; XFM=3.00000015;
+ UTC=2017-09-01 17:27:19
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2017-09-01 16:46:21 - 6.00007266
+x-cbparentid: 17090117-7094-0000-0000-00000FAC1E25
+Message-Id: <OF2D430B1C.0ECB52AA-ON86258177.0076016C-8625818E.005FE1ED@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-09-01_04:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -43,176 +65,157 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Sep 2017 17:16:25 -0000
+X-List-Received-Date: Fri, 01 Sep 2017 17:27:26 -0000
 
-On 09/01/2017 07:38 AM, Andrew Jeffery wrote:
-> The PCA9552 lines can be used either for driving LEDs or as GPIOs. The
-> manual states that for LEDs, the operation is open-drain:
-> 
->          The LSn LED select registers determine the source of the LED data.
-> 
->            00 = output is set LOW (LED on)
->            01 = output is set high-impedance (LED off; default)
->            10 = output blinks at PWM0 rate
->            11 = output blinks at PWM1 rate
-> 
-> For GPIOs it suggests a pull-up so that the open-case drives the line
-> high:
-> 
->          For use as output, connect external pull-up resistor to the pin
->          and size it according to the DC recommended operating
->          characteristics.  LED output pin is HIGH when the output is
->          programmed as high-impedance, and LOW when the output is
->          programmed LOW through the ‘LED selector’ register.  The output
->          can be pulse-width controlled when PWM0 or PWM1 are used.
-> 
-> Now, I have a hardware design that uses the LED controller to control
-> LEDs. However, for $reasons, we're using the leds-gpio driver to drive
-> the them. The reasons are here are a tangent but lead to the discovery
-> of the inversion, which manifested as the LEDs being set to full
-> brightness at boot when we expected them to be off.
-> 
-> As we're driving the LEDs through leds-gpio, this means wending our way
-> through the gpiochip abstractions. So with that in mind we need to
-> describe an active-low GPIO configuration to drive the LEDs as though
-> they were GPIOs.
-> 
-> The set() gpiochip callback in leds-pca955x does the following:
-> 
->          ...
->          if (val)
->                 pca955x_led_set(&led->led_cdev, LED_FULL);
->          else
->                 pca955x_led_set(&led->led_cdev, LED_OFF);
->          ...
-> 
-> Where LED_FULL = 255. pca955x_led_set() in turn does:
-> 
->          ...
->          switch (value) {
->          case LED_FULL:
->                 ls = pca955x_ledsel(ls, ls_led, PCA955X_LS_LED_ON);
->                 break;
->          ...
-> 
-> Where PCA955X_LS_LED_ON is defined as:
-> 
->          #define PCA955X_LS_LED_ON	0x0	/* Output LOW */
-> 
-> So here we have some type confusion: We've crossed domains from GPIO
-> behaviour to LED behaviour without accounting for possible inversions
-> in the process.
-> 
-> Stepping back to leds-gpio for a moment, during probe() we call
-> create_gpio_led(), which eventually executes:
-> 
->          if (template->default_state == LEDS_GPIO_DEFSTATE_KEEP) {
->                 state = gpiod_get_value_cansleep(led_dat->gpiod);
->                 if (state < 0)
->                         return state;
->          } else {
->                 state = (template->default_state == LEDS_GPIO_DEFSTATE_ON);
->          }
->          ...
->          ret = gpiod_direction_output(led_dat->gpiod, state);
-> 
-> In the devicetree the GPIO is annotated as active-low, and
-> gpiod_get_value_cansleep() handles this for us:
-> 
->          int gpiod_get_value_cansleep(const struct gpio_desc *desc)
->          {
->                  int value;
-> 
->                  might_sleep_if(extra_checks);
->                  VALIDATE_DESC(desc);
->                  value = _gpiod_get_raw_value(desc);
->                  if (value < 0)
->                          return value;
-> 
->                  if (test_bit(FLAG_ACTIVE_LOW, &desc->flags))
->                          value = !value;
-> 
->                  return value;
->          }
-> 
-> _gpiod_get_raw_value() in turn calls through the get() callback for the
-> gpiochip implementation, so returning to our get() implementation in
-> leds-pca955x we find we extract the raw value from hardware:
-> 
->          static int pca955x_gpio_get_value(struct gpio_chip *gc, unsigned int offset)
->          {
->                  struct pca955x *pca955x = gpiochip_get_data(gc);
->                  struct pca955x_led *led = &pca955x->leds[offset];
->                  u8 reg = pca955x_read_input(pca955x->client, led->led_num / 8);
-> 
->                  return !!(reg & (1 << (led->led_num % 8)));
->          }
-> 
-> This behaviour is not symmetric with that of set(), where the val is
-> inverted by the driver.
-> 
-> Closing the loop on the GPIO_ACTIVE_LOW inversions,
-> gpiod_direction_output(), like gpiod_get_value_cansleep(), handles it
-> for us:
-> 
->          int gpiod_direction_output(struct gpio_desc *desc, int value)
->          {
->                   VALIDATE_DESC(desc);
->                   if (test_bit(FLAG_ACTIVE_LOW, &desc->flags))
->                            value = !value;
->                   else
->                            value = !!value;
->                   return _gpiod_direction_output_raw(desc, value);
->          }
-> 
-> All-in-all, with a value of 'keep' for default-state property in a
-> leds-gpio child node, the current state of the hardware will in-fact be
-> inverted; precisely the opposite of what was intended.
-> 
-> Rework leds-pca955x so that we avoid the incorrect inversion and clarify
-> the semantics with respect to GPIO.
-> 
-> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 
-Reviewed-by: Cédric Le Goater <clg@kaod.org>
+--0__=09BB0BE4DFE587FC8f9e8a93df938690918c09BB0BE4DFE587FC
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/plain; charset=US-ASCII
 
-Thanks for digging into the code, that was a lot of inversions.
 
-C.
 
-> ---
-> 
-> I've rebased on top of "1591caf2d5ea leds: pca955x: check for I2C errors" and
-> resolved the conflicts.
-> 
->  drivers/leds/leds-pca955x.c | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/leds/leds-pca955x.c b/drivers/leds/leds-pca955x.c
-> index 905729191d3e..6dcd2d7cc6a4 100644
-> --- a/drivers/leds/leds-pca955x.c
-> +++ b/drivers/leds/leds-pca955x.c
-> @@ -61,6 +61,9 @@
->  #define PCA955X_LS_BLINK0	0x2	/* Blink at PWM0 rate */
->  #define PCA955X_LS_BLINK1	0x3	/* Blink at PWM1 rate */
->  
-> +#define PCA955X_GPIO_HIGH	LED_OFF
-> +#define PCA955X_GPIO_LOW	LED_FULL
-> +
->  enum pca955x_type {
->  	pca9550,
->  	pca9551,
-> @@ -329,9 +332,9 @@ static int pca955x_set_value(struct gpio_chip *gc, unsigned int offset,
->  	struct pca955x_led *led = &pca955x->leds[offset];
->  
->  	if (val)
-> -		return pca955x_led_set(&led->led_cdev, LED_FULL);
-> -	else
-> -		return pca955x_led_set(&led->led_cdev, LED_OFF);
-> +		return pca955x_led_set(&led->led_cdev, PCA955X_GPIO_HIGH);
-> +
-> +	return pca955x_led_set(&led->led_cdev, PCA955X_GPIO_LOW);
->  }
->  
->  static void pca955x_gpio_set_value(struct gpio_chip *gc, unsigned int offset,
-> 
+
+As the popularity of OpenBMC grows the project will hopefully find itself
+with additional pull requests to support more systems.  As I did when I
+first started out you could easily be allured to simply copy/past the
+entire contents of a similar system under meta-openbmc-machines/... and
+call it your own.  However scale that to anything greater then a few
+machines and the shier volume of duplicate code will become bulky and
+unmanageable.   Yocto recognized this as an issue and has provided support
+to reduce.  I would like to build a list of recommendations on how to add
+new hardware in to the OpenBMC Project.
+
+
+For hardware based on a similar design this is...
+
+Not good
+=3D=3D=3D=3D=3D=3D=3D=3D
+meta-mfg/meta-redfish/
+meta-mfg/meta-bluefish/
+meta-mfg/meta-yellowfish/
+meta-mfg/meta-greenfish/
+
+
+Good
+=3D=3D=3D=3D=3D=3D=3D=3D
+meta-mfg/meta-fish/
+
+
+So how can you do that?  With a single variable in your local.conf...
+MACHINE.  You change the MACHINE variable per system type but let default
+and use the base platform for common items.
+
+    MACHINE =3D "bluefish"
+
+A bbappend that are specific to the bluefish system you append the
+=5Fbluefish
+
+    FILESEXTRAPATHS=5Fprepend=5Fbluefish :=3D "${THISDIR}/${PN}:"
+    SRC=5FURI=5Fappend=5Fbluefish =3D " file://0001-blueworms.patch"
+
+A bbappend that make a common change to all of the fish type.  This means
+anyone adding the meta-fish layer gets this bbappend and the rainbowworms.
+
+    FILESEXTRAPATHS=5Fprepend :=3D "${THISDIR}/${PN}:"
+    SRC=5FURI=5Fappend =3D " file://0001-rainbowworms.patch"
+
+Machine and default are all good until If you use a bluefish system but you
+have a company policy use the MACHINEOVERRIDES variable
+
+    FILESEXTRAPATHS=5Fprepend=5ForgXfis :=3D "${THISDIR}/${PN}:"
+    SRC=5FURI=5Fappend=5ForgXfis =3D " file://0001-blueXworms.patch"
+
+Note yocto matches and runs every hit.  That means if you add a default,
+machine and machine override in the same bbappend, you get all three files.
+So use with caution...
+
+    FILESEXTRAPATHS=5Fprepend=5ForgXfis :=3D "${THISDIR}/${PN}:"
+    SRC=5FURI=5Fappend=5ForgXfis =3D " file://0001-blueXworms.patch"
+    SRC=5FURI=5Fappend =3D " file://0001-rainbowworms.patch"
+    SRC=5FURI=5Fappend=5Fbluefish =3D " file://0001-blueworms.patch"
+
+    $ ls
+    0001-blueXworms.patch
+    0001-rainbowworms.patch
+    0001-blueworms.patch
+
+
+TBD.. need to add example of something being added, replaced and kernel
+device tree needs.
+
+
+Thoughts?
+
+
+
+Chris Austen
+
+--0__=09BB0BE4DFE587FC8f9e8a93df938690918c09BB0BE4DFE587FC
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/html; charset=US-ASCII
+Content-Disposition: inline
+
+<html><body><p><font size=3D"2">As the popularity of OpenBMC grows the proj=
+ect will hopefully find itself with additional pull requests to support mor=
+e systems.  As I did when I first started out you could easily be allured t=
+o simply copy/past the entire contents of a similar system under meta-openb=
+mc-machines/... and call it your own.  However scale that to anything great=
+er then a few machines and the shier volume of duplicate code will become b=
+ulky and unmanageable.   Yocto recognized this as an issue and has provided=
+ support to reduce.  I would like to build a list of recommendations on how=
+ to add new hardware in to the OpenBMC Project.</font><br><br><br><font siz=
+e=3D"2">For hardware based on a similar design this is...</font><br><br><fo=
+nt size=3D"2">Not good</font><br><font size=3D"2">=3D=3D=3D=3D=3D=3D=3D=3D<=
+/font><br><font size=3D"2">meta-mfg/meta-redfish/</font><br><font size=3D"2=
+">meta-mfg/meta-bluefish/</font><br><font size=3D"2">meta-mfg/meta-yellowfi=
+sh/</font><br><font size=3D"2">meta-mfg/meta-greenfish/</font><br><br><br><=
+font size=3D"2">Good</font><br><font size=3D"2">=3D=3D=3D=3D=3D=3D=3D=3D</f=
+ont><br><font size=3D"2">meta-mfg/meta-fish/</font><br><font size=3D"2"><br=
+></font><br><font size=3D"2">So how can you do that?  With a single variabl=
+e in your local.conf...  MACHINE.  You change the MACHINE variable per syst=
+em type but let default and use the base platform for common items.  </font=
+><br><br><font size=3D"2">    MACHINE =3D &quot;bluefish&quot;</font><br><b=
+r><font size=3D"2">A bbappend that are specific to the bluefish system you =
+append the =5Fbluefish</font><br><br><font size=3D"2">    FILESEXTRAPATHS=
+=5Fprepend=5Fbluefish :=3D &quot;${THISDIR}/${PN}:&quot;</font><br><font si=
+ze=3D"2">    SRC=5FURI=5Fappend=5Fbluefish =3D &quot; </font><a href=3D"fil=
+e://0001-board-aspeed-Add-reset=5Fphy-for-Zaius.patchch/"><font size=3D"2">=
+file://0001-blueworms.patch&quot;</font></a><font size=3D"2"> </font><br><b=
+r><font size=3D"2">A bbappend that make a common change to all of the fish =
+type.  This means anyone adding the meta-fish layer gets this bbappend and =
+the rainbowworms.  </font><br><br><font size=3D"2">    FILESEXTRAPATHS=5Fpr=
+epend :=3D &quot;${THISDIR}/${PN}:&quot;</font><br><font size=3D"2">    SRC=
+=5FURI=5Fappend =3D &quot; </font><a href=3D"file://0001-board-aspeed-Add-r=
+eset=5Fphy-for-Zaius.patchch/"><font size=3D"2">file://0001-rainbowworms.pa=
+tch&quot;</font></a><font size=3D"2"> </font><br><br><font size=3D"2">Machi=
+ne and default are all good until If you use a bluefish system but you have=
+ a company policy use the MACHINEOVERRIDES variable</font><br><br><font siz=
+e=3D"2">    FILESEXTRAPATHS=5Fprepend=5ForgXfis :=3D &quot;${THISDIR}/${PN}=
+:&quot;</font><br><font size=3D"2">    SRC=5FURI=5Fappend=5ForgXfis =3D &qu=
+ot; </font><a href=3D"file://0001-board-aspeed-Add-reset=5Fphy-for-Zaius.pa=
+tchch/"><font size=3D"2">file://0001-blueXworms.patch&quot;</font></a><font=
+ size=3D"2"> </font><br><br><font size=3D"2">Note yocto matches and runs ev=
+ery hit.  That means if you add a default, machine and machine override in =
+the same bbappend, you get all three files.  So use with caution...</font><=
+br><br><font size=3D"2">    FILESEXTRAPATHS=5Fprepend=5ForgXfis :=3D &quot;=
+${THISDIR}/${PN}:&quot;</font><br><font size=3D"2">    SRC=5FURI=5Fappend=
+=5ForgXfis =3D &quot; </font><a href=3D"file://0001-board-aspeed-Add-reset=
+=5Fphy-for-Zaius.patchch/"><font size=3D"2">file://0001-blueXworms.patch&qu=
+ot;</font></a><font size=3D"2"> </font><br><font size=3D"2">    SRC=5FURI=
+=5Fappend =3D &quot; </font><a href=3D"file://0001-board-aspeed-Add-reset=
+=5Fphy-for-Zaius.patchch/"><font size=3D"2">file://0001-rainbowworms.patch&=
+quot;</font></a><font size=3D"2"> </font><br><font size=3D"2">    SRC=5FURI=
+=5Fappend=5Fbluefish =3D &quot; </font><a href=3D"file://0001-board-aspeed-=
+Add-reset=5Fphy-for-Zaius.patchch/"><font size=3D"2">file://0001-blueworms.=
+patch&quot;</font></a><font size=3D"2"> </font><br><font size=3D"2"> </font=
+><br><font size=3D"2">    $ ls</font><br><font size=3D"2" color=3D"#0000FF"=
+>    0001-blueXworms.patch</font><br><font size=3D"2" color=3D"#0000FF">   =
+ 0001-rainbowworms.patch</font><font size=3D"2"> </font><br><font size=3D"2=
+" color=3D"#0000FF">    0001-blueworms.patch</font><font size=3D"2"> </font=
+><br><br><br><font size=3D"2">TBD.. need to add example of something being =
+added, replaced and kernel device tree needs.</font><br><br><br><font size=
+=3D"2">Thoughts?</font><br><br><br><br><font size=3D"2">Chris Austen<br></f=
+ont><BR>
+</body></html>
+
+--0__=09BB0BE4DFE587FC8f9e8a93df938690918c09BB0BE4DFE587FC--
