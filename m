@@ -3,57 +3,57 @@ Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xk18q36gqzDqgk
- for <openbmc@lists.ozlabs.org>; Fri,  1 Sep 2017 10:59:07 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xk7N159ZNzDqGZ
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Sep 2017 15:39:13 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="r7E6DoOD"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="KUxTxVr4"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="clOOZgvE"; dkim-atps=neutral
+ header.b="hBcpirPQ"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id F3EA020D54;
- Thu, 31 Aug 2017 20:59:04 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 4271B20DAE;
+ Fri,  1 Sep 2017 01:39:10 -0400 (EDT)
 Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Thu, 31 Aug 2017 20:59:04 -0400
+ by compute4.internal (MEProxy); Fri, 01 Sep 2017 01:39:10 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=o2Jf9yo+1G3eiVreB7KitNoITKNxHifnLn19DipJc
- HE=; b=r7E6DoOD8yX+y17FnNjmugz6O0KoMhRDWRgk6vm7WBxn9fzoVP3n//qrj
- U5shEc6o6azrAfKkV/ovnVnny3HOroZKEbzcl3IrEKnnCqtCYVDKN9/JF/j1TdoA
- 335iIOKS7po5h2TgR+0nl+UJRqpP/5ODDprzIy8/iiUYNm4GWecPw5Gnf1tIkRd2
- t9jsxbY538yMIG4FcUwCidZ8LVT5mS29VGn9iXGiVz1P+dRh8TG5E+PV255yH91+
- cATQKzfKCH6guxSHeCo178LlUoA/pD7o/JpOIDXD0aYhLidYf41/MoZ9UBIE87K+
- zV5EnPMQucJJy9m7IYcNx3Bm+TF6Q==
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=b/BMCGjmIlP5kjDUEXErgozgSloyxSBB0ojSJcYfI
+ vU=; b=KUxTxVr4+NzX9QR6uEgSU9NscPSKwaSpxhTaV6NqZrJnNhFp0l3w1Df7C
+ qiqQwjlpw556ggAVNFyhJ7mjP5VRb/33a2iNjsMSC3YKY1m/uhZe5lXUBcvtu8yZ
+ 6HadWvvxKY6ylZSXHZto7S5VAB2i33ju+BhimLEDWOulMHr4ubm4XrqscZWvMfZz
+ 18Ky0WdwnPk3S+mqq/ytlM8u/o1x+pjlekN7/EEZJH6zDL0ltC5cR6hx05bXtvrR
+ F3+WjPTDhdfdOUOVke/ednrqqumv8e8AL60ljI91LXKfVfm6fSW/Wye65arnuMF5
+ n9yWZBMceaqxgNng3fgjddrVZ8JWQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=o2Jf9yo+1G3eiVreB7
- KitNoITKNxHifnLn19DipJcHE=; b=clOOZgvEHkGp+Am6uj++d3jZhCc/vaQd+o
- piuphj073LAQW9UHK+WO6mPj8DmhU+lPo+CzLnu6OTIucZlEYFuKMYUG0gepLbhp
- 4huPdYUHZYrLFi8ELLi4b6Gsb85fqpCNKVLCIvhYI2cA79AI8WqgJUsVfrPHl33w
- OKPp8ANBfg2rUvo8WthzUsCPwLkrOKzG8UyKg1XY2GpdJHTSo7PMXaCXbzuAwM3R
- Je4RjeNSOQKaos9Fm/BRcKMln2XlVqSnT3APjzZQkEkjUtU1Z2DMNH5N7kRyq5c2
- ViN0+TMfAzYsggoHns4KBmuTYQ5WUP5EzK5RLU6LGd+ks9fisSlw==
-X-ME-Sender: <xms:2LCoWQoz4ztFI5uAEeLyHO62uNK_mhm-tuVPDvFG1LLZtOvCcoTzrQ>
-X-Sasl-enc: Nw+CSBfl7xU+frbYJMdbJiRMTG4cAgjZZp6T2kkiqI69 1504227544
-Received: from keelia (ppp14-2-65-251.bras21.adl6.internode.on.net
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:message-id:mime-version:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=b/BMCGjmIlP5kjDUEX
+ ErgozgSloyxSBB0ojSJcYfIvU=; b=hBcpirPQMGopmZ5vQ/G80hajPc40ICfJzy
+ o22bsIn+SOg6PCRO0RfPdwhe4G901amJw4P3GsssnMgMRvQZoXHunK18nHaioGfw
+ OJCkTtsyl7S5IhfMRsMTVcdpu9TKrLAk1wntqYLRNHX9meTEsvBeQZNAAnor5eZ1
+ hL8a3AMuWpOaAx5KaKsVWvZKDR16JaLejaMQweFY1jZI+nVKdIRlHb23sJhxgCv6
+ ayblyN1/KigZw0vQE2/wHDgm1ZilZWnPGU7leRkpBdVGMpnPMltP+kFkOHqbSU3J
+ Un+T+sYPvroWKnRX6osO6QG/i/9WYpKC7DfYExfcblLleLVnAuZw==
+X-ME-Sender: <xms:fvKoWc_QAUagEqLEoCjnoYd09_XENr3pZeTBBhnrEJdQaAaETqhQtw>
+X-Sasl-enc: 4G3DUtJPPoFKN4XvhcjQNR9V//6M4O/YBkRJpxwmRmbu 1504244349
+Received: from keelia.au.ibm.com (ppp14-2-65-251.bras21.adl6.internode.on.net
  [14.2.65.251])
- by mail.messagingengine.com (Postfix) with ESMTPA id 59A437E7AD;
- Thu, 31 Aug 2017 20:59:03 -0400 (EDT)
-Message-ID: <1504227536.5933.34.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10 v6 0/3] Add user space accessibility for
- ucd9000 stats
+ by mail.messagingengine.com (Postfix) with ESMTPA id BDAB47E187;
+ Fri,  1 Sep 2017 01:39:06 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Christopher Bostic <cbostic@linux.vnet.ibm.com>, joel@jms.id.au
-Cc: openbmc@lists.ozlabs.org
-Date: Fri, 01 Sep 2017 10:28:56 +0930
-In-Reply-To: <20170830214953.73327-1-cbostic@linux.vnet.ibm.com>
-References: <20170830214953.73327-1-cbostic@linux.vnet.ibm.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-8S/H6TPAWpXngKLKUTyz"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+To: linux-leds@vger.kernel.org
+Cc: Andrew Jeffery <andrew@aj.id.au>, rpurdie@rpsys.net,
+ jacek.anaszewski@gmail.com, pavel@ucw.cz, linux-kernel@vger.kernel.org,
+ clg@kaod.org, bjwyman@gmail.com, openbmc@lists.ozlabs.org
+Subject: [PATCH v2] leds: pca955x: Don't invert requested value in
+ pca955x_gpio_set_value()
+Date: Fri,  1 Sep 2017 15:08:58 +0930
+Message-Id: <20170901053858.10070-1-andrew@aj.id.au>
+X-Mailer: git-send-email 2.11.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -65,98 +65,169 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Sep 2017 00:59:08 -0000
+X-List-Received-Date: Fri, 01 Sep 2017 05:39:15 -0000
 
+The PCA9552 lines can be used either for driving LEDs or as GPIOs. The
+manual states that for LEDs, the operation is open-drain:
 
---=-8S/H6TPAWpXngKLKUTyz
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+         The LSn LED select registers determine the source of the LED data.
 
-On Wed, 2017-08-30 at 16:49 -0500, Christopher Bostic wrote:
-> This set provides means to allow user space to access various properties =
-of the
-> ucd9000 type chips.
->=20
-> Patch 0001 Adds a user space means of clearing logged faults.=C2=A0=C2=A0=
-This ability is
-> useful in cases where one wants to start with a clean slate during each s=
-ystem
-> power on.
->=20
-> patch 0002 Adds gpio_chip interface for user to access various GPIO pin s=
-tates
-> via the /sys/class/gpio interface.
->=20
-> Patch 0003 adds a debugfs for mfr_status information so user space can ga=
-in
-> visibility of gpi type faults. Note that there are limitations on type of=
- devices
-> that debugfs supports.=C2=A0=C2=A0Presently only ucd90160 is supported.=
-=C2=A0=C2=A0Any assumptions made
-> as to formatting of data is commented inline in the code.=C2=A0=C2=A0Any =
-expansion to other
-> ucd9000 types will need to take this into consideration.
->=20
-> Note also that no pinmux support is provided at this point.=C2=A0=C2=A0Th=
-e ucd9000 devs do
-> have mux capability so this should be added.
->=20
-> Patch 0003 (was patch v5-0002... previously) has been reviewed by Andrew =
-Jeffery,
-> I did, however, add some small updates to this one:
->=20
-> * Remove ida in bad and unbind paths.
-> * Remove type ucd90160 check when adding debugfs. Add for all ucd9000 dev=
-s.
-> =C2=A0 Results in cleaner ida code in the remove path.
+           00 = output is set LOW (LED on)
+           01 = output is set high-impedance (LED off; default)
+           10 = output blinks at PWM0 rate
+           11 = output blinks at PWM1 rate
 
-Thanks for the summary and for splitting out the patch introducing the
-new ABI.
+For GPIOs it suggests a pull-up so that the open-case drives the line
+high:
 
-Unfortunately upstream NACKed what you've put as the first patch in
-your series. In the future, it's best to order controversial patches
-later, that way we can apply the uncontroversial patches without fuzz
-or failures from context/content dependencies.
+         For use as output, connect external pull-up resistor to the pin
+         and size it according to the DC recommended operating
+         characteristics.  LED output pin is HIGH when the output is
+         programmed as high-impedance, and LOW when the output is
+         programmed LOW through the ‘LED selector’ register.  The output
+         can be pulse-width controlled when PWM0 or PWM1 are used.
 
-So given I can't apply the first patch as we know it won't go upstream,
-I can't apply the rest either due to hunks failing or fuzzing. Can you
-please respin, and given you need to do that, take into account
-Guenter's feedback?
+Now, I have a hardware design that uses the LED controller to control
+LEDs. However, for $reasons, we're using the leds-gpio driver to drive
+the them. The reasons are here are a tangent but lead to the discovery
+of the inversion, which manifested as the LEDs being set to full
+brightness at boot when we expected them to be off.
 
-Cheers,
+As we're driving the LEDs through leds-gpio, this means wending our way
+through the gpiochip abstractions. So with that in mind we need to
+describe an active-low GPIO configuration to drive the LEDs as though
+they were GPIOs.
 
-Andrew
+The set() gpiochip callback in leds-pca955x does the following:
 
->=20
-> Christopher Bostic (3):
-> =C2=A0 hwmon: (ucd9000) Add interface to clear logged faults.
-> =C2=A0 hwmon: (ucd9000) Add gpio chip interface
-> =C2=A0 hwmon: (ucd9000) Add debugfs to list mfr_status info
->=20
-> =C2=A0drivers/hwmon/pmbus/ucd9000.c | 415 +++++++++++++++++++++++++++++++=
-++++++++++-
-> =C2=A01 file changed, 413 insertions(+), 2 deletions(-)
->=20
---=-8S/H6TPAWpXngKLKUTyz
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+         ...
+         if (val)
+                pca955x_led_set(&led->led_cdev, LED_FULL);
+         else
+                pca955x_led_set(&led->led_cdev, LED_OFF);
+         ...
 
------BEGIN PGP SIGNATURE-----
+Where LED_FULL = 255. pca955x_led_set() in turn does:
 
-iQIcBAABCgAGBQJZqLDQAAoJEJ0dnzgO5LT57F4P/358SbO1Z57Wgfm+wJX4OM7Y
-W7RPIE2CBfocqr76g4G/J2SoM7U6PNwB0Dsa0LPUO+qpdnY76jUpaX2n/uaqRflO
-OPneQvTghGD8c0weso9IQhjRdHR2Sz3RpgQ3cqTRNGHtscGK3qHBU8/3HDEyDfHQ
-7dKJFSKw9U1pavyyDRPu+SV/19zUkEJQj9mgUa7MPFi4crxQfLI8xLxBJV0BlXz/
-hyFQRL+256+unS6EZAmVNUYBlTXEisTuaOBWpjEXwtBVgZxVntWKvNVCsGzAPcat
-7abOB/Auio+22KuZeoXxeJ5lEn4bx5McQajdJ63dQhuTZbTR4MKO6EuRHnxnr0wx
-gkjXAY+QaFt+cfBBYPc1qQ+Kct/dYu2Z/PhanwowNjdkErkJrSSqc7jySSvstSWt
-Bxp33U5op7uyQgtGncjmrRHzYQVTBRRcdMqe4pCqyHwbj+aSiRfb3MmZLSx2SZmf
-u/alqyiXKytmUzYrlxnmAD//tW5AYG6VEMwhggnO28t4xuTQUNqHU2S+oR1aoYrg
-+iERnweLm0saR4Y3wQWB3R0bYpEmqes/RaatAczBdmmF09vsoJ+IbCaOcsWTNu09
-/iMAISmqQsu4yEE96MYE7vQram6IAUocGynOP4PTFlzhFhZxkNid+4Vf6LoasTKD
-kZ2hq6J+IJKIYg5baqzv
-=ZMVb
------END PGP SIGNATURE-----
+         ...
+         switch (value) {
+         case LED_FULL:
+                ls = pca955x_ledsel(ls, ls_led, PCA955X_LS_LED_ON);
+                break;
+         ...
 
---=-8S/H6TPAWpXngKLKUTyz--
+Where PCA955X_LS_LED_ON is defined as:
+
+         #define PCA955X_LS_LED_ON	0x0	/* Output LOW */
+
+So here we have some type confusion: We've crossed domains from GPIO
+behaviour to LED behaviour without accounting for possible inversions
+in the process.
+
+Stepping back to leds-gpio for a moment, during probe() we call
+create_gpio_led(), which eventually executes:
+
+         if (template->default_state == LEDS_GPIO_DEFSTATE_KEEP) {
+                state = gpiod_get_value_cansleep(led_dat->gpiod);
+                if (state < 0)
+                        return state;
+         } else {
+                state = (template->default_state == LEDS_GPIO_DEFSTATE_ON);
+         }
+         ...
+         ret = gpiod_direction_output(led_dat->gpiod, state);
+
+In the devicetree the GPIO is annotated as active-low, and
+gpiod_get_value_cansleep() handles this for us:
+
+         int gpiod_get_value_cansleep(const struct gpio_desc *desc)
+         {
+                 int value;
+
+                 might_sleep_if(extra_checks);
+                 VALIDATE_DESC(desc);
+                 value = _gpiod_get_raw_value(desc);
+                 if (value < 0)
+                         return value;
+
+                 if (test_bit(FLAG_ACTIVE_LOW, &desc->flags))
+                         value = !value;
+
+                 return value;
+         }
+
+_gpiod_get_raw_value() in turn calls through the get() callback for the
+gpiochip implementation, so returning to our get() implementation in
+leds-pca955x we find we extract the raw value from hardware:
+
+         static int pca955x_gpio_get_value(struct gpio_chip *gc, unsigned int offset)
+         {
+                 struct pca955x *pca955x = gpiochip_get_data(gc);
+                 struct pca955x_led *led = &pca955x->leds[offset];
+                 u8 reg = pca955x_read_input(pca955x->client, led->led_num / 8);
+
+                 return !!(reg & (1 << (led->led_num % 8)));
+         }
+
+This behaviour is not symmetric with that of set(), where the val is
+inverted by the driver.
+
+Closing the loop on the GPIO_ACTIVE_LOW inversions,
+gpiod_direction_output(), like gpiod_get_value_cansleep(), handles it
+for us:
+
+         int gpiod_direction_output(struct gpio_desc *desc, int value)
+         {
+                  VALIDATE_DESC(desc);
+                  if (test_bit(FLAG_ACTIVE_LOW, &desc->flags))
+                           value = !value;
+                  else
+                           value = !!value;
+                  return _gpiod_direction_output_raw(desc, value);
+         }
+
+All-in-all, with a value of 'keep' for default-state property in a
+leds-gpio child node, the current state of the hardware will in-fact be
+inverted; precisely the opposite of what was intended.
+
+Rework leds-pca955x so that we avoid the incorrect inversion and clarify
+the semantics with respect to GPIO.
+
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+
+I've rebased on top of "1591caf2d5ea leds: pca955x: check for I2C errors" and
+resolved the conflicts.
+
+ drivers/leds/leds-pca955x.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/leds/leds-pca955x.c b/drivers/leds/leds-pca955x.c
+index 905729191d3e..6dcd2d7cc6a4 100644
+--- a/drivers/leds/leds-pca955x.c
++++ b/drivers/leds/leds-pca955x.c
+@@ -61,6 +61,9 @@
+ #define PCA955X_LS_BLINK0	0x2	/* Blink at PWM0 rate */
+ #define PCA955X_LS_BLINK1	0x3	/* Blink at PWM1 rate */
+ 
++#define PCA955X_GPIO_HIGH	LED_OFF
++#define PCA955X_GPIO_LOW	LED_FULL
++
+ enum pca955x_type {
+ 	pca9550,
+ 	pca9551,
+@@ -329,9 +332,9 @@ static int pca955x_set_value(struct gpio_chip *gc, unsigned int offset,
+ 	struct pca955x_led *led = &pca955x->leds[offset];
+ 
+ 	if (val)
+-		return pca955x_led_set(&led->led_cdev, LED_FULL);
+-	else
+-		return pca955x_led_set(&led->led_cdev, LED_OFF);
++		return pca955x_led_set(&led->led_cdev, PCA955X_GPIO_HIGH);
++
++	return pca955x_led_set(&led->led_cdev, PCA955X_GPIO_LOW);
+ }
+ 
+ static void pca955x_gpio_set_value(struct gpio_chip *gc, unsigned int offset,
+-- 
+2.11.0
