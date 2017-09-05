@@ -1,65 +1,65 @@
-Return-Path: <dkodihal@linux.vnet.ibm.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <groeck7@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400e:c05::242; helo=mail-pg0-x242.google.com;
+ envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Vn+PrP62"; 
+ dkim-atps=neutral
+Received: from mail-pg0-x242.google.com (mail-pg0-x242.google.com
+ [IPv6:2607:f8b0:400e:c05::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xmkrS2WB8zDrKx
- for <openbmc@lists.ozlabs.org>; Tue,  5 Sep 2017 21:24:24 +1000 (AEST)
-Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v85BOKik075865
- for <openbmc@lists.ozlabs.org>; Tue, 5 Sep 2017 07:24:21 -0400
-Received: from e23smtp07.au.ibm.com (e23smtp07.au.ibm.com [202.81.31.140])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2csq86wp93-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 05 Sep 2017 07:24:21 -0400
-Received: from localhost
- by e23smtp07.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
- Tue, 5 Sep 2017 21:24:07 +1000
-Received: from d23relay10.au.ibm.com (202.81.31.229)
- by e23smtp07.au.ibm.com (202.81.31.204) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Tue, 5 Sep 2017 21:24:06 +1000
-Received: from d23av04.au.ibm.com (d23av04.au.ibm.com [9.190.235.139])
- by d23relay10.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v85BO60936110504
- for <openbmc@lists.ozlabs.org>; Tue, 5 Sep 2017 21:24:06 +1000
-Received: from d23av04.au.ibm.com (localhost [127.0.0.1])
- by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- v85BO7xF013450
- for <openbmc@lists.ozlabs.org>; Tue, 5 Sep 2017 21:24:07 +1000
-Received: from Deepaks-MacBook-Pro.local ([9.77.91.219])
- by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- v85BO4UH013352
- for <openbmc@lists.ozlabs.org>; Tue, 5 Sep 2017 21:24:05 +1000
-From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: RFC for event logging mechanism
-Date: Tue, 5 Sep 2017 16:54:01 +0530
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:52.0)
- Gecko/20100101 Thunderbird/52.3.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xmtHq58ByzDrFM
+ for <openbmc@lists.ozlabs.org>; Wed,  6 Sep 2017 03:00:06 +1000 (AEST)
+Received: by mail-pg0-x242.google.com with SMTP id v82so1626781pgb.1
+ for <openbmc@lists.ozlabs.org>; Tue, 05 Sep 2017 10:00:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=YUkpPZymb37n3Kpz/fn6SpqrHX3utGFTAg7FXKqRbgs=;
+ b=Vn+PrP62XkTsQcxcqq71FLUt2y239TwYsLNdu31zzr/82upAGq3/TcYkCieMytDbhg
+ pGCgEa9mG2uodmvcyrUeeA3goFIOus3uwJs7xtUvjL1Utj3siU1Qnd5dYsGxuj+ypgTa
+ 27g095F9II79NmJQv0zxwDEQc6gVPyXEwxbfHTMlUzkJOFl7BjeWbhPEbeJYMSC69Djb
+ 0oajr1/S1GRUoygCMnE5v7/4J4oWf/zzPJEXmy8ov0onHMGMVsEkPtzIkncX15o8BQNn
+ RQM9gE0SMcjbe7caRNfWim4nWJrY3SGpRy+I8xsWCqrGf4rlYmySJx3MDbtwqKsGbiGl
+ nUXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+ :references:mime-version:content-disposition:in-reply-to:user-agent;
+ bh=YUkpPZymb37n3Kpz/fn6SpqrHX3utGFTAg7FXKqRbgs=;
+ b=glSA/UJeQG+GUPwynv/sv+d4RiXmEzgHjAFtnCialKHqZGOHjlIBf98xuc1RpLaDqO
+ kF0v5WDsEpMy26JxKDuqQHsNjIsbsrrFzaWkH8j+7y18yvoX6hzULK7IZJ9Er05TNiLI
+ P26w9NoTXWduX8wHvBxTBe7LrTuJ2JPipqBymqCPTGkdnQe8UjWHnxSlnzt+afAaTrpx
+ u7Z6LP/G6ZWPeb0QsQvSQ5TETERMZeOUu+zJTMzQYBqLHmIGzBMtgfCOmqMS4UuRM1c6
+ AzgywxfeXHJb14rmCpAL2yczerhRnz/flwdBEpUuOTrrOaOrURqkW7S25dl7wi8qStw6
+ ruvw==
+X-Gm-Message-State: AHPjjUhBTgSWj6YlpxItJO5WD9WEwemKuJeXm3bmCEvPj2jPeLVHc+7B
+ ohVHiADJnGpvzA==
+X-Google-Smtp-Source: ADKCNb7hggh0R13t494JnSV8rwWdrfW6HecNNApSmRZoiwO5a+85K1ein/Xc3PkgzQ3DcIFqit3CGA==
+X-Received: by 10.84.211.42 with SMTP id b39mr5021741pli.150.1504630803860;
+ Tue, 05 Sep 2017 10:00:03 -0700 (PDT)
+Received: from localhost (108-223-40-66.lightspeed.sntcca.sbcglobal.net.
+ [108.223.40.66])
+ by smtp.gmail.com with ESMTPSA id w7sm2785537pfb.124.2017.09.05.10.00.02
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 05 Sep 2017 10:00:03 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Tue, 5 Sep 2017 10:00:02 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: linux-hwmon@vger.kernel.org, jdelvare@suse.com, corbet@lwn.net,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org, joel@jms.id.au
+Subject: Re: [PATCH] hwmon: pmbus: Make reg check and clear faults functions
+ return errors
+Message-ID: <20170905170002.GG11478@roeck-us.net>
+References: <20170905070132.17682-1-andrew@aj.id.au>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-TM-AS-MML: disable
-x-cbid: 17090511-0044-0000-0000-00000284D4D9
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17090511-0045-0000-0000-000007186C28
-Message-Id: <066b3313-6516-2c05-6c67-4b8d26b50401@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-09-05_06:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
- definitions=main-1709050174
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20170905070132.17682-1-andrew@aj.id.au>
+User-Agent: Mutt/1.5.24 (2015-08-30)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -71,116 +71,320 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Sep 2017 11:24:24 -0000
+X-List-Received-Date: Tue, 05 Sep 2017 17:00:08 -0000
 
-Hello,
+On Tue, Sep 05, 2017 at 05:01:32PM +1000, Andrew Jeffery wrote:
+> Some functions exposed by pmbus core conflated errors that occurred when
+> setting the page to access with errors that occurred when accessing
+> registers in a page. In some cases, this caused legitimate errors to be
+> hidden under the guise of the register not being supported.
+> 
 
-I'm working this sprint on designing an event logging mechanism 
-(https://github.com/openbmc/openbmc/issues/1856). I have a couple 
-proposals below along with some questions. Hoping to hear thoughts on 
-which might be a better proposal. Any other feedback is welcome.
+I'll have to look into this. If I recall correctly, the reason for not returning
+errors from the "clear faults" command was that some early chips did not support
+it, or did not support it on all pages. Those chips would now always fail.
 
-Potential requirements
-1) Applications should be able to log events of interest. Events could 
-be used for purposes such as telemetry, analytics, debug. Examples of 
-events could be changes in the power/thermal domain, such as operating 
-temps on a server, boot related, user account changes, etc.
-2a) Users should be able to query events via REST.
-2b) Users should also be able to query events of a certain category or type.
-3) Users should also be able to "download" events in a format such as 
-JSON (This comes for free today with the rest server running on OpenBMC).
-4) It should be possible to specify event metadata, which may have use 
-for a human as well as a program.
-5) It should be possible to persist events up to a certain cap.
+On a higher level, I am not sure if it is a good idea to return an error
+from a function intended to clear faults (and nothing else). That seems
+counterproductive.
 
+Is this a problem you have actually observed ? If so, what is the chip ?
 
+Thanks,
+Guenter
 
-Proposal 1 - Leverage existing OpenBMC phosphor-logging
-
-Phopshor-logging works as a supplement to journald - at a high level it 
-makes it possible to log errors to the journal, as well as create d-bus 
-objects representing the errors.
-
-- Phosphor-logging uses the Entry interface [1] to describe an error. I 
-have [2] as the proposed Event interface. It's mostly similar to [1] - 
-differences being - I wasn't sure if we really need event severity and 
-resolution, plus having an event Category would be handy for handling 
-Requirement 2b).
-
-- Phosphor-logging requires describing errors in yaml (error yaml and 
-error metadata yaml), which are processed [3] by a script that generates 
-an error log API, which clients can use. The API is part of a 
-phosphor-logging client lib. The same yaml structure can be utilized for 
-events, maybe with the yaml files themselves being named slightly 
-differently to depict events and event metadata instead of errors. This 
-means the client lib will have an event API, similar to the existing 
-elog API [6]. Error yaml files are stored either in the 
-phosphor-dbus-interfaces repo, or within an application's repo, based on 
-whether the error corresponds to a d-bus interface failure or not. In 
-case of events, I think the event yaml files can just be stored in the 
-app that creates them.
-
-- The event logging API, in addition to logging to journal, will call an 
-internal phosphor-logging d-bus API, similar to [4], in order create a 
-d-bus object depicting the event. Based on the event Category, the d-bus 
-object will be placed in the right namespace, such as 
-/xyz/openbmc_project/logging/events/boot/ or 
-/xyz/openbmc_project/logging/events/thermal/. The phosphor-logging 
-process, hence, will own these d-bus objects, do the id management (per 
-category), etc.
-
-
-
-Proposal 2 - Write d-bus interfaces to describe events
-
-Couple of issues I see with Proposal 1 :
-
-a) It's cumbersome for a BMC app to figure out that a specific event was 
-reported, or to express interest in a certain category of events. The 
-d-bus path namespace can help to a certain extent here though, but it's 
-based on paths and properties and not interfaces being added.
-b) Both the existing Entry interface [1] and the proposed Event 
-interface [2] express metadata as strings, probably not the most elegant 
-way for an interested program to deal with them.
-
-Given this, it feels more natural to express an event in it's own d-bus 
-interface, such as an Event.Boot or Event.Thermal interface. So, this 
-proposal looks like :
-
-- Define an Event log interface [5]. Note that this is mostly like [2], 
-although it has an additional method to create the event d-bus object.
-
-- For specific event types, define their own d-bus interfaces. I don't 
-have examples for these at the moment, but like I mentioned above, we 
-could have interfaces for Event.Boot and Event.Thermal to start with. 
-These interfaces could be placed in the phosphor-dbus-interfaces repo. A 
-phosphor-logging application will have the code to implement these 
-well-known event interfaces, and to basically create d-bus objects. This 
-app will also implement the "Notify" method defined in [5].
-
-- An application interested in reporting an event will make a call to 
-the "Notify" API defined in [5], stating the event category and the 
-event metadata. The phosphor-logging application that implements 
-"Notify", will create d-bus objects based on the event Category and 
-metadata, and place them in appropriate d-bus path namespaces, similar 
-to Proposal 1. It can also log the event information to the journal, 
-though I am not sure why this would be required, aside from the having 
-the need to have the journal as the repo of all events.
-
-
-
-[1] 
-https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/Logging/Entry.interface.yaml
-[2] https://gerrit.openbmc-project.xyz/#/c/6405/1
-[3] 
-https://github.com/openbmc/phosphor-logging/blob/master/tools/elog-gen.py, 
-error yaml example : 
-https://github.com/openbmc/phosphor-dbus-interfaces/tree/master/xyz/openbmc_project/Dump
-[4] 
-https://github.com/openbmc/phosphor-logging/blob/master/log_manager.cpp#L27
-[5] https://gerrit.openbmc-project.xyz/#/c/6406/1
-[6] 
-https://github.com/openbmc/phosphor-logging/blob/master/phosphor-logging/elog.hpp#L126
-
-Regards,
-Deepak
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> ---
+>  Documentation/hwmon/pmbus-core   |  12 ++--
+>  drivers/hwmon/pmbus/pmbus.h      |   6 +-
+>  drivers/hwmon/pmbus/pmbus_core.c | 115 +++++++++++++++++++++++++++++----------
+>  3 files changed, 95 insertions(+), 38 deletions(-)
+> 
+> diff --git a/Documentation/hwmon/pmbus-core b/Documentation/hwmon/pmbus-core
+> index 8ed10e9ddfb5..3e9f41bb756f 100644
+> --- a/Documentation/hwmon/pmbus-core
+> +++ b/Documentation/hwmon/pmbus-core
+> @@ -218,17 +218,17 @@ Specifically, it provides the following information.
+>    This function calls the device specific write_byte function if defined.
+>    Therefore, it must _not_ be called from that function.
+>  
+> -  bool pmbus_check_byte_register(struct i2c_client *client, int page, int reg);
+> +  int pmbus_check_byte_register(struct i2c_client *client, int page, int reg);
+>  
+> -  Check if byte register exists. Return true if the register exists, false
+> -  otherwise.
+> +  Check if byte register exists. Returns 1 if the register exists, 0 if it does
+> +  not, and less than zero on an unexpected error.
+>    This function calls the device specific write_byte function if defined to
+>    obtain the chip status. Therefore, it must _not_ be called from that function.
+>  
+> -  bool pmbus_check_word_register(struct i2c_client *client, int page, int reg);
+> +  int pmbus_check_word_register(struct i2c_client *client, int page, int reg);
+>  
+> -  Check if word register exists. Return true if the register exists, false
+> -  otherwise.
+> +  Check if word register exists. Returns 1 if the register exists, 0 if it does
+> +  not, and less than zero on an unexpected error.
+>    This function calls the device specific write_byte function if defined to
+>    obtain the chip status. Therefore, it must _not_ be called from that function.
+>  
+> diff --git a/drivers/hwmon/pmbus/pmbus.h b/drivers/hwmon/pmbus/pmbus.h
+> index bfcb13bae34b..c53032a04a6f 100644
+> --- a/drivers/hwmon/pmbus/pmbus.h
+> +++ b/drivers/hwmon/pmbus/pmbus.h
+> @@ -413,9 +413,9 @@ int pmbus_write_byte_data(struct i2c_client *client, int page, u8 reg,
+>  			  u8 value);
+>  int pmbus_update_byte_data(struct i2c_client *client, int page, u8 reg,
+>  			   u8 mask, u8 value);
+> -void pmbus_clear_faults(struct i2c_client *client);
+> -bool pmbus_check_byte_register(struct i2c_client *client, int page, int reg);
+> -bool pmbus_check_word_register(struct i2c_client *client, int page, int reg);
+> +int pmbus_clear_faults(struct i2c_client *client);
+> +int pmbus_check_byte_register(struct i2c_client *client, int page, int reg);
+> +int pmbus_check_word_register(struct i2c_client *client, int page, int reg);
+>  int pmbus_do_probe(struct i2c_client *client, const struct i2c_device_id *id,
+>  		   struct pmbus_driver_info *info);
+>  int pmbus_do_remove(struct i2c_client *client);
+> diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
+> index f1eff6b6c798..153700e35431 100644
+> --- a/drivers/hwmon/pmbus/pmbus_core.c
+> +++ b/drivers/hwmon/pmbus/pmbus_core.c
+> @@ -304,18 +304,24 @@ static int _pmbus_read_byte_data(struct i2c_client *client, int page, int reg)
+>  	return pmbus_read_byte_data(client, page, reg);
+>  }
+>  
+> -static void pmbus_clear_fault_page(struct i2c_client *client, int page)
+> +static int pmbus_clear_fault_page(struct i2c_client *client, int page)
+>  {
+> -	_pmbus_write_byte(client, page, PMBUS_CLEAR_FAULTS);
+> +	return _pmbus_write_byte(client, page, PMBUS_CLEAR_FAULTS);
+>  }
+>  
+> -void pmbus_clear_faults(struct i2c_client *client)
+> +int pmbus_clear_faults(struct i2c_client *client)
+>  {
+>  	struct pmbus_data *data = i2c_get_clientdata(client);
+> +	int rv;
+>  	int i;
+>  
+> -	for (i = 0; i < data->info->pages; i++)
+> -		pmbus_clear_fault_page(client, i);
+> +	for (i = 0; i < data->info->pages; i++) {
+> +		rv = pmbus_clear_fault_page(client, i);
+> +		if (rv)
+> +			return rv;
+> +	}
+> +
+> +	return 0;
+>  }
+>  EXPORT_SYMBOL_GPL(pmbus_clear_faults);
+>  
+> @@ -333,28 +339,45 @@ static int pmbus_check_status_cml(struct i2c_client *client)
+>  	return 0;
+>  }
+>  
+> -static bool pmbus_check_register(struct i2c_client *client,
+> +static int pmbus_check_register(struct i2c_client *client,
+>  				 int (*func)(struct i2c_client *client,
+>  					     int page, int reg),
+>  				 int page, int reg)
+>  {
+> +	struct pmbus_data *data;
+> +	int check;
+>  	int rv;
+> -	struct pmbus_data *data = i2c_get_clientdata(client);
+>  
+> -	rv = func(client, page, reg);
+> -	if (rv >= 0 && !(data->flags & PMBUS_SKIP_STATUS_CHECK))
+> -		rv = pmbus_check_status_cml(client);
+> -	pmbus_clear_fault_page(client, -1);
+> -	return rv >= 0;
+> +	data = i2c_get_clientdata(client);
+> +
+> +	/*
+> +	 * pmbus_set_page() guards transactions on the requested page matching
+> +	 * the current page. This may be done in the execution of func(), but
+> +	 * at that point a set-page error is conflated with accessing a
+> +	 * non-existent register.
+> +	 */
+> +	rv = pmbus_set_page(client, page);
+> +	if (rv < 0)
+> +		return rv;
+> +
+> +	check = func(client, page, reg);
+> +	if (check >= 0 && !(data->flags & PMBUS_SKIP_STATUS_CHECK))
+> +		check = pmbus_check_status_cml(client);
+> +
+> +	rv = pmbus_clear_fault_page(client, -1);
+> +	if (rv < 0)
+> +		return rv;
+> +
+> +	return check >= 0;
+>  }
+>  
+> -bool pmbus_check_byte_register(struct i2c_client *client, int page, int reg)
+> +int pmbus_check_byte_register(struct i2c_client *client, int page, int reg)
+>  {
+>  	return pmbus_check_register(client, _pmbus_read_byte_data, page, reg);
+>  }
+>  EXPORT_SYMBOL_GPL(pmbus_check_byte_register);
+>  
+> -bool pmbus_check_word_register(struct i2c_client *client, int page, int reg)
+> +int pmbus_check_word_register(struct i2c_client *client, int page, int reg)
+>  {
+>  	return pmbus_check_register(client, _pmbus_read_word_data, page, reg);
+>  }
+> @@ -390,7 +413,7 @@ static struct pmbus_data *pmbus_update_device(struct device *dev)
+>  
+>  	mutex_lock(&data->update_lock);
+>  	if (time_after(jiffies, data->last_updated + HZ) || !data->valid) {
+> -		int i, j;
+> +		int i, j, ret;
+>  
+>  		for (i = 0; i < info->pages; i++) {
+>  			data->status[PB_STATUS_BASE + i]
+> @@ -424,7 +447,13 @@ static struct pmbus_data *pmbus_update_device(struct device *dev)
+>  							    sensor->page,
+>  							    sensor->reg);
+>  		}
+> -		pmbus_clear_faults(client);
+> +
+> +		ret = pmbus_clear_faults(client);
+> +		if (ret < 0) {
+> +			mutex_unlock(&data->update_lock);
+> +			return ERR_PTR(ret);
+> +		}
+> +
+>  		data->last_updated = jiffies;
+>  		data->valid = 1;
+>  	}
+> @@ -754,6 +783,9 @@ static ssize_t pmbus_show_boolean(struct device *dev,
+>  	struct pmbus_data *data = pmbus_update_device(dev);
+>  	int val;
+>  
+> +	if (IS_ERR(data))
+> +		return PTR_ERR(data);
+> +
+>  	val = pmbus_get_boolean(data, boolean, attr->index);
+>  	if (val < 0)
+>  		return val;
+> @@ -766,6 +798,9 @@ static ssize_t pmbus_show_sensor(struct device *dev,
+>  	struct pmbus_data *data = pmbus_update_device(dev);
+>  	struct pmbus_sensor *sensor = to_pmbus_sensor(devattr);
+>  
+> +	if (IS_ERR(data))
+> +		return PTR_ERR(data);
+> +
+>  	if (sensor->data < 0)
+>  		return sensor->data;
+>  
+> @@ -995,7 +1030,11 @@ static int pmbus_add_limit_attrs(struct i2c_client *client,
+>  	struct pmbus_sensor *curr;
+>  
+>  	for (i = 0; i < nlimit; i++) {
+> -		if (pmbus_check_word_register(client, page, l->reg)) {
+> +		ret = pmbus_check_word_register(client, page, l->reg);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		if (ret) {
+>  			curr = pmbus_add_sensor(data, name, l->attr, index,
+>  						page, l->reg, attr->class,
+>  						attr->update || l->update,
+> @@ -1041,6 +1080,8 @@ static int pmbus_add_sensor_attrs_one(struct i2c_client *client,
+>  	if (!base)
+>  		return -ENOMEM;
+>  	if (attr->sfunc) {
+> +		int check;
+> +
+>  		ret = pmbus_add_limit_attrs(client, data, info, name,
+>  					    index, page, base, attr);
+>  		if (ret < 0)
+> @@ -1050,9 +1091,13 @@ static int pmbus_add_sensor_attrs_one(struct i2c_client *client,
+>  		 * alarm attributes, if there is a global alarm bit, and if
+>  		 * the generic status register for this page is accessible.
+>  		 */
+> -		if (!ret && attr->gbit &&
+> -		    pmbus_check_byte_register(client, page,
+> -					      data->status_register)) {
+> +
+> +		check = pmbus_check_byte_register(client, page,
+> +						  data->status_register);
+> +		if (check < 0)
+> +			return check;
+> +
+> +		if (!ret && attr->gbit && check) {
+>  			ret = pmbus_add_boolean(data, name, "alarm", index,
+>  						NULL, NULL,
+>  						PB_STATUS_BASE + page,
+> @@ -1604,8 +1649,12 @@ static int pmbus_add_fan_attributes(struct i2c_client *client,
+>  			if (!(info->func[page] & pmbus_fan_flags[f]))
+>  				break;
+>  
+> -			if (!pmbus_check_word_register(client, page,
+> -						       pmbus_fan_registers[f]))
+> +			ret = pmbus_check_word_register(client, page,
+> +						       pmbus_fan_registers[f]);
+> +			if (ret < 0)
+> +				return ret;
+> +
+> +			if (!ret)
+>  				break;
+>  
+>  			/*
+> @@ -1628,9 +1677,13 @@ static int pmbus_add_fan_attributes(struct i2c_client *client,
+>  			 * Each fan status register covers multiple fans,
+>  			 * so we have to do some magic.
+>  			 */
+> -			if ((info->func[page] & pmbus_fan_status_flags[f]) &&
+> -			    pmbus_check_byte_register(client,
+> -					page, pmbus_fan_status_registers[f])) {
+> +			ret =  pmbus_check_byte_register(client, page,
+> +						pmbus_fan_status_registers[f]);
+> +			if (ret < 0)
+> +				return ret;
+> +
+> +			if ((info->func[page] & pmbus_fan_status_flags[f])
+> +					&& ret) {
+>  				int base;
+>  
+>  				if (f > 1)	/* fan 3, 4 */
+> @@ -1696,10 +1749,13 @@ static int pmbus_identify_common(struct i2c_client *client,
+>  				 struct pmbus_data *data, int page)
+>  {
+>  	int vout_mode = -1;
+> +	int rv;
+>  
+> -	if (pmbus_check_byte_register(client, page, PMBUS_VOUT_MODE))
+> +	rv = pmbus_check_byte_register(client, page, PMBUS_VOUT_MODE);
+> +	if (rv == 1)
+>  		vout_mode = _pmbus_read_byte_data(client, page,
+>  						  PMBUS_VOUT_MODE);
+> +
+>  	if (vout_mode >= 0 && vout_mode != 0xff) {
+>  		/*
+>  		 * Not all chips support the VOUT_MODE command,
+> @@ -1725,8 +1781,7 @@ static int pmbus_identify_common(struct i2c_client *client,
+>  		}
+>  	}
+>  
+> -	pmbus_clear_fault_page(client, page);
+> -	return 0;
+> +	return pmbus_clear_fault_page(client, page);
+>  }
+>  
+>  static int pmbus_init_common(struct i2c_client *client, struct pmbus_data *data,
+> @@ -1756,7 +1811,9 @@ static int pmbus_init_common(struct i2c_client *client, struct pmbus_data *data,
+>  	if (ret >= 0 && (ret & PB_CAPABILITY_ERROR_CHECK))
+>  		client->flags |= I2C_CLIENT_PEC;
+>  
+> -	pmbus_clear_faults(client);
+> +	ret = pmbus_clear_faults(client);
+> +	if (ret < 0)
+> +		return ret;
+>  
+>  	if (info->identify) {
+>  		ret = (*info->identify)(client, info);
+> -- 
+> 2.11.0
+> 
