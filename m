@@ -1,62 +1,64 @@
 Return-Path: <brendanhiggins@google.com>
 Authentication-Results: ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400e:c00::22f; helo=mail-pf0-x22f.google.com;
+ (client-ip=2607:f8b0:400d:c09::233; helo=mail-qk0-x233.google.com;
  envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="kXXMixLT"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="VgOwtIdW"; 
  dkim-atps=neutral
-Received: from mail-pf0-x22f.google.com (mail-pf0-x22f.google.com
- [IPv6:2607:f8b0:400e:c00::22f])
+Received: from mail-qk0-x233.google.com (mail-qk0-x233.google.com
+ [IPv6:2607:f8b0:400d:c09::233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xnGRW42cBzDrJ7
- for <openbmc@lists.ozlabs.org>; Wed,  6 Sep 2017 18:08:07 +1000 (AEST)
-Received: by mail-pf0-x22f.google.com with SMTP id g13so11734901pfm.2
- for <openbmc@lists.ozlabs.org>; Wed, 06 Sep 2017 01:08:07 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xnGhM3B4rzDrJ7
+ for <openbmc@lists.ozlabs.org>; Wed,  6 Sep 2017 18:19:14 +1000 (AEST)
+Received: by mail-qk0-x233.google.com with SMTP id z143so17607547qkb.3
+ for <openbmc@lists.ozlabs.org>; Wed, 06 Sep 2017 01:19:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=PAQ58rss1CIjkxtt29xMoTxQvGCwLCEuTrfSDD2cz/I=;
- b=kXXMixLT6iPm6BUm5EUDZLvOc3CcEOj1slzvdwa7ulD8/gNhwnr7FkevDzNkNX0696
- 9yNFSUaj8jv8KAY440PvLhyVGwfKDU7Px62f+XzTKkgLSAyV/BXjqMYqYgz4MplIvNTt
- /BAp5Oi01KD8652uloG7hHrVUDi2zIBs/zlUP/UZD148OQ4xjJPyzBGkYMRwnFKlZhS1
- G5Y4MeF49rS9+xkYQfv7g+LMlBy1c93sf7zSXr1R39KWXAcmcYR4xUUct1P9HydOebY9
- 1lWxFoaOGTT/bwN8MopNaCd3iWxUjcVnMV5lvSJTAaCPUmDGyHDUbLJPnBmL34RBHH+O
- S5Qw==
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=5Y4fb2QvLTTO0o38qmXh6+NqvCrTLkTYOPSmgk4t/3o=;
+ b=VgOwtIdWcXRhzmhQqE9WSKF3lCo9W78zppxGp7DtnfKRIE5pHGF0on/7P49419ALhJ
+ HnIJ5hZTw9T4P+euQT+saEZqPi6i5CUwjz9eexSSg3IV3gLng9k8TO8ZVcYy0ba2byKf
+ vUCKHTkXdc5hS6WjH22fi/2S3KElfE7KUATleoO6ppowp8mlCAVgwrCe7UgaYeUR5Tw5
+ xuiqZlM9IQBGkipZ95BIZYughMMNUHfnPHlg+AlSj15eEeVl6CISEn+ycW27VLbXRxKT
+ UstrIxAAdtPRuoBgV8qsSWndkPuAGzXUOzdYLPs3dsmGzL2xdyz4Oo2KQQmmVW/byyCS
+ 4cag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=PAQ58rss1CIjkxtt29xMoTxQvGCwLCEuTrfSDD2cz/I=;
- b=ces9T7kmKcfdpfihrBDyCn59UAyYN0HPQA83HD9l9D60GAQcuX9dFyd3mUSnkVxdPM
- hc4/+n9T0T6LYcoHIcGOQEjptkxjY7TBd6xMWPKvavqzdsmqOl3/qK2fzZm+tUwl4yzx
- i8AlbV7N8I4bh7BPXi53G8rC1XplOk+qGSiQtAwvF/JWyWYP3HChwiNvIHx4IbJE4f1T
- STZVx2pUk/SWDQxxaOvG6srfCzFE0+Hz4+E5G+ewomrIris5yn6vfMZlV0xo/WDHWwVt
- fJw6tK32Vvo/wrpCO5HU53Jct1ZcCCEpQwJFsuaSjuyea3Tbnhr+YKqC+UnH/Kkkxe0f
- oJhg==
-X-Gm-Message-State: AHPjjUh15jqR+rZruc2JuHrxcaVyRiMr2azNtp5YQ7MiOVMmJ36PwKlK
- aluf/X3pNz2vaVVR
-X-Google-Smtp-Source: ADKCNb6AMMbaAQNqkJOrBfPNcBDzBIimJYQfki1+jvgzxvmiDADf2j3QwS9ej2CB18tv+fvvsqeH1w==
-X-Received: by 10.84.128.72 with SMTP id 66mr7329644pla.119.1504685285414;
- Wed, 06 Sep 2017 01:08:05 -0700 (PDT)
-Received: from mactruck.svl.corp.google.com ([100.123.242.94])
- by smtp.gmail.com with ESMTPSA id b187sm1687620pfg.135.2017.09.06.01.08.04
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Wed, 06 Sep 2017 01:08:04 -0700 (PDT)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=5Y4fb2QvLTTO0o38qmXh6+NqvCrTLkTYOPSmgk4t/3o=;
+ b=EdqxnJJf02TnKlqQ4gh2oQ5c9bOtrgbScJ26J3CNOBZ+DiNXpm35vculWSFt7j6ovK
+ 1OkhY1xDpg8WwNWLHMc2C2f5TMcQa7z/OYwYHfa7QgwH0OaiHW2PL/lVsdECOdyCXImo
+ VquckLBnSFP+5BiTRwdMCMipIcDCPnggRP593owzkLHqPRYmRfRr9UBdu9Q238MRMgjV
+ kDtyqgwqce9h63rN2eagtu0nx7eo4j/ACO70ZrJy9cuN3fYOtd6koQRngZOAytPiLjz2
+ FozaGc6dmG5tACONprt8EKIglgziiGxPTw9u8XCQQA4FaFkQ2itc9ZvVuftcrsPb9KLl
+ NHTA==
+X-Gm-Message-State: AHPjjUgPsg+HEfMwzsTVOJjx6YaDYYLLyRlJZ+lL1SEfKUUwyykjvi2H
+ m2PgqrCJ0aoTxGGEfHAKiXL280MyG7y8
+X-Google-Smtp-Source: ADKCNb7GiSGGeGMTEwmx69SxSOfdLRHMym0m9NwpqcZ77exLqJiGLdCAneVbKfc1gI5HQ2hgrJQS1lxDuYVEqGO6Hck=
+X-Received: by 10.55.98.19 with SMTP id w19mr2388279qkb.261.1504685951754;
+ Wed, 06 Sep 2017 01:19:11 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.140.33.197 with HTTP; Wed, 6 Sep 2017 01:19:11 -0700 (PDT)
+In-Reply-To: <CACPK8Xc0jrnx96=BoGMwQgoT2brgc0UTNU5HMHXDeFfeToVgxA@mail.gmail.com>
+References: <20170906003016.2159-1-brendanhiggins@google.com>
+ <20170906003016.2159-3-brendanhiggins@google.com>
+ <CACPK8Xc0jrnx96=BoGMwQgoT2brgc0UTNU5HMHXDeFfeToVgxA@mail.gmail.com>
 From: Brendan Higgins <brendanhiggins@google.com>
-To: robh+dt@kernel.org, mark.rutland@arm.com, linux@armlinux.org.uk,
- avifishman70@gmail.com, tmaimon77@gmail.com, raltherr@google.com,
- f.fainelli@gmail.com, joel@jms.id.au
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
- Brendan Higgins <brendanhiggins@google.com>
-Subject: [PATCH v4 3/3] MAINTAINERS: Add entry for the Nuvoton NPCM
- architecture
-Date: Wed,  6 Sep 2017 01:07:51 -0700
-Message-Id: <20170906080751.6773-4-brendanhiggins@google.com>
-X-Mailer: git-send-email 2.14.1.581.gf28d330327-goog
-In-Reply-To: <20170906080751.6773-1-brendanhiggins@google.com>
-References: <20170906080751.6773-1-brendanhiggins@google.com>
+Date: Wed, 6 Sep 2017 01:19:11 -0700
+Message-ID: <CAFd5g45s6yo=HSut76YknOkUeKbV8yOXWbivc=EyM2s7R8DOrA@mail.gmail.com>
+Subject: Re: [PATCH v3 2/3] arm: dts: add Nuvoton NPCM750 device tree
+To: Joel Stanley <joel@jms.id.au>
+Cc: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Russell King <linux@armlinux.org.uk>, avifishman70@gmail.com,
+ tmaimon77@gmail.com, 
+ Rick Altherr <raltherr@google.com>, Florian Fainelli <f.fainelli@gmail.com>, 
+ devicetree <devicetree@vger.kernel.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-arm-kernel@lists.infradead.org, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,40 +70,97 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Sep 2017 08:08:07 -0000
+X-List-Received-Date: Wed, 06 Sep 2017 08:19:16 -0000
 
-Add maintainers and reviewers for the Nuvoton NPCM architecture.
+On Tue, Sep 5, 2017 at 10:23 PM, Joel Stanley <joel@jms.id.au> wrote:
+> On Wed, Sep 6, 2017 at 10:00 AM, Brendan Higgins
+> <brendanhiggins@google.com> wrote:
+>> +++ b/Documentation/devicetree/bindings/arm/npcm/npcm.txt
+>> @@ -0,0 +1,6 @@
+>> +NPCM Platforms Device Tree Bindings
+>> +-----------------------------------
+>> +NPCM750 SoC
+>> +Required root node properties:
+>> +       - compatible = "nuvoton,npcm750";
+>> +
+>
+> This is minimal. I assume there will be more content added as more
+> support is added?
 
-Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
-Reviewed-by: Tomer Maimon <tmaimon77@gmail.com>
-Reviewed-by: Avi Fishman <avifishman70@gmail.com>
----
- MAINTAINERS | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+Yep, that's the plan. They have a number of similar BMCs, both those
+based on different ARM cores and some with different peripheral sets,
+so we will probably want to have different compat strings for those.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 44cb004c765d..67064bf11904 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1598,6 +1598,19 @@ F:	drivers/pinctrl/nomadik/
- F:	drivers/i2c/busses/i2c-nomadik.c
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-nomadik.git
- 
-+ARM/NUVOTON NPCM ARCHITECTURE
-+M:	Avi Fishman <avifishman70@gmail.com>
-+M:	Tomer Maimon <tmaimon77@gmail.com>
-+R:	Brendan Higgins <brendanhiggins@google.com>
-+R:	Rick Altherr <raltherr@google.com>
-+L:	openbmc@lists.ozlabs.org (moderated for non-subscribers)
-+S:	Maintained
-+F:	arch/arm/mach-npcm/
-+F:	arch/arm/boot/dts/nuvoton-npcm*
-+F:	include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
-+F:	drivers/*/*npcm*
-+F:	Documentation/*/*npcm*
-+
- ARM/NUVOTON W90X900 ARM ARCHITECTURE
- M:	Wan ZongShun <mcuos.com@gmail.com>
- L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
--- 
-2.14.1.581.gf28d330327-goog
+>
+> Does it need it's own directory?
+
+Not sure, I saw that some of the other architectures did it, some did
+not. I don't feel strongly about it.
+
+>
+>
+>> diff --git a/arch/arm/boot/dts/nuvoton-npcm750-evb.dts b/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
+>> new file mode 100644
+>> index 000000000000..54df32cff21b
+>> --- /dev/null
+>> +++ b/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
+>
+>> +
+>> +/dts-v1/;
+>> +#include "nuvoton-npcm750.dtsi"
+>> +
+>> +/ {
+>> +       model = "Nuvoton npcm750 Development Board (Device Tree)";
+>> +       compatible = "nuvoton,npcm750";
+>> +
+>> +       chosen {
+>> +               stdout-path = &serial3;
+>> +               bootargs = "earlyprintk=serial,serial3,115200";
+>> +       };
+>> +
+>> +       memory {
+>> +               reg = <0 0x40000000>;
+>> +       };
+>> +
+>> +       cpus {
+>> +               enable-method = "nuvoton,npcm7xx-smp";
+>> +       };
+>> +
+>> +       clk: clock-controller@f0801000 {
+>> +               status = "okay";
+>> +       };
+>> +
+>> +       apb {
+>> +               watchdog1: watchdog@f0009000 {
+>> +                       status = "okay";
+>> +               };
+>
+> You've already got the label for the node, is there are reason you
+> don't use a phandle to set the status?
+
+Addressed in v4.
+
+>
+> &watchdog1 {
+>    status = "okay";
+> };
+>
+> Same with the serial nodes below.
+>
+>> +
+>> +               serial0: serial0@f0001000 {
+>> +                       status = "okay";
+>> +               };
+>> +
+>> +               serial1: serial1@f0002000 {
+>> +                       status = "okay";
+>> +               };
+>> +
+>> +               serial2: serial2@f0003000 {
+>> +                       status = "okay";
+>> +               };
+>> +
+>> +               serial3: serial3@f0004000 {
+>> +                       status = "okay";
+>> +               };
+>> +       };
