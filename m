@@ -1,56 +1,64 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4010:c07::233; helo=mail-lf0-x233.google.com;
+ (client-ip=2a00:1450:4010:c07::244; helo=mail-lf0-x244.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="twDjMKft"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="RLrzbEQg"; 
  dkim-atps=neutral
-Received: from mail-lf0-x233.google.com (mail-lf0-x233.google.com
- [IPv6:2a00:1450:4010:c07::233])
+Received: from mail-lf0-x244.google.com (mail-lf0-x244.google.com
+ [IPv6:2a00:1450:4010:c07::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xnBfL1jDvzDrJL
- for <openbmc@lists.ozlabs.org>; Wed,  6 Sep 2017 15:17:13 +1000 (AEST)
-Received: by mail-lf0-x233.google.com with SMTP id q132so15094394lfe.5
- for <openbmc@lists.ozlabs.org>; Tue, 05 Sep 2017 22:17:13 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xnBnz0B5nzDrJL
+ for <openbmc@lists.ozlabs.org>; Wed,  6 Sep 2017 15:23:50 +1000 (AEST)
+Received: by mail-lf0-x244.google.com with SMTP id m199so2579641lfe.5
+ for <openbmc@lists.ozlabs.org>; Tue, 05 Sep 2017 22:23:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=02fRP6vUh/gx7OHz2vEMOiR8qfs8IGQ7EVJOB8+Gkmg=;
- b=twDjMKftXwo2UzxGRy2YpkeCUtSz+tyeIdY22SD3JzmiW11AG4JJDFQIhS8in/HydU
- QIa4IokrUuQfNO5tweQkYH+pWADcF4ZU6KrdWihRPifflf9ul1tH/jCGXgvyiFoI6jME
- YbzdvqRvr2iKCuge+m6/9vo5E51dE0wQZSNP3Q5R78FuhbW4mW3CwWEcQnKXwr/Dpd2L
- ylsDyNNu6BFnyoA8f7/4tyLJWw20HBTKwYTpcwvs89W3pXJIboO5Qw4doBNVATPVYPZ4
- yWMxMz2gE/p1qiWDpJ6/FRr0GxRfWxPyhqB/GeUzVXMx8lsm+QgvjF9IEMKY05w3PxVe
- susw==
+ bh=qnyK7jqYxuHaTUGmbHxO4anZv+T/B2U4mlNeI9IfRKg=;
+ b=RLrzbEQg/X9mqvOjU0qxa/tGylBFNSh37CCPbWRAD2gL3lTsqjp//NTkbNOTSW1xO4
+ /zNx80/FoaVrZoHjUIdJxIU/6YBDtfKLlVc7VD2fSSCoZrVUsz0isysVGQqGddeidOm0
+ 97558Sb5TiqW5AwAbHrME+bUhPcpGYdVVjVtrBPKQWe/IzVOb63+WRGAGBzgYgUHdhyR
+ kte2LbQeAxAIX4sR4/REZsUW/GvMBpNU/RryXgNyH4nDEtgDlpnd0PWhb84vrtcjObQW
+ ti8BsHJbLdoyvUtyO6OITjxZGF5ikAsYH4HFBBaO1NB7d743CCirz2uqsoYEEE27VjwY
+ ajQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=02fRP6vUh/gx7OHz2vEMOiR8qfs8IGQ7EVJOB8+Gkmg=;
- b=lVVb4/gOHzAtmcDwS8BRwXJzZ59WVrlgqqAXoDhe3dzMPcn1do9aNIdad+IuW0eTgI
- 9Em/n5go0UCEcn2/5kutMjtp01uhA/MT8W9qUvg6UeK8Y5bMZVaR//3/V2gm2jNZZUGF
- apGrnKLHF2rqtP7csIURzCcndnIHan1NzFFIivtbO5gF5sqHcjnXyztSmO2D7s5dVcUc
- IiPV5qL1hSTVLVFHPYnT3B3ez4vqaz5KDV9p0KQfENwS540XtmNdYMGAqMBjGJgOGN9k
- s2eYGjGl1KRaqGDBMUG8PH9o/F7+KXIenFrRxxAq/GfyfJBJmozTIrzKkx1AZIaPMhKO
- ilCA==
-X-Gm-Message-State: AHPjjUifbuXfKwOLO7WYhNoaRk2TfqZUSOKjus55XgyHKw7D0oi9kGHX
- Vy5SW5v0W4DLTTmjhS8cAtLRtmrygw==
-X-Google-Smtp-Source: ADKCNb5nKPivJaUCHxzvY4HvvIARQFjEaxWV4HqLNjyaHhq+zq4gVkkbkKIUGzpXqIqvHeSU5JygoS842CmQAncgbXE=
-X-Received: by 10.25.143.27 with SMTP id r27mr458862lfd.85.1504675030210; Tue,
- 05 Sep 2017 22:17:10 -0700 (PDT)
+ bh=qnyK7jqYxuHaTUGmbHxO4anZv+T/B2U4mlNeI9IfRKg=;
+ b=HHUvZnkE7WTmNBNZQp1E0nLRbRoWm1e5HwsbC5S3HqLB4RGufYY2KcsNm3dSn5b75s
+ Hj3n1v0bBOXn8+5Gtqz62SFJymsz53TestxR6e66dgomU0G4BzqjadTEw1Q38zTCWT7C
+ oR1z1ndzNrDoW609UyBBhj8KpX71VkJu2xDD0LQKInetOrK/De4tAOk7JH1kqs9EnlBd
+ lg5oZ8lv5qZaM0iRfdt37QV70C4pnbLtjkRiRZ/0A3H4dWUsH+3E0nyR8RY+Z0dxaUom
+ JISogUACIAIrY1oAZLB4FYd670XTLGz80dm+AQ5ynV3nhYHElBw/Qwj2/c418TPfJ4kw
+ miFg==
+X-Gm-Message-State: AHPjjUgS28h7u1LZ7JB+rf6WMz7aPOI8hAIV7GNieL1dvft3aGIUhvIc
+ i3yzutshIES8U81uBqtJKHv3BGDzQg==
+X-Google-Smtp-Source: ADKCNb4HgNlwVOhCTPIUQv1wkJO1fb3uUj4fJaDQrzRJO7b15Ld4cuo2ccQmOdzcYxXlXv97Uih5rUGObbvMFhqa4CI=
+X-Received: by 10.46.71.72 with SMTP id u69mr418470lja.182.1504675427347; Tue,
+ 05 Sep 2017 22:23:47 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.25.79.70 with HTTP; Tue, 5 Sep 2017 22:16:49 -0700 (PDT)
-In-Reply-To: <DB5PR05MB1224502182F8C6EAF62E17C9EF9E0@DB5PR05MB1224.eurprd05.prod.outlook.com>
-References: <DB5PR05MB1224502182F8C6EAF62E17C9EF9E0@DB5PR05MB1224.eurprd05.prod.outlook.com>
+Received: by 10.25.79.70 with HTTP; Tue, 5 Sep 2017 22:23:26 -0700 (PDT)
+In-Reply-To: <20170906003016.2159-3-brendanhiggins@google.com>
+References: <20170906003016.2159-1-brendanhiggins@google.com>
+ <20170906003016.2159-3-brendanhiggins@google.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 6 Sep 2017 14:46:49 +0930
-X-Google-Sender-Auth: 0Pz90PgvCnZoNo2KaF6VriaydxU
-Message-ID: <CACPK8XcBWbdKQruu5wdAP2xo6xmxQ867fP41SUU+0d38H7O-Wg@mail.gmail.com>
-Subject: Re: Mellanox ipmi daemon discussion
-To: Mykola Kostenok <c_mykolak@mellanox.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Wed, 6 Sep 2017 14:53:26 +0930
+X-Google-Sender-Auth: 2F2ulwkpDLVJdT1FJs9aESVTvp8
+Message-ID: <CACPK8Xc0jrnx96=BoGMwQgoT2brgc0UTNU5HMHXDeFfeToVgxA@mail.gmail.com>
+Subject: Re: [PATCH v3 2/3] arm: dts: add Nuvoton NPCM750 device tree
+To: Brendan Higgins <brendanhiggins@google.com>
+Cc: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Russell King <linux@armlinux.org.uk>, avifishman70@gmail.com,
+ tmaimon77@gmail.com, 
+ Rick Altherr <raltherr@google.com>, Florian Fainelli <f.fainelli@gmail.com>, 
+ devicetree <devicetree@vger.kernel.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-arm-kernel@lists.infradead.org, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -63,41 +71,84 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Sep 2017 05:17:15 -0000
+X-List-Received-Date: Wed, 06 Sep 2017 05:23:52 -0000
 
-Hello Mykola,
+On Wed, Sep 6, 2017 at 10:00 AM, Brendan Higgins
+<brendanhiggins@google.com> wrote:
+> +++ b/Documentation/devicetree/bindings/arm/npcm/npcm.txt
+> @@ -0,0 +1,6 @@
+> +NPCM Platforms Device Tree Bindings
+> +-----------------------------------
+> +NPCM750 SoC
+> +Required root node properties:
+> +       - compatible = "nuvoton,npcm750";
+> +
 
-On Tue, Aug 29, 2017 at 12:57 AM, Mykola Kostenok
-<c_mykolak@mellanox.com> wrote:
->
-> We'd like to add Mellanox ipmi daemon recipe to mellanox msn platform. It's based on openipmi project.
-> Code review: https://gerrit.openbmc-project.xyz/#/c/5694/.
->
-> We added some hooks in openipmi code and also our specific module.
-> We use it for SoL, SEL, serial console redirection, console switching between the host and BMC, PET/PEF, LAN related commands, time setting,, and also a lot of OEM commands for LED, FAN control, reset signals, reset causes, BT connection with CPU, etc.
+This is minimal. I assume there will be more content added as more
+support is added?
 
-The reuse of existing code is a good achievement. Well done.
+Does it need it's own directory?
 
-How did you find the use of OpenIPMI for your needs?
 
-> It doesn't use DBUS interface.
+> diff --git a/arch/arm/boot/dts/nuvoton-npcm750-evb.dts b/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
+> new file mode 100644
+> index 000000000000..54df32cff21b
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
 
-This is a downside. The use of dbus as an inter-process communication
-mechanism is something that defines OpenBMC at the moment.
+> +
+> +/dts-v1/;
+> +#include "nuvoton-npcm750.dtsi"
+> +
+> +/ {
+> +       model = "Nuvoton npcm750 Development Board (Device Tree)";
+> +       compatible = "nuvoton,npcm750";
+> +
+> +       chosen {
+> +               stdout-path = &serial3;
+> +               bootargs = "earlyprintk=serial,serial3,115200";
+> +       };
+> +
+> +       memory {
+> +               reg = <0 0x40000000>;
+> +       };
+> +
+> +       cpus {
+> +               enable-method = "nuvoton,npcm7xx-smp";
+> +       };
+> +
+> +       clk: clock-controller@f0801000 {
+> +               status = "okay";
+> +       };
+> +
+> +       apb {
+> +               watchdog1: watchdog@f0009000 {
+> +                       status = "okay";
+> +               };
 
-Could you add dbus IPC to the existing codebase?
+You've already got the label for the node, is there are reason you
+don't use a phandle to set the status?
 
->
-> We are planning transition to OpenBMC ipmi demon, after we are done with all kernel related patches. Our plan is to start transition in the following order SoL, SDR, SEL, LAN, LED and so on.
+&watchdog1 {
+   status = "okay";
+};
 
-What lead to this decision? What are the up and down sides of the
-phosphor ipmi daemon compared to OpenIPMI?
+Same with the serial nodes below.
 
-> At his moment we'd like to have functional image, which can be built from OpenBMC with no any patches.
-> We also have one customer and it's important for us to have a functional image, which he can build by himself.
-
-Agreed. I've +1'd your patch, and would like to see it merged.
-
-Cheers,
-
-Joel
+> +
+> +               serial0: serial0@f0001000 {
+> +                       status = "okay";
+> +               };
+> +
+> +               serial1: serial1@f0002000 {
+> +                       status = "okay";
+> +               };
+> +
+> +               serial2: serial2@f0003000 {
+> +                       status = "okay";
+> +               };
+> +
+> +               serial3: serial3@f0004000 {
+> +                       status = "okay";
+> +               };
+> +       };
