@@ -1,86 +1,65 @@
-Return-Path: <c_mykolak@mellanox.com>
+Return-Path: <brendanhiggins@google.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=mellanox.com
- (client-ip=40.107.2.65; helo=eur02-ve1-obe.outbound.protection.outlook.com;
- envelope-from=c_mykolak@mellanox.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b="aC8D7Vie";
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400d:c09::231; helo=mail-qk0-x231.google.com;
+ envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="jQa+8ftz"; 
  dkim-atps=neutral
-Received: from EUR02-VE1-obe.outbound.protection.outlook.com
- (mail-eopbgr20065.outbound.protection.outlook.com [40.107.2.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Received: from mail-qk0-x231.google.com (mail-qk0-x231.google.com
+ [IPv6:2607:f8b0:400d:c09::231])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xnGxT6QPYzDrJL
- for <openbmc@lists.ozlabs.org>; Wed,  6 Sep 2017 18:30:37 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
- s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=I/Z6Q1/HEqGmk+30X2MI/eqAbPfhrkaW9T+XGB273/Y=;
- b=aC8D7ViexB5h1Iq57JM37w9oOL9GkIKKVbZ6gIjAQM15f+nkfWe4Goo4RjUlaM7B7KQsB4qaY3sZVEDSlYXOeP323BkYfz8g6QXDwV7RE4PNrayrLc7bn2fqy8H9k7TKuHcSRP0X6Ht1bqWEIqAtSXMLgN8LfnrbLYfVZR4+crg=
-Received: from DB5PR05MB1224.eurprd05.prod.outlook.com (10.161.245.11) by
- DB5PR05MB1847.eurprd05.prod.outlook.com (10.166.173.22) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id
- 15.20.13.10; Wed, 6 Sep 2017 08:30:30 +0000
-Received: from DB5PR05MB1224.eurprd05.prod.outlook.com
- ([fe80::b0d6:9a5e:4b00:b7ed]) by DB5PR05MB1224.eurprd05.prod.outlook.com
- ([fe80::b0d6:9a5e:4b00:b7ed%13]) with mapi id 15.20.0013.018; Wed, 6 Sep 2017
- 08:30:30 +0000
-From: Mykola Kostenok <c_mykolak@mellanox.com>
-To: Joel Stanley <joel@jms.id.au>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Vadim Pasternak
- <vadimp@mellanox.com>, Ohad Oz <ohado@mellanox.com>
-Subject: RE: Mellanox ipmi daemon discussion
-Thread-Topic: Mellanox ipmi daemon discussion
-Thread-Index: AdMgEhQatmPGhqKFRnqY7Yj+iiQazwGvUNGAAAU2GtA=
-Date: Wed, 6 Sep 2017 08:30:30 +0000
-Message-ID: <DB5PR05MB122454E0BB4BB0CB38F0B6E4EF970@DB5PR05MB1224.eurprd05.prod.outlook.com>
-References: <DB5PR05MB1224502182F8C6EAF62E17C9EF9E0@DB5PR05MB1224.eurprd05.prod.outlook.com>
- <CACPK8XcBWbdKQruu5wdAP2xo6xmxQ867fP41SUU+0d38H7O-Wg@mail.gmail.com>
-In-Reply-To: <CACPK8XcBWbdKQruu5wdAP2xo6xmxQ867fP41SUU+0d38H7O-Wg@mail.gmail.com>
-Accept-Language: ru-RU, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=c_mykolak@mellanox.com; 
-x-originating-ip: [80.90.224.13]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; DB5PR05MB1847;
- 6:he0Qj59JJ6UD8kCiGQn/qNenxwCBBwItzdQM3aS0PcaCdNwngdyhy1SPVSsxhkr23asn+Gek0JWhwIBdpeAIRQUx7/UBGZbCleePGllB0QVCGZy1vEFpv6w0rLPaVrQyghsBn4/wedTe64VdP+916iYiogErnF2GufN7gHLgJ4eW54QiE/eQoitDAi86MmGZs6b0bz6wZePwneUcNJGLoDgjlsu1iRxcmAxydxOLwvOWStHQ7n+XWvdFlmMTr7Fhow/C/X0LApjAmazmLSwgWXSsMm2PtQYGmgBJ8cEXX3BIWQN1I9iuQjjoZ/ctcNGNyJAJLFQ7/F+7qo2tlXKWjw==;
- 5:LgfxxJJKNW6CInNI12m9dVy7oiE+6w47hgav/B8ezzXROzZrnxPS8rjS4g3xO/I0Q5FjoMtFvOkNpZudybH4O80ybW9zqYngjvRTOuvaieDgoDPlmOZNvnXJIQRhXR4zytdxhvGhJ2OG54TUHcCEkQ==;
- 24:95FacZpS1cRy9csM9nJIwBlZDP/kT8VaXqGGk1ECIWfcbgYExrojTZUddlwhob1BVi0Tftq842c4HjHGooCaBVvu7pGDyNTovpi1lI4iED8=;
- 7:cixinS1UlRPk38ZSHI5ysDjYsRYltJHC5rVDX5pCe395mQtqnJ9uTlg0SWgRE4NOahKM3A+uraPt5JwTNNgtOtIaM016JEZbnh7FcF2dptdyFu0fEOoLqO2XMXIY1MyrpxfA1olfGIxW+WWz1g0KrOv7Dpf2t4jFmEmrccHXl0fGiA+iq6MukkFsFL27lHvYFUuI5pQWYNXU0bg9zqmNd7WspFXE015gghblfDFuOj0=
-x-ms-exchange-antispam-srfa-diagnostics: SSOS;
-x-ms-office365-filtering-correlation-id: c27efbc8-d4f5-4c6f-504d-08d4f50188d4
-x-ms-office365-filtering-ht: Tenant
-x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
- RULEID:(300000500095)(300135000095)(300000501095)(300135300095)(22001)(300000502095)(300135100095)(2017030254152)(48565401081)(300000503095)(300135400095)(2017052603199)(201703131423075)(201703031133081)(201702281549075)(300000504095)(300135200095)(300000505095)(300135600095)(300000506095)(300135500095);
- SRVR:DB5PR05MB1847; 
-x-ms-traffictypediagnostic: DB5PR05MB1847:
-x-exchange-antispam-report-test: UriScan:(189930954265078)(65623756079841)(45079756050767); 
-x-microsoft-antispam-prvs: <DB5PR05MB1847219822FAC870CA561878EF970@DB5PR05MB1847.eurprd05.prod.outlook.com>
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(100000700101)(100105000095)(100000701101)(100105300095)(100000702101)(100105100095)(6040450)(2401047)(5005006)(8121501046)(100000703101)(100105400095)(3002001)(10201501046)(93006095)(93001095)(6055026)(6041248)(20161123558100)(201703131423075)(201702281528075)(201703061421075)(201703061406153)(20161123560025)(20161123555025)(20161123564025)(20161123562025)(6072148)(201708071742011)(100000704101)(100105200095)(100000705101)(100105500095);
- SRVR:DB5PR05MB1847; BCL:0; PCL:0;
- RULEID:(100000800101)(100110000095)(100000801101)(100110300095)(100000802101)(100110100095)(100000803101)(100110400095)(100000804101)(100110200095)(100000805101)(100110500095);
- SRVR:DB5PR05MB1847; 
-x-forefront-prvs: 0422860ED4
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(6009001)(39860400002)(377454003)(24454002)(199003)(13464003)(189002)(110136004)(68736007)(33656002)(8936002)(478600001)(6246003)(74316002)(3480700004)(9686003)(25786009)(45080400002)(107886003)(4326008)(2906002)(50986999)(76176999)(54356999)(966005)(97736004)(53936002)(66066001)(2900100001)(14454004)(101416001)(575784001)(106356001)(6116002)(3846002)(102836003)(86362001)(105586002)(5250100002)(3280700002)(53546010)(55016002)(3660700001)(6436002)(81156014)(7736002)(8676002)(5660300001)(6916009)(7696004)(81166006)(6306002)(305945005)(2950100002)(6506006)(99286003)(229853002)(54906002)(189998001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DB5PR05MB1847;
- H:DB5PR05MB1224.eurprd05.prod.outlook.com; FPR:; SPF:None; PTR:InfoNoRecords;
- A:1; MX:1; LANG:en; 
-received-spf: None (protection.outlook.com: mellanox.com does not designate
- permitted sender hosts)
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xnJs54nS2zDqZ4
+ for <openbmc@lists.ozlabs.org>; Wed,  6 Sep 2017 19:56:55 +1000 (AEST)
+Received: by mail-qk0-x231.google.com with SMTP id b82so18067960qkc.4
+ for <openbmc@lists.ozlabs.org>; Wed, 06 Sep 2017 02:56:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=pUtChm61+kicS08mDOkq1eWX/1Yf31lnxxAIjiBEOeE=;
+ b=jQa+8ftzuZo2kLMe8f/VptbKyuBlEBVsrqXNqdhJxPFEY05rcqpvcWwiAi8IYRC1/z
+ 5BPDBCVEz8cL4ZOQ9SnSeRtVciA9vMO4wL7PpK8ogC2EPCmqrc2HLvy9hbmQlTnAgVaO
+ DkJMx0no6ai0Snpq6LS+3ZxkOxcBCYNQe5QVi3G9AuXldWlSdxaq1IxziGjNcLovd4O6
+ gOn2VKAv6iYYDCZ1x+GPCXxWrAiKHfyUgLY3C/r3QsvTobhSOeeS0A8SwPu8RPEoERNf
+ +Fslw/rXKtiD2PV2hRuDR2kA04X0o8WXuw8bMFTEScDd2W2JzZicW+WZVCTAv5pGLPJx
+ zTeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=pUtChm61+kicS08mDOkq1eWX/1Yf31lnxxAIjiBEOeE=;
+ b=m2AEXerUlIJlD4ItoVXJRzd0tRIw3BeM66kGkLZc8Mh8fPoCBfIroLK3fN9W9G9n6d
+ 0w/t9dw3vYLRR8zrrAeKj4quMlXEhMDOENcVo11MdJjS33AKDng7LJA5U9bvW5c+4JSD
+ H9YtUwVN4KeYFClw968jso8YkyOUnIWPbWGTA3/jae4wSENyxWdKYo1vx9RfRkfSghUE
+ Be253oLPdG8tIizuCCn7vgJziWfeupI5XCRyUvGny3/4PoEk5NNKdpESZAV5YL11lzaK
+ tgeZLBjV5BIzkjRtMPeFRXU0FdWjdMo4Ns8677JZUFZV84H3lYtAOesl9zHfQkniQxco
+ yrSA==
+X-Gm-Message-State: AHPjjUiMqaIoYfYZOE2r3+keYjozInIOrznbHmSAkJ46QnEuHiJD+nng
+ 9J08XqRMNgRO83aqorqOBczTjWHbowVt
+X-Google-Smtp-Source: ADKCNb7xZP7FfoJ/lBmGrZ1P7uNypA/Ark/S/DwvvySprzmw9XdsiX4aewInrEeARKdF+RmhsWK6oCXDuUJ+o8KVALY=
+X-Received: by 10.233.235.17 with SMTP id b17mr2424806qkg.254.1504691812892;
+ Wed, 06 Sep 2017 02:56:52 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: Mellanox.com
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Sep 2017 08:30:30.3751 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB5PR05MB1847
+Received: by 10.140.33.197 with HTTP; Wed, 6 Sep 2017 02:56:51 -0700 (PDT)
+In-Reply-To: <f44a84de-60de-9917-ec84-12b26215a834@acm.org>
+References: <20170808035301.1980-1-brendanhiggins@google.com>
+ <20170808035301.1980-2-brendanhiggins@google.com>
+ <88dceea3-a554-b3b9-9d9e-7ddacc9136a5@acm.org>
+ <CAFd5g44QFPGV+P_RCMreM4GWarOYJ8+iLREALFwiJ3JtiLvYyQ@mail.gmail.com>
+ <beae3088-ce1b-3d57-0d6e-3728397ee8a5@acm.org>
+ <CAFd5g45sOLV21g+30-1AK0734gct8AP0vG=1SVC1PpbT2xSK4A@mail.gmail.com>
+ <f44a84de-60de-9917-ec84-12b26215a834@acm.org>
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Wed, 6 Sep 2017 02:56:51 -0700
+Message-ID: <CAFd5g45LQz41E4feZt0U9Og5QeG_9yQXmBQQxw0wdrBoa=A0zw@mail.gmail.com>
+Subject: Re: [RFC v1 1/4] ipmi_bmc: framework for BT IPMI on BMCs
+To: Corey Minyard <minyard@acm.org>
+Cc: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>, 
+ openipmi-developer@lists.sourceforge.net, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Patrick Williams <patrick@stwcx.xyz>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -92,75 +71,161 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Sep 2017 08:30:40 -0000
+X-List-Received-Date: Wed, 06 Sep 2017 09:56:58 -0000
 
-SGksIEpvZWwuDQpUaGFua3MgZm9yIHJlcGx5IQ0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0t
-LS0tDQo+IEZyb206IGpvZWwuc3RhbkBnbWFpbC5jb20gW21haWx0bzpqb2VsLnN0YW5AZ21haWwu
-Y29tXSBPbiBCZWhhbGYgT2YgSm9lbA0KPiBTdGFubGV5DQo+IFNlbnQ6IFdlZG5lc2RheSwgU2Vw
-dGVtYmVyIDYsIDIwMTcgODoxNyBBTQ0KPiBUbzogTXlrb2xhIEtvc3Rlbm9rIDxjX215a29sYWtA
-bWVsbGFub3guY29tPg0KPiBDYzogT3BlbkJNQyBNYWlsbGlzdCA8b3BlbmJtY0BsaXN0cy5vemxh
-YnMub3JnPg0KPiBTdWJqZWN0OiBSZTogTWVsbGFub3ggaXBtaSBkYWVtb24gZGlzY3Vzc2lvbg0K
-PiANCj4gSGVsbG8gTXlrb2xhLA0KPiANCj4gT24gVHVlLCBBdWcgMjksIDIwMTcgYXQgMTI6NTcg
-QU0sIE15a29sYSBLb3N0ZW5vaw0KPiA8Y19teWtvbGFrQG1lbGxhbm94LmNvbT4gd3JvdGU6DQo+
-ID4NCj4gPiBXZSdkIGxpa2UgdG8gYWRkIE1lbGxhbm94IGlwbWkgZGFlbW9uIHJlY2lwZSB0byBt
-ZWxsYW5veCBtc24gcGxhdGZvcm0uDQo+IEl0J3MgYmFzZWQgb24gb3BlbmlwbWkgcHJvamVjdC4N
-Cj4gPiBDb2RlIHJldmlldzoNCj4gaHR0cHM6Ly9lbWVhMDEuc2FmZWxpbmtzLnByb3RlY3Rpb24u
-b3V0bG9vay5jb20vP3VybD1odHRwcyUzQSUyRiUyRmdlcg0KPiByaXQub3BlbmJtYy0NCj4gcHJv
-amVjdC54eXolMkYlMjMlMkZjJTJGNTY5NCUyRiZkYXRhPTAyJTdDMDElN0NjX215a29sYWslNDBt
-ZWxsDQo+IGFub3guY29tJTdDZGMxMjg1NWFjNWE3NDY0ODUyYzMwOGQ0ZjRlNjg3NzElN0NhNjUy
-OTcxYzdkMmU0ZDliYTZhDQo+IDRkMTQ5MjU2ZjQ2MWIlN0MwJTdDMCU3QzYzNjQwMjcxODMzNTA1
-NjE4OSZzZGF0YT1RZnMySVRrRzVUSmdQNW0NCj4gU1ZUME5IT3pRcVZrSERGTlJwZ1ZvYzhZb2Ry
-USUzRCZyZXNlcnZlZD0wLg0KPiA+DQo+ID4gV2UgYWRkZWQgc29tZSBob29rcyBpbiBvcGVuaXBt
-aSBjb2RlIGFuZCBhbHNvIG91ciBzcGVjaWZpYyBtb2R1bGUuDQo+ID4gV2UgdXNlIGl0IGZvciBT
-b0wsIFNFTCwgc2VyaWFsIGNvbnNvbGUgcmVkaXJlY3Rpb24sIGNvbnNvbGUgc3dpdGNoaW5nDQo+
-IGJldHdlZW4gdGhlIGhvc3QgYW5kIEJNQywgUEVUL1BFRiwgTEFOIHJlbGF0ZWQgY29tbWFuZHMs
-IHRpbWUgc2V0dGluZywsDQo+IGFuZCBhbHNvIGEgbG90IG9mIE9FTSBjb21tYW5kcyBmb3IgTEVE
-LCBGQU4gY29udHJvbCwgcmVzZXQgc2lnbmFscywgcmVzZXQNCj4gY2F1c2VzLCBCVCBjb25uZWN0
-aW9uIHdpdGggQ1BVLCBldGMuDQo+IA0KPiBUaGUgcmV1c2Ugb2YgZXhpc3RpbmcgY29kZSBpcyBh
-IGdvb2QgYWNoaWV2ZW1lbnQuIFdlbGwgZG9uZS4NCj4gDQo+IEhvdyBkaWQgeW91IGZpbmQgdGhl
-IHVzZSBvZiBPcGVuSVBNSSBmb3IgeW91ciBuZWVkcz8NCj4gDQoNCkl0J3MgZ29vZCB0byB1cy4g
-SXQncyBhbHJlYWR5IGhhZCBtYW55IGZlYXR1cmVzIGZyb20gdGhlIGJveCBhbmQNCkl0IGhhcyBp
-bmZyYXN0cnVjdHVyZSBmb3IgYWRkaW5nIHZlbmRvciBzcGVjaWZpYyBjb2RlLiBJdCBoYXMgInNp
-bXVsYXRvciIgYW5kIE1hcnZlbGwgbW9kdWxlcy4NCkFuZCB3ZSBhZGRlZCBNZWxsYW5veC4NCg0K
-V2hlbiB3ZSBzdGFydGVkIHRvIHVzZSBvcGVuYm1jIGl0cyBpcG1pIGRlbW9uIGhhcyB2ZXJ5IGxp
-bWl0ZWQgZmVhdHVyZXMgc3VwcG9ydC4NCldlIGhhZCBjb21taXRtZW50IHRvIHByb3ZpZGUgZW5n
-aW5lZXJpbmcgc2FtcGxlIHRvIG91ciBwb3RlbnRpYWwgY3VzdG9tZXIgdHdvIG1vbnRocyBhZnRl
-ciBIVyBhcnJpdmluZy4gQW5kIHdlIHdlcmUgdmVyeSBsaW1pdGVkIGluIHJlc291cmNlcy4NClNv
-IHdlIHdhbnRlZCB0byBmaW5kIHNvbWUgcXVpY2stYW5kLWRpcnR5IHNvbHV0aW9uIGluIG9yZGVy
-IHRvIGJlIGFibGUgdG8gc3VwcG9ydCBTb0wsIHNlcmlhbCByZWRpcmVjdGlvbiwgU0VMLCBTRFIs
-IExBTiwgUEVUL1BFRiBhbmQgbW9yZS4NCldlIGJ1aWx0IHNvbWUgd2lyZS11cCBtb2RlbCBjb25u
-ZWN0aW5nIG9uZSBvZiBvdXIgZXhpc3Rpbmcgc3lzdGVtIHRvIEFzcGVlZCBFVkIgKHdpdGggc2Vy
-aWFsLCBJMkMgY29ubmVjdGlvbnMgdG8gRkFOLCBQU1UsIExQQyBjb25uZWN0aW9ucyBmcm9tIGhv
-c3QgdG8gQk1DKS4NCk9uIHRoaXMgbW9kZWwgd2Ugd2VyZSBhYmxlIHRvIGRlYnVnIHJlYWwgc3lz
-dGVtIGludGVyZmFjZSAoTFBDL0JUKSwgcGFydGlhbGx5IFNEUiwgU0VMLCBTT0wuDQoNCldoZW4g
-c3lzdGVtIGlzIGFycml2ZWQgd2Ugd2VyZSBhYmxlIHRvIGNvbWUgdXAgZnJvbSB0aGUgZmlyc3Qg
-cnVuLg0KQW5kIGFsbCB0aGUgYWJvdmUgZmVhdHVyZXMgd29ya2VkIG1vcmUgb3IgbGVzcyBmaW5l
-Lg0KVGhlbiB3ZSBoYWQgdG8gZGVidWcgc2hhcmVkIE5JQy9OQy1TSSwgdGhlcm1hbCBhbGdvcml0
-aG0sIExFRCBjb250cm9sLCByZXNldHMgYW5kIG90aGVyIHN0dWZmLg0KQnV0IGJhc2ljYWxseSB3
-ZSBtYW5hZ2VkIHRvIHByb3ZpZGUgZW5naW5lZXJpbmcgc2FtcGxlIGFjY29yZGluZyB0byBvdXIg
-Y29tbWl0bWVudC4NCg0KPiA+IEl0IGRvZXNuJ3QgdXNlIERCVVMgaW50ZXJmYWNlLg0KPiANCj4g
-VGhpcyBpcyBhIGRvd25zaWRlLiBUaGUgdXNlIG9mIGRidXMgYXMgYW4gaW50ZXItcHJvY2VzcyBj
-b21tdW5pY2F0aW9uDQo+IG1lY2hhbmlzbSBpcyBzb21ldGhpbmcgdGhhdCBkZWZpbmVzIE9wZW5C
-TUMgYXQgdGhlIG1vbWVudC4NCj4gDQo+IENvdWxkIHlvdSBhZGQgZGJ1cyBJUEMgdG8gdGhlIGV4
-aXN0aW5nIGNvZGViYXNlPw0KPiANCg0KSSdsbCBhZGQgZGJ1cyBJUEMgdG8gdGhlIGV4aXN0aW5n
-IGNvZGViYXNlLCBtYXliZSBJIHdpbGwgbmVlZCBzb21lIGd1aWRlbGluZXMgb24gdGhpcyBtYXR0
-ZXIuDQoNCj4gPg0KPiA+IFdlIGFyZSBwbGFubmluZyB0cmFuc2l0aW9uIHRvIE9wZW5CTUMgaXBt
-aSBkZW1vbiwgYWZ0ZXIgd2UgYXJlIGRvbmUNCj4gd2l0aCBhbGwga2VybmVsIHJlbGF0ZWQgcGF0
-Y2hlcy4gT3VyIHBsYW4gaXMgdG8gc3RhcnQgdHJhbnNpdGlvbiBpbiB0aGUgZm9sbG93aW5nDQo+
-IG9yZGVyIFNvTCwgU0RSLCBTRUwsIExBTiwgTEVEIGFuZCBzbyBvbi4NCj4gDQo+IFdoYXQgbGVh
-ZCB0byB0aGlzIGRlY2lzaW9uPyBXaGF0IGFyZSB0aGUgdXAgYW5kIGRvd24gc2lkZXMgb2YgdGhl
-IHBob3NwaG9yDQo+IGlwbWkgZGFlbW9uIGNvbXBhcmVkIHRvIE9wZW5JUE1JPw0KPiANCg0KQXQg
-dGhlIG1vbWVudCBpdCdzIG5vdCBzbyBlYXN5IGZvciBtZSB0byBjb21wYXJlIHRoZSBvcGVuaXBt
-aSBmZWF0dXJlIHZlcnN1cyBvcGVuYm1jLg0KSSBzaG91bGQgbGVhcm4gbW9yZSB0aGUgY3VycmVu
-dCBjb250ZW50IG9mIHRoZSBsYXN0Lg0KDQpBY3R1YWxseSB3ZSBhcmUgT0sgd2l0aCBvcGVuaXBt
-aSwgYnV0IHdlIHdhbnRlZCB0byBiZSBhbGlnbmVkIHdpdGggb3BlbmJtYywgc2luY2UgYWxsIHRo
-ZSBvdGhlcnMgc3lzdGVtcyBhcmUgdXNpbmcgaXQuDQpNYXliZSBhZnRlciB3ZSdsbCBhZGQgZGJ1
-cyBJUEMsIGl0IGNvdWxkIGJlIHNvbWUgY29tcHJvbWlzZSBiZXR3ZWVuIHRoZXNlIHR3byBwcm9j
-ZXNzZXMuDQpNYXliZSBzb21lYm9keSBlbHNlIHdvdWxkIGxpa2UgdG8gZXh0ZW5kZWQgb3VyIHdv
-cmsgaW4gb3BlbmlwbWkgZm9yIHVzaW5nIGl0Lg0KDQpCZXN0IHJlZ2FyZHMsIE15a29sYSBLb3N0
-ZW5vay4NCg0KPiA+IEF0IGhpcyBtb21lbnQgd2UnZCBsaWtlIHRvIGhhdmUgZnVuY3Rpb25hbCBp
-bWFnZSwgd2hpY2ggY2FuIGJlIGJ1aWx0IGZyb20NCj4gT3BlbkJNQyB3aXRoIG5vIGFueSBwYXRj
-aGVzLg0KPiA+IFdlIGFsc28gaGF2ZSBvbmUgY3VzdG9tZXIgYW5kIGl0J3MgaW1wb3J0YW50IGZv
-ciB1cyB0byBoYXZlIGEgZnVuY3Rpb25hbA0KPiBpbWFnZSwgd2hpY2ggaGUgY2FuIGJ1aWxkIGJ5
-IGhpbXNlbGYuDQo+IA0KPiBBZ3JlZWQuIEkndmUgKzEnZCB5b3VyIHBhdGNoLCBhbmQgd291bGQg
-bGlrZSB0byBzZWUgaXQgbWVyZ2VkLg0KPiANCj4gQ2hlZXJzLA0KPiANCj4gSm9lbA0K
+On Thu, Aug 24, 2017 at 6:01 AM, Corey Minyard <minyard@acm.org> wrote:
+> On 08/23/2017 01:03 AM, Brendan Higgins wrote:
+>
+> <snip>
+>>
+>> ...
+>>>>
+>>>> As far as this being a complete design; I do not consider what I have
+>>>> presented as being complete. I mentioned some things above that I would
+>>>> like
+>>>> to add and some people have already chimed in asking for some changes.
+>>>> I just wanted to get some feedback before I went *too* far.
+>>>
+>>>
+>>> I'm not sure this is well know, but the OpenIPMI library has a fully
+>>> functional BMC
+>>> that I wrote, originally for testing the library, but it has been
+>>> deployed
+>>> in a system
+>>> and people use it with QEMU.  So I have some experience here.
+>>
+>> Is this the openipmi/lanserv?
+>
+>
+> Yes.  That name is terrible, but it started out as a server that provided a
+> LAN
+> interface to an existing BMC over the local interface, primarily for my
+> testing.
+>
+>
+>>
+>>> The biggest frustration* writing that BMC was that IPMI does not lend
+>>> itself
+>>> to a
+>>> nice modular design.  Some parts are fairly modular (sensors, SDR, FRU
+>>> data)
+>>> but some are not so clean (channel management, firmware firewall, user
+>>> management).  I would try to design things in nice independent pieces,
+>>> and
+>>> end up having to put ugly hooks in places.
+>>
+>> Yeah, I had started to notice this when I started working on our userland
+>> IPMI
+>> stack.
+>>
+>>> Firmware firewall, for instance, makes sense to implement in a single
+>>> place
+>>> that
+>>> handles all incoming messages.  However, it also deals with subcommands
+>>> (like making firewalls for each individual LAN parameter), so you either
+>>> have
+>>> to put knowledge of the individual command structure in the main
+>>> firewall,
+>>> or you have to embed pieces of the firewall in each command that has
+>>> subcommands.  But if you put it in the commands, then the commands
+>>> have to have knowledge of the communication channels.
+>>>
+>>> I ended up running into this all over the place.  In the end I just
+>>> hacked
+>>> in
+>>> what I needed because what I designed was monolithic.  It seemed that
+>>> designing it in a way that was modular was so complex that it wasn't
+>>> worth
+>>> the effort.  I've seen a few BMC designs, none were modular.
+>>>
+>>> In the design you are working on here, firmware firewall will be a bit of
+>>> a
+>>> challenge.
+>>>
+>>> Also, if you implement a LAN interface, you have to deal with a shared
+>>> channel and privilege levels.  You will either have to have a context per
+>>> LAN connection, with user and privilege attached to the context, or you
+>>> will need a way to have user and privilege information in each message
+>>> so that the message router can handle rejecting messages it doesn't
+>>> have privilege to do, and the responses coming back will go to the
+>>> right connection.
+>>>
+>>> There is also a strange situation where commands can come from a LAN
+>>> (or other) interface, be routed to a system interface where the host
+>>> picks up the command, handles it, send the response back to the
+>>> BMC which routes it back to the LAN interface.  People actually use this.
+>>
+>> That sounds like fun :-P
+>>
+>>> Another problem I see with this design is that most services don't care
+>>> about the interface the message comes from.  They won't want to have
+>>> to discover and make individual connections to each connection, they
+>>> will just want to say "Hook me up to everything, I don't care."
+>>>
+>>> Some services will care, though.  Event queues and interface flag
+>>> handling
+>>> will only want that on individual interfaces.  For these types of
+>>> services,
+>>> it would be easier if they could discover and identify the interfaces.
+>>> If
+>>> interfaces are added dynamically (or each LAN connection appears as
+>>> a context) it needs a way to know when interfaces come and go.
+>>>
+>>> If you end up implementing all this, you will have a fairly complex
+>>> piece of software in your message routing.  If you look at the message
+>>> handler in the host driver, it's fairly complex, but it makes the user's
+>>> job simple, and it makes the interfaces job simple(r).  IMHO that's a
+>>> fair trade-off.  If you have to have complexity, keep it in one place.
+>>
+>> I think that is a reasonable point. My initial goal was not to move the
+>> routing that we do in user land to kernel space and only provide basic
+>> facilities that are enough for my use case, but it sounds like there might
+>> be some wisdom in handling message routing and message filtering to
+>> kernel space. This might also make the framework more platform agnostic,
+>> and less tightly coupled to OpenBMC.
+>>
+>> Nevertheless, that substantially broadens the scope of what I am trying
+>> to do.
+>>
+>> I think a good place to start is still to create a common interface for
+>> hardware interfaces (BT, KCS, SSIF, and their varying implementations)
+>> to implement, as I have done, and while we are working on the rest of the
+>> stack on top of it, we have the device file interface that can be used in
+>> the
+>> meantime.
+>>
+>> Let me know what you think.
+>
+>
+> If you just need the ability to catch a few commands in the kernel, what you
+> have is fairly complicated.  I think a simple notifier called from every
+> driver
+> would provide what you needed with just a few lines of code.
+
+What do you mean by a simple notifier called from every driver? I think what
+I have here is pretty simple. I think regardless of how we do routing, having
+a common framework for low level IPMI hardware interfaces to implement
+is pretty useful, even if it is only used to make a common dev file interface.
+
+>
+> As far as moving all the message routing to the kernel, my (fairly
+> uneducated)
+> opinion would be that it's a bad idea.  It's a lot of complexity to put in
+> there.
+> I can see some advantages to putting it there: it's simpler to interact with
+> than
+> a userspace daemon and it gives consistent access to kernel and userspace
+> users.  But I don't know your whole design.
+
+How about we focus on getting a common framework for the hardware
+interfaces to implement? This way at least all of the hardware interfaces
+are exposed the same way (similar to what you did on the host side). We
+then at least have something to build on.
+
+>
+> -corey
+>
+>> Thanks!
+>
+>
+>
