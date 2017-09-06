@@ -1,80 +1,33 @@
-Return-Path: <tcminyard@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4003:c06::241; helo=mail-oi0-x241.google.com;
- envelope-from=tcminyard@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="nlM5PyAv"; 
- dkim-atps=neutral
-Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
- [IPv6:2607:f8b0:4003:c06::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <vernon.mauery@linux.intel.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.24; helo=mga09.intel.com;
+ envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xnYcQ4ppvzDrTh
- for <openbmc@lists.ozlabs.org>; Thu,  7 Sep 2017 05:31:50 +1000 (AEST)
-Received: by mail-oi0-x241.google.com with SMTP id g15so5332193oib.3
- for <openbmc@lists.ozlabs.org>; Wed, 06 Sep 2017 12:31:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:reply-to:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=XlL2O8BOZkZ82Ob6RLiNm7zn7PRhnOXofJumeqOt8Ys=;
- b=nlM5PyAvIAUcS1OOVr3wdFB6AJ5k+bViGyHKiPfUqnMelE6PYPpLrkFtEaMQWYkDVF
- 9A3SRg2qbkShI6C2ZFYXCmXL7yUttnezjjX6yiWTxnRui95nmVoM6SELI0Gl59qTRTgf
- s7uaq4vYaOXesE+IWjlrNOMGrZtGyXx+YlHJdFDQxwqBVDAUoXC9WP3Z1TGB68+YoMXP
- Nh1k62OW4eQEVyzZ5jWWYO3KiPm+0sM9B0cEHldg+WsD7iFLow1L5SsNwuJjA6UsUTI9
- oVzIyd8hAsr3BMQJYvD41hRobvttrvQRDZmEm94mdpYTKOBw4xEi6qDdCCSkLpjQu55Q
- twQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=XlL2O8BOZkZ82Ob6RLiNm7zn7PRhnOXofJumeqOt8Ys=;
- b=llMRW35HV5x2E9WF+3n+3Wz61WkYYgADEwjCUURsLoQ90eXEwJS7wP79RKaBDzrj8g
- PxTmOZg2q/lAEobgs2xrgVuTqlFJta6kohe3Adt6X3LeFWksFniIkjLn0qq9/uxWXZ1L
- q03/rQyuliQ9r0oANIYPZaTd7A3itkV608LTxlmoxNlRFGv2gLQd0a54Kz/KThSombh6
- bSAmQRvo70Mi0GgW7eUnNr4m9D9PoAbecCLUPlBlj2XouoYDF/J8WBt46g5/3uHcwrEq
- jeaX7MgEk/YMlffRT7nKzWNiI/bDqMzmRvT/AFxIGRFyRB+24TvIisle4ezz6Dcu0EhK
- j5cQ==
-X-Gm-Message-State: AHPjjUhYDtFlYt8XvqlcWRQLSfS8fbbKSwa60hk++f3TxUD8MzCYB2b3
- KwycPIsE63CNAg==
-X-Google-Smtp-Source: ADKCNb70t11zNQYnSvWtyhyibTUPDSUU73/8E1+Mn0BZ1Ye3uCQaUiqwlPVwhwxIXzL5dpy9S0tM0Q==
-X-Received: by 10.202.166.18 with SMTP id p18mr281232oie.89.1504726308427;
- Wed, 06 Sep 2017 12:31:48 -0700 (PDT)
-Received: from serve.minyard.net ([47.184.154.34])
- by smtp.gmail.com with ESMTPSA id v75sm683531oia.1.2017.09.06.12.31.46
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 06 Sep 2017 12:31:47 -0700 (PDT)
-Sender: Corey Minyard <tcminyard@gmail.com>
-Received: from [192.168.27.3] (t430m.minyard.net [192.168.27.3])
- by serve.minyard.net (Postfix) with ESMTPSA id E5F33216;
- Wed,  6 Sep 2017 14:31:45 -0500 (CDT)
-Reply-To: minyard@acm.org
-Subject: Re: [RFC v1 1/4] ipmi_bmc: framework for BT IPMI on BMCs
-To: Brendan Higgins <brendanhiggins@google.com>
-Cc: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- openipmi-developer@lists.sourceforge.net,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Patrick Williams <patrick@stwcx.xyz>
-References: <20170808035301.1980-1-brendanhiggins@google.com>
- <20170808035301.1980-2-brendanhiggins@google.com>
- <88dceea3-a554-b3b9-9d9e-7ddacc9136a5@acm.org>
- <CAFd5g44QFPGV+P_RCMreM4GWarOYJ8+iLREALFwiJ3JtiLvYyQ@mail.gmail.com>
- <beae3088-ce1b-3d57-0d6e-3728397ee8a5@acm.org>
- <CAFd5g45sOLV21g+30-1AK0734gct8AP0vG=1SVC1PpbT2xSK4A@mail.gmail.com>
- <f44a84de-60de-9917-ec84-12b26215a834@acm.org>
- <CAFd5g45LQz41E4feZt0U9Og5QeG_9yQXmBQQxw0wdrBoa=A0zw@mail.gmail.com>
-From: Corey Minyard <minyard@acm.org>
-Message-ID: <8c0f8772-816e-ca2e-ed91-736c3c9901ec@acm.org>
-Date: Wed, 6 Sep 2017 14:31:45 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.2.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xnZ1y0dsGzDrK1
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Sep 2017 05:50:28 +1000 (AEST)
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 06 Sep 2017 12:50:26 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.42,355,1500966000"; d="scan'208";a="126210656"
+Received: from mauery.jf.intel.com (HELO mauery) ([10.7.150.85])
+ by orsmga004.jf.intel.com with ESMTP; 06 Sep 2017 12:50:26 -0700
+Date: Wed, 6 Sep 2017 12:50:26 -0700
+From: Vernon Mauery <vernon.mauery@linux.intel.com>
+To: Andrew Geissler <geissonator@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: RFC Systemd Service Restart Policy
+Message-ID: <20170906195026.GD69617@mauery>
+References: <CALLMt=q55PXP7_D49z2NHh9eZDzm1Z6MRzbSe=j1uaoUjsuFiA@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <CAFd5g45LQz41E4feZt0U9Og5QeG_9yQXmBQQxw0wdrBoa=A0zw@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CALLMt=q55PXP7_D49z2NHh9eZDzm1Z6MRzbSe=j1uaoUjsuFiA@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -86,62 +39,84 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Sep 2017 19:31:51 -0000
+X-List-Received-Date: Wed, 06 Sep 2017 19:50:30 -0000
 
-On 09/06/2017 04:56 AM, Brendan Higgins wrote:
-> On Thu, Aug 24, 2017 at 6:01 AM, Corey Minyard <minyard@acm.org> wrote:
->>
->> If you just need the ability to catch a few commands in the kernel, what you
->> have is fairly complicated.  I think a simple notifier called from every
->> driver
->> would provide what you needed with just a few lines of code.
-> What do you mean by a simple notifier called from every driver? I think what
-> I have here is pretty simple. I think regardless of how we do routing, having
-> a common framework for low level IPMI hardware interfaces to implement
-> is pretty useful, even if it is only used to make a common dev file interface.
->
+On 06-Sep-2017 02:03 PM, Andrew Geissler wrote:
+> I=E2=80=99ve got an old but good one this sprint,
+> https://github.com/openbmc/openbmc/issues/272
+>=20
+> The point of this issue is to define our restart and recovery policy
+> for openbmc services.
+>=20
+> Currently we=E2=80=99re using the systemd defaults, which are the followi=
+ng:
+> RestartSec=3D100ms
+> StartLimitIntervalSec=3D10s
+> StartLimitBurst=3D5
+> StartLimitAction=3Dnone
+>=20
+> So basically if a service fails, we will restart it up to 5 times,
+> every 10s, with a 100ms delay between each restart.
+> There is no action taken when we reach the 5 restarts, other then to
+> do nothing until the 10s window has expired.
+>=20
+> I=E2=80=99d like to propose a few changes for openbmc:
+>=20
+> 1.  Change the StartLimitBurst to 3
+> Five just seems excessive for our services in openbmc.  In all fail
+> scenarios I=E2=80=99ve seen so far (other then with phosphor-hwmon), eith=
+er
+> restarting once does the job or restarting all 5 times does not help
+> and we just end up hitting the 5 limit anyway.
+>=20
+> 2. Change the RestartSec from 100ms to 1s.
+> When a service hits a failure, our new debug collection service kicks
+> in.  When a core file is involved we=E2=80=99ve found that generating 5 c=
+ore
+> files within ~500ms puts a huge strain on the BMC.  Also, if we are
+> going to get a fix on a restart of a service, the more time the better
+> (think retries on device driver scenarios).
 
-I'm talking about maybe 10 lines of code to do this.  The device 
-interface would
-call  xxx_notifier_call_chain() for each message, and depending on the
-return value it would send the message up or drop it.  Every piece of 
-code that
-cared about IPMI host messages would call 
-xxx_notifier_chain_register/unregister.
-That would be it.
+I think these two are pretty reasonable. We have had similar behavior=20
+implemented on prior generations of BMC. I like your reasoning for both=20
+changes.
 
->> As far as moving all the message routing to the kernel, my (fairly
->> uneducated)
->> opinion would be that it's a bad idea.  It's a lot of complexity to put in
->> there.
->> I can see some advantages to putting it there: it's simpler to interact with
->> than
->> a userspace daemon and it gives consistent access to kernel and userspace
->> users.  But I don't know your whole design.
-> How about we focus on getting a common framework for the hardware
-> interfaces to implement? This way at least all of the hardware interfaces
-> are exposed the same way (similar to what you did on the host side). We
-> then at least have something to build on.
+> 3. Define a StartLimitAction for critical services to =E2=80=9Creboot=E2=
+=80=9D the BMC
+> With 1 and 2 above, we could have services starting indefinitely with
+> no real recovery on the BMC.  Certain services are critical though,
+> and I believe should result in a BMC reset to try and recover.  Those
+> service are the following:
+>    o dbus.service
+>    o xyz.openbmc_project.ObjectMapper.service
+>=20
+> Some services that are on the bubble for me (external interfaces):
+>    o phosphor-ipmi-host.service
+>    o phosphor-ipmi-net.service
+>    o dropbear@.service
+>    o phosphor-gevent.service
+>=20
+> I have some maintainability concerns with trying to pick specific
+> services to cause a BMC reboot.  Maybe it would be better to define a
+> default  that all services cause a BMC reboot, then pick specific
+> one=E2=80=99s that would not result in a reboot?  Or maybe it=E2=80=99s b=
+est to never
+> reboot, and just let the system owners manage it?  Thoughts
+> appreciated.
 
-The device interface you have in patch 2 provides that, and I think 
-that's a good
-thing.  Most other drivers like this have something similar.
+I would prefer that we have a set core (such as dbus and the mapper)=20
+that are terminal faults (maybe even without retries) and then assume=20
+that everything else can be restarted nicely. If something cannot be=20
+restarted nicely, there should be a really good reason for that and that=20
+service's unit file can specify something other than the defaults to=20
+change its behavior.
 
-What you have for the message routing seems like massive overkill for 
-catching
-a few messages in the kernel.  It's really more at the level that you 
-have lots of
-users in and out of kernel and you need to handle routing of all these 
-messages.
+This is a Linux system; in the ideal world, it should only need to be=20
+restarted for firmware updates. All other faults should be recoverable.=20
+Ideal world aside, individual services that can only be recovered with a=20
+reboot can handle that case without adjusting the global default.
 
-The IPMI client side message handler is there for two reasons:  You have 
-to be able
-to route messages down and back up to all the users, and those users may be
-sending the same commands.  And you need some way to allow multiple users
-to send on the IPMB and return the responses to those users.  And then 
-there's
-that LAN routing thing.  It's a lot more complexity than I like, and it 
-occasionally
-causes me problems.  I would have preferred to have something simpler.
+--Vernon
 
--corey
+> References:
+> https://www.freedesktop.org/software/systemd/man/systemd.unit.html#
