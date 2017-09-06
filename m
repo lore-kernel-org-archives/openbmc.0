@@ -1,68 +1,66 @@
-Return-Path: <arndbergmann@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4003:c06::242; helo=mail-oi0-x242.google.com;
- envelope-from=arndbergmann@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Yqc5SenU"; 
- dkim-atps=neutral
-Received: from mail-oi0-x242.google.com (mail-oi0-x242.google.com
- [IPv6:2607:f8b0:4003:c06::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <cbostic@linux.vnet.ibm.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=cbostic@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xnbPT0x9MzDqZf
- for <openbmc@lists.ozlabs.org>; Thu,  7 Sep 2017 06:52:28 +1000 (AEST)
-Received: by mail-oi0-x242.google.com with SMTP id d10so3796079oih.5
- for <openbmc@lists.ozlabs.org>; Wed, 06 Sep 2017 13:52:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=D/QUZ+aqKHxUztFWJ//HuKp/WM/Feb70kopqnRjeGeA=;
- b=Yqc5SenUrZbq5CXvSze6uCelJAfh4XNoRcoDo3evQbqbWmBBFXAes1begBp8xFF7AY
- 0Ji9N3aoMEo5FCmrDsAQGOOmQrdrjKXxNV+QPgrYmJf5JEXuREFOnZWp5vBbXSwRel7a
- UjDo7e+LZfn9h2iu5KFE4f+B7U8rMmB2M0uSMucIlYNun+rKIv1SLB0Lk1tDdSyWZfJT
- RtyJD2qNSDLUHxHRnjWu6IfwqSZZ/DAgDoydZOFhi0Zx44ELAATYehIyyckiPua3amAw
- h6JNi/7E6oEhfLJm2nhut6wjx+1DZ4smxPoXutyck+3ab/pVnQGdIgTt4xZtUz75cBK4
- PH3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=D/QUZ+aqKHxUztFWJ//HuKp/WM/Feb70kopqnRjeGeA=;
- b=hOraPCiGgiYkSeCRZOZoJ+BdEPfZN7qMAdGjsetlswy7TbZ/78k+4UNjWgw89M7aTN
- oTsJssm39Bb6BNqIuXU3oBM9pdScoJqNJ27Wq6GgYM37PGz3ueP2FhVqGyz+cfc+aLtQ
- sqmixxLp3ajgbnQMf0GrPGN7HhUPhpFFDjmTO2qO4T1jNSf3/sVoTFUn/HeXYf16BTuV
- iaZWI5vHKWSrxWmgs/B17PsbD04AIFzAUxqHm1e+3a5lH3Oj4/yUZ0DRCU0J9BxeYnh6
- FdKmAEIrXBGeB+WRF4gLvabEmtF84hgm07oN+WdajHinZGDbd30e2DTyYw1bvJ2R8xGT
- 1mlg==
-X-Gm-Message-State: AHPjjUj13wYaO15DD5ZWQEYj77a9Du9L0DU7qC5W70TAsxHLS+syTr1O
- 6swLfbv5NiUur56Twu4dmbJcVbWWgNV3
-X-Google-Smtp-Source: ADKCNb5GTz+pdRx55021OYWz4jkvsomPp5RtZWa0gpS1NnNaeCF5r/A1Mv6g4euqA0r/IpnWJf3IejFZiT/4Knawylo=
-X-Received: by 10.202.193.65 with SMTP id r62mr519039oif.313.1504731147008;
- Wed, 06 Sep 2017 13:52:27 -0700 (PDT)
-MIME-Version: 1.0
-Sender: arndbergmann@gmail.com
-Received: by 10.157.91.35 with HTTP; Wed, 6 Sep 2017 13:52:26 -0700 (PDT)
-In-Reply-To: <1504281966-6199-3-git-send-email-oleksandrs@mellanox.com>
-References: <1504281966-6199-1-git-send-email-oleksandrs@mellanox.com>
- <1504281966-6199-3-git-send-email-oleksandrs@mellanox.com>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Wed, 6 Sep 2017 22:52:26 +0200
-X-Google-Sender-Auth: 5paTLAYr-MhdgCIcI1DQIdEMlRQ
-Message-ID: <CAK8P3a1Ym1UxbFyeUBrSBeHnoQh9NtBn5r6iVEjU_1ki_p3W5A@mail.gmail.com>
-Subject: Re: [patch v7 2/4] drivers: jtag: Add Aspeed SoC 24xx and 25xx
- families JTAG master driver
-To: Oleksandr Shamray <oleksandrs@mellanox.com>
-Cc: gregkh <gregkh@linuxfoundation.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- Linux ARM <linux-arm-kernel@lists.infradead.org>, devicetree@vger.kernel.org, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>, 
- =?UTF-8?B?SmnFmcOtIFDDrXJrbw==?= <jiri@resnulli.us>, 
- Tobias Klauser <tklauser@distanz.ch>, linux-serial@vger.kernel.org,
- mec@shout.net, vadimp@maellanox.com, system-sw-low-level@mellanox.com, 
- Rob Herring <robh+dt@kernel.org>, openocd-devel-owner@lists.sourceforge.net, 
- Linux API <linux-api@vger.kernel.org>, David Miller <davem@davemloft.net>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Jiri Pirko <jiri@mellanox.com>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xnbb575n2zDqZv
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Sep 2017 07:00:49 +1000 (AEST)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v86KxOkC009042
+ for <openbmc@lists.ozlabs.org>; Wed, 6 Sep 2017 17:00:47 -0400
+Received: from e15.ny.us.ibm.com (e15.ny.us.ibm.com [129.33.205.205])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2ctj63nxu0-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 06 Sep 2017 17:00:47 -0400
+Received: from localhost
+ by e15.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Wed, 6 Sep 2017 17:00:46 -0400
+Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
+ by e15.ny.us.ibm.com (146.89.104.202) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 6 Sep 2017 17:00:43 -0400
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v86L0hxM30736570; Wed, 6 Sep 2017 21:00:43 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 036C111204B;
+ Wed,  6 Sep 2017 17:00:27 -0400 (EDT)
+Received: from christophersmbp.austin.ibm.com (unknown [9.41.175.36])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id B0007112034;
+ Wed,  6 Sep 2017 17:00:26 -0400 (EDT)
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+To: joel@jms.id.au
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.10 v7 0/2] Add user space accessibility for
+ ucd9000 stats
+Date: Wed,  6 Sep 2017 16:00:39 -0500
+X-Mailer: git-send-email 2.10.1 (Apple Git-78)
+X-TM-AS-GCONF: 00
+x-cbid: 17090621-0036-0000-0000-000002652AD9
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007679; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000226; SDB=6.00913237; UDB=6.00458332; IPR=6.00693500; 
+ BA=6.00005574; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017039; XFM=3.00000015;
+ UTC=2017-09-06 21:00:45
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17090621-0037-0000-0000-000041ADC4B6
+Message-Id: <20170906210041.22533-1-cbostic@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-09-06_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
+ definitions=main-1709060299
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -74,28 +72,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Sep 2017 20:52:29 -0000
+X-List-Received-Date: Wed, 06 Sep 2017 21:00:50 -0000
 
-On Fri, Sep 1, 2017 at 6:06 PM, Oleksandr Shamray
-<oleksandrs@mellanox.com> wrote:
-> Driver adds support of Aspeed 2500/2400 series SOC JTAG master controller.
->
-> Driver implements the following jtag ops:
-> - freq_get;
-> - freq_set;
-> - status_get;
-> - idle;
-> - xfer;
->
-> It has been tested on Mellanox system with BMC equipped with
-> Aspeed 2520 SoC for programming CPLD devices.
->
-> Signed-off-by: Oleksandr Shamray <oleksandrs@mellanox.com>
-> Signed-off-by: Jiri Pirko <jiri@mellanox.com>
+This set provides means to allow user space to access various properties of the
+ucd9000 type chips.
 
-No further comments about this driver, if there is agreement about the subsystem
-in general, it looks good to go in.
+patch 0001 Adds gpio_chip interface for user to access various GPIO pin states
+via the /sys/class/gpio interface.
 
-Acked-by: Arnd Bergmann <arnd@arndb.de
+Patch 0002 adds a debugfs for mfr_status information so user space can gain
+visibility of gpi type faults. Note that there are limitations on type of devices
+that debugfs supports.  Presently only ucd90160 is supported.  Any assumptions made
+as to formatting of data is commented inline in the code.  Any expansion to other
+ucd9000 types will need to take this into consideration.
 
-       Arnd
+Note also that no pinmux support is provided at this point.  The ucd9000 devs do
+have mux capability so this should be added.
+
+v6 patch 0001 which covers the addition of a 'clear logged faults' sysfs file is
+now gone.   There are a few open questions in terms of requirements.
+Specifically, why clear when no one reads the faults out?  This was pointed out
+by Guenter Roeck.  Consequently v6 patch 0002 is now v7 patch 0001,  v6 patch
+0003 is v7 patch 0002.
+
+Christopher Bostic (2):
+  hwmon: (ucd9000) Add gpio chip interface
+  hwmon: (ucd9000) Add debugfs to list mfr_status info
+
+ drivers/hwmon/pmbus/ucd9000.c | 372 +++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 371 insertions(+), 1 deletion(-)
+
+-- 
+1.8.2.2
