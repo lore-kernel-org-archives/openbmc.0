@@ -1,33 +1,73 @@
-Return-Path: <vernon.mauery@linux.intel.com>
+Return-Path: <cbostic@linux.vnet.ibm.com>
 Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.24; helo=mga09.intel.com;
- envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=cbostic@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xnZ1y0dsGzDrK1
- for <openbmc@lists.ozlabs.org>; Thu,  7 Sep 2017 05:50:28 +1000 (AEST)
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 06 Sep 2017 12:50:26 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.42,355,1500966000"; d="scan'208";a="126210656"
-Received: from mauery.jf.intel.com (HELO mauery) ([10.7.150.85])
- by orsmga004.jf.intel.com with ESMTP; 06 Sep 2017 12:50:26 -0700
-Date: Wed, 6 Sep 2017 12:50:26 -0700
-From: Vernon Mauery <vernon.mauery@linux.intel.com>
-To: Andrew Geissler <geissonator@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: RFC Systemd Service Restart Policy
-Message-ID: <20170906195026.GD69617@mauery>
-References: <CALLMt=q55PXP7_D49z2NHh9eZDzm1Z6MRzbSe=j1uaoUjsuFiA@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xnZnG6sh3zDrSV
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Sep 2017 06:24:33 +1000 (AEST)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v86KNpnX014835
+ for <openbmc@lists.ozlabs.org>; Wed, 6 Sep 2017 16:24:31 -0400
+Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2ctq574v1p-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 06 Sep 2017 16:24:31 -0400
+Received: from localhost
+ by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Wed, 6 Sep 2017 16:24:30 -0400
+Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
+ by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 6 Sep 2017 16:24:28 -0400
+Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
+ [9.57.199.108])
+ by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v86KORMD23724126; Wed, 6 Sep 2017 20:24:27 GMT
+Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 5626EB2056;
+ Wed,  6 Sep 2017 16:21:50 -0400 (EDT)
+Received: from christophersmbp.austin.ibm.com (unknown [9.41.175.36])
+ by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP id F38F4B204E;
+ Wed,  6 Sep 2017 16:21:49 -0400 (EDT)
+Subject: Re: [PATCH linux dev-4.10 v6 0/3] Add user space accessibility for
+ ucd9000 stats
+To: Andrew Jeffery <andrew@aj.id.au>, joel@jms.id.au
+References: <20170830214953.73327-1-cbostic@linux.vnet.ibm.com>
+ <1504227536.5933.34.camel@aj.id.au>
+Cc: openbmc@lists.ozlabs.org
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Date: Wed, 6 Sep 2017 15:24:26 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
+ Gecko/20100101 Thunderbird/45.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <CALLMt=q55PXP7_D49z2NHh9eZDzm1Z6MRzbSe=j1uaoUjsuFiA@mail.gmail.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+In-Reply-To: <1504227536.5933.34.camel@aj.id.au>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+x-cbid: 17090620-0044-0000-0000-0000038A1191
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007679; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000226; SDB=6.00913226; UDB=6.00458324; IPR=6.00693488; 
+ BA=6.00005574; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017039; XFM=3.00000015;
+ UTC=2017-09-06 20:24:29
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17090620-0045-0000-0000-000007B91187
+Message-Id: <7b4467f2-c405-709e-d2b8-c4f53f28c4a7@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-09-06_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
+ definitions=main-1709060292
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -39,84 +79,65 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Sep 2017 19:50:30 -0000
+X-List-Received-Date: Wed, 06 Sep 2017 20:24:35 -0000
 
-On 06-Sep-2017 02:03 PM, Andrew Geissler wrote:
-> I=E2=80=99ve got an old but good one this sprint,
-> https://github.com/openbmc/openbmc/issues/272
->=20
-> The point of this issue is to define our restart and recovery policy
-> for openbmc services.
->=20
-> Currently we=E2=80=99re using the systemd defaults, which are the followi=
-ng:
-> RestartSec=3D100ms
-> StartLimitIntervalSec=3D10s
-> StartLimitBurst=3D5
-> StartLimitAction=3Dnone
->=20
-> So basically if a service fails, we will restart it up to 5 times,
-> every 10s, with a 100ms delay between each restart.
-> There is no action taken when we reach the 5 restarts, other then to
-> do nothing until the 10s window has expired.
->=20
-> I=E2=80=99d like to propose a few changes for openbmc:
->=20
-> 1.  Change the StartLimitBurst to 3
-> Five just seems excessive for our services in openbmc.  In all fail
-> scenarios I=E2=80=99ve seen so far (other then with phosphor-hwmon), eith=
-er
-> restarting once does the job or restarting all 5 times does not help
-> and we just end up hitting the 5 limit anyway.
->=20
-> 2. Change the RestartSec from 100ms to 1s.
-> When a service hits a failure, our new debug collection service kicks
-> in.  When a core file is involved we=E2=80=99ve found that generating 5 c=
-ore
-> files within ~500ms puts a huge strain on the BMC.  Also, if we are
-> going to get a fix on a restart of a service, the more time the better
-> (think retries on device driver scenarios).
 
-I think these two are pretty reasonable. We have had similar behavior=20
-implemented on prior generations of BMC. I like your reasoning for both=20
-changes.
 
-> 3. Define a StartLimitAction for critical services to =E2=80=9Creboot=E2=
-=80=9D the BMC
-> With 1 and 2 above, we could have services starting indefinitely with
-> no real recovery on the BMC.  Certain services are critical though,
-> and I believe should result in a BMC reset to try and recover.  Those
-> service are the following:
->    o dbus.service
->    o xyz.openbmc_project.ObjectMapper.service
->=20
-> Some services that are on the bubble for me (external interfaces):
->    o phosphor-ipmi-host.service
->    o phosphor-ipmi-net.service
->    o dropbear@.service
->    o phosphor-gevent.service
->=20
-> I have some maintainability concerns with trying to pick specific
-> services to cause a BMC reboot.  Maybe it would be better to define a
-> default  that all services cause a BMC reboot, then pick specific
-> one=E2=80=99s that would not result in a reboot?  Or maybe it=E2=80=99s b=
-est to never
-> reboot, and just let the system owners manage it?  Thoughts
-> appreciated.
+On 8/31/17 7:58 PM, Andrew Jeffery wrote:
+> On Wed, 2017-08-30 at 16:49 -0500, Christopher Bostic wrote:
+>> This set provides means to allow user space to access various properties of the
+>> ucd9000 type chips.
+>>
+>> Patch 0001 Adds a user space means of clearing logged faults.  This ability is
+>> useful in cases where one wants to start with a clean slate during each system
+>> power on.
+>>
+>> patch 0002 Adds gpio_chip interface for user to access various GPIO pin states
+>> via the /sys/class/gpio interface.
+>>
+>> Patch 0003 adds a debugfs for mfr_status information so user space can gain
+>> visibility of gpi type faults. Note that there are limitations on type of devices
+>> that debugfs supports.  Presently only ucd90160 is supported.  Any assumptions made
+>> as to formatting of data is commented inline in the code.  Any expansion to other
+>> ucd9000 types will need to take this into consideration.
+>>
+>> Note also that no pinmux support is provided at this point.  The ucd9000 devs do
+>> have mux capability so this should be added.
+>>
+>> Patch 0003 (was patch v5-0002... previously) has been reviewed by Andrew Jeffery,
+>> I did, however, add some small updates to this one:
+>>
+>> * Remove ida in bad and unbind paths.
+>> * Remove type ucd90160 check when adding debugfs. Add for all ucd9000 devs.
+>>    Results in cleaner ida code in the remove path.
+> Thanks for the summary and for splitting out the patch introducing the
+> new ABI.
+>
+> Unfortunately upstream NACKed what you've put as the first patch in
+> your series. In the future, it's best to order controversial patches
+> later, that way we can apply the uncontroversial patches without fuzz
+> or failures from context/content dependencies.
+>
+> So given I can't apply the first patch as we know it won't go upstream,
+> I can't apply the rest either due to hunks failing or fuzzing. Can you
+> please respin, and given you need to do that, take into account
+> Guenter's feedback?
 
-I would prefer that we have a set core (such as dbus and the mapper)=20
-that are terminal faults (maybe even without retries) and then assume=20
-that everything else can be restarted nicely. If something cannot be=20
-restarted nicely, there should be a really good reason for that and that=20
-service's unit file can specify something other than the defaults to=20
-change its behavior.
+Hi Andrew,
 
-This is a Linux system; in the ideal world, it should only need to be=20
-restarted for firmware updates. All other faults should be recoverable.=20
-Ideal world aside, individual services that can only be recovered with a=20
-reboot can handle that case without adjusting the global default.
+Yes will do that.
 
---Vernon
+Thanks,
+Chris
 
-> References:
-> https://www.freedesktop.org/software/systemd/man/systemd.unit.html#
+> Cheers,
+>
+> Andrew
+>
+>> Christopher Bostic (3):
+>>    hwmon: (ucd9000) Add interface to clear logged faults.
+>>    hwmon: (ucd9000) Add gpio chip interface
+>>    hwmon: (ucd9000) Add debugfs to list mfr_status info
+>>
+>>   drivers/hwmon/pmbus/ucd9000.c | 415 +++++++++++++++++++++++++++++++++++++++++-
+>>   1 file changed, 413 insertions(+), 2 deletions(-)
