@@ -1,62 +1,59 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Return-Path: <avifishman70@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4003:c06::242; helo=mail-oi0-x242.google.com;
+ envelope-from=avifishman70@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="EPPBjqqo"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="A2MF4spw"; dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="rH8KyA0B"; 
+ dkim-atps=neutral
+Received: from mail-oi0-x242.google.com (mail-oi0-x242.google.com
+ [IPv6:2607:f8b0:4003:c06::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xnjHx68QfzDrSL
- for <openbmc@lists.ozlabs.org>; Thu,  7 Sep 2017 11:18:05 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 3789020C10;
- Wed,  6 Sep 2017 21:18:03 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Wed, 06 Sep 2017 21:18:03 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=6Pb0qgHeny8nWGAzP1ekHfh/phbxBJKXZ6VYIcXxT
- gg=; b=EPPBjqqonAw4lG2/hRoFNZs4QhSCyuxGonuXxBBtZBhOm3HvSpWuOxasK
- tjiUTxBF1OHct0QCc1XeS1+t76lCZscJGQEipmrQXWyBcObFMOCgvbKBcoDgocsm
- 9MnodsdNMLwoSWzsWVqpeAJ7qNkg8Ec4y5BVRGKefNJl4+7sdiwqrpBqfjcvzsrt
- 7569TmuLZM8qQvs6xKFMBTG2NwaItdAMAGz8yUG6sthVHY0qsrBxRILu8vtlahgU
- YG9sIZoyIQkTnuEz99VZR/aTZYOfFyvo1vH/8GZFG4CFkeiPNO3W1Ryl+IM0iv6K
- 6f4kz0a6USD3Hmyz+B0d5Sw9ylIOg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=6Pb0qgHeny8nWGAzP1
- ekHfh/phbxBJKXZ6VYIcXxTgg=; b=A2MF4spww9D41SPMMyGZaXxHqUThw/b6SY
- 7Yg6+lpSAjOAVvPGx4foJLL9GEL1ev4zBKmL8rGAYBMUHCPU42LxAXT43GnEjtRS
- B9EAGTZuydKMYhLxgohi2bnVor0okvI5Y2TaWVNoWkmRdnw9IEfxCWWds2l/+yB4
- Wa2ZhgPY3dIUsL1zHqZl7AykizJaZmstYFotYsyNpdrG029KaCR7iS21iJr9V9D1
- JgUUxf3wlwoT1m3ExL34Zmlr78M3B1vBPk4DqDg0vczt4LfnK4VvVZ1IVcHfG9Hq
- IgbjpK9X1Hj16B9CnhdIxGoWGzgnS0HOngDNb7WvO8RW7dJggfJQ==
-X-ME-Sender: <xms:S56wWfWY-Wty-jLAURbC_Mevn9VmT0Fv6X7xj7Ex4xReC-kKrDhnLA>
-X-Sasl-enc: plgW2yc1UTXEvy/hmPxkqS20LcdqGzRrC4prdDZG9h1L 1504747082
-Received: from keelia (bh02i525f01.au.ibm.com [202.81.18.30])
- by mail.messagingengine.com (Postfix) with ESMTPA id 7C47924A60;
- Wed,  6 Sep 2017 21:18:01 -0400 (EDT)
-Message-ID: <1504747075.5105.2.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10 v7 2/2] hwmon: (ucd9000) Add debugfs to
- list mfr_status info
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Christopher Bostic <cbostic@linux.vnet.ibm.com>, joel@jms.id.au
-Cc: openbmc@lists.ozlabs.org
-Date: Thu, 07 Sep 2017 11:17:55 +1000
-In-Reply-To: <20170906210041.22533-3-cbostic@linux.vnet.ibm.com>
-References: <20170906210041.22533-1-cbostic@linux.vnet.ibm.com>
- <20170906210041.22533-3-cbostic@linux.vnet.ibm.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-K/F3yY/TXHSZmphcOeCA"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xnZsD4BxRzDqgy
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Sep 2017 06:28:00 +1000 (AEST)
+Received: by mail-oi0-x242.google.com with SMTP id a197so176641oib.1
+ for <openbmc@lists.ozlabs.org>; Wed, 06 Sep 2017 13:28:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=GCpttR5/3y6YW+I/RlAo7eoiOHkRtuerKhKPKmFKM74=;
+ b=rH8KyA0B6kmumKSoPdaySMnWU9t5Y4ELyzl6dU0NLEVYrcahYFoo6MUZHf52jHl9+C
+ a/c1X1HDBgOcBeCysws1O48TlZRjYDU5Xj+lkeMALMSZUcDW+d3xWLTHYUt5LaK5Lqj/
+ ciRmrw63uljVN5DES2qFL0Fp47k2M35MhnMgOkgFKHKYLVGHp8v2khR6mSMTbBUrzAJT
+ 4WGl5TQQEF6StWInn+E/9LHac2YJA68lgPoHFEmrKXe/RThccUA8J7dsO7JQwuCRl4sx
+ OCrKchIM8HDo2NckJCldypij6ajUdHCEq2rQn9/2Xmw4i2XLtehI1kxTxYGLh9SK4n+6
+ MwAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=GCpttR5/3y6YW+I/RlAo7eoiOHkRtuerKhKPKmFKM74=;
+ b=iizUPu3x9BAt4DjM+YdwyY3EOpqyPoZJ7Yaj1E3ItYN21n/bqZQizYfSnrLLa4J6IJ
+ CrBCb+KkP6tFpDb9hTNNYOWsE2PC9YvTdecYAy7TXxo9DsKPpypzKRedtlhaNcdNmVYt
+ YjNFWfA9HvrcFmuM36dp0lVAQ36wgPPneCJDAu0A5VuVcTyZuOF9mipt6p7+HDE7dnBC
+ 9dW3TZ6Lfy7bIbpDNL2uxzSd10i9xYNOpnC0trLq9EZByHg9p5vJe3ec//0YV0tKH+2L
+ VBKaLsZKbIHtgTuB1R/0NaWydDEKgFdb7rvVXW0rFiiPX/OGZxbCOfxWdbziDirwnaK0
+ DjgQ==
+X-Gm-Message-State: AHPjjUgvn4u9LPC2hPorrRLVw3tnMjwgWoVtJIjAkLEfsuPeTQzNniRp
+ 2alL+EcScM8wXyRRorwwdoQu+/T0jA==
+X-Google-Smtp-Source: ADKCNb58qltDF1Ci844DjmuzutVa/bGvU/9qQEdIEEchwxxWb3wXJejeaJ1azsNhB2/PU67AVbe21+A+9J+3GAeews4=
+X-Received: by 10.202.193.65 with SMTP id r62mr438397oif.313.1504729677111;
+ Wed, 06 Sep 2017 13:27:57 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.157.62.18 with HTTP; Wed, 6 Sep 2017 13:27:56 -0700 (PDT)
+In-Reply-To: <20170906080751.6773-2-brendanhiggins@google.com>
+References: <20170906080751.6773-1-brendanhiggins@google.com>
+ <20170906080751.6773-2-brendanhiggins@google.com>
+From: Avi Fishman <avifishman70@gmail.com>
+Date: Wed, 6 Sep 2017 23:27:56 +0300
+Message-ID: <CAKKbWA7GUxbMaHsk4-42zE-ony6TSzv-960QWroK8yFrCB1atA@mail.gmail.com>
+Subject: Re: [PATCH v4 1/3] arm: npcm: add basic support for Nuvoton BMCs
+To: Brendan Higgins <brendanhiggins@google.com>
+Cc: robh+dt@kernel.org, mark.rutland@arm.com, linux@armlinux.org.uk, 
+ tmaimon77@gmail.com, raltherr@google.com, f.fainelli@gmail.com, 
+ joel@jms.id.au, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="001a113f5b90e3503605588b2de1"
+X-Mailman-Approved-At: Thu, 07 Sep 2017 11:31:25 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,322 +65,662 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Sep 2017 01:18:06 -0000
+X-List-Received-Date: Wed, 06 Sep 2017 20:28:01 -0000
 
-
---=-K/F3yY/TXHSZmphcOeCA
+--001a113f5b90e3503605588b2de1
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2017-09-06 at 16:00 -0500, Christopher Bostic wrote:
-> Expose via files in debugfs the gpiN_fault fields as well as
-> the entire contents of the mfr_status register.=C2=A0=C2=A0Allows user
-> space to pull this data for error logging etc...
->=C2=A0
-> > Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+2017-09-06 11:07 GMT+03:00 Brendan Higgins <brendanhiggins@google.com>:
+
+> Adds basic support for the Nuvoton NPCM750 BMC.
+>
+> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
 > ---
-> v7 - Patch order changed from #3 to #2 and as a result needed
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0to add the ucd9000_remove definition here.
-> v6 - Remove chip idx values on remove so that we can retain the
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0same indexes regardless how many times we'r=
-e bound/unbound.
-> =C2=A0=C2=A0=C2=A0- Remove type 90160 check when adding debugfs.
-> v5 - Add unique debugfs dir ID for each ucd9000 sysfs device.
-> =C2=A0=C2=A0=C2=A0- Change branching return to a !! method.
-> =C2=A0=C2=A0=C2=A0- Clean up line breaks, other white space.
-> =C2=A0=C2=A0=C2=A0- Add comments on assumptions made regarding ucd90160 v=
-ersus other
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0types.
-> v2 - Remove mfr_status directory in debugfs and place the files
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0up in the parent ucd9000 directory.
-> ---
-> =C2=A0drivers/hwmon/pmbus/ucd9000.c | 166 +++++++++++++++++++++++++++++++=
-++++++++++-
-> =C2=A01 file changed, 165 insertions(+), 1 deletion(-)
->=C2=A0
-> diff --git a/drivers/hwmon/pmbus/ucd9000.c b/drivers/hwmon/pmbus/ucd9000.=
-c
-> index 9a82e88..26870e6 100644
-> --- a/drivers/hwmon/pmbus/ucd9000.c
-> +++ b/drivers/hwmon/pmbus/ucd9000.c
-> @@ -19,6 +19,7 @@
-> =C2=A0 * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-> =C2=A0 */
-> =C2=A0
-> +#include <linux/debugfs.h>
-> =C2=A0#include <linux/kernel.h>
-> =C2=A0#include <linux/module.h>
-> =C2=A0#include <linux/init.h>
-> @@ -27,6 +28,7 @@
-> =C2=A0#include <linux/i2c.h>
-> =C2=A0#include <linux/i2c/pmbus.h>
-> =C2=A0#include <linux/gpio.h>
-> +#include <linux/idr.h>
-> =C2=A0#include "pmbus.h"
-> =C2=A0
-> =C2=A0enum chips { ucd9000, ucd90120, ucd90124, ucd90160, ucd9090, ucd909=
-10 };
-> @@ -35,6 +37,7 @@
-> =C2=A0#define UCD9000_NUM_PAGES		0xd6
-> =C2=A0#define UCD9000_FAN_CONFIG_INDEX	0xe7
-> =C2=A0#define UCD9000_FAN_CONFIG		0xe8
-> +#define UCD9000_MFR_STATUS		0xf3
-> =C2=A0#define UCD9000_GPIO_SELECT		0xfa
-> =C2=A0#define UCD9000_GPIO_CONFIG		0xfb
-> =C2=A0#define UCD9000_DEVICE_ID		0xfd
-> @@ -56,17 +59,29 @@
-> =C2=A0#define UCD9000_MON_VOLTAGE_HW	4
-> =C2=A0
-> =C2=A0#define UCD9000_NUM_FAN		4
-> +#define UCD9000_NAME_SIZE	24
-> =C2=A0
-> =C2=A0#define UCD9000_GPIO_NAME_LEN	16
-> =C2=A0#define UCD90160_NUM_GPIOS	26
-> +#define UCD90160_GPI_COUNT	8
-> +#define UCD90160_GPI_FAULT_BASE	16
+>  arch/arm/Kconfig             |  2 +
+>  arch/arm/Makefile            |  1 +
+>  arch/arm/mach-npcm/Kconfig   | 50 +++++++++++++++++++++++++
+>  arch/arm/mach-npcm/Makefile  |  3 ++
+>  arch/arm/mach-npcm/headsmp.S | 17 +++++++++
+>  arch/arm/mach-npcm/npcm7xx.c | 34 +++++++++++++++++
+>  arch/arm/mach-npcm/platsmp.c | 89 ++++++++++++++++++++++++++++++
+> ++++++++++++++
+>  7 files changed, 196 insertions(+)
+>  create mode 100644 arch/arm/mach-npcm/Kconfig
+>  create mode 100644 arch/arm/mach-npcm/Makefile
+>  create mode 100644 arch/arm/mach-npcm/headsmp.S
+>  create mode 100644 arch/arm/mach-npcm/npcm7xx.c
+>  create mode 100644 arch/arm/mach-npcm/platsmp.c
+>
+> diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+> index 61a0cb15067e..05543f1cfbde 100644
+> --- a/arch/arm/Kconfig
+> +++ b/arch/arm/Kconfig
+> @@ -782,6 +782,8 @@ source "arch/arm/mach-netx/Kconfig"
+>
+>  source "arch/arm/mach-nomadik/Kconfig"
+>
+> +source "arch/arm/mach-npcm/Kconfig"
 > +
-> +static DEFINE_IDA(ucd9000_ida);
-> =C2=A0
-> =C2=A0struct ucd9000_data {
-> =C2=A0	u8 fan_data[UCD9000_NUM_FAN][I2C_SMBUS_BLOCK_MAX];
-> =C2=A0	struct pmbus_driver_info info;
-> =C2=A0	struct gpio_chip gpio;
-> +	struct dentry *debugfs;
-> +	int idx;
-> =C2=A0};
-> =C2=A0#define to_ucd9000_data(_info) container_of(_info, struct ucd9000_d=
-ata, info)
-> =C2=A0
-> +struct ucd9000_debugfs_entry {
-> +	struct i2c_client *client;
-> +	u8 index;
+>  source "arch/arm/mach-nspire/Kconfig"
+>
+>  source "arch/arm/plat-omap/Kconfig"
+> diff --git a/arch/arm/Makefile b/arch/arm/Makefile
+> index 47d3a1ab08d2..60ca50c7d762 100644
+> --- a/arch/arm/Makefile
+> +++ b/arch/arm/Makefile
+> @@ -191,6 +191,7 @@ machine-$(CONFIG_ARCH_MEDIATEK)             +=
+> mediatek
+>  machine-$(CONFIG_ARCH_MXS)             += mxs
+>  machine-$(CONFIG_ARCH_NETX)            += netx
+>  machine-$(CONFIG_ARCH_NOMADIK)         += nomadik
+> +machine-$(CONFIG_ARCH_NPCM)            += npcm
+>  machine-$(CONFIG_ARCH_NSPIRE)          += nspire
+>  machine-$(CONFIG_ARCH_OXNAS)           += oxnas
+>  machine-$(CONFIG_ARCH_OMAP1)           += omap1
+> diff --git a/arch/arm/mach-npcm/Kconfig b/arch/arm/mach-npcm/Kconfig
+> new file mode 100644
+> index 000000000000..d47061855439
+> --- /dev/null
+> +++ b/arch/arm/mach-npcm/Kconfig
+> @@ -0,0 +1,50 @@
+> +menuconfig ARCH_NPCM
+> +       bool "Nuvoton NPCM Architecture"
+> +       select ARCH_REQUIRE_GPIOLIB
+> +       select USE_OF
+> +       select PINCTRL
+> +       select PINCTRL_NPCM7XX
+> +
+> +if ARCH_NPCM
+> +
+> +comment "NPCMX50 CPU type"
+> +
+> +config CPU_NPCM750
+> +       depends on ARCH_NPCM && ARCH_MULTI_V7
+> +       bool "Support for NPCM750 BMC CPU (Poleg)"
+> +       select CACHE_L2X0
+> +       select CPU_V7
+> +       select ARM_GIC
+> +       select HAVE_SMP
+> +       select SMP
+> +       select SMP_ON_UP
+> +       select HAVE_ARM_SCU
+> +       select HAVE_ARM_TWD if SMP
+> +       select ARM_ERRATA_458693
+> +       select ARM_ERRATA_720789
+> +       select ARM_ERRATA_742231
+> +       select ARM_ERRATA_754322
+> +       select ARM_ERRATA_764369
+> +       select ARM_ERRATA_794072
+> +       select PL310_ERRATA_588369
+> +       select PL310_ERRATA_727915
+> +       select USB_EHCI_ROOT_HUB_TT
+> +       select USB_ARCH_HAS_HCD
+> +       select USB_ARCH_HAS_EHCI
+> +       select USB_EHCI_HCD
+> +       select USB_ARCH_HAS_OHCI
+> +       select USB_OHCI_HCD
+> +       select USB
+> +       select FIQ
+> +       select CPU_USE_DOMAINS
+> +       select GENERIC_CLOCKEVENTS
+> +       select CLKDEV_LOOKUP
+> +       select COMMON_CLK if OF
+> +       select NPCM750_TIMER
+> +       select MFD_SYSCON
+> +       help
+> +         Support for NPCM750 BMC CPU (Poleg).
+> +
+> +         Nuvoton NPCM750 BMC based on the Cortex A9.
+> +
+> +endif
+> diff --git a/arch/arm/mach-npcm/Makefile b/arch/arm/mach-npcm/Makefile
+> new file mode 100644
+> index 000000000000..78416055b854
+> --- /dev/null
+> +++ b/arch/arm/mach-npcm/Makefile
+> @@ -0,0 +1,3 @@
+> +AFLAGS_headsmp.o               += -march=armv7-a
+> +
+> +obj-$(CONFIG_CPU_NPCM750)      += npcm7xx.o platsmp.o headsmp.o
+> diff --git a/arch/arm/mach-npcm/headsmp.S b/arch/arm/mach-npcm/headsmp.S
+> new file mode 100644
+> index 000000000000..9fccbbd49ed4
+> --- /dev/null
+> +++ b/arch/arm/mach-npcm/headsmp.S
+> @@ -0,0 +1,17 @@
+> +/*
+> + * Copyright 2017 Google, Inc.
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + */
+> +
+> +#include <linux/linkage.h>
+> +#include <linux/init.h>
+> +#include <asm/assembler.h>
+> +
+> +ENTRY(npcm7xx_secondary_startup)
+> +       safe_svcmode_maskall r0
+>
+
+I saw you  answered to Florian Fainelli that the BootRom is not starting
+the secondary CPU in SVC mode. Are you sure? In our engineering npcm7xx
+revision, Z1, the BootRom indeed started to run it in IRQ mode but we fixed
+it in the production version, A1, (quite long time ago), I hope you didn't
+get an EB with Z1 you can check that in BootBlock console print:
+> ADC CLK is set to 25000000
+>Last reset was CORST
+>vgaioen=1 and mux gspi.
+>A1 <<====== this is what you should see, if you see Z1 we need to replace
+your EB
+
++
+> +       b       secondary_startup
+> +ENDPROC(npcm7xx_secondary_startup)
+> diff --git a/arch/arm/mach-npcm/npcm7xx.c b/arch/arm/mach-npcm/npcm7xx.c
+> new file mode 100644
+> index 000000000000..132e9d587857
+> --- /dev/null
+> +++ b/arch/arm/mach-npcm/npcm7xx.c
+> @@ -0,0 +1,34 @@
+> +/*
+> + * Copyright (c) 2017 Nuvoton Technology corporation.
+> + * Copyright 2017 Google, Inc.
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + */
+> +
+> +#include <linux/kernel.h>
+> +#include <linux/types.h>
+> +#include <asm/mach/arch.h>
+> +#include <asm/mach-types.h>
+> +#include <asm/mach/map.h>
+> +#include <asm/hardware/cache-l2x0.h>
+> +
+> +#define NPCM7XX_AUX_VAL (L310_AUX_CTRL_INSTR_PREFETCH |
+>              \
+> +                        L310_AUX_CTRL_DATA_PREFETCH |
+>      \
+> +                        L310_AUX_CTRL_NS_LOCKDOWN |
+>      \
+> +                        L310_AUX_CTRL_CACHE_REPLACE_RR |
+>     \
+> +                        L2C_AUX_CTRL_SHARED_OVERRIDE |
+>     \
+> +                        L310_AUX_CTRL_FULL_LINE_ZERO)
+> +
+> +static const char *const npcm7xx_dt_match[] = {
+> +       "nuvoton,npcm750",
+> +       NULL
 > +};
 > +
-> =C2=A0static int ucd9000_get_fan_config(struct i2c_client *client, int fa=
-n)
-> =C2=A0{
-> =C2=A0	int fan_config =3D 0;
-> @@ -294,6 +309,141 @@ static int ucd9000_gpio_direction_output(struct gpi=
-o_chip *gc,
-> =C2=A0	return ucd9000_gpio_set_direction(gc, offset, UCD9000_GPIO_OUTPUT,=
- val);
-> =C2=A0}
-> =C2=A0
-> +static struct dentry *ucd9000_debugfs_dir;
-
-I thought we were fixing this up?
-
+> +DT_MACHINE_START(NPCM7XX_DT, "NPCMX50 Chip family")
+> +       .atag_offset    = 0x100,
+> +       .dt_compat      = npcm7xx_dt_match,
+> +       .l2c_aux_val    = NPCM7XX_AUX_VAL,
+> +       .l2c_aux_mask   = ~NPCM7XX_AUX_VAL,
+> +MACHINE_END
+> diff --git a/arch/arm/mach-npcm/platsmp.c b/arch/arm/mach-npcm/platsmp.c
+> new file mode 100644
+> index 000000000000..144e3e7ec7e6
+> --- /dev/null
+> +++ b/arch/arm/mach-npcm/platsmp.c
+> @@ -0,0 +1,89 @@
+> +/*
+> + * Copyright 2017 Google, Inc.
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + */
 > +
-> +#if IS_ENABLED(CONFIG_DEBUG_FS)
-> +static int ucd9000_get_mfr_status(struct i2c_client *client, u32 *buffer=
-)
+> +#define pr_fmt(fmt) "PLATSMP: " fmt
+> +
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/smp.h>
+> +#include <linux/io.h>
+> +#include <linux/of.h>
+> +#include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+> +#include <linux/of_address.h>
+> +#include <asm/cacheflush.h>
+> +#include <asm/smp.h>
+> +#include <asm/smp_plat.h>
+> +#include <asm/smp_scu.h>
+> +
+> +#define NPCM7XX_SCRPAD_REG 0x13c
+> +
+> +extern void npcm7xx_secondary_startup(void);
+> +
+> +static int npcm7xx_smp_boot_secondary(unsigned int cpu,
+> +                                     struct task_struct *idle)
 > +{
-> +	int ret;
+> +       struct device_node *gcr_np;
+> +       void __iomem *gcr_base;
+> +       int ret = 0;
 > +
-> +	ret =3D pmbus_set_page(client, 0);
-> +	if (ret < 0) {
-> +		dev_err(&client->dev, "pmbus_set_page failed. rc:%d\n", ret);
+> +       gcr_np = of_find_compatible_node(NULL, NULL,
+> "nuvoton,npcm750-gcr");
+> +       if (!gcr_np) {
+> +               pr_err("no gcr device node\n");
+> +               ret = -EFAULT;
+> +               goto out;
+> +       }
+> +       gcr_base = of_iomap(gcr_np, 0);
+> +       if (!gcr_base) {
+> +               pr_err("could not iomap gcr at: 0x%llx\n", gcr_base);
+> +               ret = -EFAULT;
+> +               goto out;
+> +       }
 > +
-> +		return ret;
-> +	}
+> +       /* give boot ROM kernel start address. */
+> +       iowrite32(__pa_symbol(npcm7xx_secondary_startup), gcr_base +
+> +                 NPCM7XX_SCRPAD_REG);
+> +       /* make sure npcm7xx_secondary_startup is seen by all observers. */
+> +       smp_wmb();
+> +       dsb_sev();
+> +       /* make sure write buffer is drained */
+> +       mb();
 > +
-> +	/*
-> +	=C2=A0* Warning:
-> +	=C2=A0*
-> +	=C2=A0* Though not currently supported this will cause stack corruption=
- for
-> +	=C2=A0* ucd90240!=C2=A0=C2=A0Command reference, page 81:
-> +	=C2=A0*
-> +	=C2=A0*=C2=A0=C2=A0=C2=A0=C2=A0With the ucd90120 and ucd90124 devices, =
-this command [MFR_STATUS]
-> +	=C2=A0*=C2=A0=C2=A0=C2=A0=C2=A0is 2 bytes long (bits 0-15).=C2=A0=C2=A0=
-With the ucd90240 this command is 5
-> +	=C2=A0*=C2=A0=C2=A0=C2=A0=C2=A0bytes long.=C2=A0=C2=A0With all other de=
-vices, it is 4 bytes long.
-> +	=C2=A0*/
-> +	return i2c_smbus_read_block_data(client, UCD9000_MFR_STATUS,
-> +					(u8 *)buffer);
+> +out:
+> +       iounmap(gcr_base);
+> +       return ret;
 > +}
 > +
-> +static int ucd9000_debugfs_get_mfr_status_bit(void *data, u64 *val)
+> +static void __init npcm7xx_smp_prepare_cpus(unsigned int max_cpus)
 > +{
-> +	struct ucd9000_debugfs_entry *entry =3D data;
-> +	struct i2c_client *client =3D entry->client;
-> +	int nr =3D entry->index;
-> +	u32 buffer;
-> +	int ret;
+> +       struct device_node *scu_np;
+> +       void __iomem *scu_base;
 > +
-> +	ret =3D ucd9000_get_mfr_status(client, &buffer);
-> +	if (ret < 0) {
-> +		dev_err(&client->dev, "Failed to read mfr status. rc:%d\n",
-> +			ret);
+> +       scu_np = of_find_compatible_node(NULL, NULL, "arm,cortex-a9-scu");
+> +       if (!scu_np) {
+> +               pr_err("no scu device node\n");
+> +               return;
+> +       }
+> +       scu_base = of_iomap(scu_np, 0);
+> +       if (!scu_base) {
+> +               pr_err("could not iomap scu at: 0x%llx\n", scu_base);
+> +               return;
+> +       }
 > +
-> +		return ret;
-> +	}
+> +       scu_enable(scu_base);
 > +
-> +	*val =3D !!(ret & BIT(nr));
-> +
-> +	return 0;
+> +out:
+> +       iounmap(scu_base);
 > +}
 > +
-> +DEFINE_DEBUGFS_ATTRIBUTE(ucd9000_debugfs_ops_mfr_status_bit,
-> +		ucd9000_debugfs_get_mfr_status_bit, NULL, "%1lld\n");
+> +static struct smp_operations npcm7xx_smp_ops __initdata = {
+> +       .smp_prepare_cpus = npcm7xx_smp_prepare_cpus,
+> +       .smp_boot_secondary = npcm7xx_smp_boot_secondary,
+> +};
 > +
-> +static int ucd9000_debugfs_get_mfr_status_word(void *data, u64 *val)
-> +{
-> +	struct ucd9000_debugfs_entry *entry =3D data;
-> +	struct i2c_client *client =3D entry->client;
-> +	u32 buffer;
-> +	int ret;
-> +
-> +	ret =3D ucd9000_get_mfr_status(client, &buffer);
-> +	if (ret < 0) {
-> +		dev_err(&client->dev, "Failed to read mfr status. rc:%d\n",
-> +			ret);
-> +
-> +		return ret;
-> +	}
-> +
-> +	*val =3D ret;
-> +
-> +	return 0;
-> +}
-> +DEFINE_DEBUGFS_ATTRIBUTE(ucd9000_debugfs_ops_mfr_status_word,
-> +		ucd9000_debugfs_get_mfr_status_word, NULL, "%08llx\n");
-> +
-> +static int ucd9000_init_debugfs(struct i2c_client *client,
-> +				struct ucd9000_data *data)
-> +{
-> +	struct ucd9000_debugfs_entry *entries;
-> +	char name[UCD9000_NAME_SIZE];
-> +	int i;
-> +
-> +	data->idx =3D ida_simple_get(&ucd9000_ida, 0, INT_MAX, GFP_KERNEL);
-> +	scnprintf(name, UCD9000_NAME_SIZE, "ucd9000.%d", data->idx);
-> +	ucd9000_debugfs_dir =3D debugfs_create_dir(name, NULL);
+> +CPU_METHOD_OF_DECLARE(npcm7xx_smp, "nuvoton,npcm7xx-smp",
+> &npcm7xx_smp_ops);
+> --
+> 2.14.1.581.gf28d330327-goog
+>
+>
 
-We should be storing the dentry in the context struct. We're now uniquely
-naming the directory, but we're still storing the dentry in static storage.=
- The
-code as it stands will still stomp over the top of existing devices on prob=
-e,
-and it cannot be cleaned up properly. In fact, we'll cleanup the wrong entr=
-y
-depending on the order of probe/remove across the devices. It's not just fi=
-xed
-by uniquely naming the directory.
+--001a113f5b90e3503605588b2de1
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Andrew
+<div dir=3D"rtl"><div style=3D"text-align:left" dir=3D"ltr"><br></div><div =
+class=3D"gmail_extra" dir=3D"ltr"><div style=3D"text-align:left"><br></div>=
+<div class=3D"gmail_quote"><div>2017-09-06 11:07 GMT+03:00 Brendan Higgins =
+<span dir=3D"ltr">&lt;<a href=3D"mailto:brendanhiggins@google.com" target=
+=3D"_blank">brendanhiggins@google.com</a>&gt;</span>:</div><blockquote clas=
+s=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid r=
+gb(204,204,204);padding-left:1ex"><div style=3D"text-align:left">Adds basic=
+ support for the Nuvoton NPCM750 BMC.</div><span class=3D"gmail-"><div styl=
+e=3D"text-align:left"><br></div>
+<div style=3D"text-align:left">Signed-off-by: Brendan Higgins &lt;<a href=
+=3D"mailto:brendanhiggins@google.com">brendanhiggins@google.com</a>&gt;</di=
+v><div style=3D"text-align:left">---</div><div style=3D"text-align:left">=
+=C2=A0arch/arm/Kconfig=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=
+=A0 2 +</div><div style=3D"text-align:left">=C2=A0arch/arm/Makefile=C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 1 +</div>
+</span><div style=3D"text-align:left">=C2=A0arch/arm/mach-npcm/Kconfig=C2=
+=A0 =C2=A0| 50 +++++++++++++++++++++++++</div><div style=3D"text-align:left=
+">=C2=A0arch/arm/mach-npcm/Makefile=C2=A0 |=C2=A0 3 ++</div><div style=3D"t=
+ext-align:left">=C2=A0arch/arm/mach-npcm/headsmp.S | 17 +++++++++</div><div=
+ style=3D"text-align:left">=C2=A0arch/arm/mach-npcm/npcm7xx.c | 34 ++++++++=
++++++++++</div><div style=3D"text-align:left">=C2=A0arch/arm/mach-npcm/plat=
+smp.c | 89 ++++++++++++++++++++++++++++++<wbr>++++++++++++++</div><div styl=
+e=3D"text-align:left">=C2=A07 files changed, 196 insertions(+)</div>
+<div><div class=3D"gmail-h5"><div style=3D"text-align:left">=C2=A0create mo=
+de 100644 arch/arm/mach-npcm/Kconfig</div><div style=3D"text-align:left">=
+=C2=A0create mode 100644 arch/arm/mach-npcm/Makefile</div><div style=3D"tex=
+t-align:left">=C2=A0create mode 100644 arch/arm/mach-npcm/headsmp.S</div><d=
+iv style=3D"text-align:left">=C2=A0create mode 100644 arch/arm/mach-npcm/np=
+cm7xx.c</div><div style=3D"text-align:left">=C2=A0create mode 100644 arch/a=
+rm/mach-npcm/platsmp.c</div>
+<div style=3D"text-align:left"><br></div><div style=3D"text-align:left">dif=
+f --git a/arch/arm/Kconfig b/arch/arm/Kconfig</div><div style=3D"text-align=
+:left">index 61a0cb15067e..05543f1cfbde 100644</div><div style=3D"text-alig=
+n:left">--- a/arch/arm/Kconfig</div><div style=3D"text-align:left">+++ b/ar=
+ch/arm/Kconfig</div><div style=3D"text-align:left">@@ -782,6 +782,8 @@ sour=
+ce &quot;arch/arm/mach-netx/Kconfig&quot;</div>
+<div style=3D"text-align:left"><br></div><div style=3D"text-align:left">=C2=
+=A0source &quot;arch/arm/mach-nomadik/<wbr>Kconfig&quot;</div>
+<div style=3D"text-align:left"><br></div><div style=3D"text-align:left">+so=
+urce &quot;arch/arm/mach-npcm/Kconfig&quot;</div><div style=3D"text-align:l=
+eft">+</div><div style=3D"text-align:left">=C2=A0source &quot;arch/arm/mach=
+-nspire/Kconfig&quot;</div>
+<div style=3D"text-align:left"><br></div><div style=3D"text-align:left">=C2=
+=A0source &quot;arch/arm/plat-omap/Kconfig&quot;</div><div style=3D"text-al=
+ign:left">diff --git a/arch/arm/Makefile b/arch/arm/Makefile</div><div styl=
+e=3D"text-align:left">index 47d3a1ab08d2..60ca50c7d762 100644</div><div sty=
+le=3D"text-align:left">--- a/arch/arm/Makefile</div><div style=3D"text-alig=
+n:left">+++ b/arch/arm/Makefile</div><div style=3D"text-align:left">@@ -191=
+,6 +191,7 @@ machine-$(CONFIG_ARCH_<wbr>MEDIATEK)=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0+=3D mediatek</div><div style=3D"text-align:left">=
+=C2=A0machine-$(CONFIG_ARCH_MXS)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0+=3D mxs</div><div style=3D"text-align:left">=C2=A0machine-$(CONFIG_A=
+RCH_NETX)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 +=3D netx</div><div styl=
+e=3D"text-align:left">=C2=A0machine-$(CONFIG_ARCH_NOMADIK)=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0+=3D nomadik</div><div style=3D"text-align:left">+machine-=
+$(CONFIG_ARCH_NPCM)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 +=3D npcm</div=
+><div style=3D"text-align:left">=C2=A0machine-$(CONFIG_ARCH_NSPIRE)=C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 +=3D nspire</div><div style=3D"text-align:left"=
+>=C2=A0machine-$(CONFIG_ARCH_OXNAS)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0+=3D oxnas</div><div style=3D"text-align:left">=C2=A0machine-$(CONFIG_AR=
+CH_OMAP1)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+=3D omap1</div><div styl=
+e=3D"text-align:left">diff --git a/arch/arm/mach-npcm/Kconfig b/arch/arm/ma=
+ch-npcm/Kconfig</div><div style=3D"text-align:left">new file mode 100644</d=
+iv>
+</div></div><div style=3D"text-align:left">index 000000000000..d47061855439=
+</div><div style=3D"text-align:left">--- /dev/null</div><div style=3D"text-=
+align:left">+++ b/arch/arm/mach-npcm/Kconfig</div><div style=3D"text-align:=
+left">@@ -0,0 +1,50 @@</div>
+<span class=3D"gmail-"><div style=3D"text-align:left">+menuconfig ARCH_NPCM=
+</div><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0bool &quot=
+;Nuvoton NPCM Architecture&quot;</div><div style=3D"text-align:left">+=C2=
+=A0 =C2=A0 =C2=A0 =C2=A0select ARCH_REQUIRE_GPIOLIB</div><div style=3D"text=
+-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0select USE_OF</div><div style=3D"t=
+ext-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0select PINCTRL</div><div style=
+=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0select PINCTRL_NPCM7XX</di=
+v><div style=3D"text-align:left">+</div><div style=3D"text-align:left">+if =
+ARCH_NPCM</div><div style=3D"text-align:left">+</div><div style=3D"text-ali=
+gn:left">+comment &quot;NPCMX50 CPU type&quot;</div><div style=3D"text-alig=
+n:left">+</div><div style=3D"text-align:left">+config CPU_NPCM750</div><div=
+ style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0depends on ARCH_NPCM=
+ &amp;&amp; ARCH_MULTI_V7</div>
+</span><span class=3D"gmail-"><div style=3D"text-align:left">+=C2=A0 =C2=A0=
+ =C2=A0 =C2=A0bool &quot;Support for NPCM750 BMC CPU (Poleg)&quot;</div><di=
+v style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0select CACHE_L2X0</=
+div><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0select CPU_V=
+7</div><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0select AR=
+M_GIC</div>
+</span><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0select HA=
+VE_SMP</div><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0sele=
+ct SMP</div><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0sele=
+ct SMP_ON_UP</div><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0select HAVE_ARM_SCU</div>
+<span class=3D"gmail-"><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0=
+ =C2=A0select HAVE_ARM_TWD if SMP</div>
+</span><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0select AR=
+M_ERRATA_458693</div><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =
+=C2=A0select ARM_ERRATA_720789</div><div style=3D"text-align:left">+=C2=A0 =
+=C2=A0 =C2=A0 =C2=A0select ARM_ERRATA_742231</div>
+<span class=3D"gmail-"><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0=
+ =C2=A0select ARM_ERRATA_754322</div><div style=3D"text-align:left">+=C2=A0=
+ =C2=A0 =C2=A0 =C2=A0select ARM_ERRATA_764369</div>
+</span><span class=3D"gmail-"><div style=3D"text-align:left">+=C2=A0 =C2=A0=
+ =C2=A0 =C2=A0select ARM_ERRATA_794072</div><div style=3D"text-align:left">=
++=C2=A0 =C2=A0 =C2=A0 =C2=A0select PL310_ERRATA_588369</div><div style=3D"t=
+ext-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0select PL310_ERRATA_727915</div=
+>
+</span><span class=3D"gmail-"><div style=3D"text-align:left">+=C2=A0 =C2=A0=
+ =C2=A0 =C2=A0select USB_EHCI_ROOT_HUB_TT</div><div style=3D"text-align:lef=
+t">+=C2=A0 =C2=A0 =C2=A0 =C2=A0select USB_ARCH_HAS_HCD</div><div style=3D"t=
+ext-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0select USB_ARCH_HAS_EHCI</div><=
+div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0select USB_EHCI_H=
+CD</div><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0select U=
+SB_ARCH_HAS_OHCI</div><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =
+=C2=A0select USB_OHCI_HCD</div><div style=3D"text-align:left">+=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0select USB</div><div style=3D"text-align:left">+=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0select FIQ</div><div style=3D"text-align:left">+=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0select CPU_USE_DOMAINS</div>
+</span><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0select GE=
+NERIC_CLOCKEVENTS</div>
+<span class=3D"gmail-"><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0=
+ =C2=A0select CLKDEV_LOOKUP</div><div style=3D"text-align:left">+=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0select COMMON_CLK if OF</div>
+</span><span class=3D"gmail-"><div style=3D"text-align:left">+=C2=A0 =C2=A0=
+ =C2=A0 =C2=A0select NPCM750_TIMER</div><div style=3D"text-align:left">+=C2=
+=A0 =C2=A0 =C2=A0 =C2=A0select MFD_SYSCON</div><div style=3D"text-align:lef=
+t">+=C2=A0 =C2=A0 =C2=A0 =C2=A0help</div>
+</span><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Su=
+pport for NPCM750 BMC CPU (Poleg).</div><div style=3D"text-align:left">+</d=
+iv><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Nuvoto=
+n NPCM750 BMC based on the Cortex A9.</div><div style=3D"text-align:left">+=
+</div>
+<span class=3D"gmail-"><div style=3D"text-align:left">+endif</div><div styl=
+e=3D"text-align:left">diff --git a/arch/arm/mach-npcm/Makefile b/arch/arm/m=
+ach-npcm/Makefile</div>
+</span><div style=3D"text-align:left">new file mode 100644</div><div style=
+=3D"text-align:left">index 000000000000..78416055b854</div>
+<span class=3D"gmail-"><div style=3D"text-align:left">--- /dev/null</div><d=
+iv style=3D"text-align:left">+++ b/arch/arm/mach-npcm/Makefile</div><div st=
+yle=3D"text-align:left">@@ -0,0 +1,3 @@</div>
+</span><div style=3D"text-align:left">+AFLAGS_headsmp.o=C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+=3D -march=3Darmv7-a</div><div style=3D=
+"text-align:left">+</div><div style=3D"text-align:left">+obj-$(CONFIG_CPU_N=
+PCM750)=C2=A0 =C2=A0 =C2=A0 +=3D npcm7xx.o platsmp.o headsmp.o</div>
+<span class=3D"gmail-"><div style=3D"text-align:left">diff --git a/arch/arm=
+/mach-npcm/headsmp.S b/arch/arm/mach-npcm/headsmp.S</div><div style=3D"text=
+-align:left">new file mode 100644</div>
+</span><div style=3D"text-align:left">index 000000000000..9fccbbd49ed4</div=
+><div style=3D"text-align:left">--- /dev/null</div><div style=3D"text-align=
+:left">+++ b/arch/arm/mach-npcm/headsmp.S</div><div style=3D"text-align:lef=
+t">@@ -0,0 +1,17 @@</div><div style=3D"text-align:left">+/*</div>
+<span class=3D"gmail-"><div style=3D"text-align:left">+ * Copyright 2017 Go=
+ogle, Inc.</div><div style=3D"text-align:left">+ *</div><div style=3D"text-=
+align:left">+ * This program is free software; you can redistribute it and/=
+or modify</div>
+</span><span class=3D"gmail-"><div style=3D"text-align:left">+ * it under t=
+he terms of the GNU General Public License version 2 as</div><div style=3D"=
+text-align:left">+ * published by the Free Software Foundation.</div><div s=
+tyle=3D"text-align:left">+ */</div><div style=3D"text-align:left">+</div><d=
+iv style=3D"text-align:left">+#include &lt;linux/linkage.h&gt;</div><div st=
+yle=3D"text-align:left">+#include &lt;linux/init.h&gt;</div>
+</span><div style=3D"text-align:left">+#include &lt;asm/assembler.h&gt;</di=
+v><div style=3D"text-align:left">+</div><div style=3D"text-align:left">+ENT=
+RY(npcm7xx_secondary_<wbr>startup)</div><div style=3D"text-align:left">+=C2=
+=A0 =C2=A0 =C2=A0 =C2=A0safe_svcmode_maskall r0</div></blockquote><div><br>=
+</div><div>I saw you =C2=A0answered to Florian Fainelli that the BootRom is=
+ not starting the secondary CPU in SVC mode. Are you sure? In our engineeri=
+ng npcm7xx revision, Z1, the BootRom indeed started to run it in IRQ mode b=
+ut we fixed it in the production version, A1, (quite long time ago), I hope=
+ you didn&#39;t get an EB with Z1 you can check that in BootBlock console p=
+rint:</div><div><div>&gt; ADC CLK is set to 25000000</div><div>&gt;Last res=
+et was CORST</div><div>&gt;vgaioen=3D1 and mux gspi.</div><div>&gt;A1 &lt;&=
+lt;=3D=3D=3D=3D=3D=3D this is what you should see, if you see Z1 we need to=
+ replace your EB</div></div><div><br></div><blockquote class=3D"gmail_quote=
+" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);=
+padding-left:1ex"><div style=3D"text-align:left">+</div><div style=3D"text-=
+align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0b=C2=A0 =C2=A0 =C2=A0 =C2=A0seconda=
+ry_startup</div><div style=3D"text-align:left">+ENDPROC(npcm7xx_secondary_<=
+wbr>startup)</div>
+<span class=3D"gmail-"><div style=3D"text-align:left">diff --git a/arch/arm=
+/mach-npcm/npcm7xx.c b/arch/arm/mach-npcm/npcm7xx.c</div><div style=3D"text=
+-align:left">new file mode 100644</div>
+</span><div style=3D"text-align:left">index 000000000000..132e9d587857</div=
+>
+<span class=3D"gmail-"><div style=3D"text-align:left">--- /dev/null</div><d=
+iv style=3D"text-align:left">+++ b/arch/arm/mach-npcm/npcm7xx.c</div><div s=
+tyle=3D"text-align:left">@@ -0,0 +1,34 @@</div><div style=3D"text-align:lef=
+t">+/*</div>
+</span><div style=3D"text-align:left">+ * Copyright (c) 2017 Nuvoton Techno=
+logy corporation.</div>
+<span class=3D"gmail-"><div style=3D"text-align:left">+ * Copyright 2017 Go=
+ogle, Inc.</div><div style=3D"text-align:left">+ *</div><div style=3D"text-=
+align:left">+ * This program is free software; you can redistribute it and/=
+or modify</div>
+</span><span class=3D"gmail-"><div style=3D"text-align:left">+ * it under t=
+he terms of the GNU General Public License version 2 as</div><div style=3D"=
+text-align:left">+ * published by the Free Software Foundation.</div><div s=
+tyle=3D"text-align:left">+ */</div><div style=3D"text-align:left">+</div>
+</span><div><div class=3D"gmail-h5"><div style=3D"text-align:left">+#includ=
+e &lt;linux/kernel.h&gt;</div><div style=3D"text-align:left">+#include &lt;=
+linux/types.h&gt;</div><div style=3D"text-align:left">+#include &lt;asm/mac=
+h/arch.h&gt;</div><div style=3D"text-align:left">+#include &lt;asm/mach-typ=
+es.h&gt;</div><div style=3D"text-align:left">+#include &lt;asm/mach/map.h&g=
+t;</div><div style=3D"text-align:left">+#include &lt;asm/hardware/cache-l2x=
+0.h&gt;</div><div style=3D"text-align:left">+</div><div style=3D"text-align=
+:left">+#define NPCM7XX_AUX_VAL (L310_AUX_CTRL_INSTR_PREFETCH |=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0\</div><div style=3D"text-align:left">+=C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 L310_AUX_CTRL_DATA_PREFETCH |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0\</div><div style=3D"text-a=
+lign:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 L310_AUX_CTRL_NS_LOCKDOWN |=C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0\</di=
+v><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 L310_AUX_CTRL_CACHE_REPLACE_RR |=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 \</div><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 L2C_AUX_CTRL_SHARED_OV=
+ERRIDE |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 \</div><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 L310_AUX=
+_CTRL_FULL_LINE_ZERO)</div><div style=3D"text-align:left">+</div><div style=
+=3D"text-align:left">+static const char *const npcm7xx_dt_match[] =3D {</di=
+v><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;nuvoton,=
+npcm750&quot;,</div><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =
+=C2=A0NULL</div><div style=3D"text-align:left">+};</div><div style=3D"text-=
+align:left">+</div><div style=3D"text-align:left">+DT_MACHINE_START(NPCM7XX=
+_DT, &quot;NPCMX50 Chip family&quot;)</div><div style=3D"text-align:left">+=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0.atag_offset=C2=A0 =C2=A0 =3D 0x100,</div><div s=
+tyle=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0.dt_compat=C2=A0 =C2=
+=A0 =C2=A0 =3D npcm7xx_dt_match,</div><div style=3D"text-align:left">+=C2=
+=A0 =C2=A0 =C2=A0 =C2=A0.l2c_aux_val=C2=A0 =C2=A0 =3D NPCM7XX_AUX_VAL,</div=
+><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0.l2c_aux_mask=
+=C2=A0 =C2=A0=3D ~NPCM7XX_AUX_VAL,</div><div style=3D"text-align:left">+MAC=
+HINE_END</div><div style=3D"text-align:left">diff --git a/arch/arm/mach-npc=
+m/platsmp.c b/arch/arm/mach-npcm/platsmp.c</div><div style=3D"text-align:le=
+ft">new file mode 100644</div>
+</div></div><div style=3D"text-align:left">index 000000000000..144e3e7ec7e6=
+</div><div style=3D"text-align:left">--- /dev/null</div><div style=3D"text-=
+align:left">+++ b/arch/arm/mach-npcm/platsmp.c</div><div style=3D"text-alig=
+n:left">@@ -0,0 +1,89 @@</div><div style=3D"text-align:left">+/*</div>
+<span class=3D"gmail-"><div style=3D"text-align:left">+ * Copyright 2017 Go=
+ogle, Inc.</div><div style=3D"text-align:left">+ *</div><div style=3D"text-=
+align:left">+ * This program is free software; you can redistribute it and/=
+or modify</div>
+</span><span class=3D"gmail-"><div style=3D"text-align:left">+ * it under t=
+he terms of the GNU General Public License version 2 as</div><div style=3D"=
+text-align:left">+ * published by the Free Software Foundation.</div><div s=
+tyle=3D"text-align:left">+ */</div><div style=3D"text-align:left">+</div><d=
+iv style=3D"text-align:left">+#define pr_fmt(fmt) &quot;PLATSMP: &quot; fmt=
+</div><div style=3D"text-align:left">+</div><div style=3D"text-align:left">=
++#include &lt;linux/delay.h&gt;</div><div style=3D"text-align:left">+#inclu=
+de &lt;linux/device.h&gt;</div><div style=3D"text-align:left">+#include &lt=
+;linux/smp.h&gt;</div><div style=3D"text-align:left">+#include &lt;linux/io=
+.h&gt;</div><div style=3D"text-align:left">+#include &lt;linux/of.h&gt;</di=
+v><div style=3D"text-align:left">+#include &lt;linux/of_device.h&gt;</div><=
+div style=3D"text-align:left">+#include &lt;linux/of_platform.h&gt;</div><d=
+iv style=3D"text-align:left">+#include &lt;linux/of_address.h&gt;</div><div=
+ style=3D"text-align:left">+#include &lt;asm/cacheflush.h&gt;</div><div sty=
+le=3D"text-align:left">+#include &lt;asm/smp.h&gt;</div><div style=3D"text-=
+align:left">+#include &lt;asm/smp_plat.h&gt;</div><div style=3D"text-align:=
+left">+#include &lt;asm/smp_scu.h&gt;</div><div style=3D"text-align:left">+=
+</div><div style=3D"text-align:left">+#define NPCM7XX_SCRPAD_REG 0x13c</div=
+><div style=3D"text-align:left">+</div>
+</span><div style=3D"text-align:left">+extern void npcm7xx_secondary_startu=
+p(<wbr>void);</div>
+<span class=3D"gmail-"><div style=3D"text-align:left">+</div><div style=3D"=
+text-align:left">+static int npcm7xx_smp_boot_secondary(<wbr>unsigned int c=
+pu,</div>
+</span><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0struct task_struct *idle)</div><div style=3D"text-a=
+lign:left">+{</div><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0struct device_node *gcr_np;</div><div style=3D"text-align:left">+=C2=A0 =
+=C2=A0 =C2=A0 =C2=A0void __iomem *gcr_base;</div><div style=3D"text-align:l=
+eft">+=C2=A0 =C2=A0 =C2=A0 =C2=A0int ret =3D 0;</div>
+<span class=3D"gmail-"><div style=3D"text-align:left">+</div><div style=3D"=
+text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0gcr_np =3D of_find_compatible_=
+node(NULL, NULL, &quot;nuvoton,npcm750-gcr&quot;);</div><div style=3D"text-=
+align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!gcr_np) {</div><div style=3D"t=
+ext-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_=
+err(&quot;no gcr device node\n&quot;);</div>
+</span><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0ret =3D -EFAULT;</div><div style=3D"text-align:left">+=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto out;</div>
+<span class=3D"gmail-"><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0=
+ =C2=A0}</div><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0gc=
+r_base =3D of_iomap(gcr_np, 0);</div><div style=3D"text-align:left">+=C2=A0=
+ =C2=A0 =C2=A0 =C2=A0if (!gcr_base) {</div><div style=3D"text-align:left">+=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;could n=
+ot iomap gcr at: 0x%llx\n&quot;, gcr_base);</div>
+</span><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0ret =3D -EFAULT;</div><div style=3D"text-align:left">+=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto out;</div><div =
+style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0}</div><div style=3D"=
+text-align:left">+</div><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0/* give boot ROM kernel start address. */</div><div style=3D"text=
+-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0iowrite32(__pa_symbol(npcm7xx_<wbr=
+>secondary_startup), gcr_base +</div><div style=3D"text-align:left">+=C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0NPCM7XX_SCRPAD_REG)=
+;</div>
+<span class=3D"gmail-"><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0=
+ =C2=A0/* make sure npcm7xx_secondary_startup is seen by all observers. */<=
+/div><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0smp_wmb();<=
+/div><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0dsb_sev();<=
+/div><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* make sur=
+e write buffer is drained */</div><div style=3D"text-align:left">+=C2=A0 =
+=C2=A0 =C2=A0 =C2=A0mb();</div><div style=3D"text-align:left">+</div>
+</span><div style=3D"text-align:left">+out:</div><div style=3D"text-align:l=
+eft">+=C2=A0 =C2=A0 =C2=A0 =C2=A0iounmap(gcr_base);</div><div style=3D"text=
+-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0return ret;</div>
+<span class=3D"gmail-"><div style=3D"text-align:left">+}</div><div style=3D=
+"text-align:left">+</div><div style=3D"text-align:left">+static void __init=
+ npcm7xx_smp_prepare_cpus(<wbr>unsigned int max_cpus)</div><div style=3D"te=
+xt-align:left">+{</div>
+</span><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0struct de=
+vice_node *scu_np;</div><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0void __iomem *scu_base;</div>
+<span class=3D"gmail-"><div style=3D"text-align:left">+</div><div style=3D"=
+text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0scu_np =3D of_find_compatible_=
+node(NULL, NULL, &quot;arm,cortex-a9-scu&quot;);</div><div style=3D"text-al=
+ign:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!scu_np) {</div><div style=3D"tex=
+t-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_er=
+r(&quot;no scu device node\n&quot;);</div><div style=3D"text-align:left">+=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;</div><div st=
+yle=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0}</div><div style=3D"te=
+xt-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0scu_base =3D of_iomap(scu_np, 0)=
+;</div><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!scu_=
+base) {</div>
+</span><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0pr_err(&quot;could not iomap scu at: 0x%llx\n&quot;, sc=
+u_base);</div>
+<span class=3D"gmail-"><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;</div><div style=3D"text-align:le=
+ft">+=C2=A0 =C2=A0 =C2=A0 =C2=A0}</div><div style=3D"text-align:left">+</di=
+v><div style=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0scu_enable(scu=
+_base);</div><div style=3D"text-align:left">+</div>
+</span><div style=3D"text-align:left">+out:</div><div style=3D"text-align:l=
+eft">+=C2=A0 =C2=A0 =C2=A0 =C2=A0iounmap(scu_base);</div>
+<span class=3D"gmail-im gmail-HOEnZb"><div style=3D"text-align:left">+}</di=
+v><div style=3D"text-align:left">+</div><div style=3D"text-align:left">+sta=
+tic struct smp_operations npcm7xx_smp_ops __initdata =3D {</div><div style=
+=3D"text-align:left">+=C2=A0 =C2=A0 =C2=A0 =C2=A0.smp_prepare_cpus =3D npcm=
+7xx_smp_prepare_cpus,</div><div style=3D"text-align:left">+=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0.smp_boot_secondary =3D npcm7xx_smp_boot_secondary,</div>
+</span><div class=3D"gmail-HOEnZb"><div class=3D"gmail-h5"><div style=3D"te=
+xt-align:left">+};</div><div style=3D"text-align:left">+</div><div style=3D=
+"text-align:left">+CPU_METHOD_OF_DECLARE(<wbr>npcm7xx_smp, &quot;nuvoton,np=
+cm7xx-smp&quot;, &amp;npcm7xx_smp_ops);</div><div style=3D"text-align:left"=
+>--</div><div style=3D"text-align:left">2.14.1.581.gf28d330327-goog</div>
+<div style=3D"text-align:left"><br></div>
+</div></div></blockquote></div><div style=3D"text-align:left"><br></div></d=
+iv></div>
 
-> +	if (IS_ERR(ucd9000_debugfs_dir)) {
-> +		dev_warn(&client->dev, "Failed to create debugfs dir: %p\n",
-> +			ucd9000_debugfs_dir);
-> +		ucd9000_debugfs_dir =3D NULL;
-> +		ida_simple_remove(&ucd9000_ida, data->idx);
-> +		return 0;
-> +	}
-> +
-> +	/*
-> +	=C2=A0* Warning:
-> +	=C2=A0*
-> +	=C2=A0* Makes assumption we're on a ucd90160 type! entries will be diff=
-erent
-> +	=C2=A0* sizes for other types.
-> +	=C2=A0*/
-> +	entries =3D devm_kzalloc(&client->dev, sizeof(*entries) *
-> +				(UCD90160_GPI_COUNT + 1) * 10, GFP_KERNEL);
-> +	if (!entries) {
-> +		ida_simple_remove(&ucd9000_ida, data->idx);
-> +		return -ENOMEM;
-> +	}
-> +
-> +	/*
-> +	=C2=A0* Warning:
-> +	=C2=A0*
-> +	=C2=A0* This makes the assumption we're probing a ucd90160 type and how=
- the
-> +	=C2=A0* GPI information is organized.=C2=A0=C2=A0Needs to account for a=
-ll other
-> +	=C2=A0* ucd9000 varieties.
-> +	=C2=A0*/
-> +	for (i =3D 0; i < UCD90160_GPI_COUNT; i++) {
-> +		entries[i].client =3D client;
-> +		entries[i].index =3D UCD90160_GPI_FAULT_BASE + i;
-> +		scnprintf(name, UCD9000_NAME_SIZE, "gpi%d_alarm", i+1);
-> +		debugfs_create_file(name, 0444, ucd9000_debugfs_dir,
-> +				&entries[i],
-> +				&ucd9000_debugfs_ops_mfr_status_bit);
-> +	}
-> +	entries[i].client =3D client;
-> +	scnprintf(name, UCD9000_NAME_SIZE, "mfr_status");
-> +	debugfs_create_file(name, 0444, ucd9000_debugfs_dir, &entries[i],
-> +			&ucd9000_debugfs_ops_mfr_status_word);
-> +
-> +	return 0;
-> +}
-> +#else
-> +static int ucd9000_init_debugfs(struct i2c_client *client,
-> +				struct ucd9000_data *data)
-> +{
-> +	return 0;
-> +}
-> +#endif /* IS_ENABLED(CONFIG_DEBUG_FS) */
-> +
-> =C2=A0static int ucd9000_probe(struct i2c_client *client,
-> =C2=A0			=C2=A0const struct i2c_device_id *id)
-> =C2=A0{
-> @@ -433,16 +583,30 @@ static int ucd9000_probe(struct i2c_client *client,
-> =C2=A0		return ret;
-> =C2=A0	}
-> =C2=A0
-> +	ret =3D ucd9000_init_debugfs(client, data);
-> +	if (ret < 0)
-> +		dev_warn(&client->dev, "Failed to register debugfs: %d\n", ret);
-> +
-> =C2=A0	return pmbus_do_probe(client, mid, info);
-> =C2=A0}
-> =C2=A0
-> +static int ucd9000_remove(struct i2c_client *client)
-> +{
-> +	struct ucd9000_data *data
-> +		=3D to_ucd9000_data(pmbus_get_driver_info(client));
-> +
-> +	ida_simple_remove(&ucd9000_ida, data->idx);
-> +	debugfs_remove_recursive(ucd9000_debugfs_dir);
-> +	return pmbus_do_remove(client);
-> +}
-> +
-> =C2=A0/* This is the driver that will be inserted */
-> =C2=A0static struct i2c_driver ucd9000_driver =3D {
-> =C2=A0	.driver =3D {
-> =C2=A0		.name =3D "ucd9000",
-> =C2=A0	},
-> =C2=A0	.probe =3D ucd9000_probe,
-> -	.remove =3D pmbus_do_remove,
-> +	.remove =3D ucd9000_remove,
-> =C2=A0	.id_table =3D ucd9000_id,
-> =C2=A0};
-> =C2=A0
---=-K/F3yY/TXHSZmphcOeCA
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJZsJ5DAAoJEJ0dnzgO5LT5qq4QAKBkuahUN6JWjoDarePTKCts
-pX0fRcs5XWYOZVsvdwcL75aywlYVO6EVOwbThfrkXLMw3Me+gJRnw+8PXYBsKwQ6
-KN/5x2dbxfTQ8HxQgVx4aeimTc6jJB9b/j1In+kzcrYyxRdeqfSODzV49FgPkWUv
-rfNYRp9i8OVNsCeHF3BrSm+FwVUP0gmr94NLK5vwvJWSr+rOB06ZYkwJS1g2lq3M
-hblt9O7gYgSLYoLIWr5faDq8cFYNMP9k97qUVvQ+NG2X+PQ+t/zgDkWbAl6vYVLo
-Ke9vAwqY6Bv2zWzX2jEZ3+b1x/l2gQKNubzaVI7dXI3Q0go/KVMt4EPdtrUhpsj0
-bXSiRTWjRLPMrF1GZ0AaKAQ3MRndzK9/tHq6vJxjW/Z3ycr1JcJtxJ+mQrmm2225
-Dt50TZDhbFLRlH3YMQfrc2w17ierYNTqTDW3lUJjmxmv5CiXWOxG+OZaII9Bnj+a
-6dkhPsChg8LhfScF2EXLHhUsleG+QZvbbkzMS9MpbzmeRvputkwXuIDgi390GalB
-juBEB1vAu5hWKywN/FMGj6VpbsTVi4REoGxu2J5A2rfeVmjjQ7A3Uo1Oi126BEdT
-vE5gNcfd8iWUHIDXSEtOLrIanfVGDoAB1qOj4q69ltBy000Dku7jXrF7FSV/9xJk
-DuXuNlO26cMxDhjWyRXe
-=sx3F
------END PGP SIGNATURE-----
-
---=-K/F3yY/TXHSZmphcOeCA--
+--001a113f5b90e3503605588b2de1--
