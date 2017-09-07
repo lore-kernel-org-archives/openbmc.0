@@ -1,70 +1,63 @@
-Return-Path: <groeck7@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c00::244; helo=mail-pf0-x244.google.com;
- envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
+Return-Path: <brendanhiggins@google.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400d:c09::229; helo=mail-qk0-x229.google.com;
+ envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="KQwGMMVR"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="Es++FaGg"; 
  dkim-atps=neutral
-Received: from mail-pf0-x244.google.com (mail-pf0-x244.google.com
- [IPv6:2607:f8b0:400e:c00::244])
+Received: from mail-qk0-x229.google.com (mail-qk0-x229.google.com
+ [IPv6:2607:f8b0:400d:c09::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xnkg16LDvzDrVm
- for <openbmc@lists.ozlabs.org>; Thu,  7 Sep 2017 12:19:41 +1000 (AEST)
-Received: by mail-pf0-x244.google.com with SMTP id h4so477307pfk.0
- for <openbmc@lists.ozlabs.org>; Wed, 06 Sep 2017 19:19:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=4PM8LOUO2Y8qskKRyJBzatf3HjMO9Dpea/bTA3LiBQQ=;
- b=KQwGMMVRAbnftBX2WLGhn3ataFn4JjxlpnGFdmokqnC60UYOfmz00UKOmdi0XzXUnj
- 14F58FHvL8RPSKyCe++xKCyTKrDmGIGGDaCJ8uj25N+JkOtoTtXVGRA7YoRjQ3yadV/C
- pj3DTwh+8yZiws5Dwk9nnUxQ9WRdbD2Vgy7qNgkGeF097wm++Ga3tX0sqWcfWUMdB9Ff
- 1vR8TFhDqz6Y/85kiasoaboaHXNxJpW/XPSQBkmBIYG0otvWVZj6Kv5f1VT//iruceyG
- ij/Ov0istgJdv7K5TjTgsBDcfCXUqihQ+JAOqDd8QQeBIcEnC3sdVI30M7Q/F4AhnK4n
- GVCA==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xnpQY4wFLzDrVv
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Sep 2017 15:09:09 +1000 (AEST)
+Received: by mail-qk0-x229.google.com with SMTP id a128so24416200qkc.5
+ for <openbmc@lists.ozlabs.org>; Wed, 06 Sep 2017 22:09:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=21mflyth2fp3oGWI92lIVOVvQ13TXfrI/COiikaX6UI=;
+ b=Es++FaGgrh3QWPU1dPlbBUyMoGwZ9wrmngkbE0R3C94Oiq9nCzoBYVH08g6YUDPvf5
+ GFtrfErjQMI84LqQMnEzlYhzS84Hshn9W5qkyWV4OfwmRiHw8Xdhw0tJpYbYH0ok3NRd
+ JSBIVkFAnyOphmGwc2hOrh5t7HTPhv20JzoGr0+RqUZap/Ae1g8uBBlu3yWQQ0S3R+D9
+ 0Oz4RO8Y5jQjZOMIR9Ny6rZyZkC9bswuSaTq5AqpOK8P2nYL3GNCQwkOtoyOIQ7Ewd9h
+ rKavGvtk6Kqrfdc/FhNigz2FfA09G5L1KotWSDQMDLSqvHfby9GxXiP7CV7QiC50Fp29
+ vXLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:subject:to:cc:references:from:message-id
- :date:user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=4PM8LOUO2Y8qskKRyJBzatf3HjMO9Dpea/bTA3LiBQQ=;
- b=lFVhlNcCw8R8ORJR6fiab3f9PESxHpWsCGYaGJOweMPaC2YXR7YSQMBsgYekiJ0b6p
- qeF0mbR/dkvBg1776XymTafR88Ij8YKxwRmlRoDCQQMZPUHz+o+TMqqpW5dnMgDUA1Bq
- XUK3rXr/p4M+hQDz/1fXPqhh1y/iMhYF8Z1lXobT1i4cMHpE1STXXg36KW3rS5yp01KL
- cBhgVdW1ekuBTu+NGBrF2xV0siDmknYY7j0jvewQkCHBBssVkE85ympRHjh+LDkQNhJ8
- z33kN2HHccx7Kg01M04MC3kyb9XgWtkJ/TemllgN1h2/fJFZ91Ktf3pJ1VIZ0M4g9X+b
- Fvew==
-X-Gm-Message-State: AHPjjUjNq90OsBxBD1hUufhR2jhp0tWu4VCX9Is+w3ir63uyKpljrvw9
- YXfnnFBKma6X9w==
-X-Google-Smtp-Source: ADKCNb7/sNhY3J+v33ohbUPBqclM4fREuf2XKswUIP7dzR4ADYIvQxPL2tNOKLrLQWPBMAleQ6srbA==
-X-Received: by 10.98.103.142 with SMTP id t14mr1229164pfj.56.1504750779030;
- Wed, 06 Sep 2017 19:19:39 -0700 (PDT)
-Received: from server.roeck-us.net
- (108-223-40-66.lightspeed.sntcca.sbcglobal.net. [108.223.40.66])
- by smtp.gmail.com with ESMTPSA id p6sm1311803pfg.168.2017.09.06.19.19.36
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 06 Sep 2017 19:19:37 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Subject: Re: [PATCH] hwmon: pmbus: Make reg check and clear faults functions
- return errors
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: linux-hwmon@vger.kernel.org, jdelvare@suse.com, corbet@lwn.net,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org, joel@jms.id.au
-References: <20170905070132.17682-1-andrew@aj.id.au>
- <20170905170002.GG11478@roeck-us.net> <1504657417.28363.8.camel@aj.id.au>
- <20170906225102.GA32210@roeck-us.net> <1504740749.5042.2.camel@aj.id.au>
-From: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <5089e197-5ee5-8775-501c-201546a0cc1a@roeck-us.net>
-Date: Wed, 6 Sep 2017 19:19:36 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.2.1
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=21mflyth2fp3oGWI92lIVOVvQ13TXfrI/COiikaX6UI=;
+ b=GDFa98TDOheyOQEykUoAh7Y4fOuyMyoO6eEwXo+bMY0ns4dmU3Vcwod5H7AMSMfRYt
+ q0QhVIx0jpQL8Dhg+uF+Zr0aMCl5F0RAiQ/2hSgeqWr+J/TaJZ3SzXvUNVB/Y1Bf5wOH
+ e1WVkXIOND8Oy3A2MitHhqWJTmAPCV89Gkg9teea9+/ntTV/zFIj7xFlSor1ZpQ+zBln
+ 10nqXTOFUGvBehPgSseJN7thjtmroDYXJRy9vO3ZiHOKakUJuPqSNbgSJ2wM6X3VmzxU
+ 62oBnAzttyZ6wIJ1VvJuyyyXzK0LjN8sd4eouRNwcPWcQ8hHfgtM9JpN5j4lxEwqQ9oJ
+ 9QEA==
+X-Gm-Message-State: AHPjjUhhb+3RSGmitVi1LLiGxw5fWIvevYWf+S7XWlAgVVmRgaQJRxBw
+ Jkttrgu3cE6dbcvCGWRoheQzVS23wY/7
+X-Google-Smtp-Source: ADKCNb65m+w77/z6ajzz7+JZNwT252yWnon88SVQk5teK84lnY++vzqQRbOjkFsBN6Y9b3FX0Q5T3G7+T0Fxd40lpn8=
+X-Received: by 10.233.235.17 with SMTP id b17mr1870111qkg.254.1504760946271;
+ Wed, 06 Sep 2017 22:09:06 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1504740749.5042.2.camel@aj.id.au>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Received: by 10.140.33.230 with HTTP; Wed, 6 Sep 2017 22:09:05 -0700 (PDT)
+In-Reply-To: <CAKKbWA4OXL__VWzwRvN_wujDc70zWqmGPcu2_WRpvsSUYba1Qg@mail.gmail.com>
+References: <20170906080751.6773-1-brendanhiggins@google.com>
+ <20170906080751.6773-2-brendanhiggins@google.com>
+ <CAKKbWA4OXL__VWzwRvN_wujDc70zWqmGPcu2_WRpvsSUYba1Qg@mail.gmail.com>
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Wed, 6 Sep 2017 22:09:05 -0700
+Message-ID: <CAFd5g46fh3unYC8J3CyUg25=3XAbz+U-XC6ON7V9p5Nt0mLKgA@mail.gmail.com>
+Subject: Re: [PATCH v4 1/3] arm: npcm: add basic support for Nuvoton BMCs
+To: Avi Fishman <avifishman70@gmail.com>
+Cc: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Russell King <linux@armlinux.org.uk>, tmaimon77@gmail.com, 
+ Rick Altherr <raltherr@google.com>, Florian Fainelli <f.fainelli@gmail.com>, 
+ Joel Stanley <joel@jms.id.au>, devicetree <devicetree@vger.kernel.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-arm-kernel@lists.infradead.org, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -76,494 +69,312 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Sep 2017 02:19:42 -0000
+X-List-Received-Date: Thu, 07 Sep 2017 05:09:10 -0000
 
-On 09/06/2017 04:32 PM, Andrew Jeffery wrote:
-> On Wed, 2017-09-06 at 15:51 -0700, Guenter Roeck wrote:
->> On Wed, Sep 06, 2017 at 10:23:37AM +1000, Andrew Jeffery wrote:
->>> On Tue, 2017-09-05 at 10:00 -0700, Guenter Roeck wrote:
->>>> On Tue, Sep 05, 2017 at 05:01:32PM +1000, Andrew Jeffery wrote:
->>>>> Some functions exposed by pmbus core conflated errors that occurred when
->>>>> setting the page to access with errors that occurred when accessing
->>>>> registers in a page. In some cases, this caused legitimate errors to be
->>>>> hidden under the guise of the register not being supported.
->>>>>   
->>>>   
->>>> I'll have to look into this. If I recall correctly, the reason for not returning
->>>> errors from the "clear faults" command was that some early chips did not support
->>>> it, or did not support it on all pages. Those chips would now always fail.
->>>   
->>> Yes, that is a concern.
->>>   
->>> However, shouldn't the lack of support for CLEAR_FAULTS be a described
->>> property of the chip or page?
->>>   
->>> Regardless, the issue here is the PAGE command is sometimes failing
->>> (more below). This means we won't have issued a CLEAR_FAULTS against
->>> the page even if the page supports CLEAR_FAULTS. That to me is
->>> something that should be propagated back up the call chain, as faults
->>> that can be cleared will not have been.
->>>   
->>   
->> We could also consider
->> - retry
-> 
-> I guess that leads to the usual retries problem: How many? Oneshot? More?
-> 
-> My expectation is that oneshot would be enough, but we'd still need to consider
-> what to do if that wasn't successful.
-> 
-> Does the retry policy need to be in the kernel? I guess if it's not we would
-> need all operations in the path to the failure to be idempotent.
-> 
->> - Add a marker indicating that faults (specifically command errors)
->>    are unreliable after clearing faults failed
-> 
-> What kind of marker were you thinking? Something in dmesg? If it's anything
-> else we'd probably want something to respond to the condition, which nothing
-> would do currently.
-> 
->>   
->> If we can't reliably clear faults, all bets are off.
-> 
-> Yeah, it's a messy problem. However even if we resolve our issues in hardware
-> (i.e. it's discovered that it is a design failure or something), I don't think
-> we should drop a resolution to the problem highlighted by this patch.
-> 
->>   
->>>>   
->>>> On a higher level, I am not sure if it is a good idea to return an error
->>>> from a function intended to clear faults (and nothing else). That seems
->>>> counterproductive.
->>>>   
->>>> Is this a problem you have actually observed ?
->>>   
->>> Unfortunately yes. I was trying to reproduce some issues that we are
->>> seeing in userspace but wasn't having much luck (getting -EIO on
->>> reading a hwmon attribute). I ended up instrumenting our I2C bus
->>> driver, and found that the problem was more prevalent than what the
->>> read failures in userspace were indicating. The paths that were
->>> triggering these unreported conditions all traced through the check
->>> register and clear fault functions, which on analysis were swallowing
->>> the error.
->>>   
->>>> If so, what is the chip ?
->>>   
->>> Well, the chip that I'm *communicating* with is the Maxim MAX31785
->>> Intelligent Fan Controller. As to whether that's what is *causing* the
->>> PAGE command to fail is still up in the air. I would not be surprised
->>> if we have other issues in the hardware design.
->>>   
->>> I haven't sent a follow-up to the series introducing the MAX31785
->>> driver because I've been chasing down communication issues. I felt it
->>> was important to understand whether the device has quirks that need to
->>> be worked around in the driver, or if our hardware design has bigger
->>> problems that should be handled in other ways. I've been in touch with
->>> Maxim who have asserted that some of the problems we're seeing cannot
->>> be caused by their chip.
->>>   
->>   
->> Guess I need to dig up my eval board and see if I can reproduce the problem.
->> Seems you are saying that the problem is always seen when issuing a sequence
->> of "clear faults" commands on multiple pages ?
-> 
-> Yeah. We're also seeing bad behaviour under other command sequences as well,
-> which lead to this hack of a work-around patch[1].
-> 
-> I'd be very interested in the results of testing against the eval board. I
-> don't have access to one and it seems Maxim have discontinued them.
-> 
-> [1] https://patchwork.kernel.org/patch/9876083/
-> 
->>   
->> The MAX31785 is microcode based, so I would not be entirely surprised if
->> it sometimes fails to reply if a sequence of <set page, clear faults>
->> commands is executed.
-> 
-> Have you seen this behaviour in other microcode-based chips?
-> 
+On Wed, Sep 6, 2017 at 2:04 PM, Avi Fishman <avifishman70@gmail.com> wrote:
+> Sorry for sending again some mailing list rejected it due to HTML
+> involved (althoug I tried Plain Text), Trying again.
+>
+> 2017-09-06 11:07 GMT+03:00 Brendan Higgins <brendanhiggins@google.com>:
+>> Adds basic support for the Nuvoton NPCM750 BMC.
+>>
+>> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+>> ---
+>>  arch/arm/Kconfig             |  2 +
+>>  arch/arm/Makefile            |  1 +
+>>  arch/arm/mach-npcm/Kconfig   | 50 +++++++++++++++++++++++++
+>>  arch/arm/mach-npcm/Makefile  |  3 ++
+>>  arch/arm/mach-npcm/headsmp.S | 17 +++++++++
+>>  arch/arm/mach-npcm/npcm7xx.c | 34 +++++++++++++++++
+>>  arch/arm/mach-npcm/platsmp.c | 89 ++++++++++++++++++++++++++++++++++++++++++++
+>>  7 files changed, 196 insertions(+)
+>>  create mode 100644 arch/arm/mach-npcm/Kconfig
+>>  create mode 100644 arch/arm/mach-npcm/Makefile
+>>  create mode 100644 arch/arm/mach-npcm/headsmp.S
+>>  create mode 100644 arch/arm/mach-npcm/npcm7xx.c
+>>  create mode 100644 arch/arm/mach-npcm/platsmp.c
+>>
+>> diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+>> index 61a0cb15067e..05543f1cfbde 100644
+>> --- a/arch/arm/Kconfig
+>> +++ b/arch/arm/Kconfig
+>> @@ -782,6 +782,8 @@ source "arch/arm/mach-netx/Kconfig"
+>>
+>>  source "arch/arm/mach-nomadik/Kconfig"
+>>
+>> +source "arch/arm/mach-npcm/Kconfig"
+>> +
+>>  source "arch/arm/mach-nspire/Kconfig"
+>>
+>>  source "arch/arm/plat-omap/Kconfig"
+>> diff --git a/arch/arm/Makefile b/arch/arm/Makefile
+>> index 47d3a1ab08d2..60ca50c7d762 100644
+>> --- a/arch/arm/Makefile
+>> +++ b/arch/arm/Makefile
+>> @@ -191,6 +191,7 @@ machine-$(CONFIG_ARCH_MEDIATEK)             += mediatek
+>>  machine-$(CONFIG_ARCH_MXS)             += mxs
+>>  machine-$(CONFIG_ARCH_NETX)            += netx
+>>  machine-$(CONFIG_ARCH_NOMADIK)         += nomadik
+>> +machine-$(CONFIG_ARCH_NPCM)            += npcm
+>>  machine-$(CONFIG_ARCH_NSPIRE)          += nspire
+>>  machine-$(CONFIG_ARCH_OXNAS)           += oxnas
+>>  machine-$(CONFIG_ARCH_OMAP1)           += omap1
+>> diff --git a/arch/arm/mach-npcm/Kconfig b/arch/arm/mach-npcm/Kconfig
+>> new file mode 100644
+>> index 000000000000..d47061855439
+>> --- /dev/null
+>> +++ b/arch/arm/mach-npcm/Kconfig
+>> @@ -0,0 +1,50 @@
+>> +menuconfig ARCH_NPCM
+>> +       bool "Nuvoton NPCM Architecture"
+>> +       select ARCH_REQUIRE_GPIOLIB
+>> +       select USE_OF
+>> +       select PINCTRL
+>> +       select PINCTRL_NPCM7XX
+>> +
+>> +if ARCH_NPCM
+>> +
+>> +comment "NPCMX50 CPU type"
+>> +
+>> +config CPU_NPCM750
+>> +       depends on ARCH_NPCM && ARCH_MULTI_V7
+>> +       bool "Support for NPCM750 BMC CPU (Poleg)"
+>> +       select CACHE_L2X0
+>> +       select CPU_V7
+>> +       select ARM_GIC
+>> +       select HAVE_SMP
+>> +       select SMP
+>> +       select SMP_ON_UP
+>> +       select HAVE_ARM_SCU
+>> +       select HAVE_ARM_TWD if SMP
+>> +       select ARM_ERRATA_458693
+>> +       select ARM_ERRATA_720789
+>> +       select ARM_ERRATA_742231
+>> +       select ARM_ERRATA_754322
+>> +       select ARM_ERRATA_764369
+>> +       select ARM_ERRATA_794072
+>> +       select PL310_ERRATA_588369
+>> +       select PL310_ERRATA_727915
+>> +       select USB_EHCI_ROOT_HUB_TT
+>> +       select USB_ARCH_HAS_HCD
+>> +       select USB_ARCH_HAS_EHCI
+>> +       select USB_EHCI_HCD
+>> +       select USB_ARCH_HAS_OHCI
+>> +       select USB_OHCI_HCD
+>> +       select USB
+>> +       select FIQ
+>> +       select CPU_USE_DOMAINS
+>> +       select GENERIC_CLOCKEVENTS
+>> +       select CLKDEV_LOOKUP
+>> +       select COMMON_CLK if OF
+>> +       select NPCM750_TIMER
+>> +       select MFD_SYSCON
+>> +       help
+>> +         Support for NPCM750 BMC CPU (Poleg).
+>> +
+>> +         Nuvoton NPCM750 BMC based on the Cortex A9.
+>> +
+>> +endif
+>> diff --git a/arch/arm/mach-npcm/Makefile b/arch/arm/mach-npcm/Makefile
+>> new file mode 100644
+>> index 000000000000..78416055b854
+>> --- /dev/null
+>> +++ b/arch/arm/mach-npcm/Makefile
+>> @@ -0,0 +1,3 @@
+>> +AFLAGS_headsmp.o               += -march=armv7-a
+>> +
+>> +obj-$(CONFIG_CPU_NPCM750)      += npcm7xx.o platsmp.o headsmp.o
+>> diff --git a/arch/arm/mach-npcm/headsmp.S b/arch/arm/mach-npcm/headsmp.S
+>> new file mode 100644
+>> index 000000000000..9fccbbd49ed4
+>> --- /dev/null
+>> +++ b/arch/arm/mach-npcm/headsmp.S
+>> @@ -0,0 +1,17 @@
+>> +/*
+>> + * Copyright 2017 Google, Inc.
+>> + *
+>> + * This program is free software; you can redistribute it and/or modify
+>> + * it under the terms of the GNU General Public License version 2 as
+>> + * published by the Free Software Foundation.
+>> + */
+>> +
+>> +#include <linux/linkage.h>
+>> +#include <linux/init.h>
+>> +#include <asm/assembler.h>
+>> +
+>> +ENTRY(npcm7xx_secondary_startup)
+>> +       safe_svcmode_maskall r0
+>
+> I saw you  answered to Florian Fainelli that the BootRom is not
+> starting the secondary CPU in SVC mode. Are you sure? In our
+> engineering npcm7xx revision, Z1, the BootRom indeed started to run it
+> in IRQ mode but we fixed it in the production version, A1, (quite long
+> time ago), I hope you didn't get an EB with Z1 you can check that in
+> BootBlock console print:
+>> ADC CLK is set to 25000000
+>>Last reset was CORST
+>>vgaioen=1 and mux gspi.
+>>A1 <<====== this is what you should see, if you see Z1 we need to replace your EB
+>
 
-ltc2978 (commit e04d1ce9bbb) and most of the Zilker Labs chips (zl6100.c).
+Nope, on boot it prints:
 
-You could try the approach I used in the zl6100 driver: Add a minimum time
-between accesses to the chip. I would probably no longer use udelay(), though,
-but usleeep_range(), if I were to implement the code today.
+>EB
+>Board manufacturer: Nuvoton
 
->>   
->> If possible, you might try reducing the i2c clock. I have not seen that with
->> Maxim chips, but some other PMBus chips don't operate reliably at 400 KHz.
-> 
-> It's already running at 100kHz, which is the maximum clock rate the device is
-> specified for. I've even underclocked the bus to 75kHz and still observed
-> issues. Again, I wouldn't be surprised if the problem is something other than
-> the Maxim chip, the bus that we have it on has a complex topology. I'm working
-> with hardware people internally to try to isolate the problem.
-> 
+> CPU CLK is 800000000
+> MC  CLK is 800000000
 
-If you can, you might try something in between. Early TI chips (ucd9000 variants,
-some sold as OEM chips to third parties) had a problem with both 100kHz and 400kHz,
-but worked fine between about 150 kHz and 350 kHz, for whatever reason. Of course,
-maybe that was a signal problem on our boards at the time (the i2c signal routing
-was quite complex).
+> ADC CLK is set to 25000000
+>Last reset was PORST
+>vgaioen=1 and mux gspi.
+>A1
+>Skip PCI config.
 
-Guenter
+To reproduce, all you have to do is delete
 
-> Cheers,
-> 
-> Andrew
-> 
->>   
->> Guenter
->>   
->>>>   
->>>>>>> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
->>>>>   
->>>>> ---
->>>>>   Documentation/hwmon/pmbus-core   |  12 ++--
->>>>>   drivers/hwmon/pmbus/pmbus.h      |   6 +-
->>>>>   drivers/hwmon/pmbus/pmbus_core.c | 115 +++++++++++++++++++++++++++++----------
->>>>>   3 files changed, 95 insertions(+), 38 deletions(-)
->>>>>   
->>>>> diff --git a/Documentation/hwmon/pmbus-core b/Documentation/hwmon/pmbus-core
->>>>> index 8ed10e9ddfb5..3e9f41bb756f 100644
->>>>> --- a/Documentation/hwmon/pmbus-core
->>>>> +++ b/Documentation/hwmon/pmbus-core
->>>>> @@ -218,17 +218,17 @@ Specifically, it provides the following information.
->>>>>     This function calls the device specific write_byte function if defined.
->>>>>     Therefore, it must _not_ be called from that function.
->>>>>   
->>>>> -  bool pmbus_check_byte_register(struct i2c_client *client, int page, int reg);
->>>>> +  int pmbus_check_byte_register(struct i2c_client *client, int page, int reg);
->>>>>   
->>>>> -  Check if byte register exists. Return true if the register exists, false
->>>>> -  otherwise.
->>>>> +  Check if byte register exists. Returns 1 if the register exists, 0 if it does
->>>>> +  not, and less than zero on an unexpected error.
->>>>>     This function calls the device specific write_byte function if defined to
->>>>>     obtain the chip status. Therefore, it must _not_ be called from that function.
->>>>>   
->>>>> -  bool pmbus_check_word_register(struct i2c_client *client, int page, int reg);
->>>>> +  int pmbus_check_word_register(struct i2c_client *client, int page, int reg);
->>>>>   
->>>>> -  Check if word register exists. Return true if the register exists, false
->>>>> -  otherwise.
->>>>> +  Check if word register exists. Returns 1 if the register exists, 0 if it does
->>>>> +  not, and less than zero on an unexpected error.
->>>>>     This function calls the device specific write_byte function if defined to
->>>>>     obtain the chip status. Therefore, it must _not_ be called from that function.
->>>>>   
->>>>> diff --git a/drivers/hwmon/pmbus/pmbus.h b/drivers/hwmon/pmbus/pmbus.h
->>>>> index bfcb13bae34b..c53032a04a6f 100644
->>>>> --- a/drivers/hwmon/pmbus/pmbus.h
->>>>> +++ b/drivers/hwmon/pmbus/pmbus.h
->>>>> @@ -413,9 +413,9 @@ int pmbus_write_byte_data(struct i2c_client *client, int page, u8 reg,
->>>>>>>   			  u8 value);
->>>>>   
->>>>>   int pmbus_update_byte_data(struct i2c_client *client, int page, u8 reg,
->>>>>>>   			   u8 mask, u8 value);
->>>>>   
->>>>> -void pmbus_clear_faults(struct i2c_client *client);
->>>>> -bool pmbus_check_byte_register(struct i2c_client *client, int page, int reg);
->>>>> -bool pmbus_check_word_register(struct i2c_client *client, int page, int reg);
->>>>> +int pmbus_clear_faults(struct i2c_client *client);
->>>>> +int pmbus_check_byte_register(struct i2c_client *client, int page, int reg);
->>>>> +int pmbus_check_word_register(struct i2c_client *client, int page, int reg);
->>>>>   int pmbus_do_probe(struct i2c_client *client, const struct i2c_device_id *id,
->>>>>>>   		   struct pmbus_driver_info *info);
->>>>>   
->>>>>   int pmbus_do_remove(struct i2c_client *client);
->>>>> diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
->>>>> index f1eff6b6c798..153700e35431 100644
->>>>> --- a/drivers/hwmon/pmbus/pmbus_core.c
->>>>> +++ b/drivers/hwmon/pmbus/pmbus_core.c
->>>>> @@ -304,18 +304,24 @@ static int _pmbus_read_byte_data(struct i2c_client *client, int page, int reg)
->>>>>>>   	return pmbus_read_byte_data(client, page, reg);
->>>>>   
->>>>>   }
->>>>>   
->>>>> -static void pmbus_clear_fault_page(struct i2c_client *client, int page)
->>>>> +static int pmbus_clear_fault_page(struct i2c_client *client, int page)
->>>>>   {
->>>>>>>>>>>>> -	_pmbus_write_byte(client, page, PMBUS_CLEAR_FAULTS);
->>>>>>> +	return _pmbus_write_byte(client, page, PMBUS_CLEAR_FAULTS);
->>>>>   
->>>>>   }
->>>>>   
->>>>> -void pmbus_clear_faults(struct i2c_client *client)
->>>>> +int pmbus_clear_faults(struct i2c_client *client)
->>>>>   {
->>>>>>>>>>>>>   	struct pmbus_data *data = i2c_get_clientdata(client);
->>>>>>>>>>>>> +	int rv;
->>>>>>>   	int i;
->>>>>   
->>>>>   
->>>>>>>>>>>>> -	for (i = 0; i < data->info->pages; i++)
->>>>>>>>>>>>> -		pmbus_clear_fault_page(client, i);
->>>>>>>>>>>>> +	for (i = 0; i < data->info->pages; i++) {
->>>>>>>>>>>>> +		rv = pmbus_clear_fault_page(client, i);
->>>>>>>>>>>>> +		if (rv)
->>>>>>>>>>>>> +			return rv;
->>>>>>> +	}
->>>>>   
->>>>> +
->>>>>>> +	return 0;
->>>>>   
->>>>>   }
->>>>>   EXPORT_SYMBOL_GPL(pmbus_clear_faults);
->>>>>   
->>>>> @@ -333,28 +339,45 @@ static int pmbus_check_status_cml(struct i2c_client *client)
->>>>>>>   	return 0;
->>>>>   
->>>>>   }
->>>>>   
->>>>> -static bool pmbus_check_register(struct i2c_client *client,
->>>>> +static int pmbus_check_register(struct i2c_client *client,
->>>>>>>>>>>>>   				 int (*func)(struct i2c_client *client,
->>>>>>>>>>>>>   					     int page, int reg),
->>>>>>>   				 int page, int reg)
->>>>>   
->>>>>   {
->>>>>>>>>>>>> +	struct pmbus_data *data;
->>>>>>>>>>>>> +	int check;
->>>>>>>>>>>>>   	int rv;
->>>>>>> -	struct pmbus_data *data = i2c_get_clientdata(client);
->>>>>   
->>>>>   
->>>>>>>>>>>>> -	rv = func(client, page, reg);
->>>>>>>>>>>>> -	if (rv >= 0 && !(data->flags & PMBUS_SKIP_STATUS_CHECK))
->>>>>>>>>>>>> -		rv = pmbus_check_status_cml(client);
->>>>>>>>>>>>> -	pmbus_clear_fault_page(client, -1);
->>>>>>>>>>>>> -	return rv >= 0;
->>>>>>> +	data = i2c_get_clientdata(client);
->>>>>   
->>>>> +
->>>>>>>>>>>>> +	/*
->>>>>>>>>>>>> +	 * pmbus_set_page() guards transactions on the requested page matching
->>>>>>>>>>>>> +	 * the current page. This may be done in the execution of func(), but
->>>>>>>>>>>>> +	 * at that point a set-page error is conflated with accessing a
->>>>>>>>>>>>> +	 * non-existent register.
->>>>>>>>>>>>> +	 */
->>>>>>>>>>>>> +	rv = pmbus_set_page(client, page);
->>>>>>>>>>>>> +	if (rv < 0)
->>>>>>> +		return rv;
->>>>>   
->>>>> +
->>>>>>>>>>>>> +	check = func(client, page, reg);
->>>>>>>>>>>>> +	if (check >= 0 && !(data->flags & PMBUS_SKIP_STATUS_CHECK))
->>>>>>> +		check = pmbus_check_status_cml(client);
->>>>>   
->>>>> +
->>>>>>>>>>>>> +	rv = pmbus_clear_fault_page(client, -1);
->>>>>>>>>>>>> +	if (rv < 0)
->>>>>>> +		return rv;
->>>>>   
->>>>> +
->>>>>>> +	return check >= 0;
->>>>>   
->>>>>   }
->>>>>   
->>>>> -bool pmbus_check_byte_register(struct i2c_client *client, int page, int reg)
->>>>> +int pmbus_check_byte_register(struct i2c_client *client, int page, int reg)
->>>>>   {
->>>>>>>   	return pmbus_check_register(client, _pmbus_read_byte_data, page, reg);
->>>>>   
->>>>>   }
->>>>>   EXPORT_SYMBOL_GPL(pmbus_check_byte_register);
->>>>>   
->>>>> -bool pmbus_check_word_register(struct i2c_client *client, int page, int reg)
->>>>> +int pmbus_check_word_register(struct i2c_client *client, int page, int reg)
->>>>>   {
->>>>>>>   	return pmbus_check_register(client, _pmbus_read_word_data, page, reg);
->>>>>   
->>>>>   }
->>>>> @@ -390,7 +413,7 @@ static struct pmbus_data *pmbus_update_device(struct device *dev)
->>>>>   
->>>>>>>>>>>>>   	mutex_lock(&data->update_lock);
->>>>>>>>>>>>>   	if (time_after(jiffies, data->last_updated + HZ) || !data->valid) {
->>>>>>>>>>>>> -		int i, j;
->>>>>>> +		int i, j, ret;
->>>>>   
->>>>>   
->>>>>>>>>>>>>   		for (i = 0; i < info->pages; i++) {
->>>>>>>   			data->status[PB_STATUS_BASE + i]
->>>>>   
->>>>> @@ -424,7 +447,13 @@ static struct pmbus_data *pmbus_update_device(struct device *dev)
->>>>>>>>>>>>>   							    sensor->page,
->>>>>>>>>>>>>   							    sensor->reg);
->>>>>>>>>>>>>   		}
->>>>>>> -		pmbus_clear_faults(client);
->>>>>   
->>>>> +
->>>>>>>>>>>>> +		ret = pmbus_clear_faults(client);
->>>>>>>>>>>>> +		if (ret < 0) {
->>>>>>>>>>>>> +			mutex_unlock(&data->update_lock);
->>>>>>>>>>>>> +			return ERR_PTR(ret);
->>>>>>> +		}
->>>>>   
->>>>> +
->>>>>>>>>>>>>   		data->last_updated = jiffies;
->>>>>>>>>>>>>   		data->valid = 1;
->>>>>>>   	}
->>>>>   
->>>>> @@ -754,6 +783,9 @@ static ssize_t pmbus_show_boolean(struct device *dev,
->>>>>>>>>>>>>   	struct pmbus_data *data = pmbus_update_device(dev);
->>>>>>>   	int val;
->>>>>   
->>>>>   
->>>>>>>>>>>>> +	if (IS_ERR(data))
->>>>>>> +		return PTR_ERR(data);
->>>>>   
->>>>> +
->>>>>>>>>>>>>   	val = pmbus_get_boolean(data, boolean, attr->index);
->>>>>>>>>>>>>   	if (val < 0)
->>>>>>>   		return val;
->>>>>   
->>>>> @@ -766,6 +798,9 @@ static ssize_t pmbus_show_sensor(struct device *dev,
->>>>>>>>>>>>>   	struct pmbus_data *data = pmbus_update_device(dev);
->>>>>>>   	struct pmbus_sensor *sensor = to_pmbus_sensor(devattr);
->>>>>   
->>>>>   
->>>>>>>>>>>>> +	if (IS_ERR(data))
->>>>>>> +		return PTR_ERR(data);
->>>>>   
->>>>> +
->>>>>>>>>>>>>   	if (sensor->data < 0)
->>>>>>>   		return sensor->data;
->>>>>   
->>>>>   
->>>>> @@ -995,7 +1030,11 @@ static int pmbus_add_limit_attrs(struct i2c_client *client,
->>>>>>>   	struct pmbus_sensor *curr;
->>>>>   
->>>>>   
->>>>>>>>>>>>>   	for (i = 0; i < nlimit; i++) {
->>>>>>>>>>>>> -		if (pmbus_check_word_register(client, page, l->reg)) {
->>>>>>>>>>>>> +		ret = pmbus_check_word_register(client, page, l->reg);
->>>>>>>>>>>>> +		if (ret < 0)
->>>>>>> +			return ret;
->>>>>   
->>>>> +
->>>>>>>>>>>>> +		if (ret) {
->>>>>>>>>>>>>   			curr = pmbus_add_sensor(data, name, l->attr, index,
->>>>>>>>>>>>>   						page, l->reg, attr->class,
->>>>>>>   						attr->update || l->update,
->>>>>   
->>>>> @@ -1041,6 +1080,8 @@ static int pmbus_add_sensor_attrs_one(struct i2c_client *client,
->>>>>>>>>>>>>   	if (!base)
->>>>>>>>>>>>>   		return -ENOMEM;
->>>>>>>>>>>>>   	if (attr->sfunc) {
->>>>>>> +		int check;
->>>>>   
->>>>> +
->>>>>>>>>>>>>   		ret = pmbus_add_limit_attrs(client, data, info, name,
->>>>>>>>>>>>>   					    index, page, base, attr);
->>>>>>>   		if (ret < 0)
->>>>>   
->>>>> @@ -1050,9 +1091,13 @@ static int pmbus_add_sensor_attrs_one(struct i2c_client *client,
->>>>>>>>>>>>>   		 * alarm attributes, if there is a global alarm bit, and if
->>>>>>>>>>>>>   		 * the generic status register for this page is accessible.
->>>>>>>>>>>>>   		 */
->>>>>>>>>>>>> -		if (!ret && attr->gbit &&
->>>>>>>>>>>>> -		    pmbus_check_byte_register(client, page,
->>>>>>> -					      data->status_register)) {
->>>>>   
->>>>> +
->>>>>>>>>>>>> +		check = pmbus_check_byte_register(client, page,
->>>>>>>>>>>>> +						  data->status_register);
->>>>>>>>>>>>> +		if (check < 0)
->>>>>>> +			return check;
->>>>>   
->>>>> +
->>>>>>>>>>>>> +		if (!ret && attr->gbit && check) {
->>>>>>>>>>>>>   			ret = pmbus_add_boolean(data, name, "alarm", index,
->>>>>>>>>>>>>   						NULL, NULL,
->>>>>>>   						PB_STATUS_BASE + page,
->>>>>   
->>>>> @@ -1604,8 +1649,12 @@ static int pmbus_add_fan_attributes(struct i2c_client *client,
->>>>>>>>>>>>>   			if (!(info->func[page] & pmbus_fan_flags[f]))
->>>>>>>   				break;
->>>>>   
->>>>>   
->>>>>>>>>>>>> -			if (!pmbus_check_word_register(client, page,
->>>>>>>>>>>>> -						       pmbus_fan_registers[f]))
->>>>>>>>>>>>> +			ret = pmbus_check_word_register(client, page,
->>>>>>>>>>>>> +						       pmbus_fan_registers[f]);
->>>>>>>>>>>>> +			if (ret < 0)
->>>>>>> +				return ret;
->>>>>   
->>>>> +
->>>>>>>>>>>>> +			if (!ret)
->>>>>>>   				break;
->>>>>   
->>>>>   
->>>>>>>   			/*
->>>>>   
->>>>> @@ -1628,9 +1677,13 @@ static int pmbus_add_fan_attributes(struct i2c_client *client,
->>>>>>>>>>>>>   			 * Each fan status register covers multiple fans,
->>>>>>>>>>>>>   			 * so we have to do some magic.
->>>>>>>>>>>>>   			 */
->>>>>>>>>>>>> -			if ((info->func[page] & pmbus_fan_status_flags[f]) &&
->>>>>>>>>>>>> -			    pmbus_check_byte_register(client,
->>>>>>>>>>>>> -					page, pmbus_fan_status_registers[f])) {
->>>>>>>>>>>>> +			ret =  pmbus_check_byte_register(client, page,
->>>>>>>>>>>>> +						pmbus_fan_status_registers[f]);
->>>>>>>>>>>>> +			if (ret < 0)
->>>>>>> +				return ret;
->>>>>   
->>>>> +
->>>>>>>>>>>>> +			if ((info->func[page] & pmbus_fan_status_flags[f])
->>>>>>>>>>>>> +					&& ret) {
->>>>>>>   				int base;
->>>>>   
->>>>>   
->>>>>>>>>   				if (f > 1)	/* fan 3, 4 */
->>>>>   
->>>>> @@ -1696,10 +1749,13 @@ static int pmbus_identify_common(struct i2c_client *client,
->>>>>>>   				 struct pmbus_data *data, int page)
->>>>>   
->>>>>   {
->>>>>>>>>>>>>   	int vout_mode = -1;
->>>>>>> +	int rv;
->>>>>   
->>>>>   
->>>>>>>>>>>>> -	if (pmbus_check_byte_register(client, page, PMBUS_VOUT_MODE))
->>>>>>>>>>>>> +	rv = pmbus_check_byte_register(client, page, PMBUS_VOUT_MODE);
->>>>>>>>>>>>> +	if (rv == 1)
->>>>>>>>>>>>>   		vout_mode = _pmbus_read_byte_data(client, page,
->>>>>>>   						  PMBUS_VOUT_MODE);
->>>>>   
->>>>> +
->>>>>>>>>>>>>   	if (vout_mode >= 0 && vout_mode != 0xff) {
->>>>>>>>>>>>>   		/*
->>>>>>>   		 * Not all chips support the VOUT_MODE command,
->>>>>   
->>>>> @@ -1725,8 +1781,7 @@ static int pmbus_identify_common(struct i2c_client *client,
->>>>>>>>>>>>>   		}
->>>>>>>   	}
->>>>>   
->>>>>   
->>>>>>>>>>>>> -	pmbus_clear_fault_page(client, page);
->>>>>>>>>>>>> -	return 0;
->>>>>>> +	return pmbus_clear_fault_page(client, page);
->>>>>   
->>>>>   }
->>>>>   
->>>>>   static int pmbus_init_common(struct i2c_client *client, struct pmbus_data *data,
->>>>> @@ -1756,7 +1811,9 @@ static int pmbus_init_common(struct i2c_client *client, struct pmbus_data *data,
->>>>>>>>>>>>>   	if (ret >= 0 && (ret & PB_CAPABILITY_ERROR_CHECK))
->>>>>>>   		client->flags |= I2C_CLIENT_PEC;
->>>>>   
->>>>>   
->>>>>>>>>>>>> -	pmbus_clear_faults(client);
->>>>>>>>>>>>> +	ret = pmbus_clear_faults(client);
->>>>>>>>>>>>> +	if (ret < 0)
->>>>>>> +		return ret;
->>>>>   
->>>>>   
->>>>>>>>>>>>>   	if (info->identify) {
->>>>>>>   		ret = (*info->identify)(client, info);
->>>>>   
->>>>> -- 
->>>>> 2.11.0
->>>>>   
->>   
->>   
+>> +       safe_svcmode_maskall r0
+
+and the kernel will warn that the core is not starting in SVC mode
+
+>> +
+>> +       b       secondary_startup
+>> +ENDPROC(npcm7xx_secondary_startup)
+>> diff --git a/arch/arm/mach-npcm/npcm7xx.c b/arch/arm/mach-npcm/npcm7xx.c
+>> new file mode 100644
+>> index 000000000000..132e9d587857
+>> --- /dev/null
+>> +++ b/arch/arm/mach-npcm/npcm7xx.c
+>> @@ -0,0 +1,34 @@
+>> +/*
+>> + * Copyright (c) 2017 Nuvoton Technology corporation.
+>> + * Copyright 2017 Google, Inc.
+>> + *
+>> + * This program is free software; you can redistribute it and/or modify
+>> + * it under the terms of the GNU General Public License version 2 as
+>> + * published by the Free Software Foundation.
+>> + */
+>> +
+>> +#include <linux/kernel.h>
+>> +#include <linux/types.h>
+>> +#include <asm/mach/arch.h>
+>> +#include <asm/mach-types.h>
+>> +#include <asm/mach/map.h>
+>> +#include <asm/hardware/cache-l2x0.h>
+>> +
+>> +#define NPCM7XX_AUX_VAL (L310_AUX_CTRL_INSTR_PREFETCH |                               \
+>> +                        L310_AUX_CTRL_DATA_PREFETCH |                         \
+>> +                        L310_AUX_CTRL_NS_LOCKDOWN |                           \
+>> +                        L310_AUX_CTRL_CACHE_REPLACE_RR |                      \
+>> +                        L2C_AUX_CTRL_SHARED_OVERRIDE |                        \
+>> +                        L310_AUX_CTRL_FULL_LINE_ZERO)
+>> +
+>> +static const char *const npcm7xx_dt_match[] = {
+>> +       "nuvoton,npcm750",
+>> +       NULL
+>> +};
+>> +
+>> +DT_MACHINE_START(NPCM7XX_DT, "NPCMX50 Chip family")
+>> +       .atag_offset    = 0x100,
+>> +       .dt_compat      = npcm7xx_dt_match,
+>> +       .l2c_aux_val    = NPCM7XX_AUX_VAL,
+>> +       .l2c_aux_mask   = ~NPCM7XX_AUX_VAL,
+>> +MACHINE_END
+>> diff --git a/arch/arm/mach-npcm/platsmp.c b/arch/arm/mach-npcm/platsmp.c
+>> new file mode 100644
+>> index 000000000000..144e3e7ec7e6
+>> --- /dev/null
+>> +++ b/arch/arm/mach-npcm/platsmp.c
+>> @@ -0,0 +1,89 @@
+>> +/*
+>> + * Copyright 2017 Google, Inc.
+>> + *
+>> + * This program is free software; you can redistribute it and/or modify
+>> + * it under the terms of the GNU General Public License version 2 as
+>> + * published by the Free Software Foundation.
+>> + */
+>> +
+>> +#define pr_fmt(fmt) "PLATSMP: " fmt
+>> +
+>> +#include <linux/delay.h>
+>> +#include <linux/device.h>
+>> +#include <linux/smp.h>
+>> +#include <linux/io.h>
+>> +#include <linux/of.h>
+>> +#include <linux/of_device.h>
+>> +#include <linux/of_platform.h>
+>> +#include <linux/of_address.h>
+>> +#include <asm/cacheflush.h>
+>> +#include <asm/smp.h>
+>> +#include <asm/smp_plat.h>
+>> +#include <asm/smp_scu.h>
+>> +
+>> +#define NPCM7XX_SCRPAD_REG 0x13c
+>> +
+>> +extern void npcm7xx_secondary_startup(void);
+>> +
+>> +static int npcm7xx_smp_boot_secondary(unsigned int cpu,
+>> +                                     struct task_struct *idle)
+>> +{
+>> +       struct device_node *gcr_np;
+>> +       void __iomem *gcr_base;
+>> +       int ret = 0;
+>> +
+>> +       gcr_np = of_find_compatible_node(NULL, NULL, "nuvoton,npcm750-gcr");
+>> +       if (!gcr_np) {
+>> +               pr_err("no gcr device node\n");
+>> +               ret = -EFAULT;
+>> +               goto out;
+>> +       }
+>> +       gcr_base = of_iomap(gcr_np, 0);
+>> +       if (!gcr_base) {
+>> +               pr_err("could not iomap gcr at: 0x%llx\n", gcr_base);
+>> +               ret = -EFAULT;
+>> +               goto out;
+>> +       }
+>> +
+>> +       /* give boot ROM kernel start address. */
+>> +       iowrite32(__pa_symbol(npcm7xx_secondary_startup), gcr_base +
+>> +                 NPCM7XX_SCRPAD_REG);
+>> +       /* make sure npcm7xx_secondary_startup is seen by all observers. */
+>> +       smp_wmb();
+>> +       dsb_sev();
+>> +       /* make sure write buffer is drained */
+>> +       mb();
+>> +
+>> +out:
+>> +       iounmap(gcr_base);
+>> +       return ret;
+>> +}
+>> +
+>> +static void __init npcm7xx_smp_prepare_cpus(unsigned int max_cpus)
+>> +{
+>> +       struct device_node *scu_np;
+>> +       void __iomem *scu_base;
+>> +
+>> +       scu_np = of_find_compatible_node(NULL, NULL, "arm,cortex-a9-scu");
+>> +       if (!scu_np) {
+>> +               pr_err("no scu device node\n");
+>> +               return;
+>> +       }
+>> +       scu_base = of_iomap(scu_np, 0);
+>> +       if (!scu_base) {
+>> +               pr_err("could not iomap scu at: 0x%llx\n", scu_base);
+>> +               return;
+>> +       }
+>> +
+>> +       scu_enable(scu_base);
+>> +
+>> +out:
+>> +       iounmap(scu_base);
+>> +}
+>> +
+>> +static struct smp_operations npcm7xx_smp_ops __initdata = {
+>> +       .smp_prepare_cpus = npcm7xx_smp_prepare_cpus,
+>> +       .smp_boot_secondary = npcm7xx_smp_boot_secondary,
+>> +};
+>> +
+>> +CPU_METHOD_OF_DECLARE(npcm7xx_smp, "nuvoton,npcm7xx-smp", &npcm7xx_smp_ops);
+>> --
+>> 2.14.1.581.gf28d330327-goog
+>>
