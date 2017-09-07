@@ -1,59 +1,60 @@
 Return-Path: <cbostic@linux.vnet.ibm.com>
 Authentication-Results: ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
  envelope-from=cbostic@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xp8N739mvzDrWp
- for <openbmc@lists.ozlabs.org>; Fri,  8 Sep 2017 04:38:14 +1000 (AEST)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xp8N86cfHzDrWp
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Sep 2017 04:38:16 +1000 (AEST)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v87IaLkN145222
- for <openbmc@lists.ozlabs.org>; Thu, 7 Sep 2017 14:38:12 -0400
-Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2cu6n7g0cy-1
+ v87IYibi060018
+ for <openbmc@lists.ozlabs.org>; Thu, 7 Sep 2017 14:38:13 -0400
+Received: from e13.ny.us.ibm.com (e13.ny.us.ibm.com [129.33.205.203])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2cubgy87dy-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 07 Sep 2017 14:38:11 -0400
+ for <openbmc@lists.ozlabs.org>; Thu, 07 Sep 2017 14:38:13 -0400
 Received: from localhost
- by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e13.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Thu, 7 Sep 2017 14:38:10 -0400
-Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
- by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
+ Thu, 7 Sep 2017 14:38:12 -0400
+Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
+ by e13.ny.us.ibm.com (146.89.104.200) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Thu, 7 Sep 2017 14:38:08 -0400
+ Thu, 7 Sep 2017 14:38:11 -0400
 Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
  [9.57.199.106])
- by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v87Ic7gr56950940; Thu, 7 Sep 2017 18:38:07 GMT
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v87IcBu249610958; Thu, 7 Sep 2017 18:38:11 GMT
 Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3E0252803A;
- Thu,  7 Sep 2017 14:38:01 -0400 (EDT)
+ by IMSVA (Postfix) with ESMTP id 630712803F;
+ Thu,  7 Sep 2017 14:38:04 -0400 (EDT)
 Received: from christophersmbp.austin.ibm.com (unknown [9.83.1.167])
- by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id 320482803E;
- Thu,  7 Sep 2017 14:37:58 -0400 (EDT)
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id 19A6328048;
+ Thu,  7 Sep 2017 14:38:01 -0400 (EDT)
 From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 To: joel@jms.id.au
 Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10 v8 0/2] Add user space accessibility for
- ucd9000 stats
-Date: Thu,  7 Sep 2017 13:37:59 -0500
+Subject: [PATCH linux dev-4.10 v8 1/2] hwmon: (ucd9000) Add gpio chip interface
+Date: Thu,  7 Sep 2017 13:38:00 -0500
 X-Mailer: git-send-email 2.10.1 (Apple Git-78)
+In-Reply-To: <20170907183801.36535-1-cbostic@linux.vnet.ibm.com>
+References: <20170907183801.36535-1-cbostic@linux.vnet.ibm.com>
 X-TM-AS-GCONF: 00
-x-cbid: 17090718-0044-0000-0000-0000038AF59B
+x-cbid: 17090718-0008-0000-0000-0000027C1AE2
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00007684; HX=3.00000241; KW=3.00000007;
  PH=3.00000004; SC=3.00000226; SDB=6.00913670; UDB=6.00458591; IPR=6.00693928; 
  BA=6.00005576; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017054; XFM=3.00000015;
- UTC=2017-09-07 18:38:09
+ UTC=2017-09-07 18:38:12
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17090718-0045-0000-0000-000007B9F5CB
-Message-Id: <20170907183801.36535-1-cbostic@linux.vnet.ibm.com>
+x-cbparentid: 17090718-0009-0000-0000-000036A12C0C
+Message-Id: <20170907183801.36535-2-cbostic@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-09-07_11:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -72,36 +73,300 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Sep 2017 18:38:16 -0000
-X-List-Received-Date: Thu, 07 Sep 2017 18:38:16 -0000
+X-List-Received-Date: Thu, 07 Sep 2017 18:38:17 -0000
 
-This set provides means to allow user space to access various properties of the
-ucd9000 type chips.
+Add a struct gpio_chip and define some methods so that this device's
+I/O can be accessed via /sys/class/gpio.
 
-patch 0001 Adds gpio_chip interface for user to access various GPIO pin states
-via the /sys/class/gpio interface.
+Present requirements only call for retrieving current state of pin
+values and their direction.  No requirement at this time to switch
+modes between output and input within the device driver.
 
-Patch 0002 adds a debugfs for mfr_status information so user space can gain
-visibility of gpi type faults. Note that there are limitations on type of devices
-that debugfs supports.  Presently only ucd90160 is supported.  Any assumptions made
-as to formatting of data is commented inline in the code.  Any expansion to other
-ucd9000 types will need to take this into consideration.
+Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+---
+v8 - Remove redundant ! ops for gpio get_direction method
+v7 - Reorder this patch from #2 in series to #1
+v6 - Break out sysfs clear logged faults into separate patch
+   - Fix logic bug that was bitwise inverting instead of !
+   - Add further comments about assumptions related to pin mux.
+v5 - Clean up remaining branch return statements to !! non
+     branching method.
+   - Clean up white space issues.
+   - Add return codes to error messages.
+   - Add comments describing assumptions of ucd90160 type.
+   - Define gpio direction set methods.
+   - Add unique id for each ucd9000 in system for gpio chip.
+v4 - Change status check from branch to a !! non branching method
+   - Remove usage comments on libgpiod for the struct gpio_chip
+     methods.
+   - Clean up some text formatting.
+v3 - Correct bug in gpio_chip get method.  Wasn't retrieving
+     gpio config information correctly.
+   - Remove old debugfs flag from previous pmbus core changes.
+   - Remove all sysfs files for mfr_status command.
+   - Add comments on direct i2c_smbus calls to clarify that no page
+     set is required.
+v2 - Remove clear_faults file - redundant since all other sysfs
+     core accesses result in an automatic clear fault.
+   - Removed local status_word and status_vout register dumps and
+     use the new pmbus core status facilities instead.
+   - Rename gpi<x>_fault to gpi<x>_alarm to better match core naming
+     conventions.
+   - Add full register dump for mfr_status.
+   - Add gpio chip to device structure and use gpio interfaces.
+---
+ drivers/hwmon/pmbus/ucd9000.c | 206 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 206 insertions(+)
 
-Note also that no pinmux support is provided at this point.  The ucd9000 devs do
-have mux capability so this should be added.
-
-v6 patch 0001 which covers the addition of a 'clear logged faults' sysfs file is
-now gone.   There are a few open questions in terms of requirements.
-Specifically, why clear when no one reads the faults out?  This was pointed out
-by Guenter Roeck.  Consequently v6 patch 0002 is now v7/v8 patch 0001,  v6 patch
-0003 is v7/v8 patch 0002.
-
-Christopher Bostic (2):
-  hwmon: (ucd9000) Add gpio chip interface
-  hwmon: (ucd9000) Add debugfs to list mfr_status info
-
- drivers/hwmon/pmbus/ucd9000.c | 369 +++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 368 insertions(+), 1 deletion(-)
-
+diff --git a/drivers/hwmon/pmbus/ucd9000.c b/drivers/hwmon/pmbus/ucd9000.c
+index 3e3aa95..8c0d3d3 100644
+--- a/drivers/hwmon/pmbus/ucd9000.c
++++ b/drivers/hwmon/pmbus/ucd9000.c
+@@ -26,6 +26,7 @@
+ #include <linux/slab.h>
+ #include <linux/i2c.h>
+ #include <linux/i2c/pmbus.h>
++#include <linux/gpio.h>
+ #include "pmbus.h"
+ 
+ enum chips { ucd9000, ucd90120, ucd90124, ucd90160, ucd9090, ucd90910 };
+@@ -34,8 +35,18 @@
+ #define UCD9000_NUM_PAGES		0xd6
+ #define UCD9000_FAN_CONFIG_INDEX	0xe7
+ #define UCD9000_FAN_CONFIG		0xe8
++#define UCD9000_GPIO_SELECT		0xfa
++#define UCD9000_GPIO_CONFIG		0xfb
+ #define UCD9000_DEVICE_ID		0xfd
+ 
++/* GPIO CONFIG bits */
++#define UCD9000_GPIO_CONFIG_ENABLE	BIT(0)
++#define UCD9000_GPIO_CONFIG_OUT_ENABLE	BIT(1)
++#define UCD9000_GPIO_CONFIG_OUT_VALUE	BIT(2)
++#define UCD9000_GPIO_CONFIG_STATUS	BIT(3)
++#define UCD9000_GPIO_INPUT		0
++#define UCD9000_GPIO_OUTPUT		1
++
+ #define UCD9000_MON_TYPE(x)	(((x) >> 5) & 0x07)
+ #define UCD9000_MON_PAGE(x)	((x) & 0x0f)
+ 
+@@ -46,9 +57,13 @@
+ 
+ #define UCD9000_NUM_FAN		4
+ 
++#define UCD9000_GPIO_NAME_LEN	16
++#define UCD90160_NUM_GPIOS	26
++
+ struct ucd9000_data {
+ 	u8 fan_data[UCD9000_NUM_FAN][I2C_SMBUS_BLOCK_MAX];
+ 	struct pmbus_driver_info info;
++	struct gpio_chip gpio;
+ };
+ #define to_ucd9000_data(_info) container_of(_info, struct ucd9000_data, info)
+ 
+@@ -119,6 +134,166 @@ static int ucd9000_read_byte_data(struct i2c_client *client, int page, int reg)
+ };
+ MODULE_DEVICE_TABLE(i2c, ucd9000_id);
+ 
++static int ucd9000_gpio_read_config(struct i2c_client *client,
++				unsigned int offset)
++{
++	int ret;
++
++	/* No page set required */
++	ret = i2c_smbus_write_byte_data(client, UCD9000_GPIO_SELECT, offset);
++	if (ret < 0) {
++		dev_err(&client->dev, "Failed to select GPIO %d: %d\n", offset,
++			ret);
++
++		return ret;
++	}
++
++	return i2c_smbus_read_byte_data(client, UCD9000_GPIO_CONFIG);
++}
++
++static int ucd9000_gpio_get(struct gpio_chip *gc, unsigned int offset)
++{
++	struct i2c_client *client  = gpiochip_get_data(gc);
++	int ret;
++
++	ret = ucd9000_gpio_read_config(client, offset);
++	if (ret < 0) {
++		dev_err(&client->dev, "failed to read GPIO %d config: %d\n",
++			offset, ret);
++
++		return ret;
++	}
++
++	return !!(ret & UCD9000_GPIO_CONFIG_STATUS);
++}
++
++static void ucd9000_gpio_set(struct gpio_chip *gc, unsigned int offset,
++			int value)
++{
++	struct i2c_client *client = gpiochip_get_data(gc);
++	int ret;
++
++	ret = ucd9000_gpio_read_config(client, offset);
++	if (ret < 0) {
++		dev_err(&client->dev, "failed to read GPIO %d config: %d\n",
++			offset, ret);
++
++		return;
++	}
++
++	if (value) {
++		if (ret & UCD9000_GPIO_CONFIG_STATUS)
++			return;
++
++		ret |= UCD9000_GPIO_CONFIG_STATUS;
++	} else {
++		if (!(ret & UCD9000_GPIO_CONFIG_STATUS))
++			return;
++
++		ret &= ~UCD9000_GPIO_CONFIG_STATUS;
++	}
++
++	ret |= UCD9000_GPIO_CONFIG_ENABLE;
++
++	/* Page set not required */
++	ret = i2c_smbus_write_byte_data(client, UCD9000_GPIO_CONFIG, ret);
++	if (ret < 0) {
++		dev_err(&client->dev, "Failed to write GPIO %d config: %d\n",
++			offset, ret);
++
++		return;
++	}
++
++	ret &= ~UCD9000_GPIO_CONFIG_ENABLE;
++
++	ret = i2c_smbus_write_byte_data(client, UCD9000_GPIO_CONFIG, ret);
++	if (ret < 0)
++		dev_err(&client->dev, "Failed to write GPIO %d config: %d\n",
++			offset, ret);
++}
++
++static int ucd9000_gpio_get_direction(struct gpio_chip *gc,
++					unsigned int offset)
++{
++	struct i2c_client *client = gpiochip_get_data(gc);
++	int ret;
++
++	ret = ucd9000_gpio_read_config(client, offset);
++	if (ret < 0) {
++		dev_err(&client->dev, "failed to read GPIO %d config: %d\n",
++			offset, ret);
++
++		return ret;
++	}
++
++	return !(ret & UCD9000_GPIO_CONFIG_OUT_ENABLE);
++}
++
++static int ucd9000_gpio_set_direction(struct gpio_chip *gc, unsigned int offset,
++					bool direction_out, int requested_out)
++{
++	struct i2c_client *client = gpiochip_get_data(gc);
++	int ret, config, out_val;
++
++
++	ret = ucd9000_gpio_read_config(client, offset);
++	if (ret < 0) {
++		dev_err(&client->dev, "failed to read GPIO %d config: %d\n",
++			offset, ret);
++
++		return ret;
++	}
++
++	if (direction_out) {
++		out_val = requested_out ? UCD9000_GPIO_CONFIG_OUT_VALUE : 0;
++
++		if (ret & UCD9000_GPIO_CONFIG_OUT_ENABLE) {
++			if ((ret & UCD9000_GPIO_CONFIG_OUT_VALUE) == out_val)
++				return 0;
++		} else
++			ret |= UCD9000_GPIO_CONFIG_OUT_ENABLE;
++
++		if (out_val)
++			ret |= UCD9000_GPIO_CONFIG_OUT_VALUE;
++		else
++			ret &= ~UCD9000_GPIO_CONFIG_OUT_VALUE;
++
++	} else {
++		if (!(ret & UCD9000_GPIO_CONFIG_OUT_ENABLE))
++			return 0;
++
++		ret &= ~UCD9000_GPIO_CONFIG_OUT_ENABLE;
++	}
++
++	ret |= UCD9000_GPIO_CONFIG_ENABLE;
++	config = ret;
++
++	/* Page set not required */
++	ret = i2c_smbus_write_byte_data(client, UCD9000_GPIO_CONFIG, config);
++	if (ret < 0) {
++		dev_err(&client->dev, "Failed to write GPIO %d config: %d\n",
++			offset, ret);
++
++		return ret;
++	}
++
++	config &= ~UCD9000_GPIO_CONFIG_ENABLE;
++
++	return i2c_smbus_write_byte_data(client, UCD9000_GPIO_CONFIG, config);
++}
++
++static int ucd9000_gpio_direction_input(struct gpio_chip *gc,
++					unsigned int offset)
++{
++	return ucd9000_gpio_set_direction(gc, offset, UCD9000_GPIO_INPUT, 0);
++}
++
++static int ucd9000_gpio_direction_output(struct gpio_chip *gc,
++					unsigned int offset, int val)
++{
++	return ucd9000_gpio_set_direction(gc, offset, UCD9000_GPIO_OUTPUT, val);
++}
++
+ static int ucd9000_probe(struct i2c_client *client,
+ 			 const struct i2c_device_id *id)
+ {
+@@ -227,6 +402,37 @@ static int ucd9000_probe(struct i2c_client *client,
+ 		  | PMBUS_HAVE_FAN34 | PMBUS_HAVE_STATUS_FAN34;
+ 	}
+ 
++	/*
++	 * Note:
++	 *
++	 * Pinmux support has not been added to the new gpio_chip.
++	 * This support should be added when possible given the mux
++	 * behavior of these IO devices.
++	 */
++	data->gpio.label = (const char *)&client->name;
++	data->gpio.get_direction = ucd9000_gpio_get_direction;
++	data->gpio.direction_input = ucd9000_gpio_direction_input;
++	data->gpio.direction_output = ucd9000_gpio_direction_output;
++	data->gpio.get = ucd9000_gpio_get;
++	data->gpio.set = ucd9000_gpio_set;
++	data->gpio.can_sleep = 1;
++	data->gpio.base = -1;
++
++	/*
++	 * TODO: set ngpio for ucd9000 devs that aren't 90160 type
++	 */
++	if (mid->driver_data == ucd90160)
++		data->gpio.ngpio = UCD90160_NUM_GPIOS;
++	data->gpio.parent = &client->dev;
++	data->gpio.owner = THIS_MODULE;
++
++	ret = devm_gpiochip_add_data(&client->dev, &data->gpio, client);
++	if (ret) {
++		data->gpio.parent = NULL;
++		dev_warn(&client->dev, "Could not add gpiochip: %d\n", ret);
++		return ret;
++	}
++
+ 	return pmbus_do_probe(client, mid, info);
+ }
+ 
 -- 
 1.8.2.2
