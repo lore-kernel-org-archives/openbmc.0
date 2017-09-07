@@ -1,59 +1,70 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <groeck7@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4010:c07::241; helo=mail-lf0-x241.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:400e:c00::244; helo=mail-pf0-x244.google.com;
+ envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="qBgZo9if"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="KQwGMMVR"; 
  dkim-atps=neutral
-Received: from mail-lf0-x241.google.com (mail-lf0-x241.google.com
- [IPv6:2a00:1450:4010:c07::241])
+Received: from mail-pf0-x244.google.com (mail-pf0-x244.google.com
+ [IPv6:2607:f8b0:400e:c00::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xnjyt1XhvzDrVp
- for <openbmc@lists.ozlabs.org>; Thu,  7 Sep 2017 11:48:22 +1000 (AEST)
-Received: by mail-lf0-x241.google.com with SMTP id c8so3794042lfe.2
- for <openbmc@lists.ozlabs.org>; Wed, 06 Sep 2017 18:48:21 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xnkg16LDvzDrVm
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Sep 2017 12:19:41 +1000 (AEST)
+Received: by mail-pf0-x244.google.com with SMTP id h4so477307pfk.0
+ for <openbmc@lists.ozlabs.org>; Wed, 06 Sep 2017 19:19:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=EHa3u4K4MUyKVh+5oMD9aBjzGQ7j6d7eU000uk5DWiU=;
- b=qBgZo9ifo7uH59lvDNbhv+S+GsXMByjhSc3bjj2Mbh6foVO/pDYBNXGw8a5681v0Wz
- pn6qj6UBhOnALDxcl79uBgQLSpZhdi2Pgl/XGewGsgtoU1GknBC9o6hMV4QoidjyvbxL
- wiCqeoEHuxMLLzwJXHgvroM9xWCZg8IwUgCBbu215Kvgk5IYaDhEJJ59Kl7F41aQ6FDa
- xt2F049l53R/UuCs/t2yXNN/IXb0K3hRRLhH3hIOe8R907QoAat03bk7crlryHxrhtYL
- TiwWDmrWDydFnPwTJ+bzdgX1UIXmTNORk3EIYVO7CzFRbx2QRuAQp9tOZWYtTnL/QWAX
- tYAA==
+ h=sender:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=4PM8LOUO2Y8qskKRyJBzatf3HjMO9Dpea/bTA3LiBQQ=;
+ b=KQwGMMVRAbnftBX2WLGhn3ataFn4JjxlpnGFdmokqnC60UYOfmz00UKOmdi0XzXUnj
+ 14F58FHvL8RPSKyCe++xKCyTKrDmGIGGDaCJ8uj25N+JkOtoTtXVGRA7YoRjQ3yadV/C
+ pj3DTwh+8yZiws5Dwk9nnUxQ9WRdbD2Vgy7qNgkGeF097wm++Ga3tX0sqWcfWUMdB9Ff
+ 1vR8TFhDqz6Y/85kiasoaboaHXNxJpW/XPSQBkmBIYG0otvWVZj6Kv5f1VT//iruceyG
+ ij/Ov0istgJdv7K5TjTgsBDcfCXUqihQ+JAOqDd8QQeBIcEnC3sdVI30M7Q/F4AhnK4n
+ GVCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=EHa3u4K4MUyKVh+5oMD9aBjzGQ7j6d7eU000uk5DWiU=;
- b=OQ9bS/ZcT6y12PG7AJ7KO2Vg6qhY86rKtXrJ4PeGXGSM+5VIo/brO28bWIXMulO2aP
- gpCjXvuhtjj94ebcCXgthWmMoTOicX903Y+z9YBp9M+fCdSxcIioyeyyslZ8OeKHUgLv
- GOjiu2iQxhyvnCIOSXpq/Kk5VA001OmBE3XwJWynTn/6OmQx2fd+YpMjIImdBIAhMlRT
- J7xqTQB3O7riDX5h8oWoC6wqvk/0cxO5EyQvqXqIiFFDdwM/AUZNBpeeceVK/SgeKbfn
- abjD4AJiLsKPYUMIeyp/EUZQHVCQn5KfStX6o95SXyM1UXTUslj/hDG1HxDUf6CZcyAH
- GHEQ==
-X-Gm-Message-State: AHPjjUgVfqqDOPduwu8eAaMtOAGIY0fUTbvRjwC+00Q1itjgVO8FqIZq
- YQF0V/OqouuEQ8Iu1YSMpJolSEkWYubOZ2A=
-X-Google-Smtp-Source: AOwi7QDzfXtb2MDVBA9ihdtTihpiaMMnVDEh5mCxlFY++2+XIpVs8f763jTz9J3G3mVDKg+7wlwByMoLAGyxreH1B5I=
-X-Received: by 10.25.209.80 with SMTP id i77mr351850lfg.257.1504748899034;
- Wed, 06 Sep 2017 18:48:19 -0700 (PDT)
+ h=x-gm-message-state:sender:subject:to:cc:references:from:message-id
+ :date:user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=4PM8LOUO2Y8qskKRyJBzatf3HjMO9Dpea/bTA3LiBQQ=;
+ b=lFVhlNcCw8R8ORJR6fiab3f9PESxHpWsCGYaGJOweMPaC2YXR7YSQMBsgYekiJ0b6p
+ qeF0mbR/dkvBg1776XymTafR88Ij8YKxwRmlRoDCQQMZPUHz+o+TMqqpW5dnMgDUA1Bq
+ XUK3rXr/p4M+hQDz/1fXPqhh1y/iMhYF8Z1lXobT1i4cMHpE1STXXg36KW3rS5yp01KL
+ cBhgVdW1ekuBTu+NGBrF2xV0siDmknYY7j0jvewQkCHBBssVkE85ympRHjh+LDkQNhJ8
+ z33kN2HHccx7Kg01M04MC3kyb9XgWtkJ/TemllgN1h2/fJFZ91Ktf3pJ1VIZ0M4g9X+b
+ Fvew==
+X-Gm-Message-State: AHPjjUjNq90OsBxBD1hUufhR2jhp0tWu4VCX9Is+w3ir63uyKpljrvw9
+ YXfnnFBKma6X9w==
+X-Google-Smtp-Source: ADKCNb7/sNhY3J+v33ohbUPBqclM4fREuf2XKswUIP7dzR4ADYIvQxPL2tNOKLrLQWPBMAleQ6srbA==
+X-Received: by 10.98.103.142 with SMTP id t14mr1229164pfj.56.1504750779030;
+ Wed, 06 Sep 2017 19:19:39 -0700 (PDT)
+Received: from server.roeck-us.net
+ (108-223-40-66.lightspeed.sntcca.sbcglobal.net. [108.223.40.66])
+ by smtp.gmail.com with ESMTPSA id p6sm1311803pfg.168.2017.09.06.19.19.36
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 06 Sep 2017 19:19:37 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Subject: Re: [PATCH] hwmon: pmbus: Make reg check and clear faults functions
+ return errors
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: linux-hwmon@vger.kernel.org, jdelvare@suse.com, corbet@lwn.net,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org, joel@jms.id.au
+References: <20170905070132.17682-1-andrew@aj.id.au>
+ <20170905170002.GG11478@roeck-us.net> <1504657417.28363.8.camel@aj.id.au>
+ <20170906225102.GA32210@roeck-us.net> <1504740749.5042.2.camel@aj.id.au>
+From: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <5089e197-5ee5-8775-501c-201546a0cc1a@roeck-us.net>
+Date: Wed, 6 Sep 2017 19:19:36 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.2.1
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.25.79.70 with HTTP; Wed, 6 Sep 2017 18:47:58 -0700 (PDT)
-In-Reply-To: <20170901132447.48345-1-c_mykolak@mellanox.com>
-References: <20170901132447.48345-1-c_mykolak@mellanox.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 7 Sep 2017 11:17:58 +0930
-X-Google-Sender-Auth: NaXsxc9DqXNNmJ0Rapg6UbNj8vM
-Message-ID: <CACPK8Xd9rm65DQWaBUbNUiDu0vUtm02O97FrFijzG5wzd_=YFg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] mellanox: msn: change flash layout.
-To: Mykola Kostenok <c_mykolak@mellanox.com>
-Cc: Andrew Jeffery <andrew@aj.id.au>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Vadim Pasternak <vadimp@mellanox.com>, Ohad Oz <ohado@mellanox.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <1504740749.5042.2.camel@aj.id.au>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -65,74 +76,494 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Sep 2017 01:48:22 -0000
+X-List-Received-Date: Thu, 07 Sep 2017 02:19:42 -0000
 
-On Fri, Sep 1, 2017 at 10:54 PM, Mykola Kostenok <c_mykolak@mellanox.com> wrote:
-> Remove mellanox-msn-flash-layout.
-> And set opp-flash-layout for mellanox msn.
-> We decided that it would better for compatibility.
->
-> Signed-off-by: Mykola Kostenok <c_mykolak@mellanox.com>
+On 09/06/2017 04:32 PM, Andrew Jeffery wrote:
+> On Wed, 2017-09-06 at 15:51 -0700, Guenter Roeck wrote:
+>> On Wed, Sep 06, 2017 at 10:23:37AM +1000, Andrew Jeffery wrote:
+>>> On Tue, 2017-09-05 at 10:00 -0700, Guenter Roeck wrote:
+>>>> On Tue, Sep 05, 2017 at 05:01:32PM +1000, Andrew Jeffery wrote:
+>>>>> Some functions exposed by pmbus core conflated errors that occurred when
+>>>>> setting the page to access with errors that occurred when accessing
+>>>>> registers in a page. In some cases, this caused legitimate errors to be
+>>>>> hidden under the guise of the register not being supported.
+>>>>>   
+>>>>   
+>>>> I'll have to look into this. If I recall correctly, the reason for not returning
+>>>> errors from the "clear faults" command was that some early chips did not support
+>>>> it, or did not support it on all pages. Those chips would now always fail.
+>>>   
+>>> Yes, that is a concern.
+>>>   
+>>> However, shouldn't the lack of support for CLEAR_FAULTS be a described
+>>> property of the chip or page?
+>>>   
+>>> Regardless, the issue here is the PAGE command is sometimes failing
+>>> (more below). This means we won't have issued a CLEAR_FAULTS against
+>>> the page even if the page supports CLEAR_FAULTS. That to me is
+>>> something that should be propagated back up the call chain, as faults
+>>> that can be cleared will not have been.
+>>>   
+>>   
+>> We could also consider
+>> - retry
+> 
+> I guess that leads to the usual retries problem: How many? Oneshot? More?
+> 
+> My expectation is that oneshot would be enough, but we'd still need to consider
+> what to do if that wasn't successful.
+> 
+> Does the retry policy need to be in the kernel? I guess if it's not we would
+> need all operations in the path to the failure to be idempotent.
+> 
+>> - Add a marker indicating that faults (specifically command errors)
+>>    are unreliable after clearing faults failed
+> 
+> What kind of marker were you thinking? Something in dmesg? If it's anything
+> else we'd probably want something to respond to the condition, which nothing
+> would do currently.
+> 
+>>   
+>> If we can't reliably clear faults, all bets are off.
+> 
+> Yeah, it's a messy problem. However even if we resolve our issues in hardware
+> (i.e. it's discovered that it is a design failure or something), I don't think
+> we should drop a resolution to the problem highlighted by this patch.
+> 
+>>   
+>>>>   
+>>>> On a higher level, I am not sure if it is a good idea to return an error
+>>>> from a function intended to clear faults (and nothing else). That seems
+>>>> counterproductive.
+>>>>   
+>>>> Is this a problem you have actually observed ?
+>>>   
+>>> Unfortunately yes. I was trying to reproduce some issues that we are
+>>> seeing in userspace but wasn't having much luck (getting -EIO on
+>>> reading a hwmon attribute). I ended up instrumenting our I2C bus
+>>> driver, and found that the problem was more prevalent than what the
+>>> read failures in userspace were indicating. The paths that were
+>>> triggering these unreported conditions all traced through the check
+>>> register and clear fault functions, which on analysis were swallowing
+>>> the error.
+>>>   
+>>>> If so, what is the chip ?
+>>>   
+>>> Well, the chip that I'm *communicating* with is the Maxim MAX31785
+>>> Intelligent Fan Controller. As to whether that's what is *causing* the
+>>> PAGE command to fail is still up in the air. I would not be surprised
+>>> if we have other issues in the hardware design.
+>>>   
+>>> I haven't sent a follow-up to the series introducing the MAX31785
+>>> driver because I've been chasing down communication issues. I felt it
+>>> was important to understand whether the device has quirks that need to
+>>> be worked around in the driver, or if our hardware design has bigger
+>>> problems that should be handled in other ways. I've been in touch with
+>>> Maxim who have asserted that some of the problems we're seeing cannot
+>>> be caused by their chip.
+>>>   
+>>   
+>> Guess I need to dig up my eval board and see if I can reproduce the problem.
+>> Seems you are saying that the problem is always seen when issuing a sequence
+>> of "clear faults" commands on multiple pages ?
+> 
+> Yeah. We're also seeing bad behaviour under other command sequences as well,
+> which lead to this hack of a work-around patch[1].
+> 
+> I'd be very interested in the results of testing against the eval board. I
+> don't have access to one and it seems Maxim have discontinued them.
+> 
+> [1] https://patchwork.kernel.org/patch/9876083/
+> 
+>>   
+>> The MAX31785 is microcode based, so I would not be entirely surprised if
+>> it sometimes fails to reply if a sequence of <set page, clear faults>
+>> commands is executed.
+> 
+> Have you seen this behaviour in other microcode-based chips?
+> 
 
-Acked-by: Joel Stanley <joel@jms.id.au>
+ltc2978 (commit e04d1ce9bbb) and most of the Zilker Labs chips (zl6100.c).
 
-> ---
->  .../dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi  | 32 ----------------------
->  arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts      |  2 +-
->  2 files changed, 1 insertion(+), 33 deletions(-)
->  delete mode 100644 arch/arm/boot/dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi
-> deleted file mode 100644
-> index cf8ee54f13c2..000000000000
-> --- a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn-flash-layout.dtsi
-> +++ /dev/null
-> @@ -1,32 +0,0 @@
-> -/* This file is the label for the bmc primary flash and its partitions */
-> -                               label = "bmc";
-> -                               #address-cells = < 1 >;
-> -                               #size-cells = < 1 >;
-> -                               u-boot {
-> -                                       reg = < 0 0x60000 >;
-> -                                       label = "u-boot";
-> -                               };
-> -                               u-boot-env {
-> -                                       reg = < 0x60000 0x10000>;
-> -                                       label = "u-boot-env";
-> -                               };
-> -                               kernel  {
-> -                                       reg = < 0x70000 0x280000 >;
-> -                                       label = "kernel";
-> -                               };
-> -                               dtb  {
-> -                                       reg = < 0x2f0000 0x10000 >;
-> -                                       label = "dtb";
-> -                               };
-> -                               initramfs {
-> -                                       reg = < 0x300000 0x1c0000 >;
-> -                                       label = "initramfs";
-> -                               };
-> -                               rofs  {
-> -                                       reg = < 0x4c0000 0x1740000 >;
-> -                                       label = "rofs";
-> -                               };
-> -                               rwfs  {
-> -                                       reg = < 0x1c00000 0x400000 >;
-> -                                       label = "rwfs";
-> -                               };
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-> index b7854e36f052..d1dc2ef1a162 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-> @@ -24,7 +24,7 @@
->         flash@0 {
->                 status = "okay";
->                 m25p,fast-read;
-> -#include "aspeed-bmc-mellanox-msn-flash-layout.dtsi"
-> +#include "aspeed-bmc-opp-flash-layout.dtsi"
->         };
->  };
->
-> --
-> 2.11.0
->
+You could try the approach I used in the zl6100 driver: Add a minimum time
+between accesses to the chip. I would probably no longer use udelay(), though,
+but usleeep_range(), if I were to implement the code today.
+
+>>   
+>> If possible, you might try reducing the i2c clock. I have not seen that with
+>> Maxim chips, but some other PMBus chips don't operate reliably at 400 KHz.
+> 
+> It's already running at 100kHz, which is the maximum clock rate the device is
+> specified for. I've even underclocked the bus to 75kHz and still observed
+> issues. Again, I wouldn't be surprised if the problem is something other than
+> the Maxim chip, the bus that we have it on has a complex topology. I'm working
+> with hardware people internally to try to isolate the problem.
+> 
+
+If you can, you might try something in between. Early TI chips (ucd9000 variants,
+some sold as OEM chips to third parties) had a problem with both 100kHz and 400kHz,
+but worked fine between about 150 kHz and 350 kHz, for whatever reason. Of course,
+maybe that was a signal problem on our boards at the time (the i2c signal routing
+was quite complex).
+
+Guenter
+
+> Cheers,
+> 
+> Andrew
+> 
+>>   
+>> Guenter
+>>   
+>>>>   
+>>>>>>> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+>>>>>   
+>>>>> ---
+>>>>>   Documentation/hwmon/pmbus-core   |  12 ++--
+>>>>>   drivers/hwmon/pmbus/pmbus.h      |   6 +-
+>>>>>   drivers/hwmon/pmbus/pmbus_core.c | 115 +++++++++++++++++++++++++++++----------
+>>>>>   3 files changed, 95 insertions(+), 38 deletions(-)
+>>>>>   
+>>>>> diff --git a/Documentation/hwmon/pmbus-core b/Documentation/hwmon/pmbus-core
+>>>>> index 8ed10e9ddfb5..3e9f41bb756f 100644
+>>>>> --- a/Documentation/hwmon/pmbus-core
+>>>>> +++ b/Documentation/hwmon/pmbus-core
+>>>>> @@ -218,17 +218,17 @@ Specifically, it provides the following information.
+>>>>>     This function calls the device specific write_byte function if defined.
+>>>>>     Therefore, it must _not_ be called from that function.
+>>>>>   
+>>>>> -  bool pmbus_check_byte_register(struct i2c_client *client, int page, int reg);
+>>>>> +  int pmbus_check_byte_register(struct i2c_client *client, int page, int reg);
+>>>>>   
+>>>>> -  Check if byte register exists. Return true if the register exists, false
+>>>>> -  otherwise.
+>>>>> +  Check if byte register exists. Returns 1 if the register exists, 0 if it does
+>>>>> +  not, and less than zero on an unexpected error.
+>>>>>     This function calls the device specific write_byte function if defined to
+>>>>>     obtain the chip status. Therefore, it must _not_ be called from that function.
+>>>>>   
+>>>>> -  bool pmbus_check_word_register(struct i2c_client *client, int page, int reg);
+>>>>> +  int pmbus_check_word_register(struct i2c_client *client, int page, int reg);
+>>>>>   
+>>>>> -  Check if word register exists. Return true if the register exists, false
+>>>>> -  otherwise.
+>>>>> +  Check if word register exists. Returns 1 if the register exists, 0 if it does
+>>>>> +  not, and less than zero on an unexpected error.
+>>>>>     This function calls the device specific write_byte function if defined to
+>>>>>     obtain the chip status. Therefore, it must _not_ be called from that function.
+>>>>>   
+>>>>> diff --git a/drivers/hwmon/pmbus/pmbus.h b/drivers/hwmon/pmbus/pmbus.h
+>>>>> index bfcb13bae34b..c53032a04a6f 100644
+>>>>> --- a/drivers/hwmon/pmbus/pmbus.h
+>>>>> +++ b/drivers/hwmon/pmbus/pmbus.h
+>>>>> @@ -413,9 +413,9 @@ int pmbus_write_byte_data(struct i2c_client *client, int page, u8 reg,
+>>>>>>>   			  u8 value);
+>>>>>   
+>>>>>   int pmbus_update_byte_data(struct i2c_client *client, int page, u8 reg,
+>>>>>>>   			   u8 mask, u8 value);
+>>>>>   
+>>>>> -void pmbus_clear_faults(struct i2c_client *client);
+>>>>> -bool pmbus_check_byte_register(struct i2c_client *client, int page, int reg);
+>>>>> -bool pmbus_check_word_register(struct i2c_client *client, int page, int reg);
+>>>>> +int pmbus_clear_faults(struct i2c_client *client);
+>>>>> +int pmbus_check_byte_register(struct i2c_client *client, int page, int reg);
+>>>>> +int pmbus_check_word_register(struct i2c_client *client, int page, int reg);
+>>>>>   int pmbus_do_probe(struct i2c_client *client, const struct i2c_device_id *id,
+>>>>>>>   		   struct pmbus_driver_info *info);
+>>>>>   
+>>>>>   int pmbus_do_remove(struct i2c_client *client);
+>>>>> diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
+>>>>> index f1eff6b6c798..153700e35431 100644
+>>>>> --- a/drivers/hwmon/pmbus/pmbus_core.c
+>>>>> +++ b/drivers/hwmon/pmbus/pmbus_core.c
+>>>>> @@ -304,18 +304,24 @@ static int _pmbus_read_byte_data(struct i2c_client *client, int page, int reg)
+>>>>>>>   	return pmbus_read_byte_data(client, page, reg);
+>>>>>   
+>>>>>   }
+>>>>>   
+>>>>> -static void pmbus_clear_fault_page(struct i2c_client *client, int page)
+>>>>> +static int pmbus_clear_fault_page(struct i2c_client *client, int page)
+>>>>>   {
+>>>>>>>>>>>>> -	_pmbus_write_byte(client, page, PMBUS_CLEAR_FAULTS);
+>>>>>>> +	return _pmbus_write_byte(client, page, PMBUS_CLEAR_FAULTS);
+>>>>>   
+>>>>>   }
+>>>>>   
+>>>>> -void pmbus_clear_faults(struct i2c_client *client)
+>>>>> +int pmbus_clear_faults(struct i2c_client *client)
+>>>>>   {
+>>>>>>>>>>>>>   	struct pmbus_data *data = i2c_get_clientdata(client);
+>>>>>>>>>>>>> +	int rv;
+>>>>>>>   	int i;
+>>>>>   
+>>>>>   
+>>>>>>>>>>>>> -	for (i = 0; i < data->info->pages; i++)
+>>>>>>>>>>>>> -		pmbus_clear_fault_page(client, i);
+>>>>>>>>>>>>> +	for (i = 0; i < data->info->pages; i++) {
+>>>>>>>>>>>>> +		rv = pmbus_clear_fault_page(client, i);
+>>>>>>>>>>>>> +		if (rv)
+>>>>>>>>>>>>> +			return rv;
+>>>>>>> +	}
+>>>>>   
+>>>>> +
+>>>>>>> +	return 0;
+>>>>>   
+>>>>>   }
+>>>>>   EXPORT_SYMBOL_GPL(pmbus_clear_faults);
+>>>>>   
+>>>>> @@ -333,28 +339,45 @@ static int pmbus_check_status_cml(struct i2c_client *client)
+>>>>>>>   	return 0;
+>>>>>   
+>>>>>   }
+>>>>>   
+>>>>> -static bool pmbus_check_register(struct i2c_client *client,
+>>>>> +static int pmbus_check_register(struct i2c_client *client,
+>>>>>>>>>>>>>   				 int (*func)(struct i2c_client *client,
+>>>>>>>>>>>>>   					     int page, int reg),
+>>>>>>>   				 int page, int reg)
+>>>>>   
+>>>>>   {
+>>>>>>>>>>>>> +	struct pmbus_data *data;
+>>>>>>>>>>>>> +	int check;
+>>>>>>>>>>>>>   	int rv;
+>>>>>>> -	struct pmbus_data *data = i2c_get_clientdata(client);
+>>>>>   
+>>>>>   
+>>>>>>>>>>>>> -	rv = func(client, page, reg);
+>>>>>>>>>>>>> -	if (rv >= 0 && !(data->flags & PMBUS_SKIP_STATUS_CHECK))
+>>>>>>>>>>>>> -		rv = pmbus_check_status_cml(client);
+>>>>>>>>>>>>> -	pmbus_clear_fault_page(client, -1);
+>>>>>>>>>>>>> -	return rv >= 0;
+>>>>>>> +	data = i2c_get_clientdata(client);
+>>>>>   
+>>>>> +
+>>>>>>>>>>>>> +	/*
+>>>>>>>>>>>>> +	 * pmbus_set_page() guards transactions on the requested page matching
+>>>>>>>>>>>>> +	 * the current page. This may be done in the execution of func(), but
+>>>>>>>>>>>>> +	 * at that point a set-page error is conflated with accessing a
+>>>>>>>>>>>>> +	 * non-existent register.
+>>>>>>>>>>>>> +	 */
+>>>>>>>>>>>>> +	rv = pmbus_set_page(client, page);
+>>>>>>>>>>>>> +	if (rv < 0)
+>>>>>>> +		return rv;
+>>>>>   
+>>>>> +
+>>>>>>>>>>>>> +	check = func(client, page, reg);
+>>>>>>>>>>>>> +	if (check >= 0 && !(data->flags & PMBUS_SKIP_STATUS_CHECK))
+>>>>>>> +		check = pmbus_check_status_cml(client);
+>>>>>   
+>>>>> +
+>>>>>>>>>>>>> +	rv = pmbus_clear_fault_page(client, -1);
+>>>>>>>>>>>>> +	if (rv < 0)
+>>>>>>> +		return rv;
+>>>>>   
+>>>>> +
+>>>>>>> +	return check >= 0;
+>>>>>   
+>>>>>   }
+>>>>>   
+>>>>> -bool pmbus_check_byte_register(struct i2c_client *client, int page, int reg)
+>>>>> +int pmbus_check_byte_register(struct i2c_client *client, int page, int reg)
+>>>>>   {
+>>>>>>>   	return pmbus_check_register(client, _pmbus_read_byte_data, page, reg);
+>>>>>   
+>>>>>   }
+>>>>>   EXPORT_SYMBOL_GPL(pmbus_check_byte_register);
+>>>>>   
+>>>>> -bool pmbus_check_word_register(struct i2c_client *client, int page, int reg)
+>>>>> +int pmbus_check_word_register(struct i2c_client *client, int page, int reg)
+>>>>>   {
+>>>>>>>   	return pmbus_check_register(client, _pmbus_read_word_data, page, reg);
+>>>>>   
+>>>>>   }
+>>>>> @@ -390,7 +413,7 @@ static struct pmbus_data *pmbus_update_device(struct device *dev)
+>>>>>   
+>>>>>>>>>>>>>   	mutex_lock(&data->update_lock);
+>>>>>>>>>>>>>   	if (time_after(jiffies, data->last_updated + HZ) || !data->valid) {
+>>>>>>>>>>>>> -		int i, j;
+>>>>>>> +		int i, j, ret;
+>>>>>   
+>>>>>   
+>>>>>>>>>>>>>   		for (i = 0; i < info->pages; i++) {
+>>>>>>>   			data->status[PB_STATUS_BASE + i]
+>>>>>   
+>>>>> @@ -424,7 +447,13 @@ static struct pmbus_data *pmbus_update_device(struct device *dev)
+>>>>>>>>>>>>>   							    sensor->page,
+>>>>>>>>>>>>>   							    sensor->reg);
+>>>>>>>>>>>>>   		}
+>>>>>>> -		pmbus_clear_faults(client);
+>>>>>   
+>>>>> +
+>>>>>>>>>>>>> +		ret = pmbus_clear_faults(client);
+>>>>>>>>>>>>> +		if (ret < 0) {
+>>>>>>>>>>>>> +			mutex_unlock(&data->update_lock);
+>>>>>>>>>>>>> +			return ERR_PTR(ret);
+>>>>>>> +		}
+>>>>>   
+>>>>> +
+>>>>>>>>>>>>>   		data->last_updated = jiffies;
+>>>>>>>>>>>>>   		data->valid = 1;
+>>>>>>>   	}
+>>>>>   
+>>>>> @@ -754,6 +783,9 @@ static ssize_t pmbus_show_boolean(struct device *dev,
+>>>>>>>>>>>>>   	struct pmbus_data *data = pmbus_update_device(dev);
+>>>>>>>   	int val;
+>>>>>   
+>>>>>   
+>>>>>>>>>>>>> +	if (IS_ERR(data))
+>>>>>>> +		return PTR_ERR(data);
+>>>>>   
+>>>>> +
+>>>>>>>>>>>>>   	val = pmbus_get_boolean(data, boolean, attr->index);
+>>>>>>>>>>>>>   	if (val < 0)
+>>>>>>>   		return val;
+>>>>>   
+>>>>> @@ -766,6 +798,9 @@ static ssize_t pmbus_show_sensor(struct device *dev,
+>>>>>>>>>>>>>   	struct pmbus_data *data = pmbus_update_device(dev);
+>>>>>>>   	struct pmbus_sensor *sensor = to_pmbus_sensor(devattr);
+>>>>>   
+>>>>>   
+>>>>>>>>>>>>> +	if (IS_ERR(data))
+>>>>>>> +		return PTR_ERR(data);
+>>>>>   
+>>>>> +
+>>>>>>>>>>>>>   	if (sensor->data < 0)
+>>>>>>>   		return sensor->data;
+>>>>>   
+>>>>>   
+>>>>> @@ -995,7 +1030,11 @@ static int pmbus_add_limit_attrs(struct i2c_client *client,
+>>>>>>>   	struct pmbus_sensor *curr;
+>>>>>   
+>>>>>   
+>>>>>>>>>>>>>   	for (i = 0; i < nlimit; i++) {
+>>>>>>>>>>>>> -		if (pmbus_check_word_register(client, page, l->reg)) {
+>>>>>>>>>>>>> +		ret = pmbus_check_word_register(client, page, l->reg);
+>>>>>>>>>>>>> +		if (ret < 0)
+>>>>>>> +			return ret;
+>>>>>   
+>>>>> +
+>>>>>>>>>>>>> +		if (ret) {
+>>>>>>>>>>>>>   			curr = pmbus_add_sensor(data, name, l->attr, index,
+>>>>>>>>>>>>>   						page, l->reg, attr->class,
+>>>>>>>   						attr->update || l->update,
+>>>>>   
+>>>>> @@ -1041,6 +1080,8 @@ static int pmbus_add_sensor_attrs_one(struct i2c_client *client,
+>>>>>>>>>>>>>   	if (!base)
+>>>>>>>>>>>>>   		return -ENOMEM;
+>>>>>>>>>>>>>   	if (attr->sfunc) {
+>>>>>>> +		int check;
+>>>>>   
+>>>>> +
+>>>>>>>>>>>>>   		ret = pmbus_add_limit_attrs(client, data, info, name,
+>>>>>>>>>>>>>   					    index, page, base, attr);
+>>>>>>>   		if (ret < 0)
+>>>>>   
+>>>>> @@ -1050,9 +1091,13 @@ static int pmbus_add_sensor_attrs_one(struct i2c_client *client,
+>>>>>>>>>>>>>   		 * alarm attributes, if there is a global alarm bit, and if
+>>>>>>>>>>>>>   		 * the generic status register for this page is accessible.
+>>>>>>>>>>>>>   		 */
+>>>>>>>>>>>>> -		if (!ret && attr->gbit &&
+>>>>>>>>>>>>> -		    pmbus_check_byte_register(client, page,
+>>>>>>> -					      data->status_register)) {
+>>>>>   
+>>>>> +
+>>>>>>>>>>>>> +		check = pmbus_check_byte_register(client, page,
+>>>>>>>>>>>>> +						  data->status_register);
+>>>>>>>>>>>>> +		if (check < 0)
+>>>>>>> +			return check;
+>>>>>   
+>>>>> +
+>>>>>>>>>>>>> +		if (!ret && attr->gbit && check) {
+>>>>>>>>>>>>>   			ret = pmbus_add_boolean(data, name, "alarm", index,
+>>>>>>>>>>>>>   						NULL, NULL,
+>>>>>>>   						PB_STATUS_BASE + page,
+>>>>>   
+>>>>> @@ -1604,8 +1649,12 @@ static int pmbus_add_fan_attributes(struct i2c_client *client,
+>>>>>>>>>>>>>   			if (!(info->func[page] & pmbus_fan_flags[f]))
+>>>>>>>   				break;
+>>>>>   
+>>>>>   
+>>>>>>>>>>>>> -			if (!pmbus_check_word_register(client, page,
+>>>>>>>>>>>>> -						       pmbus_fan_registers[f]))
+>>>>>>>>>>>>> +			ret = pmbus_check_word_register(client, page,
+>>>>>>>>>>>>> +						       pmbus_fan_registers[f]);
+>>>>>>>>>>>>> +			if (ret < 0)
+>>>>>>> +				return ret;
+>>>>>   
+>>>>> +
+>>>>>>>>>>>>> +			if (!ret)
+>>>>>>>   				break;
+>>>>>   
+>>>>>   
+>>>>>>>   			/*
+>>>>>   
+>>>>> @@ -1628,9 +1677,13 @@ static int pmbus_add_fan_attributes(struct i2c_client *client,
+>>>>>>>>>>>>>   			 * Each fan status register covers multiple fans,
+>>>>>>>>>>>>>   			 * so we have to do some magic.
+>>>>>>>>>>>>>   			 */
+>>>>>>>>>>>>> -			if ((info->func[page] & pmbus_fan_status_flags[f]) &&
+>>>>>>>>>>>>> -			    pmbus_check_byte_register(client,
+>>>>>>>>>>>>> -					page, pmbus_fan_status_registers[f])) {
+>>>>>>>>>>>>> +			ret =  pmbus_check_byte_register(client, page,
+>>>>>>>>>>>>> +						pmbus_fan_status_registers[f]);
+>>>>>>>>>>>>> +			if (ret < 0)
+>>>>>>> +				return ret;
+>>>>>   
+>>>>> +
+>>>>>>>>>>>>> +			if ((info->func[page] & pmbus_fan_status_flags[f])
+>>>>>>>>>>>>> +					&& ret) {
+>>>>>>>   				int base;
+>>>>>   
+>>>>>   
+>>>>>>>>>   				if (f > 1)	/* fan 3, 4 */
+>>>>>   
+>>>>> @@ -1696,10 +1749,13 @@ static int pmbus_identify_common(struct i2c_client *client,
+>>>>>>>   				 struct pmbus_data *data, int page)
+>>>>>   
+>>>>>   {
+>>>>>>>>>>>>>   	int vout_mode = -1;
+>>>>>>> +	int rv;
+>>>>>   
+>>>>>   
+>>>>>>>>>>>>> -	if (pmbus_check_byte_register(client, page, PMBUS_VOUT_MODE))
+>>>>>>>>>>>>> +	rv = pmbus_check_byte_register(client, page, PMBUS_VOUT_MODE);
+>>>>>>>>>>>>> +	if (rv == 1)
+>>>>>>>>>>>>>   		vout_mode = _pmbus_read_byte_data(client, page,
+>>>>>>>   						  PMBUS_VOUT_MODE);
+>>>>>   
+>>>>> +
+>>>>>>>>>>>>>   	if (vout_mode >= 0 && vout_mode != 0xff) {
+>>>>>>>>>>>>>   		/*
+>>>>>>>   		 * Not all chips support the VOUT_MODE command,
+>>>>>   
+>>>>> @@ -1725,8 +1781,7 @@ static int pmbus_identify_common(struct i2c_client *client,
+>>>>>>>>>>>>>   		}
+>>>>>>>   	}
+>>>>>   
+>>>>>   
+>>>>>>>>>>>>> -	pmbus_clear_fault_page(client, page);
+>>>>>>>>>>>>> -	return 0;
+>>>>>>> +	return pmbus_clear_fault_page(client, page);
+>>>>>   
+>>>>>   }
+>>>>>   
+>>>>>   static int pmbus_init_common(struct i2c_client *client, struct pmbus_data *data,
+>>>>> @@ -1756,7 +1811,9 @@ static int pmbus_init_common(struct i2c_client *client, struct pmbus_data *data,
+>>>>>>>>>>>>>   	if (ret >= 0 && (ret & PB_CAPABILITY_ERROR_CHECK))
+>>>>>>>   		client->flags |= I2C_CLIENT_PEC;
+>>>>>   
+>>>>>   
+>>>>>>>>>>>>> -	pmbus_clear_faults(client);
+>>>>>>>>>>>>> +	ret = pmbus_clear_faults(client);
+>>>>>>>>>>>>> +	if (ret < 0)
+>>>>>>> +		return ret;
+>>>>>   
+>>>>>   
+>>>>>>>>>>>>>   	if (info->identify) {
+>>>>>>>   		ret = (*info->identify)(client, info);
+>>>>>   
+>>>>> -- 
+>>>>> 2.11.0
+>>>>>   
+>>   
+>>   
