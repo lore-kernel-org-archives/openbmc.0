@@ -3,63 +3,60 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="YxB+lBrH"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="izN+9/1s"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="WtXY7e4O"; dkim-atps=neutral
+ header.b="XA4KGqDb"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xnfyL3Tj6zDrW1
- for <openbmc@lists.ozlabs.org>; Thu,  7 Sep 2017 09:32:41 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xnhHr2mQ8zDrVy
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Sep 2017 10:32:54 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 40793219D9;
- Wed,  6 Sep 2017 19:32:38 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id B86AD21A7F;
+ Wed,  6 Sep 2017 20:32:48 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Wed, 06 Sep 2017 19:32:38 -0400
+ by compute4.internal (MEProxy); Wed, 06 Sep 2017 20:32:48 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=tYX3XD0dXVlZGMYkj/yjx6a8WXa0/SqjdR7wTZ2DJ
- a0=; b=YxB+lBrHxOpCYzzh9GTdg3L2N0ygej2N17pzI/DS9lu2rhFjdGIzGfRzf
- 7cjsN4EtjqzxB5mlwJrdpkWPV6Ol+7oDqVe495X9tANAIR79hzVOBNOCXB6FQRqx
- 87GA+HoI07wI+s9ZU+VJ17kW9sxYKLMVeBFkCPrg2ITkEsjX9DpF1tPA0Pt4Koxs
- 6UV7Ahrj+Y3P6GBeX175KC/fCkx79bcx4gFS2/ISQOI0x2NMsAdPYkvqHRfk0l18
- WtpWu9HCKIuZcRBCRCJTLdDlHHYtEY8UX4IHDxVOWMfnx/SrtwGJBPydCgI8hkB+
- XzMqBmKT1zdpANVyTCzYa5egm337w==
+ :x-sasl-enc; s=fm1; bh=kXaDQszdhqE+3WrADbF4rvt7lt1J+ofocF3JLkVRW
+ 0U=; b=izN+9/1sgtQXKXNS9i7NURKfBIoU17a+u5oOzdwEX5AauNSz/qFvue2Xz
+ Lc3N1J6ueQgp/CErBtQnXGUsPn8vPko4OwCgwJUBJtW1xWRvc3iOhKFtTUYozt8T
+ YuO6+ctyJMPWPI5R3HSLdtJoCmZ/O70z3gCEAejpzWuJV/AlydZWi1my9AdBu8As
+ CAj+4YIICs0vFUSvovYMp0+3RJyT5v2SH6p/OZxE5pxd12mk63ipYwAPX6Wpme+I
+ sDApg1+2Fa5HXminY2Nv4NmvaYKPDbUHm79kAqyWb0n6zwxFMmfcOpLw8tNlZxep
+ p87dXO8pGZFyfBzngQxjj6cYkInGg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=tYX3XD0dXVlZGMYkj/
- yjx6a8WXa0/SqjdR7wTZ2DJa0=; b=WtXY7e4OvbrlDxlby95kW4XKdM94G/xBpE
- i42CHobmLizJbWWTVSeXogwrZll94UFVbuukywDciPQW2PpaCJ6uyKBj1zckdWlv
- dAfF5eszrvQa+pobNUAIauLPn5G3UW8AbMKUagl14d1v1M/GylZRhR4sI+KLO1A/
- BBRbJyRq8UKv3uabVCj7L7r2rSvuXcFzwe9npLJa417UG/h0BwsZhEFWfGkjiLQ/
- ZQ7Ebp3ZNUOkO0dbexvbgSB0RMNst158MZonzGGNznAdo8SqMS6K0ghIVob9bi7x
- 7c4wsAbmfWXOmfP5ueBibgB59LoEthv1vEI5WXQqNJS83braY51w==
-X-ME-Sender: <xms:loWwWeohpi1-qgY98KCgPyPYR8JZNqxUYxJIGOksQNC5mQ2v7nbQUA>
-X-Sasl-enc: gwajT4NDl00x8YpMzT8+IuJwMpg2wOpCIV6e0jOab/kd 1504740757
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=kXaDQszdhqE+3WrADb
+ F4rvt7lt1J+ofocF3JLkVRW0U=; b=XA4KGqDbW0WJSQTq8yF+QwRKuQcy8GWJIL
+ zlcrfL3I1Uf8cU0PufGapp/NfaKij0t3tZgPjhHHz1eowoIB9Z7aiTDl5xSZM9S8
+ nFRIYxxV6hjsxBawsNIKNA2HNOA+6Ygz5GKTyR00JjGLMqmDmfhL9Ovy7SvROlgM
+ KrgX9l/MseYwead22CAwnKPK/7XG+JF74bX4gJX393KgMhfD/8oxDXf/jy03zI3T
+ s1ndPVYCfoAvyzvxZgXi6P4HNh+NB+1fuss+QNykNfM3WzqzBo+BiSt5IKSBDl/m
+ 4lTAuX9U0NWbUIDz4sy8Y/VASLPXFFQpemhovG/0iwzhDzO1VVnA==
+X-ME-Sender: <xms:sJOwWRLgA5UPsSLIvzr5l1TnvfX6HcCrDWhav-hsiRAzTC0lsnGdPQ>
+X-Sasl-enc: /ZFMKq/cxft8JBrHsff1QE8SA1/ugzC3WAu6MGk5X5YR 1504744367
 Received: from keelia (bh02i525f01.au.ibm.com [202.81.18.30])
- by mail.messagingengine.com (Postfix) with ESMTPA id 3182024335;
- Wed,  6 Sep 2017 19:32:34 -0400 (EDT)
-Message-ID: <1504740749.5042.2.camel@aj.id.au>
-Subject: Re: [PATCH] hwmon: pmbus: Make reg check and clear faults functions
- return errors
+ by mail.messagingengine.com (Postfix) with ESMTPA id E801C240A4;
+ Wed,  6 Sep 2017 20:32:46 -0400 (EDT)
+Message-ID: <1504744069.5042.6.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.10 v7 1/2] hwmon: (ucd9000) Add gpio chip
+ interface
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org, jdelvare@suse.com, corbet@lwn.net, 
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- openbmc@lists.ozlabs.org, joel@jms.id.au
-Date: Thu, 07 Sep 2017 09:32:29 +1000
-In-Reply-To: <20170906225102.GA32210@roeck-us.net>
-References: <20170905070132.17682-1-andrew@aj.id.au>
- <20170905170002.GG11478@roeck-us.net> <1504657417.28363.8.camel@aj.id.au>
- <20170906225102.GA32210@roeck-us.net>
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>, joel@jms.id.au
+Cc: openbmc@lists.ozlabs.org
+In-Reply-To: <20170906210041.22533-2-cbostic@linux.vnet.ibm.com>
+References: <20170906210041.22533-1-cbostic@linux.vnet.ibm.com>
+ <20170906210041.22533-2-cbostic@linux.vnet.ibm.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-Tge/ZX86d6Oilq2PelpP"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
+ protocol="application/pgp-signature"; boundary="=-O2JYco2d97AXNkh6ISXh"
+Date: Thu, 07 Sep 2017 10:27:50 +1000
 Mime-Version: 1.0
+X-Mailer: Evolution 3.22.6-1ubuntu1 
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -71,614 +68,352 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Sep 2017 23:32:44 -0000
+X-List-Received-Date: Thu, 07 Sep 2017 00:32:59 -0000
 
 
---=-Tge/ZX86d6Oilq2PelpP
+--=-O2JYco2d97AXNkh6ISXh
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2017-09-06 at 15:51 -0700, Guenter Roeck wrote:
-> On Wed, Sep 06, 2017 at 10:23:37AM +1000, Andrew Jeffery wrote:
-> > On Tue, 2017-09-05 at 10:00 -0700, Guenter Roeck wrote:
-> > > On Tue, Sep 05, 2017 at 05:01:32PM +1000, Andrew Jeffery wrote:
-> > > > Some functions exposed by pmbus core conflated errors that occurred=
- when
-> > > > setting the page to access with errors that occurred when accessing
-> > > > registers in a page. In some cases, this caused legitimate errors t=
-o be
-> > > > hidden under the guise of the register not being supported.
-> > > >=C2=A0
-> > >=C2=A0
-> > > I'll have to look into this. If I recall correctly, the reason for no=
-t returning
-> > > errors from the "clear faults" command was that some early chips did =
-not support
-> > > it, or did not support it on all pages. Those chips would now always =
-fail.
-> >=C2=A0
-> > Yes, that is a concern.
-> >=C2=A0
-> > However, shouldn't the lack of support for CLEAR_FAULTS be a described
-> > property of the chip or page?
-> >=C2=A0
-> > Regardless, the issue here is the PAGE command is sometimes failing
-> > (more below). This means we won't have issued a CLEAR_FAULTS against
-> > the page even if the page supports CLEAR_FAULTS. That to me is
-> > something that should be propagated back up the call chain, as faults
-> > that can be cleared will not have been.
-> >=C2=A0
+On Wed, 2017-09-06 at 16:00 -0500, Christopher Bostic wrote:
+> Add a struct gpio_chip and define some methods so that this device's
+> I/O can be accessed via /sys/class/gpio.
 >=C2=A0
-> We could also consider
-> - retry
-
-I guess that leads to the usual retries problem: How many? Oneshot? More?
-
-My expectation is that oneshot would be enough, but we'd still need to cons=
-ider
-what to do if that wasn't successful.
-
-Does the retry policy need to be in the kernel? I guess if it's not we woul=
-d
-need all operations in the path to the failure to be idempotent.
-
-> - Add a marker indicating that faults (specifically command errors)
-> =C2=A0 are unreliable after clearing faults failed
-
-What kind of marker were you thinking? Something in dmesg? If it's anything
-else we'd probably want something to respond to the condition, which nothin=
-g
-would do currently.
-
+> Present requirements only call for retrieving current state of pin
+> values and their direction.=C2=A0=C2=A0No requirement at this time to swi=
+tch
+> modes between output and input within the device driver.
 >=C2=A0
-> If we can't reliably clear faults, all bets are off.
-
-Yeah, it's a messy problem. However even if we resolve our issues in hardwa=
-re
-(i.e. it's discovered that it is a design failure or something), I don't th=
-ink
-we should drop a resolution to the problem highlighted by this patch.
-
+> > Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+> ---
+> v7 - Reorder this patch from #2 in series to #1
+> v6 - Break out sysfs clear logged faults into separate patch
+> =C2=A0=C2=A0=C2=A0- Fix logic bug that was bitwise inverting instead of !
+> =C2=A0=C2=A0=C2=A0- Add further comments about assumptions related to pin=
+ mux.
+> v5 - Clean up remaining branch return statements to !! non
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0branching method.
+> =C2=A0=C2=A0=C2=A0- Clean up white space issues.
+> =C2=A0=C2=A0=C2=A0- Add return codes to error messages.
+> =C2=A0=C2=A0=C2=A0- Add comments describing assumptions of ucd90160 type.
+> =C2=A0=C2=A0=C2=A0- Define gpio direction set methods.
+> =C2=A0=C2=A0=C2=A0- Add unique id for each ucd9000 in system for gpio chi=
+p.
+> v4 - Change status check from branch to a !! non branching method
+> =C2=A0=C2=A0=C2=A0- Remove usage comments on libgpiod for the struct gpio=
+_chip
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0methods.
+> =C2=A0=C2=A0=C2=A0- Clean up some text formatting.
+> v3 - Correct bug in gpio_chip get method.=C2=A0=C2=A0Wasn't retrieving
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0gpio config information correctly.
+> =C2=A0=C2=A0=C2=A0- Remove old debugfs flag from previous pmbus core chan=
+ges.
+> =C2=A0=C2=A0=C2=A0- Remove all sysfs files for mfr_status command.
+> =C2=A0=C2=A0=C2=A0- Add comments on direct i2c_smbus calls to clarify tha=
+t no page
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0set is required.
+> v2 - Remove clear_faults file - redundant since all other sysfs
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0core accesses result in an automatic clear =
+fault.
+> =C2=A0=C2=A0=C2=A0- Removed local status_word and status_vout register du=
+mps and
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0use the new pmbus core status facilities in=
+stead.
+> =C2=A0=C2=A0=C2=A0- Rename gpi<x>_fault to gpi<x>_alarm to better match c=
+ore naming
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0conventions.
+> =C2=A0=C2=A0=C2=A0- Add full register dump for mfr_status.
+> =C2=A0=C2=A0=C2=A0- Add gpio chip to device structure and use gpio interf=
+aces.
+> ---
+> =C2=A0drivers/hwmon/pmbus/ucd9000.c | 206 +++++++++++++++++++++++++++++++=
++++++++++++
+> =C2=A01 file changed, 206 insertions(+)
 >=C2=A0
-> > >=C2=A0
-> > > On a higher level, I am not sure if it is a good idea to return an er=
-ror
-> > > from a function intended to clear faults (and nothing else). That see=
-ms
-> > > counterproductive.
-> > >=C2=A0
-> > > Is this a problem you have actually observed ?=C2=A0
-> >=C2=A0
-> > Unfortunately yes. I was trying to reproduce some issues that we are
-> > seeing in userspace but wasn't having much luck (getting -EIO on
-> > reading a hwmon attribute). I ended up instrumenting our I2C bus
-> > driver, and found that the problem was more prevalent than what the
-> > read failures in userspace were indicating. The paths that were
-> > triggering these unreported conditions all traced through the check
-> > register and clear fault functions, which on analysis were swallowing
-> > the error.
-> >=C2=A0
-> > > If so, what is the chip ?
-> >=C2=A0
-> > Well, the chip that I'm *communicating* with is the Maxim MAX31785
-> > Intelligent Fan Controller. As to whether that's what is *causing* the
-> > PAGE command to fail is still up in the air. I would not be surprised
-> > if we have other issues in the hardware design.
-> >=C2=A0
-> > I haven't sent a follow-up to the series introducing the MAX31785
-> > driver because I've been chasing down communication issues. I felt it
-> > was important to understand whether the device has quirks that need to
-> > be worked around in the driver, or if our hardware design has bigger
-> > problems that should be handled in other ways. I've been in touch with
-> > Maxim who have asserted that some of the problems we're seeing cannot
-> > be caused by their chip.
-> >=C2=A0
->=C2=A0
-> Guess I need to dig up my eval board and see if I can reproduce the probl=
-em.
-> Seems you are saying that the problem is always seen when issuing a seque=
-nce
-> of "clear faults" commands on multiple pages ?
+> diff --git a/drivers/hwmon/pmbus/ucd9000.c b/drivers/hwmon/pmbus/ucd9000.=
+c
+> index 3e3aa95..9a82e88 100644
+> --- a/drivers/hwmon/pmbus/ucd9000.c
+> +++ b/drivers/hwmon/pmbus/ucd9000.c
+> @@ -26,6 +26,7 @@
+> =C2=A0#include <linux/slab.h>
+> =C2=A0#include <linux/i2c.h>
+> =C2=A0#include <linux/i2c/pmbus.h>
+> +#include <linux/gpio.h>
+> =C2=A0#include "pmbus.h"
+> =C2=A0
+> =C2=A0enum chips { ucd9000, ucd90120, ucd90124, ucd90160, ucd9090, ucd909=
+10 };
+> @@ -34,8 +35,18 @@
+> =C2=A0#define UCD9000_NUM_PAGES		0xd6
+> =C2=A0#define UCD9000_FAN_CONFIG_INDEX	0xe7
+> =C2=A0#define UCD9000_FAN_CONFIG		0xe8
+> +#define UCD9000_GPIO_SELECT		0xfa
+> +#define UCD9000_GPIO_CONFIG		0xfb
+> =C2=A0#define UCD9000_DEVICE_ID		0xfd
+> =C2=A0
+> +/* GPIO CONFIG bits */
+> +#define UCD9000_GPIO_CONFIG_ENABLE	BIT(0)
+> +#define UCD9000_GPIO_CONFIG_OUT_ENABLE	BIT(1)
+> +#define UCD9000_GPIO_CONFIG_OUT_VALUE	BIT(2)
+> +#define UCD9000_GPIO_CONFIG_STATUS	BIT(3)
+> +#define UCD9000_GPIO_INPUT		0
+> +#define UCD9000_GPIO_OUTPUT		1
+> +
+> =C2=A0#define UCD9000_MON_TYPE(x)	(((x) >> 5) & 0x07)
+> =C2=A0#define UCD9000_MON_PAGE(x)	((x) & 0x0f)
+> =C2=A0
+> @@ -46,9 +57,13 @@
+> =C2=A0
+> =C2=A0#define UCD9000_NUM_FAN		4
+> =C2=A0
+> +#define UCD9000_GPIO_NAME_LEN	16
+> +#define UCD90160_NUM_GPIOS	26
+> +
+> =C2=A0struct ucd9000_data {
+> =C2=A0	u8 fan_data[UCD9000_NUM_FAN][I2C_SMBUS_BLOCK_MAX];
+> =C2=A0	struct pmbus_driver_info info;
+> +	struct gpio_chip gpio;
+> =C2=A0};
+> =C2=A0#define to_ucd9000_data(_info) container_of(_info, struct ucd9000_d=
+ata, info)
+> =C2=A0
+> @@ -119,6 +134,166 @@ static int ucd9000_read_byte_data(struct i2c_client=
+ *client, int page, int reg)
+> =C2=A0};
+> =C2=A0MODULE_DEVICE_TABLE(i2c, ucd9000_id);
+> =C2=A0
+> +static int ucd9000_gpio_read_config(struct i2c_client *client,
+> +				unsigned int offset)
+> +{
+> +	int ret;
+> +
+> +	/* No page set required */
+> +	ret =3D i2c_smbus_write_byte_data(client, UCD9000_GPIO_SELECT, offset);
+> +	if (ret < 0) {
+> +		dev_err(&client->dev, "Failed to select GPIO %d: %d\n", offset,
+> +			ret);
+> +
+> +		return ret;
+> +	}
+> +
+> +	return i2c_smbus_read_byte_data(client, UCD9000_GPIO_CONFIG);
+> +}
+> +
+> +static int ucd9000_gpio_get(struct gpio_chip *gc, unsigned int offset)
+> +{
+> +	struct i2c_client *client=C2=A0=C2=A0=3D gpiochip_get_data(gc);
+> +	int ret;
+> +
+> +	ret =3D ucd9000_gpio_read_config(client, offset);
+> +	if (ret < 0) {
+> +		dev_err(&client->dev, "failed to read GPIO %d config: %d\n",
+> +			offset, ret);
+> +
+> +		return ret;
+> +	}
+> +
+> +	return !!(ret & UCD9000_GPIO_CONFIG_STATUS);
+> +}
+> +
+> +static void ucd9000_gpio_set(struct gpio_chip *gc, unsigned int offset,
+> +			int value)
+> +{
+> +	struct i2c_client *client =3D gpiochip_get_data(gc);
+> +	int ret;
+> +
+> +	ret =3D ucd9000_gpio_read_config(client, offset);
+> +	if (ret < 0) {
+> +		dev_err(&client->dev, "failed to read GPIO %d config: %d\n",
+> +			offset, ret);
+> +
+> +		return;
+> +	}
+> +
+> +	if (value) {
+> +		if (ret & UCD9000_GPIO_CONFIG_STATUS)
+> +			return;
+> +
+> +		ret |=3D UCD9000_GPIO_CONFIG_STATUS;
+> +	} else {
+> +		if (!(ret & UCD9000_GPIO_CONFIG_STATUS))
+> +			return;
+> +
+> +		ret &=3D ~UCD9000_GPIO_CONFIG_STATUS;
+> +	}
+> +
+> +	ret |=3D UCD9000_GPIO_CONFIG_ENABLE;
+> +
+> +	/* Page set not required */
+> +	ret =3D i2c_smbus_write_byte_data(client, UCD9000_GPIO_CONFIG, ret);
+> +	if (ret < 0) {
+> +		dev_err(&client->dev, "Failed to write GPIO %d config: %d\n",
+> +			offset, ret);
+> +
+> +		return;
+> +	}
+> +
+> +	ret &=3D ~UCD9000_GPIO_CONFIG_ENABLE;
+> +
+> +	ret =3D i2c_smbus_write_byte_data(client, UCD9000_GPIO_CONFIG, ret);
+> +	if (ret < 0)
+> +		dev_err(&client->dev, "Failed to write GPIO %d config: %d\n",
+> +			offset, ret);
+> +}
+> +
+> +static int ucd9000_gpio_get_direction(struct gpio_chip *gc,
+> +					unsigned int offset)
+> +{
+> +	struct i2c_client *client =3D gpiochip_get_data(gc);
+> +	int ret;
+> +
+> +	ret =3D ucd9000_gpio_read_config(client, offset);
+> +	if (ret < 0) {
+> +		dev_err(&client->dev, "failed to read GPIO %d config: %d\n",
+> +			offset, ret);
+> +
+> +		return ret;
+> +	}
+> +
+> +	return !(!!(ret & UCD9000_GPIO_CONFIG_OUT_ENABLE));
 
-Yeah. We're also seeing bad behaviour under other command sequences as well=
-,
-which lead to this hack of a work-around patch[1].
+Why are we triple negating? One is enough. This will work, but it's unneces=
+sary
+and excessive.
 
-I'd be very interested in the results of testing against the eval board. I
-don't have access to one and it seems Maxim have discontinued them.
-
-[1] https://patchwork.kernel.org/patch/9876083/
-
->=C2=A0
-> The MAX31785 is microcode based, so I would not be entirely surprised if
-> it sometimes fails to reply if a sequence of <set page, clear faults>
-> commands is executed.
-
-Have you seen this behaviour in other microcode-based chips?
-
->=C2=A0
-> If possible, you might try reducing the i2c clock. I have not seen that w=
-ith
-> Maxim chips, but some other PMBus chips don't operate reliably at 400 KHz=
-.
-
-It's already running at 100kHz, which is the maximum clock rate the device =
-is
-specified for. I've even underclocked the bus to 75kHz and still observed
-issues. Again, I wouldn't be surprised if the problem is something other th=
-an
-the Maxim chip, the bus that we have it on has a complex topology. I'm work=
-ing
-with hardware people internally to try to isolate the problem.
-
-Cheers,
-
-Andrew
-
->=C2=A0
-> Guenter
->=C2=A0
-> > >=C2=A0
-> > > > > > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> > > >=C2=A0
-> > > > ---
-> > > > =C2=A0Documentation/hwmon/pmbus-core=C2=A0=C2=A0=C2=A0|=C2=A0=C2=A0=
-12 ++--
-> > > > =C2=A0drivers/hwmon/pmbus/pmbus.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0|=C2=A0=C2=A0=C2=A06 +-
-> > > > =C2=A0drivers/hwmon/pmbus/pmbus_core.c | 115 ++++++++++++++++++++++=
-+++++++----------
-> > > > =C2=A03 files changed, 95 insertions(+), 38 deletions(-)
-> > > >=C2=A0
-> > > > diff --git a/Documentation/hwmon/pmbus-core b/Documentation/hwmon/p=
-mbus-core
-> > > > index 8ed10e9ddfb5..3e9f41bb756f 100644
-> > > > --- a/Documentation/hwmon/pmbus-core
-> > > > +++ b/Documentation/hwmon/pmbus-core
-> > > > @@ -218,17 +218,17 @@ Specifically, it provides the following infor=
-mation.
-> > > > =C2=A0=C2=A0=C2=A0This function calls the device specific write_byt=
-e function if defined.
-> > > > =C2=A0=C2=A0=C2=A0Therefore, it must _not_ be called from that func=
-tion.
-> > > > =C2=A0
-> > > > -=C2=A0=C2=A0bool pmbus_check_byte_register(struct i2c_client *clie=
-nt, int page, int reg);
-> > > > +=C2=A0=C2=A0int pmbus_check_byte_register(struct i2c_client *clien=
-t, int page, int reg);
-> > > > =C2=A0
-> > > > -=C2=A0=C2=A0Check if byte register exists. Return true if the regi=
-ster exists, false
-> > > > -=C2=A0=C2=A0otherwise.
-> > > > +=C2=A0=C2=A0Check if byte register exists. Returns 1 if the regist=
-er exists, 0 if it does
-> > > > +=C2=A0=C2=A0not, and less than zero on an unexpected error.
-> > > > =C2=A0=C2=A0=C2=A0This function calls the device specific write_byt=
-e function if defined to
-> > > > =C2=A0=C2=A0=C2=A0obtain the chip status. Therefore, it must _not_ =
-be called from that function.
-> > > > =C2=A0
-> > > > -=C2=A0=C2=A0bool pmbus_check_word_register(struct i2c_client *clie=
-nt, int page, int reg);
-> > > > +=C2=A0=C2=A0int pmbus_check_word_register(struct i2c_client *clien=
-t, int page, int reg);
-> > > > =C2=A0
-> > > > -=C2=A0=C2=A0Check if word register exists. Return true if the regi=
-ster exists, false
-> > > > -=C2=A0=C2=A0otherwise.
-> > > > +=C2=A0=C2=A0Check if word register exists. Returns 1 if the regist=
-er exists, 0 if it does
-> > > > +=C2=A0=C2=A0not, and less than zero on an unexpected error.
-> > > > =C2=A0=C2=A0=C2=A0This function calls the device specific write_byt=
-e function if defined to
-> > > > =C2=A0=C2=A0=C2=A0obtain the chip status. Therefore, it must _not_ =
-be called from that function.
-> > > > =C2=A0
-> > > > diff --git a/drivers/hwmon/pmbus/pmbus.h b/drivers/hwmon/pmbus/pmbu=
-s.h
-> > > > index bfcb13bae34b..c53032a04a6f 100644
-> > > > --- a/drivers/hwmon/pmbus/pmbus.h
-> > > > +++ b/drivers/hwmon/pmbus/pmbus.h
-> > > > @@ -413,9 +413,9 @@ int pmbus_write_byte_data(struct i2c_client *cl=
-ient, int page, u8 reg,
-> > > > > > =C2=A0			=C2=A0=C2=A0u8 value);
-> > > >=C2=A0
-> > > > =C2=A0int pmbus_update_byte_data(struct i2c_client *client, int pag=
-e, u8 reg,
-> > > > > > =C2=A0			=C2=A0=C2=A0=C2=A0u8 mask, u8 value);
-> > > >=C2=A0
-> > > > -void pmbus_clear_faults(struct i2c_client *client);
-> > > > -bool pmbus_check_byte_register(struct i2c_client *client, int page=
-, int reg);
-> > > > -bool pmbus_check_word_register(struct i2c_client *client, int page=
-, int reg);
-> > > > +int pmbus_clear_faults(struct i2c_client *client);
-> > > > +int pmbus_check_byte_register(struct i2c_client *client, int page,=
- int reg);
-> > > > +int pmbus_check_word_register(struct i2c_client *client, int page,=
- int reg);
-> > > > =C2=A0int pmbus_do_probe(struct i2c_client *client, const struct i2=
-c_device_id *id,
-> > > > > > =C2=A0		=C2=A0=C2=A0=C2=A0struct pmbus_driver_info *info);
-> > > >=C2=A0
-> > > > =C2=A0int pmbus_do_remove(struct i2c_client *client);
-> > > > diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus=
-/pmbus_core.c
-> > > > index f1eff6b6c798..153700e35431 100644
-> > > > --- a/drivers/hwmon/pmbus/pmbus_core.c
-> > > > +++ b/drivers/hwmon/pmbus/pmbus_core.c
-> > > > @@ -304,18 +304,24 @@ static int _pmbus_read_byte_data(struct i2c_c=
-lient *client, int page, int reg)
-> > > > > > =C2=A0	return pmbus_read_byte_data(client, page, reg);
-> > > >=C2=A0
-> > > > =C2=A0}
-> > > > =C2=A0
-> > > > -static void pmbus_clear_fault_page(struct i2c_client *client, int =
-page)
-> > > > +static int pmbus_clear_fault_page(struct i2c_client *client, int p=
-age)
-> > > > =C2=A0{
-> > > > > > > > > > > > -	_pmbus_write_byte(client, page, PMBUS_CLEAR_FAULT=
-S);
-> > > > > > +	return _pmbus_write_byte(client, page, PMBUS_CLEAR_FAULTS);
-> > > >=C2=A0
-> > > > =C2=A0}
-> > > > =C2=A0
-> > > > -void pmbus_clear_faults(struct i2c_client *client)
-> > > > +int pmbus_clear_faults(struct i2c_client *client)
-> > > > =C2=A0{
-> > > > > > > > > > > > =C2=A0	struct pmbus_data *data =3D i2c_get_clientda=
-ta(client);
-> > > > > > > > > > > > +	int rv;
-> > > > > > =C2=A0	int i;
-> > > >=C2=A0
-> > > > =C2=A0
-> > > > > > > > > > > > -	for (i =3D 0; i < data->info->pages; i++)
-> > > > > > > > > > > > -		pmbus_clear_fault_page(client, i);
-> > > > > > > > > > > > +	for (i =3D 0; i < data->info->pages; i++) {
-> > > > > > > > > > > > +		rv =3D pmbus_clear_fault_page(client, i);
-> > > > > > > > > > > > +		if (rv)
-> > > > > > > > > > > > +			return rv;
-> > > > > > +	}
-> > > >=C2=A0
-> > > > +
-> > > > > > +	return 0;
-> > > >=C2=A0
-> > > > =C2=A0}
-> > > > =C2=A0EXPORT_SYMBOL_GPL(pmbus_clear_faults);
-> > > > =C2=A0
-> > > > @@ -333,28 +339,45 @@ static int pmbus_check_status_cml(struct i2c_=
-client *client)
-> > > > > > =C2=A0	return 0;
-> > > >=C2=A0
-> > > > =C2=A0}
-> > > > =C2=A0
-> > > > -static bool pmbus_check_register(struct i2c_client *client,
-> > > > +static int pmbus_check_register(struct i2c_client *client,
-> > > > > > > > > > > > =C2=A0				=C2=A0int (*func)(struct i2c_client *clie=
-nt,
-> > > > > > > > > > > > =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0int page, =
-int reg),
-> > > > > > =C2=A0				=C2=A0int page, int reg)
-> > > >=C2=A0
-> > > > =C2=A0{
-> > > > > > > > > > > > +	struct pmbus_data *data;
-> > > > > > > > > > > > +	int check;
-> > > > > > > > > > > > =C2=A0	int rv;
-> > > > > > -	struct pmbus_data *data =3D i2c_get_clientdata(client);
-> > > >=C2=A0
-> > > > =C2=A0
-> > > > > > > > > > > > -	rv =3D func(client, page, reg);
-> > > > > > > > > > > > -	if (rv >=3D 0 && !(data->flags & PMBUS_SKIP_STATU=
-S_CHECK))
-> > > > > > > > > > > > -		rv =3D pmbus_check_status_cml(client);
-> > > > > > > > > > > > -	pmbus_clear_fault_page(client, -1);
-> > > > > > > > > > > > -	return rv >=3D 0;
-> > > > > > +	data =3D i2c_get_clientdata(client);
-> > > >=C2=A0
-> > > > +
-> > > > > > > > > > > > +	/*
-> > > > > > > > > > > > +	=C2=A0* pmbus_set_page() guards transactions on t=
-he requested page matching
-> > > > > > > > > > > > +	=C2=A0* the current page. This may be done in the=
- execution of func(), but
-> > > > > > > > > > > > +	=C2=A0* at that point a set-page error is conflat=
-ed with accessing a
-> > > > > > > > > > > > +	=C2=A0* non-existent register.
-> > > > > > > > > > > > +	=C2=A0*/
-> > > > > > > > > > > > +	rv =3D pmbus_set_page(client, page);
-> > > > > > > > > > > > +	if (rv < 0)
-> > > > > > +		return rv;
-> > > >=C2=A0
-> > > > +
-> > > > > > > > > > > > +	check =3D func(client, page, reg);
-> > > > > > > > > > > > +	if (check >=3D 0 && !(data->flags & PMBUS_SKIP_ST=
-ATUS_CHECK))
-> > > > > > +		check =3D pmbus_check_status_cml(client);
-> > > >=C2=A0
-> > > > +
-> > > > > > > > > > > > +	rv =3D pmbus_clear_fault_page(client, -1);
-> > > > > > > > > > > > +	if (rv < 0)
-> > > > > > +		return rv;
-> > > >=C2=A0
-> > > > +
-> > > > > > +	return check >=3D 0;
-> > > >=C2=A0
-> > > > =C2=A0}
-> > > > =C2=A0
-> > > > -bool pmbus_check_byte_register(struct i2c_client *client, int page=
-, int reg)
-> > > > +int pmbus_check_byte_register(struct i2c_client *client, int page,=
- int reg)
-> > > > =C2=A0{
-> > > > > > =C2=A0	return pmbus_check_register(client, _pmbus_read_byte_dat=
-a, page, reg);
-> > > >=C2=A0
-> > > > =C2=A0}
-> > > > =C2=A0EXPORT_SYMBOL_GPL(pmbus_check_byte_register);
-> > > > =C2=A0
-> > > > -bool pmbus_check_word_register(struct i2c_client *client, int page=
-, int reg)
-> > > > +int pmbus_check_word_register(struct i2c_client *client, int page,=
- int reg)
-> > > > =C2=A0{
-> > > > > > =C2=A0	return pmbus_check_register(client, _pmbus_read_word_dat=
-a, page, reg);
-> > > >=C2=A0
-> > > > =C2=A0}
-> > > > @@ -390,7 +413,7 @@ static struct pmbus_data *pmbus_update_device(s=
-truct device *dev)
-> > > > =C2=A0
-> > > > > > > > > > > > =C2=A0	mutex_lock(&data->update_lock);
-> > > > > > > > > > > > =C2=A0	if (time_after(jiffies, data->last_updated +=
- HZ) || !data->valid) {
-> > > > > > > > > > > > -		int i, j;
-> > > > > > +		int i, j, ret;
-> > > >=C2=A0
-> > > > =C2=A0
-> > > > > > > > > > > > =C2=A0		for (i =3D 0; i < info->pages; i++) {
-> > > > > > =C2=A0			data->status[PB_STATUS_BASE + i]
-> > > >=C2=A0
-> > > > @@ -424,7 +447,13 @@ static struct pmbus_data *pmbus_update_device(=
-struct device *dev)
-> > > > > > > > > > > > =C2=A0							=C2=A0=C2=A0=C2=A0=C2=A0sensor->page,
-> > > > > > > > > > > > =C2=A0							=C2=A0=C2=A0=C2=A0=C2=A0sensor->reg);
-> > > > > > > > > > > > =C2=A0		}
-> > > > > > -		pmbus_clear_faults(client);
-> > > >=C2=A0
-> > > > +
-> > > > > > > > > > > > +		ret =3D pmbus_clear_faults(client);
-> > > > > > > > > > > > +		if (ret < 0) {
-> > > > > > > > > > > > +			mutex_unlock(&data->update_lock);
-> > > > > > > > > > > > +			return ERR_PTR(ret);
-> > > > > > +		}
-> > > >=C2=A0
-> > > > +
-> > > > > > > > > > > > =C2=A0		data->last_updated =3D jiffies;
-> > > > > > > > > > > > =C2=A0		data->valid =3D 1;
-> > > > > > =C2=A0	}
-> > > >=C2=A0
-> > > > @@ -754,6 +783,9 @@ static ssize_t pmbus_show_boolean(struct device=
- *dev,
-> > > > > > > > > > > > =C2=A0	struct pmbus_data *data =3D pmbus_update_dev=
-ice(dev);
-> > > > > > =C2=A0	int val;
-> > > >=C2=A0
-> > > > =C2=A0
-> > > > > > > > > > > > +	if (IS_ERR(data))
-> > > > > > +		return PTR_ERR(data);
-> > > >=C2=A0
-> > > > +
-> > > > > > > > > > > > =C2=A0	val =3D pmbus_get_boolean(data, boolean, att=
-r->index);
-> > > > > > > > > > > > =C2=A0	if (val < 0)
-> > > > > > =C2=A0		return val;
-> > > >=C2=A0
-> > > > @@ -766,6 +798,9 @@ static ssize_t pmbus_show_sensor(struct device =
-*dev,
-> > > > > > > > > > > > =C2=A0	struct pmbus_data *data =3D pmbus_update_dev=
-ice(dev);
-> > > > > > =C2=A0	struct pmbus_sensor *sensor =3D to_pmbus_sensor(devattr)=
+> +}
+> +
+> +static int ucd9000_gpio_set_direction(struct gpio_chip *gc, unsigned int=
+ offset,
+> +					bool direction_out, int requested_out)
+> +{
+> +	struct i2c_client *client =3D gpiochip_get_data(gc);
+> +	int ret, config, out_val;
+> +
+> +
+> +	ret =3D ucd9000_gpio_read_config(client, offset);
+> +	if (ret < 0) {
+> +		dev_err(&client->dev, "failed to read GPIO %d config: %d\n",
+> +			offset, ret);
+> +
+> +		return ret;
+> +	}
+> +
+> +	if (direction_out) {
+> +		out_val =3D requested_out ? UCD9000_GPIO_CONFIG_OUT_VALUE : 0;
+> +
+> +		if (ret & UCD9000_GPIO_CONFIG_OUT_ENABLE) {
+> +			if ((ret & UCD9000_GPIO_CONFIG_OUT_VALUE) =3D=3D out_val)
+> +				return 0;
+> +		} else
+> +			ret |=3D UCD9000_GPIO_CONFIG_OUT_ENABLE;
+> +
+> +		if (out_val)
+> +			ret |=3D UCD9000_GPIO_CONFIG_OUT_VALUE;
+> +		else
+> +			ret &=3D ~UCD9000_GPIO_CONFIG_OUT_VALUE;
+> +
+> +	} else {
+> +		if (!(ret & UCD9000_GPIO_CONFIG_OUT_ENABLE))
+> +			return 0;
+> +
+> +		ret &=3D ~UCD9000_GPIO_CONFIG_OUT_ENABLE;
+> +	}
+> +
+> +	ret |=3D UCD9000_GPIO_CONFIG_ENABLE;
+> +	config =3D ret;
+> +
+> +	/* Page set not required */
+> +	ret =3D i2c_smbus_write_byte_data(client, UCD9000_GPIO_CONFIG, config);
+> +	if (ret < 0) {
+> +		dev_err(&client->dev, "Failed to write GPIO %d config: %d\n",
+> +			offset, ret);
+> +
+> +		return ret;
+> +	}
+> +
+> +	config &=3D ~UCD9000_GPIO_CONFIG_ENABLE;
+> +
+> +	return i2c_smbus_write_byte_data(client, UCD9000_GPIO_CONFIG, config);
+> +}
+> +
+> +static int ucd9000_gpio_direction_input(struct gpio_chip *gc,
+> +					unsigned int offset)
+> +{
+> +	return ucd9000_gpio_set_direction(gc, offset, UCD9000_GPIO_INPUT, 0);
+> +}
+> +
+> +static int ucd9000_gpio_direction_output(struct gpio_chip *gc,
+> +					unsigned int offset, int val)
+> +{
+> +	return ucd9000_gpio_set_direction(gc, offset, UCD9000_GPIO_OUTPUT, val)=
 ;
-> > > >=C2=A0
-> > > > =C2=A0
-> > > > > > > > > > > > +	if (IS_ERR(data))
-> > > > > > +		return PTR_ERR(data);
-> > > >=C2=A0
-> > > > +
-> > > > > > > > > > > > =C2=A0	if (sensor->data < 0)
-> > > > > > =C2=A0		return sensor->data;
-> > > >=C2=A0
-> > > > =C2=A0
-> > > > @@ -995,7 +1030,11 @@ static int pmbus_add_limit_attrs(struct i2c_c=
-lient *client,
-> > > > > > =C2=A0	struct pmbus_sensor *curr;
-> > > >=C2=A0
-> > > > =C2=A0
-> > > > > > > > > > > > =C2=A0	for (i =3D 0; i < nlimit; i++) {
-> > > > > > > > > > > > -		if (pmbus_check_word_register(client, page, l->r=
-eg)) {
-> > > > > > > > > > > > +		ret =3D pmbus_check_word_register(client, page, =
-l->reg);
-> > > > > > > > > > > > +		if (ret < 0)
-> > > > > > +			return ret;
-> > > >=C2=A0
-> > > > +
-> > > > > > > > > > > > +		if (ret) {
-> > > > > > > > > > > > =C2=A0			curr =3D pmbus_add_sensor(data, name, l->a=
-ttr, index,
-> > > > > > > > > > > > =C2=A0						page, l->reg, attr->class,
-> > > > > > =C2=A0						attr->update || l->update,
-> > > >=C2=A0
-> > > > @@ -1041,6 +1080,8 @@ static int pmbus_add_sensor_attrs_one(struct =
-i2c_client *client,
-> > > > > > > > > > > > =C2=A0	if (!base)
-> > > > > > > > > > > > =C2=A0		return -ENOMEM;
-> > > > > > > > > > > > =C2=A0	if (attr->sfunc) {
-> > > > > > +		int check;
-> > > >=C2=A0
-> > > > +
-> > > > > > > > > > > > =C2=A0		ret =3D pmbus_add_limit_attrs(client, data,=
- info, name,
-> > > > > > > > > > > > =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0index, page, bas=
-e, attr);
-> > > > > > =C2=A0		if (ret < 0)
-> > > >=C2=A0
-> > > > @@ -1050,9 +1091,13 @@ static int pmbus_add_sensor_attrs_one(struct=
- i2c_client *client,
-> > > > > > > > > > > > =C2=A0		=C2=A0* alarm attributes, if there is a glo=
-bal alarm bit, and if
-> > > > > > > > > > > > =C2=A0		=C2=A0* the generic status register for thi=
-s page is accessible.
-> > > > > > > > > > > > =C2=A0		=C2=A0*/
-> > > > > > > > > > > > -		if (!ret && attr->gbit &&
-> > > > > > > > > > > > -		=C2=A0=C2=A0=C2=A0=C2=A0pmbus_check_byte_registe=
-r(client, page,
-> > > > > > -					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0data->status_register=
-)) {
-> > > >=C2=A0
-> > > > +
-> > > > > > > > > > > > +		check =3D pmbus_check_byte_register(client, page=
-,
-> > > > > > > > > > > > +						=C2=A0=C2=A0data->status_register);
-> > > > > > > > > > > > +		if (check < 0)
-> > > > > > +			return check;
-> > > >=C2=A0
-> > > > +
-> > > > > > > > > > > > +		if (!ret && attr->gbit && check) {
-> > > > > > > > > > > > =C2=A0			ret =3D pmbus_add_boolean(data, name, "ala=
-rm", index,
-> > > > > > > > > > > > =C2=A0						NULL, NULL,
-> > > > > > =C2=A0						PB_STATUS_BASE + page,
-> > > >=C2=A0
-> > > > @@ -1604,8 +1649,12 @@ static int pmbus_add_fan_attributes(struct i=
-2c_client *client,
-> > > > > > > > > > > > =C2=A0			if (!(info->func[page] & pmbus_fan_flags[f=
-]))
-> > > > > > =C2=A0				break;
-> > > >=C2=A0
-> > > > =C2=A0
-> > > > > > > > > > > > -			if (!pmbus_check_word_register(client, page,
-> > > > > > > > > > > > -						=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0pm=
-bus_fan_registers[f]))
-> > > > > > > > > > > > +			ret =3D pmbus_check_word_register(client, page,
-> > > > > > > > > > > > +						=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0pm=
-bus_fan_registers[f]);
-> > > > > > > > > > > > +			if (ret < 0)
-> > > > > > +				return ret;
-> > > >=C2=A0
-> > > > +
-> > > > > > > > > > > > +			if (!ret)
-> > > > > > =C2=A0				break;
-> > > >=C2=A0
-> > > > =C2=A0
-> > > > > > =C2=A0			/*
-> > > >=C2=A0
-> > > > @@ -1628,9 +1677,13 @@ static int pmbus_add_fan_attributes(struct i=
-2c_client *client,
-> > > > > > > > > > > > =C2=A0			=C2=A0* Each fan status register covers mu=
-ltiple fans,
-> > > > > > > > > > > > =C2=A0			=C2=A0* so we have to do some magic.
-> > > > > > > > > > > > =C2=A0			=C2=A0*/
-> > > > > > > > > > > > -			if ((info->func[page] & pmbus_fan_status_flags[=
-f]) &&
-> > > > > > > > > > > > -			=C2=A0=C2=A0=C2=A0=C2=A0pmbus_check_byte_regist=
-er(client,
-> > > > > > > > > > > > -					page, pmbus_fan_status_registers[f])) {
-> > > > > > > > > > > > +			ret =3D=C2=A0=C2=A0pmbus_check_byte_register(cl=
-ient, page,
-> > > > > > > > > > > > +						pmbus_fan_status_registers[f]);
-> > > > > > > > > > > > +			if (ret < 0)
-> > > > > > +				return ret;
-> > > >=C2=A0
-> > > > +
-> > > > > > > > > > > > +			if ((info->func[page] & pmbus_fan_status_flags[=
-f])
-> > > > > > > > > > > > +					&& ret) {
-> > > > > > =C2=A0				int base;
-> > > >=C2=A0
-> > > > =C2=A0
-> > > > > > > > =C2=A0				if (f > 1)	/* fan 3, 4 */
-> > > >=C2=A0
-> > > > @@ -1696,10 +1749,13 @@ static int pmbus_identify_common(struct i2c=
-_client *client,
-> > > > > > =C2=A0				=C2=A0struct pmbus_data *data, int page)
-> > > >=C2=A0
-> > > > =C2=A0{
-> > > > > > > > > > > > =C2=A0	int vout_mode =3D -1;
-> > > > > > +	int rv;
-> > > >=C2=A0
-> > > > =C2=A0
-> > > > > > > > > > > > -	if (pmbus_check_byte_register(client, page, PMBUS=
-_VOUT_MODE))
-> > > > > > > > > > > > +	rv =3D pmbus_check_byte_register(client, page, PM=
-BUS_VOUT_MODE);
-> > > > > > > > > > > > +	if (rv =3D=3D 1)
-> > > > > > > > > > > > =C2=A0		vout_mode =3D _pmbus_read_byte_data(client,=
- page,
-> > > > > > =C2=A0						=C2=A0=C2=A0PMBUS_VOUT_MODE);
-> > > >=C2=A0
-> > > > +
-> > > > > > > > > > > > =C2=A0	if (vout_mode >=3D 0 && vout_mode !=3D 0xff)=
- {
-> > > > > > > > > > > > =C2=A0		/*
-> > > > > > =C2=A0		=C2=A0* Not all chips support the VOUT_MODE command,
-> > > >=C2=A0
-> > > > @@ -1725,8 +1781,7 @@ static int pmbus_identify_common(struct i2c_c=
-lient *client,
-> > > > > > > > > > > > =C2=A0		}
-> > > > > > =C2=A0	}
-> > > >=C2=A0
-> > > > =C2=A0
-> > > > > > > > > > > > -	pmbus_clear_fault_page(client, page);
-> > > > > > > > > > > > -	return 0;
-> > > > > > +	return pmbus_clear_fault_page(client, page);
-> > > >=C2=A0
-> > > > =C2=A0}
-> > > > =C2=A0
-> > > > =C2=A0static int pmbus_init_common(struct i2c_client *client, struc=
-t pmbus_data *data,
-> > > > @@ -1756,7 +1811,9 @@ static int pmbus_init_common(struct i2c_clien=
-t *client, struct pmbus_data *data,
-> > > > > > > > > > > > =C2=A0	if (ret >=3D 0 && (ret & PB_CAPABILITY_ERROR=
-_CHECK))
-> > > > > > =C2=A0		client->flags |=3D I2C_CLIENT_PEC;
-> > > >=C2=A0
-> > > > =C2=A0
-> > > > > > > > > > > > -	pmbus_clear_faults(client);
-> > > > > > > > > > > > +	ret =3D pmbus_clear_faults(client);
-> > > > > > > > > > > > +	if (ret < 0)
-> > > > > > +		return ret;
-> > > >=C2=A0
-> > > > =C2=A0
-> > > > > > > > > > > > =C2=A0	if (info->identify) {
-> > > > > > =C2=A0		ret =3D (*info->identify)(client, info);
-> > > >=C2=A0
-> > > > --=C2=A0
-> > > > 2.11.0
-> > > >=C2=A0
->=C2=A0
->=C2=A0
---=-Tge/ZX86d6Oilq2PelpP
+> +}
+> +
+> =C2=A0static int ucd9000_probe(struct i2c_client *client,
+> =C2=A0			=C2=A0const struct i2c_device_id *id)
+> =C2=A0{
+> @@ -227,6 +402,37 @@ static int ucd9000_probe(struct i2c_client *client,
+> =C2=A0		=C2=A0=C2=A0| PMBUS_HAVE_FAN34 | PMBUS_HAVE_STATUS_FAN34;
+> =C2=A0	}
+> =C2=A0
+> +	/*
+> +	=C2=A0* Note:
+> +	=C2=A0*
+> +	=C2=A0* Pinmux support has not been added to the new gpio_chip.
+> +	=C2=A0* This support should be added when possible given the mux
+> +	=C2=A0* behavior of these IO devices.
+> +	=C2=A0*/
+> +	data->gpio.label =3D (const char *)&client->name;
+> +	data->gpio.get_direction =3D ucd9000_gpio_get_direction;
+> +	data->gpio.direction_input =3D ucd9000_gpio_direction_input;
+> +	data->gpio.direction_output =3D ucd9000_gpio_direction_output;
+> +	data->gpio.get =3D ucd9000_gpio_get;
+> +	data->gpio.set =3D ucd9000_gpio_set;
+> +	data->gpio.can_sleep =3D 1;
+> +	data->gpio.base =3D -1;
+> +
+> +	/*
+> +	=C2=A0* TODO: set ngpio for ucd9000 devs that aren't 90160 type
+> +	=C2=A0*/
+> +	if (mid->driver_data =3D=3D ucd90160)
+> +		data->gpio.ngpio =3D UCD90160_NUM_GPIOS;
+> +	data->gpio.parent =3D &client->dev;
+> +	data->gpio.owner =3D THIS_MODULE;
+> +
+> +	ret =3D devm_gpiochip_add_data(&client->dev, &data->gpio, client);
+> +	if (ret) {
+> +		data->gpio.parent =3D NULL;
+> +		dev_warn(&client->dev, "Could not add gpiochip: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> =C2=A0	return pmbus_do_probe(client, mid, info);
+> =C2=A0}
+> =C2=A0
+
+In the interest of expediting this:
+
+Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+--=-O2JYco2d97AXNkh6ISXh
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJZsIWNAAoJEJ0dnzgO5LT5AMAP/jazsPku3ojSNLwO9A/FtX1g
-mAL/+o/YAA25NXAi0M48fEY74fcliB6Axx1mMkceLoEL5w0xFZtdQ46zHSF/dv23
-MrpxWC1EShUasEmWDygT+Bfs3d3fLycXOWrcqj7MTeISI3yYoo9gi/tX9WgaebRs
-um49Ic/A7n784CXxXpLclYSVKjXjLAzkWCzLUDwavhZc+4T8DX9odJNziCuynE6r
-uItkEozo4Etgki6S3k8vZhd2rP11N/XoJjbgJURG3AT2cYzzRv5FyDwf3KwebHoi
-sCfdmuJWm8jr/azKlhizdMzctg2jt3T+cK6MclQJckunKj/ktNJ6x/RqPWO1p4sM
-vb1YNlGSI6wQN3YEkKP/8OHiF5+/UPxpGuLd7dhj1C27TBzggmqUpSvd6JCVyoP0
-1XWu9iBc2gK8BFBeUtaFzpo9H0RGidtcrFKEQfk+sH8eRTCHuHgY02gXGJ0t0tty
-sc9OJMWmLdqVYgqD34xt5PwMLPwlgX1DU6IHpDThwf957iNkUB9+bYtFDOPJ3RQI
-wfh6HRaGx8lNCh2dDkOFer4uyd8kEZkNIJhKGU5+COoNtGAI8U6Vsxy1RlZ9Eywh
-tSniRpcxl72ZexiNDkRIIus3qIWtTdVMyPUZAQcUTJM6wDEwjFnaa8I8wdWO3iCN
-Anv+4dIp7PwwVnEfKbVf
-=Bmfe
+iQIcBAABCgAGBQJZsJKFAAoJEJ0dnzgO5LT5RygP/RbOx/o9aDoyEPyEbKX+cWpI
+09U6olcqnQIYThIggQLdoMUhpjaXGQe4yJUyPghRQ9aDq5g83yVWtNZT78Wn7PpB
+VsGk7hKPmWMOpWZ/OOZsMELyLXHXmjbth+5TQm3Bb7Y8bDjtH8qOu3aLGIWLIQ51
+6Em8jfkz5sMUdrDR53mMamlSr55BPbGr2u68Na7d3VXzcsZtxtQ3RbF4b2zRxRQI
+FMzQISwcazfkplETu0zodFTpbZSbbrlEndCkGZPowq0hhbQE+t4u+p88G7HmfLcT
+xeGapkk7rWEtRV2/qNNcm/5jY8nG+UNZ3hOv2eUT878dgYfXaR/Z6bzG3pPPtySS
+wOruAu1q97uPC20av5KgAW7R5A5/ZORZqFnaNldtAQMZVvWGT4q5rV8ymVrjIac3
+mqBX7LhLLuAX6IsswNUQNf4+Cy1kgvfw/JoD/A0voihjt/s5V5I5o3CxjoE/WHO2
+7nXQ9D6DBnvVAxSp+SyI1Jmw/Nv1BG1qxTwb/pKu7+928uDa3r6q9dJbNJJQjEpF
+g/FBD9TG08ZoZ3LyCAOuXLIC0nbarNlBW+GaNmV0mFeeAfj9mrpyJOMtxC2lvI4S
+UP2E5yITd3Dykk8Mg1vKp1zxmam/7yG5mWi2K15tTIIQ+E7AZeaUmAp3JXdTj7/O
+lWw5UyYXWOfAwFkBNlhW
+=hEP0
 -----END PGP SIGNATURE-----
 
---=-Tge/ZX86d6Oilq2PelpP--
+--=-O2JYco2d97AXNkh6ISXh--
