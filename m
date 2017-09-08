@@ -1,32 +1,58 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="cPgoLtmN"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="f/FROIU3"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xpNzp6BBfzDrYn
- for <openbmc@lists.ozlabs.org>; Fri,  8 Sep 2017 14:06:29 +1000 (AEST)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id BF4C08B263;
- Fri,  8 Sep 2017 00:06:22 -0400 (EDT)
-Content-Type: text/plain; charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: Re: RFC for Telemetry data collection
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <3c810047-cb4e-465b-6373-900a484ed078@linux.vnet.ibm.com>
-Date: Fri, 8 Sep 2017 00:06:22 -0400
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <2F2674DE-F964-4B8A-8BBC-39B71567FBEF@fuzziesquirrel.com>
-References: <59B163B0.6060804@linux.vnet.ibm.com>
- <D3C20289-0D8A-4485-BB2B-6D6519B99A0A@fuzziesquirrel.com>
- <3c810047-cb4e-465b-6373-900a484ed078@linux.vnet.ibm.com>
-To: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
-X-Mailer: Apple Mail (2.3273)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xpPkP050mzDrYl
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Sep 2017 14:39:56 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 403BA20C2E;
+ Fri,  8 Sep 2017 00:39:54 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Fri, 08 Sep 2017 00:39:54 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :date:from:message-id:subject:to:x-me-sender:x-me-sender
+ :x-sasl-enc:x-sasl-enc; s=fm1; bh=XurISloHHBKEtVN9t2FNQkOwHyFacX
+ 0qGn86AEQ0HIY=; b=cPgoLtmNsymSu8V0KrXkB1KqyKTpLQTGozqTylxK57kyl5
+ ePhKq21gw5HrO+BYDyS/vXgUhOgBvuVqq9FUh0HiSPcxhWi2XjGvyqplok9EIGqw
+ i5TGs5Rn8Ydi1cYjU+oS4Wo+0v/FDmSJ1d5ljZpHOFmrZ10wYg4xFZTLZl5RwdGN
+ lcSFxNR0jvgajPdXX+Ayz5GeveokD0Ou3AzsvQdDgw3u/vrPCY4XhylaS83AnmiQ
+ barjwejfhk09zyaTQqTkuf09FAOYCIhQYAATM95X0aNX6+Bad0/MR1ROW4dCadb7
+ 3pTch2U+WHPFopfXQzjUamRRV4UH/fUKlU2Yk8HA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=XurISl
+ oHHBKEtVN9t2FNQkOwHyFacX0qGn86AEQ0HIY=; b=f/FROIU3pgZX0Tt9+Cfpve
+ z5cpug8pB53vhcjRQlPl8TNvyVxZmgCj4bbcsvASRcLzwmgx9rTceX/lnhGJL/R3
+ NSdK3K4eXTGRZ4PkiLebcFigj6KLJrXcwxGJ6vCavBWyYbNVLuR+IICMhtPdjGVy
+ l6GAhsMlds3KDu4vuNIiXqdzWd6iZltUv/ZCmVmWP65psE+xVvWfp3HTrOiPLZa9
+ MgetyZZAexcwwfqL5pylH8maEcXnsycJbD9g1PgvTN/rObgoZMMjJCHWVATy6MWc
+ KYWXkJlLgiY85G/0lv6NxoA4ZstbRr1E4MKwkYGmjEvBYSjWy7bFBLHKSv3o5s3w
+ ==
+X-ME-Sender: <xms:Gh-yWRa8iuvRQ8bkaPitRF6V7ajLBo4-wEp2xi5RQFk0qBwd95RVIA>
+X-Sasl-enc: ZXipFXAmx48z5H5pREC+/6apuDIAKeob2ne2zVomVQnk 1504845593
+Received: from keelia.ozlabs.ibm.com (unknown [122.99.82.10])
+ by mail.messagingengine.com (Postfix) with ESMTPA id A5F1C7E426;
+ Fri,  8 Sep 2017 00:39:50 -0400 (EDT)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: linux@roeck-us.net,
+	linux-hwmon@vger.kernel.org
+Cc: Andrew Jeffery <andrew@aj.id.au>, robh+dt@kernel.org, mark.rutland@arm.com,
+ jdelvare@suse.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, joel@jms.id.au, mspinler@linux.vnet.ibm.com,
+ msbarth@linux.vnet.ibm.com, openbmc@lists.ozlabs.org
+Subject: [PATCH v3 0/3] pmbus: Expand fan support and add MAX31785 driver
+Date: Fri,  8 Sep 2017 14:39:16 +1000
+Message-Id: <20170908043919.6924-1-andrew@aj.id.au>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -38,69 +64,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Sep 2017 04:06:31 -0000
+X-List-Received-Date: Fri, 08 Sep 2017 04:39:57 -0000
+X-List-Received-Date: Fri, 08 Sep 2017 04:39:57 -0000
 
+Hello,
 
-> On Sep 7, 2017, at 11:29 PM, Deepak Kodihalli =
-<dkodihal@linux.vnet.ibm.com> wrote:
->=20
-> On 08/09/17 6:46 am, Brad Bishop wrote:
->> Hi Tom
->> I don=E2=80=99t really disagree with anything you wrote=E2=80=A6I=E2=80=
-=99m just throwing out some additional thoughts.
->> I would propose that we:
->> 1 - Add support to the REST server to subscribe to DBus signals, and =
-simply forward the signal content in JSON format out over a websocket.  =
-This allows an external user to get any async notification that any code =
-running on the BMC can get.  I have a lot of questions on specifics here =
-but I=E2=80=99ll save those for later, in case this doesn=E2=80=99t work =
-out.
->=20
+These three patches lay the ground work for fan control in the pmbus core and
+introduce a driver for the MAX31785 Intelligent Fan Controller that makes use
+of the new control features.
 
-You only quoted #1 here.  I=E2=80=99m highlighting that because terms =
-like notification, event, and telemetry are being used a little loosely =
-and we are not all on the same page.
+Since v2[1] I've addressed Rob's comments on the bindings, integrating the thermal
+support and cleaning up some warts. One of the warts was regarding the
+maxim,tmp-fans property which was switched to use a list of fan phandles rather
+than indexes. A corresponding change is made in the driver. I also did a
+comparison with the Aspeed PWM/Tach bindings but I'm not convinced there's much
+to take away from it other than those bindings are somewhat broken.
 
-I think we need to accommodate both async and sync/historical modes =
-where async is just streamed out of the BMC, and sync, out of necessity =
-have dbus objects created.  Hence my proposal for two applications, one =
-for each mode.
+In v3 I've dropped patch 4 from v2, which was a bunch of work-arounds for bad
+behaviour I observed in testing. At this stage the bad behaviour appears to be
+a product of the larger hardware design, not necessarily a problem with the
+Maxim chip. Guenter has performed some quick testing of a cut-down v2 driver
+against the MAX31785 evaluation board and couldn't reproduce the results I was
+seeing[2][3], which increases the likelyhood that it's not the Maxim chip and
+the work-around patch is inappropriate.
 
-Really trying to drive my point here - to put the above another way - in =
-terms of how I have described these two modes, Toms thread (this thread) =
-would be tackling async mode and your note thread =
-(https://lists.ozlabs.org/pipermail/openbmc/2017-September/009065.html) =
-covering sync/historical mode.
+Please review!
 
-> Brad, that sounds fine to me in terms of how a notification can be =
-sent, although Tom's proposal also talked about describing in yaml, how =
-frequently to read something off of a, say a d-bus object representing a =
-sensor.
+Andrew
 
-My initial thinking is that neither of the proposed applications would =
-ever be doing sync reads to a dbus object.  Rather, they just passively =
-sit there and consume signals.  If need be they could discard them (see =
-rate-limiting below).
+[1] https://lkml.org/lkml/2017/8/2/88
+[2] https://lkml.org/lkml/2017/9/7/669
+[3] https://lkml.org/lkml/2017/9/5/53
 
+Andrew Jeffery (3):
+  dt-bindings: hwmon: pmbus: Add Maxim MAX31785 documentation
+  hwmon: pmbus: Add fan control support
+  pmbus: Add driver for Maxim MAX31785 Intelligent Fan Controller
 
-> If I understood correctly, are you saying instead of doing this every =
-X hours or seconds, we send out a notification whenever a =
-PropertyChanged d-bus signal is caught?
+ .../devicetree/bindings/hwmon/pmbus/max31785.txt   | 158 +++++
+ drivers/hwmon/pmbus/Kconfig                        |  10 +
+ drivers/hwmon/pmbus/Makefile                       |   1 +
+ drivers/hwmon/pmbus/max31785.c                     | 673 +++++++++++++++++++++
+ drivers/hwmon/pmbus/pmbus.h                        |  29 +
+ drivers/hwmon/pmbus/pmbus_core.c                   | 224 ++++++-
+ 6 files changed, 1080 insertions(+), 15 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt
+ create mode 100644 drivers/hwmon/pmbus/max31785.c
 
-Yes and no.  I am proposing we consume signals rather than perform reads =
-but I still think we need:
-
-1 - An API to configure async mode (what to subscribe to, maybe some =
-kind of rate limiting).  I=E2=80=99m not sure if this would be a DBus =
-API or just a REST thing.
-
-2 - A robust YAML syntax that instructs application #2 (sync mode) to do =
-the same things as #1 (what to subscribe to, rate limiting when creating =
-historical snapshot objects).
-
-
-> And let an off-BMC application bother about averages, min/max?
->=20
->=20
-> Regards,
-> Deepak
+-- 
+2.11.0
