@@ -1,67 +1,63 @@
-Return-Path: <arndbergmann@gmail.com>
+Return-Path: <jacek.anaszewski@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4003:c06::241; helo=mail-oi0-x241.google.com;
- envelope-from=arndbergmann@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2a00:1450:400c:c0c::243; helo=mail-wr0-x243.google.com;
+ envelope-from=jacek.anaszewski@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="kgmkek3J"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="EPzBQ0S8"; 
  dkim-atps=neutral
-Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
- [IPv6:2607:f8b0:4003:c06::241])
+Received: from mail-wr0-x243.google.com (mail-wr0-x243.google.com
+ [IPv6:2a00:1450:400c:c0c::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xpnyW3nSBzDrbn
- for <openbmc@lists.ozlabs.org>; Sat,  9 Sep 2017 05:51:47 +1000 (AEST)
-Received: by mail-oi0-x241.google.com with SMTP id a197so2478884oib.1
- for <openbmc@lists.ozlabs.org>; Fri, 08 Sep 2017 12:51:46 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xppN96Wv0zDrcH
+ for <openbmc@lists.ozlabs.org>; Sat,  9 Sep 2017 06:10:33 +1000 (AEST)
+Received: by mail-wr0-x243.google.com with SMTP id u48so1668508wrf.4
+ for <openbmc@lists.ozlabs.org>; Fri, 08 Sep 2017 13:10:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=aIEpBOtyr6OCXRZrriRGIuz8QHAd6AVJ/B90bgB1Q9o=;
- b=kgmkek3JbGyh8gnGYl59tHQEBg03LT5P1kARf2HjRequB0ftICBVccBL0HMvN6vrRo
- gG14R9mEojMTj+Dlj9YdfaHTYO3YsaHkYESmJphSVjTkcNRMoFsXxuXL7GdgQj+rGJDF
- Epr7KuH+Xplwq5RoxnO9T97Q1xZgHh27KdRtKNlaZ+oEiUfLPF7VzNToaVlbtBXCxEoQ
- VBkam4ak47P+ZOPo9pQjGfyb6GRndLfLqGlY7LfGIKAjkcI41L9qtZOJmoGgS/6fhj6L
- MhfvRfdDLdLuQMNxMJHWRMuk/slZPy+Wb6NsqUvVpZcUzziZhX8SLJ3Q4RQkQikwMWla
- KCSQ==
+ h=subject:to:references:cc:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding;
+ bh=eglMqBfjwqjUB9lWSgldtM2qbljJTrB7oO6kawrMpVg=;
+ b=EPzBQ0S8ugkcO/0H8O6DPguocdbohqar3WEN+wdMmqvTJ4iDzcmw+hgHTE9oZ0QJFt
+ 4af9sWPQXwWrmefp8ENaFdGbD9vaIib536gCLQGdzXUlK8J9c2o/SZrZ4tOQ4/0sQgoE
+ V5MhKu6k3QeXK7NvJF5ELxnOq3lfuA52vmV9V3MxNx1/vWsZBO+TJdtMQhEwdt6PBWBh
+ 7AgoNGVCroDgPu7zpBwyPlcu75ygjCCn98NBy4+ZSgMpmuaxTKqgVUEX8g3qN+jlduKI
+ ihzT6FcFJxddRZa8vEA5t5bn4MikZvRi2WyPOsgaa3juv6boANLBjEFN2uLNNLcQmMts
+ Zf/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=aIEpBOtyr6OCXRZrriRGIuz8QHAd6AVJ/B90bgB1Q9o=;
- b=h5GX4PXSQLh0s1jguFxsrvYD23CFP8jMS81kwaK4PYYqqZ5pJ/P5OxNSFgFqO5Fo/G
- thajXeGc7gE1G4b8GwHD9qtiuABM3SqrJO2cSw2Ivnuo4Zvn9gZvF1zeYpfGjgQy3gWm
- 6UXPG4h4FQ2gHnJR99wuHjTPGoeSHYB/ky6zBypceGlABP3TSSLqTOnHC5hjJj4RXc/z
- +Hv0rXC0dOOFwYzl2F2/4gxh0GwNNrJaRuIzYjl4fem/g19Sc0tANJeiLVr2z/i5mzyE
- DX67RsfAfHgx+46gayOwGLdxQpPbGvB0ZhHMrqClHZna4oKAeM1Y9LZEd3R7pBk3gR1n
- YO3Q==
-X-Gm-Message-State: AHPjjUi2FHH6ABbsOT2QAOiaHeXeif64EBxjTLuWVvZXWvHB4LFz8/Hh
- kBW5RyhLX9aUzP53hJUx2DEtNMyueg==
-X-Google-Smtp-Source: AOwi7QDHzfl+WAwsR+NQb+YYZFnpPx68CMtet4Wm9WtDJymIE+XoR8hnsSsa/YT4qSHeXKw8N2wWVRSdJyo9hlEA2QY=
-X-Received: by 10.202.193.65 with SMTP id r62mr4281617oif.313.1504900304426;
- Fri, 08 Sep 2017 12:51:44 -0700 (PDT)
+ h=x-gm-message-state:subject:to:references:cc:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding;
+ bh=eglMqBfjwqjUB9lWSgldtM2qbljJTrB7oO6kawrMpVg=;
+ b=i7xruRx9Ca2Eny9E3lwAygrx9qrXBYYI7sRtoJfIgI18eDQlmc4QQ304M1DkqT6C8Y
+ kZnrDv0pPV0QGvnIm6xUviKMl59fmvEqCkmLfsoJLGMfM5X57TxVqm7M8M2ma9raBBW2
+ yRvKBsVRSKdHU220yTFnKH3Opn2MnOWTSI84KZdXSuJdA1Reuni7VVwH1qgXmRqqltv3
+ qmlGgfj9FLFZbgx4zDMlzGMuGfifyP8tv3J0n6tI7AAhrv/uPlM4c2tHDsX9maRD60tL
+ zqKXmCw6Y1nRCq1/AVxdgmLh8K0cdhdaos8BFK2PdX0KQ/4qu2v9FccB+p1eyUrJedIh
+ SXYg==
+X-Gm-Message-State: AHPjjUhNcgYzzQkNDqVFNEF6DaMOf1GE/MCu50DpYNXlARN+PTWTQvwD
+ 6dJ2H5kVVCqJ3xbPrtc=
+X-Google-Smtp-Source: ADKCNb4RWbGs3is07S2wTjv9ahkEbkeoTJEOvCUXgIBC/SzSd26Z9eUwTbDcZHijxj68v54e/YZi1A==
+X-Received: by 10.223.178.166 with SMTP id g35mr2930730wrd.262.1504901430183; 
+ Fri, 08 Sep 2017 13:10:30 -0700 (PDT)
+Received: from [192.168.1.18] (dkt172.neoplus.adsl.tpnet.pl. [83.24.23.172])
+ by smtp.gmail.com with ESMTPSA id l131sm3832430wmb.2.2017.09.08.13.10.28
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 08 Sep 2017 13:10:29 -0700 (PDT)
+Subject: Re: [PATCH v2] leds: pca955x: Don't invert requested value in
+ pca955x_gpio_set_value()
+To: Andrew Jeffery <andrew@aj.id.au>, linux-leds@vger.kernel.org
+References: <20170901053858.10070-1-andrew@aj.id.au>
+Cc: rpurdie@rpsys.net, pavel@ucw.cz, linux-kernel@vger.kernel.org,
+ clg@kaod.org, bjwyman@gmail.com, openbmc@lists.ozlabs.org
+From: Jacek Anaszewski <jacek.anaszewski@gmail.com>
+Message-ID: <9cbbe7d6-027e-6fef-ca3d-bbec25042c96@gmail.com>
+Date: Fri, 8 Sep 2017 22:09:37 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.8.0
 MIME-Version: 1.0
-Sender: arndbergmann@gmail.com
-Received: by 10.157.91.35 with HTTP; Fri, 8 Sep 2017 12:51:43 -0700 (PDT)
-In-Reply-To: <1504887229-2748-2-git-send-email-oleksandrs@mellanox.com>
-References: <1504887229-2748-1-git-send-email-oleksandrs@mellanox.com>
- <1504887229-2748-2-git-send-email-oleksandrs@mellanox.com>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Fri, 8 Sep 2017 21:51:43 +0200
-X-Google-Sender-Auth: aD6RdWzkkUJawZa0gV6giYOisOU
-Message-ID: <CAK8P3a2zkA5Tp4En+=zLBes4YRedHcn9xf1DhBsRufqPWrzvVQ@mail.gmail.com>
-Subject: Re: [patch v8 1/4] drivers: jtag: Add JTAG core driver
-To: Oleksandr Shamray <oleksandrs@mellanox.com>
-Cc: gregkh <gregkh@linuxfoundation.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- Linux ARM <linux-arm-kernel@lists.infradead.org>, devicetree@vger.kernel.org, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>, 
- =?UTF-8?B?SmnFmcOtIFDDrXJrbw==?= <jiri@resnulli.us>, 
- Tobias Klauser <tklauser@distanz.ch>, linux-serial@vger.kernel.org,
- mec@shout.net, vadimp@maellanox.com, system-sw-low-level@mellanox.com, 
- Rob Herring <robh+dt@kernel.org>, openocd-devel-owner@lists.sourceforge.net, 
- Linux API <linux-api@vger.kernel.org>, David Miller <davem@davemloft.net>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Jiri Pirko <jiri@mellanox.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20170901053858.10070-1-andrew@aj.id.au>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -73,134 +69,179 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Sep 2017 19:51:48 -0000
+X-List-Received-Date: Fri, 08 Sep 2017 20:10:35 -0000
 
-On Fri, Sep 8, 2017 at 6:13 PM, Oleksandr Shamray
-<oleksandrs@mellanox.com> wrote:
-> Initial patch for JTAG driver
-> JTAG class driver provide infrastructure to support hardware/software
-> JTAG platform drivers. It provide user layer API interface for flashing
-> and debugging external devices which equipped with JTAG interface
-> using standard transactions.
->
-> Driver exposes set of IOCTL to user space for:
-> - XFER:
-> - SIR (Scan Instruction Register, IEEE 1149.1 Data Register scan);
-> - SDR (Scan Data Register, IEEE 1149.1 Instruction Register scan);
-> - RUNTEST (Forces the IEEE 1149.1 bus to a run state for a specified
->   number of clocks).
-> - SIOCFREQ/GIOCFREQ for setting and reading JTAG frequency.
->
-> Driver core provides set of internal APIs for allocation and
-> registration:
-> - jtag_register;
-> - jtag_unregister;
-> - jtag_alloc;
-> - jtag_free;
->
-> Platform driver on registration with jtag-core creates the next
-> entry in dev folder:
-> /dev/jtagX
->
-> Signed-off-by: Oleksandr Shamray <oleksandrs@mellanox.com>
-> Signed-off-by: Jiri Pirko <jiri@mellanox.com>
-> Acked-by: Arnd Bergmann <arnd@arndb.de>
+Hi Andrew,
 
-My Ack was actually just for the device driver part, I had not
-looked at the core again, sorry for not being clearer here.
+Thanks for the patch.
 
-The other two patches are fine, but looking at this one again,
-I find a couple of things to improve:
-
+On 09/01/2017 07:38 AM, Andrew Jeffery wrote:
+> The PCA9552 lines can be used either for driving LEDs or as GPIOs. The
+> manual states that for LEDs, the operation is open-drain:
+> 
+>          The LSn LED select registers determine the source of the LED data.
+> 
+>            00 = output is set LOW (LED on)
+>            01 = output is set high-impedance (LED off; default)
+>            10 = output blinks at PWM0 rate
+>            11 = output blinks at PWM1 rate
+> 
+> For GPIOs it suggests a pull-up so that the open-case drives the line
+> high:
+> 
+>          For use as output, connect external pull-up resistor to the pin
+>          and size it according to the DC recommended operating
+>          characteristics.  LED output pin is HIGH when the output is
+>          programmed as high-impedance, and LOW when the output is
+>          programmed LOW through the ‘LED selector’ register.  The output
+>          can be pulse-width controlled when PWM0 or PWM1 are used.
+> 
+> Now, I have a hardware design that uses the LED controller to control
+> LEDs. However, for $reasons, we're using the leds-gpio driver to drive
+> the them. The reasons are here are a tangent but lead to the discovery
+> of the inversion, which manifested as the LEDs being set to full
+> brightness at boot when we expected them to be off.
+> 
+> As we're driving the LEDs through leds-gpio, this means wending our way
+> through the gpiochip abstractions. So with that in mind we need to
+> describe an active-low GPIO configuration to drive the LEDs as though
+> they were GPIOs.
+> 
+> The set() gpiochip callback in leds-pca955x does the following:
+> 
+>          ...
+>          if (val)
+>                 pca955x_led_set(&led->led_cdev, LED_FULL);
+>          else
+>                 pca955x_led_set(&led->led_cdev, LED_OFF);
+>          ...
+> 
+> Where LED_FULL = 255. pca955x_led_set() in turn does:
+> 
+>          ...
+>          switch (value) {
+>          case LED_FULL:
+>                 ls = pca955x_ledsel(ls, ls_led, PCA955X_LS_LED_ON);
+>                 break;
+>          ...
+> 
+> Where PCA955X_LS_LED_ON is defined as:
+> 
+>          #define PCA955X_LS_LED_ON	0x0	/* Output LOW */
+> 
+> So here we have some type confusion: We've crossed domains from GPIO
+> behaviour to LED behaviour without accounting for possible inversions
+> in the process.
+> 
+> Stepping back to leds-gpio for a moment, during probe() we call
+> create_gpio_led(), which eventually executes:
+> 
+>          if (template->default_state == LEDS_GPIO_DEFSTATE_KEEP) {
+>                 state = gpiod_get_value_cansleep(led_dat->gpiod);
+>                 if (state < 0)
+>                         return state;
+>          } else {
+>                 state = (template->default_state == LEDS_GPIO_DEFSTATE_ON);
+>          }
+>          ...
+>          ret = gpiod_direction_output(led_dat->gpiod, state);
+> 
+> In the devicetree the GPIO is annotated as active-low, and
+> gpiod_get_value_cansleep() handles this for us:
+> 
+>          int gpiod_get_value_cansleep(const struct gpio_desc *desc)
+>          {
+>                  int value;
+> 
+>                  might_sleep_if(extra_checks);
+>                  VALIDATE_DESC(desc);
+>                  value = _gpiod_get_raw_value(desc);
+>                  if (value < 0)
+>                          return value;
+> 
+>                  if (test_bit(FLAG_ACTIVE_LOW, &desc->flags))
+>                          value = !value;
+> 
+>                  return value;
+>          }
+> 
+> _gpiod_get_raw_value() in turn calls through the get() callback for the
+> gpiochip implementation, so returning to our get() implementation in
+> leds-pca955x we find we extract the raw value from hardware:
+> 
+>          static int pca955x_gpio_get_value(struct gpio_chip *gc, unsigned int offset)
+>          {
+>                  struct pca955x *pca955x = gpiochip_get_data(gc);
+>                  struct pca955x_led *led = &pca955x->leds[offset];
+>                  u8 reg = pca955x_read_input(pca955x->client, led->led_num / 8);
+> 
+>                  return !!(reg & (1 << (led->led_num % 8)));
+>          }
+> 
+> This behaviour is not symmetric with that of set(), where the val is
+> inverted by the driver.
+> 
+> Closing the loop on the GPIO_ACTIVE_LOW inversions,
+> gpiod_direction_output(), like gpiod_get_value_cansleep(), handles it
+> for us:
+> 
+>          int gpiod_direction_output(struct gpio_desc *desc, int value)
+>          {
+>                   VALIDATE_DESC(desc);
+>                   if (test_bit(FLAG_ACTIVE_LOW, &desc->flags))
+>                            value = !value;
+>                   else
+>                            value = !!value;
+>                   return _gpiod_direction_output_raw(desc, value);
+>          }
+> 
+> All-in-all, with a value of 'keep' for default-state property in a
+> leds-gpio child node, the current state of the hardware will in-fact be
+> inverted; precisely the opposite of what was intended.
+> 
+> Rework leds-pca955x so that we avoid the incorrect inversion and clarify
+> the semantics with respect to GPIO.
+> 
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> ---
+> 
+> I've rebased on top of "1591caf2d5ea leds: pca955x: check for I2C errors" and
+> resolved the conflicts.
+> 
+>  drivers/leds/leds-pca955x.c | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/leds/leds-pca955x.c b/drivers/leds/leds-pca955x.c
+> index 905729191d3e..6dcd2d7cc6a4 100644
+> --- a/drivers/leds/leds-pca955x.c
+> +++ b/drivers/leds/leds-pca955x.c
+> @@ -61,6 +61,9 @@
+>  #define PCA955X_LS_BLINK0	0x2	/* Blink at PWM0 rate */
+>  #define PCA955X_LS_BLINK1	0x3	/* Blink at PWM1 rate */
+>  
+> +#define PCA955X_GPIO_HIGH	LED_OFF
+> +#define PCA955X_GPIO_LOW	LED_FULL
 > +
-> +static __u64 jtag_copy_from_user(__u64 udata, unsigned long bit_size)
-> +{
-> +       unsigned long size;
-> +       void *kdata;
+>  enum pca955x_type {
+>  	pca9550,
+>  	pca9551,
+> @@ -329,9 +332,9 @@ static int pca955x_set_value(struct gpio_chip *gc, unsigned int offset,
+>  	struct pca955x_led *led = &pca955x->leds[offset];
+>  
+>  	if (val)
+> -		return pca955x_led_set(&led->led_cdev, LED_FULL);
+> -	else
+> -		return pca955x_led_set(&led->led_cdev, LED_OFF);
+> +		return pca955x_led_set(&led->led_cdev, PCA955X_GPIO_HIGH);
 > +
-> +       size = DIV_ROUND_UP(bit_size, BITS_PER_BYTE);
-> +       kdata = memdup_user(u64_to_user_ptr(udata), size);
-> +
-> +       return (__u64)(uintptr_t)kdata;
-> +}
-> +
-> +static unsigned long jtag_copy_to_user(__u64 udata, __u64 kdata,
-> +                                      unsigned long bit_size)
-> +{
-> +       unsigned long size;
-> +
-> +       size = DIV_ROUND_UP(bit_size, BITS_PER_BYTE);
-> +
-> +       return copy_to_user(u64_to_user_ptr(udata), jtag_u64_to_ptr(kdata),
-> +                           size);
-> +}
+> +	return pca955x_led_set(&led->led_cdev, PCA955X_GPIO_LOW);
+>  }
+>  
+>  static void pca955x_gpio_set_value(struct gpio_chip *gc, unsigned int offset,
+> 
 
-Only a style comment, but the casting to and from u64 multiple
-times here seems overly complicated. Why not use a regular kernel
-pointer here, and then pass that as a third argument to
-ag->ops->xfer() ?
+Applied to the for-4.15 branch of linux-leds.git.
 
-> +
-> +       case JTAG_SIOCFREQ:
-> +               err = __get_user(value, uarg);
-
-This needs to use get_user(), not __get_user(). I think you changed
-all the other instances after an earlier comment, but missed this one.
-
-> +static int jtag_open(struct inode *inode, struct file *file)
-> +{
-> +       struct jtag *jtag = container_of(inode->i_cdev, struct jtag, cdev);
-> +
-> +       spin_lock(&jtag->lock);
-> +
-> +       if (jtag->open) {
-> +               dev_info(NULL, "jtag already opened\n");
-> +               spin_unlock(&jtag->lock);
-> +               return -EBUSY;
-> +       }
-> +
-> +       jtag->open++;
-> +       file->private_data = jtag;
-> +       spin_unlock(&jtag->lock);
-> +       return 0;
-> +}
-
-The spinlock seems to not protect anything but the use count,
-so this could be an atomic_t.
-
-
-> +       mutex_lock(&jtag_mutex);
-> +       list_add_tail(&jtag->list, &jtag_list);
-> +       mutex_unlock(&jtag_mutex);
-
-Similarly, you only use the mutex to protect the list_add/list_del,
-but nothing ever walks the list, so I think you can simply remove
-both the list and the mutex.
-
-> +static int __init jtag_init(void)
-> +{
-> +       int err;
-> +
-> +       err = alloc_chrdev_region(&jtag_devt, 0, 1, "jtag");
-> +       if (err)
-> +               return err;
-> +       return class_register(&jtag_class);
-> +}
-> +
-> +static void __exit jtag_exit(void)
-> +{
-> +       class_unregister(&jtag_class);
-> +}
-
-This looks a bit asymmetric:
-
-- you allocate a chardev region but don't destroy it in jtag_exit,
-  so presumably this leaks a major number allocation each
-  time you load/unload the module
-
-- you allocate a single minor number at module load time,
-  but the individual devices each get another number, and
-  the original one does not appear to be used, unless I
-  misunderstand the API here.
-
-     Arnd
+-- 
+Best regards,
+Jacek Anaszewski
