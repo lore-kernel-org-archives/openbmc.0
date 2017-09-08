@@ -1,57 +1,58 @@
-Return-Path: <groeck7@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c05::241; helo=mail-pg0-x241.google.com;
- envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="MgUZXSXl"; 
- dkim-atps=neutral
-Received: from mail-pg0-x241.google.com (mail-pg0-x241.google.com
- [IPv6:2607:f8b0:400e:c05::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="VkjHmn7P"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="N0DndAqh"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xpQVQ2jpyzDrX7
- for <openbmc@lists.ozlabs.org>; Fri,  8 Sep 2017 15:14:38 +1000 (AEST)
-Received: by mail-pg0-x241.google.com with SMTP id v82so873873pgb.1
- for <openbmc@lists.ozlabs.org>; Thu, 07 Sep 2017 22:14:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=Ai/G3lC6cphYwhcAg8g4JaRY95PtppY8/F/pPNPD5po=;
- b=MgUZXSXltfftBuR0IIs/N76c05hF9FwdefB1P5fuLg5SUO4ayubHJ/AR+BxxN+BWsR
- B10DOVhwmF3dyiOd3x+oGE3oR40u0PBT21I7B3RxJI0LuLhXiXp2oMmg9DSsMM60f/r+
- U2rDJBnA1gza20EMD9SSYV95/GfKGvYG2O0nyzLEdDKfl11zIoxMBPS+e5jbGGHM1+MR
- 1VjnrQT4EUhac2x+pNZ9IquV9AF3URtZpGl4UruzZ5iV6bG6+1iVUruA/699rYLQjvj7
- dXGnrjTj6+7hWFzHtrtW9Nu6Wg2EbBS1yh103BQRHbkHdX7AGgWllANIJGFPfAPIQ4fr
- P5Sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:subject:to:cc:references:from:message-id
- :date:user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=Ai/G3lC6cphYwhcAg8g4JaRY95PtppY8/F/pPNPD5po=;
- b=GhKOoozO8i1l1jM81Rnpl3AM7TLMScZXkQvr9DpqGyzD0ebUxm9W9n52FuPRKZbw49
- YxvTmOFMkNYR+t0605DE+ZsvTY8YBD6DM+kfRMFNjJ3XIJ2DnQNk+t0dkaDtZyshiSBO
- LlblOOXu2Hvc83theTvWP9ftgjBOxhwufQWN9FAbyE30t3L3knodn4EqJl71x8sJf11J
- q9iRL3tW8fIRYxMAvBvgHwHmOCMHmSPY1kkFxM4XIn3FIj5PIt/gV6H5Qm0v195FJvRw
- 1iKeyZwIvmqzR4LHFA8IP0pengcyPNNyKRnLGEekkwiIaiuDSKewFARQxOcF1Jo77i/b
- VOwA==
-X-Gm-Message-State: AHPjjUjdDuoDYjNyry1i58S0yag+pa0yMgiiIiInPGFEhGXbsTTtRe+u
- IjoufA1Xi/ly8Szk
-X-Google-Smtp-Source: ADKCNb6kzdwXtILmPzqqFW7wXoGJ5gZ0kX7QXQyiGJ4u1olzG1/z5uZyrfL6Gm1E0aE2iYFvkjytug==
-X-Received: by 10.98.15.208 with SMTP id 77mr1863274pfp.318.1504847676304;
- Thu, 07 Sep 2017 22:14:36 -0700 (PDT)
-Received: from server.roeck-us.net
- (108-223-40-66.lightspeed.sntcca.sbcglobal.net. [108.223.40.66])
- by smtp.gmail.com with ESMTPSA id s1sm1772400pfk.27.2017.09.07.22.14.34
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 07 Sep 2017 22:14:35 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xpQXb3hNGzDqF4
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Sep 2017 15:16:31 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 5265620DFF;
+ Fri,  8 Sep 2017 01:16:29 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Fri, 08 Sep 2017 01:16:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=iXo7tmLRiO405hwp3TmDFazbfcY6eVex7FLmI6pbU
+ m0=; b=VkjHmn7PjngjcAM1y5jUeXBKyrb73r0Pn2FHJiJmiJqw38kBh4bS72M+S
+ PVLXLP7KaGJO0csKRnUcTg/Y2AE8aM0yjdvokpoJYVONwZA4hj3eA+e1+x5kHq1m
+ LqKxQl4r8gBg2NDcFie7DaHMy4hYnHdjxBCI0w3B35MLYKbVeg7FsQue5wFhs9wJ
+ H2lrGEQUblCDlRKgROk7D9yTW29d8SZ7VkE1qY0bdkTzGr11MjqDY6BZ0BFNAojX
+ V+YymHkXlgpQyHoqtYJZmgH6xnGK5SReuseiT7QS7/5qaD/4nMW2lYdKn+WmtvzG
+ BKCAMRCuJ22bYi0fDyL7wHF8hNsWg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=iXo7tmLRiO405hwp3T
+ mDFazbfcY6eVex7FLmI6pbUm0=; b=N0DndAqhyA5aarxVI23LRzRZWE+P0x+kpE
+ dPv9Q9lZOay7qNu04mbl2jN48uinrdmmMPaklMUuivCFcDwbNK1RKjBrJ8ASMrMO
+ SVoPvLLOJYzXRoCLFSedydMM6vbXC5MCjMcKiPkWPGjviEe2eF8hLimlIfatVr2F
+ HzIG74+2H6L1QNux5s/imn4vRiDXxZ+GOa8i5e11SsJcDiAT4LdFgSx4ooFmorei
+ bvawKU59J2LhINTpB8cId8nst6Lj4b6fsSZi1Wg2NojIF8Jc4VxmQY0ydX+IhCcp
+ EI786y0ve92emIOvByvORevLOMXFiJ21EVGsYCZ2PXZRq5C/+j3w==
+X-ME-Sender: <xms:rSeyWZ0zn11OU64EtaLLAgoMHFLCLmVZLIu20iMLJAPH2Tx37ADbdg>
+X-Sasl-enc: F2lW/LW0i4Z8jbzgJTgvNLnggWivBZmZleA7vpSgIt2V 1504847788
+Received: from keelia (bh02i525f01.au.ibm.com [202.81.18.30])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 7357D24081;
+ Fri,  8 Sep 2017 01:16:23 -0400 (EDT)
+Message-ID: <1504847776.6124.17.camel@aj.id.au>
 Subject: Re: [PATCH] hwmon: pmbus: Make reg check and clear faults functions
  return errors
-To: Andrew Jeffery <andrew@aj.id.au>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Guenter Roeck <linux@roeck-us.net>
 Cc: linux-hwmon@vger.kernel.org, jdelvare@suse.com,
- linux-doc@vger.kernel.org, openbmc@lists.ozlabs.org, corbet@lwn.net,
+ linux-doc@vger.kernel.org,  openbmc@lists.ozlabs.org, corbet@lwn.net,
  linux-kernel@vger.kernel.org
+Date: Fri, 08 Sep 2017 15:16:16 +1000
+In-Reply-To: <a9924f0c-ee26-6c6b-262e-84dacb50b6a6@roeck-us.net>
 References: <20170905070132.17682-1-andrew@aj.id.au>
  <20170905170002.GG11478@roeck-us.net> <1504657417.28363.8.camel@aj.id.au>
  <20170906225102.GA32210@roeck-us.net> <1504740749.5042.2.camel@aj.id.au>
@@ -63,16 +64,11 @@ References: <20170905070132.17682-1-andrew@aj.id.au>
  <1504836369.6124.2.camel@aj.id.au>
  <75d9f838-aa4a-5cbd-744a-4d8e8bf1a370@roeck-us.net>
  <1504839076.6124.8.camel@aj.id.au> <1504842058.6124.10.camel@aj.id.au>
-From: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <a9924f0c-ee26-6c6b-262e-84dacb50b6a6@roeck-us.net>
-Date: Thu, 7 Sep 2017 22:14:34 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.2.1
-MIME-Version: 1.0
-In-Reply-To: <1504842058.6124.10.camel@aj.id.au>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+ <a9924f0c-ee26-6c6b-262e-84dacb50b6a6@roeck-us.net>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-+ucxoPjWpWJMrpdaHBPh"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -84,22 +80,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Sep 2017 05:14:38 -0000
+X-List-Received-Date: Fri, 08 Sep 2017 05:16:32 -0000
 
-On 09/07/2017 08:40 PM, Andrew Jeffery wrote:
-> On Fri, 2017-09-08 at 12:51 +1000, Andrew Jeffery wrote:
->>> I can't test with devicetree. x86 system.
->>>   
->>> 2,100+ iterations with your driver, no failures.
->>
->> Great. I really appreciate your testing here, so thanks for your
->> efforts. I owe you a few drinks if we ever happen to meet.
-> 
-> Actually, on that, how did you chop out the devicetree parts? Did you
-> keep the configuration writes at the end of max31785_of_fan_config()
-> and max31785_of_tmp_config()? Or did you just not call them? These two
-> functions cause the bulk of the bus traffic with on probe.
-> 
-fan config hardcoded, four fans connected. Still no failure.
 
-Guenter
+--=-+ucxoPjWpWJMrpdaHBPh
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, 2017-09-07 at 22:14 -0700, Guenter Roeck wrote:
+> On 09/07/2017 08:40 PM, Andrew Jeffery wrote:
+> > On Fri, 2017-09-08 at 12:51 +1000, Andrew Jeffery wrote:
+> > > > I can't test with devicetree. x86 system.
+> > > > =C2=A0=C2=A0
+> > > > 2,100+ iterations with your driver, no failures.
+> > >=20
+> > > Great. I really appreciate your testing here, so thanks for your
+> > > efforts. I owe you a few drinks if we ever happen to meet.
+> >=20
+> > Actually, on that, how did you chop out the devicetree parts? Did you
+> > keep the configuration writes at the end of max31785_of_fan_config()
+> > and max31785_of_tmp_config()? Or did you just not call them? These two
+> > functions cause the bulk of the bus traffic with on probe.
+> >=20
+>=20
+> fan config hardcoded, four fans connected. Still no failure.
+
+Great. Thanks again for your efforts here.
+
+Andrew
+--=-+ucxoPjWpWJMrpdaHBPh
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZsiegAAoJEJ0dnzgO5LT5uakP/j1WyE+8UvJ5LmyUn+4J5y9k
+FxBXYxRYQAj8GwQ29j+Fq6OfkVos++G2TpK+G4sNV8jaapRGXJgQLAQjcbGtSf3K
+8kE4kcId2ICefwpksJ79sOvXrXHrKLraKly+RoodQtcEWMpR90enQ9+mWRnbum0J
+894mfhat3ZhZTeE0AelB74Z6sY6oqg4Oan4PMkRl4ruQmxrI5URRIyqytLOI2e/e
+ZHJuXeFN2XWk623f1XpWkHbu/zL0DrENqRequOvMcMO7C3bMXyP9t7gq3AcMF7Wa
+cGSwvvtR2tLtpJ+Gj2oZkg6Pj7DUawaAjrN4XeL5em2XHHf9yIcO1PTSkVEZtQoc
++inEcELY+80EwST+PabyGVG0Kd+R/MvtDctqzFusBwWbLZJbzFhSQovHz69EAEwH
+p43AtxWMQTgdTNA9lOkmwgYadUZzXFt/C87WcmA5I4oSe59F86e5SvmJaRHn43dG
+dvUqPeFAOG75J8itlYEPj7pZcCOfEByeTg12TgVJqgBeYgiu8cgEOFSF3ua9yJte
+jiu+Mk3GJTLKVaNmiXUMAqm1FjlnG9kY7X3Ngz09csx77Dt/Spx8Xz3UspZRcYVx
+Z3t5Vs5oTxDzobH0hwuTvzeZGuvqApPYk5V43Ch7vZI0bR5OPnndnf1kvg0/xLpM
+kRjD1I2d3RgcL4mv6RA/
+=9KSx
+-----END PGP SIGNATURE-----
+
+--=-+ucxoPjWpWJMrpdaHBPh--
