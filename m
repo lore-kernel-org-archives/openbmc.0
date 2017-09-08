@@ -1,68 +1,68 @@
-Return-Path: <dkodihal@linux.vnet.ibm.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2a00:1450:4010:c07::243; helo=mail-lf0-x243.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="HwI2wB+M"; 
+ dkim-atps=neutral
+Received: from mail-lf0-x243.google.com (mail-lf0-x243.google.com
+ [IPv6:2a00:1450:4010:c07::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xpN974KH7zDrKJ
- for <openbmc@lists.ozlabs.org>; Fri,  8 Sep 2017 13:29:30 +1000 (AEST)
-Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v883SgBo141975
- for <openbmc@lists.ozlabs.org>; Thu, 7 Sep 2017 23:29:27 -0400
-Received: from e23smtp03.au.ibm.com (e23smtp03.au.ibm.com [202.81.31.145])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2cua3sam0f-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 07 Sep 2017 23:29:27 -0400
-Received: from localhost
- by e23smtp03.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
- Fri, 8 Sep 2017 13:29:24 +1000
-Received: from d23relay09.au.ibm.com (202.81.31.228)
- by e23smtp03.au.ibm.com (202.81.31.209) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Fri, 8 Sep 2017 13:29:22 +1000
-Received: from d23av05.au.ibm.com (d23av05.au.ibm.com [9.190.234.119])
- by d23relay09.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v883TMU036831482
- for <openbmc@lists.ozlabs.org>; Fri, 8 Sep 2017 13:29:22 +1000
-Received: from d23av05.au.ibm.com (localhost [127.0.0.1])
- by d23av05.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- v883TLIf007244
- for <openbmc@lists.ozlabs.org>; Fri, 8 Sep 2017 13:29:22 +1000
-Received: from Deepaks-MacBook-Pro.local ([9.78.195.22])
- by d23av05.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- v883TJ6W007212; Fri, 8 Sep 2017 13:29:20 +1000
-Subject: Re: RFC for Telemetry data collection
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-References: <59B163B0.6060804@linux.vnet.ibm.com>
- <D3C20289-0D8A-4485-BB2B-6D6519B99A0A@fuzziesquirrel.com>
-From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
-Date: Fri, 8 Sep 2017 08:59:19 +0530
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:52.0)
- Gecko/20100101 Thunderbird/52.3.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xpNLB5SkdzDrVv
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Sep 2017 13:37:22 +1000 (AEST)
+Received: by mail-lf0-x243.google.com with SMTP id l196so593742lfl.3
+ for <openbmc@lists.ozlabs.org>; Thu, 07 Sep 2017 20:37:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=ZvJd0yoNFX6VisP8gcT2i4FIlBdEWUkqNS19LXktIRI=;
+ b=HwI2wB+MGxh3kWP49IEVEeDPczhdK0JnbOZxQXwzyVcZRYeWaxI8lv10NF/3AUFzUm
+ FhkmIeqK59rsC5erhHJguRVWYjaXtWuRyiurr0ecMnTgWCFcLXSlYUF2XrVkSG3QNCiq
+ dDXPqjimZV6wyXn9QGK81SIWQfYuueXwDrSBBjYHr4KqeNIC4Fi1LIuPWQYfDvKc6rPV
+ wq7NmZZZFyXBB9cyC5hCHho+RiBdTdrr2l8Qmi/wp5jJnPz3QARkhQRrMJrKdHLwVteV
+ SGtcY5a8b8AmMXJvVLYhxJUoAAAC2e6YD+ORsqmKgeCbpdoJfA0r+d96dDhznrxsvuIv
+ Mjag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=ZvJd0yoNFX6VisP8gcT2i4FIlBdEWUkqNS19LXktIRI=;
+ b=bMsz1lwPV8xvsbESkNml++IZujkeO2Uw7HdYgw7HS8oKQ4jdh1HcxaXmOU8+R8OdJs
+ AvaB/ECZg4Kv6LOTkwi4Ui+LhUua5g0yCwCkK0jxv0ZZHSVEVSJ11yN1uccVEh6Pb6z1
+ L2ZyU9wT+iSea29JVEmjiXhuf8EFR29fanbJ1YoeC5HnaXAbwQClF1oykR/Ukda5amZE
+ 5Jsi3pE/a7pQ8jEDWgWi6R0UcdDMvKdDbhpw9oemHUDuwA+pF2lHnOa1xbeF7up50mwq
+ DGO1pAIuAbRyk3uX49asVOxgLiEvHXBXFRQlePmRuwFeZpaUbYYexPavE52NXT89VzVM
+ OvlA==
+X-Gm-Message-State: AHPjjUjUPTtuZWKm+O8WBqqlXu+/sG7rsv0QxkcMocoSV7FHlwISha0Y
+ T8PE97jLUOm2ePO2rN+Kf/UxzU3JeA==
+X-Google-Smtp-Source: AOwi7QAJA4Xv3ROc23sC0GQWfMPq2QQ6FdfHtzV7F8RMS9ZHAMWQK5Gi7LAMgL80wLHb7BmpxGyvYupoRe+4ux4rnzo=
+X-Received: by 10.46.88.22 with SMTP id m22mr385279ljb.138.1504841838283; Thu,
+ 07 Sep 2017 20:37:18 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <D3C20289-0D8A-4485-BB2B-6D6519B99A0A@fuzziesquirrel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-TM-AS-MML: disable
-x-cbid: 17090803-0008-0000-0000-000001570C2F
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17090803-0009-0000-0000-0000098B0CD3
-Message-Id: <3c810047-cb4e-465b-6373-900a484ed078@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-09-08_02:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
- definitions=main-1709080053
+Sender: joel.stan@gmail.com
+Received: by 10.25.79.70 with HTTP; Thu, 7 Sep 2017 20:36:57 -0700 (PDT)
+In-Reply-To: <1504281966-6199-3-git-send-email-oleksandrs@mellanox.com>
+References: <1504281966-6199-1-git-send-email-oleksandrs@mellanox.com>
+ <1504281966-6199-3-git-send-email-oleksandrs@mellanox.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 8 Sep 2017 13:06:57 +0930
+X-Google-Sender-Auth: MRHARrM6WB_sqRNjUpVPHhlMXBc
+Message-ID: <CACPK8XeV9aBY+avimjiOsKZgzj-C6MTeaR0tJC-Tu+zWiAoWPw@mail.gmail.com>
+Subject: Re: [patch v7 2/4] drivers: jtag: Add Aspeed SoC 24xx and 25xx
+ families JTAG master driver
+To: Oleksandr Shamray <oleksandrs@mellanox.com>
+Cc: Greg KH <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, 
+ devicetree <devicetree@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, jiri@resnulli.us, 
+ Tobias Klauser <tklauser@distanz.ch>, linux-serial@vger.kernel.org,
+ mec@shout.net, vadimp@maellanox.com, system-sw-low-level@mellanox.com, 
+ Rob Herring <robh+dt@kernel.org>, openocd-devel-owner@lists.sourceforge.net, 
+ linux-api@vger.kernel.org, "David S . Miller" <davem@davemloft.net>,
+ mchehab@kernel.org, Jiri Pirko <jiri@mellanox.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -74,25 +74,236 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Sep 2017 03:29:32 -0000
+X-List-Received-Date: Fri, 08 Sep 2017 03:37:24 -0000
 
-On 08/09/17 6:46 am, Brad Bishop wrote:
-> Hi Tom
-> 
-> I don’t really disagree with anything you wrote…I’m just throwing out some additional thoughts.
-> 
-> I would propose that we:
-> 
-> 1 - Add support to the REST server to subscribe to DBus signals, and simply forward the signal content in JSON format out over a websocket.  This allows an external user to get any async notification that any code running on the BMC can get.  I have a lot of questions on specifics here but I’ll save those for later, in case this doesn’t work out.
+Hello Oleksandr,
 
-Brad, that sounds fine to me in terms of how a notification can be sent, 
-although Tom's proposal also talked about describing in yaml, how 
-frequently to read something off of a, say a d-bus object representing a 
-sensor. If I understood correctly, are you saying instead of doing this 
-every X hours or seconds, we send out a notification whenever a 
-PropertyChanged d-bus signal is caught? And let an off-BMC application 
-bother about averages, min/max?
+On Sat, Sep 2, 2017 at 1:36 AM, Oleksandr Shamray
+<oleksandrs@mellanox.com> wrote:
+> Driver adds support of Aspeed 2500/2400 series SOC JTAG master controller.
+
+Looks good. I have some small comments. The most important is the
+compatible string.
 
 
-Regards,
-Deepak
+> --- a/drivers/jtag/Kconfig
+> +++ b/drivers/jtag/Kconfig
+> @@ -14,3 +14,16 @@ menuconfig JTAG
+>
+>           To compile this driver as a module, choose M here: the module will
+>           be called jtag.
+> +
+> +menuconfig JTAG_ASPEED
+> +       tristate "Aspeed SoC JTAG controller support"
+> +       depends on JTAG && HAS_IOMEM
+
+You could add this if you want:
+
+ depends ARCH_ASPEED || COMPILE_TEST
+
+> +       ---help---
+> +         This provides a support for Aspeed JTAG device, equipped on
+> +         Aspeed SoC 24xx and 25xx families. Drivers allows programming
+> +         of hardware devices, connected to SoC through the JTAG interface.
+> +
+
+> +
+> +static char *end_status_str[] = {"idle", "ir pause", "drpause"};
+> +
+> +static u32 aspeed_jtag_read(struct aspeed_jtag *aspeed_jtag, u32 reg)
+> +{
+> +       return readl(aspeed_jtag->reg_base + reg);
+> +}
+> +
+> +static void
+> +aspeed_jtag_write(struct aspeed_jtag *aspeed_jtag, u32 val, u32 reg)
+> +{
+> +       writel(val, aspeed_jtag->reg_base + reg);
+> +}
+> +
+> +static int aspeed_jtag_freq_set(struct jtag *jtag, __u32 freq)
+
+What's the __u32 for (the __ part)?
+
+> +{
+> +       struct aspeed_jtag *aspeed_jtag = jtag_priv(jtag);
+> +       unsigned long apb_frq;
+> +       u32 tck_val;
+> +       u16 div;
+> +
+> +       apb_frq = clk_get_rate(aspeed_jtag->pclk);
+> +       div = (apb_frq % freq == 0) ? (apb_frq / freq) - 1 : (apb_frq / freq);
+> +       tck_val = aspeed_jtag_read(aspeed_jtag, ASPEED_JTAG_TCK);
+> +       aspeed_jtag_write(aspeed_jtag,
+> +                         (tck_val & ASPEED_JTAG_TCK_DIVISOR_MASK) | div,
+> +                         ASPEED_JTAG_TCK);
+> +       return 0;
+> +}
+
+> +
+> +static int aspeed_jtag_xfer(struct jtag *jtag, struct jtag_xfer *xfer)
+> +{
+> +       static const char sm_update_shiftir[] = {1, 1, 0, 0};
+> +       static const char sm_update_shiftdr[] = {1, 0, 0};
+> +       static const char sm_pause_idle[] = {1, 1, 0};
+> +       static const char sm_pause_update[] = {1, 1};
+
+Nit: I was confused by the char, perhaps u8?
+
+> +int aspeed_jtag_init(struct platform_device *pdev,
+> +                    struct aspeed_jtag *aspeed_jtag)
+> +{
+> +       struct resource *res;
+> +       int err;
+> +
+> +       res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> +       aspeed_jtag->reg_base = devm_ioremap_resource(aspeed_jtag->dev, res);
+> +       if (IS_ERR(aspeed_jtag->reg_base)) {
+> +               err = -ENOMEM;
+> +               goto out_region;
+
+Can you just return here?
+
+> +       }
+> +
+> +       aspeed_jtag->pclk = devm_clk_get(aspeed_jtag->dev, NULL);
+> +       if (IS_ERR(aspeed_jtag->pclk)) {
+> +               dev_err(aspeed_jtag->dev, "devm_clk_get failed\n");
+> +               return PTR_ERR(aspeed_jtag->pclk);
+> +       }
+> +
+> +       clk_prepare_enable(aspeed_jtag->pclk);
+> +
+> +       aspeed_jtag->irq = platform_get_irq(pdev, 0);
+> +       if (aspeed_jtag->irq < 0) {
+> +               dev_err(aspeed_jtag->dev, "no irq specified\n");
+> +               err = -ENOENT;
+> +               goto out_region;
+> +       }
+> +
+> +       /* Enable clock */
+> +       aspeed_jtag_write(aspeed_jtag, ASPEED_JTAG_CTL_ENG_EN |
+> +                         ASPEED_JTAG_CTL_ENG_OUT_EN, ASPEED_JTAG_CTRL);
+> +       aspeed_jtag_write(aspeed_jtag, ASPEED_JTAG_SW_MODE_EN |
+> +                         ASPEED_JTAG_SW_MODE_TDIO, ASPEED_JTAG_SW);
+> +
+> +       err = devm_request_irq(aspeed_jtag->dev, aspeed_jtag->irq,
+> +                              aspeed_jtag_interrupt, 0,
+> +                              "aspeed-jtag", aspeed_jtag);
+> +       if (err) {
+> +               dev_err(aspeed_jtag->dev, "aspeed_jtag unable to get IRQ");
+> +               goto out_region;
+> +       }
+
+Can we grab the IRQ before enabling the clock? If not, we should
+disable the clock in the error path.
+
+
+> +       dev_dbg(&pdev->dev, "aspeed_jtag:IRQ %d.\n", aspeed_jtag->irq);
+> +
+> +       aspeed_jtag_write(aspeed_jtag, ASPEED_JTAG_ISR_INST_PAUSE |
+> +                         ASPEED_JTAG_ISR_INST_COMPLETE |
+> +                         ASPEED_JTAG_ISR_DATA_PAUSE |
+> +                         ASPEED_JTAG_ISR_DATA_COMPLETE |
+> +                         ASPEED_JTAG_ISR_INST_PAUSE_EN |
+> +                         ASPEED_JTAG_ISR_INST_COMPLETE_EN |
+> +                         ASPEED_JTAG_ISR_DATA_PAUSE_EN |
+> +                         ASPEED_JTAG_ISR_DATA_COMPLETE_EN,
+> +                         ASPEED_JTAG_ISR);
+> +
+> +       aspeed_jtag->flag = 0;
+> +       init_waitqueue_head(&aspeed_jtag->jtag_wq);
+> +       return 0;
+> +
+> +out_region:
+> +       release_mem_region(res->start, resource_size(res));
+
+I don't think this is necessary.
+
+> +       return err;
+> +}
+> +
+> +int aspeed_jtag_deinit(struct platform_device *pdev,
+> +                      struct aspeed_jtag *aspeed_jtag)
+> +{
+> +       aspeed_jtag_write(aspeed_jtag, 0, ASPEED_JTAG_ISR);
+> +       devm_free_irq(aspeed_jtag->dev, aspeed_jtag->irq, aspeed_jtag);
+
+The IRQ freeing happen automatically thanks to devm.
+
+> +       /* Disabe clock */
+
+Disable
+
+> +       aspeed_jtag_write(aspeed_jtag, 0, ASPEED_JTAG_CTRL);
+> +       clk_disable_unprepare(aspeed_jtag->pclk);
+> +       return 0;
+> +}
+> +
+> +static const struct jtag_ops aspeed_jtag_ops = {
+> +       .freq_get = aspeed_jtag_freq_get,
+> +       .freq_set = aspeed_jtag_freq_set,
+> +       .status_get = aspeed_jtag_status_get,
+> +       .idle = aspeed_jtag_idle,
+> +       .xfer = aspeed_jtag_xfer
+> +};
+> +
+> +static int aspeed_jtag_probe(struct platform_device *pdev)
+> +{
+> +       struct aspeed_jtag *aspeed_jtag;
+> +       struct jtag *jtag;
+> +       int err;
+> +
+> +       if (!of_device_is_compatible(pdev->dev.of_node, "aspeed,aspeed-jtag"))
+> +               return -ENOMEM;
+> +
+> +       jtag = jtag_alloc(sizeof(*aspeed_jtag), &aspeed_jtag_ops);
+> +       if (!jtag)
+> +               return -ENODEV;
+> +
+> +       platform_set_drvdata(pdev, jtag);
+> +       aspeed_jtag = jtag_priv(jtag);
+> +       aspeed_jtag->dev = &pdev->dev;
+> +
+> +       /* Initialize device*/
+> +       err = aspeed_jtag_init(pdev, aspeed_jtag);
+> +       if (err)
+> +               goto err_jtag_init;
+> +
+> +       /* Initialize JTAG core structure*/
+> +       err = jtag_register(jtag);
+> +       if (err)
+> +               goto err_jtag_register;
+> +
+> +       return 0;
+> +
+> +err_jtag_register:
+> +       aspeed_jtag_deinit(pdev, aspeed_jtag);
+> +err_jtag_init:
+> +       jtag_free(jtag);
+> +       return err;
+> +}
+> +
+> +static int aspeed_jtag_remove(struct platform_device *pdev)
+> +{
+> +       struct jtag *jtag;
+> +
+> +       jtag = platform_get_drvdata(pdev);
+> +       aspeed_jtag_deinit(pdev, jtag_priv(jtag));
+> +       jtag_unregister(jtag);
+> +       jtag_free(jtag);
+> +       return 0;
+> +}
+> +
+> +static const struct of_device_id aspeed_jtag_of_match[] = {
+> +       { .compatible = "aspeed,aspeed2400-jtag", },
+> +       { .compatible = "aspeed,aspeed2500-jtag", },
+
+The convention is to use ast2500 for our compatible strings, so these should be:
+
+ aspeed,ast2500-jtag
+ aspeed,ast2400-jtag
+
+Cheers,
+
+Joel
