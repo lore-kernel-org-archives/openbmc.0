@@ -1,62 +1,59 @@
-Return-Path: <brendanhiggins@google.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400e:c05::231; helo=mail-pg0-x231.google.com;
- envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
+Return-Path: <tmaimon77@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400c:c05::241; helo=mail-vk0-x241.google.com;
+ envelope-from=tmaimon77@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="l0SrQTp4"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="pk4wxfjr"; 
  dkim-atps=neutral
-Received: from mail-pg0-x231.google.com (mail-pg0-x231.google.com
- [IPv6:2607:f8b0:400e:c05::231])
+Received: from mail-vk0-x241.google.com (mail-vk0-x241.google.com
+ [IPv6:2607:f8b0:400c:c05::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xpxzj5clQzDrnH
- for <openbmc@lists.ozlabs.org>; Sat,  9 Sep 2017 11:53:21 +1000 (AEST)
-Received: by mail-pg0-x231.google.com with SMTP id 188so7403709pgb.2
- for <openbmc@lists.ozlabs.org>; Fri, 08 Sep 2017 18:53:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=cLzSknQeBLlsrsJNP3c7V7XmwYP8kLD6Ox4TaFzfxFo=;
- b=l0SrQTp4P++4Pc9Zz8i5Wsi68uVH9Z0dULEzl0eR8WOfELjlf8QhEse54LE2iKGOCZ
- Fo9mrlow4vClPhPdqgqt5Xf0KcnXQmztlAllCsTaiqGxouY1qWEnbcRkmGynu9QjCxrI
- mQ5J2pfgKONTAtQRGCdIHmW8jBsDhv0uYA8R0kx5QRbP2T52aQegdYCNQSNfNcaw2T/N
- BaGnSx0kusSqaZATnSah1y8PWYaZtBY4Gm5DfzHztTdYT0Uq+mqzRjIyCCud30bsZKEc
- FZxRZOvaz2ezMz+IUWjZZ4X7ZXXXRFyb2Ic9ax/mTLFg2UuTQ5g28EfrFLP8m833ETa7
- 4mJw==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xqktT6B9KzDrbK
+ for <openbmc@lists.ozlabs.org>; Sun, 10 Sep 2017 18:36:33 +1000 (AEST)
+Received: by mail-vk0-x241.google.com with SMTP id o22so1499106vke.5
+ for <openbmc@lists.ozlabs.org>; Sun, 10 Sep 2017 01:36:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=w7wBx9qCnMbtMqBh6sbayIUdXiRONhQxQqzM/7wjChs=;
+ b=pk4wxfjrcwELopc1uojpjQ91aY0w2rGLm/L7NGWGXFYLhJq+M8c1aKxyNazyj/BpsL
+ qpTcsR7yGnlEv53NXPxsVQFhE0KRPvxGcnt1OJ2LtKybnqhImvaCjmYpNOdy9k50eFld
+ donbPjWjKbioF0c8e82/ISQ3bKe1C7AJ2WzciCiPTanCtmAYygScokNvPeztUMRh8D/l
+ fj31UbCCd9T+ZR0UBgO7p/qcRSR9BbIQEhdkCKOWJ4evTO+/0PD+f+N5yGIc9tt7fN2v
+ OogFB0I/N33GxMNeQy+5GKTbalzc2vBsYoJLi8sd7xrv09/HIpxUiqgvwk3jj8qV3Oma
+ xnqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=cLzSknQeBLlsrsJNP3c7V7XmwYP8kLD6Ox4TaFzfxFo=;
- b=iFZLHqb0SZ1ur6CBILoBLp00LYAeO8n5KfhHMW0mni8YZywlw6UJEJWhIzbk34iM1Z
- lxkFUsm2IwUfNXLRLr4Cmv4eNv0R2t2STzV/E9ZS0lXW6fFWDFBrrVBjF7MP3hhzrjiA
- FuhiFkjLLL24956pzv4P61kj8G6fsUZT3QFKGF9o1W4iqpjDNJyfcagS/aRGuCuVvVzR
- CHXWjNXbHRgVqHoRTdVXHgqQ9zHVGl3oo5RGdR4GsMLrw/5d9fu/fIl/HtbUsf2DSiq9
- RcvyLtpFEe8vTRR9+uBUKiYt2lf3oBby7krZtzM9Y1viD2SD20hw5QrHwgB9iubDTUpD
- ruTQ==
-X-Gm-Message-State: AHPjjUj94fqprb7xHWcxGGtatpFHyAl5ZM0rieB7vcGEGhsXRFoS7RLv
- BmfFykJ9pdTQa2cx
-X-Google-Smtp-Source: ADKCNb6FE73q876JYwjedM4OuyWedepPjcsZD1GcytKAs1FkknV+aUduYFyjDs/LuDWYD5YzAeMUhw==
-X-Received: by 10.101.86.79 with SMTP id m15mr4891215pgs.157.1504921999581;
- Fri, 08 Sep 2017 18:53:19 -0700 (PDT)
-Received: from mactruck.svl.corp.google.com ([100.123.242.94])
- by smtp.gmail.com with ESMTPSA id z15sm5090132pgs.41.2017.09.08.18.53.18
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Fri, 08 Sep 2017 18:53:18 -0700 (PDT)
-From: Brendan Higgins <brendanhiggins@google.com>
-To: robh+dt@kernel.org, mark.rutland@arm.com, linux@armlinux.org.uk,
- avifishman70@gmail.com, tmaimon77@gmail.com, raltherr@google.com,
- f.fainelli@gmail.com
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
- Brendan Higgins <brendanhiggins@google.com>
-Subject: [PATCH v5 3/3] MAINTAINERS: Add entry for the Nuvoton NPCM
- architecture
-Date: Fri,  8 Sep 2017 18:53:08 -0700
-Message-Id: <20170909015308.30001-4-brendanhiggins@google.com>
-X-Mailer: git-send-email 2.14.1.581.gf28d330327-goog
-In-Reply-To: <20170909015308.30001-1-brendanhiggins@google.com>
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=w7wBx9qCnMbtMqBh6sbayIUdXiRONhQxQqzM/7wjChs=;
+ b=jdFPRE+D7RlxokVoBvd0tKVtVSW1JYk+wv6E4UXI3bEiBxPlj5WIPG+lGF3yaXWr9b
+ TWtal2V0nvOktvCy8mu8tbw9j3hcNTp/VjxZFBSVTYfOWq8dJqU1pk6ogJI4Ps1iNfQw
+ wjYNRVxA3iEWpO5CaOLrDcN3lCZ7nsP1uVG3mNWn7Ar0JbDtFAORKXGy/c5P/Mi9EYPo
+ Zez1rdNyMCz8EzC8lx8nSZVaQTOJeO1MapZL+jd6uxBnr+nFZrA42M1aO1DEk5+tPFcw
+ njDCH0J5T3KZymJ4+Qz5d+r3uKSj7O5sRNMQnlon1iJAYAtXgE6qChHnWXLM3Ws56RCu
+ bIMg==
+X-Gm-Message-State: AHPjjUhqClYiQnuzodJujCSoW9La/kZ1Xrz2jAHKsGeIP1Cn7WEk5VPl
+ sK2ZYMZKW+ODvMQZR09jsZBbQqRNyA==
+X-Google-Smtp-Source: AOwi7QD/xLaw1LRMicAo7O5jdeGImOUcTUS4+dTMDLgweNgLo3WVZxYz/4MIDR6gHwFA6stjnCt87kVuavjYGh7QBto=
+X-Received: by 10.31.219.3 with SMTP id s3mr5529029vkg.12.1505032591234; Sun,
+ 10 Sep 2017 01:36:31 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.176.90.193 with HTTP; Sun, 10 Sep 2017 01:36:30 -0700 (PDT)
+In-Reply-To: <20170909015308.30001-2-brendanhiggins@google.com>
 References: <20170909015308.30001-1-brendanhiggins@google.com>
+ <20170909015308.30001-2-brendanhiggins@google.com>
+From: Tomer Maimon <tmaimon77@gmail.com>
+Date: Sun, 10 Sep 2017 11:36:30 +0300
+Message-ID: <CAP6Zq1jj08RbnUhPKaFuxn_06W1SzDmJoN6x8xV2pc05RKfngw@mail.gmail.com>
+Subject: Re: [PATCH v5 1/3] arm: npcm: add basic support for Nuvoton BMCs
+To: Brendan Higgins <brendanhiggins@google.com>
+Cc: robh+dt@kernel.org, mark.rutland@arm.com, linux@armlinux.org.uk, 
+ avifishman70@gmail.com, Rick Altherr <raltherr@google.com>,
+ f.fainelli@gmail.com, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,40 +65,277 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 09 Sep 2017 01:53:22 -0000
+X-List-Received-Date: Sun, 10 Sep 2017 08:36:35 -0000
 
-Add maintainers and reviewers for the Nuvoton NPCM architecture.
+On 9 September 2017 at 04:53, Brendan Higgins <brendanhiggins@google.com> wrote:
+> Adds basic support for the Nuvoton NPCM750 BMC.
+>
+> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+> ---
+>  arch/arm/Kconfig             |  2 +
+>  arch/arm/Makefile            |  1 +
+>  arch/arm/mach-npcm/Kconfig   | 48 ++++++++++++++++++++++++
+>  arch/arm/mach-npcm/Makefile  |  3 ++
+>  arch/arm/mach-npcm/headsmp.S | 17 +++++++++
+>  arch/arm/mach-npcm/npcm7xx.c | 34 +++++++++++++++++
+>  arch/arm/mach-npcm/platsmp.c | 88 ++++++++++++++++++++++++++++++++++++++++++++
+>  7 files changed, 193 insertions(+)
+>  create mode 100644 arch/arm/mach-npcm/Kconfig
+>  create mode 100644 arch/arm/mach-npcm/Makefile
+>  create mode 100644 arch/arm/mach-npcm/headsmp.S
+>  create mode 100644 arch/arm/mach-npcm/npcm7xx.c
+>  create mode 100644 arch/arm/mach-npcm/platsmp.c
+>
+> diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+> index 61a0cb15067e..05543f1cfbde 100644
+> --- a/arch/arm/Kconfig
+> +++ b/arch/arm/Kconfig
+> @@ -782,6 +782,8 @@ source "arch/arm/mach-netx/Kconfig"
+>
+>  source "arch/arm/mach-nomadik/Kconfig"
+>
+> +source "arch/arm/mach-npcm/Kconfig"
+> +
+>  source "arch/arm/mach-nspire/Kconfig"
+>
+>  source "arch/arm/plat-omap/Kconfig"
+> diff --git a/arch/arm/Makefile b/arch/arm/Makefile
+> index 47d3a1ab08d2..60ca50c7d762 100644
+> --- a/arch/arm/Makefile
+> +++ b/arch/arm/Makefile
+> @@ -191,6 +191,7 @@ machine-$(CONFIG_ARCH_MEDIATEK)             += mediatek
+>  machine-$(CONFIG_ARCH_MXS)             += mxs
+>  machine-$(CONFIG_ARCH_NETX)            += netx
+>  machine-$(CONFIG_ARCH_NOMADIK)         += nomadik
+> +machine-$(CONFIG_ARCH_NPCM)            += npcm
+>  machine-$(CONFIG_ARCH_NSPIRE)          += nspire
+>  machine-$(CONFIG_ARCH_OXNAS)           += oxnas
+>  machine-$(CONFIG_ARCH_OMAP1)           += omap1
+> diff --git a/arch/arm/mach-npcm/Kconfig b/arch/arm/mach-npcm/Kconfig
+> new file mode 100644
+> index 000000000000..21dfa8ce828f
+> --- /dev/null
+> +++ b/arch/arm/mach-npcm/Kconfig
+> @@ -0,0 +1,48 @@
+> +menuconfig ARCH_NPCM
+> +       bool "Nuvoton NPCM Architecture"
+> +       select ARCH_REQUIRE_GPIOLIB
+> +       select USE_OF
+> +       select PINCTRL
+> +       select PINCTRL_NPCM7XX
+> +
+> +if ARCH_NPCM
+> +
+> +comment "NPCMX50 CPU type"
+> +
+> +config CPU_NPCM750
+> +       depends on ARCH_NPCM && ARCH_MULTI_V7
+> +       bool "Support for NPCM750 BMC CPU (Poleg)"
+> +       select CACHE_L2X0
+> +       select CPU_V7
+> +       select ARM_GIC
+> +       select HAVE_SMP
+> +       select SMP
+> +       select SMP_ON_UP
+> +       select HAVE_ARM_SCU
+> +       select HAVE_ARM_TWD if SMP
+> +       select ARM_ERRATA_720789
+> +       select ARM_ERRATA_754322
+> +       select ARM_ERRATA_764369
+> +       select ARM_ERRATA_794072
+> +       select PL310_ERRATA_588369
+> +       select PL310_ERRATA_727915
+> +       select USB_EHCI_ROOT_HUB_TT
+> +       select USB_ARCH_HAS_HCD
+> +       select USB_ARCH_HAS_EHCI
+> +       select USB_EHCI_HCD
+> +       select USB_ARCH_HAS_OHCI
+> +       select USB_OHCI_HCD
+> +       select USB
+> +       select FIQ
+> +       select CPU_USE_DOMAINS
+> +       select GENERIC_CLOCKEVENTS
+> +       select CLKDEV_LOOKUP
+> +       select COMMON_CLK if OF
+> +       select NPCM750_TIMER
+> +       select MFD_SYSCON
+> +       help
+> +         Support for NPCM750 BMC CPU (Poleg).
+> +
+> +         Nuvoton NPCM750 BMC based on the Cortex A9.
+> +
+> +endif
+> diff --git a/arch/arm/mach-npcm/Makefile b/arch/arm/mach-npcm/Makefile
+> new file mode 100644
+> index 000000000000..78416055b854
+> --- /dev/null
+> +++ b/arch/arm/mach-npcm/Makefile
+> @@ -0,0 +1,3 @@
+> +AFLAGS_headsmp.o               += -march=armv7-a
+> +
+> +obj-$(CONFIG_CPU_NPCM750)      += npcm7xx.o platsmp.o headsmp.o
+> diff --git a/arch/arm/mach-npcm/headsmp.S b/arch/arm/mach-npcm/headsmp.S
+> new file mode 100644
+> index 000000000000..9fccbbd49ed4
+> --- /dev/null
+> +++ b/arch/arm/mach-npcm/headsmp.S
+> @@ -0,0 +1,17 @@
+> +/*
+> + * Copyright 2017 Google, Inc.
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + */
+> +
+> +#include <linux/linkage.h>
+> +#include <linux/init.h>
+> +#include <asm/assembler.h>
+> +
+> +ENTRY(npcm7xx_secondary_startup)
+> +       safe_svcmode_maskall r0
+> +
+> +       b       secondary_startup
+> +ENDPROC(npcm7xx_secondary_startup)
+> diff --git a/arch/arm/mach-npcm/npcm7xx.c b/arch/arm/mach-npcm/npcm7xx.c
+> new file mode 100644
+> index 000000000000..132e9d587857
+> --- /dev/null
+> +++ b/arch/arm/mach-npcm/npcm7xx.c
+> @@ -0,0 +1,34 @@
+> +/*
+> + * Copyright (c) 2017 Nuvoton Technology corporation.
+> + * Copyright 2017 Google, Inc.
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + */
+> +
+> +#include <linux/kernel.h>
+> +#include <linux/types.h>
+> +#include <asm/mach/arch.h>
+> +#include <asm/mach-types.h>
+> +#include <asm/mach/map.h>
+> +#include <asm/hardware/cache-l2x0.h>
+> +
+> +#define NPCM7XX_AUX_VAL (L310_AUX_CTRL_INSTR_PREFETCH |                               \
+> +                        L310_AUX_CTRL_DATA_PREFETCH |                         \
+> +                        L310_AUX_CTRL_NS_LOCKDOWN |                           \
+> +                        L310_AUX_CTRL_CACHE_REPLACE_RR |                      \
+> +                        L2C_AUX_CTRL_SHARED_OVERRIDE |                        \
+> +                        L310_AUX_CTRL_FULL_LINE_ZERO)
+> +
+> +static const char *const npcm7xx_dt_match[] = {
+> +       "nuvoton,npcm750",
+> +       NULL
+> +};
+> +
+> +DT_MACHINE_START(NPCM7XX_DT, "NPCMX50 Chip family")
+> +       .atag_offset    = 0x100,
+> +       .dt_compat      = npcm7xx_dt_match,
+> +       .l2c_aux_val    = NPCM7XX_AUX_VAL,
+> +       .l2c_aux_mask   = ~NPCM7XX_AUX_VAL,
+> +MACHINE_END
+> diff --git a/arch/arm/mach-npcm/platsmp.c b/arch/arm/mach-npcm/platsmp.c
+> new file mode 100644
+> index 000000000000..450e83c3c531
+> --- /dev/null
+> +++ b/arch/arm/mach-npcm/platsmp.c
+> @@ -0,0 +1,88 @@
+> +/*
+> + * Copyright 2017 Google, Inc.
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + */
+> +
+> +#define pr_fmt(fmt) "PLATSMP: " fmt
+> +
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/smp.h>
+> +#include <linux/io.h>
+> +#include <linux/of.h>
+> +#include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+> +#include <linux/of_address.h>
+> +#include <asm/cacheflush.h>
+> +#include <asm/smp.h>
+> +#include <asm/smp_plat.h>
+> +#include <asm/smp_scu.h>
+> +
+> +#define NPCM7XX_SCRPAD_REG 0x13c
+> +
+> +extern void npcm7xx_secondary_startup(void);
+> +
+> +static int npcm7xx_smp_boot_secondary(unsigned int cpu,
+> +                                     struct task_struct *idle)
+> +{
+> +       struct device_node *gcr_np;
+> +       void __iomem *gcr_base;
+> +       int ret = 0;
+> +
+> +       gcr_np = of_find_compatible_node(NULL, NULL, "nuvoton,npcm750-gcr");
+> +       if (!gcr_np) {
+> +               pr_err("no gcr device node\n");
+> +               ret = -EFAULT;
+> +               goto out;
+> +       }
+> +       gcr_base = of_iomap(gcr_np, 0);
+> +       if (!gcr_base) {
+> +               pr_err("could not iomap gcr at: 0x%p\n", gcr_base);
+> +               ret = -EFAULT;
+> +               goto out;
+> +       }
+> +
+> +       /* give boot ROM kernel start address. */
+> +       iowrite32(__pa_symbol(npcm7xx_secondary_startup), gcr_base +
+> +                 NPCM7XX_SCRPAD_REG);
+> +       /* make sure npcm7xx_secondary_startup is seen by all observers. */
+> +       smp_wmb();
+> +       dsb_sev();
+> +       /* make sure write buffer is drained */
+> +       mb();
+> +
+> +       iounmap(gcr_base);
+> +out:
+> +       return ret;
+> +}
+> +
+> +static void __init npcm7xx_smp_prepare_cpus(unsigned int max_cpus)
+> +{
+> +       struct device_node *scu_np;
+> +       void __iomem *scu_base;
+> +
+> +       scu_np = of_find_compatible_node(NULL, NULL, "arm,cortex-a9-scu");
+> +       if (!scu_np) {
+> +               pr_err("no scu device node\n");
+> +               return;
+> +       }
+> +       scu_base = of_iomap(scu_np, 0);
+> +       if (!scu_base) {
+> +               pr_err("could not iomap scu at: 0x%p\n", scu_base);
+> +               return;
+> +       }
+> +
+> +       scu_enable(scu_base);
+> +
+> +       iounmap(scu_base);
+> +}
+> +
+> +static struct smp_operations npcm7xx_smp_ops __initdata = {
+> +       .smp_prepare_cpus = npcm7xx_smp_prepare_cpus,
+> +       .smp_boot_secondary = npcm7xx_smp_boot_secondary,
+> +};
+> +
+> +CPU_METHOD_OF_DECLARE(npcm7xx_smp, "nuvoton,npcm7xx-smp", &npcm7xx_smp_ops);
+> --
+> 2.14.1.581.gf28d330327-goog
+>
 
-Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
 Reviewed-by: Tomer Maimon <tmaimon77@gmail.com>
 Reviewed-by: Avi Fishman <avifishman70@gmail.com>
----
- MAINTAINERS | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 44cb004c765d..ec0d35384a16 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1598,6 +1598,19 @@ F:	drivers/pinctrl/nomadik/
- F:	drivers/i2c/busses/i2c-nomadik.c
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-nomadik.git
- 
-+ARM/NUVOTON NPCM ARCHITECTURE
-+M:	Avi Fishman <avifishman70@gmail.com>
-+M:	Tomer Maimon <tmaimon77@gmail.com>
-+R:	Brendan Higgins <brendanhiggins@google.com>
-+R:	Rick Altherr <raltherr@google.com>
-+L:	openbmc@lists.ozlabs.org (moderated for non-subscribers)
-+S:	Supported
-+F:	arch/arm/mach-npcm/
-+F:	arch/arm/boot/dts/nuvoton-npcm*
-+F:	include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
-+F:	drivers/*/*npcm*
-+F:	Documentation/*/*npcm*
-+
- ARM/NUVOTON W90X900 ARM ARCHITECTURE
- M:	Wan ZongShun <mcuos.com@gmail.com>
- L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
--- 
-2.14.1.581.gf28d330327-goog
+Tested-by: Tomer Maimon <tmaimon77@gmail.com>
+Tested-by: Avi Fishman <avifishman70@gmail.com>
