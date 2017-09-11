@@ -1,59 +1,63 @@
-Return-Path: <tmaimon77@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400c:c05::241; helo=mail-vk0-x241.google.com;
- envelope-from=tmaimon77@gmail.com; receiver=<UNKNOWN>)
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="pk4wxfjr"; 
- dkim-atps=neutral
-Received: from mail-vk0-x241.google.com (mail-vk0-x241.google.com
- [IPv6:2607:f8b0:400c:c05::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="FeEprU0M"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="CkI/JXIG"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xqktT6B9KzDrbK
- for <openbmc@lists.ozlabs.org>; Sun, 10 Sep 2017 18:36:33 +1000 (AEST)
-Received: by mail-vk0-x241.google.com with SMTP id o22so1499106vke.5
- for <openbmc@lists.ozlabs.org>; Sun, 10 Sep 2017 01:36:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=w7wBx9qCnMbtMqBh6sbayIUdXiRONhQxQqzM/7wjChs=;
- b=pk4wxfjrcwELopc1uojpjQ91aY0w2rGLm/L7NGWGXFYLhJq+M8c1aKxyNazyj/BpsL
- qpTcsR7yGnlEv53NXPxsVQFhE0KRPvxGcnt1OJ2LtKybnqhImvaCjmYpNOdy9k50eFld
- donbPjWjKbioF0c8e82/ISQ3bKe1C7AJ2WzciCiPTanCtmAYygScokNvPeztUMRh8D/l
- fj31UbCCd9T+ZR0UBgO7p/qcRSR9BbIQEhdkCKOWJ4evTO+/0PD+f+N5yGIc9tt7fN2v
- OogFB0I/N33GxMNeQy+5GKTbalzc2vBsYoJLi8sd7xrv09/HIpxUiqgvwk3jj8qV3Oma
- xnqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=w7wBx9qCnMbtMqBh6sbayIUdXiRONhQxQqzM/7wjChs=;
- b=jdFPRE+D7RlxokVoBvd0tKVtVSW1JYk+wv6E4UXI3bEiBxPlj5WIPG+lGF3yaXWr9b
- TWtal2V0nvOktvCy8mu8tbw9j3hcNTp/VjxZFBSVTYfOWq8dJqU1pk6ogJI4Ps1iNfQw
- wjYNRVxA3iEWpO5CaOLrDcN3lCZ7nsP1uVG3mNWn7Ar0JbDtFAORKXGy/c5P/Mi9EYPo
- Zez1rdNyMCz8EzC8lx8nSZVaQTOJeO1MapZL+jd6uxBnr+nFZrA42M1aO1DEk5+tPFcw
- njDCH0J5T3KZymJ4+Qz5d+r3uKSj7O5sRNMQnlon1iJAYAtXgE6qChHnWXLM3Ws56RCu
- bIMg==
-X-Gm-Message-State: AHPjjUhqClYiQnuzodJujCSoW9La/kZ1Xrz2jAHKsGeIP1Cn7WEk5VPl
- sK2ZYMZKW+ODvMQZR09jsZBbQqRNyA==
-X-Google-Smtp-Source: AOwi7QD/xLaw1LRMicAo7O5jdeGImOUcTUS4+dTMDLgweNgLo3WVZxYz/4MIDR6gHwFA6stjnCt87kVuavjYGh7QBto=
-X-Received: by 10.31.219.3 with SMTP id s3mr5529029vkg.12.1505032591234; Sun,
- 10 Sep 2017 01:36:31 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.176.90.193 with HTTP; Sun, 10 Sep 2017 01:36:30 -0700 (PDT)
-In-Reply-To: <20170909015308.30001-2-brendanhiggins@google.com>
-References: <20170909015308.30001-1-brendanhiggins@google.com>
- <20170909015308.30001-2-brendanhiggins@google.com>
-From: Tomer Maimon <tmaimon77@gmail.com>
-Date: Sun, 10 Sep 2017 11:36:30 +0300
-Message-ID: <CAP6Zq1jj08RbnUhPKaFuxn_06W1SzDmJoN6x8xV2pc05RKfngw@mail.gmail.com>
-Subject: Re: [PATCH v5 1/3] arm: npcm: add basic support for Nuvoton BMCs
-To: Brendan Higgins <brendanhiggins@google.com>
-Cc: robh+dt@kernel.org, mark.rutland@arm.com, linux@armlinux.org.uk, 
- avifishman70@gmail.com, Rick Altherr <raltherr@google.com>,
- f.fainelli@gmail.com, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xrJkw1V60zDrZh;
+ Mon, 11 Sep 2017 17:01:59 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id AB2A320982;
+ Mon, 11 Sep 2017 03:01:54 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Mon, 11 Sep 2017 03:01:54 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=zh6/D+tN5axzw4cQnupvlEuD6nSFsEkbwztHYBa1G
+ d0=; b=FeEprU0MvUxN9CQ2P4WX0SVg1LCVgPXrA4Y88d/kpma18Xp0dP3jDntB1
+ 9ZNGkSEmyds1xJEBP5WPIjJT3AiTL9m3YcxiNMVS0Rm+dFdaC03w6JjPEaLp+WN4
+ fO/3LD+b2vnHSyfUkyZuMCRJBspFxBwtiWYv/88DphiaRPo7nfH+0mOu+kVriWAF
+ jPGHc01uUttMnmJnxUTXS+an1gVzf6Z+MZ7TltmYk9Sp6rxgr+qPMHY3n+K+L5qP
+ Zc8xc7Q1uoqjIn9ubYCbXUtauxPH37CVeYikVobWrh5WeiFBkc+EpZMvUuEWgD1A
+ rN8oijuw2jAkR5wPfnfZ9b0OlYF0A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=zh6/D+tN5axzw4cQnu
+ pvlEuD6nSFsEkbwztHYBa1Gd0=; b=CkI/JXIGgkADHccQeLuoM9H0u8ZtwRyycx
+ M44GZBlPlXBEWzo2YiEHgnKAQYrTMnOFzB/KIL/bzb2Lme2dh0eQX0GwgmHm6t48
+ 7o73m/RWeAp5eM8iw63bcyGl8C9VMSnF33ikEaWP/Z/XlvxueebR1aXBu8hX2TKe
+ UgT0CaGFNxiym16GjddVpMxuvJNj+omAUH2WrjbaXQhajcehYWOwCm0OgBcKntGD
+ NlheJdI9tjmxPL+By9k7lL86yn1hXDnD/HRikwGFKlZjbl2Mu099p8JVN3Q4jBXJ
+ JWosExtd29p8DINn9vUIYnvvTeGOupoMfs+HiGtG3z87Hw2XrywA==
+X-ME-Sender: <xms:4jS2WQe75JL2Us_fb3WJQvYM9CR2sotNboyMza4WG1LaLCo-iFx14g>
+X-Sasl-enc: ZYwVmRi66bO2VMUjZ3yhh3E66Qdx7U2tCfgwRLRe23oA 1505113313
+Received: from keelia (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 96913248E6;
+ Mon, 11 Sep 2017 03:01:51 -0400 (EDT)
+Message-ID: <1505113305.4080.1.camel@aj.id.au>
+Subject: Re: [RFC] docs: Specify V3 of the mbox protocol
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Suraj Jitindar Singh <sjitindarsingh@gmail.com>,
+ skiboot@lists.ozlabs.org,  openbmc@lists.ozlabs.org
+Cc: wak@google.com, cyrilbur@gmail.comm, stewart@linux.vnet.ibm.com, 
+ joel@jms.id.au
+Date: Mon, 11 Sep 2017 16:31:45 +0930
+In-Reply-To: <20170907071409.7163-2-sjitindarsingh@gmail.com>
+References: <20170907071409.7163-1-sjitindarsingh@gmail.com>
+ <20170907071409.7163-2-sjitindarsingh@gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-C8Sk2mxcmSR6FLLMDzTW"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -65,277 +69,480 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 10 Sep 2017 08:36:35 -0000
+X-List-Received-Date: Mon, 11 Sep 2017 07:02:02 -0000
 
-On 9 September 2017 at 04:53, Brendan Higgins <brendanhiggins@google.com> wrote:
-> Adds basic support for the Nuvoton NPCM750 BMC.
->
-> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+
+--=-C8Sk2mxcmSR6FLLMDzTW
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, 2017-09-07 at 17:14 +1000, Suraj Jitindar Singh wrote:
+> Version 3 of the mbox protocol makes four protocol changes:
+> =C2=A0- Add a requested block size argument to GET_MBOX_INFO
+> =C2=A0- Add a no erase argument to MARK_DIRTY
+> =C2=A0- Add a GET_FLASH_NAME command and support multiple flash devices
+> =C2=A0- Add a MARK_LOCKED command
+>=C2=A0
+> Requested Block Size:
+> The requested block size argument has been added to the GET_MBOX_INFO
+> command to allow the host to request a specified block size which might
+> be required to allow data manipulation at a finer granularity. The
+> daemon should take this into account when choosing a block size for use
+> which it will specify in the response as before. The daemon has final
+> say and the host must use the block size the daemon chooses.
+>=C2=A0
+> No Erase:
+> The no erase argument to the mark dirty command allows a host to specify
+> that an area of flash should not be erased before being written to, as is
+> the default behaviour. This can be used when a host has already erased a
+> large area and then performs many small writes which would normally mean
+> many erases due to the implicit erase before write, making this slow.
+>=C2=A0
+> Add GET_FLASH_NAME command:
+> The ability to support multiple flash devices has been added so that the
+> mbox protocol can be used to arbitrate access from the host to a number
+> of flash devices which the daemon has access to. To facilitate this the
+> GET_FLASH_INFO, CREATE_{READ/WRITE}_WINDOW, and MARK_LOCKED commands now
+> take a flash ID, with the number of flash IDs allocated returned by the
+> GET_MBOX_INFO commands. There is also a new command GET_FLASH_NAME used
+> to convert a flash ID to a flash name.
+>=C2=A0
+> Add MARK_LOCKED command:
+> The MARK_LOCKED command has been added to allow an area(s) of flash to be
+> locked, that is that area must be treated as read only and the host is
+> not allowed to dirty or erase any windows which map that area of flash.
+> Additionally another error code LOCKED_ERROR was added to be returned
+> when the host does try to dirty or erase a locked area.
+>=C2=A0
+> The host cannot lock a currently dirty or erased area of the current
+> write window as it is not defined if the clean/dirty/erased value is
+> what should actually be "locked".
+>=C2=A0
+> A locked area of flash remains so until the daemon receives an
+> mboxctl --reset command and the locked areas are stored in a file on the
+> BMC filesystem to ensure persistence across BMC reboots/daemon crashes.
+>=C2=A0
+> Multiple flash device support proposed and defined by:
+> > William A. Kennington III <wak@google.com>
+>=C2=A0
+> > Signed-off-by: Suraj Jitindar Singh <sjitindarsingh@gmail.com>
 > ---
->  arch/arm/Kconfig             |  2 +
->  arch/arm/Makefile            |  1 +
->  arch/arm/mach-npcm/Kconfig   | 48 ++++++++++++++++++++++++
->  arch/arm/mach-npcm/Makefile  |  3 ++
->  arch/arm/mach-npcm/headsmp.S | 17 +++++++++
->  arch/arm/mach-npcm/npcm7xx.c | 34 +++++++++++++++++
->  arch/arm/mach-npcm/platsmp.c | 88 ++++++++++++++++++++++++++++++++++++++++++++
->  7 files changed, 193 insertions(+)
->  create mode 100644 arch/arm/mach-npcm/Kconfig
->  create mode 100644 arch/arm/mach-npcm/Makefile
->  create mode 100644 arch/arm/mach-npcm/headsmp.S
->  create mode 100644 arch/arm/mach-npcm/npcm7xx.c
->  create mode 100644 arch/arm/mach-npcm/platsmp.c
->
-> diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
-> index 61a0cb15067e..05543f1cfbde 100644
-> --- a/arch/arm/Kconfig
-> +++ b/arch/arm/Kconfig
-> @@ -782,6 +782,8 @@ source "arch/arm/mach-netx/Kconfig"
->
->  source "arch/arm/mach-nomadik/Kconfig"
->
-> +source "arch/arm/mach-npcm/Kconfig"
-> +
->  source "arch/arm/mach-nspire/Kconfig"
->
->  source "arch/arm/plat-omap/Kconfig"
-> diff --git a/arch/arm/Makefile b/arch/arm/Makefile
-> index 47d3a1ab08d2..60ca50c7d762 100644
-> --- a/arch/arm/Makefile
-> +++ b/arch/arm/Makefile
-> @@ -191,6 +191,7 @@ machine-$(CONFIG_ARCH_MEDIATEK)             += mediatek
->  machine-$(CONFIG_ARCH_MXS)             += mxs
->  machine-$(CONFIG_ARCH_NETX)            += netx
->  machine-$(CONFIG_ARCH_NOMADIK)         += nomadik
-> +machine-$(CONFIG_ARCH_NPCM)            += npcm
->  machine-$(CONFIG_ARCH_NSPIRE)          += nspire
->  machine-$(CONFIG_ARCH_OXNAS)           += oxnas
->  machine-$(CONFIG_ARCH_OMAP1)           += omap1
-> diff --git a/arch/arm/mach-npcm/Kconfig b/arch/arm/mach-npcm/Kconfig
-> new file mode 100644
-> index 000000000000..21dfa8ce828f
-> --- /dev/null
-> +++ b/arch/arm/mach-npcm/Kconfig
-> @@ -0,0 +1,48 @@
-> +menuconfig ARCH_NPCM
-> +       bool "Nuvoton NPCM Architecture"
-> +       select ARCH_REQUIRE_GPIOLIB
-> +       select USE_OF
-> +       select PINCTRL
-> +       select PINCTRL_NPCM7XX
-> +
-> +if ARCH_NPCM
-> +
-> +comment "NPCMX50 CPU type"
-> +
-> +config CPU_NPCM750
-> +       depends on ARCH_NPCM && ARCH_MULTI_V7
-> +       bool "Support for NPCM750 BMC CPU (Poleg)"
-> +       select CACHE_L2X0
-> +       select CPU_V7
-> +       select ARM_GIC
-> +       select HAVE_SMP
-> +       select SMP
-> +       select SMP_ON_UP
-> +       select HAVE_ARM_SCU
-> +       select HAVE_ARM_TWD if SMP
-> +       select ARM_ERRATA_720789
-> +       select ARM_ERRATA_754322
-> +       select ARM_ERRATA_764369
-> +       select ARM_ERRATA_794072
-> +       select PL310_ERRATA_588369
-> +       select PL310_ERRATA_727915
-> +       select USB_EHCI_ROOT_HUB_TT
-> +       select USB_ARCH_HAS_HCD
-> +       select USB_ARCH_HAS_EHCI
-> +       select USB_EHCI_HCD
-> +       select USB_ARCH_HAS_OHCI
-> +       select USB_OHCI_HCD
-> +       select USB
-> +       select FIQ
-> +       select CPU_USE_DOMAINS
-> +       select GENERIC_CLOCKEVENTS
-> +       select CLKDEV_LOOKUP
-> +       select COMMON_CLK if OF
-> +       select NPCM750_TIMER
-> +       select MFD_SYSCON
-> +       help
-> +         Support for NPCM750 BMC CPU (Poleg).
-> +
-> +         Nuvoton NPCM750 BMC based on the Cortex A9.
-> +
-> +endif
-> diff --git a/arch/arm/mach-npcm/Makefile b/arch/arm/mach-npcm/Makefile
-> new file mode 100644
-> index 000000000000..78416055b854
-> --- /dev/null
-> +++ b/arch/arm/mach-npcm/Makefile
-> @@ -0,0 +1,3 @@
-> +AFLAGS_headsmp.o               += -march=armv7-a
-> +
-> +obj-$(CONFIG_CPU_NPCM750)      += npcm7xx.o platsmp.o headsmp.o
-> diff --git a/arch/arm/mach-npcm/headsmp.S b/arch/arm/mach-npcm/headsmp.S
-> new file mode 100644
-> index 000000000000..9fccbbd49ed4
-> --- /dev/null
-> +++ b/arch/arm/mach-npcm/headsmp.S
-> @@ -0,0 +1,17 @@
-> +/*
-> + * Copyright 2017 Google, Inc.
-> + *
-> + * This program is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License version 2 as
-> + * published by the Free Software Foundation.
-> + */
-> +
-> +#include <linux/linkage.h>
-> +#include <linux/init.h>
-> +#include <asm/assembler.h>
-> +
-> +ENTRY(npcm7xx_secondary_startup)
-> +       safe_svcmode_maskall r0
-> +
-> +       b       secondary_startup
-> +ENDPROC(npcm7xx_secondary_startup)
-> diff --git a/arch/arm/mach-npcm/npcm7xx.c b/arch/arm/mach-npcm/npcm7xx.c
-> new file mode 100644
-> index 000000000000..132e9d587857
-> --- /dev/null
-> +++ b/arch/arm/mach-npcm/npcm7xx.c
-> @@ -0,0 +1,34 @@
-> +/*
-> + * Copyright (c) 2017 Nuvoton Technology corporation.
-> + * Copyright 2017 Google, Inc.
-> + *
-> + * This program is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License version 2 as
-> + * published by the Free Software Foundation.
-> + */
-> +
-> +#include <linux/kernel.h>
-> +#include <linux/types.h>
-> +#include <asm/mach/arch.h>
-> +#include <asm/mach-types.h>
-> +#include <asm/mach/map.h>
-> +#include <asm/hardware/cache-l2x0.h>
-> +
-> +#define NPCM7XX_AUX_VAL (L310_AUX_CTRL_INSTR_PREFETCH |                               \
-> +                        L310_AUX_CTRL_DATA_PREFETCH |                         \
-> +                        L310_AUX_CTRL_NS_LOCKDOWN |                           \
-> +                        L310_AUX_CTRL_CACHE_REPLACE_RR |                      \
-> +                        L2C_AUX_CTRL_SHARED_OVERRIDE |                        \
-> +                        L310_AUX_CTRL_FULL_LINE_ZERO)
-> +
-> +static const char *const npcm7xx_dt_match[] = {
-> +       "nuvoton,npcm750",
-> +       NULL
-> +};
-> +
-> +DT_MACHINE_START(NPCM7XX_DT, "NPCMX50 Chip family")
-> +       .atag_offset    = 0x100,
-> +       .dt_compat      = npcm7xx_dt_match,
-> +       .l2c_aux_val    = NPCM7XX_AUX_VAL,
-> +       .l2c_aux_mask   = ~NPCM7XX_AUX_VAL,
-> +MACHINE_END
-> diff --git a/arch/arm/mach-npcm/platsmp.c b/arch/arm/mach-npcm/platsmp.c
-> new file mode 100644
-> index 000000000000..450e83c3c531
-> --- /dev/null
-> +++ b/arch/arm/mach-npcm/platsmp.c
-> @@ -0,0 +1,88 @@
-> +/*
-> + * Copyright 2017 Google, Inc.
-> + *
-> + * This program is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License version 2 as
-> + * published by the Free Software Foundation.
-> + */
-> +
-> +#define pr_fmt(fmt) "PLATSMP: " fmt
-> +
-> +#include <linux/delay.h>
-> +#include <linux/device.h>
-> +#include <linux/smp.h>
-> +#include <linux/io.h>
-> +#include <linux/of.h>
-> +#include <linux/of_device.h>
-> +#include <linux/of_platform.h>
-> +#include <linux/of_address.h>
-> +#include <asm/cacheflush.h>
-> +#include <asm/smp.h>
-> +#include <asm/smp_plat.h>
-> +#include <asm/smp_scu.h>
-> +
-> +#define NPCM7XX_SCRPAD_REG 0x13c
-> +
-> +extern void npcm7xx_secondary_startup(void);
-> +
-> +static int npcm7xx_smp_boot_secondary(unsigned int cpu,
-> +                                     struct task_struct *idle)
-> +{
-> +       struct device_node *gcr_np;
-> +       void __iomem *gcr_base;
-> +       int ret = 0;
-> +
-> +       gcr_np = of_find_compatible_node(NULL, NULL, "nuvoton,npcm750-gcr");
-> +       if (!gcr_np) {
-> +               pr_err("no gcr device node\n");
-> +               ret = -EFAULT;
-> +               goto out;
-> +       }
-> +       gcr_base = of_iomap(gcr_np, 0);
-> +       if (!gcr_base) {
-> +               pr_err("could not iomap gcr at: 0x%p\n", gcr_base);
-> +               ret = -EFAULT;
-> +               goto out;
-> +       }
-> +
-> +       /* give boot ROM kernel start address. */
-> +       iowrite32(__pa_symbol(npcm7xx_secondary_startup), gcr_base +
-> +                 NPCM7XX_SCRPAD_REG);
-> +       /* make sure npcm7xx_secondary_startup is seen by all observers. */
-> +       smp_wmb();
-> +       dsb_sev();
-> +       /* make sure write buffer is drained */
-> +       mb();
-> +
-> +       iounmap(gcr_base);
-> +out:
-> +       return ret;
-> +}
-> +
-> +static void __init npcm7xx_smp_prepare_cpus(unsigned int max_cpus)
-> +{
-> +       struct device_node *scu_np;
-> +       void __iomem *scu_base;
-> +
-> +       scu_np = of_find_compatible_node(NULL, NULL, "arm,cortex-a9-scu");
-> +       if (!scu_np) {
-> +               pr_err("no scu device node\n");
-> +               return;
-> +       }
-> +       scu_base = of_iomap(scu_np, 0);
-> +       if (!scu_base) {
-> +               pr_err("could not iomap scu at: 0x%p\n", scu_base);
-> +               return;
-> +       }
-> +
-> +       scu_enable(scu_base);
-> +
-> +       iounmap(scu_base);
-> +}
-> +
-> +static struct smp_operations npcm7xx_smp_ops __initdata = {
-> +       .smp_prepare_cpus = npcm7xx_smp_prepare_cpus,
-> +       .smp_boot_secondary = npcm7xx_smp_boot_secondary,
-> +};
-> +
-> +CPU_METHOD_OF_DECLARE(npcm7xx_smp, "nuvoton,npcm7xx-smp", &npcm7xx_smp_ops);
-> --
-> 2.14.1.581.gf28d330327-goog
->
+> =C2=A0Documentation/mbox_protocol.md | 127 ++++++++++++++++++++++++++++++=
+-----------
+> =C2=A01 file changed, 93 insertions(+), 34 deletions(-)
+>=C2=A0
+> diff --git a/Documentation/mbox_protocol.md b/Documentation/mbox_protocol=
+.md
+> index bcd70a8..74863a7 100644
+> --- a/Documentation/mbox_protocol.md
+> +++ b/Documentation/mbox_protocol.md
+> @@ -17,19 +17,21 @@ limitations under the License.
+> =C2=A0This document describes a protocol for host to BMC communication vi=
+a the
+> =C2=A0mailbox registers present on the Aspeed 2400 and 2500 chips.
+> =C2=A0This protocol is specifically designed to allow a host to request a=
+nd manage
+> -access to the flash with the specifics of how the host is required to co=
+ntrol
+> -this described below.
+> +access to a flash device with the specifics of how the host is required =
+to
+> +control this described below.
+> =C2=A0
+> =C2=A0## Version
+> =C2=A0
+> -Both version 1 and version 2 of the protocol are described below with ve=
+rsion 2
+> -specificities represented with V2 in brackets - (V2).
+> +Version specific protocol functionalities are represented by the version=
+ number
+> +in brackets next to the definition of the functionality. (e.g. (V2) for =
+version
+> +2 specific funtionality). All version specific functionality must also b=
+e
+> +implemented by proceeding versions.
 
-Reviewed-by: Tomer Maimon <tmaimon77@gmail.com>
-Reviewed-by: Avi Fishman <avifishman70@gmail.com>
-Tested-by: Tomer Maimon <tmaimon77@gmail.com>
-Tested-by: Avi Fishman <avifishman70@gmail.com>
+I don't know that this is something we want to lock ourselves into. We
+never want to remove functionality? What if a command turns out to be
+dangerous?
+
+> =C2=A0
+> =C2=A0## Problem Overview
+> =C2=A0
+> =C2=A0"mbox" is the name we use to represent a protocol we have establish=
+ed between
+> =C2=A0the host and the BMC via the Aspeed mailbox registers. This protoco=
+l is used
+> -for the host to control the flash.
+> +for the host to control access to the flash device(s).
+> =C2=A0
+> =C2=A0Prior to the mbox protocol, the host uses a backdoor into the BMC a=
+ddress space
+> =C2=A0(the iLPC-to-AHB bridge) to directly manipulate the BMCs own flash =
+controller.
+> @@ -280,6 +282,14 @@ The host is not required to perform an erase before =
+a write command and the
+> =C2=A0BMC must ensure that a write performs as expected - that is if an e=
+rase is
+> =C2=A0required before a write then the BMC must perform this itself.
+> =C2=A0
+> +The host may lock an area of flash using the MARK_LOCKED command. Any at=
+tempt
+> +to mark dirty or erased this area of flash must fail with the LOCKED_ERR=
+OR
+> +response code. The host may open a write window which contains a locked =
+area
+> +of flash however changes to a locked area of flash must never be written=
+ back
+> +to the backing data source (i.e. that area of flash must be treated as r=
+ead
+> +only). An attempt to lock an area of flash which is not clean in the cur=
+rent
+> +window must fail with PARAM_ERROR. (V3)
+
+I think we need to consider how locked regions interact with the in-memory
+caching of the flash data.
+
+The BMC doesn't know that the memory backing the LPC window has been
+written until it receives a MARK_DIRTY from the host. MARK_DIRTY is not
+valid on a read window or a locked region, but that doesn't mean that
+changes to a locked region can't persist in memory due to caching to
+avoid flash access (which was a part of the motivation for memory-based=C2=
+=A0
+booting to begin with). This may naively fool host firmware into thinking i=
+t is
+accessing unmolested data as the region is locked, whereas the region could
+contain anything, just it will never be written to flash.
+
+Should we require window requests intersecting a locked region always have =
+at
+least the locked region positively match the on-flash data? That way the
+firmware that requested a region be locked could ensure it has whatever was=
+ on
+the flash at the time it was locked by explicitly closing the window (read =
+or
+write) once finished with it, which requires a window be opened again for a=
+ny
+subsequent access. At that point (open) we can do the locked region intesec=
+tion
+calculation and check the data in the window as necessary.
+
+Locked regions could thus be a performance hit if we always load the locked
+regions from flash, but surely we prefer (some) integrity over performance.
+
+Alternatively, you could cryptographically hash the per-block content of th=
+e
+on-flash locked region during the MARK_LOCKED operation, then stash the has=
+h
+values away. On a CREATE_{READ,WRITE}_WINDOW operation you could hash any
+intersecting, in-cache locked blocks and compare to the stashed hash values=
+ to
+incur only one set of flash accesses (initial hash calculations) rather tha=
+n n.
+
+> +
+> =C2=A0### BMC Events
+> =C2=A0
+> =C2=A0The BMC can raise events with the host asynchronously to communicat=
+e to the
+> @@ -316,6 +326,8 @@ MARK_WRITE_DIRTY=C2=A0=C2=A0=C2=A0=C2=A0=C2=A00x07
+> =C2=A0WRITE_FLUSH=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A00x08
+> =C2=A0BMC_EVENT_ACK=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A00x09
+> =C2=A0MARK_WRITE_ERASED=C2=A0=C2=A0=C2=A0=C2=A00x0a	(V2)
+> +GET_FLASH_NAME=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A00x0b	(V3)
+> +MARK_LOCKED=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A00=
+x0c	(V3)
+> =C2=A0```
+> =C2=A0
+> =C2=A0### Responses
+> @@ -329,6 +341,7 @@ TIMEOUT		5
+> =C2=A0BUSY		6	(V2)
+> =C2=A0WINDOW_ERROR	7	(V2)
+> =C2=A0SEQ_ERROR	8	(V2)
+> +LOCKED_ERROR	9	(V3)
+> =C2=A0```
+> =C2=A0
+> =C2=A0### Sequence Numbers
+> @@ -368,6 +381,10 @@ BUSY		- Daemon in suspended state (currently unable =
+to access flash)
+> =C2=A0WINDOW_ERROR	- Command not valid for active window or no active win=
+dow
+> =C2=A0		- Try opening an appropriate window and retrying the command
+> =C2=A0
+> +SEQ_ERROR	- Invalid sequence number supplied with command
+> +
+> +LOCKED_ERROR	- Tried to mark dirty or erased locked area of flash
+> +
+> =C2=A0### Information
+> =C2=A0- All multibyte messages are LSB first (little endian)
+> =C2=A0- All responses must have a valid return code in byte 13
+> @@ -394,9 +411,7 @@ Sizes and addresses specified in blocks must be conve=
+rted to bytes by
+> =C2=A0multiplying by the block size.
+> =C2=A0```
+> =C2=A0Command:
+> -	RESET_STATE
+> -	Implemented in Versions:
+> -		V1, V2
+
+Addressing my concern above about locking ourselves in, I prefer we
+allow for a set of statements like:
+
+=C2=A0=C2=A0=C2=A0=C2=A0Added in: V1
+=C2=A0=C2=A0=C2=A0=C2=A0Removed in: V4
+
+I guess we continue to annotate the command argument registers as we have b=
+een
+already.
+
+> +	RESET_STATE (V1)
+> =C2=A0	Arguments:
+> =C2=A0		-
+> =C2=A0	Response:
+> @@ -408,9 +423,7 @@ Command:
+> =C2=A0		pre mailbox protocol. Final behavior is still TBD.
+> =C2=A0
+> =C2=A0Command:
+> -	GET_MBOX_INFO
+> -	Implemented in Versions:
+> -		V1, V2
+> +	GET_MBOX_INFO (V1)
+> =C2=A0	Arguments:
+> =C2=A0		V1:
+> =C2=A0		Args 0: API version
+> @@ -418,6 +431,10 @@ Command:
+> =C2=A0		V2:
+> =C2=A0		Args 0: API version
+> =C2=A0
+> +		V3:
+> +		Args 0: API version
+> +		Args 1: Requested block size (shift)
+> +
+> =C2=A0	Response:
+> =C2=A0		V1:
+> =C2=A0		Args 0: API version
+> @@ -430,6 +447,14 @@ Command:
+> =C2=A0		Args 3-4: reserved
+> =C2=A0		Args 5: Block size as power of two (encoded as a shift)
+> =C2=A0		Args 6-7: Suggested Timeout (seconds)
+> +
+> +		V3:
+> +		Args 0: API version
+> +		Args 1-2: reserved
+> +		Args 3-4: reserved
+> +		Args 5: Block size as power of two (encoded as a shift)
+> +		Args 6-7: Suggested Timeout (seconds)
+> +		Args 8: Num Allocated Flash IDs
+> =C2=A0	Notes:
+> =C2=A0		The suggested timeout is a hint to the host as to how long
+> =C2=A0		it should wait after issuing a command to the BMC before it
+> @@ -439,25 +464,32 @@ Command:
+> =C2=A0		the BMC	does not wish to provide a hint in which case the host
+> =C2=A0		must choose some reasonable value.
+> =C2=A0
+> +		The host may require
+
+I'd use 'desire' instead of 'require', because the host must obey the
+BMC's response regarding the blocksize.
+
+>=C2=A0=C2=A0a specific block size and thus can request
+> +		this by giving a hint to the daemon (may be zero). The daemon
+> +		may use this to select the block size which it will use however
+> +		is free to ignore this.
+
+Maybe 'it' instead of 'this' at the end of the sentence?
+
+> The value in the response is the block
+> +		size which must be used for all further requests until a new
+> +		size is	negotiated by another call to GET_MBOX_INFO. (V3)
+> +
+> =C2=A0Command:
+> -	GET_FLASH_INFO
+> -	Implemented in Versions:
+> -		V1, V2
+> +	GET_FLASH_INFO (V1)
+> =C2=A0	Arguments:
+> +		V1, V2:
+> =C2=A0		-
+> +
+> +		V3:
+> +		Args 0: Flash ID
+> =C2=A0	Response:
+> =C2=A0		V1:
+> =C2=A0		Args 0-3: Flash size (bytes)
+> =C2=A0		Args 4-7: Erase granule (bytes)
+> =C2=A0
+> -		V2:
+> +		V2, V3:
+> =C2=A0		Args 0-1: Flash size (blocks)
+> =C2=A0		Args 2-3: Erase granule (blocks)
+> =C2=A0
+> =C2=A0Command:
+> -	CREATE_{READ/WRITE}_WINDOW
+> -	Implemented in Versions:
+> -		V1, V2
+> +	CREATE_{READ/WRITE}_WINDOW (V1)
+> =C2=A0	Arguments:
+> =C2=A0		V1:
+> =C2=A0		Args 0-1: Requested flash offset (blocks)
+> @@ -466,11 +498,15 @@ Command:
+> =C2=A0		Args 0-1: Requested flash offset (blocks)
+> =C2=A0		Args 2-3: Requested flash size to access (blocks)
+> =C2=A0
+> +		V3:
+> +		Args 0-1: Requested flash offset (blocks)
+> +		Args 2-3: Requested flash size to access (blocks)
+> +		Args 4: Flash ID
+> =C2=A0	Response:
+> =C2=A0		V1:
+> =C2=A0		Args 0-1: LPC bus address of window (blocks)
+> =C2=A0
+> -		V2:
+> +		V2, V3:
+> =C2=A0		Args 0-1: LPC bus address of window (blocks)
+> =C2=A0		Args 2-3: Window size (blocks)
+> =C2=A0		Args 4-5: Flash offset mapped by window (blocks)
+> @@ -504,9 +540,7 @@ Command:
+> =C2=A0		window.
+> =C2=A0
+> =C2=A0Command:
+> -	CLOSE_WINDOW
+> -	Implemented in Versions:
+> -		V1, V2
+> +	CLOSE_WINDOW (V1)
+> =C2=A0	Arguments:
+> =C2=A0		V1:
+> =C2=A0		-
+> @@ -533,9 +567,7 @@ Command:
+> =C2=A0				evicted from the cache.
+> =C2=A0
+> =C2=A0Command:
+> -	MARK_WRITE_DIRTY
+> -	Implemented in Versions:
+> -		V1, V2
+> +	MARK_WRITE_DIRTY (V1)
+> =C2=A0	Arguments:
+> =C2=A0		V1:
+> =C2=A0		Args 0-1: Flash offset to mark from base of flash (blocks)
+> @@ -544,6 +576,7 @@ Command:
+> =C2=A0		V2:
+> =C2=A0		Args 0-1: Window offset to mark (blocks)
+> =C2=A0		Args 2-3: Number to mark dirty at offset (blocks)
+> +		Args 4=C2=A0=C2=A0: Don't Erase Before Write (V3)
+> =C2=A0
+> =C2=A0	Response:
+> =C2=A0		-
+> @@ -558,10 +591,15 @@ Command:
+> =C2=A0		block. If the offset + number exceeds the size of the active
+> =C2=A0		window then the command must not succeed.
+> =C2=A0
+> +		The host can give a hint to the daemon that is doesn't have to
+> +		erase a flash area before writing to it by setting ARG[4]. This
+> +		means that the daemon will blindly perform a write to that area
+> +		and will not try to erase it before hand. This can be used if
+> +		the host knows that a large area has already been erased for
+> +		example but then wants to perform many small writes.
+> +
+> =C2=A0Command
+> -	WRITE_FLUSH
+> -	Implemented in Versions:
+> -		V1, V2
+> +	WRITE_FLUSH (V1)
+> =C2=A0	Arguments:
+> =C2=A0		V1:
+> =C2=A0		Args 0-1: Flash offset to mark from base of flash (blocks)
+> @@ -585,9 +623,7 @@ Command
+> =C2=A0
+> =C2=A0
+> =C2=A0Command:
+> -	BMC_EVENT_ACK
+> -	Implemented in Versions:
+> -		V1, V2
+> +	BMC_EVENT_ACK (V1)
+> =C2=A0	Arguments:
+> =C2=A0		Args 0:	Bits in the BMC status byte (mailbox data
+> =C2=A0			register 15) to ack
+> @@ -598,9 +634,7 @@ Command:
+> =C2=A0		supplied in mailbox register 15.
+> =C2=A0
+> =C2=A0Command:
+> -	MARK_WRITE_ERASED
+> -	Implemented in Versions:
+> -		V2
+> +	MARK_WRITE_ERASED (V2)
+> =C2=A0	Arguments:
+> =C2=A0		V2:
+> =C2=A0		Args 0-1: Window offset to erase (blocks)
+> @@ -617,6 +651,31 @@ Command:
+> =C2=A0		number is the number of blocks of the active window to erase
+> =C2=A0		starting at offset. If the offset + number exceeds the size of
+> =C2=A0		the active window then the command must not succeed.
+> +
+> +Command:
+> +	GET_FLASH_NAME (V3)
+> +	Arguments:
+> +		Args 0: Flash ID
+> +	Response:
+> +		Args 0-10: Flash Name / UID
+
+Hopefully 11 bytes is enough. Well, 10 I guess - should we specify that the
+value at index 10 be '\0'? I feel like not requiring that could lead to
+undesirable implementations.
+
+I guess we don't want to go down the path of continued responses or magic
+windows to accommodate larger names?
+
+> +	Notes:
+> +		Describes a flash with some kind of identifier useful to the
+> +		host system. This is typically a null-padded string.
+> +
+> +Command:
+> +	MARK_LOCKED (V3)
+> +	Arguments:
+> +		Args 0-1: Flash offset to lock (blocks)
+> +		Args 2-3: Number to lock at offset (blocks)
+
+I guess it's hard to get away from using block-sized granuality. Do we
+currently have any partitions that we might lock that are less than a block
+size? Or are all partitions expected to be block-size aligned?
+
+Cheers,
+
+Andrew
+
+> +		Args 4: Flash ID
+> +	Response:
+> +		-
+> +	Notes:
+> +		Lock an area of flash so that the host can't mark it dirty or
+> +		erased. If the requested area is within the current window and
+> +		that area is currently marked dirty or erased then this command
+> +		must fail.
+> +
+> =C2=A0```
+> =C2=A0
+> =C2=A0### BMC Events in Detail:
+--=-C8Sk2mxcmSR6FLLMDzTW
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZtjTZAAoJEJ0dnzgO5LT5JgsQAK45PyBjHolEFnDy1IiJ0IhQ
+v77VRnJXaWxQf7/wdafqp0pk1EaPOEXUjvodmo9HglcgEAJx/nW0qkbggkoT0gYm
+CWeH/+P90OyHDHWgugEUJF9zK/7FIn3HXQF1ARt06SNhm98Brp+aNVJhfEV04Uy+
+mFd+eOLSFQPIYQo43YxHd+7gGf/enph9dpWXqKlTvqhml9QJOezQgfSVYEEq7Z8N
+M1cdFNcsVFLgnM2CepPvKfeNY1NY21edm+zYkxxagnBFxTnh6XyrTNRLCulLweUr
+RGeG0/23Uf9o/lwmakfIc+1f94snTz1AJz0VhwmU//QU97kAEytKQsKLfOQAmdd6
+65JfWF+bARkKd+OODb3ROy3/IkYNORjKPY6MLWBZhCZ/XNDGZgddZ7RZS62QHUbE
+P+wU3JeB/5bh9GVwmuFyxzHf46iWrEcn0NDsw4xVaUOoNWn/rMqLGK4BOvLZl/uD
+jDhcxBWucqOH6WQQ9aaWdXAFdN4qDi8l9xqvO3hulSfF4ivUxLaqTlb084IjL9Jh
+swNC3SxS6Fio8ZQMkuM/jSVjHhdY3vwM43Z19+Y6xLYEcYbXSMVprudnBaPLmGKx
+nvv93ZKh1AnZxhjJJYxKOGxhjewiFgR4W7Cp2UAteMAH47zUBOiCcekmOUSfG0Nm
+ZVGdw72GBrDqK+iQcDsc
+=rgFm
+-----END PGP SIGNATURE-----
+
+--=-C8Sk2mxcmSR6FLLMDzTW--
