@@ -1,55 +1,55 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4010:c07::241; helo=mail-lf0-x241.google.com;
+ (client-ip=2a00:1450:4010:c07::231; helo=mail-lf0-x231.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="b+U/SwlU"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="vTRWaNRB"; 
  dkim-atps=neutral
-Received: from mail-lf0-x241.google.com (mail-lf0-x241.google.com
- [IPv6:2a00:1450:4010:c07::241])
+Received: from mail-lf0-x231.google.com (mail-lf0-x231.google.com
+ [IPv6:2a00:1450:4010:c07::231])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xrxhs5jD0zDqyG
- for <openbmc@lists.ozlabs.org>; Tue, 12 Sep 2017 17:47:25 +1000 (AEST)
-Received: by mail-lf0-x241.google.com with SMTP id h80so4966165lfe.1
- for <openbmc@lists.ozlabs.org>; Tue, 12 Sep 2017 00:47:25 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xrxkW3XRVzDqyG
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Sep 2017 17:48:51 +1000 (AEST)
+Received: by mail-lf0-x231.google.com with SMTP id c80so24192580lfh.0
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Sep 2017 00:48:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=FzuCjnAFontul5iFpZ2Ws2SaO2HeT8f/UJNZyqSE7U8=;
- b=b+U/SwlU4qCd/HU4wO1Ka7eDWPTqy02fJwydV5fIqiut/1MJ0uiGu3+cnPVVG5Mu8b
- dRvl5+YQkornGS/RLz++40Cxz3wc53Wu+MvrvlmOgarkhA1hLJhTVqA+5QdLKB+d6/3D
- 7JKV66wRlUgq5Z3TeDa5xVSsy9TyqFUNfnhuTWFzuaow+XhXxWyFIOADoklzF0muYfCk
- ifj9Nm67yP3kO+XfchwCH+j/3sUIo6Z+8x8aZ5VBJS0gV/tcIwYK9DClLQ/dX7ISrIl5
- DDLit+FKDy1WpatcmV/6SZ11I0gDuQvm8v5yoNSAjBDmgx5iVlt6b2FtACQGh8S+jn2B
- TdwA==
+ bh=FYBMDvxg2kudXjsIL16HHpUIOpsTCKtWCrNDQhHRegY=;
+ b=vTRWaNRBDHPvnQtE8kWaJHOWTOgzEDSiGX0wioVCG/nxPxh+9Dc9tQMR0prbEkeMLF
+ bh3drIJfWtf4GU/shyQR8PHeJOS+NV0c6PXr9Sc06WF7Ql3rC4/JLIy/BaWsf2Y1V8OB
+ PMV0JHd+H0k6uStbYVgQFCYbk9ANcuXDWpcceX9ByTMqYgj9kkoIAmyNiPjC8aE1OACR
+ 97AnZOcl4PYXuVF0HN/bhWHA9O7u5eEuWNQAIiqywEJDVdZDFZHwqG++Mq9jXSW5oEzB
+ 25+jrALlUUNuDJDuqzwE/q3Ojelpaur6CppbRlQLGy1nkMpLM16KVKwvcvpYmXcqGyWJ
+ f+xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=FzuCjnAFontul5iFpZ2Ws2SaO2HeT8f/UJNZyqSE7U8=;
- b=e33CwZZA5KJtv3XT1C33iU/o4ld3xM8nZnnbs/cuDKMdIi0fij1lQh7i28fxMkGNtt
- SsAO6dKH+Kxr8BkSoygBJpKnN8egKpySE6DhozumOY22YX+Hzo2FLd1ZGMZThxBH0DiA
- 8mmj+VfvJmXAdfqbD+P6r7Rtnu/xurZL5b8d2XAN86WKt7rRW3l84e4n79UZ4wjvxRe8
- /tBoJTjPNrxegmeROpTdZvdAOUPpAVoklps0OT8WU1fVp/DgdtWyK5p51rddJx2LRICh
- 6OAUz/3SdNQNiin2pQV42HDDMMEYx43RXTudUZhcETs7CEJh7Ho+sQogSZhFPi2HbtJV
- 54iQ==
-X-Gm-Message-State: AHPjjUgHGJnztbv8RYjFeR/G0Hd2yleJmIt4x8eb4yunCdoV986iyX/L
- ALn7kK03mj2C1V4J6Q8QIJaHLZLVVg==
-X-Google-Smtp-Source: AOwi7QBDI/r1Iovg5WK90UsKEmdM8xL7MfNDoBkoJ+2//Z2ax/C17t1/ia0yKe/AV5RQTOiLiBi8B0R0fu7jBZG4YFE=
-X-Received: by 10.25.15.158 with SMTP id 30mr5191553lfp.123.1505202441637;
- Tue, 12 Sep 2017 00:47:21 -0700 (PDT)
+ bh=FYBMDvxg2kudXjsIL16HHpUIOpsTCKtWCrNDQhHRegY=;
+ b=QwazSOeRowUtRNMh8qr3rKunwbQm/HWbmL+N+nbdJR4TIZj8wBUyN6xiI9vrMX1ZDk
+ Q7mE55YT2JZP2m/ecuHjajfUpYEUyKgKMq2cdFKSp2r2qSiLIzeDpuJkRiGkSlJAuVcI
+ 6UH22jJvcfSkcfGIZk4k/1c6cYiV2MiVHsDphr690YIYoLb1+01cde2bmZOVdMVkPO4+
+ sSu9JpaRLlHC1vhpjdlQWuNiJ3N8pq1S1LflC203n86hh9Ke1ctAnIOnKQEIkJa6PGNW
+ QkduMaB0RQzmNEDYlNUo0U/zRvzMymKSnenttjh53r+EArF93kF+dhuuC9rrjH2cYl1l
+ HdkA==
+X-Gm-Message-State: AHPjjUj3+CToMI9l6pQ+tgmWFcMBxy0hGOdFNys8NahAJCWuVKDowoJv
+ NvJMQLm7LGuoJ7y0mO4Wsq4PbmIqZg==
+X-Google-Smtp-Source: AOwi7QABZwlIbFxokCsfcxL1QswBfYpfl/7oYecJO+aAm1jyS7LM9GV+7/z7h+/ev1DEpyMI226tQAhUHj18rKoBfEs=
+X-Received: by 10.46.95.19 with SMTP id t19mr82072ljb.182.1505202528412; Tue,
+ 12 Sep 2017 00:48:48 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.25.103.82 with HTTP; Tue, 12 Sep 2017 00:47:01 -0700 (PDT)
-In-Reply-To: <20170908215728.115818-2-xow@google.com>
-References: <20170908215728.115818-2-xow@google.com>
+Received: by 10.25.103.82 with HTTP; Tue, 12 Sep 2017 00:48:27 -0700 (PDT)
+In-Reply-To: <20170908215728.115818-3-xow@google.com>
+References: <20170908215728.115818-3-xow@google.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 12 Sep 2017 17:47:01 +1000
-X-Google-Sender-Auth: 1RWD9C5EtAiygHUVzIa3kgELvqU
-Message-ID: <CACPK8XfDQuabtVxjh7BoiE-1xSCAG1C8ZUcNho=VVEbepMKwZw@mail.gmail.com>
-Subject: Re: [linux,
- 1/5] ARM: dts: aspeed: zaius: Use LM5066I driver for hotswap
+Date: Tue, 12 Sep 2017 17:48:27 +1000
+X-Google-Sender-Auth: hGKENiuuIWZlGM6-5FUvZYSLkYs
+Message-ID: <CACPK8XcXdZkpAvP6sUQforgPRzB+otkzz7DRG=yNx7-kmiJMCg@mail.gmail.com>
+Subject: Re: [linux, 2/5] ARM: dts: aspeed: zaius: Update hotswap controller
+ address for EVT3
 To: Xo Wang <xow@google.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
@@ -64,53 +64,16 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Sep 2017 07:47:26 -0000
-
-Hi Xo,
+X-List-Received-Date: Tue, 12 Sep 2017 07:48:52 -0000
 
 On Sat, Sep 9, 2017 at 7:57 AM, Xo Wang <xow@google.com> wrote:
-> Not removing the "ti,lm5066" line because the LM5066I support is only in
-> yet-to-be-released 4.13-rc4.
+> The LM5066I hotswap controller is at PMBus device address 0x54 starting
+> with the EVT3 motherboard.
+>
+> Signed-off-by: Xo Wang <xow@google.com>
 
-This commit message is a bit out of date. I dropped the
-yet-to-be-released bit and applied it.
-
- > Not removing the "ti,lm5066" line because the LM5066I support is not
- > present in pre 4.13-rc4 kernels.
-
-I figured there's no harm in keeping the backwards compatible string
-there for now; if you want to drop it please send a follow up patch.
-
-I cherry picked in the upstream driver changes to dev-4.10 too:
-
- 5783ec2e5c10 hwmon: (pmbus/lm25066) Add support for TI LM5066I
- ee983171d49b hwmon: (pmbus/lm25066) Offset coefficient depends on CL
+Applied to dev-4.10,
 
 Cheers,
 
 Joel
-
-
-
->
-> Signed-off-by: Xo Wang <xow@google.com>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> index e4e9519cd087..1c39452ffebd 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> @@ -282,7 +282,10 @@
->                         #size-cells = <0>;
->
->                         hotswap@10 {
-> -                               compatible = "ti,lm5066";
-> +                               /* Device is LM5066I so prefer that driver
-> +                                * support if available
-> +                                */
-> +                               compatible = "ti,lm5066i", "ti,lm5066";
->                                 reg = <0x10>;
->                         };
->                 };
