@@ -1,65 +1,87 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Qj3OQrdG"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="e6F9gNus"; dkim-atps=neutral
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <c_mykolak@mellanox.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=mellanox.com
+ (client-ip=104.47.0.83; helo=eur01-he1-obe.outbound.protection.outlook.com;
+ envelope-from=c_mykolak@mellanox.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b="tr/tKBgm";
+ dkim-atps=neutral
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01on0083.outbound.protection.outlook.com [104.47.0.83])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xt1qz1FHczDqjS
- for <openbmc@lists.ozlabs.org>; Thu, 14 Sep 2017 11:57:18 +1000 (AEST)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 90BB320BA3;
- Wed, 13 Sep 2017 21:57:16 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute3.internal (MEProxy); Wed, 13 Sep 2017 21:57:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=MRg588Ctumc40/f6RnAmp2g70G+oTbDLyFtzSdva/
- p0=; b=Qj3OQrdGP2hYBmvfD18/ouyQVO6lkloHWLDGrb7H7DG6uNGZ3gein+juS
- /FlB54RiZym5k7YPdaAufhSC9eZn7ryQ23mbT3ugHZ7puUkBpJQ3tn2fG56Z9CZh
- WnhdSNPiHXwYjHldN2Djg9A4ME2b+9Bc/y1KePq2WZTpkraItgWfEpHoVDMFmBCd
- Lv182bfsJ1Y3pN6WlVb3+haW+wnt/bQX/szL6+MYmGRmMMjPwkTp7AgcTxuRY+zs
- z8kd2PkdCw2SoEJBFecP3x1wuDjTpY2G61dw5o7+boFjAu5TjNFNtAlzcuTuovZ0
- J5DRiWqr1cI+XBgLz974n78kBIVmg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=MRg588Ctumc40/f6Rn
- Amp2g70G+oTbDLyFtzSdva/p0=; b=e6F9gNussVYxT0u7QQLf4aC0I9sYrwhxZn
- QnicFG2gDbLULIHxVU6sFxGm4xebZpbfA41z950DrwNbU+MDm6OP5zQxSF4uJXtp
- w3OaGgWKwBnAsUT9yr4jD15sbFUPonRsaI1Zu6lOa38g60fTyTCaUBY0dXvVyIC7
- 752mH6l0J6Qs5El2VnCxefAsD5wKrjQAXaJKbrY9x06E9nxhR/BdUEcrw5OYQM1m
- CA94qxjvJddYNMN1/B4gD9ZgE4shrk/SIfuD7m0OCOjQNoVjq2QgUlKNc3dHi7EN
- dKD5ud4zDZP0z5Ok4vAz1npqThLZelUR+QUd+SSo5u89KXSyCzDQ==
-X-ME-Sender: <xms:_OG5We7jqjBfYUPfobCMw-zAsIyhZNu6jbGQSMt1AzfbEhvxWyT29Q>
-X-Sasl-enc: eJOGbo2y31vHr8/9UuCLCDs0cgbwkLvG3767iv6Yy1F3 1505354235
-Received: from keelia16 (ppp14-2-0-125.bras21.adl4.internode.on.net
- [14.2.0.125])
- by mail.messagingengine.com (Postfix) with ESMTPA id 5D9DD24081;
- Wed, 13 Sep 2017 21:57:13 -0400 (EDT)
-Message-ID: <1505354227.4080.11.camel@aj.id.au>
-Subject: Re: [RFC] docs: Specify V3 of the mbox protocol
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Suraj Jitindar Singh <sjitindarsingh@gmail.com>,
- skiboot@lists.ozlabs.org,  openbmc@lists.ozlabs.org
-Cc: wak@google.com, cyrilbur@gmail.com, stewart@linux.vnet.ibm.com, 
- joel@jms.id.au
-Date: Thu, 14 Sep 2017 11:27:07 +0930
-In-Reply-To: <1505189782.2222.1.camel@gmail.com>
-References: <20170907071409.7163-1-sjitindarsingh@gmail.com>
- <20170907071409.7163-2-sjitindarsingh@gmail.com>
- <1505113305.4080.1.camel@aj.id.au> <1505189782.2222.1.camel@gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-mjbNtiTUSg1npp71Qci2"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xtJdk53YxzDrV9
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Sep 2017 23:04:25 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
+ s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=f52BtPMVPH1AImdSUcViQK8mq2OZVmo5IwjZBitadGo=;
+ b=tr/tKBgmOi0DHx58uS0jVMtbWjXa2JNBMN8oBBzmBBDiI3BuiRlzvSr386e2r6d9WB0lWb7mK9b+U2ArUDTNuHmIWCYQ9DQFkLKfJP0HfVFjQDFqufsyeQoEOZhW2C5BPLEER99cAHPrbp5iY6a/uOdq/aljPmuVjFSeU0SJ1EI=
+Received: from DB5PR05MB1224.eurprd05.prod.outlook.com (10.161.245.11) by
+ DB5PR05MB1573.eurprd05.prod.outlook.com (10.164.40.15) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id
+ 15.20.35.12; Thu, 14 Sep 2017 13:04:18 +0000
+Received: from DB5PR05MB1224.eurprd05.prod.outlook.com
+ ([fe80::b0d6:9a5e:4b00:b7ed]) by DB5PR05MB1224.eurprd05.prod.outlook.com
+ ([fe80::b0d6:9a5e:4b00:b7ed%13]) with mapi id 15.20.0056.010; Thu, 14 Sep
+ 2017 13:04:18 +0000
+From: Mykola Kostenok <c_mykolak@mellanox.com>
+To: Mykola Kostenok <c_mykolak@mellanox.com>, Joel Stanley <joel@jms.id.au>
+CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Ohad Oz <ohado@mellanox.com>, 
+ Vadim Pasternak <vadimp@mellanox.com>
+Subject: RE: Mellanox ipmi daemon discussion
+Thread-Topic: Mellanox ipmi daemon discussion
+Thread-Index: AdMgEhQatmPGhqKFRnqY7Yj+iiQazwGvUNGAAAU2GtABnEM6sA==
+Date: Thu, 14 Sep 2017 13:04:18 +0000
+Message-ID: <DB5PR05MB122459FE1A8040937083C262EF6F0@DB5PR05MB1224.eurprd05.prod.outlook.com>
+References: <DB5PR05MB1224502182F8C6EAF62E17C9EF9E0@DB5PR05MB1224.eurprd05.prod.outlook.com>
+ <CACPK8XcBWbdKQruu5wdAP2xo6xmxQ867fP41SUU+0d38H7O-Wg@mail.gmail.com>
+ <DB5PR05MB122454E0BB4BB0CB38F0B6E4EF970@DB5PR05MB1224.eurprd05.prod.outlook.com>
+In-Reply-To: <DB5PR05MB122454E0BB4BB0CB38F0B6E4EF970@DB5PR05MB1224.eurprd05.prod.outlook.com>
+Accept-Language: ru-RU, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=c_mykolak@mellanox.com; 
+x-originating-ip: [82.166.227.17]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; DB5PR05MB1573;
+ 6:4/Xvx7Rvb5u/GPIOHbcFlVIJBPmCe7jvhtYdHOZHzsAMiSlSUkpo7cFPwB/NR1XgMxjm0MkElJNa0UEXoPo5iCBaxSyGDQNraBAya7FF8BLAS2TGsVYLprs4nZf/9UCIRdfOX21nYf4TagRNjB8LTVr7HjoeJ0ucaERzn5Hw0tLXOQHtu+qvAVc31vIhvZNa7a1fYvxyOrY4h3zWJWoh/IEW5rT0j4B8QPztJp4RICyF/tKVnnp4AJjD3ElOszabCdC6+as9JPdbmUXovYh9cSO/ja5HgCVqkHAzSt9GawTHy9ViavHDf4Uy7rKRh+gJSsvwNhYVmqf7rCWWej3V9w==;
+ 5:yX3coDXciCegJ6Jy33ojESU8trhTnZQH4eHmHRFo9VmaTYeTnMRZQHLcTVNSwU3NiBHgf0jdIeuNcGox2Nc/R4ava04vH/al5oKE15qYb2TTNebQ61C2TXQAXgG/fxOO7Mi+EoXdIfEV3kHDbvBQjA==;
+ 24:T4guIWenHELErEvWQuueY71HjdaMc1zijDu9cVLG4dcaW9D3/6oODOHGWHEp4kN72KJOktWPdqLrqBHH+WJFiHF17sMGwiCQnKONAjEkg3k=;
+ 7:iFI1sCQ1WeYyczRxx4uUNvWzi5pWvRQf/YTlQ6XtI1X2X7067hFMfpDfBSQQCuYN/jqG+aRf7i44vshD1ezEYjxlDPBpcQ0VWHgC4+01+Oa9PSE9aiDZAAKS5QDsaB4uvpmqOrnP4pC3qJ8h7XErGzENm0a7iHCvOjoMuewZjzTdi4HR9zfnJybgyL7hIRdpnd/bnYGyGwGinJkepOM8BqkJN6vtmeFdiCf3XJY8hOc=
+x-ms-exchange-antispam-srfa-diagnostics: SSOS;
+x-ms-office365-filtering-correlation-id: 8941099c-4e6b-46f1-c82f-08d4fb711bf2
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
+ RULEID:(300000500095)(300135000095)(300000501095)(300135300095)(22001)(300000502095)(300135100095)(2017030254152)(48565401081)(300000503095)(300135400095)(2017052603199)(201703131423075)(201703031133081)(201702281549075)(300000504095)(300135200095)(300000505095)(300135600095)(300000506095)(300135500095);
+ SRVR:DB5PR05MB1573; 
+x-ms-traffictypediagnostic: DB5PR05MB1573:
+x-exchange-antispam-report-test: UriScan:(166708455590820)(189930954265078)(65623756079841)(45079756050767); 
+x-microsoft-antispam-prvs: <DB5PR05MB1573B49025E4B8326361326FEF6F0@DB5PR05MB1573.eurprd05.prod.outlook.com>
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(100000700101)(100105000095)(100000701101)(100105300095)(100000702101)(100105100095)(6040450)(2401047)(5005006)(8121501046)(100000703101)(100105400095)(10201501046)(3002001)(93006095)(93001095)(6055026)(6041248)(20161123555025)(201703131423075)(201702281528075)(201703061421075)(201703061406153)(20161123558100)(20161123564025)(20161123562025)(20161123560025)(6072148)(201708071742011)(100000704101)(100105200095)(100000705101)(100105500095);
+ SRVR:DB5PR05MB1573; BCL:0; PCL:0;
+ RULEID:(100000800101)(100110000095)(100000801101)(100110300095)(100000802101)(100110100095)(100000803101)(100110400095)(100000804101)(100110200095)(100000805101)(100110500095);
+ SRVR:DB5PR05MB1573; 
+x-forefront-prvs: 0430FA5CB7
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(6009001)(346002)(376002)(39860400002)(199003)(189002)(13464003)(24454002)(377454003)(3660700001)(54906002)(6306002)(8676002)(66066001)(55016002)(76176999)(3480700004)(50986999)(99286003)(8936002)(81156014)(9686003)(966005)(7696004)(81166006)(478600001)(105586002)(5660300001)(3846002)(106356001)(6246003)(68736007)(107886003)(102836003)(101416001)(6116002)(25786009)(45080400002)(53936002)(189998001)(54356999)(33656002)(4326008)(229853002)(6436002)(7736002)(53546010)(2900100001)(305945005)(14454004)(6506006)(74316002)(2950100002)(97736004)(575784001)(86362001)(3280700002)(316002)(2906002)(5250100002)(36250200005);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DB5PR05MB1573;
+ H:DB5PR05MB1224.eurprd05.prod.outlook.com; FPR:; SPF:None; PTR:InfoNoRecords;
+ A:1; MX:3; LANG:en; 
+received-spf: None (protection.outlook.com: mellanox.com does not designate
+ permitted sender hosts)
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: Mellanox.com
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Sep 2017 13:04:18.3135 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB5PR05MB1573
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -71,244 +93,93 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Sep 2017 01:57:20 -0000
+X-List-Received-Date: Thu, 14 Sep 2017 13:04:28 -0000
 
-
---=-mjbNtiTUSg1npp71Qci2
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-
-> > > +The host may lock an area of flash using the MARK_LOCKED command.
-> > > Any attempt
-> > > +to mark dirty or erased this area of flash must fail with the
-> > > LOCKED_ERROR
-> > > +response code. The host may open a write window which contains a
-> > > locked area
-> > > +of flash however changes to a locked area of flash must never be
-> > > written back
-> > > +to the backing data source (i.e. that area of flash must be
-> > > treated as read
-> > > +only). An attempt to lock an area of flash which is not clean in
-> > > the current
-> > > +window must fail with PARAM_ERROR. (V3)
-> >=20
-> > I think we need to consider how locked regions interact with the in-
-> > memory
-> > caching of the flash data.
-> >=20
-> > The BMC doesn't know that the memory backing the LPC window has been
-> > written until it receives a MARK_DIRTY from the host. MARK_DIRTY is
-> > not
-> > valid on a read window or a locked region, but that doesn't mean that
-> > changes to a locked region can't persist in memory due to caching to
-> > avoid flash access (which was a part of the motivation for memory-
-> > based=C2=A0
-> > booting to begin with). This may naively fool host firmware into
-> > thinking it is
-> > accessing unmolested data as the region is locked, whereas the region
-> > could
-> > contain anything, just it will never be written to flash.
->=20
-> Correct
->=20
-> >=20
-> > Should we require window requests intersecting a locked region always
-> > have at
-> > least the locked region positively match the on-flash data? That way
-> > the
-> > firmware that requested a region be locked could ensure it has
-> > whatever was on
-> > the flash at the time it was locked by explicitly closing the window
-> > (read or
-> > write) once finished with it, which requires a window be opened again
-> > for any
-> > subsequent access. At that point (open) we can do the locked region
-> > intesection
-> > calculation and check the data in the window as necessary.
->=20
-> I guess this brings about an interesting question, when a window is
-> requested is it guaranteed that the window provided in return by the
-> BMC contains the same contents as the flash for the requested area?
-
-I think expecting otherwise would be strange. What way would the host
-have to validate that? It could keep its own hashes of window content,
-but it would need to hash the content itself after opening the window
-which may be a circular problem (e.g. host reboot if the daemon doesn't
-invalidate the cache across the reboot operation).
-
->  It
-> would seem intuitively that it should. The first time a window is
-> opened that is true, but with in memory caching the host could make a
-> change that it never tells the bmc about and the contents diverge, and
-> (assuming the window isn't evicted) persist across window close/open
-> calls.
-
-Yep.
-
->=20
-> Is this the desired behaviour?=20
-
-No, not in my opinion. It doesn't fit the principle of least surprise.
-
-> It's kind of the only behaviour which
-> makes the in-memory caching an effective performance improvement, if we
-> reloaded every window every time then we may as well only have one
-> window in memory anyway. Maybe we can do this a better way (see below).
->=20
-> It's worth noting that the current flash locking daemon implementation
-> will explicitly reload an entire window whenever one which contains any
-> locked regions is requested - ensuring (for at least as long as the
-> access to the flash device is exclusive) the integrity of the locked
-> regions. This could of course be optimised to only reload the locked
-> region.
-
-Right, and if we take up the techniques discussed below we may even be
-able to eliminate that.
-
->=20
-> >=20
-> > Locked regions could thus be a performance hit if we always load the
-> > locked
-> > regions from flash, but surely we prefer (some) integrity over
-> > performance.
-> >=20
-> > Alternatively, you could cryptographically hash the per-block content
-> > of the
-> > on-flash locked region during the MARK_LOCKED operation, then stash
-> > the hash
-> > values away. On a CREATE_{READ,WRITE}_WINDOW operation you could hash
-> > any
-> > intersecting, in-cache locked blocks and compare to the stashed hash
-> > values to
-> > incur only one set of flash accesses (initial hash calculations)
-> > rather than n.
->=20
-> This seems like a nice balance between performance and data integrity.
->=20
-> I guess this brings about the question again as to whether we care
-> about data changes we aren't told about. Do we store a hash of every
-> window and before providing a cached copy verify the hash and reload
-> the entire window from flash again if there is a discrepancy. The host
-> isn't allowed to rely on the persistence of data it never tells the BMC
-> about, but is this something the BMC should be checking?
-
-I think so, again in support of the principle of least surprise, and
-the possible security implications. I proposed verifying the integrity
-of only the locked regions but it might be worth extending that to
-entire windows depending on the performance. We should do some
-measurements.
-
-I think implementations also need to be noisy in the case of a
-discrepancy, logging on the BMC side and possibly issuing a BMC Event
-(taking another one of our reserved bits for the purpose). The
-modifications are pretty much limited to accidental scribbling (bugs),
-or malicious intent (probably enabled by more bugs). Either way,
-someone should be notified.
-
-> > > +Command:
-> > > > > > +	GET_FLASH_NAME (V3)
-> > > > > > +	Arguments:
-> > > > > > +		Args 0: Flash ID
-> > > > > > +	Response:
-> > > +		Args 0-10: Flash Name / UID
-> >=20
-> > Hopefully 11 bytes is enough. Well, 10 I guess - should we specify
-> > that the
-> > value at index 10 be '\0'? I feel like not requiring that could lead
-> > to
-> > undesirable implementations.
->=20
-> Depends on whether we require names be 11 bytes, be null terminated, or
-> just contain trailing nulls for names shorter than 11 bytes.
->=20
-> If we're going to waste an argument on the null terminator we may as
-> well just make the first argument the length of the name.
-
-I think that's a better idea generally. It doesn't assume C-string
-semantics, though it's likely that the implementations will require
-them, which was what I was looking out for.
-
->=20
-> Is this something the protocol should care about. Maybe it's just up to
-> the daemon and host implementation to put something here that they both
-> understand.
-
-Probably not, it was just a thought. It's a balance against avoiding
-potential vulnerabilities and over-specifying behaviour.
-
->=20
-> >=20
-> > I guess we don't want to go down the path of continued responses or
-> > magic
-> > windows to accommodate larger names?
->=20
-> I'd prefer not :)
->=20
-
-Same :) Just throwing the question out there for discussion
-
-> >=20
-> > > > > > +	Notes:
-> > > > > > +		Describes a flash with some kind of identifier
-> > > useful to the
-> > > > > > +		host system. This is typically a null-padded
-> > > string.
-> > > +
-> > > +Command:
-> > > > > > +	MARK_LOCKED (V3)
-> > > > > > +	Arguments:
-> > > > > > +		Args 0-1: Flash offset to lock (blocks)
-> > > +		Args 2-3: Number to lock at offset (blocks)
-> >=20
-> > I guess it's hard to get away from using block-sized granuality. Do
-> > we
-> > currently have any partitions that we might lock that are less than a
-> > block
-> > size? Or are all partitions expected to be block-size aligned?
->=20
-> This was the motivation for allowing the host to request a block size,
-> so that they can hopefully request something which allows locking at
-> the required granularity. Currently all partitions are aligned to flash
-> erase size (which is what we set block size to anyway).
-
-Okay. It might be worth making a note in the documentation for
-MBOX_GET_INFO saying as much.
-
->=20
-> It's not really worth allowing locking at a finer=C2=A0granularity than
-> block size since this is how changes (mark dirty) are specified and so
-> it would be impossible to write back any part of a block if a single
-> byte in that block were locked. I'm in favour of using block size for
-> now and changing it in a later version if this becomes an issue.
-
-Right, it's either blocks for everything or bytes for everything.
-Consistency is good. I don't think we want to go through the effort of
-changing that aspect of the spec right now.
-
-Cheers,
-
-Andrew
---=-mjbNtiTUSg1npp71Qci2
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJZueHzAAoJEJ0dnzgO5LT5rs4P/jMaMQ01AOJWigSAZinM73as
-0P+VWkF0sqXRsMWX97HCLa/LsJEJ8I9rqzU1NWeHmhec31UthQhm4YHdDnyQbSax
-zKabuUeIs0SybylC5IQayKsoVCo1nsFa3nRBRABdctVb4TzAcVWx7wWoNwe0cXDd
-EblxsbsoVs0Z+q/Lgt3svKtfV81hXsBu4O3ra6Gdxua7b2x8OeU11gMd0m8PU2SI
-HoX047zQQwBdkOlPS1C5uuNMrhYnsvlv9aOFUcF1A55D2WQbhFHfImDOg4vD/D09
-1rGeNvCrV+qPysQ4yM346xRj6T4jaina8cmyYFze/yMCYmZjvAMRzHAwJIguIQVb
-SC/AVTQ0dRNntRoAw7XCP7cbwGMPd9WRSeqKwrbDVbauNie1Uz6v2mEIIjxVY3gM
-/BnTxrQyQTUi/JJqQpTrVRk2Kdha/k+Ri3SNQMEKs2IKVvH+HTmNySzJLyYH+ETy
-sy5FbpOIHeZNkI79bwmABgTM5jO7KJud55xl5xGr2sFotZRvnvOSPzRyB0pZn46w
-TXN7VA5SkqU4pY4Nuj3vmHBNkd0SnTRDjEYV8ZReUC9xrxKn7StEITnXNLhvfOoh
-Ewg9WRa20AkIa6hCf2/G2slohEF1PW46su2c4FMDHhnGHVGVmyT8wAZTcGAQ9a9L
-O/WgiLxA4RXw4wwud7r2
-=viMQ
------END PGP SIGNATURE-----
-
---=-mjbNtiTUSg1npp71Qci2--
+SGksIEpvZWwuDQoNCldlIGFkZCBvcHBvcnR1bml0eSB0byBjb21waWxlIG91ciBpcG1pIGRhZW1v
+biB3aXRoIGRidXMgaGVhZGVycyBhbmQgbGlicy4NClNvIGl0IGNhbiBiZSBjb21waWxlZCAtLXdp
+dGgtZGJ1cy4NCkFsb25nIHdpdGggaXQgSSBzZW50IG5leHQgdmVyc2lvbiBvZiBtbHhfaXBtaWQg
+cmVjaXBlIHdpdGggZGJ1cyB0byBnZXJyaXQ6ICANCmh0dHBzOi8vZ2Vycml0Lm9wZW5ibWMtcHJv
+amVjdC54eXovIy9jLzU2OTQvNQ0KDQpPdXIgaXBtaSBkYWVtb24gY29kZSBsb2NhdGVkIGF0Og0K
+CWh0dHBzOi8vZ2l0aHViLmNvbS9tZWxsYW5veGJtYy9pcG1pDQoJYnJhbmNoIG9wZW5ibWMNCg0K
+QmVzdCByZWdhcmRzLCBNeWtvbGEgS29zdGVub2suDQoNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3Nh
+Z2UtLS0tLQ0KPiBGcm9tOiBvcGVuYm1jIFttYWlsdG86b3BlbmJtYy0NCj4gYm91bmNlcytjX215
+a29sYWs9bWVsbGFub3guY29tQGxpc3RzLm96bGFicy5vcmddIE9uIEJlaGFsZiBPZiBNeWtvbGEN
+Cj4gS29zdGVub2sNCj4gU2VudDogV2VkbmVzZGF5LCBTZXB0ZW1iZXIgNiwgMjAxNyAxMTozMSBB
+TQ0KPiBUbzogSm9lbCBTdGFubGV5IDxqb2VsQGptcy5pZC5hdT4NCj4gQ2M6IE9wZW5CTUMgTWFp
+bGxpc3QgPG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZz47IE9oYWQgT3oNCj4gPG9oYWRvQG1lbGxh
+bm94LmNvbT47IFZhZGltIFBhc3Rlcm5hayA8dmFkaW1wQG1lbGxhbm94LmNvbT4NCj4gU3ViamVj
+dDogUkU6IE1lbGxhbm94IGlwbWkgZGFlbW9uIGRpc2N1c3Npb24NCj4gDQo+IEhpLCBKb2VsLg0K
+PiBUaGFua3MgZm9yIHJlcGx5IQ0KPiANCj4gPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0K
+PiA+IEZyb206IGpvZWwuc3RhbkBnbWFpbC5jb20gW21haWx0bzpqb2VsLnN0YW5AZ21haWwuY29t
+XSBPbiBCZWhhbGYgT2YNCj4gPiBKb2VsIFN0YW5sZXkNCj4gPiBTZW50OiBXZWRuZXNkYXksIFNl
+cHRlbWJlciA2LCAyMDE3IDg6MTcgQU0NCj4gPiBUbzogTXlrb2xhIEtvc3Rlbm9rIDxjX215a29s
+YWtAbWVsbGFub3guY29tPg0KPiA+IENjOiBPcGVuQk1DIE1haWxsaXN0IDxvcGVuYm1jQGxpc3Rz
+Lm96bGFicy5vcmc+DQo+ID4gU3ViamVjdDogUmU6IE1lbGxhbm94IGlwbWkgZGFlbW9uIGRpc2N1
+c3Npb24NCj4gPg0KPiA+IEhlbGxvIE15a29sYSwNCj4gPg0KPiA+IE9uIFR1ZSwgQXVnIDI5LCAy
+MDE3IGF0IDEyOjU3IEFNLCBNeWtvbGEgS29zdGVub2sNCj4gPiA8Y19teWtvbGFrQG1lbGxhbm94
+LmNvbT4gd3JvdGU6DQo+ID4gPg0KPiA+ID4gV2UnZCBsaWtlIHRvIGFkZCBNZWxsYW5veCBpcG1p
+IGRhZW1vbiByZWNpcGUgdG8gbWVsbGFub3ggbXNuIHBsYXRmb3JtLg0KPiA+IEl0J3MgYmFzZWQg
+b24gb3BlbmlwbWkgcHJvamVjdC4NCj4gPiA+IENvZGUgcmV2aWV3Og0KPiA+DQo+IGh0dHBzOi8v
+ZW1lYTAxLnNhZmVsaW5rcy5wcm90ZWN0aW9uLm91dGxvb2suY29tLz91cmw9aHR0cHMlM0ElMkYl
+MkZnZXINCj4gPiByaXQub3BlbmJtYy0NCj4gPg0KPiBwcm9qZWN0Lnh5eiUyRiUyMyUyRmMlMkY1
+Njk0JTJGJmRhdGE9MDIlN0MwMSU3Q2NfbXlrb2xhayU0MG1lbGwNCj4gPg0KPiBhbm94LmNvbSU3
+Q2RjMTI4NTVhYzVhNzQ2NDg1MmMzMDhkNGY0ZTY4NzcxJTdDYTY1Mjk3MWM3ZDJlNGQ5YmE2YQ0K
+PiA+DQo+IDRkMTQ5MjU2ZjQ2MWIlN0MwJTdDMCU3QzYzNjQwMjcxODMzNTA1NjE4OSZzZGF0YT1R
+ZnMySVRrRzVUSmdQNW0NCj4gPiBTVlQwTkhPelFxVmtIREZOUnBnVm9jOFlvZHJRJTNEJnJlc2Vy
+dmVkPTAuDQo+ID4gPg0KPiA+ID4gV2UgYWRkZWQgc29tZSBob29rcyBpbiBvcGVuaXBtaSBjb2Rl
+IGFuZCBhbHNvIG91ciBzcGVjaWZpYyBtb2R1bGUuDQo+ID4gPiBXZSB1c2UgaXQgZm9yIFNvTCwg
+U0VMLCBzZXJpYWwgY29uc29sZSByZWRpcmVjdGlvbiwgY29uc29sZQ0KPiA+ID4gc3dpdGNoaW5n
+DQo+ID4gYmV0d2VlbiB0aGUgaG9zdCBhbmQgQk1DLCBQRVQvUEVGLCBMQU4gcmVsYXRlZCBjb21t
+YW5kcywgdGltZQ0KPiA+IHNldHRpbmcsLCBhbmQgYWxzbyBhIGxvdCBvZiBPRU0gY29tbWFuZHMg
+Zm9yIExFRCwgRkFOIGNvbnRyb2wsIHJlc2V0DQo+ID4gc2lnbmFscywgcmVzZXQgY2F1c2VzLCBC
+VCBjb25uZWN0aW9uIHdpdGggQ1BVLCBldGMuDQo+ID4NCj4gPiBUaGUgcmV1c2Ugb2YgZXhpc3Rp
+bmcgY29kZSBpcyBhIGdvb2QgYWNoaWV2ZW1lbnQuIFdlbGwgZG9uZS4NCj4gPg0KPiA+IEhvdyBk
+aWQgeW91IGZpbmQgdGhlIHVzZSBvZiBPcGVuSVBNSSBmb3IgeW91ciBuZWVkcz8NCj4gPg0KPiAN
+Cj4gSXQncyBnb29kIHRvIHVzLiBJdCdzIGFscmVhZHkgaGFkIG1hbnkgZmVhdHVyZXMgZnJvbSB0
+aGUgYm94IGFuZCBJdCBoYXMNCj4gaW5mcmFzdHJ1Y3R1cmUgZm9yIGFkZGluZyB2ZW5kb3Igc3Bl
+Y2lmaWMgY29kZS4gSXQgaGFzICJzaW11bGF0b3IiIGFuZCBNYXJ2ZWxsDQo+IG1vZHVsZXMuDQo+
+IEFuZCB3ZSBhZGRlZCBNZWxsYW5veC4NCj4gDQo+IFdoZW4gd2Ugc3RhcnRlZCB0byB1c2Ugb3Bl
+bmJtYyBpdHMgaXBtaSBkZW1vbiBoYXMgdmVyeSBsaW1pdGVkIGZlYXR1cmVzDQo+IHN1cHBvcnQu
+DQo+IFdlIGhhZCBjb21taXRtZW50IHRvIHByb3ZpZGUgZW5naW5lZXJpbmcgc2FtcGxlIHRvIG91
+ciBwb3RlbnRpYWwNCj4gY3VzdG9tZXIgdHdvIG1vbnRocyBhZnRlciBIVyBhcnJpdmluZy4gQW5k
+IHdlIHdlcmUgdmVyeSBsaW1pdGVkIGluDQo+IHJlc291cmNlcy4NCj4gU28gd2Ugd2FudGVkIHRv
+IGZpbmQgc29tZSBxdWljay1hbmQtZGlydHkgc29sdXRpb24gaW4gb3JkZXIgdG8gYmUgYWJsZSB0
+bw0KPiBzdXBwb3J0IFNvTCwgc2VyaWFsIHJlZGlyZWN0aW9uLCBTRUwsIFNEUiwgTEFOLCBQRVQv
+UEVGIGFuZCBtb3JlLg0KPiBXZSBidWlsdCBzb21lIHdpcmUtdXAgbW9kZWwgY29ubmVjdGluZyBv
+bmUgb2Ygb3VyIGV4aXN0aW5nIHN5c3RlbSB0bw0KPiBBc3BlZWQgRVZCICh3aXRoIHNlcmlhbCwg
+STJDIGNvbm5lY3Rpb25zIHRvIEZBTiwgUFNVLCBMUEMgY29ubmVjdGlvbnMgZnJvbQ0KPiBob3N0
+IHRvIEJNQykuDQo+IE9uIHRoaXMgbW9kZWwgd2Ugd2VyZSBhYmxlIHRvIGRlYnVnIHJlYWwgc3lz
+dGVtIGludGVyZmFjZSAoTFBDL0JUKSwNCj4gcGFydGlhbGx5IFNEUiwgU0VMLCBTT0wuDQo+IA0K
+PiBXaGVuIHN5c3RlbSBpcyBhcnJpdmVkIHdlIHdlcmUgYWJsZSB0byBjb21lIHVwIGZyb20gdGhl
+IGZpcnN0IHJ1bi4NCj4gQW5kIGFsbCB0aGUgYWJvdmUgZmVhdHVyZXMgd29ya2VkIG1vcmUgb3Ig
+bGVzcyBmaW5lLg0KPiBUaGVuIHdlIGhhZCB0byBkZWJ1ZyBzaGFyZWQgTklDL05DLVNJLCB0aGVy
+bWFsIGFsZ29yaXRobSwgTEVEIGNvbnRyb2wsDQo+IHJlc2V0cyBhbmQgb3RoZXIgc3R1ZmYuDQo+
+IEJ1dCBiYXNpY2FsbHkgd2UgbWFuYWdlZCB0byBwcm92aWRlIGVuZ2luZWVyaW5nIHNhbXBsZSBh
+Y2NvcmRpbmcgdG8gb3VyDQo+IGNvbW1pdG1lbnQuDQo+IA0KPiA+ID4gSXQgZG9lc24ndCB1c2Ug
+REJVUyBpbnRlcmZhY2UuDQo+ID4NCj4gPiBUaGlzIGlzIGEgZG93bnNpZGUuIFRoZSB1c2Ugb2Yg
+ZGJ1cyBhcyBhbiBpbnRlci1wcm9jZXNzIGNvbW11bmljYXRpb24NCj4gPiBtZWNoYW5pc20gaXMg
+c29tZXRoaW5nIHRoYXQgZGVmaW5lcyBPcGVuQk1DIGF0IHRoZSBtb21lbnQuDQo+ID4NCj4gPiBD
+b3VsZCB5b3UgYWRkIGRidXMgSVBDIHRvIHRoZSBleGlzdGluZyBjb2RlYmFzZT8NCj4gPg0KPiAN
+Cj4gSSdsbCBhZGQgZGJ1cyBJUEMgdG8gdGhlIGV4aXN0aW5nIGNvZGViYXNlLCBtYXliZSBJIHdp
+bGwgbmVlZCBzb21lIGd1aWRlbGluZXMNCj4gb24gdGhpcyBtYXR0ZXIuDQo+IA0KPiA+ID4NCj4g
+PiA+IFdlIGFyZSBwbGFubmluZyB0cmFuc2l0aW9uIHRvIE9wZW5CTUMgaXBtaSBkZW1vbiwgYWZ0
+ZXIgd2UgYXJlIGRvbmUNCj4gPiB3aXRoIGFsbCBrZXJuZWwgcmVsYXRlZCBwYXRjaGVzLiBPdXIg
+cGxhbiBpcyB0byBzdGFydCB0cmFuc2l0aW9uIGluDQo+ID4gdGhlIGZvbGxvd2luZyBvcmRlciBT
+b0wsIFNEUiwgU0VMLCBMQU4sIExFRCBhbmQgc28gb24uDQo+ID4NCj4gPiBXaGF0IGxlYWQgdG8g
+dGhpcyBkZWNpc2lvbj8gV2hhdCBhcmUgdGhlIHVwIGFuZCBkb3duIHNpZGVzIG9mIHRoZQ0KPiA+
+IHBob3NwaG9yIGlwbWkgZGFlbW9uIGNvbXBhcmVkIHRvIE9wZW5JUE1JPw0KPiA+DQo+IA0KPiBB
+dCB0aGUgbW9tZW50IGl0J3Mgbm90IHNvIGVhc3kgZm9yIG1lIHRvIGNvbXBhcmUgdGhlIG9wZW5p
+cG1pIGZlYXR1cmUNCj4gdmVyc3VzIG9wZW5ibWMuDQo+IEkgc2hvdWxkIGxlYXJuIG1vcmUgdGhl
+IGN1cnJlbnQgY29udGVudCBvZiB0aGUgbGFzdC4NCj4gDQo+IEFjdHVhbGx5IHdlIGFyZSBPSyB3
+aXRoIG9wZW5pcG1pLCBidXQgd2Ugd2FudGVkIHRvIGJlIGFsaWduZWQgd2l0aA0KPiBvcGVuYm1j
+LCBzaW5jZSBhbGwgdGhlIG90aGVycyBzeXN0ZW1zIGFyZSB1c2luZyBpdC4NCj4gTWF5YmUgYWZ0
+ZXIgd2UnbGwgYWRkIGRidXMgSVBDLCBpdCBjb3VsZCBiZSBzb21lIGNvbXByb21pc2UgYmV0d2Vl
+bg0KPiB0aGVzZSB0d28gcHJvY2Vzc2VzLg0KPiBNYXliZSBzb21lYm9keSBlbHNlIHdvdWxkIGxp
+a2UgdG8gZXh0ZW5kZWQgb3VyIHdvcmsgaW4gb3BlbmlwbWkgZm9yDQo+IHVzaW5nIGl0Lg0KPiAN
+Cj4gQmVzdCByZWdhcmRzLCBNeWtvbGEgS29zdGVub2suDQo+IA0KPiA+ID4gQXQgaGlzIG1vbWVu
+dCB3ZSdkIGxpa2UgdG8gaGF2ZSBmdW5jdGlvbmFsIGltYWdlLCB3aGljaCBjYW4gYmUgYnVpbHQN
+Cj4gPiA+IGZyb20NCj4gPiBPcGVuQk1DIHdpdGggbm8gYW55IHBhdGNoZXMuDQo+ID4gPiBXZSBh
+bHNvIGhhdmUgb25lIGN1c3RvbWVyIGFuZCBpdCdzIGltcG9ydGFudCBmb3IgdXMgdG8gaGF2ZSBh
+DQo+ID4gPiBmdW5jdGlvbmFsDQo+ID4gaW1hZ2UsIHdoaWNoIGhlIGNhbiBidWlsZCBieSBoaW1z
+ZWxmLg0KPiA+DQo+ID4gQWdyZWVkLiBJJ3ZlICsxJ2QgeW91ciBwYXRjaCwgYW5kIHdvdWxkIGxp
+a2UgdG8gc2VlIGl0IG1lcmdlZC4NCj4gPg0KPiA+IENoZWVycywNCj4gPg0KPiA+IEpvZWwNCg==
