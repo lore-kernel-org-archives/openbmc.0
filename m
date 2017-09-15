@@ -1,40 +1,65 @@
-Return-Path: <clg@kaod.org>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=kaod.org
- (client-ip=188.165.38.232; helo=15.mo1.mail-out.ovh.net;
- envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
-X-Greylist: delayed 8400 seconds by postgrey-1.36 at bilbo;
- Fri, 15 Sep 2017 19:51:30 AEST
-Received: from 15.mo1.mail-out.ovh.net (15.mo1.mail-out.ovh.net
- [188.165.38.232])
+Return-Path: <dkodihal@linux.vnet.ibm.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xtrJf251YzDrYB
- for <openbmc@lists.ozlabs.org>; Fri, 15 Sep 2017 19:51:28 +1000 (AEST)
-Received: from player795.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo1.mail-out.ovh.net (Postfix) with ESMTP id 04FE394A09
- for <openbmc@lists.ozlabs.org>; Fri, 15 Sep 2017 09:25:40 +0200 (CEST)
-Received: from zorba.kaod.org (LFbn-1-2231-173.w90-76.abo.wanadoo.fr
- [90.76.52.173]) (Authenticated sender: postmaster@kaod.org)
- by player795.ha.ovh.net (Postfix) with ESMTPSA id C19F2120087;
- Fri, 15 Sep 2017 09:25:37 +0200 (CEST)
-Subject: Re: [PATCH qemu] arm: aspeed: Add palmetto and evb EEPROM I2C devices
-To: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>
-Cc: openbmc@lists.ozlabs.org
-References: <20170915061830.1527-1-joel@jms.id.au>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <9659eb97-6d10-d204-02a5-9359e2a09b8f@kaod.org>
-Date: Fri, 15 Sep 2017 09:25:37 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.3.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xtx7w5v9zzDrXg
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Sep 2017 23:29:16 +1000 (AEST)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v8FDSn1F023692
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Sep 2017 09:29:13 -0400
+Received: from e23smtp05.au.ibm.com (e23smtp05.au.ibm.com [202.81.31.147])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2d0cq49d59-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Sep 2017 09:29:13 -0400
+Received: from localhost
+ by e23smtp05.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
+ Fri, 15 Sep 2017 23:29:11 +1000
+Received: from d23relay08.au.ibm.com (202.81.31.227)
+ by e23smtp05.au.ibm.com (202.81.31.211) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Fri, 15 Sep 2017 23:29:09 +1000
+Received: from d23av06.au.ibm.com (d23av06.au.ibm.com [9.190.235.151])
+ by d23relay08.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v8FDT9Gi35913968
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Sep 2017 23:29:09 +1000
+Received: from d23av06.au.ibm.com (localhost [127.0.0.1])
+ by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ v8FDT94X005922
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Sep 2017 23:29:09 +1000
+Received: from Deepaks-MacBook-Pro.local ([9.79.249.196])
+ by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ v8FDT7SX005874
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Sep 2017 23:29:08 +1000
+From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+Subject: Mechanism for external event notification
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Fri, 15 Sep 2017 18:59:07 +0530
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:52.0)
+ Gecko/20100101 Thunderbird/52.3.0
 MIME-Version: 1.0
-In-Reply-To: <20170915061830.1527-1-joel@jms.id.au>
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 9256023138316421890
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelledrgeejgdejkecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+Content-Transfer-Encoding: 7bit
+X-TM-AS-MML: disable
+x-cbid: 17091513-0016-0000-0000-000002650F0F
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17091513-0017-0000-0000-000006EA1D43
+Message-Id: <b3329680-caa6-5873-d986-beda11de5902@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-09-15_05:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
+ definitions=main-1709150196
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -46,59 +71,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Sep 2017 09:51:30 -0000
+X-List-Received-Date: Fri, 15 Sep 2017 13:29:17 -0000
 
-On 09/15/2017 08:18 AM, Joel Stanley wrote:
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
+Hello,
 
-We could fill the eeprom_buf with some valid data if needed.
+I have a proposal on the mechanism be able to do external event 
+notification from the BMC. With this, the BMC would be able to push 
+event notifications to interested clients that have a connection 
+established, without having the clients to do a poll.
 
-Reviewed-by: Cédric Le Goater <clg@kaod.org>
+I was primarily looking at websockets [1] and the gevent-websocket 
+project [2]. The idea is to enhance OpenBMC's phosphor-rest-server 
+implementation to be able to handle websockets. The existing rest server 
+implementation uses the Bottle framework, and it is easily possible to 
+handle a websocket route via Bottle. Once a websocket has been created, 
+there are various possibilities - a client can subscribe to specific 
+events and push data to the server, the server can push data to the 
+client, and the client should still be able to use the regular http routes.
 
-> ---
->  hw/arm/aspeed.c | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
-> 
-> diff --git a/hw/arm/aspeed.c b/hw/arm/aspeed.c
-> index 9ef5fb3b6ddc..2f596959649a 100644
-> --- a/hw/arm/aspeed.c
-> +++ b/hw/arm/aspeed.c
-> @@ -253,6 +253,7 @@ static void aspeed_board_init(MachineState *machine,
->  
->  static void palmetto_bmc_i2c_init(AspeedBoardState *bmc)
->  {
-> +    uint8_t *eeprom_buf = g_malloc0(256 * 1024);
->      AspeedSoCState *soc = &bmc->soc;
->      DeviceState *dev;
->  
-> @@ -260,6 +261,13 @@ static void palmetto_bmc_i2c_init(AspeedBoardState *bmc)
->       * enough to provide basic RTC features. Alarms will be missing */
->      i2c_create_slave(aspeed_i2c_get_bus(DEVICE(&soc->i2c), 0), "ds1338", 0x68);
->  
-> +    /* 256KB EEPROM */
-> +    dev = qdev_create((BusState *) aspeed_i2c_get_bus(DEVICE(&soc->i2c), 0),
-> +                      "smbus-eeprom");
-> +    qdev_prop_set_uint8(dev, "address", 0x50);
-> +    qdev_prop_set_ptr(dev, "data", eeprom_buf);
-> +    qdev_init_nofail(dev);
-> +
->      /* add a TMP423 temperature sensor */
->      dev = i2c_create_slave(aspeed_i2c_get_bus(DEVICE(&soc->i2c), 2),
->                             "tmp423", 0x4c);
-> @@ -295,7 +303,15 @@ static const TypeInfo palmetto_bmc_type = {
->  
->  static void ast2500_evb_i2c_init(AspeedBoardState *bmc)
->  {
-> +    uint8_t *eeprom_buf = g_malloc0(8 * 1024);
->      AspeedSoCState *soc = &bmc->soc;
-> +    DeviceState *dev;
-> +
-> +    dev = qdev_create((BusState *) aspeed_i2c_get_bus(DEVICE(&soc->i2c), 3),
-> +                      "smbus-eeprom");
-> +    qdev_prop_set_uint8(dev, "address", 0x50);
-> +    qdev_prop_set_ptr(dev, "data", eeprom_buf);
-> +    qdev_init_nofail(dev);
->  
->      /* The AST2500 EVB expects a LM75 but a TMP105 is compatible */
->      i2c_create_slave(aspeed_i2c_get_bus(DEVICE(&soc->i2c), 7), "tmp105", 0x4d);
-> 
+I hacked up a quick prototype [3] via which I can notify connected 
+clients about d-bus paths being created on the BMC.
+
+Thoughts or questions about the proposal?
+
+[1] https://www.fullstackpython.com/websockets.html
+[2] https://gitlab.com/noppo/gevent-websocket
+[3] https://gerrit.openbmc-project.xyz/#/c/6679/
+
+Regards,
+Deepak
