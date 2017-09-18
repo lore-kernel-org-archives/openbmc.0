@@ -1,53 +1,51 @@
 Return-Path: <robherring2@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=209.85.223.195; helo=mail-io0-f195.google.com;
+ (client-ip=209.85.223.196; helo=mail-io0-f196.google.com;
  envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
-Received: from mail-io0-f195.google.com (mail-io0-f195.google.com
- [209.85.223.195])
+Received: from mail-io0-f196.google.com (mail-io0-f196.google.com
+ [209.85.223.196])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xwwwz49KXzDq5k
- for <openbmc@lists.ozlabs.org>; Tue, 19 Sep 2017 05:26:43 +1000 (AEST)
-Received: by mail-io0-f195.google.com with SMTP id e9so431330iod.5
- for <openbmc@lists.ozlabs.org>; Mon, 18 Sep 2017 12:26:42 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xwxMn4KxVzDq5k
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Sep 2017 05:46:29 +1000 (AEST)
+Received: by mail-io0-f196.google.com with SMTP id d16so2240853ioj.2
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Sep 2017 12:46:29 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=ybuTXlMnmRYJR3SxhyNx4KmvjEJ0Yzn4P1bK/8Feqxo=;
- b=ClGBWcMLLZr2weUFPYkl90ZO3MCwsUPJuU6oCU3tn8dHFJ/ivJHzTr5717zj7PORJq
- 1M/ZxdjUbTpv3wkeHdxfU5ccWZJmRoOKpf0h1mvchFatN872t+s1/d/hLFZd6vc9zouc
- QpLkcB7TUagknwCTCpydcprHpmb1uZgcOSHRDqiPbo8RUwx/59p8ujrkZga/EsyGfU0s
- 1KIYECvtjz830JGvTC6GqIlnvszMg4CKMEck9eeI+c7BOd2DpY2x7gGaKAa5qmbQu7ea
- Yf3P1tXBNKpZj7lLhIJNVP6/LS+w/JoI1z+4JgxfERmVpoeZTcAZFGxiYvLNMSpEk8qv
- y3gg==
-X-Gm-Message-State: AHPjjUgQnChgYdwSUIfRgW6LeSW/D1MXzE9woydkNfwDyMRklImhTh/2
- bpLLcOePmBFPpQ==
-X-Google-Smtp-Source: AOwi7QClUB3Rbl/XOzUFFPLWQNamVnm41HFiOOQUK4gy5wEyIVRK3vzEtMGorfQrzCxLrOgOxbTvgg==
-X-Received: by 10.202.228.201 with SMTP id b192mr25821446oih.132.1505762800486; 
- Mon, 18 Sep 2017 12:26:40 -0700 (PDT)
+ bh=4lgfE3rtjfHa7tZ8rh0v/+gm5r1olQnp0MRKkRKt6Ug=;
+ b=iA1kpoYhBQSmNv/9gUhBIssrsESUseHcIbdk1Eop/F9yDiLW9Qoxj09aS7CjahWBjk
+ /9veua0+9JhG9t1m6jpe0rAGxTOMJc6RthIYlbmo/65tDwxhId3FNuUzXMrQO1WeVF7z
+ I9DgZ9OA8MGta3XFeaWelKOQDz0OThPAkH0IYOBRMnwgRknwSwVXImg8hGSqGXk3oxWe
+ bLTboljsS+NGjpRVWaz/bYI8gJEmIizP3eyzhJtMvtKHE8I03rJcqklCYJ+7Kvyy7Fvd
+ wm58PcLSyWl6bW9wVPXUbY0srnm4f0+GRVp5f8Hkx/m51Z46u/HeSkhTMDiyomCWoFQQ
+ Ua7w==
+X-Gm-Message-State: AHPjjUjLhQvpA48XghQO8tutoSOGHf/f7SsASL+UdJCB3NEbSeWeY89U
+ p/QcOI73haJ1qQ==
+X-Google-Smtp-Source: AOwi7QDemTw/dh7jtxD/yjMxkNNpfJ+gzl/G/m0OpvaQPNz4Plr/Xd6o5xltLx2mCi08YHNmCOut2w==
+X-Received: by 10.202.80.15 with SMTP id e15mr28301663oib.155.1505763986946;
+ Mon, 18 Sep 2017 12:46:26 -0700 (PDT)
 Received: from localhost (216-188-254-6.dyn.grandenetworks.net.
  [216.188.254.6])
- by smtp.gmail.com with ESMTPSA id p62sm1131763oic.50.2017.09.18.12.26.39
+ by smtp.gmail.com with ESMTPSA id e65sm1316245oia.15.2017.09.18.12.46.26
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 18 Sep 2017 12:26:39 -0700 (PDT)
-Date: Mon, 18 Sep 2017 14:26:38 -0500
+ Mon, 18 Sep 2017 12:46:26 -0700 (PDT)
+Date: Mon, 18 Sep 2017 14:46:25 -0500
 From: Rob Herring <robh@kernel.org>
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: linux@roeck-us.net, linux-hwmon@vger.kernel.org, mark.rutland@arm.com,
- jdelvare@suse.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, joel@jms.id.au,
- mspinler@linux.vnet.ibm.com, msbarth@linux.vnet.ibm.com,
- openbmc@lists.ozlabs.org
-Subject: Re: [PATCH v3 1/3] dt-bindings: hwmon: pmbus: Add Maxim MAX31785
- documentation
-Message-ID: <20170918192638.4xqszyj466lrnpbz@rob-hp-laptop>
-References: <20170908043919.6924-1-andrew@aj.id.au>
- <20170908043919.6924-2-andrew@aj.id.au>
+To: Brendan Higgins <brendanhiggins@google.com>
+Cc: mark.rutland@arm.com, linux@armlinux.org.uk, avifishman70@gmail.com,
+ tmaimon77@gmail.com, raltherr@google.com, f.fainelli@gmail.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v5 2/3] arm: dts: add Nuvoton NPCM750 device tree
+Message-ID: <20170918194625.xz5y7tkemjnbwunh@rob-hp-laptop>
+References: <20170909015308.30001-1-brendanhiggins@google.com>
+ <20170909015308.30001-3-brendanhiggins@google.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20170908043919.6924-2-andrew@aj.id.au>
+In-Reply-To: <20170909015308.30001-3-brendanhiggins@google.com>
 User-Agent: NeoMutt/20170113 (1.7.2)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
@@ -60,143 +58,407 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Sep 2017 19:26:44 -0000
+X-List-Received-Date: Mon, 18 Sep 2017 19:46:30 -0000
 
-On Fri, Sep 08, 2017 at 02:39:17PM +1000, Andrew Jeffery wrote:
-> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> ---
->  .../devicetree/bindings/hwmon/pmbus/max31785.txt   | 158 +++++++++++++++++++++
-
-I think this needs to be located by what it does (fan control), not what 
-interface it has (pmbus).
-
-I'm not all that happy with hwmon either because things here seem to 
-just be based on being Linux hwmon devices which is sometimes arbitrary. 
-
->  1 file changed, 158 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt
+On Fri, Sep 08, 2017 at 06:53:07PM -0700, Brendan Higgins wrote:
+> Add a common device tree for all Nuvoton NPCM750 BMCs and a board
+> specific device tree for the NPCM750 (Poleg) evaluation board.
 > 
-> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt b/Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt
+> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+> Reviewed-by: Tomer Maimon <tmaimon77@gmail.com>
+> Reviewed-by: Avi Fishman <avifishman70@gmail.com>
+> Reviewed-by: Joel Stanley <joel@jms.id.au>
+> Tested-by: Tomer Maimon <tmaimon77@gmail.com>
+> Tested-by: Avi Fishman <avifishman70@gmail.com>
+> ---
+>  .../arm/cpu-enable-method/nuvoton,npcm7xx-smp      |  42 +++++
+>  .../devicetree/bindings/arm/npcm/npcm.txt          |   6 +
+>  arch/arm/boot/dts/nuvoton-npcm750-evb.dts          |  57 +++++++
+>  arch/arm/boot/dts/nuvoton-npcm750.dtsi             | 177 +++++++++++++++++++++
+>  include/dt-bindings/clock/nuvoton,npcm7xx-clks.h   |  39 +++++
+>  5 files changed, 321 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/arm/cpu-enable-method/nuvoton,npcm7xx-smp
+>  create mode 100644 Documentation/devicetree/bindings/arm/npcm/npcm.txt
+>  create mode 100644 arch/arm/boot/dts/nuvoton-npcm750-evb.dts
+>  create mode 100644 arch/arm/boot/dts/nuvoton-npcm750.dtsi
+>  create mode 100644 include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/cpu-enable-method/nuvoton,npcm7xx-smp b/Documentation/devicetree/bindings/arm/cpu-enable-method/nuvoton,npcm7xx-smp
 > new file mode 100644
-> index 000000000000..af9578e7742c
+> index 000000000000..e81f85b400cf
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt
-> @@ -0,0 +1,158 @@
-> +Bindings for the Maxim MAX31785 Intelligent Fan Controller
-> +==========================================================
+> +++ b/Documentation/devicetree/bindings/arm/cpu-enable-method/nuvoton,npcm7xx-smp
+> @@ -0,0 +1,42 @@
+> +=========================================================
+> +Secondary CPU enable-method "nuvoton,npcm7xx-smp" binding
+> +=========================================================
 > +
-> +Reference:
+> +To apply to all CPUs, a single "nuvoton,npcm7xx-smp" enable method should be
+> +defined in the "cpus" node.
 > +
-> +https://datasheets.maximintegrated.com/en/ds/MAX31785.pdf
+> +Enable method name:	"nuvoton,npcm7xx-smp"
+> +Compatible machines:	"nuvoton,npcm750"
+> +Compatible CPUs:	"arm,cortex-a9"
+> +Related properties:	(none)
 > +
-> +Required properties:
-> +- compatible     : One of "maxim,max31785" or "maxim,max31785a"
-> +- reg            : I2C address, one of 0x52, 0x53, 0x54, 0x55.
-> +- #address-cells : Must be 1
-> +- #size-cells    : Must be 0
-> +- #thermal-sensor-cells  : Should be 1. The device supports:
-> +                           - One internal sensor
-> +                           - Four external I2C digital sensors
-> +                           - Six external thermal diodes
+> +Note:
+> +This enable method needs valid nodes compatible with "arm,cortex-a9-scu" and
+> +"nuvoton,npcm750-gcr".
+> +
+> +Example:
+> +
+> +	cpus {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +		enable-method = "nuvoton,npcm7xx-smp";
+> +
+> +		cpu@0 {
+> +			device_type = "cpu";
+> +			compatible = "arm,cortex-a9";
+> +			clocks = <&clk NPCM7XX_CLK_CPU>;
+> +			clock-names = "clk_cpu";
+> +			reg = <0>;
+> +			next-level-cache = <&L2>;
+> +		};
+> +
+> +		cpu@1 {
+> +			device_type = "cpu";
+> +			compatible = "arm,cortex-a9";
+> +			clocks = <&clk NPCM7XX_CLK_CPU>;
+> +			clock-names = "clk_cpu";
+> +			reg = <1>;
+> +			next-level-cache = <&L2>;
+> +		};
+> +	};
+> +
+> diff --git a/Documentation/devicetree/bindings/arm/npcm/npcm.txt b/Documentation/devicetree/bindings/arm/npcm/npcm.txt
+> new file mode 100644
+> index 000000000000..2d87d9ecea85
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/arm/npcm/npcm.txt
+> @@ -0,0 +1,6 @@
+> +NPCM Platforms Device Tree Bindings
+> +-----------------------------------
+> +NPCM750 SoC
+> +Required root node properties:
+> +	- compatible = "nuvoton,npcm750";
+> +
+> diff --git a/arch/arm/boot/dts/nuvoton-npcm750-evb.dts b/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
+> new file mode 100644
+> index 000000000000..e54a870d3ee0
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
+> @@ -0,0 +1,57 @@
+> +/*
+> + * DTS file for all NPCM750 SoCs
+> + *
+> + * Copyright 2012 Tomer Maimon <tomer.maimon@nuvoton.com>
+> + *
+> + * The code contained herein is licensed under the GNU General Public
+> + * License. You may obtain a copy of the GNU General Public License
+> + * Version 2 or later at the following locations:
+> + *
+> + * http://www.opensource.org/licenses/gpl-license.html
+> + * http://www.gnu.org/copyleft/gpl.html
+> + */
+> +
+> +/dts-v1/;
+> +#include "nuvoton-npcm750.dtsi"
+> +
+> +/ {
+> +	model = "Nuvoton npcm750 Development Board (Device Tree)";
+> +	compatible = "nuvoton,npcm750";
+> +
+> +	chosen {
+> +		stdout-path = &serial3;
 
-You should define the IDs here, not just how many of each type.
+stdout-path is a path string, not a phandle.
+
+> +		bootargs = "earlyprintk=serial,serial3,115200";
+
+That's not valid bootargs with mainline.
+
+> +	};
+> +
+> +	memory {
+> +		reg = <0 0x40000000>;
+> +	};
+> +
+> +	cpus {
+> +		enable-method = "nuvoton,npcm7xx-smp";
+
+This is not a board specific property. Belongs in the SoC dtsi.
+
+> +	};
+> +};
+> +
+> +&clk {
+> +	status = "okay";
+
+Pretty sure you'd always want the clock controller enabled.
+
+> +};
+> +
+> +&watchdog1 {
+> +	status = "okay";
+> +};
+> +
+> +&serial0 {
+> +	status = "okay";
+> +};
+> +
+> +&serial1 {
+> +	status = "okay";
+> +};
+> +
+> +&serial2 {
+> +	status = "okay";
+> +};
+> +
+> +&serial3 {
+> +	status = "okay";
+> +};
+> diff --git a/arch/arm/boot/dts/nuvoton-npcm750.dtsi b/arch/arm/boot/dts/nuvoton-npcm750.dtsi
+> new file mode 100644
+> index 000000000000..bca96b3ae9d3
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nuvoton-npcm750.dtsi
+> @@ -0,0 +1,177 @@
+> +/*
+> + * DTSi file for the NPCM750 SoC
+> + *
+> + * Copyright 2012 Tomer Maimon <tomer.maimon@nuvoton.com>
+> + *
+> + * The code contained herein is licensed under the GNU General Public
+> + * License. You may obtain a copy of the GNU General Public License
+> + * Version 2 or later at the following locations:
+> + *
+> + * http://www.opensource.org/licenses/gpl-license.html
+> + * http://www.gnu.org/copyleft/gpl.html
+> + */
+> +
+> +#include "skeleton.dtsi"
+
+Don't use skeleton.dtsi. We want to remove it.
+
+> +#include <dt-bindings/interrupt-controller/arm-gic.h>
+> +#include <dt-bindings/clock/nuvoton,npcm7xx-clks.h>
+> +
+> +/ {
+> +	#address-cells = <1>;
+> +	#size-cells = <1>;
+> +	interrupt-parent = <&gic>;
+> +
+> +	cpus {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		cpu@0 {
+> +			device_type = "cpu";
+> +			compatible = "arm,cortex-a9";
+> +			clocks = <&clk NPCM7XX_CLK_CPU>;
+> +			clock-names = "clk_cpu";
+> +			reg = <0>;
+> +			next-level-cache = <&l2>;
+> +		};
+> +
+> +		cpu@1 {
+> +			device_type = "cpu";
+> +			compatible = "arm,cortex-a9";
+> +			clocks = <&clk NPCM7XX_CLK_CPU>;
+> +			clock-names = "clk_cpu";
+> +			reg = <1>;
+> +			next-level-cache = <&l2>;
+> +		};
+> +	};
+> +
+> +	gcr: gcr@f0800000 {
+> +		compatible = "nuvoton,npcm750-gcr", "syscon",
+> +			"simple-mfd";
+> +		reg = <0xf0800000 0x1000>;
+> +	};
+> +
+> +	scu: scu@f03fe000 {
+> +		compatible = "arm,cortex-a9-scu";
+> +		reg = <0xf03fe000 0x1000>;
+> +	};
+> +
+> +	l2: l2-cache@f03fc000 {
+
+cache-controller@...
+
+> +		compatible = "arm,pl310-cache";
+> +		reg = <0xf03fc000 0x1000>;
+> +		interrupts = <0 21 4>;
+> +		cache-unified;
+> +		cache-level = <2>;
+> +		clocks = <&clk NPCM7XX_CLK_AXI>;
+> +	};
+> +
+> +	gic: interrupt-controller@f03ff000 {
+> +		compatible = "arm,cortex-a9-gic";
+> +		interrupt-controller;
+> +		#interrupt-cells = <3>;
+> +		reg = <0xf03ff000 0x1000>,
+> +		    <0xf03fe100 0x100>;
+> +	};
+> +
+> +	clk: clock-controller@f0801000 {
+> +		compatible = "nuvoton,npcm750-clk";
+> +		#clock-cells = <1>;
+> +		reg = <0xf0801000 0x1000>;
+> +	};
+
+All these memory mapped peripherals should be under a bus/soc node
 
 > +
-> +Optional properties:
-> +- use-stored-presence    : Do not treat the devicetree description as canon for
-> +                           fan presence (the 'installed' bit of FAN_CONFIG_*).
-> +                           Instead, rely on the on the default value store of
-> +                           the device to populate it.
+> +	/* external clock signal rg1refck, supplied by the phy */
+> +	clk-rg1refck {
+> +		compatible = "fixed-clock";
+> +		#clock-cells = <0>;
+> +		clock-frequency = <125000000>;
+> +	};
+> +
+> +	/* external clock signal rg2refck, supplied by the phy */
+> +	clk-rg2refck {
+> +		compatible = "fixed-clock";
+> +		#clock-cells = <0>;
+> +		clock-frequency = <125000000>;
+> +	};
+> +
+> +	clk-xin {
+> +		compatible = "fixed-clock";
+> +		#clock-cells = <0>;
+> +		clock-frequency = <50000000>;
+> +	};
+> +
+> +	timer@f03fe600 {
+> +		compatible = "arm,cortex-a9-twd-timer";
+> +		reg = <0xf03fe600 0x20>;
+> +		interrupts = <1 13 0x304>;
+> +		clocks = <&clk NPCM7XX_CLK_TIMER>;
+> +	};
+> +
+> +	apb {
+> +		#address-cells = <1>;
+> +		#size-cells = <1>;
+> +		compatible = "simple-bus";
+> +		interrupt-parent = <&gic>;
+> +		ranges;
 
-Boolean? Please be explicit.
-
-Needs a vendor prefix.
+It's preferred to have actual values here and limit the address range of 
+the bus.
 
 > +
-> +Capabilities are configured through subnodes of the controller's node.
+> +		timer0: timer@f0000000 {
+> +			compatible = "nuvoton,npcm750-timer";
+> +			interrupts = <0 32 4>;
+> +			reg = <0xf0000000 0x1000>;
+> +			clocks = <&clk NPCM7XX_CLK_TIMER>;
+> +		};
 > +
-> +Fans
-> +----
+> +		watchdog0: watchdog@f0008000 {
+> +			compatible = "nuvoton,npcm750-wdt";
+> +			interrupts = <0 47 4>;
+> +			reg = <0xf0008000 0x1000>;
+> +			status = "disabled";
+> +			clocks = <&clk NPCM7XX_CLK_TIMER>;
+> +		};
 > +
-> +Only fans with subnodes present will be considered as installed. If
-> +use-stored-presence is present in the parent node, then only fans that are both
-> +defined in the devicetree and have their installed bit set are considered
-> +installed.
+> +		watchdog1: watchdog@f0009000 {
+> +			compatible = "nuvoton,npcm750-wdt";
+> +			interrupts = <0 48 4>;
+> +			reg = <0xf0009000 0x1000>;
+> +			status = "disabled";
+> +			clocks = <&clk NPCM7XX_CLK_TIMER>;
+> +		};
 > +
-> +Required subnode properties:
-> +- compatible             : Must be "pmbus-fan"
-
-"pmbus" is a property of the controller, not the fan, right? We should 
-have compatibles along the lines of the type of fan like 4-wire, 3-wire, 
-etc. 
-
-> +- reg                    : The PMBus page the properties apply to.
-> +- #cooling-cells         : Should be 2. See the thermal bindings at [1].
-> +- maxim,fan-rotor-input  : The type of rotor measurement provided to the
-> +                           controller. Must be either "tach" for tachometer
-> +                           pulses or "lock" for a locked-rotor signal.
-> +- maxim,fan-lock-polarity: Required iff maxim,fan-rotor-input is "lock". Valid
-> +                           values are "low" for active low, "high" for active
-> +                           high.
+> +		watchdog2: watchdog@f000a000 {
+> +			compatible = "nuvoton,npcm750-wdt";
+> +			interrupts = <0 49 4>;
+> +			reg = <0xf000a000 0x1000>;
+> +			status = "disabled";
+> +			clocks = <&clk NPCM7XX_CLK_TIMER>;
+> +		};
 > +
-> +Optional subnode properties:
-> +- fan-mode               : "rpm" or "pwm". Default value is "pwm".
-> +- tach-pulses            : Tachometer pulses per revolution. Valid values are
-> +                           1, 2, 3 or 4. The default is 1.
-> +- cooling-min-level      : Smallest cooling state accepted. See [1].
-> +- cooling-max-level      : Largest cooling state accepted. See [1].
-> +- maxim,fan-no-fault-ramp: Do not ramp the fan to 100% PWM duty on detecting a
-> +                           fan fault
-> +- maxim,fan-startup      : The number of rotations required before taking
-> +                           emergency action for an unresponsive fan and driving
-> +                           it with 100% or 0% PWM duty, depending on the state
-> +                           of maxim,fan-no-fault-ramp. Valid values are 0
-> +                           (automatic spin-up disabled), 2, 4, or 8. Default
-> +                           value is 0.
-> +- maxim,fan-health       : Enable automated fan health check
-> +- maxim,fan-ramp         : Configures how fast the device ramps the PWM duty
-> +                           cycle from one value to another. Valid values are 0
-> +                           to 7 inclusive, with values 0 - 2 configuring a
-> +                           1000ms update rate and 1 - 3% duty respective duty
-> +                           increase, and 3 - 7 a 200ms update rate with a 1 -
-> +                           5% respective duty increase. Default value is 0.
-> +- maxim,fan-no-watchdog  : Do not ramp fan to 100% PWM duty on failure to
-> +                           update desired fan rate inside 10s. This implies
-> +                           maxim,tmp-no-fault-ramp
-> +- maxim,tmp-no-fault-ramp: Do not ramp fan to 100% PWM duty on temperature
-> +                           sensor fault detection. This implies
-> +                           maxim,fan-no-watchdog
-> +- maxim,tmp-hysteresis   : The temperature hysteresis used to determine
-> +                           transitions to lower fan speed bands in the
-> +                           temperature/fan rate lookup table. Valid values are
-> +                           2, 4, 6 or 8 (degrees celcius). Default value is 2.
-> +- maxim,fan-dual-tach    : Enable dual tachometer functionality
-> +- maxim,fan-pwm-freq     : The PWM frequency. Valid values are 30, 50, 100, 150
-> +                           and 25000 (Hz). Default value is 30Hz.
-> +- maxim,fan-lookup-table : A 16-element cell array of alternating temperature
-> +                           and rate values representing the look up table. The
-> +                           rate units are set through the fan-mode property.
-> +- maxim,fan-fault-pin-mon: Ramp fans to 100% PWM duty when the FAULT pin is
-> +                           asserted
-
-In general, I think a good portion of these should be either implied by 
-a fan compatible string or be part of a common fan binding.
-
+> +		serial0: serial0@f0001000 {
+> +			compatible = "nuvoton,npcm750-uart";
+> +			reg = <0xf0001000 0x1000>;
+> +			clocks = <&clk NPCM7XX_CLK_UART_CORE>;
+> +			interrupts = <0 2 4>;
+> +			status = "disabled";
+> +		};
 > +
-> +Temperature
-> +-----------
+> +		serial1: serial1@f0002000 {
+> +			compatible = "nuvoton,npcm750-uart";
+> +			reg = <0xf0002000 0x1000>;
+> +			clocks = <&clk NPCM7XX_CLK_UART_CORE>;
+> +			interrupts = <0 3 4>;
+> +			status = "disabled";
+> +		};
 > +
-> +Required subnode properties:
-> +- compatible    : Must be "pmbus-temperature"
-> +- reg           : The PMBus page the properties apply to.
+> +		serial2: serial2@f0003000 {
+> +			compatible = "nuvoton,npcm750-uart";
+> +			reg = <0xf0003000 0x1000>;
+> +			clocks = <&clk NPCM7XX_CLK_UART_CORE>;
+> +			interrupts = <0 4 4>;
+> +			status = "disabled";
+> +		};
 > +
-> +Optional subnode properties:
-> +- maxim,tmp-offset      : Valid values are 0 - 30 (degrees celcius) inclusive.
-> +                          Default value is 0.
-> +- maxim,tmp-fans        : An array of phandles to fans controlled by the
-> +                          current temperature sensor.
-
-Is this a feature of the Maxim chip or just a mapping of temperature 
-sensors to fans. The latter should be a common property.
-
-Rob
+> +		serial3: serial3@f0004000 {
+> +			compatible = "nuvoton,npcm750-uart";
+> +			reg = <0xf0004000 0x1000>;
+> +			clocks = <&clk NPCM7XX_CLK_UART_CORE>;
+> +			interrupts = <0 5 4>;
+> +			status = "disabled";
+> +		};
+> +	};
+> +};
+> diff --git a/include/dt-bindings/clock/nuvoton,npcm7xx-clks.h b/include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
+> new file mode 100644
+> index 000000000000..c69d3bbf7e42
+> --- /dev/null
+> +++ b/include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
+> @@ -0,0 +1,39 @@
+> +/*
+> + * Copyright (C) 2016 Nuvoton Technologies,  tali.perry@nuvoton.com
+> + *
+> + * This software is licensed under the terms of the GNU General Public
+> + * License version 2, as published by the Free Software Foundation, and
+> + * may be copied, distributed, and modified under those terms.
+> + */
+> +
+> +#ifndef _DT_BINDINGS_CLK_NPCM7XX_H
+> +#define _DT_BINDINGS_CLK_NPCM7XX_H
+> +
+> +#define NPCM7XX_CLK_PLL0	0
+> +#define NPCM7XX_CLK_PLL1	1
+> +#define NPCM7XX_CLK_PLL2	2
+> +#define NPCM7XX_CLK_GFX		3
+> +#define NPCM7XX_CLK_APB1	4
+> +#define NPCM7XX_CLK_APB2	5
+> +#define NPCM7XX_CLK_APB3	6
+> +#define NPCM7XX_CLK_APB4	7
+> +#define NPCM7XX_CLK_APB5	8
+> +#define NPCM7XX_CLK_MC		9
+> +#define NPCM7XX_CLK_CPU		10
+> +#define NPCM7XX_CLK_SPI0	11
+> +#define NPCM7XX_CLK_SPI3	12
+> +#define NPCM7XX_CLK_SPIX	13
+> +#define NPCM7XX_CLK_UART_CORE	14
+> +#define NPCM7XX_CLK_TIMER	15
+> +#define NPCM7XX_CLK_HOST_UART	16
+> +#define NPCM7XX_CLK_MMC		17
+> +#define NPCM7XX_CLK_SDHC	18
+> +#define NPCM7XX_CLK_ADC		19
+> +#define NPCM7XX_CLK_GFX_MEM	20
+> +#define NPCM7XX_CLK_USB_BRIDGE	21
+> +#define NPCM7XX_CLK_AXI		22
+> +#define NPCM7XX_CLK_AHB		23
+> +#define NPCM7XX_CLK_EMC		24
+> +#define NPCM7XX_CLK_GMAC	25
+> +
+> +#endif
+> -- 
+> 2.14.1.581.gf28d330327-goog
+> 
