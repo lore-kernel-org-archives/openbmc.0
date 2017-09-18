@@ -1,66 +1,65 @@
-Return-Path: <groeck7@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c05::241; helo=mail-pg0-x241.google.com;
- envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
+Return-Path: <venture@google.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c08::234; helo=mail-ua0-x234.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="G53nXNZu"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="eOzfcFlj"; 
  dkim-atps=neutral
-Received: from mail-pg0-x241.google.com (mail-pg0-x241.google.com
- [IPv6:2607:f8b0:400e:c05::241])
+Received: from mail-ua0-x234.google.com (mail-ua0-x234.google.com
+ [IPv6:2607:f8b0:400c:c08::234])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xwpj01rQRzDqjB;
- Tue, 19 Sep 2017 00:45:56 +1000 (AEST)
-Received: by mail-pg0-x241.google.com with SMTP id j16so356280pga.2;
- Mon, 18 Sep 2017 07:45:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=OEBXf7j1lyERepXlCMHdDStA1dPvbae7tA0eNSx8r84=;
- b=G53nXNZuH3wk397LOioHvdFH8FOnjGEmy8Xm9jwLygMI+DSR0vct5bjuuwKFmq/1Xx
- f4vV85X4QwosE/Zre0l1B1J/r+Ob6xOnohS7ovMobqp6XXt/q2V8OyFUXfoDggDmU+hq
- oB6uiXwg8dwXYUQKxj/OzsWFSBM2IIsdK67v3kIH+AQhodbfAA5YBmDPDxNGQjzUQnxO
- /HeBkqjNQMZ6k+c71cSSeBKyrdIqQ6+YRND/9v8K5AdZ9b0y/frTk+iuyIyy3XeKJo/A
- vQcuWHgdaRN8zs+nqZ0T4LRbPZre4rCJk16rLrcFq6BqRqFYqZJ/gGjSJvBmKNlQ0MJv
- 09vw==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xwpsL3GjqzDqjB
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Sep 2017 00:53:09 +1000 (AEST)
+Received: by mail-ua0-x234.google.com with SMTP id s15so453977uag.1
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Sep 2017 07:53:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=PLDV0Qjzm+RnzJip0qqGoLoRaF2vN8Fulk3pphxyaGw=;
+ b=eOzfcFlj9ULxArXpoyzJFA4RoW1YqdqV8xID1m8z1GFDSBK/+vIqjBVC2k/Q3C+8GK
+ TwV+W/2EfrIao4QtBn1vZ0lKYP/j/gB5w/0G2ATd2l07M+5+1cja7R0Y6zpEC7MClex8
+ Wd7HB6wQEHPpljM3HYo08oJi+EO4h9cA10KSO5poWar4H7KCnBU/lPgWx9f0JCJ7xu21
+ 2JtezWqIht8wi2k/g26ZNSeIuGwQHdv/Kz6i0YJP1fgoVUAlTTt4lGPmLcEp06MJ0MRQ
+ GKpbqhrAjrho4KXrHnYzVrZej051a2PGoqyWWBF4HrmpDKViLBcCCfmJeoWOisBBemt2
+ KBPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :references:mime-version:content-disposition:in-reply-to:user-agent;
- bh=OEBXf7j1lyERepXlCMHdDStA1dPvbae7tA0eNSx8r84=;
- b=qITHRuPgrLC8AThGIOKcicORvbFUoGq7mhz2ne6irnLu6skLb3dt6RFAqvi/OXM5n+
- qoNQX5xrdum+zqXn8x2ecnAMehzNP0ZA8vxhJ4EOmwQLtoW+aam7thhD2ABSiPBaZb7p
- yEr7DD5qMGv02wL2cFEasmZwkYXnTQoCfwawXubDTGWz2bdQvy+HpUBMJvSdt5HuslV3
- EW86CWX31tyGOadLPD/Lob16ryevZNrDhh+zGD2l78ZlVz+D2m+wEYGUuocR0YJhkJq/
- 1+FKmoAj7Jslcc11R2qPgz8cQ3vVRvoT9C2QGKM0KchUs2HtwtSk/3ZqCvxEdlsbBOoN
- nVNA==
-X-Gm-Message-State: AHPjjUh5VzIcyAD2wI2o1l3DQ2xhj6GotSHXRcb35U2CZzdYVMoUMmrM
- xLopjfRMUg5Nug==
-X-Google-Smtp-Source: AOwi7QDTyp9s2tHlY/ibLWJYSdQORvo6zfUgnhZmKPPiAIFnIkWK6JM7I7HBvfWt7/3qSRJnJqUzHQ==
-X-Received: by 10.99.138.73 with SMTP id y70mr5309716pgd.317.1505745954509;
- Mon, 18 Sep 2017 07:45:54 -0700 (PDT)
-Received: from localhost (108-223-40-66.lightspeed.sntcca.sbcglobal.net.
- [108.223.40.66])
- by smtp.gmail.com with ESMTPSA id m9sm15390205pgt.49.2017.09.18.07.45.53
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 18 Sep 2017 07:45:54 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Mon, 18 Sep 2017 07:45:53 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: linux-watchdog@vger.kernel.org, wim@iguana.be, joel@jms.id.au,
- linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-aspeed@lists.ozlabs.org, ryan_chen@aspeedtech.com
-Subject: Re: [PATCH 3/4] watchdog: aspeed: Remove specific reference to
- AST2400 in Kconfig
-Message-ID: <20170918144553.GC11868@roeck-us.net>
-References: <20170918054905.16470-1-andrew@aj.id.au>
- <20170918054905.16470-4-andrew@aj.id.au>
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=PLDV0Qjzm+RnzJip0qqGoLoRaF2vN8Fulk3pphxyaGw=;
+ b=LAkMMcJq5aOsR1wzuQ4n1Xr4PGSz41oaECWi1ASOcLA29NJo+HNO1T7MPKDI1LqMVQ
+ kbspVivo0+2YHhR2cLH6Bf5ioxL6L/LkSem1Oo3YogiMCu3cA+cFCbcxlESXYrEN0UVi
+ ozaz/XjiEJG0iqXJMK6posTsOjodnm/co7D6FdwXVaRdu3+DJZNrIGzu6evVwkL6k0lJ
+ zDcjWI5j7uHFAYwBuKVPx96kSBEygFImWlFYtJRrLrYBG0/EyBWkNW52Ailc9vujEZUI
+ AQDAKwOiQHFmWXry2m5zHK8vV2ExNVRRqMf9QuNbAAFMci/az1Ha0ZRS7vzoD7rpTGF7
+ KWuA==
+X-Gm-Message-State: AHPjjUjkCwOstKMo+cz+g3QqAfxyiK0NTirhi+YCHSBYMjTQAy8nVoRs
+ XJMXpTGe8Fx8v/yL6XutMVT/SI5AUKsaJ4D0X8+MvQ==
+X-Google-Smtp-Source: ADKCNb5I5ENiOaBfPbgwdb1fuaPV36jpUQIB2MV/C9F+IYQ3dJBR49rIe71R3kKYr3NS5Qjb0NQM8Z6v21kCY08UFdc=
+X-Received: by 10.176.6.8 with SMTP id f8mr27442684uaf.38.1505746387166; Mon,
+ 18 Sep 2017 07:53:07 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20170918054905.16470-4-andrew@aj.id.au>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+Received: by 10.31.178.18 with HTTP; Mon, 18 Sep 2017 07:52:46 -0700 (PDT)
+In-Reply-To: <1505719954.4080.20.camel@aj.id.au>
+References: <CAO=notyfYfT51+q_-8a7S5VrhJtuVbXaSav78mbCmGe6OnvjLA@mail.gmail.com>
+ <1505599960.32310.1.camel@fuzziesquirrel.com>
+ <CAO=notykPK7VkRgynx-Tsyu0fuR25O4wZ-0voX4GiVhbmXfyaA@mail.gmail.com>
+ <1505665582.29751.1.camel@fuzziesquirrel.com>
+ <CAO=notzg_QhapqfOx2w75A9Z7K4S3etp7i4a1LSS-qkWb5BMHw@mail.gmail.com>
+ <1505669634.29751.4.camel@fuzziesquirrel.com>
+ <CAO=notzxdXfK9_x-LwbOkwawcLLqUTuLZ8kbHGnMUxN6rCQ6WA@mail.gmail.com>
+ <1505684302.29751.6.camel@fuzziesquirrel.com>
+ <CAO=notwfcPJiEjtQ_n1jxFQpwtPwtvPisOZpiV64DbVHrk0qfQ@mail.gmail.com>
+ <1505719954.4080.20.camel@aj.id.au>
+From: Patrick Venture <venture@google.com>
+Date: Mon, 18 Sep 2017 07:52:46 -0700
+Message-ID: <CAO=notw2BYmCknPqMzf5HXpfDtVjQ5wfZqS9YptG632QfKngzQ@mail.gmail.com>
+Subject: Re: GPIO Centralized Control Daemon
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="94eb2c123fe488836d055977e6ae"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -72,37 +71,139 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Sep 2017 14:45:56 -0000
+X-List-Received-Date: Mon, 18 Sep 2017 14:53:11 -0000
 
-On Mon, Sep 18, 2017 at 03:19:04PM +0930, Andrew Jeffery wrote:
-> The driver also supports the watchdog in the AST25xx series, and
-> may work on earlier SoCs as well.
-> 
-> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+--94eb2c123fe488836d055977e6ae
+Content-Type: text/plain; charset="UTF-8"
 
-Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+On Mon, Sep 18, 2017 at 12:32 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
 
-> ---
->  drivers/watchdog/Kconfig | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
-> index b562d2e03eb9..a1b92ebe74b6 100644
-> --- a/drivers/watchdog/Kconfig
-> +++ b/drivers/watchdog/Kconfig
-> @@ -741,7 +741,7 @@ config RENESAS_RZAWDT
->  	  Renesas RZ/A SoCs. These watchdogs can be used to reset a system.
->  
->  config ASPEED_WATCHDOG
-> -	tristate "Aspeed 2400 watchdog support"
-> +	tristate "Aspeed BMC watchdog support"
->  	depends on ARCH_ASPEED || COMPILE_TEST
->  	select WATCHDOG_CORE
->  	help
-> -- 
-> 2.11.0
-> 
-> --
-> To unsubscribe from this list: send the line "unsubscribe linux-watchdog" in
-> the body of a message to majordomo@vger.kernel.org
-> More majordomo info at  http://vger.kernel.org/majordomo-info.html
+> On Sun, 2017-09-17 at 14:49 -0700, Patrick Venture wrote:
+> > > > Those are particulars of a board that now get factored into the
+> > > > value.  I'm not suggesting something beyond the norms of hwmon.  It
+> > > > would be convenient however, if the ADC driver could be programmed to
+> > > > know that some sensor is gated by a GPIO and handled flipping,
+> > >
+> > > Can you reach out to Guenter or the relevant maintainer (is this an IIO
+> > > device?) for ideas here?  I hadn't mentioned it but in the back of my
+> > > head this whole time I've been wondering about a completely in-kernel
+> > > solution.
+> >
+> > I'll reach out and see if this should go into the adc driver or the
+> > iio-hwmon.  Since those are the paths that are involved.  The sensor
+> > itself it plugged into the aspeed adc, and then controlled by a
+> > gpio.  My initial thought is the adc should be configured to know if
+> > such things are required for its sensors, so that iio-hwmon wouldn't
+> > need to know.
+>
+> My gut feeling is the other way around. There should be some higher-
+> level driver (i.e. still in the kernel, not in userspace) coordinating
+> the GPIO and the ADC such that we sample values at the appropriate time
+> after the GPIO has been set. The ADC driver should be well defined in
+> terms of the function the ADC hardware provides - gluing in random
+> GPIOs makes the ADC driver do things the ADC hardware itself does not
+> do.
+>
+
+Interesting.  That does make sense, however, one often sees -- some level
+of "oh and this" configuration with drivers.  Which I'm in general against,
+but it does have a certain cleanness to putting the value update at the
+lowest point possible. -- Although, that could easily mean the earliest
+place it is read, which is in the hwmon interface -- it can know do flip a
+gpio and wait, whereas the ADC just keeps on doing its thing.
+
+
+>
+> I'm not across how the iio-hwmon bridge works so I don't know how
+> trivial it would be to re-export the sampled ADC values from this
+> higher-level driver as another IIO channel, but that's probably the
+> approach I would look at to glue it into hwmon.
+>
+> That's all just off-the-cuff opinion though, so take it with a grain of
+> salt. Certainly talking to the IIO and hwmon maintainers is the right
+> approach.
+>
+
+I'll be broaching this subject in the next few days and will report back
+here.
+
+
+>
+> Cheers,
+>
+> Andrew
+
+--94eb2c123fe488836d055977e6ae
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"gmail_quote">On M=
+on, Sep 18, 2017 at 12:32 AM, Andrew Jeffery <span dir=3D"ltr">&lt;<a href=
+=3D"mailto:andrew@aj.id.au" target=3D"_blank">andrew@aj.id.au</a>&gt;</span=
+> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bo=
+rder-left:1px #ccc solid;padding-left:1ex"><span class=3D"">On Sun, 2017-09=
+-17 at 14:49 -0700, Patrick Venture wrote:<br>
+</span><span class=3D"">&gt; &gt; &gt; Those are particulars of a board tha=
+t now get factored into the<br>
+&gt; &gt; &gt; value.=C2=A0 I&#39;m not suggesting something beyond the nor=
+ms of hwmon.=C2=A0 It<br>
+&gt; &gt; &gt; would be convenient however, if the ADC driver could be prog=
+rammed to<br>
+&gt; &gt; &gt; know that some sensor is gated by a GPIO and handled flippin=
+g,<br>
+&gt; &gt;<br>
+&gt; &gt; Can you reach out to Guenter or the relevant maintainer (is this =
+an IIO<br>
+&gt; &gt; device?) for ideas here?=C2=A0 I hadn&#39;t mentioned it but in t=
+he back of my<br>
+&gt; &gt; head this whole time I&#39;ve been wondering about a completely i=
+n-kernel<br>
+&gt; &gt; solution.<br>
+&gt;<br>
+&gt; I&#39;ll reach out and see if this should go into the adc driver or th=
+e<br>
+&gt; iio-hwmon.=C2=A0 Since those are the paths that are involved.=C2=A0 Th=
+e sensor<br>
+&gt; itself it plugged into the aspeed adc, and then controlled by a<br>
+&gt; gpio.=C2=A0 My initial thought is the adc should be configured to know=
+ if<br>
+&gt; such things are required for its sensors, so that iio-hwmon wouldn&#39=
+;t<br>
+&gt; need to know.<br>
+<br>
+</span>My gut feeling is the other way around. There should be some higher-=
+<br>
+level driver (i.e. still in the kernel, not in userspace) coordinating<br>
+the GPIO and the ADC such that we sample values at the appropriate time<br>
+after the GPIO has been set. The ADC driver should be well defined in<br>
+terms of the function the ADC hardware provides - gluing in random<br>
+GPIOs makes the ADC driver do things the ADC hardware itself does not<br>
+do.<br></blockquote><div><br></div><div>Interesting.=C2=A0 That does make s=
+ense, however, one often sees -- some level of &quot;oh and this&quot; conf=
+iguration with drivers.=C2=A0 Which I&#39;m in general against, but it does=
+ have a certain cleanness to putting the value update at the lowest point p=
+ossible. -- Although, that could easily mean the earliest place it is read,=
+ which is in the hwmon interface -- it can know do flip a gpio and wait, wh=
+ereas the ADC just keeps on doing its thing.</div><div>=C2=A0</div><blockqu=
+ote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc s=
+olid;padding-left:1ex">
+<br>
+I&#39;m not across how the iio-hwmon bridge works so I don&#39;t know how<b=
+r>
+trivial it would be to re-export the sampled ADC values from this<br>
+higher-level driver as another IIO channel, but that&#39;s probably the<br>
+approach I would look at to glue it into hwmon.<br>
+<br>
+That&#39;s all just off-the-cuff opinion though, so take it with a grain of=
+<br>
+salt. Certainly talking to the IIO and hwmon maintainers is the right<br>
+approach.<br></blockquote><div><br></div><div>I&#39;ll be broaching this su=
+bject in the next few days and will report back here.</div><div>=C2=A0</div=
+><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1=
+px #ccc solid;padding-left:1ex">
+<br>
+Cheers,<br>
+<br>
+Andrew</blockquote></div><br></div></div>
+
+--94eb2c123fe488836d055977e6ae--
