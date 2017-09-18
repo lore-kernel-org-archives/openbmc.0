@@ -1,65 +1,54 @@
-Return-Path: <venture@google.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400c:c08::234; helo=mail-ua0-x234.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="eOzfcFlj"; 
- dkim-atps=neutral
-Received: from mail-ua0-x234.google.com (mail-ua0-x234.google.com
- [IPv6:2607:f8b0:400c:c08::234])
+Return-Path: <robherring2@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=209.85.223.195; helo=mail-io0-f195.google.com;
+ envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
+Received: from mail-io0-f195.google.com (mail-io0-f195.google.com
+ [209.85.223.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xwpsL3GjqzDqjB
- for <openbmc@lists.ozlabs.org>; Tue, 19 Sep 2017 00:53:09 +1000 (AEST)
-Received: by mail-ua0-x234.google.com with SMTP id s15so453977uag.1
- for <openbmc@lists.ozlabs.org>; Mon, 18 Sep 2017 07:53:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=PLDV0Qjzm+RnzJip0qqGoLoRaF2vN8Fulk3pphxyaGw=;
- b=eOzfcFlj9ULxArXpoyzJFA4RoW1YqdqV8xID1m8z1GFDSBK/+vIqjBVC2k/Q3C+8GK
- TwV+W/2EfrIao4QtBn1vZ0lKYP/j/gB5w/0G2ATd2l07M+5+1cja7R0Y6zpEC7MClex8
- Wd7HB6wQEHPpljM3HYo08oJi+EO4h9cA10KSO5poWar4H7KCnBU/lPgWx9f0JCJ7xu21
- 2JtezWqIht8wi2k/g26ZNSeIuGwQHdv/Kz6i0YJP1fgoVUAlTTt4lGPmLcEp06MJ0MRQ
- GKpbqhrAjrho4KXrHnYzVrZej051a2PGoqyWWBF4HrmpDKViLBcCCfmJeoWOisBBemt2
- KBPQ==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xwwwz49KXzDq5k
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Sep 2017 05:26:43 +1000 (AEST)
+Received: by mail-io0-f195.google.com with SMTP id e9so431330iod.5
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Sep 2017 12:26:42 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=PLDV0Qjzm+RnzJip0qqGoLoRaF2vN8Fulk3pphxyaGw=;
- b=LAkMMcJq5aOsR1wzuQ4n1Xr4PGSz41oaECWi1ASOcLA29NJo+HNO1T7MPKDI1LqMVQ
- kbspVivo0+2YHhR2cLH6Bf5ioxL6L/LkSem1Oo3YogiMCu3cA+cFCbcxlESXYrEN0UVi
- ozaz/XjiEJG0iqXJMK6posTsOjodnm/co7D6FdwXVaRdu3+DJZNrIGzu6evVwkL6k0lJ
- zDcjWI5j7uHFAYwBuKVPx96kSBEygFImWlFYtJRrLrYBG0/EyBWkNW52Ailc9vujEZUI
- AQDAKwOiQHFmWXry2m5zHK8vV2ExNVRRqMf9QuNbAAFMci/az1Ha0ZRS7vzoD7rpTGF7
- KWuA==
-X-Gm-Message-State: AHPjjUjkCwOstKMo+cz+g3QqAfxyiK0NTirhi+YCHSBYMjTQAy8nVoRs
- XJMXpTGe8Fx8v/yL6XutMVT/SI5AUKsaJ4D0X8+MvQ==
-X-Google-Smtp-Source: ADKCNb5I5ENiOaBfPbgwdb1fuaPV36jpUQIB2MV/C9F+IYQ3dJBR49rIe71R3kKYr3NS5Qjb0NQM8Z6v21kCY08UFdc=
-X-Received: by 10.176.6.8 with SMTP id f8mr27442684uaf.38.1505746387166; Mon,
- 18 Sep 2017 07:53:07 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.31.178.18 with HTTP; Mon, 18 Sep 2017 07:52:46 -0700 (PDT)
-In-Reply-To: <1505719954.4080.20.camel@aj.id.au>
-References: <CAO=notyfYfT51+q_-8a7S5VrhJtuVbXaSav78mbCmGe6OnvjLA@mail.gmail.com>
- <1505599960.32310.1.camel@fuzziesquirrel.com>
- <CAO=notykPK7VkRgynx-Tsyu0fuR25O4wZ-0voX4GiVhbmXfyaA@mail.gmail.com>
- <1505665582.29751.1.camel@fuzziesquirrel.com>
- <CAO=notzg_QhapqfOx2w75A9Z7K4S3etp7i4a1LSS-qkWb5BMHw@mail.gmail.com>
- <1505669634.29751.4.camel@fuzziesquirrel.com>
- <CAO=notzxdXfK9_x-LwbOkwawcLLqUTuLZ8kbHGnMUxN6rCQ6WA@mail.gmail.com>
- <1505684302.29751.6.camel@fuzziesquirrel.com>
- <CAO=notwfcPJiEjtQ_n1jxFQpwtPwtvPisOZpiV64DbVHrk0qfQ@mail.gmail.com>
- <1505719954.4080.20.camel@aj.id.au>
-From: Patrick Venture <venture@google.com>
-Date: Mon, 18 Sep 2017 07:52:46 -0700
-Message-ID: <CAO=notw2BYmCknPqMzf5HXpfDtVjQ5wfZqS9YptG632QfKngzQ@mail.gmail.com>
-Subject: Re: GPIO Centralized Control Daemon
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=ybuTXlMnmRYJR3SxhyNx4KmvjEJ0Yzn4P1bK/8Feqxo=;
+ b=ClGBWcMLLZr2weUFPYkl90ZO3MCwsUPJuU6oCU3tn8dHFJ/ivJHzTr5717zj7PORJq
+ 1M/ZxdjUbTpv3wkeHdxfU5ccWZJmRoOKpf0h1mvchFatN872t+s1/d/hLFZd6vc9zouc
+ QpLkcB7TUagknwCTCpydcprHpmb1uZgcOSHRDqiPbo8RUwx/59p8ujrkZga/EsyGfU0s
+ 1KIYECvtjz830JGvTC6GqIlnvszMg4CKMEck9eeI+c7BOd2DpY2x7gGaKAa5qmbQu7ea
+ Yf3P1tXBNKpZj7lLhIJNVP6/LS+w/JoI1z+4JgxfERmVpoeZTcAZFGxiYvLNMSpEk8qv
+ y3gg==
+X-Gm-Message-State: AHPjjUgQnChgYdwSUIfRgW6LeSW/D1MXzE9woydkNfwDyMRklImhTh/2
+ bpLLcOePmBFPpQ==
+X-Google-Smtp-Source: AOwi7QClUB3Rbl/XOzUFFPLWQNamVnm41HFiOOQUK4gy5wEyIVRK3vzEtMGorfQrzCxLrOgOxbTvgg==
+X-Received: by 10.202.228.201 with SMTP id b192mr25821446oih.132.1505762800486; 
+ Mon, 18 Sep 2017 12:26:40 -0700 (PDT)
+Received: from localhost (216-188-254-6.dyn.grandenetworks.net.
+ [216.188.254.6])
+ by smtp.gmail.com with ESMTPSA id p62sm1131763oic.50.2017.09.18.12.26.39
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 18 Sep 2017 12:26:39 -0700 (PDT)
+Date: Mon, 18 Sep 2017 14:26:38 -0500
+From: Rob Herring <robh@kernel.org>
 To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="94eb2c123fe488836d055977e6ae"
+Cc: linux@roeck-us.net, linux-hwmon@vger.kernel.org, mark.rutland@arm.com,
+ jdelvare@suse.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, joel@jms.id.au,
+ mspinler@linux.vnet.ibm.com, msbarth@linux.vnet.ibm.com,
+ openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v3 1/3] dt-bindings: hwmon: pmbus: Add Maxim MAX31785
+ documentation
+Message-ID: <20170918192638.4xqszyj466lrnpbz@rob-hp-laptop>
+References: <20170908043919.6924-1-andrew@aj.id.au>
+ <20170908043919.6924-2-andrew@aj.id.au>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20170908043919.6924-2-andrew@aj.id.au>
+User-Agent: NeoMutt/20170113 (1.7.2)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -71,139 +60,143 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Sep 2017 14:53:11 -0000
+X-List-Received-Date: Mon, 18 Sep 2017 19:26:44 -0000
 
---94eb2c123fe488836d055977e6ae
-Content-Type: text/plain; charset="UTF-8"
+On Fri, Sep 08, 2017 at 02:39:17PM +1000, Andrew Jeffery wrote:
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> ---
+>  .../devicetree/bindings/hwmon/pmbus/max31785.txt   | 158 +++++++++++++++++++++
 
-On Mon, Sep 18, 2017 at 12:32 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+I think this needs to be located by what it does (fan control), not what 
+interface it has (pmbus).
 
-> On Sun, 2017-09-17 at 14:49 -0700, Patrick Venture wrote:
-> > > > Those are particulars of a board that now get factored into the
-> > > > value.  I'm not suggesting something beyond the norms of hwmon.  It
-> > > > would be convenient however, if the ADC driver could be programmed to
-> > > > know that some sensor is gated by a GPIO and handled flipping,
-> > >
-> > > Can you reach out to Guenter or the relevant maintainer (is this an IIO
-> > > device?) for ideas here?  I hadn't mentioned it but in the back of my
-> > > head this whole time I've been wondering about a completely in-kernel
-> > > solution.
-> >
-> > I'll reach out and see if this should go into the adc driver or the
-> > iio-hwmon.  Since those are the paths that are involved.  The sensor
-> > itself it plugged into the aspeed adc, and then controlled by a
-> > gpio.  My initial thought is the adc should be configured to know if
-> > such things are required for its sensors, so that iio-hwmon wouldn't
-> > need to know.
->
-> My gut feeling is the other way around. There should be some higher-
-> level driver (i.e. still in the kernel, not in userspace) coordinating
-> the GPIO and the ADC such that we sample values at the appropriate time
-> after the GPIO has been set. The ADC driver should be well defined in
-> terms of the function the ADC hardware provides - gluing in random
-> GPIOs makes the ADC driver do things the ADC hardware itself does not
-> do.
->
+I'm not all that happy with hwmon either because things here seem to 
+just be based on being Linux hwmon devices which is sometimes arbitrary. 
 
-Interesting.  That does make sense, however, one often sees -- some level
-of "oh and this" configuration with drivers.  Which I'm in general against,
-but it does have a certain cleanness to putting the value update at the
-lowest point possible. -- Although, that could easily mean the earliest
-place it is read, which is in the hwmon interface -- it can know do flip a
-gpio and wait, whereas the ADC just keeps on doing its thing.
+>  1 file changed, 158 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt
+> 
+> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt b/Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt
+> new file mode 100644
+> index 000000000000..af9578e7742c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt
+> @@ -0,0 +1,158 @@
+> +Bindings for the Maxim MAX31785 Intelligent Fan Controller
+> +==========================================================
+> +
+> +Reference:
+> +
+> +https://datasheets.maximintegrated.com/en/ds/MAX31785.pdf
+> +
+> +Required properties:
+> +- compatible     : One of "maxim,max31785" or "maxim,max31785a"
+> +- reg            : I2C address, one of 0x52, 0x53, 0x54, 0x55.
+> +- #address-cells : Must be 1
+> +- #size-cells    : Must be 0
+> +- #thermal-sensor-cells  : Should be 1. The device supports:
+> +                           - One internal sensor
+> +                           - Four external I2C digital sensors
+> +                           - Six external thermal diodes
 
+You should define the IDs here, not just how many of each type.
 
->
-> I'm not across how the iio-hwmon bridge works so I don't know how
-> trivial it would be to re-export the sampled ADC values from this
-> higher-level driver as another IIO channel, but that's probably the
-> approach I would look at to glue it into hwmon.
->
-> That's all just off-the-cuff opinion though, so take it with a grain of
-> salt. Certainly talking to the IIO and hwmon maintainers is the right
-> approach.
->
+> +
+> +Optional properties:
+> +- use-stored-presence    : Do not treat the devicetree description as canon for
+> +                           fan presence (the 'installed' bit of FAN_CONFIG_*).
+> +                           Instead, rely on the on the default value store of
+> +                           the device to populate it.
 
-I'll be broaching this subject in the next few days and will report back
-here.
+Boolean? Please be explicit.
 
+Needs a vendor prefix.
 
->
-> Cheers,
->
-> Andrew
+> +
+> +Capabilities are configured through subnodes of the controller's node.
+> +
+> +Fans
+> +----
+> +
+> +Only fans with subnodes present will be considered as installed. If
+> +use-stored-presence is present in the parent node, then only fans that are both
+> +defined in the devicetree and have their installed bit set are considered
+> +installed.
+> +
+> +Required subnode properties:
+> +- compatible             : Must be "pmbus-fan"
 
---94eb2c123fe488836d055977e6ae
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+"pmbus" is a property of the controller, not the fan, right? We should 
+have compatibles along the lines of the type of fan like 4-wire, 3-wire, 
+etc. 
 
-<div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"gmail_quote">On M=
-on, Sep 18, 2017 at 12:32 AM, Andrew Jeffery <span dir=3D"ltr">&lt;<a href=
-=3D"mailto:andrew@aj.id.au" target=3D"_blank">andrew@aj.id.au</a>&gt;</span=
-> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bo=
-rder-left:1px #ccc solid;padding-left:1ex"><span class=3D"">On Sun, 2017-09=
--17 at 14:49 -0700, Patrick Venture wrote:<br>
-</span><span class=3D"">&gt; &gt; &gt; Those are particulars of a board tha=
-t now get factored into the<br>
-&gt; &gt; &gt; value.=C2=A0 I&#39;m not suggesting something beyond the nor=
-ms of hwmon.=C2=A0 It<br>
-&gt; &gt; &gt; would be convenient however, if the ADC driver could be prog=
-rammed to<br>
-&gt; &gt; &gt; know that some sensor is gated by a GPIO and handled flippin=
-g,<br>
-&gt; &gt;<br>
-&gt; &gt; Can you reach out to Guenter or the relevant maintainer (is this =
-an IIO<br>
-&gt; &gt; device?) for ideas here?=C2=A0 I hadn&#39;t mentioned it but in t=
-he back of my<br>
-&gt; &gt; head this whole time I&#39;ve been wondering about a completely i=
-n-kernel<br>
-&gt; &gt; solution.<br>
-&gt;<br>
-&gt; I&#39;ll reach out and see if this should go into the adc driver or th=
-e<br>
-&gt; iio-hwmon.=C2=A0 Since those are the paths that are involved.=C2=A0 Th=
-e sensor<br>
-&gt; itself it plugged into the aspeed adc, and then controlled by a<br>
-&gt; gpio.=C2=A0 My initial thought is the adc should be configured to know=
- if<br>
-&gt; such things are required for its sensors, so that iio-hwmon wouldn&#39=
-;t<br>
-&gt; need to know.<br>
-<br>
-</span>My gut feeling is the other way around. There should be some higher-=
-<br>
-level driver (i.e. still in the kernel, not in userspace) coordinating<br>
-the GPIO and the ADC such that we sample values at the appropriate time<br>
-after the GPIO has been set. The ADC driver should be well defined in<br>
-terms of the function the ADC hardware provides - gluing in random<br>
-GPIOs makes the ADC driver do things the ADC hardware itself does not<br>
-do.<br></blockquote><div><br></div><div>Interesting.=C2=A0 That does make s=
-ense, however, one often sees -- some level of &quot;oh and this&quot; conf=
-iguration with drivers.=C2=A0 Which I&#39;m in general against, but it does=
- have a certain cleanness to putting the value update at the lowest point p=
-ossible. -- Although, that could easily mean the earliest place it is read,=
- which is in the hwmon interface -- it can know do flip a gpio and wait, wh=
-ereas the ADC just keeps on doing its thing.</div><div>=C2=A0</div><blockqu=
-ote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc s=
-olid;padding-left:1ex">
-<br>
-I&#39;m not across how the iio-hwmon bridge works so I don&#39;t know how<b=
-r>
-trivial it would be to re-export the sampled ADC values from this<br>
-higher-level driver as another IIO channel, but that&#39;s probably the<br>
-approach I would look at to glue it into hwmon.<br>
-<br>
-That&#39;s all just off-the-cuff opinion though, so take it with a grain of=
-<br>
-salt. Certainly talking to the IIO and hwmon maintainers is the right<br>
-approach.<br></blockquote><div><br></div><div>I&#39;ll be broaching this su=
-bject in the next few days and will report back here.</div><div>=C2=A0</div=
-><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1=
-px #ccc solid;padding-left:1ex">
-<br>
-Cheers,<br>
-<br>
-Andrew</blockquote></div><br></div></div>
+> +- reg                    : The PMBus page the properties apply to.
+> +- #cooling-cells         : Should be 2. See the thermal bindings at [1].
+> +- maxim,fan-rotor-input  : The type of rotor measurement provided to the
+> +                           controller. Must be either "tach" for tachometer
+> +                           pulses or "lock" for a locked-rotor signal.
+> +- maxim,fan-lock-polarity: Required iff maxim,fan-rotor-input is "lock". Valid
+> +                           values are "low" for active low, "high" for active
+> +                           high.
+> +
+> +Optional subnode properties:
+> +- fan-mode               : "rpm" or "pwm". Default value is "pwm".
+> +- tach-pulses            : Tachometer pulses per revolution. Valid values are
+> +                           1, 2, 3 or 4. The default is 1.
+> +- cooling-min-level      : Smallest cooling state accepted. See [1].
+> +- cooling-max-level      : Largest cooling state accepted. See [1].
+> +- maxim,fan-no-fault-ramp: Do not ramp the fan to 100% PWM duty on detecting a
+> +                           fan fault
+> +- maxim,fan-startup      : The number of rotations required before taking
+> +                           emergency action for an unresponsive fan and driving
+> +                           it with 100% or 0% PWM duty, depending on the state
+> +                           of maxim,fan-no-fault-ramp. Valid values are 0
+> +                           (automatic spin-up disabled), 2, 4, or 8. Default
+> +                           value is 0.
+> +- maxim,fan-health       : Enable automated fan health check
+> +- maxim,fan-ramp         : Configures how fast the device ramps the PWM duty
+> +                           cycle from one value to another. Valid values are 0
+> +                           to 7 inclusive, with values 0 - 2 configuring a
+> +                           1000ms update rate and 1 - 3% duty respective duty
+> +                           increase, and 3 - 7 a 200ms update rate with a 1 -
+> +                           5% respective duty increase. Default value is 0.
+> +- maxim,fan-no-watchdog  : Do not ramp fan to 100% PWM duty on failure to
+> +                           update desired fan rate inside 10s. This implies
+> +                           maxim,tmp-no-fault-ramp
+> +- maxim,tmp-no-fault-ramp: Do not ramp fan to 100% PWM duty on temperature
+> +                           sensor fault detection. This implies
+> +                           maxim,fan-no-watchdog
+> +- maxim,tmp-hysteresis   : The temperature hysteresis used to determine
+> +                           transitions to lower fan speed bands in the
+> +                           temperature/fan rate lookup table. Valid values are
+> +                           2, 4, 6 or 8 (degrees celcius). Default value is 2.
+> +- maxim,fan-dual-tach    : Enable dual tachometer functionality
+> +- maxim,fan-pwm-freq     : The PWM frequency. Valid values are 30, 50, 100, 150
+> +                           and 25000 (Hz). Default value is 30Hz.
+> +- maxim,fan-lookup-table : A 16-element cell array of alternating temperature
+> +                           and rate values representing the look up table. The
+> +                           rate units are set through the fan-mode property.
+> +- maxim,fan-fault-pin-mon: Ramp fans to 100% PWM duty when the FAULT pin is
+> +                           asserted
 
---94eb2c123fe488836d055977e6ae--
+In general, I think a good portion of these should be either implied by 
+a fan compatible string or be part of a common fan binding.
+
+> +
+> +Temperature
+> +-----------
+> +
+> +Required subnode properties:
+> +- compatible    : Must be "pmbus-temperature"
+> +- reg           : The PMBus page the properties apply to.
+> +
+> +Optional subnode properties:
+> +- maxim,tmp-offset      : Valid values are 0 - 30 (degrees celcius) inclusive.
+> +                          Default value is 0.
+> +- maxim,tmp-fans        : An array of phandles to fans controlled by the
+> +                          current temperature sensor.
+
+Is this a feature of the Maxim chip or just a mapping of temperature 
+sensors to fans. The latter should be a common property.
+
+Rob
