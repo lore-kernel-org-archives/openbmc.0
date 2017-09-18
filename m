@@ -3,58 +3,61 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="uaJp86SA"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="idDsR6W5"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="M441g2t1"; dkim-atps=neutral
+ header.b="sTNuP8z6"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xwZq03kFRzDrZx;
- Mon, 18 Sep 2017 15:50:20 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xwZvJ5lmszDrct;
+ Mon, 18 Sep 2017 15:54:04 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id D76B820A4D;
- Mon, 18 Sep 2017 01:50:17 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 85012204B0;
+ Mon, 18 Sep 2017 01:54:02 -0400 (EDT)
 Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Mon, 18 Sep 2017 01:50:17 -0400
+ by compute4.internal (MEProxy); Mon, 18 Sep 2017 01:54:02 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=BgM0nG
- RIWOykUxBASDdRHsLpvjv/DxPAGMjLrhip/08=; b=uaJp86SAZez2ASPo+Ia/LL
- StZb2sC78dF50s8ns7/OiiWoY7MbeBC/D8l3i8B21cm5cdVfZVQBtb3Kjz0Lpe2J
- V8Gow4GzzNUHYZMITt7DbhF5G2KrcYg6U4INIUjdRgjrq0Jjx84P60i2GUHqDkIn
- mCS5qVk3IKeAp+kbXu2dcSqWk1h9u6B38oPubhP7NuTgl1jXoUCZA790ijSO4yPD
- UGuRLkFlrew8OEFNlPMxryCU9RsmyN28lJFns7NyPkBY5I3b0DeHxLlAz2N7SvJB
- 7MfWYfyKSgK9nzo95la3lSD5LadTorBEmKozq8lxyPrGKnhnzfwNQSRzelqUS3sw
- ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:in-reply-to:message-id
+ :content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=BgM0nGRIWOykUxBASDdRHsLpvjv/DxPAGMjLrhip/
- 08=; b=M441g2t1bZhJcTWxe78G5VTp37LmoG58qzuGZioEc6+MHoL2bKwp11wOH
- AionsRwS2tYj/jbACqMHsnNrtatPDvOICZXunWWVtPrZgu1hCMp4QhHWAQEDnbrO
- 0qtzg9Sv3JIrJIrbXZJO+Hh3ezYd2LpjiMbgq306eWfB2iVG/hBIVKN/NUsNMyky
- IXLcnOJi1BjmYIz6fivtOppXOdcqR6Ip2Oq26mEEuFI7gr4TAomC/K280YKODJhn
- DOsmXWDHIN/f4m8zZ+vK3UVZ+LllZllrJ+vY/BpAZlEleJwghrsr3BlkVSjY0kp+
- 4IHl1JD3liSIvwDyHsnzOsuPDZbkQ==
-X-ME-Sender: <xms:mV6_WTsJ4r3iRbKO6N-BLpeGgT74LeJ2Zfc027HNceBeBYr2i5ccjg>
-X-Sasl-enc: LtH+odbAc08lmuOZoOK3teUwjtETKE0RdbBXLTadCQWR 1505713817
-Received: from keelia.au.ibm.com (ppp14-2-0-125.bras21.adl4.internode.on.net
+ :x-sasl-enc; s=fm1; bh=vobdKWxmq5PQoGCQyWqVVyNeFDadtPFNboIZvXHm9
+ FA=; b=idDsR6W5Wr86oa0XslHOK5cjOGyeAyDk71PcYD12NTWJThSYNMu3zi0qB
+ FNJz7Bz5egVral3Fxw298kF5F9jn8vKZL3H0b18f/ppbPe/JrUrCtMXvgAh7wLyd
+ R3h6Oqr7W0n+NQfvR5gugkH9TFvzttuhlndBjQnizPDk4OZ/Md0B1RomDoCvjjDF
+ SXDD9gwLkBDJr14nSmzDxIRsnNM2KiibZbJgtYAmUvyZOK12bvmzXGDaA4X6sfnw
+ VGLvltL1qFf3HbHqxivyLTrl7nw8bL3PCySMjrNIaN9o9xQbt3Rch6Unj2lsge1C
+ vHVXCtzi1CJm0scZZwAfqJgA8JEag==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=vobdKWxmq5PQoGCQyW
+ qVVyNeFDadtPFNboIZvXHm9FA=; b=sTNuP8z6x72iqhEvXZKPmzor13fxG+snCb
+ 606PRAotfk9qz53pY0s5fzpdJd3ReNmLWuQEJ9Cmnt3GxNZq57lBgxiHuX+EAM4n
+ ibYvUMKGrKow0Vx2OXKiqLD5MKmYk7qjP1JLXKQTXerYc2twilBdSXKDGh2aY2qx
+ v3vljGsvnkyzR7entAFe6q3NGau5vwuqRCgVv9aYmtstvPkyV2rAwpfx6jupOKit
+ jivRFPNHYmOwWdGmk8M5VAHoCeUmCZ0d/r7mv4HiBVz6q/+EGwYi8OY4MFcL7890
+ ZAWgPVzEbT3ra1iBrV64uI7qsGSIRcpJ5HaKPe/uRPj9btQ2iruQ==
+X-ME-Sender: <xms:el-_WUbpatMFQlS-2EmTgvePc133rg9RTGiPSea4nTa2dG5ohELJrA>
+X-Sasl-enc: 26MVcsWU7TUT+tKLK7/Cim+VgTP6gRkgxXGJukwBS8WV 1505714041
+Received: from keelia16 (ppp14-2-0-125.bras21.adl4.internode.on.net
  [14.2.0.125])
- by mail.messagingengine.com (Postfix) with ESMTPA id 5A1407E183;
- Mon, 18 Sep 2017 01:50:14 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 85F317E1B1;
+ Mon, 18 Sep 2017 01:53:59 -0400 (EDT)
+Message-ID: <1505714034.4080.16.camel@aj.id.au>
+Subject: Re: [PATCH 0/4] watchdog: aspeed: Retain enabled state and move to
 From: Andrew Jeffery <andrew@aj.id.au>
 To: linux-watchdog@vger.kernel.org
-Cc: Andrew Jeffery <andrew@aj.id.au>, wim@iguana.be, linux@roeck-us.net,
- joel@jms.id.au, linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
+Cc: wim@iguana.be, linux@roeck-us.net, joel@jms.id.au, 
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org, 
  linux-aspeed@lists.ozlabs.org, ryan_chen@aspeedtech.com
-Subject: [PATCH 4/4] watchdog: aspeed: Move init to arch_initcall
-Date: Mon, 18 Sep 2017 15:19:05 +0930
-Message-Id: <20170918054905.16470-5-andrew@aj.id.au>
-X-Mailer: git-send-email 2.11.0
+Date: Mon, 18 Sep 2017 15:23:54 +0930
 In-Reply-To: <20170918054905.16470-1-andrew@aj.id.au>
 References: <20170918054905.16470-1-andrew@aj.id.au>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-uD2mYu7Q2COBPhEVL4W+"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -66,64 +69,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Sep 2017 05:50:21 -0000
+X-List-Received-Date: Mon, 18 Sep 2017 05:54:05 -0000
 
-Probing at device_initcall time lead to perverse cases where the
-watchdog was probed after, say, I2C, which then leaves a potentially
-running watchdog at the mercy of I2C device behaviour and bus
-conditions.
 
-Load the watchdog driver early to ensure that the kernel is patting it
-well before initialising peripherals.
+--=-uD2mYu7Q2COBPhEVL4W+
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- drivers/watchdog/Kconfig      | 6 ++----
- drivers/watchdog/aspeed_wdt.c | 7 ++++++-
- 2 files changed, 8 insertions(+), 5 deletions(-)
+On Mon, 2017-09-18 at 15:19 +0930, Andrew Jeffery wrote:
+> Hello,
+>=20
 
-diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
-index a1b92ebe74b6..6103185983ed 100644
---- a/drivers/watchdog/Kconfig
-+++ b/drivers/watchdog/Kconfig
-@@ -741,8 +741,9 @@ config RENESAS_RZAWDT
- 	  Renesas RZ/A SoCs. These watchdogs can be used to reset a system.
- 
- config ASPEED_WATCHDOG
--	tristate "Aspeed BMC watchdog support"
-+	bool "Aspeed BMC watchdog support"
- 	depends on ARCH_ASPEED || COMPILE_TEST
-+	default y if ARCH_ASPEED
- 	select WATCHDOG_CORE
- 	help
- 	  Say Y here to include support for the watchdog timer
-@@ -750,9 +751,6 @@ config ASPEED_WATCHDOG
- 
- 	  This driver is required to reboot the SoC.
- 
--	  To compile this driver as a module, choose M here: the
--	  module will be called aspeed_wdt.
--
- config ZX2967_WATCHDOG
- 	tristate "ZTE zx2967 SoCs watchdog support"
- 	depends on ARCH_ZX
-diff --git a/drivers/watchdog/aspeed_wdt.c b/drivers/watchdog/aspeed_wdt.c
-index 99bc6fbd8852..679c35abadc4 100644
---- a/drivers/watchdog/aspeed_wdt.c
-+++ b/drivers/watchdog/aspeed_wdt.c
-@@ -313,7 +313,12 @@ static struct platform_driver aspeed_watchdog_driver = {
- 		.of_match_table = of_match_ptr(aspeed_wdt_of_table),
- 	},
- };
--module_platform_driver(aspeed_watchdog_driver);
-+
-+static int __init aspeed_wdt_init(void)
-+{
-+	return platform_driver_register(&aspeed_watchdog_driver);
-+}
-+arch_initcall(aspeed_wdt_init);
- 
- MODULE_DESCRIPTION("Aspeed Watchdog Driver");
- MODULE_LICENSE("GPL");
--- 
-2.11.0
+*snip*
+
+Ah, my subject got truncated. It should read:
+
+    watchdog: aspeed: Retain enabled state and move to arch_initcall
+--=-uD2mYu7Q2COBPhEVL4W+
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZv19yAAoJEJ0dnzgO5LT5giAQAI8k0YudAOlkIKMzMzPzbphW
+PxM2fwlZFul0wfDwXxvagoXfhqCu009h+HVotUilxAZarxvCxjXGmx9Dfc+mlw61
+QXMdsNAHP2UkK8IEPbvSlk6hAqDaG05qjMLRQ31whj70oHw8POu0z349rIAErlvU
+KHesli4MEGG5H1zzg5zHpcF8gRlCeYxIE4UnTG6kY5csBqaEXtahi+vbNgzj+3CI
+fu6QCrZrNoDK+wDKng3gLhnQKyFOgnpr97ZkxZgdbNS67bq0zpSVDyzx08KLgOQy
+shpDpRkwAGzAkNQD0673/4bVfs4uqBgkravR3g97Av7t4V6qhX9sNuP58G6oUdV4
+vklvlLn1IHuYxEkYF+2Vq8upexnC4sJul5DjRhLP/wp+0B71Xpr5Q0I2ds9iR31A
+dZdjTSRzJzuKJketartbPUoFYS9XSQn1XtSZ9HsRx2fcjYiiqdW9kD0JL65f0HPz
+DDLMJ/mONA1UFzFm0E0CJ1BbKXiLkJfpqoU0/5Y48XX3IWfGu56MvdwNfxk0q6lF
+RKrom1pAxCTP5rQb+xtqtJ8FPpbsJx+2t4Kgx7UvoHjF0MS81NJU6WdVO3ulrHVh
+4KwMHoxi+d1qp2e9JZRh9xYjkmSU8aR3fQYO3u3Xn/9o1aa8ClrW46/no3qy2Syh
+yCe25riFyk93e0lG+56H
+=RZK0
+-----END PGP SIGNATURE-----
+
+--=-uD2mYu7Q2COBPhEVL4W+--
