@@ -1,65 +1,65 @@
 Return-Path: <groeck7@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c05::243; helo=mail-pg0-x243.google.com;
+ (client-ip=2607:f8b0:400e:c05::241; helo=mail-pg0-x241.google.com;
  envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="XeynTu5a"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="VJyN84Kb"; 
  dkim-atps=neutral
-Received: from mail-pg0-x243.google.com (mail-pg0-x243.google.com
- [IPv6:2607:f8b0:400e:c05::243])
+Received: from mail-pg0-x241.google.com (mail-pg0-x241.google.com
+ [IPv6:2607:f8b0:400e:c05::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xwmvk0ww2zDrVk;
- Mon, 18 Sep 2017 23:25:05 +1000 (AEST)
-Received: by mail-pg0-x243.google.com with SMTP id m30so233503pgn.5;
- Mon, 18 Sep 2017 06:25:05 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xwn4f17BbzDsG0;
+ Mon, 18 Sep 2017 23:32:49 +1000 (AEST)
+Received: by mail-pg0-x241.google.com with SMTP id u18so133649pgo.1;
+ Mon, 18 Sep 2017 06:32:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=sender:subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=PI7sLAFWlRtq1W8gI2lFG4UMkGvLTQMc48UpsBqzwkg=;
- b=XeynTu5a0r6e9Xorrcy9a7snCKa2fh8kEMKiYed9twa6GIoqGHKHXMZcujzoJfjIuz
- JCbHg3Y3C/mfHo7omVAimDTKFPyETqWJkHl8ei9n3QYHMTTd1xrJqRmSFDUSH+Wsd/Rv
- Lavn3ppyZiuj1cjZkcMFwbVHTcQH761DQQ8amCQI1z2pP/mHJUK4UswG7aUdgdUMbgL+
- Qy35ZsH1Oe5F5P54RoizW/OTOfzF9B4CnyZ7prNU1DoXWtPVZ94voSIEUAUM0dFZBC/3
- Xw9Brn6X+RtQUu/EYgf0oBVrf6ZrnBImTTiIVWhcdkEANkUYi8MOuzw9EKGDh6U2RCcg
- wIlw==
+ bh=swSiAH4srO/AxPB/M40t5f1Ge8RzQVyXz44/3MjlZp4=;
+ b=VJyN84KbmE0vbJW4en9NKkZ0GB4xR1D/Bdx7WuotM2/EXDRteiTCyBVPJIQgwMFESc
+ 1gk4lE/hsLEqn00pwXysgvZTM4e+4aW1E5dTmpaILZZrSRJ2NRg53wdx7sB1IyBT7AdJ
+ 6GAr87FU5Oc6TO/c9fPqkLcrPw3X0hvQNvCqTsglSYCOkLTSEokm9rbfNbb3crdT/tPj
+ F+Sdy7x+pXnyYPslF4blLEG1dj1o4QEgV81RrXiLh4mgJeHAWhVgRsqWKhN/oWCKmsy5
+ 7IEfVJu+4mzTgcYkox3XS+rd/5+UsNIxBjMUSvwexeBsYIGvFlVYPf62Z8GeRyvtySSx
+ IgIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:subject:to:cc:references:from:message-id
  :date:user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=PI7sLAFWlRtq1W8gI2lFG4UMkGvLTQMc48UpsBqzwkg=;
- b=K8zzZpDnfPHIgU+1oaCCaMNTVZqX0EMgUxp7x+G+S+YPGKMd7btFHkgSU2QNWndMuU
- GgJ9ej3ybQW2yWwi0xO2qpjvqLCa+dneJwjb0emcZ01Jb/iQURBPYS9u46tuhOW9sVyD
- ohPY4LFmLPg5meefPOlRsvQJpEPt8HTBs0ZdOCw2llNtwQcRQeXz6pa6ZgA55s7Plwev
- iU6Amwqr+Kp97dlqBYizEPTz9u186PuPQabULUZG9SRNrH89JEe9/JFGiqiVCNVBBg6S
- HvtXdTRFIbwKkUfuJIq+bSVXkZNOc10kuX1DOyOP23ufEQ2qYah6Om9iv5W6VByCH/Q2
- f3pQ==
-X-Gm-Message-State: AHPjjUhemKwaCwYe07Y1+3o+IUUqNfn7xTgRawrCc5xBfYugxU+FqNTC
- N8m/yE31vTtSGw==
-X-Google-Smtp-Source: ADKCNb4AQvHpoR23mrqqcfwgdBaR4cw35AYsklxywN6NU4vpI5q0tRtF1EzlSGIqDqI6mGj+k0gpaQ==
-X-Received: by 10.99.149.84 with SMTP id t20mr33742187pgn.222.1505741104168;
- Mon, 18 Sep 2017 06:25:04 -0700 (PDT)
+ bh=swSiAH4srO/AxPB/M40t5f1Ge8RzQVyXz44/3MjlZp4=;
+ b=GX6de+LaahWbamCOrh6QB+vljM+G8sjhb4T4KkLlb9FpX8tRnJanaZi/barDoqp7go
+ 1EDkOztS2KCxIapc+cLs562qHtxINe4ovdsgkmh2b5OrMXc41TCMW4jMAxfUsNfG60Wg
+ oS07a+ihMce9Iw/jaVULUotBIbA1xyPk3QWt2yht7pcvTk4oeLtC6OB/nLx50/25zor7
+ VqgwcunUjQBUDEH85pXLceT/mJ2wsh5VM/5ScnwIwMoknTxcxS2t+9/lUljrjL6oJLE6
+ fpvwrauYlAz1/DZCSyVR3Lk8j+htnbAK8r9Im85FRvqPqgLqK//FESk2QtowaqG6Pj9+
+ l7gw==
+X-Gm-Message-State: AHPjjUj4k5uFS0kgApPDAnaV2VTbf7rhMjmZCTDmnb6mep1zjlHnfZR8
+ EHUAzPdVc0VDmw==
+X-Google-Smtp-Source: ADKCNb5VUe7PXfsEmgS1NVL7SfbkZoRI2MVrHRJy4oGD4WHCZzY2QvETsrUmrZw1/BYiDsOEiNiUmg==
+X-Received: by 10.99.130.198 with SMTP id w189mr31512969pgd.175.1505741568107; 
+ Mon, 18 Sep 2017 06:32:48 -0700 (PDT)
 Received: from server.roeck-us.net
  (108-223-40-66.lightspeed.sntcca.sbcglobal.net. [108.223.40.66])
- by smtp.gmail.com with ESMTPSA id n19sm16929997pfj.114.2017.09.18.06.25.03
+ by smtp.gmail.com with ESMTPSA id 78sm14884825pfk.70.2017.09.18.06.32.46
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 18 Sep 2017 06:25:03 -0700 (PDT)
+ Mon, 18 Sep 2017 06:32:47 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Subject: Re: [PATCH 1/4] watchdog: aspeed: Retain watchdog enabled state
+Subject: Re: [PATCH 4/4] watchdog: aspeed: Move init to arch_initcall
 To: Andrew Jeffery <andrew@aj.id.au>, linux-watchdog@vger.kernel.org
 Cc: wim@iguana.be, joel@jms.id.au, linux-kernel@vger.kernel.org,
  openbmc@lists.ozlabs.org, linux-aspeed@lists.ozlabs.org,
  ryan_chen@aspeedtech.com
 References: <20170918054905.16470-1-andrew@aj.id.au>
- <20170918054905.16470-2-andrew@aj.id.au>
+ <20170918054905.16470-5-andrew@aj.id.au>
 From: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <bef08c5f-b0ae-a2e4-34a1-c9e1500b4234@roeck-us.net>
-Date: Mon, 18 Sep 2017 06:25:02 -0700
+Message-ID: <b7524108-1927-95a5-e5d6-ade0a8b9ab47@roeck-us.net>
+Date: Mon, 18 Sep 2017 06:32:46 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
  Thunderbird/52.3.0
 MIME-Version: 1.0
-In-Reply-To: <20170918054905.16470-2-andrew@aj.id.au>
+In-Reply-To: <20170918054905.16470-5-andrew@aj.id.au>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -74,49 +74,73 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Sep 2017 13:25:06 -0000
+X-List-Received-Date: Mon, 18 Sep 2017 13:32:50 -0000
 
 On 09/17/2017 10:49 PM, Andrew Jeffery wrote:
-> An unintended post-condition of probe() is that the watchdog is
-> disabled. Rework probe() such that we retain the value of the "enabled"
-> bit from the control register, and take the appropriate actions with
-> respect to the watchdog core if so. Otherwise, just configure the
-> watchdog as directed.
+> Probing at device_initcall time lead to perverse cases where the
+> watchdog was probed after, say, I2C, which then leaves a potentially
+> running watchdog at the mercy of I2C device behaviour and bus
+> conditions.
 > 
+> Load the watchdog driver early to ensure that the kernel is patting it
+> well before initialising peripherals.
+> 
+But you are doing a bit more. You are making it bool, and you are enabling it
+by default. Both isn't needed for the intended goal (arch_initcall is converted
+to module_initcall if a driver is built as module). Your change focuses on
+and optimizes the case where the watchdog is already running. That may not
+always be the case, and there may be systems where the driver is not loaded
+on purpose.
+
+Guenter
+
 > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 > ---
->   drivers/watchdog/aspeed_wdt.c | 9 +++++----
->   1 file changed, 5 insertions(+), 4 deletions(-)
+>   drivers/watchdog/Kconfig      | 6 ++----
+>   drivers/watchdog/aspeed_wdt.c | 7 ++++++-
+>   2 files changed, 8 insertions(+), 5 deletions(-)
 > 
+> diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
+> index a1b92ebe74b6..6103185983ed 100644
+> --- a/drivers/watchdog/Kconfig
+> +++ b/drivers/watchdog/Kconfig
+> @@ -741,8 +741,9 @@ config RENESAS_RZAWDT
+>   	  Renesas RZ/A SoCs. These watchdogs can be used to reset a system.
+>   
+>   config ASPEED_WATCHDOG
+> -	tristate "Aspeed BMC watchdog support"
+> +	bool "Aspeed BMC watchdog support"
+>   	depends on ARCH_ASPEED || COMPILE_TEST
+> +	default y if ARCH_ASPEED
+>   	select WATCHDOG_CORE
+>   	help
+>   	  Say Y here to include support for the watchdog timer
+> @@ -750,9 +751,6 @@ config ASPEED_WATCHDOG
+>   
+>   	  This driver is required to reboot the SoC.
+>   
+> -	  To compile this driver as a module, choose M here: the
+> -	  module will be called aspeed_wdt.
+> -
+>   config ZX2967_WATCHDOG
+>   	tristate "ZTE zx2967 SoCs watchdog support"
+>   	depends on ARCH_ZX
 > diff --git a/drivers/watchdog/aspeed_wdt.c b/drivers/watchdog/aspeed_wdt.c
-> index 79cc766cd30f..99bc6fbd8852 100644
+> index 99bc6fbd8852..679c35abadc4 100644
 > --- a/drivers/watchdog/aspeed_wdt.c
 > +++ b/drivers/watchdog/aspeed_wdt.c
-> @@ -221,7 +221,8 @@ static int aspeed_wdt_probe(struct platform_device *pdev)
->   		return -EINVAL;
->   	config = ofdid->data;
+> @@ -313,7 +313,12 @@ static struct platform_driver aspeed_watchdog_driver = {
+>   		.of_match_table = of_match_ptr(aspeed_wdt_of_table),
+>   	},
+>   };
+> -module_platform_driver(aspeed_watchdog_driver);
+> +
+> +static int __init aspeed_wdt_init(void)
+> +{
+> +	return platform_driver_register(&aspeed_watchdog_driver);
+> +}
+> +arch_initcall(aspeed_wdt_init);
 >   
-> -	wdt->ctrl = WDT_CTRL_1MHZ_CLK;
-> +	wdt->ctrl |= readl(wdt->base + WDT_CTRL) & WDT_CTRL_ENABLE;
-> +	wdt->ctrl |= WDT_CTRL_1MHZ_CLK;
->   
->   	/*
->   	 * Control reset on a per-device basis to ensure the
-> @@ -243,11 +244,11 @@ static int aspeed_wdt_probe(struct platform_device *pdev)
->   	if (of_property_read_bool(np, "aspeed,external-signal"))
->   		wdt->ctrl |= WDT_CTRL_WDT_EXT;
->   
-> -	writel(wdt->ctrl, wdt->base + WDT_CTRL);
-> -
-> -	if (readl(wdt->base + WDT_CTRL) & WDT_CTRL_ENABLE)  {
-> +	if (wdt->ctrl & WDT_CTRL_ENABLE) {
->   		aspeed_wdt_start(&wdt->wdd);
-
-Why call the start function in this case ?
-
->   		set_bit(WDOG_HW_RUNNING, &wdt->wdd.status); > +	} else {
-> +		writel(wdt->ctrl, wdt->base + WDT_CTRL);
->   	}
->   
->   	if (of_device_is_compatible(np, "aspeed,ast2500-wdt")) {
+>   MODULE_DESCRIPTION("Aspeed Watchdog Driver");
+>   MODULE_LICENSE("GPL");
 > 
