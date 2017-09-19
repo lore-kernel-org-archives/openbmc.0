@@ -1,66 +1,64 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="QHDzCG3l"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="NWW9vjgu"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xwzH102DPzDq78
- for <openbmc@lists.ozlabs.org>; Tue, 19 Sep 2017 07:12:28 +1000 (AEST)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v8IL92rL045091
- for <openbmc@lists.ozlabs.org>; Mon, 18 Sep 2017 17:12:26 -0400
-Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2d2m4mpc1k-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 18 Sep 2017 17:12:26 -0400
-Received: from localhost
- by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Mon, 18 Sep 2017 15:12:25 -0600
-Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
- by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 18 Sep 2017 15:12:23 -0600
-Received: from b03ledav001.gho.boulder.ibm.com
- (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v8ILCN4t4260096; Mon, 18 Sep 2017 14:12:23 -0700
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 376696E038;
- Mon, 18 Sep 2017 15:12:23 -0600 (MDT)
-Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
- by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP id EB1326E035;
- Mon, 18 Sep 2017 15:12:22 -0600 (MDT)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, Eddie James <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10] drivers/hwmon/occ: Switch to non-blocking for
- occ reads
-Date: Mon, 18 Sep 2017 16:12:21 -0500
-X-Mailer: git-send-email 1.8.3.1
-X-TM-AS-GCONF: 00
-x-cbid: 17091821-0012-0000-0000-0000150662B7
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007758; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000230; SDB=6.00918959; UDB=6.00461666; IPR=6.00699185; 
- BA=6.00005595; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017199; XFM=3.00000015;
- UTC=2017-09-18 21:12:24
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17091821-0013-0000-0000-00004F8A1748
-Message-Id: <1505769141-1288-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-09-18_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
- definitions=main-1709180296
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xx6Hh12SrzDqF3;
+ Tue, 19 Sep 2017 12:28:31 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id E09F720A96;
+ Mon, 18 Sep 2017 22:28:26 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Mon, 18 Sep 2017 22:28:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=PwzwDUjSVcHzSdHUUVpSRiAA5AusBr3XKlSjS+vHB
+ jE=; b=QHDzCG3lDtbKp9hP1exQX2yFUX6SklMqPvE6S7IIKTuFleMj4HAHrasnL
+ jllsyun3G6p6/O4wD21bO4mMyHe0Y0cX5b9MkXb7Tq40pG7LlLq/JrFnLu1O88Gp
+ Igl5TThCxZM935iu13l1IdDSAzgjTWxgswwPzQemTDW+/oR3Eb7z8w9BkG5WKpnC
+ Sm50TcF1h0m4h/N2W8hcvVpytDXWFQqZAQvjqZD7Y5N5whVWuVFpVMkP4+/rigkq
+ kOwTj2hgWqW39u3cv8fp0P+6Zd4QcSjZhxKvqkawjWnD0356D+ABy700MsGI0ouZ
+ aaUHG/yS5bVl4RNLOj+LGsBDu6BMg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=PwzwDUjSVcHzSdHUUV
+ pSRiAA5AusBr3XKlSjS+vHBjE=; b=NWW9vjguC6l/Rw1GrSniRTYrluFk2rU+Nk
+ uKERgasiWkaeXYL6tLwVgFX/z7Fab1+JnV0t2adMw4dVwX5ImT0ef8oazBku4n8Q
+ IQ4oWu/3tVBA9o5AWriXOiWGYtDif5PBRZxQxgmJkoRD5QTtvcAsjRWNMzlIk8j6
+ OGwDnFJfN9KbgK7yZYW5LnTolA37ANAnv3dmKHOuHkXZikk4sflo6NPpCK5sV8CX
+ WlTgO5qJTPQJO4dRIiYVgA6ijhlTNKlH3Wq2aJSSbB5/EahxOBWM2bIbl+9x3eKZ
+ +F8si8o4hEBmom8S1wurYgy/HM9jxz+Oenb3A+ubYhGcxcMSG5bA==
+X-ME-Sender: <xms:yoDAWSFw8lB_6VzSZk3dBLr58hqa5f2Fe8oEJCgu4x8d6pGI0XnX5w>
+X-Sasl-enc: 1tjoVil0IQSTQmEdQmw7+W+qg89Iu1X5h7shPoMqngdd 1505788105
+Received: from keelia16 (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 7983C7F9D2;
+ Mon, 18 Sep 2017 22:28:23 -0400 (EDT)
+Message-ID: <1505788097.4080.22.camel@aj.id.au>
+Subject: Re: [PATCH 4/4] watchdog: aspeed: Move init to arch_initcall
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Guenter Roeck <linux@roeck-us.net>, linux-watchdog@vger.kernel.org
+Cc: wim@iguana.be, joel@jms.id.au, linux-kernel@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, linux-aspeed@lists.ozlabs.org, 
+ ryan_chen@aspeedtech.com
+Date: Tue, 19 Sep 2017 11:58:17 +0930
+In-Reply-To: <b7524108-1927-95a5-e5d6-ade0a8b9ab47@roeck-us.net>
+References: <20170918054905.16470-1-andrew@aj.id.au>
+ <20170918054905.16470-5-andrew@aj.id.au>
+ <b7524108-1927-95a5-e5d6-ade0a8b9ab47@roeck-us.net>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-9nFddokobLpOtoUJGtV2"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -72,70 +70,144 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Sep 2017 21:12:29 -0000
+X-List-Received-Date: Tue, 19 Sep 2017 02:28:34 -0000
 
-From: Eddie James <eajames@us.ibm.com>
 
-It's possible for the sbefifo ops to hang entirely if the system goes
-down (checkstop, etc), meaning that the occ and occ-hwmon drivers may
-hang during remove().
+--=-9nFddokobLpOtoUJGtV2
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Eddie James <eajames@us.ibm.com>
----
- drivers/hwmon/occ/p9_sbe.c | 19 +++++++++++++++----
- 1 file changed, 15 insertions(+), 4 deletions(-)
+On Mon, 2017-09-18 at 06:32 -0700, Guenter Roeck wrote:
+> On 09/17/2017 10:49 PM, Andrew Jeffery wrote:
+> > Probing at device_initcall time lead to perverse cases where the
+> > watchdog was probed after, say, I2C, which then leaves a potentially
+> > running watchdog at the mercy of I2C device behaviour and bus
+> > conditions.
+> >=20
+> > Load the watchdog driver early to ensure that the kernel is patting it
+> > well before initialising peripherals.
+> >=20
+>=20
+> But you are doing a bit more.=20
 
-diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
-index 2d50a94..a6aa4d2 100644
---- a/drivers/hwmon/occ/p9_sbe.c
-+++ b/drivers/hwmon/occ/p9_sbe.c
-@@ -16,7 +16,10 @@
- #include <linux/sched.h>
- #include <linux/workqueue.h>
- 
-+#define OCC_CMD_INCOMPLETE_MS		10
-+
- struct p9_sbe_occ {
-+	bool cancel;
- 	struct occ occ;
- 	struct device *sbe;
- };
-@@ -34,7 +37,7 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
- 	start = jiffies;
- 
- retry:
--	client = occ_drv_open(p9_sbe_occ->sbe, 0);
-+	client = occ_drv_open(p9_sbe_occ->sbe, O_NONBLOCK);
- 	if (!client) {
- 		rc = -ENODEV;
- 		goto assign;
-@@ -44,9 +47,14 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
- 	if (rc < 0)
- 		goto err;
- 
--	rc = occ_drv_read(client, (char *)resp, sizeof(*resp));
--	if (rc < 0)
--		goto err;
-+	do {
-+		rc = occ_drv_read(client, (char *)resp, sizeof(*resp));
-+		if (rc != -EAGAIN)
-+			break;
-+
-+		set_current_state(TASK_INTERRUPTIBLE);
-+		schedule_timeout(msecs_to_jiffies(OCC_CMD_INCOMPLETE_MS));
-+	} while (!p9_sbe_occ->cancel);
- 
- 	occ_drv_release(client);
- 
-@@ -164,6 +172,9 @@ static int p9_sbe_occ_probe(struct platform_device *pdev)
- static int p9_sbe_occ_remove(struct platform_device *pdev)
- {
- 	struct occ *occ = platform_get_drvdata(pdev);
-+	struct p9_sbe_occ *p9_sbe_occ = to_p9_sbe_occ(occ);
-+
-+	p9_sbe_occ->cancel = true;
- 
- 	occ_remove_status_attrs(occ);
- 
--- 
-1.8.3.1
+True.
+
+> You are making it bool, and you are enabling it
+> by default. Both isn't needed for the intended goal (arch_initcall is con=
+verted
+> to module_initcall if a driver is built as module).
+
+Okay, my understanding on this small point was fuzzy and was something=20
+I should have chased up. Thanks for the feedback.
+
+>  Your change focuses on
+> and optimizes the case where the watchdog is already running. That may no=
+t
+> always be the case, and there may be systems where the driver is not load=
+ed
+> on purpose.
+
+Is this a general comment, or regarding a specific Aspeed BMC-based
+system? Currently selecting ARCH_ASPEED will force select WATCHDOG and
+ASPEED_WATCHDOG. Thus "default y if ARCH_ASPEED" doesn't actually
+change the resulting configuration, but removes the need for the
+explicit select in arch/arm/mach-aspeed/Kconfig. I don't know what's
+better, but I felt that if we moved from tristate to boolean then
+changing the default in the watchdog Kconfig was the right way to go.
+
+The way to reboot the Aspeed SoC is to trip the watchdog. Perhaps
+wanting to build without the driver isn't unreasonable, but it would
+produce a system that you couldn't reboot. However, that's independent
+of whether or not to build as a module so it can remain a tristate. I
+think I'll just drop the Kconfig changes and add the exit handler. Sing
+out if I should do anything different.
+
+Cheers,
+
+Andrew
+
+>=20
+> Guenter
+>=20
+> > > > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> > ---
+> > =C2=A0 drivers/watchdog/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0| 6 =
+++----
+> > =C2=A0 drivers/watchdog/aspeed_wdt.c | 7 ++++++-
+> > =C2=A0 2 files changed, 8 insertions(+), 5 deletions(-)
+> >=20
+> > diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
+> > index a1b92ebe74b6..6103185983ed 100644
+> > --- a/drivers/watchdog/Kconfig
+> > +++ b/drivers/watchdog/Kconfig
+> > @@ -741,8 +741,9 @@ config RENESAS_RZAWDT
+> > > > =C2=A0=C2=A0	=C2=A0=C2=A0Renesas RZ/A SoCs. These watchdogs can be =
+used to reset a system.
+> > =C2=A0=C2=A0
+> > =C2=A0 config ASPEED_WATCHDOG
+> > > > -	tristate "Aspeed BMC watchdog support"
+> > > > +	bool "Aspeed BMC watchdog support"
+> > > > =C2=A0=C2=A0	depends on ARCH_ASPEED || COMPILE_TEST
+> > > > +	default y if ARCH_ASPEED
+> > > > =C2=A0=C2=A0	select WATCHDOG_CORE
+> > > > =C2=A0=C2=A0	help
+> > > > =C2=A0=C2=A0	=C2=A0=C2=A0Say Y here to include support for the watc=
+hdog timer
+> > @@ -750,9 +751,6 @@ config ASPEED_WATCHDOG
+> > =C2=A0=C2=A0
+> > > > =C2=A0=C2=A0	=C2=A0=C2=A0This driver is required to reboot the SoC.
+> > =C2=A0=C2=A0
+> > > > -	=C2=A0=C2=A0To compile this driver as a module, choose M here: th=
+e
+> > > > -	=C2=A0=C2=A0module will be called aspeed_wdt.
+> > -
+> > =C2=A0 config ZX2967_WATCHDOG
+> > > > =C2=A0=C2=A0	tristate "ZTE zx2967 SoCs watchdog support"
+> > > > =C2=A0=C2=A0	depends on ARCH_ZX
+> > diff --git a/drivers/watchdog/aspeed_wdt.c b/drivers/watchdog/aspeed_wd=
+t.c
+> > index 99bc6fbd8852..679c35abadc4 100644
+> > --- a/drivers/watchdog/aspeed_wdt.c
+> > +++ b/drivers/watchdog/aspeed_wdt.c
+> > @@ -313,7 +313,12 @@ static struct platform_driver aspeed_watchdog_driv=
+er =3D {
+> > > > =C2=A0=C2=A0		.of_match_table =3D of_match_ptr(aspeed_wdt_of_table)=
+,
+> > > > =C2=A0=C2=A0	},
+> > =C2=A0 };
+> > -module_platform_driver(aspeed_watchdog_driver);
+> > +
+> > +static int __init aspeed_wdt_init(void)
+> > +{
+> > > > +	return platform_driver_register(&aspeed_watchdog_driver);
+> > +}
+> > +arch_initcall(aspeed_wdt_init);
+> > =C2=A0=C2=A0
+> > =C2=A0 MODULE_DESCRIPTION("Aspeed Watchdog Driver");
+> > =C2=A0 MODULE_LICENSE("GPL");
+> >=20
+>=20
+>=20
+--=-9nFddokobLpOtoUJGtV2
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZwIDBAAoJEJ0dnzgO5LT5vmEP/iOkEt2K/NAsLXUzeqdY4VR2
+M9EbqcfFRXEm/NzS7+7O/z/agdsY4uFSXvBu/4LXki/LDsTPbZwngyJgqfmyTLgf
+IvPR1AHu+chItJCT8MYjzYN4Y8/MvsYpcOKYE34Xl/+HzPeQYduJGXW9k6RXS12G
+SfIsMYbEaYTSf6G5p5OUco+gV6SfmOMuHGIKEsTjgN5TS1DFbY2cyiYLN5XkSmw9
+CTDl/LlxFAYq/t7f2DEwWpimEgIYplASQRCmg7wKV2QiXAu2sEFbswZvP9jD21Ii
+HZTn/nDCTDw3jk3fPhFgXly6+e4DA6IURSYilbUAv/xty4147Lxee8Dh80IJJ+6I
+E/RauXJO21uvIYARCvSrxxi+6sVCf3R1xeiKgQsImriTeDHjjjaVF8YuUoibqtpA
+CT678atftz72WG6X3DLclMhYkJcZbOJIeDGE3q/P/ksZrtre2VponpjfHrBJl2rL
++7dAE6rEo55GQBBeGPGpuutkcWCBtp08IvZJv3lumaLVqPa2L80PW0hVpniCwN2/
+eInHDqVdPihUJxIguxoWwgO2hrqqY2ixfnrHp22Ztk4XfdrVSiE5ye5NHUe/uuHA
+TRc8P3ttjnHQ5XTXP3C7iiE+m1RA6cui0+rJRWuZLHbHmowQMm1PDQZ2/1MWRnMD
+ADW4tEMMygqre1+2VR54
+=D+/v
+-----END PGP SIGNATURE-----
+
+--=-9nFddokobLpOtoUJGtV2--
