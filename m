@@ -1,48 +1,48 @@
 Return-Path: <brendanhiggins@google.com>
 Authentication-Results: ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400e:c05::22e; helo=mail-pg0-x22e.google.com;
+ (client-ip=2607:f8b0:400e:c00::230; helo=mail-pf0-x230.google.com;
  envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="nSFLjM1F"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="UlWbsPbf"; 
  dkim-atps=neutral
-Received: from mail-pg0-x22e.google.com (mail-pg0-x22e.google.com
- [IPv6:2607:f8b0:400e:c05::22e])
+Received: from mail-pf0-x230.google.com (mail-pf0-x230.google.com
+ [IPv6:2607:f8b0:400e:c00::230])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xxd9m2gHZzDqNh
- for <openbmc@lists.ozlabs.org>; Wed, 20 Sep 2017 08:40:12 +1000 (AEST)
-Received: by mail-pg0-x22e.google.com with SMTP id d8so619477pgt.4
- for <openbmc@lists.ozlabs.org>; Tue, 19 Sep 2017 15:40:12 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xxd9n6g8xzDqNh
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Sep 2017 08:40:13 +1000 (AEST)
+Received: by mail-pf0-x230.google.com with SMTP id e1so557223pfk.1
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Sep 2017 15:40:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=ed5isZc+xdv/F8I6Ft46s8dwy/I/hwHGiI8fR//un0E=;
- b=nSFLjM1F+NGoRsFNOHVkUbVcnZDBYMHrNIkE0YFEuht1UMSf3LM1b48ntxVbBmGnWC
- hj3vCFXCdqsvkY02IcVGVmEZlsbbWmxnF6omphlN7/Xf3NY/RXdERMquk6OPg9tjAeeL
- r4DFIhXwA2gLZdT3oIAA04Ka/auoUq868GarQZX/M0gxbJXBBOCmNkGJwl6l/3rWW6CU
- ePwAeOlermyN50qzz88aQd504UUmh6vAWqIGFlqoT0HXq6I5KtI3cbTgUw0Iqcx6LSWC
- 33bkDSb3faL4vLJ7vPGAhO0sD2FmCFx2SYeMKn+dhx76e1xUOx8XDw65/BRxv59yapwT
- dAgA==
+ bh=x4xXaJT+iwfklIZl78tRoUlv5pkmCXjoCNYrMeL1ZhM=;
+ b=UlWbsPbfruW4plhy/sb+M/NRbNJGaYOyKNQRNwmjlsV7C1UbQWrQYKIg9ZJM5v4vak
+ epYhtLUPtTexnBqYS4t9oDpAsMmdH6qjUxQlRQPFECqdo6cXvV0bND4e7VdB10tJopFs
+ pn859AhicqtS8C3kGkkVxthtLcwSFUbcZ3UMUNnYOQj57kvsq7BTIgVwlmRr0KqE3XBR
+ U/o/T7MLMZZaba2NKyLVsMOH5amKVqH3JQaQd4I7rFl34xS0OL8cIxT4Dxyu/LUk+l5U
+ hV1Za4CCnYsANwqX2uW5r8u1eJZhECX0Zy/39Xq1T9t+A3nv65IyPoKCc89tq7YYGDpG
+ bGzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=ed5isZc+xdv/F8I6Ft46s8dwy/I/hwHGiI8fR//un0E=;
- b=Hz7e/IO+Q3kTL5WSPneO24Js7bfCPvfw3S3j1x5DBoXeGx0G49JZCuo2HrRpTydetx
- 9iEgtwmO+aj0o3zeC0h73knrs+8aT4uWm2zsLcEQlUaOGwY+++Am+0r7ZNwgxYSZJaa5
- mKvr6vwPOr5BrmvoXoFES6KK5zBWlQ6Sh78w1GdE0+uWob6h+KBTKvXYvUfl/lAkDfbZ
- 8hgKj0G9vtawd9BTyyYINvGWfXRooQr9pFTK3g+cbQCVqop27UmWx51izoCsYd9GrQ8x
- syh+XQk0TJINmjNjUZZ1bc3M+UST//rIQQ7ina+aQzU/kah/U2eP+M9ydAlo/zDXi8mM
- cnQw==
-X-Gm-Message-State: AHPjjUihmrT1DFjj68xsd7uuLlXwlSdS/5aMtFpUdBrccI/s9dgWfHUn
- P2rly4+W1TeSMPLK6FmUo8gRSw==
-X-Google-Smtp-Source: AOwi7QBBviFxzqE3/nlCtiwfLE3eCvCRr3WN32InqgL7x0JCYddyePkro+m8K0OCSbD8VbXvzkktCQ==
-X-Received: by 10.98.82.71 with SMTP id g68mr128240pfb.125.1505860809960;
- Tue, 19 Sep 2017 15:40:09 -0700 (PDT)
+ bh=x4xXaJT+iwfklIZl78tRoUlv5pkmCXjoCNYrMeL1ZhM=;
+ b=IHDCnKti2d/9ykLzG25H5T6o/C1c8WeiJGfSc0EzMWfovABxXev7G4eLcZxp5DfM4M
+ fMS9XiAxpSNoLFfpD7ceDr9UB8Me1PkwpxV4hQ4WY4+fefmrx3qpIMaREizTSsMynEb8
+ tN0/AMWlztGxDb6Upg6/WxfSOwRmZTgTgDHhbeOQLwhQTjNbOqjLJ/YufJ9c2ndPfC0y
+ OLXbqutdbaMNNroaEMsLA6YQX8IhXU3wqnDHd3uUVTPSuLbaSemSea4ma9yQFq3F8F5J
+ vBsK6dLnmjTxXu3T35sSxzQp84ipXmJN4mGfEj3d68ZFtTxTAJ/B9PGe2CGMgQCtSL4A
+ O+UQ==
+X-Gm-Message-State: AHPjjUj6EUmkKOz9LLOg2Tz4C7j+vVYl8uA0PTIp5oCl5TvQnRcHhfnM
+ oXvPk757nQJRE4VpNAFR9cCgag==
+X-Google-Smtp-Source: AOwi7QCxFZS2ZYo6NJxZa2G/Ekiw2v1Ifm0GNdmEZa8kpmrbZ3CpwrQ9HL3UGF/yq/z74vjZ4dWeHw==
+X-Received: by 10.98.26.201 with SMTP id a192mr116558pfa.311.1505860811884;
+ Tue, 19 Sep 2017 15:40:11 -0700 (PDT)
 Received: from mactruck.svl.corp.google.com ([100.123.242.94])
- by smtp.gmail.com with ESMTPSA id v31sm4645309pgn.43.2017.09.19.15.40.08
+ by smtp.gmail.com with ESMTPSA id v31sm4645309pgn.43.2017.09.19.15.40.10
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Tue, 19 Sep 2017 15:40:09 -0700 (PDT)
+ Tue, 19 Sep 2017 15:40:10 -0700 (PDT)
 From: Brendan Higgins <brendanhiggins@google.com>
 To: robh+dt@kernel.org, mark.rutland@arm.com, linux@armlinux.org.uk,
  avifishman70@gmail.com, tmaimon77@gmail.com, raltherr@google.com,
@@ -50,9 +50,10 @@ To: robh+dt@kernel.org, mark.rutland@arm.com, linux@armlinux.org.uk,
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
  Brendan Higgins <brendanhiggins@google.com>
-Subject: [PATCH v6 2/3] arm: dts: add Nuvoton NPCM750 device tree
-Date: Tue, 19 Sep 2017 15:40:00 -0700
-Message-Id: <20170919224001.22284-3-brendanhiggins@google.com>
+Subject: [PATCH v6 3/3] MAINTAINERS: Add entry for the Nuvoton NPCM
+ architecture
+Date: Tue, 19 Sep 2017 15:40:01 -0700
+Message-Id: <20170919224001.22284-4-brendanhiggins@google.com>
 X-Mailer: git-send-email 2.14.1.690.gbb1197296e-goog
 In-Reply-To: <20170919224001.22284-1-brendanhiggins@google.com>
 References: <20170919224001.22284-1-brendanhiggins@google.com>
@@ -67,405 +68,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Sep 2017 22:40:12 -0000
+X-List-Received-Date: Tue, 19 Sep 2017 22:40:14 -0000
 
-Add a common device tree for all Nuvoton NPCM750 BMCs and a board
-specific device tree for the NPCM750 (Poleg) evaluation board.
+Add maintainers and reviewers for the Nuvoton NPCM architecture.
 
 Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
 Reviewed-by: Tomer Maimon <tmaimon77@gmail.com>
 Reviewed-by: Avi Fishman <avifishman70@gmail.com>
-Reviewed-by: Joel Stanley <joel@jms.id.au>
-Tested-by: Tomer Maimon <tmaimon77@gmail.com>
-Tested-by: Avi Fishman <avifishman70@gmail.com>
 ---
- .../arm/cpu-enable-method/nuvoton,npcm7xx-smp      |  42 ++++
- .../devicetree/bindings/arm/npcm/npcm.txt          |   6 +
- arch/arm/boot/dts/nuvoton-npcm750-evb.dts          |  48 +++++
- arch/arm/boot/dts/nuvoton-npcm750.dtsi             | 211 +++++++++++++++++++++
- include/dt-bindings/clock/nuvoton,npcm7xx-clks.h   |  39 ++++
- 5 files changed, 346 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/arm/cpu-enable-method/nuvoton,npcm7xx-smp
- create mode 100644 Documentation/devicetree/bindings/arm/npcm/npcm.txt
- create mode 100644 arch/arm/boot/dts/nuvoton-npcm750-evb.dts
- create mode 100644 arch/arm/boot/dts/nuvoton-npcm750.dtsi
- create mode 100644 include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
+ MAINTAINERS | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/cpu-enable-method/nuvoton,npcm7xx-smp b/Documentation/devicetree/bindings/arm/cpu-enable-method/nuvoton,npcm7xx-smp
-new file mode 100644
-index 000000000000..e81f85b400cf
---- /dev/null
-+++ b/Documentation/devicetree/bindings/arm/cpu-enable-method/nuvoton,npcm7xx-smp
-@@ -0,0 +1,42 @@
-+=========================================================
-+Secondary CPU enable-method "nuvoton,npcm7xx-smp" binding
-+=========================================================
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 44cb004c765d..ec0d35384a16 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -1598,6 +1598,19 @@ F:	drivers/pinctrl/nomadik/
+ F:	drivers/i2c/busses/i2c-nomadik.c
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-nomadik.git
+ 
++ARM/NUVOTON NPCM ARCHITECTURE
++M:	Avi Fishman <avifishman70@gmail.com>
++M:	Tomer Maimon <tmaimon77@gmail.com>
++R:	Brendan Higgins <brendanhiggins@google.com>
++R:	Rick Altherr <raltherr@google.com>
++L:	openbmc@lists.ozlabs.org (moderated for non-subscribers)
++S:	Supported
++F:	arch/arm/mach-npcm/
++F:	arch/arm/boot/dts/nuvoton-npcm*
++F:	include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
++F:	drivers/*/*npcm*
++F:	Documentation/*/*npcm*
 +
-+To apply to all CPUs, a single "nuvoton,npcm7xx-smp" enable method should be
-+defined in the "cpus" node.
-+
-+Enable method name:	"nuvoton,npcm7xx-smp"
-+Compatible machines:	"nuvoton,npcm750"
-+Compatible CPUs:	"arm,cortex-a9"
-+Related properties:	(none)
-+
-+Note:
-+This enable method needs valid nodes compatible with "arm,cortex-a9-scu" and
-+"nuvoton,npcm750-gcr".
-+
-+Example:
-+
-+	cpus {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		enable-method = "nuvoton,npcm7xx-smp";
-+
-+		cpu@0 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a9";
-+			clocks = <&clk NPCM7XX_CLK_CPU>;
-+			clock-names = "clk_cpu";
-+			reg = <0>;
-+			next-level-cache = <&L2>;
-+		};
-+
-+		cpu@1 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a9";
-+			clocks = <&clk NPCM7XX_CLK_CPU>;
-+			clock-names = "clk_cpu";
-+			reg = <1>;
-+			next-level-cache = <&L2>;
-+		};
-+	};
-+
-diff --git a/Documentation/devicetree/bindings/arm/npcm/npcm.txt b/Documentation/devicetree/bindings/arm/npcm/npcm.txt
-new file mode 100644
-index 000000000000..2d87d9ecea85
---- /dev/null
-+++ b/Documentation/devicetree/bindings/arm/npcm/npcm.txt
-@@ -0,0 +1,6 @@
-+NPCM Platforms Device Tree Bindings
-+-----------------------------------
-+NPCM750 SoC
-+Required root node properties:
-+	- compatible = "nuvoton,npcm750";
-+
-diff --git a/arch/arm/boot/dts/nuvoton-npcm750-evb.dts b/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
-new file mode 100644
-index 000000000000..a0675e584125
---- /dev/null
-+++ b/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
-@@ -0,0 +1,48 @@
-+/*
-+ * DTS file for all NPCM750 SoCs
-+ *
-+ * Copyright 2012 Tomer Maimon <tomer.maimon@nuvoton.com>
-+ *
-+ * The code contained herein is licensed under the GNU General Public
-+ * License. You may obtain a copy of the GNU General Public License
-+ * Version 2 or later at the following locations:
-+ *
-+ * http://www.opensource.org/licenses/gpl-license.html
-+ * http://www.gnu.org/copyleft/gpl.html
-+ */
-+
-+/dts-v1/;
-+#include "nuvoton-npcm750.dtsi"
-+
-+/ {
-+	model = "Nuvoton npcm750 Development Board (Device Tree)";
-+	compatible = "nuvoton,npcm750";
-+
-+	chosen {
-+		stdout-path = &serial3;
-+	};
-+
-+	memory {
-+		reg = <0 0x40000000>;
-+	};
-+};
-+
-+&watchdog1 {
-+	status = "okay";
-+};
-+
-+&serial0 {
-+	status = "okay";
-+};
-+
-+&serial1 {
-+	status = "okay";
-+};
-+
-+&serial2 {
-+	status = "okay";
-+};
-+
-+&serial3 {
-+	status = "okay";
-+};
-diff --git a/arch/arm/boot/dts/nuvoton-npcm750.dtsi b/arch/arm/boot/dts/nuvoton-npcm750.dtsi
-new file mode 100644
-index 000000000000..5d8a48e44274
---- /dev/null
-+++ b/arch/arm/boot/dts/nuvoton-npcm750.dtsi
-@@ -0,0 +1,211 @@
-+/*
-+ * DTSi file for the NPCM750 SoC
-+ *
-+ * Copyright 2012 Tomer Maimon <tomer.maimon@nuvoton.com>
-+ *
-+ * The code contained herein is licensed under the GNU General Public
-+ * License. You may obtain a copy of the GNU General Public License
-+ * Version 2 or later at the following locations:
-+ *
-+ * http://www.opensource.org/licenses/gpl-license.html
-+ * http://www.gnu.org/copyleft/gpl.html
-+ */
-+
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include <dt-bindings/clock/nuvoton,npcm7xx-clks.h>
-+
-+/ {
-+	#address-cells = <1>;
-+	#size-cells = <1>;
-+	interrupt-parent = <&gic>;
-+
-+	cpus {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		enable-method = "nuvoton,npcm7xx-smp";
-+
-+		cpu@0 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a9";
-+			clocks = <&clk NPCM7XX_CLK_CPU>;
-+			clock-names = "clk_cpu";
-+			reg = <0>;
-+			next-level-cache = <&l2>;
-+		};
-+
-+		cpu@1 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a9";
-+			clocks = <&clk NPCM7XX_CLK_CPU>;
-+			clock-names = "clk_cpu";
-+			reg = <1>;
-+			next-level-cache = <&l2>;
-+		};
-+	};
-+
-+	gcr: gcr@f0800000 {
-+		compatible = "nuvoton,npcm750-gcr", "syscon",
-+			"simple-mfd";
-+		reg = <0xf0800000 0x1000>;
-+	};
-+
-+	scu: scu@f03fe000 {
-+		compatible = "arm,cortex-a9-scu";
-+		reg = <0xf03fe000 0x1000>;
-+	};
-+
-+	l2: cache-controller@f03fc000 {
-+		compatible = "arm,pl310-cache";
-+		reg = <0xf03fc000 0x1000>;
-+		interrupts = <0 21 4>;
-+		cache-unified;
-+		cache-level = <2>;
-+		clocks = <&clk NPCM7XX_CLK_AXI>;
-+	};
-+
-+	gic: interrupt-controller@f03ff000 {
-+		compatible = "arm,cortex-a9-gic";
-+		interrupt-controller;
-+		#interrupt-cells = <3>;
-+		reg = <0xf03ff000 0x1000>,
-+		    <0xf03fe100 0x100>;
-+	};
-+
-+	timer@f03fe600 {
-+		compatible = "arm,cortex-a9-twd-timer";
-+		reg = <0xf03fe600 0x20>;
-+		interrupts = <1 13 0x304>;
-+		clocks = <&clk NPCM7XX_CLK_TIMER>;
-+	};
-+
-+	ahb {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		compatible = "simple-bus";
-+		interrupt-parent = <&gic>;
-+		ranges = <0x80000000 0x80000000 0x40000000
-+			  0xc0000000 0xc0000000 0x00002000
-+			  0xc0008000 0xc0008000 0x00001000
-+			  0xe0800000 0xe0800000 0x00001000
-+			  0xe1000000 0xe1000000 0x00001000
-+			  0xe8000000 0xe8000000 0x08000000
-+			  /* APB start */
-+			  0xf0000000 0xf0000000 0x00005000
-+			  0xf0007000 0xf0007000 0x00005000
-+			  0xf0010000 0xf0010000 0x00008000
-+			  0xf0080000 0xf0080000 0x00010000
-+			  0xf009f000 0xf009f000 0x00001000
-+			  0xf0100000 0xf0100000 0x00005000
-+			  0xf0180000 0xf0180000 0x0000b000
-+			  0xf0200000 0xf0200000 0x00002000
-+			  /* APB end */
-+			  0xf0800000 0xf0800000 0x000fc000
-+			  0xf8000000 0xf8000000 0x02000000
-+			  0xfb000000 0xfb000000 0x00002000>;
-+
-+		clk: clock-controller@f0801000 {
-+			compatible = "nuvoton,npcm750-clk";
-+			#clock-cells = <1>;
-+			reg = <0xf0801000 0x1000>;
-+			status = "okay";
-+		};
-+
-+		/* external clock signal rg1refck, supplied by the phy */
-+		clk-rg1refck {
-+			compatible = "fixed-clock";
-+			#clock-cells = <0>;
-+			clock-frequency = <125000000>;
-+		};
-+
-+		/* external clock signal rg2refck, supplied by the phy */
-+		clk-rg2refck {
-+			compatible = "fixed-clock";
-+			#clock-cells = <0>;
-+			clock-frequency = <125000000>;
-+		};
-+
-+		clk-xin {
-+			compatible = "fixed-clock";
-+			#clock-cells = <0>;
-+			clock-frequency = <50000000>;
-+		};
-+
-+		apb {
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			compatible = "simple-bus";
-+			interrupt-parent = <&gic>;
-+			ranges = <0xf0000000 0xf0000000 0x00005000
-+				  0xf0007000 0xf0007000 0x00005000
-+				  0xf0010000 0xf0010000 0x00008000
-+				  0xf0080000 0xf0080000 0x00010000
-+				  0xf009f000 0xf009f000 0x00001000
-+				  0xf0100000 0xf0100000 0x00005000
-+				  0xf0180000 0xf0180000 0x0000b000
-+				  0xf0200000 0xf0200000 0x00002000>;
-+
-+			timer0: timer@f0000000 {
-+				compatible = "nuvoton,npcm750-timer";
-+				interrupts = <0 32 4>;
-+				reg = <0xf0000000 0x1000>;
-+				clocks = <&clk NPCM7XX_CLK_TIMER>;
-+			};
-+
-+			watchdog0: watchdog@f0008000 {
-+				compatible = "nuvoton,npcm750-wdt";
-+				interrupts = <0 47 4>;
-+				reg = <0xf0008000 0x1000>;
-+				status = "disabled";
-+				clocks = <&clk NPCM7XX_CLK_TIMER>;
-+			};
-+
-+			watchdog1: watchdog@f0009000 {
-+				compatible = "nuvoton,npcm750-wdt";
-+				interrupts = <0 48 4>;
-+				reg = <0xf0009000 0x1000>;
-+				status = "disabled";
-+				clocks = <&clk NPCM7XX_CLK_TIMER>;
-+			};
-+
-+			watchdog2: watchdog@f000a000 {
-+				compatible = "nuvoton,npcm750-wdt";
-+				interrupts = <0 49 4>;
-+				reg = <0xf000a000 0x1000>;
-+				status = "disabled";
-+				clocks = <&clk NPCM7XX_CLK_TIMER>;
-+			};
-+
-+			serial0: serial0@f0001000 {
-+				compatible = "nuvoton,npcm750-uart";
-+				reg = <0xf0001000 0x1000>;
-+				clocks = <&clk NPCM7XX_CLK_UART_CORE>;
-+				interrupts = <0 2 4>;
-+				status = "disabled";
-+			};
-+
-+			serial1: serial1@f0002000 {
-+				compatible = "nuvoton,npcm750-uart";
-+				reg = <0xf0002000 0x1000>;
-+				clocks = <&clk NPCM7XX_CLK_UART_CORE>;
-+				interrupts = <0 3 4>;
-+				status = "disabled";
-+			};
-+
-+			serial2: serial2@f0003000 {
-+				compatible = "nuvoton,npcm750-uart";
-+				reg = <0xf0003000 0x1000>;
-+				clocks = <&clk NPCM7XX_CLK_UART_CORE>;
-+				interrupts = <0 4 4>;
-+				status = "disabled";
-+			};
-+
-+			serial3: serial3@f0004000 {
-+				compatible = "nuvoton,npcm750-uart";
-+				reg = <0xf0004000 0x1000>;
-+				clocks = <&clk NPCM7XX_CLK_UART_CORE>;
-+				interrupts = <0 5 4>;
-+				status = "disabled";
-+			};
-+		};
-+	};
-+};
-diff --git a/include/dt-bindings/clock/nuvoton,npcm7xx-clks.h b/include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
-new file mode 100644
-index 000000000000..c69d3bbf7e42
---- /dev/null
-+++ b/include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
-@@ -0,0 +1,39 @@
-+/*
-+ * Copyright (C) 2016 Nuvoton Technologies,  tali.perry@nuvoton.com
-+ *
-+ * This software is licensed under the terms of the GNU General Public
-+ * License version 2, as published by the Free Software Foundation, and
-+ * may be copied, distributed, and modified under those terms.
-+ */
-+
-+#ifndef _DT_BINDINGS_CLK_NPCM7XX_H
-+#define _DT_BINDINGS_CLK_NPCM7XX_H
-+
-+#define NPCM7XX_CLK_PLL0	0
-+#define NPCM7XX_CLK_PLL1	1
-+#define NPCM7XX_CLK_PLL2	2
-+#define NPCM7XX_CLK_GFX		3
-+#define NPCM7XX_CLK_APB1	4
-+#define NPCM7XX_CLK_APB2	5
-+#define NPCM7XX_CLK_APB3	6
-+#define NPCM7XX_CLK_APB4	7
-+#define NPCM7XX_CLK_APB5	8
-+#define NPCM7XX_CLK_MC		9
-+#define NPCM7XX_CLK_CPU		10
-+#define NPCM7XX_CLK_SPI0	11
-+#define NPCM7XX_CLK_SPI3	12
-+#define NPCM7XX_CLK_SPIX	13
-+#define NPCM7XX_CLK_UART_CORE	14
-+#define NPCM7XX_CLK_TIMER	15
-+#define NPCM7XX_CLK_HOST_UART	16
-+#define NPCM7XX_CLK_MMC		17
-+#define NPCM7XX_CLK_SDHC	18
-+#define NPCM7XX_CLK_ADC		19
-+#define NPCM7XX_CLK_GFX_MEM	20
-+#define NPCM7XX_CLK_USB_BRIDGE	21
-+#define NPCM7XX_CLK_AXI		22
-+#define NPCM7XX_CLK_AHB		23
-+#define NPCM7XX_CLK_EMC		24
-+#define NPCM7XX_CLK_GMAC	25
-+
-+#endif
+ ARM/NUVOTON W90X900 ARM ARCHITECTURE
+ M:	Wan ZongShun <mcuos.com@gmail.com>
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
 -- 
 2.14.1.690.gbb1197296e-goog
