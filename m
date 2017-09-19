@@ -3,60 +3,60 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="QHDzCG3l"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="NXR5xX2T"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="NWW9vjgu"; dkim-atps=neutral
+ header.b="ieMFgczc"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xx6Hh12SrzDqF3;
- Tue, 19 Sep 2017 12:28:31 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xx6Ld6dd7zDqF3;
+ Tue, 19 Sep 2017 12:31:05 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id E09F720A96;
- Mon, 18 Sep 2017 22:28:26 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Mon, 18 Sep 2017 22:28:26 -0400
+ by mailout.nyi.internal (Postfix) with ESMTP id D31BD20BC4;
+ Mon, 18 Sep 2017 22:31:03 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Mon, 18 Sep 2017 22:31:03 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=PwzwDUjSVcHzSdHUUVpSRiAA5AusBr3XKlSjS+vHB
- jE=; b=QHDzCG3lDtbKp9hP1exQX2yFUX6SklMqPvE6S7IIKTuFleMj4HAHrasnL
- jllsyun3G6p6/O4wD21bO4mMyHe0Y0cX5b9MkXb7Tq40pG7LlLq/JrFnLu1O88Gp
- Igl5TThCxZM935iu13l1IdDSAzgjTWxgswwPzQemTDW+/oR3Eb7z8w9BkG5WKpnC
- Sm50TcF1h0m4h/N2W8hcvVpytDXWFQqZAQvjqZD7Y5N5whVWuVFpVMkP4+/rigkq
- kOwTj2hgWqW39u3cv8fp0P+6Zd4QcSjZhxKvqkawjWnD0356D+ABy700MsGI0ouZ
- aaUHG/yS5bVl4RNLOj+LGsBDu6BMg==
+ :x-sasl-enc; s=fm1; bh=IfnWRW4zR1Hgl6pHODzVV7T1T62VPc2Dpl+I+u2XJ
+ nM=; b=NXR5xX2T7YacgVDcot8dmxACs9JUaav6IsO56pXMMsn8E8Id71GLqayqg
+ TjsFDfW800mJ7HveqWY0smpOO5aEfsVZI9085MtgjLJ18fpRRJXMuWKywWmmZZjh
+ FUYJhK4pyo0hYxUQ3sXOvkdI0265D/E+sC3rorckw4rgcHTW44trDtoGhNFA0nDz
+ Upwg6kf+KcvE58/SJF1ywVNIUInLdJroO+T5Q+OLX/xZW3WF8kePkMSRlG2dJV3K
+ rRHV6QHYMK3Ea4b9dREPcz/Cpl6N5vbky5hONdgVPHphJeg792ZzNoPLVQ5hJUm9
+ +LceJ7uPNzGz+Ee8h78sAsa7gCqoQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=PwzwDUjSVcHzSdHUUV
- pSRiAA5AusBr3XKlSjS+vHBjE=; b=NWW9vjguC6l/Rw1GrSniRTYrluFk2rU+Nk
- uKERgasiWkaeXYL6tLwVgFX/z7Fab1+JnV0t2adMw4dVwX5ImT0ef8oazBku4n8Q
- IQ4oWu/3tVBA9o5AWriXOiWGYtDif5PBRZxQxgmJkoRD5QTtvcAsjRWNMzlIk8j6
- OGwDnFJfN9KbgK7yZYW5LnTolA37ANAnv3dmKHOuHkXZikk4sflo6NPpCK5sV8CX
- WlTgO5qJTPQJO4dRIiYVgA6ijhlTNKlH3Wq2aJSSbB5/EahxOBWM2bIbl+9x3eKZ
- +F8si8o4hEBmom8S1wurYgy/HM9jxz+Oenb3A+ubYhGcxcMSG5bA==
-X-ME-Sender: <xms:yoDAWSFw8lB_6VzSZk3dBLr58hqa5f2Fe8oEJCgu4x8d6pGI0XnX5w>
-X-Sasl-enc: 1tjoVil0IQSTQmEdQmw7+W+qg89Iu1X5h7shPoMqngdd 1505788105
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=IfnWRW4zR1Hgl6pHOD
+ zVV7T1T62VPc2Dpl+I+u2XJnM=; b=ieMFgczc+0WtoAlCVrpDavn3Lrn1vND8ay
+ E8T7LWJyAqxJOMAXSYc23MrbIT2VErd6yeKoCO4f7oIlroeer/2qwBIhXVMqUW3i
+ b1+Z2mi1UjmKuTmpGDPHR/pSko/4r3BI/njTcBNeNkVMbCff54760bOzo6K2SrCt
+ sXAGTi/+3nkGNO9aetMsQqsSYyJ9JKIzwdZ4pX2n8X0QcBVI7+zB1MYStKvfe9c6
+ HDfACpYg+DFGG7fBxNpRzNyn2SoB2WOk5+iXUdeNZRjrs5Od1L9avSBMgMQSS29s
+ d8o1QVYGo8FBIUKibbSOP4TD9qAbUG495cCUCnII8L5HzaeGvktw==
+X-ME-Sender: <xms:Z4HAWT7RmgDiaGAbhSRBfQK9RnpOG1PUGMHlJhcftTutDUiOOBRaww>
+X-Sasl-enc: amukjCYBg50ZrY8VWvxUq0T9na9Pt+mZZ8mEIi6y5/ho 1505788263
 Received: from keelia16 (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 7983C7F9D2;
- Mon, 18 Sep 2017 22:28:23 -0400 (EDT)
-Message-ID: <1505788097.4080.22.camel@aj.id.au>
-Subject: Re: [PATCH 4/4] watchdog: aspeed: Move init to arch_initcall
+ by mail.messagingengine.com (Postfix) with ESMTPA id 76406248ED;
+ Mon, 18 Sep 2017 22:31:00 -0400 (EDT)
+Message-ID: <1505788256.4080.24.camel@aj.id.au>
+Subject: Re: [PATCH 1/4] watchdog: aspeed: Retain watchdog enabled state
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Guenter Roeck <linux@roeck-us.net>, linux-watchdog@vger.kernel.org
 Cc: wim@iguana.be, joel@jms.id.au, linux-kernel@vger.kernel.org, 
  openbmc@lists.ozlabs.org, linux-aspeed@lists.ozlabs.org, 
  ryan_chen@aspeedtech.com
-Date: Tue, 19 Sep 2017 11:58:17 +0930
-In-Reply-To: <b7524108-1927-95a5-e5d6-ade0a8b9ab47@roeck-us.net>
+Date: Tue, 19 Sep 2017 12:00:56 +0930
+In-Reply-To: <bef08c5f-b0ae-a2e4-34a1-c9e1500b4234@roeck-us.net>
 References: <20170918054905.16470-1-andrew@aj.id.au>
- <20170918054905.16470-5-andrew@aj.id.au>
- <b7524108-1927-95a5-e5d6-ade0a8b9ab47@roeck-us.net>
+ <20170918054905.16470-2-andrew@aj.id.au>
+ <bef08c5f-b0ae-a2e4-34a1-c9e1500b4234@roeck-us.net>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-9nFddokobLpOtoUJGtV2"
+ protocol="application/pgp-signature"; boundary="=-7O0ssMshb1jqry7wQGKh"
 X-Mailer: Evolution 3.22.6-1ubuntu1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -70,144 +70,91 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Sep 2017 02:28:34 -0000
+X-List-Received-Date: Tue, 19 Sep 2017 02:31:06 -0000
 
 
---=-9nFddokobLpOtoUJGtV2
+--=-7O0ssMshb1jqry7wQGKh
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2017-09-18 at 06:32 -0700, Guenter Roeck wrote:
+On Mon, 2017-09-18 at 06:25 -0700, Guenter Roeck wrote:
 > On 09/17/2017 10:49 PM, Andrew Jeffery wrote:
-> > Probing at device_initcall time lead to perverse cases where the
-> > watchdog was probed after, say, I2C, which then leaves a potentially
-> > running watchdog at the mercy of I2C device behaviour and bus
-> > conditions.
+> > An unintended post-condition of probe() is that the watchdog is
+> > disabled. Rework probe() such that we retain the value of the "enabled"
+> > bit from the control register, and take the appropriate actions with
+> > respect to the watchdog core if so. Otherwise, just configure the
+> > watchdog as directed.
 > >=20
-> > Load the watchdog driver early to ensure that the kernel is patting it
-> > well before initialising peripherals.
-> >=20
->=20
-> But you are doing a bit more.=20
-
-True.
-
-> You are making it bool, and you are enabling it
-> by default. Both isn't needed for the intended goal (arch_initcall is con=
-verted
-> to module_initcall if a driver is built as module).
-
-Okay, my understanding on this small point was fuzzy and was something=20
-I should have chased up. Thanks for the feedback.
-
->  Your change focuses on
-> and optimizes the case where the watchdog is already running. That may no=
-t
-> always be the case, and there may be systems where the driver is not load=
-ed
-> on purpose.
-
-Is this a general comment, or regarding a specific Aspeed BMC-based
-system? Currently selecting ARCH_ASPEED will force select WATCHDOG and
-ASPEED_WATCHDOG. Thus "default y if ARCH_ASPEED" doesn't actually
-change the resulting configuration, but removes the need for the
-explicit select in arch/arm/mach-aspeed/Kconfig. I don't know what's
-better, but I felt that if we moved from tristate to boolean then
-changing the default in the watchdog Kconfig was the right way to go.
-
-The way to reboot the Aspeed SoC is to trip the watchdog. Perhaps
-wanting to build without the driver isn't unreasonable, but it would
-produce a system that you couldn't reboot. However, that's independent
-of whether or not to build as a module so it can remain a tristate. I
-think I'll just drop the Kconfig changes and add the exit handler. Sing
-out if I should do anything different.
-
-Cheers,
-
-Andrew
-
->=20
-> Guenter
->=20
 > > > > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 > > ---
-> > =C2=A0 drivers/watchdog/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0| 6 =
-++----
-> > =C2=A0 drivers/watchdog/aspeed_wdt.c | 7 ++++++-
-> > =C2=A0 2 files changed, 8 insertions(+), 5 deletions(-)
+> > =C2=A0 drivers/watchdog/aspeed_wdt.c | 9 +++++----
+> > =C2=A0 1 file changed, 5 insertions(+), 4 deletions(-)
 > >=20
-> > diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
-> > index a1b92ebe74b6..6103185983ed 100644
-> > --- a/drivers/watchdog/Kconfig
-> > +++ b/drivers/watchdog/Kconfig
-> > @@ -741,8 +741,9 @@ config RENESAS_RZAWDT
-> > > > =C2=A0=C2=A0	=C2=A0=C2=A0Renesas RZ/A SoCs. These watchdogs can be =
-used to reset a system.
-> > =C2=A0=C2=A0
-> > =C2=A0 config ASPEED_WATCHDOG
-> > > > -	tristate "Aspeed BMC watchdog support"
-> > > > +	bool "Aspeed BMC watchdog support"
-> > > > =C2=A0=C2=A0	depends on ARCH_ASPEED || COMPILE_TEST
-> > > > +	default y if ARCH_ASPEED
-> > > > =C2=A0=C2=A0	select WATCHDOG_CORE
-> > > > =C2=A0=C2=A0	help
-> > > > =C2=A0=C2=A0	=C2=A0=C2=A0Say Y here to include support for the watc=
-hdog timer
-> > @@ -750,9 +751,6 @@ config ASPEED_WATCHDOG
-> > =C2=A0=C2=A0
-> > > > =C2=A0=C2=A0	=C2=A0=C2=A0This driver is required to reboot the SoC.
-> > =C2=A0=C2=A0
-> > > > -	=C2=A0=C2=A0To compile this driver as a module, choose M here: th=
-e
-> > > > -	=C2=A0=C2=A0module will be called aspeed_wdt.
-> > -
-> > =C2=A0 config ZX2967_WATCHDOG
-> > > > =C2=A0=C2=A0	tristate "ZTE zx2967 SoCs watchdog support"
-> > > > =C2=A0=C2=A0	depends on ARCH_ZX
 > > diff --git a/drivers/watchdog/aspeed_wdt.c b/drivers/watchdog/aspeed_wd=
 t.c
-> > index 99bc6fbd8852..679c35abadc4 100644
+> > index 79cc766cd30f..99bc6fbd8852 100644
 > > --- a/drivers/watchdog/aspeed_wdt.c
 > > +++ b/drivers/watchdog/aspeed_wdt.c
-> > @@ -313,7 +313,12 @@ static struct platform_driver aspeed_watchdog_driv=
-er =3D {
-> > > > =C2=A0=C2=A0		.of_match_table =3D of_match_ptr(aspeed_wdt_of_table)=
-,
-> > > > =C2=A0=C2=A0	},
-> > =C2=A0 };
-> > -module_platform_driver(aspeed_watchdog_driver);
-> > +
-> > +static int __init aspeed_wdt_init(void)
-> > +{
-> > > > +	return platform_driver_register(&aspeed_watchdog_driver);
-> > +}
-> > +arch_initcall(aspeed_wdt_init);
+> > @@ -221,7 +221,8 @@ static int aspeed_wdt_probe(struct platform_device =
+*pdev)
+> > > > =C2=A0=C2=A0		return -EINVAL;
+> > > > =C2=A0=C2=A0	config =3D ofdid->data;
 > > =C2=A0=C2=A0
-> > =C2=A0 MODULE_DESCRIPTION("Aspeed Watchdog Driver");
-> > =C2=A0 MODULE_LICENSE("GPL");
+> > > > -	wdt->ctrl =3D WDT_CTRL_1MHZ_CLK;
+> > > > +	wdt->ctrl |=3D readl(wdt->base + WDT_CTRL) & WDT_CTRL_ENABLE;
+> > > > +	wdt->ctrl |=3D WDT_CTRL_1MHZ_CLK;
+> > =C2=A0=C2=A0
+> > > > =C2=A0=C2=A0	/*
+> > > > =C2=A0=C2=A0	=C2=A0* Control reset on a per-device basis to ensure =
+the
+> > @@ -243,11 +244,11 @@ static int aspeed_wdt_probe(struct platform_devic=
+e *pdev)
+> > > > =C2=A0=C2=A0	if (of_property_read_bool(np, "aspeed,external-signal"=
+))
+> > > > =C2=A0=C2=A0		wdt->ctrl |=3D WDT_CTRL_WDT_EXT;
+> > =C2=A0=C2=A0
+> > > > -	writel(wdt->ctrl, wdt->base + WDT_CTRL);
+> > -
+> > > > -	if (readl(wdt->base + WDT_CTRL) & WDT_CTRL_ENABLE)=C2=A0=C2=A0{
+> > > > +	if (wdt->ctrl & WDT_CTRL_ENABLE) {
+> > =C2=A0=C2=A0		aspeed_wdt_start(&wdt->wdd);
+>=20
+> Why call the start function in this case ?
+
+... Good question. It was already there so I didn't touch it. I expect
+it can be dropped - I'll look into it.
+
+>=20
+> > > > > > =C2=A0=C2=A0		set_bit(WDOG_HW_RUNNING, &wdt->wdd.status); > +	}=
+ else {
+> > > > +		writel(wdt->ctrl, wdt->base + WDT_CTRL);
+> > > > =C2=A0=C2=A0	}
+> > =C2=A0=C2=A0
+> > > > =C2=A0=C2=A0	if (of_device_is_compatible(np, "aspeed,ast2500-wdt"))=
+ {
 > >=20
 >=20
 >=20
---=-9nFddokobLpOtoUJGtV2
+--=-7O0ssMshb1jqry7wQGKh
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJZwIDBAAoJEJ0dnzgO5LT5vmEP/iOkEt2K/NAsLXUzeqdY4VR2
-M9EbqcfFRXEm/NzS7+7O/z/agdsY4uFSXvBu/4LXki/LDsTPbZwngyJgqfmyTLgf
-IvPR1AHu+chItJCT8MYjzYN4Y8/MvsYpcOKYE34Xl/+HzPeQYduJGXW9k6RXS12G
-SfIsMYbEaYTSf6G5p5OUco+gV6SfmOMuHGIKEsTjgN5TS1DFbY2cyiYLN5XkSmw9
-CTDl/LlxFAYq/t7f2DEwWpimEgIYplASQRCmg7wKV2QiXAu2sEFbswZvP9jD21Ii
-HZTn/nDCTDw3jk3fPhFgXly6+e4DA6IURSYilbUAv/xty4147Lxee8Dh80IJJ+6I
-E/RauXJO21uvIYARCvSrxxi+6sVCf3R1xeiKgQsImriTeDHjjjaVF8YuUoibqtpA
-CT678atftz72WG6X3DLclMhYkJcZbOJIeDGE3q/P/ksZrtre2VponpjfHrBJl2rL
-+7dAE6rEo55GQBBeGPGpuutkcWCBtp08IvZJv3lumaLVqPa2L80PW0hVpniCwN2/
-eInHDqVdPihUJxIguxoWwgO2hrqqY2ixfnrHp22Ztk4XfdrVSiE5ye5NHUe/uuHA
-TRc8P3ttjnHQ5XTXP3C7iiE+m1RA6cui0+rJRWuZLHbHmowQMm1PDQZ2/1MWRnMD
-ADW4tEMMygqre1+2VR54
-=D+/v
+iQIcBAABCgAGBQJZwIFgAAoJEJ0dnzgO5LT5YO0P/2w012SKGaAuLhqb3hI3Vxm4
+K2UYvo4pGUZ50RpJAh+rRXmM6WcF4zYYeD3KvtHTeug6BXcAjnJLQE99NEDMnTlx
+OdWGbM7mcLPDrb00UUkwJ7FK5pgNAIB04kmSkg5Ey1PXaUS8Yy9167BbVKbsA3iW
+4po/s4cFMJU9PnEofXmGvpSeyckt95gYMc2r7t7SOKQk0WujNNAtacjS283EG+Gk
+X/eIE2EfARVQTbBsIsjrD0Ah9FvajkEnu1Foc/v6Fb5a/oYBin798SFfXAjRxP/B
+B5mGPmmTZuRnOET7OsoeVKw67a6bVwCzG+l1tvmQ/nADH866JMjihRLNucAsOtiu
+v9IDNvaNHL+PqTdzOi+XHqliRBGDZP+R3afPniN4SH57NrH3rP4K7SyPeM3tc8K2
+ofbj60kqOyUcXqSyzMM6t8F+hgzvRuZacBl+EujFYVf1gq+MAbca0eTilthAAxoE
+VL44baTg4ePV/3KFiYGoFHditPC6jJffdehpcacLHr6RE38STDcYd8/2E+fqnSXo
+DRt1ypKo3XAVmrukvUVH5uthSK76yIP1gtSGQT+uLFqyYTNv3qWIGOGTx5Q0qKDE
+WT1q2mdVbiljqY+N4gJ/Z7Sgp7d+ZGKXPRef/F5G43Ox7nIq2Mnp9PiWCP1twZQv
+e/MicuUiFu6d8Yw+AzbZ
+=uKuz
 -----END PGP SIGNATURE-----
 
---=-9nFddokobLpOtoUJGtV2--
+--=-7O0ssMshb1jqry7wQGKh--
