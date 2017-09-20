@@ -1,59 +1,62 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Return-Path: <joel.stan@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2a00:1450:4010:c07::235; helo=mail-lf0-x235.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="sX/Kig6H"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="gz5lg6Xq"; dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="cTTQYWhQ"; 
+ dkim-atps=neutral
+Received: from mail-lf0-x235.google.com (mail-lf0-x235.google.com
+ [IPv6:2a00:1450:4010:c07::235])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xxpHz5zJyzDqXw;
- Wed, 20 Sep 2017 15:31:11 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id B373821180;
- Wed, 20 Sep 2017 01:31:09 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Wed, 20 Sep 2017 01:31:09 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=piamhm
- GWU1D+LC3R+hmkfdOs2K30OTFSsDxNvKPm1ts=; b=sX/Kig6HZ4PLcTHeIoq6Pn
- vp82zEUmrLo8tb2sMIr97OrXZxWJ1AfidoU4dXrVc0mFElBl36Bu3j0CoMqY1ZjK
- hlpSpM/C7EI3j5vLY/A7Nd5ie2kpU2B5ZUiApohcMl2Qyvb5/gWtHs2tH2D6wDO5
- RJ3vR94T83ED8rOD8vY/hn/XeRGncmufsgc/Drb8y0cxCx4UhxIya725ObbSaNxR
- 8g2n/4QmPFETgBX6D1/aEXTstj/WDFBeRofsofx5xY/bfOKuN9MGvEoy7Iq2PaGF
- LpXd+66CaqcsDaRhKhW/dz69Lr3+F6OiWCdiRnEVkH58xvBdMl/aQSwC5eQmTENA
- ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:in-reply-to:message-id
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=piamhmGWU1D+LC3R+hmkfdOs2K30OTFSsDxNvKPm1
- ts=; b=gz5lg6XqtzS4lyd/UbDsKLTOvqc1bsOfz18T8uPw95I5FIvYkTavrWIgR
- wwJ5q4LnTW0qlsBQynkjMpjRX2tJ/lvsikaPlIvR+tvoacgs8V6teBE4WlV4wBGF
- BCbXdc7j1gVZRxflLO9DVU8iHqaBXgnAFC2vrxbHFJZNDv1N6Sb7STJiMBm8YIDo
- ra5v3qsoHbShD/NtMfJHuXQHVFu32jx5vXeupO8uVmvA6ohM1w+emLu4ZaAl1AQh
- Q3kTE8VYdUJ2tFMvs8LBUzcZCHWRESz0+8ht82jTH5HOtMDRpbU3Diuac75HVa6e
- cRi58GTFSEtN8hGSFdGWdqqw/8xFg==
-X-ME-Sender: <xms:Hf3BWdx-n3HQBornNOwQWzABmhsvVUI92nD7cEW9wdIVfvCLnCjRuw>
-X-Sasl-enc: C+n/PyTIbKm3hP+ZGTOtMesS1c7tXyi/aDZf0Wo9tio8 1505885468
-Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 3BEDE7E5EE;
- Wed, 20 Sep 2017 01:31:05 -0400 (EDT)
-From: Andrew Jeffery <andrew@aj.id.au>
-To: linux-watchdog@vger.kernel.org
-Cc: Andrew Jeffery <andrew@aj.id.au>, wim@iguana.be, linux@roeck-us.net,
- joel@jms.id.au, linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-aspeed@lists.ozlabs.org, ryan_chen@aspeedtech.com
-Subject: [PATCH v2 4/4] watchdog: aspeed: Move init to arch_initcall
-Date: Wed, 20 Sep 2017 15:00:20 +0930
-Message-Id: <20170920053020.6860-5-andrew@aj.id.au>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20170920053020.6860-1-andrew@aj.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xxq616zlszDqBd;
+ Wed, 20 Sep 2017 16:07:37 +1000 (AEST)
+Received: by mail-lf0-x235.google.com with SMTP id k23so1612389lfi.11;
+ Tue, 19 Sep 2017 23:07:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=6L97DFAJLZHICeCZAKIVITJ7Yo7ua6Nn3Lv5XJe5VSY=;
+ b=cTTQYWhQkj01Bg8oIpZjLIqUVTcM2Or+NDwt85niFlzu520grmplE/zLxmo6EEwvW6
+ 88IURx4xHzExWfL/UdONIW3+U4Tx1oWQLO8Ofwo2rX9jZ8Cm8Y4g+bq9IPLzTztpOq0P
+ sAWmPu/+IwuZg0YDPa00ilgiwEpv18PzrD0BEKrKCM8740ZJaNZ7qSZkR7Zc8TMWxkiC
+ KZvPckaulcX+xvn/Uo6/OQzuTl5B3533c1Oft+WP2sN8e3mzhd5vmaT7J51w8Nt8E6eq
+ 8Mn5/T/G76dFcYsdCgGDhmvbjE6ls0KltOXnlIxjfyIfDOTlVwwpK//7uR4rJGjILorS
+ g25A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=6L97DFAJLZHICeCZAKIVITJ7Yo7ua6Nn3Lv5XJe5VSY=;
+ b=hUUu6eHPInXoSCGBojCHcnwZBWajneah/ciZZ3O93KuL7s22eIfmTIgA8/8xCKMaDv
+ I8JCuFJHrC/skHxYxrcwliAcgqSp2qfxoofKaPf9/1R9rKlF4l2ku5beba3yOK2O/mQ0
+ QlCe4znpz+WjF4bt1tlEMI/6fJwqE8i9yrWvHrxySmViVDEYDy+TK1tcMbt9wWo2nqZn
+ +m+o7Fvmw/Paev+HG8H0D5fQqCqNp0n9TjsgxIp2BnnV0W9G3tV7dLKW06pR21w2ATiV
+ Wt158mFk4phqfyS31aNMzVYIWQpOiLpB3h9qkx7ahDxlvaGIbbtG+GOp6zUxD14YWx83
+ j5LQ==
+X-Gm-Message-State: AHPjjUgo4Nupc/14gTR81Fgwrj7MIXZZ/RDJH+tYHHXMLVjGrzAE/Nn7
+ rVxCSjJqMsrJkztKOSPgKNGDYgwEQkJD38CGByI=
+X-Google-Smtp-Source: AOwi7QB7XYguIUEmEufBCLBWi3AqtB1fMObTDKh8IvjuAIPnmUnmaVHKv1r5/MVo5QaoaKDvY+LYVOwoUoyqPCuIx5M=
+X-Received: by 10.25.100.18 with SMTP id y18mr370443lfb.257.1505887653935;
+ Tue, 19 Sep 2017 23:07:33 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.25.103.82 with HTTP; Tue, 19 Sep 2017 23:07:13 -0700 (PDT)
+In-Reply-To: <20170920053020.6860-2-andrew@aj.id.au>
 References: <20170920053020.6860-1-andrew@aj.id.au>
+ <20170920053020.6860-2-andrew@aj.id.au>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 20 Sep 2017 15:37:13 +0930
+X-Google-Sender-Auth: udAJrDn7aP58tuH0C7npxillv_M
+Message-ID: <CACPK8XfK8voWhPoYg0kG-OhQoTH_B+=ES8BqbT26bdPYf39d1A@mail.gmail.com>
+Subject: Re: [PATCH v2 1/4] watchdog: aspeed: Retain watchdog enabled state
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: linux-watchdog@vger.kernel.org, Wim Van Sebroeck <wim@iguana.be>, 
+ Guenter Roeck <linux@roeck-us.net>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ linux-aspeed@lists.ozlabs.org, Ryan Chen <ryan_chen@aspeedtech.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -65,44 +68,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Sep 2017 05:31:14 -0000
+X-List-Received-Date: Wed, 20 Sep 2017 06:07:38 -0000
 
-Probing at device_initcall time lead to perverse cases where the
-watchdog was probed after, say, I2C devices, which then leaves a
-potentially running watchdog at the mercy of I2C device behaviour and
-bus conditions.
+On Wed, Sep 20, 2017 at 3:00 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> An unintended post-condition of probe() is that the watchdog is
+> disabled. This behaviour was introduced by an unnecessary write to the
+> control register to configure the hardware based on the devicetree. The
+> write is unnecessary because the cached control value that is
+> manipulated by the code parsing the devicetree is eventually written by
+> aspeed_wdt_enable(), which is when we care how the control register
+> should be configured.
+>
+> Remove the write to restore expected behaviour.
+>
+> Fixes: b7f0b8ad25f3 ("drivers/watchdog: ASPEED reference dev tree properties for config")
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 
-Load the watchdog driver early to ensure that the kernel is patting it
-well before initialising peripherals.
+Reviewed-by: Joel Stanley <joel@jms.id.au>
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- drivers/watchdog/aspeed_wdt.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+Thanks,
 
-diff --git a/drivers/watchdog/aspeed_wdt.c b/drivers/watchdog/aspeed_wdt.c
-index 6c6dd3f4c48d..ca5b91e2eb92 100644
---- a/drivers/watchdog/aspeed_wdt.c
-+++ b/drivers/watchdog/aspeed_wdt.c
-@@ -316,7 +316,18 @@ static struct platform_driver aspeed_watchdog_driver = {
- 		.of_match_table = of_match_ptr(aspeed_wdt_of_table),
- 	},
- };
--module_platform_driver(aspeed_watchdog_driver);
-+
-+static int __init aspeed_wdt_init(void)
-+{
-+	return platform_driver_register(&aspeed_watchdog_driver);
-+}
-+arch_initcall(aspeed_wdt_init);
-+
-+static void __exit aspeed_wdt_exit(void)
-+{
-+	platform_driver_unregister(&aspeed_watchdog_driver);
-+}
-+module_exit(aspeed_wdt_exit);
- 
- MODULE_DESCRIPTION("Aspeed Watchdog Driver");
- MODULE_LICENSE("GPL");
--- 
-2.11.0
+Joel
