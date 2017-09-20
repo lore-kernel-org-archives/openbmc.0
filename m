@@ -3,55 +3,57 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="hZK6A83K"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="q94IezjA"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="ATJvvlm0"; dkim-atps=neutral
+ header.b="o4XFkDsh"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xxpHk03hXzDqBd;
- Wed, 20 Sep 2017 15:30:56 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xxpHm2njvzDqBd;
+ Wed, 20 Sep 2017 15:31:00 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 43DB820DB8;
- Wed, 20 Sep 2017 01:30:54 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 4E9BE20E37;
+ Wed, 20 Sep 2017 01:30:58 -0400 (EDT)
 Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Wed, 20 Sep 2017 01:30:54 -0400
+ by compute4.internal (MEProxy); Wed, 20 Sep 2017 01:30:58 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:message-id:subject:to:x-me-sender:x-me-sender
- :x-sasl-enc:x-sasl-enc; s=fm1; bh=O/Vjju7FoI24aI2UOIf46HRtrWBow7
- mzS9yhP61+WNM=; b=hZK6A83KmxM7YfGrA1D5QdPyh7hT9Bpim44sIBqs+PRpJt
- ycRPQBEsbJHfj6nJkWmYHN7UnJqJjfcpqwR8e4AUBgK2dJacD3TOcKbjR9ZD6k2z
- zgjvhDjzIukxdx3Dw0M9KfgnvCMe8UZu0wd21h9Zjv0sp8UcJgTJiqEjgbEFLL5u
- 5K9yhAFJuXFge5oEU4eRfdUJsZ1UOoJJoIWYzRCZW+07wUgWmb8ZHj5LyLj0zu70
- SeuPs39u+yoShaEho8YM/PeGhL3rvlEp/Y3ltmHyZdR6b2O7by+ijAEJDqCZZs+5
- n73PFdsBXepEuGUag3M3rXMjpKi9DRYIwfKd7jzA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=O/Vjju
- 7FoI24aI2UOIf46HRtrWBow7mzS9yhP61+WNM=; b=ATJvvlm0WrLdzOYbUKfc1b
- 9NyGYY8jcfIHfoSDicOvBEsD8kBptqcAIRa4YsEwKDU2UTjWkxFY8yR0VD8/E+b5
- x/ZMgNCbQ4U9gYvlfK7PGUOSkf2qT54RJrMgtlWEEATkoJussbv2SE0xXqT3Jj6d
- PKnlbLneq4HC9LP+CkWn4dDF41rTjb07iTLfzlstACLAkRKBw1AOAB+aoOMnoPrz
- QfThll4pZE1PLyYzjwUhg2roRjqMSI4wyTcqK1PEJc1EizHta2SZT8d1YNX2Ckhd
- otq7kWEXT96T6ohcLJ6P7VhUmM4HXNaFbQEl/uMMyyt+cyciTi+zDShBSlc647bw
+ :date:from:in-reply-to:message-id:references:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=d2sif+
+ trFNrk8EaEqbpPgDd9xOzrgIN5Xv3evoe1a/k=; b=q94IezjAjwE3njmPLO0FrV
+ EsLthd1Q5zlWYmJ1pQohwvRkvvDKiGBv8W1UojYnIlx9hiYEk37FAUkzxGFLNM4w
+ 2cqAg1AL3gZgWQK61AIkCYbG94D/KUyjL1fAJPc7TWEqtyjKtW/GGbU2gQnwckgr
+ a0g1hOcGkglgWHgl/Oxh7m4jSJFriOwRqOh1xiZfw+NlF/q09F96d2wHuDLPhrp0
+ rW0VLE7rr9//LtixJcO0KxfNmbrp3vhGruHMQroYarQ6r2UzYTu9jqWSerrfjb8r
+ wUOdQq8BlTj/+dy6MSsjWubnBVl4l5jgKjizOAfloQGzYD+aeGl5mqnFDecFp8MA
  ==
-X-ME-Sender: <xms:Dv3BWcRrDw9_5wkXEPZuwTRuc8PLUpnOuiFbtJtV8D7D8Dzlh0-2Vg>
-X-Sasl-enc: XtZ7W1DNaE/SG/SvaR95KzRo8J+vY1aVQcZEQy7aagWG 1505885453
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:in-reply-to:message-id
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=d2sif+trFNrk8EaEqbpPgDd9xOzrgIN5Xv3evoe1a
+ /k=; b=o4XFkDshzKouFLv4gcFNc88XNNFc6lbSzqXGKwQ+UTbGGd0cUH/qEcbr/
+ lhTtZjqQlZpBfR9bKm3Q7EIx9bBiM0qJwGJkMIaPb5aKM1zUQbEe+ExtnAx5f95d
+ 7lsAeCEg80a/3uAaCec/dL+ppxvihSjxYO/XZ5c+MiettHbW9+85Is7ltJnvlJ1S
+ Q+p/kB7ALQU7fWnHp1O+uGYRMBYdiovozpeAU7htHIvt/hyo7MY1T9GfkOe43VQ2
+ HSRg+605rwqEADwcIttJnDPoK0QFn1L0FEXRcgxJqHO+GeroYfVDumzGfsFkzX7a
+ t7JfaERTzrIVwZDNBJ1IUdu9P/9Eg==
+X-ME-Sender: <xms:Ev3BWa4bfLVYaXiBhiTrThe3TYYebzcdOAOeu6vgTY5rNHeCgOQyHw>
+X-Sasl-enc: NodKJXea2snAQpmkMaO7EJsmdCAuUhy/D70hj61KMedz 1505885457
 Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 783B47F9C1;
- Wed, 20 Sep 2017 01:30:50 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id A36E37F9CF;
+ Wed, 20 Sep 2017 01:30:54 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: linux-watchdog@vger.kernel.org
 Cc: Andrew Jeffery <andrew@aj.id.au>, wim@iguana.be, linux@roeck-us.net,
  joel@jms.id.au, linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
  linux-aspeed@lists.ozlabs.org, ryan_chen@aspeedtech.com
-Subject: [PATCH v2 0/4] watchdog: aspeed: Retain enabled state and move to
- arch_initcall
-Date: Wed, 20 Sep 2017 15:00:16 +0930
-Message-Id: <20170920053020.6860-1-andrew@aj.id.au>
+Subject: [PATCH v2 1/4] watchdog: aspeed: Retain watchdog enabled state
+Date: Wed, 20 Sep 2017 15:00:17 +0930
+Message-Id: <20170920053020.6860-2-andrew@aj.id.au>
 X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20170920053020.6860-1-andrew@aj.id.au>
+References: <20170920053020.6860-1-andrew@aj.id.au>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -63,40 +65,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Sep 2017 05:30:59 -0000
+X-List-Received-Date: Wed, 20 Sep 2017 05:31:00 -0000
 
-Hello,
+An unintended post-condition of probe() is that the watchdog is
+disabled. This behaviour was introduced by an unnecessary write to the
+control register to configure the hardware based on the devicetree. The
+write is unnecessary because the cached control value that is
+manipulated by the code parsing the devicetree is eventually written by
+aspeed_wdt_enable(), which is when we care how the control register
+should be configured.
 
-This series fixes some issues with the Aspeed watchdog, as outlined in the
-v1[1] cover letter.
+Remove the write to restore expected behaviour.
 
-I've added a bit of an explanation as to why we call aspeed_wdt_start() in
-probe() if the watchdog is already enabled, but the essence of it is to ensure
-the watchdog is configured to the expectations of the kernel driver (rather
-than however the bootloader configured it).
+Fixes: b7f0b8ad25f3 ("drivers/watchdog: ASPEED reference dev tree properties for config")
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ drivers/watchdog/aspeed_wdt.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-Please review!
-
-Andrew
-
-Since v1:
-
-* Rework patch 1/4 to simply remove the writel() call to restore the original
-  behaviour.
-* Rework patch 4/4 to remove the Kconfig changes to retain the ability to build
-  the watchdog as a module, and add the exit handler.
-
-[1] https://lkml.org/lkml/2017/9/18/14
-
-Andrew Jeffery (4):
-  watchdog: aspeed: Retain watchdog enabled state
-  watchdog: aspeed: Fix 'Apseed' typo in Kconfig
-  watchdog: aspeed: Remove specific reference to AST2400 in Kconfig
-  watchdog: aspeed: Move init to arch_initcall
-
- drivers/watchdog/Kconfig      |  4 ++--
- drivers/watchdog/aspeed_wdt.c | 21 ++++++++++++++++++---
- 2 files changed, 20 insertions(+), 5 deletions(-)
-
+diff --git a/drivers/watchdog/aspeed_wdt.c b/drivers/watchdog/aspeed_wdt.c
+index 79cc766cd30f..6c6dd3f4c48d 100644
+--- a/drivers/watchdog/aspeed_wdt.c
++++ b/drivers/watchdog/aspeed_wdt.c
+@@ -243,9 +243,13 @@ static int aspeed_wdt_probe(struct platform_device *pdev)
+ 	if (of_property_read_bool(np, "aspeed,external-signal"))
+ 		wdt->ctrl |= WDT_CTRL_WDT_EXT;
+ 
+-	writel(wdt->ctrl, wdt->base + WDT_CTRL);
+-
+ 	if (readl(wdt->base + WDT_CTRL) & WDT_CTRL_ENABLE)  {
++		/*
++		 * The watchdog is running, but invoke aspeed_wdt_start() to
++		 * write wdt->ctrl to WDT_CTRL to ensure the watchdog's
++		 * configuration conforms to the driver's expectations.
++		 * Primarily, ensure we're using the 1MHz clock source.
++		 */
+ 		aspeed_wdt_start(&wdt->wdd);
+ 		set_bit(WDOG_HW_RUNNING, &wdt->wdd.status);
+ 	}
 -- 
 2.11.0
