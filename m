@@ -1,58 +1,66 @@
-Return-Path: <raltherr@google.com>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400c:c08::22a; helo=mail-ua0-x22a.google.com;
- envelope-from=raltherr@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="mtFs31W2"; 
- dkim-atps=neutral
-Received: from mail-ua0-x22a.google.com (mail-ua0-x22a.google.com
- [IPv6:2607:f8b0:400c:c08::22a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xy6Bk015RzDqXy
- for <openbmc@lists.ozlabs.org>; Thu, 21 Sep 2017 03:27:41 +1000 (AEST)
-Received: by mail-ua0-x22a.google.com with SMTP id 72so2107133uas.8
- for <openbmc@lists.ozlabs.org>; Wed, 20 Sep 2017 10:27:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=8lymk/8MAgErMx8yEvydvYJuGweKlLYRU8+LbBz0kS0=;
- b=mtFs31W2NPQtQTjd+4jBimLXHS2s4cxxEGA/nWpfmEj/gPw28Krsq6nRqZVLAZhp4R
- xGLOhOxNWGQ+dZ7sKh8xKN4o64hNxNLuMqZTjhfX8NPad9tBkQYUzimul3Zr6tEvzqTT
- d2TW02PJ/Yvc0h4a9he/fCXiMdcI3oINTiZo+fcJHcjPMKa81jWx3/IxD8GwfmN7fQJC
- nvMdks+Qu4kZFOggcNTYSbdFPxxT6pNoyM+oMKVnfif2Iuw/GwN2EyVkjaji8cHpccDY
- rjTQDkOhWN7IITcf09oWn2GQ3u3bR7XMC9QPEZ3Yhe9nbrHvICVBypdpy8xBotwfJViw
- wqmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=8lymk/8MAgErMx8yEvydvYJuGweKlLYRU8+LbBz0kS0=;
- b=fnq20TpSdTZGQHxQfWK5eFgnjj/kFdcf7oedwSjZczAONy9Q7ZjkY75u6u8eePU3QX
- mPMTfSpicS01MjILaZUgNaBuqbQmFcfarK0LbMrd8cSGErGtyVHLL83T1eyakBAetySd
- ZhV0CdBdT92CfxzeWbS5qou7ipvSkq0P02BU619q3tSMMLnTo2EK19vsh3F7u5etMYrC
- 4WmOKXEqYdTcmjSN6gxKz4zaeoiiWzuEFZyy61xP4B+BVdvzkifJZkc9o9mbv+CmpstI
- RL0nn381C8CZUBMm7NsiXCNjeDbZPbwIWmVM38oAfneEkoM8Kqqyyd3fZtWuvVJndF4F
- gk8A==
-X-Gm-Message-State: AHPjjUiNA0IFPG0Ez8zEe44VcUzj486h+joUqETLvF2bNRCK8ICcUhwK
- ZzhiEfF6f8NA6CEeLqmB0iNLbrmciwKD/tdKgK1mtA==
-X-Google-Smtp-Source: AOwi7QAoilWNdU2bGLsdv+Myg0rJZ/emGUQAI8Aws8cVSqyRh+czVzyc8MQBxTUYxVRenKKsYXzmcMWa6V757BKeD/M=
-X-Received: by 10.159.57.88 with SMTP id i24mr5059079uag.18.1505928458248;
- Wed, 20 Sep 2017 10:27:38 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.31.135.142 with HTTP; Wed, 20 Sep 2017 10:27:37 -0700 (PDT)
-In-Reply-To: <SN1PR20MB04965156599200D28A269AD3EF610@SN1PR20MB0496.namprd20.prod.outlook.com>
-References: <OF056E09BF.B373E650-ON8625818E.00432DAB-8625818E.005759D2@LocalDomain>
- <OF9FAE2656.F19C25EB-ON862581A0.005E317D-862581A0.0064A2AE@notes.na.collabserv.com>
- <SN1PR20MB04965156599200D28A269AD3EF610@SN1PR20MB0496.namprd20.prod.outlook.com>
-From: Rick Altherr <raltherr@google.com>
-Date: Wed, 20 Sep 2017 10:27:37 -0700
-Message-ID: <CAPLgG=k1WbfurkynbOMxPePZDbD=y8cWnan8XqR8wGC7LLqzMw@mail.gmail.com>
-Subject: Re: RFC Adding Interfaces to OpenBMC
-To: Kenneth Wilke <kenneth.wilke@rackspace.com>
-Cc: Chris Austen <austenc@us.ibm.com>, 
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="f403043edeecd010310559a24a46"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xyDBr5B98zDqR8
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Sep 2017 07:58:12 +1000 (AEST)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v8KLrjHa107930
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Sep 2017 17:58:10 -0400
+Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2d3umu11fb-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Sep 2017 17:58:10 -0400
+Received: from localhost
+ by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Wed, 20 Sep 2017 15:58:09 -0600
+Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
+ by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 20 Sep 2017 15:58:07 -0600
+Received: from b03ledav006.gho.boulder.ibm.com
+ (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v8KLw7Kw61538308; Wed, 20 Sep 2017 14:58:07 -0700
+Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id EA778C603C;
+ Wed, 20 Sep 2017 15:58:06 -0600 (MDT)
+Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
+ by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id A280BC6037;
+ Wed, 20 Sep 2017 15:58:06 -0600 (MDT)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, Eddie James <eajames@us.ibm.com>
+Subject: [PATCH linux dev-4.10 v3] drivers/hwmon/occ: Add reference count and
+ switch to non-blocking read
+Date: Wed, 20 Sep 2017 16:58:05 -0500
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+x-cbid: 17092021-0008-0000-0000-00000899DFD7
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007769; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000230; SDB=6.00919934; UDB=6.00462210; IPR=6.00700159; 
+ BA=6.00005599; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017226; XFM=3.00000015;
+ UTC=2017-09-20 21:58:08
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17092021-0009-0000-0000-0000440E2BBA
+Message-Id: <1505944685-6695-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-09-20_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=3
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
+ definitions=main-1709200294
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -64,291 +72,297 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Sep 2017 17:27:42 -0000
+X-List-Received-Date: Wed, 20 Sep 2017 21:58:13 -0000
 
---f403043edeecd010310559a24a46
-Content-Type: text/plain; charset="UTF-8"
+From: Eddie James <eajames@us.ibm.com>
 
-Agree.
+It's possible for the sbefifo ops to hang entirely if the system goes
+down (checkstop, etc). If a hwmon sysfs operation is hung, then unbind
+may hang as it waits for the kernfs mutex to remove hwmon attributes.
 
-On Wed, Sep 20, 2017 at 7:04 AM, Kenneth Wilke <kenneth.wilke@rackspace.com>
-wrote:
+This change switches the p9 occ op to use a non-blocking read with a
+retry on -EAGAIN. This continues forever until either user cancels or
+driver sets the cancel bit in remove(). In addition, we need to switch
+our occ structure to be dynamically allocated separate from the device,
+as the device resources will be freed immediately after remove(), while
+hwmon ops may still be ocurring. This necessitates reference counting so
+we can free the occ structure once all users are done.
 
-> It is a pretty common practice to terminate SSL at a reverse proxy like
-> NGINX. I think this model of routing http to the other daemons listening on
-> localhost sockets should work well for OpenBMC.
->
->
-> Kenneth
-> ------------------------------
-> *From:* openbmc <openbmc-bounces+kenneth.wilke=rackspace.com@lists.
-> ozlabs.org> on behalf of Chris Austen <austenc@us.ibm.com>
-> *Sent:* Tuesday, September 19, 2017 1:19:12 PM
-> *To:* openbmc@lists.ozlabs.org
-> *Subject:* Re: RFC Adding Interfaces to OpenBMC
->
->
-> After some discussion that did not make it to the mailing list I am
-> revising the RFC to integrate with Nginx technology.  The theme is the
-> same; create interfaces in a way that anyone can add/remove/replace per
-> their business needs through with a prescriptive process
->
->
-> Request - https ---> Nginx (Reverse-Proxy)
->                  |
->                   |http
->                   |
->                 /|\
->                 | | `-> rest_dbus   127.0.0.1:8081
->                 |  `--> webui       127.0.0.1:8082
->                  `----> redfish     127.0.0.1:8083
->
-> With Nginx accepting https would there be a need for localhost
-> applications incur the cost of secure https too?
->
->
-> Chris Austen/Austin/IBM wrote on 09/01/2017 10:54:06 AM:
->
-> > From: Chris Austen/Austin/IBM
-> > To: openbmc@lists.ozlabs.org
-> > Date: 09/01/2017 10:54 AM
-> > Subject: RFC Adding Interfaces to OpenBMC
-> >
-> > I'd like to get some feed back on draft...
-> >
-> > It should not be any surprise that we are trying to implement a web
-> > user interface and Redfish.  I think requiring every implementation
-> > of OpenBMC to now support a webui and Redfish goes against the basic
-> > principals of the project.  A better approach would be to allow the
-> > machine configuration to determine what features/apps to support.
-> > The OpenBMC core would provide the infrastructure to reverse(?)
-> > proxy incoming requests to the various applications based on the
-> > application defining which routes it can handle.  With those
-> > thoughts in mind, the current design needs to be tweaked slightly.
-> >
-> > FROM:
-> > | server | app (dbus) |
-> > TO:
-> > | server | reverse | app (dbus)    |
-> > |        |  proxy  | app (web)     |
-> > |        |         | app (redfish) |
-> > |        |         | app (...)     |
-> > Route handler added at service startup to create the proxy environment
-> > (figure 1: In todays design the single app defines all routes at
-> > compile time.  Adding routes to that single app forces all OpenBMC
-> > machines to pick up the new routes which is undesirable)
-> >
-> > Note: due to legacy decisions the '/' and '/xyz' route are owned by
-> > the dbus app.  (Could the dbus route be helpful here?  All browsers
-> > use 'text/html' and our rest uses 'application/json', perhaps a
-> > nudge/redirect the user to the correct uri)
-> >
-> > Security:
-> > ~~~~~~~~
-> > None at the proxy level
-> >
-> > Registering Routes:
-> > ~~~~~~~~~~~~~~~
-> > Route registration will happen at service start up.  An application
-> > configuration file placed in to a predetermined location will be
-> > parsed by the proxy code
-> >
-> > Application Requirements:
-> > ~~~~~~~~~~~~~~~~~~~~~~
-> > 1) The cfg file will be based on a common xxx format
-> > - likely need a decision as to proxy or reverse proxy before
-> > declaring config format type
-> >
-> > 2) Create a bb file in the appropriate layer.  Keep in mind the openbmc/
-> > meta-phosphor/common/recipes-phosphor/interfaces/ is for core
-> > functionality only.
-> > i.e.    PROVIDES = 'phosphor-webui'
-> >          <example of how to copy the apps config file to the correct
-> > route registration location>
-> >
-> > 3) Declare in the appropriate machine conf file the bb file which
-> > contains your application
-> > i.e.    OBMC_MACHINE_FEATURES += 'phosphor-webui'
-> >
-> >
-> > Chris Austen
-> > POWER Systems Enablement Manager
-> > (512) 286-5184 (T/L: 363-5184)
->
+This patch depends on "kobject: Export kobject_get_unless_zero()".
 
---f403043edeecd010310559a24a46
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Eddie James <eajames@us.ibm.com>
+---
+ drivers/hwmon/occ/common.c | 42 +++++++++++++++++++++++++++++++++---------
+ drivers/hwmon/occ/common.h |  2 ++
+ drivers/hwmon/occ/p8_i2c.c | 23 ++++++++++++++++++++---
+ drivers/hwmon/occ/p9_sbe.c | 37 ++++++++++++++++++++++++++++++++-----
+ 4 files changed, 87 insertions(+), 17 deletions(-)
 
-<div dir=3D"ltr">Agree.</div><div class=3D"gmail_extra"><br><div class=3D"g=
-mail_quote">On Wed, Sep 20, 2017 at 7:04 AM, Kenneth Wilke <span dir=3D"ltr=
-">&lt;<a href=3D"mailto:kenneth.wilke@rackspace.com" target=3D"_blank">kenn=
-eth.wilke@rackspace.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail=
-_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:=
-1ex">
-
-
-
-<div>
-
-<div id=3D"m_-828739750837930923divtagdefaultwrapper" style=3D"font-size:12=
-pt;color:#000000;font-family:Calibri,Helvetica,sans-serif" dir=3D"ltr">
-<p>It is a pretty common practice to terminate SSL at a reverse proxy like =
-NGINX. I think this model of routing http to the other daemons listening on=
- localhost sockets should work well for OpenBMC.</p>
-<p><br>
-</p>
-<p>Kenneth<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%">
-<div id=3D"m_-828739750837930923divRplyFwdMsg" dir=3D"ltr"><font face=3D"Ca=
-libri, sans-serif" style=3D"font-size:11pt" color=3D"#000000"><b>From:</b> =
-openbmc &lt;openbmc-bounces+kenneth.<wbr>wilke=3D<a href=3D"mailto:rackspac=
-e.com@lists.ozlabs.org" target=3D"_blank">rackspace.com@lists.<wbr>ozlabs.o=
-rg</a>&gt; on behalf of Chris Austen &lt;<a href=3D"mailto:austenc@us.ibm.c=
-om" target=3D"_blank">austenc@us.ibm.com</a>&gt;<br>
-<b>Sent:</b> Tuesday, September 19, 2017 1:19:12 PM<br>
-<b>To:</b> <a href=3D"mailto:openbmc@lists.ozlabs.org" target=3D"_blank">op=
-enbmc@lists.ozlabs.org</a><br>
-<b>Subject:</b> Re: RFC Adding Interfaces to OpenBMC </font>
-<div>=C2=A0</div>
-</div><div><div class=3D"h5">
-<div>
-<p><tt>After some discussion that did not make it to the mailing list I am =
-revising the RFC to integrate with Nginx technology.=C2=A0 The theme is the=
- same; create interfaces in a way that anyone can add/remove/replace per th=
-eir business needs through with a prescriptive
- process</tt><br>
-<br>
-<br>
-<tt>Request - https ---&gt; Nginx (Reverse-Proxy)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|</tt><br>
-<tt>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |http</t=
-t><br>
-<tt>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /|\ =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 <br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | | `-&gt; rest_dbu=
-s =C2=A0 <a href=3D"http://127.0.0.1:8081" target=3D"_blank">127.0.0.1:8081=
-</a><br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | =C2=A0`--&gt; web=
-ui =C2=A0 =C2=A0 =C2=A0 <a href=3D"http://127.0.0.1:8082" target=3D"_blank"=
->127.0.0.1:8082</a><br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0`----&gt; red=
-fish =C2=A0 =C2=A0 <a href=3D"http://127.0.0.1:8083" target=3D"_blank">127.=
-0.0.1:8083</a></tt><br>
-<br>
-<font size=3D"2">With Nginx accepting https would there be a need for local=
-host applications incur the cost of secure https too?</font><br>
-<br>
-<br>
-<tt><font size=3D"2">Chris Austen/Austin/IBM wrote on 09/01/2017 10:54:06 A=
-M:<br>
-<br>
-&gt; From: Chris Austen/Austin/IBM</font></tt><br>
-<tt><font size=3D"2">&gt; To: <a href=3D"mailto:openbmc@lists.ozlabs.org" t=
-arget=3D"_blank">openbmc@lists.ozlabs.org</a></font></tt><br>
-<tt><font size=3D"2">&gt; Date: 09/01/2017 10:54 AM</font></tt><br>
-<tt><font size=3D"2">&gt; Subject: RFC Adding Interfaces to OpenBMC </font>=
-</tt><br>
-<tt><font size=3D"2">&gt; <br>
-&gt; I&#39;d like to get some feed back on draft...</font></tt><br>
-<tt><font size=3D"2">&gt; <br>
-&gt; It should not be any surprise that we are trying to implement a web <b=
-r>
-&gt; user interface and Redfish.=C2=A0 I think requiring every implementati=
-on <br>
-&gt; of OpenBMC to now support a webui and Redfish goes against the basic<b=
-r>
-&gt; principals of the project.=C2=A0 A better approach would be to allow t=
-he <br>
-&gt; machine configuration to determine what features/apps to support. =C2=
-=A0<br>
-&gt; The OpenBMC core would provide the infrastructure to reverse(?) <br>
-&gt; proxy incoming requests to the various applications based on the <br>
-&gt; application defining which routes it can handle.=C2=A0 With those <br>
-&gt; thoughts in mind, the current design needs to be tweaked slightly.</fo=
-nt></tt><br>
-<tt><font size=3D"2">&gt; <br>
-&gt; FROM:</font></tt><br>
-<tt><font size=3D"2">&gt; | server | app (dbus) |</font></tt><br>
-<tt><font size=3D"2">&gt; TO:</font></tt><br>
-<tt><font size=3D"2">&gt; | server | reverse | app (dbus) =C2=A0 =C2=A0|</f=
-ont></tt><br>
-<tt><font size=3D"2">&gt; | =C2=A0 =C2=A0 =C2=A0 =C2=A0| =C2=A0proxy =C2=A0=
-| app (web) =C2=A0 =C2=A0 |</font></tt><br>
-<tt><font size=3D"2">&gt; | =C2=A0 =C2=A0 =C2=A0 =C2=A0| =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 | app (redfish) |</font></tt><br>
-<tt><font size=3D"2">&gt; | =C2=A0 =C2=A0 =C2=A0 =C2=A0| =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 | app (...) =C2=A0 =C2=A0 |</font></tt><br>
-<tt><font size=3D"2">&gt; Route handler added at service startup to create =
-the proxy environment</font></tt><br>
-<tt><font size=3D"2">&gt; (figure 1: In todays design the single app define=
-s all routes at
-<br>
-&gt; compile time.=C2=A0 Adding routes to that single app forces all OpenBM=
-C <br>
-&gt; machines to pick up the new routes which is undesirable) </font></tt><=
-br>
-<tt><font size=3D"2">&gt; <br>
-&gt; Note: due to legacy decisions the &#39;/&#39; and &#39;/xyz&#39; route=
- are owned by <br>
-&gt; the dbus app. =C2=A0(Could the dbus route be helpful here?=C2=A0 All b=
-rowsers <br>
-&gt; use &#39;text/html&#39; and our rest uses &#39;application/json&#39;, =
-perhaps a <br>
-&gt; nudge/redirect the user to the correct uri) </font></tt><br>
-<tt><font size=3D"2">&gt; <br>
-&gt; Security:</font></tt><br>
-<tt><font size=3D"2">&gt; ~~~~~~~~</font></tt><br>
-<tt><font size=3D"2">&gt; None at the proxy level</font></tt><br>
-<tt><font size=3D"2">&gt; <br>
-&gt; Registering Routes:</font></tt><br>
-<tt><font size=3D"2">&gt; ~~~~~~~~~~~~~~~</font></tt><br>
-<tt><font size=3D"2">&gt; Route registration will happen at service start u=
-p.=C2=A0 An application
-<br>
-&gt; configuration file placed in to a predetermined location will be <br>
-&gt; parsed by the proxy code</font></tt><br>
-<tt><font size=3D"2">&gt; <br>
-&gt; Application Requirements:</font></tt><br>
-<tt><font size=3D"2">&gt; ~~~~~~~~~~~~~~~~~~~~~~</font></tt><br>
-<tt><font size=3D"2">&gt; 1) The cfg file will be based on a common xxx for=
-mat</font></tt><br>
-<tt><font size=3D"2">&gt; - likely need a decision as to proxy or reverse p=
-roxy before
-<br>
-&gt; declaring config format type </font></tt><br>
-<tt><font size=3D"2">&gt; <br>
-&gt; 2) Create a bb file in the appropriate layer.=C2=A0 Keep in mind the o=
-penbmc/<br>
-&gt; meta-phosphor/common/recipes-<wbr>phosphor/interfaces/ is for core <br=
->
-&gt; functionality only. =C2=A0</font></tt><br>
-<tt><font size=3D"2">&gt; i.e. =C2=A0 =C2=A0PROVIDES =3D &#39;phosphor-webu=
-i&#39;</font></tt><br>
-<tt><font size=3D"2">&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&lt;example of =
-how to copy the apps config file to the correct<br>
-&gt; route registration location&gt;</font></tt><br>
-<tt><font size=3D"2">&gt; =C2=A0</font></tt><br>
-<tt><font size=3D"2">&gt; 3) Declare in the appropriate machine conf file t=
-he bb file which
-<br>
-&gt; contains your application </font></tt><br>
-<tt><font size=3D"2">&gt; i.e. =C2=A0 =C2=A0OBMC_MACHINE_FEATURES +=3D &#39=
-;phosphor-webui&#39;</font></tt><br>
-<tt><font size=3D"2">&gt; <br>
-&gt; <br>
-&gt; Chris Austen<br>
-&gt; POWER Systems Enablement Manager <br>
-&gt; <a href=3D"tel:(512)%20286-5184" value=3D"+15122865184" target=3D"_bla=
-nk">(512) 286-5184</a> (T/L: 363-5184)</font></tt><br>
-</p>
-</div>
-</div></div></div>
-
-</blockquote></div><br></div>
-
---f403043edeecd010310559a24a46--
+diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
+index 34002fb..747c6e1 100644
+--- a/drivers/hwmon/occ/common.c
++++ b/drivers/hwmon/occ/common.c
+@@ -216,7 +216,8 @@ int occ_poll(struct occ *occ)
+ 
+ done:
+ 	/* notify userspace if we change error state and have an error */
+-	if (occ->error != error && occ->error && occ->error_attr_name)
++	if (occ->error != error && occ->error && occ->error_attr_name &&
++	    !occ->cancel)
+ 		sysfs_notify(&occ->bus_dev->kobj, NULL, occ->error_attr_name);
+ 
+ 	return rc;
+@@ -224,19 +225,28 @@ int occ_poll(struct occ *occ)
+ 
+ int occ_set_user_power_cap(struct occ *occ, u16 user_power_cap)
+ {
+-	int rc, error = occ->error;
++	int rc, error;
+ 	u8 cmd[8];
+ 	u16 checksum = 0x24;
+ 	__be16 user_power_cap_be;
+-	struct occ_poll_response_header *header =
+-		(struct occ_poll_response_header *)occ->resp.data;
++	struct occ_poll_response_header *header;
++
++	if (!kobject_get_unless_zero(&occ->kobj))
++		return -ENODEV;
+ 
+-	if (!(header->status & OCC_STAT_MASTER))
+-		return -EPERM;
++	header = (struct occ_poll_response_header *)occ->resp.data;
++
++	if (!(header->status & OCC_STAT_MASTER)) {
++		rc = -EPERM;
++		goto done;
++	}
+ 
+-	if (!(header->status & OCC_STAT_ACTIVE))
+-		return -EACCES;
++	if (!(header->status & OCC_STAT_ACTIVE)) {
++		rc = -EACCES;
++		goto done;
++	}
+ 
++	error = occ->error;
+ 	user_power_cap_be = cpu_to_be16(user_power_cap);
+ 
+ 	cmd[0] = 0;
+@@ -255,9 +265,12 @@ int occ_set_user_power_cap(struct occ *occ, u16 user_power_cap)
+ 	mutex_unlock(&occ->lock);
+ 
+ 	/* notify userspace if we change error state and have an error*/
+-	if (occ->error != error && occ->error && occ->error_attr_name)
++	if (occ->error != error && occ->error && occ->error_attr_name &&
++	    !occ->cancel)
+ 		sysfs_notify(&occ->bus_dev->kobj, NULL, occ->error_attr_name);
+ 
++done:
++	kobject_put(&occ->kobj);
+ 	return rc;
+ }
+ 
+@@ -265,6 +278,9 @@ int occ_update_response(struct occ *occ)
+ {
+ 	int rc = 0;
+ 
++	if (!kobject_get_unless_zero(&occ->kobj))
++		return -ENODEV;
++
+ 	mutex_lock(&occ->lock);
+ 
+ 	if (time_after(jiffies, occ->last_update + OCC_UPDATE_FREQUENCY)) {
+@@ -272,7 +288,15 @@ int occ_update_response(struct occ *occ)
+ 		occ->last_update = jiffies;
+ 	}
+ 
++	/* 
++	 * Make sure we fail if canceled so we don't access occ structure in
++	 * subsequent functions.
++	 */
++	if (occ->cancel)
++		rc = -ECANCELED;
++
+ 	mutex_unlock(&occ->lock);
++	kobject_put(&occ->kobj);
+ 	return rc;
+ }
+ 
+diff --git a/drivers/hwmon/occ/common.h b/drivers/hwmon/occ/common.h
+index acb50bc..242d90c 100644
+--- a/drivers/hwmon/occ/common.h
++++ b/drivers/hwmon/occ/common.h
+@@ -98,9 +98,11 @@ struct occ_attribute {
+ };
+ 
+ struct occ {
++	struct kobject kobj;
+ 	struct device *bus_dev;
+ 	struct device *hwmon;
+ 
++	bool cancel;
+ 	int error;
+ 	unsigned int error_count;
+ 	unsigned long last_safe;
+diff --git a/drivers/hwmon/occ/p8_i2c.c b/drivers/hwmon/occ/p8_i2c.c
+index e1c6234..6856b2f 100644
+--- a/drivers/hwmon/occ/p8_i2c.c
++++ b/drivers/hwmon/occ/p8_i2c.c
+@@ -13,6 +13,7 @@
+ #include <linux/i2c.h>
+ #include <linux/init.h>
+ #include <linux/module.h>
++#include <linux/slab.h>
+ 
+ struct p8_i2c_occ {
+ 	struct occ occ;
+@@ -21,6 +22,18 @@ struct p8_i2c_occ {
+ 
+ #define to_p8_i2c_occ(x)	container_of((x), struct p8_i2c_occ, occ)
+ 
++static void p8_i2c_occ_release(struct kobject *kobj)
++{
++	struct occ *occ = container_of(kobj, struct occ, kobj);
++	struct p8_i2c_occ *p8_i2c_occ = to_p8_i2c_occ(occ);
++
++	kfree(p8_i2c_occ);
++}
++
++static struct kobj_type p8_i2c_occ_type = {
++	.release = p8_i2c_occ_release,
++};
++
+ static int p8_i2c_occ_getscom(struct i2c_client *client, u32 address, u8 *data)
+ {
+ 	ssize_t rc;
+@@ -198,15 +211,15 @@ static int p8_i2c_occ_probe(struct i2c_client *client,
+ {
+ 	int rc;
+ 	struct occ *occ;
+-	struct p8_i2c_occ *p8_i2c_occ = devm_kzalloc(&client->dev,
+-						     sizeof(*p8_i2c_occ),
+-						     GFP_KERNEL);
++	struct p8_i2c_occ *p8_i2c_occ = kzalloc(sizeof(*p8_i2c_occ),
++						GFP_KERNEL);
+ 	if (!p8_i2c_occ)
+ 		return -ENOMEM;
+ 
+ 	p8_i2c_occ->client = client;
+ 
+ 	occ = &p8_i2c_occ->occ;
++	kobject_init(&occ->kobj, &p8_i2c_occ_type);
+ 	occ->bus_dev = &client->dev;
+ 	occ->groups[0] = &occ->group;
+ 	occ->poll_cmd_data = 0x10;
+@@ -257,10 +270,14 @@ static int p8_i2c_occ_remove(struct i2c_client *client)
+ {
+ 	struct occ *occ = dev_get_drvdata(&client->dev);
+ 
++	occ->cancel = true;
++
+ 	occ_remove_status_attrs(occ);
+ 
+ 	atomic_dec(&occ_num_occs);
+ 
++	kobject_put(&occ->kobj);
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
+index 2d50a94..99a6415 100644
+--- a/drivers/hwmon/occ/p9_sbe.c
++++ b/drivers/hwmon/occ/p9_sbe.c
+@@ -14,8 +14,11 @@
+ #include <linux/platform_device.h>
+ #include <linux/occ.h>
+ #include <linux/sched.h>
++#include <linux/slab.h>
+ #include <linux/workqueue.h>
+ 
++#define OCC_CMD_INCOMPLETE_MS		10
++
+ struct p9_sbe_occ {
+ 	struct occ occ;
+ 	struct device *sbe;
+@@ -23,6 +26,18 @@ struct p9_sbe_occ {
+ 
+ #define to_p9_sbe_occ(x)	container_of((x), struct p9_sbe_occ, occ)
+ 
++static void p9_sbe_occ_release(struct kobject *kobj)
++{
++	struct occ *occ = container_of(kobj, struct occ, kobj);
++	struct p9_sbe_occ *p9_sbe_occ = to_p9_sbe_occ(occ);
++
++	kfree(p9_sbe_occ);
++}
++
++static struct kobj_type p9_sbe_occ_type = {
++	.release = p9_sbe_occ_release,
++};
++
+ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
+ {
+ 	int rc, error;
+@@ -34,7 +49,7 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
+ 	start = jiffies;
+ 
+ retry:
+-	client = occ_drv_open(p9_sbe_occ->sbe, 0);
++	client = occ_drv_open(p9_sbe_occ->sbe, O_NONBLOCK);
+ 	if (!client) {
+ 		rc = -ENODEV;
+ 		goto assign;
+@@ -44,7 +59,15 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
+ 	if (rc < 0)
+ 		goto err;
+ 
+-	rc = occ_drv_read(client, (char *)resp, sizeof(*resp));
++	do {
++		rc = occ_drv_read(client, (char *)resp, sizeof(*resp));
++		if (rc != -EAGAIN)
++			break;
++
++		set_current_state(TASK_INTERRUPTIBLE);
++		schedule_timeout(msecs_to_jiffies(OCC_CMD_INCOMPLETE_MS));
++	} while (!occ->cancel);
++
+ 	if (rc < 0)
+ 		goto err;
+ 
+@@ -135,15 +158,15 @@ static int p9_sbe_occ_probe(struct platform_device *pdev)
+ {
+ 	int rc;
+ 	struct occ *occ;
+-	struct p9_sbe_occ *p9_sbe_occ = devm_kzalloc(&pdev->dev,
+-						     sizeof(*p9_sbe_occ),
+-						     GFP_KERNEL);
++	struct p9_sbe_occ *p9_sbe_occ = kzalloc(sizeof(*p9_sbe_occ),
++						GFP_KERNEL);
+ 	if (!p9_sbe_occ)
+ 		return -ENOMEM;
+ 
+ 	p9_sbe_occ->sbe = pdev->dev.parent;
+ 
+ 	occ = &p9_sbe_occ->occ;
++	kobject_init(&occ->kobj, &p9_sbe_occ_type);
+ 	occ->bus_dev = &pdev->dev;
+ 	occ->groups[0] = &occ->group;
+ 	occ->poll_cmd_data = 0x20;
+@@ -165,10 +188,14 @@ static int p9_sbe_occ_remove(struct platform_device *pdev)
+ {
+ 	struct occ *occ = platform_get_drvdata(pdev);
+ 
++	occ->cancel = true;
++
+ 	occ_remove_status_attrs(occ);
+ 
+ 	atomic_dec(&occ_num_occs);
+ 
++	kobject_put(&occ->kobj);
++
+ 	return 0;
+ }
+ 
+-- 
+1.8.3.1
