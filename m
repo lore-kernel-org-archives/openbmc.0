@@ -1,73 +1,55 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="RS+R5AZM"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="ISlLMG3y"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xyLRw1hxnzDqBc
- for <openbmc@lists.ozlabs.org>; Thu, 21 Sep 2017 12:39:56 +1000 (AEST)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v8L2XHVI086447
- for <openbmc@lists.ozlabs.org>; Wed, 20 Sep 2017 22:39:54 -0400
-Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2d3umud1gk-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 20 Sep 2017 22:39:53 -0400
-Received: from localhost
- by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Wed, 20 Sep 2017 22:39:52 -0400
-Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
- by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Wed, 20 Sep 2017 22:39:50 -0400
-Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
- [9.57.199.110])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v8L2dn2c39583904; Thu, 21 Sep 2017 02:39:49 GMT
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 52F49AE043;
- Wed, 20 Sep 2017 22:40:21 -0400 (EDT)
-Received: from oc3016140333.ibm.com (unknown [9.80.234.180])
- by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP id 077ACAE03C;
- Wed, 20 Sep 2017 22:40:20 -0400 (EDT)
-Subject: Re: [PATCH linux dev-4.10 v3] drivers/hwmon/occ: Add reference count
- and switch to non-blocking read
-From: Eddie James <eajames@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xyQZl0CsbzDqZv
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Sep 2017 15:46:06 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 36A5B20D66;
+ Thu, 21 Sep 2017 01:46:04 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Thu, 21 Sep 2017 01:46:04 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :date:from:message-id:subject:to:x-me-sender:x-me-sender
+ :x-sasl-enc:x-sasl-enc; s=fm1; bh=npFgE77660AiEaGzyytjsSsXWXotXJ
+ GEaQv/Ennyyu8=; b=RS+R5AZMvLKFITO/d7DP9Q7jMpZW0xEUN/ukiOKTy/iVkA
+ KX6SM3whMDkSe/neJBn8XidHIaMctA2pMOxknjej5gF5xe3VRuV4qblq5moMQmtG
+ KQignpFzvZ6iXfgyTkEVPGB/WwoO7eDYZmbiSmNYliiybgN0iC1L9/jaUVvFyoPT
+ bkdSXNzynL/3TPcfn/RwYXS2KZxxBKGWl9/wl9HM1vn5I+a2hSwhlgLRAiUQT4rU
+ dU6vKAQ9yv17fER54sE5y0JACE+bYtZSyhRQMmS/mlruHJy4iSZhCM8L3jyVAXpz
+ ePIUm3ZwjdB/wrfF55T7yUxHpWKmP2sEGI+Mb5/g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=npFgE7
+ 7660AiEaGzyytjsSsXWXotXJGEaQv/Ennyyu8=; b=ISlLMG3y3AItd9N9x0xewz
+ WZzSMgPTAaPLBRTFxY6j2aqtZoAANUUSuCHYQAsEFHiOUQK70NVC7V/8eRytE+tl
+ quezHuav+wePT3zscW0J+EWMGhPbrCdPn9fdOMMjuGqs6/5I/UqReGkb4qhLBD3u
+ JqHyRP7ZzVWNqo6yfCqkZ8nxpCKqUdZKmO2PGCYfiWV8relnNuxqvGXL2l/vRtcE
+ MqLkOGaEpGay5Qh9hkB9nd90yzvT/wRA7sDt4+bjwSeBqRPSKSUgEvWgglaIJv6m
+ noVw1Rss2+h+OI1v8pL+8nSUMkeK/owJu9uDwe+zoi0YNKHZ4zT5xU/soWHOCrPg
+ ==
+X-ME-Sender: <xms:HFLDWfyMDWkVONprRayriv-zGLnDEZTMKTMazilphgub7PC_ONZBJQ>
+X-Sasl-enc: YH5iUpRTlEm+aKFNFKg8ieYtTX6A8Ma71voOAkL8wVM9 1505972763
+Received: from keelia.au.ibm.com (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 4278C7E16A;
+ Thu, 21 Sep 2017 01:46:02 -0400 (EDT)
+From: Andrew Jeffery <andrew@aj.id.au>
 To: openbmc@lists.ozlabs.org
-Cc: Eddie James <eajames@us.ibm.com>
-References: <1505944685-6695-1-git-send-email-eajames@linux.vnet.ibm.com>
-Date: Wed, 20 Sep 2017 21:39:48 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.2.0
-MIME-Version: 1.0
-In-Reply-To: <1505944685-6695-1-git-send-email-eajames@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 17092102-0048-0000-0000-000001E8AAF9
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007770; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000230; SDB=6.00920028; UDB=6.00462266; IPR=6.00700254; 
- BA=6.00005599; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017228; XFM=3.00000015;
- UTC=2017-09-21 02:39:51
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17092102-0049-0000-0000-000042A109A2
-Message-Id: <a7710f05-ec18-0064-9694-6922db113395@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-09-20_06:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=3
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
- definitions=main-1709210033
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+	joel@jms.id.au
+Subject: [PATCH] ARM: aspeed: dts: Request mux as per strapping configuration
+Date: Thu, 21 Sep 2017 15:15:54 +0930
+Message-Id: <20170921054554.6169-1-andrew@aj.id.au>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -79,306 +61,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Sep 2017 02:39:56 -0000
+X-List-Received-Date: Thu, 21 Sep 2017 05:46:08 -0000
 
+Prevents the error:
 
+[    5.750000] aspeed-smc 1e630000.spi: Error applying setting, reverse things back
 
-On 09/20/2017 04:58 PM, Eddie James wrote:
-> From: Eddie James <eajames@us.ibm.com>
->
-> It's possible for the sbefifo ops to hang entirely if the system goes
-> down (checkstop, etc). If a hwmon sysfs operation is hung, then unbind
-> may hang as it waits for the kernfs mutex to remove hwmon attributes.
->
-> This change switches the p9 occ op to use a non-blocking read with a
-> retry on -EAGAIN. This continues forever until either user cancels or
-> driver sets the cancel bit in remove(). In addition, we need to switch
-> our occ structure to be dynamically allocated separate from the device,
-> as the device resources will be freed immediately after remove(), while
-> hwmon ops may still be ocurring. This necessitates reference counting so
-> we can free the occ structure once all users are done.
->
-> This patch depends on "kobject: Export kobject_get_unless_zero()".
+The pinmux driver is only capable of modifying selected strapping bits
+that make sense to change at runtime. The SPI strapping is not
+currently defined modifiable, so "request" the mux as per how the board
+is physically strapped.
 
-Abandoned. Instead I'll fix some outstanding issues in the occ remove() 
-function and try and improve the behavior in a checkstop or occ 
-error/inactive situation.
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks,
-Eddie
-
->
-> Signed-off-by: Eddie James <eajames@us.ibm.com>
-> ---
->   drivers/hwmon/occ/common.c | 42 +++++++++++++++++++++++++++++++++---------
->   drivers/hwmon/occ/common.h |  2 ++
->   drivers/hwmon/occ/p8_i2c.c | 23 ++++++++++++++++++++---
->   drivers/hwmon/occ/p9_sbe.c | 37 ++++++++++++++++++++++++++++++++-----
->   4 files changed, 87 insertions(+), 17 deletions(-)
->
-> diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
-> index 34002fb..747c6e1 100644
-> --- a/drivers/hwmon/occ/common.c
-> +++ b/drivers/hwmon/occ/common.c
-> @@ -216,7 +216,8 @@ int occ_poll(struct occ *occ)
->
->   done:
->   	/* notify userspace if we change error state and have an error */
-> -	if (occ->error != error && occ->error && occ->error_attr_name)
-> +	if (occ->error != error && occ->error && occ->error_attr_name &&
-> +	    !occ->cancel)
->   		sysfs_notify(&occ->bus_dev->kobj, NULL, occ->error_attr_name);
->
->   	return rc;
-> @@ -224,19 +225,28 @@ int occ_poll(struct occ *occ)
->
->   int occ_set_user_power_cap(struct occ *occ, u16 user_power_cap)
->   {
-> -	int rc, error = occ->error;
-> +	int rc, error;
->   	u8 cmd[8];
->   	u16 checksum = 0x24;
->   	__be16 user_power_cap_be;
-> -	struct occ_poll_response_header *header =
-> -		(struct occ_poll_response_header *)occ->resp.data;
-> +	struct occ_poll_response_header *header;
-> +
-> +	if (!kobject_get_unless_zero(&occ->kobj))
-> +		return -ENODEV;
->
-> -	if (!(header->status & OCC_STAT_MASTER))
-> -		return -EPERM;
-> +	header = (struct occ_poll_response_header *)occ->resp.data;
-> +
-> +	if (!(header->status & OCC_STAT_MASTER)) {
-> +		rc = -EPERM;
-> +		goto done;
-> +	}
->
-> -	if (!(header->status & OCC_STAT_ACTIVE))
-> -		return -EACCES;
-> +	if (!(header->status & OCC_STAT_ACTIVE)) {
-> +		rc = -EACCES;
-> +		goto done;
-> +	}
->
-> +	error = occ->error;
->   	user_power_cap_be = cpu_to_be16(user_power_cap);
->
->   	cmd[0] = 0;
-> @@ -255,9 +265,12 @@ int occ_set_user_power_cap(struct occ *occ, u16 user_power_cap)
->   	mutex_unlock(&occ->lock);
->
->   	/* notify userspace if we change error state and have an error*/
-> -	if (occ->error != error && occ->error && occ->error_attr_name)
-> +	if (occ->error != error && occ->error && occ->error_attr_name &&
-> +	    !occ->cancel)
->   		sysfs_notify(&occ->bus_dev->kobj, NULL, occ->error_attr_name);
->
-> +done:
-> +	kobject_put(&occ->kobj);
->   	return rc;
->   }
->
-> @@ -265,6 +278,9 @@ int occ_update_response(struct occ *occ)
->   {
->   	int rc = 0;
->
-> +	if (!kobject_get_unless_zero(&occ->kobj))
-> +		return -ENODEV;
-> +
->   	mutex_lock(&occ->lock);
->
->   	if (time_after(jiffies, occ->last_update + OCC_UPDATE_FREQUENCY)) {
-> @@ -272,7 +288,15 @@ int occ_update_response(struct occ *occ)
->   		occ->last_update = jiffies;
->   	}
->
-> +	/*
-> +	 * Make sure we fail if canceled so we don't access occ structure in
-> +	 * subsequent functions.
-> +	 */
-> +	if (occ->cancel)
-> +		rc = -ECANCELED;
-> +
->   	mutex_unlock(&occ->lock);
-> +	kobject_put(&occ->kobj);
->   	return rc;
->   }
->
-> diff --git a/drivers/hwmon/occ/common.h b/drivers/hwmon/occ/common.h
-> index acb50bc..242d90c 100644
-> --- a/drivers/hwmon/occ/common.h
-> +++ b/drivers/hwmon/occ/common.h
-> @@ -98,9 +98,11 @@ struct occ_attribute {
->   };
->
->   struct occ {
-> +	struct kobject kobj;
->   	struct device *bus_dev;
->   	struct device *hwmon;
->
-> +	bool cancel;
->   	int error;
->   	unsigned int error_count;
->   	unsigned long last_safe;
-> diff --git a/drivers/hwmon/occ/p8_i2c.c b/drivers/hwmon/occ/p8_i2c.c
-> index e1c6234..6856b2f 100644
-> --- a/drivers/hwmon/occ/p8_i2c.c
-> +++ b/drivers/hwmon/occ/p8_i2c.c
-> @@ -13,6 +13,7 @@
->   #include <linux/i2c.h>
->   #include <linux/init.h>
->   #include <linux/module.h>
-> +#include <linux/slab.h>
->
->   struct p8_i2c_occ {
->   	struct occ occ;
-> @@ -21,6 +22,18 @@ struct p8_i2c_occ {
->
->   #define to_p8_i2c_occ(x)	container_of((x), struct p8_i2c_occ, occ)
->
-> +static void p8_i2c_occ_release(struct kobject *kobj)
-> +{
-> +	struct occ *occ = container_of(kobj, struct occ, kobj);
-> +	struct p8_i2c_occ *p8_i2c_occ = to_p8_i2c_occ(occ);
-> +
-> +	kfree(p8_i2c_occ);
-> +}
-> +
-> +static struct kobj_type p8_i2c_occ_type = {
-> +	.release = p8_i2c_occ_release,
-> +};
-> +
->   static int p8_i2c_occ_getscom(struct i2c_client *client, u32 address, u8 *data)
->   {
->   	ssize_t rc;
-> @@ -198,15 +211,15 @@ static int p8_i2c_occ_probe(struct i2c_client *client,
->   {
->   	int rc;
->   	struct occ *occ;
-> -	struct p8_i2c_occ *p8_i2c_occ = devm_kzalloc(&client->dev,
-> -						     sizeof(*p8_i2c_occ),
-> -						     GFP_KERNEL);
-> +	struct p8_i2c_occ *p8_i2c_occ = kzalloc(sizeof(*p8_i2c_occ),
-> +						GFP_KERNEL);
->   	if (!p8_i2c_occ)
->   		return -ENOMEM;
->
->   	p8_i2c_occ->client = client;
->
->   	occ = &p8_i2c_occ->occ;
-> +	kobject_init(&occ->kobj, &p8_i2c_occ_type);
->   	occ->bus_dev = &client->dev;
->   	occ->groups[0] = &occ->group;
->   	occ->poll_cmd_data = 0x10;
-> @@ -257,10 +270,14 @@ static int p8_i2c_occ_remove(struct i2c_client *client)
->   {
->   	struct occ *occ = dev_get_drvdata(&client->dev);
->
-> +	occ->cancel = true;
-> +
->   	occ_remove_status_attrs(occ);
->
->   	atomic_dec(&occ_num_occs);
->
-> +	kobject_put(&occ->kobj);
-> +
->   	return 0;
->   }
->
-> diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
-> index 2d50a94..99a6415 100644
-> --- a/drivers/hwmon/occ/p9_sbe.c
-> +++ b/drivers/hwmon/occ/p9_sbe.c
-> @@ -14,8 +14,11 @@
->   #include <linux/platform_device.h>
->   #include <linux/occ.h>
->   #include <linux/sched.h>
-> +#include <linux/slab.h>
->   #include <linux/workqueue.h>
->
-> +#define OCC_CMD_INCOMPLETE_MS		10
-> +
->   struct p9_sbe_occ {
->   	struct occ occ;
->   	struct device *sbe;
-> @@ -23,6 +26,18 @@ struct p9_sbe_occ {
->
->   #define to_p9_sbe_occ(x)	container_of((x), struct p9_sbe_occ, occ)
->
-> +static void p9_sbe_occ_release(struct kobject *kobj)
-> +{
-> +	struct occ *occ = container_of(kobj, struct occ, kobj);
-> +	struct p9_sbe_occ *p9_sbe_occ = to_p9_sbe_occ(occ);
-> +
-> +	kfree(p9_sbe_occ);
-> +}
-> +
-> +static struct kobj_type p9_sbe_occ_type = {
-> +	.release = p9_sbe_occ_release,
-> +};
-> +
->   static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
->   {
->   	int rc, error;
-> @@ -34,7 +49,7 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
->   	start = jiffies;
->
->   retry:
-> -	client = occ_drv_open(p9_sbe_occ->sbe, 0);
-> +	client = occ_drv_open(p9_sbe_occ->sbe, O_NONBLOCK);
->   	if (!client) {
->   		rc = -ENODEV;
->   		goto assign;
-> @@ -44,7 +59,15 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
->   	if (rc < 0)
->   		goto err;
->
-> -	rc = occ_drv_read(client, (char *)resp, sizeof(*resp));
-> +	do {
-> +		rc = occ_drv_read(client, (char *)resp, sizeof(*resp));
-> +		if (rc != -EAGAIN)
-> +			break;
-> +
-> +		set_current_state(TASK_INTERRUPTIBLE);
-> +		schedule_timeout(msecs_to_jiffies(OCC_CMD_INCOMPLETE_MS));
-> +	} while (!occ->cancel);
-> +
->   	if (rc < 0)
->   		goto err;
->
-> @@ -135,15 +158,15 @@ static int p9_sbe_occ_probe(struct platform_device *pdev)
->   {
->   	int rc;
->   	struct occ *occ;
-> -	struct p9_sbe_occ *p9_sbe_occ = devm_kzalloc(&pdev->dev,
-> -						     sizeof(*p9_sbe_occ),
-> -						     GFP_KERNEL);
-> +	struct p9_sbe_occ *p9_sbe_occ = kzalloc(sizeof(*p9_sbe_occ),
-> +						GFP_KERNEL);
->   	if (!p9_sbe_occ)
->   		return -ENOMEM;
->
->   	p9_sbe_occ->sbe = pdev->dev.parent;
->
->   	occ = &p9_sbe_occ->occ;
-> +	kobject_init(&occ->kobj, &p9_sbe_occ_type);
->   	occ->bus_dev = &pdev->dev;
->   	occ->groups[0] = &occ->group;
->   	occ->poll_cmd_data = 0x20;
-> @@ -165,10 +188,14 @@ static int p9_sbe_occ_remove(struct platform_device *pdev)
->   {
->   	struct occ *occ = platform_get_drvdata(pdev);
->
-> +	occ->cancel = true;
-> +
->   	occ_remove_status_attrs(occ);
->
->   	atomic_dec(&occ_num_occs);
->
-> +	kobject_put(&occ->kobj);
-> +
->   	return 0;
->   }
->
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+index ee3a1c0fd5f6..ab3fee64f87d 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+@@ -72,7 +72,7 @@
+ &spi {
+ 	status = "okay";
+ 	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_spi1_default>;
++	pinctrl-0 = <&pinctrl_spi1debug_default>;
+ 
+ 	flash@0 {
+ 		status = "okay";
+-- 
+2.11.0
