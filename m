@@ -1,33 +1,56 @@
-Return-Path: <oleksandrs@mellanox.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=mellanox.com
- (client-ip=193.47.165.129; helo=mellanox.co.il;
- envelope-from=oleksandrs@mellanox.com; receiver=<UNKNOWN>)
-Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
- by lists.ozlabs.org (Postfix) with ESMTP id 3xyWS83bGfzDqZv
- for <openbmc@lists.ozlabs.org>; Thu, 21 Sep 2017 19:25:39 +1000 (AEST)
-Received: from Internal Mail-Server by MTLPINE1 (envelope-from
- oleksandrs@mellanox.com)
- with ESMTPS (AES256-SHA encrypted); 21 Sep 2017 12:25:34 +0300
-Received: from r-vnc16.mtr.labs.mlnx (r-vnc16.mtr.labs.mlnx [10.208.0.16])
- by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id v8L9PYIX006940;
- Thu, 21 Sep 2017 12:25:34 +0300
-From: Oleksandr Shamray <oleksandrs@mellanox.com>
-To: gregkh@linuxfoundation.org, arnd@arndb.de
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, joel@jms.id.au,
- jiri@resnulli.us, tklauser@distanz.ch, linux-serial@vger.kernel.org,
- mec@shout.net, vadimp@mellanox.com, system-sw-low-level@mellanox.com,
- robh+dt@kernel.org, openocd-devel-owner@lists.sourceforge.net,
- linux-api@vger.kernel.org, davem@davemloft.net, mchehab@kernel.org,
- Oleksandr Shamray <oleksandrs@mellanox.com>, Jiri Pirko <jiri@mellanox.com>
-Subject: [patch v9 3/4] Documentation: jtag: Add bindings for Aspeed SoC 24xx
- and 25xx families JTAG master driver
-Date: Thu, 21 Sep 2017 12:25:31 +0300
-Message-Id: <1505985932-27568-4-git-send-email-oleksandrs@mellanox.com>
-X-Mailer: git-send-email 1.7.1
-In-Reply-To: <1505985932-27568-1-git-send-email-oleksandrs@mellanox.com>
-References: <1505985932-27568-1-git-send-email-oleksandrs@mellanox.com>
+Return-Path: <a.novikov@yadro.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=yadro.com
+ (client-ip=89.207.88.251; helo=mta-01.yadro.com;
+ envelope-from=a.novikov@yadro.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dkim=fail reason="signature verification failed" (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="qLJOLFiW"; 
+ dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xyZzl65zXzDqZv
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Sep 2017 22:04:50 +1000 (AEST)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 8EEA349163
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Sep 2017 12:04:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-language:content-transfer-encoding:content-type
+ :content-type:mime-version:user-agent:date:date:message-id
+ :subject:subject:from:from:received:received:received; s=mta-01;
+ t=1505995481; x=1507809882; bh=siENUzQrLjkckiJAkGxgXnuKpMqumEZJ
+ L0nTL7ao7O0=; b=qLJOLFiWd0VjY2ibJ22e3jaZHjvlqu1LHGA+OYMPG4F+h5kB
+ b3RvD83JiBUyKhBg9L/jWEC7PqD60be8TFDlFBLP5Rnu6IChJ61mh7AEQv9OOBWp
+ ZGZjleMbbwOPrhj620QJkSlWeQM52G/DaaHGVIxgyL2NfQ8U3mRfHmztDXU=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id cXe87ELt7C9Y for <openbmc@lists.ozlabs.org>;
+ Thu, 21 Sep 2017 15:04:41 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
+ [172.17.10.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id A225E49162
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Sep 2017 15:04:41 +0300 (MSK)
+Received: from [172.17.15.146] (172.17.15.146) by T-EXCH-02.corp.yadro.com
+ (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Thu, 21
+ Sep 2017 15:04:41 +0300
+To: <openbmc@lists.ozlabs.org>
+From: Anton Novikov <a.novikov@yadro.com>
+Subject: Arch Linux compile error
+Message-ID: <57a959d5-bf47-a852-2a32-33418dde9329@yadro.com>
+Date: Thu, 21 Sep 2017 15:04:41 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.3.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-Originating-IP: [172.17.15.146]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-02.corp.yadro.com (172.17.10.102)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -39,81 +62,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Sep 2017 09:25:46 -0000
+X-List-Received-Date: Thu, 21 Sep 2017 12:04:53 -0000
 
-It has been tested on Mellanox system with BMC equipped with
-Aspeed 2520 SoC for programming CPLD devices.
-
-Signed-off-by: Oleksandr Shamray <oleksandrs@mellanox.com>
-Signed-off-by: Jiri Pirko <jiri@mellanox.com>
-Acked-by: Rob Herring <robh@kernel.org>
----
-v8->v9
-v7->v8
-Comments pointed by pointed by Joel Stanley <joel.stan@gmail.com>
-- Change compatible string to ast2400 and ast2000
-
-V6->v7
-Comments pointed by Tobias Klauser <tklauser@distanz.ch>
- - Fix spell "Doccumentation" -> "Documentation"
-
-v5->v6
-Comments pointed by Tobias Klauser <tklauser@distanz.ch>
-- Small nit: s/documentation/Documentation/
-
-v4->v5
-
-V3->v4
-Comments pointed by Rob Herring <robh@kernel.org>
-- delete unnecessary "status" and "reg-shift" descriptions in
-  bndings file
-
-v2->v3
-Comments pointed by Rob Herring <robh@kernel.org>
-- split Aspeed jtag driver and binding to sepatrate patches
-- delete unnecessary "status" and "reg-shift" descriptions in
-  bndings file
----
- .../devicetree/bindings/jtag/aspeed-jtag.txt       |   18 ++++++++++++++++++
- MAINTAINERS                                        |    1 +
- 2 files changed, 19 insertions(+), 0 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/jtag/aspeed-jtag.txt
-
-diff --git a/Documentation/devicetree/bindings/jtag/aspeed-jtag.txt b/Documentation/devicetree/bindings/jtag/aspeed-jtag.txt
-new file mode 100644
-index 0000000..8cfc610
---- /dev/null
-+++ b/Documentation/devicetree/bindings/jtag/aspeed-jtag.txt
-@@ -0,0 +1,18 @@
-+Aspeed JTAG driver for ast2400 and ast2500 SoC
-+
-+Required properties:
-+- compatible:		Should be one of
-+      - "aspeed,ast2400-jtag"
-+      - "aspeed,ast2500-jtag"
-+- reg			contains the offset and length of the JTAG memory
-+			region
-+- clocks		root clock of bus, should reference the APB clock
-+- interrupts		should contain JTAG controller interrupt
-+
-+Example:
-+jtag: jtag@1e6e4000 {
-+	compatible = "aspeed,ast2500-jtag";
-+	reg = <0x1e6e4000 0x1c>;
-+	clocks = <&clk_apb>;
-+	interrupts = <43>;
-+};
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 141aeaf..bfdfa94 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -7299,6 +7299,7 @@ S:	Maintained
- F:	include/linux/jtag.h
- F:	include/uapi/linux/jtag.h
- F:	drivers/jtag/
-+F:	Documentation/devicetree/bindings/jtag/
- 
- K10TEMP HARDWARE MONITORING DRIVER
- M:	Clemens Ladisch <clemens@ladisch.de>
--- 
-1.7.1
+| /usr/include/bits/types/__locale_t.h:28:8: note: originally defined here
+|  struct __locale_struct
+|         ^~~~~~~~~~~~~~~
+| In file included from glibc/locale/locale.h:145:0,
+|                  from ../git/localedef/include/locale.h:1,
+|                  from glibc/locale/programs/localedef.h:24,
+|                  from glibc/locale/programs/ld-collate.c:29:
+| glibc/locale/xlocale.h:39:4: error: conflicting types for ‘__locale_t’
+|  } *__locale_t;
+|     ^~~~~~~~~~
+| In file included from /usr/include/bits/types/locale_t.h:22:0,
+|                  from /usr/include/stdlib.h:199,
+|                  from glibc/locale/programs/ld-collate.c:24:
+| /usr/include/bits/types/__locale_t.h:42:33: note: previous declaration 
+of ‘__locale_t’ was here
+|  typedef struct __locale_struct *__locale_t;
+|                                  ^~~~~~~~~~
+| In file included from glibc/locale/locale.h:145:0,
+|                  from ../git/localedef/include/locale.h:1,
+|                  from glibc/locale/programs/localedef.h:24,
+|                  from glibc/locale/programs/ld-collate.c:29:
+| glibc/locale/xlocale.h:42:20: error: conflicting types for ‘locale_t’
+|  typedef __locale_t locale_t;
+|                     ^~~~~~~~
+| In file included from /usr/include/stdlib.h:199:0,
+|                  from glibc/locale/programs/ld-collate.c:24:
+| /usr/include/bits/types/locale_t.h:24:20: note: previous declaration 
+of ‘locale_t’ was here
+|  typedef __locale_t locale_t;
+|                     ^~~~~~~~
+| glibc/locale/programs/charmap.c: In function ‘charmap_read’:
+| glibc/locale/programs/charmap.c:202:39: warning: passing argument 1 of 
+‘__xpg_basename’ discards ‘const’ qualifier from pointer target type 
+[-Wdiscarded-qualifiers]
+|      result->code_set_name = basename (filename);
+|                                        ^~~~~~~~
+| In file included from ../git/localedef/include/string.h:4:0,
+|                  from glibc/locale/programs/charmap.c:28:
+| /usr/include/libgen.h:34:14: note: expected ‘char *’ but argument is 
+of type ‘const char *’
+|  extern char *__xpg_basename (char *__path) __THROW;
+|               ^~~~~~~~~~~~~~
+| make: *** [Makefile:66: charmap-dir.o] Error 1
+| make: *** Waiting for unfinished jobs....
+| make: *** [Makefile:66: charmap.o] Error 1
+| make: *** [Makefile:66: ld-address.o] Error 1
+| make: *** [Makefile:66: ld-collate.o] Error 1
+| WARNING: 
+/home/openbmc/openbmc/build/tmp/work/x86_64-linux/cross-localedef-native/2.24-r0/temp/run.do_compile.3987:1 
+exit 1 from 'exit 1'
+| ERROR: Function failed: do_compile (log file is located at 
+/home/openbmc/openbmc/build/tmp/work/x86_64-linux/cross-localedef-native/2.24-r0/temp/log.do_compile.3987)
+ERROR: Task 
+(/home/openbmc/openbmc/meta/recipes-core/glibc/cross-localedef-native_2.24.bb:do_compile) 
+failed with exit code '1'
