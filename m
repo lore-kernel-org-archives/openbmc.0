@@ -7,55 +7,52 @@ Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xys9g4lbvzDqT0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xys9h07f4zDqjC
  for <openbmc@lists.ozlabs.org>; Fri, 22 Sep 2017 08:44:23 +1000 (AEST)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v8LMiI7D138946
- for <openbmc@lists.ozlabs.org>; Thu, 21 Sep 2017 18:44:21 -0400
-Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2d4m70xh32-1
+ v8LMiJmv064253
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Sep 2017 18:44:22 -0400
+Received: from e16.ny.us.ibm.com (e16.ny.us.ibm.com [129.33.205.206])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2d4jnk4e1t-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 21 Sep 2017 18:44:19 -0400
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Sep 2017 18:44:21 -0400
 Received: from localhost
- by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e16.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 21 Sep 2017 18:44:08 -0400
-Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
- by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
+ Thu, 21 Sep 2017 18:44:04 -0400
+Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
+ by e16.ny.us.ibm.com (146.89.104.203) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Thu, 21 Sep 2017 18:44:05 -0400
+ Thu, 21 Sep 2017 18:44:01 -0400
 Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
  [9.57.199.106])
- by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v8LMi5tg29229186; Thu, 21 Sep 2017 22:44:05 GMT
+ by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v8LMi1WG53674128; Thu, 21 Sep 2017 22:44:01 GMT
 Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A8DDF2803A;
- Thu, 21 Sep 2017 18:43:58 -0400 (EDT)
+ by IMSVA (Postfix) with ESMTP id 812A828041;
+ Thu, 21 Sep 2017 18:43:54 -0400 (EDT)
 Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
- by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id 17ABE2803E;
- Thu, 21 Sep 2017 18:43:58 -0400 (EDT)
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id 230182803A;
+ Thu, 21 Sep 2017 18:43:54 -0400 (EDT)
 From: Eddie James <eajames@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, andrew@aj.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10 3/3] drivers/hwmon/occ: Remove repeated ops for
- OCC command in progress
-Date: Thu, 21 Sep 2017 17:43:58 -0500
+Subject: [PATCH linux dev-4.10 0/3] drivers/fsi: Fixup client remove functions
+Date: Thu, 21 Sep 2017 17:43:55 -0500
 X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1506033838-2078-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1506033838-2078-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-TM-AS-GCONF: 00
-x-cbid: 17092122-0052-0000-0000-0000026561FB
+x-cbid: 17092122-0024-0000-0000-000002D60936
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00007775; HX=3.00000241; KW=3.00000007;
  PH=3.00000004; SC=3.00000231; SDB=6.00920429; UDB=6.00462502; IPR=6.00700651; 
  BA=6.00005601; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017240; XFM=3.00000015;
- UTC=2017-09-21 22:44:07
+ UTC=2017-09-21 22:44:02
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17092122-0053-0000-0000-000052158F6E
-Message-Id: <1506033838-2078-4-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 17092122-0025-0000-0000-000045804180
+Message-Id: <1506033838-2078-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-09-21_06:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -78,48 +75,26 @@ X-List-Received-Date: Thu, 21 Sep 2017 22:44:24 -0000
 
 From: "Edward A. James" <eajames@us.ibm.com>
 
-This is now handled in the occ driver.
+This series does some refactoring for the OCC and SBEFIFO drivers and improves
+the remove() functions of both drivers. There was a definite possibility of
+race conditions while removing the driver previously. This patch also gets the
+drivers into the same state as what will be sent upstream, and what we'll move
+to for 4.13.
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
----
- drivers/hwmon/occ/p9_sbe.c | 14 +-------------
- 1 file changed, 1 insertion(+), 13 deletions(-)
+Also a small change to the hwmon driver for compatibility with an addition to
+the OCC driver for seeing "OCC command in progress."
 
-diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
-index 2d50a94..c7e0d9c 100644
---- a/drivers/hwmon/occ/p9_sbe.c
-+++ b/drivers/hwmon/occ/p9_sbe.c
-@@ -26,14 +26,10 @@ struct p9_sbe_occ {
- static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
- {
- 	int rc, error;
--	unsigned long start;
- 	struct occ_client *client;
- 	struct occ_response *resp = &occ->resp;
- 	struct p9_sbe_occ *p9_sbe_occ = to_p9_sbe_occ(occ);
- 
--	start = jiffies;
--
--retry:
- 	client = occ_drv_open(p9_sbe_occ->sbe, 0);
- 	if (!client) {
- 		rc = -ENODEV;
-@@ -52,15 +48,7 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
- 
- 	switch (resp->return_status) {
- 	case RESP_RETURN_CMD_IN_PRG:
--		if (time_after(jiffies,
--			       start + msecs_to_jiffies(OCC_TIMEOUT_MS)))
--			rc = -EALREADY;
--		else {
--			set_current_state(TASK_INTERRUPTIBLE);
--			schedule_timeout(msecs_to_jiffies(OCC_CMD_IN_PRG_MS));
--
--			goto retry;
--		}
-+		rc = -ETIMEDOUT;
- 		break;
- 	case RESP_RETURN_SUCCESS:
- 		occ_reset_error(occ);
+Edward A. James (3):
+  drivers/fsi/sbefifo: refactor to upstream list state
+  drivers/fsi/occ: refactor to upstream list state
+  drivers/hwmon/occ: Remove repeated ops for OCC command in progress
+
+ drivers/fsi/fsi-sbefifo.c   | 329 ++++++++++++++++++++++++--------------------
+ drivers/fsi/occ.c           | 227 ++++++++++++++++++------------
+ drivers/hwmon/occ/p9_sbe.c  |  14 +-
+ include/linux/fsi-sbefifo.h |   6 +-
+ include/linux/occ.h         |  20 ++-
+ 5 files changed, 336 insertions(+), 260 deletions(-)
+
 -- 
 1.8.3.1
