@@ -1,55 +1,58 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c00::243; helo=mail-pf0-x243.google.com;
+ (client-ip=2a00:1450:4010:c07::22f; helo=mail-lf0-x22f.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q+mfZmYs"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="DPwtt0k5"; 
  dkim-atps=neutral
-Received: from mail-pf0-x243.google.com (mail-pf0-x243.google.com
- [IPv6:2607:f8b0:400e:c00::243])
+Received: from mail-lf0-x22f.google.com (mail-lf0-x22f.google.com
+ [IPv6:2a00:1450:4010:c07::22f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xyRQ32NDtzDqZv
- for <openbmc@lists.ozlabs.org>; Thu, 21 Sep 2017 16:23:39 +1000 (AEST)
-Received: by mail-pf0-x243.google.com with SMTP id i23so2118540pfi.2
- for <openbmc@lists.ozlabs.org>; Wed, 20 Sep 2017 23:23:38 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xyRYR2R0czDqZv
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Sep 2017 16:30:02 +1000 (AEST)
+Received: by mail-lf0-x22f.google.com with SMTP id q132so4765734lfe.5
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Sep 2017 23:30:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id;
- bh=mIJ04pDISGFnDC0pzR5ChU5/lg3il/c+/LssYOenheo=;
- b=Q+mfZmYs0yeO1dRNqv8aYhuf9yqIqI0KtLRGrxFXKd+jVGzqlBS1dDK89aN3T4Gzq7
- pedbPRLHDtXD86WmBuU9OGIfkAxeVENcRlic+bhJTvcSDioCjtv2k0jeOG83oL6j2twr
- K6kTGpzPu1TTNBx8wAPfKs2iJk0X7exG5yeJBFMGdGJ7FwD39PQCGg0AZa8pqXCNsp2n
- UkpkETHrXrOFuc9bdTBqxSZdeiuYjrPTdDRf0IdcJyY0zEbell/xCCsesIjeVojosDP6
- LuAaaCsJta6CFFKn9QMYW1gJmkFhZZGK9rgPrzyWbZuuZ0aMb4qAZcC5xaxJ8MejOqL6
- /YuA==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=cYgpHQcJ/NITp09x/pMIMCgQDOEc5+w8S6l9DFntVkM=;
+ b=DPwtt0k59bxZZ4RslwEuhgBUNJ9t0JXYFb3BrwDFMuS+hV5rzFCVXbIl3sVEjVXWnT
+ KFPa5wecjBlGJXrshgXiB8knvWsB99s8czMOkOBW57X/bwhsFbEj0p3Pys5mgUaxkG7m
+ +z+AYuiFasajodhmRX8BNpdemvBy00qDbQEVeAhX2xpNro9QgO5AfJr+vx0lEs57XrKq
+ O04MUFvVlGzdUGSXdc/5E+LLhZlFr2UyFAPq5z/AOYYft/Jdl7xJlBQTS1IwsgDUDbZG
+ Acl7F9P2ocnOPY+KEuEMkJQJVJfgVImazEgABuVjVbMpTbfHrSTY+vt8VcnYsXSssSPT
+ LcLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
- bh=mIJ04pDISGFnDC0pzR5ChU5/lg3il/c+/LssYOenheo=;
- b=b2ZM1HbuSc79pwK774cu1ZfwIeGEhTDFA/1TlWz7ls1YFtnmk80JXqptSgV4sjK1UG
- fQUz63CcCWibYDcYog0cz9qa97tqeVEWvrkdYifJcYBGuc9C+b+lC6VjV7Apr4RdyzI6
- MPU/5ruWyuZgC8wpiGRJ+RltaAw6DBxjU8ttj6L1C7gWF8hLFVX25I8NYaL31I4gcEnc
- fNJdivCuonDMnSRvBI9Pk9AiHUkjHE/IILqISVARYdbBgsBbmLN5aU6V86SgFa2KTvlq
- VnYH/q9K9nhSSNIUHMLPPw08c0FVDcM6XRyTflm7dzWs/NsLYFNi+3L72KQU04D+wqVE
- L9wg==
-X-Gm-Message-State: AHPjjUgwrZN8q6igKzBhc9rdCMSxpBliR5Vt/m5wNvly3OOR37kWxgxT
- 19ByPinzV36qTJgK0JWToEiDrHYDYCo=
-X-Google-Smtp-Source: AOwi7QBb9jP98VJeiL/e2PyzjwawNiH6YlAxIyBSuyKQbzWS5V4Umpa/TyOmVNXddV67RVOW5vVImg==
-X-Received: by 10.84.132.34 with SMTP id 31mr4424604ple.225.1505975016572;
- Wed, 20 Sep 2017 23:23:36 -0700 (PDT)
-Received: from aurora.jms.id.au ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id l23sm981349pgu.34.2017.09.20.23.23.32
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 20 Sep 2017 23:23:35 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Thu, 21 Sep 2017 15:53:29 +0930
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=cYgpHQcJ/NITp09x/pMIMCgQDOEc5+w8S6l9DFntVkM=;
+ b=L6gYdHVBaUYgRGNUlHpLYhIGHy8XnbBU9AcHcLcsr5jnsYFIzBcWFOUOFq6hIl/k2j
+ OERBk0B+KhJHUZJHwK/U1HRf671VyKoCpTcYpqkLTwodMb63tauYQuwLgHUscUhRQ4Mn
+ caGdkm/UaxbAjTunuEyCpKTrrH461q0r872Hxq2rwhoDSBkBmsTkfXhQvn3uO45EK9ix
+ bL9hokgYtUGJn7k5Uu+WByMhD1ygbFarLBojsO0HAgYIHwCcORyveNsNw8VmwxWub9HZ
+ kZh3UW4BZ6xNNqpu0FC1GqhPWQuZUm24eymMVC7rqvV0E9UcQs7ra9+7syGH81ikcuK9
+ x2YQ==
+X-Gm-Message-State: AHPjjUioFlu3cpqsUMwz+y3z2+856M/1aZ/FevsKfUKRBzbAyrCdxRy2
+ pbL9CRU8eEhXgF1N5cBdmlEsC7yrdCCgXIkpanMrJ6Tw
+X-Google-Smtp-Source: AOwi7QAuSrf8V5scKEXUmXmaSm55F2isKoARWCutAJl/+aWndOLsN40S+WEqPU9CETWTHr8KNT2IhezKC3ZcreemuUA=
+X-Received: by 10.46.80.4 with SMTP id e4mr504986ljb.129.1505975398814; Wed,
+ 20 Sep 2017 23:29:58 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.25.103.82 with HTTP; Wed, 20 Sep 2017 23:29:38 -0700 (PDT)
+In-Reply-To: <20170921054554.6169-1-andrew@aj.id.au>
+References: <20170921054554.6169-1-andrew@aj.id.au>
 From: Joel Stanley <joel@jms.id.au>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10] ARM: dts: aspeed-g4: Fix timeriomem_rng probing
-Date: Thu, 21 Sep 2017 15:53:28 +0930
-Message-Id: <20170921062328.9256-1-joel@jms.id.au>
-X-Mailer: git-send-email 2.14.1
+Date: Thu, 21 Sep 2017 15:59:38 +0930
+X-Google-Sender-Auth: gdbCeunZFYXL3QVUth-1AaSTgAw
+Message-ID: <CACPK8XfHgyo=HkkicuzJF-8wzjFUWwRk6FJMySPQbFSGLYLxwA@mail.gmail.com>
+Subject: Re: [PATCH] ARM: aspeed: dts: Request mux as per strapping
+ configuration
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -61,48 +64,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Sep 2017 06:23:42 -0000
+X-List-Received-Date: Thu, 21 Sep 2017 06:30:04 -0000
 
-When booting we see this error:
+On Thu, Sep 21, 2017 at 3:15 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> Prevents the error:
+>
+> [    5.750000] aspeed-smc 1e630000.spi: Error applying setting, reverse things back
+>
+> The pinmux driver is only capable of modifying selected strapping bits
+> that make sense to change at runtime. The SPI strapping is not
+> currently defined modifiable, so "request" the mux as per how the board
+> is physically strapped.
+>
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 
- timeriomem_rng 1e6e2000.syscon:hwrng@1e6e2078: timeriomem_rng: resource is missing
+Thanks, applied to dev-4.10.
 
-Moving the timeriomem_rng node outside of the syscon fixes the issue.
+Cheers,
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- arch/arm/boot/dts/aspeed-g4.dtsi | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
-
-diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-index a83b6a8d73d4..38aadbf09be2 100644
---- a/arch/arm/boot/dts/aspeed-g4.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-@@ -195,18 +195,18 @@
- 					reg = <0x2c>;
- 				};
- 
--				hwrng@1e6e2078 {
--					compatible = "timeriomem_rng";
--					reg = <0x1e6e2078 0x4>;
--					period = <1>;
--					quality = <100>;
--				};
--
- 				pinctrl: pinctrl@1e6e2000 {
- 					compatible = "aspeed,g4-pinctrl";
- 				};
- 			};
- 
-+			hwrng@1e6e2078 {
-+				compatible = "timeriomem_rng";
-+				reg = <0x1e6e2078 0x4>;
-+				period = <1>;
-+				quality = <100>;
-+			};
-+
- 			adc: adc@1e6e9000 {
- 				compatible = "aspeed,ast2400-adc";
- 				reg = <0x1e6e9000 0xB0>;
--- 
-2.14.1
+Joel
