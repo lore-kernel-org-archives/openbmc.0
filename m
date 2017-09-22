@@ -1,50 +1,66 @@
-Return-Path: <xavinux@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::229; helo=mail-qt0-x229.google.com;
- envelope-from=xavinux@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="e0FcPN3x"; 
- dkim-atps=neutral
-Received: from mail-qt0-x229.google.com (mail-qt0-x229.google.com
- [IPv6:2607:f8b0:400d:c0d::229])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <austenc@us.ibm.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=us.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=austenc@us.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xzHx246RMzDqjC
- for <openbmc@lists.ozlabs.org>; Sat, 23 Sep 2017 01:49:57 +1000 (AEST)
-Received: by mail-qt0-x229.google.com with SMTP id o13so1478470qtf.1
- for <openbmc@lists.ozlabs.org>; Fri, 22 Sep 2017 08:49:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=RNF8TDSFZCOtr5w0Wk1acW8D86XGQIbkSpet7yomyAk=;
- b=e0FcPN3x598iP8Rlp58ziO9bhU9lMfitU34uhLMcOeEGraceqi8lPQwN706R03Eamj
- cU5TafVKy4k4kTwRRgYCciuzuPidWijL1QrAMFmq5qlBl6tIQGT43dBWqEnVcx+vgb3J
- hh6+VuTzO8QKs8AAumOsTZ0D/ceFj0y6a4LA3awDBsEuG9ydhgWDIo7fi3mgXV8Musdn
- iuYm/3MBlzpld4rpBWuCf1Qv+h8SIy8Wzyp1okht6WlDYqcmZTcvSO3ZGt1JBAcBM3fE
- WEWy/VNtig7Xh+UBJ46e0Z1nbwsYrLlyGMhGU+363PpHX8aOwwF1+NoagWAQ7CAXSs3s
- 8oyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=RNF8TDSFZCOtr5w0Wk1acW8D86XGQIbkSpet7yomyAk=;
- b=B9ue7dU7j1XT8XQUA/tCMGR2BAWuja5w5dejNXl/fjNqaoj32G3fIcrGMUT6TkZz9v
- gkO01kIv5mZndhqLszEEmqjwQuP3pQ+KEr52wGBu6oUlLBm99AL3b8w1AcmP9gUGhLik
- 6R178yO7+uXMgk1sJ/GfqWMxpxN0eezlTVXZsVJ5dpGjrdNMzQL17OTgCV+WqZ57UPDt
- vXBVhjMk9bgk040ilHFP04JR0TwyffCbDO7EVb8ev2ipGqWt5spAMioj6SulQ1vd2XFI
- 6Urgl1BQY23YKlz6x7jlcexFuVFLk00sWwyV3EndKFpLaS3sTRoOQCrBPWlfbJAvD4xM
- kGfg==
-X-Gm-Message-State: AHPjjUj++2r7/vQVD8ljQg2Xm2asXbe8sFxfEzDqi7H1Hu+r4ivnKXNX
- UvvOJ1epzkQdvaZAHij4gqOiJDeZPqd/DhMIqztlKA==
-X-Google-Smtp-Source: AOwi7QCcMwFd8zOuSwk4y6mBRd76kmoJOJQ0aIKXtTE3nAw/fA4qZxeFV8+9HI9DAKQUu/SCjlGgjxXv+HeERj6mc8A=
-X-Received: by 10.200.42.251 with SMTP id c56mr9159176qta.152.1506095394735;
- Fri, 22 Sep 2017 08:49:54 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xzJv350TvzDqjC
+ for <openbmc@lists.ozlabs.org>; Sat, 23 Sep 2017 02:33:18 +1000 (AEST)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v8MGW4tk132310
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Sep 2017 12:33:16 -0400
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.91])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2d52br749h-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Sep 2017 12:33:16 -0400
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Fri, 22 Sep 2017 16:33:15 -0000
+Received: from us1a3-smtp02.a3.dal06.isc4sb.com (10.106.154.159)
+ by smtp.notes.na.collabserv.com (10.106.227.143) with
+ smtp.notes.na.collabserv.com ESMTP; Fri, 22 Sep 2017 16:33:12 -0000
+Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
+ by us1a3-smtp02.a3.dal06.isc4sb.com
+ with ESMTP id 2017092216331241-791502 ;
+ Fri, 22 Sep 2017 16:33:12 +0000 
 MIME-Version: 1.0
-Received: by 10.12.178.89 with HTTP; Fri, 22 Sep 2017 08:49:54 -0700 (PDT)
-From: Javier Romero <xavinux@gmail.com>
-Date: Fri, 22 Sep 2017 12:49:54 -0300
-Message-ID: <CAEX+82KH9Mhq9k=2BD+BkF06sGXg8RJuvLkBTRupfZHmMifH6g@mail.gmail.com>
-Subject: Porting OpenBMC to Raspberry PI 3.
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="001a114102fc004b620559c9293d"
+In-Reply-To: <CAEX+82KH9Mhq9k=2BD+BkF06sGXg8RJuvLkBTRupfZHmMifH6g@mail.gmail.com>
+Subject: Re: Porting OpenBMC to Raspberry PI 3.
+To: Javier Romero <xavinux@gmail.com>
+Cc: openbmc@lists.ozlabs.org
+From: "Chris Austen" <austenc@us.ibm.com>
+Date: Fri, 22 Sep 2017 11:33:10 -0500
+References: <CAEX+82KH9Mhq9k=2BD+BkF06sGXg8RJuvLkBTRupfZHmMifH6g@mail.gmail.com>
+X-KeepSent: A0C3CA6A:D52682A0-862581A3:005A0DBB;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1EXT SHF766 December 14, 2016
+X-LLNOutbound: False
+X-Disclaimed: 55903
+X-TNEFEvaluated: 1
+Content-type: multipart/alternative; 
+ Boundary="0__=09BB0B30DFC98B2B8f9e8a93df938690918c09BB0B30DFC98B2B"
+Content-Disposition: inline
+x-cbid: 17092216-9951-0000-0000-0000046CBFCD
+X-IBM-SpamModules-Scores: BY=0.262494; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.449102; ST=0; TS=0; UL=0; ISC=; MB=0.250890
+X-IBM-SpamModules-Versions: BY=3.00007778; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000231; SDB=6.00920785; UDB=6.00462710; IPR=6.00701006; 
+ BA=6.00005601; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017249; XFM=3.00000015;
+ UTC=2017-09-22 16:33:14
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2017-09-22 05:07:18 - 6.00007364
+x-cbparentid: 17092216-9952-0000-0000-0000EC988585
+Message-Id: <OFA0C3CA6A.D52682A0-ON862581A3.005A0DBB-862581A3.005AEDA7@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-09-22_06:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -56,49 +72,116 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Sep 2017 15:49:59 -0000
-
---001a114102fc004b620559c9293d
-Content-Type: text/plain; charset="UTF-8"
-
-Hello,
-
-Have a Raspberry PI 3 and seems that could be useful to port OpenBMC to
-this device.
-
-Suggestions on how to start working with this will be welcome.
-
-Best Regards,
+X-List-Received-Date: Fri, 22 Sep 2017 16:33:20 -0000
 
 
-
-
-
-*Javier Romero*
-
-*E-mail: xavinux@gmail.com <xavinux@gmail.com>*
-
-*Skype: xavinux*
-
---001a114102fc004b620559c9293d
-Content-Type: text/html; charset="UTF-8"
+--0__=09BB0B30DFC98B2B8f9e8a93df938690918c09BB0B30DFC98B2B
 Content-Transfer-Encoding: quoted-printable
+Content-type: text/plain; charset=ISO-8859-1
 
-<div dir=3D"ltr"><div><div><div>Hello,<br><br></div>Have a Raspberry PI 3 a=
-nd seems that could be useful to port OpenBMC to this device.<br><br></div>=
-Suggestions on how to start working with this will be welcome.<br><br></div=
->Best Regards,<br><br>=C2=A0<br><div><br><br clear=3D"all"><div><div><div><=
-div><div class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div =
-dir=3D"ltr"><div style=3D"text-align:left"><i><b>Javier Romero<br></b></i><=
-/div><div style=3D"text-align:left"><span style=3D"color:rgb(19,79,92)"><i>=
-<b><span style=3D"color:rgb(0,0,0)">E-mail:<span style=3D"color:rgb(0,0,255=
-)"> </span></span><span style=3D"color:rgb(0,0,255)"><a href=3D"mailto:xavi=
-nux@gmail.com" target=3D"_blank">xavinux@gmail.com</a></span><br></b></i></=
-span></div><div style=3D"text-align:left"><i><b><span style=3D"color:rgb(19=
-,79,92)"><span style=3D"color:rgb(0,0,0)">Skype:</span> <span style=3D"colo=
-r:rgb(11,83,148)"><u><span style=3D"color:rgb(0,0,255)">xavinux</span><br><=
-/u></span></span></b></i></div><div style=3D"text-align:left"><br></div> </=
-div></div></div>
-</div></div></div></div></div>
 
---001a114102fc004b620559c9293d--
+
+
+Chris Austen
+
+"openbmc" <openbmc-bounces+austenc=3Dus.ibm.com@lists.ozlabs.org> wrote on
+09/22/2017 10:49:54 AM:
+
+> From: Javier Romero <xavinux@gmail.com>
+> To: openbmc@lists.ozlabs.org
+> Date: 09/22/2017 10:50 AM
+> Subject: Porting OpenBMC to Raspberry PI 3.
+> Sent by: "openbmc" <openbmc-bounces+austenc=3Dus.ibm.com@lists.ozlabs.org>
+>
+> Hello,
+
+> Have a Raspberry PI 3 and seems that could be useful to port OpenBMC
+> to this device.
+
+> Suggestions on how to start working with this will be welcome.
+
+
+before anything, make sure you have successfully created a build
+https://github.com/openbmc/openbmc#setting-up-your-openbmc-project
+Target Palmetto
+
+Then build the simulator
+https://github.com/openbmc/openbmc#setting-up-your-openbmc-project
+
+Then run the simulator
+https://github.com/openbmc/openbmc#setting-up-your-openbmc-project
+
+
+Once that is done Target a Romulus for build/simulation.  You will notice
+Palmetto is built from ast-2400 and Romulus is ast-2500
+You should notice some layers change between the two.  That gives you a
+base framework.  Next, and this is where no one has done work on the
+team...
+
+I would try to build an online example of using yocto for raspberry images.
+Get that to work.  This step has nothing to do with OpenBMC.  It has to do
+about learning how to build a working raspberrypi image.
+
+Once you have done that, the next and most difficult thing... merging the
+two.  document everything in a blog post (maybe your userid in github) and
+that will let people see what you are doing and find helpful hints.
+
+
+
+> Best Regards,
+>
+>
+>
+
+> Javier Romero
+> E-mail: xavinux@gmail.com
+> Skype: xavinux
+
+--0__=09BB0B30DFC98B2B8f9e8a93df938690918c09BB0B30DFC98B2B
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/html; charset=ISO-8859-1
+Content-Disposition: inline
+
+<html><body><p><font size=3D"2"><br>Chris Austen<br></font><br><tt><font si=
+ze=3D"2">&quot;openbmc&quot; &lt;openbmc-bounces+austenc=3Dus.ibm.com@lists=
+.ozlabs.org&gt; wrote on 09/22/2017 10:49:54 AM:<br><br>&gt; From: Javier R=
+omero &lt;xavinux@gmail.com&gt;</font></tt><br><tt><font size=3D"2">&gt; To=
+: openbmc@lists.ozlabs.org</font></tt><br><tt><font size=3D"2">&gt; Date: 0=
+9/22/2017 10:50 AM</font></tt><br><tt><font size=3D"2">&gt; Subject: Portin=
+g OpenBMC to Raspberry PI 3.</font></tt><br><tt><font size=3D"2">&gt; Sent =
+by: &quot;openbmc&quot; &lt;openbmc-bounces+austenc=3Dus.ibm.com@lists.ozla=
+bs.org&gt;</font></tt><br><tt><font size=3D"2">&gt; <br>&gt; Hello,<br></fo=
+nt></tt><br><tt><font size=3D"2">&gt; Have a Raspberry PI 3 and seems that =
+could be useful to port OpenBMC<br>&gt; to this device.<br></font></tt><br>=
+<tt><font size=3D"2">&gt; Suggestions on how to start working with this wil=
+l be welcome.<br></font></tt><br><br><font size=3D"2">before anything, make=
+ sure you have successfully created a build </font><br><a href=3D"https://g=
+ithub.com/openbmc/openbmc#setting-up-your-openbmc-project"><tt><font size=
+=3D"2">https://github.com/openbmc/openbmc#setting-up-your-openbmc-project</=
+font></tt></a><br><tt><font size=3D"2">Target Palmetto</font></tt><br><br><=
+tt><font size=3D"2">Then build the simulator </font></tt><a href=3D"https:/=
+/github.com/openbmc/openbmc#setting-up-your-openbmc-project"><tt><font size=
+=3D"2">https://github.com/openbmc/openbmc#setting-up-your-openbmc-project</=
+font></tt></a><br><br><tt><font size=3D"2">Then run the simulator </font></=
+tt><a href=3D"https://github.com/openbmc/openbmc#setting-up-your-openbmc-pr=
+oject"><tt><font size=3D"2">https://github.com/openbmc/openbmc#setting-up-y=
+our-openbmc-project</font></tt></a><br><br><br><tt><font size=3D"2">Once th=
+at is done Target a Romulus for build/simulation. &nbsp;You will notice Pal=
+metto is built from ast-2400 and Romulus is ast-2500</font></tt><br><tt><fo=
+nt size=3D"2">You should notice some layers change between the two. &nbsp;T=
+hat gives you a base framework. &nbsp;Next, and this is where no one has do=
+ne work on the team...</font></tt><br><br><tt><font size=3D"2">I would try =
+to build an online example of using yocto for raspberry images. &nbsp;Get t=
+hat to work. &nbsp;This step has nothing to do with OpenBMC. &nbsp;It has t=
+o do about learning how to build a working raspberrypi image. &nbsp;</font>=
+</tt><br><br><tt><font size=3D"2">Once you have done that, the next and mos=
+t difficult thing... merging the two. &nbsp;document everything in a blog p=
+ost (maybe your userid in github) and that will let people see what you are=
+ doing and find helpful hints.</font></tt><br><br><br><br><tt><font size=3D=
+"2">&gt; Best Regards,<br>&gt; <br>&gt; =A0</font></tt><br><tt><font size=
+=3D"2">&gt; <br></font></tt><br><tt><font size=3D"2">&gt; Javier Romero</fo=
+nt></tt><br><tt><font size=3D"2">&gt; E-mail: xavinux@gmail.com</font></tt>=
+<br><tt><font size=3D"2">&gt; Skype: xavinux</font></tt><BR>
+</body></html>
+
+--0__=09BB0B30DFC98B2B8f9e8a93df938690918c09BB0B30DFC98B2B--
