@@ -1,59 +1,59 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Return-Path: <joel.stan@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2a00:1450:4010:c07::241; helo=mail-lf0-x241.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="l13GFRNQ"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="CKgCRJfC"; dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="USNevZFP"; 
+ dkim-atps=neutral
+Received: from mail-lf0-x241.google.com (mail-lf0-x241.google.com
+ [IPv6:2a00:1450:4010:c07::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3xywMK1RpkzDr4N
- for <openbmc@lists.ozlabs.org>; Fri, 22 Sep 2017 11:07:56 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 68370213C5;
- Thu, 21 Sep 2017 21:07:54 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Thu, 21 Sep 2017 21:07:54 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=w/P7fv+m7tCwh3vM6htISMF05PVqwgUiaWr1RbcIu
- LY=; b=l13GFRNQrLCt1AAYIkT5oO2mMHf2OYG179WZpp3YxBdjWSB4+mNZEnAor
- +ZU/J/oTcB53BO2EyM1/sZskVbgGj52fpyztNuLQpZ3EhmPPZTZH23tQOogCDwAj
- lbn0xpiqu/p5wE9gkjyz5cRYZ198u50QZ6QOyQ86wBAqimRr2wMaz0yJ370XEBR4
- 8yXe+qsiE/RTKnsnyvT5H9aTyVyi9QyWuC55xbJDU5P5iGd8I0By7FGWeTmLezQ6
- ZUNWZzqXFtLJ/N0wgOCNd3NvyPf2/WbZ9neRLgweKObOed63nfIn+Ekvd4DOI0O5
- 5vS1IaBFksnJQy5yajlBQJbsQUR8A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=w/P7fv+m7tCwh3vM6h
- tISMF05PVqwgUiaWr1RbcIuLY=; b=CKgCRJfCeP63BlhS30M6eIJdQzdUqEfXzU
- rI0AXjJP2P3jQa6Cqz27fdOPNrYQliC83qMefRpw9o0wlY4e4dk3HYhMYUo9Mrb/
- BdSumBJd2v7Jsxqk/cV6F5YHYky+WJy0FN0ukr3imFKWD2mhBN70AGeWCuSx7MfO
- cTxmFELczSC+Ridyjn50xG+8KRLB9h7gIDfsTjdnJYjWNdcVKZV+5R8R+q/g5Z1p
- iuPkaQz/SYXIPROy9jXd0OJ06+PXlBxMAXX63phUepb0UJ3snnWrr/HLPQz7dRp4
- bWt0m6DQyUVLzZ9lnk+Yn1W6NZGh1gRs7XKgWfeQXwgvrEbWvAhA==
-X-ME-Sender: <xms:amLEWeoMozO8aZbYszOBzZaQzyq2W90DN2wHCt3RUIdxhMFmcicvnQ>
-X-Sasl-enc: /GYo2RtrdxZNPVLPW1wLny3YBqDtaRiEN/MGSaV9rdCk 1506042473
-Received: from keelia16 (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 5F1537E1D2;
- Thu, 21 Sep 2017 21:07:52 -0400 (EDT)
-Message-ID: <1506042465.30138.10.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: Add ranges to SCU node
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
-Date: Fri, 22 Sep 2017 10:37:45 +0930
-In-Reply-To: <20170921074521.22796-1-joel@jms.id.au>
-References: <20170921074521.22796-1-joel@jms.id.au>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-fICnPAen4W46OjNl6nVp"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3xyzJD17zGzDr4N
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Sep 2017 13:20:28 +1000 (AEST)
+Received: by mail-lf0-x241.google.com with SMTP id m199so3867951lfe.5
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Sep 2017 20:20:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=oi7SUYZnAvuppezmKJggvGtoOqUnIC2Wi3OzG8MGZEA=;
+ b=USNevZFP27Q5KLsons8mfKseV3tfmChgatAfHDf/t7EQgmmZp2KHk1eLrulNlhoO69
+ uLb9Y7dgN7fGFi/Yml4tQ8h+CFL3CNbs0Lch06B5xYxmM0oO0yNOQgX/dn35nHmG1W0U
+ yQjDNVXrp0CY8foogvucMJG7Ab5oAeu/8TIvLVHzNoftc1PMXQ8uWK5uDIsxz0MjXhlw
+ s4qXcqhtkc0uEdDS5g9j3N1LgXWifiXbfMsQwuY6Rob0nsjAbp2y5UzP9bbc5VaeEEXc
+ BJlBNiCDKZ/WXqprwxG5J10ivBXbXkp3h5477eoRK/fSPM78dsZcQls44o/fMpTddg9p
+ ixGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=oi7SUYZnAvuppezmKJggvGtoOqUnIC2Wi3OzG8MGZEA=;
+ b=PLyyfXNLLY/WmdGF92rs0/yFSo5jcLvSY/L1dhS89N/HRKOvFslHet5lTXIAnOyDyG
+ lHBHQjeFfU/sZo7sQRTb011u4OZOo1i6PnhMG1h8DORlsrGatbJbJkXa0ykTr/GMsFCt
+ pUlaEUGryaAND4a3y7TfnjDIyqw8iiZeiN44unw1M6F7/rqZOf9fLoPH7fxPw5/7jhON
+ enoDH4w7xDBfYefkNSGFmTgnkbBLSh2TSq64aefPH8OEXJOfC9DSXOqmwVPGoasO8Uww
+ BxX/1YJKGqBTtbyLNeAbslcrn75S01VBx/FZr9PDY2uEIzPMmhrB5MjVf9qicGcnHKGi
+ KxXQ==
+X-Gm-Message-State: AHPjjUh5Dz2q8YRWRmXJxJHOK1vgH7gqYZPjrHbxdGTJAjXpQp9ZZIrJ
+ ygOwL3gt+IZU7PtYEo1nz/zUPkJuJOh/rvdu1WE=
+X-Google-Smtp-Source: AOwi7QDTM5M/5rDdfIsUJ8oEl9+V5+p60NicvP/quDN9aK86nepe/3gtJOAIxFlQmVg0JYyKw5tdlNh+edZNzMEYF/Y=
+X-Received: by 10.46.71.193 with SMTP id u184mr1852188lja.166.1506050424184;
+ Thu, 21 Sep 2017 20:20:24 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.25.103.82 with HTTP; Thu, 21 Sep 2017 20:20:03 -0700 (PDT)
+In-Reply-To: <CAPLgG=mia_r-QnDzJsXkyaV6moqK4-bkBW_yQ=jzLnOW+F+rgw@mail.gmail.com>
+References: <20170921062328.9256-1-joel@jms.id.au>
+ <CAPLgG=mia_r-QnDzJsXkyaV6moqK4-bkBW_yQ=jzLnOW+F+rgw@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 22 Sep 2017 12:50:03 +0930
+X-Google-Sender-Auth: RZMrhhr7BIm6SqKBb9Y_IVIpkqY
+Message-ID: <CACPK8XeFnrutUuSRFEVRP1WS1z1HBHbqu-a1cu2sb1jXzFbxgw@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed-g4: Fix timeriomem_rng
+ probing
+To: Rick Altherr <raltherr@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Jeremy Kerr <jk@ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -65,223 +65,64 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Sep 2017 01:07:59 -0000
+X-List-Received-Date: Fri, 22 Sep 2017 03:20:29 -0000
 
+On Fri, Sep 22, 2017 at 12:29 AM, Rick Altherr <raltherr@google.com> wrote:
+> Is this superseded by the later patch that change syscon to include a
+> ranges property?
 
---=-fICnPAen4W46OjNl6nVp
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Yep, spot on.
 
-On Thu, 2017-09-21 at 17:15 +0930, Joel Stanley wrote:
-> The SCU contains a number of devices. To date we have the pinctrl node,
-> which doesn't have a reg property, the out of tree clock drivers which
-> do have a single address in their reg properties, and the timeriomem
-> node which has an address and length.
->=20
-> From now on we will use a ranges property, allowing all of the devices
-> under the SCU to specify an address and size starting from the SCU base.
->=20
-> This allows the timeriomem node to live under the SCU syscon node. This c=
-hange
-> is required to get the timeriomem driver to probe on the ast2400.
+I didn't make the follow up v2, given it had little resemblance.
+Perhaps I will next time to see if it results in less confusion :)
 
-We also need to update the bindings documentation[1], which will need
-to get past Lee and Rob.
+Cheers,
 
-[1] Documentation/devicetree/bindings/mfd/aspeed-scu.txt=C2=A0
+Joel
 
-I expect there to be some complaints about adding new required
-properties, and it seems the #address-cells and #size-cells properties
-weren't specified there either (though that's probably a good thing, as
-the #size-cells value would have changed with this patch).
-
-The poor state of the SCU bindings is due to historical factors, mainly
-the narrow scope when I defined the bindings (driven by pinctrl) and
-inexperience with devicetree, topped off by the complexity of the SCU.
-
-However I think the ranges approach is the right way to go, so=C2=A0
-
-Acked-by: Andrew Jeffery <andrew@aj.id.au>
-
-for the implementation, with the expectation that bindings
-documentation is to come.
-
->=20
-> > Signed-off-by: Joel Stanley <joel@jms.id.au>
-> ---
-> > This supersedes http://patchwork.ozlabs.org/patch/816677/ following dis=
-cussion
-> with Jeremy and Andrew.
->=20
-> =C2=A0arch/arm/boot/dts/aspeed-g4.dtsi | 21 +++++++++++----------
-> =C2=A0arch/arm/boot/dts/aspeed-g5.dtsi | 31 ++++++++++++++++-------------=
---
-> =C2=A02 files changed, 27 insertions(+), 25 deletions(-)
->=20
-> diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-=
-g4.dtsi
-> index a83b6a8d73d4..6151704aa87e 100644
-> --- a/arch/arm/boot/dts/aspeed-g4.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-> @@ -158,9 +158,14 @@
-> > > =C2=A0			syscon: syscon@1e6e2000 {
-> > =C2=A0				compatible =3D "aspeed,g4-scu", "syscon", "simple-mfd";
-> > =C2=A0				reg =3D <0x1e6e2000 0x1a8>;
-> > +				ranges =3D <0x0 0x1e6e2000 0x1a8>;
-> =C2=A0
-> > =C2=A0				#address-cells =3D <1>;
-> > -				#size-cells =3D <0>;
-> > +				#size-cells =3D <1>;
-> +
-> > > +				pinctrl: pinctrl@1e6e2000 {
-> > +					compatible =3D "aspeed,g4-pinctrl";
-> > +				};
-> =C2=A0
-> > =C2=A0				clk_clkin: clk_clkin {
-> > =C2=A0					#clock-cells =3D <0>;
-> @@ -171,40 +176,36 @@
-> > > =C2=A0				clk_hpll: clk_hpll@70 {
-> > =C2=A0					#clock-cells =3D <0>;
-> > =C2=A0					compatible =3D "aspeed,g4-hpll-clock";
-> > -					reg =3D <0x70>;
-> > +					reg =3D <0x70 0x0>;
-> > =C2=A0					clocks =3D <&clk_clkin>;
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				clk_ahb: clk_ahb@70 {
-> > =C2=A0					#clock-cells =3D <0>;
-> > =C2=A0					compatible =3D "aspeed,g4-ahb-clock";
-> > -					reg =3D <0x70>;
-> > +					reg =3D <0x70 0x0>;
-> > =C2=A0					clocks =3D <&clk_hpll>;
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				clk_apb: clk_apb@08 {
-> > =C2=A0					#clock-cells =3D <0>;
-> > =C2=A0					compatible =3D "aspeed,g4-apb-clock";
-> > -					reg =3D <0x08>;
-> > +					reg =3D <0x08 0x0>;
-> > =C2=A0					clocks =3D <&clk_hpll>;
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				clk_uart: clk_uart@2c{
-> > =C2=A0					#clock-cells =3D <0>;
-> > =C2=A0					compatible =3D "aspeed,g4-uart-clock";
-> > -					reg =3D <0x2c>;
-> > +					reg =3D <0x2c 0x0>;
-> > =C2=A0				};
-> =C2=A0
-> > =C2=A0				hwrng@1e6e2078 {
-> > =C2=A0					compatible =3D "timeriomem_rng";
-> > -					reg =3D <0x1e6e2078 0x4>;
-> > +					reg =3D <0x78 0x4>;
-> > =C2=A0					period =3D <1>;
-> > =C2=A0					quality =3D <100>;
-> > =C2=A0				};
-> -
-> > > -				pinctrl: pinctrl@1e6e2000 {
-> > -					compatible =3D "aspeed,g4-pinctrl";
-> > -				};
-> > =C2=A0			};
-> =C2=A0
-> > > =C2=A0			adc: adc@1e6e9000 {
-> diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-=
-g5.dtsi
-> index 9a988f69e610..ba3607c788e8 100644
-> --- a/arch/arm/boot/dts/aspeed-g5.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-> @@ -207,55 +207,56 @@
-> > > =C2=A0			syscon: syscon@1e6e2000 {
-> > =C2=A0				compatible =3D "aspeed,g5-scu", "syscon", "simple-mfd";
-> > =C2=A0				reg =3D <0x1e6e2000 0x1a8>;
-> > +				ranges =3D <0x0 0x1e6e2000 0x1a8>;
-> =C2=A0
-> > =C2=A0				#address-cells =3D <1>;
-> > -				#size-cells =3D <0>;
-> > +				#size-cells =3D <1>;
-> +
-> > > +				pinctrl: pinctrl@1e6e2000 {
-> > +					compatible =3D "aspeed,g5-pinctrl";
-> > +				};
-> =C2=A0
-> > > =C2=A0				clk_clkin: clk_clkin@70 {
-> > =C2=A0					#clock-cells =3D <0>;
-> > =C2=A0					compatible =3D "aspeed,g5-clkin-clock";
-> > -					reg =3D <0x70>;
-> > +					reg =3D <0x70 0x0>;
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				clk_hpll: clk_hpll@24 {
-> > =C2=A0					#clock-cells =3D <0>;
-> > =C2=A0					compatible =3D "aspeed,g5-hpll-clock";
-> > -					reg =3D <0x24>;
-> > +					reg =3D <0x24 0x0>;
-> > =C2=A0					clocks =3D <&clk_clkin>;
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				clk_ahb: clk_ahb@70 {
-> > =C2=A0					#clock-cells =3D <0>;
-> > =C2=A0					compatible =3D "aspeed,g5-ahb-clock";
-> > -					reg =3D <0x70>;
-> > +					reg =3D <0x70 0x0>;
-> > =C2=A0					clocks =3D <&clk_hpll>;
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				clk_apb: clk_apb@08 {
-> > =C2=A0					#clock-cells =3D <0>;
-> > =C2=A0					compatible =3D "aspeed,g5-apb-clock";
-> > -					reg =3D <0x08>;
-> > +					reg =3D <0x08 0x0>;
-> > =C2=A0					clocks =3D <&clk_hpll>;
-> > =C2=A0				};
-> =C2=A0
-> > > =C2=A0				clk_uart: clk_uart@2c {
-> > =C2=A0					#clock-cells =3D <0>;
-> > =C2=A0					compatible =3D "aspeed,g5-uart-clock";
-> > -					reg =3D <0x2c>;
-> > +					reg =3D <0x2c 0x0>;
-> > =C2=A0				};
-> =C2=A0
-> > > -				pinctrl: pinctrl@1e6e2000 {
-> > -					compatible =3D "aspeed,g5-pinctrl";
-> > +				hwrng@1e6e2078 {
-> > +					compatible =3D "timeriomem_rng";
-> > +					reg =3D <0x78 0x4>;
-> > +					period =3D <1>;
-> > +					quality =3D <100>;
-> > =C2=A0				};
-> > =C2=A0			};
-> =C2=A0
-> > -			hwrng@1e6e2078 {
-> > -				compatible =3D "timeriomem_rng";
-> > -				reg =3D <0x1e6e2078 0x4>;
-> > -				period =3D <1>;
-> > -				quality =3D <100>;
-> > -			};
-> -
-> > > =C2=A0			gfx: display@1e6e6000 {
-> > =C2=A0				compatible =3D "aspeed,ast2500-gfx", "syscon";
-> > =C2=A0				reg =3D <0x1e6e6000 0x1000>;
---=-fICnPAen4W46OjNl6nVp
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJZxGJhAAoJEJ0dnzgO5LT5Sf4QAILkYZlI0MwMXIBDTPEtKtDk
-FoxR5sIrjl1yOl+MPNXJeRwaJq3g8FEBAgu26djWejG3s+I9XGaJII9hDa0L/U1x
-PeC+srw+kKC3AJjwoaI2dhQLlLsyas4ogLOCloSMgECv9j2ok4jx95p7vwIw/Gpg
-RtP72NF+NdCcjsj45cEEs10+0JRxlX67Gl3RR1qIrD0GZlhnRbMfFXf1CxuTHaYH
-WxqwQxgpJGzLCampT3FzS7EX+IyjFlflJzm+S7rc1/+mB2QyWVhIggKtXid45TEf
-sO+9H0zopMNKZ38luEEBwDHgXFdkRaqYcIrKHpm+UH+YzLLZB+kSvtZs66KTyZiG
-4deI7UFLz+fC8angwElc8F6mqKq9y0k4dotMvETBVN8N1mKh3UC44E290mIGBPhg
-tsAyaiBxFRhgth7I8su9frzUz5UtMc60Rl7xUh5f6le8a54k9fiHz4NhZaHpO0W0
-5IwJjUHaUUN6ueAa5S5iqLG/Y0ZxyU8H24AKk+fLRHlEa/0vHB8ONmZCvsUznVz8
-ivs+SZxgKoJ12dAhd7RRX+jD3+xv74dcjd6IUMLPGlkOhWLIqzESFS5zpm80Bq5G
-gg/kxfi8FdeNvobwsPfHY58zNPQ9Si3le9YbYXFexXfCZNNRgrfxJjGelfRKwsO3
-Byz5doPUgz4QLMqH/fsL
-=BmSE
------END PGP SIGNATURE-----
-
---=-fICnPAen4W46OjNl6nVp--
+>
+> On Wed, Sep 20, 2017 at 11:23 PM, Joel Stanley <joel@jms.id.au> wrote:
+>> When booting we see this error:
+>>
+>>  timeriomem_rng 1e6e2000.syscon:hwrng@1e6e2078: timeriomem_rng: resource is missing
+>>
+>> Moving the timeriomem_rng node outside of the syscon fixes the issue.
+>>
+>> Signed-off-by: Joel Stanley <joel@jms.id.au>
+>> ---
+>>  arch/arm/boot/dts/aspeed-g4.dtsi | 14 +++++++-------
+>>  1 file changed, 7 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
+>> index a83b6a8d73d4..38aadbf09be2 100644
+>> --- a/arch/arm/boot/dts/aspeed-g4.dtsi
+>> +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+>> @@ -195,18 +195,18 @@
+>>                                         reg = <0x2c>;
+>>                                 };
+>>
+>> -                               hwrng@1e6e2078 {
+>> -                                       compatible = "timeriomem_rng";
+>> -                                       reg = <0x1e6e2078 0x4>;
+>> -                                       period = <1>;
+>> -                                       quality = <100>;
+>> -                               };
+>> -
+>>                                 pinctrl: pinctrl@1e6e2000 {
+>>                                         compatible = "aspeed,g4-pinctrl";
+>>                                 };
+>>                         };
+>>
+>> +                       hwrng@1e6e2078 {
+>> +                               compatible = "timeriomem_rng";
+>> +                               reg = <0x1e6e2078 0x4>;
+>> +                               period = <1>;
+>> +                               quality = <100>;
+>> +                       };
+>> +
+>>                         adc: adc@1e6e9000 {
+>>                                 compatible = "aspeed,ast2400-adc";
+>>                                 reg = <0x1e6e9000 0xB0>;
+>> --
+>> 2.14.1
+>>
