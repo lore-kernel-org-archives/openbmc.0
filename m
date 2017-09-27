@@ -1,66 +1,53 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=cbostic@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <geissonator@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c0b::230; helo=mail-it0-x230.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Yr1JRCno"; 
+ dkim-atps=neutral
+Received: from mail-it0-x230.google.com (mail-it0-x230.google.com
+ [IPv6:2607:f8b0:4001:c0b::230])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y2WBC28jYzDsPT
- for <openbmc@lists.ozlabs.org>; Thu, 28 Sep 2017 07:27:30 +1000 (AEST)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v8RLOU67061808
- for <openbmc@lists.ozlabs.org>; Wed, 27 Sep 2017 17:27:27 -0400
-Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2d8kkf8vyd-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 27 Sep 2017 17:27:26 -0400
-Received: from localhost
- by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Wed, 27 Sep 2017 17:27:25 -0400
-Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
- by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Wed, 27 Sep 2017 17:27:22 -0400
-Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
- [9.57.199.108])
- by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v8RLRLEY3998168; Wed, 27 Sep 2017 21:27:21 GMT
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 253E8B2046;
- Wed, 27 Sep 2017 17:24:41 -0400 (EDT)
-Received: from Christophers-MacBook-Pro.local.com (unknown [9.81.202.110])
- by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP id 0E52CB2056;
- Wed, 27 Sep 2017 17:24:38 -0400 (EDT)
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-To: joel@jms.id.au
-Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Subject: [PATCH u-boot v2016.07] aspeed: clear all asserting watchdog
- conditions
-Date: Wed, 27 Sep 2017 16:27:12 -0500
-X-Mailer: git-send-email 2.10.1 (Apple Git-78)
-X-TM-AS-GCONF: 00
-x-cbid: 17092721-0048-0000-0000-000001EC390C
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007801; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000232; SDB=6.00923275; UDB=6.00464137; IPR=6.00703417; 
- BA=6.00005609; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017295; XFM=3.00000015;
- UTC=2017-09-27 21:27:23
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17092721-0049-0000-0000-000042B2AD32
-Message-Id: <20170927212712.4804-1-cbostic@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-09-27_08:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
- definitions=main-1709270299
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y2WD36hJbzDsPT
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Sep 2017 07:29:07 +1000 (AEST)
+Received: by mail-it0-x230.google.com with SMTP id m123so9083646ita.3
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Sep 2017 14:29:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to
+ :content-transfer-encoding;
+ bh=sid6oEamm4NCFK+5jnkmwoplylDKyOSgno4NeWIzWpw=;
+ b=Yr1JRCno2SlNrjU7bcJ4mH7vxi0SrIj1J8QF8JJMSvFxTwBRQztNb19KM4RUFzHX/S
+ a0MuF9zKr0ZtKFVbFe5wmHVb7xpsL4mZWnsg69UePHpisxLAsZm5me5cpFbIo1h4bKrx
+ SAKtPzTCj/9gHmn03BOMb55JAAb/HVRANMBdqwVrV9OGz14MPcIYXblQfbkJB9/gIB2Y
+ xEsihH7Cqs3pUGzWgd6evH+/RWow8Ua69eOwh1DuLcV4SOP5rnH2tjmgyHQxiEgC8U4N
+ sbYZ4O9ZbLGSPr+hyi+R+ApBeXi6mhYgXxItqyIjGhphSKvfQk2C7YZhrZ0lGOdq88Yq
+ K8VA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to
+ :content-transfer-encoding;
+ bh=sid6oEamm4NCFK+5jnkmwoplylDKyOSgno4NeWIzWpw=;
+ b=QH4JPvuYj/r3UninKDe8T4fWdNNSuhhhVs+IGu9gJq9o/zxTwsmWXKN0h2fb0zljRA
+ ez+4FidW9DTiWnvJY8Uywa38UFlBIHoIvj45YXTUxFi3Viz+Y3Z9Oftav5esQKlvTbLo
+ atmS62zevuDsy2pJCpkq+VKYm4Z6pAlQoih65uWIu7E1TSm+J+Xg1GFY+DDIWubw4Ttu
+ dFV4Idkiy7O7jaV5cMLHqQ9QmX7yxfY/M9h1tXEDMJBacWeVSYtiuleR14+mJY+Gg2A0
+ /xlP1RL9sgoyJST30TSyozWDBRn6TQgA6HARpgUJCrtXAFJJxKfm+dyjgjpmvu7tXSL4
+ Yw8w==
+X-Gm-Message-State: AHPjjUg+PBG9YKPeJxgQOLmSxLaPlK4poQNa5TOXIKIAPuuR8C3hoScn
+ mB0pLBLRfdckIXu/NiWIC3jHJ3URFiCoLa52YE15Ig==
+X-Google-Smtp-Source: AOwi7QClT2ZgGL+AHkrL43cvMRVrqeo80BLdKQgFvpiSJoFF6KbdaWO+2EqKAMAaB42dhMHsUtPie97c0Eq/CxWoS7Q=
+X-Received: by 10.36.137.66 with SMTP id s63mr2932869itd.28.1506547744316;
+ Wed, 27 Sep 2017 14:29:04 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.107.131.70 with HTTP; Wed, 27 Sep 2017 14:29:03 -0700 (PDT)
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Wed, 27 Sep 2017 16:29:03 -0500
+Message-ID: <CALLMt=oUFVXDCeQMCSjS7CJjLxuivxgP-m-9mjmNrQ5cdd-rfQ@mail.gmail.com>
+Subject: Services to stop on quiesce target start
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -72,35 +59,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Sep 2017 21:27:32 -0000
+X-List-Received-Date: Wed, 27 Sep 2017 21:29:08 -0000
 
-Clear out all flagged watchdog conditions to allow the following
-kernel load to complete successfully.  This will allow the kernel
-to determine the next boot side instead of leaving it to u-boot.
-This method of side switching has been suggested by Milton Miller
-and Adirana Kobylak.
+The goal of the quiesce target was to provide a point from which the
+bmc firmware can do 2 things
+o Initiate a recovery policy (i.e. power off and back on again)
+o Sit in indefinitely and leave the system in the fail state for debug
 
-Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
----
- arch/arm/mach-aspeed/reset.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+With these goals in mind, the initial design was to basically do
+nothing to other targets and services when we got into the quiesce
+state.
 
-diff --git a/arch/arm/mach-aspeed/reset.c b/arch/arm/mach-aspeed/reset.c
-index 1a44b3a..7d88d99 100644
---- a/arch/arm/mach-aspeed/reset.c
-+++ b/arch/arm/mach-aspeed/reset.c
-@@ -9,6 +9,12 @@
- 
- void reset_cpu(ulong addr)
- {
-+	/* Clear out all flagged watchdog events */
-+	__raw_writel(0x1, AST_WDT1_BASE+0x14);
-+	__raw_writel(0x1, AST_WDT2_BASE+0x14);
-+	__raw_writel(0x1, AST_WDT3_BASE+0x14);
-+	__raw_writel(__raw_readl(AST_SCU_BASE+0x3C) & 0x03, AST_SCU_BASE+0x3C);
-+
- 	__raw_writel(0x10 , AST_WDT1_BASE+0x04);
- 	__raw_writel(0x4755, AST_WDT1_BASE+0x08);
- 	__raw_writel(0x3, AST_WDT1_BASE+0x0c);
--- 
-1.8.2.2
+This causes an issue with checkstops and host timeouts.  If the system
+hits a checkstop (processor suddenly halts), bmc firmware detects the
+checkstop, logs an error, and puts the bmc into the quiesce state.
+But, since the host was running, the host watchdog was enabled so the
+bmc ends up also hitting the host watchdog timeout and logging an
+error for that as well.  Doesn=E2=80=99t hurt anything, but the bmc has
+generated 2 errors when there really should have just been one.
+
+The simple solution is to just have the watchdog service conflict with
+the quiesce target.  If the bmc starts the quiesce target, the host
+watchdog target is stopped.
+
+Some other options:
+o Run the obmc-host-stop target, this would potentially violate our
+goal of staying as close to the fail state as possible in quiesce
+o Create a new target that quiesce runs where we could stuff things
+like this - would give us a single =E2=80=9Cthing=E2=80=9D to look for but =
+currently
+we really only have this one use case so a bit overkill.
+
+My thoughts - Keep it simple, lets just have the
+phosphor-watchdog@poweron.service conflict with the quiesce target.
+If we find more of these use cases in the future we can revisit a
+special target to keep them all straight.
+
+Relevant issue is https://github.com/openbmc/openbmc/issues/2282
+
+Thoughts or comments appreciated,
+Andrew
