@@ -1,69 +1,60 @@
-Return-Path: <miltonm@us.ibm.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=us.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=miltonm@us.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="X5ueBy0q"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="lGY3xJ2u"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y2d6W5sHczDsN9
- for <openbmc@lists.ozlabs.org>; Thu, 28 Sep 2017 11:54:42 +1000 (AEST)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v8S1rYm6119167
- for <openbmc@lists.ozlabs.org>; Wed, 27 Sep 2017 21:54:39 -0400
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.74])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2d8ks3b5e5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 27 Sep 2017 21:54:39 -0400
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <miltonm@us.ibm.com>;
- Thu, 28 Sep 2017 01:54:38 -0000
-Received: from us1a3-smtp04.a3.dal06.isc4sb.com (10.106.154.237)
- by smtp.notes.na.collabserv.com (10.106.227.92) with
- smtp.notes.na.collabserv.com ESMTP; Thu, 28 Sep 2017 01:54:36 -0000
-Received: from us1a3-mail79.a3.dal09.isc4sb.com ([10.142.3.136])
- by us1a3-smtp04.a3.dal06.isc4sb.com
- with ESMTP id 2017092801543609-1202266 ;
- Thu, 28 Sep 2017 01:54:36 +0000 
-In-Reply-To: <20170927212712.4804-1-cbostic@linux.vnet.ibm.com>
-Subject: Re: [PATCH u-boot v2016.07] aspeed: clear all asserting watchdog
- conditions
-From: "Milton Miller II" <miltonm@us.ibm.com>
-To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Cc: joel@jms.id.au, openbmc@lists.ozlabs.org, "Andrew Jeffery"
- <andrewrj@au1.ibm.com>
-Date: Thu, 28 Sep 2017 01:54:36 +0000
-MIME-Version: 1.0
-Sensitivity: 
-Importance: Normal
-X-Priority: 3 (Normal)
-References: <20170927212712.4804-1-cbostic@linux.vnet.ibm.com>
-X-Mailer: IBM iNotes ($HaikuForm 998) | IBM Domino Build
- SCN17248_20170905T0050_FP2.1 September 19, 2017 at 09:56
-X-LLNOutbound: False
-X-Disclaimed: 34695
-X-TNEFEvaluated: 1
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-x-cbid: 17092801-7581-0000-0000-0000040E0610
-X-IBM-SpamModules-Scores: BY=0.259975; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.40962; ST=0; TS=0; UL=0; ISC=; MB=0.015035
-X-IBM-SpamModules-Versions: BY=3.00007802; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000232; SDB=6.00923364; UDB=6.00464191; IPR=6.00703507; 
- BA=6.00005609; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017296; XFM=3.00000015;
- UTC=2017-09-28 01:54:38
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2017-09-27 23:15:40 - 6.00007384
-x-cbparentid: 17092801-7582-0000-0000-00005EFC5292
-Message-Id: <OFC966264B.614C040D-ON002581A9.000A7E30-002581A9.000A7E38@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-09-28_01:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y2kgQ2MJ2zDsPp
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Sep 2017 16:05:05 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id F100B2124D;
+ Thu, 28 Sep 2017 02:05:02 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Thu, 28 Sep 2017 02:05:02 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=xlAkXrfy12QO6gt9p1ujRvHel6qmrn1GW9UQFKxHl
+ 7U=; b=X5ueBy0qTGIdsOKmIDCHHwlhIuMqvHDrvL5t2KTBIHoVIk3Z5E7BCQi/8
+ CYjdd86ugiB8XcUBc7M0o08uimu0yDQ16S308syTp2vmWMERaQKIyPnqnxFDNYzV
+ hckRwmnSS/+nQ04Z8uKN7JpCi8OPc5w8yaij1s3HHsuv2x+XysyY1MlsbeHYl7sM
+ 8w8rV1bsOC3AQ+4OZCcNe3648Ytw0nBBFXnOzGGVP2mMj1O5riRb7BJITtiPomhg
+ 77I8RkFMdOZQGn/8xVilJvDHo9kiD0Dk0XAAPLgKaEnoZgjyE5xinyvx8Bdsuqu4
+ KsZUJDSGGwfZPvbdDbFhNBDko7vqg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=xlAkXrfy12QO6gt9p1
+ ujRvHel6qmrn1GW9UQFKxHl7U=; b=lGY3xJ2uHyup6vz8ZwcI3J0kJnKzCXF2SA
+ uZDFdfPi1Blk/6wmSIvbg7MaX6KFlKJaLXs5mw8FXj24s6X1EHdWNjlBXPdr0lYA
+ 9SB7v6J9qs+h98/9hv1gs8xNo8WIRGMUZ4WBA7D6x0vltLdDDAqnQQZKq2jg2TFK
+ mzG1vC4/qYnxQZuCmWbjaJq5CMVTsjIsncRou2RUwgJDgPi48MZdmf4D4v6YnATY
+ 6QBVM9HQrNJHPQM4ugWwiGZh9hevQmwFd1s/2kaJD2VG+K3sT3jw8G4AxAzqaGCG
+ ITMvseGdOxiLogJYECsebtfkXa06hNsUBF7iR3xwYQyOGzLbf5rQ==
+X-ME-Sender: <xms:DpHMWSur3Xs5SgN0qf65l4MVIQr5JkzxyZbl6IRIMqBJg2-GoHiDQw>
+X-Sasl-enc: Adotiwtp6Y5llYoKYvpYyySLiZbqX4llPk1+1Kvb54jn 1506578702
+Received: from keelia (ppp14-2-13-235.bras21.adl4.internode.on.net
+ [14.2.13.235])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 7EDBA7F92D;
+ Thu, 28 Sep 2017 02:05:01 -0400 (EDT)
+Message-ID: <1506578695.5388.3.camel@aj.id.au>
+Subject: Re: OpenBMC growing leadership
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Chris Austen <austenc@us.ibm.com>, OpenBMC <openbmc@lists.ozlabs.org>
+Date: Thu, 28 Sep 2017 15:34:55 +0930
+In-Reply-To: <OF7D68BAEA.1296BECD-ON862581A7.00632E79-862581A7.0077F790@notes.na.collabserv.com>
+References: <OF7D68BAEA.1296BECD-ON862581A7.00632E79-862581A7.0077F790@notes.na.collabserv.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-NOVc8vuKXIW5Skl9JdvX"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -75,52 +66,69 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Sep 2017 01:54:44 -0000
+X-List-Received-Date: Thu, 28 Sep 2017 06:05:07 -0000
 
-On 09/27/2017 around 04:27PM in some time zone, Christopher Bostic wrote:
->Clear out all flagged watchdog conditions to allow the following
->kernel load to complete successfully.  This will allow the kernel
->to determine the next boot side instead of leaving it to u-boot.
->This method of side switching has been suggested by Milton Miller
->and Adirana Kobylak.
 
-I'm not immediately sure what the SCU3C write is about, but we
-can't do the others in u-boot as we need to continue to access
-the secondary flash during u-boot.
+--=-NOVc8vuKXIW5Skl9JdvX
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-I was suggesting we clear the watchdog alt-boot overrides when
-we start the linux kernel so that the kernel chip selects match
-the hardware, while allowing the alternate u-boot to continue
-to read from the chip its started out of.
+On Tue, 2017-09-26 at 16:50 -0500, Chris Austen wrote:
+> I wanted to let you know some pretty exciting news. As you may be
+> aware The OpenBMC Project and the Facebook OpenBMC team have been
+> looking for ways to work together. Over the past few weeks IBM,
+> Google, Facebook, Microsoft, Intel and OCP have been talking about
+> the code and how to create a common stack for all the world to
+> reference.=20
 
-I'll work more urgently on drafting a more detailed proposal.
+This is great news! I look forward to collaboration with and
+contributions from all involved.
 
->
->Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
->---
-> arch/arm/mach-aspeed/reset.c | 6 ++++++
-> 1 file changed, 6 insertions(+)
->
->diff --git a/arch/arm/mach-aspeed/reset.c
->b/arch/arm/mach-aspeed/reset.c
->index 1a44b3a..7d88d99 100644
->--- a/arch/arm/mach-aspeed/reset.c
->+++ b/arch/arm/mach-aspeed/reset.c
->@@ -9,6 +9,12 @@
+> There are plenty of items to work through (like finding a hosting
+> foundation, Governance, etc) but the desire and momentum is there to
+> work together. Be assured that the goals of our OpenBMC Project
+> (which, as code contributors, you are part of) remain the same; that
+> our community is open and the code is designed to enable your
+> business needs.=C2=A0
 >=20
-> void reset=5Fcpu(ulong addr)
-> {
->+	/* Clear out all flagged watchdog events */
->+	=5F=5Fraw=5Fwritel(0x1, AST=5FWDT1=5FBASE+0x14);
->+	=5F=5Fraw=5Fwritel(0x1, AST=5FWDT2=5FBASE+0x14);
->+	=5F=5Fraw=5Fwritel(0x1, AST=5FWDT3=5FBASE+0x14);
->+	=5F=5Fraw=5Fwritel(=5F=5Fraw=5Freadl(AST=5FSCU=5FBASE+0x3C) & 0x03,
->AST=5FSCU=5FBASE+0x3C);
->+
-> 	=5F=5Fraw=5Fwritel(0x10 , AST=5FWDT1=5FBASE+0x04);
-> 	=5F=5Fraw=5Fwritel(0x4755, AST=5FWDT1=5FBASE+0x08);
-> 	=5F=5Fraw=5Fwritel(0x3, AST=5FWDT1=5FBASE+0x0c);
->--=20
->1.8.2.2
->
->
+> This will not be a tear up or rewrite of github.com/openbmc. The
+> OpenBMC Project repos will be used as the starting point. I saw some
+> presentations at the Dallas OpenCompute Project engineering workshop
+> that gets me excited about the future. You can see the entire
+> workshop here... https://www.youtube.com/watch?v=3DQFhEbXkHd0Q
+
+Thanks for the link, there were some excellent talks. It's essential
+viewing for people wanting to understand the (somewhat complex) history
+of the project(s).
+
+>=20
+> Let me know if you have any questions
+
+Yeah - can the speakers please share their slides from the workshop?
+
+Cheers,
+
+Andrew
+--=-NOVc8vuKXIW5Skl9JdvX
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZzJEHAAoJEJ0dnzgO5LT5lVsP/2TwSlzc8h2xMdhLTcglWVU3
+T6aeC0wuTQW545y/pJclfHPmwwspDAngYLO+ggKR8WEk69U5OTTdEV6JYnmMmaU0
+/dvYw/LcaRWKlwyg39OWia7/3uq3EAxmtwRWnXMNEHVJbyGUXP6Vj2pD5ImZsDvt
+/w3DT00jDIwRhft5rdAfmyz+LAghPMBD132K/QwRr3+690iQgaSjKpdrnYaFc6C2
+4cGjgnlxhXwhdWWdEUuI+qzB2GB27AZ6jRSIoRx4CRTl6QZYAP9heNB9D6xmRn8i
+Pw2UdpKNpSuhvPUkUg9YaBzgGNoz+3IwM91Nk4Z0oF/BM0ybmj8k1AQ32qfzwrAk
+d/2RJXb0b0TYGhpzgFXCUe/Bcjc3arVWSW8peU8BMC+bptaJ90ZNn8ii/rZ4KYbY
+rmf9rgLknW5R6k0LzoQVz4qKfVvXrznkWLImUCiBycw3mYtEejxVnCtFmIorhqI4
+tgmiwXlrrLBx32mV7b7gfa7oRzTE2gis784Wv0DBTgtGwAKSlbeFyN8SW9DpZIxK
+yvgcsu8rZGG448060O2RcymVu6Vx5V6jAvu5TWd3Z7y36MEHUSNTf6EeqNYrSc1j
+OYft4ODns0BgmLh6z+gRdTlhqtC/Gl76GzUx/icSf6q2FuZ7cNz11qlhZish7wcu
+LGlbOoTNCvc3adg7xq+n
+=C/1T
+-----END PGP SIGNATURE-----
+
+--=-NOVc8vuKXIW5Skl9JdvX--
