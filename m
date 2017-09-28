@@ -1,60 +1,71 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Return-Path: <geert.uytterhoeven@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2a00:1450:400c:c09::244; helo=mail-wm0-x244.google.com;
+ envelope-from=geert.uytterhoeven@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="X5ueBy0q"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="lGY3xJ2u"; dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="X8N9zfEz"; 
+ dkim-atps=neutral
+Received: from mail-wm0-x244.google.com (mail-wm0-x244.google.com
+ [IPv6:2a00:1450:400c:c09::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y2kgQ2MJ2zDsPp
- for <openbmc@lists.ozlabs.org>; Thu, 28 Sep 2017 16:05:05 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id F100B2124D;
- Thu, 28 Sep 2017 02:05:02 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Thu, 28 Sep 2017 02:05:02 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=xlAkXrfy12QO6gt9p1ujRvHel6qmrn1GW9UQFKxHl
- 7U=; b=X5ueBy0qTGIdsOKmIDCHHwlhIuMqvHDrvL5t2KTBIHoVIk3Z5E7BCQi/8
- CYjdd86ugiB8XcUBc7M0o08uimu0yDQ16S308syTp2vmWMERaQKIyPnqnxFDNYzV
- hckRwmnSS/+nQ04Z8uKN7JpCi8OPc5w8yaij1s3HHsuv2x+XysyY1MlsbeHYl7sM
- 8w8rV1bsOC3AQ+4OZCcNe3648Ytw0nBBFXnOzGGVP2mMj1O5riRb7BJITtiPomhg
- 77I8RkFMdOZQGn/8xVilJvDHo9kiD0Dk0XAAPLgKaEnoZgjyE5xinyvx8Bdsuqu4
- KsZUJDSGGwfZPvbdDbFhNBDko7vqg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=xlAkXrfy12QO6gt9p1
- ujRvHel6qmrn1GW9UQFKxHl7U=; b=lGY3xJ2uHyup6vz8ZwcI3J0kJnKzCXF2SA
- uZDFdfPi1Blk/6wmSIvbg7MaX6KFlKJaLXs5mw8FXj24s6X1EHdWNjlBXPdr0lYA
- 9SB7v6J9qs+h98/9hv1gs8xNo8WIRGMUZ4WBA7D6x0vltLdDDAqnQQZKq2jg2TFK
- mzG1vC4/qYnxQZuCmWbjaJq5CMVTsjIsncRou2RUwgJDgPi48MZdmf4D4v6YnATY
- 6QBVM9HQrNJHPQM4ugWwiGZh9hevQmwFd1s/2kaJD2VG+K3sT3jw8G4AxAzqaGCG
- ITMvseGdOxiLogJYECsebtfkXa06hNsUBF7iR3xwYQyOGzLbf5rQ==
-X-ME-Sender: <xms:DpHMWSur3Xs5SgN0qf65l4MVIQr5JkzxyZbl6IRIMqBJg2-GoHiDQw>
-X-Sasl-enc: Adotiwtp6Y5llYoKYvpYyySLiZbqX4llPk1+1Kvb54jn 1506578702
-Received: from keelia (ppp14-2-13-235.bras21.adl4.internode.on.net
- [14.2.13.235])
- by mail.messagingengine.com (Postfix) with ESMTPA id 7EDBA7F92D;
- Thu, 28 Sep 2017 02:05:01 -0400 (EDT)
-Message-ID: <1506578695.5388.3.camel@aj.id.au>
-Subject: Re: OpenBMC growing leadership
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Chris Austen <austenc@us.ibm.com>, OpenBMC <openbmc@lists.ozlabs.org>
-Date: Thu, 28 Sep 2017 15:34:55 +0930
-In-Reply-To: <OF7D68BAEA.1296BECD-ON862581A7.00632E79-862581A7.0077F790@notes.na.collabserv.com>
-References: <OF7D68BAEA.1296BECD-ON862581A7.00632E79-862581A7.0077F790@notes.na.collabserv.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-NOVc8vuKXIW5Skl9JdvX"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y2nyV49LvzDsPp
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Sep 2017 18:33:21 +1000 (AEST)
+Received: by mail-wm0-x244.google.com with SMTP id u138so616295wmu.4
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Sep 2017 01:33:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=FJL9dm/7ZlsaQE893hGebXwGqiac4C2PcNh9ircWQ8Q=;
+ b=X8N9zfEzucoeiJT9aT6Jdm1AKp/2v/1f8MMmQSzWCdtRSr87LGrfF4u6yfFUZBDPbh
+ 2+fgmxW1oNUBHEmylXINrnbSYMeo5pD1Bs1ZKNaIilJKlTC81lr/Hlum4Eel5TYzp8uE
+ LXmVOQkWFGEmDm6RkMr7jAfWulivayrONt/ARnk16v5dT189D8v9kL7LTJKXltgV7WUs
+ dD9vjpQpFlrVaZhWeof+7zlqhXrvWZcYgiYlNUwiqJPKy/HmCgGPi9OYkphm+tvWgjx/
+ fM4b91e0ZUN2oHM2adV7vQewJ5FTJzkku4gTENnhXRPE8mb78/4Ciru/b8isan1frQpr
+ cTAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=FJL9dm/7ZlsaQE893hGebXwGqiac4C2PcNh9ircWQ8Q=;
+ b=b9rYVHM7M/6DtBgS3ZM0Kacf5yUayKwF2e0f+qVymWfgpeoF7w3bJ16qbS25oYToD2
+ zt3YdDzhFVL587ye+UDlkxzWQK7cdCpJvxW25c7tpo56CpjUIo9vW0eUYaHaFg5Zre/4
+ LeQcYIl76RkFTdbWtROCfXVm8P9rLmWYaDBpzlBt+6LXu2ljgk6LQ658HjuLGvTZI41e
+ 9FfmQRpye0gL6M0dnP9dTi9DiR69+58nKbjoImmDYQPAYiDASwS3uTpalo0Oy+T+SIfc
+ 5ZbSyN0t0rvTzS+jDrGYdfsutG2tPHs34ayV5QbIadwTJitBkb+AYx+mSvjmxCAP+cWb
+ tqAw==
+X-Gm-Message-State: AHPjjUgzGEXJCpmaQapN1wNuQqE0frcg2edIJB1mdqBnMwiQmMIx7D48
+ S8sklLdduJVnFHsh9ZgrWjSv5sdTFtlsZuKTkME=
+X-Google-Smtp-Source: AOwi7QDbfPUN4h0CanHxpn5JAospxR2VGMF9nOelwXbcDVr20BjteBp50x7wGAKon9NoeJFWWRYEWNvLVNyxXhC0Uu8=
+X-Received: by 10.28.36.212 with SMTP id k203mr260094wmk.127.1506587598760;
+ Thu, 28 Sep 2017 01:33:18 -0700 (PDT)
+MIME-Version: 1.0
+Sender: geert.uytterhoeven@gmail.com
+Received: by 10.223.129.226 with HTTP; Thu, 28 Sep 2017 01:33:18 -0700 (PDT)
+In-Reply-To: <1505985932-27568-1-git-send-email-oleksandrs@mellanox.com>
+References: <1505985932-27568-1-git-send-email-oleksandrs@mellanox.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 28 Sep 2017 10:33:18 +0200
+X-Google-Sender-Auth: ErALBLwzm6Pxb4jxp6dk4SBrX4o
+Message-ID: <CAMuHMdWfoYzWPJYaGOhF8qshKhvngwFKs=kvuH62PYif9q9+0g@mail.gmail.com>
+Subject: Re: [patch v9 0/4] JTAG driver introduction
+To: Oleksandr Shamray <oleksandrs@mellanox.com>
+Cc: Greg KH <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ openbmc@lists.ozlabs.org, 
+ Joel Stanley <joel@jms.id.au>, Jiri Pirko <jiri@resnulli.us>,
+ Tobias Klauser <tklauser@distanz.ch>, 
+ "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>, mec@shout.net, 
+ Vadim Pasternak <vadimp@mellanox.com>, system-sw-low-level@mellanox.com, 
+ Rob Herring <robh+dt@kernel.org>, openocd-devel-owner@lists.sourceforge.net, 
+ "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-spi <linux-spi@vger.kernel.org>, Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Thu, 28 Sep 2017 18:48:06 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -66,69 +77,98 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Sep 2017 06:05:07 -0000
+X-List-Received-Date: Thu, 28 Sep 2017 08:33:23 -0000
 
+Hi Oleksandr,
 
---=-NOVc8vuKXIW5Skl9JdvX
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+[My attention was drawn by https://lwn.net/Articles/734440/]
+[CC linux-spi, which was never included, while linux-serial was]
 
-On Tue, 2017-09-26 at 16:50 -0500, Chris Austen wrote:
-> I wanted to let you know some pretty exciting news. As you may be
-> aware The OpenBMC Project and the Facebook OpenBMC team have been
-> looking for ways to work together. Over the past few weeks IBM,
-> Google, Facebook, Microsoft, Intel and OCP have been talking about
-> the code and how to create a common stack for all the world to
-> reference.=20
+On Thu, Sep 21, 2017 at 11:25 AM, Oleksandr Shamray
+<oleksandrs@mellanox.com> wrote:
+> When a need raise up to use JTAG interface for system's devices
+> programming or CPU debugging, usually the user layer
+> application implements jtag protocol by bit-bang or using a
+> proprietary connection to vendor hardware.
+> This method can be slow and not generic.
+>
+> We propose to implement general JTAG interface and infrastructure
+> to communicate with user layer application. In such way, we can
+> have the standard JTAG interface core part and separation from
+> specific HW implementation.
+> This allow new capability to debug the CPU or program system's
+> device via BMC without additional devices nor cost.
+>
+> This patch purpose is to add JTAG master core infrastructure by
+> defining new JTAG class and provide generic JTAG interface
+> to allow hardware specific drivers to connect this interface.
+> This will enable all JTAG drivers to use the common interface
+> part and will have separate for hardware implementation.
+>
+> The JTAG (Joint Test Action Group) core driver provides minimal generic
+> JTAG interface, which can be used by hardware specific JTAG master
+> controllers. By providing common interface for the JTAG controllers,
+> user space device programing is hardware independent.
+>
+> Modern SoC which in use for embedded system' equipped with
+> internal JTAG master interface.
+> This interface is used for programming and debugging system's
+> hardware components, like CPLD, FPGA, CPU, voltage and
+> industrial controllers.
+> Firmware for such devices can be upgraded through JTAG interface during
+> Runtime. The JTAG standard support for multiple devices programming,
+> is in case their lines are daisy-chained together.
+>
+> For example, systems which equipped with host CPU, BMC SoC or/and
+> number of programmable devices are capable to connect a pin and
+> select system components dynamically for programming and debugging,
+> This is using by the BMC which is equipped with internal SoC master
+> controller.
+> For example:
+>
+> BMC JTAG master --> pin selected to CPLDs chain for programming (filed
+> upgrade, production)
+> BMC JTAG master --> pin selected to voltage monitors for programming
+> (field upgrade, production)
+> BMC JTAG master --> pin selected to host CPU (on-site debugging
+> and developers debugging)
+>
+> For example, we can have application in user space which using calls
+> to JTAG driver executes CPLD programming directly from SVF file
+>
+> The JTAG standard (IEEE 1149.1) defines the next connector pins:
+> - TDI (Test Data In);
+> - TDO (Test Data Out);
+> - TCK (Test Clock);
+> - TMS (Test Mode Select);
+> - TRST (Test Reset) (Optional);
+>
+> The SoC equipped with JTAG master controller, performs
+> device programming on command or vector level. For example
+> a file in a standard SVF (Serial Vector Format) that contains
+> boundary scan vectors, can be used by sending each vector
+> to the JTAG interface and the JTAG controller will execute
+> the programming.
+>
+> Initial version provides the system calls set for:
+> - SIR (Scan Instruction Register, IEEE 1149.1 Data Register scan);
+> - SDR (Scan Data Register, IEEE 1149.1 Instruction Register scan);
+> - RUNTEST (Forces the IEEE 1149.1 bus to a run state for a specified
+>   number of clocks.
+>
+> SoC which are not equipped with JTAG master interface, can be built
+> on top of JTAG core driver infrastructure, by applying bit-banging of
+> TDI, TDO, TCK and TMS pins within the hardware specific driver.
 
-This is great news! I look forward to collaboration with and
-contributions from all involved.
+Or by using an SPI master?
 
-> There are plenty of items to work through (like finding a hosting
-> foundation, Governance, etc) but the desire and momentum is there to
-> work together. Be assured that the goals of our OpenBMC Project
-> (which, as code contributors, you are part of) remain the same; that
-> our community is open and the code is designed to enable your
-> business needs.=C2=A0
->=20
-> This will not be a tear up or rewrite of github.com/openbmc. The
-> OpenBMC Project repos will be used as the starting point. I saw some
-> presentations at the Dallas OpenCompute Project engineering workshop
-> that gets me excited about the future. You can see the entire
-> workshop here... https://www.youtube.com/watch?v=3DQFhEbXkHd0Q
+Gr{oetje,eeting}s,
 
-Thanks for the link, there were some excellent talks. It's essential
-viewing for people wanting to understand the (somewhat complex) history
-of the project(s).
+                        Geert
 
->=20
-> Let me know if you have any questions
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-Yeah - can the speakers please share their slides from the workshop?
-
-Cheers,
-
-Andrew
---=-NOVc8vuKXIW5Skl9JdvX
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJZzJEHAAoJEJ0dnzgO5LT5lVsP/2TwSlzc8h2xMdhLTcglWVU3
-T6aeC0wuTQW545y/pJclfHPmwwspDAngYLO+ggKR8WEk69U5OTTdEV6JYnmMmaU0
-/dvYw/LcaRWKlwyg39OWia7/3uq3EAxmtwRWnXMNEHVJbyGUXP6Vj2pD5ImZsDvt
-/w3DT00jDIwRhft5rdAfmyz+LAghPMBD132K/QwRr3+690iQgaSjKpdrnYaFc6C2
-4cGjgnlxhXwhdWWdEUuI+qzB2GB27AZ6jRSIoRx4CRTl6QZYAP9heNB9D6xmRn8i
-Pw2UdpKNpSuhvPUkUg9YaBzgGNoz+3IwM91Nk4Z0oF/BM0ybmj8k1AQ32qfzwrAk
-d/2RJXb0b0TYGhpzgFXCUe/Bcjc3arVWSW8peU8BMC+bptaJ90ZNn8ii/rZ4KYbY
-rmf9rgLknW5R6k0LzoQVz4qKfVvXrznkWLImUCiBycw3mYtEejxVnCtFmIorhqI4
-tgmiwXlrrLBx32mV7b7gfa7oRzTE2gis784Wv0DBTgtGwAKSlbeFyN8SW9DpZIxK
-yvgcsu8rZGG448060O2RcymVu6Vx5V6jAvu5TWd3Z7y36MEHUSNTf6EeqNYrSc1j
-OYft4ODns0BgmLh6z+gRdTlhqtC/Gl76GzUx/icSf6q2FuZ7cNz11qlhZish7wcu
-LGlbOoTNCvc3adg7xq+n
-=C/1T
------END PGP SIGNATURE-----
-
---=-NOVc8vuKXIW5Skl9JdvX--
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
