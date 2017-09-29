@@ -1,61 +1,61 @@
 Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
  envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y3mkj4h2wzDqhb
- for <openbmc@lists.ozlabs.org>; Sat, 30 Sep 2017 08:41:33 +1000 (AEST)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v8TMdTRE063450
- for <openbmc@lists.ozlabs.org>; Fri, 29 Sep 2017 18:41:31 -0400
-Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2d9y30g8ey-1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y3mkm46kVzDqgB
+ for <openbmc@lists.ozlabs.org>; Sat, 30 Sep 2017 08:41:36 +1000 (AEST)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v8TMdXMN043220
+ for <openbmc@lists.ozlabs.org>; Fri, 29 Sep 2017 18:41:34 -0400
+Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2d9vc4ya5s-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 29 Sep 2017 18:41:31 -0400
+ for <openbmc@lists.ozlabs.org>; Fri, 29 Sep 2017 18:41:34 -0400
 Received: from localhost
- by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Fri, 29 Sep 2017 16:41:30 -0600
-Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
- by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
+ Fri, 29 Sep 2017 16:41:33 -0600
+Received: from b03cxnp08026.gho.boulder.ibm.com (9.17.130.18)
+ by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Fri, 29 Sep 2017 16:41:28 -0600
+ Fri, 29 Sep 2017 16:41:30 -0600
 Received: from b03ledav003.gho.boulder.ibm.com
  (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v8TMfRL03146200; Fri, 29 Sep 2017 15:41:27 -0700
+ by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v8TMfU1g65142966; Fri, 29 Sep 2017 15:41:30 -0700
 Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id AEB176A03B;
- Fri, 29 Sep 2017 16:41:27 -0600 (MDT)
+ by IMSVA (Postfix) with ESMTP id 55A576A03B;
+ Fri, 29 Sep 2017 16:41:30 -0600 (MDT)
 Received: from oc3016140333.ibm.com (unknown [9.85.183.77])
- by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP id E38B56A03C;
- Fri, 29 Sep 2017 16:41:26 -0600 (MDT)
+ by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP id 7C3F56A03C;
+ Fri, 29 Sep 2017 16:41:29 -0600 (MDT)
 From: Eddie James <eajames@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, andrew@aj.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10 v2 6/9] drivers: fsi: occ: Add cancel to
- remove() and fix probe()
-Date: Fri, 29 Sep 2017 17:41:05 -0500
+Subject: [PATCH linux dev-4.10 v2 7/9] drivers: fsi: occ: Fix client memory
+ management
+Date: Fri, 29 Sep 2017 17:41:06 -0500
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1506724868-13010-1-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1506724868-13010-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-TM-AS-GCONF: 00
-x-cbid: 17092922-0024-0000-0000-000017452340
+x-cbid: 17092922-0016-0000-0000-00000796D390
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00007813; HX=3.00000241; KW=3.00000007;
  PH=3.00000004; SC=3.00000233; SDB=6.00924260; UDB=6.00464728; IPR=6.00704398; 
  BA=6.00005613; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017330; XFM=3.00000015;
- UTC=2017-09-29 22:41:29
+ UTC=2017-09-29 22:41:31
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17092922-0025-0000-0000-00004CEAABB5
-Message-Id: <1506724868-13010-7-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 17092922-0017-0000-0000-00003BAB1913
+Message-Id: <1506724868-13010-8-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-09-29_06:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -74,226 +74,238 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 29 Sep 2017 22:41:34 -0000
+X-List-Received-Date: Fri, 29 Sep 2017 22:41:37 -0000
 
 From: "Edward A. James" <eajames@us.ibm.com>
 
-Need some data to indicate to clients and the rest of the driver when
-the device is being removed, so add a cancel boolean. Fix up both the
-probe and remove functions to properly handle failures and prevent
-deadlocks.
+Potential for bad memory access in the worker function. Now fixed by
+using reference counters.
 
 Signed-off-by: Edward A. James <eajames@us.ibm.com>
 ---
- drivers/fsi/occ.c | 86 +++++++++++++++++++++++++++++++++++++++----------------
- 1 file changed, 62 insertions(+), 24 deletions(-)
+ drivers/fsi/occ.c | 92 ++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 43 insertions(+), 49 deletions(-)
 
 diff --git a/drivers/fsi/occ.c b/drivers/fsi/occ.c
-index a554550..550ae11 100644
+index 550ae11..c3d9976 100644
 --- a/drivers/fsi/occ.c
 +++ b/drivers/fsi/occ.c
-@@ -46,6 +46,7 @@ struct occ {
- 	spinlock_t list_lock;		/* lock access to the xfrs list */
- 	struct mutex occ_lock;		/* lock access to the hardware */
- 	struct work_struct work;
-+	bool cancel;
+@@ -70,15 +70,11 @@ struct occ_response {
+  *  and cleared if the transfer fails or occ_worker_getsram completes.
+  * XFR_COMPLETE is set when a transfer fails or finishes occ_worker_getsram.
+  * XFR_CANCELED is set when the transfer's client is released.
+- * XFR_WAITING is set from read() if the transfer isn't complete and
+- *  O_NONBLOCK wasn't specified. Cleared in read() when transfer completes or
+- *  fails.
+  */
+ enum {
+ 	XFR_IN_PROGRESS,
+ 	XFR_COMPLETE,
+ 	XFR_CANCELED,
+-	XFR_WAITING,
  };
  
- #define to_occ(x)	container_of((x), struct occ, mdev)
-@@ -117,12 +118,15 @@ struct occ_client {
+ struct occ_xfr {
+@@ -104,6 +100,7 @@ enum {
+ };
  
- static DEFINE_IDA(occ_ida);
- 
--static void occ_enqueue_xfr(struct occ_xfr *xfr)
-+static int occ_enqueue_xfr(struct occ_xfr *xfr)
- {
- 	int empty;
- 	struct occ_client *client = to_client(xfr);
- 	struct occ *occ = client->occ;
- 
-+	if (occ->cancel)
-+		return -ECANCELED;
-+
- 	spin_lock_irq(&occ->list_lock);
- 
- 	empty = list_empty(&occ->xfrs);
-@@ -132,14 +136,20 @@ static void occ_enqueue_xfr(struct occ_xfr *xfr)
- 
- 	if (empty)
- 		queue_work(occ_wq, &occ->work);
-+
-+	return 0;
+ struct occ_client {
++	struct kref kref;
+ 	struct occ *occ;
+ 	struct occ_xfr xfr;
+ 	spinlock_t lock;		/* lock access to the client state */
+@@ -140,6 +137,24 @@ static int occ_enqueue_xfr(struct occ_xfr *xfr)
+ 	return 0;
  }
  
++static void occ_get_client(struct occ_client *client)
++{
++	kref_get(&client->kref);
++}
++
++static void occ_client_release(struct kref *kref)
++{
++	struct occ_client *client = container_of(kref, struct occ_client,
++						 kref);
++
++	kfree(client);
++}
++
++static void occ_put_client(struct occ_client *client)
++{
++	kref_put(&client->kref, occ_client_release);
++}
++
  static struct occ_client *occ_open_common(struct occ *occ, unsigned long flags)
  {
--	struct occ_client *client = kzalloc(sizeof(*client), GFP_KERNEL);
-+	struct occ_client *client;
-+
-+	if (occ->cancel)
-+		return ERR_PTR(-ECANCELED);
- 
-+	client = kzalloc(sizeof(*client), GFP_KERNEL);
- 	if (!client)
--		return NULL;
-+		return ERR_PTR(-ENOMEM);
+ 	struct occ_client *client;
+@@ -152,6 +167,7 @@ static struct occ_client *occ_open_common(struct occ *occ, unsigned long flags)
+ 		return ERR_PTR(-ENOMEM);
  
  	client->occ = occ;
++	kref_init(&client->kref);
  	spin_lock_init(&client->lock);
-@@ -158,8 +168,8 @@ static int occ_open(struct inode *inode, struct file *file)
- 	struct occ *occ = to_occ(mdev);
+ 	init_waitqueue_head(&client->wait);
  
- 	client = occ_open_common(occ, file->f_flags);
--	if (!client)
--		return -ENOMEM;
-+	if (IS_ERR(client))
-+		return PTR_ERR(client);
- 
- 	file->private_data = client;
- 
-@@ -172,6 +182,7 @@ static ssize_t occ_read_common(struct occ_client *client, char __user *ubuf,
- 	int rc;
- 	size_t bytes;
- 	struct occ_xfr *xfr = &client->xfr;
-+	struct occ *occ = client->occ;
- 
+@@ -187,6 +203,7 @@ static ssize_t occ_read_common(struct occ_client *client, char __user *ubuf,
  	if (len > OCC_SRAM_BYTES)
  		return -EINVAL;
-@@ -204,7 +215,8 @@ static ssize_t occ_read_common(struct occ_client *client, char __user *ubuf,
- 					      test_bit(XFR_COMPLETE,
- 						       &xfr->flags) ||
- 					      test_bit(XFR_CANCELED,
--						       &xfr->flags));
-+						       &xfr->flags) ||
-+					      occ->cancel);
+ 
++	occ_get_client(client);
+ 	spin_lock_irq(&client->lock);
+ 
+ 	if (!test_bit(CLIENT_XFR_PENDING, &client->flags)) {
+@@ -207,8 +224,6 @@ static ssize_t occ_read_common(struct occ_client *client, char __user *ubuf,
+ 			goto done;
+ 		}
+ 
+-		set_bit(XFR_WAITING, &xfr->flags);
+-
+ 		spin_unlock_irq(&client->lock);
+ 
+ 		rc = wait_event_interruptible(client->wait,
+@@ -220,15 +235,12 @@ static ssize_t occ_read_common(struct occ_client *client, char __user *ubuf,
  
  		spin_lock_irq(&client->lock);
  
-@@ -272,7 +284,7 @@ static ssize_t occ_write_common(struct occ_client *client,
+-		if (test_bit(XFR_CANCELED, &xfr->flags)) {
+-			spin_unlock_irq(&client->lock);
+-			kfree(client);
+-			return -EBADFD;
+-		}
+-
+-		clear_bit(XFR_WAITING, &xfr->flags);
+ 		if (!test_bit(XFR_COMPLETE, &xfr->flags)) {
+-			rc = -EINTR;
++			if (occ->cancel || test_bit(XFR_CANCELED, &xfr->flags))
++				rc = -ECANCELED;
++			else
++				rc = -EINTR;
++
+ 			goto done;
+ 		}
+ 	}
+@@ -259,6 +271,7 @@ static ssize_t occ_read_common(struct occ_client *client, char __user *ubuf,
+ 
+ done:
+ 	spin_unlock_irq(&client->lock);
++	occ_put_client(client);
+ 	return rc;
+ }
+ 
+@@ -282,6 +295,7 @@ static ssize_t occ_write_common(struct occ_client *client,
+ 	if (len > (OCC_CMD_DATA_BYTES + 3) || len < 3)
+ 		return -EINVAL;
+ 
++	occ_get_client(client);
+ 	spin_lock_irq(&client->lock);
+ 
+ 	if (test_bit(CLIENT_XFR_PENDING, &client->flags)) {
+@@ -330,6 +344,7 @@ static ssize_t occ_write_common(struct occ_client *client,
+ 
+ done:
+ 	spin_unlock_irq(&client->lock);
++	occ_put_client(client);
+ 	return rc;
+ }
+ 
+@@ -348,38 +363,26 @@ static int occ_release_common(struct occ_client *client)
  
  	spin_lock_irq(&client->lock);
  
--	if (test_and_set_bit(CLIENT_XFR_PENDING, &client->flags)) {
-+	if (test_bit(CLIENT_XFR_PENDING, &client->flags)) {
- 		rc = -EBUSY;
- 		goto done;
- 	}
-@@ -309,8 +321,11 @@ static ssize_t occ_write_common(struct occ_client *client,
- 	xfr->cmd_data_length = data_length + 6;
- 	client->read_offset = 0;
- 
--	occ_enqueue_xfr(xfr);
-+	rc = occ_enqueue_xfr(xfr);
-+	if (rc)
+-	if (!test_bit(CLIENT_XFR_PENDING, &client->flags)) {
+-		spin_unlock_irq(&client->lock);
+-		kfree(client);
+-		return 0;
+-	}
++	set_bit(XFR_CANCELED, &xfr->flags);
++	if (!test_bit(CLIENT_XFR_PENDING, &client->flags))
 +		goto done;
  
-+	set_bit(CLIENT_XFR_PENDING, &client->flags);
- 	rc = len;
- 
- done:
-@@ -579,6 +594,9 @@ static void occ_worker(struct work_struct *work)
- 	struct device *sbefifo = occ->sbefifo;
- 
- again:
-+	if (occ->cancel)
-+		return;
-+
  	spin_lock_irq(&occ->list_lock);
  
- 	xfr = list_first_entry_or_null(&occ->xfrs, struct occ_xfr, link);
-@@ -672,12 +690,17 @@ static void occ_worker(struct work_struct *work)
- 
- struct occ_client *occ_drv_open(struct device *dev, unsigned long flags)
- {
-+	struct occ_client *client;
- 	struct occ *occ = dev_get_drvdata(dev);
- 
- 	if (!occ)
- 		return NULL;
- 
--	return occ_open_common(occ, flags);
-+	client = occ_open_common(occ, flags);
-+	if (IS_ERR(client))
-+		return NULL;
-+
-+	return client;
- }
- EXPORT_SYMBOL_GPL(occ_drv_open);
- 
-@@ -748,23 +771,13 @@ static int occ_probe(struct platform_device *pdev)
- 			if (occ->idx < 0)
- 				occ->idx = ida_simple_get(&occ_ida, 1, INT_MAX,
- 							  GFP_KERNEL);
--		} else
-+		} else {
- 			occ->idx = ida_simple_get(&occ_ida, 1, INT_MAX,
- 						  GFP_KERNEL);
+-	set_bit(XFR_CANCELED, &xfr->flags);
+ 	if (!test_bit(XFR_IN_PROGRESS, &xfr->flags)) {
+ 		/* already deleted from list if complete */
+ 		if (!test_bit(XFR_COMPLETE, &xfr->flags))
+ 			list_del(&xfr->link);
 -
--		/* create platform devs for dts child nodes (hwmon, etc) */
--		for_each_child_of_node(dev->of_node, np) {
--			snprintf(child_name, sizeof(child_name), "occ%d-dev%d",
--				 occ->idx, child_idx++);
--			child = of_platform_device_create(np, child_name, dev);
--			if (!child)
--				dev_warn(dev,
--					 "failed to create child node dev\n");
- 		}
--	} else
-+	} else {
- 		occ->idx = ida_simple_get(&occ_ida, 1, INT_MAX, GFP_KERNEL);
+-		spin_unlock_irq(&occ->list_lock);
 -
--	platform_set_drvdata(pdev, occ);
-+	}
- 
- 	snprintf(occ->name, sizeof(occ->name), "occ%d", occ->idx);
- 	occ->mdev.fops = &occ_fops;
-@@ -774,20 +787,45 @@ static int occ_probe(struct platform_device *pdev)
- 
- 	rc = misc_register(&occ->mdev);
- 	if (rc) {
--		dev_err(dev, "failed to register miscdevice\n");
-+		dev_err(dev, "failed to register miscdevice: %d\n", rc);
-+		ida_simple_remove(&occ_ida, occ->idx);
- 		return rc;
+-		if (test_bit(XFR_WAITING, &xfr->flags)) {
+-			/* blocking read; let reader clean up */
+-			wake_up_interruptible(&client->wait);
+-			spin_unlock_irq(&client->lock);
+-			return 0;
+-		}
+-
+-		spin_unlock_irq(&client->lock);
+-
+-		kfree(client);
+-		return 0;
  	}
  
-+	/* create platform devs for dts child nodes (hwmon, etc) */
-+	for_each_available_child_of_node(dev->of_node, np) {
-+		snprintf(child_name, sizeof(child_name), "occ%d-dev%d",
-+			 occ->idx, child_idx++);
-+		child = of_platform_device_create(np, child_name, dev);
-+		if (!child)
-+			dev_warn(dev, "failed to create child node dev\n");
-+	}
+-	/* operation is in progress; let worker clean up */
+ 	spin_unlock_irq(&occ->list_lock);
 +
-+	platform_set_drvdata(pdev, occ);
++	wake_up_interruptible(&client->wait);
 +
++done:
+ 	spin_unlock_irq(&client->lock);
++
++	occ_put_client(client);
  	return 0;
  }
  
- static int occ_remove(struct platform_device *pdev)
+@@ -582,7 +585,7 @@ static int occ_trigger_attn(struct device *sbefifo)
+ 
+ static void occ_worker(struct work_struct *work)
  {
- 	struct occ *occ = platform_get_drvdata(pdev);
-+	struct occ_xfr *xfr;
-+	struct occ_client *client;
-+
-+	occ->cancel = true;
-+
-+	spin_lock_irq(&occ->list_lock);
-+	list_for_each_entry(xfr, &occ->xfrs, link) {
-+		client = to_client(xfr);
-+		wake_up_interruptible(&client->wait);
-+	}
-+	spin_unlock_irq(&occ->list_lock);
+-	int rc = 0, empty, waiting, canceled;
++	int rc = 0, empty;
+ 	u16 resp_data_length;
+ 	unsigned long start;
+ 	const unsigned long timeout = msecs_to_jiffies(OCC_TIMEOUT_MS);
+@@ -605,6 +608,8 @@ static void occ_worker(struct work_struct *work)
+ 		return;
+ 	}
  
--	flush_work(&occ->work);
- 	misc_deregister(&occ->mdev);
- 	device_for_each_child(&pdev->dev, NULL, occ_unregister_child);
-+
-+	cancel_work_sync(&occ->work);
-+
- 	ida_simple_remove(&occ_ida, occ->idx);
++	client = to_client(xfr);
++	occ_get_client(client);
+ 	resp = (struct occ_response *)xfr->buf;
+ 	set_bit(XFR_IN_PROGRESS, &xfr->flags);
  
- 	return 0;
+@@ -660,29 +665,18 @@ static void occ_worker(struct work_struct *work)
+ 	mutex_unlock(&occ->occ_lock);
+ 
+ 	xfr->rc = rc;
+-	client = to_client(xfr);
+-
+-	/* lock client to prevent race with read() */
+-	spin_lock_irq(&client->lock);
+-
+ 	set_bit(XFR_COMPLETE, &xfr->flags);
+-	waiting = test_bit(XFR_WAITING, &xfr->flags);
+-
+-	spin_unlock_irq(&client->lock);
+ 
+ 	spin_lock_irq(&occ->list_lock);
+ 
+ 	clear_bit(XFR_IN_PROGRESS, &xfr->flags);
+ 	list_del(&xfr->link);
+ 	empty = list_empty(&occ->xfrs);
+-	canceled = test_bit(XFR_CANCELED, &xfr->flags);
+ 
+ 	spin_unlock_irq(&occ->list_lock);
+ 
+-	if (waiting)
+-		wake_up_interruptible(&client->wait);
+-	else if (canceled)
+-		kfree(client);
++	wake_up_interruptible(&client->wait);
++	occ_put_client(client);
+ 
+ 	if (!empty)
+ 		goto again;
 -- 
 1.8.3.1
