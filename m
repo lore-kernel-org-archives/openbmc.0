@@ -7,55 +7,55 @@ Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y3mkZ1Y95zDqhf
- for <openbmc@lists.ozlabs.org>; Sat, 30 Sep 2017 08:41:26 +1000 (AEST)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y3mkf3DZ2zDqhZ
+ for <openbmc@lists.ozlabs.org>; Sat, 30 Sep 2017 08:41:30 +1000 (AEST)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v8TMdSLv023087
- for <openbmc@lists.ozlabs.org>; Fri, 29 Sep 2017 18:41:24 -0400
-Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2d9xwjgjw8-1
+ v8TMeI1e134983
+ for <openbmc@lists.ozlabs.org>; Fri, 29 Sep 2017 18:41:28 -0400
+Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2d9uxkr9t0-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 29 Sep 2017 18:41:24 -0400
+ for <openbmc@lists.ozlabs.org>; Fri, 29 Sep 2017 18:41:28 -0400
 Received: from localhost
- by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Fri, 29 Sep 2017 16:41:23 -0600
-Received: from b03cxnp08026.gho.boulder.ibm.com (9.17.130.18)
- by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
+ Fri, 29 Sep 2017 16:41:27 -0600
+Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
+ by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Fri, 29 Sep 2017 16:41:20 -0600
+ Fri, 29 Sep 2017 16:41:25 -0600
 Received: from b03ledav003.gho.boulder.ibm.com
  (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
- by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v8TMfJhL63897638; Fri, 29 Sep 2017 15:41:19 -0700
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v8TMfPHx61145128; Fri, 29 Sep 2017 15:41:25 -0700
 Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id CD1FB6A041;
- Fri, 29 Sep 2017 16:41:19 -0600 (MDT)
+ by IMSVA (Postfix) with ESMTP id 2DE346A03C;
+ Fri, 29 Sep 2017 16:41:25 -0600 (MDT)
 Received: from oc3016140333.ibm.com (unknown [9.85.183.77])
- by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP id 0A89F6A03C;
- Fri, 29 Sep 2017 16:41:18 -0600 (MDT)
+ by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP id 5F3496A03B;
+ Fri, 29 Sep 2017 16:41:24 -0600 (MDT)
 From: Eddie James <eajames@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, andrew@aj.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10 v2 3/9] drivers: fsi: SBEFIFO: check for xfr
- complete in read wait_event
-Date: Fri, 29 Sep 2017 17:41:02 -0500
+Subject: [PATCH linux dev-4.10 v2 5/9] drivers: fsi: occ: Poll while receiving
+ "command in progress"
+Date: Fri, 29 Sep 2017 17:41:04 -0500
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1506724868-13010-1-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1506724868-13010-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-TM-AS-GCONF: 00
-x-cbid: 17092922-0020-0000-0000-00000CC83B05
+x-cbid: 17092922-0004-0000-0000-000012FECAE7
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00007813; HX=3.00000241; KW=3.00000007;
  PH=3.00000004; SC=3.00000233; SDB=6.00924260; UDB=6.00464728; IPR=6.00704398; 
  BA=6.00005613; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017330; XFM=3.00000015;
- UTC=2017-09-29 22:41:21
+ UTC=2017-09-29 22:41:27
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17092922-0021-0000-0000-00005E53ED0F
-Message-Id: <1506724868-13010-4-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 17092922-0005-0000-0000-00008449E9DB
+Message-Id: <1506724868-13010-6-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-09-29_06:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -74,39 +74,83 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 29 Sep 2017 22:41:26 -0000
+X-List-Received-Date: Fri, 29 Sep 2017 22:41:30 -0000
 
 From: "Edward A. James" <eajames@us.ibm.com>
 
-We should check to see if the XFR is complete, not just for a failure
-or for available data. If we hit EOT without getting more data, we may
-wait forever.
+This should only be done at this level, instead of clients repeating
+the entire transfer when they receive "command in progress"
 
 Signed-off-by: Edward A. James <eajames@us.ibm.com>
 ---
- drivers/fsi/fsi-sbefifo.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/fsi/occ.c | 27 ++++++++++++++++++++++++---
+ 1 file changed, 24 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
-index fa34bd8..a9fc8e9 100644
---- a/drivers/fsi/fsi-sbefifo.c
-+++ b/drivers/fsi/fsi-sbefifo.c
-@@ -541,10 +541,15 @@ static bool sbefifo_read_ready(struct sbefifo *sbefifo,
- 			       struct sbefifo_client *client, size_t *n,
- 			       size_t *ret)
- {
-+	struct sbefifo_xfr *xfr = list_first_entry_or_null(&client->xfrs,
-+							   struct sbefifo_xfr,
-+							   client);
+diff --git a/drivers/fsi/occ.c b/drivers/fsi/occ.c
+index 3313e35..a554550 100644
+--- a/drivers/fsi/occ.c
++++ b/drivers/fsi/occ.c
+@@ -23,6 +23,7 @@
+ #include <linux/of.h>
+ #include <linux/of_platform.h>
+ #include <linux/platform_device.h>
++#include <linux/sched.h>
+ #include <linux/slab.h>
+ #include <linux/spinlock.h>
+ #include <linux/uaccess.h>
+@@ -33,6 +34,9 @@
+ #define OCC_CMD_DATA_BYTES	4090
+ #define OCC_RESP_DATA_BYTES	4089
+ 
++#define OCC_TIMEOUT_MS		1000
++#define OCC_CMD_IN_PRG_WAIT_MS	50
 +
- 	*n = sbefifo_buf_nbreadable(&client->rbuf);
- 	*ret = READ_ONCE(sbefifo->rc);
+ struct occ {
+ 	struct device *sbefifo;
+ 	char name[32];
+@@ -565,6 +569,9 @@ static void occ_worker(struct work_struct *work)
+ {
+ 	int rc = 0, empty, waiting, canceled;
+ 	u16 resp_data_length;
++	unsigned long start;
++	const unsigned long timeout = msecs_to_jiffies(OCC_TIMEOUT_MS);
++	const long int wait_time = msecs_to_jiffies(OCC_CMD_IN_PRG_WAIT_MS);
+ 	struct occ_xfr *xfr;
+ 	struct occ_response *resp;
+ 	struct occ_client *client;
+@@ -586,6 +593,8 @@ static void occ_worker(struct work_struct *work)
+ 	spin_unlock_irq(&occ->list_lock);
+ 	mutex_lock(&occ->occ_lock);
  
--	return *ret || *n;
-+	return *ret || *n ||
-+		(xfr && test_bit(SBEFIFO_XFR_COMPLETE, &xfr->flags));
- }
++	start = jiffies;
++
+ 	/* write occ command */
+ 	rc = occ_putsram(sbefifo, 0xFFFBE000, xfr->buf,
+ 			 xfr->cmd_data_length);
+@@ -597,9 +606,21 @@ static void occ_worker(struct work_struct *work)
+ 		goto done;
  
- static ssize_t sbefifo_read_common(struct sbefifo_client *client,
+ 	/* read occ response */
+-	rc = occ_getsram(sbefifo, 0xFFFBF000, xfr->buf, 8);
+-	if (rc)
+-		goto done;
++	do {
++		rc = occ_getsram(sbefifo, 0xFFFBF000, xfr->buf, 8);
++		if (rc)
++			goto done;
++
++		if (resp->return_status == OCC_RESP_CMD_IN_PRG) {
++			rc = -EALREADY;
++
++			if (time_after(jiffies, start + timeout))
++				break;
++
++			set_current_state(TASK_INTERRUPTIBLE);
++			schedule_timeout(wait_time);
++		}
++	} while (rc);
+ 
+ 	resp_data_length = get_unaligned_be16(&resp->data_length);
+ 	if (resp_data_length > OCC_RESP_DATA_BYTES) {
 -- 
 1.8.3.1
