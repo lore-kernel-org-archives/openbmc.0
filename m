@@ -1,31 +1,67 @@
-Return-Path: <Tomer.Maimon@nuvoton.com>
+Return-Path: <cbostic@linux.vnet.ibm.com>
 Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=cbostic@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y4h0K3HVszDqhg
- for <openbmc@lists.ozlabs.org>; Sun,  1 Oct 2017 21:11:28 +1100 (AEDT)
-Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id v918sjqu015597;
- Sun, 1 Oct 2017 11:54:45 +0300
-Received: by talu34.nuvoton.co.il (Postfix, from userid 10070)
- id 90A655A2E3; Sun,  1 Oct 2017 12:11:42 +0300 (IDT)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: robh+dt@kernel.org, mark.rutland@arm.com, daniel.lezcano@linaro.org,
- tglx@linutronix.de, avifishman70@gmail.com, brendanhiggins@google.com,
- raltherr@google.com, joel@jms.id.au
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH v1 1/2] clocksource: npcm: add NPCM7xx timer driver
-Date: Sun,  1 Oct 2017 12:11:37 +0300
-Message-Id: <1506849098-18290-2-git-send-email-tmaimon77@gmail.com>
-X-Mailer: git-send-email 1.8.3.4
-In-Reply-To: <1506849098-18290-1-git-send-email-tmaimon77@gmail.com>
-References: <1506849098-18290-1-git-send-email-tmaimon77@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y5Vt36KFbzDqhf
+ for <openbmc@lists.ozlabs.org>; Tue,  3 Oct 2017 05:23:54 +1100 (AEDT)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v92IMXeh091217
+ for <openbmc@lists.ozlabs.org>; Mon, 2 Oct 2017 14:23:52 -0400
+Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2dbtbq0y42-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 02 Oct 2017 14:23:52 -0400
+Received: from localhost
+ by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Mon, 2 Oct 2017 14:23:50 -0400
+Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
+ by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Mon, 2 Oct 2017 14:23:48 -0400
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v92INmOs41681136; Mon, 2 Oct 2017 18:23:48 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 86D3228046;
+ Mon,  2 Oct 2017 14:23:41 -0400 (EDT)
+Received: from Christophers-MacBook-Pro.local.com (unknown [9.83.7.106])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id 2088F2803E;
+ Mon,  2 Oct 2017 14:23:38 -0400 (EDT)
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+To: joel@jms.id.au
+Cc: Christopher Bostic <cbostic@us.ibm.com>, openbmc@lists.ozlabs.org,
+ Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Subject: [PATCH linux dev-4.10] fsi: core: Hold hub master reference until
+ unregistration complete
+Date: Mon,  2 Oct 2017 13:23:40 -0500
+X-Mailer: git-send-email 2.10.1 (Apple Git-78)
+X-TM-AS-GCONF: 00
+x-cbid: 17100218-0040-0000-0000-000003ABBAF7
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007829; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000233; SDB=6.00925525; UDB=6.00465487; IPR=6.00705724; 
+ BA=6.00005616; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017366; XFM=3.00000015;
+ UTC=2017-10-02 18:23:49
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17100218-0041-0000-0000-000007A0C910
+Message-Id: <20171002182340.75268-1-cbostic@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-10-02_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=3
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
+ definitions=main-1710020264
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -37,260 +73,61 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 01 Oct 2017 10:11:30 -0000
+X-List-Received-Date: Mon, 02 Oct 2017 18:23:56 -0000
 
-Add Nuvoton BMC NPCM7xx timer driver.
+From: Christopher Bostic <cbostic@us.ibm.com>
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+During the hub master unregister process there is a race condition
+where its memory can be freed before the entire unregister is
+complete.  To prevent this hold a reference until complete.
+
+Code provided by Jeremy Kerr <jk@ozlabs.org>
+
+Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 ---
- drivers/clocksource/Kconfig         |   9 ++
- drivers/clocksource/Makefile        |   1 +
- drivers/clocksource/npcm7xx_timer.c | 205 ++++++++++++++++++++++++++++++++++++
- 3 files changed, 215 insertions(+)
- create mode 100644 drivers/clocksource/npcm7xx_timer.c
+ drivers/fsi/fsi-master-hub.c | 22 +++++++++++++++++++---
+ 1 file changed, 19 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/clocksource/Kconfig b/drivers/clocksource/Kconfig
-index cc6062049170..e26a203ce4ab 100644
---- a/drivers/clocksource/Kconfig
-+++ b/drivers/clocksource/Kconfig
-@@ -140,6 +140,15 @@ config VT8500_TIMER
- 	help
- 	  Enables support for the VT8500 driver.
+diff --git a/drivers/fsi/fsi-master-hub.c b/drivers/fsi/fsi-master-hub.c
+index 5e4cd31..7faf7d8 100644
+--- a/drivers/fsi/fsi-master-hub.c
++++ b/drivers/fsi/fsi-master-hub.c
+@@ -288,10 +288,20 @@ static int hub_master_probe(struct device *dev)
+ 	hub_master_init(hub);
  
-+config NPCM7XX_TIMER
-+	bool "NPCM7xx timer driver" if (COMPILE_TEST || ARCH_NPCM7XX)
-+	depends on GENERIC_CLOCKEVENTS
-+	depends on HAS_IOMEM
-+	select CLKSRC_MMIO
-+	help
-+	  Enable 24-bit TIMER0 and TIMER1 counters in the NPCM7xx arcithcture,
-+	  While TIMER0 serves as clockevent and TIMER1 serves as clocksource.
+ 	rc = fsi_master_register(&hub->master);
+-	if (!rc)
+-		return 0;
++	if (rc)
++		goto err_release;
 +
- config CADENCE_TTC_TIMER
- 	bool "Cadence TTC timer driver" if COMPILE_TEST
- 	depends on COMMON_CLK
-diff --git a/drivers/clocksource/Makefile b/drivers/clocksource/Makefile
-index dbc1ad14515e..fd3a1c33364b 100644
---- a/drivers/clocksource/Makefile
-+++ b/drivers/clocksource/Makefile
-@@ -53,6 +53,7 @@ obj-$(CONFIG_CLKSRC_TI_32K)	+= timer-ti-32k.o
- obj-$(CONFIG_CLKSRC_NPS)	+= timer-nps.o
- obj-$(CONFIG_OXNAS_RPS_TIMER)	+= timer-oxnas-rps.o
- obj-$(CONFIG_OWL_TIMER)		+= owl-timer.o
-+obj-$(CONFIG_NPCM7XX_TIMER)	+= npcm7xx_timer.o
++	/*
++	 * At this point, fsi_master_register performs the device_initialize(),
++	 * and holds the sole reference to master.dev. This means the device
++	 * will be freed during any subsequent call to fsi_master_unregister.
++	 * We add our own reference to it here, so we can perform cleanup (in
++	 * _remove()) without it being freed before we're ready.
++	 */
++	get_device(&hub->master.dev);
++
++	return 0;
  
- obj-$(CONFIG_ARC_TIMERS)		+= arc_timer.o
- obj-$(CONFIG_ARM_ARCH_TIMER)		+= arm_arch_timer.o
-diff --git a/drivers/clocksource/npcm7xx_timer.c b/drivers/clocksource/npcm7xx_timer.c
-new file mode 100644
-index 000000000000..6da77202a22d
---- /dev/null
-+++ b/drivers/clocksource/npcm7xx_timer.c
-@@ -0,0 +1,205 @@
-+/*
-+ * Copyright (c) 2017 Nuvoton Technology corporation.
-+ * Copyright 2017 Google, Inc.
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License as published by
-+ * the Free Software Foundation;version 2 of the License.
-+ */
+-	kfree(hub);
+ err_release:
+ 	fsi_slave_release_range(fsi_dev->slave, FSI_HUB_LINK_OFFSET,
+ 			FSI_HUB_LINK_SIZE * links);
+@@ -306,6 +316,12 @@ static int hub_master_remove(struct device *dev)
+ 	fsi_slave_release_range(hub->upstream->slave, hub->addr, hub->size);
+ 	of_node_put(hub->master.dev.of_node);
+ 
++	/*
++	 * master.dev will likely be ->release()ed after this, which free()s
++	 * the hub
++	 */
++	put_device(&hub->master.dev);
 +
-+#include <linux/kernel.h>
-+#include <linux/sched.h>
-+#include <linux/init.h>
-+#include <linux/interrupt.h>
-+#include <linux/err.h>
-+#include <linux/clk.h>
-+#include <linux/io.h>
-+#include <linux/clockchips.h>
-+#include <linux/of_irq.h>
-+#include <linux/of_address.h>
-+
-+struct npcm7xx_clockevent_data {
-+	struct clock_event_device cvd;
-+	void __iomem *timer_base;
-+	unsigned int rate;
-+};
-+
-+/* Timers registers */
-+#define REG_TCSR0	0x0 /* Timer 0 Control and Status Register */
-+#define REG_TICR0	0x8 /* Timer 0 Initial Count Register */
-+#define REG_TCSR1	0x4 /* Timer 1 Control and Status Register */
-+#define REG_TICR1	0xc /* Timer 1 Initial Count Register */
-+#define REG_TDR1	0x14 /* Timer 1 Data Register */
-+#define REG_TISR	0x18 /* Timer Interrupt Status Register */
-+
-+#define RESETINT	0x1f
-+#define PERIOD		BIT(27)
-+#define INTEN		BIT(29)
-+#define COUNTEN		BIT(30)
-+#define ONESHOT		0x0
-+#define TIMER_OPER	GENMASK(3, 27)
-+#define MIN_PRESCALE	0x1 /* minimal timer prescale */
-+#define	TDR_MASK_BITS	24
-+#define MAX_TIMER_CNT	0xFFFFFF
-+#define CLR_TIMER0_INT	0x1
-+#define CLR_TIMER_CSR	0x0
-+
-+
-+static int npcm7xx_timer_oneshot(struct clock_event_device *evt)
-+{
-+	u32 val;
-+	struct npcm7xx_clockevent_data *cevtd =
-+	 container_of(evt, struct npcm7xx_clockevent_data, cvd);
-+
-+	val = readl(cevtd->timer_base + REG_TCSR0);
-+	val &= ~TIMER_OPER;
-+
-+	val = readl(cevtd->timer_base + REG_TCSR0);
-+	val |= (ONESHOT | COUNTEN | INTEN | MIN_PRESCALE);
-+	writel(val, cevtd->timer_base + REG_TCSR0);
-+
-+	return 0;
-+}
-+
-+static int npcm7xx_timer_periodic(struct clock_event_device *evt)
-+{
-+	struct npcm7xx_clockevent_data *cevtd =
-+		container_of(evt, struct npcm7xx_clockevent_data, cvd);
-+	u32 val;
-+
-+	val = readl(cevtd->timer_base + REG_TCSR0);
-+	val &= ~TIMER_OPER;
-+
-+	writel((cevtd->rate / HZ), cevtd->timer_base + REG_TICR0);
-+	val |= (PERIOD | COUNTEN | INTEN | MIN_PRESCALE);
-+
-+	writel(val, cevtd->timer_base + REG_TCSR0);
-+
-+	return 0;
-+}
-+
-+static int npcm7xx_clockevent_setnextevent(unsigned long evt,
-+		struct clock_event_device *clk)
-+{
-+	struct npcm7xx_clockevent_data *cevtd =
-+		container_of(clk, struct npcm7xx_clockevent_data, cvd);
-+	u32 val;
-+
-+	writel(evt, cevtd->timer_base + REG_TICR0);
-+	val = readl(cevtd->timer_base + REG_TCSR0);
-+	val |= (COUNTEN | INTEN | MIN_PRESCALE);
-+	writel(val, cevtd->timer_base + REG_TCSR0);
-+
-+	return 0;
-+}
-+
-+static struct npcm7xx_clockevent_data npcm7xx_clockevent_data = {
-+	.cvd = {
-+		.name		    = "npcm7xx-timer0",
-+		.features	    = CLOCK_EVT_FEAT_PERIODIC |
-+				      CLOCK_EVT_FEAT_ONESHOT,
-+		.set_next_event	    = npcm7xx_clockevent_setnextevent,
-+		.set_state_shutdown = npcm7xx_timer_oneshot,
-+		.set_state_periodic = npcm7xx_timer_periodic,
-+		.set_state_oneshot  = npcm7xx_timer_oneshot,
-+		.tick_resume	    = npcm7xx_timer_oneshot,
-+		.rating		    = 300
-+	},
-+};
-+
-+static irqreturn_t npcm7xx_timer0_interrupt(int irq, void *dev_id)
-+{
-+	struct npcm7xx_clockevent_data *cevtd = dev_id;
-+	struct clock_event_device *evt = &cevtd->cvd;
-+
-+	writel(CLR_TIMER0_INT, cevtd->timer_base + REG_TISR);
-+
-+	if (evt->event_handler)
-+		evt->event_handler(evt);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static struct irqaction npcm7xx_timer0_irq = {
-+	.name		= "npcm7xx-timer0",
-+	.flags		= IRQF_TIMER | IRQF_IRQPOLL,
-+	.handler	= npcm7xx_timer0_interrupt,
-+	.dev_id		= &npcm7xx_clockevent_data,
-+};
-+
-+static void __init npcm7xx_clockevents_init(int irq, u32 rate)
-+{
-+	writel(CLR_TIMER_CSR, npcm7xx_clockevent_data.timer_base + REG_TCSR0);
-+
-+	writel(RESETINT, npcm7xx_clockevent_data.timer_base + REG_TISR);
-+	setup_irq(irq, &npcm7xx_timer0_irq);
-+	npcm7xx_clockevent_data.cvd.cpumask = cpumask_of(0);
-+
-+	clockevents_config_and_register(&npcm7xx_clockevent_data.cvd, rate,
-+					0x1, MAX_TIMER_CNT);
-+}
-+
-+static void __init npcm7xx_clocksource_init(u32 rate)
-+{
-+	u32 val;
-+
-+	writel(CLR_TIMER_CSR, npcm7xx_clockevent_data.timer_base + REG_TCSR1);
-+	writel(MAX_TIMER_CNT, npcm7xx_clockevent_data.timer_base + REG_TICR1);
-+
-+	val = readl(npcm7xx_clockevent_data.timer_base + REG_TCSR1);
-+	val |= (COUNTEN | PERIOD | MIN_PRESCALE);
-+	writel(val, npcm7xx_clockevent_data.timer_base + REG_TCSR1);
-+
-+	clocksource_mmio_init(npcm7xx_clockevent_data.timer_base + REG_TDR1,
-+				"npcm7xx-timer1", rate,
-+				300, (unsigned int)TDR_MASK_BITS,
-+				clocksource_mmio_readl_down);
-+}
-+
-+static int __init npcm7xx_timer_init(struct device_node *np)
-+{
-+	struct clk *clk;
-+	int irq, ret;
-+	u32 rate;
-+
-+	irq = irq_of_parse_and_map(np, 0);
-+	if (!irq)
-+		return -EINVAL;
-+
-+	npcm7xx_clockevent_data.timer_base = of_iomap(np, 0);
-+	if (!npcm7xx_clockevent_data.timer_base)
-+		return -ENXIO;
-+
-+	clk = of_clk_get(np, 0);
-+
-+	if (IS_ERR(clk)) {
-+		ret = of_property_read_u32(np, "clock-frequency", &rate);
-+		if (ret)
-+			goto err_iounmap;
-+	} else {
-+		clk_prepare_enable(clk);
-+		rate = clk_get_rate(clk);
-+	}
-+
-+	/* Clock input is divided by PRESCALE + 1 before it is fed */
-+	/* to the counter */
-+	rate = rate / (MIN_PRESCALE + 1);
-+
-+	npcm7xx_clockevent_data.rate = rate;
-+
-+	npcm7xx_clocksource_init(rate);
-+	npcm7xx_clockevents_init(irq, rate);
-+
-+	pr_info("Enabling NPCM7xx clocksource timer base: %p, IRQ: %u\n",
-+		npcm7xx_clockevent_data.timer_base, irq);
-+
-+	return 0;
-+
-+err_iounmap:
-+	iounmap(npcm7xx_clockevent_data.timer_base);
-+	return ret;
-+
-+}
-+
-+TIMER_OF_DECLARE(npcm7xx, "nuvoton,npcm7xx-timer", npcm7xx_timer_init);
-+
+ 	return 0;
+ }
+ 
 -- 
-2.14.1
+1.8.2.2
