@@ -1,67 +1,32 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=cbostic@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <jk@ozlabs.org>
+Received: from ozlabs.org (bilbo.ozlabs.org [103.22.144.67])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y5Vt36KFbzDqhf
- for <openbmc@lists.ozlabs.org>; Tue,  3 Oct 2017 05:23:54 +1100 (AEDT)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v92IMXeh091217
- for <openbmc@lists.ozlabs.org>; Mon, 2 Oct 2017 14:23:52 -0400
-Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2dbtbq0y42-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 02 Oct 2017 14:23:52 -0400
-Received: from localhost
- by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Mon, 2 Oct 2017 14:23:50 -0400
-Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
- by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 2 Oct 2017 14:23:48 -0400
-Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
- [9.57.199.106])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v92INmOs41681136; Mon, 2 Oct 2017 18:23:48 GMT
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 86D3228046;
- Mon,  2 Oct 2017 14:23:41 -0400 (EDT)
-Received: from Christophers-MacBook-Pro.local.com (unknown [9.83.7.106])
- by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id 2088F2803E;
- Mon,  2 Oct 2017 14:23:38 -0400 (EDT)
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-To: joel@jms.id.au
-Cc: Christopher Bostic <cbostic@us.ibm.com>, openbmc@lists.ozlabs.org,
- Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Subject: [PATCH linux dev-4.10] fsi: core: Hold hub master reference until
- unregistration complete
-Date: Mon,  2 Oct 2017 13:23:40 -0500
-X-Mailer: git-send-email 2.10.1 (Apple Git-78)
-X-TM-AS-GCONF: 00
-x-cbid: 17100218-0040-0000-0000-000003ABBAF7
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007829; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000233; SDB=6.00925525; UDB=6.00465487; IPR=6.00705724; 
- BA=6.00005616; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017366; XFM=3.00000015;
- UTC=2017-10-02 18:23:49
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17100218-0041-0000-0000-000007A0C910
-Message-Id: <20171002182340.75268-1-cbostic@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-10-02_06:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=3
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
- definitions=main-1710020264
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y5g3x6360zDqY1
+ for <openbmc@lists.ozlabs.org>; Tue,  3 Oct 2017 11:33:01 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="pdTL/Ppg"; 
+ dkim-atps=neutral
+Received: by ozlabs.org (Postfix, from userid 1023)
+ id 3y5g3x51tdz9t5s; Tue,  3 Oct 2017 11:33:01 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
+ t=1506990781; bh=U0lw5i4h7fGZbauRyTlZYuuAQvDULA6de+x8E37Z/+U=;
+ h=From:To:Cc:Subject:Date:From;
+ b=pdTL/PpgiR5mgTZ3JbAZ6wklxOiNcFhdP/RWUoNUazMjb5tDkNJsaDG3+4YSQkJgk
+ J0bcLq0PKWnSVsVYL/izoKfCcgSaVpom4adZ3p3fv1di+pc0EhPs8tddsBQdXbyHXa
+ BFbCE4o+UA+OuUgpATerb6ie5yNhQUlfubWwoBNAyTtgcgrBUSXk0HAen6Z4SanRPj
+ 8dOaqD1XH4S5tTpF36YxfuX+VwXWw35II1jgldBXG8KaFlkYFw9XBs6O13WC2HUfX1
+ XuFJl37SE9ki8+EHps5u+ne0aUzlCcb7MhFDDPTQP7UwSO9fNW9xHI3NmfnFEzSbtX
+ kEKquT4255KIA==
+From: Jeremy Kerr <jk@ozlabs.org>
+To: openbmc@lists.ozlabs.org
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>,
+ Jeremy Kerr <jk@ozlabs.org>
+Subject: [PATCH] fsi/master: Clarify master lifetimes & fix use-after-free in
+ hub master
+Date: Tue,  3 Oct 2017 08:32:23 +0800
+Message-Id: <1506990743-1455-1-git-send-email-jk@ozlabs.org>
+X-Mailer: git-send-email 2.7.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -73,26 +38,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 02 Oct 2017 18:23:56 -0000
+X-List-Received-Date: Tue, 03 Oct 2017 00:33:02 -0000
 
-From: Christopher Bostic <cbostic@us.ibm.com>
+Once we call fsi_master_unregister, the core will put_device,
+potentially freeing the hub master. This change adds a comment
+explaining the lifetime of an allocated fsi_master.
 
-During the hub master unregister process there is a race condition
-where its memory can be freed before the entire unregister is
-complete.  To prevent this hold a reference until complete.
+We then add a reference from the driver to the hub master, so it stays
+around until we've finished ->remove().
 
-Code provided by Jeremy Kerr <jk@ozlabs.org>
-
-Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
 ---
- drivers/fsi/fsi-master-hub.c | 22 +++++++++++++++++++---
- 1 file changed, 19 insertions(+), 3 deletions(-)
+ drivers/fsi/fsi-master-hub.c | 19 ++++++++++++++++---
+ drivers/fsi/fsi-master.h     | 15 +++++++++++++++
+ 2 files changed, 31 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/fsi/fsi-master-hub.c b/drivers/fsi/fsi-master-hub.c
-index 5e4cd31..7faf7d8 100644
+index 5e4cd31..614d5f5 100644
 --- a/drivers/fsi/fsi-master-hub.c
 +++ b/drivers/fsi/fsi-master-hub.c
-@@ -288,10 +288,20 @@ static int hub_master_probe(struct device *dev)
+@@ -288,10 +288,19 @@ static int hub_master_probe(struct device *dev)
  	hub_master_init(hub);
  
  	rc = fsi_master_register(&hub->master);
@@ -101,33 +66,56 @@ index 5e4cd31..7faf7d8 100644
 +	if (rc)
 +		goto err_release;
 +
-+	/*
-+	 * At this point, fsi_master_register performs the device_initialize(),
-+	 * and holds the sole reference to master.dev. This means the device
-+	 * will be freed during any subsequent call to fsi_master_unregister.
-+	 * We add our own reference to it here, so we can perform cleanup (in
-+	 * _remove()) without it being freed before we're ready.
++	/* At this point, fsi_master_register performs the device_initialize(),
++	 * and holds the sole reference on master.dev. This means the device
++	 * will be freed (via ->release) during any subsequent call to
++	 * fsi_master_unregister.  We add our own reference to it here, so we
++	 * can perform cleanup (in _remove()) without it being freed before
++	 * we're ready.
 +	 */
 +	get_device(&hub->master.dev);
-+
 +	return 0;
  
 -	kfree(hub);
  err_release:
  	fsi_slave_release_range(fsi_dev->slave, FSI_HUB_LINK_OFFSET,
  			FSI_HUB_LINK_SIZE * links);
-@@ -306,6 +316,12 @@ static int hub_master_remove(struct device *dev)
+@@ -306,6 +315,10 @@ static int hub_master_remove(struct device *dev)
  	fsi_slave_release_range(hub->upstream->slave, hub->addr, hub->size);
  	of_node_put(hub->master.dev.of_node);
  
-+	/*
-+	 * master.dev will likely be ->release()ed after this, which free()s
-+	 * the hub
-+	 */
++	/* master.dev will likely be ->release()ed after this, which free()s
++	 * the hub */
 +	put_device(&hub->master.dev);
 +
  	return 0;
  }
  
+diff --git a/drivers/fsi/fsi-master.h b/drivers/fsi/fsi-master.h
+index 546257d..1530ab2 100644
+--- a/drivers/fsi/fsi-master.h
++++ b/drivers/fsi/fsi-master.h
+@@ -37,6 +37,21 @@ struct fsi_master {
+ 
+ #define dev_to_fsi_master(d) container_of(d, struct fsi_master, dev)
+ 
++/**
++ * fsi_master registration & lifetime: the fsi_master_register() and
++ * fsi_master_unregister() functions will take ownership of the master, and
++ * ->dev in particular. The registration path performs a get_device(), which
++ * takes the first reference on the device. Similarly, the unregistration path
++ * performs a put_device(), which may well drop the last reference.
++ *
++ * This means that master implementations *may* need to hold their own
++ * reference (via get_device()) on master->dev. In particular, if the device's
++ * ->release callback frees the fsi_master, then fsi_master_unregister will
++ * invoke this free if no other reference is held.
++ *
++ * The same applies for the error path of fsi_master_register; if the call
++ * fails, dev->release will have been invoked.
++ */
+ extern int fsi_master_register(struct fsi_master *master);
+ extern void fsi_master_unregister(struct fsi_master *master);
+ 
 -- 
-1.8.2.2
+2.7.4
