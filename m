@@ -1,62 +1,75 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="nAmBhkay"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="QB+H384e"; dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y6QK06YprzDqks
- for <openbmc@lists.ozlabs.org>; Wed,  4 Oct 2017 17:01:56 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id DBB26209F3;
- Wed,  4 Oct 2017 02:01:54 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Wed, 04 Oct 2017 02:01:54 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=Jf44ULksIh3CBQUnHF5TjGgZGsVYxCxJN8FMlGg4V
- BQ=; b=nAmBhkayha8JRuLpCS1B1xryJ6BcxRS/PSV5SQnlYoD5/NB0HLOmRf8xs
- ZUyaCDWDghVQMoIuZpTLNhbWdNsIDD5f4jBDZzr7jfEqmoeqdQ/ed2XH7ugdJH6Z
- PZH0Fzu8JX2FFiDrFYJ0Mg64cbIYhJkjSZOtT3b/GF/Vsyf+cdOCGrlTBjAumXiu
- ly+06RhYOuSXdl6Qj9Sizlbu7P+gIfUHMUZuXmLDT24urmASnQl6Xs5aTYtK850L
- NEEqOckPybsoJfmjhj/4hJmbD9TNtyVUGh2ym7+2SEXTFNT4s0pggGkVo5/vyzcF
- PXJLWsTe8BjOfMkB2SZuI7R5xjMdw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=Jf44ULksIh3CBQUnHF
- 5TjGgZGsVYxCxJN8FMlGg4VBQ=; b=QB+H384eOW8dAbqeG25JwTYqf+RLyZfg17
- lfpBHVn7Urj1Oz3raYOC1bI3jaiMSyZBpeJYMCU8vLRCsCjmdusRrUSfypSbd9UO
- x9kLr1Y9GEhY9C+CxTOmLBTFkl/DT9ovHOyPHHRYt2P0RSOyvGwWBIrURPjsx33p
- DEETudsn0qIyetKGKYkS69Il6w17J9ruQTzi96aurizDUZ6EHRN/KE4Ar/5NkDMr
- yFruC2pKCrgWLVnUIdxoK6lHsq6CnUcrS/qsK31rJGmNvbFB/ozwWdPmE5hsyDH7
- BSZky08M+ushbGrE2+E2o0oZ083Jlp5yKcocx1xbpI4ZWAG5xb7g==
-X-ME-Sender: <xms:UnnUWUE2OCTrsrBTsEObI6ecM7C_eNl3-NVSjtAGaTklNJRz4njljw>
-X-Sasl-enc: pEoj4I4uPm/xMyoyHuDUY5gRQ8rc9zryJYEetFv8p7Wo 1507096914
-Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id DD2E47E8E6;
- Wed,  4 Oct 2017 02:01:52 -0400 (EDT)
-Message-ID: <1507096909.5452.25.camel@aj.id.au>
-Subject: Re: Call for maintainers
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>, Chris Austen <austenc@us.ibm.com>, Jeremy
- Kerr <jk@ozlabs.org>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Wed, 04 Oct 2017 16:31:49 +1030
-In-Reply-To: <CACPK8XfTqXHH53aN3+crxfEktrg_ipN8c23zT1gjcUmzBEmhtQ@mail.gmail.com>
-References: <OF78B95C25.5F20D5DE-ON862581AE.000890BF-862581AE.000A5301@notes.na.collabserv.com>
- <CACPK8XfTqXHH53aN3+crxfEktrg_ipN8c23zT1gjcUmzBEmhtQ@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-st9l9MMcmiE/lSRXYW6s"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y6fLr2tppzDqsg
+ for <openbmc@lists.ozlabs.org>; Thu,  5 Oct 2017 02:04:20 +1100 (AEDT)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v94EsoHN084274
+ for <openbmc@lists.ozlabs.org>; Wed, 4 Oct 2017 11:04:17 -0400
+Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2dcwet93u8-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 04 Oct 2017 11:04:17 -0400
+Received: from localhost
+ by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Wed, 4 Oct 2017 09:04:16 -0600
+Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
+ by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 4 Oct 2017 09:04:13 -0600
+Received: from b03ledav002.gho.boulder.ibm.com
+ (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v94F4DrZ65405002; Wed, 4 Oct 2017 08:04:13 -0700
+Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 4FFC6136040;
+ Wed,  4 Oct 2017 09:04:13 -0600 (MDT)
+Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
+ by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id 08048136044;
+ Wed,  4 Oct 2017 09:04:12 -0600 (MDT)
+Subject: Re: [PATCH linux dev-4.10] Revert "drivers/hwmon/occ: Add temperature
+ fault attribute and VRM temp alarm"
+To: Joel Stanley <joel@jms.id.au>, Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: "Edward A. James" <eajames@us.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <1507058068-9406-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <CACPK8XfGubVuKRL=nTwbPbn5KMHtUvTULPZXvy=jYWPU_hbdDw@mail.gmail.com>
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Wed, 4 Oct 2017 10:04:12 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.2.0
+MIME-Version: 1.0
+In-Reply-To: <CACPK8XfGubVuKRL=nTwbPbn5KMHtUvTULPZXvy=jYWPU_hbdDw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 17100415-0016-0000-0000-0000079BC109
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007842; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000233; SDB=6.00926405; UDB=6.00466023; IPR=6.00706617; 
+ BA=6.00005620; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017390; XFM=3.00000015;
+ UTC=2017-10-04 15:04:15
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17100415-0017-0000-0000-00003BB96223
+Message-Id: <614fb026-d8fa-da2e-584a-c9766319ecea@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-10-04_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
+ definitions=main-1710040210
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -68,72 +81,139 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 Oct 2017 06:01:57 -0000
+X-List-Received-Date: Wed, 04 Oct 2017 15:04:21 -0000
 
 
---=-st9l9MMcmiE/lSRXYW6s
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2017-10-04 at 14:24 +0930, Joel Stanley wrote:
-> > On Tue, Oct 3, 2017 at 11:22 AM, Chris Austen <austenc@us.ibm.com> wrot=
-e:
-> > The OpenBMC Project is looking for future maintainers. The amount of co=
-de
-> > now and expected in the near future will be more then any one person ca=
-n
-> > continually handle. If you are a subject matter expert in a repo under
-> > https://github.com/openbmc or cross functional areas then taking on a r=
-ole
-> > of maintainer might be appealing. This isn't a paid thing, this is
-> > completely voluntary opportunity (think Scouts without the camping or S=
-chool
-> > volunteer without glue).
-> >=20
-> > So how might you go about getting this type of role on your resume? Sta=
-rt by
-> > signing up for code reviews
-> > https://gerrit.openbmc-project.xyz/#/q/status:open. Over the next few w=
-eeks
-> > we will be looking over the reviews for 1) understanding of the compone=
-nts
-> > architecture 2) Comments focusing on architecture that satisfies the ne=
-eds
-> > of all 3) bugs 4) and more. Try to Focus on a single project.
->=20
-> I'd like to put forward two names of significant contributors:
->=20
-> For obmc-console, Jeremy Kerr. He's the author of a large amount of
-> the code and has helped out with a number of reivews through the 20
-> comments he's made.
->=20
-> For phsophor-mboxd, Andrew Jeffery. He's spent a lot of time reviewing
-> patches and helping guide the direction of the project. He's given 166
-> reviews, and made 207 comments.
+On 10/03/2017 11:38 PM, Joel Stanley wrote:
+> On Wed, Oct 4, 2017 at 4:44 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+>> From: "Edward A. James" <eajames@us.ibm.com>
+>>
+>> This reverts commit e55423ee10a5057338d24383c00e813436a126ea.
+>>
+>> Apologies for pushing this up so early... Userspace applications aren't
+>> ready for this change. The hwmon polling application cannot accept EGAIN
+>> yet, and we can't be returning apparent errors if the sensor is
+>> temporarily unavailable.
+> Can you go into some more detail here please.
+>
+> It looks like these changes are within the hwmon ABI, so userspace
+> that supports hwmon devices shouldn't break.
 
-Thanks, I guess.
+Sure. With this change, the driver returns -EAGAIN when reading 
+temperature sensors that show 0 temperature. Temperature 0 is how the 
+OCC indicates that the sensor is not available at the moment. So, we 
+should retry in a bit. But the hwmon application currently sees any 
+negative errno as an error, and will not retry on -EAGAIN. So now we get 
+errors when we don't want them (for now), basically.
 
-Andrew
---=-st9l9MMcmiE/lSRXYW6s
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Thanks,
+Eddie
 
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJZ1HlNAAoJEJ0dnzgO5LT5b+wP/j26E3AhOHOu33McetQjNLRs
-aUhMd93ChWYgmvL4lQ2p1SZ/+g1BT9KarwTB7YBB6HjbfEQjFRw6GYNvigp1vS0d
-CdctWilAgJCqaCrJdGZmpvn/qavRTzKX+gyEbU5jjLPO4SkoMbtSlYvxf/5UBXyL
-+BXTHVSLtJeESirHy6qOHopC27+65WaKGYfQ3o6tlPcPeTigKnSmVi2oNchQcXuj
-/Hbt+IjspIPd9kloXMw4rzEd+5QtWNYgbPy8+7/Y/zdeQZmMkIVkFsbnGVMyZg6b
-qJvHx8KTx8tbLTWvJ/cPy4hwd7r6ziRfJLWX+uXMXZNRRDdYQzpvuHbAN5slaCsx
-aGJQLK4szgije25omeiKYIv/6IOP/f3n2I9e8rnsH2rNyZIh+mMatN4EE5FGkXJj
-JOjzdBxNCHft7yrPpkn8enOz/4mEOoTdwLIi9o7R58mNaXANre7rBuQ8YWUKD6Ac
-bae0G185hbyf6+MLSr3XRjFz1TKzuo5Cz8LXbPLhKrZHFoa8iZnh9XLeH7XNJE2D
-ZL51KpMJ2dzZ3j8/kF/qQoNQoZ0ZwpJiGraozSEXFMPQtSAqDs2chiqCSNrwT+oz
-VufVoA6StkAwgF+6gbPvvlJyoHp2BR/4Zgf1lelNQYkCYLAK6v4bZBKSXEZjdtxT
-nq85OMpN69AY74ysB6sE
-=z6Vr
------END PGP SIGNATURE-----
-
---=-st9l9MMcmiE/lSRXYW6s--
+>
+> Cheers,
+>
+> Joel
+>
+>> Signed-off-by: Eddie James <eajames@us.ibm.com>
+>> ---
+>>   drivers/hwmon/occ/common.c | 38 +++-----------------------------------
+>>   1 file changed, 3 insertions(+), 35 deletions(-)
+>>
+>> diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
+>> index 8ffb556..34002fb 100644
+>> --- a/drivers/hwmon/occ/common.c
+>> +++ b/drivers/hwmon/occ/common.c
+>> @@ -19,10 +19,6 @@
+>>   #define OCC_EXT_STAT_MEM_THROTTLE      0x20
+>>   #define OCC_EXT_STAT_QUICK_DROP                0x10
+>>
+>> -#define OCC_TEMP_SENSOR_FAULT          0xFF
+>> -
+>> -#define OCC_FRU_TYPE_VRM               3
+>> -
+>>   atomic_t occ_num_occs = ATOMIC_INIT(0);
+>>
+>>   struct temp_sensor_1 {
+>> @@ -381,23 +377,11 @@ static ssize_t occ_show_temp_2(struct device *dev,
+>>                  val = get_unaligned_be32(&temp->sensor_id);
+>>                  break;
+>>          case 1:
+>> -               val = temp->value;
+>> -               if (val == OCC_TEMP_SENSOR_FAULT)
+>> -                       return -EREMOTEIO;
+>> -
+>> -               if (temp->fru_type != OCC_FRU_TYPE_VRM) {
+>> -                       if (val == 0)
+>> -                               return -EAGAIN;
+>> -
+>> -                       val *= 1000;
+>> -               }
+>> +               val = temp->value * 1000;
+>>                  break;
+>>          case 2:
+>>                  val = temp->fru_type;
+>>                  break;
+>> -       case 3:
+>> -               val = temp->value == OCC_TEMP_SENSOR_FAULT;
+>> -               break;
+>>          }
+>>
+>>          return snprintf(buf, PAGE_SIZE - 1, "%u\n", val);
+>> @@ -796,7 +780,6 @@ static ssize_t occ_show_extended(struct device *dev,
+>>   int occ_setup_sensor_attrs(struct occ *occ)
+>>   {
+>>          unsigned int i, s;
+>> -       struct temp_sensor_2 *temp;
+>>          struct device *dev = occ->bus_dev;
+>>          struct occ_sensors *sensors = &occ->sensors;
+>>          struct occ_attribute *attr;
+>> @@ -816,7 +799,7 @@ int occ_setup_sensor_attrs(struct occ *occ)
+>>                  occ->num_attrs += (sensors->temp.num_sensors * 2);
+>>                  break;
+>>          case 2:
+>> -               occ->num_attrs += (sensors->temp.num_sensors * 4);
+>> +               occ->num_attrs += (sensors->temp.num_sensors * 3);
+>>                  show_temp = occ_show_temp_2;
+>>                  break;
+>>          default:
+>> @@ -888,22 +871,13 @@ int occ_setup_sensor_attrs(struct occ *occ)
+>>
+>>          for (i = 0; i < sensors->temp.num_sensors; ++i) {
+>>                  s = i + 1;
+>> -               temp = ((struct temp_sensor_2 *)sensors->temp.data) + i;
+>>
+>>                  snprintf(attr->name, sizeof(attr->name), "temp%d_label", s);
+>>                  attr->sensor = OCC_INIT_ATTR(attr->name, 0444, show_temp, NULL,
+>>                                               0, i);
+>>                  attr++;
+>>
+>> -               if (sensors->temp.version > 1 &&
+>> -                   temp->fru_type == OCC_FRU_TYPE_VRM) {
+>> -                       snprintf(attr->name, sizeof(attr->name), "temp%d_alarm",
+>> -                                s);
+>> -               } else {
+>> -                       snprintf(attr->name, sizeof(attr->name), "temp%d_input",
+>> -                                s);
+>> -               }
+>> -
+>> +               snprintf(attr->name, sizeof(attr->name), "temp%d_input", s);
+>>                  attr->sensor = OCC_INIT_ATTR(attr->name, 0444, show_temp, NULL,
+>>                                               1, i);
+>>                  attr++;
+>> @@ -914,12 +888,6 @@ int occ_setup_sensor_attrs(struct occ *occ)
+>>                          attr->sensor = OCC_INIT_ATTR(attr->name, 0444,
+>>                                                       show_temp, NULL, 2, i);
+>>                          attr++;
+>> -
+>> -                       snprintf(attr->name, sizeof(attr->name), "temp%d_fault",
+>> -                                s);
+>> -                       attr->sensor = OCC_INIT_ATTR(attr->name, 0444,
+>> -                                                    show_temp, NULL, 3, i);
+>> -                       attr++;
+>>                  }
+>>          }
+>>
+>> --
+>> 1.8.3.1
+>>
