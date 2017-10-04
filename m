@@ -1,58 +1,58 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4010:c07::22f; helo=mail-lf0-x22f.google.com;
+ (client-ip=2a00:1450:4010:c07::243; helo=mail-lf0-x243.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="YZfvzaOY"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="MVQIpAqI"; 
  dkim-atps=neutral
-Received: from mail-lf0-x22f.google.com (mail-lf0-x22f.google.com
- [IPv6:2a00:1450:4010:c07::22f])
+Received: from mail-lf0-x243.google.com (mail-lf0-x243.google.com
+ [IPv6:2a00:1450:4010:c07::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y6NFT5JFPzDqln
- for <openbmc@lists.ozlabs.org>; Wed,  4 Oct 2017 15:28:45 +1100 (AEDT)
-Received: by mail-lf0-x22f.google.com with SMTP id l23so5092418lfk.10
- for <openbmc@lists.ozlabs.org>; Tue, 03 Oct 2017 21:28:45 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y6NGP66ZGzDqks
+ for <openbmc@lists.ozlabs.org>; Wed,  4 Oct 2017 15:29:33 +1100 (AEDT)
+Received: by mail-lf0-x243.google.com with SMTP id p184so11713892lfe.12
+ for <openbmc@lists.ozlabs.org>; Tue, 03 Oct 2017 21:29:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=XcSOqstQu3Mbcb58N6JXBV5+H9jn36ysiUP0/SNEzLA=;
- b=YZfvzaOYg/oLXQVSUJC70guVUoBHux/pZjx4cA6NYoVaDU8uExdMIt6J8JPrhOW4d5
- KGI8M0coYp1SmiXsnw2coNE8PLYX5WbmV5DEKglKxFLyZn73ECOu0TxLNGdLDArriKNh
- f3VjAirHK0I7a/S6zOmrn9ZoEzvev30usJRBHtwkuQo+H45IO/p5IswGXgST/9qvSMW+
- c1ihegwZvYJfrlrOVHLXLuTgAPaHIMpxmPWwEIesJwGJ1oeonzaY/z8WZ+s0V2BBw2QM
- 3BjIBcUnwFcO8EyEVkzCeFlZvH4uvjN7t56j3jko0VRk1GS91i8i8tupPDK5BZXkeOpa
- OEUA==
+ bh=n4yCIT6VnQ0nqaZPCS3Twa8WFCPUOLMtZ+mQuhZvZxc=;
+ b=MVQIpAqIsam3glWuk7/Db8mxQ5tIA2AAoYQ5DPE2VGHx0nb+59w2C9B4rW/zOwoivO
+ +EMh3DUlqZ5nY2lqjmMTmYCpyixRaoGO8krSK+9YCgjzRO222yHArvjiKY1oL6Btopkn
+ SP+0g8DWUC4FF+UqS1WVTwDqH3oekZUxeYycWipJs6O6xYW/PQYN+fTWmheLsr6qOWL7
+ vRm7qJWF4z/8zUBSD8lV92DIHzEbL7m2vNg3F/nIUdKmIRW4giFBgc+bSbOJWL1/mLjC
+ EXbiY8a1JOveMT2Q+8xylE7DlSV/r6CQkTwxEKfCGP73xVq++bVpbuJ3bGN+Mof4DT2Y
+ gKMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=XcSOqstQu3Mbcb58N6JXBV5+H9jn36ysiUP0/SNEzLA=;
- b=pE+V5vnCYnhSs4wwv+7J89cKWncMvoHQi9OBx71kAydhHi69ZHBvVs4Hg5hHi4QW0N
- zCs0JZp6rhpWCpYcKVw0SK8W15Cc1c7xd90ogUuCpD5OYTfn8HP5N1QGNl+yZspA3D8O
- PGuFIeevSApQtHZm/KLBOXaMDbeze8nRLP3LHFqDB3Djr365anVhClSSVFNY+vP4yviL
- hTW14/d7yg3h9mBbHC103xNfXkt7Ifc4D7g12jXuwTagBQhYAGVrms9WvsESqou1hWQf
- 7A1zvx5VrCsaiLhg2HSXoTzs1sFPw4loUVmXa4DHXRoVMax7NvQc+d5KTCh+RL1mhsuz
- a8Dg==
-X-Gm-Message-State: AHPjjUiJ6MaodmBt55dl0eeRpSLiYsWtvoenTwmUCoPFwYEUZ6gOP5o3
- nQT7P+ERci5YFDoGlAybFNWu9SXr2qrc4THo4pA=
-X-Google-Smtp-Source: AOwi7QCVg//V3AjnuukhfvFrF4yS+s+huaSJrUZH046cESaHpPXqi2uFEXfrbiS/nvmiEygLqd0fhR+DY7rn72P61Qs=
-X-Received: by 10.46.86.146 with SMTP id k18mr10310139lje.81.1507091321636;
- Tue, 03 Oct 2017 21:28:41 -0700 (PDT)
+ bh=n4yCIT6VnQ0nqaZPCS3Twa8WFCPUOLMtZ+mQuhZvZxc=;
+ b=o4A0By+Gz/xFpTZnzaddd/aGtcnvALxXiSZf4AJFGKL0jmCj+k+TQRhzJYpxxExOBw
+ OFVH90p/9fHeGYhTOrTCDPLlttum/WIDi1Et/GLHNvQJH10hhdw5uCqh6rctAXnZYdlv
+ eRAGQe9XjWlq6pQB56T5BmIlm9wPsKJm0gghY7vChc2wYRcsPyuMwG338jAQEJZIXWNf
+ wcAgOCm8pLBg+50k+oi8fKakeReaqioGvG8qaeUdM0J48qDPU12230QWryvnr+RUH4Ec
+ nepY7wHXPj04wJTlZrFjMHHmKFI0QD0TpU3mlKHDz6EJAiTlkGdo6TcUjpo8eCzkMitM
+ sfrg==
+X-Gm-Message-State: AMCzsaVMLfTJjQHVAchSDsv5tgikVtYUqDpRgXOm22A6eDV8QfpduY02
+ hQp7YNxs4mV6AQSBnBIEImIG1hSGJo14H94cWVSpT6/28ME=
+X-Google-Smtp-Source: AOwi7QBO4igG49+pycYWDzEL96FYlbYBx92/BS4Q9mLjoPX+THLrEbrQbDEKWmp7BvxH8b4Vm1rI9eq8sXyQgs9dbB0=
+X-Received: by 10.25.233.81 with SMTP id g78mr1981234lfh.197.1507091370768;
+ Tue, 03 Oct 2017 21:29:30 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.25.195.6 with HTTP; Tue, 3 Oct 2017 21:28:21 -0700 (PDT)
-In-Reply-To: <20171002182340.75268-1-cbostic@linux.vnet.ibm.com>
-References: <20171002182340.75268-1-cbostic@linux.vnet.ibm.com>
+Received: by 10.25.195.6 with HTTP; Tue, 3 Oct 2017 21:29:10 -0700 (PDT)
+In-Reply-To: <63c856a0-028e-4559-d85b-5fee21bbe426@linux.vnet.ibm.com>
+References: <1506990743-1455-1-git-send-email-jk@ozlabs.org>
+ <63c856a0-028e-4559-d85b-5fee21bbe426@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 4 Oct 2017 13:58:21 +0930
-X-Google-Sender-Auth: ugwnPVAr5NaumSTn-KEb9r3i8mo
-Message-ID: <CACPK8Xdf9XbNSvzRK99t2UQfnh1qZY9UpoQ5Dgyumi_sNHCN0Q@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] fsi: core: Hold hub master reference until
- unregistration complete
+Date: Wed, 4 Oct 2017 13:59:10 +0930
+X-Google-Sender-Auth: qxgOBFGXJ2am-ATCctIs5iA5kiw
+Message-ID: <CACPK8XfCskZb1X2NcW+_K0OievMxL=rroOjtLRS3KLwggjoATQ@mail.gmail.com>
+Subject: Re: [PATCH] fsi/master: Clarify master lifetimes & fix use-after-free
+ in hub master
 To: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Cc: Christopher Bostic <cbostic@us.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: Jeremy Kerr <jk@ozlabs.org>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
@@ -65,21 +65,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 Oct 2017 04:28:46 -0000
+X-List-Received-Date: Wed, 04 Oct 2017 04:29:34 -0000
 
-On Tue, Oct 3, 2017 at 3:53 AM, Christopher Bostic
+On Tue, Oct 3, 2017 at 10:41 AM, Christopher Bostic
 <cbostic@linux.vnet.ibm.com> wrote:
-> From: Christopher Bostic <cbostic@us.ibm.com>
->
-> During the hub master unregister process there is a race condition
-> where its memory can be freed before the entire unregister is
-> complete.  To prevent this hold a reference until complete.
->
-> Code provided by Jeremy Kerr <jk@ozlabs.org>
->
-> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+> On 10/2/17 7:32 PM, Jeremy Kerr wrote:
+>>
+>> Once we call fsi_master_unregister, the core will put_device,
+>> potentially freeing the hub master. This change adds a comment
+>> explaining the lifetime of an allocated fsi_master.
+>>
+>> We then add a reference from the driver to the hub master, so it stays
+>> around until we've finished ->remove().
+>>
+>> Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
+> Tested-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 
-I applied Jeremy's version with your tested-by tag.
+Applied to dev-4.10.
+
+We should also create a tree with these fixes for upstream inclusion.
 
 Cheers,
 
