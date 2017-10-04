@@ -1,59 +1,57 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4010:c07::243; helo=mail-lf0-x243.google.com;
+ (client-ip=2a00:1450:4010:c07::235; helo=mail-lf0-x235.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Pq0bx2FS"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="fdgBw+2q"; 
  dkim-atps=neutral
-Received: from mail-lf0-x243.google.com (mail-lf0-x243.google.com
- [IPv6:2a00:1450:4010:c07::243])
+Received: from mail-lf0-x235.google.com (mail-lf0-x235.google.com
+ [IPv6:2a00:1450:4010:c07::235])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y6NT265xkzDqln
- for <openbmc@lists.ozlabs.org>; Wed,  4 Oct 2017 15:38:46 +1100 (AEDT)
-Received: by mail-lf0-x243.google.com with SMTP id h80so4335192lfe.1
- for <openbmc@lists.ozlabs.org>; Tue, 03 Oct 2017 21:38:46 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y6Nqk4YtlzDqlC
+ for <openbmc@lists.ozlabs.org>; Wed,  4 Oct 2017 15:54:58 +1100 (AEDT)
+Received: by mail-lf0-x235.google.com with SMTP id n140so9734672lfn.4
+ for <openbmc@lists.ozlabs.org>; Tue, 03 Oct 2017 21:54:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=u0hRYpR6CTivfhYWbzQO4qhwPhunoP1rluOvTqpbHtA=;
- b=Pq0bx2FSNlI4oK7VfGEoOlV1Ep19ui/DLuUXnk9/UrxmSu4Apsl2eOnan3LnvYQ8Dp
- cSnOckvaEnvOZx7SNc0y9kgRDciO2CXciJiQk9tyVQOt38gmxYz8N021N4Su5g206PQ0
- zNdnhfkZoBn5IUG4YRPqjBFxRYdNGvBo5LfqpHC6J4794SHuN0/Z/CYwBZ5SmVQ6SVjv
- EQKchg/WbBUzqG+QrRqb/SipJ2gcG0AkLoECJmyDdXoclykP3H6iIiEp8h+zugGqNW5f
- BhTeMhuXP7po9snQoITNQhPNFM4E1DExqTTTVW1kVOUea/IjskVLabaOkuxDC5P74TDK
- pU0w==
+ bh=CqCYZjCJthIKWAMh23h9C4hwWknodsm7J7MHJsaMINE=;
+ b=fdgBw+2q909KUUggh8cybvRnqqrECjkAGSYuAQ5wj0mPbs/sUtPeYoaOkpYmrdNnf8
+ ZkO1fKMeESXsUmKXzg0pc3bqXyiRSSQYAqTK31HjGsa8lbPsMDXQGm3yW6TreuZYfgyF
+ F7ASkbthqC8uwhJNx0wRkJH5+EWnipp7sIGnuuGpAxhBeHm72RAgmy/qSW2iTjGo26cQ
+ 9Kk7AM8ZOt0T/cXu5agOiq+tpU+4ZdB/+QJQPvU0KyI4spXkneVn4bNFmGY8QW7IyAsy
+ KdAWoArIeVah+JgKYqrBgzEtHdTH0kwOBfeUuKz7/4/yT7G8vAXO2cOFfk9Nnv6GTc9F
+ KW8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=u0hRYpR6CTivfhYWbzQO4qhwPhunoP1rluOvTqpbHtA=;
- b=XvzrcgvWPCLICXxAU6c1xz7psozfPvgdrcbq47UkODxPTJpudHzzccWHg06uv7ujEz
- lnqCWIJ2AmLOOMv1YcR4QPe57zzSZXanGyid1QyYy5EbYLycE2TUpjFIhVvyEQDIjdtY
- gr00ILmeU3qYy07cn/vahxUOfJRmELQUrwYu4Jy0VwelyUaIgcn1CpNnVMaAIz4GrM99
- 3HQ9cij00o1tIKv7YTjX3/iSOMWDX6lfOwohFqYVaiEJj0naC1JhSDmTUpcMuRxsuTKA
- QSyMmWTj3NJ4y6nbaC+F85biPWCiVE1XN/2JIzbMRrAE7IQajRqUQ2ymkYTKwovUloGH
- s7tQ==
-X-Gm-Message-State: AHPjjUhWNMifNurFEv5iw8s1hy857gKiBOky4rAdazzgbL1Li+5ITOY6
- 3jB+YCis62tkULzFbStnlCi6Ewy28Lgo7xStaC0=
-X-Google-Smtp-Source: AOwi7QByYx1bsevz920rFjtsNf7fVWEe4s2tArTJ3sqBcrlVbNnzQ0FEU1j9aJuFh45+UHy9V/nPANleMGQbEx5aqdA=
-X-Received: by 10.46.88.68 with SMTP id x4mr9279648ljd.138.1507091923597; Tue,
- 03 Oct 2017 21:38:43 -0700 (PDT)
+ bh=CqCYZjCJthIKWAMh23h9C4hwWknodsm7J7MHJsaMINE=;
+ b=gzdWDkXFxiw0Jh5pTYA1OtkfINyiyctOb/8sHiogLPML/lgcQ99zojGqnzf+5bT3uG
+ XTJH5gibDDDuWwioUwcxZcNtkyxo4BY8aZfZc7fEfbFTJTZwa0+45GqZrD7pnMGBUwj5
+ 84Mp7rDRDl8kXNzFuPeWj+s9uQ4e+J6yyxRu7VY5lkbKt1qk46z9PxcA+zTVMpJ3MZtt
+ ghdcsU5CV6t/3I1EorBbD8mkt75hqIbu0d2lHew2fEsig/2AwZrwUfMqCsqe7trHUM4A
+ mWYrvMFjooUxBCo5ibfdc7+wpIeAUGGvz6ozBBylLnM7LIGUkOAbFhrYXI/kn/+4M4h0
+ 3C9w==
+X-Gm-Message-State: AHPjjUhopHyS/CBuAZykWFXBu/MHUX0CFTKc+CeWuPA654X650aZxiI6
+ 2BcjfAIlMzyddh5lUeaMJGy2UGyia4da8YZpMUPybsd22AM=
+X-Google-Smtp-Source: AOwi7QBSK/w/wT4DHYfcdqohhDPClVwVxipmKMLU1EgKnMc0arF9aW8WxJvhPsLrubny/Gr10DTNS400bbuqgpxRtaM=
+X-Received: by 10.46.71.193 with SMTP id u184mr9750243lja.166.1507092894399;
+ Tue, 03 Oct 2017 21:54:54 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.25.195.6 with HTTP; Tue, 3 Oct 2017 21:38:23 -0700 (PDT)
-In-Reply-To: <1507058068-9406-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1507058068-9406-1-git-send-email-eajames@linux.vnet.ibm.com>
+Received: by 10.25.195.6 with HTTP; Tue, 3 Oct 2017 21:54:33 -0700 (PDT)
+In-Reply-To: <OF78B95C25.5F20D5DE-ON862581AE.000890BF-862581AE.000A5301@notes.na.collabserv.com>
+References: <OF78B95C25.5F20D5DE-ON862581AE.000890BF-862581AE.000A5301@notes.na.collabserv.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 4 Oct 2017 14:08:23 +0930
-X-Google-Sender-Auth: Y2KI8Qzcyvtcbhzv4oVZviJ2a3w
-Message-ID: <CACPK8XfGubVuKRL=nTwbPbn5KMHtUvTULPZXvy=jYWPU_hbdDw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] Revert "drivers/hwmon/occ: Add temperature
- fault attribute and VRM temp alarm"
-To: Eddie James <eajames@linux.vnet.ibm.com>,
- Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- "Edward A. James" <eajames@us.ibm.com>
+Date: Wed, 4 Oct 2017 14:24:33 +0930
+X-Google-Sender-Auth: MkvLBk59vKaT-wDN-a4A3rr_CMI
+Message-ID: <CACPK8XfTqXHH53aN3+crxfEktrg_ipN8c23zT1gjcUmzBEmhtQ@mail.gmail.com>
+Subject: Re: Call for maintainers
+To: Chris Austen <austenc@us.ibm.com>, Jeremy Kerr <jk@ozlabs.org>,
+ Andrew Jeffery <andrew@aj.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
@@ -66,127 +64,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 Oct 2017 04:38:47 -0000
+X-List-Received-Date: Wed, 04 Oct 2017 04:54:59 -0000
 
-On Wed, Oct 4, 2017 at 4:44 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
-> From: "Edward A. James" <eajames@us.ibm.com>
+On Tue, Oct 3, 2017 at 11:22 AM, Chris Austen <austenc@us.ibm.com> wrote:
+> The OpenBMC Project is looking for future maintainers. The amount of code
+> now and expected in the near future will be more then any one person can
+> continually handle. If you are a subject matter expert in a repo under
+> https://github.com/openbmc or cross functional areas then taking on a role
+> of maintainer might be appealing. This isn't a paid thing, this is
+> completely voluntary opportunity (think Scouts without the camping or School
+> volunteer without glue).
 >
-> This reverts commit e55423ee10a5057338d24383c00e813436a126ea.
->
-> Apologies for pushing this up so early... Userspace applications aren't
-> ready for this change. The hwmon polling application cannot accept EGAIN
-> yet, and we can't be returning apparent errors if the sensor is
-> temporarily unavailable.
+> So how might you go about getting this type of role on your resume? Start by
+> signing up for code reviews
+> https://gerrit.openbmc-project.xyz/#/q/status:open. Over the next few weeks
+> we will be looking over the reviews for 1) understanding of the components
+> architecture 2) Comments focusing on architecture that satisfies the needs
+> of all 3) bugs 4) and more. Try to Focus on a single project.
 
-Can you go into some more detail here please.
+I'd like to put forward two names of significant contributors:
 
-It looks like these changes are within the hwmon ABI, so userspace
-that supports hwmon devices shouldn't break.
+For obmc-console, Jeremy Kerr. He's the author of a large amount of
+the code and has helped out with a number of reivews through the 20
+comments he's made.
+
+For phsophor-mboxd, Andrew Jeffery. He's spent a lot of time reviewing
+patches and helping guide the direction of the project. He's given 166
+reviews, and made 207 comments.
+
+I used https://github.com/wikimedia/analytics-gerrit-stats to generate
+some of these stats. It could be used to identify other significant
+contributors, even if it's simply confirming what we already know.
 
 Cheers,
 
 Joel
-
->
-> Signed-off-by: Eddie James <eajames@us.ibm.com>
-> ---
->  drivers/hwmon/occ/common.c | 38 +++-----------------------------------
->  1 file changed, 3 insertions(+), 35 deletions(-)
->
-> diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
-> index 8ffb556..34002fb 100644
-> --- a/drivers/hwmon/occ/common.c
-> +++ b/drivers/hwmon/occ/common.c
-> @@ -19,10 +19,6 @@
->  #define OCC_EXT_STAT_MEM_THROTTLE      0x20
->  #define OCC_EXT_STAT_QUICK_DROP                0x10
->
-> -#define OCC_TEMP_SENSOR_FAULT          0xFF
-> -
-> -#define OCC_FRU_TYPE_VRM               3
-> -
->  atomic_t occ_num_occs = ATOMIC_INIT(0);
->
->  struct temp_sensor_1 {
-> @@ -381,23 +377,11 @@ static ssize_t occ_show_temp_2(struct device *dev,
->                 val = get_unaligned_be32(&temp->sensor_id);
->                 break;
->         case 1:
-> -               val = temp->value;
-> -               if (val == OCC_TEMP_SENSOR_FAULT)
-> -                       return -EREMOTEIO;
-> -
-> -               if (temp->fru_type != OCC_FRU_TYPE_VRM) {
-> -                       if (val == 0)
-> -                               return -EAGAIN;
-> -
-> -                       val *= 1000;
-> -               }
-> +               val = temp->value * 1000;
->                 break;
->         case 2:
->                 val = temp->fru_type;
->                 break;
-> -       case 3:
-> -               val = temp->value == OCC_TEMP_SENSOR_FAULT;
-> -               break;
->         }
->
->         return snprintf(buf, PAGE_SIZE - 1, "%u\n", val);
-> @@ -796,7 +780,6 @@ static ssize_t occ_show_extended(struct device *dev,
->  int occ_setup_sensor_attrs(struct occ *occ)
->  {
->         unsigned int i, s;
-> -       struct temp_sensor_2 *temp;
->         struct device *dev = occ->bus_dev;
->         struct occ_sensors *sensors = &occ->sensors;
->         struct occ_attribute *attr;
-> @@ -816,7 +799,7 @@ int occ_setup_sensor_attrs(struct occ *occ)
->                 occ->num_attrs += (sensors->temp.num_sensors * 2);
->                 break;
->         case 2:
-> -               occ->num_attrs += (sensors->temp.num_sensors * 4);
-> +               occ->num_attrs += (sensors->temp.num_sensors * 3);
->                 show_temp = occ_show_temp_2;
->                 break;
->         default:
-> @@ -888,22 +871,13 @@ int occ_setup_sensor_attrs(struct occ *occ)
->
->         for (i = 0; i < sensors->temp.num_sensors; ++i) {
->                 s = i + 1;
-> -               temp = ((struct temp_sensor_2 *)sensors->temp.data) + i;
->
->                 snprintf(attr->name, sizeof(attr->name), "temp%d_label", s);
->                 attr->sensor = OCC_INIT_ATTR(attr->name, 0444, show_temp, NULL,
->                                              0, i);
->                 attr++;
->
-> -               if (sensors->temp.version > 1 &&
-> -                   temp->fru_type == OCC_FRU_TYPE_VRM) {
-> -                       snprintf(attr->name, sizeof(attr->name), "temp%d_alarm",
-> -                                s);
-> -               } else {
-> -                       snprintf(attr->name, sizeof(attr->name), "temp%d_input",
-> -                                s);
-> -               }
-> -
-> +               snprintf(attr->name, sizeof(attr->name), "temp%d_input", s);
->                 attr->sensor = OCC_INIT_ATTR(attr->name, 0444, show_temp, NULL,
->                                              1, i);
->                 attr++;
-> @@ -914,12 +888,6 @@ int occ_setup_sensor_attrs(struct occ *occ)
->                         attr->sensor = OCC_INIT_ATTR(attr->name, 0444,
->                                                      show_temp, NULL, 2, i);
->                         attr++;
-> -
-> -                       snprintf(attr->name, sizeof(attr->name), "temp%d_fault",
-> -                                s);
-> -                       attr->sensor = OCC_INIT_ATTR(attr->name, 0444,
-> -                                                    show_temp, NULL, 3, i);
-> -                       attr++;
->                 }
->         }
->
-> --
-> 1.8.3.1
->
