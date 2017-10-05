@@ -3,59 +3,59 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="BCdQ/614"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="MvLeAk3B"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="d1AYGvCL"; dkim-atps=neutral
+ header.b="Bkh5OsRs"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y6vbp2KNkzDr2M
- for <openbmc@lists.ozlabs.org>; Thu,  5 Oct 2017 12:01:26 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y6vkz5ZCKzDqrP
+ for <openbmc@lists.ozlabs.org>; Thu,  5 Oct 2017 12:07:39 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id D93ED20FD6;
- Wed,  4 Oct 2017 21:01:23 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id ABD5A20AEB;
+ Wed,  4 Oct 2017 21:07:37 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Wed, 04 Oct 2017 21:01:23 -0400
+ by compute4.internal (MEProxy); Wed, 04 Oct 2017 21:07:37 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=gjX/SvDsN+T69S8YiIQbjm66/C2dktpuzyxfyUHDj
- UY=; b=BCdQ/614t7QQ+39wlnxFTELUwNyvSlYBD8zHtDM04w6iBWHo13bIAAinz
- iHnqyHfhfRFihY667KFwb/AncaK+WuX39qOKmjRRIjNP4SvOgJ1l0WiSxBwHnmwo
- vw/87OUsezvs9l3s1FkSx6KPIVjg45PtDahS1GDPEkI3btCRf9uipoDIVQm9By0e
- xjR00Rb0b1DQhhnQO+uGqBHAClz/k3gCJy+QRvHuLtTJfKP8ebx+OPr640Xps2nN
- Auf6vFPjk++Wx/ljEGSdMstzTG0x25EosW1EudiZC7h+j9ra6/Fw+9xByXZ/IPZb
- 4NiVNdjkPPcXg2TEfY+n7wvYmh4ZQ==
+ :x-sasl-enc; s=fm1; bh=IhUBpuuQfolQvw6I+DBe/f0kF4gWfQic9LAL5ACc2
+ 34=; b=MvLeAk3Bb7Bm8UYxHoMhLwDCcZRoJ5YL29d8l5yb4RmnRRlhn84yxeQ5n
+ ICZDLBo4YX1YN8QcIc0TKRSZ/3bxvpzKPIuZSCrAocjDrndfhzkaTkIucBvp1oql
+ g+0HMbjUFDyCsF2QsCRtF409mZqNSubmhLlszVoZK/DctKM3y+n7jIqExfuhUv4C
+ 1/s0nOIGRQpza04VjNCIiN32/BSOimPKCNqjDUlGrTdhRhHM10g9ZKEiefbmjgLo
+ b+cQ7XR4w8cEzyY9uA9Yz4xJD6U/k+ppuw2aXEUE3hS4frE+6lc4qwDVBMHRJgz6
+ FjR9oY6VGiOvQIRKEE661hejX6ndg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=gjX/SvDsN+T69S8YiI
- Qbjm66/C2dktpuzyxfyUHDjUY=; b=d1AYGvCLNiHiNCOXu8F36WyFGbpjBe8cei
- fQqmTLiJgDN6S53Rsn+tgjVbp3FIWMu97okw4llRRMo9MiMEkqKDCs+UA9EPwlU/
- 5nVqGgq5BHQFI04/eErINfKqA3mOw6ifUxbkhVVSQgVrdHvuVCziGJfFNaIdBJvK
- vWUD1CSmtJzBIMVwzR3gohymoe9jPU/ybv3cgvXnif178A21zhjRL5CxggqzxAWe
- E7RAHu8pNsU49DEydqYThUfGO1+tLJsYOCJuxvW0H+GUjC44imFUr7Sf1LKaVqXo
- vHzu8Y+YLjHqScDku7+BKkiNJ1Ey8HX6KTjy87rBN4taERvlTn4g==
-X-ME-Sender: <xms:Y4TVWesGTKm8FJngVEDjtkPhgRuDjAVfCJ22l6nNrL6xe_vQyJAluw>
-X-Sasl-enc: RTd21gwtnW/2i3GvYa8VSSfSXLe799BnXk5nCpP2sANJ 1507165283
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=IhUBpuuQfolQvw6I+D
+ Be/f0kF4gWfQic9LAL5ACc234=; b=Bkh5OsRsdYa12yYi4yaYQP9u+QQinoQ8WD
+ lLcwlGkYYcn6EswQHfgvMpA24JCvOXvQYouDtzHEVS/1FksCSK3k6fUoOhl1U24W
+ JtUQ+PCMBOU+VwsONkwg9wti/1DKLQmX1yCIvVM50lu2hlbrAtTN0oq8xAxFUpij
+ t+X6R5JcaZ0jnrBzsQEp7NECh+aTe5JSvW3QCxgt6VMspvlTFFfaFOu2xJH8Evjz
+ bQjK0OTsRKCglcUS/3iwPFC3IqJ5+dGWIq736FCDsJFuB5ybPMuc99nxd5j8WGRq
+ zek1PtB4fEoeZzBIil/KchBWvv1ewMAVtkvMeLThUL/rjg2wW4uQ==
+X-ME-Sender: <xms:2YXVWYKQ3VAvKub-jZ5YSJQIbR8WJG0Z5AZNJGGqeLzHjrsljpX4VQ>
+X-Sasl-enc: ahFgvfLb21mvdT5OcltUAcgOkUMOEKJ0jeLA0//iVFqU 1507165656
 Received: from keelia (ppp14-2-13-235.bras21.adl4.internode.on.net
  [14.2.13.235])
- by mail.messagingengine.com (Postfix) with ESMTPA id C81AF24724;
- Wed,  4 Oct 2017 21:01:21 -0400 (EDT)
-Message-ID: <1507165276.5452.47.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10 v2 5/9] drivers: fsi: occ: Poll while
- receiving "command in progress"
+ by mail.messagingengine.com (Postfix) with ESMTPA id 92BBF24570;
+ Wed,  4 Oct 2017 21:07:34 -0400 (EDT)
+Message-ID: <1507165650.5452.49.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.10 v2 6/9] drivers: fsi: occ: Add cancel to
+ remove() and fix probe()
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
-Date: Thu, 05 Oct 2017 11:31:16 +1030
-In-Reply-To: <1506724868-13010-6-git-send-email-eajames@linux.vnet.ibm.com>
+Date: Thu, 05 Oct 2017 11:37:30 +1030
+In-Reply-To: <1506724868-13010-7-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1506724868-13010-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1506724868-13010-6-git-send-email-eajames@linux.vnet.ibm.com>
+ <1506724868-13010-7-git-send-email-eajames@linux.vnet.ibm.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-/N+zQK16m+vntxYkEs46"
+ protocol="application/pgp-signature"; boundary="=-z+z93dhpuCgm/3nIRy4Y"
 X-Mailer: Evolution 3.22.6-1ubuntu1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -69,132 +69,267 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Oct 2017 01:01:27 -0000
+X-List-Received-Date: Thu, 05 Oct 2017 01:07:40 -0000
 
 
---=-/N+zQK16m+vntxYkEs46
+--=-z+z93dhpuCgm/3nIRy4Y
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Fri, 2017-09-29 at 17:41 -0500, Eddie James wrote:
 > From: "Edward A. James" <eajames@us.ibm.com>
 >=C2=A0
-> This should only be done at this level,
-
-Bit of a nit with the grammar here: You're using 'this' in multiple context=
-s
-and I feel that explanation of the contexts is a bit lacking. Can you pleas=
-e
-expand this sentence to cover those points?
-
-The intent of the change seems reasonable though.
-
-Andrew
-
-> instead of clients repeating
-> the entire transfer when they receive "command in progress"
+> Need some data to indicate to clients and the rest of the driver when
+> the device is being removed, so add a cancel boolean. Fix up both the
+> probe and remove functions to properly handle failures and prevent
+> deadlocks.
 >=C2=A0
 > Signed-off-by: Edward A. James <eajames@us.ibm.com>
 > ---
-> =C2=A0drivers/fsi/occ.c | 27 ++++++++++++++++++++++++---
-> =C2=A01 file changed, 24 insertions(+), 3 deletions(-)
+> =C2=A0drivers/fsi/occ.c | 86 +++++++++++++++++++++++++++++++++++++++-----=
+-----------
+> =C2=A01 file changed, 62 insertions(+), 24 deletions(-)
 >=C2=A0
 > diff --git a/drivers/fsi/occ.c b/drivers/fsi/occ.c
-> index 3313e35..a554550 100644
+> index a554550..550ae11 100644
 > --- a/drivers/fsi/occ.c
 > +++ b/drivers/fsi/occ.c
-> @@ -23,6 +23,7 @@
-> =C2=A0#include <linux/of.h>
-> =C2=A0#include <linux/of_platform.h>
-> =C2=A0#include <linux/platform_device.h>
-> +#include <linux/sched.h>
-> =C2=A0#include <linux/slab.h>
-> =C2=A0#include <linux/spinlock.h>
-> =C2=A0#include <linux/uaccess.h>
-> @@ -33,6 +34,9 @@
-> =C2=A0#define OCC_CMD_DATA_BYTES	4090
-> =C2=A0#define OCC_RESP_DATA_BYTES	4089
+> @@ -46,6 +46,7 @@ struct occ {
+> =C2=A0	spinlock_t list_lock;		/* lock access to the xfrs list */
+> =C2=A0	struct mutex occ_lock;		/* lock access to the hardware */
+> =C2=A0	struct work_struct work;
+> +	bool cancel;
+> =C2=A0};
 > =C2=A0
-> +#define OCC_TIMEOUT_MS		1000
-
-The SBEFIFO spec defines different timeout periods for different classes of
-command. One class uses a 1s timeout, whilst another uses 30s. Does the OCC
-only use commands from the former command class?
-
-> +#define OCC_CMD_IN_PRG_WAIT_MS	50
-
-This is less than the 500ms reschedule period in the SBEFIFO. Does 50ms mak=
-e
-sense here?
-
-> +
-> =C2=A0struct occ {
-> =C2=A0	struct device *sbefifo;
-> =C2=A0	char name[32];
-> @@ -565,6 +569,9 @@ static void occ_worker(struct work_struct *work)
+> =C2=A0#define to_occ(x)	container_of((x), struct occ, mdev)
+> @@ -117,12 +118,15 @@ struct occ_client {
+> =C2=A0
+> =C2=A0static DEFINE_IDA(occ_ida);
+> =C2=A0
+> -static void occ_enqueue_xfr(struct occ_xfr *xfr)
+> +static int occ_enqueue_xfr(struct occ_xfr *xfr)
 > =C2=A0{
-> =C2=A0	int rc =3D 0, empty, waiting, canceled;
-> =C2=A0	u16 resp_data_length;
-> +	unsigned long start;
-> +	const unsigned long timeout =3D msecs_to_jiffies(OCC_TIMEOUT_MS);
-> +	const long int wait_time =3D msecs_to_jiffies(OCC_CMD_IN_PRG_WAIT_MS);
-> =C2=A0	struct occ_xfr *xfr;
-> =C2=A0	struct occ_response *resp;
-> =C2=A0	struct occ_client *client;
-> @@ -586,6 +593,8 @@ static void occ_worker(struct work_struct *work)
-> =C2=A0	spin_unlock_irq(&occ->list_lock);
-> =C2=A0	mutex_lock(&occ->occ_lock);
+> =C2=A0	int empty;
+> =C2=A0	struct occ_client *client =3D to_client(xfr);
+> =C2=A0	struct occ *occ =3D client->occ;
 > =C2=A0
-> +	start =3D jiffies;
+> +	if (occ->cancel)
+> +		return -ECANCELED;
 > +
-> =C2=A0	/* write occ command */
-> =C2=A0	rc =3D occ_putsram(sbefifo, 0xFFFBE000, xfr->buf,
-> =C2=A0			=C2=A0xfr->cmd_data_length);
-> @@ -597,9 +606,21 @@ static void occ_worker(struct work_struct *work)
+> =C2=A0	spin_lock_irq(&occ->list_lock);
+> =C2=A0
+> =C2=A0	empty =3D list_empty(&occ->xfrs);
+> @@ -132,14 +136,20 @@ static void occ_enqueue_xfr(struct occ_xfr *xfr)
+> =C2=A0
+> =C2=A0	if (empty)
+> =C2=A0		queue_work(occ_wq, &occ->work);
+> +
+> +	return 0;
+> =C2=A0}
+> =C2=A0
+> =C2=A0static struct occ_client *occ_open_common(struct occ *occ, unsigned=
+ long flags)
+> =C2=A0{
+> -	struct occ_client *client =3D kzalloc(sizeof(*client), GFP_KERNEL);
+> +	struct occ_client *client;
+> +
+> +	if (occ->cancel)
+> +		return ERR_PTR(-ECANCELED);
+> =C2=A0
+> +	client =3D kzalloc(sizeof(*client), GFP_KERNEL);
+> =C2=A0	if (!client)
+> -		return NULL;
+> +		return ERR_PTR(-ENOMEM);
+> =C2=A0
+> =C2=A0	client->occ =3D occ;
+> =C2=A0	spin_lock_init(&client->lock);
+> @@ -158,8 +168,8 @@ static int occ_open(struct inode *inode, struct file =
+*file)
+> =C2=A0	struct occ *occ =3D to_occ(mdev);
+> =C2=A0
+> =C2=A0	client =3D occ_open_common(occ, file->f_flags);
+> -	if (!client)
+> -		return -ENOMEM;
+> +	if (IS_ERR(client))
+> +		return PTR_ERR(client);
+> =C2=A0
+> =C2=A0	file->private_data =3D client;
+> =C2=A0
+> @@ -172,6 +182,7 @@ static ssize_t occ_read_common(struct occ_client *cli=
+ent, char __user *ubuf,
+> =C2=A0	int rc;
+> =C2=A0	size_t bytes;
+> =C2=A0	struct occ_xfr *xfr =3D &client->xfr;
+> +	struct occ *occ =3D client->occ;
+> =C2=A0
+> =C2=A0	if (len > OCC_SRAM_BYTES)
+> =C2=A0		return -EINVAL;
+> @@ -204,7 +215,8 @@ static ssize_t occ_read_common(struct occ_client *cli=
+ent, char __user *ubuf,
+> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0test_bit(XFR_COMPLETE,
+> =C2=A0						=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0&xfr->flags) ||
+> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0test_bit(XFR_CANCELED,
+> -						=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0&xfr->flags));
+> +						=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0&xfr->flags) ||
+> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0occ->cancel);
+> =C2=A0
+> =C2=A0		spin_lock_irq(&client->lock);
+> =C2=A0
+> @@ -272,7 +284,7 @@ static ssize_t occ_write_common(struct occ_client *cl=
+ient,
+> =C2=A0
+> =C2=A0	spin_lock_irq(&client->lock);
+> =C2=A0
+> -	if (test_and_set_bit(CLIENT_XFR_PENDING, &client->flags)) {
+> +	if (test_bit(CLIENT_XFR_PENDING, &client->flags)) {
+> =C2=A0		rc =3D -EBUSY;
 > =C2=A0		goto done;
+> =C2=A0	}
+> @@ -309,8 +321,11 @@ static ssize_t occ_write_common(struct occ_client *c=
+lient,
+> =C2=A0	xfr->cmd_data_length =3D data_length + 6;
+> =C2=A0	client->read_offset =3D 0;
 > =C2=A0
-> =C2=A0	/* read occ response */
-> -	rc =3D occ_getsram(sbefifo, 0xFFFBF000, xfr->buf, 8);
-> -	if (rc)
-> -		goto done;
-> +	do {
-> +		rc =3D occ_getsram(sbefifo, 0xFFFBF000, xfr->buf, 8);
-> +		if (rc)
-> +			goto done;
-> +
-> +		if (resp->return_status =3D=3D OCC_RESP_CMD_IN_PRG) {
-> +			rc =3D -EALREADY;
-> +
-> +			if (time_after(jiffies, start + timeout))
-> +				break;
-> +
-> +			set_current_state(TASK_INTERRUPTIBLE);
-> +			schedule_timeout(wait_time);
-> +		}
-> +	} while (rc);
+> -	occ_enqueue_xfr(xfr);
+> +	rc =3D occ_enqueue_xfr(xfr);
+> +	if (rc)
+> +		goto done;
 > =C2=A0
-> =C2=A0	resp_data_length =3D get_unaligned_be16(&resp->data_length);
-> =C2=A0	if (resp_data_length > OCC_RESP_DATA_BYTES) {
---=-/N+zQK16m+vntxYkEs46
+> +	set_bit(CLIENT_XFR_PENDING, &client->flags);
+> =C2=A0	rc =3D len;
+> =C2=A0
+> =C2=A0done:
+> @@ -579,6 +594,9 @@ static void occ_worker(struct work_struct *work)
+> =C2=A0	struct device *sbefifo =3D occ->sbefifo;
+> =C2=A0
+> =C2=A0again:
+> +	if (occ->cancel)
+> +		return;
+> +
+> =C2=A0	spin_lock_irq(&occ->list_lock);
+> =C2=A0
+> =C2=A0	xfr =3D list_first_entry_or_null(&occ->xfrs, struct occ_xfr, link)=
+;
+> @@ -672,12 +690,17 @@ static void occ_worker(struct work_struct *work)
+> =C2=A0
+> =C2=A0struct occ_client *occ_drv_open(struct device *dev, unsigned long f=
+lags)
+> =C2=A0{
+> +	struct occ_client *client;
+> =C2=A0	struct occ *occ =3D dev_get_drvdata(dev);
+> =C2=A0
+> =C2=A0	if (!occ)
+> =C2=A0		return NULL;
+> =C2=A0
+> -	return occ_open_common(occ, flags);
+> +	client =3D occ_open_common(occ, flags);
+> +	if (IS_ERR(client))
+> +		return NULL;
+> +
+> +	return client;
+> =C2=A0}
+> =C2=A0EXPORT_SYMBOL_GPL(occ_drv_open);
+> =C2=A0
+> @@ -748,23 +771,13 @@ static int occ_probe(struct platform_device *pdev)
+> =C2=A0			if (occ->idx < 0)
+> =C2=A0				occ->idx =3D ida_simple_get(&occ_ida, 1, INT_MAX,
+> =C2=A0							=C2=A0=C2=A0GFP_KERNEL);
+> -		} else
+> +		} else {
+> =C2=A0			occ->idx =3D ida_simple_get(&occ_ida, 1, INT_MAX,
+> =C2=A0						=C2=A0=C2=A0GFP_KERNEL);
+> -
+> -		/* create platform devs for dts child nodes (hwmon, etc) */
+> -		for_each_child_of_node(dev->of_node, np) {
+> -			snprintf(child_name, sizeof(child_name), "occ%d-dev%d",
+> -				=C2=A0occ->idx, child_idx++);
+> -			child =3D of_platform_device_create(np, child_name, dev);
+> -			if (!child)
+> -				dev_warn(dev,
+> -					=C2=A0"failed to create child node dev\n");
+> =C2=A0		}
+> -	} else
+> +	} else {
+> =C2=A0		occ->idx =3D ida_simple_get(&occ_ida, 1, INT_MAX, GFP_KERNEL);
+> -
+> -	platform_set_drvdata(pdev, occ);
+> +	}
+> =C2=A0
+> =C2=A0	snprintf(occ->name, sizeof(occ->name), "occ%d", occ->idx);
+> =C2=A0	occ->mdev.fops =3D &occ_fops;
+> @@ -774,20 +787,45 @@ static int occ_probe(struct platform_device *pdev)
+> =C2=A0
+> =C2=A0	rc =3D misc_register(&occ->mdev);
+> =C2=A0	if (rc) {
+> -		dev_err(dev, "failed to register miscdevice\n");
+> +		dev_err(dev, "failed to register miscdevice: %d\n", rc);
+> +		ida_simple_remove(&occ_ida, occ->idx);
+> =C2=A0		return rc;
+> =C2=A0	}
+> =C2=A0
+> +	/* create platform devs for dts child nodes (hwmon, etc) */
+> +	for_each_available_child_of_node(dev->of_node, np) {
+> +		snprintf(child_name, sizeof(child_name), "occ%d-dev%d",
+> +			=C2=A0occ->idx, child_idx++);
+> +		child =3D of_platform_device_create(np, child_name, dev);
+> +		if (!child)
+> +			dev_warn(dev, "failed to create child node dev\n");
+> +	}
+> +
+> +	platform_set_drvdata(pdev, occ);
+> +
+> =C2=A0	return 0;
+> =C2=A0}
+> =C2=A0
+> =C2=A0static int occ_remove(struct platform_device *pdev)
+> =C2=A0{
+> =C2=A0	struct occ *occ =3D platform_get_drvdata(pdev);
+> +	struct occ_xfr *xfr;
+> +	struct occ_client *client;
+> +
+> +	occ->cancel =3D true;
+> +
+> +	spin_lock_irq(&occ->list_lock);
+> +	list_for_each_entry(xfr, &occ->xfrs, link) {
+> +		client =3D to_client(xfr);
+> +		wake_up_interruptible(&client->wait);
+
+Again, would go for just wake_up() here, and maybe wake_up_all()?
+
+Andrew
+
+> +	}
+> +	spin_unlock_irq(&occ->list_lock);
+> =C2=A0
+> -	flush_work(&occ->work);
+> =C2=A0	misc_deregister(&occ->mdev);
+> =C2=A0	device_for_each_child(&pdev->dev, NULL, occ_unregister_child);
+> +
+> +	cancel_work_sync(&occ->work);
+> +
+> =C2=A0	ida_simple_remove(&occ_ida, occ->idx);
+> =C2=A0
+> =C2=A0	return 0;
+--=-z+z93dhpuCgm/3nIRy4Y
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJZ1YRcAAoJEJ0dnzgO5LT5m5wP/1i/1s1ZGG8exGiOmYAT/DpH
-ZCt5luoQa2u0aMY8v8/4ynBroZtmh1ziwZsfTRxnpi5285nBftX/oQ0nLUm00w4P
-6qbqFzJLrbrfcZds7yiiBKldfGoSziQFgnQ/wvLfK9pZYh3aBfYnJ00m6017DOyD
-8qT2mzhccyWcY8MgIsFXuCvXAVTltvnE97pVvghjh2fPvE3ssh0AnepUcJ3gyXBn
-kanvCUTjvmhTFJs8xEw4CTCkjJieZyG5yEapG3wxUr2voEjZWqtte+1uehiRH/i3
-rU7nX/aoci+mYrohr50RVKsXBi2zEdvbMW1f0BQR8FhVvzkJX0+CVa78LzXNen+e
-38V7EmcLkz4F10P+SVqLcumfWJbOccBRdbivZPEJ2D5FwxuHYdBIJcB8CFe6jlye
-BxUti4bFp6ZF29r2xlwawlPUzFwmQcT7YFpqNjzBOIDS7PQIgXSYS2vrGg9UM6G5
-RYD2TT3VdQDJ5dN7BxbPRWbaGQ+BF4d6RPmzp3s2z4QMpGRKO8uX/VSlQbsAtpbD
-gDLS25/Aq6towOVhCnMj4R+cX9VAwq2zTwW+LD2i6VRbE49ZvDGT2VTIopDqOikL
-0YIOgjypPTUOIoSSR2PCOyghMVQQQD0f8JaFhRSHqJvqV89A3dMI5l/yd5TT28Xq
-OFTM9TL8ZF0k16sz1tkw
-=nrXY
+iQIcBAABCgAGBQJZ1YXSAAoJEJ0dnzgO5LT5WUkP/1wkwMO1esCHcCi0qvn/rYyT
+7lCJjiVtZr9qzC2npMM2yPP2pWZYWknKqJF+eCoAtpLTQGTqMyBBQB+PlMVbOsC7
+6mLX5V8E5EnAFomYM2fdDjxq2EexYdgPveiDaDMRq7tHfHWjYmV6Q8+DB+X3FluU
+QAVZOJjxxTvORjNp21O02czd3/dLHoPqjcV+XsXaYNfFRkWcc9aMvFzdpwY7Zosm
+8Is0UtiUaVKIHx45SOOuJGVhL1ItRc2kwwqzBtqjuGnlEpEWc3zJjbKyY5mg9WdW
+UbekSRhMvU3kMcrpVjDzAkdv0PSTcIIB9gubnroZaPpQCc5jTgEhINzMf5Cif3r0
+TxK2QN4y9ThzcKkmoW16woPxD8tOICDwTUHTGhynzNzJn+gvOuwv5DjNSsrS36u6
+hmvdMLw53QA33NEzuuJOJe3HspqtL2MCDiUZWK6O/1jNU9a8viFVCxN5QsoONc21
+aYwwkS5VYEW/ERtelyJ2kwymwoxyA0Kj3Eqcf+v33e2WDF9h6FW8rzsHxNrfFTl4
+D2WWoJrBLXPx5ffGnuH5oKV0s5JWujathI5NbqNudr9LiE3U2E+3uXbJIzylnDPv
+yxa9Llfpq3hMTmfsUwQR9dTMftRxFfz+sgseSX0wOELV4Zwn1qHV5AGr7RQuC0zZ
+6n59JWv87tfjt9mGmDlc
+=j65t
 -----END PGP SIGNATURE-----
 
---=-/N+zQK16m+vntxYkEs46--
+--=-z+z93dhpuCgm/3nIRy4Y--
