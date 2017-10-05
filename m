@@ -3,59 +3,59 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="F89OXMK5"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="JxpENSXY"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="XU2HN0nC"; dkim-atps=neutral
+ header.b="Sc5ABfk9"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y7RYn0bDZzDqhb
- for <openbmc@lists.ozlabs.org>; Fri,  6 Oct 2017 09:01:33 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y7Rh15lBhzDqhb
+ for <openbmc@lists.ozlabs.org>; Fri,  6 Oct 2017 09:06:57 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 8A08020EE2;
- Thu,  5 Oct 2017 18:01:30 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 3DA1B20A80;
+ Thu,  5 Oct 2017 18:06:55 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Thu, 05 Oct 2017 18:01:30 -0400
+ by compute4.internal (MEProxy); Thu, 05 Oct 2017 18:06:55 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=1yo0njl8n1piOFF+Yb1Vcpky2Sg1doatbE6nZ9u+J
- Ws=; b=F89OXMK5c9H60j+MgMYudlSkDiQJmk2SmP4wubkWXjxYS18f0qtM6ODFm
- bjRlWwy0isVieVQeGJGD+gHtAwS3JvQhuvQXOLMQuCfR/3+eXJuZLMEqFjbRBqhB
- 1QTbG3B25xOyCWFqkwLv0dbkbkKECwc8DrNy309QSkCW/mQC8qMlIJKoQAg6hGBV
- G1hXzR7LKMrVlUXJJHqgNnGna9MLmnHI4RVdMJVl6nQqj1wwIG/MpeVGcTYvJpBk
- hJ4/krlvSK9jfCNHj2hEojhHvUdNU+5vlblaaZZbZ4xCqTjgYkqFtzc9Qe2YSbTl
- YnAsWTSEu7cXecwHBHibvw8B6kKHA==
+ :x-sasl-enc; s=fm1; bh=5/XpQ+92h8SJ3V5eNxeUXib1eNJEvKXmbJjS0jdmc
+ wU=; b=JxpENSXYHnGRq7achF53FUSs1Wm5WUN+6Bpc9rbacuDCX/GC4GybEj77t
+ 23Er43Hssy6jcizOM0OP3QFmFR0896jCcsL1H7Ii9hCXESsgwiGqud8hvuSrDPyc
+ nDsVxtn73Wen9ehfBDudbW2U0FqxznXcaucszPWmmQuPhquvJZsZFd34zigEqwo+
+ aH0t3rsnMVsx1HKgnBBNjafd3Paw8/m/ckQt47evC4o0L2os/3cDYgRGYCAtxvCc
+ nJWYo/u6Vj1IV1UYQyyRYMnNgCeu7ilx0kWQR0OvNQ4s0Gj1AvLWB8GXEYGw2B6c
+ Hsa6Ra66BrMaUcl1gmKFcwwn+FseA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=1yo0njl8n1piOFF+Yb
- 1Vcpky2Sg1doatbE6nZ9u+JWs=; b=XU2HN0nCuLKIlGxoJ2laogiNAMb1YG92f0
- NGL6F9hUu2RWlxjS3Yf7SWSmHJsAzGqkGbQRZxbXDzIhRpzFSr+OtePYk1FYUaVg
- DlfcdBmHP5WJNXR0v8ao+Q1HDJSzzslNHEtyRCMJyAcFAOGO1Vi2XrLdBamepCtd
- p1HdI3ak5ShQHRg78s8ET0xBumksLcWiXmfsoneXfPBRmQ4g4Z3iwGOyss4gRNf0
- bl7TshHjpqcsfc/Sy93NOjISVXwhJX4tnGKzZKQlO2O7rqAInSvHRuKbKWx10xEI
- rjsW9n60ApSUd0YjtMo0oUmVFlJBbwb1sUpuqcRtbKbqc2RTtkaw==
-X-ME-Sender: <xms:uqvWWXG-al-MESdJzNIP3kUFwo8KkkXcpWgmq2dYsfFmNchSAI_P5w>
-X-Sasl-enc: Sl8rmIaG6vVeubS+9D9B3WwJJpMJ0OKO//JnYOTBjpwV 1507240889
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=5/XpQ+92h8SJ3V5eNx
+ eUXib1eNJEvKXmbJjS0jdmcwU=; b=Sc5ABfk9ZuQRgAQ3JQYo1Ms7Ph0URcACii
+ +P+EfHCLeGt6hR1a5vfp/wZBdEMoEELjc+jdToT+aPDX8mjhv0W71iKOKGi8p463
+ TwR3Zu6y3fCvedc0lv0Fvv+Bgxj5dAXQ2DERBkxVPtn201BSP16k1HRnDn/Qop/J
+ vFLB9cP1YmzYzSA3wovas1n/UreePkgZ7J/S5Jv7GhT2oZ5xC3THKIBw+Zjb9DvE
+ fO5/AvUfh74r0qyBXciEGVgE2p7ye1ovYMdfkJdAzS80Bd5u0209W57zrPzWsCvi
+ Ac+Vuknhzhy2ejmdqONtocge9jkwGjRw1Fx1zVrALYqPEYN8KfCg==
+X-ME-Sender: <xms:_6zWWXS8LDpLzlKXVmNQrqvLeWDhMcf1GRXxKEKtjiJEgjqeDRBZDg>
+X-Sasl-enc: /8zBwEpSpGI9dAb2PWSVH0huIZGPmEWfDLrja6tuVF5k 1507241214
 Received: from keelia (ppp14-2-13-235.bras21.adl4.internode.on.net
  [14.2.13.235])
- by mail.messagingengine.com (Postfix) with ESMTPA id C35CE242CF;
- Thu,  5 Oct 2017 18:01:28 -0400 (EDT)
-Message-ID: <1507240885.5452.87.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10 v3 09/31] drivers: fsi: sbefifo: Remove
- warning and user data access check
+ by mail.messagingengine.com (Postfix) with ESMTPA id 59BDF2489B;
+ Thu,  5 Oct 2017 18:06:53 -0400 (EDT)
+Message-ID: <1507241209.5452.89.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.10 v3 10/31] drivers: fsi: sbefifo: destroy
+ the ida list on exit
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
-Date: Fri, 06 Oct 2017 08:31:25 +1030
-In-Reply-To: <1507231464-13635-10-git-send-email-eajames@linux.vnet.ibm.com>
+Date: Fri, 06 Oct 2017 08:36:49 +1030
+In-Reply-To: <1507231464-13635-11-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1507231464-13635-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1507231464-13635-10-git-send-email-eajames@linux.vnet.ibm.com>
+ <1507231464-13635-11-git-send-email-eajames@linux.vnet.ibm.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-xXZrm9Kl6dG6GP6UO99G"
+ protocol="application/pgp-signature"; boundary="=-KX31d2KemgG02lL8/mGp"
 X-Mailer: Evolution 3.22.6-1ubuntu1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -69,77 +69,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Oct 2017 22:01:33 -0000
+X-List-Received-Date: Thu, 05 Oct 2017 22:06:58 -0000
 
 
---=-xXZrm9Kl6dG6GP6UO99G
+--=-KX31d2KemgG02lL8/mGp
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Thu, 2017-10-05 at 14:24 -0500, Eddie James wrote:
 > From: "Edward A. James" <eajames@us.ibm.com>
->=C2=A0
-> We check for user buffer access when we copy the data. No reason to
-> throw a kernel warning if there is an offset provided; just ignore it.
->=C2=A0
+>=20
+> Need to clean this up.
+>=20
 > Signed-off-by: Edward A. James <eajames@us.ibm.com>
 
 Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 
 > ---
-> =C2=A0drivers/fsi/fsi-sbefifo.c | 10 ----------
-> =C2=A01 file changed, 10 deletions(-)
->=C2=A0
+> =C2=A0drivers/fsi/fsi-sbefifo.c | 2 ++
+> =C2=A01 file changed, 2 insertions(+)
+>=20
 > diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
-> index 5efba30..60b133d 100644
+> index 60b133d..0ff5209 100644
 > --- a/drivers/fsi/fsi-sbefifo.c
 > +++ b/drivers/fsi/fsi-sbefifo.c
-> @@ -621,11 +621,6 @@ static ssize_t sbefifo_read(struct file *file, char =
-__user *buf, size_t len,
+> @@ -947,6 +947,8 @@ static int sbefifo_init(void)
+> =C2=A0static void sbefifo_exit(void)
 > =C2=A0{
-> =C2=A0	struct sbefifo_client *client =3D file->private_data;
-> =C2=A0
-> -	WARN_ON(*offset);
-> -
-> -	if (!access_ok(VERIFY_WRITE, buf, len))
-> -		return -EFAULT;
-> -
-> =C2=A0	return sbefifo_read_common(client, buf, NULL, len);
+> =C2=A0	fsi_driver_unregister(&sbefifo_drv);
+> +
+> +	ida_destroy(&sbefifo_ida);
 > =C2=A0}
 > =C2=A0
-> @@ -748,11 +743,6 @@ static ssize_t sbefifo_write(struct file *file, cons=
-t char __user *buf,
-> =C2=A0{
-> =C2=A0	struct sbefifo_client *client =3D file->private_data;
-> =C2=A0
-> -	WARN_ON(*offset);
-> -
-> -	if (!access_ok(VERIFY_READ, buf, len))
-> -		return -EFAULT;
-> -
-> =C2=A0	return sbefifo_write_common(client, buf, NULL, len);
-> =C2=A0}
-> =C2=A0
---=-xXZrm9Kl6dG6GP6UO99G
+> =C2=A0module_init(sbefifo_init);
+--=-KX31d2KemgG02lL8/mGp
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJZ1qu1AAoJEJ0dnzgO5LT5yhEQAKyUPV1Ue9aI8jTawsu5AO2Z
-g03rqw6lOPHT0h43onxfmk4GMO2R/1rp9J/TXwlwbNsyRf7ME+ah24Nzo9VQGKLO
-vqEhvls1I7Mt9ebJutiaadMEcAdPofgqUauNvEXCuDDtQxoE/zFFZBFUGmzVPkBp
-NlqwIopFtoMdh3SLLyOgzxxpv2RnF1u/0Dx199ltUjiXlIh6kIEwAfD445EvmfV+
-eQh0vieM37Cd9RLGZqtEMMchVnNsR3wMAaclh759O3dqHF6jMI2YCsVX/i50YF4m
-W7BNWUSSFhxoD/5eNra0JwfUzor2pe0lXaNvAcmo65H5QJA213t8oynbvg3+SBRM
-agW7jswt66BSE0zX7TBeDftczDwJ9mP8jQ0Pv/JcmpKnBlJKjCL/WPxQLlXgn5Z7
-nIgqc5j5zALHsbgQO7JpYqyW8X8Uz1Hwp8fCmoL9i9G0RVJx+tpm0TANY+zWRTFW
-TTAmDHHKoPJplVVWrEj/05bDVNUqNTfDMzUYCuZ5exXvhKwoaw413cuM7kl8gskP
-IQg80IOcY/adRA2uF8EhlDHlp6Y/x4Be++lrI495R7Ag5w4DD5tORTl00fBrGhwG
-Fuggz+Tc9YtMbrgz1fP/KqIFjiw8/u7VfEfSZr5xNBSDWtlSJLNTXnQCZshRQGl3
-HCP/Ta3OP0NcHNLzJ96r
-=YEIs
+iQIcBAABCgAGBQJZ1qz6AAoJEJ0dnzgO5LT5fk0P/3A7CVd7YPpxmiqRg69qKk2/
+klj6UhQGu8tB6ZNo/P7zfjqM/miqeBojPg/aRE1FgErZmbdU3vsG/Qx47mtZfWoa
+8qHh64v+IYCWjNNkUzjDO3IpgABxxh+g7+6dJl7ajsIrbEH6M4y/41BMycEcTRpC
+52omubVPeSk3HZ3PyarvMPRG/9QYOMhlE59oOLi2VBTS+R6ltR+xYkJsZNqld2RI
+XD5KEUIcHiVEWKyvJPNURaN0RLHbgApJXTdRwmyrg3Y5QAIOHvDuy08KjS8VJVmc
++TdY9rwI+ohcaWBjYFMPO7wLnwqUxifBmdiTvnrwPiqhVnd1D1MTTsMEsDdV/j7x
+cYyuAEXLj+GMimTMj3NRc9eWOYxPlFFe2Ahl13ijWdZD5Tlgf0E8SrUmKxR0/7zB
+r9kyMYrQCXNxSdtb9uhoVu4BFIvvMyh+n8FkPTjPT8KDikn3VejvZ73YuR0+Gfea
+0mmFs5WmGwfmjjw2UvHh0teU2ofx//C+SnxDbXiAxAmG2pBBCzY2gCXokRZJU3iB
+31snC0L4+TfA7AI4NBLSiWgEehHAiw7oK0YhKRC1M+mjGCaoSfsp8avrQoI9R/Fc
+sjyyknZj0IXkhfw2E/GMd39zeBi0Rvtc4UoDzUfGQzQ1FsIFf4SpqL6C9X7KOPrX
+HkFzaqlYW6t3XBqg6fEk
+=u2oV
 -----END PGP SIGNATURE-----
 
---=-xXZrm9Kl6dG6GP6UO99G--
+--=-KX31d2KemgG02lL8/mGp--
