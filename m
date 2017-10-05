@@ -1,61 +1,61 @@
 Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
  envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y7N5Q2wbpzDrFy
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y7N5R0HWtzDrJ7
  for <openbmc@lists.ozlabs.org>; Fri,  6 Oct 2017 06:25:14 +1100 (AEDT)
-Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v95JOptD047047
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v95JOTOL099279
  for <openbmc@lists.ozlabs.org>; Thu, 5 Oct 2017 15:25:11 -0400
-Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2ddr0uh6wn-1
+Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2ddqv925pf-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 05 Oct 2017 15:25:02 -0400
+ for <openbmc@lists.ozlabs.org>; Thu, 05 Oct 2017 15:25:11 -0400
 Received: from localhost
- by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 5 Oct 2017 13:24:55 -0600
-Received: from b03cxnp08028.gho.boulder.ibm.com (9.17.130.20)
- by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
+ Thu, 5 Oct 2017 13:25:11 -0600
+Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
+ by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Thu, 5 Oct 2017 13:24:52 -0600
+ Thu, 5 Oct 2017 13:25:08 -0600
 Received: from b03ledav002.gho.boulder.ibm.com
  (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
- by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v95JOqdp30802170; Thu, 5 Oct 2017 12:24:52 -0700
+ by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v95JP8Oa6554072; Thu, 5 Oct 2017 12:25:08 -0700
 Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 135AB136046;
- Thu,  5 Oct 2017 13:24:52 -0600 (MDT)
+ by IMSVA (Postfix) with ESMTP id DD30613603A;
+ Thu,  5 Oct 2017 13:25:07 -0600 (MDT)
 Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
- by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id D22B313603A;
- Thu,  5 Oct 2017 13:24:51 -0600 (MDT)
+ by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id A8627136048;
+ Thu,  5 Oct 2017 13:25:07 -0600 (MDT)
 From: Eddie James <eajames@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, andrew@aj.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10 v3 19/31] drivers: fsi: occ: Return ENODEV if
- client is NULL
-Date: Thu,  5 Oct 2017 14:24:12 -0500
+Subject: [PATCH linux dev-4.10 v3 31/31] drivers: hwmon: occ: Cancel occ
+ operations in remove()
+Date: Thu,  5 Oct 2017 14:24:24 -0500
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1507231464-13635-1-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1507231464-13635-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-TM-AS-GCONF: 00
-x-cbid: 17100519-0004-0000-0000-0000130560E4
+x-cbid: 17100519-0012-0000-0000-0000151ACF41
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00007847; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000235; SDB=6.00926924; UDB=6.00466363; IPR=6.00707180; 
+ PH=3.00000004; SC=3.00000235; SDB=6.00926924; UDB=6.00466363; IPR=6.00707179; 
  BA=6.00005623; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017410; XFM=3.00000015;
- UTC=2017-10-05 19:24:53
+ UTC=2017-10-05 19:25:09
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17100519-0005-0000-0000-0000845C47B9
-Message-Id: <1507231464-13635-20-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 17100519-0013-0000-0000-00004FC22A98
+Message-Id: <1507231464-13635-32-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-10-05_08:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -74,48 +74,109 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Oct 2017 19:25:14 -0000
+X-List-Received-Date: Thu, 05 Oct 2017 19:25:15 -0000
 
 From: "Edward A. James" <eajames@us.ibm.com>
 
-Safeguard the in-kernel api functions.
+Prevent hanging forever waiting for OCC ops to complete.
 
 Signed-off-by: Edward A. James <eajames@us.ibm.com>
 ---
- drivers/fsi/occ.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/hwmon/occ/p9_sbe.c | 35 ++++++++++++++++++++++++++++-------
+ 1 file changed, 28 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/fsi/occ.c b/drivers/fsi/occ.c
-index 55f293d..a551349 100644
---- a/drivers/fsi/occ.c
-+++ b/drivers/fsi/occ.c
-@@ -654,18 +654,27 @@ struct occ_client *occ_drv_open(struct device *dev, unsigned long flags)
+diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
+index c7e0d9c..9842e0d 100644
+--- a/drivers/hwmon/occ/p9_sbe.c
++++ b/drivers/hwmon/occ/p9_sbe.c
+@@ -14,37 +14,54 @@
+ #include <linux/platform_device.h>
+ #include <linux/occ.h>
+ #include <linux/sched.h>
++#include <linux/spinlock.h>
+ #include <linux/workqueue.h>
  
- int occ_drv_read(struct occ_client *client, char *buf, size_t len)
- {
-+	if (!client)
-+		return -ENODEV;
-+
- 	return occ_read_common(client, NULL, buf, len);
- }
- EXPORT_SYMBOL_GPL(occ_drv_read);
+ struct p9_sbe_occ {
+ 	struct occ occ;
+ 	struct device *sbe;
++	struct occ_client *client;
++	spinlock_t lock;
+ };
  
- int occ_drv_write(struct occ_client *client, const char *buf, size_t len)
- {
-+	if (!client)
-+		return -ENODEV;
-+
- 	return occ_write_common(client, NULL, buf, len);
- }
- EXPORT_SYMBOL_GPL(occ_drv_write);
+ #define to_p9_sbe_occ(x)	container_of((x), struct p9_sbe_occ, occ)
  
- void occ_drv_release(struct occ_client *client)
- {
-+	if (!client)
-+		return;
++static void p9_sbe_occ_close_client(struct p9_sbe_occ *occ)
++{
++	struct occ_client *tmp_client;
 +
- 	occ_release_common(client);
- }
- EXPORT_SYMBOL_GPL(occ_drv_release);
++	spin_lock_irq(&occ->lock);
++	tmp_client = occ->client;
++	occ->client = NULL;
++	occ_drv_release(tmp_client);
++	spin_unlock_irq(&occ->lock);
++}
++
+ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
+ {
+ 	int rc, error;
+-	struct occ_client *client;
+ 	struct occ_response *resp = &occ->resp;
+ 	struct p9_sbe_occ *p9_sbe_occ = to_p9_sbe_occ(occ);
+ 
+-	client = occ_drv_open(p9_sbe_occ->sbe, 0);
+-	if (!client) {
++	spin_lock_irq(&p9_sbe_occ->lock);
++	if (p9_sbe_occ->sbe)
++		p9_sbe_occ->client = occ_drv_open(p9_sbe_occ->sbe, 0);
++	spin_unlock_irq(&p9_sbe_occ->lock);
++
++	if (!p9_sbe_occ->client) {
+ 		rc = -ENODEV;
+ 		goto assign;
+ 	}
+ 
+-	rc = occ_drv_write(client, (const char *)&cmd[1], 7);
++	rc = occ_drv_write(p9_sbe_occ->client, (const char *)&cmd[1], 7);
+ 	if (rc < 0)
+ 		goto err;
+ 
+-	rc = occ_drv_read(client, (char *)resp, sizeof(*resp));
++	rc = occ_drv_read(p9_sbe_occ->client, (char *)resp, sizeof(*resp));
+ 	if (rc < 0)
+ 		goto err;
+ 
+-	occ_drv_release(client);
++	p9_sbe_occ_close_client(p9_sbe_occ);
+ 
+ 	switch (resp->return_status) {
+ 	case RESP_RETURN_CMD_IN_PRG:
+@@ -72,7 +89,7 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
+ 	goto done;
+ 
+ err:
+-	occ_drv_release(client);
++	p9_sbe_occ_close_client(p9_sbe_occ);
+ 	dev_err(occ->bus_dev, "occ bus op failed rc:%d\n", rc);
+ assign:
+ 	error = rc;
+@@ -132,6 +149,7 @@ static int p9_sbe_occ_probe(struct platform_device *pdev)
+ 	p9_sbe_occ->sbe = pdev->dev.parent;
+ 
+ 	occ = &p9_sbe_occ->occ;
++	spin_lock_init(&p9_sbe_occ->lock);
+ 	occ->bus_dev = &pdev->dev;
+ 	occ->groups[0] = &occ->group;
+ 	occ->poll_cmd_data = 0x20;
+@@ -152,7 +170,10 @@ static int p9_sbe_occ_probe(struct platform_device *pdev)
+ static int p9_sbe_occ_remove(struct platform_device *pdev)
+ {
+ 	struct occ *occ = platform_get_drvdata(pdev);
++	struct p9_sbe_occ *p9_sbe_occ = to_p9_sbe_occ(occ);
+ 
++	p9_sbe_occ->sbe = NULL;
++	p9_sbe_occ_close_client(p9_sbe_occ);
+ 	occ_remove_status_attrs(occ);
+ 
+ 	atomic_dec(&occ_num_occs);
 -- 
 1.8.3.1
