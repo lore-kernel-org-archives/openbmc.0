@@ -1,68 +1,63 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="oWkPnxkA"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="J7ffdaO+"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y7N5R0HWtzDrJ7
- for <openbmc@lists.ozlabs.org>; Fri,  6 Oct 2017 06:25:14 +1100 (AEDT)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v95JOTOL099279
- for <openbmc@lists.ozlabs.org>; Thu, 5 Oct 2017 15:25:11 -0400
-Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2ddqv925pf-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 05 Oct 2017 15:25:11 -0400
-Received: from localhost
- by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 5 Oct 2017 13:25:11 -0600
-Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
- by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 5 Oct 2017 13:25:08 -0600
-Received: from b03ledav002.gho.boulder.ibm.com
- (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v95JP8Oa6554072; Thu, 5 Oct 2017 12:25:08 -0700
-Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id DD30613603A;
- Thu,  5 Oct 2017 13:25:07 -0600 (MDT)
-Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
- by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id A8627136048;
- Thu,  5 Oct 2017 13:25:07 -0600 (MDT)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, andrew@aj.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10 v3 31/31] drivers: hwmon: occ: Cancel occ
- operations in remove()
-Date: Thu,  5 Oct 2017 14:24:24 -0500
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1507231464-13635-1-git-send-email-eajames@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y7QtH1dClzDqG2
+ for <openbmc@lists.ozlabs.org>; Fri,  6 Oct 2017 08:30:46 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 2D93220BC2;
+ Thu,  5 Oct 2017 17:30:42 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Thu, 05 Oct 2017 17:30:42 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=h9cJK0E/r1t4hXeIg3vkS4Wbw2S5X1WZFtnbEHEan
+ Js=; b=oWkPnxkAEt6OmHGhJuF9b+lPTuRhL0L/paW7HefAYKaPtVtmoY43YUw3+
+ KZo9V6Og3w/n22e6GmAYep/pHZtgImFFbX18iSguCfKI1o7uRrW9B16ktC8J2PCw
+ GRdGwjidDYLRB0POL8sfB+0fkGHuYFjAm/CT9B4Ro4fFyvJEYkCnDVs+uvkBoPHA
+ 7vIIB6ldae6m7cK7OGns2CMHLnC2+18z+aTLcorVBc4ENfFTuu1DswFZ5mN7K70d
+ c3R0A1MASAcPHtXiMUulS8V9tV1IW3GWSKdDNSe1iRiY7X2j9hnJJZ3uL5KrmTGy
+ zK6jLDUl2oYgofiw1rSc+/+ICmbeA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=h9cJK0E/r1t4hXeIg3
+ vkS4Wbw2S5X1WZFtnbEHEanJs=; b=J7ffdaO+PP4a1oXLS1fvfK0GTZcTKKNmmv
+ iI0yGVssbo7jvRAlBKOsIjU+IfgnqoWqIPMDzy1aArfpEscb3zwaDjm8XJMsf3T2
+ fIKuFI7nQ4rZX19vB/2oDpgc0wusTLSCecFm7eSOqz/furtVK6xkmwMj4gjDFjIY
+ Pq96BDE8+T8InZbJdR2tIjMSu1auylWFk/+2lCA8jRx36hR2Qi75gL2OCq2wUGvX
+ mrphZwC8AUhYnc60iDGblqGoSEAX9OnesbD+hNkO05Rp8BvYg/Qa99qVm0GMm2SS
+ hU8waVdz5YXa5XCJC3D+6R97NzS5nZJdgXPndbMCbAxAER0l5Sdg==
+X-ME-Sender: <xms:gqTWWY83OWYai-BQz2miH2nGxjd-HJIP6vR8NsuAmSYSfG7Wsjt5Cg>
+X-Sasl-enc: JA3YKfxVtm/Ce33+kQ/b4c/dxEEqw8GhOID4vaGeITHX 1507239041
+Received: from keelia (ppp14-2-13-235.bras21.adl4.internode.on.net
+ [14.2.13.235])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 6865E24009;
+ Thu,  5 Oct 2017 17:30:40 -0400 (EDT)
+Message-ID: <1507239034.5452.72.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.10 v3 01/31] drivers: fsi: sbefifo: Fix
+ includes
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
+Date: Fri, 06 Oct 2017 08:00:34 +1030
+In-Reply-To: <1507231464-13635-2-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1507231464-13635-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-TM-AS-GCONF: 00
-x-cbid: 17100519-0012-0000-0000-0000151ACF41
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007847; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000235; SDB=6.00926924; UDB=6.00466363; IPR=6.00707179; 
- BA=6.00005623; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017410; XFM=3.00000015;
- UTC=2017-10-05 19:25:09
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17100519-0013-0000-0000-00004FC22A98
-Message-Id: <1507231464-13635-32-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-10-05_08:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
- definitions=main-1710050269
+ <1507231464-13635-2-git-send-email-eajames@linux.vnet.ibm.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-afnnS9GS3VrQqfa4Sg9f"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -74,109 +69,80 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Oct 2017 19:25:15 -0000
+X-List-Received-Date: Thu, 05 Oct 2017 21:30:49 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
 
-Prevent hanging forever waiting for OCC ops to complete.
+--=-afnnS9GS3VrQqfa4Sg9f
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
----
- drivers/hwmon/occ/p9_sbe.c | 35 ++++++++++++++++++++++++++++-------
- 1 file changed, 28 insertions(+), 7 deletions(-)
+On Thu, 2017-10-05 at 14:23 -0500, Eddie James wrote:
+> From: "Edward A. James" <eajames@us.ibm.com>
+>=C2=A0
+> Need to include everything we use and not rely on recursive includes.
+>=C2=A0
+> Signed-off-by: Edward A. James <eajames@us.ibm.com>
 
-diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
-index c7e0d9c..9842e0d 100644
---- a/drivers/hwmon/occ/p9_sbe.c
-+++ b/drivers/hwmon/occ/p9_sbe.c
-@@ -14,37 +14,54 @@
- #include <linux/platform_device.h>
- #include <linux/occ.h>
- #include <linux/sched.h>
-+#include <linux/spinlock.h>
- #include <linux/workqueue.h>
- 
- struct p9_sbe_occ {
- 	struct occ occ;
- 	struct device *sbe;
-+	struct occ_client *client;
-+	spinlock_t lock;
- };
- 
- #define to_p9_sbe_occ(x)	container_of((x), struct p9_sbe_occ, occ)
- 
-+static void p9_sbe_occ_close_client(struct p9_sbe_occ *occ)
-+{
-+	struct occ_client *tmp_client;
-+
-+	spin_lock_irq(&occ->lock);
-+	tmp_client = occ->client;
-+	occ->client = NULL;
-+	occ_drv_release(tmp_client);
-+	spin_unlock_irq(&occ->lock);
-+}
-+
- static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
- {
- 	int rc, error;
--	struct occ_client *client;
- 	struct occ_response *resp = &occ->resp;
- 	struct p9_sbe_occ *p9_sbe_occ = to_p9_sbe_occ(occ);
- 
--	client = occ_drv_open(p9_sbe_occ->sbe, 0);
--	if (!client) {
-+	spin_lock_irq(&p9_sbe_occ->lock);
-+	if (p9_sbe_occ->sbe)
-+		p9_sbe_occ->client = occ_drv_open(p9_sbe_occ->sbe, 0);
-+	spin_unlock_irq(&p9_sbe_occ->lock);
-+
-+	if (!p9_sbe_occ->client) {
- 		rc = -ENODEV;
- 		goto assign;
- 	}
- 
--	rc = occ_drv_write(client, (const char *)&cmd[1], 7);
-+	rc = occ_drv_write(p9_sbe_occ->client, (const char *)&cmd[1], 7);
- 	if (rc < 0)
- 		goto err;
- 
--	rc = occ_drv_read(client, (char *)resp, sizeof(*resp));
-+	rc = occ_drv_read(p9_sbe_occ->client, (char *)resp, sizeof(*resp));
- 	if (rc < 0)
- 		goto err;
- 
--	occ_drv_release(client);
-+	p9_sbe_occ_close_client(p9_sbe_occ);
- 
- 	switch (resp->return_status) {
- 	case RESP_RETURN_CMD_IN_PRG:
-@@ -72,7 +89,7 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
- 	goto done;
- 
- err:
--	occ_drv_release(client);
-+	p9_sbe_occ_close_client(p9_sbe_occ);
- 	dev_err(occ->bus_dev, "occ bus op failed rc:%d\n", rc);
- assign:
- 	error = rc;
-@@ -132,6 +149,7 @@ static int p9_sbe_occ_probe(struct platform_device *pdev)
- 	p9_sbe_occ->sbe = pdev->dev.parent;
- 
- 	occ = &p9_sbe_occ->occ;
-+	spin_lock_init(&p9_sbe_occ->lock);
- 	occ->bus_dev = &pdev->dev;
- 	occ->groups[0] = &occ->group;
- 	occ->poll_cmd_data = 0x20;
-@@ -152,7 +170,10 @@ static int p9_sbe_occ_probe(struct platform_device *pdev)
- static int p9_sbe_occ_remove(struct platform_device *pdev)
- {
- 	struct occ *occ = platform_get_drvdata(pdev);
-+	struct p9_sbe_occ *p9_sbe_occ = to_p9_sbe_occ(occ);
- 
-+	p9_sbe_occ->sbe = NULL;
-+	p9_sbe_occ_close_client(p9_sbe_occ);
- 	occ_remove_status_attrs(occ);
- 
- 	atomic_dec(&occ_num_occs);
--- 
-1.8.3.1
+Acked-by: Andrew Jeffery <andrew@aj.id.au>
+
+> ---
+> =C2=A0drivers/fsi/fsi-sbefifo.c | 11 +++++++++--
+> =C2=A01 file changed, 9 insertions(+), 2 deletions(-)
+>=C2=A0
+> diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
+> index 1c37ff7..6fa75a8 100644
+> --- a/drivers/fsi/fsi-sbefifo.c
+> +++ b/drivers/fsi/fsi-sbefifo.c
+> @@ -11,20 +11,27 @@
+> =C2=A0 * GNU General Public License for more details.
+> =C2=A0 */
+> =C2=A0
+> -#include <linux/delay.h>
+> +#include <linux/device.h>
+> =C2=A0#include <linux/errno.h>
+> -#include <linux/idr.h>
+> +#include <linux/fs.h>
+> =C2=A0#include <linux/fsi.h>
+> +#include <linux/fsi-sbefifo.h>
+> +#include <linux/idr.h>
+> +#include <linux/kernel.h>
+> +#include <linux/kref.h>
+> =C2=A0#include <linux/list.h>
+> =C2=A0#include <linux/miscdevice.h>
+> =C2=A0#include <linux/module.h>
+> =C2=A0#include <linux/of.h>
+> +#include <linux/of_device.h>
+> =C2=A0#include <linux/of_platform.h>
+> =C2=A0#include <linux/poll.h>
+> =C2=A0#include <linux/sched.h>
+> =C2=A0#include <linux/slab.h>
+> +#include <linux/spinlock.h>
+> =C2=A0#include <linux/timer.h>
+> =C2=A0#include <linux/uaccess.h>
+> +#include <linux/wait.h>
+> =C2=A0
+> =C2=A0/*
+> =C2=A0 * The SBEFIFO is a pipe-like FSI device for communicating with
+--=-afnnS9GS3VrQqfa4Sg9f
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZ1qR6AAoJEJ0dnzgO5LT5AsQP/2XdBWv2tYNQefN0cku2JM7g
+ylRp29iZRXXCzKCkTlF6ovJDb8B7/t+4E2hSDETZn2QAqGteGZTAXtnOmLpAerIE
+fLCkLYpIuMSbkcyF5zcc7GqEvj4ws/y4iSj0CR5i/R3Y9nFgaP+/BoFbYm29veNF
+toI3H/mrwhQR6SkDuC1XhZ1Svughg4qBjfQ0XrCMMdB1kAUtm8OMonA1Y10N6vKJ
+9+2EBUyMv9VH+AEnyuwOoCmPYPkQCN1fQQ7u5HKvbqqXn5+AJAyIk0xPa6e3FpJO
+tfb8O6tPQDlBBZuVmMNCfd4SJmmHz29vZAeNQx9JjfddnURjAjD0F8JGP6kKv6r3
+LQLYfawsVsz/Rj7JuWQA4FXuLWLowef6M+hQKwMmxG465LR7d2UVEYF9KgoBBkL7
+P6NoJKZll1w97Y0rVMoy/bIEccsijgjTYE8OSRF60RiWpSM42gtLkbuvSE0vSmJd
+M4Sw0bQiuw3dvq3GxCrAempeexxGag4mpwH6qCglSFq8aEZVXeF5Ajv8be3HbBzg
+SUzFG1X5ArJgXddq3GuYibtI4QoaYzMf39FFUyD/l+K007QQ5we5JJBa9nb6s0HO
+brvgnd08TEoNcaocde6/mkcVy/7y9aYWO7MA3mOmjsty3A2fZCBjFdaXLwa/+NfN
+H6153pWLVZZ1ZCCsbzVF
+=32da
+-----END PGP SIGNATURE-----
+
+--=-afnnS9GS3VrQqfa4Sg9f--
