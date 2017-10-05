@@ -3,59 +3,59 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="hPylXipU"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="sZ8SliBv"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="TO2rn7qQ"; dkim-atps=neutral
+ header.b="CusYbiEc"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y7RMJ249VzDqG2
- for <openbmc@lists.ozlabs.org>; Fri,  6 Oct 2017 08:52:28 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y7RTl3wptzDqG2
+ for <openbmc@lists.ozlabs.org>; Fri,  6 Oct 2017 08:58:03 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 3FC1620A64;
- Thu,  5 Oct 2017 17:52:26 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 71C9E20C42;
+ Thu,  5 Oct 2017 17:58:01 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Thu, 05 Oct 2017 17:52:26 -0400
+ by compute4.internal (MEProxy); Thu, 05 Oct 2017 17:58:01 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=5bHP99AmIMXi0ld8v34QNCWwraSVPqXxO8nI6Feyv
- 54=; b=hPylXipU97F7ArLPObSITUutiaWUMPV/zAEOMQhQoAuyVprHE7JX0uXl5
- R1p1DWF4Q7cvhd6U75kSzBEKdjn5Q5qqYFxVYX8AASeAF3J36w/Cm9iOGffc52Fg
- AfmmG4IYYgGL9WeQiLDB3P2T+CjWc6k26+9AygTxZF4nWaJNrLtSYM993vZqUJkW
- 6CiEfch6uCvU2hpgWYTkChMP5N0AJmHSuEvGVARlhYg4O6ulEqrFGeDo/T3vZ8wT
- 7oSR8hcLn5y7OhMvgym+HjxbW80g8L1yE3218gFn6rd4g49CEiya34auj2+c0C1c
- Ws/OSdFbcdVHXJJ9VSqb1VNokquEQ==
+ :x-sasl-enc; s=fm1; bh=ogOxL+mGcULRy/3xoFn9eecq292doFXw7FgNkPery
+ 4Q=; b=sZ8SliBv8eKhM6U9LDX83B/b4mAdgmziTktULBsJQavfaChT5686uLsdF
+ chcbcSgXDSEAWEMwMWxlMwNtM2sutxfVrquO6LAcQagXtdyOmNx0PzhNSV5XW4i9
+ 0zWighFenxLJ0Tnf8N2HY6gfW+ycRYLrvsO+c0CgxmIw5SEyfnQYo3yj5maXCkng
+ upwWXETiEnJPyc+8MZ4KpjRsLDF/NiYG+Sc3vNgkw0IG17M4mU6z7Cl0wlsLqX2L
+ t5aGj0KDyXFh7IqctLCAExBeihZNgOD/Z9YDti1X/VGSpxmbvHyIdXSfbN/GVAz2
+ wLdHiJnrrzzDLWWfXpd3vX5jlVT6g==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=5bHP99AmIMXi0ld8v3
- 4QNCWwraSVPqXxO8nI6Feyv54=; b=TO2rn7qQFconnrCqEen8cDC2Z83AgIMNzk
- 77UuUxJmBUcrhL5FJjWqZToxlK2cy4+k8yN/Y35p0bF2QXmSz9+vg/dyzl20irS8
- KE6qJFbzst7NK1ApWJAk9mv+LmXI28hKS+fXQWdnnupbmqBpr0vJQ1b5he6ij+n0
- impllfrfLYdPcGmlXaAtTuDySbCLbgHW2y7HoVaBGhp5TZjbGjeCfDRYHbYhuXkb
- Ea3nVaaI/aGeDjCBnCo7ek5g7jyStN41Oj7bKznsQ0RiLv0U+Q9UOJbAi/8esvS9
- 1Dy31fIecjj1WZ9Rz0eGsOIp9Wb2qk/XQ5eZmWDu2/jRj49zfW0A==
-X-ME-Sender: <xms:mqnWWY0hIqfwI4PDTAjK7blQKgzshWWIMscwhzSGOgifo-blIfgN5g>
-X-Sasl-enc: J4R/OfLWOYkBU7l8//A+iGIiBKDTSciRU6ViwTE9vgqj 1507240345
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=ogOxL+mGcULRy/3xoF
+ n9eecq292doFXw7FgNkPery4Q=; b=CusYbiEcKl782zPq372F6FfNVa6zY3LNRH
+ h/ae1O1zeqF3H+dhSFgcvcBBCl1Y3T94ZCYRuQWyUFjfkjrvBPKeVfu9Ojz9siHn
+ S8r4XLy4wYAhYjJSpn6ZxWKgzzy1C54apuvG7gFC/WhmEQRlbG7g2Un4pDistQw3
+ szLFRR4wgBu67fss8MSOKnefyOHn8kyzexL7dSVH+MT9rbRBsTYBJgqQqOk6+5Qo
+ zcgK2SbDtqdeSsE8wKp/6/iR6gJ5AqzUQtdoxANIZ1FDMH7YMPX5YzmU20LgZ+kF
+ NRYBbEVzgcCxVrd8OQLrdi2AxJdps9jrwM+N20NS85VpDW/krWgQ==
+X-ME-Sender: <xms:6arWWTg1hkMyumSIHs4J7XR91nja_JKFzXjo22EXQgaJcut8NNzXug>
+X-Sasl-enc: cpwGcwQg4FvhX+BZA7BXT1YRnbluQc84YBKIssy2dhAF 1507240680
 Received: from keelia (ppp14-2-13-235.bras21.adl4.internode.on.net
  [14.2.13.235])
- by mail.messagingengine.com (Postfix) with ESMTPA id 79DDB24772;
- Thu,  5 Oct 2017 17:52:24 -0400 (EDT)
-Message-ID: <1507240338.5452.82.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10 v3 07/31] drivers: fsi: sbefifo: Use goto
- to reduce put statements
+ by mail.messagingengine.com (Postfix) with ESMTPA id B12142489B;
+ Thu,  5 Oct 2017 17:57:59 -0400 (EDT)
+Message-ID: <1507240676.5452.85.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.10 v3 08/31] drivers: fsi: sbefifo: Do an
+ earlier get_client call
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
-Date: Fri, 06 Oct 2017 08:22:18 +1030
-In-Reply-To: <1507231464-13635-8-git-send-email-eajames@linux.vnet.ibm.com>
+Date: Fri, 06 Oct 2017 08:27:56 +1030
+In-Reply-To: <1507231464-13635-9-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1507231464-13635-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1507231464-13635-8-git-send-email-eajames@linux.vnet.ibm.com>
+ <1507231464-13635-9-git-send-email-eajames@linux.vnet.ibm.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-TzjeZuVxY5+0D0bRbcn3"
+ protocol="application/pgp-signature"; boundary="=-nYQ9RNrec1RQOB/5UH5h"
 X-Mailer: Evolution 3.22.6-1ubuntu1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -69,152 +69,88 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Oct 2017 21:52:28 -0000
+X-List-Received-Date: Thu, 05 Oct 2017 21:58:04 -0000
 
 
---=-TzjeZuVxY5+0D0bRbcn3
+--=-nYQ9RNrec1RQOB/5UH5h
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Thu, 2017-10-05 at 14:24 -0500, Eddie James wrote:
 > From: "Edward A. James" <eajames@us.ibm.com>
 >=C2=A0
-> Use a goto in the read() and write() functions so that we can just have
-> one get_client and put_client statement.
+> Get client before we start using it.
 >=C2=A0
 > Signed-off-by: Edward A. James <eajames@us.ibm.com>
 
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+I still think the refounting of clients is a bit odd, but if we need to do
+it this seems reasonable.
+
+Acked-by: Andrew Jeffery <andrew@aj.id.au>
 
 > ---
-> =C2=A0drivers/fsi/fsi-sbefifo.c | 35 ++++++++++++++++++-----------------
-> =C2=A01 file changed, 18 insertions(+), 17 deletions(-)
+> =C2=A0drivers/fsi/fsi-sbefifo.c | 9 +++++----
+> =C2=A01 file changed, 5 insertions(+), 4 deletions(-)
 >=C2=A0
 > diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
-> index 173cd03..a5bdc75 100644
+> index a5bdc75..5efba30 100644
 > --- a/drivers/fsi/fsi-sbefifo.c
 > +++ b/drivers/fsi/fsi-sbefifo.c
-> @@ -565,22 +565,21 @@ static ssize_t sbefifo_read_common(struct sbefifo_c=
-lient *client,
-> =C2=A0	if (wait_event_interruptible(sbefifo->wait,
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0sbefifo_read_ready(sbefifo, clien=
-t, &n,
-> =C2=A0							&ret))) {
-> -		sbefifo_put_client(client);
-> -		return -ERESTARTSYS;
-> +		ret =3D -ERESTARTSYS;
-> +		goto out;
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	if (ret) {
-> =C2=A0		INIT_LIST_HEAD(&client->xfrs);
-> -		sbefifo_put_client(client);
-> -		return ret;
-> +		goto out;
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	n =3D min_t(size_t, n, len);
-> =C2=A0
-> =C2=A0	if (ubuf) {
-> =C2=A0		if (copy_to_user(ubuf, READ_ONCE(client->rbuf.rpos), n)) {
-> -			sbefifo_put_client(client);
-> -			return -EFAULT;
-> +			ret =3D -EFAULT;
-> +			goto out;
-> =C2=A0		}
-> =C2=A0	} else {
-> =C2=A0		memcpy(kbuf, READ_ONCE(client->rbuf.rpos), n);
-> @@ -592,8 +591,8 @@ static ssize_t sbefifo_read_common(struct sbefifo_cli=
-ent *client,
-> =C2=A0		if (!xfr) {
-> =C2=A0			/* should be impossible to not have an xfr here */
-> =C2=A0			WARN_ONCE(1, "no xfr in queue");
-> -			sbefifo_put_client(client);
-> -			return -EPROTO;
-> +			ret =3D -EPROTO;
-> +			goto out;
-> =C2=A0		}
-> =C2=A0
-> =C2=A0		if (!test_bit(SBEFIFO_XFR_COMPLETE, &xfr->flags)) {
-> @@ -610,9 +609,11 @@ static ssize_t sbefifo_read_common(struct sbefifo_cl=
+> @@ -656,6 +656,7 @@ static ssize_t sbefifo_write_common(struct sbefifo_cl=
 ient *client,
-> =C2=A0		}
-> =C2=A0	}
+> =C2=A0	if (!len)
+> =C2=A0		return 0;
 > =C2=A0
-> -	sbefifo_put_client(client);
-> +	ret =3D n;
+> +	sbefifo_get_client(client);
+> =C2=A0	n =3D sbefifo_buf_nbwriteable(&client->wbuf);
 > =C2=A0
-> -	return n;
-> +out:
-> +	sbefifo_put_client(client);
-> +	return ret;
-> =C2=A0}
-> =C2=A0
-> =C2=A0static ssize_t sbefifo_read(struct file *file, char __user *buf, si=
-ze_t len,
-> @@ -689,14 +690,14 @@ static ssize_t sbefifo_write_common(struct sbefifo_=
+> =C2=A0	spin_lock_irq(&sbefifo->lock);
+> @@ -663,19 +664,19 @@ static ssize_t sbefifo_write_common(struct sbefifo_=
 client *client,
-> =C2=A0			if (mod_timer(&sbefifo->poll_timer, jiffies))
-> =C2=A0				sbefifo_put(sbefifo);
 > =C2=A0
-> -			sbefifo_put_client(client);
-> -			return -ERESTARTSYS;
-> +			ret =3D -ERESTARTSYS;
-> +			goto out;
-> =C2=A0		}
-> =C2=A0
-> =C2=A0		if (sbefifo->rc) {
-> =C2=A0			INIT_LIST_HEAD(&client->xfrs);
-> -			sbefifo_put_client(client);
-> -			return sbefifo->rc;
-> +			ret =3D sbefifo->rc;
-> +			goto out;
-> =C2=A0		}
-> =C2=A0
-> =C2=A0		n =3D min_t(size_t, n, len);
-> @@ -708,8 +709,8 @@ static ssize_t sbefifo_write_common(struct sbefifo_cl=
-ient *client,
-> =C2=A0				sbefifo_get(sbefifo);
-> =C2=A0				if (mod_timer(&sbefifo->poll_timer, jiffies))
-> =C2=A0					sbefifo_put(sbefifo);
-> -				sbefifo_put_client(client);
-> -				return -EFAULT;
-> +				ret =3D -EFAULT;
-> +				goto out;
-> =C2=A0			}
-> =C2=A0
-> =C2=A0			ubuf +=3D n;
-> @@ -736,8 +737,8 @@ static ssize_t sbefifo_write_common(struct sbefifo_cl=
-ient *client,
-> =C2=A0			sbefifo_put(sbefifo);
+> =C2=A0	if ((client->f_flags & O_NONBLOCK) && xfr && n < len) {
+> =C2=A0		spin_unlock_irq(&sbefifo->lock);
+> -		return -EAGAIN;
+> +		ret =3D -EAGAIN;
+> +		goto out;
 > =C2=A0	}
 > =C2=A0
-> +out:
-> =C2=A0	sbefifo_put_client(client);
-> -
-> =C2=A0	return ret;
-> =C2=A0}
+> =C2=A0	xfr =3D sbefifo_enq_xfr(client);
+> =C2=A0	if (!xfr) {
+> =C2=A0		spin_unlock_irq(&sbefifo->lock);
+> -		return -ENOMEM;
+> +		ret =3D -ENOMEM;
+> +		goto out;
+> =C2=A0	}
 > =C2=A0
---=-TzjeZuVxY5+0D0bRbcn3
+> =C2=A0	spin_unlock_irq(&sbefifo->lock);
+> =C2=A0
+> -	sbefifo_get_client(client);
+> -
+> =C2=A0	/*
+> =C2=A0	=C2=A0* Partial writes are not really allowed in that EOT is sent =
+exactly
+> =C2=A0	=C2=A0* once per write.
+--=-nYQ9RNrec1RQOB/5UH5h
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJZ1qmTAAoJEJ0dnzgO5LT5n84P/0HZA4r3hJTBtcIDwxuLzHBW
-/MDUTJ2TUdEQBlCSDDmEFi4ECUgXfd+mcMlpWvDrv9VPKIgSyCfnXR1/dcj0x0db
-YJBiw/CWsaW5YZgx/Rr353XQCvhLPRezpnVV0Z5fHUU8EiNy17VH2JdJhuGJdnZk
-ewGqCmYaRidrURBREfHyZhDQv75Plhx70Lp3jbcGC+kVfmVJ5NJX9m3KdYVVgZdE
-+8to9eDI1c5Pe8N/xjC/pBBH65XrwxslAdAKRyxtt3QgnrvKu03t2gG82oOaeQSS
-QJ/PonoFKYDaI0SUoPM76PFEdrjgN7OW94xTCMcZOFYplPOq5vSLyKADbThXIkiB
-7Ld6+V19SoGaUXqny992IC35anTfWny+gT8/hVU8zaprx+lXBLgWBG9Z7wKaC+PZ
-i0aws4CAh0/8OC2fiiDpAhN/hf94316bUXUlTOAlgsLGiBUmvgbVl/7GRWtucMEJ
-i1hq0b2MSzu/5u2XaxwAe4tfOLu+TFOJe74/H30XDDLr6+EjtZ5HcBEitl2/1QYB
-ugKbPswdxJ/8Vqk6ThFVESv/qoaP2uVvBrk5Ew/JejNl8IlWgOXYOMKlvVqNtEDa
-j3Ldjpx4kqrIkUKqQ8PDNzSDW0iL/WgYCmABb9KkiINESdHVlQ0OihC+e7v479Sl
-anLJUa/6lAYxm7MeAS3v
-=em7G
+iQIcBAABCgAGBQJZ1qrkAAoJEJ0dnzgO5LT5HuUP/RTVxTzNr0mVtmM3jjmvqnSY
+YKOwDIHrQ/jOc8vgxzHyR5QVElIi2ZgirpaxKHw0QLkKniLwf2EeZSdfv7pkCFav
+ww4wQ1HVDYORAtTVHkIyYTPPm2l8+BIWKRSd07WWQSgI7Vx05pmpOU/OWrmkOUIJ
+mpmT8EVqrJEYgTPnWvv5WE1r8/O8ETM5yE9wLBJY1QXRcixu70FuqvoL0a63xW9I
+IUjh8sX/qZ55giduZbfHBqIqUyA8idyDuqHVteh6PlMb4e/6KREUbYWe98I5cOlD
+gmoHWdJffrqBSNhOnZsjuv5bvkNouzBE3nRrWK3S3IzidaZk9E/jOlgek9XJA5Hr
++y2tVH6GA0dA/PTmD7Owc7/U85jmJ1rH/U8dmwgGjdj1ZzjgbTP+nuYSGC+bbMpL
+74tnjvty2GOZ6o+twf+1JUdlcA2tfIRWZ2YnfSYO3ZWRlLgSn79renpWCxtWAwuI
+nmNCgzH3w4xvtlbRq6rNBEbr3rAXNErjWIFFujFj1Nqt0cMjPyTHkm5x74YwehNq
+2M48cMLf0+ZoN2Ftnrwbkxj60sgJiSU5tb9PYy5C5k1Aqsxhlt+iLK1WIiEn/0bH
+7UxdhLcbaAQmJzgV2J5bf8R49MgOH5Xgq0y3LW2eGhV2KUvhw2tnQK9p+5mGkqbd
+7eq7J0g/bxGQH9LM+dd9
+=PcnG
 -----END PGP SIGNATURE-----
 
---=-TzjeZuVxY5+0D0bRbcn3--
+--=-nYQ9RNrec1RQOB/5UH5h--
