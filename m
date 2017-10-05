@@ -3,59 +3,59 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="UpKYvzGl"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="RcePZrgI"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Y2TgwNSF"; dkim-atps=neutral
+ header.b="U+PGzwN7"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y6tDN0S6RzDr01
- for <openbmc@lists.ozlabs.org>; Thu,  5 Oct 2017 10:59:31 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y6tyf21VPzDqnG
+ for <openbmc@lists.ozlabs.org>; Thu,  5 Oct 2017 11:32:40 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 5B66420C21;
- Wed,  4 Oct 2017 19:59:29 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id DCD6720CEB;
+ Wed,  4 Oct 2017 20:32:37 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Wed, 04 Oct 2017 19:59:29 -0400
+ by compute4.internal (MEProxy); Wed, 04 Oct 2017 20:32:37 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=urkLYnJydqUcDMqWzKjBg2Tdk74Oeo96e6bDe4fpR
- wI=; b=UpKYvzGlAB79RZhp5IVUpdFiIGc7IsN0Q4C8be7vQo/xvz9TinmROMW3A
- GcJkF/zeOzf0KKISol5mXNZq3px6vLndcLHZWCB5uK4m4prEnaHcx1u8sxPC+PrX
- Ezud5aG1EUAw9M7CVHPyjrw2+L54DMrlPVFGwUm2N0UKQYyMr6f4RlN2UhONSwQs
- bFFd5IM/yd754AYMRYMWvryrCVAhT6k59y41T+rIoM4of0491b8JYMNdKfwGVzz2
- HJRx8w0NgeOs7789nHsKAwA2zhCYkJ6aiICVRbBe3mjTw5Eyk2Ys662Q8p4XbtcT
- 3iiXpjm9TJGkB8NpoRN8frEeIDuJw==
+ :x-sasl-enc; s=fm1; bh=U1Wbu/JlQw0Y25uJt/HLMEwSDXMCMVfkt7yp6rKK1
+ kA=; b=RcePZrgIFPQWYYWgL9m9TG3fwYhl7J0jY1fP5cQTyx/zWX9mVBX4smrki
+ 8oZ0RORwZxZ4HQxRPqU7NrFtre9N2h2scPWfXihlCX//tNXxttX72u+0VyrGyCDe
+ gqbx75QHQ6oVFgn7LSp9C/Tuq4cqfLyc3cz2/l9iqWglv4LOIZ0bV7KFDxzB3Ok4
+ PJwEVBAje9+rl2YRNkxC9jO6iIsMICQb6/cJNOkJdZm9mLnUl/+OkiYOKkQOrlKC
+ yTfFzDonFTZyCl1qDLY+fduIRAjJKKR3kZZyoPr5GwTGl8cyJRqU9CQxVo8MJVcj
+ JPITDx5sLkAPIBseHKo+LRzbKXJXA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=urkLYnJydqUcDMqWzK
- jBg2Tdk74Oeo96e6bDe4fpRwI=; b=Y2TgwNSF23VyhXyp4UbG8Ukt6u1K5Ij5MU
- MIZdj7G17KwFex5+FW1swOpMrOkB2J/af5vfx/bkKMIXQnQFeibvHH5H0HIbSVQT
- dSMUw/QhiCghCVkgmegXqhClAheCTBmMmtj68sy7TvAh51k9x4o+IeBquk4VZw8O
- rmJqkc/CS/EcFZc6D7tWxdeZQ58suBlZ6ZrBjEF7lz6nn5WyJ0CVAfeBruXfyXOW
- 3vIzpaPp6KWd9C0XfGFtxsXLLkVKWTWsV/22ZAw9w1TvNkGza7t7zznXXIqHDBQM
- Zbti6roY20uIWJ9Fy5uIzU0ek8eS8VBOmHLBWj9M31jWTIoqKUtA==
-X-ME-Sender: <xms:4XXVWWAJYuiMzbSY_3u3t6fmx124DxpT0jEsC5gL4o0hQ8ghmQnmDg>
-X-Sasl-enc: gN5eW7pTs3S4mrrGmrcKuNQ6t8+RZfTQ2Fpj4Btap10J 1507161568
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=U1Wbu/JlQw0Y25uJt/
+ HLMEwSDXMCMVfkt7yp6rKK1kA=; b=U+PGzwN75TalwOUV4DAf41FMj72PcbgM3y
+ EF/mh+qjD1xGHwNxhWgueOKaMF+0hHVKKJ2IlQV9e6eseiAGrak00sVB6SvNsP6o
+ kaNfTaopShm38PEO9Raj9I7U/4YMPWXN9sRyfwzqOf9B0XjZWiJ4pHvFDpx3bNg/
+ 2CNUDgii6asxC5Nvh0j/rN1m9dqL0bBgaB1PkJBWX1hiWSM1S3JUFC9MsRx/Ey76
+ Ox2TMzreVM+mD2G/a7Abbh4bBKh4ZfA3AJj55iQFpvsakSTSCEDotDr9yIEeKmQ1
+ dX3PDR8kEfpUTF0HiTHx4Pm+1c1zhrZXKb5iTWkZVxrZN/Q39VyA==
+X-ME-Sender: <xms:pX3VWav_IELid_o7aS9eD5UiwwD4yj6BeZgq8thEyMF6X5wZ-RRbHw>
+X-Sasl-enc: N9jSoqTzyQrDpnFQJqS5COZbS9NHixRVNMlWBHM9zurM 1507163556
 Received: from keelia (ppp14-2-13-235.bras21.adl4.internode.on.net
  [14.2.13.235])
- by mail.messagingengine.com (Postfix) with ESMTPA id 4ED2024870;
- Wed,  4 Oct 2017 19:59:26 -0400 (EDT)
-Message-ID: <1507161563.5452.39.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10 v2 1/9] drivers: fsi: SBEFIFO: General
- clean-up
+ by mail.messagingengine.com (Postfix) with ESMTPA id 9DDA724772;
+ Wed,  4 Oct 2017 20:32:35 -0400 (EDT)
+Message-ID: <1507163549.5452.42.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.10 v2 2/9] drivers: fsi: SBEFIFO: Fix
+ probe() and remove()
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
-Date: Thu, 05 Oct 2017 10:29:23 +1030
-In-Reply-To: <1506724868-13010-2-git-send-email-eajames@linux.vnet.ibm.com>
+Date: Thu, 05 Oct 2017 11:02:29 +1030
+In-Reply-To: <1506724868-13010-3-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1506724868-13010-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1506724868-13010-2-git-send-email-eajames@linux.vnet.ibm.com>
+ <1506724868-13010-3-git-send-email-eajames@linux.vnet.ibm.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-8zjAFH3cZ7t0axF7AwTD"
+ protocol="application/pgp-signature"; boundary="=-E11IGRD70dNLV93Z232U"
 X-Mailer: Evolution 3.22.6-1ubuntu1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -69,638 +69,268 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 Oct 2017 23:59:32 -0000
+X-List-Received-Date: Thu, 05 Oct 2017 00:32:44 -0000
 
 
---=-8zjAFH3cZ7t0axF7AwTD
+--=-E11IGRD70dNLV93Z232U
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Fri, 2017-09-29 at 17:41 -0500, Eddie James wrote:
 > From: "Edward A. James" <eajames@us.ibm.com>
 >=C2=A0
-> Correct formatting and improve the flow a bit. Remove warnings for
-> offset in read/write functions, and remove the user pointer verification
-> since the copy_from/to_user will do that anyway. Correct the include
-> guards in the header file.
+> Probe didn't handle a failed misc device registration properly. Remove
+> had the potential for hangs. Also, remove the list of SBEFIFOs and
+> instead just use the device "driver data" pointer.
 
-This is similar to what I complained about last time, just without bullet
-points in the description.
-
-I tried to read the diff but really struggled to make sense of it. Keeping
-track of the added/removed/changed functions - amongst formatting and contr=
-ol
-flow changes - to decide whether they were appropriate is just *really*
-difficult, and I can't say with confidence that as a whole this patch is ok=
-ay.
-
-So, apologies, but I don't plan on acking this as it stands, and I don't th=
-ink
-it should be submitted unless several people are ready to weld Tested-by ta=
-gs
-to it.
-
-Andrew
+What was the purpose of the list of SBEFIFOs? Are we losing something from =
+the
+intended design here? The list could be stored in the driver data pointer
+right?
 
 >=C2=A0
 > Signed-off-by: Edward A. James <eajames@us.ibm.com>
 > ---
-> =C2=A0drivers/fsi/fsi-sbefifo.c=C2=A0=C2=A0=C2=A0| 207 ++++++++++++++++++=
-+++++++-------------------
-> =C2=A0include/linux/fsi-sbefifo.h |=C2=A0=C2=A0=C2=A06 +-
-> =C2=A02 files changed, 119 insertions(+), 94 deletions(-)
+> =C2=A0drivers/fsi/fsi-sbefifo.c | 109 ++++++++++++++++++++++-------------=
+-----------
+> =C2=A01 file changed, 52 insertions(+), 57 deletions(-)
 >=C2=A0
 > diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
-> index 1c37ff7..a4cd353 100644
+> index a4cd353..fa34bd8 100644
 > --- a/drivers/fsi/fsi-sbefifo.c
 > +++ b/drivers/fsi/fsi-sbefifo.c
-> @@ -11,20 +11,27 @@
-> =C2=A0 * GNU General Public License for more details.
-> =C2=A0 */
-> =C2=A0
-> -#include <linux/delay.h>
-> +#include <linux/device.h>
-> =C2=A0#include <linux/errno.h>
-> -#include <linux/idr.h>
-> +#include <linux/fs.h>
-> =C2=A0#include <linux/fsi.h>
-> +#include <linux/fsi-sbefifo.h>
-> +#include <linux/idr.h>
-> +#include <linux/kernel.h>
-> +#include <linux/kref.h>
-> =C2=A0#include <linux/list.h>
-> =C2=A0#include <linux/miscdevice.h>
-> =C2=A0#include <linux/module.h>
-> =C2=A0#include <linux/of.h>
-> +#include <linux/of_device.h>
-> =C2=A0#include <linux/of_platform.h>
-> =C2=A0#include <linux/poll.h>
-> =C2=A0#include <linux/sched.h>
-> =C2=A0#include <linux/slab.h>
-> +#include <linux/spinlock.h>
-> =C2=A0#include <linux/timer.h>
-> =C2=A0#include <linux/uaccess.h>
-> +#include <linux/wait.h>
-> =C2=A0
-> =C2=A0/*
-> =C2=A0 * The SBEFIFO is a pipe-like FSI device for communicating with
-> @@ -44,6 +51,8 @@
-> =C2=A0#define=C2=A0=C2=A0=C2=A0SBEFIFO_EOT_MAGIC		0xffffffff
-> =C2=A0#define SBEFIFO_EOT_ACK		0x14
-> =C2=A0
-> +#define SBEFIFO_RESCHEDULE	msecs_to_jiffies(500)
-> +
-> =C2=A0struct sbefifo {
-> =C2=A0	struct timer_list poll_timer;
+> @@ -58,7 +58,6 @@ struct sbefifo {
 > =C2=A0	struct fsi_device *fsi_dev;
-> @@ -94,7 +103,7 @@ struct sbefifo_client {
+> =C2=A0	struct miscdevice mdev;
+> =C2=A0	wait_queue_head_t wait;
+> -	struct list_head link;
+> =C2=A0	struct list_head xfrs;
+> =C2=A0	struct kref kref;
+> =C2=A0	spinlock_t lock;
+> @@ -96,8 +95,6 @@ struct sbefifo_client {
+> =C2=A0	unsigned long f_flags;
+> =C2=A0};
+> =C2=A0
+> -static struct list_head sbefifo_fifos;
+> -
+> =C2=A0static DEFINE_IDA(sbefifo_ida);
+> =C2=A0
 > =C2=A0static int sbefifo_inw(struct sbefifo *sbefifo, int reg, u32 *word)
-> =C2=A0{
-> =C2=A0	int rc;
-> -	u32 raw_word;
-> +	__be32 raw_word;
-> =C2=A0
-> =C2=A0	rc =3D fsi_device_read(sbefifo->fsi_dev, reg, &raw_word,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0sizeof(raw_word));
-> @@ -102,17 +111,19 @@ static int sbefifo_inw(struct sbefifo *sbefifo, int=
- reg, u32 *word)
-> =C2=A0		return rc;
-> =C2=A0
-> =C2=A0	*word =3D be32_to_cpu(raw_word);
-> +
-> =C2=A0	return 0;
-> =C2=A0}
-> =C2=A0
-> =C2=A0static int sbefifo_outw(struct sbefifo *sbefifo, int reg, u32 word)
-> =C2=A0{
-> -	u32 raw_word =3D cpu_to_be32(word);
-> +	__be32 raw_word =3D cpu_to_be32(word);
-> =C2=A0
-> =C2=A0	return fsi_device_write(sbefifo->fsi_dev, reg, &raw_word,
-> =C2=A0				sizeof(raw_word));
-> =C2=A0}
-> =C2=A0
-> +/* Don't flip endianness of data to/from FIFO, just pass through. */
-> =C2=A0static int sbefifo_readw(struct sbefifo *sbefifo, u32 *word)
-> =C2=A0{
-> =C2=A0	return fsi_device_read(sbefifo->fsi_dev, SBEFIFO_DWN, word,
-> @@ -136,7 +147,7 @@ static int sbefifo_ack_eot(struct sbefifo *sbefifo)
-> =C2=A0		return ret;
-> =C2=A0
-> =C2=A0	return sbefifo_outw(sbefifo, SBEFIFO_DWN | SBEFIFO_EOT_ACK,
-> -			SBEFIFO_EOT_MAGIC);
-> +			=C2=A0=C2=A0=C2=A0=C2=A0SBEFIFO_EOT_MAGIC);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static size_t sbefifo_dev_nwreadable(u32 sts)
-> @@ -210,6 +221,7 @@ static bool sbefifo_buf_readnb(struct sbefifo_buf *bu=
-f, size_t n)
-> =C2=A0		rpos =3D buf->buf;
-> =C2=A0
-> =C2=A0	WRITE_ONCE(buf->rpos, rpos);
-> +
-> =C2=A0	return rpos =3D=3D wpos;
-> =C2=A0}
-> =C2=A0
-> @@ -229,14 +241,14 @@ static bool sbefifo_buf_wrotenb(struct sbefifo_buf =
-*buf, size_t n)
-> =C2=A0		set_bit(SBEFIFO_BUF_FULL, &buf->flags);
-> =C2=A0
-> =C2=A0	WRITE_ONCE(buf->wpos, wpos);
-> +
-> =C2=A0	return rpos =3D=3D wpos;
-> =C2=A0}
-> =C2=A0
-> =C2=A0static void sbefifo_free(struct kref *kref)
-> =C2=A0{
-> -	struct sbefifo *sbefifo;
-> +	struct sbefifo *sbefifo =3D container_of(kref, struct sbefifo, kref);
-> =C2=A0
-> -	sbefifo =3D container_of(kref, struct sbefifo, kref);
-> =C2=A0	kfree(sbefifo);
-> =C2=A0}
-> =C2=A0
-> @@ -267,21 +279,12 @@ static struct sbefifo_xfr *sbefifo_enq_xfr(struct s=
-befifo_client *client)
-> =C2=A0	return xfr;
-> =C2=A0}
-> =C2=A0
-> -static struct sbefifo_xfr *sbefifo_client_next_xfr(
-> -		struct sbefifo_client *client)
-> -{
-> -	if (list_empty(&client->xfrs))
-> -		return NULL;
-> -
-> -	return container_of(client->xfrs.next, struct sbefifo_xfr,
-> -			client);
-> -}
-> -
-> =C2=A0static bool sbefifo_xfr_rsp_pending(struct sbefifo_client *client)
-> =C2=A0{
-> -	struct sbefifo_xfr *xfr;
-> +	struct sbefifo_xfr *xfr =3D list_first_entry_or_null(&client->xfrs,
-> +							=C2=A0=C2=A0=C2=A0struct sbefifo_xfr,
-> +							=C2=A0=C2=A0=C2=A0client);
-> =C2=A0
-> -	xfr =3D sbefifo_client_next_xfr(client);
-> =C2=A0	if (xfr && test_bit(SBEFIFO_XFR_RESP_PENDING, &xfr->flags))
-> =C2=A0		return true;
-> =C2=A0
-> @@ -349,6 +352,7 @@ static struct sbefifo_xfr *sbefifo_next_xfr(struct sb=
-efifo *sbefifo)
-> =C2=A0			kfree(xfr);
-> =C2=A0			continue;
-> =C2=A0		}
-> +
-> =C2=A0		return xfr;
-> =C2=A0	}
-> =C2=A0
-> @@ -370,7 +374,7 @@ static void sbefifo_poll_timer(unsigned long data)
-> =C2=A0
-> =C2=A0	spin_lock(&sbefifo->lock);
-> =C2=A0	xfr =3D list_first_entry_or_null(&sbefifo->xfrs, struct sbefifo_xf=
-r,
-> -			xfrs);
-> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0xfrs);
-> =C2=A0	if (!xfr)
-> =C2=A0		goto out_unlock;
-> =C2=A0
-> @@ -388,8 +392,7 @@ static void sbefifo_poll_timer(unsigned long data)
-> =C2=A0
-> =C2=A0	=C2=A0/* Drain the write buffer. */
-> =C2=A0	while ((bufn =3D sbefifo_buf_nbreadable(wbuf))) {
-> -		ret =3D sbefifo_inw(sbefifo, SBEFIFO_UP | SBEFIFO_STS,
-> -				&sts);
-> +		ret =3D sbefifo_inw(sbefifo, SBEFIFO_UP | SBEFIFO_STS, &sts);
-> =C2=A0		if (ret)
-> =C2=A0			goto out;
-> =C2=A0
-> @@ -397,7 +400,7 @@ static void sbefifo_poll_timer(unsigned long data)
-> =C2=A0		if (devn =3D=3D 0) {
-> =C2=A0			/* No open slot for write.=C2=A0=C2=A0Reschedule. */
-> =C2=A0			sbefifo->poll_timer.expires =3D jiffies +
-> -				msecs_to_jiffies(500);
-> +				SBEFIFO_RESCHEDULE;
-> =C2=A0			add_timer(&sbefifo->poll_timer);
-> =C2=A0			goto out_unlock;
-> =C2=A0		}
-> @@ -414,9 +417,8 @@ static void sbefifo_poll_timer(unsigned long data)
-> =C2=A0
-> =C2=A0	=C2=A0/* Send EOT if the writer is finished. */
-> =C2=A0	if (test_and_clear_bit(SBEFIFO_XFR_WRITE_DONE, &xfr->flags)) {
-> -		ret =3D sbefifo_outw(sbefifo,
-> -				SBEFIFO_UP | SBEFIFO_EOT_RAISE,
-> -				SBEFIFO_EOT_MAGIC);
-> +		ret =3D sbefifo_outw(sbefifo, SBEFIFO_UP | SBEFIFO_EOT_RAISE,
-> +				=C2=A0=C2=A0=C2=A0SBEFIFO_EOT_MAGIC);
-> =C2=A0		if (ret)
-> =C2=A0			goto out;
-> =C2=A0
-> @@ -438,7 +440,7 @@ static void sbefifo_poll_timer(unsigned long data)
-> =C2=A0		if (devn =3D=3D 0) {
-> =C2=A0			/* No data yet.=C2=A0=C2=A0Reschedule. */
-> =C2=A0			sbefifo->poll_timer.expires =3D jiffies +
-> -				msecs_to_jiffies(500);
-> +				SBEFIFO_RESCHEDULE;
-> =C2=A0			add_timer(&sbefifo->poll_timer);
-> =C2=A0			goto out_unlock;
-> =C2=A0		}
-> @@ -466,7 +468,7 @@ static void sbefifo_poll_timer(unsigned long data)
-> =C2=A0			set_bit(SBEFIFO_XFR_COMPLETE, &xfr->flags);
-> =C2=A0			list_del(&xfr->xfrs);
-> =C2=A0			if (unlikely(test_bit(SBEFIFO_XFR_CANCEL,
-> -							&xfr->flags)))
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0&xfr->flags)))
-> =C2=A0				kfree(xfr);
-> =C2=A0			break;
-> =C2=A0		}
-> @@ -476,7 +478,7 @@ static void sbefifo_poll_timer(unsigned long data)
-> =C2=A0	if (unlikely(ret)) {
-> =C2=A0		sbefifo->rc =3D ret;
-> =C2=A0		dev_err(&sbefifo->fsi_dev->dev,
-> -				"Fatal bus access failure: %d\n", ret);
-> +			"Fatal bus access failure: %d\n", ret);
-> =C2=A0		list_for_each_entry(xfr, &sbefifo->xfrs, xfrs)
-> =C2=A0			kfree(xfr);
-> =C2=A0		INIT_LIST_HEAD(&sbefifo->xfrs);
-> @@ -497,7 +499,7 @@ static void sbefifo_poll_timer(unsigned long data)
-> =C2=A0static int sbefifo_open(struct inode *inode, struct file *file)
-> =C2=A0{
-> =C2=A0	struct sbefifo *sbefifo =3D container_of(file->private_data,
-> -			struct sbefifo, mdev);
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct sbefifo, mdev);
-> =C2=A0	struct sbefifo_client *client;
-> =C2=A0	int ret;
-> =C2=A0
-> @@ -535,6 +537,16 @@ static unsigned int sbefifo_poll(struct file *file, =
-poll_table *wait)
-> =C2=A0	return mask;
-> =C2=A0}
-> =C2=A0
-> +static bool sbefifo_read_ready(struct sbefifo *sbefifo,
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct sbefifo_client *clie=
-nt, size_t *n,
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0size_t *ret)
-> +{
-> +	*n =3D sbefifo_buf_nbreadable(&client->rbuf);
-> +	*ret =3D READ_ONCE(sbefifo->rc);
-> +
-> +	return *ret || *n;
-> +}
-> +
-> =C2=A0static ssize_t sbefifo_read_common(struct sbefifo_client *client,
-> =C2=A0				=C2=A0=C2=A0=C2=A0char __user *ubuf, char *kbuf, size_t len)
-> =C2=A0{
-> @@ -551,30 +563,37 @@ static ssize_t sbefifo_read_common(struct sbefifo_c=
-lient *client,
-> =C2=A0
-> =C2=A0	sbefifo_get_client(client);
-> =C2=A0	if (wait_event_interruptible(sbefifo->wait,
-> -				(ret =3D READ_ONCE(sbefifo->rc)) ||
-> -				(n =3D sbefifo_buf_nbreadable(
-> -						&client->rbuf)))) {
-> -		sbefifo_put_client(client);
-> -		return -ERESTARTSYS;
-> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0sbefifo_read_ready(sbefifo, client,
-> +							&n, &ret))) {
-> +		ret =3D -ERESTARTSYS;
-> +		goto out;
-> =C2=A0	}
-> +
-> =C2=A0	if (ret) {
-> =C2=A0		INIT_LIST_HEAD(&client->xfrs);
-> -		sbefifo_put_client(client);
-> -		return ret;
-> +		goto out;
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	n =3D min_t(size_t, n, len);
-> =C2=A0
-> =C2=A0	if (ubuf) {
-> =C2=A0		if (copy_to_user(ubuf, READ_ONCE(client->rbuf.rpos), n)) {
-> -			sbefifo_put_client(client);
-> -			return -EFAULT;
-> +			ret =3D -EFAULT;
-> +			goto out;
-> =C2=A0		}
-> -	} else
-> +	} else {
-> =C2=A0		memcpy(kbuf, READ_ONCE(client->rbuf.rpos), n);
-> +	}
-> =C2=A0
-> =C2=A0	if (sbefifo_buf_readnb(&client->rbuf, n)) {
-> -		xfr =3D sbefifo_client_next_xfr(client);
-> +		xfr =3D list_first_entry_or_null(&client->xfrs,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct sbefifo_xfr, clien=
-t);
-> +		if (!xfr) {
-> +			/* should be impossible to not have an xfr here */
-> +			WARN_ONCE(1, "no xfr in queue");
-> +			goto out;
-> +		}
-> +
-> =C2=A0		if (!test_bit(SBEFIFO_XFR_COMPLETE, &xfr->flags)) {
-> =C2=A0			/*
-> =C2=A0			=C2=A0* Fill the read buffer back up.
-> @@ -589,22 +608,31 @@ static ssize_t sbefifo_read_common(struct sbefifo_c=
-lient *client,
-> =C2=A0		}
-> =C2=A0	}
-> =C2=A0
-> -	sbefifo_put_client(client);
-> +	ret =3D n;
-> =C2=A0
-> -	return n;
-> +out:
-> +	sbefifo_put_client(client);
-> +	return ret;
-> =C2=A0}
-> =C2=A0
-> -static ssize_t sbefifo_read(struct file *file, char __user *buf,
-> -		size_t len, loff_t *offset)
-> +static ssize_t sbefifo_read(struct file *file, char __user *buf, size_t =
-len,
-> +			=C2=A0=C2=A0=C2=A0=C2=A0loff_t *offset)
-> =C2=A0{
-> =C2=A0	struct sbefifo_client *client =3D file->private_data;
-> =C2=A0
-> -	WARN_ON(*offset);
-> +	return sbefifo_read_common(client, buf, NULL, len);
-> +}
-> =C2=A0
-> -	if (!access_ok(VERIFY_WRITE, buf, len))
-> -		return -EFAULT;
-> +static bool sbefifo_write_ready(struct sbefifo *sbefifo,
-> +				struct sbefifo_xfr *xfr,
-> +				struct sbefifo_client *client, size_t *n)
-> +{
-> +	struct sbefifo_xfr *next =3D list_first_entry_or_null(&client->xfrs,
-> +							=C2=A0=C2=A0=C2=A0=C2=A0struct sbefifo_xfr,
-> +							=C2=A0=C2=A0=C2=A0=C2=A0client);
-> =C2=A0
-> -	return sbefifo_read_common(client, buf, NULL, len);
-> +	*n =3D sbefifo_buf_nbwriteable(&client->wbuf);
-> +	return READ_ONCE(sbefifo->rc) || (next =3D=3D xfr && *n);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static ssize_t sbefifo_write_common(struct sbefifo_client *client,
-> @@ -612,6 +640,7 @@ static ssize_t sbefifo_write_common(struct sbefifo_cl=
-ient *client,
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0size_t len)
-> =C2=A0{
+> @@ -267,9 +264,12 @@ static struct sbefifo_xfr *sbefifo_enq_xfr(struct sb=
+efifo_client *client)
 > =C2=A0	struct sbefifo *sbefifo =3D client->dev;
-> +	struct sbefifo_buf *wbuf =3D &client->wbuf;
 > =C2=A0	struct sbefifo_xfr *xfr;
-> =C2=A0	ssize_t ret =3D 0;
-> =C2=A0	size_t n;
-> @@ -622,24 +651,26 @@ static ssize_t sbefifo_write_common(struct sbefifo_=
-client *client,
-> =C2=A0	if (!len)
-> =C2=A0		return 0;
 > =C2=A0
-> -	n =3D sbefifo_buf_nbwriteable(&client->wbuf);
-> +	sbefifo_get_client(client);
-> +	n =3D sbefifo_buf_nbwriteable(wbuf);
-> =C2=A0
-> =C2=A0	spin_lock_irq(&sbefifo->lock);
-> -	xfr =3D sbefifo_next_xfr(sbefifo);
-> =C2=A0
-> +	xfr =3D sbefifo_next_xfr(sbefifo);	/* next xfr to be executed */
-> =C2=A0	if ((client->f_flags & O_NONBLOCK) && xfr && n < len) {
-> =C2=A0		spin_unlock_irq(&sbefifo->lock);
-> -		return -EAGAIN;
-> +		ret =3D -EAGAIN;
-> +		goto out;
-> =C2=A0	}
-> =C2=A0
-> -	xfr =3D sbefifo_enq_xfr(client);
-> +	xfr =3D sbefifo_enq_xfr(client);		/* this xfr queued up */
-> =C2=A0	if (!xfr) {
-> =C2=A0		spin_unlock_irq(&sbefifo->lock);
-> -		return -ENOMEM;
-> +		ret =3D PTR_ERR(xfr);
-> +		goto out;
-> =C2=A0	}
-> -	spin_unlock_irq(&sbefifo->lock);
-> =C2=A0
-> -	sbefifo_get_client(client);
-> +	spin_unlock_irq(&sbefifo->lock);
-> =C2=A0
-> =C2=A0	/*
-> =C2=A0	=C2=A0* Partial writes are not really allowed in that EOT is sent =
-exactly
-> @@ -647,49 +678,47 @@ static ssize_t sbefifo_write_common(struct sbefifo_=
-client *client,
-> =C2=A0	=C2=A0*/
-> =C2=A0	while (len) {
-> =C2=A0		if (wait_event_interruptible(sbefifo->wait,
-> -				READ_ONCE(sbefifo->rc) ||
-> -					(sbefifo_client_next_xfr(client) =3D=3D xfr &&
-> -					=C2=A0(n =3D sbefifo_buf_nbwriteable(
-> -							&client->wbuf))))) {
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0sbefifo_write_ready(sbefifo, xfr,
-> +								=C2=A0client,
-> +								=C2=A0&n))) {
-> =C2=A0			set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
-> =C2=A0			sbefifo_get(sbefifo);
-> =C2=A0			if (mod_timer(&sbefifo->poll_timer, jiffies))
-> =C2=A0				sbefifo_put(sbefifo);
-> -
-> -			sbefifo_put_client(client);
-> -			return -ERESTARTSYS;
-> +			ret =3D -ERESTARTSYS;
-> +			goto out;
-> =C2=A0		}
+> +	if (READ_ONCE(sbefifo->rc))
+> +		return ERR_PTR(sbefifo->rc);
 > +
-> =C2=A0		if (sbefifo->rc) {
-> =C2=A0			INIT_LIST_HEAD(&client->xfrs);
-> -			sbefifo_put_client(client);
-> -			return sbefifo->rc;
-> +			ret =3D sbefifo->rc;
-> +			goto out;
-> =C2=A0		}
+> =C2=A0	xfr =3D kzalloc(sizeof(*xfr), GFP_KERNEL);
+> =C2=A0	if (!xfr)
+> -		return NULL;
+> +		return ERR_PTR(-ENOMEM);
 > =C2=A0
-> =C2=A0		n =3D min_t(size_t, n, len);
+> =C2=A0	xfr->rbuf =3D &client->rbuf;
+> =C2=A0	xfr->wbuf =3D &client->wbuf;
+> @@ -490,7 +490,7 @@ static void sbefifo_poll_timer(unsigned long data)
+> =C2=A0	}
 > =C2=A0
-> =C2=A0		if (ubuf) {
-> -			if (copy_from_user(READ_ONCE(client->wbuf.wpos), ubuf,
-> -			=C2=A0=C2=A0=C2=A0=C2=A0n)) {
-> +			if (copy_from_user(READ_ONCE(wbuf->wpos), ubuf, n)) {
-> =C2=A0				set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
-> =C2=A0				sbefifo_get(sbefifo);
-> =C2=A0				if (mod_timer(&sbefifo->poll_timer, jiffies))
-> =C2=A0					sbefifo_put(sbefifo);
-> -				sbefifo_put_client(client);
-> -				return -EFAULT;
-> +				ret =3D -EFAULT;
-> +				goto out;
-> =C2=A0			}
+> =C2=A0	sbefifo_put(sbefifo);
+> -	wake_up(&sbefifo->wait);
+> +	wake_up_interruptible(&sbefifo->wait);
 > =C2=A0
-> =C2=A0			ubuf +=3D n;
+> =C2=A0out_unlock:
+> =C2=A0	spin_unlock(&sbefifo->lock);
+> @@ -604,7 +604,7 @@ static ssize_t sbefifo_read_common(struct sbefifo_cli=
+ent *client,
 > =C2=A0		} else {
-> -			memcpy(READ_ONCE(client->wbuf.wpos), kbuf, n);
-> +			memcpy(READ_ONCE(wbuf->wpos), kbuf, n);
-> =C2=A0			kbuf +=3D n;
+> =C2=A0			kfree(xfr);
+> =C2=A0			list_del(&xfr->client);
+> -			wake_up(&sbefifo->wait);
+> +			wake_up_interruptible(&sbefifo->wait);
 > =C2=A0		}
-> =C2=A0
-> -		sbefifo_buf_wrotenb(&client->wbuf, n);
-> +		sbefifo_buf_wrotenb(wbuf, n);
-> =C2=A0		len -=3D n;
-> =C2=A0		ret +=3D n;
-> =C2=A0
-> -		/* set flag before starting the worker, as it may run through
-> -		=C2=A0* and check the flag before we exit this loop!
-> +		/* Set this before starting timer to avoid race condition on
-> +		=C2=A0* this flag with the timer function writer.
-> =C2=A0		=C2=A0*/
-> =C2=A0		if (!len)
-> =C2=A0			set_bit(SBEFIFO_XFR_WRITE_DONE, &xfr->flags);
-> @@ -702,21 +731,16 @@ static ssize_t sbefifo_write_common(struct sbefifo_=
-client *client,
-> =C2=A0			sbefifo_put(sbefifo);
 > =C2=A0	}
 > =C2=A0
-> +out:
-> =C2=A0	sbefifo_put_client(client);
-> -
-> =C2=A0	return ret;
-> =C2=A0}
+> @@ -664,7 +664,7 @@ static ssize_t sbefifo_write_common(struct sbefifo_cl=
+ient *client,
+> =C2=A0	}
 > =C2=A0
-> =C2=A0static ssize_t sbefifo_write(struct file *file, const char __user *=
-buf,
-> -		size_t len, loff_t *offset)
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0size_t len, loff_t *offset)
+> =C2=A0	xfr =3D sbefifo_enq_xfr(client);		/* this xfr queued up */
+> -	if (!xfr) {
+> +	if (IS_ERR(xfr)) {
+
+Should this be in what is currently patch 0/9?
+
+> =C2=A0		spin_unlock_irq(&sbefifo->lock);
+> =C2=A0		ret =3D PTR_ERR(xfr);
+> =C2=A0		goto out;
+> @@ -766,18 +766,15 @@ static int sbefifo_release(struct inode *inode, str=
+uct file *file)
+> =C2=A0struct sbefifo_client *sbefifo_drv_open(struct device *dev,
+> =C2=A0					unsigned long flags)
 > =C2=A0{
-> =C2=A0	struct sbefifo_client *client =3D file->private_data;
+> -	struct sbefifo_client *client =3D NULL;
+> -	struct sbefifo *sbefifo;
+> -	struct fsi_device *fsi_dev =3D to_fsi_dev(dev);
+> +	struct sbefifo_client *client;
+> +	struct sbefifo *sbefifo =3D dev_get_drvdata(dev);
 > =C2=A0
-> -	WARN_ON(*offset);
-> -
-> -	if (!access_ok(VERIFY_READ, buf, len))
-> -		return -EFAULT;
-> -
-> =C2=A0	return sbefifo_write_common(client, buf, NULL, len);
+> -	list_for_each_entry(sbefifo, &sbefifo_fifos, link) {
+> -		if (sbefifo->fsi_dev !=3D fsi_dev)
+> -			continue;
+> +	if (!sbefifo)
+> +		return NULL;
+> =C2=A0
+> -		client =3D sbefifo_new_client(sbefifo);
+> -		if (client)
+> -			client->f_flags =3D flags;
+> -	}
+> +	client =3D sbefifo_new_client(sbefifo);
+> +	if (client)
+> +		client->f_flags =3D flags;
+> =C2=A0
+> =C2=A0	return client;
 > =C2=A0}
-> =C2=A0
-> @@ -802,29 +826,27 @@ static int sbefifo_probe(struct device *dev)
-> =C2=A0	u32 sts;
-> =C2=A0	int ret, child_idx =3D 0;
-> =C2=A0
-> -	dev_dbg(dev, "Found sbefifo device\n");
-> =C2=A0	sbefifo =3D kzalloc(sizeof(*sbefifo), GFP_KERNEL);
-> =C2=A0	if (!sbefifo)
-> =C2=A0		return -ENOMEM;
-> =C2=A0
-> =C2=A0	sbefifo->fsi_dev =3D fsi_dev;
-> =C2=A0
-> -	ret =3D sbefifo_inw(sbefifo,
-> -			SBEFIFO_UP | SBEFIFO_STS, &sts);
-> +	ret =3D sbefifo_inw(sbefifo, SBEFIFO_UP | SBEFIFO_STS, &sts);
-> =C2=A0	if (ret)
-> =C2=A0		return ret;
-> +
-> =C2=A0	if (!(sts & SBEFIFO_EMPTY)) {
-> -		dev_err(&sbefifo->fsi_dev->dev,
-> -				"Found data in upstream fifo\n");
-> +		dev_err(dev, "Found data in upstream fifo\n");
+> @@ -850,69 +847,68 @@ static int sbefifo_probe(struct device *dev)
 > =C2=A0		return -EIO;
 > =C2=A0	}
 > =C2=A0
-> =C2=A0	ret =3D sbefifo_inw(sbefifo, SBEFIFO_DWN | SBEFIFO_STS, &sts);
-> =C2=A0	if (ret)
-> =C2=A0		return ret;
-> +
-> =C2=A0	if (!(sts & SBEFIFO_EMPTY)) {
-> -		dev_err(&sbefifo->fsi_dev->dev,
-> -				"Found data in downstream fifo\n");
-> +		dev_err(dev, "found data in downstream fifo\n");
-> =C2=A0		return -EIO;
-> =C2=A0	}
-> =C2=A0
-> @@ -837,13 +859,13 @@ static int sbefifo_probe(struct device *dev)
+> -	sbefifo->mdev.minor =3D MISC_DYNAMIC_MINOR;
+> -	sbefifo->mdev.fops =3D &sbefifo_fops;
+> -	sbefifo->mdev.name =3D sbefifo->name;
+> -	sbefifo->mdev.parent =3D dev;
+> =C2=A0	spin_lock_init(&sbefifo->lock);
+> =C2=A0	kref_init(&sbefifo->kref);
+> +	init_waitqueue_head(&sbefifo->wait);
+> +	INIT_LIST_HEAD(&sbefifo->xfrs);
 > =C2=A0
 > =C2=A0	sbefifo->idx =3D ida_simple_get(&sbefifo_ida, 1, INT_MAX, GFP_KERN=
 EL);
 > =C2=A0	snprintf(sbefifo->name, sizeof(sbefifo->name), "sbefifo%d",
-> -			sbefifo->idx);
-> +		=C2=A0sbefifo->idx);
-> =C2=A0	init_waitqueue_head(&sbefifo->wait);
-> =C2=A0	INIT_LIST_HEAD(&sbefifo->xfrs);
+> =C2=A0		=C2=A0sbefifo->idx);
+> -	init_waitqueue_head(&sbefifo->wait);
+> -	INIT_LIST_HEAD(&sbefifo->xfrs);
 > =C2=A0
 > =C2=A0	/* This bit of silicon doesn't offer any interrupts... */
 > =C2=A0	setup_timer(&sbefifo->poll_timer, sbefifo_poll_timer,
-> -			(unsigned long)sbefifo);
-> +		=C2=A0=C2=A0=C2=A0=C2=A0(unsigned long)sbefifo);
+> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0(unsigned long)sbefifo);
 > =C2=A0
-> =C2=A0	if (dev->of_node) {
-> =C2=A0		/* create platform devs for dts child nodes (occ, etc) */
-> @@ -852,7 +874,7 @@ static int sbefifo_probe(struct device *dev)
-> =C2=A0				=C2=A0sbefifo->name, child_idx++);
-> =C2=A0			child =3D of_platform_device_create(np, child_name, dev);
-> =C2=A0			if (!child)
-> -				dev_warn(&sbefifo->fsi_dev->dev,
-> +				dev_warn(dev,
-> =C2=A0					=C2=A0"failed to create child node dev\n");
-> =C2=A0		}
+> -	if (dev->of_node) {
+> -		/* create platform devs for dts child nodes (occ, etc) */
+> -		for_each_child_of_node(dev->of_node, np) {
+> -			snprintf(child_name, sizeof(child_name), "%s-dev%d",
+> -				=C2=A0sbefifo->name, child_idx++);
+> -			child =3D of_platform_device_create(np, child_name, dev);
+> -			if (!child)
+> -				dev_warn(dev,
+> -					=C2=A0"failed to create child node dev\n");
+> -		}
+> +	sbefifo->mdev.minor =3D MISC_DYNAMIC_MINOR;
+> +	sbefifo->mdev.fops =3D &sbefifo_fops;
+> +	sbefifo->mdev.name =3D sbefifo->name;
+> +	sbefifo->mdev.parent =3D dev;
+> +	ret =3D misc_register(&sbefifo->mdev);
+> +	if (ret) {
+> +		dev_err(dev, "failed to register miscdevice: %d\n", ret);
+> +		ida_simple_remove(&sbefifo_ida, sbefifo->idx);
+> +		sbefifo_put(sbefifo);
+> +		return ret;
 > =C2=A0	}
-> @@ -922,10 +944,13 @@ static int sbefifo_init(void)
-> =C2=A0static void sbefifo_exit(void)
-> =C2=A0{
-> =C2=A0	fsi_driver_unregister(&sbefifo_drv);
+> =C2=A0
+> -	list_add(&sbefifo->link, &sbefifo_fifos);
+> -=09
+> -	return misc_register(&sbefifo->mdev);
+> +	/* create platform devs for dts child nodes (occ, etc) */
+> +	for_each_available_child_of_node(dev->of_node, np) {
+> +		snprintf(child_name, sizeof(child_name), "%s-dev%d",
+> +			=C2=A0sbefifo->name, child_idx++);
+> +		child =3D of_platform_device_create(np, child_name, dev);
+> +		if (!child)
+> +			dev_warn(dev, "failed to create child %s dev\n",
+> +				=C2=A0child_name);
+> +	}
 > +
-> +	ida_destroy(&sbefifo_ida);
+> +	dev_set_drvdata(dev, sbefifo);
+> +
+> +	return 0;
 > =C2=A0}
 > =C2=A0
-> =C2=A0module_init(sbefifo_init);
-> =C2=A0module_exit(sbefifo_exit);
-> =C2=A0MODULE_LICENSE("GPL");
-> =C2=A0MODULE_AUTHOR("Brad Bishop <bradleyb@fuzziesquirrel.com>");
-> -MODULE_DESCRIPTION("Linux device interface to the POWER self boot engine=
-");
-> +MODULE_AUTHOR("Eddie James <eajames@linux.vnet.ibm.com>");
-> +MODULE_DESCRIPTION("Linux device interface to the POWER Self Boot Engine=
-");
-> diff --git a/include/linux/fsi-sbefifo.h b/include/linux/fsi-sbefifo.h
-> index 1b46c63..8e55891 100644
-> --- a/include/linux/fsi-sbefifo.h
-> +++ b/include/linux/fsi-sbefifo.h
-> @@ -13,8 +13,8 @@
-> =C2=A0 * GNU General Public License for more details.
-> =C2=A0 */
+> =C2=A0static int sbefifo_remove(struct device *dev)
+> =C2=A0{
+> -	struct fsi_device *fsi_dev =3D to_fsi_dev(dev);
+> -	struct sbefifo *sbefifo, *sbefifo_tmp;
+> +	struct sbefifo *sbefifo =3D dev_get_drvdata(dev);
+> =C2=A0	struct sbefifo_xfr *xfr;
 > =C2=A0
-> -#ifndef __FSI_SBEFIFO_H__
-> -#define __FSI_SBEFIFO_H__
-> +#ifndef LINUX_FSI_SBEFIFO_H
-> +#define LINUX_FSI_SBEFIFO_H
+> -	list_for_each_entry_safe(sbefifo, sbefifo_tmp, &sbefifo_fifos, link) {
+> -		if (sbefifo->fsi_dev !=3D fsi_dev)
+> -			continue;
+> +	WRITE_ONCE(sbefifo->rc, -ENODEV);
+> +	wake_up_interruptible_all(&sbefifo->wait);
+
+If we're removing, we want to wake up non-interruptible tasks as well, so I
+think wake_up_all() is more appropriate.
+
 > =C2=A0
-> =C2=A0struct device;
-> =C2=A0struct sbefifo_client;
-> @@ -27,4 +27,4 @@ extern int sbefifo_drv_write(struct sbefifo_client *cli=
-ent, const char *buf,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0size_t len);
-> =C2=A0extern void sbefifo_drv_release(struct sbefifo_client *client);
+> -		device_for_each_child(dev, NULL, sbefifo_unregister_child);
+> +	misc_deregister(&sbefifo->mdev);
+> +	device_for_each_child(dev, NULL, sbefifo_unregister_child);
 > =C2=A0
-> -#endif /* __FSI_SBEFIFO_H__ */
-> +#endif /* LINUX_FSI_SBEFIFO_H */
---=-8zjAFH3cZ7t0axF7AwTD
+> -		misc_deregister(&sbefifo->mdev);
+> -		list_del(&sbefifo->link);
+> -		ida_simple_remove(&sbefifo_ida, sbefifo->idx);
+> -
+> -		if (del_timer_sync(&sbefifo->poll_timer))
+> -			sbefifo_put(sbefifo);
+> +	ida_simple_remove(&sbefifo_ida, sbefifo->idx);
+> =C2=A0
+> -		spin_lock(&sbefifo->lock);
+> -		list_for_each_entry(xfr, &sbefifo->xfrs, xfrs)
+> -			kfree(xfr);
+> -		spin_unlock(&sbefifo->lock);
+> +	if (del_timer_sync(&sbefifo->poll_timer))
+> +		sbefifo_put(sbefifo);
+> =C2=A0
+> -		WRITE_ONCE(sbefifo->rc, -ENODEV);
+> +	spin_lock(&sbefifo->lock);
+> +	list_for_each_entry(xfr, &sbefifo->xfrs, xfrs)
+> +		kfree(xfr);
+> +	spin_unlock(&sbefifo->lock);
+> =C2=A0
+> -		wake_up(&sbefifo->wait);
+> -		sbefifo_put(sbefifo);
+> -	}
+> +	sbefifo_put(sbefifo);
+> =C2=A0
+> =C2=A0	return 0;
+> =C2=A0}
+> @@ -937,7 +933,6 @@ static int sbefifo_remove(struct device *dev)
+> =C2=A0
+> =C2=A0static int sbefifo_init(void)
+> =C2=A0{
+> -	INIT_LIST_HEAD(&sbefifo_fifos);
+> =C2=A0	return fsi_driver_register(&sbefifo_drv);
+> =C2=A0}
+> =C2=A0
+--=-E11IGRD70dNLV93Z232U
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJZ1XXbAAoJEJ0dnzgO5LT5QcUP/itr+FTArwC5tA/mf4Jz3gbk
-gcKTT4UPLe7O6SHYIhxuflcpLJGnKCxfjHRdlcii8H8K9wn4GAg9Zmnv1RgLhJab
-DRZjvpoeCm8zNeMb/YwaOJX+KGJsDfPWjiyWKiDdzaL4e/Kq0jiFB61pHoxTH4QS
-VdfP5jeq3YS83vRLgSNDnrAEiSgXfTTQNFYdveJ3rU/m5JjXhDt0RV0wKQ8bhwF7
-SGXdQePTR01o8Bu8nXj0aYkpN3xz3JHNGCFG/2yDpM0nFeLUlGCWlUSfPsQvbQTq
-mekrNHXlEaaAt+SqUqH5ABujvZMRE2Ck4kKhoM7E4mZFkiIklwb75ipPuUxqUjZF
-kDp3V2hZT/ve6hJEFWn7GK8L47XLq5ansuFXd1boOQ+2R6ZeQs2JpeL3RLpGuzOW
-tkpvAxUEeyZdwKnBiJf9y5gMhWaYViYT90WArSjNAq5syGIUYS48NfveW0zDq8Ac
-Z4HeUG+Lg3umvDgKq3Y8fJh9eUXh6UQkz4p1/iIjkkYpQKmYAbfjRoEobNQXv5X8
-SeprWKpWLrotngq6jzen5rAD5kgHFrlsrQHTJtSRgRbDL+zXLnzKLsFpqWfdqckL
-EzhdZvANJNS19RkD2+a8nS8F7HyXlm+nuyGAiFOO/IuXNC26X2wPQBa7B2TsM/Xl
-cIYwxtYQhY6To2H9frcG
-=CpdE
+iQIcBAABCgAGBQJZ1X2dAAoJEJ0dnzgO5LT5sHwP/3bCxyFSa68FeiGUMSUyi9rJ
+3Yfxd1BL7ihQQbMzPAuJvlLcMHE6WQTab9yZX+k2ISEHWZwKv6OaXX6+WJ5nb58J
+DvkwRRQV94Qvs0shyQ2oYw67OHhJjul0dy6NVUnjphu0YEE7QA+dydMN2NhGZ+nt
+94+/v8PP5qrGlDBKmNPJXxQljLvPZXhFbW8CZ4jK68m6FsVwrO8TwPnE+T5WZCsZ
+O26WUfxBlXGcJ0j53l2WyPfPckYOeiBbxYfmG2/MwkEfQF521CReSp33wLGLibBU
+0rDd29OVYhHLH0oTJAU+6+cZsyatYvI0+KUFUIis3qfHvd80vwG+jr8KEQcMf5mM
+ZCd70r3qC7szk6VroHXQVpLqhPHyZnOY2EpoUGL5W+BM40/c/QrX3Q+cJhkGCl17
+MSsQiRoyBHczBE4D92tRfQN/JYO2OdyO1u/+aAOE9TLTNkSW8cqJdHuxdd1bhSed
+TlAq8BfhlvYEsCWv0u+olstaPiOzt0SRuxV1YBY1iI2fVYMUooQznd6dwoFed/Uc
+TSuuWqT4M9Mkgk+REJOcgScEkX77+Yc+sPACsosLEY0EX8y4ji2/d7kZSOgC992y
+3YF1r8TEmp3qejvVPkNZ2BS5lMVzJc9RVtBW0gK6i49aAiVGFggwqZI7ms3X1usN
+cR3ADOzM4uTDssI2VaGL
+=4mXM
 -----END PGP SIGNATURE-----
 
---=-8zjAFH3cZ7t0axF7AwTD--
+--=-E11IGRD70dNLV93Z232U--
