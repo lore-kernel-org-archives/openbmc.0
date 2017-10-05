@@ -7,55 +7,55 @@ Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y7N5P3CW7zDrJw
- for <openbmc@lists.ozlabs.org>; Fri,  6 Oct 2017 06:25:13 +1100 (AEDT)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y7N5Q2wbpzDrFy
+ for <openbmc@lists.ozlabs.org>; Fri,  6 Oct 2017 06:25:14 +1100 (AEDT)
+Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v95JOf1v087304
+ v95JOptD047047
  for <openbmc@lists.ozlabs.org>; Thu, 5 Oct 2017 15:25:11 -0400
-Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2ddtt788vf-1
+Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2ddr0uh6wn-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 05 Oct 2017 15:25:08 -0400
+ for <openbmc@lists.ozlabs.org>; Thu, 05 Oct 2017 15:25:02 -0400
 Received: from localhost
- by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 5 Oct 2017 13:25:05 -0600
-Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
- by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
+ Thu, 5 Oct 2017 13:24:55 -0600
+Received: from b03cxnp08028.gho.boulder.ibm.com (9.17.130.20)
+ by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Thu, 5 Oct 2017 13:25:03 -0600
+ Thu, 5 Oct 2017 13:24:52 -0600
 Received: from b03ledav002.gho.boulder.ibm.com
  (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
- by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v95JP22X2490722; Thu, 5 Oct 2017 12:25:02 -0700
+ by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v95JOqdp30802170; Thu, 5 Oct 2017 12:24:52 -0700
 Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id B1ADD13603C;
- Thu,  5 Oct 2017 13:25:02 -0600 (MDT)
+ by IMSVA (Postfix) with ESMTP id 135AB136046;
+ Thu,  5 Oct 2017 13:24:52 -0600 (MDT)
 Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
- by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id 634CD136043;
- Thu,  5 Oct 2017 13:25:02 -0600 (MDT)
+ by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id D22B313603A;
+ Thu,  5 Oct 2017 13:24:51 -0600 (MDT)
 From: Eddie James <eajames@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, andrew@aj.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10 v3 27/31] drivers: fsi: occ: Poll while
- receiving "command in progress"
-Date: Thu,  5 Oct 2017 14:24:20 -0500
+Subject: [PATCH linux dev-4.10 v3 19/31] drivers: fsi: occ: Return ENODEV if
+ client is NULL
+Date: Thu,  5 Oct 2017 14:24:12 -0500
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1507231464-13635-1-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1507231464-13635-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-TM-AS-GCONF: 00
-x-cbid: 17100519-0012-0000-0000-0000151ACF35
+x-cbid: 17100519-0004-0000-0000-0000130560E4
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00007847; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000235; SDB=6.00926924; UDB=6.00466363; IPR=6.00707179; 
+ PH=3.00000004; SC=3.00000235; SDB=6.00926924; UDB=6.00466363; IPR=6.00707180; 
  BA=6.00005623; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017410; XFM=3.00000015;
- UTC=2017-10-05 19:25:04
+ UTC=2017-10-05 19:24:53
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17100519-0013-0000-0000-00004FC22A79
-Message-Id: <1507231464-13635-28-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 17100519-0005-0000-0000-0000845C47B9
+Message-Id: <1507231464-13635-20-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-10-05_08:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -78,81 +78,44 @@ X-List-Received-Date: Thu, 05 Oct 2017 19:25:14 -0000
 
 From: "Edward A. James" <eajames@us.ibm.com>
 
-Waiting for OCC to return something other than "command in progress"
-should only be done in the worker function, instead of clients repeating
-the entire transfer when they receive "command in progress." In this way
-clients don't have to check for that return status.
+Safeguard the in-kernel api functions.
 
 Signed-off-by: Edward A. James <eajames@us.ibm.com>
 ---
- drivers/fsi/occ.c | 27 ++++++++++++++++++++++++---
- 1 file changed, 24 insertions(+), 3 deletions(-)
+ drivers/fsi/occ.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
 diff --git a/drivers/fsi/occ.c b/drivers/fsi/occ.c
-index 29a17ed..8555e99 100644
+index 55f293d..a551349 100644
 --- a/drivers/fsi/occ.c
 +++ b/drivers/fsi/occ.c
-@@ -23,6 +23,7 @@
- #include <linux/of.h>
- #include <linux/of_platform.h>
- #include <linux/platform_device.h>
-+#include <linux/sched.h>
- #include <linux/slab.h>
- #include <linux/spinlock.h>
- #include <linux/uaccess.h>
-@@ -33,6 +34,9 @@
- #define OCC_CMD_DATA_BYTES	4090
- #define OCC_RESP_DATA_BYTES	4089
+@@ -654,18 +654,27 @@ struct occ_client *occ_drv_open(struct device *dev, unsigned long flags)
  
-+#define OCC_TIMEOUT_MS		1000
-+#define OCC_CMD_IN_PRG_WAIT_MS	50
-+
- struct occ {
- 	struct device *sbefifo;
- 	char name[32];
-@@ -569,6 +573,9 @@ static void occ_worker(struct work_struct *work)
+ int occ_drv_read(struct occ_client *client, char *buf, size_t len)
  {
- 	int rc = 0, empty, waiting, canceled;
- 	u16 resp_data_length;
-+	unsigned long start;
-+	const unsigned long timeout = msecs_to_jiffies(OCC_TIMEOUT_MS);
-+	const long int wait_time = msecs_to_jiffies(OCC_CMD_IN_PRG_WAIT_MS);
- 	struct occ_xfr *xfr;
- 	struct occ_response *resp;
- 	struct occ_client *client;
-@@ -590,6 +597,8 @@ static void occ_worker(struct work_struct *work)
- 	spin_unlock_irq(&occ->list_lock);
- 	mutex_lock(&occ->occ_lock);
++	if (!client)
++		return -ENODEV;
++
+ 	return occ_read_common(client, NULL, buf, len);
+ }
+ EXPORT_SYMBOL_GPL(occ_drv_read);
  
-+	start = jiffies;
+ int occ_drv_write(struct occ_client *client, const char *buf, size_t len)
+ {
++	if (!client)
++		return -ENODEV;
 +
- 	/* write occ command */
- 	rc = occ_putsram(sbefifo, 0xFFFBE000, xfr->buf,
- 			 xfr->cmd_data_length);
-@@ -601,9 +610,21 @@ static void occ_worker(struct work_struct *work)
- 		goto done;
+ 	return occ_write_common(client, NULL, buf, len);
+ }
+ EXPORT_SYMBOL_GPL(occ_drv_write);
  
- 	/* read occ response */
--	rc = occ_getsram(sbefifo, 0xFFFBF000, xfr->buf, 8);
--	if (rc)
--		goto done;
-+	do {
-+		rc = occ_getsram(sbefifo, 0xFFFBF000, xfr->buf, 8);
-+		if (rc)
-+			goto done;
+ void occ_drv_release(struct occ_client *client)
+ {
++	if (!client)
++		return;
 +
-+		if (resp->return_status == OCC_RESP_CMD_IN_PRG) {
-+			rc = -EALREADY;
-+
-+			if (time_after(jiffies, start + timeout))
-+				break;
-+
-+			set_current_state(TASK_INTERRUPTIBLE);
-+			schedule_timeout(wait_time);
-+		}
-+	} while (rc);
- 
- 	resp_data_length = get_unaligned_be16(&resp->data_length);
- 	if (resp_data_length > OCC_RESP_DATA_BYTES) {
+ 	occ_release_common(client);
+ }
+ EXPORT_SYMBOL_GPL(occ_drv_release);
 -- 
 1.8.3.1
