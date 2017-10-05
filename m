@@ -1,63 +1,34 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="uQxJ+Vdy"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="DjdNkJOR"; dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
+Return-Path: <bradleyb@fuzziesquirrel.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y6w2V6mT2zDqpD
- for <openbmc@lists.ozlabs.org>; Thu,  5 Oct 2017 12:21:06 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 9765F20F51;
- Wed,  4 Oct 2017 21:21:04 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Wed, 04 Oct 2017 21:21:04 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=NRkh1IBh1VydV6udiDeAOauOVEVlcqYVy8mc8Wy27
- gs=; b=uQxJ+VdytbF45tMoiqJ/t3ZKZcOsE9YWd6DTNdq/qygCjV+4O0+YOy56M
- gUW7QZnfYk7nerFYJXhvjptuwdaSkDa/2ZrDMeAkQA0YHf06f/3rv1XS51eBNCyE
- xs8XicTddqoLr8l6coxstpiH1RBmRjv9BGO35JxvwarRvTZZ+CJcCSUNUJZ9TzVZ
- meV51wEarwgSJHo8NB09X1NfXmpenIPuM8w79J6BIksrUKA+nK0mHWioRApTc1QU
- 2DVv6Gb6c8Kmc/tTp7CNZQpDB+lAhogGyJlrDluzp5/i3YYOo4f5XR4DKI4GmXFA
- 6SH3Qg0gPHi1762CtZJ2Fgo4XMzDg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=NRkh1IBh1VydV6udiD
- eAOauOVEVlcqYVy8mc8Wy27gs=; b=DjdNkJOR98gURu2wI0L3Qyw1vFojfk2pWI
- FEvlB/UXUMVUnP4jcCMUUc04wDqPsnXkpxwXgDUUrS/+KT8w8uFLgwz7jXP8c6OA
- zKxVRJSOuljZYndrqHW5OIsNGRzLuCTDl+qZRf96YPdgtMx6sLmwIzMfqsMTbvdu
- WHVgnoW5Oop08Z2GBMAUynE8HKh4yrLGgOCg4uuWLtt/31qHI/b2vb2gOtjaly2u
- 2JR0Rn7C0TrmrG4zVZ4UBTmwgQYIcWn7SVW+s652XrlEc7Z5udjIPXCnX6Q6pnWp
- +wiI6cytA+09eRfxw8IvbpbkOR5m6+hDV4M9NJqDskK+zwRT47xg==
-X-ME-Sender: <xms:AInVWSdT7h3L2_KFNFHYRfcpGjBH3oa-gga6v_9tSdzPVRUXaKoWwQ>
-X-Sasl-enc: 4Ac+qXxVGdcRvbUM8tq5zmJYWXFK9/55p6DuNPeiXRQy 1507166463
-Received: from keelia (ppp14-2-13-235.bras21.adl4.internode.on.net
- [14.2.13.235])
- by mail.messagingengine.com (Postfix) with ESMTPA id 7AB9D24009;
- Wed,  4 Oct 2017 21:21:02 -0400 (EDT)
-Message-ID: <1507166457.5452.56.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10 v2 9/9] drivers: hwmon: occ: Cancel occ
- operations in remove()
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
-Date: Thu, 05 Oct 2017 11:50:57 +1030
-In-Reply-To: <1506724868-13010-10-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1506724868-13010-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1506724868-13010-10-git-send-email-eajames@linux.vnet.ibm.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-BCj8xzpu/tPcBwQykJH3"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y6wxK4XrtzDr2S
+ for <openbmc@lists.ozlabs.org>; Thu,  5 Oct 2017 13:01:40 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Received: from [192.168.253.30] (unknown [192.168.253.30])
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 95C7578C;
+ Wed,  4 Oct 2017 22:01:36 -0400 (EDT)
+Content-Type: text/plain; charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: Re: [PATCH linux dev-4.10] Revert "drivers/hwmon/occ: Add temperature
+ fault attribute and VRM temp alarm"
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <614fb026-d8fa-da2e-584a-c9766319ecea@linux.vnet.ibm.com>
+Date: Wed, 4 Oct 2017 22:01:36 -0400
+Cc: Joel Stanley <joel@jms.id.au>, "Edward A. James" <eajames@us.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <4C6D0A46-3301-4EFE-96B2-DB19C4525D6C@fuzziesquirrel.com>
+References: <1507058068-9406-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <CACPK8XfGubVuKRL=nTwbPbn5KMHtUvTULPZXvy=jYWPU_hbdDw@mail.gmail.com>
+ <614fb026-d8fa-da2e-584a-c9766319ecea@linux.vnet.ibm.com>
+To: Eddie James <eajames@linux.vnet.ibm.com>
+X-Mailer: Apple Mail (2.3273)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -69,163 +40,92 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Oct 2017 01:21:07 -0000
+X-List-Received-Date: Thu, 05 Oct 2017 02:01:42 -0000
 
 
---=-BCj8xzpu/tPcBwQykJH3
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, 2017-09-29 at 17:41 -0500, Eddie James wrote:
-> From: "Edward A. James" <eajames@us.ibm.com>
+> On Oct 4, 2017, at 11:04 AM, Eddie James <eajames@linux.vnet.ibm.com> =
+wrote:
 >=20
-> Prevent hanging forever waiting for OCC ops to complete.
 >=20
-> Signed-off-by: Edward A. James <eajames@us.ibm.com>
-> ---
-> =C2=A0drivers/hwmon/occ/p9_sbe.c | 33 ++++++++++++++++++++++++++-------
-> =C2=A01 file changed, 26 insertions(+), 7 deletions(-)
 >=20
-> diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
-> index c7e0d9c..ffd6829 100644
-> --- a/drivers/hwmon/occ/p9_sbe.c
-> +++ b/drivers/hwmon/occ/p9_sbe.c
-> @@ -14,37 +14,53 @@
-> =C2=A0#include <linux/platform_device.h>
-> =C2=A0#include <linux/occ.h>
-> =C2=A0#include <linux/sched.h>
-> +#include <linux/spinlock.h>
-> =C2=A0#include <linux/workqueue.h>
-> =C2=A0
-> =C2=A0struct p9_sbe_occ {
-> =C2=A0	struct occ occ;
-> =C2=A0	struct device *sbe;
-> +	struct occ_client *client;
-> +	spinlock_t lock;
-> =C2=A0};
-> =C2=A0
-> =C2=A0#define to_p9_sbe_occ(x)	container_of((x), struct p9_sbe_occ,
-> occ)
-> =C2=A0
-> +static void p9_sbe_occ_close_client(struct p9_sbe_occ *occ)
-> +{
-> +	struct occ_client *tmp_client;
-> +
-> +	spin_lock_irq(&occ->lock);
-> +	tmp_client =3D occ->client;
-> +	occ->client =3D NULL;
-> +	occ_drv_release(tmp_client);
-> +	spin_unlock_irq(&occ->lock);
-> +}
-> +
-> =C2=A0static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
-> =C2=A0{
-> =C2=A0	int rc, error;
-> -	struct occ_client *client;
-> =C2=A0	struct occ_response *resp =3D &occ->resp;
-> =C2=A0	struct p9_sbe_occ *p9_sbe_occ =3D to_p9_sbe_occ(occ);
-> =C2=A0
-> -	client =3D occ_drv_open(p9_sbe_occ->sbe, 0);
-> -	if (!client) {
-> +	spin_lock_irq(&p9_sbe_occ->lock);
+> On 10/03/2017 11:38 PM, Joel Stanley wrote:
+>> On Wed, Oct 4, 2017 at 4:44 AM, Eddie James =
+<eajames@linux.vnet.ibm.com> wrote:
+>>> From: "Edward A. James" <eajames@us.ibm.com>
+>>>=20
+>>> This reverts commit e55423ee10a5057338d24383c00e813436a126ea.
+>>>=20
+>>> Apologies for pushing this up so early... Userspace applications =
+aren't
+>>> ready for this change. The hwmon polling application cannot accept =
+EGAIN
+>>> yet, and we can't be returning apparent errors if the sensor is
+>>> temporarily unavailable.
+>> Can you go into some more detail here please.
+>>=20
+>> It looks like these changes are within the hwmon ABI, so userspace
+>> that supports hwmon devices shouldn't break.
+>=20
+> Sure. With this change, the driver returns -EAGAIN when reading =
+temperature sensors that show 0 temperature. Temperature 0 is how the =
+OCC indicates that the sensor is not available at the moment. So, we =
+should retry in a bit. But the hwmon application currently sees any =
+negative errno as an error,
 
-I think we should be using spin_lock_irqsave(), otherwise
-spin_unlock_irq() will unconditionally re-enable interrupts.
+Actually the userspace retries for a configurable period on eio, =
+etimedout,=20
+ebadmsg, eagain, and exnio.  It also exits cleanly on enoent.
 
-> +	p9_sbe_occ->client =3D occ_drv_open(p9_sbe_occ->sbe, 0);
-> +	if (!p9_sbe_occ->client) {
-> =C2=A0		rc =3D -ENODEV;
-> +		spin_unlock_irq(&p9_sbe_occ->lock);
-> =C2=A0		goto assign;
-> =C2=A0	}
-> +	spin_unlock_irq(&p9_sbe_occ->lock);
+If any of these errnos don=E2=80=99t go away after the configured number =
+of retry
+attempts, an error is logged.  Any other errnos and an error is logged
+immediately. If this list needs improvement I=E2=80=99d love to hear =
+about it.
 
-Rather than this dance with locking, you can do:
+ebadmsg and enxio are observed when i2c devices are unplugged with =
+transfers
+in various stages of flight.  They occur just before the driver is =
+unbound
+after the presence gpio toggle on these devices is noticed and processed
+(killing the hwmon userspace daemon cleanly).
 
-    spin_lock_irqsave(&p9_sbe_occ->lock, flags);
-    p9_sbe_occ->client =3D occ_drv_open(p9_sbe_occ->sbe, 0);
-spin_unlock_irqrestore(&p9_sbe_occ->lock, flags);
-if (!p9_sbe_occ->client) {
-        ...
-}
+eio, etimedout seem to be bus type errors that appear somewhat =
+infrequently,
+but occur nevertheless.
 
-Please take a look at the rest of the code for this pattern as well.
+we all know what eagain means=E2=80=A6
 
-> =C2=A0
-> -	rc =3D occ_drv_write(client, (const char *)&cmd[1], 7);
-> +	rc =3D occ_drv_write(p9_sbe_occ->client, (const char
-> *)&cmd[1], 7);
-> =C2=A0	if (rc < 0)
-> =C2=A0		goto err;
-> =C2=A0
-> -	rc =3D occ_drv_read(client, (char *)resp, sizeof(*resp));
-> +	rc =3D occ_drv_read(p9_sbe_occ->client, (char *)resp,
-> sizeof(*resp));
-> =C2=A0	if (rc < 0)
-> =C2=A0		goto err;
-> =C2=A0
-> -	occ_drv_release(client);
-> +	p9_sbe_occ_close_client(p9_sbe_occ);
-> =C2=A0
-> =C2=A0	switch (resp->return_status) {
-> =C2=A0	case RESP_RETURN_CMD_IN_PRG:
-> @@ -72,7 +88,7 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8
-> *cmd)
-> =C2=A0	goto done;
-> =C2=A0
-> =C2=A0err:
-> -	occ_drv_release(client);
-> +	p9_sbe_occ_close_client(p9_sbe_occ);
-> =C2=A0	dev_err(occ->bus_dev, "occ bus op failed rc:%d\n", rc);
-> =C2=A0assign:
-> =C2=A0	error =3D rc;
-> @@ -132,6 +148,7 @@ static int p9_sbe_occ_probe(struct
-> platform_device *pdev)
-> =C2=A0	p9_sbe_occ->sbe =3D pdev->dev.parent;
-> =C2=A0
-> =C2=A0	occ =3D &p9_sbe_occ->occ;
-> +	spin_lock_init(&p9_sbe_occ->lock);
-> =C2=A0	occ->bus_dev =3D &pdev->dev;
-> =C2=A0	occ->groups[0] =3D &occ->group;
-> =C2=A0	occ->poll_cmd_data =3D 0x20;
-> @@ -152,7 +169,9 @@ static int p9_sbe_occ_probe(struct
-> platform_device *pdev)
-> =C2=A0static int p9_sbe_occ_remove(struct platform_device *pdev)
-> =C2=A0{
-> =C2=A0	struct occ *occ =3D platform_get_drvdata(pdev);
-> +	struct p9_sbe_occ *p9_sbe_occ =3D to_p9_sbe_occ(occ);
-> =C2=A0
-> +	p9_sbe_occ_close_client(p9_sbe_occ);
-> =C2=A0	occ_remove_status_attrs(occ);
+It isn=E2=80=99t so much that the hwmon userspace doesn=E2=80=99t =
+support this change,
+its just the resulting behavior difference at the other end of the
+hwmon abi <-> dbus api translation is not optimal, right now.
 
-Shouldn't we be removing the status attributes before releasing the occ
-to prevent use-after-free or useless calls into read/write? This seems
-racy.
+1 - Without this change, the hwmon userspace reads a value of 0 out of
+the sysfs attribute and happily reports that as the temp at the DBus =
+level.
 
-Andrew
+With this change, the hwmon userspace would read the attribute, get an
+error and retry for a bit.  After a number of retries, the error is
+logged and the sensor is marked faulted at a dbus level.
 
-> =C2=A0
-> =C2=A0	atomic_dec(&occ_num_occs);
---=-BCj8xzpu/tPcBwQykJH3
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+The issue is the consumer of the sensor at the dbus level.  Today, the
+dbus consumer happens to translate the sensor value of zero into the
+desired behavior.  If we submit this change the sensor will be put
+into faulted state and the consuming application doesn=E2=80=99t have =
+support
+for that yet.
 
------BEGIN PGP SIGNATURE-----
+We have open issues to enhance the application to support faulted =
+sensors,
+its just not implemented yet.
 
-iQIcBAABCgAGBQJZ1Yj5AAoJEJ0dnzgO5LT5dw8QALli7FGlRdOX24N5tMhU4iVc
-a/L+RxQPBagBqLsuC3Tj7jKy5yyLiiv34s/ucRaIV+duZCuFeXCanYrJvZ6xUp31
-uC4ysBcssfIqRtXVVhgAc9GH81pztpwKMpa7W5eVrNrq9dlSN10j80r3nyjzQeZS
-RKFAYa1YCPriX8pD2v8rMMP4Ao0FujotcszhHJvS71DzSfgh9woGCVCQEzVOfAKA
-2C+B7ovCBEX2ZA6ldPc8cA3FpMKOpVx1YTuN/uwRHTyX3F3BfJ9M7gYgnOB6JV0i
-XI9gwGL9G5cciprJBSycEYqsfaXR6uhxsEFuwxLKjWtiTkJY8u6bfPwcFAuGUd87
-45u4D9sgGgCh3cgV1i82sLCg+Ayrwpy5+hY1oedxz5wKdvVcc8eV3G11E/tz3xYZ
-IQMBA/xNmJ/kefLnbFehL947FKBuuO/+dmvGKkpj9zJaL55JMUETCA2Cz1rLTDTd
-lo2LqMqZeEcMOt4nNkSrPoS7axwNXU4PpTp32tBzi8Qy5FEdIs7AHCgD42zIExnz
-dmoceCqI9nJWKSHPndzkDEmJRfkzQzgyc+m+xIvmxU6kucKU4Yj+qTMuXjH+ZFA0
-8KlKOWs+pokulEaU4JW+Ugbae03PImxrlM3pgT0RPJoMaaplW/ezPnmYVsTwB7LZ
-/pZMmxxgF6cRlpaqr5vr
-=Qzoz
------END PGP SIGNATURE-----
+I hope this helps a decision to be made.
 
---=-BCj8xzpu/tPcBwQykJH3--
+-brad
+
+
+> and will not retry on -EAGAIN. So now we get errors when we don't want =
+them (for now), basically.
+>=20
+> Thanks,
+> Eddie
