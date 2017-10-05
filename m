@@ -3,59 +3,59 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="lkrjJ16I"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="qsgbMAY6"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="HyqfEHCu"; dkim-atps=neutral
+ header.b="G5ZPLioJ"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y7T8W0TDrzDqhf
- for <openbmc@lists.ozlabs.org>; Fri,  6 Oct 2017 10:13:15 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y7TBV6czwzDqhf
+ for <openbmc@lists.ozlabs.org>; Fri,  6 Oct 2017 10:14:58 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 0A07720988;
- Thu,  5 Oct 2017 19:13:13 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id DC6FF20C1A;
+ Thu,  5 Oct 2017 19:14:56 -0400 (EDT)
 Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Thu, 05 Oct 2017 19:13:13 -0400
+ by compute4.internal (MEProxy); Thu, 05 Oct 2017 19:14:56 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=2fQ/c+E5WPtd/mk8RVsBjzXM/+zmqvtLz51+YpvLI
- tU=; b=lkrjJ16IaPzlQO6a/0+JkAQ5raCylmR2xMAsm9mf5OCUsFB/WH8+t/3KY
- 1IGq3QfLQDU6UjN5xLoMfzd7Fkfqg/3ugvVwtyjb20fP1NpgDNjd4q19d59RsQxp
- QIDggIC2dspLDY7HSjyE79C1eTGWckfJl3Ewtw2XCqG3jlO2CJgC55LlDhEGLXoC
- 7lVkkEMzrICOFTPcCl+ZMHzi7Sp5EGfsjhRmhX7AxWTnHkqiNrahbdslQom1t+92
- vrSDh2uNCC9gyV+2jbyxG+Dti4NQrJm0gSPwGzbCaDhveDrNmUGhBhJPE0ZIP4te
- Y736oa+bYs1giVgu4l2yYmA06Kq7g==
+ :x-sasl-enc; s=fm1; bh=pjPvC9jVVzMv2tBE7CYeYf8StgHEqoQuZJodeumio
+ wo=; b=qsgbMAY6H38FIojeYfU2sjvhYpDLAryAyXdVsjeXd5B7Sst4xrsFcPTUf
+ wLyk6khLVswCPSkCbFIfkMInFuQXn472l8WDggPj5WR65JM/SRmp2a1A2lYiV42I
+ XtrBBq3rBklW5QB5v//FkKhRm28asF+CkRbTaeclnu9ZhnD4jjaDXMIA3aAMSzO+
+ QB5QTTiLAE0z7anN5pCdFS65HCTRxmtvMfSkgEh7Io00Qo1+sSra/+Rkqn1D6B+c
+ oEpXzNbaDwd8q3fKgnBJJs31XVbtVOsCls6QdSyw6oQ3kOsG4ruMnSAXODtthCS9
+ uVFDC+XdJsuPeZyp4CSr/iBTJDHsA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=2fQ/c+E5WPtd/mk8RV
- sBjzXM/+zmqvtLz51+YpvLItU=; b=HyqfEHCuvgoQE1IZv5IM6CjVDeHSI1Wo1X
- 5poUtcIFT7cUjcpaenZEzI2xkn3jlqxui/9RIGWq/azGpVryyGNTCx9EQeHs7SV4
- hID/RDXmGO2ad+7n2GIG7VocqO4PZOS/4MKgkFPwKic0zjikLCtB52drWb3hVaNm
- 2WjnZ2N9xTk7VZE9G/i9DEbzOnQ4IAKbRKIohjl6KdVC36ZwuN9Gib1Pu6MoVIXc
- 6qhp+T67qmwfynPIm1uatkmMRDa8n7u2TQP0kYWWwLWauu8IzeY105e/ruhyy5Qt
- FGU0LwAFcwerzfBTTazgwLu9zDLR8Y5c9P39Hl+j+o6DrspkdHkA==
-X-ME-Sender: <xms:iLzWWVAxRJ0XORf81soTVmfbjODhgiGXnSy2ajStNtu0WFyR_q4QRg>
-X-Sasl-enc: Ef/O4iUPtvQ/CK7ZfgFFdD6pQgHglOgCv7udQOBO8v/d 1507245192
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=pjPvC9jVVzMv2tBE7C
+ YeYf8StgHEqoQuZJodeumiowo=; b=G5ZPLioJbrcH/cq+RSPweIREUNTZn/bXh8
+ WYVfhcjdLzx9g0vxn8m0NeZ5Bsy1eQEejvYiYyWrCMb5zW1ec/hho3RYje1q6RSf
+ MxAWjr47kIAQU427NvyFK6Xze9RLYo2g4Td8RYC53AlK8ZblU59RNyLG0ZvaVZ8H
+ ++viBSWhBJV25PObpmw9t7bMaiHQwjJOhJpof0XdBDTxh+Hfr9CHDjNalPBb54pN
+ HZEpCcyWvhYRv+T1qouGCk7ijqceBFv62rJEdbymyJOO7pg4G81B5m7FEmqDraNP
+ WysCaUC1NcTqMpxt0j5QgezPXRRB1W2tN+7pdlvjkMHPexxgNlqg==
+X-ME-Sender: <xms:8LzWWehyTpG-HXxvvl4SOnxVrACM-WPB0yHkJnSo218VpGkOKvIYWw>
+X-Sasl-enc: it4XzhADGwWIzQlc98TYaTmJktPf+B9EEVH7Khh8tj/X 1507245296
 Received: from keelia (ppp14-2-13-235.bras21.adl4.internode.on.net
  [14.2.13.235])
- by mail.messagingengine.com (Postfix) with ESMTPA id 07B2E7E4ED;
- Thu,  5 Oct 2017 19:13:10 -0400 (EDT)
-Message-ID: <1507245187.5452.109.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10 v3 23/31] drivers: fsi: occ: Destroy the
- ida list on exit
+ by mail.messagingengine.com (Postfix) with ESMTPA id D43707FA8C;
+ Thu,  5 Oct 2017 19:14:54 -0400 (EDT)
+Message-ID: <1507245291.5452.111.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.10 v3 24/31] drivers: fsi: occ: Remove
+ unnecessary platform_set_drvdata call
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
-Date: Fri, 06 Oct 2017 09:43:07 +1030
-In-Reply-To: <1507231464-13635-24-git-send-email-eajames@linux.vnet.ibm.com>
+Date: Fri, 06 Oct 2017 09:44:51 +1030
+In-Reply-To: <1507231464-13635-25-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1507231464-13635-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1507231464-13635-24-git-send-email-eajames@linux.vnet.ibm.com>
+ <1507231464-13635-25-git-send-email-eajames@linux.vnet.ibm.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-HdzqXhGLQJKfnJJuSLgU"
+ protocol="application/pgp-signature"; boundary="=-ZVWCaYdLIsmKlp/JjgX/"
 X-Mailer: Evolution 3.22.6-1ubuntu1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -69,59 +69,63 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Oct 2017 23:13:15 -0000
+X-List-Received-Date: Thu, 05 Oct 2017 23:14:59 -0000
 
 
---=-HdzqXhGLQJKfnJJuSLgU
+--=-ZVWCaYdLIsmKlp/JjgX/
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Thu, 2017-10-05 at 14:24 -0500, Eddie James wrote:
 > From: "Edward A. James" <eajames@us.ibm.com>
 >=C2=A0
-> Need to clean up the index list structure.
+> The purpose was to set that pointer null before probing. However, it is
+> set null by the kernel by default.
 >=C2=A0
 > Signed-off-by: Edward A. James <eajames@us.ibm.com>
-
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
-
 > ---
-> =C2=A0drivers/fsi/occ.c | 2 ++
-> =C2=A01 file changed, 2 insertions(+)
+> =C2=A0drivers/fsi/occ.c | 3 ---
+> =C2=A01 file changed, 3 deletions(-)
 >=C2=A0
 > diff --git a/drivers/fsi/occ.c b/drivers/fsi/occ.c
-> index f27345c..916c342 100644
+> index 916c342..561b029 100644
 > --- a/drivers/fsi/occ.c
 > +++ b/drivers/fsi/occ.c
-> @@ -788,6 +788,8 @@ static void occ_exit(void)
-> =C2=A0	destroy_workqueue(occ_wq);
+> @@ -703,9 +703,6 @@ static int occ_probe(struct platform_device *pdev)
+> =C2=A0	mutex_init(&occ->occ_lock);
+> =C2=A0	INIT_WORK(&occ->work, occ_worker);
 > =C2=A0
-> =C2=A0	platform_driver_unregister(&occ_driver);
-> +
-> +	ida_destroy(&occ_ida);
-> =C2=A0}
-> =C2=A0
-> =C2=A0module_init(occ_init);
---=-HdzqXhGLQJKfnJJuSLgU
+> -	/* ensure NULL before we probe children, so they don't hang FSI */
+> -	platform_set_drvdata(pdev, NULL);
+> -
+
+Bizarre that it was even there in the first place - do you know the history=
+ of
+the comment?
+
+> =C2=A0	if (dev->of_node) {
+> =C2=A0		rc =3D of_property_read_u32(dev->of_node, "reg", &reg);
+> =C2=A0		if (!rc) {
+--=-ZVWCaYdLIsmKlp/JjgX/
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJZ1ryDAAoJEJ0dnzgO5LT5bJoP/iWDPS7GIxFE8zGDAt+UjF/z
-1PDT9HUcc9dBQcDLuW6jdCSpoh4fkzQyMyHuFjNjLqTGXZosgPWfQ2mrEDwmIh11
-MT1mipfTiMzTa7GM38CW2zCn6/M49w19eQCeeuzTPW0rimrAUTtquVGAKS2WNCTl
-bXmlDItvl7EJ/w5LuTU9txZLXCMfOvW4N64AwH3+23GEnaOZC6GI5PB2lZPnb8cd
-FJwxpK8lFzy6yAxZdvsmM+3afsFrm1vZfNOKZ7UDo4AI4JwQytEgnVyfLzbzAqPb
-qSI9gmSMMD6xbraDTylsI7XC2CrtZpsw1/E69iHtiPZa1Itr8LOhLSDqKkEF6ZQD
-ZV8g2UnO9mn7bawdSGG1fsbz+a63gtWFbLgTTDJhf7Y1IErpW/Bd1kUBBLzSg0lf
-94Ufzwt3PGF+M8Xz7r/3ywgDVHuaS1itdqjvgIyEF8QPULumj1WF5Gv9L3dtEwU8
-UU/nyfqtX9OB0VeSAfAwa5Bs80Mnnv16dWkDl4QU/wfAbmu/CtUvO/sgsJ8/Ltr5
-g35fzM5MvIsNjJ3B8dGcm9xtuu1V/MyCwFGtNSvjuZAnRCHj7rc6+XSLc40XV2Uv
-1nr7g9dDvxcx9DWn0/dBJU3e6kMk9rSkTzXO5d9/NdO+EvCcuxBOQ3ibggB3IBRf
-Uzu3Dk5P7c+vpuEHf7ip
-=9z2l
+iQIcBAABCgAGBQJZ1rzrAAoJEJ0dnzgO5LT5hEMP/RYZu+gU4DvA28zXmXHCbLOi
+oO+19fEge3pcJPd0JgSsW+keEn/i5KaBeDltlLYtzUO7MM77DQELbHL5NDAOMtgo
+LAzEuKOOgt6nAqbbnSeltlXG5cCsFz0LRQiIYUpUpudjDhviIqlyDsKn2M+Zq6SZ
+rvpM5+aCO1+OECaDm4bW1rXYj4MJ+Ld7YOVKC9q1gs0YFINWqwgU36+MGuUDo+qK
+ekUceKz81W2ti2wwmfOc3ixTlZP3XoKKPcDq3LouKBRczhDiGe3w/7zLkH/Pt3aQ
+l3NDrLnwh6Uib6XQ+AlPUc72FddkaMUQNsbepVPEWN0+dxlZV59/1GUEfcTIct8+
+s9ujLyQwIxCoVl6KlG/gO0MQ2U3bjfLZpFbt6AzvMXe0TO0HpGNbH5GovE0cCea2
+vZX0OE55IsxNutQymYlg/Yjg/jO+yE0dSkNA83hSSl8ODWeL/ZUDKdepkawiIpcY
+ut1/XFXM8OBfvUe0GWuP35KxjeSa7Q6CR72wlcfyGfvFWj06dAK9+CLAQyYw9paA
+6Ykkkyrb20Jn7ChjeJQ3XcMMfJzTK/Ii0X/fMkvj/r8pTm0Xyg8P4zLYdD8qHNp9
+DS5Ae4HJMjzJmWNtk/EMCKd5NRqKXaphq2eL3t7YeEeQ4b2As61rjT0fLWuDLrpl
+W+TGDQ5VjnyZ1DXN0H2r
+=0osa
 -----END PGP SIGNATURE-----
 
---=-HdzqXhGLQJKfnJJuSLgU--
+--=-ZVWCaYdLIsmKlp/JjgX/--
