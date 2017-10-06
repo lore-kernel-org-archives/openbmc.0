@@ -1,68 +1,60 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="fNRtaRLJ"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="m5R3X4lZ"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y81mv6vrhzDqlT
- for <openbmc@lists.ozlabs.org>; Sat,  7 Oct 2017 07:43:11 +1100 (AEDT)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v96Kd4ca137003
- for <openbmc@lists.ozlabs.org>; Fri, 6 Oct 2017 16:43:09 -0400
-Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2deeuqe894-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 06 Oct 2017 16:43:09 -0400
-Received: from localhost
- by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Fri, 6 Oct 2017 14:43:09 -0600
-Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
- by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Fri, 6 Oct 2017 14:43:07 -0600
-Received: from b03ledav002.gho.boulder.ibm.com
- (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v96Kh6Nx6881740; Fri, 6 Oct 2017 13:43:06 -0700
-Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C51F113604B;
- Fri,  6 Oct 2017 14:43:06 -0600 (MDT)
-Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
- by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id 91D5C13603A;
- Fri,  6 Oct 2017 14:43:06 -0600 (MDT)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10 2/2] drivers: hwmon: occ: Add sysfs_notify to
- throttling attributes
-Date: Fri,  6 Oct 2017 15:43:01 -0500
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1507322581-13947-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1507322581-13947-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-TM-AS-GCONF: 00
-x-cbid: 17100620-0012-0000-0000-0000151C3AE9
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007851; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000235; SDB=6.00927415; UDB=6.00466659; IPR=6.00707674; 
- BA=6.00005623; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017426; XFM=3.00000015;
- UTC=2017-10-06 20:43:08
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17100620-0013-0000-0000-00004FC5BB72
-Message-Id: <1507322581-13947-3-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-10-06_05:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
- definitions=main-1710060289
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y82nV6Tt5zDqhf
+ for <openbmc@lists.ozlabs.org>; Sat,  7 Oct 2017 08:28:46 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id AF1A420B19;
+ Fri,  6 Oct 2017 17:28:43 -0400 (EDT)
+Received: from web1 ([10.202.2.211])
+ by compute4.internal (MEProxy); Fri, 06 Oct 2017 17:28:43 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; bh=iCWdqZG+dTer/VD37Niu5OCaV/5bI
+ rDHzaVBHr11/mw=; b=fNRtaRLJ1UcVuWli/cez54cAZTALdiUSU6r03t/i9fsOz
+ 4j0+wCchuWeZ2HIYKW7knNnyuvbFo597xrJ7APL0ZE3fhYyRyagruFicwo1oEFhg
+ lo8QcKU/KCssjq3ToeNb+e+S8rG3/aoHJrX3Dz6Q06YkpHgzONaE2yQpYVDt6Nre
+ Q9+iU6S+I1gVGSWC7ct36hiWzLJV+gcxtRMSaxEH2FeYWootocExHtZfOLHtNRfJ
+ 3bhNoeZZcTUehoX+Aezhky2oXoUcIiVtKO39V/VN7f6ov6FU4ZLRGiEgLwloXIW1
+ gEktYyadDT7M1sDdwSjLLfxocVIP0Hs1p5xIRbbKA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=iCWdqZ
+ G+dTer/VD37Niu5OCaV/5bIrDHzaVBHr11/mw=; b=m5R3X4lZOrvPt/4KxDPbRb
+ dVlqDkoNUin/DD90XiociOcUzD4lwCNuO1H6HgHCoe+LpaCv9Sj8Lq7Cyhbrr1Jy
+ InWxchjTFA1xgVF9BTZLO6P+XmKLFlYZ2krOsulkArLJq2vIyzLEhyb/RDTYfSrY
+ eLFJJ8238niNjcqCqU9I8SFI8pZK2oZ/BCHl+8SnApO7MD0HgoqTtFj2Wlms+G67
+ xbK7PKlZPy4yLEais4ttWTPl2he7BqUwpg8cc3Y8+vBoLONO8zSIYyaGtaQEeqMS
+ /AMsX1FeCDvVPKHbNKplwHK3zWu0IDNXs7Hjiq+gabdo5vVYrARfVofNvHTb/nUQ
+ ==
+X-ME-Sender: <xms:i_XXWYcgxavX5YJOYVDPW50BwI4Y1-ukxnQt5SADAZm043IRDYTlYw>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id 8CCC395793; Fri,  6 Oct 2017 17:28:43 -0400 (EDT)
+Message-Id: <1507325323.1545468.1130544088.6FEEF44B@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Rick Altherr <raltherr@google.com>, Javier Romero <xavinux@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-26fdae60
+Date: Sat, 07 Oct 2017 07:58:43 +1030
+References: <CAEX+82Lr=pJEvRqfi9MA=ZBW=DR+mY2VYVUhhTBgrPFA3c239g@mail.gmail.com>
+ <CAPLgG=nHvmVzBW2CDxvgaeYAHoNL53W3An-p9fK3D4HfsU=Bbw@mail.gmail.com>
+In-Reply-To: <CAPLgG=nHvmVzBW2CDxvgaeYAHoNL53W3An-p9fK3D4HfsU=Bbw@mail.gmail.com>
+Subject: Re: OpenBMC on Raspberry PI 3.
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -74,59 +66,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 06 Oct 2017 20:43:12 -0000
+X-List-Received-Date: Fri, 06 Oct 2017 21:28:48 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
 
-Need to alert user space when we change throttling state.
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
----
- drivers/hwmon/occ/common.c | 25 +++++++++++++++++++++----
- 1 file changed, 21 insertions(+), 4 deletions(-)
+On Sat, 7 Oct 2017, at 03:29, Rick Altherr wrote:
+> When you run  export TEMPLATECONF=meta-openbmc-machines/meta-
+> openpower/meta-ibm/meta-palmetto/conf, you are telling the build system
+> that you want to build images for the BMC processor used on the Palmetto
+> machine (Aspeed AST2400).  That image won't boot on a RaspberryPi.  What
+> you'll need to do is create a new layer in meta-openbmc-machines for a
+> RaspberryPi that includes the raspberrypi layer, specifies the correct
+> kernel device tree, etc. 
 
-diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
-index e8579b6..242ba40 100644
---- a/drivers/hwmon/occ/common.c
-+++ b/drivers/hwmon/occ/common.c
-@@ -182,6 +182,7 @@ int occ_poll(struct occ *occ)
- 	u16 checksum = occ->poll_cmd_data + 1;
- 	u8 cmd[8];
- 	u8 occs_present = header->occs_present;
-+	u8 ext_status = header->ext_status;
- 
- 	cmd[0] = 0;
- 	cmd[1] = 0;
-@@ -206,10 +207,26 @@ int occ_poll(struct occ *occ)
- 	} else
- 		occ->last_safe = 0;
- 
--	if (occs_present != header->occs_present && occ->hwmon &&
--	    (header->status & OCC_STAT_MASTER)) {
--		sysfs_notify(&occ->bus_dev->kobj, NULL,
--			     occ->status_attrs[7].dev_attr.attr.name);
-+	if (occ->hwmon) {
-+		if (occs_present != header->occs_present &&
-+		    (header->status & OCC_STAT_MASTER))
-+			sysfs_notify(&occ->bus_dev->kobj, NULL,
-+				     occ->status_attrs[7].dev_attr.attr.name);
-+
-+		if ((header->ext_status & OCC_EXT_STAT_DVFS_OT) != 
-+		    (ext_status & OCC_EXT_STAT_DVFS_OT))
-+			sysfs_notify(&occ->bus_dev->kobj, NULL,
-+				     occ->status_attrs[2].dev_attr.attr.name);
-+
-+		if ((header->ext_status & OCC_EXT_STAT_DVFS_POWER) != 
-+		    (ext_status & OCC_EXT_STAT_DVFS_POWER))
-+			sysfs_notify(&occ->bus_dev->kobj, NULL,
-+				     occ->status_attrs[3].dev_attr.attr.name);
-+
-+		if ((header->ext_status & OCC_EXT_STAT_MEM_THROTTLE) != 
-+		    (ext_status & OCC_EXT_STAT_MEM_THROTTLE))
-+			sysfs_notify(&occ->bus_dev->kobj, NULL,
-+				     occ->status_attrs[4].dev_attr.attr.name);
- 	}
- 
- done:
--- 
-1.8.3.1
+ As a heads-up, some of this work has already been done:
+
+https://github.com/openbmc/openbmc/tree/master/meta-openbmc-machines/meta-evb/meta-evb-raspberrypi/conf
+
+It was added in this change:
+
+https://gerrit.openbmc-project.xyz/#/c/508/
+
+I don't think it was thoroughly tested and it has probably bit-rotted,
+but maybe it's existence will flatten out the learning curve a bit.
+
+Cheers,
+
+Andrew
