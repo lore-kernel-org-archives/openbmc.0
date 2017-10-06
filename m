@@ -7,54 +7,55 @@ Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
  [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y7Y0X4kr7zDqlx
- for <openbmc@lists.ozlabs.org>; Fri,  6 Oct 2017 13:06:36 +1100 (AEDT)
-Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v9624p9U105628
- for <openbmc@lists.ozlabs.org>; Thu, 5 Oct 2017 22:06:34 -0400
-Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2ddsap4623-1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y7Y0Z6hKpzDqms
+ for <openbmc@lists.ozlabs.org>; Fri,  6 Oct 2017 13:06:38 +1100 (AEDT)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v9624rJx120283
+ for <openbmc@lists.ozlabs.org>; Thu, 5 Oct 2017 22:06:36 -0400
+Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2ddujwd3v9-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 05 Oct 2017 22:06:34 -0400
+ for <openbmc@lists.ozlabs.org>; Thu, 05 Oct 2017 22:06:36 -0400
 Received: from localhost
- by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 5 Oct 2017 20:06:33 -0600
-Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
- by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
+ Thu, 5 Oct 2017 20:06:35 -0600
+Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
+ by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Thu, 5 Oct 2017 20:06:31 -0600
+ Thu, 5 Oct 2017 20:06:33 -0600
 Received: from b03ledav006.gho.boulder.ibm.com
  (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v9626VU664094318; Thu, 5 Oct 2017 19:06:31 -0700
+ by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v9626XgX65405146; Thu, 5 Oct 2017 19:06:33 -0700
 Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 03678C603C;
- Thu,  5 Oct 2017 20:06:31 -0600 (MDT)
+ by IMSVA (Postfix) with ESMTP id 4B0EDC6047;
+ Thu,  5 Oct 2017 20:06:33 -0600 (MDT)
 Received: from oc3016140333.ibm.com (unknown [9.85.157.182])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id 1A1B3C6037;
- Thu,  5 Oct 2017 20:06:29 -0600 (MDT)
+ by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id 4A0FDC6037;
+ Thu,  5 Oct 2017 20:06:32 -0600 (MDT)
 From: Eddie James <eajames@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, andrew@aj.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10 v4 15/31] drivers: fsi: occ: Fix includes
-Date: Thu,  5 Oct 2017 21:05:37 -0500
+Subject: [PATCH linux dev-4.10 v4 16/31] drivers: fsi: occ: Fix errant kfree
+ calls
+Date: Thu,  5 Oct 2017 21:05:38 -0500
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1507255553-13301-1-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1507255553-13301-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-TM-AS-GCONF: 00
-x-cbid: 17100602-0012-0000-0000-0000151B2807
+x-cbid: 17100602-0016-0000-0000-0000079DC626
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00007847; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000235; SDB=6.00927057; UDB=6.00466443; IPR=6.00707312; 
+ PH=3.00000004; SC=3.00000235; SDB=6.00927058; UDB=6.00466443; IPR=6.00707312; 
  BA=6.00005623; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017415; XFM=3.00000015;
- UTC=2017-10-06 02:06:32
+ UTC=2017-10-06 02:06:35
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17100602-0013-0000-0000-00004FC30CE9
-Message-Id: <1507255553-13301-16-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 17100602-0017-0000-0000-00003BBE66BB
+Message-Id: <1507255553-13301-17-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-10-06_01:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -73,44 +74,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 06 Oct 2017 02:06:37 -0000
+X-List-Received-Date: Fri, 06 Oct 2017 02:06:39 -0000
 
 From: "Edward A. James" <eajames@us.ibm.com>
 
-Need to include everything we use and not rely on recursive includes.
+Left over from when xfr was an independant structure. Remove these calls
+as xfr is a part of the client struct.
 
 Signed-off-by: Edward A. James <eajames@us.ibm.com>
-Acked-by: Andrew Jeffery <andrew@aj.id.au>
+Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 ---
- drivers/fsi/occ.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/fsi/occ.c | 2 --
+ 1 file changed, 2 deletions(-)
 
 diff --git a/drivers/fsi/occ.c b/drivers/fsi/occ.c
-index 621fbf0..2d7df8a 100644
+index 2d7df8a..cd60c5a 100644
 --- a/drivers/fsi/occ.c
 +++ b/drivers/fsi/occ.c
-@@ -10,16 +10,21 @@
- #include <asm/unaligned.h>
- #include <linux/device.h>
- #include <linux/err.h>
-+#include <linux/errno.h>
-+#include <linux/fs.h>
- #include <linux/fsi-sbefifo.h>
--#include <linux/init.h>
-+#include <linux/idr.h>
- #include <linux/kernel.h>
-+#include <linux/list.h>
- #include <linux/miscdevice.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
-+#include <linux/occ.h>
- #include <linux/of.h>
- #include <linux/of_platform.h>
- #include <linux/platform_device.h>
- #include <linux/slab.h>
-+#include <linux/spinlock.h>
- #include <linux/uaccess.h>
- #include <linux/wait.h>
- #include <linux/workqueue.h>
+@@ -289,7 +289,6 @@ static ssize_t occ_write_common(struct occ_client *client,
+ 
+ 	if (ubuf) {
+ 		if (copy_from_user(&xfr->buf[1], ubuf, len)) {
+-			kfree(xfr);
+ 			rc = -EFAULT;
+ 			goto done;
+ 		}
+@@ -298,7 +297,6 @@ static ssize_t occ_write_common(struct occ_client *client,
+ 
+ 	data_length = (xfr->buf[2] << 8) + xfr->buf[3];
+ 	if (data_length > OCC_CMD_DATA_BYTES) {
+-		kfree(xfr);
+ 		rc = -EINVAL;
+ 		goto done;
+ 	}
 -- 
 1.8.3.1
