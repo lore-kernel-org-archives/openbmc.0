@@ -1,66 +1,50 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <xavinux@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c0d::22f; helo=mail-qt0-x22f.google.com;
+ envelope-from=xavinux@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="nRVJiIxF"; 
+ dkim-atps=neutral
+Received: from mail-qt0-x22f.google.com (mail-qt0-x22f.google.com
+ [IPv6:2607:f8b0:400d:c0d::22f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y7sTl4SJ8zDqhg
- for <openbmc@lists.ozlabs.org>; Sat,  7 Oct 2017 01:29:31 +1100 (AEDT)
-Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v96ETRhG130545
- for <openbmc@lists.ozlabs.org>; Fri, 6 Oct 2017 10:29:28 -0400
-Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2deapekk5h-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 06 Oct 2017 10:29:27 -0400
-Received: from localhost
- by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Fri, 6 Oct 2017 08:29:13 -0600
-Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
- by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Fri, 6 Oct 2017 08:29:10 -0600
-Received: from b03ledav003.gho.boulder.ibm.com
- (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v96ETA9X64028806; Fri, 6 Oct 2017 07:29:10 -0700
-Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 7C4C06A03C;
- Fri,  6 Oct 2017 08:29:10 -0600 (MDT)
-Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
- by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP id 2F3556A042;
- Fri,  6 Oct 2017 08:29:10 -0600 (MDT)
-From: Eddie James <eajames@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y7v236rFqzDqhg
+ for <openbmc@lists.ozlabs.org>; Sat,  7 Oct 2017 02:38:31 +1100 (AEDT)
+Received: by mail-qt0-x22f.google.com with SMTP id o52so32132556qtc.9
+ for <openbmc@lists.ozlabs.org>; Fri, 06 Oct 2017 08:38:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=B6jLrZeeDWjzXuToFR29ibGu568YACe3uO0z0XIfqOE=;
+ b=nRVJiIxFeLP4tzSOieo76OzXMgbI1Vl0ZzBtjYJg+8lKun+G0+YTAxIHJ+q7fVPp0c
+ GyRDWMOZOm6yqAZE2dtWLQKUfsSET6YRbpX1trFNlifxLD07WtBm0nAnEcw0GzNw2Irw
+ kd6pWzKT3tWdfQ0RWqW1cx0srClruRnrQAVwngwC8zMswCuBtKXlBp5F1jUAWJD8txXo
+ hv3i3YGbyVLQOctPmdgyfjswYttqG2VlOXttZsyyyXevdNSGWouuABr7qWyM7vRoLJ0b
+ XvqHVuoC6n+y7aLqGHW4vBnWd6i3ZJ7ROC+J5Kx3zZlRJ7ymR74PSContHiQzHDnqT88
+ P3WA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=B6jLrZeeDWjzXuToFR29ibGu568YACe3uO0z0XIfqOE=;
+ b=Tc9BRPeb3QSXoFWFEg5QolwgNz9NTm6qBmDYfeOkfIiaY4rAOyv0TaFaCTYmFOJwcv
+ VG4fsoWTfYlLnIsZMX8mDRUPNufIPwEzZ+3Qg0itcfFOopL+7Z/MzwOt69X/kjp6vQ2x
+ 3yC823/AcvcESpBOAf6HXmPMwT2b22ZC0E9Xnoq10m5PzLDeDmhkCcYR1w51FyLDG9he
+ eKopoNH2buBiN5A8+m8nsIeEt22KkaAJygIAmmdr1L8OJVxlbkN9ey8AD2lrSH8HLZi5
+ p+oMIvv8mxdZxseQx+CLnCYgrrOHJKBEe/XucQV38C+qMB2L/Ee4iU2FC6MI04O5XUQO
+ 2riA==
+X-Gm-Message-State: AMCzsaUcCnrR3KiWqphUWz9xbK0G8Yk++PdSd1X9k3OvGpBNzGdtQ+/K
+ ceNhr53dkUqqbtp/nPpwA7+KvK7OJ5RLOaB7b2dyhfw7
+X-Google-Smtp-Source: AOwi7QASjOqumQ9h4who/Y4uRLqdC1yBkqvPBZZetf3wQnwvcmCDGk+8VUVbRzk4J39rEw1/rsF9msqq4yWB4wjI4Xg=
+X-Received: by 10.237.41.70 with SMTP id s64mr3664282qtd.71.1507304309372;
+ Fri, 06 Oct 2017 08:38:29 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.12.180.159 with HTTP; Fri, 6 Oct 2017 08:38:28 -0700 (PDT)
+From: Javier Romero <xavinux@gmail.com>
+Date: Fri, 6 Oct 2017 12:38:28 -0300
+Message-ID: <CAEX+82Lr=pJEvRqfi9MA=ZBW=DR+mY2VYVUhhTBgrPFA3c239g@mail.gmail.com>
+Subject: OpenBMC on Raspberry PI 3.
 To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, andrew@aj.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10 v5 31/31] drivers: hwmon: occ: Cancel occ
- operations in remove()
-Date: Fri,  6 Oct 2017 09:29:08 -0500
-X-Mailer: git-send-email 1.8.3.1
-X-TM-AS-GCONF: 00
-x-cbid: 17100614-8235-0000-0000-00000C5F6727
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007850; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000235; SDB=6.00927291; UDB=6.00466584; IPR=6.00707549; 
- BA=6.00005623; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017421; XFM=3.00000015;
- UTC=2017-10-06 14:29:12
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17100614-8236-0000-0000-00003DEE83DC
-Message-Id: <1507300148-8208-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-10-06_04:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
- definitions=main-1710060206
+Content-Type: multipart/alternative; boundary="94eb2c06a072edbba6055ae2a10f"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -72,126 +56,100 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 06 Oct 2017 14:29:32 -0000
+X-List-Received-Date: Fri, 06 Oct 2017 15:39:08 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
+--94eb2c06a072edbba6055ae2a10f
+Content-Type: text/plain; charset="UTF-8"
 
-Prevent hanging forever waiting for OCC ops to complete.
+Hi People,
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
+I'm building an OpenBMC image for target Palmetto on Ubuntu 16.04 to try to
+make it work on the Raspberry PI 3. I've followed these steps:
 
-Changes since v4:
- * Add comments for the spinlock
----
- drivers/hwmon/occ/p9_sbe.c | 49 +++++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 42 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
-index c7e0d9c..ac18422 100644
---- a/drivers/hwmon/occ/p9_sbe.c
-+++ b/drivers/hwmon/occ/p9_sbe.c
-@@ -14,37 +14,68 @@
- #include <linux/platform_device.h>
- #include <linux/occ.h>
- #include <linux/sched.h>
-+#include <linux/spinlock.h>
- #include <linux/workqueue.h>
- 
- struct p9_sbe_occ {
- 	struct occ occ;
- 	struct device *sbe;
-+
-+	/*
-+	 * Pointer to occ device client. We store this so that we can cancel
-+	 * the client operations in remove() if necessary. We only need one
-+	 * pointer since we do one OCC operation (open, write, read, close) at
-+	 * a time (access to p9_sbe_occ_send_cmd is locked in the common code
-+	 * with occ.lock).
-+	 */
-+	struct occ_client *client;
-+
-+	/*
-+	 * This lock controls access to the client pointer and ensures atomic
-+	 * open, close and NULL assignment. This prevents simultaneous opening
-+	 * and closing of the client, or closing multiple times.
-+	 */
-+	spinlock_t lock;
- };
- 
- #define to_p9_sbe_occ(x)	container_of((x), struct p9_sbe_occ, occ)
- 
-+static void p9_sbe_occ_close_client(struct p9_sbe_occ *occ)
-+{
-+	struct occ_client *tmp_client;
-+
-+	spin_lock_irq(&occ->lock);
-+	tmp_client = occ->client;
-+	occ->client = NULL;
-+	occ_drv_release(tmp_client);
-+	spin_unlock_irq(&occ->lock);
-+}
-+
- static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
- {
- 	int rc, error;
--	struct occ_client *client;
- 	struct occ_response *resp = &occ->resp;
- 	struct p9_sbe_occ *p9_sbe_occ = to_p9_sbe_occ(occ);
- 
--	client = occ_drv_open(p9_sbe_occ->sbe, 0);
--	if (!client) {
-+	spin_lock_irq(&p9_sbe_occ->lock);
-+	if (p9_sbe_occ->sbe)
-+		p9_sbe_occ->client = occ_drv_open(p9_sbe_occ->sbe, 0);
-+	spin_unlock_irq(&p9_sbe_occ->lock);
-+
-+	if (!p9_sbe_occ->client) {
- 		rc = -ENODEV;
- 		goto assign;
- 	}
- 
--	rc = occ_drv_write(client, (const char *)&cmd[1], 7);
-+	rc = occ_drv_write(p9_sbe_occ->client, (const char *)&cmd[1], 7);
- 	if (rc < 0)
- 		goto err;
- 
--	rc = occ_drv_read(client, (char *)resp, sizeof(*resp));
-+	rc = occ_drv_read(p9_sbe_occ->client, (char *)resp, sizeof(*resp));
- 	if (rc < 0)
- 		goto err;
- 
--	occ_drv_release(client);
-+	p9_sbe_occ_close_client(p9_sbe_occ);
- 
- 	switch (resp->return_status) {
- 	case RESP_RETURN_CMD_IN_PRG:
-@@ -72,7 +103,7 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
- 	goto done;
- 
- err:
--	occ_drv_release(client);
-+	p9_sbe_occ_close_client(p9_sbe_occ);
- 	dev_err(occ->bus_dev, "occ bus op failed rc:%d\n", rc);
- assign:
- 	error = rc;
-@@ -132,6 +163,7 @@ static int p9_sbe_occ_probe(struct platform_device *pdev)
- 	p9_sbe_occ->sbe = pdev->dev.parent;
- 
- 	occ = &p9_sbe_occ->occ;
-+	spin_lock_init(&p9_sbe_occ->lock);
- 	occ->bus_dev = &pdev->dev;
- 	occ->groups[0] = &occ->group;
- 	occ->poll_cmd_data = 0x20;
-@@ -152,7 +184,10 @@ static int p9_sbe_occ_probe(struct platform_device *pdev)
- static int p9_sbe_occ_remove(struct platform_device *pdev)
- {
- 	struct occ *occ = platform_get_drvdata(pdev);
-+	struct p9_sbe_occ *p9_sbe_occ = to_p9_sbe_occ(occ);
- 
-+	p9_sbe_occ->sbe = NULL;
-+	p9_sbe_occ_close_client(p9_sbe_occ);
- 	occ_remove_status_attrs(occ);
- 
- 	atomic_dec(&occ_num_occs);
--- 
-1.8.3.1
+*1.  *sudo apt-get install -y git build-essential libsdl1.2-dev texinfo
+gawk chrpath diffstat
+
+*2.* git clone git@github.com:openbmc/openbmc.git
+
+*3.* cd openbmc
+
+*4-* export TEMPLATECONF=meta-openbmc-machines/meta-
+openpower/meta-ibm/meta-palmetto/conf
+
+*tester@obmc:/openbmc$* . oe-init-build-env ~/my-build
+
+*tester@obmc:~/my-build$* bitbake obmc-phosphor-image
+
+*tester@obmc:/$* cd /home/tester/my-build/tmp/deploy/images/palmetto/
+
+*tester@obmc:/$* tar -xvf
+obmc-phosphor-image-palmetto-20171005142206.static.mtd.all.tar
+
+*tester@obmc:/$* ls -lha
+total 65M
+drwxr-xr-x  2 root   root   4.0K Oct  5 15:37 .
+drwxr-xr-x 24 root   root   4.0K Oct  5 10:29 ..
+*-rw-rw-r--  1 tester tester  32M Oct  5 14:03 image-bmc*
+-rw-rw-r--  2 tester tester  33M Oct  5 14:03
+obmc-phosphor-image-palmetto-20171005142206.static.mtd.all.tar
+
+
+Would like to know if it is the *image-bmc* file, what I will have to flash
+on the SD card of the Raspberry to load OpenBMC.
+
+Have also build an image of Linux Yocto for Raspberry PI 3.
+
+Thanks for your attention.
+
+Regards,
+
+
+
+
+*Javier Romero*
+
+*E-mail: xavinux@gmail.com <xavinux@gmail.com>*
+
+*Skype: xavinux*
+
+--94eb2c06a072edbba6055ae2a10f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi People,<br><br></div>I&#39;m building an OpenBMC i=
+mage for target Palmetto on Ubuntu 16.04 to try to make it work on the Rasp=
+berry PI 3. I&#39;ve followed these steps:<br><br><div><div><br><b>1.=C2=A0=
+ </b>sudo apt-get install -y git build-essential libsdl1.2-dev texinfo gawk=
+ chrpath diffstat<br><br><b>2.</b> git clone git@github.com:openbmc/openbmc=
+.git<br><br><b>3.</b> cd openbmc<br><br><b>4-</b> export TEMPLATECONF=3Dmet=
+a-openbmc-machines/meta-<br>openpower/meta-ibm/meta-palmetto/conf<br><b><br=
+>tester@obmc:/openbmc$</b> . oe-init-build-env ~/my-build<b><br><br>tester@=
+obmc:~/my-build$</b> bitbake obmc-phosphor-image<br><br><b>tester@obmc:/$</=
+b> cd /home/tester/my-build/tmp/deploy/images/palmetto/<b><br><br>tester@ob=
+mc:/$</b> tar -xvf obmc-phosphor-image-palmetto-20171005142206.static.mtd.a=
+ll.tar<br><br><b>tester@obmc:/$</b> ls -lha<br>total 65M<br>drwxr-xr-x=C2=
+=A0 2 root=C2=A0=C2=A0 root=C2=A0=C2=A0 4.0K Oct=C2=A0 5 15:37 .<br>drwxr-x=
+r-x 24 root=C2=A0=C2=A0 root=C2=A0=C2=A0 4.0K Oct=C2=A0 5 10:29 ..<br><span=
+ style=3D"color:rgb(255,0,0)"><i><b>-rw-rw-r--=C2=A0 1 tester tester=C2=A0 =
+32M Oct=C2=A0 5 14:03 image-bmc</b></i></span><br>-rw-rw-r--=C2=A0 2 tester=
+ tester=C2=A0 33M Oct=C2=A0 5 14:03 obmc-phosphor-image-palmetto-2017100514=
+2206.static.mtd.all.tar<br><br><br></div><div>Would like to know if it is t=
+he <span style=3D"color:rgb(255,0,0)"><b>image-bmc</b></span> file, what I =
+will have to flash on the SD card of the Raspberry to load OpenBMC.<br><br>=
+</div><div>Have also build an image of Linux Yocto for Raspberry PI 3.<br><=
+/div><div><br></div><div>Thanks for your attention.<br><br></div><div>Regar=
+ds,<br><br><br></div><div><br clear=3D"all"><div><div class=3D"gmail_signat=
+ure"><div dir=3D"ltr"><div style=3D"text-align:left"><i><b>Javier Romero<br=
+></b></i></div><div style=3D"text-align:left"><span style=3D"color:rgb(19,7=
+9,92)"><i><b><span style=3D"color:rgb(0,0,0)">E-mail:<span style=3D"color:r=
+gb(0,0,255)"> </span></span><span style=3D"color:rgb(0,0,255)"><a href=3D"m=
+ailto:xavinux@gmail.com" target=3D"_blank">xavinux@gmail.com</a></span><br>=
+</b></i></span></div><div style=3D"text-align:left"><i><b><span style=3D"co=
+lor:rgb(19,79,92)"><span style=3D"color:rgb(0,0,0)">Skype:</span> <span sty=
+le=3D"color:rgb(11,83,148)"><u><span style=3D"color:rgb(0,0,255)">xavinux</=
+span><br></u></span></span></b></i></div><div style=3D"text-align:left"><br=
+></div> </div></div></div>
+</div></div></div>
+
+--94eb2c06a072edbba6055ae2a10f--
