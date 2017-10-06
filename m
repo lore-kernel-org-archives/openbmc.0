@@ -1,63 +1,66 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="afoDfZRH"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="pvIMJ5CP"; dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <austenc@us.ibm.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=us.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=austenc@us.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y7YRK3GqZzDqhg
- for <openbmc@lists.ozlabs.org>; Fri,  6 Oct 2017 13:26:21 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id EA1C620D6C;
- Thu,  5 Oct 2017 22:26:18 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Thu, 05 Oct 2017 22:26:18 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=OnSJFwb9bTzg0Qeayl3BtEK6uENgt3i1t1t+3FM0+
- Bg=; b=afoDfZRHLK/G1SUzkDBxL+evS5LitF7tmumyY87KQ8tt0IfBA29q3/6Y3
- 5lCZzZC5KOLk5Cul79NDGXWMjgJF4AtJ4D72vS8VAbq//6KVxBAEaSzC6eywDk32
- 678YUia9DbWMRXXU+8yg7I6zA1z/ufd0bmTn03Ff+7bo94kPwtGPp+NmH0kAW6tO
- O9QieN4Levjrqhd5OKBfpzDN+gWt5fIrYy2NKS4gJ1jPzD4rEhvEl+6cs6are/I1
- 5eDxL8Mo+a+i3FzGVC52dkvmMs3s6wXiJX6hiwT3jJpRat8CJpBxuTkrzTW3LrB1
- o0guP3vjpZtkvPRaOextldp3YFCHw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=OnSJFwb9bTzg0Qeayl
- 3BtEK6uENgt3i1t1t+3FM0+Bg=; b=pvIMJ5CP23npt5WGCJobA5We2NCgPon7nu
- VPSnrTLd4wV9ScbxIqs8qo7X5EjEU88/Qv6V68LEY8qNa9I2RphVinmkZJtlU3+3
- SRLfR/GQfQkDRUBhViA9131XzJuUYU5R1pX7ap5nWfgFkzItOCcbgZl+/hw50KjS
- rlaSZK0JUflDKf/cMEfSuI9SlqhF/JBOI3llgZvM6D+Db2IWW3q7zfn42er/jqR2
- +0f7HPCxdbzE6HQNA8PBjwKbkIIoIdFMRq2bnoBnIW54wOaHm92JCt5D5Hu+qgp9
- 2UhUmpHEZp+ORtI5mF3jr6+K3gs6v+fIXHgdwfxuro+r7uFYQgEQ==
-X-ME-Sender: <xms:yunWWQ4-6DAd5vIdNE_3gyZKSSGlni-AdT-0YzF1nQrzKp2H3q328g>
-X-Sasl-enc: HAbR/8x0nbLjmbTtrbKmweJJr2rCb/Fkiyqr04KPLLCV 1507256778
-Received: from keelia (ppp14-2-13-235.bras21.adl4.internode.on.net
- [14.2.13.235])
- by mail.messagingengine.com (Postfix) with ESMTPA id F31187E954;
- Thu,  5 Oct 2017 22:26:16 -0400 (EDT)
-Message-ID: <1507256772.5452.138.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10 v4 31/31] drivers: hwmon: occ: Cancel occ
- operations in remove()
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
-Date: Fri, 06 Oct 2017 12:56:12 +1030
-In-Reply-To: <1507255553-13301-32-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1507255553-13301-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1507255553-13301-32-git-send-email-eajames@linux.vnet.ibm.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-WqCX1iMheQx+fxToC9zf"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y7Z1w3RzLzDqhg
+ for <openbmc@lists.ozlabs.org>; Fri,  6 Oct 2017 13:52:51 +1100 (AEDT)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v962mhF3031174
+ for <openbmc@lists.ozlabs.org>; Thu, 5 Oct 2017 22:52:49 -0400
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.72])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2ddtt7s32s-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 05 Oct 2017 22:52:49 -0400
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Fri, 6 Oct 2017 02:52:48 -0000
+Received: from us1a3-smtp08.a3.dal06.isc4sb.com (10.146.103.57)
+ by smtp.notes.na.collabserv.com (10.106.227.158) with
+ smtp.notes.na.collabserv.com ESMTP; Fri, 6 Oct 2017 02:52:45 -0000
+Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
+ by us1a3-smtp08.a3.dal06.isc4sb.com
+ with ESMTP id 2017100602524455-1122345 ;
+ Fri, 6 Oct 2017 02:52:44 +0000 
+MIME-Version: 1.0
+In-Reply-To: <1507254940.5452.129.camel@aj.id.au>
+Subject: Re: OpenBMC helper scripts repositories
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: OpenBMC <openbmc@lists.ozlabs.org>
+From: "Chris Austen" <austenc@us.ibm.com>
+Date: Thu, 5 Oct 2017 21:52:43 -0500
+References: <1507254940.5452.129.camel@aj.id.au>
+X-KeepSent: 05A3099D:D8B3AB82-862581B1:000FC8B5;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1EXT SHF766 December 14, 2016
+X-LLNOutbound: False
+X-Disclaimed: 6979
+X-TNEFEvaluated: 1
+Content-type: multipart/alternative; 
+ Boundary="0__=09BB0B22DF9C4E258f9e8a93df938690918c09BB0B22DF9C4E25"
+Content-Disposition: inline
+x-cbid: 17100602-6059-0000-0000-000005ABF87B
+X-IBM-SpamModules-Scores: BY=0.092232; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.433748; ST=0; TS=0; UL=0; ISC=; MB=0.010592
+X-IBM-SpamModules-Versions: BY=3.00007847; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000235; SDB=6.00927073; UDB=6.00466452; IPR=6.00707327; 
+ BA=6.00005623; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017415; XFM=3.00000015;
+ UTC=2017-10-06 02:52:46
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2017-10-05 20:25:28 - 6.00007419
+x-cbparentid: 17100602-6060-0000-0000-000060D929CA
+Message-Id: <OF05A3099D.D8B3AB82-ON862581B1.000FC8B5-862581B1.000FD016@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-10-06_01:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -69,155 +72,88 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 06 Oct 2017 02:26:22 -0000
+X-List-Received-Date: Fri, 06 Oct 2017 02:52:53 -0000
 
 
---=-WqCX1iMheQx+fxToC9zf
-Content-Type: text/plain; charset="UTF-8"
+--0__=09BB0B22DF9C4E258f9e8a93df938690918c09BB0B22DF9C4E25
 Content-Transfer-Encoding: quoted-printable
+Content-type: text/plain; charset=US-ASCII
 
-On Thu, 2017-10-05 at 21:05 -0500, Eddie James wrote:
-> From: "Edward A. James" <eajames@us.ibm.com>
->=20
-> Prevent hanging forever waiting for OCC ops to complete.
->=20
-> Signed-off-by: Edward A. James <eajames@us.ibm.com>
-> ---
-> =C2=A0drivers/hwmon/occ/p9_sbe.c | 35 ++++++++++++++++++++++++++++-------
-> =C2=A01 file changed, 28 insertions(+), 7 deletions(-)
->=20
-> diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
-> index c7e0d9c..9842e0d 100644
-> --- a/drivers/hwmon/occ/p9_sbe.c
-> +++ b/drivers/hwmon/occ/p9_sbe.c
-> @@ -14,37 +14,54 @@
-> =C2=A0#include <linux/platform_device.h>
-> =C2=A0#include <linux/occ.h>
-> =C2=A0#include <linux/sched.h>
-> +#include <linux/spinlock.h>
-> =C2=A0#include <linux/workqueue.h>
-> =C2=A0
-> =C2=A0struct p9_sbe_occ {
-> =C2=A0	struct occ occ;
-> =C2=A0	struct device *sbe;
-> +	struct occ_client *client;
-> +	spinlock_t lock;
-
-Can you please explain=C2=A0the semantics of this lock in a comment or in
-the commit message? Who should hold it, when and why, and in what order
-with respect to other locks if applicable?
-
-We've discussed it in private previously but I admit the details have
-escaped me, and the way it gets used in this patch looks pretty
-strange.
-
-Andrew
+Mine too... https://github.com/causten/openbmc-tutorials
 
 
-> =C2=A0};
-> =C2=A0
-> =C2=A0#define to_p9_sbe_occ(x)	container_of((x), struct p9_sbe_occ,
-> occ)
-> =C2=A0
-> +static void p9_sbe_occ_close_client(struct p9_sbe_occ *occ)
-> +{
-> +	struct occ_client *tmp_client;
-> +
-> +	spin_lock_irq(&occ->lock);
-> +	tmp_client =3D occ->client;
-> +	occ->client =3D NULL;
-> +	occ_drv_release(tmp_client);
-> +	spin_unlock_irq(&occ->lock);
-> +}
-> +
-> =C2=A0static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
-> =C2=A0{
-> =C2=A0	int rc, error;
-> -	struct occ_client *client;
-> =C2=A0	struct occ_response *resp =3D &occ->resp;
-> =C2=A0	struct p9_sbe_occ *p9_sbe_occ =3D to_p9_sbe_occ(occ);
-> =C2=A0
-> -	client =3D occ_drv_open(p9_sbe_occ->sbe, 0);
-> -	if (!client) {
-> +	spin_lock_irq(&p9_sbe_occ->lock);
-> +	if (p9_sbe_occ->sbe)
-> +		p9_sbe_occ->client =3D occ_drv_open(p9_sbe_occ->sbe,
-> 0);
-> +	spin_unlock_irq(&p9_sbe_occ->lock);
-> +
-> +	if (!p9_sbe_occ->client) {
-> =C2=A0		rc =3D -ENODEV;
-> =C2=A0		goto assign;
-> =C2=A0	}
-> =C2=A0
-> -	rc =3D occ_drv_write(client, (const char *)&cmd[1], 7);
-> +	rc =3D occ_drv_write(p9_sbe_occ->client, (const char
-> *)&cmd[1], 7);
-> =C2=A0	if (rc < 0)
-> =C2=A0		goto err;
-> =C2=A0
-> -	rc =3D occ_drv_read(client, (char *)resp, sizeof(*resp));
-> +	rc =3D occ_drv_read(p9_sbe_occ->client, (char *)resp,
-> sizeof(*resp));
-> =C2=A0	if (rc < 0)
-> =C2=A0		goto err;
-> =C2=A0
-> -	occ_drv_release(client);
-> +	p9_sbe_occ_close_client(p9_sbe_occ);
-> =C2=A0
-> =C2=A0	switch (resp->return_status) {
-> =C2=A0	case RESP_RETURN_CMD_IN_PRG:
-> @@ -72,7 +89,7 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8
-> *cmd)
-> =C2=A0	goto done;
-> =C2=A0
-> =C2=A0err:
-> -	occ_drv_release(client);
-> +	p9_sbe_occ_close_client(p9_sbe_occ);
-> =C2=A0	dev_err(occ->bus_dev, "occ bus op failed rc:%d\n", rc);
-> =C2=A0assign:
-> =C2=A0	error =3D rc;
-> @@ -132,6 +149,7 @@ static int p9_sbe_occ_probe(struct
-> platform_device *pdev)
-> =C2=A0	p9_sbe_occ->sbe =3D pdev->dev.parent;
-> =C2=A0
-> =C2=A0	occ =3D &p9_sbe_occ->occ;
-> +	spin_lock_init(&p9_sbe_occ->lock);
-> =C2=A0	occ->bus_dev =3D &pdev->dev;
-> =C2=A0	occ->groups[0] =3D &occ->group;
-> =C2=A0	occ->poll_cmd_data =3D 0x20;
-> @@ -152,7 +170,10 @@ static int p9_sbe_occ_probe(struct
-> platform_device *pdev)
-> =C2=A0static int p9_sbe_occ_remove(struct platform_device *pdev)
-> =C2=A0{
-> =C2=A0	struct occ *occ =3D platform_get_drvdata(pdev);
-> +	struct p9_sbe_occ *p9_sbe_occ =3D to_p9_sbe_occ(occ);
-> =C2=A0
-> +	p9_sbe_occ->sbe =3D NULL;
-> +	p9_sbe_occ_close_client(p9_sbe_occ);
-> =C2=A0	occ_remove_status_attrs(occ);
-> =C2=A0
-> =C2=A0	atomic_dec(&occ_num_occs);
---=-WqCX1iMheQx+fxToC9zf
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+"openbmc" <openbmc-bounces+austenc=3Dus.ibm.com@lists.ozlabs.org> wrote on
+10/05/2017 08:55:40 PM:
 
------BEGIN PGP SIGNATURE-----
+> From: Andrew Jeffery <andrew@aj.id.au>
+> To: OpenBMC <openbmc@lists.ozlabs.org>
+> Date: 10/05/2017 08:56 PM
+> Subject: OpenBMC helper scripts repositories
+> Sent by: "openbmc" <openbmc-bounces+austenc=3Dus.ibm.com@lists.ozlabs.org>
+>
+> Hello,
+>
+> I've noticed that we've grown several helper script repositories, with
+> a mix of intents.
+>
+> So far we have:
+>
+> https://github.com/williamspatrick/openbmc-events
+>
+> and the seemingly more active fork:
+>
+> https://github.com/geissonator/openbmc-events
+>
+> Along with something Joel cooked up a while back:
+>
+> https://github.com/shenki/obmc-ctrl
+>
+> and some scripts that I've written:
+>
+> https://github.com/amboar/obmc-scripts/
+>
+> Is it worth consolidating these efforts? If we do I think the result
+> should be low friction wrt merging changes, and some hacking should
+> always be expected if you're going to use the repository. Consolidating
+> might help avoid duplicate effort.
+>
+> Cheers,
+>
+> Andrew[attachment "signature.asc" deleted by Chris Austen/Austin/IBM]
 
-iQIcBAABCgAGBQJZ1unFAAoJEJ0dnzgO5LT5280QAKxQ38LQ0LEcusgx4+SXq0YK
-LqwLnfsZXmIFVcit77SyPjn6l/Wp7/8f/k5IBfeZtY5phTDSWAOzbnngNYVRHAqN
-ZOzCH1yFJdcD7gCLcHPwibGyz9k2zjLOtZLHUBC4oEFlNTzVdPX3eeBqAw3fxE3S
-3LjBsXIPFpZpTBAywb2hum/GEVu15zGqpUw8Pl8A4q1mcDmTA973sqiJNUQwEJm+
-KkEX5XcL+QGaPCpiUGW9z5uk7dCeIz2O1Wo+mjZvw1zxS/bDm4bSbs6K1kigzgk2
-JtdIvuFQwihZbJARDD2799c8JF6N/WrquZ4aaTRdNwYnA/9es7pqGCzB/SMXA+t4
-WadROVP7G1D6jamo7pTeuh1dYVopxE1vH6FKIgJ1KeF8Cjc8y5QQ0VTiVn8YZD83
-6LftW8gQ75rNG+LiXb/CFNqkbBlXCVFmkPonCB/DWfxvJ/kIt+KNID9tk9/EGQkQ
-LnzNvhW6W/ZEtAwlq7eV54QfDB6LXlsrTBRYtR2V7P5mZchgKk7e3bcWO6PE/jk/
-RONxfNHFchdcZ9lf/msA1uvXDcJvi54lSEij4HH6IkhoZv9E75kWo5jrLNECoL+q
-DXC06UTpwAh4+rLJwpmWz2izDgAPF0WBixMNzHfaFoyyYFkxUZqg58dKIA16WlBr
-baFtHtCbDO7vXNreEBGk
-=qUWR
------END PGP SIGNATURE-----
+--0__=09BB0B22DF9C4E258f9e8a93df938690918c09BB0B22DF9C4E25
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/html; charset=US-ASCII
+Content-Disposition: inline
 
---=-WqCX1iMheQx+fxToC9zf--
+<html><body><p><font size=3D"2">Mine too... </font><a href=3D"https://githu=
+b.com/causten/openbmc-tutorials"><font size=3D"2">https://github.com/causte=
+n/openbmc-tutorials</font></a><br><font size=3D"2"><br></font><br><tt><font=
+ size=3D"2">&quot;openbmc&quot; &lt;openbmc-bounces+austenc=3Dus.ibm.com@li=
+sts.ozlabs.org&gt; wrote on 10/05/2017 08:55:40 PM:<br><br>&gt; From: Andre=
+w Jeffery &lt;andrew@aj.id.au&gt;</font></tt><br><tt><font size=3D"2">&gt; =
+To: OpenBMC &lt;openbmc@lists.ozlabs.org&gt;</font></tt><br><tt><font size=
+=3D"2">&gt; Date: 10/05/2017 08:56 PM</font></tt><br><tt><font size=3D"2">&=
+gt; Subject: OpenBMC helper scripts repositories</font></tt><br><tt><font s=
+ize=3D"2">&gt; Sent by: &quot;openbmc&quot; &lt;openbmc-bounces+austenc=3Du=
+s.ibm.com@lists.ozlabs.org&gt;</font></tt><br><tt><font size=3D"2">&gt; <br=
+>&gt; Hello,<br>&gt; <br>&gt; I've noticed that we've grown several helper =
+script repositories, with<br>&gt; a mix of intents.<br>&gt; <br>&gt; So far=
+ we have:<br>&gt; <br>&gt; <a href=3D"https://github.com/williamspatrick/op=
+enbmc-events">https://github.com/williamspatrick/openbmc-events</a><br>&gt;=
+ <br>&gt; and the seemingly more active fork:<br>&gt; <br>&gt; <a href=3D"h=
+ttps://github.com/geissonator/openbmc-events">https://github.com/geissonato=
+r/openbmc-events</a><br>&gt; <br>&gt; Along with something Joel cooked up a=
+ while back:<br>&gt; <br>&gt; <a href=3D"https://github.com/shenki/obmc-ctr=
+l">https://github.com/shenki/obmc-ctrl</a><br>&gt; <br>&gt; and some script=
+s that I've written:<br>&gt; <br>&gt; <a href=3D"https://github.com/amboar/=
+obmc-scripts/">https://github.com/amboar/obmc-scripts/</a><br>&gt; <br>&gt;=
+ Is it worth consolidating these efforts? If we do I think the result<br>&g=
+t; should be low friction wrt merging changes, and some hacking should<br>&=
+gt; always be expected if you're going to use the repository. Consolidating=
+<br>&gt; might help avoid duplicate effort.<br>&gt; <br>&gt; Cheers,<br>&gt=
+; <br>&gt; Andrew[attachment &quot;signature.asc&quot; deleted by Chris Aus=
+ten/Austin/IBM] </font></tt><BR>
+</body></html>
+
+--0__=09BB0B22DF9C4E258f9e8a93df938690918c09BB0B22DF9C4E25--
