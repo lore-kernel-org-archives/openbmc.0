@@ -1,61 +1,61 @@
 Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
  envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y7Y0C60ywzDqhg
- for <openbmc@lists.ozlabs.org>; Fri,  6 Oct 2017 13:06:19 +1100 (AEDT)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y7Y0F3M43zDqlP
+ for <openbmc@lists.ozlabs.org>; Fri,  6 Oct 2017 13:06:21 +1100 (AEDT)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v9624lMZ009058
- for <openbmc@lists.ozlabs.org>; Thu, 5 Oct 2017 22:06:18 -0400
-Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2ddugtw1q2-1
+ v9624qkF105718
+ for <openbmc@lists.ozlabs.org>; Thu, 5 Oct 2017 22:06:19 -0400
+Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2ddsap45sk-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
  for <openbmc@lists.ozlabs.org>; Thu, 05 Oct 2017 22:06:18 -0400
 Received: from localhost
- by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 5 Oct 2017 20:06:17 -0600
-Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
- by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
+ Thu, 5 Oct 2017 20:06:18 -0600
+Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
+ by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Thu, 5 Oct 2017 20:06:14 -0600
+ Thu, 5 Oct 2017 20:06:16 -0600
 Received: from b03ledav006.gho.boulder.ibm.com
  (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v9626DmW8454632; Thu, 5 Oct 2017 19:06:13 -0700
+ by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v9626Fh51048926; Thu, 5 Oct 2017 19:06:15 -0700
 Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 99504C603E;
- Thu,  5 Oct 2017 20:06:13 -0600 (MDT)
+ by IMSVA (Postfix) with ESMTP id BFB4AC6042;
+ Thu,  5 Oct 2017 20:06:15 -0600 (MDT)
 Received: from oc3016140333.ibm.com (unknown [9.85.157.182])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id BE89AC6037;
- Thu,  5 Oct 2017 20:06:12 -0600 (MDT)
+ by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id D6032C6037;
+ Thu,  5 Oct 2017 20:06:14 -0600 (MDT)
 From: Eddie James <eajames@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, andrew@aj.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10 v4 07/31] drivers: fsi: sbefifo: Use goto to
- reduce put statements
-Date: Thu,  5 Oct 2017 21:05:29 -0500
+Subject: [PATCH linux dev-4.10 v4 08/31] drivers: fsi: sbefifo: Do an earlier
+ get_client call
+Date: Thu,  5 Oct 2017 21:05:30 -0500
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1507255553-13301-1-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1507255553-13301-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-TM-AS-GCONF: 00
-x-cbid: 17100602-0024-0000-0000-0000174C1026
+x-cbid: 17100602-0008-0000-0000-000008ABCAF5
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00007847; HX=3.00000241; KW=3.00000007;
  PH=3.00000004; SC=3.00000235; SDB=6.00927057; UDB=6.00466442; IPR=6.00707311; 
  BA=6.00005623; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017415; XFM=3.00000015;
- UTC=2017-10-06 02:06:15
+ UTC=2017-10-06 02:06:17
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17100602-0025-0000-0000-00004CFDEA6E
-Message-Id: <1507255553-13301-8-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 17100602-0009-0000-0000-0000443F7545
+Message-Id: <1507255553-13301-9-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-10-06_01:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -74,115 +74,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 06 Oct 2017 02:06:20 -0000
+X-List-Received-Date: Fri, 06 Oct 2017 02:06:21 -0000
 
 From: "Edward A. James" <eajames@us.ibm.com>
 
-Use a goto in the read() and write() functions so that we can just have
-one get_client and put_client statement.
+Get client before we start using it.
 
 Signed-off-by: Edward A. James <eajames@us.ibm.com>
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+Acked-by: Andrew Jeffery <andrew@aj.id.au>
 ---
- drivers/fsi/fsi-sbefifo.c | 35 ++++++++++++++++++-----------------
- 1 file changed, 18 insertions(+), 17 deletions(-)
+ drivers/fsi/fsi-sbefifo.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
-index 173cd03..a5bdc75 100644
+index a5bdc75..5efba30 100644
 --- a/drivers/fsi/fsi-sbefifo.c
 +++ b/drivers/fsi/fsi-sbefifo.c
-@@ -565,22 +565,21 @@ static ssize_t sbefifo_read_common(struct sbefifo_client *client,
- 	if (wait_event_interruptible(sbefifo->wait,
- 				     sbefifo_read_ready(sbefifo, client, &n,
- 							&ret))) {
--		sbefifo_put_client(client);
--		return -ERESTARTSYS;
-+		ret = -ERESTARTSYS;
+@@ -656,6 +656,7 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
+ 	if (!len)
+ 		return 0;
+ 
++	sbefifo_get_client(client);
+ 	n = sbefifo_buf_nbwriteable(&client->wbuf);
+ 
+ 	spin_lock_irq(&sbefifo->lock);
+@@ -663,19 +664,19 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
+ 
+ 	if ((client->f_flags & O_NONBLOCK) && xfr && n < len) {
+ 		spin_unlock_irq(&sbefifo->lock);
+-		return -EAGAIN;
++		ret = -EAGAIN;
 +		goto out;
  	}
  
- 	if (ret) {
- 		INIT_LIST_HEAD(&client->xfrs);
--		sbefifo_put_client(client);
--		return ret;
+ 	xfr = sbefifo_enq_xfr(client);
+ 	if (!xfr) {
+ 		spin_unlock_irq(&sbefifo->lock);
+-		return -ENOMEM;
++		ret = -ENOMEM;
 +		goto out;
  	}
  
- 	n = min_t(size_t, n, len);
+ 	spin_unlock_irq(&sbefifo->lock);
  
- 	if (ubuf) {
- 		if (copy_to_user(ubuf, READ_ONCE(client->rbuf.rpos), n)) {
--			sbefifo_put_client(client);
--			return -EFAULT;
-+			ret = -EFAULT;
-+			goto out;
- 		}
- 	} else {
- 		memcpy(kbuf, READ_ONCE(client->rbuf.rpos), n);
-@@ -592,8 +591,8 @@ static ssize_t sbefifo_read_common(struct sbefifo_client *client,
- 		if (!xfr) {
- 			/* should be impossible to not have an xfr here */
- 			WARN_ONCE(1, "no xfr in queue");
--			sbefifo_put_client(client);
--			return -EPROTO;
-+			ret = -EPROTO;
-+			goto out;
- 		}
- 
- 		if (!test_bit(SBEFIFO_XFR_COMPLETE, &xfr->flags)) {
-@@ -610,9 +609,11 @@ static ssize_t sbefifo_read_common(struct sbefifo_client *client,
- 		}
- 	}
- 
--	sbefifo_put_client(client);
-+	ret = n;
- 
--	return n;
-+out:
-+	sbefifo_put_client(client);
-+	return ret;
- }
- 
- static ssize_t sbefifo_read(struct file *file, char __user *buf, size_t len,
-@@ -689,14 +690,14 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
- 			if (mod_timer(&sbefifo->poll_timer, jiffies))
- 				sbefifo_put(sbefifo);
- 
--			sbefifo_put_client(client);
--			return -ERESTARTSYS;
-+			ret = -ERESTARTSYS;
-+			goto out;
- 		}
- 
- 		if (sbefifo->rc) {
- 			INIT_LIST_HEAD(&client->xfrs);
--			sbefifo_put_client(client);
--			return sbefifo->rc;
-+			ret = sbefifo->rc;
-+			goto out;
- 		}
- 
- 		n = min_t(size_t, n, len);
-@@ -708,8 +709,8 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
- 				sbefifo_get(sbefifo);
- 				if (mod_timer(&sbefifo->poll_timer, jiffies))
- 					sbefifo_put(sbefifo);
--				sbefifo_put_client(client);
--				return -EFAULT;
-+				ret = -EFAULT;
-+				goto out;
- 			}
- 
- 			ubuf += n;
-@@ -736,8 +737,8 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
- 			sbefifo_put(sbefifo);
- 	}
- 
-+out:
- 	sbefifo_put_client(client);
+-	sbefifo_get_client(client);
 -
- 	return ret;
- }
- 
+ 	/*
+ 	 * Partial writes are not really allowed in that EOT is sent exactly
+ 	 * once per write.
 -- 
 1.8.3.1
