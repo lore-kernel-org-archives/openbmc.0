@@ -1,68 +1,63 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="XMasJ4te"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="V+AZ0Rwo"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y7Y1Q6jnpzDqhg
- for <openbmc@lists.ozlabs.org>; Fri,  6 Oct 2017 13:07:22 +1100 (AEDT)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v9624eaw038777
- for <openbmc@lists.ozlabs.org>; Thu, 5 Oct 2017 22:07:20 -0400
-Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2ddwufetnr-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 05 Oct 2017 22:07:19 -0400
-Received: from localhost
- by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 5 Oct 2017 20:07:09 -0600
-Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
- by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 5 Oct 2017 20:07:07 -0600
-Received: from b03ledav006.gho.boulder.ibm.com
- (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v96276E98454496; Thu, 5 Oct 2017 19:07:06 -0700
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 79D07C6047;
- Thu,  5 Oct 2017 20:07:06 -0600 (MDT)
-Received: from oc3016140333.ibm.com (unknown [9.85.157.182])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id 9A55BC6037;
- Thu,  5 Oct 2017 20:07:05 -0600 (MDT)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, andrew@aj.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10 v4 30/31] drivers/hwmon/occ: Remove repeated
- ops for OCC command in progress
-Date: Thu,  5 Oct 2017 21:05:52 -0500
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1507255553-13301-1-git-send-email-eajames@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y7Y4b1zmpzDqlT
+ for <openbmc@lists.ozlabs.org>; Fri,  6 Oct 2017 13:10:07 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 3C3D420DB3;
+ Thu,  5 Oct 2017 22:10:05 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Thu, 05 Oct 2017 22:10:05 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=0ucFC3B602gsJisXq4SJT4StnCRoLJ8yJTdP+SKaF
+ +U=; b=XMasJ4teDBOXpDHSd/26VBULcnYCpeyVVqxz6sItqQ7K1GarYHbru0rwH
+ R0qHaprwAgT2u/CRBsBxDBEISuxn5rSUVOzLSNiD0xZ0mMj4T+XIuPFPGE//6+IB
+ gxB+0r+lI/PPHz2WJXBJnkpnFY84aaM8riYrl3JxlkR3M9CEAvufKU/b/Kcy3vJa
+ q1aywUH3qe3xXMqyJIV92V33Xra5/4lctal0zvKj9G+SEwoQ0gcFOcVohNNxCHC+
+ 0xdrTjQG+HlGYMPLA0xUqzuoumbuq7BdrTjmMSfRG5lDo6YNe3LCNQqp3R5V9J9t
+ R64JtIZjInQ+ECN1uWgphmbfTlydA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=0ucFC3B602gsJisXq4
+ SJT4StnCRoLJ8yJTdP+SKaF+U=; b=V+AZ0Rwo0+WAQxkX9FqvJ0I23hk3prKTCm
+ /npt1r50pvO3XKg5APFKULXyOD8mgjJDXbYX8IXE0Vxku6utQld1EDdc+50xKauA
+ LLiigCxnylRKdpZfLAHaZ7Dfg9/GEcTOunqzuERq5tRHF+WdQC3oBkDurXe/v2F/
+ ZFYBs4qOBwjbhDqficY8d7PPIwQ3OCfs6KqVSMRSzq+6irNPgJTgNdtOW9bKRlVK
+ PoVMM6XR5c3HlnRAGTz9HNPqMsITZLKtwI6ok/gWnObDWScYRE+Xz+pJNGy5wCWn
+ Z9Mtj9n958CLKFU6wkcBYFrXigNh4CZgdtdMATfEEncq1CCr+XUg==
+X-ME-Sender: <xms:_eXWWYGRoeK_RcM0ppDoQRJsVfLgeLsa4HTCF8SVzmYSsezHZtfwSw>
+X-Sasl-enc: OfovCF18+3zIICd0FbdtBCn4FmLqEJCyki8kytaOU0BD 1507255804
+Received: from keelia (ppp14-2-13-235.bras21.adl4.internode.on.net
+ [14.2.13.235])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 40A4C7E1D8;
+ Thu,  5 Oct 2017 22:10:02 -0400 (EDT)
+Message-ID: <1507255799.5452.131.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.10 v4 06/31] drivers: fsi: sbefifo: remove
+ redundant function
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
+Date: Fri, 06 Oct 2017 12:39:59 +1030
+In-Reply-To: <1507255553-13301-7-git-send-email-eajames@linux.vnet.ibm.com>
 References: <1507255553-13301-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-TM-AS-GCONF: 00
-x-cbid: 17100602-0024-0000-0000-0000174C1040
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007847; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000235; SDB=6.00927057; UDB=6.00466443; IPR=6.00707312; 
- BA=6.00005623; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017415; XFM=3.00000015;
- UTC=2017-10-06 02:07:08
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17100602-0025-0000-0000-00004CFDEAF4
-Message-Id: <1507255553-13301-31-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-10-06_01:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
- definitions=main-1710060029
+ <1507255553-13301-7-git-send-email-eajames@linux.vnet.ibm.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-6/ULR+yw0LgHh95QL06R"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -74,53 +69,115 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 06 Oct 2017 02:07:23 -0000
+X-List-Received-Date: Fri, 06 Oct 2017 02:10:08 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
 
-This is now handled in the occ driver.
+--=-6/ULR+yw0LgHh95QL06R
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
+On Thu, 2017-10-05 at 21:05 -0500, Eddie James wrote:
+> From: "Edward A. James" <eajames@us.ibm.com>
+>=C2=A0
+> sbefifo_client_next_xfr function just does what
+list_first_entry_or_null
+> does.
+>=C2=A0
+> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+
 Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
----
- drivers/hwmon/occ/p9_sbe.c | 14 +-------------
- 1 file changed, 1 insertion(+), 13 deletions(-)
 
-diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
-index 2d50a94..c7e0d9c 100644
---- a/drivers/hwmon/occ/p9_sbe.c
-+++ b/drivers/hwmon/occ/p9_sbe.c
-@@ -26,14 +26,10 @@ struct p9_sbe_occ {
- static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
- {
- 	int rc, error;
--	unsigned long start;
- 	struct occ_client *client;
- 	struct occ_response *resp = &occ->resp;
- 	struct p9_sbe_occ *p9_sbe_occ = to_p9_sbe_occ(occ);
- 
--	start = jiffies;
--
--retry:
- 	client = occ_drv_open(p9_sbe_occ->sbe, 0);
- 	if (!client) {
- 		rc = -ENODEV;
-@@ -52,15 +48,7 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd)
- 
- 	switch (resp->return_status) {
- 	case RESP_RETURN_CMD_IN_PRG:
--		if (time_after(jiffies,
--			       start + msecs_to_jiffies(OCC_TIMEOUT_MS)))
--			rc = -EALREADY;
--		else {
--			set_current_state(TASK_INTERRUPTIBLE);
--			schedule_timeout(msecs_to_jiffies(OCC_CMD_IN_PRG_MS));
--
--			goto retry;
--		}
-+		rc = -ETIMEDOUT;
- 		break;
- 	case RESP_RETURN_SUCCESS:
- 		occ_reset_error(occ);
--- 
-1.8.3.1
+> ---
+> =C2=A0drivers/fsi/fsi-sbefifo.c | 28 +++++++++++++++-------------
+> =C2=A01 file changed, 15 insertions(+), 13 deletions(-)
+>=C2=A0
+> diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
+> index dbac0c3..173cd03 100644
+> --- a/drivers/fsi/fsi-sbefifo.c
+> +++ b/drivers/fsi/fsi-sbefifo.c
+> @@ -279,20 +279,12 @@ static struct sbefifo_xfr
+*sbefifo_enq_xfr(struct sbefifo_client *client)
+> =C2=A0	return xfr;
+> =C2=A0}
+> =C2=A0
+> -static struct sbefifo_xfr *sbefifo_client_next_xfr(
+> -		struct sbefifo_client *client)
+> -{
+> -	if (list_empty(&client->xfrs))
+> -		return NULL;
+> -
+> -	return container_of(client->xfrs.next, struct sbefifo_xfr,
+client);
+> -}
+> -
+> =C2=A0static bool sbefifo_xfr_rsp_pending(struct sbefifo_client *client)
+> =C2=A0{
+> -	struct sbefifo_xfr *xfr;
+> +	struct sbefifo_xfr *xfr =3D list_first_entry_or_null(&client-
+>xfrs,
+> +							=C2=A0=C2=A0=C2=A0struct
+sbefifo_xfr,
+> +							=C2=A0=C2=A0=C2=A0client);
+> =C2=A0
+> -	xfr =3D sbefifo_client_next_xfr(client);
+> =C2=A0	if (xfr && test_bit(SBEFIFO_XFR_RESP_PENDING, &xfr->flags))
+> =C2=A0		return true;
+> =C2=A0
+> @@ -595,7 +587,15 @@ static ssize_t sbefifo_read_common(struct
+sbefifo_client *client,
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	if (sbefifo_buf_readnb(&client->rbuf, n)) {
+> -		xfr =3D sbefifo_client_next_xfr(client);
+> +		xfr =3D list_first_entry_or_null(&client->xfrs,
+> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct sbefifo_xfr,
+client);
+> +		if (!xfr) {
+> +			/* should be impossible to not have an xfr
+here */
+> +			WARN_ONCE(1, "no xfr in queue");
+> +			sbefifo_put_client(client);
+> +			return -EPROTO;
+> +		}
+> +
+> =C2=A0		if (!test_bit(SBEFIFO_XFR_COMPLETE, &xfr->flags)) {
+> =C2=A0			/*
+> =C2=A0			=C2=A0* Fill the read buffer back up.
+> @@ -632,7 +632,9 @@ static bool sbefifo_write_ready(struct sbefifo
+*sbefifo,
+> =C2=A0				struct sbefifo_xfr *xfr,
+> =C2=A0				struct sbefifo_client *client,
+size_t *n)
+> =C2=A0{
+> -	struct sbefifo_xfr *next =3D sbefifo_client_next_xfr(client);
+> +	struct sbefifo_xfr *next =3D list_first_entry_or_null(&client-
+>xfrs,
+> +							=C2=A0=C2=A0=C2=A0=C2=A0struct
+sbefifo_xfr,
+> +							=C2=A0=C2=A0=C2=A0=C2=A0client);
+> =C2=A0
+> =C2=A0	*n =3D sbefifo_buf_nbwriteable(&client->wbuf);
+> =C2=A0	return READ_ONCE(sbefifo->rc) || (next =3D=3D xfr && *n);
+--=-6/ULR+yw0LgHh95QL06R
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZ1uX3AAoJEJ0dnzgO5LT55dwP/1Oxa/yeUoWZG31rhAY/01cH
+Simxat6776nk1YGne7MtVqojhMjX/PPj6SteXKx6YRjH54F/q/Wd8PasXCqVco0W
+4taDaFVEr3SmqWrQ8ZSPsR/60HbuxLA8tAcEyI6DJKVURiY9jy3JYyyI7k6VHuAw
+wfOBVOcJcnXDAtQN2hnT+TxpUwsz564v2XlQ8yRd5RCS9FLVyapzbzNRe7gekfXQ
+142CU6yLlp8Spw/f8E/2xclx77/8YoguSksXyVfNYBmxLnemQwRIORcuuzfRtjJy
+YlwTfG14e+ekbSmgbiT7zFeeSFNNuMuXiAgY9FKeC1a8QB3KTjvFYYBb9cGo2n82
+T190zIX0+gjZA3vVd8k72QqC3ItroQFnxrwlR2J+TSF/DRhBbBZtC7iqjdPmz0zW
+UYltugB+ylWwrPFM2NUEeGQkCGXZlOJubatZP41scVaqE9zfjqv5YwQqEB/1NVDh
+VYEHQEaVKedeItbaw1ttUJ4YsCqlyJQXvQTLNBoFp8e4S+9PXJZqzAR/aL6PXzVn
+xIiAojJkFCQpkuf2W8LKFPaw6FqUF7K2k3/Gy1DpJDPAHli7uWEJzrVnH5BBn9a1
+9XOAS9YkotrAnU7+EW1oBHYAyk/bPS6nVn6EK8fwt0DNPOrNmOT1XK50jk3xhsEt
+V7OQRiMeYouD7zZU8byo
+=Fg6b
+-----END PGP SIGNATURE-----
+
+--=-6/ULR+yw0LgHh95QL06R--
