@@ -1,55 +1,51 @@
-Return-Path: <raltherr@google.com>
+Return-Path: <kunyi@google.com>
 Authentication-Results: ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400c:c05::236; helo=mail-vk0-x236.google.com;
- envelope-from=raltherr@google.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4001:c0b::232; helo=mail-it0-x232.google.com;
+ envelope-from=kunyi@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="MlsGm/eo"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="TpjHFOmA"; 
  dkim-atps=neutral
-Received: from mail-vk0-x236.google.com (mail-vk0-x236.google.com
- [IPv6:2607:f8b0:400c:c05::236])
+Received: from mail-it0-x232.google.com (mail-it0-x232.google.com
+ [IPv6:2607:f8b0:4001:c0b::232])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y7wq56gDwzDqhg
- for <openbmc@lists.ozlabs.org>; Sat,  7 Oct 2017 03:59:42 +1100 (AEDT)
-Received: by mail-vk0-x236.google.com with SMTP id g69so9988543vke.5
- for <openbmc@lists.ozlabs.org>; Fri, 06 Oct 2017 09:59:41 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y7yB13pq2zDqlT
+ for <openbmc@lists.ozlabs.org>; Sat,  7 Oct 2017 05:01:12 +1100 (AEDT)
+Received: by mail-it0-x232.google.com with SMTP id w1so6268413itd.0
+ for <openbmc@lists.ozlabs.org>; Fri, 06 Oct 2017 11:01:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=JbSyYgcQi8FDu0ARkGcAKYXHiU/XB8PCpznhbjYMphw=;
- b=MlsGm/eoOZH/N1YbavCCf0ebqXW7HLCbjk0H1LQUYAwqTj048OsE9sz07KGjkNcRUl
- DlYWY3IfyOC9yM6xKdSV58dIUZLLHTVPhQiHrBTZ1OruXOgwbDIuUXB7w7hEcq/Qbzur
- pnS78yd+u15E1xhl/561tG0JjU98YqhogSlGDIdhqUCoLFcpNm63M42RXgp1AR0b5FTX
- ZayLRZOTnhOKUyUZ5JnykealvSEhwFSvATF3pQDp/pNU/93Z5Pcn5D+7dSLhCxmkXl82
- hJr21z2bYuUlXWb/MowYZFr8YJf5oOIYVVPFtRgR2diTavIW1xCR7ouAM1vQM04Ad1nB
- 6tbQ==
+ h=mime-version:from:date:message-id:subject:to;
+ bh=VMmONebU5Vxe331pwKgkUz6kix8k9e5iAep9bf8zs5w=;
+ b=TpjHFOmAR+up6py76gtVtfbGC3uppK85uaDWwHUe1rXUPIHbcbeJiJMRURTqXu44Dr
+ 2MtynhMPSjwEcG78GfZN51pA+/oWjjW5GqLoERirUHl1FYKqNyAJDZ0IR/6HMfHy0i7N
+ ZY83jr+qy8NNYLr9JxJbevul57wDEhPE8n+K3vBH+x5/k76VLlsccaxs2UgQcFWZg64r
+ 7TMqPlzFa0DFq6Np5nQSC/km+FTqHJblGfKNqTRzaume3laGXhp5nV9jFZu8jztd8n09
+ ouTHBHyDP1iy+NkF1u3mYQRdqMTKixF2+1ix5UUvgbS5ugjF3wuJTbDh4COzSh3DJNJq
+ AjpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=JbSyYgcQi8FDu0ARkGcAKYXHiU/XB8PCpznhbjYMphw=;
- b=D7/Ehw7tpLql2QcBjmARvMW1F8s5IsfgpyW6EvJxfOy5cSG4S++LkfFhLGhn8bN2Nf
- Ycoq1xbuksOyQ1rHwb4MIjZWdotL2nNvIHAUkQ/3at4U6flubydU4+ec+lcXkrTtuUBx
- hh5+5Map6TltyVYfR6YK+ySZGIuV2DSA6XvV9kNU2//8Yt4oIcsyWzYVI3TatxQzsl7a
- g3iPpDRblHrhY4yNtMjz/f+rQBo4EUQsxBDmx3Sbpn1JyHDtZT4MkGBIKRWoNjnI6w7A
- aVZaUf0whk6ZWaudZXajGDM0vYe+55B91DjIb5lGMotfMdvqW4wRqHx9x8vGNpDpZBov
- riaA==
-X-Gm-Message-State: AMCzsaVszGw9EmLKWFbre5HggD2BClrgdVnXnsGt82oNRAHy/g2AoBK9
- FwR/UOhM4tMgey0yjOshyPeU62EqF8eQsmLbmflINg==
-X-Google-Smtp-Source: AOwi7QB87XNMdyOL7TXQwWytxeWsqCdsZB0Uj0yS80bu/bJGFomKOahES/QVyx9YglR/R4+WGrbZPhswnYH7S+7LwOk=
-X-Received: by 10.31.12.200 with SMTP id 191mr1157439vkm.73.1507309176920;
- Fri, 06 Oct 2017 09:59:36 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=VMmONebU5Vxe331pwKgkUz6kix8k9e5iAep9bf8zs5w=;
+ b=aFHM0A5qR+nCtSEd2SSgVXhfc5Y2esQKm2f6+ZMQsI3WRg31ZnJsswUJsjwcHZoiT4
+ li9lzGvNeh/SCF9ZXYyau/CuVyMN1+8zKHF9K8Lo8mHx805VW9WcHoCSpzihlm4ir/hv
+ keZ2FGSumvZNpm7/WcTUalnQFvIy7PL9TKfFTFTTId6XsNXu6w3psZG0B0Lji2DyKHCm
+ QClCH8POdvwlqUPvckFaO4hdYe2UvvLoK7cWnrLXiT0WGvsvnoU5XAEXCPwusWWyIHZ5
+ sfo8KPaps6t/hyUEw+MN9iZKVONOyC0kkjSoP4aE2MKT73a0Y+eC7iPBRSf+LBmQ+QEQ
+ 3TeA==
+X-Gm-Message-State: AMCzsaVyp6nwBYl0Z+LxkcwB+B3KLJwXdD/zNdzstlkw0u2YL9XX2mAX
+ SIz0+uJ5ZHGRfc7UyF2c1o49jPg3thZjHHbS/Sk7ZapDguM=
+X-Google-Smtp-Source: AOwi7QC3vl88O1VqXOrIz2orPz7ZmkNPQK2xc2apA8fZbo1hlLFT8Kh4Gsy3CHvle36tAcG7+rTTyZ3kueH48bhXvTE=
+X-Received: by 10.36.57.18 with SMTP id l18mr3765770ita.56.1507312868811; Fri,
+ 06 Oct 2017 11:01:08 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.31.147.88 with HTTP; Fri, 6 Oct 2017 09:59:36 -0700 (PDT)
-In-Reply-To: <CAEX+82Lr=pJEvRqfi9MA=ZBW=DR+mY2VYVUhhTBgrPFA3c239g@mail.gmail.com>
-References: <CAEX+82Lr=pJEvRqfi9MA=ZBW=DR+mY2VYVUhhTBgrPFA3c239g@mail.gmail.com>
-From: Rick Altherr <raltherr@google.com>
-Date: Fri, 6 Oct 2017 09:59:36 -0700
-Message-ID: <CAPLgG=nHvmVzBW2CDxvgaeYAHoNL53W3An-p9fK3D4HfsU=Bbw@mail.gmail.com>
-Subject: Re: OpenBMC on Raspberry PI 3.
-To: Javier Romero <xavinux@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="001a114125fe0efebc055ae3c482"
+Received: by 10.107.130.222 with HTTP; Fri, 6 Oct 2017 11:00:38 -0700 (PDT)
+From: Kun Yi <kunyi@google.com>
+Date: Fri, 6 Oct 2017 11:00:38 -0700
+Message-ID: <CAGMNF6W+g_yAnm2e0ta7VtBZb01pwaRs_SZW+=N4tJtDO88xFw@mail.gmail.com>
+Subject: pythonnative version mismatch?
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="001a114aa6d61dabfa055ae4a0de"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -61,136 +57,93 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 06 Oct 2017 17:00:13 -0000
+X-List-Received-Date: Fri, 06 Oct 2017 18:01:15 -0000
 
---001a114125fe0efebc055ae3c482
+--001a114aa6d61dabfa055ae4a0de
 Content-Type: text/plain; charset="UTF-8"
 
-When you run  export TEMPLATECONF=meta-openbmc-machines/meta-
-openpower/meta-ibm/meta-palmetto/conf, you are telling the build system
-that you want to build images for the BMC processor used on the Palmetto
-machine (Aspeed AST2400).  That image won't boot on a RaspberryPi.  What
-you'll need to do is create a new layer in meta-openbmc-machines for a
-RaspberryPi that includes the raspberrypi layer, specifies the correct
-kernel device tree, etc.  Take a look at the meta-ast2500-evb and
-https://github.com/Nuvoton-Israel/meta-bsp-nuvoton/tree/master/meta-openbmc-machines/meta-evb/meta-evb-nuvoton/meta-evb-npcm750/conf
-for examples of what a machine to support an evaluation board (evb) looks
-like.
+Hello folks,
 
-On Fri, Oct 6, 2017 at 8:38 AM, Javier Romero <xavinux@gmail.com> wrote:
+I searched through the mailing list but haven't seen anyone brought up.
+Here's a weird bug I found on my setup: pythonnative seems to be using
+python3.4.3 whereas the recipe specified 2.7.
 
-> Hi People,
->
-> I'm building an OpenBMC image for target Palmetto on Ubuntu 16.04 to try
-> to make it work on the Raspberry PI 3. I've followed these steps:
->
->
-> *1.  *sudo apt-get install -y git build-essential libsdl1.2-dev texinfo
-> gawk chrpath diffstat
->
-> *2.* git clone git@github.com:openbmc/openbmc.git
->
-> *3.* cd openbmc
->
-> *4-* export TEMPLATECONF=meta-openbmc-machines/meta-
-> openpower/meta-ibm/meta-palmetto/conf
->
-> *tester@obmc:/openbmc$* . oe-init-build-env ~/my-build
->
-> *tester@obmc:~/my-build$* bitbake obmc-phosphor-image
->
-> *tester@obmc:/$* cd /home/tester/my-build/tmp/deploy/images/palmetto/
->
-> *tester@obmc:/$* tar -xvf obmc-phosphor-image-palmetto-
-> 20171005142206.static.mtd.all.tar
->
-> *tester@obmc:/$* ls -lha
-> total 65M
-> drwxr-xr-x  2 root   root   4.0K Oct  5 15:37 .
-> drwxr-xr-x 24 root   root   4.0K Oct  5 10:29 ..
-> *-rw-rw-r--  1 tester tester  32M Oct  5 14:03 image-bmc*
-> -rw-rw-r--  2 tester tester  33M Oct  5 14:03 obmc-phosphor-image-palmetto-
-> 20171005142206.static.mtd.all.tar
->
->
-> Would like to know if it is the *image-bmc* file, what I will have to
-> flash on the SD card of the Raspberry to load OpenBMC.
->
-> Have also build an image of Linux Yocto for Raspberry PI 3.
->
-> Thanks for your attention.
->
-> Regards,
->
->
->
->
-> *Javier Romero*
->
-> *E-mail: xavinux@gmail.com <xavinux@gmail.com>*
->
-> *Skype: xavinux*
->
->
+Before diving into the layers of bitbake recipes to root cause what caused
+this, I want to post on the mailing list to see if it is reproducible on
+other setups, and if people have ideas why this went wrong (environment
+variable accidentally being overwritten?)
 
---001a114125fe0efebc055ae3c482
+*What I tested:*
+I found the code in phosphor-settings-manager, which inherits pythonnative,
+seems to be working per python 3, so added the following line into a native
+python function:
+
+python do_check_version () {
+  import sys
+  bb.warn(sys.version)
+}
+addtask check_version after do_configure before do_compile
+
+WARNING: phosphor-settings-manager-1.0-r1 do_check_version: 3.4.3 (default,
+Nov 17 2016, 01:08:31)
+
+This is with openbmc git tip, building MACHINE=zaius
+
+*What the recipe should be using is seemingly 2.7:*
+$ cat ../import-layers/yocto-poky/meta/classes/pythonnative.bbclass
+
+inherit python-dir
+[...]
+
+$ cat ../import-layers/yocto-poky/meta/classes/python-dir.bbclass
+PYTHON_BASEVERSION = "2.7"
+PYTHON_ABI = ""
+PYTHON_DIR = "python${PYTHON_BASEVERSION}"
+PYTHON_PN = "python"
+PYTHON_SITEPACKAGES_DIR = "${libdir}/${PYTHON_DIR}/site-packages"
+
+*Why this is bad:*
+well, python2.7 and python3 have a ton of differences. A bug I discovered
+is due to usage of filter(), which returns different objects between
+Python2/3.
+
+-- 
+Regards,
+Kun
+
+--001a114aa6d61dabfa055ae4a0de
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">When you run=C2=A0<span style=3D"font-size:12.8px">=C2=A0e=
-xport TEMPLATECONF=3Dmeta-openbmc-</span><wbr style=3D"font-size:12.8px"><s=
-pan style=3D"font-size:12.8px">machines/meta-</span><span style=3D"font-siz=
-e:12.8px">openpower/meta-ibm/meta-</span><wbr style=3D"font-size:12.8px"><s=
-pan style=3D"font-size:12.8px">palmetto/conf, you are telling the build sys=
-tem that you want to build images for the BMC processor used on the Palmett=
-o machine (Aspeed AST2400).=C2=A0 That image won&#39;t boot on a RaspberryP=
-i.=C2=A0 What you&#39;ll need to do is create a new layer in meta-openbmc-m=
-achines for a RaspberryPi that includes the raspberrypi layer, specifies th=
-e correct kernel device tree, etc.=C2=A0 Take a look at the meta-ast2500-ev=
-b and=C2=A0<a href=3D"https://github.com/Nuvoton-Israel/meta-bsp-nuvoton/tr=
-ee/master/meta-openbmc-machines/meta-evb/meta-evb-nuvoton/meta-evb-npcm750/=
-conf">https://github.com/Nuvoton-Israel/meta-bsp-nuvoton/tree/master/meta-o=
-penbmc-machines/meta-evb/meta-evb-nuvoton/meta-evb-npcm750/conf</a> for exa=
-mples of what a machine to support an evaluation board (evb) looks like.</s=
-pan></div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Fri,=
- Oct 6, 2017 at 8:38 AM, Javier Romero <span dir=3D"ltr">&lt;<a href=3D"mai=
-lto:xavinux@gmail.com" target=3D"_blank">xavinux@gmail.com</a>&gt;</span> w=
-rote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;borde=
-r-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><div>Hi People,<br=
-><br></div>I&#39;m building an OpenBMC image for target Palmetto on Ubuntu =
-16.04 to try to make it work on the Raspberry PI 3. I&#39;ve followed these=
- steps:<br><br><div><div><br><b>1.=C2=A0 </b>sudo apt-get install -y git bu=
-ild-essential libsdl1.2-dev texinfo gawk chrpath diffstat<br><br><b>2.</b> =
-git clone git@github.com:openbmc/<wbr>openbmc.git<br><br><b>3.</b> cd openb=
-mc<br><br><b>4-</b> export TEMPLATECONF=3Dmeta-openbmc-<wbr>machines/meta-<=
-br>openpower/meta-ibm/meta-<wbr>palmetto/conf<br><b><br>tester@obmc:/openbm=
-c$</b> . oe-init-build-env ~/my-build<b><br><br>tester@obmc:~/my-build$</b>=
- bitbake obmc-phosphor-image<br><br><b>tester@obmc:/$</b> cd /home/tester/m=
-y-build/tmp/<wbr>deploy/images/palmetto/<b><br><br>tester@obmc:/$</b> tar -=
-xvf obmc-phosphor-image-palmetto-<wbr>20171005142206.static.mtd.all.<wbr>ta=
-r<br><br><b>tester@obmc:/$</b> ls -lha<br>total 65M<br>drwxr-xr-x=C2=A0 2 r=
-oot=C2=A0=C2=A0 root=C2=A0=C2=A0 4.0K Oct=C2=A0 5 15:37 .<br>drwxr-xr-x 24 =
-root=C2=A0=C2=A0 root=C2=A0=C2=A0 4.0K Oct=C2=A0 5 10:29 ..<br><span style=
-=3D"color:rgb(255,0,0)"><i><b>-rw-rw-r--=C2=A0 1 tester tester=C2=A0 32M Oc=
-t=C2=A0 5 14:03 image-bmc</b></i></span><br>-rw-rw-r--=C2=A0 2 tester teste=
-r=C2=A0 33M Oct=C2=A0 5 14:03 obmc-phosphor-image-palmetto-<wbr>20171005142=
-206.static.mtd.all.<wbr>tar<br><br><br></div><div>Would like to know if it =
-is the <span style=3D"color:rgb(255,0,0)"><b>image-bmc</b></span> file, wha=
-t I will have to flash on the SD card of the Raspberry to load OpenBMC.<br>=
-<br></div><div>Have also build an image of Linux Yocto for Raspberry PI 3.<=
-br></div><div><br></div><div>Thanks for your attention.<br><br></div><div>R=
-egards,<br><br><br></div><div><br clear=3D"all"><div><div class=3D"m_-27666=
-93576331344254gmail_signature"><div dir=3D"ltr"><div style=3D"text-align:le=
-ft"><i><b>Javier Romero<br></b></i></div><div style=3D"text-align:left"><sp=
-an style=3D"color:rgb(19,79,92)"><i><b><span style=3D"color:rgb(0,0,0)">E-m=
-ail:<span style=3D"color:rgb(0,0,255)"> </span></span><span style=3D"color:=
-rgb(0,0,255)"><a href=3D"mailto:xavinux@gmail.com" target=3D"_blank">xavinu=
-x@gmail.com</a></span><br></b></i></span></div><div style=3D"text-align:lef=
-t"><i><b><span style=3D"color:rgb(19,79,92)"><span style=3D"color:rgb(0,0,0=
-)">Skype:</span> <span style=3D"color:rgb(11,83,148)"><u><span style=3D"col=
-or:rgb(0,0,255)">xavinux</span><br></u></span></span></b></i></div><div sty=
-le=3D"text-align:left"><br></div> </div></div></div>
-</div></div></div>
-</blockquote></div><br></div>
+<div dir=3D"ltr">Hello folks,<div><br></div><div>I searched through the mai=
+ling list but haven&#39;t seen anyone brought up. Here&#39;s a weird bug I =
+found on my setup: pythonnative seems to be using python3.4.3 whereas the r=
+ecipe specified 2.7.</div><div><br></div><div>Before diving into the layers=
+ of bitbake recipes to root cause what caused this, I want to post on the m=
+ailing list to see if it is reproducible on other setups, and if people hav=
+e ideas why this went wrong (environment variable accidentally being overwr=
+itten?)</div><div><br></div><div><b>What I tested:</b></div><div>I found th=
+e code in phosphor-settings-manager, which inherits pythonnative, seems to =
+be working per python 3, so added the following line into a native python f=
+unction:</div><div><br></div><div>python do_check_version () {</div><div>=
+=C2=A0 import sys</div><div>=C2=A0 bb.warn(sys.version)</div><div>}</div><d=
+iv>addtask check_version after do_configure before do_compile<br></div><div=
+><br></div><div>WARNING: phosphor-settings-manager-1.0-r1 do_check_version:=
+ 3.4.3 (default, Nov 17 2016, 01:08:31)=C2=A0<br></div><div><br></div><div>=
+This is with openbmc git tip, building MACHINE=3Dzaius</div><div><br></div>=
+<div><b>What the recipe should be using is seemingly 2.7:</b></div><div><di=
+v>$ cat ../import-layers/yocto-poky/meta/classes/pythonnative.bbclass</div>=
+<div><br></div><div>inherit python-dir</div><div>[...]</div></div><div><br>=
+</div><div><div>$ cat ../import-layers/yocto-poky/meta/classes/python-dir.b=
+bclass=C2=A0</div><div>PYTHON_BASEVERSION =3D &quot;2.7&quot;</div><div>PYT=
+HON_ABI =3D &quot;&quot;</div><div>PYTHON_DIR =3D &quot;python${PYTHON_BASE=
+VERSION}&quot;</div><div>PYTHON_PN =3D &quot;python&quot;</div><div>PYTHON_=
+SITEPACKAGES_DIR =3D &quot;${libdir}/${PYTHON_DIR}/site-packages&quot;</div=
+></div><div><br></div><div><div><b>Why this is bad:</b></div><div>well, pyt=
+hon2.7 and python3 have a ton of differences. A bug I discovered is due to =
+usage of filter(), which returns different objects between Python2/3.</div>=
+<div><br></div>-- <br><div class=3D"gmail_signature"><div dir=3D"ltr">Regar=
+ds,<div>Kun</div></div></div>
+</div></div>
 
---001a114125fe0efebc055ae3c482--
+--001a114aa6d61dabfa055ae4a0de--
