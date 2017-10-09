@@ -1,60 +1,67 @@
-Return-Path: <xavinux@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c09::230; helo=mail-qk0-x230.google.com;
- envelope-from=xavinux@gmail.com; receiver=<UNKNOWN>)
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="f9VMU7wX"; 
- dkim-atps=neutral
-Received: from mail-qk0-x230.google.com (mail-qk0-x230.google.com
- [IPv6:2607:f8b0:400d:c09::230])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="NsEFhZp8"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="C8Vb+p22"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y9Q0T47nDzDqv8
- for <openbmc@lists.ozlabs.org>; Mon,  9 Oct 2017 13:58:00 +1100 (AEDT)
-Received: by mail-qk0-x230.google.com with SMTP id f199so9248157qke.2
- for <openbmc@lists.ozlabs.org>; Sun, 08 Oct 2017 19:57:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=57VpyoGe2UIDLWsq39qRA4J4U/1adHwVYmRuSqNPseI=;
- b=f9VMU7wXb0QOXHezCEQcxR6fntjW//odIDceXXk+x+2UEAIWhtbBcEapc9xOuzI3yH
- IuqPXjPpVKyEf0UcyD6qvbVrO/QQ5tSty9kPYjQ5YhacJnS7MpWOBh0JXPFZ26ymNBB0
- /7qHvp8qVfi5aCwITiMEmnM6NvMlIu1028YQjX1CEl+Fc4jvCDqhVf9lRILWR+oDFcxy
- rIEQTs5Tqn+kHcDWFSem5Bgu6riUyPuU9EpIQIP+E36ltgi8i8xdObmQ9Y1qH6OCDMnO
- yKRJvqx/bLYRrN0V1Opvk21+8ZxFnV0o3VS0Fyh1/2+GS1D1BW+L352/Snbt03oen6c+
- vPNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=57VpyoGe2UIDLWsq39qRA4J4U/1adHwVYmRuSqNPseI=;
- b=jyAM7zLH/wSwBuLAv75sKqz8WK3y5eB9qap1l6vN6yHryQOX1jTSolwDP0CkaYLhV2
- fDFqczl2XnFSoPC64wXeZ11xtg5pHnUQOQa/fc5B/rleuyZjjdg1M0e1Z2oDzsq2a/HY
- ILRruCtCwEj1Uu2vzQBWRfNvszDy745p9198X/WnAXkjmqKOyRWjeanu/nuDm19FwDAk
- EYc1ay+YnQYPurdk2gVS+JCZIxYukpsmcjvLpkvSB1xLGazM0aUariNzlUaEYgzfnTR1
- XtKong897VJ3j+u3YotunzteY0LQ1900Gdx/qlh2rkPfZ+KWMZ1dQ5+BZkJHLTUg6Tx9
- jKAA==
-X-Gm-Message-State: AMCzsaVXLXVok/OazhYPCj8IRi7EHfb+NCs5vSrS+PBXAXQVWVAHVH1k
- /5YfMgUqWUs0sJ0NICgXyPk/5TMmjvzKJJbaeMY=
-X-Google-Smtp-Source: AOwi7QAFDhF72o2Afx4rWYw9FHRtXNoD9+HI6airjxWxN+RLGlaPW59u69/1dWUJDEX3KbWILCrR/6APEhzZbbn5cys=
-X-Received: by 10.233.221.133 with SMTP id r127mr1791698qkf.205.1507517877363; 
- Sun, 08 Oct 2017 19:57:57 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.12.153.200 with HTTP; Sun, 8 Oct 2017 19:57:56 -0700 (PDT)
-In-Reply-To: <1507466681.5452.143.camel@aj.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y9VyJ1JjKzDqlv
+ for <openbmc@lists.ozlabs.org>; Mon,  9 Oct 2017 17:41:27 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 428C120E83;
+ Mon,  9 Oct 2017 02:41:23 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Mon, 09 Oct 2017 02:41:23 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=TzF5PBNHjJLAxHMatTbOcZNCSiE52US2saNaiUPGh
+ qQ=; b=NsEFhZp85xT21fX82txw65i+z9SuR0VaI7FmG55JoDtbPuuv+JckiT4HG
+ bdvE3xFgRm2VKcEJpJxutWRGCGJS2Zr+4Io/L/w8XJB8M/5IxjBpKcMZ7x5Ls84b
+ 35Kfc/8dZZdsJXmTNrVSx0yQxhasfE6EykixBozjyKoK6YUhO0y5DYsELzh6UHw3
+ zJR/2u1Qxmu2UfmonYTxctc4XyGQwK6FdWgZgWCU5Hvku8SnjhBuKYqptDgRTvvw
+ b/CJHNMmr/glIVCEjWQmUN+nkVnhe/dgRpsLYkIY9N9PraG8mLnEjHDQ4JBN7/eR
+ 0PJnv6BBlzHsF/O46oKBvzHQa/Szg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=TzF5PBNHjJLAxHMatT
+ bOcZNCSiE52US2saNaiUPGhqQ=; b=C8Vb+p222ONCNwQwxboKBH0ZECVq9A5e9T
+ PwUmxDJ21HMDpc3pVsl4B8qSxE/B7ekceRZOLwyMKr6IFRLHkoKxKIHEcGnI4oJY
+ S5qVCVBoDYwtwDzuMBtnjcQ74A2WEiuPqwc5Z6LxpxKsgYRm51E3i2TyYBlCBIML
+ RRfuIGTRVRTSDEt00mvG/LsiajhKx/oJtJ2UjbqLUlJKW5gvVgKjkmW4OY1UiHiD
+ 2ym/NS2+yYm+nZ9duTG069mSRRmxYloXT641rtDnOc2F441NYoFCa0QeO9xiJ6pV
+ WQEKhBwfsVQ2DwziezzaJVp2yodHk5DI30H1h/7I5AZiljyudmdw==
+X-ME-Sender: <xms:ExrbWcZ3G9c9U9cQyw7zDGX8d2UmQV2frzswJ-2aHPXTLS06BFz-0w>
+X-Sasl-enc: LjYoHLkqkxcvb/GfObjrIunyg9LQHg9aEErlwyJmdFQC 1507531282
+Received: from keelia23 (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 805067E3DC;
+ Mon,  9 Oct 2017 02:41:21 -0400 (EDT)
+Message-ID: <1507531274.5452.154.camel@aj.id.au>
+Subject: Re: OpenBMC on Raspberry PI 3.
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Javier Romero <xavinux@gmail.com>
+Cc: Rick Altherr <raltherr@google.com>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>
+Date: Mon, 09 Oct 2017 17:11:14 +1030
+In-Reply-To: <CAEX+82+KQAV5WMuWh1VZCL+zb7TXXnxeUS_=8nQk1tC=8jrtqg@mail.gmail.com>
 References: <CAEX+82Lr=pJEvRqfi9MA=ZBW=DR+mY2VYVUhhTBgrPFA3c239g@mail.gmail.com>
  <CAPLgG=nHvmVzBW2CDxvgaeYAHoNL53W3An-p9fK3D4HfsU=Bbw@mail.gmail.com>
  <1507325323.1545468.1130544088.6FEEF44B@webmail.messagingengine.com>
  <CAEX+82KLmByCXqVg1Hzi7r5-cH2=Cx-0OE_hLwx-Jr_XXfe1Wg@mail.gmail.com>
  <CAEX+82Ls_e7EdupoUUbWEOL5gngd5BdxAY6YptHqAVp7HuJvjA@mail.gmail.com>
  <1507466681.5452.143.camel@aj.id.au>
-From: Javier Romero <xavinux@gmail.com>
-Date: Sun, 8 Oct 2017 23:57:56 -0300
-Message-ID: <CAEX+82+KQAV5WMuWh1VZCL+zb7TXXnxeUS_=8nQk1tC=8jrtqg@mail.gmail.com>
-Subject: Re: OpenBMC on Raspberry PI 3.
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Rick Altherr <raltherr@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="94eb2c0441ba92a761055b145b6d"
+ <CAEX+82+KQAV5WMuWh1VZCL+zb7TXXnxeUS_=8nQk1tC=8jrtqg@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-tw5NP77axzJX2tKVPMbz"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -66,273 +73,91 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 Oct 2017 02:58:02 -0000
+X-List-Received-Date: Mon, 09 Oct 2017 06:41:30 -0000
 
---94eb2c0441ba92a761055b145b6d
+
+--=-tw5NP77axzJX2tKVPMbz
 Content-Type: text/plain; charset="UTF-8"
-
-Andrew,
-
-Thans for your answer.
-
-Bug reported: https://github.com/openbmc/openbmc/issues/2434
-
-I`d like to try to cook up a patch, but do I need to know a specific
-language programming to do this ?
-
-Regards,
-
-
-
-
-
-
-
-
-
-
-
-*Javier Romero*
-
-*E-mail: xavinux@gmail.com <xavinux@gmail.com>*
-
-*Skype: xavinux*
-
-
-2017-10-08 9:44 GMT-03:00 Andrew Jeffery <andrew@aj.id.au>:
-
-> On Sun, 2017-10-08 at 01:45 -0300, Javier Romero wrote:
-> > I've tried these steps:
-> >
-> > 1. tester@obmc:~$ cd openbmc
-> >
-> > 2. tester@obmc:/openbmc$ export TEMPLATECONF=meta-openbmc-
-> machines/meta-evb/meta-evb-raspberrypi/conf
-> >
-> > 3. tester@obmc:/openbmc$ . oe-init-build-env ~/my-build-raspberrypi
-> >
-> > 4. tester@obmc:~/my-build-raspberrypi$ bitbake obmc-phosphor-image
-> >
-> > Build Configuration:
-> > BB_VERSION        = "1.32.0"
-> > BUILD_SYS         = "x86_64-linux"
-> > NATIVELSBSTRING   = "Ubuntu-16.04"
-> > TARGET_SYS        = "arm-openbmc-linux-gnueabi"
-> > MACHINE           = "raspberrypi"
-> > DISTRO            = "openbmc-phosphor"
-> > DISTRO_VERSION    = "0.1.0"
-> > TUNE_FEATURES     = "arm armv6  vfp arm1176jzfs callconvention-hard"
-> > TARGET_FPU        = "hard"
-> > meta
-> > meta-poky
-> > meta-oe
-> > meta-networking
-> > meta-python
-> > meta-virtualization
-> > meta-phosphor
-> > meta-raspberrypi  = "master:65edf7d796c34012982632d0a724d80ff44c9e4a"
-> >
-> >
-> > But the following error appears:
-> >
-> > ERROR: linux-raspberrypi-1_4.4.48+gitAUTOINC+7ddf96fbb7-r0
-> do_kernel_metadata: Function failed: do_kernel_metadata (log file is
-> located at /home/tester/my-build-raspberrypi/tmp/work/
-> raspberrypi-openbmc-linux-gnueabi/linux-raspberrypi/1_4.
-> 4.48+gitAUTOINC+7ddf96fbb7-r0/temp/log.do_kernel_metadata.7276)
-> > ERROR: Logfile of failure stored in: /home/tester/my-build-
-> raspberrypi/tmp/work/raspberrypi-openbmc-linux-
-> gnueabi/linux-raspberrypi/1_4.4.48+gitAUTOINC+7ddf96fbb7-r0/
-> temp/log.do_kernel_metadata.7276
-> > Log data follows:
-> > | DEBUG: Executing shell function do_kernel_metadata
-> > | ERROR. input file "phosphor-gpio-keys" does not exist
-> > | ERROR: could not process input files: /home/tester/openbmc/import-
-> layers/meta-raspberrypi/recipes-kernel/linux/linux-raspberrypi/defconfig
-> /home/tester/openbmc/import-layers/meta-raspberrypi/
-> recipes-kernel/linux/linux-raspberrypi-4.4/0001-fix-dtbo-rules.patch
-> phosphor-gpio-keys
-> > |        See /tmp/tmp.GA2zgVbszZ for details
-> > | ERROR. input file "phosphor-gpio-keys" does not exist
-> > | ERROR: could not process input files: /home/tester/openbmc/import-
-> layers/meta-raspberrypi/recipes-kernel/linux/linux-raspberrypi/defconfig
-> /home/tester/openbmc/import-layers/meta-raspberrypi/
-> recipes-kernel/linux/linux-raspberrypi-4.4/0001-fix-dtbo-rules.patch
-> phosphor-gpio-keys
-> > |        See /tmp/tmp.BEzIPRvVMy for details
-> > | WARNING: exit code 1 from a shell command.
-> > | ERROR: Function failed: do_kernel_metadata (log file is located at
-> /home/tester/my-build-raspberrypi/tmp/work/raspberrypi-openbmc-linux-
-> gnueabi/linux-raspberrypi/1_4.4.48+gitAUTOINC+7ddf96fbb7-r0/
-> temp/log.do_kernel_metadata.7276)
-> > ERROR: Task (/home/tester/openbmc/import-layers/meta-raspberrypi/
-> recipes-kernel/linux/linux-raspberrypi_4.4.bb:do_kernel_metadata) failed
-> with exit code '1'
-> > NOTE: Tasks Summary: Attempted 632 tasks of which 0 didn't need to be
-> rerun and 1 failed.
-> > Summary: 1 task failed:
-> >   /home/tester/openbmc/import-layers/meta-raspberrypi/
-> recipes-kernel/linux/linux-raspberrypi_4.4.bb:do_kernel_metadata
-> > Summary: There were 6 WARNING messages shown.
-> > Summary: There was 1 ERROR message shown, returning a non-zero exit code.
-> >
-> > Is there something wrong with the steps I've tried ?
->
-> Nope, that's just an outright bug in the raspi support. I'd recommend
-> several
-> things here:
->
-> 1. Open an issue in the github issue tracker[0]
-> 2. Cook up a patch! It looks like this might have to do with assumptions
-> made
->    in meta-phosphor/conf/distro/openbmc-phosphor.conf, as the raspi uses a
->    different kernel tree to the ASPEED SoCs
-> 3. For better or worse patches are submitted via Gerrit[1], so push your
-> patch
->    there
->
-> Make sure to speak up here or on IRC if you get stuck :)
->
-> Andrew
->
-> [0] https://github.com/openbmc/openbmc/issues
-> [1] https://gerrit.openbmc-project.xyz/#/q/status:open
-
---94eb2c0441ba92a761055b145b6d
-Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Andrew,<div><br></div><div>Thans for your answer.</div><di=
-v><br></div><div>Bug reported:=C2=A0<a href=3D"https://github.com/openbmc/o=
-penbmc/issues/2434">https://github.com/openbmc/openbmc/issues/2434</a></div=
-><div><br></div><div>I`d like to try to cook up a patch, but do I need to k=
-now a specific language programming to do this ?</div><div><br></div><div>R=
-egards,</div><div><br></div><div><br></div><div><br></div><div><br></div><d=
-iv><br></div><div><br></div><div><br></div><div><br></div><div><br></div></=
-div><div class=3D"gmail_extra"><br clear=3D"all"><div><div class=3D"gmail_s=
-ignature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div style=3D=
-"text-align:left"><i><b>Javier Romero<br></b></i></div><div style=3D"text-a=
-lign:left"><span style=3D"color:rgb(19,79,92)"><i><b><span style=3D"color:r=
-gb(0,0,0)">E-mail:<span style=3D"color:rgb(0,0,255)"> </span></span><span s=
-tyle=3D"color:rgb(0,0,255)"><a href=3D"mailto:xavinux@gmail.com" target=3D"=
-_blank">xavinux@gmail.com</a></span><br></b></i></span></div><div style=3D"=
-text-align:left"><i><b><span style=3D"color:rgb(19,79,92)"><span style=3D"c=
-olor:rgb(0,0,0)">Skype:</span> <span style=3D"color:rgb(11,83,148)"><u><spa=
-n style=3D"color:rgb(0,0,255)">xavinux</span><br></u></span></span></b></i>=
-</div><div style=3D"text-align:left"><br></div> </div></div></div>
-<br><div class=3D"gmail_quote">2017-10-08 9:44 GMT-03:00 Andrew Jeffery <sp=
-an dir=3D"ltr">&lt;<a href=3D"mailto:andrew@aj.id.au" target=3D"_blank">and=
-rew@aj.id.au</a>&gt;</span>:<br><blockquote class=3D"gmail_quote" style=3D"=
-margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div class=
-=3D"HOEnZb"><div class=3D"h5">On Sun, 2017-10-08 at 01:45 -0300, Javier Rom=
-ero wrote:<br>
-&gt; I&#39;ve tried these steps:<br>
-&gt;=C2=A0<br>
-&gt; 1. tester@obmc:~$ cd openbmc<br>
-&gt;=C2=A0<br>
-&gt; 2. tester@obmc:/openbmc$ export TEMPLATECONF=3Dmeta-openbmc-<wbr>machi=
-nes/meta-evb/meta-evb-<wbr>raspberrypi/conf<br>
-&gt;=C2=A0<br>
-&gt; 3. tester@obmc:/openbmc$ . oe-init-build-env ~/my-build-raspberrypi<br=
->
-&gt;=C2=A0<br>
-&gt; 4. tester@obmc:~/my-build-<wbr>raspberrypi$ bitbake obmc-phosphor-imag=
-e<br>
-&gt;=C2=A0<br>
-&gt; Build Configuration:<br>
-&gt; BB_VERSION =C2=A0 =C2=A0 =C2=A0 =C2=A0=3D &quot;1.32.0&quot;<br>
-&gt; BUILD_SYS =C2=A0 =C2=A0 =C2=A0 =C2=A0 =3D &quot;x86_64-linux&quot;<br>
-&gt; NATIVELSBSTRING =C2=A0 =3D &quot;Ubuntu-16.04&quot;<br>
-&gt; TARGET_SYS =C2=A0 =C2=A0 =C2=A0 =C2=A0=3D &quot;arm-openbmc-linux-gnue=
-abi&quot;<br>
-&gt; MACHINE =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =3D &quot;raspberrypi&quot;=
-<br>
-&gt; DISTRO =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=3D &quot;openbmc-phos=
-phor&quot;<br>
-&gt; DISTRO_VERSION =C2=A0 =C2=A0=3D &quot;0.1.0&quot;<br>
-&gt; TUNE_FEATURES =C2=A0 =C2=A0 =3D &quot;arm armv6 =C2=A0vfp arm1176jzfs =
-callconvention-hard&quot;<br>
-&gt; TARGET_FPU =C2=A0 =C2=A0 =C2=A0 =C2=A0=3D &quot;hard&quot;<br>
-&gt; meta =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<br>
-&gt; meta-poky =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0<br>
-&gt; meta-oe =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0<br>
-&gt; meta-networking =C2=A0=C2=A0<br>
-&gt; meta-python =C2=A0 =C2=A0 =C2=A0=C2=A0<br>
-&gt; meta-virtualization=C2=A0<br>
-&gt; meta-phosphor =C2=A0 =C2=A0=C2=A0<br>
-&gt; meta-raspberrypi =C2=A0=3D &quot;master:<wbr>65edf7d796c34012982632d0a=
-724d8<wbr>0ff44c9e4a&quot;<br>
-&gt;=C2=A0<br>
-&gt;=C2=A0<br>
-&gt; But the following error appears:<br>
-&gt;=C2=A0<br>
-&gt; ERROR: linux-raspberrypi-1_4.4.48+<wbr>gitAUTOINC+7ddf96fbb7-r0 do_ker=
-nel_metadata: Function failed: do_kernel_metadata (log file is located at /=
-home/tester/my-build-<wbr>raspberrypi/tmp/work/<wbr>raspberrypi-openbmc-lin=
-ux-<wbr>gnueabi/linux-raspberrypi/1_4.<wbr>4.48+gitAUTOINC+7ddf96fbb7-r0/<w=
-br>temp/log.do_kernel_metadata.<wbr>7276)<br>
-&gt; ERROR: Logfile of failure stored in: /home/tester/my-build-<wbr>raspbe=
-rrypi/tmp/work/<wbr>raspberrypi-openbmc-linux-<wbr>gnueabi/linux-raspberryp=
-i/1_4.<wbr>4.48+gitAUTOINC+7ddf96fbb7-r0/<wbr>temp/log.do_kernel_metadata.<=
-wbr>7276<br>
-&gt; Log data follows:<br>
-&gt; | DEBUG: Executing shell function do_kernel_metadata<br>
-&gt; | ERROR. input file &quot;phosphor-gpio-keys&quot; does not exist<br>
-&gt; | ERROR: could not process input files: /home/tester/openbmc/import-<w=
-br>layers/meta-raspberrypi/<wbr>recipes-kernel/linux/linux-<wbr>raspberrypi=
-/defconfig /home/tester/openbmc/import-<wbr>layers/meta-raspberrypi/<wbr>re=
-cipes-kernel/linux/linux-<wbr>raspberrypi-4.4/0001-fix-dtbo-<wbr>rules.patc=
-h phosphor-gpio-keys<br>
-&gt; | =C2=A0 =C2=A0 =C2=A0 =C2=A0See /tmp/tmp.GA2zgVbszZ for details<br>
-&gt; | ERROR. input file &quot;phosphor-gpio-keys&quot; does not exist<br>
-&gt; | ERROR: could not process input files: /home/tester/openbmc/import-<w=
-br>layers/meta-raspberrypi/<wbr>recipes-kernel/linux/linux-<wbr>raspberrypi=
-/defconfig /home/tester/openbmc/import-<wbr>layers/meta-raspberrypi/<wbr>re=
-cipes-kernel/linux/linux-<wbr>raspberrypi-4.4/0001-fix-dtbo-<wbr>rules.patc=
-h phosphor-gpio-keys<br>
-&gt; | =C2=A0 =C2=A0 =C2=A0 =C2=A0See /tmp/tmp.BEzIPRvVMy for details<br>
-&gt; | WARNING: exit code 1 from a shell command.<br>
-&gt; | ERROR: Function failed: do_kernel_metadata (log file is located at /=
-home/tester/my-build-<wbr>raspberrypi/tmp/work/<wbr>raspberrypi-openbmc-lin=
-ux-<wbr>gnueabi/linux-raspberrypi/1_4.<wbr>4.48+gitAUTOINC+7ddf96fbb7-r0/<w=
-br>temp/log.do_kernel_metadata.<wbr>7276)<br>
-&gt; ERROR: Task (/home/tester/openbmc/import-<wbr>layers/meta-raspberrypi/=
-<wbr>recipes-kernel/linux/linux-<wbr>raspberrypi_4.4.bb:do_kernel_<wbr>meta=
-data) failed with exit code &#39;1&#39;<br>
-&gt; NOTE: Tasks Summary: Attempted 632 tasks of which 0 didn&#39;t need to=
- be rerun and 1 failed.<br>
-&gt; Summary: 1 task failed:<br>
-&gt; =C2=A0 /home/tester/openbmc/import-<wbr>layers/meta-raspberrypi/<wbr>r=
-ecipes-kernel/linux/linux-<wbr>raspberrypi_4.4.bb:do_kernel_<wbr>metadata<b=
-r>
-&gt; Summary: There were 6 WARNING messages shown.<br>
-&gt; Summary: There was 1 ERROR message shown, returning a non-zero exit co=
-de.<br>
-&gt;=C2=A0<br>
-&gt; Is there something wrong with the steps I&#39;ve tried ?<br>
-<br>
-</div></div>Nope, that&#39;s just an outright bug in the raspi support. I&#=
-39;d recommend several<br>
-things here:<br>
-<br>
-1. Open an issue in the github issue tracker[0]<br>
-2. Cook up a patch! It looks like this might have to do with assumptions ma=
-de<br>
-=C2=A0=C2=A0=C2=A0in meta-phosphor/conf/distro/<wbr>openbmc-phosphor.conf, =
-as the raspi uses a<br>
-=C2=A0=C2=A0=C2=A0different kernel tree to the ASPEED SoCs<br>
-3. For better or worse patches are submitted via Gerrit[1], so push your pa=
-tch<br>
-=C2=A0=C2=A0=C2=A0there<br>
-<br>
-Make sure to speak up here or on IRC if you get stuck :)<br>
-<br>
-Andrew<br>
-<br>
-[0] <a href=3D"https://github.com/openbmc/openbmc/issues" rel=3D"noreferrer=
-" target=3D"_blank">https://github.com/openbmc/<wbr>openbmc/issues</a><br>
-[1] <a href=3D"https://gerrit.openbmc-project.xyz/#/q/status:open" rel=3D"n=
-oreferrer" target=3D"_blank">https://gerrit.openbmc-<wbr>project.xyz/#/q/st=
-atus:open</a></blockquote></div><br></div>
+On Sun, 2017-10-08 at 23:57 -0300, Javier Romero wrote:
+> Andrew,
+>=C2=A0
+> Thans for your answer.
+>=C2=A0
+> Bug reported:=C2=A0https://github.com/openbmc/openbmc/issues/2434
+>=C2=A0
+> I`d like to try to cook up a patch, but do I need to know a specific
+> language programming to do this ?
 
---94eb2c0441ba92a761055b145b6d--
+Hmm, good question. This is probably a bug in how a bitbake
+configuration/recipe configures the kernel. As such I'd suggest getting a
+handle on Yocto, which is the build and configuration system we use. Here's=
+ the
+quick start guide:
+
+http://www.yoctoproject.org/docs/2.1/yocto-project-qs/yocto-project-qs.html
+
+There's also a rather daunting Mega Manual, which is useful as a reference
+(rather than reading the whole thing):
+
+http://www.yoctoproject.org/docs/2.1/mega-manual/mega-manual.html
+
+Back to the bug itself, from the output that you gave I expect it's some is=
+sue
+with the following directive:
+
+https://github.com/openbmc/openbmc/blob/master/meta-phosphor/conf/distro/op=
+enbmc-phosphor.conf#L57
+
+i.e. the issue is that that linux-raspberrypi (the kernel recipe used for t=
+he
+raspberry pi[1][2]) doesn't have a 'phosphor-gpio-keys' feature. The implic=
+it
+assumption is that the configuration will be using the linux-obmc tree[3][4=
+][5], which
+is our fork of the kernel (primarily for Aspeed SoC support).
+
+More generally, knowledge of Python (Yocto/bitbake, some OpenBMC userspace)=
+, C
+(u-boot, kernel, qemu, also requires a some comfort with assembler) and C++=
+ (most
+of the phosphor reference userspace applications) is useful.
+
+Hope that helps.
+
+Andrew
+
+[1] https://github.com/openbmc/openbmc/blob/4f2d85233d23eedaf1d4846d3d861ba=
+28bc49b00/import-layers/meta-raspberrypi/recipes-kernel/linux/linux-raspber=
+rypi_4.4.bb
+[2] https://github.com/openbmc/openbmc/blob/4f2d85233d23eedaf1d4846d3d861ba=
+28bc49b00/import-layers/meta-raspberrypi/recipes-kernel/linux/linux-raspber=
+rypi.inc
+[3] https://github.com/openbmc/openbmc/blob/4f2cddf103aaca6df26ddb766655fdf=
+49c56a6ae/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.10.bb
+[4] https://github.com/openbmc/openbmc/blob/4f2cddf103aaca6df26ddb766655fdf=
+49c56a6ae/meta-phosphor/common/recipes-kernel/linux/linux-obmc.inc
+--=-tw5NP77axzJX2tKVPMbz
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIbBAABCgAGBQJZ2xoKAAoJEJ0dnzgO5LT5NTAP93Q/2WoM16MmaOdkx798V2ct
+vefdH0CygMawwRpAvzx1vx+Yktdtq3PXdFF83+hrLaND5gAYahV8pjxQoEfJo97s
+4/gLrZIdhyP8OzJBO6OioJmfd/bWpg05ftNVVszXJ0oZ47Ot6QUo8nRRJIHVSCbn
+dys7k6L22gKJIwfaD9wArTz8tH2IEMM6SonI3kfzYzCnQQx91DcQWpxqj2epQcDZ
+ndoOBP0O3gzlNjUqQ5baKLvEGeHhdsoPtfslLNObe3YW9gM5FZSbQXLrovaj0H5z
+e/1EiQiRKwd58smu+ntzTxmZO5G8ZUudjL11GqGFlaJ051whfMdJ0EQBU9QVNLiS
+8ml8l1a5O/llnk5VDYxxEb5aOPT6k/ozgmklOpsC98A2YPkV9SjvwTa0xCCMH779
+RQgTOiczj0QNaVMYNc09wushkZ8kVUUNu3YMi8/sL7bYzyCbXs/K8nvPtNrLwrOt
+wTq0gF3v4DczP6nNV8iRaFb7du9rr/iMe8E3C+NKA0TWHfhqGKJPPlgiRHNEJack
+2+Xvluu1T6KL1hHAGHJLtMYtzJEQGs/d+7didT+kQwS9Nocq37/8ERFEbKMrbwIs
+ifahDJDH+TM5lhJNJPGgR4JLCigCQ2KP2Do3tsw10pC4C53UxPXdNOVyHOYRir0X
+kzG9KDUXneRDM0eh8zU=
+=2Ohu
+-----END PGP SIGNATURE-----
+
+--=-tw5NP77axzJX2tKVPMbz--
