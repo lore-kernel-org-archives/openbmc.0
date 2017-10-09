@@ -1,58 +1,55 @@
-Return-Path: <geissonator@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c0b::22c; helo=mail-it0-x22c.google.com;
- envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
+Return-Path: <raltherr@google.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c05::22d; helo=mail-vk0-x22d.google.com;
+ envelope-from=raltherr@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="ECCOe3j5"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="Ycom1q+Q"; 
  dkim-atps=neutral
-Received: from mail-it0-x22c.google.com (mail-it0-x22c.google.com
- [IPv6:2607:f8b0:4001:c0b::22c])
+Received: from mail-vk0-x22d.google.com (mail-vk0-x22d.google.com
+ [IPv6:2607:f8b0:400c:c05::22d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y9p1V2lmVzDqyw;
- Tue, 10 Oct 2017 05:00:14 +1100 (AEDT)
-Received: by mail-it0-x22c.google.com with SMTP id n195so13782748itg.2;
- Mon, 09 Oct 2017 11:00:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y9sql56XhzDqv8
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Oct 2017 07:52:02 +1100 (AEDT)
+Received: by mail-vk0-x22d.google.com with SMTP id t203so2142159vke.0
+ for <openbmc@lists.ozlabs.org>; Mon, 09 Oct 2017 13:52:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=Qul3GXDe5RcS652ZeoIJLbvpoCs7uty4y3tLbLHvl3M=;
- b=ECCOe3j5jUL2UjqWWV7ftkXYu6qFm7Zwms7EUvZ+GnyAAOyKWmk5z99b0oXuW6FuqO
- MfsHrNIfnW+qovk4qHZI5d4DXZFL3pxGaoT1xTFSdw4vCWxreEYocb2YryXjdDpCyNbz
- uklS0RMw6rzzJq3mWUr98kAUbgXg761dnVkt3FF+7+nOX90n5OxvpZhRwpoBkddmwxtg
- PzY040SlQpuUkq6tcIWs/Oew0ATI/rowkSdx2ZzBAwRSup54tKC/zp0Pq7etkT6qF94X
- gkZVRFUv5VhQ5HuJWoAr0mrW9uKkug00Kdi61pnhYrX6jJS+SkLhYnHhKn2EXbbyz+tk
- CHMw==
+ :cc; bh=WjevTW0/MZu281PMqUpSFMPRCwNWD4jvu6mKJIEzppY=;
+ b=Ycom1q+QwqpY770yYIhdxgNMFuzHOy+Le7H8RFNDlsjf17kVJNgvEJCe+agibBzEaL
+ sM3gWi6ejcLkT72dgmsL+H4GK1WbjgQZfxWWr1LXkklzBjK9fE3lCcM6mWvOQRQy9bFg
+ STBduYVuxxnnvewnuEG0ombGu0b3ksn+dvJiL0VsVcYaqzicuKJSnVeJ7XCRnJHQakM5
+ UtQ84F4n8XeyOUwI29mBVpcIZtXb4ez4Zgz19ueEep40EialRcJ2k0yVhdxrjDK6YFNB
+ qnskMMxJjEPaTFO3RHYy1O5LwPfDFYX9AvbBAnpB5oePBOMTFQHOto3r7pXTZQ+tgd8l
+ sPaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=Qul3GXDe5RcS652ZeoIJLbvpoCs7uty4y3tLbLHvl3M=;
- b=cGbZvv+Io1hJLh/cH1rpwYktxgWtY3/hCWmmGiWUn3NVPWE0g5cY+T+Ji0fAZxYfIv
- Ls/EUw0zvXBxlgyTsElhfZNl0ZimbQU6LE6d+ifRezM2Ens2JTrpRXqIg0nqYmluxjis
- /6zpcQfpa60uuHG4VKBf3JF6JD2qNeD66pGkQrE4QAPI3QNFYe3hF5D165FqyRHJHgQS
- /XEOR8OVAmv8Q/8ozZSOq4aBdNfa8LS/wOR8Wylb4PrHNLWqzb7h4Ux66EbXiePOQREg
- w8o+yQbYMtpGbxCKMSty3faV5A7roOp+AnUP8QUCUdOtrNP31cPutCZXzCBmOkSWvhWj
- 90aw==
-X-Gm-Message-State: AMCzsaXF3K0ry/HWcTgyrfhF5UiN/ZhzYMq82oaoj96E1G5THkIkC0kK
- IgFvpvFDx6QIug0WhYfIWiGHzKD47ZkrFCAstXQ=
-X-Google-Smtp-Source: AOwi7QAMaVgdx0IBojTOcccscQ3iKn7nqcLQgS7dRossNEjRXrgNoUOaQW2T7BDx+Pye1q0VrVSVREOd440ZU9Us098=
-X-Received: by 10.36.111.194 with SMTP id x185mr13243119itb.54.1507572010276; 
- Mon, 09 Oct 2017 11:00:10 -0700 (PDT)
+ bh=WjevTW0/MZu281PMqUpSFMPRCwNWD4jvu6mKJIEzppY=;
+ b=itZB9Zrx3sXF976gKIvQ7+qy2FSU/n+a+te0+lb9KIazrSLv7RIcW1OgVVdpficksD
+ K4TtPDcjStSWhkh0F7yGXBKdwGMNdMEChN6Tcf0dSBrDWrLug6Wi6g2fAjCwL3t++Z1a
+ 8LiJR81R6dvQqJpGR+6gCRa0mPnhUSpqOSEStSFP5xcbCFaI94cRZFjRPG8xY9atDlgA
+ CM7m3l/M0GTbWeHnLXsZ20Wnh1TN4BRaDFouT55ax8Yo9H9CWhdqCQ8EnMP08ctyeQmn
+ OuQDRH+L9EmW1vJXjtEb/mLVxh0S0LYPbm4OVRyze/b8z9ETF90gt2/8H2XxV2SMp5gG
+ 1kYA==
+X-Gm-Message-State: AMCzsaWkw2U5UosLs8lVEAkoyc0UlphUmAkkRzXvkbttjcTWPDS9iUHQ
+ 4zntIqWj9YSh6Rewq9VHuQdczZq0pw10MuHVn5HY8A==
+X-Google-Smtp-Source: AOwi7QAHD4VCmsTutY56uRgkafP5+VvKcc7g4jPCfW0InrSR4CVEcLsU29Fntq8rPKib3mvO+6Q1LEyNm7NHAe0b1qo=
+X-Received: by 10.31.48.213 with SMTP id w204mr4095610vkw.174.1507582319596;
+ Mon, 09 Oct 2017 13:51:59 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.107.51.73 with HTTP; Mon, 9 Oct 2017 11:00:09 -0700 (PDT)
-In-Reply-To: <OF921CDA64.CB068039-ON862581B1.00153196-862581B1.0015746A@notes.na.collabserv.com>
-References: <1507254940.5452.129.camel@aj.id.au>
- <OFDFEB18C7.4CBB979B-ON002581B1.000FD8A2@LocalDomain>
- <OF921CDA64.CB068039-ON862581B1.00153196-862581B1.0015746A@notes.na.collabserv.com>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Mon, 9 Oct 2017 13:00:09 -0500
-Message-ID: <CALLMt=pT-oPiQr0V0_CQd_eOEkyYsSncH1_dS-Jjhkbd7+VvWw@mail.gmail.com>
-Subject: Re: OpenBMC helper scripts repositories
-To: Chris Austen <austenc@us.ibm.com>
-Cc: Andrew Jeffery <andrew@aj.id.au>, 
- openbmc <openbmc-bounces+austenc=us.ibm.com@lists.ozlabs.org>, 
- OpenBMC <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Received: by 10.31.147.88 with HTTP; Mon, 9 Oct 2017 13:51:59 -0700 (PDT)
+In-Reply-To: <CAGMNF6W+g_yAnm2e0ta7VtBZb01pwaRs_SZW+=N4tJtDO88xFw@mail.gmail.com>
+References: <CAGMNF6W+g_yAnm2e0ta7VtBZb01pwaRs_SZW+=N4tJtDO88xFw@mail.gmail.com>
+From: Rick Altherr <raltherr@google.com>
+Date: Mon, 9 Oct 2017 13:51:59 -0700
+Message-ID: <CAPLgG=nut_9GaVeby6w8fcaq5n=3ntxCHqdSQorRmSSKLdcLbw@mail.gmail.com>
+Subject: Re: pythonnative version mismatch?
+To: Kun Yi <kunyi@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="001a1143f882a1a14c055b235c04"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -64,81 +61,109 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 Oct 2017 18:00:15 -0000
+X-List-Received-Date: Mon, 09 Oct 2017 20:52:04 -0000
 
-Brad, Patrick, and I were also tossing around a misc tools repo under
-the openbmc umbrella a few weeks back.
+--001a1143f882a1a14c055b235c04
+Content-Type: text/plain; charset="UTF-8"
 
-I definitely vote for one!  I think the main concern was support, it
-would def be a "use at your own risk" and "patches preferred over bug
-reports" type repo.
+This was a really good question.  I wrote a blog post to document the
+answer: https://www.kc8apf.net/2017/10/snakes-in-a-sysroot/.
 
-I know George also has a collection of tools he uses for REST
-operations as well.
+On Fri, Oct 6, 2017 at 11:00 AM, Kun Yi <kunyi@google.com> wrote:
 
-With https://github.com/geissonator/openbmc-events, I was looking to
-build a bunch of small tools, that had similar command line interfaces
-to interact with the different REST api's in openbmc.
-
-Andrew
-
-On Thu, Oct 5, 2017 at 10:54 PM, Chris Austen <austenc@us.ibm.com> wrote:
+> Hello folks,
 >
-> https://github.com/causten/tools/tree/master/obmc I've also got those files.
-> things have evolved and I not kept the error logging or code update
-> refreshed to any of the new xyz paths. However, leds.py still can toggle the
-> LEDS on a system and obmcrequests.py (my library for bmc communication) can
-> work offline if the data has been captured.
+> I searched through the mailing list but haven't seen anyone brought up.
+> Here's a weird bug I found on my setup: pythonnative seems to be using
+> python3.4.3 whereas the recipe specified 2.7.
 >
-> "openbmc" <openbmc-bounces+austenc=us.ibm.com@lists.ozlabs.org> wrote on
-> 10/05/2017 09:52:43 PM:
+> Before diving into the layers of bitbake recipes to root cause what caused
+> this, I want to post on the mailing list to see if it is reproducible on
+> other setups, and if people have ideas why this went wrong (environment
+> variable accidentally being overwritten?)
 >
->> From: "Chris Austen" <austenc@us.ibm.com>
->> To: Andrew Jeffery <andrew@aj.id.au>
->> Cc: OpenBMC <openbmc@lists.ozlabs.org>
->> Date: 10/05/2017 09:53 PM
->> Subject: Re: OpenBMC helper scripts repositories
->> Sent by: "openbmc" <openbmc-bounces+austenc=us.ibm.com@lists.ozlabs.org>
->>
->> Mine too... https://github.com/causten/openbmc-tutorials
->>
->>
->> "openbmc" <openbmc-bounces+austenc=us.ibm.com@lists.ozlabs.org>
->> wrote on 10/05/2017 08:55:40 PM:
->>
->> > From: Andrew Jeffery <andrew@aj.id.au>
->> > To: OpenBMC <openbmc@lists.ozlabs.org>
->> > Date: 10/05/2017 08:56 PM
->> > Subject: OpenBMC helper scripts repositories
->> > Sent by: "openbmc" <openbmc-bounces+austenc=us.ibm.com@lists.ozlabs.org>
->> >
+> *What I tested:*
+> I found the code in phosphor-settings-manager, which inherits
+> pythonnative, seems to be working per python 3, so added the following line
+> into a native python function:
 >
->> > Hello,
->> >
->> > I've noticed that we've grown several helper script repositories, with
->> > a mix of intents.
->> >
->> > So far we have:
->> >
->> > https://github.com/williamspatrick/openbmc-events
->> >
->> > and the seemingly more active fork:
->> >
->> > https://github.com/geissonator/openbmc-events
->> >
->> > Along with something Joel cooked up a while back:
->> >
->> > https://github.com/shenki/obmc-ctrl
->> >
->> > and some scripts that I've written:
->> >
->> > https://github.com/amboar/obmc-scripts/
->> >
->> > Is it worth consolidating these efforts? If we do I think the result
->> > should be low friction wrt merging changes, and some hacking should
->> > always be expected if you're going to use the repository. Consolidating
->> > might help avoid duplicate effort.
->> >
->> > Cheers,
->> >
->> > Andrew[attachment "signature.asc" deleted by Chris Austen/Austin/IBM]
+> python do_check_version () {
+>   import sys
+>   bb.warn(sys.version)
+> }
+> addtask check_version after do_configure before do_compile
+>
+> WARNING: phosphor-settings-manager-1.0-r1 do_check_version: 3.4.3
+> (default, Nov 17 2016, 01:08:31)
+>
+> This is with openbmc git tip, building MACHINE=zaius
+>
+> *What the recipe should be using is seemingly 2.7:*
+> $ cat ../import-layers/yocto-poky/meta/classes/pythonnative.bbclass
+>
+> inherit python-dir
+> [...]
+>
+> $ cat ../import-layers/yocto-poky/meta/classes/python-dir.bbclass
+> PYTHON_BASEVERSION = "2.7"
+> PYTHON_ABI = ""
+> PYTHON_DIR = "python${PYTHON_BASEVERSION}"
+> PYTHON_PN = "python"
+> PYTHON_SITEPACKAGES_DIR = "${libdir}/${PYTHON_DIR}/site-packages"
+>
+> *Why this is bad:*
+> well, python2.7 and python3 have a ton of differences. A bug I discovered
+> is due to usage of filter(), which returns different objects between
+> Python2/3.
+>
+> --
+> Regards,
+> Kun
+>
+
+--001a1143f882a1a14c055b235c04
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">This was a really good question.=C2=A0 I wrote a blog post=
+ to document the answer:=C2=A0<a href=3D"https://www.kc8apf.net/2017/10/sna=
+kes-in-a-sysroot/">https://www.kc8apf.net/2017/10/snakes-in-a-sysroot/</a>.=
+</div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Fri, Oct=
+ 6, 2017 at 11:00 AM, Kun Yi <span dir=3D"ltr">&lt;<a href=3D"mailto:kunyi@=
+google.com" target=3D"_blank">kunyi@google.com</a>&gt;</span> wrote:<br><bl=
+ockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #=
+ccc solid;padding-left:1ex"><div dir=3D"ltr">Hello folks,<div><br></div><di=
+v>I searched through the mailing list but haven&#39;t seen anyone brought u=
+p. Here&#39;s a weird bug I found on my setup: pythonnative seems to be usi=
+ng python3.4.3 whereas the recipe specified 2.7.</div><div><br></div><div>B=
+efore diving into the layers of bitbake recipes to root cause what caused t=
+his, I want to post on the mailing list to see if it is reproducible on oth=
+er setups, and if people have ideas why this went wrong (environment variab=
+le accidentally being overwritten?)</div><div><br></div><div><b>What I test=
+ed:</b></div><div>I found the code in phosphor-settings-manager, which inhe=
+rits pythonnative, seems to be working per python 3, so added the following=
+ line into a native python function:</div><div><br></div><div>python do_che=
+ck_version () {</div><div>=C2=A0 import sys</div><div>=C2=A0 bb.warn(sys.ve=
+rsion)</div><div>}</div><div>addtask check_version after do_configure befor=
+e do_compile<br></div><div><br></div><div>WARNING: phosphor-settings-manage=
+r-1.0-<wbr>r1 do_check_version: 3.4.3 (default, Nov 17 2016, 01:08:31)=C2=
+=A0<br></div><div><br></div><div>This is with openbmc git tip, building MAC=
+HINE=3Dzaius</div><div><br></div><div><b>What the recipe should be using is=
+ seemingly 2.7:</b></div><div><div>$ cat ../import-layers/yocto-poky/<wbr>m=
+eta/classes/pythonnative.<wbr>bbclass</div><div><br></div><div>inherit pyth=
+on-dir</div><div>[...]</div></div><div><br></div><div><div>$ cat ../import-=
+layers/yocto-poky/<wbr>meta/classes/python-dir.<wbr>bbclass=C2=A0</div><div=
+>PYTHON_BASEVERSION =3D &quot;2.7&quot;</div><div>PYTHON_ABI =3D &quot;&quo=
+t;</div><div>PYTHON_DIR =3D &quot;python${PYTHON_BASEVERSION}&quot;</div><d=
+iv>PYTHON_PN =3D &quot;python&quot;</div><div>PYTHON_SITEPACKAGES_DIR =3D &=
+quot;${libdir}/${PYTHON_DIR}/site-<wbr>packages&quot;</div></div><div><br><=
+/div><div><div><b>Why this is bad:</b></div><div>well, python2.7 and python=
+3 have a ton of differences. A bug I discovered is due to usage of filter()=
+, which returns different objects between Python2/3.</div><span class=3D"HO=
+EnZb"><font color=3D"#888888"><div><br></div>-- <br><div class=3D"m_9422749=
+62384234270gmail_signature"><div dir=3D"ltr">Regards,<div>Kun</div></div></=
+div>
+</font></span></div></div>
+</blockquote></div><br></div>
+
+--001a1143f882a1a14c055b235c04--
