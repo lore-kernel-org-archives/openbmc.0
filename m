@@ -1,55 +1,69 @@
-Return-Path: <raltherr@google.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400c:c05::22d; helo=mail-vk0-x22d.google.com;
- envelope-from=raltherr@google.com; receiver=<UNKNOWN>)
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="Ycom1q+Q"; 
- dkim-atps=neutral
-Received: from mail-vk0-x22d.google.com (mail-vk0-x22d.google.com
- [IPv6:2607:f8b0:400c:c05::22d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="XPO5pgKQ"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="UqlHwCFj"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3y9sql56XhzDqv8
- for <openbmc@lists.ozlabs.org>; Tue, 10 Oct 2017 07:52:02 +1100 (AEDT)
-Received: by mail-vk0-x22d.google.com with SMTP id t203so2142159vke.0
- for <openbmc@lists.ozlabs.org>; Mon, 09 Oct 2017 13:52:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=WjevTW0/MZu281PMqUpSFMPRCwNWD4jvu6mKJIEzppY=;
- b=Ycom1q+QwqpY770yYIhdxgNMFuzHOy+Le7H8RFNDlsjf17kVJNgvEJCe+agibBzEaL
- sM3gWi6ejcLkT72dgmsL+H4GK1WbjgQZfxWWr1LXkklzBjK9fE3lCcM6mWvOQRQy9bFg
- STBduYVuxxnnvewnuEG0ombGu0b3ksn+dvJiL0VsVcYaqzicuKJSnVeJ7XCRnJHQakM5
- UtQ84F4n8XeyOUwI29mBVpcIZtXb4ez4Zgz19ueEep40EialRcJ2k0yVhdxrjDK6YFNB
- qnskMMxJjEPaTFO3RHYy1O5LwPfDFYX9AvbBAnpB5oePBOMTFQHOto3r7pXTZQ+tgd8l
- sPaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=WjevTW0/MZu281PMqUpSFMPRCwNWD4jvu6mKJIEzppY=;
- b=itZB9Zrx3sXF976gKIvQ7+qy2FSU/n+a+te0+lb9KIazrSLv7RIcW1OgVVdpficksD
- K4TtPDcjStSWhkh0F7yGXBKdwGMNdMEChN6Tcf0dSBrDWrLug6Wi6g2fAjCwL3t++Z1a
- 8LiJR81R6dvQqJpGR+6gCRa0mPnhUSpqOSEStSFP5xcbCFaI94cRZFjRPG8xY9atDlgA
- CM7m3l/M0GTbWeHnLXsZ20Wnh1TN4BRaDFouT55ax8Yo9H9CWhdqCQ8EnMP08ctyeQmn
- OuQDRH+L9EmW1vJXjtEb/mLVxh0S0LYPbm4OVRyze/b8z9ETF90gt2/8H2XxV2SMp5gG
- 1kYA==
-X-Gm-Message-State: AMCzsaWkw2U5UosLs8lVEAkoyc0UlphUmAkkRzXvkbttjcTWPDS9iUHQ
- 4zntIqWj9YSh6Rewq9VHuQdczZq0pw10MuHVn5HY8A==
-X-Google-Smtp-Source: AOwi7QAHD4VCmsTutY56uRgkafP5+VvKcc7g4jPCfW0InrSR4CVEcLsU29Fntq8rPKib3mvO+6Q1LEyNm7NHAe0b1qo=
-X-Received: by 10.31.48.213 with SMTP id w204mr4095610vkw.174.1507582319596;
- Mon, 09 Oct 2017 13:51:59 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.31.147.88 with HTTP; Mon, 9 Oct 2017 13:51:59 -0700 (PDT)
-In-Reply-To: <CAGMNF6W+g_yAnm2e0ta7VtBZb01pwaRs_SZW+=N4tJtDO88xFw@mail.gmail.com>
-References: <CAGMNF6W+g_yAnm2e0ta7VtBZb01pwaRs_SZW+=N4tJtDO88xFw@mail.gmail.com>
-From: Rick Altherr <raltherr@google.com>
-Date: Mon, 9 Oct 2017 13:51:59 -0700
-Message-ID: <CAPLgG=nut_9GaVeby6w8fcaq5n=3ntxCHqdSQorRmSSKLdcLbw@mail.gmail.com>
-Subject: Re: pythonnative version mismatch?
-To: Kun Yi <kunyi@google.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3y9yKR6nfbzDr4T
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Oct 2017 11:14:34 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 25C1121713;
+ Mon,  9 Oct 2017 20:14:32 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Mon, 09 Oct 2017 20:14:32 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=fm1; bh=tyhhafPY3MqR5HmG4YUvDB046h2KR+iFhrWUxIno3
+ ZU=; b=XPO5pgKQElxNPTDeQltJAJ2+TeRu33irbf1YLg7flMukiBqsm2jCYAh90
+ mZI+2yDPw+sXh6K96DeI3Z2gmMxIjGJyXbXxA9Ff4d1OtoEw+3f+I/GJq7ZsC7ma
+ TC8TSlaAtdvU1ludGLTwKp3zoXOJoIUSoHJpPZCOdp8BGoSrjT6oLnzcx2bGCV9R
+ zS+kpkN4J792m43SkVBq0em4tmVYmdMu0pGedDQn9qw+69vHn14VAgnF/9omSsXa
+ AxabRqegeXAR684mesRhtOsf9jiTAP2przP2a3Iyvv/hwKtSvet2ZbkaDR9ojE8N
+ hST7d5QWXBYCfyCFWOV6oEvncU0tg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=tyhhafPY3MqR5HmG4Y
+ UvDB046h2KR+iFhrWUxIno3ZU=; b=UqlHwCFjWsmzBV1DUMsqLxMSzcgV4WXoAU
+ aPT7fQnaSVJGc+jF+tXQDxTDO6MQ+j4S2+FUItO4Tk6I1Eh6SGS+sEGNNHHeVtGd
+ Tm2SH9o7F+4LJcEGqY4JMAoYT3GN6/HBifYfIn0XeBx3OOhGJBOLJ68F+oQcKC/8
+ lw4c3IgVc4sLeWz7PKy8J4BFfiR6tcFJwbP2py3/TCGccegAYWDbIuBHnLr+C00D
+ DZVKj610Ll01JXOpG2UP5FLdbwtVa0/3KL/56ROEFMYjVInsVQM8rQmQsF1Ie2dt
+ VGIcZX2dzrwEvNlyUUAIRERBmeHbaTmgHunGxPY+SfvqOSGRGESQ==
+X-ME-Sender: <xms:6BDcWUaFrmiXvHuZtzp1lbCJWxYZWOQyK5btL2A1qcmwWYxapRRXlw>
+X-Sasl-enc: T9zxwClhgQzFRJi0bsEyRNQdmbLgtytU/DaQ2QPNY/jC 1507594471
+Received: from keelia23 (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 571EC7E3DB;
+ Mon,  9 Oct 2017 20:14:30 -0400 (EDT)
+Message-ID: <1507594463.5452.156.camel@aj.id.au>
+Subject: Re: OpenBMC on Raspberry PI 3.
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Javier Romero <xavinux@gmail.com>, Yi TZ Li <shliyi@cn.ibm.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="001a1143f882a1a14c055b235c04"
+Date: Tue, 10 Oct 2017 10:44:23 +1030
+In-Reply-To: <CAEX+82LFjvc4=Ai6p4k66EBfE-45jrYUwvmPFGdgSb4OdzQVFA@mail.gmail.com>
+References: <CAEX+82Lr=pJEvRqfi9MA=ZBW=DR+mY2VYVUhhTBgrPFA3c239g@mail.gmail.com>
+ <CAPLgG=nHvmVzBW2CDxvgaeYAHoNL53W3An-p9fK3D4HfsU=Bbw@mail.gmail.com>
+ <1507325323.1545468.1130544088.6FEEF44B@webmail.messagingengine.com>
+ <CAEX+82KLmByCXqVg1Hzi7r5-cH2=Cx-0OE_hLwx-Jr_XXfe1Wg@mail.gmail.com>
+ <CAEX+82Ls_e7EdupoUUbWEOL5gngd5BdxAY6YptHqAVp7HuJvjA@mail.gmail.com>
+ <1507466681.5452.143.camel@aj.id.au>
+ <CAEX+82+KQAV5WMuWh1VZCL+zb7TXXnxeUS_=8nQk1tC=8jrtqg@mail.gmail.com>
+ <1507531274.5452.154.camel@aj.id.au>
+ <OF72E5748D.A94F82AF-ON482581B4.0033C44D-482581B4.003504C9@notes.na.collabserv.com>
+ <CAEX+82LFjvc4=Ai6p4k66EBfE-45jrYUwvmPFGdgSb4OdzQVFA@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-BwF3K1wJlbAneIELeQnM"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -61,109 +75,114 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 Oct 2017 20:52:04 -0000
+X-List-Received-Date: Tue, 10 Oct 2017 00:14:38 -0000
 
---001a1143f882a1a14c055b235c04
+
+--=-BwF3K1wJlbAneIELeQnM
 Content-Type: text/plain; charset="UTF-8"
-
-This was a really good question.  I wrote a blog post to document the
-answer: https://www.kc8apf.net/2017/10/snakes-in-a-sysroot/.
-
-On Fri, Oct 6, 2017 at 11:00 AM, Kun Yi <kunyi@google.com> wrote:
-
-> Hello folks,
->
-> I searched through the mailing list but haven't seen anyone brought up.
-> Here's a weird bug I found on my setup: pythonnative seems to be using
-> python3.4.3 whereas the recipe specified 2.7.
->
-> Before diving into the layers of bitbake recipes to root cause what caused
-> this, I want to post on the mailing list to see if it is reproducible on
-> other setups, and if people have ideas why this went wrong (environment
-> variable accidentally being overwritten?)
->
-> *What I tested:*
-> I found the code in phosphor-settings-manager, which inherits
-> pythonnative, seems to be working per python 3, so added the following line
-> into a native python function:
->
-> python do_check_version () {
->   import sys
->   bb.warn(sys.version)
-> }
-> addtask check_version after do_configure before do_compile
->
-> WARNING: phosphor-settings-manager-1.0-r1 do_check_version: 3.4.3
-> (default, Nov 17 2016, 01:08:31)
->
-> This is with openbmc git tip, building MACHINE=zaius
->
-> *What the recipe should be using is seemingly 2.7:*
-> $ cat ../import-layers/yocto-poky/meta/classes/pythonnative.bbclass
->
-> inherit python-dir
-> [...]
->
-> $ cat ../import-layers/yocto-poky/meta/classes/python-dir.bbclass
-> PYTHON_BASEVERSION = "2.7"
-> PYTHON_ABI = ""
-> PYTHON_DIR = "python${PYTHON_BASEVERSION}"
-> PYTHON_PN = "python"
-> PYTHON_SITEPACKAGES_DIR = "${libdir}/${PYTHON_DIR}/site-packages"
->
-> *Why this is bad:*
-> well, python2.7 and python3 have a ton of differences. A bug I discovered
-> is due to usage of filter(), which returns different objects between
-> Python2/3.
->
-> --
-> Regards,
-> Kun
->
-
---001a1143f882a1a14c055b235c04
-Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">This was a really good question.=C2=A0 I wrote a blog post=
- to document the answer:=C2=A0<a href=3D"https://www.kc8apf.net/2017/10/sna=
-kes-in-a-sysroot/">https://www.kc8apf.net/2017/10/snakes-in-a-sysroot/</a>.=
-</div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Fri, Oct=
- 6, 2017 at 11:00 AM, Kun Yi <span dir=3D"ltr">&lt;<a href=3D"mailto:kunyi@=
-google.com" target=3D"_blank">kunyi@google.com</a>&gt;</span> wrote:<br><bl=
-ockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #=
-ccc solid;padding-left:1ex"><div dir=3D"ltr">Hello folks,<div><br></div><di=
-v>I searched through the mailing list but haven&#39;t seen anyone brought u=
-p. Here&#39;s a weird bug I found on my setup: pythonnative seems to be usi=
-ng python3.4.3 whereas the recipe specified 2.7.</div><div><br></div><div>B=
-efore diving into the layers of bitbake recipes to root cause what caused t=
-his, I want to post on the mailing list to see if it is reproducible on oth=
-er setups, and if people have ideas why this went wrong (environment variab=
-le accidentally being overwritten?)</div><div><br></div><div><b>What I test=
-ed:</b></div><div>I found the code in phosphor-settings-manager, which inhe=
-rits pythonnative, seems to be working per python 3, so added the following=
- line into a native python function:</div><div><br></div><div>python do_che=
-ck_version () {</div><div>=C2=A0 import sys</div><div>=C2=A0 bb.warn(sys.ve=
-rsion)</div><div>}</div><div>addtask check_version after do_configure befor=
-e do_compile<br></div><div><br></div><div>WARNING: phosphor-settings-manage=
-r-1.0-<wbr>r1 do_check_version: 3.4.3 (default, Nov 17 2016, 01:08:31)=C2=
-=A0<br></div><div><br></div><div>This is with openbmc git tip, building MAC=
-HINE=3Dzaius</div><div><br></div><div><b>What the recipe should be using is=
- seemingly 2.7:</b></div><div><div>$ cat ../import-layers/yocto-poky/<wbr>m=
-eta/classes/pythonnative.<wbr>bbclass</div><div><br></div><div>inherit pyth=
-on-dir</div><div>[...]</div></div><div><br></div><div><div>$ cat ../import-=
-layers/yocto-poky/<wbr>meta/classes/python-dir.<wbr>bbclass=C2=A0</div><div=
->PYTHON_BASEVERSION =3D &quot;2.7&quot;</div><div>PYTHON_ABI =3D &quot;&quo=
-t;</div><div>PYTHON_DIR =3D &quot;python${PYTHON_BASEVERSION}&quot;</div><d=
-iv>PYTHON_PN =3D &quot;python&quot;</div><div>PYTHON_SITEPACKAGES_DIR =3D &=
-quot;${libdir}/${PYTHON_DIR}/site-<wbr>packages&quot;</div></div><div><br><=
-/div><div><div><b>Why this is bad:</b></div><div>well, python2.7 and python=
-3 have a ton of differences. A bug I discovered is due to usage of filter()=
-, which returns different objects between Python2/3.</div><span class=3D"HO=
-EnZb"><font color=3D"#888888"><div><br></div>-- <br><div class=3D"m_9422749=
-62384234270gmail_signature"><div dir=3D"ltr">Regards,<div>Kun</div></div></=
-div>
-</font></span></div></div>
-</blockquote></div><br></div>
+Hi Javier,
 
---001a1143f882a1a14c055b235c04--
+A few notes on how to make best use of the mailing list:
+
+First, mail to the list is best sent plain-text. I see you use gmail -
+if you're using the web interface there's a drop-down menu at the
+bottom right of the composer where you can select the plain-text
+option.
+
+Secondly, I notice you quote both Yi and I below in your reply, and
+appear to have constructed the reply yourself: the best way to deal
+with multiple people in a conversation is to reply to their emails
+individually and directly, rather than consolidating your thoughts in
+one reply. This keeps the threads of conversation easy to follow
+(though gmail's conversation interface is linear rather than tree view,
+so this might not be obvious but it does affect others reading the
+list).
+
+Third: You have the knack of replying to quotes from the sender, but
+this is best served by making use of the reply-indentation that your
+composer should already provide (e.g. '> some quoted text'). For
+example what I'm doing below:
+
+On Mon, 2017-10-09 at 13:09 -0300, Javier Romero wrote:
+> Andrew,
+>=20
+> "More generally, knowledge of Python (Yocto/bitbake, some OpenBMC
+> userspace), C (u-boot, kernel, qemu, also requires a some comfort
+> with assembler) and C++ (most of the phosphor reference userspace
+> applications) is useful."
+>=20
+> I see, but I'm not a programmer, have start by building an image of
+> Yocto for the Raspberry PI to learn more about Yocto, Poky and
+> bitbake. Links you provided are very welcome and useful!
+
+Ah - so I don't think you've outlined why you picked OpenBMC for the
+job. Can you give us a quick run-down?
+
+Without further information and assuming you just want to get an image
+you've built with Yocto onto a Raspberry Pi, there appears to be a good
+unofficial how-to here:
+
+http://www.jumpnowtek.com/rpi/Raspberry-Pi-Systems-with-Yocto.html
+
+This should get you something that works without having to deal with
+any of the broken assumptions currently baked into the OpenBMC code-
+base with respect to the Raspberry Pi.
+
+>=20
+>=20
+> Yi,
+>=20
+> "The original target was to build an OpenBMC image for RaspberryPi,
+> but I never tested on a real hardware.
+>=20
+> I've the Raspberry PI 3 at disposal for testing on a real hardware.
+>=20
+> More work is required to run OpenBMC on a Raspberry Pi. The "meta-
+> phosphor" layer has been changed since that time, we need to update
+> RaspberryPi configurations accordingly."
+>=20
+> Something I can help and with this although Im not a programmer?=C2=A0
+
+Not already having programming experience is going to make it harder,
+and I wouldn't necessarily take queues from how we use Yocto (I'm no
+expert but I feel that we don't do some things quite by the book).
+
+Yocto borrows lots of ideas from shell scripting and is implemented in
+python. Further, it allows you to pretty freely mix the two in recipes
+thus it would be helpful to get a grasp of these environments (and
+Yocto itself). Without some experience it leaves us with high latency
+interactions between you and Yi if Yi is to continue developing the
+Raspberry Pi support. I expect this will end up frustrating both of
+you, but it's up to you both to decide.
+
+There are going to be easier projects out there than OpenBMC to cut
+your teeth with, but if you are keen to learn to program, feel you have
+the drive to do so and Yi is happy to help out with your interest in
+the Raspberry Pi then by all means stick around :)
+
+Andrew
+--=-BwF3K1wJlbAneIELeQnM
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZ3BDfAAoJEJ0dnzgO5LT5tDsQAI7rnFobpQEUF5ROzHQryffN
+pPhaoW7uvraPu3ul4Q4CMAnnZ1gRwUPID9WTZzUfyXFq4rPmx5lpCTBg35+7b5Qt
+2ZufcOH4oDeibtDQ0HaO0421NHlCkI/ObUrUWnnWJn9trgJxEhdmPnNcKdyjCAnd
+bUYB8G2HPW9rBa8goooPj/hCd+thpn2f1Bx+0GmQCWj/LXC6ePlvd+TCBT4so5DU
+XR0qqco8vRRbugIeuXsKSpQ3+j+C7EJM/l4qU8TZxJydBLIf4MEtM0pZkkQEpyWf
+uVNP9trPu7DwJWsgnKEU+PZ7oeBylYLQCsm5ANPfPECqX44IoYcwU3C3RQefIvy2
+KTMpeDvh6IMJqFJ99YdI1mQaHOMSAGs0HUOAQ+DmcY8kt7IvRK0eeQWKWLy5s2y4
+fMAVLhukWoMwhO5qys7WJwq8weIXJzs8/f4XEmKQ7CuNcDrhdX0Z4SkfXQF1ofZu
+7nQX173Ox33zHAY9/EluS9n9nAFivLgI8xelydrgU63gralrt2SIVWwjK8XBoUgn
+X3SmL6H3mb2bwjVEdMI3LlwvDXCFVeMD57r34d1nNWJPyVvq+xw7jQPaH4GecoJ0
+xh3n9Z+qxbX618nbsf+BLL4EXH9dTP9MdGNieNsz6WVSsA/vEdNWdihTWlsYYF0s
+Kxy4m0JiW4eBhPiPz/mO
+=7RwI
+-----END PGP SIGNATURE-----
+
+--=-BwF3K1wJlbAneIELeQnM--
