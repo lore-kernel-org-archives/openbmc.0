@@ -1,60 +1,40 @@
-Return-Path: <joel.stan@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4010:c07::241; helo=mail-lf0-x241.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="nf9juEE+"; 
- dkim-atps=neutral
-Received: from mail-lf0-x241.google.com (mail-lf0-x241.google.com
- [IPv6:2a00:1450:4010:c07::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <clg@kaod.org>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=kaod.org
+ (client-ip=188.165.33.112; helo=8.mo4.mail-out.ovh.net;
+ envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
+X-Greylist: delayed 59888 seconds by postgrey-1.36 at bilbo;
+ Tue, 10 Oct 2017 17:37:23 AEDT
+Received: from 8.mo4.mail-out.ovh.net (8.mo4.mail-out.ovh.net [188.165.33.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yB2H81Ky9zDr4W
- for <openbmc@lists.ozlabs.org>; Tue, 10 Oct 2017 14:12:51 +1100 (AEDT)
-Received: by mail-lf0-x241.google.com with SMTP id m7so5206945lfe.5
- for <openbmc@lists.ozlabs.org>; Mon, 09 Oct 2017 20:12:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=1K8njngOrQG7laUTk55jrxb5n0Z4v1T88IIuFaiYlqc=;
- b=nf9juEE+LoSJGsqLkOiBDNYC4REpg8/gXmyuHoaeUMFdQWn04saQR8f4TAm3n5jlml
- Uy2mevoiojhlhr5peJz6WRLnmoNZKY/eX1zICDNBXJbOfiUuDmcFnm7h0vpRRwQDhPcB
- sScHiy1BjOZIGeHZl1LzwHGrL+kIB80UsEfDcbgSDaBLnE+nQ9NCUoMhhlMcjewerZGd
- CektO3tl5lhxj5lftKvBy+oSLS1ID2Zbu75ZpJGKYeRldwJitce0XW8jyXPDHNbJfwYu
- 8v10CfPWy8lTL0rqJgQxETDxIExuq1Idm8kRhpOFQCFVWSCTHiGhxek4jaRFWOXGVtCK
- hUlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=1K8njngOrQG7laUTk55jrxb5n0Z4v1T88IIuFaiYlqc=;
- b=Zp7kVfV0/IMsefLZor0i7vVul71seT5L5khij861vShP6CJ2QJYCkRFiE3f3r30O+4
- FybMsKq7dL6MlwhRYP4ixd4LBkna//L24Uj8JieulNX6Qip2YZXxMzuxmVxxy6KCKm9d
- 4izew3LFPBD/IW+lCL9SlDyOcJL8Q0iyiiV21zY4M35AQ5WiJ8jV2ASl6Bw8NnUBQFDt
- vQ5YhMSU7+UJAYYLWmF1PNoUPrqC6f9Y2eTJ2aJZTf7XrXZbbaTfO31o+KTV1J1PrPl2
- AqF5cvK5K482ANSuEOqd2x/5vGhZKThbYX4UZ8q+KNn6ZT2KL7C6c47I9kHhMnUZ51rh
- 3+7A==
-X-Gm-Message-State: AMCzsaVqekWh/TRBfmK9O5bBz3KtBU0vOhaiaOLMrzf7aaxoc8JmaWPE
- usJx31FItR0HXFXCC1hDi2aoYSiiab9XM0FsoSA=
-X-Google-Smtp-Source: AOwi7QClzO+uI09T0kDlvaqO0RAYDJ3oLw02S52OZN0F0ra/9jLpQma9biCORCBACCH5Ku7I0Lj3K6cAMO3CENR/F4E=
-X-Received: by 10.46.88.94 with SMTP id x30mr213083ljd.138.1507605168371; Mon,
- 09 Oct 2017 20:12:48 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yB6q74L12zDr4x
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Oct 2017 17:37:21 +1100 (AEDT)
+Received: from player746.ha.ovh.net (b6.ovh.net [213.186.33.56])
+ by mo4.mail-out.ovh.net (Postfix) with ESMTP id DEB96DAC45
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Oct 2017 08:37:16 +0200 (CEST)
+Received: from zorba.kaod.org (LFbn-1-2231-173.w90-76.abo.wanadoo.fr
+ [90.76.52.173]) (Authenticated sender: postmaster@kaod.org)
+ by player746.ha.ovh.net (Postfix) with ESMTPSA id 6CAAA50009A;
+ Tue, 10 Oct 2017 08:37:14 +0200 (CEST)
+Subject: Re: [linux dev-4.13 0/6] SMC driver updates
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <20171009134108.15860-1-clg@kaod.org>
+ <CACPK8Xe2XWpiZLA1atw9nKpy5BZSZG8VWU6xLmQTWB7sQm9xAg@mail.gmail.com>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <3191ab7a-35ba-d293-e1f7-fb7647f74a25@kaod.org>
+Date: Tue, 10 Oct 2017 08:37:14 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.3.0
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.25.195.6 with HTTP; Mon, 9 Oct 2017 20:12:27 -0700 (PDT)
-In-Reply-To: <1507594837.5452.158.camel@aj.id.au>
-References: <CACPK8XdfxO5y3DHfBeZgvK=jUCM4noh2YFmX4w0GxEH8UDD+9A@mail.gmail.com>
- <1507594837.5452.158.camel@aj.id.au>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 10 Oct 2017 12:42:27 +0930
-X-Google-Sender-Auth: 8X6Ye2TNPRk4aLTT_zNTjh06nAs
-Message-ID: <CACPK8Xfh0tYY7TycLtJejHWQwvfnpkmRjS0FrJ3mGf_+eH4u4Q@mail.gmail.com>
-Subject: Re: Moving to kernel dev-4.13
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Eddie James <eajames.ibm@gmail.com>, 
- Xo Wang <xow@google.com>, tomer.maimon@nuvoton.com
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <CACPK8Xe2XWpiZLA1atw9nKpy5BZSZG8VWU6xLmQTWB7sQm9xAg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 7682015068060158722
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelledruddttddguddtlecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -66,67 +46,81 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 Oct 2017 03:12:53 -0000
+X-List-Received-Date: Tue, 10 Oct 2017 06:37:24 -0000
 
-On Tue, Oct 10, 2017 at 9:50 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> On Mon, 2017-10-09 at 16:34 +0930, Joel Stanley wrote:
->> Hello OpenBMCers,
+On 10/10/2017 05:04 AM, Joel Stanley wrote:
+> Hello Cedric,
+> 
+> On Mon, Oct 9, 2017 at 11:11 PM, Cédric Le Goater <clg@kaod.org> wrote:
+>> Hello,
 >>
->> I've pushed a new branch to the OpenBMC kernel repository. It's called
->> dev-4.13, and is based on the latest stable release from the 4.13
->> branch (4.13.5).
->
-> Woo!
->
+>> Here is a series bringing the Aspeed SMC driver to the level of what
+>> we had in openbmc kernel 4.10. There are a couple of changes :
 >>
->> There are currently 40 patches on top of the upstream release that
->> include the patches sent upstream since 4.13 was released. In
->> addition, there is the new Aspeed clk driver that is out on the
->> upstream lists for review.
->
-> Have you looked at my reviews on v4 yet? They're not all acks :)
+>>  - the DMA support is gone. It is not used, it only works for
+>>    kmalloc'ed buffers and UBIFS uses vmalloc'ed buffers for instance.
+>>
+>>  - the driver was slightly adapted to take into account the new clk
+>>    driver.
+>>
+>> Tested on a palmetto and an ast2500 eval boards.
+> 
+> Thanks! I applied these to dev-4.13. They did not cleanly apply. Can
+> you double check that head of the remote you're using is
+> c0df354f409687d3565073e17fab75913755ed07?
 
-Not yet. Thanks for the reviews, I'll get to that today
+yes it is. See my branch from yesterday :
 
->> If you wish to have your non-upstreamed patches added to this tree,
->> please send them to the list with the [PATCH linux dev-4.13] tag.
->
-> I haven't looked at the tree yet, but do we have a list of major
-> features that we expose in dev-4.10 to match against dev-4.13 to know
-> what needs to go in?
->
-> Maybe that's a lazy question and I should generate it myself...
+	https://github.com/legoater/linux/commits/openbmc-4.13
 
-We should have a list. Here's a rough one:
+curious.
 
-$ git diff --dirstat=lines,1 v4.10.17..dev-4.10  | sort -hr
-  20.1% arch/arm/boot/dts/
-  13.2% drivers/fsi/
-  10.6% drivers/pinctrl/aspeed/
-   6.9% drivers/hwmon/pmbus/
-   6.2% drivers/net/ethernet/faraday/
-   6.0% drivers/hwmon/occ/
-   5.0% drivers/i2c/busses/
-   4.2% drivers/mtd/spi-nor/
-   3.1% drivers/hwmon/
-   3.1% drivers/
-   3.0% Documentation/devicetree/bindings/
-   2.5% drivers/gpio/
-   1.9% include/
-   1.7% drivers/misc/
-   1.5% drivers/iio/pressure/
-   1.5% drivers/clk/aspeed/
-   1.3% arch/arm/mach-aspeed/
-   1.1% drivers/leds/
-   1.1% arch/arm/configs/
-   1.0% net/ncsi/
-   1.0% drivers/tty/serial/8250/
-   1.0% drivers/mailbox/
-   1.0% drivers/iio/adc/
+> I did them applied, but they appear to fail to probe on my evb:
+> 
+> [    1.901227] aspeed-smc 1e620000.flash-controller: mx25l25635e (32768 Kbytes)
+> [    1.908304] aspeed-smc 1e620000.flash-controller: CE0 window [
+> 0x20000000 - 0x22000000 ] 32MB
+> [    1.916831] aspeed-smc 1e620000.flash-controller: CE1 window [
+> 0x22000000 - 0x2a000000 ] 128MB
+> [    1.925540] aspeed-smc 1e620000.flash-controller: unsupported SPI read mode
+> [    1.932516] aspeed-smc 1e620000.flash-controller: Aspeed SMC probe failed -22
+> [    1.946376] aspeed-smc: probe of 1e620000.flash-controller failed
+> with error -22
+> [    1.955217] aspeed-smc 1e630000.flash-controller: w25q256 (32768 Kbytes)
+> [    1.961943] aspeed-smc 1e630000.flash-controller: CE0 window [
+> 0x30000000 - 0x32000000 ] 32MB
+> [    1.970467] aspeed-smc 1e630000.flash-controller: CE1 window [
+> 0x32000000 - 0x38000000 ] 96MB
+> [    1.978982] aspeed-smc 1e630000.flash-controller: unsupported SPI read mode
+> [    1.985941] aspeed-smc 1e630000.flash-controller: Aspeed SMC probe failed -22
+> [    1.995375] aspeed-smc: probe of 1e630000.flash-controller failed
+> with error -22
+> [    2.004072] aspeed-smc 1e631000.flash-controller: Aspeed SMC probe failed -19
 
-A number of these were upstreamed between 4.10 and 4.13, so we do not
-require any patches to be sent.
+Looks ok on my side :
+
+[    0.000000] Linux version 4.13.5-00039-gc0df354f4096-dirty (legoater@zorba.kaod.org) (gcc version 7.1.0 (Fedora 7.1.0-2.fc26)) #4 Mon Oct 9 12:58:44 CEST 2017
+...
+[    3.905220] aspeed-smc 1e620000.flash-controller: w25q256 (32768 Kbytes)
+[    3.911980] aspeed-smc 1e620000.flash-controller: CE0 window [ 0x20000000 - 0x22000000 ] 32MB
+[    3.920656] aspeed-smc 1e620000.flash-controller: CE1 window [ 0x22000000 - 0x2a000000 ] 128MB
+[    3.929451] aspeed-smc 1e620000.flash-controller: read control register: 203b0641
+[    3.962938] 5 ofpart partitions found on MTD device bmc
+[    3.987941] Creating 5 MTD partitions on "bmc":
+[    3.992642] 0x000000000000-0x000000060000 : "u-boot"
+[    4.018345] 0x000000060000-0x000000080000 : "u-boot-env"
+[    4.044080] 0x000000080000-0x0000004c0000 : "kernel"
+[    4.069659] 0x0000004c0000-0x000001c00000 : "rofs"
+[    4.095786] 0x000001c00000-0x000002000000 : "rwfs"
+[    4.123717] aspeed-smc 1e630000.flash-controller: w25q256 (32768 Kbytes)
+[    4.130625] aspeed-smc 1e630000.flash-controller: CE0 window [ 0x30000000 - 0x32000000 ] 32MB
+[    4.139317] aspeed-smc 1e630000.flash-controller: CE1 window [ 0x32000000 - 0x38000000 ] 96MB
+[    4.148031] aspeed-smc 1e630000.flash-controller: read control register: 203b0741
+[    4.982664] aspeed-smc 1e631000.flash-controller: Aspeed SMC probe failed -19
+[    5.019361] libphy: Fixed MDIO Bus: probed
+
+are you sure we are using the same kernel ? 
 
 Cheers,
 
-Joel
+C. 
