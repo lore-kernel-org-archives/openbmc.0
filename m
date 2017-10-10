@@ -1,58 +1,60 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4010:c07::22d; helo=mail-lf0-x22d.google.com;
+ (client-ip=2a00:1450:4010:c07::241; helo=mail-lf0-x241.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="XWFrvU63"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="nf9juEE+"; 
  dkim-atps=neutral
-Received: from mail-lf0-x22d.google.com (mail-lf0-x22d.google.com
- [IPv6:2a00:1450:4010:c07::22d])
+Received: from mail-lf0-x241.google.com (mail-lf0-x241.google.com
+ [IPv6:2a00:1450:4010:c07::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yB26R1WFpzDr4W
- for <openbmc@lists.ozlabs.org>; Tue, 10 Oct 2017 14:05:18 +1100 (AEDT)
-Received: by mail-lf0-x22d.google.com with SMTP id a16so11944245lfk.0
- for <openbmc@lists.ozlabs.org>; Mon, 09 Oct 2017 20:05:18 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yB2H81Ky9zDr4W
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Oct 2017 14:12:51 +1100 (AEDT)
+Received: by mail-lf0-x241.google.com with SMTP id m7so5206945lfe.5
+ for <openbmc@lists.ozlabs.org>; Mon, 09 Oct 2017 20:12:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=hB8iMmcE7TZpelHchkRs5HiEvLq9I7nfEjCc4CiQWug=;
- b=XWFrvU63VLDV7v1fFJIBUFxJ54mbREVJKYezVOcKGi/42dZ96Mg2fzBeLpkFfcFsYR
- K1RNrxBFdZZ4AzpImBZAGASnAQRTRftWzZgEMQB01jZTAmIdniehAu9/O98rB5+wCctj
- bLKhKDpDsv2d1f0NnTtGcwdC2sTmUQKfBrYxManL9py/A9uD4yjpkAoc2p5KgtQnKxVz
- UVGx5QktMHkiiaFuUVIjjYC8mPBsMAysB+7LdC5cBgA1wRNVHjDwDtDqvi34acuPj8FD
- Qfen7bAhkKkMNXEwf6h/FIv6nTAzccebD9M2wn2nMwPVcxeaVyH8uGGiZXfUB4opPZ7O
- 7mvg==
+ :subject:to:cc;
+ bh=1K8njngOrQG7laUTk55jrxb5n0Z4v1T88IIuFaiYlqc=;
+ b=nf9juEE+LoSJGsqLkOiBDNYC4REpg8/gXmyuHoaeUMFdQWn04saQR8f4TAm3n5jlml
+ Uy2mevoiojhlhr5peJz6WRLnmoNZKY/eX1zICDNBXJbOfiUuDmcFnm7h0vpRRwQDhPcB
+ sScHiy1BjOZIGeHZl1LzwHGrL+kIB80UsEfDcbgSDaBLnE+nQ9NCUoMhhlMcjewerZGd
+ CektO3tl5lhxj5lftKvBy+oSLS1ID2Zbu75ZpJGKYeRldwJitce0XW8jyXPDHNbJfwYu
+ 8v10CfPWy8lTL0rqJgQxETDxIExuq1Idm8kRhpOFQCFVWSCTHiGhxek4jaRFWOXGVtCK
+ hUlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=hB8iMmcE7TZpelHchkRs5HiEvLq9I7nfEjCc4CiQWug=;
- b=ckr8YH9YB5PCH9Vjatja1JXNqasBe+L7Il3jOyFYP3R2HYwRDdB6iCFo2FD2t3gz6V
- N1j5DswcEfxkOPPUVyIcY6OeF6Mz+5lDDBNyi8OAPjdcOfsnD7m01NaY1BSz6K3hkzJZ
- zDI8nmACgmCouWlu78DzPAY/2ipm/y/8PAAr6DSguWHG7r67l8h3zPopnse/Lq1l2yo1
- nLqSECPoKsElxwljtp6gU892p72Bz5Z0acyQYlc6O5gw2Y2AOX0eAcTpwc7rpttnEKoB
- MkG1XegNLFdE7n9yLAumDPA3e10EOgucb25ec/02JpZnEtvUQVZRvUo7c5fiu51pNrdF
- i+Hg==
-X-Gm-Message-State: AMCzsaXiEhUeB2IIbEkwai0M4xBEcsNGkJtMBfwzV6aopFwU54LL8GDD
- rFOPwIsa9kk4bKjcU3oXqsJkD6iZdVIsiljNQuU=
-X-Google-Smtp-Source: AOwi7QBZ3CY5OAUFj24rsmgLg8zxp+aCCZ3yXAY1EQfpMeKeO8ldzqp1ryi18EmINEgE45WbYFtUy0vfCykQZwWt/qo=
-X-Received: by 10.46.86.195 with SMTP id k64mr3694763lje.81.1507604714962;
- Mon, 09 Oct 2017 20:05:14 -0700 (PDT)
+ :date:message-id:subject:to:cc;
+ bh=1K8njngOrQG7laUTk55jrxb5n0Z4v1T88IIuFaiYlqc=;
+ b=Zp7kVfV0/IMsefLZor0i7vVul71seT5L5khij861vShP6CJ2QJYCkRFiE3f3r30O+4
+ FybMsKq7dL6MlwhRYP4ixd4LBkna//L24Uj8JieulNX6Qip2YZXxMzuxmVxxy6KCKm9d
+ 4izew3LFPBD/IW+lCL9SlDyOcJL8Q0iyiiV21zY4M35AQ5WiJ8jV2ASl6Bw8NnUBQFDt
+ vQ5YhMSU7+UJAYYLWmF1PNoUPrqC6f9Y2eTJ2aJZTf7XrXZbbaTfO31o+KTV1J1PrPl2
+ AqF5cvK5K482ANSuEOqd2x/5vGhZKThbYX4UZ8q+KNn6ZT2KL7C6c47I9kHhMnUZ51rh
+ 3+7A==
+X-Gm-Message-State: AMCzsaVqekWh/TRBfmK9O5bBz3KtBU0vOhaiaOLMrzf7aaxoc8JmaWPE
+ usJx31FItR0HXFXCC1hDi2aoYSiiab9XM0FsoSA=
+X-Google-Smtp-Source: AOwi7QClzO+uI09T0kDlvaqO0RAYDJ3oLw02S52OZN0F0ra/9jLpQma9biCORCBACCH5Ku7I0Lj3K6cAMO3CENR/F4E=
+X-Received: by 10.46.88.94 with SMTP id x30mr213083ljd.138.1507605168371; Mon,
+ 09 Oct 2017 20:12:48 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.25.195.6 with HTTP; Mon, 9 Oct 2017 20:04:54 -0700 (PDT)
-In-Reply-To: <20171009134108.15860-1-clg@kaod.org>
-References: <20171009134108.15860-1-clg@kaod.org>
+Received: by 10.25.195.6 with HTTP; Mon, 9 Oct 2017 20:12:27 -0700 (PDT)
+In-Reply-To: <1507594837.5452.158.camel@aj.id.au>
+References: <CACPK8XdfxO5y3DHfBeZgvK=jUCM4noh2YFmX4w0GxEH8UDD+9A@mail.gmail.com>
+ <1507594837.5452.158.camel@aj.id.au>
 From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 10 Oct 2017 12:34:54 +0930
-X-Google-Sender-Auth: 9fh9sOf-ziUiq3toPGolz0wuq4A
-Message-ID: <CACPK8Xe2XWpiZLA1atw9nKpy5BZSZG8VWU6xLmQTWB7sQm9xAg@mail.gmail.com>
-Subject: Re: [linux dev-4.13 0/6] SMC driver updates
-To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Tue, 10 Oct 2017 12:42:27 +0930
+X-Google-Sender-Auth: 8X6Ye2TNPRk4aLTT_zNTjh06nAs
+Message-ID: <CACPK8Xfh0tYY7TycLtJejHWQwvfnpkmRjS0FrJ3mGf_+eH4u4Q@mail.gmail.com>
+Subject: Re: Moving to kernel dev-4.13
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Eddie James <eajames.ibm@gmail.com>, 
+ Xo Wang <xow@google.com>, tomer.maimon@nuvoton.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -64,56 +66,66 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 Oct 2017 03:05:20 -0000
+X-List-Received-Date: Tue, 10 Oct 2017 03:12:53 -0000
 
-Hello Cedric,
-
-On Mon, Oct 9, 2017 at 11:11 PM, C=C3=A9dric Le Goater <clg@kaod.org> wrote=
-:
-> Hello,
+On Tue, Oct 10, 2017 at 9:50 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> On Mon, 2017-10-09 at 16:34 +0930, Joel Stanley wrote:
+>> Hello OpenBMCers,
+>>
+>> I've pushed a new branch to the OpenBMC kernel repository. It's called
+>> dev-4.13, and is based on the latest stable release from the 4.13
+>> branch (4.13.5).
 >
-> Here is a series bringing the Aspeed SMC driver to the level of what
-> we had in openbmc kernel 4.10. There are a couple of changes :
+> Woo!
 >
->  - the DMA support is gone. It is not used, it only works for
->    kmalloc'ed buffers and UBIFS uses vmalloc'ed buffers for instance.
+>>
+>> There are currently 40 patches on top of the upstream release that
+>> include the patches sent upstream since 4.13 was released. In
+>> addition, there is the new Aspeed clk driver that is out on the
+>> upstream lists for review.
 >
->  - the driver was slightly adapted to take into account the new clk
->    driver.
+> Have you looked at my reviews on v4 yet? They're not all acks :)
+
+Not yet. Thanks for the reviews, I'll get to that today
+
+>> If you wish to have your non-upstreamed patches added to this tree,
+>> please send them to the list with the [PATCH linux dev-4.13] tag.
 >
-> Tested on a palmetto and an ast2500 eval boards.
+> I haven't looked at the tree yet, but do we have a list of major
+> features that we expose in dev-4.10 to match against dev-4.13 to know
+> what needs to go in?
+>
+> Maybe that's a lazy question and I should generate it myself...
 
-Thanks! I applied these to dev-4.13. They did not cleanly apply. Can
-you double check that head of the remote you're using is
-c0df354f409687d3565073e17fab75913755ed07?
+We should have a list. Here's a rough one:
 
-I did them applied, but they appear to fail to probe on my evb:
+$ git diff --dirstat=lines,1 v4.10.17..dev-4.10  | sort -hr
+  20.1% arch/arm/boot/dts/
+  13.2% drivers/fsi/
+  10.6% drivers/pinctrl/aspeed/
+   6.9% drivers/hwmon/pmbus/
+   6.2% drivers/net/ethernet/faraday/
+   6.0% drivers/hwmon/occ/
+   5.0% drivers/i2c/busses/
+   4.2% drivers/mtd/spi-nor/
+   3.1% drivers/hwmon/
+   3.1% drivers/
+   3.0% Documentation/devicetree/bindings/
+   2.5% drivers/gpio/
+   1.9% include/
+   1.7% drivers/misc/
+   1.5% drivers/iio/pressure/
+   1.5% drivers/clk/aspeed/
+   1.3% arch/arm/mach-aspeed/
+   1.1% drivers/leds/
+   1.1% arch/arm/configs/
+   1.0% net/ncsi/
+   1.0% drivers/tty/serial/8250/
+   1.0% drivers/mailbox/
+   1.0% drivers/iio/adc/
 
-[    1.901227] aspeed-smc 1e620000.flash-controller: mx25l25635e (32768 Kby=
-tes)
-[    1.908304] aspeed-smc 1e620000.flash-controller: CE0 window [
-0x20000000 - 0x22000000 ] 32MB
-[    1.916831] aspeed-smc 1e620000.flash-controller: CE1 window [
-0x22000000 - 0x2a000000 ] 128MB
-[    1.925540] aspeed-smc 1e620000.flash-controller: unsupported SPI read m=
-ode
-[    1.932516] aspeed-smc 1e620000.flash-controller: Aspeed SMC probe faile=
-d -22
-[    1.946376] aspeed-smc: probe of 1e620000.flash-controller failed
-with error -22
-[    1.955217] aspeed-smc 1e630000.flash-controller: w25q256 (32768 Kbytes)
-[    1.961943] aspeed-smc 1e630000.flash-controller: CE0 window [
-0x30000000 - 0x32000000 ] 32MB
-[    1.970467] aspeed-smc 1e630000.flash-controller: CE1 window [
-0x32000000 - 0x38000000 ] 96MB
-[    1.978982] aspeed-smc 1e630000.flash-controller: unsupported SPI read m=
-ode
-[    1.985941] aspeed-smc 1e630000.flash-controller: Aspeed SMC probe faile=
-d -22
-[    1.995375] aspeed-smc: probe of 1e630000.flash-controller failed
-with error -22
-[    2.004072] aspeed-smc 1e631000.flash-controller: Aspeed SMC probe faile=
-d -19
+A number of these were upstreamed between 4.10 and 4.13, so we do not
+require any patches to be sent.
 
 Cheers,
 
