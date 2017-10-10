@@ -1,59 +1,64 @@
-Return-Path: <mine260309@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c06::231; helo=mail-io0-x231.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="E7hbk43W"; 
- dkim-atps=neutral
-Received: from mail-io0-x231.google.com (mail-io0-x231.google.com
- [IPv6:2607:f8b0:4001:c06::231])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <austenc@us.ibm.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=us.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=austenc@us.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yB0ZS3PBfzDr4W;
- Tue, 10 Oct 2017 12:55:59 +1100 (AEDT)
-Received: by mail-io0-x231.google.com with SMTP id j17so7531118iod.5;
- Mon, 09 Oct 2017 18:55:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=91bxARHEdDAgsBYc58aHeFXJyqqus6aFjZTUuci+BoE=;
- b=E7hbk43WbwTWv3CpnulGVvEPZxrAJ8b6ntkEncqgxx3r6lsOugGwk4FfUIPziOBDHV
- Jz7rSsyyVXBYr58yzUt865eKEq/fekg2DAXGBbO4TM6gN6JCHHj/TA3FSy0pNG8ToPG1
- j9ZRxPqS/VLqn/uVeDH78Afr3WS06JnF7BRBnibXNuelMD0GDQ2+KAPRAAtSbP8waDfq
- Ei/nbVTN1D5E4EjGwyKLO6wBQtei+zKn5B+I5cAw8FKzEy5Q2udskTEO3ob9pziVyA7x
- R72NIzbKe/BH2zPG1FjQ+1yj8biFsu7s2rsLwwdtH44jfNGvTMZkbG1lRcpz3NCnZCuj
- m42g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=91bxARHEdDAgsBYc58aHeFXJyqqus6aFjZTUuci+BoE=;
- b=Z2UiLndvtaQrAyoWSaEDRCc1ifIitn1jhbXhYTcr7D1sqzqFkZ7t9A/5z8XSaXay1S
- Edx3Pvd84tOmQ1ow0sRfCUS2Vti1rK9kdcGqmRVzRHefWjJCe/02AUEyPna6Uq1Yx4eO
- /ZeoiUCC0phYBPYkq2li9lDSMLFbD5kksG9Xu3bBGIhhaFKwp5ghZB8iwoNtv4xid+1X
- xWG+XSN8UnFyy4rNysgYtRlxIa+FrUzgyMafSmQUJoNcHYKTUq8oLqMcBTOvcK9G4lcr
- t7UjylRH7JA7ewEKXrn9MaOtDOF13zQ78JvP7wFnQEp5XaKLsisX9fFTrCQrNyCR46Zx
- IKlQ==
-X-Gm-Message-State: AMCzsaXe2fMKlhkNWz/lYgZStjAeEtpZIzvVunLuVBZuvt5vWQ5iwQui
- 5CZ6FP+WQs7TToOW61ebtIDtnBo6YnvF+x6O08E=
-X-Google-Smtp-Source: AOwi7QC8bPsu7m4C/jdgOB42dl7QaFnwS6oyDxiecZNUyVr7xs3Oo7tea01cjp5IV90ucZcR+dPgZ1E9Dqdztaesdhc=
-X-Received: by 10.107.147.86 with SMTP id v83mr12043110iod.82.1507600557666;
- Mon, 09 Oct 2017 18:55:57 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yB0mY4kKxzDr4W
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Oct 2017 13:04:44 +1100 (AEDT)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v9A24J53033011
+ for <openbmc@lists.ozlabs.org>; Mon, 9 Oct 2017 22:04:40 -0400
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.91])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2dgkh5c1eq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 09 Oct 2017 22:04:40 -0400
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Tue, 10 Oct 2017 02:04:39 -0000
+Received: from us1a3-smtp08.a3.dal06.isc4sb.com (10.146.103.57)
+ by smtp.notes.na.collabserv.com (10.106.227.143) with
+ smtp.notes.na.collabserv.com ESMTP; Tue, 10 Oct 2017 02:04:37 -0000
+Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
+ by us1a3-smtp08.a3.dal06.isc4sb.com
+ with ESMTP id 2017101002043665-1081152 ;
+ Tue, 10 Oct 2017 02:04:36 +0000 
 MIME-Version: 1.0
-Received: by 10.79.196.9 with HTTP; Mon, 9 Oct 2017 18:55:56 -0700 (PDT)
-In-Reply-To: <CALLMt=pT-oPiQr0V0_CQd_eOEkyYsSncH1_dS-Jjhkbd7+VvWw@mail.gmail.com>
-References: <1507254940.5452.129.camel@aj.id.au>
- <OFDFEB18C7.4CBB979B-ON002581B1.000FD8A2@LocalDomain>
- <OF921CDA64.CB068039-ON862581B1.00153196-862581B1.0015746A@notes.na.collabserv.com>
- <CALLMt=pT-oPiQr0V0_CQd_eOEkyYsSncH1_dS-Jjhkbd7+VvWw@mail.gmail.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Tue, 10 Oct 2017 09:55:56 +0800
-Message-ID: <CAARXrt=tOkNnEoOaUPkQtUVDqOoq__4aqdqrA7tH2y0SXWnddw@mail.gmail.com>
-Subject: Re: OpenBMC helper scripts repositories
-To: Andrew Geissler <geissonator@gmail.com>
-Cc: Chris Austen <austenc@us.ibm.com>, Andrew Jeffery <andrew@aj.id.au>, 
- openbmc <openbmc-bounces+austenc=us.ibm.com@lists.ozlabs.org>, 
- OpenBMC <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <OF78B95C25.5F20D5DE-ON862581AE.000890BF-862581AE.000A5301@LocalDomain>
+Subject: Re: Call for maintainers
+To: <openbmc@lists.ozlabs.org>
+From: "Chris Austen" <austenc@us.ibm.com>
+Date: Mon, 9 Oct 2017 21:04:34 -0500
+References: <OF78B95C25.5F20D5DE-ON862581AE.000890BF-862581AE.000A5301@LocalDomain>
+X-KeepSent: 2E4D41B6:9367FE39-862581B5:0003F013;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1EXT SHF766 December 14, 2016
+X-LLNOutbound: False
+X-Disclaimed: 48563
+X-TNEFEvaluated: 1
+Content-type: multipart/related; 
+ Boundary="0__=09BB0B26DF9076838f9e8a93df938690918c09BB0B26DF907683"
+x-cbid: 17101002-9951-0000-0000-00000490B519
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.394815; ST=0; TS=0; UL=0; ISC=; MB=0.204560
+X-IBM-SpamModules-Versions: BY=3.00007871; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000235; SDB=6.00928892; UDB=6.00467506; IPR=6.00709163; 
+ BA=6.00005631; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017467; XFM=3.00000015;
+ UTC=2017-10-10 02:04:38
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2017-10-09 23:30:11 - 6.00007439
+x-cbparentid: 17101002-9952-0000-0000-00002F10A1CF
+Message-Id: <OF2E4D41B6.9367FE39-ON862581B5.0003F013-862581B5.000B67DA@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-10-09_07:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -65,98 +70,140 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 Oct 2017 01:56:01 -0000
+X-List-Received-Date: Tue, 10 Oct 2017 02:04:46 -0000
 
-Vote+1
+--0__=09BB0B26DF9076838f9e8a93df938690918c09BB0B26DF907683
+Content-type: multipart/alternative; 
+	Boundary="1__=09BB0B26DF9076838f9e8a93df938690918c09BB0B26DF907683"
 
-I always wanted such a repo to put common/shared scripts together.
 
-And even more, what about a repo that collects the common/shared code (C/C++)?
+--1__=09BB0B26DF9076838f9e8a93df938690918c09BB0B26DF907683
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/plain; charset=US-ASCII
 
-Quite a lot of repos are having the same/similar functions like
-getting a service
-via mapper call.
-Is it better to collect such code, make sure they are well-tested,
-and put them in a shared repo (e.g. in SDK)?
 
---
-BRs,
-Lei YU
+Greetings,
 
-On Tue, Oct 10, 2017 at 2:00 AM, Andrew Geissler <geissonator@gmail.com> wrote:
-> Brad, Patrick, and I were also tossing around a misc tools repo under
-> the openbmc umbrella a few weeks back.
->
-> I definitely vote for one!  I think the main concern was support, it
-> would def be a "use at your own risk" and "patches preferred over bug
-> reports" type repo.
->
-> I know George also has a collection of tools he uses for REST
-> operations as well.
->
-> With https://github.com/geissonator/openbmc-events, I was looking to
-> build a bunch of small tools, that had similar command line interfaces
-> to interact with the different REST api's in openbmc.
->
-> Andrew
->
-> On Thu, Oct 5, 2017 at 10:54 PM, Chris Austen <austenc@us.ibm.com> wrote:
->>
->> https://github.com/causten/tools/tree/master/obmc I've also got those files.
->> things have evolved and I not kept the error logging or code update
->> refreshed to any of the new xyz paths. However, leds.py still can toggle the
->> LEDS on a system and obmcrequests.py (my library for bmc communication) can
->> work offline if the data has been captured.
->>
->> "openbmc" <openbmc-bounces+austenc=us.ibm.com@lists.ozlabs.org> wrote on
->> 10/05/2017 09:52:43 PM:
->>
->>> From: "Chris Austen" <austenc@us.ibm.com>
->>> To: Andrew Jeffery <andrew@aj.id.au>
->>> Cc: OpenBMC <openbmc@lists.ozlabs.org>
->>> Date: 10/05/2017 09:53 PM
->>> Subject: Re: OpenBMC helper scripts repositories
->>> Sent by: "openbmc" <openbmc-bounces+austenc=us.ibm.com@lists.ozlabs.org>
->>>
->>> Mine too... https://github.com/causten/openbmc-tutorials
->>>
->>>
->>> "openbmc" <openbmc-bounces+austenc=us.ibm.com@lists.ozlabs.org>
->>> wrote on 10/05/2017 08:55:40 PM:
->>>
->>> > From: Andrew Jeffery <andrew@aj.id.au>
->>> > To: OpenBMC <openbmc@lists.ozlabs.org>
->>> > Date: 10/05/2017 08:56 PM
->>> > Subject: OpenBMC helper scripts repositories
->>> > Sent by: "openbmc" <openbmc-bounces+austenc=us.ibm.com@lists.ozlabs.org>
->>> >
->>
->>> > Hello,
->>> >
->>> > I've noticed that we've grown several helper script repositories, with
->>> > a mix of intents.
->>> >
->>> > So far we have:
->>> >
->>> > https://github.com/williamspatrick/openbmc-events
->>> >
->>> > and the seemingly more active fork:
->>> >
->>> > https://github.com/geissonator/openbmc-events
->>> >
->>> > Along with something Joel cooked up a while back:
->>> >
->>> > https://github.com/shenki/obmc-ctrl
->>> >
->>> > and some scripts that I've written:
->>> >
->>> > https://github.com/amboar/obmc-scripts/
->>> >
->>> > Is it worth consolidating these efforts? If we do I think the result
->>> > should be low friction wrt merging changes, and some hacking should
->>> > always be expected if you're going to use the repository. Consolidating
->>> > might help avoid duplicate effort.
->>> >
->>> > Cheers,
->>> >
->>> > Andrew[attachment "signature.asc" deleted by Chris Austen/Austin/IBM]
+I received some feedback that people would like to know more about what it
+takes to become, and duties of, a Maintainer in OpenBMC.
+
+A Maintainer is a lead position in the project who is intrusted with
+architecture and stability.  In return you will have a say in the future
+architecture.
+
+Steps to get there...
+
+1) Pick a project repository that you have matured
+2) Sign up for reviews in that repository without being asked
+3) provide comments that correctly shape the goals of the repository
+4) Be on architecture calls to learn from others
+5) Contribute code
+6) Contribute socially (IRC, mailing list feedback, writing articles that
+end up on /. , etc)
+
+
+
+
+
+Chris Austen
+POWER Systems Enablement Manager
+(512) 286-5184 (T/L: 363-5184)
+
+
+
+From:	Chris Austen/Austin/IBM
+To:	<openbmc@lists.ozlabs.org>
+Date:	10/02/2017 08:52 PM
+Subject:	Call for maintainers
+
+
+The OpenBMC Project is looking for future maintainers.  The amount of code
+now and expected in the near future will be more then any one person can
+continually handle.  If you are a subject matter expert in a repo under
+https://github.com/openbmc or cross functional areas then taking on a role
+of maintainer might be appealing.  This isn't a paid thing, this is
+completely voluntary opportunity (think Scouts without the camping or
+School volunteer without glue).
+
+So how might you go about getting this type of role on your resume?  Start
+by signing up for code reviews
+https://gerrit.openbmc-project.xyz/#/q/status:open.  Over the next few
+weeks we will be looking over the reviews for 1) understanding of the
+components architecture 2) Comments focusing on architecture that satisfies
+the needs of all 3) bugs 4) and more.  Try to Focus on a single project.
+
+Feel free to ask any questions.
+
+Chris Austen
+POWER Systems Enablement Manager
+(512) 286-5184 (T/L: 363-5184)
+
+
+--1__=09BB0B26DF9076838f9e8a93df938690918c09BB0B26DF907683
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/html; charset=US-ASCII
+Content-Disposition: inline
+
+<html><body><p><font size=3D"2">Greetings, </font><br><br><font size=3D"2">=
+I received some feedback that people would like to know more about what it =
+takes to become, and duties of, a Maintainer in OpenBMC.</font><br><br><fon=
+t size=3D"2">A Maintainer is a lead position in the project who is intruste=
+d with architecture and stability.  In return you will have a say in the fu=
+ture architecture. </font><br><br><font size=3D"2">Steps to get there...</f=
+ont><br><br><font size=3D"2">1) Pick a project repository that you have mat=
+ured</font><br><font size=3D"2">2) Sign up for reviews in that repository w=
+ithout being asked</font><br><font size=3D"2">3) provide comments that corr=
+ectly shape the goals of the repository</font><br><font size=3D"2">4) Be on=
+ architecture calls to learn from others</font><br><font size=3D"2">5) Cont=
+ribute code</font><br><font size=3D"2">6) Contribute socially (IRC, mailing=
+ list feedback, writing articles that end up on /. , etc)  </font><br><font=
+ size=3D"2"> </font><br><br><br><br><font size=3D"2"><br>Chris Austen<br>PO=
+WER Systems Enablement Manager <br>(512) 286-5184 (T/L: 363-5184)</font><br=
+><br><img width=3D"16" height=3D"16" src=3D"cid:1=5F=5F=3D09BB0B26DF9076838=
+f9e8a93df938690918c09B@" border=3D"0" alt=3D"Inactive hide details for Chri=
+s Austen---10/02/2017 08:52:46 PM---The OpenBMC Project is looking for futu=
+re maintainers.  The a"><font size=3D"2" color=3D"#424282">Chris Austen---1=
+0/02/2017 08:52:46 PM---The OpenBMC Project is looking for future maintaine=
+rs.  The amount of code now and expected in the n</font><br><br><font size=
+=3D"2" color=3D"#5F5F5F">From:        </font><font size=3D"2">Chris Austen/=
+Austin/IBM</font><br><font size=3D"2" color=3D"#5F5F5F">To:        </font><=
+font size=3D"2">&lt;openbmc@lists.ozlabs.org&gt;</font><br><font size=3D"2"=
+ color=3D"#5F5F5F">Date:        </font><font size=3D"2">10/02/2017 08:52 PM=
+</font><br><font size=3D"2" color=3D"#5F5F5F">Subject:        </font><font =
+size=3D"2">Call for maintainers</font><br><hr width=3D"100%" size=3D"2" ali=
+gn=3D"left" noshade style=3D"color:#8091A5; "><br><br><font size=3D"2">The =
+OpenBMC Project is looking for future maintainers.  The amount of code now =
+and expected in the near future will be more then any one person can contin=
+ually handle.  If you are a subject matter expert in a repo under </font><a=
+ href=3D"https://github.com/openbmc"><font size=3D"2">https://github.com/op=
+enbmc</font></a><font size=3D"2"> or cross functional areas then taking on =
+a role of maintainer might be appealing.  This isn't a paid thing, this is =
+completely voluntary opportunity (think Scouts without the camping or Schoo=
+l volunteer without glue).  </font><br><br><font size=3D"2">So how might yo=
+u go about getting this type of role on your resume?  Start by signing up f=
+or code reviews  </font><a href=3D"https://gerrit.openbmc-project.xyz/#/q/s=
+tatus:open"><font size=3D"2">https://gerrit.openbmc-project.xyz/#/q/status:=
+open</font></a><font size=3D"2">.  Over the next few weeks we will be looki=
+ng over the reviews for 1) understanding of the components architecture 2) =
+Comments focusing on architecture that satisfies the needs of all 3) bugs 4=
+) and more.  Try to Focus on a single project.  </font><br><br><font size=
+=3D"2">Feel free to ask any questions.  </font><br><font size=3D"2"><br>Chr=
+is Austen<br>POWER Systems Enablement Manager <br>(512) 286-5184 (T/L: 363-=
+5184)</font><br><br><BR>
+</body></html>
+
+--1__=09BB0B26DF9076838f9e8a93df938690918c09BB0B26DF907683--
+
+
+--0__=09BB0B26DF9076838f9e8a93df938690918c09BB0B26DF907683
+Content-type: image/gif; 
+	name="graycol.gif"
+Content-Disposition: inline; filename="graycol.gif"
+Content-ID: <1__=09BB0B26DF9076838f9e8a93df938690918c09B@>
+Content-Transfer-Encoding: base64
+
+R0lGODlhEAAQAKECAMzMzAAAAP///wAAACH5BAEAAAIALAAAAAAQABAAAAIXlI+py+0PopwxUbpu
+ZRfKZ2zgSJbmSRYAIf4fT3B0aW1pemVkIGJ5IFVsZWFkIFNtYXJ0U2F2ZXIhAAA7
+
+
+--0__=09BB0B26DF9076838f9e8a93df938690918c09BB0B26DF907683--
