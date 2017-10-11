@@ -1,53 +1,56 @@
-Return-Path: <mine260309@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c05::244; helo=mail-pg0-x244.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+Return-Path: <kunyi@google.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4001:c0b::230; helo=mail-it0-x230.google.com;
+ envelope-from=kunyi@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="oAl+B7lA"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="gC9Y6jbY"; 
  dkim-atps=neutral
-Received: from mail-pg0-x244.google.com (mail-pg0-x244.google.com
- [IPv6:2607:f8b0:400e:c05::244])
+Received: from mail-it0-x230.google.com (mail-it0-x230.google.com
+ [IPv6:2607:f8b0:4001:c0b::230])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yBmFX2cNSzDr5S
- for <openbmc@lists.ozlabs.org>; Wed, 11 Oct 2017 18:43:59 +1100 (AEDT)
-Received: by mail-pg0-x244.google.com with SMTP id j3so1377387pga.5
- for <openbmc@lists.ozlabs.org>; Wed, 11 Oct 2017 00:43:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=3jEVCl+zjfIX+ICxJdUTl4kWeXmKvf+OeBusYMIzunI=;
- b=oAl+B7lAkobOUJaesFcId/ARJ1NGu8RhextFMv2XIQbRDeP6Z4z4YXniwgwTbcv8s/
- VHNES2/Vt7xxkG8GhSj11dLccEQLl4j3DZoWn5lQ0b6ron6w7GY+61NbhA40LXNBOfUq
- 9ENzk1nIDEZjC/XpCu2Z4PMvtb4qAfffk+sloqokooCGjlsL2jcraPReIC7AYS9LaDDa
- 1ccw3e8O/T9qOcU3ppRDe0+l23lwXwl9E1gk5a8Ae1NiwEmW0r4VSbkFpc/E6/eeRBP0
- oKeguuFof0RlE/8HyrZYY13AzZ3s/ksbN/DVVwidbGu0ahSy3Mv71mzGYwRNRlIY0N03
- S4XA==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yC1KH5wDhzDr5x
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Oct 2017 04:33:06 +1100 (AEDT)
+Received: by mail-it0-x230.google.com with SMTP id f187so3992453itb.1
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Oct 2017 10:33:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=FXVQDuMMhLbKnniRbVJOa+AR+j524dspa7Db4YxSDgs=;
+ b=gC9Y6jbYyC2auMGt8oPnzEFp1VMKWb4X45h5tZ5jO1t7HfQFSOS2mXI9xUN/+f+/z8
+ eHHj94wztQ2I4gKYXV+aGdSfREYuyPsG10aAzgH6+qaH59aKUECpR0YnCNh7qk0qIcOG
+ IpMv72qfwKvPS+WYskMRu0zOevMi4FOm6l7UC7WjZHsYXPadTj1HbDYbNwweWi4H5Msd
+ xNVx7QeiEqlNeuPML7N+4pFF7zmnUrpvkdrFfT6YCEwtCb94Hd+46k/Fe/Qof11cDEDp
+ 1tWZv3k0SZPbdKQKY4oYPq9/R4qMTiYG/eRTBjVB89hN3yOEDgGC2k4P/olJhZ682G77
+ pAtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=3jEVCl+zjfIX+ICxJdUTl4kWeXmKvf+OeBusYMIzunI=;
- b=uAIUKtMbMRPF5cp4EC0ulNDZ/6XJAtyZf+rmM35pSfrPzHtBK2kycskMiwBu6iy7VA
- q7/TUl+Ps9DwiLvtdiT6F8OJuvufPgn4xMKeSyXRAaS6JWPYylqtDyVhIZp90CPGTxiJ
- lsCAk19kBqIxku4epFbSBO2F+tdol2GW8mhvzg2hwyM+xqDj9rbxH6o8tPkMSMchtdUW
- ObrLUkYXcgi7RQNoa0kI+6fWHRwKYn/EcISFdpPZK19nULCosRvTQMg5jduokZPVSSEU
- bTulBBLz7mVhSzqoNZtAMhHcUE0Vwj4Zu7eIH6sVN9TTWSBqxyILRVyJk2l/XWTHHmSJ
- W0IQ==
-X-Gm-Message-State: AMCzsaU13iwpksV611EvrStcZZYhqQIDgvyyAJFSlNx/D7HIS5PdxEPi
- /YAYJyQdLTc6VFRjvO8EiLv8jtnx
-X-Google-Smtp-Source: AOwi7QB5kdBgCMw/hR+20gq4McwLL8jaxC9uYlV3NZPTKwHfhm3LznMgKum1L5DmhyEpPxU4nxzK8Q==
-X-Received: by 10.99.3.21 with SMTP id 21mr14357612pgd.77.1507707836928;
- Wed, 11 Oct 2017 00:43:56 -0700 (PDT)
-Received: from localhost ([159.203.222.251])
- by smtp.gmail.com with ESMTPSA id h9sm23782751pfh.98.2017.10.11.00.43.55
- (version=TLS1_2 cipher=AES128-SHA bits=128/128);
- Wed, 11 Oct 2017 00:43:56 -0700 (PDT)
-From: Lei YU <mine260309@gmail.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10] aspeed: firestone: Set SIO to bypass UART in
- hostboot
-Date: Wed, 11 Oct 2017 15:41:20 +0800
-Message-Id: <1507707680-19898-1-git-send-email-mine260309@gmail.com>
-X-Mailer: git-send-email 1.9.1
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=FXVQDuMMhLbKnniRbVJOa+AR+j524dspa7Db4YxSDgs=;
+ b=oEuokws/Wk9a3Dhb+e29Nd3OTAX+otpj/GqK5fEIPwWPQHX/ekz/HeD93RN+8WGLiF
+ SpuKllVxp8Whog3yz0l0jGPp/arMxTkUgF0etH4IH8SF0DhiAqn+z4ZGNck/wujt66mh
+ IcQu7GC47zOAeBH8+6vIEA2htgUaC9xLN8k/WXQHMZDiOGIHFhhXCNtKvztdONX9vN8F
+ ngqc2cMdfuwTMCeugwo9SfvRPoWgBhygz6//RA7Q+RoE3DWcGQSeQnVglEJNPleVPk6d
+ hDX6bfyHhnPavw8G7GtXSzZTHrx/cASAEOCVDgU1qBtgD5cQm6dubYxJmejLWeMPzHnS
+ a+Gg==
+X-Gm-Message-State: AMCzsaVYcoQuD0eXcTvbY8dFu+s4m0FKEoEyNPBJFQjSxBA/k0BBq4+B
+ VzgUtQ3GBlQ7ZjSSWaw93q8op7P9Gx7aYI7wUxvvnw==
+X-Google-Smtp-Source: AOwi7QCFhUJ9F1qf3fkfZS3FTmmNMxf6awiEdu2yrD+Z63BWGYXcL9UZX2OyI53zKELJl2uc5/uaGtpNTQeDcTewQYI=
+X-Received: by 10.36.124.72 with SMTP id a69mr403795itd.135.1507743184084;
+ Wed, 11 Oct 2017 10:33:04 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.107.130.222 with HTTP; Wed, 11 Oct 2017 10:32:33 -0700 (PDT)
+In-Reply-To: <CAPLgG=nut_9GaVeby6w8fcaq5n=3ntxCHqdSQorRmSSKLdcLbw@mail.gmail.com>
+References: <CAGMNF6W+g_yAnm2e0ta7VtBZb01pwaRs_SZW+=N4tJtDO88xFw@mail.gmail.com>
+ <CAPLgG=nut_9GaVeby6w8fcaq5n=3ntxCHqdSQorRmSSKLdcLbw@mail.gmail.com>
+From: Kun Yi <kunyi@google.com>
+Date: Wed, 11 Oct 2017 10:32:33 -0700
+Message-ID: <CAGMNF6XRQECqaFLKzfDkU9sbOrivw3GYgLx5QruF4WypD4cEsQ@mail.gmail.com>
+Subject: Re: pythonnative version mismatch?
+To: Rick Altherr <raltherr@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="001a114a91e6e735d1055b48d046"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -59,36 +62,131 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Oct 2017 07:44:01 -0000
+X-List-Received-Date: Wed, 11 Oct 2017 17:33:08 -0000
 
-OpenBMC fails to boot host on Firestone.
-The cause is that Firestone's hostboot hangs after disables
-SUART/VUART.
+--001a114a91e6e735d1055b48d046
+Content-Type: text/plain; charset="UTF-8"
 
-The workaround is to make hostboot run into default SUART init
-without disabling VUART, by setting 0x170 SIO register to 0.
+Wow, thanks for the super helpful and comprehensive answer, Rick!!
 
-With this workaround, Firestone boots OK.
+On Mon, Oct 9, 2017 at 1:51 PM, Rick Altherr <raltherr@google.com> wrote:
 
-Signed-off-by: Lei YU <mine260309@gmail.com>
----
- arch/arm/mach-aspeed/aspeed.c | 4 ++++
- 1 file changed, 4 insertions(+)
+> This was a really good question.  I wrote a blog post to document the
+> answer: https://www.kc8apf.net/2017/10/snakes-in-a-sysroot/.
+>
+> On Fri, Oct 6, 2017 at 11:00 AM, Kun Yi <kunyi@google.com> wrote:
+>
+>> Hello folks,
+>>
+>> I searched through the mailing list but haven't seen anyone brought up.
+>> Here's a weird bug I found on my setup: pythonnative seems to be using
+>> python3.4.3 whereas the recipe specified 2.7.
+>>
+>> Before diving into the layers of bitbake recipes to root cause what
+>> caused this, I want to post on the mailing list to see if it is
+>> reproducible on other setups, and if people have ideas why this went wrong
+>> (environment variable accidentally being overwritten?)
+>>
+>> *What I tested:*
+>> I found the code in phosphor-settings-manager, which inherits
+>> pythonnative, seems to be working per python 3, so added the following line
+>> into a native python function:
+>>
+>> python do_check_version () {
+>>   import sys
+>>   bb.warn(sys.version)
+>> }
+>> addtask check_version after do_configure before do_compile
+>>
+>> WARNING: phosphor-settings-manager-1.0-r1 do_check_version: 3.4.3
+>> (default, Nov 17 2016, 01:08:31)
+>>
+>> This is with openbmc git tip, building MACHINE=zaius
+>>
+>> *What the recipe should be using is seemingly 2.7:*
+>> $ cat ../import-layers/yocto-poky/meta/classes/pythonnative.bbclass
+>>
+>> inherit python-dir
+>> [...]
+>>
+>> $ cat ../import-layers/yocto-poky/meta/classes/python-dir.bbclass
+>> PYTHON_BASEVERSION = "2.7"
+>> PYTHON_ABI = ""
+>> PYTHON_DIR = "python${PYTHON_BASEVERSION}"
+>> PYTHON_PN = "python"
+>> PYTHON_SITEPACKAGES_DIR = "${libdir}/${PYTHON_DIR}/site-packages"
+>>
+>> *Why this is bad:*
+>> well, python2.7 and python3 have a ton of differences. A bug I discovered
+>> is due to usage of filter(), which returns different objects between
+>> Python2/3.
+>>
+>> --
+>> Regards,
+>> Kun
+>>
+>
+>
 
-diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
-index a9e91d9..c84c871 100644
---- a/arch/arm/mach-aspeed/aspeed.c
-+++ b/arch/arm/mach-aspeed/aspeed.c
-@@ -104,6 +104,10 @@ static void __init do_firestone_setup(void)
- 
- 	/* Override serial destination to use the dedicated serial port */
- 	writel(0x00004000, AST_IO(AST_BASE_LPC | 0x174));
-+
-+	/* Workaround to make hostboot run into default SUART init */
-+	/* Otherwise it fails to boot */
-+	writel(0x00000000, AST_IO(AST_BASE_LPC | 0x170));
- }
- 
- static void __init do_garrison_setup(void)
+
 -- 
-1.9.1
+Regards,
+Kun
+
+--001a114a91e6e735d1055b48d046
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Wow, thanks for the super helpful and comprehensive answer=
+, Rick!!</div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On =
+Mon, Oct 9, 2017 at 1:51 PM, Rick Altherr <span dir=3D"ltr">&lt;<a href=3D"=
+mailto:raltherr@google.com" target=3D"_blank">raltherr@google.com</a>&gt;</=
+span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8e=
+x;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr">This was a =
+really good question.=C2=A0 I wrote a blog post to document the answer:=C2=
+=A0<a href=3D"https://www.kc8apf.net/2017/10/snakes-in-a-sysroot/" target=
+=3D"_blank">https://www.kc8apf.<wbr>net/2017/10/snakes-in-a-<wbr>sysroot/</=
+a>.</div><div class=3D"HOEnZb"><div class=3D"h5"><div class=3D"gmail_extra"=
+><br><div class=3D"gmail_quote">On Fri, Oct 6, 2017 at 11:00 AM, Kun Yi <sp=
+an dir=3D"ltr">&lt;<a href=3D"mailto:kunyi@google.com" target=3D"_blank">ku=
+nyi@google.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" s=
+tyle=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div=
+ dir=3D"ltr">Hello folks,<div><br></div><div>I searched through the mailing=
+ list but haven&#39;t seen anyone brought up. Here&#39;s a weird bug I foun=
+d on my setup: pythonnative seems to be using python3.4.3 whereas the recip=
+e specified 2.7.</div><div><br></div><div>Before diving into the layers of =
+bitbake recipes to root cause what caused this, I want to post on the maili=
+ng list to see if it is reproducible on other setups, and if people have id=
+eas why this went wrong (environment variable accidentally being overwritte=
+n?)</div><div><br></div><div><b>What I tested:</b></div><div>I found the co=
+de in phosphor-settings-manager, which inherits pythonnative, seems to be w=
+orking per python 3, so added the following line into a native python funct=
+ion:</div><div><br></div><div>python do_check_version () {</div><div>=C2=A0=
+ import sys</div><div>=C2=A0 bb.warn(sys.version)</div><div>}</div><div>add=
+task check_version after do_configure before do_compile<br></div><div><br><=
+/div><div>WARNING: phosphor-settings-manager-1.0-<wbr>r1 do_check_version: =
+3.4.3 (default, Nov 17 2016, 01:08:31)=C2=A0<br></div><div><br></div><div>T=
+his is with openbmc git tip, building MACHINE=3Dzaius</div><div><br></div><=
+div><b>What the recipe should be using is seemingly 2.7:</b></div><div><div=
+>$ cat ../import-layers/yocto-poky/me<wbr>ta/classes/pythonnative.bbclas<wb=
+r>s</div><div><br></div><div>inherit python-dir</div><div>[...]</div></div>=
+<div><br></div><div><div>$ cat ../import-layers/yocto-poky/me<wbr>ta/classe=
+s/python-dir.bbclass=C2=A0</div><div>PYTHON_BASEVERSION =3D &quot;2.7&quot;=
+</div><div>PYTHON_ABI =3D &quot;&quot;</div><div>PYTHON_DIR =3D &quot;pytho=
+n${PYTHON_BASEVERSION}&quot;</div><div>PYTHON_PN =3D &quot;python&quot;</di=
+v><div>PYTHON_SITEPACKAGES_DIR =3D &quot;${libdir}/${PYTHON_DIR}/site-<wbr>=
+packages&quot;</div></div><div><br></div><div><div><b>Why this is bad:</b><=
+/div><div>well, python2.7 and python3 have a ton of differences. A bug I di=
+scovered is due to usage of filter(), which returns different objects betwe=
+en Python2/3.</div><span class=3D"m_1411724771436123755HOEnZb"><font color=
+=3D"#888888"><div><br></div>-- <br><div class=3D"m_1411724771436123755m_942=
+274962384234270gmail_signature"><div dir=3D"ltr">Regards,<div>Kun</div></di=
+v></div>
+</font></span></div></div>
+</blockquote></div><br></div>
+</div></div></blockquote></div><br><br clear=3D"all"><div><br></div>-- <br>=
+<div class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=
+=3D"ltr">Regards,<div>Kun</div></div></div>
+</div>
+
+--001a114a91e6e735d1055b48d046--
