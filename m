@@ -3,67 +3,60 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ETAPO7R6"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="i8lHXT96"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="VTnBui6n"; dkim-atps=neutral
+ header.b="JilVuVdN"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yBf4v0GHtzDr5T
- for <openbmc@lists.ozlabs.org>; Wed, 11 Oct 2017 14:06:06 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yBfBV71hdzDr5T;
+ Wed, 11 Oct 2017 14:10:58 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id B55B820AF8;
- Tue, 10 Oct 2017 23:06:04 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id C5D0D20C6B;
+ Tue, 10 Oct 2017 23:10:56 -0400 (EDT)
 Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Tue, 10 Oct 2017 23:06:04 -0400
+ by compute4.internal (MEProxy); Tue, 10 Oct 2017 23:10:56 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=fm1; bh=VmqqEKKEFplhAszJAuP5VOAtoKeb4jd9jl/sHB+e2
- Zs=; b=ETAPO7R6pHXs6D0ma2z7V+aVUTvAOpCMIkTdRg2WzpUGjgmC3aB9UOex4
- 3UqPrgTl2wtZ/8VZbnmD/jts2EnevnDwADpqitxm2gMzJnQavEATh15mUpIc1qUB
- MvwgSQUXh6Q+Hdwfba4BysR0gTSFG2dm2ZdHbkKANVhvbEjwrHndPiJM+5XEdB+y
- g9HV4MUVm1Py4PeeJp27Qs6Sjxj3iFaDn4MOxG2999FB5gpaJhR3E/Y8UWzhlpH7
- GJBOsupn8jsrIt8yANtkOsFfWw3g8D9Kg8A+IjB3negyBuMUx2jVWt1OLlzQoL1Z
- AN+68kQT9axe+zQz+vsXQAMHb1qQA==
+ :x-sasl-enc; s=fm1; bh=FSccesq8NaQL0z6BrvB9tobSOvQo+gbw5Mvq22tK1
+ YI=; b=i8lHXT96pU7K/Pi08YM6uOcgUtsRPEzW3b4IUH/NoCW9V8fCZzijaDsqb
+ 3iNUHPap1c+ZwmEBqugfBnQrWAlKqKoVKwQCK/o+7tCZDcvJhMh074Aplk6+mqvX
+ PM/UUEt+06g5QBgec/A5lspa3I6TKWQ/TIp8qt93OdLUwN6Fm2dShlWpuUoOLH8l
+ qJWvqRK/zUhzXD8/A/YX2BPXoDS7bSH8OkSFsOjHIWCRX4qGT5D8C35sGG6Gn6m4
+ Nkh0IKIq1XvVRhECXcmcjhC2VAMuEoUQRMAvoN8X+g8faLyai7O+o6jkgbSJRJQU
+ LTiqFL/11B+VW2pyHRYXdQ2cgp62w==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=VmqqEKKEFplhAszJAu
- P5VOAtoKeb4jd9jl/sHB+e2Zs=; b=VTnBui6nWOLkHaAHFtEPP7ALJ28m5GAbYE
- bIweqr8u9/nRyuF66QYssH74Bt8PcLh59BfvAuIHfw7u9bdwjJgqf6Wth7NJY1VF
- KKGzphQ3WuuYGYHs491DMThbqL9poA09m4GePb8z7wy0yM00hQemufg+upGdLL5o
- dFc7exRUK5XQHuokNzaaKnYELPkECU9bNau0HaTFRDy67LN0k0g16dHWllFCZw8B
- rz+gfblu2Q12S9HZTY+JLXbjRMtNeI09xmWWTKFcgwAtjzMbTgEsKvl98dX776Z3
- nhlAncRJgqbS595XqrhxqxqfvVX0vTgKa+EhX9SwVwRyTV/p1tZw==
-X-ME-Sender: <xms:nIrdWQpcbK42wmugrWHvz0MLAb8VaMhW2sas4xRJgLNUwYGLdmHo7Q>
-X-Sasl-enc: wEGppgAq5L0krqC3SCEO0ATvUoe/zVzs7VRjRx1PG/rP 1507691163
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=fm1; bh=FSccesq8NaQL0z6Brv
+ B9tobSOvQo+gbw5Mvq22tK1YI=; b=JilVuVdN5RCRtToMbhgLsxzK9FFQdSVEBq
+ LdEmsAqE3NyeN0TW+Gd+uarStPThCU8JRHMAOihsjVO8WT3w8RcTV/bViI1OfmXM
+ 98GQt0rjzG9BtSTnOBUSjnUHondlWCETIeyBoieHg2R4t5eiANJm7mW203Wm6QIU
+ NxeixXx1KwrcCU7HwIhX+iarKo7lWcJX5nia/sDYNlD8MSZoL3WqKqrazGNTJ2Mx
+ Xzn/gEoCsXw83cvtJUwFtHQ5bL22vULXnV5l16Hc+8db6LZNo95hu6U1Oa4ywHKg
+ npJKB3E+wLOvb2O/wA+fsW8661fj0R8AvMR4shgn8fImglhTAu3Q==
+X-ME-Sender: <xms:wIvdWTx-re18NBvDyBpDA7dlhsBLdxFiD0e-Oi1oFnLgXECIcVrjOw>
+X-Sasl-enc: vTfp/mY3HSXi+oVbfePDby3ok9ZQCNFoQ4LFZEiru6uX 1507691455
 Received: from keelia23 (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 0118C7E3BA;
- Tue, 10 Oct 2017 23:06:02 -0400 (EDT)
-Message-ID: <1507691159.5452.168.camel@aj.id.au>
-Subject: Re: OpenBMC on Raspberry PI 3.
+ by mail.messagingengine.com (Postfix) with ESMTPA id C5D897E3DF;
+ Tue, 10 Oct 2017 23:10:54 -0400 (EDT)
+Message-ID: <1507691451.5452.170.camel@aj.id.au>
+Subject: Re: OpenBMC helper scripts repositories
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Javier Romero <xavinux@gmail.com>
-Cc: Yi TZ Li <shliyi@cn.ibm.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Wed, 11 Oct 2017 13:35:59 +1030
-In-Reply-To: <CAEX+82+j8xq5JikSPWi_ycwnoQLNUF1YVUVjxsSdtBfG3b2-Ug@mail.gmail.com>
-References: <CAEX+82Lr=pJEvRqfi9MA=ZBW=DR+mY2VYVUhhTBgrPFA3c239g@mail.gmail.com>
- <CAPLgG=nHvmVzBW2CDxvgaeYAHoNL53W3An-p9fK3D4HfsU=Bbw@mail.gmail.com>
- <1507325323.1545468.1130544088.6FEEF44B@webmail.messagingengine.com>
- <CAEX+82KLmByCXqVg1Hzi7r5-cH2=Cx-0OE_hLwx-Jr_XXfe1Wg@mail.gmail.com>
- <CAEX+82Ls_e7EdupoUUbWEOL5gngd5BdxAY6YptHqAVp7HuJvjA@mail.gmail.com>
- <1507466681.5452.143.camel@aj.id.au>
- <CAEX+82+KQAV5WMuWh1VZCL+zb7TXXnxeUS_=8nQk1tC=8jrtqg@mail.gmail.com>
- <1507531274.5452.154.camel@aj.id.au>
- <OF72E5748D.A94F82AF-ON482581B4.0033C44D-482581B4.003504C9@notes.na.collabserv.com>
- <CAEX+82LFjvc4=Ai6p4k66EBfE-45jrYUwvmPFGdgSb4OdzQVFA@mail.gmail.com>
- <1507594463.5452.156.camel@aj.id.au>
- <CAEX+82+j8xq5JikSPWi_ycwnoQLNUF1YVUVjxsSdtBfG3b2-Ug@mail.gmail.com>
+To: Andrew Geissler <geissonator@gmail.com>, Chris Austen <austenc@us.ibm.com>
+Cc: openbmc <openbmc-bounces+austenc=us.ibm.com@lists.ozlabs.org>, OpenBMC
+ <openbmc@lists.ozlabs.org>
+Date: Wed, 11 Oct 2017 13:40:51 +1030
+In-Reply-To: <CALLMt=pT-oPiQr0V0_CQd_eOEkyYsSncH1_dS-Jjhkbd7+VvWw@mail.gmail.com>
+References: <1507254940.5452.129.camel@aj.id.au>
+ <OFDFEB18C7.4CBB979B-ON002581B1.000FD8A2@LocalDomain>
+ <OF921CDA64.CB068039-ON862581B1.00153196-862581B1.0015746A@notes.na.collabserv.com>
+ <CALLMt=pT-oPiQr0V0_CQd_eOEkyYsSncH1_dS-Jjhkbd7+VvWw@mail.gmail.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-j1CG2tEPfMwnhd0zO3SH"
+ protocol="application/pgp-signature"; boundary="=-tOle2JG9nvfjDo5PiPsm"
 X-Mailer: Evolution 3.22.6-1ubuntu1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -77,73 +70,72 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Oct 2017 03:06:07 -0000
+X-List-Received-Date: Wed, 11 Oct 2017 03:10:59 -0000
 
 
---=-j1CG2tEPfMwnhd0zO3SH
+--=-tOle2JG9nvfjDo5PiPsm
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2017-10-10 at 11:01 -0300, Javier Romero wrote:
-> > Ah - so I don't think you've outlined why you picked OpenBMC for the
-> > job. Can you give us a quick run-down?
+On Mon, 2017-10-09 at 13:00 -0500, Andrew Geissler wrote:
+> Brad, Patrick, and I were also tossing around a misc tools repo under
+> the openbmc umbrella a few weeks back.
+
+Interesting, glad to hear it's already got some attention.
+
 >=20
-> I'm an individual contributor on the Open Compute Project and follow
-> the Hardware Management Group, OpenBMC is on their project scope and
-> sounds very interesting for me, so decide to participate and see if I
-> can be useful.
+> I definitely vote for one!=C2=A0=C2=A0I think the main concern was suppor=
+t, it
+> would def be a "use at your own risk" and "patches preferred over bug
+> reports" type repo.
 
-Ah, nice. Good to have some background :)
+Yeah, absolutely. This is what I was looking for as well, as a means to
+merge code as quickly as possible to minimise the fragmentation. This
+means things will probably be broken, but maybe we can look at
+hardening the process against breakage after we've got something in
+place (and are sick of it breaking).
 
-> >=20
-> > There are going to be easier projects out there than OpenBMC to cut
-> > your teeth with, but if you are keen to learn to program, feel you have
-> > the drive to do so and Yi is happy to help out with your interest in
-> > the Raspberry Pi then by all means stick around :)
 >=20
-> Have bought the Raspberry PI a few days ago, to start contibuting to
-> the OpenBMC project and try to make it work on the RPI. I can learn
-> what is needed on the way, and that is why I'm here and decide to
-> participate, to contribute while learning new things.
+> I know George also has a collection of tools he uses for REST
+> operations as well.
 
-Great! I look forward to you helping us improve our documentation and
-on-boarding of contributors. It might be rocky but it should help those
-coming along in the future.
+Right, these would be good to include.
 
->  But if more
-> programming advanced knowledge is requiered to participate on the
-> OpsnBMC project, maybe I'll have to cut my teeth with other project as
-> you said.
+>=20
+> > With https://github.com/geissonator/openbmc-events, I was looking to
+> build a bunch of small tools, that had similar command line interfaces
+> to interact with the different REST api's in openbmc.
 
-Play it by ear - I just wasn't sure what your motivations were. But
-since you're coming from the OCP background with an interest in
-hardware management, it makes sense to stick around here. As long as
-you get in touch when you get stuck we'll find someone to help answer
-your questions.
+Consistency is good (especially with respect to the REST API) if it's
+easy to achieve, but I think we shouldn't get too hung up about it in
+general (i.e. for tools operating outside the REST context).
 
-Cheers,
+What if we git-subtree the existing repos into mine? I'm happy to
+maintain it.
+
+Thanks for your thoughts!
 
 Andrew
---=-j1CG2tEPfMwnhd0zO3SH
+--=-tOle2JG9nvfjDo5PiPsm
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJZ3YqXAAoJEJ0dnzgO5LT584kP/i+ZichCWrkhgai+q7V2UPwa
-jR1++D0CBIc7h4YwBygNW9ytcgki7/T0XtP0ET9mEa/HuYVyfQRLYD3s0W4+T1FH
-QVu785+d/zcW0Elm1w/Uf2BtXCLkB4Z0s3B0Ahcd3IhrMzoq/+uFrBwi+EGS5vhJ
-vd6T3v3oazY5IFwNEdFZ4Na36prMjSDZqluelPxz6mO1BRCl2fdS2lAhIFD6Bb+i
-Y8kzgo5B85kMe56WzTtONHR7yMmRuV+um44tCXV5/PIlJc53P1Hs/1D5KWi0jhk3
-jfHwWb7Y1jVbkz/GgFZzOtidcEbhQVBlCP5VD0AonFheHemlI5CwpSRgTy5/PBju
-YQWJehrCUZ9nreIr1k8I3cCy2zow7b+tmT2El1Y13jJuOswM8YDzn7RNgbmKNdzx
-EwR2xxUz5TkR5uShcMXfeHZHmZLvUHgXxGgQpqZk+QQyZdmHoOwuZwLa6O9HWS5H
-Ymp6ig9CUR4HF3JmneYdtbtG+Uxq/uB8dro932/TMGXmA0jVv+22iijWnbB4k0cX
-KfnOHGmkCVO+NeGfe8HBswhVwkhsIgYiEL6pRaLZhYRPHAR6MuMEgXL6neIZg6vK
-hXpt+8Zotzv9X6myqgGTjIU5m0OnarqtRfHqEPvHSUYE8kdwdVoUK5uxuHyjjSkU
-3x5Q8jml5GyWiVc3Zyu+
-=OMGq
+iQIcBAABCgAGBQJZ3Yu7AAoJEJ0dnzgO5LT5lXwP/A89EvoTzyzbbsEewCpFApA4
+xozxtUwPItgzyii/WiqzBeoOp4sokEmHI9Q3Aoa84x0sF35cTr6A88MIk6PNQTjD
+7kzOHzvMzEz2imNkdQkU5YDW6oQgeh66d3lTkiuXtKlJCfOZpH/XRkZsldrIrlMF
+EYs+0lPyGksEHF51VzOw4eEktyc3H5/Mttv6VJnYP/AbR4JMcRO+/CnW6DK/8kYE
+ZsPsCneRCvrkFjIw2D2cwESbjvDlGqPalaeJy6lr9cNupJ1V4KOrnytfWGJCEgra
+XoT4XBhW14Dqry2EkzpLKxXmW9wYiccjaXy2+WYrNajH3YTZryrb7JuYfpl+v5Rb
++eO7G9Z3Jxw5/7u0Gh/YnbcDTkbJO0ard5sy2EK/R3sIhJ6psk70XBhfjosUFSlk
+UHOo8tX3kRZtPD8C45JBa1cpCS3W3UP2Qp3oc5Okuq5KIK5trhMmI6fCx/eWF+zS
+BQ5cVnyerEgTu3cISuTeYC6wwt1Go66beEBs9+PqawYuWBSPyE+W/AWJyxKvIe7d
+eqtiRh9bJQ/69ugmXb94iGWNVD5xCGzgIqHRY+/feY3diaa7h2ZWVI/ZZ64WJ3m5
+czX/ghwgJZ+PbLFenHElholNNHwDUNC5Ad44WDb3Txe/078FA0EjVCo4ZfhoFL8S
+24hNzZwc58kRp8H6NbhD
+=MIZs
 -----END PGP SIGNATURE-----
 
---=-j1CG2tEPfMwnhd0zO3SH--
+--=-tOle2JG9nvfjDo5PiPsm--
