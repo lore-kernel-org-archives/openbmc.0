@@ -1,66 +1,74 @@
-Return-Path: <xavinux@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400d:c0d::232; helo=mail-qt0-x232.google.com;
- envelope-from=xavinux@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="E83JX3G2"; 
- dkim-atps=neutral
-Received: from mail-qt0-x232.google.com (mail-qt0-x232.google.com
- [IPv6:2607:f8b0:400d:c0d::232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yC3Sl0w8TzDr5x
- for <openbmc@lists.ozlabs.org>; Thu, 12 Oct 2017 06:09:42 +1100 (AEDT)
-Received: by mail-qt0-x232.google.com with SMTP id x54so8350237qth.12
- for <openbmc@lists.ozlabs.org>; Wed, 11 Oct 2017 12:09:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=2/agRRMs/wG7aYzPg0zNWLdCJkn/YYx8SHl8UWApO0o=;
- b=E83JX3G2xrLVSIi9xoJfsDkHzeIPxB4+3AMTJTO64SRNZiVEy1DZXR4bazVmHQNG/I
- 4qI0wQmtyRBxnNSLN/ElfWfR++0j5rttXadqTRJENC4RVU0YviIhtIEkdcz20OJ6oyzt
- 9saxwC4UdZBMWjF2STETs3a80TdyuZJUOOsHNtkKpYkdXRrweU8g8weyW2z6Ts1mM3iU
- ocgth6lxtBwVns4AZpmWbBx6nVtNJaQqMIUvNxYcfIWbZOGqpMTTA9TpZmPiH1LbnHri
- 1QZG1AXofEnFXQU4zU6kiNVjFvrr3gXAlpxDphsDZOnZf2Thufxe1IoKRCvE7Xa+HGDT
- usxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=2/agRRMs/wG7aYzPg0zNWLdCJkn/YYx8SHl8UWApO0o=;
- b=oC0yOAtzlc9t0H70WssVFjGoE6Wx0oqV6Z6Ds4hdAR0sYZKuy7oOuhwN3yfMZ4ulbX
- jMCYH1T0tBGUR2Zf0HQtVRzlmqJhcm/0ztdFagk4IJoeOLjrABLN+0YWE4h/BGy7h2qu
- oEL2gsV9iHz1X4SixJWoF+5a8Dq1G9yMIpNrU+fqYS2awsVPiJ7YAHLnuBzdKmwb7C41
- uC1YZN5byzzH6yAOKG6V6C3brm5NDyRgwNFpXZvucEvhFaSsonV3iTGaUy38nqBzAVmQ
- cIUnpzV4LHFpA/p8g5YWH9J6RxnVb1dNd/4hLbmI2vT7SB1BCikjevJqkc9ixH+3RR2p
- xX5A==
-X-Gm-Message-State: AMCzsaUjfK4X3Qz7J9WV8cEljbjfY1O3EYT5ynbVgENhshpYKkMU6cS9
- YTOlE9Lo9fta0LLm+mZ5/s4hbi+fcorfb85xfYw=
-X-Google-Smtp-Source: ABhQp+QwK707IehWPFKs29/oe0NLtrTFSycuvK7BSobu29IeJ/JvtVqBiQXDvLvM/yWBg2y+SjX5T/CwIdaTg7PaSGs=
-X-Received: by 10.55.113.70 with SMTP id m67mr20754qkc.187.1507748980421; Wed,
- 11 Oct 2017 12:09:40 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yC5vH6K7pzDr5x
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Oct 2017 07:59:23 +1100 (AEDT)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v9BKxHJ5107830
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Oct 2017 16:59:20 -0400
+Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2dhpgsbjhv-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Oct 2017 16:59:18 -0400
+Received: from localhost
+ by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Wed, 11 Oct 2017 14:59:05 -0600
+Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
+ by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 11 Oct 2017 14:59:02 -0600
+Received: from b03ledav006.gho.boulder.ibm.com
+ (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
+ by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v9BKx1PY5570930; Wed, 11 Oct 2017 13:59:01 -0700
+Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C1FA7C6043;
+ Wed, 11 Oct 2017 14:59:01 -0600 (MDT)
+Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
+ by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id 8641EC603E;
+ Wed, 11 Oct 2017 14:59:01 -0600 (MDT)
+Subject: Re: [PATCH linux dev-4.10 0/2] drivers: hwmon: occ: sysfs_notify and
+ presence detect
+To: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org
+Cc: "Edward A. James" <eajames@us.ibm.com>
+References: <1507322581-13947-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <1507701718.5452.179.camel@aj.id.au>
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Wed, 11 Oct 2017 15:59:01 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.2.0
 MIME-Version: 1.0
-Received: by 10.12.153.200 with HTTP; Wed, 11 Oct 2017 12:09:39 -0700 (PDT)
-In-Reply-To: <1507691159.5452.168.camel@aj.id.au>
-References: <CAEX+82Lr=pJEvRqfi9MA=ZBW=DR+mY2VYVUhhTBgrPFA3c239g@mail.gmail.com>
- <CAPLgG=nHvmVzBW2CDxvgaeYAHoNL53W3An-p9fK3D4HfsU=Bbw@mail.gmail.com>
- <1507325323.1545468.1130544088.6FEEF44B@webmail.messagingengine.com>
- <CAEX+82KLmByCXqVg1Hzi7r5-cH2=Cx-0OE_hLwx-Jr_XXfe1Wg@mail.gmail.com>
- <CAEX+82Ls_e7EdupoUUbWEOL5gngd5BdxAY6YptHqAVp7HuJvjA@mail.gmail.com>
- <1507466681.5452.143.camel@aj.id.au>
- <CAEX+82+KQAV5WMuWh1VZCL+zb7TXXnxeUS_=8nQk1tC=8jrtqg@mail.gmail.com>
- <1507531274.5452.154.camel@aj.id.au>
- <OF72E5748D.A94F82AF-ON482581B4.0033C44D-482581B4.003504C9@notes.na.collabserv.com>
- <CAEX+82LFjvc4=Ai6p4k66EBfE-45jrYUwvmPFGdgSb4OdzQVFA@mail.gmail.com>
- <1507594463.5452.156.camel@aj.id.au>
- <CAEX+82+j8xq5JikSPWi_ycwnoQLNUF1YVUVjxsSdtBfG3b2-Ug@mail.gmail.com>
- <1507691159.5452.168.camel@aj.id.au>
-From: Javier Romero <xavinux@gmail.com>
-Date: Wed, 11 Oct 2017 16:09:39 -0300
-Message-ID: <CAEX+82KL+N5VCvo+LH20=1paTZvKo2M7PqdXk7=bFq7MdAGeSA@mail.gmail.com>
-Subject: Re: OpenBMC on Raspberry PI 3.
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Yi TZ Li <shliyi@cn.ibm.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <1507701718.5452.179.camel@aj.id.au>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 17101120-0012-0000-0000-000015220952
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007879; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000236; SDB=6.00929749; UDB=6.00467977; IPR=6.00710020; 
+ BA=6.00005634; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017496; XFM=3.00000015;
+ UTC=2017-10-11 20:59:03
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17101120-0013-0000-0000-00004FD5C3AB
+Message-Id: <0b6b0b85-4ac0-e748-c03b-5004e75026c8@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-10-11_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
+ definitions=main-1710110285
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -72,60 +80,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Oct 2017 19:09:44 -0000
-
-> Great! I look forward to you helping us improve our documentation and
-> on-boarding of contributors. It might be rocky but it should help those
-> coming along in the future.
-
-A starting point to start my contribution, so, how can I help on this?
+X-List-Received-Date: Wed, 11 Oct 2017 20:59:24 -0000
 
 
 
-Javier Romero
-E-mail: xavinux@gmail.com
-Skype: xavinux
+On 10/11/2017 01:01 AM, Andrew Jeffery wrote:
+> On Fri, 2017-10-06 at 15:42 -0500, Eddie James wrote:
+>>> From: "Edward A. James" <eajames@us.ibm.com>
+>> This patch set removes the error checking for the number of OCCs present.
+> I'm interested in the back-story here. Why are we making this change in
+> behaviour?
 
+Sure, basically two reasons:
 
+1) userspace app was having trouble handling this error code, since if 
+you bind the master OCC device first, you'll immediately get an error 
+that we haven't bound the same number of OCCs as the OCC reports are 
+available.
 
-2017-10-11 0:05 GMT-03:00 Andrew Jeffery <andrew@aj.id.au>:
-> On Tue, 2017-10-10 at 11:01 -0300, Javier Romero wrote:
->> > Ah - so I don't think you've outlined why you picked OpenBMC for the
->> > job. Can you give us a quick run-down?
->>
->> I'm an individual contributor on the Open Compute Project and follow
->> the Hardware Management Group, OpenBMC is on their project scope and
->> sounds very interesting for me, so decide to participate and see if I
->> can be useful.
->
-> Ah, nice. Good to have some background :)
->
->> >
->> > There are going to be easier projects out there than OpenBMC to cut
->> > your teeth with, but if you are keen to learn to program, feel you have
->> > the drive to do so and Yi is happy to help out with your interest in
->> > the Raspberry Pi then by all means stick around :)
->>
->> Have bought the Raspberry PI a few days ago, to start contibuting to
->> the OpenBMC project and try to make it work on the RPI. I can learn
->> what is needed on the way, and that is why I'm here and decide to
->> participate, to contribute while learning new things.
->
-> Great! I look forward to you helping us improve our documentation and
-> on-boarding of contributors. It might be rocky but it should help those
-> coming along in the future.
->
->>  But if more
->> programming advanced knowledge is requiered to participate on the
->> OpsnBMC project, maybe I'll have to cut my teeth with other project as
->> you said.
->
-> Play it by ear - I just wasn't sure what your motivations were. But
-> since you're coming from the OCP background with an interest in
-> hardware management, it makes sense to stick around here. As long as
-> you get in touch when you get stuck we'll find someone to help answer
-> your questions.
+2) This error checking for "number of OCC devices bound" isn't designed 
+well anyway, and makes more sense in userspace. The original intent was 
+to implement all of the OCC requirements in the driver, but we have an 
+application running on top that can pick up the slack, as it were.
+
+Thanks,
+Eddie
+
 >
 > Cheers,
 >
 > Andrew
+>
+>> Instead, export a new sysfs attribute to indicate the number of OCCs present
+>> from the master poll response. In addition, add sysfs_notify both to the new
+>> occs_present attribute and the throttling attributes.
+>>
+>> Edward A. James (2):
+>>    drivers: hwmon: occ: Add occs_present attribute
+>>    drivers: hwmon: occ: Add sysfs_notify to throttling attributes
+>>
+>>   drivers/hwmon/occ/common.c | 49 ++++++++++++++++++++++++++++++++++------------
+>>   drivers/hwmon/occ/common.h |  3 ---
+>>   drivers/hwmon/occ/p8_i2c.c |  4 ----
+>>   drivers/hwmon/occ/p9_sbe.c |  4 ----
+>>   4 files changed, 37 insertions(+), 23 deletions(-)
