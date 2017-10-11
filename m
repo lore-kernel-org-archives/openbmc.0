@@ -1,40 +1,53 @@
-Return-Path: <clg@kaod.org>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=kaod.org
- (client-ip=46.105.72.238; helo=9.mo177.mail-out.ovh.net;
- envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
-X-Greylist: delayed 149282 seconds by postgrey-1.36 at bilbo;
- Wed, 11 Oct 2017 18:27:04 AEDT
-Received: from 9.mo177.mail-out.ovh.net (9.mo177.mail-out.ovh.net
- [46.105.72.238])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <mine260309@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400e:c05::244; helo=mail-pg0-x244.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="oAl+B7lA"; 
+ dkim-atps=neutral
+Received: from mail-pg0-x244.google.com (mail-pg0-x244.google.com
+ [IPv6:2607:f8b0:400e:c05::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yBlt069vNzDr5S
- for <openbmc@lists.ozlabs.org>; Wed, 11 Oct 2017 18:27:04 +1100 (AEDT)
-Received: from player792.ha.ovh.net (b6.ovh.net [213.186.33.56])
- by mo177.mail-out.ovh.net (Postfix) with ESMTP id 90BFF85EED
- for <openbmc@lists.ozlabs.org>; Wed, 11 Oct 2017 09:21:30 +0200 (CEST)
-Received: from zorba.kaod.org (LFbn-1-2231-173.w90-76.abo.wanadoo.fr
- [90.76.52.173]) (Authenticated sender: postmaster@kaod.org)
- by player792.ha.ovh.net (Postfix) with ESMTPSA id 1BF1AA007F;
- Wed, 11 Oct 2017 09:21:28 +0200 (CEST)
-Subject: Re: [PATCH u-boot] Revert "ast-g5: deactivate vbar (for qemu)"
-To: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org
-References: <20171010122749.9124-1-clg@kaod.org>
- <1507700318.5452.177.camel@aj.id.au>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <568e2a71-b067-75e2-6019-190e04a1e53c@kaod.org>
-Date: Wed, 11 Oct 2017 09:21:28 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.3.0
-MIME-Version: 1.0
-In-Reply-To: <1507700318.5452.177.camel@aj.id.au>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 14301743569410689794
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedttddrtddugdduvdduucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yBmFX2cNSzDr5S
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Oct 2017 18:43:59 +1100 (AEDT)
+Received: by mail-pg0-x244.google.com with SMTP id j3so1377387pga.5
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Oct 2017 00:43:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=3jEVCl+zjfIX+ICxJdUTl4kWeXmKvf+OeBusYMIzunI=;
+ b=oAl+B7lAkobOUJaesFcId/ARJ1NGu8RhextFMv2XIQbRDeP6Z4z4YXniwgwTbcv8s/
+ VHNES2/Vt7xxkG8GhSj11dLccEQLl4j3DZoWn5lQ0b6ron6w7GY+61NbhA40LXNBOfUq
+ 9ENzk1nIDEZjC/XpCu2Z4PMvtb4qAfffk+sloqokooCGjlsL2jcraPReIC7AYS9LaDDa
+ 1ccw3e8O/T9qOcU3ppRDe0+l23lwXwl9E1gk5a8Ae1NiwEmW0r4VSbkFpc/E6/eeRBP0
+ oKeguuFof0RlE/8HyrZYY13AzZ3s/ksbN/DVVwidbGu0ahSy3Mv71mzGYwRNRlIY0N03
+ S4XA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=3jEVCl+zjfIX+ICxJdUTl4kWeXmKvf+OeBusYMIzunI=;
+ b=uAIUKtMbMRPF5cp4EC0ulNDZ/6XJAtyZf+rmM35pSfrPzHtBK2kycskMiwBu6iy7VA
+ q7/TUl+Ps9DwiLvtdiT6F8OJuvufPgn4xMKeSyXRAaS6JWPYylqtDyVhIZp90CPGTxiJ
+ lsCAk19kBqIxku4epFbSBO2F+tdol2GW8mhvzg2hwyM+xqDj9rbxH6o8tPkMSMchtdUW
+ ObrLUkYXcgi7RQNoa0kI+6fWHRwKYn/EcISFdpPZK19nULCosRvTQMg5jduokZPVSSEU
+ bTulBBLz7mVhSzqoNZtAMhHcUE0Vwj4Zu7eIH6sVN9TTWSBqxyILRVyJk2l/XWTHHmSJ
+ W0IQ==
+X-Gm-Message-State: AMCzsaU13iwpksV611EvrStcZZYhqQIDgvyyAJFSlNx/D7HIS5PdxEPi
+ /YAYJyQdLTc6VFRjvO8EiLv8jtnx
+X-Google-Smtp-Source: AOwi7QB5kdBgCMw/hR+20gq4McwLL8jaxC9uYlV3NZPTKwHfhm3LznMgKum1L5DmhyEpPxU4nxzK8Q==
+X-Received: by 10.99.3.21 with SMTP id 21mr14357612pgd.77.1507707836928;
+ Wed, 11 Oct 2017 00:43:56 -0700 (PDT)
+Received: from localhost ([159.203.222.251])
+ by smtp.gmail.com with ESMTPSA id h9sm23782751pfh.98.2017.10.11.00.43.55
+ (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+ Wed, 11 Oct 2017 00:43:56 -0700 (PDT)
+From: Lei YU <mine260309@gmail.com>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.10] aspeed: firestone: Set SIO to bypass UART in
+ hostboot
+Date: Wed, 11 Oct 2017 15:41:20 +0800
+Message-Id: <1507707680-19898-1-git-send-email-mine260309@gmail.com>
+X-Mailer: git-send-email 1.9.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -46,49 +59,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Oct 2017 07:27:05 -0000
+X-List-Received-Date: Wed, 11 Oct 2017 07:44:01 -0000
 
-On 10/11/2017 07:38 AM, Andrew Jeffery wrote:
-> On Tue, 2017-10-10 at 14:27 +0200, Cédric Le Goater wrote:
->> This reverts commit a0ca4ecbeae4ae9632ebc67bf5318dd2ea09c94f.
->>  
->> Support was added to QEMU in :
->>  
->> commit 91db4642f868 ("target-arm: Add VBAR support to ARM1176 CPUs")
->>  
->> The work around happens to crash the guest when the vector relocation
->> is done, with ignore_memory_transaction_failures=false which is
->> now the default in QEMU.
-> 
-> You need a Signed-off-by here. Can you reply with one? Hopefully patchwork will
-> pick it up.
+OpenBMC fails to boot host on Firestone.
+The cause is that Firestone's hostboot hangs after disables
+SUART/VUART.
 
-Ah I missed that doing the revert.
+The workaround is to make hostboot run into default SUART init
+without disabling VUART, by setting 0x170 SIO register to 0.
 
+With this workaround, Firestone boots OK.
 
-Signed-off-by: Cédric Le Goater <clg@kaod.org>
+Signed-off-by: Lei YU <mine260309@gmail.com>
+---
+ arch/arm/mach-aspeed/aspeed.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-C. 
-
-
-> Cheers,
-> 
-> Andrew
-> 
->> ---
->>  arch/arm/lib/relocate.S | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>  
->> diff --git a/arch/arm/lib/relocate.S b/arch/arm/lib/relocate.S
->> index 33bcff41ac30..475d503dd9df 100644
->> --- a/arch/arm/lib/relocate.S
->> +++ b/arch/arm/lib/relocate.S
->> @@ -35,7 +35,7 @@ ENTRY(relocate_vectors)
->>  	ldr	r1, =V7M_SCB_BASE
->>  	str	r0, [r1, V7M_SCB_VTOR]
->>  #else
->> -#if defined(CONFIG_HAS_VBAR) && !defined(CONFIG_ARCH_AST2500)
->> +#ifdef CONFIG_HAS_VBAR
->>  	/*
->>  	 * If the ARM processor has the security extensions,
->>  	 * use VBAR to relocate the exception vectors.
+diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+index a9e91d9..c84c871 100644
+--- a/arch/arm/mach-aspeed/aspeed.c
++++ b/arch/arm/mach-aspeed/aspeed.c
+@@ -104,6 +104,10 @@ static void __init do_firestone_setup(void)
+ 
+ 	/* Override serial destination to use the dedicated serial port */
+ 	writel(0x00004000, AST_IO(AST_BASE_LPC | 0x174));
++
++	/* Workaround to make hostboot run into default SUART init */
++	/* Otherwise it fails to boot */
++	writel(0x00000000, AST_IO(AST_BASE_LPC | 0x170));
+ }
+ 
+ static void __init do_garrison_setup(void)
+-- 
+1.9.1
