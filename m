@@ -1,62 +1,65 @@
-Return-Path: <geissonator@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c0b::22e; helo=mail-it0-x22e.google.com;
- envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="va+/iEae"; 
- dkim-atps=neutral
-Received: from mail-it0-x22e.google.com (mail-it0-x22e.google.com
- [IPv6:2607:f8b0:4001:c0b::22e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yCdj06HZtzDr6N;
- Fri, 13 Oct 2017 04:52:19 +1100 (AEDT)
-Received: by mail-it0-x22e.google.com with SMTP id o135so7782267itb.0;
- Thu, 12 Oct 2017 10:52:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=gSQb8F5LvQ790UetAVpJUYhM6zhGjsT4CqEEkZoU27U=;
- b=va+/iEaeU2+WAAqjIkvCQN6Bxnk49wt8Ip1JeO6B+ggO54DDtX2ddyt8wxZBG4cSE1
- cHeSmnnkdkjbef6GfPDNVxVDjYnTaoa12xL40pxXaoIzlUsAwuLXYc5mlb26XCW/RknT
- VJcQyr8n+07iMwUwciwQyeAUpu44wc1Ue6ptfLWVye7j8En0dYVn12P71qk6xm9Ieoo+
- lwQmMA+ov6YcSG0dkC5fFRahz7vg/nvro5DPXWRGgR3D5bLO+k7QZOBSySllG2rqTafm
- Qw2ePEPmJXqnWc22u5vO64Xg3rbBX9rtb600N5FF9j96Z5rPy9ur4WJhLGzu4LN5FZZ1
- /iqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=gSQb8F5LvQ790UetAVpJUYhM6zhGjsT4CqEEkZoU27U=;
- b=Uj4Sz4IiQd4D9BwkHuOv8s8C3fHtAcBInNpmFbPdAULy0uv0RHY0hHK0eEH01NS0eb
- ULVvOZklmdgQvE1OY5CNLMh89b3hDtS8ivpqF5kmpPYoCMGlQrQl1bkRQWP3Da+uYB1j
- UeokM/OLo9B3r+/6yf1I4yrFG+e2T3K96kE3h5DjYxTXzSHWLRrJWL/JEGoo1tKyXEwh
- y//APb98jfpYl3Td6CF0lzzVLDudkPYd6H2Bgvos6EyFclv7muhtXazIy4pH0Gug9bl7
- Tjh6CUr+zS+Den727+nvFqT01XgTBirq5j2of/RNO3a4MpKDgBdK8xQ/jvU9COssk6ID
- IBvw==
-X-Gm-Message-State: AMCzsaVqii4RnOhrs2mP/80orVSBc+LAPhV7IgBewQhoY0dmTfUqqhhI
- OQFQGNvQHUlvo29PHVtRbPtx48r9RAq8vjRUEcU=
-X-Google-Smtp-Source: AOwi7QBhEl5uUm9E03l0QvdAnszbIWqLLLDmLzm7+SG/JLHN+Zq4qkhO05iXq4GNCVJBvrPLKTNYxw4MIvt21x9z7WM=
-X-Received: by 10.36.137.66 with SMTP id s63mr4452913itd.28.1507830736588;
- Thu, 12 Oct 2017 10:52:16 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.107.142.150 with HTTP; Thu, 12 Oct 2017 10:52:15 -0700 (PDT)
-In-Reply-To: <CAARXrt=O-dNH=Lt+vkQdCH_dF6xtS7aE8pqZn-BNMA7dgTeR9g@mail.gmail.com>
-References: <1507254940.5452.129.camel@aj.id.au>
- <OFDFEB18C7.4CBB979B-ON002581B1.000FD8A2@LocalDomain>
- <OF921CDA64.CB068039-ON862581B1.00153196-862581B1.0015746A@notes.na.collabserv.com>
- <CALLMt=pT-oPiQr0V0_CQd_eOEkyYsSncH1_dS-Jjhkbd7+VvWw@mail.gmail.com>
- <CAARXrt=tOkNnEoOaUPkQtUVDqOoq__4aqdqrA7tH2y0SXWnddw@mail.gmail.com>
- <1507691558.5452.172.camel@aj.id.au>
- <CAARXrt=O-dNH=Lt+vkQdCH_dF6xtS7aE8pqZn-BNMA7dgTeR9g@mail.gmail.com>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Thu, 12 Oct 2017 12:52:15 -0500
-Message-ID: <CALLMt=ri4td=9C6av3jHchZwckffmPdxYkztj1qCav2WMmd3Jg@mail.gmail.com>
-Subject: Re: OpenBMC helper scripts repositories
-To: Lei YU <mine260309@gmail.com>
-Cc: Andrew Jeffery <andrew@aj.id.au>, Chris Austen <austenc@us.ibm.com>, 
- openbmc <openbmc-bounces+austenc=us.ibm.com@lists.ozlabs.org>, 
- OpenBMC <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yCjTS2QMZzDr9F
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Oct 2017 07:42:35 +1100 (AEDT)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v9CKdmeU125116
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Oct 2017 16:42:31 -0400
+Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2djegkjp4e-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Oct 2017 16:42:31 -0400
+Received: from localhost
+ by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Thu, 12 Oct 2017 14:42:30 -0600
+Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
+ by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Thu, 12 Oct 2017 14:42:27 -0600
+Received: from b03ledav002.gho.boulder.ibm.com
+ (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v9CKgRf364880674; Thu, 12 Oct 2017 13:42:27 -0700
+Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 0547F136043;
+ Thu, 12 Oct 2017 14:42:27 -0600 (MDT)
+Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
+ by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id B07B5136046;
+ Thu, 12 Oct 2017 14:42:26 -0600 (MDT)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, andrew@aj.id.au, "Edward A. James" <eajames@us.ibm.com>
+Subject: [PATCH linux dev-4.10] drivers: i2c: fsi: Add proper abort method
+Date: Thu, 12 Oct 2017 15:42:24 -0500
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+x-cbid: 17101220-0008-0000-0000-000008B478B9
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007886; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000236; SDB=6.00930223; UDB=6.00468256; IPR=6.00710489; 
+ BA=6.00005635; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017512; XFM=3.00000015;
+ UTC=2017-10-12 20:42:28
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17101220-0009-0000-0000-000044568828
+Message-Id: <1507840944-421-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-10-12_10:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
+ definitions=main-1710120293
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -68,39 +71,340 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Oct 2017 17:52:23 -0000
+X-List-Received-Date: Thu, 12 Oct 2017 20:42:36 -0000
 
-Lets do this!  Any proposal on the repo name Andrew J?  openbmc-tools?
+From: "Edward A. James" <eajames@us.ibm.com>
 
-Andrew
+Driver wasn't cleaning up on timeout or in an error situation properly.
+Need to do a full reset if we fail in order to re-stablish a good state
+of the engine.
 
-On Thu, Oct 12, 2017 at 1:34 AM, Lei YU <mine260309@gmail.com> wrote:
-> On Wed, Oct 11, 2017 at 11:12 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
->> On Tue, 2017-10-10 at 09:55 +0800, Lei YU wrote:
->>> Vote+1
->>>
->>> I always wanted such a repo to put common/shared scripts together.
->>
->> Great, it seems there's a fair bit of consensus on this. Did you have
->> any scripts of your own that we could pull in?
->
-> Yup, I have "upload_and_update.py" that do the code upload/update.
-> Though it only works on non-ubi-fs systems.
-> https://gist.github.com/mine260309/21ceff0f69b42df0ef12a85c83ec01c3
->
->>
->>>
->>> And even more, what about a repo that collects the common/shared code
->>> (C/C++)?
->>
->> I feel this is a different undertaking, something that should be
->> addressed separately from what I'm proposing. My move-fast-and-break-
->> things model doesn't really gel with developing the low-level libraries
->> you're talking about here.
->
-> Sure, let's focus on the scripts for now.
->
->>
->> Cheers,
->>
->> Andrew
+Signed-off-by: Edward A. James <eajames@us.ibm.com>
+---
+ drivers/i2c/busses/i2c-fsi.c | 259 +++++++++++++++++++++++++++++++------------
+ 1 file changed, 191 insertions(+), 68 deletions(-)
+
+diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
+index 1af9c01..6c582d8 100644
+--- a/drivers/i2c/busses/i2c-fsi.c
++++ b/drivers/i2c/busses/i2c-fsi.c
+@@ -133,6 +133,11 @@
+ #define I2C_ESTAT_SELF_BUSY	0x00000040
+ #define I2C_ESTAT_VERSION	0x0000001f
+ 
++#define I2C_PORT_BUSY_RESET	0x80000000
++
++#define I2C_LOCAL_WAIT_TIMEOUT	2		/* jiffies */
++#define I2C_ABORT_TIMEOUT	msecs_to_jiffies(100)
++
+ struct fsi_i2c_master {
+ 	struct fsi_device	*fsi;
+ 	u8			fifo_size;
+@@ -351,22 +356,185 @@ static int fsi_i2c_read_fifo(struct fsi_i2c_port *port, struct i2c_msg *msg,
+ 	return rc;
+ }
+ 
++static int fsi_i2c_reset_bus(struct fsi_i2c_master *i2c)
++{
++	int i, rc;
++	u32 mode, dummy = 0;
++
++	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_MODE, &mode);
++	if (rc)
++		return rc;
++
++	mode |= I2C_MODE_DIAG;
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
++	if (rc)
++		return rc;
++
++	for (i = 0; i < 9; ++i) {
++		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SCL, &dummy);
++		if (rc)
++			return rc;
++
++		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SCL, &dummy);
++		if (rc)
++			return rc;
++	}
++
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SCL, &dummy);
++	if (rc)
++		return rc;
++
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SDA, &dummy);
++	if (rc)
++		return rc;
++
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SCL, &dummy);
++	if (rc)
++		return rc;
++
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SDA, &dummy);
++	if (rc)
++		return rc;
++
++	mode &= ~I2C_MODE_DIAG;
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
++
++	return rc;
++}
++
++static int fsi_i2c_reset(struct fsi_i2c_master *i2c, u16 port)
++{
++	int rc;
++	u32 mode, stat, dummy = 0;
++
++	/* reset engine */
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_I2C, &dummy);
++	if (rc)
++		return rc;
++
++	/* re-init engine */
++	rc = fsi_i2c_dev_init(i2c);
++	if (rc)
++		return rc;
++
++	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_MODE, &mode);
++	if (rc)
++		return rc;
++
++	/* set port; default after reset is 0 */
++	if (port) {
++		mode = SETFIELD(I2C_MODE_PORT, mode, port);
++		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
++		if (rc)
++			return rc;
++	}
++
++	/* reset busy register; hw workaround */
++	dummy = I2C_PORT_BUSY_RESET;
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_PORT_BUSY, &dummy);
++	if (rc)
++		return rc;
++
++	/* force bus reset */
++	rc = fsi_i2c_reset_bus(i2c);
++	if (rc)
++		return rc;
++
++	/* reset errors */
++	dummy = 0;
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_ERR, &dummy);
++	if (rc)
++		return rc;
++
++	/* wait for command complete */
++	set_current_state(TASK_INTERRUPTIBLE);
++	schedule_timeout(I2C_LOCAL_WAIT_TIMEOUT);
++
++	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_STAT, &stat);
++	if (rc)
++		return rc;
++
++	if (stat & I2C_STAT_CMD_COMP)
++		return 0;
++
++	/* failed to get command complete; reset engine again */
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_I2C, &dummy);
++	if (rc)
++		return rc;
++
++	/* re-init engine again */
++	rc = fsi_i2c_dev_init(i2c);
++	if (rc)
++		return rc;
++
++	return 0;
++}
++
++static int fsi_i2c_abort(struct fsi_i2c_port *port, u32 status)
++{
++	int rc;
++	unsigned long start;
++	u32 cmd = I2C_CMD_WITH_STOP;
++	struct fsi_device *fsi = port->master->fsi;
++
++	rc = fsi_i2c_reset(port->master, port->port);
++	if (rc)
++		return rc;
++
++	/* skip final stop command for these errors */
++	if (status & (I2C_STAT_PARITY | I2C_STAT_LOST_ARB | I2C_STAT_STOP_ERR))
++		return 0;
++
++	rc = fsi_i2c_write_reg(fsi, I2C_FSI_CMD, &cmd);
++	if (rc)
++		return rc;
++
++	start = jiffies;
++
++	do {
++		rc = fsi_i2c_read_reg(fsi, I2C_FSI_STAT, &status);
++		if (rc)
++			return rc;
++
++		if (status & I2C_STAT_CMD_COMP)
++			return 0;
++
++		set_current_state(TASK_INTERRUPTIBLE);
++		if (schedule_timeout(I2C_LOCAL_WAIT_TIMEOUT) > 0)
++			return -EINTR;
++
++	} while (time_after(start + I2C_ABORT_TIMEOUT, jiffies));
++
++	return -ETIME;
++}
++
+ static int fsi_i2c_handle_status(struct fsi_i2c_port *port,
+ 				 struct i2c_msg *msg, u32 status)
+ {
+ 	int rc;
+ 	u8 fifo_count;
+-	struct fsi_i2c_master *i2c = port->master;
+-	u32 dummy = 0;
+ 
+ 	if (status & I2C_STAT_ERR) {
+-		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_ERR, &dummy);
++		rc = fsi_i2c_abort(port, status);
+ 		if (rc)
+ 			return rc;
+ 
++		if (status & I2C_STAT_INV_CMD)
++			return -EINVAL;
++
++		if (status & (I2C_STAT_PARITY | I2C_STAT_BE_OVERRUN |
++		    I2C_STAT_BE_ACCESS))
++			return -EPROTO;
++
+ 		if (status & I2C_STAT_NACK)
+ 			return -EFAULT;
+ 
++		if (status & I2C_STAT_LOST_ARB)
++			return -ECANCELED;
++
++		if (status & I2C_STAT_STOP_ERR)
++			return -EBADMSG;
++
+ 		return -EIO;
+ 	}
+ 
+@@ -396,9 +564,9 @@ static int fsi_i2c_handle_status(struct fsi_i2c_port *port,
+ static int fsi_i2c_wait(struct fsi_i2c_port *port, struct i2c_msg *msg,
+ 			unsigned long timeout)
+ {
+-	const unsigned long local_timeout = 2; /* jiffies */
+ 	u32 status = 0;
+-	int rc;
++	int rc, rc_abort;
++	unsigned long start = jiffies;
+ 
+ 	do {
+ 		rc = fsi_i2c_read_reg(port->master->fsi, I2C_FSI_STAT,
+@@ -419,13 +587,21 @@ static int fsi_i2c_wait(struct fsi_i2c_port *port, struct i2c_msg *msg,
+ 			continue;
+ 		}
+ 
+-		set_current_state(TASK_UNINTERRUPTIBLE);
+-		schedule_timeout(local_timeout);
+-		timeout = (timeout < local_timeout) ? 0 :
+-			timeout - local_timeout;
+-	} while (timeout);
++		set_current_state(TASK_INTERRUPTIBLE);
++		if (schedule_timeout(I2C_LOCAL_WAIT_TIMEOUT) > 0) {
++			rc = -EINTR;
++			goto abort;
++		}
++	} while (time_after(start + timeout, jiffies));
+ 
+-	return -ETIME;
++	rc = -ETIME;
++
++abort:
++	rc_abort = fsi_i2c_abort(port, status);
++	if (rc_abort)
++		return rc_abort;
++
++	return rc;
+ }
+ 
+ static int fsi_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
+@@ -469,72 +645,19 @@ static u32 fsi_i2c_functionality(struct i2c_adapter *adap)
+ 		| I2C_FUNC_SMBUS_EMUL | I2C_FUNC_SMBUS_BLOCK_DATA;
+ }
+ 
+-static int fsi_i2c_low_level_recover_bus(struct fsi_i2c_master *i2c)
+-{
+-	int i, rc;
+-	u32 mode, dummy = 0;
+-
+-	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_MODE, &mode);
+-	if (rc)
+-		return rc;
+-
+-	mode |= I2C_MODE_DIAG;
+-	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
+-	if (rc)
+-		return rc;
+-
+-	for (i = 0; i < 9; ++i) {
+-		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SCL, &dummy);
+-		if (rc)
+-			return rc;
+-
+-		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SCL, &dummy);
+-		if (rc)
+-			return rc;
+-	}
+-
+-	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SCL, &dummy);
+-	if (rc)
+-		return rc;
+-
+-	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SDA, &dummy);
+-	if (rc)
+-		return rc;
+-
+-	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SCL, &dummy);
+-	if (rc)
+-		return rc;
+-
+-	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SDA, &dummy);
+-	if (rc)
+-		return rc;
+-
+-	mode &= ~I2C_MODE_DIAG;
+-	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
+-
+-	return rc;
+-}
+-
+ static int fsi_i2c_recover_bus(struct i2c_adapter *adap)
+ {
+ 	int rc;
+-	u32 dummy = 0;
+ 	struct fsi_i2c_port *port = adap->algo_data;
+-	struct fsi_i2c_master *i2c = port->master;
++	struct fsi_i2c_master *master = port->master;
+ 
+-	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_I2C, &dummy);
++	rc = fsi_i2c_lock_master(master, adap->timeout);
+ 	if (rc)
+ 		return rc;
+ 
+-	rc = fsi_i2c_dev_init(i2c);
+-	if (rc)
+-		return rc;
++	rc = fsi_i2c_reset(master, port->port);
+ 
+-	rc = fsi_i2c_low_level_recover_bus(i2c);
+-	if (rc)
+-		return rc;
+-
+-	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_ERR, &dummy);
++	fsi_i2c_unlock_master(master);
+ 
+ 	return rc;
+ }
+-- 
+1.8.3.1
