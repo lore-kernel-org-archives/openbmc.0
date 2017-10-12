@@ -1,68 +1,37 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="N6kYkhEn"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="mxscF3+1"; dkim-atps=neutral
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <vernon.mauery@linux.intel.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.65; helo=mga03.intel.com;
+ envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yCkbC4sWczDqJ7;
- Fri, 13 Oct 2017 08:32:39 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 7BBCD219A7;
- Thu, 12 Oct 2017 17:32:34 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Thu, 12 Oct 2017 17:32:34 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=kqcSVWWMrKWUfI9EiWQklmukKRIXv5CqhFCqB9dZIAI=; b=N6kYkhEn
- wdndsl9x6HTLJXxq86sf1IduUwj6DIWwpNYAkwZHolCkS4FfYZ6KXTpw0NK/gK+K
- zpB6P1zZZZFDCEbNSvACSLYOFIsNiiVRTLGVi0SdRwg8IuGW52dj8JEgNmUzic03
- V9/aYH5SxxlYdFPlWDsMa5jPiC2o0NjSNgSnNobjnY5qlFFUeX3lq56xNEhEzibM
- DesbyHM/LzCFK/UEAqYLPRPE4QSS2+VOVukTwoki6iwXZnXh524ibNgRQXccspVE
- g7Rbgq7oqsBi82S0ubxzwo04u+VJ2j+pkY7xSLmS+sUR91ApSRWziC/PAvZeGInX
- JwPtIil/Ka7WNA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=kqcSVWWMrKWUfI9EiWQklmukKRIXv
- 5CqhFCqB9dZIAI=; b=mxscF3+125qD7bgWZHQLQ2lHD+jEH9JldAw129SvqXGDk
- U1Q4fE0NVKJqlzdLEM5TWVo/O4n8iSpC1MKNJ4Mxwg0OiJzPyUiJuPEyxTL142d7
- GULzwZcVe4xRPXe9sVmNMiZrMGDhbkNRDb0u0HMQvNOV7eb2wpj4kocEPhbzf1hS
- 1b1hj+AF3nIekFXrsUoKXinPJzlFkUZpCe5pG1vEfbxZBW2N2GbO8veR+Yfj6ZGm
- SEmK2hyKXaTkGlZyzPG0+SAS3i+K+UQqavJxBOLDW1WOR5d9Mci6yxzN4wXKLFY5
- EoIUFL1jCaWa3lfXe4o+7TiSjBMiIPnl4HsslpF+g==
-X-ME-Sender: <xms:ct_fWetTDmeJapyeva3ubgbXcYH42SYUiopvPSti6UhH_Ogq5MfEYg>
-Received: from keelia23 (220-253-53-78.dyn.iinet.net.au [220.253.53.78])
- by mail.messagingengine.com (Postfix) with ESMTPA id 8CAF57E101;
- Thu, 12 Oct 2017 17:32:32 -0400 (EDT)
-Message-ID: <1507843946.5452.187.camel@aj.id.au>
-Subject: Re: OpenBMC helper scripts repositories
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Andrew Geissler <geissonator@gmail.com>, Lei YU <mine260309@gmail.com>
-Cc: Chris Austen <austenc@us.ibm.com>, openbmc
- <openbmc-bounces+austenc=us.ibm.com@lists.ozlabs.org>, OpenBMC
- <openbmc@lists.ozlabs.org>
-Date: Fri, 13 Oct 2017 08:02:26 +1030
-In-Reply-To: <CALLMt=ri4td=9C6av3jHchZwckffmPdxYkztj1qCav2WMmd3Jg@mail.gmail.com>
-References: <1507254940.5452.129.camel@aj.id.au>
- <OFDFEB18C7.4CBB979B-ON002581B1.000FD8A2@LocalDomain>
- <OF921CDA64.CB068039-ON862581B1.00153196-862581B1.0015746A@notes.na.collabserv.com>
- <CALLMt=pT-oPiQr0V0_CQd_eOEkyYsSncH1_dS-Jjhkbd7+VvWw@mail.gmail.com>
- <CAARXrt=tOkNnEoOaUPkQtUVDqOoq__4aqdqrA7tH2y0SXWnddw@mail.gmail.com>
- <1507691558.5452.172.camel@aj.id.au>
- <CAARXrt=O-dNH=Lt+vkQdCH_dF6xtS7aE8pqZn-BNMA7dgTeR9g@mail.gmail.com>
- <CALLMt=ri4td=9C6av3jHchZwckffmPdxYkztj1qCav2WMmd3Jg@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-fDlxB1vSqOKXrJHuF9Iq"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yCkgw37qtzDqJ7
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Oct 2017 08:36:43 +1100 (AEDT)
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 12 Oct 2017 14:36:41 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.43,368,1503385200"; d="scan'208";a="159902420"
+Received: from mauery.jf.intel.com (HELO mauery) ([10.7.150.164])
+ by orsmga005.jf.intel.com with ESMTP; 12 Oct 2017 14:36:41 -0700
+Date: Thu, 12 Oct 2017 14:36:41 -0700
+From: Vernon Mauery <vernon.mauery@linux.intel.com>
+To: Xo Wang <xow@google.com>
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>,
+ OpenBMC Development <openbmc@lists.ozlabs.org>,
+ Tom Joseph <tomjoseph@in.ibm.com>
+Subject: Re: phosphor-host-ipmid and phosphor-net-ipmid architecture
+Message-ID: <20171012213641.GB17014@mauery>
+References: <20171011220548.GA61269@mauery>
+ <1173E291-E8F5-4828-82CA-7B8BAC249B53@fuzziesquirrel.com>
+ <CAPH-5w7Kyv_GeZt=DHoYSPKJp5AjoJCUFkAwYEgVo7XpacGTUw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CAPH-5w7Kyv_GeZt=DHoYSPKJp5AjoJCUFkAwYEgVo7XpacGTUw@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -74,42 +43,96 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Oct 2017 21:32:41 -0000
+X-List-Received-Date: Thu, 12 Oct 2017 21:36:45 -0000
 
+On 12-Oct-2017 09:25 AM, Xo Wang wrote:
+> On Thu, Oct 12, 2017 at 9:03 AM, Brad Bishop
+> <bradleyb@fuzziesquirrel.com> wrote:
+> >
+> >> On Oct 11, 2017, at 6:05 PM, Vernon Mauery <vernon.mauery@linux.intel.=
+com> wrote:
+> >>
+> >> I am working on an ipmi provider library and had a few questions and
+> >> observations.
+> >>
+> >> 1) Why are there separate ipmi message queues for the host and network?
+> >
+> > iirc it was so that you could have a different set of providers
+> > registered for each channel or even different, channel specific
+> > implementations for the same command.
+> >
+>=20
+> The reasoning here also derives from the "build the distro as you like
+> it" approach. If you don't want a network interface to the BMC, then
+> you can simply not build it or its handlers.
+>=20
+> Of course we could write a single queue service for both host and
+> network that can be configured and built to support only one, but that
+> puts the onus on architecting and testing that service to ensure the
+> all three configurations all work independently.
 
---=-fDlxB1vSqOKXrJHuF9Iq
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+What about a ipmi queue library or something that handles loading the=20
+appropriate provider libraries (based on some path) and then manages the=20
+incoming messages. We have two separate queue implementations between=20
+net-ipmi and host-ipmi; we could simplify this so the behavior is the=20
+same between the two.
 
-On Thu, 2017-10-12 at 12:52 -0500, Andrew Geissler wrote:
-> Lets do this!=C2=A0 Any proposal on the repo name Andrew J?=C2=A0 openbmc=
--tools?
+> >>   It seems awkward that for the host, the ipmi request comes from a
+> >>   different process (btbridge, or in our case kcsbridge), while for the
+> >>   network (RMCP+), the messages are handled directly in the same
+> >>   process.
+> >
+> > Is it still awkward if you accept the two queue approach?  The
+> > additional layer is needed for the bt/kcs -> host-ipmid
+> > abstraction.  No such abstraction is needed for network.
+> >
+> >>
+> >>   It seems that the network handler could just as easily package the
+> >>   command up and send it to ipmid the same way that btbridge does.
+> >>
+> >> 2) Can we modify the signature of the handlers so that they can behave
+> >>   in a more intelligent manner? It would be nice if they were handed a
+> >>   gsl::span<uint8_t> instead of a void* and a length. This allows for
+> >>   a no-copy, bounds-checked way of passing buffers.
+> >
+> > sounds good to me!
+> >
+>=20
+> We can use more intelligent (safer) data passing throughout phosphor code=
+=2E :)
 
-Sounds reasonable to me, can you create it?
+I will probably start with changes like this that pull me gently into=20
+the code.
 
-Cheers,
+> >>
+> >>   It would be nice to know what channel something came in on. We might
+> >>   want to be able to change behavior based on the incoming channel (as
+> >>   some channels are more secure than others).
+> >
+> > I think the separate message queues solves this need; however, doing
+> > this need not be mutually exclusive of having separate queues if that
+> > enables another use case we don=E2=80=99t support today.
+> >
+> > I=E2=80=99m not totally stuck on two queues.  Especially if some altern=
+ative
+> > maintains the same level of flexibility.  The motivation for a single
+> > queue isn=E2=80=99t clear yet to me though - without more discussion it=
+ sounds
+> > like we=E2=80=99d end up with the same capability we already have=E2=80=
+=A6so why bother?
+> >
+>=20
+> One set of cases is where a host might have multiple interfaces to the
+> BMC (e.g. BT and SSIF).
+>=20
+> I can't immediately think of why a provider might want to respond to a
+> command differently based on what host interface it came on, but maybe
+> somebody else can.
 
-Andrew
---=-fDlxB1vSqOKXrJHuF9Iq
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+We have two kcs interfaces that in theory are supposed to have different=20
+behavior: one is from the host and can have reasonable latency, the=20
+other is the kcs that the BIOS would use during an SMI and needs to have=20
+minimal latency. That being said, I am not sure if this feature is still=20
+used at this time. You said you were looking for a use case. :)
 
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJZ399qAAoJEJ0dnzgO5LT5DccQAKaipCFwr0xHa8VU1iPz6/kV
-OhSpiIQfPxSJ+FISwoXRNnmF8xmGE7fTn1cbkouF/mWMbK9pHIQuoC2RdYc1LhCB
-e2ImuE2HbFYAoSb5amhPAs/8KQMBShOquLrwDehrg6KiXzFefd4fRe/46R5/Jjhy
-tZnAbS+kmbP5oIKPtqN/KZ78uohMEKCvsZR687dmfhtRyKYd19qgPj/fKS9EgV/n
-iY8Deb2VdyoZqIUb8n2YJNa3MQ3GjV05sMo1rxRhTWPKkUC8h0eTSGSuzC9SeWh+
-A6OQ+BtswjqoZQ0JOuemHSnsyuv1Drh3GVvt57kJtb4fW/u2BIvshaq9lUVIidaa
-/6KR0QCRWgs7aJ3rAn82iaqvBTCw8oQ3EaemYZGQAI/Jzn/Z34fgSfGlya71SFVw
-1xKQfnpuS9fKOnmKQg++IKD49mFtcE2OP9bnhZThUpPVXGarTiERrHED2il/C0SS
-Pzl/AbS5mhp8F2XIF0cZcA8D3+7mYLIK6aMG03tPr843qlQrXoNGVhxW8SOGmn2d
-GCpcm/WPPfDUJ8w6qY0UXDgRQ++DgXgSg3gAuV7ruNGE6ABPZbAZ5ksgwlVPtI9Z
-RCTepk7ZtqEEgudJ4838pYXvIw5JFdMPubMlTDH6qFWpipfExfKuJx/Rl+C39Ax3
-Ikm+kI5OuIy6Yv0VF9MS
-=jSPW
------END PGP SIGNATURE-----
-
---=-fDlxB1vSqOKXrJHuF9Iq--
+--Vernon
