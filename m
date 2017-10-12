@@ -1,57 +1,61 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Return-Path: <mine260309@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c06::22a; helo=mail-io0-x22a.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="UZCstGFk"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="OGexptO5"; dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="jym608dB"; 
+ dkim-atps=neutral
+Received: from mail-io0-x22a.google.com (mail-io0-x22a.google.com
+ [IPv6:2607:f8b0:4001:c06::22a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yCJqh3TvdzDqJ7
- for <openbmc@lists.ozlabs.org>; Thu, 12 Oct 2017 16:11:59 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 5C61B20840;
- Thu, 12 Oct 2017 01:11:57 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Thu, 12 Oct 2017 01:11:57 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:message-id:mime-version:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=ND1iE019yxXiVnv59
- 14qbvxOoifEj4WXzI7to7MVeYk=; b=UZCstGFkyNuZJlY+A1uKJ2kAl/AWGQOzs
- /ZUtvMi8QgbC6J02DcowRqnjlDIjkwq0LNbbcG0Ds1SJS+cGZ/1NaCSTZeDWD2eg
- pmYWuXJC7dsewHgps91peG8a543uJQHfEneXD9amfVbkwvpTsHr6/QbTodzPvYeT
- +u9U4Hru1nZ1uY5naFOi0hnBWQK2sJzDz7UjOS9Yf5Gv0mVy1lB/FrD+oHnE4i+Q
- ZVmT5PeGM8f4HhTScHpMyfdJTuPQnv6o657W7etm4gSzvMbFAlRx9v591rQ9SwqD
- lXcksppbVQDmAw8zGw0dw60hf61WB/31/SXpHpIqO49vVDKbi4MDg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:message-id
- :mime-version:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=ND1iE019yxXiVnv5914qbvxOoifEj4WXzI7to7MVeYk=; b=OGexptO5
- VCOLCQkTZWCdclUwfg6wvetHy7laBdzmE3+LBZCiwc7ps5nTFpj2IuVKEgSd3apm
- 1b9UdwN8VG842YKzMwLH9MX52TB3ZlRTu1uINOYqgWPZ6l24jN+PrsK/Ia9CDvYb
- NQsWXvvfq8k+0l2EmyRBqAe+H7z9jc/sUSUKNvfE38X19VoevTlli/GqtR832Tvg
- +Un9bv8WDOll693jcdSciJvnGf93O69RvpUamg7+ZRnCuPkQaIr+3X7hMOrBX+zl
- WT3McuMy3JFFVZ1zEVF/59cZkU8w4oPnesu7lKjs2mCVswHWAMRv/c+d8SRod5fr
- aJhklnZOx8qjtg==
-X-ME-Sender: <xms:nfneWSjP-26MyquSpD0_VRvJ6gDiJKe5-b1PC2OXtLrsOO2WjAxYRg>
-Received: from keelia23 (220-253-53-78.dyn.iinet.net.au [220.253.53.78])
- by mail.messagingengine.com (Postfix) with ESMTPA id 0DDEB7E3E2;
- Thu, 12 Oct 2017 01:11:54 -0400 (EDT)
-Message-ID: <1507785108.5452.185.camel@aj.id.au>
-Subject: New options for `obmcutil`
-From: Andrew Jeffery <andrew@aj.id.au>
-To: openbmc@lists.ozlabs.org
-Cc: bradleyb@fuzziesquirrel.com, Andrew Geissler <geissonator@gmail.com>, 
- gkeishin@in.ibm.com, bjwyman@gmail.com
-Date: Thu, 12 Oct 2017 15:41:48 +1030
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-L+bKr0bncaTpHutW016P"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yCLgH73SPzDqJ7;
+ Thu, 12 Oct 2017 17:34:49 +1100 (AEDT)
+Received: by mail-io0-x22a.google.com with SMTP id 134so155398ioo.0;
+ Wed, 11 Oct 2017 23:34:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=8b+hNzlzTtGhsTdTJi2JP+96TrERsLeqU1TVlsuJsPI=;
+ b=jym608dBdSsV3hcUeW7MTWNe/dyTNXRBw8s5DXoffVkDMbU0v+ivaC2t/ahOcBJM3C
+ fLJtdOGyIp4iGqXETtpW/y1MVBRUnDpJ3tREtkaUrjvkbtZjXjh1qJ6dFw8PJtLf0hqF
+ ImQ2ncncxYuaT6kNckCKuSWCNI4uTmUTV3+Vez1auVbOILfo9bZAyTlL/zDQr6d+0ZVI
+ IooLCnYkechdamgcYuGWVtaVJ4IwVaXvIviEGPCJFj+4WIVsuqV9S3jttggNOMrMIvek
+ cm5oilmUpoY/eR47AR+Ja7b1/KLGcAo8K2FbhixFnz8t2A6irioU4gRBfRklS1nb99qn
+ A37A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=8b+hNzlzTtGhsTdTJi2JP+96TrERsLeqU1TVlsuJsPI=;
+ b=AqJ3YO1Szsj/ofUBpBjOpm1xRZGylZ/wJlrTewasoDEBYnCV2rknGQYu/pvOVFmZL0
+ KkYb8ZHrwUtvped/b3zL0Imn1LnlIZ6g/ru3PICFbf/1VPNDsBwaKovvYXpxbnpW4Q5y
+ +EwVLw9ca5pNrkbdCCSCLnFPh3omS0scQfaCyxYrk6DFR290cVGZgxth1/VSxYmJQPY8
+ vFhSVVEjeE809xPRjodhrI7J7TmpijYNvSw0fbnbZi9Pw1cry6znq4OGto37HsQUXzvc
+ C/i/XDP9OZllfp4t/7kysSz1Dc2Oxi2F9QFaJV3KIOac42uf8TvAoQRYMBprBViU1W4G
+ t+8w==
+X-Gm-Message-State: AMCzsaW0Uoxt6ABxucKAwoV+pK34SYWtbi86wYLTX90gGE1WC1JNE+JE
+ 1X8MtUcs4Ac6UzL++jq2UHquIRCGUV4edk22qVg=
+X-Google-Smtp-Source: AOwi7QDtPI/OM++U4zrKv5rKowqZL7keiXHn5WVpA8+MrdX0rfk8DwCK7Ktj4+W2lETRjhEepxXpjhs1ym7X07ks5wg=
+X-Received: by 10.107.168.205 with SMTP id e74mr1834149ioj.42.1507790087125;
+ Wed, 11 Oct 2017 23:34:47 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.79.196.9 with HTTP; Wed, 11 Oct 2017 23:34:46 -0700 (PDT)
+In-Reply-To: <1507691558.5452.172.camel@aj.id.au>
+References: <1507254940.5452.129.camel@aj.id.au>
+ <OFDFEB18C7.4CBB979B-ON002581B1.000FD8A2@LocalDomain>
+ <OF921CDA64.CB068039-ON862581B1.00153196-862581B1.0015746A@notes.na.collabserv.com>
+ <CALLMt=pT-oPiQr0V0_CQd_eOEkyYsSncH1_dS-Jjhkbd7+VvWw@mail.gmail.com>
+ <CAARXrt=tOkNnEoOaUPkQtUVDqOoq__4aqdqrA7tH2y0SXWnddw@mail.gmail.com>
+ <1507691558.5452.172.camel@aj.id.au>
+From: Lei YU <mine260309@gmail.com>
+Date: Thu, 12 Oct 2017 14:34:46 +0800
+Message-ID: <CAARXrt=O-dNH=Lt+vkQdCH_dF6xtS7aE8pqZn-BNMA7dgTeR9g@mail.gmail.com>
+Subject: Re: OpenBMC helper scripts repositories
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Andrew Geissler <geissonator@gmail.com>, Chris Austen <austenc@us.ibm.com>,
+ openbmc <openbmc-bounces+austenc=us.ibm.com@lists.ozlabs.org>, 
+ OpenBMC <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -63,77 +67,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Oct 2017 05:12:03 -0000
+X-List-Received-Date: Thu, 12 Oct 2017 06:34:54 -0000
 
+On Wed, Oct 11, 2017 at 11:12 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> On Tue, 2017-10-10 at 09:55 +0800, Lei YU wrote:
+>> Vote+1
+>>
+>> I always wanted such a repo to put common/shared scripts together.
+>
+> Great, it seems there's a fair bit of consensus on this. Did you have
+> any scripts of your own that we could pull in?
 
---=-L+bKr0bncaTpHutW016P
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Yup, I have "upload_and_update.py" that do the code upload/update.
+Though it only works on non-ubi-fs systems.
+https://gist.github.com/mine260309/21ceff0f69b42df0ef12a85c83ec01c3
 
-Hello,
+>
+>>
+>> And even more, what about a repo that collects the common/shared code
+>> (C/C++)?
+>
+> I feel this is a different undertaking, something that should be
+> addressed separately from what I'm proposing. My move-fast-and-break-
+> things model doesn't really gel with developing the low-level libraries
+> you're talking about here.
 
-I've got a patch-series that reworks `obmcutil` to remove some cruft,
-use some more standard python techniques and also to add some new
-commandline options that make it more effective (at least, in my
-opinion).
+Sure, let's focus on the scripts for now.
 
-The series does remove some truly esoteric capabilities, but I expect
-those who care (if anyone) can do the job in other ways (e.g.
-`busctl`). All the 'normal' commands are retained, i.e:
-
-* {power,chassis}{on,off}
-* {bmc,chassis,host,}state
-* bootprogress
-* power
-
-If you're keen to review it, the series is here:
-
-https://gerrit.openbmc-project.xyz/#/q/project:openbmc/skeleton+branch:mast=
-er+topic:obmcutil-rework
-
-The essence of the series for end users is:
-
-1. `obmcutil` will now block rather than die with an exception when
-invoked before necessary objects are available on DBus:
-
-    https://gerrit.openbmc-project.xyz/7276
-
-2. There is now a --wait option to make it block until a command is
-complete, and give an appropriate exit status:
-
-    https://gerrit.openbmc-project.xyz/7257/
-
-2. And there is a --verbose option, which largely exists to complement
---wait, which will dump the journal to stdout until the command is
-complete:
-
-    https://gerrit.openbmc-project.xyz/7258
-
-If you're interested, please review!
-
-Cheers,
-
-Andrew
---=-L+bKr0bncaTpHutW016P
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJZ3vmUAAoJEJ0dnzgO5LT5ooIQAILvFP9dASOAdYzYEQfb5qR0
-D1vQ93D8KWLlO784u/Q4q2ZveJ241elUrRE2hfInqigYqMqkc2RqPe9XBDINNG9O
-LB5L5c2/UmggCQmpZXkTY2XZtNOTVlPJE3eBcB3Po1Ag4STszwNlpOISpQeRU5uY
-ygcx4ireaq1g6NHQzzwT9kicWxatygTtGUdL1X2sQXrquKWcSeAzydtOYSc5XA9S
-g0tyrJToFL78ygfOvq+icf3BfMHjb6a1kJLsc9A/l1riW6yd+94msLDOKh7kCyUd
-Gr3jgdV1H0Vw3MehJDoXvyPesAhplSdMNcqp03msE1xq2dsl2f65mHcXaJWR7AKY
-jo6SRuGZihOGBwnwwx2VjqufvxB1bTfuKWCda2eUiqqpFF/feZD20ztfbFTpxJmb
-sXJIBPs8KFaP+yeWLRqmWQe7uwq++2FUNUWPx63jQl/c+3RX/tSed7Pwcg2Z8onU
-/1IP8HaFcFs4eVnTDoR8uhv3D0Y9vr3JbPWOn6pkxaa4L4wz9jN/bOX0eBcps2K8
-tj4HQtbEtqa2VnROH1d8hNGj6uIofgD0IDrWxMdv3AmpEnRGPYQYshq62djIAoWG
-eb6KU5bVMjc+5cA1lrrTTNvhFbTluaWGKPCPPGJjRXeO9G/w2PnC3bRNy6toJHl3
-Jy4zjYK2SNbuXm/0MULW
-=m81U
------END PGP SIGNATURE-----
-
---=-L+bKr0bncaTpHutW016P--
+>
+> Cheers,
+>
+> Andrew
