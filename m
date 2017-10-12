@@ -1,66 +1,31 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yCbCQ0ZKyzDr4T
- for <openbmc@lists.ozlabs.org>; Fri, 13 Oct 2017 03:00:01 +1100 (AEDT)
-Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v9CFxGpH025031
- for <openbmc@lists.ozlabs.org>; Thu, 12 Oct 2017 11:59:58 -0400
-Received: from e19.ny.us.ibm.com (e19.ny.us.ibm.com [129.33.205.209])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2djac53j3w-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 12 Oct 2017 11:59:58 -0400
-Received: from localhost
- by e19.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 12 Oct 2017 11:59:57 -0400
-Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
- by e19.ny.us.ibm.com (146.89.104.206) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 12 Oct 2017 11:59:56 -0400
-Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
- [9.57.199.111])
- by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v9CFxtZK35520630; Thu, 12 Oct 2017 15:59:55 GMT
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 25026AC043;
- Thu, 12 Oct 2017 12:00:35 -0400 (EDT)
-Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
- by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id CD8F6AC040;
- Thu, 12 Oct 2017 12:00:34 -0400 (EDT)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10] drivers: fsi: occ: Fix errno for canceling a
- read operation
-Date: Thu, 12 Oct 2017 10:59:53 -0500
-X-Mailer: git-send-email 1.8.3.1
-X-TM-AS-GCONF: 00
-x-cbid: 17101215-0056-0000-0000-000003D903D9
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007886; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000236; SDB=6.00930129; UDB=6.00468203; IPR=6.00710397; 
- BA=6.00005635; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017508; XFM=3.00000015;
- UTC=2017-10-12 15:59:57
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17101215-0057-0000-0000-000008100660
-Message-Id: <1507823993-23017-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-10-12_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
- definitions=main-1710120229
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yCbHF0psjzDr4T
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Oct 2017 03:03:19 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Received: from [192.168.253.30] (unknown [192.168.253.30])
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 6E6B8161EBE;
+ Thu, 12 Oct 2017 12:03:13 -0400 (EDT)
+Content-Type: text/plain; charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: Re: phosphor-host-ipmid and phosphor-net-ipmid architecture
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <20171011220548.GA61269@mauery>
+Date: Thu, 12 Oct 2017 12:03:13 -0400
+Cc: OpenBMC Development <openbmc@lists.ozlabs.org>,
+ Tom Joseph <tomjoseph@in.ibm.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <1173E291-E8F5-4828-82CA-7B8BAC249B53@fuzziesquirrel.com>
+References: <20171011220548.GA61269@mauery>
+To: Vernon Mauery <vernon.mauery@linux.intel.com>
+X-Mailer: Apple Mail (2.3273)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -72,33 +37,121 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Oct 2017 16:00:02 -0000
+X-List-Received-Date: Thu, 12 Oct 2017 16:03:21 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
 
-Should not return -ECANCELED when the device has been removed. Instead,
-use -ENODEV.
+> On Oct 11, 2017, at 6:05 PM, Vernon Mauery =
+<vernon.mauery@linux.intel.com> wrote:
+>=20
+> I am working on an ipmi provider library and had a few questions and=20=
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
----
- drivers/fsi/occ.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+> observations.
+>=20
+> 1) Why are there separate ipmi message queues for the host and =
+network?=20
 
-diff --git a/drivers/fsi/occ.c b/drivers/fsi/occ.c
-index 2e64ee2..1fe1a54 100644
---- a/drivers/fsi/occ.c
-+++ b/drivers/fsi/occ.c
-@@ -240,8 +240,10 @@ static ssize_t occ_read_common(struct occ_client *client, char __user *ubuf,
- 		spin_lock_irq(&client->lock);
- 
- 		if (!test_bit(XFR_COMPLETE, &xfr->flags)) {
--			if (occ->cancel || test_bit(XFR_CANCELED, &xfr->flags))
-+			if (test_bit(XFR_CANCELED, &xfr->flags))
- 				rc = -ECANCELED;
-+			else if (occ->cancel)
-+				rc = -ENODEV;
- 			else
- 				rc = -EINTR;
- 
--- 
-1.8.3.1
+iirc it was so that you could have a different set of providers
+registered for each channel or even different, channel specific
+implementations for the same command.
+
+>   It seems awkward that for the host, the ipmi request comes from a=20
+>   different process (btbridge, or in our case kcsbridge), while for =
+the=20
+>   network (RMCP+), the messages are handled directly in the same=20
+>   process.
+
+Is it still awkward if you accept the two queue approach?  The=20
+additional layer is needed for the bt/kcs -> host-ipmid
+abstraction.  No such abstraction is needed for network.
+
+>=20
+>   It seems that the network handler could just as easily package the=20=
+
+>   command up and send it to ipmid the same way that btbridge does.
+>=20
+> 2) Can we modify the signature of the handlers so that they can behave=20=
+
+>   in a more intelligent manner? It would be nice if they were handed a=20=
+
+>   gsl::span<uint8_t> instead of a void* and a length. This allows for =20=
+
+>   a no-copy, bounds-checked way of passing buffers.
+
+sounds good to me!
+
+>=20
+>   It would be nice to know what channel something came in on. We might=20=
+
+>   want to be able to change behavior based on the incoming channel (as=20=
+
+>   some channels are more secure than others).
+
+I think the separate message queues solves this need; however, doing
+this need not be mutually exclusive of having separate queues if that
+enables another use case we don=E2=80=99t support today.
+
+I=E2=80=99m not totally stuck on two queues.  Especially if some =
+alternative
+maintains the same level of flexibility.  The motivation for a single
+queue isn=E2=80=99t clear yet to me though - without more discussion it =
+sounds
+like we=E2=80=99d end up with the same capability we already have=E2=80=A6=
+so why bother?
+
+>=20
+>   It would be nice to know what IPMI privilege the command came in=20
+>   with (ADMIN for session-less commands) so that the command handler=20=
+
+>   can behave appropriately based on the user.
+
+Makes sense.
+
+>=20
+> 3) When registering commands, it would be nice of the list also=20
+>   maintained a priority so that commands could be easily overridden.=20=
+
+>   Currently the only way to override a command is to make sure that=20
+>   your library gets loaded first (and this is done via the library=20
+>   name). If we had default ipmi commands loaded at DEFAULT_PRIO and=20
+>   then had some higher priorities such as MFR_PRIO, and OEM_PRIO, or=20=
+
+>   something like that, we could have integrators further on down the=20=
+
+>   line able to easily add a new provider library and piecemeal =
+override=20
+>   individual command. An alternate (or addition) might be the addition=20=
+
+>   of a unregister command method to remove an existing command so it=20=
+
+>   could be replaced with a new one (or just straight up removed).
+
+The intent is that everything in OpenBMC is overridable by an =
+integrator.
+We provide a reasonable =E2=80=98reference=E2=80=99 implementation but =
+can be replaced
+with something else via a bitbake layer.  At image construction time.
+
+I think you are proposing a setup where an image has multiple providers
+for the same command, and the =E2=80=98reference=E2=80=99 has a low =
+priority.  In their
+bitbake layer, an integrator could _add_ another provider with higher
+priority, which would be selected to handle the command since it has
+the higher priority.
+
+That makes sense, but why wouldn=E2=80=99t an integrator just _replace_ =
+the
+reference in an image with the custom integrator provider?  This type
+of thing is exactly why we are a bitbake distro.
+
+I hope you don=E2=80=99t have a good answer to this :-) as one of my =
+goals is
+to try move runtime complexity into the build process as much as we can.
+
+>=20
+>=20
+> I am happy to work on changes that I would like to see and submit=20
+> patches for review, but I wanted to know if there was some sort of=20
+> historical or other reason that would prevent my work from getting=20
+> rejected before I actually do the work.
+>=20
+> --Vernon
