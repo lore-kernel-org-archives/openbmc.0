@@ -1,65 +1,35 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <vernon.mauery@linux.intel.com>
 Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.93; helo=mga11.intel.com;
+ envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yCjTS2QMZzDr9F
- for <openbmc@lists.ozlabs.org>; Fri, 13 Oct 2017 07:42:35 +1100 (AEDT)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v9CKdmeU125116
- for <openbmc@lists.ozlabs.org>; Thu, 12 Oct 2017 16:42:31 -0400
-Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2djegkjp4e-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 12 Oct 2017 16:42:31 -0400
-Received: from localhost
- by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 12 Oct 2017 14:42:30 -0600
-Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
- by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 12 Oct 2017 14:42:27 -0600
-Received: from b03ledav002.gho.boulder.ibm.com
- (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v9CKgRf364880674; Thu, 12 Oct 2017 13:42:27 -0700
-Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0547F136043;
- Thu, 12 Oct 2017 14:42:27 -0600 (MDT)
-Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
- by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id B07B5136046;
- Thu, 12 Oct 2017 14:42:26 -0600 (MDT)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, andrew@aj.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10] drivers: i2c: fsi: Add proper abort method
-Date: Thu, 12 Oct 2017 15:42:24 -0500
-X-Mailer: git-send-email 1.8.3.1
-X-TM-AS-GCONF: 00
-x-cbid: 17101220-0008-0000-0000-000008B478B9
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007886; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000236; SDB=6.00930223; UDB=6.00468256; IPR=6.00710489; 
- BA=6.00005635; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017512; XFM=3.00000015;
- UTC=2017-10-12 20:42:28
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17101220-0009-0000-0000-000044568828
-Message-Id: <1507840944-421-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-10-12_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
- definitions=main-1710120293
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yCkFz00z9zDr9F
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Oct 2017 08:17:37 +1100 (AEDT)
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 12 Oct 2017 14:17:31 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.43,368,1503385200"; d="scan'208";a="1024623191"
+Received: from mauery.jf.intel.com (HELO mauery) ([10.7.150.164])
+ by orsmga003.jf.intel.com with ESMTP; 12 Oct 2017 14:17:31 -0700
+Date: Thu, 12 Oct 2017 14:17:31 -0700
+From: Vernon Mauery <vernon.mauery@linux.intel.com>
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: OpenBMC Development <openbmc@lists.ozlabs.org>,
+ Tom Joseph <tomjoseph@in.ibm.com>
+Subject: Re: phosphor-host-ipmid and phosphor-net-ipmid architecture
+Message-ID: <20171012211731.GA17014@mauery>
+References: <20171011220548.GA61269@mauery>
+ <1173E291-E8F5-4828-82CA-7B8BAC249B53@fuzziesquirrel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <1173E291-E8F5-4828-82CA-7B8BAC249B53@fuzziesquirrel.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -71,340 +41,143 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Oct 2017 20:42:36 -0000
+X-List-Received-Date: Thu, 12 Oct 2017 21:17:43 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
+On 12-Oct-2017 12:03 PM, Brad Bishop wrote:
+>=20
+> > On Oct 11, 2017, at 6:05 PM, Vernon Mauery <vernon.mauery@linux.intel.c=
+om> wrote:
+> >=20
+> > I am working on an ipmi provider library and had a few questions and=20
+> > observations.
+> >=20
+> > 1) Why are there separate ipmi message queues for the host and network?=
+=20
+>=20
+> iirc it was so that you could have a different set of providers
+> registered for each channel or even different, channel specific
+> implementations for the same command.
 
-Driver wasn't cleaning up on timeout or in an error situation properly.
-Need to do a full reset if we fail in order to re-stablish a good state
-of the engine.
+Okay, that makes sense. This is just a mindset change for me. :) In my=20
+head I was separating the providers by command group. I just need to=20
+make sure that we are also separating them by interface if that matters=20
+so they can only get registered in a single queue.
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
----
- drivers/i2c/busses/i2c-fsi.c | 259 +++++++++++++++++++++++++++++++------------
- 1 file changed, 191 insertions(+), 68 deletions(-)
+> >   It seems awkward that for the host, the ipmi request comes from a=20
+> >   different process (btbridge, or in our case kcsbridge), while for the=
+=20
+> >   network (RMCP+), the messages are handled directly in the same=20
+> >   process.
+>=20
+> Is it still awkward if you accept the two queue approach?  The=20
+> additional layer is needed for the bt/kcs -> host-ipmid
+> abstraction.  No such abstraction is needed for network.
 
-diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
-index 1af9c01..6c582d8 100644
---- a/drivers/i2c/busses/i2c-fsi.c
-+++ b/drivers/i2c/busses/i2c-fsi.c
-@@ -133,6 +133,11 @@
- #define I2C_ESTAT_SELF_BUSY	0x00000040
- #define I2C_ESTAT_VERSION	0x0000001f
- 
-+#define I2C_PORT_BUSY_RESET	0x80000000
-+
-+#define I2C_LOCAL_WAIT_TIMEOUT	2		/* jiffies */
-+#define I2C_ABORT_TIMEOUT	msecs_to_jiffies(100)
-+
- struct fsi_i2c_master {
- 	struct fsi_device	*fsi;
- 	u8			fifo_size;
-@@ -351,22 +356,185 @@ static int fsi_i2c_read_fifo(struct fsi_i2c_port *port, struct i2c_msg *msg,
- 	return rc;
- }
- 
-+static int fsi_i2c_reset_bus(struct fsi_i2c_master *i2c)
-+{
-+	int i, rc;
-+	u32 mode, dummy = 0;
-+
-+	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_MODE, &mode);
-+	if (rc)
-+		return rc;
-+
-+	mode |= I2C_MODE_DIAG;
-+	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
-+	if (rc)
-+		return rc;
-+
-+	for (i = 0; i < 9; ++i) {
-+		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SCL, &dummy);
-+		if (rc)
-+			return rc;
-+
-+		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SCL, &dummy);
-+		if (rc)
-+			return rc;
-+	}
-+
-+	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SCL, &dummy);
-+	if (rc)
-+		return rc;
-+
-+	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SDA, &dummy);
-+	if (rc)
-+		return rc;
-+
-+	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SCL, &dummy);
-+	if (rc)
-+		return rc;
-+
-+	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SDA, &dummy);
-+	if (rc)
-+		return rc;
-+
-+	mode &= ~I2C_MODE_DIAG;
-+	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
-+
-+	return rc;
-+}
-+
-+static int fsi_i2c_reset(struct fsi_i2c_master *i2c, u16 port)
-+{
-+	int rc;
-+	u32 mode, stat, dummy = 0;
-+
-+	/* reset engine */
-+	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_I2C, &dummy);
-+	if (rc)
-+		return rc;
-+
-+	/* re-init engine */
-+	rc = fsi_i2c_dev_init(i2c);
-+	if (rc)
-+		return rc;
-+
-+	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_MODE, &mode);
-+	if (rc)
-+		return rc;
-+
-+	/* set port; default after reset is 0 */
-+	if (port) {
-+		mode = SETFIELD(I2C_MODE_PORT, mode, port);
-+		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
-+		if (rc)
-+			return rc;
-+	}
-+
-+	/* reset busy register; hw workaround */
-+	dummy = I2C_PORT_BUSY_RESET;
-+	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_PORT_BUSY, &dummy);
-+	if (rc)
-+		return rc;
-+
-+	/* force bus reset */
-+	rc = fsi_i2c_reset_bus(i2c);
-+	if (rc)
-+		return rc;
-+
-+	/* reset errors */
-+	dummy = 0;
-+	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_ERR, &dummy);
-+	if (rc)
-+		return rc;
-+
-+	/* wait for command complete */
-+	set_current_state(TASK_INTERRUPTIBLE);
-+	schedule_timeout(I2C_LOCAL_WAIT_TIMEOUT);
-+
-+	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_STAT, &stat);
-+	if (rc)
-+		return rc;
-+
-+	if (stat & I2C_STAT_CMD_COMP)
-+		return 0;
-+
-+	/* failed to get command complete; reset engine again */
-+	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_I2C, &dummy);
-+	if (rc)
-+		return rc;
-+
-+	/* re-init engine again */
-+	rc = fsi_i2c_dev_init(i2c);
-+	if (rc)
-+		return rc;
-+
-+	return 0;
-+}
-+
-+static int fsi_i2c_abort(struct fsi_i2c_port *port, u32 status)
-+{
-+	int rc;
-+	unsigned long start;
-+	u32 cmd = I2C_CMD_WITH_STOP;
-+	struct fsi_device *fsi = port->master->fsi;
-+
-+	rc = fsi_i2c_reset(port->master, port->port);
-+	if (rc)
-+		return rc;
-+
-+	/* skip final stop command for these errors */
-+	if (status & (I2C_STAT_PARITY | I2C_STAT_LOST_ARB | I2C_STAT_STOP_ERR))
-+		return 0;
-+
-+	rc = fsi_i2c_write_reg(fsi, I2C_FSI_CMD, &cmd);
-+	if (rc)
-+		return rc;
-+
-+	start = jiffies;
-+
-+	do {
-+		rc = fsi_i2c_read_reg(fsi, I2C_FSI_STAT, &status);
-+		if (rc)
-+			return rc;
-+
-+		if (status & I2C_STAT_CMD_COMP)
-+			return 0;
-+
-+		set_current_state(TASK_INTERRUPTIBLE);
-+		if (schedule_timeout(I2C_LOCAL_WAIT_TIMEOUT) > 0)
-+			return -EINTR;
-+
-+	} while (time_after(start + I2C_ABORT_TIMEOUT, jiffies));
-+
-+	return -ETIME;
-+}
-+
- static int fsi_i2c_handle_status(struct fsi_i2c_port *port,
- 				 struct i2c_msg *msg, u32 status)
- {
- 	int rc;
- 	u8 fifo_count;
--	struct fsi_i2c_master *i2c = port->master;
--	u32 dummy = 0;
- 
- 	if (status & I2C_STAT_ERR) {
--		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_ERR, &dummy);
-+		rc = fsi_i2c_abort(port, status);
- 		if (rc)
- 			return rc;
- 
-+		if (status & I2C_STAT_INV_CMD)
-+			return -EINVAL;
-+
-+		if (status & (I2C_STAT_PARITY | I2C_STAT_BE_OVERRUN |
-+		    I2C_STAT_BE_ACCESS))
-+			return -EPROTO;
-+
- 		if (status & I2C_STAT_NACK)
- 			return -EFAULT;
- 
-+		if (status & I2C_STAT_LOST_ARB)
-+			return -ECANCELED;
-+
-+		if (status & I2C_STAT_STOP_ERR)
-+			return -EBADMSG;
-+
- 		return -EIO;
- 	}
- 
-@@ -396,9 +564,9 @@ static int fsi_i2c_handle_status(struct fsi_i2c_port *port,
- static int fsi_i2c_wait(struct fsi_i2c_port *port, struct i2c_msg *msg,
- 			unsigned long timeout)
- {
--	const unsigned long local_timeout = 2; /* jiffies */
- 	u32 status = 0;
--	int rc;
-+	int rc, rc_abort;
-+	unsigned long start = jiffies;
- 
- 	do {
- 		rc = fsi_i2c_read_reg(port->master->fsi, I2C_FSI_STAT,
-@@ -419,13 +587,21 @@ static int fsi_i2c_wait(struct fsi_i2c_port *port, struct i2c_msg *msg,
- 			continue;
- 		}
- 
--		set_current_state(TASK_UNINTERRUPTIBLE);
--		schedule_timeout(local_timeout);
--		timeout = (timeout < local_timeout) ? 0 :
--			timeout - local_timeout;
--	} while (timeout);
-+		set_current_state(TASK_INTERRUPTIBLE);
-+		if (schedule_timeout(I2C_LOCAL_WAIT_TIMEOUT) > 0) {
-+			rc = -EINTR;
-+			goto abort;
-+		}
-+	} while (time_after(start + timeout, jiffies));
- 
--	return -ETIME;
-+	rc = -ETIME;
-+
-+abort:
-+	rc_abort = fsi_i2c_abort(port, status);
-+	if (rc_abort)
-+		return rc_abort;
-+
-+	return rc;
- }
- 
- static int fsi_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
-@@ -469,72 +645,19 @@ static u32 fsi_i2c_functionality(struct i2c_adapter *adap)
- 		| I2C_FUNC_SMBUS_EMUL | I2C_FUNC_SMBUS_BLOCK_DATA;
- }
- 
--static int fsi_i2c_low_level_recover_bus(struct fsi_i2c_master *i2c)
--{
--	int i, rc;
--	u32 mode, dummy = 0;
--
--	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_MODE, &mode);
--	if (rc)
--		return rc;
--
--	mode |= I2C_MODE_DIAG;
--	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
--	if (rc)
--		return rc;
--
--	for (i = 0; i < 9; ++i) {
--		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SCL, &dummy);
--		if (rc)
--			return rc;
--
--		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SCL, &dummy);
--		if (rc)
--			return rc;
--	}
--
--	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SCL, &dummy);
--	if (rc)
--		return rc;
--
--	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SDA, &dummy);
--	if (rc)
--		return rc;
--
--	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SCL, &dummy);
--	if (rc)
--		return rc;
--
--	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SDA, &dummy);
--	if (rc)
--		return rc;
--
--	mode &= ~I2C_MODE_DIAG;
--	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
--
--	return rc;
--}
--
- static int fsi_i2c_recover_bus(struct i2c_adapter *adap)
- {
- 	int rc;
--	u32 dummy = 0;
- 	struct fsi_i2c_port *port = adap->algo_data;
--	struct fsi_i2c_master *i2c = port->master;
-+	struct fsi_i2c_master *master = port->master;
- 
--	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_I2C, &dummy);
-+	rc = fsi_i2c_lock_master(master, adap->timeout);
- 	if (rc)
- 		return rc;
- 
--	rc = fsi_i2c_dev_init(i2c);
--	if (rc)
--		return rc;
-+	rc = fsi_i2c_reset(master, port->port);
- 
--	rc = fsi_i2c_low_level_recover_bus(i2c);
--	if (rc)
--		return rc;
--
--	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_ERR, &dummy);
-+	fsi_i2c_unlock_master(master);
- 
- 	return rc;
- }
--- 
-1.8.3.1
+I guess it is weird to me that the network commands don't seem to get=20
+packaged up and sent across dbus, while they do for bt/kcs. Why don't=20
+the bt/kcs commands get processed in the same process instead of getting=20
+sent to ipmid. From the perspective of the command handlers in ipmid,=20
+they cannot tell if the channel is internal (on-bmc ipmitool) or the=20
+bt/kcs interface.
+
+Having multiple queues only makes sense to me if there is one for every=20
+channel. Alternately, one queue that passes the channel information in=20
+with each command.
+
+> >   It seems that the network handler could just as easily package the=20
+> >   command up and send it to ipmid the same way that btbridge does.
+> >=20
+> > 2) Can we modify the signature of the handlers so that they can behave=
+=20
+> >   in a more intelligent manner? It would be nice if they were handed a=
+=20
+> >   gsl::span<uint8_t> instead of a void* and a length. This allows for =
+=20
+> >   a no-copy, bounds-checked way of passing buffers.
+>=20
+> sounds good to me!
+>=20
+> >=20
+> >   It would be nice to know what channel something came in on. We might=
+=20
+> >   want to be able to change behavior based on the incoming channel (as=
+=20
+> >   some channels are more secure than others).
+>=20
+> I think the separate message queues solves this need; however, doing
+> this need not be mutually exclusive of having separate queues if that
+> enables another use case we don=E2=80=99t support today.
+>=20
+> I=E2=80=99m not totally stuck on two queues.  Especially if some alternat=
+ive
+> maintains the same level of flexibility.  The motivation for a single
+> queue isn=E2=80=99t clear yet to me though - without more discussion it s=
+ounds
+> like we=E2=80=99d end up with the same capability we already have=E2=80=
+=A6so why bother?
+
+If any of the ipmi commands have any state involved, then that state=20
+needs to either be duplicated between two queues or somehow=20
+synchronized. Neither situation is ideal if the size of the shared data=20
+is large. A single queue would not have this problem.
+
+But now that you mention the advantages of the multiple queues, it seems=20
+that neither situation is ideal. So maybe I will have to think some more=20
+on this one.
+
+> >   It would be nice to know what IPMI privilege the command came in=20
+> >   with (ADMIN for session-less commands) so that the command handler=20
+> >   can behave appropriately based on the user.
+>=20
+> Makes sense.
+>=20
+> >=20
+> > 3) When registering commands, it would be nice of the list also=20
+> >   maintained a priority so that commands could be easily overridden.=20
+> >   Currently the only way to override a command is to make sure that=20
+> >   your library gets loaded first (and this is done via the library=20
+> >   name). If we had default ipmi commands loaded at DEFAULT_PRIO and=20
+> >   then had some higher priorities such as MFR_PRIO, and OEM_PRIO, or=20
+> >   something like that, we could have integrators further on down the=20
+> >   line able to easily add a new provider library and piecemeal override=
+=20
+> >   individual command. An alternate (or addition) might be the addition=
+=20
+> >   of a unregister command method to remove an existing command so it=20
+> >   could be replaced with a new one (or just straight up removed).
+>=20
+> The intent is that everything in OpenBMC is overridable by an integrator.
+> We provide a reasonable =E2=80=98reference=E2=80=99 implementation but ca=
+n be replaced
+> with something else via a bitbake layer.  At image construction time.
+>=20
+> I think you are proposing a setup where an image has multiple providers
+> for the same command, and the =E2=80=98reference=E2=80=99 has a low prior=
+ity.  In their
+> bitbake layer, an integrator could _add_ another provider with higher
+> priority, which would be selected to handle the command since it has
+> the higher priority.
+>=20
+> That makes sense, but why wouldn=E2=80=99t an integrator just _replace_ t=
+he
+> reference in an image with the custom integrator provider?  This type
+> of thing is exactly why we are a bitbake distro.
+>=20
+> I hope you don=E2=80=99t have a good answer to this :-) as one of my goal=
+s is
+> to try move runtime complexity into the build process as much as we can.
+
+The only thing I can think of is if an integrator likes 75% of the=20
+commands in one of the base provider libraries but still wants to=20
+override 25% of the commands (or even just one).
+
+Pushing the configuration to the build is good. Maybe adding some way to=20
+enable/disable each command in the base providers at build time.=20
+Otherwise integrators would need to maintain a patch that disables the=20
+command the hard way.
+
+That said, this may not really be a huge deal since it is more likely=20
+that any commands integrators will be adding would be OEM commands that=20
+don't collide anyway.
+
+--Vernon
