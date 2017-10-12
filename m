@@ -1,61 +1,66 @@
-Return-Path: <mine260309@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c06::22a; helo=mail-io0-x22a.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="jym608dB"; 
- dkim-atps=neutral
-Received: from mail-io0-x22a.google.com (mail-io0-x22a.google.com
- [IPv6:2607:f8b0:4001:c06::22a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yCLgH73SPzDqJ7;
- Thu, 12 Oct 2017 17:34:49 +1100 (AEDT)
-Received: by mail-io0-x22a.google.com with SMTP id 134so155398ioo.0;
- Wed, 11 Oct 2017 23:34:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=8b+hNzlzTtGhsTdTJi2JP+96TrERsLeqU1TVlsuJsPI=;
- b=jym608dBdSsV3hcUeW7MTWNe/dyTNXRBw8s5DXoffVkDMbU0v+ivaC2t/ahOcBJM3C
- fLJtdOGyIp4iGqXETtpW/y1MVBRUnDpJ3tREtkaUrjvkbtZjXjh1qJ6dFw8PJtLf0hqF
- ImQ2ncncxYuaT6kNckCKuSWCNI4uTmUTV3+Vez1auVbOILfo9bZAyTlL/zDQr6d+0ZVI
- IooLCnYkechdamgcYuGWVtaVJ4IwVaXvIviEGPCJFj+4WIVsuqV9S3jttggNOMrMIvek
- cm5oilmUpoY/eR47AR+Ja7b1/KLGcAo8K2FbhixFnz8t2A6irioU4gRBfRklS1nb99qn
- A37A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=8b+hNzlzTtGhsTdTJi2JP+96TrERsLeqU1TVlsuJsPI=;
- b=AqJ3YO1Szsj/ofUBpBjOpm1xRZGylZ/wJlrTewasoDEBYnCV2rknGQYu/pvOVFmZL0
- KkYb8ZHrwUtvped/b3zL0Imn1LnlIZ6g/ru3PICFbf/1VPNDsBwaKovvYXpxbnpW4Q5y
- +EwVLw9ca5pNrkbdCCSCLnFPh3omS0scQfaCyxYrk6DFR290cVGZgxth1/VSxYmJQPY8
- vFhSVVEjeE809xPRjodhrI7J7TmpijYNvSw0fbnbZi9Pw1cry6znq4OGto37HsQUXzvc
- C/i/XDP9OZllfp4t/7kysSz1Dc2Oxi2F9QFaJV3KIOac42uf8TvAoQRYMBprBViU1W4G
- t+8w==
-X-Gm-Message-State: AMCzsaW0Uoxt6ABxucKAwoV+pK34SYWtbi86wYLTX90gGE1WC1JNE+JE
- 1X8MtUcs4Ac6UzL++jq2UHquIRCGUV4edk22qVg=
-X-Google-Smtp-Source: AOwi7QDtPI/OM++U4zrKv5rKowqZL7keiXHn5WVpA8+MrdX0rfk8DwCK7Ktj4+W2lETRjhEepxXpjhs1ym7X07ks5wg=
-X-Received: by 10.107.168.205 with SMTP id e74mr1834149ioj.42.1507790087125;
- Wed, 11 Oct 2017 23:34:47 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.79.196.9 with HTTP; Wed, 11 Oct 2017 23:34:46 -0700 (PDT)
-In-Reply-To: <1507691558.5452.172.camel@aj.id.au>
-References: <1507254940.5452.129.camel@aj.id.au>
- <OFDFEB18C7.4CBB979B-ON002581B1.000FD8A2@LocalDomain>
- <OF921CDA64.CB068039-ON862581B1.00153196-862581B1.0015746A@notes.na.collabserv.com>
- <CALLMt=pT-oPiQr0V0_CQd_eOEkyYsSncH1_dS-Jjhkbd7+VvWw@mail.gmail.com>
- <CAARXrt=tOkNnEoOaUPkQtUVDqOoq__4aqdqrA7tH2y0SXWnddw@mail.gmail.com>
- <1507691558.5452.172.camel@aj.id.au>
-From: Lei YU <mine260309@gmail.com>
-Date: Thu, 12 Oct 2017 14:34:46 +0800
-Message-ID: <CAARXrt=O-dNH=Lt+vkQdCH_dF6xtS7aE8pqZn-BNMA7dgTeR9g@mail.gmail.com>
-Subject: Re: OpenBMC helper scripts repositories
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Andrew Geissler <geissonator@gmail.com>, Chris Austen <austenc@us.ibm.com>,
- openbmc <openbmc-bounces+austenc=us.ibm.com@lists.ozlabs.org>, 
- OpenBMC <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yCbCQ0ZKyzDr4T
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Oct 2017 03:00:01 +1100 (AEDT)
+Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v9CFxGpH025031
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Oct 2017 11:59:58 -0400
+Received: from e19.ny.us.ibm.com (e19.ny.us.ibm.com [129.33.205.209])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2djac53j3w-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Oct 2017 11:59:58 -0400
+Received: from localhost
+ by e19.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Thu, 12 Oct 2017 11:59:57 -0400
+Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
+ by e19.ny.us.ibm.com (146.89.104.206) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Thu, 12 Oct 2017 11:59:56 -0400
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
+ [9.57.199.111])
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v9CFxtZK35520630; Thu, 12 Oct 2017 15:59:55 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 25026AC043;
+ Thu, 12 Oct 2017 12:00:35 -0400 (EDT)
+Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
+ by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id CD8F6AC040;
+ Thu, 12 Oct 2017 12:00:34 -0400 (EDT)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
+Subject: [PATCH linux dev-4.10] drivers: fsi: occ: Fix errno for canceling a
+ read operation
+Date: Thu, 12 Oct 2017 10:59:53 -0500
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+x-cbid: 17101215-0056-0000-0000-000003D903D9
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007886; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000236; SDB=6.00930129; UDB=6.00468203; IPR=6.00710397; 
+ BA=6.00005635; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017508; XFM=3.00000015;
+ UTC=2017-10-12 15:59:57
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17101215-0057-0000-0000-000008100660
+Message-Id: <1507823993-23017-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-10-12_09:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
+ definitions=main-1710120229
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -67,34 +72,33 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Oct 2017 06:34:54 -0000
+X-List-Received-Date: Thu, 12 Oct 2017 16:00:02 -0000
 
-On Wed, Oct 11, 2017 at 11:12 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> On Tue, 2017-10-10 at 09:55 +0800, Lei YU wrote:
->> Vote+1
->>
->> I always wanted such a repo to put common/shared scripts together.
->
-> Great, it seems there's a fair bit of consensus on this. Did you have
-> any scripts of your own that we could pull in?
+From: "Edward A. James" <eajames@us.ibm.com>
 
-Yup, I have "upload_and_update.py" that do the code upload/update.
-Though it only works on non-ubi-fs systems.
-https://gist.github.com/mine260309/21ceff0f69b42df0ef12a85c83ec01c3
+Should not return -ECANCELED when the device has been removed. Instead,
+use -ENODEV.
 
->
->>
->> And even more, what about a repo that collects the common/shared code
->> (C/C++)?
->
-> I feel this is a different undertaking, something that should be
-> addressed separately from what I'm proposing. My move-fast-and-break-
-> things model doesn't really gel with developing the low-level libraries
-> you're talking about here.
+Signed-off-by: Edward A. James <eajames@us.ibm.com>
+---
+ drivers/fsi/occ.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Sure, let's focus on the scripts for now.
-
->
-> Cheers,
->
-> Andrew
+diff --git a/drivers/fsi/occ.c b/drivers/fsi/occ.c
+index 2e64ee2..1fe1a54 100644
+--- a/drivers/fsi/occ.c
++++ b/drivers/fsi/occ.c
+@@ -240,8 +240,10 @@ static ssize_t occ_read_common(struct occ_client *client, char __user *ubuf,
+ 		spin_lock_irq(&client->lock);
+ 
+ 		if (!test_bit(XFR_COMPLETE, &xfr->flags)) {
+-			if (occ->cancel || test_bit(XFR_CANCELED, &xfr->flags))
++			if (test_bit(XFR_CANCELED, &xfr->flags))
+ 				rc = -ECANCELED;
++			else if (occ->cancel)
++				rc = -ENODEV;
+ 			else
+ 				rc = -EINTR;
+ 
+-- 
+1.8.3.1
