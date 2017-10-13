@@ -1,45 +1,58 @@
-Return-Path: <weiyongjun1@huawei.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=huawei.com
- (client-ip=45.249.212.190; helo=szxga04-in.huawei.com;
- envelope-from=weiyongjun1@huawei.com; receiver=<UNKNOWN>)
-X-Greylist: delayed 373 seconds by postgrey-1.36 at bilbo;
- Wed, 11 Oct 2017 21:52:30 AEDT
-Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2a00:1450:4010:c07::242; helo=mail-lf0-x242.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="gbH3PzLl"; 
+ dkim-atps=neutral
+Received: from mail-lf0-x242.google.com (mail-lf0-x242.google.com
+ [IPv6:2a00:1450:4010:c07::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yBrR23DwxzDr5S
- for <openbmc@lists.ozlabs.org>; Wed, 11 Oct 2017 21:52:30 +1100 (AEDT)
-Received: from 172.30.72.58 (EHLO DGGEMS409-HUB.china.huawei.com)
- ([172.30.72.58])
- by dggrg04-dlp.huawei.com (MOS 4.4.6-GA FastPath queued)
- with ESMTP id DIV89342; Wed, 11 Oct 2017 18:45:57 +0800 (CST)
-Received: from localhost.localdomain.localdomain (10.175.113.25) by
- DGGEMS409-HUB.china.huawei.com (10.3.19.209) with Microsoft SMTP Server id
- 14.3.301.0; Wed, 11 Oct 2017 18:45:47 +0800
-From: Wei Yongjun <weiyongjun1@huawei.com>
-To: Joel Stanley <joel@jms.id.au>, Brendan Higgins <brendanhiggins@google.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Thomas Gleixner <tglx@linutronix.de>, "Jason
- Cooper" <jason@lakedaemon.net>, Marc Zyngier <marc.zyngier@arm.com>
-CC: Wei Yongjun <weiyongjun1@huawei.com>, <linux-i2c@vger.kernel.org>,
- <openbmc@lists.ozlabs.org>
-Subject: [PATCH] irqchip/aspeed-i2c-ic: Fix return value check in
- aspeed_i2c_ic_of_init()
-Date: Wed, 11 Oct 2017 10:50:23 +0000
-Message-ID: <1507719023-127618-1-git-send-email-weiyongjun1@huawei.com>
-X-Mailer: git-send-email 1.8.3.1
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yCw2j1NNnzDrFd
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Oct 2017 15:38:36 +1100 (AEDT)
+Received: by mail-lf0-x242.google.com with SMTP id a69so8178893lfe.5
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Oct 2017 21:38:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=OfdLfjIplxy/T7aleA/h5jnVdccakP7mBSOjiS7Z+fo=;
+ b=gbH3PzLlNnnlHvB40xbqumpgNBs94dCiUND8RjHL/iTrSV9MaY0OeNAYlz+lsRZNKv
+ 7CBvftBPKF5KHVkby4uqzyS3vL53VkN0xh5FjKMPC9/NtNkU6X1Sp5tdnk91ibelFlgg
+ Bk/v8NYLrrWphWbJnSMmHVJVmXg6susIFqARPyExlK2axFibZmqLjtMrVokoD2SSGNSN
+ ZC0nWUojUzz2Tu7uSKp+MPoncxjYm7XEagqJGoGfbmh9hqGkYziqky/bjRMWv5pbfGdP
+ +W0S6OSuOR1q2RStqUbNLzWARNqKPBy2I1rgyFykf9l0nv+oTg8qebX1eP0OFX4HOnwx
+ G3cQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=OfdLfjIplxy/T7aleA/h5jnVdccakP7mBSOjiS7Z+fo=;
+ b=BlQFp+2HdRuWnM7g1Umc9gDDHUmBWv3biu1VZyzsUjHdmExaJBdXcHlp40Td1HkeLb
+ ikRTSLNMngqCPYcDf+rzLMWCF6dnkKyVtLmpfrOeJ+6WDfi6bbUWr02hpeaD/Q3QviVm
+ ywt+kREyVNHRlajBAX0b2zP9YMeqZavvXWDeLSN5BF6Q32yeepeGYQD2Dl1vjJygHAEc
+ qMxweAz6Zww8OFhGLBgml0udnOKp9GWVIktMQSgHo8vfmZhdsA/aKAF00JdaZSqt51wA
+ yEEEbJI7gDa5U8eaDcsVUghWX34phyzn4o4xMgST2ClUiqDp8KrHb2E4/DyzfMX72kRc
+ ctww==
+X-Gm-Message-State: AMCzsaWSBvJTkGhaLP/mDc08PnGaUJ9Z5kk6eHvBQMRLb2sZSOyavI06
+ p+gANLVLkeOzcXsF2rTAMzNsI5c0XRPFKhUW1d275w==
+X-Google-Smtp-Source: ABhQp+REyO9z+64kFSSb7umSROMlQev38g9W8Yrk1SGnN/oXw27inFpo+hXCTxw7Mx2UL6BGwMuC+gRaYwFBY8Ih+po=
+X-Received: by 10.46.93.75 with SMTP id r72mr68775ljb.182.1507869511307; Thu,
+ 12 Oct 2017 21:38:31 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.175.113.25]
-X-CFilter-Loop: Reflected
-X-Mirapoint-Virus-RAPID-Raw: score=unknown(0),
- refid=str=0001.0A020205.59DDF667.01A0, ss=1, re=0.000, recu=0.000, reip=0.000,
- cl=1, cld=1, fgs=0, ip=0.0.0.0,
- so=2014-11-16 11:51:01, dmn=2013-03-21 17:37:32
-X-Mirapoint-Loop-Id: 8a13449f66e8a4ac568d3adaeac3bd09
-X-Mailman-Approved-At: Fri, 13 Oct 2017 15:36:15 +1100
+Sender: joel.stan@gmail.com
+Received: by 10.25.195.6 with HTTP; Thu, 12 Oct 2017 21:38:10 -0700 (PDT)
+In-Reply-To: <1507774637-13084-1-git-send-email-mine260309@gmail.com>
+References: <1507774637-13084-1-git-send-email-mine260309@gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 13 Oct 2017 12:38:10 +0800
+X-Google-Sender-Auth: oJvp45p5VIZwAhNk5nTl7EQViOc
+Message-ID: <CACPK8Xdn_Wp=oyry27djN7WGGp=rp0_4ndbpw7PZM_YeCS=DdQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: firstone: Fix occ and i2c
+To: Lei YU <mine260309@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Andrew Jeffery <andrew@aj.id.au>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -51,29 +64,12 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Oct 2017 10:52:31 -0000
+X-List-Received-Date: Fri, 13 Oct 2017 04:38:38 -0000
 
-In case of error, the function of_iomap() returns NULL pointer not
-ERR_PTR(). The IS_ERR() test in the return value check should be
-replaced with NULL test..
+On Thu, Oct 12, 2017 at 10:17 AM, Lei YU <mine260309@gmail.com> wrote:
+> 1. Use updated p8 occ driver;
+> 2. Enable i2c buses that are used.
+>
+> Signed-off-by: Lei YU <mine260309@gmail.com>
 
-Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
----
- drivers/irqchip/irq-aspeed-i2c-ic.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/irqchip/irq-aspeed-i2c-ic.c b/drivers/irqchip/irq-aspeed-i2c-ic.c
-index 815b88d..f20200a 100644
---- a/drivers/irqchip/irq-aspeed-i2c-ic.c
-+++ b/drivers/irqchip/irq-aspeed-i2c-ic.c
-@@ -76,8 +76,8 @@ static int __init aspeed_i2c_ic_of_init(struct device_node *node,
- 		return -ENOMEM;
- 
- 	i2c_ic->base = of_iomap(node, 0);
--	if (IS_ERR(i2c_ic->base)) {
--		ret = PTR_ERR(i2c_ic->base);
-+	if (!i2c_ic->base) {
-+		ret = -ENOMEM;
- 		goto err_free_ic;
- 	}
- 
+Acked-by: Joel Stanley <joel@jms.id.au>
