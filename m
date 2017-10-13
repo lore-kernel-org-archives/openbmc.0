@@ -3,68 +3,57 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="XFAk3COs"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="HtwmHwAO"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="mtBRBRJa"; dkim-atps=neutral
+ header.b="EPKDZz6M"; dkim-atps=neutral
 Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yCwQx6SClzDrFB
- for <openbmc@lists.ozlabs.org>; Fri, 13 Oct 2017 15:56:09 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yCwq206p0zDr9V;
+ Fri, 13 Oct 2017 16:13:33 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 64B6320B71;
- Fri, 13 Oct 2017 00:56:07 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 9383020A94;
+ Fri, 13 Oct 2017 01:13:31 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Fri, 13 Oct 2017 00:56:07 -0400
+ by compute4.internal (MEProxy); Fri, 13 Oct 2017 01:13:31 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=he/EPAXPUskyNYvMNyEypCtE/Z+gLx7ZYpyFIULJAUc=; b=XFAk3COs
- urH5M38Z5kEQ+ITE/roioQIelsLQUCylL7vag/DUctmAULlG7Bnue/wfBRn1F4ug
- GOQ6qCXtRLhdd6tJC/OI1S79A+vRRDBCtjg+q3S6EaUlvuXdvIMBRnuvI5pXnmPQ
- UwqWprSQUs1YR9qKShREj/jVJrEjhPgkQqSRcx98eFkSXtsrfBoSTl2lj6Y5/8xU
- w7Z7pDAgzMvMDCbPtCMOrAaxNMOvymlVOTiu0wD57Rr5dsDWHfhagG3JFERzmwe4
- 3/ADPHoO5qy6qUkjtyTq81RLXKfya7SGkHKBlemd2bROu8impvkFObjJftlreI49
- G5NyCNl+h0anfA==
+ fm1; bh=kwQR7RRx5npyESav/7d9cYTbwi6qe0tyhSJXtNaDLLU=; b=HtwmHwAO
+ xma/hMn9cwXdWxgj/HZAZKRVnsj0jOGCu1eR6ltHQeFs6fC1GHfedb9avxwk+OLL
+ Cm265Uqi5dsQcJ6+Qgj4WNt5dhyj6UbDcBq9jaIgTLbnToCqPMgeRdTm8ZPQWeE4
+ Cq5WmD/lRAs7LBY8IEXSFASj0aR8kmgPMtyfgQHc7C5baCUpIhMn6QpvoZNAzS/a
+ u5jlA6/vKEeN+Bhiv5ymDxTbWhYBx1fFbxUVrcYlHZ2zFVdYHFacOi1jwwdz8fVI
+ JilnTUA73vDxCwP8AGJpxcPvJzQkkuxF6QuXvH1b0eD8UOiH8NY5hQDilt0lhEEZ
+ yO0jjVPqmxq0Tg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=he/EPAXPUskyNYvMNyEypCtE/Z+gL
- x7ZYpyFIULJAUc=; b=mtBRBRJaJHgjvMcpXkKqS7hNhpQ87uTmI/51b0qZbrZjH
- +G5RZKWtZ9Pm6YeSDr6OlDmThABV9umInRuDxtXnTDU4ogfhE7JyKXyOp4h510e5
- vkHRyeVRUf2VjrQqjxOxV62+qbkkzplsqN8oDjGSx3g6BC9hF+vIEv0iGgssoc01
- h81h/daPJvYukfHdem2kaQ7tfGUoWOgTu0LMLVOfLQ6Pba0Kl7OM4FTqtpvbuWpI
- RmaMcusFRIkIz7jJpZkLna+LkebDvGkojeUzDpbXoAfiG/BOnNgR+itr7CV51McL
- ql060B9YFy0P/hjqR9JFQojljlF9lBczfYIYBORgQ==
-X-ME-Sender: <xms:Z0fgWWFsZlo1HJTNNiYeuhD6a8YkpJrBgEcSr0Y7dUpJ_tid1vcKMA>
+ :x-me-sender:x-sasl-enc; s=fm1; bh=kwQR7RRx5npyESav/7d9cYTbwi6qe
+ 0tyhSJXtNaDLLU=; b=EPKDZz6MgyzKpsOTmyDd3QO+TBfYjr6RHwnH/HDOw4QNZ
+ 0tTfJRrTvPjQ/njTiuykUPXoDNM2/eJw9tRWIj2qcdG4tjbXholvlcjot95aaOpC
+ N/Zy9qxm4p4eMxnjYXomAbrF7jbbcYZKOz624r3+zqmF2i/mBMI5BH6RD6Be33t7
+ 3b8yf6hxuP2XOf2KMxdkLlvBYVDAe7Bji3dlub2A3AKhL9ndYds4QrZ1+gYiR4cH
+ TPMXgun9xRxQj7vyeFzQ6H6+1DZ3vxDqb3ZmdpuaUqCCeWVyAKOLuACBKB2WHrSi
+ zM4AckXojXjiYqSpl6ymaabTWAkMctf09M2A4gAcA==
+X-ME-Sender: <xms:e0vgWQfhS1sBqjVv_x0v-Fz6PfIxSq0A-bchyYSmRD3ZMIzFmHWrxQ>
 Received: from keelia23 (220-253-53-78.dyn.iinet.net.au [220.253.53.78])
- by mail.messagingengine.com (Postfix) with ESMTPA id CD04124738;
- Fri, 13 Oct 2017 00:56:05 -0400 (EDT)
-Message-ID: <1507870562.5452.195.camel@aj.id.au>
-Subject: Re: OpenBMC on Raspberry PI 3.
+ by mail.messagingengine.com (Postfix) with ESMTPA id 15BC824141;
+ Fri, 13 Oct 2017 01:13:28 -0400 (EDT)
+Message-ID: <1507871605.5452.197.camel@aj.id.au>
+Subject: Re: [PATCH] docs: Specify V3 of the mbox protocol
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Javier Romero <xavinux@gmail.com>
-Cc: Yi TZ Li <shliyi@cn.ibm.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Fri, 13 Oct 2017 15:26:02 +1030
-In-Reply-To: <CAEX+82KL+N5VCvo+LH20=1paTZvKo2M7PqdXk7=bFq7MdAGeSA@mail.gmail.com>
-References: <CAEX+82Lr=pJEvRqfi9MA=ZBW=DR+mY2VYVUhhTBgrPFA3c239g@mail.gmail.com>
- <CAPLgG=nHvmVzBW2CDxvgaeYAHoNL53W3An-p9fK3D4HfsU=Bbw@mail.gmail.com>
- <1507325323.1545468.1130544088.6FEEF44B@webmail.messagingengine.com>
- <CAEX+82KLmByCXqVg1Hzi7r5-cH2=Cx-0OE_hLwx-Jr_XXfe1Wg@mail.gmail.com>
- <CAEX+82Ls_e7EdupoUUbWEOL5gngd5BdxAY6YptHqAVp7HuJvjA@mail.gmail.com>
- <1507466681.5452.143.camel@aj.id.au>
- <CAEX+82+KQAV5WMuWh1VZCL+zb7TXXnxeUS_=8nQk1tC=8jrtqg@mail.gmail.com>
- <1507531274.5452.154.camel@aj.id.au>
- <OF72E5748D.A94F82AF-ON482581B4.0033C44D-482581B4.003504C9@notes.na.collabserv.com>
- <CAEX+82LFjvc4=Ai6p4k66EBfE-45jrYUwvmPFGdgSb4OdzQVFA@mail.gmail.com>
- <1507594463.5452.156.camel@aj.id.au>
- <CAEX+82+j8xq5JikSPWi_ycwnoQLNUF1YVUVjxsSdtBfG3b2-Ug@mail.gmail.com>
- <1507691159.5452.168.camel@aj.id.au>
- <CAEX+82KL+N5VCvo+LH20=1paTZvKo2M7PqdXk7=bFq7MdAGeSA@mail.gmail.com>
+To: wak@google.com
+Cc: cyrilbur@gmail.com, stewart@linux.vnet.ibm.com, Suraj Jitindar Singh
+ <sjitindarsingh@gmail.com>, skiboot@lists.ozlabs.org,
+ openbmc@lists.ozlabs.org
+Date: Fri, 13 Oct 2017 15:43:25 +1030
+In-Reply-To: <20171004004520.18593-1-sjitindarsingh@gmail.com>
+References: <20171004004520.18593-1-sjitindarsingh@gmail.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-f+OxLm8ez1ev+FPGrBBn"
+ protocol="application/pgp-signature"; boundary="=-s7HdPPeEAq1fsUUhUWMs"
 X-Mailer: Evolution 3.22.6-1ubuntu1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -78,51 +67,91 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Oct 2017 04:56:10 -0000
+X-List-Received-Date: Fri, 13 Oct 2017 05:13:35 -0000
 
 
---=-f+OxLm8ez1ev+FPGrBBn
+--=-s7HdPPeEAq1fsUUhUWMs
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2017-10-11 at 16:09 -0300, Javier Romero wrote:
-> > Great! I look forward to you helping us improve our documentation and
-> > on-boarding of contributors. It might be rocky but it should help those
-> > coming along in the future.
->=20
-> A starting point to start my contribution, so, how can I help on this?
+On Wed, 2017-10-04 at 11:45 +1100, Suraj Jitindar Singh wrote:
+> Version 3 of the mbox protocol makes four protocol changes:
+> =C2=A0- Add a requested block size argument to GET_MBOX_INFO
+> =C2=A0- Add a no erase argument to MARK_DIRTY
+> =C2=A0- Add a GET_FLASH_NAME command and support multiple flash devices
+> =C2=A0- Add a MARK_LOCKED command
+>=C2=A0
+> Requested Block Size:
+> The requested block size argument has been added to the GET_MBOX_INFO
+> command to allow the host to request a specified block size which might
+> be required to allow data manipulation at a finer granularity. The
+> daemon should take this into account when choosing a block size for use
+> which it will specify in the response as before. The daemon has final
+> say and the host must use the block size the daemon chooses.
+>=C2=A0
+> No Erase:
+> The no erase argument to the mark dirty command allows a host to specify
+> that an area of flash should not be erased before being written to, as is
+> the default behaviour. This can be used when a host has already erased a
+> large area and then performs many small writes which would normally mean
+> many erases due to the implicit erase before write, making this slow.
+>=C2=A0
+> Add GET_FLASH_NAME command:
+> The ability to support multiple flash devices has been added so that the
+> mbox protocol can be used to arbitrate access from the host to a number
+> of flash devices which the daemon has access to. To facilitate this the
+> GET_FLASH_INFO, CREATE_{READ/WRITE}_WINDOW, and MARK_LOCKED commands now
+> take a flash ID, with the number of flash IDs allocated returned by the
+> GET_MBOX_INFO commands. There is also a new command GET_FLASH_NAME used
+> to convert a flash ID to a flash name.
+>=C2=A0
+> Add MARK_LOCKED command:
+> The MARK_LOCKED command has been added to allow an area(s) of flash to be
+> locked, that is that area must be treated as read only and the host is
+> not allowed to dirty or erase any windows which map that area of flash.
+> Additionally another error code LOCKED_ERROR was added to be returned
+> when the host does try to dirty or erase a locked area.
+>=C2=A0
+> The host cannot lock a currently dirty or erased area of the current
+> write window as it is not defined if the clean/dirty/erased value is
+> what should actually be "locked".
+>=C2=A0
+> A locked area of flash remains so until the daemon receives an
+> mboxctl --clear-locked command and the locked areas are stored in a file
+> on the BMC filesystem to ensure persistence across BMC reboots/daemon
+> crashes.
+>=C2=A0
+> Multiple flash device support proposed and defined by:
+> William A. Kennington III <wak@google.com>
+>=C2=A0
+> Change-Id: I898698840dec221ae20e33943bb28e65abc4fe37
+> Signed-off-by: Suraj Jitindar Singh <sjitindarsingh@gmail.com>
 
-Ah I wasn't talking about anything in particular, just that we should
-be able to improve our documentation from the questions you ask as you
-try to get OpenBMC working on the Raspberry Pi. But regarding the
-documentation, have you read through the docs repository at all?
-Contributions are certainly welcome there:
-
-https://github.com/openbmc/docs/
+William - any chance you can ack/review this?
 
 Cheers,
 
 Andrew
---=-f+OxLm8ez1ev+FPGrBBn
+--=-s7HdPPeEAq1fsUUhUWMs
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJZ4EdiAAoJEJ0dnzgO5LT5/0cP/jBzwpflmIFOZPxcqwk29zmS
-EJ3uY4/rxwlV2Ql85OkILqYmDFSND2j2kPwX/BwH8B7YOJBRl83V2GC1KZpGBXqd
-w1pkNo2czpUvVAnY4btc2uUCK6z24HODxLYgpsho+UxLhoCtjJDp4jZNaei2nB+P
-ziD5IS76sX57eVdEgI725a4ddwtw+SCRFbapqvQYNimuWm/U0ws8WZy2nBnZX3NR
-n3wgQZnEWzxkyWqsBhjH0j3m8sQz0zB2WbdSzv8i/bk/FcOpL70f5CY3QTVelswI
-R1qbDvB0d15cvOOKTPY0ba8m89JmROoUzyAVdGHFNq4a/OwaDSiafEO+wCajDBPX
-PxZnNBmLThnZxDFyVHLNj9JssBo2P0fOCxrlid/7SbCn+pO5fRfL4tbuLfW0b6FQ
-5oK+bslYJqVM3peqkNbOU/8Y0D+ldFTOLst0VucbDt+kj+j6PhrKf8qAKA5L/L1w
-9si9XIbtxshIiERR1uCsryeyLEBLWTfEeRuF3+4QNtZFnCAhy2WDwjymMh5s0Biy
-tyiBpD3SpgTXwwv3F7rsiNYzCDFJyYMnMq9CPW5iVX4dapljFiiED/9v0lOjoqn9
-WhTH4Wpp166sljw49/SDtlDqKOPeX72cFcdmcy21xJul76uZA+hkKqK6mit1juTb
-vN84FvdbM0/vBZ/s3VWD
-=RDP8
+iQIcBAABCgAGBQJZ4Et1AAoJEJ0dnzgO5LT5SycP/1g2XTHbbb1OQKJ0645G8Nc1
+tZoxrW6aKpcobreKtgJmhxu8mhWXuXOo/1Bv/Ho9/A/wIG4UpYBTOv/i/DG1u78O
+RzdSpcvbabiBMksI06yy/bcSlr4zsc35IBHMptAJM6JlKdhamGXy/zmJWJwGnEbG
+qgsBP3ERYwNsbgDBc+JcxKkAxFCRR0+u03KTSgccjhWBqCRGqMOzzg8Fc1Hp6bEA
+TLzUq746NgFGqyXAO40IPTHluTgo87qLsJzyhpdiD8tDqd0jFAy0fIpwwVnORKeg
+TbajYBt8nDo3lpYG4lqhQ0pAV7CwuRSz6r+DrO/qPHjN5iTvl9OKH0mKlBP2icFN
+OhtJSnxrF4E3G7P+LRCCue+7blx9VdpyxbxQTgUmXNl8YrIjf65EQ5LPnI76rufH
+kYcrPkuK4u798nzE5QoEY78ijLDpbZ/136u5BgyUiZl9bmnzicKOLldiGmSk22Ho
+J4BLlR0IZIGcIywATapOXO2M5o5Bo/djnlwbyxj+lblxAYeOKSfDdEcfUNOHDnhe
+RXTkX/ZHxA4Ubb29t8NaFtWuO9tinhoYzeVjeTihJpj4ynUIjXM9SXgiNY1p3efE
+oNPv3BhvGRzfqSx6q4FMWTo6QuA2lKFULIEQt8CqbhJw4W7LRauIaMUTkPaGLTFV
+m/fLedY/bHpIKQku9+R9
+=dh+M
 -----END PGP SIGNATURE-----
 
---=-f+OxLm8ez1ev+FPGrBBn--
+--=-s7HdPPeEAq1fsUUhUWMs--
