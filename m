@@ -1,73 +1,68 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <sjg@google.com>
 Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400d:c0d::22a; helo=mail-qt0-x22a.google.com;
+ envelope-from=sjg@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="nuUsqbt5"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=chromium.org header.i=@chromium.org header.b="lmUVBV58";
+ dkim-atps=neutral
+Received: from mail-qt0-x22a.google.com (mail-qt0-x22a.google.com
+ [IPv6:2607:f8b0:400d:c0d::22a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yDBJ2049gzDqlv
- for <openbmc@lists.ozlabs.org>; Sat, 14 Oct 2017 02:21:05 +1100 (AEDT)
-Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v9DFJr5Q038341
- for <openbmc@lists.ozlabs.org>; Fri, 13 Oct 2017 11:21:03 -0400
-Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2djx99nes5-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 13 Oct 2017 11:21:02 -0400
-Received: from localhost
- by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Fri, 13 Oct 2017 09:21:02 -0600
-Received: from b03cxnp08026.gho.boulder.ibm.com (9.17.130.18)
- by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Fri, 13 Oct 2017 09:21:00 -0600
-Received: from b03ledav005.gho.boulder.ibm.com
- (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v9DFKxWS58196048; Fri, 13 Oct 2017 08:20:59 -0700
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C6774BE03E;
- Fri, 13 Oct 2017 09:20:59 -0600 (MDT)
-Received: from oc3016140333.ibm.com (unknown [9.80.218.27])
- by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP id 38BFCBE03B;
- Fri, 13 Oct 2017 09:20:59 -0600 (MDT)
-Subject: Re: [PATCH linux dev-4.10] drivers: i2c: fsi: Add proper abort method
-To: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org
-Cc: "Edward A. James" <eajames@us.ibm.com>
-References: <1507840944-421-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1507875532.5452.205.camel@aj.id.au>
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Fri, 13 Oct 2017 10:20:58 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.2.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yDNng6F96zDr5x
+ for <openbmc@lists.ozlabs.org>; Sat, 14 Oct 2017 10:13:59 +1100 (AEDT)
+Received: by mail-qt0-x22a.google.com with SMTP id v41so12181346qtv.12
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Oct 2017 16:13:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=skup79ZnMZbOpxuUflCH5teMKCtaCxmaQlUAQKnxzkQ=;
+ b=nuUsqbt5p2KQzJnA1omflTdSek2x7uPauclyqJa5LOwp/OcGcBBzsTfxx6NkRArWDo
+ agBQudeSiLa07BH3NORcIGm0UzUQ7gWhFXOwU8d+KXJu3OqRJvTWzQqwCuDcrS80hZmZ
+ zCx+7n1TKzVhPdOtkA7Xd30J5UF0i+GF7pxlsnT0il+9WOs0TnsFIbwn0Z3VSucdG04Z
+ w8NYCqG9w925toI1cWI1kOHDNXDTgu4BWGzOIR7kIyR/7S4Lp2zYnVgn/a1NKBX2VIVU
+ pNac1/fkaxMfSLeoO07QH21D+lVcyCmRfFiwAHKYUkBOLYkoVX+ZQKtHpFxkRYM88GG9
+ OJFg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=skup79ZnMZbOpxuUflCH5teMKCtaCxmaQlUAQKnxzkQ=;
+ b=lmUVBV58lHepyr/+DILvgBeVuA8XABVqResL/8fhyDqOZEF3/Snl+0kK6jXkColrTO
+ 55GVHUErHMIC+NCi+pkGAfUFGYWrImiJH08Sf1FuxqeE7H7G7EzG910Oy1d7qRTHKYs/
+ OqpWqTJqtiz9zvRVk83G5wW5o3m2WEH1bsCmo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=skup79ZnMZbOpxuUflCH5teMKCtaCxmaQlUAQKnxzkQ=;
+ b=Q25ZjlPs3Wkb61YSFvs95Z2UcxhZAulrwLMBNxht1cWy0Qd8oLHhKtuie4v7WiULFX
+ ieML1B5oWFgrmMngLrk8Gx8UT9ZFdQPSKyZAL34bdMSr3ECMSnhAdUbd4P7HJSTPtcq+
+ DtOSlVZpmk4e/QDzQTRmYmz8qaM8p2UfUvZQXwEhaSlu/+4ivCHPqwSw322kfNkZX4BU
+ pZFfluMopUKbhz6PfGyiIITyl+n/tyckmoQg4vFWyWMWTlKAAIdJfxuQ6tdZzqBSmH3m
+ O4v9Rml9+xI7x1Be+EadcLCa+rCTCuqjNccv9xsz04Sfvx2PV7r4Oc+1jIC/Ewp0wyB8
+ fszQ==
+X-Gm-Message-State: AMCzsaW6uQMLFMrx8woaIH0W7c449yWubtGllyNev7563ErEzMWXj4qw
+ 2+KKpYa0vk56sv6LjC4f1EKA1Gj4V4IXSHh7OKxaiA==
+X-Google-Smtp-Source: AOwi7QAka2SMd3jtsKo0zS0DcksFZBAbqLELw++PdBr4LAFwIccwlkGHWZIwkENfSq6tmp7YEoNwVm40/qold5RahxE=
+X-Received: by 10.200.4.29 with SMTP id v29mr4722697qtg.76.1507936435006; Fri,
+ 13 Oct 2017 16:13:55 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1507875532.5452.205.camel@aj.id.au>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 17101315-8235-0000-0000-00000C686B5D
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007891; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000236; SDB=6.00930596; UDB=6.00468473; IPR=6.00710863; 
- BA=6.00005636; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017527; XFM=3.00000015;
- UTC=2017-10-13 15:21:01
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17101315-8236-0000-0000-00003E0653DF
-Message-Id: <9932860b-efad-c836-a46e-ba8a1c258bbc@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-10-13_05:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
- definitions=main-1710130212
+Sender: sjg@google.com
+Received: by 10.200.63.170 with HTTP; Fri, 13 Oct 2017 16:13:33 -0700 (PDT)
+In-Reply-To: <OF2E4D41B6.9367FE39-ON862581B5.0003F013-862581B5.000B67DA@notes.na.collabserv.com>
+References: <OF78B95C25.5F20D5DE-ON862581AE.000890BF-862581AE.000A5301@LocalDomain>
+ <OF2E4D41B6.9367FE39-ON862581B5.0003F013-862581B5.000B67DA@notes.na.collabserv.com>
+From: Simon Glass <sjg@chromium.org>
+Date: Fri, 13 Oct 2017 17:13:33 -0600
+X-Google-Sender-Auth: lu5rK7QMSpO51TBJnS-CmHJL_Z0
+Message-ID: <CAPnjgZ0c6UsVMeEhweHGkEBGVTfqsyY8u1NNoFiXarcpQhUAyQ@mail.gmail.com>
+Subject: Re: Call for maintainers
+To: Chris Austen <austenc@us.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -79,31 +74,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Oct 2017 15:21:06 -0000
+X-List-Received-Date: Fri, 13 Oct 2017 23:14:01 -0000
 
+Hi Chris,
 
-
-On 10/13/2017 01:18 AM, Andrew Jeffery wrote:
-> On Thu, 2017-10-12 at 15:42 -0500, Eddie James wrote:
->>> From: "Edward A. James" <eajames@us.ibm.com>
->>   
->> Driver wasn't cleaning up on timeout or in an error situation properly.
->> Need to do a full reset if we fail in order to re-stablish a good state
->> of the engine.
-> Was there a particular use-case that triggered this behaviour or was this just
-> found in general use? I feel a bit more context would be helpful here. It's a
-> fairly sizeable patch and I'm surprised recovery was overlooked initially.
-
-You'd have to hit either a timeout or some non-NACK error condition in 
-order to trigger the problem. Somehow NACK doesn't cause the I2C engine 
-to get into a bad state. And timeouts it seems to be somewhat 
-intermittent. Probably depends what state the bus is in when the driver 
-actually bails out.
-
-Thanks,
-Eddie
-
+On 9 October 2017 at 19:04, Chris Austen <austenc@us.ibm.com> wrote:
 >
-> Cheers,
+> Greetings,
 >
-> Andrew
+> I received some feedback that people would like to know more about what it takes to become, and duties of, a Maintainer in OpenBMC.
+>
+> A Maintainer is a lead position in the project who is intrusted with architecture and stability. In return you will have a say in the future architecture.
+>
+> Steps to get there...
+>
+> 1) Pick a project repository that you have matured
+> 2) Sign up for reviews in that repository without being asked
+> 3) provide comments that correctly shape the goals of the repository
+> 4) Be on architecture calls to learn from others
+> 5) Contribute code
+> 6) Contribute socially (IRC, mailing list feedback, writing articles that end up on /. , etc)
+>
+
+I might be interested in being U-Boot maintainer.
+
+But I'd like to understand how close to upstream you plan to be? Will
+you select a U-Boot release and stick with it for a year or more, or
+will you try to target each U-Boot release (currently every two
+months)?
+
+For U-Boot specifically you could cc the U-Boot mailing list and see
+if anyone else is interested there.
+
+Regards,
+Simon
