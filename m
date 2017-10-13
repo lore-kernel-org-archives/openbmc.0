@@ -1,58 +1,72 @@
-Return-Path: <joel.stan@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4010:c07::242; helo=mail-lf0-x242.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="gbH3PzLl"; 
- dkim-atps=neutral
-Received: from mail-lf0-x242.google.com (mail-lf0-x242.google.com
- [IPv6:2a00:1450:4010:c07::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="XFAk3COs"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="mtBRBRJa"; dkim-atps=neutral
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yCw2j1NNnzDrFd
- for <openbmc@lists.ozlabs.org>; Fri, 13 Oct 2017 15:38:36 +1100 (AEDT)
-Received: by mail-lf0-x242.google.com with SMTP id a69so8178893lfe.5
- for <openbmc@lists.ozlabs.org>; Thu, 12 Oct 2017 21:38:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=OfdLfjIplxy/T7aleA/h5jnVdccakP7mBSOjiS7Z+fo=;
- b=gbH3PzLlNnnlHvB40xbqumpgNBs94dCiUND8RjHL/iTrSV9MaY0OeNAYlz+lsRZNKv
- 7CBvftBPKF5KHVkby4uqzyS3vL53VkN0xh5FjKMPC9/NtNkU6X1Sp5tdnk91ibelFlgg
- Bk/v8NYLrrWphWbJnSMmHVJVmXg6susIFqARPyExlK2axFibZmqLjtMrVokoD2SSGNSN
- ZC0nWUojUzz2Tu7uSKp+MPoncxjYm7XEagqJGoGfbmh9hqGkYziqky/bjRMWv5pbfGdP
- +W0S6OSuOR1q2RStqUbNLzWARNqKPBy2I1rgyFykf9l0nv+oTg8qebX1eP0OFX4HOnwx
- G3cQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=OfdLfjIplxy/T7aleA/h5jnVdccakP7mBSOjiS7Z+fo=;
- b=BlQFp+2HdRuWnM7g1Umc9gDDHUmBWv3biu1VZyzsUjHdmExaJBdXcHlp40Td1HkeLb
- ikRTSLNMngqCPYcDf+rzLMWCF6dnkKyVtLmpfrOeJ+6WDfi6bbUWr02hpeaD/Q3QviVm
- ywt+kREyVNHRlajBAX0b2zP9YMeqZavvXWDeLSN5BF6Q32yeepeGYQD2Dl1vjJygHAEc
- qMxweAz6Zww8OFhGLBgml0udnOKp9GWVIktMQSgHo8vfmZhdsA/aKAF00JdaZSqt51wA
- yEEEbJI7gDa5U8eaDcsVUghWX34phyzn4o4xMgST2ClUiqDp8KrHb2E4/DyzfMX72kRc
- ctww==
-X-Gm-Message-State: AMCzsaWSBvJTkGhaLP/mDc08PnGaUJ9Z5kk6eHvBQMRLb2sZSOyavI06
- p+gANLVLkeOzcXsF2rTAMzNsI5c0XRPFKhUW1d275w==
-X-Google-Smtp-Source: ABhQp+REyO9z+64kFSSb7umSROMlQev38g9W8Yrk1SGnN/oXw27inFpo+hXCTxw7Mx2UL6BGwMuC+gRaYwFBY8Ih+po=
-X-Received: by 10.46.93.75 with SMTP id r72mr68775ljb.182.1507869511307; Thu,
- 12 Oct 2017 21:38:31 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.25.195.6 with HTTP; Thu, 12 Oct 2017 21:38:10 -0700 (PDT)
-In-Reply-To: <1507774637-13084-1-git-send-email-mine260309@gmail.com>
-References: <1507774637-13084-1-git-send-email-mine260309@gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 13 Oct 2017 12:38:10 +0800
-X-Google-Sender-Auth: oJvp45p5VIZwAhNk5nTl7EQViOc
-Message-ID: <CACPK8Xdn_Wp=oyry27djN7WGGp=rp0_4ndbpw7PZM_YeCS=DdQ@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: firstone: Fix occ and i2c
-To: Lei YU <mine260309@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Andrew Jeffery <andrew@aj.id.au>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yCwQx6SClzDrFB
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Oct 2017 15:56:09 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 64B6320B71;
+ Fri, 13 Oct 2017 00:56:07 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Fri, 13 Oct 2017 00:56:07 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm1; bh=he/EPAXPUskyNYvMNyEypCtE/Z+gLx7ZYpyFIULJAUc=; b=XFAk3COs
+ urH5M38Z5kEQ+ITE/roioQIelsLQUCylL7vag/DUctmAULlG7Bnue/wfBRn1F4ug
+ GOQ6qCXtRLhdd6tJC/OI1S79A+vRRDBCtjg+q3S6EaUlvuXdvIMBRnuvI5pXnmPQ
+ UwqWprSQUs1YR9qKShREj/jVJrEjhPgkQqSRcx98eFkSXtsrfBoSTl2lj6Y5/8xU
+ w7Z7pDAgzMvMDCbPtCMOrAaxNMOvymlVOTiu0wD57Rr5dsDWHfhagG3JFERzmwe4
+ 3/ADPHoO5qy6qUkjtyTq81RLXKfya7SGkHKBlemd2bROu8impvkFObjJftlreI49
+ G5NyCNl+h0anfA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; bh=he/EPAXPUskyNYvMNyEypCtE/Z+gL
+ x7ZYpyFIULJAUc=; b=mtBRBRJaJHgjvMcpXkKqS7hNhpQ87uTmI/51b0qZbrZjH
+ +G5RZKWtZ9Pm6YeSDr6OlDmThABV9umInRuDxtXnTDU4ogfhE7JyKXyOp4h510e5
+ vkHRyeVRUf2VjrQqjxOxV62+qbkkzplsqN8oDjGSx3g6BC9hF+vIEv0iGgssoc01
+ h81h/daPJvYukfHdem2kaQ7tfGUoWOgTu0LMLVOfLQ6Pba0Kl7OM4FTqtpvbuWpI
+ RmaMcusFRIkIz7jJpZkLna+LkebDvGkojeUzDpbXoAfiG/BOnNgR+itr7CV51McL
+ ql060B9YFy0P/hjqR9JFQojljlF9lBczfYIYBORgQ==
+X-ME-Sender: <xms:Z0fgWWFsZlo1HJTNNiYeuhD6a8YkpJrBgEcSr0Y7dUpJ_tid1vcKMA>
+Received: from keelia23 (220-253-53-78.dyn.iinet.net.au [220.253.53.78])
+ by mail.messagingengine.com (Postfix) with ESMTPA id CD04124738;
+ Fri, 13 Oct 2017 00:56:05 -0400 (EDT)
+Message-ID: <1507870562.5452.195.camel@aj.id.au>
+Subject: Re: OpenBMC on Raspberry PI 3.
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Javier Romero <xavinux@gmail.com>
+Cc: Yi TZ Li <shliyi@cn.ibm.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Fri, 13 Oct 2017 15:26:02 +1030
+In-Reply-To: <CAEX+82KL+N5VCvo+LH20=1paTZvKo2M7PqdXk7=bFq7MdAGeSA@mail.gmail.com>
+References: <CAEX+82Lr=pJEvRqfi9MA=ZBW=DR+mY2VYVUhhTBgrPFA3c239g@mail.gmail.com>
+ <CAPLgG=nHvmVzBW2CDxvgaeYAHoNL53W3An-p9fK3D4HfsU=Bbw@mail.gmail.com>
+ <1507325323.1545468.1130544088.6FEEF44B@webmail.messagingengine.com>
+ <CAEX+82KLmByCXqVg1Hzi7r5-cH2=Cx-0OE_hLwx-Jr_XXfe1Wg@mail.gmail.com>
+ <CAEX+82Ls_e7EdupoUUbWEOL5gngd5BdxAY6YptHqAVp7HuJvjA@mail.gmail.com>
+ <1507466681.5452.143.camel@aj.id.au>
+ <CAEX+82+KQAV5WMuWh1VZCL+zb7TXXnxeUS_=8nQk1tC=8jrtqg@mail.gmail.com>
+ <1507531274.5452.154.camel@aj.id.au>
+ <OF72E5748D.A94F82AF-ON482581B4.0033C44D-482581B4.003504C9@notes.na.collabserv.com>
+ <CAEX+82LFjvc4=Ai6p4k66EBfE-45jrYUwvmPFGdgSb4OdzQVFA@mail.gmail.com>
+ <1507594463.5452.156.camel@aj.id.au>
+ <CAEX+82+j8xq5JikSPWi_ycwnoQLNUF1YVUVjxsSdtBfG3b2-Ug@mail.gmail.com>
+ <1507691159.5452.168.camel@aj.id.au>
+ <CAEX+82KL+N5VCvo+LH20=1paTZvKo2M7PqdXk7=bFq7MdAGeSA@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-f+OxLm8ez1ev+FPGrBBn"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -64,12 +78,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Oct 2017 04:38:38 -0000
+X-List-Received-Date: Fri, 13 Oct 2017 04:56:10 -0000
 
-On Thu, Oct 12, 2017 at 10:17 AM, Lei YU <mine260309@gmail.com> wrote:
-> 1. Use updated p8 occ driver;
-> 2. Enable i2c buses that are used.
->
-> Signed-off-by: Lei YU <mine260309@gmail.com>
 
-Acked-by: Joel Stanley <joel@jms.id.au>
+--=-f+OxLm8ez1ev+FPGrBBn
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, 2017-10-11 at 16:09 -0300, Javier Romero wrote:
+> > Great! I look forward to you helping us improve our documentation and
+> > on-boarding of contributors. It might be rocky but it should help those
+> > coming along in the future.
+>=20
+> A starting point to start my contribution, so, how can I help on this?
+
+Ah I wasn't talking about anything in particular, just that we should
+be able to improve our documentation from the questions you ask as you
+try to get OpenBMC working on the Raspberry Pi. But regarding the
+documentation, have you read through the docs repository at all?
+Contributions are certainly welcome there:
+
+https://github.com/openbmc/docs/
+
+Cheers,
+
+Andrew
+--=-f+OxLm8ez1ev+FPGrBBn
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZ4EdiAAoJEJ0dnzgO5LT5/0cP/jBzwpflmIFOZPxcqwk29zmS
+EJ3uY4/rxwlV2Ql85OkILqYmDFSND2j2kPwX/BwH8B7YOJBRl83V2GC1KZpGBXqd
+w1pkNo2czpUvVAnY4btc2uUCK6z24HODxLYgpsho+UxLhoCtjJDp4jZNaei2nB+P
+ziD5IS76sX57eVdEgI725a4ddwtw+SCRFbapqvQYNimuWm/U0ws8WZy2nBnZX3NR
+n3wgQZnEWzxkyWqsBhjH0j3m8sQz0zB2WbdSzv8i/bk/FcOpL70f5CY3QTVelswI
+R1qbDvB0d15cvOOKTPY0ba8m89JmROoUzyAVdGHFNq4a/OwaDSiafEO+wCajDBPX
+PxZnNBmLThnZxDFyVHLNj9JssBo2P0fOCxrlid/7SbCn+pO5fRfL4tbuLfW0b6FQ
+5oK+bslYJqVM3peqkNbOU/8Y0D+ldFTOLst0VucbDt+kj+j6PhrKf8qAKA5L/L1w
+9si9XIbtxshIiERR1uCsryeyLEBLWTfEeRuF3+4QNtZFnCAhy2WDwjymMh5s0Biy
+tyiBpD3SpgTXwwv3F7rsiNYzCDFJyYMnMq9CPW5iVX4dapljFiiED/9v0lOjoqn9
+WhTH4Wpp166sljw49/SDtlDqKOPeX72cFcdmcy21xJul76uZA+hkKqK6mit1juTb
+vN84FvdbM0/vBZ/s3VWD
+=RDP8
+-----END PGP SIGNATURE-----
+
+--=-f+OxLm8ez1ev+FPGrBBn--
