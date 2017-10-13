@@ -1,64 +1,60 @@
-Return-Path: <geissonator@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c06::22d; helo=mail-io0-x22d.google.com;
- envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="CTrDd2m5"; 
- dkim-atps=neutral
-Received: from mail-io0-x22d.google.com (mail-io0-x22d.google.com
- [IPv6:2607:f8b0:4001:c06::22d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Whv0vjGV"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="n4tW/vQh"; dkim-atps=neutral
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yCl135gk4zDr9F;
- Fri, 13 Oct 2017 08:51:35 +1100 (AEDT)
-Received: by mail-io0-x22d.google.com with SMTP id h70so6997606ioi.4;
- Thu, 12 Oct 2017 14:51:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=VrWEwoLX68MdIybLYDdYlNmF2miAe3oFcWvB6oGJNJU=;
- b=CTrDd2m5zMTCo44ZQju5qUpdbuC3FG5hEF5zHrxbgZm3Y0ffn5QDE17b7zzya1K/7r
- Q2+fzSLDw7IZf4anBWRT7BSP3PT8xLsAeACqc6ZBgoUJyojyrA3EAKeCSSnfOTsUeieT
- yeuDow7mJNpHB94eURYwrrvd28kB6UmFXzlWG/ah6yObHXSR6wKZpjQSNVheETlMlB/4
- y8UMj8Ytl9anyqUah3nd/nYQzPmuF6oQvut0WNr0qoXcSVYehmAK/kMmqGQtxDFIKzNv
- /BHpQ2+Hv9fkgis1Six9ki1ohb4ILlZ5tNNeBObf7Sv34flFtsfqmt3ZyQ0ybM4iOd5X
- lmkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=VrWEwoLX68MdIybLYDdYlNmF2miAe3oFcWvB6oGJNJU=;
- b=Tz/70KhRrWXGucK3diCUD7FgRMuuLwE66UxDTygVtvyQAzprwyiDTxwJ4hriI+QAPM
- jXcLNgTTQol7UpUOJA80VFW74lmJ9yxJnsPPr6xDJwyxqQQAY4yZvrxxDTPxr63tup02
- ibLaS2TrXZkvjXwM/jcWet8u73V0hWOEgSKZNJ8SxMPI1EbF0BxDTtoDxsDm9M9Rl32m
- T0BBQf5F6r3mEsV31KOQrRMxGKs6Cm9MUdYV3a4U5sJiqQnHQGxdRagRPZW74FdsDgcy
- qnNQK1vOZ4LM2oUE0PiCcoc0odDTrbedKE7tzEJRwlUiF5DP/zdFSxlIPfKwQCSf5I7l
- usQA==
-X-Gm-Message-State: AMCzsaUUHnWqbEYlOoXsNq2xYnZkmxIp+jZUERxHfnun8u7txE5I+Qgo
- OsEZniQvHcasDgeMxhsILsKrXiBJxXXB1sA/pcg=
-X-Google-Smtp-Source: ABhQp+S0FVxjxUiO0PT8fcS2f7Hl9FBCWrGedvm/FzmRjeYLXVkp6FK85gWGJkqtUFrjoWJ8ByTBQweZAqJ/QrrX2vY=
-X-Received: by 10.107.51.147 with SMTP id z141mr5100276ioz.146.1507845092811; 
- Thu, 12 Oct 2017 14:51:32 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.107.142.150 with HTTP; Thu, 12 Oct 2017 14:51:32 -0700 (PDT)
-In-Reply-To: <1507843946.5452.187.camel@aj.id.au>
-References: <1507254940.5452.129.camel@aj.id.au>
- <OFDFEB18C7.4CBB979B-ON002581B1.000FD8A2@LocalDomain>
- <OF921CDA64.CB068039-ON862581B1.00153196-862581B1.0015746A@notes.na.collabserv.com>
- <CALLMt=pT-oPiQr0V0_CQd_eOEkyYsSncH1_dS-Jjhkbd7+VvWw@mail.gmail.com>
- <CAARXrt=tOkNnEoOaUPkQtUVDqOoq__4aqdqrA7tH2y0SXWnddw@mail.gmail.com>
- <1507691558.5452.172.camel@aj.id.au>
- <CAARXrt=O-dNH=Lt+vkQdCH_dF6xtS7aE8pqZn-BNMA7dgTeR9g@mail.gmail.com>
- <CALLMt=ri4td=9C6av3jHchZwckffmPdxYkztj1qCav2WMmd3Jg@mail.gmail.com>
- <1507843946.5452.187.camel@aj.id.au>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Thu, 12 Oct 2017 16:51:32 -0500
-Message-ID: <CALLMt=q+eTPRh0EhED0KHbU2_F8DfG7p5F9SaNGGKZJefYvH1w@mail.gmail.com>
-Subject: Re: OpenBMC helper scripts repositories
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Lei YU <mine260309@gmail.com>, Chris Austen <austenc@us.ibm.com>, 
- openbmc <openbmc-bounces+austenc=us.ibm.com@lists.ozlabs.org>, 
- OpenBMC <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yCvXz19LPzDrDf
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Oct 2017 15:16:18 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 9BF8B20A86;
+ Fri, 13 Oct 2017 00:16:15 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Fri, 13 Oct 2017 00:16:15 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:message-id:mime-version:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=kkp7pz7aR0AyA+kvM
+ oVyAxPc1cFW+PBkGsISGC9Jgd0=; b=Whv0vjGV5lOZR5YlsCsMS3aqj3xOjOZWD
+ 7FKhgpoJVSFyFbfnIo6eF6Y3BNgJ4Tq6HGXQOnWp94KCyjNGFrbAIUmsaJzYNLCN
+ TXzfPZ/pCaJaK2nvUdMmIg7VJ1nFm4LXYjqsELyqTMVFdCyjjoDjTZIzMI47SZND
+ IFRxBS24BIIhQVGUDPIrwnH4aKYHN0Cp/m6uCsygxku6m7pULM9EZZQ/s23wboOf
+ IlvsGzJ2FSKeFbH59oanI58Yif3EGyNOW+qtABvbxrydKLZRIW7wZcP9tPl4/4Y9
+ /OF0vbsc8x43aOH4GxuIs9C2izztNerDXK2c02TPRyj2MlLudqQRA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:message-id
+ :mime-version:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm1; bh=kkp7pz7aR0AyA+kvMoVyAxPc1cFW+PBkGsISGC9Jgd0=; b=n4tW/vQh
+ 1J4c1fGNGFg5DT1THMlqNNEdK6Kw6J2mMt0Z+cgQ0bx1o18dmGsxS3H7J96kU8X1
+ f+Tcphl6vvOm/+8VN4Fyb8cmUDVZzODrzTlW0GuIkH/AI3smyU1tpmOVoNExHJ/R
+ P0O4p6735aAO3haINkVcyjzEnr4Z2cWiD5QFN5uDurKk6rpA76x0fABf/deN6O0x
+ xm1/+6liOymI0T3MtvZ/RNi9jygQI0buEuCL+Bdtfk4nNxc8Aah6TznTYDSMAjb7
+ xnf4vrV5XyzHs+gKuMFejjk39E9A6gpZPR3IHByjWk7CgHPz+nmQ+tLY93OJued2
+ pP4xZELvC9+1xQ==
+X-ME-Sender: <xms:Dz7gWR-f_9QyXWmQNaSMB8Q70IYKMt2aJl6KMbe9nnzEITRWrsPC4w>
+Received: from keelia23 (220-253-53-78.dyn.iinet.net.au [220.253.53.78])
+ by mail.messagingengine.com (Postfix) with ESMTPA id DAC8D7F91E;
+ Fri, 13 Oct 2017 00:16:11 -0400 (EDT)
+Message-ID: <1507868164.5452.192.camel@aj.id.au>
+Subject: Machine-scope maintainers for OpenBMC
+From: Andrew Jeffery <andrew@aj.id.au>
+To: OpenBMC <openbmc@lists.ozlabs.org>
+Cc: Yi TZ Li <shliyi@cn.ibm.com>, Joel Stanley <joel@jms.id.au>, Mykola
+ Kostenok <c_mykolak@mellanox.com>, Patrick Venture <venture@google.com>,
+ Rick Altherr <raltherr@google.com>, Xo Wang <xow@google.com>, Lei YU
+ <mine260309@gmail.com>,  Brad Bishop <bradleyb@fuzziesquirrel.com>, Andrew
+ Geissler <geissonator@gmail.com>
+Date: Fri, 13 Oct 2017 14:46:04 +1030
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-nfD2nN/y0lm+S8ZinLKK"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -70,18 +66,101 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Oct 2017 21:51:36 -0000
+X-List-Received-Date: Fri, 13 Oct 2017 04:16:21 -0000
 
-On Thu, Oct 12, 2017 at 4:32 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> On Thu, 2017-10-12 at 12:52 -0500, Andrew Geissler wrote:
->> Lets do this!  Any proposal on the repo name Andrew J?  openbmc-tools?
->
-> Sounds reasonable to me, can you create it?
->
-> Cheers,
->
-> Andrew
 
-https://github.com/openbmc/openbmc-tools created.
+--=-nfD2nN/y0lm+S8ZinLKK
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thanks Andrew J!
+Hello!
+
+I'm wondering whether we should jot down the maintainers of machines
+supported by OpenBMC, and if so, where? With respect to the latter, one
+candidate might be the MAINTAINERS file in openbmc/docs.
+
+A related question is: Who are the machine maintainers? Off the top of
+my head I feel the following machines machines match with people:
+
+    meta-evb/meta-evb-raspberrypi                  Yi TZ Li <    shliyi@cn.=
+ibm.com    >
+    meta-evb/meta-evb-aspeed/meta-evb-ast2500      Joel Stanley <    joel@j=
+ms.id.au    >
+    meta-x86/meta-mellanox/meta-msn                Mykola Kostenok <    c_m=
+ykolak@mellanox.com    >
+    meta-x86/meta-quanta/meta-q71l                 Patrick Venture <    ven=
+ture@google.com>    , Rick Altherr <    raltherr@google.com    >
+    meta-openpower/meta-ingrasys/meta-zaius        Xo Wang <    xow@google.=
+com    >
+    meta-openpower/meta-ibm/meta-firestone =C2=A0 =C2=A0 =C2=A0 =C2=A0 Lei =
+YU <    mine260309@gmail.com>    meta-openpower/meta-ibm/meta-romulus      =
+     Lei YU <    mine260309@gmail.com>
+meta-openpower/meta-ibm/meta-witherspoon       Brad Bishop <bradleyb@fuzzie=
+squirrel.com>, Andrew Geissler <geissonator@gmail.com>
+
+Less obvious are the following machines:
+
+    meta-openpower/meta-ibm/meta-palmetto
+    meta-openpower/meta-ibm/meta-garrison
+    meta-openpower/meta-rackspace/meta-barreleye
+
+Yet another related question is what do we want to do with machines
+that don't have an obvious maintainer?
+
+In the case of Palmetto I imagine we could find someone willing to step
+up (/me ducks). Garrison I'm unsure about, and for Barreleye I've had
+kernel patches on the list for several months with not a lot of
+interest in them, which indicates to me that we could probably drop it.
+
+As some background, Joel and I were recently discussing machine
+maintainers with respect to the dev-4.13 kernel effort. The approach
+Joel kicked off for dev-4.13 was to start from scratch against upstream
+and distribute the forward-porting amongst owners of patches in dev-
+4.10. That is, if you have patches in dev-4.10 and that are not in
+upstream v4.13, you should rework and send them for us to apply to dev-
+4.13.
+
+To stress the point a bit, the dev-4.13 tree as it stands does not have
+niceties such as `arch/arm/mach-aspeed/aspeed.c` or any of the machine-
+specific devicetree files. The idea is that in addition to distributing
+the workload, we only add back in what we need and try to avoid
+carrying accumulated cruft across moves to new upstream releases.
+
+Whilst the distributed approach eases the workload on Joel, it does
+mean that we could miss things that are required for specific machines
+(the board-file hacks are particularly worrisome). This is driving my
+interest in identifying the maintainers. Having such a list of people
+would, for instance, clarify who ought to be on the review list for
+kernel bumps to openbmc/openbmc in Gerrit. In the case of dev-4.13 this
+would help with the go/no-go decision.
+
+So if you have thoughts on the above or want to put your hand up to
+claim any of the machines in the limbo list above, please do speak up!
+
+Cheers,
+
+Andrew
+
+--=-nfD2nN/y0lm+S8ZinLKK
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZ4D4EAAoJEJ0dnzgO5LT5afAP/0/VDpqFAZeg7bET7uBoRJIx
+h6a5qC0AlrXBzm4XHHfXN8VtgAL6kUfzVfoKHPXxChlV2LK8s3FkHaEKu1GgiWI6
+MnEMQaiRfmyIrCR3koBaHX3icr6EcYOTPI3sr7Z3IjGSvgX5X5yZVWmyLW5oPgaS
+ChU87bcrYvuVPLVQrxUDdOvWbY0uoqYJnsDMT8vPh1FSd4o5v78wyY/K4TjwSxpj
+kO/JKDoGyykFlTkjameBleqGlnfLSawVcpCm1czcz8qOZGPqyGpT9rTi3KC/menZ
+bl7+5817jOMhUfwwXDZeiGN5Zb4H8f+8bxroeag/Y1VkWcA49YeBMgR0ODYgz4qZ
+3RyM4Z+3AeKXYtBaIwk2gp9l/6/1izDDr0Mq/QXGYRElo3Nltz1Unnycs2r8n2Fx
+jcLJ1V/FdoZG/j3BTVeaM9+9p0wGuoMc1hL7Z0iRmXzjH/XsgfuuI/suOSQbrVgK
+rDiUFT/SBrIyA4XruIbwJnFsetZNjqC0UDv7/DGGkdfDMsMKOCUt63kq9Oepl5Cd
+YCT4Hd/g1Dj4mK0VIohUu3kGH3EFXa0bINEmHrEzDA29HrCo7V/JrIy3miFF96Cp
+mjLpNRwHEeof+PDcF6fGaxgwFykw8sa1Y/eZVNjCm/ZLjP6DZR5CS5lxxcFKOrk0
+R8fGC8Nwlwl8m02kH8Kp
+=oEQu
+-----END PGP SIGNATURE-----
+
+--=-nfD2nN/y0lm+S8ZinLKK--
