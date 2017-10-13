@@ -1,63 +1,68 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Return-Path: <xavinux@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c0d::231; helo=mail-qt0-x231.google.com;
+ envelope-from=xavinux@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="i4juAu+v"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="oPSbu2lE"; dkim-atps=neutral
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="TJtJdJnO"; 
+ dkim-atps=neutral
+Received: from mail-qt0-x231.google.com (mail-qt0-x231.google.com
+ [IPv6:2607:f8b0:400d:c0d::231])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yD5g52M4PzDqlv;
- Fri, 13 Oct 2017 22:52:17 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 53C1120C6B;
- Fri, 13 Oct 2017 07:52:15 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Fri, 13 Oct 2017 07:52:15 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=Yi2zCizpGHf0vwpqEEGIQNBqvDjwXt/SDwJq6iykhBI=; b=i4juAu+v
- b8FvS/DqzlaRh8eYaGccKVsjJYp37yfY3hEmgWuMhIrtixmoqHaToB9fhZqJKaGD
- wfKR3eh4bdNmACOMsqGAd8HaLIH9m3pe5zK6iUFdiVkFaCeUFIXOzYYEiURWvRuY
- SvU3DfPL3YwJjbZQqicr8cF6q3i3bQBp+3juMMXXV4Kq7wIKBH0Rh65NwKMlf7Sl
- AuMNTPBRzA+k5e/ImDq2oXlToDsbW3KW8cYtzL7mUToYjtiwf8ZvKpQW7c7tVall
- PlogO2qroFEfHJqwmitNeI6Ms1dx6V13yfOqP6SgNvQffTGIRQYTyogRNA1YRMGx
- +TcsR7CppLYzAQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=Yi2zCizpGHf0vwpqEEGIQNBqvDjwX
- t/SDwJq6iykhBI=; b=oPSbu2lEZI6UL3bd1pYW1kWYEEKXwMls3HXkh9LMthOuQ
- J0wTK6jxDi4oKNOH01ogM+Wn5SyqfsP2cEH6EvM+22irYJ4MH0qihhmYbVCX6IQs
- HM6vxOF4c2AypTXIb2Hcgk8/6qGT9PDw4OIWNBL2xDwPuq7x3PILJAd/cscBxXi3
- gevp3FqfdzrrRtJJKEjlpZJoFJDvIQK7aXiBvrECasYJM43lF698MVfzt01RWna/
- 3yeMs8m1YaKK52zoRu9rSs4BmFgfYlUkSR0TT10MckcIMJCeiqDKOdS1uH+laGFF
- +MFW+HyfWl/XIpB2K8pEhP96Fq4SJzigKF4MhR14A==
-X-ME-Sender: <xms:76jgWbYejWd07JvopyWXYCOCuBYKaDgtG_7Jn4Nfhlfq5MFg25WbHw>
-Received: from keelia23 (220-253-53-78.dyn.iinet.net.au [220.253.53.78])
- by mail.messagingengine.com (Postfix) with ESMTPA id 7F8907E3DF;
- Fri, 13 Oct 2017 07:52:13 -0400 (EDT)
-Message-ID: <1507895530.5452.210.camel@aj.id.au>
-Subject: Re: OpenBMC helper scripts repositories
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Andrew Geissler <geissonator@gmail.com>, Chris Austen <austenc@us.ibm.com>
-Cc: openbmc <openbmc-bounces+austenc=us.ibm.com@lists.ozlabs.org>, OpenBMC
- <openbmc@lists.ozlabs.org>
-Date: Fri, 13 Oct 2017 22:22:10 +1030
-In-Reply-To: <CALLMt=pT-oPiQr0V0_CQd_eOEkyYsSncH1_dS-Jjhkbd7+VvWw@mail.gmail.com>
-References: <1507254940.5452.129.camel@aj.id.au>
- <OFDFEB18C7.4CBB979B-ON002581B1.000FD8A2@LocalDomain>
- <OF921CDA64.CB068039-ON862581B1.00153196-862581B1.0015746A@notes.na.collabserv.com>
- <CALLMt=pT-oPiQr0V0_CQd_eOEkyYsSncH1_dS-Jjhkbd7+VvWw@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-H0go52H5TaJOfCt9P6dY"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yD8Y90bxhzDqlv
+ for <openbmc@lists.ozlabs.org>; Sat, 14 Oct 2017 01:02:20 +1100 (AEDT)
+Received: by mail-qt0-x231.google.com with SMTP id j58so8636846qtj.0
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Oct 2017 07:02:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=eKrHZ5PnwIWDAQRYBB4NDTZnx2hTPeuy6CfHC1JAjpM=;
+ b=TJtJdJnOPOReb9ak9kPB7+k82sFvX9vv1j1Xo34HZklx5l6cRK89RsFRJfMmL9YE5n
+ M4f9//eJdRYiPC8cXiqGFjynB0PQUlyScl4JYSJEiNClpsiEBmkiUEsH2yhYw4HShCC4
+ L2V26EPSn0ye82QsUZ0ujPhWsAzKlMVoUte+e+0+m9lgZMgpJtyCi+NHtiwAuSzTq0wz
+ 0sy+S4hdCldEr0s+Ua7mKIPW7yJyiaYcRs496cZH9fzlL9zCjP5+oDjhbC3eTp37yPYv
+ WikFl3cNszcHGGx+eGnQubQzasBRs2uSovQXFZM1bZN4ctV6xicB9nsBFu6FcEgFVqlS
+ Bc5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=eKrHZ5PnwIWDAQRYBB4NDTZnx2hTPeuy6CfHC1JAjpM=;
+ b=TuKlDw48nfTRdVNDJ6XRD0AmHrRVSo5OqLau3aD1xguGI5cmuau9zYrxI1IK3TiNM1
+ stmeAQl3IFbvI4vXaux4MwSNTUKgpytk6un/4AGKdR+jNzXNDhIuZLFe/VV1B1/wESt9
+ 2A94jYq0A5wfXCZMC99iE0WJdWtcP4vOAhXZBgG6AXp9d3g1tP+iU18NzP+rsAI5HfxW
+ PSiIgsMWFA/Efidwvi3RevU9O6n9pP18OImM585DPsRpmSrlBwUyx+VDpXFJVGW79jkx
+ KwWBhUGb85RRjKnzgueDDqCimc97HjqEhJwIfsENPNHcsBaPaxAhx3APlOBBF1KcoYV8
+ RWJw==
+X-Gm-Message-State: AMCzsaVtBaGA3V+Hya5dCF+3JybiQrCf8OPt7M+n4Es737No8SGmj5Pt
+ tIT31IdcNaB1E72PFX201iIB78SNj3Kr6eTUrEk=
+X-Google-Smtp-Source: AOwi7QBuZOG/30WS/BluxlKfgBwVPkx0SRbGMOOI8xjfRlIxARdXrRk49ESPRmj8+h88kWFYsdcop2X4E0TpgZ872d4=
+X-Received: by 10.200.0.135 with SMTP id c7mr2248192qtg.66.1507903337770; Fri,
+ 13 Oct 2017 07:02:17 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.12.153.200 with HTTP; Fri, 13 Oct 2017 07:02:17 -0700 (PDT)
+In-Reply-To: <1507870562.5452.195.camel@aj.id.au>
+References: <CAEX+82Lr=pJEvRqfi9MA=ZBW=DR+mY2VYVUhhTBgrPFA3c239g@mail.gmail.com>
+ <CAPLgG=nHvmVzBW2CDxvgaeYAHoNL53W3An-p9fK3D4HfsU=Bbw@mail.gmail.com>
+ <1507325323.1545468.1130544088.6FEEF44B@webmail.messagingengine.com>
+ <CAEX+82KLmByCXqVg1Hzi7r5-cH2=Cx-0OE_hLwx-Jr_XXfe1Wg@mail.gmail.com>
+ <CAEX+82Ls_e7EdupoUUbWEOL5gngd5BdxAY6YptHqAVp7HuJvjA@mail.gmail.com>
+ <1507466681.5452.143.camel@aj.id.au>
+ <CAEX+82+KQAV5WMuWh1VZCL+zb7TXXnxeUS_=8nQk1tC=8jrtqg@mail.gmail.com>
+ <1507531274.5452.154.camel@aj.id.au>
+ <OF72E5748D.A94F82AF-ON482581B4.0033C44D-482581B4.003504C9@notes.na.collabserv.com>
+ <CAEX+82LFjvc4=Ai6p4k66EBfE-45jrYUwvmPFGdgSb4OdzQVFA@mail.gmail.com>
+ <1507594463.5452.156.camel@aj.id.au>
+ <CAEX+82+j8xq5JikSPWi_ycwnoQLNUF1YVUVjxsSdtBfG3b2-Ug@mail.gmail.com>
+ <1507691159.5452.168.camel@aj.id.au>
+ <CAEX+82KL+N5VCvo+LH20=1paTZvKo2M7PqdXk7=bFq7MdAGeSA@mail.gmail.com>
+ <1507870562.5452.195.camel@aj.id.au>
+From: Javier Romero <xavinux@gmail.com>
+Date: Fri, 13 Oct 2017 11:02:17 -0300
+Message-ID: <CAEX+82L4mdooB_j6asHYdKmr=FRM1NuZJX3dVy2W+7fZpJb2vw@mail.gmail.com>
+Subject: Re: OpenBMC on Raspberry PI 3.
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Yi TZ Li <shliyi@cn.ibm.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -69,43 +74,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Oct 2017 11:52:18 -0000
+X-List-Received-Date: Fri, 13 Oct 2017 14:02:21 -0000
+
+> Ah I wasn't talking about anything in particular, just that we should
+> be able to improve our documentation from the questions you ask as you
+> try to get OpenBMC working on the Raspberry Pi
+
+So, will have to wait till the bug I've reported is fixed to continue
+working with OpenBMC on Raspberry, nothing else I can do with my RPI
+and obmc?
+
+> But regarding the documentation, have you read through the docs repository at all?
+
+Yes, I have check the documentation.
+
+Javier Romero
+E-mail: xavinux@gmail.com
+Skype: xavinux
 
 
---=-H0go52H5TaJOfCt9P6dY
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2017-10-09 at 13:00 -0500, Andrew Geissler wrote:
-> With https://github.com/geissonator/openbmc-events, I was looking to
-> build a bunch of small tools, that had similar command line interfaces
-> to interact with the different REST api's in openbmc.
-
-I've pulled this into openbmc/openbmc-tools.
-
-Cheers,
-
-Andrew
---=-H0go52H5TaJOfCt9P6dY
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJZ4KjqAAoJEJ0dnzgO5LT5yfgP/0S2wvDxyGw8MPlv/GudpS3P
-CIVAQ9bEHx8ZsICDOu38uafxOrGkSipb55kZEz/KqRK/JlHdcP1Pl9pgSV0gVEl4
-0Dmd5/QjlNlYtn1DHTH0nEMUnvjKqz4pYhwagyWDUOLusIu8NUkQvetgqGZG6I8I
-NFSHEEjf0mmN5Bpa29RogSSjeM8fO8YXdP3HaRsZu6Ic3h18Oxqbx9fPdIf/YrJ/
-Lb3WZrWMR+kM2AtiRutjbhURhTHL3jhauprlkTQtEz4/xyP/8algrB6nzY1kUcKJ
-2XHHpyFejiIeOSodpREGrDmxY1CFB5j6ZvxMUBy0dGJpmlFcjOm+EKxZIFOJXicc
-WTQBGkPGq8xsKLiRzoym+04qnrdMsNaf89XY6o+/M+c/lz1yjPjYN48qB2QCVqqf
-lZFQqdICwCn1/L5/u7E40pvcqHJ4dtXXyp5s0RSs+Uoq7L3g86h4Nr2Y0IpXLMAx
-v0lxCRtdisbkngFNVvn7dUl4HXMBCVaQdO0IYhWgvSnNa1zg1KyCOsD6zDJHqiE1
-CefhuMPa9pr1CeN7giDXIigs0FIYOndfdJlW+c/i1mXPzM+n8kLsvNB2B02sTi/o
-QIaYPGp7nf+ryyNvfLcrGp9HIUPSuhw4B0bpMTBT12nlbUQOp4mwvqQVwfK+X+Ym
-hSRILa6pSXV2Qqlt6kex
-=eVoT
------END PGP SIGNATURE-----
-
---=-H0go52H5TaJOfCt9P6dY--
+2017-10-13 1:56 GMT-03:00 Andrew Jeffery <andrew@aj.id.au>:
+> On Wed, 2017-10-11 at 16:09 -0300, Javier Romero wrote:
+>> > Great! I look forward to you helping us improve our documentation and
+>> > on-boarding of contributors. It might be rocky but it should help those
+>> > coming along in the future.
+>>
+>> A starting point to start my contribution, so, how can I help on this?
+>
+> Ah I wasn't talking about anything in particular, just that we should
+> be able to improve our documentation from the questions you ask as you
+> try to get OpenBMC working on the Raspberry Pi. But regarding the
+> documentation, have you read through the docs repository at all?
+> Contributions are certainly welcome there:
+>
+> https://github.com/openbmc/docs/
+>
+> Cheers,
+>
+> Andrew
