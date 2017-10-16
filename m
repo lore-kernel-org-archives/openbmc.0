@@ -1,55 +1,58 @@
-Return-Path: <raltherr@google.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400c:c05::22b; helo=mail-vk0-x22b.google.com;
- envelope-from=raltherr@google.com; receiver=<UNKNOWN>)
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="WsVFjH+/"; 
- dkim-atps=neutral
-Received: from mail-vk0-x22b.google.com (mail-vk0-x22b.google.com
- [IPv6:2607:f8b0:400c:c05::22b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ihKefXWL"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="b0lxaPZA"; dkim-atps=neutral
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yFl7W74SmzDrF8
- for <openbmc@lists.ozlabs.org>; Mon, 16 Oct 2017 15:04:06 +1100 (AEDT)
-Received: by mail-vk0-x22b.google.com with SMTP id 137so6893757vkk.8
- for <openbmc@lists.ozlabs.org>; Sun, 15 Oct 2017 21:04:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=/j9Nvk6D8MIFzJ43ocqEYvhdiENf92cYTyZtVtoCCms=;
- b=WsVFjH+/TfdfXqcNXFjau2QeNb8/QpQZdeV1sy7h0uB9hxsIKUdOO3ExG+bSe8FkZb
- QPTOtYqA+zezddPjreF2yV1JCyhBwnOPofzuqVghoVm3a10UdxNP2ebyRhOjezBrkjL0
- W5+oVuKGJQMl6wdr7CFR31rAExNR2tfbHTqaG1lDRIuB+C/jgABv+uQ5SP9gXnBk/m8x
- B9TZ8ydhWGbTrOxooTPlUGO8B6PiMKwIQRUT49V+2pTsezOW6cP8+bqb8uwp3RL3R6J5
- EKzOLA07ukPkr61iCDkppR8Tvsr9Md9BInK/5wwo/R77UC2ki4EAfCpGXMoTA2SnH3il
- 9//w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=/j9Nvk6D8MIFzJ43ocqEYvhdiENf92cYTyZtVtoCCms=;
- b=XU8CDPcX4OKvL7w4IY+Pc9OWA0a4QFUlncoVT7nl2U4eHjQ6UjNBngpehjPF3oo/uS
- mTDFdi+jPnLQ5U6zmsKdqhhqUY0fmZdBgBbriSVzhk45vDBd5clLD+NIPwWimZkuH6v3
- 4Yd3Fx+ZQ0kFrLA2hFRo6yATjTCg0SQjjScPcHMCr5SHRJi8GJcia1312JK6Xxv/Drcy
- vEa3XXiL8pNeSdlW37wRP9CLqi6dgBw59ZYrV0eB3QyPgSCQvoM+CvrBI1X0vRF6RWPx
- PeP9ShllRShhCYk1wp3sH+5JCwQwwMv03Ck/XPcE44bSJXls7+WZ/HFgpUgF+As00hNc
- bgmg==
-X-Gm-Message-State: AMCzsaWIrHevCh9VkbAnunnKp/+8XQcxEbBKeszZeTyRbpbOzkpWeR92
- VlQIKapQnRP80/lF5NiSSfKKJS+ZrT+nEdvRFiFbHw==
-X-Google-Smtp-Source: ABhQp+TkEPG1JVsnx0Ase8ISwg04kLI6wKPnIz+P/jIM0s3LTwPe7ob525UFp/xRLxnyE/zBBTQLGUYstDqKFuITQzg=
-X-Received: by 10.31.76.129 with SMTP id z123mr4814688vka.158.1508126643804;
- Sun, 15 Oct 2017 21:04:03 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.31.70.4 with HTTP; Sun, 15 Oct 2017 21:04:03 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yFm0t3VGlzDrF8
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Oct 2017 15:43:25 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 2578620BC3;
+ Mon, 16 Oct 2017 00:43:22 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Mon, 16 Oct 2017 00:43:22 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm1; bh=9Sv+ICJfygnxrRLIZyp1CsWosUaPQvrc8/0NX0t7gXI=; b=ihKefXWL
+ bV1jY5LaCVRdopHWYsxqQIlesdNZMIlPqPZeQ4WFdanelJiETAGz3pV0JEgdAnVj
+ Y3x99i01HU7gkBAJ1wqhYY18vuMj/BsDFHTogFf8/BYTAVxlrR6E4AdhZAr9DHeA
+ Wp+gxyNil3TN6mOVIo+ZfoJx+VKbwytpcqfb5kp5eU2vgRohusWrdREvlPzwUW1f
+ SEXaQV8zxt149zq1u7qFDhlQmZOUKTsNSWBAkbbEmhse0220dpGgFVz6cJuGvq/0
+ tV+1dogjMqIceSGLVD239ohwBR93L8gfmz/S57npmvLjK7noXQEq4fA/9DA0Sbjf
+ XvkoKL4196miPQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; bh=9Sv+ICJfygnxrRLIZyp1CsWosUaPQ
+ vrc8/0NX0t7gXI=; b=b0lxaPZA3owHv6+C1ap0kMC7LYABKXD73i/36E1HTo+pI
+ uJv7vAfebs3fC8ahVMcfTwytw9vDmd4g6pv5qco7gR1LuSF4HBvja1NhJYkUg29z
+ doATxLWH7aeB39RGJHbROQP2nyOiUL/untSo/UOCZI+JZ/sKH1+schvuSi/qHxeC
+ zIXZpU2l1U2jtMzv8+ElWbwq6GKPmESjdthw73moMy5vIks+a3xcPJY1g2pJmKhH
+ hNsbquSDQdHW/l01LItOOOFmQuK0BAcwXun6W8B449T4ywP+WdsFtFIXEPUT0vbV
+ IUrrSAYMgzh2yB8xheS6/o6xnQV7SA/KnzjhK5zPQ==
+X-ME-Sender: <xms:6jjkWbfCXIp1eBKP6GPSXOJ3-0wDqVBlIvJAVpwxDAxKdP3fadzoAQ>
+Received: from keelia (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 95BCB7EC36;
+ Mon, 16 Oct 2017 00:43:20 -0400 (EDT)
+Message-ID: <1508128993.24322.3.camel@aj.id.au>
+Subject: Re: OpenBMC on Supermicro X11SSH-F
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Keno Fischer <keno@juliacomputing.com>, openbmc@lists.ozlabs.org
+Date: Mon, 16 Oct 2017 15:13:13 +1030
 In-Reply-To: <CABV8kRx3PVrqLGZ9=V9znSGvwo+rjv9WS8J1dxMTCvBZrvsm0w@mail.gmail.com>
 References: <CABV8kRx3PVrqLGZ9=V9znSGvwo+rjv9WS8J1dxMTCvBZrvsm0w@mail.gmail.com>
-From: Rick Altherr <raltherr@google.com>
-Date: Sun, 15 Oct 2017 21:04:03 -0700
-Message-ID: <CAPLgG=nN+33sTzf6GrZLcxKMN4KSxDwnyv2hW1Xp_k39gqHr4A@mail.gmail.com>
-Subject: Re: OpenBMC on Supermicro X11SSH-F
-To: Keno Fischer <keno@juliacomputing.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="001a114dd13ee1d19c055ba2186c"
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-BepW+x62l6pC0hw/XfD8"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -61,134 +64,140 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 Oct 2017 04:04:08 -0000
+X-List-Received-Date: Mon, 16 Oct 2017 04:43:28 -0000
 
---001a114dd13ee1d19c055ba2186c
+
+--=-BepW+x62l6pC0hw/XfD8
 Content-Type: text/plain; charset="UTF-8"
-
-Cool!  Comment inline.
-
-On Sun, Oct 15, 2017 at 3:33 PM, Keno Fischer <keno@juliacomputing.com>
-wrote:
-
-> Hi folks,
->
-> as I mentioned on IRC I've been working on porting OpenBMC to the
-> Supermicro
-> X11SSH-F board's BMC (an AST2400). It's not complete (lacking most
-> sensors, but
-> does have leds and host power control), but there's enough there that I'd
-> like to
-> kick of the discussion on how to incorporate this.
->
-> I should note that I have no affiliation with Supermicro and no access to
-> the datasheet
-> or schematic. What I know about the board was derived by poking the board
-> with
-> an oscilloscope.
->
->
-Glad there are people out there like you who are willing to take the time
-to map the signals out.
-
-
-> The patch sets are here (just so people can take a look, some of them need
-> a bit
-> of cleanup before I submit them for review):
-> linux: https://github.com/Keno/openbmc-linux
-> qemu: https://github.com/Keno/openbmc-qemu
-> openbmc: https://github.com/Keno/openbmc
->
-> With that a couple of questions:
-> 1. Are you interested in having support for this board in tree?
->
-
-I certainly am.  It's an easily obtainable off-the-shelf board.
-
-
-> 2. If so, am i correct that patches
->    a. to the openbmc linux tree should be emailed here
->
-
-Yes.  Looks like you only needed a DTS which is good news.
-
-
->    b. to openbmc itself should be submitted via gerrit?
->
-
-Correct.
-
-
->    c. to qemu should be emailed upstream with the appropriate cc?
->
-
-Yes
-
->
-> I'd like to thank all the people on IRC who've helped me get this up and
-> running.
-> I also very much appreciate all the work you've been doing in developing
-> this in
-> the open and upstreaming your work. I'm hoping my work on this port can
-> help
-> amplify the impact this work by making openbmc more widely available.
->
-> Keno
->
-
---001a114dd13ee1d19c055ba2186c
-Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Cool!=C2=A0 Comment inline.<div class=3D"gmail_extra"><br>=
-<div class=3D"gmail_quote">On Sun, Oct 15, 2017 at 3:33 PM, Keno Fischer <s=
-pan dir=3D"ltr">&lt;<a href=3D"mailto:keno@juliacomputing.com" target=3D"_b=
-lank">keno@juliacomputing.com</a>&gt;</span> wrote:<br><blockquote class=3D=
-"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding=
--left:1ex"><div dir=3D"ltr">Hi folks,<div><br></div><div>as I mentioned on =
-IRC I&#39;ve been working on porting OpenBMC to the Supermicro</div><div>X1=
-1SSH-F board&#39;s BMC (an AST2400). It&#39;s not complete (lacking most se=
-nsors, but</div><div>does have leds and host power control), but there&#39;=
-s enough there that I&#39;d like to</div><div>kick of the discussion on how=
- to incorporate this.</div><div><br></div><div>I should note that I have no=
- affiliation with Supermicro and no access to the datasheet</div><div>or sc=
-hematic. What I know about the board was derived by poking the board with</=
-div><div>an oscilloscope.</div><div><br></div></div></blockquote><div><br><=
-/div><div>Glad there are people out there like you who are willing to take =
-the time to map the signals out.</div><div>=C2=A0</div><blockquote class=3D=
-"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding=
--left:1ex"><div dir=3D"ltr"><div></div><div>The patch sets are here (just s=
-o people can take a look, some of them need a bit</div><div>of cleanup befo=
-re I submit them for review):</div><div>linux:=C2=A0<a href=3D"https://gith=
-ub.com/Keno/openbmc-linux" target=3D"_blank">https://github.com/<wbr>Keno/o=
-penbmc-linux</a></div><div>qemu: <a href=3D"https://github.com/Keno/openbmc=
--qemu" target=3D"_blank">https://github.com/Keno/<wbr>openbmc-qemu</a></div=
-><div>openbmc: <a href=3D"https://github.com/Keno/openbmc" target=3D"_blank=
-">https://github.com/Keno/<wbr>openbmc</a></div><div><br></div><div>With th=
-at a couple of questions:</div><div>1. Are you interested in having support=
- for this board in tree?</div></div></blockquote><div><br></div><div>I cert=
-ainly am.=C2=A0 It&#39;s an easily obtainable off-the-shelf board.</div><di=
-v>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;=
-border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><div>2. If so=
-, am i correct that patches</div><div>=C2=A0 =C2=A0a. to the openbmc linux =
-tree should be emailed here</div></div></blockquote><div><br></div><div>Yes=
-.=C2=A0 Looks like you only needed a DTS which is good news.</div><div>=C2=
-=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;borde=
-r-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><div>=C2=A0 =C2=A0=
-b. to openbmc itself should be submitted via gerrit?</div></div></blockquot=
-e><div><br></div><div>Correct.</div><div>=C2=A0</div><blockquote class=3D"g=
-mail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-l=
-eft:1ex"><div dir=3D"ltr"><div>=C2=A0 =C2=A0c. to qemu should be emailed up=
-stream with the appropriate cc?</div></div></blockquote><div><br></div><div=
->Yes=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8e=
-x;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><div><br></=
-div><div>I&#39;d like to thank all the people on IRC who&#39;ve helped me g=
-et this up and running.</div><div>I also very much appreciate all the work =
-you&#39;ve been doing in developing this in</div><div>the open and upstream=
-ing your work. I&#39;m hoping my work on this port can help</div><div>ampli=
-fy the impact this work by making openbmc more widely available.</div><span=
- class=3D"HOEnZb"><font color=3D"#888888"><div><br></div><div>Keno</div></f=
-ont></span></div>
-</blockquote></div><br></div></div>
+Hi Keno,
 
---001a114dd13ee1d19c055ba2186c--
+On Sun, 2017-10-15 at 18:33 -0400, Keno Fischer wrote:
+> Hi folks,
+>=C2=A0
+> as I mentioned on IRC I've been working on porting OpenBMC to the Supermi=
+cro
+> X11SSH-F board's BMC (an AST2400).
+
+Awesome!
+
+> It's not complete (lacking most sensors, but
+> does have leds and host power control), but there's enough there that I'd=
+ like to
+> kick of the discussion on how to incorporate this.
+>=C2=A0
+> I should note that I have no affiliation with Supermicro and no access to=
+ the datasheet
+> or schematic. What I know about the board was derived by poking the board=
+ with
+> an oscilloscope.
+
+Great work on that front.
+
+>=C2=A0
+> The patch sets are here (just so people can take a look, some of them nee=
+d a bit
+> of cleanup before I submit them for review):
+> linux:=C2=A0https://github.com/Keno/openbmc-linux
+> qemu: https://github.com/Keno/openbmc-qemu
+> openbmc: https://github.com/Keno/openbmc
+>=C2=A0
+> With that a couple of questions:
+> 1. Are you interested in having support for this board in tree?
+
+Yes. The more the merrier IMO, as long as you're happy to keep it in good
+shape.
+
+> 2. If so, am i correct that patches
+> =C2=A0 =C2=A0a. to the openbmc linux tree should be emailed here
+
+So stepping out to generalities for the moment, we want to work upstream as
+much as possible, so the strong preference is to send your patches there fi=
+rst.
+How we work is documented here:
+
+=C2=A0=C2=A0=C2=A0=C2=A0https://github.com/openbmc/docs/blob/master/kernel-=
+development.md
+
+However given your efforts so far and that the only kernel modifications yo=
+u
+have (according to your fork on github) is the addition of a devicetree, I'=
+m
+keen to get this integrated into our tree for you. Please send the patch to=
+ the
+list Cc'ing myself and our primary kernel maintainer Joel Stanley
+<joel@jms.id.au>. Joel's currently away on holidays so I'm standing in for =
+him.
+
+Joel is also the upstream maintainer for the Aspeed devicetrees, so all you
+should need to do to upstream the patch is rebase it onto a recent upstream=
+ tag
+then send to at least Joel and the linux-arm-kernel list (feel free to Cc t=
+his
+list as well).
+
+> =C2=A0 =C2=A0b. to openbmc itself should be submitted via gerrit?
+
+Yep. For reference Gerrit lives at https://gerrit.openbmc-project.xyz/ but =
+I
+expect you've already found it.
+
+> =C2=A0 =C2=A0c. to qemu should be emailed upstream with the appropriate c=
+c?
+
+Same model as the kernel - ideally things go upstream first, and then we su=
+ck
+in the patches as we move our fork forward against upstream. However if you=
+r
+patches depend on work we don't yet have upstream, send them to this list f=
+irst
+and we'll work our way forward. Similar to what we've documented for the
+kernel, put 'PATCH qemu' in your `--subject-prefix` so we know what's what =
+(we
+track patches with our Patchwork instance[1]).
+
+In either case (this list or upstream), please Cc myself and C=C3=A9dric Le=
+ Goater
+<clg@kaod.org>.
+
+[1] https://patchwork.ozlabs.org/project/openbmc/list/
+
+>=C2=A0
+> I'd like to thank all the people on IRC who've helped me get this up and =
+running.
+> I also very much appreciate all the work you've been doing in developing =
+this in
+> the open and upstreaming your work. I'm hoping my work on this port can h=
+elp
+> amplify the impact this work by making openbmc more widely available.
+
+Thanks for your effort to expand our supported systems, and welcome to the
+community!
+
+Cheers,
+
+Andrew
+--=-BepW+x62l6pC0hw/XfD8
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZ5DjiAAoJEJ0dnzgO5LT5O34P/RePckzYoyVRUlHxV8T9d15x
+hA3F2f5rKiWA62/ApNutrKs5ClfG+dV6Drx+iPzHXgKVTk3USMU8Qjz/v4JuRCzR
+7FEn+hgrV9h7UhWYADDgrTc7C1svfpVW4WJG7dEmcRSVraB5Qt/UiLE0ceDCoV7H
+Fw5NTc0ncp39grhsyIGMgIau4ZXtmqdgIg+PnsiK6rGtA+Qtq1L84uitVuOREdoC
+Zo4PTeG+FadUsirBk8nU2/e8it32TsM0WH1yhdG+NwgNZ03zho/cEJwA+wnIsNOE
+P6+Jr1qkH79gESO9BgOCOr2P632Kw8lBC2ce+Y3CUfTVakyKMIIauAa9hP6181EF
+DhcpxsRduZKbwD1vG+yH2FM8EaKPFAWfJ7LDNqe8WWtRP1hGWo3+0NVJgmUDhSpI
+KuDuis1XbdDRf9aaoy1aSuXHyhNLcdLva3WxnFsVzYFz1XBW8A/RwRusFeUYMEpQ
+YvNP8C+HoLq5lQSapi2aVtZsOSDWu+cFOU9b+1NyaXUkXwRGsoRxyI89mXQXS3fh
+3gYJlRFLr7kWm5ojKolmjxbkghKU/sSBWt2NuKzU07S0FAenVMrQI0nkH5DFIvux
+gDyhTY+R8809VCOxKwV4tHqVf44dWjEryumhBMZJNPZ6d+B1jeCWqRSDg8HgtbKD
+98PyaVMc6J8IFbCdES5S
+=34KD
+-----END PGP SIGNATURE-----
+
+--=-BepW+x62l6pC0hw/XfD8--
