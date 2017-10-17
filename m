@@ -1,57 +1,60 @@
-Return-Path: <mine260309@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c06::234; helo=mail-io0-x234.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Xc7BZw1l"; 
- dkim-atps=neutral
-Received: from mail-io0-x234.google.com (mail-io0-x234.google.com
- [IPv6:2607:f8b0:4001:c06::234])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ksrBvkV8"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="P317mRn3"; dkim-atps=neutral
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yGHWj1tR6zDrD6
- for <openbmc@lists.ozlabs.org>; Tue, 17 Oct 2017 12:23:28 +1100 (AEDT)
-Received: by mail-io0-x234.google.com with SMTP id h70so495674ioi.4
- for <openbmc@lists.ozlabs.org>; Mon, 16 Oct 2017 18:23:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=P+zsBdQz8Tqms9TeZdlz+0EoOhPSOrLu+ttZqFLmJmQ=;
- b=Xc7BZw1lyYRoyxoKHc6nfrofIgGS1oaYsFfe1CAPGPsUtLrl339IjJSCHXYxSmu6eO
- 6hqFH+ldYpJF/8KI7oavmx6kC/AEDj/JOUSUMLeh3wcL32JSpD/2lpCQNKHN0XUdcELq
- 9oJKNhdWVfZIowQX+4LKVPM+p/4HrOBHLI9BG6VYMFGf2ZIOVdXghIFs4dpyKA8lESkI
- 0y+FrUwP56os1w6icw8B+cu7G2fUMXzEheajo9aZnJBhp3om1GUt4UyDwL4yJAapScEh
- bb2ZQy5hOh3UV0VP+Kejd1lxqk/ZbETGdwBKS3EvPvnoLv0wxBJJj/4q3nnBOUxYjH+n
- vTGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=P+zsBdQz8Tqms9TeZdlz+0EoOhPSOrLu+ttZqFLmJmQ=;
- b=gQqFldhezMTuHEiAoCstSZRVpRDVglHyMGJIsI0h2kz3iTl+POccZDK0G5nJ59Ts0X
- v40DS5XzYpXb7+FRtFBVfPK/S204Hne6W38QfW8Jbq9dwx9AhWBAxkIeEPM8jwa2Jax8
- tONZ1LUHGrxDwvd/MVq941QEt11SguoX9oM4mUN+NdFv/HgFiTFFGjILRqDsKdjq4rTb
- rU9EcXwl1V7O+isaWacSbGnMdzn9fKO15qsvV9z0XHxceGbgLZsAlsgezR45WM1QAWFw
- SuY7KuVQIJOo8WWMBm4q3tqQQ/dRxmDoeYX+rSJCFYPSOumd5EejxoQGcchydMQJEyAh
- PqHw==
-X-Gm-Message-State: AMCzsaWcO4U76fksb1raXYhgMrXt/qTI/SLer87QPC4kbRwNwIvWEKEr
- FBtOX99HzSONOJKVq3OdXJnL1vbuLV01PgTE+18=
-X-Google-Smtp-Source: ABhQp+SyCEGEHpFcN8Mk+hwMo4tBnpFkYVHcbKSmVvxA4CteV98KyAlVJ2UGCDOlxEyfhGlt05067Lb0+BuFkmDYcnc=
-X-Received: by 10.107.186.87 with SMTP id k84mr15058938iof.121.1508203405852; 
- Mon, 16 Oct 2017 18:23:25 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.79.196.9 with HTTP; Mon, 16 Oct 2017 18:23:25 -0700 (PDT)
-In-Reply-To: <1507868164.5452.192.camel@aj.id.au>
-References: <1507868164.5452.192.camel@aj.id.au>
-From: Lei YU <mine260309@gmail.com>
-Date: Tue, 17 Oct 2017 09:23:25 +0800
-Message-ID: <CAARXrtkrQtpdkCxp+Oqf-HUBttY6sv2+BEr3gAknXNXq=SGyAg@mail.gmail.com>
-Subject: Re: Machine-scope maintainers for OpenBMC
-To: Andrew Jeffery <andrew@aj.id.au>, Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: OpenBMC <openbmc@lists.ozlabs.org>, Yi TZ Li <shliyi@cn.ibm.com>, 
- Joel Stanley <joel@jms.id.au>, Mykola Kostenok <c_mykolak@mellanox.com>, 
- Patrick Venture <venture@google.com>, Rick Altherr <raltherr@google.com>,
- Xo Wang <xow@google.com>, Andrew Geissler <geissonator@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yGLCz6Hp0zDrD6
+ for <openbmc@lists.ozlabs.org>; Tue, 17 Oct 2017 14:25:03 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id F0ED6207B0;
+ Mon, 16 Oct 2017 23:24:59 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Mon, 16 Oct 2017 23:24:59 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm1; bh=tiO4CAFxCVijaYurVChdLd8O+tJSCWep2RjDUngPsbU=; b=ksrBvkV8
+ PAFr4bPN4XQ+mVzpGb2TCcQij36sYWJVATwEaBWzanxxmOdzVxwnls8elmus4l2Z
+ nkgosnTPFWtMo3NS4R+yut5hNqZRmHuDQtRQwJzzajE7KS4aHyurhTfeaFiyDU6u
+ aaFZ1s/jvbzEQOuJBTIyxHkOLJ9yc07bW7JdGEwMnMngt15MB9cuZWglU10HsM7K
+ QfWHYI/AFXQPcij1HDdaL+1fB2w2i2FjzThKzk3KWXNRNVpJ/Da7rsZfSSA3F3YV
+ 3cXxPHiZfxP0e8V0qQijTCwuom/i3k4p7OZzE82ECr8P31ubgeeUEOyCsTJs5EHA
+ CgliCjiBHYC/VA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; bh=tiO4CAFxCVijaYurVChdLd8O+tJSC
+ Wep2RjDUngPsbU=; b=P317mRn3xxelkiPtQbsaMoSiPYDHrUgZpeFPMNcyC1D6U
+ FYAW59d11cnyjo9tywDAg4InRZSSZrgmEIgaQ7rfRTIgdxi5X8F4UzMWSVzmvcdH
+ JgotbyzoR3FNoAtVl/otJopNFw9/xQp/zgvkf+7Lr+Ya1WR37Z3p55Wb3gUK+xCq
+ fH/tBYCxPozYqhyQo0lfE9o4ZHVegEjzDad6cHbEerkCnk4ltND2IIgZL+YBRVZw
+ cDvdEkLYqqi5B1Sjnm6AV3bGtQtGUzKIh7vkFm7olh648W/80cj3z0bfmOMf5PPC
+ Wd+mzsbBp8LfhypnryIvOiKfBsOp1OCstQ6UK0WBQ==
+X-ME-Sender: <xms:C3jlWa8dGd_ILngmptKryFs1N3CVBMsBwXZWhjq3VeiO7PEl6sO39Q>
+Received: from keelia26 (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id F08A77E237;
+ Mon, 16 Oct 2017 23:24:57 -0400 (EDT)
+Message-ID: <1508210694.24322.13.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: g4 & bmc-quanta-q71l:
+ Add aspeed-lpc-snoop
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Patrick Venture <venture@google.com>, joel@jms.id.au
+Cc: raltherr@google.com, OpenBMC <openbmc@lists.ozlabs.org>
+Date: Tue, 17 Oct 2017 13:54:54 +1030
+In-Reply-To: <20171016194353.171692-1-venture@google.com>
+References: <20171016194353.171692-1-venture@google.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-9zAZD3Be6XtTDln8R7xo"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -63,94 +66,86 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Oct 2017 01:23:29 -0000
-
-Hi Andrew, Brad,
-
-I would like to bring a question about how do we welcome system
-vendors' systems.
-
-Background: in gerrit we already have some system vendors' machines
-under review:
-* meta-inventec/meta-lanyang: https://gerrit.openbmc-project.xyz/#/c/3888/
-* meta-yadro/meta-vesnin: https://gerrit.openbmc-project.xyz/#/c/6429/
-
-They both contain a "large" commit that introduce a machine.
-
-I know we have suggestions to split the commit into separated smaller
-ones, but this
-seems a bit hard:
-* The work is based (referenced) on a similar machine, e.g palmetto or
-zaius, which
-   means the base code (meta-xxx) is already big;
-* The change is submitted as a "squashed" one after it's built and
-tested, which means
-   not each "internal" commit can be built successfully.
-
-In such case, how do we handle this case? Is it possible to accept a
-large squashed commit
-if and *only* if the change is to introduce a new meta-machine?
-
-Thanks!
+X-List-Received-Date: Tue, 17 Oct 2017 03:25:05 -0000
 
 
-On Fri, Oct 13, 2017 at 12:16 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> Hello!
->
-> I'm wondering whether we should jot down the maintainers of machines
-> supported by OpenBMC, and if so, where? With respect to the latter, one
-> candidate might be the MAINTAINERS file in openbmc/docs.
->
-> A related question is: Who are the machine maintainers? Off the top of
-> my head I feel the following machines machines match with people:
->
->     meta-evb/meta-evb-raspberrypi                  Yi TZ Li <    shliyi@cn.ibm.com    >
->     meta-evb/meta-evb-aspeed/meta-evb-ast2500      Joel Stanley <    joel@jms.id.au    >
->     meta-x86/meta-mellanox/meta-msn                Mykola Kostenok <    c_mykolak@mellanox.com    >
->     meta-x86/meta-quanta/meta-q71l                 Patrick Venture <    venture@google.com>    , Rick Altherr <    raltherr@google.com    >
->     meta-openpower/meta-ingrasys/meta-zaius        Xo Wang <    xow@google.com    >
->     meta-openpower/meta-ibm/meta-firestone         Lei YU <    mine260309@gmail.com>    meta-openpower/meta-ibm/meta-romulus           Lei YU <    mine260309@gmail.com>
-> meta-openpower/meta-ibm/meta-witherspoon       Brad Bishop <bradleyb@fuzziesquirrel.com>, Andrew Geissler <geissonator@gmail.com>
->
-> Less obvious are the following machines:
->
->     meta-openpower/meta-ibm/meta-palmetto
->     meta-openpower/meta-ibm/meta-garrison
->     meta-openpower/meta-rackspace/meta-barreleye
->
-> Yet another related question is what do we want to do with machines
-> that don't have an obvious maintainer?
->
-> In the case of Palmetto I imagine we could find someone willing to step
-> up (/me ducks). Garrison I'm unsure about, and for Barreleye I've had
-> kernel patches on the list for several months with not a lot of
-> interest in them, which indicates to me that we could probably drop it.
->
-> As some background, Joel and I were recently discussing machine
-> maintainers with respect to the dev-4.13 kernel effort. The approach
-> Joel kicked off for dev-4.13 was to start from scratch against upstream
-> and distribute the forward-porting amongst owners of patches in dev-
-> 4.10. That is, if you have patches in dev-4.10 and that are not in
-> upstream v4.13, you should rework and send them for us to apply to dev-
-> 4.13.
->
-> To stress the point a bit, the dev-4.13 tree as it stands does not have
-> niceties such as `arch/arm/mach-aspeed/aspeed.c` or any of the machine-
-> specific devicetree files. The idea is that in addition to distributing
-> the workload, we only add back in what we need and try to avoid
-> carrying accumulated cruft across moves to new upstream releases.
->
-> Whilst the distributed approach eases the workload on Joel, it does
-> mean that we could miss things that are required for specific machines
-> (the board-file hacks are particularly worrisome). This is driving my
-> interest in identifying the maintainers. Having such a list of people
-> would, for instance, clarify who ought to be on the review list for
-> kernel bumps to openbmc/openbmc in Gerrit. In the case of dev-4.13 this
-> would help with the go/no-go decision.
->
-> So if you have thoughts on the above or want to put your hand up to
-> claim any of the machines in the limbo list above, please do speak up!
->
-> Cheers,
->
-> Andrew
+--=-9zAZD3Be6XtTDln8R7xo
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, 2017-10-16 at 12:43 -0700, Patrick Venture wrote:
+> Signed-off-by: Patrick Venture <venture@google.com>
+
+Thanks, applied to dev-4.10. As a note you forgot to Cc the list
+initially, so I've added it here.
+
+Andrew
+
+> ---
+> =C2=A0arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts | 5 +++++
+> =C2=A0arch/arm/boot/dts/aspeed-g4.dtsi=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0| 7 +++++++
+> =C2=A02 files changed, 12 insertions(+)
+>=20
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+> b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+> index 0ff3af7ed871..7ed3a773b2d5 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+> @@ -129,6 +129,11 @@
+> =C2=A0			&pinctrl_ddcclk_default
+> &pinctrl_ddcdat_default>;
+> =C2=A0};
+> =C2=A0
+> +&lpc_snoop {
+> +	status =3D "okay";
+> +	snoop-ports =3D <0x80>;
+> +};
+> +
+> =C2=A0&mac0 {
+> =C2=A0	status =3D "okay";
+> =C2=A0
+> diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi
+> b/arch/arm/boot/dts/aspeed-g4.dtsi
+> index 6151704aa87e..6505062ac6c7 100644
+> --- a/arch/arm/boot/dts/aspeed-g4.dtsi
+> +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+> @@ -117,6 +117,13 @@
+> =C2=A0					status =3D "disabled";
+> =C2=A0				};
+> =C2=A0
+> +				lpc_snoop: lpc-snoop@0 {
+> +					compatible =3D
+> "aspeed,ast2400-lpc-snoop";
+> +					reg =3D <0x0 0x80>;
+> +					interrupts =3D <8>;
+> +					status =3D "disabled";
+> +				};
+> +
+> =C2=A0				mbox: mbox@180 {
+> =C2=A0					compatible =3D
+> "aspeed,ast2400-mbox";
+> =C2=A0					reg =3D <0x180 0x5c>;
+--=-9zAZD3Be6XtTDln8R7xo
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZ5XgGAAoJEJ0dnzgO5LT59J8QAKPQPEOCyZzi1ww5BJqNR9o/
+MHuS9W6bswpCsEkLqLEdHHordbZijLsV/9tu0HNMlPXJEOdmj1sEotoQ+UPKp4ck
+LKnRwXZYtzsKtNCy98gL+81JVMgJqeGU2dxHOZe+4fS7x+duPbTblNZVBQKYbU8b
+GlVqPxpV/YSXR7diF6hMi5napqHLhRrRUQbp71rin/jeIqQ706OXxIuOxbTIOyrW
+XM9TwS+gGto/HfwHwTwleJGjZjqNBGLkA8FwhoBQnZ7HimB8w0xBHgyAqEJBklyy
+OtOOOQcZHe9AfwRTixDIrtUZdVdSVa/w71AzHAQmcRMghOdNlIWbecJcxGAZUHXD
+0E30stqZhjgM2ztFQTFH1X44+D3pkfT36E/Z8tAQIZRzJdpSlIxK6ZiqCE27ObLS
+bU9UonIQa9nOomZkdkXZK7mw0Wz/1ioi4CKkWmNSxYeSzBYli+me/NGhleJIoqJl
+G7U4C3iNGHnxNiYgYXa4Rt3osI3kT8g82roAYLZNQ04IB5VQDjzFkJLpByhMdMhf
+iLNLG8KADjWYPl/JnNxklQKuUk66V3PWc58Y3jkYEvaFnbub2aUvpQrwEZxOp90l
+WPGeBw0+18PkiMy+Gx+QjACXupURoDgAPuBLrS0+yrfooA832zmGY2GwBctNH7p2
++OeowxQfN+LX66c6ezD0
+=9EEq
+-----END PGP SIGNATURE-----
+
+--=-9zAZD3Be6XtTDln8R7xo--
