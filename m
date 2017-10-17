@@ -3,56 +3,61 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="W7nbo4oR"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="mAEpYnP5"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="si0eCZRs"; dkim-atps=neutral
+ header.b="asTXSH4j"; dkim-atps=neutral
 Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yGY040rqYzDrG0
- for <openbmc@lists.ozlabs.org>; Tue, 17 Oct 2017 22:30:25 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yGY6b6VQGzDqlv
+ for <openbmc@lists.ozlabs.org>; Tue, 17 Oct 2017 22:36:07 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 7EEF02078B;
- Tue, 17 Oct 2017 07:30:18 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id BBBE620BC9;
+ Tue, 17 Oct 2017 07:36:05 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Tue, 17 Oct 2017 07:30:18 -0400
+ by compute4.internal (MEProxy); Tue, 17 Oct 2017 07:36:05 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=diQA0rpw5nMHO2yyDxTSEjKd3zRkRwpk33Uq4+0q8W8=; b=W7nbo4oR
- rYkWm5WtMp4jfuC61cYmfiBv0aYu3qEfKuWO2F6L+cTzCoPLNp5ySssO93hdOIvT
- vYwyBxLQBafRb9DEdn+EN3hJx1jSWeCJ6U4Z2PP6y4lPlkFVY6ceWYKIhEySz3X1
- Zn0pRsS2anM7PmxA6yOsoCqd2KkRHLwxz9w2w01LDExLyHJ3hk/Skeb9Hfvjhqgx
- 8Bjv3FqMBwykTxlXXLDmcS3EQhwNHclxhpm7NUu5eE/istFgLwxPSoFtFffxMy7x
- qMtObaFNvagR/i5lUwP1DlwxLk7BnKKsdYQ8T7fOnXH7QqkFMh5QLt+mMGNzKacf
- mPEVPLNMmaZSpw==
+ fm1; bh=EGRUi4mkPWqCLs3YgdbNwnPgHu/gTGlmZam+yVUBj4c=; b=mAEpYnP5
+ bAogoARXme6kAZmdbNciBh3W5DS7Yh4gMoxMYU1BrJyeFOqp2pk1tqJ2aj598MxJ
+ WYjb4wqMRdzgWdxE+sm2m5VAG/u9YTEXBV1CENIW2iB79hHPk4Oe3GTtR3iTDQnK
+ b4MvZuaRNrTR+LCvZFrHdwWEjH8mt5kHZDQXVeUTRYKKrcMA6s7+GzPRrKVbQCkG
+ KTJuri7jOGUjTEDgEUBpafkxSJlFN6FBUjmmOYVUVyv2XyK6QaUnAN0d2hHbrsPn
+ ZKxvL47/CVUyYngxWbVrv7i/TiEu1efXUXHC4OxXuCOZ7WQlACQJwyuVCplSf1xj
+ WiBWpjdIVeT7YQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=diQA0rpw5nMHO2yyDxTSEjKd3zRkR
- wpk33Uq4+0q8W8=; b=si0eCZRszNNDCVfUilfXIlq/UqwyxXJ9whyUwpcUb2nMg
- fTIviRXHk4gHAl5zgp/uF+35v+lCkopE/ETtxImYCJwLP5fv1hrNrBZQG6KxILgL
- nZrMJEy0TeAgphRtoF0+5hXmObfR8piWtiyQ0Qoh7ECjet8K1XxflYhBwPt5+qtR
- 5f6Lyq70a8q/3cUiE6f9H+fIWkFHFTvzFeuFn9zuhFp/uGUZbNjMNyieY+K5/FZp
- UDgi9t3csD20Su/DEs2LlDWLMTPzlNqtdtmC+6E8ccilRayn2v9ChdVCi3GEstVj
- eXPXpMjN/JjJ/iCuRjvj8U/By6Y7INp/EQd+UCJSw==
-X-ME-Sender: <xms:yunlWb6C8Bo6iaowRoESiCBND-HYocCB2HNs165JhztTCHrLYEFxQQ>
+ :x-me-sender:x-sasl-enc; s=fm1; bh=EGRUi4mkPWqCLs3YgdbNwnPgHu/gT
+ GlmZam+yVUBj4c=; b=asTXSH4jr05ZJ7xdgukljdq0zvwcQpVrmtcJEIx3JTZ+t
+ CGD7kPqsu09Xo1GRjtcHu0unk6u36d8W2h9VtcWV62N/4qv1vhDn3ZnNilcQNtOY
+ sC/eNI/vzndNo89e9HAwfGSkqSTNiYVISLQum9QvSCIRBq0SGs+FNnaBTvmyqkQc
+ C6Er33QRwJQFx0yI3aHMQoqIQ5WxCsV4aJRvYXgXHMnjv9x6PjUdDXzvLF9xbh6b
+ LWG/bFy53vxEYNramfJ4TZR99VfN64MWBQMAqukmFYYVmU+uMxXSFc1YTobMx9lS
+ 4PACzi3JiQKAVcWEiqmia2VqekA8dhPzPOpGxlfDw==
+X-ME-Sender: <xms:JevlWRraRjTlnVfL8Fsh7uD6dLwCwfXrAP7TAaxM6oUYx1uEbNoNtA>
 Received: from keelia26 (220-253-53-78.dyn.iinet.net.au [220.253.53.78])
- by mail.messagingengine.com (Postfix) with ESMTPA id B41CB2479D;
- Tue, 17 Oct 2017 07:30:16 -0400 (EDT)
-Message-ID: <1508239809.24322.14.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10 v2 0/2] drivers: hwmon: occ: sysfs_notify
- and presence detect
+ by mail.messagingengine.com (Postfix) with ESMTPA id 7501E2479D;
+ Tue, 17 Oct 2017 07:36:02 -0400 (EDT)
+Message-ID: <1508240158.24322.16.camel@aj.id.au>
+Subject: Re: [PATCH v2 4/4] watchdog: aspeed: Move init to arch_initcall
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Cc: "Edward A. James" <eajames@us.ibm.com>
-Date: Tue, 17 Oct 2017 22:00:09 +1030
-In-Reply-To: <1508171389-30728-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1508171389-30728-1-git-send-email-eajames@linux.vnet.ibm.com>
+To: Joel Stanley <joel@jms.id.au>
+Cc: linux-watchdog@vger.kernel.org, Wim Van Sebroeck <wim@iguana.be>, 
+ Guenter Roeck <linux@roeck-us.net>, Linux Kernel Mailing List
+ <linux-kernel@vger.kernel.org>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>, linux-aspeed@lists.ozlabs.org, Ryan Chen
+ <ryan_chen@aspeedtech.com>
+Date: Tue, 17 Oct 2017 22:05:58 +1030
+In-Reply-To: <CACPK8Xdz1iK-4bqZfmfTUYw3zDLxCniwt6LupJq5mo-CCca3XQ@mail.gmail.com>
+References: <20170920053020.6860-1-andrew@aj.id.au>
+ <20170920053020.6860-5-andrew@aj.id.au>
+ <CACPK8Xdz1iK-4bqZfmfTUYw3zDLxCniwt6LupJq5mo-CCca3XQ@mail.gmail.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-LyZ9TvoqgUfAMzjsF0Xt"
+ protocol="application/pgp-signature"; boundary="=-jY4S5v9IgRxn0LWWmsEZ"
 X-Mailer: Evolution 3.22.6-1ubuntu1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -66,64 +71,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Oct 2017 11:30:30 -0000
+X-List-Received-Date: Tue, 17 Oct 2017 11:36:08 -0000
 
 
---=-LyZ9TvoqgUfAMzjsF0Xt
+--=-jY4S5v9IgRxn0LWWmsEZ
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2017-10-16 at 11:29 -0500, Eddie James wrote:
-> > From: "Edward A. James" <eajames@us.ibm.com>
+On Wed, 2017-09-20 at 15:43 +0930, Joel Stanley wrote:
+> > On Wed, Sep 20, 2017 at 3:00 PM, Andrew Jeffery <andrew@aj.id.au> wrote=
+:
+> > Probing at device_initcall time lead to perverse cases where the
+> > watchdog was probed after, say, I2C devices, which then leaves a
+> > potentially running watchdog at the mercy of I2C device behaviour and
+> > bus conditions.
+> >=20
+> > Load the watchdog driver early to ensure that the kernel is patting it
+> > well before initialising peripherals.
+> >=20
+> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 >=20
-> This patch set removes the error checking for the number of OCCs present.
-> Instead, export a new sysfs attribute to indicate the number of OCCs pres=
-ent
-> from the master poll response. In addition, add sysfs_notify both to the =
-new
-> occs_present attribute and the throttling attributes.
->=20
-> Changes since v1:
-> =C2=A0* just rebase
->=20
-> Edward A. James (2):
-> =C2=A0 drivers: hwmon: occ: Add occs_present attribute
-> =C2=A0 drivers: hwmon: occ: Add sysfs_notify to throttling attributes
+> I agree that we need to make sure the watchdog driver is loaded
+> earlier. I think this is the correct method, but I'll defer to Guenter
+> on this one.
 
-Applied to dev-4.10.
+Just following up on Joel's comments: Is there anything else I need to
+address?
 
 Cheers,
 
 Andrew
-
->=20
-> =C2=A0drivers/hwmon/occ/common.c | 49 ++++++++++++++++++++++++++++++++++-=
------------
-> =C2=A0drivers/hwmon/occ/common.h |=C2=A0=C2=A02 --
-> =C2=A0drivers/hwmon/occ/p8_i2c.c |=C2=A0=C2=A04 ----
-> =C2=A0drivers/hwmon/occ/p9_sbe.c |=C2=A0=C2=A04 ----
-> =C2=A04 files changed, 37 insertions(+), 22 deletions(-)
->=20
---=-LyZ9TvoqgUfAMzjsF0Xt
+--=-jY4S5v9IgRxn0LWWmsEZ
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJZ5enBAAoJEJ0dnzgO5LT51jIP/iztRZmPc2+YUkvlkOBvDMex
-cb8DGeOXyS/OZeKMrR3TLMy2dv7HUCjLdDzm9/J7tU5cUhxS7rY3nhHQiXQ21gNZ
-4EzvmsvoJssV/sEAOzkQfVxs5/nfjhcmStaH7Dh3etw+mL/QsX/q8KCSc8iOTXrD
-SCXe1AJRnRFIudH3nPvZrsf2anLm1fOBpg+Se4jNn6jHnWGTacmQUtPx61fBnDrM
-9ivaEvWivOP449AHtA5xr6US6hsScjYU0C5MCOPdvWWCAZ/0gsIlv7ATe82HMlfb
-8GRELVAYyHA+4A78+o41NHysgR+JPcDVE7xgh9Y1tFS3USJWJRfIiR+2hV7dpe5V
-Rm1YxrB6qkAsPURuz/nWUbU6xh46IhxxX8mle81wx8fLTfVqNUkoxxJ4IxZTYdsz
-P9gMiFQjklzjG1fGB5xMUh2s1R17UZcUwuzBKaknSR8rd12ZPhuhyGmRokIB00Wf
-ImN+um2UqKu6VW2kdvHtB4xmUoMa5W1zBXJYWLB5930dR+rLId9k0cUklGVEkZRf
-CzZoQH6E11DmaYTDcdXKosn3cJvedckMcCPbKva/TJd82UzTlrH17bzegQEHpWy9
-SIIYwcMT04fRNcluq9h8D5iSxEp4RTHjq1wuvofdHZBYNj8c5OWK9olqibK6KRr1
-XhffdFsNrn08iI70yY0s
-=NhUJ
+iQIcBAABCgAGBQJZ5esfAAoJEJ0dnzgO5LT5BfQP/izJPdvy7HsiMTr/51oUwhWQ
+zKfVa2ubmVOoHYeEJyerDKIAj8wMBPZNHPsYd2/MLZ5u6PwrrRQ08dQehPy3giKU
+1pPtkgdYl+GMvfjzU/IPaaA80yObzwZC4/oXpq28peLQCJZKx9zpx4q1IUVG1f6R
+c4rYxovSHDt4993ZA5TGBw1W+EPR6yZ1dGNvpfK8skpRpqs7/ZkwfIoHD6BLiih1
+RupCrKlZGwGfwoXdizDhbmGxI5cXEsysLPFzLq8oXqFLiijE08oWGECqjkLf2UvM
+yjDap9mhPK11LAy3G7OIxsRD2MRKh2VfyJ0fv6fEX6Ep5hnlWyuUzN2IlQyb61VV
+UTaucK/H1F0EK1XJ4kTXB5Biza2X3ifo2ni7HG0Fp68U5L7bSDpCz+jFsRvR5A0D
+kGLwNRtHe3NqTCqT6VjifawunceIU3yPcPfd0I5A8a4w57R5zvR+vfVpnGLyyb+H
+lZv3joZcImFmmG9Wg2c1eY7oulaleBjrL1vqXjcjhFHu7+CMquQoo47A6NuYR9nY
+dFbolNXvfsHOiz8aKGCpJDydGav6VrCTXfpEVCKrQPFsKRuDOfI3IRMf1VZQh2ak
+Uahikn8ReA/yvRQW+OwvKjiwzHjfUyreT330g/JXDUUTnBy2KV0c6y0Xls6Ssk28
+h06lPSnD2GTHgletGOpW
+=aupq
 -----END PGP SIGNATURE-----
 
---=-LyZ9TvoqgUfAMzjsF0Xt--
+--=-jY4S5v9IgRxn0LWWmsEZ--
