@@ -1,66 +1,57 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <brendanhiggins@google.com>
 Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4001:c0b::232; helo=mail-it0-x232.google.com;
+ envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="GLzKqoIW"; 
+ dkim-atps=neutral
+Received: from mail-it0-x232.google.com (mail-it0-x232.google.com
+ [IPv6:2607:f8b0:4001:c0b::232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yJ1Hg5y6dzDqR8
- for <openbmc@lists.ozlabs.org>; Fri, 20 Oct 2017 07:49:03 +1100 (AEDT)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v9JKmAGa090149
- for <openbmc@lists.ozlabs.org>; Thu, 19 Oct 2017 16:49:01 -0400
-Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2dq0xbpvqe-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 19 Oct 2017 16:49:01 -0400
-Received: from localhost
- by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 19 Oct 2017 16:49:00 -0400
-Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
- by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 19 Oct 2017 16:48:56 -0400
-Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
- [9.57.199.106])
- by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v9JKmtLZ3408162; Thu, 19 Oct 2017 20:48:55 GMT
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id D35D92803A;
- Thu, 19 Oct 2017 16:48:48 -0400 (EDT)
-Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
- by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id 866CE28046;
- Thu, 19 Oct 2017 16:48:48 -0400 (EDT)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: andrew@aj.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10] drivers (pmbus): ir35221: Set PMBUS_PAGE
- before reading id and model
-Date: Thu, 19 Oct 2017 15:48:53 -0500
-X-Mailer: git-send-email 1.8.3.1
-X-TM-AS-GCONF: 00
-x-cbid: 17101920-2213-0000-0000-0000022E4CAC
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007919; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000238; SDB=6.00933536; UDB=6.00470216; IPR=6.00713824; 
- BA=6.00005651; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017612; XFM=3.00000015;
- UTC=2017-10-19 20:48:58
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17101920-2214-0000-0000-000057E8725B
-Message-Id: <1508446133-11823-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-10-19_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
- definitions=main-1710190282
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yJ40N1V5tzDqJ6
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Oct 2017 09:50:59 +1100 (AEDT)
+Received: by mail-it0-x232.google.com with SMTP id r127so11551238itb.5
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Oct 2017 15:50:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=yO6gpkhSh0SN0XZen52QWfifuJTFtuPwoDdWNFKNaF8=;
+ b=GLzKqoIWSILRlRWR+F4OvNJTZHVK/9h6x0HLv4fjzxDxbEnVVef2CNf2yfECn1rlIW
+ N7c/7Es3oIzwiZP2BUofoSNwtp23U8QLZikl5xM4Qju+G4RWKLGgOEZWRq7L/tu6mh2P
+ 3MQZWjnmpoqkMYbFQu1zSYMAflYNTggYDsUxA3g9uWNsY0aiIsS2x4nI+4DUBmJU+J0R
+ wp26cdwb3uWyTImn+EdcndAUZwPSpudv+P/I0C+2LTuOHcYNWQDVSDmORKE3OmNY36AR
+ dmgB1+O5Ryr/8d0j/5LJdv6TeG1f8YlL7fF6jMMHbYG8jaXWlC2FAQP8KPg1T7cWRQvj
+ WOjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=yO6gpkhSh0SN0XZen52QWfifuJTFtuPwoDdWNFKNaF8=;
+ b=dm94xaccmUdXpbcmqHFBalAtCVsUndY+QyrhxS2Dw72YxiK8k+fVLLUBuVftZ5dxFd
+ 8GkQoMyf2cDbSd7xDlWqnwJMuzp9Aqtvhbuo2UsccHeFQVTuce8cLnW6TQwMKXBCYHvP
+ y6DhOIEtZHkMIc9swJRPR2kYtHj2dvn/42iV5E68oAyqSLrxqvU8fW7SXXbT4xkOVWVx
+ UC7EyofGb/78R6fpTaSKC4SK1Ey1xvh7iRVf5BbS0z+fpJQZ2yxaZ+hNZ1uBjMa0WqPE
+ N0+rQUjLk+AkyMWunvNnfIsGdzp5Kn7/03zv6yJisXJDmBO47jeCs21jvGGzw9ME7gEL
+ /+tA==
+X-Gm-Message-State: AMCzsaVeLRoVrBYTCurf8Zzrgf8J8duC4v8DY67l58iEGZSHNP24E8jm
+ YdELgW6TKf+TvyXK9jrFoD/w/Q==
+X-Google-Smtp-Source: ABhQp+TaWk0o+JiSz+x5E5mYlCVbY22ahPwGGFtnv6NPsmxUY+b6h2GyQwAnCZ8gk/0eRhKXjZUwzw==
+X-Received: by 10.36.73.99 with SMTP id z96mr45188ita.36.1508453456790;
+ Thu, 19 Oct 2017 15:50:56 -0700 (PDT)
+Received: from mactruck.svl.corp.google.com ([100.123.242.94])
+ by smtp.gmail.com with ESMTPSA id f193sm521979ita.27.2017.10.19.15.50.55
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Thu, 19 Oct 2017 15:50:56 -0700 (PDT)
+From: Brendan Higgins <brendanhiggins@google.com>
+To: robh+dt@kernel.org, mark.rutland@arm.com, linux@armlinux.org.uk,
+ avifishman70@gmail.com, tmaimon77@gmail.com, raltherr@google.com,
+ f.fainelli@gmail.com
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org
+Subject: [PATCH v7 0/3] arm: npcm: add basic support for Nuvoton BMCs
+Date: Thu, 19 Oct 2017 15:50:47 -0700
+Message-Id: <20171019225050.25410-1-brendanhiggins@google.com>
+X-Mailer: git-send-email 2.15.0.rc0.271.g36b669edcc-goog
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -72,36 +63,18 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Oct 2017 20:49:05 -0000
+X-List-Received-Date: Thu, 19 Oct 2017 22:51:00 -0000
+X-List-Received-Date: Thu, 19 Oct 2017 22:51:00 -0000
+X-List-Received-Date: Thu, 19 Oct 2017 22:51:00 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
+Addressed comments from:
+  - Rob: http://www.spinics.net/lists/devicetree/msg196376.html
 
-The MFR_ID and MFR_MODEL, which are manually read before probing the
-pmbus core,  are only valid for the two pages that the ir35221 has
-available. Since we don't know the state of the device when we start
-probing, set the page number first before reading id and model.
+Changes since previous update:
+  - Moved all memory mapped nodes to busses.
+  - Map ranges starting at 0
+  - Moved external clocks to root
+  - No changes to mach-npcm since v5
+  - No changes to MAINTAINERS since v5
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
----
- drivers/hwmon/pmbus/ir35221.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/hwmon/pmbus/ir35221.c b/drivers/hwmon/pmbus/ir35221.c
-index cc7b3b5..9aae633 100644
---- a/drivers/hwmon/pmbus/ir35221.c
-+++ b/drivers/hwmon/pmbus/ir35221.c
-@@ -243,6 +243,12 @@ static int ir35221_probe(struct i2c_client *client,
- 				| I2C_FUNC_SMBUS_READ_BLOCK_DATA))
- 		return -ENODEV;
- 
-+	ret = i2c_smbus_write_byte_data(client, PMBUS_PAGE, 0);
-+	if (ret < 0) {
-+		dev_err(&client->dev, "Failed to set PMBUS_PAGE\n");
-+		return ret;
-+	}
-+
- 	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_ID, buf);
- 	if (ret < 0) {
- 		dev_err(&client->dev, "Failed to read PMBUS_MFR_ID\n");
--- 
-1.8.3.1
+Changes have been tested on the NPCM750 evaluation board.
