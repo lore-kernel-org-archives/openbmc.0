@@ -1,62 +1,60 @@
 Return-Path: <brendanhiggins@google.com>
 Authentication-Results: ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4001:c06::234; helo=mail-io0-x234.google.com;
+ (client-ip=2607:f8b0:400d:c09::243; helo=mail-qk0-x243.google.com;
  envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="dFqDckjN"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="BcmDmzSB"; 
  dkim-atps=neutral
-Received: from mail-io0-x234.google.com (mail-io0-x234.google.com
- [IPv6:2607:f8b0:4001:c06::234])
+Received: from mail-qk0-x243.google.com (mail-qk0-x243.google.com
+ [IPv6:2607:f8b0:400d:c09::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yHVWB71YdzDqBH
- for <openbmc@lists.ozlabs.org>; Thu, 19 Oct 2017 11:42:14 +1100 (AEDT)
-Received: by mail-io0-x234.google.com with SMTP id j17so8175817iod.5
- for <openbmc@lists.ozlabs.org>; Wed, 18 Oct 2017 17:42:14 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yHVxQ73t5zDqBd
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Oct 2017 12:01:30 +1100 (AEDT)
+Received: by mail-qk0-x243.google.com with SMTP id r64so8553645qkc.1
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Oct 2017 18:01:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:message-id:to:cc:from:subject:in-reply-to;
- bh=XNhVprlk3xh5fkci99mk6UBp8y3KfhyNXo4kwG0Xjs8=;
- b=dFqDckjN+0wHlEVJSi0hDm5Kp51jBqQkGz5KM6LHADCMZnUUgPgfw0qCvDSSey950l
- R32NLKws3TYa+kprTcqKsJWsesxRQnAgChBXU8jRQDN/otz4PML6TTZ/lHjxLFN9ZIc4
- TsJooYBNL+XE9M6X48bLmyWAcBgQNYL/I0sioTGX4jdti21BmMOdBpUpJKTAAKYGdbfd
- 25ExX5JhLqNWXWg8BOEFIjshg2yRWQzk+W1jrD/lg6qql2OW8VKfKMwIttZlhzfrVH3f
- HY4ahSRQcQ/MFmBHtFWeepwFOegtfjo5ROtKnaqwezKDymuoys+/ByW7buqoKznhI4XZ
- lACA==
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=cXoVVJK4md0UXYq37gZiV8TdIONgLl82dlIprYZ4Hgk=;
+ b=BcmDmzSBuaEZ9JZNOY9lKIJZ+kewZZdc+5u5umF0IT8U3kyLZsvVfaC39Idf3JJ+lQ
+ 8lyUHKCdtiTVJPKi6YweUWe3EGLMy5cweTbEChF/vFU0KYQzmRNV+P+UVl00lnnsMV25
+ T1fQ+yrisTWflLnctXiXF6QKViD9OWqP+Olau99/ZpjGihbwEZNUFEY3ZmE4F/zzFtiY
+ uLhczKmUJUxhpT8MALTSCDIlNydbBTH0p3c7Sd1ZRe56SFwtK7hbgNT0hvuE+3ip9Jas
+ uBrVf/N1F4kPpLJUKRuoH+Faw5bu7Fjm0FTknTD1lQz/iansAlyCGNR/ciGUJBkBy412
+ P7VQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:message-id:to:cc:from:subject:in-reply-to;
- bh=XNhVprlk3xh5fkci99mk6UBp8y3KfhyNXo4kwG0Xjs8=;
- b=VT6jWBMZhiSm1zWY4LTLV+SNIvadfkDnVUA+ZVy7QH9z60aCvbPjgp+v0Jve/cc4sf
- 5FLqaQa0hZFmz12P1ObgMSOQhZzcAqBnWXDi5gfGZr4TlCc6pDBDZRITrrcof9xglrlm
- TaOfnN4NErbplQTNIIsVyGNl0nxVWno+8hGjjCNYMzZ+eNGTiYiRXchlBgCXeCVRxOX/
- S5ltaNaEhmMhSLmhYOZMxzC7B09C5o1J7IfWn654Ly3GZA9APSp+oqvUWNSPRoPwu5g5
- C604lHVPOTfY/V85wIuVzVzZzIvfQJTgkXh51kpLnA2QF1odsXlnyvfxD3uZiWTN4NAz
- EYKA==
-X-Gm-Message-State: AMCzsaWRKz+noSg0ZjkwDBagVuj519GlBWYr9Aia193nIObKacC9EWaz
- WoMJKCssbSZ5lDHLF6QbnFbk1A==
-X-Google-Smtp-Source: ABhQp+T8YHyGhsDkbQ5VSxWs+RwJhcQWOJ0Z+hZIQqrnCpoIxCrXFYHcqe5coYwZmqK270w1i2q44A==
-X-Received: by 10.107.150.67 with SMTP id y64mr479834iod.74.1508373732246;
- Wed, 18 Oct 2017 17:42:12 -0700 (PDT)
-Received: from mactruck.svl.corp.google.com
- ([2620:15c:2c5:3:61fb:ee5a:34c7:9b7d])
- by smtp.gmail.com with ESMTPSA id s81sm112088ita.19.2017.10.18.17.42.11
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 18 Oct 2017 17:42:11 -0700 (PDT)
-Received: from mactruck.svl.corp.google.com (localhost [127.0.0.1])
- by mactruck.svl.corp.google.com (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP
- id v9J0gA1q012247; Wed, 18 Oct 2017 17:42:10 -0700
-Received: (from brendanhiggins@localhost)
- by mactruck.svl.corp.google.com (8.14.4/8.14.4/Submit) id v9J0gAEr012246;
- Wed, 18 Oct 2017 17:42:10 -0700
-Date: Wed, 18 Oct 2017 17:42:10 -0700
-Message-Id: <201710190042.v9J0gAEr012246@mactruck.svl.corp.google.com>
-To: andrew@aj.id.au, joel@jms.id.au, bradleyb@fuzziesquirrel.com,
- yuenn@google.com
-Cc: openbmc@lists.ozlabs.org
-From: brendanhiggins@google.com
-Subject: Re: Machine-scope maintainers for OpenBMC
-In-Reply-To: 201710190015.v9J0FMXA004897@mactruck.svl.corp.google.com
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=cXoVVJK4md0UXYq37gZiV8TdIONgLl82dlIprYZ4Hgk=;
+ b=MEFyf7bAIg1nL+iCNSldUt2Ky0+AFcN3tFoqHInX6WPQj5iIJLl8ZlqA4mVtBCBebv
+ 1SF2XQpwFNDBeMeSMhtJvrRcUn6fuauvSG1d+Oc3/q1T9fvnVEeEe3hgVjOsTIrhKSAL
+ rEGko2klNrrLg+8Ykc83+a26eFHL7rYgH1pS2mdrUl+V5Y6jjjiFAM/5TtZgRAEZQlkB
+ sUbFnyp/YIq/G2pEpnqaYNWOqNOZw7q5GpyLSP86u2aiCbTP5f1ES+0sFiRfelNAsQt+
+ OdRXwV2INxdtdfJs58/bVdL+y1bwoiVvp/1eE1nCwfIhzHoFMftQ5jvV+sbwSknW8qjS
+ zy0g==
+X-Gm-Message-State: AMCzsaVxlU28MZveATvbk5nKnxF9nuO0qstvXuQEnB1TbOU6awHkK5iR
+ Sd90CX2l/9byU4TyZEZEYxko6bpsGCFKIvtcV2KKOg==
+X-Google-Smtp-Source: ABhQp+TAKhLXcBIkRCJ0hdSsK4tHxt0BwVgsc6I5BCVL7NgQj/UzEV98O/yDkvv5e9WCq9aUbqOkfz803IDVi7ie/Cs=
+X-Received: by 10.55.204.157 with SMTP id n29mr4648222qkl.243.1508374888146;
+ Wed, 18 Oct 2017 18:01:28 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.140.81.200 with HTTP; Wed, 18 Oct 2017 18:01:27 -0700 (PDT)
+In-Reply-To: <1507719023-127618-1-git-send-email-weiyongjun1@huawei.com>
+References: <1507719023-127618-1-git-send-email-weiyongjun1@huawei.com>
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Wed, 18 Oct 2017 18:01:27 -0700
+Message-ID: <CAFd5g46PbfU1OTVT7S5WsYUXt6itqRzf+6uU0ti6z+CAY0atNw@mail.gmail.com>
+Subject: Re: [PATCH] irqchip/aspeed-i2c-ic: Fix return value check in
+ aspeed_i2c_ic_of_init()
+To: Wei Yongjun <weiyongjun1@huawei.com>
+Cc: Joel Stanley <joel@jms.id.au>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
+ Thomas Gleixner <tglx@linutronix.de>, Jason Cooper <jason@lakedaemon.net>, 
+ Marc Zyngier <marc.zyngier@arm.com>, linux-i2c@vger.kernel.org, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -68,7 +66,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Oct 2017 00:42:15 -0000
+X-List-Received-Date: Thu, 19 Oct 2017 01:01:31 -0000
 
-Sorry for the spam. I was messing around with sendmail on my machine. I thought
-the queue was broken, apparently it wasn't.
+On Wed, Oct 11, 2017 at 3:50 AM, Wei Yongjun <weiyongjun1@huawei.com> wrote:
+> In case of error, the function of_iomap() returns NULL pointer not
+> ERR_PTR(). The IS_ERR() test in the return value check should be
+> replaced with NULL test..
+>
+> Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
+> ---
+>  drivers/irqchip/irq-aspeed-i2c-ic.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/irqchip/irq-aspeed-i2c-ic.c b/drivers/irqchip/irq-aspeed-i2c-ic.c
+> index 815b88d..f20200a 100644
+> --- a/drivers/irqchip/irq-aspeed-i2c-ic.c
+> +++ b/drivers/irqchip/irq-aspeed-i2c-ic.c
+> @@ -76,8 +76,8 @@ static int __init aspeed_i2c_ic_of_init(struct device_node *node,
+>                 return -ENOMEM;
+>
+>         i2c_ic->base = of_iomap(node, 0);
+> -       if (IS_ERR(i2c_ic->base)) {
+> -               ret = PTR_ERR(i2c_ic->base);
+> +       if (!i2c_ic->base) {
+> +               ret = -ENOMEM;
+>                 goto err_free_ic;
+>         }
+>
+>
+>
+>
+Reviewed-by: Brendan Higgins <brendanhiggins@google.com>
