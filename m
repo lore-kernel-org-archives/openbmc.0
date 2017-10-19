@@ -1,56 +1,56 @@
 Return-Path: <brendanhiggins@google.com>
 Authentication-Results: ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4001:c06::22f; helo=mail-io0-x22f.google.com;
+ (client-ip=2607:f8b0:4001:c06::233; helo=mail-io0-x233.google.com;
  envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="uYtNf0NT"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="o0/xTmYW"; 
  dkim-atps=neutral
-Received: from mail-io0-x22f.google.com (mail-io0-x22f.google.com
- [IPv6:2607:f8b0:4001:c06::22f])
+Received: from mail-io0-x233.google.com (mail-io0-x233.google.com
+ [IPv6:2607:f8b0:4001:c06::233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yHVGG2ZlkzDqBc
- for <openbmc@lists.ozlabs.org>; Thu, 19 Oct 2017 11:31:02 +1100 (AEDT)
-Received: by mail-io0-x22f.google.com with SMTP id h70so8157680ioi.4
- for <openbmc@lists.ozlabs.org>; Wed, 18 Oct 2017 17:31:02 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yHVGG0MGLzDqBH
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Oct 2017 11:31:01 +1100 (AEDT)
+Received: by mail-io0-x233.google.com with SMTP id n137so8174958iod.6
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Oct 2017 17:31:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=date:message-id:to:cc:from:subject:in-reply-to;
  bh=2P0pVN+igIsPTUd6VeyPDwg4spxe9wcluVu2EjmnUMM=;
- b=uYtNf0NTkeJDUy8Lz9zbksDFv6pmr6iCqD/xZ55qnid8Dyw7aNGlc+o2hAJAT4tzMJ
- ERCdMyCf1OYJcWZWO65OwrHATCoe8ndGrpQk3JrT+fftMiMT9AvTGo4okAAsOCx5L80W
- k2r6YGELDfuMo/5qe8oFpSyymmv1Gp+rpqHFx+xYLCJK2UFfNcZyDkvfqipLV32P88aX
- okw8RvPcGv+bjx43aA6kq7O9bfuKUvKtxSCnja5W9qgJ6JrMwqWahTwC5B5rFdNJY3U9
- iXZKsNVC/ChDW/SgvG3Lwbr7eSEdnIaEvybgM1Nf+yKHfwF0o9W4YRAL1vMOfJOT+a44
- peIQ==
+ b=o0/xTmYWlsIb4oXQ4ojqQauH/2nIKJxebaf918tZh2JJ+olqhKeoBLWkYhpvH3LLXL
+ Ul4CtVi1S7Hg11BrqEa87BmKEJUJP9KGFYsvpDelUOqP4d/fvVBwBz9b5Rf12nQ0X1eE
+ VjgStjoqlFpErH5VE2ZT02r0iWkkhKnpUT1n6LVQEOgaYSu0aj0bpUb+YPyBTghR9eh2
+ Q2d8dlZfd9Gyl+otTAyyyAn5VKjIEeXjfyPiMtyHhlhKuf9XLxBXegsQQdtkBG9F+cnL
+ 27oJHfSdOxvBpdoFDM11qIUm65VqABK3HMf7QE+ze2dyIOY4Wj+ljQcrMz/2wUoKuLts
+ DBXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:message-id:to:cc:from:subject:in-reply-to;
  bh=2P0pVN+igIsPTUd6VeyPDwg4spxe9wcluVu2EjmnUMM=;
- b=na/fFDTIT9A8kWYtSMBuarA8nb3gt7fshNEQB1lZ5B64h+r4hwq3FtVcSgwndamtiL
- 5sTwwhncC0Y4Cjirz3Wa9glJPO1E/45XwouugvTvNOiNER8WCtKwGIEM1Ju0WErDzYyn
- ERACWF3J1VLPIeOB4urYC9QQrmNCDOYKBA/8etZYJHE+0ZiqAJOJC5dj6nEL9wG4Olg1
- C1+aUOn9yIjFlcwx6Znei11vNtsTXDWeI+7l20XRTyeVw+XXV6wZdIJKQyOlAoyeF8ud
- Ttb7e2EO+iOc3277NA+b61iphI+z1hOJMSYNRnWkNcmp09f8DwjB4794wW3D1fvUbNq4
- TkRg==
-X-Gm-Message-State: AMCzsaUVEMRDmE1k6elQRYoMmhAV/S8oSAQVYrkmt4GK0UINI4a2X7uN
- 5ZY0zB/y1kW85FgbZWi+FKjJLw==
-X-Google-Smtp-Source: ABhQp+RIyMycArOYTOENLt+j2WlpWhSUxrVfJbIFUQFv4oa+CvjUq1tajsyTiv9+GZHWyJNiIZJLTA==
-X-Received: by 10.107.164.105 with SMTP id n102mr445372ioe.45.1508373059833;
+ b=ilcov4cEBpoGvZ/cO/Dv66P/lJqXqMRzliGubsAVxVDOqmnlXBmPOL1DfNb5Z4igDm
+ G7EufrzFMWyG2D3lnQ9MWStE4VWIqPsfHJor0s6JjOwM7+lELIdXGHx+BmaPv3/OT2Jq
+ /uSX8GjxlWmG/BGKEi45k0YlLhTtOGTGOCcqGrCwiWRy1m5lLuH2CJBgTqAHKzKD4+cH
+ Qi6r4JtSQ+Zpk4gdYpBr/tdcs2/XpgT/24uQifKCQ0ZchOweUBIJVxQZdzTPzlEcvsAL
+ /lISTFgVjQ3O0X1bj9Gygc6ExajKc+V8EfmVrRXhoO1tY/qPUCyCw7d+Qw/wO1EnE5bS
+ L17g==
+X-Gm-Message-State: AMCzsaUqwDBcVmeVPXU+FhYuFGni1jMzjJVJ1T082VdWrmImCNxAj+sm
+ ISXbSONRONE5Qpjb4R1oMHjOwQ==
+X-Google-Smtp-Source: ABhQp+TysDpFG/sav/U278sCr5kDvpxIEFyfmKDC59NhKLAodJyOP51AjA919E3jfJzT2puWY8dUbQ==
+X-Received: by 10.107.232.3 with SMTP id f3mr419878ioh.156.1508373059437;
  Wed, 18 Oct 2017 17:30:59 -0700 (PDT)
 Received: from mactruck.svl.corp.google.com
  ([2620:15c:2c5:3:61fb:ee5a:34c7:9b7d])
- by smtp.gmail.com with ESMTPSA id r15sm6373819iod.12.2017.10.18.17.30.55
+ by smtp.gmail.com with ESMTPSA id d16sm4350163iod.38.2017.10.18.17.30.55
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
  Wed, 18 Oct 2017 17:30:56 -0700 (PDT)
 Received: from mactruck.svl.corp.google.com (localhost [127.0.0.1])
  by mactruck.svl.corp.google.com (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP
- id v9J0Usuc009861; Wed, 18 Oct 2017 17:30:55 -0700
+ id v9J0UsuY009861; Wed, 18 Oct 2017 17:30:54 -0700
 Received: (from brendanhiggins@localhost)
- by mactruck.svl.corp.google.com (8.14.4/8.14.4/Submit) id v9INvuHg032656;
- Wed, 18 Oct 2017 16:57:56 -0700
-Date: Wed, 18 Oct 2017 16:57:56 -0700
-Message-Id: <201710182357.v9INvuHg032656@mactruck.svl.corp.google.com>
+ by mactruck.svl.corp.google.com (8.14.4/8.14.4/Submit) id v9J03xfF001359;
+ Wed, 18 Oct 2017 17:03:59 -0700
+Date: Wed, 18 Oct 2017 17:03:59 -0700
+Message-Id: <201710190003.v9J03xfF001359@mactruck.svl.corp.google.com>
 To: andrew@aj.id.au, joel@jms.id.au, bradleyb@fuzziesquirrel.com,
  yuenn@google.com
 Cc: openbmc@lists.ozlabs.org
