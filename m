@@ -1,72 +1,63 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
+Return-Path: <brendanhiggins@google.com>
 Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=cbostic@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400d:c0d::242; helo=mail-qt0-x242.google.com;
+ envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="D+iC0fUN"; 
+ dkim-atps=neutral
+Received: from mail-qt0-x242.google.com (mail-qt0-x242.google.com
+ [IPv6:2607:f8b0:400d:c0d::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yJcqd3DnMzDqKs
- for <openbmc@lists.ozlabs.org>; Sat, 21 Oct 2017 07:30:21 +1100 (AEDT)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v9KKSsDQ084578
- for <openbmc@lists.ozlabs.org>; Fri, 20 Oct 2017 16:30:18 -0400
-Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2dqnxrdf02-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 20 Oct 2017 16:30:18 -0400
-Received: from localhost
- by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Fri, 20 Oct 2017 16:30:17 -0400
-Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
- by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Fri, 20 Oct 2017 16:30:15 -0400
-Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
- [9.57.199.108])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v9KKUE4S40566900; Fri, 20 Oct 2017 20:30:14 GMT
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 8DA4EB2060;
- Fri, 20 Oct 2017 16:27:29 -0400 (EDT)
-Received: from Christophers-MacBook-Pro.local (unknown [9.102.1.107])
- by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP id C390AB2050;
- Fri, 20 Oct 2017 16:27:26 -0400 (EDT)
-Subject: Re: [PATCH linux dev-4.10 v2] drivers: i2c: fsi: Add proper abort
- method
-To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-References: <1508529741-29316-1-git-send-email-eajames@linux.vnet.ibm.com>
-Cc: andrew@aj.id.au, "Edward A. James" <eajames@us.ibm.com>
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Fri, 20 Oct 2017 15:30:09 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
- Gecko/20100101 Thunderbird/45.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yJdRN1fNbzDqKs
+ for <openbmc@lists.ozlabs.org>; Sat, 21 Oct 2017 07:57:50 +1100 (AEDT)
+Received: by mail-qt0-x242.google.com with SMTP id 31so20019551qtz.9
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Oct 2017 13:57:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=FEaD3noUszgr7z9yNkKnUaJjlLp4VVcesc0bxiotHFQ=;
+ b=D+iC0fUNMXK8ErjtXOp+3WA7S97XVo9mX7ouOyhIQxsh8SQggFzOuo3AFJhI62ubEW
+ tXJ3Xq79BlkInAYVBUqdndqwTLuO6TjFSy1RDll4HYOZPIXyKuI81bgDF2jZWxFMFXQm
+ z+0V3ucTLyOAmjOF06dvm9PYL691EtNU/bENrQZAZaB0D7OFTYNj/q4iv5GYGKeSG+WD
+ UIbj3+bP1kXt2CFcrNs5LagxETx7kPGgdURH69n3E32mF6JJQnKaTJoBEptm6MhcftCT
+ dmmaAP9IZEnPkLqAFukPKuBCvhLe9KXkPAv4BEVoOQ8BuNMHq58BtySgWUBPO8ogVzig
+ xaJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=FEaD3noUszgr7z9yNkKnUaJjlLp4VVcesc0bxiotHFQ=;
+ b=g7Tbhukcm7+I5mVEB89G6C7Ev09ECp8FqfWSXi5+RpbbnSCBbd5gpXPbIpVwFVKZqh
+ LgzGgLYxk1uGI7+H/yXLVKtMzvb0wBS5G/02ZZ5fv3aaB4WL+x3hZUdheotLfe9wPFFA
+ MJoZbF5sOMFewsx4NLjrLn3iGmfeaqerLk9x7soCH2At1LlsH9POoogi8+JnhUHt7692
+ Uqyn7gZ/P2pNDJgrG5nZatQte548EHXoA81vKVQjy6ENHsDyOUAMt7H+keKcpqNDqyt7
+ oHNAxuKfVPoseCtIcIh1wezd+0ihqJB7g8fWEcp+x4XYSlPbpcmJKvhX3gFofBR+57fL
+ aJUg==
+X-Gm-Message-State: AMCzsaV/0zaxJy4pmF94YF0AWv7b4lg0XkmtMbVu3tdJ5GOf9gcF0FPE
+ uGL2ITntXA4ULSLTXKYQ+8AzB/OPYzmXgYd7JsA9IQ==
+X-Google-Smtp-Source: ABhQp+RKtdBant6rINlfmZ/tL5gKRb5BxSw+As0pXLOlmGWbN/Hm7C1qj1s/8KJM0Kj/v5AVXBFvoXm3EkJWxMOq7tY=
+X-Received: by 10.200.13.135 with SMTP id s7mr3370686qti.4.1508533067677; Fri,
+ 20 Oct 2017 13:57:47 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1508529741-29316-1-git-send-email-eajames@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 17102020-0048-0000-0000-000001F8B4A3
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007925; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000239; SDB=6.00934009; UDB=6.00470499; IPR=6.00714298; 
- BA=6.00005651; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017632; XFM=3.00000015;
- UTC=2017-10-20 20:30:16
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17102020-0049-0000-0000-000042EEE91E
-Message-Id: <fc6df2d1-719e-6a9b-10b5-392a2faac650@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-10-20_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
- definitions=main-1710200286
+Received: by 10.140.81.200 with HTTP; Fri, 20 Oct 2017 13:57:47 -0700 (PDT)
+In-Reply-To: <20171020104807.GE20805@n2100.armlinux.org.uk>
+References: <20171019225050.25410-1-brendanhiggins@google.com>
+ <20171019225050.25410-2-brendanhiggins@google.com>
+ <20171020104807.GE20805@n2100.armlinux.org.uk>
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Fri, 20 Oct 2017 13:57:47 -0700
+Message-ID: <CAFd5g45_VV_76zexrgBSWaqNXMsYfZPX6hLHGGc_EVdtsQrzCw@mail.gmail.com>
+Subject: Re: [PATCH v7 1/3] arm: npcm: add basic support for Nuvoton BMCs
+To: Russell King - ARM Linux <linux@armlinux.org.uk>,
+ Avi Fishman <avifishman70@gmail.com>, tmaimon77@gmail.com
+Cc: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rick Altherr <raltherr@google.com>, Florian Fainelli <f.fainelli@gmail.com>, 
+ devicetree <devicetree@vger.kernel.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-arm-kernel@lists.infradead.org, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -78,346 +69,322 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Oct 2017 20:30:22 -0000
+X-List-Received-Date: Fri, 20 Oct 2017 20:57:53 -0000
 
-Reviewed-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+On Fri, Oct 20, 2017 at 3:48 AM, Russell King - ARM Linux
+<linux@armlinux.org.uk> wrote:
+> On Thu, Oct 19, 2017 at 03:50:48PM -0700, Brendan Higgins wrote:
+>> Adds basic support for the Nuvoton NPCM750 BMC.
+>>
+>> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+>> Reviewed-by: Tomer Maimon <tmaimon77@gmail.com>
+>> Reviewed-by: Avi Fishman <avifishman70@gmail.com>
+>> Tested-by: Tomer Maimon <tmaimon77@gmail.com>
+>> Tested-by: Avi Fishman <avifishman70@gmail.com>
+>> ---
+>>  arch/arm/Kconfig             |  2 +
+>>  arch/arm/Makefile            |  1 +
+>>  arch/arm/mach-npcm/Kconfig   | 48 ++++++++++++++++++++++++
+>>  arch/arm/mach-npcm/Makefile  |  3 ++
+>>  arch/arm/mach-npcm/headsmp.S | 17 +++++++++
+>>  arch/arm/mach-npcm/npcm7xx.c | 34 +++++++++++++++++
+>>  arch/arm/mach-npcm/platsmp.c | 88 ++++++++++++++++++++++++++++++++++++++++++++
+>>  7 files changed, 193 insertions(+)
+>>  create mode 100644 arch/arm/mach-npcm/Kconfig
+>>  create mode 100644 arch/arm/mach-npcm/Makefile
+>>  create mode 100644 arch/arm/mach-npcm/headsmp.S
+>>  create mode 100644 arch/arm/mach-npcm/npcm7xx.c
+>>  create mode 100644 arch/arm/mach-npcm/platsmp.c
+>>
+>> diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+>> index 61a0cb15067e..05543f1cfbde 100644
+>> --- a/arch/arm/Kconfig
+>> +++ b/arch/arm/Kconfig
+>> @@ -782,6 +782,8 @@ source "arch/arm/mach-netx/Kconfig"
+>>
+>>  source "arch/arm/mach-nomadik/Kconfig"
+>>
+>> +source "arch/arm/mach-npcm/Kconfig"
+>> +
+>>  source "arch/arm/mach-nspire/Kconfig"
+>>
+>>  source "arch/arm/plat-omap/Kconfig"
+>> diff --git a/arch/arm/Makefile b/arch/arm/Makefile
+>> index 47d3a1ab08d2..60ca50c7d762 100644
+>> --- a/arch/arm/Makefile
+>> +++ b/arch/arm/Makefile
+>> @@ -191,6 +191,7 @@ machine-$(CONFIG_ARCH_MEDIATEK)           += mediatek
+>>  machine-$(CONFIG_ARCH_MXS)           += mxs
+>>  machine-$(CONFIG_ARCH_NETX)          += netx
+>>  machine-$(CONFIG_ARCH_NOMADIK)               += nomadik
+>> +machine-$(CONFIG_ARCH_NPCM)          += npcm
+>>  machine-$(CONFIG_ARCH_NSPIRE)                += nspire
+>>  machine-$(CONFIG_ARCH_OXNAS)         += oxnas
+>>  machine-$(CONFIG_ARCH_OMAP1)         += omap1
+>> diff --git a/arch/arm/mach-npcm/Kconfig b/arch/arm/mach-npcm/Kconfig
+>> new file mode 100644
+>> index 000000000000..21dfa8ce828f
+>> --- /dev/null
+>> +++ b/arch/arm/mach-npcm/Kconfig
+>> @@ -0,0 +1,48 @@
+>> +menuconfig ARCH_NPCM
+>> +     bool "Nuvoton NPCM Architecture"
+>> +     select ARCH_REQUIRE_GPIOLIB
+>> +     select USE_OF
+>> +     select PINCTRL
+>> +     select PINCTRL_NPCM7XX
+>> +
+>> +if ARCH_NPCM
+>> +
+>> +comment "NPCMX50 CPU type"
+>> +
+>> +config CPU_NPCM750
+>> +     depends on ARCH_NPCM && ARCH_MULTI_V7
+>> +     bool "Support for NPCM750 BMC CPU (Poleg)"
+>> +     select CACHE_L2X0
+>> +     select CPU_V7
+>> +     select ARM_GIC
+>> +     select HAVE_SMP
+>> +     select SMP
+>> +     select SMP_ON_UP
+>> +     select HAVE_ARM_SCU
+>> +     select HAVE_ARM_TWD if SMP
+>> +     select ARM_ERRATA_720789
+>> +     select ARM_ERRATA_754322
+>> +     select ARM_ERRATA_764369
+>> +     select ARM_ERRATA_794072
+>> +     select PL310_ERRATA_588369
+>> +     select PL310_ERRATA_727915
+>> +     select USB_EHCI_ROOT_HUB_TT
+>> +     select USB_ARCH_HAS_HCD
+>> +     select USB_ARCH_HAS_EHCI
+>> +     select USB_EHCI_HCD
+>> +     select USB_ARCH_HAS_OHCI
+>> +     select USB_OHCI_HCD
+>> +     select USB
+>> +     select FIQ
+>> +     select CPU_USE_DOMAINS
+>> +     select GENERIC_CLOCKEVENTS
+>> +     select CLKDEV_LOOKUP
+>> +     select COMMON_CLK if OF
+>> +     select NPCM750_TIMER
+>> +     select MFD_SYSCON
+>> +     help
+>> +       Support for NPCM750 BMC CPU (Poleg).
+>> +
+>> +       Nuvoton NPCM750 BMC based on the Cortex A9.
+>> +
+>> +endif
+>> diff --git a/arch/arm/mach-npcm/Makefile b/arch/arm/mach-npcm/Makefile
+>> new file mode 100644
+>> index 000000000000..78416055b854
+>> --- /dev/null
+>> +++ b/arch/arm/mach-npcm/Makefile
+>> @@ -0,0 +1,3 @@
+>> +AFLAGS_headsmp.o             += -march=armv7-a
+>> +
+>> +obj-$(CONFIG_CPU_NPCM750)    += npcm7xx.o platsmp.o headsmp.o
+>> diff --git a/arch/arm/mach-npcm/headsmp.S b/arch/arm/mach-npcm/headsmp.S
+>> new file mode 100644
+>> index 000000000000..9fccbbd49ed4
+>> --- /dev/null
+>> +++ b/arch/arm/mach-npcm/headsmp.S
+>> @@ -0,0 +1,17 @@
+>> +/*
+>> + * Copyright 2017 Google, Inc.
+>> + *
+>> + * This program is free software; you can redistribute it and/or modify
+>> + * it under the terms of the GNU General Public License version 2 as
+>> + * published by the Free Software Foundation.
+>> + */
+>> +
+>> +#include <linux/linkage.h>
+>> +#include <linux/init.h>
+>> +#include <asm/assembler.h>
+>> +
+>> +ENTRY(npcm7xx_secondary_startup)
+>> +     safe_svcmode_maskall r0
+>> +
+>> +     b       secondary_startup
+>> +ENDPROC(npcm7xx_secondary_startup)
+>
+> Why do you need this?  The switch to svc mode is already handled by
+> secondary_startup.
 
+Florian Fainelli already brought this up:
+https://www.spinics.net/lists/arm-kernel/msg605126.html
+Without this the kernel complains that the core is started in
+"wrong/inconsistent mode":
 
-On 10/20/17 3:02 PM, Eddie James wrote:
-> From: "Edward A. James" <eajames@us.ibm.com>
+SMP: Total of 2 processors activated (398.13 BogoMIPS).
+CPU: WARNING: CPU(s) started in wrong/inconsistent modes (primary CPU
+mode 0x13)
+CPU: This may indicate a broken bootloader or firmware.
+
 >
-> Driver wasn't cleaning up on timeout or in an error situation properly.
-> Need to do a full reset if we fail in order to re-stablish a good state
-> of the engine.
+>> diff --git a/arch/arm/mach-npcm/npcm7xx.c b/arch/arm/mach-npcm/npcm7xx.c
+>> new file mode 100644
+>> index 000000000000..132e9d587857
+>> --- /dev/null
+>> +++ b/arch/arm/mach-npcm/npcm7xx.c
+>> @@ -0,0 +1,34 @@
+>> +/*
+>> + * Copyright (c) 2017 Nuvoton Technology corporation.
+>> + * Copyright 2017 Google, Inc.
+>> + *
+>> + * This program is free software; you can redistribute it and/or modify
+>> + * it under the terms of the GNU General Public License version 2 as
+>> + * published by the Free Software Foundation.
+>> + */
+>> +
+>> +#include <linux/kernel.h>
+>> +#include <linux/types.h>
+>> +#include <asm/mach/arch.h>
+>> +#include <asm/mach-types.h>
+>> +#include <asm/mach/map.h>
+>> +#include <asm/hardware/cache-l2x0.h>
+>> +
+>> +#define NPCM7XX_AUX_VAL (L310_AUX_CTRL_INSTR_PREFETCH |                             \
+>> +                      L310_AUX_CTRL_DATA_PREFETCH |                         \
+>> +                      L310_AUX_CTRL_NS_LOCKDOWN |                           \
+>> +                      L310_AUX_CTRL_CACHE_REPLACE_RR |                      \
+>> +                      L2C_AUX_CTRL_SHARED_OVERRIDE |                        \
+>> +                      L310_AUX_CTRL_FULL_LINE_ZERO)
 >
-> Signed-off-by: Edward A. James <eajames@us.ibm.com>
-> ---
+> Do you really need all these flags?
+
+Tomer, Avi, do we need these? I got this from the original version of
+the driver.
+
 >
-> Changes since v1:
->   * switch to TASK_UNINTERRUPTIBLE for waiting for command complete
+>> +
+>> +static const char *const npcm7xx_dt_match[] = {
+>> +     "nuvoton,npcm750",
+>> +     NULL
+>> +};
+>> +
+>> +DT_MACHINE_START(NPCM7XX_DT, "NPCMX50 Chip family")
+>> +     .atag_offset    = 0x100,
+>> +     .dt_compat      = npcm7xx_dt_match,
+>> +     .l2c_aux_val    = NPCM7XX_AUX_VAL,
+>> +     .l2c_aux_mask   = ~NPCM7XX_AUX_VAL,
+>> +MACHINE_END
+>> diff --git a/arch/arm/mach-npcm/platsmp.c b/arch/arm/mach-npcm/platsmp.c
+>> new file mode 100644
+>> index 000000000000..450e83c3c531
+>> --- /dev/null
+>> +++ b/arch/arm/mach-npcm/platsmp.c
+>> @@ -0,0 +1,88 @@
+>> +/*
+>> + * Copyright 2017 Google, Inc.
+>> + *
+>> + * This program is free software; you can redistribute it and/or modify
+>> + * it under the terms of the GNU General Public License version 2 as
+>> + * published by the Free Software Foundation.
+>> + */
+>> +
+>> +#define pr_fmt(fmt) "PLATSMP: " fmt
 >
->   drivers/i2c/busses/i2c-fsi.c | 259 +++++++++++++++++++++++++++++++------------
->   1 file changed, 191 insertions(+), 68 deletions(-)
+> Maybe something more descriptive?
 >
-> diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
-> index 1af9c01..fa44017 100644
-> --- a/drivers/i2c/busses/i2c-fsi.c
-> +++ b/drivers/i2c/busses/i2c-fsi.c
-> @@ -133,6 +133,11 @@
->   #define I2C_ESTAT_SELF_BUSY	0x00000040
->   #define I2C_ESTAT_VERSION	0x0000001f
+>> +
+>> +#include <linux/delay.h>
+>> +#include <linux/device.h>
+>> +#include <linux/smp.h>
+>> +#include <linux/io.h>
+>> +#include <linux/of.h>
+>> +#include <linux/of_device.h>
+>> +#include <linux/of_platform.h>
+>> +#include <linux/of_address.h>
+>> +#include <asm/cacheflush.h>
+>> +#include <asm/smp.h>
+>> +#include <asm/smp_plat.h>
+>> +#include <asm/smp_scu.h>
+>> +
+>> +#define NPCM7XX_SCRPAD_REG 0x13c
+>> +
+>> +extern void npcm7xx_secondary_startup(void);
+>> +
+>> +static int npcm7xx_smp_boot_secondary(unsigned int cpu,
+>> +                                   struct task_struct *idle)
+>> +{
+>> +     struct device_node *gcr_np;
+>> +     void __iomem *gcr_base;
+>> +     int ret = 0;
+>> +
+>> +     gcr_np = of_find_compatible_node(NULL, NULL, "nuvoton,npcm750-gcr");
+>> +     if (!gcr_np) {
+>> +             pr_err("no gcr device node\n");
+>> +             ret = -EFAULT;
 >
-> +#define I2C_PORT_BUSY_RESET	0x80000000
-> +
-> +#define I2C_LOCAL_WAIT_TIMEOUT	2		/* jiffies */
-> +#define I2C_ABORT_TIMEOUT	msecs_to_jiffies(100)
-> +
->   struct fsi_i2c_master {
->   	struct fsi_device	*fsi;
->   	u8			fifo_size;
-> @@ -351,22 +356,185 @@ static int fsi_i2c_read_fifo(struct fsi_i2c_port *port, struct i2c_msg *msg,
->   	return rc;
->   }
+> EFAULT is used for bad userspace addresses, it should not be used for
+> other stuff - and a missing node is certainly not a "Bad address".
 >
-> +static int fsi_i2c_reset_bus(struct fsi_i2c_master *i2c)
-> +{
-> +	int i, rc;
-> +	u32 mode, dummy = 0;
-> +
-> +	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_MODE, &mode);
-> +	if (rc)
-> +		return rc;
-> +
-> +	mode |= I2C_MODE_DIAG;
-> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
-> +	if (rc)
-> +		return rc;
-> +
-> +	for (i = 0; i < 9; ++i) {
-> +		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SCL, &dummy);
-> +		if (rc)
-> +			return rc;
-> +
-> +		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SCL, &dummy);
-> +		if (rc)
-> +			return rc;
-> +	}
-> +
-> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SCL, &dummy);
-> +	if (rc)
-> +		return rc;
-> +
-> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SDA, &dummy);
-> +	if (rc)
-> +		return rc;
-> +
-> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SCL, &dummy);
-> +	if (rc)
-> +		return rc;
-> +
-> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SDA, &dummy);
-> +	if (rc)
-> +		return rc;
-> +
-> +	mode &= ~I2C_MODE_DIAG;
-> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
-> +
-> +	return rc;
-> +}
-> +
-> +static int fsi_i2c_reset(struct fsi_i2c_master *i2c, u16 port)
-> +{
-> +	int rc;
-> +	u32 mode, stat, dummy = 0;
-> +
-> +	/* reset engine */
-> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_I2C, &dummy);
-> +	if (rc)
-> +		return rc;
-> +
-> +	/* re-init engine */
-> +	rc = fsi_i2c_dev_init(i2c);
-> +	if (rc)
-> +		return rc;
-> +
-> +	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_MODE, &mode);
-> +	if (rc)
-> +		return rc;
-> +
-> +	/* set port; default after reset is 0 */
-> +	if (port) {
-> +		mode = SETFIELD(I2C_MODE_PORT, mode, port);
-> +		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
-> +		if (rc)
-> +			return rc;
-> +	}
-> +
-> +	/* reset busy register; hw workaround */
-> +	dummy = I2C_PORT_BUSY_RESET;
-> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_PORT_BUSY, &dummy);
-> +	if (rc)
-> +		return rc;
-> +
-> +	/* force bus reset */
-> +	rc = fsi_i2c_reset_bus(i2c);
-> +	if (rc)
-> +		return rc;
-> +
-> +	/* reset errors */
-> +	dummy = 0;
-> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_ERR, &dummy);
-> +	if (rc)
-> +		return rc;
-> +
-> +	/* wait for command complete */
-> +	set_current_state(TASK_UNINTERRUPTIBLE);
-> +	schedule_timeout(I2C_LOCAL_WAIT_TIMEOUT);
-> +
-> +	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_STAT, &stat);
-> +	if (rc)
-> +		return rc;
-> +
-> +	if (stat & I2C_STAT_CMD_COMP)
-> +		return 0;
-> +
-> +	/* failed to get command complete; reset engine again */
-> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_I2C, &dummy);
-> +	if (rc)
-> +		return rc;
-> +
-> +	/* re-init engine again */
-> +	rc = fsi_i2c_dev_init(i2c);
-> +	if (rc)
-> +		return rc;
-> +
-> +	return 0;
-> +}
-> +
-> +static int fsi_i2c_abort(struct fsi_i2c_port *port, u32 status)
-> +{
-> +	int rc;
-> +	unsigned long start;
-> +	u32 cmd = I2C_CMD_WITH_STOP;
-> +	struct fsi_device *fsi = port->master->fsi;
-> +
-> +	rc = fsi_i2c_reset(port->master, port->port);
-> +	if (rc)
-> +		return rc;
-> +
-> +	/* skip final stop command for these errors */
-> +	if (status & (I2C_STAT_PARITY | I2C_STAT_LOST_ARB | I2C_STAT_STOP_ERR))
-> +		return 0;
-> +
-> +	rc = fsi_i2c_write_reg(fsi, I2C_FSI_CMD, &cmd);
-> +	if (rc)
-> +		return rc;
-> +
-> +	start = jiffies;
-> +
-> +	do {
-> +		rc = fsi_i2c_read_reg(fsi, I2C_FSI_STAT, &status);
-> +		if (rc)
-> +			return rc;
-> +
-> +		if (status & I2C_STAT_CMD_COMP)
-> +			return 0;
-> +
-> +		set_current_state(TASK_INTERRUPTIBLE);
-> +		if (schedule_timeout(I2C_LOCAL_WAIT_TIMEOUT) > 0)
-> +			return -EINTR;
-> +
-> +	} while (time_after(start + I2C_ABORT_TIMEOUT, jiffies));
-> +
-> +	return -ETIME;
-> +}
-> +
->   static int fsi_i2c_handle_status(struct fsi_i2c_port *port,
->   				 struct i2c_msg *msg, u32 status)
->   {
->   	int rc;
->   	u8 fifo_count;
-> -	struct fsi_i2c_master *i2c = port->master;
-> -	u32 dummy = 0;
+>> +             goto out;
+>> +     }
+>> +     gcr_base = of_iomap(gcr_np, 0);
+>> +     if (!gcr_base) {
+>> +             pr_err("could not iomap gcr at: 0x%p\n", gcr_base);
+>> +             ret = -EFAULT;
 >
->   	if (status & I2C_STAT_ERR) {
-> -		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_ERR, &dummy);
-> +		rc = fsi_i2c_abort(port, status);
->   		if (rc)
->   			return rc;
+> This is more -ENOMEM.
 >
-> +		if (status & I2C_STAT_INV_CMD)
-> +			return -EINVAL;
-> +
-> +		if (status & (I2C_STAT_PARITY | I2C_STAT_BE_OVERRUN |
-> +		    I2C_STAT_BE_ACCESS))
-> +			return -EPROTO;
-> +
->   		if (status & I2C_STAT_NACK)
->   			return -EFAULT;
+>> +             goto out;
+>> +     }
+>> +
+>> +     /* give boot ROM kernel start address. */
+>> +     iowrite32(__pa_symbol(npcm7xx_secondary_startup), gcr_base +
+>> +               NPCM7XX_SCRPAD_REG);
+>> +     /* make sure npcm7xx_secondary_startup is seen by all observers. */
+>> +     smp_wmb();
 >
-> +		if (status & I2C_STAT_LOST_ARB)
-> +			return -ECANCELED;
-> +
-> +		if (status & I2C_STAT_STOP_ERR)
-> +			return -EBADMSG;
-> +
->   		return -EIO;
->   	}
+> I think you mean "make sure the previous write is seen by all observers".
+> However, doesn't "dsb_sev()" already do that?
 >
-> @@ -396,9 +564,9 @@ static int fsi_i2c_handle_status(struct fsi_i2c_port *port,
->   static int fsi_i2c_wait(struct fsi_i2c_port *port, struct i2c_msg *msg,
->   			unsigned long timeout)
->   {
-> -	const unsigned long local_timeout = 2; /* jiffies */
->   	u32 status = 0;
-> -	int rc;
-> +	int rc, rc_abort;
-> +	unsigned long start = jiffies;
+>> +     dsb_sev();
+>> +     /* make sure write buffer is drained */
+>> +     mb();
 >
->   	do {
->   		rc = fsi_i2c_read_reg(port->master->fsi, I2C_FSI_STAT,
-> @@ -419,13 +587,21 @@ static int fsi_i2c_wait(struct fsi_i2c_port *port, struct i2c_msg *msg,
->   			continue;
->   		}
+> This looks over the top.
 >
-> -		set_current_state(TASK_UNINTERRUPTIBLE);
-> -		schedule_timeout(local_timeout);
-> -		timeout = (timeout < local_timeout) ? 0 :
-> -			timeout - local_timeout;
-> -	} while (timeout);
-> +		set_current_state(TASK_INTERRUPTIBLE);
-> +		if (schedule_timeout(I2C_LOCAL_WAIT_TIMEOUT) > 0) {
-> +			rc = -EINTR;
-> +			goto abort;
-> +		}
-> +	} while (time_after(start + timeout, jiffies));
+>> +
+>> +     iounmap(gcr_base);
+>> +out:
+>> +     return ret;
+>> +}
+>> +
+>> +static void __init npcm7xx_smp_prepare_cpus(unsigned int max_cpus)
+>> +{
+>> +     struct device_node *scu_np;
+>> +     void __iomem *scu_base;
+>> +
+>> +     scu_np = of_find_compatible_node(NULL, NULL, "arm,cortex-a9-scu");
+>> +     if (!scu_np) {
+>> +             pr_err("no scu device node\n");
+>> +             return;
+>> +     }
+>> +     scu_base = of_iomap(scu_np, 0);
+>> +     if (!scu_base) {
+>> +             pr_err("could not iomap scu at: 0x%p\n", scu_base);
+>> +             return;
+>> +     }
+>> +
+>> +     scu_enable(scu_base);
+>> +
+>> +     iounmap(scu_base);
+>> +}
+>> +
+>> +static struct smp_operations npcm7xx_smp_ops __initdata = {
+>> +     .smp_prepare_cpus = npcm7xx_smp_prepare_cpus,
+>> +     .smp_boot_secondary = npcm7xx_smp_boot_secondary,
+>> +};
+>> +
+>> +CPU_METHOD_OF_DECLARE(npcm7xx_smp, "nuvoton,npcm7xx-smp", &npcm7xx_smp_ops);
+>> --
+>> 2.15.0.rc0.271.g36b669edcc-goog
+>>
 >
-> -	return -ETIME;
-> +	rc = -ETIME;
-> +
-> +abort:
-> +	rc_abort = fsi_i2c_abort(port, status);
-> +	if (rc_abort)
-> +		return rc_abort;
-> +
-> +	return rc;
->   }
->
->   static int fsi_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
-> @@ -469,72 +645,19 @@ static u32 fsi_i2c_functionality(struct i2c_adapter *adap)
->   		| I2C_FUNC_SMBUS_EMUL | I2C_FUNC_SMBUS_BLOCK_DATA;
->   }
->
-> -static int fsi_i2c_low_level_recover_bus(struct fsi_i2c_master *i2c)
-> -{
-> -	int i, rc;
-> -	u32 mode, dummy = 0;
-> -
-> -	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_MODE, &mode);
-> -	if (rc)
-> -		return rc;
-> -
-> -	mode |= I2C_MODE_DIAG;
-> -	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
-> -	if (rc)
-> -		return rc;
-> -
-> -	for (i = 0; i < 9; ++i) {
-> -		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SCL, &dummy);
-> -		if (rc)
-> -			return rc;
-> -
-> -		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SCL, &dummy);
-> -		if (rc)
-> -			return rc;
-> -	}
-> -
-> -	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SCL, &dummy);
-> -	if (rc)
-> -		return rc;
-> -
-> -	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SDA, &dummy);
-> -	if (rc)
-> -		return rc;
-> -
-> -	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SCL, &dummy);
-> -	if (rc)
-> -		return rc;
-> -
-> -	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SDA, &dummy);
-> -	if (rc)
-> -		return rc;
-> -
-> -	mode &= ~I2C_MODE_DIAG;
-> -	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
-> -
-> -	return rc;
-> -}
-> -
->   static int fsi_i2c_recover_bus(struct i2c_adapter *adap)
->   {
->   	int rc;
-> -	u32 dummy = 0;
->   	struct fsi_i2c_port *port = adap->algo_data;
-> -	struct fsi_i2c_master *i2c = port->master;
-> +	struct fsi_i2c_master *master = port->master;
->
-> -	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_I2C, &dummy);
-> +	rc = fsi_i2c_lock_master(master, adap->timeout);
->   	if (rc)
->   		return rc;
->
-> -	rc = fsi_i2c_dev_init(i2c);
-> -	if (rc)
-> -		return rc;
-> +	rc = fsi_i2c_reset(master, port->port);
->
-> -	rc = fsi_i2c_low_level_recover_bus(i2c);
-> -	if (rc)
-> -		return rc;
-> -
-> -	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_ERR, &dummy);
-> +	fsi_i2c_unlock_master(master);
->
->   	return rc;
->   }
+> --
+> RMK's Patch system: http://www.armlinux.org.uk/developer/patches/
+> FTTC broadband for 0.8mile line in suburbia: sync at 8.8Mbps down 630kbps up
+> According to speedtest.net: 8.21Mbps down 510kbps up
