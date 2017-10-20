@@ -3,48 +3,48 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="JPuiKJNK"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="hTxpgrZz"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="R/66A0GO"; dkim-atps=neutral
+ header.b="SMCS+wE3"; dkim-atps=neutral
 Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yJHW20zdKzDqRQ;
- Fri, 20 Oct 2017 18:29:49 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yJHl818FRzDqBc;
+ Fri, 20 Oct 2017 18:40:20 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 9C69F20E52;
- Fri, 20 Oct 2017 03:29:47 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 0DDBF20EDD;
+ Fri, 20 Oct 2017 03:40:18 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Fri, 20 Oct 2017 03:29:47 -0400
+ by compute4.internal (MEProxy); Fri, 20 Oct 2017 03:40:18 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=zLeu+gz1Ta+SqOGJXAN2RlLxyk0p4JR3uTEKy8snY+M=; b=JPuiKJNK
- OfeHPrHfKZ41t57cL7LILc/VcnXvTAsaA9+cJ3Nca3kP+sHQqDYtphRocrpFnrah
- RlcG2idwPZrwXRvXk6goK/2eeoUY6UQ8vWKWhnwStWU6izbiSFDKPBEGQVIsiC+P
- 84GofZvUSRgJCF6wC7/fQbRlxIX/rM5i5m7Qg/V6MKWcUlxTg6B6dfP1TMlrgzMp
- OknAE9t8dy81qY5Gx9om2p1bshL19pBkn1LBXzysNdXNlp3EiAnFyjw2hEAdSRlU
- lmkmIHKBfh9a5uPgUvofs0rtlXcag1w8QbW15xFAzNVm1vzgUjcJlFuXsUZh7St6
- 2ZYrzs1qE48V7g==
+ fm1; bh=yhXtevl2jz+Zbu1BWAjwnIJBBipBzOE1khAby4b99tA=; b=hTxpgrZz
+ 612xQM+zdqnkv7fNkvvaZW/EH2BNZsZbxg7v6nN5MKqzsPzh8VMuGp1aQl9oQHK1
+ 6W+0GmdXRyxIHfQc7Bzt09fMt0IhNFwjsIBTLYuaWzSMU4ll9X8ASPVanst2rgc4
+ apZRq4Rg7rYskcFN4jHHMwAHEnUAS/3NdtzO5ATWHQOZg66clKWNirAMQfsHD5aw
+ r/0YQ+bmPzNlYm7dyAlwauPByjdCgqq27/1LC7q5pkXxFMY5IwvzKfYjnvRj5Ykx
+ SwP2dUvYGcp6xZeKZ3WO/IhanApzgw3BXth9JJbVHQa5UEsZgjFcCIfmUA4xZ55t
+ xRziw8B4RrToHA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=zLeu+gz1Ta+SqOGJXAN2RlLxyk0p4
- JR3uTEKy8snY+M=; b=R/66A0GOOQzE8IxXy6epkLXSEtEc/4RqKK1lszrbJjibv
- WRCaQtg/EENDQO2PdAntl1niR7JVudALx9/U8aRgvESHHD/j2rJ0RJuwARLiH3WS
- cBtPVa9U9jqawejgLtXVL6ccfdxmxJWQoVZOn3NNUAn6a5HTlMJkjcy3dQrJ1IxT
- wg6ulQh+8rUnjNCAyb9TWSislvkKLc5IuXQaSUSrl3YJGWMXDpS87rzRxe6Pjc3G
- DV2tSZGtmhOrn3iZq+8Jw/rgmgkwsUnauF2YcvIXJmO2nQOXShHJRAqrQt9+nwQS
- /i8+wJKwX0yqgjKvsCz3qa83rIDorFKq5/gYAMhlg==
-X-ME-Sender: <xms:66XpWaC1XllNE24Cqy9TknOCGyVY3lxZpQlhoxLaqRNOrkaA_oD4Bg>
+ :x-me-sender:x-sasl-enc; s=fm1; bh=yhXtevl2jz+Zbu1BWAjwnIJBBipBz
+ OE1khAby4b99tA=; b=SMCS+wE3auwGWfqUjsC99dTeIRs12oz9O6BMCRObIvJFS
+ A2v08WhsYuvKuo3WaczxDk0IGF5nZc9+iAIZ39ESkyoGWODrWiGBLHl0WJPORHdU
+ H+ZOdOHXiEvGEiV6j4P1yDSwkw+MiOieHyu2SozkNawImBZ2YWQUZRmwsfyFAt92
+ wGpJDwJYVQ2yUMJVz5GZc9CAhpKraygMG89f63oprJMnUjqaD3SyOd8jUNCw5lpa
+ ddhzCNT3i/8zqpFKpgtS6HP0YjqVlc6BKL5HDcSbFY5UNEjXUrorgWSpcwb77m+E
+ 7jR/yxCZvu+oe+52dgW2+nafZAMBif4ixoiCYY3vA==
+X-ME-Sender: <xms:YajpWTNE6zUKMUfKHLGmRBe5ziAEHR3Ozxd8B1HJjWXpgOJ-9iz6Jw>
 Received: from keelia26 (220-253-53-78.dyn.iinet.net.au [220.253.53.78])
- by mail.messagingengine.com (Postfix) with ESMTPA id AB44E247DC;
- Fri, 20 Oct 2017 03:29:42 -0400 (EDT)
-Message-ID: <1508484575.24322.43.camel@aj.id.au>
-Subject: Re: [RFC PATCH 2/5] gpio: gpiolib: Add OF support for maintaining
- GPIO values on reset
+ by mail.messagingengine.com (Postfix) with ESMTPA id 1444B247DD;
+ Fri, 20 Oct 2017 03:40:12 -0400 (EDT)
+Message-ID: <1508485208.24322.46.camel@aj.id.au>
+Subject: Re: [RFC PATCH 4/5] gpio: gpiolib: Add sysfs support for
+ maintaining GPIO values on reset
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Linus Walleij <linus.walleij@linaro.org>
 Cc: "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, Jonathan
@@ -57,13 +57,13 @@ Cc: "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, Jonathan
  <linux-kernel@vger.kernel.org>, patches@opensource.cirrus.com, 
  "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, OpenBMC Maillist
  <openbmc@lists.ozlabs.org>,  linux-aspeed@lists.ozlabs.org
-Date: Fri, 20 Oct 2017 17:59:35 +1030
-In-Reply-To: <CACRpkdbxOen3ohwmDc8ZNWkirn3mNHaGiZq1O-6VnOjhvFcw+w@mail.gmail.com>
+Date: Fri, 20 Oct 2017 18:10:08 +1030
+In-Reply-To: <CACRpkdZ9HpXXuauRtVjA9n1dwF3sUQ4gJL-FOUMcMBDCL9oxYw@mail.gmail.com>
 References: <20171020033727.21557-1-andrew@aj.id.au>
- <20171020033727.21557-3-andrew@aj.id.au>
- <CACRpkdbxOen3ohwmDc8ZNWkirn3mNHaGiZq1O-6VnOjhvFcw+w@mail.gmail.com>
+ <20171020033727.21557-5-andrew@aj.id.au>
+ <CACRpkdZ9HpXXuauRtVjA9n1dwF3sUQ4gJL-FOUMcMBDCL9oxYw@mail.gmail.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-BCytwq9eSiP4jHVTrvre"
+ protocol="application/pgp-signature"; boundary="=-nXOZj63Mu4q9oJeJSRLo"
 X-Mailer: Evolution 3.22.6-1ubuntu1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -77,50 +77,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Oct 2017 07:29:52 -0000
+X-List-Received-Date: Fri, 20 Oct 2017 07:40:20 -0000
 
 
---=-BCytwq9eSiP4jHVTrvre
+--=-nXOZj63Mu4q9oJeJSRLo
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2017-10-20 at 09:18 +0200, Linus Walleij wrote:
+On Fri, 2017-10-20 at 09:29 +0200, Linus Walleij wrote:
 > On Fri, Oct 20, 2017 at 5:37 AM, Andrew Jeffery <andrew@aj.id.au>
 > wrote:
->=C2=A0
-> > @@ -32,6 +32,7 @@ enum of_gpio_flags {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0OF_GPIO_SINGLE_ENDED =
-=3D 0x2,
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0OF_GPIO_OPEN_DRAIN =3D =
-0x4,
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0OF_GPIO_SLEEP_MAY_LOSE_=
-VALUE =3D 0x8,
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0OF_GPIO_RESET_TOLERANT =3D 0=
-x16,
->=C2=A0
-> Now you're mixing up decimal and hex.
+>=20
+> > Expose a new 'maintain' sysfs attribute to control both suspend and
+> > reset tolerance.
+> >=20
+> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+>=20
+> NAK. You will find the actual ABI documentation in
+> Documentation/ABI/obsolete/sysfs-gpio
 
-Ugh. Whoops.
---=-BCytwq9eSiP4jHVTrvre
+Right, I did a quick grep to find an attribute description in order to
+judge what documentation to change. Unfortunately my grep didn't pick
+up this file.
+
+> that's why. This is being phased out and should not be extended.
+> Everyone should use the character device, especially for new
+> functionality.
+
+Yeah, I expected this (and the NAK) would be the response but figured I
+should ask the question.
+
+Thanks,
+
+Andrew
+--=-nXOZj63Mu4q9oJeJSRLo
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJZ6aXfAAoJEJ0dnzgO5LT5CVcP+QEkSzpGSdgHTFWo1m8kUNxl
-+aDVPbfR1xNybZrDRtMoiMnAHHqepqMqskRV8khGX6UabnPvUZjHMf1WGoJM1Alu
-Q3xxyVUXu788++RsJPP7ByVMfS1Tjju6EYJOeKMbhouflcrArKYakquKkGyd7W/2
-4h8sjx9pVICn+Gy0PZKjU/VTfCmQBKymyvJOIs32YXyupCN5LSxSIaeVQ4UJD18a
-U0dXN8fa7JyiQdoI9VYqdU1Y8RBX1TjX8XN1iFqojy3J5MOpgN/DaMIFZKwlR3OC
-+7TToQXoRHkfZTCf7mJUPpxYxlef8oTqAEC6PrHnnmq4FzfJBamta9km0NWri+4C
-wKMLqRQO6btuNkCL3uOIEna1YsdYrA8A884nel8HWb8eP/7xrwT+Srh54bYCGaUo
-lFm3ppBT2jG2VOadjxzPJAIlZRfHgDNryr/BO+QLYftIPBOuP77l19iLOVSXHGDS
-VVt6CARmXCtWAI9guvgnugHA+2OlnVtoab4qZJISQsjKIRMd3WX1TmMgOlvKwD8y
-Y0lNIsa6UpgIUPfoaSEC47APrOsBTId74wd1mUQaLnYpBDQjIuvn5vR/lyXSUPto
-5crMFyO0bZBGToIsUKVEx44s4RdbD7wSfz8lDx+XsXOPi1xpI2RiOnW/4vt+Hsw8
-hYqxksWxCTYiGYFn5G8l
-=xe2g
+iQIcBAABCgAGBQJZ6ahYAAoJEJ0dnzgO5LT5P5AQAJrlMhDzuNBwIw7eJYSWCeNo
+lkn/TYioF3Akxcwd6Y99FRDwc/GhirezWLgIJBKdSOCHSmPB8c1Vmb3QN/QMxCLT
+Fe1qqDmDJ/V0QKxit6IboAO+/SanmN07EyPfmY3+2jlgtDYBJZESbD6ePU03wgGz
+JwXnGcSnWyV1wfHHz4LeHhJj3TXQYCqiihELLyBis/9jF3wKUGQr2OE0eRM5Dq4D
+xx4MlTZneasu8qLBBMP/ZC50lBLzDBS7VQ10NApT5W+msohvnLzGM+vKjF/3j5X4
+zLe/6RHerMV/gfqI4ZnzTd7Iyhal2+4gbuZCiWPz0hi7LrhqZ6YcI8XPnLVtE8rG
+vjvy7ErtQ6nz8paaSLZ4uFi5dlw4TMHCMKvIuYUWHkN/BeAy06F6oyJMq6W1C+vm
+YIdzXY/Xdnudg4Af2PXcO4AbIxQ9UAgDLAwR/7oPN67Fs9SP1dewdQXApwj6+upY
+1za15ZmwivdXylOSquk9q4s/sgsyfnrzMe+h3PUn66ZCA7sDX1XH0vffh8awOz3I
+oqyyhsOth86z3e39uQeItHoxe99thMKcsXImeL8Tf42CdOcCOysBqu2np9263gOl
+LNAQg0qYH1pXYP2ztmX+uQiAFxvqL3rQMLmckwrptvhJbGZ7NF0aI46eti7myfaL
+NswkUQ6AtK/lJ0wQ/+Te
+=7t2h
 -----END PGP SIGNATURE-----
 
---=-BCytwq9eSiP4jHVTrvre--
+--=-nXOZj63Mu4q9oJeJSRLo--
