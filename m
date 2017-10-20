@@ -1,64 +1,71 @@
-Return-Path: <linus.walleij@linaro.org>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linaro.org
- (client-ip=2607:f8b0:4001:c0b::242; helo=mail-it0-x242.google.com;
- envelope-from=linus.walleij@linaro.org; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.b="IwgNeqsQ"; 
- dkim-atps=neutral
-Received: from mail-it0-x242.google.com (mail-it0-x242.google.com
- [IPv6:2607:f8b0:4001:c0b::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="JPuiKJNK"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="R/66A0GO"; dkim-atps=neutral
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yJHVf5Rc1zDqBc
- for <openbmc@lists.ozlabs.org>; Fri, 20 Oct 2017 18:29:30 +1100 (AEDT)
-Received: by mail-it0-x242.google.com with SMTP id k70so12332642itk.0
- for <openbmc@lists.ozlabs.org>; Fri, 20 Oct 2017 00:29:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=IXnSzI40PRkieLRXyvUwdC+iJxB71rS0Wz/Q+sQiJ3A=;
- b=IwgNeqsQgDfqvg87flqSD5YQmEI3J6PK3gDq8kS8WP4+ja4LVBg4lO6rg7oru7g083
- mpcBpij3MZjRYShz6V9u3+7wMpBF0GoL1plYQmb+tKvpafXMlWxqZLm95DBwSkvizEop
- IyalPQiSPKkE0MNBXECJLeTJuDmM1AC+xoSH8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=IXnSzI40PRkieLRXyvUwdC+iJxB71rS0Wz/Q+sQiJ3A=;
- b=sO6hUwZYH1fpDH5LHV4MnpkHjQIYtbCjnvRpjqzAqxjpWamgZtbjk5t36FESM7wLFK
- GFRjNwt1df14BN0KsJLUeGLmD8woxx/XP4wiHVBFg4+yg3VJK4tlopeB18gaFadhOKTe
- 94EDAHaoU+rNjyfnGrJqMkr43l/QESOED2wMZaV0Xj24Y30EKPpbEAYtjlCkhl/BuPvo
- VeQGIm6F6ekitNIPakFgIrqlL8MRTbzMPRiGarJe1XjLk+aB5I1Cj0vdw0nw9EKXbrac
- k+aobDEXU3BRVyOgHMJkQfl9RCwoHKTkw0Ynjtsfa/qZfS2+KX4OPxd7yZUZpfMkbowW
- Sm8Q==
-X-Gm-Message-State: AMCzsaWqo9L2aTu7WW60JXOs+SKr/9ggI/BhaJv+Bi0WwIuTHeBlukmM
- b+fHlSoEk1EOvgBSQGQIPBFTnzpQZ2JLgw74PVsX1w==
-X-Google-Smtp-Source: ABhQp+SXdH1ampuoUskMBJL7EECWF2zhz5robOdPtwRquhWkpewICDsK+p8G8RFafqB3KUcK4hOntJpAZfOa7h2Twro=
-X-Received: by 10.36.62.3 with SMTP id s3mr1254818its.113.1508484568229; Fri,
- 20 Oct 2017 00:29:28 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.79.14.140 with HTTP; Fri, 20 Oct 2017 00:29:27 -0700 (PDT)
-In-Reply-To: <20171020033727.21557-5-andrew@aj.id.au>
-References: <20171020033727.21557-1-andrew@aj.id.au>
- <20171020033727.21557-5-andrew@aj.id.au>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Fri, 20 Oct 2017 09:29:27 +0200
-Message-ID: <CACRpkdZ9HpXXuauRtVjA9n1dwF3sUQ4gJL-FOUMcMBDCL9oxYw@mail.gmail.com>
-Subject: Re: [RFC PATCH 4/5] gpio: gpiolib: Add sysfs support for maintaining
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yJHW20zdKzDqRQ;
+ Fri, 20 Oct 2017 18:29:49 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 9C69F20E52;
+ Fri, 20 Oct 2017 03:29:47 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Fri, 20 Oct 2017 03:29:47 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm1; bh=zLeu+gz1Ta+SqOGJXAN2RlLxyk0p4JR3uTEKy8snY+M=; b=JPuiKJNK
+ OfeHPrHfKZ41t57cL7LILc/VcnXvTAsaA9+cJ3Nca3kP+sHQqDYtphRocrpFnrah
+ RlcG2idwPZrwXRvXk6goK/2eeoUY6UQ8vWKWhnwStWU6izbiSFDKPBEGQVIsiC+P
+ 84GofZvUSRgJCF6wC7/fQbRlxIX/rM5i5m7Qg/V6MKWcUlxTg6B6dfP1TMlrgzMp
+ OknAE9t8dy81qY5Gx9om2p1bshL19pBkn1LBXzysNdXNlp3EiAnFyjw2hEAdSRlU
+ lmkmIHKBfh9a5uPgUvofs0rtlXcag1w8QbW15xFAzNVm1vzgUjcJlFuXsUZh7St6
+ 2ZYrzs1qE48V7g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; bh=zLeu+gz1Ta+SqOGJXAN2RlLxyk0p4
+ JR3uTEKy8snY+M=; b=R/66A0GOOQzE8IxXy6epkLXSEtEc/4RqKK1lszrbJjibv
+ WRCaQtg/EENDQO2PdAntl1niR7JVudALx9/U8aRgvESHHD/j2rJ0RJuwARLiH3WS
+ cBtPVa9U9jqawejgLtXVL6ccfdxmxJWQoVZOn3NNUAn6a5HTlMJkjcy3dQrJ1IxT
+ wg6ulQh+8rUnjNCAyb9TWSislvkKLc5IuXQaSUSrl3YJGWMXDpS87rzRxe6Pjc3G
+ DV2tSZGtmhOrn3iZq+8Jw/rgmgkwsUnauF2YcvIXJmO2nQOXShHJRAqrQt9+nwQS
+ /i8+wJKwX0yqgjKvsCz3qa83rIDorFKq5/gYAMhlg==
+X-ME-Sender: <xms:66XpWaC1XllNE24Cqy9TknOCGyVY3lxZpQlhoxLaqRNOrkaA_oD4Bg>
+Received: from keelia26 (220-253-53-78.dyn.iinet.net.au [220.253.53.78])
+ by mail.messagingengine.com (Postfix) with ESMTPA id AB44E247DC;
+ Fri, 20 Oct 2017 03:29:42 -0400 (EDT)
+Message-ID: <1508484575.24322.43.camel@aj.id.au>
+Subject: Re: [RFC PATCH 2/5] gpio: gpiolib: Add OF support for maintaining
  GPIO values on reset
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, 
- Joel Stanley <joel@jms.id.au>, Ryan Chen <ryan_chen@aspeedtech.com>, 
- Rob Herring <robh+dt@kernel.org>, Frank Rowand <frowand.list@gmail.com>, 
- Charles Keepax <ckeepax@opensource.wolfsonmicro.com>, 
- Laxman Dewangan <ldewangan@nvidia.com>, 
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- patches@opensource.cirrus.com, 
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, linux-aspeed@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Linus Walleij <linus.walleij@linaro.org>
+Cc: "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, Jonathan
+ Corbet <corbet@lwn.net>, Joel Stanley <joel@jms.id.au>, Ryan Chen
+ <ryan_chen@aspeedtech.com>,  Rob Herring <robh+dt@kernel.org>, Frank Rowand
+ <frowand.list@gmail.com>, Charles Keepax
+ <ckeepax@opensource.wolfsonmicro.com>, Laxman Dewangan
+ <ldewangan@nvidia.com>,  "linux-doc@vger.kernel.org"
+ <linux-doc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, patches@opensource.cirrus.com, 
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>,  linux-aspeed@lists.ozlabs.org
+Date: Fri, 20 Oct 2017 17:59:35 +1030
+In-Reply-To: <CACRpkdbxOen3ohwmDc8ZNWkirn3mNHaGiZq1O-6VnOjhvFcw+w@mail.gmail.com>
+References: <20171020033727.21557-1-andrew@aj.id.au>
+ <20171020033727.21557-3-andrew@aj.id.au>
+ <CACRpkdbxOen3ohwmDc8ZNWkirn3mNHaGiZq1O-6VnOjhvFcw+w@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-BCytwq9eSiP4jHVTrvre"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -70,20 +77,50 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Oct 2017 07:29:31 -0000
+X-List-Received-Date: Fri, 20 Oct 2017 07:29:52 -0000
 
-On Fri, Oct 20, 2017 at 5:37 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
 
-> Expose a new 'maintain' sysfs attribute to control both suspend and
-> reset tolerance.
->
-> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+--=-BCytwq9eSiP4jHVTrvre
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-NAK. You will find the actual ABI documentation in
-Documentation/ABI/obsolete/sysfs-gpio
-that's why. This is being phased out and should not be extended.
-Everyone should use the character device, especially for new
-functionality.
+On Fri, 2017-10-20 at 09:18 +0200, Linus Walleij wrote:
+> On Fri, Oct 20, 2017 at 5:37 AM, Andrew Jeffery <andrew@aj.id.au>
+> wrote:
+>=C2=A0
+> > @@ -32,6 +32,7 @@ enum of_gpio_flags {
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0OF_GPIO_SINGLE_ENDED =
+=3D 0x2,
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0OF_GPIO_OPEN_DRAIN =3D =
+0x4,
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0OF_GPIO_SLEEP_MAY_LOSE_=
+VALUE =3D 0x8,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0OF_GPIO_RESET_TOLERANT =3D 0=
+x16,
+>=C2=A0
+> Now you're mixing up decimal and hex.
 
-Yours,
-Linus Walleij
+Ugh. Whoops.
+--=-BCytwq9eSiP4jHVTrvre
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZ6aXfAAoJEJ0dnzgO5LT5CVcP+QEkSzpGSdgHTFWo1m8kUNxl
++aDVPbfR1xNybZrDRtMoiMnAHHqepqMqskRV8khGX6UabnPvUZjHMf1WGoJM1Alu
+Q3xxyVUXu788++RsJPP7ByVMfS1Tjju6EYJOeKMbhouflcrArKYakquKkGyd7W/2
+4h8sjx9pVICn+Gy0PZKjU/VTfCmQBKymyvJOIs32YXyupCN5LSxSIaeVQ4UJD18a
+U0dXN8fa7JyiQdoI9VYqdU1Y8RBX1TjX8XN1iFqojy3J5MOpgN/DaMIFZKwlR3OC
++7TToQXoRHkfZTCf7mJUPpxYxlef8oTqAEC6PrHnnmq4FzfJBamta9km0NWri+4C
+wKMLqRQO6btuNkCL3uOIEna1YsdYrA8A884nel8HWb8eP/7xrwT+Srh54bYCGaUo
+lFm3ppBT2jG2VOadjxzPJAIlZRfHgDNryr/BO+QLYftIPBOuP77l19iLOVSXHGDS
+VVt6CARmXCtWAI9guvgnugHA+2OlnVtoab4qZJISQsjKIRMd3WX1TmMgOlvKwD8y
+Y0lNIsa6UpgIUPfoaSEC47APrOsBTId74wd1mUQaLnYpBDQjIuvn5vR/lyXSUPto
+5crMFyO0bZBGToIsUKVEx44s4RdbD7wSfz8lDx+XsXOPi1xpI2RiOnW/4vt+Hsw8
+hYqxksWxCTYiGYFn5G8l
+=xe2g
+-----END PGP SIGNATURE-----
+
+--=-BCytwq9eSiP4jHVTrvre--
