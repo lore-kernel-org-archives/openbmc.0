@@ -1,38 +1,59 @@
-Return-Path: <gregkh@linuxfoundation.org>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linuxfoundation.org
- (client-ip=140.211.169.12; helo=mail.linuxfoundation.org;
- envelope-from=gregkh@linuxfoundation.org; receiver=<UNKNOWN>)
-Received: from mail.linuxfoundation.org (mail.linuxfoundation.org
- [140.211.169.12])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="I8VAchs2"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="ENODpqBU"; dkim-atps=neutral
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yJPP73dh2zDq5W
- for <openbmc@lists.ozlabs.org>; Fri, 20 Oct 2017 22:55:07 +1100 (AEDT)
-Received: from localhost (LFbn-1-12253-150.w90-92.abo.wanadoo.fr
- [90.92.67.150])
- by mail.linuxfoundation.org (Postfix) with ESMTPSA id C24B6BD9;
- Fri, 20 Oct 2017 11:55:04 +0000 (UTC)
-Date: Fri, 20 Oct 2017 13:55:12 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Oleksandr Shamray <oleksandrs@mellanox.com>
-Cc: arnd@arndb.de, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- openbmc@lists.ozlabs.org, joel@jms.id.au, jiri@resnulli.us,
- tklauser@distanz.ch, linux-serial@vger.kernel.org, mec@shout.net,
- vadimp@mellanox.com, system-sw-low-level@mellanox.com,
- robh+dt@kernel.org, openocd-devel-owner@lists.sourceforge.net,
- linux-api@vger.kernel.org, davem@davemloft.net, mchehab@kernel.org,
- Jiri Pirko <jiri@mellanox.com>
-Subject: Re: [patch v9 1/4] drivers: jtag: Add JTAG core driver
-Message-ID: <20171020115512.GA2073@kroah.com>
-References: <1505985932-27568-1-git-send-email-oleksandrs@mellanox.com>
- <1505985932-27568-2-git-send-email-oleksandrs@mellanox.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1505985932-27568-2-git-send-email-oleksandrs@mellanox.com>
-User-Agent: Mutt/1.9.1 (2017-09-22)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yJS7L2QlyzDq5W
+ for <openbmc@lists.ozlabs.org>; Sat, 21 Oct 2017 00:58:21 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 1F34E211CE;
+ Fri, 20 Oct 2017 09:58:19 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Fri, 20 Oct 2017 09:58:19 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm1; bh=GPxLufPmC4aUiH1JQrqWsazpy+K71C6aBpz9ByE1xVs=; b=I8VAchs2
+ vIOOYFKdyRUIom/WanWLaaJLGxik8fdwy3RV/Zdc9kJrm8a+j59YKdkrD10/dNL1
+ 1Ho0Y+egz0cYGXSwhemf3UYk94hiKORM7JKfQAo2mev0rYRk3QPHeoKWTKbGFwCl
+ uzse8xtm/sBBQSN2t1fkc1RfNNf1DWs9fi7N2sdfzuCTuFhmQdTOgQC7lxOXZ1Nd
+ vnMfDCZU9Z/fEvNifBSmwIuomjnMoK0XgUilptp2EtRylsgnJ+/LVkKVagwqGoZX
+ ce1wjAfItAeZ7Rtrff6oJv1cXaNd3Ns5bkHd3k6gn5qusmkmsGTprH3p+bYx0Z30
+ YMhSgswYVhvL3Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; bh=GPxLufPmC4aUiH1JQrqWsazpy+K71
+ C6aBpz9ByE1xVs=; b=ENODpqBUxBtwOhPyCtf+atVvEH168bIz3Wh8lpzBLVUvZ
+ B9606WMgLkZ4MdXAEx7SiEWhtCQdIDBcQQlh+ROFnn3YxzlJxJHfFeptpuSdzPyp
+ qPAu/0CpiKlkamI2QIoNQnnGyZrP9Cby+crYoOSGOqXBsER+SN4htZrVwS/V6AED
+ rxo9MM4BKNvMAOuCqs8X7KwPDm+qNTO8ZLy2N2aGiDVT9i3b19RIxm8oLlUEkQjt
+ O8gCyqh/R67RWIhiKZJQkzy4+OO0g0yQVqz7Mi53z/7sVDPJcmEDGT2L2yYxrSa8
+ Py6fVI0uvAGyRiJkSNR/Zz15Vj65nad3tja8TXTbw==
+X-ME-Sender: <xms:-wDqWZCiMV8EPNAYnIJ-GyL6mo7FMY6MRlO1ARcTFOcEw01EM31YLQ>
+Received: from keelia26 (220-253-53-78.dyn.iinet.net.au [220.253.53.78])
+ by mail.messagingengine.com (Postfix) with ESMTPA id A1FF6248ED;
+ Fri, 20 Oct 2017 09:58:17 -0400 (EDT)
+Message-ID: <1508507891.24322.55.camel@aj.id.au>
+Subject: Re: [PATCH u-boot] Revert "ast-g5: deactivate vbar (for qemu)"
+From: Andrew Jeffery <andrew@aj.id.au>
+To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, 
+ openbmc@lists.ozlabs.org
+Date: Sat, 21 Oct 2017 00:28:11 +1030
+In-Reply-To: <20171010122749.9124-1-clg@kaod.org>
+References: <20171010122749.9124-1-clg@kaod.org>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-fzxWfqe01hDS2zrElHjD"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -44,525 +65,67 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Oct 2017 11:55:08 -0000
-
-On Thu, Sep 21, 2017 at 12:25:29PM +0300, Oleksandr Shamray wrote:
-> +struct jtag {
-> +	struct device *dev;
-> +	struct cdev cdev;
-
-Why are you using a cdev here and not just a normal misc device?  I
-forgot if this is what you were doing before, sorry...
-
-> +	int id;
-> +	atomic_t open;
-
-Why do you need this?
-
-> +	const struct jtag_ops *ops;
-> +	unsigned long priv[0] __aligned(ARCH_DMA_MINALIGN);
-
-Huh?  Why is this needed to be dma aligned?  Why not just use the
-private pointer in struct device?
-
-> +};
-> +
-> +static dev_t jtag_devt;
-> +static DEFINE_IDA(jtag_ida);
-> +
-> +void *jtag_priv(struct jtag *jtag)
-> +{
-> +	return jtag->priv;
-> +}
-> +EXPORT_SYMBOL_GPL(jtag_priv);
-> +
-> +static u8 *jtag_copy_from_user(__u64 udata, unsigned long bit_size)
-> +{
-> +	unsigned long size;
-> +	void *kdata;
-> +
-> +	size = DIV_ROUND_UP(bit_size, BITS_PER_BYTE);
-> +	kdata = memdup_user(u64_to_user_ptr(udata), size);
-
-You only use this once, why not just open-code it?
-
-> +
-> +	return kdata;
-> +}
-> +
-> +static unsigned long jtag_copy_to_user(__u64 udata, u8 *kdata,
-> +				       unsigned long bit_size)
-> +{
-> +	unsigned long size;
-> +
-> +	size = DIV_ROUND_UP(bit_size, BITS_PER_BYTE);
-> +
-> +	return copy_to_user(u64_to_user_ptr(udata), (void *)(kdata), size);
-
-Same here, making this a separate function seems odd.
-
-> +}
-> +
-> +static struct class jtag_class = {
-> +	.name = "jtag",
-> +	.owner = THIS_MODULE,
-> +};
-> +
-> +static int jtag_run_test_idle_op(struct jtag *jtag,
-> +				 struct jtag_run_test_idle *idle)
-> +{
-> +	if (jtag->ops->idle)
-> +		return jtag->ops->idle(jtag, idle);
-> +	else
-> +		return -EOPNOTSUPP;
-
-Why is this a function?  Why not just do this work in the ioctl?
-
-> +}
-> +
-> +static int jtag_xfer_op(struct jtag *jtag, struct jtag_xfer *xfer, u8 *data)
-> +{
-> +	if (jtag->ops->xfer)
-> +		return jtag->ops->xfer(jtag, xfer, data);
-> +	else
-> +		return -EOPNOTSUPP;
-
-Same here, doesn't need to be a function.
-
-> +}
-> +
-> +static long jtag_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
-> +{
-> +	struct jtag *jtag = file->private_data;
-> +	struct jtag_run_test_idle idle;
-> +	struct jtag_xfer xfer;
-> +	u8 *xfer_data;
-> +	u32 value;
-> +	int err;
-> +
-> +	switch (cmd) {
-> +	case JTAG_GIOCFREQ:
-> +		if (jtag->ops->freq_get)
-> +			err = jtag->ops->freq_get(jtag, &value);
-> +		else
-> +			err = -EOPNOTSUPP;
-> +		if (err)
-> +			break;
-> +
-> +		err = put_user(value, (__u32 *)arg);
-> +		break;
-
-Are you sure the return value of put_user is correct here?  Shouldn't
-you return -EFAULT if err is not 0?
-
-> +
-> +	case JTAG_SIOCFREQ:
-> +		err = get_user(value, (__u32 *)arg);
-> +
-
-why a blank line?
-
-> +		if (value == 0)
-> +			err = -EINVAL;
-
-Check err first.
-
-> +		if (err)
-> +			break;
-
-And set it properly, again err should be -EFAULT, right?
-
-> +
-> +		if (jtag->ops->freq_set)
-> +			err = jtag->ops->freq_set(jtag, value);
-> +		else
-> +			err = -EOPNOTSUPP;
-> +		break;
-> +
-> +	case JTAG_IOCRUNTEST:
-> +		if (copy_from_user(&idle, (void *)arg,
-> +				   sizeof(struct jtag_run_test_idle)))
-> +			return -ENOMEM;
-> +		err = jtag_run_test_idle_op(jtag, &idle);
-
-Who validates the structure fields?  Is that up to the individual jtag
-driver?  Why not do it in the core correctly so that it only has to be
-done in one place and you do not have to audit every individual driver?
-
-> +		break;
-> +
-> +	case JTAG_IOCXFER:
-> +		if (copy_from_user(&xfer, (void *)arg,
-> +				   sizeof(struct jtag_xfer)))
-> +			return -EFAULT;
-> +
-> +		if (xfer.length >= JTAG_MAX_XFER_DATA_LEN)
-> +			return -EFAULT;
-> +
-> +		xfer_data = jtag_copy_from_user(xfer.tdio, xfer.length);
-> +		if (!xfer_data)
-> +			return -ENOMEM;
-
-Are you sure that's the correct error value?
-
-> +
-> +		err = jtag_xfer_op(jtag, &xfer, xfer_data);
-> +		if (jtag_copy_to_user(xfer.tdio, xfer_data, xfer.length)) {
-> +			kfree(xfer_data);
-> +			return -EFAULT;
-> +		}
-> +
-> +		kfree(xfer_data);
-> +		if (copy_to_user((void *)arg, &xfer, sizeof(struct jtag_xfer)))
-> +			return -EFAULT;
-> +		break;
-> +
-> +	case JTAG_GIOCSTATUS:
-> +		if (jtag->ops->status_get)
-> +			err = jtag->ops->status_get(jtag, &value);
-> +		else
-> +			err = -EOPNOTSUPP;
-> +		if (err)
-> +			break;
-> +
-> +		err = put_user(value, (__u32 *)arg);
-
-Same put_user err issue here.
-
-> +		break;
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +	return err;
-> +}
-> +
-> +#ifdef CONFIG_COMPAT
-> +static long jtag_ioctl_compat(struct file *file, unsigned int cmd,
-> +			      unsigned long arg)
-> +{
-> +	return jtag_ioctl(file, cmd, (unsigned long)compat_ptr(arg));
-> +}
-> +#endif
-
-Why do you need a compat callback for a new ioctl?  Create your
-structures properly and this should not be needed, right?
-
-> +
-> +static int jtag_open(struct inode *inode, struct file *file)
-> +{
-> +	struct jtag *jtag = container_of(inode->i_cdev, struct jtag, cdev);
-> +
-> +	if (atomic_read(&jtag->open)) {
-> +		dev_info(NULL, "jtag already opened\n");
-> +		return -EBUSY;
-
-Why do you care if multiple opens can happen?
-
-> +	}
-> +
-> +	atomic_inc(&jtag->open);
-
-Oh look, you just raced with two different people opening at the same
-time :(
-
-An atomic value is never a replacement for a lock, sorry.
-
-> +	file->private_data = jtag;
-> +	return 0;
-> +}
-> +
-> +static int jtag_release(struct inode *inode, struct file *file)
-> +{
-> +	struct jtag *jtag = file->private_data;
-> +
-> +	atomic_dec(&jtag->open);
-
-Again, not needed.
-
-> +	return 0;
-> +}
-> +
-> +static const struct file_operations jtag_fops = {
-> +	.owner		= THIS_MODULE,
-> +	.open		= jtag_open,
-> +	.release	= jtag_release,
-> +	.llseek		= noop_llseek,
-> +	.unlocked_ioctl = jtag_ioctl,
-> +#ifdef CONFIG_COMPAT
-> +	.compat_ioctl	= jtag_ioctl_compat,
-> +#endif
-> +};
-> +
-> +struct jtag *jtag_alloc(size_t priv_size, const struct jtag_ops *ops)
-> +{
-> +	struct jtag *jtag;
-> +
-> +	jtag = kzalloc(sizeof(*jtag) + round_up(priv_size, ARCH_DMA_MINALIGN),
-> +		       GFP_KERNEL);
-> +	if (!jtag)
-> +		return NULL;
-> +
-> +	jtag->ops = ops;
-> +	return jtag;
-> +}
-> +EXPORT_SYMBOL_GPL(jtag_alloc);
-
-register should allocate and register the device, why pass a structure
-back that the caller then has to do something else with to use it?
-
-> +
-> +void jtag_free(struct jtag *jtag)
-> +{
-> +	kfree(jtag);
-> +}
-> +EXPORT_SYMBOL_GPL(jtag_free);
-> +
-> +int jtag_register(struct jtag *jtag)
-> +{
-> +	int id;
-> +	int err;
-> +
-> +	id = ida_simple_get(&jtag_ida, 0, 0, GFP_KERNEL);
-> +	if (id < 0)
-> +		return id;
-> +
-> +	jtag->id = id;
-> +	cdev_init(&jtag->cdev, &jtag_fops);
-> +	jtag->cdev.owner = THIS_MODULE;
-> +	err = cdev_add(&jtag->cdev, MKDEV(MAJOR(jtag_devt), jtag->id), 1);
-> +	if (err)
-> +		goto err_cdev;
-
-misc device would be so much simpler and easier here :(
+X-List-Received-Date: Fri, 20 Oct 2017 13:58:25 -0000
 
 
-> +
-> +	/* Register this jtag device with the driver core */
-> +	jtag->dev = device_create(&jtag_class, NULL, MKDEV(MAJOR(jtag_devt),
-> +							   jtag->id),
-> +				  NULL, "jtag%d", jtag->id);
-> +	if (!jtag->dev)
-> +		goto err_device_create;
-> +
-> +	atomic_set(&jtag->open, 0);
-> +	dev_set_drvdata(jtag->dev, jtag);
-> +	return err;
-> +
-> +err_device_create:
-> +	cdev_del(&jtag->cdev);
-> +err_cdev:
-> +	ida_simple_remove(&jtag_ida, id);
-> +	return err;
-> +}
-> +EXPORT_SYMBOL_GPL(jtag_register);
-> +
-> +void jtag_unregister(struct jtag *jtag)
-> +{
-> +	struct device *dev = jtag->dev;
-> +
-> +	cdev_del(&jtag->cdev);
-> +	device_unregister(dev);
-> +	ida_simple_remove(&jtag_ida, jtag->id);
-> +}
-> +EXPORT_SYMBOL_GPL(jtag_unregister);
-> +
-> +static int __init jtag_init(void)
-> +{
-> +	int err;
-> +
-> +	err = alloc_chrdev_region(&jtag_devt, JTAG_FIRST_MINOR,
-> +				  JTAG_MAX_DEVICES, "jtag");
-> +	if (err)
-> +		return err;
-> +
-> +	err = class_register(&jtag_class);
-> +	if (err)
-> +		unregister_chrdev_region(jtag_devt, JTAG_MAX_DEVICES);
-> +
-> +	return err;
-> +}
-> +
-> +static void __exit jtag_exit(void)
-> +{
-> +	class_unregister(&jtag_class);
-> +	unregister_chrdev_region(jtag_devt, JTAG_MAX_DEVICES);
+--=-fzxWfqe01hDS2zrElHjD
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Your idr leaked memory :(
+On Tue, 2017-10-10 at 14:27 +0200, C=C3=A9dric Le Goater wrote:
+> This reverts commit a0ca4ecbeae4ae9632ebc67bf5318dd2ea09c94f.
+>=20
+> Support was added to QEMU in :
+>=20
+> commit 91db4642f868 ("target-arm: Add VBAR support to ARM1176 CPUs")
+>=20
+> The work around happens to crash the guest when the vector relocation
+> is done, with ignore_memory_transaction_failures=3Dfalse which is
+> now the default in QEMU.
 
+Applied to v2016.07-aspeed-openbmc with the Signed-off-by.
 
+Cheers,
 
-> +}
-> +
-> +module_init(jtag_init);
-> +module_exit(jtag_exit);
-> +
-> +MODULE_AUTHOR("Oleksandr Shamray <oleksandrs@mellanox.com>");
-> +MODULE_DESCRIPTION("Generic jtag support");
-> +MODULE_LICENSE("GPL v2");
-> diff --git a/include/linux/jtag.h b/include/linux/jtag.h
-> new file mode 100644
-> index 0000000..c016fed
-> --- /dev/null
-> +++ b/include/linux/jtag.h
-> @@ -0,0 +1,48 @@
-> +/*
-> + * drivers/jtag/jtag.c
-> + *
-> + * Copyright (c) 2017 Mellanox Technologies. All rights reserved.
-> + * Copyright (c) 2017 Oleksandr Shamray <oleksandrs@mellanox.com>
-> + *
-> + * Released under the GPLv2 only.
-> + * SPDX-License-Identifier: GPL-2.0
-> + */
-> +
-> +#ifndef __JTAG_H
-> +#define __JTAG_H
-> +
-> +#include <uapi/linux/jtag.h>
-> +
-> +#ifndef ARCH_DMA_MINALIGN
-> +#define ARCH_DMA_MINALIGN 1
-> +#endif
-> +
-> +#define jtag_u64_to_ptr(arg) ((void *)(uintptr_t)arg)
-> +
-> +#define JTAG_MAX_XFER_DATA_LEN 65535
-> +
-> +struct jtag;
-> +/**
-> + * struct jtag_ops - callbacks for jtag control functions:
-> + *
-> + * @freq_get: get frequency function. Filled by device driver
-> + * @freq_set: set frequency function. Filled by device driver
-> + * @status_get: set status function. Filled by device driver
-> + * @idle: set JTAG to idle state function. Filled by device driver
-> + * @xfer: send JTAG xfer function. Filled by device driver
-> + */
-> +struct jtag_ops {
-> +	int (*freq_get)(struct jtag *jtag, u32 *freq);
-> +	int (*freq_set)(struct jtag *jtag, u32 freq);
-> +	int (*status_get)(struct jtag *jtag, u32 *state);
-> +	int (*idle)(struct jtag *jtag, struct jtag_run_test_idle *idle);
-> +	int (*xfer)(struct jtag *jtag, struct jtag_xfer *xfer);
-> +};
-> +
-> +void *jtag_priv(struct jtag *jtag);
-> +int jtag_register(struct jtag *jtag);
-> +void jtag_unregister(struct jtag *jtag);
-> +struct jtag *jtag_alloc(size_t priv_size, const struct jtag_ops *ops);
-> +void jtag_free(struct jtag *jtag);
-> +
-> +#endif /* __JTAG_H */
-> diff --git a/include/uapi/linux/jtag.h b/include/uapi/linux/jtag.h
-> new file mode 100644
-> index 0000000..180bf22
-> --- /dev/null
-> +++ b/include/uapi/linux/jtag.h
-> @@ -0,0 +1,115 @@
-> +/*
-> + * JTAG class driver
-> + *
-> + * Copyright (c) 2017 Mellanox Technologies. All rights reserved.
-> + * Copyright (c) 2017 Oleksandr Shamray <oleksandrs@mellanox.com>
-> + *
-> + * Released under the GPLv2/BSD.
-> + * SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
-> + */
-> +
-> +#ifndef __UAPI_LINUX_JTAG_H
-> +#define __UAPI_LINUX_JTAG_H
-> +
-> +/**
-> + * enum jtag_xfer_mode:
-> + *
-> + * @JTAG_XFER_HW_MODE: hardware mode transfer
-> + * @JTAG_XFER_SW_MODE: software mode transfer
-> + */
-> +enum jtag_xfer_mode {
-> +	JTAG_XFER_HW_MODE,
-> +	JTAG_XFER_SW_MODE,
-> +};
-> +
-> +/**
-> + * enum jtag_endstate:
-> + *
-> + * @JTAG_STATE_IDLE: JTAG state machine IDLE state
-> + * @JTAG_STATE_PAUSEIR: JTAG state machine PAUSE_IR state
-> + * @JTAG_STATE_PAUSEDR: JTAG state machine PAUSE_DR state
-> + */
-> +enum jtag_endstate {
-> +	JTAG_STATE_IDLE,
-> +	JTAG_STATE_PAUSEIR,
-> +	JTAG_STATE_PAUSEDR,
-> +};
-> +
-> +/**
-> + * enum jtag_xfer_type:
-> + *
-> + * @JTAG_SIR_XFER: SIR transfer
-> + * @JTAG_SDR_XFER: SDR transfer
-> + */
-> +enum jtag_xfer_type {
-> +	JTAG_SIR_XFER,
-> +	JTAG_SDR_XFER,
-> +};
-> +
-> +/**
-> + * enum jtag_xfer_direction:
-> + *
-> + * @JTAG_READ_XFER: read transfer
-> + * @JTAG_WRITE_XFER: write transfer
-> + */
-> +enum jtag_xfer_direction {
-> +	JTAG_READ_XFER,
-> +	JTAG_WRITE_XFER,
-> +};
-> +
-> +/**
-> + * struct jtag_run_test_idle - forces JTAG state machine to
-> + * RUN_TEST/IDLE state
-> + *
-> + * @mode: access mode
-> + * @reset: 0 - run IDLE/PAUSE from current state
-> + *         1 - go through TEST_LOGIC/RESET state before  IDLE/PAUSE
-> + * @end: completion flag
-> + * @tck: clock counter
-> + *
-> + * Structure represents interface to JTAG device for jtag idle
-> + * execution.
-> + */
-> +struct jtag_run_test_idle {
-> +	__u8	mode;
-> +	__u8	reset;
-> +	__u8	endstate;
-> +	__u8	tck;
-> +};
-> +
-> +/**
-> + * struct jtag_xfer - jtag xfer:
-> + *
-> + * @mode: access mode
-> + * @type: transfer type
-> + * @direction: xfer direction
-> + * @length: xfer bits len
-> + * @tdio : xfer data array
-> + * @endir: xfer end state
-> + *
-> + * Structure represents interface to Aspeed JTAG device for jtag sdr xfer
-> + * execution.
-> + */
-> +struct jtag_xfer {
-> +	__u8	mode;
-> +	__u8	type;
-> +	__u8	direction;
-> +	__u8	endstate;
-> +	__u32	length;
-> +	__u64	tdio;
+Andrew
 
-I don't see anything odd here that requires a compat ioctl callback, do
-you?
+> ---
+> =C2=A0arch/arm/lib/relocate.S | 2 +-
+> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/arch/arm/lib/relocate.S b/arch/arm/lib/relocate.S
+> index 33bcff41ac30..475d503dd9df 100644
+> --- a/arch/arm/lib/relocate.S
+> +++ b/arch/arm/lib/relocate.S
+> @@ -35,7 +35,7 @@ ENTRY(relocate_vectors)
+> > > =C2=A0	ldr	r1, =3DV7M_SCB_BASE
+> > > =C2=A0	str	r0, [r1, V7M_SCB_VTOR]
+> =C2=A0#else
+> -#if defined(CONFIG_HAS_VBAR) && !defined(CONFIG_ARCH_AST2500)
+> +#ifdef CONFIG_HAS_VBAR
+> > =C2=A0	/*
+> > =C2=A0	=C2=A0* If the ARM processor has the security extensions,
+> > =C2=A0	=C2=A0* use VBAR to relocate the exception vectors.
+--=-fzxWfqe01hDS2zrElHjD
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-thanks,
+-----BEGIN PGP SIGNATURE-----
 
-greg k-h
+iQIcBAABCgAGBQJZ6gDzAAoJEJ0dnzgO5LT5HykP/ReSGJcHVu7R2RVmAFsHlmOp
+d0a8NtpaJsJdad1/ddhbAXrjfMMAWqpSxEIT8EisyezunNNqt/y5jmRPA7CwkxOE
+m41EDmA0gPCQeysoQT+eaMCPkOvKg4AEo9QwqqoD/RIamp8KQq3y0dWFIcwC4wF1
+3LY0CuMwgZdG+jDffgmFEaeayFp3sIrXdJqEfy70da/EFu+VQ0kedLugGhOMr810
+doT41hBIia2qc8j21fblU0GodMXSw4iwWpNgHLQf8GGYKHCLFc8WQY8UIJNTF4Je
+mNOBCnW/3/yoWlTZusmZAPBPXhDF39JeuM78WHX1CPegAgrMC4WauYJcGxHkDO1s
+JskYyxGs+PxFk2cBQfQeNcCsIbhEOrDQdSRqy3+CrdQ5kLFFQ8Ze7a2N/Nz/BSny
+GxYok+jQeo9kAsa+UvdjPrLbDXVjjV/qSvrGJBKAGZXLPke3oal9Xn30N/7M3bZZ
+/siGusqKm4DXjoSwHraV3mSSlDl+SavZjZEFmPcz9c+7o3rZRAnJZVxZO+UX5HnB
+o9mwKrAKCxXldupZ4HRycuK5Ep694LyqpmTRzlPtoTBoOYytzdCnuixfSapfKiPE
+Bj7X5Jg43+nOzGt/nivr3zW50XZ6o7muS+3rYWQq9p0i4Gr88W+9Od8dUB9gpJVc
+Po6HxweFiftxg0rqM0OG
+=sf41
+-----END PGP SIGNATURE-----
+
+--=-fzxWfqe01hDS2zrElHjD--
