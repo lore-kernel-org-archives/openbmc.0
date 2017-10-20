@@ -1,72 +1,49 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="rMRjoEFm"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="fbeXDwA4"; dkim-atps=neutral
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <linux+openbmc=lists.ozlabs.org@armlinux.org.uk>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=armlinux.org.uk
+ (client-ip=2001:4d48:ad52:3201:214:fdff:fe10:1be6;
+ helo=pandora.armlinux.org.uk;
+ envelope-from=linux+openbmc=lists.ozlabs.org@armlinux.org.uk;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=armlinux.org.uk header.i=@armlinux.org.uk
+ header.b="M9qIg/WN"; dkim-atps=neutral
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk
+ [IPv6:2001:4d48:ad52:3201:214:fdff:fe10:1be6])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yJKZf3cWwzDqs4;
- Fri, 20 Oct 2017 20:03:06 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 0C32920F3F;
- Fri, 20 Oct 2017 05:03:03 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Fri, 20 Oct 2017 05:03:03 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=Dm6s+z1YjOiMsfuRZsus8vrQPNbBDwSIn1oM/hGtePQ=; b=rMRjoEFm
- O5N7oleMU5Umw612zEqOthOIY5eCieOZqfcZ3oW6z7sdiPwSLqJx82MpCiSPSIXc
- XTjQyvor40ixm9uyjvC1+zkf/NFuqVAVGCnbxOO+vovtBlFC/g6IyJFi3obokVLR
- i9uGW5Y/CcIUXvk7rO4MZ6WvsY0eBCUEAA225traJP6ylW74w3A/929FKMkUNTVr
- GztOrBU14oVj+C1cQ7APZjao/yZuIWSQlqi6i/WivXBk9ZngDwcNIABZr2b+AAGo
- dUeII4vp9wf9pDokSAlkvMeaZmaZmAmwm/6AbVZUeQKVmy4cKkruQ95k3QpPS8Ps
- y5jI+yPEL+2oww==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=Dm6s+z1YjOiMsfuRZsus8vrQPNbBD
- wSIn1oM/hGtePQ=; b=fbeXDwA419PgjnBE5gthR65JBdV0XpY/1bXOeIWWBYyHG
- OcOfYeZzeBD6+KMHeJxKDf7IJDGVcI/qogepfli4KwYfGRBRQXV3f937Xka+E4NS
- +VGEhVQIqgwfpIt+YExQ8O/hF/a+Fs28IAk41veFjpckzhSmLUqZwJ3tgGfHUCfF
- vKGJxeCpixQM6PRAE/HRqha8q0P2BgiFBauJXvv0F4u6SpvO9psorpPkMQSb2bR4
- 4znIV8D3pDPPkPADkJUDOez2VRxx+pEy2tRv8QFjWlV+gmcYmelANfeD8NrUDKhs
- YyhoCFFHHFV5GToVRoIyNK5OCD1X5mPGn9wz4DKwg==
-X-ME-Sender: <xms:xrvpWaosU7PVpyu434QYiyslUnixiZHDzIsVuOYAZ9GQ8vPJJIZyBw>
-Received: from keelia26 (220-253-53-78.dyn.iinet.net.au [220.253.53.78])
- by mail.messagingengine.com (Postfix) with ESMTPA id 2B4EB247DD;
- Fri, 20 Oct 2017 05:02:56 -0400 (EDT)
-Message-ID: <1508490173.24322.53.camel@aj.id.au>
-Subject: Re: [RFC PATCH 3/5] gpio: gpiolib: Add chardev support for
- maintaining GPIO values on reset
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Linus Walleij <linus.walleij@linaro.org>, Bartosz Golaszewski
- <bgolaszewski@baylibre.com>, Michael Welling <mwelling@emacinc.com>
-Cc: "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, Jonathan
- Corbet <corbet@lwn.net>, Joel Stanley <joel@jms.id.au>, Ryan Chen
- <ryan_chen@aspeedtech.com>,  Rob Herring <robh+dt@kernel.org>, Frank Rowand
- <frowand.list@gmail.com>, Charles Keepax
- <ckeepax@opensource.wolfsonmicro.com>, Laxman Dewangan
- <ldewangan@nvidia.com>,  "linux-doc@vger.kernel.org"
- <linux-doc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, patches@opensource.cirrus.com, 
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>,  linux-aspeed@lists.ozlabs.org
-Date: Fri, 20 Oct 2017 19:32:53 +1030
-In-Reply-To: <CACRpkdY4F-ocFxomLEsVyGA0odGooWysQq5MHi9qwUt6E_VDzA@mail.gmail.com>
-References: <20171020033727.21557-1-andrew@aj.id.au>
- <20171020033727.21557-4-andrew@aj.id.au>
- <CACRpkdY4F-ocFxomLEsVyGA0odGooWysQq5MHi9qwUt6E_VDzA@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-K4mhhnvm7upcPcUWi8ee"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yJMwY6KyNzDq5W
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Oct 2017 21:48:42 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2014; 
+ h=Sender:In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date;
+ bh=byI4pnKmtLzLrOVQTdLGwXDPW2wu29wkD4Wu88fD1DM=; 
+ b=M9qIg/WNz6PyP5FFnGT3AkkuqsWm5ivtPA2DZPQ4R3f4CzVt1GwzFw0amyveI7AeIsCz5ku5soMDTLdaGmwp/fpVqrygj7T7NZijTKEyIfU+z31lX/adQAcwFfh3jY9aCejv7MQ2HWl8VjHUo/sx8+tSkqWYx6g4Z1B6Rd0MMVg=;
+Received: from n2100.armlinux.org.uk
+ ([fd8f:7570:feb6:1:214:fdff:fe10:4f86]:47059)
+ by pandora.armlinux.org.uk with esmtpsa (TLSv1:DHE-RSA-AES256-SHA:256)
+ (Exim 4.82_1-5b7a7c0-XX) (envelope-from <linux@armlinux.org.uk>)
+ id 1e5Uqg-000673-Qd; Fri, 20 Oct 2017 11:48:18 +0100
+Received: from linux by n2100.armlinux.org.uk with local (Exim 4.76)
+ (envelope-from <linux@n2100.armlinux.org.uk>)
+ id 1e5UqY-000693-8f; Fri, 20 Oct 2017 11:48:11 +0100
+Date: Fri, 20 Oct 2017 11:48:08 +0100
+From: Russell King - ARM Linux <linux@armlinux.org.uk>
+To: Brendan Higgins <brendanhiggins@google.com>
+Cc: robh+dt@kernel.org, mark.rutland@arm.com, avifishman70@gmail.com,
+ tmaimon77@gmail.com, raltherr@google.com, f.fainelli@gmail.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v7 1/3] arm: npcm: add basic support for Nuvoton BMCs
+Message-ID: <20171020104807.GE20805@n2100.armlinux.org.uk>
+References: <20171019225050.25410-1-brendanhiggins@google.com>
+ <20171019225050.25410-2-brendanhiggins@google.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20171019225050.25410-2-brendanhiggins@google.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+Sender: Russell King - ARM Linux <linux@armlinux.org.uk>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -78,98 +55,305 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Oct 2017 09:03:07 -0000
+X-List-Received-Date: Fri, 20 Oct 2017 10:48:48 -0000
 
+On Thu, Oct 19, 2017 at 03:50:48PM -0700, Brendan Higgins wrote:
+> Adds basic support for the Nuvoton NPCM750 BMC.
+> 
+> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+> Reviewed-by: Tomer Maimon <tmaimon77@gmail.com>
+> Reviewed-by: Avi Fishman <avifishman70@gmail.com>
+> Tested-by: Tomer Maimon <tmaimon77@gmail.com>
+> Tested-by: Avi Fishman <avifishman70@gmail.com>
+> ---
+>  arch/arm/Kconfig             |  2 +
+>  arch/arm/Makefile            |  1 +
+>  arch/arm/mach-npcm/Kconfig   | 48 ++++++++++++++++++++++++
+>  arch/arm/mach-npcm/Makefile  |  3 ++
+>  arch/arm/mach-npcm/headsmp.S | 17 +++++++++
+>  arch/arm/mach-npcm/npcm7xx.c | 34 +++++++++++++++++
+>  arch/arm/mach-npcm/platsmp.c | 88 ++++++++++++++++++++++++++++++++++++++++++++
+>  7 files changed, 193 insertions(+)
+>  create mode 100644 arch/arm/mach-npcm/Kconfig
+>  create mode 100644 arch/arm/mach-npcm/Makefile
+>  create mode 100644 arch/arm/mach-npcm/headsmp.S
+>  create mode 100644 arch/arm/mach-npcm/npcm7xx.c
+>  create mode 100644 arch/arm/mach-npcm/platsmp.c
+> 
+> diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+> index 61a0cb15067e..05543f1cfbde 100644
+> --- a/arch/arm/Kconfig
+> +++ b/arch/arm/Kconfig
+> @@ -782,6 +782,8 @@ source "arch/arm/mach-netx/Kconfig"
+>  
+>  source "arch/arm/mach-nomadik/Kconfig"
+>  
+> +source "arch/arm/mach-npcm/Kconfig"
+> +
+>  source "arch/arm/mach-nspire/Kconfig"
+>  
+>  source "arch/arm/plat-omap/Kconfig"
+> diff --git a/arch/arm/Makefile b/arch/arm/Makefile
+> index 47d3a1ab08d2..60ca50c7d762 100644
+> --- a/arch/arm/Makefile
+> +++ b/arch/arm/Makefile
+> @@ -191,6 +191,7 @@ machine-$(CONFIG_ARCH_MEDIATEK)		+= mediatek
+>  machine-$(CONFIG_ARCH_MXS)		+= mxs
+>  machine-$(CONFIG_ARCH_NETX)		+= netx
+>  machine-$(CONFIG_ARCH_NOMADIK)		+= nomadik
+> +machine-$(CONFIG_ARCH_NPCM)		+= npcm
+>  machine-$(CONFIG_ARCH_NSPIRE)		+= nspire
+>  machine-$(CONFIG_ARCH_OXNAS)		+= oxnas
+>  machine-$(CONFIG_ARCH_OMAP1)		+= omap1
+> diff --git a/arch/arm/mach-npcm/Kconfig b/arch/arm/mach-npcm/Kconfig
+> new file mode 100644
+> index 000000000000..21dfa8ce828f
+> --- /dev/null
+> +++ b/arch/arm/mach-npcm/Kconfig
+> @@ -0,0 +1,48 @@
+> +menuconfig ARCH_NPCM
+> +	bool "Nuvoton NPCM Architecture"
+> +	select ARCH_REQUIRE_GPIOLIB
+> +	select USE_OF
+> +	select PINCTRL
+> +	select PINCTRL_NPCM7XX
+> +
+> +if ARCH_NPCM
+> +
+> +comment "NPCMX50 CPU type"
+> +
+> +config CPU_NPCM750
+> +	depends on ARCH_NPCM && ARCH_MULTI_V7
+> +	bool "Support for NPCM750 BMC CPU (Poleg)"
+> +	select CACHE_L2X0
+> +	select CPU_V7
+> +	select ARM_GIC
+> +	select HAVE_SMP
+> +	select SMP
+> +	select SMP_ON_UP
+> +	select HAVE_ARM_SCU
+> +	select HAVE_ARM_TWD if SMP
+> +	select ARM_ERRATA_720789
+> +	select ARM_ERRATA_754322
+> +	select ARM_ERRATA_764369
+> +	select ARM_ERRATA_794072
+> +	select PL310_ERRATA_588369
+> +	select PL310_ERRATA_727915
+> +	select USB_EHCI_ROOT_HUB_TT
+> +	select USB_ARCH_HAS_HCD
+> +	select USB_ARCH_HAS_EHCI
+> +	select USB_EHCI_HCD
+> +	select USB_ARCH_HAS_OHCI
+> +	select USB_OHCI_HCD
+> +	select USB
+> +	select FIQ
+> +	select CPU_USE_DOMAINS
+> +	select GENERIC_CLOCKEVENTS
+> +	select CLKDEV_LOOKUP
+> +	select COMMON_CLK if OF
+> +	select NPCM750_TIMER
+> +	select MFD_SYSCON
+> +	help
+> +	  Support for NPCM750 BMC CPU (Poleg).
+> +
+> +	  Nuvoton NPCM750 BMC based on the Cortex A9.
+> +
+> +endif
+> diff --git a/arch/arm/mach-npcm/Makefile b/arch/arm/mach-npcm/Makefile
+> new file mode 100644
+> index 000000000000..78416055b854
+> --- /dev/null
+> +++ b/arch/arm/mach-npcm/Makefile
+> @@ -0,0 +1,3 @@
+> +AFLAGS_headsmp.o		+= -march=armv7-a
+> +
+> +obj-$(CONFIG_CPU_NPCM750)	+= npcm7xx.o platsmp.o headsmp.o
+> diff --git a/arch/arm/mach-npcm/headsmp.S b/arch/arm/mach-npcm/headsmp.S
+> new file mode 100644
+> index 000000000000..9fccbbd49ed4
+> --- /dev/null
+> +++ b/arch/arm/mach-npcm/headsmp.S
+> @@ -0,0 +1,17 @@
+> +/*
+> + * Copyright 2017 Google, Inc.
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + */
+> +
+> +#include <linux/linkage.h>
+> +#include <linux/init.h>
+> +#include <asm/assembler.h>
+> +
+> +ENTRY(npcm7xx_secondary_startup)
+> +	safe_svcmode_maskall r0
+> +
+> +	b	secondary_startup
+> +ENDPROC(npcm7xx_secondary_startup)
 
---=-K4mhhnvm7upcPcUWi8ee
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Why do you need this?  The switch to svc mode is already handled by
+secondary_startup.
 
-On Fri, 2017-10-20 at 09:27 +0200, Linus Walleij wrote:
-> I paged Bartosz and Michael on this, they are experts on the use cases fo=
-r
-> the character device and their opinions are likely more valuable than min=
-e.
->=20
-> > On Fri, Oct 20, 2017 at 5:37 AM, Andrew Jeffery <andrew@aj.id.au> wrote=
-:
-> > Similar to devicetree support, add flags and mappings to expose reset
-> > tolerance configuration through the chardev interface.
-> >=20
-> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
->=20
-> (...)
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0* Unconditionally configure reset tolerance, as =
-it's possible
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0* that the tolerance flag itself becomes toleran=
-t to resets.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0* Thus it could remain set from a previous envir=
-onment, but
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0* the current environment may not expect it so.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0*/
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0ret =3D gpiod_set_reset_tolerant(desc,
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0!!(lflags & GPIOHANDLE_REQUEST_RE=
-SET_TOLERANT));
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0if (ret < 0)
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0goto o=
-ut_free_descs;
->=20
-> First, as noted in the first patch, IMO we should just go for persistance=
-,
-> i.e. you want to flag to the system to keep the line persistent in any ca=
-se,
-> no matter if the system goes to sleep or resets.
->=20
-> So the usecase is going to be a control system or similar, a makerspace
-> project, an industrial product of some kind, driving GPIO from userspace.
->=20
-> I don't see it as helpful to give userspace control over whether the line
-> is persistent or not. It is more reasonable to assume persistance for
-> userspace use cases, don't you think? Whether the system goes to sleep
-> or the gpiochip resets should not make a door suddenly close or the
-> lights in the christmas tree go out, right? I think if the gpiochip suppo=
-rts
-> persistance of any kind, we should try to use it and not have userspace
-> provide flags for that.
+> diff --git a/arch/arm/mach-npcm/npcm7xx.c b/arch/arm/mach-npcm/npcm7xx.c
+> new file mode 100644
+> index 000000000000..132e9d587857
+> --- /dev/null
+> +++ b/arch/arm/mach-npcm/npcm7xx.c
+> @@ -0,0 +1,34 @@
+> +/*
+> + * Copyright (c) 2017 Nuvoton Technology corporation.
+> + * Copyright 2017 Google, Inc.
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + */
+> +
+> +#include <linux/kernel.h>
+> +#include <linux/types.h>
+> +#include <asm/mach/arch.h>
+> +#include <asm/mach-types.h>
+> +#include <asm/mach/map.h>
+> +#include <asm/hardware/cache-l2x0.h>
+> +
+> +#define NPCM7XX_AUX_VAL (L310_AUX_CTRL_INSTR_PREFETCH |			       \
+> +			 L310_AUX_CTRL_DATA_PREFETCH |			       \
+> +			 L310_AUX_CTRL_NS_LOCKDOWN |			       \
+> +			 L310_AUX_CTRL_CACHE_REPLACE_RR |		       \
+> +			 L2C_AUX_CTRL_SHARED_OVERRIDE |			       \
+> +			 L310_AUX_CTRL_FULL_LINE_ZERO)
 
-Right. I guess the counter argument to your examples is if the gpio is
-controlling any active process that we don't want to continue if we've
-lost the capacity to monitor some other inputs (some kind of dead-man's=20
-switch). But maybe the argument is that should be implemented in the
-kernel anyway?
+Do you really need all these flags?
 
-Andrew
---=-K4mhhnvm7upcPcUWi8ee
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+> +
+> +static const char *const npcm7xx_dt_match[] = {
+> +	"nuvoton,npcm750",
+> +	NULL
+> +};
+> +
+> +DT_MACHINE_START(NPCM7XX_DT, "NPCMX50 Chip family")
+> +	.atag_offset	= 0x100,
+> +	.dt_compat	= npcm7xx_dt_match,
+> +	.l2c_aux_val	= NPCM7XX_AUX_VAL,
+> +	.l2c_aux_mask	= ~NPCM7XX_AUX_VAL,
+> +MACHINE_END
+> diff --git a/arch/arm/mach-npcm/platsmp.c b/arch/arm/mach-npcm/platsmp.c
+> new file mode 100644
+> index 000000000000..450e83c3c531
+> --- /dev/null
+> +++ b/arch/arm/mach-npcm/platsmp.c
+> @@ -0,0 +1,88 @@
+> +/*
+> + * Copyright 2017 Google, Inc.
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + */
+> +
+> +#define pr_fmt(fmt) "PLATSMP: " fmt
 
------BEGIN PGP SIGNATURE-----
+Maybe something more descriptive?
 
-iQIcBAABCgAGBQJZ6bu9AAoJEJ0dnzgO5LT5WwcP/3taBkLhJi7NTeYM4U3/kvuZ
-pAnUi43H5rLbM7Ynx0eXZ0OHlPHRJBZDpYZmCfqdqSX+8hRELJNIlkj0u7+uXfAd
-Dnn9x4LTM/qS56/AedpDePgfkYGffKvG5cWF+0ZSmiuRqlExlyQKPaFXH05B1zq1
-ChtLY8WSBJayx46ZwzX3sqCltvjiR878Mo7H5LnpScrzvOwJ3MGOKmRODF2HZ9LR
-tnDsSiMPXsbXNGFSMerPhikmdY4vFSjx+eD431PNUfLfeaJbYb6Q2EYvWDel3b0u
-Bx8BoVrKXvIcq3kFOK6DrR528GLexI2yhoPRAb2dfu+5jQXQDsm68Q3K7HKhG8ly
-H7aqrkEtDdssgtHo+yzEPdJgt8dXkPdr03QyOwQDo7h/cPZvcJ2wpnauYirIhSp/
-1Oc6sEYWTc3QXxL6vo5g0cyTBbiiRE454wgvlmg3WXpejBxQm+ITQSCA1Z4h33ZE
-WMhYrtnN9aszORegK4nCrasVy5Wrpw1NdEGgWz1bzmkn9LMgmjkM3kdqamHikVL1
-Lgcv3Ttk/s9Y43d2T5yVB+lRz491h7wJKULFMc+7oKrB3OkbTvDkyXEWEbIC2eKQ
-l6imHChFkNy4KwK/kXXJ0xQkFXDuEDFMdPKk0ktMTkrmOvGJyaIbQ2UUQqUx3xxn
-kNO/AZaSuhyVZq8g2BmZ
-=WhCU
------END PGP SIGNATURE-----
+> +
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/smp.h>
+> +#include <linux/io.h>
+> +#include <linux/of.h>
+> +#include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+> +#include <linux/of_address.h>
+> +#include <asm/cacheflush.h>
+> +#include <asm/smp.h>
+> +#include <asm/smp_plat.h>
+> +#include <asm/smp_scu.h>
+> +
+> +#define NPCM7XX_SCRPAD_REG 0x13c
+> +
+> +extern void npcm7xx_secondary_startup(void);
+> +
+> +static int npcm7xx_smp_boot_secondary(unsigned int cpu,
+> +				      struct task_struct *idle)
+> +{
+> +	struct device_node *gcr_np;
+> +	void __iomem *gcr_base;
+> +	int ret = 0;
+> +
+> +	gcr_np = of_find_compatible_node(NULL, NULL, "nuvoton,npcm750-gcr");
+> +	if (!gcr_np) {
+> +		pr_err("no gcr device node\n");
+> +		ret = -EFAULT;
 
---=-K4mhhnvm7upcPcUWi8ee--
+EFAULT is used for bad userspace addresses, it should not be used for
+other stuff - and a missing node is certainly not a "Bad address".
+
+> +		goto out;
+> +	}
+> +	gcr_base = of_iomap(gcr_np, 0);
+> +	if (!gcr_base) {
+> +		pr_err("could not iomap gcr at: 0x%p\n", gcr_base);
+> +		ret = -EFAULT;
+
+This is more -ENOMEM.
+
+> +		goto out;
+> +	}
+> +
+> +	/* give boot ROM kernel start address. */
+> +	iowrite32(__pa_symbol(npcm7xx_secondary_startup), gcr_base +
+> +		  NPCM7XX_SCRPAD_REG);
+> +	/* make sure npcm7xx_secondary_startup is seen by all observers. */
+> +	smp_wmb();
+
+I think you mean "make sure the previous write is seen by all observers".
+However, doesn't "dsb_sev()" already do that?
+
+> +	dsb_sev();
+> +	/* make sure write buffer is drained */
+> +	mb();
+
+This looks over the top. 
+
+> +
+> +	iounmap(gcr_base);
+> +out:
+> +	return ret;
+> +}
+> +
+> +static void __init npcm7xx_smp_prepare_cpus(unsigned int max_cpus)
+> +{
+> +	struct device_node *scu_np;
+> +	void __iomem *scu_base;
+> +
+> +	scu_np = of_find_compatible_node(NULL, NULL, "arm,cortex-a9-scu");
+> +	if (!scu_np) {
+> +		pr_err("no scu device node\n");
+> +		return;
+> +	}
+> +	scu_base = of_iomap(scu_np, 0);
+> +	if (!scu_base) {
+> +		pr_err("could not iomap scu at: 0x%p\n", scu_base);
+> +		return;
+> +	}
+> +
+> +	scu_enable(scu_base);
+> +
+> +	iounmap(scu_base);
+> +}
+> +
+> +static struct smp_operations npcm7xx_smp_ops __initdata = {
+> +	.smp_prepare_cpus = npcm7xx_smp_prepare_cpus,
+> +	.smp_boot_secondary = npcm7xx_smp_boot_secondary,
+> +};
+> +
+> +CPU_METHOD_OF_DECLARE(npcm7xx_smp, "nuvoton,npcm7xx-smp", &npcm7xx_smp_ops);
+> -- 
+> 2.15.0.rc0.271.g36b669edcc-goog
+> 
+
+-- 
+RMK's Patch system: http://www.armlinux.org.uk/developer/patches/
+FTTC broadband for 0.8mile line in suburbia: sync at 8.8Mbps down 630kbps up
+According to speedtest.net: 8.21Mbps down 510kbps up
