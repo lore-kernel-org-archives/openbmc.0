@@ -1,48 +1,66 @@
-Return-Path: <gregkh@linuxfoundation.org>
+Return-Path: <cbostic@linux.vnet.ibm.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linuxfoundation.org
- (client-ip=140.211.169.12; helo=mail.linuxfoundation.org;
- envelope-from=gregkh@linuxfoundation.org; receiver=<UNKNOWN>)
-Received: from mail.linuxfoundation.org (mail.linuxfoundation.org
- [140.211.169.12])
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=cbostic@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yJTMm1qkvzDq5W
- for <openbmc@lists.ozlabs.org>; Sat, 21 Oct 2017 01:54:11 +1100 (AEDT)
-Received: from localhost (LFbn-1-12253-150.w90-92.abo.wanadoo.fr
- [90.92.67.150])
- by mail.linuxfoundation.org (Postfix) with ESMTPSA id C4D9C88A;
- Fri, 20 Oct 2017 14:54:08 +0000 (UTC)
-Date: Fri, 20 Oct 2017 16:54:17 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Oleksandr Shamray <oleksandrs@mellanox.com>
-Cc: "arnd@arndb.de" <arnd@arndb.de>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- "joel@jms.id.au" <joel@jms.id.au>, "jiri@resnulli.us" <jiri@resnulli.us>,
- "tklauser@distanz.ch" <tklauser@distanz.ch>,
- "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
- "mec@shout.net" <mec@shout.net>, Vadim Pasternak <vadimp@mellanox.com>,
- system-sw-low-level <system-sw-low-level@mellanox.com>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "openocd-devel-owner@lists.sourceforge.net"
- <openocd-devel-owner@lists.sourceforge.net>, 
- "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "mchehab@kernel.org" <mchehab@kernel.org>, Jiri Pirko <jiri@mellanox.com>
-Subject: Re: [patch v9 1/4] drivers: jtag: Add JTAG core driver
-Message-ID: <20171020145417.GD8965@kroah.com>
-References: <1505985932-27568-1-git-send-email-oleksandrs@mellanox.com>
- <1505985932-27568-2-git-send-email-oleksandrs@mellanox.com>
- <20171020115512.GA2073@kroah.com>
- <AM4PR0501MB21940531802FC14EDE8C3F75B1430@AM4PR0501MB2194.eurprd05.prod.outlook.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <AM4PR0501MB21940531802FC14EDE8C3F75B1430@AM4PR0501MB2194.eurprd05.prod.outlook.com>
-User-Agent: Mutt/1.9.1 (2017-09-22)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yJXtt6BsWzDq5W
+ for <openbmc@lists.ozlabs.org>; Sat, 21 Oct 2017 04:32:54 +1100 (AEDT)
+Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v9KHU8Vv008860
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Oct 2017 13:32:51 -0400
+Received: from e13.ny.us.ibm.com (e13.ny.us.ibm.com [129.33.205.203])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2dqn70131n-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Oct 2017 13:32:51 -0400
+Received: from localhost
+ by e13.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Fri, 20 Oct 2017 13:32:50 -0400
+Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
+ by e13.ny.us.ibm.com (146.89.104.200) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Fri, 20 Oct 2017 13:32:47 -0400
+Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
+ [9.57.199.108])
+ by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v9KHWlMZ38207630; Fri, 20 Oct 2017 17:32:47 GMT
+Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 432B8B2054;
+ Fri, 20 Oct 2017 13:30:02 -0400 (EDT)
+Received: from christophersmbp.austin.ibm.com (unknown [9.85.90.240])
+ by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP id 6A55DB204E;
+ Fri, 20 Oct 2017 13:29:58 -0400 (EDT)
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+To: jk@ozlabs.org, andrew@aj.id.au
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.10] fsi: core: Allow more BREAKs to recover a
+ failing link
+Date: Fri, 20 Oct 2017 12:32:37 -0500
+X-Mailer: git-send-email 2.10.1 (Apple Git-78)
+X-TM-AS-GCONF: 00
+x-cbid: 17102017-0008-0000-0000-00000293A5B3
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007925; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000239; SDB=6.00933950; UDB=6.00470464; IPR=6.00714238; 
+ BA=6.00005651; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017629; XFM=3.00000015;
+ UTC=2017-10-20 17:32:49
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17102017-0009-0000-0000-000037117CD7
+Message-Id: <20171020173237.76535-1-cbostic@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-10-20_09:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
+ definitions=main-1710200244
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -54,182 +72,74 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Oct 2017 14:54:12 -0000
+X-List-Received-Date: Fri, 20 Oct 2017 17:32:56 -0000
 
-On Fri, Oct 20, 2017 at 02:34:00PM +0000, Oleksandr Shamray wrote:
-> Hi Greg.
-> 
-> > -----Original Message-----
-> > From: Greg KH [mailto:gregkh@linuxfoundation.org]
-> > Sent: Friday, October 20, 2017 2:55 PM
-> > To: Oleksandr Shamray <oleksandrs@mellanox.com>
-> > Cc: arnd@arndb.de; linux-kernel@vger.kernel.org; linux-arm-
-> > kernel@lists.infradead.org; devicetree@vger.kernel.org;
-> > openbmc@lists.ozlabs.org; joel@jms.id.au; jiri@resnulli.us;
-> > tklauser@distanz.ch; linux-serial@vger.kernel.org; mec@shout.net; Vadim
-> > Pasternak <vadimp@mellanox.com>; system-sw-low-level <system-sw-low-
-> > level@mellanox.com>; robh+dt@kernel.org; openocd-devel-
-> > owner@lists.sourceforge.net; linux-api@vger.kernel.org;
-> > davem@davemloft.net; mchehab@kernel.org; Jiri Pirko <jiri@mellanox.com>
-> > Subject: Re: [patch v9 1/4] drivers: jtag: Add JTAG core driver
-> > 
-> > On Thu, Sep 21, 2017 at 12:25:29PM +0300, Oleksandr Shamray wrote:
-> > > +struct jtag {
-> > > +	struct device *dev;
-> > > +	struct cdev cdev;
-> > 
-> > Why are you using a cdev here and not just a normal misc device? 
-> 
-> What the benefits to use misc instead of cdev?
+Recovering a failing FSI link can require more than a single
+BREAK command to reset the FSI slave. Test results indicate
+that communications can be restored when a second or third
+BREAK is sent when the previous attempts fail. Additionally,
+even if a BREAK succeeds during error recovery process the FSI
+slave may flag following access errors to SMODE, SISC, or SSTAT.
+Repeated BREAKs will get the slave out of this fail mode.
 
-Less code, simpler logic, easier to review and understand, etc.
+Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+---
+ drivers/fsi/fsi-core.c | 27 +++++++++++++++++++--------
+ 1 file changed, 19 insertions(+), 8 deletions(-)
 
-Let me ask you, why use a cdev instead of a misc?
-
-> > I forgot if this is what you were doing before, sorry...
-> > 
-> > > +	int id;
-> > > +	atomic_t open;
-> > 
-> > Why do you need this?
-> 
-> This counter used to avoid open at the same time by 2 or more users.
-
-But it isn't working :)
-
-And why do you care?
-
-> > > +	const struct jtag_ops *ops;
-> > > +	unsigned long priv[0] __aligned(ARCH_DMA_MINALIGN);
-> > 
-> > Huh?  Why is this needed to be dma aligned?  Why not just use the private
-> > pointer in struct device?
-> > 
-> 
-> It is critical?
-
-You are saying it is, so you have to justify it.  There is a pointer for
-you to use, don't make new ones for no reason, right?
-
-> > > +};
-> > > +
-> > > +static dev_t jtag_devt;
-> > > +static DEFINE_IDA(jtag_ida);
-> > > +
-> > > +void *jtag_priv(struct jtag *jtag)
-> > > +{
-> > > +	return jtag->priv;
-> > > +}
-> > > +EXPORT_SYMBOL_GPL(jtag_priv);
-> > > +
-> > > +static u8 *jtag_copy_from_user(__u64 udata, unsigned long bit_size) {
-> > > +	unsigned long size;
-> > > +	void *kdata;
-> > > +
-> > > +	size = DIV_ROUND_UP(bit_size, BITS_PER_BYTE);
-> > > +	kdata = memdup_user(u64_to_user_ptr(udata), size);
-> > 
-> > You only use this once, why not just open-code it?
-> 
-> I think it makes code more understandable.
-
-As a reviewer, I don't :)
-
-> > > +
-> > > +	return kdata;
-> > > +}
-> > > +
-> > > +static unsigned long jtag_copy_to_user(__u64 udata, u8 *kdata,
-> > > +				       unsigned long bit_size)
-> > > +{
-> > > +	unsigned long size;
-> > > +
-> > > +	size = DIV_ROUND_UP(bit_size, BITS_PER_BYTE);
-> > > +
-> > > +	return copy_to_user(u64_to_user_ptr(udata), (void *)(kdata), size);
-> > 
-> > Same here, making this a separate function seems odd.
-> 
-> Same, I think it makes code more understandable.
-
-But it doesn't.
-
-> > > +
-> > > +		if (jtag->ops->freq_set)
-> > > +			err = jtag->ops->freq_set(jtag, value);
-> > > +		else
-> > > +			err = -EOPNOTSUPP;
-> > > +		break;
-> > > +
-> > > +	case JTAG_IOCRUNTEST:
-> > > +		if (copy_from_user(&idle, (void *)arg,
-> > > +				   sizeof(struct jtag_run_test_idle)))
-> > > +			return -ENOMEM;
-> > > +		err = jtag_run_test_idle_op(jtag, &idle);
-> > 
-> > Who validates the structure fields?  Is that up to the individual jtag driver?  Why
-> > not do it in the core correctly so that it only has to be done in one place and you
-> > do not have to audit every individual driver?
-> 
-> Input parameters validated by jtag  platform driver. I think it not critical.
-
-Not true at all.  It is very critical.  Remmeber, "All Input Is Evil!"
-
-You have to validate this.  I as a reviewer have to find where you are
-validating this data to ensure bad things do not happen.  I can't review
-that here, now I have to go and review all of the individual drivers,
-which is a major pain, don't you agree?
-
-> > > +		break;
-> > > +
-> > > +	case JTAG_IOCXFER:
-> > > +		if (copy_from_user(&xfer, (void *)arg,
-> > > +				   sizeof(struct jtag_xfer)))
-> > > +			return -EFAULT;
-> > > +
-> > > +		if (xfer.length >= JTAG_MAX_XFER_DATA_LEN)
-> > > +			return -EFAULT;
-> > > +
-> > > +		xfer_data = jtag_copy_from_user(xfer.tdio, xfer.length);
-> > > +		if (!xfer_data)
-> > > +			return -ENOMEM;
-> > 
-> > Are you sure that's the correct error value?
-> 
-> I think yes, but what you suggest?
-
-A fault happened, so -EFAULT, right?
-
-> [..]
-> > +       .unlocked_ioctl = jtag_ioctl,
-> > +       .open           = jtag_open,
-> > +       .release        = jtag_release,
-> > +};
-> 
-> add a compat_ioctl pointer here, after ensuring that all ioctl
-> commands are compatible between 32-bit and 64-bit user space.
-> [..]
-
-And if you do not, what happens?  You shouldn't need it as there is no
-fixups necessary, or am I mistaken about that?
-
-> > > +static int jtag_open(struct inode *inode, struct file *file) {
-> > > +	struct jtag *jtag = container_of(inode->i_cdev, struct jtag, cdev);
-> > > +
-> > > +	if (atomic_read(&jtag->open)) {
-> > > +		dev_info(NULL, "jtag already opened\n");
-> > > +		return -EBUSY;
-> > 
-> > Why do you care if multiple opens can happen?
-> 
-> Jtag HW not support to using with multiple requests from different users. So we prohibit this.
-
-Why does the kernel care?
-
-And again, your implementation is broken, it's not actually doing this
-protection.  I recommend just not doing it at all, but if you really are
-insisting on it, you have to get it correct :)
-
-thanks,
-
-greg k-h
+diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
+index 8a17176..f3dd7f6 100644
+--- a/drivers/fsi/fsi-core.c
++++ b/drivers/fsi/fsi-core.c
+@@ -85,6 +85,7 @@ struct fsi_slave {
+ #define to_fsi_slave(d) container_of(d, struct fsi_slave, dev)
+ 
+ static const int slave_retries = 2;
++static const int break_retries = 5;
+ static int discard_errors;
+ 
+ static int fsi_master_read(struct fsi_master *master, int link,
+@@ -228,7 +229,7 @@ int fsi_slave_handle_error(struct fsi_slave *slave, bool write, uint32_t addr,
+ 		size_t size)
+ {
+ 	struct fsi_master *master = slave->master;
+-	int rc, link;
++	int rc, link, i;
+ 	uint32_t reg;
+ 	uint8_t id;
+ 
+@@ -262,15 +263,25 @@ int fsi_slave_handle_error(struct fsi_slave *slave, bool write, uint32_t addr,
+ 	}
+ 
+ 	/* getting serious, reset the slave via BREAK */
+-	rc = fsi_master_break(master, link);
+-	if (rc)
+-		return rc;
++	for (i = 0; i < break_retries; i++) {
+ 
+-	rc = fsi_slave_set_smode(master, link, id);
+-	if (rc)
+-		return rc;
++		dev_dbg(&slave->dev, "recovery break attempt %d of %d max", i+1,
++			break_retries);
++
++		rc = fsi_master_break(master, link);
++		if (rc)
++			continue;
+ 
+-	return fsi_slave_report_and_clear_errors(slave);
++		rc = fsi_slave_set_smode(master, link, id);
++		if (rc)
++			continue;
++
++		rc = fsi_slave_report_and_clear_errors(slave);
++		if (!rc)
++			break;
++	}
++
++	return rc;
+ }
+ 
+ int fsi_slave_read(struct fsi_slave *slave, uint32_t addr,
+-- 
+1.8.2.2
