@@ -3,48 +3,48 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="aj0qJjZ2"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="rMRjoEFm"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Ojgb8RWd"; dkim-atps=neutral
+ header.b="fbeXDwA4"; dkim-atps=neutral
 Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yJJvW2CVxzDqBc;
- Fri, 20 Oct 2017 19:32:38 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yJKZf3cWwzDqs4;
+ Fri, 20 Oct 2017 20:03:06 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 9DC72210D7;
- Fri, 20 Oct 2017 04:32:36 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 0C32920F3F;
+ Fri, 20 Oct 2017 05:03:03 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Fri, 20 Oct 2017 04:32:36 -0400
+ by compute4.internal (MEProxy); Fri, 20 Oct 2017 05:03:03 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=YUizMgdtsSmXZ84DOJqlWDq3To3woo/scVr/wD/yUPY=; b=aj0qJjZ2
- /yZbgSfaA0JxvGMcA4L/RuuqeOD4Oqr0sh22J28zCU/WsBnq5aQKQdoKiVbiRq16
- Gd8I9TniJTSQA7O6VHD0AcJ1cLo499eyCHKQ3douHjf+4sSZ/fsmdT/lIA6iiKDi
- 0dEFypJbaQvokIOnUgDOUev75o8wLSkc3hetvOluO+U8ohsVMPTJdZlppAIQFcVS
- mdjG1PeISYlooKEbyqctkJSWdRGt600Q+Q2J3VR9770Ah4QIQ8JsIAAHQN6g8z2k
- mkkgKWcbAn4yIpDECXi6URTxBAys6Ow33ZNIXID2+HJdFQv4DB7O0TDBpLSYx2Bm
- 0JUfStNjn934LQ==
+ fm1; bh=Dm6s+z1YjOiMsfuRZsus8vrQPNbBDwSIn1oM/hGtePQ=; b=rMRjoEFm
+ O5N7oleMU5Umw612zEqOthOIY5eCieOZqfcZ3oW6z7sdiPwSLqJx82MpCiSPSIXc
+ XTjQyvor40ixm9uyjvC1+zkf/NFuqVAVGCnbxOO+vovtBlFC/g6IyJFi3obokVLR
+ i9uGW5Y/CcIUXvk7rO4MZ6WvsY0eBCUEAA225traJP6ylW74w3A/929FKMkUNTVr
+ GztOrBU14oVj+C1cQ7APZjao/yZuIWSQlqi6i/WivXBk9ZngDwcNIABZr2b+AAGo
+ dUeII4vp9wf9pDokSAlkvMeaZmaZmAmwm/6AbVZUeQKVmy4cKkruQ95k3QpPS8Ps
+ y5jI+yPEL+2oww==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=YUizMgdtsSmXZ84DOJqlWDq3To3wo
- o/scVr/wD/yUPY=; b=Ojgb8RWdIjBsC9RrqT/SnfFwRiDNer6B+m3H8tC5rpni5
- aDSTuOSCbrRMHL7UCjf6MDl/HAS22oG31PcZOzmtNe0vQ7YVp45ZoO7YKnIaCce6
- klvz+BrhLRTm7qbWp2s/HxUMjCcBspQvjNXw9ExYRyLjW8qoOeBASvOJI0ICFITL
- kJj5bzv31AfJ38JAN/ufas7a51YtL9jATEPzoA1zTy+hcPKrNH4xWfc8wVPuGmtP
- 7nRDr+Axbl4csrDKWUJTEJ88qbweoi9mXfNwG6NJ45CTkz5MhRsTVh1GJRXa9GFv
- Sdwf0OgDpXidCjA+ZAHIxugzfJ1fwue38+pwWid1A==
-X-ME-Sender: <xms:pLTpWRfc3d6cmOxMSra8NnrDgzAUnVZDIJZhhcWqoAo3pl6rcowvnQ>
+ :x-me-sender:x-sasl-enc; s=fm1; bh=Dm6s+z1YjOiMsfuRZsus8vrQPNbBD
+ wSIn1oM/hGtePQ=; b=fbeXDwA419PgjnBE5gthR65JBdV0XpY/1bXOeIWWBYyHG
+ OcOfYeZzeBD6+KMHeJxKDf7IJDGVcI/qogepfli4KwYfGRBRQXV3f937Xka+E4NS
+ +VGEhVQIqgwfpIt+YExQ8O/hF/a+Fs28IAk41veFjpckzhSmLUqZwJ3tgGfHUCfF
+ vKGJxeCpixQM6PRAE/HRqha8q0P2BgiFBauJXvv0F4u6SpvO9psorpPkMQSb2bR4
+ 4znIV8D3pDPPkPADkJUDOez2VRxx+pEy2tRv8QFjWlV+gmcYmelANfeD8NrUDKhs
+ YyhoCFFHHFV5GToVRoIyNK5OCD1X5mPGn9wz4DKwg==
+X-ME-Sender: <xms:xrvpWaosU7PVpyu434QYiyslUnixiZHDzIsVuOYAZ9GQ8vPJJIZyBw>
 Received: from keelia26 (220-253-53-78.dyn.iinet.net.au [220.253.53.78])
- by mail.messagingengine.com (Postfix) with ESMTPA id B7B1D2484B;
- Fri, 20 Oct 2017 04:32:30 -0400 (EDT)
-Message-ID: <1508488347.24322.51.camel@aj.id.au>
-Subject: Re: [RFC PATCH 1/5] gpio: gpiolib: Add core support for maintaining
- GPIO values on reset
+ by mail.messagingengine.com (Postfix) with ESMTPA id 2B4EB247DD;
+ Fri, 20 Oct 2017 05:02:56 -0400 (EDT)
+Message-ID: <1508490173.24322.53.camel@aj.id.au>
+Subject: Re: [RFC PATCH 3/5] gpio: gpiolib: Add chardev support for
+ maintaining GPIO values on reset
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Linus Walleij <linus.walleij@linaro.org>, Bartosz Golaszewski
  <bgolaszewski@baylibre.com>, Michael Welling <mwelling@emacinc.com>
@@ -58,14 +58,13 @@ Cc: "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, Jonathan
  <linux-kernel@vger.kernel.org>, patches@opensource.cirrus.com, 
  "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, OpenBMC Maillist
  <openbmc@lists.ozlabs.org>,  linux-aspeed@lists.ozlabs.org
-Date: Fri, 20 Oct 2017 19:02:27 +1030
-In-Reply-To: <CACRpkdaW5jMEh_OR2oiy_Bc-6Cb+GM1Uap+1u2T2hw85CwBh3g@mail.gmail.com>
+Date: Fri, 20 Oct 2017 19:32:53 +1030
+In-Reply-To: <CACRpkdY4F-ocFxomLEsVyGA0odGooWysQq5MHi9qwUt6E_VDzA@mail.gmail.com>
 References: <20171020033727.21557-1-andrew@aj.id.au>
- <20171020033727.21557-2-andrew@aj.id.au>
- <CACRpkda-7-uM5x4kbNXkx3F7F4VTZtTvXfys5VPFb1YiVDo1+g@mail.gmail.com>
- <CACRpkdaW5jMEh_OR2oiy_Bc-6Cb+GM1Uap+1u2T2hw85CwBh3g@mail.gmail.com>
+ <20171020033727.21557-4-andrew@aj.id.au>
+ <CACRpkdY4F-ocFxomLEsVyGA0odGooWysQq5MHi9qwUt6E_VDzA@mail.gmail.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-ZSkrhS+dG0skM+wwegTq"
+ protocol="application/pgp-signature"; boundary="=-K4mhhnvm7upcPcUWi8ee"
 X-Mailer: Evolution 3.22.6-1ubuntu1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -79,82 +78,98 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Oct 2017 08:32:41 -0000
+X-List-Received-Date: Fri, 20 Oct 2017 09:03:07 -0000
 
 
---=-ZSkrhS+dG0skM+wwegTq
+--=-K4mhhnvm7upcPcUWi8ee
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2017-10-20 at 09:43 +0200, Linus Walleij wrote:
-> On Fri, Oct 20, 2017 at 9:17 AM, Linus Walleij <linus.walleij@linaro.org>=
- wrote:
-> > > > On Fri, Oct 20, 2017 at 5:37 AM, Andrew Jeffery <andrew@aj.id.au> w=
-rote:
+On Fri, 2017-10-20 at 09:27 +0200, Linus Walleij wrote:
+> I paged Bartosz and Michael on this, they are experts on the use cases fo=
+r
+> the character device and their opinions are likely more valuable than min=
+e.
+>=20
+> > On Fri, Oct 20, 2017 at 5:37 AM, Andrew Jeffery <andrew@aj.id.au> wrote=
+:
+> > Similar to devicetree support, add flags and mappings to expose reset
+> > tolerance configuration through the chardev interface.
 > >=20
-> > > GPIO state reset tolerance is implemented in gpiolib through the
-> > > addition of a new pinconf parameter. With that, some renaming of help=
-ers
-> > > is done to clarify the scope of the already existing
-> > > gpiochip_line_is_persistent(), as it's now ambiguous as to whether th=
-at
-> > > means on suspend, reset or both.
-> >=20
-> > Isn't it most reasonable to say persistance covers both cases, reset
-> > and/or sleep? This seems a bit like overdefined.
+> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 >=20
-> I should also add: right now persistance is defined in negative terms,
-> you can supply the flag "may lose value", which means the subsystem
-> by default, and driver by default, will try to keep values persistent acr=
-oss
-> sleep.
+> (...)
 >=20
-> Then it is possible to opt in for not doing so. (Usually to save power I
-> think.)
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0* Unconditionally configure reset tolerance, as =
+it's possible
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0* that the tolerance flag itself becomes toleran=
+t to resets.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0* Thus it could remain set from a previous envir=
+onment, but
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0* the current environment may not expect it so.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0*/
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0ret =3D gpiod_set_reset_tolerant(desc,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0!!(lflags & GPIOHANDLE_REQUEST_RE=
+SET_TOLERANT));
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0if (ret < 0)
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0goto o=
+ut_free_descs;
 >=20
-> I think that especially for userspace use cases, saving power should
-> not really be the concern, but correct me if I'm wrong. I am thinking
-> of a box with a DC plug wired up to a factory line here.
+> First, as noted in the first patch, IMO we should just go for persistance=
+,
+> i.e. you want to flag to the system to keep the line persistent in any ca=
+se,
+> no matter if the system goes to sleep or resets.
 >=20
-> What we have in the Arizona driver is an opt-in where the DT can
-> say "don't preserve the value=C2=A0=C2=A0this line during system sleep" i=
-.e. "lay lose
-> value" and we can extend that flag to mean "don't preserve this line
-> during reset either" but by default assume that we should.
+> So the usecase is going to be a control system or similar, a makerspace
+> project, an industrial product of some kind, driving GPIO from userspace.
+>=20
+> I don't see it as helpful to give userspace control over whether the line
+> is persistent or not. It is more reasonable to assume persistance for
+> userspace use cases, don't you think? Whether the system goes to sleep
+> or the gpiochip resets should not make a door suddenly close or the
+> lights in the christmas tree go out, right? I think if the gpiochip suppo=
+rts
+> persistance of any kind, we should try to use it and not have userspace
+> provide flags for that.
 
-Yeah, the preserve polarity was another thing I debated given the
-current example with the Arizona driver. Not preserving is the default
-for the Aspeed hardware, so that ended up influencing my choice. Not
-that implementation details should necessarily influence interface
-design, but it was at least more than a coin toss.
-
-I don't have anything specific against preserving by default, just my
-gut instinct and the hardware went the other way. As long as we expose
-the option to opt out, which the additions for the Arizona already do.
-
-Cheers,
+Right. I guess the counter argument to your examples is if the gpio is
+controlling any active process that we don't want to continue if we've
+lost the capacity to monitor some other inputs (some kind of dead-man's=20
+switch). But maybe the argument is that should be implemented in the
+kernel anyway?
 
 Andrew
---=-ZSkrhS+dG0skM+wwegTq
+--=-K4mhhnvm7upcPcUWi8ee
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJZ6bSbAAoJEJ0dnzgO5LT5UUEP/RfdSznqJGJ+zlAtZ58qjsct
-qRHU+r+//EDTqrv6ukCG5cY1R7invTIfP4e0+ajMz7hJ9DUhifWsc2L5efUkIMpR
-mctcseROL77TI0uGtpPuW5G9xxCmxYpbE/woOtNdtQlGLgIQ+DawO+W8zvWBhsut
-EjhVAEfQyvrK5q7b5D45OkH2J9ejO/k0GxpNZs66FGxgC41O6AGj4ZfUBSgBdyqm
-HNjH9uLyfs4JR9bXptsdGTTCJAxog02UWLmROpGfiwz0ZwN6cdnJSl4dcu1Swn8D
-4o+UPAg4j1bqHiV7dWIitJEM+cn9c0Ybpt1VPS1/WF6aGggubws89e9MnrNimrVS
-k7qS3A7WRQJ3MPlBAwNLwfjPa+eBDBw5t8wZSDXSvXp37+mwHDgQotA9jZAR4Jqj
-BdUAxHAy5yBIgopwo+G0XdHt/izkGGnoZBDToNBO67kD8Ct1lEDAjHn0ljal1k3l
-heRjmkN2PiJ55d9QjF7qe/GbT6DZST5QiC1lOdSlg5f9G9Gm4KiyfSmkxneKYHTF
-aERByeN/doqdYPtQ7LxlpBgN7bql9UBCn2I8PZimU1+zZu75no1F5eH8IFOV7vpJ
-JWbHgg7JspuZY98pQMoFV6ASbJmTiQiWYMimm4ybXSb4Btdhgx0EJDOGaBi0r9ls
-BzTFqMLL678jOVu0EkNA
-=4duz
+iQIcBAABCgAGBQJZ6bu9AAoJEJ0dnzgO5LT5WwcP/3taBkLhJi7NTeYM4U3/kvuZ
+pAnUi43H5rLbM7Ynx0eXZ0OHlPHRJBZDpYZmCfqdqSX+8hRELJNIlkj0u7+uXfAd
+Dnn9x4LTM/qS56/AedpDePgfkYGffKvG5cWF+0ZSmiuRqlExlyQKPaFXH05B1zq1
+ChtLY8WSBJayx46ZwzX3sqCltvjiR878Mo7H5LnpScrzvOwJ3MGOKmRODF2HZ9LR
+tnDsSiMPXsbXNGFSMerPhikmdY4vFSjx+eD431PNUfLfeaJbYb6Q2EYvWDel3b0u
+Bx8BoVrKXvIcq3kFOK6DrR528GLexI2yhoPRAb2dfu+5jQXQDsm68Q3K7HKhG8ly
+H7aqrkEtDdssgtHo+yzEPdJgt8dXkPdr03QyOwQDo7h/cPZvcJ2wpnauYirIhSp/
+1Oc6sEYWTc3QXxL6vo5g0cyTBbiiRE454wgvlmg3WXpejBxQm+ITQSCA1Z4h33ZE
+WMhYrtnN9aszORegK4nCrasVy5Wrpw1NdEGgWz1bzmkn9LMgmjkM3kdqamHikVL1
+Lgcv3Ttk/s9Y43d2T5yVB+lRz491h7wJKULFMc+7oKrB3OkbTvDkyXEWEbIC2eKQ
+l6imHChFkNy4KwK/kXXJ0xQkFXDuEDFMdPKk0ktMTkrmOvGJyaIbQ2UUQqUx3xxn
+kNO/AZaSuhyVZq8g2BmZ
+=WhCU
 -----END PGP SIGNATURE-----
 
---=-ZSkrhS+dG0skM+wwegTq--
+--=-K4mhhnvm7upcPcUWi8ee--
