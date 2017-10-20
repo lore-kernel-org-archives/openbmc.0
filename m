@@ -1,62 +1,35 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ElUyr4mY"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="nfrV63yq"; dkim-atps=neutral
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yQLV06gSRzDqmt
- for <openbmc@lists.ozlabs.org>; Mon, 30 Oct 2017 15:04:56 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id CA46A20AF8;
- Mon, 30 Oct 2017 00:04:53 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Mon, 30 Oct 2017 00:04:53 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=6Cs1VT14xbHSP+XBCnEb+CeOBtEhAOEq/IjDY6OPVeA=; b=ElUyr4mY
- Q7vymINvN25h4MBaewd619dkZrSnKssFdVOMpwYhjAFDvX0UXMbENNUi0UaLX3oP
- Hi2R/0bFKOUuUdOvchQUYhTjpNzQ1tlyw0i2cDhUI739TmM3XAhKjYTOQ8aTgw5v
- nLLo6nIvdncwCXlq3B0KMRSLCIEpXnZP6EvTcoSUAv8xd43jZyimHX/kLZAEYVZw
- /TJY6BZnkzSwlrwaUeLG1o34sFLvzEJfMQeILHv5cMaiEfpe5L3XQWxTrEnRhNql
- Ok68xCE+N5ZM0S2jFoWyR4Ej4PKpp4Sw+wXK+spz/B7Pb5ymzy8xtyL6pJAhID7/
- uJqpUc/7z3L+4w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=6Cs1VT14xbHSP+XBCnEb+CeOBtEhA
- OEq/IjDY6OPVeA=; b=nfrV63yqUUP5MoJXbRBTcLpQVmLPmQUOpXdTqxl28raB8
- U7ySyGOdloOt6OokNm6z4jzRjxrQ6nKCqbE3sdMweWpOLSdjKJRtXQHnjvcd40Z6
- 0aRAaY47UiPyPd1S1q7I6GFpXIaMqKR9+ggGhcZ0S5FW8hwFazxjV0+2bs+kBiZ/
- YIZP4IVP676nhcd6OQykHTywf6WJxD4ZhTvHF/7ZKUYXKt1h0VJfKdMFPDn1uyk9
- 9fqH0/v5bHHoslYAWIO1IyDDSQzbMfEQbOtsrbEdKXDG7Ac/qwbHVrSesvyLlTxz
- JThZ5p00T2YuKj+jakkFS98cPYLDCwzM5MDupABRg==
-X-ME-Sender: <xms:5aT2WS72Kd_jpoUIDSLk-WCwPTxN1BxwE48aPLheAuMTpj9Y3_AgqA>
-Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 2D4ED240A4;
- Mon, 30 Oct 2017 00:04:51 -0400 (EDT)
-Message-ID: <1509336286.13477.21.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10] fsi: core: Allow more BREAKs to recover
- a failing link
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Jeremy Kerr <jk@ozlabs.org>, Christopher Bostic
- <cbostic@linux.vnet.ibm.com>
-Cc: openbmc@lists.ozlabs.org
-Date: Mon, 30 Oct 2017 14:34:46 +1030
-In-Reply-To: <34b84ff0-4f65-5537-d6c7-272cf2e3c6b8@ozlabs.org>
-References: <20171020173237.76535-1-cbostic@linux.vnet.ibm.com>
- <34b84ff0-4f65-5537-d6c7-272cf2e3c6b8@ozlabs.org>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-ug51zqzGftYs/nd9cq7H"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+Return-Path: <julien.thierry@arm.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=arm.com
+ (client-ip=217.140.101.70; helo=foss.arm.com;
+ envelope-from=julien.thierry@arm.com; receiver=<UNKNOWN>)
+Received: from foss.arm.com (foss.arm.com [217.140.101.70])
+ by lists.ozlabs.org (Postfix) with ESMTP id 3yJMks4MwQzDq5W
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Oct 2017 21:40:20 +1100 (AEDT)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.72.51.249])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0FFCCF;
+ Fri, 20 Oct 2017 03:40:15 -0700 (PDT)
+Received: from [10.1.207.56] (e112298-lin.cambridge.arm.com [10.1.207.56])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 062693F58F;
+ Fri, 20 Oct 2017 03:40:12 -0700 (PDT)
+Subject: Re: [PATCH v7 1/3] arm: npcm: add basic support for Nuvoton BMCs
+To: Brendan Higgins <brendanhiggins@google.com>, robh+dt@kernel.org,
+ mark.rutland@arm.com, linux@armlinux.org.uk, avifishman70@gmail.com,
+ tmaimon77@gmail.com, raltherr@google.com, f.fainelli@gmail.com
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org
+References: <20171019225050.25410-1-brendanhiggins@google.com>
+ <20171019225050.25410-2-brendanhiggins@google.com>
+From: Julien Thierry <julien.thierry@arm.com>
+Message-ID: <83927acd-5daf-04fd-3faf-0b5d2773c1fd@arm.com>
+Date: Fri, 20 Oct 2017 11:40:11 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.2.1
+MIME-Version: 1.0
+In-Reply-To: <20171019225050.25410-2-brendanhiggins@google.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Mon, 30 Oct 2017 15:18:14 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -68,53 +41,125 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 30 Oct 2017 04:04:57 -0000
+X-List-Received-Date: Fri, 20 Oct 2017 10:40:22 -0000
 
+Hi Brendan,
 
---=-ug51zqzGftYs/nd9cq7H
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 19/10/17 23:50, Brendan Higgins wrote:
+> Adds basic support for the Nuvoton NPCM750 BMC.
+> 
+> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+> Reviewed-by: Tomer Maimon <tmaimon77@gmail.com>
+> Reviewed-by: Avi Fishman <avifishman70@gmail.com>
+> Tested-by: Tomer Maimon <tmaimon77@gmail.com>
+> Tested-by: Avi Fishman <avifishman70@gmail.com>
+> ---
+>   arch/arm/Kconfig             |  2 +
+>   arch/arm/Makefile            |  1 +
+>   arch/arm/mach-npcm/Kconfig   | 48 ++++++++++++++++++++++++
+>   arch/arm/mach-npcm/Makefile  |  3 ++
+>   arch/arm/mach-npcm/headsmp.S | 17 +++++++++
+>   arch/arm/mach-npcm/npcm7xx.c | 34 +++++++++++++++++
+>   arch/arm/mach-npcm/platsmp.c | 88 ++++++++++++++++++++++++++++++++++++++++++++
+>   7 files changed, 193 insertions(+)
+>   create mode 100644 arch/arm/mach-npcm/Kconfig
+>   create mode 100644 arch/arm/mach-npcm/Makefile
+>   create mode 100644 arch/arm/mach-npcm/headsmp.S
+>   create mode 100644 arch/arm/mach-npcm/npcm7xx.c
+>   create mode 100644 arch/arm/mach-npcm/platsmp.c
+> 
 
-On Mon, 2017-10-23 at 10:57 +0800, Jeremy Kerr wrote:
-> Hi Chris,
->=20
-> > Recovering a failing FSI link can require more than a single
-> > BREAK command to reset the FSI slave. Test results indicate
-> > that communications can be restored when a second or third
-> > BREAK is sent when the previous attempts fail.
->=20
-> This seems somewhat suspicious to me. Do we have any indication from the
-> CFAM documentation, or the folks responsible for the CFAM implentation,
-> that multiple breaks will actually cause any difference in behaviour
-> that a single one? Or is this based only on experimentation?
->=20
-> I'm worried that we'd be papering-over the underlying issue here.
->=20
+[...]
 
-Chris, my understanding is we're abandoning the approach in this patch.
-Is that correct?
+> diff --git a/arch/arm/mach-npcm/platsmp.c b/arch/arm/mach-npcm/platsmp.c
+> new file mode 100644
+> index 000000000000..450e83c3c531
+> --- /dev/null
+> +++ b/arch/arm/mach-npcm/platsmp.c
+> @@ -0,0 +1,88 @@
+> +/*
+> + * Copyright 2017 Google, Inc.
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + */
+> +
+> +#define pr_fmt(fmt) "PLATSMP: " fmt
+> +
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/smp.h>
+> +#include <linux/io.h>
+> +#include <linux/of.h>
+> +#include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+> +#include <linux/of_address.h>
+> +#include <asm/cacheflush.h>
+> +#include <asm/smp.h>
+> +#include <asm/smp_plat.h>
+> +#include <asm/smp_scu.h>
+> +
+> +#define NPCM7XX_SCRPAD_REG 0x13c
+> +
+> +extern void npcm7xx_secondary_startup(void);
+> +
+> +static int npcm7xx_smp_boot_secondary(unsigned int cpu,
+> +				      struct task_struct *idle)
+> +{
+> +	struct device_node *gcr_np;
+> +	void __iomem *gcr_base;
+> +	int ret = 0;
+> +
+> +	gcr_np = of_find_compatible_node(NULL, NULL, "nuvoton,npcm750-gcr");
+> +	if (!gcr_np) {
+> +		pr_err("no gcr device node\n");
+> +		ret = -EFAULT;
+> +		goto out;
+> +	}
+> +	gcr_base = of_iomap(gcr_np, 0);
+> +	if (!gcr_base) {
+> +		pr_err("could not iomap gcr at: 0x%p\n", gcr_base);
 
-Andrew
---=-ug51zqzGftYs/nd9cq7H
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+nit:
+ From the condition we know gcr_base is NULL here so we don't get much 
+info from it. Did you intend to print the value of gcr_np instead?
 
------BEGIN PGP SIGNATURE-----
+> +		ret = -EFAULT;
+> +		goto out;
+> +	}
+> +
+> +	/* give boot ROM kernel start address. */
+> +	iowrite32(__pa_symbol(npcm7xx_secondary_startup), gcr_base +
+> +		  NPCM7XX_SCRPAD_REG);
+> +	/* make sure npcm7xx_secondary_startup is seen by all observers. */
+> +	smp_wmb();
+> +	dsb_sev();
+> +	/* make sure write buffer is drained */
+> +	mb();
+> +
+> +	iounmap(gcr_base);
+> +out:
+> +	return ret;
+> +}
+> +
+> +static void __init npcm7xx_smp_prepare_cpus(unsigned int max_cpus)
+> +{
+> +	struct device_node *scu_np;
+> +	void __iomem *scu_base;
+> +
+> +	scu_np = of_find_compatible_node(NULL, NULL, "arm,cortex-a9-scu");
+> +	if (!scu_np) {
+> +		pr_err("no scu device node\n");
+> +		return;
+> +	}
+> +	scu_base = of_iomap(scu_np, 0);
+> +	if (!scu_base) {
+> +		pr_err("could not iomap scu at: 0x%p\n", scu_base);
 
-iQIcBAABCgAGBQJZ9qTeAAoJEJ0dnzgO5LT5Gw8QAKeGyc5hlio9RcD0FDZCDCmM
-Q63qezgDuGDXSGLda5gNAcOvyk0M7AQFGrbHpNwQhMUsG+U8CW4yRSa6aJy5qyKN
-PVZ5sG3hulL+Ya1vCT2ugO+Ku2Z7bQMfFO83anz4RXX66HhDPOnmeDysOXdLgBth
-m31yVENlq9AYxDYbYM2ihTXzdlYf9EYoHkaEVATvEkYCi7M3aVPp1czRb9ZsCkA3
-Z78/7hbIxkCToSW1KlB2Gcq/3kMNOpFESfx/s4BYk21RfFLvtULk3roAQm9jJduL
-j+QTqRLF6VlkcZT+wYtUXYI8gaXS9x7/TIaM2frLm+coqrS89zqqjMNssJdWuaWF
-Rll2JuEaej80L1ogHF3jwipzyRA8ZhOVDbMpMJjCzo+7jOJvpaxhLo3vaPruvdr6
-betwTS67aAEgPuFwBjqGBfjR/UCxWYxlte7nrn9KVxeNV49EqJQrfO2K2Dq/N07H
-bp1ibeZsR1LB8TyM9tGKGA5esBcnVnHjk9V2rn5uzpv29OpESDmuWhJrh+CDcFeP
-eSrbY/78BrNB1ZAAq8JJ/JQBBKwL94oP0t5pED3kzuIKYR3F6EPVcJMtxwxeOWwn
-gkjPn0kz6P/W6jO/dA8IKKRnBUd6gh5z9QuQ2v0QX24tb+ZIzi1mjP64Euk3WbeC
-8JCZg+6wJt2GHifY51PP
-=otSj
------END PGP SIGNATURE-----
+Same comment about scu_base.
 
---=-ug51zqzGftYs/nd9cq7H--
+Cheers,
+
+-- 
+Julien Thierry
