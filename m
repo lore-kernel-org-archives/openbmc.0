@@ -1,50 +1,50 @@
 Return-Path: <linus.walleij@linaro.org>
 Authentication-Results: ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=linaro.org
- (client-ip=2607:f8b0:4001:c06::22a; helo=mail-io0-x22a.google.com;
+ (client-ip=2607:f8b0:4001:c06::232; helo=mail-io0-x232.google.com;
  envelope-from=linus.walleij@linaro.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.b="A8hFg6wP"; 
+ unprotected) header.d=linaro.org header.i=@linaro.org header.b="g0SV01M/"; 
  dkim-atps=neutral
-Received: from mail-io0-x22a.google.com (mail-io0-x22a.google.com
- [IPv6:2607:f8b0:4001:c06::22a])
+Received: from mail-io0-x232.google.com (mail-io0-x232.google.com
+ [IPv6:2607:f8b0:4001:c06::232])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yJHDc3ynZzDqBc
- for <openbmc@lists.ozlabs.org>; Fri, 20 Oct 2017 18:17:19 +1100 (AEDT)
-Received: by mail-io0-x22a.google.com with SMTP id e89so12330424ioi.11
- for <openbmc@lists.ozlabs.org>; Fri, 20 Oct 2017 00:17:19 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yJHFx3yqhzDqJ7
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Oct 2017 18:18:29 +1100 (AEDT)
+Received: by mail-io0-x232.google.com with SMTP id p186so12313641ioe.12
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Oct 2017 00:18:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=l4EWp1gJvv9/i5Wt4AgxbBXoDCDHYzi3ga/zPflKUbs=;
- b=A8hFg6wPDjm0XpJjvH/gAnmknWda03qDl4sVcHtQ4H0g36J0PJXBsocTcXoQ/6oraT
- mft3LjcFbzrFU71fFE1nvVPduzjhJcqmZ7SFdsDrQfjR/TkaGqtH3WvQCMtPZc/9rfrE
- H8kFqLsze1rh96dbLanFSByt61ZA13945uLMY=
+ :cc; bh=PnQ7E2lYd/+Ikv+j/cdWEDVYWzSCHWCb03bwvXoEvPk=;
+ b=g0SV01M/8RVDOI6KPsLSwVbceeFFeOeS4e9uWuq90/giwgvMmUemUQcDzPLtLAIkx6
+ FPz6KEycTS0o6eUtohKgU8O8ym+F2PMuWFH7wlGQrKK4H/AOaTIS/J6xMK22XGL+DqDx
+ RpbyJSiKPPHcukSpN9XnsMPnk2tFVtPMTVigg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=l4EWp1gJvv9/i5Wt4AgxbBXoDCDHYzi3ga/zPflKUbs=;
- b=tmikbVpG8I2K6FRPlAaqva9vtYU6aXmASkMXJkAggs3zGsA0xzZkNSojfYUA2V5D0l
- AXaOvWHyFJ2bBDrAZW+oAKO6yMyn7B2DzWkxBDtG+ko1FuCQWdP8oiRFEZhHr/qkH2GY
- enFDtXYlPhV3/Cgu2OG14cbzcTM5+JYT9sVOoeQwFv449ZqTbAPQeKg+Lyk30hjUA9gW
- jZWq5B4ZT2t45QmW4KM97f2hvJtS603Gbo5y/wrEBlbo39DLmtXPH1XgQQ3lC452z2kf
- oEIdckHijV6foJZ1+T2p2f33KOENWTcagvalumcd/NP1dSwmSy3tG0jyxfbB7mtNAsAa
- 9qag==
-X-Gm-Message-State: AMCzsaVPc/vQNz1DGpXBOT+wDvexvZ9Gz2kB8w3UELaKdOkbzCmEo+Nd
- vngbqdfMNOgnLQDjYVf+dxjcGwgNq/lxXLY3FD9wFw==
-X-Google-Smtp-Source: ABhQp+TUiGR1qjF1QXm+NRs42n9KzEOzY+EKRolb97qlNm8LqG6TWJZxf8BXr0mvULNjO8RvKluSTXjAQ9wIZZnRj3Q=
-X-Received: by 10.107.46.199 with SMTP id u68mr5307379iou.174.1508483836152;
- Fri, 20 Oct 2017 00:17:16 -0700 (PDT)
+ bh=PnQ7E2lYd/+Ikv+j/cdWEDVYWzSCHWCb03bwvXoEvPk=;
+ b=Hq9GhKwHRBpZXUP7qqDxihxaEc7G9jSBjWUbcD48n8d8mQE/79LvU8bYGwUdmU2ETa
+ HNMlP6nojS3eJ01spILmp0hVUx6TWl+/BWAFKLo614uywgmfaBcDgqXZxmERVhiuO2ps
+ yx1FWdueSGLnVL2w3axHYMuIHyDV0Qgd9YOdLxJhRZ3wCpv+qM6C08YKJtApaz6yZQ4q
+ v4kNl14QlTTUmMsZNfkVnBF8tnXPtU47h2j9kOvE/NXrAFzwBxLS2RJsfN20Jx9lxixO
+ nud/P9r/W87FmaZa7mDo/WnTZDK5upbWy6XRYucTcS1rATsDlCJjMKbK60pKyFZNl/yM
+ epvg==
+X-Gm-Message-State: AMCzsaW9qAa/m5DeWFCsZ39YrtNwvEw8xW0g7Cjx7irvSGRYNB8CfaGV
+ BKqaK/JpC8NP83uIKhFCsc0iFnZzQjQMzfeCqSIpPw==
+X-Google-Smtp-Source: ABhQp+S8VygWH8+ft/yr5Me2BdR6pWmKDpn9/XzPRwcFjPVC/wsUbK5by62emi3Wa0piNbJLowSyyOMNDnCVMbm8qV4=
+X-Received: by 10.107.185.6 with SMTP id j6mr5336101iof.221.1508483907258;
+ Fri, 20 Oct 2017 00:18:27 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.79.14.140 with HTTP; Fri, 20 Oct 2017 00:17:15 -0700 (PDT)
-In-Reply-To: <20171020033727.21557-2-andrew@aj.id.au>
+Received: by 10.79.14.140 with HTTP; Fri, 20 Oct 2017 00:18:26 -0700 (PDT)
+In-Reply-To: <20171020033727.21557-3-andrew@aj.id.au>
 References: <20171020033727.21557-1-andrew@aj.id.au>
- <20171020033727.21557-2-andrew@aj.id.au>
+ <20171020033727.21557-3-andrew@aj.id.au>
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Fri, 20 Oct 2017 09:17:15 +0200
-Message-ID: <CACRpkda-7-uM5x4kbNXkx3F7F4VTZtTvXfys5VPFb1YiVDo1+g@mail.gmail.com>
-Subject: Re: [RFC PATCH 1/5] gpio: gpiolib: Add core support for maintaining
+Date: Fri, 20 Oct 2017 09:18:26 +0200
+Message-ID: <CACRpkdbxOen3ohwmDc8ZNWkirn3mNHaGiZq1O-6VnOjhvFcw+w@mail.gmail.com>
+Subject: Re: [RFC PATCH 2/5] gpio: gpiolib: Add OF support for maintaining
  GPIO values on reset
 To: Andrew Jeffery <andrew@aj.id.au>
 Cc: "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
@@ -70,34 +70,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Oct 2017 07:17:21 -0000
+X-List-Received-Date: Fri, 20 Oct 2017 07:18:29 -0000
 
 On Fri, Oct 20, 2017 at 5:37 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
 
-> GPIO state reset tolerance is implemented in gpiolib through the
-> addition of a new pinconf parameter. With that, some renaming of helpers
-> is done to clarify the scope of the already existing
-> gpiochip_line_is_persistent(), as it's now ambiguous as to whether that
-> means on suspend, reset or both.
+> @@ -32,6 +32,7 @@ enum of_gpio_flags {
+>         OF_GPIO_SINGLE_ENDED = 0x2,
+>         OF_GPIO_OPEN_DRAIN = 0x4,
+>         OF_GPIO_SLEEP_MAY_LOSE_VALUE = 0x8,
+> +       OF_GPIO_RESET_TOLERANT = 0x16,
 
-Isn't it most reasonable to say persistance covers both cases, reset
-and/or sleep? This seems a bit like overdefined.
+Now you're mixing up decimal and hex.
 
-So can we say that is this flag is set, the hardware and driver should
-do its best to preserve the value across any system disruptions.
-
-We can change the wording of course, patches welcome for that.
-
-But do we really need to distinguish the cases of disruption and
-whether we cover up for them or not?
-
-I would say we can deal with that the day we have a system with
-two register bits (or similar) where you can select to preserve across
-sleep, reset, one or the other, AND there is also a usecase such that
-a user wants to preserve the value across reset but not suspend or
-vice versa.
-
-I suspect that will not happen.
+Anyways, I do not think this is necessary.
 
 Yours,
 Linus Walleij
