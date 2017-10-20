@@ -1,49 +1,38 @@
-Return-Path: <linux+openbmc=lists.ozlabs.org@armlinux.org.uk>
+Return-Path: <gregkh@linuxfoundation.org>
 Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=armlinux.org.uk
- (client-ip=2001:4d48:ad52:3201:214:fdff:fe10:1be6;
- helo=pandora.armlinux.org.uk;
- envelope-from=linux+openbmc=lists.ozlabs.org@armlinux.org.uk;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=armlinux.org.uk header.i=@armlinux.org.uk
- header.b="M9qIg/WN"; dkim-atps=neutral
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk
- [IPv6:2001:4d48:ad52:3201:214:fdff:fe10:1be6])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=linuxfoundation.org
+ (client-ip=140.211.169.12; helo=mail.linuxfoundation.org;
+ envelope-from=gregkh@linuxfoundation.org; receiver=<UNKNOWN>)
+Received: from mail.linuxfoundation.org (mail.linuxfoundation.org
+ [140.211.169.12])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yJMwY6KyNzDq5W
- for <openbmc@lists.ozlabs.org>; Fri, 20 Oct 2017 21:48:42 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2014; 
- h=Sender:In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date;
- bh=byI4pnKmtLzLrOVQTdLGwXDPW2wu29wkD4Wu88fD1DM=; 
- b=M9qIg/WNz6PyP5FFnGT3AkkuqsWm5ivtPA2DZPQ4R3f4CzVt1GwzFw0amyveI7AeIsCz5ku5soMDTLdaGmwp/fpVqrygj7T7NZijTKEyIfU+z31lX/adQAcwFfh3jY9aCejv7MQ2HWl8VjHUo/sx8+tSkqWYx6g4Z1B6Rd0MMVg=;
-Received: from n2100.armlinux.org.uk
- ([fd8f:7570:feb6:1:214:fdff:fe10:4f86]:47059)
- by pandora.armlinux.org.uk with esmtpsa (TLSv1:DHE-RSA-AES256-SHA:256)
- (Exim 4.82_1-5b7a7c0-XX) (envelope-from <linux@armlinux.org.uk>)
- id 1e5Uqg-000673-Qd; Fri, 20 Oct 2017 11:48:18 +0100
-Received: from linux by n2100.armlinux.org.uk with local (Exim 4.76)
- (envelope-from <linux@n2100.armlinux.org.uk>)
- id 1e5UqY-000693-8f; Fri, 20 Oct 2017 11:48:11 +0100
-Date: Fri, 20 Oct 2017 11:48:08 +0100
-From: Russell King - ARM Linux <linux@armlinux.org.uk>
-To: Brendan Higgins <brendanhiggins@google.com>
-Cc: robh+dt@kernel.org, mark.rutland@arm.com, avifishman70@gmail.com,
- tmaimon77@gmail.com, raltherr@google.com, f.fainelli@gmail.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH v7 1/3] arm: npcm: add basic support for Nuvoton BMCs
-Message-ID: <20171020104807.GE20805@n2100.armlinux.org.uk>
-References: <20171019225050.25410-1-brendanhiggins@google.com>
- <20171019225050.25410-2-brendanhiggins@google.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yJPP73dh2zDq5W
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Oct 2017 22:55:07 +1100 (AEDT)
+Received: from localhost (LFbn-1-12253-150.w90-92.abo.wanadoo.fr
+ [90.92.67.150])
+ by mail.linuxfoundation.org (Postfix) with ESMTPSA id C24B6BD9;
+ Fri, 20 Oct 2017 11:55:04 +0000 (UTC)
+Date: Fri, 20 Oct 2017 13:55:12 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Oleksandr Shamray <oleksandrs@mellanox.com>
+Cc: arnd@arndb.de, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ openbmc@lists.ozlabs.org, joel@jms.id.au, jiri@resnulli.us,
+ tklauser@distanz.ch, linux-serial@vger.kernel.org, mec@shout.net,
+ vadimp@mellanox.com, system-sw-low-level@mellanox.com,
+ robh+dt@kernel.org, openocd-devel-owner@lists.sourceforge.net,
+ linux-api@vger.kernel.org, davem@davemloft.net, mchehab@kernel.org,
+ Jiri Pirko <jiri@mellanox.com>
+Subject: Re: [patch v9 1/4] drivers: jtag: Add JTAG core driver
+Message-ID: <20171020115512.GA2073@kroah.com>
+References: <1505985932-27568-1-git-send-email-oleksandrs@mellanox.com>
+ <1505985932-27568-2-git-send-email-oleksandrs@mellanox.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20171019225050.25410-2-brendanhiggins@google.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-Sender: Russell King - ARM Linux <linux@armlinux.org.uk>
+In-Reply-To: <1505985932-27568-2-git-send-email-oleksandrs@mellanox.com>
+User-Agent: Mutt/1.9.1 (2017-09-22)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -55,305 +44,525 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Oct 2017 10:48:48 -0000
+X-List-Received-Date: Fri, 20 Oct 2017 11:55:08 -0000
 
-On Thu, Oct 19, 2017 at 03:50:48PM -0700, Brendan Higgins wrote:
-> Adds basic support for the Nuvoton NPCM750 BMC.
-> 
-> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
-> Reviewed-by: Tomer Maimon <tmaimon77@gmail.com>
-> Reviewed-by: Avi Fishman <avifishman70@gmail.com>
-> Tested-by: Tomer Maimon <tmaimon77@gmail.com>
-> Tested-by: Avi Fishman <avifishman70@gmail.com>
-> ---
->  arch/arm/Kconfig             |  2 +
->  arch/arm/Makefile            |  1 +
->  arch/arm/mach-npcm/Kconfig   | 48 ++++++++++++++++++++++++
->  arch/arm/mach-npcm/Makefile  |  3 ++
->  arch/arm/mach-npcm/headsmp.S | 17 +++++++++
->  arch/arm/mach-npcm/npcm7xx.c | 34 +++++++++++++++++
->  arch/arm/mach-npcm/platsmp.c | 88 ++++++++++++++++++++++++++++++++++++++++++++
->  7 files changed, 193 insertions(+)
->  create mode 100644 arch/arm/mach-npcm/Kconfig
->  create mode 100644 arch/arm/mach-npcm/Makefile
->  create mode 100644 arch/arm/mach-npcm/headsmp.S
->  create mode 100644 arch/arm/mach-npcm/npcm7xx.c
->  create mode 100644 arch/arm/mach-npcm/platsmp.c
-> 
-> diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
-> index 61a0cb15067e..05543f1cfbde 100644
-> --- a/arch/arm/Kconfig
-> +++ b/arch/arm/Kconfig
-> @@ -782,6 +782,8 @@ source "arch/arm/mach-netx/Kconfig"
->  
->  source "arch/arm/mach-nomadik/Kconfig"
->  
-> +source "arch/arm/mach-npcm/Kconfig"
+On Thu, Sep 21, 2017 at 12:25:29PM +0300, Oleksandr Shamray wrote:
+> +struct jtag {
+> +	struct device *dev;
+> +	struct cdev cdev;
+
+Why are you using a cdev here and not just a normal misc device?  I
+forgot if this is what you were doing before, sorry...
+
+> +	int id;
+> +	atomic_t open;
+
+Why do you need this?
+
+> +	const struct jtag_ops *ops;
+> +	unsigned long priv[0] __aligned(ARCH_DMA_MINALIGN);
+
+Huh?  Why is this needed to be dma aligned?  Why not just use the
+private pointer in struct device?
+
+> +};
 > +
->  source "arch/arm/mach-nspire/Kconfig"
->  
->  source "arch/arm/plat-omap/Kconfig"
-> diff --git a/arch/arm/Makefile b/arch/arm/Makefile
-> index 47d3a1ab08d2..60ca50c7d762 100644
-> --- a/arch/arm/Makefile
-> +++ b/arch/arm/Makefile
-> @@ -191,6 +191,7 @@ machine-$(CONFIG_ARCH_MEDIATEK)		+= mediatek
->  machine-$(CONFIG_ARCH_MXS)		+= mxs
->  machine-$(CONFIG_ARCH_NETX)		+= netx
->  machine-$(CONFIG_ARCH_NOMADIK)		+= nomadik
-> +machine-$(CONFIG_ARCH_NPCM)		+= npcm
->  machine-$(CONFIG_ARCH_NSPIRE)		+= nspire
->  machine-$(CONFIG_ARCH_OXNAS)		+= oxnas
->  machine-$(CONFIG_ARCH_OMAP1)		+= omap1
-> diff --git a/arch/arm/mach-npcm/Kconfig b/arch/arm/mach-npcm/Kconfig
+> +static dev_t jtag_devt;
+> +static DEFINE_IDA(jtag_ida);
+> +
+> +void *jtag_priv(struct jtag *jtag)
+> +{
+> +	return jtag->priv;
+> +}
+> +EXPORT_SYMBOL_GPL(jtag_priv);
+> +
+> +static u8 *jtag_copy_from_user(__u64 udata, unsigned long bit_size)
+> +{
+> +	unsigned long size;
+> +	void *kdata;
+> +
+> +	size = DIV_ROUND_UP(bit_size, BITS_PER_BYTE);
+> +	kdata = memdup_user(u64_to_user_ptr(udata), size);
+
+You only use this once, why not just open-code it?
+
+> +
+> +	return kdata;
+> +}
+> +
+> +static unsigned long jtag_copy_to_user(__u64 udata, u8 *kdata,
+> +				       unsigned long bit_size)
+> +{
+> +	unsigned long size;
+> +
+> +	size = DIV_ROUND_UP(bit_size, BITS_PER_BYTE);
+> +
+> +	return copy_to_user(u64_to_user_ptr(udata), (void *)(kdata), size);
+
+Same here, making this a separate function seems odd.
+
+> +}
+> +
+> +static struct class jtag_class = {
+> +	.name = "jtag",
+> +	.owner = THIS_MODULE,
+> +};
+> +
+> +static int jtag_run_test_idle_op(struct jtag *jtag,
+> +				 struct jtag_run_test_idle *idle)
+> +{
+> +	if (jtag->ops->idle)
+> +		return jtag->ops->idle(jtag, idle);
+> +	else
+> +		return -EOPNOTSUPP;
+
+Why is this a function?  Why not just do this work in the ioctl?
+
+> +}
+> +
+> +static int jtag_xfer_op(struct jtag *jtag, struct jtag_xfer *xfer, u8 *data)
+> +{
+> +	if (jtag->ops->xfer)
+> +		return jtag->ops->xfer(jtag, xfer, data);
+> +	else
+> +		return -EOPNOTSUPP;
+
+Same here, doesn't need to be a function.
+
+> +}
+> +
+> +static long jtag_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+> +{
+> +	struct jtag *jtag = file->private_data;
+> +	struct jtag_run_test_idle idle;
+> +	struct jtag_xfer xfer;
+> +	u8 *xfer_data;
+> +	u32 value;
+> +	int err;
+> +
+> +	switch (cmd) {
+> +	case JTAG_GIOCFREQ:
+> +		if (jtag->ops->freq_get)
+> +			err = jtag->ops->freq_get(jtag, &value);
+> +		else
+> +			err = -EOPNOTSUPP;
+> +		if (err)
+> +			break;
+> +
+> +		err = put_user(value, (__u32 *)arg);
+> +		break;
+
+Are you sure the return value of put_user is correct here?  Shouldn't
+you return -EFAULT if err is not 0?
+
+> +
+> +	case JTAG_SIOCFREQ:
+> +		err = get_user(value, (__u32 *)arg);
+> +
+
+why a blank line?
+
+> +		if (value == 0)
+> +			err = -EINVAL;
+
+Check err first.
+
+> +		if (err)
+> +			break;
+
+And set it properly, again err should be -EFAULT, right?
+
+> +
+> +		if (jtag->ops->freq_set)
+> +			err = jtag->ops->freq_set(jtag, value);
+> +		else
+> +			err = -EOPNOTSUPP;
+> +		break;
+> +
+> +	case JTAG_IOCRUNTEST:
+> +		if (copy_from_user(&idle, (void *)arg,
+> +				   sizeof(struct jtag_run_test_idle)))
+> +			return -ENOMEM;
+> +		err = jtag_run_test_idle_op(jtag, &idle);
+
+Who validates the structure fields?  Is that up to the individual jtag
+driver?  Why not do it in the core correctly so that it only has to be
+done in one place and you do not have to audit every individual driver?
+
+> +		break;
+> +
+> +	case JTAG_IOCXFER:
+> +		if (copy_from_user(&xfer, (void *)arg,
+> +				   sizeof(struct jtag_xfer)))
+> +			return -EFAULT;
+> +
+> +		if (xfer.length >= JTAG_MAX_XFER_DATA_LEN)
+> +			return -EFAULT;
+> +
+> +		xfer_data = jtag_copy_from_user(xfer.tdio, xfer.length);
+> +		if (!xfer_data)
+> +			return -ENOMEM;
+
+Are you sure that's the correct error value?
+
+> +
+> +		err = jtag_xfer_op(jtag, &xfer, xfer_data);
+> +		if (jtag_copy_to_user(xfer.tdio, xfer_data, xfer.length)) {
+> +			kfree(xfer_data);
+> +			return -EFAULT;
+> +		}
+> +
+> +		kfree(xfer_data);
+> +		if (copy_to_user((void *)arg, &xfer, sizeof(struct jtag_xfer)))
+> +			return -EFAULT;
+> +		break;
+> +
+> +	case JTAG_GIOCSTATUS:
+> +		if (jtag->ops->status_get)
+> +			err = jtag->ops->status_get(jtag, &value);
+> +		else
+> +			err = -EOPNOTSUPP;
+> +		if (err)
+> +			break;
+> +
+> +		err = put_user(value, (__u32 *)arg);
+
+Same put_user err issue here.
+
+> +		break;
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +	return err;
+> +}
+> +
+> +#ifdef CONFIG_COMPAT
+> +static long jtag_ioctl_compat(struct file *file, unsigned int cmd,
+> +			      unsigned long arg)
+> +{
+> +	return jtag_ioctl(file, cmd, (unsigned long)compat_ptr(arg));
+> +}
+> +#endif
+
+Why do you need a compat callback for a new ioctl?  Create your
+structures properly and this should not be needed, right?
+
+> +
+> +static int jtag_open(struct inode *inode, struct file *file)
+> +{
+> +	struct jtag *jtag = container_of(inode->i_cdev, struct jtag, cdev);
+> +
+> +	if (atomic_read(&jtag->open)) {
+> +		dev_info(NULL, "jtag already opened\n");
+> +		return -EBUSY;
+
+Why do you care if multiple opens can happen?
+
+> +	}
+> +
+> +	atomic_inc(&jtag->open);
+
+Oh look, you just raced with two different people opening at the same
+time :(
+
+An atomic value is never a replacement for a lock, sorry.
+
+> +	file->private_data = jtag;
+> +	return 0;
+> +}
+> +
+> +static int jtag_release(struct inode *inode, struct file *file)
+> +{
+> +	struct jtag *jtag = file->private_data;
+> +
+> +	atomic_dec(&jtag->open);
+
+Again, not needed.
+
+> +	return 0;
+> +}
+> +
+> +static const struct file_operations jtag_fops = {
+> +	.owner		= THIS_MODULE,
+> +	.open		= jtag_open,
+> +	.release	= jtag_release,
+> +	.llseek		= noop_llseek,
+> +	.unlocked_ioctl = jtag_ioctl,
+> +#ifdef CONFIG_COMPAT
+> +	.compat_ioctl	= jtag_ioctl_compat,
+> +#endif
+> +};
+> +
+> +struct jtag *jtag_alloc(size_t priv_size, const struct jtag_ops *ops)
+> +{
+> +	struct jtag *jtag;
+> +
+> +	jtag = kzalloc(sizeof(*jtag) + round_up(priv_size, ARCH_DMA_MINALIGN),
+> +		       GFP_KERNEL);
+> +	if (!jtag)
+> +		return NULL;
+> +
+> +	jtag->ops = ops;
+> +	return jtag;
+> +}
+> +EXPORT_SYMBOL_GPL(jtag_alloc);
+
+register should allocate and register the device, why pass a structure
+back that the caller then has to do something else with to use it?
+
+> +
+> +void jtag_free(struct jtag *jtag)
+> +{
+> +	kfree(jtag);
+> +}
+> +EXPORT_SYMBOL_GPL(jtag_free);
+> +
+> +int jtag_register(struct jtag *jtag)
+> +{
+> +	int id;
+> +	int err;
+> +
+> +	id = ida_simple_get(&jtag_ida, 0, 0, GFP_KERNEL);
+> +	if (id < 0)
+> +		return id;
+> +
+> +	jtag->id = id;
+> +	cdev_init(&jtag->cdev, &jtag_fops);
+> +	jtag->cdev.owner = THIS_MODULE;
+> +	err = cdev_add(&jtag->cdev, MKDEV(MAJOR(jtag_devt), jtag->id), 1);
+> +	if (err)
+> +		goto err_cdev;
+
+misc device would be so much simpler and easier here :(
+
+
+> +
+> +	/* Register this jtag device with the driver core */
+> +	jtag->dev = device_create(&jtag_class, NULL, MKDEV(MAJOR(jtag_devt),
+> +							   jtag->id),
+> +				  NULL, "jtag%d", jtag->id);
+> +	if (!jtag->dev)
+> +		goto err_device_create;
+> +
+> +	atomic_set(&jtag->open, 0);
+> +	dev_set_drvdata(jtag->dev, jtag);
+> +	return err;
+> +
+> +err_device_create:
+> +	cdev_del(&jtag->cdev);
+> +err_cdev:
+> +	ida_simple_remove(&jtag_ida, id);
+> +	return err;
+> +}
+> +EXPORT_SYMBOL_GPL(jtag_register);
+> +
+> +void jtag_unregister(struct jtag *jtag)
+> +{
+> +	struct device *dev = jtag->dev;
+> +
+> +	cdev_del(&jtag->cdev);
+> +	device_unregister(dev);
+> +	ida_simple_remove(&jtag_ida, jtag->id);
+> +}
+> +EXPORT_SYMBOL_GPL(jtag_unregister);
+> +
+> +static int __init jtag_init(void)
+> +{
+> +	int err;
+> +
+> +	err = alloc_chrdev_region(&jtag_devt, JTAG_FIRST_MINOR,
+> +				  JTAG_MAX_DEVICES, "jtag");
+> +	if (err)
+> +		return err;
+> +
+> +	err = class_register(&jtag_class);
+> +	if (err)
+> +		unregister_chrdev_region(jtag_devt, JTAG_MAX_DEVICES);
+> +
+> +	return err;
+> +}
+> +
+> +static void __exit jtag_exit(void)
+> +{
+> +	class_unregister(&jtag_class);
+> +	unregister_chrdev_region(jtag_devt, JTAG_MAX_DEVICES);
+
+Your idr leaked memory :(
+
+
+
+> +}
+> +
+> +module_init(jtag_init);
+> +module_exit(jtag_exit);
+> +
+> +MODULE_AUTHOR("Oleksandr Shamray <oleksandrs@mellanox.com>");
+> +MODULE_DESCRIPTION("Generic jtag support");
+> +MODULE_LICENSE("GPL v2");
+> diff --git a/include/linux/jtag.h b/include/linux/jtag.h
 > new file mode 100644
-> index 000000000000..21dfa8ce828f
+> index 0000000..c016fed
 > --- /dev/null
-> +++ b/arch/arm/mach-npcm/Kconfig
+> +++ b/include/linux/jtag.h
 > @@ -0,0 +1,48 @@
-> +menuconfig ARCH_NPCM
-> +	bool "Nuvoton NPCM Architecture"
-> +	select ARCH_REQUIRE_GPIOLIB
-> +	select USE_OF
-> +	select PINCTRL
-> +	select PINCTRL_NPCM7XX
-> +
-> +if ARCH_NPCM
-> +
-> +comment "NPCMX50 CPU type"
-> +
-> +config CPU_NPCM750
-> +	depends on ARCH_NPCM && ARCH_MULTI_V7
-> +	bool "Support for NPCM750 BMC CPU (Poleg)"
-> +	select CACHE_L2X0
-> +	select CPU_V7
-> +	select ARM_GIC
-> +	select HAVE_SMP
-> +	select SMP
-> +	select SMP_ON_UP
-> +	select HAVE_ARM_SCU
-> +	select HAVE_ARM_TWD if SMP
-> +	select ARM_ERRATA_720789
-> +	select ARM_ERRATA_754322
-> +	select ARM_ERRATA_764369
-> +	select ARM_ERRATA_794072
-> +	select PL310_ERRATA_588369
-> +	select PL310_ERRATA_727915
-> +	select USB_EHCI_ROOT_HUB_TT
-> +	select USB_ARCH_HAS_HCD
-> +	select USB_ARCH_HAS_EHCI
-> +	select USB_EHCI_HCD
-> +	select USB_ARCH_HAS_OHCI
-> +	select USB_OHCI_HCD
-> +	select USB
-> +	select FIQ
-> +	select CPU_USE_DOMAINS
-> +	select GENERIC_CLOCKEVENTS
-> +	select CLKDEV_LOOKUP
-> +	select COMMON_CLK if OF
-> +	select NPCM750_TIMER
-> +	select MFD_SYSCON
-> +	help
-> +	  Support for NPCM750 BMC CPU (Poleg).
-> +
-> +	  Nuvoton NPCM750 BMC based on the Cortex A9.
-> +
-> +endif
-> diff --git a/arch/arm/mach-npcm/Makefile b/arch/arm/mach-npcm/Makefile
-> new file mode 100644
-> index 000000000000..78416055b854
-> --- /dev/null
-> +++ b/arch/arm/mach-npcm/Makefile
-> @@ -0,0 +1,3 @@
-> +AFLAGS_headsmp.o		+= -march=armv7-a
-> +
-> +obj-$(CONFIG_CPU_NPCM750)	+= npcm7xx.o platsmp.o headsmp.o
-> diff --git a/arch/arm/mach-npcm/headsmp.S b/arch/arm/mach-npcm/headsmp.S
-> new file mode 100644
-> index 000000000000..9fccbbd49ed4
-> --- /dev/null
-> +++ b/arch/arm/mach-npcm/headsmp.S
-> @@ -0,0 +1,17 @@
 > +/*
-> + * Copyright 2017 Google, Inc.
+> + * drivers/jtag/jtag.c
 > + *
-> + * This program is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License version 2 as
-> + * published by the Free Software Foundation.
+> + * Copyright (c) 2017 Mellanox Technologies. All rights reserved.
+> + * Copyright (c) 2017 Oleksandr Shamray <oleksandrs@mellanox.com>
+> + *
+> + * Released under the GPLv2 only.
+> + * SPDX-License-Identifier: GPL-2.0
 > + */
 > +
-> +#include <linux/linkage.h>
-> +#include <linux/init.h>
-> +#include <asm/assembler.h>
+> +#ifndef __JTAG_H
+> +#define __JTAG_H
 > +
-> +ENTRY(npcm7xx_secondary_startup)
-> +	safe_svcmode_maskall r0
+> +#include <uapi/linux/jtag.h>
 > +
-> +	b	secondary_startup
-> +ENDPROC(npcm7xx_secondary_startup)
-
-Why do you need this?  The switch to svc mode is already handled by
-secondary_startup.
-
-> diff --git a/arch/arm/mach-npcm/npcm7xx.c b/arch/arm/mach-npcm/npcm7xx.c
-> new file mode 100644
-> index 000000000000..132e9d587857
-> --- /dev/null
-> +++ b/arch/arm/mach-npcm/npcm7xx.c
-> @@ -0,0 +1,34 @@
-> +/*
-> + * Copyright (c) 2017 Nuvoton Technology corporation.
-> + * Copyright 2017 Google, Inc.
+> +#ifndef ARCH_DMA_MINALIGN
+> +#define ARCH_DMA_MINALIGN 1
+> +#endif
+> +
+> +#define jtag_u64_to_ptr(arg) ((void *)(uintptr_t)arg)
+> +
+> +#define JTAG_MAX_XFER_DATA_LEN 65535
+> +
+> +struct jtag;
+> +/**
+> + * struct jtag_ops - callbacks for jtag control functions:
 > + *
-> + * This program is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License version 2 as
-> + * published by the Free Software Foundation.
+> + * @freq_get: get frequency function. Filled by device driver
+> + * @freq_set: set frequency function. Filled by device driver
+> + * @status_get: set status function. Filled by device driver
+> + * @idle: set JTAG to idle state function. Filled by device driver
+> + * @xfer: send JTAG xfer function. Filled by device driver
 > + */
-> +
-> +#include <linux/kernel.h>
-> +#include <linux/types.h>
-> +#include <asm/mach/arch.h>
-> +#include <asm/mach-types.h>
-> +#include <asm/mach/map.h>
-> +#include <asm/hardware/cache-l2x0.h>
-> +
-> +#define NPCM7XX_AUX_VAL (L310_AUX_CTRL_INSTR_PREFETCH |			       \
-> +			 L310_AUX_CTRL_DATA_PREFETCH |			       \
-> +			 L310_AUX_CTRL_NS_LOCKDOWN |			       \
-> +			 L310_AUX_CTRL_CACHE_REPLACE_RR |		       \
-> +			 L2C_AUX_CTRL_SHARED_OVERRIDE |			       \
-> +			 L310_AUX_CTRL_FULL_LINE_ZERO)
-
-Do you really need all these flags?
-
-> +
-> +static const char *const npcm7xx_dt_match[] = {
-> +	"nuvoton,npcm750",
-> +	NULL
+> +struct jtag_ops {
+> +	int (*freq_get)(struct jtag *jtag, u32 *freq);
+> +	int (*freq_set)(struct jtag *jtag, u32 freq);
+> +	int (*status_get)(struct jtag *jtag, u32 *state);
+> +	int (*idle)(struct jtag *jtag, struct jtag_run_test_idle *idle);
+> +	int (*xfer)(struct jtag *jtag, struct jtag_xfer *xfer);
 > +};
 > +
-> +DT_MACHINE_START(NPCM7XX_DT, "NPCMX50 Chip family")
-> +	.atag_offset	= 0x100,
-> +	.dt_compat	= npcm7xx_dt_match,
-> +	.l2c_aux_val	= NPCM7XX_AUX_VAL,
-> +	.l2c_aux_mask	= ~NPCM7XX_AUX_VAL,
-> +MACHINE_END
-> diff --git a/arch/arm/mach-npcm/platsmp.c b/arch/arm/mach-npcm/platsmp.c
+> +void *jtag_priv(struct jtag *jtag);
+> +int jtag_register(struct jtag *jtag);
+> +void jtag_unregister(struct jtag *jtag);
+> +struct jtag *jtag_alloc(size_t priv_size, const struct jtag_ops *ops);
+> +void jtag_free(struct jtag *jtag);
+> +
+> +#endif /* __JTAG_H */
+> diff --git a/include/uapi/linux/jtag.h b/include/uapi/linux/jtag.h
 > new file mode 100644
-> index 000000000000..450e83c3c531
+> index 0000000..180bf22
 > --- /dev/null
-> +++ b/arch/arm/mach-npcm/platsmp.c
-> @@ -0,0 +1,88 @@
+> +++ b/include/uapi/linux/jtag.h
+> @@ -0,0 +1,115 @@
 > +/*
-> + * Copyright 2017 Google, Inc.
+> + * JTAG class driver
 > + *
-> + * This program is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License version 2 as
-> + * published by the Free Software Foundation.
+> + * Copyright (c) 2017 Mellanox Technologies. All rights reserved.
+> + * Copyright (c) 2017 Oleksandr Shamray <oleksandrs@mellanox.com>
+> + *
+> + * Released under the GPLv2/BSD.
+> + * SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
 > + */
 > +
-> +#define pr_fmt(fmt) "PLATSMP: " fmt
-
-Maybe something more descriptive?
-
+> +#ifndef __UAPI_LINUX_JTAG_H
+> +#define __UAPI_LINUX_JTAG_H
 > +
-> +#include <linux/delay.h>
-> +#include <linux/device.h>
-> +#include <linux/smp.h>
-> +#include <linux/io.h>
-> +#include <linux/of.h>
-> +#include <linux/of_device.h>
-> +#include <linux/of_platform.h>
-> +#include <linux/of_address.h>
-> +#include <asm/cacheflush.h>
-> +#include <asm/smp.h>
-> +#include <asm/smp_plat.h>
-> +#include <asm/smp_scu.h>
-> +
-> +#define NPCM7XX_SCRPAD_REG 0x13c
-> +
-> +extern void npcm7xx_secondary_startup(void);
-> +
-> +static int npcm7xx_smp_boot_secondary(unsigned int cpu,
-> +				      struct task_struct *idle)
-> +{
-> +	struct device_node *gcr_np;
-> +	void __iomem *gcr_base;
-> +	int ret = 0;
-> +
-> +	gcr_np = of_find_compatible_node(NULL, NULL, "nuvoton,npcm750-gcr");
-> +	if (!gcr_np) {
-> +		pr_err("no gcr device node\n");
-> +		ret = -EFAULT;
-
-EFAULT is used for bad userspace addresses, it should not be used for
-other stuff - and a missing node is certainly not a "Bad address".
-
-> +		goto out;
-> +	}
-> +	gcr_base = of_iomap(gcr_np, 0);
-> +	if (!gcr_base) {
-> +		pr_err("could not iomap gcr at: 0x%p\n", gcr_base);
-> +		ret = -EFAULT;
-
-This is more -ENOMEM.
-
-> +		goto out;
-> +	}
-> +
-> +	/* give boot ROM kernel start address. */
-> +	iowrite32(__pa_symbol(npcm7xx_secondary_startup), gcr_base +
-> +		  NPCM7XX_SCRPAD_REG);
-> +	/* make sure npcm7xx_secondary_startup is seen by all observers. */
-> +	smp_wmb();
-
-I think you mean "make sure the previous write is seen by all observers".
-However, doesn't "dsb_sev()" already do that?
-
-> +	dsb_sev();
-> +	/* make sure write buffer is drained */
-> +	mb();
-
-This looks over the top. 
-
-> +
-> +	iounmap(gcr_base);
-> +out:
-> +	return ret;
-> +}
-> +
-> +static void __init npcm7xx_smp_prepare_cpus(unsigned int max_cpus)
-> +{
-> +	struct device_node *scu_np;
-> +	void __iomem *scu_base;
-> +
-> +	scu_np = of_find_compatible_node(NULL, NULL, "arm,cortex-a9-scu");
-> +	if (!scu_np) {
-> +		pr_err("no scu device node\n");
-> +		return;
-> +	}
-> +	scu_base = of_iomap(scu_np, 0);
-> +	if (!scu_base) {
-> +		pr_err("could not iomap scu at: 0x%p\n", scu_base);
-> +		return;
-> +	}
-> +
-> +	scu_enable(scu_base);
-> +
-> +	iounmap(scu_base);
-> +}
-> +
-> +static struct smp_operations npcm7xx_smp_ops __initdata = {
-> +	.smp_prepare_cpus = npcm7xx_smp_prepare_cpus,
-> +	.smp_boot_secondary = npcm7xx_smp_boot_secondary,
+> +/**
+> + * enum jtag_xfer_mode:
+> + *
+> + * @JTAG_XFER_HW_MODE: hardware mode transfer
+> + * @JTAG_XFER_SW_MODE: software mode transfer
+> + */
+> +enum jtag_xfer_mode {
+> +	JTAG_XFER_HW_MODE,
+> +	JTAG_XFER_SW_MODE,
 > +};
 > +
-> +CPU_METHOD_OF_DECLARE(npcm7xx_smp, "nuvoton,npcm7xx-smp", &npcm7xx_smp_ops);
-> -- 
-> 2.15.0.rc0.271.g36b669edcc-goog
-> 
+> +/**
+> + * enum jtag_endstate:
+> + *
+> + * @JTAG_STATE_IDLE: JTAG state machine IDLE state
+> + * @JTAG_STATE_PAUSEIR: JTAG state machine PAUSE_IR state
+> + * @JTAG_STATE_PAUSEDR: JTAG state machine PAUSE_DR state
+> + */
+> +enum jtag_endstate {
+> +	JTAG_STATE_IDLE,
+> +	JTAG_STATE_PAUSEIR,
+> +	JTAG_STATE_PAUSEDR,
+> +};
+> +
+> +/**
+> + * enum jtag_xfer_type:
+> + *
+> + * @JTAG_SIR_XFER: SIR transfer
+> + * @JTAG_SDR_XFER: SDR transfer
+> + */
+> +enum jtag_xfer_type {
+> +	JTAG_SIR_XFER,
+> +	JTAG_SDR_XFER,
+> +};
+> +
+> +/**
+> + * enum jtag_xfer_direction:
+> + *
+> + * @JTAG_READ_XFER: read transfer
+> + * @JTAG_WRITE_XFER: write transfer
+> + */
+> +enum jtag_xfer_direction {
+> +	JTAG_READ_XFER,
+> +	JTAG_WRITE_XFER,
+> +};
+> +
+> +/**
+> + * struct jtag_run_test_idle - forces JTAG state machine to
+> + * RUN_TEST/IDLE state
+> + *
+> + * @mode: access mode
+> + * @reset: 0 - run IDLE/PAUSE from current state
+> + *         1 - go through TEST_LOGIC/RESET state before  IDLE/PAUSE
+> + * @end: completion flag
+> + * @tck: clock counter
+> + *
+> + * Structure represents interface to JTAG device for jtag idle
+> + * execution.
+> + */
+> +struct jtag_run_test_idle {
+> +	__u8	mode;
+> +	__u8	reset;
+> +	__u8	endstate;
+> +	__u8	tck;
+> +};
+> +
+> +/**
+> + * struct jtag_xfer - jtag xfer:
+> + *
+> + * @mode: access mode
+> + * @type: transfer type
+> + * @direction: xfer direction
+> + * @length: xfer bits len
+> + * @tdio : xfer data array
+> + * @endir: xfer end state
+> + *
+> + * Structure represents interface to Aspeed JTAG device for jtag sdr xfer
+> + * execution.
+> + */
+> +struct jtag_xfer {
+> +	__u8	mode;
+> +	__u8	type;
+> +	__u8	direction;
+> +	__u8	endstate;
+> +	__u32	length;
+> +	__u64	tdio;
 
--- 
-RMK's Patch system: http://www.armlinux.org.uk/developer/patches/
-FTTC broadband for 0.8mile line in suburbia: sync at 8.8Mbps down 630kbps up
-According to speedtest.net: 8.21Mbps down 510kbps up
+I don't see anything odd here that requires a compat ioctl callback, do
+you?
+
+thanks,
+
+greg k-h
