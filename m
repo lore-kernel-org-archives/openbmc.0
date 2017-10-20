@@ -1,60 +1,73 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="GG5oaoyF"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="CT6ntPpY"; dkim-atps=neutral
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yJS8J2g7jzDq5W
- for <openbmc@lists.ozlabs.org>; Sat, 21 Oct 2017 00:59:12 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 60ACC20370;
- Fri, 20 Oct 2017 09:59:10 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Fri, 20 Oct 2017 09:59:10 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=8KdXGtYVQ25QjeQUMo6msmTbmTQT0MoUtZfBhC97h8s=; b=GG5oaoyF
- Ueg2LbLJm8FS/Jww953LXgrgOYEl+r7yP98o3euR0uT3zhi0JMbkzU4DYseYGglN
- AXRQu9Iw0agRy1KCxkMoQz/lfHMNPU2r/Ke4KJjkelH7wm+8Zw/rj7wWCXhoSjDO
- szduAAq/zOwxKBcHEv/OiTDv38Cl3SnQNbQnUJ0/Ph2oj5Nl6492nVoOhwgdIaa9
- iNkVjXpGOIrc6s8cjQ1gWP8jMN+tnwOaHitXhk9QbQ5N/yv3EfluOJTvtDdlmI2H
- MYKR2AL7JW9RKagcSzPgKYGfDgQmsXBl4sx9OP8mgJK0xDH410DZRsVWps6EGnmB
- Rw3Zatu3tRo3og==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=8KdXGtYVQ25QjeQUMo6msmTbmTQT0
- MoUtZfBhC97h8s=; b=CT6ntPpYH1AbjTEK5ObtG4aOdPKw/SoE40ROVxDvvYtRc
- fjqXrCfOIzgFr2JmmmfYIhmcaw7gGKmdyaQMyL5/j5+cLgboM1LiTnyjZL5cBw6r
- 0NnWeUESbhOV5HxZS96L64Iw6KogA4aiqADX1PPxLDn00sGaeij2CsPmg8a55GM5
- JiyDrrCpyfWKttgeEEhIWaFstlLEvnah1Dgxbl7FKGbyvF8P0XQBtEfvGEJecxo/
- esuNCNciXvFr9IMJirc1i9f18HKrG+dVZUBUbweVS8wTbjaCJ6E226tYq3Ofpl/m
- 8uiYLB2Gg6PaTGqqmla4zFf2r0puD1kufxS/P4+Cw==
-X-ME-Sender: <xms:LgHqWcfgwPaqsPXqx3a5Lqci5OlJIpDtxCJjkRXq8WjnCc4Y5-dVYA>
-Received: from keelia26 (220-253-53-78.dyn.iinet.net.au [220.253.53.78])
- by mail.messagingengine.com (Postfix) with ESMTPA id E37F1247DC;
- Fri, 20 Oct 2017 09:59:08 -0400 (EDT)
-Message-ID: <1508507945.24322.56.camel@aj.id.au>
-Subject: Re: [PATCH u-boot] aspeed/timer: move static variables under
- arch_global_data
-From: Andrew Jeffery <andrew@aj.id.au>
-To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, 
- openbmc@lists.ozlabs.org
-Date: Sat, 21 Oct 2017 00:29:05 +1030
-In-Reply-To: <20171010130925.19345-1-clg@kaod.org>
-References: <20171010130925.19345-1-clg@kaod.org>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-+yiy73YkIzF6n0WJdtYI"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yJS9V3PqjzDq5W
+ for <openbmc@lists.ozlabs.org>; Sat, 21 Oct 2017 01:00:14 +1100 (AEDT)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v9KDxk5w072871
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Oct 2017 10:00:11 -0400
+Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2dqhss9s3r-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Oct 2017 10:00:10 -0400
+Received: from localhost
+ by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Fri, 20 Oct 2017 10:00:09 -0400
+Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
+ by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Fri, 20 Oct 2017 10:00:06 -0400
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
+ [9.57.199.111])
+ by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v9KE02ix57278690; Fri, 20 Oct 2017 14:00:06 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id BE3A9AC06C;
+ Fri, 20 Oct 2017 10:00:48 -0400 (EDT)
+Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
+ by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id 464D3AC041;
+ Fri, 20 Oct 2017 10:00:48 -0400 (EDT)
+Subject: Re: [PATCH linux dev-4.10] drivers: i2c: fsi: Add proper abort method
+To: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org
+Cc: "Edward A. James" <eajames@us.ibm.com>
+References: <1507840944-421-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <1508476526.24322.36.camel@aj.id.au>
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Fri, 20 Oct 2017 09:00:05 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.2.0
+MIME-Version: 1.0
+In-Reply-To: <1508476526.24322.36.camel@aj.id.au>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 17102014-0052-0000-0000-00000274BBA2
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007923; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000239; SDB=6.00933879; UDB=6.00470421; IPR=6.00714167; 
+ BA=6.00005651; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017624; XFM=3.00000015;
+ UTC=2017-10-20 14:00:07
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17102014-0053-0000-0000-000052614721
+Message-Id: <aa146f45-4778-20c2-2ba8-447cc2901081@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-10-20_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
+ definitions=main-1710200197
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -66,70 +79,143 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Oct 2017 13:59:13 -0000
+X-List-Received-Date: Fri, 20 Oct 2017 14:00:15 -0000
 
 
---=-+yiy73YkIzF6n0WJdtYI
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2017-10-10 at 15:09 +0200, C=C3=A9dric Le Goater wrote:
-> The timestamp and lastdec variables are under BSS which is a problem
-> as the timer_init() routine is called in the early init phase. Move
-> them under arch_global_data.
->=C2=A0
-> Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
+On 10/20/2017 12:15 AM, Andrew Jeffery wrote:
+> On Thu, 2017-10-12 at 15:42 -0500, Eddie James wrote:
+>> From: "Edward A. James" <eajames@us.ibm.com>
+>>   
+>> Driver wasn't cleaning up on timeout or in an error situation properly.
+>> Need to do a full reset if we fail in order to re-stablish a good state
+>> of the engine.
+>>   
+>> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+>> ---
+>>   drivers/i2c/busses/i2c-fsi.c | 259 +++++++++++++++++++++++++++++++------------
+>>   1 file changed, 191 insertions(+), 68 deletions(-)
+>>   
+>> diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
+>> index 1af9c01..6c582d8 100644
+>> --- a/drivers/i2c/busses/i2c-fsi.c
+>> +++ b/drivers/i2c/busses/i2c-fsi.c
+>> @@ -133,6 +133,11 @@
+>>   #define I2C_ESTAT_SELF_BUSY	0x00000040
+>>   #define I2C_ESTAT_VERSION	0x0000001f
+>>   
+>> +#define I2C_PORT_BUSY_RESET	0x80000000
+>> +
+>> +#define I2C_LOCAL_WAIT_TIMEOUT	2		/* jiffies */
+>> +#define I2C_ABORT_TIMEOUT	msecs_to_jiffies(100)
+>> +
+>>   struct fsi_i2c_master {
+>>   	struct fsi_device	*fsi;
+>>   	u8			fifo_size;
+>> @@ -351,22 +356,185 @@ static int fsi_i2c_read_fifo(struct fsi_i2c_port *port, struct i2c_msg *msg,
+>>   	return rc;
+>>   }
+>>   
+>> +static int fsi_i2c_reset_bus(struct fsi_i2c_master *i2c)
+>> +{
+>> +	int i, rc;
+>> +	u32 mode, dummy = 0;
+>> +
+>> +	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_MODE, &mode);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	mode |= I2C_MODE_DIAG;
+>> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	for (i = 0; i < 9; ++i) {
+>> +		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SCL, &dummy);
+>> +		if (rc)
+>> +			return rc;
+>> +
+>> +		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SCL, &dummy);
+>> +		if (rc)
+>> +			return rc;
+>> +	}
+>> +
+>> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SCL, &dummy);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SDA, &dummy);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SCL, &dummy);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SDA, &dummy);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	mode &= ~I2C_MODE_DIAG;
+>> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
+>> +
+>> +	return rc;
+>> +}
+>> +
+>> +static int fsi_i2c_reset(struct fsi_i2c_master *i2c, u16 port)
+>> +{
+>> +	int rc;
+>> +	u32 mode, stat, dummy = 0;
+>> +
+>> +	/* reset engine */
+>> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_I2C, &dummy);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	/* re-init engine */
+>> +	rc = fsi_i2c_dev_init(i2c);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_MODE, &mode);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	/* set port; default after reset is 0 */
+>> +	if (port) {
+>> +		mode = SETFIELD(I2C_MODE_PORT, mode, port);
+>> +		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
+>> +		if (rc)
+>> +			return rc;
+>> +	}
+>> +
+>> +	/* reset busy register; hw workaround */
+>> +	dummy = I2C_PORT_BUSY_RESET;
+>> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_PORT_BUSY, &dummy);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	/* force bus reset */
+>> +	rc = fsi_i2c_reset_bus(i2c);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	/* reset errors */
+>> +	dummy = 0;
+>> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_ERR, &dummy);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	/* wait for command complete */
+>> +	set_current_state(TASK_INTERRUPTIBLE);
+>> +	schedule_timeout(I2C_LOCAL_WAIT_TIMEOUT);
+> Shouldn't we use the uninterruptible state to ensure we get at least
+> I2C_LOCAL_WAIT_TIMEOUT in the face of signals?
 
-Applied to v2016.07-aspeed-openbmc.
+Good point, I'll switch that.
 
-Cheers,
+Thanks!
+Eddie
 
-Andrew
-
-> ---
->=C2=A0
-> =C2=A0Tested on AST2500 EVB
->=C2=A0
-> =C2=A0arch/arm/mach-aspeed/timer.c | 6 ++++--
-> =C2=A01 file changed, 4 insertions(+), 2 deletions(-)
->=C2=A0
-> diff --git a/arch/arm/mach-aspeed/timer.c b/arch/arm/mach-aspeed/timer.c
-> index 626f992429b6..d4a85116e80b 100644
-> --- a/arch/arm/mach-aspeed/timer.c
-> +++ b/arch/arm/mach-aspeed/timer.c
-> @@ -31,8 +31,10 @@
-> =C2=A0#define READ_CLK (*(volatile ulong *)(AST_TIMER_BASE + 0))
-> =C2=A0#define READ_TIMER (READ_CLK / CLK_PER_HZ)
-> =C2=A0
-> -static ulong timestamp;
-> -static ulong lastdec;
-> +DECLARE_GLOBAL_DATA_PTR;
-> +
-> +#define timestamp gd->arch.tbl
-> +#define lastdec gd->arch.lastinc
-> =C2=A0
-> =C2=A0int timer_init (void)
-> =C2=A0{
---=-+yiy73YkIzF6n0WJdtYI
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJZ6gEpAAoJEJ0dnzgO5LT5puEP/1eseKUF3ExA1g09PjNIcxcU
-jm8SXzvPgxk7ApBU27BEB499bJMrIUdg183lLgPe/izpt+TnfBZfJvsTM4I1L9qX
-JtzS4eDWBfk+w8dCvpmgMpKUHyCS2wjEFA+2KQ1paCTAg8OJY8xZqxIL+hrdJbkN
-HgYhGSMFElR9IjKaPnz9EtaazEqBjQ7W9NkNW1XrvbomeFm/9k5EbvaAMusd/zQB
-K8mgIjoUx24oRkW0At8Ic772oFY7USM4iN6rPGtNv1oVLgH6p/AADHIYciG5Fpf1
-WYt5b/u54ZPcLJSMyLcPVJ6djIb06Yw8F3C/pDxiih7Jvz5K6F3jAcsVrxuMuu3o
-mO2pmoMnFvnCk8XGGPcbi79rw0d2bTNThYG6nHJ6Btmjwdwj2x8xrF9qnuHcNZxl
-4YaI9yCIPVWOMsaSwfWVQ9OA9zw9KBoOUnLJLiQP/m0Z/Txmsa8mEk9aYr48r3j8
-kh5SVejVSOoWQQczZ1Fz7PCblMb8YRJdboKPTXGNA8F5LOAdsZlkkDTYsemem3DL
-E1gykqwjGjrUIuE1C+QFyzqXt3NP6htKsnz/enPba9FvhxXbZLzszV/m7yZwVfOq
-aY0W3fGebZhIeW4nSVfzB6qwxAcVHXmu4LHJKCdbzFTmxvdYxxmZmCv1dX3JzyaW
-/nuVvkEVFkT4nG5yC1lw
-=Y3im
------END PGP SIGNATURE-----
-
---=-+yiy73YkIzF6n0WJdtYI--
+>
+> Andrew
