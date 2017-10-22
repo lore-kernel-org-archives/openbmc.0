@@ -1,64 +1,71 @@
 Return-Path: <groeck7@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c00::241; helo=mail-pf0-x241.google.com;
+ (client-ip=2607:f8b0:400e:c05::242; helo=mail-pg0-x242.google.com;
  envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="r0utC/o+"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="TM8Ndz/w"; 
  dkim-atps=neutral
-Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
- [IPv6:2607:f8b0:400e:c00::241])
+Received: from mail-pg0-x242.google.com (mail-pg0-x242.google.com
+ [IPv6:2607:f8b0:400e:c05::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yKl2T40r2zDqZr;
- Mon, 23 Oct 2017 03:13:36 +1100 (AEDT)
-Received: by mail-pf0-x241.google.com with SMTP id 17so15373828pfn.12;
- Sun, 22 Oct 2017 09:13:36 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yKlDL4rX1zDqYc;
+ Mon, 23 Oct 2017 03:22:09 +1100 (AEDT)
+Received: by mail-pg0-x242.google.com with SMTP id b192so10015138pga.2;
+ Sun, 22 Oct 2017 09:22:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=YEoAkLjiVHgq18kgrTs+tlq9khcKCAlCRxYoRSXcZVc=;
- b=r0utC/o+dphop5ooGVf/PelK9SYjJPvcI4vZVLBrSuygCasieZIetkz2yQniu6z4Xd
- xJhrrFje+MYxIloyuUBa0pf6HLOSJZvevd1PXv8uIpp5P502N2ysLZRlJvOoNklRWjzn
- vjnCVi6/ihmWgbtXJOYWXR0ab98zxyX6ZzBmSm+/lWzIPh6n6RclfjI69G/lyKTl1/Ll
- bO2Jf5KmVUhcKnF//VWFiVqVRn3e7XQy08mUE0P9WpJ98YpHf4nFRzIwt3O3ggF8MnM5
- kQ1pCZ45eoFXt4cLrOzv1CQBvVshEfVoCi/SIVBdsmXJRVEYxQtA8QkxhRlVQn8dEXNM
- Yhzw==
+ h=sender:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=Pi/6WgWbu4xHbTNcdme4qRuyl4FFgDQgeiMQ+QLFJ0A=;
+ b=TM8Ndz/wcKBnBS8G3YzqSJjFjwen4L57tmhqcV3rPGeTFSGBg6OLVA/HPPeT1OW1W7
+ xMRjaTF/d1jiHsWKPdNyRF8qYBufaPjXRFHw2gxlgu+2i28qTLZVfzKq6u8kZQ2tqFwx
+ Z+rRDfg9WUcW4+X+9AVbXkKYV3Yt2Pj6JakGvUdluwpzvf3ldcn5limKfwn37Y0D/XcF
+ FSW2h6gC3GO7DBXTo9R8of9wVdosbibMMbZjT2lLSG9Cg15Xguy8N3wWjMe0pciT1rzm
+ TPdfADl8xzSbTHXMqFbqUZiNhHYZuVH8iZMg94o1vXuRxL6Q2VqWoggbzJSwjdFRPzkz
+ os0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :references:mime-version:content-disposition:in-reply-to:user-agent;
- bh=YEoAkLjiVHgq18kgrTs+tlq9khcKCAlCRxYoRSXcZVc=;
- b=e2RVfBM5fO6YcqCH/ZbFsf8NenuvU1ZC31QE/2LeGvN49y9uoJ5UJNB6JphkPE+KIX
- VsYdsXsAXhKqCBR5AB2Q9McWZ83KK1Cj9a0wd+LZn6wtqDS+b2GcSA52IGd68oiptekM
- cHcbBUusGv2UtWK6FNsMP+dkeIoWxVnnRAouaTKNsK7GkiOEZmOq6KN3Et8G3cV/QoqF
- PlhHh/Gr+rUHzbqyQqx5Fjuq/E8fSCzWxu8WDV/fr5wK3O+soScNVWC+5fFEKb0ferGG
- fRgLfYkSkB1SR1F9+fQKEUH/wmOD9c/BKXeq5C7ZmTFc2X19d8gF8DHua76BoaiMyBVv
- tNhQ==
-X-Gm-Message-State: AMCzsaUh0s6Hv9Lf32gDiGg2EdORVrZjygxdRmvMNlkn+yOt8i2NTjW6
- NVGkWhsZvTFA9VYmPQXVwkQ=
-X-Google-Smtp-Source: ABhQp+Tf5tAkQkViZPJbHU7hHcZmnJ6EwnU5Xk5qjNO/xzPoZgeHh8B3srhGHdtTaRJ8xwQyTZo1XA==
-X-Received: by 10.98.53.196 with SMTP id c187mr10769637pfa.38.1508688814769;
- Sun, 22 Oct 2017 09:13:34 -0700 (PDT)
-Received: from localhost (108-223-40-66.lightspeed.sntcca.sbcglobal.net.
- [108.223.40.66])
- by smtp.gmail.com with ESMTPSA id q2sm7456630pgp.81.2017.10.22.09.13.33
+ h=x-gm-message-state:sender:subject:to:cc:references:from:message-id
+ :date:user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=Pi/6WgWbu4xHbTNcdme4qRuyl4FFgDQgeiMQ+QLFJ0A=;
+ b=GN8QOKilCgxDlFEfSjX1NJNuNBjeyVY7BHuDTo4qPv9jkxnBrjQvEpHIjtOiDeCH+T
+ IQSUlniMzum+2+Fk2Ph0kmK0fzKwl0Qjiom6vagSZwpk54rO/MjDVWJy2vVig540gHjc
+ 9BxDIZiDAS3FnlltDzFZ6qNBXXg2RlqVmf8IpYD+ObMFjyR1dTjr01LB8p0njl65/BlH
+ eNPODkScpXOlsTb47hUHGdTAtiRlunnIXYxeft0AphWWCNs9zewKSVIpue92stCMim9u
+ b3ZRU+Aier/M5z5n/+PSGGcvwG4PGViKoX8Vvrrl30ZclqC3FQPv4gOIY5pViRjiNdUx
+ zJUA==
+X-Gm-Message-State: AMCzsaWjQXSEqxit6m8nmuOGYN1JeVujhajrjc3IES49yjw7v4yGswZw
+ 5gRidRUKPIXKU57yVQ7pqEkDVOCe
+X-Google-Smtp-Source: ABhQp+TpY49czupj4s8KNP+DMepaX5QPqCRUinVF4NVki+r13FxR5EHh5EccVvOoBnFhzkfFf1s5Uw==
+X-Received: by 10.99.4.209 with SMTP id 200mr9795374pge.123.1508689327660;
+ Sun, 22 Oct 2017 09:22:07 -0700 (PDT)
+Received: from server.roeck-us.net
+ (108-223-40-66.lightspeed.sntcca.sbcglobal.net. [108.223.40.66])
+ by smtp.gmail.com with ESMTPSA id n72sm9144400pfi.92.2017.10.22.09.22.06
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 22 Oct 2017 09:13:34 -0700 (PDT)
+ Sun, 22 Oct 2017 09:22:07 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Sun, 22 Oct 2017 09:13:33 -0700
+Subject: Re: [PATCH v2 4/4] watchdog: aspeed: Move init to arch_initcall
+To: Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>
+Cc: linux-watchdog@vger.kernel.org, Wim Van Sebroeck <wim@iguana.be>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, linux-aspeed@lists.ozlabs.org,
+ Ryan Chen <ryan_chen@aspeedtech.com>
+References: <20170920053020.6860-1-andrew@aj.id.au>
+ <20170920053020.6860-5-andrew@aj.id.au>
+ <CACPK8Xdz1iK-4bqZfmfTUYw3zDLxCniwt6LupJq5mo-CCca3XQ@mail.gmail.com>
+ <1508240158.24322.16.camel@aj.id.au>
 From: Guenter Roeck <linux@roeck-us.net>
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: linux-watchdog@vger.kernel.org, wim@iguana.be, joel@jms.id.au,
- linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-aspeed@lists.ozlabs.org, ryan_chen@aspeedtech.com
-Subject: Re: [v2,4/4] watchdog: aspeed: Move init to arch_initcall
-Message-ID: <20171022161333.GA20816@roeck-us.net>
-References: <20170920053020.6860-5-andrew@aj.id.au>
+Message-ID: <c3f1b8d1-fe4d-c68f-5f05-c4cb75912e2c@roeck-us.net>
+Date: Sun, 22 Oct 2017 09:22:05 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.4.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20170920053020.6860-5-andrew@aj.id.au>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+In-Reply-To: <1508240158.24322.16.camel@aj.id.au>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -70,49 +77,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 22 Oct 2017 16:13:38 -0000
+X-List-Received-Date: Sun, 22 Oct 2017 16:22:11 -0000
 
-On Wed, Sep 20, 2017 at 03:00:20PM +0930, Andrew Jeffery wrote:
-> Probing at device_initcall time lead to perverse cases where the
-> watchdog was probed after, say, I2C devices, which then leaves a
-> potentially running watchdog at the mercy of I2C device behaviour and
-> bus conditions.
+On 10/17/2017 04:35 AM, Andrew Jeffery wrote:
+> On Wed, 2017-09-20 at 15:43 +0930, Joel Stanley wrote:
+>>> On Wed, Sep 20, 2017 at 3:00 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+>>> Probing at device_initcall time lead to perverse cases where the
+>>> watchdog was probed after, say, I2C devices, which then leaves a
+>>> potentially running watchdog at the mercy of I2C device behaviour and
+>>> bus conditions.
+>>>
+>>> Load the watchdog driver early to ensure that the kernel is patting it
+>>> well before initialising peripherals.
+>>>
+>>> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+>>
+>> I agree that we need to make sure the watchdog driver is loaded
+>> earlier. I think this is the correct method, but I'll defer to Guenter
+>> on this one.
 > 
-> Load the watchdog driver early to ensure that the kernel is patting it
-> well before initialising peripherals.
+> Just following up on Joel's comments: Is there anything else I need to
+> address?
 > 
-> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 
-At some point we'll need to come up with a generic means to handle those
-situations. Until then, I don't have a better idea.
+No. Sorry, I have been terribly busy. Digging through patch backlog today.
 
-Reviewed-by: Guenter Roeck <linux@roeck-us.net>
-
-> ---
->  drivers/watchdog/aspeed_wdt.c | 13 ++++++++++++-
->  1 file changed, 12 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/watchdog/aspeed_wdt.c b/drivers/watchdog/aspeed_wdt.c
-> index 6c6dd3f4c48d..ca5b91e2eb92 100644
-> --- a/drivers/watchdog/aspeed_wdt.c
-> +++ b/drivers/watchdog/aspeed_wdt.c
-> @@ -316,7 +316,18 @@ static struct platform_driver aspeed_watchdog_driver = {
->  		.of_match_table = of_match_ptr(aspeed_wdt_of_table),
->  	},
->  };
-> -module_platform_driver(aspeed_watchdog_driver);
-> +
-> +static int __init aspeed_wdt_init(void)
-> +{
-> +	return platform_driver_register(&aspeed_watchdog_driver);
-> +}
-> +arch_initcall(aspeed_wdt_init);
-> +
-> +static void __exit aspeed_wdt_exit(void)
-> +{
-> +	platform_driver_unregister(&aspeed_watchdog_driver);
-> +}
-> +module_exit(aspeed_wdt_exit);
->  
->  MODULE_DESCRIPTION("Aspeed Watchdog Driver");
->  MODULE_LICENSE("GPL");
+Guenter
