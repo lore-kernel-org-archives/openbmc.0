@@ -5,50 +5,49 @@ Authentication-Results: ozlabs.org;
  envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
- header.b="Lacu0sx9"; dkim=pass (2048-bit key;
+ header.b="MLMVsstO"; dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="UDnVsKgx"; dkim-atps=neutral
+ header.b="YnFrvnDq"; dkim-atps=neutral
 Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yL5415J4yzDqYv
- for <openbmc@lists.ozlabs.org>; Mon, 23 Oct 2017 16:46:09 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yL5440lvMzDqYv
+ for <openbmc@lists.ozlabs.org>; Mon, 23 Oct 2017 16:46:12 +1100 (AEDT)
 Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id A85E920BFE
- for <openbmc@lists.ozlabs.org>; Mon, 23 Oct 2017 01:46:07 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 08D6120C9B
+ for <openbmc@lists.ozlabs.org>; Mon, 23 Oct 2017 01:46:10 -0400 (EDT)
 Received: from frontend1 ([10.202.2.160])
- by compute2.internal (MEProxy); Mon, 23 Oct 2017 01:46:07 -0400
+ by compute2.internal (MEProxy); Mon, 23 Oct 2017 01:46:10 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  mendozajonas.com; h=date:from:in-reply-to:message-id:references
- :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=c24tp/
- aX9ZnS1oGEmcBedrf6tsvLULdi1S+DNHtnvOY=; b=Lacu0sx9Z3Y0j40On9UUO/
- T301y1mm1PPour5P/sNvUMSl+L8VlNgGPbphrfEK9hzfC9KCaPO6/kCL333SHB5t
- IYXBP3tqzsl/UJS4qO7Qo2VhzbCtAyn/A94qefE2XIOuZsqNenGiEZplgaWMZjsz
- l3mVy8sVHe4rl2DHH9+08hn7ngD4jBpwuphOluyvGKK3ScbMCyfCYruT27gx67ic
- JVWRRTi+2KG4BGDWX8R04+xHbUYIz0vN0UEVrEzvaxlB3jF611/ACuin+CNKx4Nz
- 1L95yMqfe2oUtHj+5YushUbJUzDsp+LenI6P32vcSxrBjSKFGQaepZQGDgZ03HvQ
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=PU10SR
+ S18y/2WFNNso6qHntgP8NXPq3BtSqumyD5n3w=; b=MLMVsstOA9SE7baDyrBb7D
+ QW1ZKaKMLrapywrfEZHWjYWHBtR6AfbFNE8SDyabzOGPbk2xSrOAF85ZKA1lsFA3
+ aTuL+qahiBxDT3NYXLulAjwGHwxEnBMqkS/QSRMmCJi3x02gf+3ebomsgxy1Q9J5
+ Wu221L+WX14umBj56FCBpyS40C2R0faL7Nit3lE1EoySxU7IqlyTgh688TYsCT93
+ 8aWyLHc2QL7iODYoPX4mWs8fu24MVreJqOUIQjyMnzshUOrtniUX8PnWg+yjfZRl
+ mPvybeOUdZLhrOCL5NmQC2ctdUrpE8lbNdvO2QD2lk6Vm30V4rF/UXj0O6YffcfQ
  ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=date:from:in-reply-to:message-id
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=c24tp/aX9ZnS1oGEmcBedrf6tsvLULdi1S+DNHtnvOY=; b=UDnVsKgx
- xc2z9u5LRAWW8yNRbNwg0DnIfRVJkUFXulTbf4DteMIrSSPGhaEq5p7HrrNmJukT
- PsuZNL/AcONY9JMUPMcRforrtlzKiiVXqNv9AV80ArbdD4aMKC/6dEM/ZPgeMxxL
- vFI7NLb42gsmHwkRi52EaBLWMEw1Kmj1PfIEPOcbgPtHyyG8+Bc+yBIN4bDmdQPm
- cqbdFvBHLEY0bsVL01vk0/RC3Lv35AE99WRZ/4YHhnNf5wHQSNeXTA5sAgatLBK7
- rdNuIChEltwKDZQozaTjIn/C7Ttc6b84WyHh83/Ti3mPCDGtT337OoxnYsDycW+S
- XXx7fKeG92efOw==
-X-ME-Sender: <xms:H4LtWaZ3hTZV_-4ZgxXX2OXInPmK4MLzt-Ajm-y-F5fKFtLGI0EkqA>
+ fm1; bh=PU10SRS18y/2WFNNso6qHntgP8NXPq3BtSqumyD5n3w=; b=YnFrvnDq
+ 8Qs/FE2XItCGzH+o5OFa3Qrf4hs5IwZ9/JzJtJhQBeQ771Yi3IyFxLexdUczLVXx
+ PeesoSkIyzduJaVJmpvqxxqXQgMAUFmTgEgT1UGrvqDCYMqj4vHkJXlPiXDLsp2l
+ tgMEACn37w4xpbzoP8dZXhifG1Vs/Byf1IJxeNCJF6VBCgbGGXRUc5zMN6IUCI/h
+ e/AqNfacjDomhW7RYi+0EVckGcdPwRpMq9Krl9ciMDK7xgI16w4/6pVwUzvA4+vi
+ z55SzQvTgluCN6/GqdOhFE21+HUnwL02tTxJISRgjcVYWEdgN4A9yQY80LII5DQw
+ gBCWVpfNnlhwFw==
+X-ME-Sender: <xms:IYLtWY4NaTVUy8VCgfVupENCEYIQH-qt6AYAOz5xtb_K2yMeTf5uEQ>
 Received: from v4.ozlabs.ibm.com (unknown [122.99.82.10])
- by mail.messagingengine.com (Postfix) with ESMTPA id C282D7F919
- for <openbmc@lists.ozlabs.org>; Mon, 23 Oct 2017 01:46:06 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 25D507F919
+ for <openbmc@lists.ozlabs.org>; Mon, 23 Oct 2017 01:46:08 -0400 (EDT)
 From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH 1/7] Revert "net/ncsi: Don't assume last available channel
- exists"
-Date: Mon, 23 Oct 2017 16:45:51 +1100
-Message-Id: <20171023054557.29013-2-sam@mendozajonas.com>
+Subject: [PATCH 3/7] net/ncsi: Fix AEN HNCDSC packet length
+Date: Mon, 23 Oct 2017 16:45:53 +1100
+Message-Id: <20171023054557.29013-4-sam@mendozajonas.com>
 X-Mailer: git-send-email 2.14.2
 In-Reply-To: <20171023054557.29013-1-sam@mendozajonas.com>
 References: <20171023054557.29013-1-sam@mendozajonas.com>
@@ -63,53 +62,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 23 Oct 2017 05:46:10 -0000
+X-List-Received-Date: Mon, 23 Oct 2017 05:46:12 -0000
 
-This reverts commit 7fd4e7d3b4fc52cdb965e2bbd9bbb3d57cb803fc.
+Correct the value of the HNCDSC AEN packet.
+Fixes: 7a82ecf4cfb85 "net/ncsi: NCSI AEN packet handler"
 
 Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+(cherry picked from commit 6850d0f8b2542112629061808ed950b35eb982e4)
 ---
- net/ncsi/ncsi-manage.c | 21 ++++++---------------
- 1 file changed, 6 insertions(+), 15 deletions(-)
+ net/ncsi/ncsi-aen.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-index 75a97d48da8a..3cbd4328f142 100644
---- a/net/ncsi/ncsi-manage.c
-+++ b/net/ncsi/ncsi-manage.c
-@@ -1407,10 +1407,7 @@ int ncsi_vlan_rx_add_vid(struct net_device *dev, __be16 proto, u16 vid)
- 	}
+diff --git a/net/ncsi/ncsi-aen.c b/net/ncsi/ncsi-aen.c
+index 6898e7229285..f135938bf781 100644
+--- a/net/ncsi/ncsi-aen.c
++++ b/net/ncsi/ncsi-aen.c
+@@ -187,7 +187,7 @@ static struct ncsi_aen_handler {
+ } ncsi_aen_handlers[] = {
+ 	{ NCSI_PKT_AEN_LSC,    12, ncsi_aen_handler_lsc    },
+ 	{ NCSI_PKT_AEN_CR,      4, ncsi_aen_handler_cr     },
+-	{ NCSI_PKT_AEN_HNCDSC,  4, ncsi_aen_handler_hncdsc }
++	{ NCSI_PKT_AEN_HNCDSC,  8, ncsi_aen_handler_hncdsc }
+ };
  
- 	ndp = TO_NCSI_DEV_PRIV(nd);
--	if (!ndp) {
--		netdev_warn(dev, "ncsi: No ncsi_dev_priv?\n");
--		return 0;
--	}
-+	ncf = ndp->hot_channel->filters[NCSI_FILTER_VLAN];
- 
- 	/* Add the VLAN id to our internal list */
- 	list_for_each_entry_rcu(vlan, &ndp->vlan_vids, list) {
-@@ -1422,17 +1419,11 @@ int ncsi_vlan_rx_add_vid(struct net_device *dev, __be16 proto, u16 vid)
- 		}
- 	}
- 
--	if (!ndp->hot_channel) {
--		netdev_warn(dev,
--			    "ncsi: no available filter to check maximum\n");
--	} else {
--		ncf = ndp->hot_channel->filters[NCSI_FILTER_VLAN];
--		if (n_vids >= ncf->total) {
--			netdev_info(dev,
--				    "NCSI Channel supports up to %u VLAN tags but %u are already set\n",
--				    ncf->total, n_vids);
--			return -EINVAL;
--		}
-+	if (n_vids >= ncf->total) {
-+		netdev_info(dev,
-+			    "NCSI Channel supports up to %u VLAN tags but %u are already set\n",
-+			    ncf->total, n_vids);
-+		return -EINVAL;
- 	}
- 
- 	vlan = kzalloc(sizeof(*vlan), GFP_KERNEL);
+ int ncsi_aen_handler(struct ncsi_dev_priv *ndp, struct sk_buff *skb)
 -- 
 2.14.2
