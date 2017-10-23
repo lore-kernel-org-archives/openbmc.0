@@ -1,51 +1,40 @@
-Return-Path: <robh+dt@kernel.org>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=kernel.org
- (client-ip=198.145.29.99; helo=mail.kernel.org;
- envelope-from=robh+dt@kernel.org; receiver=<UNKNOWN>)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.65; helo=mga03.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yJbrr4NsRzDqKs
- for <openbmc@lists.ozlabs.org>; Sat, 21 Oct 2017 06:46:20 +1100 (AEDT)
-Received: from mail-qk0-f180.google.com (mail-qk0-f180.google.com
- [209.85.220.180])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6490D21928
- for <openbmc@lists.ozlabs.org>; Fri, 20 Oct 2017 19:46:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6490D21928
-Authentication-Results: mail.kernel.org;
- dmarc=none (p=none dis=none) header.from=kernel.org
-Authentication-Results: mail.kernel.org;
- spf=none smtp.mailfrom=robh+dt@kernel.org
-Received: by mail-qk0-f180.google.com with SMTP id k123so15672124qke.3
- for <openbmc@lists.ozlabs.org>; Fri, 20 Oct 2017 12:46:18 -0700 (PDT)
-X-Gm-Message-State: AMCzsaUsrKDd69rUNQxS3ecdFfyjKVJfSDBzvo+oVhsV6AfWKf+C1f6p
- HjIzpsOMAJsxk0zoQKZGOwFSWCwZrG0gc6B55Q==
-X-Google-Smtp-Source: ABhQp+TtAx9GgA0naGBgtmXINbRns6vUxFufDAHULt8/YlIsUvYJoaRyVvDJYBQW4Enqkc9QTbcDRKj15/6SkTuB7yI=
-X-Received: by 10.233.221.133 with SMTP id r127mr8140440qkf.205.1508528777425; 
- Fri, 20 Oct 2017 12:46:17 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yLN6F6cbCzDqZq
+ for <openbmc@lists.ozlabs.org>; Tue, 24 Oct 2017 04:04:03 +1100 (AEDT)
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 23 Oct 2017 10:03:51 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.43,424,1503385200"; 
+ d="scan'208,217";a="1028345287"
+Received: from yoojae-mobl.amr.corp.intel.com (HELO yoojaeMOBL)
+ ([10.7.153.147])
+ by orsmga003.jf.intel.com with ESMTP; 23 Oct 2017 10:03:51 -0700
+From: "Jae Hyun Yoo" <jae.hyun.yoo@linux.intel.com>
+To: <openbmc@lists.ozlabs.org>
+Cc: <james.feist@linux.intel.com>,
+	<ed.tanous@linux.intel.com>
+Subject: Re: PECI API?
+Date: Mon, 23 Oct 2017 10:03:51 -0700
+Message-ID: <001801d34c20$e670c150$b35243f0$@linux.intel.com>
 MIME-Version: 1.0
-Received: by 10.12.130.134 with HTTP; Fri, 20 Oct 2017 12:45:57 -0700 (PDT)
-In-Reply-To: <20171019225050.25410-3-brendanhiggins@google.com>
-References: <20171019225050.25410-1-brendanhiggins@google.com>
- <20171019225050.25410-3-brendanhiggins@google.com>
-From: Rob Herring <robh+dt@kernel.org>
-Date: Fri, 20 Oct 2017 14:45:57 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqJGe85FAOQwt=zJ5jOBoT-F1itnK6kmc9k34FJu=3Z=bg@mail.gmail.com>
-Message-ID: <CAL_JsqJGe85FAOQwt=zJ5jOBoT-F1itnK6kmc9k34FJu=3Z=bg@mail.gmail.com>
-Subject: Re: [PATCH v7 2/3] arm: dts: add Nuvoton NPCM750 device tree
-To: Brendan Higgins <brendanhiggins@google.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, Russell King <linux@armlinux.org.uk>,
- avifishman70@gmail.com, 
- Tomer Maimon <tmaimon77@gmail.com>, Rick Altherr <raltherr@google.com>, 
- Florian Fainelli <f.fainelli@gmail.com>, 
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/alternative;
+ boundary="----=_NextPart_000_0019_01D34BE6.3A12ACA0"
+X-Mailer: Microsoft Outlook 15.0
+Thread-Index: AdNMHpE6ogBWfvcDTkWBom18t7ws7A==
+Content-Language: en-us
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiNTFhOTY4NzctNDlmYy00MDdmLWEzYjctMTU1YmVjMWQ5ZjdjIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX0lDIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE2LjUuOS4zIiwiVHJ1c3RlZExhYmVsSGFzaCI6IjBhTjFcL3pWSTFjbVlRek1mM1NxNDFqd015MFwvY2k2b28yR28zcTgzUitzYz0ifQ==
+x-ctpclassification: CTP_IC
+dlp-product: dlpe-windows
+dlp-version: 11.0.0.116
+dlp-reaction: no-action
 X-Mailman-Approved-At: Mon, 30 Oct 2017 15:18:14 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
@@ -58,287 +47,390 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Oct 2017 19:46:21 -0000
+X-List-Received-Date: Mon, 23 Oct 2017 17:04:22 -0000
 
-On Thu, Oct 19, 2017 at 5:50 PM, Brendan Higgins
-<brendanhiggins@google.com> wrote:
-> Add a common device tree for all Nuvoton NPCM750 BMCs and a board
-> specific device tree for the NPCM750 (Poleg) evaluation board.
->
-> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
-> Reviewed-by: Tomer Maimon <tmaimon77@gmail.com>
-> Reviewed-by: Avi Fishman <avifishman70@gmail.com>
-> Reviewed-by: Joel Stanley <joel@jms.id.au>
-> Tested-by: Tomer Maimon <tmaimon77@gmail.com>
-> Tested-by: Avi Fishman <avifishman70@gmail.com>
-> ---
+This is a multipart message in MIME format.
 
-[...]
+------=_NextPart_000_0019_01D34BE6.3A12ACA0
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-> diff --git a/arch/arm/boot/dts/nuvoton-npcm750.dtsi b/arch/arm/boot/dts/nuvoton-npcm750.dtsi
-> new file mode 100644
-> index 000000000000..85506b3cdd39
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/nuvoton-npcm750.dtsi
-> @@ -0,0 +1,198 @@
-> +/*
-> + * DTSi file for the NPCM750 SoC
-> + *
-> + * Copyright 2012 Tomer Maimon <tomer.maimon@nuvoton.com>
-> + *
-> + * The code contained herein is licensed under the GNU General Public
-> + * License. You may obtain a copy of the GNU General Public License
-> + * Version 2 or later at the following locations:
-> + *
-> + * http://www.opensource.org/licenses/gpl-license.html
-> + * http://www.gnu.org/copyleft/gpl.html
-> + */
-> +
-> +#include <dt-bindings/interrupt-controller/arm-gic.h>
-> +#include <dt-bindings/clock/nuvoton,npcm7xx-clks.h>
-> +
-> +/ {
-> +       #address-cells = <1>;
-> +       #size-cells = <1>;
-> +       interrupt-parent = <&gic>;
-> +
-> +       cpus {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               enable-method = "nuvoton,npcm7xx-smp";
-> +
-> +               cpu@0 {
-> +                       device_type = "cpu";
-> +                       compatible = "arm,cortex-a9";
-> +                       clocks = <&clk NPCM7XX_CLK_CPU>;
-> +                       clock-names = "clk_cpu";
-> +                       reg = <0>;
-> +                       next-level-cache = <&l2>;
-> +               };
-> +
-> +               cpu@1 {
-> +                       device_type = "cpu";
-> +                       compatible = "arm,cortex-a9";
-> +                       clocks = <&clk NPCM7XX_CLK_CPU>;
-> +                       clock-names = "clk_cpu";
-> +                       reg = <1>;
-> +                       next-level-cache = <&l2>;
-> +               };
-> +       };
-> +
-> +/* external clock signal rg1refck, supplied by the phy */
-> +clk-rg1refck {
-> +       compatible = "fixed-clock";
-> +       #clock-cells = <0>;
-> +       clock-frequency = <125000000>;
-> +};
-> +
-> +/* external clock signal rg2refck, supplied by the phy */
-> +clk-rg2refck {
-> +       compatible = "fixed-clock";
-> +       #clock-cells = <0>;
-> +       clock-frequency = <125000000>;
-> +};
-> +
-> +clk-xin {
-> +       compatible = "fixed-clock";
-> +       #clock-cells = <0>;
-> +       clock-frequency = <50000000>;
-> +};
-> +
-> +       soc {
-> +               #address-cells = <1>;
-> +               #size-cells = <1>;
-> +               compatible = "simple-bus";
-> +               interrupt-parent = <&gic>;
-> +               ranges = <0x0 0xf0000000 0x00900000>;
-> +
-> +               gcr: gcr@f0800000 {
+Hi Dave,
 
-Should be gcr@800000. Build the dtb with W=1 and it will give you
-warnings for this.
+ 
 
-> +                       compatible = "nuvoton,npcm750-gcr", "syscon",
-> +                               "simple-mfd";
-> +                       reg = <0x800000 0x1000>;
-> +               };
-> +
-> +               scu: scu@f03fe000 {
-> +                       compatible = "arm,cortex-a9-scu";
-> +                       reg = <0x3fe000 0x1000>;
-> +               };
-> +
-> +               l2: cache-controller@f03fc000 {
-> +                       compatible = "arm,pl310-cache";
-> +                       reg = <0x3fc000 0x1000>;
-> +                       interrupts = <0 21 4>;
-> +                       cache-unified;
-> +                       cache-level = <2>;
-> +                       clocks = <&clk NPCM7XX_CLK_AXI>;
-> +               };
-> +
-> +               gic: interrupt-controller@f03ff000 {
-> +                       compatible = "arm,cortex-a9-gic";
-> +                       interrupt-controller;
-> +                       #interrupt-cells = <3>;
-> +                       reg = <0x3ff000 0x1000>,
-> +                           <0x3fe100 0x100>;
-> +               };
-> +
-> +               timer@f03fe600 {
-> +                       compatible = "arm,cortex-a9-twd-timer";
-> +                       reg = <0x3fe600 0x20>;
-> +                       interrupts = <1 13 0x304>;
-> +                       clocks = <&clk NPCM7XX_CLK_TIMER>;
-> +               };
-> +       };
-> +
-> +       ahb {
-> +               #address-cells = <1>;
-> +               #size-cells = <1>;
-> +               compatible = "simple-bus";
-> +               interrupt-parent = <&gic>;
-> +               ranges = <0x80000000 0x80000000 0x40010000
-> +                         0xe0800000 0xe0800000 0x0f800000
-> +                         0x00000000 0xf0000000 0x00900000
-> +                         0xf8000000 0xf8000000 0x02000000
-> +                         0xfb000000 0xfb000000 0x00002000>;
+I'm currently working on PECI kernel driver and hwmon driver implementation.
+The kernel driver would provide these PECI commands as ioctls:
 
-Just do "ranges;" here if all the translation is at the next level down.
+ 
 
-Sorry, it's hard to say exactly what to do without knowing the whole memory map.
+- low-level PECI xfer command
 
-> +
-> +               clk: clock-controller@f0801000 {
+- Ping()
 
-Seems like this belongs under /soc based on the address.
+- GetDIB()
 
-> +                       compatible = "nuvoton,npcm750-clk";
-> +                       #clock-cells = <1>;
-> +                       reg = <0x801000 0x1000>;
-> +                       status = "okay";
-> +               };
-> +
-> +               apb {
-> +                       #address-cells = <1>;
-> +                       #size-cells = <1>;
-> +                       compatible = "simple-bus";
-> +                       interrupt-parent = <&gic>;
-> +                       ranges = <0x0 0x0 0x00300000>;
+- GetTemp()
 
-And then this would be "<0x0 0xf0000000 0x300000>".
+- RdPkgConfig()
 
-> +
-> +                       timer0: timer@f0000000 {
-> +                               compatible = "nuvoton,npcm750-timer";
-> +                               interrupts = <0 32 4>;
-> +                               reg = <0x0 0x1000>;
-> +                               clocks = <&clk NPCM7XX_CLK_TIMER>;
-> +                       };
-> +
-> +                       watchdog0: watchdog@f0008000 {
-> +                               compatible = "nuvoton,npcm750-wdt";
-> +                               interrupts = <0 47 4>;
-> +                               reg = <0x8000 0x1000>;
-> +                               status = "disabled";
-> +                               clocks = <&clk NPCM7XX_CLK_TIMER>;
-> +                       };
-> +
-> +                       watchdog1: watchdog@f0009000 {
-> +                               compatible = "nuvoton,npcm750-wdt";
-> +                               interrupts = <0 48 4>;
-> +                               reg = <0x9000 0x1000>;
-> +                               status = "disabled";
-> +                               clocks = <&clk NPCM7XX_CLK_TIMER>;
-> +                       };
-> +
-> +                       watchdog2: watchdog@f000a000 {
-> +                               compatible = "nuvoton,npcm750-wdt";
-> +                               interrupts = <0 49 4>;
-> +                               reg = <0xa000 0x1000>;
-> +                               status = "disabled";
-> +                               clocks = <&clk NPCM7XX_CLK_TIMER>;
-> +                       };
-> +
-> +                       serial0: serial@f0001000 {
-> +                               compatible = "nuvoton,npcm750-uart";
-> +                               reg = <0x1000 0x1000>;
-> +                               clocks = <&clk NPCM7XX_CLK_UART_CORE>;
-> +                               interrupts = <0 2 4>;
-> +                               status = "disabled";
-> +                       };
-> +
-> +                       serial1: serial@f0002000 {
-> +                               compatible = "nuvoton,npcm750-uart";
-> +                               reg = <0x2000 0x1000>;
-> +                               clocks = <&clk NPCM7XX_CLK_UART_CORE>;
-> +                               interrupts = <0 3 4>;
-> +                               status = "disabled";
-> +                       };
-> +
-> +                       serial2: serial@f0003000 {
-> +                               compatible = "nuvoton,npcm750-uart";
-> +                               reg = <0x3000 0x1000>;
-> +                               clocks = <&clk NPCM7XX_CLK_UART_CORE>;
-> +                               interrupts = <0 4 4>;
-> +                               status = "disabled";
-> +                       };
-> +
-> +                       serial3: serial@f0004000 {
-> +                               compatible = "nuvoton,npcm750-uart";
-> +                               reg = <0x4000 0x1000>;
-> +                               clocks = <&clk NPCM7XX_CLK_UART_CORE>;
-> +                               interrupts = <0 5 4>;
-> +                               status = "disabled";
-> +                       };
-> +               };
-> +       };
-> +};
-> diff --git a/include/dt-bindings/clock/nuvoton,npcm7xx-clks.h b/include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
-> new file mode 100644
-> index 000000000000..c69d3bbf7e42
-> --- /dev/null
-> +++ b/include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
-> @@ -0,0 +1,39 @@
-> +/*
-> + * Copyright (C) 2016 Nuvoton Technologies,  tali.perry@nuvoton.com
-> + *
-> + * This software is licensed under the terms of the GNU General Public
-> + * License version 2, as published by the Free Software Foundation, and
-> + * may be copied, distributed, and modified under those terms.
-> + */
-> +
-> +#ifndef _DT_BINDINGS_CLK_NPCM7XX_H
-> +#define _DT_BINDINGS_CLK_NPCM7XX_H
-> +
-> +#define NPCM7XX_CLK_PLL0       0
-> +#define NPCM7XX_CLK_PLL1       1
-> +#define NPCM7XX_CLK_PLL2       2
-> +#define NPCM7XX_CLK_GFX                3
-> +#define NPCM7XX_CLK_APB1       4
-> +#define NPCM7XX_CLK_APB2       5
-> +#define NPCM7XX_CLK_APB3       6
-> +#define NPCM7XX_CLK_APB4       7
-> +#define NPCM7XX_CLK_APB5       8
-> +#define NPCM7XX_CLK_MC         9
-> +#define NPCM7XX_CLK_CPU                10
-> +#define NPCM7XX_CLK_SPI0       11
-> +#define NPCM7XX_CLK_SPI3       12
-> +#define NPCM7XX_CLK_SPIX       13
-> +#define NPCM7XX_CLK_UART_CORE  14
-> +#define NPCM7XX_CLK_TIMER      15
-> +#define NPCM7XX_CLK_HOST_UART  16
-> +#define NPCM7XX_CLK_MMC                17
-> +#define NPCM7XX_CLK_SDHC       18
-> +#define NPCM7XX_CLK_ADC                19
-> +#define NPCM7XX_CLK_GFX_MEM    20
-> +#define NPCM7XX_CLK_USB_BRIDGE 21
-> +#define NPCM7XX_CLK_AXI                22
-> +#define NPCM7XX_CLK_AHB                23
-> +#define NPCM7XX_CLK_EMC                24
-> +#define NPCM7XX_CLK_GMAC       25
-> +
-> +#endif
-> --
-> 2.15.0.rc0.271.g36b669edcc-goog
->
+- WrPkgConfig()
+
+- RdIAMSR()
+
+- RdPCIConfigLocal()
+
+- WrPCIConfigLocal()
+
+- RdPCIConfig()
+
+ 
+
+Also, through the hwmon driver, these temperature monitoring features would
+be provided:
+
+ 
+
+- Core temperature
+
+- DTS thermal margin (hysteresis)
+
+- DDR DIMM temperature
+
+- etc.
+
+ 
+
+Patches will come in to upstream when it is ready.
+
+ 
+
+Cheers,
+
+Jae
+
+
+------=_NextPart_000_0019_01D34BE6.3A12ACA0
+Content-Type: text/html;
+	charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" =
+xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
+xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
+xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta =
+http-equiv=3DContent-Type content=3D"text/html; =
+charset=3Dus-ascii"><meta name=3DGenerator content=3D"Microsoft Word 15 =
+(filtered medium)"><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:"Malgun Gothic";
+	panose-1:2 11 5 3 2 0 0 2 0 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@Malgun Gothic";
+	panose-1:2 11 5 3 2 0 0 2 0 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{mso-style-priority:34;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+/* List Definitions */
+@list l0
+	{mso-list-id:767501009;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-540353848 1242312770 67698691 67698693 67698689 =
+67698691 67698693 67698689 67698691 67698693;}
+@list l0:level1
+	{mso-level-start-at:0;
+	mso-level-number-format:bullet;
+	mso-level-text:-;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-font-family:"Malgun Gothic";
+	mso-bidi-font-family:"Times New Roman";}
+@list l0:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l0:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l0:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l0:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l0:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l0:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l0:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l0:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l1
+	{mso-list-id:1260213401;
+	mso-list-type:hybrid;
+	mso-list-template-ids:284866048 1743156354 67698691 67698693 67698689 =
+67698691 67698693 67698689 67698691 67698693;}
+@list l1:level1
+	{mso-level-start-at:0;
+	mso-level-number-format:bullet;
+	mso-level-text:-;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:.75in;
+	text-indent:-.25in;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-font-family:"Malgun Gothic";
+	mso-bidi-font-family:"Times New Roman";}
+@list l1:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:1.25in;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l1:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:1.75in;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l1:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:2.25in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l1:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:2.75in;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l1:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:3.25in;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l1:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:3.75in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l1:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:4.25in;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l1:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:4.75in;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l2
+	{mso-list-id:1624651347;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-304835850 981353770 67698691 67698693 67698689 =
+67698691 67698693 67698689 67698691 67698693;}
+@list l2:level1
+	{mso-level-start-at:0;
+	mso-level-number-format:bullet;
+	mso-level-text:-;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-font-family:"Malgun Gothic";
+	mso-bidi-font-family:"Times New Roman";}
+@list l2:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l2:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l2:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l2:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l2:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l2:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l2:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l2:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]--></head><body lang=3DEN-US =
+link=3D"#0563C1" vlink=3D"#954F72"><div class=3DWordSection1><p =
+class=3DMsoNormal>Hi Dave,<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>I&#8217;m =
+currently working on PECI kernel driver and hwmon driver implementation. =
+The kernel driver would provide these PECI commands as =
+ioctls:<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal>- low-level PECI xfer command<o:p></o:p></p><p =
+class=3DMsoNormal>- Ping()<o:p></o:p></p><p class=3DMsoNormal>- =
+GetDIB()<o:p></o:p></p><p class=3DMsoNormal>- GetTemp()<o:p></o:p></p><p =
+class=3DMsoNormal>- RdPkgConfig()<o:p></o:p></p><p class=3DMsoNormal>- =
+WrPkgConfig()<o:p></o:p></p><p class=3DMsoNormal>- =
+RdIAMSR()<o:p></o:p></p><p class=3DMsoNormal>- =
+RdPCIConfigLocal()<o:p></o:p></p><p class=3DMsoNormal>- =
+WrPCIConfigLocal()<o:p></o:p></p><p class=3DMsoNormal>- =
+RdPCIConfig()<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal>Also, through the hwmon driver, these temperature =
+monitoring features would be provided:<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>- Core =
+temperature<o:p></o:p></p><p class=3DMsoNormal>- DTS thermal margin =
+(hysteresis)<o:p></o:p></p><p class=3DMsoNormal>- DDR DIMM =
+temperature<o:p></o:p></p><p class=3DMsoNormal>- etc.<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>Patches will =
+come in to upstream when it is ready.<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal>Cheers,<o:p></o:p></p><p =
+class=3DMsoNormal>Jae<o:p></o:p></p></div></body></html>
+------=_NextPart_000_0019_01D34BE6.3A12ACA0--
