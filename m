@@ -1,59 +1,49 @@
-Return-Path: <raltherr@google.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400c:c05::22a; helo=mail-vk0-x22a.google.com;
- envelope-from=raltherr@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="UACDP8XQ"; 
- dkim-atps=neutral
-Received: from mail-vk0-x22a.google.com (mail-vk0-x22a.google.com
- [IPv6:2607:f8b0:400c:c05::22a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <ed.tanous@intel.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=134.134.136.24; helo=mga09.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yLRlD62kCzDqjm
- for <openbmc@lists.ozlabs.org>; Tue, 24 Oct 2017 06:47:51 +1100 (AEDT)
-Received: by mail-vk0-x22a.google.com with SMTP id n184so1368784vka.7
- for <openbmc@lists.ozlabs.org>; Mon, 23 Oct 2017 12:47:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=Zo2AztxQeKvePPU+UZwwPidykn+BrKW6zYzMjSYWzdQ=;
- b=UACDP8XQeTk/DnGitjZrnzCLNmltKpxMKvKS8nVS/QYI7xyQJ2sXYxWCukTC0RZsRD
- w02nWs5ko/9tf6ZUZ7x9SGYp2hAB2YRWZdxrx8sTK7rXuMH2hs9sdpnx2XJzWOhdkK7e
- VJXXuDIZtkAhxwlNnxFcrbK5F0KQTtQV9b08kjDlntxqS9u7+FE7oPyU3S14cdsRA8Do
- zVSSXMnPA9wVSWOOzCAdA4A4Z4LhIU8NTnUWiTIDk229S+inBmY5GZLraPC3l/NZaxDb
- SP+tBNXR2X44GWnx4IYeCf1Hyog+pOmxzlyi42X0QcpnOV3K6Qddy1I0k0z3Ak2XLTZ2
- a3pQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=Zo2AztxQeKvePPU+UZwwPidykn+BrKW6zYzMjSYWzdQ=;
- b=ZHcZreZSCOYEnSpqexb2SQGYRE37IelOz8VardXC9Ws6LrvIOvMvWiX8OByy+l4Lfs
- 9m8p0cwruEd0Y8QN7C3jKec41xAcLVVk4AqSXZpzgOs7c9n3NOWiZMwwz71CDDsQSthI
- TtmSjv57/xCDQkknR6JdMjh6I3dpi9lViScZUHpEgTf4tJ6TUx1HY8fccsVoSuhXKz8k
- +OorEjmMiSl9jic9GNIXh9n2OZTx8LGD/pou8RHjgRvQndEq+bRls/1OVyYFlM60FIf8
- tfat/G/XayLEkyuMmPKaaWZ8spScc/8ASSY62XY/Pd9fz/DgUswlQLo3Kc4HKUQUGgCg
- PY2w==
-X-Gm-Message-State: AMCzsaXRsbwXar/RvqWvKS0yVl719XHAmO4egKd0VQUyQhefc6AQBjzy
- eFT0RPa2eZYI3nYLsNLT830zUgthGlfws0TPCVfsDPr5
-X-Google-Smtp-Source: ABhQp+Q0bHX5R284Ww4+yIskbXyq71OT2w8jKVj4kNkMKBJ568DQVWWFaXBhmtFg3kkZjVQi0CTFHjdSO+HZUa/+GTI=
-X-Received: by 10.31.151.21 with SMTP id z21mr9938362vkd.44.1508788068382;
- Mon, 23 Oct 2017 12:47:48 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.31.70.4 with HTTP; Mon, 23 Oct 2017 12:47:47 -0700 (PDT)
-In-Reply-To: <7E9441B1E5EFFD4681F54958E82169932EAECDD8@ORSMSX105.amr.corp.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yLSYc3Dc5zDqjm
+ for <openbmc@lists.ozlabs.org>; Tue, 24 Oct 2017 07:24:35 +1100 (AEDT)
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 23 Oct 2017 13:24:32 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.43,424,1503385200"; 
+ d="scan'208,217";a="166598492"
+Received: from orsmsx109.amr.corp.intel.com ([10.22.240.7])
+ by fmsmga006.fm.intel.com with ESMTP; 23 Oct 2017 13:24:32 -0700
+Received: from orsmsx105.amr.corp.intel.com ([169.254.2.105]) by
+ ORSMSX109.amr.corp.intel.com ([169.254.11.104]) with mapi id 14.03.0319.002;
+ Mon, 23 Oct 2017 13:24:31 -0700
+From: "Tanous, Ed" <ed.tanous@intel.com>
+To: Rick Altherr <raltherr@google.com>
+CC: =?utf-8?B?RGF2aWQgTcO8bGxlciAoRUxTT0ZUIEFHKQ==?= <d.mueller@elsoft.ch>,
+ OpenBMC <openbmc@lists.ozlabs.org>
+Subject: RE: PECI API?
+Thread-Topic: PECI API?
+Thread-Index: AQHTSkvjZyYdvTj9NU2EAZyK3ScfnKLxp1rggACcPID//4+CgIAAfUKA//+Qr7A=
+Date: Mon, 23 Oct 2017 20:24:30 +0000
+Message-ID: <7E9441B1E5EFFD4681F54958E82169932EAECE2A@ORSMSX105.amr.corp.intel.com>
 References: <2971e0b7-6339-35f6-b0e3-1901020ed46a@elsoft.ch>
  <7E9441B1E5EFFD4681F54958E82169932EAECC2A@ORSMSX105.amr.corp.intel.com>
  <CAPLgG=nsq1XiJZ_86nJHYAqOHFmM6i2_=XW+Ls-2iRQsXvu2VQ@mail.gmail.com>
  <7E9441B1E5EFFD4681F54958E82169932EAECDD8@ORSMSX105.amr.corp.intel.com>
-From: Rick Altherr <raltherr@google.com>
-Date: Mon, 23 Oct 2017 12:47:47 -0700
-Message-ID: <CAPLgG=nMCiosGck5=4oQ9yRCkhgsrQ_p7-fMg=75WPTy5UL-UA@mail.gmail.com>
-Subject: Re: PECI API?
-To: "Tanous, Ed" <ed.tanous@intel.com>
-Cc: =?UTF-8?Q?David_M=C3=BCller_=28ELSOFT_AG=29?= <d.mueller@elsoft.ch>, 
- OpenBMC <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="001a1140e866dbfc46055c3c1863"
+ <CAPLgG=nMCiosGck5=4oQ9yRCkhgsrQ_p7-fMg=75WPTy5UL-UA@mail.gmail.com>
+In-Reply-To: <CAPLgG=nMCiosGck5=4oQ9yRCkhgsrQ_p7-fMg=75WPTy5UL-UA@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-version: 11.0.0.116
+dlp-reaction: request-justification,no-action
+x-originating-ip: [10.22.254.139]
+Content-Type: multipart/alternative;
+ boundary="_000_7E9441B1E5EFFD4681F54958E82169932EAECE2AORSMSX105amrcor_"
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -65,362 +55,372 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 23 Oct 2017 19:47:53 -0000
+X-List-Received-Date: Mon, 23 Oct 2017 20:24:37 -0000
 
---001a1140e866dbfc46055c3c1863
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+--_000_7E9441B1E5EFFD4681F54958E82169932EAECE2AORSMSX105amrcor_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Mon, Oct 23, 2017 at 12:39 PM, Tanous, Ed <ed.tanous@intel.com> wrote:
+DQoNCkZyb206IFJpY2sgQWx0aGVyciBbbWFpbHRvOnJhbHRoZXJyQGdvb2dsZS5jb21dDQpTZW50
+OiBNb25kYXksIE9jdG9iZXIgMjMsIDIwMTcgMTI6NDggUE0NClRvOiBUYW5vdXMsIEVkIDxlZC50
+YW5vdXNAaW50ZWwuY29tPg0KQ2M6IERhdmlkIE3DvGxsZXIgKEVMU09GVCBBRykgPGQubXVlbGxl
+ckBlbHNvZnQuY2g+OyBPcGVuQk1DIDxvcGVuYm1jQGxpc3RzLm96bGFicy5vcmc+DQpTdWJqZWN0
+OiBSZTogUEVDSSBBUEk/DQoNCg0KDQpPbiBNb24sIE9jdCAyMywgMjAxNyBhdCAxMjozOSBQTSwg
+VGFub3VzLCBFZCA8ZWQudGFub3VzQGludGVsLmNvbTxtYWlsdG86ZWQudGFub3VzQGludGVsLmNv
+bT4+IHdyb3RlOg0KDQrigJxSYXRoZXIgdGhhbiBhIFBFQ0kgQVBJLCB3b3VsZCBpdCBtYWtlIGFu
+eSBzZW5zZSB0byBkZWZpbmUgYSBhbiBhYnN0cmFjdCBjb25jZXB0IEFQSSwgd2hlcmUgb25lIGlt
+cGxlbWVudGF0aW9uIG9mIGl0IGhhcyBhIFBFQ0kgYmFja2VuZD/igJ0NCg0KSSBkb27igJl0IHRo
+aW5rIHNvLCBidXQgdGhhdOKAmXMgcGFydGlhbGx5IHdoeSBJIGFza2VkIGFib3V0IHVzZSBjYXNl
+cy4gIFBFQ0kgY2FuIGJlIHRob3VnaHQgb2YgYSBsb3QgbGlrZSBTTUJ1cywgd2l0aCBzb21lIGZh
+bmN5IHByb3RvY29sIGxldmVsIGZlYXR1cmVzIHRoYXQgbWFrZSBpdCBlYXNpZXIgdG8gaW1wbGVt
+ZW50LiAgSXTigJlzIGEgZ2VuZXJpYyBpbnRlcmZhY2UgdGhhdCBjYW4gYmUgdXNlZCBmb3IgYW55
+IG51bWJlciBvZiB0aGluZ3MsIGluY2x1ZGluZyB0ZW1wZXJhdHVyZSByZWFkaW5ncyBmcm9tIHBy
+b2Nlc3NvcnMgYW5kIG1lbW9yeS4gIE91ciBpbnRlbnRpb24gd2FzIHRvIGltcGxlbWVudCBpdCBh
+cyBhIGRldmljZSBkcml2ZXIgKC9kZXYvcGVjaSksIHdpdGggKG9uZSBvciBzZXZlcmFsKSBkYnVz
+IGRhZW1vbnMgcmVhZGluZyBhbmQgcHVzaGluZyBpbmZvcm1hdGlvbiB0byBkYnVzIHVzaW5nIHRo
+ZSBleGlzdGluZyBvcGVuYm1jIGludGVyZmFjZXMgKHNlbnNvciwgdGhyZXNob2xkLCBsb2dnaW5n
+IGVjdCkuICBUaGVyZSB3YXMgYWxzbyB0YWxrIG9mIGltcGxlbWVudGluZyBpdCBhcyBhIGh3bW9u
+IGRyaXZlciwgYnV0IEkgdGhpbmsgdGhhdCBkaXNjdXNzaW9uIHdhcyBkZWZlcnJlZCwgZ2l2ZW4g
+dGhhdCB0aGUgbnVtYmVyIG9mIOKAnHNlbnNvcnPigJ0gbmVlZHMgdG8gYmUgZGV0ZXJtaW5lZCBh
+dCBydW50aW1lLCBhbmQgdGhhdCBkaWRu4oCZdCBzZWVtIHRvIGZpdCBpbiB0aGUgaHdtb24gbW9k
+ZWwuICBUaGlzIHdvcmsgaXMgb25nb2luZywgc28gSSBkb27igJl0IGhhdmUgYSB0aW1lZnJhbWUg
+b24gY29tcGxldGlvbiBvciBpdHMgbGV2ZWwgb2Ygcm9idXN0bmVzcywgYnV0IGlmIHRoZXJl4oCZ
+cyBpbnRlcmVzdCwgSSBjYW4gcHJvYmFibHkgcHVzaCB0aGUgV0lQIHRvIGEgYnJhbmNoIG9yIGEg
+cmVwbyBzb21ld2hlcmUuDQoNCg0KaHdtb24gaGFzIEFQSXMgZm9yIGR5bmFtaWNhbGx5IGFkZGlu
+ZyBzZW5zb3JzIGF0IHJ1bnRpbWUuICBGb3IgdGVtcHMsIHZvbHRzLCBldGMsIEkgcHJlZmVyIGFu
+IGh3bW9uIGRyaXZlciBidWlsdCBhdG9wIGEgUEVDSSBzdWJzeXN0ZW0uDQoNCltFZF0gIEkgd2Fz
+IHBlcnNvbmFsbHkgdW5hd2FyZSB0aGF0IGh3bW9uIGl0c2VsZiBoYWQgdGhhdCBjYXBhYmlsaXR5
+LiAgV2UgaGFkIHByZXZpb3VzbHkgaW1wbGVtZW50ZWQgYSBkeW5hbWljYWxseSBnZW5lcmF0ZWQg
+ZGV2aWNlIHRyZWUgb3ZlcmxheSB0aGF0IGFjY29tcGxpc2hlZCBzb21lIG9mIHRoYXQgZm9yIExN
+NzUgc2Vuc29ycy4gIEkgd2lsbCBwb2ludCBteSBkZXZlbG9wZXJzIGF0IGl0Lg0K4oCcSXMgdGhl
+cmUgYSBrZXJuZWwgc3Vic3lzdGVtIGZvciBQRUNJIGRlZmluZWQgdXBzdHJlYW0/ICBJJ20gbm90
+IGF3YXJlIG9mIGEgUEVDSSBkZXZpY2UgZHJpdmVyIGZvciBBc3BlZWQgdXBzdHJlYW0u4oCdDQpJ
+IGRvbuKAmXQgYmVsaWV2ZSB0aGVyZSBpcyBvbmUgZGVmaW5lZCB1cHN0cmVhbSwgYnV0IEkgYmVs
+aWV2ZSB0aGUgZmlyc3QgcmV2aXNpb24gb2YgdGhlIGRyaXZlciBjb2RlIHdlIGFyZSB1c2luZyB3
+YXMgZGVyaXZlZCBmcm9tIHRoZSBBc3BlZWQgU0RLLg0KDQpXaGF0IGhhcHBlbnMgd2hlbiBOdXZv
+dG9uIHNlbmRzIHRoZWlyIGRyaXZlcj8NCg0KW0VkXSDigKYuLiB3ZSB3b3JrIHRvIGJ1aWxkIGEg
+Y29tbW9uIGludGVyZmFjZSB0aGF0IG1lZXRzIGV2ZXJ5b25l4oCZcyBuZWVkcywgd2hpbGUgYWJz
+dHJhY3RpbmcgdGhlIGhhcmR3YXJlIGludGVyZmFjZXMgaW50byB0aGUga2VybmVsLiAgUGFydCBv
+ZiB0aGUgaXNzdWUgd2l0aCBQRUNJIGlzIHRoZXJlIGFyZSBzb21lIHVzZXJzcGFjZSBjb25zdHJ1
+Y3RzIChyZXRyaWVzLCBmcmFtaW5nLCB0aW1pbmcsIGVjdCkgdGhhdCBhcmUgYSBwYXJ0IG9mIHRo
+ZSBQRUNJIHNwZWNpZmljYXRpb24sIGJ1dCBjb3VsZCBiZSBwdXNoZWQgdG8gZWl0aGVyIGhhcmR3
+YXJlIGFic3RyYWN0aW9ucywgb3IgdXNlcnNwYWNlIGNvZGUuICBXaGVyZSB0aGV5IGdldCBpbXBs
+ZW1lbnRlZCAoZm9yIHBsYXRmb3JtcyBJ4oCZdmUgYmVlbiBhIHBhcnQgb2YpIGhhcyB0aHVzZmFy
+IGJlZW4gYSBtYXR0ZXIgb2YgcHJlZmVyZW5jZSBvbiB0aGUgcGFydCBvZiB0aGUgZGV2ZWxvcGVy
+LiAgV2UgbGlrZWx5IHNob3VsZCBnZXQgdG9nZXRoZXIgYSBncm91cCBvZiBpbnRlcmVzdGVkIHBh
+cnRpZXMgYW5kIHNlZSBpZiB3ZSBjYW4gY29tZSB1cCB3aXRoIGFuIGludGVyZmFjZSB0aGF0IHdv
+cmtzIGZvciBldmVyeW9uZS4gIEkgaGF2ZSBub3QgeWV0IHdvcmtlZCB3aXRoIGEgTnV2b3RvbiBw
+bGF0Zm9ybSwgc28gSeKAmW0gc3VyZSBJIGhhdmUgcXVpdGUgYSBiaXQgdG8gbGVhcm4gaW4gdGhh
+dCBzcGFjZS4NCg0KLUVkDQoNCg0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTog
+b3BlbmJtYyBbbWFpbHRvOm9wZW5ibWMtYm91bmNlcytlZC50YW5vdXM8bWFpbHRvOm9wZW5ibWMt
+Ym91bmNlcyUyQmVkLnRhbm91cz49aW50ZWwuY29tQGxpc3RzLm96bGFicy5vcmc8bWFpbHRvOmlu
+dGVsLmNvbUBsaXN0cy5vemxhYnMub3JnPl0gT24gQmVoYWxmIE9mIEJyYWQgQmlzaG9wDQpTZW50
+OiBNb25kYXksIE9jdG9iZXIgMjMsIDIwMTcgMTI6MTcgUE0NClRvOiAiRGF2aWQgTcO8bGxlciAo
+RUxTT0ZUIEFHKSIgPGQubXVlbGxlckBlbHNvZnQuY2g8bWFpbHRvOmQubXVlbGxlckBlbHNvZnQu
+Y2g+Pg0KQ2M6IE9wZW5CTUMgPG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZzxtYWlsdG86b3BlbmJt
+Y0BsaXN0cy5vemxhYnMub3JnPj4NClN1YmplY3Q6IFJlOiBQRUNJIEFQST8NCg0KDQoNCg0KDQo+
+IE9uIE9jdCAyMSwgMjAxNywgYXQgNDo1NyBBTSwgRGF2aWQgTcO8bGxlciAoRUxTT0ZUIEFHKSA8
+ZC5tdWVsbGVyQGVsc29mdC5jaDxtYWlsdG86ZC5tdWVsbGVyQGVsc29mdC5jaD4+IHdyb3RlOg0K
+DQo+DQoNCj4gSGVsbG8NCg0KPg0KDQo+IElzIGFueW9uZSB3b3JraW5nIG9uIGFuIEFQSSBkZWZp
+bml0aW9uIGZvciBQRUNJPw0KDQo+DQoNCj4NCg0KPiBEYXZlDQoNCg0KDQpGdWxsIGRpc2Nsb3N1
+cmUgLSB0aGUgV2lraXBlZGlhIGFydGljbGUgaXMgdGhlIGV4dGVudCBvZiBteSBiYWNrZ3JvdW5k
+IG9uIFBFQ0kuDQoNCg0KDQpSYXRoZXIgdGhhbiBhIFBFQ0kgQVBJLCB3b3VsZCBpdCBtYWtlIGFu
+eSBzZW5zZSB0byBkZWZpbmUgYSBhbiBhYnN0cmFjdCBjb25jZXB0IEFQSSwgd2hlcmUgb25lIGlt
+cGxlbWVudGF0aW9uIG9mIGl0IGhhcyBhIFBFQ0kgYmFja2VuZD8NCg0KDQoNCk15IGN1cnNvcnkg
+Z2xhbmNlIGF0IHRoZSBXaWtpcGVkaWEgYXJ0aWNsZSBzdWdnZXN0cyBQRUNJIHByb3ZpZGVzIHRl
+bXBlcmF0dXJlIHJlYWRpbmdzIChJ4oCZbSBzdXJlIGl0IGRvZXMgbXVjaCBtb3JlKSBidXQgdGhl
+IGJhc2ljIHRob3VnaHQgcHJvY2VzcyBJ4oCZdmUgb3V0bGluZWQgd291bGQgYWxsb3cgY29udHJv
+bCBhcHBsaWNhdGlvbnMgb3IgbWV0cmljIGdhdGhlcmluZyBhcHBsaWNhdGlvbnMsIGV0YyB0byBi
+ZSByZS11c2VkIGlycmVzcGVjdGl2ZSBvZiB3aGVyZSB0aGUgZGF0YSBpcyBjb21pbmcgZnJvbS4N
+Cg0KDQoNCi1icmFkDQoNCg0KRnJvbTogUmljayBBbHRoZXJyIFttYWlsdG86cmFsdGhlcnJAZ29v
+Z2xlLmNvbTxtYWlsdG86cmFsdGhlcnJAZ29vZ2xlLmNvbT5dDQpTZW50OiBNb25kYXksIE9jdG9i
+ZXIgMjMsIDIwMTcgMTI6MDIgUE0NClRvOiBUYW5vdXMsIEVkIDxlZC50YW5vdXNAaW50ZWwuY29t
+PG1haWx0bzplZC50YW5vdXNAaW50ZWwuY29tPj4NCkNjOiBEYXZpZCBNw7xsbGVyIChFTFNPRlQg
+QUcpIDxkLm11ZWxsZXJAZWxzb2Z0LmNoPG1haWx0bzpkLm11ZWxsZXJAZWxzb2Z0LmNoPj47IE9w
+ZW5CTUMgPG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZzxtYWlsdG86b3BlbmJtY0BsaXN0cy5vemxh
+YnMub3JnPj4NClN1YmplY3Q6IFJlOiBQRUNJIEFQST8NCg0KSXMgdGhlcmUgYSBrZXJuZWwgc3Vi
+c3lzdGVtIGZvciBQRUNJIGRlZmluZWQgdXBzdHJlYW0/ICBJJ20gbm90IGF3YXJlIG9mIGEgUEVD
+SSBkZXZpY2UgZHJpdmVyIGZvciBBc3BlZWQgdXBzdHJlYW0uDQoNCk9uIE1vbiwgT2N0IDIzLCAy
+MDE3IGF0IDk6NDQgQU0sIFRhbm91cywgRWQgPGVkLnRhbm91c0BpbnRlbC5jb208bWFpbHRvOmVk
+LnRhbm91c0BpbnRlbC5jb20+PiB3cm90ZToNCldlIGhhZCBsb29rZWQgYXQgYnVpbGRpbmcgb25l
+LCBhbmQgaGFkIG9uZSBwcm90b3R5cGVkIGZvciBhIHNpbXBsZSByZWFkL3dyaXRlIGludGVyZmFj
+ZSwgYnV0IHdlIHdlcmUgb24gdGhlIGZlbmNlIGFib3V0IHdoZXRoZXIgc3VjaCBhIGxvdyBsZXZl
+bCBjb250cm9sIChQRUNJIHJlYWQvd3JpdGUpIHNob3VsZCBiZSBwdXQgb24gZGJ1cyBhdCBhbGwg
+Zm9yIHNlY3VyaXR5IHJlYXNvbnMsIGVzcGVjaWFsbHkgd2hlbiB0aGUgZHJpdmVycyByZWFkL3dy
+aXRlIEFQSSBpc24ndCB0aGF0IGRpZmZpY3VsdCB0byB1c2UuDQoNCldoYXQgYXJlIHlvdSBsb29r
+aW5nIGF0IGRvaW5nIHdpdGggaXQ/DQoNCi1FZA0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0t
+LQ0KRnJvbTogb3BlbmJtYyBbbWFpbHRvOm9wZW5ibWMtYm91bmNlcytlZC50YW5vdXM8bWFpbHRv
+Om9wZW5ibWMtYm91bmNlcyUyQmVkLnRhbm91cz49aW50ZWwuY29tQGxpc3RzLm96bGFicy5vcmc8
+bWFpbHRvOmludGVsLmNvbUBsaXN0cy5vemxhYnMub3JnPl0gT24gQmVoYWxmIE9mIERhdmlkIE3D
+vGxsZXIgKEVMU09GVCBBRykNClNlbnQ6IFNhdHVyZGF5LCBPY3RvYmVyIDIxLCAyMDE3IDE6NTcg
+QU0NClRvOiBPcGVuQk1DIDxvcGVuYm1jQGxpc3RzLm96bGFicy5vcmc8bWFpbHRvOm9wZW5ibWNA
+bGlzdHMub3psYWJzLm9yZz4+DQpTdWJqZWN0OiBQRUNJIEFQST8NCg0KSGVsbG8NCg0KSXMgYW55
+b25lIHdvcmtpbmcgb24gYW4gQVBJIGRlZmluaXRpb24gZm9yIFBFQ0k/DQoNCg0KRGF2ZQ0KDQoN
+Cg==
 
-> =E2=80=9CRather than a PECI API, would it make any sense to define a an a=
-bstract
-> concept API, where one implementation of it has a PECI backend?=E2=80=9D
->
->
->
-> I don=E2=80=99t think so, but that=E2=80=99s partially why I asked about =
-use cases.  PECI
-> can be thought of a lot like SMBus, with some fancy protocol level featur=
-es
-> that make it easier to implement.  It=E2=80=99s a generic interface that =
-can be
-> used for any number of things, including temperature readings from
-> processors and memory.  Our intention was to implement it as a device
-> driver (/dev/peci), with (one or several) dbus daemons reading and pushin=
-g
-> information to dbus using the existing openbmc interfaces (sensor,
-> threshold, logging ect).  There was also talk of implementing it as a hwm=
-on
-> driver, but I think that discussion was deferred, given that the number o=
-f
-> =E2=80=9Csensors=E2=80=9D needs to be determined at runtime, and that did=
-n=E2=80=99t seem to fit in
-> the hwmon model.  This work is ongoing, so I don=E2=80=99t have a timefra=
-me on
-> completion or its level of robustness, but if there=E2=80=99s interest, I=
- can
-> probably push the WIP to a branch or a repo somewhere.
->
->
->
+--_000_7E9441B1E5EFFD4681F54958E82169932EAECE2AORSMSX105amrcor_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-hwmon has APIs for dynamically adding sensors at runtime.  For temps,
-volts, etc, I prefer an hwmon driver built atop a PECI subsystem.
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
+PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+IkNhbWJyaWEgTWF0aCI7DQoJcGFub3NlLTE6MiA0IDUgMyA1IDQgNiAzIDIgNDt9DQpAZm9udC1m
+YWNlDQoJe2ZvbnQtZmFtaWx5OkNhbGlicmk7DQoJcGFub3NlLTE6MiAxNSA1IDIgMiAyIDQgMyAy
+IDQ7fQ0KLyogU3R5bGUgRGVmaW5pdGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5Nc29Ob3JtYWws
+IGRpdi5Nc29Ob3JtYWwNCgl7bWFyZ2luOjBpbjsNCgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJ
+Zm9udC1zaXplOjEyLjBwdDsNCglmb250LWZhbWlseToiVGltZXMgTmV3IFJvbWFuIixzZXJpZjt9
+DQphOmxpbmssIHNwYW4uTXNvSHlwZXJsaW5rDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCglj
+b2xvcjpibHVlOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0KYTp2aXNpdGVkLCBzcGFu
+Lk1zb0h5cGVybGlua0ZvbGxvd2VkDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCgljb2xvcjpw
+dXJwbGU7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQpwLm01MDM0MjY0ODU3MjU4NzQ3
+ODEwbXNvcGxhaW50ZXh0LCBsaS5tNTAzNDI2NDg1NzI1ODc0NzgxMG1zb3BsYWludGV4dCwgZGl2
+Lm01MDM0MjY0ODU3MjU4NzQ3ODEwbXNvcGxhaW50ZXh0DQoJe21zby1zdHlsZS1uYW1lOm1fNTAz
+NDI2NDg1NzI1ODc0NzgxMG1zb3BsYWludGV4dDsNCgltc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzsN
+CgltYXJnaW4tcmlnaHQ6MGluOw0KCW1zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvOw0KCW1hcmdp
+bi1sZWZ0OjBpbjsNCglmb250LXNpemU6MTIuMHB0Ow0KCWZvbnQtZmFtaWx5OiJUaW1lcyBOZXcg
+Um9tYW4iLHNlcmlmO30NCnNwYW4ubTUwMzQyNjQ4NTcyNTg3NDc4MTBob2VuemINCgl7bXNvLXN0
+eWxlLW5hbWU6bV81MDM0MjY0ODU3MjU4NzQ3ODEwaG9lbnpiO30NCnNwYW4uRW1haWxTdHlsZTE5
+DQoJe21zby1zdHlsZS10eXBlOnBlcnNvbmFsLXJlcGx5Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJp
+IixzYW5zLXNlcmlmOw0KCWNvbG9yOiMxRjQ5N0Q7fQ0KLk1zb0NocERlZmF1bHQNCgl7bXNvLXN0
+eWxlLXR5cGU6ZXhwb3J0LW9ubHk7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7
+fQ0KQHBhZ2UgV29yZFNlY3Rpb24xDQoJe3NpemU6OC41aW4gMTEuMGluOw0KCW1hcmdpbjoxLjBp
+biAxLjBpbiAxLjBpbiAxLjBpbjt9DQpkaXYuV29yZFNlY3Rpb24xDQoJe3BhZ2U6V29yZFNlY3Rp
+b24xO30NCi0tPjwvc3R5bGU+PCEtLVtpZiBndGUgbXNvIDldPjx4bWw+DQo8bzpzaGFwZWRlZmF1
+bHRzIHY6ZXh0PSJlZGl0IiBzcGlkbWF4PSIxMDI2IiAvPg0KPC94bWw+PCFbZW5kaWZdLS0+PCEt
+LVtpZiBndGUgbXNvIDldPjx4bWw+DQo8bzpzaGFwZWxheW91dCB2OmV4dD0iZWRpdCI+DQo8bzpp
+ZG1hcCB2OmV4dD0iZWRpdCIgZGF0YT0iMSIgLz4NCjwvbzpzaGFwZWxheW91dD48L3htbD48IVtl
+bmRpZl0tLT4NCjwvaGVhZD4NCjxib2R5IGxhbmc9IkVOLVVTIiBsaW5rPSJibHVlIiB2bGluaz0i
+cHVycGxlIj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0aW9uMSI+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
+Ij48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJp
+JnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+
+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7
+Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9yOiMxRjQ5N0Qi
+PjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxiPjxz
+cGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVv
+dDssc2Fucy1zZXJpZiI+RnJvbTo8L3NwYW4+PC9iPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEu
+MHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZiI+IFJpY2sgQWx0
+aGVyciBbbWFpbHRvOnJhbHRoZXJyQGdvb2dsZS5jb21dDQo8YnI+DQo8Yj5TZW50OjwvYj4gTW9u
+ZGF5LCBPY3RvYmVyIDIzLCAyMDE3IDEyOjQ4IFBNPGJyPg0KPGI+VG86PC9iPiBUYW5vdXMsIEVk
+ICZsdDtlZC50YW5vdXNAaW50ZWwuY29tJmd0Ozxicj4NCjxiPkNjOjwvYj4gRGF2aWQgTcO8bGxl
+ciAoRUxTT0ZUIEFHKSAmbHQ7ZC5tdWVsbGVyQGVsc29mdC5jaCZndDs7IE9wZW5CTUMgJmx0O29w
+ZW5ibWNAbGlzdHMub3psYWJzLm9yZyZndDs8YnI+DQo8Yj5TdWJqZWN0OjwvYj4gUmU6IFBFQ0kg
+QVBJPzxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5i
+c3A7PC9vOnA+PC9wPg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9v
+OnA+PC9wPg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9w
+Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPk9uIE1vbiwgT2N0IDIzLCAyMDE3IGF0IDEy
+OjM5IFBNLCBUYW5vdXMsIEVkICZsdDs8YSBocmVmPSJtYWlsdG86ZWQudGFub3VzQGludGVsLmNv
+bSIgdGFyZ2V0PSJfYmxhbmsiPmVkLnRhbm91c0BpbnRlbC5jb208L2E+Jmd0OyB3cm90ZTo8bzpw
+PjwvbzpwPjwvcD4NCjxibG9ja3F1b3RlIHN0eWxlPSJib3JkZXI6bm9uZTtib3JkZXItbGVmdDpz
+b2xpZCAjQ0NDQ0NDIDEuMHB0O3BhZGRpbmc6MGluIDBpbiAwaW4gNi4wcHQ7bWFyZ2luLWxlZnQ6
+NC44cHQ7bWFyZ2luLXJpZ2h0OjBpbiI+DQo8ZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJtNTAzNDI2
+NDg1NzI1ODc0NzgxMG1zb3BsYWludGV4dCI+PHNwYW4gc3R5bGU9ImNvbG9yOiMxRjQ5N0QiPuKA
+nDwvc3Bhbj5SYXRoZXIgdGhhbiBhIFBFQ0kgQVBJLCB3b3VsZCBpdCBtYWtlIGFueSBzZW5zZSB0
+byBkZWZpbmUgYSBhbiBhYnN0cmFjdCBjb25jZXB0IEFQSSwgd2hlcmUgb25lIGltcGxlbWVudGF0
+aW9uIG9mIGl0IGhhcyBhIFBFQ0kgYmFja2VuZD/igJ08bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNz
+PSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJv
+dHRvbS1hbHQ6YXV0byI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6
+JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9yOiMxRjQ5N0QiPiZuYnNwOzwvc3Bh
+bj48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2lu
+LXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0byI+PHNwYW4gc3R5bGU9ImZv
+bnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlm
+O2NvbG9yOiMxRjQ5N0QiPkkgZG9u4oCZdCB0aGluayBzbywgYnV0IHRoYXTigJlzIHBhcnRpYWxs
+eSB3aHkgSSBhc2tlZCBhYm91dCB1c2UgY2FzZXMuJm5ic3A7IFBFQ0kgY2FuIGJlIHRob3VnaHQg
+b2YgYSBsb3QgbGlrZQ0KIFNNQnVzLCB3aXRoIHNvbWUgZmFuY3kgcHJvdG9jb2wgbGV2ZWwgZmVh
+dHVyZXMgdGhhdCBtYWtlIGl0IGVhc2llciB0byBpbXBsZW1lbnQuJm5ic3A7IEl04oCZcyBhIGdl
+bmVyaWMgaW50ZXJmYWNlIHRoYXQgY2FuIGJlIHVzZWQgZm9yIGFueSBudW1iZXIgb2YgdGhpbmdz
+LCBpbmNsdWRpbmcgdGVtcGVyYXR1cmUgcmVhZGluZ3MgZnJvbSBwcm9jZXNzb3JzIGFuZCBtZW1v
+cnkuJm5ic3A7IE91ciBpbnRlbnRpb24gd2FzIHRvIGltcGxlbWVudCBpdCBhcyBhIGRldmljZQ0K
+IGRyaXZlciAoL2Rldi9wZWNpKSwgd2l0aCAob25lIG9yIHNldmVyYWwpIGRidXMgZGFlbW9ucyBy
+ZWFkaW5nIGFuZCBwdXNoaW5nIGluZm9ybWF0aW9uIHRvIGRidXMgdXNpbmcgdGhlIGV4aXN0aW5n
+IG9wZW5ibWMgaW50ZXJmYWNlcyAoc2Vuc29yLCB0aHJlc2hvbGQsIGxvZ2dpbmcgZWN0KS4mbmJz
+cDsgVGhlcmUgd2FzIGFsc28gdGFsayBvZiBpbXBsZW1lbnRpbmcgaXQgYXMgYSBod21vbiBkcml2
+ZXIsIGJ1dCBJIHRoaW5rIHRoYXQgZGlzY3Vzc2lvbiB3YXMNCiBkZWZlcnJlZCwgZ2l2ZW4gdGhh
+dCB0aGUgbnVtYmVyIG9mIOKAnHNlbnNvcnPigJ0gbmVlZHMgdG8gYmUgZGV0ZXJtaW5lZCBhdCBy
+dW50aW1lLCBhbmQgdGhhdCBkaWRu4oCZdCBzZWVtIHRvIGZpdCBpbiB0aGUgaHdtb24gbW9kZWwu
+Jm5ic3A7IFRoaXMgd29yayBpcyBvbmdvaW5nLCBzbyBJIGRvbuKAmXQgaGF2ZSBhIHRpbWVmcmFt
+ZSBvbiBjb21wbGV0aW9uIG9yIGl0cyBsZXZlbCBvZiByb2J1c3RuZXNzLCBidXQgaWYgdGhlcmXi
+gJlzIGludGVyZXN0LCBJIGNhbiBwcm9iYWJseQ0KIHB1c2ggdGhlIFdJUCB0byBhIGJyYW5jaCBv
+ciBhIHJlcG8gc29tZXdoZXJlLjwvc3Bhbj48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29O
+b3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1h
+bHQ6YXV0byI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7
+Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9yOiMxRjQ5N0QiPiZuYnNwOzwvc3Bhbj48bzpw
+PjwvbzpwPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Jsb2NrcXVvdGU+DQo8ZGl2Pg0KPHAgY2xh
+c3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBj
+bGFzcz0iTXNvTm9ybWFsIj5od21vbiBoYXMgQVBJcyBmb3IgZHluYW1pY2FsbHkgYWRkaW5nIHNl
+bnNvcnMgYXQgcnVudGltZS4mbmJzcDsgRm9yIHRlbXBzLCB2b2x0cywgZXRjLCBJIHByZWZlciBh
+biBod21vbiBkcml2ZXIgYnVpbHQgYXRvcCBhIFBFQ0kgc3Vic3lzdGVtLjxvOnA+PC9vOnA+PC9w
+Pg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+Jm5ic3A7PG86cD48L286cD48
+L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtm
+b250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+
+W0VkXSZuYnNwOyBJIHdhcyBwZXJzb25hbGx5IHVuYXdhcmUgdGhhdCBod21vbiBpdHNlbGYgaGFk
+IHRoYXQgY2FwYWJpbGl0eS4mbmJzcDsgV2UgaGFkIHByZXZpb3VzbHkgaW1wbGVtZW50ZWQgYSBk
+eW5hbWljYWxseSBnZW5lcmF0ZWQgZGV2aWNlIHRyZWUgb3ZlcmxheSB0aGF0IGFjY29tcGxpc2hl
+ZA0KIHNvbWUgb2YgdGhhdCBmb3IgTE03NSBzZW5zb3JzLiZuYnNwOyBJIHdpbGwgcG9pbnQgbXkg
+ZGV2ZWxvcGVycyBhdCBpdC48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxibG9ja3F1
+b3RlIHN0eWxlPSJib3JkZXI6bm9uZTtib3JkZXItbGVmdDpzb2xpZCAjQ0NDQ0NDIDEuMHB0O3Bh
+ZGRpbmc6MGluIDBpbiAwaW4gNi4wcHQ7bWFyZ2luLWxlZnQ6NC44cHQ7bWFyZ2luLXJpZ2h0OjBp
+biI+DQo8ZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2lu
+LXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0byI+PHNwYW4gc3R5bGU9ImZv
+bnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlm
+O2NvbG9yOiMxRjQ5N0QiPuKAnDwvc3Bhbj5JcyB0aGVyZSBhIGtlcm5lbCBzdWJzeXN0ZW0gZm9y
+IFBFQ0kgZGVmaW5lZCB1cHN0cmVhbT8mbmJzcDsgSSdtIG5vdCBhd2FyZSBvZiBhIFBFQ0kgZGV2
+aWNlIGRyaXZlcg0KIGZvciBBc3BlZWQgdXBzdHJlYW0u4oCdPG86cD48L286cD48L3A+DQo8cCBj
+bGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdp
+bi1ib3R0b20tYWx0OmF1dG8iPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFt
+aWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjojMUY0OTdEIj5JIGRvbuKA
+mXQgYmVsaWV2ZSB0aGVyZSBpcyBvbmUgZGVmaW5lZCB1cHN0cmVhbSwgYnV0IEkgYmVsaWV2ZSB0
+aGUgZmlyc3QgcmV2aXNpb24gb2YgdGhlIGRyaXZlciBjb2RlDQogd2UgYXJlIHVzaW5nIHdhcyBk
+ZXJpdmVkIGZyb20gdGhlIEFzcGVlZCBTREsuPC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+
+DQo8L2Rpdj4NCjwvYmxvY2txdW90ZT4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpw
+PiZuYnNwOzwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPldo
+YXQgaGFwcGVucyB3aGVuIE51dm90b24gc2VuZHMgdGhlaXIgZHJpdmVyPzxvOnA+PC9vOnA+PC9w
+Pg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+Jm5ic3A7PG86cD48L286cD48
+L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtm
+b250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+
+W0VkXSDigKYuLiB3ZSB3b3JrIHRvIGJ1aWxkIGEgY29tbW9uIGludGVyZmFjZSB0aGF0IG1lZXRz
+IGV2ZXJ5b25l4oCZcyBuZWVkcywgd2hpbGUgYWJzdHJhY3RpbmcgdGhlIGhhcmR3YXJlIGludGVy
+ZmFjZXMgaW50byB0aGUga2VybmVsLiZuYnNwOyBQYXJ0IG9mIHRoZSBpc3N1ZSB3aXRoIFBFQ0kN
+CiBpcyB0aGVyZSBhcmUgc29tZSB1c2Vyc3BhY2UgY29uc3RydWN0cyAocmV0cmllcywgZnJhbWlu
+ZywgdGltaW5nLCBlY3QpIHRoYXQgYXJlIGEgcGFydCBvZiB0aGUgUEVDSSBzcGVjaWZpY2F0aW9u
+LCBidXQgY291bGQgYmUgcHVzaGVkIHRvIGVpdGhlciBoYXJkd2FyZSBhYnN0cmFjdGlvbnMsIG9y
+IHVzZXJzcGFjZSBjb2RlLiZuYnNwOyBXaGVyZSB0aGV5IGdldCBpbXBsZW1lbnRlZCAoZm9yIHBs
+YXRmb3JtcyBJ4oCZdmUgYmVlbiBhIHBhcnQgb2YpIGhhcyB0aHVzZmFyDQogYmVlbiBhIG1hdHRl
+ciBvZiBwcmVmZXJlbmNlIG9uIHRoZSBwYXJ0IG9mIHRoZSBkZXZlbG9wZXIuJm5ic3A7IFdlIGxp
+a2VseSBzaG91bGQgZ2V0IHRvZ2V0aGVyIGEgZ3JvdXAgb2YgaW50ZXJlc3RlZCBwYXJ0aWVzIGFu
+ZCBzZWUgaWYgd2UgY2FuIGNvbWUgdXAgd2l0aCBhbiBpbnRlcmZhY2UgdGhhdCB3b3JrcyBmb3Ig
+ZXZlcnlvbmUuJm5ic3A7IEkgaGF2ZSBub3QgeWV0IHdvcmtlZCB3aXRoIGEgTnV2b3RvbiBwbGF0
+Zm9ybSwgc28gSeKAmW0gc3VyZSBJIGhhdmUgcXVpdGUNCiBhIGJpdCB0byBsZWFybiBpbiB0aGF0
+IHNwYWNlLjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGJsb2NrcXVvdGUgc3R5bGU9
+ImJvcmRlcjpub25lO2JvcmRlci1sZWZ0OnNvbGlkICNDQ0NDQ0MgMS4wcHQ7cGFkZGluZzowaW4g
+MGluIDBpbiA2LjBwdDttYXJnaW4tbGVmdDo0LjhwdDttYXJnaW4tcmlnaHQ6MGluIj4NCjxkaXY+
+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDph
+dXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEx
+LjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFG
+NDk3RCI+Jm5ic3A7PC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIg
+c3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRv
+Ij48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJp
+JnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+LUVkPC9zcGFuPjxvOnA+PC9vOnA+PC9w
+Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRvO21z
+by1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtm
+b250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+
+Jm5ic3A7PC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9
+Im1zby1tYXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj48c3Bh
+biBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7
+LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+Jm5ic3A7PC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0K
+PHAgY2xhc3M9Im01MDM0MjY0ODU3MjU4NzQ3ODEwbXNvcGxhaW50ZXh0Ij4tLS0tLU9yaWdpbmFs
+IE1lc3NhZ2UtLS0tLTxicj4NCkZyb206IG9wZW5ibWMgW21haWx0bzo8YSBocmVmPSJtYWlsdG86
+b3BlbmJtYy1ib3VuY2VzJTJCZWQudGFub3VzIiB0YXJnZXQ9Il9ibGFuayI+b3BlbmJtYy1ib3Vu
+Y2VzJiM0MztlZC50YW5vdXM8L2E+PTxhIGhyZWY9Im1haWx0bzppbnRlbC5jb21AbGlzdHMub3ps
+YWJzLm9yZyIgdGFyZ2V0PSJfYmxhbmsiPmludGVsLmNvbUBsaXN0cy5vemxhYnMub3JnPC9hPl0g
+T24gQmVoYWxmIE9mIEJyYWQgQmlzaG9wPGJyPg0KU2VudDogTW9uZGF5LCBPY3RvYmVyIDIzLCAy
+MDE3IDEyOjE3IFBNPGJyPg0KVG86ICZxdW90O0RhdmlkIE3DvGxsZXIgKEVMU09GVCBBRykmcXVv
+dDsgJmx0OzxhIGhyZWY9Im1haWx0bzpkLm11ZWxsZXJAZWxzb2Z0LmNoIiB0YXJnZXQ9Il9ibGFu
+ayI+ZC5tdWVsbGVyQGVsc29mdC5jaDwvYT4mZ3Q7PGJyPg0KQ2M6IE9wZW5CTUMgJmx0OzxhIGhy
+ZWY9Im1haWx0bzpvcGVuYm1jQGxpc3RzLm96bGFicy5vcmciIHRhcmdldD0iX2JsYW5rIj5vcGVu
+Ym1jQGxpc3RzLm96bGFicy5vcmc8L2E+Jmd0Ozxicj4NClN1YmplY3Q6IFJlOiBQRUNJIEFQST88
+bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJtNTAzNDI2NDg1NzI1ODc0NzgxMG1zb3BsYWludGV4
+dCI+Jm5ic3A7PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0ibTUwMzQyNjQ4NTcyNTg3NDc4MTBt
+c29wbGFpbnRleHQiPiZuYnNwOzxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Im01MDM0MjY0ODU3
+MjU4NzQ3ODEwbXNvcGxhaW50ZXh0Ij4mZ3Q7IE9uIE9jdCAyMSwgMjAxNywgYXQgNDo1NyBBTSwg
+RGF2aWQgTcO8bGxlciAoRUxTT0ZUIEFHKSAmbHQ7PGEgaHJlZj0ibWFpbHRvOmQubXVlbGxlckBl
+bHNvZnQuY2giIHRhcmdldD0iX2JsYW5rIj48c3BhbiBzdHlsZT0iY29sb3I6d2luZG93dGV4dDt0
+ZXh0LWRlY29yYXRpb246bm9uZSI+ZC5tdWVsbGVyQGVsc29mdC5jaDwvc3Bhbj48L2E+Jmd0OyB3
+cm90ZTo8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJtNTAzNDI2NDg1NzI1ODc0NzgxMG1zb3Bs
+YWludGV4dCI+Jmd0OyA8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJtNTAzNDI2NDg1NzI1ODc0
+NzgxMG1zb3BsYWludGV4dCI+Jmd0OyBIZWxsbzxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Im01
+MDM0MjY0ODU3MjU4NzQ3ODEwbXNvcGxhaW50ZXh0Ij4mZ3Q7IDxvOnA+PC9vOnA+PC9wPg0KPHAg
+Y2xhc3M9Im01MDM0MjY0ODU3MjU4NzQ3ODEwbXNvcGxhaW50ZXh0Ij4mZ3Q7IElzIGFueW9uZSB3
+b3JraW5nIG9uIGFuIEFQSSBkZWZpbml0aW9uIGZvciBQRUNJPzxvOnA+PC9vOnA+PC9wPg0KPHAg
+Y2xhc3M9Im01MDM0MjY0ODU3MjU4NzQ3ODEwbXNvcGxhaW50ZXh0Ij4mZ3Q7IDxvOnA+PC9vOnA+
+PC9wPg0KPHAgY2xhc3M9Im01MDM0MjY0ODU3MjU4NzQ3ODEwbXNvcGxhaW50ZXh0Ij4mZ3Q7IDxv
+OnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Im01MDM0MjY0ODU3MjU4NzQ3ODEwbXNvcGxhaW50ZXh0
+Ij4mZ3Q7IERhdmU8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJtNTAzNDI2NDg1NzI1ODc0Nzgx
+MG1zb3BsYWludGV4dCI+Jm5ic3A7PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0ibTUwMzQyNjQ4
+NTcyNTg3NDc4MTBtc29wbGFpbnRleHQiPkZ1bGwgZGlzY2xvc3VyZSAtIHRoZSBXaWtpcGVkaWEg
+YXJ0aWNsZSBpcyB0aGUgZXh0ZW50IG9mIG15IGJhY2tncm91bmQgb24gUEVDSS48bzpwPjwvbzpw
+PjwvcD4NCjxwIGNsYXNzPSJtNTAzNDI2NDg1NzI1ODc0NzgxMG1zb3BsYWludGV4dCI+Jm5ic3A7
+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0ibTUwMzQyNjQ4NTcyNTg3NDc4MTBtc29wbGFpbnRl
+eHQiPlJhdGhlciB0aGFuIGEgUEVDSSBBUEksIHdvdWxkIGl0IG1ha2UgYW55IHNlbnNlIHRvIGRl
+ZmluZSBhIGFuIGFic3RyYWN0IGNvbmNlcHQgQVBJLCB3aGVyZSBvbmUgaW1wbGVtZW50YXRpb24g
+b2YgaXQgaGFzIGEgUEVDSSBiYWNrZW5kPzxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Im01MDM0
+MjY0ODU3MjU4NzQ3ODEwbXNvcGxhaW50ZXh0Ij4mbmJzcDs8bzpwPjwvbzpwPjwvcD4NCjxwIGNs
+YXNzPSJtNTAzNDI2NDg1NzI1ODc0NzgxMG1zb3BsYWludGV4dCI+TXkgY3Vyc29yeSBnbGFuY2Ug
+YXQgdGhlIFdpa2lwZWRpYSBhcnRpY2xlIHN1Z2dlc3RzIFBFQ0kgcHJvdmlkZXMgdGVtcGVyYXR1
+cmUgcmVhZGluZ3MgKEnigJltIHN1cmUgaXQgZG9lcyBtdWNoIG1vcmUpIGJ1dCB0aGUgYmFzaWMg
+dGhvdWdodCBwcm9jZXNzIEnigJl2ZSBvdXRsaW5lZCB3b3VsZCBhbGxvdyBjb250cm9sIGFwcGxp
+Y2F0aW9ucyBvciBtZXRyaWMgZ2F0aGVyaW5nDQogYXBwbGljYXRpb25zLCBldGMgdG8gYmUgcmUt
+dXNlZCBpcnJlc3BlY3RpdmUgb2Ygd2hlcmUgdGhlIGRhdGEgaXMgY29taW5nIGZyb20uPG86cD48
+L286cD48L3A+DQo8cCBjbGFzcz0ibTUwMzQyNjQ4NTcyNTg3NDc4MTBtc29wbGFpbnRleHQiPiZu
+YnNwOzxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Im01MDM0MjY0ODU3MjU4NzQ3ODEwbXNvcGxh
+aW50ZXh0Ij4tYnJhZDxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9
+Im1zby1tYXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj48c3Bh
+biBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7
+LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+Jm5ic3A7PC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0K
+PHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRvO21zby1t
+YXJnaW4tYm90dG9tLWFsdDphdXRvIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250
+LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+Jm5i
+c3A7PC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1z
+by1tYXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj48Yj48c3Bh
+biBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7
+LHNhbnMtc2VyaWYiPkZyb206PC9zcGFuPjwvYj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBw
+dDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWYiPiBSaWNrIEFsdGhl
+cnIgW21haWx0bzo8YSBocmVmPSJtYWlsdG86cmFsdGhlcnJAZ29vZ2xlLmNvbSIgdGFyZ2V0PSJf
+YmxhbmsiPnJhbHRoZXJyQGdvb2dsZS5jb208L2E+XQ0KPGJyPg0KPGI+U2VudDo8L2I+IE1vbmRh
+eSwgT2N0b2JlciAyMywgMjAxNyAxMjowMiBQTTxicj4NCjxiPlRvOjwvYj4gVGFub3VzLCBFZCAm
+bHQ7PGEgaHJlZj0ibWFpbHRvOmVkLnRhbm91c0BpbnRlbC5jb20iIHRhcmdldD0iX2JsYW5rIj5l
+ZC50YW5vdXNAaW50ZWwuY29tPC9hPiZndDs8YnI+DQo8Yj5DYzo8L2I+IERhdmlkIE3DvGxsZXIg
+KEVMU09GVCBBRykgJmx0OzxhIGhyZWY9Im1haWx0bzpkLm11ZWxsZXJAZWxzb2Z0LmNoIiB0YXJn
+ZXQ9Il9ibGFuayI+ZC5tdWVsbGVyQGVsc29mdC5jaDwvYT4mZ3Q7OyBPcGVuQk1DICZsdDs8YSBo
+cmVmPSJtYWlsdG86b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnIiB0YXJnZXQ9Il9ibGFuayI+b3Bl
+bmJtY0BsaXN0cy5vemxhYnMub3JnPC9hPiZndDs8YnI+DQo8Yj5TdWJqZWN0OjwvYj4gUmU6IFBF
+Q0kgQVBJPzwvc3Bhbj48bzpwPjwvbzpwPjwvcD4NCjxkaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1z
+b05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9t
+LWFsdDphdXRvIj4mbmJzcDs8bzpwPjwvbzpwPjwvcD4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9y
+bWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0
+OmF1dG8iPklzIHRoZXJlIGEga2VybmVsIHN1YnN5c3RlbSBmb3IgUEVDSSBkZWZpbmVkIHVwc3Ry
+ZWFtPyZuYnNwOyBJJ20gbm90IGF3YXJlIG9mIGEgUEVDSSBkZXZpY2UgZHJpdmVyIGZvciBBc3Bl
+ZWQgdXBzdHJlYW0uJm5ic3A7Jm5ic3A7PG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8
+cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1h
+cmdpbi1ib3R0b20tYWx0OmF1dG8iPiZuYnNwOzxvOnA+PC9vOnA+PC9wPg0KPGRpdj4NCjxwIGNs
+YXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2lu
+LWJvdHRvbS1hbHQ6YXV0byI+T24gTW9uLCBPY3QgMjMsIDIwMTcgYXQgOTo0NCBBTSwgVGFub3Vz
+LCBFZCAmbHQ7PGEgaHJlZj0ibWFpbHRvOmVkLnRhbm91c0BpbnRlbC5jb20iIHRhcmdldD0iX2Js
+YW5rIj5lZC50YW5vdXNAaW50ZWwuY29tPC9hPiZndDsgd3JvdGU6PG86cD48L286cD48L3A+DQo8
+YmxvY2txdW90ZSBzdHlsZT0iYm9yZGVyOm5vbmU7Ym9yZGVyLWxlZnQ6c29saWQgI0NDQ0NDQyAx
+LjBwdDtwYWRkaW5nOjBpbiAwaW4gMGluIDYuMHB0O21hcmdpbi1sZWZ0OjQuOHB0O21hcmdpbi10
+b3A6NS4wcHQ7bWFyZ2luLXJpZ2h0OjBpbjttYXJnaW4tYm90dG9tOjUuMHB0Ij4NCjxwIGNsYXNz
+PSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJv
+dHRvbS1hbHQ6YXV0byI+V2UgaGFkIGxvb2tlZCBhdCBidWlsZGluZyBvbmUsIGFuZCBoYWQgb25l
+IHByb3RvdHlwZWQgZm9yIGEgc2ltcGxlIHJlYWQvd3JpdGUgaW50ZXJmYWNlLCBidXQgd2Ugd2Vy
+ZSBvbiB0aGUgZmVuY2UgYWJvdXQgd2hldGhlciBzdWNoIGEgbG93IGxldmVsIGNvbnRyb2wgKFBF
+Q0kgcmVhZC93cml0ZSkgc2hvdWxkDQogYmUgcHV0IG9uIGRidXMgYXQgYWxsIGZvciBzZWN1cml0
+eSByZWFzb25zLCBlc3BlY2lhbGx5IHdoZW4gdGhlIGRyaXZlcnMgcmVhZC93cml0ZSBBUEkgaXNu
+J3QgdGhhdCBkaWZmaWN1bHQgdG8gdXNlLjxicj4NCjxicj4NCldoYXQgYXJlIHlvdSBsb29raW5n
+IGF0IGRvaW5nIHdpdGggaXQ/PGJyPg0KPHNwYW4gc3R5bGU9ImNvbG9yOiM4ODg4ODgiPjxicj4N
+CjxzcGFuIGNsYXNzPSJtNTAzNDI2NDg1NzI1ODc0NzgxMGhvZW56YiI+LUVkPC9zcGFuPjwvc3Bh
+bj48bzpwPjwvbzpwPjwvcD4NCjxkaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5
+bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj48
+YnI+DQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLTxicj4NCkZyb206IG9wZW5ibWMgW21haWx0
+bzo8YSBocmVmPSJtYWlsdG86b3BlbmJtYy1ib3VuY2VzJTJCZWQudGFub3VzIiB0YXJnZXQ9Il9i
+bGFuayI+b3BlbmJtYy1ib3VuY2VzJiM0MztlZC50YW5vdXM8L2E+PTxhIGhyZWY9Im1haWx0bzpp
+bnRlbC5jb21AbGlzdHMub3psYWJzLm9yZyIgdGFyZ2V0PSJfYmxhbmsiPmludGVsLmNvbUBsaXN0
+cy5vemxhYnMub3JnPC9hPl0gT24gQmVoYWxmIE9mIERhdmlkIE3DvGxsZXIgKEVMU09GVCBBRyk8
+YnI+DQpTZW50OiBTYXR1cmRheSwgT2N0b2JlciAyMSwgMjAxNyAxOjU3IEFNPGJyPg0KVG86IE9w
+ZW5CTUMgJmx0OzxhIGhyZWY9Im1haWx0bzpvcGVuYm1jQGxpc3RzLm96bGFicy5vcmciIHRhcmdl
+dD0iX2JsYW5rIj5vcGVuYm1jQGxpc3RzLm96bGFicy5vcmc8L2E+Jmd0Ozxicj4NClN1YmplY3Q6
+IFBFQ0kgQVBJPzxicj4NCjxicj4NCkhlbGxvPGJyPg0KPGJyPg0KSXMgYW55b25lIHdvcmtpbmcg
+b24gYW4gQVBJIGRlZmluaXRpb24gZm9yIFBFQ0k/PGJyPg0KPGJyPg0KPGJyPg0KRGF2ZTxvOnA+
+PC9vOnA+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvYmxvY2txdW90ZT4NCjwvZGl2Pg0KPHAgY2xh
+c3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4t
+Ym90dG9tLWFsdDphdXRvIj4mbmJzcDs8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8
+L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Jsb2NrcXVvdGU+DQo8L2Rpdj4NCjxwIGNsYXNzPSJN
+c29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0K
+PC9ib2R5Pg0KPC9odG1sPg0K
 
-
-> =E2=80=9CIs there a kernel subsystem for PECI defined upstream?  I'm not =
-aware of
-> a PECI device driver for Aspeed upstream.=E2=80=9D
->
-> I don=E2=80=99t believe there is one defined upstream, but I believe the =
-first
-> revision of the driver code we are using was derived from the Aspeed SDK.
->
-
-What happens when Nuvoton sends their driver?
-
-
->
->
-> -Ed
->
->
->
->
->
-> -----Original Message-----
-> From: openbmc [mailto:openbmc-bounces+ed.tanous=3Dintel.com@lists.ozlabs.=
-org]
-> On Behalf Of Brad Bishop
-> Sent: Monday, October 23, 2017 12:17 PM
-> To: "David M=C3=BCller (ELSOFT AG)" <d.mueller@elsoft.ch>
-> Cc: OpenBMC <openbmc@lists.ozlabs.org>
-> Subject: Re: PECI API?
->
->
->
->
->
-> > On Oct 21, 2017, at 4:57 AM, David M=C3=BCller (ELSOFT AG) <
-> d.mueller@elsoft.ch> wrote:
->
-> >
->
-> > Hello
->
-> >
->
-> > Is anyone working on an API definition for PECI?
->
-> >
->
-> >
->
-> > Dave
->
->
->
-> Full disclosure - the Wikipedia article is the extent of my background on
-> PECI.
->
->
->
-> Rather than a PECI API, would it make any sense to define a an abstract
-> concept API, where one implementation of it has a PECI backend?
->
->
->
-> My cursory glance at the Wikipedia article suggests PECI provides
-> temperature readings (I=E2=80=99m sure it does much more) but the basic t=
-hought
-> process I=E2=80=99ve outlined would allow control applications or metric =
-gathering
-> applications, etc to be re-used irrespective of where the data is coming
-> from.
->
->
->
-> -brad
->
->
->
->
->
-> *From:* Rick Altherr [mailto:raltherr@google.com]
-> *Sent:* Monday, October 23, 2017 12:02 PM
-> *To:* Tanous, Ed <ed.tanous@intel.com>
-> *Cc:* David M=C3=BCller (ELSOFT AG) <d.mueller@elsoft.ch>; OpenBMC <
-> openbmc@lists.ozlabs.org>
-> *Subject:* Re: PECI API?
->
->
->
-> Is there a kernel subsystem for PECI defined upstream?  I'm not aware of =
-a
-> PECI device driver for Aspeed upstream.
->
->
->
-> On Mon, Oct 23, 2017 at 9:44 AM, Tanous, Ed <ed.tanous@intel.com> wrote:
->
-> We had looked at building one, and had one prototyped for a simple
-> read/write interface, but we were on the fence about whether such a low
-> level control (PECI read/write) should be put on dbus at all for security
-> reasons, especially when the drivers read/write API isn't that difficult =
-to
-> use.
->
-> What are you looking at doing with it?
->
-> -Ed
->
->
-> -----Original Message-----
-> From: openbmc [mailto:openbmc-bounces+ed.tanous=3Dintel.com@lists.ozlabs.=
-org]
-> On Behalf Of David M=C3=BCller (ELSOFT AG)
-> Sent: Saturday, October 21, 2017 1:57 AM
-> To: OpenBMC <openbmc@lists.ozlabs.org>
-> Subject: PECI API?
->
-> Hello
->
-> Is anyone working on an API definition for PECI?
->
->
-> Dave
->
->
->
-
---001a1140e866dbfc46055c3c1863
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><br><div class=3D"gmail_extra"><br><div class=3D"gmail_quo=
-te">On Mon, Oct 23, 2017 at 12:39 PM, Tanous, Ed <span dir=3D"ltr">&lt;<a h=
-ref=3D"mailto:ed.tanous@intel.com" target=3D"_blank">ed.tanous@intel.com</a=
->&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 =
-0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-
-
-
-
-
-<div lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
-<div class=3D"m_5034264857258747810WordSection1">
-<p class=3D"m_5034264857258747810MsoPlainText"><span style=3D"color:#1f497d=
-">=E2=80=9C</span>Rather than a PECI API, would it make any sense to define=
- a an abstract concept API, where one implementation of it has a PECI backe=
-nd?=E2=80=9D<u></u><u></u></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1f497d"><u></u>=C2=A0<u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1f497d">I don=E2=80=99t think so, but that=E2=
-=80=99s partially why I asked about use cases.=C2=A0 PECI can be thought of=
- a lot like SMBus, with some fancy protocol level features that make
- it easier to implement.=C2=A0 It=E2=80=99s a generic interface that can be=
- used for any number of things, including temperature readings from process=
-ors and memory.=C2=A0 Our intention was to implement it as a device driver =
-(/dev/peci), with (one or several) dbus daemons reading
- and pushing information to dbus using the existing openbmc interfaces (sen=
-sor, threshold, logging ect).=C2=A0 There was also talk of implementing it =
-as a hwmon driver, but I think that discussion was deferred, given that the=
- number of =E2=80=9Csensors=E2=80=9D needs to be determined
- at runtime, and that didn=E2=80=99t seem to fit in the hwmon model.=C2=A0 =
-This work is ongoing, so I don=E2=80=99t have a timeframe on completion or =
-its level of robustness, but if there=E2=80=99s interest, I can probably pu=
-sh the WIP to a branch or a repo somewhere.<u></u><u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1f497d"><u></u>=C2=A0</span></p></div></div><=
-/blockquote><div><br></div><div>hwmon has APIs for dynamically adding senso=
-rs at runtime.=C2=A0 For temps, volts, etc, I prefer an hwmon driver built =
-atop a PECI subsystem.</div><div>=C2=A0</div><blockquote class=3D"gmail_quo=
-te" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"=
-><div lang=3D"EN-US" link=3D"blue" vlink=3D"purple"><div class=3D"m_5034264=
-857258747810WordSection1"><p class=3D"MsoNormal"><span style=3D"font-size:1=
-1.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1f497d"><u></u></sp=
-an></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1f497d">=E2=80=9C</span>Is there a kernel sub=
-system for PECI defined upstream?=C2=A0 I&#39;m not aware of a PECI device =
-driver for Aspeed upstream.=E2=80=9D<u></u><u></u></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1f497d">I don=E2=80=99t believe there is one =
-defined upstream, but I believe the first revision of the driver code we ar=
-e using was derived from the Aspeed SDK.</span></p></div></div></blockquote=
-><div><br></div><div>What happens when Nuvoton sends their driver?</div><di=
-v>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;=
-border-left:1px #ccc solid;padding-left:1ex"><div lang=3D"EN-US" link=3D"bl=
-ue" vlink=3D"purple"><div class=3D"m_5034264857258747810WordSection1"><p cl=
-ass=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Calibri=
-&quot;,sans-serif;color:#1f497d"><u></u><u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1f497d"><u></u>=C2=A0<u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1f497d">-Ed<u></u><u></u></span></p><span cla=
-ss=3D"">
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1f497d"><u></u>=C2=A0<u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1f497d"><u></u>=C2=A0<u></u></span></p>
-<p class=3D"m_5034264857258747810MsoPlainText">-----Original Message-----<b=
-r>
-From: openbmc [mailto:<a href=3D"mailto:openbmc-bounces%2Bed.tanous" target=
-=3D"_blank">openbmc-bounces+ed.<wbr>tanous</a>=3D<a href=3D"mailto:intel.co=
-m@lists.ozlabs.org" target=3D"_blank">intel.com@lists.ozlabs.<wbr>org</a>] =
-On Behalf Of Brad Bishop<br>
-Sent: Monday, October 23, 2017 12:17 PM<br>
-To: &quot;David M=C3=BCller (ELSOFT AG)&quot; &lt;<a href=3D"mailto:d.muell=
-er@elsoft.ch" target=3D"_blank">d.mueller@elsoft.ch</a>&gt;<br>
-Cc: OpenBMC &lt;<a href=3D"mailto:openbmc@lists.ozlabs.org" target=3D"_blan=
-k">openbmc@lists.ozlabs.org</a>&gt;<br>
-Subject: Re: PECI API?<u></u><u></u></p>
-<p class=3D"m_5034264857258747810MsoPlainText"><u></u>=C2=A0<u></u></p>
-<p class=3D"m_5034264857258747810MsoPlainText"><u></u>=C2=A0<u></u></p>
-<p class=3D"m_5034264857258747810MsoPlainText">&gt; On Oct 21, 2017, at 4:5=
-7 AM, David M=C3=BCller (ELSOFT AG) &lt;<a href=3D"mailto:d.mueller@elsoft.=
-ch" target=3D"_blank"><span style=3D"color:windowtext;text-decoration:none"=
->d.mueller@elsoft.ch</span></a>&gt; wrote:<u></u><u></u></p>
-<p class=3D"m_5034264857258747810MsoPlainText">&gt; <u></u><u></u></p>
-</span><span class=3D""><p class=3D"m_5034264857258747810MsoPlainText">&gt;=
- Hello<u></u><u></u></p>
-<p class=3D"m_5034264857258747810MsoPlainText">&gt; <u></u><u></u></p>
-<p class=3D"m_5034264857258747810MsoPlainText">&gt; Is anyone working on an=
- API definition for PECI?<u></u><u></u></p>
-<p class=3D"m_5034264857258747810MsoPlainText">&gt; <u></u><u></u></p>
-<p class=3D"m_5034264857258747810MsoPlainText">&gt; <u></u><u></u></p>
-<p class=3D"m_5034264857258747810MsoPlainText">&gt; Dave<u></u><u></u></p>
-<p class=3D"m_5034264857258747810MsoPlainText"><u></u>=C2=A0<u></u></p>
-</span><p class=3D"m_5034264857258747810MsoPlainText">Full disclosure - the=
- Wikipedia article is the extent of my background on PECI.<u></u><u></u></p=
-><span class=3D"">
-<p class=3D"m_5034264857258747810MsoPlainText"><u></u>=C2=A0<u></u></p>
-<p class=3D"m_5034264857258747810MsoPlainText">Rather than a PECI API, woul=
-d it make any sense to define a an abstract concept API, where one implemen=
-tation of it has a PECI backend?<u></u><u></u></p>
-<p class=3D"m_5034264857258747810MsoPlainText"><u></u>=C2=A0<u></u></p>
-<p class=3D"m_5034264857258747810MsoPlainText">My cursory glance at the Wik=
-ipedia article suggests PECI provides temperature readings (I=E2=80=99m sur=
-e it does much more) but the basic thought process I=E2=80=99ve outlined wo=
-uld allow control applications or metric gathering applications, etc to
- be re-used irrespective of where the data is coming from.<u></u><u></u></p=
->
-<p class=3D"m_5034264857258747810MsoPlainText"><u></u>=C2=A0<u></u></p>
-<p class=3D"m_5034264857258747810MsoPlainText">-brad<u></u><u></u></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1f497d"><u></u>=C2=A0<u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1f497d"><u></u>=C2=A0<u></u></span></p>
-</span><p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-famil=
-y:&quot;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:=
-11.0pt;font-family:&quot;Calibri&quot;,sans-serif"> Rick Altherr [mailto:<a=
- href=3D"mailto:raltherr@google.com" target=3D"_blank">raltherr@google.com<=
-/a>]
-<br>
-<b>Sent:</b> Monday, October 23, 2017 12:02 PM<br>
-<b>To:</b> Tanous, Ed &lt;<a href=3D"mailto:ed.tanous@intel.com" target=3D"=
-_blank">ed.tanous@intel.com</a>&gt;<br>
-<b>Cc:</b> David M=C3=BCller (ELSOFT AG) &lt;<a href=3D"mailto:d.mueller@el=
-soft.ch" target=3D"_blank">d.mueller@elsoft.ch</a>&gt;; OpenBMC &lt;<a href=
-=3D"mailto:openbmc@lists.ozlabs.org" target=3D"_blank">openbmc@lists.ozlabs=
-.org</a>&gt;<br>
-<b>Subject:</b> Re: PECI API?<u></u><u></u></span></p><div><div class=3D"h5=
-">
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div>
-<p class=3D"MsoNormal">Is there a kernel subsystem for PECI defined upstrea=
-m?=C2=A0 I&#39;m not aware of a PECI device driver for Aspeed upstream.=C2=
-=A0=C2=A0<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div>
-<p class=3D"MsoNormal">On Mon, Oct 23, 2017 at 9:44 AM, Tanous, Ed &lt;<a h=
-ref=3D"mailto:ed.tanous@intel.com" target=3D"_blank">ed.tanous@intel.com</a=
->&gt; wrote:<u></u><u></u></p>
-<blockquote style=3D"border:none;border-left:solid #cccccc 1.0pt;padding:0i=
-n 0in 0in 6.0pt;margin-left:4.8pt;margin-top:5.0pt;margin-right:0in;margin-=
-bottom:5.0pt">
-<p class=3D"MsoNormal">We had looked at building one, and had one prototype=
-d for a simple read/write interface, but we were on the fence about whether=
- such a low level control (PECI read/write) should be put on dbus at all fo=
-r security reasons, especially when
- the drivers read/write API isn&#39;t that difficult to use.<br>
-<br>
-What are you looking at doing with it?<br>
-<span style=3D"color:#888888"><br>
-<span class=3D"m_5034264857258747810hoenzb">-Ed</span></span><u></u><u></u>=
-</p>
-<div>
-<div>
-<p class=3D"MsoNormal"><br>
------Original Message-----<br>
-From: openbmc [mailto:<a href=3D"mailto:openbmc-bounces%2Bed.tanous" target=
-=3D"_blank">openbmc-bounces+ed.<wbr>tanous</a>=3D<a href=3D"mailto:intel.co=
-m@lists.ozlabs.org" target=3D"_blank">intel.com@lists.ozlabs.<wbr>org</a>] =
-On Behalf Of David M=C3=BCller (ELSOFT AG)<br>
-Sent: Saturday, October 21, 2017 1:57 AM<br>
-To: OpenBMC &lt;<a href=3D"mailto:openbmc@lists.ozlabs.org" target=3D"_blan=
-k">openbmc@lists.ozlabs.org</a>&gt;<br>
-Subject: PECI API?<br>
-<br>
-Hello<br>
-<br>
-Is anyone working on an API definition for PECI?<br>
-<br>
-<br>
-Dave<u></u><u></u></p>
-</div>
-</div>
-</blockquote>
-</div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-</div></div></div>
-</div>
-
-</blockquote></div><br></div></div>
-
---001a1140e866dbfc46055c3c1863--
+--_000_7E9441B1E5EFFD4681F54958E82169932EAECE2AORSMSX105amrcor_--
