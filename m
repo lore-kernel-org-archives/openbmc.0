@@ -1,40 +1,67 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.65; helo=mga03.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+Return-Path: <ckeepax@opensource.cirrus.com>
+Authentication-Results: ozlabs.org; spf=none (mailfrom)
+ smtp.mailfrom=opensource.cirrus.com (client-ip=67.231.149.25;
+ helo=mx0b-001ae601.pphosted.com; envelope-from=ckeepax@opensource.cirrus.com;
+ receiver=<UNKNOWN>)
+X-Greylist: delayed 1627 seconds by postgrey-1.36 at bilbo;
+ Wed, 25 Oct 2017 19:39:16 AEDT
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yLN6F6cbCzDqZq
- for <openbmc@lists.ozlabs.org>; Tue, 24 Oct 2017 04:04:03 +1100 (AEDT)
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2017 10:03:51 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.43,424,1503385200"; 
- d="scan'208,217";a="1028345287"
-Received: from yoojae-mobl.amr.corp.intel.com (HELO yoojaeMOBL)
- ([10.7.153.147])
- by orsmga003.jf.intel.com with ESMTP; 23 Oct 2017 10:03:51 -0700
-From: "Jae Hyun Yoo" <jae.hyun.yoo@linux.intel.com>
-To: <openbmc@lists.ozlabs.org>
-Cc: <james.feist@linux.intel.com>,
-	<ed.tanous@linux.intel.com>
-Subject: Re: PECI API?
-Date: Mon, 23 Oct 2017 10:03:51 -0700
-Message-ID: <001801d34c20$e670c150$b35243f0$@linux.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yMNpr4xqfzDqlT;
+ Wed, 25 Oct 2017 19:39:16 +1100 (AEDT)
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v9P84FTa023105; Wed, 25 Oct 2017 03:11:45 -0500
+Authentication-Results: ppops.net;
+ spf=none smtp.mailfrom=ckeepax@opensource.cirrus.com
+Received: from mail1.cirrus.com (mail1.cirrus.com [141.131.3.20])
+ by mx0a-001ae601.pphosted.com with ESMTP id 2dr3n01m81-1;
+ Wed, 25 Oct 2017 03:11:45 -0500
+Received: from EX17.ad.cirrus.com (unknown [172.20.9.81])
+ by mail1.cirrus.com (Postfix) with ESMTP id 01C3C611E12B;
+ Wed, 25 Oct 2017 03:11:45 -0500 (CDT)
+Received: from imbe.wolfsonmicro.main (198.61.95.81) by EX17.ad.cirrus.com
+ (172.20.9.81) with Microsoft SMTP Server id 14.3.301.0; Wed, 25 Oct 2017
+ 09:11:44 +0100
+Received: from localhost.localdomain (algalon.ad.cirrus.com [198.90.223.36])
+ by imbe.wolfsonmicro.main (8.14.4/8.14.4) with ESMTP id v9P8BfFV023336;	Wed,
+ 25 Oct 2017 09:11:41 +0100
+Date: Wed, 25 Oct 2017 09:11:41 +0100
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Andrew Jeffery <andrew@aj.id.au>
+CC: Linus Walleij <linus.walleij@linaro.org>, Bartosz Golaszewski
+ <bgolaszewski@baylibre.com>, Michael Welling <mwelling@emacinc.com>,
+ "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>, Joel Stanley <joel@jms.id.au>, Ryan Chen
+ <ryan_chen@aspeedtech.com>, Rob Herring <robh+dt@kernel.org>, Frank Rowand
+ <frowand.list@gmail.com>, Charles Keepax
+ <ckeepax@opensource.wolfsonmicro.com>, Laxman Dewangan
+ <ldewangan@nvidia.com>, "linux-doc@vger.kernel.org"
+ <linux-doc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>, <linux-aspeed@lists.ozlabs.org>
+Subject: Re: [RFC PATCH 1/5] gpio: gpiolib: Add core support for maintaining
+ GPIO values on reset
+Message-ID: <20171025081141.uczvbfstmt3jcisw@localhost.localdomain>
+References: <20171020033727.21557-1-andrew@aj.id.au>
+ <20171020033727.21557-2-andrew@aj.id.au>
+ <CACRpkda-7-uM5x4kbNXkx3F7F4VTZtTvXfys5VPFb1YiVDo1+g@mail.gmail.com>
+ <CACRpkdaW5jMEh_OR2oiy_Bc-6Cb+GM1Uap+1u2T2hw85CwBh3g@mail.gmail.com>
+ <1508488347.24322.51.camel@aj.id.au>
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="----=_NextPart_000_0019_01D34BE6.3A12ACA0"
-X-Mailer: Microsoft Outlook 15.0
-Thread-Index: AdNMHpE6ogBWfvcDTkWBom18t7ws7A==
-Content-Language: en-us
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiNTFhOTY4NzctNDlmYy00MDdmLWEzYjctMTU1YmVjMWQ5ZjdjIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX0lDIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE2LjUuOS4zIiwiVHJ1c3RlZExhYmVsSGFzaCI6IjBhTjFcL3pWSTFjbVlRek1mM1NxNDFqd015MFwvY2k2b28yR28zcTgzUitzYz0ifQ==
-x-ctpclassification: CTP_IC
-dlp-product: dlpe-windows
-dlp-version: 11.0.0.116
-dlp-reaction: no-action
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1508488347.24322.51.camel@aj.id.au>
+User-Agent: NeoMutt/20170113 (1.7.2)
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ suspectscore=2 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
+ lowpriorityscore=0 impostorscore=0 adultscore=0 classifier=spam adjust=0
+ reason=mlx scancount=1 engine=8.0.1-1707230000 definitions=main-1710250115
 X-Mailman-Approved-At: Mon, 30 Oct 2017 15:18:14 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
@@ -47,390 +74,63 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 23 Oct 2017 17:04:22 -0000
+X-List-Received-Date: Wed, 25 Oct 2017 08:39:17 -0000
 
-This is a multipart message in MIME format.
+On Fri, Oct 20, 2017 at 07:02:27PM +1030, Andrew Jeffery wrote:
+> On Fri, 2017-10-20 at 09:43 +0200, Linus Walleij wrote:
+> > On Fri, Oct 20, 2017 at 9:17 AM, Linus Walleij <linus.walleij@linaro.org> wrote:
+> > > > > On Fri, Oct 20, 2017 at 5:37 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> > > 
+> > > > GPIO state reset tolerance is implemented in gpiolib through the
+> > > > addition of a new pinconf parameter. With that, some renaming of helpers
+> > > > is done to clarify the scope of the already existing
+> > > > gpiochip_line_is_persistent(), as it's now ambiguous as to whether that
+> > > > means on suspend, reset or both.
+> > > 
+> > > Isn't it most reasonable to say persistance covers both cases, reset
+> > > and/or sleep? This seems a bit like overdefined.
+> > 
 
-------=_NextPart_000_0019_01D34BE6.3A12ACA0
-Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Seems reasonable to me to just expand the existing stuff to cover
+reset as well, I don't think that should cause any issues for the
+Arizona stuff.
 
-Hi Dave,
+> > I should also add: right now persistance is defined in negative terms,
+> > you can supply the flag "may lose value", which means the subsystem
+> > by default, and driver by default, will try to keep values persistent across
+> > sleep.
+> > 
+> > Then it is possible to opt in for not doing so. (Usually to save power I
+> > think.)
+> > 
+> > I think that especially for userspace use cases, saving power should
+> > not really be the concern, but correct me if I'm wrong. I am thinking
+> > of a box with a DC plug wired up to a factory line here.
+> > 
+> > What we have in the Arizona driver is an opt-in where the DT can
+> > say "don't preserve the value  this line during system sleep" i.e. "lay lose
+> > value" and we can extend that flag to mean "don't preserve this line
+> > during reset either" but by default assume that we should.
+> 
+> Yeah, the preserve polarity was another thing I debated given the
+> current example with the Arizona driver. Not preserving is the default
+> for the Aspeed hardware, so that ended up influencing my choice. Not
+> that implementation details should necessarily influence interface
+> design, but it was at least more than a coin toss.
+> 
 
- 
+The way I think we ended up looking at this was when a user
+requests a GPIO the least surprising thing for them is the value
+maintains until they change it again. So it made sense to make
+the allowing the value to be dropped the opt in side.
 
-I'm currently working on PECI kernel driver and hwmon driver implementation.
-The kernel driver would provide these PECI commands as ioctls:
+> I don't have anything specific against preserving by default, just my
+> gut instinct and the hardware went the other way. As long as we expose
+> the option to opt out, which the additions for the Arizona already do.
+> 
+> Cheers,
+> 
+> Andrew
 
- 
-
-- low-level PECI xfer command
-
-- Ping()
-
-- GetDIB()
-
-- GetTemp()
-
-- RdPkgConfig()
-
-- WrPkgConfig()
-
-- RdIAMSR()
-
-- RdPCIConfigLocal()
-
-- WrPCIConfigLocal()
-
-- RdPCIConfig()
-
- 
-
-Also, through the hwmon driver, these temperature monitoring features would
-be provided:
-
- 
-
-- Core temperature
-
-- DTS thermal margin (hysteresis)
-
-- DDR DIMM temperature
-
-- etc.
-
- 
-
-Patches will come in to upstream when it is ready.
-
- 
-
-Cheers,
-
-Jae
-
-
-------=_NextPart_000_0019_01D34BE6.3A12ACA0
-Content-Type: text/html;
-	charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" =
-xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
-xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
-xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta =
-http-equiv=3DContent-Type content=3D"text/html; =
-charset=3Dus-ascii"><meta name=3DGenerator content=3D"Microsoft Word 15 =
-(filtered medium)"><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:Wingdings;
-	panose-1:5 0 0 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:"Malgun Gothic";
-	panose-1:2 11 5 3 2 0 0 2 0 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@Malgun Gothic";
-	panose-1:2 11 5 3 2 0 0 2 0 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
-	{mso-style-priority:34;
-	margin-top:0in;
-	margin-right:0in;
-	margin-bottom:0in;
-	margin-left:.5in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
-/* List Definitions */
-@list l0
-	{mso-list-id:767501009;
-	mso-list-type:hybrid;
-	mso-list-template-ids:-540353848 1242312770 67698691 67698693 67698689 =
-67698691 67698693 67698689 67698691 67698693;}
-@list l0:level1
-	{mso-level-start-at:0;
-	mso-level-number-format:bullet;
-	mso-level-text:-;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-font-family:"Malgun Gothic";
-	mso-bidi-font-family:"Times New Roman";}
-@list l0:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l0:level3
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l0:level4
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l0:level5
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l0:level6
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l0:level7
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l0:level8
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l0:level9
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l1
-	{mso-list-id:1260213401;
-	mso-list-type:hybrid;
-	mso-list-template-ids:284866048 1743156354 67698691 67698693 67698689 =
-67698691 67698693 67698689 67698691 67698693;}
-@list l1:level1
-	{mso-level-start-at:0;
-	mso-level-number-format:bullet;
-	mso-level-text:-;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:.75in;
-	text-indent:-.25in;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-font-family:"Malgun Gothic";
-	mso-bidi-font-family:"Times New Roman";}
-@list l1:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:1.25in;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l1:level3
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:1.75in;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l1:level4
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:2.25in;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l1:level5
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:2.75in;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l1:level6
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:3.25in;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l1:level7
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:3.75in;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l1:level8
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:4.25in;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l1:level9
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:4.75in;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l2
-	{mso-list-id:1624651347;
-	mso-list-type:hybrid;
-	mso-list-template-ids:-304835850 981353770 67698691 67698693 67698689 =
-67698691 67698693 67698689 67698691 67698693;}
-@list l2:level1
-	{mso-level-start-at:0;
-	mso-level-number-format:bullet;
-	mso-level-text:-;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-font-family:"Malgun Gothic";
-	mso-bidi-font-family:"Times New Roman";}
-@list l2:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l2:level3
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l2:level4
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l2:level5
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l2:level6
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l2:level7
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l2:level8
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l2:level9
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-ol
-	{margin-bottom:0in;}
-ul
-	{margin-bottom:0in;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]--></head><body lang=3DEN-US =
-link=3D"#0563C1" vlink=3D"#954F72"><div class=3DWordSection1><p =
-class=3DMsoNormal>Hi Dave,<o:p></o:p></p><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>I&#8217;m =
-currently working on PECI kernel driver and hwmon driver implementation. =
-The kernel driver would provide these PECI commands as =
-ioctls:<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
-class=3DMsoNormal>- low-level PECI xfer command<o:p></o:p></p><p =
-class=3DMsoNormal>- Ping()<o:p></o:p></p><p class=3DMsoNormal>- =
-GetDIB()<o:p></o:p></p><p class=3DMsoNormal>- GetTemp()<o:p></o:p></p><p =
-class=3DMsoNormal>- RdPkgConfig()<o:p></o:p></p><p class=3DMsoNormal>- =
-WrPkgConfig()<o:p></o:p></p><p class=3DMsoNormal>- =
-RdIAMSR()<o:p></o:p></p><p class=3DMsoNormal>- =
-RdPCIConfigLocal()<o:p></o:p></p><p class=3DMsoNormal>- =
-WrPCIConfigLocal()<o:p></o:p></p><p class=3DMsoNormal>- =
-RdPCIConfig()<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
-class=3DMsoNormal>Also, through the hwmon driver, these temperature =
-monitoring features would be provided:<o:p></o:p></p><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>- Core =
-temperature<o:p></o:p></p><p class=3DMsoNormal>- DTS thermal margin =
-(hysteresis)<o:p></o:p></p><p class=3DMsoNormal>- DDR DIMM =
-temperature<o:p></o:p></p><p class=3DMsoNormal>- etc.<o:p></o:p></p><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>Patches will =
-come in to upstream when it is ready.<o:p></o:p></p><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
-class=3DMsoNormal>Cheers,<o:p></o:p></p><p =
-class=3DMsoNormal>Jae<o:p></o:p></p></div></body></html>
-------=_NextPart_000_0019_01D34BE6.3A12ACA0--
+Thanks,
+Charles
