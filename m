@@ -3,43 +3,44 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="E2pQLDrc"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="RCnB8mQO"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="kshDVCZG"; dkim-atps=neutral
+ header.b="FETvqQSU"; dkim-atps=neutral
 Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yMJ3W33TyzDqkp;
- Wed, 25 Oct 2017 16:04:54 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yMJ3Z4LGmzDqkp;
+ Wed, 25 Oct 2017 16:04:58 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id BA99A20A82;
- Wed, 25 Oct 2017 01:04:51 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 7BD0920BD8;
+ Wed, 25 Oct 2017 01:04:56 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Wed, 25 Oct 2017 01:04:51 -0400
+ by compute4.internal (MEProxy); Wed, 25 Oct 2017 01:04:56 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:message-id:subject:to:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm1; bh=XfEk6yHcAH093R/+ibwLA9m3YzQeaovER9q34DlyB
- lY=; b=E2pQLDrc0l+1T++yxWd5p7pCM5seuByjOCYwitGmd72sxWuVKHNbZcIxT
- x36vvO7+EQsP1RZZ5OY6+iy+WlfiN3tdo1d3mWJjs365C5GDgfQOyaNZc9FZx+VG
- RbD6PWMcLiYHwXuNkN3fCL7jbjCbZlP2lSVd4XvOzUs6HWweyD216660/Zmaj712
- VjHtUAkuxtBxd3Wj6QbFhqdf/dc7f3FmltQuXOmeU+w2AFLKjnMaQLbDsFcputFv
- Y6u5+pC0sLnyLx5PT9r2o1UWOA5n5X2xI2KucDvN8bmZXOmlfQJwvI0suAc1ZYmJ
- cOBhfepUuaWswYcGQCXKL+2mT8sQw==
+ :date:from:in-reply-to:message-id:references:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=Ahi6MPeSYHSG//AwK
+ kFput9escgA9/bww0u6pZC72S4=; b=RCnB8mQOtSGp1Q2U4lyZnuf3zgf46C+e+
+ mEwns/fneWwY14iFAcBp6UUOGtjoBdjRGohrWAgoApp2xXqHiyRKi5bvWAJju2UA
+ kmxllSa/OZ4TpFv7pT41sU3wVdmvFLmAY6CSw/vqtogStDE0jmKQcjUKsS00QPpG
+ PD+is3s42Pd9z53HjATVtj12zXpB35xslYNvlueUaY/xNrQgfXlY8g2YIFtwfQgS
+ 16tOLPKeAaXcc9dM58loHLbs0v76Ys1tyVmSj34FDMeCwfFBjjiGsxNJqPS0fsor
+ hbY/SSYCuITfJyieTtmLOPA7O3PC5WFzHvbQ8HE5xtRw5qtCSwdXA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=XfEk6yHcAH093R/+i
- bwLA9m3YzQeaovER9q34DlyBlY=; b=kshDVCZGNJKVPKfhGgjVim4Zb8Xmc+LEk
- HRiG2lQuVIPjzjv1HqpizWSqSmqOZv0MO4WJZPkJe+/LxAZItCXq75vvYgC7fz+o
- CNspZ6atuGhBeBUQ8McqWrNL6/9N2fkwm9TI3OaaCymdkCpmDIzSpmt5Zl539cyh
- T+XfIqY/Y2p3wEU4gLc3IUK4+2fHOtI5V0UUYpqpruD2Q0x9RINMAK5Mg/RV2SIH
- m5DSL/A+pREu87XgZCOWsMLRq4FtedlBo5jB44N+FN53R/sSkrGGhCtdA5GTiVHo
- i3+EzVcPgMnOyrQNwYb3KFtE6iUtDKSctDhU7e52qcjnlVRLy9aMQ==
-X-ME-Sender: <xms:cxvwWclc_SjIWsTtBgjDoDBTy7k7_PkI56MPf1gN0tlubFwPo3bHtA>
+ messagingengine.com; h=cc:date:from:in-reply-to:message-id
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm1; bh=Ahi6MPeSYHSG//AwKkFput9escgA9/bww0u6pZC72S4=; b=FETvqQSU
+ wMLvbwnSAVr/Oy1lJjp8oxUkjmRULUJkLM9rZTRKUDNe3RBLn0pB3iJtSy3a6p2a
+ kq8KgmKDabw3fULrUzPTqNkpQ6P6CBskAjGxcpG5rG8fnKzEom70igeNBU6gbUKc
+ VHv7YBPOvp1z1iSsfECKrG9oMRMgJnARvGmDaICNkVwURMM8pt6mGO0C2tCmTuJI
+ fGwZp7kuzLSxFHeHK1ZF4w2eAiIonGDNqsGHdGqcB3tEWWO0/WZqzIkMISjwVLy5
+ Sm8Pnry+GTngwu3IAKcw8fYXgXWFBMUnchghlp/F4453Mzr51yxb7aA00pKDfWK6
+ MOnkg5qiDO6POQ==
+X-ME-Sender: <xms:eBvwWZ3P5-yhZ2sXuEQRk_dPCyiQnxSyj3aGvLv25KbLfkAf55tJUQ>
 Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 4B80F24620;
- Wed, 25 Oct 2017 01:04:47 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 0B00224009;
+ Wed, 25 Oct 2017 01:04:51 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: linux-gpio@vger.kernel.org
 Cc: Andrew Jeffery <andrew@aj.id.au>, linus.walleij@linaro.org,
@@ -48,10 +49,13 @@ Cc: Andrew Jeffery <andrew@aj.id.au>, linus.walleij@linaro.org,
  ryan_chen@aspeedtech.com, bgolaszewski@baylibre.com, mwelling@emacinc.com,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  openbmc@lists.ozlabs.org, linux-aspeed@lists.ozlabs.org
-Subject: [PATCH 0/2] gpio: Expose reset tolerance capability
-Date: Wed, 25 Oct 2017 15:34:15 +1030
-Message-Id: <20171025050417.27992-1-andrew@aj.id.au>
+Subject: [PATCH 1/2] gpio: gpiolib: Expand sleep tolerance to include
+ controller reset
+Date: Wed, 25 Oct 2017 15:34:16 +1030
+Message-Id: <20171025050417.27992-2-andrew@aj.id.au>
 X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20171025050417.27992-1-andrew@aj.id.au>
+References: <20171025050417.27992-1-andrew@aj.id.au>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -63,50 +67,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 25 Oct 2017 05:04:57 -0000
+X-List-Received-Date: Wed, 25 Oct 2017 05:04:59 -0000
 
-Hello,
+Reset tolerance is added to gpiolib with the introduction of a new
+pinconf parameter propagating the request to hardware. The existing
+persistence support for sleep is augmented to include reset tolerance
+if the GPIO driver provides it. Persistence continues to be enabled by
+default; in-kernel consumers can opt out, but userspace (currently) does
+not have a choice.
 
-This short series enables GPIO state persistence across controller resets,
-modifying gpiolib to expose control of the behaviour and providing an initial
-implementation in the Aspeed GPIO controller.
+The *_SLEEP_MAY_LOSE_VALUE and *_SLEEP_MAINTAIN_VALUE symbols are
+renamed, dropping the SLEEP prefix to reflect that the concept is no
+longer sleep-specific.  I feel that renaming to just *_MAY_LOSE_VALUE
+could initially be misinterpreted, so I've further changed the symbols
+to *_TRANSITORY and *_PERSISTENT to address this.
 
-This is a follow-up to the initial RFC series[1], which had some undesirable
-features (and bugs).
+The sysfs interface is modified only to keep consistency with the
+chardev interface in enforcing persistence for userspace exports.
 
-From the RFC, I've:
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+I'm not wedded to the names 'transitory' and 'persistent', so feel free to
+paint the bikeshed some other colour.
 
-1. Dropped the idea of distinguishing between sleep and reset cases[2]
-2. Changed the default behaviour from transitory to persistent (must explicitly
-   request transitory behaviour for controllers supporting reset tolerance)[3]
-3. Dropped the ability for userspace to configure whether or not the exported
-   GPIO is persistent[4][5]
-
-On point 2, whilst the patch modifying the sysfs interface ABI no-longer lives,
-gpiolib-sysfs still requires modification to provide consistent behaviour with
-the chardev interface in providing a default-persistent GPIO on export.
-
-Regarding point 3, I figured this is something we can add later once there's
-been some discussion on how much of a good idea it is.
-
-As some of the capabilities in the RFC have been dropped, I've squashed the
-gpiolib support into a single patch as it's not really that complex.
-
-Hopefully that addresses the feedback on the RFC. Please review!
-
-Andrew
-
-[1] https://www.spinics.net/lists/devicetree/msg199559.html
-[2] https://www.spinics.net/lists/devicetree/msg199566.html
-[3] https://www.spinics.net/lists/devicetree/msg199574.html
-[4] https://www.spinics.net/lists/devicetree/msg199568.html
-[5] https://www.spinics.net/lists/devicetree/msg199569.html 
-
-Andrew Jeffery (2):
-  gpio: gpiolib: Expand sleep tolerance to include controller reset
-  gpio: aspeed: Add support for reset tolerance
-
- drivers/gpio/gpio-aspeed.c              | 39 ++++++++++++++++++++--
  drivers/gpio/gpiolib-of.c               |  6 ++--
  drivers/gpio/gpiolib-sysfs.c            | 14 +++++---
  drivers/gpio/gpiolib.c                  | 58 ++++++++++++++++++++++++++++++---
@@ -116,7 +99,270 @@ Andrew Jeffery (2):
  include/linux/gpio/machine.h            |  4 +--
  include/linux/of_gpio.h                 |  2 +-
  include/linux/pinctrl/pinconf-generic.h |  2 ++
- 10 files changed, 121 insertions(+), 20 deletions(-)
+ 9 files changed, 84 insertions(+), 18 deletions(-)
 
+diff --git a/drivers/gpio/gpiolib-of.c b/drivers/gpio/gpiolib-of.c
+index e0d59e61b52f..4a2b8d3397c7 100644
+--- a/drivers/gpio/gpiolib-of.c
++++ b/drivers/gpio/gpiolib-of.c
+@@ -153,8 +153,8 @@ struct gpio_desc *of_find_gpio(struct device *dev, const char *con_id,
+ 			*flags |= GPIO_OPEN_SOURCE;
+ 	}
+ 
+-	if (of_flags & OF_GPIO_SLEEP_MAY_LOSE_VALUE)
+-		*flags |= GPIO_SLEEP_MAY_LOSE_VALUE;
++	if (of_flags & OF_GPIO_TRANSITORY)
++		*flags |= GPIO_TRANSITORY;
+ 
+ 	return desc;
+ }
+@@ -214,6 +214,8 @@ static struct gpio_desc *of_parse_own_gpio(struct device_node *np,
+ 
+ 	if (xlate_flags & OF_GPIO_ACTIVE_LOW)
+ 		*lflags |= GPIO_ACTIVE_LOW;
++	if (xlate_flags & OF_GPIO_TRANSITORY)
++		*lflags |= GPIO_TRANSITORY;
+ 
+ 	if (of_property_read_bool(np, "input"))
+ 		*dflags |= GPIOD_IN;
+diff --git a/drivers/gpio/gpiolib-sysfs.c b/drivers/gpio/gpiolib-sysfs.c
+index 3f454eaf2101..0bd472ffb072 100644
+--- a/drivers/gpio/gpiolib-sysfs.c
++++ b/drivers/gpio/gpiolib-sysfs.c
+@@ -474,11 +474,15 @@ static ssize_t export_store(struct class *class,
+ 			status = -ENODEV;
+ 		goto done;
+ 	}
+-	status = gpiod_export(desc, true);
+-	if (status < 0)
+-		gpiod_free(desc);
+-	else
+-		set_bit(FLAG_SYSFS, &desc->flags);
++
++	status = gpiod_set_transitory(desc, false);
++	if (!status) {
++		status = gpiod_export(desc, true);
++		if (status < 0)
++			gpiod_free(desc);
++		else
++			set_bit(FLAG_SYSFS, &desc->flags);
++	}
+ 
+ done:
+ 	if (status)
+diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
+index 3827f0767101..fb29c81225f3 100644
+--- a/drivers/gpio/gpiolib.c
++++ b/drivers/gpio/gpiolib.c
+@@ -503,6 +503,10 @@ static int linehandle_create(struct gpio_device *gdev, void __user *ip)
+ 		if (lflags & GPIOHANDLE_REQUEST_OPEN_SOURCE)
+ 			set_bit(FLAG_OPEN_SOURCE, &desc->flags);
+ 
++		ret = gpiod_set_transitory(desc, false);
++		if (ret < 0)
++			goto out_free_descs;
++
+ 		/*
+ 		 * Lines have to be requested explicitly for input
+ 		 * or output, else the line will be treated "as is".
+@@ -2424,6 +2428,46 @@ int gpiod_set_debounce(struct gpio_desc *desc, unsigned debounce)
+ EXPORT_SYMBOL_GPL(gpiod_set_debounce);
+ 
+ /**
++ * gpiod_set_transitory - Lose or retain GPIO state on suspend or reset
++ * @desc: descriptor of the GPIO for which to configure persistence
++ * @transitory: True to lose state on suspend or reset, false for persistence
++ *
++ * Returns:
++ * 0 on success, otherwise a negative error code.
++ */
++int gpiod_set_transitory(struct gpio_desc *desc, bool transitory)
++{
++	struct gpio_chip *chip;
++	unsigned long packed;
++	int gpio;
++	int rc;
++
++	/* Handle FLAG_TRANSITORY first for suspend case */
++	if (transitory)
++		set_bit(FLAG_TRANSITORY, &desc->flags);
++	else
++		clear_bit(FLAG_TRANSITORY, &desc->flags);
++
++	/* Configure reset persistence if the controller supports it */
++	chip = desc->gdev->chip;
++	if (!chip->set_config)
++		return 0;
++
++	packed = pinconf_to_config_packed(PIN_CONFIG_RESET_TOLERANT,
++					  !transitory);
++	gpio = gpio_chip_hwgpio(desc);
++	rc = chip->set_config(chip, gpio, packed);
++	if (rc == -ENOTSUPP) {
++		dev_dbg(&desc->gdev->dev, "Reset tolerance not supported for GPIO %d\n",
++				gpio);
++		return 0;
++	}
++
++	return rc;
++}
++EXPORT_SYMBOL_GPL(gpiod_set_transitory);
++
++/**
+  * gpiod_is_active_low - test whether a GPIO is active-low or not
+  * @desc: the gpio descriptor to test
+  *
+@@ -3010,8 +3054,7 @@ bool gpiochip_line_is_persistent(struct gpio_chip *chip, unsigned int offset)
+ 	if (offset >= chip->ngpio)
+ 		return false;
+ 
+-	return !test_bit(FLAG_SLEEP_MAY_LOSE_VALUE,
+-			 &chip->gpiodev->descs[offset].flags);
++	return !test_bit(FLAG_TRANSITORY, &chip->gpiodev->descs[offset].flags);
+ }
+ EXPORT_SYMBOL_GPL(gpiochip_line_is_persistent);
+ 
+@@ -3435,8 +3478,10 @@ int gpiod_configure_flags(struct gpio_desc *desc, const char *con_id,
+ 		set_bit(FLAG_OPEN_DRAIN, &desc->flags);
+ 	if (lflags & GPIO_OPEN_SOURCE)
+ 		set_bit(FLAG_OPEN_SOURCE, &desc->flags);
+-	if (lflags & GPIO_SLEEP_MAY_LOSE_VALUE)
+-		set_bit(FLAG_SLEEP_MAY_LOSE_VALUE, &desc->flags);
++
++	status = gpiod_set_transitory(desc, (lflags & GPIO_TRANSITORY));
++	if (status < 0)
++		return status;
+ 
+ 	/* No particular flag request, return here... */
+ 	if (!(dflags & GPIOD_FLAGS_BIT_DIR_SET)) {
+@@ -3550,6 +3595,7 @@ struct gpio_desc *fwnode_get_named_gpiod(struct fwnode_handle *fwnode,
+ 	bool active_low = false;
+ 	bool single_ended = false;
+ 	bool open_drain = false;
++	bool transitory = false;
+ 	int ret;
+ 
+ 	if (!fwnode)
+@@ -3564,6 +3610,7 @@ struct gpio_desc *fwnode_get_named_gpiod(struct fwnode_handle *fwnode,
+ 			active_low = flags & OF_GPIO_ACTIVE_LOW;
+ 			single_ended = flags & OF_GPIO_SINGLE_ENDED;
+ 			open_drain = flags & OF_GPIO_OPEN_DRAIN;
++			transitory = flags & OF_GPIO_TRANSITORY;
+ 		}
+ 	} else if (is_acpi_node(fwnode)) {
+ 		struct acpi_gpio_info info;
+@@ -3594,6 +3641,9 @@ struct gpio_desc *fwnode_get_named_gpiod(struct fwnode_handle *fwnode,
+ 			lflags |= GPIO_OPEN_SOURCE;
+ 	}
+ 
++	if (transitory)
++		lflags |= GPIO_TRANSITORY;
++
+ 	ret = gpiod_configure_flags(desc, propname, lflags, dflags);
+ 	if (ret < 0) {
+ 		gpiod_put(desc);
+diff --git a/drivers/gpio/gpiolib.h b/drivers/gpio/gpiolib.h
+index af48322839c3..736b189d1bb5 100644
+--- a/drivers/gpio/gpiolib.h
++++ b/drivers/gpio/gpiolib.h
+@@ -205,7 +205,7 @@ struct gpio_desc {
+ #define FLAG_OPEN_SOURCE 8	/* Gpio is open source type */
+ #define FLAG_USED_AS_IRQ 9	/* GPIO is connected to an IRQ */
+ #define FLAG_IS_HOGGED	11	/* GPIO is hogged */
+-#define FLAG_SLEEP_MAY_LOSE_VALUE 12	/* GPIO may lose value in sleep */
++#define FLAG_TRANSITORY 12	/* GPIO may lose value in sleep or reset */
+ 
+ 	/* Connection label */
+ 	const char		*label;
+diff --git a/include/dt-bindings/gpio/gpio.h b/include/dt-bindings/gpio/gpio.h
+index 70de5b7a6c9b..43dc230d3921 100644
+--- a/include/dt-bindings/gpio/gpio.h
++++ b/include/dt-bindings/gpio/gpio.h
+@@ -28,8 +28,8 @@
+ #define GPIO_OPEN_DRAIN (GPIO_SINGLE_ENDED | GPIO_LINE_OPEN_DRAIN)
+ #define GPIO_OPEN_SOURCE (GPIO_SINGLE_ENDED | GPIO_LINE_OPEN_SOURCE)
+ 
+-/* Bit 3 express GPIO suspend/resume persistence */
+-#define GPIO_SLEEP_MAINTAIN_VALUE 0
+-#define GPIO_SLEEP_MAY_LOSE_VALUE 8
++/* Bit 3 express GPIO suspend/resume and reset persistence */
++#define GPIO_PERSISTENT 0
++#define GPIO_TRANSITORY 8
+ 
+ #endif
+diff --git a/include/linux/gpio/consumer.h b/include/linux/gpio/consumer.h
+index d4920ec1f1da..d77e88c96f38 100644
+--- a/include/linux/gpio/consumer.h
++++ b/include/linux/gpio/consumer.h
+@@ -132,6 +132,7 @@ void gpiod_set_raw_array_value_cansleep(unsigned int array_size,
+ 					int *value_array);
+ 
+ int gpiod_set_debounce(struct gpio_desc *desc, unsigned debounce);
++int gpiod_set_transitory(struct gpio_desc *desc, bool transitory);
+ 
+ int gpiod_is_active_low(const struct gpio_desc *desc);
+ int gpiod_cansleep(const struct gpio_desc *desc);
+@@ -424,6 +425,13 @@ static inline int gpiod_set_debounce(struct gpio_desc *desc, unsigned debounce)
+ 	return -ENOSYS;
+ }
+ 
++static inline int gpiod_set_transitory(struct gpio_desc *desc, bool transitory)
++{
++	/* GPIO can never have been requested */
++	WARN_ON(1);
++	return -ENOSYS;
++}
++
+ static inline int gpiod_is_active_low(const struct gpio_desc *desc)
+ {
+ 	/* GPIO can never have been requested */
+diff --git a/include/linux/gpio/machine.h b/include/linux/gpio/machine.h
+index 5e9f294c29eb..33a97ede6404 100644
+--- a/include/linux/gpio/machine.h
++++ b/include/linux/gpio/machine.h
+@@ -9,8 +9,8 @@ enum gpio_lookup_flags {
+ 	GPIO_ACTIVE_LOW = (1 << 0),
+ 	GPIO_OPEN_DRAIN = (1 << 1),
+ 	GPIO_OPEN_SOURCE = (1 << 2),
+-	GPIO_SLEEP_MAINTAIN_VALUE = (0 << 3),
+-	GPIO_SLEEP_MAY_LOSE_VALUE = (1 << 3),
++	GPIO_PERSISTENT = (0 << 3),
++	GPIO_TRANSITORY = (1 << 3),
+ };
+ 
+ /**
+diff --git a/include/linux/of_gpio.h b/include/linux/of_gpio.h
+index 1fe205582111..18a7f03e1182 100644
+--- a/include/linux/of_gpio.h
++++ b/include/linux/of_gpio.h
+@@ -31,7 +31,7 @@ enum of_gpio_flags {
+ 	OF_GPIO_ACTIVE_LOW = 0x1,
+ 	OF_GPIO_SINGLE_ENDED = 0x2,
+ 	OF_GPIO_OPEN_DRAIN = 0x4,
+-	OF_GPIO_SLEEP_MAY_LOSE_VALUE = 0x8,
++	OF_GPIO_TRANSITORY = 0x8,
+ };
+ 
+ #ifdef CONFIG_OF_GPIO
+diff --git a/include/linux/pinctrl/pinconf-generic.h b/include/linux/pinctrl/pinconf-generic.h
+index 5d8bc7f21c2a..487cc863cb36 100644
+--- a/include/linux/pinctrl/pinconf-generic.h
++++ b/include/linux/pinctrl/pinconf-generic.h
+@@ -90,6 +90,7 @@
+  * @PIN_CONFIG_SLEW_RATE: if the pin can select slew rate, the argument to
+  *	this parameter (on a custom format) tells the driver which alternative
+  *	slew rate to use.
++ * @PIN_CONFIG_RESET_TOLERANT: retains the pin state across a system reset
+  * @PIN_CONFIG_END: this is the last enumerator for pin configurations, if
+  *	you need to pass in custom configurations to the pin controller, use
+  *	PIN_CONFIG_END+1 as the base offset.
+@@ -117,6 +118,7 @@ enum pin_config_param {
+ 	PIN_CONFIG_POWER_SOURCE,
+ 	PIN_CONFIG_SLEEP_HARDWARE_STATE,
+ 	PIN_CONFIG_SLEW_RATE,
++	PIN_CONFIG_RESET_TOLERANT,
+ 	PIN_CONFIG_END = 0x7F,
+ 	PIN_CONFIG_MAX = 0xFF,
+ };
 -- 
 2.11.0
