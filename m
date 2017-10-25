@@ -3,32 +3,30 @@ Authentication-Results: ozlabs.org; spf=none (mailfrom)
  smtp.mailfrom=opensource.cirrus.com (client-ip=67.231.149.25;
  helo=mx0b-001ae601.pphosted.com; envelope-from=ckeepax@opensource.cirrus.com;
  receiver=<UNKNOWN>)
-X-Greylist: delayed 1627 seconds by postgrey-1.36 at bilbo;
- Wed, 25 Oct 2017 19:39:16 AEDT
 Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
  [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yMNpr4xqfzDqlT;
- Wed, 25 Oct 2017 19:39:16 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yMNr24J8WzDqlT;
+ Wed, 25 Oct 2017 19:40:17 +1100 (AEDT)
 Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
  by mx0a-001ae601.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v9P84FTa023105; Wed, 25 Oct 2017 03:11:45 -0500
+ v9P84FTk023105; Wed, 25 Oct 2017 03:14:56 -0500
 Authentication-Results: ppops.net;
  spf=none smtp.mailfrom=ckeepax@opensource.cirrus.com
 Received: from mail1.cirrus.com (mail1.cirrus.com [141.131.3.20])
- by mx0a-001ae601.pphosted.com with ESMTP id 2dr3n01m81-1;
- Wed, 25 Oct 2017 03:11:45 -0500
+ by mx0a-001ae601.pphosted.com with ESMTP id 2dr3n01mca-1;
+ Wed, 25 Oct 2017 03:14:56 -0500
 Received: from EX17.ad.cirrus.com (unknown [172.20.9.81])
- by mail1.cirrus.com (Postfix) with ESMTP id 01C3C611E12B;
- Wed, 25 Oct 2017 03:11:45 -0500 (CDT)
+ by mail1.cirrus.com (Postfix) with ESMTP id 6C3B6611E12B;
+ Wed, 25 Oct 2017 03:14:55 -0500 (CDT)
 Received: from imbe.wolfsonmicro.main (198.61.95.81) by EX17.ad.cirrus.com
  (172.20.9.81) with Microsoft SMTP Server id 14.3.301.0; Wed, 25 Oct 2017
- 09:11:44 +0100
+ 09:14:54 +0100
 Received: from localhost.localdomain (algalon.ad.cirrus.com [198.90.223.36])
- by imbe.wolfsonmicro.main (8.14.4/8.14.4) with ESMTP id v9P8BfFV023336;	Wed,
- 25 Oct 2017 09:11:41 +0100
-Date: Wed, 25 Oct 2017 09:11:41 +0100
+ by imbe.wolfsonmicro.main (8.14.4/8.14.4) with ESMTP id v9P8Es8G023425;	Wed,
+ 25 Oct 2017 09:14:54 +0100
+Date: Wed, 25 Oct 2017 09:14:54 +0100
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 To: Andrew Jeffery <andrew@aj.id.au>
 CC: Linus Walleij <linus.walleij@linaro.org>, Bartosz Golaszewski
@@ -43,23 +41,21 @@ CC: Linus Walleij <linus.walleij@linaro.org>, Bartosz Golaszewski
  <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
  "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, OpenBMC Maillist
  <openbmc@lists.ozlabs.org>, <linux-aspeed@lists.ozlabs.org>
-Subject: Re: [RFC PATCH 1/5] gpio: gpiolib: Add core support for maintaining
- GPIO values on reset
-Message-ID: <20171025081141.uczvbfstmt3jcisw@localhost.localdomain>
+Subject: Re: [RFC PATCH 3/5] gpio: gpiolib: Add chardev support for
+ maintaining GPIO values on reset
+Message-ID: <20171025081454.4avrf57mf33khu7c@localhost.localdomain>
 References: <20171020033727.21557-1-andrew@aj.id.au>
- <20171020033727.21557-2-andrew@aj.id.au>
- <CACRpkda-7-uM5x4kbNXkx3F7F4VTZtTvXfys5VPFb1YiVDo1+g@mail.gmail.com>
- <CACRpkdaW5jMEh_OR2oiy_Bc-6Cb+GM1Uap+1u2T2hw85CwBh3g@mail.gmail.com>
- <1508488347.24322.51.camel@aj.id.au>
+ <20171020033727.21557-4-andrew@aj.id.au>
+ <CACRpkdY4F-ocFxomLEsVyGA0odGooWysQq5MHi9qwUt6E_VDzA@mail.gmail.com>
+ <1508490173.24322.53.camel@aj.id.au>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <1508488347.24322.51.camel@aj.id.au>
+In-Reply-To: <1508490173.24322.53.camel@aj.id.au>
 User-Agent: NeoMutt/20170113 (1.7.2)
 X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
  priorityscore=1501 malwarescore=0
- suspectscore=2 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
+ suspectscore=2 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
  lowpriorityscore=0 impostorscore=0 adultscore=0 classifier=spam adjust=0
  reason=mlx scancount=1 engine=8.0.1-1707230000 definitions=main-1710250115
 X-Mailman-Approved-At: Mon, 30 Oct 2017 15:18:14 +1100
@@ -74,63 +70,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 25 Oct 2017 08:39:17 -0000
+X-List-Received-Date: Wed, 25 Oct 2017 08:40:19 -0000
 
-On Fri, Oct 20, 2017 at 07:02:27PM +1030, Andrew Jeffery wrote:
-> On Fri, 2017-10-20 at 09:43 +0200, Linus Walleij wrote:
-> > On Fri, Oct 20, 2017 at 9:17 AM, Linus Walleij <linus.walleij@linaro.org> wrote:
-> > > > > On Fri, Oct 20, 2017 at 5:37 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> > > 
-> > > > GPIO state reset tolerance is implemented in gpiolib through the
-> > > > addition of a new pinconf parameter. With that, some renaming of helpers
-> > > > is done to clarify the scope of the already existing
-> > > > gpiochip_line_is_persistent(), as it's now ambiguous as to whether that
-> > > > means on suspend, reset or both.
-> > > 
-> > > Isn't it most reasonable to say persistance covers both cases, reset
-> > > and/or sleep? This seems a bit like overdefined.
-> > 
-
-Seems reasonable to me to just expand the existing stuff to cover
-reset as well, I don't think that should cause any issues for the
-Arizona stuff.
-
-> > I should also add: right now persistance is defined in negative terms,
-> > you can supply the flag "may lose value", which means the subsystem
-> > by default, and driver by default, will try to keep values persistent across
-> > sleep.
-> > 
-> > Then it is possible to opt in for not doing so. (Usually to save power I
-> > think.)
-> > 
-> > I think that especially for userspace use cases, saving power should
-> > not really be the concern, but correct me if I'm wrong. I am thinking
-> > of a box with a DC plug wired up to a factory line here.
-> > 
-> > What we have in the Arizona driver is an opt-in where the DT can
-> > say "don't preserve the value  this line during system sleep" i.e. "lay lose
-> > value" and we can extend that flag to mean "don't preserve this line
-> > during reset either" but by default assume that we should.
+On Fri, Oct 20, 2017 at 07:32:53PM +1030, Andrew Jeffery wrote:
+> On Fri, 2017-10-20 at 09:27 +0200, Linus Walleij wrote:
+> > I don't see it as helpful to give userspace control over whether the line
+> > is persistent or not. It is more reasonable to assume persistance for
+> > userspace use cases, don't you think? Whether the system goes to sleep
+> > or the gpiochip resets should not make a door suddenly close or the
+> > lights in the christmas tree go out, right? I think if the gpiochip supports
+> > persistance of any kind, we should try to use it and not have userspace
+> > provide flags for that.
 > 
-> Yeah, the preserve polarity was another thing I debated given the
-> current example with the Arizona driver. Not preserving is the default
-> for the Aspeed hardware, so that ended up influencing my choice. Not
-> that implementation details should necessarily influence interface
-> design, but it was at least more than a coin toss.
+> Right. I guess the counter argument to your examples is if the gpio is
+> controlling any active process that we don't want to continue if we've
+> lost the capacity to monitor some other inputs (some kind of dead-man's 
+> switch). But maybe the argument is that should be implemented in the
+> kernel anyway?
 > 
 
-The way I think we ended up looking at this was when a user
-requests a GPIO the least surprising thing for them is the value
-maintains until they change it again. So it made sense to make
-the allowing the value to be dropped the opt in side.
-
-> I don't have anything specific against preserving by default, just my
-> gut instinct and the hardware went the other way. As long as we expose
-> the option to opt out, which the additions for the Arizona already do.
-> 
-> Cheers,
-> 
-> Andrew
+To me it certainly feels like decisions like this should live in
+the kernel, your talking about things that could cause very weird
+hardware behaviour if set wrong, so it makes sense to me to have
+that responsibility guarded in the kernel.
 
 Thanks,
 Charles
