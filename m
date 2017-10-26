@@ -3,53 +3,53 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="CgGSJMh/"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="QxuwhJVH"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="RMmkUqAd"; dkim-atps=neutral
+ header.b="jiCTGQ1I"; dkim-atps=neutral
 Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yMxhR5g44zDqYv
- for <openbmc@lists.ozlabs.org>; Thu, 26 Oct 2017 17:20:39 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yMxhT6R6WzDqYv
+ for <openbmc@lists.ozlabs.org>; Thu, 26 Oct 2017 17:20:41 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id BA6AE2094E;
- Thu, 26 Oct 2017 02:20:37 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id DE79E20805;
+ Thu, 26 Oct 2017 02:20:39 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Thu, 26 Oct 2017 02:20:37 -0400
+ by compute4.internal (MEProxy); Thu, 26 Oct 2017 02:20:39 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=OvUuDYeetracdwXim
- lRkMngIKIrGHAH/x0iSsqXlLlQ=; b=CgGSJMh/9uIghGNq/ZS1dqQnmD3Qp19yy
- XloAPg+5GhlohXFIfccmVdPayGCMXItL16FaTyxgJ/HdNYQybX1p7LeJB7UzPGvA
- sVu6/4BuQYX7dRA1J6OMMvJoxitix0o2lkc4a3MAy7T1i2tbuNepANMR1UDcxtiG
- Upxqy8kO4dr5LwN0eIrfonzuo9mv+HmKgYcpNhWOB3j7vAbFSGfmOzoiRgSGIe7h
- QV35HuKM/x21HRDe3+e8SsoShqyNBFOSQJAKkRtqoVcycFvYw6Pd3GClaV+lYR4B
- K8dP80/76zKAvH0Hb9P5OyHckOxd1ZVRk7AC7rFwW3bCK4J8UkCYA==
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=lMP3b5C9VPOyMt6ww
+ s+OyQl8fRW0K2EKKXM1wP+sO0c=; b=QxuwhJVH6qSl6GVqIkIqx7H8OQ8Qc5JkA
+ uRrfjcJ9v1sjtjtNxtmlOZES0ahPWsIU30uVtsHKzPmmRiPv0uVENqe1FwkboBl4
+ DjrXhMrU/BUWINdRaTc6l5OLZkCQx06ETyl3Ya07VLXoRK123Jr9c50o4GfwxEy4
+ mqB2qknABXtNupQH2bKFuT81fEIpl063WOm9nZykH0CerFuLwolmJsxvrbXLFlAs
+ MAcs+x8d/HM+HUqP8Q1X97ptblEy5OQXTBki4vanh8mxClW856inqXqiUfrw7Hgc
+ WSvxMX0AhLKukWAMq9S2vtPDJ2iTWgG/ssIANB8HUlxCpM+SfD/kw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:date:from:in-reply-to:message-id
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=OvUuDYeetracdwXimlRkMngIKIrGHAH/x0iSsqXlLlQ=; b=RMmkUqAd
- 7rNMfx2qS1PWVZqx9lOdDjZGfd+D+a8yZSWTY2rog59Xr5OsJRTrovuFv3latj5m
- LNg8hD2xxGiJHfkUD9yMljpZK1L/j9BlxnW87ZGDKwkyHqy8onw2T6u7w1g4fJVM
- qjwa2mw6n4TxXnE7M37KopVXEcUSDGaF3GnXHlCtqI1yYl401aCJcL28vifqLPQv
- wBxEJfJkoJFGFZy/f4c0cpdCTbqinnHbQHMyT5Br66SfWHusdCeW2duVf0zYvoOq
- 53dvLHyk3ZjGVv8EIwzdyYsx85kAvb6+vlzF6bGEh2KwxcOr3nKceWqMVl/PiKz+
- sDFXfbRXyoiKfw==
-X-ME-Sender: <xms:tX7xWRTlNpOctVw-B0U05S8ZR3biuCmADwDo-3Ua5QbRMHMbq7bqaw>
+ fm1; bh=lMP3b5C9VPOyMt6wws+OyQl8fRW0K2EKKXM1wP+sO0c=; b=jiCTGQ1I
+ YvNtJRjqzxTnuzbdZJzF55TTDIP7SaISvczgnvWBYK/Rh3Q2gFpl0vyN44xmbFt+
+ 8KF7ZhgMZYZwa6PWc/B9NaXolIgaBNkiIQt5m4m4Dcnnr+1B0KTajUKKWUuxFz4V
+ pgPFUE+IZR38UMpVBceOmmTnqlZzYRVu/gH8ztJmdW1+lA0eo2KNzUdzqStMTApM
+ VL18oaapTZsC+wc+vj3DtUfbKcHxcamusAfDAFR3xnRAv2nZJY9Zd7/fFDMSfhru
+ nYvfBxZq+lJTEH6thLciCZRFo5ZuF1a1qJE+K9w7LVN52htcsVsyjwY7n3SqXYX7
+ xxVC7jU9pbjmdA==
+X-ME-Sender: <xms:t37xWX6L2gMZEz694H1fP0vnKfhcjcfdkFrZ1WNVpOc41qZwe6olkA>
 Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id E4680241D9;
- Thu, 26 Oct 2017 02:20:35 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 126F3241D9;
+ Thu, 26 Oct 2017 02:20:37 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: openbmc@lists.ozlabs.org
 Cc: Andrew Jeffery <andrew@aj.id.au>, joel@jms.id.au,
  Eddie James <eajames@linux.vnet.ibm.com>,
  Matt Spinler <mspinler@linux.vnet.ibm.com>
-Subject: [PATCH linux dev-4.10 2/3] hwmon: pmbus: max31785: Mark virtual pages
- as virtual
-Date: Thu, 26 Oct 2017 16:49:39 +1030
-Message-Id: <20171026061940.25364-3-andrew@aj.id.au>
+Subject: [PATCH linux dev-4.10 3/3] hwmon: pmbus: core: One-shot retries for
+ failure to set page
+Date: Thu, 26 Oct 2017 16:49:40 +1030
+Message-Id: <20171026061940.25364-4-andrew@aj.id.au>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20171026061940.25364-1-andrew@aj.id.au>
 References: <20171026061940.25364-1-andrew@aj.id.au>
@@ -64,34 +64,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 Oct 2017 06:20:40 -0000
+X-List-Received-Date: Thu, 26 Oct 2017 06:20:42 -0000
 
-Avoid setting PAGE to a unsupported value on the MAX31785 to avoid
-errors from the hardware in circumstances that we know it will fail.
+Work around the shonky behaviour seen with the MAX31785 where we fail
+to set the page register in some circumstances.
 
-The virtual pages are used to expose the non-standard tacho measurements
-for the second rotor of a dual-rotor fan. Maxim's implementation breaks
-with the PMBus standard by providing a four-byte response to what is
-usually a two-byte command.
+There's no real elegant way to do this. We can propagate the error up,
+but that forces us to retry the operation way up the call tree in any
+number of places. It also forces callers to split out pmbus_set_page()
+from the pmbus_{read,write}_{byte,word}_data() functions in order to
+differentiate between a failure to set the page and a failure to read a
+register (that might not exist, in which case an error is anticiptated).
 
 Cc: Eddie James <eajames@linux.vnet.ibm.com>
 Cc: Matt Spinler <mspinler@linux.vnet.ibm.com>
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 ---
- drivers/hwmon/pmbus/max31785.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/hwmon/pmbus/pmbus_core.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/hwmon/pmbus/max31785.c b/drivers/hwmon/pmbus/max31785.c
-index 6a0d289ad346..c862ab51e3af 100644
---- a/drivers/hwmon/pmbus/max31785.c
-+++ b/drivers/hwmon/pmbus/max31785.c
-@@ -436,6 +436,7 @@ static int max31785_of_fan_config(struct i2c_client *client,
+diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
+index 390a7b02b836..d4e959bda491 100644
+--- a/drivers/hwmon/pmbus/pmbus_core.c
++++ b/drivers/hwmon/pmbus/pmbus_core.c
+@@ -168,7 +168,18 @@ int pmbus_set_page(struct i2c_client *client, u8 page)
+ 		return 0;
  
- 			info->pages = max(info->pages, virtual + 1);
- 			info->func[virtual] |= PMBUS_HAVE_FAN12;
-+			info->func[virtual] |= PMBUS_PAGE_VIRTUAL;
- 		}
- 	}
- 
+ 	if (!(data->info->func[page] & PMBUS_PAGE_VIRTUAL)) {
++		dev_dbg(&client->dev, "Want page %u, %u cached\n", page,
++			data->currpage);
++
+ 		rv = i2c_smbus_write_byte_data(client, PMBUS_PAGE, page);
++		if (rv) {
++			rv = i2c_smbus_write_byte_data(client, PMBUS_PAGE,
++						       page);
++			dev_warn(&client->dev,
++				 "Failed to set page %u, performed one-shot retry %s: %d\n",
++				 page, rv ? "and failed" : "with success", rv);
++		}
++
+ 		newpage = i2c_smbus_read_byte_data(client, PMBUS_PAGE);
+ 		if (newpage != page)
+ 			return -EIO;
 -- 
 2.11.0
