@@ -1,68 +1,59 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Y3uW90Gf"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="BO/s8HAj"; dkim-atps=neutral
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yNMHz4MsBzDqlH
- for <openbmc@lists.ozlabs.org>; Fri, 27 Oct 2017 09:34:23 +1100 (AEDT)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v9QMSxRE019229
- for <openbmc@lists.ozlabs.org>; Thu, 26 Oct 2017 18:34:21 -0400
-Received: from e15.ny.us.ibm.com (e15.ny.us.ibm.com [129.33.205.205])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2dur209b9e-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 26 Oct 2017 18:34:20 -0400
-Received: from localhost
- by e15.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 26 Oct 2017 18:34:19 -0400
-Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
- by e15.ny.us.ibm.com (146.89.104.202) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 26 Oct 2017 18:34:16 -0400
-Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
- [9.57.199.107])
- by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v9QMYGEs36896962; Thu, 26 Oct 2017 22:34:16 GMT
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 986F2124044;
- Thu, 26 Oct 2017 18:31:24 -0400 (EDT)
-Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
- by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP id 4138B124035;
- Thu, 26 Oct 2017 18:31:24 -0400 (EDT)
-From: Eddie James <eajames@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yNN8t0Q9GzDrbl
+ for <openbmc@lists.ozlabs.org>; Fri, 27 Oct 2017 10:13:16 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 9223820BFF;
+ Thu, 26 Oct 2017 19:13:14 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Thu, 26 Oct 2017 19:13:14 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm1; bh=kG1E6Q5wngF0/ZEKN+HOoGBdKMvtNqLC+YMd+UZwJmY=; b=Y3uW90Gf
+ Cr6p4K4JDbfU1Uu6uis2dkjUnlmpWWhoxTFynj39WRG+mosU+PROwTZCOtssjcam
+ GxB/QSO9a+RZRtW+GrOO71tK8EFA9nbIzqJk5bjA6XE/XDLb36H0kE5IJhLGszYs
+ iDCWizLjC/P9Wrnahyxg9YJXWy1OA85G9/aLYPGzxjBHz0SLx/PZins/m0kzMrp2
+ 7A6VghMd92NFVFtVDCiuask9qfgd9kcGTnGWXLAP5WbSNe8NiRrl6zG4E2V6YEl8
+ X7pEA9aNfjrcTLYL3HDCJ/QVy76/c3oshRGl3owhvnCEy6cYHOtcn1SflDJgr/6Y
+ ytKK9f3Qk/SE+g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; bh=kG1E6Q5wngF0/ZEKN+HOoGBdKMvtN
+ qLC+YMd+UZwJmY=; b=BO/s8HAjjXdJ/nH71ruHRfiTPqppttgZ/Y4NynPydv2Xe
+ WsEfsmq8A7VM22UOyS0+nYMSA0je2b3t+nFUiWQbr8YuHNcMrOa4l1wmpwubRIZu
+ 7PgB5HfykQaNC2nc6nsIkG+KJSSGejEGG8qrAFIBZ2ukD5tNJ3xjcHJAAN0E5lxV
+ tI29h2Bvsa6a/3owSREVgxC3/fZOnK3HMmZaUI+S5BFUSffjeG0JV793xdUNA+lh
+ 8ukC7il5ggC4gRyLwNDVhe8X3dbeURfuatT7j4ID2JnsLL9gdGQss9Gq921CZacY
+ 7mwWyk7axDAcZMTNbSOgYZQKbsmZaTqSpU8QHDl6Q==
+X-ME-Sender: <xms:CmzyWdC_zJaTAOimX3r-yUsCUsX_UcAvxEefy9FFulWWhvShyDuHXw>
+Received: from keelia40 (220-253-52-107.dyn.iinet.net.au [220.253.52.107])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 367627F97C;
+ Thu, 26 Oct 2017 19:13:12 -0400 (EDT)
+Message-ID: <1509059586.13477.10.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.10 0/3] pmbus: Misc work-arounds for the
+ PAGE command
+From: Andrew Jeffery <andrew@aj.id.au>
 To: openbmc@lists.ozlabs.org
-Cc: andrew@aj.id.au, bradleyb@fuzziesquirrel.com,
- "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10 v2] drivers (fsi): sbefifo: Add timeout for
- waiting for data
-Date: Thu, 26 Oct 2017 17:34:14 -0500
-X-Mailer: git-send-email 1.8.3.1
-X-TM-AS-GCONF: 00
-x-cbid: 17102622-0036-0000-0000-000002821B77
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007957; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000239; SDB=6.00936922; UDB=6.00472178; IPR=6.00717185; 
- BA=6.00005660; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017731; XFM=3.00000015;
- UTC=2017-10-26 22:34:18
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17102622-0037-0000-0000-00004233329E
-Message-Id: <1509057254-14890-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-10-26_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
- definitions=main-1710260284
+Date: Fri, 27 Oct 2017 09:43:06 +1030
+In-Reply-To: <20171026061940.25364-1-andrew@aj.id.au>
+References: <20171026061940.25364-1-andrew@aj.id.au>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-RIj3iQBvPiCPyvnAUTi5"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -74,76 +65,87 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 Oct 2017 22:34:24 -0000
+X-List-Received-Date: Thu, 26 Oct 2017 23:13:20 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
 
-During a transfer, in the event that the SBE isn't running, the driver
-will wait for data to appear in the FIFO forever. This doesn't work at
-BMC boot time if any transfers are attempted (by OCC driver probing, for
-example), as it will just hang the boot. So add a simple timeout
-mechanism when the driver reschdules waiting for data to show up in the
-FIFO.
+--=-RIj3iQBvPiCPyvnAUTi5
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Tested on witherspoon by rebooting the BMC successfully with chassis
-power on.
+On Thu, 2017-10-26 at 16:49 +1030, Andrew Jeffery wrote:
+> Hello,
+>=20
+> Occasionally the MAX31785 NACKs setting the page on the device. The conse=
+quence
+> is the PMBus core either thinks some functionality is unsupported by the =
+device
+> or it inspects features on the wrong page after swallowing the error.
+>=20
+> The most obvious side-effect is that some hwmon attributes are not create=
+d when
+> they should be, often causing issues for fan monitoring and control in
+> userspace, preventing the host from booting.
+>=20
+> The series introduces a one-shot retry in the PMBus core for the PAGE com=
+mand.
+> This is generally terrible, but the alternatives seem worse. Also this is=
+ not
+> yet appropriate to upstream as I haven't succeeded in getting the MAX3178=
+5
+> driver applied there. As a result this dirty secret can live in the OpenB=
+MC
+> tree until we properly understand the problem.
+>=20
+> The first couple of patches help avoid setting PAGE to values that never =
+make
+> sense. Again this involves a questionable change to the PMBus core, but I=
+ think
+> we can live with it.
+>=20
+> Some brief testing of the series indicates that all one-shot attempts suc=
+ceed
+> in the face of a previous failure, much like the FAN_CONFIG_* issues.
+>=20
+> Let me know what you think!
+>=20
+> Andrew Jeffery (3):
+> =C2=A0 hwmon: pmbus: core: Add virtual page config bit
+> =C2=A0 hwmon: pmbus: max31785: Mark virtual pages as virtual
+> =C2=A0 hwmon: pmbus: core: One-shot retries for failure to set page
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
----
-Changes since v1:
- * Reset the wait_data_timeout field if we get data. If we get data, the SBE
-   is running and we really shouldn't timeout.
+I've applied these to dev-4.10 with Matt Spinler's Reviewed-by tags.
 
- drivers/fsi/fsi-sbefifo.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+Cheers,
 
-diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
-index f756822..41b838e 100644
---- a/drivers/fsi/fsi-sbefifo.c
-+++ b/drivers/fsi/fsi-sbefifo.c
-@@ -54,6 +54,7 @@
- #define SBEFIFO_EOT_ACK		0x14
- 
- #define SBEFIFO_RESCHEDULE	msecs_to_jiffies(500)
-+#define SBEFIFO_MAX_RESCHDULE	msecs_to_jiffies(5000)
- 
- struct sbefifo {
- 	struct timer_list poll_timer;
-@@ -77,6 +78,7 @@ struct sbefifo_buf {
- };
- 
- struct sbefifo_xfr {
-+	unsigned long wait_data_timeout;
- 	struct sbefifo_buf *rbuf;
- 	struct sbefifo_buf *wbuf;
- 	struct list_head client;
-@@ -450,11 +452,27 @@ static void sbefifo_poll_timer(unsigned long data)
- 
- 		devn = sbefifo_dev_nwreadable(sts);
- 		if (devn == 0) {
-+			/*
-+			 * Limit the maximum waiting period for data in the
-+			 * FIFO. If the SBE isn't running, we will wait
-+			 * forever.
-+			 */
-+			if (!xfr->wait_data_timeout) {
-+				xfr->wait_data_timeout =
-+					jiffies + SBEFIFO_MAX_RESCHDULE;
-+			} else if (time_after(jiffies,
-+					      xfr->wait_data_timeout)) {
-+				ret = -ETIME;
-+				goto out;
-+			}
-+
- 			/* No data yet.  Reschedule. */
- 			sbefifo->poll_timer.expires = jiffies +
- 				SBEFIFO_RESCHEDULE;
- 			add_timer(&sbefifo->poll_timer);
- 			goto out_unlock;
-+		} else {
-+			xfr->wait_data_timeout = 0;
- 		}
- 
- 		/* Fill.  The EOT word is discarded.  */
--- 
-1.8.3.1
+Andrew
+
+>=20
+> =C2=A0drivers/hwmon/pmbus/max31785.c=C2=A0=C2=A0=C2=A0|=C2=A0=C2=A01 +
+> =C2=A0drivers/hwmon/pmbus/pmbus.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0|=C2=
+=A0=C2=A02 ++
+> =C2=A0drivers/hwmon/pmbus/pmbus_core.c | 23 +++++++++++++++++++----
+> =C2=A03 files changed, 22 insertions(+), 4 deletions(-)
+>=20
+--=-RIj3iQBvPiCPyvnAUTi5
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZ8mwCAAoJEJ0dnzgO5LT59igQAKwN6vfRuAePU0r9UOsRGeiF
+1j6psEg+FJ3PEhRY1Aop7dAdwlNykQJhcGUKd2rfNwoXyN6TNpsxdhjx40kGSVG/
+9m/0Tsa0K9MYvuv7apgiwO5d2Ff7z13m6x+0diFRwCS589y55R3IGpW7RLI1JuJT
+A0vTcedGHytHLwdqAwR9z2FxgXjwwKyINtSgUxTXKd4bXuj0XSSW1+961Cqa2Xm+
+zkwfAOqiXFymuUfFtK/fD1TU/c8ReKV7tDYb/QilKMQ+0Opuhxwj7uLEoxsLPU0Q
+pJgnO9N0qSgMrmKwfD7NVqXs1ZpnHoYk8hxvbk1Bb7ahcLyrraOxVNXvJTudyE6j
+jlEqd4kgP3c0dcYzSFWNlzL1xWVPTpniEZt2CeoHuJJtMh6nFWXJu1zw8UqEzqs4
+uge3WLEzedyH6gLlKAxoBE6UBaFa2p/3i+/QYRBOxGfJGa4mFgQ/v+rbPlqeFXDI
+E2krUgs2hC8csPYEtPTCTZEkLJd3GKovPDMAkdD+yyftSdq+7yr9azqtI9PXzBoP
+1Qf9iD0r/T/kQzOOdCqYGCyV2p/7OyFlMuaEhv4UFTN9DI9sdMJLkclR3M2kee5h
++qi98wq7I+aMrHnN39ErxvyzO9gd3iFQ/U1LEGP2ihlg8dduDY4rNVsOfPx9QEny
+doAu7Z8b1MR6yOT7Ixul
+=ckW3
+-----END PGP SIGNATURE-----
+
+--=-RIj3iQBvPiCPyvnAUTi5--
