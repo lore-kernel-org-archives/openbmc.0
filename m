@@ -7,71 +7,61 @@ Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
  [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yNr482sPlzDqfh
- for <openbmc@lists.ozlabs.org>; Sat, 28 Oct 2017 04:10:45 +1100 (AEDT)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yNvsl18fRzDqlM
+ for <openbmc@lists.ozlabs.org>; Sat, 28 Oct 2017 07:02:02 +1100 (AEDT)
+Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
  by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v9RH6dXK121506
- for <openbmc@lists.ozlabs.org>; Fri, 27 Oct 2017 13:10:42 -0400
-Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2dv55dd02x-1
+ v9RJxMDG073753
+ for <openbmc@lists.ozlabs.org>; Fri, 27 Oct 2017 16:01:59 -0400
+Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2dv8bdgjrd-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 27 Oct 2017 13:10:42 -0400
+ for <openbmc@lists.ozlabs.org>; Fri, 27 Oct 2017 16:01:59 -0400
 Received: from localhost
- by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Fri, 27 Oct 2017 11:10:41 -0600
-Received: from b03cxnp08026.gho.boulder.ibm.com (9.17.130.18)
- by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
+ Fri, 27 Oct 2017 14:01:58 -0600
+Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
+ by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Fri, 27 Oct 2017 11:10:38 -0600
-Received: from b03ledav006.gho.boulder.ibm.com
- (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v9RHAcmd63897686; Fri, 27 Oct 2017 10:10:38 -0700
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 48CD8C6051;
- Fri, 27 Oct 2017 11:10:38 -0600 (MDT)
-Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id F3A09C6042;
- Fri, 27 Oct 2017 11:10:37 -0600 (MDT)
-Subject: Re: [PATCH linux dev-4.10 v2] drivers: i2c: fsi: Add proper abort
- method
-To: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org
-Cc: "Edward A. James" <eajames@us.ibm.com>, cbostic@linux.vnet.ibm.com
-References: <1508529741-29316-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1508718675.6013.3.camel@aj.id.au>
- <de884d77-04a2-1095-8198-89f2ce93e029@linux.vnet.ibm.com>
- <1508893417.13477.1.camel@aj.id.au>
+ Fri, 27 Oct 2017 14:01:56 -0600
+Received: from b03ledav002.gho.boulder.ibm.com
+ (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
+ by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v9RK1ubQ852276; Fri, 27 Oct 2017 13:01:56 -0700
+Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 29B86136040;
+ Fri, 27 Oct 2017 14:01:56 -0600 (MDT)
+Received: from oc3016140333.ibm.com (unknown [9.80.232.169])
+ by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id 1642913604B;
+ Fri, 27 Oct 2017 14:01:54 -0600 (MDT)
 From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Fri, 27 Oct 2017 12:10:37 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.4.0
-MIME-Version: 1.0
-In-Reply-To: <1508893417.13477.1.camel@aj.id.au>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+To: openbmc@lists.ozlabs.org
+Cc: andrew@aj.id.au, cbostic@linux.vnet.ibm.com,
+ "Edward A. James" <eajames@us.ibm.com>
+Subject: [PATCH linux dev-4.10 v3] drivers: i2c: fsi: Add proper abort method
+Date: Fri, 27 Oct 2017 15:01:50 -0500
+X-Mailer: git-send-email 1.8.3.1
 X-TM-AS-GCONF: 00
-x-cbid: 17102717-0016-0000-0000-000007B834BE
+x-cbid: 17102720-0012-0000-0000-0000153560D0
 X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00007962; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000239; SDB=6.00937295; UDB=6.00472401; IPR=6.00717557; 
+X-IBM-SpamModules-Versions: BY=3.00007963; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000239; SDB=6.00937352; UDB=6.00472435; IPR=6.00717614; 
  BA=6.00005660; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017745; XFM=3.00000015;
- UTC=2017-10-27 17:10:40
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017748; XFM=3.00000015;
+ UTC=2017-10-27 20:01:57
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17102717-0017-0000-0000-00003C066124
-Message-Id: <57eb4d71-3db5-d3ec-7a67-db3013c872d8@linux.vnet.ibm.com>
+x-cbparentid: 17102720-0013-0000-0000-0000500AC1FF
+Message-Id: <1509134510-12355-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-10-27_09:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
  clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
- definitions=main-1710270222
+ definitions=main-1710270260
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -83,231 +73,397 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 27 Oct 2017 17:10:50 -0000
+X-List-Received-Date: Fri, 27 Oct 2017 20:02:04 -0000
 
+From: "Edward A. James" <eajames@us.ibm.com>
 
+Driver wasn't cleaning up on timeout or in an error situation properly.
+Need to do a full reset if we fail in order to re-stablish a good state
+of the engine.
 
-On 10/24/2017 08:03 PM, Andrew Jeffery wrote:
->>>> +static int fsi_i2c_reset(struct fsi_i2c_master *i2c, u16 port)
->>>> +{
->>>   
->>> I can't see that this (the whole reset sequence) is called with pre-emption
->>> disabled, perhaps we should do so? It looks like this will be called in process
->>> context through fsi_i2c_xfer(). Stalling the recovery will just hold up other
->>> processes wanting to use the bus as we'll hold the bus mutex across the task
->>> switch.
->>   
->> Well, presumably we want to block other access to the bus? We need to
->> get the master back in a good state before releasing it for other transfers.
-> Right, that's my point. By disabling pre-emption we do that as fast as
-> possible by avoiding switching to other process contexts whilst holding the
-> mutex. This would happen at the cost of processes that don't care about the
-> bus (those that do are, or will, be waiting on the mutex anyway), but as we're
-> performing a hardware recovery sequence I feel it should be prioritised. Only
-> the context owning the mutex can recover the bus, therefore I think it's more
-> useful to avoid switching to other process contexts until we finish the
-> recovery.
->
-> I guess we need to think about system robustness in that case though. Can we
-> get stuck in this recovery sequence? fsi_*() calls time out if I recall
-> correctly, so the answer would appear to be no, in which case this shouldn't be
-> problematic. The system might be "sticky" if we start hitting FSI timeouts but
-> beyond that things should continue (aside from either FSI or the I2C bus being
-> broken).
->
-> So this is all coming from my gut feeling that things like bus recovery would
-> usually happen under a spinlock, which disables pre-emption. Maybe we should
-> discuss that before getting down in the weeds like we are.
+Signed-off-by: Edward A. James <eajames@us.ibm.com>
+---
 
-Yea, that makes sense, I can add a spinlock here. I don't think FSI will 
-hang. If it does, we will have similar
-problems in spinlocks in the SBEFIFO driver.
+Changes since v2:
+ * Add spinlock for reset procedure to disable pre-emption
+ * Add comments for timeout lengths
+ * Add check for stuck bus lines in low-level reset procedure
 
->
->>   
->>>   
->>>> +	int rc;
->>>> +	u32 mode, stat, dummy = 0;
->>>> +
->>>> +	/* reset engine */
->>>> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_I2C, &dummy);
->>>> +	if (rc)
->>>> +		return rc;
->>>> +
->>>> +	/* re-init engine */
->>>> +	rc = fsi_i2c_dev_init(i2c);
->>>> +	if (rc)
->>>> +		return rc;
->>>> +
->>>> +	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_MODE, &mode);
->>>> +	if (rc)
->>>> +		return rc;
->>>> +
->>>> +	/* set port; default after reset is 0 */
->>>> +	if (port) {
->>>> +		mode = SETFIELD(I2C_MODE_PORT, mode, port);
->>>> +		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
->>>> +		if (rc)
->>>> +			return rc;
->>>> +	}
->>>> +
->>>> +	/* reset busy register; hw workaround */
->>>> +	dummy = I2C_PORT_BUSY_RESET;
->>>> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_PORT_BUSY, &dummy);
->>>> +	if (rc)
->>>> +		return rc;
->>>> +
->>>> +	/* force bus reset */
->>>> +	rc = fsi_i2c_reset_bus(i2c);
->>>> +	if (rc)
->>>> +		return rc;
->>>> +
->>>> +	/* reset errors */
->>>> +	dummy = 0;
->>>> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_ERR, &dummy);
->>>> +	if (rc)
->>>> +		return rc;
->>>> +
->>>> +	/* wait for command complete */
->>>> +	set_current_state(TASK_UNINTERRUPTIBLE);
->>>> +	schedule_timeout(I2C_LOCAL_WAIT_TIMEOUT);
->>>> +
->>>> +	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_STAT, &stat);
->>>> +	if (rc)
->>>> +		return rc;
->>>> +
->>>> +	if (stat & I2C_STAT_CMD_COMP)
->>>> +		return 0;
->>>> +
->>>> +	/* failed to get command complete; reset engine again */
->>>> +	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_I2C, &dummy);
->>>> +	if (rc)
->>>> +		return rc;
->>>> +
->>>> +	/* re-init engine again */
->>>> +	rc = fsi_i2c_dev_init(i2c);
->>>> +	if (rc)
->>>> +		return rc;
->>>> +
->>>> +	return 0;
->>>> +}
->>>> +
->>>> +static int fsi_i2c_abort(struct fsi_i2c_port *port, u32 status)
->>>> +{
->>>> +	int rc;
->>>> +	unsigned long start;
->>>> +	u32 cmd = I2C_CMD_WITH_STOP;
->>>> +	struct fsi_device *fsi = port->master->fsi;
->>>> +
->>>> +	rc = fsi_i2c_reset(port->master, port->port);
->>>> +	if (rc)
->>>> +		return rc;
->>>> +
->>>> +	/* skip final stop command for these errors */
->>>> +	if (status & (I2C_STAT_PARITY | I2C_STAT_LOST_ARB | I2C_STAT_STOP_ERR))
->>>> +		return 0;
->>>> +
->>>> +	rc = fsi_i2c_write_reg(fsi, I2C_FSI_CMD, &cmd);
->>>> +	if (rc)
->>>> +		return rc;
->>>> +
->>>> +	start = jiffies;
->>>> +
->>>> +	do {
->>>> +		rc = fsi_i2c_read_reg(fsi, I2C_FSI_STAT, &status);
->>>> +		if (rc)
->>>> +			return rc;
->>>> +
->>>> +		if (status & I2C_STAT_CMD_COMP)
->>>> +			return 0;
->>>> +
->>>> +		set_current_state(TASK_INTERRUPTIBLE);
->>>> +		if (schedule_timeout(I2C_LOCAL_WAIT_TIMEOUT) > 0)
->>>> +			return -EINTR;
->>>> +
->>>> +	} while (time_after(start + I2C_ABORT_TIMEOUT, jiffies));
->>>   
->>> I'm a bit ignorant here, but why do we expect the abort operation to take up to
->>> 100ms? You mentioned you invented the numbers, but it's not clear what the
->>> justification is.
->>   
->> I used the same timeout used in the FSP driver, which seems to work. I
->> really have no other justification for this value.
-> That's probably worth a comment in the code.
->
->>   
->>>   
->>>> +
->>>> +	return -ETIME;
->>>> +}
->>>> +
->>>>    static int fsi_i2c_handle_status(struct fsi_i2c_port *port,
->>>>    				 struct i2c_msg *msg, u32 status)
->>>>    {
->>>>    	int rc;
->>>>    	u8 fifo_count;
->>>> -	struct fsi_i2c_master *i2c = port->master;
->>>> -	u32 dummy = 0;
->>>>    
->>>>    	if (status & I2C_STAT_ERR) {
->>>> -		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_ERR, &dummy);
->>>> +		rc = fsi_i2c_abort(port, status);
->>>>    		if (rc)
->>>>    			return rc;
->>>>    
->>>> +		if (status & I2C_STAT_INV_CMD)
->>>> +			return -EINVAL;
->>>> +
->>>> +		if (status & (I2C_STAT_PARITY | I2C_STAT_BE_OVERRUN |
->>>> +		    I2C_STAT_BE_ACCESS))
->>>> +			return -EPROTO;
->>>> +
->>>>    		if (status & I2C_STAT_NACK)
->>>>    			return -EFAULT;
->>>   
->>> EFAULT is "Bad address", but slaves can NACK things that aren't addresses.
->>> As an example i2c-aspeed calls a NACK an EIO.
->>   
->> True, but I dislike returning EIO as it's somewhat of a default option
->> and makes it very difficult to determine what actually went wrong. How
->> about ENXIO?
-> What does userspace do with that knowledge? Is it worth differentiating? I
-> can't immediately see that it is. Maybe it's worth a dev_dbg() or something?
-> I feel ENXIO doesn't address my point either, as it means "No such device or
-> address", which is still inappropriate for data NACKs.
+ drivers/i2c/busses/i2c-fsi.c | 285 ++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 216 insertions(+), 69 deletions(-)
 
-Well, when someone sees an i2c failure and opens a defect and assigns it 
-to me, I would like to know if it was a NACK or something else :) If I 
-see EIO, it could be either some other I2C error, an FSI bus error, o 
-probably even a GPIO error. And dev_dbg probably won't help in the field 
-since it'll be compiled out.
-
->
->>   
->>>   
->>>>    
->>>> +		if (status & I2C_STAT_LOST_ARB)
->>>> +			return -ECANCELED;
->>>   
->>> So checking around the tree, all of i2c-aspeed, i2c-designware-core,
->>> i2c-hix5hd2, i2c-kempld to name a few (I stopped checking at that point) use
->>> -EAGAIN for arbitration loss. I don't think -ECANCELLED is appropriate, and
->>> certainly think that -EAGAIN is what we want: Nothing went wrong aside from
->>> this master lost the arbitration race, so the caller should really just retry.
->>   
->> Good point, however, for this master, it can often return arbitration
->> lost if the clock or data line is stuck, and retries will not work. I'll
->> switch it to EAGAIN, callers shouldn't try too many times hopefully...
-> Can we test status again when a new transfer is starting to see if we need to
-> recover the bus before proceeding?
-
-Well with this change, bus should be recovered after any failure, if 
-recovery is possible. I more meant the case when the clock or data line 
-is really stuck such that the master cannot recover them.
-
-Thanks for the review!
-Eddie
->
-> Cheers,
->
-> Andrew
+diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
+index 1af9c01..bfc5f67 100644
+--- a/drivers/i2c/busses/i2c-fsi.c
++++ b/drivers/i2c/busses/i2c-fsi.c
+@@ -9,6 +9,7 @@
+  * 2 of the License, or (at your option) any later version.
+  */
+ 
++#include <asm/delay.h>
+ #include <linux/device.h>
+ #include <linux/errno.h>
+ #include <linux/fsi.h>
+@@ -20,6 +21,7 @@
+ #include <linux/of.h>
+ #include <linux/sched.h>
+ #include <linux/semaphore.h>
++#include <linux/spinlock.h>
+ #include <linux/wait.h>
+ 
+ #define FSI_ENGID_I2C		0x7
+@@ -133,12 +135,20 @@
+ #define I2C_ESTAT_SELF_BUSY	0x00000040
+ #define I2C_ESTAT_VERSION	0x0000001f
+ 
++#define I2C_PORT_BUSY_RESET	0x80000000
++
++#define I2C_LOCAL_WAIT_TIMEOUT	2		/* jiffies */
++
++/* choose timeout length from legacy driver; it's well tested */
++#define I2C_ABORT_TIMEOUT	msecs_to_jiffies(100)
++
+ struct fsi_i2c_master {
+ 	struct fsi_device	*fsi;
+ 	u8			fifo_size;
+ 	struct list_head	ports;
+ 	wait_queue_head_t	wait;
+ 	struct semaphore	lock;
++	spinlock_t		reset_lock;
+ };
+ 
+ struct fsi_i2c_port {
+@@ -351,21 +361,202 @@ static int fsi_i2c_read_fifo(struct fsi_i2c_port *port, struct i2c_msg *msg,
+ 	return rc;
+ }
+ 
++static int fsi_i2c_reset_bus(struct fsi_i2c_master *i2c)
++{
++	int i, rc;
++	u32 mode, stat, ext, dummy = 0;
++
++	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_MODE, &mode);
++	if (rc)
++		return rc;
++
++	mode |= I2C_MODE_DIAG;
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
++	if (rc)
++		return rc;
++
++	for (i = 0; i < 9; ++i) {
++		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SCL, &dummy);
++		if (rc)
++			return rc;
++
++		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SCL, &dummy);
++		if (rc)
++			return rc;
++	}
++
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SCL, &dummy);
++	if (rc)
++		return rc;
++
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SDA, &dummy);
++	if (rc)
++		return rc;
++
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SCL, &dummy);
++	if (rc)
++		return rc;
++
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SDA, &dummy);
++	if (rc)
++		return rc;
++
++	mode &= ~I2C_MODE_DIAG;
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
++	if (rc)
++		return rc;
++
++	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_STAT, &stat);
++	if (rc)
++		return rc;
++
++	/* check for hardware fault */
++	if (!(stat & I2C_STAT_SCL_IN) || !(stat & I2C_STAT_SDA_IN)) {
++		rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_ESTAT, &ext);
++		if (rc)
++			return rc;
++
++		dev_err(&i2c->fsi->dev, "bus stuck status[%08X] ext[%08X]\n",
++			stat, ext);
++	}
++
++	return 0;
++}
++
++static int fsi_i2c_reset(struct fsi_i2c_master *i2c, u16 port)
++{
++	int rc;
++	u32 mode, stat, dummy = 0;
++	unsigned long flags;
++
++	spin_lock_irqsave(&i2c->reset_lock, flags);
++
++	/* reset engine */
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_I2C, &dummy);
++	if (rc)
++		goto done;
++
++	/* re-init engine */
++	rc = fsi_i2c_dev_init(i2c);
++	if (rc)
++		goto done;
++
++	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_MODE, &mode);
++	if (rc)
++		goto done;
++
++	/* set port; default after reset is 0 */
++	if (port) {
++		mode = SETFIELD(I2C_MODE_PORT, mode, port);
++		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
++		if (rc)
++			goto done;
++	}
++
++	/* reset busy register; hw workaround */
++	dummy = I2C_PORT_BUSY_RESET;
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_PORT_BUSY, &dummy);
++	if (rc)
++		goto done;
++
++	/* force bus reset */
++	rc = fsi_i2c_reset_bus(i2c);
++	if (rc)
++		goto done;
++
++	/* reset errors */
++	dummy = 0;
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_ERR, &dummy);
++	if (rc)
++		goto done;
++
++	/* wait for command complete; length from legacy driver */
++	udelay(1000);
++
++	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_STAT, &stat);
++	if (rc)
++		goto done;
++
++	if (stat & I2C_STAT_CMD_COMP)
++		goto done;
++
++	/* failed to get command complete; reset engine again */
++	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_I2C, &dummy);
++	if (rc)
++		goto done;
++
++	/* re-init engine again */
++	rc = fsi_i2c_dev_init(i2c);
++
++done:
++	spin_unlock_irqrestore(&i2c->reset_lock, flags);
++	return rc;
++}
++
++static int fsi_i2c_abort(struct fsi_i2c_port *port, u32 status)
++{
++	int rc;
++	unsigned long start;
++	u32 cmd = I2C_CMD_WITH_STOP;
++	struct fsi_device *fsi = port->master->fsi;
++
++	rc = fsi_i2c_reset(port->master, port->port);
++	if (rc)
++		return rc;
++
++	/* skip final stop command for these errors */
++	if (status & (I2C_STAT_PARITY | I2C_STAT_LOST_ARB | I2C_STAT_STOP_ERR))
++		return 0;
++
++	rc = fsi_i2c_write_reg(fsi, I2C_FSI_CMD, &cmd);
++	if (rc)
++		return rc;
++
++	start = jiffies;
++
++	do {
++		rc = fsi_i2c_read_reg(fsi, I2C_FSI_STAT, &status);
++		if (rc)
++			return rc;
++
++		if (status & I2C_STAT_CMD_COMP)
++			return 0;
++
++		set_current_state(TASK_INTERRUPTIBLE);
++		if (schedule_timeout(I2C_LOCAL_WAIT_TIMEOUT) > 0)
++			return -EINTR;
++
++	} while (time_after(start + I2C_ABORT_TIMEOUT, jiffies));
++
++	return -ETIME;
++}
++
+ static int fsi_i2c_handle_status(struct fsi_i2c_port *port,
+ 				 struct i2c_msg *msg, u32 status)
+ {
+ 	int rc;
+ 	u8 fifo_count;
+-	struct fsi_i2c_master *i2c = port->master;
+-	u32 dummy = 0;
+ 
+ 	if (status & I2C_STAT_ERR) {
+-		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_ERR, &dummy);
++		rc = fsi_i2c_abort(port, status);
+ 		if (rc)
+ 			return rc;
+ 
++		if (status & I2C_STAT_INV_CMD)
++			return -EINVAL;
++
++		if (status & (I2C_STAT_PARITY | I2C_STAT_BE_OVERRUN |
++		    I2C_STAT_BE_ACCESS))
++			return -EPROTO;
++
+ 		if (status & I2C_STAT_NACK)
+-			return -EFAULT;
++			return -ENXIO;
++
++		if (status & I2C_STAT_LOST_ARB)
++			return -ECANCELED;
++
++		if (status & I2C_STAT_STOP_ERR)
++			return -EBADMSG;
+ 
+ 		return -EIO;
+ 	}
+@@ -396,9 +587,9 @@ static int fsi_i2c_handle_status(struct fsi_i2c_port *port,
+ static int fsi_i2c_wait(struct fsi_i2c_port *port, struct i2c_msg *msg,
+ 			unsigned long timeout)
+ {
+-	const unsigned long local_timeout = 2; /* jiffies */
+ 	u32 status = 0;
+-	int rc;
++	int rc, rc_abort;
++	unsigned long start = jiffies;
+ 
+ 	do {
+ 		rc = fsi_i2c_read_reg(port->master->fsi, I2C_FSI_STAT,
+@@ -419,13 +610,21 @@ static int fsi_i2c_wait(struct fsi_i2c_port *port, struct i2c_msg *msg,
+ 			continue;
+ 		}
+ 
+-		set_current_state(TASK_UNINTERRUPTIBLE);
+-		schedule_timeout(local_timeout);
+-		timeout = (timeout < local_timeout) ? 0 :
+-			timeout - local_timeout;
+-	} while (timeout);
++		set_current_state(TASK_INTERRUPTIBLE);
++		if (schedule_timeout(I2C_LOCAL_WAIT_TIMEOUT) > 0) {
++			rc = -EINTR;
++			goto abort;
++		}
++	} while (time_after(start + timeout, jiffies));
+ 
+-	return -ETIME;
++	rc = -ETIME;
++
++abort:
++	rc_abort = fsi_i2c_abort(port, status);
++	if (rc_abort)
++		return rc_abort;
++
++	return rc;
+ }
+ 
+ static int fsi_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
+@@ -469,72 +668,19 @@ static u32 fsi_i2c_functionality(struct i2c_adapter *adap)
+ 		| I2C_FUNC_SMBUS_EMUL | I2C_FUNC_SMBUS_BLOCK_DATA;
+ }
+ 
+-static int fsi_i2c_low_level_recover_bus(struct fsi_i2c_master *i2c)
+-{
+-	int i, rc;
+-	u32 mode, dummy = 0;
+-
+-	rc = fsi_i2c_read_reg(i2c->fsi, I2C_FSI_MODE, &mode);
+-	if (rc)
+-		return rc;
+-
+-	mode |= I2C_MODE_DIAG;
+-	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
+-	if (rc)
+-		return rc;
+-
+-	for (i = 0; i < 9; ++i) {
+-		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SCL, &dummy);
+-		if (rc)
+-			return rc;
+-
+-		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SCL, &dummy);
+-		if (rc)
+-			return rc;
+-	}
+-
+-	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SCL, &dummy);
+-	if (rc)
+-		return rc;
+-
+-	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_SDA, &dummy);
+-	if (rc)
+-		return rc;
+-
+-	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SCL, &dummy);
+-	if (rc)
+-		return rc;
+-
+-	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_SET_SDA, &dummy);
+-	if (rc)
+-		return rc;
+-
+-	mode &= ~I2C_MODE_DIAG;
+-	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_MODE, &mode);
+-
+-	return rc;
+-}
+-
+ static int fsi_i2c_recover_bus(struct i2c_adapter *adap)
+ {
+ 	int rc;
+-	u32 dummy = 0;
+ 	struct fsi_i2c_port *port = adap->algo_data;
+-	struct fsi_i2c_master *i2c = port->master;
++	struct fsi_i2c_master *master = port->master;
+ 
+-	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_I2C, &dummy);
++	rc = fsi_i2c_lock_master(master, adap->timeout);
+ 	if (rc)
+ 		return rc;
+ 
+-	rc = fsi_i2c_dev_init(i2c);
+-	if (rc)
+-		return rc;
++	rc = fsi_i2c_reset(master, port->port);
+ 
+-	rc = fsi_i2c_low_level_recover_bus(i2c);
+-	if (rc)
+-		return rc;
+-
+-	rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_ERR, &dummy);
++	fsi_i2c_unlock_master(master);
+ 
+ 	return rc;
+ }
+@@ -562,6 +708,7 @@ static int fsi_i2c_probe(struct device *dev)
+ 
+ 	init_waitqueue_head(&i2c->wait);
+ 	sema_init(&i2c->lock, 1);
++	spin_lock_init(&i2c->reset_lock);
+ 	i2c->fsi = to_fsi_dev(dev);
+ 	INIT_LIST_HEAD(&i2c->ports);
+ 
+-- 
+1.8.3.1
