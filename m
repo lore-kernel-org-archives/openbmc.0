@@ -1,64 +1,69 @@
-Return-Path: <tmaimon77@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c06::244; helo=mail-io0-x244.google.com;
- envelope-from=tmaimon77@gmail.com; receiver=<UNKNOWN>)
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="dalLh8l6"; 
- dkim-atps=neutral
-Received: from mail-io0-x244.google.com (mail-io0-x244.google.com
- [IPv6:2607:f8b0:4001:c06::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="jfEJe9gW"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="CCPaJg1d"; dkim-atps=neutral
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yQ8qk5G0QzDrcJ
- for <openbmc@lists.ozlabs.org>; Mon, 30 Oct 2017 07:49:38 +1100 (AEDT)
-Received: by mail-io0-x244.google.com with SMTP id m16so22906453iod.1
- for <openbmc@lists.ozlabs.org>; Sun, 29 Oct 2017 13:49:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=gHfDK5Ae0e27KHoCxJodkEvjJt+YYLKO5WgDgcHVZuQ=;
- b=dalLh8l60aUcfFSZDUub81Ew5X77qPEmcKGntJGwBFEa1pzooaEedyMxxI5gMHqT5j
- /EbkfUW5EoGBqfCvI4Q3kcQXqz2PYIjGPSQvrvwiaMYisOs3QfX21GV4v1qqryVNNCSH
- 4HbxcQClDHmc1ksGHQ5b4pKvLBwLrchQZigUJXPY6ptehw/Ga8NPWBfmJsrKKL+gzCMG
- Qwx/CsLeKTqpGgXo/yj8kyU3upRrZZHeZKzbFeezGIiMI+4I1cr9H3zWbXmMjypTxaWS
- xSMS6KBkalqX9WTYgZ+NznljTEj25eyfBGDIWBeb3JfPVYv2rbrxSzks390mRDRsLpP8
- PVXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=gHfDK5Ae0e27KHoCxJodkEvjJt+YYLKO5WgDgcHVZuQ=;
- b=jo13jgzzcv6yrdEjcJJBQq+ZkK/JPpc5gCNOAl5sBsxejUZozsMeCIJESbPp3uiqWu
- eR19IN5lZVfWiwM1hQuS2pzkbwhDVh6NRh9pVr1KjQZsGh72HrYJK5SvNqMIhMQ8kHOo
- PYUqle1EWxtuUaRS3R2LvSZQyiNnYJCG0/GuzRMl2EiUtDQgqnSTjr44qlOJ3adoT7jK
- ugVl15sJRc+vaFqz7qVAKcAyMTJwEFVwFbVbFQd1+RMsHKKUBgsXHRt0RX0QYXQHwdLV
- OPnf1g871V23OQTkCiDCbtyA/8ov8AEK8iilyGbqTC+4aCpsf7Xv36gHtHa569Wyubre
- sj5g==
-X-Gm-Message-State: AMCzsaUhVO3oaY4f3B8S0nWVIN/E8cJXbDf9Af5oZ5SLCA/WJhr7KfAA
- ZWNb0ypoY1wT9nHpx6paxZqgvQGSa1HKoZyQ9j8=
-X-Google-Smtp-Source: ABhQp+RpXow73riGQPWZfEvgM2/sw+apP23HJqSHfZDUj+qwYa+drVNSHY3i7AFBbPtkroYBJVUd57/CzjnFVBk4KpI=
-X-Received: by 10.36.74.135 with SMTP id k129mr3634882itb.147.1509310175815;
- Sun, 29 Oct 2017 13:49:35 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.2.28.66 with HTTP; Sun, 29 Oct 2017 13:49:35 -0700 (PDT)
-In-Reply-To: <20171010155755.wfklwchg4eg7u6p6@rob-hp-laptop>
-References: <1506849098-18290-1-git-send-email-tmaimon77@gmail.com>
- <1506849098-18290-3-git-send-email-tmaimon77@gmail.com>
- <20171010155755.wfklwchg4eg7u6p6@rob-hp-laptop>
-From: Tomer Maimon <tmaimon77@gmail.com>
-Date: Sun, 29 Oct 2017 22:49:35 +0200
-Message-ID: <CAP6Zq1jKxvQ6bYF+WbxJEKEPb5J8RSS+bM=nH7L812bXJS7k9Q@mail.gmail.com>
-Subject: Re: [PATCH v1 2/2] dt-binding: timer: document NPCM7xx timer DT
- bindings
-To: Rob Herring <robh@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>,
- Daniel Lezcano <daniel.lezcano@linaro.org>, tglx@linutronix.de, 
- Avi Fishman <avifishman70@gmail.com>,
- Brendan Higgins <brendanhiggins@google.com>, 
- Rick Altherr <raltherr@google.com>, joel@jms.id.au, 
- devicetree <devicetree@vger.kernel.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yQDzb4cjrzDqlM;
+ Mon, 30 Oct 2017 10:56:42 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id AB72020B8C;
+ Sun, 29 Oct 2017 19:56:38 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Sun, 29 Oct 2017 19:56:38 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm1; bh=7TKDNBCakdzh+x/FIq1AnN8trz3wBoDQDxrRTqnsz5I=; b=jfEJe9gW
+ YJz6VfiDrqR7z7D/nP6lGyIVOcOiyZ5Lm5eLSouOnlexbjG/PBA+zITUMSK4TehZ
+ DiMuPGlOCh7icPVie7G6hStz5gPiJh7pjd/6KnR85vCbwGfR8a/M9tw5/XU03Kin
+ 9sr8cTrt6jzDRMXZVcw5hwnORa+A7Sz0qDCzjvVFwGLrh49+SWUw1EI1orvtnrMS
+ 32ZzxhTi+3Vd81THAHjDg6KoZh6UedoY5CdREDU0bU6GlxDZdMhS1ibp+tATIhHM
+ d3RkR66UJ7UCbI2U13N8eTvqxB0WTkFZPR4S+aFfwruh/iEbOgJ35UGSnlGep7LR
+ hwEk4F3EoMFlwA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; bh=7TKDNBCakdzh+x/FIq1AnN8trz3wB
+ oDQDxrRTqnsz5I=; b=CCPaJg1dOpHWOEtdEyZwb1QvO0g/HSWdGyawVe4HMPqgF
+ 8KJV4JALasMSYidT7YCma1rO3Y0GX8UVuknrS4AINzLPTM70taC1jytqtGatXQZ2
+ 4pKZcp6qowhAnBl6juVQPH+m4FYIeTM/AuO6yH4ToNFJWzLQvmnyETBbYopISrSw
+ 7tY/SojO+b/E9p1SSiRrHy32Cqp9XVkob3qXVUi/6zRnbA+C0+LAS8MPYlVUYW/V
+ I3xkO6uInVBkT2yWUBFcNT+yiJUufvpPAG9ICbHS5zzT4JxbA0EScBi+TMAItGmP
+ dLTEsMl+wDE5GNWvzoHG28dv0zZds8WG1eTPcm1DQ==
+X-ME-Sender: <xms:tmr2WZnA5FLiZ9btPWLzGGszZNbePOTpkZG2vjH7Z-8tiCBsSOQshQ>
+Received: from keelia (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 1356224784;
+ Sun, 29 Oct 2017 19:56:32 -0400 (EDT)
+Message-ID: <1509321386.13477.13.camel@aj.id.au>
+Subject: Re: [PATCH 1/2] gpio: gpiolib: Expand sleep tolerance to include
+ controller reset
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: linux-gpio@vger.kernel.org, linus.walleij@linaro.org,
+ robh+dt@kernel.org,  mark.rutland@arm.com, frowand.list@gmail.com,
+ joel@jms.id.au,  ckeepax@opensource.wolfsonmicro.com, ldewangan@nvidia.com,
+ ryan_chen@aspeedtech.com, bgolaszewski@baylibre.com, mwelling@emacinc.com,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, linux-aspeed@lists.ozlabs.org
+Date: Mon, 30 Oct 2017 10:26:26 +1030
+In-Reply-To: <20171026090318.uv6lvmkt4injiihc@localhost.localdomain>
+References: <20171025050417.27992-1-andrew@aj.id.au>
+ <20171025050417.27992-2-andrew@aj.id.au>
+ <20171025083201.wdudlzgphypyhmwc@localhost.localdomain>
+ <1508978453.13477.7.camel@aj.id.au>
+ <20171026090318.uv6lvmkt4injiihc@localhost.localdomain>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-1HsBu1GI6qFSDyOpsPJT"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -70,66 +75,145 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 29 Oct 2017 20:49:39 -0000
-
-Sorry for the delay,
+X-List-Received-Date: Sun, 29 Oct 2017 23:56:46 -0000
 
 
-On 10 October 2017 at 17:57, Rob Herring <robh@kernel.org> wrote:
-> On Sun, Oct 01, 2017 at 12:11:38PM +0300, Tomer Maimon wrote:
->> Added device tree binding documentation for Nuvoton NPCM7xx timer.
->>
->> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
->> ---
->>  .../bindings/timer/nuvoton,npcm7xx-timer.txt       | 25 ++++++++++++++++++++++
->>  1 file changed, 25 insertions(+)
->>  create mode 100644 Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt
->>
->> diff --git a/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt b/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt
->> new file mode 100644
->> index 000000000000..d1beea901509
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt
->> @@ -0,0 +1,25 @@
->> +Nuvoton NPCM7xx timer
->> +
->> +Nuvoton NPCM7xx have three timer modules, each timer module provides five 24-bit
->> +timer counters.
->> +
->> +Required properties:
->> +- compatible      : "nuvoton,npcm7xx-timer" for Poleg NPCM7xx.
->
-> Don't use wildcards in compatible strings. Use SoC specific compatible
-> strings with a fallback (the string for the 1st SoC which the block
-> appeared) if necessary.
->
-The SOC NPCM7xx is now on upstream process, I asked Brendan to modify
-the NPCM7xx device tree to support the clock source driver
+--=-1HsBu1GI6qFSDyOpsPJT
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-https://www.spinics.net/lists/arm-kernel/msg614424.html
+On Thu, 2017-10-26 at 10:03 +0100, Charles Keepax wrote:
+> On Thu, Oct 26, 2017 at 11:10:53AM +1030, Andrew Jeffery wrote:
+> > On Wed, 2017-10-25 at 09:32 +0100, Charles Keepax wrote:
+> > > On Wed, Oct 25, 2017 at 03:34:16PM +1030, Andrew Jeffery wrote:
+> > > This means that if we have a set_config we are directly
+> > > equating PERSISTENT to RESET_TOLERANT, which seems wrong to
+> > > me. I might have a GPIO on a controller with pinconf that
+> > > doesn't have anything to do with RESET_TOLERANT. Should the
+> > > PIN_CONFIG_RESET_TOLERANT, really just be PIN_CONFIG_PERSISTENT?
+> > > And then its upto the driver what persistence means for that
+> > > chip?
+> >=20
+> > Right, maybe I'm tying the design in a bit too closely with the Aspeed =
+hardware
+> > again. I'm coming out in favour of changing it based on my thoughts bel=
+ow.
+> >=20
+> > However, I want to understand whether there are alternatives to reset t=
+olerance
+> > as a property. The obvious one is sleep persistence as implemented in t=
+he
+> > Arizona driver, but it didn't take the set_config() route with its init=
+ial
+> > implementation.
+> >=20
+> > The set_config() approach was largely driven by the sysfs patch in
+> > the RFC series, because I wanted a way to propagate the desired propert=
+y
+> > to hardware without affecting (or again calling through the handlers fo=
+r) the
+> > export state or direction. It seemed to come out neat enough in general=
+ so I
+> > kept it.
+> >=20
+> > Were you thinking of using set_config() to control the Arizona's behavi=
+our and
+> > do something other than the calls to gpiochip_line_is_persistent() in
+> > arizona_gpio_direction_{in,out}() (as in, keep the state inside the dev=
+ice
+> > driver rather than querying gpiolib where the state is currently stored=
+)? That
+> > would seem neat in that it gives us one method of setting both persiste=
+nce
+> > types (and in this case I should rename the pinconf parameter). With th=
+at we
+> > could probably get rid of gpiochip_line_is_persistent(). A small downsi=
+de is
+> > some duplicated state (we probably still want to keep FLAG_TRANSITORY i=
+n
+> > gpiolib).
+> >=20
+> > Would it be reasonable for other drivers to implement sleep persistence=
+ in the
+> > same manner as the Arizona driver currently does? If that's the case, I=
+ don't
+> > think there is a third tolerance option in addition to sleep and reset,=
+ and so
+> > we might not need to rename the pinconf parameter.
+> >=20
+> > Finally, we could implement reset persistence in the same manner as the
+> > Arizona's sleep persistence (with gpiochip_line_is_persistent()) given =
+the
+> > sysfs patch has been thrown away.
+> >=20
+> > So to summarise, having rambled a bit, I see the situation as:
+> >=20
+> > 1. Rename the pinconf parameter, and patch the Arizona driver to use
+> > =C2=A0=C2=A0=C2=A0set_config() and hold sleep persistence state interna=
+lly.
+> > 2. Drop the pinconf parameter and do something similar to the Arizona's=
+ sleep
+> > =C2=A0=C2=A0=C2=A0persistence for reset persistence in the Aspeed drive=
+r.
+> > 3. Keep things as proposed are and live with two approaches to persiste=
+nce
+> >=20
+> > Point 3 seems like the least desirable. I'm leaning towards 1. I could =
+probably
+> > live with 2. after experimenting with it and confirming it's workable f=
+or me.
+> >=20
+> > If you think 1. is the way to go are you happy for me to send a patch t=
+o the
+> > Arizona driver implementing the change?
+> >=20
+>=20
+> I guess the design was more playing to the fact that in the
+> Arizona case we arn't really setting any register bit for the
+> persisence, we are just not letting the CODEC power down whilst
+> the GPIO is in use. The config approach does make more sense in
+> the case where you are actually setting register bits.
+>=20
+> I don't have any great objection to keeping the persistence state
+> in the Arizona GPIO driver, but it does seem to be duplicating
+> the state a little. Also an early version of the patch chain did
+> that and we decided it would better in the core.
+>=20
+> I am not opposed to option 3 either. For example open-drain has
+> a similar setup where there is a pin config option for it and
+> also a GPIO function call to check for its presence on a specific
+> GPIO. Certainly my objection was just that we were equating the
+> very generic property to a very specific pinconf.
+>=20
+> I think I would probably be keen to see what Linus's thoughts
+> are, but my feelings are really your patch is probably good if we
+> just rename the RESET_TOLERANT pinconf to something a little more
+> generic.
 
-and also the arcitecture name
+Okay, well in that case I'll do the rename and send out the patches, it
+is simple enough. Thanks again for your feedback.
 
-https://www.spinics.net/lists/arm-kernel/msg614059.html
+Andrew
+--=-1HsBu1GI6qFSDyOpsPJT
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
->> +- reg             : Offset and length of the register set for the device.
->> +- interrupts      : Contain the timer interrupt with flags for
->> +                    falling edge.
->> +
->> +Required clocking property, have to be one of:
->> +- clocks          : phandle of timer reference clock.
->> +- clock-frequency : The frequency in Hz of the clock that drives the NPCM7xx
->> +                    timer (usually 25000000).
->> +
->> +Example:
->> +
->> +timer@f0008000 {
->> +    compatible = "nuvoton,npcm7xx-timer";
->> +    interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
->> +    reg = <0xf0008000 0x1000>;
->> +    clocks = <&clk NPCM7XX_CLK_TIMER>;
->> +};
->> +
->> --
->> 2.14.1
->>
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZ9mqqAAoJEJ0dnzgO5LT5Y00P/1FS/NlkwJZND2ILIEzoOvdl
+mo3imkiD0ocvY3nB1z4YNL8WLJDbDb7/6DuRz8mJFRk12Qj/TSPSVyFxAnGnzuTP
+tHTBo530AuMbR7mc9xtdKSOiC2sHsiL1tdJhAkkqSNMtefblimB/oRdS2Kdm3xGB
+7itqR7jIjVv8mDxgkyJQvKiAWLH4ufBSSJazXfXhj1cu5KUPZwc0tyxxl/6y26+g
+zr5XaeqHdl7jRRQX2Qkng9ti3JuCG00XvbWkxFuXQyvomJXU7YKrUcudy7IebDa5
+6dOJtRatq8Zc7fiUQ3BCyRzUt79i9N71hDsuvXo3qg9sXlvrbK/o/ewVJcbOpWWr
+DFiozZWFlmw51ftZCm9wbrvJV+9EGBmeJU2b/pHy6LDW8QOTMfomQ8eE+nra1lhW
+DHobb6coFL0DcoWtZGkEMABx2kbYjQt1LZnXyJ3z/ylFrNvRK+DE5VY0VVKPZyfq
+EYcr+vw+lLsl3DE/HhTlzzwx3pMlBBXGFJd7yv4G9oX2QgMtjAd22+Zn7CqtNOhr
+vkTunj7OeyiU6PeqyYudatBruAzR/GZltsu9DPgTnP+GT6TIINK4U2pb1W24+H8h
+2zBv6AghcAXk/CbS2hAlOHqmo5Vlq2C0knZtYxEwK8RpFRcLyROWiZMiUL2sy52J
+Df6ykR/e3fRklkYAxTC1
+=OOYC
+-----END PGP SIGNATURE-----
+
+--=-1HsBu1GI6qFSDyOpsPJT--
