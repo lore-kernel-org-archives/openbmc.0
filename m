@@ -3,58 +3,56 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="cCSwxPRu"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="I+Tz5sCA"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Je15f0O5"; dkim-atps=neutral
+ header.b="b/BNHcJO"; dkim-atps=neutral
 Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yQNHx56xXzDqmt
- for <openbmc@lists.ozlabs.org>; Mon, 30 Oct 2017 16:26:20 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yQPYR6KFZzDqmt;
+ Mon, 30 Oct 2017 17:23:07 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id CB21E20C71;
- Mon, 30 Oct 2017 01:26:17 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 6927220AC6;
+ Mon, 30 Oct 2017 02:23:05 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Mon, 30 Oct 2017 01:26:17 -0400
+ by compute4.internal (MEProxy); Mon, 30 Oct 2017 02:23:05 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=FsivqouarQx75uPG00k+faFGE53d9F+jDwm7rsNZc10=; b=cCSwxPRu
- n9BA6Xe2ocftc1wWsbenYj8D4OovE5hSJfwbXC7JMrybfEanzLFq2aWA66VtLOSm
- aMErPy2YjA5kZvWKDERYe61JK1nUCLADFtbCXOEgnPXkCE/P1WfKaFMOmbfskkUV
- ki3Aqwsq1D+/yKAgJhkQOxwSsTRVelAfDWo/ZQcsJWCsuZkUZ3CxNdgHkdNSVkfg
- MLV6gJyy8I7dKYs+WL9LqVTppU6Ch6WAg27iAHUExd5oua9G5HAgVfcsAq63gelS
- CHDWX9C8K8rLT1bvxFLu4nEq4KQgVJZ2Ebk1YVcjEEHwzU5FHlWX2B0V7q0bn4Ug
- VXucHTke9N1Iwg==
+ :date:from:message-id:subject:to:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm1; bh=L7eMDOCKX61dH0S5r/CUQMEKSR7PSiCxtzSno6/1D
+ cM=; b=I+Tz5sCAiEZnMf4+l/VgdOnAGDhlzsDbuMud54FjxdMmCIqsNQ4Lzkol8
+ H0dQVMlFwJ7mA1qdaydF8BjxvIixa+sercgpNVP78oW/PTkGjjQ7CWeOXoUsDRkW
+ RDSGO2ZosKxo9lfsg47akhsWdM5F0CnaEsV022v2F7Iz2kGWbP6n+RFT7qb6XxGm
+ jZR7HFuwBCrWroMoytBfvA2OkOjhlmKK3lvEYZfp+AzFihOsjMrtkZXvVFf/AvCG
+ YAT9EimvZj+zE3ZxPeuoqgb+oS1Qw08vCEnnrimy4+pBMzOIfuGxZ6+/IDjLckse
+ 6Lsr4UEkGvhQthctF3gFdA5vCOVKw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=FsivqouarQx75uPG00k+faFGE53d9
- F+jDwm7rsNZc10=; b=Je15f0O5h+Z43ETreiBucGazmBtmusJ3BDjpKgn9ovtz5
- C7BApSFhlLpl4ZzZWmYCsBG3uVGv357CmGBGgD7ZgJxp1X6WFEsLTPjIMDV6H05b
- yni8ueRTq0Fyxy2hKwRd7KvTQDgq0YHkMYcuFWHOxRQXO9i9gMZUbRP9opZj8tMb
- 9hO260Ndb5JIDlDjxWe8Eval6KHpi5GPJmNbF4iClwPAx5/pYVrJ4duSaQ+tXdYI
- UElKljw6lQqXtq0ygFzK1DrASVa5frx8fiZb5UirfNynVYiP2/syppbwaj8zv8Zx
- W03VRAlPKhsk8iz2aiY28KZnyyOlXzk/iZR0EeUTg==
-X-ME-Sender: <xms:-bf2WUTTEpgIqztY2_BbfHxvF1MUk3bmFI35RZNRWXDeoAIPXwcLvg>
-Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 68350242CF;
- Mon, 30 Oct 2017 01:26:15 -0400 (EDT)
-Message-ID: <1509341171.13477.24.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10 v2] drivers (fsi): sbefifo: Add timeout
- for waiting for data
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=L7eMDOCKX61dH0S5r
+ /CUQMEKSR7PSiCxtzSno6/1DcM=; b=b/BNHcJOctkuzJEZ7ArzNXresGLLNlOWS
+ XAdYnF0m2gD4g67EZ7wjIpGLo6cDEqRAozp0CQkh/Ms/FU4FGcagY1SAAkf5exs1
+ u+WYv2nCfEx5CvjnHX0Ul59R3uwIMDhCCohKLgwDO7wfa9GmBwnGtwIM0YPJyG8u
+ 7+Y9q+1I8XR+7C6W2q9bTWKqXMLr7cit49cKZipK/wxPbKtbESP0LokHYzdQtnFC
+ fuv3ChQpRBAGfCSgd+kZKh0Ig5Vg+ZcsMd0NYPD1GLwAwKuqD5to3f3DqYPkLOSV
+ UR6cMiM/Kcpsan3c/ziajI4I00Z1otR9B0GwmT7SzNFKOGvAsAxKg==
+X-ME-Sender: <xms:ScX2WcMkEscgstBsMPJVXuWhKTqRuLVk8Z13HdlZERh5G-UqOF8QLg>
+Received: from keelia.au.ibm.com (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 94A79247F0;
+ Mon, 30 Oct 2017 02:23:00 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Cc: bradleyb@fuzziesquirrel.com, "Edward A. James" <eajames@us.ibm.com>
-Date: Mon, 30 Oct 2017 15:56:11 +1030
-In-Reply-To: <1509057254-14890-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1509057254-14890-1-git-send-email-eajames@linux.vnet.ibm.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-x+A4mIDxxNK97ekGWN5/"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+To: linux-gpio@vger.kernel.org
+Cc: Andrew Jeffery <andrew@aj.id.au>, linus.walleij@linaro.org,
+ robh+dt@kernel.org, mark.rutland@arm.com, frowand.list@gmail.com,
+ joel@jms.id.au, ckeepax@opensource.wolfsonmicro.com, ldewangan@nvidia.com,
+ ryan_chen@aspeedtech.com, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-aspeed@lists.ozlabs.org
+Subject: [PATCH v2 0/2] gpio: Generalise state persistence (was: Expose reset
+ tolerance capability)
+Date: Mon, 30 Oct 2017 16:52:16 +1030
+Message-Id: <20171030062218.27005-1-andrew@aj.id.au>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -66,126 +64,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 30 Oct 2017 05:26:23 -0000
+X-List-Received-Date: Mon, 30 Oct 2017 06:23:08 -0000
 
+Hello,
 
---=-x+A4mIDxxNK97ekGWN5/
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This series provides an API to configure general GPIO state persistence in
+gpiolib. Previously, only sleep persistence was considered, but controllers
+like one found in Aspeed BMCs also support persistence of state across
+controller resets. There is some prior discussion on v1[1] and the initial
+RFC[2]. The only change in v2 is to rename the new pinconf property to convey
+the concept of state persistence rather focussing on reset tolerance, based on
+feedback from Charles Keepax[3].
 
-On Thu, 2017-10-26 at 17:34 -0500, Eddie James wrote:
-> From: "Edward A. James" <eajames@us.ibm.com>
->=C2=A0
-> During a transfer, in the event that the SBE isn't running, the driver
-> will wait for data to appear in the FIFO forever. This doesn't work at
-> BMC boot time if any transfers are attempted (by OCC driver probing, for
-> example), as it will just hang the boot. So add a simple timeout
-> mechanism when the driver reschdules waiting for data to show up in the
-> FIFO.
->=C2=A0
-> Tested on witherspoon by rebooting the BMC successfully with chassis
-> power on.
-
-So the thing is the BMC *does* successfully boot *without* this patch. It j=
-ust
-takes an *insanely* long time at around 870 seconds before we hand over to
-init.
-
-So it seems there's an existing timeout mechanism in place, but this patch =
-adds
-a new one on top. Your commit message implies to me that the BMC should nev=
-er
-complete the boot process under these conditions, but given it does, can yo=
-u
-outline (in an reply and in the commit message) why this new timeout is the
-right solution?
-
-I tried to understand the behaviour myself but did not find an obvious
-justification for 870 seconds.
-
-Cheers,
+Please review!
 
 Andrew
 
->=C2=A0
-> Signed-off-by: Edward A. James <eajames@us.ibm.com>
-> ---
-> Changes since v1:
-> =C2=A0* Reset the wait_data_timeout field if we get data. If we get data,=
- the SBE
-> =C2=A0=C2=A0=C2=A0is running and we really shouldn't timeout.
->=C2=A0
-> =C2=A0drivers/fsi/fsi-sbefifo.c | 18 ++++++++++++++++++
-> =C2=A01 file changed, 18 insertions(+)
->=C2=A0
-> diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
-> index f756822..41b838e 100644
-> --- a/drivers/fsi/fsi-sbefifo.c
-> +++ b/drivers/fsi/fsi-sbefifo.c
-> @@ -54,6 +54,7 @@
-> =C2=A0#define SBEFIFO_EOT_ACK		0x14
-> =C2=A0
-> =C2=A0#define SBEFIFO_RESCHEDULE	msecs_to_jiffies(500)
-> +#define SBEFIFO_MAX_RESCHDULE	msecs_to_jiffies(5000)
-> =C2=A0
-> =C2=A0struct sbefifo {
-> =C2=A0	struct timer_list poll_timer;
-> @@ -77,6 +78,7 @@ struct sbefifo_buf {
-> =C2=A0};
-> =C2=A0
-> =C2=A0struct sbefifo_xfr {
-> +	unsigned long wait_data_timeout;
-> =C2=A0	struct sbefifo_buf *rbuf;
-> =C2=A0	struct sbefifo_buf *wbuf;
-> =C2=A0	struct list_head client;
-> @@ -450,11 +452,27 @@ static void sbefifo_poll_timer(unsigned long data)
-> =C2=A0
-> =C2=A0		devn =3D sbefifo_dev_nwreadable(sts);
-> =C2=A0		if (devn =3D=3D 0) {
-> +			/*
-> +			=C2=A0* Limit the maximum waiting period for data in the
-> +			=C2=A0* FIFO. If the SBE isn't running, we will wait
-> +			=C2=A0* forever.
-> +			=C2=A0*/
-> +			if (!xfr->wait_data_timeout) {
-> +				xfr->wait_data_timeout =3D
-> +					jiffies + SBEFIFO_MAX_RESCHDULE;
-> +			} else if (time_after(jiffies,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0xfr->wait_data_timeout)) {
-> +				ret =3D -ETIME;
-> +				goto out;
-> +			}
-> +
-> =C2=A0			/* No data yet.=C2=A0=C2=A0Reschedule. */
-> =C2=A0			sbefifo->poll_timer.expires =3D jiffies +
-> =C2=A0				SBEFIFO_RESCHEDULE;
-> =C2=A0			add_timer(&sbefifo->poll_timer);
-> =C2=A0			goto out_unlock;
-> +		} else {
-> +			xfr->wait_data_timeout =3D 0;
-> =C2=A0		}
-> =C2=A0
-> =C2=A0		/* Fill.=C2=A0=C2=A0The EOT word is discarded.=C2=A0=C2=A0*/
---=-x+A4mIDxxNK97ekGWN5/
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+[1] https://www.spinics.net/lists/devicetree/msg200027.html
+[2] https://www.spinics.net/lists/devicetree/msg199559.html
+[3] https://www.spinics.net/lists/devicetree/msg200040.html
 
------BEGIN PGP SIGNATURE-----
+Andrew Jeffery (2):
+  gpio: gpiolib: Generalise state persistence beyond sleep
+  gpio: aspeed: Add support for reset tolerance
 
-iQIcBAABCgAGBQJZ9rfzAAoJEJ0dnzgO5LT5HVAQALjfUv2A4ISJ+L2KrLcY6GI2
-u4nX6KGibIQ2bWtdjZxJf6k3Cfq6aLunIKj8xBG0cgAn6g8I0LvxfeN2bPStN9F1
-nmfjdVUQRonXheDNOZs8WSsjv8XSjjqKlIKJ0vb7Eoy3xXXVIdK8Ylez3/Xe9M7T
-rb6JSmtkU4fQ9AsmfohcdyEoF3b6TQ2DYRqgTHCrA+cas2uVJUKcAKXajpH8Sw5M
-65bdUPxI93lFUUEXWO4R+PCKpUvheRZqyvBpw1wkZc/sb6yM97STJV4XPX9DkMbZ
-qF0PpLjVG4c2NzxOrpwgBJEaAIe99Nbnq/QQxQf6KZzMUT8C87OjnoYtO1z7jzWF
-oFwvlM4uoKjFJzwtP2cnFfyzl6/jDwo/rBg6t+d7kPKvFauxJf5qhXtFOJta2N4D
-0Nmw/gFqmeMTijDjR1s8CNG9zUz1yWS8Z46U/b9jeyORoiKwc3VdNB85PsUqE+Mr
-hSdHALnuyhcGKTxQxIS1CE3OAFsaEkopRtM8AN5AGSTyHyDBgwhDX19b/FjRgs5e
-MB61uT5lSv7GEmaeQuR0P9/44DoqucF5PfqraCLGNg+iwCxymxZOf3CSgrjJLdZf
-OnITzFShcDYX6ov4dOuYSzq0CZ9P4Tj41tHiJTqvnP/ocoaQSuvarUTTrENHMv1F
-s2nBy2QFpGODjZ4YJlmU
-=QheN
------END PGP SIGNATURE-----
+ drivers/gpio/gpio-aspeed.c              | 39 ++++++++++++++++++++--
+ drivers/gpio/gpiolib-of.c               |  6 ++--
+ drivers/gpio/gpiolib-sysfs.c            | 14 +++++---
+ drivers/gpio/gpiolib.c                  | 58 ++++++++++++++++++++++++++++++---
+ drivers/gpio/gpiolib.h                  |  2 +-
+ include/dt-bindings/gpio/gpio.h         |  6 ++--
+ include/linux/gpio/consumer.h           |  8 +++++
+ include/linux/gpio/machine.h            |  4 +--
+ include/linux/of_gpio.h                 |  2 +-
+ include/linux/pinctrl/pinconf-generic.h |  2 ++
+ 10 files changed, 121 insertions(+), 20 deletions(-)
 
---=-x+A4mIDxxNK97ekGWN5/--
+-- 
+2.11.0
