@@ -1,60 +1,55 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Return-Path: <mine260309@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400e:c05::243; helo=mail-pg0-x243.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="MOss02V0"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="MqC5PIPM"; dkim-atps=neutral
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="l4QU+lKT"; 
+ dkim-atps=neutral
+Received: from mail-pg0-x243.google.com (mail-pg0-x243.google.com
+ [IPv6:2607:f8b0:400e:c05::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yQPYg0QGHzDrcj;
- Mon, 30 Oct 2017 17:23:19 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 1434220CA6;
- Mon, 30 Oct 2017 02:23:17 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Mon, 30 Oct 2017 02:23:17 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=bFr4nZKuaZM2a1Je9
- /6jj05bVXQb0VIVZDUXUld1eSc=; b=MOss02V05WvMfEzLkDyp2fcc275zxoenb
- wcIYWvCEqTLNX3f2NeYQhtXoYoqgSjeOm7mIt4GedmtA1eWIlGTTmzgfGoAy3yDA
- Q8yjYu1WKmsL2r+emDrZuYoX0tHclX0/0HeYmnb65JzXgSylF5mlgWWc/IqrHLtz
- +xODzw51lyJ39OQVWIBh6cYe3xWkRxfLDGaqvELTUgIsEmKDbKMr7fap6ONtQXa0
- bXDnwvsLJpRADZ6m4dIy36ehL818IOp8NWwXPRguzauBzh6X2HxThDTxsNraBKje
- NqCQcCOT5ghInP3lTdHxQeohOFjjpmbHJ/arXdikX0zeNwL+gYCHg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:in-reply-to:message-id
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=bFr4nZKuaZM2a1Je9/6jj05bVXQb0VIVZDUXUld1eSc=; b=MqC5PIPM
- NVxthKFw2VOc9yLe9R99z0mO3O25VMZp9vEvLZLlJCiHtDknk0xtXUxH8lDBPutT
- 4+23Qe19S5t19uSe97Cq4zBZUoUMI21pPLLBNgUduOR3W7RSuYbfjrMpbEeRCjoC
- GJFDPsUs49hPeST4TcUR+iPHk+BOfouJ+Pgo6NH+cJskfW1pyNaeTanW5YjL0yQ0
- is3qpvOTwL4JmFi7kgIW4UExQTW+1eQL8oJfzE1/BYHl+eUFEWIrR7qfPaEQIhkJ
- YNb5FRXpTANL82Bgdm0brpDG6uGhGvhh4FkMIN1T2yVJzDfRUBYQl0gRSY6VrVBB
- ox3eA902lfTnCQ==
-X-ME-Sender: <xms:VcX2WfINiQc0UFKr6f6KNVPJTnGX-i8-7y-o7PgfqrSTAhamiftCEw>
-Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 97D66247F0;
- Mon, 30 Oct 2017 02:23:11 -0400 (EDT)
-From: Andrew Jeffery <andrew@aj.id.au>
-To: linux-gpio@vger.kernel.org
-Cc: Andrew Jeffery <andrew@aj.id.au>, linus.walleij@linaro.org,
- robh+dt@kernel.org, mark.rutland@arm.com, frowand.list@gmail.com,
- joel@jms.id.au, ckeepax@opensource.wolfsonmicro.com, ldewangan@nvidia.com,
- ryan_chen@aspeedtech.com, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-aspeed@lists.ozlabs.org
-Subject: [PATCH v2 2/2] gpio: aspeed: Add support for reset tolerance
-Date: Mon, 30 Oct 2017 16:52:18 +1030
-Message-Id: <20171030062218.27005-3-andrew@aj.id.au>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20171030062218.27005-1-andrew@aj.id.au>
-References: <20171030062218.27005-1-andrew@aj.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yQTVS6h7DzDqMY
+ for <openbmc@lists.ozlabs.org>; Mon, 30 Oct 2017 20:20:48 +1100 (AEDT)
+Received: by mail-pg0-x243.google.com with SMTP id y5so11064027pgq.7
+ for <openbmc@lists.ozlabs.org>; Mon, 30 Oct 2017 02:20:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=6mCgqx8YPcBVNcyWon9O3M5jeDG6L3yjz+jyNy+1YE0=;
+ b=l4QU+lKTJzihGCAUqKGAh6YwFL48+kSjgWs/xpub58WAmkM9ktD6aKkOduInIXQFB/
+ rLemcu3fl/CqX/yD5HQ+M56iOYqT4jGXRv+w9aG2iNKUbH9Sb5YC3G3vU5oaLB4IUHwT
+ bGHqLdgrtXgexOjTIOv3lCqitsO9k/Qc7wJtNFBGgsmQ+eBO4I0Fxk1KIbumJKyQDNFZ
+ jLFuM//zgGba6NFk4w+knvwjAbJ/asADx9Vpj0ymLBsqmcWs+YrO8Mwolgd0GxTXSfge
+ TmPctldLY6zxkERc/yt3Hs1/SZJEJOKEbUY6U7oMaS4BfTxbUW9GI5YyBkkFZRaIYjCW
+ MDdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=6mCgqx8YPcBVNcyWon9O3M5jeDG6L3yjz+jyNy+1YE0=;
+ b=WjqlbC+O2hSw+UvkUT4hyvwJ2noh4ZoDPHLF5Jj7e2FaUt1KmWvTRirNJp9UUZVeQ8
+ UArkBGlmyqBtGi9VIgEK//3mxgyEUCuVLuVnLdWse+7UZ/hw7470VY6DcipkvAOoucQl
+ nvQ+SsVipR3qpGXVSlgAJMGJMy/oJVTwuCjtBAUYw0Ogq+BKmSxrauSFG9KSCstQkbdV
+ 9yFqTKXOocbQblJM9xwxS8X2ZRsRar2xHsnPxuA8ghSSHbVpvCXspcnjipazHkHIJdi9
+ AgifZpsfMV9ElvA+k57h/aldMMXOMem9QRgJV9vMUeFp3iBsNz9qzxuKDuihyRzRLXbp
+ fTNg==
+X-Gm-Message-State: AMCzsaWbEFlDXrZGS4HEJ8zQKhkR1N1kG/RoexrKvVyVGAt9FtJ4TIN7
+ 0THzvjIjxKEv7DAilwAp8XQfjdRR
+X-Google-Smtp-Source: ABhQp+Rez8Wlc438BNvT6mdudd4j/9E/waeJY/LgndB6S2uxJC/eOOKbiaG6RgI0LJ2OG9XYNIHsAQ==
+X-Received: by 10.98.166.205 with SMTP id r74mr8152139pfl.285.1509355246831;
+ Mon, 30 Oct 2017 02:20:46 -0700 (PDT)
+Received: from localhost ([204.110.13.80])
+ by smtp.gmail.com with ESMTPSA id 77sm28018726pfl.133.2017.10.30.02.20.45
+ (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+ Mon, 30 Oct 2017 02:20:46 -0700 (PDT)
+From: Lei YU <mine260309@gmail.com>
+To: openbmc@lists.ozlabs.org
+Cc: Lei YU <mine260309@gmail.com>,
+	andrew@aj.id.au
+Subject: [PATCH linux dev-4.10] ARM: aspeed: romulus: Add reset tolerance for
+ power GPIOs
+Date: Mon, 30 Oct 2017 17:20:14 +0800
+Message-Id: <1509355215-28727-1-git-send-email-mine260309@gmail.com>
+X-Mailer: git-send-email 1.9.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -66,126 +61,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 30 Oct 2017 06:23:19 -0000
+X-List-Received-Date: Mon, 30 Oct 2017 09:20:49 -0000
 
-Use the new pinconf parameter for state persistence to expose the
-associated capability of the Aspeed GPIO controller.
+This is a similar change as Witherspoon, that enables the host to stay
+up across BMC reboots.
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+Signed-off-by: Lei YU <mine260309@gmail.com>
 ---
- drivers/gpio/gpio-aspeed.c | 39 +++++++++++++++++++++++++++++++++++++--
- 1 file changed, 37 insertions(+), 2 deletions(-)
+ arch/arm/mach-aspeed/aspeed.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/gpio/gpio-aspeed.c b/drivers/gpio/gpio-aspeed.c
-index 00dc1c020198..3125dcb9211d 100644
---- a/drivers/gpio/gpio-aspeed.c
-+++ b/drivers/gpio/gpio-aspeed.c
-@@ -60,6 +60,7 @@ struct aspeed_gpio_bank {
- 	uint16_t	val_regs;
- 	uint16_t	irq_regs;
- 	uint16_t	debounce_regs;
-+	uint16_t	tolerance_regs;
- 	const char	names[4][3];
- };
+diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+index c84c871..5965bbf 100644
+--- a/arch/arm/mach-aspeed/aspeed.c
++++ b/arch/arm/mach-aspeed/aspeed.c
+@@ -196,7 +196,17 @@ static void __init do_witherspoon_setup(void)
  
-@@ -70,48 +71,56 @@ static const struct aspeed_gpio_bank aspeed_gpio_banks[] = {
- 		.val_regs = 0x0000,
- 		.irq_regs = 0x0008,
- 		.debounce_regs = 0x0040,
-+		.tolerance_regs = 0x001c,
- 		.names = { "A", "B", "C", "D" },
- 	},
- 	{
- 		.val_regs = 0x0020,
- 		.irq_regs = 0x0028,
- 		.debounce_regs = 0x0048,
-+		.tolerance_regs = 0x003c,
- 		.names = { "E", "F", "G", "H" },
- 	},
- 	{
- 		.val_regs = 0x0070,
- 		.irq_regs = 0x0098,
- 		.debounce_regs = 0x00b0,
-+		.tolerance_regs = 0x00ac,
- 		.names = { "I", "J", "K", "L" },
- 	},
- 	{
- 		.val_regs = 0x0078,
- 		.irq_regs = 0x00e8,
- 		.debounce_regs = 0x0100,
-+		.tolerance_regs = 0x00fc,
- 		.names = { "M", "N", "O", "P" },
- 	},
- 	{
- 		.val_regs = 0x0080,
- 		.irq_regs = 0x0118,
- 		.debounce_regs = 0x0130,
-+		.tolerance_regs = 0x012c,
- 		.names = { "Q", "R", "S", "T" },
- 	},
- 	{
- 		.val_regs = 0x0088,
- 		.irq_regs = 0x0148,
- 		.debounce_regs = 0x0160,
-+		.tolerance_regs = 0x015c,
- 		.names = { "U", "V", "W", "X" },
- 	},
- 	{
- 		.val_regs = 0x01E0,
- 		.irq_regs = 0x0178,
- 		.debounce_regs = 0x0190,
-+		.tolerance_regs = 0x018c,
- 		.names = { "Y", "Z", "AA", "AB" },
- 	},
- 	{
--		.val_regs = 0x01E8,
--		.irq_regs = 0x01A8,
-+		.val_regs = 0x01e8,
-+		.irq_regs = 0x01a8,
- 		.debounce_regs = 0x01c0,
-+		.tolerance_regs = 0x01bc,
- 		.names = { "AC", "", "", "" },
- 	},
- };
-@@ -534,6 +543,30 @@ static int aspeed_gpio_setup_irqs(struct aspeed_gpio *gpio,
- 	return 0;
- }
- 
-+static int aspeed_gpio_reset_tolerance(struct gpio_chip *chip,
-+					unsigned int offset, bool enable)
-+{
-+	struct aspeed_gpio *gpio = gpiochip_get_data(chip);
-+	const struct aspeed_gpio_bank *bank;
-+	unsigned long flags;
-+	u32 val;
-+
-+	bank = to_bank(offset);
-+
-+	spin_lock_irqsave(&gpio->lock, flags);
-+	val = readl(gpio->base + bank->tolerance_regs);
-+
-+	if (enable)
-+		val |= GPIO_BIT(offset);
-+	else
-+		val &= ~GPIO_BIT(offset);
-+
-+	writel(val, gpio->base + bank->tolerance_regs);
-+	spin_unlock_irqrestore(&gpio->lock, flags);
-+
-+	return 0;
-+}
-+
- static int aspeed_gpio_request(struct gpio_chip *chip, unsigned int offset)
+ static void __init do_romulus_setup(void)
  {
- 	if (!have_gpio(gpiochip_get_data(chip), offset))
-@@ -771,6 +804,8 @@ static int aspeed_gpio_set_config(struct gpio_chip *chip, unsigned int offset,
- 			param == PIN_CONFIG_DRIVE_OPEN_SOURCE)
- 		/* Return -ENOTSUPP to trigger emulation, as per datasheet */
- 		return -ENOTSUPP;
-+	else if (param == PIN_CONFIG_PERSIST_STATE)
-+		return aspeed_gpio_reset_tolerance(chip, offset, arg);
- 
- 	return -ENOTSUPP;
++	unsigned long reg;
++
+ 	do_common_setup();
++
++	/* Reset tolerance for BMC_POWER_UP (GPIOD1) */
++	reg = readl(AST_IO(AST_BASE_GPIO | 0x01c));
++	writel(reg | BIT(25), AST_IO(AST_BASE_GPIO | 0x01c));
++
++	/* Reset tolerance for SOFTWARE_PGOOD (GPIOR1) and SEQ_CONT (GPIOS7) */
++	reg = readl(AST_IO(AST_BASE_GPIO | 0x12c));
++	writel(reg | BIT(9) | BIT(23), AST_IO(AST_BASE_GPIO | 0x12c));
  }
+ 
+ static void __init do_lanyang_setup(void)
 -- 
-2.11.0
+1.9.1
