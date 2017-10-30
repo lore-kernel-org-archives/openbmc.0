@@ -1,32 +1,79 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yQfsP4rk3zDqmt
- for <openbmc@lists.ozlabs.org>; Tue, 31 Oct 2017 03:22:48 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 46977161ECC;
- Mon, 30 Oct 2017 12:22:45 -0400 (EDT)
-Content-Type: text/plain; charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: Re: [PATCH linux dev-4.10 v2] drivers (fsi): sbefifo: Add timeout for
- waiting for data
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <1509057254-14890-1-git-send-email-eajames@linux.vnet.ibm.com>
-Date: Mon, 30 Oct 2017 12:22:45 -0400
-Cc: openbmc@lists.ozlabs.org, andrew@aj.id.au,
- "Edward A. James" <eajames@us.ibm.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <7524F12B-654B-4979-8CC3-54980F5AB018@fuzziesquirrel.com>
-References: <1509057254-14890-1-git-send-email-eajames@linux.vnet.ibm.com>
-To: Eddie James <eajames@linux.vnet.ibm.com>
-X-Mailer: Apple Mail (2.3273)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yQfyd4TvrzDqmt
+ for <openbmc@lists.ozlabs.org>; Tue, 31 Oct 2017 03:27:21 +1100 (AEDT)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ v9UGQd71143328
+ for <openbmc@lists.ozlabs.org>; Mon, 30 Oct 2017 12:27:19 -0400
+Received: from e16.ny.us.ibm.com (e16.ny.us.ibm.com [129.33.205.206])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2dx7be8wy1-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 30 Oct 2017 12:27:18 -0400
+Received: from localhost
+ by e16.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Mon, 30 Oct 2017 12:27:18 -0400
+Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
+ by e16.ny.us.ibm.com (146.89.104.203) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Mon, 30 Oct 2017 12:27:15 -0400
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
+ [9.57.199.111])
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v9UGRF7D38273184; Mon, 30 Oct 2017 16:27:15 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 583CEAC03F;
+ Mon, 30 Oct 2017 12:28:01 -0400 (EDT)
+Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
+ by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id EB495AC046;
+ Mon, 30 Oct 2017 12:28:00 -0400 (EDT)
+Subject: Re: [PATCH linux dev-4.10 v2] drivers: i2c: fsi: Add proper abort
+ method
+To: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org
+Cc: "Edward A. James" <eajames@us.ibm.com>, cbostic@linux.vnet.ibm.com
+References: <1508529741-29316-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <1508718675.6013.3.camel@aj.id.au>
+ <de884d77-04a2-1095-8198-89f2ce93e029@linux.vnet.ibm.com>
+ <1508893417.13477.1.camel@aj.id.au>
+ <57eb4d71-3db5-d3ec-7a67-db3013c872d8@linux.vnet.ibm.com>
+ <1509136907.1496317.1153410920.0302A4F4@webmail.messagingengine.com>
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Mon, 30 Oct 2017 11:27:14 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.4.0
+MIME-Version: 1.0
+In-Reply-To: <1509136907.1496317.1153410920.0302A4F4@webmail.messagingengine.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 17103016-0024-0000-0000-000002EA94C3
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00007981; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000239; SDB=6.00938697; UDB=6.00473188; IPR=6.00718958; 
+ BA=6.00005663; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017792; XFM=3.00000015;
+ UTC=2017-10-30 16:27:16
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17103016-0025-0000-0000-000045E2C976
+Message-Id: <d959f6d2-80ba-d6aa-4a7a-ee35f8cf0c8e@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-10-30_05:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=2 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
+ definitions=main-1710300220
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -38,103 +85,100 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 30 Oct 2017 16:22:50 -0000
+X-List-Received-Date: Mon, 30 Oct 2017 16:27:22 -0000
 
 
-> On Oct 26, 2017, at 6:34 PM, Eddie James <eajames@linux.vnet.ibm.com> =
-wrote:
->=20
-> From: "Edward A. James" <eajames@us.ibm.com>
->=20
-> During a transfer, in the event that the SBE isn't running, the driver
-> will wait for data to appear in the FIFO forever. This doesn't work at
-> BMC boot time if any transfers are attempted (by OCC driver probing, =
-for
-> example), as it will just hang the boot. So add a simple timeout
-> mechanism when the driver reschdules waiting for data to show up in =
-the
-> FIFO.
->=20
-> Tested on witherspoon by rebooting the BMC successfully with chassis
-> power on.
->=20
-> Signed-off-by: Edward A. James <eajames@us.ibm.com>
-> ---
-> Changes since v1:
-> * Reset the wait_data_timeout field if we get data. If we get data, =
-the SBE
->   is running and we really shouldn't timeout.
->=20
-> drivers/fsi/fsi-sbefifo.c | 18 ++++++++++++++++++
-> 1 file changed, 18 insertions(+)
->=20
-> diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
-> index f756822..41b838e 100644
-> --- a/drivers/fsi/fsi-sbefifo.c
-> +++ b/drivers/fsi/fsi-sbefifo.c
-> @@ -54,6 +54,7 @@
-> #define SBEFIFO_EOT_ACK		0x14
->=20
-> #define SBEFIFO_RESCHEDULE	msecs_to_jiffies(500)
-> +#define SBEFIFO_MAX_RESCHDULE	msecs_to_jiffies(5000)
->=20
-> struct sbefifo {
-> 	struct timer_list poll_timer;
-> @@ -77,6 +78,7 @@ struct sbefifo_buf {
-> };
->=20
-> struct sbefifo_xfr {
-> +	unsigned long wait_data_timeout;
-> 	struct sbefifo_buf *rbuf;
-> 	struct sbefifo_buf *wbuf;
-> 	struct list_head client;
-> @@ -450,11 +452,27 @@ static void sbefifo_poll_timer(unsigned long =
-data)
->=20
-> 		devn =3D sbefifo_dev_nwreadable(sts);
-> 		if (devn =3D=3D 0) {
-> +			/*
-> +			 * Limit the maximum waiting period for data in =
-the
-> +			 * FIFO. If the SBE isn't running, we will wait
-> +			 * forever.
-> +			 */
-> +			if (!xfr->wait_data_timeout) {
-> +				xfr->wait_data_timeout =3D
-> +					jiffies + SBEFIFO_MAX_RESCHDULE;
-> +			} else if (time_after(jiffies,
-> +					      xfr->wait_data_timeout)) {
-> +				ret =3D -ETIME;
-> +				goto out;
-> +			}
-> +
-> 			/* No data yet.  Reschedule. */
-> 			sbefifo->poll_timer.expires =3D jiffies +
-> 				SBEFIFO_RESCHEDULE;
-> 			add_timer(&sbefifo->poll_timer);
-> 			goto out_unlock;
-> +		} else {
-> +			xfr->wait_data_timeout =3D 0;
-> 		}
->=20
-> 		/* Fill.  The EOT word is discarded.  */
-> --=20
-> 1.8.3.1
 
-I think I chose this wait forever approach because I figured user space =
-could
-use nonblock + epoll if they didn=E2=80=99t want to wait forever.  =
-Rationale being the
-kernel should provide access and not dictate policy.
+On 10/27/2017 03:41 PM, Andrew Jeffery wrote:
+>>>>>> +
+>>>>>> +	return -ETIME;
+>>>>>> +}
+>>>>>> +
+>>>>>>     static int fsi_i2c_handle_status(struct fsi_i2c_port *port,
+>>>>>>     				 struct i2c_msg *msg, u32 status)
+>>>>>>     {
+>>>>>>     	int rc;
+>>>>>>     	u8 fifo_count;
+>>>>>> -	struct fsi_i2c_master *i2c = port->master;
+>>>>>> -	u32 dummy = 0;
+>>>>>>     
+>>>>>>     	if (status & I2C_STAT_ERR) {
+>>>>>> -		rc = fsi_i2c_write_reg(i2c->fsi, I2C_FSI_RESET_ERR, &dummy);
+>>>>>> +		rc = fsi_i2c_abort(port, status);
+>>>>>>     		if (rc)
+>>>>>>     			return rc;
+>>>>>>     
+>>>>>> +		if (status & I2C_STAT_INV_CMD)
+>>>>>> +			return -EINVAL;
+>>>>>> +
+>>>>>> +		if (status & (I2C_STAT_PARITY | I2C_STAT_BE_OVERRUN |
+>>>>>> +		    I2C_STAT_BE_ACCESS))
+>>>>>> +			return -EPROTO;
+>>>>>> +
+>>>>>>     		if (status & I2C_STAT_NACK)
+>>>>>>     			return -EFAULT;
+>>>>>    
+>>>>> EFAULT is "Bad address", but slaves can NACK things that aren't addresses.
+>>>>> As an example i2c-aspeed calls a NACK an EIO.
+>>>>    
+>>>> True, but I dislike returning EIO as it's somewhat of a default option
+>>>> and makes it very difficult to determine what actually went wrong. How
+>>>> about ENXIO?
+>>> What does userspace do with that knowledge? Is it worth differentiating? I
+>>> can't immediately see that it is. Maybe it's worth a dev_dbg() or something?
+>>> I feel ENXIO doesn't address my point either, as it means "No such device or
+>>> address", which is still inappropriate for data NACKs.
+>> Well, when someone sees an i2c failure and opens a defect and assigns it
+>> to me, I would like to know if it was a NACK or something else :) If I
+>> see EIO, it could be either some other I2C error, an FSI bus error, o
+>> probably even a GPIO error. And dev_dbg probably won't help in the field
+>> since it'll be compiled out.
+> That's not true currently as we set CONFIG_DYNAMIC_DEBUG:
+>
+> https://github.com/openbmc/openbmc/blob/51af974f81c1d8a6df250fb38c27c1a0444b2cf3/meta-openbmc-bsp/meta-aspeed/meta-ast2500/recipes-kernel/linux/linux-obmc/defconfig#L200
+>
+> unless we plan to change that? You can control it via debugfs. We really
+> must return something sensible with respect to the error that occurred,
+> and neither EFAULT nor ENXIO fit that bill.
 
-But userspace isn=E2=80=99t the problem here, its the in-kernel api =
-being used by
-other drivers.
+Ah, didn't know that was enabled, thanks! However, that still doesn't 
+help the situation where we hit the failure and can't recreate it after 
+enabling that level of tracing...
 
-The only other idea I have here if we don=E2=80=99t like this patch is =
-to make the in-kernel
-API never block (or provide a non-blocking version of it), but I vaguely =
-remember
-that already being discussed and deemed un-optimal for other reasons.
+I still argue for ENXIO. The Broadcom iProc I2C driver uses ENXIO for 
+both data and addr NACKs: 
+http://elixir.free-electrons.com/linux/latest/source/drivers/i2c/busses/i2c-bcm-iproc.c#L231
 
--brad
+I forgot to switch ECANCELED to EAGAIN in v3, so I'll send up v4.
+
+Cheers,
+Eddie
+
+>>>>    
+>>>>>    
+>>>>>>     
+>>>>>> +		if (status & I2C_STAT_LOST_ARB)
+>>>>>> +			return -ECANCELED;
+>>>>>    
+>>>>> So checking around the tree, all of i2c-aspeed, i2c-designware-core,
+>>>>> i2c-hix5hd2, i2c-kempld to name a few (I stopped checking at that point) use
+>>>>> -EAGAIN for arbitration loss. I don't think -ECANCELLED is appropriate, and
+>>>>> certainly think that -EAGAIN is what we want: Nothing went wrong aside from
+>>>>> this master lost the arbitration race, so the caller should really just retry.
+>>>>    
+>>>> Good point, however, for this master, it can often return arbitration
+>>>> lost if the clock or data line is stuck, and retries will not work. I'll
+>>>> switch it to EAGAIN, callers shouldn't try too many times hopefully...
+>>> Can we test status again when a new transfer is starting to see if we need to
+>>> recover the bus before proceeding?
+>> Well with this change, bus should be recovered after any failure, if
+>> recovery is possible. I more meant the case when the clock or data line
+>> is really stuck such that the master cannot recover them.
+> What do we do in this case then? Power cycle?
+
+Yes... Shouldn't happen except for a hardware fault on the slave side, 
+from my experience.
+
+>
+> Andrew
+>
