@@ -1,55 +1,32 @@
-Return-Path: <ckeepax@opensource.cirrus.com>
-Authentication-Results: ozlabs.org; spf=none (mailfrom)
- smtp.mailfrom=opensource.cirrus.com (client-ip=67.231.149.25;
- helo=mx0b-001ae601.pphosted.com; envelope-from=ckeepax@opensource.cirrus.com;
- receiver=<UNKNOWN>)
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yQVK85ScRzDqMY;
- Mon, 30 Oct 2017 20:57:46 +1100 (AEDT)
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- v9U9sx2U015973; Mon, 30 Oct 2017 04:57:29 -0500
-Authentication-Results: ppops.net;
- spf=none smtp.mailfrom=ckeepax@opensource.cirrus.com
-Received: from mail4.cirrus.com ([87.246.98.35])
- by mx0a-001ae601.pphosted.com with ESMTP id 2dvqa2qb8g-1;
- Mon, 30 Oct 2017 04:57:29 -0500
-Received: from EX17.ad.cirrus.com (unknown [172.20.9.81])
- by mail4.cirrus.com (Postfix) with ESMTP id B5D23611CE6D;
- Mon, 30 Oct 2017 04:57:26 -0500 (CDT)
-Received: from imbe.wolfsonmicro.main (198.61.95.81) by EX17.ad.cirrus.com
- (172.20.9.81) with Microsoft SMTP Server id 14.3.301.0; Mon, 30 Oct 2017
- 09:57:28 +0000
-Received: from localhost.localdomain (algalon.ad.cirrus.com [198.90.223.36])
- by imbe.wolfsonmicro.main (8.14.4/8.14.4) with ESMTP id v9U9vQqm026306;	Mon,
- 30 Oct 2017 09:57:26 GMT
-Date: Mon, 30 Oct 2017 09:57:26 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Andrew Jeffery <andrew@aj.id.au>
-CC: <linux-gpio@vger.kernel.org>, <linus.walleij@linaro.org>,
- <robh+dt@kernel.org>, <mark.rutland@arm.com>, <frowand.list@gmail.com>,
- <joel@jms.id.au>, <ckeepax@opensource.wolfsonmicro.com>,
- <ldewangan@nvidia.com>, <ryan_chen@aspeedtech.com>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <openbmc@lists.ozlabs.org>, <linux-aspeed@lists.ozlabs.org>
-Subject: Re: [PATCH v2 1/2] gpio: gpiolib: Generalise state persistence
- beyond sleep
-Message-ID: <20171030095726.a43lpshlyfta4vrq@localhost.localdomain>
-References: <20171030062218.27005-1-andrew@aj.id.au>
- <20171030062218.27005-2-andrew@aj.id.au>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20171030062218.27005-2-andrew@aj.id.au>
-User-Agent: NeoMutt/20170113 (1.7.2)
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=2 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
- lowpriorityscore=0 impostorscore=0 adultscore=0 classifier=spam adjust=0
- reason=mlx scancount=1 engine=8.0.1-1707230000 definitions=main-1710300142
+Return-Path: <oleksandrs@mellanox.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=mellanox.com
+ (client-ip=193.47.165.129; helo=mellanox.co.il;
+ envelope-from=oleksandrs@mellanox.com; receiver=<UNKNOWN>)
+X-Greylist: delayed 397 seconds by postgrey-1.36 at bilbo;
+ Mon, 30 Oct 2017 23:18:55 AEDT
+Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
+ by lists.ozlabs.org (Postfix) with ESMTP id 3yQYRz4LcWzDqmt
+ for <openbmc@lists.ozlabs.org>; Mon, 30 Oct 2017 23:18:54 +1100 (AEDT)
+Received: from Internal Mail-Server by MTLPINE1 (envelope-from
+ oleksandrs@mellanox.com)
+ with ESMTPS (AES256-SHA encrypted); 30 Oct 2017 14:12:10 +0200
+Received: from r-vnc16.mtr.labs.mlnx (r-vnc16.mtr.labs.mlnx [10.208.0.16])
+ by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id v9UCCAMt001519;
+ Mon, 30 Oct 2017 14:12:10 +0200
+From: Oleksandr Shamray <oleksandrs@mellanox.com>
+To: gregkh@linuxfoundation.org, arnd@arndb.de
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, joel@jms.id.au,
+ jiri@resnulli.us, tklauser@distanz.ch, linux-serial@vger.kernel.org,
+ mec@shout.net, vadimp@mellanox.com, system-sw-low-level@mellanox.com,
+ robh+dt@kernel.org, openocd-devel-owner@lists.sourceforge.net,
+ linux-api@vger.kernel.org, davem@davemloft.net, mchehab@kernel.org,
+ Oleksandr Shamray <oleksandrs@mellanox.com>
+Subject: [patch v10 0/4] JTAG driver introduction
+Date: Mon, 30 Oct 2017 14:12:04 +0200
+Message-Id: <1509365528-28803-1-git-send-email-oleksandrs@mellanox.com>
+X-Mailer: git-send-email 1.7.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -61,75 +38,108 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 30 Oct 2017 09:57:50 -0000
+X-List-Received-Date: Mon, 30 Oct 2017 12:18:56 -0000
 
-On Mon, Oct 30, 2017 at 04:52:17PM +1030, Andrew Jeffery wrote:
-> General support for state persistence is added to gpiolib with the
-> introduction of a new pinconf parameter to propagate the request to
-> hardware. The existing persistence support for sleep is adapted to
-> include hardware support if the GPIO driver provides it. Persistence
-> continues to be enabled by default; in-kernel consumers can opt out, but
-> userspace (currently) does not have a choice.
-> 
-> The *_SLEEP_MAY_LOSE_VALUE and *_SLEEP_MAINTAIN_VALUE symbols are
-> renamed, dropping the SLEEP prefix to reflect that the concept is no
-> longer sleep-specific.  I feel that renaming to just *_MAY_LOSE_VALUE
-> could initially be misinterpreted, so I've further changed the symbols
-> to *_TRANSITORY and *_PERSISTENT to address this.
-> 
-> The sysfs interface is modified only to keep consistency with the
-> chardev interface in enforcing persistence for userspace exports.
-> 
-> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> ---
->  /**
-> + * gpiod_set_transitory - Lose or retain GPIO state on suspend or reset
-> + * @desc: descriptor of the GPIO for which to configure persistence
-> + * @transitory: True to lose state on suspend or reset, false for persistence
-> + *
-> + * Returns:
-> + * 0 on success, otherwise a negative error code.
-> + */
-> +int gpiod_set_transitory(struct gpio_desc *desc, bool transitory)
-> +{
-> +	struct gpio_chip *chip;
-> +	unsigned long packed;
-> +	int gpio;
-> +	int rc;
-> +
-> +	/* Handle FLAG_TRANSITORY first for suspend case */
-> +	if (transitory)
-> +		set_bit(FLAG_TRANSITORY, &desc->flags);
-> +	else
-> +		clear_bit(FLAG_TRANSITORY, &desc->flags);
-> +
-> +	/* Configure reset persistence if the controller supports it */
+When a need raise up to use JTAG interface for system's devices
+programming or CPU debugging, usually the user layer
+application implements jtag protocol by bit-bang or using a 
+proprietary connection to vendor hardware.
+This method can be slow and not generic.
+ 
+We propose to implement general JTAG interface and infrastructure
+to communicate with user layer application. In such way, we can
+have the standard JTAG interface core part and separation from
+specific HW implementation.
+This allow new capability to debug the CPU or program system's 
+device via BMC without additional devices nor cost. 
 
-This comment could use an update.
+This patch purpose is to add JTAG master core infrastructure by 
+defining new JTAG class and provide generic JTAG interface
+to allow hardware specific drivers to connect this interface.
+This will enable all JTAG drivers to use the common interface
+part and will have separate for hardware implementation.
 
-> +	chip = desc->gdev->chip;
-> +	if (!chip->set_config)
-> +		return 0;
-> +
-> +	packed = pinconf_to_config_packed(PIN_CONFIG_PERSIST_STATE,
-> +					  !transitory);
-> +	gpio = gpio_chip_hwgpio(desc);
-> +	rc = chip->set_config(chip, gpio, packed);
-> +	if (rc == -ENOTSUPP) {
-> +		dev_dbg(&desc->gdev->dev, "Reset tolerance not supported for GPIO %d\n",
-> +				gpio);
+The JTAG (Joint Test Action Group) core driver provides minimal generic
+JTAG interface, which can be used by hardware specific JTAG master
+controllers. By providing common interface for the JTAG controllers,
+user space device programing is hardware independent.
+ 
+Modern SoC which in use for embedded system' equipped with
+internal JTAG master interface.
+This interface is used for programming and debugging system's
+hardware components, like CPLD, FPGA, CPU, voltage and
+industrial controllers.
+Firmware for such devices can be upgraded through JTAG interface during
+Runtime. The JTAG standard support for multiple devices programming,
+is in case their lines are daisy-chained together.
 
-And this debug message.
+For example, systems which equipped with host CPU, BMC SoC or/and 
+number of programmable devices are capable to connect a pin and
+select system components dynamically for programming and debugging,
+This is using by the BMC which is equipped with internal SoC master
+controller.
+For example:
 
-> +		return 0;
-> +	}
-> +
-> +	return rc;
-> +}
-> +EXPORT_SYMBOL_GPL(gpiod_set_transitory);
-> +
+BMC JTAG master --> pin selected to CPLDs chain for programming (filed
+upgrade, production) 
+BMC JTAG master --> pin selected to voltage monitors for programming 
+(field upgrade, production) 
+BMC JTAG master --> pin selected to host CPU (on-site debugging 
+and developers debugging)
 
-Otherwise think this all looks good to me.
+For example, we can have application in user space which using calls
+to JTAG driver executes CPLD programming directly from SVF file
+ 
+The JTAG standard (IEEE 1149.1) defines the next connector pins:
+- TDI (Test Data In);
+- TDO (Test Data Out);
+- TCK (Test Clock);
+- TMS (Test Mode Select);
+- TRST (Test Reset) (Optional);
 
-Thanks,
-Charles
+The SoC equipped with JTAG master controller, performs
+device programming on command or vector level. For example
+a file in a standard SVF (Serial Vector Format) that contains
+boundary scan vectors, can be used by sending each vector
+to the JTAG interface and the JTAG controller will execute
+the programming.
+
+Initial version provides the system calls set for:
+- SIR (Scan Instruction Register, IEEE 1149.1 Data Register scan);
+- SDR (Scan Data Register, IEEE 1149.1 Instruction Register scan);
+- RUNTEST (Forces the IEEE 1149.1 bus to a run state for a specified
+  number of clocks.
+
+SoC which are not equipped with JTAG master interface, can be built
+on top of JTAG core driver infrastructure, by applying bit-banging of
+TDI, TDO, TCK and TMS pins within the hardware specific driver.
+
+Oleksandr Shamray (4):
+  drivers: jtag: Add JTAG core driver
+  drivers: jtag: Add Aspeed SoC 24xx and 25xx families JTAG master
+    driver
+  Documentation: jtag: Add bindings for Aspeed SoC 24xx and 25xx
+    families     JTAG master driver
+  Documentation: jtag: Add ABI documentation
+
+ Documentation/ABI/testing/jatg-dev                 |   27 +
+ .../devicetree/bindings/jtag/aspeed-jtag.txt       |   18 +
+ Documentation/ioctl/ioctl-number.txt               |    2 +
+ MAINTAINERS                                        |   10 +
+ drivers/Kconfig                                    |    2 +
+ drivers/Makefile                                   |    1 +
+ drivers/jtag/Kconfig                               |   29 +
+ drivers/jtag/Makefile                              |    2 +
+ drivers/jtag/jtag-aspeed.c                         |  771 ++++++++++++++++++++
+ drivers/jtag/jtag.c                                |  270 +++++++
+ include/linux/jtag.h                               |   48 ++
+ include/uapi/linux/jtag.h                          |  115 +++
+ 12 files changed, 1295 insertions(+), 0 deletions(-)
+ create mode 100644 Documentation/ABI/testing/jatg-dev
+ create mode 100644 Documentation/devicetree/bindings/jtag/aspeed-jtag.txt
+ create mode 100644 drivers/jtag/Kconfig
+ create mode 100644 drivers/jtag/Makefile
+ create mode 100644 drivers/jtag/jtag-aspeed.c
+ create mode 100644 drivers/jtag/jtag.c
+ create mode 100644 include/linux/jtag.h
+ create mode 100644 include/uapi/linux/jtag.h
