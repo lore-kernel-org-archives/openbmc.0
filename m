@@ -1,61 +1,59 @@
-Return-Path: <brendanhiggins@google.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400e:c05::22b; helo=mail-pg0-x22b.google.com;
- envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="f2OEVKg+"; 
- dkim-atps=neutral
-Received: from mail-pg0-x22b.google.com (mail-pg0-x22b.google.com
- [IPv6:2607:f8b0:400e:c05::22b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="lD/OkMPl"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="OeGoOMkh"; dkim-atps=neutral
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yQrXG42YczDqwS
- for <openbmc@lists.ozlabs.org>; Tue, 31 Oct 2017 10:38:37 +1100 (AEDT)
-Received: by mail-pg0-x22b.google.com with SMTP id v78so13021145pgb.5
- for <openbmc@lists.ozlabs.org>; Mon, 30 Oct 2017 16:38:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:message-id:to:cc:from:subject:in-reply-to;
- bh=hWcQvaBX3MoUOv/wu+wGi0Wgu0xumBBWlYvFgZUbpxM=;
- b=f2OEVKg+6QN6Hqmu7t2a2KrcYqGYHYuLOS3aefHh6/QBimsnRudCt0cmnkH7LswD5F
- FUAQDsBCzX8mbKJaaGmyvtNm3Q9rHnxwQX6+zYDI0Js1WON+KC9mtI6VfTjmpZHAIvlf
- QTt4ho8IgSksSyceOmVrnlZSjZHQF+WVQDRyJ2MHeBmxvychM2cdxSIo1JUD6fkLJzTW
- +jsUbEHWmK+MAlok9ZvHnwPzQ+/Yrh8l54zAVXFw/sm7yt8Gmxo1kkQMdR08dfEHST0D
- 2Tv9WAsWBbXaukptIdTth/CBQ+c5TKs5cQs6d8fP7qavYwEZUA3EagHIh+Yrv5iQ47vG
- 0JHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:message-id:to:cc:from:subject:in-reply-to;
- bh=hWcQvaBX3MoUOv/wu+wGi0Wgu0xumBBWlYvFgZUbpxM=;
- b=HvYMLkuO/osU/xDwJrvcIW3kfo7J+nwCD8LS8jinTnMDg9qaZq4xUotJngZUlT0XDz
- Z2VSelxgDJuI8thqNRlIO2kvP2wRix/K3/P7bZpa/JVVykjQFlJ8r46ETYd3cLo203yK
- KX2CWNl2x5PvPIRgiAnPD2RpPVlFPY6d3gyFW8hz7hMHWw+b6HfcLcfgQGjrM4c+14Zg
- FYT06ve16ufnpK9kDjbCDeYFr5TRFtNfLgPeEbeJysO8piLG9nYMfAko93SPEFfJG1N3
- Kb66i49r3F+nT1nf/19d1A1iimYgubQbbk3stNInT/JORdTanH0824leqM4j6n4EVZAl
- 23YA==
-X-Gm-Message-State: AMCzsaUPsFiT2TKRCbx+uMHlkspSH3nciuesTnVeT4ycb92Q84E+WrI4
- LWaqM7/9Le+QLefTerD361yCHA==
-X-Google-Smtp-Source: ABhQp+RuWyoRugk4g2gYcKHLM+PfwHqRsrjqGvDQJ5GUZnh2tHtFDOkKqBNvTP84KrWqyofSrt/4lw==
-X-Received: by 10.98.204.157 with SMTP id j29mr29109pfk.236.1509406714426;
- Mon, 30 Oct 2017 16:38:34 -0700 (PDT)
-Received: from mactruck.svl.corp.google.com
- ([2620:15c:2c5:3:487d:f99e:2a8:a3f3])
- by smtp.gmail.com with ESMTPSA id x73sm98355pff.102.2017.10.30.16.38.33
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 30 Oct 2017 16:38:33 -0700 (PDT)
-Received: from mactruck.svl.corp.google.com (localhost [127.0.0.1])
- by mactruck.svl.corp.google.com (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP
- id v9UNcXl5003590; Mon, 30 Oct 2017 16:38:33 -0700
-Received: (from brendanhiggins@localhost)
- by mactruck.svl.corp.google.com (8.14.4/8.14.4/Submit) id v9UNcWnK003589;
- Mon, 30 Oct 2017 16:38:32 -0700
-Date: Mon, 30 Oct 2017 16:38:32 -0700
-Message-Id: <201710302338.v9UNcWnK003589@mactruck.svl.corp.google.com>
-To: Philip Chidester <Philip.Chidester@flex.com>
-Cc: openbmc@lists.ozlabs.org
-From: Brendan Higgins <brendanhiggins@google.com>
-Subject: Re: Open BMC org
-In-Reply-To: CO2PR0801MB219720F2F66AB9EBE6E6B0C8FB470@CO2PR0801MB2197.namprd08.prod.outlook.com
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yQrzD6MjKzDqwS
+ for <openbmc@lists.ozlabs.org>; Tue, 31 Oct 2017 10:58:31 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id CAB052083A;
+ Mon, 30 Oct 2017 19:58:26 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Mon, 30 Oct 2017 19:58:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm1; bh=aEzkrm+szCldeulxG/vM1gNWraeTQj+B00fRgkPf6d4=; b=lD/OkMPl
+ 4ZL35dOOv/ZNBkONWYQYqUi1TdpiKZt6RqlWV4ZLIOw1EKa66Em9r6FW/6rAdcxE
+ G7gLaYiQIV7u5asV3xaMqAHzdHCySOhVchiXruznCyPckNoxK+KVBEDYlVrhlODA
+ VAVEzUcUibaW4BdCQk8cNV3gkDVWgyL0kK6M5+kCqYZOo/2fpu7YwonuBTIO6e9L
+ r/n3eA2fJuD88o8M5/x4YWcAie2vLGEsIv5MQdueRGaasl1CgQb+6NS/3noKmDsC
+ 1dHn2mtsVBB30w9jzkHHwrD9j3cOTBplIumDsLX0D2QWw9IxlCv8Qj5bkjpH0K1P
+ MHiVgzgTRuB6pQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; bh=aEzkrm+szCldeulxG/vM1gNWraeTQ
+ j+B00fRgkPf6d4=; b=OeGoOMkhgXcaGyQPz1tRWeohdnfqbnJWz1RDXdpmf4XhB
+ 0Gq92cTAjbuubmbhNPx/KJtcDPa4Mi7AoOxDPPdx4nRAJDg3P7d/3OnBwZHE4Xyp
+ ggCxEtYof6fR3jmRTo6epu9BkQLu+HFfl4Jy1tE6HLXkDHLxd8qAxvrySBmVat8r
+ CU2j9fA9MDSdsSUcpLHlPg53m2nenqu33j58EgRVNqFDv03l5GgixsmabHnDwFQv
+ k9XgvcIItFwahM8EPhShHsyUlyaiD/FhMrS+wV/g6qdbOyyE+ncBRJ2umSEMhx2/
+ VA8QL9dqQi5W6sb2hRUddh8Tp5xK/ycl3NweE3YWg==
+X-ME-Sender: <xms:orz3WdolvIPJdk9Z6jfWlut9-jDaDkRLKmw858-cyvrUa4oBIQCNWg>
+Received: from keelia (unknown [45.124.203.19])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 640BF240B2;
+ Mon, 30 Oct 2017 19:58:25 -0400 (EDT)
+Message-ID: <1509407892.13477.27.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.10] ARM: aspeed: romulus: Add reset
+ tolerance for power GPIOs
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Lei YU <mine260309@gmail.com>, openbmc@lists.ozlabs.org
+Date: Tue, 31 Oct 2017 10:28:12 +1030
+In-Reply-To: <1509355215-28727-1-git-send-email-mine260309@gmail.com>
+References: <1509355215-28727-1-git-send-email-mine260309@gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-2kWVIWuFxwg1TATPq8AE"
+X-Mailer: Evolution 3.22.6-1ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -67,14 +65,70 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 30 Oct 2017 23:38:39 -0000
+X-List-Received-Date: Mon, 30 Oct 2017 23:58:35 -0000
 
-> Is there a n Open BMC working group that I can join?
 
-Not sure what you mean by "working group", but this is the right place for any
-and all questions. We also have an IRC channel: #openbmc on freenode.net
+--=-2kWVIWuFxwg1TATPq8AE
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
->
-<snip>
+On Mon, 2017-10-30 at 17:20 +0800, Lei YU wrote:
+> This is a similar change as Witherspoon, that enables the host to stay
+> up across BMC reboots.
+>=C2=A0
+> Signed-off-by: Lei YU <mine260309@gmail.com>
+> ---
+> =C2=A0arch/arm/mach-aspeed/aspeed.c | 10 ++++++++++
+> =C2=A01 file changed, 10 insertions(+)
+>=C2=A0
+> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.=
+c
+> index c84c871..5965bbf 100644
+> --- a/arch/arm/mach-aspeed/aspeed.c
+> +++ b/arch/arm/mach-aspeed/aspeed.c
+> @@ -196,7 +196,17 @@ static void __init do_witherspoon_setup(void)
+> =C2=A0
+> =C2=A0static void __init do_romulus_setup(void)
+> =C2=A0{
+> +	unsigned long reg;
+> +
+> =C2=A0	do_common_setup();
+> +
+> +	/* Reset tolerance for BMC_POWER_UP (GPIOD1) */
+> +	reg =3D readl(AST_IO(AST_BASE_GPIO | 0x01c));
+> +	writel(reg | BIT(25), AST_IO(AST_BASE_GPIO | 0x01c));
+> +
+> +	/* Reset tolerance for SOFTWARE_PGOOD (GPIOR1) and SEQ_CONT (GPIOS7) */
 
-You seem new to the list, welcome!
+What is SEQ_CONT? I'd guess at "power sequence continue". GPIOS7 doesn't ha=
+ve
+an associated net name in the schematic I have for Romulus, though it's pul=
+led
+up to 3.3V. Maybe my schematic is out of date?
+
+Cheers,
+
+Andrew
+--=-2kWVIWuFxwg1TATPq8AE
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJZ97yUAAoJEJ0dnzgO5LT54uwP/AwRoKhBXPmJXVE6JO/6A5JB
+oxWPiilcUn7D/LX+aGo7RpC+yWgDxoYglE05n2wGLZ2MOi0JjMVL90gKSAMsw+Qf
+3NYMu/zCqmIJId+lWI0LDvWaYJMlLWvYrM+A0f/l9RjPbPYW5mR624zS7kCfZ34S
+cHO/Yv6sAq2wWIEi3RrEa5t/yOKt8Q4HvVVL5vWYrce8gUwXOv9tcYUWFiPYnAjw
++iial0+ezuH0U5Nr3RPGRrsP8GexKsWnj3HJst1cC5uxu61TBNKncOQqE3dRg1lH
+vzscEh/Nw7MBAze3XApnjrO+s2N6YS6sYbKs4mTLVHwiy5Db6L572PpRUAG1PJm/
+nFCEZaFPIqdp/7DZCkeE5bnfkLIbJkl0AGhM88Kyn+zgbitNRDyzl3osofRpsa+4
+L/KalVJgY/cJL52rqHHnhaPGb2ohCyhfBcLniadvF8CeQBtnriVATa5WYWf3u9fP
+jXnIP/I3HZuwzmvP2C32+6QoInwiTY+PU2UEVPD85sx6UrbSprVRAmGsrOSBQcJH
+jOO6Jv8U1/pwGXQRsZ010QyokTotzjNspNOCucw3c1s5VuLaTsHktpz1H9966efz
+LUh3W9tYiR/dTW3mG9k1JEVngJ8VhEfFE/wgw3ey29OJlirE4KJoUC4dz8NDhuMw
+54qxDk/gU+0tDCMrbDUA
+=1S4h
+-----END PGP SIGNATURE-----
+
+--=-2kWVIWuFxwg1TATPq8AE--
