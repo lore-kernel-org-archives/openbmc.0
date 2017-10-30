@@ -3,67 +3,53 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="jfEJe9gW"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="SHMriWIo"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="CCPaJg1d"; dkim-atps=neutral
+ header.b="D85fZQFA"; dkim-atps=neutral
 Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yQDzb4cjrzDqlM;
- Mon, 30 Oct 2017 10:56:42 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yQFgc5GLdzDqlM
+ for <openbmc@lists.ozlabs.org>; Mon, 30 Oct 2017 11:27:56 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id AB72020B8C;
- Sun, 29 Oct 2017 19:56:38 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Sun, 29 Oct 2017 19:56:38 -0400
+ by mailout.nyi.internal (Postfix) with ESMTP id 563A1209E6;
+ Sun, 29 Oct 2017 20:27:54 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Sun, 29 Oct 2017 20:27:54 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=7TKDNBCakdzh+x/FIq1AnN8trz3wBoDQDxrRTqnsz5I=; b=jfEJe9gW
- YJz6VfiDrqR7z7D/nP6lGyIVOcOiyZ5Lm5eLSouOnlexbjG/PBA+zITUMSK4TehZ
- DiMuPGlOCh7icPVie7G6hStz5gPiJh7pjd/6KnR85vCbwGfR8a/M9tw5/XU03Kin
- 9sr8cTrt6jzDRMXZVcw5hwnORa+A7Sz0qDCzjvVFwGLrh49+SWUw1EI1orvtnrMS
- 32ZzxhTi+3Vd81THAHjDg6KoZh6UedoY5CdREDU0bU6GlxDZdMhS1ibp+tATIhHM
- d3RkR66UJ7UCbI2U13N8eTvqxB0WTkFZPR4S+aFfwruh/iEbOgJ35UGSnlGep7LR
- hwEk4F3EoMFlwA==
+ :date:from:message-id:subject:to:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm1; bh=mdGxvKaQmOsFoE9WYb6TUIkBklIUm37OdIckwkO9T
+ uo=; b=SHMriWIoCP8eskHJwFab3AVfPeYULeb7Z/B+n/Iw3e2zubVcKCYY8P6Cd
+ 04RrAqxkL683QoahJqzl6XKYHbgO6wOcR02fF2/A41DwxZVqLMIwgkxaZnq+F76w
+ ShM9PvDWH7iMvT4AM7PMNESWPGvX0U5MebrcqBVsR7INLyAzYkFPv5gtZTkBTEwe
+ l/VWh3Lal3Y9Q10XoUnpnOulusIaQyHXl7eiAyawG5bkxSWObEdXCnngsmKzPpsC
+ IFcIknpNfeWytiyQzKqPaGoFmtEhyzpttsefo6Jkb7+4zSoWqN6enk03z2SE34j7
+ Zp0EqahLUZOCyizTjDEIOhvGkWu/Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=7TKDNBCakdzh+x/FIq1AnN8trz3wB
- oDQDxrRTqnsz5I=; b=CCPaJg1dOpHWOEtdEyZwb1QvO0g/HSWdGyawVe4HMPqgF
- 8KJV4JALasMSYidT7YCma1rO3Y0GX8UVuknrS4AINzLPTM70taC1jytqtGatXQZ2
- 4pKZcp6qowhAnBl6juVQPH+m4FYIeTM/AuO6yH4ToNFJWzLQvmnyETBbYopISrSw
- 7tY/SojO+b/E9p1SSiRrHy32Cqp9XVkob3qXVUi/6zRnbA+C0+LAS8MPYlVUYW/V
- I3xkO6uInVBkT2yWUBFcNT+yiJUufvpPAG9ICbHS5zzT4JxbA0EScBi+TMAItGmP
- dLTEsMl+wDE5GNWvzoHG28dv0zZds8WG1eTPcm1DQ==
-X-ME-Sender: <xms:tmr2WZnA5FLiZ9btPWLzGGszZNbePOTpkZG2vjH7Z-8tiCBsSOQshQ>
-Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 1356224784;
- Sun, 29 Oct 2017 19:56:32 -0400 (EDT)
-Message-ID: <1509321386.13477.13.camel@aj.id.au>
-Subject: Re: [PATCH 1/2] gpio: gpiolib: Expand sleep tolerance to include
- controller reset
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=mdGxvKaQmOsFoE9WY
+ b6TUIkBklIUm37OdIckwkO9Tuo=; b=D85fZQFAsBCqj2hFOQKxqI801Mf0/NV/o
+ Mne/QZfn1NbaCiu1iBtr1MA6AJyCx54Cy5mxhcSJEzWe4/vT3zIvBnPAkc41qaIu
+ pSUSt8266yGU8hv+DS1MgJGDthJBmT6Rp1oEzSW94tseq3QD/HqVG5wdpxaAWlkn
+ KeB/geTnHhG5bsm/wjdgEe79zR9WlPnflEtn116smQ9sBLq2jj0eesvHV8Te+Fs5
+ QQK8CEjyBApgLDw27Ehw7xJGE5+/zYO0MBbQ7lSXVeZej/+HGZ9K68hBHlBAzH+i
+ jCINq6DUBDw8Si/e63f4u+dOWanjZf3fBYwQPyVztjGvJG478zwzA==
+X-ME-Sender: <xms:CnL2WS5vUrTj5BviV4NQUwE8BJGaD1gDCq_ZFq-Mz40AQHU3J8_yWA>
+Received: from keelia.au.ibm.com (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 5E43E7FA81;
+ Sun, 29 Oct 2017 20:27:52 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: linux-gpio@vger.kernel.org, linus.walleij@linaro.org,
- robh+dt@kernel.org,  mark.rutland@arm.com, frowand.list@gmail.com,
- joel@jms.id.au,  ckeepax@opensource.wolfsonmicro.com, ldewangan@nvidia.com,
- ryan_chen@aspeedtech.com, bgolaszewski@baylibre.com, mwelling@emacinc.com,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- openbmc@lists.ozlabs.org, linux-aspeed@lists.ozlabs.org
-Date: Mon, 30 Oct 2017 10:26:26 +1030
-In-Reply-To: <20171026090318.uv6lvmkt4injiihc@localhost.localdomain>
-References: <20171025050417.27992-1-andrew@aj.id.au>
- <20171025050417.27992-2-andrew@aj.id.au>
- <20171025083201.wdudlzgphypyhmwc@localhost.localdomain>
- <1508978453.13477.7.camel@aj.id.au>
- <20171026090318.uv6lvmkt4injiihc@localhost.localdomain>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-1HsBu1GI6qFSDyOpsPJT"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+To: openbmc@lists.ozlabs.org
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+	joel@jms.id.au,
+	andrewg@us.ibm.com
+Subject: [PATCH linux dev-4.10] pmbus: core: Switch PAGE failure dev_warn() to
+ dev_dbg() for serenity
+Date: Mon, 30 Oct 2017 10:57:07 +1030
+Message-Id: <20171030002707.30557-1-andrew@aj.id.au>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -75,145 +61,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 29 Oct 2017 23:56:46 -0000
+X-List-Received-Date: Mon, 30 Oct 2017 00:27:57 -0000
 
+Reduce kernel log spam from PMBus core failing a PAGE command to the
+MAX37185 (and any other device). It's a hardware-design or driver
+related fault, and is not anything the user can fix. Therefore reduce
+it from warn to debug.
 
---=-1HsBu1GI6qFSDyOpsPJT
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ drivers/hwmon/pmbus/pmbus_core.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-On Thu, 2017-10-26 at 10:03 +0100, Charles Keepax wrote:
-> On Thu, Oct 26, 2017 at 11:10:53AM +1030, Andrew Jeffery wrote:
-> > On Wed, 2017-10-25 at 09:32 +0100, Charles Keepax wrote:
-> > > On Wed, Oct 25, 2017 at 03:34:16PM +1030, Andrew Jeffery wrote:
-> > > This means that if we have a set_config we are directly
-> > > equating PERSISTENT to RESET_TOLERANT, which seems wrong to
-> > > me. I might have a GPIO on a controller with pinconf that
-> > > doesn't have anything to do with RESET_TOLERANT. Should the
-> > > PIN_CONFIG_RESET_TOLERANT, really just be PIN_CONFIG_PERSISTENT?
-> > > And then its upto the driver what persistence means for that
-> > > chip?
-> >=20
-> > Right, maybe I'm tying the design in a bit too closely with the Aspeed =
-hardware
-> > again. I'm coming out in favour of changing it based on my thoughts bel=
-ow.
-> >=20
-> > However, I want to understand whether there are alternatives to reset t=
-olerance
-> > as a property. The obvious one is sleep persistence as implemented in t=
-he
-> > Arizona driver, but it didn't take the set_config() route with its init=
-ial
-> > implementation.
-> >=20
-> > The set_config() approach was largely driven by the sysfs patch in
-> > the RFC series, because I wanted a way to propagate the desired propert=
-y
-> > to hardware without affecting (or again calling through the handlers fo=
-r) the
-> > export state or direction. It seemed to come out neat enough in general=
- so I
-> > kept it.
-> >=20
-> > Were you thinking of using set_config() to control the Arizona's behavi=
-our and
-> > do something other than the calls to gpiochip_line_is_persistent() in
-> > arizona_gpio_direction_{in,out}() (as in, keep the state inside the dev=
-ice
-> > driver rather than querying gpiolib where the state is currently stored=
-)? That
-> > would seem neat in that it gives us one method of setting both persiste=
-nce
-> > types (and in this case I should rename the pinconf parameter). With th=
-at we
-> > could probably get rid of gpiochip_line_is_persistent(). A small downsi=
-de is
-> > some duplicated state (we probably still want to keep FLAG_TRANSITORY i=
-n
-> > gpiolib).
-> >=20
-> > Would it be reasonable for other drivers to implement sleep persistence=
- in the
-> > same manner as the Arizona driver currently does? If that's the case, I=
- don't
-> > think there is a third tolerance option in addition to sleep and reset,=
- and so
-> > we might not need to rename the pinconf parameter.
-> >=20
-> > Finally, we could implement reset persistence in the same manner as the
-> > Arizona's sleep persistence (with gpiochip_line_is_persistent()) given =
-the
-> > sysfs patch has been thrown away.
-> >=20
-> > So to summarise, having rambled a bit, I see the situation as:
-> >=20
-> > 1. Rename the pinconf parameter, and patch the Arizona driver to use
-> > =C2=A0=C2=A0=C2=A0set_config() and hold sleep persistence state interna=
-lly.
-> > 2. Drop the pinconf parameter and do something similar to the Arizona's=
- sleep
-> > =C2=A0=C2=A0=C2=A0persistence for reset persistence in the Aspeed drive=
-r.
-> > 3. Keep things as proposed are and live with two approaches to persiste=
-nce
-> >=20
-> > Point 3 seems like the least desirable. I'm leaning towards 1. I could =
-probably
-> > live with 2. after experimenting with it and confirming it's workable f=
-or me.
-> >=20
-> > If you think 1. is the way to go are you happy for me to send a patch t=
-o the
-> > Arizona driver implementing the change?
-> >=20
->=20
-> I guess the design was more playing to the fact that in the
-> Arizona case we arn't really setting any register bit for the
-> persisence, we are just not letting the CODEC power down whilst
-> the GPIO is in use. The config approach does make more sense in
-> the case where you are actually setting register bits.
->=20
-> I don't have any great objection to keeping the persistence state
-> in the Arizona GPIO driver, but it does seem to be duplicating
-> the state a little. Also an early version of the patch chain did
-> that and we decided it would better in the core.
->=20
-> I am not opposed to option 3 either. For example open-drain has
-> a similar setup where there is a pin config option for it and
-> also a GPIO function call to check for its presence on a specific
-> GPIO. Certainly my objection was just that we were equating the
-> very generic property to a very specific pinconf.
->=20
-> I think I would probably be keen to see what Linus's thoughts
-> are, but my feelings are really your patch is probably good if we
-> just rename the RESET_TOLERANT pinconf to something a little more
-> generic.
-
-Okay, well in that case I'll do the rename and send out the patches, it
-is simple enough. Thanks again for your feedback.
-
-Andrew
---=-1HsBu1GI6qFSDyOpsPJT
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJZ9mqqAAoJEJ0dnzgO5LT5Y00P/1FS/NlkwJZND2ILIEzoOvdl
-mo3imkiD0ocvY3nB1z4YNL8WLJDbDb7/6DuRz8mJFRk12Qj/TSPSVyFxAnGnzuTP
-tHTBo530AuMbR7mc9xtdKSOiC2sHsiL1tdJhAkkqSNMtefblimB/oRdS2Kdm3xGB
-7itqR7jIjVv8mDxgkyJQvKiAWLH4ufBSSJazXfXhj1cu5KUPZwc0tyxxl/6y26+g
-zr5XaeqHdl7jRRQX2Qkng9ti3JuCG00XvbWkxFuXQyvomJXU7YKrUcudy7IebDa5
-6dOJtRatq8Zc7fiUQ3BCyRzUt79i9N71hDsuvXo3qg9sXlvrbK/o/ewVJcbOpWWr
-DFiozZWFlmw51ftZCm9wbrvJV+9EGBmeJU2b/pHy6LDW8QOTMfomQ8eE+nra1lhW
-DHobb6coFL0DcoWtZGkEMABx2kbYjQt1LZnXyJ3z/ylFrNvRK+DE5VY0VVKPZyfq
-EYcr+vw+lLsl3DE/HhTlzzwx3pMlBBXGFJd7yv4G9oX2QgMtjAd22+Zn7CqtNOhr
-vkTunj7OeyiU6PeqyYudatBruAzR/GZltsu9DPgTnP+GT6TIINK4U2pb1W24+H8h
-2zBv6AghcAXk/CbS2hAlOHqmo5Vlq2C0knZtYxEwK8RpFRcLyROWiZMiUL2sy52J
-Df6ykR/e3fRklkYAxTC1
-=OOYC
------END PGP SIGNATURE-----
-
---=-1HsBu1GI6qFSDyOpsPJT--
+diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
+index d4e959bda491..c4b551b9226c 100644
+--- a/drivers/hwmon/pmbus/pmbus_core.c
++++ b/drivers/hwmon/pmbus/pmbus_core.c
+@@ -175,9 +175,9 @@ int pmbus_set_page(struct i2c_client *client, u8 page)
+ 		if (rv) {
+ 			rv = i2c_smbus_write_byte_data(client, PMBUS_PAGE,
+ 						       page);
+-			dev_warn(&client->dev,
+-				 "Failed to set page %u, performed one-shot retry %s: %d\n",
+-				 page, rv ? "and failed" : "with success", rv);
++			dev_dbg(&client->dev,
++				"Failed to set page %u, performed one-shot retry %s: %d\n",
++				page, rv ? "and failed" : "with success", rv);
+ 		}
+ 
+ 		newpage = i2c_smbus_read_byte_data(client, PMBUS_PAGE);
+-- 
+2.11.0
