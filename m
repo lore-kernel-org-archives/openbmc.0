@@ -3,55 +3,56 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="kfl/hngr"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="fUi5eh+l"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="T0VATzaz"; dkim-atps=neutral
+ header.b="fs77TpZr"; dkim-atps=neutral
 Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yQzCn59CGzDqwZ
- for <openbmc@lists.ozlabs.org>; Tue, 31 Oct 2017 15:39:49 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yQzG83CsVzDqMY
+ for <openbmc@lists.ozlabs.org>; Tue, 31 Oct 2017 15:41:52 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id A0A82209D5;
- Tue, 31 Oct 2017 00:39:47 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 6E23120D6B;
+ Tue, 31 Oct 2017 00:41:50 -0400 (EDT)
 Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Tue, 31 Oct 2017 00:39:47 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- content-type:date:from:in-reply-to:message-id:mime-version
+ by compute4.internal (MEProxy); Tue, 31 Oct 2017 00:41:50 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=xhCLBOR4V1xm2Zqlw8Ztji5zBN5/9sAvZ+Zeyols2rU=; b=kfl/hngr
- niJOP32Vk1M14WyR5IwhgmH+MQUbtkajqpRsIpYpcWoFWbT7vlF/pX+PDqlQXcUY
- jPTFzI12w42wXfhnPZm6LzvQap5+MHEd3tg1mLvTFuOy1JMwM/e1bWDKGluPDv5f
- /8QVGM/NhbY7Fq2xSAlXREBmF55DmQ2eZKy5o2LUTL6YEfLkgh1YCe+Zg+Gm2IXd
- wdtX7+stNMd2sjHUTrMeeZgoFlk/pr5Zy8FF5eEyqEzF+AoY8KbNzqRReCLDCvOv
- C1z5AtHw5OopIIpuzcOlB3w9+EDdEjwpDtNJ8qtLd71FiAGYzr96Ly5qhgpZp9qQ
- hzG9rq/8SzTkyg==
+ fm1; bh=cQ6Z4AuqRtNDGLplXXuDJbWb0i7mzWyuyc7uC9423JE=; b=fUi5eh+l
+ u/r5ilIUBvCt6gO3qS4l1AjoC/9YEzbOpUAgZ/KI4a5BwSnvdm0IzbnTsRM9pm3F
+ jw35UwQ4tsYQBoEN7pU7xfN8P9MRJxIYdlkXNrLsoZ11p8vyKcGjth2luPitCba8
+ fW29xKSsNr0szd+6hglSjRbti8lm5RFmmmwr5vp2VoLbWb7kZYrtNUHDuYpD1xXn
+ yiQ0qLb7Lvc70LCCuZXw6XvOuIbAUFh/7UqKXPOJ1EkKS1MqVIIUOlS50O7MIgxh
+ fT9xEqg6UBmKDDo9yMLjIZxycGgTAdHhGDTlBYFWwvolP+gfcZWEb0m6jyqja8z5
+ rEQeJe/TS8Fv6w==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=xhCLBOR4V1xm2Zqlw8Ztji5zBN5/9
- sAvZ+Zeyols2rU=; b=T0VATzaz8/jnhbSqJg1Q3AHuL33fkN73nhpqhC8sgAkS6
- s1MgdDrbFGWItIzCP8IF4gG+j5JnvSrNgEao6lTAiaPJcxdHzQgkDsCelUxUhPuB
- 462Za8Mkzz7pfd9GCzqclT5vQsQcfdCoTtODPZZo/ugQ7LGYu1fkiLQMLeWiUudp
- MVA9prjPbLh2+jQByCkaxGLkBuWzrcucl0TTKaa4jC9qHo7Cg2oo18yVQLxipg6k
- q3zZLTNoe2H0+hpy7bwDiqChzKJdJECs/6X9TWAUSVtg5BGHpFD/OVYNWW/tZQn9
- QeA9kp5Yeh3S4dRfJcJi41j0VPTpSIfc0PbepXrvA==
-X-ME-Sender: <xms:k_73WRqjgRmptXMUUmRxyH7B-5B5DKfxncBXObsAb6lePGLBiJ68-g>
+ :x-me-sender:x-sasl-enc; s=fm1; bh=cQ6Z4AuqRtNDGLplXXuDJbWb0i7mz
+ Wyuyc7uC9423JE=; b=fs77TpZrL+2mXukC+gKZoGs3uBRcCbrloTLS8jGjPxghd
+ y5B9Mx8OrLEc5g2Ozckt5WGslGNDC4P9lyGY5KfUDbX/28U9W5+O8834QJQ+4UFQ
+ yGOOyDk7WmwgzSAGFUlHNQeGlNw58qPgf8hc6H0pZD+4RcKfRKFdnnuAdih/Wpyu
+ rJfSPOAbZw/vQmpv82frhM1SQ1ETWciiyEMBfKybWExMpprvUh7YcL7HDWg9P2Gs
+ CBBbleW9JTO3fX/0DVlMk2cATwkpnEI7xQDwJ3evXTh9X5mjaX4LCmoJJkugY7eO
+ 7Q1ZnrbztcZmqDTvGGSD/OTKQocmWRCpNiMzGmPtw==
+X-ME-Sender: <xms:Dv_3WQfZCV9k-lh7dT2g5MZ4ClOUz-k9DZWDKTvrUuPGvqpLxdFmXg>
 Received: from keelia (unknown [45.124.203.19])
- by mail.messagingengine.com (Postfix) with ESMTPA id 3C2617E404;
- Tue, 31 Oct 2017 00:39:45 -0400 (EDT)
-Message-ID: <1509424783.2263.3.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: romulus: Add aspeed
- fan tach
+ by mail.messagingengine.com (Postfix) with ESMTPA id 47BAB7FA90;
+ Tue, 31 Oct 2017 00:41:47 -0400 (EDT)
+Message-ID: <1509424905.2263.5.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.10 v4] drivers: i2c: fsi: Add proper abort
+ method
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Lei YU <mine260309@gmail.com>, openbmc@lists.ozlabs.org
-Date: Tue, 31 Oct 2017 15:09:43 +1030
-In-Reply-To: <1509355284-28799-1-git-send-email-mine260309@gmail.com>
-References: <1509355284-28799-1-git-send-email-mine260309@gmail.com>
+To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Cc: cbostic@linux.vnet.ibm.com, "Edward A. James" <eajames@us.ibm.com>
+Date: Tue, 31 Oct 2017 15:11:45 +1030
+In-Reply-To: <1509389005-14205-1-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1509389005-14205-1-git-send-email-eajames@linux.vnet.ibm.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-HFxovhu4zsscaG8NBhYX"
+ protocol="application/pgp-signature"; boundary="=-LxxxO/V9o5/V9u8hzrgC"
 X-Mailer: Evolution 3.22.6-1ubuntu1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -65,50 +66,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 31 Oct 2017 04:39:50 -0000
+X-List-Received-Date: Tue, 31 Oct 2017 04:41:52 -0000
 
 
---=-HFxovhu4zsscaG8NBhYX
+--=-LxxxO/V9o5/V9u8hzrgC
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2017-10-30 at 17:21 +0800, Lei YU wrote:
-> Romulus uses aspeed fan tach instead of max31785:
-> * Pass1's max31785 is always reset by CPLD;
-> * Pass2's max31785 is not connected.
+On Mon, 2017-10-30 at 13:43 -0500, Eddie James wrote:
+> From: "Edward A. James" <eajames@us.ibm.com>
 >=C2=A0
-> The board has 7 fan taches connected to BMC_FANTACH8~14,
-> and controlled by two PWMs.
+> Driver wasn't cleaning up on timeout or in an error situation properly.
+> Need to do a full reset if we fail in order to re-stablish a good state
+> of the engine.
 >=C2=A0
-> This commit also change "enabled" to "okay" for the i2c devices.
->=C2=A0
-> Signed-off-by: Lei YU <mine260309@gmail.com>
+> Signed-off-by: Edward A. James <eajames@us.ibm.com>
 
 Applied to dev-4.10.
 
 Thanks,
 
 Andrew
---=-HFxovhu4zsscaG8NBhYX
+--=-LxxxO/V9o5/V9u8hzrgC
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJZ9/6PAAoJEJ0dnzgO5LT5yNoP/0EGGETCR70ufVO5edBiMMDf
-yje2PQALe699aOF0FD0+hg9PrPuQVHDE50VEJ520dFqoc1QSGw0VEzy/GwgeONoC
-w18fapXFC3HmkK1MW7HKrcaZvQMEGECJ8sbrDbrwcV/v+njJpTVenT6NdSf9bMNa
-xNZvqo0eHK+j/jbGaCMNSLQkDnA5o+j8k1w/k/D0IzoixRdIXuloMCpMmM1ynw2r
-0URIsPIMDgvNncDlOX9EcNsR+JiTpsLMwP5vpPvjrO2t2hiTq/cfVP/5XEO14OAZ
-HjDuS0R80Z0KhKaW8fveH5s/mKAJZJXVUT5m44un8iA0DcwU7U9NdRsbkGSr7q+1
-uFxOZuSZ9uxdGvKziNiM7I03EO6LZCxMflaowIRiuBa474+6s0uSCDY35grS5KK0
-YpwqE7JEQiBCMECSugCqGH/qghfFMMbL4h3u5tau54uZ5xUOI5bHsNB8c7RHjSWQ
-Pok+ZyNurU/1i309ki6lGoozrSk+bP0FX2ks8PjuytRJIRbizxdFY065zg9np/bl
-gJXusScge20d/WKhJPLNlmn6JiuTbzqeS1M9wnMOjD8w9GjChs86HOchQOKrx0Et
-5QjpoewsLTYCc3yjMVpefAKuQ8a2KbH9HbfTiToWUgaUHxcWhrM69ubhe1YBZkYe
-utG0w3E+1Xf1KgjnSTPu
-=0Ia7
+iQIcBAABCgAGBQJZ9/8JAAoJEJ0dnzgO5LT5CIIQAITKNp15U46Lax0pxcwNgCpN
+whnKxtrHxPQeGW43f52lZVX9ePxo48m0KeY9hexAszP/RHSFibLjzi4RxOgpEqeq
+aSmcP4iocY5BC6yBvrTkNlU8Ib7JSAyp9r0tZBZoj8QRRMYjhnHAMPdyemuXgkY7
+rMwZ0oW5+BL87jKSxQ8bWNpGzUNaV+dcAbgwSVH1DyP92ZXw6GHFykNmA17QSE+f
+zdcRxMTKWCLugnncEfETn1S05K3sX0YKUcMV6hOPZRxI5Lg2MqbOX1uhYMFNSPpN
+s5X03AU5AC0PmxAbY4FtZGRTAxZ1iJVNlw9j6qNE/D4CbNwgFWQGwKD6epH9UtwP
+pel4J1NnK1aKi23EpZvdufbp5jEdJEU+oUVFQJ05UoG8Add+/FV708jK35QDmmJZ
+WLFKo961CMUCdVQ5I8m+OpQMyHXI06vUd04waokdpmoIifGNHL6p5sdgpqONaCuy
+LM9yyers+pPPMCKNAjKRjaWVq+vLrrkj4RbytBrFn8XppdWMUeseuBPhDksHjXyQ
+wJKW3cbAUYx7NOHq0w7Icy36lVo/1ZUUPAavEhl3fsoJ14fofkOVn1ViSJZlVgjO
+gOWCG13JjgJOlyAkPmBXMI3/DSiyUW6YDsxXIuM257g4toKBxgr9azD3Ht2dSknf
+flbkrlJFA29QxzMgTBDC
+=Pg7W
 -----END PGP SIGNATURE-----
 
---=-HFxovhu4zsscaG8NBhYX--
+--=-LxxxO/V9o5/V9u8hzrgC--
