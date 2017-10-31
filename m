@@ -1,71 +1,42 @@
-Return-Path: <linus.walleij@linaro.org>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linaro.org
- (client-ip=2607:f8b0:4001:c06::241; helo=mail-io0-x241.google.com;
- envelope-from=linus.walleij@linaro.org; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.b="ISKRer0D"; 
- dkim-atps=neutral
-Received: from mail-io0-x241.google.com (mail-io0-x241.google.com
- [IPv6:2607:f8b0:4001:c06::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.88; helo=mga01.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yR6KF1gz4zDrF7
- for <openbmc@lists.ozlabs.org>; Tue, 31 Oct 2017 20:59:59 +1100 (AEDT)
-Received: by mail-io0-x241.google.com with SMTP id n137so33773237iod.6
- for <openbmc@lists.ozlabs.org>; Tue, 31 Oct 2017 02:59:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=OtiGAJ3DVbah2V10Vy5U2C4OebgL5TbZsxAiqOD3e6I=;
- b=ISKRer0DM4QNvEwKNYRHqhHFYXKPCQKManfEtBdUODd49Nqn37QvZAiakT/oX9iFsi
- wI66GgLNEoMi91Yyj28ajFqA7TjI8O8ahpY3qPj+TINLLAaKMuL7gisxV9altCd1Jied
- ZfLA0CKpBWAxsd8vyP2vSyxkTcEIrSF95zmwA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=OtiGAJ3DVbah2V10Vy5U2C4OebgL5TbZsxAiqOD3e6I=;
- b=mhdNCKXi5RO7nxb+bPQmt9c44a2WIyWAyGayFAuRnLkV9YeE+BIDkcPU0KMIY0JDVk
- pC2L9MwXvEhQqgmPAbxx6PtsB65P1kZOQa/Ek7ts4+ByZZwROR6xkm8yYMDDMe6F6m3i
- yBVlavXZcwwHges2vZ6PqeEeY9CjxjBus9zwPe1r+kdkxzMoO17LlaVVhu2HlAnuD44b
- 0ZTSOzSg0IrciprCN6kTKyV5dLcHoEOfbXlZUaqm3J8Q6v4a5sVgozA+K6KxlwwnD94K
- TIH3Rs/dSfdf30iSRlq510VjNDrnbJwg70A0YeNuqUQeWRfVZqQW3Cr1VrccN6hKMo8o
- Mz1Q==
-X-Gm-Message-State: AMCzsaX4BUVr2a/0LoX2k+JfKQQCbN9T/O0teg5X5I4Q++ZPQYbThN9f
- 6voU2dgn+a2v7AeBmbet1jYjmGPTHkN7+xsaMbVsPg==
-X-Google-Smtp-Source: ABhQp+Sn3fGnSPso1CyR4V3UsZNaEAsGtPX/zQpx35xJIvMms6iMa4s3TfGO0OZlzOu4l73p2I8MIMK1WQauuhSt5PI=
-X-Received: by 10.107.150.67 with SMTP id y64mr1679400iod.74.1509443995921;
- Tue, 31 Oct 2017 02:59:55 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yRGvR5RQvzDr26
+ for <openbmc@lists.ozlabs.org>; Wed,  1 Nov 2017 03:26:43 +1100 (AEDT)
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 31 Oct 2017 09:26:40 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.44,324,1505804400"; d="scan'208";a="1031704569"
+Received: from unknown (HELO yoojaeMOBL) ([10.7.153.147])
+ by orsmga003.jf.intel.com with ESMTP; 31 Oct 2017 09:26:40 -0700
+From: "Jae Hyun Yoo" <jae.hyun.yoo@linux.intel.com>
+To: "'Brad Bishop'" <bradleyb@fuzziesquirrel.com>
+Cc: <openbmc@lists.ozlabs.org>, <ed.tanous@linux.intel.com>,
+ <james.feist@linux.intel.com>
+References: <001801d34c20$e670c150$b35243f0$@linux.intel.com>
+ <29EB010F-5573-46E9-852B-60F084F50995@fuzziesquirrel.com>
+In-Reply-To: <29EB010F-5573-46E9-852B-60F084F50995@fuzziesquirrel.com>
+Subject: RE: PECI API?
+Date: Tue, 31 Oct 2017 09:26:40 -0700
+Message-ID: <000001d35265$080b01f0$182105d0$@linux.intel.com>
 MIME-Version: 1.0
-Received: by 10.79.14.140 with HTTP; Tue, 31 Oct 2017 02:59:55 -0700 (PDT)
-In-Reply-To: <1508976339.13477.5.camel@aj.id.au>
-References: <20171020033727.21557-1-andrew@aj.id.au>
- <20171020033727.21557-4-andrew@aj.id.au>
- <CACRpkdY4F-ocFxomLEsVyGA0odGooWysQq5MHi9qwUt6E_VDzA@mail.gmail.com>
- <1508490173.24322.53.camel@aj.id.au>
- <20171025081454.4avrf57mf33khu7c@localhost.localdomain>
- <1508976339.13477.5.camel@aj.id.au>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 31 Oct 2017 10:59:55 +0100
-Message-ID: <CACRpkdZzr3JHo=AEZejXn0nw0mZo02OWFmmTiUBjgr+bH+NOAw@mail.gmail.com>
-Subject: Re: [RFC PATCH 3/5] gpio: gpiolib: Add chardev support for
- maintaining GPIO values on reset
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Charles Keepax <ckeepax@opensource.cirrus.com>, 
- Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- Michael Welling <mwelling@emacinc.com>, 
- "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, 
- Joel Stanley <joel@jms.id.au>, Ryan Chen <ryan_chen@aspeedtech.com>, 
- Rob Herring <robh+dt@kernel.org>, Frank Rowand <frowand.list@gmail.com>, 
- Charles Keepax <ckeepax@opensource.wolfsonmicro.com>, 
- Laxman Dewangan <ldewangan@nvidia.com>, 
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- patches@opensource.cirrus.com, 
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, linux-aspeed@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 15.0
+Thread-Index: AQKfNOke1vHnp6BvrppFVrx7wwrsnQIaBWYOoVWPgQA=
+Content-Language: en-us
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiYjI5MjAzZTMtN2Y4Yi00YjY2LWFhODctMDQ5NzAzOTg5Y2UzIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX0lDIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE2LjUuOS4zIiwiVHJ1c3RlZExhYmVsSGFzaCI6Imk3QlVNSDFaU0VIVTBzNk5VK3BoQis1d3pOY1lUMkhxckozdXZnZjEyem89In0=
+x-ctpclassification: CTP_IC
+dlp-product: dlpe-windows
+dlp-version: 11.0.0.116
+dlp-reaction: no-action
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -77,44 +48,192 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 31 Oct 2017 10:00:02 -0000
+X-List-Received-Date: Tue, 31 Oct 2017 16:26:44 -0000
 
-On Thu, Oct 26, 2017 at 2:05 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+>> On Oct 23, 2017, at 1:03 PM, Jae Hyun Yoo =
+<jae.hyun.yoo@linux.intel.com> wrote:
+>>=20
+>> Hi Dave,
+>> =20
+>> I'm currently working on PECI kernel driver
+>
+> I'm curious about the high level structure.  I'm sure others are as =
+well.
+> Anything you can share would be informative and appreciated!
+>
+> A couple questions that popped into my head:
+>
+>  - Would there be a new Linux bus type or core framework for this? =20
+>  - How many drivers would there be for a full stack.  Something like =
+this?
+>      - client? (hwmon, for example)
+>      - core? (common code)
+>      - bmc specific implementation? (aspeed, nuvoton, emulated =
+differences)
+>  - Have you considered using DT bindings and/or how they would look?
+>
+> These questions are motivated by the recent upstreaming experience =
+with
+> FSI (flexible support interface) where a similar structure was used.
+> FSI on POWER feels similar to PECI in terms of usage and features so I =
+thought
+> I'd just throw this out there as a possible reference point to =
+consider.
 
-> I feel that taking this argument to its logical conclusion leads to
-> never exporting any GPIOs to userspace and doing everything in the
-> kernel.
+PECI is using single-wired interface which is different from other =
+popular
+interfaces such as I2C and MTD, and therefore it doesn't have any common =
+core framework
+in kernel so I'm adding the PECI main contorl driver as an misc type and =
+the other
+one into hwmon subsystem. The reason why I seperate the implementation =
+into two
+drivers is, PECI can be used not only for temperature monitoring but =
+also for
+platform manageability, processor diagnostics and failure analysis, so =
+the misc
+control driver will be used as a common PECI driver for all those =
+purposes flexibly
+and the hwmon subsystem driver will use the common PECI driver just for
+temperature monitoring. These drivers will be BMC specific =
+implementation
+which support Aspeed shipset only. Support for Nuvoton chipset was not =
+considered
+in my implementation because Nuvoton has different HW and register =
+scheme, also
+Nuvoton already has its dedicated driver implementation in hwmon =
+subsystem
+for their each chipset variant (nct6683.c  nct6775.c  nct7802.c).
 
-That is very much how I feel about things anyways.
-In a recent presentation:
-https://dflund.se/~triad/papers/GPIO-for-Engineers-and-Makers.pdf
+>> and hwmon driver implementation. The kernel driver would provide =
+these PECI commands as ioctls:
+>> =20
+>> - low-level PECI xfer command
+>
+> Would a separate 'dev' driver similar to i2c-dev make sense here?  =
+Just thinking out loud.
+>
 
-I had the following text:
+Yes, drivers will be seperated into two but it's hard to say that this =
+way is similar to i2c-dev.
+It would have a bit different shape.
 
-The Rules of Linux Userspace GPIO
-1. You do not access GPIOs from userspace
-2. YOU DO NOT ACCESS GPIOS FROM USERSPACE
-3. Read Documentation/gpio/drivers-on-gpio.txt
-4. Use the character device
+>> - Ping()
+>> - GetDIB()
+>> - GetTemp()
+>> - RdPkgConfig()
+>> - WrPkgConfig()
+>> - RdIAMSR()
+>> - RdPCIConfigLocal()
+>> - WrPCIConfigLocal()
+>> - RdPCIConfig()
+>> =20
+>> Also, through the hwmon driver, these temperature monitoring features =
+would be provided:
+>> =20
+>> - Core temperature
+>> - DTS thermal margin (hysteresis)
+>> - DDR DIMM temperature
+>> - etc.
+>
+> Sweet!
+>
+>> =20
+>> Patches will come in to upstream when it is ready.
+>> =20
+>> Cheers,
+>> Jae
+>
+> For completeness, a port of the Aspeed SDK PECI driver was proposed in =
+2016 but it didn't go anywhere:
+>
+> https://lists.ozlabs.org/pipermail/openbmc/2016-August/004381.html
+>
+> thx - brad
+>
 
-> If userspace has exported the GPIO and is managing its state,
-> then it can *already* cause very weird hardware behaviour if set wrong.
-> The fact that userspace is controlling the GPIO state and not the
-> kernel already says that the kernel doesn't know how to manage it, so
-> why not expose the option for userspace to set the persistence, given
-> that it should know what it's doing?
+My implementation is also heavily based on the Aspeed SDK driver but =
+modified a lot to provide
+more suitable functionality for openbmc project. Hopefully, it could be =
+introduced soon.
 
-People do need to access GPIOs from userspace for things
-like one-off makerspace projects, relays on factory lines,
-fire alarms, door openers etc etc.
+thx,
+Jae
 
-One-off projects is fine, the user likely has an idea about the
-whole system that is comprehensive. They use the random
-raspberry Pi (etc) development board for this. OK.
+-----Original Message-----
+From: Brad Bishop [mailto:bradleyb@fuzziesquirrel.com]=20
+Sent: Monday, October 30, 2017 12:22 PM
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Cc: openbmc@lists.ozlabs.org; ed.tanous@linux.intel.com; =
+james.feist@linux.intel.com
+Subject: Re: PECI API?
 
-When we are talking about adding GPIO in mass-market goods
-such as phones and tablets and laptops userspace GPIO
-access become more and more dubious.
 
-Yours,
-Linus Walleij
+> On Oct 23, 2017, at 1:03 PM, Jae Hyun Yoo =
+<jae.hyun.yoo@linux.intel.com> wrote:
+>=20
+> Hi Dave,
+> =20
+> I=E2=80=99m currently working on PECI kernel driver
+
+I=E2=80=99m curious about the high level structure.  I=E2=80=99m sure =
+others are as well.  Anything you can share would be informative and =
+appreciated!
+
+A couple questions that popped into my head:
+
+ - Would there be a new Linux bus type or core framework for this? =20
+ - How many drivers would there be for a full stack.  Something like =
+this?
+     - client? (hwmon, for example)
+     - core? (common code)
+     - bmc specific implementation? (aspeed, nuvoton, emulated =
+differences)
+ - Have you considered using DT bindings and/or how they would look?
+
+These questions are motivated by the recent upstreaming experience with =
+FSI (flexible support interface) where a similar structure was used.  =
+FSI on POWER feels similar to PECI in terms of usage and features so I =
+thought I=E2=80=99d just throw this out there as a possible reference =
+point to consider.
+
+> and hwmon driver implementation. The kernel driver would provide these =
+PECI commands as ioctls:
+> =20
+> - low-level PECI xfer command
+
+Would a separate =E2=80=98dev=E2=80=99 driver similar to i2c-dev make =
+sense here?  Just thinking out loud.
+
+> - Ping()
+> - GetDIB()
+> - GetTemp()
+> - RdPkgConfig()
+> - WrPkgConfig()
+> - RdIAMSR()
+> - RdPCIConfigLocal()
+> - WrPCIConfigLocal()
+> - RdPCIConfig()
+> =20
+> Also, through the hwmon driver, these temperature monitoring features =
+would be provided:
+> =20
+> - Core temperature
+> - DTS thermal margin (hysteresis)
+> - DDR DIMM temperature
+> - etc.
+
+Sweet!
+
+> =20
+> Patches will come in to upstream when it is ready.
+> =20
+> Cheers,
+> Jae
+
+For completeness, a port of the Aspeed SDK PECI driver was proposed in =
+2016 but it didn=E2=80=99t go anywhere:
+
+https://lists.ozlabs.org/pipermail/openbmc/2016-August/004381.html
+
+thx - brad
