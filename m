@@ -1,60 +1,71 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="IrLEZEAX"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="QV7z8Xqu"; dkim-atps=neutral
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <linus.walleij@linaro.org>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=linaro.org
+ (client-ip=2607:f8b0:4001:c06::241; helo=mail-io0-x241.google.com;
+ envelope-from=linus.walleij@linaro.org; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=linaro.org header.i=@linaro.org header.b="ISKRer0D"; 
+ dkim-atps=neutral
+Received: from mail-io0-x241.google.com (mail-io0-x241.google.com
+ [IPv6:2607:f8b0:4001:c06::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yQzh82R8dzDqMY
- for <openbmc@lists.ozlabs.org>; Tue, 31 Oct 2017 16:00:56 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 9AD7C20ADA;
- Tue, 31 Oct 2017 01:00:53 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Tue, 31 Oct 2017 01:00:53 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=kc1VJMujW8ZgAaaXe5eiOhd3Amxg+f9Vg3PQ0OyXibA=; b=IrLEZEAX
- aprCsJXcizgfWsiJsEXuozuKvcUBMlDSppjRZMY3/C8uJfyV/xQywggObG3xEwSs
- G4mbcgGeDi6mlQjvm3FgKK/rhciOT0wUz2fliX0RVWiGSf2FZlBFgU/TOHQY21Nn
- h9B5N9qBsbM4eq/WSO98hh5+dv7f+V/1YcNV+1y6Uj0Zb7izfwFveOWLYAXypq1M
- p5kyl0a1NC7xHFX8ruE6ZEnX4uze/Z83raOg0MqirOZ4INxe+NzlGOefSB+4z1s0
- lYP3L/kiLz2n4BcaX9VG3TmQK7POz5i3ZVyFENRY8PyjHJG4pB14O0eTYC8zQcKB
- TK1yCNcIfrIk7Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=kc1VJMujW8ZgAaaXe5eiOhd3Amxg+
- f9Vg3PQ0OyXibA=; b=QV7z8XquiHjMf+Q70AMMjPwjTfiDQ/WESuOPJGzNHmEsq
- t6kIhy7RklR/rulgAY4PuVE7WR+yMk4UINFBbrmeJDbsZAxpjJj2z3k9yHq3Qey1
- 03GiAY0NM6GIL9sUgEvwetnm3hGw0Eyl440Ha5ZRYAXBC2vd6J4oA4QyryiiINou
- KycsVOUeQe680Y6P82bY+OCk/+bp9+fw9B0Hv1a0BrSZvewSSGaYma39oJAru70f
- 4HT9ZIJpWhxDUy9RmbdjP6/6PNuCLlBFesyVehg+hPcgQFgbmL7hpqbgo3Uh71aL
- VAjkgRosm6/JwnSmqlLOsY3p+E2IqMKr6KG6CkRTA==
-X-ME-Sender: <xms:hQP4WUUGvw6hLOcIaoqqJp8zm0zpEjksimRXZomGTeia5SCYCH1DpQ>
-Received: from keelia (unknown [45.124.203.19])
- by mail.messagingengine.com (Postfix) with ESMTPA id F39077FA8C;
- Tue, 31 Oct 2017 01:00:50 -0400 (EDT)
-Message-ID: <1509426043.2263.7.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10 v2] drivers (fsi): sbefifo: Add timeout
- for waiting for data
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Cc: bradleyb@fuzziesquirrel.com, "Edward A. James" <eajames@us.ibm.com>
-Date: Tue, 31 Oct 2017 15:30:43 +1030
-In-Reply-To: <1509057254-14890-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1509057254-14890-1-git-send-email-eajames@linux.vnet.ibm.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-PIeZIrZhzZIzynjmc9oy"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yR6KF1gz4zDrF7
+ for <openbmc@lists.ozlabs.org>; Tue, 31 Oct 2017 20:59:59 +1100 (AEDT)
+Received: by mail-io0-x241.google.com with SMTP id n137so33773237iod.6
+ for <openbmc@lists.ozlabs.org>; Tue, 31 Oct 2017 02:59:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=OtiGAJ3DVbah2V10Vy5U2C4OebgL5TbZsxAiqOD3e6I=;
+ b=ISKRer0DM4QNvEwKNYRHqhHFYXKPCQKManfEtBdUODd49Nqn37QvZAiakT/oX9iFsi
+ wI66GgLNEoMi91Yyj28ajFqA7TjI8O8ahpY3qPj+TINLLAaKMuL7gisxV9altCd1Jied
+ ZfLA0CKpBWAxsd8vyP2vSyxkTcEIrSF95zmwA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=OtiGAJ3DVbah2V10Vy5U2C4OebgL5TbZsxAiqOD3e6I=;
+ b=mhdNCKXi5RO7nxb+bPQmt9c44a2WIyWAyGayFAuRnLkV9YeE+BIDkcPU0KMIY0JDVk
+ pC2L9MwXvEhQqgmPAbxx6PtsB65P1kZOQa/Ek7ts4+ByZZwROR6xkm8yYMDDMe6F6m3i
+ yBVlavXZcwwHges2vZ6PqeEeY9CjxjBus9zwPe1r+kdkxzMoO17LlaVVhu2HlAnuD44b
+ 0ZTSOzSg0IrciprCN6kTKyV5dLcHoEOfbXlZUaqm3J8Q6v4a5sVgozA+K6KxlwwnD94K
+ TIH3Rs/dSfdf30iSRlq510VjNDrnbJwg70A0YeNuqUQeWRfVZqQW3Cr1VrccN6hKMo8o
+ Mz1Q==
+X-Gm-Message-State: AMCzsaX4BUVr2a/0LoX2k+JfKQQCbN9T/O0teg5X5I4Q++ZPQYbThN9f
+ 6voU2dgn+a2v7AeBmbet1jYjmGPTHkN7+xsaMbVsPg==
+X-Google-Smtp-Source: ABhQp+Sn3fGnSPso1CyR4V3UsZNaEAsGtPX/zQpx35xJIvMms6iMa4s3TfGO0OZlzOu4l73p2I8MIMK1WQauuhSt5PI=
+X-Received: by 10.107.150.67 with SMTP id y64mr1679400iod.74.1509443995921;
+ Tue, 31 Oct 2017 02:59:55 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.79.14.140 with HTTP; Tue, 31 Oct 2017 02:59:55 -0700 (PDT)
+In-Reply-To: <1508976339.13477.5.camel@aj.id.au>
+References: <20171020033727.21557-1-andrew@aj.id.au>
+ <20171020033727.21557-4-andrew@aj.id.au>
+ <CACRpkdY4F-ocFxomLEsVyGA0odGooWysQq5MHi9qwUt6E_VDzA@mail.gmail.com>
+ <1508490173.24322.53.camel@aj.id.au>
+ <20171025081454.4avrf57mf33khu7c@localhost.localdomain>
+ <1508976339.13477.5.camel@aj.id.au>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Tue, 31 Oct 2017 10:59:55 +0100
+Message-ID: <CACRpkdZzr3JHo=AEZejXn0nw0mZo02OWFmmTiUBjgr+bH+NOAw@mail.gmail.com>
+Subject: Re: [RFC PATCH 3/5] gpio: gpiolib: Add chardev support for
+ maintaining GPIO values on reset
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Charles Keepax <ckeepax@opensource.cirrus.com>, 
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+ Michael Welling <mwelling@emacinc.com>, 
+ "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, 
+ Joel Stanley <joel@jms.id.au>, Ryan Chen <ryan_chen@aspeedtech.com>, 
+ Rob Herring <robh+dt@kernel.org>, Frank Rowand <frowand.list@gmail.com>, 
+ Charles Keepax <ckeepax@opensource.wolfsonmicro.com>, 
+ Laxman Dewangan <ldewangan@nvidia.com>, 
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ patches@opensource.cirrus.com, 
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, linux-aspeed@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -66,53 +77,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 31 Oct 2017 05:00:56 -0000
+X-List-Received-Date: Tue, 31 Oct 2017 10:00:02 -0000
 
+On Thu, Oct 26, 2017 at 2:05 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
 
---=-PIeZIrZhzZIzynjmc9oy
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> I feel that taking this argument to its logical conclusion leads to
+> never exporting any GPIOs to userspace and doing everything in the
+> kernel.
 
-On Thu, 2017-10-26 at 17:34 -0500, Eddie James wrote:
-> From: "Edward A. James" <eajames@us.ibm.com>
->=C2=A0
-> During a transfer, in the event that the SBE isn't running, the driver
-> will wait for data to appear in the FIFO forever. This doesn't work at
-> BMC boot time if any transfers are attempted (by OCC driver probing, for
-> example), as it will just hang the boot. So add a simple timeout
-> mechanism when the driver reschdules waiting for data to show up in the
-> FIFO.
->=C2=A0
-> Tested on witherspoon by rebooting the BMC successfully with chassis
-> power on.
->=C2=A0
-> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+That is very much how I feel about things anyways.
+In a recent presentation:
+https://dflund.se/~triad/papers/GPIO-for-Engineers-and-Makers.pdf
 
-Applied to dev-4.10.
+I had the following text:
 
-Cheers,
+The Rules of Linux Userspace GPIO
+1. You do not access GPIOs from userspace
+2. YOU DO NOT ACCESS GPIOS FROM USERSPACE
+3. Read Documentation/gpio/drivers-on-gpio.txt
+4. Use the character device
 
-Andrew
---=-PIeZIrZhzZIzynjmc9oy
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+> If userspace has exported the GPIO and is managing its state,
+> then it can *already* cause very weird hardware behaviour if set wrong.
+> The fact that userspace is controlling the GPIO state and not the
+> kernel already says that the kernel doesn't know how to manage it, so
+> why not expose the option for userspace to set the persistence, given
+> that it should know what it's doing?
 
------BEGIN PGP SIGNATURE-----
+People do need to access GPIOs from userspace for things
+like one-off makerspace projects, relays on factory lines,
+fire alarms, door openers etc etc.
 
-iQIcBAABCgAGBQJZ+AN7AAoJEJ0dnzgO5LT5uXsP+gPvMzwr/ImF6ebzF9YVGsDV
-xer10Nud9sqxOQoycN58ZaHgSyKYkaK7oMvcbAaxDGTEpXGXv6LhXQBvgfOCl9rH
-msJmc8Srkl9NT75xFXvxIJJ2ztg3xJV8HYx5xPUfcqau4r2Khzegq+2/Z1GWIdfS
-2QaT6NT2ezIVDysh62CfVnAnzOcKTOiwd3hrlieSbbdpNjfRcqNZ9y8bEABzUNjY
-wU5zXZeL+PzA3XCgP32kqwhDl9crGU3H7V2gS2J/+ARfBs37aoHdhOa0QB8tQhK4
-Qhzu292BRhl26fWauAQwQSuKrjdPtWPz2l2tz/w2OQn3Xt+G4a7bdkpOQuUxtqN9
-hwKFXBLaMqP7C8XM53tVIFDO1sASNG8OpsPEU1Wue7uT3QtoxUEt/0cGQtBoX7cF
-EnamEBkvfiRbZya1iMf2qSRmg7dcABW/KGEVEarFFJCyDq0uDOur2os6IWeZLQ0g
-0Qqdmj6XXKCj4BuQ0GKAlxTtRxizOL/4pE4b3k8acdTPgQE6SFrpcOkjUxc/55JU
-sqhlZ+Ly7dMx+mAuVaxbC4eMQnY3/EhtMr38QmqTLZz3xjqNGSOLnmR/RgIX8IaY
-Qm91uSEB8x9WjXP5NfvyNiWRxgPBx4fLHAIkOC9ZmA493CONn+OU5XivJR7SnJXe
-LoFTy5k7esOfh10DM5hI
-=I6cK
------END PGP SIGNATURE-----
+One-off projects is fine, the user likely has an idea about the
+whole system that is comprehensive. They use the random
+raspberry Pi (etc) development board for this. OK.
 
---=-PIeZIrZhzZIzynjmc9oy--
+When we are talking about adding GPIO in mass-market goods
+such as phones and tablets and laptops userspace GPIO
+access become more and more dubious.
+
+Yours,
+Linus Walleij
