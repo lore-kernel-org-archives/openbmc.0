@@ -1,31 +1,48 @@
-Return-Path: <Tomer.Maimon@nuvoton.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.65; helo=mga03.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yRnKR4BLGzDr4P
- for <openbmc@lists.ozlabs.org>; Wed,  1 Nov 2017 23:17:23 +1100 (AEDT)
-Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id vA1BxYQ0010948;
- Wed, 1 Nov 2017 13:59:34 +0200
-Received: by talu34.nuvoton.co.il (Postfix, from userid 10070)
- id 1381B5A918; Wed,  1 Nov 2017 14:16:48 +0200 (IST)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: robh+dt@kernel.org, mark.rutland@arm.com, daniel.lezcano@linaro.org,
- tglx@linutronix.de, avifishman70@gmail.com, brendanhiggins@google.com,
- raltherr@google.com, joel@jms.id.au
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH v2 1/2] clocksource: npcm: add NPCM7xx timer driver
-Date: Wed,  1 Nov 2017 14:16:43 +0200
-Message-Id: <1509538604-8218-2-git-send-email-tmaimon77@gmail.com>
-X-Mailer: git-send-email 1.8.3.4
-In-Reply-To: <1509538604-8218-1-git-send-email-tmaimon77@gmail.com>
-References: <1509538604-8218-1-git-send-email-tmaimon77@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yRvHG0xxDzDr4H
+ for <openbmc@lists.ozlabs.org>; Thu,  2 Nov 2017 03:46:01 +1100 (AEDT)
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 01 Nov 2017 09:45:55 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.44,329,1505804400"; d="scan'208";a="1032185447"
+Received: from yoojae-mobl.amr.corp.intel.com (HELO yoojaeMOBL)
+ ([10.7.153.147])
+ by orsmga003.jf.intel.com with ESMTP; 01 Nov 2017 09:45:55 -0700
+From: "Jae Hyun Yoo" <jae.hyun.yoo@linux.intel.com>
+To: "'Rick Altherr'" <raltherr@google.com>
+Cc: "'Brad Bishop'" <bradleyb@fuzziesquirrel.com>,
+ "'OpenBMC Maillist'" <openbmc@lists.ozlabs.org>,
+ <ed.tanous@linux.intel.com>, <james.feist@linux.intel.com>
+References: <001801d34c20$e670c150$b35243f0$@linux.intel.com>
+ <29EB010F-5573-46E9-852B-60F084F50995@fuzziesquirrel.com>
+ <000001d35265$080b01f0$182105d0$@linux.intel.com>
+ <CAPLgG=kQwmnfc-HmWC-7zkN8L8o-xip6p3Kvmm4OWBozH37ppQ@mail.gmail.com>
+ <000301d35292$42d1b9a0$c8752ce0$@linux.intel.com>
+ <CAPLgG==RZi1hV_m-+aw5fo4Wq_3OQLbddtY=ySJj-a50WNgTwA@mail.gmail.com>
+In-Reply-To: <CAPLgG==RZi1hV_m-+aw5fo4Wq_3OQLbddtY=ySJj-a50WNgTwA@mail.gmail.com>
+Subject: RE: PECI API?
+Date: Wed, 1 Nov 2017 09:45:55 -0700
+Message-ID: <000201d35330$e30fde80$a92f9b80$@linux.intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 15.0
+Thread-Index: AQKfNOke1vHnp6BvrppFVrx7wwrsnQIaBWYOArE97MwBWSx7MAJIWftdAT6Jk9ihGpxmkA==
+Content-Language: en-us
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiOTRkY2MwNTgtODBhNS00NmIyLWEyMjQtYzE4M2Q4NTE3MmNkIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX0lDIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE2LjUuOS4zIiwiVHJ1c3RlZExhYmVsSGFzaCI6ImtnVisyTkxsa1Nhb0xCQnRZVDE4dWNJZGhjUG82YTZLMm45b2FPV1lsTlE9In0=
+x-ctpclassification: CTP_IC
+dlp-product: dlpe-windows
+dlp-version: 11.0.0.116
+dlp-reaction: request-justification,no-action
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -37,281 +54,199 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Nov 2017 12:17:33 -0000
+X-List-Received-Date: Wed, 01 Nov 2017 16:46:03 -0000
 
-Add Nuvoton BMC NPCM7xx timer driver.
+>>>> On Tue, Oct 31, 2017 at 9:26 AM, Jae Hyun Yoo =
+<jae.hyun.yoo@linux.intel.com> wrote:
+>>>>>> On Oct 23, 2017, at 1:03 PM, Jae Hyun Yoo =
+<jae.hyun.yoo@linux.intel.com> wrote:
+>>>>>>
+>>>>>> Hi Dave,
+>>>>>>
+>>>>>> I'm currently working on PECI kernel driver
+>>>>>
+>>>>> I'm curious about the high level structure.  I'm sure others are =
+as well.
+>>>>> Anything you can share would be informative and appreciated!
+>>>>>
+>>>>> A couple questions that popped into my head:
+>>>>>
+>>>>>  - Would there be a new Linux bus type or core framework for this?
+>>>>>  - How many drivers would there be for a full stack.  Something =
+like this?
+>>>>>      - client? (hwmon, for example)
+>>>>>      - core? (common code)
+>>>>>      - bmc specific implementation? (aspeed, nuvoton, emulated
+>>>>> differences)
+>>>>>  - Have you considered using DT bindings and/or how they would =
+look?
+>>>>>
+>>>>> These questions are motivated by the recent upstreaming experience =
 
-the clocksource Enable 24-bit TIMER0 and TIMER1 counters,
-while TIMER0 serves as clockevent and TIMER1 serves as clocksource.
+>>>>> with FSI (flexible support interface) where a similar structure =
+was used.
+>>>>> FSI on POWER feels similar to PECI in terms of usage and features=20
+>>>>> so I thought I'd just throw this out there as a possible reference =
+point to consider.
+>>>>
+>>>> PECI is using single-wired interface which is different from other=20
+>>>> popular interfaces such as I2C and MTD, and therefore it doesn't=20
+>>>> have any common core framework in kernel so I'm adding the PECI=20
+>>>> main contorl driver as an misc type and the other one into hwmon =
+subsystem.
+>>>> The reason why I seperate the implementation into two drivers is,=20
+>>>> PECI can be used not only for temperature monitoring but also for=20
+>>>> platform manageability, processor diagnostics and failure analysis, =
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- drivers/clocksource/Kconfig         |   8 ++
- drivers/clocksource/Makefile        |   1 +
- drivers/clocksource/npcm7xx-timer.c | 224 ++++++++++++++++++++++++++++++++++++
- 3 files changed, 233 insertions(+)
- create mode 100644 drivers/clocksource/npcm7xx-timer.c
+>>>> so the misc control driver will be used as a common PECI driver for =
 
-diff --git a/drivers/clocksource/Kconfig b/drivers/clocksource/Kconfig
-index cc6062049170..46184af75d6c 100644
---- a/drivers/clocksource/Kconfig
-+++ b/drivers/clocksource/Kconfig
-@@ -140,6 +140,14 @@ config VT8500_TIMER
- 	help
- 	  Enables support for the VT8500 driver.
- 
-+config NPCM7XX_TIMER
-+	bool "NPCM7xx timer driver" if COMPILE_TEST
-+	depends on HAS_IOMEM
-+	select CLKSRC_MMIO
-+	help
-+	  Enable 24-bit TIMER0 and TIMER1 counters in the NPCM7xx arcithcture,
-+	  While TIMER0 serves as clockevent and TIMER1 serves as clocksource.
-+
- config CADENCE_TTC_TIMER
- 	bool "Cadence TTC timer driver" if COMPILE_TEST
- 	depends on COMMON_CLK
-diff --git a/drivers/clocksource/Makefile b/drivers/clocksource/Makefile
-index dbc1ad14515e..f2a9318a1eec 100644
---- a/drivers/clocksource/Makefile
-+++ b/drivers/clocksource/Makefile
-@@ -53,6 +53,7 @@ obj-$(CONFIG_CLKSRC_TI_32K)	+= timer-ti-32k.o
- obj-$(CONFIG_CLKSRC_NPS)	+= timer-nps.o
- obj-$(CONFIG_OXNAS_RPS_TIMER)	+= timer-oxnas-rps.o
- obj-$(CONFIG_OWL_TIMER)		+= owl-timer.o
-+obj-$(CONFIG_NPCM7XX_TIMER)	+= npcm7xx-timer.o
- 
- obj-$(CONFIG_ARC_TIMERS)		+= arc_timer.o
- obj-$(CONFIG_ARM_ARCH_TIMER)		+= arm_arch_timer.o
-diff --git a/drivers/clocksource/npcm7xx-timer.c b/drivers/clocksource/npcm7xx-timer.c
-new file mode 100644
-index 000000000000..d1ea5c183a69
---- /dev/null
-+++ b/drivers/clocksource/npcm7xx-timer.c
-@@ -0,0 +1,224 @@
-+
-+/*
-+ * Copyright (c) 2017 Nuvoton Technology corporation.
-+ * Copyright 2017 Google, Inc.
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License as published by
-+ * the Free Software Foundation;version 2 of the License.
-+ */
-+
-+#include <linux/kernel.h>
-+#include <linux/sched.h>
-+#include <linux/init.h>
-+#include <linux/interrupt.h>
-+#include <linux/err.h>
-+#include <linux/clk.h>
-+#include <linux/io.h>
-+#include <linux/clockchips.h>
-+#include <linux/of_irq.h>
-+#include <linux/of_address.h>
-+
-+struct npcm7xx_clockevent_data {
-+	struct clock_event_device cvd;
-+	void __iomem *timer_base;
-+	unsigned int rate;
-+};
-+
-+/* Timers registers */
-+#define NPCM7XX_REG_TCSR0	0x0 /* Timer 0 Control and Status Register */
-+#define NPCM7XX_REG_TICR0	0x8 /* Timer 0 Initial Count Register */
-+#define NPCM7XX_REG_TCSR1	0x4 /* Timer 1 Control and Status Register */
-+#define NPCM7XX_REG_TICR1	0xc /* Timer 1 Initial Count Register */
-+#define NPCM7XX_REG_TDR1	0x14 /* Timer 1 Data Register */
-+#define NPCM7XX_REG_TISR	0x18 /* Timer Interrupt Status Register */
-+
-+/* Timers control */
-+#define NPCM7XX_Tx_RESETINT		0x1f
-+#define NPCM7XX_Tx_PERIOD		BIT(27)
-+#define NPCM7XX_Tx_INTEN		BIT(29)
-+#define NPCM7XX_Tx_COUNTEN		BIT(30)
-+#define NPCM7XX_Tx_ONESHOT		0x0
-+#define NPCM7XX_Tx_OPER			GENMASK(3, 27)
-+#define NPCM7XX_Tx_MIN_PRESCALE		0x1
-+#define NPCM7XX_Tx_TDR_MASK_BITS	24
-+#define NPCM7XX_Tx_MAX_CNT		0xFFFFFF
-+#define NPCM7XX_T0_CLR_INT		0x1
-+#define NPCM7XX_Tx_CLR_CSR		0x0
-+
-+/* Timers operating mode */
-+#define NPCM7XX_START_PERIODIC_Tx (NPCM7XX_Tx_PERIOD | NPCM7XX_Tx_COUNTEN | \
-+					NPCM7XX_Tx_INTEN | \
-+					NPCM7XX_Tx_MIN_PRESCALE)
-+
-+#define NPCM7XX_START_ONESHOT_Tx (NPCM7XX_Tx_ONESHOT | NPCM7XX_Tx_COUNTEN | \
-+					NPCM7XX_Tx_INTEN | \
-+					NPCM7XX_Tx_MIN_PRESCALE)
-+#define NPCM7XX_START_Tx (NPCM7XX_Tx_COUNTEN | NPCM7XX_Tx_PERIOD | \
-+				NPCM7XX_Tx_MIN_PRESCALE)
-+
-+static int npcm7xx_timer_oneshot(struct clock_event_device *evt)
-+{
-+	u32 val;
-+	struct npcm7xx_clockevent_data *cevtd =
-+		container_of(evt, struct npcm7xx_clockevent_data, cvd);
-+
-+	val = readl(cevtd->timer_base + NPCM7XX_REG_TCSR0);
-+	val &= ~NPCM7XX_Tx_OPER;
-+
-+	val = readl(cevtd->timer_base + NPCM7XX_REG_TCSR0);
-+	val |= NPCM7XX_START_ONESHOT_Tx;
-+	writel(val, cevtd->timer_base + NPCM7XX_REG_TCSR0);
-+
-+	return 0;
-+}
-+
-+static int npcm7xx_timer_periodic(struct clock_event_device *evt)
-+{
-+	struct npcm7xx_clockevent_data *cevtd =
-+		container_of(evt, struct npcm7xx_clockevent_data, cvd);
-+	u32 val;
-+
-+	val = readl(cevtd->timer_base + NPCM7XX_REG_TCSR0);
-+	val &= ~NPCM7XX_Tx_OPER;
-+
-+	writel((cevtd->rate / HZ), cevtd->timer_base + NPCM7XX_REG_TICR0);
-+	val |= NPCM7XX_START_PERIODIC_Tx;
-+
-+	writel(val, cevtd->timer_base + NPCM7XX_REG_TCSR0);
-+
-+	return 0;
-+}
-+
-+static int npcm7xx_clockevent_setnextevent(unsigned long evt,
-+		struct clock_event_device *clk)
-+{
-+	struct npcm7xx_clockevent_data *cevtd =
-+		container_of(clk, struct npcm7xx_clockevent_data, cvd);
-+	u32 val;
-+
-+	writel(evt, cevtd->timer_base + NPCM7XX_REG_TICR0);
-+	val = readl(cevtd->timer_base + NPCM7XX_REG_TCSR0);
-+	val |= NPCM7XX_START_Tx;
-+	writel(val, cevtd->timer_base + NPCM7XX_REG_TCSR0);
-+
-+	return 0;
-+}
-+
-+static struct npcm7xx_clockevent_data npcm7xx_clockevent_data = {
-+	.cvd = {
-+		.name		    = "npcm7xx-timer0",
-+		.features	    = CLOCK_EVT_FEAT_PERIODIC |
-+				      CLOCK_EVT_FEAT_ONESHOT,
-+		.set_next_event	    = npcm7xx_clockevent_setnextevent,
-+		.set_state_shutdown = npcm7xx_timer_oneshot,
-+		.set_state_periodic = npcm7xx_timer_periodic,
-+		.set_state_oneshot  = npcm7xx_timer_oneshot,
-+		.tick_resume	    = npcm7xx_timer_oneshot,
-+		.rating		    = 300
-+	},
-+};
-+
-+static irqreturn_t npcm7xx_timer0_interrupt(int irq, void *dev_id)
-+{
-+	struct npcm7xx_clockevent_data *cevtd = dev_id;
-+	struct clock_event_device *evt = &cevtd->cvd;
-+
-+	writel(NPCM7XX_T0_CLR_INT, cevtd->timer_base + NPCM7XX_REG_TISR);
-+
-+	if (evt->event_handler) {
-+		evt->event_handler(evt);
-+		return IRQ_HANDLED;
-+	}
-+
-+	return IRQ_NONE;
-+}
-+
-+static struct irqaction npcm7xx_timer0_irq = {
-+	.name		= "npcm7xx-timer0",
-+	.flags		= IRQF_TIMER | IRQF_IRQPOLL,
-+	.handler	= npcm7xx_timer0_interrupt,
-+	.dev_id		= &npcm7xx_clockevent_data,
-+};
-+
-+static void __init npcm7xx_clockevents_init(int irq, u32 rate)
-+{
-+	writel(NPCM7XX_Tx_CLR_CSR,
-+		npcm7xx_clockevent_data.timer_base + NPCM7XX_REG_TCSR0);
-+
-+	writel(NPCM7XX_Tx_RESETINT,
-+		npcm7xx_clockevent_data.timer_base + NPCM7XX_REG_TISR);
-+	setup_irq(irq, &npcm7xx_timer0_irq);
-+	npcm7xx_clockevent_data.cvd.cpumask = cpumask_of(0);
-+
-+	clockevents_config_and_register(&npcm7xx_clockevent_data.cvd, rate,
-+					0x1, NPCM7XX_Tx_MAX_CNT);
-+}
-+
-+static void __init npcm7xx_clocksource_init(u32 rate)
-+{
-+	u32 val;
-+
-+	writel(NPCM7XX_Tx_CLR_CSR,
-+		npcm7xx_clockevent_data.timer_base + NPCM7XX_REG_TCSR1);
-+	writel(NPCM7XX_Tx_MAX_CNT,
-+		npcm7xx_clockevent_data.timer_base + NPCM7XX_REG_TICR1);
-+
-+	val = readl(npcm7xx_clockevent_data.timer_base + NPCM7XX_REG_TCSR1);
-+	val |= NPCM7XX_START_Tx;
-+	writel(val, npcm7xx_clockevent_data.timer_base + NPCM7XX_REG_TCSR1);
-+
-+	clocksource_mmio_init(npcm7xx_clockevent_data.timer_base +
-+				NPCM7XX_REG_TDR1,
-+				"npcm7xx-timer1", rate,
-+				300, (unsigned int)NPCM7XX_Tx_TDR_MASK_BITS,
-+				clocksource_mmio_readl_down);
-+}
-+
-+static int __init npcm7xx_timer_init(struct device_node *np)
-+{
-+	struct clk *clk;
-+	int irq, ret;
-+	u32 rate;
-+
-+	irq = irq_of_parse_and_map(np, 0);
-+	if (!irq)
-+		return -EINVAL;
-+
-+	npcm7xx_clockevent_data.timer_base = of_iomap(np, 0);
-+	if (!npcm7xx_clockevent_data.timer_base)
-+		return -ENXIO;
-+
-+	clk = of_clk_get(np, 0);
-+
-+	if (IS_ERR(clk)) {
-+		ret = of_property_read_u32(np, "clock-frequency", &rate);
-+		if (ret)
-+			goto err_iounmap;
-+	} else {
-+		clk_prepare_enable(clk);
-+		rate = clk_get_rate(clk);
-+	}
-+
-+	/* Clock input is divided by PRESCALE + 1 before it is fed */
-+	/* to the counter */
-+	rate = rate / (NPCM7XX_Tx_MIN_PRESCALE + 1);
-+
-+	npcm7xx_clockevent_data.rate = rate;
-+
-+	npcm7xx_clocksource_init(rate);
-+	npcm7xx_clockevents_init(irq, rate);
-+
-+	pr_info("Enabling NPCM7xx clocksource timer base: %p, IRQ: %u\n",
-+		npcm7xx_clockevent_data.timer_base, irq);
-+
-+	return 0;
-+
-+err_iounmap:
-+	iounmap(npcm7xx_clockevent_data.timer_base);
-+	return ret;
-+
-+}
-+
-+TIMER_OF_DECLARE(npcm7xx, "nuvoton,npcm7xx-timer", npcm7xx_timer_init);
-+
--- 
-2.14.1
+>>>> all those purposes flexibly and the hwmon subsystem driver will use =
+
+>>>> the common PECI driver just for temperature monitoring. These=20
+>>>> drivers will be BMC specific implementation which support Aspeed=20
+>>>> shipset only. Support for Nuvoton chipset was not considered in my=20
+>>>> implementation because Nuvoton has different HW and register=20
+>>>> scheme, also Nuvoton already has its dedicated driver=20
+>>>> implementation in hwmon subsystem for their each chipset variant =
+(nct6683.c  nct6775.c  nct7802.c).
+>>>>
+>>>
+>>> Nuvoton is starting to submit support for their Poleg BMC to=20
+>>> upstream =
+(http://lists.infradead.org/pipermail/linux-arm-kernel/2017-October/53822=
+6.html).
+>>> This BMC includes a PECI controller similar to the Aspeed design but =
+
+>>> with a different register layout.  At a minimum, the misc driver=20
+>>> needs to support multiple backend drivers to allow Nuvoton to=20
+>>> implement the same interface.  The chips you listed that are already =
+
+>>> in hwmon are for Nuvoton's SuperIOs, not their BMCs.
+>>>
+>>
+>> Thanks for your pointing out of the current Poleg BMC upstreaming. I =
+didn't know about that before.
+>> Ideally, it would be great if we support all BMC PECI controllers in =
+a=20
+>> single device driver but we should consider some dependencies such as =
+
+>> SCU register setting in bootloader, clock setting for the PECI =
+controller HW block and etc that would vary on each BMC controller =
+chipset.
+>> Usually, these dependencies should be covered by kernel config and =
+device tree settings.
+>> My thought is, each BMC controller should have its own PECI misc=20
+>> driver then we could selectively enable one by kernel configuration.
+>>
+>
+> Are you expecting each BMC controller's PECI misc driver to =
+re-implement the device ioctls?
+> If I assume the misc device and ioctl implementation are shared, I =
+can't see how adding a subsystem would be significantly more work.
+> Doing so would clarify what the boundaries are between controller =
+implementation and protocol behavior.
+>
+
+Okay, I agreed. That is reasonable concern. At least, if possible, we =
+should provide compatible
+ioctl set. I'll check its feasibility after getting Nuvoton's datasheet =
+and their SDK.
+
+>>>>>> and hwmon driver implementation. The kernel driver would provide =
+these PECI commands as ioctls:
+>>>>>>
+>>>>>> - low-level PECI xfer command
+>>>>>
+>>>>> Would a separate 'dev' driver similar to i2c-dev make sense here?  =
+Just thinking out loud.
+>>>>>
+>>>>
+>>>> Yes, drivers will be seperated into two but it's hard to say that =
+this way is similar to i2c-dev.
+>>>> It would have a bit different shape.
+>>>>
+>>>
+>>> I'm not terribly familiar with the PECI protocol.  I'll see about =
+getting a copy of the spec.
+>>> From what I can find via searches, it looks like individual nodes on =
+the bus are addressed similar to I2C.
+>>> I'd expect that to be similar to how i2c-dev is structured: a=20
+>>> kobject per master and a kobject per address on the bus.  That way,=20
+>>> drivers can be bound to individual addresses. The misc driver would =
+focus on exposing interacting with a specific address on the bus in a =
+generic fashion.
+>>>
+>>
+>> As you said, it would be very useful if kernel has core bus framework =
+
+>> like I2C, but current kernel doesn't have the core bus framework for=20
+>> PECI, and it would be a hugh project itself if we are going to =
+implement one.
+>
+> Really?  IBM did so for FSI and it really helped with understanding =
+the design.
+>
+
+Yes, IBM did really great work on FSI, Kudos to them.
+
+>> Generally, PECI bus topology is very simple unlike I2C. Usually in a=20
+>> single system, there is only one BMC controller and it has =
+connections=20
+>> with CPUs, that's all. I don't see an advantage of using core bus =
+framework on this simple interface.
+>>
+>
+> Ideally, an hwmon driver for PECI on an Intel CPU only needs to know =
+how to issue PECI commands to that device.
+> What address it is at and how the bus delivers the command to the node =
+are irrelevant details.
+> How do you plan to describe the PECI bus in a dts?
+> Can I use the same dt bindings for the Intel CPU's PECI interface for =
+both Aspeed and Nuvoton?
+>
+
+HW dependent parameters will be added into dts. All SoCs has its own dt =
+binding set so it couldn't
+be shared between Aspeed and Nuvoton.=20
+
+>>>>>> - Ping()
+>>>>>> - GetDIB()
+>>>>>> - GetTemp()
+>>>>>> - RdPkgConfig()
+>>>>>> - WrPkgConfig()
+>>>>>> - RdIAMSR()
+>>>>>> - RdPCIConfigLocal()
+>>>>>> - WrPCIConfigLocal()
+>>>>>> - RdPCIConfig()
+>>>>>>
+>>>>>> Also, through the hwmon driver, these temperature monitoring =
+features would be provided:
+>>>>>>
+>>>>>> - Core temperature
+>>>>>> - DTS thermal margin (hysteresis)
+>>>>>> - DDR DIMM temperature
+>>>>>> - etc.
+>>>>>
+>>>>> Sweet!
+>>>>>
+>>>>>>
+>>>>>> Patches will come in to upstream when it is ready.
+>>>>>>
+>>>>>> Cheers,
+>>>>>> Jae
+>>>>>
+>>>>> For completeness, a port of the Aspeed SDK PECI driver was =
+proposed in 2016 but it didn't go anywhere:
+>>>>>
+>>>>> https://lists.ozlabs.org/pipermail/openbmc/2016-August/004381.html
+>>>>>
+>>>>> thx - brad
+>>>>>
+>>>>
+>>>> My implementation is also heavily based on the Aspeed SDK driver=20
+>>>> but modified a lot to provide more suitable functionality for =
+openbmc project. Hopefully, it could be introduced soon.
+>>>>
+>>>> thx,
+>>>> Jae
+>>
