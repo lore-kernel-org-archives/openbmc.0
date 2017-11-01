@@ -1,60 +1,49 @@
-Return-Path: <raltherr@google.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400c:c08::229; helo=mail-ua0-x229.google.com;
- envelope-from=raltherr@google.com; receiver=<UNKNOWN>)
+Return-Path: <geissonator@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c06::22d; helo=mail-io0-x22d.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="BSMrnvG6"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="tGi6MJdS"; 
  dkim-atps=neutral
-Received: from mail-ua0-x229.google.com (mail-ua0-x229.google.com
- [IPv6:2607:f8b0:400c:c08::229])
+Received: from mail-io0-x22d.google.com (mail-io0-x22d.google.com
+ [IPv6:2607:f8b0:4001:c06::22d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yRQSL0jFyzDqvq
- for <openbmc@lists.ozlabs.org>; Wed,  1 Nov 2017 09:07:13 +1100 (AEDT)
-Received: by mail-ua0-x229.google.com with SMTP id z4so340062uaz.5
- for <openbmc@lists.ozlabs.org>; Tue, 31 Oct 2017 15:07:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=GknUhgjT2UF/gvOccwzmp0/b8AQUs57vtRqRox4XLIU=;
- b=BSMrnvG6FDSCrxqZvvZTiJL2tP7DtJTOL2JNoABhbGUQJ7wJJ+AH/7MM8LDuSdZMup
- x5C1J3CUBOM17toV5RVz3mOoDasnORvrXrWjLm7XWI8pSPutJyXGPsnm08UtutU4ALTE
- I841iirYj8bvOxESzwF8eEhldXhkedAfVnmHmNkAiCNdWc2WzhqqTZ1C+KVyDAlj5MMc
- m2ehEeGS5NuiJYJsXYZCyOYwPi0TpDWjnamYC9tffSHz+I1UtKRRuRcaN/fzMp+0VlTi
- avJ5soTj82tt4awR4LWTjS6JtUUM2JJnKFdAYXv5ZEuaj/BeNjGKVR56fswlS2MublDz
- 8Qxw==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yRWvK37PwzDqlM
+ for <openbmc@lists.ozlabs.org>; Wed,  1 Nov 2017 13:12:28 +1100 (AEDT)
+Received: by mail-io0-x22d.google.com with SMTP id 101so3104963ioj.3
+ for <openbmc@lists.ozlabs.org>; Tue, 31 Oct 2017 19:12:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=jqSL/feJyJHHGYSrQ+4MGrozuFvBi99UDZ5qTu5DYjk=;
+ b=tGi6MJdSHfO2oY9ZhCElhdBrPWMjbVUae/zWJyJOzTKg804dDHwK1zqFbf9nBQoaAh
+ yIqrELZoHRlUFQfQCgeR4s0d5/ML5/326y8nlQjvSK0dyuY9NnzQ41pKhdEt74ulu5rH
+ Au8KnKysOdXfwAT5lZXZlkfvist4pZPsdpeGP9gSxNg34PKgs6NtkuOndeYyJgFPoGgA
+ 84Lz8d4qep72H4CA3fwwEEMyzB8+xpcrYZ2MNfk9cJCzN23aMf4KmFIUzW4VfjkaIHAS
+ T4hwGjF/pqUufQEZoNLZnQxkJ0IfTt4LjRHdcxBkHZgtz6tuo/P2E9t1KflqXrsiSi2i
+ gl2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=GknUhgjT2UF/gvOccwzmp0/b8AQUs57vtRqRox4XLIU=;
- b=bOTEC0DUmmWD8GBZoxLMSOb+Az7Mkpw4aSUxqNOE8MbjcIpmH4vbzet0FqsGrL18Yj
- eYve4vJxprB69iDSjR3r6QR5cZpmCJHbkNid3mZXZHbJtfrCqtRd9sxhha0xW8QpWomh
- EyPzNi/EqC9EMG1cpHCIQ7a2M0gLKmvOs+nXF1nmXk7vrbBxtJcy7WpIcjwY9eWUlnfA
- p/TIOBD5MhDnvM8+lw08zXLRtfe8jq++TVi5aGcaioPGulATszxmCiWHmBO9SJ3cZ8D3
- UBS2LzzQove3/02mqqi/SjJzRKHU3V/VozSnQyorPGbBP2DFiPDg4rwexT1O5Q7cKCZM
- lGOA==
-X-Gm-Message-State: AMCzsaVZRkG0oAAEzKP6+sLPimY8weiNxUwJO4KecvL5KQxCsNvRUmgE
- WrHbJ0OoSD0F6jAPh/panXjFvu46TO7Mt6fyRKuaYQ==
-X-Google-Smtp-Source: ABhQp+Sz8U/5JUJQKJI5zZP6BngKm6UhuXFm5AxegsFx17iPj7GzybcNGpjei9ci5tTti1i6dmJKDu0i9twv5WhQp6g=
-X-Received: by 10.159.56.9 with SMTP id p9mr3091708uad.50.1509487630225; Tue,
- 31 Oct 2017 15:07:10 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=jqSL/feJyJHHGYSrQ+4MGrozuFvBi99UDZ5qTu5DYjk=;
+ b=cElY7B9tAdqiJVY865JvSbmki7L4pEix3cQfpjCBaLmmP+09cHD61w/4DsT+8m4Jt0
+ CJBuxDFJ8M9glTJ5BEITBvko9pMB3XqIrxUJloKDS/bnn2jZX/g9YKF7pqUNjy13DqRo
+ ekpn6GRslXcLr+unIfeZS5L39EYuW8ybeMrrVtSX4+XUgrL0YqXkPjsc5W23eXeUYxOx
+ Cq4veWfEjqQrvg3VjZBWOpMadxDIUPP/r5N0ikmnN7qnZJJ9xHQvgLYuB/+QDoyPgJVK
+ AjY3Xm+BVXNNjq0lSMFE4hSN5+OtS+R669BaYYAwk7X93moFTvJTDVfCDunOZUfhwxCk
+ oswA==
+X-Gm-Message-State: AMCzsaXUXeas4rpa21j5JQlDCMtBVtMfBIz/SY8FA9wumwMGKC1Aa04r
+ o00GDI6yVUG6N5rr9jXJe9JWJMoJXM5h/5XrKY/kUQ==
+X-Google-Smtp-Source: ABhQp+QuFGsbbc6sZFiJ2bv7ck5iqZyMwD7Iz5oFb4psxnMjDEP+7ODi60s+9m2yGG71Up4u50Owr/Daunra/WQY0Zk=
+X-Received: by 10.36.124.72 with SMTP id a69mr5966125itd.135.1509502345593;
+ Tue, 31 Oct 2017 19:12:25 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.31.70.4 with HTTP; Tue, 31 Oct 2017 15:07:09 -0700 (PDT)
-In-Reply-To: <000301d35292$42d1b9a0$c8752ce0$@linux.intel.com>
-References: <001801d34c20$e670c150$b35243f0$@linux.intel.com>
- <29EB010F-5573-46E9-852B-60F084F50995@fuzziesquirrel.com>
- <000001d35265$080b01f0$182105d0$@linux.intel.com>
- <CAPLgG=kQwmnfc-HmWC-7zkN8L8o-xip6p3Kvmm4OWBozH37ppQ@mail.gmail.com>
- <000301d35292$42d1b9a0$c8752ce0$@linux.intel.com>
-From: Rick Altherr <raltherr@google.com>
-Date: Tue, 31 Oct 2017 15:07:09 -0700
-Message-ID: <CAPLgG==RZi1hV_m-+aw5fo4Wq_3OQLbddtY=ySJj-a50WNgTwA@mail.gmail.com>
-Subject: Re: PECI API?
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, ed.tanous@linux.intel.com, 
- james.feist@linux.intel.com
+Received: by 10.107.142.150 with HTTP; Tue, 31 Oct 2017 19:12:24 -0700 (PDT)
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Tue, 31 Oct 2017 21:12:24 -0500
+Message-ID: <CALLMt=pFnn_e+++-aYyUEOMyzdFHbKeOXVnKPHfyMkGpE68pTg@mail.gmail.com>
+Subject: Disabling wtmp in openbmc
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
@@ -67,148 +56,33 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 31 Oct 2017 22:07:14 -0000
+X-List-Received-Date: Wed, 01 Nov 2017 02:12:30 -0000
 
-On Tue, Oct 31, 2017 at 2:50 PM, Jae Hyun Yoo
-<jae.hyun.yoo@linux.intel.com> wrote:
->
-> >> On Tue, Oct 31, 2017 at 9:26 AM, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
-> >>>> On Oct 23, 2017, at 1:03 PM, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
-> >>>>
-> >>>> Hi Dave,
-> >>>>
-> >>>> I'm currently working on PECI kernel driver
-> >>>
-> >>> I'm curious about the high level structure.  I'm sure others are as well.
-> >>> Anything you can share would be informative and appreciated!
-> >>>
-> >>> A couple questions that popped into my head:
-> >>>
-> >>>  - Would there be a new Linux bus type or core framework for this?
-> >>>  - How many drivers would there be for a full stack.  Something like this?
-> >>>      - client? (hwmon, for example)
-> >>>      - core? (common code)
-> >>>      - bmc specific implementation? (aspeed, nuvoton, emulated
-> >>> differences)
-> >>>  - Have you considered using DT bindings and/or how they would look?
-> >>>
-> >>> These questions are motivated by the recent upstreaming experience
-> >>> with FSI (flexible support interface) where a similar structure was used.
-> >>> FSI on POWER feels similar to PECI in terms of usage and features so
-> >>> I thought I'd just throw this out there as a possible reference point to consider.
-> >>
-> >> PECI is using single-wired interface which is different from other
-> >> popular interfaces such as I2C and MTD, and therefore it doesn't have
-> >> any common core framework in kernel so I'm adding the PECI main
-> >> contorl driver as an misc type and the other one into hwmon subsystem.
-> >> The reason why I seperate the implementation into two drivers is, PECI
-> >> can be used not only for temperature monitoring but also for platform
-> >> manageability, processor diagnostics and failure analysis, so the misc
-> >> control driver will be used as a common PECI driver for all those
-> >> purposes flexibly and the hwmon subsystem driver will use the common
-> >> PECI driver just for temperature monitoring. These drivers will be BMC
-> >> specific implementation which support Aspeed shipset only. Support for
-> >> Nuvoton chipset was not considered in my implementation because
-> >> Nuvoton has different HW and register scheme, also Nuvoton already has
-> >> its dedicated driver implementation in hwmon subsystem for their each
-> >> chipset variant (nct6683.c  nct6775.c  nct7802.c).
-> >>
-> >
-> > Nuvoton is starting to submit support for their Poleg BMC to upstream
-> > (http://lists.infradead.org/pipermail/linux-arm-kernel/2017-October/538226.html).
-> > This BMC includes a PECI controller similar to the Aspeed design but
-> > with a different register layout.  At a minimum, the misc driver needs
-> > to support multiple backend drivers to allow Nuvoton to implement the same
-> > interface.  The chips you listed that are already in hwmon are for
-> > Nuvoton's SuperIOs, not their BMCs.
-> >
->
-> Thanks for your pointing out of the current Poleg BMC upstreaming. I didn't know about that before.
-> Ideally, it would be great if we support all BMC PECI controllers in a single device driver
-> but we should consider some dependencies such as SCU register setting in bootloader, clock setting
-> for the PECI controller HW block and etc that would vary on each BMC controller chipset.
-> Usually, these dependencies should be covered by kernel config and device tree settings.
-> My thought is, each BMC controller should have its own PECI misc driver then we could
-> selectively enable one by kernel configuration.
->
+I  noticed our automation systems were having some very large
+/var/log/wtmp files.  This is a file that keeps track of all logins to
+the system.  It's really only useful if you have the 'last' tool
+installed (although we could copy it off and post-process later).
 
-Are you expecting each BMC controller's PECI misc driver to
-re-implement the device ioctls?  If I assume the misc device and ioctl
-implementation are shared, I can't see how adding a subsystem would be
-significantly more work.  Doing so would clarify what the boundaries
-are between controller implementation and protocol behavior.
+Looks like normally we'd install logrotate to ensure it's rotated
+properly but my vote is we just disable it.  We'll still have
+/var/log/lastlog for some tracking history if needed.
 
-> >>>> and hwmon driver implementation. The kernel driver would provide these PECI commands as ioctls:
-> >>>>
-> >>>> - low-level PECI xfer command
-> >>>
-> >>> Would a separate 'dev' driver similar to i2c-dev make sense here?  Just thinking out loud.
-> >>>
-> >>
-> >> Yes, drivers will be seperated into two but it's hard to say that this way is similar to i2c-dev.
-> >> It would have a bit different shape.
-> >>
-> >
-> > I'm not terribly familiar with the PECI protocol.  I'll see about getting a copy of the spec.
-> > From what I can find via searches, it looks like individual nodes on the bus are addressed similar to I2C.
-> > I'd expect that to be similar to how i2c-dev is structured: a kobject per master and a kobject
-> > per address on the bus.  That way, drivers can be bound to individual addresses. The misc driver
-> > would focus on exposing interacting with a specific address on the bus in a generic fashion.
-> >
->
-> As you said, it would be very useful if kernel has core bus framework like I2C, but current kernel
-> doesn't have the core bus framework for PECI, and it would be a hugh project itself if we are going to
-> implement one.
+Something that takes up persistent storage, and can grown unbounded is
+a bit worrisome in an embedded system.
 
-Really?  IBM did so for FSI and it really helped with understanding the design.
+I really don't have much experience in this area so any thoughts or
+ideas are appreciated.  I've been doing some research and there
+doesn't actually seem to be a great way to disable wtmp.  Some
+indications are that with Linux, just deleting it is a bad idea.  Some
+people point to removing it and then making a link to /dev/null.  I've
+got a few trial commits out there but no silver bullet yet.
 
-> Generally, PECI bus topology is very simple unlike I2C. Usually in a single system,
-> there is only one BMC controller and it has connections with CPUs, that's all. I don't see an advantage
-> of using core bus framework on this simple interface.
->
+https://gerrit.openbmc-project.xyz/#/c/7683/ (I think this is how we
+would remove it?)
 
-Ideally, an hwmon driver for PECI on an Intel CPU only needs to know
-how to issue PECI commands to that device.  What address it is at and
-how the bus delivers the command to the node are irrelevant details.
-How do you plan to describe the PECI bus in a dts?  Can I use the same
-dt bindings for the Intel CPU's PECI interface for both Aspeed and
-Nuvoton?
+https://gerrit.openbmc-project.xyz/#/c/7725/ (I assumed dropbear was
+doing all the logging but even with this the file still grew on ssh
+logins)
 
-> >>>> - Ping()
-> >>>> - GetDIB()
-> >>>> - GetTemp()
-> >>>> - RdPkgConfig()
-> >>>> - WrPkgConfig()
-> >>>> - RdIAMSR()
-> >>>> - RdPCIConfigLocal()
-> >>>> - WrPCIConfigLocal()
-> >>>> - RdPCIConfig()
-> >>>>
-> >>>> Also, through the hwmon driver, these temperature monitoring features would be provided:
-> >>>>
-> >>>> - Core temperature
-> >>>> - DTS thermal margin (hysteresis)
-> >>>> - DDR DIMM temperature
-> >>>> - etc.
-> >>>
-> >>> Sweet!
-> >>>
-> >>>>
-> >>>> Patches will come in to upstream when it is ready.
-> >>>>
-> >>>> Cheers,
-> >>>> Jae
-> >>>
-> >>> For completeness, a port of the Aspeed SDK PECI driver was proposed in 2016 but it didn't go anywhere:
-> >>>
-> >>> https://lists.ozlabs.org/pipermail/openbmc/2016-August/004381.html
-> >>>
-> >>> thx - brad
-> >>>
-> >>
-> >> My implementation is also heavily based on the Aspeed SDK driver but
-> >> modified a lot to provide more suitable functionality for openbmc project. Hopefully, it could be introduced soon.
-> >>
-> >> thx,
-> >> Jae
->
+Thanks,
+Andrew
