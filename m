@@ -1,27 +1,46 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <fengguang.wu@intel.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=192.55.52.93; helo=mga11.intel.com;
+ envelope-from=fengguang.wu@intel.com; receiver=<UNKNOWN>)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yRxkD2HjHzDr5J
- for <openbmc@lists.ozlabs.org>; Thu,  2 Nov 2017 05:36:03 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 0367216D3AF
- for <openbmc@lists.ozlabs.org>; Wed,  1 Nov 2017 14:35:59 -0400 (EDT)
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: OpenBMC v2.0
-Message-Id: <DA5AF64A-3656-4AA8-8CD6-E9B9FB3DE00A@fuzziesquirrel.com>
-Date: Wed, 1 Nov 2017 14:35:58 -0400
-To: OpenBMC <openbmc@lists.ozlabs.org>
-X-Mailer: Apple Mail (2.3273)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yS1hR6F4NzDqvq
+ for <openbmc@lists.ozlabs.org>; Thu,  2 Nov 2017 08:34:45 +1100 (AEDT)
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 01 Nov 2017 14:34:40 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.44,330,1505804400"; 
+ d="gz'50?scan'50,208,50";a="170697496"
+Received: from bee.sh.intel.com (HELO bee) ([10.239.97.14])
+ by fmsmga006.fm.intel.com with ESMTP; 01 Nov 2017 14:34:37 -0700
+Received: from kbuild by bee with local (Exim 4.84_2)
+ (envelope-from <fengguang.wu@intel.com>)
+ id 1eA0jh-000VmP-8T; Thu, 02 Nov 2017 05:39:45 +0800
+Date: Thu, 2 Nov 2017 05:34:04 +0800
+From: kbuild test robot <lkp@intel.com>
+To: Oleksandr Shamray <oleksandrs@mellanox.com>
+Cc: kbuild-all@01.org, gregkh@linuxfoundation.org, arnd@arndb.de,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, openbmc@lists.ozlabs.org,
+ joel@jms.id.au, jiri@resnulli.us, tklauser@distanz.ch,
+ linux-serial@vger.kernel.org, mec@shout.net, vadimp@mellanox.com,
+ system-sw-low-level@mellanox.com, robh+dt@kernel.org,
+ openocd-devel-owner@lists.sourceforge.net,
+ linux-api@vger.kernel.org, davem@davemloft.net, mchehab@kernel.org,
+ Oleksandr Shamray <oleksandrs@mellanox.com>, Jiri Pirko <jiri@mellanox.com>
+Subject: Re: [patch v10 1/4] drivers: jtag: Add JTAG core driver
+Message-ID: <201711020548.ETMSMVaX%fengguang.wu@intel.com>
+References: <1509365528-28803-2-git-send-email-oleksandrs@mellanox.com>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="cWoXeonUoKmBZSoM"
+Content-Disposition: inline
+In-Reply-To: <1509365528-28803-2-git-send-email-oleksandrs@mellanox.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-SA-Exim-Connect-IP: <locally generated>
+X-SA-Exim-Mail-From: fengguang.wu@intel.com
+X-SA-Exim-Scanned: No (on bee); SAEximRunCond expanded to false
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -33,527 +52,165 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Nov 2017 18:36:05 -0000
+X-List-Received-Date: Wed, 01 Nov 2017 21:34:49 -0000
 
-It has been awhile since we tagged.  You=E2=80=99ll note the bump to
-v2.0 - there is nothing significant about this tag compared
-to any of the previous tags; this is just an attempt to reset
-on reasonable version strings moving forward.
 
-I intend to get back on track with monthly tags, the next
-being 2.1, then 2.2, etc.
+--cWoXeonUoKmBZSoM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Enjoy!
+Hi Oleksandr,
 
--brad
+I love your patch! Perhaps something to improve:
+
+[auto build test WARNING on linus/master]
+[also build test WARNING on v4.14-rc7]
+[cannot apply to next-20171018]
+[if your patch is applied to the wrong git tree, please drop us a note to help improve the system]
+
+url:    https://github.com/0day-ci/linux/commits/Oleksandr-Shamray/JTAG-driver-introduction/20171102-045624
+config: i386-tinyconfig (attached as .config)
+compiler: gcc-6 (Debian 6.2.0-3) 6.2.0 20160901
+reproduce:
+        # save the attached .config to linux build tree
+        make ARCH=i386 
+
+All warnings (new ones prefixed by >>):
+
+>> ./usr/include/linux/jtag.h:74: found __[us]{8,16,32,64} type without #include <linux/types.h>
 
 ---
+0-DAY kernel test infrastructure                Open Source Technology Center
+https://lists.01.org/pipermail/kbuild-all                   Intel Corporation
 
-Adriana Kobylak (15):
-      u-boot: Reorder and update patches and bootenv fixes
-      bios-updatesymlinks: Add Install section for WantedBy option
-      witherspoon: Update image location for software manager
-      BMC: Make volume names consistent
-      obmc-flash-bmc: Add support for specifying alternate mtd devices
-      u-boot: Rebase openbmc patches
-      obmc-flash-bmc: Add u-boot update
-      obmc-flash-bmc-setenv: Use unescaped instance name
-      obmc-flash-bmc: Set boot env variables with info of new image
-      obmc-flash-bmc: Remove existing image before updating
-      obmc-flash-bmc: Add ExecStartPre and Post to update environment =
-variables
-      obmc-flash-bmc: Create a duplicate kernel volume in alt
-      obmc-flash-bmc: Fixes to the logic to delete volumes
-      openpower-software-manager: Add service dependencies
-      clear-once.service: Call fw_setenv twice for openbmconce
+--cWoXeonUoKmBZSoM
+Content-Type: application/gzip
+Content-Disposition: attachment; filename=".config.gz"
+Content-Transfer-Encoding: base64
 
-Andrew Geissler (105):
-      Default PowerRestorePolicy to always off
-      Service to scan hub chip on second processor
-      Disable voltage override causing CFAM error
-      Don't apply restore policy if system is on
-      occ-active:Exit gracefully if occ status object not available
-      Set default restart policy for phosphor services
-      openpower-occ-control.inc: bump version
-      phosphor-software-manager.bb: bump version
-      witherspoon-pfault-analysis.inc: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      witherspoon-pfault-analysis.inc: bump version
-      phosphor-software-manager.bb: bump version
-      phosphor-dbus-interfaces.bb: bump version
-      phosphor-software-manager.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      openpower-software-manager.bb: bump version
-      Increase over-current settings for Vdd
-      Ensure occ active is asserted after fsi scan
-      phosphor-ipmi-host.inc: bump version
-      phosphor-software-manager.bb: bump version
-      op-proc-control.bb: bump version
-      phosphor-dbus-interfaces.bb: bump version
-      mrw-rev.bbclass: bump version
-      phosphor-hwmon.bb: bump version
-      phosphor-software-manager.bb: bump version
-      phosphor-inventory-manager.inc: bump version
-      phosphor-settings-manager.inc: bump version
-      phosphor-state-manager.bb: bump version
-      phosphor-fan.inc: bump version
-      phosphor-debug-collector.inc: bump version
-      ffdc.bb: bump version
-      Host watchdog needs to conflict with quiesce target
-      phosphor-dbus-interfaces.bb: bump version
-      witherspoon-pfault-analysis.inc: bump version
-      mboxd.bb: bump version
-      openpower-debug-collector.inc: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      phosphor-dbus-interfaces.bb: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      phosphor-logging.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      phosphor-logging.bb: bump version
-      skeleton-rev.bbclass: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      phosphor-debug-collector.inc: bump version
-      ffdc.bb: bump version
-      phosphor-logging.bb: bump version
-      openpower-software-manager.bb: bump version
-      openpower-dbus-interfaces.bb: bump version
-      skeleton-rev.bbclass: bump version
-      phosphor-time-manager.bb: bump version
-      phosphor-hwmon.bb: bump version
-      phosphor-rest.inc: bump version
-      openpower-debug-collector.inc: bump version
-      phosphor-software-manager.bb: bump version
-      skeleton-rev.bbclass: bump version
-      phosphor-dbus-interfaces.bb: bump version
-      phosphor-software-manager.bb: bump version
-      phosphor-software-manager.bb: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      op-proc-control.bb: bump version
-      phosphor-logging.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      phosphor-hwmon.bb: bump version
-      openpower-ipmi-oem.bb: bump version
-      ffdc.bb: bump version
-      phosphor-dbus-interfaces.bb: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      openpower-software-manager.bb: bump version
-      openpower-occ-control.inc: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      witherspoon-pfault-analysis.inc: bump version
-      openpower-ipmi-oem.bb: bump version
-      witherspoon-pfault-analysis.inc: bump version
-      openpower-software-manager.bb: bump version
-      openpower-occ-control.inc: bump version
-      phosphor-ipmi-host.inc: bump version
-      Update pypi.python.org packages to use https
-      Write journal to persistent storage
-      phosphor-software-manager.bb: bump version
-      phosphor-software-manager.bb: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-dbus-monitor.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      phosphor-fan.inc: bump version
-      phosphor-debug-collector.inc: bump version
-      sdbusplus.bb: bump version
-      openpower-fru-vpd.inc: bump version
-      phosphor-state-manager.bb: bump version
-      phosphor-hwmon.bb: bump version
-      phosphor-logging.bb: bump version
-      phosphor-led-manager.inc: bump version
-      phosphor-ipmi-net.bb: bump version
-      phosphor-inventory-manager.inc: bump version
-      phosphor-rest.inc: bump version
-      phosphor-gpio-monitor.bb: bump version
-      phosphor-time-manager.bb: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      skeleton-rev.bbclass: bump version
-      ffdc.bb: bump version
-      phosphor-watchdog.bb: bump version
-      openpower-debug-collector.inc: bump version
+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
 
-Andrew Jeffery (10):
-      kernel: ftgmac100, i2c, occ hwmon fixes
-      u-boot: Integrate upstream UBI and MTD patches
-      kernel: Fixes for LEDs (PCA9552) and VUART
-      kernel: Fixes for Firestone devicetree and IPL, OCC errnos
-      kernel: SBEFIFO and OCC fixes, add snoop device to Q71L devicetree
-      op-apps: Add pdbg to the op-apps package group
-      kernel: NCSI, FSI, OCC, PMBus, MAX31785 fixes
-      u-boot: Clean up vbar work-arounds and invalid use of memory
-      kernel: SBEFIFO, FSI I2C fixes, DTS updates, silence PMBus core
-      kernel: Fix OCC errno on client release
-
-Brad Bishop (7):
-      sensors: Add max31785 MSL checking package
-      wspoon: Run max31785 firmware revision checker
-      Add mslverify package
-      wspoon: Run MSL verify service
-      interfaces: Remove systemd-networkd PartOf dep
-      openpower: Remove duplicate PROVIDES
-      timemgr: Use correct timemanager deps
-
-Brandon Wyman (5):
-      Power supply monitor recipe, service, and conf
-      Fix capitalization issue with SyslogIdentifier
-      MRW: Bump Witherspoon MRW revision
-      AutoReboot: Add support for AutoReboot sensor type
-      Update error YAML path
-
-Charles Paul Hofer (1):
-      Revert "systemd: Configure shutdown watchdog to 20min"
-
-Deepak Kodihalli (6):
-      settings yaml: enable multiple interfaces
-      boot settings: create single object
-      boot settings: add new 'one_time' object
-      ipmi services: react to changes in pathnames
-      openpower vpd yaml: invert property,keyword map
-      op vpd: MAC address can come from OPFR or VINI
-
-Dhruvaraj Subhashchandran (7):
-      Add updated sensor config.yaml for non mrw systems
-      Add PS derating and redundancy to sensor config
-      Revert "Add PS derating and redundancy to sensor config"
-      config yaml changes to skip non-present cores
-      ipmi: sensor config yaml updates
-      Install gevent-websocket to the image
-      Add missing boot progress sensor value
-
-Dinesh Chinari (1):
-      U-boot inventory update, updated PROPERTY
-
-Eddie James (2):
-      Fix mtd partitions udev rule
-      Add /home bind mount
-
-Edward A. James (7):
-      kernel: Patch in bmc flash partition changes
-      filesystem: mount rw and overlay
-      u-boot fw-utils: Add alternate fw_env config
-      Do not allow power on if PNOR doesn't have required image
-      kernel: ir35221 fix
-      kernel: ir35221 fix
-      Prepare-overlay service: check for mountpoint before removing =
-workdir
-
-Gunnar Mills (14):
-      Create error logs when a fan is unplugged or fails
-      Create error log when cores are too hot
-      Add Witherspoon Power Supply policy
-      Add "After" mapper to BMC updater
-      Add "After" mapper to Host updater
-      Create SystemShutdown error log on core overtemp
-      Add GPU to inventory
-      phosphor-settings-read-settings-mrw recipe
-      Add power cap boundary validation
-      Create Shutdown Error on fan count shutdown
-      Spelling fixes
-      Spelling fixes
-      Spelling fixes in meta-barreleye
-      Spelling fixes in meta-quanta
-
-Jayanth Othayoth (7):
-      Change Dump file storage location
-      systemd: enable systemd-coredump package
-      phosphor-debug-collector: Create /var/lib/systemd/coredump mount =
-point
-      Revert "phosphor-debug-collector: Create /var/lib/systemd/coredump =
-mount point"
-      Revert "systemd: enable systemd-coredump package"
-      Revert "Revert "systemd: enable systemd-coredump package""
-      Customize inotify event initialization in UBI FS
-
-Joel Stanley (6):
-      kernel: MSN flash layout, iio and tach dts, ncsi bugfix
-      kernel: ucd9000 debugfs additions, Zaius EVT3 support
-      kernel: OCC hwmon, palmetto spi-nor muxing, SCU ranges
-      kernel: Watchdog fixes
-      kernel: lca955x, FSI and Garrison fan fixes
-      kernel: FSI SBEFIFO and OCC rework
-
-Kun Yi (1):
-      Fix YAML overriding.
-
-Lei YU (7):
-      meta-romulus: Add occ power sensors config
-      meta-romulus: Fix ipmi inventory fru ids
-      meta-firestone: Add openpower-occ-control
-      meta-firestone: Add phosphor-hwmon config
-      meta-firestone: Mirror host console to physical UART
-      phosphor-time-manager.bb: Use new service name
-      meta-p8-systems: Correct OCC path for P8 systems
-
-Leonel Gonzalez (1):
-      filesystem: mount rw /media with fstab
-
-Marri Devender Rao (5):
-      Add BMC accessible FRUs to generate FRU map
-      Inventory: Add type-only inventory interfaces to config files
-      phosphor-logging: Add native SDK classes to install parser scripts
-      openpower-debug-collector: Rework to use native sdk for errorlog
-      Enable support for usecase specific bash script invocation
-
-Matt Spinler (24):
-      Add power supply hwmon config files
-      Witherspoon MRW XML bump
-      Add service and recipe for PGOOD fail errors
-      Add service to monitor the UCD90160 at runtime
-      Witherspoon MRW XML revision bump
-      witherspoon: Change fan floor speed to 10500 RPM
-      Revert "Add service to monitor the UCD90160 at runtime"
-      Pass driver names to gpio-presence service
-      Revert "Revert "Add service to monitor the UCD90160 at runtime""
-      op-proc-control: install error yaml files
-      Revert "op-proc-control: install error yaml files"
-      Remove the fsi-hub-scan service
-      op-proc-control: Add build dependencies
-      Use openpower-proc-control for fsi-scan
-      Don't use template parameters in fan watchdog service
-      Add phosphor-hwmon config file for the PCIE temp
-      Add tach trust groups to witherspoon monitor YAML
-      Update hwmon labels for 2 OCC properties
-      Add BMP280 default temperature threshold values
-      Add DPS310 default temperature threshold values
-      Add TMP275 default temperature threshold values
-      Add IR35221 default temperature threshold values
-      Add power supply default threshold values
-      Add OCC default threshold values
-
-Matthew Barth (15):
-      witherspoon: Update floors and ceilings for fan control
-      witherspoon: Add fan speed inc/dec control based on core temps
-      witherspoon: Add fan speed inc/dec control based on reg temps
-      witherspoon: Add fan speed inc/dec control based on dimm temps
-      Add phosphor-fan-monitor init service
-      witherspoon: Remove core temps from water cooled
-      witherspoon - Add GPU core & memory sensors
-      witherspoon - Update events.yaml format
-      witherspoon - Update speed change parameters
-      witherspoon - Speed changes on GPU core temps
-      witherspoon - Speed changes on GPU memory temps
-      witherspoon - Request speed based on tach feedback
-      wspoon: Add PCIE temperature sensor
-      wspoon: Raised floor active fan control
-      wspoon: Update fan/thermal shutdown target
-
-Michael Tritz (7):
-      Enable BMC patching from the /usr/local path
-      DEVPATH fix for phosphor-gpio-monitor@checkstop.service
-      Enable environment variable deletion from =
-obmc-flash-bmc-setenv@.service
-      Suppress undefined rwreset error in obmc-flash-bmc
-      Service files for factory reset change - clear instead of delete
-      Service files to remove orphaned UBI volumes
-      fstab: require service file to mount /var - fixes BMC factory =
-reset
-
-Milton Miller (1):
-      obmc-initfs shutdown: ping watchdog watchdog during flash update
-
-Mykola Kostenok (2):
-      meta-mellanox: meta-msn: update defconfig
-      meta-mellanox/meta-msn add ipmi daemon recipe
-
-Nagaraju Goruganti (1):
-      sdbusplus: fix build dependency
-
-Patrick Venture (9):
-      Add rdepends: pyphosphor-utils to phosphor-mapper
-      quanta-powerctrl: bugfix in service key
-      meta-q71l: phosphor: sensors: Add iio-hwmon config
-      meta-q71l: phosphor: sensors: add GAINs to iio-hwmon config
-      meta-q71l: phosphor: sensors: fix GAIN for p5v_aux
-      devtools: iotools: update src_uri and srcrev
-      devtools: iotools: add service to create symlinks
-      quanta-q71l: phosphor-hwmon: Update fan numbering to be 1-based
-      quanta-q71l: phosphor-hwmon: Update temp paths
-
-Patrick Williams (143):
-      phosphor-software-manager.bb: bump version
-      phosphor-rest.inc: bump version
-      op-proc-control.bb: bump version
-      phosphor-fan.inc: bump version
-      skeleton-rev.bbclass: bump version
-      phosphor-dbus-interfaces.bb: bump version
-      phosphor-software-manager.bb: bump version
-      skeleton-rev.bbclass: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-software-manager.bb: bump version
-      ffdc.bb: bump version
-      phosphor-debug-collector.inc: bump version
-      phosphor-ipmi-net.bb: bump version
-      phosphor-dbus-interfaces.bb: bump version
-      phosphor-state-manager.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      mrw-rev.bbclass: bump version
-      phosphor-ipmi-host.inc: bump version
-      phosphor-ipmi-fru.inc: bump version
-      openpower-fru-vpd.inc: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      openpower-occ-control.inc: bump version
-      phosphor-inventory-manager.inc: bump version
-      phosphor-fan.inc: bump version
-      phosphor-debug-collector.inc: bump version
-      ffdc.bb: bump version
-      openpower-occ-control.inc: bump version
-      phosphor-dbus-monitor.bb: bump version
-      mboxd.bb: bump version
-      phosphor-software-manager.bb: bump version
-      skeleton-rev.bbclass: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-software-manager.bb: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-software-manager.bb: bump version
-      openpower-software-manager.bb: bump version
-      openpower-occ-control.inc: bump version
-      skeleton-rev.bbclass: bump version
-      phosphor-inventory-manager-assettag-native: Missing ${D} install =
-path
-      phosphor-ipmi-host.inc: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      openpower-occ-control.inc: bump version
-      phosphor-software-manager.bb: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-software-manager.bb: bump version
-      phosphor-hwmon.bb: bump version
-      phosphor-rest.inc: bump version
-      phosphor-watchdog.bb: bump version
-      phosphor-dbus-interfaces.bb: bump version
-      openpower-occ-control.inc: bump version
-      phosphor-software-manager.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      skeleton-rev.bbclass: bump version
-      phosphor-mapper.bb: bump version
-      phosphor-dbus-interfaces.bb: bump version
-      phosphor-dbus-interfaces.bb: bump version
-      phosphor-state-manager.bb: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      openpower-fru-vpd.inc: bump version
-      phosphor-hwmon.bb: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      phosphor-ipmi-net.bb: bump version
-      phosphor-debug-collector.inc: bump version
-      ffdc.bb: bump version
-      mboxd.bb: bump version
-      phosphor-ipmi-net.bb: bump version
-      skeleton-rev.bbclass: bump version
-      phosphor-mapper.bb: bump version
-      phosphor-dbus-interfaces.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      phosphor-debug-collector.inc: bump version
-      ffdc.bb: bump version
-      phosphor-watchdog.bb: bump version
-      phosphor-gpio-monitor.bb: bump version
-      skeleton-rev.bbclass: bump version
-      phosphor-logging.bb: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-software-manager.bb: bump version
-      phosphor-logging.bb: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      phosphor-ipmi-net.bb: bump version
-      openpower-occ-control.inc: bump version
-      phosphor-mapper.bb: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-debug-collector.inc: bump version
-      ffdc.bb: bump version
-      phosphor-led-manager.inc: bump version
-      phosphor-dbus-interfaces.bb: bump version
-      phosphor-software-manager.bb: bump version
-      openpower-fru-vpd.inc: bump version
-      phosphor-ipmi-host.inc: bump version
-      phosphor-ipmi-fru.inc: bump version
-      phosphor-hwmon.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      witherspoon-pfault-analysis.inc: bump version
-      witherspoon: enable obmc-ubi-fs feature
-      phosphor-ipmi-host.inc: bump version
-      phosphor-dbus-interfaces.bb: bump version
-      phosphor-inventory-manager.inc: bump version
-      ffdc.bb: bump version
-      phosphor-logging.bb: bump version
-      phosphor-state-manager.bb: bump version
-      phosphor-debug-collector.inc: bump version
-      phosphor-software-manager.bb: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      phosphor-dbus-interfaces.bb: bump version
-      phosphor-settings-manager.inc: bump version
-      phosphor-fan.inc: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-ipmi-host.inc: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      witherspoon-pfault-analysis.inc: bump version
-      phosphor-software-manager.bb: bump version
-      phosphor-fan.inc: bump version
-      phosphor-state-manager.bb: bump version
-      phosphor-rest.inc: bump version
-      witherspoon-pfault-analysis.inc: bump version
-      phosphor-led-manager.inc: bump version
-      phosphor-state-manager.bb: bump version
-      openpower-software-manager.bb: bump version
-      mrw-rev.bbclass: bump version
-      phosphor-ipmi-host.inc: bump version
-      phosphor-fan.inc: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-settings-manager.inc: bump version
-      phosphor-software-manager.bb: bump version
-      phosphor-networkd-rev.bbclass: bump version
-      phosphor-debug-collector.inc: bump version
-      openpower-occ-control.inc: bump version
-      ffdc.bb: bump version
-      witherspoon-pfault-analysis.inc: bump version
-      phosphor-inventory-manager.inc: bump version
-      openpower-software-manager.bb: bump version
-      phosphor-led-manager.inc: bump version
-      witherspoon-pfault-analysis.inc: bump version
-      openpower-dbus-interfaces.bb: bump version
-      phosphor-dbus-interfaces.bb: bump version
-      openpower-software-manager.bb: bump version
-
-Ratan Gupta (2):
-      Network: Remove the installation of network manager conf file
-      Inventory: Make changes for sync inventory for witherspoon
-
-Saqib Khan (14):
-      Delete kernel as part of ubi volume delete
-      Ignore ubipatch service if device not formatted as UBI
-      Create dir /usr/local for ubi patch service
-      Add dir "srv" to the root file system
-      Get the mtd# that corresponds to bmc and alt-bmc.
-      Fix the function that is responsible for deleting bmc ubi volumes
-      PNOR: Add logic to handle the case where ubi volume creation =
-failure
-      Handle the case where obmc-flash-bmc-ubimount@.service fails
-      Clear PNOR patch location while updating symlinks
-      Check if the BMC version already exists in /media before mounting.
-      BMC: Update u-boot environment variables.
-      BMC: Block BMC reboot during code update
-      Dynamically set size of pnor read-only partition
-      Don't update U-Boot env variables using code update service
-
-Tom Joseph (4):
-      tpm: Add tpm_required_sensor in sensor config.yaml
-      Change the NetFn for Partial Add eSEL command.
-      Move SRC_URI and SRC_REV to the .inc file
-      Copy the error yaml's for logging manager parsing
-
-Vishwanatha Subbanna (3):
-      Enable OCC Active on BMC reset reload
-      Add recipe for phosphor-user-manager
-      Remove network-update-dns.service
-
-Xo Wang (1):
-      meta-zaius: Use udev dev and fix DEVPATH/PATH
-
-causten (1):
-      Add helpful tips to local.conf.sample
-
-spashabk-in (1):
-      Add openpower-debug-collector-watchdog-timeout unit file
+--cWoXeonUoKmBZSoM--
