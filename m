@@ -1,55 +1,31 @@
-Return-Path: <ckeepax@opensource.cirrus.com>
-Authentication-Results: ozlabs.org; spf=none (mailfrom)
- smtp.mailfrom=opensource.cirrus.com (client-ip=67.231.149.25;
- helo=mx0b-001ae601.pphosted.com; envelope-from=ckeepax@opensource.cirrus.com;
- receiver=<UNKNOWN>)
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <Tomer.Maimon@nuvoton.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yRkVf6nVyzDr4H;
- Wed,  1 Nov 2017 21:10:14 +1100 (AEDT)
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- vA1A8YtG020389; Wed, 1 Nov 2017 05:09:58 -0500
-Authentication-Results: ppops.net;
- spf=none smtp.mailfrom=ckeepax@opensource.cirrus.com
-Received: from mail1.cirrus.com (mail1.cirrus.com [141.131.3.20])
- by mx0a-001ae601.pphosted.com with ESMTP id 2dxfrvh5rn-1;
- Wed, 01 Nov 2017 05:09:57 -0500
-Received: from EX17.ad.cirrus.com (unknown [172.20.9.81])
- by mail1.cirrus.com (Postfix) with ESMTP id 1E944611E123;
- Wed,  1 Nov 2017 05:09:57 -0500 (CDT)
-Received: from imbe.wolfsonmicro.main (198.61.95.81) by EX17.ad.cirrus.com
- (172.20.9.81) with Microsoft SMTP Server id 14.3.301.0; Wed, 1 Nov 2017
- 10:09:56 +0000
-Received: from localhost.localdomain (algalon.ad.cirrus.com [198.90.223.36])
- by imbe.wolfsonmicro.main (8.14.4/8.14.4) with ESMTP id vA1A9rYh028360;	Wed,
- 1 Nov 2017 10:09:53 GMT
-Date: Wed, 1 Nov 2017 10:09:53 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Andrew Jeffery <andrew@aj.id.au>
-CC: <linux-gpio@vger.kernel.org>, <linus.walleij@linaro.org>,
- <robh+dt@kernel.org>, <mark.rutland@arm.com>, <frowand.list@gmail.com>,
- <joel@jms.id.au>, <ckeepax@opensource.wolfsonmicro.com>,
- <ldewangan@nvidia.com>, <ryan_chen@aspeedtech.com>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <openbmc@lists.ozlabs.org>, <linux-aspeed@lists.ozlabs.org>
-Subject: Re: [PATCH v3 1/2] gpio: gpiolib: Generalise state persistence
- beyond sleep
-Message-ID: <20171101100953.ye5fp33vxuol5z5a@localhost.localdomain>
-References: <20171101040457.1200-1-andrew@aj.id.au>
- <20171101040457.1200-2-andrew@aj.id.au>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20171101040457.1200-2-andrew@aj.id.au>
-User-Agent: NeoMutt/20170113 (1.7.2)
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=2 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
- lowpriorityscore=0 impostorscore=0 adultscore=0 classifier=spam adjust=0
- reason=mlx scancount=1 engine=8.0.1-1707230000 definitions=main-1711010144
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yRnKR4HjWzDr4S
+ for <openbmc@lists.ozlabs.org>; Wed,  1 Nov 2017 23:17:23 +1100 (AEDT)
+Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id vA1BxZFO010949;
+ Wed, 1 Nov 2017 13:59:35 +0200
+Received: by talu34.nuvoton.co.il (Postfix, from userid 10070)
+ id D71175A919; Wed,  1 Nov 2017 14:16:48 +0200 (IST)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: robh+dt@kernel.org, mark.rutland@arm.com, daniel.lezcano@linaro.org,
+ tglx@linutronix.de, avifishman70@gmail.com, brendanhiggins@google.com,
+ raltherr@google.com, joel@jms.id.au
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>
+Subject: [PATCH v2 2/2] dt-binding: timer: document NPCM7xx timer DT bindings
+Date: Wed,  1 Nov 2017 14:16:44 +0200
+Message-Id: <1509538604-8218-3-git-send-email-tmaimon77@gmail.com>
+X-Mailer: git-send-email 1.8.3.4
+In-Reply-To: <1509538604-8218-1-git-send-email-tmaimon77@gmail.com>
+References: <1509538604-8218-1-git-send-email-tmaimon77@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -61,29 +37,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Nov 2017 10:10:19 -0000
+X-List-Received-Date: Wed, 01 Nov 2017 12:17:32 -0000
 
-On Wed, Nov 01, 2017 at 03:04:56PM +1100, Andrew Jeffery wrote:
-> General support for state persistence is added to gpiolib with the
-> introduction of a new pinconf parameter to propagate the request to
-> hardware. The existing persistence support for sleep is adapted to
-> include hardware support if the GPIO driver provides it. Persistence
-> continues to be enabled by default; in-kernel consumers can opt out, but
-> userspace (currently) does not have a choice.
-> 
-> The *_SLEEP_MAY_LOSE_VALUE and *_SLEEP_MAINTAIN_VALUE symbols are
-> renamed, dropping the SLEEP prefix to reflect that the concept is no
-> longer sleep-specific.  I feel that renaming to just *_MAY_LOSE_VALUE
-> could initially be misinterpreted, so I've further changed the symbols
-> to *_TRANSITORY and *_PERSISTENT to address this.
-> 
-> The sysfs interface is modified only to keep consistency with the
-> chardev interface in enforcing persistence for userspace exports.
-> 
-> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> ---
+Added device tree binding documentation for Nuvoton NPCM7xx timer.
 
-Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ .../bindings/timer/nuvoton,npcm7xx-timer.txt       | 25 ++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt
 
-Thanks,
-Charles
+diff --git a/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt b/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt
+new file mode 100644
+index 000000000000..d1beea901509
+--- /dev/null
++++ b/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt
+@@ -0,0 +1,25 @@
++Nuvoton NPCM7xx timer
++
++Nuvoton NPCM7xx have three timer modules, each timer module provides five 24-bit
++timer counters.
++
++Required properties:
++- compatible      : "nuvoton,npcm7xx-timer" for Poleg NPCM7xx.
++- reg             : Offset and length of the register set for the device.
++- interrupts      : Contain the timer interrupt with flags for
++                    falling edge.
++
++Required clocking property, have to be one of:
++- clocks          : phandle of timer reference clock.
++- clock-frequency : The frequency in Hz of the clock that drives the NPCM7xx
++                    timer (usually 25000000).
++
++Example:
++
++timer@f0008000 {
++    compatible = "nuvoton,npcm7xx-timer";
++    interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
++    reg = <0xf0008000 0x1000>;
++    clocks = <&clk NPCM7XX_CLK_TIMER>;
++};
++
+-- 
+2.14.1
