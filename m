@@ -1,63 +1,27 @@
-Return-Path: <raltherr@google.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400c:c05::231; helo=mail-vk0-x231.google.com;
- envelope-from=raltherr@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="rzMfqui4"; 
- dkim-atps=neutral
-Received: from mail-vk0-x231.google.com (mail-vk0-x231.google.com
- [IPv6:2607:f8b0:400c:c05::231])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yRwCB47y6zDr4H
- for <openbmc@lists.ozlabs.org>; Thu,  2 Nov 2017 04:27:33 +1100 (AEDT)
-Received: by mail-vk0-x231.google.com with SMTP id t184so1878747vka.6
- for <openbmc@lists.ozlabs.org>; Wed, 01 Nov 2017 10:27:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=mzY45OrBSNtJHmyWLaW0RxeHxQiqmjdRTX7xFancuOY=;
- b=rzMfqui4t6GP7eM2x3Oq80+3LZYQWIV1HWmlTCkHlUnmtaVijuMNX8g+cwU8L7oVD0
- CFXLlJentg2wLZ8Y5HT81GKygS00Zsp7gH9VFQn4IZMwsS1GrKHW5HX3pKZx8Gmb5YBu
- YXTSnf3cfdSTD/VbGTeu5I4yrLLdpaDf2kV71XIBRa1CHUqY+ZyVEx8bQkSt0srZNbZu
- TTOj4bAjOriuOT9gKSDhvXQMfv/4tMuDf+KzPV0eMPh91PVE3g7OyZQhAwKCSoT5Iy3z
- 0m+OgvCMl0gRSXQBH/KVYeABsBVHpjQfqNXt+vTr2M/77bu7ZQdqyT+OaqNSbZIruM/6
- TceQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=mzY45OrBSNtJHmyWLaW0RxeHxQiqmjdRTX7xFancuOY=;
- b=BaZzmB48tXTMjiGGAwpeCDectrY1NTLEEBgMXfsvnZaSTVGy3jcD0dJdRmAqXtnx2T
- YYMuxjYT1G05PJ38+IT0bfl3IeARxH/p8ECkHOd0U3Awt4tbSVZfh9PFbnPPrOWiy1KC
- f9NpXyR5UyDsbE3cWfMwSeKCuEQyF2W+ytw+g19P6ImnufLZtdAMFp89RosLc9Q9E44i
- rbcLzFqU8kGP5zF6FKmgHCYiYQ1iZA5R3k17hWTA1/4yp1XT+EztX2+1MvDTStEevcZl
- DR//46Q6xCI2YLpuDGYn/mYBl9+HSfoB55ESUw/dan/5HetmwHJwmVa8s8x3qNF48dk0
- wXpg==
-X-Gm-Message-State: AMCzsaUSkZqdsNV3tu8f6ODgbxKZX4qm84V3si2KZeUuLqnNGTf/Qo8b
- /fdYwvoikiA6rJ2+AEylRc/Po9R7g33fRnb07hsDIA==
-X-Google-Smtp-Source: ABhQp+Tm0GgTgrK9pHJF1TUUB3mkeBc8eYyeC0YscesPiIAUcM1mEfXVZZKj8inS/dbvgvj1vk8ZpnvOLvbYC/noTRU=
-X-Received: by 10.31.235.3 with SMTP id j3mr494331vkh.66.1509557249093; Wed,
- 01 Nov 2017 10:27:29 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.31.70.4 with HTTP; Wed, 1 Nov 2017 10:27:28 -0700 (PDT)
-In-Reply-To: <000201d35330$e30fde80$a92f9b80$@linux.intel.com>
-References: <001801d34c20$e670c150$b35243f0$@linux.intel.com>
- <29EB010F-5573-46E9-852B-60F084F50995@fuzziesquirrel.com>
- <000001d35265$080b01f0$182105d0$@linux.intel.com>
- <CAPLgG=kQwmnfc-HmWC-7zkN8L8o-xip6p3Kvmm4OWBozH37ppQ@mail.gmail.com>
- <000301d35292$42d1b9a0$c8752ce0$@linux.intel.com>
- <CAPLgG==RZi1hV_m-+aw5fo4Wq_3OQLbddtY=ySJj-a50WNgTwA@mail.gmail.com>
- <000201d35330$e30fde80$a92f9b80$@linux.intel.com>
-From: Rick Altherr <raltherr@google.com>
-Date: Wed, 1 Nov 2017 10:27:28 -0700
-Message-ID: <CAPLgG=nCHPU6njdyuhRvmMnAuaF5tBkUuYScHn0mWECv9xtvmQ@mail.gmail.com>
-Subject: Re: PECI API?
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, ed.tanous@linux.intel.com, 
- james.feist@linux.intel.com
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yRxkD2HjHzDr5J
+ for <openbmc@lists.ozlabs.org>; Thu,  2 Nov 2017 05:36:03 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Received: from [192.168.253.30] (unknown [192.168.253.30])
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 0367216D3AF
+ for <openbmc@lists.ozlabs.org>; Wed,  1 Nov 2017 14:35:59 -0400 (EDT)
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: OpenBMC v2.0
+Message-Id: <DA5AF64A-3656-4AA8-8CD6-E9B9FB3DE00A@fuzziesquirrel.com>
+Date: Wed, 1 Nov 2017 14:35:58 -0400
+To: OpenBMC <openbmc@lists.ozlabs.org>
+X-Mailer: Apple Mail (2.3273)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -69,161 +33,527 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Nov 2017 17:27:35 -0000
+X-List-Received-Date: Wed, 01 Nov 2017 18:36:05 -0000
 
-On Wed, Nov 1, 2017 at 9:45 AM, Jae Hyun Yoo
-<jae.hyun.yoo@linux.intel.com> wrote:
->>>>> On Tue, Oct 31, 2017 at 9:26 AM, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
->>>>>>> On Oct 23, 2017, at 1:03 PM, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
->>>>>>>
->>>>>>> Hi Dave,
->>>>>>>
->>>>>>> I'm currently working on PECI kernel driver
->>>>>>
->>>>>> I'm curious about the high level structure.  I'm sure others are as well.
->>>>>> Anything you can share would be informative and appreciated!
->>>>>>
->>>>>> A couple questions that popped into my head:
->>>>>>
->>>>>>  - Would there be a new Linux bus type or core framework for this?
->>>>>>  - How many drivers would there be for a full stack.  Something like this?
->>>>>>      - client? (hwmon, for example)
->>>>>>      - core? (common code)
->>>>>>      - bmc specific implementation? (aspeed, nuvoton, emulated
->>>>>> differences)
->>>>>>  - Have you considered using DT bindings and/or how they would look?
->>>>>>
->>>>>> These questions are motivated by the recent upstreaming experience
->>>>>> with FSI (flexible support interface) where a similar structure was used.
->>>>>> FSI on POWER feels similar to PECI in terms of usage and features
->>>>>> so I thought I'd just throw this out there as a possible reference point to consider.
->>>>>
->>>>> PECI is using single-wired interface which is different from other
->>>>> popular interfaces such as I2C and MTD, and therefore it doesn't
->>>>> have any common core framework in kernel so I'm adding the PECI
->>>>> main contorl driver as an misc type and the other one into hwmon subsystem.
->>>>> The reason why I seperate the implementation into two drivers is,
->>>>> PECI can be used not only for temperature monitoring but also for
->>>>> platform manageability, processor diagnostics and failure analysis,
->>>>> so the misc control driver will be used as a common PECI driver for
->>>>> all those purposes flexibly and the hwmon subsystem driver will use
->>>>> the common PECI driver just for temperature monitoring. These
->>>>> drivers will be BMC specific implementation which support Aspeed
->>>>> shipset only. Support for Nuvoton chipset was not considered in my
->>>>> implementation because Nuvoton has different HW and register
->>>>> scheme, also Nuvoton already has its dedicated driver
->>>>> implementation in hwmon subsystem for their each chipset variant (nct6683.c  nct6775.c  nct7802.c).
->>>>>
->>>>
->>>> Nuvoton is starting to submit support for their Poleg BMC to
->>>> upstream (http://lists.infradead.org/pipermail/linux-arm-kernel/2017-October/538226.html).
->>>> This BMC includes a PECI controller similar to the Aspeed design but
->>>> with a different register layout.  At a minimum, the misc driver
->>>> needs to support multiple backend drivers to allow Nuvoton to
->>>> implement the same interface.  The chips you listed that are already
->>>> in hwmon are for Nuvoton's SuperIOs, not their BMCs.
->>>>
->>>
->>> Thanks for your pointing out of the current Poleg BMC upstreaming. I didn't know about that before.
->>> Ideally, it would be great if we support all BMC PECI controllers in a
->>> single device driver but we should consider some dependencies such as
->>> SCU register setting in bootloader, clock setting for the PECI controller HW block and etc that would vary on each BMC controller chipset.
->>> Usually, these dependencies should be covered by kernel config and device tree settings.
->>> My thought is, each BMC controller should have its own PECI misc
->>> driver then we could selectively enable one by kernel configuration.
->>>
->>
->> Are you expecting each BMC controller's PECI misc driver to re-implement the device ioctls?
->> If I assume the misc device and ioctl implementation are shared, I can't see how adding a subsystem would be significantly more work.
->> Doing so would clarify what the boundaries are between controller implementation and protocol behavior.
->>
->
-> Okay, I agreed. That is reasonable concern. At least, if possible, we should provide compatible
-> ioctl set. I'll check its feasibility after getting Nuvoton's datasheet and their SDK.
->
->>>>>>> and hwmon driver implementation. The kernel driver would provide these PECI commands as ioctls:
->>>>>>>
->>>>>>> - low-level PECI xfer command
->>>>>>
->>>>>> Would a separate 'dev' driver similar to i2c-dev make sense here?  Just thinking out loud.
->>>>>>
->>>>>
->>>>> Yes, drivers will be seperated into two but it's hard to say that this way is similar to i2c-dev.
->>>>> It would have a bit different shape.
->>>>>
->>>>
->>>> I'm not terribly familiar with the PECI protocol.  I'll see about getting a copy of the spec.
->>>> From what I can find via searches, it looks like individual nodes on the bus are addressed similar to I2C.
->>>> I'd expect that to be similar to how i2c-dev is structured: a
->>>> kobject per master and a kobject per address on the bus.  That way,
->>>> drivers can be bound to individual addresses. The misc driver would focus on exposing interacting with a specific address on the bus in a generic fashion.
->>>>
->>>
->>> As you said, it would be very useful if kernel has core bus framework
->>> like I2C, but current kernel doesn't have the core bus framework for
->>> PECI, and it would be a hugh project itself if we are going to implement one.
->>
->> Really?  IBM did so for FSI and it really helped with understanding the design.
->>
->
-> Yes, IBM did really great work on FSI, Kudos to them.
->
->>> Generally, PECI bus topology is very simple unlike I2C. Usually in a
->>> single system, there is only one BMC controller and it has connections
->>> with CPUs, that's all. I don't see an advantage of using core bus framework on this simple interface.
->>>
->>
->> Ideally, an hwmon driver for PECI on an Intel CPU only needs to know how to issue PECI commands to that device.
->> What address it is at and how the bus delivers the command to the node are irrelevant details.
->> How do you plan to describe the PECI bus in a dts?
->> Can I use the same dt bindings for the Intel CPU's PECI interface for both Aspeed and Nuvoton?
->>
->
-> HW dependent parameters will be added into dts. All SoCs has its own dt binding set so it couldn't
-> be shared between Aspeed and Nuvoton.
->
+It has been awhile since we tagged.  You=E2=80=99ll note the bump to
+v2.0 - there is nothing significant about this tag compared
+to any of the previous tags; this is just an attempt to reset
+on reasonable version strings moving forward.
 
-Each PECI controller will have HW dependent parameters for sure.  I
-was asking about PECI endpoints such as the CPUs themselves.  How can
-I decouple the dts describing a Xeon 6152 on the PECI bus (and the
-corresponding driver) from the controller details?
+I intend to get back on track with monthly tags, the next
+being 2.1, then 2.2, etc.
 
->>>>>>> - Ping()
->>>>>>> - GetDIB()
->>>>>>> - GetTemp()
->>>>>>> - RdPkgConfig()
->>>>>>> - WrPkgConfig()
->>>>>>> - RdIAMSR()
->>>>>>> - RdPCIConfigLocal()
->>>>>>> - WrPCIConfigLocal()
->>>>>>> - RdPCIConfig()
->>>>>>>
->>>>>>> Also, through the hwmon driver, these temperature monitoring features would be provided:
->>>>>>>
->>>>>>> - Core temperature
->>>>>>> - DTS thermal margin (hysteresis)
->>>>>>> - DDR DIMM temperature
->>>>>>> - etc.
->>>>>>
->>>>>> Sweet!
->>>>>>
->>>>>>>
->>>>>>> Patches will come in to upstream when it is ready.
->>>>>>>
->>>>>>> Cheers,
->>>>>>> Jae
->>>>>>
->>>>>> For completeness, a port of the Aspeed SDK PECI driver was proposed in 2016 but it didn't go anywhere:
->>>>>>
->>>>>> https://lists.ozlabs.org/pipermail/openbmc/2016-August/004381.html
->>>>>>
->>>>>> thx - brad
->>>>>>
->>>>>
->>>>> My implementation is also heavily based on the Aspeed SDK driver
->>>>> but modified a lot to provide more suitable functionality for openbmc project. Hopefully, it could be introduced soon.
->>>>>
->>>>> thx,
->>>>> Jae
->>>
->
+Enjoy!
+
+-brad
+
+---
+
+Adriana Kobylak (15):
+      u-boot: Reorder and update patches and bootenv fixes
+      bios-updatesymlinks: Add Install section for WantedBy option
+      witherspoon: Update image location for software manager
+      BMC: Make volume names consistent
+      obmc-flash-bmc: Add support for specifying alternate mtd devices
+      u-boot: Rebase openbmc patches
+      obmc-flash-bmc: Add u-boot update
+      obmc-flash-bmc-setenv: Use unescaped instance name
+      obmc-flash-bmc: Set boot env variables with info of new image
+      obmc-flash-bmc: Remove existing image before updating
+      obmc-flash-bmc: Add ExecStartPre and Post to update environment =
+variables
+      obmc-flash-bmc: Create a duplicate kernel volume in alt
+      obmc-flash-bmc: Fixes to the logic to delete volumes
+      openpower-software-manager: Add service dependencies
+      clear-once.service: Call fw_setenv twice for openbmconce
+
+Andrew Geissler (105):
+      Default PowerRestorePolicy to always off
+      Service to scan hub chip on second processor
+      Disable voltage override causing CFAM error
+      Don't apply restore policy if system is on
+      occ-active:Exit gracefully if occ status object not available
+      Set default restart policy for phosphor services
+      openpower-occ-control.inc: bump version
+      phosphor-software-manager.bb: bump version
+      witherspoon-pfault-analysis.inc: bump version
+      openpower-software-manager.bb: bump version
+      phosphor-ipmi-host.inc: bump version
+      phosphor-networkd-rev.bbclass: bump version
+      witherspoon-pfault-analysis.inc: bump version
+      phosphor-software-manager.bb: bump version
+      phosphor-dbus-interfaces.bb: bump version
+      phosphor-software-manager.bb: bump version
+      phosphor-ipmi-host.inc: bump version
+      openpower-software-manager.bb: bump version
+      Increase over-current settings for Vdd
+      Ensure occ active is asserted after fsi scan
+      phosphor-ipmi-host.inc: bump version
+      phosphor-software-manager.bb: bump version
+      op-proc-control.bb: bump version
+      phosphor-dbus-interfaces.bb: bump version
+      mrw-rev.bbclass: bump version
+      phosphor-hwmon.bb: bump version
+      phosphor-software-manager.bb: bump version
+      phosphor-inventory-manager.inc: bump version
+      phosphor-settings-manager.inc: bump version
+      phosphor-state-manager.bb: bump version
+      phosphor-fan.inc: bump version
+      phosphor-debug-collector.inc: bump version
+      ffdc.bb: bump version
+      Host watchdog needs to conflict with quiesce target
+      phosphor-dbus-interfaces.bb: bump version
+      witherspoon-pfault-analysis.inc: bump version
+      mboxd.bb: bump version
+      openpower-debug-collector.inc: bump version
+      phosphor-networkd-rev.bbclass: bump version
+      phosphor-dbus-interfaces.bb: bump version
+      phosphor-networkd-rev.bbclass: bump version
+      phosphor-logging.bb: bump version
+      phosphor-ipmi-host.inc: bump version
+      phosphor-logging.bb: bump version
+      skeleton-rev.bbclass: bump version
+      phosphor-networkd-rev.bbclass: bump version
+      phosphor-debug-collector.inc: bump version
+      ffdc.bb: bump version
+      phosphor-logging.bb: bump version
+      openpower-software-manager.bb: bump version
+      openpower-dbus-interfaces.bb: bump version
+      skeleton-rev.bbclass: bump version
+      phosphor-time-manager.bb: bump version
+      phosphor-hwmon.bb: bump version
+      phosphor-rest.inc: bump version
+      openpower-debug-collector.inc: bump version
+      phosphor-software-manager.bb: bump version
+      skeleton-rev.bbclass: bump version
+      phosphor-dbus-interfaces.bb: bump version
+      phosphor-software-manager.bb: bump version
+      phosphor-software-manager.bb: bump version
+      phosphor-networkd-rev.bbclass: bump version
+      op-proc-control.bb: bump version
+      phosphor-logging.bb: bump version
+      phosphor-ipmi-host.inc: bump version
+      phosphor-hwmon.bb: bump version
+      openpower-ipmi-oem.bb: bump version
+      ffdc.bb: bump version
+      phosphor-dbus-interfaces.bb: bump version
+      openpower-software-manager.bb: bump version
+      phosphor-networkd-rev.bbclass: bump version
+      openpower-software-manager.bb: bump version
+      openpower-occ-control.inc: bump version
+      phosphor-networkd-rev.bbclass: bump version
+      witherspoon-pfault-analysis.inc: bump version
+      openpower-ipmi-oem.bb: bump version
+      witherspoon-pfault-analysis.inc: bump version
+      openpower-software-manager.bb: bump version
+      openpower-occ-control.inc: bump version
+      phosphor-ipmi-host.inc: bump version
+      Update pypi.python.org packages to use https
+      Write journal to persistent storage
+      phosphor-software-manager.bb: bump version
+      phosphor-software-manager.bb: bump version
+      openpower-software-manager.bb: bump version
+      phosphor-dbus-monitor.bb: bump version
+      phosphor-ipmi-host.inc: bump version
+      phosphor-fan.inc: bump version
+      phosphor-debug-collector.inc: bump version
+      sdbusplus.bb: bump version
+      openpower-fru-vpd.inc: bump version
+      phosphor-state-manager.bb: bump version
+      phosphor-hwmon.bb: bump version
+      phosphor-logging.bb: bump version
+      phosphor-led-manager.inc: bump version
+      phosphor-ipmi-net.bb: bump version
+      phosphor-inventory-manager.inc: bump version
+      phosphor-rest.inc: bump version
+      phosphor-gpio-monitor.bb: bump version
+      phosphor-time-manager.bb: bump version
+      phosphor-networkd-rev.bbclass: bump version
+      skeleton-rev.bbclass: bump version
+      ffdc.bb: bump version
+      phosphor-watchdog.bb: bump version
+      openpower-debug-collector.inc: bump version
+
+Andrew Jeffery (10):
+      kernel: ftgmac100, i2c, occ hwmon fixes
+      u-boot: Integrate upstream UBI and MTD patches
+      kernel: Fixes for LEDs (PCA9552) and VUART
+      kernel: Fixes for Firestone devicetree and IPL, OCC errnos
+      kernel: SBEFIFO and OCC fixes, add snoop device to Q71L devicetree
+      op-apps: Add pdbg to the op-apps package group
+      kernel: NCSI, FSI, OCC, PMBus, MAX31785 fixes
+      u-boot: Clean up vbar work-arounds and invalid use of memory
+      kernel: SBEFIFO, FSI I2C fixes, DTS updates, silence PMBus core
+      kernel: Fix OCC errno on client release
+
+Brad Bishop (7):
+      sensors: Add max31785 MSL checking package
+      wspoon: Run max31785 firmware revision checker
+      Add mslverify package
+      wspoon: Run MSL verify service
+      interfaces: Remove systemd-networkd PartOf dep
+      openpower: Remove duplicate PROVIDES
+      timemgr: Use correct timemanager deps
+
+Brandon Wyman (5):
+      Power supply monitor recipe, service, and conf
+      Fix capitalization issue with SyslogIdentifier
+      MRW: Bump Witherspoon MRW revision
+      AutoReboot: Add support for AutoReboot sensor type
+      Update error YAML path
+
+Charles Paul Hofer (1):
+      Revert "systemd: Configure shutdown watchdog to 20min"
+
+Deepak Kodihalli (6):
+      settings yaml: enable multiple interfaces
+      boot settings: create single object
+      boot settings: add new 'one_time' object
+      ipmi services: react to changes in pathnames
+      openpower vpd yaml: invert property,keyword map
+      op vpd: MAC address can come from OPFR or VINI
+
+Dhruvaraj Subhashchandran (7):
+      Add updated sensor config.yaml for non mrw systems
+      Add PS derating and redundancy to sensor config
+      Revert "Add PS derating and redundancy to sensor config"
+      config yaml changes to skip non-present cores
+      ipmi: sensor config yaml updates
+      Install gevent-websocket to the image
+      Add missing boot progress sensor value
+
+Dinesh Chinari (1):
+      U-boot inventory update, updated PROPERTY
+
+Eddie James (2):
+      Fix mtd partitions udev rule
+      Add /home bind mount
+
+Edward A. James (7):
+      kernel: Patch in bmc flash partition changes
+      filesystem: mount rw and overlay
+      u-boot fw-utils: Add alternate fw_env config
+      Do not allow power on if PNOR doesn't have required image
+      kernel: ir35221 fix
+      kernel: ir35221 fix
+      Prepare-overlay service: check for mountpoint before removing =
+workdir
+
+Gunnar Mills (14):
+      Create error logs when a fan is unplugged or fails
+      Create error log when cores are too hot
+      Add Witherspoon Power Supply policy
+      Add "After" mapper to BMC updater
+      Add "After" mapper to Host updater
+      Create SystemShutdown error log on core overtemp
+      Add GPU to inventory
+      phosphor-settings-read-settings-mrw recipe
+      Add power cap boundary validation
+      Create Shutdown Error on fan count shutdown
+      Spelling fixes
+      Spelling fixes
+      Spelling fixes in meta-barreleye
+      Spelling fixes in meta-quanta
+
+Jayanth Othayoth (7):
+      Change Dump file storage location
+      systemd: enable systemd-coredump package
+      phosphor-debug-collector: Create /var/lib/systemd/coredump mount =
+point
+      Revert "phosphor-debug-collector: Create /var/lib/systemd/coredump =
+mount point"
+      Revert "systemd: enable systemd-coredump package"
+      Revert "Revert "systemd: enable systemd-coredump package""
+      Customize inotify event initialization in UBI FS
+
+Joel Stanley (6):
+      kernel: MSN flash layout, iio and tach dts, ncsi bugfix
+      kernel: ucd9000 debugfs additions, Zaius EVT3 support
+      kernel: OCC hwmon, palmetto spi-nor muxing, SCU ranges
+      kernel: Watchdog fixes
+      kernel: lca955x, FSI and Garrison fan fixes
+      kernel: FSI SBEFIFO and OCC rework
+
+Kun Yi (1):
+      Fix YAML overriding.
+
+Lei YU (7):
+      meta-romulus: Add occ power sensors config
+      meta-romulus: Fix ipmi inventory fru ids
+      meta-firestone: Add openpower-occ-control
+      meta-firestone: Add phosphor-hwmon config
+      meta-firestone: Mirror host console to physical UART
+      phosphor-time-manager.bb: Use new service name
+      meta-p8-systems: Correct OCC path for P8 systems
+
+Leonel Gonzalez (1):
+      filesystem: mount rw /media with fstab
+
+Marri Devender Rao (5):
+      Add BMC accessible FRUs to generate FRU map
+      Inventory: Add type-only inventory interfaces to config files
+      phosphor-logging: Add native SDK classes to install parser scripts
+      openpower-debug-collector: Rework to use native sdk for errorlog
+      Enable support for usecase specific bash script invocation
+
+Matt Spinler (24):
+      Add power supply hwmon config files
+      Witherspoon MRW XML bump
+      Add service and recipe for PGOOD fail errors
+      Add service to monitor the UCD90160 at runtime
+      Witherspoon MRW XML revision bump
+      witherspoon: Change fan floor speed to 10500 RPM
+      Revert "Add service to monitor the UCD90160 at runtime"
+      Pass driver names to gpio-presence service
+      Revert "Revert "Add service to monitor the UCD90160 at runtime""
+      op-proc-control: install error yaml files
+      Revert "op-proc-control: install error yaml files"
+      Remove the fsi-hub-scan service
+      op-proc-control: Add build dependencies
+      Use openpower-proc-control for fsi-scan
+      Don't use template parameters in fan watchdog service
+      Add phosphor-hwmon config file for the PCIE temp
+      Add tach trust groups to witherspoon monitor YAML
+      Update hwmon labels for 2 OCC properties
+      Add BMP280 default temperature threshold values
+      Add DPS310 default temperature threshold values
+      Add TMP275 default temperature threshold values
+      Add IR35221 default temperature threshold values
+      Add power supply default threshold values
+      Add OCC default threshold values
+
+Matthew Barth (15):
+      witherspoon: Update floors and ceilings for fan control
+      witherspoon: Add fan speed inc/dec control based on core temps
+      witherspoon: Add fan speed inc/dec control based on reg temps
+      witherspoon: Add fan speed inc/dec control based on dimm temps
+      Add phosphor-fan-monitor init service
+      witherspoon: Remove core temps from water cooled
+      witherspoon - Add GPU core & memory sensors
+      witherspoon - Update events.yaml format
+      witherspoon - Update speed change parameters
+      witherspoon - Speed changes on GPU core temps
+      witherspoon - Speed changes on GPU memory temps
+      witherspoon - Request speed based on tach feedback
+      wspoon: Add PCIE temperature sensor
+      wspoon: Raised floor active fan control
+      wspoon: Update fan/thermal shutdown target
+
+Michael Tritz (7):
+      Enable BMC patching from the /usr/local path
+      DEVPATH fix for phosphor-gpio-monitor@checkstop.service
+      Enable environment variable deletion from =
+obmc-flash-bmc-setenv@.service
+      Suppress undefined rwreset error in obmc-flash-bmc
+      Service files for factory reset change - clear instead of delete
+      Service files to remove orphaned UBI volumes
+      fstab: require service file to mount /var - fixes BMC factory =
+reset
+
+Milton Miller (1):
+      obmc-initfs shutdown: ping watchdog watchdog during flash update
+
+Mykola Kostenok (2):
+      meta-mellanox: meta-msn: update defconfig
+      meta-mellanox/meta-msn add ipmi daemon recipe
+
+Nagaraju Goruganti (1):
+      sdbusplus: fix build dependency
+
+Patrick Venture (9):
+      Add rdepends: pyphosphor-utils to phosphor-mapper
+      quanta-powerctrl: bugfix in service key
+      meta-q71l: phosphor: sensors: Add iio-hwmon config
+      meta-q71l: phosphor: sensors: add GAINs to iio-hwmon config
+      meta-q71l: phosphor: sensors: fix GAIN for p5v_aux
+      devtools: iotools: update src_uri and srcrev
+      devtools: iotools: add service to create symlinks
+      quanta-q71l: phosphor-hwmon: Update fan numbering to be 1-based
+      quanta-q71l: phosphor-hwmon: Update temp paths
+
+Patrick Williams (143):
+      phosphor-software-manager.bb: bump version
+      phosphor-rest.inc: bump version
+      op-proc-control.bb: bump version
+      phosphor-fan.inc: bump version
+      skeleton-rev.bbclass: bump version
+      phosphor-dbus-interfaces.bb: bump version
+      phosphor-software-manager.bb: bump version
+      skeleton-rev.bbclass: bump version
+      openpower-software-manager.bb: bump version
+      phosphor-software-manager.bb: bump version
+      ffdc.bb: bump version
+      phosphor-debug-collector.inc: bump version
+      phosphor-ipmi-net.bb: bump version
+      phosphor-dbus-interfaces.bb: bump version
+      phosphor-state-manager.bb: bump version
+      phosphor-ipmi-host.inc: bump version
+      mrw-rev.bbclass: bump version
+      phosphor-ipmi-host.inc: bump version
+      phosphor-ipmi-fru.inc: bump version
+      openpower-fru-vpd.inc: bump version
+      phosphor-networkd-rev.bbclass: bump version
+      openpower-software-manager.bb: bump version
+      phosphor-networkd-rev.bbclass: bump version
+      openpower-occ-control.inc: bump version
+      phosphor-inventory-manager.inc: bump version
+      phosphor-fan.inc: bump version
+      phosphor-debug-collector.inc: bump version
+      ffdc.bb: bump version
+      openpower-occ-control.inc: bump version
+      phosphor-dbus-monitor.bb: bump version
+      mboxd.bb: bump version
+      phosphor-software-manager.bb: bump version
+      skeleton-rev.bbclass: bump version
+      phosphor-networkd-rev.bbclass: bump version
+      openpower-software-manager.bb: bump version
+      phosphor-software-manager.bb: bump version
+      openpower-software-manager.bb: bump version
+      phosphor-software-manager.bb: bump version
+      openpower-software-manager.bb: bump version
+      openpower-occ-control.inc: bump version
+      skeleton-rev.bbclass: bump version
+      phosphor-inventory-manager-assettag-native: Missing ${D} install =
+path
+      phosphor-ipmi-host.inc: bump version
+      phosphor-networkd-rev.bbclass: bump version
+      openpower-occ-control.inc: bump version
+      phosphor-software-manager.bb: bump version
+      openpower-software-manager.bb: bump version
+      phosphor-software-manager.bb: bump version
+      phosphor-hwmon.bb: bump version
+      phosphor-rest.inc: bump version
+      phosphor-watchdog.bb: bump version
+      phosphor-dbus-interfaces.bb: bump version
+      openpower-occ-control.inc: bump version
+      phosphor-software-manager.bb: bump version
+      phosphor-ipmi-host.inc: bump version
+      skeleton-rev.bbclass: bump version
+      phosphor-mapper.bb: bump version
+      phosphor-dbus-interfaces.bb: bump version
+      phosphor-dbus-interfaces.bb: bump version
+      phosphor-state-manager.bb: bump version
+      openpower-software-manager.bb: bump version
+      phosphor-ipmi-host.inc: bump version
+      openpower-fru-vpd.inc: bump version
+      phosphor-hwmon.bb: bump version
+      phosphor-networkd-rev.bbclass: bump version
+      phosphor-ipmi-net.bb: bump version
+      phosphor-debug-collector.inc: bump version
+      ffdc.bb: bump version
+      mboxd.bb: bump version
+      phosphor-ipmi-net.bb: bump version
+      skeleton-rev.bbclass: bump version
+      phosphor-mapper.bb: bump version
+      phosphor-dbus-interfaces.bb: bump version
+      phosphor-ipmi-host.inc: bump version
+      phosphor-debug-collector.inc: bump version
+      ffdc.bb: bump version
+      phosphor-watchdog.bb: bump version
+      phosphor-gpio-monitor.bb: bump version
+      skeleton-rev.bbclass: bump version
+      phosphor-logging.bb: bump version
+      openpower-software-manager.bb: bump version
+      phosphor-software-manager.bb: bump version
+      phosphor-logging.bb: bump version
+      phosphor-networkd-rev.bbclass: bump version
+      phosphor-ipmi-net.bb: bump version
+      openpower-occ-control.inc: bump version
+      phosphor-mapper.bb: bump version
+      openpower-software-manager.bb: bump version
+      phosphor-debug-collector.inc: bump version
+      ffdc.bb: bump version
+      phosphor-led-manager.inc: bump version
+      phosphor-dbus-interfaces.bb: bump version
+      phosphor-software-manager.bb: bump version
+      openpower-fru-vpd.inc: bump version
+      phosphor-ipmi-host.inc: bump version
+      phosphor-ipmi-fru.inc: bump version
+      phosphor-hwmon.bb: bump version
+      phosphor-ipmi-host.inc: bump version
+      witherspoon-pfault-analysis.inc: bump version
+      witherspoon: enable obmc-ubi-fs feature
+      phosphor-ipmi-host.inc: bump version
+      phosphor-dbus-interfaces.bb: bump version
+      phosphor-inventory-manager.inc: bump version
+      ffdc.bb: bump version
+      phosphor-logging.bb: bump version
+      phosphor-state-manager.bb: bump version
+      phosphor-debug-collector.inc: bump version
+      phosphor-software-manager.bb: bump version
+      openpower-software-manager.bb: bump version
+      phosphor-ipmi-host.inc: bump version
+      phosphor-dbus-interfaces.bb: bump version
+      phosphor-settings-manager.inc: bump version
+      phosphor-fan.inc: bump version
+      openpower-software-manager.bb: bump version
+      phosphor-ipmi-host.inc: bump version
+      phosphor-networkd-rev.bbclass: bump version
+      witherspoon-pfault-analysis.inc: bump version
+      phosphor-software-manager.bb: bump version
+      phosphor-fan.inc: bump version
+      phosphor-state-manager.bb: bump version
+      phosphor-rest.inc: bump version
+      witherspoon-pfault-analysis.inc: bump version
+      phosphor-led-manager.inc: bump version
+      phosphor-state-manager.bb: bump version
+      openpower-software-manager.bb: bump version
+      mrw-rev.bbclass: bump version
+      phosphor-ipmi-host.inc: bump version
+      phosphor-fan.inc: bump version
+      openpower-software-manager.bb: bump version
+      phosphor-settings-manager.inc: bump version
+      phosphor-software-manager.bb: bump version
+      phosphor-networkd-rev.bbclass: bump version
+      phosphor-debug-collector.inc: bump version
+      openpower-occ-control.inc: bump version
+      ffdc.bb: bump version
+      witherspoon-pfault-analysis.inc: bump version
+      phosphor-inventory-manager.inc: bump version
+      openpower-software-manager.bb: bump version
+      phosphor-led-manager.inc: bump version
+      witherspoon-pfault-analysis.inc: bump version
+      openpower-dbus-interfaces.bb: bump version
+      phosphor-dbus-interfaces.bb: bump version
+      openpower-software-manager.bb: bump version
+
+Ratan Gupta (2):
+      Network: Remove the installation of network manager conf file
+      Inventory: Make changes for sync inventory for witherspoon
+
+Saqib Khan (14):
+      Delete kernel as part of ubi volume delete
+      Ignore ubipatch service if device not formatted as UBI
+      Create dir /usr/local for ubi patch service
+      Add dir "srv" to the root file system
+      Get the mtd# that corresponds to bmc and alt-bmc.
+      Fix the function that is responsible for deleting bmc ubi volumes
+      PNOR: Add logic to handle the case where ubi volume creation =
+failure
+      Handle the case where obmc-flash-bmc-ubimount@.service fails
+      Clear PNOR patch location while updating symlinks
+      Check if the BMC version already exists in /media before mounting.
+      BMC: Update u-boot environment variables.
+      BMC: Block BMC reboot during code update
+      Dynamically set size of pnor read-only partition
+      Don't update U-Boot env variables using code update service
+
+Tom Joseph (4):
+      tpm: Add tpm_required_sensor in sensor config.yaml
+      Change the NetFn for Partial Add eSEL command.
+      Move SRC_URI and SRC_REV to the .inc file
+      Copy the error yaml's for logging manager parsing
+
+Vishwanatha Subbanna (3):
+      Enable OCC Active on BMC reset reload
+      Add recipe for phosphor-user-manager
+      Remove network-update-dns.service
+
+Xo Wang (1):
+      meta-zaius: Use udev dev and fix DEVPATH/PATH
+
+causten (1):
+      Add helpful tips to local.conf.sample
+
+spashabk-in (1):
+      Add openpower-debug-collector-watchdog-timeout unit file
