@@ -1,60 +1,55 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Knh4PU91"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="ghexMQwz"; dkim-atps=neutral
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <ckeepax@opensource.cirrus.com>
+Authentication-Results: ozlabs.org; spf=none (mailfrom)
+ smtp.mailfrom=opensource.cirrus.com (client-ip=67.231.149.25;
+ helo=mx0b-001ae601.pphosted.com; envelope-from=ckeepax@opensource.cirrus.com;
+ receiver=<UNKNOWN>)
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yRg4P5C0TzDr4H
- for <openbmc@lists.ozlabs.org>; Wed,  1 Nov 2017 18:35:48 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id CF33920853;
- Wed,  1 Nov 2017 03:35:44 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Wed, 01 Nov 2017 03:35:44 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=aaJdW+M9hwOWazayPJieVUdTuCIPSguWeuMob/Lmgb0=; b=Knh4PU91
- azWfS5k64Oz6ToHfxmUS8Ep+1nCHsCQf//sYr6LAj7TFWr4w0Tmej9zWqiWrPLwP
- 7VrZX/zTu1rT/j+1grkai46eQtlw9A9AvW293ukteUcGCzrUdoBodxicyKFjremc
- 9ahfvFzQn0IjUlvkFFc08y4In5JI34VKpTeJN4RlWIM7ixBViJbKGXRmUZDMHUOk
- 6a6oSa7YntAMxQWtvCUVJA7OVLU7yqHgN1Kk/AvsXklz35ku2108OsVvsYoHvIYz
- SOAM5UZJ+u5fAXm0epS3A2VO9lywlktQPL4QX08NZvESRtbLEziZtef7XC7djyj/
- BuF/jQRun5jiXg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=aaJdW+M9hwOWazayPJieVUdTuCIPS
- guWeuMob/Lmgb0=; b=ghexMQwzJnDwuNhb763OKmOLXR9sTp0PTJiCA8nV1ZrMy
- BHbBHixS/ywpGxBu4s06d3qU1JQqmH6FINqKDL9dfqMcQfnNHYmOnkPbqk85qufH
- qAk7bGjFbszLhskWyb617dtc60xwT6QtbXyGQPC6UPKuiKOv1kzKdnXCz3/LzzJ0
- 7PdMZA2VtvrBFnwwHHGnWCP+DFawmO3o/NSnQE/ESAiVX5TYGXvdvCtcj0ttbs4U
- hU2A0hCJvFO4FJbxx1UZEPY2n+BzWF3yhU3PUj5xjrb4im3w+URyg4Sdm9+a3ygD
- TK9XBUGekrJBNww+aXh3epFr1iVxiYcDAu5i17Lfg==
-X-ME-Sender: <xms:UHn5WQ3FzWlWIIDpDxHrDpgJQvX7cFOof7zNOWJPpedWm7CweN8RdQ>
-Received: from keelia (bh02i525f01.au.ibm.com [202.81.18.30])
- by mail.messagingengine.com (Postfix) with ESMTPA id C5478247F0;
- Wed,  1 Nov 2017 03:35:42 -0400 (EDT)
-Message-ID: <1509521736.2263.11.camel@aj.id.au>
-Subject: Re: [PATCH linux dev-4.10] drivers (fsi): occ: Change errno for
- releasing client during transfer
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
-Date: Wed, 01 Nov 2017 18:35:36 +1100
-In-Reply-To: <1509471272-30457-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1509471272-30457-1-git-send-email-eajames@linux.vnet.ibm.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-5fMMQFN5+FSsLtnSK/Ta"
-X-Mailer: Evolution 3.22.6-1ubuntu1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yRkVf6nVyzDr4H;
+ Wed,  1 Nov 2017 21:10:14 +1100 (AEDT)
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ vA1A8YtG020389; Wed, 1 Nov 2017 05:09:58 -0500
+Authentication-Results: ppops.net;
+ spf=none smtp.mailfrom=ckeepax@opensource.cirrus.com
+Received: from mail1.cirrus.com (mail1.cirrus.com [141.131.3.20])
+ by mx0a-001ae601.pphosted.com with ESMTP id 2dxfrvh5rn-1;
+ Wed, 01 Nov 2017 05:09:57 -0500
+Received: from EX17.ad.cirrus.com (unknown [172.20.9.81])
+ by mail1.cirrus.com (Postfix) with ESMTP id 1E944611E123;
+ Wed,  1 Nov 2017 05:09:57 -0500 (CDT)
+Received: from imbe.wolfsonmicro.main (198.61.95.81) by EX17.ad.cirrus.com
+ (172.20.9.81) with Microsoft SMTP Server id 14.3.301.0; Wed, 1 Nov 2017
+ 10:09:56 +0000
+Received: from localhost.localdomain (algalon.ad.cirrus.com [198.90.223.36])
+ by imbe.wolfsonmicro.main (8.14.4/8.14.4) with ESMTP id vA1A9rYh028360;	Wed,
+ 1 Nov 2017 10:09:53 GMT
+Date: Wed, 1 Nov 2017 10:09:53 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Andrew Jeffery <andrew@aj.id.au>
+CC: <linux-gpio@vger.kernel.org>, <linus.walleij@linaro.org>,
+ <robh+dt@kernel.org>, <mark.rutland@arm.com>, <frowand.list@gmail.com>,
+ <joel@jms.id.au>, <ckeepax@opensource.wolfsonmicro.com>,
+ <ldewangan@nvidia.com>, <ryan_chen@aspeedtech.com>,
+ <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <openbmc@lists.ozlabs.org>, <linux-aspeed@lists.ozlabs.org>
+Subject: Re: [PATCH v3 1/2] gpio: gpiolib: Generalise state persistence
+ beyond sleep
+Message-ID: <20171101100953.ye5fp33vxuol5z5a@localhost.localdomain>
+References: <20171101040457.1200-1-andrew@aj.id.au>
+ <20171101040457.1200-2-andrew@aj.id.au>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20171101040457.1200-2-andrew@aj.id.au>
+User-Agent: NeoMutt/20170113 (1.7.2)
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ suspectscore=2 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
+ lowpriorityscore=0 impostorscore=0 adultscore=0 classifier=spam adjust=0
+ reason=mlx scancount=1 engine=8.0.1-1707230000 definitions=main-1711010144
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -66,44 +61,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Nov 2017 07:35:50 -0000
+X-List-Received-Date: Wed, 01 Nov 2017 10:10:19 -0000
 
+On Wed, Nov 01, 2017 at 03:04:56PM +1100, Andrew Jeffery wrote:
+> General support for state persistence is added to gpiolib with the
+> introduction of a new pinconf parameter to propagate the request to
+> hardware. The existing persistence support for sleep is adapted to
+> include hardware support if the GPIO driver provides it. Persistence
+> continues to be enabled by default; in-kernel consumers can opt out, but
+> userspace (currently) does not have a choice.
+> 
+> The *_SLEEP_MAY_LOSE_VALUE and *_SLEEP_MAINTAIN_VALUE symbols are
+> renamed, dropping the SLEEP prefix to reflect that the concept is no
+> longer sleep-specific.  I feel that renaming to just *_MAY_LOSE_VALUE
+> could initially be misinterpreted, so I've further changed the symbols
+> to *_TRANSITORY and *_PERSISTENT to address this.
+> 
+> The sysfs interface is modified only to keep consistency with the
+> chardev interface in enforcing persistence for userspace exports.
+> 
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> ---
 
---=-5fMMQFN5+FSsLtnSK/Ta
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-On Tue, 2017-10-31 at 12:34 -0500, Eddie James wrote:
-> From: "Edward A. James" <eajames@us.ibm.com>
->=C2=A0
-> Clients were receiving the ECANCELED errno when the client is removed
-> during a transfer. Use ENODEV instead, as ECANCELED is for AIO ops.
->=C2=A0
-> Signed-off-by: Edward A. James <eajames@us.ibm.com>
-
-Applied to dev-4.10.
-
-Andrew
---=-5fMMQFN5+FSsLtnSK/Ta
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJZ+XlIAAoJEJ0dnzgO5LT5qewQAInt/7OuCmVxK+aboD1nv09i
-g3QzvNXDQKar90GGFiPRXHx0id+avZkidYUOS2r2FCtwQ0PpeL/O7YtcMwpJcjxx
-q+tiN1rNTfRNv1b+Bs+Sk+PZFQamicAvQg5q4npIzDwWxvRiD4L26/SMr35I2TTe
-KdnbdsV3afhK4oA29XB4mtLuYjdfjQJF8jpcRfA8WLcFbk+PBVlapKb7lVVQ22pz
-Byn+7JhiK9SQEj+ZO6l03dZ/vHICYsKkev6YK+CsbzELd2r3dT+Xql/v0awYVa+v
-DrcVLEH5WXZRWnnrwqw2jF9Tn2r9awSAWak9qFwOTfeWYNR2z0DsmQd1LFJ2Ja9H
-533kXaq16dv8qC7DLHOEbgmasmssm0MGPwEcoaLmgPar4NVFrGOq9o31lBe0lE9T
-L6UuXTIkh3lVSLLA43vlcmtYdIJD6eCxtTChKLDFQKXq6yk1rp0ZrV91c2fcVQ7R
-nFkev0zBViHgaR3+MQxdiylD6GZtJ1ji2VMntkA3u9bsJ1oDXSaLh3DwmxEOxQn4
-TYGiZJs2/73ceOgl5ePxYSEJuYYUcV1RiVzzgvxZ5rQNPuJzqh5S8byj0882dWXJ
-g3MzDo5HIqbBJLBOzVTFi+JdWoTgST2HZzvR+fZglURFX6MazpeIYfbgRDm3l5uk
-yltPho7uaT2VZQ4ym6JF
-=w4qv
------END PGP SIGNATURE-----
-
---=-5fMMQFN5+FSsLtnSK/Ta--
+Thanks,
+Charles
