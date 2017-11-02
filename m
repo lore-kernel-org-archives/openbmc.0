@@ -1,57 +1,53 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4010:c07::244; helo=mail-lf0-x244.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4001:c06::241; helo=mail-io0-x241.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Sks9qGSf"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="fxKidxRl"; 
  dkim-atps=neutral
-Received: from mail-lf0-x244.google.com (mail-lf0-x244.google.com
- [IPv6:2a00:1450:4010:c07::244])
+Received: from mail-io0-x241.google.com (mail-io0-x241.google.com
+ [IPv6:2607:f8b0:4001:c06::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yS9JP3vbKzDqlM
- for <openbmc@lists.ozlabs.org>; Thu,  2 Nov 2017 14:17:57 +1100 (AEDT)
-Received: by mail-lf0-x244.google.com with SMTP id 90so4725107lfs.13
- for <openbmc@lists.ozlabs.org>; Wed, 01 Nov 2017 20:17:57 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ySB0B0gcQzDqlM
+ for <openbmc@lists.ozlabs.org>; Thu,  2 Nov 2017 14:48:57 +1100 (AEDT)
+Received: by mail-io0-x241.google.com with SMTP id 97so10804753iok.7
+ for <openbmc@lists.ozlabs.org>; Wed, 01 Nov 2017 20:48:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=cDWN/cq0Nq8dr9sF5oPROxIzMjfoAnC6Y97HPBTCa8k=;
- b=Sks9qGSf59dO8CzJIA5CtnB1SkjdffSuseQaeOpBX5sA4x5xw1J0qjvptsqoMLFzYi
- 238YSwkSG944SbqmuRtaRJAnZUnfVG8GMZbbzXFzgRd04BJCv4/9qG+gBq6ju8v9XfRk
- g5H00JO8f7/uTqteyqojWSBgG5Ol69dkDuRFJQXS6GljnfhIRhau89/144LMZn6W9E1G
- S7cVsg0yUTMrkCZQp852AG+xbtqIBfblRPlOsA7BldAFlM/ArZQmZz78U7xvioAqPu+f
- aUw47RSTHSrcyZXCTanSbwb4Kr7pq10ZYtPgtsOTmSf2/xnML8LQTFhCSXf6sw+p9+vl
- ulqA==
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=2+8km2Me1uojZ0dubtamj3vTUK0jo5WeAZFFF0pruSE=;
+ b=fxKidxRldXZqKji03rxPxTP/4pyL8gdye7TRJ1y+SmnEeItXV+aZDK9NTBVP+meOk9
+ lFJnh5dUMM/kR6A04KhjZjvsGdLg2dVJn2O6QGAlBr5JAgICHA9UedBb8tHWaaN9Z+7N
+ tKJmaQR5wLuXllUQxstvdkA2KK1KVgG2eiUo1cY012cHTMd72EjVXVWSOK9LKBzRN6gB
+ X2UTmDcS4SB96IWcHOeILbgA7SK4Pwsh+/RIxKRNDEWRouNqeVYcEd3eq0NLYPTeTuZV
+ hbA4GDvab/JXrR9AiqlNC6kZjSxz+4l18jKNTsUVQofcFW1uBeYK70cBs38DaYsW8flR
+ qYCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=cDWN/cq0Nq8dr9sF5oPROxIzMjfoAnC6Y97HPBTCa8k=;
- b=HtjZ6jkatRxQ0PCyMCqCFE4Hm/6D6qMkbH4Kbaeiv+OqnNCc1Fm2/Ab6YpUVoSA2Pf
- VyIG9o+GXzoRpCy3DWm1KjUJN4BcDLucH4Jh/ChlGIilXHY7/az0dYmZyYfbRAl0WDM6
- MYih6x5km2zZEysL2t9lScRfUW1OtTE3HVOWIOXeZshCFh1ryHwmELKjznxbS2lAQSjb
- HVBAhLw0WhSOsZOmmL3XiV2+NZz1x29GkThNA65VFKicIlYFZiUTc1REN30Ndufr7wou
- QlZ8y5to3SV56HnowCgLn8K3F111luLmGtIZDhdMgcIsT6d5dt9RHZzmPbKfd06yiQG+
- Uf1Q==
-X-Gm-Message-State: AJaThX4kD+wDkcZVz2aGhKQgL8pIm4U/Uy7Jd8y1F221SQfOynKpvCNK
- MvvCVBfUfevOrHltgWH6rFF5Xsgs15o9qYU7g2k=
-X-Google-Smtp-Source: ABhQp+RCvoZLkM61DN3/IvKdrcjreCg55jV/Y1KKqrDbA0LHzLxRNu3RP3Sq0FOUGO+w+r0sZ86Wq4sNJ7ni4HR5Pg0=
-X-Received: by 10.25.99.216 with SMTP id v85mr610383lfi.257.1509592674646;
- Wed, 01 Nov 2017 20:17:54 -0700 (PDT)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=2+8km2Me1uojZ0dubtamj3vTUK0jo5WeAZFFF0pruSE=;
+ b=ILRhawO043i16skpSyl024wW4c8drxVLhisCeYd7eptWlnzrK3TFlAuyu4xwqapwDR
+ Sl2VBw2b1MW4ESvAHwZjQjFNr4Tgj2GLWnT/1k6eJ15XBOAtZALm1dKYC5j+yT/mPvmG
+ rN7nXKhFjHVy21N/cf5JjHzWrf1NciHEUKxhZhnSt872GIkD2Uad/Y6oeXqfprwIdDTI
+ mdNubsfslU9CV5nwKDUQT1VjJdGAVrlYX5r/WEKGwlJ8MZ9SLUN0Y0tIMIEMmRw0xGkF
+ v1nWCMJ5vQa9GywvlQjZCXbcpNnNYv3XMif5MwpgYr5N4PNxPAma5oaChW2N/A7iJMB2
+ GUhQ==
+X-Gm-Message-State: AJaThX5/kzDe6zuWjtS6qlYGXdbICogL1owGoH5rS+1kXzyDWCStrCfx
+ j65h+wgo/YVmJPzeRhQ2qmDtoUh5tWwi1QQ/d+blEJfg
+X-Google-Smtp-Source: ABhQp+SXARKLRkx/3EDOzow3CuJfVdizMW1Wx4WeJYs3ITkkoVUfz01NHBKCGt4K6Ds96girJdhKxUL5J43Sw88yQzI=
+X-Received: by 10.36.246.76 with SMTP id u73mr716161ith.55.1509594534596; Wed,
+ 01 Nov 2017 20:48:54 -0700 (PDT)
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.25.195.6 with HTTP; Wed, 1 Nov 2017 20:17:34 -0700 (PDT)
-In-Reply-To: <1509589519-26697-2-git-send-email-mine260309@gmail.com>
-References: <1509589519-26697-1-git-send-email-mine260309@gmail.com>
- <1509589519-26697-2-git-send-email-mine260309@gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 2 Nov 2017 13:47:34 +1030
-X-Google-Sender-Auth: hYlm8_Bn_-wQ0DeuM3_5fmpZ9K0
-Message-ID: <CACPK8XcQfgYZVjaKg2fEb6k6YN9Hy1j67oMAasuxw0mUo1+f2g@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 3/3] ARM: aspeed: romulus: Add w83773g temp
- sensor
-To: Lei YU <mine260309@gmail.com>
+Received: by 10.79.196.9 with HTTP; Wed, 1 Nov 2017 20:48:53 -0700 (PDT)
+In-Reply-To: <CACPK8XeG=xBE9+atAWJWV32zX5JPfgo2OvtjMomCH+CR9LUH=g@mail.gmail.com>
+References: <1509589459-26637-1-git-send-email-mine260309@gmail.com>
+ <CACPK8XeG=xBE9+atAWJWV32zX5JPfgo2OvtjMomCH+CR9LUH=g@mail.gmail.com>
+From: Lei YU <mine260309@gmail.com>
+Date: Thu, 2 Nov 2017 11:48:53 +0800
+Message-ID: <CAARXrt=UChzb4EbmhYJHJDTJ4fMf-o+7NMH7gMh+=08NHaMPpA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 1/3] drivers: hwmon: Add W83773G driver
+To: Joel Stanley <joel@jms.id.au>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -65,16 +61,385 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Nov 2017 03:17:58 -0000
+X-List-Received-Date: Thu, 02 Nov 2017 03:48:58 -0000
 
-On Thu, Nov 2, 2017 at 12:55 PM, Lei YU <mine260309@gmail.com> wrote:
-> Signed-off-by: Lei YU <mine260309@gmail.com>
+Thanks for the review.
+I will send v2 patch to upstream.
 
-Reviewed-by: Joel Stanley <joel@jms.id.au>
+On Thu, Nov 2, 2017 at 11:16 AM, Joel Stanley <joel@jms.id.au> wrote:
+> On Thu, Nov 2, 2017 at 12:54 PM, Lei YU <mine260309@gmail.com> wrote:
+>> Nuvoton W83773G is a hardware monitor IC providing one local
+>> temperature and two remote temperature sensors.
+>>
+>> Signed-off-by: Lei YU <mine260309@gmail.com>
+>
+> Great work. Please send v2 upstream; you can find the email addresses
+> to use by using ./scripts/get_maintainers.pl
+>
+> I've got some trivial comments below.
+>
+>> ---
+>>  drivers/hwmon/Kconfig   |  11 ++
+>>  drivers/hwmon/Makefile  |   1 +
+>>  drivers/hwmon/w83773g.c | 284 ++++++++++++++++++++++++++++++++++++++++++++++++
+>>  3 files changed, 296 insertions(+)
+>>  create mode 100644 drivers/hwmon/w83773g.c
+>>
+>> diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
+>> index 9256dd0..40dfa93 100644
+>> --- a/drivers/hwmon/Kconfig
+>> +++ b/drivers/hwmon/Kconfig
+>> @@ -1703,6 +1703,17 @@ config SENSORS_VT8231
+>>           This driver can also be built as a module.  If so, the module
+>>           will be called vt8231.
+>>
+>> +config SENSORS_W83773G
+>> +       tristate "Nuvoton W83773G"
+>> +       depends on I2C
+>> +       select HWMON_VID
+>> +       help
+>> +         If you say yes here you get support for the Nuvoton W83773G hardware
+>> +         monitoring chip.
+>> +
+>> +         This driver can also be built as a module.  If so, the module
+>> +         will be called w83773g.
+>> +
+>>  config SENSORS_W83781D
+>>         tristate "Winbond W83781D, W83782D, W83783S, Asus AS99127F"
+>>         depends on I2C
+>> diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
+>> index 98000fc..fc26696 100644
+>> --- a/drivers/hwmon/Makefile
+>> +++ b/drivers/hwmon/Makefile
+>> @@ -13,6 +13,7 @@ obj-$(CONFIG_SENSORS_ATK0110) += asus_atk0110.o
+>>  # asb100, then w83781d go first, as they can override other drivers' addresses.
+>>  obj-$(CONFIG_SENSORS_ASB100)   += asb100.o
+>>  obj-$(CONFIG_SENSORS_W83627HF) += w83627hf.o
+>> +obj-$(CONFIG_SENSORS_W83773G)  += w83773g.o
+>>  obj-$(CONFIG_SENSORS_W83792D)  += w83792d.o
+>>  obj-$(CONFIG_SENSORS_W83793)   += w83793.o
+>>  obj-$(CONFIG_SENSORS_W83795)   += w83795.o
+>> diff --git a/drivers/hwmon/w83773g.c b/drivers/hwmon/w83773g.c
+>> new file mode 100644
+>> index 0000000..87cc85c
+>> --- /dev/null
+>> +++ b/drivers/hwmon/w83773g.c
+>> @@ -0,0 +1,284 @@
+>> +/* w83773g.c
+>> + *
+>> + * Copyright (C) 2017 <ngruend@us.ibm.com>
+>> + * Preliminary support by:
+>> + * Nick Gruendler, Lei YU
+>
+> Take a look at the other IBM copyright headers. Usually we write:
+>
+> Copyright (C) 2017 IBM Corp
+>
+> And optionally put your name after that.
+>
 
-When you send v2, you can add my reviewed-by tag to the commit message
-for this commit.
+It will be fixed in v2.
 
-Cheers,
+>
+>> + *
+>> + * This program is free software; you can redistribute it and/or modify
+>> + * it under the terms of the GNU General Public License as published by
+>> + * the Free Software Foundation; either version 2 of the License, or
+>> + * (at your option) any later version.
+>> + *
+>> + * This program is distributed in the hope that it will be useful,
+>> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+>> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+>> + * GNU General Public License for more details.
+>> + */
+>> +
+>> +/*
+>> + * Driver for the Nuvoton W83773G SMBus temperature sensor IC.
+>> + * Supported models: W83773G
+>> + */
+>> +
+>> +#include <linux/module.h>
+>> +#include <linux/init.h>
+>> +#include <linux/slab.h>
+>> +#include <linux/jiffies.h>
+>> +#include <linux/i2c.h>
+>> +#include <linux/hwmon.h>
+>> +#include <linux/hwmon-sysfs.h>
+>> +#include <linux/err.h>
+>> +#include <linux/mutex.h>
+>> +#include <linux/of_device.h>
+>> +#include <linux/sysfs.h>
+>> +
+>> +/* Addresses to scan */
+>> +static const unsigned short normal_i2c[] = { 0x4c, 0x4d, I2C_CLIENT_END };
+>> +
+>> +enum chips { w83773g };
+>> +
+>> +/* The W83773 registers */
+>> +#define W83773_CONVERSION_RATE_REG_READ 0x04
+>> +#define W83773_CONVERSION_RATE_REG_WRITE 0x0A
+>> +#define W83773_MANUFACTURER_ID_REG 0xFE
+>> +#define W83773_LOCAL_TEMP 0x00
+>> +
+>> +static const u8 W83773_STATUS[2] = { 0x02, 0x17 };
+>> +
+>> +static const u8 W83773_TEMP_LSB[2] = { 0x10, 0x25 };
+>> +static const u8 W83773_TEMP_MSB[2] = { 0x01, 0x24 };
+>> +
+>> +static const u8 W83773_OFFSET_LSB[2] = { 0x12, 0x16 };
+>> +static const u8 W83773_OFFSET_MSB[2] = { 0x11, 0x15 };
+>> +
+>> +/* Manufacturer / Device ID's */
+>> +#define W83773_MANUFACTURER_ID                 0x5c
+>> +
+>> +
+>> +/* this is the number of sensors in the device */
+>> +static const struct i2c_device_id w83773_id[] = {
+>> +       { "w83773g", 3 },
+>> +       { }
+>> +};
+>> +
+>> +MODULE_DEVICE_TABLE(i2c, w83773_id);
+>> +
+>> +static const struct of_device_id w83773_of_match[] = {
+>> +       {
+>> +               .compatible = "nuvoton,w83773g",
+>> +               .data = (void *)3
+>> +       },
+>> +
+>> +       { },
+>> +};
+>> +MODULE_DEVICE_TABLE(of, w83773_of_match);
+>> +
+>> +/*
+>> + * W83773G has 3 temp sensors:
+>> + *   Channel 0 is the local sensor
+>> + *   Channel 1-2 are two remote sensors
+>> + */
+>> +struct w83773_data {
+>> +       struct i2c_client *client;
+>> +       struct mutex update_lock;
+>> +       u32 temp_config[4];
+>> +       struct hwmon_channel_info temp_info;
+>> +       const struct hwmon_channel_info *info[2];
+>> +       struct hwmon_chip_info chip;
+>> +       char valid;
+>
+> this looks like a boolean, use the 'bool' type.
 
-Joel
+Will be fixed in v2
+
+>
+>
+>> +       unsigned long last_updated;
+>> +       int channels;
+>> +       s8 temp_local;
+>> +       s8 status[2];
+>> +       s8 temp_hb[2];
+>> +       s8 temp_lb[2];
+>> +       s8 offset_hb[2];
+>> +       s8 offset_lb[2];
+>> +};
+>> +
+>> +static int temp_of_local(s8 reg)
+>> +{
+>> +       return reg * 1000;
+>> +}
+>> +
+>> +static int temp_of_remote(s8 hb, s8 lb, s8 offset_hb, s8 offset_lb)
+>
+> You're putting this in a long, so use that as your return type.
+
+Will be fixed in v2
+
+>
+>> +{
+>> +       return (hb + offset_hb) * 1000 + ((u8)(lb + offset_lb) >> 5) * 125;
+>
+> Why the cast?
+
+Because `lb` and `offset_lb` are signed and could be negative values, it needs
+to be converted to unsigned and then do the shift.
+
+>
+>> +}
+>> +
+>> +
+>> +static struct w83773_data *w83773_update_device(struct device *dev)
+>> +{
+>> +       struct w83773_data *data = dev_get_drvdata(dev);
+>> +       struct i2c_client *client = data->client;
+>> +       int i;
+>> +
+>> +       mutex_lock(&data->update_lock);
+>> +
+>> +       if (time_after(jiffies, data->last_updated + 2 * HZ) || !data->valid) {
+>> +               data->temp_local = i2c_smbus_read_byte_data(client, W83773_LOCAL_TEMP);
+>> +               for (i = 0; i < data->channels - 1; i++) {
+>> +                       data->status[i] = i2c_smbus_read_byte_data(client, W83773_STATUS[i]);
+>> +                       data->temp_hb[i] = i2c_smbus_read_byte_data(client, W83773_TEMP_MSB[i]);
+>> +                       data->temp_lb[i] = i2c_smbus_read_byte_data(client, W83773_TEMP_LSB[i]);
+>> +                       data->offset_hb[i] = i2c_smbus_read_byte_data(client, W83773_OFFSET_MSB[i]);
+>> +                       data->offset_lb[i] = i2c_smbus_read_byte_data(client, W83773_OFFSET_LSB[i]);
+>> +               }
+>> +               data->last_updated = jiffies;
+>> +               data->valid = 1;
+>> +       }
+>> +
+>> +       mutex_unlock(&data->update_lock);
+>> +
+>> +       return data;
+>> +}
+>> +
+>> +static int w83773_read(struct device *dev, enum hwmon_sensor_types type,
+>> +                       u32 attr, int channel, long *val)
+>> +{
+>> +       struct w83773_data *w83773 = w83773_update_device(dev);
+>> +
+>> +       switch (attr) {
+>> +       case hwmon_temp_input:
+>> +               if (channel == 0) {
+>> +                       /* channel 0 is the local temp */
+>> +                       *val = temp_of_local(w83773->temp_local);
+>> +               }
+>> +               else {
+>> +                       /* channel 1-2 are the remote temps */
+>> +                       channel--;
+>> +                       *val = temp_of_remote(
+>> +                               w83773->temp_hb[channel],
+>> +                               w83773->temp_lb[channel],
+>> +                               w83773->offset_hb[channel],
+>> +                               w83773->offset_lb[channel]);
+>> +               }
+>> +               return 0;
+>> +       case hwmon_temp_fault:
+>> +               if (channel == 0)
+>> +                       *val = 0;
+>> +               else
+>> +                       /* Check the status register bit 2 for faults */
+>> +                       *val = (w83773->status[channel - 1] & 0x04) >> 2;
+>> +               return 0;
+>> +       default:
+>> +               return -EOPNOTSUPP;
+>> +       }
+>> +
+>> +}
+>> +
+>> +static umode_t w83773_is_visible(const void *data, enum hwmon_sensor_types type,
+>> +                                u32 attr, int channel)
+>> +{
+>> +       switch (attr) {
+>> +       case hwmon_temp_fault:
+>> +               if (channel == 0)
+>> +                       return 0;
+>> +               return S_IRUGO;
+>> +       case hwmon_temp_input:
+>> +               return S_IRUGO;
+>> +       default:
+>> +               return 0;
+>> +       }
+>> +}
+>> +
+>> +static int w83773_init_client(struct i2c_client *client)
+>> +{
+>> +       /* Set the conversion rate to 2 Hz */
+>> +       i2c_smbus_write_byte_data(client, W83773_CONVERSION_RATE_REG_WRITE, 0x05);
+>> +
+>> +       return 0;
+>> +}
+>> +
+>> +static int w83773_detect(struct i2c_client *client,
+>> +                        struct i2c_board_info *info)
+>> +{
+>> +       enum chips kind;
+>> +       struct i2c_adapter *adapter = client->adapter;
+>> +       const char * const names[] = { "W83773G" };
+>> +       int addr = client->addr;
+>> +       u8 reg;
+>> +
+>> +       if (!i2c_check_functionality(adapter, I2C_FUNC_SMBUS_BYTE_DATA))
+>> +               return -ENODEV;
+>> +
+>> +       reg = i2c_smbus_read_byte_data(client, W83773_MANUFACTURER_ID_REG);
+>> +       if (reg != W83773_MANUFACTURER_ID)
+>> +               return -ENODEV;
+>> +
+>> +       reg = i2c_smbus_read_byte_data(client, W83773_CONVERSION_RATE_REG_READ);
+>> +       if (reg & 0xf8)
+>> +               return -ENODEV;
+>> +
+>> +       kind = w83773g;
+>> +
+>> +       strlcpy(info->type, w83773_id[kind].name, I2C_NAME_SIZE);
+>> +       dev_info(&adapter->dev, "Detected Nuvoton %s chip at 0x%02x\n",
+>> +                names[kind], client->addr);
+>> +
+>> +       return 0;
+>> +}
+>> +
+>> +static const struct hwmon_ops w83773_ops = {
+>> +       .is_visible = w83773_is_visible,
+>> +       .read = w83773_read,
+>> +};
+>> +
+>> +static int w83773_probe(struct i2c_client *client,
+>> +                       const struct i2c_device_id *id)
+>> +{
+>> +       struct device *dev = &client->dev;
+>> +       struct device *hwmon_dev;
+>> +       struct w83773_data *data;
+>> +       int i, err;
+>> +
+>> +       data = devm_kzalloc(dev, sizeof(struct w83773_data), GFP_KERNEL);
+>> +       if (!data)
+>> +               return -ENOMEM;
+>> +
+>> +       mutex_init(&data->update_lock);
+>> +       if (client->dev.of_node)
+>> +               data->channels = (int)of_device_get_match_data(&client->dev);
+>> +       else
+>> +               data->channels = id->driver_data;
+>> +       data->client = client;
+>> +
+>> +       err = w83773_init_client(client);
+>> +       if (err)
+>> +               return err;
+>> +
+>> +       for (i = 0; i < data->channels; i++)
+>> +               data->temp_config[i] = HWMON_T_INPUT | HWMON_T_FAULT;
+>> +
+>> +       data->chip.ops = &w83773_ops;
+>> +       data->chip.info = data->info;
+>> +
+>> +       data->info[0] = &data->temp_info;
+>> +
+>> +       data->temp_info.type = hwmon_temp;
+>> +       data->temp_info.config = data->temp_config;
+>> +
+>> +       hwmon_dev = devm_hwmon_device_register_with_info(dev, client->name,
+>> +                                                        data,
+>> +                                                        &data->chip,
+>> +                                                        NULL);
+>> +       return PTR_ERR_OR_ZERO(hwmon_dev);
+>> +}
+>> +
+>> +static struct i2c_driver w83773_driver = {
+>> +       .class = I2C_CLASS_HWMON,
+>> +       .driver = {
+>> +               .name   = "w83773g",
+>> +               .of_match_table = of_match_ptr(w83773_of_match),
+>> +       },
+>> +       .probe = w83773_probe,
+>> +       .id_table = w83773_id,
+>> +       .detect = w83773_detect,
+>> +       .address_list = normal_i2c,
+>> +};
+>> +
+>> +module_i2c_driver(w83773_driver);
+>> +
+>> +MODULE_AUTHOR("Nickolaus Gruendler <ngruend@us.ibm.com>");
+>> +MODULE_DESCRIPTION("W83773G temperature sensor driver");
+>> +MODULE_LICENSE("GPL");
+>> --
+>> 1.9.1
+>>
