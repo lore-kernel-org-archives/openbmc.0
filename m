@@ -1,55 +1,53 @@
-Return-Path: <robherring2@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=74.125.82.195; helo=mail-ot0-f195.google.com;
- envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
-Received: from mail-ot0-f195.google.com (mail-ot0-f195.google.com
- [74.125.82.195])
+Return-Path: <robh+dt@kernel.org>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=kernel.org
+ (client-ip=198.145.29.99; helo=mail.kernel.org;
+ envelope-from=robh+dt@kernel.org; receiver=<UNKNOWN>)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yS5r36SYgzDr5J
+ for <openbmc@lists.ozlabs.org>; Thu,  2 Nov 2017 11:41:39 +1100 (AEDT)
+Received: from mail-qt0-f170.google.com (mail-qt0-f170.google.com
+ [209.85.216.170])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yS5G00NkjzDqwS;
- Thu,  2 Nov 2017 11:15:35 +1100 (AEDT)
-Received: by mail-ot0-f195.google.com with SMTP id 15so237834otj.7;
- Wed, 01 Nov 2017 17:15:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=gf8iBPmXLWJ8xsWbH7zUNZWPAY8P2cSlesjAO8dqUnc=;
- b=X/dMHtap0zaNvzmOh2FFeCRCNjUA1NksDI2BNAx83HX7X2JmuPQBEDpNaiMqoFdWhn
- 9Pk3phJtwg0tk4EqnnkUgDs9aNJiCcxGRZZXP66S4erMq0vWWB/FQySroSL6IAdzYWsZ
- JNTgBBd0j1sSYSU8UXcX0jsewhhtHi5YTBYozxIhf981jMAJ+zb5Il8h3MGUkGMxolE9
- 3dMvQc70aZq1JMBZeUTj+POGBg3WEu/T8trl5NUc+M2C1urcSIw0BLjxyKsg311On0Nu
- 73392r5sOtiQxgTOsAn/iZFq+59tEnF7vR11ur15PRuaONi9bA7WfVEeJA5tEHm9IvxJ
- 9exg==
-X-Gm-Message-State: AJaThX74Wl/VtEStxwWX/Gklk3UJQLk0/4xVryv3TZmeW+HWGH1PGHiA
- bimcIB+lqnA7eTXO+sq3uQ==
-X-Google-Smtp-Source: ABhQp+SdG7LkXJuzqM0FTnxToGLxTdAGwG/aZnHv+fh80chJH1xDRU0iVYl/zTcN1RdDyqm8+5nw0A==
-X-Received: by 10.157.5.36 with SMTP id 33mr1085127otw.488.1509581733252;
- Wed, 01 Nov 2017 17:15:33 -0700 (PDT)
-Received: from localhost (216-188-254-6.dyn.grandenetworks.net.
- [216.188.254.6])
- by smtp.gmail.com with ESMTPSA id p3sm846353oia.20.2017.11.01.17.15.32
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 01 Nov 2017 17:15:32 -0700 (PDT)
-Date: Wed, 1 Nov 2017 19:15:31 -0500
-From: Rob Herring <robh@kernel.org>
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: linux-gpio@vger.kernel.org, linus.walleij@linaro.org,
- mark.rutland@arm.com, frowand.list@gmail.com, joel@jms.id.au,
- ckeepax@opensource.wolfsonmicro.com, ldewangan@nvidia.com,
- ryan_chen@aspeedtech.com, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-aspeed@lists.ozlabs.org
-Subject: Re: [PATCH v3 1/2] gpio: gpiolib: Generalise state persistence
- beyond sleep
-Message-ID: <20171102001531.6j7isyrcwjjwovho@rob-hp-laptop>
-References: <20171101040457.1200-1-andrew@aj.id.au>
- <20171101040457.1200-2-andrew@aj.id.au>
+ by mail.kernel.org (Postfix) with ESMTPSA id 4E4DA2194A
+ for <openbmc@lists.ozlabs.org>; Thu,  2 Nov 2017 00:41:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4E4DA2194A
+Authentication-Results: mail.kernel.org;
+ dmarc=none (p=none dis=none) header.from=kernel.org
+Authentication-Results: mail.kernel.org;
+ spf=none smtp.mailfrom=robh+dt@kernel.org
+Received: by mail-qt0-f170.google.com with SMTP id p1so4888048qtg.2
+ for <openbmc@lists.ozlabs.org>; Wed, 01 Nov 2017 17:41:37 -0700 (PDT)
+X-Gm-Message-State: AMCzsaXdKMg5d6YZCYC7VMsWKoBx3fJtaVOqUaYS2fipKi7QQlqFoGNl
+ WiNSKMd7QIup911KQSgoMB0u5TvBVCh/D/oZLQ==
+X-Google-Smtp-Source: ABhQp+SsNjv1ypLO+Rv9+1A9Pnt/MyopcfVXit0J2Cw7EtwVO7SRkal/DlH0u0IReVSROTUB7tIZeHvN1xXhUvCKmc0=
+X-Received: by 10.200.8.239 with SMTP id y44mr2715082qth.341.1509583296458;
+ Wed, 01 Nov 2017 17:41:36 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20171101040457.1200-2-andrew@aj.id.au>
-User-Agent: NeoMutt/20170609 (1.8.3)
+Received: by 10.12.130.134 with HTTP; Wed, 1 Nov 2017 17:41:15 -0700 (PDT)
+In-Reply-To: <CAP6Zq1jPva2sFMYaNoN6C_4sXL9q=W_Wyt9Hy3+OsG6UJUVd6w@mail.gmail.com>
+References: <20170919224001.22284-1-brendanhiggins@google.com>
+ <20170919224001.22284-3-brendanhiggins@google.com>
+ <CAP6Zq1jPva2sFMYaNoN6C_4sXL9q=W_Wyt9Hy3+OsG6UJUVd6w@mail.gmail.com>
+From: Rob Herring <robh+dt@kernel.org>
+Date: Wed, 1 Nov 2017 19:41:15 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqKgwepy4Kb21oikYRsOtFpKJFTiLRs4q613AX+9opHQKg@mail.gmail.com>
+Message-ID: <CAL_JsqKgwepy4Kb21oikYRsOtFpKJFTiLRs4q613AX+9opHQKg@mail.gmail.com>
+Subject: Re: [PATCH v6 2/3] arm: dts: add Nuvoton NPCM750 device tree
+To: Tomer Maimon <tmaimon77@gmail.com>
+Cc: Brendan Higgins <brendanhiggins@google.com>,
+ Mark Rutland <mark.rutland@arm.com>, 
+ Russell King - ARM Linux <linux@armlinux.org.uk>,
+ Avi Fishman <avifishman70@gmail.com>, 
+ Rick Altherr <raltherr@google.com>, Florian Fainelli <f.fainelli@gmail.com>, 
+ devicetree <devicetree@vger.kernel.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -61,38 +59,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Nov 2017 00:15:36 -0000
+X-List-Received-Date: Thu, 02 Nov 2017 00:41:40 -0000
 
-On Wed, Nov 01, 2017 at 03:04:56PM +1100, Andrew Jeffery wrote:
-> General support for state persistence is added to gpiolib with the
-> introduction of a new pinconf parameter to propagate the request to
-> hardware. The existing persistence support for sleep is adapted to
-> include hardware support if the GPIO driver provides it. Persistence
-> continues to be enabled by default; in-kernel consumers can opt out, but
-> userspace (currently) does not have a choice.
-> 
-> The *_SLEEP_MAY_LOSE_VALUE and *_SLEEP_MAINTAIN_VALUE symbols are
-> renamed, dropping the SLEEP prefix to reflect that the concept is no
-> longer sleep-specific.  I feel that renaming to just *_MAY_LOSE_VALUE
-> could initially be misinterpreted, so I've further changed the symbols
-> to *_TRANSITORY and *_PERSISTENT to address this.
-> 
-> The sysfs interface is modified only to keep consistency with the
-> chardev interface in enforcing persistence for userspace exports.
-> 
-> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> ---
->  drivers/gpio/gpiolib-of.c               |  6 ++--
->  drivers/gpio/gpiolib-sysfs.c            | 14 +++++---
->  drivers/gpio/gpiolib.c                  | 61 ++++++++++++++++++++++++++++++---
->  drivers/gpio/gpiolib.h                  |  2 +-
+On Sun, Oct 29, 2017 at 3:33 PM, Tomer Maimon <tmaimon77@gmail.com> wrote:
+> On 20 September 2017 at 00:40, Brendan Higgins
+> <brendanhiggins@google.com> wrote:
+>> Add a common device tree for all Nuvoton NPCM750 BMCs and a board
+>> specific device tree for the NPCM750 (Poleg) evaluation board.
+>>
 
->  include/dt-bindings/gpio/gpio.h         |  6 ++--
+>> +                       timer0: timer@f0000000 {
+>> +                               compatible = "nuvoton,npcm750-timer";
+>> +                               interrupts = <0 32 4>;
+>> +                               reg = <0xf0000000 0x1000>;
+>> +                               clocks = <&clk NPCM7XX_CLK_TIMER>;
+>> +                       };
+>
+> I started the upstream process of NPCM7xx clocksource driver, I got
+> the following comment:
+> https://www.spinics.net/lists/devicetree/msg197916.html
+>
+> Is it possible to modify the the timer DT entry to:
+>
+> timer0: timer@f0008000 {
+>         compatible = "nuvoton,npcm7xx-timer";
 
-Acked-by: Rob Herring <robh@kernel.org>
+Please don't. Using 750 is correct. Using 7xx (i.e. wildcards) is not.
 
->  include/linux/gpio/consumer.h           |  8 +++++
->  include/linux/gpio/machine.h            |  4 +--
->  include/linux/of_gpio.h                 |  2 +-
->  include/linux/pinctrl/pinconf-generic.h |  2 ++
->  9 files changed, 87 insertions(+), 18 deletions(-)
+If there's subsequent SoCs with the same block, then you can do:
+'"nuvoton,npcm760-timer", "nuvoton,npcm750-timer"'.
+
+Rob
