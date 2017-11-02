@@ -1,52 +1,56 @@
 Return-Path: <mine260309@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c05::241; helo=mail-pg0-x241.google.com;
+ (client-ip=2607:f8b0:400e:c05::243; helo=mail-pg0-x243.google.com;
  envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Y27U0Ynn"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="QQvkRzGk"; 
  dkim-atps=neutral
-Received: from mail-pg0-x241.google.com (mail-pg0-x241.google.com
- [IPv6:2607:f8b0:400e:c05::241])
+Received: from mail-pg0-x243.google.com (mail-pg0-x243.google.com
+ [IPv6:2607:f8b0:400e:c05::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yS88K5BljzDqlM
- for <openbmc@lists.ozlabs.org>; Thu,  2 Nov 2017 13:25:53 +1100 (AEDT)
-Received: by mail-pg0-x241.google.com with SMTP id s2so3738003pge.10
- for <openbmc@lists.ozlabs.org>; Wed, 01 Nov 2017 19:25:53 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yS88X1Ny9zDr5Q
+ for <openbmc@lists.ozlabs.org>; Thu,  2 Nov 2017 13:26:03 +1100 (AEDT)
+Received: by mail-pg0-x243.google.com with SMTP id b192so3753710pga.2
+ for <openbmc@lists.ozlabs.org>; Wed, 01 Nov 2017 19:26:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=araWV95YPpiOxbz/EeMK6RjBn7fneA41eTTubTw6jnU=;
- b=Y27U0Ynnm/bRSBLChB1t7ruPhTseGpVlz2cn0oqhIdZj+lxwbbWJcsQL4paCnCeJ59
- n1N8LGqq44zsdr/TuMP7/112SjpIilg15NnLvDAODP951q9NWc3+gklRJUT/82mME8Tx
- 2ibWRz7PCYoHPGD6cvY3vsSOxq9gzJknrD7YlPAF0Y9OYvDjypYddly1pfj8zh08+BF9
- hOcI1sJ0cEMmBvuCm+UpxCpZZQYzFlLee1R/9UCA8qI1qDLDIzoV1FyfcGUXBfXK9/wN
- a4YZ/Poxfh/KbH65gsREe8aB7+kF+/Bf8JDqi2RCUlefO8ekpPfEOLux55Usk5ro+b9n
- rwMw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=jNvDjjai7PAxrIrvn++8SD4uhOcC1ZS3f4Fc1Ez6tIo=;
+ b=QQvkRzGkDf6EifVbz84TNd7VDwHbCVoWKLBLyT78L0THs3MUcgjYM4RoKZ3eRPrG0d
+ nz/e8T79QoN/wE7803i6G1Oy9veVWPypuvEfSBVq7UJOJOFBFO/XIlSv2sW8ZQ4E8HMZ
+ joBBxqTO0VIApDLbQ1/LTYyLFd0obOJm0rQXlE7wWM41PMRhC3/hGjqSB6wdC/mYVBC1
+ 159mhbCrmYjnIt9vJnVRF2kS5IYZY+nHW8mIuawiKUiYXeY9Vs15SSRzoMjWzVQnOIEo
+ E0DV10muZ+NMnA+tmUW6VzoNBQX1Z1sgS0ba3jSdyS2hIxdXNtal1bPj8WwcU7pYOiNA
+ 31YA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=araWV95YPpiOxbz/EeMK6RjBn7fneA41eTTubTw6jnU=;
- b=ObJPc3Web2fcRM7Gdyw9oCeLJcRZVwQlkwRME7YC7ltHh5+Mt/qXNOVE0H2GRDcKEv
- 5srnOVIvgRNo4247Sp41U8EuWhI2FzPOFnWBV6kBA1fDGgqbaxU5vOj0zHItaSp2MIaf
- vZ04fw8TrzrOgOZMEotktApL9SG9CIt2KwnOvIWGOzu+2N4q35BOfyM5AaZ05gaeRlc/
- KREQntiNd7pHVCUWX0J18SQw1ceudUC9/NOk5mVsw42MaD8lAoM1ZV1o1qZdAwaE14kJ
- BAQJRClVdl1ofUdNR8k+iQLNcLnA7usG3fiSIfvXXcWgYL+uldvuu0ioDnb22nyhEHTG
- o3RA==
-X-Gm-Message-State: AMCzsaWuf3ctjqXoXlBA2QGUzaiv6LQJSMxvdpo8Y8Gk1n2RFwGoXCUJ
- ivUuXJnQaeR/9652YVFv28dmuQJh
-X-Google-Smtp-Source: ABhQp+QnjzGCwMSj3I3pYi7RSHwSk5nk6HQxyns2+qFgtYtZZfh90gh1DhpVdqVqXWkZ+p9DtUdZKg==
-X-Received: by 10.101.80.70 with SMTP id k6mr1901147pgo.149.1509589551716;
- Wed, 01 Nov 2017 19:25:51 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=jNvDjjai7PAxrIrvn++8SD4uhOcC1ZS3f4Fc1Ez6tIo=;
+ b=qspaAdyRfw4VE0d2wpMHQrI1ZODN9LksRNXWCvImg0o0FN7tm8Kh4VTu5ohI8nhaU+
+ T9nxP0U3beVh+AX91FTVPUlCFltMFPinpJmzdEXHPNlnHdIYnFXizXLfY+TXsNcdiYNs
+ ELx5SXO0EhgQJtzyg6LW9DpKFA4wVkyK072vrCUQecaOHAqic/4uzIAkH2njypIl8PbV
+ zuSkfbhImrE0JEdd8ZQZCcfVGIykp6DmUu77ZsHrE5CgDYRPs8ara8aLJddKyAtBvWor
+ Rh5ReCKguA1NvY/rYYGpP/3/obfJJ5Q3FeMuSEpbixFxPkEybqURHqHTwAGWopnwlPu3
+ GGUw==
+X-Gm-Message-State: AMCzsaU0O9AmmWd/rerpm44Vhcs8H3Ih6CQr8fxKPW4zN9qeF0reQAFA
+ l5Q94pvCc1CnHQHx79OrV/4fTTqA
+X-Google-Smtp-Source: ABhQp+QGYFsM8uJ0AimkcFp+BKn2kZ6n1nmRpMKZMjQDD7OU0y/TbrMysRAyrV6zE0n/RntUK5CnwQ==
+X-Received: by 10.98.31.14 with SMTP id f14mr1952307pff.235.1509589561943;
+ Wed, 01 Nov 2017 19:26:01 -0700 (PDT)
 Received: from localhost ([159.203.222.251])
- by smtp.gmail.com with ESMTPSA id h77sm3058179pfj.38.2017.11.01.19.25.50
+ by smtp.gmail.com with ESMTPSA id 84sm3042888pfy.179.2017.11.01.19.26.00
  (version=TLS1_2 cipher=AES128-SHA bits=128/128);
- Wed, 01 Nov 2017 19:25:51 -0700 (PDT)
+ Wed, 01 Nov 2017 19:26:01 -0700 (PDT)
 From: Lei YU <mine260309@gmail.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10 2/3] hwmon: (w83773g) Add documentation
-Date: Thu,  2 Nov 2017 10:25:18 +0800
-Message-Id: <1509589519-26697-1-git-send-email-mine260309@gmail.com>
+Subject: [PATCH linux dev-4.10 3/3] ARM: aspeed: romulus: Add w83773g temp
+ sensor
+Date: Thu,  2 Nov 2017 10:25:19 +0800
+Message-Id: <1509589519-26697-2-git-send-email-mine260309@gmail.com>
 X-Mailer: git-send-email 1.9.1
+In-Reply-To: <1509589519-26697-1-git-send-email-mine260309@gmail.com>
+References: <1509589519-26697-1-git-send-email-mine260309@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -58,49 +62,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Nov 2017 02:25:54 -0000
-
-Add documentation for the w83773g driver.
+X-List-Received-Date: Thu, 02 Nov 2017 02:26:04 -0000
 
 Signed-off-by: Lei YU <mine260309@gmail.com>
 ---
- Documentation/hwmon/w83773g | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
- create mode 100644 Documentation/hwmon/w83773g
+ arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/hwmon/w83773g b/Documentation/hwmon/w83773g
-new file mode 100644
-index 0000000..da28731
---- /dev/null
-+++ b/Documentation/hwmon/w83773g
-@@ -0,0 +1,28 @@
-+Kernel driver w83773g
-+====================
-+
-+Supported chips:
-+  * Nuvoton W83773G
-+    Prefix: 'w83773g'
-+    Addresses scanned: I2C 0x4c and 0x4d
-+    Datasheet: https://www.nuvoton.com/resource-files/W83773G_SG_DatasheetV1_2.pdf
-+
-+Authors:
-+	Lei YU <mine260309@gmail.com>
-+
-+Description
-+-----------
-+
-+This driver implements support for Nuvoton W83773G temperature sensor
-+chip. This chip implements one local and two remote sensors.
-+Temperature is measured in degrees Celsius.
-+The chip is wired over I2C/SMBus and specified over a temperature
-+range of -40 to +125 degrees Celsius (for local sensor) and -40 to +127
-+degrees Celsius (for remote sensors).
-+Resolution for both the local and remote channels is 0.125 degree C.
-+
-+The chip supports only temperature measurement. The driver exports
-+the temperature values via the following sysfs files:
-+
-+temp[1-3]_input
-+temp[2-3]_fault
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+index 86f7927..eb0994e 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+@@ -255,8 +255,11 @@
+ 	/* CPLD */
+ 	/* Power Supply */
+ 	/* Temp Sensor */
+-	/* Temp Sensor */
+ 
++	w83773g@4c {
++		compatible = "nuvoton,w83773g";
++		reg = <0x4c>;
++	};
+ };
+ 
+ &i2c13 {
 -- 
 1.9.1
