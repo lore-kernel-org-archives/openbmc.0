@@ -1,52 +1,38 @@
-Return-Path: <mine260309@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c05::243; helo=mail-pg0-x243.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="ufi61Ygc"; 
- dkim-atps=neutral
-Received: from mail-pg0-x243.google.com (mail-pg0-x243.google.com
- [IPv6:2607:f8b0:400e:c05::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <julia.lawall@lip6.fr>
+Authentication-Results: ozlabs.org;
+ spf=neutral (mailfrom) smtp.mailfrom=lip6.fr
+ (client-ip=192.134.164.104; helo=mail3-relais-sop.national.inria.fr;
+ envelope-from=julia.lawall@lip6.fr; receiver=<UNKNOWN>)
+X-Greylist: delayed 701 seconds by postgrey-1.36 at bilbo;
+ Fri, 03 Nov 2017 00:18:50 AEDT
+Received: from mail3-relais-sop.national.inria.fr
+ (mail3-relais-sop.national.inria.fr [192.134.164.104])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ySGBR1N9SzDqlM
- for <openbmc@lists.ozlabs.org>; Thu,  2 Nov 2017 17:58:06 +1100 (AEDT)
-Received: by mail-pg0-x243.google.com with SMTP id s2so4262401pge.10
- for <openbmc@lists.ozlabs.org>; Wed, 01 Nov 2017 23:58:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=9TLlZoBXI4gQe7Uc7aFKLxVFD+DkO8Q+DXVOjCl6CUw=;
- b=ufi61YgcSyKInhgaTwY48aQ1X6cVUMKQqa9kpSxFQjsnOBnnGvljzFYuomdePNl+AC
- MmfMgarMXt5DzGrGQScfX/bSfOAuMN9Nno7rR0+F5S9MKJq0+OlK8C3HuGc7Y9YVz2U0
- bDymMilBgKi+jmfCouYJQveEoIADZi5or1rpgX2NtBnmIsgpL6TTbCrdtw7R3HDq4XMv
- UOp2Bb7OSGX8iohAdcRNZ/FeBX92X5tQC1ZPbPpSQtpBO/wrFW3iULlShHtQWA0DScxW
- S6VoWQYYlRkCp3ncwxx6R7gKSU8uIBIZacHXDCrv/SoBhFQqUosNIANMMgBfn227HNQN
- CT7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=9TLlZoBXI4gQe7Uc7aFKLxVFD+DkO8Q+DXVOjCl6CUw=;
- b=h07Zwn7VUbsufR4pOPwS62BeJCTUnmkhx/i1UWqIs1+qWUqicIuITem9lah/bxThV3
- z65L38T+pB+s1iTeGerqeuUfwLpnBL01vft41K8IxZz809zvwpVJSB4hoDhY/11BORW6
- XIKL9MJyKVOop2rbRCZq1vtDJTnVUxKsd27a8gf9JpSC45nmE+lmRQoilUaEwwkLY4pE
- e21zdd1o3S4Be+WZH0I1318cNiyfCD79HlmQP+J0WhOC5V6GGt7IvRmPIVhT1gXA+dKz
- 7KMcbkvs9azQGMWf4VKPPT3BhQ4AAnhK29m9CseEqvwqimJ8u7lHk10608XrR5vFLrWe
- pmHw==
-X-Gm-Message-State: AMCzsaX75jZdnJJcvQuLgUZANeDnedIq3Fa1Btzd1DSFj2ciLV+ENHCF
- OkbN/Eqyxu/NXC38AG98Ge1L+rID
-X-Google-Smtp-Source: ABhQp+SOdnCo83Wc7+DAAEVfN9nAMlO2pgIb7gs4O6+N4a2RIo/H9i3rrXPVaCndLJKRj6WI9IUQyw==
-X-Received: by 10.99.174.1 with SMTP id q1mr2558436pgf.125.1509605884095;
- Wed, 01 Nov 2017 23:58:04 -0700 (PDT)
-Received: from localhost ([159.203.222.251])
- by smtp.gmail.com with ESMTPSA id b16sm4460584pfe.58.2017.11.01.23.58.02
- (version=TLS1_2 cipher=AES128-SHA bits=128/128);
- Wed, 01 Nov 2017 23:58:03 -0700 (PDT)
-From: Lei YU <mine260309@gmail.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10] ARM: dts: aspeed: romulus: Fix identify LED
-Date: Thu,  2 Nov 2017 14:57:41 +0800
-Message-Id: <1509605861-20215-1-git-send-email-mine260309@gmail.com>
-X-Mailer: git-send-email 1.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ySQdk1xvczDqvT
+ for <openbmc@lists.ozlabs.org>; Fri,  3 Nov 2017 00:18:49 +1100 (AEDT)
+X-IronPort-AV: E=Sophos;i="5.44,334,1505772000"; d="scan'208";a="243187567"
+Received: from unknown (HELO bogon) ([117.114.137.71])
+ by mail3-relais-sop.national.inria.fr with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2017 14:06:32 +0100
+Date: Thu, 2 Nov 2017 21:06:02 +0800 (CST)
+From: Julia Lawall <julia.lawall@lip6.fr>
+X-X-Sender: jll@hadrien
+To: Oleksandr Shamray <oleksandrs@mellanox.com>
+cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, joel@jms.id.au, 
+ jiri@resnulli.us, tklauser@distanz.ch, linux-serial@vger.kernel.org, 
+ mec@shout.net, vadimp@mellanox.com, system-sw-low-level@mellanox.com, 
+ robh+dt@kernel.org, openocd-devel-owner@lists.sourceforge.net, 
+ linux-api@vger.kernel.org, davem@davemloft.net, mchehab@kernel.org, 
+ Oleksandr Shamray <oleksandrs@mellanox.com>, 
+ Jiri Pirko <jiri@mellanox.com>, gregkh@linuxfoundation.org, arnd@arndb.de, 
+ kbuild-all@01.org
+Subject: Re: [patch v10 1/4] drivers: jtag: Add JTAG core driver (fwd)
+Message-ID: <alpine.DEB.2.20.1711022104590.2165@hadrien>
+User-Agent: Alpine 2.20 (DEB 67 2015-01-07)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -58,28 +44,171 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Nov 2017 06:58:07 -0000
+X-List-Received-Date: Thu, 02 Nov 2017 13:18:51 -0000
 
-The identify LED is different from other LEDs and shall be
-ACTIVE_HIGH.
+It looks like the return on line 137 belongs after line 138.
 
-Signed-off-by: Lei YU <mine260309@gmail.com>
+julia
+
+---------- Forwarded message ----------
+Date: Thu, 2 Nov 2017 21:02:22 +0800
+From: kbuild test robot <fengguang.wu@intel.com>
+To: kbuild@01.org
+Cc: Julia Lawall <julia.lawall@lip6.fr>
+Subject: Re: [patch v10 1/4] drivers: jtag: Add JTAG core driver
+
+In-Reply-To: <1509365528-28803-2-git-send-email-oleksandrs@mellanox.com>
+References: <1509365528-28803-2-git-send-email-oleksandrs@mellanox.com>
+
+Hi Oleksandr,
+
+I love your patch! Perhaps something to improve:
+
+[auto build test WARNING on linus/master]
+[also build test WARNING on v4.14-rc7]
+[cannot apply to next-20171102]
+[if your patch is applied to the wrong git tree, please drop us a note to help improve the system]
+
+url:    https://github.com/0day-ci/linux/commits/Oleksandr-Shamray/JTAG-driver-introduction/20171102-045624
+:::::: branch date: 16 hours ago
+:::::: commit date: 16 hours ago
+
+>> drivers/jtag/jtag.c:142:16-25: ERROR: reference preceded by free on line 138
+
+# https://github.com/0day-ci/linux/commit/1a7d120a0e3ba075879bc00ab136c4608f16a2a7
+git remote add linux-review https://github.com/0day-ci/linux
+git remote update linux-review
+git checkout 1a7d120a0e3ba075879bc00ab136c4608f16a2a7
+vim +142 drivers/jtag/jtag.c
+
+1a7d120a Oleksandr Shamray 2017-10-30   46
+1a7d120a Oleksandr Shamray 2017-10-30   47  static long jtag_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+1a7d120a Oleksandr Shamray 2017-10-30   48  {
+1a7d120a Oleksandr Shamray 2017-10-30   49  	struct jtag *jtag = file->private_data;
+1a7d120a Oleksandr Shamray 2017-10-30   50  	struct jtag_run_test_idle idle;
+1a7d120a Oleksandr Shamray 2017-10-30   51  	struct jtag_xfer xfer;
+1a7d120a Oleksandr Shamray 2017-10-30   52  	u8 *xfer_data;
+1a7d120a Oleksandr Shamray 2017-10-30   53  	u32 data_size;
+1a7d120a Oleksandr Shamray 2017-10-30   54  	u32 value;
+1a7d120a Oleksandr Shamray 2017-10-30   55  	int err;
+1a7d120a Oleksandr Shamray 2017-10-30   56
+1a7d120a Oleksandr Shamray 2017-10-30   57  	if (!arg)
+1a7d120a Oleksandr Shamray 2017-10-30   58  		return -EINVAL;
+1a7d120a Oleksandr Shamray 2017-10-30   59
+1a7d120a Oleksandr Shamray 2017-10-30   60  	switch (cmd) {
+1a7d120a Oleksandr Shamray 2017-10-30   61  	case JTAG_GIOCFREQ:
+1a7d120a Oleksandr Shamray 2017-10-30   62
+1a7d120a Oleksandr Shamray 2017-10-30   63  		if (jtag->ops->freq_get)
+1a7d120a Oleksandr Shamray 2017-10-30   64  			err = jtag->ops->freq_get(jtag, &value);
+1a7d120a Oleksandr Shamray 2017-10-30   65  		else
+1a7d120a Oleksandr Shamray 2017-10-30   66  			err = -EOPNOTSUPP;
+1a7d120a Oleksandr Shamray 2017-10-30   67  		if (err)
+1a7d120a Oleksandr Shamray 2017-10-30   68  			break;
+1a7d120a Oleksandr Shamray 2017-10-30   69
+1a7d120a Oleksandr Shamray 2017-10-30   70  		if (put_user(value, (__u32 *)arg))
+1a7d120a Oleksandr Shamray 2017-10-30   71  			err = -EFAULT;
+1a7d120a Oleksandr Shamray 2017-10-30   72  		break;
+1a7d120a Oleksandr Shamray 2017-10-30   73
+1a7d120a Oleksandr Shamray 2017-10-30   74  	case JTAG_SIOCFREQ:
+1a7d120a Oleksandr Shamray 2017-10-30   75  		if (get_user(value, (__u32 *)arg))
+1a7d120a Oleksandr Shamray 2017-10-30   76  			return -EFAULT;
+1a7d120a Oleksandr Shamray 2017-10-30   77  		if (value == 0)
+1a7d120a Oleksandr Shamray 2017-10-30   78  			return -EINVAL;
+1a7d120a Oleksandr Shamray 2017-10-30   79
+1a7d120a Oleksandr Shamray 2017-10-30   80  		if (jtag->ops->freq_set)
+1a7d120a Oleksandr Shamray 2017-10-30   81  			err = jtag->ops->freq_set(jtag, value);
+1a7d120a Oleksandr Shamray 2017-10-30   82  		else
+1a7d120a Oleksandr Shamray 2017-10-30   83  			err = -EOPNOTSUPP;
+1a7d120a Oleksandr Shamray 2017-10-30   84  		break;
+1a7d120a Oleksandr Shamray 2017-10-30   85
+1a7d120a Oleksandr Shamray 2017-10-30   86  	case JTAG_IOCRUNTEST:
+1a7d120a Oleksandr Shamray 2017-10-30   87  		if (copy_from_user(&idle, (void *)arg,
+1a7d120a Oleksandr Shamray 2017-10-30   88  				   sizeof(struct jtag_run_test_idle)))
+1a7d120a Oleksandr Shamray 2017-10-30   89  			return -EFAULT;
+1a7d120a Oleksandr Shamray 2017-10-30   90
+1a7d120a Oleksandr Shamray 2017-10-30   91  		if (idle.mode > JTAG_XFER_SW_MODE)
+1a7d120a Oleksandr Shamray 2017-10-30   92  			return -EINVAL;
+1a7d120a Oleksandr Shamray 2017-10-30   93
+1a7d120a Oleksandr Shamray 2017-10-30   94  		if (idle.endstate > JTAG_STATE_PAUSEDR)
+1a7d120a Oleksandr Shamray 2017-10-30   95  			return -EINVAL;
+1a7d120a Oleksandr Shamray 2017-10-30   96
+1a7d120a Oleksandr Shamray 2017-10-30   97  		if (jtag->ops->idle)
+1a7d120a Oleksandr Shamray 2017-10-30   98  			err = jtag->ops->idle(jtag, &idle);
+1a7d120a Oleksandr Shamray 2017-10-30   99  		else
+1a7d120a Oleksandr Shamray 2017-10-30  100  			err = -EOPNOTSUPP;
+1a7d120a Oleksandr Shamray 2017-10-30  101  		break;
+1a7d120a Oleksandr Shamray 2017-10-30  102
+1a7d120a Oleksandr Shamray 2017-10-30  103  	case JTAG_IOCXFER:
+1a7d120a Oleksandr Shamray 2017-10-30  104  		if (copy_from_user(&xfer, (void *)arg,
+1a7d120a Oleksandr Shamray 2017-10-30  105  				   sizeof(struct jtag_xfer)))
+1a7d120a Oleksandr Shamray 2017-10-30  106  			return -EFAULT;
+1a7d120a Oleksandr Shamray 2017-10-30  107
+1a7d120a Oleksandr Shamray 2017-10-30  108  		if (xfer.length >= JTAG_MAX_XFER_DATA_LEN)
+1a7d120a Oleksandr Shamray 2017-10-30  109  			return -EINVAL;
+1a7d120a Oleksandr Shamray 2017-10-30  110
+1a7d120a Oleksandr Shamray 2017-10-30  111  		if (xfer.mode > JTAG_XFER_SW_MODE)
+1a7d120a Oleksandr Shamray 2017-10-30  112  			return -EINVAL;
+1a7d120a Oleksandr Shamray 2017-10-30  113
+1a7d120a Oleksandr Shamray 2017-10-30  114  		if (xfer.type > JTAG_SDR_XFER)
+1a7d120a Oleksandr Shamray 2017-10-30  115  			return -EINVAL;
+1a7d120a Oleksandr Shamray 2017-10-30  116
+1a7d120a Oleksandr Shamray 2017-10-30  117  		if (xfer.direction > JTAG_WRITE_XFER)
+1a7d120a Oleksandr Shamray 2017-10-30  118  			return -EINVAL;
+1a7d120a Oleksandr Shamray 2017-10-30  119
+1a7d120a Oleksandr Shamray 2017-10-30  120  		if (xfer.endstate > JTAG_STATE_PAUSEDR)
+1a7d120a Oleksandr Shamray 2017-10-30  121  			return -EINVAL;
+1a7d120a Oleksandr Shamray 2017-10-30  122
+1a7d120a Oleksandr Shamray 2017-10-30  123  		data_size = DIV_ROUND_UP(xfer.length, BITS_PER_BYTE);
+1a7d120a Oleksandr Shamray 2017-10-30  124  		xfer_data = memdup_user(u64_to_user_ptr(xfer.tdio), data_size);
+1a7d120a Oleksandr Shamray 2017-10-30  125
+1a7d120a Oleksandr Shamray 2017-10-30  126  		if (!xfer_data)
+1a7d120a Oleksandr Shamray 2017-10-30  127  			return -EFAULT;
+1a7d120a Oleksandr Shamray 2017-10-30  128
+1a7d120a Oleksandr Shamray 2017-10-30  129  		if (jtag->ops->xfer) {
+1a7d120a Oleksandr Shamray 2017-10-30  130  			err = jtag->ops->xfer(jtag, &xfer, xfer_data);
+1a7d120a Oleksandr Shamray 2017-10-30  131  		} else {
+1a7d120a Oleksandr Shamray 2017-10-30  132  			kfree(xfer_data);
+1a7d120a Oleksandr Shamray 2017-10-30  133  			return -EOPNOTSUPP;
+1a7d120a Oleksandr Shamray 2017-10-30  134  		}
+1a7d120a Oleksandr Shamray 2017-10-30  135
+1a7d120a Oleksandr Shamray 2017-10-30  136  		if (err) {
+1a7d120a Oleksandr Shamray 2017-10-30  137  			return -EFAULT;
+1a7d120a Oleksandr Shamray 2017-10-30 @138  			kfree(xfer_data);
+1a7d120a Oleksandr Shamray 2017-10-30  139  		}
+1a7d120a Oleksandr Shamray 2017-10-30  140
+1a7d120a Oleksandr Shamray 2017-10-30  141  		err = copy_to_user(u64_to_user_ptr(xfer.tdio),
+1a7d120a Oleksandr Shamray 2017-10-30 @142  				   (void *)(xfer_data), data_size);
+1a7d120a Oleksandr Shamray 2017-10-30  143
+1a7d120a Oleksandr Shamray 2017-10-30  144  		if (err) {
+1a7d120a Oleksandr Shamray 2017-10-30  145  			kfree(xfer_data);
+1a7d120a Oleksandr Shamray 2017-10-30  146  			return -EFAULT;
+1a7d120a Oleksandr Shamray 2017-10-30  147  		}
+1a7d120a Oleksandr Shamray 2017-10-30  148
+1a7d120a Oleksandr Shamray 2017-10-30  149  		kfree(xfer_data);
+1a7d120a Oleksandr Shamray 2017-10-30  150  		if (copy_to_user((void *)arg, &xfer, sizeof(struct jtag_xfer)))
+1a7d120a Oleksandr Shamray 2017-10-30  151  			return -EFAULT;
+1a7d120a Oleksandr Shamray 2017-10-30  152  		break;
+1a7d120a Oleksandr Shamray 2017-10-30  153
+1a7d120a Oleksandr Shamray 2017-10-30  154  	case JTAG_GIOCSTATUS:
+1a7d120a Oleksandr Shamray 2017-10-30  155  		if (jtag->ops->status_get)
+1a7d120a Oleksandr Shamray 2017-10-30  156  			err = jtag->ops->status_get(jtag, &value);
+1a7d120a Oleksandr Shamray 2017-10-30  157  		else
+1a7d120a Oleksandr Shamray 2017-10-30  158  			err = -EOPNOTSUPP;
+1a7d120a Oleksandr Shamray 2017-10-30  159  		if (err)
+1a7d120a Oleksandr Shamray 2017-10-30  160  			break;
+1a7d120a Oleksandr Shamray 2017-10-30  161
+1a7d120a Oleksandr Shamray 2017-10-30  162  		err = put_user(value, (__u32 *)arg);
+1a7d120a Oleksandr Shamray 2017-10-30  163  		if (err)
+1a7d120a Oleksandr Shamray 2017-10-30  164  			err = -EFAULT;
+1a7d120a Oleksandr Shamray 2017-10-30  165  		break;
+1a7d120a Oleksandr Shamray 2017-10-30  166
+1a7d120a Oleksandr Shamray 2017-10-30  167  	default:
+1a7d120a Oleksandr Shamray 2017-10-30  168  		return -EINVAL;
+1a7d120a Oleksandr Shamray 2017-10-30  169  	}
+1a7d120a Oleksandr Shamray 2017-10-30  170  	return err;
+1a7d120a Oleksandr Shamray 2017-10-30  171  }
+1a7d120a Oleksandr Shamray 2017-10-30  172
+
 ---
- arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-index eb0994e..b0c3cb5 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-@@ -35,7 +35,7 @@
- 		};
- 
- 		identify {
--			gpios = <&gpio ASPEED_GPIO(N, 4) GPIO_ACTIVE_LOW>;
-+			gpios = <&gpio ASPEED_GPIO(N, 4) GPIO_ACTIVE_HIGH>;
- 		};
- 
- 		power {
--- 
-1.9.1
+0-DAY kernel test infrastructure                Open Source Technology Center
+https://lists.01.org/pipermail/kbuild-all                   Intel Corporation
