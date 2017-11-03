@@ -1,69 +1,55 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="CcVVCchT"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="UWe8c8DJ"; dkim-atps=neutral
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yScsl0tNTzDqlM
- for <openbmc@lists.ozlabs.org>; Fri,  3 Nov 2017 07:59:54 +1100 (AEDT)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- vA2KxasF035771
- for <openbmc@lists.ozlabs.org>; Thu, 2 Nov 2017 16:59:53 -0400
-Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2e06d6x14y-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 02 Nov 2017 16:59:52 -0400
-Received: from localhost
- by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 2 Nov 2017 16:59:51 -0400
-Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
- by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 2 Nov 2017 16:59:48 -0400
-Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
- [9.57.199.111])
- by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- vA2KxlrN50004150; Thu, 2 Nov 2017 20:59:47 GMT
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 242FAAC04A;
- Thu,  2 Nov 2017 17:00:35 -0400 (EDT)
-Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
- by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id BF4BAAC040;
- Thu,  2 Nov 2017 17:00:34 -0400 (EDT)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, andrew@aj.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.10 2/2] hwmon: (pmbus): cffps: Add input_history
- debugfs file
-Date: Thu,  2 Nov 2017 15:59:41 -0500
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1509656381-22755-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1509656381-22755-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-TM-AS-GCONF: 00
-x-cbid: 17110220-0052-0000-0000-0000027BDE49
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00008000; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000239; SDB=6.00940228; UDB=6.00474102; IPR=6.00720484; 
- BA=6.00005668; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017838; XFM=3.00000015;
- UTC=2017-11-02 20:59:49
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17110220-0053-0000-0000-000052826FC3
-Message-Id: <1509656381-22755-3-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-11-02_07:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1707230000
- definitions=main-1711020257
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ySqNZ0plVzDqvT
+ for <openbmc@lists.ozlabs.org>; Fri,  3 Nov 2017 15:53:49 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 3758C20F62;
+ Fri,  3 Nov 2017 00:53:46 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Fri, 03 Nov 2017 00:53:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :date:from:message-id:subject:to:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm1; bh=E/4TqpBn+2ga+f58uE/uWRYu5n4LKuMbnSYQeImy4
+ Uo=; b=CcVVCchTh6JjZW5YH3FA5dszpIuahXteg8cT6tsAH6NOtwiGYhBw/E83t
+ Q9Db300DDkq+y8DXrJx3QNe8e/Gt5Tw6ZDlfUNionrTgKEklCBsYfBNXUdpqPMJv
+ yzt8oqQwJ3QhWCZ6gLHW6n4RgI63jTDoCLRUsrTphq4hpgvXv1d5PG2Ds4I3qMT2
+ qhEa9K89Iyr4cW12/zrtWpA8XjRedUAYoNim9hsllwKYSY2fRD1oJKX5N6VUbJkY
+ dwXF4/KEuvSw5cINun2D09nhVAisM48iySPYsWfuvbLdsHVsH3isIXxCmDGBdC/p
+ 0lM+pklD0f6R9NKXNNyZSUhJRVTNg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=E/4TqpBn+2ga+f58u
+ E/uWRYu5n4LKuMbnSYQeImy4Uo=; b=UWe8c8DJybaiB8P37OWf58dTSlb2WGcxS
+ I5tbiATKscfgU9OjIYWQfv5eyQi7OYW3xTYYYs69XrfLuWCXHFlfSXIgISrE2Cul
+ 6zduXgsHesVs9aBA7OI9zH5ShlAqbMfmTp6nV9bb8VjthDUm/s001Cqqsxdhnhwj
+ K6PlNR3L1vXX9UkvVzH2pLkc2YmSpN6ccGyxigFC4oBB21z2PN30tA2hKSzrvkMI
+ n7C+RTTwBnIozL3BZT9E+NBFjbNr148im/0szPgj48WfTbvg2gkS4bWc6uyRtCja
+ Fr0yjYWO+WPjrAuSk79AX4T8Ivd/Hdw7Tjq5e+oiQO8aOAfmAMeNA==
+X-ME-Sender: <xms:Wvb7WW2nzuPPo_IKbSa2q5751BCrpHgRxzZxVUbZ_OQyIrJtcw2jbA>
+Received: from keelia.au.ibm.com (bh02i525f01.au.ibm.com [202.81.18.30])
+ by mail.messagingengine.com (Postfix) with ESMTPA id BB5AB24009;
+ Fri,  3 Nov 2017 00:53:41 -0400 (EDT)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: linux-hwmon@vger.kernel.org
+Cc: Andrew Jeffery <andrew@aj.id.au>, linux@roeck-us.net, robh+dt@kernel.org,
+ mark.rutland@arm.com, jdelvare@suse.com, corbet@lwn.net,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, joel@jms.id.au, openbmc@lists.ozlabs.org
+Subject: [PATCH v4 0/6] pmbus: Expand fan support and add MAX31785 driver
+Date: Fri,  3 Nov 2017 15:53:00 +1100
+Message-Id: <20171103045306.26448-1-andrew@aj.id.au>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -75,145 +61,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Nov 2017 20:59:55 -0000
+X-List-Received-Date: Fri, 03 Nov 2017 04:53:51 -0000
+X-List-Received-Date: Fri, 03 Nov 2017 04:53:51 -0000
+X-List-Received-Date: Fri, 03 Nov 2017 04:53:51 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
+Hello,
 
-Provide binary data of the powers supply input history to debugfs.
+This series introduces support for the MAX31785 intelligent fan controller, a
+PMBus device providing closed-loop fan control among a number of other
+features. Along the way the series adds support to control fans and create
+virtual pages to the PMBus core, the latter to support some of the more
+annoying design decisions found in the 'A' variant of the chip.
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
----
- drivers/hwmon/pmbus/ibm-cffps.c | 97 ++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 96 insertions(+), 1 deletion(-)
+This is the fourth spin of the series, v3 can be found here[1].
 
-diff --git a/drivers/hwmon/pmbus/ibm-cffps.c b/drivers/hwmon/pmbus/ibm-cffps.c
-index 1a6294c..0570c12 100644
---- a/drivers/hwmon/pmbus/ibm-cffps.c
-+++ b/drivers/hwmon/pmbus/ibm-cffps.c
-@@ -7,13 +7,19 @@
-  * (at your option) any later version.
-  */
- 
-+#include <linux/debugfs.h>
- #include <linux/device.h>
-+#include <linux/fs.h>
- #include <linux/i2c.h>
- #include <linux/jiffies.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- 
- #include "pmbus.h"
- 
-+#define CFFPS_INPUT_HISTORY_CMD			0xD6
-+#define CFFPS_INPUT_HISTORY_SIZE		100
-+
- /* STATUS_MFR_SPECIFIC bits */
- #define CFFPS_MFR_FAN_FAULT			BIT(0)
- #define CFFPS_MFR_THERMAL_FAULT			BIT(1)
-@@ -24,6 +30,70 @@
- #define CFFPS_MFR_VAUX_FAULT			BIT(6)
- #define CFFPS_MFR_CURRENT_SHARE_WARNING		BIT(7)
- 
-+struct ibm_cffps {
-+	struct i2c_client *client;
-+
-+	struct mutex update_lock;
-+	unsigned long last_updated;
-+
-+	u8 byte_count;
-+	u8 input_history[CFFPS_INPUT_HISTORY_SIZE];
-+};
-+
-+static ssize_t ibm_cffps_read_input_history(struct file *file,
-+					    char __user *buf, size_t count,
-+					    loff_t *ppos)
-+{
-+	int rc;
-+	struct ibm_cffps *psu = file->private_data;
-+	u8 msgbuf0[1] = { CFFPS_INPUT_HISTORY_CMD };
-+	u8 msgbuf1[CFFPS_INPUT_HISTORY_SIZE + 1] = { 0 };
-+	struct i2c_msg msg[2] = {
-+		{
-+			.addr = psu->client->addr,
-+			.flags = psu->client->flags,
-+			.len = 1,
-+			.buf = msgbuf0,
-+		}, {
-+			.addr = psu->client->addr,
-+			.flags = psu->client->flags | I2C_M_RD,
-+			.len = CFFPS_INPUT_HISTORY_SIZE + 1,
-+			.buf = msgbuf1,
-+		},
-+	};
-+
-+	if (!*ppos) {
-+		mutex_lock(&psu->update_lock);
-+		if (time_after(jiffies, psu->last_updated + HZ)) {
-+			/*
-+			 * Use a raw i2c transfer, since we need more bytes
-+			 * than Linux I2C supports through smbus xfr (only 32).
-+			 */
-+			rc = i2c_transfer(psu->client->adapter, msg, 2);
-+			if (rc < 0) {
-+				mutex_unlock(&psu->update_lock);
-+				return rc;
-+			}
-+
-+			psu->byte_count = msgbuf1[0];
-+			memcpy(psu->input_history, &msgbuf1[1],
-+			       CFFPS_INPUT_HISTORY_SIZE);
-+			psu->last_updated = jiffies;
-+		}
-+
-+		mutex_unlock(&psu->update_lock);
-+	}
-+
-+	return simple_read_from_buffer(buf, count, ppos, psu->input_history,
-+				       psu->byte_count);
-+}
-+
-+static const struct file_operations ibm_cffps_fops = {
-+	.llseek = noop_llseek,
-+	.read = ibm_cffps_read_input_history,
-+	.open = simple_open,
-+};
-+
- static int ibm_cffps_read_byte_data(struct i2c_client *client, int page,
- 				    int reg)
- {
-@@ -119,7 +189,32 @@ static int ibm_cffps_read_word_data(struct i2c_client *client, int page,
- static int ibm_cffps_probe(struct i2c_client *client,
- 			   const struct i2c_device_id *id)
- {
--	return pmbus_do_probe(client, id, &ibm_cffps_info);
-+	int rc;
-+	struct dentry *debugfs;
-+	struct ibm_cffps *psu;
-+
-+	rc = pmbus_do_probe(client, id, &ibm_cffps_info);
-+	if (rc)
-+		return rc;
-+
-+	/* Don't fail the probe if we can't create debugfs */
-+	psu = devm_kzalloc(&client->dev, sizeof(*psu), GFP_KERNEL);
-+	if (!psu)
-+		return 0;
-+
-+	psu->client = client;
-+	mutex_init(&psu->update_lock);
-+	if (jiffies > HZ)
-+		psu->last_updated = jiffies - HZ;
-+
-+	debugfs = pmbus_get_debugfs_dir(client);
-+	if (!debugfs)
-+		return 0;
-+
-+	debugfs_create_file("ibm_cffps_input_history", 0444, debugfs, psu,
-+			    &ibm_cffps_fops);
-+
-+	return 0;
- }
- 
- static const struct i2c_device_id ibm_cffps_id[] = {
+I've been running aground with the described devicetree bindings in the
+previous iterations, so in order to get *some* support upstream I've gutted the
+documentation and removed the corresponding support from the driver. I'll save
+posting that for a later date once Guenter and I have some input from Rob about
+what direction to take with respect to describing PMBus devices.
+
+As mentioned, adding full support for the features of the MAX31785 requires
+modifications to the PMBus core, so I've split the addition of features into
+separate patches, in the hope that some can be incrementally applied while we
+iterate on the details of any suboptimal parts.
+
+Please review!
+
+Andrew
+
+[1] https://lkml.org/lkml/2017/9/8/4
+
+Andrew Jeffery (6):
+  dt-bindings: pmbus: Add Maxim MAX31785 documentation
+  pmbus: Add driver for Maxim MAX31785 Intelligent Fan Controller
+  pmbus: core: Add fan control support
+  pmbus: max31785: Add fan control
+  pmbus: core: Add virtual page config bit
+  pmbus: max31785: Add dual tachometer support
+
+ .../devicetree/bindings/hwmon/max31785.txt         |  22 ++
+ Documentation/hwmon/max31785                       |  57 ++++
+ drivers/hwmon/pmbus/Kconfig                        |  10 +
+ drivers/hwmon/pmbus/Makefile                       |   1 +
+ drivers/hwmon/pmbus/max31785.c                     | 375 +++++++++++++++++++++
+ drivers/hwmon/pmbus/pmbus.h                        |  31 ++
+ drivers/hwmon/pmbus/pmbus_core.c                   | 236 +++++++++++--
+ 7 files changed, 713 insertions(+), 19 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/max31785.txt
+ create mode 100644 Documentation/hwmon/max31785
+ create mode 100644 drivers/hwmon/pmbus/max31785.c
+
 -- 
-1.8.3.1
+2.11.0
