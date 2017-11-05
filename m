@@ -1,38 +1,66 @@
-Return-Path: <gregkh@linuxfoundation.org>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linuxfoundation.org
- (client-ip=140.211.169.12; helo=mail.linuxfoundation.org;
- envelope-from=gregkh@linuxfoundation.org; receiver=<UNKNOWN>)
-Received: from mail.linuxfoundation.org (mail.linuxfoundation.org
- [140.211.169.12])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <groeck7@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400e:c00::243; helo=mail-pf0-x243.google.com;
+ envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="g86YCMd+"; 
+ dkim-atps=neutral
+Received: from mail-pf0-x243.google.com (mail-pf0-x243.google.com
+ [IPv6:2607:f8b0:400e:c00::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yTcGb0jKwzDrCZ
- for <openbmc@lists.ozlabs.org>; Sat,  4 Nov 2017 22:36:22 +1100 (AEDT)
-Received: from localhost (LFbn-1-12253-150.w90-92.abo.wanadoo.fr
- [90.92.67.150])
- by mail.linuxfoundation.org (Postfix) with ESMTPSA id 1A914504;
- Sat,  4 Nov 2017 11:36:19 +0000 (UTC)
-Date: Sat, 4 Nov 2017 12:36:32 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Oleksandr Shamray <oleksandrs@mellanox.com>
-Cc: arnd@arndb.de, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- openbmc@lists.ozlabs.org, joel@jms.id.au, jiri@resnulli.us,
- tklauser@distanz.ch, linux-serial@vger.kernel.org, mec@shout.net,
- vadimp@mellanox.com, system-sw-low-level@mellanox.com,
- robh+dt@kernel.org, openocd-devel-owner@lists.sourceforge.net,
- linux-api@vger.kernel.org, davem@davemloft.net, mchehab@kernel.org,
- Jiri Pirko <jiri@mellanox.com>
-Subject: Re: [patch v11 1/4] drivers: jtag: Add JTAG core driver
-Message-ID: <20171104113632.GC24583@kroah.com>
-References: <1509724449-26221-1-git-send-email-oleksandrs@mellanox.com>
- <1509724449-26221-2-git-send-email-oleksandrs@mellanox.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yVHc23hDXzDrCY
+ for <openbmc@lists.ozlabs.org>; Mon,  6 Nov 2017 01:08:50 +1100 (AEDT)
+Received: by mail-pf0-x243.google.com with SMTP id 17so5761870pfn.12
+ for <openbmc@lists.ozlabs.org>; Sun, 05 Nov 2017 06:08:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=r2/B31qGSfa1iMDSR51OvuwvHM+CgHqVSMjIbG31TO0=;
+ b=g86YCMd+SyzXX3m19h9+WKR9Z2cxLt9T6++Ox8wOxUvwqk5ry5IcIzK/4y3U7X9xDB
+ By7oaOE6MzCIQnSPW7ygmTYAlX/RSJT6WduSmncZoshZx6dWVNHH6OmEpyes9399Bk89
+ JiFnuSirbSpuxr0IA03v5gtxWCECNvhbFtCKn4tCVRRUSy65vFHnRixIHIEgh7gP0Z2a
+ GudMMa9rF/cxjtCUc70J/FzOrilteV7wFQZMYwOXYKki7pSfwAisqgervbbHazs7fJGn
+ iOHloeoP1/nUIIgYiLTF80Ip3qBpkOMjdbKjSCGLevL9D+b0IQDdSpqk4B9cvJL5W2yw
+ Gc4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+ :references:mime-version:content-disposition:in-reply-to:user-agent;
+ bh=r2/B31qGSfa1iMDSR51OvuwvHM+CgHqVSMjIbG31TO0=;
+ b=dQieQr1k68gHJ2dhLx/xxosDskRzanyFM9NYBQJIcalU9WPuNarh9FK7wDENCHI3xI
+ nLUUC0zJ+mL5Vmopi48V5RGvegAJh1p6uPPD3yBARUCeZ9ZQMKiUQiQLgULSyzeC4WQV
+ zAzw4m44RpU54IWQ5UJnJoSjwTIGxZEZ7dfqRESSt5whiQ2+Rl/j1ih69IHonmuRQF5I
+ 2QOLxxnXSoWNuL5wOUVLggfghm+WDq3xDQ5D5dWzzv3Jx6szBFV3QvSSF38z404mbp4T
+ kWMx/dtT1a+BxDNrHiRJY+Xjm+xECHEZcrQ9NIhAbqsCyjGL9CP2Rycx/jWDReqznl3e
+ tT9Q==
+X-Gm-Message-State: AMCzsaUjA5ZAopfAVCbuzJpddJgIjHcxEKybCBPlFsZnBpw4Dh05aBcm
+ TicpHcKwyphlwQqSdV90e+E=
+X-Google-Smtp-Source: ABhQp+TgY3/QwzFnwRSXr6Eso+B374K39WgDoX8cToXU6Ynardh+3TPkrX1qSrtnnzew4SdaBJD3cQ==
+X-Received: by 10.84.133.132 with SMTP id f4mr12039737plf.197.1509890927413;
+ Sun, 05 Nov 2017 06:08:47 -0800 (PST)
+Received: from localhost (108-223-40-66.lightspeed.sntcca.sbcglobal.net.
+ [108.223.40.66])
+ by smtp.gmail.com with ESMTPSA id u186sm16500126pgb.84.2017.11.05.06.08.46
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Sun, 05 Nov 2017 06:08:46 -0800 (PST)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Sun, 5 Nov 2017 06:08:45 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: linux-hwmon@vger.kernel.org, robh+dt@kernel.org, mark.rutland@arm.com,
+ jdelvare@suse.com, corbet@lwn.net, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ joel@jms.id.au, openbmc@lists.ozlabs.org
+Subject: Re: [v4, 2/6] pmbus: Add driver for Maxim MAX31785 Intelligent Fan
+ Controller
+Message-ID: <20171105140845.GA23722@roeck-us.net>
+References: <20171103045306.26448-3-andrew@aj.id.au>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1509724449-26221-2-git-send-email-oleksandrs@mellanox.com>
-User-Agent: Mutt/1.9.1 (2017-09-22)
+In-Reply-To: <20171103045306.26448-3-andrew@aj.id.au>
+User-Agent: Mutt/1.5.24 (2015-08-30)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -44,32 +72,242 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 04 Nov 2017 11:36:23 -0000
+X-List-Received-Date: Sun, 05 Nov 2017 14:08:51 -0000
 
-On Fri, Nov 03, 2017 at 05:54:06PM +0200, Oleksandr Shamray wrote:
-> diff --git a/include/uapi/linux/jtag.h b/include/uapi/linux/jtag.h
+On Fri, Nov 03, 2017 at 03:53:02PM +1100, Andrew Jeffery wrote:
+> The Maxim MAX31785 is a PMBus device providing closed-loop, multi-channel fan
+> management with temperature and remote voltage sensing. Various fan control
+> features are provided, including PWM frequency control, temperature hysteresis,
+> dual tachometer measurements, and fan health monitoring.
+> 
+I updated the above text a little to make it more obvious that "are provided"
+refers to the chip, not (yet) to the driver.
+
+> This patch presents a basic driver using only the existing features of the
+> PMBus subsystem.
+> 
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+
+Applied to hwmon-next.
+
+> ---
+>  Documentation/hwmon/max31785   |  51 ++++++++++++++++++
+>  drivers/hwmon/pmbus/Kconfig    |  10 ++++
+>  drivers/hwmon/pmbus/Makefile   |   1 +
+>  drivers/hwmon/pmbus/max31785.c | 116 +++++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 178 insertions(+)
+>  create mode 100644 Documentation/hwmon/max31785
+>  create mode 100644 drivers/hwmon/pmbus/max31785.c
+> 
+> diff --git a/Documentation/hwmon/max31785 b/Documentation/hwmon/max31785
 > new file mode 100644
-> index 0000000..0b25a83
+> index 000000000000..45fb6093dec2
 > --- /dev/null
-> +++ b/include/uapi/linux/jtag.h
-> @@ -0,0 +1,117 @@
+> +++ b/Documentation/hwmon/max31785
+> @@ -0,0 +1,51 @@
+> +Kernel driver max31785
+> +======================
+> +
+> +Supported chips:
+> +  * Maxim MAX31785, MAX31785A
+> +    Prefix: 'max31785' or 'max31785a'
+> +    Addresses scanned: -
+> +    Datasheet: https://datasheets.maximintegrated.com/en/ds/MAX31785.pdf
+> +
+> +Author: Andrew Jeffery <andrew@aj.id.au>
+> +
+> +Description
+> +-----------
+> +
+> +The Maxim MAX31785 is a PMBus device providing closed-loop, multi-channel fan
+> +management with temperature and remote voltage sensing. Various fan control
+> +features are provided, including PWM frequency control, temperature hysteresis,
+> +dual tachometer measurements, and fan health monitoring.
+> +
+> +For dual rotor fan configuration, the MAX31785 exposes the slowest rotor of the
+> +two in the fan[1-4]_input attributes.
+> +
+> +Usage Notes
+> +-----------
+> +
+> +This driver does not probe for PMBus devices. You will have to instantiate
+> +devices explicitly.
+> +
+> +Sysfs attributes
+> +----------------
+> +
+> +fan[1-4]_alarm		Fan alarm.
+> +fan[1-4]_fault		Fan fault.
+> +fan[1-4]_input		Fan RPM.
+> +
+> +in[1-6]_crit		Critical maximum output voltage
+> +in[1-6]_crit_alarm	Output voltage critical high alarm
+> +in[1-6]_input		Measured output voltage
+> +in[1-6]_label		"vout[18-23]"
+> +in[1-6]_lcrit		Critical minimum output voltage
+> +in[1-6]_lcrit_alarm	Output voltage critical low alarm
+> +in[1-6]_max		Maximum output voltage
+> +in[1-6]_max_alarm	Output voltage high alarm
+> +in[1-6]_min		Minimum output voltage
+> +in[1-6]_min_alarm	Output voltage low alarm
+> +
+> +temp[1-11]_crit		Critical high temperature
+> +temp[1-11]_crit_alarm	Chip temperature critical high alarm
+> +temp[1-11]_input	Measured temperature
+> +temp[1-11]_max		Maximum temperature
+> +temp[1-11]_max_alarm	Chip temperature high alarm
+> diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
+> index 40019325b517..08479006c7f9 100644
+> --- a/drivers/hwmon/pmbus/Kconfig
+> +++ b/drivers/hwmon/pmbus/Kconfig
+> @@ -114,6 +114,16 @@ config SENSORS_MAX20751
+>  	  This driver can also be built as a module. If so, the module will
+>  	  be called max20751.
+>  
+> +config SENSORS_MAX31785
+> +	tristate "Maxim MAX31785 and compatibles"
+> +	default n
+> +	help
+> +	  If you say yes here you get hardware monitoring support for Maxim
+> +	  MAX31785.
+> +
+> +	  This driver can also be built as a module. If so, the module will
+> +	  be called max31785.
+> +
+>  config SENSORS_MAX34440
+>  	tristate "Maxim MAX34440 and compatibles"
+>  	default n
+> diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
+> index 459a6be3390e..a8bf0e490db9 100644
+> --- a/drivers/hwmon/pmbus/Makefile
+> +++ b/drivers/hwmon/pmbus/Makefile
+> @@ -12,6 +12,7 @@ obj-$(CONFIG_SENSORS_LTC2978)	+= ltc2978.o
+>  obj-$(CONFIG_SENSORS_LTC3815)	+= ltc3815.o
+>  obj-$(CONFIG_SENSORS_MAX16064)	+= max16064.o
+>  obj-$(CONFIG_SENSORS_MAX20751)	+= max20751.o
+> +obj-$(CONFIG_SENSORS_MAX31785)	+= max31785.o
+>  obj-$(CONFIG_SENSORS_MAX34440)	+= max34440.o
+>  obj-$(CONFIG_SENSORS_MAX8688)	+= max8688.o
+>  obj-$(CONFIG_SENSORS_TPS40422)	+= tps40422.o
+> diff --git a/drivers/hwmon/pmbus/max31785.c b/drivers/hwmon/pmbus/max31785.c
+> new file mode 100644
+> index 000000000000..9313849d5160
+> --- /dev/null
+> +++ b/drivers/hwmon/pmbus/max31785.c
+> @@ -0,0 +1,116 @@
 > +/*
-> + * JTAG class driver
+> + * Copyright (C) 2017 IBM Corp.
 > + *
-> + * Copyright (c) 2017 Mellanox Technologies. All rights reserved.
-> + * Copyright (c) 2017 Oleksandr Shamray <oleksandrs@mellanox.com>
-> + *
-> + * Released under the GPLv2/BSD.
-> + * SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
-
-Minor nit, this should go on the first line of the .h file now, to match
-the rest of the kernel (just happened, not your fault.)
-
-Also, uapi files are not just GPLv2, they have the userspace exception,
-so this should just be:
-	SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note
-no need to add any BSD stuff to it at all.
-
-thanks,
-
-greg k-h
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License as published by
+> + * the Free Software Foundation; either version 2 of the License, or
+> + * (at your option) any later version.
+> + */
+> +
+> +#include <linux/kernel.h>
+> +#include <linux/module.h>
+> +#include <linux/init.h>
+> +#include <linux/err.h>
+> +#include <linux/i2c.h>
+> +#include "pmbus.h"
+> +
+> +enum max31785_regs {
+> +	MFR_REVISION		= 0x9b,
+> +};
+> +
+> +#define MAX31785_NR_PAGES		23
+> +
+> +#define MAX31785_FAN_FUNCS \
+> +	(PMBUS_HAVE_FAN12 | PMBUS_HAVE_STATUS_FAN12)
+> +
+> +#define MAX31785_TEMP_FUNCS \
+> +	(PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP)
+> +
+> +#define MAX31785_VOUT_FUNCS \
+> +	(PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT)
+> +
+> +static const struct pmbus_driver_info max31785_info = {
+> +	.pages = MAX31785_NR_PAGES,
+> +
+> +	/* RPM */
+> +	.format[PSC_FAN] = direct,
+> +	.m[PSC_FAN] = 1,
+> +	.b[PSC_FAN] = 0,
+> +	.R[PSC_FAN] = 0,
+> +	.func[0] = MAX31785_FAN_FUNCS,
+> +	.func[1] = MAX31785_FAN_FUNCS,
+> +	.func[2] = MAX31785_FAN_FUNCS,
+> +	.func[3] = MAX31785_FAN_FUNCS,
+> +	.func[4] = MAX31785_FAN_FUNCS,
+> +	.func[5] = MAX31785_FAN_FUNCS,
+> +
+> +	.format[PSC_TEMPERATURE] = direct,
+> +	.m[PSC_TEMPERATURE] = 1,
+> +	.b[PSC_TEMPERATURE] = 0,
+> +	.R[PSC_TEMPERATURE] = 2,
+> +	.func[6]  = MAX31785_TEMP_FUNCS,
+> +	.func[7]  = MAX31785_TEMP_FUNCS,
+> +	.func[8]  = MAX31785_TEMP_FUNCS,
+> +	.func[9]  = MAX31785_TEMP_FUNCS,
+> +	.func[10] = MAX31785_TEMP_FUNCS,
+> +	.func[11] = MAX31785_TEMP_FUNCS,
+> +	.func[12] = MAX31785_TEMP_FUNCS,
+> +	.func[13] = MAX31785_TEMP_FUNCS,
+> +	.func[14] = MAX31785_TEMP_FUNCS,
+> +	.func[15] = MAX31785_TEMP_FUNCS,
+> +	.func[16] = MAX31785_TEMP_FUNCS,
+> +
+> +	.format[PSC_VOLTAGE_OUT] = direct,
+> +	.m[PSC_VOLTAGE_OUT] = 1,
+> +	.b[PSC_VOLTAGE_OUT] = 0,
+> +	.R[PSC_VOLTAGE_OUT] = 0,
+> +	.func[17] = MAX31785_VOUT_FUNCS,
+> +	.func[18] = MAX31785_VOUT_FUNCS,
+> +	.func[19] = MAX31785_VOUT_FUNCS,
+> +	.func[20] = MAX31785_VOUT_FUNCS,
+> +	.func[21] = MAX31785_VOUT_FUNCS,
+> +	.func[22] = MAX31785_VOUT_FUNCS,
+> +};
+> +
+> +static int max31785_probe(struct i2c_client *client,
+> +			  const struct i2c_device_id *id)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct pmbus_driver_info *info;
+> +	s64 ret;
+> +
+> +	info = devm_kzalloc(dev, sizeof(struct pmbus_driver_info), GFP_KERNEL);
+> +	if (!info)
+> +		return -ENOMEM;
+> +
+> +	*info = max31785_info;
+> +
+> +	ret = i2c_smbus_write_byte_data(client, PMBUS_PAGE, 255);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return pmbus_do_probe(client, id, info);
+> +}
+> +
+> +static const struct i2c_device_id max31785_id[] = {
+> +	{ "max31785", 0 },
+> +	{ "max31785a", 0 },
+> +	{ },
+> +};
+> +
+> +MODULE_DEVICE_TABLE(i2c, max31785_id);
+> +
+> +static struct i2c_driver max31785_driver = {
+> +	.driver = {
+> +		.name = "max31785",
+> +	},
+> +	.probe = max31785_probe,
+> +	.remove = pmbus_do_remove,
+> +	.id_table = max31785_id,
+> +};
+> +
+> +module_i2c_driver(max31785_driver);
+> +
+> +MODULE_AUTHOR("Andrew Jeffery <andrew@aj.id.au>");
+> +MODULE_DESCRIPTION("PMBus driver for the Maxim MAX31785");
+> +MODULE_LICENSE("GPL");
