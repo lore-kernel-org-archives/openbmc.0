@@ -1,67 +1,100 @@
-Return-Path: <tmaimon77@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c06::244; helo=mail-io0-x244.google.com;
- envelope-from=tmaimon77@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="ItnXzUAB"; 
+Return-Path: <oleksandrs@mellanox.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=mellanox.com
+ (client-ip=104.47.1.63; helo=eur01-ve1-obe.outbound.protection.outlook.com;
+ envelope-from=oleksandrs@mellanox.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b="IFnSND8V";
  dkim-atps=neutral
-Received: from mail-io0-x244.google.com (mail-io0-x244.google.com
- [IPv6:2607:f8b0:4001:c06::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur01on0063.outbound.protection.outlook.com [104.47.1.63])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yVpqz0SV1zDrKc
- for <openbmc@lists.ozlabs.org>; Mon,  6 Nov 2017 21:35:58 +1100 (AEDT)
-Received: by mail-io0-x244.google.com with SMTP id b186so15150477iof.8
- for <openbmc@lists.ozlabs.org>; Mon, 06 Nov 2017 02:35:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=5wKooCYRkk1hP/HnZfMOGohEgzXMj1Cf8GXz/f8TEwk=;
- b=ItnXzUABQumr7i5V0ZvQZ0OaVCNUzqOYrR8GMovQkfYKgVWWm6i1F20gv56TEvON5x
- 9md77bj90TS9lAAL9tALKg2y9WTv6q3L0ltvr17aZqjB9jBvn+I6Jj9/OA4wSxpmEU19
- wlsr3YSZXk1avA4G78jcRqwnlppy36hGh4JO801fp3UZDvAf6ynT7lrhAQF6aPF56IGL
- rQnbH9pd0OohzP/2EzvIy5pueQU/05tf61E3ec4Nv413dGNzVJgUd5LztVcTaSHxmiIg
- uwHVW8lay4HvfOHRtIRbHjswx5BDagPAzXN468pXsVCPD8iTA3EfPN0yr2evSSFRIHIe
- fKaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=5wKooCYRkk1hP/HnZfMOGohEgzXMj1Cf8GXz/f8TEwk=;
- b=IrJYtfr/ygwTA6sZwBEiqFg02Ftc1dp34nC/KaPJFf1/qrrXU/mwTulZtrdHFKqR2q
- 9RgW1zEriPhTO0uABF4eqGmJGL1L8cW+v0EoEQ21AcQtUk7wUB6zGo65OLNajgeBvTls
- mAlYV2SMHZqh4MxqzijTGALLrTqgYRu/TWRFLcxwH4kAgpfXbs5uMPEoV6BcexKHnCms
- K29JuY9L5zrknw6QWr9RbBYrTA2Bd6w+MlMB9i7NB3914xQkhEGe72zu82rC+ga2ZTU5
- Yln5FYuizw21BQF2B8W2Kr3tcGUsEH4h2VDH8kjIz2WgK3ssFzR0cTJPo9z6BH1vVIb7
- LsoQ==
-X-Gm-Message-State: AJaThX4xKc2gXtGnnrFemfLS9mvoKLbDB9Ke9mDWrobdztgsps9VcHRd
- 7jv3XrKEEYxA/VnRTUHxqkjfhFTwF1ilu0ck/2Q=
-X-Google-Smtp-Source: ABhQp+TRFJB3IJZhB9fhja3LFQ0UrLmOxEWoE1Gtk4DeA4tHnt3Ft67mRfsxfS96tn+F9tSW1+Qa/uk/uoI0b31geSU=
-X-Received: by 10.107.46.8 with SMTP id i8mr19204990ioo.298.1509964556156;
- Mon, 06 Nov 2017 02:35:56 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yVw024Q7yzDr6m
+ for <openbmc@lists.ozlabs.org>; Tue,  7 Nov 2017 01:28:17 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
+ s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=LARZJpw96CZ7ifWrzzilsKvdj9cqKefpNhXGxNkCFIQ=;
+ b=IFnSND8V3pLx+w8DKPEc4BFcz/RcevRNu2SbIg4RaPRJXcZlxEz9VOd7lWAJc9E5y3sl526xq9Mt/Csy66ttpFZEf6u2kuK5jzIESm4qJTM+qnl9Gfj8KKeMifPRm7+DOyZ2y/bm/B3mBch8TKr/9IuLTh70M7lmrzloSlEC8OE=
+Received: from DB6PR0501MB2197.eurprd05.prod.outlook.com (10.168.55.142) by
+ HE1PR05MB3339.eurprd05.prod.outlook.com (10.170.243.145) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id
+ 15.20.197.13; Mon, 6 Nov 2017 14:28:08 +0000
+Received: from DB6PR0501MB2197.eurprd05.prod.outlook.com
+ ([fe80::2d11:739a:2eff:7c50]) by DB6PR0501MB2197.eurprd05.prod.outlook.com
+ ([fe80::2d11:739a:2eff:7c50%14]) with mapi id 15.20.0197.017; Mon, 6 Nov 2017
+ 14:28:08 +0000
+From: Oleksandr Shamray <oleksandrs@mellanox.com>
+To: Chip Bilbrey <chip@bilbrey.org>
+CC: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "arnd@arndb.de"
+ <arnd@arndb.de>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>, "openbmc@lists.ozlabs.org"
+ <openbmc@lists.ozlabs.org>, "joel@jms.id.au" <joel@jms.id.au>,
+ "jiri@resnulli.us" <jiri@resnulli.us>, "tklauser@distanz.ch"
+ <tklauser@distanz.ch>, "linux-serial@vger.kernel.org"
+ <linux-serial@vger.kernel.org>, "mec@shout.net" <mec@shout.net>, "Vadim
+ Pasternak" <vadimp@mellanox.com>, system-sw-low-level
+ <system-sw-low-level@mellanox.com>, "robh+dt@kernel.org"
+ <robh+dt@kernel.org>, "openocd-devel-owner@lists.sourceforge.net"
+ <openocd-devel-owner@lists.sourceforge.net>, "linux-api@vger.kernel.org"
+ <linux-api@vger.kernel.org>, "davem@davemloft.net" <davem@davemloft.net>,
+ "mchehab@kernel.org" <mchehab@kernel.org>, Jiri Pirko <jiri@mellanox.com>
+Subject: RE: [v11,1/4] drivers: jtag: Add JTAG core driver
+Thread-Topic: [v11,1/4] drivers: jtag: Add JTAG core driver
+Thread-Index: AQHTVoYZEAkiZu03y0GEL/O3ci1kT6MHUhTw
+Date: Mon, 6 Nov 2017 14:28:08 +0000
+Message-ID: <DB6PR0501MB2197286DFD9801F6C78D638DB1500@DB6PR0501MB2197.eurprd05.prod.outlook.com>
+References: <1509724449-26221-2-git-send-email-oleksandrs@mellanox.com>
+ <8760aoz78q.fsf@bilbrey.org>
+In-Reply-To: <8760aoz78q.fsf@bilbrey.org>
+Accept-Language: en-US, uk-UA
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=oleksandrs@mellanox.com; 
+x-originating-ip: [80.90.224.13]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; HE1PR05MB3339;
+ 6:5W0JQj9X1dDZYPzTTKhV9tGDUZlxFAV4VEGBAEC2Pm7GU9cg5jbAXofqGPS07kkFwwB1rvvXreXW7tLGmKlnDd9+6ofgpwB+PhfmbRI4/gKr+86mBWsbpnoAMHhzPvQWXacviZWj5Ch3y7HAGfhTpq++XckXONXIL69AUEcJ6HOw0aqyxam9J1Y6wxDkNCj5yEAOR6srfJgxtnw1dQ4uAPlXK1mTFKrjlQSQrZJdleXIdHyp1KiUajSjvML6vo1WDeAIexZVxxQBX06ZQP9rR4SoeYvlnAtdKDcBjbgx+iR7TD0BI1JVq1/vbwhbC2igbs+Ei+CbQydVZ+S2uWN5f4JTwUCOlXNSg74MTmg5DhU=;
+ 5:v7/5ZM+IvhdU67dCZ9W9VscvcxbMn7DsQUtzsQgn+0yttbU/aZ8kpDZ84o+vfLVNPZ2czopQuIjsjdGpa6LG3d69YjS6/rPmiCAXLlUArrcd0mwrq3fwhgkLt1Y3vcp77+utyia9OUAu294Y0m6VDuNg9IUL9iqYE+3UpaABd9o=;
+ 24:JG4imfq1ErQ4/5JDPz9XsYbe211/cs5C2AdFhG8pHEosI3RP9KmmCUXxcfc5mjtoxmWBdLyOsLk0flrzJkQH8U+XckqFFt0j5XItBIZXLSQ=;
+ 7:UVPYW29ZBG30pnKLXrkPBGjPlShC+/ACmZ6AnHmQteLmL0P9f6St2CVJudTKNtIV2aaraARAB6dfENpuwiIcdN+R4RssEzXWXm95SnABvV69At/7L7rDqCl9XCAWCxSYeb0W6iLabd52cwuYJ0wKWOkRhUOrYDYcL55tJBVreD+RPzD9emQ/OyT6pOuK/5X0UOw+gdcVk4Ak2ZSc5SEEx8DIK1zVD1rqzmqExbXKOp2vAu0MCIdWRYbyeHg2Nilo
+x-ms-exchange-antispam-srfa-diagnostics: SSOS;SSOR;
+x-ms-office365-filtering-correlation-id: dbdd934b-d5ec-4b9c-df12-08d5252299d3
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
+ RULEID:(22001)(48565401081)(4534020)(4602075)(4627115)(201703031133081)(201702281549075)(2017052603199);
+ SRVR:HE1PR05MB3339; 
+x-ms-traffictypediagnostic: HE1PR05MB3339:
+x-exchange-antispam-report-test: UriScan:(143289334528602)(9452136761055)(65623756079841)(258649278758335)(42262312472803);
+x-microsoft-antispam-prvs: <HE1PR05MB33393345F6F0C37C5C0809CDB1500@HE1PR05MB3339.eurprd05.prod.outlook.com>
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(100000700101)(100105000095)(100000701101)(100105300095)(100000702101)(100105100095)(6040450)(2401047)(8121501046)(5005006)(3231021)(100000703101)(100105400095)(3002001)(93006095)(93001095)(10201501046)(6055026)(6041248)(20161123564025)(20161123562025)(20161123555025)(201703131423075)(201702281528075)(201703061421075)(201703061406153)(20161123560025)(20161123558100)(6072148)(201708071742011)(100000704101)(100105200095)(100000705101)(100105500095);
+ SRVR:HE1PR05MB3339; BCL:0; PCL:0;
+ RULEID:(100000800101)(100110000095)(100000801101)(100110300095)(100000802101)(100110100095)(100000803101)(100110400095)(100000804101)(100110200095)(100000805101)(100110500095);
+ SRVR:HE1PR05MB3339; 
+x-forefront-prvs: 048396AFA0
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(6009001)(346002)(39860400002)(376002)(199003)(189002)(13464003)(478600001)(8676002)(97736004)(66066001)(55016002)(316002)(53936002)(33656002)(81156014)(14454004)(81166006)(53546010)(8936002)(189998001)(7736002)(68736007)(7416002)(74316002)(7696004)(5660300001)(305945005)(9686003)(106356001)(105586002)(25786009)(229853002)(6916009)(2900100001)(2950100002)(6116002)(6506006)(3846002)(102836003)(6436002)(2906002)(3280700002)(54356999)(76176999)(101416001)(5250100002)(99286004)(4326008)(575784001)(50986999)(3660700001)(86362001)(54906003)(6246003)(107886003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:HE1PR05MB3339;
+ H:DB6PR0501MB2197.eurprd05.prod.outlook.com; FPR:; SPF:None; PTR:InfoNoRecords;
+ A:1; MX:1; LANG:en; 
+received-spf: None (protection.outlook.com: mellanox.com does not designate
+ permitted sender hosts)
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Received: by 10.2.28.66 with HTTP; Mon, 6 Nov 2017 02:35:55 -0800 (PST)
-In-Reply-To: <CAFd5g45cmhQn7vXSzYrCeKnP+o-Q3bpNON02dgBvvSoCuAaxNQ@mail.gmail.com>
-References: <20171019225050.25410-1-brendanhiggins@google.com>
- <20171019225050.25410-2-brendanhiggins@google.com>
- <20171020104807.GE20805@n2100.armlinux.org.uk>
- <CAFd5g45_VV_76zexrgBSWaqNXMsYfZPX6hLHGGc_EVdtsQrzCw@mail.gmail.com>
- <20171020210826.GJ20805@n2100.armlinux.org.uk>
- <CAP6Zq1i-6EJVH8=5-ejcsO_M-wsPQFhbQNCv7evCoiAjDRE74w@mail.gmail.com>
- <CAFd5g45cmhQn7vXSzYrCeKnP+o-Q3bpNON02dgBvvSoCuAaxNQ@mail.gmail.com>
-From: Tomer Maimon <tmaimon77@gmail.com>
-Date: Mon, 6 Nov 2017 12:35:55 +0200
-Message-ID: <CAP6Zq1gRV9wRbe4hONtMhOGLGbAZm0ZjqL2vN-skmh9q4m1J4w@mail.gmail.com>
-Subject: Re: [PATCH v7 1/3] arm: npcm: add basic support for Nuvoton BMCs
-To: Brendan Higgins <brendanhiggins@google.com>
-Cc: Russell King - ARM Linux <linux@armlinux.org.uk>,
- Avi Fishman <avifishman70@gmail.com>, 
- Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rick Altherr <raltherr@google.com>, Florian Fainelli <f.fainelli@gmail.com>, 
- devicetree <devicetree@vger.kernel.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-arm-kernel@lists.infradead.org, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+X-OriginatorOrg: Mellanox.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dbdd934b-d5ec-4b9c-df12-08d5252299d3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2017 14:28:08.1301 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR05MB3339
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -73,386 +106,105 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 06 Nov 2017 10:35:59 -0000
+X-List-Received-Date: Mon, 06 Nov 2017 14:28:20 -0000
 
-On 4 November 2017 at 02:49, Brendan Higgins <brendanhiggins@google.com> wrote:
-> On Thu, Oct 26, 2017 at 4:45 AM, Tomer Maimon <tmaimon77@gmail.com> wrote:
->> Hi Brendan,
->>
->> Sorry for the delay,
->>
->> On 21 October 2017 at 00:08, Russell King - ARM Linux
->> <linux@armlinux.org.uk> wrote:
->>> On Fri, Oct 20, 2017 at 01:57:47PM -0700, Brendan Higgins wrote:
->>>> On Fri, Oct 20, 2017 at 3:48 AM, Russell King - ARM Linux
->>>> <linux@armlinux.org.uk> wrote:
->>>> > On Thu, Oct 19, 2017 at 03:50:48PM -0700, Brendan Higgins wrote:
->>>> >> Adds basic support for the Nuvoton NPCM750 BMC.
->>>> >>
->>>> >> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
->>>> >> Reviewed-by: Tomer Maimon <tmaimon77@gmail.com>
->>>> >> Reviewed-by: Avi Fishman <avifishman70@gmail.com>
->>>> >> Tested-by: Tomer Maimon <tmaimon77@gmail.com>
->>>> >> Tested-by: Avi Fishman <avifishman70@gmail.com>
->>>> >> ---
->>>> >>  arch/arm/Kconfig             |  2 +
->>>> >>  arch/arm/Makefile            |  1 +
->>>> >>  arch/arm/mach-npcm/Kconfig   | 48 ++++++++++++++++++++++++
->>>> >>  arch/arm/mach-npcm/Makefile  |  3 ++
->>>> >>  arch/arm/mach-npcm/headsmp.S | 17 +++++++++
->>>> >>  arch/arm/mach-npcm/npcm7xx.c | 34 +++++++++++++++++
->>>> >>  arch/arm/mach-npcm/platsmp.c | 88 ++++++++++++++++++++++++++++++++++++++++++++
->>>> >>  7 files changed, 193 insertions(+)
->>>> >>  create mode 100644 arch/arm/mach-npcm/Kconfig
->>>> >>  create mode 100644 arch/arm/mach-npcm/Makefile
->>>> >>  create mode 100644 arch/arm/mach-npcm/headsmp.S
->>>> >>  create mode 100644 arch/arm/mach-npcm/npcm7xx.c
->>>> >>  create mode 100644 arch/arm/mach-npcm/platsmp.c
->>>> >>
->>>> >> diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
->>>> >> index 61a0cb15067e..05543f1cfbde 100644
->>>> >> --- a/arch/arm/Kconfig
->>>> >> +++ b/arch/arm/Kconfig
->>>> >> @@ -782,6 +782,8 @@ source "arch/arm/mach-netx/Kconfig"
->>>> >>
->>>> >>  source "arch/arm/mach-nomadik/Kconfig"
->>>> >>
->>>> >> +source "arch/arm/mach-npcm/Kconfig"
->>>> >> +
->>>> >>  source "arch/arm/mach-nspire/Kconfig"
->>>> >>
->>>> >>  source "arch/arm/plat-omap/Kconfig"
->>>> >> diff --git a/arch/arm/Makefile b/arch/arm/Makefile
->>>> >> index 47d3a1ab08d2..60ca50c7d762 100644
->>>> >> --- a/arch/arm/Makefile
->>>> >> +++ b/arch/arm/Makefile
->>>> >> @@ -191,6 +191,7 @@ machine-$(CONFIG_ARCH_MEDIATEK)           += mediatek
->>>> >>  machine-$(CONFIG_ARCH_MXS)           += mxs
->>>> >>  machine-$(CONFIG_ARCH_NETX)          += netx
->>>> >>  machine-$(CONFIG_ARCH_NOMADIK)               += nomadik
->>>> >> +machine-$(CONFIG_ARCH_NPCM)          += npcm
->>>> >>  machine-$(CONFIG_ARCH_NSPIRE)                += nspire
->>>> >>  machine-$(CONFIG_ARCH_OXNAS)         += oxnas
->>>> >>  machine-$(CONFIG_ARCH_OMAP1)         += omap1
->>>> >> diff --git a/arch/arm/mach-npcm/Kconfig b/arch/arm/mach-npcm/Kconfig
->>>> >> new file mode 100644
->>>> >> index 000000000000..21dfa8ce828f
->>>> >> --- /dev/null
->>>> >> +++ b/arch/arm/mach-npcm/Kconfig
->>>> >> @@ -0,0 +1,48 @@
->>>> >> +menuconfig ARCH_NPCM
->>>> >> +     bool "Nuvoton NPCM Architecture"
->>>> >> +     select ARCH_REQUIRE_GPIOLIB
->>>> >> +     select USE_OF
->>>> >> +     select PINCTRL
->>>> >> +     select PINCTRL_NPCM7XX
->>>> >> +
->>>> >> +if ARCH_NPCM
->>>> >> +
->>>> >> +comment "NPCMX50 CPU type"
->>>> >> +
->>>> >> +config CPU_NPCM750
->>
->> I started the upstream process of NPCM7xx clocksource driver, I got
->> the following comment
->> https://www.spinics.net/lists/devicetree/msg197916.html
->>
->> Is it possible to modify the the architecture configuration name to
->> ARCH_NPCM7XX.
->
-> You mean the CPU config: CPU_NPCM7XX?
-Sorry about the confusion, I mean to modify the CPU_NPCM750 to ARCH_NPCM750.
->
-> I think the ARCH_NPCM is right, since that corresponds to this directory
-> which is for all ARM Nuvoton BMCs.
->
->>
->>>> >> +     depends on ARCH_NPCM && ARCH_MULTI_V7
->>>> >> +     bool "Support for NPCM750 BMC CPU (Poleg)"
->>>> >> +     select CACHE_L2X0
->>>> >> +     select CPU_V7
->>>> >> +     select ARM_GIC
->>>> >> +     select HAVE_SMP
->>>> >> +     select SMP
->>>> >> +     select SMP_ON_UP
->>>> >> +     select HAVE_ARM_SCU
->>>> >> +     select HAVE_ARM_TWD if SMP
->>>> >> +     select ARM_ERRATA_720789
->>>> >> +     select ARM_ERRATA_754322
->>>> >> +     select ARM_ERRATA_764369
->>>> >> +     select ARM_ERRATA_794072
->>>> >> +     select PL310_ERRATA_588369
->>>> >> +     select PL310_ERRATA_727915
->>>> >> +     select USB_EHCI_ROOT_HUB_TT
->>>> >> +     select USB_ARCH_HAS_HCD
->>>> >> +     select USB_ARCH_HAS_EHCI
->>>> >> +     select USB_EHCI_HCD
->>>> >> +     select USB_ARCH_HAS_OHCI
->>>> >> +     select USB_OHCI_HCD
->>>> >> +     select USB
->>>> >> +     select FIQ
->>>> >> +     select CPU_USE_DOMAINS
->>>> >> +     select GENERIC_CLOCKEVENTS
->>>> >> +     select CLKDEV_LOOKUP
->>>> >> +     select COMMON_CLK if OF
->>>> >> +     select NPCM750_TIMER
->>>> >> +     select MFD_SYSCON
->>>> >> +     help
->>>> >> +       Support for NPCM750 BMC CPU (Poleg).
->>>> >> +
->>>> >> +       Nuvoton NPCM750 BMC based on the Cortex A9.
->>>> >> +
->>>> >> +endif
->>>> >> diff --git a/arch/arm/mach-npcm/Makefile b/arch/arm/mach-npcm/Makefile
->>>> >> new file mode 100644
->>>> >> index 000000000000..78416055b854
->>>> >> --- /dev/null
->>>> >> +++ b/arch/arm/mach-npcm/Makefile
->>>> >> @@ -0,0 +1,3 @@
->>>> >> +AFLAGS_headsmp.o             += -march=armv7-a
->>>> >> +
->>>> >> +obj-$(CONFIG_CPU_NPCM750)    += npcm7xx.o platsmp.o headsmp.o
->>>> >> diff --git a/arch/arm/mach-npcm/headsmp.S b/arch/arm/mach-npcm/headsmp.S
->>>> >> new file mode 100644
->>>> >> index 000000000000..9fccbbd49ed4
->>>> >> --- /dev/null
->>>> >> +++ b/arch/arm/mach-npcm/headsmp.S
->>>> >> @@ -0,0 +1,17 @@
->>>> >> +/*
->>>> >> + * Copyright 2017 Google, Inc.
->>>> >> + *
->>>> >> + * This program is free software; you can redistribute it and/or modify
->>>> >> + * it under the terms of the GNU General Public License version 2 as
->>>> >> + * published by the Free Software Foundation.
->>>> >> + */
->>>> >> +
->>>> >> +#include <linux/linkage.h>
->>>> >> +#include <linux/init.h>
->>>> >> +#include <asm/assembler.h>
->>>> >> +
->>>> >> +ENTRY(npcm7xx_secondary_startup)
->>>> >> +     safe_svcmode_maskall r0
->>>> >> +
->>>> >> +     b       secondary_startup
->>>> >> +ENDPROC(npcm7xx_secondary_startup)
->>>> >
->>>> > Why do you need this?  The switch to svc mode is already handled by
->>>> > secondary_startup.
->>>>
->>>> Florian Fainelli already brought this up:
->>>> https://www.spinics.net/lists/arm-kernel/msg605126.html
->>>> Without this the kernel complains that the core is started in
->>>> "wrong/inconsistent mode":
->>>
->>> The solution would be a comment to indicate why it's necessary :)
->>>
->>>>
->>>> SMP: Total of 2 processors activated (398.13 BogoMIPS).
->>>> CPU: WARNING: CPU(s) started in wrong/inconsistent modes (primary CPU
->>>> mode 0x13)
->>>> CPU: This may indicate a broken bootloader or firmware.
->>>>
->>>> >
->>>> >> diff --git a/arch/arm/mach-npcm/npcm7xx.c b/arch/arm/mach-npcm/npcm7xx.c
->>>> >> new file mode 100644
->>>> >> index 000000000000..132e9d587857
->>>> >> --- /dev/null
->>>> >> +++ b/arch/arm/mach-npcm/npcm7xx.c
->>>> >> @@ -0,0 +1,34 @@
->>>> >> +/*
->>>> >> + * Copyright (c) 2017 Nuvoton Technology corporation.
->>>> >> + * Copyright 2017 Google, Inc.
->>>> >> + *
->>>> >> + * This program is free software; you can redistribute it and/or modify
->>>> >> + * it under the terms of the GNU General Public License version 2 as
->>>> >> + * published by the Free Software Foundation.
->>>> >> + */
->>>> >> +
->>>> >> +#include <linux/kernel.h>
->>>> >> +#include <linux/types.h>
->>>> >> +#include <asm/mach/arch.h>
->>>> >> +#include <asm/mach-types.h>
->>>> >> +#include <asm/mach/map.h>
->>>> >> +#include <asm/hardware/cache-l2x0.h>
->>>> >> +
->>>> >> +#define NPCM7XX_AUX_VAL (L310_AUX_CTRL_INSTR_PREFETCH |                             \
->>>> >> +                      L310_AUX_CTRL_DATA_PREFETCH |                         \
->>>> >> +                      L310_AUX_CTRL_NS_LOCKDOWN |                           \
->>>> >> +                      L310_AUX_CTRL_CACHE_REPLACE_RR |                      \
->>>> >> +                      L2C_AUX_CTRL_SHARED_OVERRIDE |                        \
->>>> >> +                      L310_AUX_CTRL_FULL_LINE_ZERO)
->>>> >
->>>> > Do you really need all these flags?
->>>>
->>>> Tomer, Avi, do we need these? I got this from the original version of
->>>> the driver.
->>>
->>> The l2c driver manages L310_AUX_CTRL_FULL_LINE_ZERO itself, so you
->>> shouldn't specify that.
->>>
->>> L2C_AUX_CTRL_SHARED_OVERRIDE is managed via the "arm,shared-override"
->>> DT property, so you should use that in DT instead.
->>>
->>> Prefetching needs the prefetch control register configured to tune the
->>> prefetching - that's platform specific so the l2c driver doesn't touch
->>> it (it expects firmware to have configured it.)  If firmware needs to
->>> configure that, it might as well configure the flags too as they're
->>> shared into that very same register.  If not, I think the l2c prefetch
->>> register defaults to a very small prefetch, and is probably not worth
->>> setting the enable bits without configuring the depth of prefetch.
->>
->> Yes, we do it in the firmware.
->>
->>>
->>> L310_AUX_CTRL_NS_LOCKDOWN is always enabled by the l2c driver, so
->>> shouldn't be necessary.
->>>
->>> So that leaves only L310_AUX_CTRL_CACHE_REPLACE_RR.
->>>
->>
->> You dont need to add L310_AUX_CTRL_CACHE_REPLACE_RR to the l2c aux value.
->>
->>>>
->>>> >
->>>> >> +
->>>> >> +static const char *const npcm7xx_dt_match[] = {
->>>> >> +     "nuvoton,npcm750",
->>>> >> +     NULL
->>>> >> +};
->>>> >> +
->>>> >> +DT_MACHINE_START(NPCM7XX_DT, "NPCMX50 Chip family")
->>>> >> +     .atag_offset    = 0x100,
->>>> >> +     .dt_compat      = npcm7xx_dt_match,
->>>> >> +     .l2c_aux_val    = NPCM7XX_AUX_VAL,
->>>> >> +     .l2c_aux_mask   = ~NPCM7XX_AUX_VAL,
->>>> >> +MACHINE_END
->>>> >> diff --git a/arch/arm/mach-npcm/platsmp.c b/arch/arm/mach-npcm/platsmp.c
->>>> >> new file mode 100644
->>>> >> index 000000000000..450e83c3c531
->>>> >> --- /dev/null
->>>> >> +++ b/arch/arm/mach-npcm/platsmp.c
->>>> >> @@ -0,0 +1,88 @@
->>>> >> +/*
->>>> >> + * Copyright 2017 Google, Inc.
->>>> >> + *
->>>> >> + * This program is free software; you can redistribute it and/or modify
->>>> >> + * it under the terms of the GNU General Public License version 2 as
->>>> >> + * published by the Free Software Foundation.
->>>> >> + */
->>>> >> +
->>>> >> +#define pr_fmt(fmt) "PLATSMP: " fmt
->>>> >
->>>> > Maybe something more descriptive?
->>>> >
->>>> >> +
->>>> >> +#include <linux/delay.h>
->>>> >> +#include <linux/device.h>
->>>> >> +#include <linux/smp.h>
->>>> >> +#include <linux/io.h>
->>>> >> +#include <linux/of.h>
->>>> >> +#include <linux/of_device.h>
->>>> >> +#include <linux/of_platform.h>
->>>> >> +#include <linux/of_address.h>
->>>> >> +#include <asm/cacheflush.h>
->>>> >> +#include <asm/smp.h>
->>>> >> +#include <asm/smp_plat.h>
->>>> >> +#include <asm/smp_scu.h>
->>>> >> +
->>>> >> +#define NPCM7XX_SCRPAD_REG 0x13c
->>>> >> +
->>>> >> +extern void npcm7xx_secondary_startup(void);
->>>> >> +
->>>> >> +static int npcm7xx_smp_boot_secondary(unsigned int cpu,
->>>> >> +                                   struct task_struct *idle)
->>>> >> +{
->>>> >> +     struct device_node *gcr_np;
->>>> >> +     void __iomem *gcr_base;
->>>> >> +     int ret = 0;
->>>> >> +
->>>> >> +     gcr_np = of_find_compatible_node(NULL, NULL, "nuvoton,npcm750-gcr");
->>>> >> +     if (!gcr_np) {
->>>> >> +             pr_err("no gcr device node\n");
->>>> >> +             ret = -EFAULT;
->>>> >
->>>> > EFAULT is used for bad userspace addresses, it should not be used for
->>>> > other stuff - and a missing node is certainly not a "Bad address".
->>>> >
->>>> >> +             goto out;
->>>> >> +     }
->>>> >> +     gcr_base = of_iomap(gcr_np, 0);
->>>> >> +     if (!gcr_base) {
->>>> >> +             pr_err("could not iomap gcr at: 0x%p\n", gcr_base);
->>>> >> +             ret = -EFAULT;
->>>> >
->>>> > This is more -ENOMEM.
->>>> >
->>>> >> +             goto out;
->>>> >> +     }
->>>> >> +
->>>> >> +     /* give boot ROM kernel start address. */
->>>> >> +     iowrite32(__pa_symbol(npcm7xx_secondary_startup), gcr_base +
->>>> >> +               NPCM7XX_SCRPAD_REG);
->>>> >> +     /* make sure npcm7xx_secondary_startup is seen by all observers. */
->>>> >> +     smp_wmb();
->>>> >
->>>> > I think you mean "make sure the previous write is seen by all observers".
->>>> > However, doesn't "dsb_sev()" already do that?
->>>> >
->>>> >> +     dsb_sev();
->>>> >> +     /* make sure write buffer is drained */
->>>> >> +     mb();
->>>> >
->>>> > This looks over the top.
->>>> >
->>>> >> +
->>>> >> +     iounmap(gcr_base);
->>>> >> +out:
->>>> >> +     return ret;
->>>> >> +}
->>>> >> +
->>>> >> +static void __init npcm7xx_smp_prepare_cpus(unsigned int max_cpus)
->>>> >> +{
->>>> >> +     struct device_node *scu_np;
->>>> >> +     void __iomem *scu_base;
->>>> >> +
->>>> >> +     scu_np = of_find_compatible_node(NULL, NULL, "arm,cortex-a9-scu");
->>>> >> +     if (!scu_np) {
->>>> >> +             pr_err("no scu device node\n");
->>>> >> +             return;
->>>> >> +     }
->>>> >> +     scu_base = of_iomap(scu_np, 0);
->>>> >> +     if (!scu_base) {
->>>> >> +             pr_err("could not iomap scu at: 0x%p\n", scu_base);
->>>> >> +             return;
->>>> >> +     }
->>>> >> +
->>>> >> +     scu_enable(scu_base);
->>>> >> +
->>>> >> +     iounmap(scu_base);
->>>> >> +}
->>>> >> +
->>>> >> +static struct smp_operations npcm7xx_smp_ops __initdata = {
->>>> >> +     .smp_prepare_cpus = npcm7xx_smp_prepare_cpus,
->>>> >> +     .smp_boot_secondary = npcm7xx_smp_boot_secondary,
->>>> >> +};
->>>> >> +
->>>> >> +CPU_METHOD_OF_DECLARE(npcm7xx_smp, "nuvoton,npcm7xx-smp", &npcm7xx_smp_ops);
->>>> >> --
->>>> >> 2.15.0.rc0.271.g36b669edcc-goog
->>>> >>
->>>> >
->>>> > --
->>>> > RMK's Patch system: http://www.armlinux.org.uk/developer/patches/
->>>> > FTTC broadband for 0.8mile line in suburbia: sync at 8.8Mbps down 630kbps up
->>>> > According to speedtest.net: 8.21Mbps down 510kbps up
->>>
->>> --
->>> RMK's Patch system: http://www.armlinux.org.uk/developer/patches/
->>> FTTC broadband for 0.8mile line in suburbia: sync at 8.8Mbps down 630kbps up
->>> According to speedtest.net: 8.21Mbps down 510kbps up
->>
->> Thanks,
->>
->> Tomer
+Hi,=20
+Thanks for review>
 
-Thanks
+> -----Original Message-----
+> From: Chip Bilbrey [mailto:chip@bilbrey.org]
+> Sent: Monday, November 6, 2017 12:33 AM
+> To: Oleksandr Shamray <oleksandrs@mellanox.com>
+> Cc: gregkh@linuxfoundation.org; arnd@arndb.de; linux-
+> kernel@vger.kernel.org; linux-arm-kernel@lists.infradead.org;
+> devicetree@vger.kernel.org; openbmc@lists.ozlabs.org; joel@jms.id.au;
+> jiri@resnulli.us; tklauser@distanz.ch; linux-serial@vger.kernel.org;
+> mec@shout.net; Vadim Pasternak <vadimp@mellanox.com>; system-sw-low-
+> level <system-sw-low-level@mellanox.com>; robh+dt@kernel.org; openocd-
+> devel-owner@lists.sourceforge.net; linux-api@vger.kernel.org;
+> davem@davemloft.net; mchehab@kernel.org; Jiri Pirko <jiri@mellanox.com>
+> Subject: Re: [v11,1/4] drivers: jtag: Add JTAG core driver
+>=20
+>=20
+> Oleksandr Shamray writes:
+> > diff --git a/include/uapi/linux/jtag.h b/include/uapi/linux/jtag.h new
+> > file mode 100644 index 0000000..0b25a83
+> > --- /dev/null
+> > +++ b/include/uapi/linux/jtag.h
+> > [...]
+> > +/**
+> > + * enum jtag_xfer_mode:
+> > + *
+> > + * @JTAG_XFER_HW_MODE: hardware mode transfer
+> > + * @JTAG_XFER_SW_MODE: software mode transfer  */ enum
+> jtag_xfer_mode
+> > +{
+> > +	JTAG_XFER_HW_MODE,
+> > +	JTAG_XFER_SW_MODE,
+> > +};
+>=20
+> Is this essentially selecting between bit-bang mode or not?  Is there a g=
+enerally
+> applicable reason to select SW mode over HW (or vice versa)?
+> This sounds like it's tied to device-specific capability which shouldn't =
+be exposed
+> in a generic user API.
+
+It is a mode of working some JTAG master devices. F.e Aspeed JTAG core can =
+work in fully automatic mode when all StateMachine=20
+transitions and pin control done by hardware and in the more simpler mode w=
+hen JTAG pin control does by the user (like bit-bang).=20
+
+It HW defined feature and can be applied not in all cases.=20
+
+Seems it can be deleted from xfer option and controlled by separate like IO=
+CTL_SET_PARAM command.
+>=20
+> > +/**
+> > + * struct jtag_xfer - jtag xfer:
+> > + *
+> > + * @mode: access mode
+> > + * @type: transfer type
+> > + * @direction: xfer direction
+> > + * @length: xfer bits len
+> > + * @tdio : xfer data array
+> > + * @endir: xfer end state
+> > + *
+> > + * Structure represents interface to Aspeed JTAG device for jtag sdr
+> > +xfer
+> > + * execution.
+>=20
+> Probably should remove the reference to Aspeed here.
+
+Thanks, will remove it.
+
+>=20
+> > +/* ioctl interface */
+> > +#define __JTAG_IOCTL_MAGIC	0xb2
+> > +
+> > +#define JTAG_IOCRUNTEST	_IOW(__JTAG_IOCTL_MAGIC, 0,\
+> > +			     struct jtag_run_test_idle)
+> > +#define JTAG_SIOCFREQ	_IOW(__JTAG_IOCTL_MAGIC, 1, unsigned int)
+> > +#define JTAG_GIOCFREQ	_IOR(__JTAG_IOCTL_MAGIC, 2, unsigned int)
+> > +#define JTAG_IOCXFER	_IOWR(__JTAG_IOCTL_MAGIC, 3, struct
+> jtag_xfer)
+> > +#define JTAG_GIOCSTATUS _IOWR(__JTAG_IOCTL_MAGIC, 4, enum
+> > +jtag_endstate)
+>=20
+> I notice the single-open()-per-device lock was dropped by request in an e=
+arlier
+> revision of your patches, but multiple processes trying to drive a single=
+ JTAG
+> master could wreak serious havoc if transactions get interleaved. Would
+> something like an added JTAG_LOCKCHAIN/UNLOCKCHAIN
+> ioctl() for exclusive client access be reasonable to prevent this?
+
+Yes, it dropped by recommendation of Greg KH <gregkh@linuxfoundation.org>.=
+=20
+Uer app should care about it.
+
+>=20
+> -Chip
+
+Thanks for review.
+Oleksandr.
