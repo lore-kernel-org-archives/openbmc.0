@@ -1,53 +1,61 @@
-Return-Path: <sam@mendozajonas.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
- (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
- envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
+Return-Path: <tmaimon77@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c06::243; helo=mail-io0-x243.google.com;
+ envelope-from=tmaimon77@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
- header.b="CUjdMzaP"; dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="heNJMLMT"; dkim-atps=neutral
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="orDnfehF"; 
+ dkim-atps=neutral
+Received: from mail-io0-x243.google.com (mail-io0-x243.google.com
+ [IPv6:2607:f8b0:4001:c06::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yVd1b014mzDrJl
- for <openbmc@lists.ozlabs.org>; Mon,  6 Nov 2017 14:13:37 +1100 (AEDT)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id A3A9F20B68;
- Sun,  5 Nov 2017 22:13:34 -0500 (EST)
-Received: from frontend1 ([10.202.2.160])
- by compute2.internal (MEProxy); Sun, 05 Nov 2017 22:13:34 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- mendozajonas.com; h=cc:date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=GIkM68uPJmvQb+Llu
- wrH16iSIgX9WgS/2+EGchOQpoo=; b=CUjdMzaPc2OBScEobIbV86Qpwd22nNh6G
- ilHYIS87237xqXNnTfXNaLOFA7vBUEo9p4AxdgergzmELr/5vaKCljbeb66pQ7rI
- BvIGNi36SGEtGoCF02ELVw1j7aG2h6zavVpxDW9OD/Cl+i1wwV7s+50PKOOIJxJM
- Akn3kxgh9HesdtCnDDoMk0DSt9LrD5Kr9F2MPgdwhhyAil+eT8dGdoBcHZ8x7qW4
- T9Lrqd2tV46iNZJZPKi6H9tuwC8PMj5Np8B/0au90gZk+rpmiQe91S0qEbVH1+fQ
- eu4XE3qXyV6v0ocm+Z8ZNrMDJ/2WC7kNFdJ9lCxzf956TPx6fpsEQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=GIkM68uPJmvQb+Llu
- wrH16iSIgX9WgS/2+EGchOQpoo=; b=heNJMLMTE/Gwf3DZWKnJrzibFQ8j9NDe1
- Pxv/wmrPdYD/KOCgRQL7ZYLYEAGw1kaWuqDvnT6pirfCQMzoPJF/owU34V8w+qq4
- 7/4EfUbcha4JrL/cXQ0kRYEntwB+hALiEbjLv3sGNjFTvTiJyLt5H9feJ0QwXRAO
- oWqEEHCchPkqWWsCwYOAJ12TiLX2bUCEI9hyIh0QM4lo8NUMlvEFiswJ6nwItbIM
- qXOafeNfrTOa2M0NcyjRZ+Vq+15kDpwq5/f1FjEY2qN0c6mVJMCLyOHCq9UswDX1
- VUdkKR5/THA9ipaz0J9tq9UXqH+RdjJ5NR+dP66a2ICKnXB2gdm7Q==
-X-ME-Sender: <xms:XtP_WTMpVjTmcZX7KRQZW71r3XssdMNiljzFLsTKDILFkG3eJ09dFg>
-Received: from v4.ozlabs.ibm.com (unknown [122.99.82.10])
- by mail.messagingengine.com (Postfix) with ESMTPA id 940FD7F8DD;
- Sun,  5 Nov 2017 22:13:33 -0500 (EST)
-From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-To: openbmc@lists.ozlabs.org
-Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-Subject: [PATCH 0/2] Improve NCSI driver logging
-Date: Mon,  6 Nov 2017 14:13:21 +1100
-Message-Id: <20171106031323.21519-1-sam@mendozajonas.com>
-X-Mailer: git-send-email 2.14.3
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yVpRR74NTzDrJv
+ for <openbmc@lists.ozlabs.org>; Mon,  6 Nov 2017 21:18:11 +1100 (AEDT)
+Received: by mail-io0-x243.google.com with SMTP id d66so15133916ioe.5
+ for <openbmc@lists.ozlabs.org>; Mon, 06 Nov 2017 02:18:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=UfNXH1ZYmmtJAAW//Y5r4/hfxn1rYAYTrkemJx42nZE=;
+ b=orDnfehFzNAv7GEgCscA1vfBXm9R8Nrso/SPc4nzj3r5QskHpWcG1TH+1Ayf+7aDWm
+ wM5PcfemAZwRGnWePPk7wqPrX2TjgJ5SDz5cHFDz5qSgzOMV/8XrGGE0J/Eh0zXgBpkT
+ yFj1YPGe8TWA4H/CjCQuzCrNE6m6Xh4Dz7o7HwSDYXowsjXOxX5WyI/GjvQKvqafjJ1N
+ qPbGQmAXwzf6oR22a5EhRIZIhJfJHhk7wDMwFwLmS3GmWmLzGnPJjmEhrAslE2nO2tvk
+ BA0N8SiFqAaew+eb/a6CxIBE+s5FBbWN36pYbwVmap3rDVeM+UcYIT75fyDN9nOLcmTz
+ 9eGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=UfNXH1ZYmmtJAAW//Y5r4/hfxn1rYAYTrkemJx42nZE=;
+ b=RexB3ylOOf0g6Vw1ZrN+8oCctn5hoLvWEWkqUlWASCfT9UNXukOluIZUI8CvzMw5Q8
+ lXg3zvydEqUAs0yVOS95A6OgvXGwtXYaR/W7phWYyfC1R4eaa0fnKI62yANlxZHmqyxR
+ H17fvhqjercLiiQDeBBCQQA/3PDTS61vILyEnrpDiYXSVSfXUrzQbrIIfM/+YNs33z4E
+ mFp6B7gp8JtNx5gUtHG1wrCuK3bjlszD4flNVEY4YVxKO1guJXNHFCTwRD8+6s44gnRq
+ ySHuguz+b3cwGXAJPy7JkzvTtYqj7F+m5J7NvzrTAN1IFlWErA8gByx2AQLUuntzOQfn
+ sziw==
+X-Gm-Message-State: AJaThX4N4b7Jsy/I31mhGpNTWckn6kHL6JN+TaJHocJlquCU1hHjDKLv
+ XKvt8cYS0xGa2cjdLpnyqkMd54qlydADXjMHLmE=
+X-Google-Smtp-Source: ABhQp+TZrK3teewZQE2ltBCHQ0egbAELj7bHQcYjc5lYC7kidg6qhto6W+/hXfNuHvfIkHFw22RFUip7oUJ2WmfW+t0=
+X-Received: by 10.107.128.102 with SMTP id b99mr18541942iod.109.1509963489288; 
+ Mon, 06 Nov 2017 02:18:09 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.2.28.66 with HTTP; Mon, 6 Nov 2017 02:18:08 -0800 (PST)
+In-Reply-To: <CAFd5g45esV+m1FJyZY=nu_nZpP_1749sYUMmRXfet41Ju+7Vsw@mail.gmail.com>
+References: <1509538604-8218-1-git-send-email-tmaimon77@gmail.com>
+ <CAFd5g45esV+m1FJyZY=nu_nZpP_1749sYUMmRXfet41Ju+7Vsw@mail.gmail.com>
+From: Tomer Maimon <tmaimon77@gmail.com>
+Date: Mon, 6 Nov 2017 12:18:08 +0200
+Message-ID: <CAP6Zq1iFBx1H6SW8SfoPa811mtnJyLk9pycoBfeZitSD7dg-fg@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] clocksource: npcm: add NPCM7xx timer driver
+To: Brendan Higgins <brendanhiggins@google.com>
+Cc: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Thomas Gleixner <tglx@linutronix.de>, 
+ Avi Fishman <avifishman70@gmail.com>, Rick Altherr <raltherr@google.com>, 
+ Joel Stanley <joel@jms.id.au>, devicetree <devicetree@vger.kernel.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -59,29 +67,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 06 Nov 2017 03:13:41 -0000
+X-List-Received-Date: Mon, 06 Nov 2017 10:18:12 -0000
 
-The NCSI driver has next to no logging at all, with some of the only useful
-logs actually coming from the ftgmac100 driver as link up/down messages.
+On 4 November 2017 at 02:28, Brendan Higgins <brendanhiggins@google.com> wrote:
+> On Wed, Nov 1, 2017 at 5:16 AM, Tomer Maimon <tmaimon77@gmail.com> wrote:
+>> Addressed comments from:
+>>  - Daniel Lezcano: https://www.spinics.net/lists/devicetree/msg196683.html
+>>
+>> Changes since version 1:
+>>  - Rename driver name
+>>  - Removing unnecessary dependencies in configuration
+>>  - Adding prefix to the macros
+>>  - No changes to dt-binding documentation since v1
+>>
+>> Asked Brendon to modify NPCM7xx device tree for support NPCM7xx timer driver
+>> https://www.spinics.net/lists/arm-kernel/msg614424.html
+>
+> Rob Herring asks that we keep the device tree binding the same as I have it.
+> Unless, there is some part of the conversation that I am missing.
 
-Add a great deal more logging to the NCSI driver, tracking channel state and
-selection, link events, and so on. Patch 1 has no functional changes, and
-Patch 2 sends a Get-Parameters command during configuration to sanity check the
-current channel.
+you are right that he asked to keep the competible as you have in the
+device tree but
+the reg is incorrect in your device tree, please modify it as follow:
 
-A form of this will go upstream (the log levels probably need some tweaking),
-but this iteration is being sent to OpenBMC to assist people currently
-debugging a few network issues in the ftgmac100/NCSI/Broadcom area.
+timer0: timer@f0008000 {
+        compatible = "nuvoton,npcm750-timer";
+        interrupts = <0 32 4>;
+        reg = <0xf0008000 0x1000>;
+        clocks = <&clk NPCM7XX_CLK_TIMER>;
+};
 
-Samuel Mendoza-Jonas (2):
-  net/ncsi: General state debugging
-  net/ncsi: Query channel parameters during configuration
+>
+>>
+>> Changes have been tested on the NPCM750 evaluation board.
+>>
+>> Tomer Maimon (2):
+>>   clocksource: npcm: add NPCM7xx timer driver
+>>   dt-binding: timer: document NPCM7xx timer DT bindings
+>>
+>>  .../bindings/timer/nuvoton,npcm7xx-timer.txt       |  25 +++
+>>  drivers/clocksource/Kconfig                        |   8 +
+>>  drivers/clocksource/Makefile                       |   1 +
+>>  drivers/clocksource/npcm7xx-timer.c                | 224 +++++++++++++++++++++
+>>  4 files changed, 258 insertions(+)
+>>  create mode 100644 Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt
+>>  create mode 100644 drivers/clocksource/npcm7xx-timer.c
+>>
+>> --
+>> 2.14.1
+>>
 
- net/ncsi/internal.h    |  1 +
- net/ncsi/ncsi-aen.c    | 34 ++++++++++++++++++---
- net/ncsi/ncsi-manage.c | 83 +++++++++++++++++++++++++++++++++++++++++++-------
- net/ncsi/ncsi-rsp.c    | 31 ++++++++++++++++++-
- 4 files changed, 133 insertions(+), 16 deletions(-)
-
--- 
-2.14.3
+Thanks!
