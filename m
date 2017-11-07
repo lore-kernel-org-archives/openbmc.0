@@ -1,58 +1,58 @@
-Return-Path: <joel.stan@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4010:c07::231; helo=mail-lf0-x231.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="NoHDUOXZ"; 
- dkim-atps=neutral
-Received: from mail-lf0-x231.google.com (mail-lf0-x231.google.com
- [IPv6:2a00:1450:4010:c07::231])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="p8jYcgps"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="OW0r047j"; dkim-atps=neutral
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yWJ4x1GfszDr5T
- for <openbmc@lists.ozlabs.org>; Tue,  7 Nov 2017 16:33:52 +1100 (AEDT)
-Received: by mail-lf0-x231.google.com with SMTP id a16so13067966lfk.0
- for <openbmc@lists.ozlabs.org>; Mon, 06 Nov 2017 21:33:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=jureeQMGRc2ybqt9p0FyVjCaEHvoD6cWF22m8BaRyqY=;
- b=NoHDUOXZC8wzUhPnCuOPLNN52BHFsqnqOchW5Nh9gCaknCWJVBuXcuBrQov84I+6fV
- SUY2tm1hlj2V8UWVNpqOiV331S6iKO1UrfeVi9fIV2TWd/7/3T9Ch7zuFc+D5VIqsaa3
- SfqSsXyXthMIqwvCIksXCwWAwLI4YSPLZlcIwLfbMPBkt0eychy+2so3n8TnSaljRGa4
- kbP8dArrssI5rzmdDyDj7oGPO3UYxlQb5WVizMVnUGUPmllC/N+6jvV3TjfZ53M0KJFR
- 0Hm+G796zQtWeEU8mGYnNsl1cVw04AyfSvZ2PvGjbzd8V9lvKFfYFCxzoxrMgqTKIZOz
- RflA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=jureeQMGRc2ybqt9p0FyVjCaEHvoD6cWF22m8BaRyqY=;
- b=ohIiCHFo6oU97WjmBR4f2HYlJHBOsbgyRnKI11RIV0KPLf+bWTOFIxOeI9yr0y9Ant
- 76Y+a+Z+cGdhHC/AS/5bgNYnN09Ptq8TfmYIeGyccMAGEvUmagYSyO0cmnV+RELY7UaQ
- FX+PUQsUdOP/4D7yJL5ZEpOGz5f2LRy7Pcl6AlY6uY3Vj/Qj3FEYyha2wkgR6OREIua2
- 2gGUdV/38bO2X+hoa/fi9lYMvpP4JktiA7sL3wWgRsO5qTVC2jgqLGwyGCpZhG3Jstk5
- 2bkszrWXkdK5kBi7ffnQ7pTrEW2dFsq9oXrLLSt+FxP7TpqztzRXaKBFR3cz6n0f0vwi
- hiHw==
-X-Gm-Message-State: AMCzsaVI2RTC2BFyjyvHqYSRhoWNve3V/RpA8MQPiTJOVKk2HSYlGlfx
- o0RbFIYfQARVIV1TwBrTaxf8CAAuli7mGFr+5oiCgqbQ
-X-Google-Smtp-Source: ABhQp+SkmWAh71y/n3TltAUfNxoDXyeMKnRFOf5WvzhXU8OlzuHJFAiZjSZMlv19j2PT8juFqojIvHGfDnCZes8Jkpk=
-X-Received: by 10.46.91.203 with SMTP id m72mr7266136lje.166.1510032828722;
- Mon, 06 Nov 2017 21:33:48 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yWLhf2T01zDrK8
+ for <openbmc@lists.ozlabs.org>; Tue,  7 Nov 2017 18:31:29 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id BC41620D5F;
+ Tue,  7 Nov 2017 02:31:24 -0500 (EST)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Tue, 07 Nov 2017 02:31:24 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm1; bh=DRMrmO+fEwwjZBqTAt5qOfoBBCZ1lcpYl39FHDDjXGc=; b=p8jYcgps
+ kjT9wOEyRDVCnOooeDzOksSiXd7L9YwRbsFk/skeXY6hsYVOdR/TSipQtKYc71R+
+ eAOhgcw5GLGOj+Y2U7JrjELWQCD8vPmp4+JG/mDzlr6ywx2cuaVhJyEvHOAC4lZ0
+ vyFgrPS8rpVNu2s5yrhFy5QReorYfDVbjd7kZrsDYjHeGuYz5y68Ewo1hr1s19aH
+ /w+phhpQs2FvBZdLgwjAGIS8uSt34hpPwO57VeobyLpiq9LMfmp2V4ia78Nw984O
+ q7hSzV+63pO5G+TBHSJb+EBMv4Kf618GmFMnDzdKGzyb/YoOQWJFTPNPsV07dpKs
+ 0r8M9lFzl/vQNw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:message-id:mime-version:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; bh=DRMrmO+fEwwjZBqTAt5qOfoBBCZ1l
+ cpYl39FHDDjXGc=; b=OW0r047jBLhtci8rpKYEeftQM3R8g4MI/HHPMT87/TL3D
+ gvMuEs/2G1wsEfujqVa1JL8v3g3saVGx5q/fGV4HQBG32zGownvSl407tBl4um+5
+ U8FUPX9OyM0h1gk8Yf8Wvm15KxOnJ6oSvoCbB1nbCeEBD5h2aBSt367lbfeegieI
+ fWS4Ouv9LYAPr9hxB+9rMqHsetu3tHf97Ukl8TcLawS5sh6Kb9FuRW3V3FkArXKU
+ 2cSiydfY8LMUQnyhYpEsqIGIan4d+PVFxLYYitJbUdSa+5TrLddnIU0+iiINBNXv
+ wsgZoaE2IeZ8qfvmSaoDbttmcTT9mNjCeTqThzmEA==
+X-ME-Sender: <xms:TGEBWhG6prvdjPGiNw254OdrnQ1vMd6wyhRqCBPnmYT-WLX54dF-Ig>
+Received: from keelia.au.ibm.com (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 20E8B24108;
+ Tue,  7 Nov 2017 02:31:22 -0500 (EST)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: joel@jms.id.au
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+	openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.13 00/23] Migrate changes in dev-4.10 to dev-4.13
+Date: Tue,  7 Nov 2017 18:00:23 +1030
+Message-Id: <20171107073046.13319-1-andrew@aj.id.au>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.25.195.71 with HTTP; Mon, 6 Nov 2017 21:33:28 -0800 (PST)
-In-Reply-To: <611925BD-F55E-4C9E-9BA0-51B771699D1A@fuzziesquirrel.com>
-References: <611925BD-F55E-4C9E-9BA0-51B771699D1A@fuzziesquirrel.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 7 Nov 2017 16:03:28 +1030
-X-Google-Sender-Auth: gu2j-79g1Zk9Bd2u6BaKeUZzELc
-Message-ID: <CACPK8Xcm_W36Fs8zYp9J3coQZM71g3Dw3nJPDD_9cC0NKByFNQ@mail.gmail.com>
-Subject: Re: OpenBMC 11/6 community telecon - Minutes
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: OpenBMC <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -64,47 +64,99 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Nov 2017 05:33:54 -0000
+X-List-Received-Date: Tue, 07 Nov 2017 07:31:33 -0000
+X-List-Received-Date: Tue, 07 Nov 2017 07:31:33 -0000
 
-On Tue, Nov 7, 2017 at 3:00 PM, Brad Bishop <bradleyb@fuzziesquirrel.com> w=
-rote:
-> Discussed OpenBMC release support model.
->    - Currently strive to use stable releases from component projects (Yoc=
-to,
-> Linux) - have not always succeeded in practice.
->    - Work to do beyond this to establish a model.
->    - Backport security fixes directly upstream to Yocto, not OpenBMC,
-> whenever possible.
+Hello,
 
-I've posted some more detailed thoughts to the list on this topic:
+This is a patchbomb series partly to instigate discussion about how to do this
+kind of thing in the future, but also to bring most of the changes I'm
+responsible for in dev-4.10 forward to dev-4.13 where appropriate.
 
- https://lists.ozlabs.org/pipermail/openbmc/2017-November/009843.html
+The series brings, along with their dependencies:
 
-> There was a question if anyone has ever run a security scan against OpenB=
-MC.
-> Yes - an example can be found here:
-> https://github.com/openbmc/openbmc/issues/1229
->
-> linux.conf.au in January.  Attend to learn about OpenBMC and OSS in gener=
-al.
+* The MAX31785 driver
+* LEDs enhancements and fixes
+* Watchdog enhancements and fixes
 
-Please come! The OpenBMC kernel team will be there, along with other
-contributors: both the ones you know, and future potential
-contributors.
+Patchbombing like this probably isn't the best thing to do, so we should
+probably figure out what is. The approach - rebasing the dev-4.10 stack on
+dev-4.13 - seemed to me the easiest way to get the result of having all my
+patches up to date where possible, aside from some effort spent cherry-picking
+back those which are now upstream but are so beyond 4.13.
 
- https://linux.conf.au/  22-26 January 2018, Sydney, Australia
+It might be slightly less of a patchbomb to split this into smaller
+series, which is a bit more fiddly but nothing major. Arguably the end result
+is the same as a single series, as the patches themselves are still consumable
+on an individual basis.
 
- https://rego.linux.conf.au/schedule
+Another approach is sending some mail detailing the upstream commit IDs to be
+cherry-picked back, and further mail for any remaining patches.
 
-I will organise a BoF session during the week to chat about OpenBMC.
-If there's enough interest we can look at spending a day before, after
-(or during?) the conference to talk shop.
+Regardless, we need to consider how the OpenBMC-Staging-Count tag is managed in
+any case. I haven't fixed the tags in the patches I'm sending here - I figure
+it's up to the maintainers to bump that as appropriate when they apply the
+change.
 
-> Please let me know if anything is inaccurate or I=E2=80=99ve missed somet=
-hing.
+Which approach should we take?
 
-Thanks for taking minutes Brad!
+In the mean time, here are the patches for your viewing pleasure.
 
-Cheers,
+Andrew
 
-Joel
+Andrew Jeffery (16):
+  ARM: aspeed: g4: Add LPC devicetree node and children
+  ARM: aspeed: palmetto: Configure mbox and lpc nodes
+  dt-bindings: hwmon: pmbus: Add Maxim MAX31785 documentation
+  hwmon: pmbus: Add fan control support
+  pmbus: Add driver for Maxim MAX31785 Intelligent Fan Controller
+  pmbus: max31785: Work around back-to-back writes with FAN_CONFIG_1_2
+  dt-bindings: leds: gpio: Add optional retain-state-shutdown property
+  leds: gpio: Allow LED to retain state at shutdown
+  ARM: dts: aspeed-palmetto: Request mux as per strapping configuration
+  dt-bindings: watchdog: aspeed: External reset signal properties
+  watchdog: aspeed: Support configuration of external signal properties
+  leds: pca955x: Don't invert requested value in
+    pca955x_gpio_set_value()
+  watchdog: aspeed: Retain watchdog enabled state
+  watchdog: aspeed: Fix 'Apseed' typo in Kconfig
+  watchdog: aspeed: Remove specific reference to AST2400 in Kconfig
+  watchdog: aspeed: Move init to arch_initcall
+
+Christopher Bostic (2):
+  drivers/watchdog: Add optional ASPEED device tree properties
+  drivers/watchdog: ASPEED reference dev tree properties for config
+
+Cédric Le Goater (5):
+  dt-bindings: leds: add pca955x
+  leds: pca955x: add device tree support
+  leds: pca955x: use devm_led_classdev_register
+  leds: pca955x: add GPIO support
+  leds: pca955x: check for I2C errors
+
+ .../devicetree/bindings/hwmon/pmbus/max31785.txt   | 123 ++++
+ .../devicetree/bindings/leds/leds-gpio.txt         |   3 +
+ .../devicetree/bindings/leds/leds-pca955x.txt      |  88 +++
+ .../devicetree/bindings/watchdog/aspeed-wdt.txt    |  40 ++
+ arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts      |  18 +
+ arch/arm/boot/dts/aspeed-g4.dtsi                   |  38 +
+ drivers/hwmon/pmbus/Kconfig                        |  10 +
+ drivers/hwmon/pmbus/Makefile                       |   1 +
+ drivers/hwmon/pmbus/max31785.c                     | 762 +++++++++++++++++++++
+ drivers/hwmon/pmbus/pmbus.h                        |  29 +
+ drivers/hwmon/pmbus/pmbus_core.c                   | 222 +++++-
+ drivers/leds/Kconfig                               |  11 +
+ drivers/leds/leds-gpio.c                           |   7 +-
+ drivers/leds/leds-pca955x.c                        | 343 ++++++++--
+ drivers/watchdog/Kconfig                           |   4 +-
+ drivers/watchdog/aspeed_wdt.c                      | 149 +++-
+ include/dt-bindings/leds/leds-pca955x.h            |  16 +
+ include/linux/leds.h                               |   2 +
+ 18 files changed, 1779 insertions(+), 87 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/pmbus/max31785.txt
+ create mode 100644 Documentation/devicetree/bindings/leds/leds-pca955x.txt
+ create mode 100644 drivers/hwmon/pmbus/max31785.c
+ create mode 100644 include/dt-bindings/leds/leds-pca955x.h
+
+-- 
+2.11.0
