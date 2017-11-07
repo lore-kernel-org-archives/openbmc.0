@@ -3,55 +3,60 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="najrWVdt"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="PFJpisOm"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="AR9UWUcg"; dkim-atps=neutral
+ header.b="FaIJoVWG"; dkim-atps=neutral
 Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yWLhf2VRxzDrK9
- for <openbmc@lists.ozlabs.org>; Tue,  7 Nov 2017 18:31:29 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yWLjH2FJkzDrKB
+ for <openbmc@lists.ozlabs.org>; Tue,  7 Nov 2017 18:32:03 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 0E7EC20A33;
- Tue,  7 Nov 2017 02:31:27 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id 30D9E20D60;
+ Tue,  7 Nov 2017 02:32:01 -0500 (EST)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Tue, 07 Nov 2017 02:31:27 -0500
+ by compute4.internal (MEProxy); Tue, 07 Nov 2017 02:32:01 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=iX8Em5Sl85XfRjsrf
- vNw6Ki3d9wesVQMO32NVznP1us=; b=najrWVdtB8gpLMWGuAgl2Z3MEJcernCYw
- /Te0ZHAbzsJ/7VJczDiVeRo29NOF6I4uPyKSzAL3+ppvDeM8O9D2U1bx/FwwL4Q4
- 0xHBEe/JOGqJgMInuwxvApny4zbCjTYvA9IXPiQI3vWE8Ro+5r2uS5WT3ynT4yVZ
- +rYllzD24ph49SGvWHvnr4wc+m9ddLX+mI6TH/Nsyj0SlLK3khTJ1CUB1aPVspMb
- X0bSdkdF2o7FyzbfBogGWghNIAjneRUUZLkR5tPCUaQywkO4ACAAxAncCv49EuM2
- TKsIiKd/SGk/PkkQ6aXcntJtK0FvH/rooBfNIhObRfdXMxia0az8A==
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; bh=90+AjEr+iXDcQDmTC0oBiddkMGWG+
+ XNWMzpNwQGuOXk=; b=PFJpisOmZFYjqSoIlmSNyOjidJnpgQlhYnOxI6hd6mAm+
+ ZfQGxD/xTkZ56CWIlhNr3AZHQwRzbo7Ar8KEF8x4Qk9mtyD389gB0DbZBaLTV7ex
+ BZPFxEHgcafMwRUcG8kSCwAuMaJipWAM08tI7b/3gbP0qRRQW+NXNVc6OK85uR3i
+ vHzkFH+hu6GQZKFSRebkSk5Tfig+4gxFO0QZ0cJr5QdsihJAp2lGaXbetCfDKRVv
+ RZ/7BTZbKNhZs5IxOnFXgqaM+jKxzjRn84JOdDLHzM5pK1EN4pjZItrv/DYWfMHj
+ NCVmeY3aBuA0Rj1CnoGYdy42aoYOEZeCBCmQFAlmg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:in-reply-to:message-id
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=iX8Em5Sl85XfRjsrfvNw6Ki3d9wesVQMO32NVznP1us=; b=AR9UWUcg
- QFN80cyz3fChpcwVb/52QH5wpXEeTSkTCfcRVdF/GvUaqMdhQzWyeiD7k6eO4Ll2
- 8eCpNA2r8s3LQa4aZFLVXeu5BwQZ0YwgunWrfRYUSSo4eqJlrvkaW37j6lJg5Nv7
- o72gwkKNKplb7G/AmEYKc1TioA4StxzOAsBlAIA8QXhmzpheOPX4RNLTdftH9i9G
- WFolyDe56nTFV2beqruwHvbmtNmgShbZ0aG/bEIeQwu24cDbMJ0HUtBgTOBFKU4p
- UY9sR8t4rqWeL3PVnpuvyAOgk2Rf5YFWq30PbQst3f4c41i6kTOwOfXjBUQxOsEY
- XlNkKCpHRvGuXA==
-X-ME-Sender: <xms:TmEBWim8yBc-7GvU2uoJzD5SyAmKpsiRp_qOWNHW5Q0emVrUb9b7Vw>
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=90+AjE
+ r+iXDcQDmTC0oBiddkMGWG+XNWMzpNwQGuOXk=; b=FaIJoVWG/9/WkgzYV69JiC
+ Rac/DCTIp6AknGwhtoe89DEpsmABO2NB9yHFHxFnZxfvaooFAvpQCLmoF72FcISX
+ ncRoVMjL/0/cyBmjNRmXwoiz4idc+W+zi+R7Sy8O9XeSbVYjs6D0pV9/dsRwtKdi
+ 9Tawn6A2X8m3+To4i/+maVd2T+O8MawWvrgcTwEcG6+yprNucXJKNNySfLZLJWHR
+ 4CTZHo7PXOXFSQcLaWytJ2LI3/qOu9M1KqnCCQ28TlEnWSeGdJ8GPQwJxXRHAP/F
+ sqTaA838QBugKDPmXJAlfcnG4AcOY9o/M6KJ3aq63SXfJKrxnd+QsmDvTfMoSqsw
+ ==
+X-ME-Sender: <xms:cWEBWuy3Bw3dyto1wy4CScKsbvydhjmgVf-P23C6lAclp1T1GVro_w>
 Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 4F8DC24108;
- Tue,  7 Nov 2017 02:31:24 -0500 (EST)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 427C5242CF;
+ Tue,  7 Nov 2017 02:31:58 -0500 (EST)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: joel@jms.id.au
-Cc: Andrew Jeffery <andrew@aj.id.au>,
-	openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.13 01/23] ARM: aspeed: g4: Add LPC devicetree node
- and children
-Date: Tue,  7 Nov 2017 18:00:24 +1030
-Message-Id: <20171107073046.13319-2-andrew@aj.id.au>
+Cc: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>,
+ openbmc@lists.ozlabs.org, Andrew Jeffery <andrew@aj.id.au>
+Subject: [PATCH linux dev-4.13 16/23] leds: pca955x: use
+ devm_led_classdev_register
+Date: Tue,  7 Nov 2017 18:00:39 +1030
+Message-Id: <20171107073046.13319-17-andrew@aj.id.au>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20171107073046.13319-1-andrew@aj.id.au>
 References: <20171107073046.13319-1-andrew@aj.id.au>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -63,68 +68,72 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Nov 2017 07:31:32 -0000
-X-List-Received-Date: Tue, 07 Nov 2017 07:31:32 -0000
-X-List-Received-Date: Tue, 07 Nov 2017 07:31:32 -0000
+X-List-Received-Date: Tue, 07 Nov 2017 07:32:04 -0000
 
-This is enablement for mbox protocol support on P8. Expose
-/dev/aspeed-lpc-ctrl and /dev/aspeed-mbox for use by mboxd.
+From: Cédric Le Goater <clg@kaod.org>
 
-OpenBMC-Staging-Count: 1
+This lets us remove the loop doing the cleanup in case of failure and
+also the remove handler of the i2c_driver.
+
+Signed-off-by: Cédric Le Goater <clg@kaod.org>
+Acked-by: Pavel Machek <pavel@ucw.cz>
+Signed-off-by: Jacek Anaszewski <jacek.anaszewski@gmail.com>
+(cherry picked from commit 91940bb4ca7b7f1b5426cc14bdbd0c7f8347683f)
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
- arch/arm/boot/dts/aspeed-g4.dtsi | 38 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 38 insertions(+)
+ drivers/leds/leds-pca955x.c | 26 ++++----------------------
+ 1 file changed, 4 insertions(+), 22 deletions(-)
 
-diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-index 60ab04aa75ea..c27a8671b597 100644
---- a/arch/arm/boot/dts/aspeed-g4.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-@@ -77,6 +77,44 @@
- 			};
- 		};
+diff --git a/drivers/leds/leds-pca955x.c b/drivers/leds/leds-pca955x.c
+index 2d34009d00e6..5a5d3765cfd3 100644
+--- a/drivers/leds/leds-pca955x.c
++++ b/drivers/leds/leds-pca955x.c
+@@ -410,10 +410,10 @@ static int pca955x_probe(struct i2c_client *client,
+ 		pca955x_led->led_cdev.name = pca955x_led->name;
+ 		pca955x_led->led_cdev.brightness_set_blocking = pca955x_led_set;
  
-+		lpc: lpc@1e789000 {
-+			compatible = "aspeed,ast2400-lpc", "simple-mfd";
-+			reg = <0x1e789000 0x1000>;
-+
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			ranges = <0x0 0x1e789000 0x1000>;
-+
-+			lpc_bmc: lpc-bmc@0 {
-+				compatible = "aspeed,ast2400-lpc-bmc";
-+				reg = <0x0 0x80>;
-+			};
-+
-+			lpc_host: lpc-host@80 {
-+				compatible = "aspeed,ast2400-lpc-host", "simple-mfd", "syscon";
-+				reg = <0x80 0x1e0>;
-+				reg-io-width = <4>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <1>;
-+				ranges = <0x0 0x80 0x1e0>;
-+
-+				lpc_ctrl: lpc-ctrl@0 {
-+					compatible = "aspeed,ast2400-lpc-ctrl";
-+					reg = <0x0 0x80>;
-+					status = "disabled";
-+				};
-+
-+				mbox: mbox@180 {
-+					compatible = "aspeed,ast2400-mbox";
-+					reg = <0x180 0x5c>;
-+					interrupts = <46>;
-+					#mbox-cells = <1>;
-+					status = "disabled";
-+				};
-+			};
-+		};
-+
- 		vic: interrupt-controller@1e6c0080 {
- 			compatible = "aspeed,ast2400-vic";
- 			interrupt-controller;
+-		err = led_classdev_register(&client->dev,
+-					&pca955x_led->led_cdev);
+-		if (err < 0)
+-			goto exit;
++		err = devm_led_classdev_register(&client->dev,
++						 &pca955x_led->led_cdev);
++		if (err)
++			return err;
+ 	}
+ 
+ 	/* Turn off LEDs */
+@@ -431,23 +431,6 @@ static int pca955x_probe(struct i2c_client *client,
+ 	pca955x_write_psc(client, 1, 0);
+ 
+ 	return 0;
+-
+-exit:
+-	while (i--)
+-		led_classdev_unregister(&pca955x->leds[i].led_cdev);
+-
+-	return err;
+-}
+-
+-static int pca955x_remove(struct i2c_client *client)
+-{
+-	struct pca955x *pca955x = i2c_get_clientdata(client);
+-	int i;
+-
+-	for (i = 0; i < pca955x->chipdef->bits; i++)
+-		led_classdev_unregister(&pca955x->leds[i].led_cdev);
+-
+-	return 0;
+ }
+ 
+ static struct i2c_driver pca955x_driver = {
+@@ -457,7 +440,6 @@ static struct i2c_driver pca955x_driver = {
+ 		.of_match_table = of_match_ptr(of_pca955x_match),
+ 	},
+ 	.probe	= pca955x_probe,
+-	.remove	= pca955x_remove,
+ 	.id_table = pca955x_id,
+ };
+ 
 -- 
 2.11.0
