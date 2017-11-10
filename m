@@ -1,56 +1,63 @@
-Return-Path: <mine260309@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c06::22c; helo=mail-io0-x22c.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="rUIXA+Mn"; 
- dkim-atps=neutral
-Received: from mail-io0-x22c.google.com (mail-io0-x22c.google.com
- [IPv6:2607:f8b0:4001:c06::22c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="aAecdFEx"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="b1mtA1tD"; dkim-atps=neutral
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yY4Xp120zzDrKG
- for <openbmc@lists.ozlabs.org>; Fri, 10 Nov 2017 14:00:41 +1100 (AEDT)
-Received: by mail-io0-x22c.google.com with SMTP id n79so1202480ion.3
- for <openbmc@lists.ozlabs.org>; Thu, 09 Nov 2017 19:00:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=YMHshOSbe+/gcdEohCGYPGY3mJgwhMfIx7b2oQDC30s=;
- b=rUIXA+Mnr3dPVAPuGPWq6CM2srU4l0Fapy2ZGueV+KJN49cf5HW+h2uPtAqe+EA8QR
- ++tO/VxGY31pqClCp0lKISDklUE0tRgGIBMX1pmnqvGuKoY1I7DTkpfABML5KPA4zT/H
- NIVw6Eo1dMezWICCCbQYlApbW/hup1eYrsD1hNIHXcIUTN0KqUB+qZC4Q7qwqiXoCwUQ
- LVS5i4j8sHBy3wcBs4gL3hvg6DoBHUyzaig3cdSjNBzjmLMGDEURHqaqyHcsLP8ileYY
- IzgIB/3sr/sOnV/GucHjhx5fQELFi3TzKgWrH1ta0z7UI4YyGlRMSgNmSDJSWMKSJNsl
- CLtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=YMHshOSbe+/gcdEohCGYPGY3mJgwhMfIx7b2oQDC30s=;
- b=rNnouYsqlnWW4R8UCsDXdXQPhugbLHKSagBnQYs2fqmEqcnOuFqDulfJjgaiFWl/P3
- 3p1BgIg250a/5R6Icemma62VvseaUcs/pEhNjKDWpFh7UL9KHgv38ldys2IwtZ5aAgue
- d94H/jrq/4bReKcenZwfQQMuUpqQ9RSDxwo2B5qm5yKx04Uzw7C0Wv2rK+oJAWVSmdqk
- wtEqrVz4nSPRC1rMUWZy315+czk+bhZ+9FfmKKF5ZftC7Wx5ugV0VNMlo0Ck9BB0xUav
- Ow6M4Enf6b002qVMoNzvv3nCZOMAHphoFt375Kh8pEXx8n3gv16v3FWbxBSmTcCcCrS3
- XMSw==
-X-Gm-Message-State: AJaThX4Sp5ApnI5dmpBQKYFdbZTdUy3viThg07h0vKqZ1pQ9sNjBiVVi
- 6qTSPprYbVOKtyOsB7kx7dMazBHXpuJfGZVeiZQ=
-X-Google-Smtp-Source: AGs4zMZ1CqnwzTg3laRdLZZNLAVf/mzxDEAhaIKNstWE/5iNMAgn8D78yP9pxGL/mflBhW+U5HCHt7vCf+RPpwZ/A9s=
-X-Received: by 10.107.186.87 with SMTP id k84mr3175533iof.121.1510282838022;
- Thu, 09 Nov 2017 19:00:38 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.79.196.9 with HTTP; Thu, 9 Nov 2017 19:00:37 -0800 (PST)
-In-Reply-To: <39E6480C5A587146BAA4D885C7BCF7EEC6AA69BA@IEC1-EX2010-MX4.iec.inventec>
-References: <39E6480C5A587146BAA4D885C7BCF7EEC6AA69BA@IEC1-EX2010-MX4.iec.inventec>
-From: Lei YU <mine260309@gmail.com>
-Date: Fri, 10 Nov 2017 11:00:37 +0800
-Message-ID: <CAARXrtk4bb33pS3MPE58dkx1N+QUjhtm-fvfKEKkV+eTZLODsQ@mail.gmail.com>
-Subject: Re: Create new platform for arm system
-To: =?UTF-8?B?Q2hlbi5LZW5ZWSDpmbPmsLjnh58gVEFP?= <Chen.KenYY@inventec.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yY4cF48rvzDrKG
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Nov 2017 14:03:41 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id F3D4E207FE;
+ Thu,  9 Nov 2017 22:03:38 -0500 (EST)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Thu, 09 Nov 2017 22:03:39 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm1; bh=MzyRe7UJFYHY02D4tewD7N4pujL9wuIIsMsn1TeIkB4=; b=aAecdFEx
+ QFYdT7Q7AE0uo8jPztQ2gEon61mcBH9AaceZi+KJLsSqKIsuXz813OEdlymmUzVK
+ DAIZvxYoFDZufuML7ksL9ehl2iEa2L35JPhMoXenyCkTVL6pH2shNgX6QeTrUMe5
+ 8KLOUKYoGfRDSg/6iph+oE2bRTjlS6OT5P3qRvEPLaEwHFCrr9GkE4gNwpqfhTyM
+ XP1xUINJIqZ8kvYt57MEOJstUdLx+xv/lNpnLVXzJ3EtT3bOlCXknQUktxRzuc9R
+ 17D0rIe9yOap48bDsmyUdjKx4WN6cogiQ/Xy5bdfk/Cd2SvW/hrImKYP7vCfZUno
+ hTn+QaLsI3gELw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; bh=MzyRe7UJFYHY02D4tewD7N4pujL9w
+ uIIsMsn1TeIkB4=; b=b1mtA1tDS4QiyyqNAufvvKgw0HliQrNaqK1hkv3085SmF
+ T4EGzaXf4yZhg/cHysqgHMqJt/Ri+px9ygfw5I2d4PU83LUqrT+pU33MoCwOkCV3
+ hHbPXU4QaXquIdenh2uVdKz0lPE9TKwd2dDLJn3AKeb7hDxvDZRmV+k0rDwXnZ8t
+ UVHLsWnCFgKSwpUGdkBQbdaJkeyLTxOmUODboKwmo6GD38bMpzb8HvBzoD1aZv8G
+ tEphXn0+Qko+GIEoh+RsEY4TXVg7r/zbpqpr2ZkddIELzBU4YiJXo7vAfTcp/kbJ
+ BtiGbPXmQWtwNql5rlkSFqBvPy3Piwpn/0x5wTQcg==
+X-ME-Sender: <xms:ChcFWvbB1OCNgY8k4KKmmE93YAHyy4tZvZTd1QcAZQv1oFw3w2Vuxg>
+Received: from dave (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id B14BB240A4;
+ Thu,  9 Nov 2017 22:03:34 -0500 (EST)
+Message-ID: <1510283007.4287.41.camel@aj.id.au>
+Subject: Re: [v4,3/6] pmbus: core: Add fan control support
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org, robh+dt@kernel.org, mark.rutland@arm.com, 
+ jdelvare@suse.com, corbet@lwn.net, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, joel@jms.id.au, 
+ openbmc@lists.ozlabs.org
+Date: Fri, 10 Nov 2017 13:33:27 +1030
+In-Reply-To: <20171105143957.GA23897@roeck-us.net>
+References: <20171103045306.26448-4-andrew@aj.id.au>
+ <20171105143957.GA23897@roeck-us.net>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-ZQpS+milW3uWhhSkTKtI"
+X-Mailer: Evolution 3.26.1-1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -62,252 +69,700 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Nov 2017 03:00:43 -0000
+X-List-Received-Date: Fri, 10 Nov 2017 03:03:42 -0000
 
-SGkgS2VuLA0KDQpJdCdzIGdvb2QgdG8ga25vdyBPcGVuQk1DIHdpbGwgYmUgd29ya2luZyBvbiBh
-biBBUk0gc3lzdGVtLg0KDQpUbyBzdWJtaXQgcGF0Y2hlcywgSSB3b3VsZCBzdWdnZXN0IGZvbGxv
-dyBob3cgb3RoZXIgbWFjaGluZXMgZW50ZXJzIE9wZW5CTUMuDQpFLmcuIG1ldGEtb3BlbmJtYy1t
-YWNoaW5lcy9tZXRhLXg4Ni9tZXRhLXF1YW50YS4NCg0KWW91IGNhbiB1c2UgYGdpdCBsb2dgIGNv
-bW1hbmQgdG8gZ2V0IHRoZSBjb21taXQgbG9nLCBhbmQgc2VlIGhvdyB0aGUgbWFjaGluZQ0KaXMg
-YWRkZWQgaW50byBPcGVuQk1DIHByb2plY3QuDQpFLmcuDQpgYGANCmdpdCBsb2cgLS1vbmVsaW5l
-IG1ldGEtb3BlbmJtYy1tYWNoaW5lcy9tZXRhLXg4Ni9tZXRhLXF1YW50YQ0KLi4uDQphMWJjMWQy
-IEFkZCBiYXNpYyBxdWFudGEtcTdsMSBvYm1jIGltYWdlIHJlY2lwZS4NCmJmZTliNjAgQWRkIHNl
-bnNvciBhbmQgc29tZSBGUlUgZGVmaW5pdGlvbnMgZm9yIGlwbWkuDQpiMzZjMDA0IHF1YW50YS1x
-NzFsIHBhY2thZ2UgZm9yIGNvbnRyb2xsaW5nIHRoZSBTUEkgbWFzdGVyLg0KNTMyNzc5NSBxdWFu
-dGEtcTcxbDogYWRkIHBob3NwaG9yLWh3bW9uIGNvbmZpZ3MNCmI3OTc1ZWQgcXVhbnRhLXE3MWw6
-IGluaXRpYWwgbWFjaGluZSBzdXBwb3J0DQpgYGANCg0KWW91IGNhbiB0cnkgdG8gc3BsaXQgeW91
-ciBjb21taXQgaW50byBzZXBhcmF0ZWQgc21hbGxlciBjb21taXRzIGFzIHF1YW50YS1xNzFsLA0K
-YW5kIHRoZW4gc3VibWl0IHlvdXIgY2hhbmdlcy4NCg0KVGhhbmtzIQ0KDQotLQ0KQlJzLA0KTGVp
-IFlVDQoNCk9uIFRodSwgTm92IDksIDIwMTcgYXQgMTo1MyBQTSwgQ2hlbi5LZW5ZWSDpmbPmsLjn
-h58gVEFPDQo8Q2hlbi5LZW5ZWUBpbnZlbnRlYy5jb20+IHdyb3RlOg0KPiBIaSBhbGwsDQo+DQo+
-DQo+DQo+IEkgaGF2ZSBhIHBsYXRmb3JtIHdoaWNoIGlzIGFybSBzeXN0ZW0uDQo+DQo+IE15IGN1
-c3RvbWVyIHdhbnQgdG8gdXBkYXRlIHRoZSBwbGF0Zm9ybSBjb2RlIHRvIG9wZW5CTUMuDQo+DQo+
-IEZvciBub3csIHRoZSBjb2RlIHN0cnVjdHVyZSBhcyBiZWxvdy4NCj4NCj4gbWV0YS1hcm0vDQo+
-DQo+IOKUnOKUgOKUgCBjb21tb24NCj4NCj4g4pSCICAg4pSU4pSA4pSAIHJlY2lwZXMtcGhvc3Bo
-b3INCj4NCj4g4pSCICAgICAgIOKUnOKUgOKUgCBkYnVzDQo+DQo+IOKUgiAgICAgICDilIIgICDi
-lJzilIDilIAgb3BlbnBvd2VyLWRidXMtaW50ZXJmYWNlcy5iYg0KPg0KPiDilIIgICAgICAg4pSC
-ICAg4pSc4pSA4pSAIG9wZW5wb3dlci1kYnVzLWludGVyZmFjZXMtbWFwcGVyLWNvbmZpZy1uYXRp
-dmUuYmINCj4NCj4g4pSCICAgICAgIOKUgiAgIOKUlOKUgOKUgCBwaG9zcGhvci1tYXBwZXItY29u
-ZmlnLW5hdGl2ZSUuYmJhcHBlbmQNCj4NCj4g4pSCICAgICAgIOKUnOKUgOKUgCBkZWJ1Zw0KPg0K
-PiDilIIgICAgICAg4pSCICAg4pSc4pSA4pSAIG9wZW5wb3dlci1kZWJ1Zy1jb2xsZWN0b3INCj4N
-Cj4g4pSCICAgICAgIOKUgiAgIOKUgiAgIOKUnOKUgOKUgCBvcGVucG93ZXItZGVidWctY29sbGVj
-dG9yLWNoZWNrc3RvcEAuc2VydmljZQ0KPg0KPiDilIIgICAgICAg4pSCICAg4pSCICAg4pSU4pSA
-4pSAIG9wZW5wb3dlci1kZWJ1Zy1jb2xsZWN0b3Itd2F0Y2hkb2dALnNlcnZpY2UNCj4NCj4g4pSC
-ICAgICAgIOKUgiAgIOKUnOKUgOKUgCBvcGVucG93ZXItZGVidWctY29sbGVjdG9yLmJiDQo+DQo+
-IOKUgiAgICAgICDilIIgICDilJzilIDilIAgb3BlbnBvd2VyLWRlYnVnLWNvbGxlY3Rvci1lcnJv
-ci1uYXRpdmUuYmINCj4NCj4g4pSCICAgICAgIOKUgiAgIOKUnOKUgOKUgCBvcGVucG93ZXItZGVi
-dWctY29sbGVjdG9yLmluYw0KPg0KPiDilIIgICAgICAg4pSCICAg4pSU4pSA4pSAIHBob3NwaG9y
-LWxvZ2dpbmctZXJyb3ItbG9ncy1uYXRpdmUuYmJhcHBlbmQNCj4NCj4g4pSCICAgICAgIOKUnOKU
-gOKUgCBpcG1pDQo+DQo+IOKUgiAgICAgICDilIIgICDilJzilIDilIAgaG9zdGJvb3QtaW52ZW50
-b3J5LWNvbmZpZw0KPg0KPiDilIIgICAgICAg4pSCICAg4pSCICAg4pSU4pSA4pSAIGNvbmZpZy55
-YW1sDQo+DQo+IOKUgiAgICAgICDilIIgICDilJzilIDilIAgaG9zdGJvb3QtaW52ZW50b3J5LWNv
-bmZpZy1uYXRpdmUuYmINCj4NCj4g4pSCICAgICAgIOKUgiAgIOKUnOKUgOKUgCBvcGVucG93ZXIt
-aXBtaS1vZW0uYmINCj4NCj4g4pSCICAgICAgIOKUgiAgIOKUnOKUgOKUgCBvcGVucG93ZXItaXBt
-aS1vZW0td2hpdGVsaXN0DQo+DQo+IOKUgiAgICAgICDilIIgICDilIIgICDilJTilIDilIAgb3Bl
-bnBvd2VyLWlwbWktb2VtLXdoaXRlbGlzdC1uYXRpdmUuY29uZg0KPg0KPiDilIIgICAgICAg4pSC
-ICAg4pSU4pSA4pSAIG9wZW5wb3dlci1pcG1pLW9lbS13aGl0ZWxpc3QtbmF0aXZlLmJiDQo+DQo+
-IOKUgiAgICAgICDilJTilIDilIAgcGFja2FnZWdyb3Vwcw0KPg0KPiDilIIgICAgICAgICAgIOKU
-nOKUgOKUgCBwYWNrYWdlZ3JvdXAtb2JtYy1hcHBzLmJiYXBwZW5kDQo+DQo+IOKUgiAgICAgICAg
-ICAg4pSc4pSA4pSAIHBhY2thZ2Vncm91cC1vYm1jLWlwbWlkLXByb3ZpZGVycy5iYmFwcGVuZA0K
-Pg0KPiDilIIgICAgICAgICAgIOKUnOKUgOKUgCBwYWNrYWdlZ3JvdXAtb2JtYy1waG9zcGhvci1k
-ZWJ1Z3Rvb2xzLmJiYXBwZW5kDQo+DQo+IOKUgiAgICAgICAgICAg4pSU4pSA4pSAIHBhY2thZ2Vn
-cm91cC1vcC1hcHBzLmJiDQo+DQo+IOKUnOKUgOKUgCBjb25mDQo+DQo+IOKUgiAgIOKUnOKUgOKU
-gCBsYXllci5jb25mDQo+DQo+IOKUgiAgIOKUlOKUgOKUgCBtYWNoaW5lDQo+DQo+IOKUgiAgICAg
-ICDilJTilIDilIAgaW5jbHVkZQ0KPg0KPiDilIIgICAgICAgICAgIOKUlOKUgOKUgCBhcm0uaW5j
-DQo+DQo+IOKUnOKUgOKUgCBDT1BZSU5HLmFwYWNoZS0yLjANCj4NCj4g4pSc4pSA4pSAIENPUFlJ
-TkcuTUlUDQo+DQo+IOKUnOKUgOKUgCBMSUNFTlNFDQo+DQo+IOKUlOKUgOKUgCBtZXRhLXF1YWxj
-b21tDQo+DQo+ICAgICDilJzilIDilIAgY29uZg0KPg0KPiAgICAg4pSCICAg4pSc4pSA4pSAIGxh
-eWVyLmNvbmYNCj4NCj4gICAgIOKUgiAgIOKUlOKUgOKUgCBtYWNoaW5lDQo+DQo+ICAgICDilIIg
-ICAgICAg4pSU4pSA4pSAIGluY2x1ZGUNCj4NCj4gICAgIOKUgiAgICAgICAgICAg4pSU4pSA4pSA
-IHF1YWxjb21tLmluYw0KPg0KPiAgICAg4pSc4pSA4pSAIG1ldGEtMjQwMC1yZXANCj4NCj4gICAg
-IOKUgiAgIOKUnOKUgOKUgCBjb25mDQo+DQo+ICAgICDilIIgICDilIIgICDilJzilIDilIAgYmJs
-YXllcnMuY29uZi5zYW1wbGUNCj4NCj4gICAgIOKUgiAgIOKUgiAgIOKUnOKUgOKUgCBjb25mLW5v
-dGVzLnR4dA0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSc4pSA4pSAIGxheWVyLmNvbmYNCj4NCj4g
-ICAgIOKUgiAgIOKUgiAgIOKUnOKUgOKUgCBsb2NhbC5jb25mLnNhbXBsZQ0KPg0KPiAgICAg4pSC
-ICAg4pSCICAg4pSU4pSA4pSAIG1hY2hpbmUNCj4NCj4gICAgIOKUgiAgIOKUgiAgICAgICDilJTi
-lIDilIAgMjQwMC1yZXAuY29uZg0KPg0KPiAgICAg4pSCICAg4pSc4pSA4pSAIHJlY2lwZXMtYnNw
-DQo+DQo+ICAgICDilIIgICDilIIgICDilJTilIDilIAgdS1ib290DQo+DQo+ICAgICDilIIgICDi
-lIIgICAgICAg4pSc4pSA4pSAIHUtYm9vdA0KPg0KPiAgICAg4pSCICAg4pSCICAgICAgIOKUgiAg
-IOKUlOKUgOKUgA0KPiAwMDAxLUNlbnRyaXEyNDAwLVJFUC1wbGF0Zm9ybS1ib2FyZC1pbml0aWFs
-LUV0aGVybmV0LVBoeS1yZXNldC5wYXRjaA0KPg0KPiAgICAg4pSCICAg4pSCICAgICAgIOKUlOKU
-gOKUgCB1LWJvb3RfJS5iYmFwcGVuZA0KPg0KPiAgICAg4pSCICAg4pSc4pSA4pSAIHJlY2lwZXMt
-a2VybmVsDQo+DQo+ICAgICDilIIgICDilIIgICDilJTilIDilIAgbGludXgNCj4NCj4gICAgIOKU
-giAgIOKUgiAgICAgICDilJzilIDilIAgbGludXgtb2JtYw0KPg0KPiAgICAg4pSCICAg4pSCICAg
-ICAgIOKUgiAgIOKUnOKUgOKUgA0KPiAwMDAxLTI0MDBSRVAtQWRkLUdQSU9DNy1jb25maWctZm9y
-LWhvc3Qtc3BpLXJvbS1pbml0LnBhdGNoDQo+DQo+ICAgICDilIIgICDilIIgICAgICAg4pSCICAg
-4pSc4pSA4pSAIDAwMDEtQWRkLWRyaXZlci1mb3ItUENBOTY0MS1BcmJpdHJhdGlvbi5wYXRjaA0K
-Pg0KPiAgICAg4pSCICAg4pSCICAgICAgIOKUgiAgIOKUnOKUgOKUgCAwMDAxLURyaXZlci1BZGQt
-RFMxMTAwLWRyaXZlci1mb3ItUE1CVVMucGF0Y2gNCj4NCj4gICAg4pSCICAg4pSCICAgICAgIOKU
-giAgIOKUnOKUgOKUgCAwMDAxLWRyaXZlci1hZGQtSVIzODYxMy1kcml2ZXIucGF0Y2gNCj4NCj4g
-ICAgIOKUgiAgIOKUgiAgICAgICDilIIgICDilJzilIDilIAgMDAwMS1Ecml2ZXItTW9kaWZ5LWZh
-bi1kcml2ZXIucGF0Y2gNCj4NCj4gICAgIOKUgiAgIOKUgiAgICAgICDilIIgICDilJzilIDilIAN
-Cj4gMDAwMS1FbmFibGluZy10ZW1wLW1vbml0b3JpbmctYnktZGVmYXVsdC1vbi1hZG0xMjc4LnBh
-dGNoDQo+DQo+ICAgICDilIIgICDilIIgICAgICAg4pSCICAg4pSc4pSA4pSADQo+IDAwMDEtTWln
-cmF0ZS10aGUtSlRBRy1kcml2ZXItZnJvbS10aGUtQlNQLWZyb20tQXNwZWVkLnBhdGNoDQo+DQo+
-ICAgICDilIIgICDilIIgICAgICAg4pSCICAg4pSc4pSA4pSAIDAwMDEtUE1CVVMtbW9kaWZ5LXBt
-YnVzLnBhdGNoDQo+DQo+ICAgICDilIIgICDilIIgICAgICAg4pSCICAg4pSc4pSA4pSAIDAwMDEt
-c3BpLWFkZC1hc3BlZWQtc3BpLWdlbmVyaWMtZHJpdmVyLnBhdGNoDQo+DQo+ICAgICDilIIgICDi
-lIIgICAgICAg4pSCICAg4pSc4pSA4pSAIDAwMDEtc3BpLUFkZC1jZW50cmlxLTI0MDAtc3BpLWh3
-bW9uLWRyaXZlci5wYXRjaA0KPg0KPiAgICAg4pSCICAg4pSCICAgICAgIOKUgiAgIOKUnOKUgOKU
-gCAwMDAyLWRyaXZlci1hZGQtUFhNMTMxMC1kcml2ZXIucGF0Y2gNCj4NCj4gICAgIOKUgiAgIOKU
-giAgICAgICDilIIgICDilJzilIDilIAgMDAwMi1QTUJVUy1tb2RpZnktcG1idXMucGF0Y2gNCj4N
-Cj4gICAgIOKUgiAgIOKUgiAgICAgICDilIIgICDilJzilIDilIAgMDAwMy10aGVybWFsLXNlbnNv
-ci1OVlQyMTAucGF0Y2gNCj4NCj4gICAgIOKUgiAgIOKUgiAgICAgICDilIIgICDilJzilIDilIAg
-MjQwMHJlcC5jZmcNCj4NCj4gICAgIOKUgiAgIOKUgiAgICAgICDilIIgICDilJzilIDilIAgYXNw
-ZWVkLWJtYy1hcm0tMjQwMC1yZXAuZHRzDQo+DQo+ICAgICDilIIgICDilIIgICAgICAg4pSCICAg
-4pSU4pSA4pSAIHYzLTAwMDEtQWRkLVNTSUYtZHJpdmVyLWZvci1JMkMtc2xhdmUtZGV2aWNlLnBh
-dGNoDQo+DQo+ICAgICDilIIgICDilIIgICAgICAg4pSU4pSA4pSAIGxpbnV4LW9ibWNfJS5iYmFw
-cGVuZA0KPg0KPiAgICAg4pSCICAg4pSc4pSA4pSAIHJlY2lwZXMtcGhvc3Bob3INCj4NCj4gICAg
-IOKUgiAgIOKUgiAgIOKUnOKUgOKUgCBib290bW9kZXV0aWwNCj4NCj4gICAgIOKUgiAgIOKUgiAg
-IOKUgiAgIOKUnOKUgOKUgCBib290bW9kZXV0aWwuYmINCj4NCj4gICAgIOKUgiAgIOKUgiAgIOKU
-giAgIOKUlOKUgOKUgCBmaWxlcw0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAgICAgIOKUnOKU
-gOKUgCBCT09UTU9ERUZJTEUNCj4NCj4gICAgIOKUgiAgIOKUgiAgIOKUgiAgICAgICDilJTilIDi
-lIAgYm9vdG1vZGV1dGlsLmMNCj4NCj4gICAgIOKUgiAgIOKUgiAgIOKUnOKUgOKUgCBjaGFzc2lz
-DQo+DQo+ICAgICDilIIgICDilIIgICDilIIgICDilJzilIDilIAgaXIzODE2My13b3JrYXJvdW5k
-DQo+DQo+ICAgICDilIIgICDilIIgICDilIIgICDilIIgICDilJzilIDilIAgaXIzODE2M193b3Jr
-YXJvdW5kLnNoDQo+DQo+ICAgICDilIIgICDilIIgICDilIIgICDilIIgICDilJzilIDilIAgaXIt
-YWRkQC5zZXJ2aWNlDQo+DQo+ICAgICDilIIgICDilIIgICDilIIgICDilIIgICDilJTilIDilIAg
-aXItcmVtb3ZlQC5zZXJ2aWNlDQo+DQo+ICAgICDilIIgICDilIIgICDilIIgICDilJTilIDilIAg
-aXIzODE2My13b3JrYXJvdW5kLmJiDQo+DQo+ICAgICDilIIgICDilIIgICDilJzilIDilIAgY29u
-c29sZQ0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSc4pSA4pSAIG9ibWMtY29uc29sZQ0K
-Pg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSCICAg4pSU4pSA4pSAIG9ibWMtY29uc29sZS5j
-b25mDQo+DQo+ICAgICDilIIgICDilIIgICDilIIgICDilJTilIDilIAgb2JtYy1jb25zb2xlLmJi
-YXBwZW5kDQo+DQo+ICAgICDilIIgICDilIIgICDilJzilIDilIAgY3BsZA0KPg0KPiAgICAg4pSC
-ICAg4pSCICAg4pSCICAg4pSc4pSA4pSAIGNwbGQtZnd1cGRhdGUNCj4NCj4gICAgIOKUgiAgIOKU
-giAgIOKUgiAgIOKUgiAgIOKUnOKUgOKUgCBhc3QtanRhZy5jDQo+DQo+ICAgICDilIIgICDilIIg
-ICDilIIgICDilIIgICDilJzilIDilIAgYXN0LWp0YWcuaA0KPg0KPiAgICAg4pSCICAg4pSCICAg
-4pSCICAg4pSCICAg4pSc4pSA4pSAIGxhdHRpY2UuYw0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSC
-ICAg4pSCICAg4pSc4pSA4pSAIGxhdHRpY2UuaA0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg
-4pSCICAg4pSU4pSA4pSAIG1haW4uYw0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSc4pSA
-4pSAIGNwbGQtZnd1cGRhdGUuYmINCj4NCj4gICAgIOKUgiAgIOKUgiAgIOKUgiAgIOKUnOKUgOKU
-gCBjcGxkLXZlcnNpb24NCj4NCj4gICAgIOKUgiAgIOKUgiAgIOKUgiAgIOKUgiAgIOKUnOKUgOKU
-gCBjcGxkLXZlcnNpb24uc2VydmljZQ0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSCICAg
-4pSU4pSA4pSAIGNwbGRfdmVyc2lvbi5zaA0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSU
-4pSA4pSAIGNwbGQtdmVyc2lvbi5iYg0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSc4pSA4pSAIGdw
-aW9pbml0DQo+DQo+ICAgICDilIIgICDilIIgICDilIIgICDilJzilIDilIAgZmlsZXMNCj4NCj4g
-ICAgIOKUgiAgIOKUgiAgIOKUgiAgIOKUgiAgIOKUnOKUgOKUgCBncGlvaW5pdC5jDQo+DQo+ICAg
-ICDilIIgICDilIIgICDilIIgICDilIIgICDilJTilIDilIAgZ3Bpb2luaXQuc2VydmljZQ0KPg0K
-PiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSU4pSA4pSAIGdwaW9pbml0LmJiDQo+DQo+ICAgICDi
-lIIgICDilIIgICDilJzilIDilIAgaXBtaQ0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSc
-4pSA4pSAIDI0MDAtcmVwLWlwbWktaW52ZW50b3J5LW1hcA0KPg0KPiAgICAg4pSCICAg4pSCICAg
-4pSCICAg4pSCICAg4pSU4pSA4pSAIGNvbmZpZy55YW1sDQo+DQo+ICAgICDilIIgICDilIIgICDi
-lIIgICDilJzilIDilIAgMjQwMC1yZXAtaXBtaS1pbnZlbnRvcnktbWFwLW5hdGl2ZS5iYg0KPg0K
-PiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSc4pSA4pSAIG9wZW5wb3dlci1pcG1pLW9lbQ0KPg0K
-PiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSCICAg4pSc4pSA4pSAIDAwMDEtQWRkLWRldGVjdGlv
-bi1vZi1icm9hZC1hbmQtbm9kZS1jb21tYW5kLnBhdGNoDQo+DQo+ICAgICDilIIgICDilIIgICDi
-lIIgICDilIIgICDilJzilIDilIAgMDAwMS1BZGQtR2V0LUJNQy1WZW5kb3ItSUQtY29tbWFuZC5w
-YXRjaA0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSCICAg4pSc4pSA4pSAIDAwMDEtQWRk
-LUdldC1wY2llLXNsb3Qtc3RhdHVzLWNvbW1hbmQucGF0Y2gNCj4NCj4gICAgIOKUgiAgIOKUgiAg
-IOKUgiAgIOKUgiAgIOKUlOKUgOKUgCAwMDAxLUFkZC1TZW5kLVNvYy1NQUMtZnJvbS1ob3N0LnBh
-dGNoDQo+DQo+ICAgICDilIIgICDilIIgICDilIIgICDilJzilIDilIAgb3BlbnBvd2VyLWlwbWkt
-b2VtLmJiYXBwZW5kDQo+DQo+ICAgICDilIIgICDilIIgICDilIIgICDilJzilIDilIAgcGhvc3Bo
-b3ItaXBtaS1idA0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSCICAg4pSc4pSA4pSAIDAw
-MDEtYnRicmlnZGUtdG8tc3NpZi1zbGF2ZS5wYXRjaA0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSC
-ICAg4pSCICAg4pSU4pSA4pSAIDAwMDEtTW9kaWZ5LWJ0YnJpZGdlZC1kZXZpY2UtbGluay5wYXRj
-aA0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSc4pSA4pSAIHBob3NwaG9yLWlwbWktYnQu
-YmJhcHBlbmQNCj4NCj4gICAgIOKUgiAgIOKUgiAgIOKUgiAgIOKUnOKUgOKUgCBwaG9zcGhvci1p
-cG1pLWZydS1wcm9wZXJ0aWVzJQ0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSCICAg4pSU
-4pSA4pSAIGV4dHJhLXByb3BlcnRpZXMueWFtbA0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg
-4pSc4pSA4pSAIHBob3NwaG9yLWlwbWktZnJ1LXByb3BlcnRpZXMlLmJiYXBwZW5kDQo+DQo+ICAg
-ICDilIIgICDilIIgICDilIIgICDilJzilIDilIAgcGhvc3Bob3ItaXBtaS1zZW5zb3ItaW52ZW50
-b3J5JQ0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSCICAg4pSU4pSA4pSAIGNvbmZpZy55
-YW1sDQo+DQo+ICAgICDilIIgICDilIIgICDilIIgICDilJTilIDilIAgcGhvc3Bob3ItaXBtaS1z
-ZW5zb3ItaW52ZW50b3J5JS5iYmFwcGVuZA0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSc4pSA4pSA
-IGxlZHMNCj4NCj4gICAgIOKUgiAgIOKUgiAgIOKUgiAgIOKUnOKUgOKUgCAyNDAwLXJlcC1sZWQt
-bWFuYWdlci1jb25maWcNCj4NCj4gICAgIOKUgiAgIOKUgiAgIOKUgiAgIOKUgiAgIOKUlOKUgOKU
-gCBsZWQueWFtbA0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSU4pSA4pSAIDI0MDAtcmVw
-LWxlZC1tYW5hZ2VyLWNvbmZpZy1uYXRpdmUuYmINCj4NCj4gICAgIOKUgiAgIOKUgiAgIOKUnOKU
-gOKUgCBtYWNzZXR1cA0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSc4pSA4pSAIGZpbGVz
-DQo+DQo+ICAgICDilIIgICDilIIgICDilIIgICDilIIgICDilJzilIDilIAgbWFjc2V0dXAuYw0K
-Pg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSCICAg4pSU4pSA4pSAIG1hY3NldHVwLnNlcnZp
-Y2UNCj4NCj4gICAgIOKUgiAgIOKUgiAgIOKUgiAgIOKUlOKUgOKUgCBtYWNzZXR1cC5iYg0KPg0K
-PiAgICAg4pSCICAg4pSCICAg4pSc4pSA4pSAIHFzcGl0ZXN0DQo+DQo+ICAgICDilIIgICDilIIg
-ICDilIIgICDilJzilIDilIAgZmlsZXMNCj4NCj4gICAgIOKUgiAgIOKUgiAgIOKUgiAgIOKUgiAg
-IOKUnOKUgOKUgCBxc3BpX3Rlc3QuYw0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSCICAg
-4pSU4pSA4pSAIHFzcGlfdGVzdC5oDQo+DQo+ICAgICDilIIgICDilIIgICDilIIgICDilJTilIDi
-lIAgcXNwaXRlc3QuYmINCj4NCj4gICAgIOKUgiAgIOKUgiAgIOKUnOKUgOKUgCBzZW5zb3JzDQo+
-DQo+ICAgICDilIIgICDilIIgICDilIIgICDilJzilIDilIAgcGhvc3Bob3ItaHdtb24lDQo+DQo+
-ICAgICDilIIgICDilIIgICDilIIgICDilIIgICDilJzilIDilIANCj4gMDAwMS1waG9zcGhvci1o
-d21vbi1maXhlZC1vcGVuLXN5c3RlbS1maWxlLXRpbWVvdXQucGF0Y2gNCj4NCj4gICAgIOKUgiAg
-IOKUgiAgIOKUgiAgIOKUgiAgIOKUlOKUgOKUgCBvYm1jDQo+DQo+ICAgICDilIIgICDilIIgICDi
-lIIgICDilIIgICAgICAg4pSU4pSA4pSAIGh3bW9uDQo+DQo+ICAgICDilIIgICDilIIgICDilIIg
-ICDilIIgICAgICAgICAgIOKUlOKUgOKUgCBhaGINCj4NCj4gICAgIOKUgiAgIOKUgiAgIOKUgiAg
-IOKUgiAgICAgICAgICAgICAgIOKUnOKUgOKUgCAxZTYzMTAwMC5mbGFzaC1jb250cm9sbGVyDQo+
-DQo+ICAgICDilIIgICDilIIgICDilIIgICDilIIgICAgICAgICAgICAgICDilIIgICDilJTilIDi
-lIAgc3BpMkAwDQo+DQo+ICAgICDilIIgICDilIIgICDilIIgICDilIIgICAgICAgICAgICAgICDi
-lIIgICAgICAg4pSU4pSA4pSAIGNlbnRyaXEyNDAwLXNwaS1od21vbkAwLmNvbmYNCj4NCj4gICAg
-IOKUgiAgIOKUgiAgIOKUgiAgIOKUgiAgICAgICAgICAgICAgIOKUlOKUgOKUgCBhcGINCj4NCj4g
-ICAgIOKUgiAgIOKUgiAgIOKUgiAgIOKUgiAgICAgICAgICAgICAgICAgICDilJTilIDilIAgaTJj
-QDFlNzhhMDAwDQo+DQo+ICAgICDilIIgICDilIIgICDilIIgICDilIIgICAgICAgICAgICAgICAg
-ICAgICAgIOKUnOKUgOKUgCBpMmMtYnVzQDE4MA0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg
-4pSCICAgICAgICAgICAgICAgICAgICAgICDilIIgICDilJzilIDilIAgaXIzODE2M0AxMi5jb25m
-DQo+DQo+ICAgICDilIIgICDilIIgICDilIIgICDilIIgICAgICAgICAgICAgICAgICAgICAgIOKU
-giAgIOKUnOKUgOKUgCBpcjM4MTYzQDQyLmNvbmYNCj4NCj4gICAgIOKUgiAgIOKUgiAgIOKUgiAg
-IOKUgiAgICAgICAgICAgICAgICAgICAgICAg4pSCICAg4pSc4pSA4pSAIGlyMzgxNjNANDQuY29u
-Zg0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSCICAgICAgICAgICAgICAgICAgICAgICDi
-lIIgICDilJzilIDilIAgaXIzODE2M0A0Ni5jb25mDQo+DQo+ICAgICDilIIgICDilIIgICDilIIg
-ICDilIIgICAgICAgICAgICAgICAgICAgICAgIOKUgiAgIOKUnOKUgOKUgCBpcjM4MTYzQDQ4LmNv
-bmYNCj4NCj4gICAgIOKUgiAgIOKUgiAgIOKUgiAgIOKUgiAgICAgICAgICAgICAgICAgICAgICAg
-4pSCICAg4pSc4pSA4pSAIHB4bTEzMTBAMDIuY29uZg0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSC
-ICAg4pSCICAgICAgICAgICAgICAgICAgICAgICDilIIgICDilJTilIDilIAgcHhtMTMxMEAwNC5j
-b25mDQo+DQo+ICAgICDilIIgICDilIIgICDilIIgICDilIIgICAgICAgICAgICAgICAgICAgICAg
-IOKUnOKUgOKUgCBpMmMtYnVzQDFjMA0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSCICAg
-ICAgICAgICAgICAgICAgICAgICDilIIgICDilJzilIDilIAgbnZ0MjEwQDRjLmNvbmYNCj4NCj4g
-ICAgIOKUgiAgIOKUgiAgIOKUgiAgIOKUgiAgICAgICAgICAgICAgICAgICAgICAg4pSCICAg4pSc
-4pSA4pSAIHRtcDQyMUAxZC5jb25mDQo+DQo+ICAgICDilIIgICDilIIgICDilIIgICDilIIgICAg
-ICAgICAgICAgICAgICAgICAgIOKUgiAgIOKUnOKUgOKUgCB0bXA0MjFAMWYuY29uZg0KPg0KPiAg
-ICAg4pSCICAg4pSCICAg4pSCICAg4pSCICAgICAgICAgICAgICAgICAgICAgICDilIIgICDilJzi
-lIDilIAgdG1wNDIxQDRkLmNvbmYNCj4NCj4gICAgIOKUgiAgIOKUgiAgIOKUgiAgIOKUgiAgICAg
-ICAgICAgICAgICAgICAgICAg4pSCICAg4pSU4pSA4pSAIHRtcDQyMUA0Zi5jb25mDQo+DQo+ICAg
-ICDilIIgICDilIIgICDilIIgICDilIIgICAgICAgICAgICAgICAgICAgICAgIOKUnOKUgOKUgCBp
-MmMtYnVzQDMwMA0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSCICAgICAgICAgICAgICAg
-ICAgICAgICDilIIgICDilJzilIDilIAgYWRtMTI3OEAxMC5jb25mDQo+DQo+ICAgICDilIIgICDi
-lIIgICDilIIgICDilIIgICAgICAgICAgICAgICAgICAgICAgIOKUgiAgIOKUlOKUgOKUgCBhZG0x
-Mjc4QDExLmNvbmYNCj4NCj4gICAgIOKUgiAgIOKUgiAgIOKUgiAgIOKUgiAgICAgICAgICAgICAg
-ICAgICAgICAg4pSc4pSA4pSAIGkyYy1idXNAMzQwDQo+DQo+ICAgICDilIIgICDilIIgICDilIIg
-ICDilIIgICAgICAgICAgICAgICAgICAgICAgIOKUgiAgIOKUlOKUgOKUgCBwY2E5NjQxQDcwDQo+
-DQo+ICAgICDilIIgICDilIIgICDilIIgICDilIIgICAgICAgICAgICAgICAgICAgICAgIOKUgiAg
-ICAgICDilJTilIDilIAgaTJjLWFyYg0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSCICAg
-ICAgICAgICAgICAgICAgICAgICDilIIgICAgICAgICAgIOKUnOKUgOKUgCBhZG0xMjc4QDEyLmNv
-bmYNCj4NCj4gICAgIOKUgiAgIOKUgiAgIOKUgiAgIOKUgiAgICAgICAgICAgICAgICAgICAgICAg
-4pSCICAgICAgICAgICDilJzilIDilIAgZHMxMTAwQDU4LmNvbmYNCj4NCj4gICAgIOKUgiAgIOKU
-giAgIOKUgiAgIOKUgiAgICAgICAgICAgICAgICAgICAgICAg4pSCICAgICAgICAgICDilJzilIDi
-lIAgbWF4MzE3OTBAMjAuY29uZg0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSCICAgICAg
-ICAgICAgICAgICAgICAgICDilIIgICAgICAgICAgIOKUnOKUgOKUgCBtYXgzMTc5MEAyMy5jb25m
-DQo+DQo+ICAgICDilIIgICDilIIgICDilIIgICDilIIgICAgICAgICAgICAgICAgICAgICAgIOKU
-giAgICAgICAgICAg4pSU4pSA4pSAIHRtcDQyMUAxZC5jb25mDQo+DQo+ICAgICDilIIgICDilIIg
-ICDilIIgICDilIIgICAgICAgICAgICAgICAgICAgICAgIOKUlOKUgOKUgCBpMmMtYnVzQDgwDQo+
-DQo+ICAgICDilIIgICDilIIgICDilIIgICDilIIgICAgICAgICAgICAgICAgICAgICAgICAgICDi
-lJzilIDilIAgdG1wNDIxQDFjLmNvbmYNCj4NCj4gICAgIOKUgiAgIOKUgiAgIOKUgiAgIOKUgiAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIOKUnOKUgOKUgCB0bXA0MjFAMWUuY29uZg0KPg0KPiAg
-ICAg4pSCICAg4pSCICAg4pSCICAg4pSCICAgICAgICAgICAgICAgICAgICAgICAgICAg4pSc4pSA
-4pSAIHRtcDQyMUAyYS5jb25mDQo+DQo+ICAgICDilIIgICDilIIgICDilIIgICDilIIgICAgICAg
-ICAgICAgICAgICAgICAgICAgICDilJTilIDilIAgdG1wNDIxQDRlLmNvbmYNCj4NCj4gICAgIOKU
-giAgIOKUgiAgIOKUgiAgIOKUlOKUgOKUgCBwaG9zcGhvci1od21vbiUuYmJhcHBlbmQNCj4NCj4g
-ICAgIOKUgiAgIOKUgiAgIOKUnOKUgOKUgCBzZXR0aW5ncw0KPg0KPiAgICAg4pSCICAg4pSCICAg
-4pSCICAg4pSc4pSA4pSAIHBob3NwaG9yLXNldHRpbmdzDQo+DQo+ICAgICDilIIgICDilIIgICDi
-lIIgICDilIIgICDilJzilIDilIAgcG93ZXJwb2xpY3ktZGVmYXVsdC1BTFdBWVNfUE9XRVJfT04u
-b3ZlcnJpZGUueW1sDQo+DQo+ICAgICDilIIgICDilIIgICDilIIgICDilIIgICDilJTilIDilIAg
-dGltZW93bmVyLWRlZmF1bHQtQk9USC5vdmVycmlkZS55bWwNCj4NCj4gICAgIOKUgiAgIOKUgiAg
-IOKUgiAgIOKUlOKUgOKUgCBwaG9zcGhvci1zZXR0aW5ncy5iYmFwcGVuZA0KPg0KPiAgICAg4pSC
-ICAg4pSCICAg4pSc4pSA4pSAIHNwaXRlc3QNCj4NCj4gICAgIOKUgiAgIOKUgiAgIOKUgiAgIOKU
-nOKUgOKUgCBmaWxlcw0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSCICAg4pSU4pSA4pSA
-IHNwaXRlc3QuYw0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSU4pSA4pSAIHNwaXRlc3Qu
-YmINCj4NCj4gICAgIOKUgiAgIOKUgiAgIOKUnOKUgOKUgCB0aGVybWFsdXRpbA0KPg0KPiAgICAg
-4pSCICAg4pSCICAg4pSCICAg4pSc4pSA4pSAIGZpbGVzDQo+DQo+ICAgICDilIIgICDilIIgICDi
-lIIgICDilIIgICDilJzilIDilIAgdGhlcm1hbF9jb250cm9sLnNoDQo+DQo+ICAgICDilIIgICDi
-lIIgICDilIIgICDilIIgICDilJzilIDilIAgdGhlcm1hbC1zdGFydEAuc2VydmljZQ0KPg0KPiAg
-ICAg4pSCICAg4pSCICAg4pSCICAg4pSCICAg4pSc4pSA4pSAIHRoZXJtYWwtc3RvcEAuc2Vydmlj
-ZQ0KPg0KPiAgICAg4pSCICAg4pSCICAg4pSCICAg4pSCICAg4pSU4pSA4pSAIHRoZXJtYWx1dGls
-LmMNCj4NCj4gICAgIOKUgiAgIOKUgiAgIOKUgiAgIOKUlOKUgOKUgCB0aGVybWFsdXRpbC5iYg0K
-Pg0KPiAgICAg4pSCICAg4pSCICAg4pSU4pSA4pSAIHdvcmtib29rDQo+DQo+ICAgICDilIIgICDi
-lIIgICAgICAg4pSc4pSA4pSAIDI0MDAtcmVwLWNvbmZpZw0KPg0KPiAgICAg4pSCICAg4pSCICAg
-ICAgIOKUgiAgIOKUlOKUgOKUgCAyNDAwLXJlcC5weQ0KPg0KPiAgICAg4pSCICAg4pSCICAgICAg
-IOKUlOKUgOKUgCAyNDAwLXJlcC1jb25maWcuYmINCj4NCj4gICAgIOKUgiAgIOKUlOKUgOKUgCBy
-ZWNpcGVzLnR4dA0KPg0KPiAgICAg4pSU4pSA4pSAIHNrZWxldG9uDQo+DQo+ICAgICAgICAg4pSU
-4pSA4pSAIHNrZWxldG9uLnRhci5neg0KPg0KPg0KPg0KPiBDb3VsZCBhbnlvbmUgaGVscCB0byBy
-ZXZpZXcgdGhpcyBzdHJ1Y3R1cmUgYW5kIHRlbGwgbWUgaG93IHRvIHNlcGFyYXRlIHRoaXMNCj4g
-Y29kZSB3aWxsIGJlIGdvb2QgdG8gcmV2aWV3ZXI/DQo+DQo+IEFzIEkga25vdywgdGhlIGtlcm5l
-bCBwYXRjaCBzaG91bGQgbm90IGluIG1hY2hpbmUgZmlsZS4NCj4NCj4NCj4NCj4gSWYgYW55IG90
-aGVyIHF1ZXN0aW9uLCBwbGVhc2UgZmVlbCBmcmVlIHRvIG1lLiBUaGFua3MuDQo+DQo+DQo+DQo+
-IEJlc3QgUmVnYXJkcywNCj4NCj4gS2VuDQo+DQo+DQo+DQo+DQo=
+
+--=-ZQpS+milW3uWhhSkTKtI
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Sun, 2017-11-05 at 06:39 -0800, Guenter Roeck wrote:
+> On Fri, Nov 03, 2017 at 03:53:03PM +1100, Andrew Jeffery wrote:
+> > Expose fanX_target, pwmX and pwmX_enable hwmon sysfs attributes.
+> >=20
+> > Fans in a PMBus device are driven by the configuration of two registers=
+:
+> > FAN_CONFIG_x_y and FAN_COMMAND_x: FAN_CONFIG_x_y dictates how the fan
+> > and the tacho operate (if installed), while FAN_COMMAND_x sets the
+> > desired fan rate. The unit of FAN_COMMAND_x is dependent on the
+> > operational fan mode, RPM or PWM percent duty, as determined by the
+> > corresponding FAN_CONFIG_x_y.
+> >=20
+> > The mapping of fanX_target, pwmX and pwmX_enable onto FAN_CONFIG_x_y an=
+d
+> > FAN_COMMAND_x is implemented with the addition of virtual registers and
+> > generic implementations in the core:
+> >=20
+> > 1. PMBUS_VIRT_FAN_TARGET_x
+> > 2. PMBUS_VIRT_PWM_x
+> > 3. PMBUS_VIRT_PWM_ENABLE_x
+> >=20
+> > The virtual registers facilitate the necessary side-effects of each
+> > access. Examples of the read case, assuming m =3D 1, b =3D 0, R =3D 0:
+> >=20
+> >              Read     |              With              || Gives
+> >          -------------------------------------------------------
+> >            Attribute  | FAN_CONFIG_x_y | FAN_COMMAND_y || Value
+> >          ----------------------------------------------++-------
+> >           fanX_target | ~PB_FAN_z_RPM  | 0x0001        || 1
+> >           pwm1        | ~PB_FAN_z_RPM  | 0x0064        || 255
+> >           pwmX_enable | ~PB_FAN_z_RPM  | 0x0001        || 1
+> >           fanX_target |  PB_FAN_z_RPM  | 0x0001        || 1
+> >           pwm1        |  PB_FAN_z_RPM  | 0x0064        || 0
+> >           pwmX_enable |  PB_FAN_z_RPM  | 0x0001        || 1
+> >=20
+> > And the write case:
+> >=20
+> >              Write    | With  ||               Sets
+> >          -------------+-------++----------------+---------------
+> >            Attribute  | Value || FAN_CONFIG_x_y | FAN_COMMAND_x
+> >          -------------+-------++----------------+---------------
+> >           fanX_target | 1     ||  PB_FAN_z_RPM  | 0x0001
+> >           pwmX        | 255   || ~PB_FAN_z_RPM  | 0x0064
+> >           pwmX_enable | 1     || ~PB_FAN_z_RPM  | 0x0064
+> >=20
+> > Also, the DIRECT mode scaling of some controllers is different between
+> > RPM and PWM percent duty control modes, so PSC_PWM is introduced to
+> > capture the necessary coefficients.
+> >=20
+> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> > ---
+> >  drivers/hwmon/pmbus/pmbus.h      |  29 +++++
+> >  drivers/hwmon/pmbus/pmbus_core.c | 224 +++++++++++++++++++++++++++++++=
++++++---
+> >  2 files changed, 238 insertions(+), 15 deletions(-)
+> >=20
+> > diff --git a/drivers/hwmon/pmbus/pmbus.h b/drivers/hwmon/pmbus/pmbus.h
+> > index 4efa2bd4f6d8..cdf3e288e626 100644
+> > --- a/drivers/hwmon/pmbus/pmbus.h
+> > +++ b/drivers/hwmon/pmbus/pmbus.h
+> > @@ -190,6 +190,28 @@ enum pmbus_regs {
+> >  	PMBUS_VIRT_VMON_UV_FAULT_LIMIT,
+> >  	PMBUS_VIRT_VMON_OV_FAULT_LIMIT,
+> >  	PMBUS_VIRT_STATUS_VMON,
+> > +
+> > +	/*
+> > +	 * RPM and PWM Fan control
+> > +	 *
+> > +	 * Drivers wanting to expose PWM control must define the behaviour of
+> > +	 * PMBUS_VIRT_PWM_ENABLE_[1-4] in the {read,write}_word_data callback=
+.
+> > +	 *
+> > +	 * pmbus core provides default implementations for
+> > +	 * PMBUS_VIRT_FAN_TARGET_[1-4] and PMBUS_VIRT_PWM_[1-4].
+> > +	 */
+> > +	PMBUS_VIRT_FAN_TARGET_1,
+> > +	PMBUS_VIRT_FAN_TARGET_2,
+> > +	PMBUS_VIRT_FAN_TARGET_3,
+> > +	PMBUS_VIRT_FAN_TARGET_4,
+> > +	PMBUS_VIRT_PWM_1,
+> > +	PMBUS_VIRT_PWM_2,
+> > +	PMBUS_VIRT_PWM_3,
+> > +	PMBUS_VIRT_PWM_4,
+> > +	PMBUS_VIRT_PWM_ENABLE_1,
+> > +	PMBUS_VIRT_PWM_ENABLE_2,
+> > +	PMBUS_VIRT_PWM_ENABLE_3,
+> > +	PMBUS_VIRT_PWM_ENABLE_4,
+> >  };
+> > =20
+> >  /*
+> > @@ -223,6 +245,8 @@ enum pmbus_regs {
+> >  #define PB_FAN_1_RPM			BIT(6)
+> >  #define PB_FAN_1_INSTALLED		BIT(7)
+> > =20
+> > +enum pmbus_fan_mode { percent =3D 0, rpm };
+> > +
+> >  /*
+> >   * STATUS_BYTE, STATUS_WORD (lower)
+> >   */
+> > @@ -313,6 +337,7 @@ enum pmbus_sensor_classes {
+> >  	PSC_POWER,
+> >  	PSC_TEMPERATURE,
+> >  	PSC_FAN,
+> > +	PSC_PWM,
+> >  	PSC_NUM_CLASSES		/* Number of power sensor classes */
+> >  };
+> > =20
+> > @@ -339,6 +364,8 @@ enum pmbus_sensor_classes {
+> >  #define PMBUS_HAVE_STATUS_FAN34	BIT(17)
+> >  #define PMBUS_HAVE_VMON		BIT(18)
+> >  #define PMBUS_HAVE_STATUS_VMON	BIT(19)
+> > +#define PMBUS_HAVE_PWM12	BIT(20)
+> > +#define PMBUS_HAVE_PWM34	BIT(21)
+> > =20
+> >  enum pmbus_data_format { linear =3D 0, direct, vid };
+> >  enum vrm_version { vr11 =3D 0, vr12, vr13 };
+> > @@ -413,6 +440,8 @@ int pmbus_write_byte_data(struct i2c_client *client=
+, int page, u8 reg,
+> >  			  u8 value);
+> >  int pmbus_update_byte_data(struct i2c_client *client, int page, u8 reg=
+,
+> >  			   u8 mask, u8 value);
+> > +int pmbus_update_fan(struct i2c_client *client, int page, int id,
+> > +		     u8 config, u8 mask, u16 command);
+> >  void pmbus_clear_faults(struct i2c_client *client);
+> >  bool pmbus_check_byte_register(struct i2c_client *client, int page, in=
+t reg);
+> >  bool pmbus_check_word_register(struct i2c_client *client, int page, in=
+t reg);
+> > diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmb=
+us_core.c
+> > index 302f0aef59de..55838b69e99a 100644
+> > --- a/drivers/hwmon/pmbus/pmbus_core.c
+> > +++ b/drivers/hwmon/pmbus/pmbus_core.c
+> > @@ -64,6 +64,7 @@ struct pmbus_sensor {
+> >  	u16 reg;		/* register */
+> >  	enum pmbus_sensor_classes class;	/* sensor class */
+> >  	bool update;		/* runtime sensor update needed */
+> > +	bool convert;		/* Whether or not to apply linear/vid/direct */
+> >  	int data;		/* Sensor data.
+> >  				   Negative if there was a read error */
+> >  };
+> > @@ -128,6 +129,27 @@ struct pmbus_debugfs_entry {
+> >  	u8 reg;
+> >  };
+> > =20
+> > +static const int pmbus_fan_rpm_mask[] =3D {
+> > +	PB_FAN_1_RPM,
+> > +	PB_FAN_2_RPM,
+> > +	PB_FAN_1_RPM,
+> > +	PB_FAN_2_RPM,
+> > +};
+> > +
+> > +static const int pmbus_fan_config_registers[] =3D {
+> > +	PMBUS_FAN_CONFIG_12,
+> > +	PMBUS_FAN_CONFIG_12,
+> > +	PMBUS_FAN_CONFIG_34,
+> > +	PMBUS_FAN_CONFIG_34
+> > +};
+> > +
+> > +static const int pmbus_fan_command_registers[] =3D {
+> > +	PMBUS_FAN_COMMAND_1,
+> > +	PMBUS_FAN_COMMAND_2,
+> > +	PMBUS_FAN_COMMAND_3,
+> > +	PMBUS_FAN_COMMAND_4,
+> > +};
+> > +
+> >  void pmbus_clear_cache(struct i2c_client *client)
+> >  {
+> >  	struct pmbus_data *data =3D i2c_get_clientdata(client);
+> > @@ -198,6 +220,31 @@ int pmbus_write_word_data(struct i2c_client *clien=
+t, u8 page, u8 reg, u16 word)
+> >  }
+> >  EXPORT_SYMBOL_GPL(pmbus_write_word_data);
+> > =20
+> > +int pmbus_update_fan(struct i2c_client *client, int page, int id,
+> > +			       u8 config, u8 mask, u16 command)
+>=20
+> Please make sure continuation lines are aligned to '(' where possible.
+
+Yep, sorry about that.
+
+>=20
+> > +{
+> > +	int from, rv;
+> > +	u8 to;
+> > +
+> > +	from =3D pmbus_read_byte_data(client, page,
+> > +				    pmbus_fan_config_registers[id]);
+> > +	if (from < 0)
+> > +		return from;
+> > +
+> > +	to =3D (from & ~mask) | (config & mask);
+> > +
+> > +	if (to !=3D from) {
+> > +		rv =3D pmbus_write_byte_data(client, page,
+> > +					   pmbus_fan_config_registers[id], to);
+> > +		if (rv < 0)
+> > +			return rv;
+> > +	}
+> > +
+> > +	return pmbus_write_word_data(client, page,
+> > +				     pmbus_fan_command_registers[id], command);
+> > +}
+> > +EXPORT_SYMBOL_GPL(pmbus_update_fan);
+> > +
+> >  /*
+> >   * _pmbus_write_word_data() is similar to pmbus_write_word_data(), but=
+ checks if
+> >   * a device specific mapping function exists and calls it if necessary=
+.
+> > @@ -214,8 +261,40 @@ static int _pmbus_write_word_data(struct i2c_clien=
+t *client, int page, int reg,
+> >  		if (status !=3D -ENODATA)
+> >  			return status;
+> >  	}
+> > -	if (reg >=3D PMBUS_VIRT_BASE)
+> > -		return -ENXIO;
+> > +	if (reg >=3D PMBUS_VIRT_BASE) {
+> > +		int id, bit;
+> > +
+> > +		switch (reg) {
+> > +		case PMBUS_VIRT_FAN_TARGET_1:
+> > +		case PMBUS_VIRT_FAN_TARGET_2:
+> > +		case PMBUS_VIRT_FAN_TARGET_3:
+> > +		case PMBUS_VIRT_FAN_TARGET_4:
+>=20
+> Maybe
+> 		case PMBUS_VIRT_FAN_TARGET_1 ... PMBUS_VIRT_FAN_TARGET_4:
+
+Sure. I'll fix all instances of this.
+
+>=20
+> > +			id =3D reg - PMBUS_VIRT_FAN_TARGET_1;
+> > +			bit =3D pmbus_fan_rpm_mask[id];
+> > +			status =3D pmbus_update_fan(client, page, id, bit, bit,
+> > +						  word);
+> > +			break;
+> > +		case PMBUS_VIRT_PWM_1:
+> > +		case PMBUS_VIRT_PWM_2:
+> > +		case PMBUS_VIRT_PWM_3:
+> > +		case PMBUS_VIRT_PWM_4:
+> > +		{
+> > +			u32 command =3D word;
+>=20
+> Please move command up and drop the {.
+
+My default is to scope variables to where they are needed, but will
+fix.
+
+>=20
+> Why u32 ? The value should be bound to 0..255 (if it isn't and a larger
+> value is accepted we have overflow issues).
+
+It gets scaled below, though we still only need u16 if the max value is
+255. I'll fix it.
+
+>=20
+> > +
+> > +			id =3D reg - PMBUS_VIRT_PWM_1;
+> > +			bit =3D pmbus_fan_rpm_mask[id];
+> > +			command *=3D 100;
+> > +			command /=3D 255;
+> > +			status =3D pmbus_update_fan(client, page, id, 0, bit,
+> > +						  command);
+> > +			break;
+> > +		}
+> > +		default:
+> > +			status =3D -ENXIO;
+> > +			break;
+> > +		}
+> > +		return status;
+>=20
+> Please move this code to a separate function.
+
+Will do.
+
+>=20
+> > +	}
+> >  	return pmbus_write_word_data(client, page, reg, word);
+> >  }
+> > =20
+> > @@ -231,6 +310,9 @@ int pmbus_read_word_data(struct i2c_client *client,=
+ u8 page, u8 reg)
+> >  }
+> >  EXPORT_SYMBOL_GPL(pmbus_read_word_data);
+> > =20
+> > +static int pmbus_get_fan_command(struct i2c_client *client, int page, =
+int id,
+> > +				 enum pmbus_fan_mode mode);
+> > +
+> >  /*
+> >   * _pmbus_read_word_data() is similar to pmbus_read_word_data(), but c=
+hecks if
+> >   * a device specific mapping function exists and calls it if necessary=
+.
+> > @@ -246,8 +328,42 @@ static int _pmbus_read_word_data(struct i2c_client=
+ *client, int page, int reg)
+> >  		if (status !=3D -ENODATA)
+> >  			return status;
+> >  	}
+> > -	if (reg >=3D PMBUS_VIRT_BASE)
+> > -		return -ENXIO;
+> > +	if (reg >=3D PMBUS_VIRT_BASE) {
+> > +		int id;
+> > +
+> > +		switch (reg) {
+> > +		case PMBUS_VIRT_FAN_TARGET_1:
+> > +		case PMBUS_VIRT_FAN_TARGET_2:
+> > +		case PMBUS_VIRT_FAN_TARGET_3:
+> > +		case PMBUS_VIRT_FAN_TARGET_4:
+>=20
+> Since there is an implied assumption that those are sequential,
+> how about the following ?
+>=20
+> 		case PMBUS_VIRT_FAN_TARGET_1 ... PMBUS_VIRT_FAN_TARGET_4:
+
+Will fix all instances of this, as noted above.
+
+>=20
+> > +			id =3D reg - PMBUS_VIRT_FAN_TARGET_1;
+>=20
+> This warrants a comment in the definition of PMBUS_VIRT_FAN_TARGET_X
+> and PMBUS_VIRT_PWM_X stating that the definitions must be in sequence.
+
+Right, will add a comment to that effect.
+
+>=20
+> > +			status =3D pmbus_get_fan_command(client, page, id, rpm);
+> > +			break;
+> > +		case PMBUS_VIRT_PWM_1:
+> > +		case PMBUS_VIRT_PWM_2:
+> > +		case PMBUS_VIRT_PWM_3:
+> > +		case PMBUS_VIRT_PWM_4:
+>=20
+> Same as above.
+
+Ack.
+
+>=20
+> > +		{
+> > +			int rv;
+>=20
+> Please move the declaration up and drop the {.
+
+Ack.
+
+>=20
+> > +
+> > +			id =3D reg - PMBUS_VIRT_PWM_1;
+> > +			rv =3D pmbus_get_fan_command(client, page, id, percent);
+> > +			if (rv < 0)
+> > +				return rv;
+> > +
+>=20
+> Is this guaranteed to be <=3D 100 ?
+
+PMBus spec rev 1.2 part II says in 14.10 and 14.11:
+
+The second part of the configuration tells the device whether the fan
+speed commands are in RPM or PWM duty cycle (in percent).
+
+However, the MAX31785 accepts the ranges 0-0x2710, so allows fractions
+of a percent.
+
+Not sure what my thoughts were here, it's probably best just to drop
+this default PWM implementation as well.
+
+>=20
+> > +			rv *=3D 255;
+> > +			rv /=3D 100;
+> > +
+> > +			status =3D rv;
+> > +			break;
+> > +		}
+> > +		default:
+> > +			status =3D -ENXIO;
+> > +			break;
+> > +		}
+>=20
+> Please move this code to a separate function.
+
+Will do, though given I plan to gut the PWM implementation is it still
+so disruptive?
+
+>=20
+> > +
+> > +		return status;
+> > +	}
+> >  	return pmbus_read_word_data(client, page, reg);
+> >  }
+> > =20
+> > @@ -314,6 +430,28 @@ static int _pmbus_read_byte_data(struct i2c_client=
+ *client, int page, int reg)
+> >  	return pmbus_read_byte_data(client, page, reg);
+> >  }
+> > =20
+> > +static int pmbus_get_fan_command(struct i2c_client *client, int page, =
+int id,
+> > +				 enum pmbus_fan_mode mode)
+>=20
+> Maybe better pmbus_get_fan_get_speed_rpm to clarify that we are not
+> really interested in the command register value but but in speed or rpm ?
+
+Sounds reasonable on the surface. I'll look into it.
+
+>=20
+> > +{
+> > +	int config;
+> > +
+> > +	config =3D _pmbus_read_byte_data(client, page,
+> > +				       pmbus_fan_config_registers[id]);
+> > +	if (config < 0)
+> > +		return config;
+> > +
+> > +	/*
+> > +	 * We can't meaningfully translate between PWM and RPM, so if the
+> > +	 * attribute mode (fan[1-*]_target is RPM, pwm[1-*] and pwm[1-*]_enab=
+le
+> > +	 * are PWM) doesn't match the hardware mode, then report 0 instead.
+> > +	 */
+> > +	if ((mode =3D=3D rpm) !=3D (!!(config & pmbus_fan_rpm_mask[id])))
+> > +		return 0;
+>=20
+> Please drop the unnecessary ().
+
+Sure.
+
+>=20
+> I am not too happy about this - the user has no means to specify pwm or
+> fan target speed _before_ changing the mode. It would be better to report
+> (and accept) cached values in that situation, and update the actual value
+> as the mode is changed.
+
+I'm with you on the caching idea for switching modes, but do we want to
+report values that don't obviously reflect the fan rate to userspace?
+In previous revisions I was returning an error here but you pointed out
+this would break sensors(1) and suggested I switch to 0 in the conflict
+case.
+
+>=20
+> > +
+> > +	return _pmbus_read_word_data(client, page,
+> > +				     pmbus_fan_command_registers[id]);
+> > +}
+> > +
+> >  static void pmbus_clear_fault_page(struct i2c_client *client, int page=
+)
+> >  {
+> >  	_pmbus_write_byte(client, page, PMBUS_CLEAR_FAULTS);
+> > @@ -515,7 +653,7 @@ static long pmbus_reg2data_direct(struct pmbus_data=
+ *data,
+> >  	/* X =3D 1/m * (Y * 10^-R - b) */
+> >  	R =3D -R;
+> >  	/* scale result to milli-units for everything but fans */
+> > -	if (sensor->class !=3D PSC_FAN) {
+> > +	if (!(sensor->class =3D=3D PSC_FAN || sensor->class =3D=3D PSC_PWM)) =
+{
+>=20
+> Please use positive logic
+>=20
+> 	if (sensor->class !=3D PSC_FAN && sensor->class !=3D PSC_PWM)
+>=20
+> It is (at least for me) much easier to read.
+
+Okay.
+
+>=20
+> >  		R +=3D 3;
+> >  		b *=3D 1000;
+> >  	}
+> > @@ -569,6 +707,9 @@ static long pmbus_reg2data(struct pmbus_data *data,=
+ struct pmbus_sensor *sensor)
+> >  {
+> >  	long val;
+> > =20
+> > +	if (!sensor->convert)
+> > +		return sensor->data;
+> > +
+> >  	switch (data->info->format[sensor->class]) {
+> >  	case direct:
+> >  		val =3D pmbus_reg2data_direct(data, sensor);
+> > @@ -672,7 +813,7 @@ static u16 pmbus_data2reg_direct(struct pmbus_data =
+*data,
+> >  	}
+> > =20
+> >  	/* Calculate Y =3D (m * X + b) * 10^R */
+> > -	if (sensor->class !=3D PSC_FAN) {
+> > +	if (!(sensor->class =3D=3D PSC_FAN || sensor->class =3D=3D PSC_PWM)) =
+{
+>=20
+> Same as above.
+>=20
+
+Ack.
+
+> >  		R -=3D 3;		/* Adjust R and b for data in milli-units */
+> >  		b *=3D 1000;
+> >  	}
+> > @@ -703,6 +844,9 @@ static u16 pmbus_data2reg(struct pmbus_data *data,
+> >  {
+> >  	u16 regval;
+> > =20
+> > +	if (!sensor->convert)
+> > +		return val;
+> > +
+> >  	switch (data->info->format[sensor->class]) {
+> >  	case direct:
+> >  		regval =3D pmbus_data2reg_direct(data, sensor, val);
+> > @@ -925,12 +1069,18 @@ static struct pmbus_sensor *pmbus_add_sensor(str=
+uct pmbus_data *data,
+> >  		return NULL;
+> >  	a =3D &sensor->attribute;
+> > =20
+> > -	snprintf(sensor->name, sizeof(sensor->name), "%s%d_%s",
+> > -		 name, seq, type);
+> > +	if (type)
+> > +		snprintf(sensor->name, sizeof(sensor->name), "%s%d_%s",
+> > +			 name, seq, type);
+> > +	else
+> > +		snprintf(sensor->name, sizeof(sensor->name), "%s%d",
+> > +			 name, seq);
+> > +
+> >  	sensor->page =3D page;
+> >  	sensor->reg =3D reg;
+> >  	sensor->class =3D class;
+> >  	sensor->update =3D update;
+> > +	sensor->convert =3D true;
+> >  	pmbus_dev_attr_init(a, sensor->name,
+> >  			    readonly ? S_IRUGO : S_IRUGO | S_IWUSR,
+> >  			    pmbus_show_sensor, pmbus_set_sensor);
+> > @@ -1592,13 +1742,6 @@ static const int pmbus_fan_registers[] =3D {
+> >  	PMBUS_READ_FAN_SPEED_4
+> >  };
+> > =20
+> > -static const int pmbus_fan_config_registers[] =3D {
+> > -	PMBUS_FAN_CONFIG_12,
+> > -	PMBUS_FAN_CONFIG_12,
+> > -	PMBUS_FAN_CONFIG_34,
+> > -	PMBUS_FAN_CONFIG_34
+> > -};
+> > -
+> >  static const int pmbus_fan_status_registers[] =3D {
+> >  	PMBUS_STATUS_FAN_12,
+> >  	PMBUS_STATUS_FAN_12,
+> > @@ -1621,6 +1764,48 @@ static const u32 pmbus_fan_status_flags[] =3D {
+> >  };
+> > =20
+> >  /* Fans */
+> > +static int pmbus_add_fan_ctrl(struct i2c_client *client,
+> > +		struct pmbus_data *data, int index, int page, int id,
+> > +		u8 config)
+> > +{
+> > +	struct pmbus_sensor *sensor;
+> > +	int rv;
+> > +
+> > +	rv =3D _pmbus_read_word_data(client, page,
+> > +				   pmbus_fan_command_registers[id]);
+> > +	if (rv < 0)
+> > +		return rv;
+> > +
+> > +	sensor =3D pmbus_add_sensor(data, "fan", "target", index, page,
+> > +				  PMBUS_VIRT_FAN_TARGET_1 + id, PSC_FAN,
+> > +				  true, false);
+> > +
+> > +	if (!sensor)
+> > +		return -ENOMEM;
+> > +
+> > +	if (!((data->info->func[page] & PMBUS_HAVE_PWM12) ||
+> > +			(data->info->func[page] & PMBUS_HAVE_PWM34)))
+>=20
+> why not just the following ?
+>=20
+> 	if (!(data->info->func[page] & (PMBUS_HAVE_PWM12 | PMBUS_HAVE_PWM34)))
+
+Sure, that's much neater.
+
+>=20
+> Also, doesn't this add attributes for 1,2 even if only 3,4 are
+> supported, and 3,4 even if only 1,2 are supported ?
+
+It shouldn't, but that's due to the way I've called
+pmbus_add_fan_ctrl() in pmbus_add_fan_attributes().=20
+
+The call is guarded with:=20
+
+    /* Fan control */
+    if (pmbus_check_word_register(client, page,
+    		    pmbus_fan_command_registers[f])) {
+    	    ret =3D pmbus_add_fan_ctrl(client, data, index,
+    	    	    	    	     page, f, regval);
+    	    if (ret < 0)
+    	    	    return ret;
+    }
+
+So 'f', or the formal parameter 'id', is only ever provided as
+appropriate, and together the two tests should ensure that only the
+appropriate attributes are created.
+
+If the fan is marked as "not installed" then the addition of the
+attribute is skipped. This code was already in place to handle the
+fanX_input attribute.
+
+So to the caller test, regardless of RPM or PWM mode, we need the
+FAN_COMMAND register to configure the values. As it stands the change
+makes fan control available for any PMBus device which has the
+FAN_COMMANDxy register and whose driver configures a page with
+PMBUS_HAVE_FANxy, exposing the fanX_target attribute. The test in
+question above deals only with PMBUS_HAVE_PWMxy which was introduced in
+this change.
+
+There are some constraints: PMBUS_HAVE_FANxy is required if
+PMBUS_HAVE_PWMxy is to be specified for a given page. This should
+probably be documented in a comment alongside the #defines.
+
+>=20
+> > +		return 0;
+> > +
+> > +	sensor =3D pmbus_add_sensor(data, "pwm", NULL, index, page,
+> > +				  PMBUS_VIRT_PWM_1 + id, PSC_PWM,
+> > +				  true, false);
+> > +
+> > +	if (!sensor)
+> > +		return -ENOMEM;
+> > +
+> > +	sensor =3D pmbus_add_sensor(data, "pwm", "enable", index, page,
+> > +				  PMBUS_VIRT_PWM_ENABLE_1 + id, PSC_PWM,
+> > +				  true, false);
+> > +
+> > +	if (!sensor)
+> > +		return -ENOMEM;
+> > +
+> > +	sensor->convert =3D false;
+>=20
+> convert should be a new parameter to pmbus_add_sensor().
+
+Will fix.
+
+Cheers for the detailed feedback.
+
+Andrew
+
+>=20
+> > +
+> > +	return 0;
+> > +}
+> > +
+> >  static int pmbus_add_fan_attributes(struct i2c_client *client,
+> >  				    struct pmbus_data *data)
+> >  {
+> > @@ -1658,6 +1843,15 @@ static int pmbus_add_fan_attributes(struct i2c_c=
+lient *client,
+> >  					     PSC_FAN, true, true) =3D=3D NULL)
+> >  				return -ENOMEM;
+> > =20
+> > +			/* Fan control */
+> > +			if (pmbus_check_word_register(client, page,
+> > +					pmbus_fan_command_registers[f])) {
+> > +				ret =3D pmbus_add_fan_ctrl(client, data, index,
+> > +							 page, f, regval);
+> > +				if (ret < 0)
+> > +					return ret;
+> > +			}
+> > +
+> >  			/*
+> >  			 * Each fan status register covers multiple fans,
+> >  			 * so we have to do some magic.
+--=-ZQpS+milW3uWhhSkTKtI
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJaBRb/AAoJEJ0dnzgO5LT5PCEP/1geXlBtf1h5goZaIQW5zc34
+fCrkqDEpXNxLVt0+mKtJWkcqbLhzaJ4PzumgOaUPmbow+Q+Y2UltCh3fGQAuSmTs
+hvo4u+wG7sjvk3+dO3vkc6N3mkxW8iQBVIOidduyhWvUmtUuXddonVmsGwoddCFy
+UuFfJKxBZ4NWlQU585wnqKbgEAtN3T3bOHUA3k+/JhcC1SdAnQ8MaxMplPhrloRI
+URoQLXL6gO9ceo7FdIPiw10WPEWUM9tqRogf6GjNxDbjsc7AR3dFPJKBRr4k/D+p
+nqaPaHtwbx5HZcp0Mu2f3hI2X1N2/RhyGUWNAPeRmf/iL+1NLq9TnsNlznuGGHsa
+EizxR5U86CmBFn0nFExbeONejBA+EzzrTbvEADFxCD/ZNUIY7H3vs8pIAWi7x9SK
+kmFWHOl6vx6M2kATzzjr5pGD/dUAAjcED6QPL5mYsfeXKqqF4Cbd79YGhUS3eJRr
+iki3ah0Hh+Owa1EArm0tGNQR2+sDYEV+0NSAjGp7OrIZYKHqNKjBsngC4gmDQuq5
+VNShqDyFEH6YLMdC4Lfh2iJn9fM0sTCYCSbF2GyGv5r/E12Ni5oaFtqnUtRqLY5Z
+ReVXnVLUbkub3Ws9BuAEbii996UmtkgO6Wwn8xKjJPLfhdLnvXYU9Ttf69gpbfFk
+mkYtF85JDbegwgmOIZiU
+=XNox
+-----END PGP SIGNATURE-----
+
+--=-ZQpS+milW3uWhhSkTKtI--
