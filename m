@@ -3,59 +3,57 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="mfsAc6hj"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="IU4kBb/4"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Eg/57snt"; dkim-atps=neutral
+ header.b="liQqMUGq"; dkim-atps=neutral
 Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yY4pW4brDzDrLS
- for <openbmc@lists.ozlabs.org>; Fri, 10 Nov 2017 14:12:35 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yY8J20x5hzDrKG
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Nov 2017 16:49:52 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 4E90A20C25;
- Thu,  9 Nov 2017 22:12:33 -0500 (EST)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Thu, 09 Nov 2017 22:12:33 -0500
+ by mailout.nyi.internal (Postfix) with ESMTP id E28C020B7A;
+ Fri, 10 Nov 2017 00:49:49 -0500 (EST)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Fri, 10 Nov 2017 00:49:49 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=g24cIMVUzDlkKddnymvqAK3gKuwa8v2BUm3f/MsjApA=; b=mfsAc6hj
- BvyquKfRsGey3GDYW7UEXbc8G+9nBkmro1zZ05Y1fPLQlluLDz96barSNFK4hnrA
- WnjI2OCuNCwATNDCWakhWoXwO3eL/JNcEox+LMRiDElqo/56F3I11SjYCnAn6fGT
- JkojN3+I3PsTjAnzKazkJlLioQL1j01XzX/UAdXtwABHNQ6/ZtwpLfZH8IIWiTx3
- 3hkLj0J5cNwZuxkWQxgs9wpEYAcTz80u7axjliw09/9Isa248T15YRAuj8xPmv4G
- g46p6XafkD0WgVyzkDSO/9U0Hsxy2gQFgrIPHAJlr51eye5NkjYCSMkqVHkkZiCV
- NFNiMq/gbH20Ug==
+ fm1; bh=YyugwjDfL3ZxYvmwSg/PA/rpWUkbSh3zS/QreQ81BJM=; b=IU4kBb/4
+ AG7cARZj9kTS7arTcXT99lVuRD0qZO7crXYGItuOiEuVFUG4z05Wk/CDShSGwYHB
+ qeVDOc4PDPAewEA+AQLlzOK45I5otvyVBGDQHmAgzs0+RviNt3Nmt9pMwPXF2lxW
+ uto5ZLAt+Rs3GjoGQrcr+affaysizh8Za/SxhjCCXGoGSUxLE2KSpsPjJwpOoty4
+ qs0jUJ5P1+xY83CqOZGr8QP9UsE7YprppjNLdDvUzI4zUhUaIhWv/bdX3TF+MeG1
+ ccCvqMtR8KbY1nTvdy6hrz8OoMUGzmwD1Bo2IJnnLJ5xnWGKCWLzkRVaJO2XlQnh
+ y/8TExbGNumNXQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=g24cIMVUzDlkKddnymvqAK3gKuwa8
- v2BUm3f/MsjApA=; b=Eg/57sntB8x7PYbmL4OVkN9TDXK06RzW8x9iGr9Y5MxDb
- FVqyo00z43QU/yo34HUkSYRu4yzJBRFdCt0pL+JUPGApyCIxLl8THv7UtWx+MNKK
- Sw0U3X3WRmXV7yGWG/Gkv7JqLXMs/D3fOF/+PIyzYj7SpjViW8y7McqmkYmatyAp
- nBOliTCabkSZ+04L5VKsrdOpq4vE42rs2aKdN+CUJxEyF89EWS3QjiI/Owng5yzh
- TIKna/cxI8gdzLvtv4DhPCaxt4oGMNgT2D+9beAzzw5e48OlFd0t5XDe7HWbhlhf
- 8f0K4RxE+5SPDWaZmPKoyy3NmaUCn/g3mE9C5VPfg==
-X-ME-Sender: <xms:IRkFWpPOfznAN9t0IG0jxW1HnMacVUAyWcp3t65IusSfeWgjoZuRtQ>
+ :x-me-sender:x-sasl-enc; s=fm1; bh=YyugwjDfL3ZxYvmwSg/PA/rpWUkbS
+ h3zS/QreQ81BJM=; b=liQqMUGqznLdkzItcdPMMr8DId7gme7OfoPat0N92Y6OL
+ cHNfdtxKyTw51XLapu/2d73/vfuDIWzMOIMxtknqXsUpt72rCmiJVhAcJ0iNYEia
+ 9KdNTcPmfY/IkI1UhzpPb2rxGuD6uY2yedlpn92INXNtFKJWQymj8ibmG+EfSnqj
+ XVUdu5sFQvGpfBnYQ6JJkBMy3+rYOh5VTHTZKL9Ca3bXPCFiEh0t/X/8LW7tSbis
+ ZcHo16/I0RoKLqT7b02Up5LBhPhUN0BzG7GqAXNdY29y6Fm/5AX45+PhtF/QM9SS
+ BT7I7CzPOc9Fx0PRfeJl4h2lVxKS+6SNh/+v280hA==
+X-ME-Sender: <xms:_T0FWq352J0jjXzjqA0NsFv6Yjg47NK28_IwpyPuLoYWFPellgg31A>
 Received: from dave (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 13FB57F8D9;
- Thu,  9 Nov 2017 22:12:28 -0500 (EST)
-Message-ID: <1510283545.4287.46.camel@aj.id.au>
-Subject: Re: [v4,6/6] pmbus: max31785: Add dual tachometer support
+ by mail.messagingengine.com (Postfix) with ESMTPA id D45AD24A8B;
+ Fri, 10 Nov 2017 00:49:47 -0500 (EST)
+Message-ID: <1510292983.4287.48.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.10 1/2] hwmon: (pmbus): Export pmbus device
+ debugfs directory entry
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org, robh+dt@kernel.org, mark.rutland@arm.com, 
- jdelvare@suse.com, corbet@lwn.net, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, joel@jms.id.au, 
- openbmc@lists.ozlabs.org
-Date: Fri, 10 Nov 2017 13:42:25 +1030
-In-Reply-To: <20171105145833.GA25880@roeck-us.net>
-References: <20171103045306.26448-7-andrew@aj.id.au>
- <20171105145833.GA25880@roeck-us.net>
+To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
+Date: Fri, 10 Nov 2017 16:19:43 +1030
+In-Reply-To: <1509656381-22755-2-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1509656381-22755-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <1509656381-22755-2-git-send-email-eajames@linux.vnet.ibm.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-+Zte4dKK+u19q+PcE5yx"
+ protocol="application/pgp-signature"; boundary="=-pb3wf5I3txbidEQsnu/W"
 X-Mailer: Evolution 3.26.1-1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -69,305 +67,85 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Nov 2017 03:12:36 -0000
+X-List-Received-Date: Fri, 10 Nov 2017 05:49:56 -0000
 
 
---=-+Zte4dKK+u19q+PcE5yx
+--=-pb3wf5I3txbidEQsnu/W
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, 2017-11-05 at 06:58 -0800, Guenter Roeck wrote:
-> On Fri, Nov 03, 2017 at 03:53:06PM +1100, Andrew Jeffery wrote:
-> > The dual tachometer feature is implemented in hardware with a TACHSEL
-> > input to indicate the rotor under measurement, and exposed on the devic=
-e
-> > by extending the READ_FAN_SPEED_1 word with two extra bytes*. The need
-> > to read the non-standard four-byte response leads to a cut-down
-> > implementation of i2c_smbus_xfer_emulated() included in the driver.
-> > Further, to expose the second rotor tachometer value to userspace the
-> > values are exposed through virtual pages. We re-route accesses to
-> > FAN_CONFIG_1_2 and READ_FAN_SPEED_1 on undefined (in hardware) pages
-> > 23-28 to the same registers on pages 0-5, and with the latter command w=
-e
-> > extract the value from the second word of the four-byte response.
-> >=20
-> > * The documentation recommends the slower rotor be associated with
-> > TACHSEL=3D0, which provides the first word of the response. The TACHSEL=
-=3D0
-> > measurement is used by the controller's closed-loop fan management.
-> >=20
-> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> > ---
-> >  Documentation/hwmon/max31785   |   8 ++-
-> >  drivers/hwmon/pmbus/max31785.c | 159 +++++++++++++++++++++++++++++++++=
-+++++++-
-> >  2 files changed, 163 insertions(+), 4 deletions(-)
-> >=20
-> > diff --git a/Documentation/hwmon/max31785 b/Documentation/hwmon/max3178=
-5
-> > index e9edbf11948f..8e75efc5e4b9 100644
-> > --- a/Documentation/hwmon/max31785
-> > +++ b/Documentation/hwmon/max31785
-> > @@ -17,8 +17,9 @@ management with temperature and remote voltage sensin=
-g. Various fan control
-> >  features are provided, including PWM frequency control, temperature hy=
-steresis,
-> >  dual tachometer measurements, and fan health monitoring.
-> > =20
-> > -For dual rotor fan configuration, the MAX31785 exposes the slowest rot=
-or of the
-> > -two in the fan[1-4]_input attributes.
-> > +For dual-rotor configurations the MAX31785A exposes the second rotor t=
-achometer
-> > +readings in attributes fan[5-8]_input. By contrast the MAX31785 only e=
-xposes
-> > +the slowest rotor measurement, and does so in the fan[1-4]_input attri=
-butes.
-> > =20
-> >  Usage Notes
-> >  -----------
-> > @@ -31,7 +32,8 @@ Sysfs attributes
-> > =20
-> >  fan[1-4]_alarm		Fan alarm.
-> >  fan[1-4]_fault		Fan fault.
-> > -fan[1-4]_input		Fan RPM.
-> > +fan[1-8]_input		Fan RPM. On the MAX31785A, inputs 5-8 correspond to th=
-e
-> > +			second rotor of fans 1-4
-> >  fan[1-4]_target		Fan input target
-> > =20
-> >  in[1-6]_crit		Critical maximum output voltage
-> > diff --git a/drivers/hwmon/pmbus/max31785.c b/drivers/hwmon/pmbus/max31=
-785.c
-> > index 0d97ddf67079..2ca7febb2843 100644
-> > --- a/drivers/hwmon/pmbus/max31785.c
-> > +++ b/drivers/hwmon/pmbus/max31785.c
-> > @@ -16,10 +16,82 @@
-> > =20
-> >  enum max31785_regs {
-> >  	MFR_REVISION		=3D 0x9b,
-> > +	MFR_FAN_CONFIG		=3D 0xf1,
-> >  };
-> > =20
-> > +#define MAX31785			0x3030
-> > +#define MAX31785A			0x3040
-> > +
-> > +#define MFR_FAN_CONFIG_DUAL_TACH	BIT(12)
-> > +
-> >  #define MAX31785_NR_PAGES		23
-> > =20
-> > +static int max31785_read_byte_data(struct i2c_client *client, int page=
-,
-> > +				   int reg)
-> > +{
-> > +	switch (reg) {
-> > +	case PMBUS_VOUT_MODE:
-> > +		if (page < MAX31785_NR_PAGES)
-> > +			return -ENODATA;
-> > +
-> > +		return -ENOTSUPP;
-> > +	case PMBUS_FAN_CONFIG_12:
-> > +		if (page < MAX31785_NR_PAGES)
-> > +			return -ENODATA;
-> > +
-> > +		return pmbus_read_byte_data(client, page - MAX31785_NR_PAGES,
-> > +					    reg);
-> > +	}
-> > +
-> > +	return -ENODATA;
-> > +}
-> > +
-> > +static int max31785_write_byte(struct i2c_client *client, int page, u8=
- value)
-> > +{
-> > +	if (page < MAX31785_NR_PAGES)
-> > +		return -ENODATA;
-> > +
-> > +	return -ENOTSUPP;
-> > +}
-> > +
-> > +static int max31785_read_long_data(struct i2c_client *client, int page=
-,
-> > +				   int reg, u32 *data)
-> > +{
-> > +	unsigned char cmdbuf[1];
-> > +	unsigned char rspbuf[4];
-> > +	int rc;
-> > +
-> > +	struct i2c_msg msg[2] =3D {
-> > +		{
-> > +			.addr =3D client->addr,
-> > +			.flags =3D 0,
-> > +			.len =3D sizeof(cmdbuf),
-> > +			.buf =3D cmdbuf,
-> > +		},
-> > +		{
-> > +			.addr =3D client->addr,
-> > +			.flags =3D I2C_M_RD,
-> > +			.len =3D sizeof(rspbuf),
-> > +			.buf =3D rspbuf,
-> > +		},
-> > +	};
-> > +
-> > +	cmdbuf[0] =3D reg;
-> > +
-> > +	rc =3D pmbus_set_page(client, page);
-> > +	if (rc < 0)
-> > +		return rc;
-> > +
-> > +	rc =3D i2c_transfer(client->adapter, msg, ARRAY_SIZE(msg));
-> > +	if (rc < 0)
-> > +		return rc;
-> > +
-> > +	*data =3D (rspbuf[0] << (0 * 8)) | (rspbuf[1] << (1 * 8)) |
-> > +		(rspbuf[2] << (2 * 8)) | (rspbuf[3] << (3 * 8));
-> > +
-> > +	return rc;
-> > +}
-> > +
-> >  static int max31785_get_pwm(struct i2c_client *client, int page)
-> >  {
-> >  	int config;
-> > @@ -76,7 +148,25 @@ static int max31785_read_word_data(struct i2c_clien=
-t *client, int page,
-> >  	int rv;
-> > =20
-> >  	switch (reg) {
-> > +	case PMBUS_READ_FAN_SPEED_1:
-> > +	{
-> > +		u32 val;
-> > +
-> > +		if (page < MAX31785_NR_PAGES)
-> > +			return -ENODATA;
-> > +
-> > +		rv =3D max31785_read_long_data(client, page - MAX31785_NR_PAGES,
-> > +					     reg, &val);
-> > +		if (rv < 0)
-> > +			return rv;
-> > +
-> > +		rv =3D (val >> 16) & 0xffff;
-> > +		break;
-> > +	}
-> >  	case PMBUS_VIRT_PWM_1:
-> > +		if (page >=3D MAX31785_NR_PAGES)
-> > +			return -ENOTSUPP;
-> > +
-> >  		rv =3D max31785_get_pwm(client, page);
-> >  		if (rv < 0)
-> >  			return rv;
-> > @@ -85,10 +175,13 @@ static int max31785_read_word_data(struct i2c_clie=
-nt *client, int page,
-> >  		rv /=3D 100;
-> >  		break;
-> >  	case PMBUS_VIRT_PWM_ENABLE_1:
-> > +		if (page >=3D MAX31785_NR_PAGES)
-> > +			return -ENOTSUPP;
-> > +
-> >  		rv =3D max31785_get_pwm_mode(client, page);
-> >  		break;
-> >  	default:
-> > -		rv =3D -ENODATA;
-> > +		rv =3D (page >=3D MAX31785_NR_PAGES) ? -ENXIO : -ENODATA;
-> >  		break;
-> >  	}
-> > =20
-> > @@ -100,6 +193,9 @@ static const int max31785_pwm_modes[] =3D { 0x7fff,=
- 0x2710, 0xffff };
-> >  static int max31785_write_word_data(struct i2c_client *client, int pag=
-e,
-> >  				    int reg, u16 word)
-> >  {
-> > +	if (page >=3D MAX31785_NR_PAGES)
-> > +		return -ENXIO;
-> > +
-> >  	switch (reg) {
-> >  	case PMBUS_VIRT_PWM_ENABLE_1:
-> >  		if (word >=3D ARRAY_SIZE(max31785_pwm_modes))
-> > @@ -127,7 +223,9 @@ static const struct pmbus_driver_info max31785_info=
- =3D {
-> >  	.pages =3D MAX31785_NR_PAGES,
-> > =20
-> >  	.write_word_data =3D max31785_write_word_data,
-> > +	.read_byte_data =3D max31785_read_byte_data,
-> >  	.read_word_data =3D max31785_read_word_data,
-> > +	.write_byte =3D max31785_write_byte,
-> > =20
-> >  	/* RPM */
-> >  	.format[PSC_FAN] =3D direct,
-> > @@ -174,6 +272,55 @@ static const struct pmbus_driver_info max31785_inf=
-o =3D {
-> >  	.func[22] =3D MAX31785_VOUT_FUNCS,
-> >  };
-> > =20
-> > +static int max31785_configure(struct i2c_client *client,
-> > +			      const struct i2c_device_id *id,
-> > +			      struct pmbus_driver_info *info)
-> > +{
-> > +	struct device *dev =3D &client->dev;
-> > +	bool dual_tach =3D false;
-> > +	int ret;
-> > +	int i;
-> > +
-> > +	ret =3D i2c_smbus_read_word_data(client, MFR_REVISION);
-> > +	if (ret < 0)
-> > +		return ret;
-> > +
-> > +	if (!strcmp("max31785a", id->name)) {
-> > +		if (ret =3D=3D MAX31785A)
-> > +			dual_tach =3D true;
-> > +		else
-> > +			dev_warn(dev, "Expected max3175a, found max31785: cannot provide se=
-condary tachometer readings\n");
-> > +	} else if (!strcmp("max31785", id->name)) {
-> > +		if (ret =3D=3D MAX31785A)
-> > +			dev_info(dev, "Expected max31785, found max3175a: suppressing secon=
-dary tachometer attributes\n");
-> > +	} else {
-> > +		return -EINVAL;
-> > +	}
+On Thu, 2017-11-02 at 15:59 -0500, Eddie James wrote:
+> From: "Edward A. James" <eajames@us.ibm.com>
 >=20
-> This is too restrictive. I would suggest to move the chip detection part
-> to the probe function. Also, since you have it, you should weed out any o=
-ther
-> types (ret could be anything) and not just assume it is MAX31785 if it is=
-n't
-> MAX31785A.
+> Pmbus client drivers, if they want to use debugfs, should use the same
+> root directory as the pmbus debugfs entries are using. Therefore, export
+> the device dentry for the pmbus client.
 >=20
-> The "excpected" messages are ok, but don't unnecessaily suppress attribut=
-es.
-> If there is a need to do this for some reason, there should be a configur=
-ation
-> parameter: forcing the user to specify the wrong type on purpose to suppr=
-ess
-> information is just wrong.
->=20
-> dual_tach should not depend on the type in id but on the detected type.
+> Signed-off-by: Edward A. James <eajames@us.ibm.com>
 
-No worries, will fix all of the above.
+I prefer you send this upstream and we cherry-pick it back after it
+gets applied. I can't see it being controversial too.
 
-Thanks for the feedback.
+Cheers,
 
 Andrew
---=-+Zte4dKK+u19q+PcE5yx
+
+> ---
+>  drivers/hwmon/pmbus/pmbus.h      | 1 +
+>  drivers/hwmon/pmbus/pmbus_core.c | 7 +++++++
+>  2 files changed, 8 insertions(+)
+>=20
+> diff --git a/drivers/hwmon/pmbus/pmbus.h b/drivers/hwmon/pmbus/pmbus.h
+> index fd422cd..153d3f6 100644
+> --- a/drivers/hwmon/pmbus/pmbus.h
+> +++ b/drivers/hwmon/pmbus/pmbus.h
+> @@ -452,5 +452,6 @@ int pmbus_do_probe(struct i2c_client *client, const s=
+truct i2c_device_id *id,
+>  int pmbus_do_remove(struct i2c_client *client);
+>  const struct pmbus_driver_info *pmbus_get_driver_info(struct i2c_client
+>  						      *client);
+> +struct dentry *pmbus_get_debugfs_dir(struct i2c_client *client);
+> =20
+>  #endif /* PMBUS_H */
+> diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus=
+_core.c
+> index c4b551b..b943f99 100644
+> --- a/drivers/hwmon/pmbus/pmbus_core.c
+> +++ b/drivers/hwmon/pmbus/pmbus_core.c
+> @@ -2371,6 +2371,13 @@ int pmbus_do_remove(struct i2c_client *client)
+>  }
+>  EXPORT_SYMBOL_GPL(pmbus_do_remove);
+> =20
+> +struct dentry *pmbus_get_debugfs_dir(struct i2c_client *client)
+> +{
+> +	struct pmbus_data *data =3D i2c_get_clientdata(client);
+> +
+> +	return data->debugfs;
+> +}
+> +
+>  static int __init pmbus_core_init(void)
+>  {
+>  	pmbus_debugfs_dir =3D debugfs_create_dir("pmbus", NULL);
+--=-pb3wf5I3txbidEQsnu/W
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJaBRkZAAoJEJ0dnzgO5LT5er4P/05xpzlx97JaSgwj4TAbMO9g
-8lkycO49UILfIDMk02sYDvQzf/jYMpN+K4KX+yzWzJVO1qPuVSrIjYwC4UN6LOrh
-kLHloeHFK8qxQ1r6HNaMDlSxQ/dik+izWsJb+iJILxkG78UjT/ctuvRcvKNGYTqd
-i41RJxhOxsV9mBIDO+Rma2abrN4JgxRt6KENGzkWai+jeANzn7fIvEqzzVuE4l76
-20YY9+uwF3wcI4En64ETFetwzMzZAS5OnHpOgA9CXR3xVtq9kM3P4vrysXeoWNe7
-FxsMbODa0PjhCWs8p+DhfhRNYtgSWiJlOJqVVaOZEHuQS0Dp+Pc8/Y7S2SpKiiue
-xWIAK9ZUH2FeWGLVb7RcuzghwINrAEw7fPyRJj/WBVxjYz10ZRGrQlPDoy522mUf
-fVs7z96CI4IUJHnGjJBXpKOrxzqMl6TrllZCUe8u4llz+5mjbVHAnOh/qGdap0j0
-Po9fo/sFGnd0nB+e6844lYKFX9UZa2lxD31XojPDVfb9vUmTNSfNQLUJDrhfgPq7
-UV5kzxt0wNB1/vARAFGD19QXJprE/qJlJJScYpRZwiHzIz8Q+ZHt94TTl9VcUnFG
-ON07pLQjABGirWihB+0Htn4t14UkDSdxPYO/+8Zxm8c9AzzdEbl34yyCPZo5ew/q
-l44xjqFXv7A9BYsGhFbZ
-=rxje
+iQIcBAABCgAGBQJaBT33AAoJEJ0dnzgO5LT5g7wP/jxMFfgAVt/Nrdxde9hrS38L
+22Ho/IaQpHF3aj1Gk9n9zshVfVFvMC5Ptc+4b0h5GFNK/g6o8aDSwkHYn/WW02Nk
+WKBj7Twyn2+L9t/Tcp1AV63cOZ89tw11ALNTe2j6Z+bRjmliyMbeHjJm7ZuDYKxp
+GNVbAzE7kCXiaqWgedGguXnBqqMS0+/VOsJxAXWB+5diSbgA1dXuD8SHQwNcGH8y
+slOCMgxpPYrwTbbiFL5QJKCwrTyIk0sesEiaYHRaimlax4YXGATKFYnybBJHg6dY
+qpadLLl/h5fTgTymiLr79ydO1t+akEdmpebh5akL9sg9EuVTU9HbPgn+Jz4DjjfT
+d0HeI+8LzWlg8GtaUuTKMGgg2DJUJ5HWYXnyXnsOTDjLlpOx+Zsx44mwIIitA7M5
+CGMXzv/rg5q4qAlt9PIUbQgYFjsXmZJL29ososCxkG2R+2U1Up+M8kt1kAbf+S5G
+e66lEnsFCGMWyjanwmcLcFR7e+XoHanaTaEU/66YEKw9LbfW7hs6fVyeAQmL5NeJ
+NUiix11Q6UErgWj6GXK4EjJsteJ+1nt6Rpy31IiRYtzfUo9j0EcxuiJdRnNQzNET
+Mq7ua4K0//nDmIohgMfFcu5m9y0+eIHivpEAXLKsc3b+lAZzBlz/xzyw692+7mmS
+iqMBO3B+WldbgSj2ypku
+=RsRv
 -----END PGP SIGNATURE-----
 
---=-+Zte4dKK+u19q+PcE5yx--
+--=-pb3wf5I3txbidEQsnu/W--
