@@ -1,72 +1,57 @@
-Return-Path: <ivan@de.ibm.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=de.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=ivan@de.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2a00:1450:4010:c07::22d; helo=mail-lf0-x22d.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="XaRzQrYa"; 
+ dkim-atps=neutral
+Received: from mail-lf0-x22d.google.com (mail-lf0-x22d.google.com
+ [IPv6:2a00:1450:4010:c07::22d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yYJX61JB1zDrKG
- for <openbmc@lists.ozlabs.org>; Fri, 10 Nov 2017 23:00:53 +1100 (AEDT)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- vAAC0jQ8098783
- for <openbmc@lists.ozlabs.org>; Fri, 10 Nov 2017 07:00:50 -0500
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [158.85.210.104])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2e5a224rcf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 10 Nov 2017 07:00:49 -0500
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <ivan@de.ibm.com>;
- Fri, 10 Nov 2017 12:00:49 -0000
-Received: from us1b3-smtp06.a3dr.sjc01.isc4sb.com (10.122.203.184)
- by smtp.notes.na.collabserv.com (10.122.47.44) with
- smtp.notes.na.collabserv.com ESMTP; Fri, 10 Nov 2017 12:00:46 -0000
-Received: from us1b3-mail161.a3dr.sjc03.isc4sb.com ([10.160.174.246])
- by us1b3-smtp06.a3dr.sjc01.isc4sb.com
- with ESMTP id 2017111012004595-352272 ;
- Fri, 10 Nov 2017 12:00:45 +0000 
-In-Reply-To: 
-Subject: fsp2 patches from upstream to openbmc/linux
-From: "Ivan Mikhaylov1" <ivan@de.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: "Karlo Petri" <XXPETRI@de.ibm.com>,
- "Bradley W Bishop" <bradleyb@us.ibm.com>
-Date: Fri, 10 Nov 2017 12:00:45 +0000
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yZFT11hrmzDrK8
+ for <openbmc@lists.ozlabs.org>; Sun, 12 Nov 2017 11:46:28 +1100 (AEDT)
+Received: by mail-lf0-x22d.google.com with SMTP id n69so14765068lfn.2
+ for <openbmc@lists.ozlabs.org>; Sat, 11 Nov 2017 16:46:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=xJcxMxuNmfisEiCW/KB1X5SSF4OHZEMtf6FpqkQ3KK4=;
+ b=XaRzQrYa2/Ma73xJwW2HLCExHsNUlob2/YtEq6Wc16aqWkIosR3oPmdlBIEsBOMnv/
+ NlJJsu7b846lSW9NaD6Tyid2hhCl8UcMapI2M0IyZTaUHuGwsqQVX6CibPnMBxTE+roD
+ MM4Tmbo2jMqXUDe71OwDZibVm6ZA5KhIKaOsBN9ywRIFT9JGbQ2A9SRxmK+u9lGIAJsB
+ GuFNpEGSnYIOEJYt6zbUIeyTCpdXS8x3x+TyaWkkfnhH1aapr/BTyOVvMtpOGAo1Fjny
+ oqhzQ/67bfHsWHMvMvT6ggUd2TIaLRW+3BJMhlrRibNHHXZrwIq890dr2Xu8fPLQoxlK
+ 6sSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=xJcxMxuNmfisEiCW/KB1X5SSF4OHZEMtf6FpqkQ3KK4=;
+ b=XEP+oJWFqKiTZ3hU+x6aoBmk+ozVqVKpXfi9W92HC9wQvSd3Ml3Y65jgd8O7COOVoc
+ 35JiHOViiSujZTE/PES2Yqhx7g9NvDeOwrT/ToatCA7kcUjPHTY1HTAKT8Oii7OaaN9L
+ 8dLM5NtIDLHox0mk3cKUEUozQEu5xBbm4usGTMGH03MNRI2+Fp/14vRHHBh6qeRVmMWc
+ c5GBrM7yrl5utXwZhXN0DYgtUfjxPtOcPbT57ecmEgIAPvsvNV45xNW8TDveCgwwfDHK
+ pLTJiwE2RjiuasUs1DobDpH+8dWLFg4Vi/m6d9KEyAROEHD8+Whm8nQ5YjKM1CZjcqV7
+ ncNA==
+X-Gm-Message-State: AJaThX4EYQKRFo9OssxU6BmcCs7p6sTwApyF3BqIeYKvFmdIPGiiuvtg
+ qOEpTdHmIae/wz1Hl5fXEEeON9iZlscUeUPyEiQ=
+X-Google-Smtp-Source: AGs4zMbGk4wCKE1DDpfnbMAb3Jopjtua7tpqo3+Tj06gG2/9afmZH4VMx/zJDeN20zqsFysSs27zKHcf/z98uTZmOFg=
+X-Received: by 10.46.56.14 with SMTP id f14mr2086114lja.46.1510447584326; Sat,
+ 11 Nov 2017 16:46:24 -0800 (PST)
 MIME-Version: 1.0
-Sensitivity: 
-Importance: Normal
-X-Priority: 3 (Normal)
-References: 
-X-Mailer: IBM iNotes ($HaikuForm 998) | IBM Domino Build
- SCN17283_20171010T0749_FP5.2 October 26, 2017 at 17:06
-X-KeepSent: 02E339DA:55131D65-002581C5:004272DC;
- type=4; name=$KeepSent
-X-LLNOutbound: False
-X-Disclaimed: 62131
-X-TNEFEvaluated: 1
-X-LLNXfer: False
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-x-cbid: 17111012-7301-0000-0000-0000020A6F7F
-X-IBM-SpamModules-Scores: FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0; SC=0.405233;
- ST=0; TS=0; UL=0; ISC=; MB=0.454427
-X-IBM-SpamModules-Versions: BY=3.00008043; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000239; SDB=6.00943836; UDB=6.00476239; IPR=6.00724119; 
- BA=6.00005684; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00017950; XFM=3.00000015;
- UTC=2017-11-10 12:00:47
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2017-11-10 07:20:14 - 6.00007592
-x-cbparentid: 17111012-7302-0000-0000-00002F7485D8
-Message-Id: <OF02E339DA.55131D65-ON002581C5.004272DC-002581D4.0041FCDE@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-11-10_05:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-Mailman-Approved-At: Sun, 12 Nov 2017 11:44:55 +1100
+Sender: joel.stan@gmail.com
+Received: by 10.25.155.4 with HTTP; Sat, 11 Nov 2017 16:46:03 -0800 (PST)
+In-Reply-To: <4322480B-15BC-4260-9D78-917E823CB8D8@fuzziesquirrel.com>
+References: <4322480B-15BC-4260-9D78-917E823CB8D8@fuzziesquirrel.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Sun, 12 Nov 2017 11:16:03 +1030
+X-Google-Sender-Auth: u_mquupEPYdXHifDsQlSgdi90aE
+Message-ID: <CACPK8XfeOVFEq6mRSL2DKOJazSvGSPYHrG6OtEtNi+EeWptvWg@mail.gmail.com>
+Subject: Re: OpenBMC community telecom - call for 11/13 topics
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: OpenBMC <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -78,23 +63,14 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Nov 2017 12:00:54 -0000
+X-List-Received-Date: Sun, 12 Nov 2017 00:46:30 -0000
 
-hello all,
-sorry for first note not in plain format.
+On Sat, Nov 11, 2017 at 1:22 AM, Brad Bishop
+<bradleyb@fuzziesquirrel.com> wrote:
+> Please reply with any topics for the 11/13 call.
 
-these patches are already in v4.13 tag in upstream kernel which are needed =
-for base support :=20
-c4b56b023daa91953e9ebe91143e6ca156f0bcb7
-9eec6cb142bddd35268c7c59b6c81be6c091aaf9
-20975a0ae1ccc59a21a149e2fd2964ce88edb0a9
-6e2f03e292ef46eed2b31b0a344a91d514f9cd81
+ - Moving to a new base kernel (4.13)
 
-these two related to mmc setup and not in v4.13 tag, I've cherry-picked the=
-m into v4.13 - no errors,
-no problems with compilation.
-754f030908c3615781e9e3559d8ba1500cf82215
-2feada5bb0441c918d12778bf9449d5ff805aa7c
+Cheers,
 
-so we need them into openbmc/linux if possible. thanks!
-if you need anything else, you can ask us about it.
+Joel
