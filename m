@@ -1,59 +1,57 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Return-Path: <joel.stan@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2a00:1450:4010:c07::244; helo=mail-lf0-x244.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="X0Xgq89t"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="dkgmcuif"; dkim-atps=neutral
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="mOsOtRg+"; 
+ dkim-atps=neutral
+Received: from mail-lf0-x244.google.com (mail-lf0-x244.google.com
+ [IPv6:2a00:1450:4010:c07::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yZztr0FHDzDqfx
- for <openbmc@lists.ozlabs.org>; Mon, 13 Nov 2017 16:37:56 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id D8B37209DA;
- Mon, 13 Nov 2017 00:37:53 -0500 (EST)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Mon, 13 Nov 2017 00:37:53 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=gXPxwlDJc3HYYfjzC9S+HgsiE3YuqCgEj6F+hOu/nr0=; b=X0Xgq89t
- TkKq+avQarijh1pJf3gyuQsLswy4C1z32423qjC6L9Jo59jPAxgSkYPHfZnsYepR
- tPkRQVUHFxgxwuK5FBu4IVXDdpk3kJKxX37ByAwJJBMShS3RehyazlHxqw8T/dGr
- cbxO5KgZReDn1AkQNZqBB/L72vWsbUvLsUwQTGv+4G4IoykmGJiHjGzuM8sh82l5
- kXBFFJ0mRoI1B0f/d4DErLSEMpbpIqLwCe6dnkJG8GSotpA3PszI544hBeW1hr8A
- 5lVdONSNHaClrVOgBJjAsZkpqYQ7640twN2US5VQsk26K1lHAymiB9yttSuxECc5
- xTAgdWETwDX0bw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=gXPxwlDJc3HYYfjzC9S+HgsiE3Yuq
- CgEj6F+hOu/nr0=; b=dkgmcuifvKoxGkqZlyO8c4zBidzxaogU2+N5ik4VnJ7n7
- pa7hbASnzY6BuhT0W0LLN+r+BsJSD1RVje/PR2mgPC6gqVtKqw4QaBdFShsJhVkz
- E+tQwV8c08uUBMDaPvNbNy23BO8rlkXutRJ/+56jzV/Xr90G8oHFBdxS0oA7/WzV
- BADfqumU1pLWl34rsnrIfb2ULSi6EoDo7ndC0QQQDozrm3g2QBPsXLerwd5PVyav
- +Ayvm015UblIlvsgVHbUeV2QDHqhxc50rb0Lj4uVkrtaVo14dj0kDhJxm+Aq6ZRe
- k6izkgR5iWaLVfv3bG5B4LqF4s9O6RPZDAxLft17g==
-X-ME-Sender: <xms:sS8JWqsg1GLg-KfCUj7ss5D0WfvqQYS64xcgfV-PwqJFF3xuCwKFeQ>
-Received: from dave (220-253-52-107.dyn.iinet.net.au [220.253.52.107])
- by mail.messagingengine.com (Postfix) with ESMTPA id 1DA56241BE;
- Mon, 13 Nov 2017 00:37:51 -0500 (EST)
-Message-ID: <1510551468.4287.76.camel@aj.id.au>
-Subject: Re: Yocto, Kernel and OpenBMC security maintenance
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Cc: Ed Tanous <ed.tanous@intel.com>
-Date: Mon, 13 Nov 2017 16:07:48 +1030
-In-Reply-To: <CACPK8Xf0mLw=fGDEGwdvQ6Bycgmf3jUU8WGJJ3+8VcTUJ_9CUA@mail.gmail.com>
-References: <CACPK8Xf0mLw=fGDEGwdvQ6Bycgmf3jUU8WGJJ3+8VcTUJ_9CUA@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-+Z+WrDVJQWPbYd61WmYr"
-X-Mailer: Evolution 3.26.1-1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yb2XW0gJYzDqbd
+ for <openbmc@lists.ozlabs.org>; Mon, 13 Nov 2017 18:37:14 +1100 (AEDT)
+Received: by mail-lf0-x244.google.com with SMTP id f134so8873044lfg.8
+ for <openbmc@lists.ozlabs.org>; Sun, 12 Nov 2017 23:37:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=gFczq7s7C0+AW+LLAgnj6maIquUsNUp+1VK1w/lvMrc=;
+ b=mOsOtRg+koCp+rW/Ac2zxR0+4ndxylB+f3Okl/7f1KlOEQHxqQcD/LMhpP8i6i+VQb
+ IhXtOcUqNGRRlrkbOArAPIi86NzUaXhsDRykPNKv7Zzo089lb6x893o9APG+0omE5BP/
+ hdYrVIglTMT1StAXO1zdIMT8ekSBvS/bIpgLiSmrgBSC8b39MUmMBKEHPgTIscMbBo1G
+ /OkMjmSukTODJKj9MHHLo1FB7RIpR15PSBpTqqT0Cv6IgKi0NFy9FertbVPSgPIfbJOX
+ ViLyEvTOplVh4kynhR2J6O0Ju848/aiglR8rKg6Gmh1aT4SOF6YWfGeEuIw4JXTqERES
+ DIBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=gFczq7s7C0+AW+LLAgnj6maIquUsNUp+1VK1w/lvMrc=;
+ b=Dcti6NfwzlA89ujzhxvRGJsfttprTvOyB9Dd8mzmhoq/+WPMCGgHay+Q8WA4DewGvV
+ CMIEPjwpGr8QWBu5L0DrJ4wjtXKNVAfXBL9gY7DOoFyszoyYZewqFkzyObxICTFUbioR
+ h6WfCZXVRhgfj0bCM8LtVwh2u+0oe4IDYiJMCSnG41601n81VolSPvIa0cjLBGe3BQ1T
+ fHZLX3CGbCT2Bn9vL0ZPBDhq52PJv7s6YL5f21MJUaQsWtlHchOcQOr7t15xoUh9qqmJ
+ V8KzFtqUFh3Nxnlx88BNc/rhOJeHFPfhw4AixfG0c1s/fFaWI39Ca48vZJPe/+5JUKFd
+ ur6g==
+X-Gm-Message-State: AJaThX595VUstaoDCJowvaNilqKiyjQc6in/njD3DUklI3hWTHFyRm+1
+ CAA2FL8taVt+e0azzSDvIT4LwPL08q6yzNaU+94=
+X-Google-Smtp-Source: AGs4zMZsRBmiQudGUdDphZTQYk8svAY6N9pnhIlGRhlARG79DrvFQFnF2AfHf0BXCaaiHH94t+1NAZgGwa2jh7cAKxc=
+X-Received: by 10.25.203.20 with SMTP id b20mr817181lfg.197.1510558630894;
+ Sun, 12 Nov 2017 23:37:10 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.25.155.4 with HTTP; Sun, 12 Nov 2017 23:36:50 -0800 (PST)
+In-Reply-To: <d011d483-b02d-b2ad-6b70-eb278a21fc33@linux.intel.com>
+References: <d011d483-b02d-b2ad-6b70-eb278a21fc33@linux.intel.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 13 Nov 2017 18:06:50 +1030
+X-Google-Sender-Auth: 6gsfd39Rn4VwOUX8RYt-9DiMlSo
+Message-ID: <CACPK8Xfi_OV9sjQRauH_JbYP4H8mXFYWjfG8kAF8R5WxQZ7SKg@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 1/1] arm: dts: Add Wfp BMC Machine
+To: James Feist <james.feist@linux.intel.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -65,54 +63,208 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Nov 2017 05:37:56 -0000
+X-List-Received-Date: Mon, 13 Nov 2017 07:37:15 -0000
 
+On Sat, Nov 11, 2017 at 5:29 AM, James Feist
+<james.feist@linux.intel.com> wrote:
+> Wfp is a Intel system with an Aspeed ast2500 BMC.
 
---=-+Z+WrDVJQWPbYd61WmYr
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+What does WFP mean?
 
-On Tue, 2017-11-07 at 15:56 +1030, Joel Stanley wrote:
-> On todays community call we chatted about security updates for the
-> project. Nancy pointed out that there tools in the tree that are many
-> versions out of date and have security fixes available, but not
-> applied to our tree.
->=20
-> To date there has been no focused effort on ensuring known
-> vulnerabilities are patched, weather this be backporting patches or
-> updating to newer releases. I suggested we focus on ensuring the
-> OpenBMC tree, as the upstream for our products, is where security
-> fixes are applied.
+>
+> Signed-off-by: Feist, James <james.feist@linux.intel.com>
+> ---
+>  arch/arm/boot/dts/Makefile                         |   1 +
+>  .../boot/dts/aspeed-bmc-intel-flash-layout.dtsi    |  26 +++++
+>  arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts         | 117
+> +++++++++++++++++++++
+>  3 files changed, 144 insertions(+)
+>  create mode 100644 arch/arm/boot/dts/aspeed-bmc-intel-flash-layout.dtsi
+>  create mode 100644 arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts
+>
+> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+> index 6d6c9eb..987e23e 100644
+> --- a/arch/arm/boot/dts/Makefile
+> +++ b/arch/arm/boot/dts/Makefile
+> @@ -992,6 +992,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb
+> \
+>         aspeed-bmc-opp-lanyang.dtb \
+>         aspeed-bmc-mellanox-msn.dtb \
+>         aspeed-bmc-quanta-q71l.dtb \
+> +       aspeed-bmc-intel-wfp.dtb \
+>         aspeed-ast2500-evb.dtb
+>  endif
+>  diff --git a/arch/arm/boot/dts/aspeed-bmc-intel-flash-layout.dtsi
+> b/arch/arm/boot/dts/aspeed-bmc-intel-flash-layout.dtsi
+> new file mode 100644
+> index 0000000..4bcfd1b
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed-bmc-intel-flash-layout.dtsi
+> @@ -0,0 +1,26 @@
+> +               label = "bmc";
+> +               partitions {
+> +                               #address-cells = < 1 >;
+> +                               #size-cells = < 1 >;
+> +                               compatible = "fixed-partitions";
+> +                               u-boot@0 {
+> +                                       reg = < 0 0x60000 >;
+> +                                       label = "u-boot";
+> +                               };
+> +                               u-boot-env@60000 {
+> +                                       reg = < 0x60000 0x20000 >;
+> +                                       label = "u-boot-env";
+> +                               };
+> +                               kernel@80000 {
+> +                                       reg = < 0x80000 0x440000 >;
+> +                                       label = "kernel";
+> +                               };
+> +                               rofs@0c0000 {
+> +                                       reg = < 0x4c0000 0x1740000 >;
+> +                                       label = "rofs";
+> +                               };
+> +                               rwfs@1c00000 {
+> +                                       reg = < 0x1c00000 0x400000 >;
+> +                                       label = "rwfs";
+> +                               };
+> +               };
 
-For what it's worth there's some discussion of upgrading to Yocto 2.3
-and what we might do to better track master on the issue tracker:
+This is the same as aspeed-bmc-opp-flash-layout.dtsi. Is there any
+reason we can't reuse that file?
 
-https://github.com/openbmc/openbmc/issues/2461
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts
+> b/arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts
+> new file mode 100644
+> index 0000000..2b4f095
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts
+> @@ -0,0 +1,117 @@
+> +/dts-v1/;
+> +
+> +#include "aspeed-g5.dtsi"
+> +
+> +/ {
+> +       model = "WFP BMC";
+> +       compatible = "intel,wfp-bmc", "aspeed,ast2500";
+> +
+> +       aliases {
+> +               serial4 = &uart5;
+> +       };
+> +
+> +       chosen {
+> +               stdout-path = &uart5;
+> +               bootargs = "console=ttyS4,115200 earlyprintk";
 
-I agree we need to improve how we track things such as security patches
-that go into upstream.
+You don't need the console=ttyS4 in bootargs if you've set the stdout-path.
 
-Andrew
---=-+Z+WrDVJQWPbYd61WmYr
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+We should drop that from the other systems in the tree.
 
------BEGIN PGP SIGNATURE-----
+> +       };
+> +
+> +       memory {
+> +               reg = <0x80000000 0x20000000>;
+> +       };
+> +
+> +       iio-hwmon {
+> +               compatible = "iio-hwmon";
+> +               io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
+> +                       <&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>,
+> +                       <&adc 8>, <&adc 9>, <&adc 10>, <&adc 11>,
+> +                       <&adc 12>, <&adc 13>, <&adc 14>, <&adc 15>;
+> +       };
+> +
+> +};
+> +
+> +&fmc {
+> +       status = "okay";
+> +       flash@0 {
+> +               status = "okay";
+> +#include "aspeed-bmc-intel-flash-layout.dtsi"
+> +       };
+> +};
+> +
+> +&spi1 {
+> +       status = "okay";
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&pinctrl_spi1_default>;
+> +
+> +       flash@0 {
+> +               status = "okay";
+> +               label = "pnor";
+> +       };
+> +};
+> +
+> +&uart5 {
+> +       status = "okay";
+> +};
+> +
+> +&mac0 {
+> +       status = "okay";
+> +
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&pinctrl_rgmii1_default &pinctrl_mdio1_default>;
+> +       use-ncsi;
 
-iQIcBAABCgAGBQJaCS+sAAoJEJ0dnzgO5LT5VcsP/jiWD1wGl4mQxUAYf/JTE6Gh
-q4krdDfRWmUjSNeF+cJfOS+g3qINB5zwFhQqhjXF96W0YQu+nX2II/lXmHTWpS6T
-HKRpV5Lq+Mdeh60LmTOoIvx8J8DvsBf+f8366U0xK6kvk2yUXApY1pgLZ3mFrA8T
-Lqs9Xic4bEwYPgMV+DBRUOQpTC/JL6IUW4hf6vzn3BlmBeAkd8v5u9d+uDogqSII
-hRjUPSXOnMYlJGT3T0Lefu2P2kmgNl6fNQtcuJ/ufUmRN9Mbcoa68sqreMvaws9R
-t7BFJeqZIjUCJO59a/fpkUHoipa2//O2zMHRSArEL4HDxj16Foq8Eql1eMoI7liA
-SuqbgL2cKvr83CbyhwZJXk5bANl1BvHMWdsJbhDCWCfwCshvTRkJ4KLJCiD2q36N
-SN78s9XpmDIjiGj5+0vsFvjk6oc3wH7HHvc4/PFOB4nO5Oem1s8ixcwdDaZRCB86
-2GufdQODLDX5CW6K9C37AsYJggHA8peJVbmtsjVKNjrtrzeeCcun89NVdU85wXWK
-4jLyzvoAKBDSNAMDCyXVzv0Kf51q6z6LRhLyO31T7N57YwO+Fdt7L7JeOrbayE8g
-2GZ4p5krW/BIv9dO08qaNLjlEzIq8H/p1ZWn85moLkkqs+i7eUFmcy9Nx33oxjrM
-V9F9M/CXVXZfJqr0xal8
-=TUTz
------END PGP SIGNATURE-----
+As Andrew said; NCSI uses rmii so I think there's a mistake here.
 
---=-+Z+WrDVJQWPbYd61WmYr--
+> +};
+> +
+> +&mac1 {
+> +       status = "okay";
+> +
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
+> +};
+> +
+> +&i2c1 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c2 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c3 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c4 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c5 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c6 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c7 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c13 {
+> +       status = "okay";
+> +};
+> +
+> +&gfx {
+> +       status = "okay";
+> +};
+> +
+> +&pinctrl {
+> +       aspeed,external-nodes = <&gfx &lhc>;
+> +};
+> +
+> +&pwm_tacho {
+> +       status = "okay";
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
+> +                        &pinctrl_pwm2_default &pinctrl_pwm3_default
+> +                        &pinctrl_pwm4_default &pinctrl_pwm5_default
+> +                        &pinctrl_pwm6_default &pinctrl_pwm7_default>;
+
+The rest looks okay.
+
+Cheers,
+
+Joel
