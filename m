@@ -1,36 +1,57 @@
-Return-Path: <james.feist@linux.intel.com>
+Return-Path: <yuenn@google.com>
 Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.20; helo=mga02.intel.com;
- envelope-from=james.feist@linux.intel.com; receiver=<UNKNOWN>)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c05::22d; helo=mail-vk0-x22d.google.com;
+ envelope-from=yuenn@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="e4AkVGdq"; 
+ dkim-atps=neutral
+Received: from mail-vk0-x22d.google.com (mail-vk0-x22d.google.com
+ [IPv6:2607:f8b0:400c:c05::22d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ybJ3W71R0zDqj8
- for <openbmc@lists.ozlabs.org>; Tue, 14 Nov 2017 04:46:30 +1100 (AEDT)
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2017 09:46:18 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.44,389,1505804400"; 
-   d="scan'208";a="1453510"
-Received: from skyhawk.jf.intel.com (HELO [10.54.51.84]) ([10.54.51.84])
- by FMSMGA003.fm.intel.com with ESMTP; 13 Nov 2017 09:46:18 -0800
-Subject: Re: [PATCH linux dev-4.10 1/1] arm: dts: Add Wfp BMC Machine
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-References: <d011d483-b02d-b2ad-6b70-eb278a21fc33@linux.intel.com>
- <CACPK8Xfi_OV9sjQRauH_JbYP4H8mXFYWjfG8kAF8R5WxQZ7SKg@mail.gmail.com>
-From: James Feist <james.feist@linux.intel.com>
-Message-ID: <74db8309-6d27-d951-53fb-c3252af9403c@linux.intel.com>
-Date: Mon, 13 Nov 2017 09:46:18 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.4.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ybLrM4ZnKzDqjf
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Nov 2017 06:52:03 +1100 (AEDT)
+Received: by mail-vk0-x22d.google.com with SMTP id x65so10808162vkx.1
+ for <openbmc@lists.ozlabs.org>; Mon, 13 Nov 2017 11:52:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=b6+KIfEuj1fwdCbGWSkLMtVOKScmlLIGuVSUPcqQqYA=;
+ b=e4AkVGdqdvQW7Q9R/SrrraVAG3QVFK3J3dad3+BhGVeuOUNui7Pj6X0qH55pzuyw8e
+ NkZWqJmO6XQfqRBfup0bziCpiqP5rLwblgbdJ8w7ADqZEzAz7Aovq6snOI8LnDl0sR2e
+ szqkSesBadptbb/UOEUsr6pSNdDljC1Pet8Wne96wXrKdK6uV3kIWo9yMy/35KPOThY0
+ YSiQBx9hpwbTr3PUFhHjVD5fh3MQjkTANqOC3VeFa6sk0jYt0JZB+YSUzjgcmEYlsVVG
+ w/82DGdBXBxDCLMR5eq/XUC8O6nfykp/pmZQz0VvBw6DcptSDgdff8K8jT2yije7w22G
+ N1mw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=b6+KIfEuj1fwdCbGWSkLMtVOKScmlLIGuVSUPcqQqYA=;
+ b=OC9YLojgN9Lst5HKNXJh2dyNdfyPN6tuX/TF6qBOihP29NXYl3VVmZKRaztRMXobwq
+ G/Qz2RJCqPdrPthQHGOefmxr0huLi4jrQbuuhGsYfw5foTM7E4DPhcSszcVWoIZATABv
+ snDG9VFVsj/q999bjcHmX0Zm5vm/TTnFEHShej94KP8O2OIwqBCz5wHUN/IJxbQ/IF6v
+ z5nRzQtXfC+kyZo5mMB174PiXCqcKL4wyCo46oNOn2GxzqhsWmMOEPmcv401PNRqsLp0
+ 3W8UL2j6PL9RVgEAEB9NlxcmuUjAgjou04fOekzwYciUvutWnRlSVmJslxfu7LOQ8nlc
+ URdQ==
+X-Gm-Message-State: AJaThX4o3Rx8krrs+ecYTnpcb1zRQu8v/BVNwXoQERqnNnTedFzauI/d
+ 75L5tGA4Waana+8lYlkr1rkldIE4/xufhDj1zHoUBQ==
+X-Google-Smtp-Source: AGs4zMbZbWiMMTOax307F3LBzqPTObhUiiIj2IWOJR2krEvATAQ7Bc5iDKAMJ0PgsOx/aObyCVIepgtNJwXwSzvjDlM=
+X-Received: by 10.31.14.144 with SMTP id 138mr7429179vko.88.1510602720403;
+ Mon, 13 Nov 2017 11:52:00 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <CACPK8Xfi_OV9sjQRauH_JbYP4H8mXFYWjfG8kAF8R5WxQZ7SKg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Received: by 10.31.178.66 with HTTP; Mon, 13 Nov 2017 11:51:19 -0800 (PST)
+In-Reply-To: <CACPK8XfeOVFEq6mRSL2DKOJazSvGSPYHrG6OtEtNi+EeWptvWg@mail.gmail.com>
+References: <4322480B-15BC-4260-9D78-917E823CB8D8@fuzziesquirrel.com>
+ <CACPK8XfeOVFEq6mRSL2DKOJazSvGSPYHrG6OtEtNi+EeWptvWg@mail.gmail.com>
+From: Nancy Yuen <yuenn@google.com>
+Date: Mon, 13 Nov 2017 11:51:19 -0800
+Message-ID: <CADfYTpFLS4MO4iAYnw9i-LqS5_WNwkkqO7PX3kk6hXJB2KR1Zw@mail.gmail.com>
+Subject: Re: OpenBMC community telecom - call for 11/13 topics
+To: Joel Stanley <joel@jms.id.au>
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>,
+ OpenBMC <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="001a114551d88c67d2055de29a16"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -42,227 +63,50 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Nov 2017 17:46:35 -0000
+X-List-Received-Date: Mon, 13 Nov 2017 19:52:04 -0000
 
-On 11/12/2017 11:36 PM, Joel Stanley wrote:
-> On Sat, Nov 11, 2017 at 5:29 AM, James Feist
-> <james.feist@linux.intel.com> wrote:
->> Wfp is a Intel system with an Aspeed ast2500 BMC.
-> 
-> What does WFP mean?
-> 
+--001a114551d88c67d2055de29a16
+Content-Type: text/plain; charset="UTF-8"
 
-WFP it is the model of the platform we are targeting.
+I'd like to talk a bit more about testing.
 
->>
->> Signed-off-by: Feist, James <james.feist@linux.intel.com>
->> ---
->>   arch/arm/boot/dts/Makefile                         |   1 +
->>   .../boot/dts/aspeed-bmc-intel-flash-layout.dtsi    |  26 +++++
->>   arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts         | 117
->> +++++++++++++++++++++
->>   3 files changed, 144 insertions(+)
->>   create mode 100644 arch/arm/boot/dts/aspeed-bmc-intel-flash-layout.dtsi
->>   create mode 100644 arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts
->>
->> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
->> index 6d6c9eb..987e23e 100644
->> --- a/arch/arm/boot/dts/Makefile
->> +++ b/arch/arm/boot/dts/Makefile
->> @@ -992,6 +992,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb
->> \
->>          aspeed-bmc-opp-lanyang.dtb \
->>          aspeed-bmc-mellanox-msn.dtb \
->>          aspeed-bmc-quanta-q71l.dtb \
->> +       aspeed-bmc-intel-wfp.dtb \
->>          aspeed-ast2500-evb.dtb
->>   endif
->>   diff --git a/arch/arm/boot/dts/aspeed-bmc-intel-flash-layout.dtsi
->> b/arch/arm/boot/dts/aspeed-bmc-intel-flash-layout.dtsi
->> new file mode 100644
->> index 0000000..4bcfd1b
->> --- /dev/null
->> +++ b/arch/arm/boot/dts/aspeed-bmc-intel-flash-layout.dtsi
->> @@ -0,0 +1,26 @@
->> +               label = "bmc";
->> +               partitions {
->> +                               #address-cells = < 1 >;
->> +                               #size-cells = < 1 >;
->> +                               compatible = "fixed-partitions";
->> +                               u-boot@0 {
->> +                                       reg = < 0 0x60000 >;
->> +                                       label = "u-boot";
->> +                               };
->> +                               u-boot-env@60000 {
->> +                                       reg = < 0x60000 0x20000 >;
->> +                                       label = "u-boot-env";
->> +                               };
->> +                               kernel@80000 {
->> +                                       reg = < 0x80000 0x440000 >;
->> +                                       label = "kernel";
->> +                               };
->> +                               rofs@0c0000 {
->> +                                       reg = < 0x4c0000 0x1740000 >;
->> +                                       label = "rofs";
->> +                               };
->> +                               rwfs@1c00000 {
->> +                                       reg = < 0x1c00000 0x400000 >;
->> +                                       label = "rwfs";
->> +                               };
->> +               };
-> 
-> This is the same as aspeed-bmc-opp-flash-layout.dtsi. Is there any
-> reason we can't reuse that file?
-> 
+----------
+Nancy
 
-We could, however it seems a bit awkward to have this platform lumped in 
-with open power, as it is not an open power platform. Also if we decide 
-to modify the flash layout then this would have to be done anyways. I am 
-fine either way, it just seemed to make more sense having them separate. 
-Another alternative would be to rename aspeed-bmc-opp-flash-layout.dtsi 
-to something more openbmc related instead of openpower.
+On Sat, Nov 11, 2017 at 4:46 PM, Joel Stanley <joel@jms.id.au> wrote:
 
->> diff --git a/arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts
->> b/arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts
->> new file mode 100644
->> index 0000000..2b4f095
->> --- /dev/null
->> +++ b/arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts
->> @@ -0,0 +1,117 @@
->> +/dts-v1/;
->> +
->> +#include "aspeed-g5.dtsi"
->> +
->> +/ {
->> +       model = "WFP BMC";
->> +       compatible = "intel,wfp-bmc", "aspeed,ast2500";
->> +
->> +       aliases {
->> +               serial4 = &uart5;
->> +       };
->> +
->> +       chosen {
->> +               stdout-path = &uart5;
->> +               bootargs = "console=ttyS4,115200 earlyprintk";
-> 
-> You don't need the console=ttyS4 in bootargs if you've set the stdout-path.
-> 
-> We should drop that from the other systems in the tree.
-> 
-
-Will update.
-
->> +       };
->> +
->> +       memory {
->> +               reg = <0x80000000 0x20000000>;
->> +       };
->> +
->> +       iio-hwmon {
->> +               compatible = "iio-hwmon";
->> +               io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
->> +                       <&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>,
->> +                       <&adc 8>, <&adc 9>, <&adc 10>, <&adc 11>,
->> +                       <&adc 12>, <&adc 13>, <&adc 14>, <&adc 15>;
->> +       };
->> +
->> +};
->> +
->> +&fmc {
->> +       status = "okay";
->> +       flash@0 {
->> +               status = "okay";
->> +#include "aspeed-bmc-intel-flash-layout.dtsi"
->> +       };
->> +};
->> +
->> +&spi1 {
->> +       status = "okay";
->> +       pinctrl-names = "default";
->> +       pinctrl-0 = <&pinctrl_spi1_default>;
->> +
->> +       flash@0 {
->> +               status = "okay";
->> +               label = "pnor";
->> +       };
->> +};
->> +
->> +&uart5 {
->> +       status = "okay";
->> +};
->> +
->> +&mac0 {
->> +       status = "okay";
->> +
->> +       pinctrl-names = "default";
->> +       pinctrl-0 = <&pinctrl_rgmii1_default &pinctrl_mdio1_default>;
->> +       use-ncsi;
-> 
-> As Andrew said; NCSI uses rmii so I think there's a mistake here.
-> 
-
-Will investigate.
-
->> +};
->> +
->> +&mac1 {
->> +       status = "okay";
->> +
->> +       pinctrl-names = "default";
->> +       pinctrl-0 = <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
->> +};
->> +
->> +&i2c1 {
->> +       status = "okay";
->> +};
->> +
->> +&i2c2 {
->> +       status = "okay";
->> +};
->> +
->> +&i2c3 {
->> +       status = "okay";
->> +};
->> +
->> +&i2c4 {
->> +       status = "okay";
->> +};
->> +
->> +&i2c5 {
->> +       status = "okay";
->> +};
->> +
->> +&i2c6 {
->> +       status = "okay";
->> +};
->> +
->> +&i2c7 {
->> +       status = "okay";
->> +};
->> +
->> +&i2c13 {
->> +       status = "okay";
->> +};
->> +
->> +&gfx {
->> +       status = "okay";
->> +};
->> +
->> +&pinctrl {
->> +       aspeed,external-nodes = <&gfx &lhc>;
->> +};
->> +
->> +&pwm_tacho {
->> +       status = "okay";
->> +       pinctrl-names = "default";
->> +       pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
->> +                        &pinctrl_pwm2_default &pinctrl_pwm3_default
->> +                        &pinctrl_pwm4_default &pinctrl_pwm5_default
->> +                        &pinctrl_pwm6_default &pinctrl_pwm7_default>;
-> 
-> The rest looks okay.
-> 
+> On Sat, Nov 11, 2017 at 1:22 AM, Brad Bishop
+> <bradleyb@fuzziesquirrel.com> wrote:
+> > Please reply with any topics for the 11/13 call.
+>
+>  - Moving to a new base kernel (4.13)
+>
 > Cheers,
-> 
+>
 > Joel
-> 
+>
+
+--001a114551d88c67d2055de29a16
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">I&#39;d like to talk a bit more about testing.</div><div c=
+lass=3D"gmail_extra"><br clear=3D"all"><div><div class=3D"gmail_signature" =
+data-smartmail=3D"gmail_signature">----------<br>Nancy</div></div>
+<br><div class=3D"gmail_quote">On Sat, Nov 11, 2017 at 4:46 PM, Joel Stanle=
+y <span dir=3D"ltr">&lt;<a href=3D"mailto:joel@jms.id.au" target=3D"_blank"=
+>joel@jms.id.au</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" =
+style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><sp=
+an class=3D"">On Sat, Nov 11, 2017 at 1:22 AM, Brad Bishop<br>
+&lt;<a href=3D"mailto:bradleyb@fuzziesquirrel.com">bradleyb@fuzziesquirrel.=
+com</a>&gt; wrote:<br>
+&gt; Please reply with any topics for the 11/13 call.<br>
+<br>
+</span>=C2=A0- Moving to a new base kernel (4.13)<br>
+<br>
+Cheers,<br>
+<br>
+Joel<br>
+</blockquote></div><br></div>
+
+--001a114551d88c67d2055de29a16--
