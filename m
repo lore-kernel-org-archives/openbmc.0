@@ -1,60 +1,60 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4010:c07::235; helo=mail-lf0-x235.google.com;
+ (client-ip=2a00:1450:4010:c07::241; helo=mail-lf0-x241.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="H20sla3Y"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="UnpUESap"; 
  dkim-atps=neutral
-Received: from mail-lf0-x235.google.com (mail-lf0-x235.google.com
- [IPv6:2a00:1450:4010:c07::235])
+Received: from mail-lf0-x241.google.com (mail-lf0-x241.google.com
+ [IPv6:2a00:1450:4010:c07::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ybTnt4bmQzDqF4
- for <openbmc@lists.ozlabs.org>; Tue, 14 Nov 2017 12:05:22 +1100 (AEDT)
-Received: by mail-lf0-x235.google.com with SMTP id 73so6091187lfu.10
- for <openbmc@lists.ozlabs.org>; Mon, 13 Nov 2017 17:05:22 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ybTq9173fzDqF4
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Nov 2017 12:06:29 +1100 (AEDT)
+Received: by mail-lf0-x241.google.com with SMTP id g35so6142990lfi.13
+ for <openbmc@lists.ozlabs.org>; Mon, 13 Nov 2017 17:06:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=uNErmJSJ2wQC7g2Z8Dd9ScKRRXagxhaHqJLCEjFBjjQ=;
- b=H20sla3YDZm0YhCOkP4Tjay74K8+rG9WPRYA9Bh8EDHQD8Gp1XWnuh0er2Iq1tCab9
- o0Q7hKe0WMbGvVfaYPd5qDu0+Hxqoo4RsxT0YlIrMrmU1ioO7iLIdwjXl/YbGrYDO+Oe
- z5/gRukC4+T3wyH+ZtqkOzJqfGR0XLsxILmf3hBDIRPiC/zWg6DQCVLQy8SRfSxr0OGu
- ZUhqaIUvtBHSHoQ5eVlYJS+9Rb9bcnc4ekVJi5gRKb3zQO0mD01vUAhGVvbCHWqKOArg
- gQZWgP5+wXK/z4L1mps94LJ7b5/SsTyPqj6CMM0J+7lGDdCHXIWSlj7H+it9dbAZzFZh
- lDjA==
+ bh=I7HjvfFapD7LHlOK8r/PDfPhrg1Xd+2S6hCsLbtKcHs=;
+ b=UnpUESap881QXoofQgVkv84I+OMeDYJVwq+vtNxkuiRDLq6tryVktPQWHJ+JijDRU7
+ m20pKjEwbSjbw9gAKJXFo6t1/eDyZhDsczJbGNII7qLnj6aCEZaO9Oelxi9XM6bk77hk
+ u1AbJAyhsJVWC/sZg4sVhmVRiJVkCBGJj6b4elsx+/FKfiHYS5o2BucBueqx7pOCorD/
+ rNKZhPNYOiNVhze512jF5CvID7ETOE4I0Ot7lJKdDH53FgxcTk+vNP6Tma0/RDzt+ESr
+ Ip6e0+FbFB2EwC1fHh7hkFldA1bDuttoR7DKgKnocPhHMFXf5GSumvFYQiYboUzvIsYG
+ KkVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=uNErmJSJ2wQC7g2Z8Dd9ScKRRXagxhaHqJLCEjFBjjQ=;
- b=gWb3u5ZeKjdXdHdVPmtVh7vCFTv3Qr7RNwGCr9im0flDVvBbDV3j1txWPSasi8zjXc
- qoT5V7Y3+naGaPj3RwQTjzHu6sJyy9sVRTIFC85uIzFfTK/G3FXQeA+lX5ZPuZzuYrsQ
- njLNib+tEw2Yj8kFSx1iMB6ZCeE9eJVPaAj3jUxfumZfs3aNhFQzw8qUrssYb8cB9y6f
- Ed3Zn5ZvspQqOZN1765b1UUWRj7AAA0CF+HS9pxjA2P3oR0iZkdllUeE/wX0oNiWkOkf
- LZnLeNkMB0kue+0JPi+ZpcKKM0WVQzrQTzdQCiuI89sZ3bChWeHbeOresBifqqgjIQQi
- cBXg==
-X-Gm-Message-State: AJaThX66N9TOkSdXseU3nTbxOQNN8aPrMgllNOWooIiyiQAb26kS6upc
- vHwcdWkDcypPG6FKuGYsUC9ZjbbabNRSysXh1t8=
-X-Google-Smtp-Source: AGs4zMbvuGlJD+JmG2zy/HcMfs2NkuaL06UM97SfAzZQHR+lTPUlM6UkUux0DQPpVzGYgADqZoArVlTbfc6n4O0wGSE=
-X-Received: by 10.25.87.12 with SMTP id l12mr3606144lfb.111.1510621517306;
- Mon, 13 Nov 2017 17:05:17 -0800 (PST)
+ bh=I7HjvfFapD7LHlOK8r/PDfPhrg1Xd+2S6hCsLbtKcHs=;
+ b=faLrYSQgiv3nG9tDBov9V2KcaJ/RVmJDdOEltOV0b2iyw9AUyq3Tsm29YMkhZbpsB2
+ ELjBgT07hqj5/kJZ7pHYcyzor7guOK/7zhkVM6S8R17GxQltH06yuQCQVr78/q/GJWKL
+ WeWNrQAzwJfuBNrScE7RjWclHSF43e9UPDeQscPSfZAIS3XiaG8INwLNSy3B7/F8dykQ
+ eujOb7u5OO7TJAO0/bpp6vQ1aAEHKNBzVhHt9l5eLUWC8cJJehxjUpuSNlSq6tSsaC/k
+ M0pfzb2C4lXW1ScGQC/dDMWz0rfH/a/9h35QPBknr+RFcWA8B5nkiTqgv8xKER2cD8bx
+ a3MA==
+X-Gm-Message-State: AJaThX47gRJfIcV1oZdg1eMHtBmoGYaJ5exllw8pu0Z8dEQbQVPaJ7yT
+ oR+3tVKxlrMfeTdPO6jOOVSpPgIuhh48Ag3vXbRiYg==
+X-Google-Smtp-Source: AGs4zMappxisODDccZnWqgixB4YGVt0QNkS0eGWMGU30NQqqesqxWSGF8U/2Ko4TsnoHvZ9f5Cfk68EnLnG8/fhI7aM=
+X-Received: by 10.25.223.83 with SMTP id q19mr3469538lfj.104.1510621585758;
+ Mon, 13 Nov 2017 17:06:25 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.25.155.4 with HTTP; Mon, 13 Nov 2017 17:04:56 -0800 (PST)
-In-Reply-To: <CAPH-5w66kJosk_D8KFKxupHz1Nh_ajeopU7DU6f3B4BvBcq0Wg@mail.gmail.com>
-References: <CACPK8Xf0mLw=fGDEGwdvQ6Bycgmf3jUU8WGJJ3+8VcTUJ_9CUA@mail.gmail.com>
- <1510551468.4287.76.camel@aj.id.au>
- <CAPH-5w66kJosk_D8KFKxupHz1Nh_ajeopU7DU6f3B4BvBcq0Wg@mail.gmail.com>
+Received: by 10.25.155.4 with HTTP; Mon, 13 Nov 2017 17:06:05 -0800 (PST)
+In-Reply-To: <fbe96e31-3ffd-1615-671f-935652e3ae04@linux.intel.com>
+References: <d011d483-b02d-b2ad-6b70-eb278a21fc33@linux.intel.com>
+ <CACPK8Xfi_OV9sjQRauH_JbYP4H8mXFYWjfG8kAF8R5WxQZ7SKg@mail.gmail.com>
+ <74db8309-6d27-d951-53fb-c3252af9403c@linux.intel.com>
+ <CACPK8XcH99Fqp-kHE--wpXtGsE9_fkgUmevWdKVX4RwDSzLvVg@mail.gmail.com>
+ <fbe96e31-3ffd-1615-671f-935652e3ae04@linux.intel.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 14 Nov 2017 11:34:56 +1030
-X-Google-Sender-Auth: 1lltEzWvdv5U6ZSi1yEIUM2gOLw
-Message-ID: <CACPK8Xerp-DQ+q4=K3Aw-S+opdFch2_RbuNoz+BXYs72BbbS2A@mail.gmail.com>
-Subject: Re: Yocto, Kernel and OpenBMC security maintenance
-To: Xo Wang <xow@google.com>, Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: Andrew Jeffery <andrew@aj.id.au>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Ed Tanous <ed.tanous@intel.com>
+Date: Tue, 14 Nov 2017 11:36:05 +1030
+X-Google-Sender-Auth: iHwru2yhD2en4ao-wYEDUfPr6T4
+Message-ID: <CACPK8XeDAmE6=9fX3D2wW6nC2qh1kVk4wi77SXkO3VN5ZCoeZw@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10 1/1] arm: dts: Add Wfp BMC Machine
+To: James Feist <james.feist@linux.intel.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
@@ -67,59 +67,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 Nov 2017 01:05:23 -0000
+X-List-Received-Date: Tue, 14 Nov 2017 01:06:30 -0000
 
-On Tue, Nov 14, 2017 at 10:44 AM, Xo Wang <xow@google.com> wrote:
-> On Sun, Nov 12, 2017 at 9:37 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+On Tue, Nov 14, 2017 at 10:32 AM, James Feist
+<james.feist@linux.intel.com> wrote:
+> On 11/13/2017 03:43 PM, Joel Stanley wrote:
 >>
->> On Tue, 2017-11-07 at 15:56 +1030, Joel Stanley wrote:
->> > On todays community call we chatted about security updates for the
->> > project. Nancy pointed out that there tools in the tree that are many
->> > versions out of date and have security fixes available, but not
->> > applied to our tree.
->> >
->> > To date there has been no focused effort on ensuring known
->> > vulnerabilities are patched, weather this be backporting patches or
->> > updating to newer releases. I suggested we focus on ensuring the
->> > OpenBMC tree, as the upstream for our products, is where security
->> > fixes are applied.
+>> On Tue, Nov 14, 2017 at 4:16 AM, James Feist
+>> <james.feist@linux.intel.com> wrote:
+>>>
+>>> On 11/12/2017 11:36 PM, Joel Stanley wrote:
+>>>>
+>>>>
+>>>> This is the same as aspeed-bmc-opp-flash-layout.dtsi. Is there any
+>>>> reason we can't reuse that file?
+>>>>
+>>>
+>>> We could, however it seems a bit awkward to have this platform lumped in
+>>> with open power, as it is not an open power platform. Also if we decide
+>>> to
+>>> modify the flash layout then this would have to be done anyways. I am
+>>> fine
+>>> either way, it just seemed to make more sense having them separate.
+>>> Another
+>>> alternative would be to rename aspeed-bmc-opp-flash-layout.dtsi to
+>>> something
+>>> more openbmc related instead of openpower.
 >>
->> For what it's worth there's some discussion of upgrading to Yocto 2.3
->> and what we might do to better track master on the issue tracker:
 >>
->> https://github.com/openbmc/openbmc/issues/2461
+>> I'd be happy to accept a patch that renames it. I was never a fan of
+>> the opp string in the device tree files; it's namespacing that
+>> upstream dts and dtsi tend not to have.
 >>
->> I agree we need to improve how we track things such as security patches
->> that go into upstream.
->>
->> Andrew
->
-> Any opinions on whether to merge point releases (e.g. currently 2.2.x
-> releases) or to continuously pull in from the stable branch (e.g.
-> currently yocto's morty branch)?
+> Does aspeed-bmc-phosphor-flash-layout.dtsi sound reasonable?
 
-I maintain the openpower host firmware build system, where we use
-buildroot. There I merge in point releases as a rule, but if there's a
-fix in the stable tree that we need I have merged it immediately.
-
-I propose these become our rules, in order of preference:
-
-1. Point releases are merged in as they appear
-2. If you have a fix you want merged in that is not in a point
-release, we can merge the stable branch
-3. If you have a fix merged upstream but not in a stable tree, we can
-cherry pick that commit
-
-> Also does anyone have objections to pulling in 2.2.2 at this time? It
-> could potentially be painless. The fixes we'd get are noted in release
-> notes.
-> https://www.yoctoproject.org/downloads/core/morty221
-> https://www.yoctoproject.org/downloads/core/morty222
-
-Looks fine to me. Can you coordinate with Brad on how we want this done?
-
-We should also create a plan for moving to 2.3 or 2.4.
-
-Cheers,
-
-Joel
+It's a bit verbose. How about openbmc-flash-layout.dtsi ?
