@@ -1,50 +1,54 @@
-Return-Path: <gregkh@linuxfoundation.org>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linuxfoundation.org
- (client-ip=140.211.169.12; helo=mail.linuxfoundation.org;
- envelope-from=gregkh@linuxfoundation.org; receiver=<UNKNOWN>)
-Received: from mail.linuxfoundation.org (mail.linuxfoundation.org
- [140.211.169.12])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <bsingharora@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400c:c08::230; helo=mail-ua0-x230.google.com;
+ envelope-from=bsingharora@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="uubHzMRz"; 
+ dkim-atps=neutral
+Received: from mail-ua0-x230.google.com (mail-ua0-x230.google.com
+ [IPv6:2607:f8b0:400c:c08::230])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yblhX5F74zDsTv
- for <openbmc@lists.ozlabs.org>; Tue, 14 Nov 2017 22:31:40 +1100 (AEDT)
-Received: from localhost (LFbn-1-12253-150.w90-92.abo.wanadoo.fr
- [90.92.67.150])
- by mail.linuxfoundation.org (Postfix) with ESMTPSA id 6CF69C05;
- Tue, 14 Nov 2017 11:31:38 +0000 (UTC)
-Date: Tue, 14 Nov 2017 12:31:44 +0100
-From: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-To: Russell King - ARM Linux <linux@armlinux.org.uk>
-Cc: Oleksandr Shamray <oleksandrs@mellanox.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "jiri@resnulli.us" <jiri@resnulli.us>,
- 'Chip Bilbrey' <chip@bilbrey.org>, "arnd@arndb.de" <arnd@arndb.de>,
- "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "openocd-devel-owner@lists.sourceforge.net"
- <openocd-devel-owner@lists.sourceforge.net>, 
- "mec@shout.net" <mec@shout.net>, Jiri Pirko <jiri@mellanox.com>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "joel@jms.id.au" <joel@jms.id.au>,
- "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
- "tklauser@distanz.ch" <tklauser@distanz.ch>,
- "mchehab@kernel.org" <mchehab@kernel.org>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [v11,1/4] drivers: jtag: Add JTAG core driver
-Message-ID: <20171114113144.GA25234@kroah.com>
-References: <1509724449-26221-2-git-send-email-oleksandrs@mellanox.com>
- <8760aoz78q.fsf@bilbrey.org>
- <DB6PR0501MB219753AC43515148F39CC2D0B1280@DB6PR0501MB2197.eurprd05.prod.outlook.com>
- <20171114111046.GA23820@kroah.com>
- <20171114111916.GO12318@n2100.armlinux.org.uk>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ybp370vY4zDqF4
+ for <openbmc@lists.ozlabs.org>; Wed, 15 Nov 2017 00:17:54 +1100 (AEDT)
+Received: by mail-ua0-x230.google.com with SMTP id u18so3665318uau.1
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Nov 2017 05:17:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=tYjnOUa9INICIGuerJrc2x7EIVKF8sXqLA3jLXi2GHQ=;
+ b=uubHzMRzXj+wjHkVx3DHhEai7SE54ESB5GzDr6t2UUelReE7dCgfy43qjxwpezJJXZ
+ pRwlRngmocP+ibcDw0RszPNRPJ8GhbDZ5cumu8Av9jMS3pJIBY0J1LUvH7TDaqm1Ba6K
+ WKI++O5HMzbdlflzTiDPOTvIJ3+xvCXoEuiLp1S5R8LXD97s6ifu7yll9sZA6LdW1y2s
+ gYRoEdFQ8EQjTGqyBJ2Ryf7EURv7LOHA72YDqLTFm/swIzs/SLJUoP+afNZIdWPzTxZ9
+ gij5wN6FHzikZ+edd37lUZvg1wQvY2ix3ZeuGrchAgcW8iFifWitjfL1DctzSBEJ8ALr
+ Kj4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=tYjnOUa9INICIGuerJrc2x7EIVKF8sXqLA3jLXi2GHQ=;
+ b=nAWVwiv2HJo1YmDvoL92qep++w/sfduIhdHSeCJy3SShQVh7rj9tlPmqc6T86Nfov/
+ tfQ2OfASvVD2T5BYFVbUJvZKiPhLTpWwaZgyseGumpTJIONNPCX4am/grtAZYq02Dehh
+ ais4f2mvDyd7MGplARUwt0FgMtrTGHbGetWnldpp6gG+8jFDTx1LECN3h53jZPjpaG6p
+ b8d9Qwi84BYO/vqqkFXxlxy0PGg9KWS9XcXnywLLPQdJ/Ei2xjwB3PqbV/FTLwtDxFjl
+ QkQjf3ioMHroJLF8WiDxiCUxeAHlX1jKNl/BB2ss8br8kjCPHs3GIlTTGso8N22rzQ9N
+ 6txA==
+X-Gm-Message-State: AJaThX6VhzU29mE7UfsF752O2HU1cP5wYvLLQ6QbaPG/+xCnA/1a1KHk
+ fzNsYpyHVKzWLK8QytYtSRc/pYr5e5CqD7YWgwg=
+X-Google-Smtp-Source: AGs4zMYyq7ttTkL56yIdZxzEoHshsbo3EPJe4dpwqOYBQSMz0+VOEvRKsKVkw7uQyCIMYehQ8vPgL/TwrSmEKuuvOpw=
+X-Received: by 10.159.51.85 with SMTP id a21mr10173597uac.11.1510665471688;
+ Tue, 14 Nov 2017 05:17:51 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20171114111916.GO12318@n2100.armlinux.org.uk>
-User-Agent: Mutt/1.9.1 (2017-09-22)
+Received: by 10.159.36.139 with HTTP; Tue, 14 Nov 2017 05:17:51 -0800 (PST)
+In-Reply-To: <CALg5i8MdDOwf4eLhnO-F3eYmTLaYNMksky9rAnG4iL7oVsmgHA@mail.gmail.com>
+References: <CALg5i8MdDOwf4eLhnO-F3eYmTLaYNMksky9rAnG4iL7oVsmgHA@mail.gmail.com>
+From: Balbir Singh <bsingharora@gmail.com>
+Date: Wed, 15 Nov 2017 00:17:51 +1100
+Message-ID: <CAKTCnzkPYHxVrMu_O+j9uky=fwVEmLqSkmytUsAieLnAJk0xNw@mail.gmail.com>
+Subject: Re: checkstop processing
+To: Sergey Kachkin <s.kachkin@gmail.com>
+Cc: openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -56,22 +60,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 Nov 2017 11:31:40 -0000
+X-List-Received-Date: Tue, 14 Nov 2017 13:17:55 -0000
 
-On Tue, Nov 14, 2017 at 11:19:16AM +0000, Russell King - ARM Linux wrote:
-> On Tue, Nov 14, 2017 at 12:10:46PM +0100, gregkh@linuxfoundation.org wrote:
-> > On Tue, Nov 14, 2017 at 10:34:49AM +0000, Oleksandr Shamray wrote:
-> > > Greg, what you can suggest about it. May be better to add again single-open()-per-device lock with right locking way like:
-> > > 
-> > > >if (mutex_lock_interruptible(&jtag->open_lock)) {
-> > 
-> > You would stall an open?  Why not just return saying you can't do that?
-> 
-> Greg, I think you need to look at the code again.
+On Tue, Nov 14, 2017 at 8:34 AM, Sergey Kachkin <s.kachkin@gmail.com> wrote:
+> Hi all,
+>
+> i'm investigating the checkstop processing and looking for a way to isolate
+> a faulty component with OpenBmc.
+> So far SEL logs available via REST are not really helpful.
+>
+> Is there any data source in the openbmc to troubleshoot checkstops?
+>
 
-Heh, sorry, I probably got it wrong.  I'll be glad to review it in a
-real patch when needed, but not in the middle of the merge window :)
+Not yet! I guess you'd want to use some of the built-in pdbg infrastructure
+to look at the checkstop issues.
 
-thanks,
 
-greg k-h
+
+> I guess eSEL binary data parsed with eSEL.pl can be more informative but do
+> we have any procedure to grab the binary sel data and parse it with the
+> latest obmc?
+>
+
+The workflow as I understand is
+
+1. run IPMI commands from another host, extract eSEL logs
+2. Decode those logs with eSEL.pl
+
+Hostboot has gotten better at decoding checkstops at boot, so thats a
+good first step
+
+
+
+> Currently it seems that IPL checkstop analysis is not really working. i mean
+> that faulty component is not deconfigured on the next boot and gard list is
+> empty.
+> It can be easily duplicated by injecting an error manually via putscom.
+
+I've seen the opposite to be honest. What error are you injecting?
+
+Balbir Singh.
