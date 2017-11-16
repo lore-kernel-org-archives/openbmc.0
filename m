@@ -1,60 +1,35 @@
-Return-Path: <venture@google.com>
+Return-Path: <vernon.mauery@linux.intel.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400c:c08::236; helo=mail-ua0-x236.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="tw6ZuSf4"; 
- dkim-atps=neutral
-Received: from mail-ua0-x236.google.com (mail-ua0-x236.google.com
- [IPv6:2607:f8b0:400c:c08::236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.24; helo=mga09.intel.com;
+ envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yd4nw6NZLzDr1t
- for <openbmc@lists.ozlabs.org>; Fri, 17 Nov 2017 02:25:55 +1100 (AEDT)
-Received: by mail-ua0-x236.google.com with SMTP id l25so10770908uag.8
- for <openbmc@lists.ozlabs.org>; Thu, 16 Nov 2017 07:25:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=+ve05d71Li/GdfW+uyi5cb+x0Iugjlys0IFmP2DYqqo=;
- b=tw6ZuSf4w3RLGf4kHl7cAVBps2OduVO49PCmFaiHhN1RVpqy0LDsAwVuU1u+6tjZnT
- ybyrLg72okXnTW41FK9Rflid1gEIA11PquRh5o0LdGJ5GCTs2SxWaBdNGoWDi0o7bP4H
- hfpuIp4eNH/kFhzdBdPrf1RjLfN5XCclo6D1wesM72ZQzMkAa0ALrR7b7bHj3U7wvvHu
- 2EsBuvWWZ/QWFi0KM0i/oNpFSfx5TiWAqCVdr+nXoJVkoWDLKm0Ug5XaN6/a6UmH7PqV
- IZerdcfM5e3aiQE5tss0w8DPGiAD+A4Jn7nhLBoNOijEemd5bqBxH1oSLTL+0m+0Hkn9
- DJoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=+ve05d71Li/GdfW+uyi5cb+x0Iugjlys0IFmP2DYqqo=;
- b=ZAlewcSMggXA/A+qBsaaVkhl1d3lV+Ja/z5AD+Dg92dXcwuzR+Ho17l4EdMIYnITNF
- umHDmkjK3Mx8ugw9cyr6xft6Pmtss9weThESwFicitgQHM2ibFtvIc4dCJlHKkhSfox/
- cYQ1i4Yon9hwLxqFcBHbtVI8sP7DDYLgp6toanesFAq+lbB7OpYYdPEpgxdi8pdj/MX4
- FGFIbvoeZZrcACrUu6Xbyeui9lI91atmG7oFVlU/E0l/cKra1H2Cuh+E5Y1mQ0kzNjQk
- fiB1hWJ2FOtTfD400I8ffWOOVX/5rrYdRlzA5LuN6n18hP++HTLyP8i1eBYAqAcu7XcR
- 7++w==
-X-Gm-Message-State: AJaThX4ER4crs7X7cv+ggHi5TRe8CMngpdUWKZkJhj1w5mXuo4QB8y3t
- kgSz+7dkfbNdZToDQDi+Qh56Kw/vXYdmXMIscWh27w==
-X-Google-Smtp-Source: AGs4zMbKM/bee7eiWs+lN802RSFIOz93sTVbsPsejhqqmMysZar31mCFyiNLWbC2wgNmpVLcKXdRy66A8SADDnEZbSE=
-X-Received: by 10.176.71.226 with SMTP id w34mr1827777uac.33.1510845953063;
- Thu, 16 Nov 2017 07:25:53 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yd7Bx288VzDqwG
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Nov 2017 04:14:16 +1100 (AEDT)
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2017 09:14:12 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.44,404,1505804400"; d="scan'208";a="150185114"
+Received: from mauery.jf.intel.com (HELO mauery) ([10.7.150.164])
+ by orsmga004.jf.intel.com with ESMTP; 16 Nov 2017 09:14:12 -0800
+Date: Thu, 16 Nov 2017 09:14:12 -0800
+From: Vernon Mauery <vernon.mauery@linux.intel.com>
+To: Jeremy Kerr <jk@ozlabs.org>
+Cc: "Mihm, James" <james.mihm@intel.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Re: HPM firmware update
+Message-ID: <20171116171412.GD113334@mauery>
+References: <C599FC839619124CAC44E062ABB7DFE2C9F407C2@ORSMSX101.amr.corp.intel.com>
+ <14315ca0-3c06-5aa3-5b57-d5e3888fd957@ozlabs.org>
 MIME-Version: 1.0
-Received: by 10.31.94.150 with HTTP; Thu, 16 Nov 2017 07:25:32 -0800 (PST)
-In-Reply-To: <1510798154.4287.86.camel@aj.id.au>
-References: <7E9441B1E5EFFD4681F54958E82169932EAF506B@ORSMSX105.amr.corp.intel.com>
- <1B00151F-6B6E-4060-8316-F955F9A8E20F@fuzziesquirrel.com>
- <1510798154.4287.86.camel@aj.id.au>
-From: Patrick Venture <venture@google.com>
-Date: Thu, 16 Nov 2017 07:25:32 -0800
-Message-ID: <CAO=notwsaQ1agzXi-r9jcKXL84ix2WWLP9PcCDRL1Kcubxj1Lw@mail.gmail.com>
-Subject: Re: Gerrit code review velocity
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, "Tanous,
- Ed" <ed.tanous@intel.com>, OpenBMC <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <14315ca0-3c06-5aa3-5b57-d5e3888fd957@ozlabs.org>
+User-Agent: Mutt/1.5.24 (2015-08-30)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -66,44 +41,67 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Nov 2017 15:25:57 -0000
+X-List-Received-Date: Thu, 16 Nov 2017 17:14:18 -0000
 
-On Wed, Nov 15, 2017 at 6:09 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> On Wed, 2017-11-15 at 19:09 -0500, Brad Bishop wrote:
->> > Do we have  a process for how long code review->test->merge should
->> > take, and what process it should follow?
->>
->> We don=E2=80=99t.  My personal preference would be for this to be at the=
- repo
->> maintainers discretion.  I=E2=80=99m sure that sounds bad since I am the
->> maintainer of nearly all of them, but I do want other people
->> maintaining eventually and I=E2=80=99d still say the same thing even aft=
-er it
->> wasn=E2=80=99t me.
->>
->> That said, I=E2=80=99m more concerned in building a community here, so I=
-=E2=80=99m
->> willing to submit to group-think if others feel one way or the other.
+On 16-Nov-2017 11:14 AM, Jeremy Kerr wrote:
+>Hi James,
 >
-> Maybe patches should be left up for review for at least 2 business days
-> if they're not a hot security fix or something equally drastic.
-
-Not a bad idea.
-
+>> I=E2=80=99ve started looking at using the PICMG HPM specification that w=
+as
+>> recommended as the preferred API for performing firmware updates. This
+>> is not an open specification, and goes against the principles of the
+>> openbmc project.
 >
-> We probably need a way to identify the list of people who would likely
-> be interested in reviewing them as well.
-
-In terms of different daemons, typically the selection of reviewers
-comes from the contributors for that daemon.  In point of fact, I pick
-people partially by checking the blame history on the file(s) I've
-modified when submitting a patchset.  Clearly other people may be
-interested to know about a specific set of changes or perhaps more
-straightforwardly, to follow a specific daemon.  In the former case, I
-can't think of a way to handle this, but in the latter -- perhaps sub
-email lists that are added to the CC line of reviews?
-
+>Yes, that's very true. My previous experience is on the client-side of
+>HPM, which is implemented in ipmitool already.
 >
-> Andrew
+>> The HPM specification must also be purchased from the PICMG standards
+>> organization, and contains patent liabilities. I think using HPM is a
+>> non-starter.
+>
+>We could always request DMTF to make it more widely available. However,
+>unless that does change, I'd agree with you that we'd want to avoid
+>HPM.1.
 
-Patrick
+We don't have to go with HPM though. Our prior version of BMC used a=20
+fairly straight-forward model that is not too different than the HPM=20
+model, though it was developed in-house. It is pretty generic and could=20
+be used to transfer any payload over a variety of transports.
+
+If we can define our own 'standard' for OpenBMC firmware update methods,=20
+then we can implement that in ipmitool (like the dell oem commands or=20
+something).
+
+An overview goes something like this:
+
+1) enter FW transfer mode
+2) optionally send parameters (no-rollback, deferred reboot, debug, etc.)
+3) <make a choice for either IPMI streaming or other transport>
+	a) for streaming
+		i) write data blocks as IPMI FW command
+	b) for usb mass storage
+		i) send plug-in IPMI command
+		ii) host-side mount usb mass storage device, writes fw image
+		iii) send plug-out IPMI command
+		iv) send 'set uri command' (usb://...)
+	c) for network transport
+	    i) send 'set uri command' (http(s)://..., tftp://..., ftp://...)
+4) send transfer complete IPMI command
+5) check status
+	status moves from download -> verify -> program -> ready
+	status can move to error from any state
+6) once status moves to ready, firmware update is finished, ready to=20
+	reboot.
+7) send exit fw transfer mode IPMI command. This causes the BMC to=20
+	reboot unless a deferred reboot has been selected.
+
+
+This mostly describes what the IPMI control does, which is pretty=20
+generic. The trickiest bit is offering multiple mechanisms for transport=20
+because IPMI is not the most efficient method to transport (unless you=20
+use 64kB payloads during the streaming phase. Even then, the TCP=20
+protocols are faster because of round-trip timing (only need an ack=20
+rather than a full trip through the IPMI command lookup and execution=20
+process.) USB is pretty fast, but not available for every system.
+
+--Vernon
