@@ -7,20 +7,23 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ycg5c0xHnzDqpF
- for <openbmc@lists.ozlabs.org>; Thu, 16 Nov 2017 10:08:02 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ychSG53MYzDqp3
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Nov 2017 11:09:17 +1100 (AEDT)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
 Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 85B83975BD
- for <openbmc@lists.ozlabs.org>; Wed, 15 Nov 2017 18:07:55 -0500 (EST)
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 24AD7975B9;
+ Wed, 15 Nov 2017 19:09:12 -0500 (EST)
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: OpenBMC 11/15 community telecon - Minutes
-Message-Id: <A562B1E0-8E53-4150-9C4D-DFE87797C39E@fuzziesquirrel.com>
-Date: Wed, 15 Nov 2017 18:07:55 -0500
-To: OpenBMC <openbmc@lists.ozlabs.org>
+Subject: Re: Gerrit code review velocity
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <7E9441B1E5EFFD4681F54958E82169932EAF506B@ORSMSX105.amr.corp.intel.com>
+Date: Wed, 15 Nov 2017 19:09:11 -0500
+Cc: OpenBMC <openbmc@lists.ozlabs.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <1B00151F-6B6E-4060-8316-F955F9A8E20F@fuzziesquirrel.com>
+References: <7E9441B1E5EFFD4681F54958E82169932EAF506B@ORSMSX105.amr.corp.intel.com>
+To: "Tanous, Ed" <ed.tanous@intel.com>
 X-Mailer: Apple Mail (2.3273)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
@@ -33,138 +36,97 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 15 Nov 2017 23:08:04 -0000
+X-List-Received-Date: Thu, 16 Nov 2017 00:09:20 -0000
 
-Thx to the individual that provided me with these comprehensive minutes!
+Hi Ed
 
-As always, If there are any errors or omissions please just reply with
-a correction
+> On Nov 15, 2017, at 4:50 PM, Tanous, Ed <ed.tanous@intel.com> wrote:
+>=20
+> Is there anywhere that the SLAs and formats for how community code =
+reviews are conducted?
 
-Thx - brad
+I don=E2=80=99t think so.  We have been operating with 2 x +1 required =
+and then a merge review from the maintainer (me), although I don=E2=80=99t=
+ always follow that if changes seem trivial.  I=E2=80=99d be willing =
+entertain a stricter policy.
+
+> =20
+> I=E2=80=99m having some concerns around the code merge velocity on =
+both sides of the spectrum, and I thought I=E2=80=99d see what =
+everyone=E2=80=99s thoughts were on the matter.
+> =20
+> A great example of these concerns is below.  First and foremost, I=E2=80=
+=99m not picking on this specific committer here, this seems to be a =
+greater issue.
+> https://gerrit.openbmc-project.xyz/#/c/7925/
+> =20
+> This patchset was pushed last night, approved by a single developer,
+
+This had two +1s from other developers before I submitted it.  What am I =
+missing?
+
+> and merged by the submitter <24 hours later.  Considering this is a =
+=E2=80=9Cphosphor=E2=80=9D reference component, changes an architecture =
+level change (supporting multiple HWmon clients)
+
+In my head this was a bug fix.  I=E2=80=99m don't understand how this is =
+an architectural change.  I just changed the bus name format from:
+
+xyz.openbmc_project.Hwmon<N>.Hwmon
+
+to=20
+
+xyz.openbmc_project.Hwmon-<ID>.Hwmon1
+
+> and doesn=E2=80=99t seem to have any supporting unit tests, I=E2=80=99m =
+concerned at the velocity that it was moved through the progression, and =
+into master.
+> =20
+> Considering that we had some discussions on this specific change =
+before, I would=E2=80=99ve liked to have input, and I=E2=80=99m sure =
+others in the community would=E2=80=99ve as well, but were not given the =
+opportunity. =20
+
+That=E2=80=99s all reasonable.  I support having a conversation about =
+how code reviews are conducted and making changes to the process.  But =
+to be honest, what would be more valuable to me is an understanding of =
+why you view this particular change as an architectural change, and I =
+view it as a bug fix.  That is a pretty fundamental disconnect.
+
+Maybe to start that, would you be willing to briefly outline what you =
+think the old architecture was, and what the new one is after this =
+change?
+
+> Do we have  a process for how long code review->test->merge should =
+take, and what process it should follow?
+
+We don=E2=80=99t.  My personal preference would be for this to be at the =
+repo maintainers discretion.  I=E2=80=99m sure that sounds bad since I =
+am the maintainer of nearly all of them, but I do want other people =
+maintaining eventually and I=E2=80=99d still say the same thing even =
+after it wasn=E2=80=99t me.
+
+That said, I=E2=80=99m more concerned in building a community here, so =
+I=E2=80=99m willing to submit to group-think if others feel one way or =
+the other.
+
+> =20
+> On the other end of the spectrum, I see code commits where the last =
+activity was several months ago, and do not see anyone picking it up, =
+nor any forward progress on merging.  Is there a process defined for =
+abandoning commits?
+> =20
+> If the answer to all of these questions is, =E2=80=9Cno=E2=80=9D or =
+=E2=80=9Cnothing written down=E2=80=9D I=E2=80=99m happy to put down =
+some of my thoughts on integration rules down in a spec-like form, and =
+see if we can come up with something that everyone is happy with.
+
+This is a great idea.  Thanks!
+
+> =20
+> Thanks,
+> =20
+> -Ed=20
 
 
-OpenBMC Community Teleconference 11/6 Minutes
---------------------------------
-New attendees, so introductions:
-
-Brad, Jeremy.
-Andrew and Joel
-James from Intel joining for first time.
-Anoop from Intel joining for first time.
-Brad
-Joel - IBM - kernel
-Jeremy - IBM - kernel
-Adriana - IBM - userspace
-Chris Bostic - IBM - mostly kernel stuff
-Eddie - IBM - pretty much same thing as Chris...some userspace
-Andrew Jeffery - IBM - kernel
-Ed - tech lead at Intel
-Anoop - Intel - OpenBMC manager
-James M... BMC firmware team lead ... work with Ed and Anoop at Intel
-Brandon - IBM - userspace
-Anyone else out there that wants to say hi?
-Milton - IBM - kernel
-Nancy - Google
-
-Topics:
-
-1 - Joel go first - New kernel.
-
-Please get any patches not upstream...cherry-pick them back.
-2 months ago - plan to get updated. :-P
-Nancy - still trying move to 4.10 and get stable. =20
-some regressions...need to track that down
-Patrick been doing a lot of that work ...
-
-2 - Nancy - testing.
-
-Plans to put anymore tests...
-Brad - 1/2 application repos have a Jenkins script ... runs ... make =
-check,
-downloads dependencies, as described in configure.ac.
-environment setup
-builds in x86 context
-runs test
-A number of tests use gtest. as well as gmock.
-Jenkins should be leaving notes in there ... CI ... if not seeing =
-messages, then that repository probably
-doesn't have one.
-Ones that don't have it would by something like python, or any =
-non-autotools based repositories.
-Nancy - like to get a better idea of what kind of code coverage we have.
-...
-Brad - there is an integration test suite out there ... not sure how =
-suitable it is ...
-Joel - something about bare metal testing, host side ... corner cases =
-...
-[@arj pointer to https://github.com/open-power/op-test-framework]
-Jeremy - get George on next time? ...
-Nancy - Is there any problem with making those test results public?
-Robot tests did not seem very comprehensive...
-Brad - ...will get George on next time ... make results publicly =
-available...
-We are going to need a distributed test model anyway.
-Ed - ...has any one looked at lava server?
-....
-Nancy - Anoop, do we have a test plan that we can publish for OpenBMC?
-....
-Anoop not, as of now.  Will see what can be made available.
-
-Brad - Nancy sharing a plan, George coming next week on what IBM does.
-Brad - I don't think there is ... we are going to bring an IBM guy to =
-the next call.=20
-How IBM tests internally=E2=80=A6.will ask if anything written down that =
-we can make available.
-Anything else on testing?
-
-3 - Brendan - host ipmid maintainer
-
-Brendan - Not able to maintain Host IPMID.
-Brad - Bummer
-Brad - Still looking for lots of maintainers.
-
-4 - Adriana - inland update
-Adriana - firmware update, next phase is in-band...send an image from =
-the host to the BMC.
-...what should we use for a protocol...send from host over to the BMC...
-mailbox version 3 protocol...
-reference board, ... or some other protocol?
-....
-IPMI spec does not define how to do updates...
-HPM?
-client side of ...
-[
-https://en.wikipedia.org/wiki/HPM.1
-https://www.picmg.org/openstandards/hardware-platform-management/
-]
-....
-Ed - ... PCIe enabled, how long does the image update take?
-Nancy - less than 2 minutes...? I can get back to you on that, post it =
-on IRC....
-Brad - out of time here ... minute or two to wrap up.=20
-Adriana, sounds like ah, lets work with Joel and Nancy...from there we =
-go to some kind of proposal out on the list.
-...
-Adriana - Yeah, that works.
-
-Wrap up
-
-Brad - ...not certain on the status of next weeks call...IRC, send out a =
-note....
-Nancy - ... December ...=20
-Brad - ...a ton of people on this call will be on vacation ... probably =
-keep them going in=20
-December...lower turn out ...=20
-Adriana - ...no topics, cancel...
-Brad - any last words?
-Nancy - It would be useful to have the phone number in the call for =
-topics.
-Nancy - No calendar invite ...
-Brad - ... IBM having for over a year ... did not send calendar invites =
-to everybody...
-if want to maintain list of calendar invites...=20
-Nancy - ...I keep losing the number ....
-Brad - ...Milton had suggested putting in the notes I send out ...
-...its completely open....
-I will start sending out the call out information on any note ...
-alright...have a good night.
+-brad=
