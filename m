@@ -1,58 +1,50 @@
-Return-Path: <yuenn@google.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400c:c08::22c; helo=mail-ua0-x22c.google.com;
- envelope-from=yuenn@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="T28j0ZeN"; 
- dkim-atps=neutral
-Received: from mail-ua0-x22c.google.com (mail-ua0-x22c.google.com
- [IPv6:2607:f8b0:400c:c08::22c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <ed.tanous@intel.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=134.134.136.100; helo=mga07.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yd9M42F0dzDqvq
- for <openbmc@lists.ozlabs.org>; Fri, 17 Nov 2017 05:51:27 +1100 (AEDT)
-Received: by mail-ua0-x22c.google.com with SMTP id 108so8571uaf.2
- for <openbmc@lists.ozlabs.org>; Thu, 16 Nov 2017 10:51:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=u4hljZVP/TpTS9YuRMksoHH+kpPndqM+PLE0q9ku8sU=;
- b=T28j0ZeNmmbme0ljctiiDKSe4aC+MMe5pfJeu3w+zStloqSh2+IWbKGA/sy6T2HUcP
- ae5XjU2ISc2JyUJqTjJpl1VXgFYVMCT4bojbCs7XBDTyiTMOjUBC9wlhLt0PO8j8I7EM
- sLkz/su1dI84zrVUgz+31h9qW9tOlvvTIVRaHqu7ERQ9K/VNi+LH6/9xWRQkHv0HMfGV
- U5bTw740kyIxD14yjXLCzjLZf35a7V+4YszevEaYQEpU93WeDn0Rfn/hxi+ln2FI/ky9
- avgS54RYvHki6n3ffA5lQ4AkHOsHM5QVgc6Sh3r2ssE9O/9Ct7mPAopioFIeA6CUUIY8
- 2Q5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=u4hljZVP/TpTS9YuRMksoHH+kpPndqM+PLE0q9ku8sU=;
- b=iPxFBsS0O4Wv7fAMR+BrD0Xap1eAzS5WOKL2h2A4GIlP2wtcl3yKWBOZ3Ajhe4BJ6V
- /yfB5kG0dnWxFrl2CjpZKhlZOzHrjbtUANx2iuSAePykD55+ygaC+m+VdVj9wPH7EAQi
- ufp/TSxr4R9+YE9bY2uLx3vVAIRqiKAR/EAmXSUtj/jW1qRvuKhep8VGyJgxMN+yHmxF
- PSs3PBR7/vHonPVoW5ZUjn2pWJrH1O4RlS4xXs3LbcQaYonNkGYe5HC4rrQlXFwtjq/1
- 2W/LKgzxl8/sXhWKXwzMisuPw45z7AeY/LnYMQaK1zYivSUD3wZVXilnTpXfwySdaXsT
- 9YYA==
-X-Gm-Message-State: AJaThX5QkKLucD15z2Y5PNXVi+6rW5YiR5ka+86fc9T5OJJfvbmqtHnZ
- 1hqIUMXoNnGlRwHmqQnAyOu08P4uv/Ub0PihbVWRJQ==
-X-Google-Smtp-Source: AGs4zMbM+pqJeywhvYUPAwDTnD1iAUf1UY3rSfJ+c+0df2Dot727qRMkceHcTtGlPGQJMRbFwMOnrrMTK1CNpP4a6Qg=
-X-Received: by 10.159.37.69 with SMTP id 63mr2139177uaz.12.1510858285030; Thu,
- 16 Nov 2017 10:51:25 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.31.178.66 with HTTP; Thu, 16 Nov 2017 10:50:44 -0800 (PST)
-In-Reply-To: <4effb314-f8c7-4f2d-74b4-2f097d050397@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ydG2L5VL0zDrD3
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Nov 2017 09:22:16 +1100 (AEDT)
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2017 14:22:12 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.44,405,1505804400"; 
+ d="scan'208,217";a="176660635"
+Received: from orsmsx108.amr.corp.intel.com ([10.22.240.6])
+ by fmsmga005.fm.intel.com with ESMTP; 16 Nov 2017 14:22:12 -0800
+Received: from orsmsx155.amr.corp.intel.com (10.22.240.21) by
+ ORSMSX108.amr.corp.intel.com (10.22.240.6) with Microsoft SMTP Server (TLS)
+ id 14.3.319.2; Thu, 16 Nov 2017 14:22:12 -0800
+Received: from orsmsx105.amr.corp.intel.com ([169.254.2.105]) by
+ ORSMSX155.amr.corp.intel.com ([169.254.7.237]) with mapi id 14.03.0319.002;
+ Thu, 16 Nov 2017 14:22:11 -0800
+From: "Tanous, Ed" <ed.tanous@intel.com>
+To: 'Nancy Yuen' <yuenn@google.com>, vishwa <vishwa@linux.vnet.ibm.com>
+CC: Brad Bishop <bradleyb@fuzziesquirrel.com>, OpenBMC
+ <openbmc@lists.ozlabs.org>
+Subject: RE: Use of Boost in OpenBMC
+Thread-Topic: Use of Boost in OpenBMC
+Thread-Index: AdNcvxCgKBGQxUx8RN+3iDIP6IjfWgAYkQMAAEvmhQAAP3uBAAAPfk0A
+Date: Thu, 16 Nov 2017 22:22:10 +0000
+Message-ID: <7E9441B1E5EFFD4681F54958E82169932EAF5712@ORSMSX105.amr.corp.intel.com>
 References: <7E9441B1E5EFFD4681F54958E82169932EAF421E@ORSMSX105.amr.corp.intel.com>
  <C3C38226-E41A-44DB-BFA9-2EB06E57AEE7@fuzziesquirrel.com>
  <4effb314-f8c7-4f2d-74b4-2f097d050397@linux.vnet.ibm.com>
-From: Nancy Yuen <yuenn@google.com>
-Date: Thu, 16 Nov 2017 10:50:44 -0800
-Message-ID: <CADfYTpFg-=tr5FCs-5iJk7vP4joWh68+x8E_giJ_X6a9Dik94w@mail.gmail.com>
-Subject: Re: Use of Boost in OpenBMC
-To: vishwa <vishwa@linux.vnet.ibm.com>
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, "Tanous,
- Ed" <ed.tanous@intel.com>, OpenBMC <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="94eb2c0476c6632cc6055e1e1b4a"
+ <CADfYTpFg-=tr5FCs-5iJk7vP4joWh68+x8E_giJ_X6a9Dik94w@mail.gmail.com>
+In-Reply-To: <CADfYTpFg-=tr5FCs-5iJk7vP4joWh68+x8E_giJ_X6a9Dik94w@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ctpclassification: CTP_PUBLIC
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiNWQ0OTdjMjktYjQyNS00N2E2LTk4MTItZTg4NzY5ZmZhOWU4IiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX1BVQkxJQyJ9XX1dfSwiU3ViamVjdExhYmVscyI6W10sIlRNQ1ZlcnNpb24iOiIxNS45LjYuNiIsIlRydXN0ZWRMYWJlbEhhc2giOiI1N0JEbk16RVR5YXBnK0xnelVuVFIxRE1iYmJ2VU5OR0hLcm5SbVFsQkxNPSJ9
+x-originating-ip: [10.22.254.140]
+Content-Type: multipart/alternative;
+ boundary="_000_7E9441B1E5EFFD4681F54958E82169932EAF5712ORSMSX105amrcor_"
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -64,252 +56,323 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Nov 2017 18:51:29 -0000
+X-List-Received-Date: Thu, 16 Nov 2017 22:22:20 -0000
 
---94eb2c0476c6632cc6055e1e1b4a
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+--_000_7E9441B1E5EFFD4681F54958E82169932EAF5712ORSMSX105amrcor_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Google doesn't use Boost internally and in general have no objections to
-this.
+T3VyIHBsYXRmb3JtcyBhcmUgYWxsIHNwZWNpZmllZCB3aXRoIDUxMk1CIG9mIHJhbSwgc28gSSBk
+b27igJl0IGhhdmUgYW55IGV4cGVyaWVuY2Ugd2l0aCBydW5uaW5nIG91dCBvZiBtZW1vcnkgb24g
+dGhlIHBsYXRmb3JtcyB3ZSB1c2UgKGJhcnJpbmcgc2VyaW91cyBtZW1vcnkgbGVha3MpLiAgSXQg
+d291bGQgYmUgaW50ZXJlc3RpbmcgaWYgeW91IGd1eXMgaGFkIHNvbWUgYW50aS1wYXR0ZXJucyB0
+aGF0IHlvdeKAmXZlIGZvdW5kIHRvIGJlIHByb2JsZW1zLCBzbyB3ZSBjYW4gc2VlIGlmIHdlIGNh
+biBjb2RpZnkgdGhvc2UgaW50byB0aGUgY29kaW5nIHN0YW5kYXJkIHJ1bGVzLiAgSSBrbm93IHRo
+YXQgd2UgcmVndWxhcmx5IChhYil1c2UgdGhlIGZhY3QgdGhhdCB3ZSBoYXZlIGEgbG90IG9mIFJB
+TSB0byBtYWtlIHRoZSBjb2RpbmcgZWFzaWVyIChyZWFkaW5nIGFuIGVudGlyZSBjb25maWcgZmls
+ZSBpbnRvIG1lbW9yeSBmb3IgZXhhbXBsZSkgLg0KDQpTb21lIG9mIHRoZSBpdGVtcyBpbiBib29z
+dCBhcmUgZGVzaWduZWQgdG8gaGVscCB3aXRoIG1lbW9yeSB1c2FnZS4gIFVzaW5nIGZsYXRfbWFw
+IG92ZXIgc3RkOjptYXAgKHdoZW4gdXNlZCBwcm9wZXJseSkgd2lsbCBzYXZlIG1lbW9yeS4gIFBv
+b2xlZCBhbGxvY2F0b3JzIGNhbiBoZWxwIHdpdGggbWVtb3J5IGZyYWdtZW50YXRpb24gaXNzdWVz
+IGZvciB0aGluZ3MgdGhhdCBhbGxvY2F0ZSBhbmQgZGVhbGxvY2F0ZSBsb3RzIG9mIG9iamVjdHMg
+aW4gYysrLg0KDQpJbiBnZW5lcmFsLCBJIGRvbuKAmXQgZmluZCBteSB0ZWFtcyB1c2FnZSBvZiBi
+b29zdCB0byBpbmNyZWFzZSBtZW1vcnkgdXNhZ2Ugc2lnbmlmaWNhbnRseSwgYnV0IGl04oCZcyBz
+b21ldGhpbmcgdG8gYmUgY29uc2lkZXJlZC4gIE1lbW9yeSB1c2FnZSB0cmFja2luZyBtaWdodCBi
+ZSBhIGdvb2QgdGhpbmcgZm9yIGEgbWV0cmljIHRlc3QgaW4gdGhlIGZ1dHVyZSB0byBtYWtlIHN1
+cmUgd2UgYXJlbuKAmXQgdW5uZWNlc3NhcmlseSBpbmNyZWFzaW5nIHRoZSBtZW1vcnkgbG9hZC4N
+Cg0KLUVkDQoNCkZyb206IE5hbmN5IFl1ZW4gW21haWx0bzp5dWVubkBnb29nbGUuY29tXQ0KU2Vu
+dDogVGh1cnNkYXksIE5vdmVtYmVyIDE2LCAyMDE3IDEwOjUxIEFNDQpUbzogdmlzaHdhIDx2aXNo
+d2FAbGludXgudm5ldC5pYm0uY29tPg0KQ2M6IEJyYWQgQmlzaG9wIDxicmFkbGV5YkBmdXp6aWVz
+cXVpcnJlbC5jb20+OyBUYW5vdXMsIEVkIDxlZC50YW5vdXNAaW50ZWwuY29tPjsgT3BlbkJNQyA8
+b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPg0KU3ViamVjdDogUmU6IFVzZSBvZiBCb29zdCBpbiBP
+cGVuQk1DDQoNCkdvb2dsZSBkb2Vzbid0IHVzZSBCb29zdCBpbnRlcm5hbGx5IGFuZCBpbiBnZW5l
+cmFsIGhhdmUgbm8gb2JqZWN0aW9ucyB0byB0aGlzLg0KDQpNeSBiaWdnZXN0IGNvbmNlcm4gaXMg
+aG93IGl0IG1pZ2h0IGltcGFjdCBvdXIgc2VydmVycyB3aXRoIGxpbWl0ZWQgQk1DIG1lbW9yeSAo
+MTI4TUIpLiAgSXQncyBhbHJlYWR5IGJlZW4gYW4gaXNzdWUgdHdlYWtpbmcgT3BlbkJNQyB0byBy
+dW4gb24gaXQgd2l0aG91dCBtZW1vcnkgaXNzdWVzLCBhbmQgaXQncyBiZWVuIGEgY29uc3RhbnQg
+YmF0dGxlLiAgSXQgZG9lc24ndCBhbHdheXMgZmFpbCBncmFjZWZ1bGx5IGVpdGhlci4gIE1heWJl
+IHRoZSBhbnN3ZXIgaXMgdG8gc3BlY2lmeSBtaW5pbXVtIHJlcXVpcmVtZW50cyBmb3IgcnVubmlu
+ZyBPcGVuQk1DLCBzdWNoIGFzIDUxMk1CIFJBTS4NCg0KLS0tLS0tLS0tLQ0KTmFuY3kNCg0KT24g
+V2VkLCBOb3YgMTUsIDIwMTcgYXQgNDozMyBBTSwgdmlzaHdhIDx2aXNod2FAbGludXgudm5ldC5p
+Ym0uY29tPG1haWx0bzp2aXNod2FAbGludXgudm5ldC5pYm0uY29tPj4gd3JvdGU6DQpJIGxpa2Ug
+dGhlIHByb3Bvc2FsIG9mIHVzaW5nIEJvb3N0IHdoZW4gaXQgbWFrZXMgbW9yZSBzZW5zZS4NCg0K
+QXMgYW4gZXhhbXBsZSwgSW4gb25lIG9mIHRoZSByZWNlbnQgY29kZSBkZXZlbG9wbWVudCwgSSB3
+YXMgbG9va2luZyBmb3Igc3RyaW5nIHRva2VuaXplciBzdXBwb3J0IGFuZCBjb3VsZCBub3Qgc2Vl
+IHRoYXQgaW4gQysrIGFuZCBCb29zdCBoYWQgYSBnb29kIHN1cHBvcnQgb2YgdGhhdC4gSSBlbmRl
+ZCB1cCB1c2luZyBzdHJ0b2tfciBmb3IgdGhhdCBkZXZlbG9wbWVudC4NCg0KISEgVmlzaHdhICEh
+DQoNCg0KT24gMTEvMTQvMjAxNyAwNTo0OSBBTSwgQnJhZCBCaXNob3Agd3JvdGU6DQpPbiBOb3Yg
+MTMsIDIwMTcsIGF0IDM6MzYgUE0sIFRhbm91cywgRWQgPGVkLnRhbm91c0BpbnRlbC5jb208bWFp
+bHRvOmVkLnRhbm91c0BpbnRlbC5jb20+PiB3cm90ZToNCg0KQWxsLA0KICBJ4oCZZCBsaWtlIHRv
+IHN0YXJ0IGEgZGlzY3Vzc2lvbiBhcm91bmQgdGhlIHRob3VnaHRzIGFib3V0IHRoZSBpbmNsdXNp
+b24gb2YgQm9vc3QgaGVhZGVycy4gIEnigJl2ZSBoZWFyZCBiZWZvcmUgdGhhdCBpdOKAmXMgYSBj
+b250cm92ZXJzaWFsIHN1YmplY3QuDQogIEZvciByZWNvcmQsIGhlcmXigJlzIHdoYXQgdGhlIHN0
+eWxlIGd1aWRlIGN1cnJlbnRseSBzYXlzOg0KICBCb29zdCwgUVQsIGV0Yy4NCiAgSWYgeW91IGdp
+dmUgYSBtb3VzZSBhIGNvb2tpZS4uLg0KV2hpbGUsIGluIGdlbmVyYWwsIHdlIGFwcHJlY2lhdGUg
+cmV1c2Ugb3ZlciByZXdyaXRpbmcsIHdlIGFyZSBub3QgdXNpbmcgbGFyZ2UgZ2VuZXJhbC1wdXJw
+b3NlIGxpYnJhcmllcyBzdWNoIGFzIEJvb3N0LiBEdWUgdG8gJ0NvZGUgc2hvdWxkIGJlIHBlcmZv
+cm1hbnQ6IGNvZGUgc2l6ZScgd2UgZG8gbm90IHdhbnQgdG8gdXRpbGl6ZSB0aGUgZW50aXJldHkg
+b2YgQm9vc3QuIElmIGFwcHJvdmFsIGlzIGdpdmVuIGZvciBhIHNpbmdsZSBwYXJ0IG9mIGEgbGFy
+Z2UgZ2VuZXJhbC1wdXJwb3NlIGxpYnJhcnkgaXQgYmVjb21lcyBtdWNoIG1vcmUgZGlmZmljdWx0
+IHRvIGRpc2FwcHJvdmUgb2YgYW5vdGhlciBwYXJ0IG9mIHRoZSBsaWJyYXJ5LiBCZWZvcmUgbG9u
+Zywgd2UgbWF5IGhhdmUgZWZmZWN0aXZlbHkgYXBwcm92ZWQgb2YgdGhlIGVudGlyZSBsaWJyYXJ5
+Lg0KICBXZSBkbyBsb29rIGZvciBzaW5nbGUgZmVhdHVyZSBsaWJyYXJpZXMgdGhhdCBjYW4gYmUg
+dXNlZCBpbiBwbGFjZSBvZiBvdXIgb3duIGltcGxlbWVudGF0aW9ucy4NCiAgSeKAmWQgbGlrZSB0
+byBzdGFydCBhIGRpc2N1c3Npb24gYXJvdW5kIGNoYWxsZW5naW5nIGEgY29yZSB0ZW5hbnQgb2Yg
+dGhpcyBzdGF0ZW1lbnQsIHRoYXQgYXBwcm92YWwgb2Ygb25lIHBhcnQgb2YgdGhlIGxpYnJhcnkg
+bWFrZXMgaXQgZGlmZmljdWx0IHRvIGRpc2FwcHJvdmUgb3RoZXIgcGFydHMuICBJIHdvdWxkIGFy
+Z3VlIHRoYXQgdGhlIG92ZXJoZWFkIG9mIG1ha2luZyBhIGxpYnJhcnkgYXZhaWxhYmxlLCB3aGls
+ZSBzdGlsbCByZWplY3RpbmcgaW1wcm9wZXIgdXNlIHRoYXQgZWZmZWN0cyB0aGUgcHJvamVjdCwg
+aXMgbXVjaCBsb3dlciB0aGFuIHJld3JpdGluZyBhbmQgZGVidWdnaW5nIGVxdWl2YWxlbnQg4oCc
+bmV34oCdIGNvbXBvbmVudHMgZm9yIG9wZW5ibWMuDQogIEkgd291bGQgbGlrZSB0byB1cGRhdGUg
+dGhlIGNvZGluZyBzdHlsZSBjb252ZW50aW9ucyB3aXRoIHRoZSBiZWxvdyB2ZXJiaWFnZSBpbiBy
+ZWdhcmRzIHRvIGJvb3N0Lg0KICBCb29zdA0KICBVc2Ugb2YgYm9vc3QgaXMgYWxsb3dlZCwgdW5k
+ZXIgdGhlIGZvbGxvd2luZyBjaXJjdW1zdGFuY2VzOg0KMS4gICAgICAgVXNlIGlzIGRvbmUgYXMg
+YSBoZWFkZXItb25seSBsaWJyYXJ5LiAgVGhpcyBhbGxvd3MgdW51c2VkIGZ1bmN0aW9ucyBhbmQg
+bWV0aG9kcyB0byBiZSByZW1vdmVkIGJ5IHRoZSBjb21waWxlciBhdCBsaW5rIHRpbWUsIGFuZCBh
+dm9pZHMgYWRkaW5nIGxhcmdlIGFtb3VudHMgb2Ygb3ZlcmhlYWQgYW5kIGZsYXNoIHVzYWdlLg0K
+Mi4gICAgICAgSW1wbGVtZW50ZXJzIHNob3VsZCBpbmNsdWRlIHRoZSBsb3dlc3QgbGV2ZWwgaGVh
+ZGVyIHJlcXVpcmVkIHRvIHNvbHZlIHRoZSBwcm9ibGVtIGF0IGhhbmQuICBUaGlzIGFsbG93cyB1
+c2VzIHRvIGJlIGZvdW5kIGFuZCBtb3ZlZCBmb3J3YXJkIHdoZW4gbmV3IHN0YW5kYXJkcyBhcmUg
+YXZhaWxhYmxlLCBhcyB3ZWxsIGFzIHJlZHVjZSBjb21waWxlIHRpbWVzLCBhbmQgZGVjcmVhc2Ug
+dGhlIHBvc3NpYmlsaXR5IG9mIGFjY2lkZW50YWwgdXNlLiAgKGllLCAjaW5jbHVkZSA8Ym9vc3Qv
+Y29udGFpbmVyL2ZsYXRfbWFwLmhwcD4gIG5vdCAjaW5jbHVkZSA8Ym9vc3QvY29udGFpbmVyLmhw
+cD4pDQozLiAgICAgICBUaGUgbW9kdWxlIHVzZWQgc2hvdWxkIG5vdCBoYXZlIGFuIGVxdWl2YWxl
+bnQgaW4gdGhlIHN0ZCBuYW1lc3BhY2UgdGhhdCBtZWV0cyB0aGUgc2FtZSByZXF1aXJlbWVudHMg
+Zm9yIGltcGxlbWVudGF0aW9uIG9yIGNsYXJpdHk6ICBGb3IgZXhhbXBsZSwgc3RkOjpjaHJvbm8g
+c2hvdWxkIGJlIHByZWZlcnJlZCBvdmVyIGJvb3N0OjpjaHJvbm8uICBzdGQ6OmFycmF5IG92ZXIg
+Ym9vc3Q6OmFycmF5Lg0KNC4gICAgICAgVXNlIGRvZXMgbm90IGNvbmZsaWN0IHdpdGggYW55IG9m
+IHRoZSBjb3JlIHRlbmFudHMgb2YgdGhpcyBjb2Rpbmcgc3RhbmRhcmQgKGNsYXJpdHksIG1vZGVy
+biBwcmFjdGljZXMsIG9yIHBlcmZvcm1hbmNlKQ0KICAgIFNvbWUgZXhhbXBsZXMgb2YgbGlicmFy
+aWVzIGluIGJvb3N0IHRoYXQgKEkgYmVsaWV2ZSkgd291bGQgYmUgdXNlZnVsIGZvciBvcGVuYm1j
+Og0KQm9vc3QgY29udGFpbmVycyAoZmxhdF9tYXAsIGZsYXRfc2V0LCBlY3QpDQogICAgICAgICAg
+ICAgICAgIEFtb25nIG90aGVyIHRoaW5ncywgdGhpcyBtb2R1bGUgcHJvdmlkZXMgc3RhbmRhcmRz
+IGNvbXBsaWFudCBjb250YWluZXJzIGJhY2tlZCBieSBhIHNvcnRlZCB2ZWN0b3IuICBUaGlzIGFs
+bG93cyBhIHJlZHVjZWQgbWVtb3J5IGZvb3RwcmludCBvdmVyIHVzaW5nIHN0ZDo6c2V0IG9yIHN0
+ZDo6bWFwLCBhbmQgaW4gY2VydGFpbiB1c2UgY2FzZXMgY2FuIGJlIG1vcmUgcGVyZm9ybWFudCwg
+b3IgbG93ZXIgbWVtb3J5IHVzYWdlLg0KICBCb29zdCBhc2lvDQogICAgICAgICAgICAgICAgIFRo
+aXMgbW9kdWxlIHByb3ZpZGVzIEMrKyBsZXZlbCBuZXR3b3JraW5nLCBzb2NrZXRzLCBTU0wsIGFu
+ZCBhc3luY2hyb25vdXMgZnJhbWV3b3JrcyB0aGF0IGFyZSBub3QgYXZhaWxhYmxlIGluIEMrKyB0
+b2RheS4gIEl0IGhhcyBiZWVuIHByb3Bvc2VkIGFzIGEgTmV0d29ya2luZyBUUyB0byB0aGUgQysr
+IHN0YW5kYXJkcyBjb21taXR0ZWUuICBodHRwOi8vd3d3Lm9wZW4tc3RkLm9yZy9qdGMxL3NjMjIv
+d2cyMS9kb2NzL3BhcGVycy8yMDE3L240NjU2LnBkZiAgVGhpcyB1c2Ugd291bGQgbGlrZWx5IGFs
+aWduIHVzIHdpdGggbW92aW5nIHRvd2FyZCBjb21wbGlhbnQgc3RhbmRhcmRzIGluIHRoZSBmdXR1
+cmUuDQogIEJvb3N0IHN0cmluZw0KICAgICAgICAgICAgICAgICBJbXBsZW1lbnRhdGlvbnMgb2Yg
+Y29tbW9uIHN0cmluZyBvcGVyYXRpb25zIG5vdCBwcmVzZW50IGluIHRoZSBzdGFuZGFyZCBsaWJy
+YXJ5LiAgU3RyaW5nIGpvaW4sIHNwbGl0LCBjYXNlIGluc2Vuc2l0aXZlIGNvbXBhcmUgZWN0Lg0K
+ICAgIEnigJlkIGxpa2UgdG8gc2VlIHdoYXQgb3RoZXIgcGVvcGxlIG9waW5pb25zIGFyZSBvbiB0
+aGUgbWF0dGVyLCBhbmQgc2VlIGlmIHdlIGNhbiByZWFjaCBhIGNvbnNlbnN1cy4NCiAgVGhhbmtz
+LA0KICAtRWQNCg0KVGhpcyBoYXMgbXkgc3VwcG9ydC4gIEkgdGhpbmsgKGhvcGU/KSB3ZSBjYW4g
+cmVseSBvbiBhIHJpZ29yb3VzIHBlZXIgcmV2aWV3IHByb2Nlc3MgdG8gZmx1c2ggb3V0IGFuZCBy
+YWlzZSBhd2FyZW5lc3Mgb2YgYW55IHF1ZXN0aW9uYWJsZSB1c2FnZS4NCg0KV291bGQgaXQgbWFr
+ZSBzZW5zZSB0byBoYXZlIGFub3RoZXIgYnVsbGV0IHBvaW50IGRvY3VtZW50ZWQgc29tZXdoZXJl
+IHRvIHRoaXMgZWZmZWN0Pw0KDQoiSWYgeW91IGFyZSBjb25zaWRlcmluZyBhIGJvb3N0IGNvbXBv
+bmVudCwgaXQgaXMgc3VnZ2VzdGVkIHlvdSBvdXRsaW5lIHlvdXIgaW50ZW5kZWQgdXNhZ2UgcHVi
+bGljbHkgKHRoZSBtYWlsaW5nIGxpc3QpIHRvIGF2b2lkIHdhc3RlZCBlZmZvcnQgaWYgdGhlIGNv
+bW11bml0eSBkb2VzIG5vdCBmZWVsIHRoZSBzcGVjaWZpYyB1c2FnZSBpcyBhcHByb3ByaWF0ZS4i
+DQoNCi1icmFkDQoNCg0K
 
-My biggest concern is how it might impact our servers with limited BMC
-memory (128MB).  It's already been an issue tweaking OpenBMC to run on it
-without memory issues, and it's been a constant battle.  It doesn't always
-fail gracefully either.  Maybe the answer is to specify minimum
-requirements for running OpenBMC, such as 512MB RAM.
+--_000_7E9441B1E5EFFD4681F54958E82169932EAF5712ORSMSX105amrcor_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-----------
-Nancy
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
+PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+IkNhbWJyaWEgTWF0aCI7DQoJcGFub3NlLTE6MiA0IDUgMyA1IDQgNiAzIDIgNDt9DQpAZm9udC1m
+YWNlDQoJe2ZvbnQtZmFtaWx5OkNhbGlicmk7DQoJcGFub3NlLTE6MiAxNSA1IDIgMiAyIDQgMyAy
+IDQ7fQ0KLyogU3R5bGUgRGVmaW5pdGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5Nc29Ob3JtYWws
+IGRpdi5Nc29Ob3JtYWwNCgl7bWFyZ2luOjBpbjsNCgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJ
+Zm9udC1zaXplOjEyLjBwdDsNCglmb250LWZhbWlseToiVGltZXMgTmV3IFJvbWFuIixzZXJpZjt9
+DQphOmxpbmssIHNwYW4uTXNvSHlwZXJsaW5rDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCglj
+b2xvcjpibHVlOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0KYTp2aXNpdGVkLCBzcGFu
+Lk1zb0h5cGVybGlua0ZvbGxvd2VkDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCgljb2xvcjpw
+dXJwbGU7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQpzcGFuLmhvZW56Yg0KCXttc28t
+c3R5bGUtbmFtZTpob2VuemI7fQ0Kc3Bhbi5FbWFpbFN0eWxlMTgNCgl7bXNvLXN0eWxlLXR5cGU6
+cGVyc29uYWwtcmVwbHk7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7DQoJY29s
+b3I6IzFGNDk3RDt9DQouTXNvQ2hwRGVmYXVsdA0KCXttc28tc3R5bGUtdHlwZTpleHBvcnQtb25s
+eTsNCglmb250LXNpemU6MTAuMHB0Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlm
+O30NCkBwYWdlIFdvcmRTZWN0aW9uMQ0KCXtzaXplOjguNWluIDExLjBpbjsNCgltYXJnaW46MS4w
+aW4gMS4waW4gMS4waW4gMS4waW47fQ0KZGl2LldvcmRTZWN0aW9uMQ0KCXtwYWdlOldvcmRTZWN0
+aW9uMTt9DQotLT48L3N0eWxlPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1sPg0KPG86c2hhcGVkZWZh
+dWx0cyB2OmV4dD0iZWRpdCIgc3BpZG1heD0iMTAyNiIgLz4NCjwveG1sPjwhW2VuZGlmXS0tPjwh
+LS1baWYgZ3RlIG1zbyA5XT48eG1sPg0KPG86c2hhcGVsYXlvdXQgdjpleHQ9ImVkaXQiPg0KPG86
+aWRtYXAgdjpleHQ9ImVkaXQiIGRhdGE9IjEiIC8+DQo8L286c2hhcGVsYXlvdXQ+PC94bWw+PCFb
+ZW5kaWZdLS0+DQo8L2hlYWQ+DQo8Ym9keSBsYW5nPSJFTi1VUyIgbGluaz0iYmx1ZSIgdmxpbms9
+InB1cnBsZSI+DQo8ZGl2IGNsYXNzPSJXb3JkU2VjdGlvbjEiPg0KPHAgY2xhc3M9Ik1zb05vcm1h
+bCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJy
+aSZxdW90OyxzYW5zLXNlcmlmO2NvbG9yOiMxRjQ5N0QiPk91ciBwbGF0Zm9ybXMgYXJlIGFsbCBz
+cGVjaWZpZWQgd2l0aCA1MTJNQiBvZiByYW0sIHNvIEkgZG9u4oCZdCBoYXZlIGFueSBleHBlcmll
+bmNlIHdpdGggcnVubmluZyBvdXQgb2YgbWVtb3J5IG9uIHRoZSBwbGF0Zm9ybXMgd2UgdXNlIChi
+YXJyaW5nIHNlcmlvdXMgbWVtb3J5IGxlYWtzKS4mbmJzcDsNCiBJdCB3b3VsZCBiZSBpbnRlcmVz
+dGluZyBpZiB5b3UgZ3V5cyBoYWQgc29tZSBhbnRpLXBhdHRlcm5zIHRoYXQgeW914oCZdmUgZm91
+bmQgdG8gYmUgcHJvYmxlbXMsIHNvIHdlIGNhbiBzZWUgaWYgd2UgY2FuIGNvZGlmeSB0aG9zZSBp
+bnRvIHRoZSBjb2Rpbmcgc3RhbmRhcmQgcnVsZXMuJm5ic3A7IEkga25vdyB0aGF0IHdlIHJlZ3Vs
+YXJseSAoYWIpdXNlIHRoZSBmYWN0IHRoYXQgd2UgaGF2ZSBhIGxvdCBvZiBSQU0gdG8gbWFrZSB0
+aGUgY29kaW5nIGVhc2llcg0KIChyZWFkaW5nIGFuIGVudGlyZSBjb25maWcgZmlsZSBpbnRvIG1l
+bW9yeSBmb3IgZXhhbXBsZSkgLjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29O
+b3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0Nh
+bGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjojMUY0OTdEIj48bzpwPiZuYnNwOzwvbzpwPjwv
+c3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEx
+LjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFG
+NDk3RCI+U29tZSBvZiB0aGUgaXRlbXMgaW4gYm9vc3QgYXJlIGRlc2lnbmVkIHRvIGhlbHAgd2l0
+aCBtZW1vcnkgdXNhZ2UuJm5ic3A7IFVzaW5nIGZsYXRfbWFwIG92ZXIgc3RkOjptYXAgKHdoZW4g
+dXNlZCBwcm9wZXJseSkgd2lsbCBzYXZlIG1lbW9yeS4mbmJzcDsgUG9vbGVkIGFsbG9jYXRvcnMg
+Y2FuDQogaGVscCB3aXRoIG1lbW9yeSBmcmFnbWVudGF0aW9uIGlzc3VlcyBmb3IgdGhpbmdzIHRo
+YXQgYWxsb2NhdGUgYW5kIGRlYWxsb2NhdGUgbG90cyBvZiBvYmplY3RzIGluIGMmIzQzOyYjNDM7
+LjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxl
+PSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1z
+ZXJpZjtjb2xvcjojMUY0OTdEIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFz
+cz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTom
+cXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+SW4gZ2VuZXJhbCwg
+SSBkb27igJl0IGZpbmQgbXkgdGVhbXMgdXNhZ2Ugb2YgYm9vc3QgdG8gaW5jcmVhc2UgbWVtb3J5
+IHVzYWdlIHNpZ25pZmljYW50bHksIGJ1dCBpdOKAmXMgc29tZXRoaW5nIHRvIGJlIGNvbnNpZGVy
+ZWQuJm5ic3A7IE1lbW9yeSB1c2FnZSB0cmFja2luZyBtaWdodCBiZQ0KIGEgZ29vZCB0aGluZyBm
+b3IgYSBtZXRyaWMgdGVzdCBpbiB0aGUgZnV0dXJlIHRvIG1ha2Ugc3VyZSB3ZSBhcmVu4oCZdCB1
+bm5lY2Vzc2FyaWx5IGluY3JlYXNpbmcgdGhlIG1lbW9yeSBsb2FkLjxvOnA+PC9vOnA+PC9zcGFu
+PjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0
+O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjojMUY0OTdE
+Ij48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3Bh
+biBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7
+LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+LUVkPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAg
+Y2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1p
+bHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9yOiMxRjQ5N0QiPjxvOnA+Jm5i
+c3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxhIG5hbWU9Il9fX19f
+cmVwbHlzZXBhcmF0b3IiPjwvYT48Yj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250
+LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWYiPkZyb206PC9zcGFuPjwvYj48
+c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1
+b3Q7LHNhbnMtc2VyaWYiPiBOYW5jeSBZdWVuIFttYWlsdG86eXVlbm5AZ29vZ2xlLmNvbV0NCjxi
+cj4NCjxiPlNlbnQ6PC9iPiBUaHVyc2RheSwgTm92ZW1iZXIgMTYsIDIwMTcgMTA6NTEgQU08YnI+
+DQo8Yj5Ubzo8L2I+IHZpc2h3YSAmbHQ7dmlzaHdhQGxpbnV4LnZuZXQuaWJtLmNvbSZndDs8YnI+
+DQo8Yj5DYzo8L2I+IEJyYWQgQmlzaG9wICZsdDticmFkbGV5YkBmdXp6aWVzcXVpcnJlbC5jb20m
+Z3Q7OyBUYW5vdXMsIEVkICZsdDtlZC50YW5vdXNAaW50ZWwuY29tJmd0OzsgT3BlbkJNQyAmbHQ7
+b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnJmd0Ozxicj4NCjxiPlN1YmplY3Q6PC9iPiBSZTogVXNl
+IG9mIEJvb3N0IGluIE9wZW5CTUM8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNv
+Tm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
+Ij5Hb29nbGUgZG9lc24ndCB1c2UgQm9vc3QgaW50ZXJuYWxseSBhbmQgaW4gZ2VuZXJhbCBoYXZl
+IG5vIG9iamVjdGlvbnMgdG8gdGhpcy48bzpwPjwvbzpwPjwvcD4NCjxkaXY+DQo8cCBjbGFzcz0i
+TXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNz
+PSJNc29Ob3JtYWwiPk15IGJpZ2dlc3QgY29uY2VybiBpcyBob3cgaXQgbWlnaHQgaW1wYWN0IG91
+ciBzZXJ2ZXJzIHdpdGggbGltaXRlZCBCTUMgbWVtb3J5ICgxMjhNQikuJm5ic3A7IEl0J3MgYWxy
+ZWFkeSBiZWVuIGFuIGlzc3VlIHR3ZWFraW5nIE9wZW5CTUMgdG8gcnVuIG9uIGl0IHdpdGhvdXQg
+bWVtb3J5IGlzc3VlcywgYW5kIGl0J3MgYmVlbiBhIGNvbnN0YW50IGJhdHRsZS4mbmJzcDsgSXQg
+ZG9lc24ndCBhbHdheXMgZmFpbCBncmFjZWZ1bGx5DQogZWl0aGVyLiZuYnNwOyBNYXliZSB0aGUg
+YW5zd2VyIGlzIHRvIHNwZWNpZnkgbWluaW11bSByZXF1aXJlbWVudHMgZm9yIHJ1bm5pbmcgT3Bl
+bkJNQywgc3VjaCBhcyA1MTJNQiBSQU0uPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0K
+PGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxiciBjbGVhcj0iYWxsIj4NCjxvOnA+PC9vOnA+
+PC9wPg0KPGRpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj4tLS0tLS0tLS0tPGJyPg0K
+TmFuY3k8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
+Ij48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5PbiBX
+ZWQsIE5vdiAxNSwgMjAxNyBhdCA0OjMzIEFNLCB2aXNod2EgJmx0OzxhIGhyZWY9Im1haWx0bzp2
+aXNod2FAbGludXgudm5ldC5pYm0uY29tIiB0YXJnZXQ9Il9ibGFuayI+dmlzaHdhQGxpbnV4LnZu
+ZXQuaWJtLmNvbTwvYT4mZ3Q7IHdyb3RlOjxvOnA+PC9vOnA+PC9wPg0KPGJsb2NrcXVvdGUgc3R5
+bGU9ImJvcmRlcjpub25lO2JvcmRlci1sZWZ0OnNvbGlkICNDQ0NDQ0MgMS4wcHQ7cGFkZGluZzow
+aW4gMGluIDBpbiA2LjBwdDttYXJnaW4tbGVmdDo0LjhwdDttYXJnaW4tdG9wOjUuMHB0O21hcmdp
+bi1yaWdodDowaW47bWFyZ2luLWJvdHRvbTo1LjBwdCI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5J
+IGxpa2UgdGhlIHByb3Bvc2FsIG9mIHVzaW5nIEJvb3N0IHdoZW4gaXQgbWFrZXMgbW9yZSBzZW5z
+ZS48YnI+DQo8YnI+DQpBcyBhbiBleGFtcGxlLCBJbiBvbmUgb2YgdGhlIHJlY2VudCBjb2RlIGRl
+dmVsb3BtZW50LCBJIHdhcyBsb29raW5nIGZvciBzdHJpbmcgdG9rZW5pemVyIHN1cHBvcnQgYW5k
+IGNvdWxkIG5vdCBzZWUgdGhhdCBpbiBDJiM0MzsmIzQzOyBhbmQgQm9vc3QgaGFkIGEgZ29vZCBz
+dXBwb3J0IG9mIHRoYXQuIEkgZW5kZWQgdXAgdXNpbmcgc3RydG9rX3IgZm9yIHRoYXQgZGV2ZWxv
+cG1lbnQuPHNwYW4gc3R5bGU9ImNvbG9yOiM4ODg4ODgiPjxicj4NCjxicj4NCjxzcGFuIGNsYXNz
+PSJob2VuemIiPiEhIFZpc2h3YSAhITwvc3Bhbj48L3NwYW4+PG86cD48L286cD48L3A+DQo8ZGl2
+Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxicj4NCjxicj4NCk9uIDExLzE0LzIwMTcg
+MDU6NDkgQU0sIEJyYWQgQmlzaG9wIHdyb3RlOjxvOnA+PC9vOnA+PC9wPg0KPGJsb2NrcXVvdGUg
+c3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci1sZWZ0OnNvbGlkICNDQ0NDQ0MgMS4wcHQ7cGFkZGlu
+ZzowaW4gMGluIDBpbiA2LjBwdDttYXJnaW4tbGVmdDo0LjhwdDttYXJnaW4tdG9wOjUuMHB0O21h
+cmdpbi1yaWdodDowaW47bWFyZ2luLWJvdHRvbTo1LjBwdCI+DQo8YmxvY2txdW90ZSBzdHlsZT0i
+Ym9yZGVyOm5vbmU7Ym9yZGVyLWxlZnQ6c29saWQgI0NDQ0NDQyAxLjBwdDtwYWRkaW5nOjBpbiAw
+aW4gMGluIDYuMHB0O21hcmdpbi1sZWZ0OjQuOHB0O21hcmdpbi10b3A6NS4wcHQ7bWFyZ2luLXJp
+Z2h0OjBpbjttYXJnaW4tYm90dG9tOjUuMHB0Ij4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPk9uIE5v
+diAxMywgMjAxNywgYXQgMzozNiBQTSwgVGFub3VzLCBFZCAmbHQ7PGEgaHJlZj0ibWFpbHRvOmVk
+LnRhbm91c0BpbnRlbC5jb20iIHRhcmdldD0iX2JsYW5rIj5lZC50YW5vdXNAaW50ZWwuY29tPC9h
+PiZndDsgd3JvdGU6PGJyPg0KPGJyPg0KQWxsLDxicj4NCiZuYnNwOyBJ4oCZZCBsaWtlIHRvIHN0
+YXJ0IGEgZGlzY3Vzc2lvbiBhcm91bmQgdGhlIHRob3VnaHRzIGFib3V0IHRoZSBpbmNsdXNpb24g
+b2YgQm9vc3QgaGVhZGVycy4mbmJzcDsgSeKAmXZlIGhlYXJkIGJlZm9yZSB0aGF0IGl04oCZcyBh
+IGNvbnRyb3ZlcnNpYWwgc3ViamVjdC48YnI+DQombmJzcDsgRm9yIHJlY29yZCwgaGVyZeKAmXMg
+d2hhdCB0aGUgc3R5bGUgZ3VpZGUgY3VycmVudGx5IHNheXM6PGJyPg0KJm5ic3A7IEJvb3N0LCBR
+VCwgZXRjLjxicj4NCiZuYnNwOyBJZiB5b3UgZ2l2ZSBhIG1vdXNlIGEgY29va2llLi4uPGJyPg0K
+V2hpbGUsIGluIGdlbmVyYWwsIHdlIGFwcHJlY2lhdGUgcmV1c2Ugb3ZlciByZXdyaXRpbmcsIHdl
+IGFyZSBub3QgdXNpbmcgbGFyZ2UgZ2VuZXJhbC1wdXJwb3NlIGxpYnJhcmllcyBzdWNoIGFzIEJv
+b3N0LiBEdWUgdG8gJ0NvZGUgc2hvdWxkIGJlIHBlcmZvcm1hbnQ6IGNvZGUgc2l6ZScgd2UgZG8g
+bm90IHdhbnQgdG8gdXRpbGl6ZSB0aGUgZW50aXJldHkgb2YgQm9vc3QuIElmIGFwcHJvdmFsIGlz
+IGdpdmVuIGZvciBhIHNpbmdsZSBwYXJ0IG9mIGENCiBsYXJnZSBnZW5lcmFsLXB1cnBvc2UgbGli
+cmFyeSBpdCBiZWNvbWVzIG11Y2ggbW9yZSBkaWZmaWN1bHQgdG8gZGlzYXBwcm92ZSBvZiBhbm90
+aGVyIHBhcnQgb2YgdGhlIGxpYnJhcnkuIEJlZm9yZSBsb25nLCB3ZSBtYXkgaGF2ZSBlZmZlY3Rp
+dmVseSBhcHByb3ZlZCBvZiB0aGUgZW50aXJlIGxpYnJhcnkuPGJyPg0KJm5ic3A7IFdlIGRvIGxv
+b2sgZm9yIHNpbmdsZSBmZWF0dXJlIGxpYnJhcmllcyB0aGF0IGNhbiBiZSB1c2VkIGluIHBsYWNl
+IG9mIG91ciBvd24gaW1wbGVtZW50YXRpb25zLjxicj4NCiZuYnNwOyBJ4oCZZCBsaWtlIHRvIHN0
+YXJ0IGEgZGlzY3Vzc2lvbiBhcm91bmQgY2hhbGxlbmdpbmcgYSBjb3JlIHRlbmFudCBvZiB0aGlz
+IHN0YXRlbWVudCwgdGhhdCBhcHByb3ZhbCBvZiBvbmUgcGFydCBvZiB0aGUgbGlicmFyeSBtYWtl
+cyBpdCBkaWZmaWN1bHQgdG8gZGlzYXBwcm92ZSBvdGhlciBwYXJ0cy4mbmJzcDsgSSB3b3VsZCBh
+cmd1ZSB0aGF0IHRoZSBvdmVyaGVhZCBvZiBtYWtpbmcgYSBsaWJyYXJ5IGF2YWlsYWJsZSwgd2hp
+bGUgc3RpbGwgcmVqZWN0aW5nDQogaW1wcm9wZXIgdXNlIHRoYXQgZWZmZWN0cyB0aGUgcHJvamVj
+dCwgaXMgbXVjaCBsb3dlciB0aGFuIHJld3JpdGluZyBhbmQgZGVidWdnaW5nIGVxdWl2YWxlbnQg
+4oCcbmV34oCdIGNvbXBvbmVudHMgZm9yIG9wZW5ibWMuPGJyPg0KJm5ic3A7IEkgd291bGQgbGlr
+ZSB0byB1cGRhdGUgdGhlIGNvZGluZyBzdHlsZSBjb252ZW50aW9ucyB3aXRoIHRoZSBiZWxvdyB2
+ZXJiaWFnZSBpbiByZWdhcmRzIHRvIGJvb3N0Ljxicj4NCiZuYnNwOyBCb29zdDxicj4NCiZuYnNw
+OyBVc2Ugb2YgYm9vc3QgaXMgYWxsb3dlZCwgdW5kZXIgdGhlIGZvbGxvd2luZyBjaXJjdW1zdGFu
+Y2VzOjxicj4NCjEuJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7VXNlIGlzIGRvbmUgYXMgYSBo
+ZWFkZXItb25seSBsaWJyYXJ5LiZuYnNwOyBUaGlzIGFsbG93cyB1bnVzZWQgZnVuY3Rpb25zIGFu
+ZCBtZXRob2RzIHRvIGJlIHJlbW92ZWQgYnkgdGhlIGNvbXBpbGVyIGF0IGxpbmsgdGltZSwgYW5k
+IGF2b2lkcyBhZGRpbmcgbGFyZ2UgYW1vdW50cyBvZiBvdmVyaGVhZCBhbmQgZmxhc2ggdXNhZ2Uu
+PGJyPg0KMi4mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtJbXBsZW1lbnRlcnMgc2hvdWxkIGlu
+Y2x1ZGUgdGhlIGxvd2VzdCBsZXZlbCBoZWFkZXIgcmVxdWlyZWQgdG8gc29sdmUgdGhlIHByb2Js
+ZW0gYXQgaGFuZC4mbmJzcDsgVGhpcyBhbGxvd3MgdXNlcyB0byBiZSBmb3VuZCBhbmQgbW92ZWQg
+Zm9yd2FyZCB3aGVuIG5ldyBzdGFuZGFyZHMgYXJlIGF2YWlsYWJsZSwgYXMgd2VsbCBhcyByZWR1
+Y2UgY29tcGlsZSB0aW1lcywgYW5kIGRlY3JlYXNlIHRoZSBwb3NzaWJpbGl0eSBvZiBhY2NpZGVu
+dGFsDQogdXNlLiZuYnNwOyAoaWUsICNpbmNsdWRlICZsdDtib29zdC9jb250YWluZXIvZmxhdF9t
+YXAuaHBwJmd0OyZuYnNwOyBub3QgI2luY2x1ZGUgJmx0O2Jvb3N0L2NvbnRhaW5lci5ocHAmZ3Q7
+KTxicj4NCjMuJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7VGhlIG1vZHVsZSB1c2VkIHNob3Vs
+ZCBub3QgaGF2ZSBhbiBlcXVpdmFsZW50IGluIHRoZSBzdGQgbmFtZXNwYWNlIHRoYXQgbWVldHMg
+dGhlIHNhbWUgcmVxdWlyZW1lbnRzIGZvciBpbXBsZW1lbnRhdGlvbiBvciBjbGFyaXR5OiZuYnNw
+OyBGb3IgZXhhbXBsZSwgc3RkOjpjaHJvbm8gc2hvdWxkIGJlIHByZWZlcnJlZCBvdmVyIGJvb3N0
+OjpjaHJvbm8uJm5ic3A7IHN0ZDo6YXJyYXkgb3ZlciBib29zdDo6YXJyYXkuPGJyPg0KNC4mbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtVc2UgZG9lcyBub3QgY29uZmxpY3Qgd2l0aCBhbnkgb2Yg
+dGhlIGNvcmUgdGVuYW50cyBvZiB0aGlzIGNvZGluZyBzdGFuZGFyZCAoY2xhcml0eSwgbW9kZXJu
+IHByYWN0aWNlcywgb3IgcGVyZm9ybWFuY2UpPGJyPg0KJm5ic3A7ICZuYnNwOyBTb21lIGV4YW1w
+bGVzIG9mIGxpYnJhcmllcyBpbiBib29zdCB0aGF0IChJIGJlbGlldmUpIHdvdWxkIGJlIHVzZWZ1
+bCBmb3Igb3BlbmJtYzo8YnI+DQpCb29zdCBjb250YWluZXJzIChmbGF0X21hcCwgZmxhdF9zZXQs
+IGVjdCk8YnI+DQombmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwO0Ftb25nIG90aGVyIHRoaW5ncywgdGhpcyBtb2R1bGUgcHJvdmlkZXMg
+c3RhbmRhcmRzIGNvbXBsaWFudCBjb250YWluZXJzIGJhY2tlZCBieSBhIHNvcnRlZCB2ZWN0b3Iu
+Jm5ic3A7IFRoaXMgYWxsb3dzIGEgcmVkdWNlZCBtZW1vcnkgZm9vdHByaW50IG92ZXIgdXNpbmcg
+c3RkOjpzZXQgb3Igc3RkOjptYXAsIGFuZCBpbiBjZXJ0YWluIHVzZSBjYXNlcyBjYW4gYmUgbW9y
+ZSBwZXJmb3JtYW50LCBvciBsb3dlciBtZW1vcnkgdXNhZ2UuPGJyPg0KJm5ic3A7IEJvb3N0IGFz
+aW88YnI+DQombmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
+Jm5ic3A7ICZuYnNwO1RoaXMgbW9kdWxlIHByb3ZpZGVzIEMmIzQzOyYjNDM7IGxldmVsIG5ldHdv
+cmtpbmcsIHNvY2tldHMsIFNTTCwgYW5kIGFzeW5jaHJvbm91cyBmcmFtZXdvcmtzIHRoYXQgYXJl
+IG5vdCBhdmFpbGFibGUgaW4gQyYjNDM7JiM0MzsgdG9kYXkuJm5ic3A7IEl0IGhhcyBiZWVuIHBy
+b3Bvc2VkIGFzIGEgTmV0d29ya2luZyBUUyB0byB0aGUgQyYjNDM7JiM0Mzsgc3RhbmRhcmRzIGNv
+bW1pdHRlZS4mbmJzcDsNCjxhIGhyZWY9Imh0dHA6Ly93d3cub3Blbi1zdGQub3JnL2p0YzEvc2My
+Mi93ZzIxL2RvY3MvcGFwZXJzLzIwMTcvbjQ2NTYucGRmIiB0YXJnZXQ9Il9ibGFuayI+DQpodHRw
+Oi8vd3d3Lm9wZW4tc3RkLm9yZy9qdGMxL3NjMjIvd2cyMS9kb2NzL3BhcGVycy8yMDE3L240NjU2
+LnBkZjwvYT4mbmJzcDsgVGhpcyB1c2Ugd291bGQgbGlrZWx5IGFsaWduIHVzIHdpdGggbW92aW5n
+IHRvd2FyZCBjb21wbGlhbnQgc3RhbmRhcmRzIGluIHRoZSBmdXR1cmUuPGJyPg0KJm5ic3A7IEJv
+b3N0IHN0cmluZzxicj4NCiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDsgJm5ic3A7SW1wbGVtZW50YXRpb25zIG9mIGNvbW1vbiBzdHJpbmcgb3Bl
+cmF0aW9ucyBub3QgcHJlc2VudCBpbiB0aGUgc3RhbmRhcmQgbGlicmFyeS4mbmJzcDsgU3RyaW5n
+IGpvaW4sIHNwbGl0LCBjYXNlIGluc2Vuc2l0aXZlIGNvbXBhcmUgZWN0Ljxicj4NCiZuYnNwOyAm
+bmJzcDsgSeKAmWQgbGlrZSB0byBzZWUgd2hhdCBvdGhlciBwZW9wbGUgb3BpbmlvbnMgYXJlIG9u
+IHRoZSBtYXR0ZXIsIGFuZCBzZWUgaWYgd2UgY2FuIHJlYWNoIGEgY29uc2Vuc3VzLjxicj4NCiZu
+YnNwOyBUaGFua3MsPGJyPg0KJm5ic3A7IC1FZDxvOnA+PC9vOnA+PC9wPg0KPC9ibG9ja3F1b3Rl
+Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdpbi1ib3R0b206MTIuMHB0Ij48YnI+
+DQpUaGlzIGhhcyBteSBzdXBwb3J0LiZuYnNwOyBJIHRoaW5rIChob3BlPykgd2UgY2FuIHJlbHkg
+b24gYSByaWdvcm91cyBwZWVyIHJldmlldyBwcm9jZXNzIHRvIGZsdXNoIG91dCBhbmQgcmFpc2Ug
+YXdhcmVuZXNzIG9mIGFueSBxdWVzdGlvbmFibGUgdXNhZ2UuPGJyPg0KPGJyPg0KV291bGQgaXQg
+bWFrZSBzZW5zZSB0byBoYXZlIGFub3RoZXIgYnVsbGV0IHBvaW50IGRvY3VtZW50ZWQgc29tZXdo
+ZXJlIHRvIHRoaXMgZWZmZWN0Pzxicj4NCjxicj4NCiZxdW90O0lmIHlvdSBhcmUgY29uc2lkZXJp
+bmcgYSBib29zdCBjb21wb25lbnQsIGl0IGlzIHN1Z2dlc3RlZCB5b3Ugb3V0bGluZSB5b3VyIGlu
+dGVuZGVkIHVzYWdlIHB1YmxpY2x5ICh0aGUgbWFpbGluZyBsaXN0KSB0byBhdm9pZCB3YXN0ZWQg
+ZWZmb3J0IGlmIHRoZSBjb21tdW5pdHkgZG9lcyBub3QgZmVlbCB0aGUgc3BlY2lmaWMgdXNhZ2Ug
+aXMgYXBwcm9wcmlhdGUuJnF1b3Q7PGJyPg0KPGJyPg0KLWJyYWQ8bzpwPjwvbzpwPjwvcD4NCjwv
+YmxvY2txdW90ZT4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0K
+PC9kaXY+DQo8L2Rpdj4NCjwvYmxvY2txdW90ZT4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1h
+bCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9ib2R5Pg0KPC9odG1s
+Pg0K
 
-On Wed, Nov 15, 2017 at 4:33 AM, vishwa <vishwa@linux.vnet.ibm.com> wrote:
-
-> I like the proposal of using Boost when it makes more sense.
->
-> As an example, In one of the recent code development, I was looking for
-> string tokenizer support and could not see that in C++ and Boost had a go=
-od
-> support of that. I ended up using strtok_r for that development.
->
-> !! Vishwa !!
->
->
-> On 11/14/2017 05:49 AM, Brad Bishop wrote:
->
->> On Nov 13, 2017, at 3:36 PM, Tanous, Ed <ed.tanous@intel.com> wrote:
->>>
->>> All,
->>>   I=E2=80=99d like to start a discussion around the thoughts about the =
-inclusion
->>> of Boost headers.  I=E2=80=99ve heard before that it=E2=80=99s a contro=
-versial subject.
->>>   For record, here=E2=80=99s what the style guide currently says:
->>>   Boost, QT, etc.
->>>   If you give a mouse a cookie...
->>> While, in general, we appreciate reuse over rewriting, we are not using
->>> large general-purpose libraries such as Boost. Due to 'Code should be
->>> performant: code size' we do not want to utilize the entirety of Boost.=
- If
->>> approval is given for a single part of a large general-purpose library =
-it
->>> becomes much more difficult to disapprove of another part of the librar=
-y.
->>> Before long, we may have effectively approved of the entire library.
->>>   We do look for single feature libraries that can be used in place of
->>> our own implementations.
->>>   I=E2=80=99d like to start a discussion around challenging a core tena=
-nt of
->>> this statement, that approval of one part of the library makes it diffi=
-cult
->>> to disapprove other parts.  I would argue that the overhead of making a
->>> library available, while still rejecting improper use that effects the
->>> project, is much lower than rewriting and debugging equivalent =E2=80=
-=9Cnew=E2=80=9D
->>> components for openbmc.
->>>   I would like to update the coding style conventions with the below
->>> verbiage in regards to boost.
->>>   Boost
->>>   Use of boost is allowed, under the following circumstances:
->>> 1.       Use is done as a header-only library.  This allows unused
->>> functions and methods to be removed by the compiler at link time, and
->>> avoids adding large amounts of overhead and flash usage.
->>> 2.       Implementers should include the lowest level header required t=
-o
->>> solve the problem at hand.  This allows uses to be found and moved forw=
-ard
->>> when new standards are available, as well as reduce compile times, and
->>> decrease the possibility of accidental use.  (ie, #include
->>> <boost/container/flat_map.hpp>  not #include <boost/container.hpp>)
->>> 3.       The module used should not have an equivalent in the std
->>> namespace that meets the same requirements for implementation or clarit=
-y:
->>> For example, std::chrono should be preferred over boost::chrono.
->>> std::array over boost::array.
->>> 4.       Use does not conflict with any of the core tenants of this
->>> coding standard (clarity, modern practices, or performance)
->>>     Some examples of libraries in boost that (I believe) would be usefu=
-l
->>> for openbmc:
->>> Boost containers (flat_map, flat_set, ect)
->>>                  Among other things, this module provides standards
->>> compliant containers backed by a sorted vector.  This allows a reduced
->>> memory footprint over using std::set or std::map, and in certain use ca=
-ses
->>> can be more performant, or lower memory usage.
->>>   Boost asio
->>>                  This module provides C++ level networking, sockets,
->>> SSL, and asynchronous frameworks that are not available in C++ today.  =
-It
->>> has been proposed as a Networking TS to the C++ standards committee.
->>> http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/n4656.pdf  This
->>> use would likely align us with moving toward compliant standards in the
->>> future.
->>>   Boost string
->>>                  Implementations of common string operations not presen=
-t
->>> in the standard library.  String join, split, case insensitive compare =
-ect.
->>>     I=E2=80=99d like to see what other people opinions are on the matte=
-r, and
->>> see if we can reach a consensus.
->>>   Thanks,
->>>   -Ed
->>>
->>
->> This has my support.  I think (hope?) we can rely on a rigorous peer
->> review process to flush out and raise awareness of any questionable usag=
-e.
->>
->> Would it make sense to have another bullet point documented somewhere to
->> this effect?
->>
->> "If you are considering a boost component, it is suggested you outline
->> your intended usage publicly (the mailing list) to avoid wasted effort i=
-f
->> the community does not feel the specific usage is appropriate."
->>
->> -brad
->>
->>
->
-
---94eb2c0476c6632cc6055e1e1b4a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Google doesn&#39;t use Boost internally and in general hav=
-e no objections to this.<div><br></div><div>My biggest concern is how it mi=
-ght impact our servers with limited BMC memory (128MB).=C2=A0 It&#39;s alre=
-ady been an issue tweaking OpenBMC to run on it without memory issues, and =
-it&#39;s been a constant battle.=C2=A0 It doesn&#39;t always fail gracefull=
-y either.=C2=A0 Maybe the answer is to specify minimum requirements for run=
-ning OpenBMC, such as 512MB RAM.</div></div><div class=3D"gmail_extra"><br =
-clear=3D"all"><div><div class=3D"gmail_signature" data-smartmail=3D"gmail_s=
-ignature">----------<br>Nancy</div></div>
-<br><div class=3D"gmail_quote">On Wed, Nov 15, 2017 at 4:33 AM, vishwa <spa=
-n dir=3D"ltr">&lt;<a href=3D"mailto:vishwa@linux.vnet.ibm.com" target=3D"_b=
-lank">vishwa@linux.vnet.ibm.com</a>&gt;</span> wrote:<br><blockquote class=
-=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
-ing-left:1ex">I like the proposal of using Boost when it makes more sense.<=
-br>
-<br>
-As an example, In one of the recent code development, I was looking for str=
-ing tokenizer support and could not see that in C++ and Boost had a good su=
-pport of that. I ended up using strtok_r for that development.<span class=
-=3D"HOEnZb"><font color=3D"#888888"><br>
-<br>
-!! Vishwa !!</font></span><div class=3D"HOEnZb"><div class=3D"h5"><br>
-<br>
-On 11/14/2017 05:49 AM, Brad Bishop wrote:<br>
-<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
-x #ccc solid;padding-left:1ex"><blockquote class=3D"gmail_quote" style=3D"m=
-argin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-On Nov 13, 2017, at 3:36 PM, Tanous, Ed &lt;<a href=3D"mailto:ed.tanous@int=
-el.com" target=3D"_blank">ed.tanous@intel.com</a>&gt; wrote:<br>
-<br>
-All,<br>
-=C2=A0 I=E2=80=99d like to start a discussion around the thoughts about the=
- inclusion of Boost headers.=C2=A0 I=E2=80=99ve heard before that it=E2=80=
-=99s a controversial subject.<br>
-=C2=A0 For record, here=E2=80=99s what the style guide currently says:<br>
-=C2=A0 Boost, QT, etc.<br>
-=C2=A0 If you give a mouse a cookie...<br>
-While, in general, we appreciate reuse over rewriting, we are not using lar=
-ge general-purpose libraries such as Boost. Due to &#39;Code should be perf=
-ormant: code size&#39; we do not want to utilize the entirety of Boost. If =
-approval is given for a single part of a large general-purpose library it b=
-ecomes much more difficult to disapprove of another part of the library. Be=
-fore long, we may have effectively approved of the entire library.<br>
-=C2=A0 We do look for single feature libraries that can be used in place of=
- our own implementations.<br>
-=C2=A0 I=E2=80=99d like to start a discussion around challenging a core ten=
-ant of this statement, that approval of one part of the library makes it di=
-fficult to disapprove other parts.=C2=A0 I would argue that the overhead of=
- making a library available, while still rejecting improper use that effect=
-s the project, is much lower than rewriting and debugging equivalent =E2=80=
-=9Cnew=E2=80=9D components for openbmc.<br>
-=C2=A0 I would like to update the coding style conventions with the below v=
-erbiage in regards to boost.<br>
-=C2=A0 Boost<br>
-=C2=A0 Use of boost is allowed, under the following circumstances:<br>
-1.=C2=A0 =C2=A0 =C2=A0 =C2=A0Use is done as a header-only library.=C2=A0 Th=
-is allows unused functions and methods to be removed by the compiler at lin=
-k time, and avoids adding large amounts of overhead and flash usage.<br>
-2.=C2=A0 =C2=A0 =C2=A0 =C2=A0Implementers should include the lowest level h=
-eader required to solve the problem at hand.=C2=A0 This allows uses to be f=
-ound and moved forward when new standards are available, as well as reduce =
-compile times, and decrease the possibility of accidental use.=C2=A0 (ie, #=
-include &lt;boost/container/flat_map.hpp&gt;<wbr>=C2=A0 not #include &lt;bo=
-ost/container.hpp&gt;)<br>
-3.=C2=A0 =C2=A0 =C2=A0 =C2=A0The module used should not have an equivalent =
-in the std namespace that meets the same requirements for implementation or=
- clarity:=C2=A0 For example, std::chrono should be preferred over boost::ch=
-rono.=C2=A0 std::array over boost::array.<br>
-4.=C2=A0 =C2=A0 =C2=A0 =C2=A0Use does not conflict with any of the core ten=
-ants of this coding standard (clarity, modern practices, or performance)<br=
->
-=C2=A0 =C2=A0 Some examples of libraries in boost that (I believe) would be=
- useful for openbmc:<br>
-Boost containers (flat_map, flat_set, ect)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Among other t=
-hings, this module provides standards compliant containers backed by a sort=
-ed vector.=C2=A0 This allows a reduced memory footprint over using std::set=
- or std::map, and in certain use cases can be more performant, or lower mem=
-ory usage.<br>
-=C2=A0 Boost asio<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0This module p=
-rovides C++ level networking, sockets, SSL, and asynchronous frameworks tha=
-t are not available in C++ today.=C2=A0 It has been proposed as a Networkin=
-g TS to the C++ standards committee.=C2=A0 <a href=3D"http://www.open-std.o=
-rg/jtc1/sc22/wg21/docs/papers/2017/n4656.pdf" rel=3D"noreferrer" target=3D"=
-_blank">http://www.open-std.org/jtc1/s<wbr>c22/wg21/docs/papers/2017/n465<w=
-br>6.pdf</a>=C2=A0 This use would likely align us with moving toward compli=
-ant standards in the future.<br>
-=C2=A0 Boost string<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Implementatio=
-ns of common string operations not present in the standard library.=C2=A0 S=
-tring join, split, case insensitive compare ect.<br>
-=C2=A0 =C2=A0 I=E2=80=99d like to see what other people opinions are on the=
- matter, and see if we can reach a consensus.<br>
-=C2=A0 Thanks,<br>
-=C2=A0 -Ed<br>
-</blockquote>
-<br>
-This has my support.=C2=A0 I think (hope?) we can rely on a rigorous peer r=
-eview process to flush out and raise awareness of any questionable usage.<b=
-r>
-<br>
-Would it make sense to have another bullet point documented somewhere to th=
-is effect?<br>
-<br>
-&quot;If you are considering a boost component, it is suggested you outline=
- your intended usage publicly (the mailing list) to avoid wasted effort if =
-the community does not feel the specific usage is appropriate.&quot;<br>
-<br>
--brad<br>
-<br>
-</blockquote>
-<br>
-</div></div></blockquote></div><br></div>
-
---94eb2c0476c6632cc6055e1e1b4a--
+--_000_7E9441B1E5EFFD4681F54958E82169932EAF5712ORSMSX105amrcor_--
