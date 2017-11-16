@@ -1,40 +1,60 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (bilbo.ozlabs.org [103.22.144.67])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ycmYS1hXhzDqpp
- for <openbmc@lists.ozlabs.org>; Thu, 16 Nov 2017 14:14:04 +1100 (AEDT)
+Return-Path: <venture@google.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c08::236; helo=mail-ua0-x236.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="jvfHKsZ4"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="tw6ZuSf4"; 
  dkim-atps=neutral
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+Received: from mail-ua0-x236.google.com (mail-ua0-x236.google.com
+ [IPv6:2607:f8b0:400c:c08::236])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by ozlabs.org (Postfix) with ESMTPSA id 3ycmYR687Tz9s4s;
- Thu, 16 Nov 2017 14:14:03 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
- t=1510802044; bh=Rpy4iK9ht0lfUxyExIExJzbzLb0bPpj1UYac+YDhvN4=;
- h=Subject:To:References:From:Date:In-Reply-To:From;
- b=jvfHKsZ4OQYOlFQS4c9Oi/zj1hOmNpfi7Qisfm65IrTYVO2mewFEp5Pg4iLZNoN0E
- wGe2FxuY1gouMMkUhlQXGWCv+MXBIZh0CEHiCxrTso0s7Xf5x+EQFmdGr+RE6uyYX5
- szM4yCBEB+yB06/yZJ8MKS4d+v1dIlunbn4/zvUi2QXdSOsdu6ucrzaLhcMwnnH9EG
- ZiwsX8bvw05jubn9+BvvtkUEcBN+cJDBt77P4Fm421b8K+EOXMMaZRburitJ3o0xeG
- gKSNo9NMCqaY0cqaXgModSB5u7v7mMHE6ccW+XPMnnYEp3GIaTn92oB2cK1Ixro8Y7
- v3AzJuPh/lYTw==
-Subject: Re: HPM firmware update
-To: "Mihm, James" <james.mihm@intel.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-References: <C599FC839619124CAC44E062ABB7DFE2C9F407C2@ORSMSX101.amr.corp.intel.com>
-From: Jeremy Kerr <jk@ozlabs.org>
-Message-ID: <14315ca0-3c06-5aa3-5b57-d5e3888fd957@ozlabs.org>
-Date: Thu, 16 Nov 2017 11:14:02 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.4.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yd4nw6NZLzDr1t
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Nov 2017 02:25:55 +1100 (AEDT)
+Received: by mail-ua0-x236.google.com with SMTP id l25so10770908uag.8
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Nov 2017 07:25:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=+ve05d71Li/GdfW+uyi5cb+x0Iugjlys0IFmP2DYqqo=;
+ b=tw6ZuSf4w3RLGf4kHl7cAVBps2OduVO49PCmFaiHhN1RVpqy0LDsAwVuU1u+6tjZnT
+ ybyrLg72okXnTW41FK9Rflid1gEIA11PquRh5o0LdGJ5GCTs2SxWaBdNGoWDi0o7bP4H
+ hfpuIp4eNH/kFhzdBdPrf1RjLfN5XCclo6D1wesM72ZQzMkAa0ALrR7b7bHj3U7wvvHu
+ 2EsBuvWWZ/QWFi0KM0i/oNpFSfx5TiWAqCVdr+nXoJVkoWDLKm0Ug5XaN6/a6UmH7PqV
+ IZerdcfM5e3aiQE5tss0w8DPGiAD+A4Jn7nhLBoNOijEemd5bqBxH1oSLTL+0m+0Hkn9
+ DJoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=+ve05d71Li/GdfW+uyi5cb+x0Iugjlys0IFmP2DYqqo=;
+ b=ZAlewcSMggXA/A+qBsaaVkhl1d3lV+Ja/z5AD+Dg92dXcwuzR+Ho17l4EdMIYnITNF
+ umHDmkjK3Mx8ugw9cyr6xft6Pmtss9weThESwFicitgQHM2ibFtvIc4dCJlHKkhSfox/
+ cYQ1i4Yon9hwLxqFcBHbtVI8sP7DDYLgp6toanesFAq+lbB7OpYYdPEpgxdi8pdj/MX4
+ FGFIbvoeZZrcACrUu6Xbyeui9lI91atmG7oFVlU/E0l/cKra1H2Cuh+E5Y1mQ0kzNjQk
+ fiB1hWJ2FOtTfD400I8ffWOOVX/5rrYdRlzA5LuN6n18hP++HTLyP8i1eBYAqAcu7XcR
+ 7++w==
+X-Gm-Message-State: AJaThX4ER4crs7X7cv+ggHi5TRe8CMngpdUWKZkJhj1w5mXuo4QB8y3t
+ kgSz+7dkfbNdZToDQDi+Qh56Kw/vXYdmXMIscWh27w==
+X-Google-Smtp-Source: AGs4zMbKM/bee7eiWs+lN802RSFIOz93sTVbsPsejhqqmMysZar31mCFyiNLWbC2wgNmpVLcKXdRy66A8SADDnEZbSE=
+X-Received: by 10.176.71.226 with SMTP id w34mr1827777uac.33.1510845953063;
+ Thu, 16 Nov 2017 07:25:53 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <C599FC839619124CAC44E062ABB7DFE2C9F407C2@ORSMSX101.amr.corp.intel.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-AU
-Content-Transfer-Encoding: 8bit
+Received: by 10.31.94.150 with HTTP; Thu, 16 Nov 2017 07:25:32 -0800 (PST)
+In-Reply-To: <1510798154.4287.86.camel@aj.id.au>
+References: <7E9441B1E5EFFD4681F54958E82169932EAF506B@ORSMSX105.amr.corp.intel.com>
+ <1B00151F-6B6E-4060-8316-F955F9A8E20F@fuzziesquirrel.com>
+ <1510798154.4287.86.camel@aj.id.au>
+From: Patrick Venture <venture@google.com>
+Date: Thu, 16 Nov 2017 07:25:32 -0800
+Message-ID: <CAO=notwsaQ1agzXi-r9jcKXL84ix2WWLP9PcCDRL1Kcubxj1Lw@mail.gmail.com>
+Subject: Re: Gerrit code review velocity
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, "Tanous,
+ Ed" <ed.tanous@intel.com>, OpenBMC <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -46,27 +66,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Nov 2017 03:14:04 -0000
+X-List-Received-Date: Thu, 16 Nov 2017 15:25:57 -0000
 
-Hi James,
+On Wed, Nov 15, 2017 at 6:09 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> On Wed, 2017-11-15 at 19:09 -0500, Brad Bishop wrote:
+>> > Do we have  a process for how long code review->test->merge should
+>> > take, and what process it should follow?
+>>
+>> We don=E2=80=99t.  My personal preference would be for this to be at the=
+ repo
+>> maintainers discretion.  I=E2=80=99m sure that sounds bad since I am the
+>> maintainer of nearly all of them, but I do want other people
+>> maintaining eventually and I=E2=80=99d still say the same thing even aft=
+er it
+>> wasn=E2=80=99t me.
+>>
+>> That said, I=E2=80=99m more concerned in building a community here, so I=
+=E2=80=99m
+>> willing to submit to group-think if others feel one way or the other.
+>
+> Maybe patches should be left up for review for at least 2 business days
+> if they're not a hot security fix or something equally drastic.
 
-> I’ve started looking at using the PICMG HPM specification that was
-> recommended as the preferred API for performing firmware updates. This
-> is not an open specification, and goes against the principles of the
-> openbmc project.
+Not a bad idea.
 
-Yes, that's very true. My previous experience is on the client-side of
-HPM, which is implemented in ipmitool already.
+>
+> We probably need a way to identify the list of people who would likely
+> be interested in reviewing them as well.
 
-> The HPM specification must also be purchased from the PICMG standards
-> organization, and contains patent liabilities. I think using HPM is a
-> non-starter.
+In terms of different daemons, typically the selection of reviewers
+comes from the contributors for that daemon.  In point of fact, I pick
+people partially by checking the blame history on the file(s) I've
+modified when submitting a patchset.  Clearly other people may be
+interested to know about a specific set of changes or perhaps more
+straightforwardly, to follow a specific daemon.  In the former case, I
+can't think of a way to handle this, but in the latter -- perhaps sub
+email lists that are added to the CC line of reviews?
 
-We could always request DMTF to make it more widely available. However,
-unless that does change, I'd agree with you that we'd want to avoid
-HPM.1.
+>
+> Andrew
 
-Regards,
-
-
-Jeremy
+Patrick
