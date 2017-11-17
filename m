@@ -1,52 +1,36 @@
-Return-Path: <ed.tanous@intel.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.65; helo=mga03.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+Return-Path: <james.feist@linux.intel.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.43; helo=mga05.intel.com;
+ envelope-from=james.feist@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ydksj66DpzDrMM
- for <openbmc@lists.ozlabs.org>; Sat, 18 Nov 2017 04:01:28 +1100 (AEDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2017 09:01:26 -0800
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ydlTX3x8yzDrSR
+ for <openbmc@lists.ozlabs.org>; Sat, 18 Nov 2017 04:29:03 +1100 (AEDT)
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2017 09:29:01 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="5.44,410,1505804400"; 
-   d="scan'208";a="3842166"
-Received: from orsmsx101.amr.corp.intel.com ([10.22.225.128])
- by fmsmga001.fm.intel.com with ESMTP; 17 Nov 2017 09:01:25 -0800
-Received: from orsmsx111.amr.corp.intel.com (10.22.240.12) by
- ORSMSX101.amr.corp.intel.com (10.22.225.128) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Fri, 17 Nov 2017 09:01:25 -0800
-Received: from orsmsx105.amr.corp.intel.com ([169.254.2.105]) by
- ORSMSX111.amr.corp.intel.com ([169.254.12.55]) with mapi id 14.03.0319.002;
- Fri, 17 Nov 2017 09:01:24 -0800
-From: "Tanous, Ed" <ed.tanous@intel.com>
-To: Stewart Smith <stewart@linux.vnet.ibm.com>, Brad Bishop
- <bradleyb@fuzziesquirrel.com>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: RE: On the state of documentation
-Thread-Topic: On the state of documentation
-Thread-Index: AQHTXdi1WqDldsIgGUuOGqFixminC6MWCc+A//+pOMCAArjFgIAAHQeAgAAGloCAAC4JUA==
-Date: Fri, 17 Nov 2017 17:01:24 +0000
-Message-ID: <7E9441B1E5EFFD4681F54958E82169932EAF5A8F@ORSMSX105.amr.corp.intel.com>
-References: <87lgj8rrz6.fsf@linux.vnet.ibm.com>
- <B9643A4A-B3FF-4D99-880C-8617231513BA@stwcx.xyz>
- <7E9441B1E5EFFD4681F54958E82169932EAF586A@ORSMSX105.amr.corp.intel.com>
- <87zi7lzjvu.fsf@linux.vnet.ibm.com>
- <C56F44F7-987C-47B2-8E8A-E50A2F6D2A53@fuzziesquirrel.com>
- <87vai9zdze.fsf@linux.vnet.ibm.com>
-In-Reply-To: <87vai9zdze.fsf@linux.vnet.ibm.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ctpclassification: CTP_IC
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiYTUxZjhkZDItZmJlNy00MGUyLWFmOTEtOTQwMTQ3OTY1MzdjIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX0lDIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE1LjkuNi42IiwiVHJ1c3RlZExhYmVsSGFzaCI6IjF0dnl6eFdMQms0SXlMQXlBMVlzcTZGUWg3dlNTM3FsZlk4U0xjTzJlbGs9In0=
-x-originating-ip: [10.22.254.140]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+   d="scan'208";a="3432899"
+Received: from skyhawk.jf.intel.com (HELO [10.54.51.84]) ([10.54.51.84])
+ by orsmga003.jf.intel.com with ESMTP; 17 Nov 2017 09:29:01 -0800
+Subject: Re: [PATCH linux dev-4.10 1/1] Rename aspeed-bmc-opp-flash-layout.dtsi
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <595016cc-32ac-c0fb-43fb-ecfc5cd45989@linux.intel.com>
+ <CACPK8XdCXhaZ3gsX3V5PMu1OHD1AtbZHe+C-a4+qrSxZiufang@mail.gmail.com>
+From: James Feist <james.feist@linux.intel.com>
+Message-ID: <e72e3ba8-2948-e9c1-39c2-e7c674e9115b@linux.intel.com>
+Date: Fri, 17 Nov 2017 09:29:01 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.4.0
 MIME-Version: 1.0
+In-Reply-To: <CACPK8XdCXhaZ3gsX3V5PMu1OHD1AtbZHe+C-a4+qrSxZiufang@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -58,147 +42,255 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Nov 2017 17:01:31 -0000
+X-List-Received-Date: Fri, 17 Nov 2017 17:29:05 -0000
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogU3Rld2FydCBTbWl0aCBb
-bWFpbHRvOnN0ZXdhcnRAbGludXgudm5ldC5pYm0uY29tXQ0KPiBTZW50OiBUaHVyc2RheSwgTm92
-ZW1iZXIgMTYsIDIwMTcgOToxMSBQTQ0KPiBUbzogQnJhZCBCaXNob3AgPGJyYWRsZXliQGZ1enpp
-ZXNxdWlycmVsLmNvbT47IFRhbm91cywgRWQNCj4gPGVkLnRhbm91c0BpbnRlbC5jb20+DQo+IENj
-OiBPcGVuQk1DIE1haWxsaXN0IDxvcGVuYm1jQGxpc3RzLm96bGFicy5vcmc+DQo+IFN1YmplY3Q6
-IFJlOiBPbiB0aGUgc3RhdGUgb2YgZG9jdW1lbnRhdGlvbg0KPiANCj4gQnJhZCBCaXNob3AgPGJy
-YWRsZXliQGZ1enppZXNxdWlycmVsLmNvbT4gd3JpdGVzOg0KPiA+PiBPbiBOb3YgMTYsIDIwMTcs
-IGF0IDEwOjAzIFBNLCBTdGV3YXJ0IFNtaXRoDQo+IDxzdGV3YXJ0QGxpbnV4LnZuZXQuaWJtLmNv
-bT4gd3JvdGU6DQo+ID4+DQo+ID4+ICJUYW5vdXMsIEVkIiA8ZWQudGFub3VzQGludGVsLmNvbT4g
-d3JpdGVzOg0KPiA+Pj4gSSBiZWxpZXZlIHRoYXQgdGhlIGxhY2sgb2YgZ29vZCBkb2N1bWVudGF0
-aW9uIGlzIGEgc3ltcHRvbSBvZiBhDQo+ID4+PiBsYXJnZXINCj4gPj4+IGlzc3VlOiAgT3BlbkJN
-QyBpcyBub3QgdGFyZ2V0aW5nIGEgcHVibGljIHNwZWNpZmljYXRpb24gd2l0aCBpdHMNCj4gPj4+
-IFJFU1QgaW50ZXJmYWNlLiAgVGhpcyBoYXMgbGVkIHRvIGNlcnRhaW4gZW5naW5lZXJpbmcgZmxl
-eGliaWxpdGllcw0KPiA+Pj4gd2l0aCB0aGUgaW50ZXJmYWNlIHRoYXQsIHdoaWxlIHVzZWZ1bCBm
-b3Igc2hvcnQgdGVybSB0byAiZ2V0DQo+ID4+PiBzb21ldGhpbmcgdGhhdCB3b3JrcyIsIG1ha2Ug
-aXQgdmVyeSBkaWZmaWN1bHQgdG8gdGFyZ2V0IG9wZW5ibWMgYW4NCj4gZXZvbHZpbmcgcGxhdGZv
-cm0uDQo+ID4+PiBJbiB0aGUgY3VycmVudCBtb2RlbCwgREJ1cyBzcGVjaWZpY2F0aW9ucyBhcmUg
-cHVzaGVkIGRpcmVjdGx5IHRvIHRoZQ0KPiA+Pj4gZW5kIHVzZXIsIHdoaWNoIG1lYW5zIChuZWFy
-bHkpIGV2ZXJ5IERCdXMgc3BlYyBjaGFuZ2UgcmVzdWx0cyBpbiBhDQo+ID4+PiBjaGFuZ2UgdG8g
-ZW5kIHVzZXIgaW50ZXJmYWNlcy4gIEkgZG9uJ3QgYmVsaWV2ZSB0aGlzIGlzIHN1c3RhaW5hYmxl
-DQo+ID4+PiBpbiB0aGUgbG9uZyBydW4sIGdpdmVuIHRoZSBudW1iZXIgb2YgcGxhdGZvcm1zIHRo
-YXQgdGhpcyBpcw0KPiA+Pj4gdGFyZ2V0aW5nIGFuZCB0aGUgbmVlZCBmb3IgcmVwcm9kdWNpYmxl
-IEFQSXMgYmV0d2VlbiBzeXN0ZW1zLg0KPiA+DQo+ID4gTm8gZGlzYWdyZWVtZW50IGhlcmUuICBU
-aGUgcHJvamVjdCBjb3VsZCByZWFsbHkgY291bGQgdXNlIGEgUmVkZmlzaA0KPiA+IGFuZCBmdWxs
-IElQTUkgaW1wbGVtZW50YXRpb24uDQo+IA0KPiA+Pj4gdGhhdCBtaWRkbGUgdG8gbG9uZyB0ZXJt
-IHdlIHNob3VsZCB0cmFuc2l0aW9uIGF3YXkgZnJvbSB0aGVzZQ0KPiA+Pj4gaW50ZXJmYWNlcyBm
-b3IgZW5kLXVzZXIgZmFjaW5nIGZ1bmN0aW9uYWxpdHksIGFuZCBtb3ZlIHRvd2FyZA0KPiA+DQo+
-ID4gV29yZHMgbGlrZSAndHJhbnNpdGlvbiBhd2F5JyBhbmQgJ21vdmUgdG93YXJkJyBhcmUga2lu
-ZCBvZiBmcmVha2luZyBtZQ0KPiA+IG91dCBhIGxpdHRsZS4gIEFyZSB5b3Ugc3VnZ2VzdGluZyB0
-aGF0IE9wZW5CTUMgY2FuIF9vbmx5XyBoYXZlIGENCj4gPiBSZWRmaXNoIGltcGxlbWVudGF0aW9u
-PyAgQW55IG90aGVyIFJFU1QgQVBJIGltcGxlbWVudGF0aW9uIHdvdWxkDQo+ID4gYmXigKZiYW5u
-ZWQgZnJvbSB0aGUgcHJvamVjdD8gIE9yIGFtIEkgcmVhZGluZyBpbnRvIGl0IHRvbyBtdWNoPw0K
-DQpObywgSSdtIGluIG5vIHdheSBhcmd1aW5nIHRoYXQgd2UgbmVlZCB0byBvbmx5IGhhdmUgb25l
-IGV4dGVybmFsIEFQSS4gIEJhbm5pbmcgY2VydGFpbiBBUElzIG9yIGNvbXBvbmVudHMgaXMgc29t
-ZXRoaW5nIHRoYXQgSSBkb24ndCB0aGluayBmaXQgdGhlIG5lZWRzIG9mIHRoZSBwcm9qZWN0IGVp
-dGhlci4NCk92ZXJhbGwsIEkgd291bGQgbGlrZSBuZXcgYW5kIGV4aXN0aW5nIGNvZGUgdG8gYmUg
-YWJsZSB0byB0cmVhdCBkYnVzIGFzIGFuIG9wZW5ibWMgcHJpdmF0ZSBBUEksIG5vdCBhbiBlbmQg
-dXNlciBmYWNpbmcgcHVibGljIEFQSS4gIFNhaWQgYW5vdGhlciB3YXksIERCdXMgYXBpIGNoYW5n
-ZXMgc2hvdWxkIGJlIHBvc3NpYmxlIHdpdGhvdXQgY2hhbmdpbmcgZXh0ZXJuYWwgc3lzdGVtIGlu
-dGVyZmFjZXMuICBHaXZlbiB0aGUgZmFjdCB0aGF0IHRoZSBleGlzdGluZyBSRVNUIEFQSSBpcyBz
-aW1wbHkgYSBkaXJlY3QgY29ubmVjdGlvbiB0byBkYnVzLCBpdCBzZWVtcyB0byBzdGFuZCBpbiB0
-aGUgd2F5IG9mIHRoaXMgZ29hbC4gIExvbmcgdGVybSwgSSB3b3VsZCBsaWtlIHRvIHNlZSB0aGUg
-ZXhpc3RpbmcgZGJ1cyBSRVNUIEFQSSBtb3ZlZCB0byBtYWNoaW5lIHNwZWNpZmljIGxheWVycyBm
-b3IgdGhlIG1hY2hpbmVzIHRoYXQgd2FudCB0byB1c2UgdGhlbSwgYW5kIHJlbW92ZSBpdCBhcyBh
-IHJlZmVyZW5jZSBpbXBsZW1lbnRhdGlvbi4gIE1heWJlIEknbSBzdGVwcGluZyBvdmVyIHRoZSBs
-aW5lPyAgTWF5YmUgaXQncyB0b28gZWFybHkgdG8gc3RhcnQgdGFsa2luZyB0cmFuc2l0aW9uIHBs
-YW5lLCB3aGVuIHRoZSByZXBsYWNlbWVudCBjb21wb25lbnRzIGFyZSBpbiB0aGVpciBpbmZhbmN5
-Pw0KSSdtIG5vdCBhc2tpbmcgZm9yIGEgY29tbWl0bWVudCBoZXJlLCBqdXN0IHdvdWxkIGxpa2Ug
-dG8gc2VlIHdoYXQgb3RoZXIgcGVvcGxlJ3MgdGhvdWdodHMgYXJlLg0KDQo+IA0KPiBJJ2Qgc3Vw
-cG9ydCBtdWx0aXBsZSBpbnRlcmZhY2VzIChhZnRlciBhbGwsIElQTUkgYW5kIFJlZEZpc2ggYXJl
-IG11bHRpcGxlIG9uZXMNCj4gYW55d2F5LCBhbmQgSVBNSSBpcyBwcm9iYWJseSBnb2luZyB0byB0
-YWtlIGEgZmV3IG1vcmUgeWVhcnMgdG8gZGlzYXBwZWFyKQ0KPiANCj4gPiBMaWtlIEkgc2FpZCwg
-SSB0b28gYWdyZWUgd2UgbmVlZCBhIFJlZGZpc2ggYW5kIElQTUkgaW1wbGVtZW50YXRpb24gaW4N
-Cj4gPiBPcGVuQk1DLg0KPiA+DQo+ID4gVGhhdCBzYWlkLCB3aGF0IHJlYXNvbiBpcyB0aGVyZSB0
-byBnZXQgcmlkIG9mIHRoZSBleGlzdGluZyBEQnVzPC0+UkVTVA0KPiA+IHRyYW5zbGF0aW9uIHNl
-cnZlcj8gIEl04oCZcyBub3QgYXMgaWYgaXRzIGEgbWFpbnRlbmFuY2UgYnVyZGVuLiAgSXQNCj4g
-PiBpc27igJl0IGFzIGlmIGFueW9uZSBpcyBtYWtpbmcgcGVvcGxlIHVzZSBpdCBpbiB0aGVpciBw
-cm9kdWN0cy4gIEl0cyB0aGVyZS4NCj4gPiBZb3UgY2FuIHVzZSBpdCBvciBub3QgdXNlIGl0LiAg
-V2hlbiB3ZSBoYXZlIGFuIElQTUkgb3IgUmVkZmlzaA0KPiA+IGltcGxlbWVudGF0aW9uLCBJ4oCZ
-bGwgYmUgdGhlIGZpcnN0IGluIGxpbmUgKHdlbGwgbWF5YmUgc2Vjb25kIGFmdGVyDQo+ID4gU3Rl
-d2FydCkgdG8gdGVsbCBteSBlbXBsb3llciB0byB0dXJuIGl0IG9mZiBpbiB0aGVpciBwcm9kdWN0
-cy4NCj4gPiBUaGF0IGlzbuKAmXQgdGhlIHNhbWUgdGhpbmcgYXMgcmVtb3ZpbmcgaXQgZnJvbSB0
-aGUgcHJvamVjdCBhbHRvZ2V0aGVyLg0KPiANCj4gSXQgbWlnaHQgYmUgdXNlZnVsIGZvciBkZWJ1
-ZyB0byBrZWVwIGFyb3VuZCAiZm9yZXZlciI/DQpGb3IgZGVidWcsIHllcywgSSBjb21wbGV0ZWx5
-IGFncmVlIHRoYXQgc2VydmVyIGlzIHVzZWZ1bCBhbmQgd2UgY2FuIGxlYXZlIGl0IGluIHRoZSBy
-ZXBvLCBJJ20gbGVzcyB3b3JyaWVkIGFib3V0IGRlYnVnLCBvciBnaXZpbmcgZGV2ZWxvcGVycyBh
-bmQgbWFpbnRhaW5lcnMgdGhlIG9wdGlvbiwgbW9yZSB3b3JyaWVkIGFib3V0IHRoZSBkaXJlY3Qg
-bGlua2FnZSBmcm9tIERidXMgdG8gZW5kLXVzZXIgZmFjaW5nIEFQSXMsIGVzcGVjaWFsbHkgaW4g
-YSBjb21wb25lbnQgdGhhdCdzIGxhYmVsZWQgcmVmZXJlbmNlLCBhbmQgYWRkZWQgdG8gb3BlbmJt
-YyBidWlsZHMgYnkgZGVmYXVsdC4NCg0KPiANCj4gPj4+IFNvbWUgaW1wb3J0YW50IGtleSBwb2lu
-dHMgdGhhdCBJIHRoaW5rIHNob3VsZCBiZSBkcml2ZW4gYnkgdGhlIG5ldw0KPiBtb2RlbDoNCj4g
-Pj4+IDEuIFJlc3QgaW50ZXJmYWNlcyBzaG91bGQgbm90IGJlIGRyaXZlbiBieSB0aGUgdW5kZXJs
-eWluZyBEQnVzDQo+IGludGVyZmFjZXMsIG5vciB0aGUgYmFja2VuZCBpbXBsZW1lbnRhdGlvbiBs
-YW5ndWFnZS4NCj4gPg0KPiA+IFRoaXMgcmVhZHMgbGlrZSBwb2xpY3kgZm9yIHNvbWVvbmUgdXNp
-bmcgT3BlbkJNQyB0byBidWlsZCBhIEJNQyBzdGFjay4NCj4gPg0KPiA+IEkgd291bGQgcmVwaHJh
-c2UgaXQgdG86DQo+ID4NCj4gPiBYWVogY29ycCBjYW5ub3QgdXNlIGFueSBSRVNUIGltcGxlbWVu
-dGF0aW9ucyBwcm92aWRlZCBieSBPcGVuQk1DIHRoYXQNCj4gPiBhcmUgZHJpdmVuIGJ5IHRoZSB1
-bmRlcmx5aW5nIERCdXMgaW50ZXJmYWNlcyBpbiBYWVogY29ycCBwcm9kdWN0cw0KPiA+IG1ha2lu
-ZyB1c2Ugb2YgT3BlbkJNQy4NCj4gPg0KPiA+IERvIHlvdSBzZWUgdGhlIGRpZmZlcmVuY2U/DQpG
-YWlyIHBvaW50LiAgWWVzLCBhbGwgdGhlc2UgZ29hbHMgYXJlIHRoaW5ncyB0aGF0IEludGVsIG5l
-ZWRzIHRvZGF5IGZvciBwcm9kdWN0aW9uIGludGVyZmFjZXMuICBJIHdhcyB0cnlpbmcgdG8gc2Vl
-IGlmIG90aGVycyBoYXZlIHNpbWlsYXIgcmVxdWlyZW1lbnRzLg0KTXkgZW5kIGdvYWwgaGVyZSBp
-cyBub3QgdG8gcHJlc2NyaWJlIHdoYXQgcGVvcGxlIGFyZSBhbGxvd2VkIHRvIGJ1aWxkLCB5b3Vy
-IHJld29yZGluZyBvZiB0aGUgbmV4dCBwb2ludCBzZWVtcyB0byByZW5kZXIgdGhpcyBvbmUgbW9v
-dC4gDQoNCj4gDQo+IEknZCBzYXkgIlRoZSBPcGVuQk1DIFJFU1QgQVBJIGlzIG5vdCBtZWFudCB0
-byBiZSBhIHN0YWJsZSBBUEkgdG8gYmUNCj4gY29uc3VtZWQuIEl0IGV4aXN0cyBleGNsdXNpdmVs
-eSBmb3IgZGVidWcgYW5kIGRldmVsb3BtZW50IGVmZm9ydHMgb2YNCj4gT3BlbkJNQy4gSXQgbWF5
-LCBpbiBmdXR1cmUsIGNvbXBsZXRlbHkgY2hhbmdlIG9yIGRpc2FwcGVhci4iDQo+IA0KPiBGcm9t
-IHNvbWVvbmUgY29uc3VtaW5nIGl0LCB0aGF0J3MgY2VydGFpbmx5IGJlZW4gdGhlIGV4cGVyaWVu
-Y2UgYXQgbGVhc3QgOikNClRoYXQncyBhIG11Y2ggbW9yZSBmYWlyIHdvcmRpbmcuICBPbiB0aGUg
-b3RoZXIgaGFuZCwgdGhlcmUgaXMgYSBsb3Qgb2YgcHJlY2VkZW5jZSBmb3IgdXNlcnMgcmVseWlu
-ZyBvbiAiZGVidWciIEFQSXMgZm9yIHByb2R1Y3Rpb24gZnVuY3Rpb25hbGl0eSwgdGhlbiBjb21w
-bGFpbmluZyB3aGVuIHRoZSBmdW5jdGlvbiBicmVha3Mgb3IgZGlzYXBwZWFycy4gIEkgZG9uJ3Qg
-aGF2ZSBhIHNvbHV0aW9uIGhlcmUsIGp1c3QgYSBjb21tZW50Lg0KDQo+IA0KPiA+Pj4gMi4gSW50
-ZXJmYWNlcyBzaG91bGQgbm90IGNvbnRhaW4gYW55ICJiYWNrZG9vciIgdHlwZSBBUElzIHRoYXQg
-YWxsb3cNCj4gd2hpdGUgYm94IHN0eWxlIGFjY2VzcyB0byBpbnRlcm5hbCBBUElzLiAgQW55dGhp
-bmcgYnJlYWtpbmcgdGhlIGJsYWNrIGJveA0KPiBtb2RlbCBzaG91bGQgYmUgZG9uZSBpbiBhIG1h
-Y2hpbmUgc3BlY2lmaWMgbGF5ZXIgb3IgY29uZmlndXJhdGlvbi4NCj4gPj4+IDMuIEFQSXMgc2hv
-dWxkIGdpdmUgdGhlIG1pbmltdW0gcmVxdWlyZWQgYW1vdW50IG9mIGluZm9ybWF0aW9uIHRvDQo+
-IGZ1bGZpbGwgdGhlIGVuZCB1c2VyIHVzZSBjYXNlLg0KPiA+Pj4gNC4gSW50ZXJmYWNlcyBzaG91
-bGQgYmUgYmFja2VkIGJ5IHRoZSBzeXN0ZW0gbGV2ZWwgc2VjdXJpdHkgcG9saWN5IChQQU0NCj4g
-dXNlcnMgaW4gdGhlIGN1cnJlbnQgbW9kZWwpLg0KPiA+Pj4gNS4gV2hlcmUgcG9zc2libGUsIHRo
-ZSBpbXBsZW1lbnRhdGlvbnMgc2hvdWxkIGZvbGxvdyBhbiBleGlzdGluZw0KPiA+Pj4gc3BlY2lm
-aWNhdGlvbi4gIEluIHRoZSBjYXNlcyB3aGVyZSB0aGUgcmVxdWlyZW1lbnRzIGFyZSBub3QNCj4g
-Pj4+IHN1cHBvcnRlZCwgdGhlIGFwaSBzaG91bGQgZm9sbG93IHRoZSBzdHlsZSBvZiB0aGUgc3Vw
-cG9ydGluZw0KPiA+Pj4gaW50ZXJmYWNlICAoVGhpbmsgcmVkZmlzaCBPRU0gY29tbWFuZCBzdXBw
-b3J0KQ0KPiA+DQo+ID4gSSBoYXZlIHRoZSBzYW1lIHJlYWN0aW9uIHRvIDItNiBhcyBJIGRpZCBm
-b3IgMS4gIFRoZXNlIGFyZSBwb2xpY2llcyBvbg0KPiA+IF91c2VfIG9mIE9wZW5CTUMuICBSaWdo
-dD8gIE5vdCB3aGF0IHRoZSBjb250cmlidXRvcnMgdG8gdGhlIHByb2plY3QgYXJlDQo+IGFsbG93
-ZWQgdG8gZG8uDQoNCkJyYWluc3Rvcm1pbmcgZm9yIGEgc2Vjb25kOyBXaGF0IGlmIGVhY2ggb2Yg
-dGhlc2Ugd2VyZSBwcmVmaXhlZCB3aXRoICJSZWZlcmVuY2UgY29tcG9uZW50cyBzaGFsbDogIj8g
-IFllcywgc29tZSBvZiB0aGVzZSBhcmUgYSBsaXR0bGUgbW9yZSBwcmVzY3JpcHRpdmUgdGhhbiBJ
-J2QgbGlrZSBmb3IgYW4gb3BlbiBwcm9qZWN0LCBidXQgd2UgbmVlZCBzb21lIHdheSB0byBjb252
-ZXkgdGhhdCBjZXJ0YWluIGNvbXBvbmVudHMgYXJlIHByb2R1Y3Rpb24gcmVhZHksIHNlY3VyZSB0
-byBtb2Rlcm4gc3RhbmRhcmRzLCBhbmQgYXJlIHN1cHBvcnRhYmxlIGxvbmcgdGVybS4gIEknZCBt
-dWNoIHJhdGhlciBzZWUgcmVmZXJlbmNlIGNvbXBvbmVudHMgZmFsbCBpbnRvIHRoYXQgY2F0ZWdv
-cnkgdGhhbiB0byBjcmVhdGUgYSBuZXcgc3lzdGVtIGZvciBjbGFzc2lmaWNhdGlvbi4gIFdpdGgg
-dGhhdCBzYWlkLCBpZiBtb3N0IG9mIHRoZXNlIG5lZWRzIGFyZW4ndCBjb21tb24gYW1vbmdzdCAg
-YSBtYWpvcml0eSBvZiB0aGUgcGxhdGZvcm1zLCB0aGVuIEknbSBoYXBweSB0byBkbyB0aGUgIlhZ
-WiBjb3JwIiBzdHlsZSBwcmVzY3JpcHRpb24uICBKdXN0IHRvIGJlIGNsZWFyLCB0aGVzZSBhcmUg
-dGhvdWdodHMsIGFuZCBsZWFybmluZ3MgcHVsbGVkIGZyb20gcHJldmlvdXMgcHJvZHVjdGlvbiBC
-TUMgc3lzdGVtcyBJJ3ZlIHdvcmtlZCBvbi4gIEknbSBjZXJ0YWluIG15IGJpYXNlcyBoYXZlIGJs
-ZWQgaW50byBzb21lIG9mIHRoZSBwb2ludHMuDQpJIHdhcyBub3QgaW50ZW5kaW5nIHRvIHBvc2Ug
-dGhlc2UgYXMgbmV3IGhhcmQgcnVsZXMuICBHdWlkZWxpbmUgaXMgZXZlbiBhIHN0cm9uZyB3b3Jk
-LiAgIldoYXQgRWQgd2FudHMgdG8gc2VlIiBtaWdodCBiZSBhIGJldHRlciBkZXNjcmlwdGlvbiBh
-dCB0aGlzIHBvaW50Lg0KDQo+ID4NCj4gPiBNeSB3b3JsZHZpZXcgaXMgdGhhdCBlYWNoIG9uZSBv
-ZiB0aGVzZSBidWxsZXQgcG9pbnRzIHdvdWxkIGNvc3QgdGhlDQo+ID4gcHJvamVjdCBhIHBvdGVu
-dGlhbCBjb250cmlidXRvci4gIFNvbWV3aGVyZSwgc29tZW9uZSBpcyBnb2luZyB0byB3YW50DQo+
-ID4gdG8gZG8gb25lIG9mIHRob3NlIHRoaW5ncy4gIFdoeSBub3QgbGV0IHRoZW0sIHdoZW4gdGhl
-IG9ubHkgdGhpbmcgeW91DQo+ID4gaGF2ZSB0byBkbyBpcyBub3QgdXNlIHRoZWlyIGNvZGU/DQo+
-IA0KPiBNYXliZSBndWlkZWxpbmVzIG1vcmUgdGhhbiBydWxlcz8NCkkgc2hvdWxkJ3ZlIG1hZGUg
-dGhhdCBtdWNoIG1vcmUgY2xlYXIuICBZZXMsIHRoZXNlIHdlcmUgaW50ZW5kZWQgdG8gYmUgaWRl
-YXMgZm9yIGhvdyBJJ2QgbGlrZSB0byBzZWUgY2VydGFpbiBpbnRlcmZhY2VzIGV2b2x2ZS4gIEkg
-aGFkIG5vIGludGVudGlvbiBvZiBwcmVzY3JpYmluZyB3aGF0IHBlb3BsZSBhcmUgYWxsb3dlZCB0
-byBkby4gIEkgcXVlc3Rpb24gaWYgSSBldmVuIHdhbnQgdG8gcHJlc2NyaWJlIHJ1bGVzIGZvciBy
-ZWZlcmVuY2UgY29tcG9uZW50cywgYnV0IEknZCBhdCBsZWFzdCBoYXZlIGEgZGlzY3Vzc2lvbiBh
-Ym91dCBpdC4NCg0KPiANCj4gSSdtIHN1cmUgdGhlcmUncyBleGNlcHRpb25zLCBidXQgdGhlcmUn
-cyB1bmxpa2VseSB0byBiZSBhbnl0aGluZyByZWFsbHkgZXhpc3QNCj4gYmV5b25kIFJlZEZpc2gg
-YW5kIElQTUkuLi4gSWYgdGhlcmUgaXMsIEknZCBzYXkgaXQncyB1cCB0byB5b3UgaWYgeW91IHdh
-bnQgdG8NCj4gaW5jbHVkZSBpdCBpbiB0aGUgYmFzZS9yZWZlcmVuY2UgZGlzdHJpYnV0aW9uIGFu
-ZCBpZiB0aGlzIHdpbGwgY3JlYXRlIHZhbHVlIG9yIGp1c3QNCj4gbW9yZSB3b3JrIDopDQo+IA0K
-PiANCj4gLS0NCj4gU3Rld2FydCBTbWl0aA0KPiBPUEFMIEFyY2hpdGVjdCwgSUJNLg0KDQo=
+On 11/14/2017 04:39 PM, Joel Stanley wrote:
+> On Wed, Nov 15, 2017 at 6:04 AM, James Feist
+> <james.feist@linux.intel.com> wrote:
+>> Rename aspeed-bmc-opp-flash-layout.dtsi to openbmc-flash-layout.dtsi
+>> as this file is not open power specific.
+> 
+> Looks good to me! I'll give others a chance to comment before merging.
+> 
+>>
+>> Signed-off-by: Feist, James <james.feist@linux.intel.com>
+> 
+> Hrm, why does it put your name like that? Can you correct your gitconfig?
+
+Will do, let me know if you require a new patch. Will fix for future 
+patch-sets.
+
+> 
+>> ---
+>>   arch/arm/boot/dts/aspeed-ast2500-evb.dts           |  2 +-
+>>   arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts      |  2 +-
+>>   arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts     |  2 +-
+>>   arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts     |  2 +-
+>>   arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi | 26
+>> ----------------------
+>>   arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts      |  2 +-
+>>   arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts       |  2 +-
+>>   arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts      |  2 +-
+>>   arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts       |  2 +-
+>>   arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts   |  2 +-
+>>   arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts         |  2 +-
+>>   arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts       |  2 +-
+>>   arch/arm/boot/dts/openbmc-flash-layout.dtsi        | 26
+>> ++++++++++++++++++++++
+>>   13 files changed, 37 insertions(+), 37 deletions(-)
+>>   delete mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
+>>   create mode 100644 arch/arm/boot/dts/openbmc-flash-layout.dtsi
+>>
+>> diff --git a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
+>> b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
+>> index 3543989..d75b2e8 100644
+>> --- a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
+>> +++ b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
+>> @@ -21,7 +21,7 @@
+>>          flash@0 {
+>>                  status = "okay";
+>>                  m25p,fast-read;
+>> -#include "aspeed-bmc-opp-flash-layout.dtsi"
+>> +#include "openbmc-flash-layout.dtsi"
+>>          };
+>>   };
+>>   diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+>> b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+>> index d1dc2ef..2d0bc10 100644
+>> --- a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+>> @@ -24,7 +24,7 @@
+>>          flash@0 {
+>>                  status = "okay";
+>>                  m25p,fast-read;
+>> -#include "aspeed-bmc-opp-flash-layout.dtsi"
+>> +#include "openbmc-flash-layout.dtsi"
+>>          };
+>>   };
+>>   diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+>> b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+>> index 6e70ca5..0b7a238 100644
+>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+>> @@ -61,7 +61,7 @@
+>>          flash@0 {
+>>                  status = "okay";
+>>                  m25p,fast-read;
+>> -#include "aspeed-bmc-opp-flash-layout.dtsi"
+>> +#include "openbmc-flash-layout.dtsi"
+>>          };
+>>   };
+>>   diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+>> b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+>> index 93ad3ea..e8e61f7 100644
+>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+>> @@ -50,7 +50,7 @@
+>>          flash@0 {
+>>                  status = "okay";
+>>                  m25p,fast-read;
+>> -#include "aspeed-bmc-opp-flash-layout.dtsi"
+>> +#include "openbmc-flash-layout.dtsi"
+>>          };
+>>   };
+>>   diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
+>> b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
+>> deleted file mode 100644
+>> index 4bcfd1b..0000000
+>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
+>> +++ /dev/null
+>> @@ -1,26 +0,0 @@
+>> -               label = "bmc";
+>> -               partitions {
+>> -                               #address-cells = < 1 >;
+>> -                               #size-cells = < 1 >;
+>> -                               compatible = "fixed-partitions";
+>> -                               u-boot@0 {
+>> -                                       reg = < 0 0x60000 >;
+>> -                                       label = "u-boot";
+>> -                               };
+>> -                               u-boot-env@60000 {
+>> -                                       reg = < 0x60000 0x20000 >;
+>> -                                       label = "u-boot-env";
+>> -                               };
+>> -                               kernel@80000 {
+>> -                                       reg = < 0x80000 0x440000 >;
+>> -                                       label = "kernel";
+>> -                               };
+>> -                               rofs@0c0000 {
+>> -                                       reg = < 0x4c0000 0x1740000 >;
+>> -                                       label = "rofs";
+>> -                               };
+>> -                               rwfs@1c00000 {
+>> -                                       reg = < 0x1c00000 0x400000 >;
+>> -                                       label = "rwfs";
+>> -                               };
+>> -               };
+>> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
+>> b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
+>> index 95552c8..5e30912 100644
+>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
+>> @@ -34,7 +34,7 @@
+>>          flash@0 {
+>>                  status = "okay";
+>>                  m25p,fast-read;
+>> -#include "aspeed-bmc-opp-flash-layout.dtsi"
+>> +#include "openbmc-flash-layout.dtsi"
+>>          };
+>>   };
+>>   diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
+>> b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
+>> index 833ef17..58f7884 100644
+>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
+>> @@ -96,7 +96,7 @@
+>>          flash@0 {
+>>                  status = "okay";
+>>                  m25p,fast-read;
+>> -#include "aspeed-bmc-opp-flash-layout.dtsi"
+>> +#include "openbmc-flash-layout.dtsi"
+>>          };
+>>   };
+>>   diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+>> b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+>> index ab3fee6..b41c29a 100644
+>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+>> @@ -65,7 +65,7 @@
+>>          flash@0 {
+>>                  status = "okay";
+>>                  m25p,fast-read;
+>> -#include "aspeed-bmc-opp-flash-layout.dtsi"
+>> +#include "openbmc-flash-layout.dtsi"
+>>          };
+>>   };
+>>   diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+>> b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+>> index 060eb0c..329532a 100644
+>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+>> @@ -114,7 +114,7 @@
+>>          flash@0 {
+>>                  status = "okay";
+>>                  m25p,fast-read;
+>> -#include "aspeed-bmc-opp-flash-layout.dtsi"
+>> +#include "openbmc-flash-layout.dtsi"
+>>          };
+>>   };
+>>   diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+>> b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+>> index 68058ec..7017984 100644
+>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+>> @@ -176,7 +176,7 @@
+>>                  status = "okay";
+>>                  m25p,fast-read;
+>>   -#include "aspeed-bmc-opp-flash-layout.dtsi"
+>> +#include "openbmc-flash-layout.dtsi"
+>>          };
+>>          flash@1 {
+>>                  status = "okay";
+>> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+>> b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+>> index 5410f58..5f6a11a 100644
+>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+>> @@ -140,7 +140,7 @@
+>>          flash@0 {
+>>                  status = "okay";
+>>                  m25p,fast-read;
+>> -#include "aspeed-bmc-opp-flash-layout.dtsi"
+>> +#include "openbmc-flash-layout.dtsi"
+>>          };
+>>   };
+>>   diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+>> b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+>> index 7ed3a77..eafd6f9 100644
+>> --- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+>> @@ -107,7 +107,7 @@
+>>          flash@0 {
+>>                  status = "okay";
+>>                  m25p,fast-read;
+>> -#include "aspeed-bmc-opp-flash-layout.dtsi"
+>> +#include "openbmc-flash-layout.dtsi"
+>>          };
+>>   };
+>>   diff --git a/arch/arm/boot/dts/openbmc-flash-layout.dtsi
+>> b/arch/arm/boot/dts/openbmc-flash-layout.dtsi
+>> new file mode 100644
+>> index 0000000..4bcfd1b
+>> --- /dev/null
+>> +++ b/arch/arm/boot/dts/openbmc-flash-layout.dtsi
+>> @@ -0,0 +1,26 @@
+>> +               label = "bmc";
+>> +               partitions {
+>> +                               #address-cells = < 1 >;
+>> +                               #size-cells = < 1 >;
+>> +                               compatible = "fixed-partitions";
+>> +                               u-boot@0 {
+>> +                                       reg = < 0 0x60000 >;
+>> +                                       label = "u-boot";
+>> +                               };
+>> +                               u-boot-env@60000 {
+>> +                                       reg = < 0x60000 0x20000 >;
+>> +                                       label = "u-boot-env";
+>> +                               };
+>> +                               kernel@80000 {
+>> +                                       reg = < 0x80000 0x440000 >;
+>> +                                       label = "kernel";
+>> +                               };
+>> +                               rofs@0c0000 {
+>> +                                       reg = < 0x4c0000 0x1740000 >;
+>> +                                       label = "rofs";
+>> +                               };
+>> +                               rwfs@1c00000 {
+>> +                                       reg = < 0x1c00000 0x400000 >;
+>> +                                       label = "rwfs";
+>> +                               };
+>> +               };
+>> --
+>> 2.7.4
+>>
+>>
