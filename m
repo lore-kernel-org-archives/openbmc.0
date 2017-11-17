@@ -1,48 +1,63 @@
-Return-Path: <ed.tanous@intel.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.31; helo=mga06.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <brendanhiggins@google.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400d:c0d::241; helo=mail-qt0-x241.google.com;
+ envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="Fti0roAh"; 
+ dkim-atps=neutral
+Received: from mail-qt0-x241.google.com (mail-qt0-x241.google.com
+ [IPv6:2607:f8b0:400d:c0d::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ydHkz0zG6zDrD1
- for <openbmc@lists.ozlabs.org>; Fri, 17 Nov 2017 10:39:06 +1100 (AEDT)
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2017 15:39:04 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.44,405,1505804400"; 
-   d="scan'208";a="3171435"
-Received: from orsmsx108.amr.corp.intel.com ([10.22.240.6])
- by orsmga003.jf.intel.com with ESMTP; 16 Nov 2017 15:39:04 -0800
-Received: from orsmsx151.amr.corp.intel.com (10.22.226.38) by
- ORSMSX108.amr.corp.intel.com (10.22.240.6) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Thu, 16 Nov 2017 15:39:04 -0800
-Received: from orsmsx105.amr.corp.intel.com ([169.254.2.105]) by
- ORSMSX151.amr.corp.intel.com ([169.254.7.113]) with mapi id 14.03.0319.002;
- Thu, 16 Nov 2017 15:39:04 -0800
-From: "Tanous, Ed" <ed.tanous@intel.com>
-To: Patrick Williams <patrick@stwcx.xyz>, Stewart Smith
- <stewart@linux.vnet.ibm.com>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: RE: On the state of documentation
-Thread-Topic: On the state of documentation
-Thread-Index: AQHTXdi1WqDldsIgGUuOGqFixminC6MWCc+A//+pOMA=
-Date: Thu, 16 Nov 2017 23:39:03 +0000
-Message-ID: <7E9441B1E5EFFD4681F54958E82169932EAF586A@ORSMSX105.amr.corp.intel.com>
-References: <87lgj8rrz6.fsf@linux.vnet.ibm.com>
- <B9643A4A-B3FF-4D99-880C-8617231513BA@stwcx.xyz>
-In-Reply-To: <B9643A4A-B3FF-4D99-880C-8617231513BA@stwcx.xyz>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ctpclassification: CTP_IC
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiZThiYTQxMGQtMWFiYi00NmQ4LTg4MzItOWE4OGJlM2QxYzgwIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX0lDIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE1LjkuNi42IiwiVHJ1c3RlZExhYmVsSGFzaCI6IjB3MXhZdytXcFpYcUNicDFmZkJkbVVXNFF6b1pWRldHU0FWWHlJZG9yMjA9In0=
-x-originating-ip: [10.22.254.140]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ydN061f1GzDrKr
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Nov 2017 13:50:45 +1100 (AEDT)
+Received: by mail-qt0-x241.google.com with SMTP id 31so2757540qtz.9
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Nov 2017 18:50:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=DRtZRTOA0fIlYu+xNBf+FzJmzg6LWUv92BZn/qFclIU=;
+ b=Fti0roAhS/tV5j//0OXzdUkzv/VyDb8VrRHid1Moe3W+azEvUMK6lbEiiKUniLAOqz
+ 3ZfhAr18nDLRMIQK+yWqD4cjEQs1KrEckYiud83+0SdfXmCwgpYE+8AWsyOL6jUZvcKn
+ i85MfbS4CYePVtuyVRgnZE7xJlNTjuX2Pv9qIPyTCuwXUN+9AviicofXGnyH3d6FQNLX
+ IqHQ+7ueRpvdK5ohPlFxWd2CIbPAZ6109r5ikiYgiAMXxycH0jlYFQ4zOuzlsvhUwSl3
+ SrInU0W7hQJ3goAiN05zsIx4fFCE/Q2UoGyBWguM8scfUxV2pAt32eWsEzYCkkxpKVUv
+ kX3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=DRtZRTOA0fIlYu+xNBf+FzJmzg6LWUv92BZn/qFclIU=;
+ b=SJQhQEIf/k5rQ8wtZHPXdHSVdaOOyqbqzS2nTI4rRxHatgwoxrO/YFPVgpQs4yYynu
+ AckUtGLh+6Pm2CnSYvWG8V7dPgqawhA7aNuRBT8HFNQz3ApthMHs0mggf0U2R6u6Y+rv
+ uH2hdVyMhn6CmUCGpq85Ux003hiDdKU13KypzVHJmO6GBWe/bm0rUVDLC7CDoCNaBv+f
+ bmsne+a2asWoARPsqkNS+gctMneORuuvdaW+s3yypQJar51NCibP/ncQoJo+YKhNj3Pm
+ SF8ys4dv0BpuIX6F5MumB6TkLRyOQC5KmCSe06aMaw0t6xMMsUCUvbzdkddn5jlk/D5n
+ aIig==
+X-Gm-Message-State: AJaThX5LAI7PVle2MdXjdM4lRiSw/o6DtGduqgLFiXZuzeWqRsH9PqJQ
+ gwyifmXcFsOQt5uiqNIxtKVN0za0H2QybSPwlVOm+A==
+X-Google-Smtp-Source: AGs4zMYgOiRbG1ZS6Os6HuMhQLhdbJLjLQa+UhG2zgoFfbSGTmzciLDJRh6NgROPPFgK7nGXP4nUZNRbCwqefV2HUZk=
+X-Received: by 10.55.214.133 with SMTP id p5mr5891714qkl.212.1510887042891;
+ Thu, 16 Nov 2017 18:50:42 -0800 (PST)
 MIME-Version: 1.0
+Received: by 10.140.99.79 with HTTP; Thu, 16 Nov 2017 18:50:42 -0800 (PST)
+In-Reply-To: <CAL_JsqJGe85FAOQwt=zJ5jOBoT-F1itnK6kmc9k34FJu=3Z=bg@mail.gmail.com>
+References: <20171019225050.25410-1-brendanhiggins@google.com>
+ <20171019225050.25410-3-brendanhiggins@google.com>
+ <CAL_JsqJGe85FAOQwt=zJ5jOBoT-F1itnK6kmc9k34FJu=3Z=bg@mail.gmail.com>
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Thu, 16 Nov 2017 18:50:42 -0800
+Message-ID: <CAFd5g46oNwegWc+rDzqXjwT2OezxqJRAkoMK2=9JdP7Gp8Tbqg@mail.gmail.com>
+Subject: Re: [PATCH v7 2/3] arm: dts: add Nuvoton NPCM750 device tree
+To: Rob Herring <robh+dt@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>, Russell King <linux@armlinux.org.uk>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Rick Altherr <raltherr@google.com>, Florian Fainelli <f.fainelli@gmail.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -54,121 +69,303 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Nov 2017 23:39:08 -0000
+X-List-Received-Date: Fri, 17 Nov 2017 02:50:47 -0000
 
-SSBiZWxpZXZlIHRoYXQgdGhlIGxhY2sgb2YgZ29vZCBkb2N1bWVudGF0aW9uIGlzIGEgc3ltcHRv
-bSBvZiBhIGxhcmdlciBpc3N1ZTogIE9wZW5CTUMgaXMgbm90IHRhcmdldGluZyBhIHB1YmxpYyBz
-cGVjaWZpY2F0aW9uIHdpdGggaXRzIFJFU1QgaW50ZXJmYWNlLiAgVGhpcyBoYXMgbGVkIHRvIGNl
-cnRhaW4gZW5naW5lZXJpbmcgZmxleGliaWxpdGllcyB3aXRoIHRoZSBpbnRlcmZhY2UgdGhhdCwg
-d2hpbGUgdXNlZnVsIGZvciBzaG9ydCB0ZXJtIHRvICJnZXQgc29tZXRoaW5nIHRoYXQgd29ya3Mi
-LCBtYWtlIGl0IHZlcnkgZGlmZmljdWx0IHRvIHRhcmdldCBvcGVuYm1jIGFuIGV2b2x2aW5nIHBs
-YXRmb3JtLiAgSW4gdGhlIGN1cnJlbnQgbW9kZWwsIERCdXMgc3BlY2lmaWNhdGlvbnMgYXJlIHB1
-c2hlZCBkaXJlY3RseSB0byB0aGUgZW5kIHVzZXIsIHdoaWNoIG1lYW5zIChuZWFybHkpIGV2ZXJ5
-IERCdXMgc3BlYyBjaGFuZ2UgcmVzdWx0cyBpbiBhIGNoYW5nZSB0byBlbmQgdXNlciBpbnRlcmZh
-Y2VzLiAgSSBkb24ndCBiZWxpZXZlIHRoaXMgaXMgc3VzdGFpbmFibGUgaW4gdGhlIGxvbmcgcnVu
-LCBnaXZlbiB0aGUgbnVtYmVyIG9mIHBsYXRmb3JtcyB0aGF0IHRoaXMgaXMgdGFyZ2V0aW5nIGFu
-ZCB0aGUgbmVlZCBmb3IgcmVwcm9kdWNpYmxlIEFQSXMgYmV0d2VlbiBzeXN0ZW1zLg0KDQpXZSBh
-cmUgYWxyZWFkeSBzZWVpbmcgdGhlIHJlc3VsdCBvZiB0aGlzIGluIGEgbnVtYmVyIG9mIEFQSXMg
-dGhhdCB0YXJnZXQgdmVyeSBzcGVjaWZpYyBhbmQgdW5zdXN0YWluYWJsZSBBUElzLiAgQSBncmVh
-dCBleGFtcGxlIGlzIHRoZSBVUkwgZm9yIHRoZSBCTUMgRXRoZXJuZXQgZGV2aWNlIHRoYXQncyBj
-dXJyZW50bHkgaGFyZGNvZGVkIGluIHRoZSB3ZWJ1aS4NCi94eXovb3BlbmJtY19wcm9qZWN0L2lu
-dmVudG9yeS9zeXN0ZW0vY2hhc3Npcy9tb3RoZXJib2FyZC9ib3hlbGRlci9ibWMvRXRoZXJuZXQN
-Cg0KVGhpcyBVUkwgaGFzIHNldmVyYWwgYXNzdW1wdGlvbnMgYmFrZWQgaW50byBpdCB0aGF0IG1h
-a2UgaXQgYSBub24tc3RhcnRlciBmb3IgdGFyZ2V0aW5nIGludGVyZmFjZXMgb24gbmV3IGltcGxl
-bWVudGF0aW9ucy4NCg0KSSB3b3VsZCBhcmd1ZSB0aGF0IG1pZGRsZSB0byBsb25nIHRlcm0gd2Ug
-c2hvdWxkIHRyYW5zaXRpb24gYXdheSBmcm9tIHRoZXNlIGludGVyZmFjZXMgZm9yIGVuZC11c2Vy
-IGZhY2luZyBmdW5jdGlvbmFsaXR5LCBhbmQgbW92ZSB0b3dhcmQgc29tZXRoaW5nIHRoYXQgaGFz
-IGEgc3RhbmRhcmQgYmVoaW5kIGl0LiAgSSB0aGluayB0aGUgb2J2aW91cyBjaG9pY2UgaW4gdGhp
-cyBwcm9ibGVtIHNwYWNlIGlzIHJlZGZpc2gsIGJ1dCBJJ20gb3BlbiB0byBvdGhlciBvcHRpb25z
-Lg0KDQpJJ2QgbGlrZSB0byBwb3NlIHRoZSBxdWVzdGlvbjoNClNob3VsZCB3ZSBtb3ZlIHRvd2Fy
-ZCBkZXByZWNhdGluZyB0aGUgL3h5eiBhbmQgL29yZyBzdHlsZSByZXN0IGludGVyZmFjZXMsIGFu
-ZCBhZ3JlZSB0aGF0IHdlIHNob3VsZCBzdGFydCB0cmFuc2l0aW9uaW5nIHRvIHNvbWV0aGluZyAo
-cmVkZmlzaCBvciBub3QpIHdpdGggYSBmaXhlZCBzcGVjaWZpY2F0aW9uPw0KDQpTb21lIGltcG9y
-dGFudCBrZXkgcG9pbnRzIHRoYXQgSSB0aGluayBzaG91bGQgYmUgZHJpdmVuIGJ5IHRoZSBuZXcg
-bW9kZWw6DQoxLiBSZXN0IGludGVyZmFjZXMgc2hvdWxkIG5vdCBiZSBkcml2ZW4gYnkgdGhlIHVu
-ZGVybHlpbmcgREJ1cyBpbnRlcmZhY2VzLCBub3IgdGhlIGJhY2tlbmQgaW1wbGVtZW50YXRpb24g
-bGFuZ3VhZ2UuDQoyLiBJbnRlcmZhY2VzIHNob3VsZCBub3QgY29udGFpbiBhbnkgImJhY2tkb29y
-IiB0eXBlIEFQSXMgdGhhdCBhbGxvdyB3aGl0ZSBib3ggc3R5bGUgYWNjZXNzIHRvIGludGVybmFs
-IEFQSXMuICBBbnl0aGluZyBicmVha2luZyB0aGUgYmxhY2sgYm94IG1vZGVsIHNob3VsZCBiZSBk
-b25lIGluIGEgbWFjaGluZSBzcGVjaWZpYyBsYXllciBvciBjb25maWd1cmF0aW9uLg0KMy4gQVBJ
-cyBzaG91bGQgZ2l2ZSB0aGUgbWluaW11bSByZXF1aXJlZCBhbW91bnQgb2YgaW5mb3JtYXRpb24g
-dG8gZnVsZmlsbCB0aGUgZW5kIHVzZXIgdXNlIGNhc2UuDQo0LiBJbnRlcmZhY2VzIHNob3VsZCBi
-ZSBiYWNrZWQgYnkgdGhlIHN5c3RlbSBsZXZlbCBzZWN1cml0eSBwb2xpY3kgKFBBTSB1c2VycyBp
-biB0aGUgY3VycmVudCBtb2RlbCkuDQo1LiBXaGVyZSBwb3NzaWJsZSwgdGhlIGltcGxlbWVudGF0
-aW9ucyBzaG91bGQgZm9sbG93IGFuIGV4aXN0aW5nIHNwZWNpZmljYXRpb24uICBJbiB0aGUgY2Fz
-ZXMgd2hlcmUgdGhlIHJlcXVpcmVtZW50cyBhcmUgbm90IHN1cHBvcnRlZCwgdGhlIGFwaSBzaG91
-bGQgZm9sbG93IHRoZSBzdHlsZSBvZiB0aGUgc3VwcG9ydGluZyBpbnRlcmZhY2UgIChUaGluayBy
-ZWRmaXNoIE9FTSBjb21tYW5kIHN1cHBvcnQpDQo2LiBEb2N1bWVudGF0aW9uIGNoYW5nZXMgc2hv
-dWxkIGJlIHB1c2hlZCBhaGVhZCBvZiBvciBhbG9uZyB3aXRoIGltcGxlbWVudGF0aW9uIHN1cHBv
-cnQsIHdpdGggdGhlIGdvYWwgb2Yga2VlcGluZyB0aGUgZG9jdW1lbnRhdGlvbiBjb25zdGFudGx5
-IHVwIHRvIGRhdGUuDQoNClNoYW1lbGVzcyBwbHVnOiBBcyB0aGUgcGVyc29uIHRoYXQgcHVzaGVk
-IHRoZSBhZm9yZW1lbnRpb25lZCBnZXJyaXQgcmV2aWV3IGZvciBhIG5ldyB0aGlua2luZyBvbiB0
-aGUgd2Vic2VydmVyIGFuZCByZWRmaXNoLCBJIHdvdWxkIGxvdmUgY29tbWVudHMgb24gYXJjaGl0
-ZWN0dXJlIGRlY2lzaW9ucyBhbmQgaW1wbGVtZW50YXRpb24gZGV0YWlscy4NCg0KVGhhbmtzLA0K
-DQotRWQNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBvcGVuYm1jIFtt
-YWlsdG86b3BlbmJtYy0NCj4gYm91bmNlcytlZC50YW5vdXM9aW50ZWwuY29tQGxpc3RzLm96bGFi
-cy5vcmddIE9uIEJlaGFsZiBPZiBQYXRyaWNrDQo+IFdpbGxpYW1zDQo+IFNlbnQ6IFdlZG5lc2Rh
-eSwgTm92ZW1iZXIgMTUsIDIwMTcgNjo0MSBBTQ0KPiBUbzogU3Rld2FydCBTbWl0aCA8c3Rld2Fy
-dEBsaW51eC52bmV0LmlibS5jb20+DQo+IENjOiBPcGVuQk1DIE1haWxsaXN0IDxvcGVuYm1jQGxp
-c3RzLm96bGFicy5vcmc+DQo+IFN1YmplY3Q6IFJlOiBPbiB0aGUgc3RhdGUgb2YgZG9jdW1lbnRh
-dGlvbg0KPiANCj4gVGhlIHNkYnVzcGx1cyBnZW5lcmF0b3IgdGhhdCBpcyB1c2VkIG9uIHRoZSAq
-LWRidXMtaW50ZXJmYWNlcyByZXBvcyBhbHJlYWR5DQo+IHN1cHBvcnRzIGdlbmVyYXRpbmcgbWFy
-a2Rvd24gZG9jdW1lbnRhdGlvbiBmb3IgdGhlIEFQSXMuIFRoaXMgd2FzDQo+IHN1cHBvc2UgdG8g
-YmUgcm91Z2hseSBlcXVpdmFsZW50IHRvIHRoZSDigJxvbGTigJ0gZG9jdW1lbnRhdGlvbi4NCj4g
-DQo+IFRoZSBwbGFuIHdhczoNCj4gICAxLiBFbmhhbmNlIHRoZSBtYWtlIGZpbGVzIHRvIHJ1biB0
-aGUgbWFya2Rvd24gZ2VuZXJhdG9yLg0KPiAgIDIuIEFkZCBhIEplbmtpbnMgam9iIHRoYXQgd291
-bGQgcnVuIGl0IGFuZCBwdWJsaXNoIHRvIHRoZSBvcGVuYm1jLmdpdGh1Yi5pbw0KPiByZXBvIG9u
-IG1lcmdlIHRvIGFuICotZGJ1cy1pbnRlcmZhY2VzIHJlcG8uDQo+IA0KPiBJIGRvbuKAmXQgdGhp
-bmsgZWl0aGVyIG9mIHRoZXNlIHN0ZXBzIGhhcyBiZWVuIGRvbmUgYnV0IHRoZXkgYXJlIGFsc28g
-bm90IGENCj4gc2lnbmlmaWNhbnQgZWZmb3J0Lg0KPiANCj4gSGF2ZSB5b3UgbG9va2VkIGF0IHRo
-ZSBjdXJyZW50IG1hcmtkb3duIGdlbmVyYXRpb24gb3V0cHV0IHRvIHNlZSBpZiB0aGlzDQo+IHdv
-dWxkIGJlIGhlbHBmdWw/DQo+IA0KPiBQYXRyaWNrDQo+IFNlbnQgZnJvbSBteSBpUGhvbmUNCj4g
-DQo+ID4gT24gTm92IDE1LCAyMDE3LCBhdCAxMjoxMSBBTSwgU3Rld2FydCBTbWl0aA0KPiA8c3Rl
-d2FydEBsaW51eC52bmV0LmlibS5jb20+IHdyb3RlOg0KPiA+DQo+ID4gSGkgYWxsLA0KPiA+DQo+
-ID4gdGhvdWdodCBJJ2QgdHJ5IGFuZCBjb250cmlidXRlIG15IHRob3VnaHRzIGhlcmUsIGFzIGEg
-Y29uc3VtZXIgb2YNCj4gPiBPcGVuQk1DIHJhdGhlciB0aGFuIGEgZGV2ZWxvcGVyIG9uIGl0Lg0K
-PiA+DQo+ID4gVGhlIG1lc3NhZ2UgaGFzIGxvbmcgYmVlbiB0aGF0IHRoZSBSRVNUIEFQSSBpcyB3
-aGF0IHNob3VsZCBiZSB1c2VkIHRvDQo+ID4gaW50ZXJhY3Qgd2l0aCB0aGUgQk1DLCBhbmQgYXMg
-c3VjaCB3ZSBub3cgaGF2ZSBhIGxvdCBvZiB0b29saW5nIHRoYXQNCj4gPiBkb2VzIGp1c3QgdGhh
-dCAoYW5kIHdlJ3JlIG5vdCB0aGUgb25seSBvbmVzKS4NCj4gPg0KPiA+IE92ZXIgdGhlIHBhc3Qg
-JG1vbnRocywgaXQncyBiZWVuIGZydXN0cmF0aW5nICh0byBzYXkgdGhlIGxlYXN0KSB0aGF0DQo+
-ID4gdGhlcmUgaGFzbid0IGJlZW4gYW55IGdvb2QgZG9jdW1lbnRhdGlvbiBvZiB0aGlzIEFQSS4N
-Cj4gPg0KPiA+IEluZGVlZCwgSWYgSSBsb29rIGF0IHRoZSBBUEkgb24gdGhlICJSdXN0eSdzIEFQ
-SSBTY2FsZSIgb2YgdXNhYmlsaXR5Og0KPiA+IGh0dHA6Ly9vemxhYnMub3JnL35ydXN0eS9pbmRl
-eC5jZ2kvdGVjaC8yMDA4LTAzLTMwLmh0bWwNCj4gPiBodHRwOi8vb3psYWJzLm9yZy9+cnVzdHkv
-aW5kZXguY2dpL3RlY2gvMjAwOC0wNC0wMS5odG1sDQo+ID4gSXQncyBhbGwgcHJldHR5IGhpZ2gg
-b24gdGhlIG5lZ2F0aXZlcywgYWx0aG91Z2ggaXQgZG9lcyB2YXJ5IG9uIHdoYXQNCj4gPiBzcGVj
-aWZpYyBBUEkgeW91J3JlIGxvb2tpbmcgYXQuDQo+ID4NCj4gPiBBIGxvdCBvZiB0aGUgbmVnYXRp
-dmUgc2NvcmluZyBoZXJlIGlzIGR1ZSB0byBhIG5lYXIgY29tcGxldGUgYWJzZW5jZQ0KPiA+IG9m
-IGRvY3VtZW50YXRpb24uIE1vc3QgdGhpbmdzIHRoYXQgd2UgdXNlIGhhdmUgZW5kZWQgdXAgYmVp
-bmcNCj4gPiBkb2N1bWVudGVkIGVpdGhlciBpbiB0aGUgaW1wbGVtZW50YXRpb24gKHdoaWNoIG1h
-eSBvciBtYXkgbm90IGFsbG93DQo+ID4geW91IHRvIHVzZSBpdCBjb3JyZWN0bHkpLCBvciBieSBz
-b21lIHJhbmRvbSB0aHJlYWQgb24gYW4gSUJNIGludGVybmFsIHNsYWNrDQo+IGNoYW5uZWwuDQo+
-ID4NCj4gPiBBZGRpdGlvbmFsbHksIHRoaXMgaXNzdWUgYW5kIFBSIGhhcyBjb21lIHVwOg0KPiA+
-ICJSZW1vdmUgb3JnLm9wZW5ibWMuKiBmcm9tIFJFU1Qgc2VydmVyIg0KPiA+IGh0dHBzOi8vZ2l0
-aHViLmNvbS9vcGVuYm1jL29wZW5ibWMvaXNzdWVzLzIzNzgNCj4gPiBodHRwczovL2dlcnJpdC5v
-cGVuYm1jLXByb2plY3QueHl6LyMvYy83NDIyLw0KPiA+DQo+ID4gVGhpcyBtb3JuaW5nLCBJIHRv
-b2sgYSBzdGFiIGF0IGdvaW5nIHRocm91Z2ggdGhlIGRvY3VtZW50YXRpb24gYW5kDQo+ID4gd29y
-a2luZyBvdXQgd2hhdCB0aGlzIG1lYW5zIGZvciBjdXJyZW50IGRvY3VtZW50YXRpb246DQo+ID4g
-aHR0cHM6Ly9nZXJyaXQub3BlbmJtYy1wcm9qZWN0Lnh5ei8jL2MvNzkxNi8NCj4gPg0KPiA+IElu
-IHNob3J0OiBpdCdzIG5vdCBnb29kLiBUaGVyZSBpcyBub3cgbm8gbG9uZ2VyIGRvY3VtZW50YXRp
-b24gZXZlbg0KPiA+IGRlc2NyaWJpbmcgaG93IHRvIHR1cm4gdGhlIGhvc3Qgb24gYW5kIG9mZi4N
-Cj4gPg0KPiA+IElmIHRoZSBhYm92ZSAicmVtb3ZlIG9yZy5vcGVuYm1jLiogZnJvbSBSRVNUIHNl
-cnZlciIgaXMgbWVyZ2VkLCB0aGVyZQ0KPiA+IHdpbGwgYmUgKlpFUk8qIGRvY3VtZW50YXRpb24g
-b24gaG93IHRvIHR1cm4gdGhlIGhvc3Qgb24gYW5kIG9mZiAtDQo+ID4gd2hpY2ggaXMgYWJvdXQg
-dGhlIG1vc3Qgc2ltcGxlIHRoaW5nIHlvdSB3YW50IHRvIGRvIHdpdGggYSBCTUMuDQo+ID4NCj4g
-PiBJcyB0aGVyZSBhIHBsYW4gdG8gYXR0YWNrIHRoaXM/DQo+ID4NCj4gPiBJTU5TSE8gSSdkIGxp
-a2UgdG8gc2VlIGEgc3RhbmRhcmQgaW50ZXJmYWNlIGJlICJ0aGUgd2F5IiB0byB0YWxrIHRvDQo+
-ID4gT3BlbkJNQyBiYXNlZCBzeXN0ZW1zLCBzb21ldGhpbmcgbGlrZSBSZWRGaXNoLCB3aGljaCBJ
-IG5vdGljZWQgdGhlcmUNCj4gPiB3YXMgdGhlIHN0YXJ0IG9mIHNvbWUgd29yayBvbiBoZXJlOg0K
-PiA+IGh0dHBzOi8vZ2Vycml0Lm9wZW5ibWMtcHJvamVjdC54eXovIy9jLzc3ODYvDQo+ID4NCj4g
-PiBCdXQgZXZlbiBpZiBSZWRGaXNoL0lQTUkgYmVjYW1lICp0aGUqIHdheSBleHRlcm5hbGx5LCB0
-aGUgaW50ZXJuYWwNCj4gPiBBUElzIChhcyBpbiwgZC1idXMgQVBJcykgY291bGQgcHJvYmFibHkg
-YWxzbyBkbyB3aXRoIHNvbWUgbG92ZS4NCj4gPg0KPiA+IE15IGluaXRpYWwgc3RhYiBhdCBoZWxw
-aW5nIHdpdGggdGhhdCBpczoNCj4gPiBodHRwczovL2dlcnJpdC5vcGVuYm1jLXByb2plY3QueHl6
-LyMvYy83OTIzLw0KPiA+IGJ1dCBldmVuIHRoZW4sIHRoYXQgdmVyeSBzYW1lIEFQSSByYWlzZXMg
-YSBsb3Qgb2Ygb3RoZXIgcXVlc3Rpb25zIHRoYXQNCj4gPiBJIGhhdmVuJ3QgYWRkcmVzc2VkIC0g
-YW5kIGV2ZW4gaW4gdGhhdCBwdWxsIHJlcXVlc3QsIEkndmUgbWFkZSBhIGJ1bmNoDQo+ID4gb2Yg
-c3dlZXBpbmcgc3RhdGVtZW50cyBiaW5kaW5nIHRoZSBPcGVuQk1DIGRldmVsb3BlcnMgdG8gY2Vy
-dGFpbiBBUEkNCj4gPiBzdGFiaWxpdHkgY29uc3RyYWludHMuDQo+ID4gLS0NCj4gPiBTdGV3YXJ0
-IFNtaXRoDQo+ID4gT1BBTCBBcmNoaXRlY3QsIElCTS4NCj4gPg0KPiANCg0K
+Sorry for the delay. I thought all of the comments were straightforward, but
+there are a couple which need some further discussion.
+
+On Fri, Oct 20, 2017 at 12:45 PM, Rob Herring <robh+dt@kernel.org> wrote:
+> On Thu, Oct 19, 2017 at 5:50 PM, Brendan Higgins
+> <brendanhiggins@google.com> wrote:
+>> Add a common device tree for all Nuvoton NPCM750 BMCs and a board
+>> specific device tree for the NPCM750 (Poleg) evaluation board.
+>>
+>> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+>> Reviewed-by: Tomer Maimon <tmaimon77@gmail.com>
+>> Reviewed-by: Avi Fishman <avifishman70@gmail.com>
+>> Reviewed-by: Joel Stanley <joel@jms.id.au>
+>> Tested-by: Tomer Maimon <tmaimon77@gmail.com>
+>> Tested-by: Avi Fishman <avifishman70@gmail.com>
+>> ---
+>
+> [...]
+>
+>> diff --git a/arch/arm/boot/dts/nuvoton-npcm750.dtsi b/arch/arm/boot/dts/nuvoton-npcm750.dtsi
+>> new file mode 100644
+>> index 000000000000..85506b3cdd39
+>> --- /dev/null
+>> +++ b/arch/arm/boot/dts/nuvoton-npcm750.dtsi
+>> @@ -0,0 +1,198 @@
+>> +/*
+>> + * DTSi file for the NPCM750 SoC
+>> + *
+>> + * Copyright 2012 Tomer Maimon <tomer.maimon@nuvoton.com>
+>> + *
+>> + * The code contained herein is licensed under the GNU General Public
+>> + * License. You may obtain a copy of the GNU General Public License
+>> + * Version 2 or later at the following locations:
+>> + *
+>> + * http://www.opensource.org/licenses/gpl-license.html
+>> + * http://www.gnu.org/copyleft/gpl.html
+>> + */
+>> +
+>> +#include <dt-bindings/interrupt-controller/arm-gic.h>
+>> +#include <dt-bindings/clock/nuvoton,npcm7xx-clks.h>
+>> +
+>> +/ {
+>> +       #address-cells = <1>;
+>> +       #size-cells = <1>;
+>> +       interrupt-parent = <&gic>;
+>> +
+>> +       cpus {
+>> +               #address-cells = <1>;
+>> +               #size-cells = <0>;
+>> +               enable-method = "nuvoton,npcm7xx-smp";
+>> +
+>> +               cpu@0 {
+>> +                       device_type = "cpu";
+>> +                       compatible = "arm,cortex-a9";
+>> +                       clocks = <&clk NPCM7XX_CLK_CPU>;
+>> +                       clock-names = "clk_cpu";
+>> +                       reg = <0>;
+>> +                       next-level-cache = <&l2>;
+>> +               };
+>> +
+>> +               cpu@1 {
+>> +                       device_type = "cpu";
+>> +                       compatible = "arm,cortex-a9";
+>> +                       clocks = <&clk NPCM7XX_CLK_CPU>;
+>> +                       clock-names = "clk_cpu";
+>> +                       reg = <1>;
+>> +                       next-level-cache = <&l2>;
+>> +               };
+>> +       };
+>> +
+>> +/* external clock signal rg1refck, supplied by the phy */
+>> +clk-rg1refck {
+>> +       compatible = "fixed-clock";
+>> +       #clock-cells = <0>;
+>> +       clock-frequency = <125000000>;
+>> +};
+>> +
+>> +/* external clock signal rg2refck, supplied by the phy */
+>> +clk-rg2refck {
+>> +       compatible = "fixed-clock";
+>> +       #clock-cells = <0>;
+>> +       clock-frequency = <125000000>;
+>> +};
+>> +
+>> +clk-xin {
+>> +       compatible = "fixed-clock";
+>> +       #clock-cells = <0>;
+>> +       clock-frequency = <50000000>;
+>> +};
+>> +
+>> +       soc {
+>> +               #address-cells = <1>;
+>> +               #size-cells = <1>;
+>> +               compatible = "simple-bus";
+>> +               interrupt-parent = <&gic>;
+>> +               ranges = <0x0 0xf0000000 0x00900000>;
+>> +
+>> +               gcr: gcr@f0800000 {
+>
+> Should be gcr@800000. Build the dtb with W=1 and it will give you
+> warnings for this.
+>
+>> +                       compatible = "nuvoton,npcm750-gcr", "syscon",
+>> +                               "simple-mfd";
+>> +                       reg = <0x800000 0x1000>;
+>> +               };
+>> +
+>> +               scu: scu@f03fe000 {
+>> +                       compatible = "arm,cortex-a9-scu";
+>> +                       reg = <0x3fe000 0x1000>;
+>> +               };
+>> +
+>> +               l2: cache-controller@f03fc000 {
+>> +                       compatible = "arm,pl310-cache";
+>> +                       reg = <0x3fc000 0x1000>;
+>> +                       interrupts = <0 21 4>;
+>> +                       cache-unified;
+>> +                       cache-level = <2>;
+>> +                       clocks = <&clk NPCM7XX_CLK_AXI>;
+>> +               };
+>> +
+>> +               gic: interrupt-controller@f03ff000 {
+>> +                       compatible = "arm,cortex-a9-gic";
+>> +                       interrupt-controller;
+>> +                       #interrupt-cells = <3>;
+>> +                       reg = <0x3ff000 0x1000>,
+>> +                           <0x3fe100 0x100>;
+>> +               };
+>> +
+>> +               timer@f03fe600 {
+>> +                       compatible = "arm,cortex-a9-twd-timer";
+>> +                       reg = <0x3fe600 0x20>;
+>> +                       interrupts = <1 13 0x304>;
+>> +                       clocks = <&clk NPCM7XX_CLK_TIMER>;
+>> +               };
+>> +       };
+>> +
+>> +       ahb {
+>> +               #address-cells = <1>;
+>> +               #size-cells = <1>;
+>> +               compatible = "simple-bus";
+>> +               interrupt-parent = <&gic>;
+>> +               ranges = <0x80000000 0x80000000 0x40010000
+>> +                         0xe0800000 0xe0800000 0x0f800000
+>> +                         0x00000000 0xf0000000 0x00900000
+>> +                         0xf8000000 0xf8000000 0x02000000
+>> +                         0xfb000000 0xfb000000 0x00002000>;
+>
+> Just do "ranges;" here if all the translation is at the next level down.
+
+Actually we do have some peripherals that sit directly on the AHB, they
+just have not had their DTS nodes written yet. I counted at least 6
+devices which probably won't get a sub-memory space.
+
+>
+> Sorry, it's hard to say exactly what to do without knowing the whole memory map.
+
+No problem. Let me see if I can get it for you.
+
+>
+>> +
+>> +               clk: clock-controller@f0801000 {
+>
+> Seems like this belongs under /soc based on the address.
+
+No, the AHB memory space is discontiguous. The "Cortex A9 Included" space
+(/soc here) sits in one of the discontinuities.
+
+>
+>> +                       compatible = "nuvoton,npcm750-clk";
+>> +                       #clock-cells = <1>;
+>> +                       reg = <0x801000 0x1000>;
+>> +                       status = "okay";
+>> +               };
+>> +
+>> +               apb {
+>> +                       #address-cells = <1>;
+>> +                       #size-cells = <1>;
+>> +                       compatible = "simple-bus";
+>> +                       interrupt-parent = <&gic>;
+>> +                       ranges = <0x0 0x0 0x00300000>;
+>
+> And then this would be "<0x0 0xf0000000 0x300000>".
+>
+>> +
+>> +                       timer0: timer@f0000000 {
+>> +                               compatible = "nuvoton,npcm750-timer";
+>> +                               interrupts = <0 32 4>;
+>> +                               reg = <0x0 0x1000>;
+>> +                               clocks = <&clk NPCM7XX_CLK_TIMER>;
+>> +                       };
+>> +
+>> +                       watchdog0: watchdog@f0008000 {
+>> +                               compatible = "nuvoton,npcm750-wdt";
+>> +                               interrupts = <0 47 4>;
+>> +                               reg = <0x8000 0x1000>;
+>> +                               status = "disabled";
+>> +                               clocks = <&clk NPCM7XX_CLK_TIMER>;
+>> +                       };
+>> +
+>> +                       watchdog1: watchdog@f0009000 {
+>> +                               compatible = "nuvoton,npcm750-wdt";
+>> +                               interrupts = <0 48 4>;
+>> +                               reg = <0x9000 0x1000>;
+>> +                               status = "disabled";
+>> +                               clocks = <&clk NPCM7XX_CLK_TIMER>;
+>> +                       };
+>> +
+>> +                       watchdog2: watchdog@f000a000 {
+>> +                               compatible = "nuvoton,npcm750-wdt";
+>> +                               interrupts = <0 49 4>;
+>> +                               reg = <0xa000 0x1000>;
+>> +                               status = "disabled";
+>> +                               clocks = <&clk NPCM7XX_CLK_TIMER>;
+>> +                       };
+>> +
+>> +                       serial0: serial@f0001000 {
+>> +                               compatible = "nuvoton,npcm750-uart";
+>> +                               reg = <0x1000 0x1000>;
+>> +                               clocks = <&clk NPCM7XX_CLK_UART_CORE>;
+>> +                               interrupts = <0 2 4>;
+>> +                               status = "disabled";
+>> +                       };
+>> +
+>> +                       serial1: serial@f0002000 {
+>> +                               compatible = "nuvoton,npcm750-uart";
+>> +                               reg = <0x2000 0x1000>;
+>> +                               clocks = <&clk NPCM7XX_CLK_UART_CORE>;
+>> +                               interrupts = <0 3 4>;
+>> +                               status = "disabled";
+>> +                       };
+>> +
+>> +                       serial2: serial@f0003000 {
+>> +                               compatible = "nuvoton,npcm750-uart";
+>> +                               reg = <0x3000 0x1000>;
+>> +                               clocks = <&clk NPCM7XX_CLK_UART_CORE>;
+>> +                               interrupts = <0 4 4>;
+>> +                               status = "disabled";
+>> +                       };
+>> +
+>> +                       serial3: serial@f0004000 {
+>> +                               compatible = "nuvoton,npcm750-uart";
+>> +                               reg = <0x4000 0x1000>;
+>> +                               clocks = <&clk NPCM7XX_CLK_UART_CORE>;
+>> +                               interrupts = <0 5 4>;
+>> +                               status = "disabled";
+>> +                       };
+>> +               };
+>> +       };
+>> +};
+>> diff --git a/include/dt-bindings/clock/nuvoton,npcm7xx-clks.h b/include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
+>> new file mode 100644
+>> index 000000000000..c69d3bbf7e42
+>> --- /dev/null
+>> +++ b/include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
+>> @@ -0,0 +1,39 @@
+>> +/*
+>> + * Copyright (C) 2016 Nuvoton Technologies,  tali.perry@nuvoton.com
+>> + *
+>> + * This software is licensed under the terms of the GNU General Public
+>> + * License version 2, as published by the Free Software Foundation, and
+>> + * may be copied, distributed, and modified under those terms.
+>> + */
+>> +
+>> +#ifndef _DT_BINDINGS_CLK_NPCM7XX_H
+>> +#define _DT_BINDINGS_CLK_NPCM7XX_H
+>> +
+>> +#define NPCM7XX_CLK_PLL0       0
+>> +#define NPCM7XX_CLK_PLL1       1
+>> +#define NPCM7XX_CLK_PLL2       2
+>> +#define NPCM7XX_CLK_GFX                3
+>> +#define NPCM7XX_CLK_APB1       4
+>> +#define NPCM7XX_CLK_APB2       5
+>> +#define NPCM7XX_CLK_APB3       6
+>> +#define NPCM7XX_CLK_APB4       7
+>> +#define NPCM7XX_CLK_APB5       8
+>> +#define NPCM7XX_CLK_MC         9
+>> +#define NPCM7XX_CLK_CPU                10
+>> +#define NPCM7XX_CLK_SPI0       11
+>> +#define NPCM7XX_CLK_SPI3       12
+>> +#define NPCM7XX_CLK_SPIX       13
+>> +#define NPCM7XX_CLK_UART_CORE  14
+>> +#define NPCM7XX_CLK_TIMER      15
+>> +#define NPCM7XX_CLK_HOST_UART  16
+>> +#define NPCM7XX_CLK_MMC                17
+>> +#define NPCM7XX_CLK_SDHC       18
+>> +#define NPCM7XX_CLK_ADC                19
+>> +#define NPCM7XX_CLK_GFX_MEM    20
+>> +#define NPCM7XX_CLK_USB_BRIDGE 21
+>> +#define NPCM7XX_CLK_AXI                22
+>> +#define NPCM7XX_CLK_AHB                23
+>> +#define NPCM7XX_CLK_EMC                24
+>> +#define NPCM7XX_CLK_GMAC       25
+>> +
+>> +#endif
+>> --
+>> 2.15.0.rc0.271.g36b669edcc-goog
+>>
