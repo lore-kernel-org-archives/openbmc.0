@@ -1,76 +1,52 @@
-Return-Path: <stewart@linux.vnet.ibm.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=stewart@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+Return-Path: <ed.tanous@intel.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=134.134.136.65; helo=mga03.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ydR6t6nvYzDrK3
- for <openbmc@lists.ozlabs.org>; Fri, 17 Nov 2017 16:11:50 +1100 (AEDT)
-Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- vAH5BeU5115471
- for <openbmc@lists.ozlabs.org>; Fri, 17 Nov 2017 00:11:47 -0500
-Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2e9sbgg374-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 17 Nov 2017 00:11:40 -0500
-Received: from localhost
- by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
- Thu, 16 Nov 2017 22:11:29 -0700
-Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
- by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 16 Nov 2017 22:11:25 -0700
-Received: from b03ledav006.gho.boulder.ibm.com
- (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- vAH5BP5Q6226250; Thu, 16 Nov 2017 22:11:25 -0700
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3ACB1C604A;
- Thu, 16 Nov 2017 22:11:25 -0700 (MST)
-Received: from birb.localdomain (unknown [9.81.204.225])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with SMTP id 5354CC6042;
- Thu, 16 Nov 2017 22:11:24 -0700 (MST)
-Received: by birb.localdomain (Postfix, from userid 1000)
- id F17274F0CA8; Fri, 17 Nov 2017 16:11:17 +1100 (AEDT)
-From: Stewart Smith <stewart@linux.vnet.ibm.com>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>, Ed Tanous <ed.tanous@intel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: On the state of documentation
-In-Reply-To: <C56F44F7-987C-47B2-8E8A-E50A2F6D2A53@fuzziesquirrel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ydksj66DpzDrMM
+ for <openbmc@lists.ozlabs.org>; Sat, 18 Nov 2017 04:01:28 +1100 (AEDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2017 09:01:26 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.44,410,1505804400"; 
+   d="scan'208";a="3842166"
+Received: from orsmsx101.amr.corp.intel.com ([10.22.225.128])
+ by fmsmga001.fm.intel.com with ESMTP; 17 Nov 2017 09:01:25 -0800
+Received: from orsmsx111.amr.corp.intel.com (10.22.240.12) by
+ ORSMSX101.amr.corp.intel.com (10.22.225.128) with Microsoft SMTP Server (TLS)
+ id 14.3.319.2; Fri, 17 Nov 2017 09:01:25 -0800
+Received: from orsmsx105.amr.corp.intel.com ([169.254.2.105]) by
+ ORSMSX111.amr.corp.intel.com ([169.254.12.55]) with mapi id 14.03.0319.002;
+ Fri, 17 Nov 2017 09:01:24 -0800
+From: "Tanous, Ed" <ed.tanous@intel.com>
+To: Stewart Smith <stewart@linux.vnet.ibm.com>, Brad Bishop
+ <bradleyb@fuzziesquirrel.com>
+CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: RE: On the state of documentation
+Thread-Topic: On the state of documentation
+Thread-Index: AQHTXdi1WqDldsIgGUuOGqFixminC6MWCc+A//+pOMCAArjFgIAAHQeAgAAGloCAAC4JUA==
+Date: Fri, 17 Nov 2017 17:01:24 +0000
+Message-ID: <7E9441B1E5EFFD4681F54958E82169932EAF5A8F@ORSMSX105.amr.corp.intel.com>
 References: <87lgj8rrz6.fsf@linux.vnet.ibm.com>
  <B9643A4A-B3FF-4D99-880C-8617231513BA@stwcx.xyz>
  <7E9441B1E5EFFD4681F54958E82169932EAF586A@ORSMSX105.amr.corp.intel.com>
  <87zi7lzjvu.fsf@linux.vnet.ibm.com>
  <C56F44F7-987C-47B2-8E8A-E50A2F6D2A53@fuzziesquirrel.com>
-Date: Fri, 17 Nov 2017 16:11:17 +1100
+ <87vai9zdze.fsf@linux.vnet.ibm.com>
+In-Reply-To: <87vai9zdze.fsf@linux.vnet.ibm.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ctpclassification: CTP_IC
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiYTUxZjhkZDItZmJlNy00MGUyLWFmOTEtOTQwMTQ3OTY1MzdjIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX0lDIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE1LjkuNi42IiwiVHJ1c3RlZExhYmVsSGFzaCI6IjF0dnl6eFdMQms0SXlMQXlBMVlzcTZGUWg3dlNTM3FsZlk4U0xjTzJlbGs9In0=
+x-originating-ip: [10.22.254.140]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-TM-AS-GCONF: 00
-x-cbid: 17111705-8235-0000-0000-00000C942576
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00008079; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000240; SDB=6.00947019; UDB=6.00478086; IPR=6.00727311; 
- BA=6.00005696; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00018057; XFM=3.00000015;
- UTC=2017-11-17 05:11:27
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17111705-8236-0000-0000-00003E79F0AC
-Message-Id: <87vai9zdze.fsf@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-11-17_02:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1711170069
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -82,108 +58,147 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Nov 2017 05:11:51 -0000
+X-List-Received-Date: Fri, 17 Nov 2017 17:01:31 -0000
 
-Brad Bishop <bradleyb@fuzziesquirrel.com> writes:
->> On Nov 16, 2017, at 10:03 PM, Stewart Smith <stewart@linux.vnet.ibm.com>=
- wrote:
->>=20
->> "Tanous, Ed" <ed.tanous@intel.com> writes:
->>> I believe that the lack of good documentation is a symptom of a larger
->>> issue:  OpenBMC is not targeting a public specification with its REST
->>> interface.  This has led to certain engineering flexibilities with the
->>> interface that, while useful for short term to "get something that
->>> works", make it very difficult to target openbmc an evolving platform.
->>> In the current model, DBus specifications are pushed directly to the
->>> end user, which means (nearly) every DBus spec change results in a
->>> change to end user interfaces.  I don't believe this is sustainable in
->>> the long run, given the number of platforms that this is targeting and
->>> the need for reproducible APIs between systems.
->
-> No disagreement here.  The project could really could use a Redfish
-> and full IPMI implementation.
-
->>> that middle to long term we should transition away from
->>> these interfaces for end-user facing functionality, and move toward
->
-> Words like 'transition away' and 'move toward' are kind of freaking me out
-> a little.  Are you suggesting that OpenBMC can _only_ have a Redfish
-> implementation?  Any other REST API implementation would be=E2=80=A6banne=
-d from
-> the project?  Or am I reading into it too much?
-
-I'd support multiple interfaces (after all, IPMI and RedFish are
-multiple ones anyway, and IPMI is probably going to take a few more
-years to disappear)
-
-> Like I said, I too agree we need a Redfish and IPMI implementation
-> in OpenBMC.
->
-> That said, what reason is there to get rid of the existing DBus<->REST
-> translation server?  It=E2=80=99s not as if its a maintenance burden.  It=
- isn=E2=80=99t
-> as if anyone is making people use it in their products.  Its there.
-> You can use it or not use it.  When we have an IPMI or Redfish
-> implementation, I=E2=80=99ll be the first in line (well maybe second after
-> Stewart) to tell my employer to turn it off in their products.
-> That isn=E2=80=99t the same thing as removing it from the project altoget=
-her.
-
-It might be useful for debug to keep around "forever"?
-
->>> Some important key points that I think should be driven by the new mode=
-l:
->>> 1. Rest interfaces should not be driven by the underlying DBus interfac=
-es, nor the backend implementation language.
->
-> This reads like policy for someone using OpenBMC to build a BMC stack.
->
-> I would rephrase it to:
->
-> XYZ corp cannot use any REST implementations provided by OpenBMC that are
-> driven by the underlying DBus interfaces in XYZ corp products making use
-> of OpenBMC.
->
-> Do you see the difference?
-
-I'd say "The OpenBMC REST API is not meant to be a stable API to be
-consumed. It exists exclusively for debug and development efforts of
-OpenBMC. It may, in future, completely change or disappear."
-
-From someone consuming it, that's certainly been the experience at least :)
-
->>> 2. Interfaces should not contain any "backdoor" type APIs that allow wh=
-ite box style access to internal APIs.  Anything breaking the black box mod=
-el should be done in a machine specific layer or configuration.
->>> 3. APIs should give the minimum required amount of information to fulfi=
-ll the end user use case.
->>> 4. Interfaces should be backed by the system level security policy (PAM=
- users in the current model).
->>> 5. Where possible, the implementations should follow an existing specif=
-ication.  In the cases where the requirements are not supported, the api sh=
-ould follow the style of the supporting interface  (Think redfish OEM comma=
-nd support)
->
-> I have the same reaction to 2-6 as I did for 1.  These are policies on _u=
-se_
-> of OpenBMC.  Right?  Not what the contributors to the project are allowed=
- to do.
->
-> My worldview is that each one of these bullet points would cost the proje=
-ct a
-> potential contributor.  Somewhere, someone is going to want to do one of
-> those things.  Why not let them, when the only thing you have to do is no=
-t use
-> their code?
-
-Maybe guidelines more than rules?
-
-I'm sure there's exceptions, but there's unlikely to be anything really
-exist beyond RedFish and IPMI... If there is, I'd say it's up to you if
-you want to include it in the base/reference distribution and if this
-will create value or just more work :)
-
-
---=20
-Stewart Smith
-OPAL Architect, IBM.
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogU3Rld2FydCBTbWl0aCBb
+bWFpbHRvOnN0ZXdhcnRAbGludXgudm5ldC5pYm0uY29tXQ0KPiBTZW50OiBUaHVyc2RheSwgTm92
+ZW1iZXIgMTYsIDIwMTcgOToxMSBQTQ0KPiBUbzogQnJhZCBCaXNob3AgPGJyYWRsZXliQGZ1enpp
+ZXNxdWlycmVsLmNvbT47IFRhbm91cywgRWQNCj4gPGVkLnRhbm91c0BpbnRlbC5jb20+DQo+IENj
+OiBPcGVuQk1DIE1haWxsaXN0IDxvcGVuYm1jQGxpc3RzLm96bGFicy5vcmc+DQo+IFN1YmplY3Q6
+IFJlOiBPbiB0aGUgc3RhdGUgb2YgZG9jdW1lbnRhdGlvbg0KPiANCj4gQnJhZCBCaXNob3AgPGJy
+YWRsZXliQGZ1enppZXNxdWlycmVsLmNvbT4gd3JpdGVzOg0KPiA+PiBPbiBOb3YgMTYsIDIwMTcs
+IGF0IDEwOjAzIFBNLCBTdGV3YXJ0IFNtaXRoDQo+IDxzdGV3YXJ0QGxpbnV4LnZuZXQuaWJtLmNv
+bT4gd3JvdGU6DQo+ID4+DQo+ID4+ICJUYW5vdXMsIEVkIiA8ZWQudGFub3VzQGludGVsLmNvbT4g
+d3JpdGVzOg0KPiA+Pj4gSSBiZWxpZXZlIHRoYXQgdGhlIGxhY2sgb2YgZ29vZCBkb2N1bWVudGF0
+aW9uIGlzIGEgc3ltcHRvbSBvZiBhDQo+ID4+PiBsYXJnZXINCj4gPj4+IGlzc3VlOiAgT3BlbkJN
+QyBpcyBub3QgdGFyZ2V0aW5nIGEgcHVibGljIHNwZWNpZmljYXRpb24gd2l0aCBpdHMNCj4gPj4+
+IFJFU1QgaW50ZXJmYWNlLiAgVGhpcyBoYXMgbGVkIHRvIGNlcnRhaW4gZW5naW5lZXJpbmcgZmxl
+eGliaWxpdGllcw0KPiA+Pj4gd2l0aCB0aGUgaW50ZXJmYWNlIHRoYXQsIHdoaWxlIHVzZWZ1bCBm
+b3Igc2hvcnQgdGVybSB0byAiZ2V0DQo+ID4+PiBzb21ldGhpbmcgdGhhdCB3b3JrcyIsIG1ha2Ug
+aXQgdmVyeSBkaWZmaWN1bHQgdG8gdGFyZ2V0IG9wZW5ibWMgYW4NCj4gZXZvbHZpbmcgcGxhdGZv
+cm0uDQo+ID4+PiBJbiB0aGUgY3VycmVudCBtb2RlbCwgREJ1cyBzcGVjaWZpY2F0aW9ucyBhcmUg
+cHVzaGVkIGRpcmVjdGx5IHRvIHRoZQ0KPiA+Pj4gZW5kIHVzZXIsIHdoaWNoIG1lYW5zIChuZWFy
+bHkpIGV2ZXJ5IERCdXMgc3BlYyBjaGFuZ2UgcmVzdWx0cyBpbiBhDQo+ID4+PiBjaGFuZ2UgdG8g
+ZW5kIHVzZXIgaW50ZXJmYWNlcy4gIEkgZG9uJ3QgYmVsaWV2ZSB0aGlzIGlzIHN1c3RhaW5hYmxl
+DQo+ID4+PiBpbiB0aGUgbG9uZyBydW4sIGdpdmVuIHRoZSBudW1iZXIgb2YgcGxhdGZvcm1zIHRo
+YXQgdGhpcyBpcw0KPiA+Pj4gdGFyZ2V0aW5nIGFuZCB0aGUgbmVlZCBmb3IgcmVwcm9kdWNpYmxl
+IEFQSXMgYmV0d2VlbiBzeXN0ZW1zLg0KPiA+DQo+ID4gTm8gZGlzYWdyZWVtZW50IGhlcmUuICBU
+aGUgcHJvamVjdCBjb3VsZCByZWFsbHkgY291bGQgdXNlIGEgUmVkZmlzaA0KPiA+IGFuZCBmdWxs
+IElQTUkgaW1wbGVtZW50YXRpb24uDQo+IA0KPiA+Pj4gdGhhdCBtaWRkbGUgdG8gbG9uZyB0ZXJt
+IHdlIHNob3VsZCB0cmFuc2l0aW9uIGF3YXkgZnJvbSB0aGVzZQ0KPiA+Pj4gaW50ZXJmYWNlcyBm
+b3IgZW5kLXVzZXIgZmFjaW5nIGZ1bmN0aW9uYWxpdHksIGFuZCBtb3ZlIHRvd2FyZA0KPiA+DQo+
+ID4gV29yZHMgbGlrZSAndHJhbnNpdGlvbiBhd2F5JyBhbmQgJ21vdmUgdG93YXJkJyBhcmUga2lu
+ZCBvZiBmcmVha2luZyBtZQ0KPiA+IG91dCBhIGxpdHRsZS4gIEFyZSB5b3Ugc3VnZ2VzdGluZyB0
+aGF0IE9wZW5CTUMgY2FuIF9vbmx5XyBoYXZlIGENCj4gPiBSZWRmaXNoIGltcGxlbWVudGF0aW9u
+PyAgQW55IG90aGVyIFJFU1QgQVBJIGltcGxlbWVudGF0aW9uIHdvdWxkDQo+ID4gYmXigKZiYW5u
+ZWQgZnJvbSB0aGUgcHJvamVjdD8gIE9yIGFtIEkgcmVhZGluZyBpbnRvIGl0IHRvbyBtdWNoPw0K
+DQpObywgSSdtIGluIG5vIHdheSBhcmd1aW5nIHRoYXQgd2UgbmVlZCB0byBvbmx5IGhhdmUgb25l
+IGV4dGVybmFsIEFQSS4gIEJhbm5pbmcgY2VydGFpbiBBUElzIG9yIGNvbXBvbmVudHMgaXMgc29t
+ZXRoaW5nIHRoYXQgSSBkb24ndCB0aGluayBmaXQgdGhlIG5lZWRzIG9mIHRoZSBwcm9qZWN0IGVp
+dGhlci4NCk92ZXJhbGwsIEkgd291bGQgbGlrZSBuZXcgYW5kIGV4aXN0aW5nIGNvZGUgdG8gYmUg
+YWJsZSB0byB0cmVhdCBkYnVzIGFzIGFuIG9wZW5ibWMgcHJpdmF0ZSBBUEksIG5vdCBhbiBlbmQg
+dXNlciBmYWNpbmcgcHVibGljIEFQSS4gIFNhaWQgYW5vdGhlciB3YXksIERCdXMgYXBpIGNoYW5n
+ZXMgc2hvdWxkIGJlIHBvc3NpYmxlIHdpdGhvdXQgY2hhbmdpbmcgZXh0ZXJuYWwgc3lzdGVtIGlu
+dGVyZmFjZXMuICBHaXZlbiB0aGUgZmFjdCB0aGF0IHRoZSBleGlzdGluZyBSRVNUIEFQSSBpcyBz
+aW1wbHkgYSBkaXJlY3QgY29ubmVjdGlvbiB0byBkYnVzLCBpdCBzZWVtcyB0byBzdGFuZCBpbiB0
+aGUgd2F5IG9mIHRoaXMgZ29hbC4gIExvbmcgdGVybSwgSSB3b3VsZCBsaWtlIHRvIHNlZSB0aGUg
+ZXhpc3RpbmcgZGJ1cyBSRVNUIEFQSSBtb3ZlZCB0byBtYWNoaW5lIHNwZWNpZmljIGxheWVycyBm
+b3IgdGhlIG1hY2hpbmVzIHRoYXQgd2FudCB0byB1c2UgdGhlbSwgYW5kIHJlbW92ZSBpdCBhcyBh
+IHJlZmVyZW5jZSBpbXBsZW1lbnRhdGlvbi4gIE1heWJlIEknbSBzdGVwcGluZyBvdmVyIHRoZSBs
+aW5lPyAgTWF5YmUgaXQncyB0b28gZWFybHkgdG8gc3RhcnQgdGFsa2luZyB0cmFuc2l0aW9uIHBs
+YW5lLCB3aGVuIHRoZSByZXBsYWNlbWVudCBjb21wb25lbnRzIGFyZSBpbiB0aGVpciBpbmZhbmN5
+Pw0KSSdtIG5vdCBhc2tpbmcgZm9yIGEgY29tbWl0bWVudCBoZXJlLCBqdXN0IHdvdWxkIGxpa2Ug
+dG8gc2VlIHdoYXQgb3RoZXIgcGVvcGxlJ3MgdGhvdWdodHMgYXJlLg0KDQo+IA0KPiBJJ2Qgc3Vw
+cG9ydCBtdWx0aXBsZSBpbnRlcmZhY2VzIChhZnRlciBhbGwsIElQTUkgYW5kIFJlZEZpc2ggYXJl
+IG11bHRpcGxlIG9uZXMNCj4gYW55d2F5LCBhbmQgSVBNSSBpcyBwcm9iYWJseSBnb2luZyB0byB0
+YWtlIGEgZmV3IG1vcmUgeWVhcnMgdG8gZGlzYXBwZWFyKQ0KPiANCj4gPiBMaWtlIEkgc2FpZCwg
+SSB0b28gYWdyZWUgd2UgbmVlZCBhIFJlZGZpc2ggYW5kIElQTUkgaW1wbGVtZW50YXRpb24gaW4N
+Cj4gPiBPcGVuQk1DLg0KPiA+DQo+ID4gVGhhdCBzYWlkLCB3aGF0IHJlYXNvbiBpcyB0aGVyZSB0
+byBnZXQgcmlkIG9mIHRoZSBleGlzdGluZyBEQnVzPC0+UkVTVA0KPiA+IHRyYW5zbGF0aW9uIHNl
+cnZlcj8gIEl04oCZcyBub3QgYXMgaWYgaXRzIGEgbWFpbnRlbmFuY2UgYnVyZGVuLiAgSXQNCj4g
+PiBpc27igJl0IGFzIGlmIGFueW9uZSBpcyBtYWtpbmcgcGVvcGxlIHVzZSBpdCBpbiB0aGVpciBw
+cm9kdWN0cy4gIEl0cyB0aGVyZS4NCj4gPiBZb3UgY2FuIHVzZSBpdCBvciBub3QgdXNlIGl0LiAg
+V2hlbiB3ZSBoYXZlIGFuIElQTUkgb3IgUmVkZmlzaA0KPiA+IGltcGxlbWVudGF0aW9uLCBJ4oCZ
+bGwgYmUgdGhlIGZpcnN0IGluIGxpbmUgKHdlbGwgbWF5YmUgc2Vjb25kIGFmdGVyDQo+ID4gU3Rl
+d2FydCkgdG8gdGVsbCBteSBlbXBsb3llciB0byB0dXJuIGl0IG9mZiBpbiB0aGVpciBwcm9kdWN0
+cy4NCj4gPiBUaGF0IGlzbuKAmXQgdGhlIHNhbWUgdGhpbmcgYXMgcmVtb3ZpbmcgaXQgZnJvbSB0
+aGUgcHJvamVjdCBhbHRvZ2V0aGVyLg0KPiANCj4gSXQgbWlnaHQgYmUgdXNlZnVsIGZvciBkZWJ1
+ZyB0byBrZWVwIGFyb3VuZCAiZm9yZXZlciI/DQpGb3IgZGVidWcsIHllcywgSSBjb21wbGV0ZWx5
+IGFncmVlIHRoYXQgc2VydmVyIGlzIHVzZWZ1bCBhbmQgd2UgY2FuIGxlYXZlIGl0IGluIHRoZSBy
+ZXBvLCBJJ20gbGVzcyB3b3JyaWVkIGFib3V0IGRlYnVnLCBvciBnaXZpbmcgZGV2ZWxvcGVycyBh
+bmQgbWFpbnRhaW5lcnMgdGhlIG9wdGlvbiwgbW9yZSB3b3JyaWVkIGFib3V0IHRoZSBkaXJlY3Qg
+bGlua2FnZSBmcm9tIERidXMgdG8gZW5kLXVzZXIgZmFjaW5nIEFQSXMsIGVzcGVjaWFsbHkgaW4g
+YSBjb21wb25lbnQgdGhhdCdzIGxhYmVsZWQgcmVmZXJlbmNlLCBhbmQgYWRkZWQgdG8gb3BlbmJt
+YyBidWlsZHMgYnkgZGVmYXVsdC4NCg0KPiANCj4gPj4+IFNvbWUgaW1wb3J0YW50IGtleSBwb2lu
+dHMgdGhhdCBJIHRoaW5rIHNob3VsZCBiZSBkcml2ZW4gYnkgdGhlIG5ldw0KPiBtb2RlbDoNCj4g
+Pj4+IDEuIFJlc3QgaW50ZXJmYWNlcyBzaG91bGQgbm90IGJlIGRyaXZlbiBieSB0aGUgdW5kZXJs
+eWluZyBEQnVzDQo+IGludGVyZmFjZXMsIG5vciB0aGUgYmFja2VuZCBpbXBsZW1lbnRhdGlvbiBs
+YW5ndWFnZS4NCj4gPg0KPiA+IFRoaXMgcmVhZHMgbGlrZSBwb2xpY3kgZm9yIHNvbWVvbmUgdXNp
+bmcgT3BlbkJNQyB0byBidWlsZCBhIEJNQyBzdGFjay4NCj4gPg0KPiA+IEkgd291bGQgcmVwaHJh
+c2UgaXQgdG86DQo+ID4NCj4gPiBYWVogY29ycCBjYW5ub3QgdXNlIGFueSBSRVNUIGltcGxlbWVu
+dGF0aW9ucyBwcm92aWRlZCBieSBPcGVuQk1DIHRoYXQNCj4gPiBhcmUgZHJpdmVuIGJ5IHRoZSB1
+bmRlcmx5aW5nIERCdXMgaW50ZXJmYWNlcyBpbiBYWVogY29ycCBwcm9kdWN0cw0KPiA+IG1ha2lu
+ZyB1c2Ugb2YgT3BlbkJNQy4NCj4gPg0KPiA+IERvIHlvdSBzZWUgdGhlIGRpZmZlcmVuY2U/DQpG
+YWlyIHBvaW50LiAgWWVzLCBhbGwgdGhlc2UgZ29hbHMgYXJlIHRoaW5ncyB0aGF0IEludGVsIG5l
+ZWRzIHRvZGF5IGZvciBwcm9kdWN0aW9uIGludGVyZmFjZXMuICBJIHdhcyB0cnlpbmcgdG8gc2Vl
+IGlmIG90aGVycyBoYXZlIHNpbWlsYXIgcmVxdWlyZW1lbnRzLg0KTXkgZW5kIGdvYWwgaGVyZSBp
+cyBub3QgdG8gcHJlc2NyaWJlIHdoYXQgcGVvcGxlIGFyZSBhbGxvd2VkIHRvIGJ1aWxkLCB5b3Vy
+IHJld29yZGluZyBvZiB0aGUgbmV4dCBwb2ludCBzZWVtcyB0byByZW5kZXIgdGhpcyBvbmUgbW9v
+dC4gDQoNCj4gDQo+IEknZCBzYXkgIlRoZSBPcGVuQk1DIFJFU1QgQVBJIGlzIG5vdCBtZWFudCB0
+byBiZSBhIHN0YWJsZSBBUEkgdG8gYmUNCj4gY29uc3VtZWQuIEl0IGV4aXN0cyBleGNsdXNpdmVs
+eSBmb3IgZGVidWcgYW5kIGRldmVsb3BtZW50IGVmZm9ydHMgb2YNCj4gT3BlbkJNQy4gSXQgbWF5
+LCBpbiBmdXR1cmUsIGNvbXBsZXRlbHkgY2hhbmdlIG9yIGRpc2FwcGVhci4iDQo+IA0KPiBGcm9t
+IHNvbWVvbmUgY29uc3VtaW5nIGl0LCB0aGF0J3MgY2VydGFpbmx5IGJlZW4gdGhlIGV4cGVyaWVu
+Y2UgYXQgbGVhc3QgOikNClRoYXQncyBhIG11Y2ggbW9yZSBmYWlyIHdvcmRpbmcuICBPbiB0aGUg
+b3RoZXIgaGFuZCwgdGhlcmUgaXMgYSBsb3Qgb2YgcHJlY2VkZW5jZSBmb3IgdXNlcnMgcmVseWlu
+ZyBvbiAiZGVidWciIEFQSXMgZm9yIHByb2R1Y3Rpb24gZnVuY3Rpb25hbGl0eSwgdGhlbiBjb21w
+bGFpbmluZyB3aGVuIHRoZSBmdW5jdGlvbiBicmVha3Mgb3IgZGlzYXBwZWFycy4gIEkgZG9uJ3Qg
+aGF2ZSBhIHNvbHV0aW9uIGhlcmUsIGp1c3QgYSBjb21tZW50Lg0KDQo+IA0KPiA+Pj4gMi4gSW50
+ZXJmYWNlcyBzaG91bGQgbm90IGNvbnRhaW4gYW55ICJiYWNrZG9vciIgdHlwZSBBUElzIHRoYXQg
+YWxsb3cNCj4gd2hpdGUgYm94IHN0eWxlIGFjY2VzcyB0byBpbnRlcm5hbCBBUElzLiAgQW55dGhp
+bmcgYnJlYWtpbmcgdGhlIGJsYWNrIGJveA0KPiBtb2RlbCBzaG91bGQgYmUgZG9uZSBpbiBhIG1h
+Y2hpbmUgc3BlY2lmaWMgbGF5ZXIgb3IgY29uZmlndXJhdGlvbi4NCj4gPj4+IDMuIEFQSXMgc2hv
+dWxkIGdpdmUgdGhlIG1pbmltdW0gcmVxdWlyZWQgYW1vdW50IG9mIGluZm9ybWF0aW9uIHRvDQo+
+IGZ1bGZpbGwgdGhlIGVuZCB1c2VyIHVzZSBjYXNlLg0KPiA+Pj4gNC4gSW50ZXJmYWNlcyBzaG91
+bGQgYmUgYmFja2VkIGJ5IHRoZSBzeXN0ZW0gbGV2ZWwgc2VjdXJpdHkgcG9saWN5IChQQU0NCj4g
+dXNlcnMgaW4gdGhlIGN1cnJlbnQgbW9kZWwpLg0KPiA+Pj4gNS4gV2hlcmUgcG9zc2libGUsIHRo
+ZSBpbXBsZW1lbnRhdGlvbnMgc2hvdWxkIGZvbGxvdyBhbiBleGlzdGluZw0KPiA+Pj4gc3BlY2lm
+aWNhdGlvbi4gIEluIHRoZSBjYXNlcyB3aGVyZSB0aGUgcmVxdWlyZW1lbnRzIGFyZSBub3QNCj4g
+Pj4+IHN1cHBvcnRlZCwgdGhlIGFwaSBzaG91bGQgZm9sbG93IHRoZSBzdHlsZSBvZiB0aGUgc3Vw
+cG9ydGluZw0KPiA+Pj4gaW50ZXJmYWNlICAoVGhpbmsgcmVkZmlzaCBPRU0gY29tbWFuZCBzdXBw
+b3J0KQ0KPiA+DQo+ID4gSSBoYXZlIHRoZSBzYW1lIHJlYWN0aW9uIHRvIDItNiBhcyBJIGRpZCBm
+b3IgMS4gIFRoZXNlIGFyZSBwb2xpY2llcyBvbg0KPiA+IF91c2VfIG9mIE9wZW5CTUMuICBSaWdo
+dD8gIE5vdCB3aGF0IHRoZSBjb250cmlidXRvcnMgdG8gdGhlIHByb2plY3QgYXJlDQo+IGFsbG93
+ZWQgdG8gZG8uDQoNCkJyYWluc3Rvcm1pbmcgZm9yIGEgc2Vjb25kOyBXaGF0IGlmIGVhY2ggb2Yg
+dGhlc2Ugd2VyZSBwcmVmaXhlZCB3aXRoICJSZWZlcmVuY2UgY29tcG9uZW50cyBzaGFsbDogIj8g
+IFllcywgc29tZSBvZiB0aGVzZSBhcmUgYSBsaXR0bGUgbW9yZSBwcmVzY3JpcHRpdmUgdGhhbiBJ
+J2QgbGlrZSBmb3IgYW4gb3BlbiBwcm9qZWN0LCBidXQgd2UgbmVlZCBzb21lIHdheSB0byBjb252
+ZXkgdGhhdCBjZXJ0YWluIGNvbXBvbmVudHMgYXJlIHByb2R1Y3Rpb24gcmVhZHksIHNlY3VyZSB0
+byBtb2Rlcm4gc3RhbmRhcmRzLCBhbmQgYXJlIHN1cHBvcnRhYmxlIGxvbmcgdGVybS4gIEknZCBt
+dWNoIHJhdGhlciBzZWUgcmVmZXJlbmNlIGNvbXBvbmVudHMgZmFsbCBpbnRvIHRoYXQgY2F0ZWdv
+cnkgdGhhbiB0byBjcmVhdGUgYSBuZXcgc3lzdGVtIGZvciBjbGFzc2lmaWNhdGlvbi4gIFdpdGgg
+dGhhdCBzYWlkLCBpZiBtb3N0IG9mIHRoZXNlIG5lZWRzIGFyZW4ndCBjb21tb24gYW1vbmdzdCAg
+YSBtYWpvcml0eSBvZiB0aGUgcGxhdGZvcm1zLCB0aGVuIEknbSBoYXBweSB0byBkbyB0aGUgIlhZ
+WiBjb3JwIiBzdHlsZSBwcmVzY3JpcHRpb24uICBKdXN0IHRvIGJlIGNsZWFyLCB0aGVzZSBhcmUg
+dGhvdWdodHMsIGFuZCBsZWFybmluZ3MgcHVsbGVkIGZyb20gcHJldmlvdXMgcHJvZHVjdGlvbiBC
+TUMgc3lzdGVtcyBJJ3ZlIHdvcmtlZCBvbi4gIEknbSBjZXJ0YWluIG15IGJpYXNlcyBoYXZlIGJs
+ZWQgaW50byBzb21lIG9mIHRoZSBwb2ludHMuDQpJIHdhcyBub3QgaW50ZW5kaW5nIHRvIHBvc2Ug
+dGhlc2UgYXMgbmV3IGhhcmQgcnVsZXMuICBHdWlkZWxpbmUgaXMgZXZlbiBhIHN0cm9uZyB3b3Jk
+LiAgIldoYXQgRWQgd2FudHMgdG8gc2VlIiBtaWdodCBiZSBhIGJldHRlciBkZXNjcmlwdGlvbiBh
+dCB0aGlzIHBvaW50Lg0KDQo+ID4NCj4gPiBNeSB3b3JsZHZpZXcgaXMgdGhhdCBlYWNoIG9uZSBv
+ZiB0aGVzZSBidWxsZXQgcG9pbnRzIHdvdWxkIGNvc3QgdGhlDQo+ID4gcHJvamVjdCBhIHBvdGVu
+dGlhbCBjb250cmlidXRvci4gIFNvbWV3aGVyZSwgc29tZW9uZSBpcyBnb2luZyB0byB3YW50DQo+
+ID4gdG8gZG8gb25lIG9mIHRob3NlIHRoaW5ncy4gIFdoeSBub3QgbGV0IHRoZW0sIHdoZW4gdGhl
+IG9ubHkgdGhpbmcgeW91DQo+ID4gaGF2ZSB0byBkbyBpcyBub3QgdXNlIHRoZWlyIGNvZGU/DQo+
+IA0KPiBNYXliZSBndWlkZWxpbmVzIG1vcmUgdGhhbiBydWxlcz8NCkkgc2hvdWxkJ3ZlIG1hZGUg
+dGhhdCBtdWNoIG1vcmUgY2xlYXIuICBZZXMsIHRoZXNlIHdlcmUgaW50ZW5kZWQgdG8gYmUgaWRl
+YXMgZm9yIGhvdyBJJ2QgbGlrZSB0byBzZWUgY2VydGFpbiBpbnRlcmZhY2VzIGV2b2x2ZS4gIEkg
+aGFkIG5vIGludGVudGlvbiBvZiBwcmVzY3JpYmluZyB3aGF0IHBlb3BsZSBhcmUgYWxsb3dlZCB0
+byBkby4gIEkgcXVlc3Rpb24gaWYgSSBldmVuIHdhbnQgdG8gcHJlc2NyaWJlIHJ1bGVzIGZvciBy
+ZWZlcmVuY2UgY29tcG9uZW50cywgYnV0IEknZCBhdCBsZWFzdCBoYXZlIGEgZGlzY3Vzc2lvbiBh
+Ym91dCBpdC4NCg0KPiANCj4gSSdtIHN1cmUgdGhlcmUncyBleGNlcHRpb25zLCBidXQgdGhlcmUn
+cyB1bmxpa2VseSB0byBiZSBhbnl0aGluZyByZWFsbHkgZXhpc3QNCj4gYmV5b25kIFJlZEZpc2gg
+YW5kIElQTUkuLi4gSWYgdGhlcmUgaXMsIEknZCBzYXkgaXQncyB1cCB0byB5b3UgaWYgeW91IHdh
+bnQgdG8NCj4gaW5jbHVkZSBpdCBpbiB0aGUgYmFzZS9yZWZlcmVuY2UgZGlzdHJpYnV0aW9uIGFu
+ZCBpZiB0aGlzIHdpbGwgY3JlYXRlIHZhbHVlIG9yIGp1c3QNCj4gbW9yZSB3b3JrIDopDQo+IA0K
+PiANCj4gLS0NCj4gU3Rld2FydCBTbWl0aA0KPiBPUEFMIEFyY2hpdGVjdCwgSUJNLg0KDQo=
