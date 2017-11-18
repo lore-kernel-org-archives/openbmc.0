@@ -1,39 +1,50 @@
-Return-Path: <vernon.mauery@linux.intel.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.43; helo=mga05.intel.com;
- envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <guhan.sac@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c09::230; helo=mail-qk0-x230.google.com;
+ envelope-from=guhan.sac@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="HEDYaQZw"; 
+ dkim-atps=neutral
+Received: from mail-qk0-x230.google.com (mail-qk0-x230.google.com
+ [IPv6:2607:f8b0:400d:c09::230])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ydtw24CKQzDrRX
- for <openbmc@lists.ozlabs.org>; Sat, 18 Nov 2017 10:04:01 +1100 (AEDT)
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2017 15:03:56 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.44,411,1505804400"; 
-   d="scan'208";a="3524555"
-Received: from mauery.jf.intel.com (HELO mauery) ([10.7.150.164])
- by orsmga003.jf.intel.com with ESMTP; 17 Nov 2017 15:03:56 -0800
-Date: Fri, 17 Nov 2017 15:03:56 -0800
-From: Vernon Mauery <vernon.mauery@linux.intel.com>
-To: Xo Wang <xow@google.com>
-Cc: Patrick Venture <venture@google.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- "Mihm, James" <james.mihm@intel.com>
-Subject: Re: HPM firmware update
-Message-ID: <20171117230356.GF113334@mauery>
-References: <C599FC839619124CAC44E062ABB7DFE2C9F407C2@ORSMSX101.amr.corp.intel.com>
- <14315ca0-3c06-5aa3-5b57-d5e3888fd957@ozlabs.org>
- <20171116171412.GD113334@mauery>
- <CAO=notwuzbeXZLD7HePcFJ0xqMQRh0hTcOLtjR_qD60SMdL45Q@mail.gmail.com>
- <CAPH-5w4qbYuOifX=PzUCr_7JXQvPcrKBNqocVugbTUwQoCX_0A@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ydzTq3FdxzDrRk
+ for <openbmc@lists.ozlabs.org>; Sat, 18 Nov 2017 13:30:06 +1100 (AEDT)
+Received: by mail-qk0-x230.google.com with SMTP id b85so1648930qkc.13
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Nov 2017 18:30:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=k/+pdPMKDQ62L80Mm3WWYxDBSd6Wr7OVKdwAJYDxHxw=;
+ b=HEDYaQZw4F/JMBpAj3eG5yNDXn6PMvvu0KvFs9hI602P3AU+s5YFak2f9X7PZpIuuV
+ Na6DqNL9dYaONiEbyHQcCbfZ9Y2no/Mt75IMdRyzDdm4uCEcHDc21V8sjHvmMqrGf3cI
+ yxOzJ/+AQkRCFnldNYfZZau2GpVVaq6Rwc9+s1xMHbOfiNoBX4UDK2flYVhGPdTlBWVx
+ A5F8zCdeUNQ+ZQW7uyM5TTzt1a10OyZebVOAOqBz7Zdq9l3z0TbpRFnIH7tvhmZ+GWFH
+ YS4TefaeFLS7FJDZ1IJiZ+n6v7vjY7a+dGPobK2IMyLzp9yjotKJehbkesXR2gSNsU3F
+ mt1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=k/+pdPMKDQ62L80Mm3WWYxDBSd6Wr7OVKdwAJYDxHxw=;
+ b=aFbNrylYvQdevYLf58vF4efrjmTgA57xCxN01C/P5+vBPWqPZcFYilo2agLB6Qm6GJ
+ YTHSoT0Eo1RmtXeXy4x/QpGY2e+zvBNjdyOazVtUOzqo3I4FL5Rx/5hXPrhBOXwEJGt0
+ yiUSum8UXaulpgNMwYwV0AqmPDCAwRWTf9VI2U4ZXj0Lwq6qZljAxO+JpMfefMlIW8Wu
+ 720xdXA1g2a/CIG5Y2OYeyve95T5fcf9Hm+HSLsPfBq6AYjk9KJ5wYN4qV/8GRd4PDcS
+ jqcEu3vVq0QQLbmcsWRUbKMU2TJG71Mqc/iZ/Jgr3j6iyoZAqNeM6E5r/8O8mAlkww09
+ J50A==
+X-Gm-Message-State: AJaThX5G0NAIbuBaRh+EuGLvQ3ratGZfMaqSGWxyx7puJN/AJlVaplfO
+ bgfQnu5vi0pI/bIfCTcB5efbW7a2edINCArGGInGnA==
+X-Google-Smtp-Source: AGs4zMbdOxshW8NdU7ze4QpA1XP5HP9KRYGW2XobReUI32TWQ2l5tSGzyw2I2kr5OoiEZ9IidiLC6mzXlihYghyhRWM=
+X-Received: by 10.55.207.26 with SMTP id e26mr11695661qkj.127.1510972203842;
+ Fri, 17 Nov 2017 18:30:03 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <CAPH-5w4qbYuOifX=PzUCr_7JXQvPcrKBNqocVugbTUwQoCX_0A@mail.gmail.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+Received: by 10.200.5.149 with HTTP; Fri, 17 Nov 2017 18:29:43 -0800 (PST)
+From: guhan balasubramanian <guhan.sac@gmail.com>
+Date: Fri, 17 Nov 2017 18:29:43 -0800
+Message-ID: <CAMNAJg0Qez1EbKUEvgA1-tVbVvowQAiY0qSX21to5ecMWVc7XQ@mail.gmail.com>
+Subject: Valgrind support in OpenBMC
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="001a1145b2de79c35e055e38a1f5"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -45,66 +56,93 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Nov 2017 23:04:03 -0000
+X-List-Received-Date: Sat, 18 Nov 2017 02:30:08 -0000
 
-On 17-Nov-2017 02:02 PM, Xo Wang wrote:
-...
->>>
->>> An overview goes something like this:
->>>
->>> 1) enter FW transfer mode
->>> 2) optionally send parameters (no-rollback, deferred reboot, debug, etc.)
->>> 3) <make a choice for either IPMI streaming or other transport>
->>>         a) for streaming
->>>                 i) write data blocks as IPMI FW command
->>>         b) for usb mass storage
->>>                 i) send plug-in IPMI command
->>>                 ii) host-side mount usb mass storage device, writes fw image
->>>                 iii) send plug-out IPMI command
->>>                 iv) send 'set uri command' (usb://...)
->>>         c) for network transport
->>>             i) send 'set uri command' (http(s)://..., tftp://..., ftp://...)
->>> 4) send transfer complete IPMI command
->>> 5) check status
->>>         status moves from download -> verify -> program -> ready
->>>         status can move to error from any state
->>> 6) once status moves to ready, firmware update is finished, ready to
->>> reboot.
->>> 7) send exit fw transfer mode IPMI command. This causes the BMC to
->>> reboot unless a deferred reboot has been selected.
->>>
->>>
->>> This mostly describes what the IPMI control does, which is pretty generic.
->>> The trickiest bit is offering multiple mechanisms for transport because IPMI
->>> is not the most efficient method to transport (unless you use 64kB payloads
->>> during the streaming phase. Even then, the TCP protocols are faster because
->>> of round-trip timing (only need an ack rather than a full trip through the
->>> IPMI command lookup and execution process.) USB is pretty fast, but not
->>> available for every system.
->>>
->>> --Vernon
->
->To add to Patrick V's comment, our concern with IPMI-only transfers
->was also with performance. We tested using a spec implementation (a
->POWER8 sample machine running AMI BMC) as well as a toy version of
->Brendan Higgins's proposed in-band transfer mechanism and both took
->way too long to transfer images.
->
->Vernon:
->The USB mechanism sounds interesting. Could you elaborate on what the
->BMC-side hardware and software looks like? I'm picturing one of the
->BMC's USB PHYs hanging off of a host hub? Is it on the board or an
->external cable? What's the backing storage for the mass storage gadget
->(assuming you are using gadget)?
+--001a1145b2de79c35e055e38a1f5
+Content-Type: text/plain; charset="UTF-8"
 
-Our current implementation uses a proprietary, single-use USB stack that 
-we are planning on replacing with a USB-UCD + USB gadget driver. But it 
-works about the same way. When the host makes a request for the USB 
-device, it creates a tmpfs-backed file, formats it with FAT, and 'plugs' 
-in to begin enumeration. The hardware does have a direct route to the 
-host USB, which allows us to reach pretty good transfer rates over 
-USB2.0. In my ideal world, using gadget, we could offer this USB mass 
-storage device as well as an in-band USB ethernet device that could 
-provide another hi-speed transport to the BMC.
+Hi,
 
---Vernon
+I was experimenting on an application on top of OpenBMC. But apparently
+there seems to be a memory leak that I'm not able to narrow down.
+I am trying to build the image with Valgrind to analyze the error. But
+valgrind is not identified as a compatible host.
+
+Error observed:
+
+bash-4.1$ bitbake valgrind
+
+Loading cache: 100%
+|#######################################################################################|
+Time: 0:00:00
+
+Loaded 2753 entries from dependency cache.
+
+Parsing recipes: 100%
+|#####################################################################################|
+Time: 0:00:01
+
+Parsing of 2046 .bb files complete (2045 cached, 1 parsed). 2755 targets,
+380 skipped, 6 masked, 0 errors.
+
+ERROR: Nothing PROVIDES 'valgrind'
+
+ERROR: valgrind was skipped: incompatible with host
+arm-openbmc-linux-gnueabi (not in COMPATIBLE_HOST)
+
+I tried to meddle with the COMPATIBLE_HOST variables in the bb file present
+in:
+import-layers/yocto-poky/meta/recipes-devtools/valgrind/valgrind_3.11.0.bb
+
+But it seems to throw some errors with respect to certain assembly
+instructions.
+
+Any pointers would be helpful.
+
+Thanks,
+Guhan
+
+--001a1145b2de79c35e055e38a1f5
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi,=C2=A0<div><br></div><div>I was experimenting on an app=
+lication on top of OpenBMC. But apparently there seems to be a memory leak =
+that I&#39;m not able to narrow down.=C2=A0</div><div>I am trying to build =
+the image with Valgrind to analyze the error. But valgrind is not identifie=
+d as a compatible host.=C2=A0</div><div><br></div><div>Error observed:=C2=
+=A0</div><div><p class=3D"MsoNormal" style=3D"margin:0in 0in 0.0001pt;font-=
+size:12pt;font-family:Calibri;color:rgb(0,0,0)"><span style=3D"font-size:11=
+pt;color:rgb(68,114,196)">bash-4.1$ bitbake valgrind</span><span></span></p=
+><p class=3D"MsoNormal" style=3D"margin:0in 0in 0.0001pt;font-size:12pt;fon=
+t-family:Calibri;color:rgb(0,0,0)"><span style=3D"font-size:11pt;color:rgb(=
+68,114,196)">Loading cache: 100% |#########################################=
+##############################################| Time: 0:00:00</span><span><=
+/span></p><p class=3D"MsoNormal" style=3D"margin:0in 0in 0.0001pt;font-size=
+:12pt;font-family:Calibri;color:rgb(0,0,0)"><span style=3D"font-size:11pt;c=
+olor:rgb(68,114,196)">Loaded 2753 entries from dependency cache.</span><spa=
+n></span></p><p class=3D"MsoNormal" style=3D"margin:0in 0in 0.0001pt;font-s=
+ize:12pt;font-family:Calibri;color:rgb(0,0,0)"><span style=3D"font-size:11p=
+t;color:rgb(68,114,196)">Parsing recipes: 100% |###########################=
+##########################################################| Time: 0:00:01</=
+span><span></span></p><p class=3D"MsoNormal" style=3D"margin:0in 0in 0.0001=
+pt;font-size:12pt;font-family:Calibri;color:rgb(0,0,0)"><span style=3D"font=
+-size:11pt;color:rgb(68,114,196)">Parsing of 2046 .bb files complete (2045 =
+cached, 1 parsed). 2755 targets, 380 skipped, 6 masked, 0 errors.</span><sp=
+an></span></p><p class=3D"MsoNormal" style=3D"margin:0in 0in 0.0001pt;font-=
+size:12pt;font-family:Calibri;color:rgb(0,0,0)"><span style=3D"font-size:11=
+pt;color:rgb(68,114,196)">ERROR: Nothing PROVIDES &#39;valgrind&#39;</span>=
+<span></span></p><p class=3D"MsoNormal" style=3D"margin:0in 0in 0.0001pt;fo=
+nt-size:12pt;font-family:Calibri;color:rgb(0,0,0)"><span style=3D"font-size=
+:11pt;color:rgb(68,114,196)">ERROR: valgrind was skipped: incompatible with=
+ host arm-openbmc-linux-gnueabi (not in COMPATIBLE_HOST)</span></p></div><d=
+iv><br></div><div>I tried to meddle with the COMPATIBLE_HOST variables in t=
+he bb file present in:</div><div><span style=3D"color:rgb(68,114,196);font-=
+family:Calibri;font-size:14.6667px">import-layers/yocto-poky/meta/recipes-d=
+evtools/valgrind/<a href=3D"http://valgrind_3.11.0.bb">valgrind_3.11.0.bb</=
+a></span><br></div><div><br></div><div>But it seems to throw some errors wi=
+th respect to certain assembly instructions.=C2=A0<br></div><div><br></div>=
+<div>Any pointers would be helpful.=C2=A0</div><div><br></div><div>Thanks,<=
+/div><div>Guhan=C2=A0</div></div>
+
+--001a1145b2de79c35e055e38a1f5--
