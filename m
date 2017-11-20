@@ -1,29 +1,56 @@
-Return-Path: <james.feist@linux.intel.com>
+Return-Path: <venture@google.com>
 Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.20; helo=mga02.intel.com;
- envelope-from=james.feist@linux.intel.com; receiver=<UNKNOWN>)
-Received: from mga02.intel.com (unknown [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4001:c06::241; helo=mail-io0-x241.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="WIZokEiP"; 
+ dkim-atps=neutral
+Received: from mail-io0-x241.google.com (mail-io0-x241.google.com
+ [IPv6:2607:f8b0:4001:c06::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ygb9n5CC9zDrRY
- for <openbmc@lists.ozlabs.org>; Tue, 21 Nov 2017 04:21:37 +1100 (AEDT)
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2017 09:21:25 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.44,428,1505804400"; d="scan'208";a="175808747"
-Received: from skyhawk.jf.intel.com ([10.54.51.84])
- by orsmga005.jf.intel.com with ESMTP; 20 Nov 2017 09:21:25 -0800
-From: James Feist <james.feist@linux.intel.com>
-To: openbmc@lists.ozlabs.org,
-	joel@jms.id.au
-Cc: James Feist <james.feist@linux.intel.com>
-Subject: [PATCH linux dev-4.10 1/1] ARM: dts: aspeed: Rename
- aspeed-bmc-opp-flash-layout.dtsi
-Date: Mon, 20 Nov 2017 09:21:22 -0800
-Message-Id: <1511198482-46599-1-git-send-email-james.feist@linux.intel.com>
-X-Mailer: git-send-email 2.7.4
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ygdF85PrCzDrCx
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Nov 2017 05:54:52 +1100 (AEDT)
+Received: by mail-io0-x241.google.com with SMTP id z74so16776926iof.12
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Nov 2017 10:54:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=from:to:subject:date:message-id;
+ bh=Agj6gVBKluDOuyurPUqwilv3C93JWj9fXedmz5Uf/2Y=;
+ b=WIZokEiPO2w+zfpnJpEzG/T+eBmQTRxSWWSPczr7WIC5SZ8PR723GZ/xGt/9Yz/W/X
+ 0Yi8o3AVyU2kqrtPRpR37ID8/mlZLfAVbxtpbLSGxCpXql654UXssra5JVY03xnrZa01
+ 2x0RQp7K2Lw+TU/Z3PvlVtr/h41cNPW72kKtHTWpPIu2eEqljDmklLl9hza24fo+8I4j
+ mVV52dn7XK8Y7r4pHQnvm4QXvG9P0jd7Vh0EfsHSvQuXd/3HJRJYSg9UzF08pGymEbU8
+ GcaLDVu3lDNkOEOikMNfY2Q9O4+ursGzUKoO1GOvJt1a5Txjfh2Av7n8FiYeOVXhb9gT
+ xcXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:subject:date:message-id;
+ bh=Agj6gVBKluDOuyurPUqwilv3C93JWj9fXedmz5Uf/2Y=;
+ b=HP4DnhGJMXqkXF63ZO+njOY9O9BUkKeO0yn0BzIQJOgOVjUf1pNlLuvjqAghIx163O
+ jvCdF1iHZ72sr70kqmj3uSqVhVWrZcH8zjoU2B2zLySnWWq4ajwZztFTZvN+aXLBrqEG
+ Cfvtr0yYTDzbVO9iurz9ZFtwiI8aBEyGgBMBk8DE9ZTq2ZRs7/f2qnlYGfFt3Mpo32vO
+ WERSeecP7fceyFElitthHDlM1JTo+eHF0QZGTIqm1ylMI5hStPR3HZOgWdGE0J9n+n/C
+ dYOxb09TUlE8dCn0Gv/P2DJ/am1ow5TfiPiJXtQqZkK/FWtcULYHwn9U4Drer/xujQvR
+ Gl8A==
+X-Gm-Message-State: AJaThX78xYL66GScQxyzuNwxJt/v6/SoBEvLkPs5mVs5TmKiWMEPE8Rj
+ AOnnrZIbRHENR1/B82C7CZCdCw==
+X-Google-Smtp-Source: AGs4zMa7Uh2s2g1UflPQ99Ja3eCqGtFGFQEotUxDVYJUnnGpOzuklfBfvjv9krJGFBqTfjmO6OG7gQ==
+X-Received: by 10.107.128.1 with SMTP id b1mr15457445iod.164.1511204089794;
+ Mon, 20 Nov 2017 10:54:49 -0800 (PST)
+Received: from venture.svl.corp.google.com ([100.123.242.104])
+ by smtp.gmail.com with ESMTPSA id 134sm1324738ion.0.2017.11.20.10.54.48
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Mon, 20 Nov 2017 10:54:49 -0800 (PST)
+From: Patrick Venture <venture@google.com>
+To: venture@google.com,
+	joel@jms.id.au,
+	openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.10] ARM: dts: aspeed: gpio controller register
+ range
+Date: Mon, 20 Nov 2017 10:54:45 -0800
+Message-Id: <20171120185445.146061-1-venture@google.com>
+X-Mailer: git-send-email 2.15.0.448.gf294e3d99a-goog
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -35,236 +62,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Nov 2017 17:21:51 -0000
+X-List-Received-Date: Mon, 20 Nov 2017 18:54:53 -0000
 
-Rename aspeed-bmc-opp-flash-layout.dtsi to openbmc-flash-layout.dtsi
-as this file is not open power specific.
+Instead of 4k, it should be 512 because the latter
+part of the memory region are registers for the serial
+gpio driver.
 
-Signed-off-by: James Feist <james.feist@linux.intel.com>
+Signed-off-by: Patrick Venture <venture@google.com>
 ---
- arch/arm/boot/dts/aspeed-ast2500-evb.dts           |  2 +-
- arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts      |  2 +-
- arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts     |  2 +-
- arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts     |  2 +-
- arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi | 26 ----------------------
- arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts      |  2 +-
- arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts       |  2 +-
- arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts      |  2 +-
- arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts       |  2 +-
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts   |  2 +-
- arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts         |  2 +-
- arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts       |  2 +-
- arch/arm/boot/dts/openbmc-flash-layout.dtsi        | 26 ++++++++++++++++++++++
- 13 files changed, 37 insertions(+), 37 deletions(-)
- delete mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
- create mode 100644 arch/arm/boot/dts/openbmc-flash-layout.dtsi
+ arch/arm/boot/dts/aspeed-g4.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/aspeed-ast2500-evb.dts b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-index 3543989..d75b2e8 100644
---- a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-+++ b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-@@ -21,7 +21,7 @@
- 	flash@0 {
- 		status = "okay";
- 		m25p,fast-read;
--#include "aspeed-bmc-opp-flash-layout.dtsi"
-+#include "openbmc-flash-layout.dtsi"
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-index d1dc2ef..2d0bc10 100644
---- a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-@@ -24,7 +24,7 @@
- 	flash@0 {
- 		status = "okay";
- 		m25p,fast-read;
--#include "aspeed-bmc-opp-flash-layout.dtsi"
-+#include "openbmc-flash-layout.dtsi"
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-index 6e70ca5..0b7a238 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-@@ -61,7 +61,7 @@
- 	flash@0 {
- 		status = "okay";
- 		m25p,fast-read;
--#include "aspeed-bmc-opp-flash-layout.dtsi"
-+#include "openbmc-flash-layout.dtsi"
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-index 93ad3ea..e8e61f7 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-@@ -50,7 +50,7 @@
- 	flash@0 {
- 		status = "okay";
- 		m25p,fast-read;
--#include "aspeed-bmc-opp-flash-layout.dtsi"
-+#include "openbmc-flash-layout.dtsi"
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
-deleted file mode 100644
-index 4bcfd1b..0000000
---- a/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
-+++ /dev/null
-@@ -1,26 +0,0 @@
--		label = "bmc";
--		partitions {
--				#address-cells = < 1 >;
--				#size-cells = < 1 >;
--				compatible = "fixed-partitions";
--				u-boot@0 {
--					reg = < 0 0x60000 >;
--					label = "u-boot";
--				};
--				u-boot-env@60000 {
--					reg = < 0x60000 0x20000 >;
--					label = "u-boot-env";
--				};
--				kernel@80000 {
--					reg = < 0x80000 0x440000 >;
--					label = "kernel";
--				};
--				rofs@0c0000 {
--					reg = < 0x4c0000 0x1740000 >;
--					label = "rofs";
--				};
--				rwfs@1c00000 {
--					reg = < 0x1c00000 0x400000 >;
--					label = "rwfs";
--				};
--		};
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-index 95552c8..5e30912 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-@@ -34,7 +34,7 @@
- 	flash@0 {
- 		status = "okay";
- 		m25p,fast-read;
--#include "aspeed-bmc-opp-flash-layout.dtsi"
-+#include "openbmc-flash-layout.dtsi"
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
-index 833ef17..58f7884 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
-@@ -96,7 +96,7 @@
- 	flash@0 {
- 		status = "okay";
- 		m25p,fast-read;
--#include "aspeed-bmc-opp-flash-layout.dtsi"
-+#include "openbmc-flash-layout.dtsi"
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-index ab3fee6..b41c29a 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-@@ -65,7 +65,7 @@
- 	flash@0 {
- 		status = "okay";
- 		m25p,fast-read;
--#include "aspeed-bmc-opp-flash-layout.dtsi"
-+#include "openbmc-flash-layout.dtsi"
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-index 060eb0c..329532a 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-@@ -114,7 +114,7 @@
- 	flash@0 {
- 		status = "okay";
- 		m25p,fast-read;
--#include "aspeed-bmc-opp-flash-layout.dtsi"
-+#include "openbmc-flash-layout.dtsi"
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-index 68058ec..7017984 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -176,7 +176,7 @@
- 		status = "okay";
- 		m25p,fast-read;
- 
--#include "aspeed-bmc-opp-flash-layout.dtsi"
-+#include "openbmc-flash-layout.dtsi"
- 	};
- 	flash@1 {
- 		status = "okay";
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-index 5410f58..5f6a11a 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-@@ -140,7 +140,7 @@
- 	flash@0 {
- 		status = "okay";
- 		m25p,fast-read;
--#include "aspeed-bmc-opp-flash-layout.dtsi"
-+#include "openbmc-flash-layout.dtsi"
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-index 7ed3a77..eafd6f9 100644
---- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-@@ -107,7 +107,7 @@
- 	flash@0 {
- 		status = "okay";
- 		m25p,fast-read;
--#include "aspeed-bmc-opp-flash-layout.dtsi"
-+#include "openbmc-flash-layout.dtsi"
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/openbmc-flash-layout.dtsi b/arch/arm/boot/dts/openbmc-flash-layout.dtsi
-new file mode 100644
-index 0000000..4bcfd1b
---- /dev/null
-+++ b/arch/arm/boot/dts/openbmc-flash-layout.dtsi
-@@ -0,0 +1,26 @@
-+		label = "bmc";
-+		partitions {
-+				#address-cells = < 1 >;
-+				#size-cells = < 1 >;
-+				compatible = "fixed-partitions";
-+				u-boot@0 {
-+					reg = < 0 0x60000 >;
-+					label = "u-boot";
-+				};
-+				u-boot-env@60000 {
-+					reg = < 0x60000 0x20000 >;
-+					label = "u-boot-env";
-+				};
-+				kernel@80000 {
-+					reg = < 0x80000 0x440000 >;
-+					label = "kernel";
-+				};
-+				rofs@0c0000 {
-+					reg = < 0x4c0000 0x1740000 >;
-+					label = "rofs";
-+				};
-+				rwfs@1c00000 {
-+					reg = < 0x1c00000 0x400000 >;
-+					label = "rwfs";
-+				};
-+		};
+diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
+index 6505062ac6c7..424d843ec1da 100644
+--- a/arch/arm/boot/dts/aspeed-g4.dtsi
++++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+@@ -231,7 +231,7 @@
+ 				#gpio-cells = <2>;
+ 				gpio-controller;
+ 				compatible = "aspeed,ast2400-gpio";
+-				reg = <0x1e780000 0x1000>;
++				reg = <0x1e780000 0x200>;
+ 				interrupts = <20>;
+ 				interrupt-controller;
+ 				gpio-ranges = <&pinctrl 0 0 220>;
 -- 
-2.7.4
+2.15.0.448.gf294e3d99a-goog
