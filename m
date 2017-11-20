@@ -1,60 +1,29 @@
-Return-Path: <andrew@aj.id.au>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="lsjUEgaY"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="AwxR7W3p"; dkim-atps=neutral
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <james.feist@linux.intel.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.20; helo=mga02.intel.com;
+ envelope-from=james.feist@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga02.intel.com (unknown [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ygGLN6cdGzDrTl
- for <openbmc@lists.ozlabs.org>; Mon, 20 Nov 2017 15:43:08 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id BB3ED20AFD;
- Sun, 19 Nov 2017 23:43:06 -0500 (EST)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Sun, 19 Nov 2017 23:43:06 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:in-reply-to:in-reply-to:message-id:references
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=2aa6BlG9+ploWiQwcssafIq3eDKCkqq9f/smLfbJMt4=; b=lsjUEgaY
- enAeQVeVvV5//scZDW/Gj+A9MCOqlYmDYOESXgU5jxMdHqm5CNindRK8Aqzxtax0
- b2gjXSOHy/JE7c9YkRnhUhhsrCvv2sCgUOaC8LgY3qUu+TTXOB5ISamYlUHAVTyb
- Zv6RkztSIHRYt2QF9g+xzD0bPuX6Oj3cebBpg7tK4RTL52jbsCJT/kXkae0+W8Qj
- ZcsHGc2umuLsWmOIlm/nv6z+08JGLiiEymBYL28uWrPADnEHLwgAzHe3aXgoIVMX
- kyAMWZ8Nl8krp4e8FpsCza70wWXvotklErR49gVyiAE6dOq8RJXRlqULanOiXoEe
- cadZDTGaH+G8UQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:in-reply-to:in-reply-to
- :message-id:references:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=2aa6BlG9+ploWiQwcssafIq3eDKCk
- qq9f/smLfbJMt4=; b=AwxR7W3pTvJ9Hne8+6/by34A9Pgw03CSl4Le52cRPuTMx
- kdxZuTJJOWnRV189eODOal6Wh4C2oQ+J9Vvho4n3UjWd5JfjAdruAdpwk13KI215
- z9b8/ZRyRbK944mgYeroRl12Muj2clwXtfh1ZQcZcSzLMfiBZZ8jiktsZ4OYv35R
- nRV/oPVYJr86HhJHLlyjJGDBbEn6Ls7bbhNQkp7Aa080Ga1BYbHM4ZNRI1wuWpMk
- 5oR2awT6mBoX6sA0tS+PR7375vmuYNbPNK8tI2gSFlzvcHKyr22rrsKNVMktGm2h
- pGmz5KJjs9B8weklLZJneLIVsWcGWwt2mqC1ENRwg==
-X-ME-Sender: <xms:Wl0SWk89NFCqZapM0XBQw9lDX-tI7Hr9F_Jt7Ze2tGxeMpvcjG4h2A>
-Received: from dave.base64.com.au (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id E83162486D;
- Sun, 19 Nov 2017 23:43:02 -0500 (EST)
-From: Andrew Jeffery <andrew@aj.id.au>
-To: linux-hwmon@vger.kernel.org
-Cc: Andrew Jeffery <andrew@aj.id.au>, linux@roeck-us.net, jdelvare@suse.com,
- corbet@lwn.net, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, joel@jms.id.au, openbmc@lists.ozlabs.org
-Subject: [PATCH v6 4/4] pmbus (max31785): Add dual tachometer support
-Date: Mon, 20 Nov 2017 15:12:06 +1030
-Message-Id: <49a5c6db7eb5dd1c53d326e0f7314e8f9e258997.1511152748.git-series.andrew@aj.id.au>
-X-Mailer: git-send-email 2.14.1
-In-Reply-To: <cover.dfb0a63462b38b9384b1d077fd62d17a11a7a0dd.1511152748.git-series.andrew@aj.id.au>
-References: <cover.dfb0a63462b38b9384b1d077fd62d17a11a7a0dd.1511152748.git-series.andrew@aj.id.au>
-In-Reply-To: <cover.dfb0a63462b38b9384b1d077fd62d17a11a7a0dd.1511152748.git-series.andrew@aj.id.au>
-References: <cover.dfb0a63462b38b9384b1d077fd62d17a11a7a0dd.1511152748.git-series.andrew@aj.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ygb9n5CC9zDrRY
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Nov 2017 04:21:37 +1100 (AEDT)
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 20 Nov 2017 09:21:25 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.44,428,1505804400"; d="scan'208";a="175808747"
+Received: from skyhawk.jf.intel.com ([10.54.51.84])
+ by orsmga005.jf.intel.com with ESMTP; 20 Nov 2017 09:21:25 -0800
+From: James Feist <james.feist@linux.intel.com>
+To: openbmc@lists.ozlabs.org,
+	joel@jms.id.au
+Cc: James Feist <james.feist@linux.intel.com>
+Subject: [PATCH linux dev-4.10 1/1] ARM: dts: aspeed: Rename
+ aspeed-bmc-opp-flash-layout.dtsi
+Date: Mon, 20 Nov 2017 09:21:22 -0800
+Message-Id: <1511198482-46599-1-git-send-email-james.feist@linux.intel.com>
+X-Mailer: git-send-email 2.7.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -66,259 +35,236 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Nov 2017 04:43:10 -0000
+X-List-Received-Date: Mon, 20 Nov 2017 17:21:51 -0000
 
-The dual tachometer feature is implemented in hardware with a TACHSEL
-input to indicate the rotor under measurement, and exposed on the device
-by extending the READ_FAN_SPEED_1 word with two extra bytes*. The need
-to read the non-standard four-byte response leads to a cut-down
-implementation of i2c_smbus_xfer_emulated() included in the driver.
-Further, to expose the second rotor tachometer value to userspace the
-values are exposed through virtual pages. We re-route accesses to
-FAN_CONFIG_1_2 and READ_FAN_SPEED_1 on pages 23-28 (not defined by the
-hardware) to the same registers on pages 0-5, and with the latter command we
-extract the value from the second word of the four-byte response.
+Rename aspeed-bmc-opp-flash-layout.dtsi to openbmc-flash-layout.dtsi
+as this file is not open power specific.
 
-* The documentation recommends the slower rotor be associated with
-TACHSEL=0, which corresponds to the first word of the response. The TACHSEL=0
-measurement is used by the controller's closed-loop fan management to judge
-target fan rate.
-
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+Signed-off-by: James Feist <james.feist@linux.intel.com>
 ---
- Documentation/hwmon/max31785   |   8 +-
- drivers/hwmon/pmbus/max31785.c | 147 ++++++++++++++++++++++++++++++++++-
- 2 files changed, 152 insertions(+), 3 deletions(-)
+ arch/arm/boot/dts/aspeed-ast2500-evb.dts           |  2 +-
+ arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts      |  2 +-
+ arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts     |  2 +-
+ arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts     |  2 +-
+ arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi | 26 ----------------------
+ arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts      |  2 +-
+ arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts       |  2 +-
+ arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts      |  2 +-
+ arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts       |  2 +-
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts   |  2 +-
+ arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts         |  2 +-
+ arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts       |  2 +-
+ arch/arm/boot/dts/openbmc-flash-layout.dtsi        | 26 ++++++++++++++++++++++
+ 13 files changed, 37 insertions(+), 37 deletions(-)
+ delete mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
+ create mode 100644 arch/arm/boot/dts/openbmc-flash-layout.dtsi
 
-diff --git a/Documentation/hwmon/max31785 b/Documentation/hwmon/max31785
-index 7b0a0a8cdb6b..270c5f865261 100644
---- a/Documentation/hwmon/max31785
-+++ b/Documentation/hwmon/max31785
-@@ -17,8 +17,9 @@ management with temperature and remote voltage sensing. Various fan control
- features are provided, including PWM frequency control, temperature hysteresis,
- dual tachometer measurements, and fan health monitoring.
- 
--For dual rotor fan configuration, the MAX31785 exposes the slowest rotor of the
--two in the fan[1-4]_input attributes.
-+For dual-rotor configurations the MAX31785A exposes the second rotor tachometer
-+readings in attributes fan[5-8]_input. By contrast the MAX31785 only exposes
-+the slowest rotor measurement, and does so in the fan[1-4]_input attributes.
- 
- Usage Notes
- -----------
-@@ -31,7 +32,8 @@ Sysfs attributes
- 
- fan[1-4]_alarm		Fan alarm.
- fan[1-4]_fault		Fan fault.
--fan[1-4]_input		Fan RPM.
-+fan[1-8]_input		Fan RPM. On the MAX31785A, inputs 5-8 correspond to the
-+			second rotor of fans 1-4
- fan[1-4]_target		Fan input target
- 
- in[1-6]_crit		Critical maximum output voltage
-diff --git a/drivers/hwmon/pmbus/max31785.c b/drivers/hwmon/pmbus/max31785.c
-index 8706a696c89a..bffab449be39 100644
---- a/drivers/hwmon/pmbus/max31785.c
-+++ b/drivers/hwmon/pmbus/max31785.c
-@@ -16,9 +16,79 @@
- 
- enum max31785_regs {
- 	MFR_REVISION		= 0x9b,
-+	MFR_FAN_CONFIG		= 0xf1,
+diff --git a/arch/arm/boot/dts/aspeed-ast2500-evb.dts b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
+index 3543989..d75b2e8 100644
+--- a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
++++ b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
+@@ -21,7 +21,7 @@
+ 	flash@0 {
+ 		status = "okay";
+ 		m25p,fast-read;
+-#include "aspeed-bmc-opp-flash-layout.dtsi"
++#include "openbmc-flash-layout.dtsi"
+ 	};
  };
  
-+#define MAX31785			0x3030
-+#define MAX31785A			0x3040
-+
-+#define MFR_FAN_CONFIG_DUAL_TACH	BIT(12)
-+
- #define MAX31785_NR_PAGES		23
-+#define MAX31785_NR_FAN_PAGES		6
-+
-+static int max31785_read_byte_data(struct i2c_client *client, int page,
-+				   int reg)
-+{
-+	if (page < MAX31785_NR_PAGES)
-+		return -ENODATA;
-+
-+	switch (reg) {
-+	case PMBUS_VOUT_MODE:
-+		return -ENOTSUPP;
-+	case PMBUS_FAN_CONFIG_12:
-+		return pmbus_read_byte_data(client, page - MAX31785_NR_PAGES,
-+					    reg);
-+	}
-+
-+	return -ENODATA;
-+}
-+
-+static int max31785_write_byte(struct i2c_client *client, int page, u8 value)
-+{
-+	if (page < MAX31785_NR_PAGES)
-+		return -ENODATA;
-+
-+	return -ENOTSUPP;
-+}
-+
-+static int max31785_read_long_data(struct i2c_client *client, int page,
-+				   int reg, u32 *data)
-+{
-+	unsigned char cmdbuf[1];
-+	unsigned char rspbuf[4];
-+	int rc;
-+
-+	struct i2c_msg msg[2] = {
-+		{
-+			.addr = client->addr,
-+			.flags = 0,
-+			.len = sizeof(cmdbuf),
-+			.buf = cmdbuf,
-+		},
-+		{
-+			.addr = client->addr,
-+			.flags = I2C_M_RD,
-+			.len = sizeof(rspbuf),
-+			.buf = rspbuf,
-+		},
-+	};
-+
-+	cmdbuf[0] = reg;
-+
-+	rc = pmbus_set_page(client, page);
-+	if (rc < 0)
-+		return rc;
-+
-+	rc = i2c_transfer(client->adapter, msg, ARRAY_SIZE(msg));
-+	if (rc < 0)
-+		return rc;
-+
-+	*data = (rspbuf[0] << (0 * 8)) | (rspbuf[1] << (1 * 8)) |
-+		(rspbuf[2] << (2 * 8)) | (rspbuf[3] << (3 * 8));
-+
-+	return rc;
-+}
- 
- static int max31785_get_pwm(struct i2c_client *client, int page)
- {
-@@ -62,9 +132,30 @@ static int max31785_get_pwm_mode(struct i2c_client *client, int page)
- static int max31785_read_word_data(struct i2c_client *client, int page,
- 				   int reg)
- {
-+	u32 val;
- 	int rv;
- 
- 	switch (reg) {
-+	case PMBUS_READ_FAN_SPEED_1:
-+		if (page < MAX31785_NR_PAGES)
-+			return -ENODATA;
-+
-+		rv = max31785_read_long_data(client, page - MAX31785_NR_PAGES,
-+					     reg, &val);
-+		if (rv < 0)
-+			return rv;
-+
-+		rv = (val >> 16) & 0xffff;
-+		break;
-+	case PMBUS_FAN_COMMAND_1:
-+		/*
-+		 * PMBUS_FAN_COMMAND_x is probed to judge whether or not to
-+		 * expose fan control registers.
-+		 *
-+		 * Don't expose fan_target attribute for virtual pages.
-+		 */
-+		rv = (page >= MAX31785_NR_PAGES) ? -ENOTSUPP : -ENODATA;
-+		break;
- 	case PMBUS_VIRT_PWM_1:
- 		rv = max31785_get_pwm(client, page);
- 		break;
-@@ -157,11 +248,15 @@ static int max31785_write_word_data(struct i2c_client *client, int page,
- #define MAX31785_VOUT_FUNCS \
- 	(PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT)
- 
-+#define MAX37185_NUM_FAN_PAGES 6
-+
- static const struct pmbus_driver_info max31785_info = {
- 	.pages = MAX31785_NR_PAGES,
- 
- 	.write_word_data = max31785_write_word_data,
-+	.read_byte_data = max31785_read_byte_data,
- 	.read_word_data = max31785_read_word_data,
-+	.write_byte = max31785_write_byte,
- 
- 	/* RPM */
- 	.format[PSC_FAN] = direct,
-@@ -208,13 +303,46 @@ static const struct pmbus_driver_info max31785_info = {
- 	.func[22] = MAX31785_VOUT_FUNCS,
+diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+index d1dc2ef..2d0bc10 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
+@@ -24,7 +24,7 @@
+ 	flash@0 {
+ 		status = "okay";
+ 		m25p,fast-read;
+-#include "aspeed-bmc-opp-flash-layout.dtsi"
++#include "openbmc-flash-layout.dtsi"
+ 	};
  };
  
-+static int max31785_configure_dual_tach(struct i2c_client *client,
-+					struct pmbus_driver_info *info)
-+{
-+	int ret;
-+	int i;
-+
-+	for (i = 0; i < MAX31785_NR_FAN_PAGES; i++) {
-+		ret = i2c_smbus_write_byte_data(client, PMBUS_PAGE, i);
-+		if (ret < 0)
-+			return ret;
-+
-+		ret = i2c_smbus_read_word_data(client, MFR_FAN_CONFIG);
-+		if (ret < 0)
-+			return ret;
-+
-+		if (ret & MFR_FAN_CONFIG_DUAL_TACH) {
-+			int virtual = MAX31785_NR_PAGES + i;
-+
-+			info->pages = virtual + 1;
-+			info->func[virtual] |= PMBUS_HAVE_FAN12;
-+			info->func[virtual] |= PMBUS_PAGE_VIRTUAL;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- static int max31785_probe(struct i2c_client *client,
- 			  const struct i2c_device_id *id)
- {
- 	struct device *dev = &client->dev;
- 	struct pmbus_driver_info *info;
-+	bool dual_tach = false;
- 	s64 ret;
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+index 6e70ca5..0b7a238 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+@@ -61,7 +61,7 @@
+ 	flash@0 {
+ 		status = "okay";
+ 		m25p,fast-read;
+-#include "aspeed-bmc-opp-flash-layout.dtsi"
++#include "openbmc-flash-layout.dtsi"
+ 	};
+ };
  
-+	if (!i2c_check_functionality(client->adapter,
-+				     I2C_FUNC_SMBUS_BYTE_DATA |
-+				     I2C_FUNC_SMBUS_WORD_DATA))
-+		return -ENODEV;
-+
- 	info = devm_kzalloc(dev, sizeof(struct pmbus_driver_info), GFP_KERNEL);
- 	if (!info)
- 		return -ENOMEM;
-@@ -225,6 +353,25 @@ static int max31785_probe(struct i2c_client *client,
- 	if (ret < 0)
- 		return ret;
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+index 93ad3ea..e8e61f7 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+@@ -50,7 +50,7 @@
+ 	flash@0 {
+ 		status = "okay";
+ 		m25p,fast-read;
+-#include "aspeed-bmc-opp-flash-layout.dtsi"
++#include "openbmc-flash-layout.dtsi"
+ 	};
+ };
  
-+	ret = i2c_smbus_read_word_data(client, MFR_REVISION);
-+	if (ret < 0)
-+		return ret;
-+
-+	if (ret == MAX31785A) {
-+		dual_tach = true;
-+	} else if (ret == MAX31785) {
-+		if (!strcmp("max31785a", id->name))
-+			dev_warn(dev, "Expected max3175a, found max31785: cannot provide secondary tachometer readings\n");
-+	} else {
-+		return -ENODEV;
-+	}
-+
-+	if (dual_tach) {
-+		ret = max31785_configure_dual_tach(client, info);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
- 	return pmbus_do_probe(client, id, info);
- }
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
+deleted file mode 100644
+index 4bcfd1b..0000000
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
++++ /dev/null
+@@ -1,26 +0,0 @@
+-		label = "bmc";
+-		partitions {
+-				#address-cells = < 1 >;
+-				#size-cells = < 1 >;
+-				compatible = "fixed-partitions";
+-				u-boot@0 {
+-					reg = < 0 0x60000 >;
+-					label = "u-boot";
+-				};
+-				u-boot-env@60000 {
+-					reg = < 0x60000 0x20000 >;
+-					label = "u-boot-env";
+-				};
+-				kernel@80000 {
+-					reg = < 0x80000 0x440000 >;
+-					label = "kernel";
+-				};
+-				rofs@0c0000 {
+-					reg = < 0x4c0000 0x1740000 >;
+-					label = "rofs";
+-				};
+-				rwfs@1c00000 {
+-					reg = < 0x1c00000 0x400000 >;
+-					label = "rwfs";
+-				};
+-		};
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
+index 95552c8..5e30912 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
+@@ -34,7 +34,7 @@
+ 	flash@0 {
+ 		status = "okay";
+ 		m25p,fast-read;
+-#include "aspeed-bmc-opp-flash-layout.dtsi"
++#include "openbmc-flash-layout.dtsi"
+ 	};
+ };
  
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
+index 833ef17..58f7884 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
+@@ -96,7 +96,7 @@
+ 	flash@0 {
+ 		status = "okay";
+ 		m25p,fast-read;
+-#include "aspeed-bmc-opp-flash-layout.dtsi"
++#include "openbmc-flash-layout.dtsi"
+ 	};
+ };
+ 
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+index ab3fee6..b41c29a 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+@@ -65,7 +65,7 @@
+ 	flash@0 {
+ 		status = "okay";
+ 		m25p,fast-read;
+-#include "aspeed-bmc-opp-flash-layout.dtsi"
++#include "openbmc-flash-layout.dtsi"
+ 	};
+ };
+ 
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+index 060eb0c..329532a 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+@@ -114,7 +114,7 @@
+ 	flash@0 {
+ 		status = "okay";
+ 		m25p,fast-read;
+-#include "aspeed-bmc-opp-flash-layout.dtsi"
++#include "openbmc-flash-layout.dtsi"
+ 	};
+ };
+ 
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index 68058ec..7017984 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -176,7 +176,7 @@
+ 		status = "okay";
+ 		m25p,fast-read;
+ 
+-#include "aspeed-bmc-opp-flash-layout.dtsi"
++#include "openbmc-flash-layout.dtsi"
+ 	};
+ 	flash@1 {
+ 		status = "okay";
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+index 5410f58..5f6a11a 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+@@ -140,7 +140,7 @@
+ 	flash@0 {
+ 		status = "okay";
+ 		m25p,fast-read;
+-#include "aspeed-bmc-opp-flash-layout.dtsi"
++#include "openbmc-flash-layout.dtsi"
+ 	};
+ };
+ 
+diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+index 7ed3a77..eafd6f9 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+@@ -107,7 +107,7 @@
+ 	flash@0 {
+ 		status = "okay";
+ 		m25p,fast-read;
+-#include "aspeed-bmc-opp-flash-layout.dtsi"
++#include "openbmc-flash-layout.dtsi"
+ 	};
+ };
+ 
+diff --git a/arch/arm/boot/dts/openbmc-flash-layout.dtsi b/arch/arm/boot/dts/openbmc-flash-layout.dtsi
+new file mode 100644
+index 0000000..4bcfd1b
+--- /dev/null
++++ b/arch/arm/boot/dts/openbmc-flash-layout.dtsi
+@@ -0,0 +1,26 @@
++		label = "bmc";
++		partitions {
++				#address-cells = < 1 >;
++				#size-cells = < 1 >;
++				compatible = "fixed-partitions";
++				u-boot@0 {
++					reg = < 0 0x60000 >;
++					label = "u-boot";
++				};
++				u-boot-env@60000 {
++					reg = < 0x60000 0x20000 >;
++					label = "u-boot-env";
++				};
++				kernel@80000 {
++					reg = < 0x80000 0x440000 >;
++					label = "kernel";
++				};
++				rofs@0c0000 {
++					reg = < 0x4c0000 0x1740000 >;
++					label = "rofs";
++				};
++				rwfs@1c00000 {
++					reg = < 0x1c00000 0x400000 >;
++					label = "rwfs";
++				};
++		};
 -- 
-git-series 0.9.1
+2.7.4
