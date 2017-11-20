@@ -1,43 +1,53 @@
-Return-Path: <ed.tanous@intel.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=192.55.52.88; helo=mga01.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <robherring2@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=209.85.218.67; helo=mail-oi0-f67.google.com;
+ envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
+Received: from mail-oi0-f67.google.com (mail-oi0-f67.google.com
+ [209.85.218.67])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ygfdF0PwtzDrM8
- for <openbmc@lists.ozlabs.org>; Tue, 21 Nov 2017 06:57:18 +1100 (AEDT)
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2017 11:57:13 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.44,429,1505804400"; 
-   d="scan'208";a="3997904"
-Received: from orsmsx110.amr.corp.intel.com ([10.22.240.8])
- by FMSMGA003.fm.intel.com with ESMTP; 20 Nov 2017 11:57:13 -0800
-Received: from orsmsx114.amr.corp.intel.com ([169.254.8.129]) by
- ORSMSX110.amr.corp.intel.com ([169.254.10.110]) with mapi id 14.03.0319.002;
- Mon, 20 Nov 2017 11:57:13 -0800
-From: "Tanous, Ed" <ed.tanous@intel.com>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>
-Subject: RE: OpenBMC community telecon - 11/20 Agenda 
-Thread-Topic: OpenBMC community telecon - 11/20 Agenda 
-Thread-Index: AQHTYjWNul7PAerkPEKeTmOnw57DiqMdqcYQ
-Date: Mon, 20 Nov 2017 19:57:12 +0000
-Message-ID: <7E9441B1E5EFFD4681F54958E82169932F4A58B2@ORSMSX114.amr.corp.intel.com>
-References: <785099C4-5D19-4341-9F40-3B6A3404EEC8@fuzziesquirrel.com>
-In-Reply-To: <785099C4-5D19-4341-9F40-3B6A3404EEC8@fuzziesquirrel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ctpclassification: CTP_IC
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiMzlkN2MwOGEtMzE2ZS00MTQ4LTg5MDctNDJmMGIxNDNkODhjIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX0lDIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE1LjkuNi42IiwiVHJ1c3RlZExhYmVsSGFzaCI6IjJJQXNwM2VtS0tRKzRPK2xCYlY4STVzdDhjWkM4SDJOSXBpczByeEVGdjA9In0=
-x-originating-ip: [10.22.254.140]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yghBV5tDCzDrMM
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Nov 2017 08:07:46 +1100 (AEDT)
+Received: by mail-oi0-f67.google.com with SMTP id n16so7121849oig.3
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Nov 2017 13:07:46 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=Fcy+saHSsmJ0aHXEGbisa+TSTvNtxmntK5L4yeeEuJg=;
+ b=jiHyIwV/8A5sCKk0Afye52r1ubcTXSKFn5gbY9x3PO6T4a38JbQsHTn00TfIbD8Rl0
+ p+OTvbhTifj9pZc01yZKaqxXsEbrpiG2VdpAaJIFiU67+k1FfvCLBMgH7xpgFK9XPV/X
+ EEcdNjIZ5D+72UzaKk+UIBj0ded4QtgnhBoZfzxQUJDlnLA1KM6kx6IvfbgQ0omAG5Gh
+ 25sYMkosVCoMvd78tQJ5EfCjz+vom0HPhimQa4oDM8dLsdVPS1XzEt24IcLUTcNO28fq
+ gTlt/7JXmiqwSQG/lWI/xzaLNuXhwUVxGvEKnf0MoKCoYlYXitVfdUP/zmtK2xZZHUQd
+ oNDg==
+X-Gm-Message-State: AJaThX5llBNl/QhAfvCJNZtMXDfX0EFuo7eEg6WZPmsFBgIE2HwA/2ES
+ Z/G9OvAzEeI0PirdjuERUQ==
+X-Google-Smtp-Source: AGs4zMZKz02837CIaGK3DupBedtRSRQmzzlSXX4Jx1e3Y0Xb72Fxf+2lzKbbu7+h5h3O3t275sMjZQ==
+X-Received: by 10.202.56.65 with SMTP id f62mr2821792oia.285.1511212063714;
+ Mon, 20 Nov 2017 13:07:43 -0800 (PST)
+Received: from localhost (24-223-123-72.static.usa-companies.net.
+ [24.223.123.72])
+ by smtp.gmail.com with ESMTPSA id p184sm4888927oig.31.2017.11.20.13.07.42
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 20 Nov 2017 13:07:43 -0800 (PST)
+Date: Mon, 20 Nov 2017 15:07:41 -0600
+From: Rob Herring <robh@kernel.org>
+To: Brendan Higgins <brendanhiggins@google.com>
+Cc: linux@armlinux.org.uk, mark.rutland@arm.com, tmaimon77@gmail.com,
+ avifishman70@gmail.com, raltherr@google.com, f.fainelli@gmail.com,
+ julien.thierry@arm.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v8 2/3] arm: dts: add Nuvoton NPCM750 device tree
+Message-ID: <20171120210741.vi6hq3x7xiowd6zh@rob-hp-laptop>
+References: <20171117190747.21642-1-brendanhiggins@google.com>
+ <20171117190747.21642-3-brendanhiggins@google.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20171117190747.21642-3-brendanhiggins@google.com>
+User-Agent: NeoMutt/20170609 (1.8.3)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -49,36 +59,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Nov 2017 19:57:21 -0000
+X-List-Received-Date: Mon, 20 Nov 2017 21:07:47 -0000
 
-UGxlYXNlIHJlbmFtZS9hcHBlbmQgdG8gY29kZSByZXZpZXcgdmVsb2NpdHk6ICBtYXN0ZXIgYnJh
-bmNoIHN0YWJpbGl0eSAoYXNzdW1pbmcgaXQgd2FzIG15IHRvcGljIGZyb20gZW1haWwgbGFzdCB3
-ZWVrKQ0KDQpBbHNvLCBwbGVhc2UgYWRkOg0KUnVudGltZSBjb25maWd1cmFiaWxpdHk6DQpJJ2Qg
-bGlrZSB0byBoYXZlIGEgZGlzY3Vzc2lvbiBhcm91bmQgb3VyIGRlc2lyZXMgZm9yIHJ1bnRpbWUg
-Y29uZmlndXJhYmlsaXR5IGFuZCBydW50aW1lIGRhdGEtZHJpdmVuIHBsYXRmb3JtIGNvbmZpZ3Vy
-YXRpb25zLiAgVGhpcyBpbmNsdWRlcyBydW50aW1lIGNvbmZpZ3VyYWJsZSBzZW5zb3JzLCBwbGF0
-Zm9ybSBoYXJkd2FyZSBjb25maWd1cmF0aW9uIGNoYW5nZXMsIGFuZCBDaGFzc2lzIGRldGVjdGlv
-bi4gIEknZCBsaWtlIHRvIGhhdmUgYSBzaG9ydCBydW5kb3duIG9mIGhvdyB3ZSd2ZSBoYW5kbGVk
-IHRoZXNlIHRoaW5ncyBpbiBwYXN0IGNvZGViYXNlcywgYW5kIHNlZSBpZiB0aGVyZSdzIGFueSBh
-bGlnbm1lbnQgd2l0aCBvdGhlciBjb21tdW5pdHkgbmVlZHMuDQoNClNlY3VyZSBjb2RpbmcgZ3Vp
-ZGVsaW5lczoNCldoYXQgc2VjdXJlIGNvZGluZyBndWlkZWxpbmVzIGFyZSBvdGhlciBncm91cHMv
-aW5kaXZpZHVhbHMgdXNpbmc/ICAgIEknZCBsaWtlIHRvIGhhdmUgYW4gb3BlbiBkaXNjdXNzaW9u
-IGFib3V0IGhvdyB0byBtb3ZlIHRvd2FyZCBtb3JlIHNlY3VyZSBjb2RpbmcgZ3VpZGVsaW5lcyB3
-aXRoIHRoZSBtaW5pbXVtIHBvc3NpYmxlIGludGVycnVwdGlvbiB3aGlsZSBhbGllbmF0aW5nIHRo
-ZSBtaW5pbXVtIG51bWJlciBvZiBwZW9wbGUuICBTb21lIHN1YnRvcGljczoNCjEuIENhbiBhbnl0
-aGluZyBiZSBlbmZvcmNlZCBhdCB0aGUgbWFzdGVyIGJyYW5jaD8gIA0KMi4gQ2FuIGFueXRoaW5n
-IGJlIGVuZm9yY2VkIGJ5IHBvbGljeT8gIChleGFtcGxlOiByZWZlcmVuY2UgY29tcG9uZW50cyBt
-dXN0IGJlIHNlY3VyZSkNCjMuIERvZXMgYW55b25lIGhhdmUgZXhwZXJpZW5jZSB3aXRoIGF1dG9t
-YXRpbmcgc2VjdXJlIGNvZGluZyBndWlkZWxpbmVzPw0KDQoodG8gYmUgY2xlYXIsIGJ5IHNlY3Vy
-ZSBjb2RpbmcgZ3VpZGVsaW5lcyBJIG1lYW4gcmFuZ2UgY2hlY2tlZCBidWZmZXIgaW50ZXJmYWNl
-cywgbm90IHVzaW5nIG1lbW9yeSB1bnNhZmUgZnVuY3Rpb25zLCBleGNlcHRpb24gc2FmZSBjb2Rl
-LCBhbnRpIHN0YWNrIHNtYXNoaW5nIGNvbXBpbGVyIGZsYWdzLCBlY3QpDQoNClRoYW5rcywNCg0K
-LUVkDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogb3BlbmJtYyBbbWFp
-bHRvOm9wZW5ibWMtDQo+IGJvdW5jZXMrZWQudGFub3VzPWludGVsLmNvbUBsaXN0cy5vemxhYnMu
-b3JnXSBPbiBCZWhhbGYgT2YgQnJhZCBCaXNob3ANCj4gU2VudDogTW9uZGF5LCBOb3ZlbWJlciAy
-MCwgMjAxNyAxMToyNyBBTQ0KPiBUbzogT3BlbkJNQyBNYWlsbGlzdCA8b3BlbmJtY0BsaXN0cy5v
-emxhYnMub3JnPg0KPiBTdWJqZWN0OiBPcGVuQk1DIGNvbW11bml0eSB0ZWxlY29uIC0gMTEvMjAg
-QWdlbmRhDQo+IA0KPiBJQk0gdGVzdGluZyBvdmVydmlldw0KPiBDb2RlIHJldmlldyB2ZWxvY2l0
-eQ0KPiBCb29zdA0KPiBPcGVuIE1pYw0KPiDigJTigJTigJTigJTigJTigJTigJTigJTigJQNCj4g
-TW9uZGF5LCAxMDowMHBtIEVEVA0KPiA4ODgtNDI2LTY4NDANCj4gcGFzc3dvcmQ6IDg1ODkxMzg5
-DQo=
+On Fri, Nov 17, 2017 at 11:07:46AM -0800, Brendan Higgins wrote:
+> Add a common device tree for all Nuvoton NPCM750 BMCs and a board
+> specific device tree for the NPCM750 (Poleg) evaluation board.
+> 
+> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+> Reviewed-by: Tomer Maimon <tmaimon77@gmail.com>
+> Reviewed-by: Avi Fishman <avifishman70@gmail.com>
+> Reviewed-by: Joel Stanley <joel@jms.id.au>
+> Tested-by: Tomer Maimon <tmaimon77@gmail.com>
+> Tested-by: Avi Fishman <avifishman70@gmail.com>
+> ---
+> Changes since v7:
+>   - Added arm,shared-override to l2 cache
+>   - Cleaned up node names
+>   - Cleaned up ranges properties
+>   - Fixed address for nuvoton,npcm750-timer
+>   - Dropped watchdog nodes for now since the properties in them are wrong
+> ---
+>  .../arm/cpu-enable-method/nuvoton,npcm7xx-smp      |  42 +++++
+>  .../devicetree/bindings/arm/npcm/npcm.txt          |   6 +
+>  arch/arm/boot/dts/nuvoton-npcm750-evb.dts          |  44 ++++++
+>  arch/arm/boot/dts/nuvoton-npcm750.dtsi             | 171 +++++++++++++++++++++
+>  include/dt-bindings/clock/nuvoton,npcm7xx-clks.h   |  39 +++++
+>  5 files changed, 302 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/arm/cpu-enable-method/nuvoton,npcm7xx-smp
+>  create mode 100644 Documentation/devicetree/bindings/arm/npcm/npcm.txt
+>  create mode 100644 arch/arm/boot/dts/nuvoton-npcm750-evb.dts
+>  create mode 100644 arch/arm/boot/dts/nuvoton-npcm750.dtsi
+>  create mode 100644 include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
+
+Reviewed-by: Rob Herring <robh@kernel.org>
