@@ -3,53 +3,53 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
  (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="I2GT0Ccn"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="oWe3bXjh"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="BK9qAtXx"; dkim-atps=neutral
+ header.b="U2bg5XL/"; dkim-atps=neutral
 Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ygGLD04KLzDqjf
- for <openbmc@lists.ozlabs.org>; Mon, 20 Nov 2017 15:43:00 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ygGLJ5RgfzDrTr
+ for <openbmc@lists.ozlabs.org>; Mon, 20 Nov 2017 15:43:04 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id D129520BB1;
- Sun, 19 Nov 2017 23:42:57 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id 855BB20B97;
+ Sun, 19 Nov 2017 23:43:02 -0500 (EST)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Sun, 19 Nov 2017 23:42:57 -0500
+ by compute4.internal (MEProxy); Sun, 19 Nov 2017 23:43:02 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :date:from:in-reply-to:in-reply-to:message-id:references
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=a+wCzDAFjN2eHH58+ePU8EZ/CwHl59qrrCnZH81DxTc=; b=I2GT0Ccn
- ftLhuIyweTJiPgFTTVKACj2FrhmQcm274qtHqfFJzC+hkkC/wnGYIDS4dMz2OTeu
- 4Y1J7XfvaKaxX6+BGdnFoD4p9+b1XqdjDIFqhgPOGTYJDd/TNkSOrTh9lB1nOOd1
- jE56+d4OHR95zfFhwwVZZpXlOVETklKZ1lUKP5uERhUBQ0Vk0B5wJhchIHDMm+bX
- lKVyoFhF5iAUUmcOd2aDi1YaXhjVUD8uazoACozZmiJVX/gxVMgHrp/C+YtVbM77
- A8rFK/YN48ndv6iyGwHqe5PNwJzQy7o03gvP3qKrY6EFowEmMdG+eNUMYzh8zVJ6
- Wd5T9Q4g/XWeYg==
+ fm1; bh=VfEoyMMmXZnsMn5+2KP7q4zObb2txS69vOFeEuWbuac=; b=oWe3bXjh
+ c6v7GIW1VENdCUHXCrH8d586Lge//W0+++svaOMmuNQBJdTDpS/Mdwi5Zh4C2uoV
+ jtB8wVQBfcEguVsJ6I7qQ9AmDgFi2TlZ61rUgX/0jcUSI0NKTpjixqOpaiDb1QgL
+ iIT84vnFATe0nDQRY/61wd/skYyNICQWGH6tVfphmvv4QMQB2dfb+0CC+VWM3ify
+ McVFoGo03sANzYAUX6KH9d/uU0K5R2CYk9r0d9OikZNhmjPfWaCOCU/ewNjp+hEP
+ KFm3Hf+Tn8L+budfhGOiow1dy+R3IpSeersTOXQb6e4F6khjs4SXG752SKx2INaQ
+ nATwNROUMwM9+g==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:date:from:in-reply-to:in-reply-to
  :message-id:references:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=a+wCzDAFjN2eHH58+ePU8EZ/CwHl5
- 9qrrCnZH81DxTc=; b=BK9qAtXxBcdpy/T932U4o1AxyMUNn5NxDQHKMa2yj0H0b
- S4hbmh4ZixlAxix6v5pJesHvePlqiuG5Y7vceOtRpfp1Bxnk92bMZpHs09+IUez7
- NWpESGGkPu2Up71iKbNTipHqSD9iUZZhrY85nyJ5eMFkDP0HIYL3ZpAKIO8FKMrx
- 4Ds5yA0wPx3UDVH6sJxEOAXAt8Rj9UcHx1TmJE9yVTvuuZKjepunef1wbuiIpvAA
- tGEMkopD3EAREBIV7F2eSqZ2VNPhmhxZqJXvTe2JGJAvYFUi8VmML681a/tBfCiJ
- BcViJ/O2B+FKGoHb+K7RbxfPLiPWBBRH+6lnkm3UQ==
-X-ME-Sender: <xms:UV0SWvIXlhYLx8c2kriA9atxlckwuLWB_vdgdVTPecCIZx1okrfjZg>
+ :x-me-sender:x-sasl-enc; s=fm1; bh=VfEoyMMmXZnsMn5+2KP7q4zObb2tx
+ S69vOFeEuWbuac=; b=U2bg5XL/gH/D0MAV55mMkmV/0yQqjrGa2VSAYgD92I39I
+ x3p/AvTeGG+v1oPnFogUgv/j7qioLMpR1bhgn5v4ZtdKxGTZSph40ypSIv2mfqnT
+ DGB55melVsZ4nYk695G08/+6Y6JZCGfNdsz8nN6dUaiX+XMRjn3ETf1iTE+AxDfk
+ 0D5P5lug8ZYpihgvE5WR3Cv+OIcoFaDpHJAWRED/aJrqnKyfLDToHkfVNshl3ltV
+ sXUi2PHggoWTOkC9Ct4vtb+Uk5xgOuR9S6fIh7OegKURiT2F5p0n3jOg1nPisVmc
+ zgUvQifKiaS7olW+JJZ3amt29zOMg9x1bgpd1ZZNQ==
+X-ME-Sender: <xms:Vl0SWsPCrniXgP41jGfLPv-Z0nHH0WaMdR_quwANnMvjHTrE11NExA>
 Received: from dave.base64.com.au (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id EC41C240F8;
- Sun, 19 Nov 2017 23:42:53 -0500 (EST)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 70DFF2486D;
+ Sun, 19 Nov 2017 23:42:58 -0500 (EST)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: linux-hwmon@vger.kernel.org
 Cc: Andrew Jeffery <andrew@aj.id.au>, linux@roeck-us.net, jdelvare@suse.com,
  corbet@lwn.net, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-doc@vger.kernel.org, joel@jms.id.au, openbmc@lists.ozlabs.org
-Subject: [PATCH v6 2/4] pmbus (max31785): Add fan control
-Date: Mon, 20 Nov 2017 15:12:04 +1030
-Message-Id: <8c06a1a1fcb67745fb9015b5c3f69f6f12ae0b0f.1511152748.git-series.andrew@aj.id.au>
+Subject: [PATCH v6 3/4] pmbus (core): Add virtual page config bit
+Date: Mon, 20 Nov 2017 15:12:05 +1030
+Message-Id: <57d31e056da37bab946a42c30c1aa4f0a0a595f1.1511152748.git-series.andrew@aj.id.au>
 X-Mailer: git-send-email 2.14.1
 In-Reply-To: <cover.dfb0a63462b38b9384b1d077fd62d17a11a7a0dd.1511152748.git-series.andrew@aj.id.au>
 References: <cover.dfb0a63462b38b9384b1d077fd62d17a11a7a0dd.1511152748.git-series.andrew@aj.id.au>
@@ -66,206 +66,80 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Nov 2017 04:43:00 -0000
+X-List-Received-Date: Mon, 20 Nov 2017 04:43:06 -0000
 
-The implementation makes use of the new fan control virtual registers exposed
-by the pmbus core. It mixes use of the default implementations with some
-overrides via the read/write handlers to handle FAN_COMMAND_1 on the MAX31785,
-whose definition breaks the value range into various control bands dependent on
-RPM or PWM mode.
+Some circumstances call for virtual pages, to expose multiple values
+packed into an extended PMBus register in a manner non-compliant with
+the PMBus standard. An example of this is the Maxim MAX31785 controller, which
+extends the READ_FAN_SPEED_1 PMBus register from two to four bytes to support
+tach readings for both rotors of a dual rotor fan. This extended register
+contains two word-sized values, one reporting the rate of the fastest rotor,
+the other the rate of the slowest. The concept of virtual pages aids this
+situation by mapping the page number onto the value to be selected from the
+vectored result.
+
+We should not try to set virtual pages on the device as such a page explicitly
+doesn't exist; add a flag so we can avoid doing so.
 
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 ---
- Documentation/hwmon/max31785   |   7 ++-
- drivers/hwmon/pmbus/max31785.c | 138 +++++++++++++++++++++++++++++++++-
- 2 files changed, 144 insertions(+), 1 deletion(-)
+ drivers/hwmon/pmbus/pmbus.h      |  2 ++
+ drivers/hwmon/pmbus/pmbus_core.c | 27 ++++++++++++++++++---------
+ 2 files changed, 20 insertions(+), 9 deletions(-)
 
-diff --git a/Documentation/hwmon/max31785 b/Documentation/hwmon/max31785
-index 45fb6093dec2..7b0a0a8cdb6b 100644
---- a/Documentation/hwmon/max31785
-+++ b/Documentation/hwmon/max31785
-@@ -32,6 +32,7 @@ Sysfs attributes
- fan[1-4]_alarm		Fan alarm.
- fan[1-4]_fault		Fan fault.
- fan[1-4]_input		Fan RPM.
-+fan[1-4]_target		Fan input target
+diff --git a/drivers/hwmon/pmbus/pmbus.h b/drivers/hwmon/pmbus/pmbus.h
+index b54d7604d3ef..d39d506aa63e 100644
+--- a/drivers/hwmon/pmbus/pmbus.h
++++ b/drivers/hwmon/pmbus/pmbus.h
+@@ -372,6 +372,8 @@ enum pmbus_sensor_classes {
+ #define PMBUS_HAVE_PWM12	BIT(20)
+ #define PMBUS_HAVE_PWM34	BIT(21)
  
- in[1-6]_crit		Critical maximum output voltage
- in[1-6]_crit_alarm	Output voltage critical high alarm
-@@ -44,6 +45,12 @@ in[1-6]_max_alarm	Output voltage high alarm
- in[1-6]_min		Minimum output voltage
- in[1-6]_min_alarm	Output voltage low alarm
- 
-+pwm[1-4]		Fan target duty cycle (0..255)
-+pwm[1-4]_enable		0: Full-speed
-+			1: Manual PWM control
-+			2: Automatic PWM (tach-feedback RPM fan-control)
-+			3: Automatic closed-loop (temp-feedback fan-control)
++#define PMBUS_PAGE_VIRTUAL	BIT(31)
 +
- temp[1-11]_crit		Critical high temperature
- temp[1-11]_crit_alarm	Chip temperature critical high alarm
- temp[1-11]_input	Measured temperature
-diff --git a/drivers/hwmon/pmbus/max31785.c b/drivers/hwmon/pmbus/max31785.c
-index 9313849d5160..8706a696c89a 100644
---- a/drivers/hwmon/pmbus/max31785.c
-+++ b/drivers/hwmon/pmbus/max31785.c
-@@ -20,8 +20,136 @@ enum max31785_regs {
+ enum pmbus_data_format { linear = 0, direct, vid };
+ enum vrm_version { vr11 = 0, vr12, vr13 };
  
- #define MAX31785_NR_PAGES		23
- 
-+static int max31785_get_pwm(struct i2c_client *client, int page)
-+{
+diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
+index edc25efe7552..e215bbd403a5 100644
+--- a/drivers/hwmon/pmbus/pmbus_core.c
++++ b/drivers/hwmon/pmbus/pmbus_core.c
+@@ -161,18 +161,27 @@ EXPORT_SYMBOL_GPL(pmbus_clear_cache);
+ int pmbus_set_page(struct i2c_client *client, int page)
+ {
+ 	struct pmbus_data *data = i2c_get_clientdata(client);
+-	int rv = 0;
+-	int newpage;
 +	int rv;
 +
-+	rv = pmbus_get_fan_rate_device(client, page, 0, percent);
-+	if (rv < 0)
-+		return rv;
-+	else if (rv >= 0x8000)
++	if (page < 0 || page == data->currpage)
 +		return 0;
-+	else if (rv >= 0x2711)
-+		return 0x2710;
-+
-+	return rv;
-+}
-+
-+static int max31785_get_pwm_mode(struct i2c_client *client, int page)
-+{
-+	int config;
-+	int command;
-+
-+	config = pmbus_read_byte_data(client, page, PMBUS_FAN_CONFIG_12);
-+	if (config < 0)
-+		return config;
-+
-+	command = pmbus_read_word_data(client, page, PMBUS_FAN_COMMAND_1);
-+	if (command < 0)
-+		return command;
-+
-+	if (config & PB_FAN_1_RPM)
-+		return (command >= 0x8000) ? 3 : 2;
-+
-+	if (command >= 0x8000)
-+		return 3;
-+	else if (command >= 0x2711)
-+		return 0;
-+
-+	return 1;
-+}
-+
-+static int max31785_read_word_data(struct i2c_client *client, int page,
-+				   int reg)
-+{
-+	int rv;
-+
-+	switch (reg) {
-+	case PMBUS_VIRT_PWM_1:
-+		rv = max31785_get_pwm(client, page);
-+		break;
-+	case PMBUS_VIRT_PWM_ENABLE_1:
-+		rv = max31785_get_pwm_mode(client, page);
-+		break;
-+	default:
-+		rv = -ENODATA;
-+		break;
-+	}
-+
-+	return rv;
-+}
-+
-+static inline u32 max31785_scale_pwm(u32 sensor_val)
-+{
-+	/*
-+	 * The datasheet describes the accepted value range for manual PWM as
-+	 * [0, 0x2710], while the hwmon pwmX sysfs interface accepts values in
-+	 * [0, 255]. The MAX31785 uses DIRECT mode to scale the FAN_COMMAND
-+	 * registers and in PWM mode the coefficients are m=1, b=0, R=2. The
-+	 * important observation here is that 0x2710 == 10000 == 100 * 100.
-+	 *
-+	 * R=2 (== 10^2 == 100) accounts for scaling the value provided at the
-+	 * sysfs interface into the required hardware resolution, but it does
-+	 * not yet yield a value that we can write to the device (this initial
-+	 * scaling is handled by pmbus_data2reg()). Multiplying by 100 below
-+	 * translates the parameter value into the percentage units required by
-+	 * PMBus, and then we scale back by 255 as required by the hwmon pwmX
-+	 * interface to yield the percentage value at the appropriate
-+	 * resolution for hardware.
-+	 */
-+	return (sensor_val * 100) / 255;
-+}
-+
-+static int max31785_pwm_enable(struct i2c_client *client, int page,
-+				    u16 word)
-+{
-+	int config = 0;
-+	int rate;
-+
-+	switch (word) {
-+	case 0:
-+		rate = 0x7fff;
-+		break;
-+	case 1:
-+		rate = pmbus_get_fan_rate_cached(client, page, 0, percent);
-+		if (rate < 0)
-+			return rate;
-+		rate = max31785_scale_pwm(rate);
-+		break;
-+	case 2:
-+		config = PB_FAN_1_RPM;
-+		rate = pmbus_get_fan_rate_cached(client, page, 0, rpm);
-+		if (rate < 0)
-+			return rate;
-+		break;
-+	case 3:
-+		rate = 0xffff;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return pmbus_update_fan(client, page, 0, config, PB_FAN_1_RPM, rate);
-+}
-+
-+static int max31785_write_word_data(struct i2c_client *client, int page,
-+				    int reg, u16 word)
-+{
-+	switch (reg) {
-+	case PMBUS_VIRT_PWM_1:
-+		return pmbus_update_fan(client, page, 0, 0, PB_FAN_1_RPM,
-+					max31785_scale_pwm(word));
-+	case PMBUS_VIRT_PWM_ENABLE_1:
-+		return max31785_pwm_enable(client, page, word);
-+	default:
-+		break;
-+	}
-+
-+	return -ENODATA;
-+}
-+
- #define MAX31785_FAN_FUNCS \
--	(PMBUS_HAVE_FAN12 | PMBUS_HAVE_STATUS_FAN12)
-+	(PMBUS_HAVE_FAN12 | PMBUS_HAVE_STATUS_FAN12 | PMBUS_HAVE_PWM12)
  
- #define MAX31785_TEMP_FUNCS \
- 	(PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP)
-@@ -32,11 +160,19 @@ enum max31785_regs {
- static const struct pmbus_driver_info max31785_info = {
- 	.pages = MAX31785_NR_PAGES,
- 
-+	.write_word_data = max31785_write_word_data,
-+	.read_word_data = max31785_read_word_data,
+-	if (page >= 0 && page != data->currpage) {
++	if (!(data->info->func[page] & PMBUS_PAGE_VIRTUAL)) {
+ 		rv = i2c_smbus_write_byte_data(client, PMBUS_PAGE, page);
+-		newpage = i2c_smbus_read_byte_data(client, PMBUS_PAGE);
+-		if (newpage != page)
+-			rv = -EIO;
+-		else
+-			data->currpage = page;
++		if (rv < 0)
++			return rv;
 +
- 	/* RPM */
- 	.format[PSC_FAN] = direct,
- 	.m[PSC_FAN] = 1,
- 	.b[PSC_FAN] = 0,
- 	.R[PSC_FAN] = 0,
-+	/* PWM */
-+	.format[PSC_PWM] = direct,
-+	.m[PSC_PWM] = 1,
-+	.b[PSC_PWM] = 0,
-+	.R[PSC_PWM] = 2,
- 	.func[0] = MAX31785_FAN_FUNCS,
- 	.func[1] = MAX31785_FAN_FUNCS,
- 	.func[2] = MAX31785_FAN_FUNCS,
++		rv = i2c_smbus_read_byte_data(client, PMBUS_PAGE);
++		if (rv < 0)
++			return rv;
++
++		if (rv != page)
++			return -EIO;
+ 	}
+-	return rv;
++
++	data->currpage = page;
++
++	return 0;
+ }
+ EXPORT_SYMBOL_GPL(pmbus_set_page);
+ 
 -- 
 git-series 0.9.1
