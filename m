@@ -1,55 +1,48 @@
-Return-Path: <roblip@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c00::243; helo=mail-pf0-x243.google.com;
- envelope-from=roblip@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="IbM96yWs"; 
- dkim-atps=neutral
-Received: from mail-pf0-x243.google.com (mail-pf0-x243.google.com
- [IPv6:2607:f8b0:400e:c00::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <ed.tanous@intel.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=134.134.136.100; helo=mga07.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ym2P5754kzDrZ3
- for <openbmc@lists.ozlabs.org>; Tue, 28 Nov 2017 10:02:01 +1100 (AEDT)
-Received: by mail-pf0-x243.google.com with SMTP id t69so18066995pfg.4
- for <openbmc@lists.ozlabs.org>; Mon, 27 Nov 2017 15:02:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=pf0yZOu+kClbJHQFtr621h48JGxcFiL1Rd+X9g9lFPQ=;
- b=IbM96yWsbc2TmUX0UXvaSMpT9BO5BcDK9FDSdtvHlneqB5neMUEsrx1EIbMJiI7nkm
- naGW5+NMhpHdo/fBxL6XNch1h0II6IdEbBfhmM/OnNjWjBKg4MCWpNNLlgz4Ku30e68D
- xhzFAkRaa/t4CH2gOfZLtp4z20PKdm+j6CV2o1tSTbUicCvpQKmAvKiyxP6CyZXDuzkq
- GupZJax6FHVYo9XaWFSyKA9w0NBSnlulOhRKVMkS8SlvmAjGfCcjFbOlB7LO0cdeeIB7
- IiEsWjknBMLEo0lF2Baz+bDAEZOCbV3ONozWXVyCjoSJXb9fBlSkrveCftXgScJ4nST/
- 9v+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=pf0yZOu+kClbJHQFtr621h48JGxcFiL1Rd+X9g9lFPQ=;
- b=eXhiN5tJ9MqHwgfb6kyqt7OcAPk0hpj5JL9dhs9GgXPLVqPgf1awx6W6GcyRp0wMCD
- wQoWhYluuhMN34tvq9GliyjFrEyOvmbCermaARe/sfxZgBMv2x0441libCM3PBWOUx6l
- MlKYIHK7hzWnwUSjvV9VRJ7DgbmOVFOm/Ijum+JLy4n/1EnB8EEuWAKKlUCnH5+jRR1D
- I6IDfm+Q7CU0wXDJcqNai1lAjJ5iqepkrpnGwEAAPJ9zUEnphN3taz780rvBd6e+5w5M
- oDmMS/HU9i3E2n+yzACaOwXNzbgxoV7dy1U9uQKo+e67WcIR46GjHJTVTLf1eh8bRGJe
- axMw==
-X-Gm-Message-State: AJaThX5GcWAq11RF55EZ40fD0XRkLsTTDkTe623Ga2N+OqAlKT1g8a5Z
- oyTgDJXAZEzexVwaI4waXkQ=
-X-Google-Smtp-Source: AGs4zMYMesirkCA3dRzgTVnTXQy0zP3jPzaIW3JBCLRFrfe6n8iSlYzCy8t9CHVMLO626sKdQ64cLQ==
-X-Received: by 10.98.211.73 with SMTP id q70mr39184085pfg.107.1511823719141;
- Mon, 27 Nov 2017 15:01:59 -0800 (PST)
-Received: from rlippert.svl.corp.google.com ([100.123.242.116])
- by smtp.gmail.com with ESMTPSA id m87sm41706947pfi.88.2017.11.27.15.01.57
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Mon, 27 Nov 2017 15:01:58 -0800 (PST)
-From: Robert Lippert <roblip@gmail.com>
-X-Google-Original-From: Robert Lippert <rlippert@google.com>
-To: joel@jms.id.au
-Cc: openbmc@lists.ozlabs.org, maxims@google.com,
- Robert Lippert <rlippert@google.com>
-Subject: [PATCH u-boot] aspeed/flash: fix buffersize of MX6651235F flash chip
-Date: Mon, 27 Nov 2017 15:01:08 -0800
-Message-Id: <20171127230108.11935-1-rlippert@google.com>
-X-Mailer: git-send-email 2.15.0.417.g466bffb3ac-goog
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ym3DQ2ysjzDrPk
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Nov 2017 10:39:31 +1100 (AEDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 27 Nov 2017 15:39:28 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.44,466,1505804400"; d="scan'208";a="1249233596"
+Received: from orsmsx103.amr.corp.intel.com ([10.22.225.130])
+ by fmsmga002.fm.intel.com with ESMTP; 27 Nov 2017 15:39:28 -0800
+Received: from orsmsx152.amr.corp.intel.com (10.22.226.39) by
+ ORSMSX103.amr.corp.intel.com (10.22.225.130) with Microsoft SMTP Server (TLS)
+ id 14.3.319.2; Mon, 27 Nov 2017 15:39:28 -0800
+Received: from orsmsx114.amr.corp.intel.com ([169.254.8.129]) by
+ ORSMSX152.amr.corp.intel.com ([169.254.8.218]) with mapi id 14.03.0319.002;
+ Mon, 27 Nov 2017 15:39:28 -0800
+From: "Tanous, Ed" <ed.tanous@intel.com>
+To: Patrick Venture <venture@google.com>, Brad Bishop
+ <bradleyb@fuzziesquirrel.com>
+CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: RE: RFC: multiple system configurations in a single image
+Thread-Topic: RFC: multiple system configurations in a single image
+Thread-Index: AQHTZ8TQJBx6rMp+GE+29hlL+lI3F6MpRLsA//+GXjA=
+Date: Mon, 27 Nov 2017 23:39:27 +0000
+Message-ID: <7E9441B1E5EFFD4681F54958E82169932F4A8FE6@ORSMSX114.amr.corp.intel.com>
+References: <1511817272.13581.27.camel@fuzziesquirrel.com>
+ <CAO=notxaO+m3oCGJxHZhhaUhqh-t9ahENgpVrSBy4JysFeiHEw@mail.gmail.com>
+In-Reply-To: <CAO=notxaO+m3oCGJxHZhhaUhqh-t9ahENgpVrSBy4JysFeiHEw@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-version: 11.0.0.116
+dlp-reaction: request-justification,no-action
+x-originating-ip: [10.22.254.138]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -61,29 +54,66 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 27 Nov 2017 23:02:03 -0000
+X-List-Received-Date: Mon, 27 Nov 2017 23:39:35 -0000
 
-The MX66L51235F had a wrong write buffersize of 512 bytes set which
-causes issues when trying to write an environment block >256 bytes
-as the SPI chip only "listens" to the last 256 bytes.
-
-Signed-off-by: Robert Lippert <rlippert@google.com>
----
- arch/arm/mach-aspeed/flash.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/arm/mach-aspeed/flash.c b/arch/arm/mach-aspeed/flash.c
-index e1e3cf8d7f..907e785d8c 100644
---- a/arch/arm/mach-aspeed/flash.c
-+++ b/arch/arm/mach-aspeed/flash.c
-@@ -1009,7 +1009,7 @@ static ulong flash_get_size (ulong base, flash_info_t *info)
- 			info->readcmd = 0x0b;
- 			info->dualport = 0;
- 			info->dummybyte = 1;
--			info->buffersize = 512;
-+			info->buffersize = 256;
- 			WriteClk = 50;
- 			EraseClk = 20;
- 			ReadClk  = 50;
--- 
-2.15.0.417.g466bffb3ac-goog
+VGhhbmtzIGZvciBicmluZ2luZyB0aGlzIHVwIEJyYWQuICBJIHdhcyBwbGFubmluZyBvbiBzZW5k
+aW5nIHRoaXMgb3V0IGFmdGVyIHRoZSB0ZWNobmljYWwgY2FsbCwgYnV0IHlvdSBiZWF0IG1lIHRv
+IGl0LiAgWW91IGRpZCBhIGdyZWF0IGpvYiBzdW1tYXJpemluZyBvdXIgbWFpbiBwb2ludHMuDQoN
+Ck9uZSBrZXkgdGFrZWF3YXkgZnJvbSB0aGlzIGlzIHRoZSBlbmQgZ29hbCB0aGF0J3MgZHJpdmlu
+ZyBvdXIgZGVzaXJlczogIFBsYXRmb3JtIHBvcnRzIHNob3VsZCB0YWtlIGEgc2luZ2xlIGRldmVs
+b3BlciBsZXNzIHRoYW4gYSB3ZWVrIHRvIGFjY29tcGxpc2gsIGFuZCBoYXZlIGEgaGlnaCAoOTAl
+KykgcmVsaWFiaWxpdHkgb2YgYmVpbmcgZnVuY3Rpb25hbGx5IGNvcnJlY3QuICBXaXRoIGFsbCAN
+CgkNCj4gRXh0cmEgcHJvOiB5b3UgY2FuIGVkaXQgaXQgYXQgcnVuLXRpbWUgYW5kIHJlbGF1bmNo
+IHRoZSBhcHBsaWNhdGlvbiA6KQ0KVGhpcyBpcyBleGFjdGx5IG91ciB1c2UgY2FzZSB3ZSB3YW50
+ZWQgdG8gb3V0bGluZSB3aXRoIHRoZSBwYXRjaC4gIENvbnN1bWVycyBvZiB0aGUgcGxhdGZvcm0g
+bWF5IGNob29zZSB0byBjaGFuZ2UgcGFyYW1ldGVycyBhdCBydW50aW1lIChtYW51ZmFjdHVyZXIg
+SUQgb3IgcGxhdGZvcm0gSUQgYXJlIGdvb2QgZXhhbXBsZXMgaW4gdGhlIHBhdGNoLCBmYW4gY29u
+dHJvbCB0dW5pbmcgaXMgYW4gZXhhbXBsZSBub3QgaW4gdGhlIHBhdGNoKS4gIExvdHMgb2YgY3Vz
+dG9tZXJzIHJlcXVpcmUgcnVudGltZSBjb25maWd1cmFiaWxpdHkgd2l0aG91dCByZWNvbXBpbGlu
+ZywgYXMgdXBsb2FkaW5nIGFuIHVuc3VwcG9ydGVkIGltYWdlIHdvdWxkIHZvaWQgd2FycmFudGll
+cyBmb3IgcHJvZHVjdGlvbiBjb21tZXJjaWFsbHkgc3VwcG9ydGVkIHBsYXRmb3JtcyBmcm9tIG1v
+c3QgbWFudWZhY3R1cmVycy4gIEFsc28sIG1ha2luZyB0aGlzIHJ1bnRpbWUgY29uZmlndXJhYmxl
+IGlzIGEgaHVnZSB3aW4gZm9yIHRoZSBlbmQgdXNlciB0aGF0IGRvZXNuJ3QgbmVjZXNzYXJpbHkg
+aGF2ZSB0aGUgZXhwZXJ0aXNlIHRvIGV4ZWN1dGUgYSB5b2N0byBidWlsZCBhbmQgc2lnbiBpdCBh
+cHByb3ByaWF0ZWx5Lg0KDQo+ID4gbm90LXNvLWdvb2Q6DQo+ID4gICAtIGNvbXBsZXhpdHkgc2hp
+ZnQgZnJvbSBidWlsZCB0byBydW50aW1lIChwYXJzaW5nLCB2YWxpZGF0aW9uKQ0KSW4gb3VyIGV4
+cGVyaWVuY2Ugd2l0aCBvdGhlciBCTUMgY29kZWJhc2VzLCB0aGlzIGNvbXBsZXhpdHkgc2hpZnQg
+bGVhZHMgdG8gYSB2ZXJ5IGNsZWFyIGRpc3RpbmN0aW9uIG9uIHdoYXQgaXMgc3VwcG9ydGVkIGJ5
+IHRoZSBydW50aW1lIGFuZCBwcm92aWRlcyBhIGNsZWFyIGRpc3RpbmN0aW9uIGJldHdlZW4gdGhl
+ICJjb3JlIiAoY29kZSBydW5uaW5nIHRoYXQncyBjb21tb24pIGFuZCB0aGUgInBsYXRmb3JtIiAo
+dGhlIGRhdGEgdGhhdCdzIGRyaXZpbmcgaXQpLg0KVGhlIEZhY2Vib29rIG9wZW5ibWMgaW1wbGVt
+ZW50YXRpb24gaGFzIGEgdmVyeSBzaW1pbGFyIHN0cnVjdHVyZSBmb3IgSlNPTiBiYXNlZCBydW50
+aW1lIGNvbmZpZ3VyYWJpbGl0eSBzZXBhcmF0ZWQgZnJvbSB0aGUgY29yZSBidXQgZG9lcyBpdCBp
+biBtdWx0aXBsZSBmaWxlcy4gIEFuIGV4YW1wbGUgb2YgZmFuIGNvbnRyb2wgaXMgaGVyZToNCmh0
+dHBzOi8vZ2l0aHViLmNvbS9mYWNlYm9vay9vcGVuYm1jL2Jsb2IvaGVsaXVtL21ldGEtZmFjZWJv
+b2svbWV0YS1mYnRwL3JlY2lwZXMtZmJ0cC9mc2NkL2ZzY2QvZnNjLWNvbmZpZy5qc29uIA0KSXQg
+ZG9lcyBub3QgdGFrZSB0aGUgInNpbmdsZSBmaWxlIiBhcHByb2FjaCwgYnV0IGluIGRpc2N1c3Np
+b25zIHdpdGggU2FpLCB0aGV5IHdlcmUgb3BlbiB0byBtb3ZpbmcgdGhhdCBkaXJlY3Rpb24uDQoN
+Cj4gVGhlcmUgaXMgYSBkb3duc2lkZSB0byBkZWxheWVkIHZhbGlkYXRpb24sIGhvd2V2ZXIsIHRo
+ZSBwYXJzaW5nIGlzIGEgIm9uZS0NCj4gdGltZSIgc3RhcnQtdXAgY29zdCBmb3IgdGhlIGFwcGxp
+Y2F0aW9ucy4gIEFsc28sIGl0IG1pZ2h0IGJlIGNsZWFuZXIgaW4gdGVybXMgb2YNCj4gb25lIHN5
+c3RlbSBmaWxlIGRlc2NyaWJpbmcgZXZlcnl0aGluZyB0aGF0IGFsbCB0aGUgZGlmZmVyZW50IGRh
+ZW1vbnMgY2FuDQo+IHBhcnNlLi4uIHRoZXJlIGFyZSBjZXJ0YWlubHkgYSBmZXcgZGlmZmVyZW50
+IGFwcHJvYWNoZXMgdG8gdGhpcy4NCkkgY291bGQgbm90IGhhdmUgc2FpZCBpdCBiZXR0ZXIgbXlz
+ZWxmLiAgVGhlICJvbmUgZmlsZSIgYXBwcm9hY2ggaXMgZXhhY3RseSB0aGUgZGlyZWN0aW9uIHdl
+IHdvdWxkIGxpa2UgdG8gdGFrZSwgYnV0IHdhbnRlZCBzb21lIHByZWNlZGVuY2UgZm9yIHJ1bnRp
+bWUtY29uZmlndXJlZCBwbGF0Zm9ybXMgYmVmb3JlIHdlIHRpbHRlZCBhdCB0aGF0IHdpbmRtaWxs
+Lg0KDQo+ID4gICAtIGxvc3Mgb2YgaW1wbGVtZW50YXRpb24gZnJlZWRvbSBvZiBjaG9pY2UgKGFk
+b3B0aW5nIHRoZSBwcm9wb3NlZA0KPiA+IHNvbHV0aW9uIF9yZXF1aXJlc18ganNvbiBwYXJzaW5n
+IG9uIF9hbGxfIHBsYXRmb3JtcyB1c2luZyByZWZlcmVuY2UNCj4gPiBhcHBsaWNhdGlvbnMsIGV2
+ZW4gcGxhdGZvcm1zIHVzaW5nIHNpbmdsZSBjb25maWd1cmF0aW9uIGltYWdlcykNCkkgZmluZCB0
+aGlzIGhpdCBvbiBjb21wbGV4aXR5IHRvIGJlIGZhaXJseSBtaW5pbWFsIGZvciBtb3N0IGFwcGxp
+Y2F0aW9ucywgYXMgcHl0aG9uIGhhcyAiYmF0dGVyaWVzIGluY2x1ZGVkIiBiaW5kaW5ncyBmb3Ig
+anNvbiBwYXJzaW5nLCBhbmQgQysrIGhhcyBzZXZlcmFsIG1hdHVyZSBsaWJyYXJpZXMgdG8gc2Vs
+ZWN0IGZyb20uICBUaGUgZ2V0IGRldmljZSBpZCBleGFtcGxlIHdlIHB1c2hlZCB1c2VkIG5sb2ht
+YW5uIGpzb24sIGFzIHRoYXQgc2VlbWVkIHRvIGhhdmUgdGhlIGVhc2llc3QgdG8gdXNlIGFic3Ry
+YWN0aW9uLCBidXQgd2UndmUgYWxzbyBzaGlwcGVkIHBsYXRmb3JtcyB3aXRoIGNqc29uIGluIHRo
+ZSBwYXN0Lg0KDQo+IFByZXZpb3VzbHkgZm9yIHRoZSBtb3N0IHBhcnQsIHdlIGFsbCBoYWQgdG8g
+ZG8geWFtbC0+Y3BwLCB3aGljaCBjZXJ0YWlubHkgaGFkDQo+IGl0cyBvd24gZHJhd2JhY2tzLiAg
+SSB0aGluayBqc29uIHdpbGwgcHJvdmlkZSBhIGNsZWFuZXIgbWVjaGFuaXNtIGZvcg0KPiBiYWNr
+d2FyZHMgY29tcGF0aWJpbGl0eS4gIEV2ZXJ5IHBsYXRmb3JtIHdvbnQnIG5lZWQgdG8gcmVndWxh
+cmx5IHVwZGF0ZSB0aGVpcg0KPiBjb25maWd1cmF0aW9uIGZpbGVzIHVubGVzcyB0aGVyZSdzIGEg
+YnJlYWtpbmcgY2hhbmdlLgkNClRoaXMgaXMgZXhhY3RseSBvdXIgZXhwZXJpZW5jZS4gIEluIG90
+aGVyIHBsYXRmb3JtcywgcnVubmluZyBvZmYgY29uZmlndXJhdGlvbiBmaWxlcyBhbGxvd2VkIHVz
+IHRvIGNvbXBsZXRlbHkgcmV3cml0ZSBpbnRlcm5hbCBpbXBsZW1lbnRhdGlvbnMgKHNvbWV0aW1l
+cyBjaGFuZ2luZyBsYW5ndWFnZXMpIHdpdGggbmVnbGlnaWJsZSB1c2VyIGltcGFjdC4NCg==
