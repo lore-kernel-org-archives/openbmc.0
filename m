@@ -1,55 +1,54 @@
 Return-Path: <venture@google.com>
 Authentication-Results: ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4001:c0b::244; helo=mail-it0-x244.google.com;
+ (client-ip=2607:f8b0:4001:c0b::242; helo=mail-it0-x242.google.com;
  envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="PdB+yPTe"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="u2TvZ/E/"; 
  dkim-atps=neutral
-Received: from mail-it0-x244.google.com (mail-it0-x244.google.com
- [IPv6:2607:f8b0:4001:c0b::244])
+Received: from mail-it0-x242.google.com (mail-it0-x242.google.com
+ [IPv6:2607:f8b0:4001:c0b::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ylyP6352xzDqn6
- for <openbmc@lists.ozlabs.org>; Tue, 28 Nov 2017 07:01:46 +1100 (AEDT)
-Received: by mail-it0-x244.google.com with SMTP id m191so22873290itg.2
- for <openbmc@lists.ozlabs.org>; Mon, 27 Nov 2017 12:01:46 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ylyX114VjzDqn6
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Nov 2017 07:07:44 +1100 (AEDT)
+Received: by mail-it0-x242.google.com with SMTP id x13so22613383iti.4
+ for <openbmc@lists.ozlabs.org>; Mon, 27 Nov 2017 12:07:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=from:to:cc:subject:date:message-id;
- bh=Ai0oTsms7lhZiE3OQaYVX+Ey6NN9qE4eE0SaSzhiwiU=;
- b=PdB+yPTe/b66N8KJ2ZRic4BouMTTULQmkA/bZs0wwoRs7eriQpcVxlEKe1ggK9UJ7o
- EtKaH/06wUNK6jQbJzJyvzLhKZAVXcKkzZQ88VUhXfFmmins/JgsRhpjSK1zNEktB3Rf
- wKuaGeG1XggJtJH1B6SnFwepAEhJBkk+2dvey0kGPKpdqxvoYXAc9o7jfwehYgnDkNDg
- wW5pP4Vq2nx8VMHZOFEmChkAgB4ulXp6Eu+D93DIN8XbKRiiWAWdUt1k1PGZtggnkhWe
- FS5OWr13z1Wu6+99Gs1tUkZ+p6Ignff9Zqjtp46/GbjeR7TX0Z5ZmjQh98Je754h9067
- Gwkw==
+ bh=0+g2yt3wAyDgTwjfmVYjOemADd2KQu5wZthPLw8GLvo=;
+ b=u2TvZ/E//REJblfymKQKoCsWOnBq/HNC/PXFl9tNAalRYgBeGW4xb9L4Fdp76yIi89
+ lJvToT9G5Mj7UNeaW1MtAbQp7c0f4RzsX9YH4CpDOBs/Fgm2WWFCkSl2Z+Ni5pxhYxHx
+ 90ta/LmM2MV9NRjaYIABq6viKTC6uC7DviqHk4NAJGfrxFKhDnyG2Pw936221lG2shlf
+ nEA1JhJZh0rLmRcZ3c2AxXiidnDepg6dmGf7944gzs+KYqoyVwQ8h3/kCQuGBPJJaRxB
+ Ll1JbiS3QXWWo7FCFTyiw6Gxee2NzTXZfybeE8vKaMH54J7inpk+uUK282PEIpZmQLI/
+ P1ng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=Ai0oTsms7lhZiE3OQaYVX+Ey6NN9qE4eE0SaSzhiwiU=;
- b=WRKZcdS6riA+WqyJ/ZlX3FBo09jbaabbrESdWvqeFIq6YOVE/qi3t6avDn5VZZbnbl
- 1VwSVd21Cr8/jtNIndZ6cgUCzCKfPQwrvQ7JesoZm31T8HumT5AadrlpXYhid4+5tCsG
- U84T/4qBaMIROd1NKD/W2OyX1NAKYoVgDhAMNQpzoq6Y9zVVelU8dQEhtPnfndzTENIZ
- +dBfh056WLHObj68v8sXXBv++NYEvfUYD/USo3lGZUooTSZSh63DPOsLfwBgx9TZNMVS
- NZh7nte/QhspeHXHbuIPRk4PB52xSBlB66aLIrayZZfF9ymaZ/Jx5z5nBGGRCEI2xhZ/
- dP/w==
-X-Gm-Message-State: AJaThX55K3/+rTzg4V7NL5VfnsWE6f9lZ6dmhHIj+mr8rvvuTSHrFixl
- qDt5tm4H+uSud+PKPNwtulQWaA==
-X-Google-Smtp-Source: AGs4zMb3WD/JeyNY5rD1OAInsGb0Z9jHiXADxFmhbmjSBssDy2UFZ3PJcD+MaJK+mz56sjjbfh/6/g==
-X-Received: by 10.36.130.131 with SMTP id t125mr30347061itd.104.1511812904137; 
- Mon, 27 Nov 2017 12:01:44 -0800 (PST)
+ bh=0+g2yt3wAyDgTwjfmVYjOemADd2KQu5wZthPLw8GLvo=;
+ b=OfzDFB94SrVZNgMxKejPXMK3EF2EpL71hSFS96ArxmAC8EpiF5rK2PGbm92+U3YW9D
+ qTbhe2It2eNBIXFsyoPdLnVdBkRs6J8xdMKXUP312g5gaVR9BxzBad1uUl51LkNNQvXW
+ 6ys1LCgab38ZyQNDJct1Hz+tdyBbtfW2fV4e+p8h93W2v42IN8J/0nm5vAkmzoBmrauD
+ nDYhH9eyG7CQfpV4byV7nCx6AWBGok72Z3oiOQn8B7pJZN9etzFUy7JgV0g9XD+Q9Wtc
+ zbjOGRo3UrVGbPAUWH6Hy8IXYZcywOANg/WbqcmVf6irUJ8U/tJN9cxOpdtdwsxB/Ib2
+ aoPA==
+X-Gm-Message-State: AJaThX7VIfdaJk9AHrLg/iqdgLd8fZRmuHQ99+XGWF2pJqJASopI8zQB
+ UaxZAiHdRncuJL2kKYa+jn5uiR3zHcw=
+X-Google-Smtp-Source: AGs4zMbv3usb5SImraN0FwF+3wbHtjwMT1/kR3IvVuiewbORDd9zp/AJpuDLZpw3MPMSgWve0FTl7w==
+X-Received: by 10.36.115.79 with SMTP id y76mr31057542itb.144.1511813262710;
+ Mon, 27 Nov 2017 12:07:42 -0800 (PST)
 Received: from venture.svl.corp.google.com ([100.123.242.104])
- by smtp.gmail.com with ESMTPSA id f11sm2366498iob.52.2017.11.27.12.01.43
+ by smtp.gmail.com with ESMTPSA id l200sm7763314itl.36.2017.11.27.12.07.41
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Mon, 27 Nov 2017 12:01:43 -0800 (PST)
+ Mon, 27 Nov 2017 12:07:42 -0800 (PST)
 From: Patrick Venture <venture@google.com>
 To: venture@google.com,
 	joel@jms.id.au
-Cc: openbmc@lists.ozlabs.org,
-	yuenn@google.com
-Subject: [PATCH linux] ARM: dts: aspeed: quanta: add aliases for i2c pcie
-Date: Mon, 27 Nov 2017 12:01:40 -0800
-Message-Id: <20171127200140.186551-1-venture@google.com>
+Cc: openbmc@lists.ozlabs.org
+Subject: [PATCH linux] ARM: dts: aspeed-g4: add serial gpio driver entry
+Date: Mon, 27 Nov 2017 12:07:38 -0800
+Message-Id: <20171127200738.188390-1-venture@google.com>
 X-Mailer: git-send-email 2.15.0.417.g466bffb3ac-goog
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
@@ -62,162 +61,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 27 Nov 2017 20:01:47 -0000
+X-List-Received-Date: Mon, 27 Nov 2017 20:07:45 -0000
 
-Provide aliases to each i2c bus per labels added for
-each PCIe slot, etc, that are downstream beyond a mux.
+Adds the serial gpio driver entry for the aspeed
+ast2400.
 
 Signed-off-by: Patrick Venture <venture@google.com>
 ---
- arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts | 115 +++++++++++++++++++++++++++
- 1 file changed, 115 insertions(+)
+ arch/arm/boot/dts/aspeed-g4.dtsi | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-index 05cfbf086c84..42b1d8007316 100644
---- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-@@ -7,6 +7,25 @@
- 	model = "Quanta Q71L BMC";
- 	compatible = "quanta,q71l-bmc", "aspeed,ast2400";
+diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
+index 424d843ec1da..b82ebefcb025 100644
+--- a/arch/arm/boot/dts/aspeed-g4.dtsi
++++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+@@ -238,6 +238,15 @@
+ 				clocks = <&clk_hpll>;
+ 			};
  
-+	aliases {
-+		i2c14 = &i2c_pcie2;
-+		i2c15 = &i2c_pcie3;
-+		i2c16 = &i2c_pcie6;
-+		i2c17 = &i2c_pcie7;
-+		i2c18 = &i2c_pcie1;
-+		i2c19 = &i2c_pcie4;
-+		i2c20 = &i2c_pcie5;
-+		i2c21 = &i2c_pcie8;
-+		i2c22 = &i2c_pcie9;
-+		i2c23 = &i2c_pcie10;
-+		i2c24 = &i2c_ssd1;
-+		i2c25 = &i2c_ssd2;
-+		i2c26 = &i2c_psu4;
-+		i2c27 = &i2c_psu1;
-+		i2c28 = &i2c_psu3;
-+		i2c29 = &i2c_psu2;
-+	};
++			sgpio: gpio@0x1e780200 {
++				#gpio-cells = <2>;
++				gpio-controller;
++				compatible = "aspeed,ast2400-sgpio";
++				reg = <0x1e780200 0x100>;
++				interrupts = <40>;
++				interrupt-controller;
++			};
 +
- 	chosen {
- 		stdout-path = &uart5;
- 		bootargs = "console=ttyS4,115200 earlyprintk";
-@@ -228,6 +247,30 @@
- 		#address-cells = <1>;
- 		#size-cells = <0>;
- 		i2c-mux-idle-disconnect;  /* may use mux@77 next. */
-+
-+		i2c_pcie2: i2c@0 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0>;
-+		};
-+
-+		i2c_pcie3: i2c@1 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <1>;
-+		};
-+
-+		i2c_pcie6: i2c@2 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <2>;
-+		};
-+
-+		i2c_pcie7: i2c@3 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <3>;
-+		};
- 	};
- 
- 	/* 0: PCIe Slot 1,
-@@ -245,6 +288,54 @@
- 		#size-cells = <0>;
- 		reg = <0x77>;
- 		i2c-mux-idle-disconnect;  /* may use mux@74 next. */
-+
-+		i2c_pcie1: i2c@0 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0>;
-+		};
-+
-+		i2c_pcie4: i2c@1 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <1>;
-+		};
-+
-+		i2c_pcie5: i2c@2 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <2>;
-+		};
-+
-+		i2c_pcie8: i2c@3 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <3>;
-+		};
-+
-+		i2c_pcie9: i2c@4 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <4>;
-+		};
-+
-+		i2c_pcie10: i2c@5 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <5>;
-+		};
-+
-+		i2c_ssd1: i2c@6 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <6>;
-+		};
-+
-+		i2c_ssd2: i2c@7 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <7>;
-+		};
- 	};
- };
- 
-@@ -283,6 +374,30 @@
- 		reg = <0x70>;
- 		#address-cells = <1>;
- 		#size-cells = <0>;
-+
-+		i2c_psu4: i2c@0 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0>;
-+		};
-+
-+		i2c_psu1: i2c@1 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <1>;
-+		};
-+
-+		i2c_psu3: i2c@2 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <2>;
-+		};
-+
-+		i2c_psu2: i2c@3 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <3>;
-+		};
- 	};
- 
- 	/* PDB FRU */
+ 			timer: timer@1e782000 {
+ 				compatible = "aspeed,ast2400-timer";
+ 				reg = <0x1e782000 0x90>;
 -- 
 2.15.0.417.g466bffb3ac-goog
