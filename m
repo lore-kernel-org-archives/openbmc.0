@@ -1,51 +1,27 @@
-Return-Path: <venture@google.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400c:c05::22d; helo=mail-vk0-x22d.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="F0HyuNH4"; 
- dkim-atps=neutral
-Received: from mail-vk0-x22d.google.com (mail-vk0-x22d.google.com
- [IPv6:2607:f8b0:400c:c05::22d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ylrCp0KDMzDql1
- for <openbmc@lists.ozlabs.org>; Tue, 28 Nov 2017 02:23:16 +1100 (AEDT)
-Received: by mail-vk0-x22d.google.com with SMTP id j67so17571407vkd.8
- for <openbmc@lists.ozlabs.org>; Mon, 27 Nov 2017 07:23:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=Kc9LUV1/uXNKNX7gDCefMeYvaGDod+m9D/bT+JW4tHE=;
- b=F0HyuNH4chTHMNj0ch5qlk5oJwYPaUCLcVVrDNtzSeSYuSBiJ0zwIOcdD2a4Inha8C
- RfaKQQoHJE5MB1L8hSOtroudNM2QH3P+zDcML4V3MIeGka8TCtJoSCqeXpdzkJ1h54Xs
- 5W2/1Sq3Vunx8afFtIXFALPZv9t5J28EdpNNNfjIa82YeisIn/I3lmna/Z0Z6B+0hHud
- xC5h740bhNndzsnEpcCC2dGqSNA4MMTGe48ZVTZO2QVy/mBRtlo1BmdewD6xVJ/r/yf6
- GlaZS4EH8n4ZUv0RqiGjl8GfSQsLnRyDvUXhoUMFkA3Vz0vQRKXKx2kobB70KaxyiO9o
- Fidw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=Kc9LUV1/uXNKNX7gDCefMeYvaGDod+m9D/bT+JW4tHE=;
- b=Bo3gqgujg3nLATX3pQ2mRN9ljkS48l4iFjVK1qXzeT9uMVEoM6dYTWG5XnZhfs0z+E
- PhpA8hqm+xyY5xZXptH/n7vIImJjdysIqWbxy9+R33cjbxA5Efo0y9L4bYIGtBPM4oJQ
- /AA1cyJEaKb3fzqfri1fXBHSXUf9vEcxRewP6yiISLCxSBrDtfVNQdgzp4ienkfb+Pcx
- rgiMSEI4gcmXarBt58gEUOBRmXQ+MvwDqFfMWF4cGxDJ1eMq6w4xKOeHeKSjehw9Hfb6
- zHKqhiabAdFQ+ze7ozSvijCED6/KtbwShY3WJKypCd2NinC8+uJ6Lv0ofvX05GfTzWQw
- fqJQ==
-X-Gm-Message-State: AJaThX60z9ujlidc0E09SNz1vFSbxnXQFqdYA5e5qSVhZaO7NLtjJgSd
- 26Ekv/wTKaWZE83vjZQ8/Gdn9t8/7oUqVewQn3ZFZqjo
-X-Google-Smtp-Source: AGs4zMaLvjtqPaplFw99mJJ62gLzAjRU3zqr/h9R1hQG13oDh4OBMBzTJPK+VSNBzIWHkoA3/KLCClYTs/43wnbNH4s=
-X-Received: by 10.31.3.36 with SMTP id 36mr26146925vkd.146.1511796194319; Mon,
- 27 Nov 2017 07:23:14 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.31.94.150 with HTTP; Mon, 27 Nov 2017 07:22:53 -0800 (PST)
-From: Patrick Venture <venture@google.com>
-Date: Mon, 27 Nov 2017 07:22:53 -0800
-Message-ID: <CAO=notyW=x_9j45SDd-75WULwXQdTHhUx65R7YUUSgaBp2+qgQ@mail.gmail.com>
-Subject: Linux 4-10 v 4.13 patching
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ylwyN4fM9zDqyC
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Nov 2017 05:56:59 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Received: from [192.168.253.30] (unknown [192.168.253.30])
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 19336EA08E
+ for <openbmc@lists.ozlabs.org>; Mon, 27 Nov 2017 13:56:54 -0500 (EST)
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: OpenBMC 11/20 community telecon - Minutes 
+Message-Id: <F3FA5114-3E00-4751-B061-F2085DEDF70D@fuzziesquirrel.com>
+Date: Mon, 27 Nov 2017 13:56:53 -0500
 To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Apple Mail (2.3273)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -57,10 +33,116 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 27 Nov 2017 15:23:18 -0000
+X-List-Received-Date: Mon, 27 Nov 2017 18:57:02 -0000
 
-I'm sorry as I probably missed the email, should I send patches
-against linux 4.10 or 4.13 or both?
+As always, If there are any errors or omissions please just reply with
+a correction.
 
-Thanks,
-Patrick
+Thx - brad
+
+OpenBMC Community Teleconference 11/20 Minutes
+--------------------------------
+
+Brad B
+Andrew J
+Joel S
+James M
+Jeremy K
+George K
+kurt T
+Andrew G
+Sai D
+Milton M
+Nancy Y
+Brendan H
+Ed T
+
+=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94
+George - test suite, robot framework.  you can take a look
+pick up openbmc upstream images built and do CI test, ci test does code =
+update, power on, check user interfaces.
+test repository to report automation issues
+open bugs if issues are found
+
+Ed - do you do any end 2 end testing comparing results of different test =
+cases
+  didn=E2=80=99t see any end to ends tests
+brad - whats an end to end test
+Ed - push power, test leds, check
+Ed - george, can you send a link to a test that powers on with ipmi and =
+checks rest?
+
+Andrew G - gave overview of repo CI.
+	=E2=80=A2 recipe bumps, bitbake build - runs hw CI (subset)
+
+Ed - do you do ac cycle testing?
+Andrew G, yes.  george - yes, have robot tests but not fully automated.
+Andrew G - issue 2635 - general cleanup
+	=E2=80=A2 Ed, phosphor-logging turned off
+	=E2=80=A2 Nancy - phosphor-logging is used
+	=E2=80=A2 arch could be revisited
+	=E2=80=A2 utility improvements - Nancy - we use it during =
+bringup
+
+Andrew G - issue 2635 - devops flow
+	=E2=80=A2 looking for ways to improve
+	=E2=80=A2 Ed - how does the permissions work for server?  Andrew =
+- Jenkins slave, ssh key
+	=E2=80=A2 Ed - might be able to get some time on a Kubernetes =
+cluster.
+	=E2=80=A2 Andrew - Qemu - get qemu going again
+	=E2=80=A2 Andrew - hardware failures - data in the gerrit link - =
+place to put failure data.=20
+
+Andrew - how do we test on other hardware?
+	=E2=80=A2 run it internally behind firewall, push failure data =
+out to github
+	=E2=80=A2 or on the network
+	=E2=80=A2 Kurt - open stack does it the first way, talked =
+details
+
+Brad - lets do on the list
+Andrew - whats the priority
+Nancy - test design posted on IRC
+Brendan - why docker?  why not OE sdk?
+joel - other tools don=E2=80=99t use sdk
+Brendan - would be useful to build and test locally
+
+=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94
+Ed - code review velocity
+	=E2=80=A2 patch merged in 14hrs.  question of whats the norm.=20
+	=E2=80=A2 brad went over the process
+
+Ed - wants a more stable master branch.  delayed approach to merging =
+patches
+	=E2=80=A2 either through testing or review, how to keep the =
+master branch more stable
+
+Nancy - have you experienced instability?
+Ed - User daemon was swapped out
+Joel - hard to keep out of tree code stable
+Nancy - have similar concerns.
+Andrew - how does code sitting in review help?
+Ed - testing probably trumps everything?
+
+Brad - how does this work for the kernel?
+Jeremy - external ABI - never breaks
+	=E2=80=A2 internal API - in tree/out of tree
+Joel - little bit different - we have runtime interfaces
+Milton - OpenStack does pregate testing, on Linux, two opportunities to =
+complain - linux-next, 6-8 weeks of stabilzation
+Brad - merge window?
+Milton - need more tests though
+Nancy - merge window good idea, but personally won=E2=80=99t have test =
+infrastructure up for a bit.
+Brendan - automated upstream tests sort of invalidates the need for a =
+merge window.  could be useful until we get more upstream testing?
+Jeremy - can CI infrastructure we handle the bursty nature of a merge =
+window?
+Andrew - probably.  it might just take awhile to get through.
+Brad - send a note to the list about a merge window.
+
+Ed - secure coding guidelines
+what are everyones experience with these?  (memcpy vs memcpy_s) ?
+brad - what about busybox - ed - exception process, run static analysis =
+tools
