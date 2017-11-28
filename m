@@ -6,24 +6,25 @@ Authentication-Results: ozlabs.org;
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ymYc13TC0zDrVZ
- for <openbmc@lists.ozlabs.org>; Wed, 29 Nov 2017 06:28:16 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ymYc25jmpzDrVZ
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Nov 2017 06:28:18 +1100 (AEDT)
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 28 Nov 2017 11:28:13 -0800
+ 28 Nov 2017 11:28:15 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.44,468,1505804400"; d="scan'208";a="181647553"
+X-IronPort-AV: E=Sophos;i="5.44,468,1505804400"; d="scan'208";a="181647573"
 Received: from skyhawk.jf.intel.com ([10.54.51.84])
- by fmsmga006.fm.intel.com with ESMTP; 28 Nov 2017 11:28:13 -0800
+ by fmsmga006.fm.intel.com with ESMTP; 28 Nov 2017 11:28:15 -0800
 From: James Feist <james.feist@linux.intel.com>
 To: openbmc@lists.ozlabs.org,
 	joel@jms.id.au
 Cc: James Feist <james.feist@linux.intel.com>
-Subject: [PATCH linux dev-4.10 v2 1/2] ARM: dts: aspeed: Rename
- aspeed-bmc-opp-flash-layout.dtsi
-Date: Tue, 28 Nov 2017 11:28:04 -0800
-Message-Id: <1511897285-23022-1-git-send-email-james.feist@linux.intel.com>
+Subject: [PATCH linux dev-4.10 v2 2/2] ARM: dts: Add Wfp BMC Machine
+Date: Tue, 28 Nov 2017 11:28:05 -0800
+Message-Id: <1511897285-23022-2-git-send-email-james.feist@linux.intel.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1511897285-23022-1-git-send-email-james.feist@linux.intel.com>
+References: <1511897285-23022-1-git-send-email-james.feist@linux.intel.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -35,239 +36,155 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Nov 2017 19:28:18 -0000
+X-List-Received-Date: Tue, 28 Nov 2017 19:28:19 -0000
 
-Rename aspeed-bmc-opp-flash-layout.dtsi to openbmc-flash-layout.dtsi
-as this file is not open power specific.
+Wfp is a Intel system with an Aspeed ast2500 BMC.
 
 Signed-off-by: James Feist <james.feist@linux.intel.com>
 ---
- Changes since v1:
- - Added patch 2 that depends on this patch.
+Changes since V1:
+ - Fix mac 0 pinctrl and use existing flash layout.
+ - Add dependency.
 
- arch/arm/boot/dts/aspeed-ast2500-evb.dts           |  2 +-
- arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts      |  2 +-
- arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts     |  2 +-
- arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts     |  2 +-
- arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi | 26 ----------------------
- arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts      |  2 +-
- arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts       |  2 +-
- arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts      |  2 +-
- arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts       |  2 +-
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts   |  2 +-
- arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts         |  2 +-
- arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts       |  2 +-
- arch/arm/boot/dts/openbmc-flash-layout.dtsi        | 26 ++++++++++++++++++++++
- 13 files changed, 37 insertions(+), 37 deletions(-)
- delete mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
- create mode 100644 arch/arm/boot/dts/openbmc-flash-layout.dtsi
+ arch/arm/boot/dts/Makefile                 |   1 +
+ arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts | 117 +++++++++++++++++++++++++++++
+ 2 files changed, 118 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts
 
-diff --git a/arch/arm/boot/dts/aspeed-ast2500-evb.dts b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-index 3543989..d75b2e8 100644
---- a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-+++ b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-@@ -21,7 +21,7 @@
- 	flash@0 {
- 		status = "okay";
- 		m25p,fast-read;
--#include "aspeed-bmc-opp-flash-layout.dtsi"
-+#include "openbmc-flash-layout.dtsi"
- 	};
- };
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index 6d6c9eb..987e23e 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -992,6 +992,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb \
+ 	aspeed-bmc-opp-lanyang.dtb \
+ 	aspeed-bmc-mellanox-msn.dtb \
+ 	aspeed-bmc-quanta-q71l.dtb \
++	aspeed-bmc-intel-wfp.dtb \
+ 	aspeed-ast2500-evb.dtb
+ endif
  
-diff --git a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-index d1dc2ef..2d0bc10 100644
---- a/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-mellanox-msn.dts
-@@ -24,7 +24,7 @@
- 	flash@0 {
- 		status = "okay";
- 		m25p,fast-read;
--#include "aspeed-bmc-opp-flash-layout.dtsi"
-+#include "openbmc-flash-layout.dtsi"
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-index 6e70ca5..0b7a238 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-@@ -61,7 +61,7 @@
- 	flash@0 {
- 		status = "okay";
- 		m25p,fast-read;
--#include "aspeed-bmc-opp-flash-layout.dtsi"
-+#include "openbmc-flash-layout.dtsi"
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-index 93ad3ea..e8e61f7 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-@@ -50,7 +50,7 @@
- 	flash@0 {
- 		status = "okay";
- 		m25p,fast-read;
--#include "aspeed-bmc-opp-flash-layout.dtsi"
-+#include "openbmc-flash-layout.dtsi"
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
-deleted file mode 100644
-index 4bcfd1b..0000000
---- a/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
-+++ /dev/null
-@@ -1,26 +0,0 @@
--		label = "bmc";
--		partitions {
--				#address-cells = < 1 >;
--				#size-cells = < 1 >;
--				compatible = "fixed-partitions";
--				u-boot@0 {
--					reg = < 0 0x60000 >;
--					label = "u-boot";
--				};
--				u-boot-env@60000 {
--					reg = < 0x60000 0x20000 >;
--					label = "u-boot-env";
--				};
--				kernel@80000 {
--					reg = < 0x80000 0x440000 >;
--					label = "kernel";
--				};
--				rofs@0c0000 {
--					reg = < 0x4c0000 0x1740000 >;
--					label = "rofs";
--				};
--				rwfs@1c00000 {
--					reg = < 0x1c00000 0x400000 >;
--					label = "rwfs";
--				};
--		};
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-index 95552c8..5e30912 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-@@ -34,7 +34,7 @@
- 	flash@0 {
- 		status = "okay";
- 		m25p,fast-read;
--#include "aspeed-bmc-opp-flash-layout.dtsi"
-+#include "openbmc-flash-layout.dtsi"
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
-index 833ef17..58f7884 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-lanyang.dts
-@@ -96,7 +96,7 @@
- 	flash@0 {
- 		status = "okay";
- 		m25p,fast-read;
--#include "aspeed-bmc-opp-flash-layout.dtsi"
-+#include "openbmc-flash-layout.dtsi"
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-index ab3fee6..b41c29a 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-@@ -65,7 +65,7 @@
- 	flash@0 {
- 		status = "okay";
- 		m25p,fast-read;
--#include "aspeed-bmc-opp-flash-layout.dtsi"
-+#include "openbmc-flash-layout.dtsi"
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-index 060eb0c..329532a 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-@@ -114,7 +114,7 @@
- 	flash@0 {
- 		status = "okay";
- 		m25p,fast-read;
--#include "aspeed-bmc-opp-flash-layout.dtsi"
-+#include "openbmc-flash-layout.dtsi"
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-index 68058ec..7017984 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -176,7 +176,7 @@
- 		status = "okay";
- 		m25p,fast-read;
- 
--#include "aspeed-bmc-opp-flash-layout.dtsi"
-+#include "openbmc-flash-layout.dtsi"
- 	};
- 	flash@1 {
- 		status = "okay";
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-index 5410f58..5f6a11a 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-@@ -140,7 +140,7 @@
- 	flash@0 {
- 		status = "okay";
- 		m25p,fast-read;
--#include "aspeed-bmc-opp-flash-layout.dtsi"
-+#include "openbmc-flash-layout.dtsi"
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-index 7ed3a77..eafd6f9 100644
---- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-@@ -107,7 +107,7 @@
- 	flash@0 {
- 		status = "okay";
- 		m25p,fast-read;
--#include "aspeed-bmc-opp-flash-layout.dtsi"
-+#include "openbmc-flash-layout.dtsi"
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/openbmc-flash-layout.dtsi b/arch/arm/boot/dts/openbmc-flash-layout.dtsi
+diff --git a/arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts b/arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts
 new file mode 100644
-index 0000000..4bcfd1b
+index 0000000..f15a5e7
 --- /dev/null
-+++ b/arch/arm/boot/dts/openbmc-flash-layout.dtsi
-@@ -0,0 +1,26 @@
-+		label = "bmc";
-+		partitions {
-+				#address-cells = < 1 >;
-+				#size-cells = < 1 >;
-+				compatible = "fixed-partitions";
-+				u-boot@0 {
-+					reg = < 0 0x60000 >;
-+					label = "u-boot";
-+				};
-+				u-boot-env@60000 {
-+					reg = < 0x60000 0x20000 >;
-+					label = "u-boot-env";
-+				};
-+				kernel@80000 {
-+					reg = < 0x80000 0x440000 >;
-+					label = "kernel";
-+				};
-+				rofs@0c0000 {
-+					reg = < 0x4c0000 0x1740000 >;
-+					label = "rofs";
-+				};
-+				rwfs@1c00000 {
-+					reg = < 0x1c00000 0x400000 >;
-+					label = "rwfs";
-+				};
-+		};
++++ b/arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts
+@@ -0,0 +1,117 @@
++/dts-v1/;
++
++#include "aspeed-g5.dtsi"
++
++/ {
++	model = "WFP BMC";
++	compatible = "intel,wfp-bmc", "aspeed,ast2500";
++
++	aliases {
++		serial4 = &uart5;
++	};
++
++	chosen {
++		stdout-path = &uart5;
++		bootargs = "115200 earlyprintk";
++	};
++
++	memory {
++		reg = <0x80000000 0x20000000>;
++	};
++
++	iio-hwmon {
++		compatible = "iio-hwmon";
++		io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
++			<&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>,
++			<&adc 8>, <&adc 9>, <&adc 10>, <&adc 11>,
++			<&adc 12>, <&adc 13>, <&adc 14>, <&adc 15>;
++	};
++
++};
++
++&fmc {
++	status = "okay";
++	flash@0 {
++		status = "okay";
++#include "openbmc-flash-layout.dtsi"
++	};
++};
++
++&spi1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_spi1_default>;
++
++	flash@0 {
++		status = "okay";
++		label = "pnor";
++	};
++};
++
++&uart5 {
++	status = "okay";
++};
++
++&mac0 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rmii1_default>;
++	use-ncsi;
++};
++
++&mac1 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
++};
++
++&i2c1 {
++	status = "okay";
++};
++
++&i2c2 {
++	status = "okay";
++};
++
++&i2c3 {
++	status = "okay";
++};
++
++&i2c4 {
++	status = "okay";
++};
++
++&i2c5 {
++	status = "okay";
++};
++
++&i2c6 {
++	status = "okay";
++};
++
++&i2c7 {
++	status = "okay";
++};
++
++&i2c13 {
++	status = "okay";
++};
++
++&gfx {
++	status = "okay";
++};
++
++&pinctrl {
++	aspeed,external-nodes = <&gfx &lhc>;
++};
++
++&pwm_tacho {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
++			 &pinctrl_pwm2_default &pinctrl_pwm3_default
++			 &pinctrl_pwm4_default &pinctrl_pwm5_default
++			 &pinctrl_pwm6_default &pinctrl_pwm7_default>;
++};
 -- 
 2.7.4
