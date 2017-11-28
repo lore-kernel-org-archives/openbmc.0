@@ -1,30 +1,31 @@
-Return-Path: <james.feist@linux.intel.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.120; helo=mga04.intel.com;
- envelope-from=james.feist@linux.intel.com; receiver=<UNKNOWN>)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ymYc25jmpzDrVZ
- for <openbmc@lists.ozlabs.org>; Wed, 29 Nov 2017 06:28:18 +1100 (AEDT)
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 28 Nov 2017 11:28:15 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.44,468,1505804400"; d="scan'208";a="181647573"
-Received: from skyhawk.jf.intel.com ([10.54.51.84])
- by fmsmga006.fm.intel.com with ESMTP; 28 Nov 2017 11:28:15 -0800
-From: James Feist <james.feist@linux.intel.com>
-To: openbmc@lists.ozlabs.org,
-	joel@jms.id.au
-Cc: James Feist <james.feist@linux.intel.com>
-Subject: [PATCH linux dev-4.10 v2 2/2] ARM: dts: Add Wfp BMC Machine
-Date: Tue, 28 Nov 2017 11:28:05 -0800
-Message-Id: <1511897285-23022-2-git-send-email-james.feist@linux.intel.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1511897285-23022-1-git-send-email-james.feist@linux.intel.com>
-References: <1511897285-23022-1-git-send-email-james.feist@linux.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ymbTh1xg1zDrYv
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Nov 2017 07:52:55 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Received: from [192.168.253.30] (unknown [192.168.253.30])
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 53EE897580;
+ Tue, 28 Nov 2017 15:52:51 -0500 (EST)
+Content-Type: text/plain; charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: Re: chassis_control.py in skeleton
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <000001d3641d$3e482120$bad86360$@linux.intel.com>
+Date: Tue, 28 Nov 2017 15:52:51 -0500
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ "Li, Yong B" <yong.b.li@intel.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <1ABEA804-8141-49CA-AFBF-B47C8D0ABD31@fuzziesquirrel.com>
+References: <000001d3641d$3e482120$bad86360$@linux.intel.com>
+To: Yong Li <yong.b.li@linux.intel.com>
+X-Mailer: Apple Mail (2.3273)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -36,155 +37,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Nov 2017 19:28:19 -0000
+X-List-Received-Date: Tue, 28 Nov 2017 20:52:56 -0000
 
-Wfp is a Intel system with an Aspeed ast2500 BMC.
 
-Signed-off-by: James Feist <james.feist@linux.intel.com>
----
-Changes since V1:
- - Fix mac 0 pinctrl and use existing flash layout.
- - Add dependency.
+> On Nov 23, 2017, at 12:38 AM, Yong Li <yong.b.li@linux.intel.com> =
+wrote:
+>=20
+> Hi All,
+>=20
+> Based on my understanding, these chassis control/system manager =
+related
+> projects in skeleton should be initial/reference code, and will be
 
- arch/arm/boot/dts/Makefile                 |   1 +
- arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts | 117 +++++++++++++++++++++++++++++
- 2 files changed, 118 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts
+This is correct.  The intent is to remove them eventually.
 
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index 6d6c9eb..987e23e 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -992,6 +992,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb \
- 	aspeed-bmc-opp-lanyang.dtb \
- 	aspeed-bmc-mellanox-msn.dtb \
- 	aspeed-bmc-quanta-q71l.dtb \
-+	aspeed-bmc-intel-wfp.dtb \
- 	aspeed-ast2500-evb.dtb
- endif
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts b/arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts
-new file mode 100644
-index 0000000..f15a5e7
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts
-@@ -0,0 +1,117 @@
-+/dts-v1/;
-+
-+#include "aspeed-g5.dtsi"
-+
-+/ {
-+	model = "WFP BMC";
-+	compatible = "intel,wfp-bmc", "aspeed,ast2500";
-+
-+	aliases {
-+		serial4 = &uart5;
-+	};
-+
-+	chosen {
-+		stdout-path = &uart5;
-+		bootargs = "115200 earlyprintk";
-+	};
-+
-+	memory {
-+		reg = <0x80000000 0x20000000>;
-+	};
-+
-+	iio-hwmon {
-+		compatible = "iio-hwmon";
-+		io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
-+			<&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>,
-+			<&adc 8>, <&adc 9>, <&adc 10>, <&adc 11>,
-+			<&adc 12>, <&adc 13>, <&adc 14>, <&adc 15>;
-+	};
-+
-+};
-+
-+&fmc {
-+	status = "okay";
-+	flash@0 {
-+		status = "okay";
-+#include "openbmc-flash-layout.dtsi"
-+	};
-+};
-+
-+&spi1 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_spi1_default>;
-+
-+	flash@0 {
-+		status = "okay";
-+		label = "pnor";
-+	};
-+};
-+
-+&uart5 {
-+	status = "okay";
-+};
-+
-+&mac0 {
-+	status = "okay";
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rmii1_default>;
-+	use-ncsi;
-+};
-+
-+&mac1 {
-+	status = "okay";
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
-+};
-+
-+&i2c1 {
-+	status = "okay";
-+};
-+
-+&i2c2 {
-+	status = "okay";
-+};
-+
-+&i2c3 {
-+	status = "okay";
-+};
-+
-+&i2c4 {
-+	status = "okay";
-+};
-+
-+&i2c5 {
-+	status = "okay";
-+};
-+
-+&i2c6 {
-+	status = "okay";
-+};
-+
-+&i2c7 {
-+	status = "okay";
-+};
-+
-+&i2c13 {
-+	status = "okay";
-+};
-+
-+&gfx {
-+	status = "okay";
-+};
-+
-+&pinctrl {
-+	aspeed,external-nodes = <&gfx &lhc>;
-+};
-+
-+&pwm_tacho {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
-+			 &pinctrl_pwm2_default &pinctrl_pwm3_default
-+			 &pinctrl_pwm4_default &pinctrl_pwm5_default
-+			 &pinctrl_pwm6_default &pinctrl_pwm7_default>;
-+};
--- 
-2.7.4
+The replacement for the chassis manager is
+https://github.com/openbmc/phosphor-state-manager
+
+The functions of the system manager have gradually been replicated
+elsewhere.  For instance its state management functions were
+moved to phosphor-state-manager or systemd.  Other functions were
+distributed amongst configuration files and other applications.
+
+They have not been removed from the current systems because
+they all need to be scrubbed for any remaining usage.
+
+> rewritten/reimplementation. I would like to know if there is any plan =
+or
+> on-going projects on them?
+
+The plan is to scrub the existing systems and eliminate use of these
+programs.  This means identifying any functional gaps in the =
+replacements
+and implementing those.  I don=E2=80=99t think anyone is working on that =
+at the
+moment.
+
+Ideally any new layers/platforms being added would just not use
+these programs, but I understand if that requires replacement function
+that isn=E2=80=99t available and wouldn=E2=80=99t want that to hinder =
+upstreaming
+of a new platform.
+
+If I were to begin to work on this, I would start by building images
+for the current systems, remove these applications from the image
+and see what breaks.
+
+
+>=20
+> Thanks,
+> Yong Li
+
+
+-brad=
