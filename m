@@ -1,59 +1,29 @@
-Return-Path: <joel.stan@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4010:c07::234; helo=mail-lf0-x234.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="a4tu8mUN"; 
- dkim-atps=neutral
-Received: from mail-lf0-x234.google.com (mail-lf0-x234.google.com
- [IPv6:2a00:1450:4010:c07::234])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <bradleyb@fuzziesquirrel.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ym7Vn19qZzDrPk
- for <openbmc@lists.ozlabs.org>; Tue, 28 Nov 2017 13:52:16 +1100 (AEDT)
-Received: by mail-lf0-x234.google.com with SMTP id i14so35229580lfc.1
- for <openbmc@lists.ozlabs.org>; Mon, 27 Nov 2017 18:52:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=0FL4h1jDAitiJ4CIOj8bHKEeE5bJcdezIwQq/SWfxfc=;
- b=a4tu8mUNMP5LRnRp+P5WlPqK4emF9/h1HPwsuvyW9E96vGAuorN1S+ume9TyRicmsT
- EJBIdU4BKk0QZzSeFE/7p6thUtZmECec+LdmntH5gSNjU6Tr0oNl/h7XaNoRG0swR7rU
- hyC711YPvEa3Ycb41Da3JIVETGCEd5irJx3JIpSEAHidMKdz6Cjy5/zPYaVH1Q09K4QF
- AU1TAm+i4aTgtCbxms4GHkbbwVBE3Fmhun9iMkcIJ34LNkWidgPIiNVos20j8PCMZvTW
- j+L0xZ3Ez1Ke/NVGEVB+pjCvhlvdChbGxde4Vn7p81f7qCnUKLdaXo04ptJa71o7xoar
- I75g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=0FL4h1jDAitiJ4CIOj8bHKEeE5bJcdezIwQq/SWfxfc=;
- b=k+Kp70bp5Naq3UNA3Fk1gpfhJ/dSepbRVHuC1gy8E0LkYrKR1fCzJPk1OiAlGTw7/X
- Ib1avPw3Am89bf/0TXOgCksGjuJ/PSzm4sO/wQTSkRiSR9LJOyeGQn21nd0uxG75liI+
- PfpoP4har/5GbMFumKI5g7PdL/R/Y86CUPurKxTphu01ARx7i+iyelse8KbG9vaDiz7S
- xfeTs8qkV4OM1zoYp/jhD2zpFqfkJVsDDZ1H4Z7o1krT0/2F6fDwojSl34tcycqt4qEG
- W5Xv987GNu/vqsmwHpcWFTmAq5FPqcKgTXPKcoRH13sCNsvjFQPcwZSvkk3OlRdygbJC
- g2RA==
-X-Gm-Message-State: AJaThX78e7T823h/Rcw0w+wTGOAPvAhtV/Q+oLk+0rf/6QrO1CwGljrh
- L/Halu1PEFdMGFBy8EeOUvpm3RnZxhs9wLP76XU=
-X-Google-Smtp-Source: AGs4zMbqh2OEzpjSukoKXn8XjqMQa/K2/APiTVWFTCKSbIDN0JM9JxztIDAZf8j5SWDYXe9DFzUpyipw/d71GbirIV8=
-X-Received: by 10.46.56.8 with SMTP id f8mr16218817lja.46.1511837533708; Mon,
- 27 Nov 2017 18:52:13 -0800 (PST)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.25.155.83 with HTTP; Mon, 27 Nov 2017 18:51:53 -0800 (PST)
-In-Reply-To: <CAO=notxMHYoZgxBJQpXOoP=TxcZFXJaNjFw=uFnw=4R9zyxSzQ@mail.gmail.com>
-References: <CAO=notyW=x_9j45SDd-75WULwXQdTHhUx65R7YUUSgaBp2+qgQ@mail.gmail.com>
- <CACPK8Xcv8F4WHs8bynxDSLK6pg4hYTm2w-044RmJ6dOEcYevJA@mail.gmail.com>
- <CAO=notxMHYoZgxBJQpXOoP=TxcZFXJaNjFw=uFnw=4R9zyxSzQ@mail.gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 28 Nov 2017 13:21:53 +1030
-X-Google-Sender-Auth: cbVVTKV_M0Cm2EllIUBxbIezY_s
-Message-ID: <CACPK8XfKf1j3vWL7huG8xPoYgM5RMP3MQE6j7FUv1iDTLD-Bwg@mail.gmail.com>
-Subject: Re: Linux 4-10 v 4.13 patching
-To: Patrick Venture <venture@google.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ymDmz5w1xzDrZV
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Nov 2017 17:49:54 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Sender: bradleyb@bajor.fuzziesquirrel.com
+Message-ID: <1511851787.13581.73.camel@fuzziesquirrel.com>
+Subject: Re: RFC: multiple system configurations in a single image
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+To: "Tanous, Ed" <ed.tanous@intel.com>, Patrick Venture <venture@google.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Tue, 28 Nov 2017 01:49:47 -0500
+In-Reply-To: <7E9441B1E5EFFD4681F54958E82169932F4A8FE6@ORSMSX114.amr.corp.intel.com>
+References: <1511817272.13581.27.camel@fuzziesquirrel.com>
+ <CAO=notxaO+m3oCGJxHZhhaUhqh-t9ahENgpVrSBy4JysFeiHEw@mail.gmail.com>
+ <7E9441B1E5EFFD4681F54958E82169932F4A8FE6@ORSMSX114.amr.corp.intel.com>
 Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -65,24 +35,133 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Nov 2017 02:52:18 -0000
+X-List-Received-Date: Tue, 28 Nov 2017 06:49:56 -0000
 
-On Tue, Nov 28, 2017 at 1:19 PM, Patrick Venture <venture@google.com> wrote:
-> Thanks.  When sending to both, do I need to send a patch for each,
-> dev-4.10, dev-4.13 in the header or is it better to not specify the
-> branch in this case?
->
-> On Mon, Nov 27, 2017 at 6:39 PM, Joel Stanley <joel@jms.id.au> wrote:
->> On Tue, Nov 28, 2017 at 1:52 AM, Patrick Venture <venture@google.com> wrote:
->>> I'm sorry as I probably missed the email, should I send patches
->>> against linux 4.10 or 4.13 or both?
+On Mon, 2017-11-27 at 23:39 +0000, Tanous, Ed wrote:
+> Thanks for bringing this up Brad.  I was planning on sending this out
+> after the technical call, but you beat me to it.  You did a great job
+> summarizing our main points.
+> 
+> One key takeaway from this is the end goal that's driving our
+> desires:  Platform ports should take a single developer less than a
+> week to accomplish, and have a high (90%+) reliability of being
+> functionally correct.  With all 
 
-If you send two mails then it will be easiest for me to track. I'd
-vote for this.
+I want this too.  There are probably a lot of ways we can achieve this.
 
-If you think that will get too spammy, then just specify the branches
-you want them applied to in your cover letter.
+> 	
+> > Extra pro: you can edit it at run-time and relaunch the application
+> > :)
+> 
+> This is exactly our use case we wanted to outline with the
+> patch.  Consumers of the platform may choose to change parameters at
+> runtime (manufacturer ID or platform ID are good examples in the
+> patch, fan control tuning is an example not in the patch).  Lots of
+> customers require runtime configurability without recompiling, as
+> uploading an unsupported image would void warranties for production
+> commercially supported platforms from most manufacturers.  Also,
+> making this runtime configurable is a huge win for the end user that
+> doesn't necessarily have the expertise to execute a yocto build and
+> sign it appropriately.
 
-Cheers,
+I probably did not frame things correctly because I don't think we are
+having the right conversation.
 
-Joel
+To be clear, I support a model that allows us to realize all the wins
+you and Patrick have outlined.  I understand that for many, the option
+of dropping a new config file in the filesystem and restarting an
+application is convenient or even paramount.
+
+What gives me pause, is achieving this in a way that requires a
+specific implementation from users that _dont_ care about these things,
+or worse, conflicts with their use-case.  By users here I mean
+businesses building products with OpenBMC.
+
+I think we can enable both.  The only case I've heard for not doing
+that is it would be too complicated.  Are there other reasons besides
+the complexity?  I agree it would be _more_ complicated.  But is it
+fair to dismiss something as _too_ complicated when we haven't even
+discussed how it could be done?
+
+So my ask here, to everyone, is that we attempt to come up with some
+ways to enable both classes of users, and only then evaluate if the
+extra complexity involved with enabling both classes of users is worth
+it or not.
+
+Another approach here might be, we can very carefully attempt to
+anticipate every use-case of OpenBMC, and convince ourselves that the
+proposed path forward won't have a negative impact on those potential
+use-cases.  Yet another approach could be that we as a community simply
+make assertions about what we are (or are not) willing to support.  I
+don't like these options because they are either prone to faulty
+assumptions or overly restrictive, but I bring them up because they are
+understandable points of view.
+
+To really drive this home, consider this hypothetical scenario:
+
+1 - Assume we've refactored all the phosphor applications to read a
+json config file out of the root filesystem.
+
+2 - Someone comes along and refactors the phosphor applications (again)
+in a way that preserves the runtime configuration ability and
+additionally enables a user to skip the runtime pieces.
+
+3 - What do we do?  Reject the enhancement?  What would the given
+rationale be?
+
+> 
+> > > not-so-good:
+> > >   - complexity shift from build to runtime (parsing, validation)
+> 
+> In our experience with other BMC codebases, this complexity shift
+> leads to a very clear distinction on what is supported by the runtime
+> and provides a clear distinction between the "core" (code running
+> that's common) and the "platform" (the data that's driving it).
+> The Facebook openbmc implementation has a very similar structure for
+> JSON based runtime configurability separated from the core but does
+> it in multiple files.  An example of fan control is here:
+> https://github.com/facebook/openbmc/blob/helium/meta-facebook/meta-fb
+> tp/recipes-fbtp/fscd/fscd/fsc-config.json 
+> It does not take the "single file" approach, but in discussions with
+> Sai, they were open to moving that direction.
+> 
+> > There is a downside to delayed validation, however, the parsing is
+> > a "one-
+> > time" start-up cost for the applications.  Also, it might be
+> > cleaner in terms of
+> > one system file describing everything that all the different
+> > daemons can
+> > parse... there are certainly a few different approaches to this.
+> 
+> I could not have said it better myself.  The "one file" approach is
+> exactly the direction we would like to take, but wanted some
+> precedence for runtime-configured platforms before we tilted at that
+> windmill.
+> 
+> > >   - loss of implementation freedom of choice (adopting the
+> > > proposed
+> > > solution _requires_ json parsing on _all_ platforms using
+> > > reference
+> > > applications, even platforms using single configuration images)
+> 
+> I find this hit on complexity to be fairly minimal for most
+> applications, as python has "batteries included" bindings for json
+> parsing, and C++ has several mature libraries to select from.  The
+> get device id example we pushed used nlohmann json, as that seemed to
+> have the easiest to use abstraction, but we've also shipped platforms
+> with cjson in the past.
+> 
+> > Previously for the most part, we all had to do yaml->cpp, which
+> > certainly had
+> > its own drawbacks.  I think json will provide a cleaner mechanism
+> > for
+> > backwards compatibility.  Every platform wont' need to regularly
+> > update their
+> > configuration files unless there's a breaking change.	
+> 
+> This is exactly our experience.  In other platforms, running off
+> configuration files allowed us to completely rewrite internal
+> implementations (sometimes changing languages) with negligible user
+> impact.
+
+-brad
