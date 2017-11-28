@@ -1,48 +1,57 @@
-Return-Path: <ed.tanous@intel.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.100; helo=mga07.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2a00:1450:4010:c07::234; helo=mail-lf0-x234.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="kFeZ7WuP"; 
+ dkim-atps=neutral
+Received: from mail-lf0-x234.google.com (mail-lf0-x234.google.com
+ [IPv6:2a00:1450:4010:c07::234])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ym3DQ2ysjzDrPk
- for <openbmc@lists.ozlabs.org>; Tue, 28 Nov 2017 10:39:31 +1100 (AEDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2017 15:39:28 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.44,466,1505804400"; d="scan'208";a="1249233596"
-Received: from orsmsx103.amr.corp.intel.com ([10.22.225.130])
- by fmsmga002.fm.intel.com with ESMTP; 27 Nov 2017 15:39:28 -0800
-Received: from orsmsx152.amr.corp.intel.com (10.22.226.39) by
- ORSMSX103.amr.corp.intel.com (10.22.225.130) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Mon, 27 Nov 2017 15:39:28 -0800
-Received: from orsmsx114.amr.corp.intel.com ([169.254.8.129]) by
- ORSMSX152.amr.corp.intel.com ([169.254.8.218]) with mapi id 14.03.0319.002;
- Mon, 27 Nov 2017 15:39:28 -0800
-From: "Tanous, Ed" <ed.tanous@intel.com>
-To: Patrick Venture <venture@google.com>, Brad Bishop
- <bradleyb@fuzziesquirrel.com>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: RE: RFC: multiple system configurations in a single image
-Thread-Topic: RFC: multiple system configurations in a single image
-Thread-Index: AQHTZ8TQJBx6rMp+GE+29hlL+lI3F6MpRLsA//+GXjA=
-Date: Mon, 27 Nov 2017 23:39:27 +0000
-Message-ID: <7E9441B1E5EFFD4681F54958E82169932F4A8FE6@ORSMSX114.amr.corp.intel.com>
-References: <1511817272.13581.27.camel@fuzziesquirrel.com>
- <CAO=notxaO+m3oCGJxHZhhaUhqh-t9ahENgpVrSBy4JysFeiHEw@mail.gmail.com>
-In-Reply-To: <CAO=notxaO+m3oCGJxHZhhaUhqh-t9ahENgpVrSBy4JysFeiHEw@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-version: 11.0.0.116
-dlp-reaction: request-justification,no-action
-x-originating-ip: [10.22.254.138]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ym7Dx1TGmzDrPk
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Nov 2017 13:40:16 +1100 (AEDT)
+Received: by mail-lf0-x234.google.com with SMTP id x76so30560446lfb.6
+ for <openbmc@lists.ozlabs.org>; Mon, 27 Nov 2017 18:40:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=g8qnxjg4SMceafaEJmWyBKAD4MJD7zPTDbX/HHvWlwo=;
+ b=kFeZ7WuPDBWC48XvbbWl54wLm4cHh43He2x9k59JjnRR09ZVtv7kx5JZU8qI5frAW1
+ Vthdr/rzx1eUoaZs+j9s+hx3QzEZ1m3mr7KPO17SMuAJYauGNynw6Pgma4fDgdPu/XdH
+ qBFVXHEpsAkBTfksiaoLbk6/ddDwtEWj7HuV+UTdzUEFYt6t9DTRXzUNnmD0pyN/jjJB
+ HsnaJJw35dPClfg92p6EZgmmESg7cO6lknn2NUGSsoJPhexQEZ83bVKGHPFiEyBOvPpc
+ uDmUgma7BrUOKhxyM4NrqFSQP2Vu/34FpFyU2jcRXzq7pecH9Pm2ISE8L40SaN5yc3+q
+ 01YQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=g8qnxjg4SMceafaEJmWyBKAD4MJD7zPTDbX/HHvWlwo=;
+ b=i4x8R/Zja5ihFnexIMgdt0hEk8BbM4Ys6LEUm8EwBtpSBUXd2kz2PwAH+PErlNvXa9
+ YW+AXc7kHrLA3nG2wKyLryYIp5kRCthWZZcWYsqTHts65ovMmgRcRi535c8Q0U3PUY3m
+ PSptEZ9BCbdPULmtcb9ipqofOQC8VVKb8aPqHNlJHRTE+eQHkDErqNb6N8gYeAkyX1v5
+ Qmtm2B4blUxiCD4gf3PpvV8kgYYolkYk5u/kgvAVNuv/nsya1Nj7bV6AoqWZ3WI6mEyX
+ xRji3IOLN5EicLnMLWs77/MMVbHmqI8FZ380c/Op29DD2/IlrNa5JEWlYYM21ufHkZ8J
+ P7dQ==
+X-Gm-Message-State: AJaThX7ugmN09sAmaJ0z8fP69+89AI1Q3KxqzVPccwTd9Y3rkjhu0rGl
+ UMB5+QNMXtGlfofSF0C9fC0IdgxzOG/RdK437ig=
+X-Google-Smtp-Source: AGs4zMYd0P00cQCzMzRMLCYLvxVcb1QX2R8cOXFnStsYVLcNiMlM1TbPdTNNOdEVygjfHQfd9qQ/lRPNhEGyTIWjhPA=
+X-Received: by 10.25.198.147 with SMTP id w141mr12183174lff.84.1511836811226; 
+ Mon, 27 Nov 2017 18:40:11 -0800 (PST)
 MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.25.155.83 with HTTP; Mon, 27 Nov 2017 18:39:50 -0800 (PST)
+In-Reply-To: <CAO=notyW=x_9j45SDd-75WULwXQdTHhUx65R7YUUSgaBp2+qgQ@mail.gmail.com>
+References: <CAO=notyW=x_9j45SDd-75WULwXQdTHhUx65R7YUUSgaBp2+qgQ@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 28 Nov 2017 13:09:50 +1030
+X-Google-Sender-Auth: dpZxFvOujCEJnd_TkKdK3DwlLb4
+Message-ID: <CACPK8Xcv8F4WHs8bynxDSLK6pg4hYTm2w-044RmJ6dOEcYevJA@mail.gmail.com>
+Subject: Re: Linux 4-10 v 4.13 patching
+To: Patrick Venture <venture@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -54,66 +63,18 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 27 Nov 2017 23:39:35 -0000
+X-List-Received-Date: Tue, 28 Nov 2017 02:40:18 -0000
 
-VGhhbmtzIGZvciBicmluZ2luZyB0aGlzIHVwIEJyYWQuICBJIHdhcyBwbGFubmluZyBvbiBzZW5k
-aW5nIHRoaXMgb3V0IGFmdGVyIHRoZSB0ZWNobmljYWwgY2FsbCwgYnV0IHlvdSBiZWF0IG1lIHRv
-IGl0LiAgWW91IGRpZCBhIGdyZWF0IGpvYiBzdW1tYXJpemluZyBvdXIgbWFpbiBwb2ludHMuDQoN
-Ck9uZSBrZXkgdGFrZWF3YXkgZnJvbSB0aGlzIGlzIHRoZSBlbmQgZ29hbCB0aGF0J3MgZHJpdmlu
-ZyBvdXIgZGVzaXJlczogIFBsYXRmb3JtIHBvcnRzIHNob3VsZCB0YWtlIGEgc2luZ2xlIGRldmVs
-b3BlciBsZXNzIHRoYW4gYSB3ZWVrIHRvIGFjY29tcGxpc2gsIGFuZCBoYXZlIGEgaGlnaCAoOTAl
-KykgcmVsaWFiaWxpdHkgb2YgYmVpbmcgZnVuY3Rpb25hbGx5IGNvcnJlY3QuICBXaXRoIGFsbCAN
-CgkNCj4gRXh0cmEgcHJvOiB5b3UgY2FuIGVkaXQgaXQgYXQgcnVuLXRpbWUgYW5kIHJlbGF1bmNo
-IHRoZSBhcHBsaWNhdGlvbiA6KQ0KVGhpcyBpcyBleGFjdGx5IG91ciB1c2UgY2FzZSB3ZSB3YW50
-ZWQgdG8gb3V0bGluZSB3aXRoIHRoZSBwYXRjaC4gIENvbnN1bWVycyBvZiB0aGUgcGxhdGZvcm0g
-bWF5IGNob29zZSB0byBjaGFuZ2UgcGFyYW1ldGVycyBhdCBydW50aW1lIChtYW51ZmFjdHVyZXIg
-SUQgb3IgcGxhdGZvcm0gSUQgYXJlIGdvb2QgZXhhbXBsZXMgaW4gdGhlIHBhdGNoLCBmYW4gY29u
-dHJvbCB0dW5pbmcgaXMgYW4gZXhhbXBsZSBub3QgaW4gdGhlIHBhdGNoKS4gIExvdHMgb2YgY3Vz
-dG9tZXJzIHJlcXVpcmUgcnVudGltZSBjb25maWd1cmFiaWxpdHkgd2l0aG91dCByZWNvbXBpbGlu
-ZywgYXMgdXBsb2FkaW5nIGFuIHVuc3VwcG9ydGVkIGltYWdlIHdvdWxkIHZvaWQgd2FycmFudGll
-cyBmb3IgcHJvZHVjdGlvbiBjb21tZXJjaWFsbHkgc3VwcG9ydGVkIHBsYXRmb3JtcyBmcm9tIG1v
-c3QgbWFudWZhY3R1cmVycy4gIEFsc28sIG1ha2luZyB0aGlzIHJ1bnRpbWUgY29uZmlndXJhYmxl
-IGlzIGEgaHVnZSB3aW4gZm9yIHRoZSBlbmQgdXNlciB0aGF0IGRvZXNuJ3QgbmVjZXNzYXJpbHkg
-aGF2ZSB0aGUgZXhwZXJ0aXNlIHRvIGV4ZWN1dGUgYSB5b2N0byBidWlsZCBhbmQgc2lnbiBpdCBh
-cHByb3ByaWF0ZWx5Lg0KDQo+ID4gbm90LXNvLWdvb2Q6DQo+ID4gICAtIGNvbXBsZXhpdHkgc2hp
-ZnQgZnJvbSBidWlsZCB0byBydW50aW1lIChwYXJzaW5nLCB2YWxpZGF0aW9uKQ0KSW4gb3VyIGV4
-cGVyaWVuY2Ugd2l0aCBvdGhlciBCTUMgY29kZWJhc2VzLCB0aGlzIGNvbXBsZXhpdHkgc2hpZnQg
-bGVhZHMgdG8gYSB2ZXJ5IGNsZWFyIGRpc3RpbmN0aW9uIG9uIHdoYXQgaXMgc3VwcG9ydGVkIGJ5
-IHRoZSBydW50aW1lIGFuZCBwcm92aWRlcyBhIGNsZWFyIGRpc3RpbmN0aW9uIGJldHdlZW4gdGhl
-ICJjb3JlIiAoY29kZSBydW5uaW5nIHRoYXQncyBjb21tb24pIGFuZCB0aGUgInBsYXRmb3JtIiAo
-dGhlIGRhdGEgdGhhdCdzIGRyaXZpbmcgaXQpLg0KVGhlIEZhY2Vib29rIG9wZW5ibWMgaW1wbGVt
-ZW50YXRpb24gaGFzIGEgdmVyeSBzaW1pbGFyIHN0cnVjdHVyZSBmb3IgSlNPTiBiYXNlZCBydW50
-aW1lIGNvbmZpZ3VyYWJpbGl0eSBzZXBhcmF0ZWQgZnJvbSB0aGUgY29yZSBidXQgZG9lcyBpdCBp
-biBtdWx0aXBsZSBmaWxlcy4gIEFuIGV4YW1wbGUgb2YgZmFuIGNvbnRyb2wgaXMgaGVyZToNCmh0
-dHBzOi8vZ2l0aHViLmNvbS9mYWNlYm9vay9vcGVuYm1jL2Jsb2IvaGVsaXVtL21ldGEtZmFjZWJv
-b2svbWV0YS1mYnRwL3JlY2lwZXMtZmJ0cC9mc2NkL2ZzY2QvZnNjLWNvbmZpZy5qc29uIA0KSXQg
-ZG9lcyBub3QgdGFrZSB0aGUgInNpbmdsZSBmaWxlIiBhcHByb2FjaCwgYnV0IGluIGRpc2N1c3Np
-b25zIHdpdGggU2FpLCB0aGV5IHdlcmUgb3BlbiB0byBtb3ZpbmcgdGhhdCBkaXJlY3Rpb24uDQoN
-Cj4gVGhlcmUgaXMgYSBkb3duc2lkZSB0byBkZWxheWVkIHZhbGlkYXRpb24sIGhvd2V2ZXIsIHRo
-ZSBwYXJzaW5nIGlzIGEgIm9uZS0NCj4gdGltZSIgc3RhcnQtdXAgY29zdCBmb3IgdGhlIGFwcGxp
-Y2F0aW9ucy4gIEFsc28sIGl0IG1pZ2h0IGJlIGNsZWFuZXIgaW4gdGVybXMgb2YNCj4gb25lIHN5
-c3RlbSBmaWxlIGRlc2NyaWJpbmcgZXZlcnl0aGluZyB0aGF0IGFsbCB0aGUgZGlmZmVyZW50IGRh
-ZW1vbnMgY2FuDQo+IHBhcnNlLi4uIHRoZXJlIGFyZSBjZXJ0YWlubHkgYSBmZXcgZGlmZmVyZW50
-IGFwcHJvYWNoZXMgdG8gdGhpcy4NCkkgY291bGQgbm90IGhhdmUgc2FpZCBpdCBiZXR0ZXIgbXlz
-ZWxmLiAgVGhlICJvbmUgZmlsZSIgYXBwcm9hY2ggaXMgZXhhY3RseSB0aGUgZGlyZWN0aW9uIHdl
-IHdvdWxkIGxpa2UgdG8gdGFrZSwgYnV0IHdhbnRlZCBzb21lIHByZWNlZGVuY2UgZm9yIHJ1bnRp
-bWUtY29uZmlndXJlZCBwbGF0Zm9ybXMgYmVmb3JlIHdlIHRpbHRlZCBhdCB0aGF0IHdpbmRtaWxs
-Lg0KDQo+ID4gICAtIGxvc3Mgb2YgaW1wbGVtZW50YXRpb24gZnJlZWRvbSBvZiBjaG9pY2UgKGFk
-b3B0aW5nIHRoZSBwcm9wb3NlZA0KPiA+IHNvbHV0aW9uIF9yZXF1aXJlc18ganNvbiBwYXJzaW5n
-IG9uIF9hbGxfIHBsYXRmb3JtcyB1c2luZyByZWZlcmVuY2UNCj4gPiBhcHBsaWNhdGlvbnMsIGV2
-ZW4gcGxhdGZvcm1zIHVzaW5nIHNpbmdsZSBjb25maWd1cmF0aW9uIGltYWdlcykNCkkgZmluZCB0
-aGlzIGhpdCBvbiBjb21wbGV4aXR5IHRvIGJlIGZhaXJseSBtaW5pbWFsIGZvciBtb3N0IGFwcGxp
-Y2F0aW9ucywgYXMgcHl0aG9uIGhhcyAiYmF0dGVyaWVzIGluY2x1ZGVkIiBiaW5kaW5ncyBmb3Ig
-anNvbiBwYXJzaW5nLCBhbmQgQysrIGhhcyBzZXZlcmFsIG1hdHVyZSBsaWJyYXJpZXMgdG8gc2Vs
-ZWN0IGZyb20uICBUaGUgZ2V0IGRldmljZSBpZCBleGFtcGxlIHdlIHB1c2hlZCB1c2VkIG5sb2ht
-YW5uIGpzb24sIGFzIHRoYXQgc2VlbWVkIHRvIGhhdmUgdGhlIGVhc2llc3QgdG8gdXNlIGFic3Ry
-YWN0aW9uLCBidXQgd2UndmUgYWxzbyBzaGlwcGVkIHBsYXRmb3JtcyB3aXRoIGNqc29uIGluIHRo
-ZSBwYXN0Lg0KDQo+IFByZXZpb3VzbHkgZm9yIHRoZSBtb3N0IHBhcnQsIHdlIGFsbCBoYWQgdG8g
-ZG8geWFtbC0+Y3BwLCB3aGljaCBjZXJ0YWlubHkgaGFkDQo+IGl0cyBvd24gZHJhd2JhY2tzLiAg
-SSB0aGluayBqc29uIHdpbGwgcHJvdmlkZSBhIGNsZWFuZXIgbWVjaGFuaXNtIGZvcg0KPiBiYWNr
-d2FyZHMgY29tcGF0aWJpbGl0eS4gIEV2ZXJ5IHBsYXRmb3JtIHdvbnQnIG5lZWQgdG8gcmVndWxh
-cmx5IHVwZGF0ZSB0aGVpcg0KPiBjb25maWd1cmF0aW9uIGZpbGVzIHVubGVzcyB0aGVyZSdzIGEg
-YnJlYWtpbmcgY2hhbmdlLgkNClRoaXMgaXMgZXhhY3RseSBvdXIgZXhwZXJpZW5jZS4gIEluIG90
-aGVyIHBsYXRmb3JtcywgcnVubmluZyBvZmYgY29uZmlndXJhdGlvbiBmaWxlcyBhbGxvd2VkIHVz
-IHRvIGNvbXBsZXRlbHkgcmV3cml0ZSBpbnRlcm5hbCBpbXBsZW1lbnRhdGlvbnMgKHNvbWV0aW1l
-cyBjaGFuZ2luZyBsYW5ndWFnZXMpIHdpdGggbmVnbGlnaWJsZSB1c2VyIGltcGFjdC4NCg==
+On Tue, Nov 28, 2017 at 1:52 AM, Patrick Venture <venture@google.com> wrote:
+> I'm sorry as I probably missed the email, should I send patches
+> against linux 4.10 or 4.13 or both?
+
+Good question. If you want something to boot this week, send them to both.
+
+If you're just wanting to get them in the tree, then just send them to 4.13.
+
+I am working on 4.13 but it's not ready to go yet.
+
+Cheers,
+
+Joel
