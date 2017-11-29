@@ -1,57 +1,51 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4010:c07::22d; helo=mail-lf0-x22d.google.com;
+ (client-ip=2a00:1450:4010:c07::22f; helo=mail-lf0-x22f.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="l5lgBGoL"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="lRha9QJa"; 
  dkim-atps=neutral
-Received: from mail-lf0-x22d.google.com (mail-lf0-x22d.google.com
- [IPv6:2a00:1450:4010:c07::22d])
+Received: from mail-lf0-x22f.google.com (mail-lf0-x22f.google.com
+ [IPv6:2a00:1450:4010:c07::22f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ymw5D55QRzDrZV
- for <openbmc@lists.ozlabs.org>; Wed, 29 Nov 2017 20:21:19 +1100 (AEDT)
-Received: by mail-lf0-x22d.google.com with SMTP id t197so3039143lfe.7
- for <openbmc@lists.ozlabs.org>; Wed, 29 Nov 2017 01:21:19 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ymwXZ1hh9zDr4S
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Nov 2017 20:41:33 +1100 (AEDT)
+Received: by mail-lf0-x22f.google.com with SMTP id a12so3121766lfe.4
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Nov 2017 01:41:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=qBzbaTM1i5HKualqf4EnmGx2XSMTzYvuW4OWh8L1bcs=;
- b=l5lgBGoL2Iyoa5dR+6Nuw/zK6dnsCHl+ENOJpp3P4O6Eohlh5V0euEcR1kBDGz8Koz
- nDqzNAHXVMZU2bly4KYVmVoVoM7EEn7oweyrlb/KNunvZcozHWe4qY7ccqz+GQISX//z
- liB6Z8SwgfG4YFldc1rvO5N0CShBdrb+w1/iQZNx62FOIeyQdyGNOPxSvzSE7JmaHI6s
- Z6/9+nX690/NpQ3AE4Uc2sjHh/z6v0EkRiqFfR0n/MM7SXcI75DlmqUOj3LpWU4zYEf0
- rxKfHL+3/pqsvp9qAxiPj08mrbPfoUVW9usWqjTiArkJ76dtOlYMxrtJrHGqM7jg1pF3
- /W2A==
+ h=mime-version:sender:from:date:message-id:subject:to;
+ bh=w1NObfUfk+Upx/rb2vl8im40aK5ZngwFRzK+/ApNlJs=;
+ b=lRha9QJayhbecVwBVXfdQtABuZhS4fHVBLOpUQZXOPt0NHeoKQSUrtnLe8UYGRv2d/
+ qB4oq27aFGEEIvoE6S7vFvNknXaq7gUIbgJrztDsedJs0TgJsrM5dBBasUKVKhlM9e6f
+ wdUdRpMdu6ap1AhSuR5XgyHhRza2b25OIpLRcG2I0SDp8LnbUG07AewaI0NBc7+9OLbv
+ McZNL8p1JnhnETdrP6M4aABym8B6MB8gwfkK0xxzC0nGZQuoflcIp8Sq6VNSAvA2Ak0s
+ /rptF0FsAp/7uKsIGrfxH2DfbMvr6504q7LrkkKwQIbZFBnC++vt7CWPgg/w/Jg8PZke
+ jTGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=qBzbaTM1i5HKualqf4EnmGx2XSMTzYvuW4OWh8L1bcs=;
- b=h9scqANBXhfPyawgG39Oyw3HvVNaDhjf2jdSi6xlX495sgv/+oYG8e/JA+FXAgq1wu
- y9tiTT8xTh6DVCoW2bbGrDaw41Y6QkqsgGdFXqWTwyowxyOBO8OyCIfh++iPevMz/xYE
- VSmS6px4CSOb4xxjdrjy2J9Apaw+soSpyhlzMDiEmcDw2MxMvdXLwdRrMuJR2raAbdx3
- /merqvh92yL8DeLuGDPxgJ7nPN1ojUxZ3c2UoDCu/Soku+wyM6k3wpZfCXoeyHMlhi+0
- zYS6BHzFhouDbyGIBFKxyxlXRCkye2Qcjp0HELg6dlvEy7WfR0Rr0tZQG2iO/wSoK3zn
- 5uEA==
-X-Gm-Message-State: AJaThX76FuCZqPZQS5WwrpZL6ybFwCIIgLYF4mEQVKAifoYwc0CTORWW
- gMpsBK8RjSpEaMrGyLGx62VE4696aIMllhM3MAI=
-X-Google-Smtp-Source: AGs4zMYD4pKcOqFKvXaT3CwKzhutleDoF7Ym09Jy3vnd5nL31pgWQh/h2uIt8MT01jEB8ou14bJK8K4QhTn7XU5FgDk=
-X-Received: by 10.46.88.68 with SMTP id x4mr1040577ljd.138.1511947276515; Wed,
- 29 Nov 2017 01:21:16 -0800 (PST)
+ h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
+ :to; bh=w1NObfUfk+Upx/rb2vl8im40aK5ZngwFRzK+/ApNlJs=;
+ b=AVBp8/Bqire+ibJIZz+fRNzajpe0Xlx/CbUqbUCK1haPawdXR8jBLgZalfuGTLxnVC
+ tw4p77s6lbvtURfpkJp6NXaNxMUf4piTLeoxKwDZuYbG9Pax0XbFYAYK3BT2ttt5Djkd
+ tN4x2Eonragz+SufV9u+7Ey71we5V3E/lAtsVcBgjT2EV8xdRNVEsEs6myh6tBLBJSVB
+ qjJ5O8D3CUrqayzE94AafTj31kEvr3HqLSzyByarR2VIgEGuJc5MkrOLSM+NNYslUNy8
+ J4j+tOizYC3Dc4r1yHx3zw3AQay8xZifG2MmFj5bhAKxFn/Uy4d1p2bDVy590Ab1mveF
+ DvtQ==
+X-Gm-Message-State: AJaThX5mgSuMF8TvAFwiF3qqiXtD6SAMX0OQWCdJCq8L/UNiHIJQmPFN
+ m/dxP7DmRXtWENrdO7yTdhASqr3Ibw3Ibq2rfOtxNQ==
+X-Google-Smtp-Source: AGs4zMZ2tQKGXVuED7MgURQQ96YTdFOFvNo/IM9RYgWB9MP5dOghCYR9MgbKAZmN6DXy5/z6W01Dl9uvx7pMwKtWAls=
+X-Received: by 10.46.64.6 with SMTP id n6mr1153252lja.129.1511948490205; Wed,
+ 29 Nov 2017 01:41:30 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.25.155.83 with HTTP; Wed, 29 Nov 2017 01:20:56 -0800 (PST)
-In-Reply-To: <1511897285-23022-2-git-send-email-james.feist@linux.intel.com>
-References: <1511897285-23022-1-git-send-email-james.feist@linux.intel.com>
- <1511897285-23022-2-git-send-email-james.feist@linux.intel.com>
+Received: by 10.25.155.83 with HTTP; Wed, 29 Nov 2017 01:41:09 -0800 (PST)
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 29 Nov 2017 19:50:56 +1030
-X-Google-Sender-Auth: _fKYbBH03LQ1fdXNGtGnD0afKCY
-Message-ID: <CACPK8Xe9Uk3jPi3L6XR9SmXdU9Z7NZHSaYJdbPt-z5aQVV-_YQ@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10 v2 2/2] ARM: dts: Add Wfp BMC Machine
-To: James Feist <james.feist@linux.intel.com>, Andrew Jeffery <andrew@aj.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Wed, 29 Nov 2017 20:11:09 +1030
+X-Google-Sender-Auth: bYMBk3whuwYT3Tfj059Lxd7gFVM
+Message-ID: <CACPK8Xd+U-F+ws23rtrBVH-T_xNDS1q2=yY3DYjURH1yRQD3_Q@mail.gmail.com>
+Subject: openpower.xyz outage
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
@@ -64,37 +58,13 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Nov 2017 09:21:22 -0000
+X-List-Received-Date: Wed, 29 Nov 2017 09:41:34 -0000
 
-On Wed, Nov 29, 2017 at 5:58 AM, James Feist
-<james.feist@linux.intel.com> wrote:
-> Wfp is a Intel system with an Aspeed ast2500 BMC.
+The hosting provider that donates the machine that we call
+openpower.xyz has had an outage. We've taken steps to bring the box
+back up, but it's not quite there yet.
 
-Is WFP an acronym? It would be good to spell it out in the commit message.
-
-Andrew, can you please review the bits of the device tree that you're
-familiar with (mostly pinmux)?
-
-
-> +
-> +       chosen {
-> +               stdout-path = &uart5;
-> +               bootargs = "115200 earlyprintk";
-
-I don't think 115200 will do anything. Can you explain your intent here?
-
-> +       };
-> +
-> +       memory {
-> +               reg = <0x80000000 0x20000000>;
-> +       };
-
-There's no reserved region for the VGA framebuffer, but you enable the
-GFX node below.
-
-With the openbmc u-boot tree the size of the memory is adjusted to
-account for the framebuffer at the top of memory, but I was lead to
-believe Intel machines use their own u-boot fork.
+I'll update this thread when we know more.
 
 Cheers,
 
