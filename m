@@ -1,64 +1,30 @@
-Return-Path: <groeck7@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c00::244; helo=mail-pf0-x244.google.com;
- envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="cWT/yTUE"; 
- dkim-atps=neutral
-Received: from mail-pf0-x244.google.com (mail-pf0-x244.google.com
- [IPv6:2607:f8b0:400e:c00::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <james.feist@linux.intel.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.93; helo=mga11.intel.com;
+ envelope-from=james.feist@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ynCr55VN4zDqpc
- for <openbmc@lists.ozlabs.org>; Thu, 30 Nov 2017 08:11:01 +1100 (AEDT)
-Received: by mail-pf0-x244.google.com with SMTP id j124so2129267pfc.2
- for <openbmc@lists.ozlabs.org>; Wed, 29 Nov 2017 13:11:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=RxzKIAQTOiwLTzVcqwqvFKkWN5+fm5AgPsbhTojjHhM=;
- b=cWT/yTUEL3IGWHX8A0SAAEQVbCA9nowJHib3nburzo2TeV1q5hWfeFHyqXC/YdgSmf
- FjAGOBdQtBm6cmqRJF6geqP4COqfK/JaBTYJBbxMwyOBWDYbMeCP8mM3B8DDH1FIiaOG
- ydHEmN1o8Np3YGMgczk6ph48w+LI4HxA16blJXV2Qhhc6W2zIgSSKHPh0HZQFjwgQqJo
- rAksrdPkoI5kQqaMflmpNKkl0SlpmvZS679SZOoU5rd0m2MERrZQzrM+Hq9/DyOSat02
- qQX+IvWH5EMoWrPBL/W5322hueRdUw9dWdPZyNIEwgPQ6OgqxqprfgavHx3aLv/8yf76
- m24Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :references:mime-version:content-disposition:in-reply-to:user-agent;
- bh=RxzKIAQTOiwLTzVcqwqvFKkWN5+fm5AgPsbhTojjHhM=;
- b=KJHidMYILUxQn8bYPk/5ki7voZm3DtDoZ4sZgotXWdeyOj5GoxJrRsnjc79OEQCy1/
- GEFZjkXFAvyzN/gPRmZTJ0fKTBRxpXdnwgU0gIaQSjx9B83cE9XmI8ZuGFJRI159ZSpH
- PKUHpzz4lRS+b17wBIMLi+NtkGiyHNnnzCQ8ND+tUPy7XXEuwEzlHHPa/sejCZvaJQrr
- prhZXwEirncBGrdcYEQf5Bhx0aL8WfvMfpbnUSLZ329Og10wKEcgZOWHQTwHmYZytZ/I
- vHzfOSw6aOWN/tjPUrzkOEj6zLHuE9vMWCFZQ71ciGKkf5ZJNBIOfosq3obNRjWR0ndF
- LcAQ==
-X-Gm-Message-State: AJaThX72o7q9taAXY20kde34stOAgDslcZAIELTX0UNYARWZmBAR66uG
- 423yftpwuyD/YThgqUj110M=
-X-Google-Smtp-Source: AGs4zMZPBxx09hQXXM4zRmGTlj+uIVOiQ212ubCn7BVsSiiypHcDjpi+Sjn8SCo2kxnLf3niBJmBzw==
-X-Received: by 10.99.115.85 with SMTP id d21mr228798pgn.82.1511989858646;
- Wed, 29 Nov 2017 13:10:58 -0800 (PST)
-Received: from localhost (108-223-40-66.lightspeed.sntcca.sbcglobal.net.
- [108.223.40.66])
- by smtp.gmail.com with ESMTPSA id f79sm4616541pfd.45.2017.11.29.13.10.57
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 29 Nov 2017 13:10:58 -0800 (PST)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 29 Nov 2017 13:10:57 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: linux-hwmon@vger.kernel.org, jdelvare@suse.com, corbet@lwn.net,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, joel@jms.id.au, openbmc@lists.ozlabs.org
-Subject: Re: [v6,1/4] pmbus (core): Add fan control support
-Message-ID: <20171129211056.GA21396@roeck-us.net>
-References: <3b782897affbb8ffe51d6b87d8c48fdcbb84e33e.1511152748.git-series.andrew@aj.id.au>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3b782897affbb8ffe51d6b87d8c48fdcbb84e33e.1511152748.git-series.andrew@aj.id.au>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ynCsB1GBjzDqC2
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Nov 2017 08:11:57 +1100 (AEDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 29 Nov 2017 13:11:55 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.45,339,1508828400"; 
+   d="scan'208";a="8612474"
+Received: from skyhawk.jf.intel.com ([10.54.51.84])
+ by fmsmga001.fm.intel.com with ESMTP; 29 Nov 2017 13:11:55 -0800
+From: James Feist <james.feist@linux.intel.com>
+To: openbmc@lists.ozlabs.org,
+	joel@jms.id.au,
+	andrew@aj.id.au
+Cc: James Feist <james.feist@linux.intel.com>
+Subject: [PATCH linux dev-4.10 v3 1/1] ARM: dts: Add Wfp BMC Machine
+Date: Wed, 29 Nov 2017 13:10:40 -0800
+Message-Id: <1511989840-13781-1-git-send-email-james.feist@linux.intel.com>
+X-Mailer: git-send-email 2.7.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -70,60 +36,168 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Nov 2017 21:11:02 -0000
+X-List-Received-Date: Wed, 29 Nov 2017 21:11:59 -0000
 
-On Mon, Nov 20, 2017 at 03:12:03PM +1030, Andrew Jeffery wrote:
-> Expose fanX_target, pwmX and pwmX_enable hwmon sysfs attributes.
-> 
-> Fans in a PMBus device are driven by the configuration of two registers,
-> FAN_CONFIG_x_y and FAN_COMMAND_x: FAN_CONFIG_x_y dictates how the fan
-> and the tacho operate (if installed), while FAN_COMMAND_x sets the
-> desired fan rate. The unit of FAN_COMMAND_x is dependent on the
-> operational fan mode, RPM or PWM percent duty, as determined by the
-> corresponding configuration in FAN_CONFIG_x_y.
-> 
-> The mapping of fanX_target, pwmX and pwmX_enable onto FAN_CONFIG_x_y and
-> FAN_COMMAND_x is implemented with the addition of virtual registers to
-> facilitate the necessary side-effects of each access:
-> 
-> 1. PMBUS_VIRT_FAN_TARGET_x
-> 2. PMBUS_VIRT_PWM_x
-> 3. PMBUS_VIRT_PWM_ENABLE_x
-> 
-> Some complexity arises with the fanX_target and pwmX attributes both mapping
-> onto FAN_COMMAND_x: There is no general mapping between PWM percent duty and
-> RPM, so we can't display values in either attribute in terms of the other
-> (which in my mind is the intuitive, if impossible, behaviour). This problem
-> also affects the pwmX_enable attribute which allows userspace to switch between
-> full speed, manual PWM and a number of automatic control modes, possibly
-> including a switch to RPM behaviour (e.g. automatically adjusting PWM duty to
-> reach a RPM target, the behaviour of fanX_target).
-> 
-> The next most intuitive behaviour is for fanX_target and pwmX to simply be
-> independent, to retain their most recently set value even if that value is not
-> active on the hardware (due to switching to the alternative control mode). This
-> property of retaining the value independent of the hardware state has useful
-> results for both userspace and the kernel: Userspace always sees a sensible
-> value in the attribute (the last thing it was set to, as opposed to 0 or
-> receiving an error on read), and the kernel can use the attributes as a value
-> cache. This latter point eases the implementation of pwmX_enable, which can
-> look up the associated pmbus_sensor object, take its cached value and apply it
-> to hardware on changing control mode. This ensures we will not arbitrarily set
-> a PWM value as an RPM value or vice versa, and we can assume that the RPM or
-> PWM value set was sensible at least at some point in the past.
-> 
-> Finally, the DIRECT mode coefficients of some controllers is different between
-> RPM and PWM percent duty control modes, so PSC_PWM is introduced to capture the
-> necessary coefficients. As pmbus core had no PWM support previously PSC_FAN
-> continues to be used to capture the RPM DIRECT coefficients, but in order to
-> avoid falsely applying RPM scaling to PWM values I have introduced the
-> PMBUS_HAVE_PWM12 and PMB_BUS_HAVE_PWM34 feature bits. These feature bits allow
-> drivers to explicitly declare PWM support in order to have the attributes
-> exposed.
-> 
-> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+Wfp is a Intel system with an Aspeed ast2500 BMC.
 
-Appled (fixed whitespace problem).
+Signed-off-by: James Feist <james.feist@linux.intel.com>
+---
+This change depends on "ARM: dts: aspeed: Rename aspeed-bmc-opp-flash-layout.dtsi"
 
-Thanks,
-Guenter
+Changes since v2:
+ - Added reserved memory block.
+ - Removed extra bootarg.
+
+ arch/arm/boot/dts/Makefile                 |   1 +
+ arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts | 128 +++++++++++++++++++++++++++++
+ 2 files changed, 129 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts
+
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index 6d6c9eb..987e23e 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -992,6 +992,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb \
+ 	aspeed-bmc-opp-lanyang.dtb \
+ 	aspeed-bmc-mellanox-msn.dtb \
+ 	aspeed-bmc-quanta-q71l.dtb \
++	aspeed-bmc-intel-wfp.dtb \
+ 	aspeed-ast2500-evb.dtb
+ endif
+ 
+diff --git a/arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts b/arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts
+new file mode 100644
+index 0000000..901b6a0
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts
+@@ -0,0 +1,128 @@
++/dts-v1/;
++
++#include "aspeed-g5.dtsi"
++
++/ {
++	model = "WFP BMC";
++	compatible = "intel,wfp-bmc", "aspeed,ast2500";
++
++	aliases {
++		serial4 = &uart5;
++	};
++
++	chosen {
++		stdout-path = &uart5;
++		bootargs = "earlyprintk";
++	};
++
++	memory {
++		reg = <0x80000000 0x20000000>;
++	};
++
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		vga_memory: framebuffer@7f000000 {
++			no-map;
++			reg = <0x7f000000 0x01000000>;
++		};
++	};
++
++	iio-hwmon {
++		compatible = "iio-hwmon";
++		io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
++			<&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>,
++			<&adc 8>, <&adc 9>, <&adc 10>, <&adc 11>,
++			<&adc 12>, <&adc 13>, <&adc 14>, <&adc 15>;
++	};
++
++};
++
++&fmc {
++	status = "okay";
++	flash@0 {
++		status = "okay";
++#include "openbmc-flash-layout.dtsi"
++	};
++};
++
++&spi1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_spi1_default>;
++
++	flash@0 {
++		status = "okay";
++		label = "pnor";
++	};
++};
++
++&uart5 {
++	status = "okay";
++};
++
++&mac0 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rmii1_default>;
++	use-ncsi;
++};
++
++&mac1 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
++};
++
++&i2c1 {
++	status = "okay";
++};
++
++&i2c2 {
++	status = "okay";
++};
++
++&i2c3 {
++	status = "okay";
++};
++
++&i2c4 {
++	status = "okay";
++};
++
++&i2c5 {
++	status = "okay";
++};
++
++&i2c6 {
++	status = "okay";
++};
++
++&i2c7 {
++	status = "okay";
++};
++
++&i2c13 {
++	status = "okay";
++};
++
++&gfx {
++	status = "okay";
++};
++
++&pinctrl {
++	aspeed,external-nodes = <&gfx &lhc>;
++};
++
++&pwm_tacho {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
++			 &pinctrl_pwm2_default &pinctrl_pwm3_default
++			 &pinctrl_pwm4_default &pinctrl_pwm5_default
++			 &pinctrl_pwm6_default &pinctrl_pwm7_default>;
++};
+-- 
+2.7.4
