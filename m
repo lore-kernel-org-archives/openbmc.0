@@ -1,55 +1,53 @@
-Return-Path: <venture@google.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400c:c08::242; helo=mail-ua0-x242.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Return-Path: <bjwyman@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:400d:c0d::241; helo=mail-qt0-x241.google.com;
+ envelope-from=bjwyman@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="XN3QJvwL"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="t8qEl5N/"; 
  dkim-atps=neutral
-Received: from mail-ua0-x242.google.com (mail-ua0-x242.google.com
- [IPv6:2607:f8b0:400c:c08::242])
+Received: from mail-qt0-x241.google.com (mail-qt0-x241.google.com
+ [IPv6:2607:f8b0:400d:c0d::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yn8MM3v25zDrbX
- for <openbmc@lists.ozlabs.org>; Thu, 30 Nov 2017 05:34:22 +1100 (AEDT)
-Received: by mail-ua0-x242.google.com with SMTP id j14so4037253uag.11
- for <openbmc@lists.ozlabs.org>; Wed, 29 Nov 2017 10:34:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to;
- bh=BedR3awGLZKzmxQ7qVPwFFO3U4W8iPF53OUZDhSDgSc=;
- b=XN3QJvwL2UiF4lab0PSnZbiFuzQhjw1Epb+FbicZOi0/NUroaJPilEvd6en1Hl1zF4
- GBxAciMUPRYfvuzgNkHcI6PKPP4Br5s3RPlOC00UdS3Nve3snso7IoKchg/B0TsI2nBZ
- /9zv+QDvLMe9bpCF34VO/4pdt7R4kUWwGlEFWyj85ltNam2/lTmsFs63PIQgAx5xWz5d
- W7RtvbIeajDDGyf++HzBHEqDWjSitxzeKrief4YcIxjne16eq/s6QbtEEL5BDydgdF+z
- EPG9XApd6CZ6Q5PRvOt3jOGHlq4xt9otn+1nChVGM1q2sI6+vugoy4AVg5RkRlE0kWAd
- 3V2w==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ynBRN4ncKzDrZr
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Nov 2017 07:07:59 +1100 (AEDT)
+Received: by mail-qt0-x241.google.com with SMTP id i40so5971047qti.8
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Nov 2017 12:07:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=yLD238c0PmQ5w0u69Vx0wYvJwUsCGKor1YMlyieKbpU=;
+ b=t8qEl5N/DTLpNMegQ5Dkuhz/D12sV7CMG/ZWXS26f1VRfKWWHbKjyMN8DpmFanC+bd
+ 9+jVPq6l87aTzIcVJoQ6bRevn4WxAbrjaAD2gLSJnBxUkZJfnQxF1P/fosc2fixGV0FE
+ ZpPXwKAfCLahZxhfWoYsr+ySKW87m2xcs+u5DvCabVmt262tdWIVo/hZ0EAyR8bpXFzk
+ J+Fkywz7bs/Hgt38q5SiQYDfEiF1/eBArQjfWscLn7JBYXPvPpGNxl1u6xNgxhLxu2GB
+ Md9ayH8HBQH3zgXPF7irh7vxRby/TsOypXd2GM6TAEbQW1BPbBhfGthZH3k2FtHwnFMk
+ cSZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to;
- bh=BedR3awGLZKzmxQ7qVPwFFO3U4W8iPF53OUZDhSDgSc=;
- b=osQU8mPA0/S6D6PinFW2BZ827iIBWRHmgXPe5H/OfUlHwmNxye5J19CK8ZF34OYAmk
- vWZzCrSXbS7tSKTTmkllqg+tFWgLqoNnEVDzetknQO/SZLlD0IIxfHz2zBJuOgb9Ss6v
- ty7FsbJkn66F4F7RAH5kzd60CYXDKrr77XfZEp1WXI4UsozG/8Q8dzubj01VIPZICM3y
- 821ks2mCLM0OJZfdbW6RUlGSegXfMKZZ+Y+cBKkq3iHzPAqiyBG3exRADqoNpCHqjyeV
- AeN41RNlMu42aqk0BSPx7DItvPmVeQrt3Yz9kYVWD40gAV6umqBbvVMrzlcFJuJZD+Q7
- XFAg==
-X-Gm-Message-State: AJaThX5o/YIy49QHS1x97j5hZ1Y9qkJCv1yd7d9vSEhh/qKCZsxSa3Og
- 0x20GF2a8RJM5K6Xu2bEV0ut2cKLNwz+1O1AmWUAnA==
-X-Google-Smtp-Source: AGs4zMYO4M55upSbe1xiTfWYnAkf/cXA7ELozJcHEM1iGAK//GPN+F+Wko4Mx1RHlk4OM450Z3OfXAYREnkEItirK18=
-X-Received: by 10.159.61.196 with SMTP id e4mr3102997uaj.156.1511980459182;
- Wed, 29 Nov 2017 10:34:19 -0800 (PST)
+ :message-id:subject:to:cc;
+ bh=yLD238c0PmQ5w0u69Vx0wYvJwUsCGKor1YMlyieKbpU=;
+ b=mhxmDVdFYwmj+rKXCdP0wghlqaQf1Cxb/odlgaV1Zz+NHu3u8hWm7XIip60PN3kkLw
+ 61GAlr/67QkwkVrTqwT2n4xkdA842dT1BVYWApEzv81IhiNh02/LXyFlElksu20yh/a/
+ Rc3CEPf8GuxQSVGyxRh8iSet+midCFLKidxy+0yAKczz1Qw7edLp0TqnXcMY8VGP2cQa
+ jfZNmEbjZg0ubELbQWkWGLkxa3Gk7ZAL9MPj0b+8EfB2q1niRst0UCQoPr+832yTCQSS
+ 548nrIuKw656OWkg99qwMAvUjlHav8Bg9JnSf6cPeV87Hpc3nTX/PIQ1qHi7F32BHkpb
+ 9r9A==
+X-Gm-Message-State: AKGB3mKrVZ9wHj18DcBkSSp01PVtuSzeXeaBJqmgsUtltPrT2ELvsEzr
+ 5Lav2EEM5ODs9GKKM22pfDZx7NmJhwriYc6EJkA=
+X-Google-Smtp-Source: AGs4zMaKf42g4M1hxEWTNXGR4xdA9EqF1nYO1h+bgjJEy+BHF6DxKnvuAwd/DXfHF5mQq2eok96Rljp4Ya4hxhye5pk=
+X-Received: by 10.200.56.16 with SMTP id q16mr66824qtb.223.1511986077368; Wed,
+ 29 Nov 2017 12:07:57 -0800 (PST)
 MIME-Version: 1.0
-Received: by 10.31.94.150 with HTTP; Wed, 29 Nov 2017 10:33:58 -0800 (PST)
-In-Reply-To: <20171120185445.146061-1-venture@google.com>
-References: <20171120185445.146061-1-venture@google.com>
-From: Patrick Venture <venture@google.com>
-Date: Wed, 29 Nov 2017 10:33:58 -0800
-Message-ID: <CAO=notwF3acqwMHeuQyp4rUQwN6K0oj_py46-feMf3hoRydLyA@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: gpio controller register
- range
-To: Patrick Venture <venture@google.com>, Joel Stanley <joel@jms.id.au>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Received: by 10.140.85.35 with HTTP; Wed, 29 Nov 2017 12:07:56 -0800 (PST)
+In-Reply-To: <1511430637-14131-1-git-send-email-vishwa@linux.vnet.ibm.com>
+References: <1511430637-14131-1-git-send-email-vishwa@linux.vnet.ibm.com>
+From: Brandon Wyman <bjwyman@gmail.com>
+Date: Wed, 29 Nov 2017 14:07:56 -0600
+Message-ID: <CAK_vbW32QHAVtm7AFETN6m7SmrcusdB-7DfsNNCAqKHUe8T6eA@mail.gmail.com>
+Subject: Re: [PATCH] ARM: dts: aspeed: witherspoon: Add power-button LED
+To: Vishwanatha Subbanna <vishwa@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
@@ -62,36 +60,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Nov 2017 18:34:25 -0000
+X-List-Received-Date: Wed, 29 Nov 2017 20:08:01 -0000
 
-Can I get a status on this patch?  The device datasheet has 4K
-reserved for the range, but only the first 512 are registers
-controlled by this driver.  The rest will be handled by a separate
-driver.  Or at least that's how it's planned.
-
-On Mon, Nov 20, 2017 at 10:54 AM, Patrick Venture <venture@google.com> wrote:
-> Instead of 4k, it should be 512 because the latter
-> part of the memory region are registers for the serial
-> gpio driver.
+On Thu, Nov 23, 2017 at 3:50 AM, Vishwanatha Subbanna
+<vishwa@linux.vnet.ibm.com> wrote:
+> This LED wired to GPIO R5 is integrated with power button
 >
-> Signed-off-by: Patrick Venture <venture@google.com>
+> Change-Id: I899405013fbb6b93783dec59090e86453a5ec383
+> Signed-off-by: Vishwanatha Subbanna <vishwa@linux.vnet.ibm.com>
 > ---
->  arch/arm/boot/dts/aspeed-g4.dtsi | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 4 ++++
+>  1 file changed, 4 insertions(+)
 >
-> diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-> index 6505062ac6c7..424d843ec1da 100644
-> --- a/arch/arm/boot/dts/aspeed-g4.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-> @@ -231,7 +231,7 @@
->                                 #gpio-cells = <2>;
->                                 gpio-controller;
->                                 compatible = "aspeed,ast2400-gpio";
-> -                               reg = <0x1e780000 0x1000>;
-> +                               reg = <0x1e780000 0x200>;
->                                 interrupts = <20>;
->                                 interrupt-controller;
->                                 gpio-ranges = <&pinctrl 0 0 220>;
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> index 68058ec..d25c7dc 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> @@ -143,6 +143,10 @@
+>                 rear-power {
+>                         gpios = <&gpio ASPEED_GPIO(N, 3) GPIO_ACTIVE_LOW>;
+>                 };
+> +
+> +               power-button {
+> +                       gpios = <&gpio ASPEED_GPIO(R, 5) GPIO_ACTIVE_LOW>;
+> +               };
+>         };
+>
+>         fsi: gpio-fsi {
 > --
-> 2.15.0.448.gf294e3d99a-goog
+> 1.9.1
 >
+
+Reviewed-by: Brandon Wyman <bjwyman@gmail.com>
