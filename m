@@ -1,58 +1,57 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4010:c07::241; helo=mail-lf0-x241.google.com;
+ (client-ip=2a00:1450:4010:c07::244; helo=mail-lf0-x244.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="tRdZkp2o"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Rxetrnhg"; 
  dkim-atps=neutral
-Received: from mail-lf0-x241.google.com (mail-lf0-x241.google.com
- [IPv6:2a00:1450:4010:c07::241])
+Received: from mail-lf0-x244.google.com (mail-lf0-x244.google.com
+ [IPv6:2a00:1450:4010:c07::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ynPC51Q0lzDqwr
- for <openbmc@lists.ozlabs.org>; Thu, 30 Nov 2017 15:13:04 +1100 (AEDT)
-Received: by mail-lf0-x241.google.com with SMTP id i2so6349918lfe.9
- for <openbmc@lists.ozlabs.org>; Wed, 29 Nov 2017 20:13:04 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ynPDF2pSMzDr4P
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Nov 2017 15:14:05 +1100 (AEDT)
+Received: by mail-lf0-x244.google.com with SMTP id 74so6399400lfs.0
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Nov 2017 20:14:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=kLjb8pLLsRwXjaKD5DJjzdndo9ifmf+cKRerHrGdD+I=;
- b=tRdZkp2okJgB2vY8WysiEh5vsDBYIq914oztr9uQ+iPnhcm55b+PPxrABR7S02D8ID
- jYKOruSUaONeSw8zlXzNU3i5/RYVNsKPvLSebOxu8GUqrbl+6mkfxVBr8q2ouU4SqqJ8
- ePuWwsm9AjECpjYArpT9YjHwlzKXdtlcfSVVpjz+JMv0GGoISnX6UbI1ezqfVhcqUTvB
- Q1/Mvd/B2BMHGyLZUsF2YXI0qyLw5c3z9mQdzlQiHOArAjgSFqRywxg+77xmXGl/1MGg
- j1Sxy3NTgCpf6Cli5qr1Pn75/vTj0u4Ya1KgjGvulR2WMALnK3FZpJcbRrjLamh7Z4gb
- mSiw==
+ bh=5P9mfHXg2dHKpZ5vWQGnl19Zzl+VqNXbHpB8KrGkvSY=;
+ b=Rxetrnhgnm7oOvNlWZydsUMj2vQc5sLynHgCpeBsi1SrYEuwzV2zLa6yP5hRgQRXM5
+ pKFBOnbBjCCeH4kAqGlopZS1GXm1wT4dOX6RTV2Q1nRNu6FIUCRsGVapN5bzfE1nn8FR
+ XDfsS4PAWLQBl/3M6hZ2xJE4Gf0KwBAibAoVx4ViSdkvmUG8u1JTYcA2UOUyJBl49Mh0
+ oEdC7558zze0f7ySwyAd/QrxoCzjdn2tLcfY1vQwysIXUTY7NUx4pG7VDSur1BCqAS0I
+ JHosWdrp2jm7H0r0HKMc6dn18T434zTbaftEZqj+0AuXp01Or2nZirrXGy/7pgn1LGfP
+ h+tQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=kLjb8pLLsRwXjaKD5DJjzdndo9ifmf+cKRerHrGdD+I=;
- b=GJjf2K9Dwl4eTLI+ulmkf7PXmbgniUsk+YiOly37pMdepj7RxYG479gqL5KnV08t2P
- JodqVDYnM9JfzVbAQ7UBKzoquDe2vrJEuaGgvxkkEnApgnJWAjnpUS5VymL5ylzcSo59
- bh9J5dcpjYpyudGtnH4rK/nWXQgRJ+XKMzc2aOltTDgkC/8Nz+/V1nLjC4X9tvdk9WEp
- agILHkW+N+ZALOHHoEfMdHEwHY/lIgQzsjLmFyryQk3+NQ6I9H6/H5igKe5FujZU1JtI
- fKnikmOMMYzdLJJAhL6QYZN5kCvduB7Gx/DNbRELwtxaP+mbfxFUZPZrdHUXBWtUK36Q
- A1kg==
-X-Gm-Message-State: AJaThX6hbGer9TIAI2A+ntUX7GflWGGtLX7ThJ764tMjQDCiXXwFfVWa
- KE9ulM4uul1oq66mb8QJYb5O/xs9xqTPKhmMQW8=
-X-Google-Smtp-Source: AGs4zMaerbPnj9IHtqvVtyIeu48m879BN8d+qAEOq7fQWrulDdhnRRZPHR+9VtMswI9yOuJWhceLXH3GdPbR4UBLsSc=
-X-Received: by 10.25.28.9 with SMTP id c9mr1671164lfc.40.1512015181139; Wed,
- 29 Nov 2017 20:13:01 -0800 (PST)
+ bh=5P9mfHXg2dHKpZ5vWQGnl19Zzl+VqNXbHpB8KrGkvSY=;
+ b=QbOSf+q4+CgTFCmf4QjeSHXNdnCsRmrHW4LSU7hvGacLae6SocydpxdijBnYKvzs66
+ a2syx/zNTlHvJ9PDJr5PQWBjNRdw2mpqeV0s+P6DhYLNa6ZgZjCqEZyqWSrCx9/GfcAY
+ 5xGiqQgDwik4DJSvaJH+kqB/wnSiQHsWiPvKhn1mOGrCYPonmkdUk2suEHCaSpEhFmgx
+ yEb76ML3qIO7Nc6iOwTvOBw7j9J1dK0nLodOAL0F6NQrycWS5bCEwnd7coRQXNUjQoEM
+ 24FPtdHcfHjalF5GECd2MKS1zOccLcbdnrxRHfpWpt78X4V0VrxPCREuVUvOIu+1/ADO
+ ASDw==
+X-Gm-Message-State: AJaThX6sgsUVnyvZKTulHC3hFXSW3SeP3gMI5W1R20LjzNNoHGI4TQ4D
+ 3cBDsE+0NysKjL09/ZOPOh4fTDcPr0njfub6HdX8pg==
+X-Google-Smtp-Source: AGs4zMakvPWInmDo+I6trEB7C8IUPp1jkzD2trVFHChAKT8zaF5NmM5PtcCKwqaw/R14hPNZEKj5KxdSu9xRRzbjlss=
+X-Received: by 10.25.210.210 with SMTP id j201mr2046885lfg.45.1512015241649;
+ Wed, 29 Nov 2017 20:14:01 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.25.155.83 with HTTP; Wed, 29 Nov 2017 20:12:40 -0800 (PST)
-In-Reply-To: <CAK_vbW32QHAVtm7AFETN6m7SmrcusdB-7DfsNNCAqKHUe8T6eA@mail.gmail.com>
-References: <1511430637-14131-1-git-send-email-vishwa@linux.vnet.ibm.com>
- <CAK_vbW32QHAVtm7AFETN6m7SmrcusdB-7DfsNNCAqKHUe8T6eA@mail.gmail.com>
+Received: by 10.25.155.83 with HTTP; Wed, 29 Nov 2017 20:13:38 -0800 (PST)
+In-Reply-To: <1511861129-13455-1-git-send-email-mine260309@gmail.com>
+References: <1511861129-13455-1-git-send-email-mine260309@gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 30 Nov 2017 14:42:40 +1030
-X-Google-Sender-Auth: XvWYD4cAJ_3Lo9YEGBsE0KQU6Yw
-Message-ID: <CACPK8Xcn-v=nXNmL60EAcRGwDg3G1CzieQubzAMEydV20CBNsQ@mail.gmail.com>
-Subject: Re: [PATCH] ARM: dts: aspeed: witherspoon: Add power-button LED
-To: Brandon Wyman <bjwyman@gmail.com>
-Cc: Vishwanatha Subbanna <vishwa@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Thu, 30 Nov 2017 14:43:38 +1030
+X-Google-Sender-Auth: s03CEEVqbWrlg6UAHw1s50DWSPs
+Message-ID: <CACPK8Xeu0p1yNyRzoLD7PR2+OjpgACFcR-8m_ZUUNYAf5sa+Bw@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: P8: Add checkstop gpio
+ key
+To: Lei YU <mine260309@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
@@ -65,23 +64,113 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Nov 2017 04:13:06 -0000
+X-List-Received-Date: Thu, 30 Nov 2017 04:14:06 -0000
 
-On Thu, Nov 30, 2017 at 6:37 AM, Brandon Wyman <bjwyman@gmail.com> wrote:
-> On Thu, Nov 23, 2017 at 3:50 AM, Vishwanatha Subbanna
-> <vishwa@linux.vnet.ibm.com> wrote:
->> This LED wired to GPIO R5 is integrated with power button
->>
->> Change-Id: I899405013fbb6b93783dec59090e86453a5ec383
+On Tue, Nov 28, 2017 at 7:55 PM, Lei YU <mine260309@gmail.com> wrote:
+> The checkstop gpio key is missing in P8 systems.
+> Define the checkstop gpio key for Barreleye, Firestone, Garrison,
+> Palmetto so they can use it for checkstop monitor.
+>
+> Signed-off-by: Lei YU <mine260309@gmail.com>
 
-This is not used by the kernel. I have removed it for you; make sure
-you clean them out of the commit message in the future.
-
->> Signed-off-by: Vishwanatha Subbanna <vishwa@linux.vnet.ibm.com>
-> Reviewed-by: Brandon Wyman <bjwyman@gmail.com>
-
-Thanks for reviewing. Applied to dev-4.10.
+Applied to dev-4.10. I also fixed up a mistake where garrison's dtb
+did not build due to a missing include.
 
 Cheers,
 
 Joel
+
+> ---
+>  arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts | 10 ++++++++++
+>  arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts | 10 ++++++++++
+>  arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts  | 10 ++++++++++
+>  arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts  | 10 ++++++++++
+>  4 files changed, 40 insertions(+)
+>
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+> index 6e70ca5..026cda5 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+> @@ -54,6 +54,16 @@
+>                         default-state = "keep";
+>                 };
+>         };
+> +
+> +       gpio-keys {
+> +               compatible = "gpio-keys";
+> +
+> +               checkstop {
+> +                       label = "checkstop";
+> +                       gpios = <&gpio ASPEED_GPIO(P, 5) GPIO_ACTIVE_LOW>;
+> +                       linux,code = <ASPEED_GPIO(P, 5)>;
+> +               };
+> +       };
+>  };
+>
+>  &fmc {
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+> index 93ad3ea..fb7d5f9 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+> @@ -43,6 +43,16 @@
+>                         gpios = <&gpio ASPEED_GPIO(A, 2) GPIO_ACTIVE_LOW>;
+>                 };
+>         };
+> +
+> +       gpio-keys {
+> +               compatible = "gpio-keys";
+> +
+> +               checkstop {
+> +                       label = "checkstop";
+> +                       gpios = <&gpio ASPEED_GPIO(H, 0) GPIO_ACTIVE_LOW>;
+> +                       linux,code = <ASPEED_GPIO(H, 0)>;
+> +               };
+> +       };
+>  };
+>
+>  &fmc {
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
+> index 95552c8..a2906ccd 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
+> @@ -26,6 +26,16 @@
+>                         reg = <0x5f000000 0x01000000>; /* 16MB */
+>                 };
+>         };
+> +
+> +       gpio-keys {
+> +               compatible = "gpio-keys";
+> +
+> +               checkstop {
+> +                       label = "checkstop";
+> +                       gpios = <&gpio ASPEED_GPIO(H, 0) GPIO_ACTIVE_LOW>;
+> +                       linux,code = <ASPEED_GPIO(H, 0)>;
+> +               };
+> +       };
+>  };
+>
+>  &fmc {
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+> index ab3fee6..8ba7d05 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+> @@ -58,6 +58,16 @@
+>                 enable-gpios = <&gpio ASPEED_GPIO(D, 0) GPIO_ACTIVE_HIGH>;
+>                 trans-gpios = <&gpio ASPEED_GPIO(H, 6) GPIO_ACTIVE_HIGH>;
+>         };
+> +
+> +       gpio-keys {
+> +               compatible = "gpio-keys";
+> +
+> +               checkstop {
+> +                       label = "checkstop";
+> +                       gpios = <&gpio ASPEED_GPIO(P, 5) GPIO_ACTIVE_LOW>;
+> +                       linux,code = <ASPEED_GPIO(P, 5)>;
+> +               };
+> +       };
+>  };
+>
+>  &fmc {
+> --
+> 1.9.1
+>
