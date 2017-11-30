@@ -1,101 +1,28 @@
-Return-Path: <oleksandrs@mellanox.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=mellanox.com
- (client-ip=104.47.0.78; helo=eur01-he1-obe.outbound.protection.outlook.com;
- envelope-from=oleksandrs@mellanox.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b="r61rLj2p";
- dkim-atps=neutral
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur01on0078.outbound.protection.outlook.com [104.47.0.78])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ynZ0c5gZnzDrp4
- for <openbmc@lists.ozlabs.org>; Thu, 30 Nov 2017 21:49:34 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
- s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=i46Mux8sN5mhiKMWG0DecEo0JrOuacsM4AO33UTMBes=;
- b=r61rLj2pqBp6bnMIf4YSkK2GK28l2jwZIpj3CvkdhSqXLyIPN1nVswE6TPIU/yfq+T7zDN3TiPijlenP6+qSFFNfDX4awy3LiRpiQB7YyCHOuo9lfMCy2PWVLXSl+4dRu2L1WxGrfpLmhVaCnPAzc7ptcr4LDA2QGYg57Z84KO4=
-Received: from AM4PR0501MB2194.eurprd05.prod.outlook.com (10.165.82.13) by
- AM4PR05MB3331.eurprd05.prod.outlook.com (10.171.187.16) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id
- 15.20.282.5; Thu, 30 Nov 2017 10:49:27 +0000
-Received: from AM4PR0501MB2194.eurprd05.prod.outlook.com
- ([fe80::a17d:e2e6:2095:d246]) by AM4PR0501MB2194.eurprd05.prod.outlook.com
- ([fe80::a17d:e2e6:2095:d246%17]) with mapi id 15.20.0282.006; Thu, 30 Nov
- 2017 10:49:27 +0000
-From: Oleksandr Shamray <oleksandrs@mellanox.com>
-To: Philippe Ombredanne <pombredanne@nexb.com>, Kun Yi <kunyi@google.com>
-CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "arnd@arndb.de"
- <arnd@arndb.de>, system-sw-low-level <system-sw-low-level@mellanox.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "jiri@resnulli.us"
- <jiri@resnulli.us>, Vadim Pasternak <vadimp@mellanox.com>,
- "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>, LKML <linux-kernel@vger.kernel.org>,
- "openocd-devel-owner@lists.sourceforge.net"
- <openocd-devel-owner@lists.sourceforge.net>, "mec@shout.net" <mec@shout.net>, 
- Jiri Pirko <jiri@mellanox.com>, "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
- "tklauser@distanz.ch" <tklauser@distanz.ch>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: RE: [patch v12 2/4] drivers: jtag: Add Aspeed SoC 24xx and 25xx
- families JTAG master driver
-Thread-Topic: [patch v12 2/4] drivers: jtag: Add Aspeed SoC 24xx and 25xx
- families JTAG master driver
-Thread-Index: AQHTXWmOxItJNl+A6E2rCoN3qQNgbaMsDkYAgACfWICAABxuIA==
-Date: Thu, 30 Nov 2017 10:49:27 +0000
-Message-ID: <AM4PR0501MB2194FDF093DD241694BE77BFB1380@AM4PR0501MB2194.eurprd05.prod.outlook.com>
-References: <1510675867-24276-1-git-send-email-oleksandrs@mellanox.com>
- <1510675867-24276-3-git-send-email-oleksandrs@mellanox.com>
- <CAGMNF6XRwU5QEJhkg-mVwE5zpPigtcGJtRUupZHtcWRdedcsxg@mail.gmail.com>
- <CAOFm3uHg8n4A8opaOC3=pNtM1yJU6iy5Ta8XtGOvqT-Euv=X1w@mail.gmail.com>
-In-Reply-To: <CAOFm3uHg8n4A8opaOC3=pNtM1yJU6iy5Ta8XtGOvqT-Euv=X1w@mail.gmail.com>
-Accept-Language: en-US, uk-UA
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=oleksandrs@mellanox.com; 
-x-originating-ip: [80.90.224.13]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; AM4PR05MB3331;
- 6:dEEe0Mst1uk5ohbb+S3D8BwX4NZdx81QC5s+XrdLPKZ5ajp17L25sHezXOwyfxWkqz4m4KESU6/s5aiXblBsWyxAU2bGxdAujddgCYK5MonSmR4HMZCBEy7/PrBuo+77i7TqfB+3JXGidHjEU7fu5r5LcPyoMKEfdZPCfsWXXf57iS68/JTZiAIG6qHk5qwGxE2Ttwx6I+utHphCTbXVU6QEuoPwNF7L5PqF5WmsEfxzLoZvsuwGWXP0m2WzkRc3z+kgiHfL1fyLRpbD4kfs7IwQemFVxTAx5OwYlpJoXYIG0RAAUZ0bEvkkCadOqvOtaXx87LVDuv1m0T/jGIkNIyamwA0budOsLaIOYsiysvw=;
- 5:b09JzkdrVtyzzhm0I9MCb7CqH+RjD/RD2hEPKj3Q+T/lJ54CWgLpdV6xV5G1xDQ8BO/JNcilCiBn7wnBWiousVpz0noqubsTZnxGUrF7HHnFfhTpetn6poy7dfts8o80jX1++VDE96EOTiCxGZHzUXeBf3MPm/Zxo70d9+nl82o=;
- 24:wLUFUKcAIEx7c1LAncJbTb+VQLvdN/UcoNpteLz0sveAiJVYA9CfH24cBk7GhfuNiJ/YgG9Lq2z/4iIm1lxxOoSRyQ7G4p6JgMYCkpohHkg=;
- 7:UYtr/s2AreNumvllXoPsDyOLYgSQyL/NRmxCxZLyeejxfwKDyN/DDT/i7yyNKw5DNc4YxYr7bMAFQYHNLXgWStU1qnVguL6i5FjY+QqT/1/kwaGxhzlqcPcFHfIS+xjqt5zktkzpq9uHgygsXdXPAmyM+3iOz7U7djSlcrTLDMiNEAtRFHuKxsVW+OxJybZXr104V7/QMCyooYzsKu3+5y+fjLx3uxVb2gY4ChlG6VhtteixJOOCGVb/WCNUVFxT
-x-ms-exchange-antispam-srfa-diagnostics: SSOS;SSOR;
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 2294e08f-29b1-46a2-d66d-08d537e006f8
-x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
- RULEID:(48565401081)(4534020)(4602075)(4627115)(201703031133081)(201702281549075)(5600026)(4604075)(2017052603284);
- SRVR:AM4PR05MB3331; 
-x-ms-traffictypediagnostic: AM4PR05MB3331:
-x-microsoft-antispam-prvs: <AM4PR05MB3331E308FC99D525E615B877B1380@AM4PR05MB3331.eurprd05.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:(143289334528602)(9452136761055)(65623756079841)(258649278758335)(211936372134217)(42262312472803)(153496737603132);
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(6040450)(2401047)(5005006)(8121501046)(3002001)(3231022)(920507027)(93006095)(93001095)(10201501046)(6055026)(6041248)(20161123564025)(201703131423075)(201702281528075)(201703061421075)(201703061406153)(20161123560025)(20161123558100)(20161123562025)(20161123555025)(6072148)(201708071742011);
- SRVR:AM4PR05MB3331; BCL:0; PCL:0; RULEID:(100000803101)(100110400095);
- SRVR:AM4PR05MB3331; 
-x-forefront-prvs: 05079D8470
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(6009001)(39860400002)(376002)(346002)(366004)(13464003)(199003)(189002)(24454002)(74316002)(50986010)(101416001)(54356010)(102836003)(6116002)(2900100001)(3846002)(76176010)(33656002)(7696005)(7736002)(97736004)(305945005)(478600001)(34040400001)(2906002)(7416002)(8676002)(3280700002)(14454004)(99286004)(3660700001)(5660300001)(189998001)(55016002)(4326008)(5250100002)(53546010)(316002)(53936002)(66066001)(9686003)(81166006)(81156014)(6436002)(229853002)(6506006)(6246003)(8936002)(86362001)(110136005)(54906003)(105586002)(106356001)(93886005)(25786009)(2950100002)(68736007);
- DIR:OUT; SFP:1101; SCL:1; SRVR:AM4PR05MB3331;
- H:AM4PR0501MB2194.eurprd05.prod.outlook.com; FPR:; SPF:None; PTR:InfoNoRecords;
- A:1; MX:1; LANG:en; 
-received-spf: None (protection.outlook.com: mellanox.com does not designate
- permitted sender hosts)
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-OriginatorOrg: Mellanox.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2294e08f-29b1-46a2-d66d-08d537e006f8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Nov 2017 10:49:27.0872 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM4PR05MB3331
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ynddP0FnhzDrpt
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Dec 2017 00:33:12 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Sender: bradleyb@bajor.fuzziesquirrel.com
+Message-ID: <1512048774.13581.85.camel@fuzziesquirrel.com>
+Subject: Re: Create new platform for arm system
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+To: "Chen.KenYY" =?UTF-8?Q?=E9=99=B3=E6=B0=B8=E7=87=9F?= TAO
+ <Chen.KenYY@inventec.com>, "openbmc@lists.ozlabs.org"
+ <openbmc@lists.ozlabs.org>
+Date: Thu, 30 Nov 2017 08:32:54 -0500
+In-Reply-To: <39E6480C5A587146BAA4D885C7BCF7EEC6AA69BA@IEC1-EX2010-MX4.iec.inventec>
+References: <39E6480C5A587146BAA4D885C7BCF7EEC6AA69BA@IEC1-EX2010-MX4.iec.inventec>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -107,41 +34,418 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Nov 2017 10:49:38 -0000
+X-List-Received-Date: Thu, 30 Nov 2017 13:33:13 -0000
 
-VGhuYWtzIGZvciBwb2ludCANCg0KQmVzdCBSZWdhcmRzLA0KT2xla3NhbmRyIFNoYW1yYXkNCg0K
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBQaGlsaXBwZSBPbWJyZWRhbm5l
-IFttYWlsdG86cG9tYnJlZGFubmVAbmV4Yi5jb21dDQo+IFNlbnQ6IFRodXJzZGF5LCBOb3ZlbWJl
-ciAzMCwgMjAxNyAxMDoyMSBBTQ0KPiBUbzogS3VuIFlpIDxrdW55aUBnb29nbGUuY29tPg0KPiBD
-YzogT2xla3NhbmRyIFNoYW1yYXkgPG9sZWtzYW5kcnNAbWVsbGFub3guY29tPjsgR3JlZyBLcm9h
-aC1IYXJ0bWFuDQo+IDxncmVna2hAbGludXhmb3VuZGF0aW9uLm9yZz47IGFybmRAYXJuZGIuZGU7
-IHN5c3RlbS1zdy1sb3ctbGV2ZWwgPHN5c3RlbS0NCj4gc3ctbG93LWxldmVsQG1lbGxhbm94LmNv
-bT47IGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnOyBqaXJpQHJlc251bGxpLnVzOw0KPiBWYWRp
-bSBQYXN0ZXJuYWsgPHZhZGltcEBtZWxsYW5veC5jb20+OyBsaW51eC1hcGlAdmdlci5rZXJuZWwu
-b3JnOw0KPiBPcGVuQk1DIE1haWxsaXN0IDxvcGVuYm1jQGxpc3RzLm96bGFicy5vcmc+OyBMS01M
-IDxsaW51eC0NCj4ga2VybmVsQHZnZXIua2VybmVsLm9yZz47IG9wZW5vY2QtZGV2ZWwtb3duZXJA
-bGlzdHMuc291cmNlZm9yZ2UubmV0Ow0KPiBtZWNAc2hvdXQubmV0OyBKaXJpIFBpcmtvIDxqaXJp
-QG1lbGxhbm94LmNvbT47IHJvYmgrZHRAa2VybmVsLm9yZzsgbGludXgtDQo+IHNlcmlhbEB2Z2Vy
-Lmtlcm5lbC5vcmc7IHRrbGF1c2VyQGRpc3RhbnouY2g7IE1hdXJvIENhcnZhbGhvIENoZWhhYg0K
-PiA8bWNoZWhhYkBrZXJuZWwub3JnPjsgRGF2aWQgUy4gTWlsbGVyIDxkYXZlbUBkYXZlbWxvZnQu
-bmV0PjsgbGludXgtYXJtLQ0KPiBrZXJuZWxAbGlzdHMuaW5mcmFkZWFkLm9yZw0KPiBTdWJqZWN0
-OiBSZTogW3BhdGNoIHYxMiAyLzRdIGRyaXZlcnM6IGp0YWc6IEFkZCBBc3BlZWQgU29DIDI0eHgg
-YW5kIDI1eHgNCj4gZmFtaWxpZXMgSlRBRyBtYXN0ZXIgZHJpdmVyDQo+IA0KPiBPbiBXZWQsIE5v
-diAyOSwgMjAxNyBhdCAxMTo1MSBQTSwgS3VuIFlpIDxrdW55aUBnb29nbGUuY29tPiB3cm90ZToN
-Cj4gPiBPbiBUdWUsIE5vdiAxNCwgMjAxNyBhdCA4OjExIEFNLCBPbGVrc2FuZHIgU2hhbXJheQ0K
-PiA+IDxvbGVrc2FuZHJzQG1lbGxhbm94LmNvbT4gd3JvdGU6DQo+IFtdDQo+ID4+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2p0YWcvanRhZy1hc3BlZWQuYyBiL2RyaXZlcnMvanRhZy9qdGFnLWFzcGVl
-ZC5jDQo+ID4+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0IGluZGV4IDAwMDAwMDAuLmE2ZTI0MTcNCj4g
-Pj4gLS0tIC9kZXYvbnVsbA0KPiA+PiArKysgYi9kcml2ZXJzL2p0YWcvanRhZy1hc3BlZWQuYw0K
-PiA+PiBAQCAtMCwwICsxLDc4MiBAQA0KPiA+PiArLyoNCj4gPj4gKyAqIGRyaXZlcnMvanRhZy9h
-c3BlZWQtanRhZy5jDQo+ID4+ICsgKg0KPiA+PiArICogQ29weXJpZ2h0IChjKSAyMDE3IE1lbGxh
-bm94IFRlY2hub2xvZ2llcy4gQWxsIHJpZ2h0cyByZXNlcnZlZC4NCj4gPj4gKyAqIENvcHlyaWdo
-dCAoYykgMjAxNyBPbGVrc2FuZHIgU2hhbXJheSA8b2xla3NhbmRyc0BtZWxsYW5veC5jb20+DQo+
-ID4+ICsgKg0KPiA+PiArICogUmVsZWFzZWQgdW5kZXIgdGhlIEdQTHYyIG9ubHkuDQo+ID4+ICsg
-KiBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMA0KPiA+PiArICovDQo+IA0KPiBJIHRo
-aW5rIHRoZSBTUERYIGlkIHNob3VsZCBiZSBvbiB0aGUgZmlyc3QgbGluZSBhcyByZXF1ZXN0ZWQg
-YnkgTGludXMgYW5kDQo+IGRvY3VtZW50ZWQgYnkgVGhvbWFzICh0Z2x4KSBhbmQgR3JlZyAoZ3Jl
-Zy1raCkuIEFuZCBpdCBzaG91bGQgdXNlIC8vDQo+IGNvbW1lbnRzLCBlLmc6DQo+IA0KPiAvLyBT
-UERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMA0KPiANCj4gU2VlIHRoZSB0aHJlYWRzIGRp
-c2N1c3NpbmcgYWxsIHRoZXNlLg0KPiANCj4gDQo+IC0tDQo+IENvcmRpYWxseQ0KPiBQaGlsaXBw
-ZSBPbWJyZWRhbm5lDQo=
+On Thu, 2017-11-09 at 05:53 +0000, Chen.KenYY =E9=99=B3=E6=B0=B8=E7=87=9F=
+ TAO wrote:
+> Hi all,
+> =20
+> I have a platform which is arm system.
+> My customer want to update the platform code to openBMC.
+> For now, the code structure as below.
+> meta-arm/
+> =E2=94=9C=E2=94=80=E2=94=80 common
+> =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 recipes-phosphor
+> =E2=94=82       =E2=94=9C=E2=94=80=E2=94=80 dbus
+> =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 openpower-dbus-=
+interfaces.bb
+> =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 openpower-dbus-=
+interfaces-mapper-config-native.bb
+> =E2=94=82       =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 phosphor-mapper=
+-config-native%.bbappend
+> =E2=94=82       =E2=94=9C=E2=94=80=E2=94=80 debug
+> =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 openpower-debug=
+-collector
+> =E2=94=82       =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 ope=
+npower-debug-collector-checkstop@.service
+> =E2=94=82       =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 ope=
+npower-debug-collector-watchdog@.service
+> =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 openpower-debug=
+-collector.bb
+> =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 openpower-debug=
+-collector-error-native.bb
+> =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 openpower-debug=
+-collector.inc
+> =E2=94=82       =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 phosphor-loggin=
+g-error-logs-native.bbappend
+> =E2=94=82       =E2=94=9C=E2=94=80=E2=94=80 ipmi
+> =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 hostboot-invent=
+ory-config
+> =E2=94=82       =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 con=
+fig.yaml
+> =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 hostboot-invent=
+ory-config-native.bb
+> =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 openpower-ipmi-=
+oem.bb
+> =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 openpower-ipmi-=
+oem-whitelist
+> =E2=94=82       =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 ope=
+npower-ipmi-oem-whitelist-native.conf
+> =E2=94=82       =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 openpower-ipmi-=
+oem-whitelist-native.bb
+> =E2=94=82       =E2=94=94=E2=94=80=E2=94=80 packagegroups
+> =E2=94=82           =E2=94=9C=E2=94=80=E2=94=80 packagegroup-obmc-apps.=
+bbappend
+> =E2=94=82           =E2=94=9C=E2=94=80=E2=94=80 packagegroup-obmc-ipmid=
+-providers.bbappend
+> =E2=94=82           =E2=94=9C=E2=94=80=E2=94=80 packagegroup-obmc-phosp=
+hor-debugtools.bbappend
+> =E2=94=82           =E2=94=94=E2=94=80=E2=94=80 packagegroup-op-apps.bb
+> =E2=94=9C=E2=94=80=E2=94=80 conf
+> =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 layer.conf
+> =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 machine
+> =E2=94=82       =E2=94=94=E2=94=80=E2=94=80 include
+> =E2=94=82           =E2=94=94=E2=94=80=E2=94=80 arm.inc
+> =E2=94=9C=E2=94=80=E2=94=80 COPYING.apache-2.0
+> =E2=94=9C=E2=94=80=E2=94=80 COPYING.MIT
+> =E2=94=9C=E2=94=80=E2=94=80 LICENSE
+> =E2=94=94=E2=94=80=E2=94=80 meta-qualcomm
+>     =E2=94=9C=E2=94=80=E2=94=80 conf
+>     =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 layer.conf
+>     =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 machine
+>     =E2=94=82       =E2=94=94=E2=94=80=E2=94=80 include
+>     =E2=94=82           =E2=94=94=E2=94=80=E2=94=80 qualcomm.inc
+>     =E2=94=9C=E2=94=80=E2=94=80 meta-2400-rep
+>     =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 conf
+>     =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 bblayers.conf.s=
+ample
+>     =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 conf-notes.txt
+>     =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 layer.conf
+>     =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 local.conf.samp=
+le
+>     =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 machine
+>     =E2=94=82   =E2=94=82       =E2=94=94=E2=94=80=E2=94=80 2400-rep.co=
+nf
+>     =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 recipes-bsp
+>     =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 u-boot
+>     =E2=94=82   =E2=94=82       =E2=94=9C=E2=94=80=E2=94=80 u-boot
+>     =E2=94=82   =E2=94=82       =E2=94=82   =E2=94=94=E2=94=80=E2=94=80=
+ 0001-Centriq2400-REP-platform-board-initial-
+> Ethernet-Phy-reset.patch
+>     =E2=94=82   =E2=94=82       =E2=94=94=E2=94=80=E2=94=80 u-boot_%.bb=
+append
+>     =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 recipes-kernel
+>     =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 linux
+>     =E2=94=82   =E2=94=82       =E2=94=9C=E2=94=80=E2=94=80 linux-obmc
+>     =E2=94=82   =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80=
+ 0001-2400REP-Add-GPIOC7-config-for-host-spi-
+> rom-init.patch
+>     =E2=94=82   =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80=
+ 0001-Add-driver-for-PCA9641-Arbitration.patch
+>     =E2=94=82   =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80=
+ 0001-Driver-Add-DS1100-driver-for-PMBUS.patch
+>    =E2=94=82   =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 =
+0001-driver-add-IR38613-driver.patch
+>     =E2=94=82   =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80=
+ 0001-Driver-Modify-fan-driver.patch
+>     =E2=94=82   =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80=
+ 0001-Enabling-temp-monitoring-by-default-on-
+> adm1278.patch
+>     =E2=94=82   =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80=
+ 0001-Migrate-the-JTAG-driver-from-the-BSP-
+> from-Aspeed.patch
+>     =E2=94=82   =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80=
+ 0001-PMBUS-modify-pmbus.patch
+>     =E2=94=82   =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80=
+ 0001-spi-add-aspeed-spi-generic-driver.patch
+>     =E2=94=82   =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80=
+ 0001-spi-Add-centriq-2400-spi-hwmon-
+> driver.patch
+>     =E2=94=82   =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80=
+ 0002-driver-add-PXM1310-driver.patch
+>     =E2=94=82   =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80=
+ 0002-PMBUS-modify-pmbus.patch
+>     =E2=94=82   =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80=
+ 0003-thermal-sensor-NVT210.patch
+>     =E2=94=82   =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80=
+ 2400rep.cfg
+>     =E2=94=82   =E2=94=82       =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80=
+ aspeed-bmc-arm-2400-rep.dts
+>     =E2=94=82   =E2=94=82       =E2=94=82   =E2=94=94=E2=94=80=E2=94=80=
+ v3-0001-Add-SSIF-driver-for-I2C-slave-
+> device.patch
+>     =E2=94=82   =E2=94=82       =E2=94=94=E2=94=80=E2=94=80 linux-obmc_=
+%.bbappend
+>     =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 recipes-phosphor
+>     =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 bootmodeutil
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 boo=
+tmodeutil.bb
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 fil=
+es
+>     =E2=94=82   =E2=94=82   =E2=94=82       =E2=94=9C=E2=94=80=E2=94=80=
+ BOOTMODEFILE
+>     =E2=94=82   =E2=94=82   =E2=94=82       =E2=94=94=E2=94=80=E2=94=80=
+ bootmodeutil.c
+>     =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 chassis
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 ir3=
+8163-workaround
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=
+=94=80 ir38163_workaround.sh
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=
+=94=80 ir-add@.service
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=
+=94=80 ir-remove@.service
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 ir3=
+8163-workaround.bb
+>     =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 console
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 obm=
+c-console
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=
+=94=80 obmc-console.conf
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 obm=
+c-console.bbappend
+>     =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 cpld
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 cpl=
+d-fwupdate
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=
+=94=80 ast-jtag.c
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=
+=94=80 ast-jtag.h
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=
+=94=80 lattice.c
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=
+=94=80 lattice.h
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=
+=94=80 main.c
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 cpl=
+d-fwupdate.bb
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 cpl=
+d-version
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=
+=94=80 cpld-version.service
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=
+=94=80 cpld_version.sh
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 cpl=
+d-version.bb
+>     =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 gpioinit
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 fil=
+es
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=
+=94=80 gpioinit.c
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=
+=94=80 gpioinit.service
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 gpi=
+oinit.bb
+>     =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 ipmi
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 240=
+0-rep-ipmi-inventory-map
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=
+=94=80 config.yaml
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 240=
+0-rep-ipmi-inventory-map-native.bb
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 ope=
+npower-ipmi-oem
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=
+=94=80 0001-Add-detection-of-broad-and-node-
+> command.patch
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=
+=94=80 0001-Add-Get-BMC-Vendor-ID-command.patch
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=
+=94=80 0001-Add-Get-pcie-slot-status-command.patch
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=
+=94=80 0001-Add-Send-Soc-MAC-from-host.patch
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 ope=
+npower-ipmi-oem.bbappend
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 pho=
+sphor-ipmi-bt
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=
+=94=80 0001-btbrigde-to-ssif-slave.patch
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=
+=94=80 0001-Modify-btbridged-device-link.patch
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 pho=
+sphor-ipmi-bt.bbappend
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 pho=
+sphor-ipmi-fru-properties%
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=
+=94=80 extra-properties.yaml
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 pho=
+sphor-ipmi-fru-properties%.bbappend
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 pho=
+sphor-ipmi-sensor-inventory%
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=
+=94=80 config.yaml
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 pho=
+sphor-ipmi-sensor-inventory%.bbappend
+>     =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 leds
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 240=
+0-rep-led-manager-config
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=
+=94=80 led.yaml
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 240=
+0-rep-led-manager-config-native.bb
+>     =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 macsetup
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 fil=
+es
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=
+=94=80 macsetup.c
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=
+=94=80 macsetup.service
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 mac=
+setup.bb
+>     =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 qspitest
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 fil=
+es
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=
+=94=80 qspi_test.c
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=
+=94=80 qspi_test.h
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 qsp=
+itest.bb
+>     =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 sensors
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 pho=
+sphor-hwmon%
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=
+=94=80 0001-phosphor-hwmon-fixed-open-system-file-
+> timeout.patch
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=
+=94=80 obmc
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82       =E2=94=94=E2=94=
+=80=E2=94=80 hwmon
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82           =E2=94=94=E2=
+=94=80=E2=94=80 ahb
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82               =E2=94=9C=
+=E2=94=80=E2=94=80 1e631000.flash-controller
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82               =E2=94=82=
+   =E2=94=94=E2=94=80=E2=94=80 spi2@0
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82               =E2=94=82=
+       =E2=94=94=E2=94=80=E2=94=80 centriq2400-spi-hwmon@0.c
+> onf
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82               =E2=94=94=
+=E2=94=80=E2=94=80 apb
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                   =E2=
+=94=94=E2=94=80=E2=94=80 i2c@1e78a000
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=9C=E2=94=80=E2=94=80 i2c-bus@180
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 ir38163@12.conf
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 ir38163@42.conf
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 ir38163@44.conf
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 ir38163@46.conf
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 ir38163@48.conf
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 pxm1310@02.conf
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 pxm1310@04.conf
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=9C=E2=94=80=E2=94=80 i2c-bus@1c0
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 nvt210@4c.conf
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 tmp421@1d.conf
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 tmp421@1f.conf
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 tmp421@4d.conf
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 tmp421@4f.conf
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=9C=E2=94=80=E2=94=80 i2c-bus@300
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 adm1278@10.conf
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 adm1278@11.conf
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=9C=E2=94=80=E2=94=80 i2c-bus@340
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 pca9641@70
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=82       =E2=94=94=E2=94=80=E2=94=80 i2c-arb
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=82           =E2=94=9C=E2=94=80=E2=94=80 adm1278@12.co
+> nf
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=82           =E2=94=9C=E2=94=80=E2=94=80 ds1100@58.con
+> f
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=82           =E2=94=9C=E2=94=80=E2=94=80 max31790@20.c
+> onf
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=82           =E2=94=9C=E2=94=80=E2=94=80 max31790@23.c
+> onf
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=82           =E2=94=94=E2=94=80=E2=94=80 tmp421@1d.con
+> f
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+ =E2=94=94=E2=94=80=E2=94=80 i2c-bus@80
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+     =E2=94=9C=E2=94=80=E2=94=80 tmp421@1c.conf
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+     =E2=94=9C=E2=94=80=E2=94=80 tmp421@1e.conf
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+     =E2=94=9C=E2=94=80=E2=94=80 tmp421@2a.conf
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82                      =
+     =E2=94=94=E2=94=80=E2=94=80 tmp421@4e.conf
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 pho=
+sphor-hwmon%.bbappend
+>     =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 settings
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 pho=
+sphor-settings
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=
+=94=80 powerpolicy-default-
+> ALWAYS_POWER_ON.override.yml
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=
+=94=80 timeowner-default-BOTH.override.yml
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 pho=
+sphor-settings.bbappend
+>     =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 spitest
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 fil=
+es
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=
+=94=80 spitest.c
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 spi=
+test.bb
+>     =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 thermalutil
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 fil=
+es
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=
+=94=80 thermal_control.sh
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=
+=94=80 thermal-start@.service
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=9C=E2=94=80=E2=
+=94=80 thermal-stop@.service
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=
+=94=80 thermalutil.c
+>     =E2=94=82   =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 the=
+rmalutil.bb
+>     =E2=94=82   =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 workbook
+>     =E2=94=82   =E2=94=82       =E2=94=9C=E2=94=80=E2=94=80 2400-rep-co=
+nfig
+>     =E2=94=82   =E2=94=82       =E2=94=82   =E2=94=94=E2=94=80=E2=94=80=
+ 2400-rep.py
+>     =E2=94=82   =E2=94=82       =E2=94=94=E2=94=80=E2=94=80 2400-rep-co=
+nfig.bb
+>     =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 recipes.txt
+>     =E2=94=94=E2=94=80=E2=94=80 skeleton
+>         =E2=94=94=E2=94=80=E2=94=80 skeleton.tar.gz
+> =20
+> Could anyone help to review this structure and tell me how to
+> separate this code will be good to reviewer?
+> As I know, the kernel patch should not in machine file.
+> =20
+> If any other question, please feel free to me. Thanks.
+> =20
+> Best Regards,
+> Ken
+> =20
+> =20
+
+Hi Ken
+
+I was just curious if you had gotten enough feedback to get started.
+
+Another data point could be the quanta-q711 or witherspoon machines.=20
+If you have a look at the commit history (git log -p) and search for
+these machines (start the search from the beginning of time and search
+forward) these machines were added in a review-friendly way for the
+most part.
+
+To begin with, I'd focus more on adding a board layer that allows you
+to build an image and boot to a shell, and tackle the arm-host aspects
+(i.e. the userspace) of this system after that.  That piece might be
+more involved given that this is the first arm system.
+
+thx - brad
