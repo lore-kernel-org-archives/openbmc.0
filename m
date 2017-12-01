@@ -1,41 +1,100 @@
-Return-Path: <yong.b.li@linux.intel.com>
+Return-Path: <oleksandrs@mellanox.com>
 Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.31; helo=mga06.intel.com;
- envelope-from=yong.b.li@linux.intel.com; receiver=<UNKNOWN>)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=mellanox.com
+ (client-ip=40.107.3.80; helo=eur03-am5-obe.outbound.protection.outlook.com;
+ envelope-from=oleksandrs@mellanox.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b="F7yoEG1D";
+ dkim-atps=neutral
+Received: from EUR03-AM5-obe.outbound.protection.outlook.com
+ (mail-eopbgr30080.outbound.protection.outlook.com [40.107.3.80])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yp2fc4p4CzDql1
- for <openbmc@lists.ozlabs.org>; Fri,  1 Dec 2017 16:20:39 +1100 (AEDT)
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2017 21:20:36 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.45,344,1508828400"; d="scan'208";a="182692505"
-Received: from yongli3-mobl.ccr.corp.intel.com (HELO yongli3MOBL)
- ([10.239.196.61])
- by fmsmga006.fm.intel.com with ESMTP; 30 Nov 2017 21:20:35 -0800
-From: "Yong Li" <yong.b.li@linux.intel.com>
-To: "'Brad Bishop'" <bradleyb@fuzziesquirrel.com>
-Cc: "'OpenBMC Maillist'" <openbmc@lists.ozlabs.org>
-References: <000001d3641d$3e482120$bad86360$@linux.intel.com>
- <1ABEA804-8141-49CA-AFBF-B47C8D0ABD31@fuzziesquirrel.com>
- <000001d368b3$0d4644e0$27d2cea0$@linux.intel.com>
- <1512050430.13581.97.camel@fuzziesquirrel.com>
-In-Reply-To: <1512050430.13581.97.camel@fuzziesquirrel.com>
-Subject: RE: chassis_control.py in skeleton
-Date: Fri, 1 Dec 2017 13:20:35 +0800
-Message-ID: <001301d36a64$1e53ab30$5afb0190$@linux.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ypBRD0BQvzDrvM
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Dec 2017 22:11:12 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
+ s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=0xdOMSPuV0lp2lIQzstFty7OxqN7+oxVaS1Lcb8silQ=;
+ b=F7yoEG1DCW8p6JQF8lgegzvLyuXmKBLN99t5Vn+qjDItnpqtgMwlH0wnT9K3DGnGLwnuKkcduyDUuvWBCVAPiC6UnH9nw08tSowunznW5bGfOMjFbJLorTec3kBIPNsUK6BqJ8cPWcMX/5SWFQNUxBRaazao+U8ddWKyM8K2OPQ=
+Received: from AM4PR0501MB2194.eurprd05.prod.outlook.com (10.165.82.13) by
+ VI1PR05MB3342.eurprd05.prod.outlook.com (10.170.238.143) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id
+ 15.20.260.4; Fri, 1 Dec 2017 11:11:03 +0000
+Received: from AM4PR0501MB2194.eurprd05.prod.outlook.com
+ ([fe80::a17d:e2e6:2095:d246]) by AM4PR0501MB2194.eurprd05.prod.outlook.com
+ ([fe80::a17d:e2e6:2095:d246%17]) with mapi id 15.20.0282.006; Fri, 1 Dec 2017
+ 11:11:04 +0000
+From: Oleksandr Shamray <oleksandrs@mellanox.com>
+To: 'Kun Yi' <kunyi@google.com>
+CC: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "arnd@arndb.de"
+ <arnd@arndb.de>, system-sw-low-level <system-sw-low-level@mellanox.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "jiri@resnulli.us"
+ <jiri@resnulli.us>, Vadim Pasternak <vadimp@mellanox.com>,
+ "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "openocd-devel-owner@lists.sourceforge.net"
+ <openocd-devel-owner@lists.sourceforge.net>, "mec@shout.net" <mec@shout.net>, 
+ Jiri Pirko <jiri@mellanox.com>, "robh+dt@kernel.org" <robh+dt@kernel.org>,
+ "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
+ "tklauser@distanz.ch" <tklauser@distanz.ch>, "mchehab@kernel.org"
+ <mchehab@kernel.org>, "davem@davemloft.net" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: RE: [patch v12 2/4] drivers: jtag: Add Aspeed SoC 24xx and 25xx
+ families JTAG master driver
+Thread-Topic: [patch v12 2/4] drivers: jtag: Add Aspeed SoC 24xx and 25xx
+ families JTAG master driver
+Thread-Index: AQHTXWmOxItJNl+A6E2rCoN3qQNgbaMsDkYAgAJRjSA=
+Date: Fri, 1 Dec 2017 11:11:03 +0000
+Message-ID: <AM4PR0501MB21946528385296CCEEBFEB1AB1390@AM4PR0501MB2194.eurprd05.prod.outlook.com>
+References: <1510675867-24276-1-git-send-email-oleksandrs@mellanox.com>
+ <1510675867-24276-3-git-send-email-oleksandrs@mellanox.com>
+ <CAGMNF6XRwU5QEJhkg-mVwE5zpPigtcGJtRUupZHtcWRdedcsxg@mail.gmail.com>
+In-Reply-To: <CAGMNF6XRwU5QEJhkg-mVwE5zpPigtcGJtRUupZHtcWRdedcsxg@mail.gmail.com>
+Accept-Language: en-US, uk-UA
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=oleksandrs@mellanox.com; 
+x-originating-ip: [82.166.227.17]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; VI1PR05MB3342;
+ 6:v2MXQolWbFEAPlL/FrDJVX69OM5QUzQhLLL5Ji++10iMrol1v3ACfqwhYQ0CaX9OB8/FE8Qf6UMcgt8djxxb+1rwNi7kQ2cEKy5X1+DBbwOymJfJcggq75SF0LI6ZAQN47ePOILDT7BVv68cGeJQUg0OoMsQfiBbhrQj8MOO+2XfxXuLPCJlrCNSpkz61Qw9NnsB45/Tqx14idEqItAlbHj7ItmyskwiBfHsEMaWcdIuAnwfWlLdfKnBIC8wFgSR0awvEEfNdMTibZwmj+vWytif+zY+kRll4DZStPYP6hXR7HvxaQkOWFia3H4xyY8ml+z/UAx2fFn/ZTQsFMJgTryGHKbZMpshlUaHidVkNYs=;
+ 5:fq0S+WUDecvfScpfnGAHRLarAZ61ODuaHD2yDbIHHURFFDerJu07RthNqZFw1e9QVN7jxd71CCEHjYTqVofH8YrWCvjezlZhjRxreHgJgGv2ZlHcMv/bO3A9EZ7yXYtPDEoRaRVlD0yTRTj08uvVWJOB5Fzon2FgcvDvackPPdQ=;
+ 24:ZsBGnh4z6UHiGaH2cuF3P0whuQqYyxZCidc646EZfoXmD000ce2eYEHQtTpMzVrpJNrrxelmrW4q8Amo0j9E3wEiW6J3JevEPmtY1E4z7lY=;
+ 7:zA9niZWZ2w2tOQRnNX9BZCk9NFoubZvbuLMppPCZctY/vuytyA0kIYbobsQyTFFWhx4EOVleKYUzT6GvWgBjmNrsitooQ/kV7GRvBT+9nLpi9jenyx7hGukDS4n6e74/4T+fC2/0e6738FfR6rl0qLjoEj7DtVg4609iYR0+e/OjBHMy9g05TeoFMtp85f0ILG8JAL0ZqP3bmCt/qGqH+qwMyoVUFSDNH3ndoIzK+eUNx4CKXwg3JJbuOvEtSD56
+x-ms-exchange-antispam-srfa-diagnostics: SSOS;SSOR;
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: f035c66a-8549-4ddc-a553-08d538ac365c
+x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
+ RULEID:(48565401081)(5600026)(4604075)(4534020)(4602075)(4627115)(201703031133081)(201702281549075)(2017052603286);
+ SRVR:VI1PR05MB3342; 
+x-ms-traffictypediagnostic: VI1PR05MB3342:
+x-microsoft-antispam-prvs: <VI1PR05MB33428F5517DD0133B32B64F2B1390@VI1PR05MB3342.eurprd05.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(143289334528602)(9452136761055)(65623756079841)(258649278758335)(211936372134217)(42262312472803);
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(6040450)(2401047)(5005006)(8121501046)(10201501046)(3002001)(93006095)(93001095)(3231022)(920507027)(6055026)(6041248)(20161123560025)(20161123562025)(201703131423075)(201703011903075)(201702281528075)(201703061421075)(20161123558100)(20161123564025)(20161123555025)(6072148)(201708071742011);
+ SRVR:VI1PR05MB3342; BCL:0; PCL:0; RULEID:(100000803101)(100110400095);
+ SRVR:VI1PR05MB3342; 
+x-forefront-prvs: 05087F0C24
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(6009001)(7966004)(376002)(366004)(346002)(39860400002)(199003)(13464003)(24454002)(189002)(34040400001)(7696005)(53546010)(66066001)(2950100002)(6436002)(5660300001)(14454004)(7416002)(229853002)(6506006)(2906002)(68736007)(99286004)(76176011)(9686003)(97736004)(25786009)(6916009)(54906003)(2900100001)(6246003)(3280700002)(305945005)(86362001)(4326008)(81156014)(105586002)(102836003)(316002)(74316002)(8676002)(189998001)(53936002)(33656002)(7736002)(81166006)(6116002)(3660700001)(55016002)(106356001)(101416001)(508600001)(8936002)(54356011)(3846002)(5250100002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR05MB3342;
+ H:AM4PR0501MB2194.eurprd05.prod.outlook.com; FPR:; SPF:None; PTR:InfoNoRecords;
+ A:1; MX:1; LANG:en; 
+received-spf: None (protection.outlook.com: mellanox.com does not designate
+ permitted sender hosts)
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 15.0
-Content-Language: en-us
-Thread-Index: AQEnWNhYOTmVBHgckrDmAtguUsiWLAGhGP9eAO1B9lgBlZAIVaRkwj2g
-x-ctpclassification: CTP_IC
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiYzYyZjkyNjMtZTZiYy00NjFmLTgzMWMtYzUwZDgyZTk2YTBiIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX0lDIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE2LjUuOS4zIiwiVHJ1c3RlZExhYmVsSGFzaCI6IjBpSXI0alg1NERZYlpNTk9oQjh0Y3hCUFI5OGRDR3JJSXJndkM4VUk2SWM9In0=
+X-OriginatorOrg: Mellanox.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f035c66a-8549-4ddc-a553-08d538ac365c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Dec 2017 11:11:03.9271 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR05MB3342
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -47,150 +106,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Dec 2017 05:20:41 -0000
+X-List-Received-Date: Fri, 01 Dec 2017 11:11:24 -0000
 
-Hi Brad,
-
-Regarding the "org.openbmc" references, you are correct, there is only =
-one in phosphor-state-manager.=20
-But there are some other "org.openbmc" references in other services(such =
-as in ipmid services). I am working on the gpio/power related features =
-design/implement, and would like to help to remove these dependences one =
-by one.
-
-Regarding the pgood property, It is used for power supply GOOD signal, I =
-think one Boolean is good enough too. Currently we can implement the =
-same as "org.openbmc" in "xyz." namespace, for replacement.
-
-Regarding the gpio monitor, I found the phosphor-gpio-monitor is =
-different than these power/button services in skeleton. =
-phosphor-gpio-monitor uses these gpio pins as gpio keyboard(input =
-device), and trigger a systemd service when there is any key input.
-
-I want to trigger more, for examples, when there is one button(gpio =
-input pin) is long pressed,  I want to set another gpio output pin to =
-high, for LED ON, and then perform a force power off action. I think =
-comepared with using systemd services,=20
-using sdbusplus to implement these triggered actions should be easier?=20
-
-Let me study on them, and maybe submit some codes for your review?
-
-Thanks,
-Yong Li
------Original Message-----
-From: bradleyb@bajor.fuzziesquirrel.com =
-[mailto:bradleyb@bajor.fuzziesquirrel.com] On Behalf Of Brad Bishop
-Sent: Thursday, November 30, 2017 10:01 PM
-To: Yong Li <yong.b.li@linux.intel.com>
-Cc: 'OpenBMC Maillist' <openbmc@lists.ozlabs.org>
-Subject: Re: chassis_control.py in skeleton
-
-On Wed, 2017-11-29 at 09:40 +0800, Yong Li wrote:
-> Thanks Brad for your message!
->=20
-> I studied on these state-manager services, It seems that the=20
-> chassis_control.py can be replaced by chassis_state and host_state=20
-> .cpp files. I will perform some tests to check if there any changes=20
-> needed.
->=20
-> I also found that some of .cpp services  still need these apps in=20
-> skeleton. Below is an example, it needs the skeleton/op-
-> pwrctl/power_control.obj.c:
-> https://github.com/openbmc/phosphor-state-
-> manager/blob/master/chassis_state_manager.cpp#L56
-
-Nice find.  I was aware of this, just wasn't sure if it was too much =
-information yet.  I think that is the only reference to org.openbmc in =
-phosphor-state-manager.
-
-This is something we punted on and needs to be addressed.  I say punted =
-because we assumed that 'pgood' was a POWER concept and a better =
-abstraction would be needed to accommodate other architectures.  Would =
-you agree?  On the off chance a single boolean property is good enough =
-for everyone, we could just move this interface to the xyz namespace.
-
-I know that in the longer term, I'd like to see a much better =
-abstraction around power related concepts so we can share/reuse code for =
-things like analysis of faults, etc, so I'd be interested in hearing any =
-ideas anyone has on that.
-
->=20
-> I would like to start to modify/rewrite these buton/power(gpio control =
-
-> related) tools in skeleton, using C++ and sdbusplus, and support multi =
-
-> platforms(X86). Could you share some comments/suggestions?
-
-So for buttons, potentially we have this application called phosphor-
-gpio-monitor:
-
-github.com/openbmc/phosphor-gpio-monitor
-
-You give it a gpio to monitor, and it runs a systemd target when the =
-gpio changes state.  I'm hoping this application would be sufficient for =
-implementing buttons.  It doesn't even use any YAML :-).  Can you have a =
-look at it and let us know what you think?
-
-> Create a new project such as power-button-manager, or add them into=20
-> this phosphor-state-manager?
->=20
-> Thanks,
-> Yong Li
->=20
-> -----Original Message-----
-> From: Brad Bishop [mailto:bradleyb@fuzziesquirrel.com]
-> Sent: Wednesday, November 29, 2017 4:53 AM
-> To: Yong Li <yong.b.li@linux.intel.com>
-> Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>; Li, Yong B <yong.b.l=20
-> i@intel.com>
-> Subject: Re: chassis_control.py in skeleton
->=20
->=20
-> > On Nov 23, 2017, at 12:38 AM, Yong Li <yong.b.li@linux.intel.com>
-> > wrote:
-> >=20
-> > Hi All,
-> >=20
-> > Based on my understanding, these chassis control/system manager=20
-> > related projects in skeleton should be initial/reference code, and=20
-> > will be
->=20
-> This is correct.  The intent is to remove them eventually.
->=20
-> The replacement for the chassis manager is https://github.com/openbmc=20
-> /phosphor-state-manager
->=20
-> The functions of the system manager have gradually been replicated=20
-> elsewhere.  For instance its state management functions were moved to=20
-> phosphor-state-manager or systemd.  Other functions were distributed=20
-> amongst configuration files and other applications.
->=20
-> They have not been removed from the current systems because they all=20
-> need to be scrubbed for any remaining usage.
->=20
-> > rewritten/reimplementation. I would like to know if there is any=20
-> > plan or on-going projects on them?
->=20
-> The plan is to scrub the existing systems and eliminate use of these=20
-> programs.  This means identifying any functional gaps in the=20
-> replacements and implementing those.  I don=E2=80=99t think anyone is =
-working=20
-> on that at the moment.
->=20
-> Ideally any new layers/platforms being added would just not use these=20
-> programs, but I understand if that requires replacement function that=20
-> isn=E2=80=99t available and wouldn=E2=80=99t want that to hinder =
-upstreaming of a new=20
-> platform.
->=20
-> If I were to begin to work on this, I would start by building images=20
-> for the current systems, remove these applications from the image and
-> see what breaks.=09
->=20
->=20
-> >=20
-> > Thanks,
-> > Yong Li
->=20
->=20
-> -brad=3D
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBLdW4gWWkgW21haWx0bzprdW55
+aUBnb29nbGUuY29tXQ0KPiBTZW50OiBUaHVyc2RheSwgTm92ZW1iZXIgMzAsIDIwMTcgMTI6NTEg
+QU0NCj4gVG86IE9sZWtzYW5kciBTaGFtcmF5IDxvbGVrc2FuZHJzQG1lbGxhbm94LmNvbT4NCj4g
+Q2M6IGdyZWdraEBsaW51eGZvdW5kYXRpb24ub3JnOyBhcm5kQGFybmRiLmRlOyBzeXN0ZW0tc3ct
+bG93LWxldmVsDQo+IDxzeXN0ZW0tc3ctbG93LWxldmVsQG1lbGxhbm94LmNvbT47IGRldmljZXRy
+ZWVAdmdlci5rZXJuZWwub3JnOw0KPiBqaXJpQHJlc251bGxpLnVzOyBWYWRpbSBQYXN0ZXJuYWsg
+PHZhZGltcEBtZWxsYW5veC5jb20+OyBsaW51eC0NCj4gYXBpQHZnZXIua2VybmVsLm9yZzsgT3Bl
+bkJNQyBNYWlsbGlzdCA8b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPjsgbGludXgtDQo+IGtlcm5l
+bEB2Z2VyLmtlcm5lbC5vcmc7IG9wZW5vY2QtZGV2ZWwtb3duZXJAbGlzdHMuc291cmNlZm9yZ2Uu
+bmV0Ow0KPiBtZWNAc2hvdXQubmV0OyBKaXJpIFBpcmtvIDxqaXJpQG1lbGxhbm94LmNvbT47IHJv
+YmgrZHRAa2VybmVsLm9yZzsgbGludXgtDQo+IHNlcmlhbEB2Z2VyLmtlcm5lbC5vcmc7IHRrbGF1
+c2VyQGRpc3RhbnouY2g7IG1jaGVoYWJAa2VybmVsLm9yZzsNCj4gZGF2ZW1AZGF2ZW1sb2Z0Lm5l
+dDsgbGludXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQub3JnDQo+IFN1YmplY3Q6IFJlOiBb
+cGF0Y2ggdjEyIDIvNF0gZHJpdmVyczoganRhZzogQWRkIEFzcGVlZCBTb0MgMjR4eCBhbmQgMjV4
+eA0KPiBmYW1pbGllcyBKVEFHIG1hc3RlciBkcml2ZXINCj4gDQo+IFRoYW5rcyBmb3Igd29ya2lu
+ZyBvbiB0aGUgZHJpdmVyLCBPbGVrc2FuZHIuIEkgZ2F2ZSB0aGlzIGEgdHJ5IG9uIGEgYm9hcmQg
+d2l0aA0KPiBBc3BlZWQgMjUyMC4gT25lIHF1ZXN0aW9uIGJlbG93Og0KPiANCj4gT24gVHVlLCBO
+b3YgMTQsIDIwMTcgYXQgODoxMSBBTSwgT2xla3NhbmRyIFNoYW1yYXkNCj4gPG9sZWtzYW5kcnNA
+bWVsbGFub3guY29tPiB3cm90ZToNCj4gPiBEcml2ZXIgYWRkcyBzdXBwb3J0IG9mIEFzcGVlZCAy
+NTAwLzI0MDAgc2VyaWVzIFNPQyBKVEFHIG1hc3RlciBjb250cm9sbGVyLg0KPiA+DQo+ID4gRHJp
+dmVyIGltcGxlbWVudHMgdGhlIGZvbGxvd2luZyBqdGFnIG9wczoNCj4gPiAtIGZyZXFfZ2V0Ow0K
+PiA+IC0gZnJlcV9zZXQ7DQo+ID4gLSBzdGF0dXNfZ2V0Ow0KPiA+IC0gaWRsZTsNCj4gPiAtIHhm
+ZXI7DQo+ID4NCg0KWy4uXQ0KDQo+ID4gKw0KPiA+ICtzdGF0aWMgY29uc3Qgc3RydWN0IGp0YWdf
+b3BzIGFzcGVlZF9qdGFnX29wcyA9IHsNCj4gPiArICAgICAgIC5mcmVxX2dldCA9IGFzcGVlZF9q
+dGFnX2ZyZXFfZ2V0LA0KPiA+ICsgICAgICAgLmZyZXFfc2V0ID0gYXNwZWVkX2p0YWdfZnJlcV9z
+ZXQsDQo+ID4gKyAgICAgICAuc3RhdHVzX2dldCA9IGFzcGVlZF9qdGFnX3N0YXR1c19nZXQsDQo+
+ID4gKyAgICAgICAuaWRsZSA9IGFzcGVlZF9qdGFnX2lkbGUsDQo+ID4gKyAgICAgICAueGZlciA9
+IGFzcGVlZF9qdGFnX3hmZXIsDQo+ID4gKyAgICAgICAubW9kZV9zZXQgPSBhc3BlZWRfanRhZ19t
+b2RlX3NldCB9Ow0KPiA+ICsNCj4gPiArc3RhdGljIGludCBhc3BlZWRfanRhZ19wcm9iZShzdHJ1
+Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KSB7DQo+ID4gKyAgICAgICBzdHJ1Y3QgYXNwZWVkX2p0
+YWcgKmFzcGVlZF9qdGFnOw0KPiA+ICsgICAgICAgc3RydWN0IGp0YWcgKmp0YWc7DQo+ID4gKyAg
+ICAgICBpbnQgZXJyOw0KPiA+ICsNCj4gPiArICAgICAgIGlmICghb2ZfZGV2aWNlX2lzX2NvbXBh
+dGlibGUocGRldi0+ZGV2Lm9mX25vZGUsDQo+ID4gKyAiYXNwZWVkLGFzcGVlZC1qdGFnIikpDQo+
+IA0KPiBTaG91bGQgdGhpcyBiZSAiYXNwZWVkLGFzdDI0MDAtanRhZyIvImFzcGVlZCxhc3QyNTAw
+LWp0YWciIGFzIHNwZWNpZmllZCBpbiB0aGUNCj4gY29tcGF0aWJsZSBzdHJpbmcgYmVsb3c/DQo+
+IA0KDQpZZXMNCg0KDQo+ID4gKyAgICAgICAgICAgICAgIHJldHVybiAtRU5PTUVNOw0KPiA+ICsN
+Cj4gPiArICAgICAgIGp0YWcgPSBqdGFnX2FsbG9jKHNpemVvZigqYXNwZWVkX2p0YWcpLCAmYXNw
+ZWVkX2p0YWdfb3BzKTsNCj4gPiArICAgICAgIGlmICghanRhZykNCj4gPiArICAgICAgICAgICAg
+ICAgcmV0dXJuIC1FTk9ERVY7DQo+ID4gKw0KPiA+ICsgICAgICAgcGxhdGZvcm1fc2V0X2RydmRh
+dGEocGRldiwganRhZyk7DQo+ID4gKyAgICAgICBhc3BlZWRfanRhZyA9IGp0YWdfcHJpdihqdGFn
+KTsNCj4gPiArICAgICAgIGFzcGVlZF9qdGFnLT5kZXYgPSAmcGRldi0+ZGV2Ow0KPiA+ICsNCiAN
+ClsuLl0NCg0KPiA+ICsNCj4gPiArTU9EVUxFX0FVVEhPUigiT2xla3NhbmRyIFNoYW1yYXkgPG9s
+ZWtzYW5kcnNAbWVsbGFub3guY29tPiIpOw0KPiA+ICtNT0RVTEVfREVTQ1JJUFRJT04oIkFTUEVF
+RCBKVEFHIGRyaXZlciIpOyBNT0RVTEVfTElDRU5TRSgiR1BMDQo+IHYyIik7DQo+ID4gLS0NCj4g
+PiAxLjcuMQ0KPiA+DQo+IC0tDQo+IFJlZ2FyZHMsDQo+IEt1bg0KDQpUaGFua3MuDQoNCkJSDQpP
+bGVrc2FuZHIgU2hhbXJheQ0K
