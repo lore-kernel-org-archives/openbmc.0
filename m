@@ -1,70 +1,41 @@
-Return-Path: <pombredanne@nexb.com>
-Authentication-Results: ozlabs.org; spf=none (mailfrom) smtp.mailfrom=nexb.com
- (client-ip=2a00:1450:400c:c09::22d; helo=mail-wm0-x22d.google.com;
- envelope-from=pombredanne@nexb.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=nexb-com.20150623.gappssmtp.com
- header.i=@nexb-com.20150623.gappssmtp.com header.b="Go6WG/kP"; 
- dkim-atps=neutral
-Received: from mail-wm0-x22d.google.com (mail-wm0-x22d.google.com
- [IPv6:2a00:1450:400c:c09::22d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <yong.b.li@linux.intel.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.31; helo=mga06.intel.com;
+ envelope-from=yong.b.li@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ynVkh2j52zDrq7
- for <openbmc@lists.ozlabs.org>; Thu, 30 Nov 2017 19:22:18 +1100 (AEDT)
-Received: by mail-wm0-x22d.google.com with SMTP id i11so10665054wmf.4
- for <openbmc@lists.ozlabs.org>; Thu, 30 Nov 2017 00:22:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=nexb-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=UgdqpOllkVnAI7zmCDAjMcCPO7SqRUMPrXVcQK4sfs8=;
- b=Go6WG/kPbqWk4HrjAQttkkh5pQVUrtlKqqcIj0PNLtpDyaUwRChHRSdbf02NpuTLWg
- mXI8XdUqtEGOzzCZqAwM6u/zseGNCX5ETg3/Tvg7JI8HqPMDQzdLM9vynWdIt40IABCK
- VWahY8tgUlqBUCdCCcdKyhKmgjpCihfflloYV5bWleFS5MmyIbgI93nlNMDc1T3yx3w8
- ydTDbBWpqsdDkJEFWX6T5iTJkofZqO5iWf3rcvm1NVlLOjWPu1GHmoUy9yoloDKojhYv
- wFDbxTUkyZ5NaCJcIs3SB5trnE4pmC2TCCRPvDrZby91erWft2+KtE39pQNc4nMgl88G
- RCeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=UgdqpOllkVnAI7zmCDAjMcCPO7SqRUMPrXVcQK4sfs8=;
- b=U8Hn+SudKffumIpHoTb65oX1SXJuMwaZIJpP1gcr+AqVRZLeye2lttQYQDkoHcKNHS
- 6AUw01CYkWxFvtUspolyblccZ/6EtK6Qq95RpoeLwnkcuRemdQgxTuj3Y81V3pmEEbI3
- 30TfEBFAixhcby8xTQnOEJCsB+WLShTPB5pHUinJ21RSnsMetTfBBQD9H9L3gldNHG6i
- hA4r8Mq7K80g15RMBk5EMt8Pkd5hJvHe6ds08n+X15/zYyOiejQa0fhK5KHuJfwqhVg0
- JQO6d9Dlj+XhRv6hOtuRepr+K2vB8y4xKW3bAPfxAusPURYsx1mAbVyl4J/9t12xMh9R
- UCBw==
-X-Gm-Message-State: AJaThX6/mP2QfBjUtWSi9FNxLJgVoxfwq0spA8zKAfp1Pp2zxsgNDspw
- KCigA4wcBwVl3mPlAsj9YMC86nfgOmb619Dse6nocA==
-X-Google-Smtp-Source: AGs4zMZSCjChvABwjHS+caq8My12Z0Kj2l6+bBtaYRW3I6Vx6IcjVMZS0LTb87wx6/iwHVyfhVa9LGWPvlvd53A1ry0=
-X-Received: by 10.28.9.146 with SMTP id 140mr1197258wmj.117.1512030130485;
- Thu, 30 Nov 2017 00:22:10 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yp2fc4p4CzDql1
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Dec 2017 16:20:39 +1100 (AEDT)
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 30 Nov 2017 21:20:36 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.45,344,1508828400"; d="scan'208";a="182692505"
+Received: from yongli3-mobl.ccr.corp.intel.com (HELO yongli3MOBL)
+ ([10.239.196.61])
+ by fmsmga006.fm.intel.com with ESMTP; 30 Nov 2017 21:20:35 -0800
+From: "Yong Li" <yong.b.li@linux.intel.com>
+To: "'Brad Bishop'" <bradleyb@fuzziesquirrel.com>
+Cc: "'OpenBMC Maillist'" <openbmc@lists.ozlabs.org>
+References: <000001d3641d$3e482120$bad86360$@linux.intel.com>
+ <1ABEA804-8141-49CA-AFBF-B47C8D0ABD31@fuzziesquirrel.com>
+ <000001d368b3$0d4644e0$27d2cea0$@linux.intel.com>
+ <1512050430.13581.97.camel@fuzziesquirrel.com>
+In-Reply-To: <1512050430.13581.97.camel@fuzziesquirrel.com>
+Subject: RE: chassis_control.py in skeleton
+Date: Fri, 1 Dec 2017 13:20:35 +0800
+Message-ID: <001301d36a64$1e53ab30$5afb0190$@linux.intel.com>
 MIME-Version: 1.0
-Received: by 10.223.157.195 with HTTP; Thu, 30 Nov 2017 00:21:29 -0800 (PST)
-In-Reply-To: <CAGMNF6XRwU5QEJhkg-mVwE5zpPigtcGJtRUupZHtcWRdedcsxg@mail.gmail.com>
-References: <1510675867-24276-1-git-send-email-oleksandrs@mellanox.com>
- <1510675867-24276-3-git-send-email-oleksandrs@mellanox.com>
- <CAGMNF6XRwU5QEJhkg-mVwE5zpPigtcGJtRUupZHtcWRdedcsxg@mail.gmail.com>
-From: Philippe Ombredanne <pombredanne@nexb.com>
-Date: Thu, 30 Nov 2017 09:21:29 +0100
-Message-ID: <CAOFm3uHg8n4A8opaOC3=pNtM1yJU6iy5Ta8XtGOvqT-Euv=X1w@mail.gmail.com>
-Subject: Re: [patch v12 2/4] drivers: jtag: Add Aspeed SoC 24xx and 25xx
- families JTAG master driver
-To: Kun Yi <kunyi@google.com>
-Cc: Oleksandr Shamray <oleksandrs@mellanox.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, arnd@arndb.de, 
- system-sw-low-level@mellanox.com, devicetree@vger.kernel.org, 
- jiri@resnulli.us, vadimp@mellanox.com, linux-api@vger.kernel.org, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- LKML <linux-kernel@vger.kernel.org>, 
- openocd-devel-owner@lists.sourceforge.net, mec@shout.net, 
- Jiri Pirko <jiri@mellanox.com>, robh+dt@kernel.org,
- linux-serial@vger.kernel.org, 
- tklauser@distanz.ch, Mauro Carvalho Chehab <mchehab@kernel.org>, 
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Fri, 01 Dec 2017 12:31:21 +1100
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 15.0
+Content-Language: en-us
+Thread-Index: AQEnWNhYOTmVBHgckrDmAtguUsiWLAGhGP9eAO1B9lgBlZAIVaRkwj2g
+x-ctpclassification: CTP_IC
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiYzYyZjkyNjMtZTZiYy00NjFmLTgzMWMtYzUwZDgyZTk2YTBiIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX0lDIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE2LjUuOS4zIiwiVHJ1c3RlZExhYmVsSGFzaCI6IjBpSXI0alg1NERZYlpNTk9oQjh0Y3hCUFI5OGRDR3JJSXJndkM4VUk2SWM9In0=
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -76,37 +47,150 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Nov 2017 08:22:21 -0000
+X-List-Received-Date: Fri, 01 Dec 2017 05:20:41 -0000
 
-On Wed, Nov 29, 2017 at 11:51 PM, Kun Yi <kunyi@google.com> wrote:
-> On Tue, Nov 14, 2017 at 8:11 AM, Oleksandr Shamray
-> <oleksandrs@mellanox.com> wrote:
-[]
->> diff --git a/drivers/jtag/jtag-aspeed.c b/drivers/jtag/jtag-aspeed.c
->> new file mode 100644
->> index 0000000..a6e2417
->> --- /dev/null
->> +++ b/drivers/jtag/jtag-aspeed.c
->> @@ -0,0 +1,782 @@
->> +/*
->> + * drivers/jtag/aspeed-jtag.c
->> + *
->> + * Copyright (c) 2017 Mellanox Technologies. All rights reserved.
->> + * Copyright (c) 2017 Oleksandr Shamray <oleksandrs@mellanox.com>
->> + *
->> + * Released under the GPLv2 only.
->> + * SPDX-License-Identifier: GPL-2.0
->> + */
+Hi Brad,
 
-I think the SPDX id should be on the first line as requested by Linus
-and documented by Thomas (tglx) and Greg (greg-kh). And it should use
-// comments, e.g:
+Regarding the "org.openbmc" references, you are correct, there is only =
+one in phosphor-state-manager.=20
+But there are some other "org.openbmc" references in other services(such =
+as in ipmid services). I am working on the gpio/power related features =
+design/implement, and would like to help to remove these dependences one =
+by one.
 
-// SPDX-License-Identifier: GPL-2.0
+Regarding the pgood property, It is used for power supply GOOD signal, I =
+think one Boolean is good enough too. Currently we can implement the =
+same as "org.openbmc" in "xyz." namespace, for replacement.
 
-See the threads discussing all these.
+Regarding the gpio monitor, I found the phosphor-gpio-monitor is =
+different than these power/button services in skeleton. =
+phosphor-gpio-monitor uses these gpio pins as gpio keyboard(input =
+device), and trigger a systemd service when there is any key input.
 
+I want to trigger more, for examples, when there is one button(gpio =
+input pin) is long pressed,  I want to set another gpio output pin to =
+high, for LED ON, and then perform a force power off action. I think =
+comepared with using systemd services,=20
+using sdbusplus to implement these triggered actions should be easier?=20
 
--- 
-Cordially
-Philippe Ombredanne
+Let me study on them, and maybe submit some codes for your review?
+
+Thanks,
+Yong Li
+-----Original Message-----
+From: bradleyb@bajor.fuzziesquirrel.com =
+[mailto:bradleyb@bajor.fuzziesquirrel.com] On Behalf Of Brad Bishop
+Sent: Thursday, November 30, 2017 10:01 PM
+To: Yong Li <yong.b.li@linux.intel.com>
+Cc: 'OpenBMC Maillist' <openbmc@lists.ozlabs.org>
+Subject: Re: chassis_control.py in skeleton
+
+On Wed, 2017-11-29 at 09:40 +0800, Yong Li wrote:
+> Thanks Brad for your message!
+>=20
+> I studied on these state-manager services, It seems that the=20
+> chassis_control.py can be replaced by chassis_state and host_state=20
+> .cpp files. I will perform some tests to check if there any changes=20
+> needed.
+>=20
+> I also found that some of .cpp services  still need these apps in=20
+> skeleton. Below is an example, it needs the skeleton/op-
+> pwrctl/power_control.obj.c:
+> https://github.com/openbmc/phosphor-state-
+> manager/blob/master/chassis_state_manager.cpp#L56
+
+Nice find.  I was aware of this, just wasn't sure if it was too much =
+information yet.  I think that is the only reference to org.openbmc in =
+phosphor-state-manager.
+
+This is something we punted on and needs to be addressed.  I say punted =
+because we assumed that 'pgood' was a POWER concept and a better =
+abstraction would be needed to accommodate other architectures.  Would =
+you agree?  On the off chance a single boolean property is good enough =
+for everyone, we could just move this interface to the xyz namespace.
+
+I know that in the longer term, I'd like to see a much better =
+abstraction around power related concepts so we can share/reuse code for =
+things like analysis of faults, etc, so I'd be interested in hearing any =
+ideas anyone has on that.
+
+>=20
+> I would like to start to modify/rewrite these buton/power(gpio control =
+
+> related) tools in skeleton, using C++ and sdbusplus, and support multi =
+
+> platforms(X86). Could you share some comments/suggestions?
+
+So for buttons, potentially we have this application called phosphor-
+gpio-monitor:
+
+github.com/openbmc/phosphor-gpio-monitor
+
+You give it a gpio to monitor, and it runs a systemd target when the =
+gpio changes state.  I'm hoping this application would be sufficient for =
+implementing buttons.  It doesn't even use any YAML :-).  Can you have a =
+look at it and let us know what you think?
+
+> Create a new project such as power-button-manager, or add them into=20
+> this phosphor-state-manager?
+>=20
+> Thanks,
+> Yong Li
+>=20
+> -----Original Message-----
+> From: Brad Bishop [mailto:bradleyb@fuzziesquirrel.com]
+> Sent: Wednesday, November 29, 2017 4:53 AM
+> To: Yong Li <yong.b.li@linux.intel.com>
+> Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>; Li, Yong B <yong.b.l=20
+> i@intel.com>
+> Subject: Re: chassis_control.py in skeleton
+>=20
+>=20
+> > On Nov 23, 2017, at 12:38 AM, Yong Li <yong.b.li@linux.intel.com>
+> > wrote:
+> >=20
+> > Hi All,
+> >=20
+> > Based on my understanding, these chassis control/system manager=20
+> > related projects in skeleton should be initial/reference code, and=20
+> > will be
+>=20
+> This is correct.  The intent is to remove them eventually.
+>=20
+> The replacement for the chassis manager is https://github.com/openbmc=20
+> /phosphor-state-manager
+>=20
+> The functions of the system manager have gradually been replicated=20
+> elsewhere.  For instance its state management functions were moved to=20
+> phosphor-state-manager or systemd.  Other functions were distributed=20
+> amongst configuration files and other applications.
+>=20
+> They have not been removed from the current systems because they all=20
+> need to be scrubbed for any remaining usage.
+>=20
+> > rewritten/reimplementation. I would like to know if there is any=20
+> > plan or on-going projects on them?
+>=20
+> The plan is to scrub the existing systems and eliminate use of these=20
+> programs.  This means identifying any functional gaps in the=20
+> replacements and implementing those.  I don=E2=80=99t think anyone is =
+working=20
+> on that at the moment.
+>=20
+> Ideally any new layers/platforms being added would just not use these=20
+> programs, but I understand if that requires replacement function that=20
+> isn=E2=80=99t available and wouldn=E2=80=99t want that to hinder =
+upstreaming of a new=20
+> platform.
+>=20
+> If I were to begin to work on this, I would start by building images=20
+> for the current systems, remove these applications from the image and
+> see what breaks.=09
+>=20
+>=20
+> >=20
+> > Thanks,
+> > Yong Li
+>=20
+>=20
+> -brad=3D
