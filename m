@@ -1,33 +1,66 @@
-Return-Path: <vernon.mauery@linux.intel.com>
+Return-Path: <mtritz@us.ibm.com>
 Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.93; helo=mga11.intel.com;
- envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ spf=pass (mailfrom) smtp.mailfrom=us.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=mtritz@us.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yrNkS4myrzDrqK
- for <openbmc@lists.ozlabs.org>; Tue,  5 Dec 2017 12:02:07 +1100 (AEDT)
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 04 Dec 2017 17:02:05 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.45,362,1508828400"; d="scan'208";a="181344717"
-Received: from mauery.jf.intel.com (HELO mauery) ([10.7.150.164])
- by orsmga005.jf.intel.com with ESMTP; 04 Dec 2017 17:02:05 -0800
-Date: Mon, 4 Dec 2017 17:02:05 -0800
-From: Vernon Mauery <vernon.mauery@linux.intel.com>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: OpenBMC <openbmc@lists.ozlabs.org>
-Subject: Re: OpenBMC community telecon - 11/27 Agenda
-Message-ID: <20171205010205.GH113334@mauery>
-References: <911ECDC1-D1F4-4B4B-8433-CE396C2EEE35@fuzziesquirrel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yrTfS1gLTzDx3Q
+ for <openbmc@lists.ozlabs.org>; Tue,  5 Dec 2017 15:44:00 +1100 (AEDT)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ vB54ceaJ043545
+ for <openbmc@lists.ozlabs.org>; Mon, 4 Dec 2017 23:43:58 -0500
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.66])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2eng4ps08f-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 04 Dec 2017 23:43:57 -0500
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <mtritz@us.ibm.com>;
+ Tue, 5 Dec 2017 04:43:57 -0000
+Received: from us1a3-smtp04.a3.dal06.isc4sb.com (10.106.154.237)
+ by smtp.notes.na.collabserv.com (10.106.227.127) with
+ smtp.notes.na.collabserv.com ESMTP; Tue, 5 Dec 2017 04:43:54 -0000
+Received: from us1a3-mail200.a3.dal06.isc4sb.com ([10.146.77.116])
+ by us1a3-smtp04.a3.dal06.isc4sb.com
+ with ESMTP id 2017120504435436-44429 ;
+ Tue, 5 Dec 2017 04:43:54 +0000 
+In-Reply-To: 
+Subject: Host factory reset - version priorities
+From: "Michael Tritz" <mtritz@us.ibm.com>
+To: openbmc@lists.ozlabs.org
+Date: Tue, 5 Dec 2017 04:43:54 +0000
+Sensitivity: 
+References: 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
+Importance: Normal
+X-Priority: 3 (Normal)
+X-Mailer: IBM Verse Build 15753-1266 | IBM Domino Build
+ SCN1731100_20171107T0034_FP4 November 21, 2017 at 13:37
+X-LLNOutbound: False
+X-Disclaimed: 27523
+X-TNEFEvaluated: 1
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <911ECDC1-D1F4-4B4B-8433-CE396C2EEE35@fuzziesquirrel.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+Content-Type: text/html; charset=UTF-8
+x-cbid: 17120504-6357-0000-0000-00000327A7A3
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.423878; ST=0; TS=0; UL=0; ISC=; MB=0.003621
+X-IBM-SpamModules-Versions: BY=3.00008152; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000243; SDB=6.00955608; UDB=6.00482987; IPR=6.00735645; 
+ BA=6.00005727; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00018352; XFM=3.00000015;
+ UTC=2017-12-05 04:43:55
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2017-12-04 23:14:33 - 6.00007716
+x-cbparentid: 17120504-6358-0000-0000-0000E554B80A
+Message-Id: <OF113B399A.B511E757-ON002581ED.0019E0EA-002581ED.0019FDF6@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-12-05_02:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -39,107 +72,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Dec 2017 01:02:09 -0000
+X-List-Received-Date: Tue, 05 Dec 2017 04:44:00 -0000
 
-On 04-Dec-2017 05:06 PM, Brad Bishop wrote:
->multi configuration images / runtime configurability
->user management
->secure coding guidelines
->
->=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94=
-=E2=80=94
->Monday, 10:00pm EDT
->888-426-6840
->password: 85891389
-
-For the discussion on user management.
-
-Overview:
-1. User management is done via PAM.
-2. If IPMI is being used, PAM loads the pam_ipmi.so password module.
-   a. pam_ipmi.so intercepts password changes and saves the password
-      for IPMI-enabled users to a file that can be read at a later time
-      to initiate an RMCP+ session. (encrypted or obfuscated with a=20
-      per-BMC key so no passwords are written directly in flash.)
-   b. pam_ipmi.so implements a method to decrypt passwords and provide
-      them to host-ipmi (for test password command) and net-ipmi (for
-      session initiation)
-3. If a user is not enabled for IPMI, their password will not be saved
-   in the ipmi database, and thus must be reset if/when that user gains
-   IPMI capability.
-4. If a user loses IPMI capability, their password is reset to force a
-   password change so their password is secure again.
-5. Capabilities is done via unix groups
-   a. Groups like ipmi, webserver, redfish, ssh, sol can provide login=20
-      or 'channel' access.
-   b. Groups like user-manager, media, power, sensor, etc., can provide
-      fine-grained access for various capabilities. Providers of=20
-      capabilities should check to see that accessors (users) have the=20
-      required permission.
-6. Admin-defined 'super-groups'
-   a. Provide a set of pre-defined groups of capabilities that can be
-      assigned to users: Admin, User, Operator or similar that each have
-      groups associated with them.
-   b. Changes to groups via APIs can make sure that if a user is=20
-      assigned to a 'super-group' will stay assigned to the sub-groups
-   c. Changes made to users via manual commands may override API groups
-
-
-Methods:
-    1. CREATE_USER
-        Privilege-required: USER-MANAGER
-        Args:
-            UserName - STRING (16 bytes only - else role change to IPMI can=
-'t be done)
-            Password - Byte Array (Max of 20 bytes if IPMID is chosen. For
-                       others can send more bytes, but change role to IPMI =
-will
-                       request password again under 20 bytes)
-            Roles - STRING with comma separated
-        Return:
-            SUCCESS ERR_USERNAME_EXIST ERR_PASSWORD_FAILS ERR_ROLE_FAILS
-            ERR_PASSWORD_ROLE_FAIL ERR_NO_RESOURCE ERR_UNKNOWN
-            ERR_AUTHORIZATION_FAIL
-
-    2. DELETE_USER
-        Privilege-required: USER-MANAGER
-        Args:
-            UserName - STRING
-        Return:
-            SUCCESS ERR_USERNAME_NOT_EXIST ERR_UNKNOWN ERR_AUTHORIZATION_FA=
-IL
-
-    3. CHANGE ROLE / CHANGE_PASSWORD (OTHERS)
-        Privilege-required: USER-MANAGER
-        Args:
-            UserName - STRING
-            New Password (if changed) - Byte Array
-            New Role (if changed) - Array of STRING
-        Return:
-            SUCCESS ERR_USERNAME_NOT_EXIST ERR_UNKNOWN ERR_AUTHORIZATION_FA=
-IL
-            ERR_PASSWORD_FAILS ERR_PASSWORD_ROLE_FAIL ERR_NO_RESOURCE
-
-    4. CHANGE_PASSWORD (SELF)
-        Privilege-required: Any Valid user
-        Args:
-            New Password - Byte Array
-        Return:
-            SUCCESS ERR_PASSWORD_FAILS ERR_PASSWORD_ROLE_FAIL ERR_UNKNOWN
-
-    5. LIST_USER_DETAILS
-        Privilege-required: USER-MANAGER
-        Args:
-            NULL
-        Return:
-            Array of:
-                USER_NAME (String)
-                ROLES (String)
-
-Signals:
-    1. UPDATED_USER_SIGNAL
-        Args:
-            UserName of updated user
-            UpdateType:
-                Role changed / User Deleted / User created / Password Chang=
-ed etc.    =20
+<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
+elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" ><p style=3D"box-s=
+izing: border-box; margin-bottom: 16px; color: rgb(36, 41, 46); font-family=
+: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial=
+, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &q=
+uot;Segoe UI Symbol&quot;; margin-top: 0px !important;" >What should be hap=
+pening on a host factory reset?</p>
+<p style=3D"box-sizing: border-box; margin-top: 0px; margin-bottom: 16px; c=
+olor: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, &quo=
+t;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quo=
+t;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;" >Suppose we h=
+ave a machine with two host versions uploaded - one active, one not. Curren=
+tly, the host factory reset will clear the persistence files with which we =
+store the priority information for these versions. The next time the host s=
+oftware updater is started, both versions are left with priority of 255, an=
+d one of the two (maybe it's random, maybe it's based on upload order) is s=
+elected as the active host version.</p>
+<p style=3D"box-sizing: border-box; margin-top: 0px; color: rgb(36, 41, 46)=
+; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Hel=
+vetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Em=
+oji&quot;, &quot;Segoe UI Symbol&quot;; margin-bottom: 0px !important;" >Is=
+ this the desired behavior? Would it be better to instead retain the versio=
+n priority through a reset, or is clearing that setting under the scope of =
+"restoring factory settings"?</p>
+<div style=3D"box-sizing: border-box; margin-top: 0px; color: rgb(36, 41, 4=
+6); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, H=
+elvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI =
+Emoji&quot;, &quot;Segoe UI Symbol&quot;; margin-bottom: 0px !important;" >=
+&nbsp;</div>
+<div style=3D"box-sizing: border-box; margin-top: 0px; color: rgb(36, 41, 4=
+6); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, H=
+elvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI =
+Emoji&quot;, &quot;Segoe UI Symbol&quot;; margin-bottom: 0px !important;" >=
+Michael</div></div></div><BR>
