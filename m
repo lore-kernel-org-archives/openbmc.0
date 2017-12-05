@@ -1,56 +1,58 @@
-Return-Path: <venture@google.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4001:c0b::242; helo=mail-it0-x242.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Return-Path: <joel.stan@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2a00:1450:4010:c07::236; helo=mail-lf0-x236.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="YeqJn8Uj"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="rcQRLSQ+"; 
  dkim-atps=neutral
-Received: from mail-it0-x242.google.com (mail-it0-x242.google.com
- [IPv6:2607:f8b0:4001:c0b::242])
+Received: from mail-lf0-x236.google.com (mail-lf0-x236.google.com
+ [IPv6:2a00:1450:4010:c07::236])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yrw9m3nfdzDsF9
- for <openbmc@lists.ozlabs.org>; Wed,  6 Dec 2017 08:39:07 +1100 (AEDT)
-Received: by mail-it0-x242.google.com with SMTP id f190so4666293ita.5
- for <openbmc@lists.ozlabs.org>; Tue, 05 Dec 2017 13:39:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=from:to:subject:date:message-id;
- bh=eGwCwf9wKNi8ZrN6eawMTeGUdn7usBlUxet+ISuClkg=;
- b=YeqJn8UjneT/tTr9zOu9T1644nCdFIMtgSjaGDfic/6It0ZnurHQAltd006j/8S9bR
- 9HpnfC+kJHRvwCrZl/7R0a9xfOXt3vQC2azaTpWDbKnwHO7OUEMTB6w95ctYnP3UuMPY
- hf0NnMHFkSIAlcY0celFycMXN16T2pu+OK1EHkOCAtJBioGIYj9lR0YORENEpPGnhiBX
- Egb3TlKqmS5MS8pY0orb8AfF7Pb0OGow6KjuatxCj30Rz6gXsNSUQul00fPAbNuGLF2v
- h5nWmuR1zc4PYUD68TGVxrQeE0JnchvHXzNQObWwANA2h6EODuv6qNR/OQmAj/zHzVHA
- UUmA==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yrzD93BGTzDrqP
+ for <openbmc@lists.ozlabs.org>; Wed,  6 Dec 2017 10:56:24 +1100 (AEDT)
+Received: by mail-lf0-x236.google.com with SMTP id j124so2298015lfg.2
+ for <openbmc@lists.ozlabs.org>; Tue, 05 Dec 2017 15:56:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=0PwFO6H4HssX4W1l/wEO+jxBDKNhmSrIWh/m6vkMm2U=;
+ b=rcQRLSQ+i92CJVfpnmqGcmDgRpJPvyBzuOvSt7v7wLOOqFchv8JDClEu/zAhrmJPk7
+ b/6yZFfPPPZ1MnOx7YbNrsznsh6jWrQuzH+qBBkWcN5kTkULJDwJ0sOL88YCdVm3jsjS
+ XGAUGd+XEq6xsxzvFynkYy3VWgNRKCv3rJi6wjOSOGvTwfidtyl/NftY5dvbuCrKylTx
+ jzcMTmbrDfR1v+nDOyc/kGlV3OD4ETnm2UmgHQTtjhubFuJVS1KCMZYwl0ZfCAII90W9
+ pvstjdcx4iPDTnHrSjFn+ABQT6RsE49RoKkXyipnkLHwIRBTHiRJPDKYxLjOj9FHPFiL
+ q1HQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:subject:date:message-id;
- bh=eGwCwf9wKNi8ZrN6eawMTeGUdn7usBlUxet+ISuClkg=;
- b=CTJsiR+eVcxpCdW94tXRkqR0Me9ZGxXGqes5C4GAova4Uy66HuB6DuL9sEeCgVGFrP
- bNA2f3P/IdH8wb8DISpB5QaXl861cpDuMsSHbq8SPS5Hs1HGaSLmHsUNSLCtG7XqwxaS
- 4ieYUpwb0zOZoLDl7gzaDwH/0B4Is5WBiO23GA89AENc7uOGnf+MNX5FRrmJksVCGyjS
- 2Yw1M3HxuEXfhUchkDIqARRyCwstoBASj5/V15vFPs5eKZgruE5e1EWHxybyKbryKxPe
- /+oAzbLW96kcLxcnYFg82C29BjPaAfSRdHv8AiwqJZgLNkx95IugXovbZ2+fXzr27VE+
- Tt8Q==
-X-Gm-Message-State: AKGB3mJepdNG0b4Iu+n6iRBoVc9fixdHZnXEhb6pSE40m9MQZaZnjwtF
- ZEJO4amhiSVWR+j8HsPW9GqqKA==
-X-Google-Smtp-Source: AGs4zMa2PYPcYfKaQoiHYnJxUzduxFJi3EvalHq5AEMuvzXFal/qeNIMWOR0TjmStwT4Kl1CctWVMg==
-X-Received: by 10.36.58.11 with SMTP id m11mr19074751itm.109.1512509944993;
- Tue, 05 Dec 2017 13:39:04 -0800 (PST)
-Received: from venture.svl.corp.google.com ([100.123.242.104])
- by smtp.gmail.com with ESMTPSA id k66sm617500ita.6.2017.12.05.13.39.03
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Tue, 05 Dec 2017 13:39:04 -0800 (PST)
-From: Patrick Venture <venture@google.com>
-To: venture@google.com,
-	joel@jms.id.au,
-	openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10] ARM: dts: aspeed: quanta-q71l: move coin
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=0PwFO6H4HssX4W1l/wEO+jxBDKNhmSrIWh/m6vkMm2U=;
+ b=nd5fHmP31E4Ir3huLDpt54bV86z5/ThOInlh6opIQGVWJVdHgE42A7IT2vsLPdgvQZ
+ fOBX7gPKZ376p/9yJU+DY1qgp3R8ZaCi0d39pi97vuwWpi3GIdMTGP59tSLoCpuRRtGl
+ gcwwgaCkkR0XbKqqPBNBORYOGD9+1ZiWbIb3/yGSLN46AzHU5WreAbIM9Is4LWDsK5Mb
+ PqaOWXQ79qAshwGTHrah780bPHH9J1H3f+au5roKFU1Vc1BA/+L4YpmWijMIripQTNVa
+ 0CO9I3g4biqpfEBzTA5Z0WHB9Qc+OwDoVweV3LepfRZGsAu59Q2QwRrpVVZw+gLn6xjC
+ jD8Q==
+X-Gm-Message-State: AJaThX5BWeetgkYnSvGEmWaF9ArmgtbOK3zXkuYGg5hGQs41xueJpUp0
+ Fp3vWEFMYn0QPKOBo1cs1s94w+GCMh+CVx+QqPU=
+X-Google-Smtp-Source: AGs4zMaxj1Ijqtduqc1vnpsw5DYTmZu2Rz4B3/ponAqTU9cR6qLYP9fm+r8hSuFaaJPlENbpcZJhAOnEAhp1//j1QNk=
+X-Received: by 10.46.17.153 with SMTP id 25mr12194740ljr.36.1512518180903;
+ Tue, 05 Dec 2017 15:56:20 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.25.155.83 with HTTP; Tue, 5 Dec 2017 15:56:00 -0800 (PST)
+In-Reply-To: <20171205213900.165038-1-venture@google.com>
+References: <20171205213900.165038-1-venture@google.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 6 Dec 2017 10:26:00 +1030
+X-Google-Sender-Auth: mIAgNz2GscQ-oFEzFebsSM-2PrI
+Message-ID: <CACPK8XfsHM9496pMv-s+CvrTYx80iS0049WBNyJNxHR14Yv6xw@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: quanta-q71l: move coin
  battery sensor
-Date: Tue,  5 Dec 2017 13:39:00 -0800
-Message-Id: <20171205213900.165038-1-venture@google.com>
-X-Mailer: git-send-email 2.15.0.531.g2ccb3012c9-goog
+To: Patrick Venture <venture@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -62,33 +64,18 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Dec 2017 21:39:09 -0000
+X-List-Received-Date: Tue, 05 Dec 2017 23:56:26 -0000
 
-Moved the coin battery sensor into a separate iio-hwmon
-instance to facilitate reading it as a separate hwmon instance.
+On Wed, Dec 6, 2017 at 8:09 AM, Patrick Venture <venture@google.com> wrote:
+> Moved the coin battery sensor into a separate iio-hwmon
+> instance to facilitate reading it as a separate hwmon instance.
 
-Signed-off-by: Patrick Venture <venture@google.com>
----
- arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+Have you considered adding some some #defines for the ADC channel
+numbers, to document what they do? It doesn't appear to be a common
+thing in other dts files, but it makes sense to me.
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-index 21fc01f2414e..252932983de8 100644
---- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
-@@ -117,7 +117,12 @@
- 		compatible = "iio-hwmon";
- 		io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
- 			<&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>,
--			<&adc 8>, <&adc 9>, <&adc 10>, <&adc 11>;
-+			<&adc 8>, <&adc 9>, <&adc 10>;
-+	};
-+
-+	iio-hwmon-battery {
-+		compatible = "iio-hwmon";
-+		io-channels = <&adc 11>;
- 	};
- };
- 
--- 
-2.15.0.531.g2ccb3012c9-goog
+I've applied this to dev-4.10.
+
+Cheers,
+
+Joel
