@@ -1,31 +1,52 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <venture@google.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c08::229; helo=mail-ua0-x229.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="DsjSpyI8"; 
+ dkim-atps=neutral
+Received: from mail-ua0-x229.google.com (mail-ua0-x229.google.com
+ [IPv6:2607:f8b0:400c:c08::229])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yrd5x06WmzDrqj
- for <openbmc@lists.ozlabs.org>; Tue,  5 Dec 2017 21:19:47 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Sender: bradleyb@bajor.fuzziesquirrel.com
-Message-ID: <1512469182.16012.43.camel@fuzziesquirrel.com>
-Subject: Re: chassis_control.py in skeleton
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: Yong Li <yong.b.li@linux.intel.com>
-Cc: 'OpenBMC Maillist' <openbmc@lists.ozlabs.org>
-Date: Tue, 05 Dec 2017 05:19:42 -0500
-In-Reply-To: <001301d36a64$1e53ab30$5afb0190$@linux.intel.com>
-References: <000001d3641d$3e482120$bad86360$@linux.intel.com>
- <1ABEA804-8141-49CA-AFBF-B47C8D0ABD31@fuzziesquirrel.com>
- <000001d368b3$0d4644e0$27d2cea0$@linux.intel.com>
- <1512050430.13581.97.camel@fuzziesquirrel.com>
- <001301d36a64$1e53ab30$5afb0190$@linux.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yrnnD5j92zDrqP
+ for <openbmc@lists.ozlabs.org>; Wed,  6 Dec 2017 03:50:55 +1100 (AEDT)
+Received: by mail-ua0-x229.google.com with SMTP id j14so689578uag.11
+ for <openbmc@lists.ozlabs.org>; Tue, 05 Dec 2017 08:50:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=X4ifi0NIhaPF4FLqGhABFNtuFZNLlb06noVEwnP2P8c=;
+ b=DsjSpyI84uP+WdLMOzPtd/ezZjjkKYzCflLm833Ol8KD5cIpG/947JvMJA9S1VVQY4
+ wxcQJqc8jSgCridzvjwRYrJWmgQMheHA2wWbtRrQJ++mAPXgOYt+SSRasb8pDB+NzqVz
+ /vsKeLX04xaCLOKdCoqWPkMq0KL9FAQx27KqZ83CsDchUeX/tbFIlS4iBZ4Zd044B1F8
+ 3wkFMAC6ytY1wEpmUk7mMKVmmx0PwtDSvj98S5x6I0GuNEdfJB/RuCoPRuLbnDkc7EY8
+ ZenpMdc8GMSyjXtIKmn5WFmUIriM+jr9GzXs2EGPz5YvmXfQMWZ0LTj62h/CH6YBw2pe
+ j/XA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=X4ifi0NIhaPF4FLqGhABFNtuFZNLlb06noVEwnP2P8c=;
+ b=KMHoR5sIho9plg8zDm3rCodRHtSIvovS+t9MheozjYoTs4pb/b0m3qx1zUQznxffXl
+ N61OJN+Lz4PcTW41gadyA2/1/Ji2nVECn5p+ZRfBML5YicjgNgtq5AWoSi/7ktz71U1u
+ 823Jpk8jhEkXdFHg8bTYXKpXZcKwNpbjgGUsGV2bhbOiUhJL2534Z7KeonvwTIj5V8lP
+ ccF7qI8idbK7zyu8nMovYGIUaYV0aWYEoXD8pMxg28QpclGkWlDBc90D/hnrIts50HPM
+ r7esQbKO/Ia5uP/X53BcEEGIqEa33lJFzjv7uag9oNBkdyM3zXzREAvTg8sv3PgYBuH1
+ kHQQ==
+X-Gm-Message-State: AKGB3mJ3PZfggIrnCNUzMAViROX2xqNy6XazBPY1I0Xhj4yQb5Exn5cV
+ dfeebqEcUDudJN0yai5XQ6ADay726fyns/zfVdDd0qhdM1Q=
+X-Google-Smtp-Source: AGs4zMZgDLDmTC/K84AZwyGbjmtaJ0yKgbSZsU7+2Lb5gE68/pKPZslHPl7AOtPec/7JjxYmqKabsc3ZBkKRv1LwAdU=
+X-Received: by 10.176.19.44 with SMTP id g41mr5026660uae.105.1512492652317;
+ Tue, 05 Dec 2017 08:50:52 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.31.94.150 with HTTP; Tue, 5 Dec 2017 08:50:31 -0800 (PST)
+From: Patrick Venture <venture@google.com>
+Date: Tue, 5 Dec 2017 08:50:31 -0800
+Message-ID: <CAO=notxOx8C1VZgMJcW27jdpNZiQ9dLHeKP3dXSUkzxy7hObmw@mail.gmail.com>
+Subject: Metrics vs Logging, Continued
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>
 Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -37,209 +58,74 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Dec 2017 10:19:49 -0000
+X-List-Received-Date: Tue, 05 Dec 2017 16:50:57 -0000
 
-Hi Brad,
->=20
-> Regarding the "org.openbmc" references, you are correct, there is
-> only one in phosphor-state-manager.=20
-> But there are some other "org.openbmc" references in other
-> services(such as in ipmid services). I am working on the gpio/power
-> related features design/implement, and would like to help to remove
-> these dependences one by one.
+Logging being something separate from metrics -- I've been toying
+around with different approaches to allowing userspace metrics
+collection and distribution.  There are likely better ways, and I
+think I saw a message on chat about a metrics library that could be
+used. -- but I've mostly been following email.
 
-Excellent!  Thanks.
+I was thinking this morning of a couple methods, some y'all might like
+(one where the daemon owns it, one where the metric owner owns it):
 
->=20
-> Regarding the pgood property, It is used for power supply GOOD
-> signal, I think one Boolean is good enough too. Currently we can
-> implement the same as "org.openbmc" in "xyz." namespace, for
-> replacement.
+1) Each daemon can be responsible for exporting onto dbus some objects
+with a well-defined path that are of a metric type that has a value
+and the daemon that owns it is therefore responsible for maintaining
+it.  to collect the metrics, one must grab the subtree for the
+starting point and trace out all the different metrics and get the
+values from their owners. and reports that up somehow. -- the somehow
+could be several IPMI packets.  or several IPMI packets containing a
+protobuf (similarly to the flash access approach proposed by Brendan).
+The upside to the free-form text and paths is you could parse it out
+to figure out what was each thing.
 
-That will certainly make this easier.  Would you mind submitting
-documentation for this new interface somewhere in phosphor-dbus-
-interfaces, along with your code that implements it?
+2) Each daemon that wants to track a metric creates a metric object in
+another daemon (via dbus calls) and then periodically updates that
+value.  then the information can be reported in the way described
+above similarly, except the owner of the dbus objects would be the one
+daemon and one bus, etc.  This implementation requires a lot more dbus
+traffic to maintain the values.  However, in situations where one
+doesn't want to manage their own dbus object for this, they can just
+make one dbus call to update their value based on whatever mechanism
+they use for timing this and they can store the metrics internally in
+their daemon however they please.  Another upside to this is that it'd
+be straightforward to add to the current set of daemons without
+needing to restructure anything.  Also, depending on the metric
+itself, it may not be something updated all that frequently.  For
+many, I foresee updating on non-critical failures, or interesting
+failures -- for instance, how often the ipmi daemon's reply is
+rejected by the btbridge daemon.
 
->=20
-> Regarding the gpio monitor, I found the phosphor-gpio-monitor is
-> different than these power/button services in skeleton. phosphor-
-> gpio-monitor uses these gpio pins as gpio keyboard(input device), and
-> trigger a systemd service when there is any key input.
->=20
-> I want to trigger more, for examples, when there is one button(gpio
-> input pin) is long pressed, =20
+Approach #2 could be rolled into a couple library calls as well, very
+easily such that they don't even know the internals of the tracking...
+I like and don't like the free-form text naming of the metrics,
+because obviously they can be human-readable.  Another approach might
+be to assign them human readable names and IDs, similarly to sensors
+so that you can read back the name for a metric once, and then in the
+future cache it, making subsequent requests smaller.
 
-You are correct, phosphor-gpio-monitor does not currently support
-different systemd targets for short/long press.  Perhaps it could be
-enhanced to do this?  I'm not sure if the underlying gpio-keys driver
-supports this.  Another option would be to scrap the use of gpio-
-keys/libevdev in phosphor-gpio-monitor and replace it with something
-else?  Maybe the new Linux GPIO chardev?
+Obvious downside to both implementations (although #2 has an easy
+mitigation), if the daemon with the internal state crashes the metrics
+are lost, when it comes back up all the metrics are 0.  If the metrics
+are owned by another daemon, then the library calls to set up the
+metrics tracking could check if the metric already exists, and use
+that value to start with -- then you only have to care about that one
+daemon crashing.  It could periodically write the values down and then
+read them on start-up to persist these values.  However, you might
+want the values to not persist... I imagine I wouldn't, however,
+something like boot count would...
 
-> I want to set another gpio output pin to high, for LED ON, and then
-> perform a force power off action. I think comepared with using
-> systemd services,=20
-> using sdbusplus to implement these triggered actions should be
-> easier?=20
+There are specific things that the host wants to know, that really
+fall into metrics over logging:
+1) BMCs boot count
+2) i2c ioctl failure count (which bus/device/reg: count)
+3) Specific sensor requests (reading, writing)
+4) Fan control failsafe mode count, how often it's falling into failsafe mode
+5) How often the ipmi daemon's reply to the btbridge daemon fails.
 
-Can you elaborate on how much configurability you intend to provide
-here?  It is most definitely easier to put all the logic into the
-application, but I think the answer here depends on your intent.  Do
-you intend to:
+Given some feedback on this, I'll write up a design and the use-cases
+it's trying to address.
 
-1 - Implement something that targets a specific platform/use case.
-2 - Implement something general purpose.
-
-If you intend to do #1, that is perfectly fine but I try to encourage
-#2 because it is more useful to the most people.
-
-If you intend to do #2, you _could_ write it all in C/C++ but wouldn't
-you have to implement:
-=20
-1 - A way to express how the application should react.
-2 - A way to express the dependencies between those responses.
-3 - A way to express what the application should do if a response
-action fails.
-4 - etc...
-
-systemd is already very good at these things.
-
->=20
-> Let me study on them, and maybe submit some codes for your review?
-
-Sure!
-
-> Thanks,
-> Yong Li
-> -----Original Message-----
-> From: bradleyb@bajor.fuzziesquirrel.com [mailto:bradleyb@bajor.fuzzie
-> squirrel.com] On Behalf Of Brad Bishop
-> Sent: Thursday, November 30, 2017 10:01 PM
-> To: Yong Li <yong.b.li@linux.intel.com>
-> Cc: 'OpenBMC Maillist' <openbmc@lists.ozlabs.org>
-> Subject: Re: chassis_control.py in skeleton
->=20
-> On Wed, 2017-11-29 at 09:40 +0800, Yong Li wrote:
-> > Thanks Brad for your message!
-> >=20
-> > I studied on these state-manager services, It seems that the=20
-> > chassis_control.py can be replaced by chassis_state and host_state=20
-> > .cpp files. I will perform some tests to check if there any
-> > changes=20
-> > needed.
-> >=20
-> > I also found that some of .cpp services  still need these apps in=20
-> > skeleton. Below is an example, it needs the skeleton/op-
-> > pwrctl/power_control.obj.c:
-> > https://github.com/openbmc/phosphor-state-
-> > manager/blob/master/chassis_state_manager.cpp#L56
->=20
-> Nice find.  I was aware of this, just wasn't sure if it was too much
-> information yet.  I think that is the only reference to org.openbmc
-> in phosphor-state-manager.
->=20
-> This is something we punted on and needs to be addressed.  I say
-> punted because we assumed that 'pgood' was a POWER concept and a
-> better abstraction would be needed to accommodate other
-> architectures.  Would you agree?  On the off chance a single boolean
-> property is good enough for everyone, we could just move this
-> interface to the xyz namespace.
->=20
-> I know that in the longer term, I'd like to see a much better
-> abstraction around power related concepts so we can share/reuse code
-> for things like analysis of faults, etc, so I'd be interested in
-> hearing any ideas anyone has on that.
->=20
-> >=20
-> > I would like to start to modify/rewrite these buton/power(gpio
-> > control=20
-> > related) tools in skeleton, using C++ and sdbusplus, and support
-> > multi=20
-> > platforms(X86). Could you share some comments/suggestions?
->=20
-> So for buttons, potentially we have this application called phosphor-
-> gpio-monitor:
->=20
-> github.com/openbmc/phosphor-gpio-monitor
->=20
-> You give it a gpio to monitor, and it runs a systemd target when the
-> gpio changes state.  I'm hoping this application would be sufficient
-> for implementing buttons.  It doesn't even use any YAML :-).  Can you
-> have a look at it and let us know what you think?
->=20
-> > Create a new project such as power-button-manager, or add them
-> > into=20
-> > this phosphor-state-manager?
-> >=20
-> > Thanks,
-> > Yong Li
-> >=20
-> > -----Original Message-----
-> > From: Brad Bishop [mailto:bradleyb@fuzziesquirrel.com]
-> > Sent: Wednesday, November 29, 2017 4:53 AM
-> > To: Yong Li <yong.b.li@linux.intel.com>
-> > Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>; Li, Yong B
-> > <yong.b.l=20
-> > i@intel.com>
-> > Subject: Re: chassis_control.py in skeleton
-> >=20
-> >=20
-> > > On Nov 23, 2017, at 12:38 AM, Yong Li <yong.b.li@linux.intel.com>
-> > > wrote:
-> > >=20
-> > > Hi All,
-> > >=20
-> > > Based on my understanding, these chassis control/system manager=20
-> > > related projects in skeleton should be initial/reference code,
-> > > and=20
-> > > will be
-> >=20
-> > This is correct.  The intent is to remove them eventually.
-> >=20
-> > The replacement for the chassis manager is https://github.com/openb
-> > mc=20
-> > /phosphor-state-manager
-> >=20
-> > The functions of the system manager have gradually been replicated=20
-> > elsewhere.  For instance its state management functions were moved
-> > to=20
-> > phosphor-state-manager or systemd.  Other functions were
-> > distributed=20
-> > amongst configuration files and other applications.
-> >=20
-> > They have not been removed from the current systems because they
-> > all=20
-> > need to be scrubbed for any remaining usage.
-> >=20
-> > > rewritten/reimplementation. I would like to know if there is any=20
-> > > plan or on-going projects on them?
-> >=20
-> > The plan is to scrub the existing systems and eliminate use of
-> > these=20
-> > programs.  This means identifying any functional gaps in the=20
-> > replacements and implementing those.  I don=E2=80=99t think anyone is
-> > working=20
-> > on that at the moment.
-> >=20
-> > Ideally any new layers/platforms being added would just not use
-> > these=20
-> > programs, but I understand if that requires replacement function
-> > that=20
-> > isn=E2=80=99t available and wouldn=E2=80=99t want that to hinder upst=
-reaming of a
-> > new=20
-> > platform.
-> >=20
-> > If I were to begin to work on this, I would start by building
-> > images=20
-> > for the current systems, remove these applications from the image
-> > and
-> > see what breaks.=09
-> >=20
-> >=20
-> > >=20
-> > > Thanks,
-> > > Yong Li
-> >=20
-> >=20
-> > -brad=3D
+Thanks,
+Patrick
