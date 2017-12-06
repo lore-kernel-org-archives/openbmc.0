@@ -1,36 +1,59 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.120; helo=mga04.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="EntQnk8a"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="kNWGHGZO"; dkim-atps=neutral
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ysY7h0r1dzDrcV
- for <openbmc@lists.ozlabs.org>; Thu,  7 Dec 2017 09:24:31 +1100 (AEDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 06 Dec 2017 14:24:29 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.45,369,1508828400"; d="scan'208";a="13760485"
-Received: from yoojae-mobl.amr.corp.intel.com (HELO [10.7.153.147])
- ([10.7.153.147])
- by orsmga001.jf.intel.com with ESMTP; 06 Dec 2017 14:24:28 -0800
-Subject: Re: [PATCH 1/6] Documentation: dt-bindings: Add Aspeed PECI
-To: Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-References: <20171206210240.6996-1-jae.hyun.yoo@linux.intel.com>
- <1512596529.2031041.1196482120.33305149@webmail.messagingengine.com>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <ef423282-b374-5a49-1c50-53e2e8add58b@linux.intel.com>
-Date: Wed, 6 Dec 2017 14:24:28 -0800
-User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.5.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ysZw742K2zDrbq
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Dec 2017 10:44:38 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id AE81F2113F;
+ Wed,  6 Dec 2017 18:42:24 -0500 (EST)
+Received: from web1 ([10.202.2.211])
+ by compute4.internal (MEProxy); Wed, 06 Dec 2017 18:42:24 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; bh=DFczmxWpAIvvPg3f3Q5WpDBS2yYCH
+ QQOg2jW3p4elxM=; b=EntQnk8aZxMoRathItsso1j9fbaIfTkVrjUy/y8vfrbvd
+ e3JBn/60kcA8p9Gehdg86ObprIUuPyzfLlOqjja+/4qxicfbG5lmevKWWuIIRtPY
+ OEDEhDmua3f0u1ey+N/QxBZWd4or1wXTWsrQdvIUnXpDykm/P6BfjyjdrYsotVdp
+ cRROJwpJmsFX6gEntIcRaEU/F/utdH4FDwKc/yEUGbe+23CIaX2YIukims+MgCbH
+ IAsa7GG4FGcqNZ1dZjIacg4EoerfaXGQTL34Ck8TehTP0RH3tAWHHOYhW0f/IzLE
+ Q4/3DBoqz66bh2Qe3Mc5bTHJERYMDirJ7HQo15Hpw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=DFczmx
+ WpAIvvPg3f3Q5WpDBS2yYCHQQOg2jW3p4elxM=; b=kNWGHGZOpzstEtTTLrPCiy
+ Dv6HZKkU/9sD/M7ShkIEpdPOT7GRsUZuQcSF0YbCBdPaisnYpJMY6NCRlZBoK3Q+
+ 9tt/KWHwRVIGz+v9jH+0TKse855s68BXLYikf92Yz1krzi+6WtlU4fy0pN7J0VHv
+ cAwhe/QkTQANEx1Fr7JTjwv6r26k/X0SeB8wrg2upFJ8GTyzhyBLZQkg/S2UQCGN
+ toTapojFmVVAcfOSeoLmqbQ+6B6by2JzhTqjTi9ELzoq3WxoUEch56WMvSpYb84c
+ 9sWLbfXIzSeLuQ0U/M9bLuFAJ79ZxsIaPbD9+QALsBx8DeXHqMqGTJn9MXa/vDhQ
+ ==
+X-ME-Sender: <xms:YIAoWro4WEQvmpk8UrR3f2lrEn4fQNdrryePVM3bmQeVkmUWYpoEaQ>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id 90DF894083; Wed,  6 Dec 2017 18:42:24 -0500 (EST)
+Message-Id: <1512603744.2789714.1196630712.3D129423@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: James Feist <james.feist@linux.intel.com>, openbmc@lists.ozlabs.org,
+ joel@jms.id.au
 MIME-Version: 1.0
-In-Reply-To: <1512596529.2031041.1196482120.33305149@webmail.messagingengine.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-1b87d328
+In-Reply-To: <1511989840-13781-1-git-send-email-james.feist@linux.intel.com>
+Date: Thu, 07 Dec 2017 10:12:24 +1030
+References: <1511989840-13781-1-git-send-email-james.feist@linux.intel.com>
+Subject: Re: [PATCH linux dev-4.10 v3 1/1] ARM: dts: Add Wfp BMC Machine
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -42,151 +65,180 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Dec 2017 22:24:32 -0000
+X-List-Received-Date: Wed, 06 Dec 2017 23:44:41 -0000
 
 
-On 12/6/2017 1:42 PM, Andrew Jeffery wrote:
-> Hi Jae Hun Yoo,
+On Thu, 30 Nov 2017, at 07:40, James Feist wrote:
+> Wfp is a Intel system with an Aspeed ast2500 BMC.
 > 
-> Nice work! Some comments below
-> 
-> On Thu, 7 Dec 2017, at 07:32, Jae Hyun Yoo wrote:
->> This commit adds a dt-bindings document for Aspeed PECI.
->>
->> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
->> ---
->>   .../devicetree/bindings/misc/aspeed-peci.txt       | 52
->>   ++++++++++++++++++++++
->>   1 file changed, 52 insertions(+)
->>   create mode 100644
->>   Documentation/devicetree/bindings/misc/aspeed-peci.txt
->>
->> diff --git a/Documentation/devicetree/bindings/misc/aspeed-peci.txt
->> b/Documentation/devicetree/bindings/misc/aspeed-peci.txt
->> new file mode 100644
->> index 000000000000..af950d72a48c
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/misc/aspeed-peci.txt
->> @@ -0,0 +1,52 @@
->> +* ASPEED PECI (Platform Environment Control Interface) misc driver.
->> +
->> +Hardware Interfaces:
->> +- This driver implements support for the ASPEED AST2400/2500 PECI which
->> has the
->> +  following features:
->> +       - Directly connected to APB bus
->> +       - Intel PECI 3.1 compliant (PECI 3.0 for AST2400)
->> +       - Maximum packet length is 256 bytes (Baseline transmission unit)
->> +       - Support up to 8 CPUs and 2 domains per CPU
->> +       - Integrate PECI compliant I/O buffers, can connect to PECI bus
->> directly
->> +       - Transmit buffer 32 bytes and receive buffer 32 bytes
->> +
->> +Required properties:
->> +- compatible: "aspeed,ast2400-peci" or "aspeed,ast2500-peci"
->> +       - aspeed,ast2400-peci: Aspeed AST2400 family PECI control
->> interface
->> +       - aspeed,ast2500-peci: Aspeed AST2500 family PECI control
->> interface
->> +- reg: Should contain PECI registers location and length
->> +- interrupts: Should contain PECI interrupt
->> +
->> +Optional properties:
->> +- msg_timing_nego: Message timing negotiation period
-> 
-> Typically we use '-' rather than '_' as a separator in property names. I
-> notice your example uses '-'; please change the documentation.
-> 
+> Signed-off-by: James Feist <james.feist@linux.intel.com>
 
-Ah, I missed this part. Thanks for your pointing it out.
+From a pinmux perspective:
 
-> Separately, what unit is this property working with? Clock cycles? It's
-> not clear what picking any particular value means.
-> 
-> The two problems apply to the next few properties as well:
-> 
+Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 
-Sure, I'll fix all these and will add more details.
-
->> +       0 ~ 255 (default: 1)
->> +- addr_timing_nego: Address timing negotiation period
->> +       0 ~ 255 (default: 1)
->> +- rd_sampling_point: Read sampling point selection
->> +       0 ~ 15 (default: 8)
+> ---
+> This change depends on "ARM: dts: aspeed: Rename
+> aspeed-bmc-opp-flash-layout.dtsi"
 > 
->> +- clk_div: Clock divider for 24MHz clock source
->> +       0: Divide by 1   <- default
->> +       1: Divide by 2
->> +       2: Divide by 4
->> +       3: Divide by 8
->> +       4: Divide by 16
->> +       5: Divide by 32
->> +       6: Divide by 64
->> +       7: Divide by 128
+> Changes since v2:
+>  - Added reserved memory block.
+>  - Removed extra bootarg.
 > 
-> What is the purpose of the clock divider? To derive the peci bus
-> frequency? If so, you should instead use the generic 'bus-frequency'
-> property, and implement support in the driver to derive the described
-> frequency from the upstream clock rate and the value of bus-frequency
-> specified in the devicetree node. That is, derive the divisor value and
-> program it into the hardware. You should also document the 'clocks' and
-> 'clock-names' properties here in order to describe the upstream clock
+>  arch/arm/boot/dts/Makefile                 |   1 +
+>  arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts | 128
+>  +++++++++++++++++++++++++++++
+>  2 files changed, 129 insertions(+)
+>  create mode 100644 arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts
 > 
-
-Yes, right. I totally agree with you. I'll add calculation logic for bus 
-clock into driver. Thanks!
-
->> +- cmd_timeout_ms: Command timeout in units of ms
->> +       1 ~ 60000 (default: 1000)
+> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+> index 6d6c9eb..987e23e 100644
+> --- a/arch/arm/boot/dts/Makefile
+> +++ b/arch/arm/boot/dts/Makefile
+> @@ -992,6 +992,7 @@ dtb-$(CONFIG_ARCH_ASPEED) +=
+> aspeed-bmc-opp-palmetto.dtb \
+>  	aspeed-bmc-opp-lanyang.dtb \
+>  	aspeed-bmc-mellanox-msn.dtb \
+>  	aspeed-bmc-quanta-q71l.dtb \
+> +       aspeed-bmc-intel-wfp.dtb \
+>  	aspeed-ast2500-evb.dtb
+>  endif
+>  
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts
+> b/arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts
+> new file mode 100644
+> index 0000000..901b6a0
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed-bmc-intel-wfp.dts
+> @@ -0,0 +1,128 @@
+> +/dts-v1/;
+> +
+> +#include "aspeed-g5.dtsi"
+> +
+> +/ {
+> +       model = "WFP BMC";
+> +       compatible = "intel,wfp-bmc", "aspeed,ast2500";
+> +
+> +       aliases {
+> +               serial4 = &uart5;
+> +       };
+> +
+> +       chosen {
+> +               stdout-path = &uart5;
+> +               bootargs = "earlyprintk";
+> +       };
+> +
+> +       memory {
+> +               reg = <0x80000000 0x20000000>;
+> +       };
+> +
+> +       reserved-memory {
+> +               #address-cells = <1>;
+> +               #size-cells = <1>;
+> +               ranges;
+> +
+> +               vga_memory: framebuffer@7f000000 {
+> +                       no-map;
+> +                       reg = <0x7f000000 0x01000000>;
+> +               };
+> +       };
+> +
+> +       iio-hwmon {
+> +               compatible = "iio-hwmon";
+> +               io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
+> +                       <&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>,
+> +                       <&adc 8>, <&adc 9>, <&adc 10>, <&adc 11>,
+> +                       <&adc 12>, <&adc 13>, <&adc 14>, <&adc 15>;
+> +       };
+> +
+> +};
+> +
+> +&fmc {
+> +       status = "okay";
+> +       flash@0 {
+> +               status = "okay";
+> +#include "openbmc-flash-layout.dtsi"
+> +       };
+> +};
+> +
+> +&spi1 {
+> +       status = "okay";
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&pinctrl_spi1_default>;
+> +
+> +       flash@0 {
+> +               status = "okay";
+> +               label = "pnor";
+> +       };
+> +};
+> +
+> +&uart5 {
+> +       status = "okay";
+> +};
+> +
+> +&mac0 {
+> +       status = "okay";
+> +
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&pinctrl_rmii1_default>;
+> +       use-ncsi;
+> +};
+> +
+> +&mac1 {
+> +       status = "okay";
+> +
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
+> +};
+> +
+> +&i2c1 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c2 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c3 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c4 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c5 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c6 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c7 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c13 {
+> +       status = "okay";
+> +};
+> +
+> +&gfx {
+> +       status = "okay";
+> +};
+> +
+> +&pinctrl {
+> +       aspeed,external-nodes = <&gfx &lhc>;
+> +};
+> +
+> +&pwm_tacho {
+> +       status = "okay";
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
+> +                        &pinctrl_pwm2_default &pinctrl_pwm3_default
+> +                        &pinctrl_pwm4_default &pinctrl_pwm5_default
+> +                        &pinctrl_pwm6_default &pinctrl_pwm7_default>;
+> +};
+> -- 
+> 2.7.4
 > 
-> This is a contrast to your properties above in the the unit is clear,
-> which is good.
-> 
->> +
->> +Example:
->> +       peci: peci@1e78b000 {
->> +               compatible = "aspeed,ast2500-peci", "syscon",
->> "simple-mfd";
-> 
-> If you need it to be a syscon you should say so in the documentation as
-> well as the example. But:
-> 
-> Do you actually need a syscon here? why? Do we need to share these
-> registers across multiple drivers? I'd be surprised if this controller
-> fits the syscon description.
-> 
-> If you want a regmap you can create one inside the driver without
-> affecting the devicetree. But I'd also question why you want one - they
-> introduce overhead where you probably don't need it.
-> 
-
-I simply added a syscon to use syscon_node_to_regmap api but I didn't 
-consider the issue you pointed out. I'll remove the syscon and will make 
-driver to use devm_regmap_init_mmio instead.
-
-> Cheers,
-> 
-> Andrew
-> 
-
-Thanks a lot for sharing your time on reviewing this. Will address all 
-you pointed out.
-
-BR,
-
-Jae
-
->> +               reg = <0x1e78b000 0x60>;
->> +               reg-io-width = <4>;
->> +               interrupt-controller;
->> +               interrupts = <15>;
->> +               msg-timing-nego = <1>;
->> +               addr-timing-nego = <1>;
->> +               rd-sampling-point = <8>;
->> +               clk-div = <0>;
->> +               cmd-timeout-ms = <1000>;
->> +       };
->> +
->> -- 
->> 2.15.1
->>
