@@ -1,57 +1,57 @@
 Return-Path: <venture@google.com>
 Authentication-Results: ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400c:c05::22b; helo=mail-vk0-x22b.google.com;
+ (client-ip=2607:f8b0:4001:c06::241; helo=mail-io0-x241.google.com;
  envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="JnJPyAzx"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="fJ2yNnfl"; 
  dkim-atps=neutral
-Received: from mail-vk0-x22b.google.com (mail-vk0-x22b.google.com
- [IPv6:2607:f8b0:400c:c05::22b])
+Received: from mail-io0-x241.google.com (mail-io0-x241.google.com
+ [IPv6:2607:f8b0:4001:c06::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ys0d35kDvzF061
- for <openbmc@lists.ozlabs.org>; Wed,  6 Dec 2017 11:59:35 +1100 (AEDT)
-Received: by mail-vk0-x22b.google.com with SMTP id j126so1606395vke.1
- for <openbmc@lists.ozlabs.org>; Tue, 05 Dec 2017 16:59:35 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ys1z44nsMzDrvV
+ for <openbmc@lists.ozlabs.org>; Wed,  6 Dec 2017 13:00:15 +1100 (AEDT)
+Received: by mail-io0-x241.google.com with SMTP id 81so929574iof.3
+ for <openbmc@lists.ozlabs.org>; Tue, 05 Dec 2017 18:00:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=9MtStyo8qkyuRz7qFNGDfLHn/gQngFNtcAFgMt/I6OQ=;
- b=JnJPyAzxB6tcNTouhNrMIBRHq/xKfDPpKsEY3lsywqzAF5bpBwySavLDxTAX2E1EkY
- XDrAwq/IfBtFsf8LQLiw+uL1z6LXBuD0Dl0hW32F/B5N7dhmC3Bp88ZGGePLt4YnufjN
- YcKjFGxT3dz2u3Fx/2kLDyXBTGUctXVELo9ThySaCulsRXsc866u/BimvMCfL+WXRp+5
- xTEcLcpzxBVdcH/pTaiaINfJBPaZM8pkHERGsJ8Kqoo8hzjhnEveE3e+9lchjny1UIQZ
- 1nHiNtWASIyX3GVoOdKOY7tEZUDQTPFvfs7DeTKyOv/kAhrKprpP1AfuYdrUKzwYVzH4
- gQ9Q==
+ h=from:to:cc:subject:date:message-id;
+ bh=zew1DMcGQmmdh/JD18lX7rO7aN9cGuu+v48fi37EH2M=;
+ b=fJ2yNnflmpYGy9Kcy8Scbe7zuoc6vJd8+VY+vM2TFCuHSLgf2C+mKFZNPqn5oZV+Ju
+ unyO2vmaPjHeNZp9QoKpLX+liUDibdKB71JKy6HfQqWzFe0MasdrCb/jehVvxOSaW3Hn
+ JvmHi8N+rR6m92tFfCbHlaZP95d8XrGK4a8yAiCTUijp3LZSZY5c5XW0VX9HWqMBGNc9
+ gfM0Jxz94V24hcO5ISv2rlGNMAniDsFcoEbo3Ri9ERu/Tp+GoeqEG/y2YHPQmGK40UHy
+ f9zZCDesXeZd0RR0P5sx8EMTJ4c+of2WXBxmbRg9zC3H5YYqisBvzrvi/XUFG+Rup3Cx
+ NKxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=9MtStyo8qkyuRz7qFNGDfLHn/gQngFNtcAFgMt/I6OQ=;
- b=r+k4TwVCB0s9bdW/mKlLCZADcOHTgSxC0hQ9AFsl3Q28xb0V51ZVFm7oTrgckg4q9y
- 7lIkTSU5Pvw5gzF//pCfY5n95q3Fz0C+oWad4wZQjIW2nHDY97oaUrXSXWHXwkri2xCa
- lZUeDljPISkIArsQmNJa8ALTCQ1fVgbwcmNx/Yf/0ps7V/4sKbOQ2HDeSJmCMCg3tbeb
- nYu/zAGTIIGjRkArPOeBna5ZBay91s5Ti4TcOS/yeS6Tnw9vWH0IMkx3qIMBFR8RCqv6
- h/E1ae+vbpYAPQTc88CMNrAQ7vToCitkK7VIKKH26vzb4oepC9XiDmBdhMPR87/315dq
- MN2w==
-X-Gm-Message-State: AKGB3mI1usUKcutwWqsR0T0bnFY1qZMv1yRAQZ/UN4htMmV8xObiifzS
- BgHvEqfhpfn1pGNGnJOWDnyICN/OIpcsecoqYxCFzw==
-X-Google-Smtp-Source: AGs4zMbRPK8yhloEth5mwtMRb38brqR9gfXQxAbWCk4OGFYOcmLfXULdwA0TeR6akStm3UNpv/spjCXaXEmdyusXbg0=
-X-Received: by 10.31.226.71 with SMTP id z68mr7351849vkg.195.1512521972408;
- Tue, 05 Dec 2017 16:59:32 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.31.94.150 with HTTP; Tue, 5 Dec 2017 16:59:11 -0800 (PST)
-In-Reply-To: <CACPK8XfsHM9496pMv-s+CvrTYx80iS0049WBNyJNxHR14Yv6xw@mail.gmail.com>
-References: <20171205213900.165038-1-venture@google.com>
- <CACPK8XfsHM9496pMv-s+CvrTYx80iS0049WBNyJNxHR14Yv6xw@mail.gmail.com>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=zew1DMcGQmmdh/JD18lX7rO7aN9cGuu+v48fi37EH2M=;
+ b=CcokauGcAQ/CTYvY7Gqk0cIJi5iFKhlN4eZwDFWgxgYt2XpIOSH+LlA6y42XX0PnKx
+ Z/1omg/v5dG916uTZJmir4eqjcQ13a9bSzSWrIICktJfmN1QA9MQglwX/+j3ZaL7N+Ve
+ S6BAfBkpfGUVyr49fbnslpAAmIDnbNK8fr1r4GqYqg2AASe1wUqZgb8GUDZPr0QT9M2A
+ JYU6QJSAoEvoD6VaC7ADZbQPdp4W3cxK4D7C5qhqY4KTRlJFlN8NUwc0wC51LStmxAqE
+ WtvjqORsgaAWke4MXRfECsmvNBAaAquO1DuUBZ5Eq1uPUmG4PQ4yMWoAusDmC8syc7AY
+ tYcw==
+X-Gm-Message-State: AKGB3mLJUgw+CZRPy2lPjwBI5bqHpLWFtkx2SKUJWdgT+lr3Ib9hlpwu
+ YMANIb7tqpDl4px/EA0yG92usA==
+X-Google-Smtp-Source: AGs4zMaxRmqrwwCtTKF22mX5nayulyRH8lBWOqnMgAjrTqfiJX/0LzIzv2wMUPDfQktOW3AEKLAf2g==
+X-Received: by 10.107.79.4 with SMTP id d4mr5573344iob.12.1512525612412;
+ Tue, 05 Dec 2017 18:00:12 -0800 (PST)
+Received: from venture.svl.corp.google.com ([100.123.242.104])
+ by smtp.gmail.com with ESMTPSA id j204sm856120itj.16.2017.12.05.18.00.11
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Tue, 05 Dec 2017 18:00:11 -0800 (PST)
 From: Patrick Venture <venture@google.com>
-Date: Tue, 5 Dec 2017 16:59:11 -0800
-Message-ID: <CAO=notyNE6dW7sW42LGHYfPQzyGbSUu1H7OzNkHZSz7O+J16nw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: quanta-q71l: move coin
- battery sensor
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+To: venture@google.com,
+	joel@jms.id.au,
+	xow@google.com
+Cc: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.10] ARM: dts: aspeed: zaius: move coin battery
+ sensor
+Date: Tue,  5 Dec 2017 18:00:08 -0800
+Message-Id: <20171206020008.2562-1-venture@google.com>
+X-Mailer: git-send-email 2.15.0.531.g2ccb3012c9-goog
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -63,22 +63,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Dec 2017 00:59:37 -0000
+X-List-Received-Date: Wed, 06 Dec 2017 02:00:17 -0000
 
-That's not a bad suggestion -- I could at least add comments listing
-what they are.  Another CL to follow.
+Moved the coin battery sensor into a separate iio-hwmon
+instance to facilitate reading it as a separate hwmon instance.
 
-On Tue, Dec 5, 2017 at 3:56 PM, Joel Stanley <joel@jms.id.au> wrote:
-> On Wed, Dec 6, 2017 at 8:09 AM, Patrick Venture <venture@google.com> wrote:
->> Moved the coin battery sensor into a separate iio-hwmon
->> instance to facilitate reading it as a separate hwmon instance.
->
-> Have you considered adding some some #defines for the ADC channel
-> numbers, to document what they do? It doesn't appear to be a common
-> thing in other dts files, but it makes sense to me.
->
-> I've applied this to dev-4.10.
->
-> Cheers,
->
-> Joel
+Naming of ADC inputs in follow-on patchset.
+
+Signed-off-by: Patrick Venture <venture@google.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+index 5f6a11ad93d4..17f2000d5cd5 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+@@ -102,7 +102,12 @@
+ 		io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
+ 			<&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>,
+ 			<&adc 8>, <&adc 9>, <&adc 10>, <&adc 11>,
+-			<&adc 12>, <&adc 13>, <&adc 14>, <&adc 15>;
++			<&adc 13>, <&adc 14>, <&adc 15>;
++	};
++
++	iio-hwmon-battery {
++		compatible = "iio-hwmon";
++		io-channels = <&adc 12>;
+ 	};
+ };
+ 
+-- 
+2.15.0.531.g2ccb3012c9-goog
