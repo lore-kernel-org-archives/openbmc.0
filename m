@@ -1,34 +1,57 @@
-Return-Path: <vernon.mauery@linux.intel.com>
+Return-Path: <venture@google.com>
 Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.20; helo=mga02.intel.com;
- envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c05::22b; helo=mail-vk0-x22b.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="JnJPyAzx"; 
+ dkim-atps=neutral
+Received: from mail-vk0-x22b.google.com (mail-vk0-x22b.google.com
+ [IPv6:2607:f8b0:400c:c05::22b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ys0PW12wdzF066
- for <openbmc@lists.ozlabs.org>; Wed,  6 Dec 2017 11:49:34 +1100 (AEDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2017 16:49:31 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.45,366,1508828400"; d="scan'208";a="13457169"
-Received: from mauery.jf.intel.com (HELO mauery) ([10.7.150.164])
- by orsmga001.jf.intel.com with ESMTP; 05 Dec 2017 16:49:31 -0800
-Date: Tue, 5 Dec 2017 16:49:31 -0800
-From: Vernon Mauery <vernon.mauery@linux.intel.com>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: OpenBMC <openbmc@lists.ozlabs.org>
-Subject: Re: OpenBMC community telecon - 11/27 Agenda
-Message-ID: <20171206004931.GI113334@mauery>
-References: <911ECDC1-D1F4-4B4B-8433-CE396C2EEE35@fuzziesquirrel.com>
- <20171205010205.GH113334@mauery>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ys0d35kDvzF061
+ for <openbmc@lists.ozlabs.org>; Wed,  6 Dec 2017 11:59:35 +1100 (AEDT)
+Received: by mail-vk0-x22b.google.com with SMTP id j126so1606395vke.1
+ for <openbmc@lists.ozlabs.org>; Tue, 05 Dec 2017 16:59:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=9MtStyo8qkyuRz7qFNGDfLHn/gQngFNtcAFgMt/I6OQ=;
+ b=JnJPyAzxB6tcNTouhNrMIBRHq/xKfDPpKsEY3lsywqzAF5bpBwySavLDxTAX2E1EkY
+ XDrAwq/IfBtFsf8LQLiw+uL1z6LXBuD0Dl0hW32F/B5N7dhmC3Bp88ZGGePLt4YnufjN
+ YcKjFGxT3dz2u3Fx/2kLDyXBTGUctXVELo9ThySaCulsRXsc866u/BimvMCfL+WXRp+5
+ xTEcLcpzxBVdcH/pTaiaINfJBPaZM8pkHERGsJ8Kqoo8hzjhnEveE3e+9lchjny1UIQZ
+ 1nHiNtWASIyX3GVoOdKOY7tEZUDQTPFvfs7DeTKyOv/kAhrKprpP1AfuYdrUKzwYVzH4
+ gQ9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=9MtStyo8qkyuRz7qFNGDfLHn/gQngFNtcAFgMt/I6OQ=;
+ b=r+k4TwVCB0s9bdW/mKlLCZADcOHTgSxC0hQ9AFsl3Q28xb0V51ZVFm7oTrgckg4q9y
+ 7lIkTSU5Pvw5gzF//pCfY5n95q3Fz0C+oWad4wZQjIW2nHDY97oaUrXSXWHXwkri2xCa
+ lZUeDljPISkIArsQmNJa8ALTCQ1fVgbwcmNx/Yf/0ps7V/4sKbOQ2HDeSJmCMCg3tbeb
+ nYu/zAGTIIGjRkArPOeBna5ZBay91s5Ti4TcOS/yeS6Tnw9vWH0IMkx3qIMBFR8RCqv6
+ h/E1ae+vbpYAPQTc88CMNrAQ7vToCitkK7VIKKH26vzb4oepC9XiDmBdhMPR87/315dq
+ MN2w==
+X-Gm-Message-State: AKGB3mI1usUKcutwWqsR0T0bnFY1qZMv1yRAQZ/UN4htMmV8xObiifzS
+ BgHvEqfhpfn1pGNGnJOWDnyICN/OIpcsecoqYxCFzw==
+X-Google-Smtp-Source: AGs4zMbRPK8yhloEth5mwtMRb38brqR9gfXQxAbWCk4OGFYOcmLfXULdwA0TeR6akStm3UNpv/spjCXaXEmdyusXbg0=
+X-Received: by 10.31.226.71 with SMTP id z68mr7351849vkg.195.1512521972408;
+ Tue, 05 Dec 2017 16:59:32 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20171205010205.GH113334@mauery>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+Received: by 10.31.94.150 with HTTP; Tue, 5 Dec 2017 16:59:11 -0800 (PST)
+In-Reply-To: <CACPK8XfsHM9496pMv-s+CvrTYx80iS0049WBNyJNxHR14Yv6xw@mail.gmail.com>
+References: <20171205213900.165038-1-venture@google.com>
+ <CACPK8XfsHM9496pMv-s+CvrTYx80iS0049WBNyJNxHR14Yv6xw@mail.gmail.com>
+From: Patrick Venture <venture@google.com>
+Date: Tue, 5 Dec 2017 16:59:11 -0800
+Message-ID: <CAO=notyNE6dW7sW42LGHYfPQzyGbSUu1H7OzNkHZSz7O+J16nw@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: quanta-q71l: move coin
+ battery sensor
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -40,122 +63,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Dec 2017 00:49:35 -0000
+X-List-Received-Date: Wed, 06 Dec 2017 00:59:37 -0000
 
-On 04-Dec-2017 05:02 PM, Vernon Mauery wrote:
->On 04-Dec-2017 05:06 PM, Brad Bishop wrote:
->>multi configuration images / runtime configurability
->>user management
->>secure coding guidelines
->>
->>=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94=
-=E2=80=94
->>Monday, 10:00pm EDT
->>888-426-6840
->>password: 85891389
->
->For the discussion on user management.
->
->Overview:
->1. User management is done via PAM.
->2. If IPMI is being used, PAM loads the pam_ipmi.so password module.
->  a. pam_ipmi.so intercepts password changes and saves the password
->     for IPMI-enabled users to a file that can be read at a later time
->     to initiate an RMCP+ session. (encrypted or obfuscated with a     =20
->per-BMC key so no passwords are written directly in flash.)
->  b. pam_ipmi.so implements a method to decrypt passwords and provide
->     them to host-ipmi (for test password command) and net-ipmi (for
->     session initiation)
->3. If a user is not enabled for IPMI, their password will not be saved
->  in the ipmi database, and thus must be reset if/when that user gains
->  IPMI capability.
->4. If a user loses IPMI capability, their password is reset to force a
->  password change so their password is secure again.
->5. Capabilities is done via unix groups
->  a. Groups like ipmi, webserver, redfish, ssh, sol can provide login     =
-=20
->or 'channel' access.
->  b. Groups like user-manager, media, power, sensor, etc., can provide
->     fine-grained access for various capabilities. Providers of     =20
->capabilities should check to see that accessors (users) have the     =20
->required permission.
->6. Admin-defined 'super-groups'
->  a. Provide a set of pre-defined groups of capabilities that can be
->     assigned to users: Admin, User, Operator or similar that each have
->     groups associated with them.
->  b. Changes to groups via APIs can make sure that if a user is     =20
->assigned to a 'super-group' will stay assigned to the sub-groups
->  c. Changes made to users via manual commands may override API groups
+That's not a bad suggestion -- I could at least add comments listing
+what they are.  Another CL to follow.
 
-Items yet to be decided:
-1. How providers of services export the service/permission pairs so the=20
-user manager can manage the permission groups.
-2. How to manage the permissions groups (is there a PAM group mechanism?)
-3. How to create users (call adduser?)
-4. Do we force users to have different passwords for RMCP+ and other=20
-logins because RMCP+ passwords are insecurely stored? Or is this a=20
-policy thing that we allow system administrators to choose?
-
-
---Vernon
-
+On Tue, Dec 5, 2017 at 3:56 PM, Joel Stanley <joel@jms.id.au> wrote:
+> On Wed, Dec 6, 2017 at 8:09 AM, Patrick Venture <venture@google.com> wrote:
+>> Moved the coin battery sensor into a separate iio-hwmon
+>> instance to facilitate reading it as a separate hwmon instance.
 >
->Methods:
->   1. CREATE_USER
->       Privilege-required: USER-MANAGER
->       Args:
->           UserName - STRING (16 bytes only - else role change to IPMI can=
-'t be done)
->           Password - Byte Array (Max of 20 bytes if IPMID is chosen. For
->                      others can send more bytes, but change role to IPMI =
-will
->                      request password again under 20 bytes)
->           Roles - STRING with comma separated
->       Return:
->           SUCCESS ERR_USERNAME_EXIST ERR_PASSWORD_FAILS ERR_ROLE_FAILS
->           ERR_PASSWORD_ROLE_FAIL ERR_NO_RESOURCE ERR_UNKNOWN
->           ERR_AUTHORIZATION_FAIL
+> Have you considered adding some some #defines for the ADC channel
+> numbers, to document what they do? It doesn't appear to be a common
+> thing in other dts files, but it makes sense to me.
 >
->   2. DELETE_USER
->       Privilege-required: USER-MANAGER
->       Args:
->           UserName - STRING
->       Return:
->           SUCCESS ERR_USERNAME_NOT_EXIST ERR_UNKNOWN ERR_AUTHORIZATION_FA=
-IL
+> I've applied this to dev-4.10.
 >
->   3. CHANGE ROLE / CHANGE_PASSWORD (OTHERS)
->       Privilege-required: USER-MANAGER
->       Args:
->           UserName - STRING
->           New Password (if changed) - Byte Array
->           New Role (if changed) - Array of STRING
->       Return:
->           SUCCESS ERR_USERNAME_NOT_EXIST ERR_UNKNOWN ERR_AUTHORIZATION_FA=
-IL
->           ERR_PASSWORD_FAILS ERR_PASSWORD_ROLE_FAIL ERR_NO_RESOURCE
+> Cheers,
 >
->   4. CHANGE_PASSWORD (SELF)
->       Privilege-required: Any Valid user
->       Args:
->           New Password - Byte Array
->       Return:
->           SUCCESS ERR_PASSWORD_FAILS ERR_PASSWORD_ROLE_FAIL ERR_UNKNOWN
->
->   5. LIST_USER_DETAILS
->       Privilege-required: USER-MANAGER
->       Args:
->           NULL
->       Return:
->           Array of:
->               USER_NAME (String)
->               ROLES (String)
->
->Signals:
->   1. UPDATED_USER_SIGNAL
->       Args:
->           UserName of updated user
->           UpdateType:
->               Role changed / User Deleted / User created / Password=20
->Changed etc.
->
+> Joel
