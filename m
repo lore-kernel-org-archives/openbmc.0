@@ -1,57 +1,68 @@
-Return-Path: <venture@google.com>
+Return-Path: <eajames@linux.vnet.ibm.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4001:c06::241; helo=mail-io0-x241.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="fJ2yNnfl"; 
- dkim-atps=neutral
-Received: from mail-io0-x241.google.com (mail-io0-x241.google.com
- [IPv6:2607:f8b0:4001:c06::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ys1z44nsMzDrvV
- for <openbmc@lists.ozlabs.org>; Wed,  6 Dec 2017 13:00:15 +1100 (AEDT)
-Received: by mail-io0-x241.google.com with SMTP id 81so929574iof.3
- for <openbmc@lists.ozlabs.org>; Tue, 05 Dec 2017 18:00:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=zew1DMcGQmmdh/JD18lX7rO7aN9cGuu+v48fi37EH2M=;
- b=fJ2yNnflmpYGy9Kcy8Scbe7zuoc6vJd8+VY+vM2TFCuHSLgf2C+mKFZNPqn5oZV+Ju
- unyO2vmaPjHeNZp9QoKpLX+liUDibdKB71JKy6HfQqWzFe0MasdrCb/jehVvxOSaW3Hn
- JvmHi8N+rR6m92tFfCbHlaZP95d8XrGK4a8yAiCTUijp3LZSZY5c5XW0VX9HWqMBGNc9
- gfM0Jxz94V24hcO5ISv2rlGNMAniDsFcoEbo3Ri9ERu/Tp+GoeqEG/y2YHPQmGK40UHy
- f9zZCDesXeZd0RR0P5sx8EMTJ4c+of2WXBxmbRg9zC3H5YYqisBvzrvi/XUFG+Rup3Cx
- NKxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=zew1DMcGQmmdh/JD18lX7rO7aN9cGuu+v48fi37EH2M=;
- b=CcokauGcAQ/CTYvY7Gqk0cIJi5iFKhlN4eZwDFWgxgYt2XpIOSH+LlA6y42XX0PnKx
- Z/1omg/v5dG916uTZJmir4eqjcQ13a9bSzSWrIICktJfmN1QA9MQglwX/+j3ZaL7N+Ve
- S6BAfBkpfGUVyr49fbnslpAAmIDnbNK8fr1r4GqYqg2AASe1wUqZgb8GUDZPr0QT9M2A
- JYU6QJSAoEvoD6VaC7ADZbQPdp4W3cxK4D7C5qhqY4KTRlJFlN8NUwc0wC51LStmxAqE
- WtvjqORsgaAWke4MXRfECsmvNBAaAquO1DuUBZ5Eq1uPUmG4PQ4yMWoAusDmC8syc7AY
- tYcw==
-X-Gm-Message-State: AKGB3mLJUgw+CZRPy2lPjwBI5bqHpLWFtkx2SKUJWdgT+lr3Ib9hlpwu
- YMANIb7tqpDl4px/EA0yG92usA==
-X-Google-Smtp-Source: AGs4zMaxRmqrwwCtTKF22mX5nayulyRH8lBWOqnMgAjrTqfiJX/0LzIzv2wMUPDfQktOW3AEKLAf2g==
-X-Received: by 10.107.79.4 with SMTP id d4mr5573344iob.12.1512525612412;
- Tue, 05 Dec 2017 18:00:12 -0800 (PST)
-Received: from venture.svl.corp.google.com ([100.123.242.104])
- by smtp.gmail.com with ESMTPSA id j204sm856120itj.16.2017.12.05.18.00.11
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Tue, 05 Dec 2017 18:00:11 -0800 (PST)
-From: Patrick Venture <venture@google.com>
-To: venture@google.com,
-	joel@jms.id.au,
-	xow@google.com
-Cc: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10] ARM: dts: aspeed: zaius: move coin battery
- sensor
-Date: Tue,  5 Dec 2017 18:00:08 -0800
-Message-Id: <20171206020008.2562-1-venture@google.com>
-X-Mailer: git-send-email 2.15.0.531.g2ccb3012c9-goog
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ysT28466YzDqn6
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Dec 2017 06:19:28 +1100 (AEDT)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ vB6JJG9c053115
+ for <openbmc@lists.ozlabs.org>; Wed, 6 Dec 2017 14:19:26 -0500
+Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2epne8baed-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 06 Dec 2017 14:19:26 -0500
+Received: from localhost
+ by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Wed, 6 Dec 2017 14:19:24 -0500
+Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
+ by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 6 Dec 2017 14:19:22 -0500
+Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
+ [9.57.199.108])
+ by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ vB6JJL2M39714984; Wed, 6 Dec 2017 19:19:21 GMT
+Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id E82CDB2050;
+ Wed,  6 Dec 2017 14:16:28 -0500 (EST)
+Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
+ by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP id 8EA00B204D;
+ Wed,  6 Dec 2017 14:16:28 -0500 (EST)
+From: Eddie James <eajames@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, mspinler@linux.vnet.ibm.com,
+ "Edward A. James" <eajames@us.ibm.com>
+Subject: [PATCH linux dev-4.10] hwmon (occ): Fix integer overflow in
+ multiplication
+Date: Wed,  6 Dec 2017 13:19:19 -0600
+X-Mailer: git-send-email 1.8.3.1
+X-TM-AS-GCONF: 00
+x-cbid: 17120619-0044-0000-0000-000003BAAB96
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00008161; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000244; SDB=6.00956380; UDB=6.00483442; IPR=6.00736417; 
+ BA=6.00005729; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00018387; XFM=3.00000015;
+ UTC=2017-12-06 19:19:23
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17120619-0045-0000-0000-000007E9E2F9
+Message-Id: <1512587959-27264-1-git-send-email-eajames@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-12-06_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1712060274
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -63,35 +74,91 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Dec 2017 02:00:17 -0000
+X-List-Received-Date: Wed, 06 Dec 2017 19:19:29 -0000
 
-Moved the coin battery sensor into a separate iio-hwmon
-instance to facilitate reading it as a separate hwmon instance.
+From: "Edward A. James" <eajames@us.ibm.com>
 
-Naming of ADC inputs in follow-on patchset.
+Power values were overflowing INT_MAX when being converted to
+microwatts, even though the storage was sufficiently large (unsigned 64
+bit). Change literals to unsigned long long.
 
-Signed-off-by: Patrick Venture <venture@google.com>
+Signed-off-by: Edward A. James <eajames@us.ibm.com>
 ---
- arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/hwmon/occ/common.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-index 5f6a11ad93d4..17f2000d5cd5 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-@@ -102,7 +102,12 @@
- 		io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
- 			<&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>,
- 			<&adc 8>, <&adc 9>, <&adc 10>, <&adc 11>,
--			<&adc 12>, <&adc 13>, <&adc 14>, <&adc 15>;
-+			<&adc 13>, <&adc 14>, <&adc 15>;
-+	};
-+
-+	iio-hwmon-battery {
-+		compatible = "iio-hwmon";
-+		io-channels = <&adc 12>;
- 	};
- };
+diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
+index 3175e7b..a64f3db 100644
+--- a/drivers/hwmon/occ/common.c
++++ b/drivers/hwmon/occ/common.c
+@@ -468,7 +468,7 @@ static ssize_t occ_show_power_1(struct device *dev,
+ 				struct device_attribute *attr, char *buf)
+ {
+ 	int rc;
+-	u32 val = 0;
++	u64 val = 0;
+ 	struct power_sensor_1 *power;
+ 	struct occ *occ = dev_get_drvdata(dev);
+ 	struct occ_sensors *sensors = &occ->sensors;
+@@ -491,11 +491,11 @@ static ssize_t occ_show_power_1(struct device *dev,
+ 		val = get_unaligned_be32(&power->accumulator);
+ 		break;
+ 	case 3:
+-		val = get_unaligned_be16(&power->value) * 1000000;
++		val = (u64)get_unaligned_be16(&power->value) * 1000000ULL;
+ 		break;
+ 	}
  
+-	return snprintf(buf, PAGE_SIZE - 1, "%u\n", val);
++	return snprintf(buf, PAGE_SIZE - 1, "%llu\n", val);
+ }
+ 
+ static ssize_t occ_show_power_2(struct device *dev,
+@@ -525,7 +525,7 @@ static ssize_t occ_show_power_2(struct device *dev,
+ 		val = get_unaligned_be64(&power->accumulator);
+ 		break;
+ 	case 3:
+-		val = get_unaligned_be16(&power->value) * 1000000;
++		val = (u64)get_unaligned_be16(&power->value) * 1000000ULL;
+ 		break;
+ 	case 4:
+ 		val = power->function_id;
+@@ -562,7 +562,8 @@ static ssize_t occ_show_power_a0(struct device *dev,
+ 		val = get_unaligned_be16(&power->system.update_time);
+ 		break;
+ 	case 2:
+-		val = get_unaligned_be16(&power->system.value) * 1000000;
++		val = (u64)get_unaligned_be16(&power->system.value) *
++			1000000ULL;
+ 		break;
+ 	case 3:
+ 		val = get_unaligned_be32(&power->system.update_tag);
+@@ -574,7 +575,7 @@ static ssize_t occ_show_power_a0(struct device *dev,
+ 		val = get_unaligned_be16(&power->proc.update_time);
+ 		break;
+ 	case 6:
+-		val = get_unaligned_be16(&power->proc.value) * 1000000;
++		val = (u64)get_unaligned_be16(&power->proc.value) * 1000000ULL;
+ 		break;
+ 	case 7:
+ 		val = get_unaligned_be32(&power->proc.update_tag);
+@@ -583,7 +584,7 @@ static ssize_t occ_show_power_a0(struct device *dev,
+ 		val = get_unaligned_be64(&power->proc.accumulator);
+ 		break;
+ 	case 9:
+-		val = get_unaligned_be16(&power->vdd.value) * 1000000;
++		val = (u64)get_unaligned_be16(&power->vdd.value) * 1000000ULL;
+ 		break;
+ 	case 10:
+ 		val = get_unaligned_be32(&power->vdd.update_tag);
+@@ -592,7 +593,7 @@ static ssize_t occ_show_power_a0(struct device *dev,
+ 		val = get_unaligned_be64(&power->vdd.accumulator);
+ 		break;
+ 	case 12:
+-		val = get_unaligned_be16(&power->vdn.value) * 1000000;
++		val = (u64)get_unaligned_be16(&power->vdn.value) * 1000000ULL;
+ 		break;
+ 	case 13:
+ 		val = get_unaligned_be32(&power->vdn.update_tag);
 -- 
-2.15.0.531.g2ccb3012c9-goog
+1.8.3.1
