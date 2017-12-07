@@ -1,61 +1,64 @@
-Return-Path: <brendanhiggins@google.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400d:c0d::241; helo=mail-qt0-x241.google.com;
- envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
+Return-Path: <pombredanne@nexb.com>
+Authentication-Results: ozlabs.org; spf=none (mailfrom) smtp.mailfrom=nexb.com
+ (client-ip=2a00:1450:400c:c09::234; helo=mail-wm0-x234.google.com;
+ envelope-from=pombredanne@nexb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="MebQqr/u"; 
+ unprotected) header.d=nexb-com.20150623.gappssmtp.com
+ header.i=@nexb-com.20150623.gappssmtp.com header.b="Go/teYiW"; 
  dkim-atps=neutral
-Received: from mail-qt0-x241.google.com (mail-qt0-x241.google.com
- [IPv6:2607:f8b0:400d:c0d::241])
+Received: from mail-wm0-x234.google.com (mail-wm0-x234.google.com
+ [IPv6:2a00:1450:400c:c09::234])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yt6nJ6r4TzDsQ0
- for <openbmc@lists.ozlabs.org>; Fri,  8 Dec 2017 07:40:36 +1100 (AEDT)
-Received: by mail-qt0-x241.google.com with SMTP id k19so21004979qtj.6
- for <openbmc@lists.ozlabs.org>; Thu, 07 Dec 2017 12:40:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yt7g61CKkzDsQ0
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Dec 2017 08:20:16 +1100 (AEDT)
+Received: by mail-wm0-x234.google.com with SMTP id f140so221923wmd.2
+ for <openbmc@lists.ozlabs.org>; Thu, 07 Dec 2017 13:20:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=nexb-com.20150623.gappssmtp.com; s=20150623;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=Pwm9v12cn4bVQFghXqkE638X05QFl6lSKjbhWxq9mA4=;
- b=MebQqr/uueWThTnUvvjljAj2GwoQSFAtKIpv/M9g2E5Mkvky2XndsmxfJc66Rn2GVi
- p7n5VPvNnfie4FRmpESk/1MTlnLtaLXqpjnIPA7kOaSzKR5gvbYhyiLQ8i6qENMKfLDC
- C+BcmB71ObXWhzcnaxhPcGa0BiYdhBUyWnhx3rfgBGflf9chuCASbfKOzy7XhZkNz8ny
- 33HFUi1br9xsDn+d0gNLWbdboShVaRTggEbwb1+bhy0W0tpDVnKwWoJto69h9vuvY2Gt
- shCN/DadhXEzrrsutnJmKJbxgg+5jrqxYOpRJIdqfiMjAv2fYIZ0LELny2EG3RYkZuhP
- 3m5A==
+ :cc; bh=TQbQ/icNwdBcjmI74KtAe0dtH7Ug0v54MXqErMXj1Xk=;
+ b=Go/teYiWhb6BgEaCtU3tBHOZ8HMiAJAhhHKjJeldsQmu4KtzQ6g2JsQMlPB2sl5Ayd
+ RLBNLap2Hh/voJiZ2K6StnEi5WBrJxCMBvZCEQPe4miEvYG2VIhnXF8NzIJ1paXMxhMf
+ QLkv0nX1k2SkPsKhh5bCdrwHJd+r7JtvilPyKnkyUGx8y6Nxe5OyUQgMrNoPHgNUzgJp
+ lbUxI98QbNuqw1flBKC/jNvUAOtqwHup41SYI92eyoB877nzgbSn4YSweZiGSJo6gfGs
+ +UWTuIy6Xso5ZPfA+HUPwP7M7hjdqQ+TibwCHl0KIzbmdXdnbWA8ZQFmDy4EVRFt1x93
+ HI7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=Pwm9v12cn4bVQFghXqkE638X05QFl6lSKjbhWxq9mA4=;
- b=iUehkVo8xlkPtsbPvZoXg7AecKaS0I03IUEGMx6uzFm1FuznFgufiy2pwcVTbyNM/B
- TyPZMEwcv7kPDF735TgU/bx6Xrum9l9XCsN3jvffrNGLRfcZjKbzKv7UPgpGRfbG61ac
- goZS8LqCdQknfFP2laFo31BeWhayMOmVEVlZsTFmFfTfeQTlAeQ2oLAXdRrpk5iJzKh/
- mp+6gz3sCp4X+gdgoODf4shyVI1XdBeVGOZlrP3ON1vU63jmoZkBsmACBJOxKXmbedeC
- 6+YFSwcoVXcVlw6N2Vr6nWT6NVEMIAwgc5WTBX8Um3SI5wklWfDS1PSEDT/e2+uyYdZl
- HVpQ==
-X-Gm-Message-State: AKGB3mJZ0AJouH6qKjkxGHSGiVPpJ63dIKYD3UYcRuVAySURCkKRSGcj
- 2HluCJ3LO2KkE5ivfaSezMdUdf6iFvmtVrWbc578Pg==
-X-Google-Smtp-Source: AGs4zMaohK1qC2arb2RBWvs5W7HUutH3+I5GXfVhnJvnyeC42k9zK3T6pnad/BHifLko9cyZfJG7K6SqiRY7iJ94T+U=
-X-Received: by 10.200.55.231 with SMTP id e36mr12165446qtc.274.1512679234193; 
- Thu, 07 Dec 2017 12:40:34 -0800 (PST)
+ bh=TQbQ/icNwdBcjmI74KtAe0dtH7Ug0v54MXqErMXj1Xk=;
+ b=OZjKFRGQhYkzjEsXFYPOzN3fwHXWOXlnsqIxNYdVjMjOvYvg3rb4Q+pluod5J5UHvf
+ JZ1G3iQ7RPwM6czYuNnoB00psjwvyZjyyzC2nFfx/wXASf1hgDVv2j8VsVHQXM8QRQ4p
+ P97RzQzLFTCCn1p7xSSjWYuq0hsi0tBVfnahQ8KJIV99EDegb3BhZ0g5rZeSO69mXrXe
+ y/5vYW49xFq9pNqi+cLwDQhJKqFPeC0c+Kp3pqCW1qh+1E5r03dQu1vdISH00P8UsnJ9
+ eKCW2IN41YuKTYUAZIpcWhIvlMpmPGRmjHpC2gisk/q45P/ztkoieigCHhiHpeKQkNWw
+ 3SMw==
+X-Gm-Message-State: AKGB3mLdZZk8n1q6gTJIZQKZEoSTxd9/kcy+QR9hKgAlh13FaVnKZdTl
+ oTqVqMmIILGCuDN7ZCIyCNOX8aBD9YeM6Rah7KHcFg==
+X-Google-Smtp-Source: AGs4zMatk5Relq6bySEAwwmxso/Obei82nlgG+Fm9jWLNNYfIiOCRjlnLdgjpUCzYbD+HFlu11XBcExiVVZNluUEYQ8=
+X-Received: by 10.28.61.135 with SMTP id k129mr2166407wma.81.1512681613771;
+ Thu, 07 Dec 2017 13:20:13 -0800 (PST)
 MIME-Version: 1.0
-Received: by 10.140.99.79 with HTTP; Thu, 7 Dec 2017 12:40:33 -0800 (PST)
-In-Reply-To: <CAFd5g44tDoV-9yeaZ3UCUZibW7vUMeBVQRAihB++LSC44ZO0TA@mail.gmail.com>
-References: <1509985716-25759-1-git-send-email-tmaimon77@gmail.com>
- <1509985716-25759-2-git-send-email-tmaimon77@gmail.com>
- <CAFd5g44tDoV-9yeaZ3UCUZibW7vUMeBVQRAihB++LSC44ZO0TA@mail.gmail.com>
-From: Brendan Higgins <brendanhiggins@google.com>
-Date: Thu, 7 Dec 2017 12:40:33 -0800
-Message-ID: <CAFd5g45PX+8Dmc1FC-X9DoPqLPxEf4Qgf-VJwcJ9WL_Nq5LAqg@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] clocksource: npcm: add NPCM7xx timer driver
-To: Tomer Maimon <tmaimon77@gmail.com>
-Cc: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Thomas Gleixner <tglx@linutronix.de>, 
+Received: by 10.223.157.195 with HTTP; Thu, 7 Dec 2017 13:19:33 -0800 (PST)
+In-Reply-To: <CAFd5g45+dNuayw=s08iwAj2wrUYNXnGd5SbA+OVvsL_J6APHGA@mail.gmail.com>
+References: <20171117190747.21642-1-brendanhiggins@google.com>
+ <20171117190747.21642-2-brendanhiggins@google.com>
+ <CAFd5g45+dNuayw=s08iwAj2wrUYNXnGd5SbA+OVvsL_J6APHGA@mail.gmail.com>
+From: Philippe Ombredanne <pombredanne@nexb.com>
+Date: Thu, 7 Dec 2017 22:19:33 +0100
+Message-ID: <CAOFm3uG=i3gOnKEMEPNii070+pB7Aqt2GmxgB5G0DCfGzhCkZQ@mail.gmail.com>
+Subject: Re: [PATCH v8 1/3] arm: npcm: add basic support for Nuvoton BMCs
+To: Brendan Higgins <brendanhiggins@google.com>
+Cc: Rob Herring <robh+dt@kernel.org>, Russell King <linux@armlinux.org.uk>, 
+ Mark Rutland <mark.rutland@arm.com>, Tomer Maimon <tmaimon77@gmail.com>, 
  Avi Fishman <avifishman70@gmail.com>, Rick Altherr <raltherr@google.com>, 
- Joel Stanley <joel@jms.id.au>, devicetree <devicetree@vger.kernel.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Florian Fainelli <f.fainelli@gmail.com>, julien.thierry@arm.com, 
+ devicetree <devicetree@vger.kernel.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>, 
  OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -69,307 +72,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Dec 2017 20:40:38 -0000
+X-List-Received-Date: Thu, 07 Dec 2017 21:20:19 -0000
 
-On Fri, Nov 17, 2017 at 11:29 AM, Brendan Higgins
+Brendan,
+
+On Thu, Dec 7, 2017 at 9:37 PM, Brendan Higgins
 <brendanhiggins@google.com> wrote:
-> On Mon, Nov 6, 2017 at 8:28 AM, Tomer Maimon <tmaimon77@gmail.com> wrote:
->> Add Nuvoton BMC NPCM7xx timer driver.
+> Any update on this?
+>
+> On Fri, Nov 17, 2017 at 11:07 AM, Brendan Higgins
+> <brendanhiggins@google.com> wrote:
+>> Adds basic support for the Nuvoton NPCM750 BMC.
 >>
->> the clocksource Enable 24-bit TIMER0 and TIMER1 counters,
->> while TIMER0 serves as clockevent and TIMER1 serves as clocksource.
->>
->> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
->> ---
->>  drivers/clocksource/Kconfig         |   8 ++
->>  drivers/clocksource/Makefile        |   1 +
->>  drivers/clocksource/npcm7xx-timer.c | 239 ++++++++++++++++++++++++++++++++++++
->>  3 files changed, 248 insertions(+)
->>  create mode 100644 drivers/clocksource/npcm7xx-timer.c
->>
->> diff --git a/drivers/clocksource/Kconfig b/drivers/clocksource/Kconfig
->> index cc6062049170..46184af75d6c 100644
->> --- a/drivers/clocksource/Kconfig
->> +++ b/drivers/clocksource/Kconfig
->> @@ -140,6 +140,14 @@ config VT8500_TIMER
->>         help
->>           Enables support for the VT8500 driver.
->>
->> +config NPCM7XX_TIMER
->> +       bool "NPCM7xx timer driver" if COMPILE_TEST
->> +       depends on HAS_IOMEM
->> +       select CLKSRC_MMIO
->> +       help
->> +         Enable 24-bit TIMER0 and TIMER1 counters in the NPCM7xx arcithcture,
->> +         While TIMER0 serves as clockevent and TIMER1 serves as clocksource.
->> +
->>  config CADENCE_TTC_TIMER
->>         bool "Cadence TTC timer driver" if COMPILE_TEST
->>         depends on COMMON_CLK
->> diff --git a/drivers/clocksource/Makefile b/drivers/clocksource/Makefile
->> index 72711f1491e3..ff2b30b75b5b 100644
->> --- a/drivers/clocksource/Makefile
->> +++ b/drivers/clocksource/Makefile
->> @@ -54,6 +54,7 @@ obj-$(CONFIG_CLKSRC_TI_32K)   += timer-ti-32k.o
->>  obj-$(CONFIG_CLKSRC_NPS)       += timer-nps.o
->>  obj-$(CONFIG_OXNAS_RPS_TIMER)  += timer-oxnas-rps.o
->>  obj-$(CONFIG_OWL_TIMER)                += owl-timer.o
->> +obj-$(CONFIG_NPCM7XX_TIMER)    += npcm7xx-timer.o
->>
->>  obj-$(CONFIG_ARC_TIMERS)               += arc_timer.o
->>  obj-$(CONFIG_ARM_ARCH_TIMER)           += arm_arch_timer.o
->> diff --git a/drivers/clocksource/npcm7xx-timer.c b/drivers/clocksource/npcm7xx-timer.c
->> new file mode 100644
->> index 000000000000..b9b468da4560
+>> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+>> Reviewed-by: Tomer Maimon <tmaimon77@gmail.com>
+>> Reviewed-by: Avi Fishman <avifishman70@gmail.com>
+>> Tested-by: Tomer Maimon <tmaimon77@gmail.com>
+>> Tested-by: Avi Fishman <avifishman70@gmail.com>
+
+<snip>
+
 >> --- /dev/null
->> +++ b/drivers/clocksource/npcm7xx-timer.c
->> @@ -0,0 +1,239 @@
->> +
+>> +++ b/arch/arm/mach-npcm/npcm7xx.c
+>> @@ -0,0 +1,25 @@
 >> +/*
 >> + * Copyright (c) 2017 Nuvoton Technology corporation.
 >> + * Copyright 2017 Google, Inc.
 >> + *
 >> + * This program is free software; you can redistribute it and/or modify
->> + * it under the terms of the GNU General Public License as published by
->> + * the Free Software Foundation;version 2 of the License.
+>> + * it under the terms of the GNU General Public License version 2 as
+>> + * published by the Free Software Foundation.
 >> + */
->> +
->> +#include <linux/kernel.h>
->> +#include <linux/sched.h>
->> +#include <linux/init.h>
->> +#include <linux/interrupt.h>
->> +#include <linux/err.h>
->> +#include <linux/clk.h>
->> +#include <linux/io.h>
->> +#include <linux/clockchips.h>
->> +#include <linux/of_irq.h>
->> +#include <linux/of_address.h>
->> +#include "timer-of.h"
->> +
->> +/* Timers registers */
->> +#define NPCM7XX_REG_TCSR0      0x0 /* Timer 0 Control and Status Register */
->> +#define NPCM7XX_REG_TICR0      0x8 /* Timer 0 Initial Count Register */
->> +#define NPCM7XX_REG_TCSR1      0x4 /* Timer 1 Control and Status Register */
->> +#define NPCM7XX_REG_TICR1      0xc /* Timer 1 Initial Count Register */
->> +#define NPCM7XX_REG_TDR1       0x14 /* Timer 1 Data Register */
->> +#define NPCM7XX_REG_TISR       0x18 /* Timer Interrupt Status Register */
->> +
->> +/* Timers control */
->> +#define NPCM7XX_Tx_RESETINT            0x1f
->> +#define NPCM7XX_Tx_PERIOD              BIT(27)
->> +#define NPCM7XX_Tx_INTEN               BIT(29)
->> +#define NPCM7XX_Tx_COUNTEN             BIT(30)
->> +#define NPCM7XX_Tx_ONESHOT             0x0
->> +#define NPCM7XX_Tx_OPER                        GENMASK(3, 27)
->> +#define NPCM7XX_Tx_MIN_PRESCALE                0x1
->> +#define NPCM7XX_Tx_TDR_MASK_BITS       24
->> +#define NPCM7XX_Tx_MAX_CNT             0xFFFFFF
->> +#define NPCM7XX_T0_CLR_INT             0x1
->> +#define NPCM7XX_Tx_CLR_CSR             0x0
->> +
->> +/* Timers operating mode */
->> +#define NPCM7XX_START_PERIODIC_Tx (NPCM7XX_Tx_PERIOD | NPCM7XX_Tx_COUNTEN | \
->> +                                       NPCM7XX_Tx_INTEN | \
->> +                                       NPCM7XX_Tx_MIN_PRESCALE)
->> +
->> +#define NPCM7XX_START_ONESHOT_Tx (NPCM7XX_Tx_ONESHOT | NPCM7XX_Tx_COUNTEN | \
->> +                                       NPCM7XX_Tx_INTEN | \
->> +                                       NPCM7XX_Tx_MIN_PRESCALE)
->> +
->> +#define NPCM7XX_START_Tx (NPCM7XX_Tx_COUNTEN | NPCM7XX_Tx_PERIOD | \
->> +                               NPCM7XX_Tx_MIN_PRESCALE)
->> +
->> +#define NPCM7XX_DEFAULT_CSR (NPCM7XX_Tx_CLR_CSR | NPCM7XX_Tx_MIN_PRESCALE)
->> +
->> +static int npcm7xx_timer_resume(struct clock_event_device *evt)
->> +{
->> +       struct timer_of *to = to_timer_of(evt);
->> +       u32 val;
->> +
->> +       val = readl(timer_of_base(to) + NPCM7XX_REG_TCSR0);
->> +       val |= NPCM7XX_Tx_COUNTEN;
->> +       writel(val, timer_of_base(to) + NPCM7XX_REG_TCSR0);
->> +
->> +       return 0;
->> +}
->> +
->> +static int npcm7xx_timer_shutdown(struct clock_event_device *evt)
->> +{
->> +       struct timer_of *to = to_timer_of(evt);
->> +       u32 val;
->> +
->> +       val = readl(timer_of_base(to) + NPCM7XX_REG_TCSR0);
->> +       val &= ~NPCM7XX_Tx_COUNTEN;
->> +       writel(val, timer_of_base(to) + NPCM7XX_REG_TCSR0);
->> +
->> +       return 0;
->> +}
->> +
->> +static int npcm7xx_timer_oneshot(struct clock_event_device *evt)
->> +{
->> +       struct timer_of *to = to_timer_of(evt);
->> +       u32 val;
->> +
->> +       val = readl(timer_of_base(to) + NPCM7XX_REG_TCSR0);
->> +       val &= ~NPCM7XX_Tx_OPER;
->> +
->> +       val = readl(timer_of_base(to) + NPCM7XX_REG_TCSR0);
->> +       val |= NPCM7XX_START_ONESHOT_Tx;
->> +       writel(val, timer_of_base(to) + NPCM7XX_REG_TCSR0);
->> +
->> +       return 0;
->> +}
->> +
->> +static int npcm7xx_timer_periodic(struct clock_event_device *evt)
->> +{
->> +       struct timer_of *to = to_timer_of(evt);
->> +       u32 val;
->> +
->> +       val = readl(timer_of_base(to) + NPCM7XX_REG_TCSR0);
->> +       val &= ~NPCM7XX_Tx_OPER;
->> +
->> +       writel((timer_of_rate(to) / HZ),
->> +               timer_of_base(to) + NPCM7XX_REG_TICR0);
->> +       val |= NPCM7XX_START_PERIODIC_Tx;
->> +
->> +       writel(val, timer_of_base(to) + NPCM7XX_REG_TCSR0);
->> +
->> +       return 0;
->> +}
->> +
->> +static int npcm7xx_clockevent_setnextevent(unsigned long evt,
->> +               struct clock_event_device *clk)
->> +{
->> +       struct timer_of *to = to_timer_of(clk);
->> +       u32 val;
->> +
->> +       writel(evt, timer_of_base(to) + NPCM7XX_REG_TICR0);
->> +       val = readl(timer_of_base(to) + NPCM7XX_REG_TCSR0);
->> +       val |= NPCM7XX_START_Tx;
->> +       writel(val, timer_of_base(to) + NPCM7XX_REG_TCSR0);
->> +
->> +       return 0;
->> +}
->> +
->> +static irqreturn_t npcm7xx_timer0_interrupt(int irq, void *dev_id)
->> +{
->> +       struct clock_event_device *evt = (struct clock_event_device *)dev_id;
->> +       struct timer_of *to = to_timer_of(evt);
->> +
->> +       writel(NPCM7XX_T0_CLR_INT, timer_of_base(to) + NPCM7XX_REG_TISR);
->> +
->> +       evt->event_handler(evt);
->> +
->> +       return IRQ_HANDLED;
->> +}
->> +
->> +static struct timer_of to_npcm7xx = {
->
-> nit: the prefix should be npcm7xx_*
->
->> +       .flags = TIMER_OF_IRQ | TIMER_OF_BASE,
->> +
->> +       .clkevt = {
->> +               .name               = "npcm7xx-timer0",
->> +               .features           = CLOCK_EVT_FEAT_PERIODIC |
->> +                                     CLOCK_EVT_FEAT_ONESHOT,
->> +               .set_next_event     = npcm7xx_clockevent_setnextevent,
->> +               .set_state_shutdown = npcm7xx_timer_shutdown,
->> +               .set_state_periodic = npcm7xx_timer_periodic,
->> +               .set_state_oneshot  = npcm7xx_timer_oneshot,
->> +               .tick_resume        = npcm7xx_timer_resume,
->> +               .rating             = 300,
->> +       },
->> +
->> +       .of_irq = {
->> +               .handler = npcm7xx_timer0_interrupt,
->> +               .flags = IRQF_TIMER | IRQF_IRQPOLL,
->> +       },
->> +};
->> +
->> +static void __init npcm7xx_clockevents_init(u32 rate)
->> +{
->> +       writel(NPCM7XX_DEFAULT_CSR,
->> +               timer_of_base(&to_npcm7xx) + NPCM7XX_REG_TCSR0);
->> +
->> +       writel(NPCM7XX_Tx_RESETINT,
->> +               timer_of_base(&to_npcm7xx) + NPCM7XX_REG_TISR);
->> +
->> +       to_npcm7xx.clkevt.cpumask = cpumask_of(0);
->> +       clockevents_config_and_register(&to_npcm7xx.clkevt, rate,
->> +                                       0x1, NPCM7XX_Tx_MAX_CNT);
->> +}
->> +
->> +static void __init npcm7xx_clocksource_init(u32 rate)
->> +{
->> +       u32 val;
->> +
->> +       writel(NPCM7XX_DEFAULT_CSR,
->> +               timer_of_base(&to_npcm7xx) + NPCM7XX_REG_TCSR1);
->> +       writel(NPCM7XX_Tx_MAX_CNT,
->> +               timer_of_base(&to_npcm7xx) + NPCM7XX_REG_TICR1);
->> +
->> +       val = readl(timer_of_base(&to_npcm7xx) + NPCM7XX_REG_TCSR1);
->> +       val |= NPCM7XX_START_Tx;
->> +       writel(val, timer_of_base(&to_npcm7xx) + NPCM7XX_REG_TCSR1);
->> +
->> +       clocksource_mmio_init(timer_of_base(&to_npcm7xx) +
->> +                               NPCM7XX_REG_TDR1,
->> +                               "npcm7xx-timer1", rate,
->> +                               300, (unsigned int)NPCM7XX_Tx_TDR_MASK_BITS,
->> +                               clocksource_mmio_readl_down);
->> +}
->> +
->> +static int __init npcm7xx_timer_init(struct device_node *np)
->> +{
->> +       struct clk *clk;
->> +       int ret;
->> +       u32 rate;
->> +
->> +       clk = of_clk_get(np, 0);
->> +
->> +       if (IS_ERR(clk)) {
->> +               ret = of_property_read_u32(np, "clock-frequency", &rate);
->> +               if (ret)
->> +                       return ret;
->> +       } else {
->> +               clk_prepare_enable(clk);
->> +               rate = clk_get_rate(clk);
->> +               to_npcm7xx.of_clk.clk = clk;
->> +       }
->> +
->> +       ret = timer_of_init(np, &to_npcm7xx);
->> +       if (ret)
->> +               goto err_timer_of_init;
->> +
->> +       /* Clock input is divided by PRESCALE + 1 before it is fed */
->> +       /* to the counter */
->> +       rate = rate / (NPCM7XX_Tx_MIN_PRESCALE + 1);
->> +       to_npcm7xx.of_clk.rate = rate;
->> +
->> +       npcm7xx_clocksource_init(rate);
->> +       npcm7xx_clockevents_init(rate);
->> +
->> +       pr_info("Enabling NPCM7xx clocksource timer base: %p, IRQ: %d\n",
->> +                timer_of_base(&to_npcm7xx), timer_of_irq(&to_npcm7xx));
->> +
->> +       return 0;
->> +
->> +err_timer_of_init:
->> +       if (!IS_ERR(clk)) {
->> +               clk_disable_unprepare(clk);
->> +               clk_put(clk);
->> +       }
->> +
->> +       return ret;
->> +}
->> +
->> +TIMER_OF_DECLARE(npcm7xx, "nuvoton,npcm750-timer", npcm7xx_timer_init);
->> +
->> --
->> 2.14.1
->>
->
-> Reviewed-by: Brendan Higgins <brendanhiggins@google.com>
 
-Any update on this?
+Have you considered using the new SPDX ids here instead of the
+traditional license boilerplate?
+
+This could come out this way:
+
+// SPDX-License-Identifier: GPL-2.0
+// Copyright (c) 2017 Nuvoton Technology corporation.
+// Copyright 2017 Google, Inc.
+
+It is shorter and simpler, with a better code/comments ratio.
+And if you wonder about why using C++ style comment, please check
+Linus posts on the topic, as well as Thomas doc patches.
+
+Thank you for your kind consideration!
+
+-- 
+Cordially
+Philippe Ombredanne
