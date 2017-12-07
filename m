@@ -1,62 +1,62 @@
 Return-Path: <brendanhiggins@google.com>
 Authentication-Results: ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400d:c0d::244; helo=mail-qt0-x244.google.com;
+ (client-ip=2607:f8b0:400d:c0d::241; helo=mail-qt0-x241.google.com;
  envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="uUB/u4b9"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="MebQqr/u"; 
  dkim-atps=neutral
-Received: from mail-qt0-x244.google.com (mail-qt0-x244.google.com
- [IPv6:2607:f8b0:400d:c0d::244])
+Received: from mail-qt0-x241.google.com (mail-qt0-x241.google.com
+ [IPv6:2607:f8b0:400d:c0d::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yt6jd6fDbzDsQ0
- for <openbmc@lists.ozlabs.org>; Fri,  8 Dec 2017 07:37:25 +1100 (AEDT)
-Received: by mail-qt0-x244.google.com with SMTP id g10so20913874qtj.12
- for <openbmc@lists.ozlabs.org>; Thu, 07 Dec 2017 12:37:25 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yt6nJ6r4TzDsQ0
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Dec 2017 07:40:36 +1100 (AEDT)
+Received: by mail-qt0-x241.google.com with SMTP id k19so21004979qtj.6
+ for <openbmc@lists.ozlabs.org>; Thu, 07 Dec 2017 12:40:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=bo8Nxedk52+cwTRwLBVi40t/m4goQB7MdElXccsnRLA=;
- b=uUB/u4b9C/2ArqMy7KDbCxunTWlK6RuLqDX8hBE5gKI0s7/9meTx918jLPCBSZ0n4K
- dRMGjXp60q1SUJ3/MGSY6mNDnZclZVYJ2xkz9DKygWSD+itDFwDi3m5ggzBt7x6xKbLa
- jO/TFaC2IXDZqKmqMaMS47Ec52tALF+Q/AlQZDbZ3HFFlQqBkr38V+pg8EknqLh9K3BK
- KY0Dx/MCC0P+9pZifSky/jL0r3POg/g7bO52qEroqqIZPan0CfFIJLRbw45VtkOXD4cN
- as8YYsZlY4ZBu53pr5qS0AYZc8Ga0x1UiM9EdAQYG1kdbihVNDjBmVLKEFKUEqyUNs+X
- C3aQ==
+ :cc; bh=Pwm9v12cn4bVQFghXqkE638X05QFl6lSKjbhWxq9mA4=;
+ b=MebQqr/uueWThTnUvvjljAj2GwoQSFAtKIpv/M9g2E5Mkvky2XndsmxfJc66Rn2GVi
+ p7n5VPvNnfie4FRmpESk/1MTlnLtaLXqpjnIPA7kOaSzKR5gvbYhyiLQ8i6qENMKfLDC
+ C+BcmB71ObXWhzcnaxhPcGa0BiYdhBUyWnhx3rfgBGflf9chuCASbfKOzy7XhZkNz8ny
+ 33HFUi1br9xsDn+d0gNLWbdboShVaRTggEbwb1+bhy0W0tpDVnKwWoJto69h9vuvY2Gt
+ shCN/DadhXEzrrsutnJmKJbxgg+5jrqxYOpRJIdqfiMjAv2fYIZ0LELny2EG3RYkZuhP
+ 3m5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=bo8Nxedk52+cwTRwLBVi40t/m4goQB7MdElXccsnRLA=;
- b=cjxHwucQyOu2LQip2TFJ4d93rZ5G8xKCeINLi+AevLDhFIrFcrsoXhK9rsBpx1+kbz
- u2g2O5OXDqRk5R810AcoQb0HsnqesO0y1ysolXl9Q13iVQEX8QepLw9sC/qmxgwjq5jb
- UZxySVrnT5Lc/6U3WUORmznQGWPCo75BHhBZDnV0pVpVG1GjcOKbLIu2F4hRpjG6M1hm
- NrHkUNZGqQiq2UOew/Yu4rA7CbwxLBjJRuCu+iU8pTV3aFELvtntGMXtpz0A4vWqxRA6
- Mlv6RSW7Mobi+Q0ZXtxrLqQFg9FHDdD8rFB65aSrJtVTFFM4wsO0NkMSG13wlJRHC3wY
- Gi0w==
-X-Gm-Message-State: AKGB3mIkFFMPkfyr7wuIcACZ9XJAxqM0iHj5jtccaTvk28pqsJQPggro
- vIgc8WK4//ge6kQzC4TRdb1FWSk0/+QKCwho3HOZ6g==
-X-Google-Smtp-Source: AGs4zMZCEB5ryl87IcecTxrcUbjFMbhpEoFnNPgQEtAj1qoyXu6sz43AdFvVFFKwwvTx4wa8WgHlAi9cGIQNuSiDfw8=
-X-Received: by 10.200.52.232 with SMTP id x37mr12113124qtb.287.1512679042270; 
- Thu, 07 Dec 2017 12:37:22 -0800 (PST)
+ bh=Pwm9v12cn4bVQFghXqkE638X05QFl6lSKjbhWxq9mA4=;
+ b=iUehkVo8xlkPtsbPvZoXg7AecKaS0I03IUEGMx6uzFm1FuznFgufiy2pwcVTbyNM/B
+ TyPZMEwcv7kPDF735TgU/bx6Xrum9l9XCsN3jvffrNGLRfcZjKbzKv7UPgpGRfbG61ac
+ goZS8LqCdQknfFP2laFo31BeWhayMOmVEVlZsTFmFfTfeQTlAeQ2oLAXdRrpk5iJzKh/
+ mp+6gz3sCp4X+gdgoODf4shyVI1XdBeVGOZlrP3ON1vU63jmoZkBsmACBJOxKXmbedeC
+ 6+YFSwcoVXcVlw6N2Vr6nWT6NVEMIAwgc5WTBX8Um3SI5wklWfDS1PSEDT/e2+uyYdZl
+ HVpQ==
+X-Gm-Message-State: AKGB3mJZ0AJouH6qKjkxGHSGiVPpJ63dIKYD3UYcRuVAySURCkKRSGcj
+ 2HluCJ3LO2KkE5ivfaSezMdUdf6iFvmtVrWbc578Pg==
+X-Google-Smtp-Source: AGs4zMaohK1qC2arb2RBWvs5W7HUutH3+I5GXfVhnJvnyeC42k9zK3T6pnad/BHifLko9cyZfJG7K6SqiRY7iJ94T+U=
+X-Received: by 10.200.55.231 with SMTP id e36mr12165446qtc.274.1512679234193; 
+ Thu, 07 Dec 2017 12:40:34 -0800 (PST)
 MIME-Version: 1.0
-Received: by 10.140.99.79 with HTTP; Thu, 7 Dec 2017 12:37:21 -0800 (PST)
-In-Reply-To: <20171117190747.21642-2-brendanhiggins@google.com>
-References: <20171117190747.21642-1-brendanhiggins@google.com>
- <20171117190747.21642-2-brendanhiggins@google.com>
+Received: by 10.140.99.79 with HTTP; Thu, 7 Dec 2017 12:40:33 -0800 (PST)
+In-Reply-To: <CAFd5g44tDoV-9yeaZ3UCUZibW7vUMeBVQRAihB++LSC44ZO0TA@mail.gmail.com>
+References: <1509985716-25759-1-git-send-email-tmaimon77@gmail.com>
+ <1509985716-25759-2-git-send-email-tmaimon77@gmail.com>
+ <CAFd5g44tDoV-9yeaZ3UCUZibW7vUMeBVQRAihB++LSC44ZO0TA@mail.gmail.com>
 From: Brendan Higgins <brendanhiggins@google.com>
-Date: Thu, 7 Dec 2017 12:37:21 -0800
-Message-ID: <CAFd5g45+dNuayw=s08iwAj2wrUYNXnGd5SbA+OVvsL_J6APHGA@mail.gmail.com>
-Subject: Re: [PATCH v8 1/3] arm: npcm: add basic support for Nuvoton BMCs
-To: Rob Herring <robh+dt@kernel.org>, Russell King <linux@armlinux.org.uk>, 
- Mark Rutland <mark.rutland@arm.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+Date: Thu, 7 Dec 2017 12:40:33 -0800
+Message-ID: <CAFd5g45PX+8Dmc1FC-X9DoPqLPxEf4Qgf-VJwcJ9WL_Nq5LAqg@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] clocksource: npcm: add NPCM7xx timer driver
+To: Tomer Maimon <tmaimon77@gmail.com>
+Cc: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Thomas Gleixner <tglx@linutronix.de>, 
  Avi Fishman <avifishman70@gmail.com>, Rick Altherr <raltherr@google.com>, 
- Florian Fainelli <f.fainelli@gmail.com>, julien.thierry@arm.com, 
- devicetree <devicetree@vger.kernel.org>, 
+ Joel Stanley <joel@jms.id.au>, devicetree <devicetree@vger.kernel.org>, 
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-arm-kernel@lists.infradead.org, 
  OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Cc: Brendan Higgins <brendanhiggins@google.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
@@ -69,280 +69,307 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Dec 2017 20:37:26 -0000
+X-List-Received-Date: Thu, 07 Dec 2017 20:40:38 -0000
+
+On Fri, Nov 17, 2017 at 11:29 AM, Brendan Higgins
+<brendanhiggins@google.com> wrote:
+> On Mon, Nov 6, 2017 at 8:28 AM, Tomer Maimon <tmaimon77@gmail.com> wrote:
+>> Add Nuvoton BMC NPCM7xx timer driver.
+>>
+>> the clocksource Enable 24-bit TIMER0 and TIMER1 counters,
+>> while TIMER0 serves as clockevent and TIMER1 serves as clocksource.
+>>
+>> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+>> ---
+>>  drivers/clocksource/Kconfig         |   8 ++
+>>  drivers/clocksource/Makefile        |   1 +
+>>  drivers/clocksource/npcm7xx-timer.c | 239 ++++++++++++++++++++++++++++++++++++
+>>  3 files changed, 248 insertions(+)
+>>  create mode 100644 drivers/clocksource/npcm7xx-timer.c
+>>
+>> diff --git a/drivers/clocksource/Kconfig b/drivers/clocksource/Kconfig
+>> index cc6062049170..46184af75d6c 100644
+>> --- a/drivers/clocksource/Kconfig
+>> +++ b/drivers/clocksource/Kconfig
+>> @@ -140,6 +140,14 @@ config VT8500_TIMER
+>>         help
+>>           Enables support for the VT8500 driver.
+>>
+>> +config NPCM7XX_TIMER
+>> +       bool "NPCM7xx timer driver" if COMPILE_TEST
+>> +       depends on HAS_IOMEM
+>> +       select CLKSRC_MMIO
+>> +       help
+>> +         Enable 24-bit TIMER0 and TIMER1 counters in the NPCM7xx arcithcture,
+>> +         While TIMER0 serves as clockevent and TIMER1 serves as clocksource.
+>> +
+>>  config CADENCE_TTC_TIMER
+>>         bool "Cadence TTC timer driver" if COMPILE_TEST
+>>         depends on COMMON_CLK
+>> diff --git a/drivers/clocksource/Makefile b/drivers/clocksource/Makefile
+>> index 72711f1491e3..ff2b30b75b5b 100644
+>> --- a/drivers/clocksource/Makefile
+>> +++ b/drivers/clocksource/Makefile
+>> @@ -54,6 +54,7 @@ obj-$(CONFIG_CLKSRC_TI_32K)   += timer-ti-32k.o
+>>  obj-$(CONFIG_CLKSRC_NPS)       += timer-nps.o
+>>  obj-$(CONFIG_OXNAS_RPS_TIMER)  += timer-oxnas-rps.o
+>>  obj-$(CONFIG_OWL_TIMER)                += owl-timer.o
+>> +obj-$(CONFIG_NPCM7XX_TIMER)    += npcm7xx-timer.o
+>>
+>>  obj-$(CONFIG_ARC_TIMERS)               += arc_timer.o
+>>  obj-$(CONFIG_ARM_ARCH_TIMER)           += arm_arch_timer.o
+>> diff --git a/drivers/clocksource/npcm7xx-timer.c b/drivers/clocksource/npcm7xx-timer.c
+>> new file mode 100644
+>> index 000000000000..b9b468da4560
+>> --- /dev/null
+>> +++ b/drivers/clocksource/npcm7xx-timer.c
+>> @@ -0,0 +1,239 @@
+>> +
+>> +/*
+>> + * Copyright (c) 2017 Nuvoton Technology corporation.
+>> + * Copyright 2017 Google, Inc.
+>> + *
+>> + * This program is free software; you can redistribute it and/or modify
+>> + * it under the terms of the GNU General Public License as published by
+>> + * the Free Software Foundation;version 2 of the License.
+>> + */
+>> +
+>> +#include <linux/kernel.h>
+>> +#include <linux/sched.h>
+>> +#include <linux/init.h>
+>> +#include <linux/interrupt.h>
+>> +#include <linux/err.h>
+>> +#include <linux/clk.h>
+>> +#include <linux/io.h>
+>> +#include <linux/clockchips.h>
+>> +#include <linux/of_irq.h>
+>> +#include <linux/of_address.h>
+>> +#include "timer-of.h"
+>> +
+>> +/* Timers registers */
+>> +#define NPCM7XX_REG_TCSR0      0x0 /* Timer 0 Control and Status Register */
+>> +#define NPCM7XX_REG_TICR0      0x8 /* Timer 0 Initial Count Register */
+>> +#define NPCM7XX_REG_TCSR1      0x4 /* Timer 1 Control and Status Register */
+>> +#define NPCM7XX_REG_TICR1      0xc /* Timer 1 Initial Count Register */
+>> +#define NPCM7XX_REG_TDR1       0x14 /* Timer 1 Data Register */
+>> +#define NPCM7XX_REG_TISR       0x18 /* Timer Interrupt Status Register */
+>> +
+>> +/* Timers control */
+>> +#define NPCM7XX_Tx_RESETINT            0x1f
+>> +#define NPCM7XX_Tx_PERIOD              BIT(27)
+>> +#define NPCM7XX_Tx_INTEN               BIT(29)
+>> +#define NPCM7XX_Tx_COUNTEN             BIT(30)
+>> +#define NPCM7XX_Tx_ONESHOT             0x0
+>> +#define NPCM7XX_Tx_OPER                        GENMASK(3, 27)
+>> +#define NPCM7XX_Tx_MIN_PRESCALE                0x1
+>> +#define NPCM7XX_Tx_TDR_MASK_BITS       24
+>> +#define NPCM7XX_Tx_MAX_CNT             0xFFFFFF
+>> +#define NPCM7XX_T0_CLR_INT             0x1
+>> +#define NPCM7XX_Tx_CLR_CSR             0x0
+>> +
+>> +/* Timers operating mode */
+>> +#define NPCM7XX_START_PERIODIC_Tx (NPCM7XX_Tx_PERIOD | NPCM7XX_Tx_COUNTEN | \
+>> +                                       NPCM7XX_Tx_INTEN | \
+>> +                                       NPCM7XX_Tx_MIN_PRESCALE)
+>> +
+>> +#define NPCM7XX_START_ONESHOT_Tx (NPCM7XX_Tx_ONESHOT | NPCM7XX_Tx_COUNTEN | \
+>> +                                       NPCM7XX_Tx_INTEN | \
+>> +                                       NPCM7XX_Tx_MIN_PRESCALE)
+>> +
+>> +#define NPCM7XX_START_Tx (NPCM7XX_Tx_COUNTEN | NPCM7XX_Tx_PERIOD | \
+>> +                               NPCM7XX_Tx_MIN_PRESCALE)
+>> +
+>> +#define NPCM7XX_DEFAULT_CSR (NPCM7XX_Tx_CLR_CSR | NPCM7XX_Tx_MIN_PRESCALE)
+>> +
+>> +static int npcm7xx_timer_resume(struct clock_event_device *evt)
+>> +{
+>> +       struct timer_of *to = to_timer_of(evt);
+>> +       u32 val;
+>> +
+>> +       val = readl(timer_of_base(to) + NPCM7XX_REG_TCSR0);
+>> +       val |= NPCM7XX_Tx_COUNTEN;
+>> +       writel(val, timer_of_base(to) + NPCM7XX_REG_TCSR0);
+>> +
+>> +       return 0;
+>> +}
+>> +
+>> +static int npcm7xx_timer_shutdown(struct clock_event_device *evt)
+>> +{
+>> +       struct timer_of *to = to_timer_of(evt);
+>> +       u32 val;
+>> +
+>> +       val = readl(timer_of_base(to) + NPCM7XX_REG_TCSR0);
+>> +       val &= ~NPCM7XX_Tx_COUNTEN;
+>> +       writel(val, timer_of_base(to) + NPCM7XX_REG_TCSR0);
+>> +
+>> +       return 0;
+>> +}
+>> +
+>> +static int npcm7xx_timer_oneshot(struct clock_event_device *evt)
+>> +{
+>> +       struct timer_of *to = to_timer_of(evt);
+>> +       u32 val;
+>> +
+>> +       val = readl(timer_of_base(to) + NPCM7XX_REG_TCSR0);
+>> +       val &= ~NPCM7XX_Tx_OPER;
+>> +
+>> +       val = readl(timer_of_base(to) + NPCM7XX_REG_TCSR0);
+>> +       val |= NPCM7XX_START_ONESHOT_Tx;
+>> +       writel(val, timer_of_base(to) + NPCM7XX_REG_TCSR0);
+>> +
+>> +       return 0;
+>> +}
+>> +
+>> +static int npcm7xx_timer_periodic(struct clock_event_device *evt)
+>> +{
+>> +       struct timer_of *to = to_timer_of(evt);
+>> +       u32 val;
+>> +
+>> +       val = readl(timer_of_base(to) + NPCM7XX_REG_TCSR0);
+>> +       val &= ~NPCM7XX_Tx_OPER;
+>> +
+>> +       writel((timer_of_rate(to) / HZ),
+>> +               timer_of_base(to) + NPCM7XX_REG_TICR0);
+>> +       val |= NPCM7XX_START_PERIODIC_Tx;
+>> +
+>> +       writel(val, timer_of_base(to) + NPCM7XX_REG_TCSR0);
+>> +
+>> +       return 0;
+>> +}
+>> +
+>> +static int npcm7xx_clockevent_setnextevent(unsigned long evt,
+>> +               struct clock_event_device *clk)
+>> +{
+>> +       struct timer_of *to = to_timer_of(clk);
+>> +       u32 val;
+>> +
+>> +       writel(evt, timer_of_base(to) + NPCM7XX_REG_TICR0);
+>> +       val = readl(timer_of_base(to) + NPCM7XX_REG_TCSR0);
+>> +       val |= NPCM7XX_START_Tx;
+>> +       writel(val, timer_of_base(to) + NPCM7XX_REG_TCSR0);
+>> +
+>> +       return 0;
+>> +}
+>> +
+>> +static irqreturn_t npcm7xx_timer0_interrupt(int irq, void *dev_id)
+>> +{
+>> +       struct clock_event_device *evt = (struct clock_event_device *)dev_id;
+>> +       struct timer_of *to = to_timer_of(evt);
+>> +
+>> +       writel(NPCM7XX_T0_CLR_INT, timer_of_base(to) + NPCM7XX_REG_TISR);
+>> +
+>> +       evt->event_handler(evt);
+>> +
+>> +       return IRQ_HANDLED;
+>> +}
+>> +
+>> +static struct timer_of to_npcm7xx = {
+>
+> nit: the prefix should be npcm7xx_*
+>
+>> +       .flags = TIMER_OF_IRQ | TIMER_OF_BASE,
+>> +
+>> +       .clkevt = {
+>> +               .name               = "npcm7xx-timer0",
+>> +               .features           = CLOCK_EVT_FEAT_PERIODIC |
+>> +                                     CLOCK_EVT_FEAT_ONESHOT,
+>> +               .set_next_event     = npcm7xx_clockevent_setnextevent,
+>> +               .set_state_shutdown = npcm7xx_timer_shutdown,
+>> +               .set_state_periodic = npcm7xx_timer_periodic,
+>> +               .set_state_oneshot  = npcm7xx_timer_oneshot,
+>> +               .tick_resume        = npcm7xx_timer_resume,
+>> +               .rating             = 300,
+>> +       },
+>> +
+>> +       .of_irq = {
+>> +               .handler = npcm7xx_timer0_interrupt,
+>> +               .flags = IRQF_TIMER | IRQF_IRQPOLL,
+>> +       },
+>> +};
+>> +
+>> +static void __init npcm7xx_clockevents_init(u32 rate)
+>> +{
+>> +       writel(NPCM7XX_DEFAULT_CSR,
+>> +               timer_of_base(&to_npcm7xx) + NPCM7XX_REG_TCSR0);
+>> +
+>> +       writel(NPCM7XX_Tx_RESETINT,
+>> +               timer_of_base(&to_npcm7xx) + NPCM7XX_REG_TISR);
+>> +
+>> +       to_npcm7xx.clkevt.cpumask = cpumask_of(0);
+>> +       clockevents_config_and_register(&to_npcm7xx.clkevt, rate,
+>> +                                       0x1, NPCM7XX_Tx_MAX_CNT);
+>> +}
+>> +
+>> +static void __init npcm7xx_clocksource_init(u32 rate)
+>> +{
+>> +       u32 val;
+>> +
+>> +       writel(NPCM7XX_DEFAULT_CSR,
+>> +               timer_of_base(&to_npcm7xx) + NPCM7XX_REG_TCSR1);
+>> +       writel(NPCM7XX_Tx_MAX_CNT,
+>> +               timer_of_base(&to_npcm7xx) + NPCM7XX_REG_TICR1);
+>> +
+>> +       val = readl(timer_of_base(&to_npcm7xx) + NPCM7XX_REG_TCSR1);
+>> +       val |= NPCM7XX_START_Tx;
+>> +       writel(val, timer_of_base(&to_npcm7xx) + NPCM7XX_REG_TCSR1);
+>> +
+>> +       clocksource_mmio_init(timer_of_base(&to_npcm7xx) +
+>> +                               NPCM7XX_REG_TDR1,
+>> +                               "npcm7xx-timer1", rate,
+>> +                               300, (unsigned int)NPCM7XX_Tx_TDR_MASK_BITS,
+>> +                               clocksource_mmio_readl_down);
+>> +}
+>> +
+>> +static int __init npcm7xx_timer_init(struct device_node *np)
+>> +{
+>> +       struct clk *clk;
+>> +       int ret;
+>> +       u32 rate;
+>> +
+>> +       clk = of_clk_get(np, 0);
+>> +
+>> +       if (IS_ERR(clk)) {
+>> +               ret = of_property_read_u32(np, "clock-frequency", &rate);
+>> +               if (ret)
+>> +                       return ret;
+>> +       } else {
+>> +               clk_prepare_enable(clk);
+>> +               rate = clk_get_rate(clk);
+>> +               to_npcm7xx.of_clk.clk = clk;
+>> +       }
+>> +
+>> +       ret = timer_of_init(np, &to_npcm7xx);
+>> +       if (ret)
+>> +               goto err_timer_of_init;
+>> +
+>> +       /* Clock input is divided by PRESCALE + 1 before it is fed */
+>> +       /* to the counter */
+>> +       rate = rate / (NPCM7XX_Tx_MIN_PRESCALE + 1);
+>> +       to_npcm7xx.of_clk.rate = rate;
+>> +
+>> +       npcm7xx_clocksource_init(rate);
+>> +       npcm7xx_clockevents_init(rate);
+>> +
+>> +       pr_info("Enabling NPCM7xx clocksource timer base: %p, IRQ: %d\n",
+>> +                timer_of_base(&to_npcm7xx), timer_of_irq(&to_npcm7xx));
+>> +
+>> +       return 0;
+>> +
+>> +err_timer_of_init:
+>> +       if (!IS_ERR(clk)) {
+>> +               clk_disable_unprepare(clk);
+>> +               clk_put(clk);
+>> +       }
+>> +
+>> +       return ret;
+>> +}
+>> +
+>> +TIMER_OF_DECLARE(npcm7xx, "nuvoton,npcm750-timer", npcm7xx_timer_init);
+>> +
+>> --
+>> 2.14.1
+>>
+>
+> Reviewed-by: Brendan Higgins <brendanhiggins@google.com>
 
 Any update on this?
-
-On Fri, Nov 17, 2017 at 11:07 AM, Brendan Higgins
-<brendanhiggins@google.com> wrote:
-> Adds basic support for the Nuvoton NPCM750 BMC.
->
-> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
-> Reviewed-by: Tomer Maimon <tmaimon77@gmail.com>
-> Reviewed-by: Avi Fishman <avifishman70@gmail.com>
-> Tested-by: Tomer Maimon <tmaimon77@gmail.com>
-> Tested-by: Avi Fishman <avifishman70@gmail.com>
-> ---
-> Changes since v7:
->   - Fixed useless parameter in print statement
->   - Added/cleaned up some comments
->   - Fixed typo in DT_MACHINE_START
->   - Got rid of L2C aux value
->   - Dropped unnecessary memory barriers
->   - Renamed CPU_NPCM750 to ARCH_NPCM750
->   - Fixed some other minor issues
-> ---
->  arch/arm/Kconfig             |  2 ++
->  arch/arm/Makefile            |  1 +
->  arch/arm/mach-npcm/Kconfig   | 48 +++++++++++++++++++++++++
->  arch/arm/mach-npcm/Makefile  |  3 ++
->  arch/arm/mach-npcm/headsmp.S | 21 +++++++++++
->  arch/arm/mach-npcm/npcm7xx.c | 25 +++++++++++++
->  arch/arm/mach-npcm/platsmp.c | 85 ++++++++++++++++++++++++++++++++++++++++++++
->  7 files changed, 185 insertions(+)
->  create mode 100644 arch/arm/mach-npcm/Kconfig
->  create mode 100644 arch/arm/mach-npcm/Makefile
->  create mode 100644 arch/arm/mach-npcm/headsmp.S
->  create mode 100644 arch/arm/mach-npcm/npcm7xx.c
->  create mode 100644 arch/arm/mach-npcm/platsmp.c
->
-> diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
-> index 61a0cb15067e..05543f1cfbde 100644
-> --- a/arch/arm/Kconfig
-> +++ b/arch/arm/Kconfig
-> @@ -782,6 +782,8 @@ source "arch/arm/mach-netx/Kconfig"
->
->  source "arch/arm/mach-nomadik/Kconfig"
->
-> +source "arch/arm/mach-npcm/Kconfig"
-> +
->  source "arch/arm/mach-nspire/Kconfig"
->
->  source "arch/arm/plat-omap/Kconfig"
-> diff --git a/arch/arm/Makefile b/arch/arm/Makefile
-> index 47d3a1ab08d2..60ca50c7d762 100644
-> --- a/arch/arm/Makefile
-> +++ b/arch/arm/Makefile
-> @@ -191,6 +191,7 @@ machine-$(CONFIG_ARCH_MEDIATEK)             += mediatek
->  machine-$(CONFIG_ARCH_MXS)             += mxs
->  machine-$(CONFIG_ARCH_NETX)            += netx
->  machine-$(CONFIG_ARCH_NOMADIK)         += nomadik
-> +machine-$(CONFIG_ARCH_NPCM)            += npcm
->  machine-$(CONFIG_ARCH_NSPIRE)          += nspire
->  machine-$(CONFIG_ARCH_OXNAS)           += oxnas
->  machine-$(CONFIG_ARCH_OMAP1)           += omap1
-> diff --git a/arch/arm/mach-npcm/Kconfig b/arch/arm/mach-npcm/Kconfig
-> new file mode 100644
-> index 000000000000..6ff9df2636be
-> --- /dev/null
-> +++ b/arch/arm/mach-npcm/Kconfig
-> @@ -0,0 +1,48 @@
-> +menuconfig ARCH_NPCM
-> +       bool "Nuvoton NPCM Architecture"
-> +       select ARCH_REQUIRE_GPIOLIB
-> +       select USE_OF
-> +       select PINCTRL
-> +       select PINCTRL_NPCM7XX
-> +
-> +if ARCH_NPCM
-> +
-> +comment "NPCM7XX CPU type"
-> +
-> +config ARCH_NPCM750
-> +       depends on ARCH_NPCM && ARCH_MULTI_V7
-> +       bool "Support for NPCM750 BMC CPU (Poleg)"
-> +       select CACHE_L2X0
-> +       select CPU_V7
-> +       select ARM_GIC
-> +       select HAVE_SMP
-> +       select SMP
-> +       select SMP_ON_UP
-> +       select HAVE_ARM_SCU
-> +       select HAVE_ARM_TWD if SMP
-> +       select ARM_ERRATA_720789
-> +       select ARM_ERRATA_754322
-> +       select ARM_ERRATA_764369
-> +       select ARM_ERRATA_794072
-> +       select PL310_ERRATA_588369
-> +       select PL310_ERRATA_727915
-> +       select USB_EHCI_ROOT_HUB_TT
-> +       select USB_ARCH_HAS_HCD
-> +       select USB_ARCH_HAS_EHCI
-> +       select USB_EHCI_HCD
-> +       select USB_ARCH_HAS_OHCI
-> +       select USB_OHCI_HCD
-> +       select USB
-> +       select FIQ
-> +       select CPU_USE_DOMAINS
-> +       select GENERIC_CLOCKEVENTS
-> +       select CLKDEV_LOOKUP
-> +       select COMMON_CLK if OF
-> +       select NPCM750_TIMER
-> +       select MFD_SYSCON
-> +       help
-> +         Support for NPCM750 BMC CPU (Poleg).
-> +
-> +         Nuvoton NPCM750 BMC based on the Cortex A9.
-> +
-> +endif
-> diff --git a/arch/arm/mach-npcm/Makefile b/arch/arm/mach-npcm/Makefile
-> new file mode 100644
-> index 000000000000..c7a1316d27c1
-> --- /dev/null
-> +++ b/arch/arm/mach-npcm/Makefile
-> @@ -0,0 +1,3 @@
-> +AFLAGS_headsmp.o               += -march=armv7-a
-> +
-> +obj-$(CONFIG_ARCH_NPCM750)     += npcm7xx.o platsmp.o headsmp.o
-> diff --git a/arch/arm/mach-npcm/headsmp.S b/arch/arm/mach-npcm/headsmp.S
-> new file mode 100644
-> index 000000000000..2d0d8880634b
-> --- /dev/null
-> +++ b/arch/arm/mach-npcm/headsmp.S
-> @@ -0,0 +1,21 @@
-> +/*
-> + * Copyright 2017 Google, Inc.
-> + *
-> + * This program is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License version 2 as
-> + * published by the Free Software Foundation.
-> + */
-> +
-> +#include <linux/linkage.h>
-> +#include <linux/init.h>
-> +#include <asm/assembler.h>
-> +
-> +/*
-> + * The boot ROM does not start secondary CPUs in SVC mode, so we need to do that
-> + * here.
-> + */
-> +ENTRY(npcm7xx_secondary_startup)
-> +       safe_svcmode_maskall r0
-> +
-> +       b       secondary_startup
-> +ENDPROC(npcm7xx_secondary_startup)
-> diff --git a/arch/arm/mach-npcm/npcm7xx.c b/arch/arm/mach-npcm/npcm7xx.c
-> new file mode 100644
-> index 000000000000..500bdd0a9ebb
-> --- /dev/null
-> +++ b/arch/arm/mach-npcm/npcm7xx.c
-> @@ -0,0 +1,25 @@
-> +/*
-> + * Copyright (c) 2017 Nuvoton Technology corporation.
-> + * Copyright 2017 Google, Inc.
-> + *
-> + * This program is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License version 2 as
-> + * published by the Free Software Foundation.
-> + */
-> +
-> +#include <linux/kernel.h>
-> +#include <linux/types.h>
-> +#include <asm/mach/arch.h>
-> +#include <asm/mach-types.h>
-> +#include <asm/mach/map.h>
-> +#include <asm/hardware/cache-l2x0.h>
-> +
-> +static const char *const npcm7xx_dt_match[] = {
-> +       "nuvoton,npcm750",
-> +       NULL
-> +};
-> +
-> +DT_MACHINE_START(NPCM7XX_DT, "NPCM7XX Chip family")
-> +       .atag_offset    = 0x100,
-> +       .dt_compat      = npcm7xx_dt_match,
-> +MACHINE_END
-> diff --git a/arch/arm/mach-npcm/platsmp.c b/arch/arm/mach-npcm/platsmp.c
-> new file mode 100644
-> index 000000000000..959af7bd741f
-> --- /dev/null
-> +++ b/arch/arm/mach-npcm/platsmp.c
-> @@ -0,0 +1,85 @@
-> +/*
-> + * Copyright 2017 Google, Inc.
-> + *
-> + * This program is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License version 2 as
-> + * published by the Free Software Foundation.
-> + */
-> +
-> +#define pr_fmt(fmt) "nuvoton,npcm7xx-smp: " fmt
-> +
-> +#include <linux/delay.h>
-> +#include <linux/device.h>
-> +#include <linux/smp.h>
-> +#include <linux/io.h>
-> +#include <linux/of.h>
-> +#include <linux/of_device.h>
-> +#include <linux/of_platform.h>
-> +#include <linux/of_address.h>
-> +#include <asm/cacheflush.h>
-> +#include <asm/smp.h>
-> +#include <asm/smp_plat.h>
-> +#include <asm/smp_scu.h>
-> +
-> +#define NPCM7XX_SCRPAD_REG 0x13c
-> +
-> +extern void npcm7xx_secondary_startup(void);
-> +
-> +static int npcm7xx_smp_boot_secondary(unsigned int cpu,
-> +                                     struct task_struct *idle)
-> +{
-> +       struct device_node *gcr_np;
-> +       void __iomem *gcr_base;
-> +       int ret = 0;
-> +
-> +       gcr_np = of_find_compatible_node(NULL, NULL, "nuvoton,npcm750-gcr");
-> +       if (!gcr_np) {
-> +               pr_err("no gcr device node\n");
-> +               ret = -ENODEV;
-> +               goto out;
-> +       }
-> +       gcr_base = of_iomap(gcr_np, 0);
-> +       if (!gcr_base) {
-> +               pr_err("could not iomap gcr");
-> +               ret = -ENOMEM;
-> +               goto out;
-> +       }
-> +
-> +       /* give boot ROM kernel start address. */
-> +       iowrite32(__pa_symbol(npcm7xx_secondary_startup), gcr_base +
-> +                 NPCM7XX_SCRPAD_REG);
-> +       /* make sure the previous write is seen by all observers. */
-> +       dsb_sev();
-> +
-> +       iounmap(gcr_base);
-> +out:
-> +       return ret;
-> +}
-> +
-> +static void __init npcm7xx_smp_prepare_cpus(unsigned int max_cpus)
-> +{
-> +       struct device_node *scu_np;
-> +       void __iomem *scu_base;
-> +
-> +       scu_np = of_find_compatible_node(NULL, NULL, "arm,cortex-a9-scu");
-> +       if (!scu_np) {
-> +               pr_err("no scu device node\n");
-> +               return;
-> +       }
-> +       scu_base = of_iomap(scu_np, 0);
-> +       if (!scu_base) {
-> +               pr_err("could not iomap scu");
-> +               return;
-> +       }
-> +
-> +       scu_enable(scu_base);
-> +
-> +       iounmap(scu_base);
-> +}
-> +
-> +static struct smp_operations npcm7xx_smp_ops __initdata = {
-> +       .smp_prepare_cpus = npcm7xx_smp_prepare_cpus,
-> +       .smp_boot_secondary = npcm7xx_smp_boot_secondary,
-> +};
-> +
-> +CPU_METHOD_OF_DECLARE(npcm7xx_smp, "nuvoton,npcm7xx-smp", &npcm7xx_smp_ops);
-> --
-> 2.15.0.448.gf294e3d99a-goog
->
