@@ -1,29 +1,45 @@
-Return-Path: <haiyue.wang@linux.intel.com>
+Return-Path: <yong.b.li@linux.intel.com>
 Authentication-Results: ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.88; helo=mga01.intel.com;
- envelope-from=haiyue.wang@linux.intel.com; receiver=<UNKNOWN>)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (client-ip=192.55.52.151; helo=mga17.intel.com;
+ envelope-from=yong.b.li@linux.intel.com; receiver=<UNKNOWN>)
+X-Greylist: delayed 621 seconds by postgrey-1.36 at bilbo;
+ Thu, 07 Dec 2017 19:52:21 AEDT
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ysmRK19wrzDrp3
- for <openbmc@lists.ozlabs.org>; Thu,  7 Dec 2017 17:53:40 +1100 (AEDT)
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 06 Dec 2017 22:53:35 -0800
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ysq4565wCzDsM2
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Dec 2017 19:52:21 +1100 (AEDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 07 Dec 2017 00:41:55 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.45,371,1508828400"; 
-   d="scan'208";a="619686"
-Received: from build0101.sh.intel.com ([10.239.164.138])
- by fmsmga008.fm.intel.com with ESMTP; 06 Dec 2017 22:53:34 -0800
-From: Haiyue Wang <haiyue.wang@linux.intel.com>
-To: openbmc@lists.ozlabs.org,
-	joel@jms.id.au
-Cc: Haiyue Wang <haiyue.wang@linux.intel.com>
-Subject: [PATCH linux dev-4.10] ipmi: add an Aspeed KCS IPMI BMC driver
-Date: Thu,  7 Dec 2017 14:53:53 +0800
-Message-Id: <1512629633-22332-1-git-send-email-haiyue.wang@linux.intel.com>
-X-Mailer: git-send-email 2.7.4
+X-IronPort-AV: E=Sophos;i="5.45,372,1508828400"; d="scan'208";a="11329019"
+Received: from yongli3-mobl.ccr.corp.intel.com (HELO yongli3MOBL)
+ ([10.239.196.104])
+ by fmsmga001.fm.intel.com with ESMTP; 07 Dec 2017 00:41:54 -0800
+From: "Yong Li" <yong.b.li@linux.intel.com>
+To: "'Brad Bishop'" <bradleyb@fuzziesquirrel.com>
+Cc: "'OpenBMC Maillist'" <openbmc@lists.ozlabs.org>
+References: <000001d3641d$3e482120$bad86360$@linux.intel.com>
+ <1ABEA804-8141-49CA-AFBF-B47C8D0ABD31@fuzziesquirrel.com>
+ <000001d368b3$0d4644e0$27d2cea0$@linux.intel.com>
+ <1512050430.13581.97.camel@fuzziesquirrel.com>
+ <001301d36a64$1e53ab30$5afb0190$@linux.intel.com>
+ <1512469182.16012.43.camel@fuzziesquirrel.com>
+In-Reply-To: <1512469182.16012.43.camel@fuzziesquirrel.com>
+Subject: RE: chassis_control.py in skeleton
+Date: Thu, 7 Dec 2017 16:41:54 +0800
+Message-ID: <000001d36f37$3c5abba0$b51032e0$@linux.intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 15.0
+Thread-Index: AQEnWNhYOTmVBHgckrDmAtguUsiWLAGhGP9eAO1B9lgBlZAIVQFQGwrhAiukRdCkUrLu8A==
+Content-Language: en-us
+x-ctpclassification: CTP_IC
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiOTg1NzRiY2UtN2RmNi00MDNmLWFjZjgtNzQ5MmRkMTE5NzJiIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX0lDIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE2LjUuOS4zIiwiVHJ1c3RlZExhYmVsSGFzaCI6IlpQZ1g4Y0szUTJzSzFOeTJ0cmFITDY5V3NhMkNwU3Q5bE9RQ2R5blAweHM9In0=
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -35,1036 +51,238 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Dec 2017 06:53:50 -0000
+X-List-Received-Date: Thu, 07 Dec 2017 08:52:22 -0000
 
-This patch adds a simple device driver to expose the KCS interface on
-Aspeed SOCs (AST2500) as a character device. Such SOCs are commonly
-used as BMC and this driver implements the BMC side of KCS interface.
+Thanks Brad for your comments! My replies started with [YONG LI] below.
 
-Change-Id: Iee4003dc817bbf50568e1cf0d254e648d112545d
-Signed-off-by: Haiyue Wang <haiyue.wang@linux.intel.com>
----
- .../devicetree/bindings/mfd/aspeed-lpc.txt         |  33 +-
- arch/arm/boot/dts/aspeed-g5.dtsi                   |  44 +-
- drivers/char/ipmi/Kconfig                          |  10 +
- drivers/char/ipmi/Makefile                         |   1 +
- drivers/char/ipmi/kcs-bmc.c                        | 833 +++++++++++++++++++++
- include/uapi/linux/kcs-bmc.h                       |  19 +
- 6 files changed, 936 insertions(+), 4 deletions(-)
- create mode 100644 drivers/char/ipmi/kcs-bmc.c
- create mode 100644 include/uapi/linux/kcs-bmc.h
+Thanks,
+Yong
 
-diff --git a/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt b/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
-index a97131a..1e9d119 100644
---- a/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
-+++ b/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
-@@ -62,12 +62,25 @@ BMC Node
- --------
- 
- - compatible:	One of:
--		"aspeed,ast2400-lpc-bmc"
--		"aspeed,ast2500-lpc-bmc"
-+		"aspeed,ast2400-lpc-bmc", "simple-mfd", "syscon"
-+		"aspeed,ast2500-lpc-bmc", "simple-mfd", "syscon"
- 
- - reg:		contains the physical address and length values of the
-                 H8S/2168-compatible LPC controller memory region
- 
-+BMC KCS Node
-+------------
-+
-+- compatible:	One of:
-+		"aspeed,ast2500-kcs-bmc"
-+
-+- kcs_chan: The LPC channel number
-+
-+- kcs_regs: The KCS IDR,ODR,STR registers
-+
-+- kcs_addr: The host CPU IO map address
-+
-+
- Host Node
- ---------
- 
-@@ -94,8 +107,22 @@ lpc: lpc@1e789000 {
- 	ranges = <0x0 0x1e789000 0x1000>;
- 
- 	lpc_bmc: lpc-bmc@0 {
--		compatible = "aspeed,ast2500-lpc-bmc";
-+		compatible = "aspeed,ast2500-lpc-bmc"; "simple-mfd", "syscon";
- 		reg = <0x0 0x80>;
-+		reg-io-width = <4>;
-+
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges = <0x0 0x0 0x80>;
-+
-+		kcs3: kcs@3 {
-+			compatible = "aspeed,ast2500-kcs-bmc";
-+			interrupts = <8>;
-+			kcs_chan = <3>;
-+			kcs_regs = <0x2C 0x38 0x44>;
-+			kcs_addr = <0xCA2>;
-+			status = "okay";
-+		};
- 	};
- 
- 	lpc_host: lpc-host@80 {
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index ba3607c..90f260d 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -135,8 +135,40 @@
- 			ranges = <0x0 0x1e789000 0x1000>;
- 
- 			lpc_bmc: lpc-bmc@0 {
--				compatible = "aspeed,ast2500-lpc-bmc";
-+				compatible = "aspeed,ast2500-lpc-bmc", "simple-mfd", "syscon";
- 				reg = <0x0 0x80>;
-+				reg-io-width = <4>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <1>;
-+				ranges = <0x0 0x0 0x80>;
-+
-+				kcs1: kcs@1 {
-+					compatible = "aspeed,ast2500-kcs-bmc";
-+					interrupts = <8>;
-+					kcs_chan = <1>;
-+					kcs_regs = <0x24 0x30 0x3C>;
-+					kcs_addr = <0x0>;
-+					status = "disabled";
-+				};
-+
-+				kcs2: kcs@2 {
-+					compatible = "aspeed,ast2500-kcs-bmc";
-+					interrupts = <8>;
-+					kcs_chan = <2>;
-+					kcs_regs = <0x28 0x34 0x40>;
-+					kcs_addr = <0x0>;
-+					status = "disabled";
-+				};
-+
-+				kcs3: kcs@3 {
-+					compatible = "aspeed,ast2500-kcs-bmc";
-+					interrupts = <8>;
-+					kcs_chan = <3>;
-+					kcs_regs = <0x2C 0x38 0x44>;
-+					kcs_addr = <0x0>;
-+					status = "disabled";
-+				};
- 			};
- 
- 			lpc_host: lpc-host@80 {
-@@ -166,6 +198,16 @@
- 					reg = <0x20 0x24 0x48 0x8>;
- 				};
- 
-+				kcs4: kcs4@80 {
-+					compatible = "aspeed,ast2500-kcs-bmc";
-+					reg = <0x80 0x20>;
-+					interrupts = <8>;
-+					kcs_chan = <4>;
-+					kcs_regs = <0x14 0x18 0x1C>;
-+					kcs_addr = <0x0>;
-+					status = "disabled";
-+				};
-+
- 				mbox: mbox@180 {
- 					compatible = "aspeed,ast2500-mbox";
- 					reg = <0x180 0x5c>;
-diff --git a/drivers/char/ipmi/Kconfig b/drivers/char/ipmi/Kconfig
-index 90f3edf..9f8589f 100644
---- a/drivers/char/ipmi/Kconfig
-+++ b/drivers/char/ipmi/Kconfig
-@@ -85,3 +85,13 @@ config ASPEED_BT_IPMI_BMC
- 	  Provides a driver for the BT (Block Transfer) IPMI interface
- 	  found on Aspeed SOCs (AST2400 and AST2500). The driver
- 	  implements the BMC side of the BT interface.
-+
-+config ASPEED_KCS_IPMI_BMC
-+	depends on ARCH_ASPEED || COMPILE_TEST
-+        depends on REGMAP && REGMAP_MMIO && MFD_SYSCON
-+	tristate "KCS IPMI bmc driver"
-+	default n
-+	help
-+	  Provides a driver for the KCS (Keyboard Controller Style) IPMI
-+	  interface found on Aspeed SOCs (AST2500). The driver implements
-+	  the BMC side of the KCS interface.
-\ No newline at end of file
-diff --git a/drivers/char/ipmi/Makefile b/drivers/char/ipmi/Makefile
-index 0d98cd9..35272a7 100644
---- a/drivers/char/ipmi/Makefile
-+++ b/drivers/char/ipmi/Makefile
-@@ -12,3 +12,4 @@ obj-$(CONFIG_IPMI_POWERNV) += ipmi_powernv.o
- obj-$(CONFIG_IPMI_WATCHDOG) += ipmi_watchdog.o
- obj-$(CONFIG_IPMI_POWEROFF) += ipmi_poweroff.o
- obj-$(CONFIG_ASPEED_BT_IPMI_BMC) += bt-bmc.o
-+obj-$(CONFIG_ASPEED_KCS_IPMI_BMC) += kcs-bmc.o
-\ No newline at end of file
-diff --git a/drivers/char/ipmi/kcs-bmc.c b/drivers/char/ipmi/kcs-bmc.c
-new file mode 100644
-index 0000000..aa4b910
---- /dev/null
-+++ b/drivers/char/ipmi/kcs-bmc.c
-@@ -0,0 +1,833 @@
-+/*
-+ * Copyright (c) 2015-2017, Intel Corporation.
-+ *
-+ * This program is free software; you can redistribute it and/or
-+ * modify it under the terms of the GNU General Public License
-+ * as published by the Free Software Foundation; either version
-+ * 2 of the License, or (at your option) any later version.
-+ */
-+
-+#include <linux/atomic.h>
-+#include <linux/slab.h>
-+#include <linux/kcs-bmc.h>
-+#include <linux/errno.h>
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/miscdevice.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/poll.h>
-+#include <linux/regmap.h>
-+#include <linux/sched.h>
-+#include <linux/timer.h>
-+
-+/*
-+ * This is a BMC device used to communicate to the host
-+ */
-+#define DEVICE_NAME     "ipmi-kcs-host"
-+
-+
-+/* Different Phases of the KCS Module */
-+#define KCS_PHASE_IDLE          0x00
-+#define KCS_PHASE_WRITE         0x01
-+#define KCS_PHASE_WRITE_END     0x02
-+#define KCS_PHASE_READ          0x03
-+#define KCS_PHASE_ABORT         0x04
-+#define KCS_PHASE_ERROR         0x05
-+
-+/* Abort Phase */
-+#define ABORT_PHASE_ERROR1      0x01
-+#define ABORT_PHASE_ERROR2      0x02
-+
-+/* KCS Command Control codes. */
-+#define KCS_GET_STATUS          0x60
-+#define KCS_ABORT               0x60
-+#define KCS_WRITE_START         0x61
-+#define KCS_WRITE_END           0x62
-+#define KCS_READ_BYTE           0x68
-+
-+/* Status bits.:
-+ * - IDLE_STATE.  Interface is idle. System software should not be expecting
-+ *                nor sending any data.
-+ * - READ_STATE.  BMC is transferring a packet to system software. System
-+ *                software should be in the "Read Message" state.
-+ * - WRITE_STATE. BMC is receiving a packet from system software. System
-+ *                software should be writing a command to the BMC.
-+ * - ERROR_STATE. BMC has detected a protocol violation at the interface level,
-+ *                or the transfer has been aborted. System software can either
-+ *                use the "Get_Status" control code to request the nature of
-+ *                the error, or it can just retry the command.
-+ */
-+#define KCS_IDLE_STATE           0
-+#define KCS_READ_STATE           1
-+#define KCS_WRITE_STATE          2
-+#define KCS_ERROR_STATE          3
-+
-+/* KCS Error Codes */
-+#define KCS_NO_ERROR                0x00
-+#define KCS_ABORTED_BY_COMMAND      0x01
-+#define KCS_ILLEGAL_CONTROL_CODE    0x02
-+#define KCS_LENGTH_ERROR            0x06
-+#define KCS_UNSPECIFIED_ERROR       0xFF
-+
-+
-+#define KCS_ZERO_DATA           0
-+
-+/* IPMI 2.0 - Table 9-1, KCS Interface Status Register Bits */
-+#define KCS_STR_STATE(state)        (state << 6)
-+#define KCS_STR_STATE_MASK          KCS_STR_STATE(0x3)
-+#define KCS_STR_CMD_DAT             (1 << 3)
-+#define KCS_STR_ATN                 (1 << 2)
-+#define KCS_STR_IBF                 (1 << 1)
-+#define KCS_STR_OBF                 (1)
-+
-+
-+/***************************** LPC Register ****************************/
-+#define LPC_HICR0            0x000
-+#define     LPC_HICR0_LPC3E          (1 << 7)
-+#define     LPC_HICR0_LPC2E          (1 << 6)
-+#define     LPC_HICR0_LPC1E          (1 << 5)
-+#define LPC_HICR2            0x008
-+#define     LPC_HICR2_IBFIF3         (1 << 3)
-+#define     LPC_HICR2_IBFIF2         (1 << 2)
-+#define     LPC_HICR2_IBFIF1         (1 << 1)
-+#define LPC_HICR4            0x010
-+#define     LPC_HICR4_LADR12AS       (1 << 7)
-+#define     LPC_HICR4_KCSENBL        (1 << 2)
-+#define LPC_LADR3H           0x014
-+#define LPC_LADR3L           0x018
-+#define LPC_LADR12H          0x01C
-+#define LPC_LADR12L          0x020
-+
-+#define LPC_HICRB            0x000
-+#define     LPC_HICRB_IBFIF4         (1 << 1)
-+#define     LPC_HICRB_LPC4E          (1 << 0)
-+#define LPC_LADR4            0x010
-+
-+
-+#define KCS_MSG_BUFSIZ      1024
-+#define KCS_CHANNEL_MAX     4
-+
-+struct kcs_bmc {
-+	struct regmap *map;
-+	int            offset;
-+	int            irq;
-+	spinlock_t     lock;
-+
-+	u32 chan;
-+	int running;
-+
-+	u32  idr; /* Input Data Register */
-+	u32  odr; /* Output Data Register */
-+	u32  str; /* Status Register */
-+
-+	int  kcs_phase;
-+	u8   abort_phase;
-+	u8   kcs_error;
-+
-+	wait_queue_head_t queue;
-+	int  data_in_avail;
-+	int  data_in_idx;
-+	u8  *data_in;
-+
-+	int  data_out_idx;
-+	int  data_out_len;
-+	u8  *data_out;
-+
-+	struct miscdevice miscdev;
-+	char name[16];
-+};
-+
-+static u8 kcs_inb(struct kcs_bmc *kcs_bmc, u32 reg)
-+{
-+	u32 val = 0;
-+	int rc;
-+
-+	rc = regmap_read(kcs_bmc->map, kcs_bmc->offset + reg, &val);
-+	WARN(rc != 0, "kcs_inb failed: %d\n", rc);
-+
-+	return rc == 0 ? (u8) val : 0;
-+}
-+
-+static void kcs_outb(struct kcs_bmc *kcs_bmc, u8 data, u32 reg)
-+{
-+	int rc;
-+
-+	rc = regmap_write(kcs_bmc->map, kcs_bmc->offset + reg, data);
-+	WARN(rc != 0, "kcs_outb failed: %d\n", rc);
-+}
-+
-+static void kcs_set_state(struct kcs_bmc *kcs_bmc, u8 state)
-+{
-+	int rc;
-+
-+	rc = regmap_update_bits(kcs_bmc->map, kcs_bmc->offset + kcs_bmc->str,
-+				KCS_STR_STATE_MASK,
-+				KCS_STR_STATE(state));
-+	WARN(rc != 0, "KCS_STR_STATE failed: %d\n", rc);
-+}
-+
-+static void kcs_set_atn(struct kcs_bmc *kcs_bmc, unsigned long set)
-+{
-+	int rc;
-+
-+	rc = regmap_update_bits(kcs_bmc->map, kcs_bmc->offset + kcs_bmc->str,
-+				KCS_STR_ATN,
-+				set != 0 ? KCS_STR_ATN : 0);
-+	WARN(rc != 0, "KCS_STR_ATN failed: %d\n", rc);
-+}
-+
-+/*********************************************************************
-+ * AST_usrGuide_KCS.pdf
-+ * 2. Background:
-+ *   we note D for Data, and C for Cmd/Status, default rules are
-+ *     A. KCS1 / KCS2 ( D / C:X / X+4 )
-+ *        D / C : CA0h / CA4h
-+ *        D / C : CA8h / CACh
-+ *     B. KCS3 ( D / C:XX2h / XX3h )
-+ *        D / C : CA2h / CA3h
-+ *        D / C : CB2h / CB3h
-+ *     C. KCS4
-+ *        D / C : CA4h / CA5h
-+ *********************************************************************/
-+void kcs_set_addr(struct kcs_bmc *kcs_bmc, u16 addr)
-+{
-+	switch (kcs_bmc->chan) {
-+	case 1:
-+		regmap_update_bits(kcs_bmc->map, kcs_bmc->offset + LPC_HICR4,
-+				LPC_HICR4_LADR12AS,
-+				0);
-+		regmap_write(kcs_bmc->map, kcs_bmc->offset + LPC_LADR12H,
-+				addr >> 8);
-+		regmap_write(kcs_bmc->map, kcs_bmc->offset + LPC_LADR12L,
-+				addr & 0xFF);
-+		break;
-+
-+	case 2:
-+		regmap_update_bits(kcs_bmc->map, kcs_bmc->offset + LPC_HICR4,
-+				LPC_HICR4_LADR12AS,
-+				LPC_HICR4_LADR12AS);
-+		regmap_write(kcs_bmc->map, kcs_bmc->offset + LPC_LADR12H,
-+				addr >> 8);
-+		regmap_write(kcs_bmc->map, kcs_bmc->offset + LPC_LADR12L,
-+				addr & 0xFF);
-+		break;
-+
-+	case 3:
-+		regmap_write(kcs_bmc->map, kcs_bmc->offset + LPC_LADR3H,
-+				addr >> 8);
-+		regmap_write(kcs_bmc->map, kcs_bmc->offset + LPC_LADR3L,
-+				addr & 0xFF);
-+		break;
-+
-+	case 4:
-+		regmap_write(kcs_bmc->map, kcs_bmc->offset + LPC_LADR4,
-+				((addr + 1) << 16) | (addr));
-+		break;
-+
-+	default:
-+		break;
-+	}
-+}
-+
-+static void kcs_enable_channel(struct kcs_bmc *kcs_bmc, int enable)
-+{
-+	switch (kcs_bmc->chan) {
-+	case 1:
-+		if (enable) {
-+			regmap_update_bits(kcs_bmc->map,
-+					kcs_bmc->offset + LPC_HICR2,
-+					LPC_HICR2_IBFIF1, LPC_HICR2_IBFIF1);
-+			regmap_update_bits(kcs_bmc->map,
-+					kcs_bmc->offset + LPC_HICR0,
-+					LPC_HICR0_LPC1E, LPC_HICR0_LPC1E);
-+		} else {
-+			regmap_update_bits(kcs_bmc->map,
-+					kcs_bmc->offset + LPC_HICR0,
-+					LPC_HICR0_LPC1E, 0);
-+			regmap_update_bits(kcs_bmc->map,
-+					kcs_bmc->offset + LPC_HICR2,
-+					LPC_HICR2_IBFIF1, 0);
-+		}
-+		break;
-+
-+	case 2:
-+		if (enable) {
-+			regmap_update_bits(kcs_bmc->map,
-+					kcs_bmc->offset + LPC_HICR2,
-+					LPC_HICR2_IBFIF2, LPC_HICR2_IBFIF2);
-+			regmap_update_bits(kcs_bmc->map,
-+					kcs_bmc->offset + LPC_HICR0,
-+					LPC_HICR0_LPC2E, LPC_HICR0_LPC2E);
-+		} else {
-+			regmap_update_bits(kcs_bmc->map,
-+					kcs_bmc->offset + LPC_HICR0,
-+					LPC_HICR0_LPC2E, 0);
-+			regmap_update_bits(kcs_bmc->map,
-+					kcs_bmc->offset + LPC_HICR2,
-+					LPC_HICR2_IBFIF2, 0);
-+		}
-+		break;
-+
-+	case 3:
-+		if (enable) {
-+			regmap_update_bits(kcs_bmc->map,
-+					kcs_bmc->offset + LPC_HICR2,
-+					LPC_HICR2_IBFIF3, LPC_HICR2_IBFIF3);
-+			regmap_update_bits(kcs_bmc->map,
-+					kcs_bmc->offset + LPC_HICR0,
-+					LPC_HICR0_LPC3E, LPC_HICR0_LPC3E);
-+			regmap_update_bits(kcs_bmc->map,
-+					kcs_bmc->offset + LPC_HICR4,
-+					LPC_HICR4_KCSENBL, LPC_HICR4_KCSENBL);
-+		} else {
-+			regmap_update_bits(kcs_bmc->map,
-+					kcs_bmc->offset + LPC_HICR0,
-+					LPC_HICR0_LPC3E, 0);
-+			regmap_update_bits(kcs_bmc->map,
-+					kcs_bmc->offset + LPC_HICR4,
-+					LPC_HICR4_KCSENBL, 0);
-+			regmap_update_bits(kcs_bmc->map,
-+					kcs_bmc->offset + LPC_HICR2,
-+					LPC_HICR2_IBFIF3, 0);
-+		}
-+		break;
-+
-+	case 4:
-+		if (enable) {
-+			regmap_update_bits(kcs_bmc->map,
-+					kcs_bmc->offset + LPC_HICRB,
-+					LPC_HICRB_IBFIF4 | LPC_HICRB_LPC4E,
-+					LPC_HICRB_IBFIF4 | LPC_HICRB_LPC4E);
-+		} else {
-+			regmap_update_bits(kcs_bmc->map,
-+					kcs_bmc->offset + LPC_HICRB,
-+					LPC_HICRB_IBFIF4 | LPC_HICRB_LPC4E,
-+					0);
-+		}
-+		break;
-+
-+	default:
-+		break;
-+	}
-+}
-+
-+static void kcs_rx_data(struct kcs_bmc *kcs_bmc)
-+{
-+	u8 data;
-+
-+	switch (kcs_bmc->kcs_phase) {
-+	case KCS_PHASE_WRITE:
-+		kcs_set_state(kcs_bmc, KCS_WRITE_STATE);
-+
-+		/* set OBF before reading data */
-+		kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
-+
-+		if (kcs_bmc->data_in_idx < KCS_MSG_BUFSIZ)
-+			kcs_bmc->data_in[kcs_bmc->data_in_idx++] =
-+					kcs_inb(kcs_bmc, kcs_bmc->idr);
-+		break;
-+
-+	case KCS_PHASE_WRITE_END:
-+		kcs_set_state(kcs_bmc, KCS_READ_STATE);
-+
-+		if (kcs_bmc->data_in_idx < KCS_MSG_BUFSIZ)
-+			kcs_bmc->data_in[kcs_bmc->data_in_idx++] =
-+					kcs_inb(kcs_bmc, kcs_bmc->idr);
-+
-+		kcs_bmc->kcs_phase = KCS_PHASE_READ;
-+		if (kcs_bmc->running) {
-+			kcs_bmc->data_in_avail = 1;
-+			wake_up_interruptible(&kcs_bmc->queue);
-+		}
-+		break;
-+
-+	case KCS_PHASE_READ:
-+		if (kcs_bmc->data_out_idx == kcs_bmc->data_out_len)
-+			kcs_set_state(kcs_bmc, KCS_IDLE_STATE);
-+
-+		data = kcs_inb(kcs_bmc, kcs_bmc->idr);
-+		if (data != KCS_READ_BYTE) {
-+			kcs_set_state(kcs_bmc, KCS_ERROR_STATE);
-+			kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
-+			break;
-+		}
-+
-+		if (kcs_bmc->data_out_idx == kcs_bmc->data_out_len) {
-+			kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
-+			kcs_bmc->kcs_phase = KCS_PHASE_IDLE;
-+			break;
-+		}
-+
-+		kcs_outb(kcs_bmc, kcs_bmc->data_out[kcs_bmc->data_out_idx++],
-+				 kcs_bmc->odr);
-+		break;
-+
-+	case KCS_PHASE_ABORT:
-+		switch (kcs_bmc->abort_phase) {
-+		case ABORT_PHASE_ERROR1:
-+			kcs_set_state(kcs_bmc, KCS_READ_STATE);
-+
-+			/* Read the Dummy byte */
-+			kcs_inb(kcs_bmc, kcs_bmc->idr);
-+
-+			kcs_outb(kcs_bmc, kcs_bmc->kcs_error, kcs_bmc->odr);
-+			kcs_bmc->abort_phase = ABORT_PHASE_ERROR2;
-+			break;
-+
-+		case ABORT_PHASE_ERROR2:
-+			kcs_set_state(kcs_bmc, KCS_IDLE_STATE);
-+
-+			/* Read the Dummy byte */
-+			kcs_inb(kcs_bmc, kcs_bmc->idr);
-+
-+			kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
-+			kcs_bmc->kcs_phase = KCS_PHASE_IDLE;
-+			kcs_bmc->abort_phase = 0;
-+			break;
-+
-+		default:
-+			break;
-+		}
-+
-+		break;
-+
-+	case KCS_PHASE_ERROR:
-+		kcs_set_state(kcs_bmc, KCS_ERROR_STATE);
-+
-+		/* Read the Dummy byte */
-+		kcs_inb(kcs_bmc, kcs_bmc->idr);
-+
-+		kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
-+		break;
-+
-+	default:
-+		kcs_set_state(kcs_bmc, KCS_ERROR_STATE);
-+
-+		/* Read the Dummy byte */
-+		kcs_inb(kcs_bmc, kcs_bmc->idr);
-+
-+		kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
-+		break;
-+	}
-+}
-+
-+static void kcs_rx_cmd(struct kcs_bmc *kcs_bmc)
-+{
-+	u8 cmd;
-+
-+	kcs_set_state(kcs_bmc, KCS_WRITE_STATE);
-+
-+	/* Dummy data to generate OBF */
-+	kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
-+
-+	cmd = kcs_inb(kcs_bmc, kcs_bmc->idr);
-+	switch (cmd) {
-+	case KCS_WRITE_START:
-+		kcs_bmc->data_in_avail = 0;
-+		kcs_bmc->data_in_idx   = 0;
-+		kcs_bmc->kcs_phase     = KCS_PHASE_WRITE;
-+		kcs_bmc->kcs_error     = KCS_NO_ERROR;
-+		break;
-+
-+	case KCS_WRITE_END:
-+		kcs_bmc->kcs_phase = KCS_PHASE_WRITE_END;
-+		break;
-+
-+	case KCS_ABORT:
-+		if (kcs_bmc->kcs_error == KCS_NO_ERROR)
-+			kcs_bmc->kcs_error = KCS_ABORTED_BY_COMMAND;
-+
-+		kcs_bmc->kcs_phase   = KCS_PHASE_ABORT;
-+		kcs_bmc->abort_phase = ABORT_PHASE_ERROR1;
-+		break;
-+
-+	default:
-+		kcs_bmc->kcs_error = KCS_ILLEGAL_CONTROL_CODE;
-+		kcs_set_state(kcs_bmc, KCS_ERROR_STATE);
-+		kcs_outb(kcs_bmc, kcs_bmc->kcs_error, kcs_bmc->odr);
-+		kcs_bmc->kcs_phase = KCS_PHASE_ERROR;
-+		break;
-+	}
-+}
-+
-+/*
-+ * Whenever the BMC is reset (from power-on or a hard reset), the State Bits
-+ * are initialized to "11 - Error State". Doing so allows SMS to detect that
-+ * the BMC has been reset and that any message in process has been terminated
-+ * by the BMC.
-+ */
-+static void kcs_force_abort(struct kcs_bmc *kcs_bmc)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&kcs_bmc->lock, flags);
-+	kcs_set_state(kcs_bmc, KCS_ERROR_STATE);
-+
-+	/* Read the Dummy byte */
-+	kcs_inb(kcs_bmc, kcs_bmc->idr);
-+
-+	kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
-+	kcs_bmc->kcs_phase = KCS_PHASE_ERROR;
-+	spin_unlock_irqrestore(&kcs_bmc->lock, flags);
-+}
-+
-+static irqreturn_t kcs_bmc_irq(int irq, void *arg)
-+{
-+	int rc;
-+	u32 sts;
-+	struct kcs_bmc *kcs_bmc = arg;
-+
-+	rc = regmap_read(kcs_bmc->map, kcs_bmc->offset + kcs_bmc->str, &sts);
-+	if (rc)
-+		return IRQ_NONE;
-+
-+	sts &= (KCS_STR_IBF | KCS_STR_CMD_DAT);
-+
-+	switch (sts) {
-+	case KCS_STR_IBF | KCS_STR_CMD_DAT:
-+		kcs_rx_cmd(kcs_bmc);
-+		break;
-+
-+	case KCS_STR_IBF:
-+		kcs_rx_data(kcs_bmc);
-+
-+	default:
-+		return IRQ_NONE;
-+	}
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static int kcs_bmc_config_irq(struct kcs_bmc *kcs_bmc,
-+			struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	int rc;
-+
-+	kcs_bmc->irq = platform_get_irq(pdev, 0);
-+	if (!kcs_bmc->irq)
-+		return -ENODEV;
-+
-+	rc = devm_request_irq(dev, kcs_bmc->irq, kcs_bmc_irq, IRQF_SHARED,
-+			kcs_bmc->name, kcs_bmc);
-+	if (rc < 0) {
-+		dev_warn(dev, "Unable to request IRQ %d\n", kcs_bmc->irq);
-+		kcs_bmc->irq = 0;
-+		return rc;
-+	}
-+
-+	return rc;
-+}
-+
-+
-+static inline struct kcs_bmc *file_kcs_bmc(struct file *filp)
-+{
-+	return container_of(filp->private_data, struct kcs_bmc, miscdev);
-+}
-+
-+static int kcs_bmc_open(struct inode *inode, struct file *filp)
-+{
-+	unsigned long flags;
-+	struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
-+
-+	if (kcs_bmc->running)
-+		return -EBUSY;
-+
-+	spin_lock_irqsave(&kcs_bmc->lock, flags);
-+	kcs_bmc->kcs_phase     = KCS_PHASE_IDLE;
-+	kcs_bmc->running       = 1;
-+	kcs_bmc->data_in_avail = 0;
-+	spin_unlock_irqrestore(&kcs_bmc->lock, flags);
-+
-+	return 0;
-+}
-+
-+static unsigned int kcs_bmc_poll(struct file *filp, poll_table *wait)
-+{
-+	unsigned int mask = 0;
-+	struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
-+
-+	poll_wait(filp, &kcs_bmc->queue, wait);
-+
-+	if (kcs_bmc->data_in_avail)
-+		mask |= POLLIN;
-+
-+	if (kcs_bmc->kcs_phase == KCS_PHASE_READ)
-+		mask |= POLLOUT;
-+
-+	return mask;
-+}
-+
-+static ssize_t kcs_bmc_read(struct file *filp, char *buf,
-+			    size_t count, loff_t *offset)
-+{
-+	int rv;
-+	struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
-+
-+	rv = wait_event_interruptible(kcs_bmc->queue,
-+				kcs_bmc->data_in_avail != 0);
-+	if (rv < 0)
-+		return -ERESTARTSYS;
-+
-+	kcs_bmc->data_in_avail = 0;
-+
-+	if (count > kcs_bmc->data_in_idx)
-+		count = kcs_bmc->data_in_idx;
-+
-+	if (copy_to_user(buf, kcs_bmc->data_in, count))
-+		return -EFAULT;
-+
-+	return count;
-+}
-+
-+static ssize_t kcs_bmc_write(struct file *filp, const char *buf,
-+			     size_t count, loff_t *offset)
-+{
-+	unsigned long flags;
-+	struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
-+
-+	if (count < 1 || count > KCS_MSG_BUFSIZ)
-+		return -EINVAL;
-+
-+	if (copy_from_user(kcs_bmc->data_out, buf, count))
-+		return -EFAULT;
-+
-+	spin_lock_irqsave(&kcs_bmc->lock, flags);
-+	if (kcs_bmc->kcs_phase == KCS_PHASE_READ) {
-+		kcs_bmc->data_out_idx = 1;
-+		kcs_bmc->data_out_len = count;
-+		kcs_outb(kcs_bmc, kcs_bmc->data_out[0], kcs_bmc->odr);
-+	}
-+	spin_unlock_irqrestore(&kcs_bmc->lock, flags);
-+
-+	return count;
-+}
-+
-+static long kcs_bmc_ioctl(struct file *filp, unsigned int cmd,
-+			  unsigned long arg)
-+{
-+	long ret = 0;
-+	struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
-+
-+	switch (cmd) {
-+	case KCS_BMC_IOCTL_SMS_ATN:
-+		kcs_set_atn(kcs_bmc, arg);
-+		break;
-+
-+	case KCS_BMC_IOCTL_FORCE_ABORT:
-+		kcs_force_abort(kcs_bmc);
-+		break;
-+
-+	default:
-+		ret = -EINVAL;
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static int kcs_bmc_release(struct inode *inode, struct file *filp)
-+{
-+	unsigned long flags;
-+	struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
-+
-+	spin_lock_irqsave(&kcs_bmc->lock, flags);
-+	kcs_bmc->running = 0;
-+	spin_unlock_irqrestore(&kcs_bmc->lock, flags);
-+
-+	return 0;
-+}
-+
-+static const struct file_operations kcs_bmc_fops = {
-+	.owner          = THIS_MODULE,
-+	.open           = kcs_bmc_open,
-+	.read           = kcs_bmc_read,
-+	.write          = kcs_bmc_write,
-+	.release        = kcs_bmc_release,
-+	.poll           = kcs_bmc_poll,
-+	.unlocked_ioctl = kcs_bmc_ioctl,
-+};
-+
-+static const struct regmap_config kcs_regmap_cfg = {
-+	.reg_bits = 32,
-+	.val_bits = 32,
-+	.reg_stride = 4,
-+};
-+
-+static int kcs_bmc_probe(struct platform_device *pdev)
-+{
-+	struct kcs_bmc *kcs_bmc;
-+	struct device *dev;
-+	u32 chan, addr, io_regs[3];
-+	int rc;
-+
-+	if (!pdev || !pdev->dev.of_node)
-+		return -ENODEV;
-+
-+	dev = &pdev->dev;
-+
-+	rc = of_property_read_u32(dev->of_node, "kcs_chan", &chan);
-+	if (rc) {
-+		dev_err(dev, "no 'kcs_chan' configured\n");
-+		return -ENODEV;
-+	}
-+
-+	if (chan == 0 || chan > KCS_CHANNEL_MAX) {
-+		dev_err(dev, "invalid 'kcs_chan' = '%u' is configured\n", chan);
-+		return -ENODEV;
-+	}
-+
-+	rc = of_property_read_u32(dev->of_node, "kcs_addr", &addr);
-+	if (rc) {
-+		dev_err(dev, "no 'kcs_addr' configured\n");
-+		return -ENODEV;
-+	}
-+
-+	rc = of_property_read_u32_array(dev->of_node, "kcs_regs", io_regs,
-+			ARRAY_SIZE(io_regs));
-+	if (rc) {
-+		dev_err(dev, "no 'kcs_regs' configured\n");
-+		return -ENODEV;
-+	}
-+
-+	kcs_bmc = devm_kzalloc(dev, sizeof(*kcs_bmc), GFP_KERNEL);
-+	if (!kcs_bmc)
-+		return -ENOMEM;
-+
-+	kcs_bmc->map = syscon_node_to_regmap(dev->parent->of_node);
-+	if (IS_ERR(kcs_bmc->map)) {
-+		struct resource *res;
-+		void __iomem *base;
-+
-+		/*
-+		 * Assume it's not the MFD-based devicetree description, in
-+		 * which case generate a regmap ourselves
-+		 */
-+		res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+		base = devm_ioremap_resource(&pdev->dev, res);
-+		if (IS_ERR(base)) {
-+			dev_err(dev, "ioremap error\n");
-+			return PTR_ERR(base);
-+		}
-+
-+		kcs_bmc->map = devm_regmap_init_mmio(dev, base,
-+					&kcs_regmap_cfg);
-+		if (IS_ERR(kcs_bmc->map)) {
-+			dev_err(dev, "regmap init error\n");
-+			return PTR_ERR(base);
-+		}
-+
-+		kcs_bmc->offset = 0;
-+	} else {
-+		rc = of_property_read_u32(dev->of_node, "reg",
-+					&kcs_bmc->offset);
-+		if (rc) {
-+			rc = of_property_read_u32(dev->parent->of_node, "reg",
-+					&kcs_bmc->offset);
-+			if (rc) {
-+				dev_err(dev, "no 'reg' configured\n");
-+				return rc;
-+			}
-+		}
-+	}
-+
-+	spin_lock_init(&kcs_bmc->lock);
-+	kcs_bmc->chan = chan;
-+	kcs_bmc->idr  = io_regs[0];
-+	kcs_bmc->odr  = io_regs[1];
-+	kcs_bmc->str  = io_regs[2];
-+
-+	init_waitqueue_head(&kcs_bmc->queue);
-+	kcs_bmc->data_in  = kmalloc(KCS_MSG_BUFSIZ, GFP_KERNEL);
-+	kcs_bmc->data_out = kmalloc(KCS_MSG_BUFSIZ, GFP_KERNEL);
-+	if (kcs_bmc->data_in == NULL || kcs_bmc->data_out == NULL) {
-+		rc = -ENOMEM;
-+		dev_err(dev, "KCS%u failed data_in=%p, data_out=%p\n",
-+			     kcs_bmc->chan,
-+			     kcs_bmc->data_in,
-+			     kcs_bmc->data_out);
-+		goto bail;
-+	}
-+
-+	snprintf(kcs_bmc->name, sizeof(kcs_bmc->name), "ipmi-kcs%u", chan);
-+	kcs_bmc->miscdev.minor = MISC_DYNAMIC_MINOR;
-+	kcs_bmc->miscdev.name = kcs_bmc->name;
-+	kcs_bmc->miscdev.fops = &kcs_bmc_fops;
-+	rc = misc_register(&kcs_bmc->miscdev);
-+	if (rc) {
-+		dev_err(dev, "Unable to register misc device\n");
-+		goto bail;
-+	}
-+
-+	kcs_set_addr(kcs_bmc, addr);
-+	kcs_enable_channel(kcs_bmc, 1);
-+
-+	kcs_bmc_config_irq(kcs_bmc, pdev);
-+	if (kcs_bmc->irq)
-+		dev_info(dev, "Using IRQ %d\n", kcs_bmc->irq);
-+	else
-+		dev_info(dev, "No IRQ\n");
-+
-+	dev_info(dev, "Found BMC KCS%u@0x%X :\n"
-+		      " IDR=0x%X, ODR=0x%X, STR=0x%X Offset=0x%X\n",
-+			kcs_bmc->chan, addr,
-+			kcs_bmc->idr,
-+			kcs_bmc->odr,
-+			kcs_bmc->str,
-+			kcs_bmc->offset);
-+
-+	dev_set_drvdata(&pdev->dev, kcs_bmc);
-+
-+	return 0;
-+
-+bail:
-+	kfree(kcs_bmc->data_in);
-+	kfree(kcs_bmc->data_out);
-+	kcs_bmc->data_in = NULL;
-+	kcs_bmc->data_out = NULL;
-+	return rc;
-+}
-+
-+static int kcs_bmc_remove(struct platform_device *pdev)
-+{
-+	struct kcs_bmc *kcs_bmc = dev_get_drvdata(&pdev->dev);
-+
-+	if (kcs_bmc == NULL)
-+		return 0;
-+
-+	platform_set_drvdata(pdev, NULL);
-+
-+	kfree(kcs_bmc->data_in);
-+	kfree(kcs_bmc->data_out);
-+	kcs_bmc->data_in = NULL;
-+	kcs_bmc->data_out = NULL;
-+
-+	misc_deregister(&kcs_bmc->miscdev);
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id kcs_bmc_match[] = {
-+	{ .compatible = "aspeed,ast2500-kcs-bmc" },
-+	{ },
-+};
-+
-+static struct platform_driver kcs_bmc_driver = {
-+	.driver = {
-+		.name           = DEVICE_NAME,
-+		.of_match_table = kcs_bmc_match,
-+	},
-+	.probe = kcs_bmc_probe,
-+	.remove = kcs_bmc_remove,
-+};
-+
-+module_platform_driver(kcs_bmc_driver);
-+
-+MODULE_DEVICE_TABLE(of, kcs_bmc_match);
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Haiyue Wang <haiyue.wang@linux.intel.com>");
-+MODULE_DESCRIPTION("Linux device interface to the IPMI KCS interface");
-+
-diff --git a/include/uapi/linux/kcs-bmc.h b/include/uapi/linux/kcs-bmc.h
-new file mode 100644
-index 0000000..ffb77eb
---- /dev/null
-+++ b/include/uapi/linux/kcs-bmc.h
-@@ -0,0 +1,19 @@
-+/*
-+ * Copyright (c) 2015-2017, Intel Corporation.
-+ *
-+ * This program is free software; you can redistribute it and/or
-+ * modify it under the terms of the GNU General Public License
-+ * as published by the Free Software Foundation; either version
-+ * 2 of the License, or (at your option) any later version.
-+ */
-+#ifndef _UAPI_LINUX_KCS_BMC_H
-+#define _UAPI_LINUX_KCS_BMC_H
-+
-+#include <linux/ioctl.h>
-+
-+#define __KCS_BMC_IOCTL_MAGIC      'K'
-+#define KCS_BMC_IOCTL_SMS_ATN      _IOW(__KCS_BMC_IOCTL_MAGIC, 1, unsigned long)
-+#define KCS_BMC_IOCTL_FORCE_ABORT  _IO(__KCS_BMC_IOCTL_MAGIC, 2)
-+
-+#endif /* _UAPI_LINUX_KCS_BMC_H */
-+
--- 
-2.7.4
+-----Original Message-----
+From: bradleyb@bajor.fuzziesquirrel.com =
+[mailto:bradleyb@bajor.fuzziesquirrel.com] On Behalf Of Brad Bishop
+Sent: Tuesday, December 5, 2017 6:20 PM
+To: Yong Li <yong.b.li@linux.intel.com>
+Cc: 'OpenBMC Maillist' <openbmc@lists.ozlabs.org>
+Subject: Re: chassis_control.py in skeleton
+
+Hi Brad,
+>=20
+> Regarding the "org.openbmc" references, you are correct, there is only =
+
+> one in phosphor-state-manager.
+> But there are some other "org.openbmc" references in other=20
+> services(such as in ipmid services). I am working on the gpio/power=20
+> related features design/implement, and would like to help to remove=20
+> these dependences one by one.
+
+Excellent!  Thanks.
+
+>=20
+> Regarding the pgood property, It is used for power supply GOOD signal, =
+
+> I think one Boolean is good enough too. Currently we can implement the =
+
+> same as "org.openbmc" in "xyz." namespace, for replacement.
+
+That will certainly make this easier.  Would you mind submitting =
+documentation for this new interface somewhere in phosphor-dbus- =
+interfaces, along with your code that implements it?
+
+[YONG LI]  Will do, I would like to start from the simpler changes =
+first. For example, adding pgood to the .yaml, and implement the =
+property
+
+>=20
+> Regarding the gpio monitor, I found the phosphor-gpio-monitor is=20
+> different than these power/button services in skeleton. phosphor-=20
+> gpio-monitor uses these gpio pins as gpio keyboard(input device), and=20
+> trigger a systemd service when there is any key input.
+>=20
+> I want to trigger more, for examples, when there is one button(gpio=20
+> input pin) is long pressed,
+
+You are correct, phosphor-gpio-monitor does not currently support =
+different systemd targets for short/long press.  Perhaps it could be =
+enhanced to do this?  I'm not sure if the underlying gpio-keys driver =
+supports this.  Another option would be to scrap the use of gpio- =
+keys/libevdev in phosphor-gpio-monitor and replace it with something =
+else?  Maybe the new Linux GPIO chardev?
+
+[YONG LI]  Will check/test if there is any new solution for the gpio =
+interrupt handing
+
+> I want to set another gpio output pin to high, for LED ON, and then=20
+> perform a force power off action. I think comepared with using systemd =
+
+> services, using sdbusplus to implement these triggered actions should=20
+> be easier?
+
+Can you elaborate on how much configurability you intend to provide =
+here?  It is most definitely easier to put all the logic into the =
+application, but I think the answer here depends on your intent.  Do you =
+intend to:
+
+1 - Implement something that targets a specific platform/use case.
+2 - Implement something general purpose.
+
+If you intend to do #1, that is perfectly fine but I try to encourage
+#2 because it is more useful to the most people.
+
+If you intend to do #2, you _could_ write it all in C/C++ but wouldn't =
+you have to implement:
+=20
+1 - A way to express how the application should react.
+2 - A way to express the dependencies between those responses.
+3 - A way to express what the application should do if a response action =
+fails.
+4 - etc...
+
+systemd is already very good at these things.
+
+[YONG LI] Currently I am testing the system using Intel platforms. The =
+current power on/off services are not match the hardware.=20
+For example, our hardware needs not only the PS_GOOD signal, but and =
+other signals to check if the host on(ACPI status, CPU power signals), =
+and there are several different error handing processes.
+On first thought, I want to implement all these logic in one single =
+service. Based on your comments, it seems that I can split these =
+checking to several different services, and using systemd to connect =
+them together.
+Every service should be simple and easy to implement,  The =
+op-wait-power-on@.service is an example, it just wait for pgood signal.
+We can just install these needed services on different platforms. For =
+example, power button monitor service is installed on both IA and =
+openpower platforms, but ACPI monitor is installed on IA platforms only.
+=20
+>=20
+> Let me study on them, and maybe submit some codes for your review?
+
+Sure!
+
+> Thanks,
+> Yong Li
+> -----Original Message-----
+> From: bradleyb@bajor.fuzziesquirrel.com [mailto:bradleyb@bajor.fuzzie=20
+> squirrel.com] On Behalf Of Brad Bishop
+> Sent: Thursday, November 30, 2017 10:01 PM
+> To: Yong Li <yong.b.li@linux.intel.com>
+> Cc: 'OpenBMC Maillist' <openbmc@lists.ozlabs.org>
+> Subject: Re: chassis_control.py in skeleton
+>=20
+> On Wed, 2017-11-29 at 09:40 +0800, Yong Li wrote:
+> > Thanks Brad for your message!
+> >=20
+> > I studied on these state-manager services, It seems that the=20
+> > chassis_control.py can be replaced by chassis_state and host_state=20
+> > .cpp files. I will perform some tests to check if there any changes=20
+> > needed.
+> >=20
+> > I also found that some of .cpp services  still need these apps in=20
+> > skeleton. Below is an example, it needs the skeleton/op-
+> > pwrctl/power_control.obj.c:
+> > https://github.com/openbmc/phosphor-state-
+> > manager/blob/master/chassis_state_manager.cpp#L56
+>=20
+> Nice find.  I was aware of this, just wasn't sure if it was too much=20
+> information yet.  I think that is the only reference to org.openbmc in =
+
+> phosphor-state-manager.
+>=20
+> This is something we punted on and needs to be addressed.  I say=20
+> punted because we assumed that 'pgood' was a POWER concept and a=20
+> better abstraction would be needed to accommodate other architectures. =
+=20
+> Would you agree?  On the off chance a single boolean property is good=20
+> enough for everyone, we could just move this interface to the xyz=20
+> namespace.
+>=20
+> I know that in the longer term, I'd like to see a much better=20
+> abstraction around power related concepts so we can share/reuse code=20
+> for things like analysis of faults, etc, so I'd be interested in=20
+> hearing any ideas anyone has on that.
+>=20
+> >=20
+> > I would like to start to modify/rewrite these buton/power(gpio=20
+> > control
+> > related) tools in skeleton, using C++ and sdbusplus, and support=20
+> > multi platforms(X86). Could you share some comments/suggestions?
+>=20
+> So for buttons, potentially we have this application called phosphor-
+> gpio-monitor:
+>=20
+> github.com/openbmc/phosphor-gpio-monitor
+>=20
+> You give it a gpio to monitor, and it runs a systemd target when the=20
+> gpio changes state.  I'm hoping this application would be sufficient=20
+> for implementing buttons.  It doesn't even use any YAML :-).  Can you=20
+> have a look at it and let us know what you think?
+>=20
+> > Create a new project such as power-button-manager, or add them into=20
+> > this phosphor-state-manager?
+> >=20
+> > Thanks,
+> > Yong Li
+> >=20
+> > -----Original Message-----
+> > From: Brad Bishop [mailto:bradleyb@fuzziesquirrel.com]
+> > Sent: Wednesday, November 29, 2017 4:53 AM
+> > To: Yong Li <yong.b.li@linux.intel.com>
+> > Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>; Li, Yong B=20
+> > <yong.b.l i@intel.com>
+> > Subject: Re: chassis_control.py in skeleton
+> >=20
+> >=20
+> > > On Nov 23, 2017, at 12:38 AM, Yong Li <yong.b.li@linux.intel.com>
+> > > wrote:
+> > >=20
+> > > Hi All,
+> > >=20
+> > > Based on my understanding, these chassis control/system manager=20
+> > > related projects in skeleton should be initial/reference code, and =
+
+> > > will be
+> >=20
+> > This is correct.  The intent is to remove them eventually.
+> >=20
+> > The replacement for the chassis manager is https://github.com/openb=20
+> > mc /phosphor-state-manager
+> >=20
+> > The functions of the system manager have gradually been replicated=20
+> > elsewhere.  For instance its state management functions were moved=20
+> > to phosphor-state-manager or systemd.  Other functions were=20
+> > distributed amongst configuration files and other applications.
+> >=20
+> > They have not been removed from the current systems because they all =
+
+> > need to be scrubbed for any remaining usage.
+> >=20
+> > > rewritten/reimplementation. I would like to know if there is any=20
+> > > plan or on-going projects on them?
+> >=20
+> > The plan is to scrub the existing systems and eliminate use of these =
+
+> > programs.  This means identifying any functional gaps in the=20
+> > replacements and implementing those.  I don=E2=80=99t think anyone =
+is=20
+> > working on that at the moment.
+> >=20
+> > Ideally any new layers/platforms being added would just not use=20
+> > these programs, but I understand if that requires replacement=20
+> > function that isn=E2=80=99t available and wouldn=E2=80=99t want that =
+to hinder=20
+> > upstreaming of a new platform.
+> >=20
+> > If I were to begin to work on this, I would start by building images =
+
+> > for the current systems, remove these applications from the image=20
+> > and
+> > see what breaks.=09
+> >=20
+> >=20
+> > >=20
+> > > Thanks,
+> > > Yong Li
+> >=20
+> >=20
+> > -brad=3D
