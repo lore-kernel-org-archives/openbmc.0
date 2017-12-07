@@ -1,45 +1,58 @@
-Return-Path: <yong.b.li@linux.intel.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.151; helo=mga17.intel.com;
- envelope-from=yong.b.li@linux.intel.com; receiver=<UNKNOWN>)
-X-Greylist: delayed 621 seconds by postgrey-1.36 at bilbo;
- Thu, 07 Dec 2017 19:52:21 AEDT
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2a00:1450:4010:c07::22b; helo=mail-lf0-x22b.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="mQEtQDBU"; 
+ dkim-atps=neutral
+Received: from mail-lf0-x22b.google.com (mail-lf0-x22b.google.com
+ [IPv6:2a00:1450:4010:c07::22b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ysq4565wCzDsM2
- for <openbmc@lists.ozlabs.org>; Thu,  7 Dec 2017 19:52:21 +1100 (AEDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 07 Dec 2017 00:41:55 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.45,372,1508828400"; d="scan'208";a="11329019"
-Received: from yongli3-mobl.ccr.corp.intel.com (HELO yongli3MOBL)
- ([10.239.196.104])
- by fmsmga001.fm.intel.com with ESMTP; 07 Dec 2017 00:41:54 -0800
-From: "Yong Li" <yong.b.li@linux.intel.com>
-To: "'Brad Bishop'" <bradleyb@fuzziesquirrel.com>
-Cc: "'OpenBMC Maillist'" <openbmc@lists.ozlabs.org>
-References: <000001d3641d$3e482120$bad86360$@linux.intel.com>
- <1ABEA804-8141-49CA-AFBF-B47C8D0ABD31@fuzziesquirrel.com>
- <000001d368b3$0d4644e0$27d2cea0$@linux.intel.com>
- <1512050430.13581.97.camel@fuzziesquirrel.com>
- <001301d36a64$1e53ab30$5afb0190$@linux.intel.com>
- <1512469182.16012.43.camel@fuzziesquirrel.com>
-In-Reply-To: <1512469182.16012.43.camel@fuzziesquirrel.com>
-Subject: RE: chassis_control.py in skeleton
-Date: Thu, 7 Dec 2017 16:41:54 +0800
-Message-ID: <000001d36f37$3c5abba0$b51032e0$@linux.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yssYZ6QvLzDsM2
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Dec 2017 21:44:34 +1100 (AEDT)
+Received: by mail-lf0-x22b.google.com with SMTP id 94so7604764lfy.10
+ for <openbmc@lists.ozlabs.org>; Thu, 07 Dec 2017 02:44:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=olDmFX4jNnWgco12fsBcKWCHJXl7hO1W956uXxsycRo=;
+ b=mQEtQDBUqE2PJFFQUSQA3jCRfN/OLK61mdjuXzSmfyRCmjK+o3HlUY0YKEx460J0xq
+ gLn3qZBmk5cqiUuR1Xyot0L9yviNhwHr/j6wTgulaL0oYXhlMxiAN4hBYoyOenofmyqG
+ yN6LX50j/ogCQU8MiO3UJhQZnPNaloAleZdSw2oNQLDe4tKHvM+Y8c/skk482m8LrW/l
+ dCo5J6fYIKT8uiPg400OXGL1W0WoTBFKwfuAVxGxfgl6AgsaJgwxmg6Zh6YCNe1IfT4f
+ bcRRT5V0xPFlzGG9CjsSynr+Krhw9p1HqXoH4wTdBd0ZgftQKpIa4O2qG0BlIGXF6nPH
+ J/xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=olDmFX4jNnWgco12fsBcKWCHJXl7hO1W956uXxsycRo=;
+ b=S06dR5xsLOe3zRH63vflOeltNdgNl5HpxghG1Z3Ct89uv+B9gwxmsqn/rIe8Xw7jlU
+ 2LgwebUNHpcGlR+dOqFTBD0wMyN3MimQ8/Ps2qKIJy3jKBqch8yHHeR/bhFnAePJPeeg
+ MYAXhLfySoPhye40oq3u+Yy1ipPWywjUwIiTrzuGoJC5+7teE5Fk95EDXtsNZPYKPYDZ
+ /CDXm7pfFhM+2rpsyXUTwl2bkzDme6XKiqoywUYcIxusnq9Tihqx3R/G6zB+l0HFhvzb
+ XUVoEXkD5pSSbuQXqnqdq9zqWLn1x+VoV5sMVmYb8Llb2Cksx61/g8jcbExNVwRlJWvj
+ Strg==
+X-Gm-Message-State: AJaThX4D47yMpUMHkYTrmZVxT7b+xlDQXjSFJKsH3ZYBVLB0nDOMQB22
+ QPvftMPWJcBvref1CBVjb6gbG+bXLEbh565NG1A=
+X-Google-Smtp-Source: AGs4zMa2KWvGUJs7u0tQ+s4OfKke877bFAGmNKwXefokv6Hp9YDpXvk8V/TlHrl8w0+vprmaP1F1jaPe7Ea10Wopo6E=
+X-Received: by 10.25.81.133 with SMTP id g5mr11860520lfl.77.1512643470997;
+ Thu, 07 Dec 2017 02:44:30 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 15.0
-Thread-Index: AQEnWNhYOTmVBHgckrDmAtguUsiWLAGhGP9eAO1B9lgBlZAIVQFQGwrhAiukRdCkUrLu8A==
-Content-Language: en-us
-x-ctpclassification: CTP_IC
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiOTg1NzRiY2UtN2RmNi00MDNmLWFjZjgtNzQ5MmRkMTE5NzJiIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX0lDIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE2LjUuOS4zIiwiVHJ1c3RlZExhYmVsSGFzaCI6IlpQZ1g4Y0szUTJzSzFOeTJ0cmFITDY5V3NhMkNwU3Q5bE9RQ2R5blAweHM9In0=
+Sender: joel.stan@gmail.com
+Received: by 10.25.155.83 with HTTP; Thu, 7 Dec 2017 02:44:10 -0800 (PST)
+In-Reply-To: <OF02E339DA.55131D65-ON002581C5.004272DC-002581D4.0041FCDE@notes.na.collabserv.com>
+References: <OF02E339DA.55131D65-ON002581C5.004272DC-002581D4.0041FCDE@notes.na.collabserv.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 7 Dec 2017 21:14:10 +1030
+X-Google-Sender-Auth: C8yrqVSPUd8RcxpwFSOAx7qXDow
+Message-ID: <CACPK8XdB6LWJ6TLx5Jdjojpbwnh35a7GHwX5ieh1PAFFCCn+Eg@mail.gmail.com>
+Subject: Re: fsp2 patches from upstream to openbmc/linux
+To: Ivan Mikhaylov1 <ivan@de.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Karlo Petri <XXPETRI@de.ibm.com>, Bradley W Bishop <bradleyb@us.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -51,238 +64,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Dec 2017 08:52:22 -0000
+X-List-Received-Date: Thu, 07 Dec 2017 10:44:36 -0000
 
-Thanks Brad for your comments! My replies started with [YONG LI] below.
+On Fri, Nov 10, 2017 at 10:30 PM, Ivan Mikhaylov1 <ivan@de.ibm.com> wrote:
+> hello all,
+> sorry for first note not in plain format.
+>
+> these patches are already in v4.13 tag in upstream kernel which are needed for base support :
+> c4b56b023daa91953e9ebe91143e6ca156f0bcb7
+> 9eec6cb142bddd35268c7c59b6c81be6c091aaf9
+> 20975a0ae1ccc59a21a149e2fd2964ce88edb0a9
+> 6e2f03e292ef46eed2b31b0a344a91d514f9cd81
+>
+> these two related to mmc setup and not in v4.13 tag, I've cherry-picked them into v4.13 - no errors,
+> no problems with compilation.
+> 754f030908c3615781e9e3559d8ba1500cf82215
+> 2feada5bb0441c918d12778bf9449d5ff805aa7c
+>
+> so we need them into openbmc/linux if possible. thanks!
+> if you need anything else, you can ask us about it.
 
-Thanks,
-Yong
+I suggest using the 4.13 tree for your platform. I've cherry picked
+the two commits you required into dev-4.13.
 
------Original Message-----
-From: bradleyb@bajor.fuzziesquirrel.com =
-[mailto:bradleyb@bajor.fuzziesquirrel.com] On Behalf Of Brad Bishop
-Sent: Tuesday, December 5, 2017 6:20 PM
-To: Yong Li <yong.b.li@linux.intel.com>
-Cc: 'OpenBMC Maillist' <openbmc@lists.ozlabs.org>
-Subject: Re: chassis_control.py in skeleton
+Cheers,
 
-Hi Brad,
->=20
-> Regarding the "org.openbmc" references, you are correct, there is only =
-
-> one in phosphor-state-manager.
-> But there are some other "org.openbmc" references in other=20
-> services(such as in ipmid services). I am working on the gpio/power=20
-> related features design/implement, and would like to help to remove=20
-> these dependences one by one.
-
-Excellent!  Thanks.
-
->=20
-> Regarding the pgood property, It is used for power supply GOOD signal, =
-
-> I think one Boolean is good enough too. Currently we can implement the =
-
-> same as "org.openbmc" in "xyz." namespace, for replacement.
-
-That will certainly make this easier.  Would you mind submitting =
-documentation for this new interface somewhere in phosphor-dbus- =
-interfaces, along with your code that implements it?
-
-[YONG LI]  Will do, I would like to start from the simpler changes =
-first. For example, adding pgood to the .yaml, and implement the =
-property
-
->=20
-> Regarding the gpio monitor, I found the phosphor-gpio-monitor is=20
-> different than these power/button services in skeleton. phosphor-=20
-> gpio-monitor uses these gpio pins as gpio keyboard(input device), and=20
-> trigger a systemd service when there is any key input.
->=20
-> I want to trigger more, for examples, when there is one button(gpio=20
-> input pin) is long pressed,
-
-You are correct, phosphor-gpio-monitor does not currently support =
-different systemd targets for short/long press.  Perhaps it could be =
-enhanced to do this?  I'm not sure if the underlying gpio-keys driver =
-supports this.  Another option would be to scrap the use of gpio- =
-keys/libevdev in phosphor-gpio-monitor and replace it with something =
-else?  Maybe the new Linux GPIO chardev?
-
-[YONG LI]  Will check/test if there is any new solution for the gpio =
-interrupt handing
-
-> I want to set another gpio output pin to high, for LED ON, and then=20
-> perform a force power off action. I think comepared with using systemd =
-
-> services, using sdbusplus to implement these triggered actions should=20
-> be easier?
-
-Can you elaborate on how much configurability you intend to provide =
-here?  It is most definitely easier to put all the logic into the =
-application, but I think the answer here depends on your intent.  Do you =
-intend to:
-
-1 - Implement something that targets a specific platform/use case.
-2 - Implement something general purpose.
-
-If you intend to do #1, that is perfectly fine but I try to encourage
-#2 because it is more useful to the most people.
-
-If you intend to do #2, you _could_ write it all in C/C++ but wouldn't =
-you have to implement:
-=20
-1 - A way to express how the application should react.
-2 - A way to express the dependencies between those responses.
-3 - A way to express what the application should do if a response action =
-fails.
-4 - etc...
-
-systemd is already very good at these things.
-
-[YONG LI] Currently I am testing the system using Intel platforms. The =
-current power on/off services are not match the hardware.=20
-For example, our hardware needs not only the PS_GOOD signal, but and =
-other signals to check if the host on(ACPI status, CPU power signals), =
-and there are several different error handing processes.
-On first thought, I want to implement all these logic in one single =
-service. Based on your comments, it seems that I can split these =
-checking to several different services, and using systemd to connect =
-them together.
-Every service should be simple and easy to implement,  The =
-op-wait-power-on@.service is an example, it just wait for pgood signal.
-We can just install these needed services on different platforms. For =
-example, power button monitor service is installed on both IA and =
-openpower platforms, but ACPI monitor is installed on IA platforms only.
-=20
->=20
-> Let me study on them, and maybe submit some codes for your review?
-
-Sure!
-
-> Thanks,
-> Yong Li
-> -----Original Message-----
-> From: bradleyb@bajor.fuzziesquirrel.com [mailto:bradleyb@bajor.fuzzie=20
-> squirrel.com] On Behalf Of Brad Bishop
-> Sent: Thursday, November 30, 2017 10:01 PM
-> To: Yong Li <yong.b.li@linux.intel.com>
-> Cc: 'OpenBMC Maillist' <openbmc@lists.ozlabs.org>
-> Subject: Re: chassis_control.py in skeleton
->=20
-> On Wed, 2017-11-29 at 09:40 +0800, Yong Li wrote:
-> > Thanks Brad for your message!
-> >=20
-> > I studied on these state-manager services, It seems that the=20
-> > chassis_control.py can be replaced by chassis_state and host_state=20
-> > .cpp files. I will perform some tests to check if there any changes=20
-> > needed.
-> >=20
-> > I also found that some of .cpp services  still need these apps in=20
-> > skeleton. Below is an example, it needs the skeleton/op-
-> > pwrctl/power_control.obj.c:
-> > https://github.com/openbmc/phosphor-state-
-> > manager/blob/master/chassis_state_manager.cpp#L56
->=20
-> Nice find.  I was aware of this, just wasn't sure if it was too much=20
-> information yet.  I think that is the only reference to org.openbmc in =
-
-> phosphor-state-manager.
->=20
-> This is something we punted on and needs to be addressed.  I say=20
-> punted because we assumed that 'pgood' was a POWER concept and a=20
-> better abstraction would be needed to accommodate other architectures. =
-=20
-> Would you agree?  On the off chance a single boolean property is good=20
-> enough for everyone, we could just move this interface to the xyz=20
-> namespace.
->=20
-> I know that in the longer term, I'd like to see a much better=20
-> abstraction around power related concepts so we can share/reuse code=20
-> for things like analysis of faults, etc, so I'd be interested in=20
-> hearing any ideas anyone has on that.
->=20
-> >=20
-> > I would like to start to modify/rewrite these buton/power(gpio=20
-> > control
-> > related) tools in skeleton, using C++ and sdbusplus, and support=20
-> > multi platforms(X86). Could you share some comments/suggestions?
->=20
-> So for buttons, potentially we have this application called phosphor-
-> gpio-monitor:
->=20
-> github.com/openbmc/phosphor-gpio-monitor
->=20
-> You give it a gpio to monitor, and it runs a systemd target when the=20
-> gpio changes state.  I'm hoping this application would be sufficient=20
-> for implementing buttons.  It doesn't even use any YAML :-).  Can you=20
-> have a look at it and let us know what you think?
->=20
-> > Create a new project such as power-button-manager, or add them into=20
-> > this phosphor-state-manager?
-> >=20
-> > Thanks,
-> > Yong Li
-> >=20
-> > -----Original Message-----
-> > From: Brad Bishop [mailto:bradleyb@fuzziesquirrel.com]
-> > Sent: Wednesday, November 29, 2017 4:53 AM
-> > To: Yong Li <yong.b.li@linux.intel.com>
-> > Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>; Li, Yong B=20
-> > <yong.b.l i@intel.com>
-> > Subject: Re: chassis_control.py in skeleton
-> >=20
-> >=20
-> > > On Nov 23, 2017, at 12:38 AM, Yong Li <yong.b.li@linux.intel.com>
-> > > wrote:
-> > >=20
-> > > Hi All,
-> > >=20
-> > > Based on my understanding, these chassis control/system manager=20
-> > > related projects in skeleton should be initial/reference code, and =
-
-> > > will be
-> >=20
-> > This is correct.  The intent is to remove them eventually.
-> >=20
-> > The replacement for the chassis manager is https://github.com/openb=20
-> > mc /phosphor-state-manager
-> >=20
-> > The functions of the system manager have gradually been replicated=20
-> > elsewhere.  For instance its state management functions were moved=20
-> > to phosphor-state-manager or systemd.  Other functions were=20
-> > distributed amongst configuration files and other applications.
-> >=20
-> > They have not been removed from the current systems because they all =
-
-> > need to be scrubbed for any remaining usage.
-> >=20
-> > > rewritten/reimplementation. I would like to know if there is any=20
-> > > plan or on-going projects on them?
-> >=20
-> > The plan is to scrub the existing systems and eliminate use of these =
-
-> > programs.  This means identifying any functional gaps in the=20
-> > replacements and implementing those.  I don=E2=80=99t think anyone =
-is=20
-> > working on that at the moment.
-> >=20
-> > Ideally any new layers/platforms being added would just not use=20
-> > these programs, but I understand if that requires replacement=20
-> > function that isn=E2=80=99t available and wouldn=E2=80=99t want that =
-to hinder=20
-> > upstreaming of a new platform.
-> >=20
-> > If I were to begin to work on this, I would start by building images =
-
-> > for the current systems, remove these applications from the image=20
-> > and
-> > see what breaks.=09
-> >=20
-> >=20
-> > >=20
-> > > Thanks,
-> > > Yong Li
-> >=20
-> >=20
-> > -brad=3D
+Joel
