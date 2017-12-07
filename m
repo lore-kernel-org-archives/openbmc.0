@@ -1,66 +1,37 @@
-Return-Path: <pombredanne@nexb.com>
-Authentication-Results: ozlabs.org; spf=none (mailfrom) smtp.mailfrom=nexb.com
- (client-ip=2a00:1450:400c:c09::234; helo=mail-wm0-x234.google.com;
- envelope-from=pombredanne@nexb.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=nexb-com.20150623.gappssmtp.com
- header.i=@nexb-com.20150623.gappssmtp.com header.b="Go/teYiW"; 
- dkim-atps=neutral
-Received: from mail-wm0-x234.google.com (mail-wm0-x234.google.com
- [IPv6:2a00:1450:400c:c09::234])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <jae.hyun.yoo@linux.intel.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.43; helo=mga05.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yt7g61CKkzDsQ0
- for <openbmc@lists.ozlabs.org>; Fri,  8 Dec 2017 08:20:16 +1100 (AEDT)
-Received: by mail-wm0-x234.google.com with SMTP id f140so221923wmd.2
- for <openbmc@lists.ozlabs.org>; Thu, 07 Dec 2017 13:20:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=nexb-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=TQbQ/icNwdBcjmI74KtAe0dtH7Ug0v54MXqErMXj1Xk=;
- b=Go/teYiWhb6BgEaCtU3tBHOZ8HMiAJAhhHKjJeldsQmu4KtzQ6g2JsQMlPB2sl5Ayd
- RLBNLap2Hh/voJiZ2K6StnEi5WBrJxCMBvZCEQPe4miEvYG2VIhnXF8NzIJ1paXMxhMf
- QLkv0nX1k2SkPsKhh5bCdrwHJd+r7JtvilPyKnkyUGx8y6Nxe5OyUQgMrNoPHgNUzgJp
- lbUxI98QbNuqw1flBKC/jNvUAOtqwHup41SYI92eyoB877nzgbSn4YSweZiGSJo6gfGs
- +UWTuIy6Xso5ZPfA+HUPwP7M7hjdqQ+TibwCHl0KIzbmdXdnbWA8ZQFmDy4EVRFt1x93
- HI7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=TQbQ/icNwdBcjmI74KtAe0dtH7Ug0v54MXqErMXj1Xk=;
- b=OZjKFRGQhYkzjEsXFYPOzN3fwHXWOXlnsqIxNYdVjMjOvYvg3rb4Q+pluod5J5UHvf
- JZ1G3iQ7RPwM6czYuNnoB00psjwvyZjyyzC2nFfx/wXASf1hgDVv2j8VsVHQXM8QRQ4p
- P97RzQzLFTCCn1p7xSSjWYuq0hsi0tBVfnahQ8KJIV99EDegb3BhZ0g5rZeSO69mXrXe
- y/5vYW49xFq9pNqi+cLwDQhJKqFPeC0c+Kp3pqCW1qh+1E5r03dQu1vdISH00P8UsnJ9
- eKCW2IN41YuKTYUAZIpcWhIvlMpmPGRmjHpC2gisk/q45P/ztkoieigCHhiHpeKQkNWw
- 3SMw==
-X-Gm-Message-State: AKGB3mLdZZk8n1q6gTJIZQKZEoSTxd9/kcy+QR9hKgAlh13FaVnKZdTl
- oTqVqMmIILGCuDN7ZCIyCNOX8aBD9YeM6Rah7KHcFg==
-X-Google-Smtp-Source: AGs4zMatk5Relq6bySEAwwmxso/Obei82nlgG+Fm9jWLNNYfIiOCRjlnLdgjpUCzYbD+HFlu11XBcExiVVZNluUEYQ8=
-X-Received: by 10.28.61.135 with SMTP id k129mr2166407wma.81.1512681613771;
- Thu, 07 Dec 2017 13:20:13 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.223.157.195 with HTTP; Thu, 7 Dec 2017 13:19:33 -0800 (PST)
-In-Reply-To: <CAFd5g45+dNuayw=s08iwAj2wrUYNXnGd5SbA+OVvsL_J6APHGA@mail.gmail.com>
-References: <20171117190747.21642-1-brendanhiggins@google.com>
- <20171117190747.21642-2-brendanhiggins@google.com>
- <CAFd5g45+dNuayw=s08iwAj2wrUYNXnGd5SbA+OVvsL_J6APHGA@mail.gmail.com>
-From: Philippe Ombredanne <pombredanne@nexb.com>
-Date: Thu, 7 Dec 2017 22:19:33 +0100
-Message-ID: <CAOFm3uG=i3gOnKEMEPNii070+pB7Aqt2GmxgB5G0DCfGzhCkZQ@mail.gmail.com>
-Subject: Re: [PATCH v8 1/3] arm: npcm: add basic support for Nuvoton BMCs
-To: Brendan Higgins <brendanhiggins@google.com>
-Cc: Rob Herring <robh+dt@kernel.org>, Russell King <linux@armlinux.org.uk>, 
- Mark Rutland <mark.rutland@arm.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Avi Fishman <avifishman70@gmail.com>, Rick Altherr <raltherr@google.com>, 
- Florian Fainelli <f.fainelli@gmail.com>, julien.thierry@arm.com, 
- devicetree <devicetree@vger.kernel.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>, 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yt8lJ21m5zDsPs
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Dec 2017 09:08:58 +1100 (AEDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 07 Dec 2017 14:08:48 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.45,374,1508828400"; d="scan'208";a="14083488"
+Received: from yoojae-mobl.amr.corp.intel.com (HELO [10.7.153.149])
+ ([10.7.153.149])
+ by orsmga001.jf.intel.com with ESMTP; 07 Dec 2017 14:08:48 -0800
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Subject: Re: [PATCH 4/6] Documentation: dt-bindings,hwmon: Add Aspeed PECI
+ hwmon
+To: Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+References: <20171206210313.7138-1-jae.hyun.yoo@linux.intel.com>
+ <1512607269.2808930.1196642712.54A8CC54@webmail.messagingengine.com>
+Message-ID: <6c6cee6d-16e0-4f94-0e3e-da4030ed5f2d@linux.intel.com>
+Date: Thu, 7 Dec 2017 14:08:47 -0800
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.0
+MIME-Version: 1.0
+In-Reply-To: <1512607269.2808930.1196642712.54A8CC54@webmail.messagingengine.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -72,53 +43,279 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Dec 2017 21:20:19 -0000
+X-List-Received-Date: Thu, 07 Dec 2017 22:09:01 -0000
 
-Brendan,
 
-On Thu, Dec 7, 2017 at 9:37 PM, Brendan Higgins
-<brendanhiggins@google.com> wrote:
-> Any update on this?
->
-> On Fri, Nov 17, 2017 at 11:07 AM, Brendan Higgins
-> <brendanhiggins@google.com> wrote:
->> Adds basic support for the Nuvoton NPCM750 BMC.
+
+On 12/6/2017 4:41 PM, Andrew Jeffery wrote:
+> On Thu, 7 Dec 2017, at 07:33, Jae Hyun Yoo wrote:
+>> This commit add dt-bindings and hwmon documents for Aspeed PECI
+>> hwmon.
 >>
->> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
->> Reviewed-by: Tomer Maimon <tmaimon77@gmail.com>
->> Reviewed-by: Avi Fishman <avifishman70@gmail.com>
->> Tested-by: Tomer Maimon <tmaimon77@gmail.com>
->> Tested-by: Avi Fishman <avifishman70@gmail.com>
+>> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+>> ---
+>>   .../bindings/hwmon/aspeed-peci-hwmon.txt           | 89
+>>   ++++++++++++++++++++++
+>>   Documentation/hwmon/aspeed-peci-hwmon              | 64 ++++++++++++++++
+>>   2 files changed, 153 insertions(+)
+>>   create mode 100644
+>>   Documentation/devicetree/bindings/hwmon/aspeed-peci-hwmon.txt
+>>   create mode 100644 Documentation/hwmon/aspeed-peci-hwmon
+> 
+> I'd recommend splitting out these changes, it will make upstream a bit
+> happier. I'd recommend sending upstream as soon as possible as well.
+> 
 
-<snip>
+Okay, no problem. I'll split these out. Also, I will add upstream
+maintainers as well from the v2 patch set.
 
+>>
+>> diff --git
+>> a/Documentation/devicetree/bindings/hwmon/aspeed-peci-hwmon.txt
+>> b/Documentation/devicetree/bindings/hwmon/aspeed-peci-hwmon.txt
+>> new file mode 100644
+>> index 000000000000..a20a82f3380c
 >> --- /dev/null
->> +++ b/arch/arm/mach-npcm/npcm7xx.c
->> @@ -0,0 +1,25 @@
->> +/*
->> + * Copyright (c) 2017 Nuvoton Technology corporation.
->> + * Copyright 2017 Google, Inc.
->> + *
->> + * This program is free software; you can redistribute it and/or modify
->> + * it under the terms of the GNU General Public License version 2 as
->> + * published by the Free Software Foundation.
->> + */
+>> +++ b/Documentation/devicetree/bindings/hwmon/aspeed-peci-hwmon.txt
+>> @@ -0,0 +1,89 @@
+>> +* ASPEED PECI (Platform Environment Control Interface) hwmon driver.
+>> +
+>> +Dependency:
+>> +- This driver uses ASPEED PECI kernel misc driver as a controller
+>> interface
+>> +  which can be enabled by setting CONFIG_ASPEED_PECI as yes.
+>> +
+>> +Required properties:
+>> +- multi-functional device body: "aspeed,ast2400-peci" or
+>> "aspeed,ast2500-peci"
+>> +       - aspeed,ast2400-peci: Aspeed AST2400 family PECI MFD
+>> +       - aspeed,ast2500-peci: Aspeed AST2500 family PECI MFD
+>> +- compatible: "aspeed,ast2400-peci-hwmon" or "aspeed,ast2500-peci-hwmon"
+>> +       - aspeed,ast2400-peci-hwmon: Aspeed AST2400 family PECI hwmon
+>> +       - aspeed,ast2500-peci-hwmon: Aspeed AST2500 family PECI hwmon
+>> +- cpu-id: Should contain CPU socket ID
+>> +       - 0 ~ 7
+>> +
+>> +Optional properties:
+>> +- show-core: If this property is 1, core temperature attributes will be
+>> +             enumerated.
+>> +       0 or 1 (default: 1)
+>> +            In fact, these will be appeared when first reading on other
+>> attr
+>> +            happens because it needs cpu info reading. The number of
+>> generated
+>> +            core attrs depends on the number of cores of the cpu
+>> package.
+> 
+> A couple of points here:
+> 
+> It seems show-core is actually a boolean property. In this case you
+> don't need to describe a value; you can simple measure the presence or
+> absence of the property in the node rather than assigning the property 0
+> or 1.
+> 
 
-Have you considered using the new SPDX ids here instead of the
-traditional license boilerplate?
+Agreed. Will fix it.
 
-This could come out this way:
+> Separately, from the description it sounds like the hwmon attributes
+> will appear "dynamically", i.e. after probe time. If that's not the case
+> then disregard the following, but i expect this will have a tough time
+> upstream. probe() should do the reads and determine the number of
+> attributes required. Whilst I think you're right to document this
+> behaviour, I don't think the bindings documentation is the right place
+> for it
+> 
 
-// SPDX-License-Identifier: GPL-2.0
-// Copyright (c) 2017 Nuvoton Technology corporation.
-// Copyright 2017 Google, Inc.
+You described it correctly. Actually, it tries to create core
+temperature attributes when probe() is called but in case of CPU
+offline, it can't create these attributes because it can't retrieve
+physical core numbers information from the CPU, so the creation
+will be deferred after the first reading on an another attribute
+happens when the host CPU is back online. It's kind of a PECI
+restriction.
 
-It is shorter and simpler, with a better code/comments ratio.
-And if you wonder about why using C++ style comment, please check
-Linus posts on the topic, as well as Thomas doc patches.
+I agree with you that the bindings documentation isn't the right place
+to describe it. Will move it into hwmon documentation.
 
-Thank you for your kind consideration!
+>> +- dimm-nums: Should contain the number of DIMM slots that attached to
+>> the CPU
+>> +            which is indicated by cpu-id.
+>> +       0 ~ 16 (default: 16)
+>> +            In case of 0, DIMM temperature attrs will not be enumerated.
+>> +
+>> +Example:
+>> +       peci: peci@1e78b000 {
+>> +               compatible = "aspeed,ast2500-peci", "simple-mfd";
+>> +
+>> +               peci_hwmon0: peci-hwmon-cpu0 {
+>> +                       compatible = "aspeed,ast2500-peci-hwmon";
+>> +                       cpu-id = <0>;
+>> +                       show-core = <1>;
+>> +                       dimm-nums = <16>;
+>> +               };
+>> +
+>> +               peci_hwmon1: peci-hwmon-cpu1 {
+>> +                       compatible = "aspeed,ast2500-peci-hwmon";
+>> +                       cpu-id = <1>;
+>> +                       show-core = <1>;
+>> +                       dimm-nums = <16>;
+>> +               };
+>> +
+>> +               peci_hwmon2: peci-hwmon-cpu2 {
+>> +                       compatible = "aspeed,ast2500-peci-hwmon";
+>> +                       cpu-id = <2>;
+>> +                       show-core = <1>;
+>> +                       dimm-nums = <16>;
+>> +               };
+>> +
+>> +               peci_hwmon3: peci-hwmon-cpu3 {
+>> +                       compatible = "aspeed,ast2500-peci-hwmon";
+>> +                       cpu-id = <3>;
+>> +                       show-core = <1>;
+>> +                       dimm-nums = <16>;
+>> +               };
+>> +
+>> +               peci_hwmon4: peci-hwmon-cpu4 {
+>> +                       compatible = "aspeed,ast2500-peci-hwmon";
+>> +                       cpu-id = <4>;
+>> +                       show-core = <1>;
+>> +                       dimm-nums = <16>;
+>> +               };
+>> +
+>> +               peci_hwmon5: peci-hwmon-cpu5 {
+>> +                       compatible = "aspeed,ast2500-peci-hwmon";
+>> +                       cpu-id = <5>;
+>> +                       show-core = <1>;
+>> +                       dimm-nums = <16>;
+>> +               };
+>> +
+>> +               peci_hwmon6: peci-hwmon-cpu6 {
+>> +                       compatible = "aspeed,ast2500-peci-hwmon";
+>> +                       cpu-id = <6>;
+>> +                       show-core = <1>;
+>> +                       dimm-nums = <16>;
+>> +               };
+>> +
+>> +               peci_hwmon7: peci-hwmon-cpu7 {
+>> +                       compatible = "aspeed,ast2500-peci-hwmon";
+>> +                       cpu-id = <7>;
+>> +                       show-core = <1>;
+>> +                       dimm-nums = <16>;
+>> +               };
+>> +       };
+> 
+> Example is probably a little verbose. You get the same effect with
+> describing just two sockets.
+> 
 
--- 
-Cordially
-Philippe Ombredanne
+Yes it is. I'll fix it like you said.
+
+>> +
+>> diff --git a/Documentation/hwmon/aspeed-peci-hwmon
+>> b/Documentation/hwmon/aspeed-peci-hwmon
+>> new file mode 100644
+>> index 000000000000..2debf1353e74
+>> --- /dev/null
+>> +++ b/Documentation/hwmon/aspeed-peci-hwmon
+>> @@ -0,0 +1,64 @@
+>> +Kernel driver aspeed-peci-hwmon
+>> +===============================
+>> +
+>> +Supported chips:
+>> +       ASPEED AST2400/2500
+>> +
+>> +Author:
+>> +       Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+>> +
+>> +
+>> +Hardware Interfaces
+>> +-------------------
+>> +
+>> +This driver uses ASPEED PECI kernel misc driver as a controller
+>> interface which
+>> +can be enabled by setting CONFIG_ASPEED_PECI as yes.
+>> +
+>> +
+>> +Description
+>> +-----------
+>> +
+>> +This driver implements support for the ASPEED AST2400/2500 PECI hwmon.
+>> +
+>> +
+>> +sysfs files
+>> +-----------
+>> +
+>> +temp1_input            Provides current die temperature of the CPU
+>> package.
+>> +temp1_max              Provides thermal control temperature of the CPU
+>> package
+>> +                       which is also known as Tcontrol.
+>> +temp1_crit             Provides shutdown temperature of the CPU package
+>> which
+>> +                       is also known as the maximum processor junction
+>> +                       temperature, Tjmax or Tprochot.
+>> +temp1_crit_hyst                Provides the hysteresis value from
+>> Tcontrol to Tjmax of
+>> +                       the CPU package.
+>> +
+>> +temp2_input            Provides current DTS thermal margin to Tcontrol
+>> of the
+>> +                       CPU package. Value 0 means it reaches to Tcontrol
+>> +                       temperature. Sub-zero value means the die
+>> temperature
+>> +                       goes across Tconrtol to Tjmax.
+>> +temp2_min              Provides the minimum DTS thermal margin to
+>> Tcontrol of
+>> +                       the CPU package.
+>> +temp2_lcrit            Provides the value when the CPU package
+>> temperature
+>> +                       reaches to Tjmax.
+>> +
+>> +temp3_input            Provides current Tcontrol temperature of the CPU
+>> +                       package which is also known as Fan Temperature
+>> target.
+>> +                       Indicates the relative value from thermal monitor
+>> trip
+>> +                       temperature at which fans should be engaged.
+>> +temp3_crit             Provides Tcontrol critical value of the CPU
+>> package
+>> +                       which is same to Tjmax.
+>> +
+>> +temp4_input            Provides current Tthrottle temperature of the CPU
+>> +                       package. Used for throttling temperature. If this
+>> value
+>> +                       is allowed and lower than Tjmax - the throttle
+>> will
+>> +                       occur and reported at lower than Tjmax.
+>> +
+>> +temp[100-127]_input    Provides current core temperature.
+>> +temp[100-127]_max      Provides thermal control temperature of the core.
+>> +temp[100-127]_crit     Provides shutdown temperature of the core.
+>> +temp[100-127]_crit_hyst        Provides the hysteresis value from
+>> Tcontrol to Tjmax of
+>> +                       the core.
+>> +
+>> +temp[200-215]_input    Provides current temperature of the DDR DIMM.
+> 
+> I think you're going to struggle getting support for the discontinuities
+> in the numbering.
+> 
+
+The current Skylake architecture supports up to 28 physical cores and 16
+DIMM slots but it could be changed in the next or later architecture so
+it is the reason why I put some numbering margin between them. Would it
+be better to remove these discontinuities in the numbering?
+
+> Cheers
+> 
+> Andrew
+> 
+
+Thanks a lot,
+
+Jae
+
+>> +
+>> -- 
+>> 2.15.1
+>>
