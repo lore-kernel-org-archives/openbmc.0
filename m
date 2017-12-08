@@ -1,57 +1,61 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4010:c07::244; helo=mail-lf0-x244.google.com;
+ (client-ip=2a00:1450:4010:c07::243; helo=mail-lf0-x243.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="b/9dzPfl"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Um99b5r8"; 
  dkim-atps=neutral
-Received: from mail-lf0-x244.google.com (mail-lf0-x244.google.com
- [IPv6:2a00:1450:4010:c07::244])
+Received: from mail-lf0-x243.google.com (mail-lf0-x243.google.com
+ [IPv6:2a00:1450:4010:c07::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ytMpp5Yf6zDqlG
- for <openbmc@lists.ozlabs.org>; Fri,  8 Dec 2017 17:27:46 +1100 (AEDT)
-Received: by mail-lf0-x244.google.com with SMTP id e137so10761593lfg.5
- for <openbmc@lists.ozlabs.org>; Thu, 07 Dec 2017 22:27:46 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ytMtd5Rj2zDrYf
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Dec 2017 17:31:05 +1100 (AEDT)
+Received: by mail-lf0-x243.google.com with SMTP id f13so10736108lff.12
+ for <openbmc@lists.ozlabs.org>; Thu, 07 Dec 2017 22:31:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=vjmLwfRQi6gH1DJwjZCihArzJJV4G1SXKtKra6280jU=;
- b=b/9dzPfl25TZZtc1QXfiaNJ4f9oGkqdhPF8G4g7jL4LUvRMAz+PzgL34P/899EM3kL
- nIjpRa0ysDvBMjAolEhpvsxxZ/86NrJUjNxtohF2f0H5sMLQbFLkaYzfjkwXw8FqlIPv
- kje7fkWj4/YI63szubORWq2plwGguuJkU0XCwzUwY92pFcT8F3xxRucThSO9mlUxgsjS
- Hakb4is1I4yuExd3jUf8eSF65I/AYKlTOe4Yh6ivWinv/FKlc7d3TVwIQ/c/2qkJxX3k
- 6ZAGfYY7+enm0JKYNWAgVjOetI2cM46ORbYG+xfYFwmpfi0q1CYqxnGEml1oXnbvHvpZ
- GmUg==
+ bh=PzXR5uIVnr0d+TWLjHLVTpJNpk/798jXpUXlknQmwoA=;
+ b=Um99b5r8mFEuPr0FyZXDlcrtCyWdwaDBL3IiG4w7t7i6Paht3XsJpVHrt8W3e8UNL9
+ ivYZo100KFugQhwpj+xekPxDM8AdOClXmwYxlQR8dPXfdNV61Hd5PmGgPWcPfHksFLhU
+ IjkyU2nNVtddyu/oFSsUPfz5BAZg+zrj97a7I+2gwZRshHXsdOSt3CWSkqWnZVRR1Tp3
+ JuVLqgx9YW8SrIqQPktwzS1OvvaNEC3AnJMnGwCJUdx77KaqOh8u21jxpLvna+44jQ/p
+ TjWdfKBf+irUVtJbCygIzLWPavBAJM3gIFoHcLP87MFpg9ywjIjj3XMjDu1oe5723BUq
+ FiJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=vjmLwfRQi6gH1DJwjZCihArzJJV4G1SXKtKra6280jU=;
- b=i412Ibc5FHEHwtiYV8LBbJCBKwNdVx9jX7UNbvU7Qz5NOTSeSQ5+ej+I4EDOgHEgQ7
- iheQUU8Ov1pSMxAiMRaIpmStq8FYnZzl8B0XHATjOiul265nmsW7ibHFlwD8dbegWcJF
- xGQNn8yxbLs1lhlMOc1fqepFbvBBoJWDX06NfsDxI4YCSnjvzLbOYYGehFDWh2O///9w
- k4ynTqUmmikZfzaUNRMc1o6UCZ/QJrpYdjoY4iPtltBuektcfHOcwylY3D/8+vzolX8Q
- +Lk//zBbz0XJHP2c0CU8wTCBN5O8nBiN7hZ62RVbfO3petYac4AneOshqrJRTY/UdeJb
- I7ww==
-X-Gm-Message-State: AJaThX4qmv4rZe3Lr5qU2rxNcLP0hW4Dgc2eAk7g+bCUDld5rfE4lJZq
- w89HrDvgQiWQHhsahfH6wYzsIjdT+O2RhoOoK44=
-X-Google-Smtp-Source: AGs4zMYJmS1q4lX7J2jcBxuIS4scWGdrdUOPxopnZ2EqPunWUEOP2yWk3CZiwHbP6roGx8nx7U8xrccQE2z3zpnTU80=
-X-Received: by 10.25.203.17 with SMTP id b17mr12748547lfg.5.1512714462254;
- Thu, 07 Dec 2017 22:27:42 -0800 (PST)
+ bh=PzXR5uIVnr0d+TWLjHLVTpJNpk/798jXpUXlknQmwoA=;
+ b=el0Wapxzh0eTp+qMEVDG1/rh00h+j0FNHV8pbl6lb8szoVEE7rvdJMZQi5Sor/5FWV
+ jbkIO2dlCuEp1ZJQP4C3Zx9zNLIPutadPKvH2+4e+aZSUXb6ZdohUymSgjkxaENNXZNs
+ nCpmVH/TOmDi+ZbkrVFEP6unV9g5NFyZEW8zldgf/IaAh5Lft10OVMzQnPqS4oOzKekm
+ LWzsqWscd2NMcmJOns2OkqX1wbfqL1906F6Eg7PSgfGUkuXIniJkyMfktsDPZXpF3IBY
+ e14BXVO5Ndqxg3NWTpbOOsVDRs1l8aXnSjFXJH9XkqowMl58DB0sjL4OBNGi0NqMMQyy
+ GPhw==
+X-Gm-Message-State: AJaThX5jU9MIpiLLDehjy1nKmfTXflGlvAue2VEL6+xZ/Xe707qecdee
+ VbjvOATLwEn1Hixj0eC7vplUixhWsDBEN6shHBA=
+X-Google-Smtp-Source: AGs4zMZsvOBJ1se854hAZcdRi2UUnjRnsKCDt/6ONwvVOXIIXwZUr0UCwa8Ou9CTB73bPAXbYGJCZsHWQ9Rd+mTQVsU=
+X-Received: by 10.46.88.68 with SMTP id x4mr15540469ljd.138.1512714662639;
+ Thu, 07 Dec 2017 22:31:02 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.25.155.83 with HTTP; Thu, 7 Dec 2017 22:27:21 -0800 (PST)
-In-Reply-To: <20171206020008.2562-1-venture@google.com>
-References: <20171206020008.2562-1-venture@google.com>
+Received: by 10.25.155.83 with HTTP; Thu, 7 Dec 2017 22:30:42 -0800 (PST)
+In-Reply-To: <CAO=notwPBvHSvHgnQCycajUyJ-13sa+TrXYxmzKc5SL-V+8_-Q@mail.gmail.com>
+References: <20171120185445.146061-1-venture@google.com>
+ <CAO=notwF3acqwMHeuQyp4rUQwN6K0oj_py46-feMf3hoRydLyA@mail.gmail.com>
+ <CACPK8Xet_aaCf3StQKwzXGTd1Oi0A=P-i1QU7faCuxOFb3ktxw@mail.gmail.com>
+ <CAO=notwPBvHSvHgnQCycajUyJ-13sa+TrXYxmzKc5SL-V+8_-Q@mail.gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 8 Dec 2017 16:57:21 +1030
-X-Google-Sender-Auth: 4Z7WmrZNlgZvWL7OEflX6rjgQYU
-Message-ID: <CACPK8Xe6kFN5wpNP=T0phWicvjAULit9ympLUXySGxaD-sTLxQ@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: zaius: move coin battery
- sensor
+Date: Fri, 8 Dec 2017 17:00:42 +1030
+X-Google-Sender-Auth: 94SDjI_w3sZF8yxYO4lWxYmjbkg
+Message-ID: <CACPK8XeRxVvn1ZUM+WDWF5td6edBwWrdsxm7Ozn78FcJf8E1vQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: gpio controller register
+ range
 To: Patrick Venture <venture@google.com>
-Cc: Xo Wang <xow@google.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: Andrew Jeffery <andrew@aj.id.au>, Jeremy Kerr <jk@ozlabs.org>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
@@ -64,44 +68,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Dec 2017 06:27:47 -0000
+X-List-Received-Date: Fri, 08 Dec 2017 06:31:06 -0000
 
-On Wed, Dec 6, 2017 at 12:30 PM, Patrick Venture <venture@google.com> wrote:
-> Moved the coin battery sensor into a separate iio-hwmon
-> instance to facilitate reading it as a separate hwmon instance.
+On Fri, Dec 1, 2017 at 2:05 AM, Patrick Venture <venture@google.com> wrote:
+> On Wed, Nov 29, 2017 at 7:53 PM, Joel Stanley <joel@jms.id.au> wrote:
+>> On Thu, Nov 30, 2017 at 5:03 AM, Patrick Venture <venture@google.com> wrote:
+>>> Can I get a status on this patch?  The device datasheet has 4K
+>>> reserved for the range, but only the first 512 are registers
+>>> controlled by this driver.  The rest will be handled by a separate
+>>> driver.  Or at least that's how it's planned.
+>>
+>> +cc the people who have worked on this.
+>>
+>> I think that's okay, but lets see what the others have to say.
+>>
+>> Do you have a driver for the rest of the GPIOs you can submit? I'd
+>> like to see  that code so we can decide if there is good reason to
+>> make that completely separate, and not part of the existing driver.
+>>
+>> This work is best done upstream, as you will need to make the same
+>> arguments there.
 >
-> Naming of ADC inputs in follow-on patchset.
+> I should have a driver ready sometime late next week that I'll be
+> sending upstream first.  I still need to finish up a few loose ends on
+> it.  It wouldn't be unreasonable to have them in the same driver,
+> you'd just end up with two groups of gpios that are handled
+> differently, and extra soft-irqs.  That said, if you have two large
+> groups of things that need to be treated differently, then that's
+> somewhat of an argument for having them separate. :)
 >
-> Signed-off-by: Patrick Venture <venture@google.com>
+> I'd actually appreciate hearing some thoughts at this point on which
+> way to go, since merging the serial handling into the main driver will
+> require re-working a few things -- I'd rather take the extra time to
+> handle that merge if it's going to head in that direction anyway.
+>
+> I have read through the gpio-aspeed driver before, as it was a bit
+> useful as a guide, and I could see it getting a bit cluttered with
+> also handling the serial gpios.
 
-Applied to dev-4.10.
+It sounds like a call that could go either way. If you think it would
+be easier to maintain two separate drivers then we can go that
+direction.
+
+I'd suggest discussing it upstream.
+
+The best way to discuss it would be in the form of a patch. Even if
+it's not complete, post it as a RFC.
 
 Cheers,
 
 Joel
-
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> index 5f6a11ad93d4..17f2000d5cd5 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> @@ -102,7 +102,12 @@
->                 io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
->                         <&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>,
->                         <&adc 8>, <&adc 9>, <&adc 10>, <&adc 11>,
-> -                       <&adc 12>, <&adc 13>, <&adc 14>, <&adc 15>;
-> +                       <&adc 13>, <&adc 14>, <&adc 15>;
-> +       };
-> +
-> +       iio-hwmon-battery {
-> +               compatible = "iio-hwmon";
-> +               io-channels = <&adc 12>;
->         };
->  };
->
-> --
-> 2.15.0.531.g2ccb3012c9-goog
->
