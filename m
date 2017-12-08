@@ -3,59 +3,54 @@ Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
  (client-ip=2a00:1450:4010:c07::243; helo=mail-lf0-x243.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Um99b5r8"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="n6Btn5uW"; 
  dkim-atps=neutral
 Received: from mail-lf0-x243.google.com (mail-lf0-x243.google.com
  [IPv6:2a00:1450:4010:c07::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ytMtd5Rj2zDrYf
- for <openbmc@lists.ozlabs.org>; Fri,  8 Dec 2017 17:31:05 +1100 (AEDT)
-Received: by mail-lf0-x243.google.com with SMTP id f13so10736108lff.12
- for <openbmc@lists.ozlabs.org>; Thu, 07 Dec 2017 22:31:05 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ytMwB06sRzDrYf
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Dec 2017 17:32:25 +1100 (AEDT)
+Received: by mail-lf0-x243.google.com with SMTP id c140so3935601lfg.7
+ for <openbmc@lists.ozlabs.org>; Thu, 07 Dec 2017 22:32:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=PzXR5uIVnr0d+TWLjHLVTpJNpk/798jXpUXlknQmwoA=;
- b=Um99b5r8mFEuPr0FyZXDlcrtCyWdwaDBL3IiG4w7t7i6Paht3XsJpVHrt8W3e8UNL9
- ivYZo100KFugQhwpj+xekPxDM8AdOClXmwYxlQR8dPXfdNV61Hd5PmGgPWcPfHksFLhU
- IjkyU2nNVtddyu/oFSsUPfz5BAZg+zrj97a7I+2gwZRshHXsdOSt3CWSkqWnZVRR1Tp3
- JuVLqgx9YW8SrIqQPktwzS1OvvaNEC3AnJMnGwCJUdx77KaqOh8u21jxpLvna+44jQ/p
- TjWdfKBf+irUVtJbCygIzLWPavBAJM3gIFoHcLP87MFpg9ywjIjj3XMjDu1oe5723BUq
- FiJg==
+ bh=b8J+1OtDRtq5rtFVzojrYJcAZpvIcEFL7f9L6iyhWYs=;
+ b=n6Btn5uW1B/Nvcu1jBFNuNDnj/MurFdHeZMsujZF30pUo3DZIb9vUEAl/NJUTqHB8V
+ HTFEz6kUsGSDcEw2eUqUmSoJY1al06j20vdl2ZM6dIbMlrGcEf99Ie75i3Jt0fsoVGr7
+ 3NLXz7+pKbmGRzhWtc1TevWaMBQeeslO8SGM45atyL/Bhm+8ismfBqnBiEHFiwF4oHUz
+ mIsugwaTRJhd+aq55zuiuTVWnLfeLqkVY3tlyDPxm6PiGCXtrUShAiy7EC7sfR066xa4
+ UF0g3pAWs6FakP6wuUdXYTRHKzA3Gv0NbopUF0b2gujG45OGqpFMOCNArptp+/VkDkED
+ uC4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=PzXR5uIVnr0d+TWLjHLVTpJNpk/798jXpUXlknQmwoA=;
- b=el0Wapxzh0eTp+qMEVDG1/rh00h+j0FNHV8pbl6lb8szoVEE7rvdJMZQi5Sor/5FWV
- jbkIO2dlCuEp1ZJQP4C3Zx9zNLIPutadPKvH2+4e+aZSUXb6ZdohUymSgjkxaENNXZNs
- nCpmVH/TOmDi+ZbkrVFEP6unV9g5NFyZEW8zldgf/IaAh5Lft10OVMzQnPqS4oOzKekm
- LWzsqWscd2NMcmJOns2OkqX1wbfqL1906F6Eg7PSgfGUkuXIniJkyMfktsDPZXpF3IBY
- e14BXVO5Ndqxg3NWTpbOOsVDRs1l8aXnSjFXJH9XkqowMl58DB0sjL4OBNGi0NqMMQyy
- GPhw==
-X-Gm-Message-State: AJaThX5jU9MIpiLLDehjy1nKmfTXflGlvAue2VEL6+xZ/Xe707qecdee
- VbjvOATLwEn1Hixj0eC7vplUixhWsDBEN6shHBA=
-X-Google-Smtp-Source: AGs4zMZsvOBJ1se854hAZcdRi2UUnjRnsKCDt/6ONwvVOXIIXwZUr0UCwa8Ou9CTB73bPAXbYGJCZsHWQ9Rd+mTQVsU=
-X-Received: by 10.46.88.68 with SMTP id x4mr15540469ljd.138.1512714662639;
- Thu, 07 Dec 2017 22:31:02 -0800 (PST)
+ bh=b8J+1OtDRtq5rtFVzojrYJcAZpvIcEFL7f9L6iyhWYs=;
+ b=ETfBxALj7/JjAeUyWa8d6mnVFN6IPD5nivUqpc4sWDwBvycrL4AlTPNEqltHo2hg9H
+ FqNebEg7rgvjreCU40mx5pBKPQwayH7FnTEDYf/eqkm3uiLPLVXcXiZ4tNgB65nOuTDM
+ PQsam+YvXFxo1ZZXOW5XXe0DJzJRJQKPpYxMJs2sHqI2QldfnaeuJE7noXr0mHIXF8dK
+ yEzheK+DtthlKTknXA/h+BgxOd6aPexh/l4SwjvJKdADEN68xYxdJ0EJqec2RIsIrf7g
+ afU/PlqPH+G/lDmfF+z5+6VmmP5wm/0m/zN3yX+zGejbttXDFk5YA4pgWMoqlLSN4P4B
+ SrRA==
+X-Gm-Message-State: AKGB3mK5+N2aUEjNrBB9tA8Qv+kpuz5l3wgEsg8WcRxSfyQ6YzCvhd2o
+ HhxNOUM6HRS/TMTuKznun7b1bTYnOtrlR+EnPQpQMmeD
+X-Google-Smtp-Source: AGs4zMZNNVFMKvNqxRHUcEag+7WIfQ0cBTJmWC5QF3lHAIV+fZc+QQhNZZHZ2jFRlBXprBxiATauJJxVwXcFMyxW5j8=
+X-Received: by 10.25.162.72 with SMTP id l69mr10444002lfe.45.1512714742934;
+ Thu, 07 Dec 2017 22:32:22 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.25.155.83 with HTTP; Thu, 7 Dec 2017 22:30:42 -0800 (PST)
-In-Reply-To: <CAO=notwPBvHSvHgnQCycajUyJ-13sa+TrXYxmzKc5SL-V+8_-Q@mail.gmail.com>
-References: <20171120185445.146061-1-venture@google.com>
- <CAO=notwF3acqwMHeuQyp4rUQwN6K0oj_py46-feMf3hoRydLyA@mail.gmail.com>
- <CACPK8Xet_aaCf3StQKwzXGTd1Oi0A=P-i1QU7faCuxOFb3ktxw@mail.gmail.com>
- <CAO=notwPBvHSvHgnQCycajUyJ-13sa+TrXYxmzKc5SL-V+8_-Q@mail.gmail.com>
+Received: by 10.25.155.83 with HTTP; Thu, 7 Dec 2017 22:32:02 -0800 (PST)
+In-Reply-To: <20171127201333.189812-1-venture@google.com>
+References: <20171127201333.189812-1-venture@google.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 8 Dec 2017 17:00:42 +1030
-X-Google-Sender-Auth: 94SDjI_w3sZF8yxYO4lWxYmjbkg
-Message-ID: <CACPK8XeRxVvn1ZUM+WDWF5td6edBwWrdsxm7Ozn78FcJf8E1vQ@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] ARM: dts: aspeed: gpio controller register
- range
+Date: Fri, 8 Dec 2017 17:02:02 +1030
+X-Google-Sender-Auth: KzHwCVGE4FcG4VhF_xD6yPTu39U
+Message-ID: <CACPK8Xd8zoXjtw6mfwUsyoyZEamqEpPSHu-UkLvQD2s03L4nEw@mail.gmail.com>
+Subject: Re: [PATCH linux] ARM: dts: aspeed: quanta: add i2cmux for frus
 To: Patrick Venture <venture@google.com>
-Cc: Andrew Jeffery <andrew@aj.id.au>, Jeremy Kerr <jk@ozlabs.org>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
@@ -68,53 +63,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Dec 2017 06:31:06 -0000
+X-List-Received-Date: Fri, 08 Dec 2017 06:32:27 -0000
 
-On Fri, Dec 1, 2017 at 2:05 AM, Patrick Venture <venture@google.com> wrote:
-> On Wed, Nov 29, 2017 at 7:53 PM, Joel Stanley <joel@jms.id.au> wrote:
->> On Thu, Nov 30, 2017 at 5:03 AM, Patrick Venture <venture@google.com> wrote:
->>> Can I get a status on this patch?  The device datasheet has 4K
->>> reserved for the range, but only the first 512 are registers
->>> controlled by this driver.  The rest will be handled by a separate
->>> driver.  Or at least that's how it's planned.
->>
->> +cc the people who have worked on this.
->>
->> I think that's okay, but lets see what the others have to say.
->>
->> Do you have a driver for the rest of the GPIOs you can submit? I'd
->> like to see  that code so we can decide if there is good reason to
->> make that completely separate, and not part of the existing driver.
->>
->> This work is best done upstream, as you will need to make the same
->> arguments there.
+On Tue, Nov 28, 2017 at 6:43 AM, Patrick Venture <venture@google.com> wrote:
+> The memory riser frus on the board are controlled
+> by a gpio mux.
 >
-> I should have a driver ready sometime late next week that I'll be
-> sending upstream first.  I still need to finish up a few loose ends on
-> it.  It wouldn't be unreasonable to have them in the same driver,
-> you'd just end up with two groups of gpios that are handled
-> differently, and extra soft-irqs.  That said, if you have two large
-> groups of things that need to be treated differently, then that's
-> somewhat of an argument for having them separate. :)
+> Signed-off-by: Patrick Venture <venture@google.com>
+> ---
+>  arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts | 93 +++++++++++++++++++++-------
+>  1 file changed, 69 insertions(+), 24 deletions(-)
 >
-> I'd actually appreciate hearing some thoughts at this point on which
-> way to go, since merging the serial handling into the main driver will
-> require re-working a few things -- I'd rather take the extra time to
-> handle that merge if it's going to head in that direction anyway.
->
-> I have read through the gpio-aspeed driver before, as it was a bit
-> useful as a guide, and I could see it getting a bit cluttered with
-> also handling the serial gpios.
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+> index 42b1d8007316..b93b29191960 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+> @@ -119,6 +119,75 @@
+>                         <&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>,
+>                         <&adc 8>, <&adc 9>, <&adc 10>, <&adc 11>;
+>         };
+> +
+> +       i2cmux@1 {
 
-It sounds like a call that could go either way. If you think it would
-be easier to maintain two separate drivers then we can go that
-direction.
+When you stick a unit name on a node, it is supposed to have a
+matching reg property. We don't have a reg property here, so we
+shouldn't have the number. This matches what the i2c-mux-gpio bindings
+describe.
 
-I'd suggest discussing it upstream.
-
-The best way to discuss it would be in the form of a patch. Even if
-it's not complete, post it as a RFC.
+I dropped the '@1' for you when applying. It's in dev-4.10 now.
 
 Cheers,
 
 Joel
+
+> +               compatible = "i2c-mux-gpio";
+> +               #address-cells = <1>;
+> +               #size-cells = <0>;
