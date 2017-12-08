@@ -1,59 +1,57 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4010:c07::231; helo=mail-lf0-x231.google.com;
+ (client-ip=2a00:1450:4010:c07::241; helo=mail-lf0-x241.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="pTZCVdrI"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="qPMdSZeW"; 
  dkim-atps=neutral
-Received: from mail-lf0-x231.google.com (mail-lf0-x231.google.com
- [IPv6:2a00:1450:4010:c07::231])
+Received: from mail-lf0-x241.google.com (mail-lf0-x241.google.com
+ [IPv6:2a00:1450:4010:c07::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ytMZC0G49zF0Dx
- for <openbmc@lists.ozlabs.org>; Fri,  8 Dec 2017 17:16:50 +1100 (AEDT)
-Received: by mail-lf0-x231.google.com with SMTP id l81so10733397lfl.6
- for <openbmc@lists.ozlabs.org>; Thu, 07 Dec 2017 22:16:50 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ytMny4py8zDqlG
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Dec 2017 17:27:02 +1100 (AEDT)
+Received: by mail-lf0-x241.google.com with SMTP id a12so10753774lfe.4
+ for <openbmc@lists.ozlabs.org>; Thu, 07 Dec 2017 22:27:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=8eI3SPkqumQ3Wgw3bu6TXw8LqD+9atqv7fHFW57pKuk=;
- b=pTZCVdrIQ9cGSsYqdFIHA4OJsTRfBuVds3uHPra/7s3O70d6NudLUhypnspcLQD9G5
- ZyqwO+wnUhS8pm6kPbstfglb/IRXk5zwQyA+GhRD1XGCecn1arxghXIpVsQY3Q1c74fs
- G+vaxoHjM5tHdjvaleusGn09FSvSow4OkSY7qtj2gZTgzYfzvd4wdSvcWLqYiyg6s/PK
- 7IyS74aN5KRDSks9ZaDE5bm9TDdt9TJl4qhEvIMTGazA6Mpthqh+zy65MkD1PN4zzV3y
- VyTgcL/CU6LXK8DXChha0jZwBxatHoPY+4D99BnlTD5LdYu2UXyCWuU7GHfdTmaKlhLM
- 5qHQ==
+ bh=eG0AZUg/96dHFjK+wjU19h4yzf5on41pnNJ6UVn1Qpw=;
+ b=qPMdSZeWTQo4FjhxftkGffkGvRes3C7jd6aySj0i9qAKJBeUlv/h1WRWuPn92bWqHK
+ oSFQ/2XyhCMv6R0M9/QPP8QL7gZD2rjDZTafx0GBc80bkgXf4oyHgpcRGj/Zd7IutSTd
+ X0+Q2+10WnsnRFfD+Ngy4/qigDsWTc8EGqtJsVJOijltNf7U9ICGTeTNjBmYmL/03EzA
+ k0jNM8WYIRMQ5CjocEVHmV4CxWe1z6LQpbnZyMJsAD5LdQC3X2LbxK2IHQ0ka1OCRRkc
+ hXQ1pB5ZpMxW3u8TP/swAQIyZI/uL1KZtP2CrnWPzvkeKtrjzcOYGPYUUduju64LgD6v
+ BJBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=8eI3SPkqumQ3Wgw3bu6TXw8LqD+9atqv7fHFW57pKuk=;
- b=PD/C1pm+mlPnevUMXOe8KYL728sRTWg3xuIFn0NHWlQqdS0KrPMeKku/plnVtRmeVD
- Oe4au+c/JMaYfTNqNvqBm8UhG80XvtQjC/Etji7vn9qCiOXMG2XZSo+pxBZ3TVnXuN5R
- bzWCWiDG8LMj22CMnSTKxkWoAhi8QH7WC38iGayey6zEBBoUuQBK/PC4RruwfPXM3mgb
- nRIe0oe05Zimv+USrTc/DE266PqUfjUYMBWb+777sPGai7m8SwjoBMLmDWGIa572uAs6
- 9buzHcUgsfzJMJax0sB481FvaSEZDCXEpM5h24mjHAAgEWco+QhjttFOMxFCbPdwz5ED
- EVjA==
-X-Gm-Message-State: AKGB3mK7u0gKwzuAV7XlYfIcO0e2cjWu07s4FH0HpvxVjeiXLnFHidzz
- E0RmwMzbJ8Ls8vNnEI3GalhlbH0l8hKyczrJPJQ=
-X-Google-Smtp-Source: AGs4zMZOlcmc+T6jHEbkeLVuKu1a6Fa1djiIa/TVpOLZVlrp32adQraZ1EuF2mpH6rjtjGO/YdcrV27w/2NloJ0Ddew=
-X-Received: by 10.25.162.72 with SMTP id l69mr10427096lfe.45.1512713807296;
- Thu, 07 Dec 2017 22:16:47 -0800 (PST)
+ bh=eG0AZUg/96dHFjK+wjU19h4yzf5on41pnNJ6UVn1Qpw=;
+ b=WV1veVaLwyjfKzzK1hiHIm7lNnrMosnyduUalKvICW5VGCqNGrGXiorpbg/oHhc3Gb
+ /fOH6E3biOZhnkcWJtPBuqezYkiMBz7xLW8Iai29QfbNogH7S43+2q1ChyxVnDjxew/D
+ 0ZScESQnrJ0F9g/xsLmPs6UcH26wbmnbvkvC1bCvtgNje3jAKS8DQGJBoRF1G6Bcx4/3
+ vfisxvxzsRaDiaHtQ01kGygS2RMhZtL8HC/RrdVGNoTkmcxUhUWo0LCpiI/jGeYloVBc
+ hdGJoiWUH+c7Mi7tKlc+hMWC9bL97f1ocvfdcbtjgHPUEFLZ5/aRKwuezPh6hMg561Z6
+ h93g==
+X-Gm-Message-State: AKGB3mJKxCKmJ3+r+hN6B9qVSrz7qTSIOPuKynAbrybIueJoHus5GqNo
+ 9sTs/Bv2OcGLw/UfrH4xGIkX8rG05+hiSmfOTRE=
+X-Google-Smtp-Source: AGs4zMbfHfvlicokowuypw8fLVXlWXjSGqQt9A+L/0O1EcXjWREy+33b2/NyaEtkrTtpUW1kDxzUfvEERXDcoE8jRLk=
+X-Received: by 10.25.162.72 with SMTP id l69mr10437937lfe.45.1512714419045;
+ Thu, 07 Dec 2017 22:26:59 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.25.155.83 with HTTP; Thu, 7 Dec 2017 22:16:26 -0800 (PST)
-In-Reply-To: <1512587959-27264-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1512587959-27264-1-git-send-email-eajames@linux.vnet.ibm.com>
+Received: by 10.25.155.83 with HTTP; Thu, 7 Dec 2017 22:26:38 -0800 (PST)
+In-Reply-To: <CAO=notyiwG+HeGNXqdk1TPnYu40CEWdeL_ukujkHwYSkGwvmqQ@mail.gmail.com>
+References: <20171127200738.188390-1-venture@google.com>
+ <CAO=notyiwG+HeGNXqdk1TPnYu40CEWdeL_ukujkHwYSkGwvmqQ@mail.gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 8 Dec 2017 16:46:26 +1030
-X-Google-Sender-Auth: dG8GZNLKeTmqumN5qs0h9Rirl90
-Message-ID: <CACPK8Xd2Pcb8Z_2PP-B+aALLS9Z1Pc5tvX=2+1qZUbCeVyRUag@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] hwmon (occ): Fix integer overflow in
- multiplication
-To: Eddie James <eajames@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Matt Spinler <mspinler@linux.vnet.ibm.com>, 
- "Edward A. James" <eajames@us.ibm.com>
+Date: Fri, 8 Dec 2017 16:56:38 +1030
+X-Google-Sender-Auth: UcM5kwirGLHw85ijJXwfFzW54Iw
+Message-ID: <CACPK8XehSTH_SN4GmaHktJ48vAgm4C0tXBpjKdpT3gGhL0=XoA@mail.gmail.com>
+Subject: Re: [PATCH linux] ARM: dts: aspeed-g4: add serial gpio driver entry
+To: Patrick Venture <venture@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
@@ -66,25 +64,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Dec 2017 06:16:52 -0000
+X-List-Received-Date: Fri, 08 Dec 2017 06:27:03 -0000
 
-On Thu, Dec 7, 2017 at 5:49 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
-> --- a/drivers/hwmon/occ/common.c
-> +++ b/drivers/hwmon/occ/common.c
-> @@ -468,7 +468,7 @@ static ssize_t occ_show_power_1(struct device *dev,
->                                 struct device_attribute *attr, char *buf)
->  {
->         int rc;
-> -       u32 val = 0;
-> +       u64 val = 0;
->         struct power_sensor_1 *power;
->         struct occ *occ = dev_get_drvdata(dev);
->         struct occ_sensors *sensors = &occ->sensors;
-> @@ -491,11 +491,11 @@ static ssize_t occ_show_power_1(struct device *dev,
->                 val = get_unaligned_be32(&power->accumulator);
->                 break;
->         case 3:
-> -               val = get_unaligned_be16(&power->value) * 1000000;
-> +               val = (u64)get_unaligned_be16(&power->value) * 1000000ULL;
+On Tue, Nov 28, 2017 at 6:40 AM, Patrick Venture <venture@google.com> wrote:
+> There isn't yet a binding for this, but if it's acceptable. I'm going
+> to submit a gpio driver strictly for the serial gpio once I can test
+> on an ast2500.  I'm presently finalizing the ast2400 version of the
+> driver.
 
-I don't think these casts are required, are they?
+We can stage the device tree change in the openbmc tree if it helps
+your development.
+
+Applied to dev-4.10.
+
+Cheers,
+
+Joel
+
+>
+> - Patrick
+>
+> On Mon, Nov 27, 2017 at 12:07 PM, Patrick Venture <venture@google.com> wrote:
+>> Adds the serial gpio driver entry for the aspeed
+>> ast2400.
+>>
+>> Signed-off-by: Patrick Venture <venture@google.com>
+>> ---
+>>  arch/arm/boot/dts/aspeed-g4.dtsi | 9 +++++++++
+>>  1 file changed, 9 insertions(+)
+>>
+>> diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
+>> index 424d843ec1da..b82ebefcb025 100644
+>> --- a/arch/arm/boot/dts/aspeed-g4.dtsi
+>> +++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+>> @@ -238,6 +238,15 @@
+>>                                 clocks = <&clk_hpll>;
+>>                         };
+>>
+>> +                       sgpio: gpio@0x1e780200 {
+>> +                               #gpio-cells = <2>;
+>> +                               gpio-controller;
+>> +                               compatible = "aspeed,ast2400-sgpio";
+>> +                               reg = <0x1e780200 0x100>;
+>> +                               interrupts = <40>;
+>> +                               interrupt-controller;
+>> +                       };
+>> +
+>>                         timer: timer@1e782000 {
+>>                                 compatible = "aspeed,ast2400-timer";
+>>                                 reg = <0x1e782000 0x90>;
+>> --
+>> 2.15.0.417.g466bffb3ac-goog
+>>
