@@ -1,36 +1,31 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <haiyue.wang@linux.intel.com>
 Authentication-Results: ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.120; helo=mga04.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ (client-ip=134.134.136.126; helo=mga18.intel.com;
+ envelope-from=haiyue.wang@linux.intel.com; receiver=<UNKNOWN>)
+X-Greylist: delayed 694 seconds by postgrey-1.36 at bilbo;
+ Fri, 08 Dec 2017 13:46:36 AEDT
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yt8y24QpmzDsPs
- for <openbmc@lists.ozlabs.org>; Fri,  8 Dec 2017 09:18:17 +1100 (AEDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 07 Dec 2017 14:18:15 -0800
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ytGvc73XBzDrnp
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Dec 2017 13:46:36 +1100 (AEDT)
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 07 Dec 2017 18:34:50 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.45,374,1508828400"; d="scan'208";a="14085449"
-Received: from yoojae-mobl.amr.corp.intel.com (HELO [10.7.153.149])
- ([10.7.153.149])
- by orsmga001.jf.intel.com with ESMTP; 07 Dec 2017 14:18:15 -0800
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Subject: Re: [PATCH 6/6] drivers/hwmon: Add driver for Aspeed PECI hwmon
-To: Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-References: <20171206210333.7232-1-jae.hyun.yoo@linux.intel.com>
- <1512607749.2811335.1196686568.3A0C091F@webmail.messagingengine.com>
-Message-ID: <02346192-694a-fe66-b17b-235dc8cd2b58@linux.intel.com>
-Date: Thu, 7 Dec 2017 14:18:15 -0800
-User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.5.0
-MIME-Version: 1.0
-In-Reply-To: <1512607749.2811335.1196686568.3A0C091F@webmail.messagingengine.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-IronPort-AV: E=Sophos;i="5.45,375,1508828400"; 
+   d="scan'208";a="1065111"
+Received: from build0101.sh.intel.com ([10.239.164.138])
+ by orsmga006.jf.intel.com with ESMTP; 07 Dec 2017 18:34:47 -0800
+From: Haiyue Wang <haiyue.wang@linux.intel.com>
+To: openbmc@lists.ozlabs.org,
+	joel@jms.id.au
+Cc: Haiyue Wang <haiyue.wang@linux.intel.com>
+Subject: [PATCH linux dev-4.10] ipmi: add an Aspeed KCS IPMI BMC driver
+Date: Fri,  8 Dec 2017 10:34:52 +0800
+Message-Id: <1512700492-22384-1-git-send-email-haiyue.wang@linux.intel.com>
+X-Mailer: git-send-email 2.7.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -42,1114 +37,1030 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Dec 2017 22:18:19 -0000
+X-List-Received-Date: Fri, 08 Dec 2017 02:46:37 -0000
 
+This patch adds a simple device driver to expose the KCS interface on
+Aspeed SOC (AST2500) as a character device. Such SOC is commonly used
+as BMC (BaseBoard Management Controllers) and this driver implements
+the BMC side of the KCS interface.
 
-On 12/6/2017 4:49 PM, Andrew Jeffery wrote:
-> 
-> 
-> On Thu, 7 Dec 2017, at 07:33, Jae Hyun Yoo wrote:
->> This commit adds driver implementation for Aspeed PECI hwmon.
-> 
-> I think this was discussed previously, but i feel it's worth bringing up
-> again here: it feels like there should be some generic PECI subsystem
-> that this builds on top of. I can't see that should have any reason to
-> be specific to the aspeed implementation.
-> 
-> I haven't looked at the patch beyond this thought, and i don't recall
-> the outcome of the prior discussion, so take the content with a grain of
-> salt.
-> 
+The KCS (Keyboard Controller Style) interface is used to perform in-band
+IPMI communication between a host and its BMC.
 
-Thanks for your kind reminding me. As you said, it'd be good if this
-initial commit provides that kind of compatibility. My thought is, I
-could rewrite "aspeed_peci.h", "aspeed_peci_ioctl.h" and
-"aspeed-peci-hwmon.c" as "peci.h", "peci_ioctl.h" and "peci-hwmon.c"
-and make these as a generic peci subsystem so that it can be used as
-a common hwmon driver even when the misc peci driver is replaced. It
-would be feasible if other BMC's peci driver implementation follows the
-same interface scheme which will be defined in "peci.h" and
-"peci_ioctl.h".
+The device name defaults to '/dev/ipmi-kcsX', X=1,2,3,4.
 
-In fact, better add an abstract layer into misc peci layer (I think, it
-should be moved into "drivers/peci" later for this case) to cover all
-peci driver implementations ideally but I'm thinking it as a next step.
+Signed-off-by: Haiyue Wang <haiyue.wang@linux.intel.com>
+---
+ .../devicetree/bindings/mfd/aspeed-lpc.txt         |  33 +-
+ arch/arm/boot/dts/aspeed-g5.dtsi                   |  44 +-
+ drivers/char/ipmi/Kconfig                          |  10 +
+ drivers/char/ipmi/Makefile                         |   1 +
+ drivers/char/ipmi/kcs-bmc.c                        | 827 +++++++++++++++++++++
+ include/uapi/linux/kcs-bmc.h                       |  14 +
+ 6 files changed, 925 insertions(+), 4 deletions(-)
+ create mode 100644 drivers/char/ipmi/kcs-bmc.c
+ create mode 100644 include/uapi/linux/kcs-bmc.h
 
-Please correct me if it doesn't make sense.
-
-Thanks a lot,
-
-Jae
-
->>
->> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
->> ---
->>   drivers/hwmon/Kconfig             |   7 +
->>   drivers/hwmon/Makefile            |   1 +
->>   drivers/hwmon/aspeed-peci-hwmon.c | 954
->>   ++++++++++++++++++++++++++++++++++++++
->>   3 files changed, 962 insertions(+)
->>   create mode 100644 drivers/hwmon/aspeed-peci-hwmon.c
->>
->> diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
->> index 9256dd059321..e30d2d7030eb 100644
->> --- a/drivers/hwmon/Kconfig
->> +++ b/drivers/hwmon/Kconfig
->> @@ -350,6 +350,13 @@ config SENSORS_ASPEED
->>   	  This driver can also be built as a module. If so, the module
->>   	  will be called aspeed_pwm_tacho.
->>   
->> +config SENSORS_ASPEED_PECI
->> +       tristate "Aspeed AST2400/AST2500 PECI hwmon support"
->> +       depends on ASPEED_PECI
->> +       help
->> +         Hwmon driver for Platform Environment Control Interface (PECI)
->> controller
->> +         on Aspeed SoC.
->> +
->>   config SENSORS_ATXP1
->>   	tristate "Attansic ATXP1 VID controller"
->>   	depends on I2C
->> diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
->> index 98000fc2e902..88dc49313135 100644
->> --- a/drivers/hwmon/Makefile
->> +++ b/drivers/hwmon/Makefile
->> @@ -47,6 +47,7 @@ obj-$(CONFIG_SENSORS_APPLESMC)        += applesmc.o
->>   obj-$(CONFIG_SENSORS_ARM_SCPI)  += scpi-hwmon.o
->>   obj-$(CONFIG_SENSORS_ASC7621)   += asc7621.o
->>   obj-$(CONFIG_SENSORS_ASPEED)    += aspeed-pwm-tacho.o
->> +obj-$(CONFIG_SENSORS_ASPEED_PECI) += aspeed-peci-hwmon.o
->>   obj-$(CONFIG_SENSORS_ATXP1)     += atxp1.o
->>   obj-$(CONFIG_SENSORS_CORETEMP)  += coretemp.o
->>   obj-$(CONFIG_SENSORS_DA9052_ADC)+= da9052-hwmon.o
->> diff --git a/drivers/hwmon/aspeed-peci-hwmon.c
->> b/drivers/hwmon/aspeed-peci-hwmon.c
->> new file mode 100644
->> index 000000000000..4c7f86bc8e4b
->> --- /dev/null
->> +++ b/drivers/hwmon/aspeed-peci-hwmon.c
->> @@ -0,0 +1,954 @@
->> +/*
->> + * Copyright (c) 2017 Intel Corporation
->> + *
->> + * This program is free software; you can redistribute it and/or modify
->> + * it under the terms of the GNU General Public License as published by
->> + * the Free Software Foundation; either version 2 of the License, or
->> + * (at your option) any later version.
->> + */
->> +
->> +#include <linux/delay.h>
->> +#include <linux/hwmon.h>
->> +#include <linux/hwmon-sysfs.h>
->> +#include <linux/jiffies.h>
->> +#include <linux/module.h>
->> +#include <linux/mutex.h>
->> +#include <linux/of_platform.h>
->> +#include <linux/of_device.h>
->> +#include <linux/platform_device.h>
->> +#include <linux/syscalls.h>
->> +#include <misc/aspeed_peci.h>
->> +
->> +#define DEVICE_NAME "aspeed-peci-hwmon"
->> +#define HWMON_NAME "aspeed_peci_hwmon"
->> +
->> +#define CPU_ID_MAX           8   /* Max CPU number configured by socket
->> ID */
->> +#define DIMM_NUMS_MAX        16  /* Max DIMM numbers (channel ranks x 2)
->> */
->> +#define CORE_NUMS_MAX        28  /* Max core numbers (max on SKX
->> Platinum) */
->> +#define TEMP_TYPE_PECI       6   /* Sensor type 6: Intel PECI */
->> +#define CORE_INDEX_OFFSET    100 /* sysfs filename start offset for core
->> temp */
->> +#define DIMM_INDEX_OFFSET    200 /* sysfs filename start offset for DIMM
->> temp */
->> +#define TEMP_NAME_HEADER_LEN 4   /* sysfs temp type header length */
->> +#define OF_SHOW_CORE_DEFAULT 1   /* default show-core setting */
->> +#define OF_DIMM_NUMS_DEFAULT 16  /* default dimm-nums setting */
->> +
->> +#define CORE_TEMP_ATTRS      5
->> +#define DIMM_TEMP_ATTRS      2
->> +#define ATTR_NAME_LEN        24
->> +
->> +#define UPDATE_INTERVAL_MIN  HZ
->> +
->> +enum sign_t {
->> +       POS,
->> +       NEG,
->> +};
->> +
->> +struct cpuinfo_t {
->> +       bool     valid;
->> +       uint32_t dib;
->> +       uint8_t  cpuid;
->> +       uint8_t  platform_id;
->> +       uint32_t microcode;
->> +       uint8_t  logical_thread_nums;
->> +};
->> +
->> +struct temp_data_t {
->> +       bool     valid;
->> +       int32_t  value;
->> +       unsigned long last_updated;
->> +};
->> +
->> +struct temp_group_t {
->> +       struct temp_data_t tjmax;
->> +       struct temp_data_t tcontrol;
->> +       struct temp_data_t tthrottle;
->> +       struct temp_data_t dts_margin;
->> +       struct temp_data_t die;
->> +       struct temp_data_t core[CORE_NUMS_MAX];
->> +       struct temp_data_t dimm[DIMM_NUMS_MAX];
->> +};
->> +
->> +struct core_temp_attr_group_t {
->> +       struct sensor_device_attribute
->> sd_attrs[CORE_NUMS_MAX][CORE_TEMP_ATTRS];
->> +       char attr_name[CORE_NUMS_MAX][CORE_TEMP_ATTRS][ATTR_NAME_LEN];
->> +       struct attribute *attrs[CORE_NUMS_MAX][CORE_TEMP_ATTRS + 1];
->> +       struct attribute_group attr_group[CORE_NUMS_MAX];
->> +};
->> +
->> +struct dimm_temp_attr_group_t {
->> +       struct sensor_device_attribute
->> sd_attrs[DIMM_NUMS_MAX][DIMM_TEMP_ATTRS];
->> +       char attr_name[DIMM_NUMS_MAX][DIMM_TEMP_ATTRS][ATTR_NAME_LEN];
->> +       struct attribute *attrs[DIMM_NUMS_MAX][DIMM_TEMP_ATTRS + 1];
->> +       struct attribute_group attr_group[DIMM_NUMS_MAX];
->> +};
->> +
->> +struct aspeed_peci_hwmon {
->> +       struct device *dev;
->> +       struct device *hwmon_dev;
->> +       char name[NAME_MAX];
->> +       const struct attribute_group **groups;
->> +       struct cpuinfo_t cpuinfo;
->> +       struct temp_group_t temp;
->> +       uint32_t cpu_id;
->> +       uint32_t show_core;
->> +       uint32_t core_nums;
->> +       uint32_t dimm_nums;
->> +       atomic_t core_group_generated;
->> +       struct core_temp_attr_group_t core;
->> +       struct dimm_temp_attr_group_t dimm;
->> +};
->> +
->> +enum label_t {
->> +       L_DIE,
->> +       L_DTS,
->> +       L_TCONTROL,
->> +       L_TTHROTTLE,
->> +       L_MAX,
->> +};
->> +
->> +static const char *aspeed_peci_label[L_MAX] = {
->> +       "Die temperature\n",
->> +       "DTS thermal margin to Tcontrol\n",
->> +       "Tcontrol temperature\n",
->> +       "Tthrottle temperature\n",
->> +};
->> +
->> +static DEFINE_MUTEX(peci_hwmon_lock);
->> +
->> +static int create_core_temp_group(struct aspeed_peci_hwmon *priv, int
->> core_no);
->> +
->> +
->> +static int xfer_peci_msg(int cmd, void *pmsg)
->> +{
->> +       int rc;
->> +
->> +       mutex_lock(&peci_hwmon_lock);
->> +
->> +       rc = aspeed_peci_ioctl(NULL, cmd, (unsigned long)pmsg);
->> +
->> +       mutex_unlock(&peci_hwmon_lock);
->> +
->> +       return rc;
->> +}
->> +
->> +static int get_cpuinfo(struct aspeed_peci_hwmon *priv)
->> +{
->> +       struct peci_get_dib_msg dib_msg;
->> +       struct peci_rd_pkg_cfg_msg cfg_msg;
->> +       int rc, i;
->> +
->> +       if (!priv->cpuinfo.valid) {
->> +               dib_msg.target = PECI_BASE_ADDR + priv->cpu_id;
->> +
->> +               rc = xfer_peci_msg(PECI_IOC_GET_DIB, (void *)&dib_msg);
->> +               if (rc < 0)
->> +                       return rc;
->> +
->> +               priv->cpuinfo.dib = dib_msg.dib;
->> +
->> +               cfg_msg.target = PECI_BASE_ADDR + priv->cpu_id;
->> +               cfg_msg.index = MBX_INDEX_CPU_ID;
->> +               cfg_msg.param = 0;
->> +               cfg_msg.rx_len = 4;
->> +
->> +               rc = xfer_peci_msg(PECI_IOC_RD_PKG_CFG, (void
->> *)&cfg_msg);
->> +               if (rc < 0)
->> +                       return rc;
->> +
->> +               priv->cpuinfo.cpuid = cfg_msg.pkg_config[0];
->> +
->> +               cfg_msg.target = PECI_BASE_ADDR + priv->cpu_id;
->> +               cfg_msg.index = MBX_INDEX_CPU_ID;
->> +               cfg_msg.param = 1;
->> +               cfg_msg.rx_len = 4;
->> +
->> +               rc = xfer_peci_msg(PECI_IOC_RD_PKG_CFG, (void
->> *)&cfg_msg);
->> +               if (rc < 0)
->> +                       return rc;
->> +
->> +               priv->cpuinfo.platform_id = cfg_msg.pkg_config[0];
->> +
->> +               cfg_msg.target = PECI_BASE_ADDR + priv->cpu_id;
->> +               cfg_msg.index = MBX_INDEX_CPU_ID;
->> +               cfg_msg.param = 3;
->> +               cfg_msg.rx_len = 4;
->> +
->> +               rc = xfer_peci_msg(PECI_IOC_RD_PKG_CFG, (void
->> *)&cfg_msg);
->> +               if (rc < 0)
->> +                       return rc;
->> +
->> +               priv->cpuinfo.logical_thread_nums = cfg_msg.pkg_config[0]
->> + 1;
->> +
->> +               cfg_msg.target = PECI_BASE_ADDR + priv->cpu_id;
->> +               cfg_msg.index = MBX_INDEX_CPU_ID;
->> +               cfg_msg.param = 4;
->> +               cfg_msg.rx_len = 4;
->> +
->> +               rc = xfer_peci_msg(PECI_IOC_RD_PKG_CFG, (void
->> *)&cfg_msg);
->> +               if (rc < 0)
->> +                       return rc;
->> +
->> +               priv->cpuinfo.microcode = (cfg_msg.pkg_config[3] << 24) |
->> +                                         (cfg_msg.pkg_config[2] << 16) |
->> +                                         (cfg_msg.pkg_config[1] << 8) |
->> +                                         cfg_msg.pkg_config[0];
->> +
->> +               priv->core_nums = priv->cpuinfo.logical_thread_nums / 2;
->> +
->> +               if (priv->show_core &&
->> +                   atomic_inc_return(&priv->core_group_generated) == 1)
->> {
->> +                       for (i = 0; i < priv->core_nums; i++) {
->> +                               rc = create_core_temp_group(priv, i);
->> +                               if (rc != 0) {
->> +                                       dev_err(priv->dev,
->> +                                               "Failed to create core
->> temp group\n");
->> +                                       for (--i; i >= 0; i--) {
->> +                                               sysfs_remove_group(
->> +
->> &priv->hwmon_dev->kobj,
->> +
->> &priv->core.attr_group[i]);
->> +                                       }
->> +
->> atomic_set(&priv->core_group_generated,
->> +                                                  0);
->> +                                       return rc;
->> +                               }
->> +                       }
->> +               }
->> +
->> +               priv->cpuinfo.valid = true;
->> +       }
->> +
->> +       return 0;
->> +}
->> +
->> +static int get_tjmax(struct aspeed_peci_hwmon *priv)
->> +{
->> +       struct peci_rd_pkg_cfg_msg msg;
->> +       int rc;
->> +
->> +       rc = get_cpuinfo(priv);
->> +       if (rc < 0)
->> +               return rc;
->> +
->> +       if (!priv->temp.tjmax.valid) {
->> +               msg.target = PECI_BASE_ADDR + priv->cpu_id;
->> +               msg.index = MBX_INDEX_TEMP_TARGET;
->> +               msg.param = 0;
->> +               msg.rx_len = 4;
->> +
->> +               rc = xfer_peci_msg(PECI_IOC_RD_PKG_CFG, (void *)&msg);
->> +               if (rc < 0)
->> +                       return rc;
->> +
->> +               priv->temp.tjmax.value = (int32_t)msg.pkg_config[2] *
->> 1000;
->> +
->> +               priv->temp.tjmax.valid = true;
->> +       }
->> +
->> +       return 0;
->> +}
->> +
->> +static int get_tcontrol(struct aspeed_peci_hwmon *priv)
->> +{
->> +       struct peci_rd_pkg_cfg_msg msg;
->> +       int32_t tcontrol_margin;
->> +       int rc;
->> +
->> +       if (priv->temp.tcontrol.valid &&
->> +           time_before(jiffies, priv->temp.tcontrol.last_updated +
->> +                                UPDATE_INTERVAL_MIN))
->> +               return 0;
->> +
->> +       rc = get_tjmax(priv);
->> +       if (rc < 0)
->> +               return rc;
->> +
->> +       msg.target = PECI_BASE_ADDR + priv->cpu_id;
->> +       msg.index = MBX_INDEX_TEMP_TARGET;
->> +       msg.param = 0;
->> +       msg.rx_len = 4;
->> +
->> +       rc = xfer_peci_msg(PECI_IOC_RD_PKG_CFG, (void *)&msg);
->> +       if (rc < 0)
->> +               return rc;
->> +
->> +       tcontrol_margin = msg.pkg_config[1];
->> +       tcontrol_margin = ((tcontrol_margin ^ 0x80) - 0x80) * 1000;
->> +
->> +       priv->temp.tcontrol.value = priv->temp.tjmax.value -
->> tcontrol_margin;
->> +
->> +       if (!priv->temp.tcontrol.valid) {
->> +               priv->temp.tcontrol.last_updated = INITIAL_JIFFIES;
->> +               priv->temp.tcontrol.valid = true;
->> +       } else {
->> +               priv->temp.tcontrol.last_updated = jiffies;
->> +       }
->> +
->> +       return 0;
->> +}
->> +
->> +static int get_tthrottle(struct aspeed_peci_hwmon *priv)
->> +{
->> +       struct peci_rd_pkg_cfg_msg msg;
->> +       int32_t tthrottle_offset;
->> +       int rc;
->> +
->> +       if (priv->temp.tthrottle.valid &&
->> +           time_before(jiffies, priv->temp.tthrottle.last_updated +
->> +                                UPDATE_INTERVAL_MIN))
->> +               return 0;
->> +
->> +       rc = get_tjmax(priv);
->> +       if (rc < 0)
->> +               return rc;
->> +
->> +       msg.target = PECI_BASE_ADDR + priv->cpu_id;
->> +       msg.index = MBX_INDEX_TEMP_TARGET;
->> +       msg.param = 0;
->> +       msg.rx_len = 4;
->> +
->> +       rc = xfer_peci_msg(PECI_IOC_RD_PKG_CFG, (void *)&msg);
->> +       if (rc < 0)
->> +               return rc;
->> +
->> +       tthrottle_offset = (msg.pkg_config[3] & 0x2f) * 1000;
->> +       priv->temp.tthrottle.value = priv->temp.tjmax.value -
->> tthrottle_offset;
->> +
->> +       if (!priv->temp.tthrottle.valid) {
->> +               priv->temp.tthrottle.last_updated = INITIAL_JIFFIES;
->> +               priv->temp.tthrottle.valid = true;
->> +       } else {
->> +               priv->temp.tthrottle.last_updated = jiffies;
->> +       }
->> +
->> +       return 0;
->> +}
->> +
->> +static int get_die_temp(struct aspeed_peci_hwmon *priv)
->> +{
->> +       struct peci_get_temp_msg msg;
->> +       int rc;
->> +
->> +       if (priv->temp.die.valid &&
->> +           time_before(jiffies, priv->temp.die.last_updated +
->> +                                UPDATE_INTERVAL_MIN))
->> +               return 0;
->> +
->> +       rc = get_tjmax(priv);
->> +       if (rc < 0)
->> +               return rc;
->> +
->> +       msg.target = PECI_BASE_ADDR + priv->cpu_id;
->> +
->> +       rc = xfer_peci_msg(PECI_IOC_GET_TEMP, (void *)&msg);
->> +       if (rc < 0)
->> +               return rc;
->> +
->> +       priv->temp.die.value = priv->temp.tjmax.value +
->> +                              ((int32_t)msg.temp_raw * 1000 / 64);
->> +
->> +       if (!priv->temp.die.valid) {
->> +               priv->temp.die.last_updated = INITIAL_JIFFIES;
->> +               priv->temp.die.valid = true;
->> +       } else {
->> +               priv->temp.die.last_updated = jiffies;
->> +       }
->> +
->> +       return 0;
->> +}
->> +
->> +static int get_dts_margin(struct aspeed_peci_hwmon *priv)
->> +{
->> +       struct peci_rd_pkg_cfg_msg msg;
->> +       int32_t dts_margin;
->> +       int rc;
->> +
->> +       if (priv->temp.dts_margin.valid &&
->> +           time_before(jiffies, priv->temp.dts_margin.last_updated +
->> +                                UPDATE_INTERVAL_MIN))
->> +               return 0;
->> +
->> +       rc = get_cpuinfo(priv);
->> +       if (rc < 0)
->> +               return rc;
->> +
->> +       msg.target = PECI_BASE_ADDR + priv->cpu_id;
->> +       msg.index = MBX_INDEX_DTS_MARGIN;
->> +       msg.param = 0;
->> +       msg.rx_len = 4;
->> +
->> +       rc = xfer_peci_msg(PECI_IOC_RD_PKG_CFG, (void *)&msg);
->> +       if (rc < 0)
->> +               return rc;
->> +
->> +       dts_margin = (msg.pkg_config[1] << 8) | msg.pkg_config[0];
->> +
->> +       /* Processors return a value of DTS reading in 10.6 format
->> +        * (10 bits signed decimal, 6 bits fractional).
->> +        * Code 0x8001 indicates an error: Reading is not available
->> +        */
->> +       if (dts_margin == 0x8001)
->> +               return -1;
->> +
->> +       dts_margin = ((dts_margin ^ 0x8000) - 0x8000) * 1000 / 64;
->> +
->> +       priv->temp.dts_margin.value = dts_margin;
->> +
->> +       if (!priv->temp.dts_margin.valid) {
->> +               priv->temp.dts_margin.last_updated = INITIAL_JIFFIES;
->> +               priv->temp.dts_margin.valid = true;
->> +       } else {
->> +               priv->temp.dts_margin.last_updated = jiffies;
->> +       }
->> +
->> +       return 0;
->> +}
->> +
->> +static int get_core_temp(struct aspeed_peci_hwmon *priv, int core_index)
->> +{
->> +       struct peci_rd_pkg_cfg_msg msg;
->> +       int32_t core_dts_margin;
->> +       int rc;
->> +
->> +       if (priv->temp.core[core_index].valid &&
->> +           time_before(jiffies, priv->temp.core[core_index].last_updated
->> +
->> +                                UPDATE_INTERVAL_MIN))
->> +               return 0;
->> +
->> +       rc = get_tjmax(priv);
->> +       if (rc < 0)
->> +               return rc;
->> +
->> +       msg.target = PECI_BASE_ADDR + priv->cpu_id;
->> +       msg.index = MBX_INDEX_PER_CORE_DTS_TEMP;
->> +       msg.param = core_index;
->> +       msg.rx_len = 4;
->> +
->> +       rc = xfer_peci_msg(PECI_IOC_RD_PKG_CFG, (void *)&msg);
->> +       if (rc < 0)
->> +               return rc;
->> +
->> +       core_dts_margin = (msg.pkg_config[1] << 8) | msg.pkg_config[0];
->> +
->> +       /* Code 0x8001 indicates an error: Reading is not available */
->> +       if (core_dts_margin == 0x8001)
->> +               return -1;
->> +
->> +       core_dts_margin = ((core_dts_margin ^ 0x8000) - 0x8000) * 1000 /
->> 64;
->> +
->> +       priv->temp.core[core_index].value = priv->temp.tjmax.value +
->> +                                           core_dts_margin;
->> +
->> +       if (!priv->temp.core[core_index].valid) {
->> +               priv->temp.core[core_index].last_updated =
->> INITIAL_JIFFIES;
->> +               priv->temp.core[core_index].valid = true;
->> +       } else {
->> +               priv->temp.core[core_index].last_updated = jiffies;
->> +       }
->> +
->> +       return 0;
->> +}
->> +
->> +static int get_dimm_temp(struct aspeed_peci_hwmon *priv, int dimm_index)
->> +{
->> +       struct peci_rd_pkg_cfg_msg msg;
->> +       int channel_rank = dimm_index / 2;
->> +       int dimm_order = dimm_index % 2;
->> +       int rc;
->> +
->> +       if (priv->temp.core[dimm_index].valid &&
->> +           time_before(jiffies, priv->temp.core[dimm_index].last_updated
->> +
->> +                                UPDATE_INTERVAL_MIN))
->> +               return 0;
->> +
->> +       rc = get_cpuinfo(priv);
->> +       if (rc < 0)
->> +               return rc;
->> +
->> +       msg.target = PECI_BASE_ADDR + priv->cpu_id;
->> +       msg.index = MBX_INDEX_DDR_DIMM_TEMP;
->> +       msg.param = channel_rank;
->> +       msg.rx_len = 4;
->> +
->> +       rc = xfer_peci_msg(PECI_IOC_RD_PKG_CFG, (void *)&msg);
->> +       if (rc < 0)
->> +               return rc;
->> +
->> +       priv->temp.dimm[dimm_index].value = msg.pkg_config[dimm_order] *
->> 1000;
->> +
->> +       if (!priv->temp.dimm[dimm_index].valid) {
->> +               priv->temp.dimm[dimm_index].last_updated =
->> INITIAL_JIFFIES;
->> +               priv->temp.dimm[dimm_index].valid = true;
->> +       } else {
->> +               priv->temp.dimm[dimm_index].last_updated = jiffies;
->> +       }
->> +
->> +       return 0;
->> +}
->> +
->> +static ssize_t show_info(struct device *dev,
->> +                        struct device_attribute *attr,
->> +                        char *buf)
->> +{
->> +       struct aspeed_peci_hwmon *priv = dev_get_drvdata(dev);
->> +       int rc;
->> +
->> +       rc = get_cpuinfo(priv);
->> +       if (rc < 0)
->> +               return rc;
->> +
->> +       return sprintf(buf, "dib         : 0x%08x\n"
->> +                           "cpuid       : 0x%x\n"
->> +                           "platform id : %d\n"
->> +                           "stepping    : %d\n"
->> +                           "microcode   : 0x%08x\n"
->> +                           "logical thread nums : %d\n",
->> +                           priv->cpuinfo.dib,
->> +                           priv->cpuinfo.cpuid,
->> +                           priv->cpuinfo.platform_id,
->> +                           priv->cpuinfo.cpuid & 0xf,
->> +                           priv->cpuinfo.microcode,
->> +                           priv->cpuinfo.logical_thread_nums);
->> +}
->> +
->> +static ssize_t show_tcontrol(struct device *dev,
->> +                            struct device_attribute *attr,
->> +                            char *buf)
->> +{
->> +       struct aspeed_peci_hwmon *priv = dev_get_drvdata(dev);
->> +       int rc;
->> +
->> +       rc = get_tcontrol(priv);
->> +       if (rc < 0)
->> +               return rc;
->> +
->> +       return sprintf(buf, "%d\n", priv->temp.tcontrol.value);
->> +}
->> +
->> +static ssize_t show_tcontrol_margin(struct device *dev,
->> +                                   struct device_attribute *attr,
->> +                                   char *buf)
->> +{
->> +       struct aspeed_peci_hwmon *priv = dev_get_drvdata(dev);
->> +       struct sensor_device_attribute *sensor_attr =
->> to_sensor_dev_attr(attr);
->> +       int rc;
->> +
->> +       rc = get_tcontrol(priv);
->> +       if (rc < 0)
->> +               return rc;
->> +
->> +       return sprintf(buf, "%d\n", sensor_attr->index == POS ?
->> +                                   priv->temp.tjmax.value -
->> +                                   priv->temp.tcontrol.value :
->> +                                   priv->temp.tcontrol.value -
->> +                                   priv->temp.tjmax.value);
->> +}
->> +
->> +static ssize_t show_tthrottle(struct device *dev,
->> +                             struct device_attribute *attr,
->> +                             char *buf)
->> +{
->> +       struct aspeed_peci_hwmon *priv = dev_get_drvdata(dev);
->> +       int rc;
->> +
->> +       rc = get_tthrottle(priv);
->> +       if (rc < 0)
->> +               return rc;
->> +
->> +       return sprintf(buf, "%d\n", priv->temp.tthrottle.value);
->> +}
->> +
->> +static ssize_t show_tjmax(struct device *dev,
->> +                         struct device_attribute *attr,
->> +                         char *buf)
->> +{
->> +       struct aspeed_peci_hwmon *priv = dev_get_drvdata(dev);
->> +       int rc;
->> +
->> +       rc = get_tjmax(priv);
->> +       if (rc < 0)
->> +               return rc;
->> +
->> +       return sprintf(buf, "%d\n", priv->temp.tjmax.value);
->> +}
->> +
->> +static ssize_t show_die_temp(struct device *dev,
->> +                            struct device_attribute *attr,
->> +                            char *buf)
->> +{
->> +       struct aspeed_peci_hwmon *priv = dev_get_drvdata(dev);
->> +       int rc;
->> +
->> +       rc = get_die_temp(priv);
->> +       if (rc < 0)
->> +               return rc;
->> +
->> +       return sprintf(buf, "%d\n", priv->temp.die.value);
->> +}
->> +
->> +static ssize_t show_dts_therm_margin(struct device *dev,
->> +                                    struct device_attribute *attr,
->> +                                    char *buf)
->> +{
->> +       struct aspeed_peci_hwmon *priv = dev_get_drvdata(dev);
->> +       int rc;
->> +
->> +       rc = get_dts_margin(priv);
->> +       if (rc < 0)
->> +               return rc;
->> +
->> +       return sprintf(buf, "%d\n", priv->temp.dts_margin.value);
->> +}
->> +
->> +static ssize_t show_core_temp(struct device *dev,
->> +                             struct device_attribute *attr,
->> +                             char *buf)
->> +{
->> +       struct aspeed_peci_hwmon *priv = dev_get_drvdata(dev);
->> +       struct sensor_device_attribute *sensor_attr =
->> to_sensor_dev_attr(attr);
->> +       int core_index = sensor_attr->index;
->> +       int rc;
->> +
->> +       rc = get_core_temp(priv, core_index);
->> +       if (rc < 0)
->> +               return rc;
->> +
->> +       return sprintf(buf, "%d\n", priv->temp.core[core_index].value);
->> +}
->> +
->> +static ssize_t show_dimm_temp(struct device *dev,
->> +                             struct device_attribute *attr,
->> +                             char *buf)
->> +{
->> +       struct aspeed_peci_hwmon *priv = dev_get_drvdata(dev);
->> +       struct sensor_device_attribute *sensor_attr =
->> to_sensor_dev_attr(attr);
->> +       int dimm_index = sensor_attr->index;
->> +       int rc;
->> +
->> +       rc = get_dimm_temp(priv, dimm_index);
->> +       if (rc < 0)
->> +               return rc;
->> +
->> +       return sprintf(buf, "%d\n", priv->temp.dimm[dimm_index].value);
->> +}
->> +
->> +static ssize_t show_value(struct device *dev,
->> +                         struct device_attribute *attr,
->> +                         char *buf)
->> +{
->> +       struct sensor_device_attribute *sensor_attr =
->> to_sensor_dev_attr(attr);
->> +
->> +       return sprintf(buf, "%d\n", sensor_attr->index);
->> +}
->> +
->> +static ssize_t show_label(struct device *dev,
->> +                         struct device_attribute *attr,
->> +                         char *buf)
->> +{
->> +       struct sensor_device_attribute *sensor_attr =
->> to_sensor_dev_attr(attr);
->> +
->> +       return sprintf(buf, aspeed_peci_label[sensor_attr->index]);
->> +}
->> +
->> +static ssize_t show_core_label(struct device *dev,
->> +                              struct device_attribute *attr,
->> +                              char *buf)
->> +{
->> +       struct sensor_device_attribute *sensor_attr =
->> to_sensor_dev_attr(attr);
->> +
->> +       return sprintf(buf, "Core #%d temperature\n",
->> sensor_attr->index);
->> +}
->> +
->> +static ssize_t show_dimm_label(struct device *dev,
->> +                              struct device_attribute *attr,
->> +                              char *buf)
->> +{
->> +       struct sensor_device_attribute *sensor_attr =
->> to_sensor_dev_attr(attr);
->> +
->> +       char channel = 'A' + (sensor_attr->index / 2);
->> +       int index = sensor_attr->index % 2;
->> +
->> +       return sprintf(buf, "Channel Rank %c DDR DIMM #%d temperature\n",
->> +                      channel, index);
->> +}
->> +
->> +/* Die temperature */
->> +static SENSOR_DEVICE_ATTR(temp1_label, S_IRUGO, show_label, NULL,
->> L_DIE);
->> +static SENSOR_DEVICE_ATTR(temp1_input, S_IRUGO, show_die_temp, NULL, 0);
->> +static SENSOR_DEVICE_ATTR(temp1_max, S_IRUGO, show_tcontrol, NULL, 0);
->> +static SENSOR_DEVICE_ATTR(temp1_crit, S_IRUGO, show_tjmax, NULL, 0);
->> +static SENSOR_DEVICE_ATTR(temp1_crit_hyst, S_IRUGO,
->> show_tcontrol_margin, NULL, POS);
->> +
->> +static struct attribute *die_temp_attrs[] = {
->> +       &sensor_dev_attr_temp1_label.dev_attr.attr,
->> +       &sensor_dev_attr_temp1_input.dev_attr.attr,
->> +       &sensor_dev_attr_temp1_max.dev_attr.attr,
->> +       &sensor_dev_attr_temp1_crit.dev_attr.attr,
->> +       &sensor_dev_attr_temp1_crit_hyst.dev_attr.attr,
->> +       NULL,
->> +};
->> +
->> +static const struct attribute_group die_temp_attr_group = {
->> +       .attrs = die_temp_attrs,
->> +};
->> +
->> +/* DTS thermal margin temperature */
->> +static SENSOR_DEVICE_ATTR(temp2_label, S_IRUGO, show_label, NULL,
->> L_DTS);
->> +static SENSOR_DEVICE_ATTR(temp2_input, S_IRUGO, show_dts_therm_margin,
->> NULL, 0);
->> +static SENSOR_DEVICE_ATTR(temp2_min, S_IRUGO, show_value, NULL, 0);
->> +static SENSOR_DEVICE_ATTR(temp2_lcrit, S_IRUGO, show_tcontrol_margin,
->> NULL, NEG);
->> +
->> +static struct attribute *dts_margin_temp_attrs[] = {
->> +       &sensor_dev_attr_temp2_label.dev_attr.attr,
->> +       &sensor_dev_attr_temp2_input.dev_attr.attr,
->> +       &sensor_dev_attr_temp2_min.dev_attr.attr,
->> +       &sensor_dev_attr_temp2_lcrit.dev_attr.attr,
->> +       NULL,
->> +};
->> +
->> +static const struct attribute_group dts_margin_temp_attr_group = {
->> +       .attrs = dts_margin_temp_attrs,
->> +};
->> +
->> +/* Tcontrol temperature */
->> +static SENSOR_DEVICE_ATTR(temp3_label, S_IRUGO, show_label, NULL,
->> L_TCONTROL);
->> +static SENSOR_DEVICE_ATTR(temp3_input, S_IRUGO, show_tcontrol, NULL, 0);
->> +static SENSOR_DEVICE_ATTR(temp3_crit, S_IRUGO, show_tjmax, NULL, 0);
->> +
->> +static struct attribute *tcontrol_temp_attrs[] = {
->> +       &sensor_dev_attr_temp3_label.dev_attr.attr,
->> +       &sensor_dev_attr_temp3_input.dev_attr.attr,
->> +       &sensor_dev_attr_temp3_crit.dev_attr.attr,
->> +       NULL,
->> +};
->> +
->> +static const struct attribute_group tcontrol_temp_attr_group = {
->> +       .attrs = tcontrol_temp_attrs,
->> +};
->> +
->> +/* Tthrottle temperature */
->> +static SENSOR_DEVICE_ATTR(temp4_label, S_IRUGO, show_label, NULL,
->> L_TTHROTTLE);
->> +static SENSOR_DEVICE_ATTR(temp4_input, S_IRUGO, show_tthrottle, NULL,
->> 0);
->> +
->> +static struct attribute *tthrottle_temp_attrs[] = {
->> +       &sensor_dev_attr_temp4_label.dev_attr.attr,
->> +       &sensor_dev_attr_temp4_input.dev_attr.attr,
->> +       NULL,
->> +};
->> +
->> +static const struct attribute_group tthrottle_temp_attr_group = {
->> +       .attrs = tthrottle_temp_attrs,
->> +};
->> +
->> +/* CPU info */
->> +static SENSOR_DEVICE_ATTR(info, 0444, show_info, NULL, 0);
->> +
->> +static struct attribute *info_attrs[] = {
->> +       &sensor_dev_attr_info.dev_attr.attr,
->> +       NULL,
->> +};
->> +
->> +static const struct attribute_group info_attr_group = {
->> +       .attrs = info_attrs,
->> +};
->> +
->> +const struct attribute_group *peci_hwmon_attr_groups[] = {
->> +       &info_attr_group,
->> +       &die_temp_attr_group,
->> +       &dts_margin_temp_attr_group,
->> +       &tcontrol_temp_attr_group,
->> +       &tthrottle_temp_attr_group,
->> +       NULL,
->> +};
->> +
->> +static ssize_t (*const core_show_fn[CORE_TEMP_ATTRS]) (struct device
->> *dev,
->> +               struct device_attribute *devattr, char *buf) = {
->> +       show_core_label,
->> +       show_core_temp,
->> +       show_tcontrol,
->> +       show_tjmax,
->> +       show_tcontrol_margin,
->> +};
->> +
->> +static const char *const core_suffix[CORE_TEMP_ATTRS] = {
->> +       "label",
->> +       "input",
->> +       "max",
->> +       "crit",
->> +       "crit_hyst",
->> +};
->> +
->> +static int create_core_temp_group(struct aspeed_peci_hwmon *priv, int
->> core_no)
->> +{
->> +       int i;
->> +
->> +       for (i = 0; i < CORE_TEMP_ATTRS; i++) {
->> +               snprintf(priv->core.attr_name[core_no][i],
->> +                        ATTR_NAME_LEN, "temp%d_%s",
->> +                        CORE_INDEX_OFFSET + core_no, core_suffix[i]);
->> +               sysfs_attr_init(
->> +
->> &priv->core.sd_attrs[core_no][i].dev_attr.attr);
->> +               priv->core.sd_attrs[core_no][i].dev_attr.attr.name =
->> +
->> priv->core.attr_name[core_no][i];
->> +               priv->core.sd_attrs[core_no][i].dev_attr.attr.mode =
->> S_IRUGO;
->> +               priv->core.sd_attrs[core_no][i].dev_attr.show =
->> core_show_fn[i];
->> +               if (i == 0 || i == 1) /* label or temp */
->> +                       priv->core.sd_attrs[core_no][i].index = core_no;
->> +               priv->core.attrs[core_no][i] =
->> +
->> &priv->core.sd_attrs[core_no][i].dev_attr.attr;
->> +       }
->> +
->> +       priv->core.attr_group[core_no].attrs = priv->core.attrs[core_no];
->> +
->> +       return sysfs_create_group(&priv->hwmon_dev->kobj,
->> +                                 &priv->core.attr_group[core_no]);
->> +}
->> +
->> +static ssize_t (*const dimm_show_fn[DIMM_TEMP_ATTRS]) (struct device
->> *dev,
->> +               struct device_attribute *devattr, char *buf) = {
->> +       show_dimm_label,
->> +       show_dimm_temp,
->> +};
->> +
->> +static const char *const dimm_suffix[DIMM_TEMP_ATTRS] = {
->> +       "label",
->> +       "input",
->> +};
->> +
->> +static int create_dimm_temp_group(struct aspeed_peci_hwmon *priv, int
->> dimm_no)
->> +{
->> +       int i;
->> +
->> +       for (i = 0; i < DIMM_TEMP_ATTRS; i++) {
->> +               snprintf(priv->dimm.attr_name[dimm_no][i],
->> +                        ATTR_NAME_LEN, "temp%d_%s",
->> +                        DIMM_INDEX_OFFSET + dimm_no, dimm_suffix[i]);
->> +
->> sysfs_attr_init(&priv->dimm.sd_attrs[dimm_no][i].dev_attr.attr);
->> +               priv->dimm.sd_attrs[dimm_no][i].dev_attr.attr.name =
->> +
->> priv->dimm.attr_name[dimm_no][i];
->> +               priv->dimm.sd_attrs[dimm_no][i].dev_attr.attr.mode =
->> S_IRUGO;
->> +               priv->dimm.sd_attrs[dimm_no][i].dev_attr.show =
->> dimm_show_fn[i];
->> +               priv->dimm.sd_attrs[dimm_no][i].index = dimm_no;
->> +               priv->dimm.attrs[dimm_no][i] =
->> +
->> &priv->dimm.sd_attrs[dimm_no][i].dev_attr.attr;
->> +       }
->> +
->> +       priv->dimm.attr_group[dimm_no].attrs = priv->dimm.attrs[dimm_no];
->> +
->> +       return sysfs_create_group(&priv->hwmon_dev->kobj,
->> +                                 &priv->dimm.attr_group[dimm_no]);
->> +}
->> +
->> +static int aspeed_peci_hwmon_probe(struct platform_device *pdev)
->> +{
->> +       struct device *dev = &pdev->dev;
->> +       struct device_node *np = dev->of_node;
->> +       struct aspeed_peci_hwmon *priv;
->> +       struct device *hwmon;
->> +       int rc, i;
->> +
->> +       priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
->> +       if (!priv)
->> +               return -ENOMEM;
->> +
->> +       dev_set_drvdata(dev, priv);
->> +       priv->dev = dev;
->> +
->> +       rc = of_property_read_u32(np, "cpu-id", &priv->cpu_id);
->> +       if (rc || priv->cpu_id >= CPU_ID_MAX) {
->> +               dev_err(dev, "Invalid cpu-id configuration\n");
->> +               return rc;
->> +       }
->> +
->> +       rc = of_property_read_u32(np, "show-core", &priv->show_core);
->> +       if (rc || priv->show_core > OF_SHOW_CORE_DEFAULT) {
->> +               dev_warn(dev, "Invalid show-core : %u. Use default :
->> %u\n",
->> +                        priv->show_core, OF_SHOW_CORE_DEFAULT);
->> +               priv->core_nums = OF_SHOW_CORE_DEFAULT;
->> +       }
->> +
->> +       rc = of_property_read_u32(np, "dimm-nums", &priv->dimm_nums);
->> +       if (rc || priv->dimm_nums > DIMM_NUMS_MAX) {
->> +               dev_warn(dev, "Invalid dimm-nums : %u. Use default :
->> %u\n",
->> +                        priv->dimm_nums, OF_DIMM_NUMS_DEFAULT);
->> +               priv->dimm_nums = OF_DIMM_NUMS_DEFAULT;
->> +       }
->> +
->> +       priv->groups = peci_hwmon_attr_groups;
->> +
->> +       snprintf(priv->name, NAME_MAX, HWMON_NAME ".cpu%d",
->> priv->cpu_id);
->> +
->> +       hwmon = devm_hwmon_device_register_with_groups(dev,
->> +                                                      priv->name,
->> +                                                      priv,
->> priv->groups);
->> +
->> +       rc = PTR_ERR_OR_ZERO(hwmon);
->> +       if (rc != 0) {
->> +               dev_err(dev, "Failed to register peci hwmon\n");
->> +               return rc;
->> +       }
->> +
->> +       priv->hwmon_dev = hwmon;
->> +
->> +       for (i = 0; i < priv->dimm_nums; i++) {
->> +               rc = create_dimm_temp_group(priv, i);
->> +               if (rc != 0) {
->> +                       dev_err(dev, "Failed to create dimm temp
->> group\n");
->> +                       for (--i; i >= 0; i--) {
->> +
->> sysfs_remove_group(&priv->hwmon_dev->kobj,
->> +
->> &priv->dimm.attr_group[i]);
->> +                       }
->> +                       return rc;
->> +               }
->> +       }
->> +
->> +       /* Try to create core temp group now. It will be created if CPU
->> is
->> +        * curretnly online or it will be created after the first reading
->> of
->> +        * cpuinfo from the online CPU otherwise.
->> +        */
->> +       if (priv->show_core)
->> +               (void) get_cpuinfo(priv);
->> +
->> +       dev_info(dev, "peci hwmon for CPU#%d registered\n",
->> priv->cpu_id);
->> +
->> +       return rc;
->> +}
->> +
->> +static int aspeed_peci_hwmon_remove(struct platform_device *pdev)
->> +{
->> +       struct aspeed_peci_hwmon *priv = dev_get_drvdata(&pdev->dev);
->> +       int i;
->> +
->> +       if (atomic_read(&priv->core_group_generated))
->> +               for (i = 0; i < priv->core_nums; i++) {
->> +                       sysfs_remove_group(&priv->hwmon_dev->kobj,
->> +                                          &priv->core.attr_group[i]);
->> +               }
->> +
->> +       for (i = 0; i < priv->dimm_nums; i++) {
->> +               sysfs_remove_group(&priv->hwmon_dev->kobj,
->> +                                  &priv->dimm.attr_group[i]);
->> +       }
->> +
->> +       return 0;
->> +}
->> +
->> +static const struct of_device_id aspeed_peci_of_table[] = {
->> +       { .compatible = "aspeed,ast2400-peci-hwmon", },
->> +       { .compatible = "aspeed,ast2500-peci-hwmon", },
->> +       { },
->> +};
->> +MODULE_DEVICE_TABLE(of, aspeed_peci_of_table);
->> +
->> +static struct platform_driver aspeed_peci_hwmon_driver = {
->> +       .probe = aspeed_peci_hwmon_probe,
->> +       .remove = aspeed_peci_hwmon_remove,
->> +       .driver = {
->> +               .name           = DEVICE_NAME,
->> +               .of_match_table = aspeed_peci_of_table,
->> +       },
->> +};
->> +
->> +module_platform_driver(aspeed_peci_hwmon_driver);
->> +MODULE_AUTHOR("Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>");
->> +MODULE_DESCRIPTION("Aspeed PECI hwmon driver");
->> +MODULE_LICENSE("GPL v2");
->> -- 
->> 2.15.1
->>
+diff --git a/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt b/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
+index a97131a..1e9d119 100644
+--- a/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
++++ b/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
+@@ -62,12 +62,25 @@ BMC Node
+ --------
+ 
+ - compatible:	One of:
+-		"aspeed,ast2400-lpc-bmc"
+-		"aspeed,ast2500-lpc-bmc"
++		"aspeed,ast2400-lpc-bmc", "simple-mfd", "syscon"
++		"aspeed,ast2500-lpc-bmc", "simple-mfd", "syscon"
+ 
+ - reg:		contains the physical address and length values of the
+                 H8S/2168-compatible LPC controller memory region
+ 
++BMC KCS Node
++------------
++
++- compatible:	One of:
++		"aspeed,ast2500-kcs-bmc"
++
++- kcs_chan: The LPC channel number
++
++- kcs_regs: The KCS IDR,ODR,STR registers
++
++- kcs_addr: The host CPU IO map address
++
++
+ Host Node
+ ---------
+ 
+@@ -94,8 +107,22 @@ lpc: lpc@1e789000 {
+ 	ranges = <0x0 0x1e789000 0x1000>;
+ 
+ 	lpc_bmc: lpc-bmc@0 {
+-		compatible = "aspeed,ast2500-lpc-bmc";
++		compatible = "aspeed,ast2500-lpc-bmc"; "simple-mfd", "syscon";
+ 		reg = <0x0 0x80>;
++		reg-io-width = <4>;
++
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges = <0x0 0x0 0x80>;
++
++		kcs3: kcs@3 {
++			compatible = "aspeed,ast2500-kcs-bmc";
++			interrupts = <8>;
++			kcs_chan = <3>;
++			kcs_regs = <0x2C 0x38 0x44>;
++			kcs_addr = <0xCA2>;
++			status = "okay";
++		};
+ 	};
+ 
+ 	lpc_host: lpc-host@80 {
+diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+index ba3607c..90f260d 100644
+--- a/arch/arm/boot/dts/aspeed-g5.dtsi
++++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+@@ -135,8 +135,40 @@
+ 			ranges = <0x0 0x1e789000 0x1000>;
+ 
+ 			lpc_bmc: lpc-bmc@0 {
+-				compatible = "aspeed,ast2500-lpc-bmc";
++				compatible = "aspeed,ast2500-lpc-bmc", "simple-mfd", "syscon";
+ 				reg = <0x0 0x80>;
++				reg-io-width = <4>;
++
++				#address-cells = <1>;
++				#size-cells = <1>;
++				ranges = <0x0 0x0 0x80>;
++
++				kcs1: kcs@1 {
++					compatible = "aspeed,ast2500-kcs-bmc";
++					interrupts = <8>;
++					kcs_chan = <1>;
++					kcs_regs = <0x24 0x30 0x3C>;
++					kcs_addr = <0x0>;
++					status = "disabled";
++				};
++
++				kcs2: kcs@2 {
++					compatible = "aspeed,ast2500-kcs-bmc";
++					interrupts = <8>;
++					kcs_chan = <2>;
++					kcs_regs = <0x28 0x34 0x40>;
++					kcs_addr = <0x0>;
++					status = "disabled";
++				};
++
++				kcs3: kcs@3 {
++					compatible = "aspeed,ast2500-kcs-bmc";
++					interrupts = <8>;
++					kcs_chan = <3>;
++					kcs_regs = <0x2C 0x38 0x44>;
++					kcs_addr = <0x0>;
++					status = "disabled";
++				};
+ 			};
+ 
+ 			lpc_host: lpc-host@80 {
+@@ -166,6 +198,16 @@
+ 					reg = <0x20 0x24 0x48 0x8>;
+ 				};
+ 
++				kcs4: kcs4@80 {
++					compatible = "aspeed,ast2500-kcs-bmc";
++					reg = <0x80 0x20>;
++					interrupts = <8>;
++					kcs_chan = <4>;
++					kcs_regs = <0x14 0x18 0x1C>;
++					kcs_addr = <0x0>;
++					status = "disabled";
++				};
++
+ 				mbox: mbox@180 {
+ 					compatible = "aspeed,ast2500-mbox";
+ 					reg = <0x180 0x5c>;
+diff --git a/drivers/char/ipmi/Kconfig b/drivers/char/ipmi/Kconfig
+index 90f3edf..9f8589f 100644
+--- a/drivers/char/ipmi/Kconfig
++++ b/drivers/char/ipmi/Kconfig
+@@ -85,3 +85,13 @@ config ASPEED_BT_IPMI_BMC
+ 	  Provides a driver for the BT (Block Transfer) IPMI interface
+ 	  found on Aspeed SOCs (AST2400 and AST2500). The driver
+ 	  implements the BMC side of the BT interface.
++
++config ASPEED_KCS_IPMI_BMC
++	depends on ARCH_ASPEED || COMPILE_TEST
++        depends on REGMAP && REGMAP_MMIO && MFD_SYSCON
++	tristate "KCS IPMI bmc driver"
++	default n
++	help
++	  Provides a driver for the KCS (Keyboard Controller Style) IPMI
++	  interface found on Aspeed SOCs (AST2500). The driver implements
++	  the BMC side of the KCS interface.
+\ No newline at end of file
+diff --git a/drivers/char/ipmi/Makefile b/drivers/char/ipmi/Makefile
+index 0d98cd9..35272a7 100644
+--- a/drivers/char/ipmi/Makefile
++++ b/drivers/char/ipmi/Makefile
+@@ -12,3 +12,4 @@ obj-$(CONFIG_IPMI_POWERNV) += ipmi_powernv.o
+ obj-$(CONFIG_IPMI_WATCHDOG) += ipmi_watchdog.o
+ obj-$(CONFIG_IPMI_POWEROFF) += ipmi_poweroff.o
+ obj-$(CONFIG_ASPEED_BT_IPMI_BMC) += bt-bmc.o
++obj-$(CONFIG_ASPEED_KCS_IPMI_BMC) += kcs-bmc.o
+\ No newline at end of file
+diff --git a/drivers/char/ipmi/kcs-bmc.c b/drivers/char/ipmi/kcs-bmc.c
+new file mode 100644
+index 0000000..720c8b7
+--- /dev/null
++++ b/drivers/char/ipmi/kcs-bmc.c
+@@ -0,0 +1,827 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2015-2017, Intel Corporation.
++
++#include <linux/atomic.h>
++#include <linux/slab.h>
++#include <linux/kcs-bmc.h>
++#include <linux/errno.h>
++#include <linux/interrupt.h>
++#include <linux/io.h>
++#include <linux/mfd/syscon.h>
++#include <linux/miscdevice.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/poll.h>
++#include <linux/regmap.h>
++#include <linux/sched.h>
++#include <linux/timer.h>
++
++/*
++ * This is a BMC device used to communicate to the host
++ */
++#define DEVICE_NAME     "ipmi-kcs-host"
++
++
++/* Different Phases of the KCS Module */
++#define KCS_PHASE_IDLE          0x00
++#define KCS_PHASE_WRITE         0x01
++#define KCS_PHASE_WRITE_END     0x02
++#define KCS_PHASE_READ          0x03
++#define KCS_PHASE_ABORT         0x04
++#define KCS_PHASE_ERROR         0x05
++
++/* Abort Phase */
++#define ABORT_PHASE_ERROR1      0x01
++#define ABORT_PHASE_ERROR2      0x02
++
++/* KCS Command Control codes. */
++#define KCS_GET_STATUS          0x60
++#define KCS_ABORT               0x60
++#define KCS_WRITE_START         0x61
++#define KCS_WRITE_END           0x62
++#define KCS_READ_BYTE           0x68
++
++/* Status bits.:
++ * - IDLE_STATE.  Interface is idle. System software should not be expecting
++ *                nor sending any data.
++ * - READ_STATE.  BMC is transferring a packet to system software. System
++ *                software should be in the "Read Message" state.
++ * - WRITE_STATE. BMC is receiving a packet from system software. System
++ *                software should be writing a command to the BMC.
++ * - ERROR_STATE. BMC has detected a protocol violation at the interface level,
++ *                or the transfer has been aborted. System software can either
++ *                use the "Get_Status" control code to request the nature of
++ *                the error, or it can just retry the command.
++ */
++#define KCS_IDLE_STATE           0
++#define KCS_READ_STATE           1
++#define KCS_WRITE_STATE          2
++#define KCS_ERROR_STATE          3
++
++/* KCS Error Codes */
++#define KCS_NO_ERROR                0x00
++#define KCS_ABORTED_BY_COMMAND      0x01
++#define KCS_ILLEGAL_CONTROL_CODE    0x02
++#define KCS_LENGTH_ERROR            0x06
++#define KCS_UNSPECIFIED_ERROR       0xFF
++
++
++#define KCS_ZERO_DATA           0
++
++/* IPMI 2.0 - Table 9-1, KCS Interface Status Register Bits */
++#define KCS_STR_STATE(state)        (state << 6)
++#define KCS_STR_STATE_MASK          KCS_STR_STATE(0x3)
++#define KCS_STR_CMD_DAT             (1 << 3)
++#define KCS_STR_ATN                 (1 << 2)
++#define KCS_STR_IBF                 (1 << 1)
++#define KCS_STR_OBF                 (1)
++
++
++/***************************** LPC Register ****************************/
++#define LPC_HICR0            0x000
++#define     LPC_HICR0_LPC3E          (1 << 7)
++#define     LPC_HICR0_LPC2E          (1 << 6)
++#define     LPC_HICR0_LPC1E          (1 << 5)
++#define LPC_HICR2            0x008
++#define     LPC_HICR2_IBFIF3         (1 << 3)
++#define     LPC_HICR2_IBFIF2         (1 << 2)
++#define     LPC_HICR2_IBFIF1         (1 << 1)
++#define LPC_HICR4            0x010
++#define     LPC_HICR4_LADR12AS       (1 << 7)
++#define     LPC_HICR4_KCSENBL        (1 << 2)
++#define LPC_LADR3H           0x014
++#define LPC_LADR3L           0x018
++#define LPC_LADR12H          0x01C
++#define LPC_LADR12L          0x020
++
++#define LPC_HICRB            0x000
++#define     LPC_HICRB_IBFIF4         (1 << 1)
++#define     LPC_HICRB_LPC4E          (1 << 0)
++#define LPC_LADR4            0x010
++
++
++#define KCS_MSG_BUFSIZ      1024
++#define KCS_CHANNEL_MAX     4
++
++struct kcs_bmc {
++	struct regmap *map;
++	int            offset;
++	int            irq;
++	spinlock_t     lock;
++
++	u32 chan;
++	int running;
++
++	u32  idr; /* Input Data Register */
++	u32  odr; /* Output Data Register */
++	u32  str; /* Status Register */
++
++	int  kcs_phase;
++	u8   abort_phase;
++	u8   kcs_error;
++
++	wait_queue_head_t queue;
++	int  data_in_avail;
++	int  data_in_idx;
++	u8  *data_in;
++
++	int  data_out_idx;
++	int  data_out_len;
++	u8  *data_out;
++
++	struct miscdevice miscdev;
++	char name[16];
++};
++
++static u8 kcs_inb(struct kcs_bmc *kcs_bmc, u32 reg)
++{
++	u32 val = 0;
++	int rc;
++
++	rc = regmap_read(kcs_bmc->map, kcs_bmc->offset + reg, &val);
++	WARN(rc != 0, "kcs_inb failed: %d\n", rc);
++
++	return rc == 0 ? (u8) val : 0;
++}
++
++static void kcs_outb(struct kcs_bmc *kcs_bmc, u8 data, u32 reg)
++{
++	int rc;
++
++	rc = regmap_write(kcs_bmc->map, kcs_bmc->offset + reg, data);
++	WARN(rc != 0, "kcs_outb failed: %d\n", rc);
++}
++
++static void kcs_set_state(struct kcs_bmc *kcs_bmc, u8 state)
++{
++	int rc;
++
++	rc = regmap_update_bits(kcs_bmc->map, kcs_bmc->offset + kcs_bmc->str,
++				KCS_STR_STATE_MASK,
++				KCS_STR_STATE(state));
++	WARN(rc != 0, "KCS_STR_STATE failed: %d\n", rc);
++}
++
++static void kcs_set_atn(struct kcs_bmc *kcs_bmc, unsigned long set)
++{
++	int rc;
++
++	rc = regmap_update_bits(kcs_bmc->map, kcs_bmc->offset + kcs_bmc->str,
++				KCS_STR_ATN,
++				set != 0 ? KCS_STR_ATN : 0);
++	WARN(rc != 0, "KCS_STR_ATN failed: %d\n", rc);
++}
++
++/*********************************************************************
++ * AST_usrGuide_KCS.pdf
++ * 2. Background:
++ *   we note D for Data, and C for Cmd/Status, default rules are
++ *     A. KCS1 / KCS2 ( D / C:X / X+4 )
++ *        D / C : CA0h / CA4h
++ *        D / C : CA8h / CACh
++ *     B. KCS3 ( D / C:XX2h / XX3h )
++ *        D / C : CA2h / CA3h
++ *        D / C : CB2h / CB3h
++ *     C. KCS4
++ *        D / C : CA4h / CA5h
++ *********************************************************************/
++void kcs_set_addr(struct kcs_bmc *kcs_bmc, u16 addr)
++{
++	switch (kcs_bmc->chan) {
++	case 1:
++		regmap_update_bits(kcs_bmc->map, kcs_bmc->offset + LPC_HICR4,
++				LPC_HICR4_LADR12AS,
++				0);
++		regmap_write(kcs_bmc->map, kcs_bmc->offset + LPC_LADR12H,
++				addr >> 8);
++		regmap_write(kcs_bmc->map, kcs_bmc->offset + LPC_LADR12L,
++				addr & 0xFF);
++		break;
++
++	case 2:
++		regmap_update_bits(kcs_bmc->map, kcs_bmc->offset + LPC_HICR4,
++				LPC_HICR4_LADR12AS,
++				LPC_HICR4_LADR12AS);
++		regmap_write(kcs_bmc->map, kcs_bmc->offset + LPC_LADR12H,
++				addr >> 8);
++		regmap_write(kcs_bmc->map, kcs_bmc->offset + LPC_LADR12L,
++				addr & 0xFF);
++		break;
++
++	case 3:
++		regmap_write(kcs_bmc->map, kcs_bmc->offset + LPC_LADR3H,
++				addr >> 8);
++		regmap_write(kcs_bmc->map, kcs_bmc->offset + LPC_LADR3L,
++				addr & 0xFF);
++		break;
++
++	case 4:
++		regmap_write(kcs_bmc->map, kcs_bmc->offset + LPC_LADR4,
++				((addr + 1) << 16) | (addr));
++		break;
++
++	default:
++		break;
++	}
++}
++
++static void kcs_enable_channel(struct kcs_bmc *kcs_bmc, int enable)
++{
++	switch (kcs_bmc->chan) {
++	case 1:
++		if (enable) {
++			regmap_update_bits(kcs_bmc->map,
++					kcs_bmc->offset + LPC_HICR2,
++					LPC_HICR2_IBFIF1, LPC_HICR2_IBFIF1);
++			regmap_update_bits(kcs_bmc->map,
++					kcs_bmc->offset + LPC_HICR0,
++					LPC_HICR0_LPC1E, LPC_HICR0_LPC1E);
++		} else {
++			regmap_update_bits(kcs_bmc->map,
++					kcs_bmc->offset + LPC_HICR0,
++					LPC_HICR0_LPC1E, 0);
++			regmap_update_bits(kcs_bmc->map,
++					kcs_bmc->offset + LPC_HICR2,
++					LPC_HICR2_IBFIF1, 0);
++		}
++		break;
++
++	case 2:
++		if (enable) {
++			regmap_update_bits(kcs_bmc->map,
++					kcs_bmc->offset + LPC_HICR2,
++					LPC_HICR2_IBFIF2, LPC_HICR2_IBFIF2);
++			regmap_update_bits(kcs_bmc->map,
++					kcs_bmc->offset + LPC_HICR0,
++					LPC_HICR0_LPC2E, LPC_HICR0_LPC2E);
++		} else {
++			regmap_update_bits(kcs_bmc->map,
++					kcs_bmc->offset + LPC_HICR0,
++					LPC_HICR0_LPC2E, 0);
++			regmap_update_bits(kcs_bmc->map,
++					kcs_bmc->offset + LPC_HICR2,
++					LPC_HICR2_IBFIF2, 0);
++		}
++		break;
++
++	case 3:
++		if (enable) {
++			regmap_update_bits(kcs_bmc->map,
++					kcs_bmc->offset + LPC_HICR2,
++					LPC_HICR2_IBFIF3, LPC_HICR2_IBFIF3);
++			regmap_update_bits(kcs_bmc->map,
++					kcs_bmc->offset + LPC_HICR0,
++					LPC_HICR0_LPC3E, LPC_HICR0_LPC3E);
++			regmap_update_bits(kcs_bmc->map,
++					kcs_bmc->offset + LPC_HICR4,
++					LPC_HICR4_KCSENBL, LPC_HICR4_KCSENBL);
++		} else {
++			regmap_update_bits(kcs_bmc->map,
++					kcs_bmc->offset + LPC_HICR0,
++					LPC_HICR0_LPC3E, 0);
++			regmap_update_bits(kcs_bmc->map,
++					kcs_bmc->offset + LPC_HICR4,
++					LPC_HICR4_KCSENBL, 0);
++			regmap_update_bits(kcs_bmc->map,
++					kcs_bmc->offset + LPC_HICR2,
++					LPC_HICR2_IBFIF3, 0);
++		}
++		break;
++
++	case 4:
++		if (enable) {
++			regmap_update_bits(kcs_bmc->map,
++					kcs_bmc->offset + LPC_HICRB,
++					LPC_HICRB_IBFIF4 | LPC_HICRB_LPC4E,
++					LPC_HICRB_IBFIF4 | LPC_HICRB_LPC4E);
++		} else {
++			regmap_update_bits(kcs_bmc->map,
++					kcs_bmc->offset + LPC_HICRB,
++					LPC_HICRB_IBFIF4 | LPC_HICRB_LPC4E,
++					0);
++		}
++		break;
++
++	default:
++		break;
++	}
++}
++
++static void kcs_rx_data(struct kcs_bmc *kcs_bmc)
++{
++	u8 data;
++
++	switch (kcs_bmc->kcs_phase) {
++	case KCS_PHASE_WRITE:
++		kcs_set_state(kcs_bmc, KCS_WRITE_STATE);
++
++		/* set OBF before reading data */
++		kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
++
++		if (kcs_bmc->data_in_idx < KCS_MSG_BUFSIZ)
++			kcs_bmc->data_in[kcs_bmc->data_in_idx++] =
++					kcs_inb(kcs_bmc, kcs_bmc->idr);
++		break;
++
++	case KCS_PHASE_WRITE_END:
++		kcs_set_state(kcs_bmc, KCS_READ_STATE);
++
++		if (kcs_bmc->data_in_idx < KCS_MSG_BUFSIZ)
++			kcs_bmc->data_in[kcs_bmc->data_in_idx++] =
++					kcs_inb(kcs_bmc, kcs_bmc->idr);
++
++		kcs_bmc->kcs_phase = KCS_PHASE_READ;
++		if (kcs_bmc->running) {
++			kcs_bmc->data_in_avail = 1;
++			wake_up_interruptible(&kcs_bmc->queue);
++		}
++		break;
++
++	case KCS_PHASE_READ:
++		if (kcs_bmc->data_out_idx == kcs_bmc->data_out_len)
++			kcs_set_state(kcs_bmc, KCS_IDLE_STATE);
++
++		data = kcs_inb(kcs_bmc, kcs_bmc->idr);
++		if (data != KCS_READ_BYTE) {
++			kcs_set_state(kcs_bmc, KCS_ERROR_STATE);
++			kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
++			break;
++		}
++
++		if (kcs_bmc->data_out_idx == kcs_bmc->data_out_len) {
++			kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
++			kcs_bmc->kcs_phase = KCS_PHASE_IDLE;
++			break;
++		}
++
++		kcs_outb(kcs_bmc, kcs_bmc->data_out[kcs_bmc->data_out_idx++],
++				 kcs_bmc->odr);
++		break;
++
++	case KCS_PHASE_ABORT:
++		switch (kcs_bmc->abort_phase) {
++		case ABORT_PHASE_ERROR1:
++			kcs_set_state(kcs_bmc, KCS_READ_STATE);
++
++			/* Read the Dummy byte */
++			kcs_inb(kcs_bmc, kcs_bmc->idr);
++
++			kcs_outb(kcs_bmc, kcs_bmc->kcs_error, kcs_bmc->odr);
++			kcs_bmc->abort_phase = ABORT_PHASE_ERROR2;
++			break;
++
++		case ABORT_PHASE_ERROR2:
++			kcs_set_state(kcs_bmc, KCS_IDLE_STATE);
++
++			/* Read the Dummy byte */
++			kcs_inb(kcs_bmc, kcs_bmc->idr);
++
++			kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
++			kcs_bmc->kcs_phase = KCS_PHASE_IDLE;
++			kcs_bmc->abort_phase = 0;
++			break;
++
++		default:
++			break;
++		}
++
++		break;
++
++	case KCS_PHASE_ERROR:
++		kcs_set_state(kcs_bmc, KCS_ERROR_STATE);
++
++		/* Read the Dummy byte */
++		kcs_inb(kcs_bmc, kcs_bmc->idr);
++
++		kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
++		break;
++
++	default:
++		kcs_set_state(kcs_bmc, KCS_ERROR_STATE);
++
++		/* Read the Dummy byte */
++		kcs_inb(kcs_bmc, kcs_bmc->idr);
++
++		kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
++		break;
++	}
++}
++
++static void kcs_rx_cmd(struct kcs_bmc *kcs_bmc)
++{
++	u8 cmd;
++
++	kcs_set_state(kcs_bmc, KCS_WRITE_STATE);
++
++	/* Dummy data to generate OBF */
++	kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
++
++	cmd = kcs_inb(kcs_bmc, kcs_bmc->idr);
++	switch (cmd) {
++	case KCS_WRITE_START:
++		kcs_bmc->data_in_avail = 0;
++		kcs_bmc->data_in_idx   = 0;
++		kcs_bmc->kcs_phase     = KCS_PHASE_WRITE;
++		kcs_bmc->kcs_error     = KCS_NO_ERROR;
++		break;
++
++	case KCS_WRITE_END:
++		kcs_bmc->kcs_phase = KCS_PHASE_WRITE_END;
++		break;
++
++	case KCS_ABORT:
++		if (kcs_bmc->kcs_error == KCS_NO_ERROR)
++			kcs_bmc->kcs_error = KCS_ABORTED_BY_COMMAND;
++
++		kcs_bmc->kcs_phase   = KCS_PHASE_ABORT;
++		kcs_bmc->abort_phase = ABORT_PHASE_ERROR1;
++		break;
++
++	default:
++		kcs_bmc->kcs_error = KCS_ILLEGAL_CONTROL_CODE;
++		kcs_set_state(kcs_bmc, KCS_ERROR_STATE);
++		kcs_outb(kcs_bmc, kcs_bmc->kcs_error, kcs_bmc->odr);
++		kcs_bmc->kcs_phase = KCS_PHASE_ERROR;
++		break;
++	}
++}
++
++/*
++ * Whenever the BMC is reset (from power-on or a hard reset), the State Bits
++ * are initialized to "11 - Error State". Doing so allows SMS to detect that
++ * the BMC has been reset and that any message in process has been terminated
++ * by the BMC.
++ */
++static void kcs_force_abort(struct kcs_bmc *kcs_bmc)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&kcs_bmc->lock, flags);
++	kcs_set_state(kcs_bmc, KCS_ERROR_STATE);
++
++	/* Read the Dummy byte */
++	kcs_inb(kcs_bmc, kcs_bmc->idr);
++
++	kcs_outb(kcs_bmc, KCS_ZERO_DATA, kcs_bmc->odr);
++	kcs_bmc->kcs_phase = KCS_PHASE_ERROR;
++	spin_unlock_irqrestore(&kcs_bmc->lock, flags);
++}
++
++static irqreturn_t kcs_bmc_irq(int irq, void *arg)
++{
++	int rc;
++	u32 sts;
++	struct kcs_bmc *kcs_bmc = arg;
++
++	rc = regmap_read(kcs_bmc->map, kcs_bmc->offset + kcs_bmc->str, &sts);
++	if (rc)
++		return IRQ_NONE;
++
++	sts &= (KCS_STR_IBF | KCS_STR_CMD_DAT);
++
++	switch (sts) {
++	case KCS_STR_IBF | KCS_STR_CMD_DAT:
++		kcs_rx_cmd(kcs_bmc);
++		break;
++
++	case KCS_STR_IBF:
++		kcs_rx_data(kcs_bmc);
++
++	default:
++		return IRQ_NONE;
++	}
++
++	return IRQ_HANDLED;
++}
++
++static int kcs_bmc_config_irq(struct kcs_bmc *kcs_bmc,
++			struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	int rc;
++
++	kcs_bmc->irq = platform_get_irq(pdev, 0);
++	if (!kcs_bmc->irq)
++		return -ENODEV;
++
++	rc = devm_request_irq(dev, kcs_bmc->irq, kcs_bmc_irq, IRQF_SHARED,
++			kcs_bmc->name, kcs_bmc);
++	if (rc < 0) {
++		dev_warn(dev, "Unable to request IRQ %d\n", kcs_bmc->irq);
++		kcs_bmc->irq = 0;
++		return rc;
++	}
++
++	return rc;
++}
++
++
++static inline struct kcs_bmc *file_kcs_bmc(struct file *filp)
++{
++	return container_of(filp->private_data, struct kcs_bmc, miscdev);
++}
++
++static int kcs_bmc_open(struct inode *inode, struct file *filp)
++{
++	unsigned long flags;
++	struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
++
++	if (kcs_bmc->running)
++		return -EBUSY;
++
++	spin_lock_irqsave(&kcs_bmc->lock, flags);
++	kcs_bmc->kcs_phase     = KCS_PHASE_IDLE;
++	kcs_bmc->running       = 1;
++	kcs_bmc->data_in_avail = 0;
++	spin_unlock_irqrestore(&kcs_bmc->lock, flags);
++
++	return 0;
++}
++
++static unsigned int kcs_bmc_poll(struct file *filp, poll_table *wait)
++{
++	unsigned int mask = 0;
++	struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
++
++	poll_wait(filp, &kcs_bmc->queue, wait);
++
++	if (kcs_bmc->data_in_avail)
++		mask |= POLLIN;
++
++	if (kcs_bmc->kcs_phase == KCS_PHASE_READ)
++		mask |= POLLOUT;
++
++	return mask;
++}
++
++static ssize_t kcs_bmc_read(struct file *filp, char *buf,
++			    size_t count, loff_t *offset)
++{
++	int rv;
++	struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
++
++	rv = wait_event_interruptible(kcs_bmc->queue,
++				kcs_bmc->data_in_avail != 0);
++	if (rv < 0)
++		return -ERESTARTSYS;
++
++	kcs_bmc->data_in_avail = 0;
++
++	if (count > kcs_bmc->data_in_idx)
++		count = kcs_bmc->data_in_idx;
++
++	if (copy_to_user(buf, kcs_bmc->data_in, count))
++		return -EFAULT;
++
++	return count;
++}
++
++static ssize_t kcs_bmc_write(struct file *filp, const char *buf,
++			     size_t count, loff_t *offset)
++{
++	unsigned long flags;
++	struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
++
++	if (count < 1 || count > KCS_MSG_BUFSIZ)
++		return -EINVAL;
++
++	if (copy_from_user(kcs_bmc->data_out, buf, count))
++		return -EFAULT;
++
++	spin_lock_irqsave(&kcs_bmc->lock, flags);
++	if (kcs_bmc->kcs_phase == KCS_PHASE_READ) {
++		kcs_bmc->data_out_idx = 1;
++		kcs_bmc->data_out_len = count;
++		kcs_outb(kcs_bmc, kcs_bmc->data_out[0], kcs_bmc->odr);
++	}
++	spin_unlock_irqrestore(&kcs_bmc->lock, flags);
++
++	return count;
++}
++
++static long kcs_bmc_ioctl(struct file *filp, unsigned int cmd,
++			  unsigned long arg)
++{
++	long ret = 0;
++	struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
++
++	switch (cmd) {
++	case KCS_BMC_IOCTL_SMS_ATN:
++		kcs_set_atn(kcs_bmc, arg);
++		break;
++
++	case KCS_BMC_IOCTL_FORCE_ABORT:
++		kcs_force_abort(kcs_bmc);
++		break;
++
++	default:
++		ret = -EINVAL;
++		break;
++	}
++
++	return ret;
++}
++
++static int kcs_bmc_release(struct inode *inode, struct file *filp)
++{
++	unsigned long flags;
++	struct kcs_bmc *kcs_bmc = file_kcs_bmc(filp);
++
++	spin_lock_irqsave(&kcs_bmc->lock, flags);
++	kcs_bmc->running = 0;
++	spin_unlock_irqrestore(&kcs_bmc->lock, flags);
++
++	return 0;
++}
++
++static const struct file_operations kcs_bmc_fops = {
++	.owner          = THIS_MODULE,
++	.open           = kcs_bmc_open,
++	.read           = kcs_bmc_read,
++	.write          = kcs_bmc_write,
++	.release        = kcs_bmc_release,
++	.poll           = kcs_bmc_poll,
++	.unlocked_ioctl = kcs_bmc_ioctl,
++};
++
++static const struct regmap_config kcs_regmap_cfg = {
++	.reg_bits = 32,
++	.val_bits = 32,
++	.reg_stride = 4,
++};
++
++static int kcs_bmc_probe(struct platform_device *pdev)
++{
++	struct kcs_bmc *kcs_bmc;
++	struct device *dev;
++	u32 chan, addr, io_regs[3];
++	int rc;
++
++	if (!pdev || !pdev->dev.of_node)
++		return -ENODEV;
++
++	dev = &pdev->dev;
++
++	rc = of_property_read_u32(dev->of_node, "kcs_chan", &chan);
++	if (rc) {
++		dev_err(dev, "no 'kcs_chan' configured\n");
++		return -ENODEV;
++	}
++
++	if (chan == 0 || chan > KCS_CHANNEL_MAX) {
++		dev_err(dev, "invalid 'kcs_chan' = '%u' is configured\n", chan);
++		return -ENODEV;
++	}
++
++	rc = of_property_read_u32(dev->of_node, "kcs_addr", &addr);
++	if (rc) {
++		dev_err(dev, "no 'kcs_addr' configured\n");
++		return -ENODEV;
++	}
++
++	rc = of_property_read_u32_array(dev->of_node, "kcs_regs", io_regs,
++			ARRAY_SIZE(io_regs));
++	if (rc) {
++		dev_err(dev, "no 'kcs_regs' configured\n");
++		return -ENODEV;
++	}
++
++	kcs_bmc = devm_kzalloc(dev, sizeof(*kcs_bmc), GFP_KERNEL);
++	if (!kcs_bmc)
++		return -ENOMEM;
++
++	kcs_bmc->map = syscon_node_to_regmap(dev->parent->of_node);
++	if (IS_ERR(kcs_bmc->map)) {
++		struct resource *res;
++		void __iomem *base;
++
++		/*
++		 * Assume it's not the MFD-based devicetree description, in
++		 * which case generate a regmap ourselves
++		 */
++		res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++		base = devm_ioremap_resource(&pdev->dev, res);
++		if (IS_ERR(base)) {
++			dev_err(dev, "ioremap error\n");
++			return PTR_ERR(base);
++		}
++
++		kcs_bmc->map = devm_regmap_init_mmio(dev, base,
++					&kcs_regmap_cfg);
++		if (IS_ERR(kcs_bmc->map)) {
++			dev_err(dev, "regmap init error\n");
++			return PTR_ERR(base);
++		}
++
++		kcs_bmc->offset = 0;
++	} else {
++		rc = of_property_read_u32(dev->of_node, "reg",
++					&kcs_bmc->offset);
++		if (rc) {
++			rc = of_property_read_u32(dev->parent->of_node, "reg",
++					&kcs_bmc->offset);
++			if (rc) {
++				dev_err(dev, "no 'reg' configured\n");
++				return rc;
++			}
++		}
++	}
++
++	spin_lock_init(&kcs_bmc->lock);
++	kcs_bmc->chan = chan;
++	kcs_bmc->idr  = io_regs[0];
++	kcs_bmc->odr  = io_regs[1];
++	kcs_bmc->str  = io_regs[2];
++
++	init_waitqueue_head(&kcs_bmc->queue);
++	kcs_bmc->data_in  = kmalloc(KCS_MSG_BUFSIZ, GFP_KERNEL);
++	kcs_bmc->data_out = kmalloc(KCS_MSG_BUFSIZ, GFP_KERNEL);
++	if (kcs_bmc->data_in == NULL || kcs_bmc->data_out == NULL) {
++		rc = -ENOMEM;
++		dev_err(dev, "KCS%u failed data_in=%p, data_out=%p\n",
++			     kcs_bmc->chan,
++			     kcs_bmc->data_in,
++			     kcs_bmc->data_out);
++		goto bail;
++	}
++
++	snprintf(kcs_bmc->name, sizeof(kcs_bmc->name), "ipmi-kcs%u", chan);
++	kcs_bmc->miscdev.minor = MISC_DYNAMIC_MINOR;
++	kcs_bmc->miscdev.name = kcs_bmc->name;
++	kcs_bmc->miscdev.fops = &kcs_bmc_fops;
++	rc = misc_register(&kcs_bmc->miscdev);
++	if (rc) {
++		dev_err(dev, "Unable to register misc device\n");
++		goto bail;
++	}
++
++	kcs_set_addr(kcs_bmc, addr);
++	kcs_enable_channel(kcs_bmc, 1);
++
++	kcs_bmc_config_irq(kcs_bmc, pdev);
++	if (kcs_bmc->irq)
++		dev_info(dev, "Using IRQ %d\n", kcs_bmc->irq);
++	else
++		dev_info(dev, "No IRQ\n");
++
++	dev_info(dev, "Found BMC KCS%u@0x%X :\n"
++		      " IDR=0x%X, ODR=0x%X, STR=0x%X Offset=0x%X\n",
++			kcs_bmc->chan, addr,
++			kcs_bmc->idr,
++			kcs_bmc->odr,
++			kcs_bmc->str,
++			kcs_bmc->offset);
++
++	dev_set_drvdata(&pdev->dev, kcs_bmc);
++
++	return 0;
++
++bail:
++	kfree(kcs_bmc->data_in);
++	kfree(kcs_bmc->data_out);
++	kcs_bmc->data_in = NULL;
++	kcs_bmc->data_out = NULL;
++	return rc;
++}
++
++static int kcs_bmc_remove(struct platform_device *pdev)
++{
++	struct kcs_bmc *kcs_bmc = dev_get_drvdata(&pdev->dev);
++
++	if (kcs_bmc == NULL)
++		return 0;
++
++	platform_set_drvdata(pdev, NULL);
++
++	kfree(kcs_bmc->data_in);
++	kfree(kcs_bmc->data_out);
++	kcs_bmc->data_in = NULL;
++	kcs_bmc->data_out = NULL;
++
++	misc_deregister(&kcs_bmc->miscdev);
++
++	return 0;
++}
++
++static const struct of_device_id kcs_bmc_match[] = {
++	{ .compatible = "aspeed,ast2500-kcs-bmc" },
++	{ },
++};
++
++static struct platform_driver kcs_bmc_driver = {
++	.driver = {
++		.name           = DEVICE_NAME,
++		.of_match_table = kcs_bmc_match,
++	},
++	.probe = kcs_bmc_probe,
++	.remove = kcs_bmc_remove,
++};
++
++module_platform_driver(kcs_bmc_driver);
++
++MODULE_DEVICE_TABLE(of, kcs_bmc_match);
++MODULE_LICENSE("GPL");
++MODULE_AUTHOR("Haiyue Wang <haiyue.wang@linux.intel.com>");
++MODULE_DESCRIPTION("Linux device interface to the IPMI KCS interface");
++
+diff --git a/include/uapi/linux/kcs-bmc.h b/include/uapi/linux/kcs-bmc.h
+new file mode 100644
+index 0000000..4bbf669
+--- /dev/null
++++ b/include/uapi/linux/kcs-bmc.h
+@@ -0,0 +1,14 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2015-2017, Intel Corporation.
++
++#ifndef _UAPI_LINUX_KCS_BMC_H
++#define _UAPI_LINUX_KCS_BMC_H
++
++#include <linux/ioctl.h>
++
++#define __KCS_BMC_IOCTL_MAGIC      'K'
++#define KCS_BMC_IOCTL_SMS_ATN      _IOW(__KCS_BMC_IOCTL_MAGIC, 1, unsigned long)
++#define KCS_BMC_IOCTL_FORCE_ABORT  _IO(__KCS_BMC_IOCTL_MAGIC, 2)
++
++#endif /* _UAPI_LINUX_KCS_BMC_H */
++
+-- 
+2.7.4
