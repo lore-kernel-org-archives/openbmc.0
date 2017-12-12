@@ -1,46 +1,73 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <cbostic@linux.vnet.ibm.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=cbostic@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ywhcV1YbszDqvN
- for <openbmc@lists.ozlabs.org>; Tue, 12 Dec 2017 12:11:54 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="GzSrb2CT"; 
- dkim-atps=neutral
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by ozlabs.org (Postfix) with ESMTPSA id 3ywhcT1DSWz9t3V;
- Tue, 12 Dec 2017 12:11:53 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
- t=1513041113; bh=GrdmjH3wQiQTk4Z+/7QIuIANwjrAh5W35Hj0i0RUsMs=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=GzSrb2CT3UGZZA0cQurt73rAQTynak1/Gh7u6N61Qw57fw6qJc8N4MDk1p1QxkFK9
- 6QDX3chvYiNY+KvzGqHa+lLf5SjgD/yJ7JbWA2my+2IYiGR+ZWsQ3E1RsC38BzPNED
- /JIRAHuerYeXptpLsQL/E0o0lO3NyCvpXwEK6lcNolvwCva8DJ6+sPNcP3X1uJsVLT
- UtdMdKtW0y7Hum68KtYfCAeSou5TL/fMzcbjKA5B+9wNym9UDGFDaanMXkFhm/N3sD
- W7W2ATo+viTYsqzdaj2WGyAYK9aDV6SBl28CM4BK1xEZMKRkAEyKnvdzFftfRkEueR
- ac8Syej4UGsAw==
-Subject: Re: Video vs Serial for BMC based host console
-To: Adi Gangidi <adi.gangidi@rackspace.com>, Jeremy Kerr
- <jmkerr@au1.ibm.com>, "anoo@us.ibm.com" <anoo@us.ibm.com>,
- Bradley W Bishop <bradleyb@us.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- "ryan.dc.yu@foxconn.com" <ryan.dc.yu@foxconn.com>
-Cc: Brad DeBauche <brad.debauche@RACKSPACE.COM>,
- Chad Somerlot <chad.somerlot@RACKSPACE.COM>,
- Kenneth Wilke <kenneth.wilke@RACKSPACE.COM>
-References: <DM5PR2001MB10183C72B6C4FE55827529E7E3370@DM5PR2001MB1018.namprd20.prod.outlook.com>
-From: Jeremy Kerr <jk@ozlabs.org>
-Message-ID: <46ea39a9-8211-7466-cca1-d951c478d9d6@ozlabs.org>
-Date: Tue, 12 Dec 2017 09:11:52 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.5.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yx2CT0SQFzDrWj
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Dec 2017 01:24:52 +1100 (AEDT)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ vBCEM2K1132016
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Dec 2017 09:24:50 -0500
+Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2eteu66jhy-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Dec 2017 09:24:49 -0500
+Received: from localhost
+ by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Tue, 12 Dec 2017 07:24:49 -0700
+Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
+ by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Tue, 12 Dec 2017 07:24:46 -0700
+Received: from b03ledav002.gho.boulder.ibm.com
+ (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
+ by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ vBCEOk2x66977906; Tue, 12 Dec 2017 07:24:46 -0700
+Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 035E2136048;
+ Tue, 12 Dec 2017 07:24:46 -0700 (MST)
+Received: from Christophers-MacBook-Pro.local (unknown [9.81.219.14])
+ by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id 5960813603A;
+ Tue, 12 Dec 2017 07:24:43 -0700 (MST)
+Subject: Re: [PATCH linux dev-4.10] hwmon (occ): Fix integer overflow in
+ multiplication
+To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+References: <1512587959-27264-1-git-send-email-eajames@linux.vnet.ibm.com>
+Cc: "Edward A. James" <eajames@us.ibm.com>
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Date: Tue, 12 Dec 2017 08:24:41 -0600
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
+ Gecko/20100101 Thunderbird/45.7.0
 MIME-Version: 1.0
-In-Reply-To: <DM5PR2001MB10183C72B6C4FE55827529E7E3370@DM5PR2001MB1018.namprd20.prod.outlook.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
+In-Reply-To: <1512587959-27264-1-git-send-email-eajames@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=windows-1252; format=flowed
 Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+x-cbid: 17121214-0004-0000-0000-0000135E29B3
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00008194; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000244; SDB=6.00959160; UDB=6.00485058; IPR=6.00739183; 
+ BA=6.00005738; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00018501; XFM=3.00000015;
+ UTC=2017-12-12 14:24:47
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17121214-0005-0000-0000-0000853CCA70
+Message-Id: <89a4ff17-2af6-64de-84ec-6e7296643395@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-12-12_10:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1712120207
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -52,95 +79,93 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Dec 2017 01:11:54 -0000
+X-List-Received-Date: Tue, 12 Dec 2017 14:24:53 -0000
 
-Hi Adi,
-
-> This coincides with Rackspace internal ask for a video based console
-> ultimately via openBMC Web UI instead of serial console. To start with I
-> want to work on patches for just the availability of feature and later
-> worry about integrating into the UI.
-
-I've been thinking about this one for a while, glad you asked :)
-
-I think it boils down to this, at the core - is your underlying
-requirement here:
-
- a) remote graphics for your server; or
- b) having an easy way to access the server's console over the web UI?
-
-Keep in mind that they're somewhat orthogonal, and (b) does not
-specifically require graphics support.
-
-If I had a bit of spare time, this is what I'd do:
-
- 1) Add a handler to obmc-console-server to expose its data over a
-    simple websocket
-
- 2) Find a javascript-based terminal emulator under an appropriate
-    licence (like the one used by jslinux perhaps...)
-
- 3) Add an interface in the web UI to present that terminal emulator,
-    connected to the websocket from (1).
-
-This way, we'd have an in-browser connection to the serial console,
-without requiring any additional dependencies on the client machine
-(like Java or a vnc viewer).
-
-This means:
-
-  - we'd get output much earlier than anything graphics-based
-  - we don't have to pipe nearly as much data to the client's viewer
-  - the user experience is entirely in-browser
-
-Of course, if you are running an actual graphical environment on your
-server, then this wouldn't be suitable. In that case, we would need
-actual graphics support, which would require a bit more work. The rough
-plan for that would be something like:
-
-  - add kernel support to present the host VGA device's framebuffer data
-    to userspace
-
-  - compress that data into a format suitable for transmission to client
-
-  - implement a network service to expose that compressed data, and
-    allow input events to be returned (there'd likely be an existing
-    standard for that, but we'd need to ensure it's suitable)
-
-  - finding a suitable client - ideally javascript, but we could use a
-    separate Java process, or require plain vnc. Hopefully we wouldn't
-    need to implement this ourselves, but I'm not aware of existing
-    solutions, other than a standard VNC client. Or something based on
-    the spice work perhaps?
-
-  - implement virtual keyboard and mouse USB devices for the BMC
-
-  - develop an input layer between the client protocol and those
-    virtual devices
-
-In answer to your questions:
-
-> a) Is this in your plan to implement in the near future ? If so, when ?
-
-The graphical support isn't in my plan, but I can't speak for everyone
-here :) The text-console-to-web-UI is something I'd like to do, but I do
-have other priorities at the moment.
-
-If the text-console-to-web-UI solution is something you'd be looking at,
-I could certainly look at part of the above plan, particularly (1).
-
-> b) Has any progress made this implementation easier by someone else? 
-
-Not that I know of. However, other folks on the list may well have made
-progress already.
-
-> c) If answer is no to above questions, can one of you, please let us
-> know steps in which we should go through about adding this feature, from
-> scratch?
-
-The above should cover that; if not, let me know.
-
-Regards,
+Reviewed-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 
 
-Jeremy
+On 12/6/17 1:19 PM, Eddie James wrote:
+> From: "Edward A. James" <eajames@us.ibm.com>
+>
+> Power values were overflowing INT_MAX when being converted to
+> microwatts, even though the storage was sufficiently large (unsigned 64
+> bit). Change literals to unsigned long long.
+>
+> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+> ---
+>   drivers/hwmon/occ/common.c | 17 +++++++++--------
+>   1 file changed, 9 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
+> index 3175e7b..a64f3db 100644
+> --- a/drivers/hwmon/occ/common.c
+> +++ b/drivers/hwmon/occ/common.c
+> @@ -468,7 +468,7 @@ static ssize_t occ_show_power_1(struct device *dev,
+>   				struct device_attribute *attr, char *buf)
+>   {
+>   	int rc;
+> -	u32 val = 0;
+> +	u64 val = 0;
+>   	struct power_sensor_1 *power;
+>   	struct occ *occ = dev_get_drvdata(dev);
+>   	struct occ_sensors *sensors = &occ->sensors;
+> @@ -491,11 +491,11 @@ static ssize_t occ_show_power_1(struct device *dev,
+>   		val = get_unaligned_be32(&power->accumulator);
+>   		break;
+>   	case 3:
+> -		val = get_unaligned_be16(&power->value) * 1000000;
+> +		val = (u64)get_unaligned_be16(&power->value) * 1000000ULL;
+>   		break;
+>   	}
+>
+> -	return snprintf(buf, PAGE_SIZE - 1, "%u\n", val);
+> +	return snprintf(buf, PAGE_SIZE - 1, "%llu\n", val);
+>   }
+>
+>   static ssize_t occ_show_power_2(struct device *dev,
+> @@ -525,7 +525,7 @@ static ssize_t occ_show_power_2(struct device *dev,
+>   		val = get_unaligned_be64(&power->accumulator);
+>   		break;
+>   	case 3:
+> -		val = get_unaligned_be16(&power->value) * 1000000;
+> +		val = (u64)get_unaligned_be16(&power->value) * 1000000ULL;
+>   		break;
+>   	case 4:
+>   		val = power->function_id;
+> @@ -562,7 +562,8 @@ static ssize_t occ_show_power_a0(struct device *dev,
+>   		val = get_unaligned_be16(&power->system.update_time);
+>   		break;
+>   	case 2:
+> -		val = get_unaligned_be16(&power->system.value) * 1000000;
+> +		val = (u64)get_unaligned_be16(&power->system.value) *
+> +			1000000ULL;
+>   		break;
+>   	case 3:
+>   		val = get_unaligned_be32(&power->system.update_tag);
+> @@ -574,7 +575,7 @@ static ssize_t occ_show_power_a0(struct device *dev,
+>   		val = get_unaligned_be16(&power->proc.update_time);
+>   		break;
+>   	case 6:
+> -		val = get_unaligned_be16(&power->proc.value) * 1000000;
+> +		val = (u64)get_unaligned_be16(&power->proc.value) * 1000000ULL;
+>   		break;
+>   	case 7:
+>   		val = get_unaligned_be32(&power->proc.update_tag);
+> @@ -583,7 +584,7 @@ static ssize_t occ_show_power_a0(struct device *dev,
+>   		val = get_unaligned_be64(&power->proc.accumulator);
+>   		break;
+>   	case 9:
+> -		val = get_unaligned_be16(&power->vdd.value) * 1000000;
+> +		val = (u64)get_unaligned_be16(&power->vdd.value) * 1000000ULL;
+>   		break;
+>   	case 10:
+>   		val = get_unaligned_be32(&power->vdd.update_tag);
+> @@ -592,7 +593,7 @@ static ssize_t occ_show_power_a0(struct device *dev,
+>   		val = get_unaligned_be64(&power->vdd.accumulator);
+>   		break;
+>   	case 12:
+> -		val = get_unaligned_be16(&power->vdn.value) * 1000000;
+> +		val = (u64)get_unaligned_be16(&power->vdn.value) * 1000000ULL;
+>   		break;
+>   	case 13:
+>   		val = get_unaligned_be32(&power->vdn.update_tag);
