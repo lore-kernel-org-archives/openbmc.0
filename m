@@ -1,73 +1,37 @@
-Return-Path: <cbostic@linux.vnet.ibm.com>
+Return-Path: <james.feist@linux.intel.com>
 Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=cbostic@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.20; helo=mga02.intel.com;
+ envelope-from=james.feist@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yx2CT0SQFzDrWj
- for <openbmc@lists.ozlabs.org>; Wed, 13 Dec 2017 01:24:52 +1100 (AEDT)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- vBCEM2K1132016
- for <openbmc@lists.ozlabs.org>; Tue, 12 Dec 2017 09:24:50 -0500
-Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2eteu66jhy-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 12 Dec 2017 09:24:49 -0500
-Received: from localhost
- by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
- Tue, 12 Dec 2017 07:24:49 -0700
-Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
- by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Tue, 12 Dec 2017 07:24:46 -0700
-Received: from b03ledav002.gho.boulder.ibm.com
- (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- vBCEOk2x66977906; Tue, 12 Dec 2017 07:24:46 -0700
-Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 035E2136048;
- Tue, 12 Dec 2017 07:24:46 -0700 (MST)
-Received: from Christophers-MacBook-Pro.local (unknown [9.81.219.14])
- by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP id 5960813603A;
- Tue, 12 Dec 2017 07:24:43 -0700 (MST)
-Subject: Re: [PATCH linux dev-4.10] hwmon (occ): Fix integer overflow in
- multiplication
-To: Eddie James <eajames@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-References: <1512587959-27264-1-git-send-email-eajames@linux.vnet.ibm.com>
-Cc: "Edward A. James" <eajames@us.ibm.com>
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Date: Tue, 12 Dec 2017 08:24:41 -0600
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
- Gecko/20100101 Thunderbird/45.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yx5F43HLxzDrWl
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Dec 2017 03:41:27 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 12 Dec 2017 08:41:23 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.45,395,1508828400"; d="scan'208";a="183588595"
+Received: from unknown (HELO [10.241.244.21]) ([10.241.244.21])
+ by orsmga005.jf.intel.com with ESMTP; 12 Dec 2017 08:41:23 -0800
+Subject: Re: [PATCH linux dev-4.10 v5 1/1] ARM: dts: Add S2600WF BMC Machine
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <1513023634-10621-1-git-send-email-james.feist@linux.intel.com>
+ <CACPK8Xfs_E3FS7YMSQbqXD5odhcrC=C+HLKWGB1EkqbXA3vvjg@mail.gmail.com>
+From: "Feist, James" <james.feist@linux.intel.com>
+Message-ID: <141321d2-9161-037b-bd87-24876d643d21@linux.intel.com>
+Date: Tue, 12 Dec 2017 08:41:23 -0800
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.0
 MIME-Version: 1.0
-In-Reply-To: <1512587959-27264-1-git-send-email-eajames@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
+In-Reply-To: <CACPK8Xfs_E3FS7YMSQbqXD5odhcrC=C+HLKWGB1EkqbXA3vvjg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 17121214-0004-0000-0000-0000135E29B3
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00008194; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000244; SDB=6.00959160; UDB=6.00485058; IPR=6.00739183; 
- BA=6.00005738; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00018501; XFM=3.00000015;
- UTC=2017-12-12 14:24:47
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17121214-0005-0000-0000-0000853CCA70
-Message-Id: <89a4ff17-2af6-64de-84ec-6e7296643395@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-12-12_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1712120207
+Content-Language: en-US
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -79,93 +43,182 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Dec 2017 14:24:53 -0000
+X-List-Received-Date: Tue, 12 Dec 2017 16:41:29 -0000
 
-Reviewed-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Thanks!
+
+- James
 
 
-On 12/6/17 1:19 PM, Eddie James wrote:
-> From: "Edward A. James" <eajames@us.ibm.com>
+On 12/11/2017 4:44 PM, Joel Stanley wrote:
+> On Tue, Dec 12, 2017 at 6:50 AM, James Feist
+> <james.feist@linux.intel.com> wrote:
+>> S2600WF is a Intel platform family with an Aspeed ast2500 BMC.
+>>
+>> Signed-off-by: James Feist <james.feist@linux.intel.com>
+> Looks good! Applied to dev-4.10.
 >
-> Power values were overflowing INT_MAX when being converted to
-> microwatts, even though the storage was sufficiently large (unsigned 64
-> bit). Change literals to unsigned long long.
+> Cheers,
 >
-> Signed-off-by: Edward A. James <eajames@us.ibm.com>
-> ---
->   drivers/hwmon/occ/common.c | 17 +++++++++--------
->   1 file changed, 9 insertions(+), 8 deletions(-)
+> Joel
 >
-> diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
-> index 3175e7b..a64f3db 100644
-> --- a/drivers/hwmon/occ/common.c
-> +++ b/drivers/hwmon/occ/common.c
-> @@ -468,7 +468,7 @@ static ssize_t occ_show_power_1(struct device *dev,
->   				struct device_attribute *attr, char *buf)
->   {
->   	int rc;
-> -	u32 val = 0;
-> +	u64 val = 0;
->   	struct power_sensor_1 *power;
->   	struct occ *occ = dev_get_drvdata(dev);
->   	struct occ_sensors *sensors = &occ->sensors;
-> @@ -491,11 +491,11 @@ static ssize_t occ_show_power_1(struct device *dev,
->   		val = get_unaligned_be32(&power->accumulator);
->   		break;
->   	case 3:
-> -		val = get_unaligned_be16(&power->value) * 1000000;
-> +		val = (u64)get_unaligned_be16(&power->value) * 1000000ULL;
->   		break;
->   	}
->
-> -	return snprintf(buf, PAGE_SIZE - 1, "%u\n", val);
-> +	return snprintf(buf, PAGE_SIZE - 1, "%llu\n", val);
->   }
->
->   static ssize_t occ_show_power_2(struct device *dev,
-> @@ -525,7 +525,7 @@ static ssize_t occ_show_power_2(struct device *dev,
->   		val = get_unaligned_be64(&power->accumulator);
->   		break;
->   	case 3:
-> -		val = get_unaligned_be16(&power->value) * 1000000;
-> +		val = (u64)get_unaligned_be16(&power->value) * 1000000ULL;
->   		break;
->   	case 4:
->   		val = power->function_id;
-> @@ -562,7 +562,8 @@ static ssize_t occ_show_power_a0(struct device *dev,
->   		val = get_unaligned_be16(&power->system.update_time);
->   		break;
->   	case 2:
-> -		val = get_unaligned_be16(&power->system.value) * 1000000;
-> +		val = (u64)get_unaligned_be16(&power->system.value) *
-> +			1000000ULL;
->   		break;
->   	case 3:
->   		val = get_unaligned_be32(&power->system.update_tag);
-> @@ -574,7 +575,7 @@ static ssize_t occ_show_power_a0(struct device *dev,
->   		val = get_unaligned_be16(&power->proc.update_time);
->   		break;
->   	case 6:
-> -		val = get_unaligned_be16(&power->proc.value) * 1000000;
-> +		val = (u64)get_unaligned_be16(&power->proc.value) * 1000000ULL;
->   		break;
->   	case 7:
->   		val = get_unaligned_be32(&power->proc.update_tag);
-> @@ -583,7 +584,7 @@ static ssize_t occ_show_power_a0(struct device *dev,
->   		val = get_unaligned_be64(&power->proc.accumulator);
->   		break;
->   	case 9:
-> -		val = get_unaligned_be16(&power->vdd.value) * 1000000;
-> +		val = (u64)get_unaligned_be16(&power->vdd.value) * 1000000ULL;
->   		break;
->   	case 10:
->   		val = get_unaligned_be32(&power->vdd.update_tag);
-> @@ -592,7 +593,7 @@ static ssize_t occ_show_power_a0(struct device *dev,
->   		val = get_unaligned_be64(&power->vdd.accumulator);
->   		break;
->   	case 12:
-> -		val = get_unaligned_be16(&power->vdn.value) * 1000000;
-> +		val = (u64)get_unaligned_be16(&power->vdn.value) * 1000000ULL;
->   		break;
->   	case 13:
->   		val = get_unaligned_be32(&power->vdn.update_tag);
+>> ---
+>>   changes since v4:
+>>    - removed aliases
+>>    - added fast-read property
+>>    - added copyright header
+>>
+>>   arch/arm/boot/dts/Makefile                     |   1 +
+>>   arch/arm/boot/dts/aspeed-bmc-intel-s2600wf.dts | 128 +++++++++++++++++++++++++
+>>   2 files changed, 129 insertions(+)
+>>   create mode 100644 arch/arm/boot/dts/aspeed-bmc-intel-s2600wf.dts
+>>
+>> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+>> index 6d6c9eb..7c54fc8 100644
+>> --- a/arch/arm/boot/dts/Makefile
+>> +++ b/arch/arm/boot/dts/Makefile
+>> @@ -992,6 +992,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb \
+>>          aspeed-bmc-opp-lanyang.dtb \
+>>          aspeed-bmc-mellanox-msn.dtb \
+>>          aspeed-bmc-quanta-q71l.dtb \
+>> +       aspeed-bmc-intel-s2600wf.dtb \
+>>          aspeed-ast2500-evb.dtb
+>>   endif
+>>
+>> diff --git a/arch/arm/boot/dts/aspeed-bmc-intel-s2600wf.dts b/arch/arm/boot/dts/aspeed-bmc-intel-s2600wf.dts
+>> new file mode 100644
+>> index 0000000..7d5cf3f
+>> --- /dev/null
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-intel-s2600wf.dts
+>> @@ -0,0 +1,128 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +// Copyright (c) 2017 Intel Corporation
+>> +/dts-v1/;
+>> +
+>> +#include "aspeed-g5.dtsi"
+>> +
+>> +/ {
+>> +       model = "S2600WF BMC";
+>> +       compatible = "intel,s2600wf-bmc", "aspeed,ast2500";
+>> +
+>> +       chosen {
+>> +               stdout-path = &uart5;
+>> +               bootargs = "earlyprintk";
+>> +       };
+>> +
+>> +       memory {
+>> +               reg = <0x80000000 0x20000000>;
+>> +       };
+>> +
+>> +       reserved-memory {
+>> +               #address-cells = <1>;
+>> +               #size-cells = <1>;
+>> +               ranges;
+>> +
+>> +               vga_memory: framebuffer@7f000000 {
+>> +                       no-map;
+>> +                       reg = <0x7f000000 0x01000000>;
+>> +               };
+>> +       };
+>> +
+>> +       iio-hwmon {
+>> +               compatible = "iio-hwmon";
+>> +               io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
+>> +                       <&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>,
+>> +                       <&adc 8>, <&adc 9>, <&adc 10>, <&adc 11>,
+>> +                       <&adc 12>, <&adc 13>, <&adc 14>, <&adc 15>;
+>> +       };
+>> +
+>> +};
+>> +
+>> +&fmc {
+>> +       status = "okay";
+>> +       flash@0 {
+>> +               status = "okay";
+>> +               m25p,fast-read;
+>> +#include "openbmc-flash-layout.dtsi"
+>> +       };
+>> +};
+>> +
+>> +&spi1 {
+>> +       status = "okay";
+>> +       pinctrl-names = "default";
+>> +       pinctrl-0 = <&pinctrl_spi1_default>;
+>> +
+>> +       flash@0 {
+>> +               status = "okay";
+>> +               m25p,fast-read;
+>> +               label = "pnor";
+>> +       };
+>> +};
+>> +
+>> +&uart5 {
+>> +       status = "okay";
+>> +};
+>> +
+>> +&mac0 {
+>> +       status = "okay";
+>> +
+>> +       pinctrl-names = "default";
+>> +       pinctrl-0 = <&pinctrl_rmii1_default>;
+>> +       use-ncsi;
+>> +};
+>> +
+>> +&mac1 {
+>> +       status = "okay";
+>> +
+>> +       pinctrl-names = "default";
+>> +       pinctrl-0 = <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
+>> +};
+>> +
+>> +&i2c1 {
+>> +       status = "okay";
+>> +};
+>> +
+>> +&i2c2 {
+>> +       status = "okay";
+>> +};
+>> +
+>> +&i2c3 {
+>> +       status = "okay";
+>> +};
+>> +
+>> +&i2c4 {
+>> +       status = "okay";
+>> +};
+>> +
+>> +&i2c5 {
+>> +       status = "okay";
+>> +};
+>> +
+>> +&i2c6 {
+>> +       status = "okay";
+>> +};
+>> +
+>> +&i2c7 {
+>> +       status = "okay";
+>> +};
+>> +
+>> +&i2c13 {
+>> +       status = "okay";
+>> +};
+>> +
+>> +&gfx {
+>> +       status = "okay";
+>> +};
+>> +
+>> +&pinctrl {
+>> +       aspeed,external-nodes = <&gfx &lhc>;
+>> +};
+>> +
+>> +&pwm_tacho {
+>> +       status = "okay";
+>> +       pinctrl-names = "default";
+>> +       pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
+>> +                        &pinctrl_pwm2_default &pinctrl_pwm3_default
+>> +                        &pinctrl_pwm4_default &pinctrl_pwm5_default
+>> +                        &pinctrl_pwm6_default &pinctrl_pwm7_default>;
+>> +};
+>> --
+>> 2.7.4
+>>
