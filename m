@@ -7,11 +7,11 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yxkM75M27zDqgt
- for <openbmc@lists.ozlabs.org>; Thu, 14 Dec 2017 04:33:54 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yxkM734ftzDqZ0
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Dec 2017 04:33:55 +1100 (AEDT)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
 Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 705A76DBA5
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 78F9E9758D
  for <openbmc@lists.ozlabs.org>; Wed, 13 Dec 2017 12:33:51 -0500 (EST)
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 Content-Type: text/plain; charset=us-ascii
@@ -22,7 +22,7 @@ Date: Wed, 13 Dec 2017 12:33:51 -0500
 References: <1513186112.30455.2.camel@fuzziesquirrel.com>
 To: openbmc@lists.ozlabs.org
 In-Reply-To: <1513186112.30455.2.camel@fuzziesquirrel.com>
-Message-Id: <877CAAA7-96EF-4B2D-88D6-DDFBD0B67330@fuzziesquirrel.com>
+Message-Id: <E05BAE93-5DD0-49C8-B737-AC68545E5F06@fuzziesquirrel.com>
 X-Mailer: Apple Mail (2.3273)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
