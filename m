@@ -7,23 +7,18 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yxkM734ftzDqZ0
- for <openbmc@lists.ozlabs.org>; Thu, 14 Dec 2017 04:33:55 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yxksW4r3vzDrcp
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Dec 2017 04:56:47 +1100 (AEDT)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 78F9E9758D
- for <openbmc@lists.ozlabs.org>; Wed, 13 Dec 2017 12:33:51 -0500 (EST)
+Sender: bradleyb@bajor.fuzziesquirrel.com
+Message-ID: <1513187799.30455.14.camel@fuzziesquirrel.com>
+Subject: OpenBMC 12/11 community telecon - Minutes
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: Re: OpenBMC community telecon worldwide toll free dial in numbers
-Date: Wed, 13 Dec 2017 12:33:51 -0500
-References: <1513186112.30455.2.camel@fuzziesquirrel.com>
 To: openbmc@lists.ozlabs.org
-In-Reply-To: <1513186112.30455.2.camel@fuzziesquirrel.com>
-Message-Id: <E05BAE93-5DD0-49C8-B737-AC68545E5F06@fuzziesquirrel.com>
-X-Mailer: Apple Mail (2.3273)
+Date: Wed, 13 Dec 2017 12:56:39 -0500
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -35,25 +30,63 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Dec 2017 17:33:56 -0000
+X-List-Received-Date: Wed, 13 Dec 2017 17:56:49 -0000
 
-> On Dec 13, 2017, at 12:28 PM, Brad Bishop =
-<bradleyb@fuzziesquirrel.com> wrote:
->=20
-> Please follow the link to find toll-free access numbers for countries
-> outside the US.
->=20
-> =
-https://www.teleconference.att.com/servlet/glbAccess?process=3D1&accessCo
-> de=3D85891389&accessNumber=3D2158616239
+As always, If there are any errors or omissions please just reply with
+a correction.
 
-Here is a clickable link...
+Thx - brad
 
-=
-https://www.teleconference.att.com/servlet/glbAccess?process=3D1&accessCod=
-e=3D85891389&accessNumber=3D2158616239
+OpenBMC Community Teleconference 12/11 Minutes
+--------------------------------
+Brad B
+James M
+Adriana K
+Vernon M
+Ratan G
+Shivani S
+Nancy Y
+James F
+Jeremey K
 
->=20
-> Monday, 10:00pm EDT
-> 888-426-6840
-> password: 85891389
+Apologies - I know there is at least one person whose name I did not
+catch.  Feel free to reply with an addition or correction.
+
+--------
+
+Topics discussed:
+ - user management - Vernon M
+ - power management - James M
+ - Yocto subtrees - James F
+ - Kernel update - Nancy Y
+ - Meeting next week - Brad B
+
+User management:
+ - Vernon continued to lead a discussion around the user management
+implementation proposal.
+ - https://lists.ozlabs.org/pipermail/openbmc/2017-December/010060.html
+ - Three key aspects: dbus API, IPMI PAM module and build abstraction
+for package roles.
+ - The time to offer feedback is _now_.
+ - Brad to respond to proposal with feedback.
+
+Power management:
+ - James would like to work on power control.
+ - Brief overview on the existing systemd based framework for that.
+ - Discussed possibility of a new framework for managing chassis/host
+state.
+ - Community is open to hearing about alternative state management
+frameworks.
+ - Brad to provide a dependency graph for the existing framework.
+
+Yocto subtrees:
+ - Discussed the longer term direction for making OE updates.
+ - Discussed dropping support for openbmc/openbmc with subtrees.
+
+Kernel update:
+ - Why was 4.13 chosen?
+ - It was the most recent kernel at the point work started.
+
+Next weeks meeting:
+ - Do we want a call next week?
+ - Yes.
