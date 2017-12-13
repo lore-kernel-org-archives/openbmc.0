@@ -1,46 +1,30 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <Tomer.Maimon@nuvoton.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
+X-Greylist: delayed 1568 seconds by postgrey-1.36 at bilbo;
+ Thu, 14 Dec 2017 01:12:02 AEDT
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yxM821J0bzDrYT
- for <openbmc@lists.ozlabs.org>; Wed, 13 Dec 2017 14:08:02 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="qeysfsnh"; 
- dkim-atps=neutral
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by ozlabs.org (Postfix) with ESMTPSA id 3yxM8157YLz9s7F;
- Wed, 13 Dec 2017 14:08:01 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
- t=1513134481; bh=D9e4GsGAJeGLQgSBQIQQy2GmK5TruXOHyVQJ046YajU=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=qeysfsnhAnqqTsFBWBvW9gAUthZB9YXsiOdPBNGzLsa9Iy47L0+A0SxKa22zaW3e0
- 88YcRDvnNM80b7jrWxSH5rx4sbvbU9IW2+Jmlu6Eq2APex8YBpKDTbepkcT6UUJbkX
- A/Hu6bHzHFk2YYgmiliv/KWXgCGehl1EebicgzTSGSwsM8x5PWfzf0Bf6lVqpQLYRg
- 9cWUZgEvIehoiDW5UIDGumIfDnn4ebfi7mbNbkCH5sqhiWZjgfoWHYMUUP2XAHyDvz
- /98pDZ6zGRzF0cmW6f9DdJHSG7x2Wbzg5vvaLqaqbtJDg/8CcGAhS2KB/iWgtjvoNV
- htABzRflmZLag==
-Subject: Re: IPMI LAN command story design - try 3rd send
-To: Patrick Williams <patrick@stwcx.xyz>, tomjose <tomjose@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-References: <TY1PR06MB0863871D99A02C72E98F2462F6C20@TY1PR06MB0863.apcprd06.prod.outlook.com>
- <57F37746.6040304@linux.vnet.ibm.com>
- <20161004145104.d5co7h25dakpcxyz@asimov>
- <TY1PR06MB0863CF900A7338954B8ED956F6D00@TY1PR06MB0863.apcprd06.prod.outlook.com>
- <TY1PR06MB08635DA92530A90D5D2C039DF6A30@TY1PR06MB0863.apcprd06.prod.outlook.com>
- <581C8C7D.8080702@linux.vnet.ibm.com> <20161104141455.GE17105@heinlein.lan>
- <581CCA61.4010202@linux.vnet.ibm.com> <20161107035006.GB15757@heinlein.lan>
-From: Jeremy Kerr <jk@ozlabs.org>
-Message-ID: <80bcfede-6212-157b-e391-6e4bc526b339@ozlabs.org>
-Date: Wed, 13 Dec 2017 11:08:01 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.5.0
-MIME-Version: 1.0
-In-Reply-To: <20161107035006.GB15757@heinlein.lan>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yxdtB3j23zDrcw
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Dec 2017 01:12:02 +1100 (AEDT)
+Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id vBDDRtQe029631;
+ Wed, 13 Dec 2017 15:27:55 +0200
+Received: by talu34.nuvoton.co.il (Postfix, from userid 10070)
+ id 5A8C95A918; Wed, 13 Dec 2017 15:45:31 +0200 (IST)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, Tomer Maimon <tmaimon77@gmail.com>
+Subject: [PATCH v1 3/3] MAINTAINERS: Add entry for Nuvoton NPCM architecture
+Date: Wed, 13 Dec 2017 15:45:28 +0200
+Message-Id: <1513172728-20998-4-git-send-email-tmaimon77@gmail.com>
+X-Mailer: git-send-email 1.8.3.4
+In-Reply-To: <1513172728-20998-1-git-send-email-tmaimon77@gmail.com>
+References: <1513172728-20998-1-git-send-email-tmaimon77@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -52,39 +36,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Dec 2017 03:08:03 -0000
+X-List-Received-Date: Wed, 13 Dec 2017 14:12:03 -0000
 
-Hi all,
+Add maintainers and reviewers for Nuvoton NPCM architecture
 
-Digging up an old thread here, but I think this is important:
+Based on [v8,3/3] MAINTAINERS: Add entry for Nuvoton NPCM architecture patch:
+Brendan Higgins : - https://patchwork.kernel.org/patch/10063413/
 
-> Thanks for the explanation.  With this website you pointed to and some
-> other investigation I've done, I am comfortable with us using the 'Set
-> Channel Access' as the time to apply the settings.  The documentation of
-> two competition products both seem to require an 'ipmitool mc reset
-> warm' for IP address changes to take effect, so we are at least better
-> than that.
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ MAINTAINERS | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-The two BMC implementations that I'm aware of do not require a mc reset
-for lan parameters to be applied. Both will apply settings without
-further commands. One will wait 10 seconds before applying settings, to
-allow multiple changes to be grouped into a single reconfiguration.
-
-Requiring non-standard command to be issued causes a disconnect between
-user expectations and our implementation. We'd have to document this
-difference in behaviour for every potential sysadmin interacting with
-OpenBMC.
-
-> Can you internally track down a contact on the xCAT team and verify that
-> this will be ok with them?
-
-Not just xCAT, but every other provisioning software that will support
-OpenBMC. Including ones that are custom-developed. That's not feasible.
-
-For cases like this, we should really reconsider before coming up with
-our own special interface requirements.
-
-Regards,
-
-
-Jeremy
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 1c3feffb1c1c..9b90748b729d 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -1598,6 +1598,19 @@ F:	drivers/pinctrl/nomadik/
+ F:	drivers/i2c/busses/i2c-nomadik.c
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-nomadik.git
+ 
++ARM/NUVOTON NPCM ARCHITECTURE
++M:	Avi Fishman <avifishman70@gmail.com>
++M:	Tomer Maimon <tmaimon77@gmail.com>
++R:	Brendan Higgins <brendanhiggins@google.com>
++R:	Rick Altherr <raltherr@google.com>
++L:	openbmc@lists.ozlabs.org (moderated for non-subscribers)
++S:	Supported
++F:	arch/arm/mach-npcm/
++F:	arch/arm/boot/dts/nuvoton-npcm*
++F:	include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
++F:	drivers/*/*npcm*
++F:	Documentation/*/*npcm*
++
+ ARM/NUVOTON W90X900 ARM ARCHITECTURE
+ M:	Wan ZongShun <mcuos.com@gmail.com>
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+-- 
+2.14.1
