@@ -1,54 +1,38 @@
-Return-Path: <geissonator@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c06::229; helo=mail-io0-x229.google.com;
- envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="N9JsPqvt"; 
- dkim-atps=neutral
-Received: from mail-io0-x229.google.com (mail-io0-x229.google.com
- [IPv6:2607:f8b0:4001:c06::229])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <yong.b.li@linux.intel.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.24; helo=mga09.intel.com;
+ envelope-from=yong.b.li@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yx8dh1jVrzDrXZ
- for <openbmc@lists.ozlabs.org>; Wed, 13 Dec 2017 06:14:30 +1100 (AEDT)
-Received: by mail-io0-x229.google.com with SMTP id o2so132564ioe.8
- for <openbmc@lists.ozlabs.org>; Tue, 12 Dec 2017 11:14:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=7qpZy9+k6TWQWpzsTvuKsHOJut60axgaC5xhaUim2Ik=;
- b=N9JsPqvtJ62uIlHHHc/1+91VT3f/Nn64PCAcEcqrHeVf37tqWNH1Gigep5EF+QdUKT
- 3c7t4/KtuimJvuGLSrKtKVlD0N4ArQSSMEp7MS6PhI72XR6+kQYwdoqOwah3iXhZvNYH
- YyApbRomOYn79xgX6q5lZQrmZRzZOMXBZ4A+9TCltf6V6Puv/JJZUGaDafLEe5HRMpq8
- kIAhu5ORJduUPIz7W4AOrTdotGBkGoUDqk32dCDORcJMW1mEV86AovZHSjpgbTD/Rdt+
- QA1Beer2aDGg/HisL8TZUoZwwSGq/yKUlNZbJ/CRhnf4gOJ/PxgxYCHMqGg93tkhEp9k
- QwAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=7qpZy9+k6TWQWpzsTvuKsHOJut60axgaC5xhaUim2Ik=;
- b=RDIcqwY0l/KWU2AbncbuwhLOtJM7mNsXxgFLINJnLskfpaHp5oU2X+P8VV4S6CL2Bq
- Wswo6OSe9KMNH8IX6/cQLxXatjEVL9XZunKi9igpJ5TFxXhkvmym67XIZvKtZKni8qR3
- MtLVtlgT3odkCWCLm2gQ0dzfiSOfrkeSvMHLw28txbVS6V+S4EMxFkf7T675qad8fPXE
- +cdltBMmV03MvQltHrdl4XSMTUgmMVQzIhgq1uwylmp2ufEdU+Q5DCXHMZGLv9nUb8X8
- cb9Kw9nLQdPKaqtN06mu6JY5zsyUX0FtV0ME+RuCGBkSAbyyQd6s6HhRCyy2TtQz9ezb
- tfyA==
-X-Gm-Message-State: AKGB3mIAdQnyTtjREZgDpaMcOEQI2Qyg/UKPSpnYQQ58ogVWZDchUTEP
- E1kIfxgmxa209DjI1loHP8NvKyruZipORC85JZw=
-X-Google-Smtp-Source: ACJfBouuHcdDWNXo5+fzZ9QpEH4ue5RHL0BpQliLvJgeKx+puqiXxdOmEPxc9JAi3zNhRgXplMZnszIIY9ou5rCgGS4=
-X-Received: by 10.107.11.91 with SMTP id v88mr6968462ioi.179.1513106067184;
- Tue, 12 Dec 2017 11:14:27 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yxLPD1Q9bzDrYT
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Dec 2017 13:34:23 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 12 Dec 2017 18:34:19 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.45,396,1508828400"; d="scan'208";a="186471534"
+Received: from yongli3-mobl.ccr.corp.intel.com (HELO yongli3MOBL)
+ ([10.239.196.138])
+ by fmsmga006.fm.intel.com with ESMTP; 12 Dec 2017 18:34:17 -0800
+From: "Yong Li" <yong.b.li@linux.intel.com>
+To: "'OpenBMC Maillist'" <openbmc@lists.ozlabs.org>
+Cc: <yong.b.li@linux.intel.com>
+Subject: system_232 upgrade to 234?
+Date: Wed, 13 Dec 2017 10:34:17 +0800
+Message-ID: <000001d373ba$e03dbc90$a0b935b0$@linux.intel.com>
 MIME-Version: 1.0
-Received: by 10.107.159.76 with HTTP; Tue, 12 Dec 2017 11:14:26 -0800 (PST)
-In-Reply-To: <OF113B399A.B511E757-ON002581ED.0019E0EA-002581ED.0019FDF6@notes.na.collabserv.com>
-References: <OF113B399A.B511E757-ON002581ED.0019E0EA-002581ED.0019FDF6@notes.na.collabserv.com>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Tue, 12 Dec 2017 13:14:26 -0600
-Message-ID: <CALLMt=pVW5N4=PbKaM8XOws-vQcii23vCutC4zPzpW_5tmH0-w@mail.gmail.com>
-Subject: Re: Host factory reset - version priorities
-To: Michael Tritz <mtritz@us.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 15.0
+Thread-Index: AdNzuLX2kmkjpwZTQAazqSrSdGZ2Hw==
+Content-Language: en-us
+x-ctpclassification: CTP_IC
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiMzIzZjM2MWUtYTliYi00NmY1LWFjOWYtYTViNDA0YjU5Mzg1IiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX0lDIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE2LjUuOS4zIiwiVHJ1c3RlZExhYmVsSGFzaCI6IlEyQk9iSmpXdDJWZWhzMVZ5dFlUbmRzdyt0cWpSTWtZUng3cU1QdFl0Y009In0=
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -60,32 +44,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Dec 2017 19:14:33 -0000
+X-List-Received-Date: Wed, 13 Dec 2017 02:34:25 -0000
 
-On Mon, Dec 4, 2017 at 10:43 PM, Michael Tritz <mtritz@us.ibm.com> wrote:
-> What should be happening on a host factory reset?
->
-> Suppose we have a machine with two host versions uploaded - one active, one
-> not. Currently, the host factory reset will clear the persistence files with
-> which we store the priority information for these versions. The next time
-> the host software updater is started, both versions are left with priority
-> of 255, and one of the two (maybe it's random, maybe it's based on upload
-> order) is selected as the active host version.
->
-> Is this the desired behavior? Would it be better to instead retain the
-> version priority through a reset, or is clearing that setting under the
-> scope of "restoring factory settings"?
+Hi All,
 
-I do not thing we want to lose the priority on a factory reset.  We
-have to ensure we always
-use the firmware level that the user last activated, no matter what.
-The "spirit" of a factory
-reset is to clear any changes done by the user to defaults of the
-firmware.  Ensuring we boot with the right
-level of firmware is still required after a factory reset.
+ I am working on the replacement for
+chassis_control.py(https://github.com/openbmc/skeleton/blob/master/pychassis
+ctl/chassis_control.py), using
+https://github.com/openbmc/phosphor-state-manager. And would like to add the
+uuid property into chassis-stats-manager.
 
-Andrew
+I found this uuid property is using the same content in /etc/machine-id(from
+the above chassis_contro.py). Based on
+https://www.freedesktop.org/software/systemd/man/machine-id.html: This ID
+uniquely identifies the host. It should be considered "confidential", and
+must not be exposed in untrusted environments, in particular on the network.
+And there is a new API(sd_id128_get_machine_app_specific(3)) to generate an
+application specific ID.
 
->
-> Michael
->
+It seems to me that we need to use the new systemd API to change the current
+uuid generation logic. I can cherry-pick several systemd patch files to
+backport the new API from 234 to 232. Or can we just upgrade the current
+systemd_232 to 234(from yocto 2.4)? Any doc/plan about the upgrade?
+
+Thanks for your comments/suggestions!
+
+Yong Li
