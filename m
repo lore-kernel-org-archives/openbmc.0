@@ -1,38 +1,46 @@
-Return-Path: <yong.b.li@linux.intel.com>
-Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.24; helo=mga09.intel.com;
- envelope-from=yong.b.li@linux.intel.com; receiver=<UNKNOWN>)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <jk@ozlabs.org>
+Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yxLPD1Q9bzDrYT
- for <openbmc@lists.ozlabs.org>; Wed, 13 Dec 2017 13:34:23 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 12 Dec 2017 18:34:19 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.45,396,1508828400"; d="scan'208";a="186471534"
-Received: from yongli3-mobl.ccr.corp.intel.com (HELO yongli3MOBL)
- ([10.239.196.138])
- by fmsmga006.fm.intel.com with ESMTP; 12 Dec 2017 18:34:17 -0800
-From: "Yong Li" <yong.b.li@linux.intel.com>
-To: "'OpenBMC Maillist'" <openbmc@lists.ozlabs.org>
-Cc: <yong.b.li@linux.intel.com>
-Subject: system_232 upgrade to 234?
-Date: Wed, 13 Dec 2017 10:34:17 +0800
-Message-ID: <000001d373ba$e03dbc90$a0b935b0$@linux.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yxM821J0bzDrYT
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Dec 2017 14:08:02 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="qeysfsnh"; 
+ dkim-atps=neutral
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.org (Postfix) with ESMTPSA id 3yxM8157YLz9s7F;
+ Wed, 13 Dec 2017 14:08:01 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
+ t=1513134481; bh=D9e4GsGAJeGLQgSBQIQQy2GmK5TruXOHyVQJ046YajU=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=qeysfsnhAnqqTsFBWBvW9gAUthZB9YXsiOdPBNGzLsa9Iy47L0+A0SxKa22zaW3e0
+ 88YcRDvnNM80b7jrWxSH5rx4sbvbU9IW2+Jmlu6Eq2APex8YBpKDTbepkcT6UUJbkX
+ A/Hu6bHzHFk2YYgmiliv/KWXgCGehl1EebicgzTSGSwsM8x5PWfzf0Bf6lVqpQLYRg
+ 9cWUZgEvIehoiDW5UIDGumIfDnn4ebfi7mbNbkCH5sqhiWZjgfoWHYMUUP2XAHyDvz
+ /98pDZ6zGRzF0cmW6f9DdJHSG7x2Wbzg5vvaLqaqbtJDg/8CcGAhS2KB/iWgtjvoNV
+ htABzRflmZLag==
+Subject: Re: IPMI LAN command story design - try 3rd send
+To: Patrick Williams <patrick@stwcx.xyz>, tomjose <tomjose@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <TY1PR06MB0863871D99A02C72E98F2462F6C20@TY1PR06MB0863.apcprd06.prod.outlook.com>
+ <57F37746.6040304@linux.vnet.ibm.com>
+ <20161004145104.d5co7h25dakpcxyz@asimov>
+ <TY1PR06MB0863CF900A7338954B8ED956F6D00@TY1PR06MB0863.apcprd06.prod.outlook.com>
+ <TY1PR06MB08635DA92530A90D5D2C039DF6A30@TY1PR06MB0863.apcprd06.prod.outlook.com>
+ <581C8C7D.8080702@linux.vnet.ibm.com> <20161104141455.GE17105@heinlein.lan>
+ <581CCA61.4010202@linux.vnet.ibm.com> <20161107035006.GB15757@heinlein.lan>
+From: Jeremy Kerr <jk@ozlabs.org>
+Message-ID: <80bcfede-6212-157b-e391-6e4bc526b339@ozlabs.org>
+Date: Wed, 13 Dec 2017 11:08:01 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.5.0
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="us-ascii"
+In-Reply-To: <20161107035006.GB15757@heinlein.lan>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 15.0
-Thread-Index: AdNzuLX2kmkjpwZTQAazqSrSdGZ2Hw==
-Content-Language: en-us
-x-ctpclassification: CTP_IC
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiMzIzZjM2MWUtYTliYi00NmY1LWFjOWYtYTViNDA0YjU5Mzg1IiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX0lDIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE2LjUuOS4zIiwiVHJ1c3RlZExhYmVsSGFzaCI6IlEyQk9iSmpXdDJWZWhzMVZ5dFlUbmRzdyt0cWpSTWtZUng3cU1QdFl0Y009In0=
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -44,29 +52,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Dec 2017 02:34:25 -0000
+X-List-Received-Date: Wed, 13 Dec 2017 03:08:03 -0000
 
-Hi All,
+Hi all,
 
- I am working on the replacement for
-chassis_control.py(https://github.com/openbmc/skeleton/blob/master/pychassis
-ctl/chassis_control.py), using
-https://github.com/openbmc/phosphor-state-manager. And would like to add the
-uuid property into chassis-stats-manager.
+Digging up an old thread here, but I think this is important:
 
-I found this uuid property is using the same content in /etc/machine-id(from
-the above chassis_contro.py). Based on
-https://www.freedesktop.org/software/systemd/man/machine-id.html: This ID
-uniquely identifies the host. It should be considered "confidential", and
-must not be exposed in untrusted environments, in particular on the network.
-And there is a new API(sd_id128_get_machine_app_specific(3)) to generate an
-application specific ID.
+> Thanks for the explanation.  With this website you pointed to and some
+> other investigation I've done, I am comfortable with us using the 'Set
+> Channel Access' as the time to apply the settings.  The documentation of
+> two competition products both seem to require an 'ipmitool mc reset
+> warm' for IP address changes to take effect, so we are at least better
+> than that.
 
-It seems to me that we need to use the new systemd API to change the current
-uuid generation logic. I can cherry-pick several systemd patch files to
-backport the new API from 234 to 232. Or can we just upgrade the current
-systemd_232 to 234(from yocto 2.4)? Any doc/plan about the upgrade?
+The two BMC implementations that I'm aware of do not require a mc reset
+for lan parameters to be applied. Both will apply settings without
+further commands. One will wait 10 seconds before applying settings, to
+allow multiple changes to be grouped into a single reconfiguration.
 
-Thanks for your comments/suggestions!
+Requiring non-standard command to be issued causes a disconnect between
+user expectations and our implementation. We'd have to document this
+difference in behaviour for every potential sysadmin interacting with
+OpenBMC.
 
-Yong Li
+> Can you internally track down a contact on the xCAT team and verify that
+> this will be ok with them?
+
+Not just xCAT, but every other provisioning software that will support
+OpenBMC. Including ones that are custom-developed. That's not feasible.
+
+For cases like this, we should really reconsider before coming up with
+our own special interface requirements.
+
+Regards,
+
+
+Jeremy
