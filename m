@@ -1,51 +1,30 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yyGYw2lmqzDrcQ
- for <openbmc@lists.ozlabs.org>; Fri, 15 Dec 2017 01:45:08 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="f+6dHmkK"; 
- dkim-atps=neutral
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by ozlabs.org (Postfix) with ESMTPSA id 3yyGYv6Nmsz9sCZ;
- Fri, 15 Dec 2017 01:45:07 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
- t=1513262708; bh=PsXipAGRgw0xZ/F/N+1G5VvoyxpDfqJ8PzxpvUIn7lQ=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=f+6dHmkKP3i+OWuKQw6+EAPWb7Sch6U6cxHMV7nHG6Q8oHBSjx9tcDk/2AnnYjmXm
- 7c2r2RrTAMzGxn5CdwF6rSXhDa+8AV0fjmSAcK1WfJVNmECRHno/gs4i9Vrm1p1Adf
- wG7PH3D75Z1EokVSDBgkbwIb+2XcqJ/N5J6BlkbcpYh03ly9/+cXtzopTcpXOSUybE
- YSwl7IP6VJxiagGWI2aPyhWSqAEnHLCutGUnh8OyOqL7BV1AmvVEP79Pkirsf7hgxF
- n69Hw9Hsy/pQSwRT7IqrHT1TM598Ku413C7pU7lhcuIoofUDVWQjbkS8UH5HZOzTx5
- wSbPYVV7ufIIA==
-Subject: Re: IPMI LAN command story design - try 3rd send
-To: Tom Joseph <tomjose@linux.vnet.ibm.com>
-Cc: Patrick Williams <patrick@stwcx.xyz>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, vernon.mauery@linux.intel.com
-References: <TY1PR06MB0863871D99A02C72E98F2462F6C20@TY1PR06MB0863.apcprd06.prod.outlook.com>
- <57F37746.6040304@linux.vnet.ibm.com>
- <20161004145104.d5co7h25dakpcxyz@asimov>
- <TY1PR06MB0863CF900A7338954B8ED956F6D00@TY1PR06MB0863.apcprd06.prod.outlook.com>
- <TY1PR06MB08635DA92530A90D5D2C039DF6A30@TY1PR06MB0863.apcprd06.prod.outlook.com>
- <581C8C7D.8080702@linux.vnet.ibm.com> <20161104141455.GE17105@heinlein.lan>
- <581CCA61.4010202@linux.vnet.ibm.com> <20161107035006.GB15757@heinlein.lan>
- <80bcfede-6212-157b-e391-6e4bc526b339@ozlabs.org>
- <432e5d6e-ac7a-6844-2bc9-4a046af0abda@linux.vnet.ibm.com>
- <86bef8c4-2f54-6c33-93eb-5ed6aa212aff@ozlabs.org>
- <84218d7b-714c-761e-cd93-97118ceee49f@linux.vnet.ibm.com>
-From: Jeremy Kerr <jk@ozlabs.org>
-Message-ID: <f0577dd5-1df9-d077-fb95-24eaec58489d@ozlabs.org>
-Date: Thu, 14 Dec 2017 22:45:06 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.5.0
-MIME-Version: 1.0
-In-Reply-To: <84218d7b-714c-761e-cd93-97118ceee49f@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Return-Path: <oleksandrs@mellanox.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=mellanox.com
+ (client-ip=193.47.165.129; helo=mellanox.co.il;
+ envelope-from=oleksandrs@mellanox.com; receiver=<UNKNOWN>)
+Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
+ by lists.ozlabs.org (Postfix) with ESMTP id 3yyJtd0pmSzDqmC
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Dec 2017 03:29:42 +1100 (AEDT)
+Received: from Internal Mail-Server by MTLPINE1 (envelope-from
+ oleksandrs@mellanox.com)
+ with ESMTPS (AES256-SHA encrypted); 14 Dec 2017 18:29:36 +0200
+Received: from r-vnc16.mtr.labs.mlnx (r-vnc16.mtr.labs.mlnx [10.208.0.16])
+ by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id vBEGTa6M019264;
+ Thu, 14 Dec 2017 18:29:36 +0200
+From: Oleksandr Shamray <oleksandrs@mellanox.com>
+To: gregkh@linuxfoundation.org, arnd@arndb.de
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, joel@jms.id.au,
+ jiri@resnulli.us, tklauser@distanz.ch, linux-serial@vger.kernel.org,
+ vadimp@mellanox.com, system-sw-low-level@mellanox.com,
+ robh+dt@kernel.org, openocd-devel-owner@lists.sourceforge.net,
+ linux-api@vger.kernel.org, davem@davemloft.net, mchehab@kernel.org,
+ Oleksandr Shamray <oleksandrs@mellanox.com>
+Subject: [patch v14 0/4] JTAG driver introduction
+Date: Thu, 14 Dec 2017 18:29:27 +0200
+Message-Id: <1513268971-13518-1-git-send-email-oleksandrs@mellanox.com>
+X-Mailer: git-send-email 1.7.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -57,59 +36,110 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Dec 2017 14:45:08 -0000
+X-List-Received-Date: Thu, 14 Dec 2017 16:29:46 -0000
+X-List-Received-Date: Thu, 14 Dec 2017 16:29:46 -0000
+X-List-Received-Date: Thu, 14 Dec 2017 16:29:46 -0000
 
-Hi Tom,
+When a need raise up to use JTAG interface for system's devices
+programming or CPU debugging, usually the user layer
+application implements jtag protocol by bit-bang or using a 
+proprietary connection to vendor hardware.
+This method can be slow and not generic.
+ 
+We propose to implement general JTAG interface and infrastructure
+to communicate with user layer application. In such way, we can
+have the standard JTAG interface core part and separation from
+specific HW implementation.
+This allow new capability to debug the CPU or program system's 
+device via BMC without additional devices nor cost. 
 
->> Adding the 10-second delay allows users to "batch" multiple changes,
->> meaning that network connectivity isn't lost between those changes. This
->> is purely to allow ipmitool (which doesn't have a facility to make
->> multiple changes before indicating that the change is complete) to be
->> used over the network to change the lan configuration (which is a bit
->> risky regardless...).
-> 
-> Yeah all this lack of clarity, arises from a lack of mechanism in IPMI to
-> apply multiple changes (IP address, netmask gateway) together.
+This patch purpose is to add JTAG master core infrastructure by 
+defining new JTAG class and provide generic JTAG interface
+to allow hardware specific drivers to connect this interface.
+This will enable all JTAG drivers to use the common interface
+part and will have separate for hardware implementation.
 
-No, the specification provides a way to do exactly that:
+The JTAG (Joint Test Action Group) core driver provides minimal generic
+JTAG interface, which can be used by hardware specific JTAG master
+controllers. By providing common interface for the JTAG controllers,
+user space device programing is hardware independent.
+ 
+Modern SoC which in use for embedded system' equipped with
+internal JTAG master interface.
+This interface is used for programming and debugging system's
+hardware components, like CPLD, FPGA, CPU, voltage and
+industrial controllers.
+Firmware for such devices can be upgraded through JTAG interface during
+Runtime. The JTAG standard support for multiple devices programming,
+is in case their lines are daisy-chained together.
 
- 1) Change set-complete to 0x01
+For example, systems which equipped with host CPU, BMC SoC or/and 
+number of programmable devices are capable to connect a pin and
+select system components dynamically for programming and debugging,
+This is using by the BMC which is equipped with internal SoC master
+controller.
+For example:
 
- 2) Send Set LAN Configuration command to update the actual LAN
-    configuration parameters. If more than one parameter is changed, then
-    multiple commands can be sent.
+BMC JTAG master --> pin selected to CPLDs chain for programming (filed
+upgrade, production) 
+BMC JTAG master --> pin selected to voltage monitors for programming 
+(field upgrade, production) 
+BMC JTAG master --> pin selected to host CPU (on-site debugging 
+and developers debugging)
 
- 3) Change set-complete to 0x00
+For example, we can have application in user space which using calls
+to JTAG driver executes CPLD programming directly from SVF file
+ 
+The JTAG standard (IEEE 1149.1) defines the next connector pins:
+- TDI (Test Data In);
+- TDO (Test Data Out);
+- TCK (Test Clock);
+- TMS (Test Mode Select);
+- TRST (Test Reset) (Optional);
 
-It's just that ipmitool only has code to change one parameter at a time
-at (2). It still does the set-complete process.
+The SoC equipped with JTAG master controller, performs
+device programming on command or vector level. For example
+a file in a standard SVF (Serial Vector Format) that contains
+boundary scan vectors, can be used by sending each vector
+to the JTAG interface and the JTAG controller will execute
+the programming.
 
->> To implement something complying to a "principle of least surprise", I'd
->> suggest that we should:
->>
->>   - batch changes, and have them applied after 10 seconds from clearing
->>     the set-in-progress flag
->>
->>   - submit patches to ipmitool to allow multiple changes to be applied
->>     at once (ie, one clearing of the set-in-progress flag).
-> 
-> I prefer the second option of allowing ipmitool to explicitly clear the
-> set-in-progress flag.
+Initial version provides the system calls set for:
+- SIR (Scan Instruction Register, IEEE 1149.1 Data Register scan);
+- SDR (Scan Data Register, IEEE 1149.1 Instruction Register scan);
+- RUNTEST (Forces the IEEE 1149.1 bus to a run state for a specified
+  number of clocks.
 
-They're not "or" options. We'd need to do both.
+SoC which are not equipped with JTAG master interface, can be built
+on top of JTAG core driver infrastructure, by applying bit-banging of
+TDI, TDO, TCK and TMS pins within the hardware specific driver.
 
-> The first option is really  "unusual way" to get this done, to overcome
-> a specification shortcoming.
+Oleksandr Shamray (4):
+  drivers: jtag: Add JTAG core driver
+  drivers: jtag: Add Aspeed SoC 24xx and 25xx families JTAG master
+    driver
+  Documentation: jtag: Add bindings for Aspeed SoC 24xx and 25xx
+    families     JTAG master driver
+  Documentation: jtag: Add ABI documentation
 
-It's not a specification shortcoming; the specification explicitly
-supports this, it's just that ipmitool doesn't.
-
-The 10-second delay is a server-side workaround for that, and is present
-on other BMC implementations out there. We should implement that
-workaround, because asking everyone to update to a new ipmitool version
-isn't feasible either.
-
-Regards,
-
-
-Jeremy
+ Documentation/ABI/testing/jtag-dev                 |   27 +
+ .../devicetree/bindings/jtag/aspeed-jtag.txt       |   18 +
+ Documentation/ioctl/ioctl-number.txt               |    2 +
+ MAINTAINERS                                        |   10 +
+ drivers/Kconfig                                    |    2 +
+ drivers/Makefile                                   |    1 +
+ drivers/jtag/Kconfig                               |   29 +
+ drivers/jtag/Makefile                              |    2 +
+ drivers/jtag/jtag-aspeed.c                         |  783 ++++++++++++++++++++
+ drivers/jtag/jtag.c                                |  288 +++++++
+ include/linux/jtag.h                               |   45 ++
+ include/uapi/linux/jtag.h                          |  104 +++
+ 12 files changed, 1311 insertions(+), 0 deletions(-)
+ create mode 100644 Documentation/ABI/testing/jtag-dev
+ create mode 100644 Documentation/devicetree/bindings/jtag/aspeed-jtag.txt
+ create mode 100644 drivers/jtag/Kconfig
+ create mode 100644 drivers/jtag/Makefile
+ create mode 100644 drivers/jtag/jtag-aspeed.c
+ create mode 100644 drivers/jtag/jtag.c
+ create mode 100644 include/linux/jtag.h
+ create mode 100644 include/uapi/linux/jtag.h
