@@ -1,54 +1,55 @@
 Return-Path: <pombredanne@nexb.com>
 Authentication-Results: ozlabs.org; spf=none (mailfrom) smtp.mailfrom=nexb.com
- (client-ip=2a00:1450:400c:c09::243; helo=mail-wm0-x243.google.com;
+ (client-ip=2a00:1450:400c:c0c::241; helo=mail-wr0-x241.google.com;
  envelope-from=pombredanne@nexb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=nexb-com.20150623.gappssmtp.com
- header.i=@nexb-com.20150623.gappssmtp.com header.b="1yFodSsv"; 
+ header.i=@nexb-com.20150623.gappssmtp.com header.b="YmPHB7Mu"; 
  dkim-atps=neutral
-Received: from mail-wm0-x243.google.com (mail-wm0-x243.google.com
- [IPv6:2a00:1450:400c:c09::243])
+Received: from mail-wr0-x241.google.com (mail-wr0-x241.google.com
+ [IPv6:2a00:1450:400c:c0c::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yyMBl4KN4zDrfj
- for <openbmc@lists.ozlabs.org>; Fri, 15 Dec 2017 05:13:50 +1100 (AEDT)
-Received: by mail-wm0-x243.google.com with SMTP id f140so13123830wmd.2
- for <openbmc@lists.ozlabs.org>; Thu, 14 Dec 2017 10:13:50 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yyMDg4yDKzDrbG
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Dec 2017 05:15:31 +1100 (AEDT)
+Received: by mail-wr0-x241.google.com with SMTP id k61so5918673wrc.4
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Dec 2017 10:15:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=nexb-com.20150623.gappssmtp.com; s=20150623;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=tztrStxS1YR3nyaZWKgfhS5oWLy5fOYheXA7V7Vui6U=;
- b=1yFodSsvcIG8I1J8t8UZniNAre8I5alwmrTdItH1skED5kBEkHQPeN+ve3cV2Zc1m4
- FLUCcf2SjLffvzRupYwZhoLxGxp9M9Paxw4CmLoQGvn3uDP0tXxlYXYWyxQn8/XqtRa0
- 0G4plIAYUKoO6rE0dlUNx1pPqx/g0+kMLiqGA+xZLJKepv+bmbYVuCqCfc7OfQEgJ7B4
- Pum6BvOkND2VWkrM95OivfKpwp8wbKAn807COJeas4eNNNBQNtfRGFcz8klAIirHQFtz
- kO8XyIAa4quMXl+kilREgqcaUQsURm1t0fwfGyV1bBv59J/Lz6VJNLwc+mVTzVich+q0
- 6Pdg==
+ :cc; bh=ieXdN2orggEjEbV8WS4WgImmMW+WPumF3vtMNqbX3ro=;
+ b=YmPHB7Mul8J+1E81CFOytEFvTvyQMTyr/UiGkrfJVF86W1WwnjAga/jBhWD9c0elkR
+ zzlGSOYYLrtOS7N+q6YG+8mtz31AfrHwxdhEzVcG0efOod3jG1ZAOVigEAKD8NvPFHf+
+ xXYRaXQ/6ZBrQSNwBL9aHMufertaNS1rY9E1oaVMzrdX9bh++TmCyWQVydGmnZApQe+Z
+ XVzHBSU1vO8UyeiUFU/rA5gR8ycslzY1PnizJNY5JlBrI6JoFiVc+TnOKab8G5uT8Fjw
+ vq0sbaA1hEK41TZfPPQjdpU6MK+ioBswc70jmHcDqdLeSww1zL7kgt/oXZ0bGbUa9qJi
+ /aKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=tztrStxS1YR3nyaZWKgfhS5oWLy5fOYheXA7V7Vui6U=;
- b=EJf8w3OVBdNiLkG7unkBlrslcb6jPSO+LhctFcsAkFdKOZ1UElEVe1sH6mZUuZ99Wt
- ZOjDLEDleWbWwrvhm918wGDYWfu1Ky44HDxDyvnCJpSEOOjNJHkygRxC2RNtcBIbJpmV
- ci+JJbzXiNdaxOt1lS+Kbg+damuDNBH/fH+AKLdI/H46LVIZI/bUFuuPrSXOfWZ/XL2o
- TZ0P+x8Dmpnm8PbqCBshp+gDMztA0ydyHNjKy4h1o9ykUtXCfdaEHz4h10A3UHnCf6MC
- WhyZpLLWXrfWQtv1JU309BVv2lTvQTmZ106fwrO1PJ8A6YjMn8iKYqJX0G5jsjZNotQ3
- o9UA==
-X-Gm-Message-State: AKGB3mKGz3XX6ol6smtkRcDyCqsuv33Aw8MGzOFP/orZ8cIqduMVv1e0
- TFSUvp7+ffmNaTJ9QlhOEMxOYKCDiHzX8ECehlclOA==
-X-Google-Smtp-Source: ACJfBotStIXl7oDpqaMXpaoFU3akH8gGQeE9xrU6hOI1lRAan44Flov0edvOTVdDXdTph0Tgve6th0UpeRYwjZlQDVo=
-X-Received: by 10.28.207.8 with SMTP id f8mr2799239wmg.30.1513275226914; Thu,
- 14 Dec 2017 10:13:46 -0800 (PST)
+ bh=ieXdN2orggEjEbV8WS4WgImmMW+WPumF3vtMNqbX3ro=;
+ b=dsMM5MUP//ckgFLpLlPj6MCF5XfaLHEvBsYoJ63LUhcx0yXmY1JE3EX27NPMQ62PfH
+ L0201iHLdwgXN24qsXsUPQzNqPQAJR0hz86rw2HqX5PB+K6fFAGOCLKB7lk8lmJb0yRW
+ cLGfzbgii/5cYgVBWCgKZneVlrDy0fR6acPXAXsmy7/BSxBEfO+AMWozfGxFi5K1jD9C
+ wi/B0U54XomEpHIKWfM3QRKg8WJcbekRHUfZoeIiZUpAfbFeYIPDJzyJGXsxuozIFUlF
+ qjLoHkUfx6uvu26p4AqBiOHWDDIXnpcoYrK2uS2I9msDiFUfkrbT3FgaC31Eia0+ioPd
+ rwaw==
+X-Gm-Message-State: AKGB3mIRwFcDYXFvmIgoBs6xJT4Q00PZ4C8RN8mwqePPusj3rBtP+0br
+ H79fF67cInSbQ6o1WKojd8xB+Ugb9bd8UB+ZELGwuw==
+X-Google-Smtp-Source: ACJfBove8krFuBXU1ZAYzYhyFickbxarHOLEqDH/iCQ+HTq+4BoQgZtJc2J+SsihvHcPXzjNuoGK/6udvdDvnC/5JkI=
+X-Received: by 10.223.182.19 with SMTP id f19mr6601324wre.81.1513275328476;
+ Thu, 14 Dec 2017 10:15:28 -0800 (PST)
 MIME-Version: 1.0
-Received: by 10.223.157.195 with HTTP; Thu, 14 Dec 2017 10:13:06 -0800 (PST)
-In-Reply-To: <1513268971-13518-2-git-send-email-oleksandrs@mellanox.com>
+Received: by 10.223.157.195 with HTTP; Thu, 14 Dec 2017 10:14:47 -0800 (PST)
+In-Reply-To: <1513268971-13518-3-git-send-email-oleksandrs@mellanox.com>
 References: <1513268971-13518-1-git-send-email-oleksandrs@mellanox.com>
- <1513268971-13518-2-git-send-email-oleksandrs@mellanox.com>
+ <1513268971-13518-3-git-send-email-oleksandrs@mellanox.com>
 From: Philippe Ombredanne <pombredanne@nexb.com>
-Date: Thu, 14 Dec 2017 19:13:06 +0100
-Message-ID: <CAOFm3uHd7VJWRiYPSuTbEmeh1YohUC_9Gr2AiP8qdpUPcY83nQ@mail.gmail.com>
-Subject: Re: [patch v14 1/4] drivers: jtag: Add JTAG core driver
+Date: Thu, 14 Dec 2017 19:14:47 +0100
+Message-ID: <CAOFm3uHohuaoBYWCxnwzDgGATrt8Zf1B-JaOtQ0sZgf+=sSovw@mail.gmail.com>
+Subject: Re: [patch v14 2/4] drivers: jtag: Add Aspeed SoC 24xx and 25xx
+ families JTAG master driver
 To: Oleksandr Shamray <oleksandrs@mellanox.com>
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Arnd Bergmann <arnd@arndb.de>, LKML <linux-kernel@vger.kernel.org>, 
@@ -75,39 +76,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Dec 2017 18:13:53 -0000
+X-List-Received-Date: Thu, 14 Dec 2017 18:15:32 -0000
 
 Oleksandr,
 
 On Thu, Dec 14, 2017 at 5:29 PM, Oleksandr Shamray
 <oleksandrs@mellanox.com> wrote:
-> Initial patch for JTAG driver
-> JTAG class driver provide infrastructure to support hardware/software
-> JTAG platform drivers. It provide user layer API interface for flashing
-> and debugging external devices which equipped with JTAG interface
-> using standard transactions.
+> Driver adds support of Aspeed 2500/2400 series SOC JTAG master controller.
 >
-> Driver exposes set of IOCTL to user space for:
-> - XFER:
-> - SIR (Scan Instruction Register, IEEE 1149.1 Data Register scan);
-> - SDR (Scan Data Register, IEEE 1149.1 Instruction Register scan);
-> - RUNTEST (Forces the IEEE 1149.1 bus to a run state for a specified
->   number of clocks).
-> - SIOCFREQ/GIOCFREQ for setting and reading JTAG frequency.
+> Driver implements the following jtag ops:
+> - freq_get;
+> - freq_set;
+> - status_get;
+> - idle;
+> - xfer;
 >
-> Driver core provides set of internal APIs for allocation and
-> registration:
-> - jtag_register;
-> - jtag_unregister;
-> - jtag_alloc;
-> - jtag_free;
->
-> Platform driver on registration with jtag-core creates the next
-> entry in dev folder:
-> /dev/jtagX
+> It has been tested on Mellanox system with BMC equipped with
+> Aspeed 2520 SoC for programming CPLD devices.
 >
 > Signed-off-by: Oleksandr Shamray <oleksandrs@mellanox.com>
 > Signed-off-by: Jiri Pirko <jiri@mellanox.com>
+> Acked-by: Arnd Bergmann <arnd@arndb.de>
 > ---
 > v13->v14
 > Comments pointed by Philippe Ombredanne <pombredanne@nexb.com>
@@ -115,19 +104,14 @@ On Thu, Dec 14, 2017 at 5:29 PM, Oleksandr Shamray
 >
 > v12->v13
 > Comments pointed by Philippe Ombredanne <pombredanne@nexb.com>
-> - Change jtag.c licence type to
->   SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note
->   and reorder line with license in description
-> v11->v12
-> Comments pointed by Greg KH <gregkh@linuxfoundation.org>
-> - Change jtag.h licence type to
+> - Change jtag-aspeed.c licence type to
 >   SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note
 >   and reorder line with license in description
 
-Thanks for the SPDX bits: for this part you have my ack:
+Thanks for the SPDX tags! for this part you have my ack:
 
 Acked-by: Philippe Ombredanne <pombredanne@nexB.com?
 
--- 
+--
 Cordially
 Philippe Ombredanne
