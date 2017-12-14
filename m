@@ -1,70 +1,71 @@
-Return-Path: <pombredanne@nexb.com>
-Authentication-Results: ozlabs.org; spf=none (mailfrom) smtp.mailfrom=nexb.com
- (client-ip=2a00:1450:400c:c0c::241; helo=mail-wr0-x241.google.com;
- envelope-from=pombredanne@nexb.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=nexb-com.20150623.gappssmtp.com
- header.i=@nexb-com.20150623.gappssmtp.com header.b="YmPHB7Mu"; 
- dkim-atps=neutral
-Received: from mail-wr0-x241.google.com (mail-wr0-x241.google.com
- [IPv6:2a00:1450:400c:c0c::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <stewart@linux.vnet.ibm.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=stewart@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yyMDg4yDKzDrbG
- for <openbmc@lists.ozlabs.org>; Fri, 15 Dec 2017 05:15:31 +1100 (AEDT)
-Received: by mail-wr0-x241.google.com with SMTP id k61so5918673wrc.4
- for <openbmc@lists.ozlabs.org>; Thu, 14 Dec 2017 10:15:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=nexb-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=ieXdN2orggEjEbV8WS4WgImmMW+WPumF3vtMNqbX3ro=;
- b=YmPHB7Mul8J+1E81CFOytEFvTvyQMTyr/UiGkrfJVF86W1WwnjAga/jBhWD9c0elkR
- zzlGSOYYLrtOS7N+q6YG+8mtz31AfrHwxdhEzVcG0efOod3jG1ZAOVigEAKD8NvPFHf+
- xXYRaXQ/6ZBrQSNwBL9aHMufertaNS1rY9E1oaVMzrdX9bh++TmCyWQVydGmnZApQe+Z
- XVzHBSU1vO8UyeiUFU/rA5gR8ycslzY1PnizJNY5JlBrI6JoFiVc+TnOKab8G5uT8Fjw
- vq0sbaA1hEK41TZfPPQjdpU6MK+ioBswc70jmHcDqdLeSww1zL7kgt/oXZ0bGbUa9qJi
- /aKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=ieXdN2orggEjEbV8WS4WgImmMW+WPumF3vtMNqbX3ro=;
- b=dsMM5MUP//ckgFLpLlPj6MCF5XfaLHEvBsYoJ63LUhcx0yXmY1JE3EX27NPMQ62PfH
- L0201iHLdwgXN24qsXsUPQzNqPQAJR0hz86rw2HqX5PB+K6fFAGOCLKB7lk8lmJb0yRW
- cLGfzbgii/5cYgVBWCgKZneVlrDy0fR6acPXAXsmy7/BSxBEfO+AMWozfGxFi5K1jD9C
- wi/B0U54XomEpHIKWfM3QRKg8WJcbekRHUfZoeIiZUpAfbFeYIPDJzyJGXsxuozIFUlF
- qjLoHkUfx6uvu26p4AqBiOHWDDIXnpcoYrK2uS2I9msDiFUfkrbT3FgaC31Eia0+ioPd
- rwaw==
-X-Gm-Message-State: AKGB3mIRwFcDYXFvmIgoBs6xJT4Q00PZ4C8RN8mwqePPusj3rBtP+0br
- H79fF67cInSbQ6o1WKojd8xB+Ugb9bd8UB+ZELGwuw==
-X-Google-Smtp-Source: ACJfBove8krFuBXU1ZAYzYhyFickbxarHOLEqDH/iCQ+HTq+4BoQgZtJc2J+SsihvHcPXzjNuoGK/6udvdDvnC/5JkI=
-X-Received: by 10.223.182.19 with SMTP id f19mr6601324wre.81.1513275328476;
- Thu, 14 Dec 2017 10:15:28 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yyRYF5ZnvzDrd8
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Dec 2017 08:30:09 +1100 (AEDT)
+Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ vBELTSwL070759
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Dec 2017 16:30:06 -0500
+Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2euwvjfng4-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Dec 2017 16:30:05 -0500
+Received: from localhost
+ by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
+ Thu, 14 Dec 2017 16:30:05 -0500
+Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
+ by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Thu, 14 Dec 2017 16:30:03 -0500
+Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
+ [9.57.199.110])
+ by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ vBELU23E36831234; Thu, 14 Dec 2017 21:30:02 GMT
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 0F351AE05C;
+ Thu, 14 Dec 2017 16:31:04 -0500 (EST)
+Received: from birb.localdomain (unknown [9.102.53.225])
+ by b01ledav005.gho.pok.ibm.com (Postfix) with SMTP id 51433AE057;
+ Thu, 14 Dec 2017 16:31:03 -0500 (EST)
+Received: by birb.localdomain (Postfix, from userid 1000)
+ id 846044EC5DD; Fri, 15 Dec 2017 08:29:57 +1100 (AEDT)
+From: Stewart Smith <stewart@linux.vnet.ibm.com>
+To: "Sud\, Shivani A" <shivani.a.sud@intel.com>,
+ "openbmc\@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Re: subscribe
+In-Reply-To: <8182A609B58DFF46B0BDFC4B8786AC630A650589@ORSMSX102.amr.corp.intel.com>
+References: <8182A609B58DFF46B0BDFC4B8786AC630A650589@ORSMSX102.amr.corp.intel.com>
+Date: Fri, 15 Dec 2017 08:29:57 +1100
 MIME-Version: 1.0
-Received: by 10.223.157.195 with HTTP; Thu, 14 Dec 2017 10:14:47 -0800 (PST)
-In-Reply-To: <1513268971-13518-3-git-send-email-oleksandrs@mellanox.com>
-References: <1513268971-13518-1-git-send-email-oleksandrs@mellanox.com>
- <1513268971-13518-3-git-send-email-oleksandrs@mellanox.com>
-From: Philippe Ombredanne <pombredanne@nexb.com>
-Date: Thu, 14 Dec 2017 19:14:47 +0100
-Message-ID: <CAOFm3uHohuaoBYWCxnwzDgGATrt8Zf1B-JaOtQ0sZgf+=sSovw@mail.gmail.com>
-Subject: Re: [patch v14 2/4] drivers: jtag: Add Aspeed SoC 24xx and 25xx
- families JTAG master driver
-To: Oleksandr Shamray <oleksandrs@mellanox.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Arnd Bergmann <arnd@arndb.de>, LKML <linux-kernel@vger.kernel.org>, 
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>, 
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- joel@jms.id.au, =?UTF-8?B?SmnFmcOtIFDDrXJrbw==?= <jiri@resnulli.us>, 
- Tobias Klauser <tklauser@distanz.ch>, linux-serial@vger.kernel.org,
- vadimp@mellanox.com, 
- system-sw-low-level@mellanox.com, Rob Herring <robh+dt@kernel.org>, 
- openocd-devel-owner@lists.sourceforge.net, linux-api@vger.kernel.org, 
- "David S. Miller" <davem@davemloft.net>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Jiri Pirko <jiri@mellanox.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
+X-TM-AS-GCONF: 00
+x-cbid: 17121421-0044-0000-0000-000003BE82A5
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00008205; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000244; SDB=6.00960261; UDB=6.00485717; IPR=6.00740277; 
+ BA=6.00005741; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00018547; XFM=3.00000015;
+ UTC=2017-12-14 21:30:04
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17121421-0045-0000-0000-000007EDC566
+Message-Id: <87a7ylvvze.fsf@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-12-14_12:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1712140293
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -76,42 +77,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Dec 2017 18:15:32 -0000
+X-List-Received-Date: Thu, 14 Dec 2017 21:30:10 -0000
 
-Oleksandr,
+"Sud, Shivani A" <shivani.a.sud@intel.com> writes:
+> Shivani Sud | Solution Architect |  Intel Corporation| 6502242279 | shivani.a.sud@intel.com
 
-On Thu, Dec 14, 2017 at 5:29 PM, Oleksandr Shamray
-<oleksandrs@mellanox.com> wrote:
-> Driver adds support of Aspeed 2500/2400 series SOC JTAG master controller.
->
-> Driver implements the following jtag ops:
-> - freq_get;
-> - freq_set;
-> - status_get;
-> - idle;
-> - xfer;
->
-> It has been tested on Mellanox system with BMC equipped with
-> Aspeed 2520 SoC for programming CPLD devices.
->
-> Signed-off-by: Oleksandr Shamray <oleksandrs@mellanox.com>
-> Signed-off-by: Jiri Pirko <jiri@mellanox.com>
-> Acked-by: Arnd Bergmann <arnd@arndb.de>
-> ---
-> v13->v14
-> Comments pointed by Philippe Ombredanne <pombredanne@nexb.com>
-> - Change style of head block comment from /**/ to //
->
-> v12->v13
-> Comments pointed by Philippe Ombredanne <pombredanne@nexb.com>
-> - Change jtag-aspeed.c licence type to
->   SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note
->   and reorder line with license in description
+Hi! Posting a message to the list with a subject of 'subscribe' was
+probably not what you meant to do.
 
-Thanks for the SPDX tags! for this part you have my ack:
+To subscribe to the list, head to
+https://lists.ozlabs.org/listinfo/openbmc and fill in the web form
+(there's probably some fancy mailman way of doing it via email, but the
+web form is easy and I know it works).
 
-Acked-by: Philippe Ombredanne <pombredanne@nexB.com?
-
---
-Cordially
-Philippe Ombredanne
+Welcome to OpenBMC!
+-- 
+Stewart Smith
+OPAL Architect, IBM.
