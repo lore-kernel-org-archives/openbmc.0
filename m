@@ -1,55 +1,87 @@
-Return-Path: <ojayanth@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400c:c08::235; helo=mail-ua0-x235.google.com;
- envelope-from=ojayanth@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="KNo03ZYP"; 
+Return-Path: <Michael.E.Brown@dell.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=dell.com
+ (client-ip=68.232.153.94; helo=esa3.dell-outbound.iphmx.com;
+ envelope-from=michael.e.brown@dell.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=dell.com header.i=@dell.com header.b="x1aQVxwa"; 
  dkim-atps=neutral
-Received: from mail-ua0-x235.google.com (mail-ua0-x235.google.com
- [IPv6:2607:f8b0:400c:c08::235])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Greylist: delayed 835 seconds by postgrey-1.36 at bilbo;
+ Sat, 16 Dec 2017 06:21:02 AEDT
+Received: from esa3.dell-outbound.iphmx.com (esa3.dell-outbound.iphmx.com
+ [68.232.153.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yylGj2DmqzDrd2
- for <openbmc@lists.ozlabs.org>; Fri, 15 Dec 2017 20:18:36 +1100 (AEDT)
-Received: by mail-ua0-x235.google.com with SMTP id v20so5774655uaj.0
- for <openbmc@lists.ozlabs.org>; Fri, 15 Dec 2017 01:18:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=cVOfY7ra5i9mkZB26/AnyOVNjSKf/2ZBmaQ7Stqxes0=;
- b=KNo03ZYPiSxdat1PDcCK4z5gLw3OP9ImjG7moZFsJSYw42DTsVdZUWNaYI5NFXeN0e
- XANf1RPrinjd24qxquuc2ptsJ1aPvXKt1MfI8KZ5PxYLmbjhBSNlikC0bBE6XIYfZvBE
- j6b1JrJ/qCUO/KYEAEaUBDAO2mRhq63/+kUVd6JbqsbLKI7Wmt2D1dkxH3gtyxfa5yWz
- Z0jVvUjqkO6j2LQL8pIeedXrhqwXnc6ruPWBYt4HJ/mw8DKgMvTM4ij6S9xKOB70S15V
- z4NGcWVGqXsET1k27z97MhTy7IyT6ynrbLL7wD2TqAGtLYGLHMWthM+c/s+ISRbVJdb4
- dE9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=cVOfY7ra5i9mkZB26/AnyOVNjSKf/2ZBmaQ7Stqxes0=;
- b=WsVmbVdF+oChS2lNN88OuMcAnhdOcE5s88mI+lzsh75yUxSEJd70ukdS0dF1gkY2Yy
- UR38e8tgOjs/mLlFf+K8eiYHivuzHy0qMJmydc4A67zR/m9Ez2DpA+5TxHHheal06aMZ
- WJURWjtMaxL/+sNL38K1Beo1g36eE8/TLLVfaZlf9CRGBDc9boDTgH2pX3AR6LyyfnXg
- 5GwD2fnklK//+kizX5qiYz4g7pJW8LUJjLMMAc1PA/Nl+Mz03QylKVVRgMgwp4w8TYn4
- QV4OtU4W/IVMKfY/9BsThRT6UaPL3GwMPEippNKgcMTdSwp4HEbEMDxxWIr+Mr7ys7ym
- VlOg==
-X-Gm-Message-State: AKGB3mIKE/zlvrQuSuQN1LR1AG8/UWfOwcA0wgfegjdKQQg2o4Y4u22w
- i9VIbpEJVR1UOKtWFdSdtsZ63N1RR9uXJ+B/1CI=
-X-Google-Smtp-Source: ACJfBosSqpdH3tCgXiWYuf8QWbtS9ZMWUJGGWNbN/SlSLa7BGp7XsDg4kViCp8bK5YJeIsjlHhyila0PDzni6oDn5Kg=
-X-Received: by 10.176.22.82 with SMTP id l18mr13904724uae.73.1513329514385;
- Fri, 15 Dec 2017 01:18:34 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yz0dp5dcvzDsFf
+ for <openbmc@lists.ozlabs.org>; Sat, 16 Dec 2017 06:21:01 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
+ t=1513365132; x=1544901132;
+ h=from:to:subject:date:message-id:references:in-reply-to:
+ content-transfer-encoding:mime-version;
+ bh=VmzAROL6stJVPgC/fiNw05STlXN1CU9ytbqaTmRIZEs=;
+ b=x1aQVxwa3oc685lYX7fow3NvCsDHYf7vJh0c8TSylazNkOnqOsCeeT/1
+ arCtaG6aKLxAAhb05DqwSIiwKXsIUApyw82+iUyLdl1ZSz/PGYvP79IB6
+ qsb5XH2EJcJfMqNj7POkOmOlKTfKpL2w7tiJrv0vl4co06X8xbUS9xPkH 8=;
+IronPort-PHdr: =?us-ascii?q?9a23=3AsXkFbxLIp9SGaXXIgNmcpTZWNBhigK39O0sv0rFi?=
+ =?us-ascii?q?tYgeLvrxwZ3uMQTl6Ol3ixeRBMOHs6sC07KempujcFRI2YyGvnEGfc4EfD4+ou?=
+ =?us-ascii?q?JSoTYdBtWYA1bwNv/gYn9yNs1DUFh44yPzahANS47xaFLIv3K98yMZFAnhOgpp?=
+ =?us-ascii?q?POT1HZPZg9iq2+yo9JDffxhEiCChbb9uMR67sRjfus4KjIV4N60/0AHJonxGe+?=
+ =?us-ascii?q?RXwWNnO1eelAvi68mz4ZBu7T1et+ou+MBcX6r6eb84TaFDAzQ9L281/szrugLd?=
+ =?us-ascii?q?QgaJ+3ART38ZkhtMAwjC8RH6QpL8uTb0u+ZhxCWXO9D9QLYpUjqg8qhrUgflhi?=
+ =?us-ascii?q?cZOTAk7GHZhM9+jKxZrxKguxNxzIHbbZqJNPVlfKPRYc8WSXZDU8tXSidPApm8?=
+ =?us-ascii?q?b4wKD+cZOutWqIj9qEcOrRSkGwasAPnjxDBSinLrx6061OogEQfd0QM9Ad0OtH?=
+ =?us-ascii?q?DUoM/pO6cVVOC41a/FxijAYfNOwTrw6YvFfgo/rfyCQ758a9fdxEkhGg/fkFmc?=
+ =?us-ascii?q?tZLpMyuI2ugRqWSX8uVtWOy1h2I5pAx9vCKjy8Ush4XRm44YxV7J+T9kzIs0JN?=
+ =?us-ascii?q?C0UlN3bNGnHZdKqS2WKpZ6T8U/SG9yoik60KcJuZujcSgPz5Qo2gDQZuScc4iN?=
+ =?us-ascii?q?/hLjTOGRISpkhH59eLKwmRKy8U+4x+LiTcm7ykhGojBYndbSsnAN0wXf6s+aSv?=
+ =?us-ascii?q?th5Uih3iuP1wbO5e1aO0w0lLLbK54kwr8/jJYcrUPDHirulEX3iq+ZaFkk9/Cp?=
+ =?us-ascii?q?5unkeLnquJGRO5Fuhg3jMqkjlNazDfokPgQQR2Sb/P6z1Lzn/U33WrVKifg2n7?=
+ =?us-ascii?q?HevpDbOcsbprS2DBFR0oo55BizFSqr0M4fnXgJKlJIYw+IgJbtO1HKOvz3EfC/?=
+ =?us-ascii?q?g1G0nDdx2//GJqHhAonKLnXbl7fhZahy60hHxwo20d9S/JZUCrAaIPLvQU/9rt?=
+ =?us-ascii?q?vYDx49MwOu2OnnE89x1oQEWWKAUeelN/aGr1KO+v81LsGDY4gavDu7IP8gsbqm?=
+ =?us-ascii?q?2XghlFkXeKKB2ZoMdGv+GeZiKk+CJ332jYFFWTMApAMySOH7gnWMTCxBZnupRr?=
+ =?us-ascii?q?89/Cs2DMStCoKVFa63h7nUiAK6FZ1fa2QAJxamC3D3ca2IVvMILimVJ5kywXQ/?=
+ =?us-ascii?q?SbG9Rtp5hlmVvwjgxu8/Iw=3D=3D?=
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2E9AADfHDRah8qZ6ERcGQEBAQEBAQEBA?=
+ =?us-ascii?q?QEBAQcBAQEBAYMPgRV0JweDe5kpggCCAY04h3uCAQoYhSMCGoRmQxQBAQEBAQE?=
+ =?us-ascii?q?BAQEBAhABAQEKCwkIKC+COCKCSgEBAQQBIhFRBAIBCBEEAQEDAiMDAgICJh4BC?=
+ =?us-ascii?q?AgCBAESCIoiqTWCJ4ptAQEBBwEBAQEBASKBD4Jagg6DP4Msgy+BOwESAQmDK4J?=
+ =?us-ascii?q?jBYpmhzSBco8qCo8PhgmCH4YThBCHOIpKjCuBOzaBA29vUYIpgik6gXN4AQEBi?=
+ =?us-ascii?q?BGBJYEVAQEB?=
+X-IPAS-Result: =?us-ascii?q?A2E9AADfHDRah8qZ6ERcGQEBAQEBAQEBAQEBAQcBAQEBAYM?=
+ =?us-ascii?q?PgRV0JweDe5kpggCCAY04h3uCAQoYhSMCGoRmQxQBAQEBAQEBAQEBAhABAQEKC?=
+ =?us-ascii?q?wkIKC+COCKCSgEBAQQBIhFRBAIBCBEEAQEDAiMDAgICJh4BCAgCBAESCIoiqTW?=
+ =?us-ascii?q?CJ4ptAQEBBwEBAQEBASKBD4Jagg6DP4Msgy+BOwESAQmDK4JjBYpmhzSBco8qC?=
+ =?us-ascii?q?o8PhgmCH4YThBCHOIpKjCuBOzaBA29vUYIpgik6gXN4AQEBiBGBJYEVAQEB?=
+Received: from esa2.dell-outbound2.iphmx.com ([68.232.153.202])
+ by esa3.dell-outbound.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 15 Dec 2017 13:00:08 -0600
+From: <Michael.E.Brown@dell.com>
+Received: from ausxipps310.us.dell.com ([143.166.148.211])
+ by esa2.dell-outbound2.iphmx.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 16 Dec 2017 01:03:38 +0600
+X-LoopCount0: from 10.166.136.215
+X-IronPort-AV: E=Sophos;i="5.45,406,1508821200"; d="scan'208";a="101237385"
+X-DLP: DLP_GlobalPCIDSS
+To: <venture@google.com>, <openbmc@lists.ozlabs.org>,
+ <bradleyb@fuzziesquirrel.com>
+Subject: RE: Metrics vs Logging, Continued
+Thread-Topic: Metrics vs Logging, Continued
+Thread-Index: AQHTbelWGX202Ifm4EqCaUHotCOMoaNE0YiQ
+Date: Fri, 15 Dec 2017 19:06:48 +0000
+Message-ID: <5252c9e0e0ca4af89aed350494f998d1@ausx13mps334.AMER.DELL.COM>
+References: <CAO=notxOx8C1VZgMJcW27jdpNZiQ9dLHeKP3dXSUkzxy7hObmw@mail.gmail.com>
+In-Reply-To: <CAO=notxOx8C1VZgMJcW27jdpNZiQ9dLHeKP3dXSUkzxy7hObmw@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.143.242.75]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Received: by 10.176.26.32 with HTTP; Fri, 15 Dec 2017 01:18:33 -0800 (PST)
-In-Reply-To: <874loswqus.fsf@linux.vnet.ibm.com>
-References: <CACkAXSrqHOkyDZpYRCtibiA6CQ9Z7XRXw5BcTkvDSMwd1pEvjQ@mail.gmail.com>
- <874loswqus.fsf@linux.vnet.ibm.com>
-From: Jayanth Othayoth <ojayanth@gmail.com>
-Date: Fri, 15 Dec 2017 14:48:33 +0530
-Message-ID: <CACkAXSpWZTzS5dOcC-sUqW8iHqrdiaZMJBqrJ41j8TjTC=kzcQ@mail.gmail.com>
-Subject: Re: dreport will replace ffdc tool starting from Feb-2018.
-To: Stewart Smith <stewart@linux.vnet.ibm.com>
-Cc: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="001a11456b302215e105605d7c53"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -61,83 +93,92 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Dec 2017 09:18:38 -0000
+X-List-Received-Date: Fri, 15 Dec 2017 19:21:04 -0000
 
---001a11456b302215e105605d7c53
-Content-Type: text/plain; charset="UTF-8"
-
-FFDC tool in the OpenBMC builds is already modified to use dreport as the
-back-end for capturing debug data.
-
-dreport can be invoked directly with various switches for additional
-options.
-
-As you mentioned FFDC tool can be made to be a shell alias or a soft link
-to dreport. This would enable to invoke FFDC tool in a same way as dreport
-with all switches.
-
-Jayanth Othayoth
-Firmware Developer, IBM.
-
-
-On Fri, Dec 15, 2017 at 10:05 AM, Stewart Smith <stewart@linux.vnet.ibm.com>
-wrote:
-
-> Jayanth Othayoth <ojayanth@gmail.com> writes:
-> > Starting feb-2018 ffdc tool will be removed from openbmc builds. dreport
-> > will replace ffdc tool with support for additional features.  dreport is
-> > already available in openbmc builds.
-> >
-> > Users of ffdc tool must plan to migrate to dreport.
-> >
-> > dreport is  a drop-in replacement for ffdc.  ie run dreport instead of
-> > ffdc.
->
-> For ease of use, a shell alias would be appreciated. Old habits die hard :)
->
-> --
-> Stewart Smith
-> OPAL Architect, IBM.
->
->
-
---001a11456b302215e105605d7c53
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><div><div>FFDC tool in the OpenBMC builds is already =
-modified to use dreport as the back-end for capturing debug data. <br><br><=
-/div>dreport can be invoked directly with various switches for additional o=
-ptions. <br><br>As you mentioned FFDC tool can be made to be a shell alias =
-or a soft link to dreport. This would enable to invoke FFDC tool in a same =
-way as dreport with all switches.<br><br></div>Jayanth Othayoth<br></div>Fi=
-rmware Developer, IBM.<br><div><div>=C2=A0<br></div></div></div><div class=
-=3D"gmail_extra"><br><div class=3D"gmail_quote">On Fri, Dec 15, 2017 at 10:=
-05 AM, Stewart Smith <span dir=3D"ltr">&lt;<a href=3D"mailto:stewart@linux.=
-vnet.ibm.com" target=3D"_blank">stewart@linux.vnet.ibm.com</a>&gt;</span> w=
-rote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;borde=
-r-left:1px #ccc solid;padding-left:1ex"><span class=3D"">Jayanth Othayoth &=
-lt;<a href=3D"mailto:ojayanth@gmail.com">ojayanth@gmail.com</a>&gt; writes:=
-<br>
-&gt; Starting feb-2018 ffdc tool will be removed from openbmc builds. drepo=
-rt<br>
-&gt; will replace ffdc tool with support for additional features.=C2=A0 dre=
-port is<br>
-&gt; already available in openbmc builds.<br>
-&gt;<br>
-&gt; Users of ffdc tool must plan to migrate to dreport.<br>
-&gt;<br>
-&gt; dreport is=C2=A0 a drop-in replacement for ffdc.=C2=A0 ie run dreport =
-instead of<br>
-&gt; ffdc.<br>
-<br>
-</span>For ease of use, a shell alias would be appreciated. Old habits die =
-hard :)<br>
-<span class=3D"HOEnZb"><font color=3D"#888888"><br>
---<br>
-Stewart Smith<br>
-OPAL Architect, IBM.<br>
-<br>
-</font></span></blockquote></div><br></div>
-
---001a11456b302215e105605d7c53--
+VGhpbmdzIGxpa2UgUHJvbWV0aGV1cyBhbmQgZ3JhcGhhbmEgYWxyZWFkeSBleGlzdCBhbmQgaGF2
+ZSBmYWlybHkgc3RhbmRhcmRpemVkIG1ldHJpY3MgZ2F0aGVyaW5nIGludGVyZmFjZXMuIFdoeSBy
+ZS1pbnZlbnQgdGhlIHdoZWVsIGhlcmU/IEkgd291bGQgYWR2b2NhdGUgZm9yIFByb21ldGhldXMg
+Zm9yIG1ldHJpY3MgZ2F0aGVyaW5nLiANCg0KUXVpY2sgcHJpbWVyIG9uIFByb21ldGhldXM6IGVh
+Y2ggcHJvY2VzcyBleHBvc2VzIGFuIEhUVFAgZW5kcG9pbnQgdGhhdCByZXBvcnRzIG1ldHJpY3Mg
+aW4gYSBzdGFuZGFyZGl6ZWQgSlNPTiBmb3JtYXQuIFRoZSBwcm9jZXNzIGNhbiBleHBvc2UgY291
+bnRlcnMsIGdhdWdlcywgaGlzdG9ncmFtcyBvciBzdW1tYXJpZXMuIFRoZSBzZXJ2ZXIgc2lkZSBp
+cyByZXNwb25zaWJsZSBmb3IgcG9sbGluZyB0aGUgdmFyaW91cyBjbGllbnRzIGF0IHdoYXRldmVy
+IGludGVydmFsIGlzIGRlc2lyZWQgYW5kIGNhbiBmb3JtYXQgcmVzdWx0cyBncmFwaGljYWxseSBh
+bmQgb3ZlciBhIGJ1bmNoIG9mIGNsaWVudHMuIEVhY2ggcHJvY2VzcyBjYW4gaW5zdHJ1bWVudCBp
+dHNlbGYsIHRoZXJlIGFyZSBjKysgY2xpZW50IGxpYnJhcmllcyB0byBkbyB0aGlzIGFscmVhZHku
+IFRoZW4gd2UgY2FuIGFnZ3JlZ2F0ZSB0aGVtIG91dCB3aXRoIGEgcm91dGUgZnJvbSB0aGUgbWFp
+biBIVFRQIHNlcnZlci4NCg0KQWxsIG9mIHRoZSB0aGluZ3MgaW4geW91ciBtZXRyaWNzIGxpc3Qg
+ZmFsbCBuZWF0bHkgaW50byB0eXBlcyBvZiBkYXRhIHRoYXQgUHJvbWV0aGV1cyBmb3JtYXQgaGFu
+ZGxlcyB3ZWxsLg0KLS0NCk1pY2hhZWwNCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZy
+b206IG9wZW5ibWMgW21haWx0bzpvcGVuYm1jLWJvdW5jZXMrbWljaGFlbC5lLmJyb3duPWRlbGwu
+Y29tQGxpc3RzLm96bGFicy5vcmddIE9uIEJlaGFsZiBPZiBQYXRyaWNrIFZlbnR1cmUNClNlbnQ6
+IFR1ZXNkYXksIERlY2VtYmVyIDUsIDIwMTcgMTA6NTEgQU0NClRvOiBPcGVuQk1DIE1haWxsaXN0
+IDxvcGVuYm1jQGxpc3RzLm96bGFicy5vcmc+OyBCcmFkIEJpc2hvcCA8YnJhZGxleWJAZnV6emll
+c3F1aXJyZWwuY29tPg0KU3ViamVjdDogTWV0cmljcyB2cyBMb2dnaW5nLCBDb250aW51ZWQNCg0K
+TG9nZ2luZyBiZWluZyBzb21ldGhpbmcgc2VwYXJhdGUgZnJvbSBtZXRyaWNzIC0tIEkndmUgYmVl
+biB0b3lpbmcgYXJvdW5kIHdpdGggZGlmZmVyZW50IGFwcHJvYWNoZXMgdG8gYWxsb3dpbmcgdXNl
+cnNwYWNlIG1ldHJpY3MgY29sbGVjdGlvbiBhbmQgZGlzdHJpYnV0aW9uLiAgVGhlcmUgYXJlIGxp
+a2VseSBiZXR0ZXIgd2F5cywgYW5kIEkgdGhpbmsgSSBzYXcgYSBtZXNzYWdlIG9uIGNoYXQgYWJv
+dXQgYSBtZXRyaWNzIGxpYnJhcnkgdGhhdCBjb3VsZCBiZSB1c2VkLiAtLSBidXQgSSd2ZSBtb3N0
+bHkgYmVlbiBmb2xsb3dpbmcgZW1haWwuDQoNCkkgd2FzIHRoaW5raW5nIHRoaXMgbW9ybmluZyBv
+ZiBhIGNvdXBsZSBtZXRob2RzLCBzb21lIHknYWxsIG1pZ2h0IGxpa2UgKG9uZSB3aGVyZSB0aGUg
+ZGFlbW9uIG93bnMgaXQsIG9uZSB3aGVyZSB0aGUgbWV0cmljIG93bmVyIG93bnMgaXQpOg0KDQox
+KSBFYWNoIGRhZW1vbiBjYW4gYmUgcmVzcG9uc2libGUgZm9yIGV4cG9ydGluZyBvbnRvIGRidXMg
+c29tZSBvYmplY3RzIHdpdGggYSB3ZWxsLWRlZmluZWQgcGF0aCB0aGF0IGFyZSBvZiBhIG1ldHJp
+YyB0eXBlIHRoYXQgaGFzIGEgdmFsdWUgYW5kIHRoZSBkYWVtb24gdGhhdCBvd25zIGl0IGlzIHRo
+ZXJlZm9yZSByZXNwb25zaWJsZSBmb3IgbWFpbnRhaW5pbmcgaXQuICB0byBjb2xsZWN0IHRoZSBt
+ZXRyaWNzLCBvbmUgbXVzdCBncmFiIHRoZSBzdWJ0cmVlIGZvciB0aGUgc3RhcnRpbmcgcG9pbnQg
+YW5kIHRyYWNlIG91dCBhbGwgdGhlIGRpZmZlcmVudCBtZXRyaWNzIGFuZCBnZXQgdGhlIHZhbHVl
+cyBmcm9tIHRoZWlyIG93bmVycy4gYW5kIHJlcG9ydHMgdGhhdCB1cCBzb21laG93LiAtLSB0aGUg
+c29tZWhvdyBjb3VsZCBiZSBzZXZlcmFsIElQTUkgcGFja2V0cy4gIG9yIHNldmVyYWwgSVBNSSBw
+YWNrZXRzIGNvbnRhaW5pbmcgYSBwcm90b2J1ZiAoc2ltaWxhcmx5IHRvIHRoZSBmbGFzaCBhY2Nl
+c3MgYXBwcm9hY2ggcHJvcG9zZWQgYnkgQnJlbmRhbikuDQpUaGUgdXBzaWRlIHRvIHRoZSBmcmVl
+LWZvcm0gdGV4dCBhbmQgcGF0aHMgaXMgeW91IGNvdWxkIHBhcnNlIGl0IG91dCB0byBmaWd1cmUg
+b3V0IHdoYXQgd2FzIGVhY2ggdGhpbmcuDQoNCjIpIEVhY2ggZGFlbW9uIHRoYXQgd2FudHMgdG8g
+dHJhY2sgYSBtZXRyaWMgY3JlYXRlcyBhIG1ldHJpYyBvYmplY3QgaW4gYW5vdGhlciBkYWVtb24g
+KHZpYSBkYnVzIGNhbGxzKSBhbmQgdGhlbiBwZXJpb2RpY2FsbHkgdXBkYXRlcyB0aGF0IHZhbHVl
+LiAgdGhlbiB0aGUgaW5mb3JtYXRpb24gY2FuIGJlIHJlcG9ydGVkIGluIHRoZSB3YXkgZGVzY3Jp
+YmVkIGFib3ZlIHNpbWlsYXJseSwgZXhjZXB0IHRoZSBvd25lciBvZiB0aGUgZGJ1cyBvYmplY3Rz
+IHdvdWxkIGJlIHRoZSBvbmUgZGFlbW9uIGFuZCBvbmUgYnVzLCBldGMuICBUaGlzIGltcGxlbWVu
+dGF0aW9uIHJlcXVpcmVzIGEgbG90IG1vcmUgZGJ1cyB0cmFmZmljIHRvIG1haW50YWluIHRoZSB2
+YWx1ZXMuICBIb3dldmVyLCBpbiBzaXR1YXRpb25zIHdoZXJlIG9uZSBkb2Vzbid0IHdhbnQgdG8g
+bWFuYWdlIHRoZWlyIG93biBkYnVzIG9iamVjdCBmb3IgdGhpcywgdGhleSBjYW4ganVzdCBtYWtl
+IG9uZSBkYnVzIGNhbGwgdG8gdXBkYXRlIHRoZWlyIHZhbHVlIGJhc2VkIG9uIHdoYXRldmVyIG1l
+Y2hhbmlzbSB0aGV5IHVzZSBmb3IgdGltaW5nIHRoaXMgYW5kIHRoZXkgY2FuIHN0b3JlIHRoZSBt
+ZXRyaWNzIGludGVybmFsbHkgaW4gdGhlaXIgZGFlbW9uIGhvd2V2ZXIgdGhleSBwbGVhc2UuICBB
+bm90aGVyIHVwc2lkZSB0byB0aGlzIGlzIHRoYXQgaXQnZCBiZSBzdHJhaWdodGZvcndhcmQgdG8g
+YWRkIHRvIHRoZSBjdXJyZW50IHNldCBvZiBkYWVtb25zIHdpdGhvdXQgbmVlZGluZyB0byByZXN0
+cnVjdHVyZSBhbnl0aGluZy4gIEFsc28sIGRlcGVuZGluZyBvbiB0aGUgbWV0cmljIGl0c2VsZiwg
+aXQgbWF5IG5vdCBiZSBzb21ldGhpbmcgdXBkYXRlZCBhbGwgdGhhdCBmcmVxdWVudGx5LiAgRm9y
+IG1hbnksIEkgZm9yZXNlZSB1cGRhdGluZyBvbiBub24tY3JpdGljYWwgZmFpbHVyZXMsIG9yIGlu
+dGVyZXN0aW5nIGZhaWx1cmVzIC0tIGZvciBpbnN0YW5jZSwgaG93IG9mdGVuIHRoZSBpcG1pIGRh
+ZW1vbidzIHJlcGx5IGlzIHJlamVjdGVkIGJ5IHRoZSBidGJyaWRnZSBkYWVtb24uDQoNCkFwcHJv
+YWNoICMyIGNvdWxkIGJlIHJvbGxlZCBpbnRvIGEgY291cGxlIGxpYnJhcnkgY2FsbHMgYXMgd2Vs
+bCwgdmVyeSBlYXNpbHkgc3VjaCB0aGF0IHRoZXkgZG9uJ3QgZXZlbiBrbm93IHRoZSBpbnRlcm5h
+bHMgb2YgdGhlIHRyYWNraW5nLi4uDQpJIGxpa2UgYW5kIGRvbid0IGxpa2UgdGhlIGZyZWUtZm9y
+bSB0ZXh0IG5hbWluZyBvZiB0aGUgbWV0cmljcywgYmVjYXVzZSBvYnZpb3VzbHkgdGhleSBjYW4g
+YmUgaHVtYW4tcmVhZGFibGUuICBBbm90aGVyIGFwcHJvYWNoIG1pZ2h0IGJlIHRvIGFzc2lnbiB0
+aGVtIGh1bWFuIHJlYWRhYmxlIG5hbWVzIGFuZCBJRHMsIHNpbWlsYXJseSB0byBzZW5zb3JzIHNv
+IHRoYXQgeW91IGNhbiByZWFkIGJhY2sgdGhlIG5hbWUgZm9yIGEgbWV0cmljIG9uY2UsIGFuZCB0
+aGVuIGluIHRoZSBmdXR1cmUgY2FjaGUgaXQsIG1ha2luZyBzdWJzZXF1ZW50IHJlcXVlc3RzIHNt
+YWxsZXIuDQoNCk9idmlvdXMgZG93bnNpZGUgdG8gYm90aCBpbXBsZW1lbnRhdGlvbnMgKGFsdGhv
+dWdoICMyIGhhcyBhbiBlYXN5IG1pdGlnYXRpb24pLCBpZiB0aGUgZGFlbW9uIHdpdGggdGhlIGlu
+dGVybmFsIHN0YXRlIGNyYXNoZXMgdGhlIG1ldHJpY3MgYXJlIGxvc3QsIHdoZW4gaXQgY29tZXMg
+YmFjayB1cCBhbGwgdGhlIG1ldHJpY3MgYXJlIDAuICBJZiB0aGUgbWV0cmljcyBhcmUgb3duZWQg
+YnkgYW5vdGhlciBkYWVtb24sIHRoZW4gdGhlIGxpYnJhcnkgY2FsbHMgdG8gc2V0IHVwIHRoZSBt
+ZXRyaWNzIHRyYWNraW5nIGNvdWxkIGNoZWNrIGlmIHRoZSBtZXRyaWMgYWxyZWFkeSBleGlzdHMs
+IGFuZCB1c2UgdGhhdCB2YWx1ZSB0byBzdGFydCB3aXRoIC0tIHRoZW4geW91IG9ubHkgaGF2ZSB0
+byBjYXJlIGFib3V0IHRoYXQgb25lIGRhZW1vbiBjcmFzaGluZy4gIEl0IGNvdWxkIHBlcmlvZGlj
+YWxseSB3cml0ZSB0aGUgdmFsdWVzIGRvd24gYW5kIHRoZW4gcmVhZCB0aGVtIG9uIHN0YXJ0LXVw
+IHRvIHBlcnNpc3QgdGhlc2UgdmFsdWVzLiAgSG93ZXZlciwgeW91IG1pZ2h0IHdhbnQgdGhlIHZh
+bHVlcyB0byBub3QgcGVyc2lzdC4uLiBJIGltYWdpbmUgSSB3b3VsZG4ndCwgaG93ZXZlciwgc29t
+ZXRoaW5nIGxpa2UgYm9vdCBjb3VudCB3b3VsZC4uLg0KDQpUaGVyZSBhcmUgc3BlY2lmaWMgdGhp
+bmdzIHRoYXQgdGhlIGhvc3Qgd2FudHMgdG8ga25vdywgdGhhdCByZWFsbHkgZmFsbCBpbnRvIG1l
+dHJpY3Mgb3ZlciBsb2dnaW5nOg0KMSkgQk1DcyBib290IGNvdW50DQoyKSBpMmMgaW9jdGwgZmFp
+bHVyZSBjb3VudCAod2hpY2ggYnVzL2RldmljZS9yZWc6IGNvdW50KQ0KMykgU3BlY2lmaWMgc2Vu
+c29yIHJlcXVlc3RzIChyZWFkaW5nLCB3cml0aW5nKQ0KNCkgRmFuIGNvbnRyb2wgZmFpbHNhZmUg
+bW9kZSBjb3VudCwgaG93IG9mdGVuIGl0J3MgZmFsbGluZyBpbnRvIGZhaWxzYWZlIG1vZGUNCjUp
+IEhvdyBvZnRlbiB0aGUgaXBtaSBkYWVtb24ncyByZXBseSB0byB0aGUgYnRicmlkZ2UgZGFlbW9u
+IGZhaWxzLg0KDQpHaXZlbiBzb21lIGZlZWRiYWNrIG9uIHRoaXMsIEknbGwgd3JpdGUgdXAgYSBk
+ZXNpZ24gYW5kIHRoZSB1c2UtY2FzZXMgaXQncyB0cnlpbmcgdG8gYWRkcmVzcy4NCg0KVGhhbmtz
+LA0KUGF0cmljaw0K
