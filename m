@@ -1,55 +1,54 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4010:c07::244; helo=mail-lf0-x244.google.com;
+ (client-ip=2a00:1450:4010:c07::242; helo=mail-lf0-x242.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="L8uDk/Gc"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="iLVP8pHJ"; 
  dkim-atps=neutral
-Received: from mail-lf0-x244.google.com (mail-lf0-x244.google.com
- [IPv6:2a00:1450:4010:c07::244])
+Received: from mail-lf0-x242.google.com (mail-lf0-x242.google.com
+ [IPv6:2a00:1450:4010:c07::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yyWvN0JtpzDrcw
- for <openbmc@lists.ozlabs.org>; Fri, 15 Dec 2017 11:46:07 +1100 (AEDT)
-Received: by mail-lf0-x244.google.com with SMTP id c140so8656245lfg.7
- for <openbmc@lists.ozlabs.org>; Thu, 14 Dec 2017 16:46:07 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yyX0F1q4TzDrdP
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Dec 2017 11:50:21 +1100 (AEDT)
+Received: by mail-lf0-x242.google.com with SMTP id x204so8671802lfa.11
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Dec 2017 16:50:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=rOULaFnzZ9lHr4lLHeTB+jRS9c7we9nLbMELj9zl2J8=;
- b=L8uDk/GcwJk/w+0V+ksyU7jADcZJsuNfMJLmymuCZcu0i8BNnl8oWYYd42H9qOkTkb
- EBkNKQbA2aWQDmgN40NpTWa69QEvdSK0OOvq4i/5O0Nb6M3c5U12Iz2m1StJFwVfhq+4
- EbXCXfBwVaZqv28HVPpqAqdThBVWiYqGTTMwJXCSrQGwluMGG+rWPXtqfv00w+k8TMkq
- uHWjxfrIiFlwuDqAVH+rXdQal/sZa3xEL7/9TQIAC547TSoe6hYi1/sKYHwDWcK0o62a
- 9nsAEoqdGkJgT1ZEey8sDrZWIxTvmYwsufqcNk/vLSmO22pRdli5cB92ZoaNW2U/k85M
- RVHA==
+ bh=xl+PmIktipG29cxsIk2Vx/LPDN4do7T2LJyFd2PUVT0=;
+ b=iLVP8pHJK3e8yMCQuHFcvrJrAeUwpr4MC4NThbWgwKklAA5wbiLDWXeTmEn2sDmBc2
+ 4WBcRDzWRrblX17zBaxRX0HzI3PFYeR3y8dK6LVbZBSIEM4285aAG51xRfgoM9wjQomi
+ hUJE4xKJO5fxUYlq79oMOMcm4PaMTd2hdogkeb0MHNovzLGg6o9atYDqZrYJxQv+N9pg
+ TWqyfPDpRakn+fZg7ovHQV9T8IaOpVVGt4t6Iw9797Cw9YXTs10nLVkvsmZBU24/u5Xs
+ L2tMneldzKHobBBMSdqqBnmgDMuzQ7xcuhmaPBZVNWqp82RQJ+9KBj/3nIlTdWxQSOyi
+ gIFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=rOULaFnzZ9lHr4lLHeTB+jRS9c7we9nLbMELj9zl2J8=;
- b=Ju9bgrAtIIvIdhUmWfDqEyAzmnslf3WpF1+xV4XCAv3n/wt3d01sjdhIgetlKrxaru
- TilAB1K2ByQPNZh6JjioDlGKB9GxdYyqTjHbMrdpwWRhizfQAAFXc0Xb7z9xf80JC9nS
- y4nLMlmfOQw7jRoMmswRD7UkjXvjo3b416cr43obGUOeNt7tcYQwSpTAckCYmLF2h6E9
- Fs7EzQAqs1bb1MUYkegi9WXflUuu+MCDxL1hFCYylG5XaeMZUHf3Qt9Ya9bqqMmoyqEC
- JFDq2jphe5bsSMikoE0AOj+huHWFBPOkzWm3XR/H31e1wnCfgy70FUtkvfqSNlQwPPSz
- 0EXQ==
-X-Gm-Message-State: AKGB3mLITho7bFQdUMHZEjljHBojCedCGwtPo87BAedshVcpDjyE7Y4D
- VH7o5FpZ8wj9t0U0kXF73aKRRYw+/cZWuaCV05g=
-X-Google-Smtp-Source: ACJfBovD1ojkEFcQRLTtjW/RnJESa/IyeCgMW7qMHYhvVFhHTYCb0tL6tDfy6Jcl1b8bww79RwpWI+pO9Xb6M+ipNB4=
-X-Received: by 10.46.85.208 with SMTP id g77mr4915277lje.114.1513298763877;
- Thu, 14 Dec 2017 16:46:03 -0800 (PST)
+ bh=xl+PmIktipG29cxsIk2Vx/LPDN4do7T2LJyFd2PUVT0=;
+ b=Xhs32tNDtTcgwyGln54qYLuQW+EF5WV/LhpB1HAVJnbTY2DCe9RJgL9zNcFiUlIXqM
+ I5v/fPQKNVmb1l/jjxNu84GDQUwKCv4ASdIJE4tJ4+jsNM/BtgHaynL3G0/+z64Igfr+
+ uRDgaD6Uompcid7Un6Sc4wXeVR1B36r6CXwWVxYLoUbDnYOjkeFnMNWY4WepgHDc61tL
+ 27b3jd4znqQmoKdf0OSASBbvKAxKMzUiRrcFB54ImwEFXKZh1vxCiFTrm8mjDtZyI/M3
+ 6Qnp7uBsxT+IjYZsggFNAQWekUov9TUH7kVF774MFvHH9c7o57YbELAW23x60M5In9SY
+ wHsw==
+X-Gm-Message-State: AKGB3mISgrWxk6BBh+oafBS1np+pdBwha71ibQb00fdfuG29Mx/UQqab
+ o0numgUzGVnKAGeWzrrpLtM8kpT6KzXpGK6CTCk=
+X-Google-Smtp-Source: ACJfBovDMB+md4vxzorPN3FUK/QsxE0p8r89MViFrD3hofLnchi1E3z2uLxKb/1f3YSqQqoAIYYzFq+NFWAUPYBpq6U=
+X-Received: by 10.46.29.11 with SMTP id d11mr5005466ljd.24.1513299018180; Thu,
+ 14 Dec 2017 16:50:18 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.25.155.83 with HTTP; Thu, 14 Dec 2017 16:45:43 -0800 (PST)
-In-Reply-To: <1513172728-20998-2-git-send-email-tmaimon77@gmail.com>
-References: <1513172728-20998-1-git-send-email-tmaimon77@gmail.com>
- <1513172728-20998-2-git-send-email-tmaimon77@gmail.com>
+Received: by 10.25.155.83 with HTTP; Thu, 14 Dec 2017 16:49:57 -0800 (PST)
+In-Reply-To: <1513244371-10369-1-git-send-email-tmaimon77@gmail.com>
+References: <1513244371-10369-1-git-send-email-tmaimon77@gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 15 Dec 2017 11:15:43 +1030
-X-Google-Sender-Auth: DZ7UEcCDPSA0-j8wuzU1zt_-sBc
-Message-ID: <CACPK8Xdc0jcqf1DPge-2D-E1e-Sfi72c6=UEVWjoPuyxfEy1wg@mail.gmail.com>
-Subject: Re: [PATCH v1 1/3] arm: npcm: add basic support for Nuvoton BMCs
+Date: Fri, 15 Dec 2017 11:19:57 +1030
+X-Google-Sender-Auth: Ts4lABa4rEOTfMJrTHuoNgaAFo4
+Message-ID: <CACPK8XcGZgx2aGez0Fzz3mZLsqo46BYV-rvixnE+GnEVN2axnQ@mail.gmail.com>
+Subject: Re: [PATCH v2 0/3] arm: npcm: add basic support for Nuvoton BMCs
 To: Tomer Maimon <tmaimon77@gmail.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
@@ -64,53 +63,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Dec 2017 00:46:09 -0000
+X-List-Received-Date: Fri, 15 Dec 2017 00:50:22 -0000
 
-On Thu, Dec 14, 2017 at 12:15 AM, Tomer Maimon <tmaimon77@gmail.com> wrote:
-> Adds basic support for the Nuvoton NPCM750 BMC.
+On Thu, Dec 14, 2017 at 8:09 PM, Tomer Maimon <tmaimon77@gmail.com> wrote:
+> Changes since version 1:
+>  - Add dt-binding documentation to NPCM
+>  - Add dt-binding documentation to npcm7xx-smp
 >
-> Based on [v8,1/3] arm: npcm: add basic support for Nuvoton BMCs patch:
-> Brendan Higgins : - https://patchwork.kernel.org/patch/10063409/
+> This patch set adds support for the Nuvoton NPCM Baseboard Management Controller
+> (BMC) SoC architecture as well as the NPCM750 variant. NPCM is an ARM based SoC
+> with external DDR RAM and supports a large set of peripherals.
 >
-> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
-> ---
->  arch/arm/Kconfig                    |   2 +
->  arch/arm/Makefile                   |   1 +
->  arch/arm/configs/PolegSVB_defconfig | 428 ++++++++++++++++++++++++++++++++++++
+> The NPCM750 is based on Cortex A9 and comes in single core and dual core
+> flavors.
+>
+> The device tree added in this patchset has a number of bindings for which the
+> corresponding drivers will be sent out later and thus do not yet have binding
+> documentation. Apologies in advance if you would like the bindings to be added
+> along with the corresponding drivers.
+>
+> this patch set based on Brendan Higgins patcehs.
+> https://patchwork.kernel.org/project/linux-arm-kernel/list/?submitter=170155
 
-Convention is to use lowercase for the filename. Please put the
-defconfig in a separate patch.
+Thanks for the submission. I am happy to merge these in to the OpenBMC
+tree while the review is ongoing upstream. Please cc me on the
+upstream patches so I can assist with review.
 
->  arch/arm/mach-npcm/Kconfig          |  61 +++++
->  arch/arm/mach-npcm/Makefile         |   6 +
->  arch/arm/mach-npcm/headsmp.S        |  22 ++
->  arch/arm/mach-npcm/npcm7xx.c        |  27 +++
->  arch/arm/mach-npcm/platsmp.c        |  86 ++++++++
->  8 files changed, 633 insertions(+)
->  create mode 100644 arch/arm/configs/PolegSVB_defconfig
->  create mode 100644 arch/arm/mach-npcm/Kconfig
->  create mode 100644 arch/arm/mach-npcm/Makefile
->  create mode 100644 arch/arm/mach-npcm/headsmp.S
->  create mode 100644 arch/arm/mach-npcm/npcm7xx.c
->  create mode 100644 arch/arm/mach-npcm/platsmp.c
+Convention is moving to use SPDX-License-Identifier tags for new files
+instead of spelling out the GPL licence message. Please consider
+updating your patches to use these tags before you send out v3.
 
-> diff --git a/arch/arm/configs/PolegSVB_defconfig b/arch/arm/configs/PolegSVB_defconfig
-> new file mode 100644
-> index 000000000000..149e422a24ef
-> --- /dev/null
-> +++ b/arch/arm/configs/PolegSVB_defconfig
+Finally, please follow the tips in our documentation on adding a
+branch to the subject line:
 
-The defconfig should be the result of running "make savedefconfig".
-This produces a file called "defconfig" that you can copy to
-arch/arm/configs/poleg_svb_defconfig and commit.
+ https://github.com/openbmc/linux/wiki/SubmittingPatches#use-the-git-tools
 
-This is the same process you should use when updating the defconfig:
+git format-patch -v3 --subject-prefix="PATCH linux dev-4.13" ...
 
-make ARCH=arm poleg_svb_defconfig
-// update config options
-make ARCH=arm savedefconfig
-cp defconfig arch/arm/configs/poleg_svb_defconfig
-git commit -vsm "ARM: configs: npcmu: update defconfig"
+This is only for submissions to the OpenBMC tree.
+
+I noticed you're sending through your work mail server, but from your
+gmail address. This might cause delivery problems, I recommend using
+the gmail SMTP servers instead.
 
 Cheers,
 
