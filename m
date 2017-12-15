@@ -1,64 +1,57 @@
-Return-Path: <venture@google.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400c:c05::22f; helo=mail-vk0-x22f.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Return-Path: <joel.stan@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2a00:1450:4010:c07::244; helo=mail-lf0-x244.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="CC3f4OP+"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="L8uDk/Gc"; 
  dkim-atps=neutral
-Received: from mail-vk0-x22f.google.com (mail-vk0-x22f.google.com
- [IPv6:2607:f8b0:400c:c05::22f])
+Received: from mail-lf0-x244.google.com (mail-lf0-x244.google.com
+ [IPv6:2a00:1450:4010:c07::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3yyVLC0P9VzDrd2
- for <openbmc@lists.ozlabs.org>; Fri, 15 Dec 2017 10:35:46 +1100 (AEDT)
-Received: by mail-vk0-x22f.google.com with SMTP id o16so4589276vke.12
- for <openbmc@lists.ozlabs.org>; Thu, 14 Dec 2017 15:35:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=3iSICfPpguaQZWMrNFZSIIEh7WjDIAMIcVLQjQGWhsE=;
- b=CC3f4OP++iQ6mTbJ3VADhZIs/d0F+GMyUzc0IalbRolenbVpUTrNsEy06DrTpdGlYc
- gEajwgwdgcQtldfmgqWkRJXyxtMaregWWhDs7IuZQ8B+oDuHIUp0eOQi7JYu9LAiRTVE
- qHb8Ek+ko19UC/+laBrPe5exfPdmDzQG3VYbdB4q3BgrOJNb9H+4T3deXBbtn+93ivsv
- kzjIRegC9B3tkludjkt6Ygrrjfxhd4Vc5CBT++TwDncZDye4dItzy2Mt7ugzKQ1TBuHa
- RUg37dwmXsNDIqZ4aHmzU9nODAHEiEeKCsNBSbDCOOQwz5Ag1W5QongRWewp09Y2LPM9
- oMEQ==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3yyWvN0JtpzDrcw
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Dec 2017 11:46:07 +1100 (AEDT)
+Received: by mail-lf0-x244.google.com with SMTP id c140so8656245lfg.7
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Dec 2017 16:46:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=rOULaFnzZ9lHr4lLHeTB+jRS9c7we9nLbMELj9zl2J8=;
+ b=L8uDk/GcwJk/w+0V+ksyU7jADcZJsuNfMJLmymuCZcu0i8BNnl8oWYYd42H9qOkTkb
+ EBkNKQbA2aWQDmgN40NpTWa69QEvdSK0OOvq4i/5O0Nb6M3c5U12Iz2m1StJFwVfhq+4
+ EbXCXfBwVaZqv28HVPpqAqdThBVWiYqGTTMwJXCSrQGwluMGG+rWPXtqfv00w+k8TMkq
+ uHWjxfrIiFlwuDqAVH+rXdQal/sZa3xEL7/9TQIAC547TSoe6hYi1/sKYHwDWcK0o62a
+ 9nsAEoqdGkJgT1ZEey8sDrZWIxTvmYwsufqcNk/vLSmO22pRdli5cB92ZoaNW2U/k85M
+ RVHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=3iSICfPpguaQZWMrNFZSIIEh7WjDIAMIcVLQjQGWhsE=;
- b=MCJR3Tstq2Vhvz4GK1yRFghloDxHDBeG/eBxmG16iDEqWtVqcQ+jIHoS9Tw1eu8yCk
- 4krOKD3oTwzF+WpvYfRFvX6KQRF+YhvDo136Vwm9AENZurEsT0pje3R2iU/s/W+lGH1B
- eyeIkmtKJjOMgzp4hUqeN2nkSZkDWUBhXna/zOloTTErGIQ9us4is/f14ReQTDW8mlfh
- zOK/koIuGCC59gn8Q06ilH+U+VjPvedx3wPu9riwPR7U+fm0G4ewYNN4wbwwMNHPGt/Y
- Yo2Hscp2DWiPPdScPfGl0jEiSXSED0Xm35w3FcpAXVbv/4ODY85ol8DQe9qS/7Azqi4F
- LHyg==
-X-Gm-Message-State: AKGB3mK3KZlglFJOtAk3mMl1iykSkRBazRb0fhp4X9VBo5OZkKZ5ylP1
- SRbiCNLLytkV+4ZyoJ2xHm+FwU3l/VeUGqI199q5gg==
-X-Google-Smtp-Source: ACJfBos1uHX7UHC4c4Aa6RtpB1hnCCmrJK0BAdoppE09VYbuGNLIqBZO5w2F6E73P/Oa7g59AGe6EmPvByo8r6zCEp0=
-X-Received: by 10.31.225.69 with SMTP id y66mr17971vkg.102.1513294543575; Thu,
- 14 Dec 2017 15:35:43 -0800 (PST)
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=rOULaFnzZ9lHr4lLHeTB+jRS9c7we9nLbMELj9zl2J8=;
+ b=Ju9bgrAtIIvIdhUmWfDqEyAzmnslf3WpF1+xV4XCAv3n/wt3d01sjdhIgetlKrxaru
+ TilAB1K2ByQPNZh6JjioDlGKB9GxdYyqTjHbMrdpwWRhizfQAAFXc0Xb7z9xf80JC9nS
+ y4nLMlmfOQw7jRoMmswRD7UkjXvjo3b416cr43obGUOeNt7tcYQwSpTAckCYmLF2h6E9
+ Fs7EzQAqs1bb1MUYkegi9WXflUuu+MCDxL1hFCYylG5XaeMZUHf3Qt9Ya9bqqMmoyqEC
+ JFDq2jphe5bsSMikoE0AOj+huHWFBPOkzWm3XR/H31e1wnCfgy70FUtkvfqSNlQwPPSz
+ 0EXQ==
+X-Gm-Message-State: AKGB3mLITho7bFQdUMHZEjljHBojCedCGwtPo87BAedshVcpDjyE7Y4D
+ VH7o5FpZ8wj9t0U0kXF73aKRRYw+/cZWuaCV05g=
+X-Google-Smtp-Source: ACJfBovD1ojkEFcQRLTtjW/RnJESa/IyeCgMW7qMHYhvVFhHTYCb0tL6tDfy6Jcl1b8bww79RwpWI+pO9Xb6M+ipNB4=
+X-Received: by 10.46.85.208 with SMTP id g77mr4915277lje.114.1513298763877;
+ Thu, 14 Dec 2017 16:46:03 -0800 (PST)
 MIME-Version: 1.0
-Received: by 10.31.164.82 with HTTP; Thu, 14 Dec 2017 15:35:23 -0800 (PST)
-In-Reply-To: <c10d1ea4-f4c4-f51a-acb2-a6b252be4ba9@ozlabs.org>
-References: <TY1PR06MB08635DA92530A90D5D2C039DF6A30@TY1PR06MB0863.apcprd06.prod.outlook.com>
- <581C8C7D.8080702@linux.vnet.ibm.com> <20161104141455.GE17105@heinlein.lan>
- <581CCA61.4010202@linux.vnet.ibm.com> <20161107035006.GB15757@heinlein.lan>
- <80bcfede-6212-157b-e391-6e4bc526b339@ozlabs.org>
- <432e5d6e-ac7a-6844-2bc9-4a046af0abda@linux.vnet.ibm.com>
- <86bef8c4-2f54-6c33-93eb-5ed6aa212aff@ozlabs.org>
- <84218d7b-714c-761e-cd93-97118ceee49f@linux.vnet.ibm.com>
- <f0577dd5-1df9-d077-fb95-24eaec58489d@ozlabs.org>
- <20171214162608.GK113334@mauery>
- <c10d1ea4-f4c4-f51a-acb2-a6b252be4ba9@ozlabs.org>
-From: Patrick Venture <venture@google.com>
-Date: Thu, 14 Dec 2017 15:35:23 -0800
-Message-ID: <CAO=notyQS4uCzYifQAjH3p1FPny-T8NqpT5CY_CbYFzL4APRRQ@mail.gmail.com>
-Subject: Re: IPMI LAN command story design - try 3rd send
-To: Jeremy Kerr <jk@ozlabs.org>
-Cc: Vernon Mauery <vernon.mauery@linux.intel.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Sender: joel.stan@gmail.com
+Received: by 10.25.155.83 with HTTP; Thu, 14 Dec 2017 16:45:43 -0800 (PST)
+In-Reply-To: <1513172728-20998-2-git-send-email-tmaimon77@gmail.com>
+References: <1513172728-20998-1-git-send-email-tmaimon77@gmail.com>
+ <1513172728-20998-2-git-send-email-tmaimon77@gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 15 Dec 2017 11:15:43 +1030
+X-Google-Sender-Auth: DZ7UEcCDPSA0-j8wuzU1zt_-sBc
+Message-ID: <CACPK8Xdc0jcqf1DPge-2D-E1e-Sfi72c6=UEVWjoPuyxfEy1wg@mail.gmail.com>
+Subject: Re: [PATCH v1 1/3] arm: npcm: add basic support for Nuvoton BMCs
+To: Tomer Maimon <tmaimon77@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
@@ -71,33 +64,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Dec 2017 23:35:47 -0000
+X-List-Received-Date: Fri, 15 Dec 2017 00:46:09 -0000
 
-Along with any change here, and sorry I haven't followed the email
-thread is that the network configuration is applied when "access on"
-is sent over IPMI and not when the "set complete" flag is set.  That's
-an easy move of code from one place to another in the IPMI daemon.
+On Thu, Dec 14, 2017 at 12:15 AM, Tomer Maimon <tmaimon77@gmail.com> wrote:
+> Adds basic support for the Nuvoton NPCM750 BMC.
+>
+> Based on [v8,1/3] arm: npcm: add basic support for Nuvoton BMCs patch:
+> Brendan Higgins : - https://patchwork.kernel.org/patch/10063409/
+>
+> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+> ---
+>  arch/arm/Kconfig                    |   2 +
+>  arch/arm/Makefile                   |   1 +
+>  arch/arm/configs/PolegSVB_defconfig | 428 ++++++++++++++++++++++++++++++++++++
 
-On Thu, Dec 14, 2017 at 1:55 PM, Jeremy Kerr <jk@ozlabs.org> wrote:
-> Hi Vernon,
->
->> I would agree. ipmitool is broken. It should have a
->> network-start-configure mechanism that would set the set-complete bit.
->> The you could send any number of its network configuration parameters.
->> Then it should have a network-finish-configure command that would clear
->> the set-complete bit.
->
-> Or, even simpler: allow multiple parameter changes on one invocation:
->
->  ipmitool [...] lan set 1 ipsrc static ipaddr 192.168.0.2 netmask 255.255.255.0
->
-> [which changes all parameters under one transition of the set-complete
-> flag]
->
-> Then, there's no need to modify existing users' behaviour, and no
-> concern about forgetting to apply.
->
-> Regards,
->
->
-> Jeremy
+Convention is to use lowercase for the filename. Please put the
+defconfig in a separate patch.
+
+>  arch/arm/mach-npcm/Kconfig          |  61 +++++
+>  arch/arm/mach-npcm/Makefile         |   6 +
+>  arch/arm/mach-npcm/headsmp.S        |  22 ++
+>  arch/arm/mach-npcm/npcm7xx.c        |  27 +++
+>  arch/arm/mach-npcm/platsmp.c        |  86 ++++++++
+>  8 files changed, 633 insertions(+)
+>  create mode 100644 arch/arm/configs/PolegSVB_defconfig
+>  create mode 100644 arch/arm/mach-npcm/Kconfig
+>  create mode 100644 arch/arm/mach-npcm/Makefile
+>  create mode 100644 arch/arm/mach-npcm/headsmp.S
+>  create mode 100644 arch/arm/mach-npcm/npcm7xx.c
+>  create mode 100644 arch/arm/mach-npcm/platsmp.c
+
+> diff --git a/arch/arm/configs/PolegSVB_defconfig b/arch/arm/configs/PolegSVB_defconfig
+> new file mode 100644
+> index 000000000000..149e422a24ef
+> --- /dev/null
+> +++ b/arch/arm/configs/PolegSVB_defconfig
+
+The defconfig should be the result of running "make savedefconfig".
+This produces a file called "defconfig" that you can copy to
+arch/arm/configs/poleg_svb_defconfig and commit.
+
+This is the same process you should use when updating the defconfig:
+
+make ARCH=arm poleg_svb_defconfig
+// update config options
+make ARCH=arm savedefconfig
+cp defconfig arch/arm/configs/poleg_svb_defconfig
+git commit -vsm "ARM: configs: npcmu: update defconfig"
+
+Cheers,
+
+Joel
