@@ -1,61 +1,58 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4010:c07::241; helo=mail-lf0-x241.google.com;
+ (client-ip=2a00:1450:4010:c07::232; helo=mail-lf0-x232.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="AfnQMlEL"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="FwnmLDSE"; 
  dkim-atps=neutral
-Received: from mail-lf0-x241.google.com (mail-lf0-x241.google.com
- [IPv6:2a00:1450:4010:c07::241])
+Received: from mail-lf0-x232.google.com (mail-lf0-x232.google.com
+ [IPv6:2a00:1450:4010:c07::232])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3z0jdd28CkzDrYx
- for <openbmc@lists.ozlabs.org>; Tue, 19 Dec 2017 01:11:48 +1100 (AEDT)
-Received: by mail-lf0-x241.google.com with SMTP id m20so4811184lfi.6
- for <openbmc@lists.ozlabs.org>; Mon, 18 Dec 2017 06:11:48 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3z0jsC6sW2zDrcl
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Dec 2017 01:21:51 +1100 (AEDT)
+Received: by mail-lf0-x232.google.com with SMTP id r143so17930916lfe.13
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Dec 2017 06:21:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=Id2viJagKFTqYZaQxqXEExzBpgRvml7RhRn+Z7Gcxr0=;
- b=AfnQMlELcnnBIJFYPzNKp2ynq4/FoWBUoL+VPc8ccNahHTypQ1wjij0yOqX1oFstZy
- IyivO0AI7zRlZE7WSunOHonWdHsM8hPgtHoBPsFGTfD7u9a+KmO8wlQLgodrta7aW+Dz
- Cm/5uIyQyvnBXQIQxr3ZYfVdJwSEQvT8mfNeWtGnvEoLKbVuyx7eTb8PSB/tro3NQSgj
- WS5SxsGjTNG3Dgq8z70XUGz3gyP2ALqzUneaIXDu6iA51c97NRB57g9gIsZOJ+c0hild
- 0t1WVoo9+mUh41PcZgLBXiNwmP517YG/4KHtlpxcFjNACWh2LnM+gN/Ijl70LM8ibCOS
- uOvw==
+ :subject:to:cc:content-transfer-encoding;
+ bh=m1FBJ3nyPgAS4wxOqSukh+piNPe0wOEqatAkem0ef6Y=;
+ b=FwnmLDSErJ9ZRKXyu+OOu/1Cq7iaxkxN3sT23OAFp5JLpbolLBqU1jaGStiKsLuQuE
+ hYN1GgxHL0/aWftnH8cRXqMC/1zKlJDh4xq+Cd9+i0nkD3X2SX8s0Q5HG3OwvZ7WZdQZ
+ eU6bNAXrnNNuSfy5Y3uZt70hCaza3BUoUtPERhCz46yK7wg4JIE5S3RMEGrNK8aw4HWB
+ UuX8/lf4ejtHx1xdt5ta9NxYDnxI9SRMNhtHFpBEnII69lp2nBPMYj6R7qYHPYETAALv
+ UYUmrGg7Dv/8L0Am6ILtMk9NPfpFZmKQQhUcJRfHGIrt9rmmF7UncHZD7GGgviYwiU+d
+ doiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=Id2viJagKFTqYZaQxqXEExzBpgRvml7RhRn+Z7Gcxr0=;
- b=pg+F26rPLiKT8vIAhZP6iWvQBWEZHJgTf5IXkPXaUvkJpnczaqfYaMonTvi2MEjAxW
- 4YrPzXtbwIs//77gzcb7WgLLJaCsyfjpCeajmTLnT25ktvExqzox/ed1jWKVmElHXgl3
- bzRIKc7bJnh+LXYuHaSziEQvGYAm9yxvIc0FjneaYqjAmLJprQ2sDdwkVKAnyryjDje9
- Ue/r2yhxXiiC622qLmxzGpfJUK1bZWDgPV3QshE1py6YeJYlATe/KvqvRVPIJlbvZBeB
- zyvRzQKFP0+LFR7jl+M9Sgg+KCOkT4CB65k3ghD9QbFYrRKMjFOEzMZVzozA0MlsGkfj
- rIqA==
-X-Gm-Message-State: AKGB3mJLGy26GuVx+IO0YTDAe25E5O1Ys7vVkmEJMf1c9rberTN1DjMR
- hOXI1/yKdH0FwhMiIsDcV4IkTEE3n1szmskBxOX+MA==
-X-Google-Smtp-Source: ACJfBoukfbPO8O+w44hiawRCHqQXUjEE4UeLJ0QT1SIsedBcqQ3Szo30FQyTtpiJ7WydYICZ5xflmF7EmKkEGIUKtjk=
-X-Received: by 10.25.170.71 with SMTP id t68mr10804808lfe.37.1513606305611;
- Mon, 18 Dec 2017 06:11:45 -0800 (PST)
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=m1FBJ3nyPgAS4wxOqSukh+piNPe0wOEqatAkem0ef6Y=;
+ b=Wfdi/8EVBHmEWDBiXEWUPncBJ6fEOxJ6XsN/GGTYsaaidx9j+0r1RKsOB1vgcrPv5Q
+ 66w9SYzGUTztfIoSljWMScpT3xXOfv1Ho8VITB5Nviw8diF4TibrMe6Flsr84KDhgCK7
+ h7s9PBIzbpDZ2MXMSB985AfnyEdh16j0x5cOmFE3zx4i67AUIKhNxFQv+OA7iu3DciEu
+ p1KxDuu6p2J2sauUjBr9W7HZKOG8HeG9wxlmz59p8V1ae/588rAyZotgdzrGffxyMaZK
+ I9uix48I0Ao31QbgyNIeRK+aH7atyEtGuR6hiQJj5M+HUGd3tWYmVqqvOOMyw3FYsAOH
+ 9LxA==
+X-Gm-Message-State: AKGB3mKbdTZJOLxmtew4bGlI5VeAPbyo7ZWWMvkM8mPRWGY6Dlcwccx9
+ JdyeUTl1+OvtDi+Ll9VlyXjXzkBlib0buaO54wE=
+X-Google-Smtp-Source: ACJfBous80ahTTR4PnsasYjjzwl24XzMBYXdgMXRUJBptdQWfLZGXkH2Qmd3hwfQ22R7E/TNOurpRw9dma1OXpasblw=
+X-Received: by 10.25.234.72 with SMTP id i69mr6618lfh.57.1513606905801; Mon,
+ 18 Dec 2017 06:21:45 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.25.155.83 with HTTP; Mon, 18 Dec 2017 06:11:25 -0800 (PST)
-In-Reply-To: <0d01c184-8ae0-6cbb-b222-d6c22c15ea55@linux.vnet.ibm.com>
-References: <1512587959-27264-1-git-send-email-eajames@linux.vnet.ibm.com>
- <CACPK8Xd2Pcb8Z_2PP-B+aALLS9Z1Pc5tvX=2+1qZUbCeVyRUag@mail.gmail.com>
- <0d01c184-8ae0-6cbb-b222-d6c22c15ea55@linux.vnet.ibm.com>
+Received: by 10.25.155.83 with HTTP; Mon, 18 Dec 2017 06:21:25 -0800 (PST)
+In-Reply-To: <CACkAXSrqHOkyDZpYRCtibiA6CQ9Z7XRXw5BcTkvDSMwd1pEvjQ@mail.gmail.com>
+References: <CACkAXSrqHOkyDZpYRCtibiA6CQ9Z7XRXw5BcTkvDSMwd1pEvjQ@mail.gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 19 Dec 2017 00:41:25 +1030
-X-Google-Sender-Auth: j6-Tjs4CkHNYak-kg5EKc97Zl7w
-Message-ID: <CACPK8XdHXTYiPYfGvE3=qD_BaGMK_=oBTLaV-VV8UsWHvXfqRQ@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] hwmon (occ): Fix integer overflow in
- multiplication
-To: Eddie James <eajames@linux.vnet.ibm.com>
-Cc: "Edward A. James" <eajames@us.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Tue, 19 Dec 2017 00:51:25 +1030
+X-Google-Sender-Auth: 0-22ON9p1STamS1QEFm2ocwuUyE
+Message-ID: <CACPK8XeXshcZmNaPry6dGZ7nGJf96ZR02esHQ6xj+K_MdpDVeQ@mail.gmail.com>
+Subject: Re: dreport will replace ffdc tool starting from Feb-2018.
+To: Jayanth Othayoth <ojayanth@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -67,47 +64,77 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Dec 2017 14:11:50 -0000
+X-List-Received-Date: Mon, 18 Dec 2017 14:21:52 -0000
 
-On Sat, Dec 9, 2017 at 8:47 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+On Thu, Dec 14, 2017 at 7:53 PM, Jayanth Othayoth <ojayanth@gmail.com> wrot=
+e:
+> Starting feb-2018 ffdc tool will be removed from openbmc builds. dreport
+> will replace ffdc tool with support for additional features.  dreport is
+> already available in openbmc builds.
 >
+> Users of ffdc tool must plan to migrate to dreport.
 >
-> On 12/08/2017 12:16 AM, Joel Stanley wrote:
->>
->> On Thu, Dec 7, 2017 at 5:49 AM, Eddie James <eajames@linux.vnet.ibm.com>
->> wrote:
->>>
->>> --- a/drivers/hwmon/occ/common.c
->>> +++ b/drivers/hwmon/occ/common.c
->>> @@ -468,7 +468,7 @@ static ssize_t occ_show_power_1(struct device *dev,
->>>                                  struct device_attribute *attr, char
->>> *buf)
->>>   {
->>>          int rc;
->>> -       u32 val = 0;
->>> +       u64 val = 0;
->>>          struct power_sensor_1 *power;
->>>          struct occ *occ = dev_get_drvdata(dev);
->>>          struct occ_sensors *sensors = &occ->sensors;
->>> @@ -491,11 +491,11 @@ static ssize_t occ_show_power_1(struct device *dev,
->>>                  val = get_unaligned_be32(&power->accumulator);
->>>                  break;
->>>          case 3:
->>> -               val = get_unaligned_be16(&power->value) * 1000000;
->>> +               val = (u64)get_unaligned_be16(&power->value) *
->>> 1000000ULL;
->>
->> I don't think these casts are required, are they?
+> dreport is  a drop-in replacement for ffdc.  ie run dreport instead of ff=
+dc.
 >
+> Usage info is as follows.
 >
-> I'm not at all sure. I didn't think adding ULL was required here, but
-> apparently it is. I don't really trust GCC...
+>         dreport creates an archive(xz compressed) consisting of the
+> following:
+>                 * Configuration information
+>                 * Debug information
 
-Sorry, I thought you were joking here. GCC is behaving as it should.
-Hit me up on IRC for an explanation sometime.
+Cool. What information is currently included? Is there a list or
+configuration I can view?
 
-Can you resend without the casts?
+Is the list fixed at build time, or can the user configure their BMC
+to collect additional (or less!) data from specified sources?
+
+How do we get include extra information included?
+
+>                 * A summary report
+>         The type parameter controls the content of the data. The generate=
+d
+>         archive is stored in the user specified location.
+>
+> usage: dreport [OPTION]
+>
+> Options:
+>         -n, =E2=80=94-name <name>     Name to be used for the archive.
+>                               Default name format obmcdump_<id>_<epochtim=
+e>
+
+Can we change this to include the hostname?
 
 Cheers,
 
 Joel
+
+>         -d, =E2=80=94-dir <directory> Archive directory to copy the compr=
+essed
+> report.
+>                               Default output directory is /tmp
+>         -i, =E2=80=94-id <id>         Dump identifier to associate with t=
+he archive.
+>                               Identifiers include numeric characters.
+>                               Default dump identifier is 0
+>         -t, =E2=80=94-type <type>     Data collection type. Valid types a=
+re
+>                               user, core, elog.
+>                               Default type is user initiated.
+>         -p, =E2=80=94-path <path>     Optional contents to be included in=
+ the
+> archive.
+>                               Valid paths are absolute file path or d-bus
+> path
+>                               based on type parameter.
+>                                  -Absolute file path for core type.
+>                                  -elog d-bus object for elog type.
+>         -s, --size <size>     Maximum allowed size(in KB) of the archive.
+>                               Report will be truncated in case size excee=
+ds
+>                               this limit. Default size is unlimited.
+>         -v, =E2=80=94-verbose         Increase logging verbosity.
+>         -V, --version         Output version information.
+>         -q, =E2=80=94-quiet           Only log fatal errors to stderr
+>         -h, =E2=80=94-help            Display this help and exit.
