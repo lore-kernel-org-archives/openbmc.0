@@ -1,67 +1,58 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <venture@google.com>
 Authentication-Results: ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:400c:c08::234; helo=mail-ua0-x234.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="WH3kBjES"; 
+ dkim-atps=neutral
+Received: from mail-ua0-x234.google.com (mail-ua0-x234.google.com
+ [IPv6:2607:f8b0:400c:c08::234])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3z0tgH3Z4xzDrYv
- for <openbmc@lists.ozlabs.org>; Tue, 19 Dec 2017 07:58:51 +1100 (AEDT)
-Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- vBIKwmhh082878
- for <openbmc@lists.ozlabs.org>; Mon, 18 Dec 2017 15:58:48 -0500
-Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2exjdcxv0t-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 18 Dec 2017 15:58:48 -0500
-Received: from localhost
- by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Mon, 18 Dec 2017 13:58:35 -0700
-Received: from b03cxnp08026.gho.boulder.ibm.com (9.17.130.18)
- by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 18 Dec 2017 13:58:33 -0700
-Received: from b03ledav006.gho.boulder.ibm.com
- (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- vBIKwWcC11927858; Mon, 18 Dec 2017 13:58:32 -0700
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 81F58C6055;
- Mon, 18 Dec 2017 13:58:32 -0700 (MST)
-Received: from oc3016140333.ibm.com (unknown [9.41.174.252])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id 4B6E2C604F;
- Mon, 18 Dec 2017 13:58:32 -0700 (MST)
-From: Eddie James <eajames@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.13 v2] hwmon (occ): Fix integer overflow in
- multiplication
-Date: Mon, 18 Dec 2017 14:58:30 -0600
-X-Mailer: git-send-email 1.8.3.1
-X-TM-AS-GCONF: 00
-x-cbid: 17121820-0012-0000-0000-0000157B1E45
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00008223; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000244; SDB=6.00962167; UDB=6.00486655; IPR=6.00742162; 
- BA=6.00005750; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00018612; XFM=3.00000015;
- UTC=2017-12-18 20:58:34
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17121820-0013-0000-0000-000050B6B3B0
-Message-Id: <1513630710-24639-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-12-18_16:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
- definitions=main-1712180278
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3z0vzk2XXbzDrkD
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Dec 2017 08:58:09 +1100 (AEDT)
+Received: by mail-ua0-x234.google.com with SMTP id p33so11695171uag.9
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Dec 2017 13:58:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=qaoqk2XrXAmwwxYtnCGOrUr/fLaR77YnN3sKSYpzA9g=;
+ b=WH3kBjESFW5bBJBmTAe8B3VT63VEayEo+yU3eNwCNvWmUtOT2zNKbhb/dizhkSPkNY
+ NGLwUxCONKVdqHlfqoE2ruQZiUkf1IHbAQyoKr01ZJtNmmgcVjRdhHxg8FnFh5DwDoH3
+ l4Q5faf1Jb7VGxe3cV0GVMKjlgXO4UVnU25v/i533iENc+UyEg6Ox1rrdS+nWjtaDHZu
+ 9FGGxNJrlbHPpD0FYsi5duRxsZFuU+ako+BcHrafU/26olqPrkXWUPajPntLSPIQplxM
+ vMbeTCs7WdKgy/4KLeBssZKsr6Rwv6+NUTnJ2maaodW3BAJvZKqBceYzuEjxvFUE1V1X
+ goSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=qaoqk2XrXAmwwxYtnCGOrUr/fLaR77YnN3sKSYpzA9g=;
+ b=Xe3nSetwmyaF7l5W3r9dNPDYO+i9uI6Lap65W52LeHcJ8yRvmo01WDJ5sBRdZx9vVP
+ +4VLyv13rE2i9uBPgexZhHM+5fBzK96OlD0E1GMK3W+ZkD8UxhNzF3WECUm1PyYVlFcr
+ PapHA5ZbgysuhdRnhJPmhN0QTFdGOJiji1yepNOQVgyzZLY1SO6/+JtSlR2VLalto557
+ gWZZUhC9nL2jaqBaqNv1m7PlYzR9r2DH33Z66Gm2SqpZtiOk2L0DMnRuEMmu81FMV3tx
+ HmN5lrlb86aWuoQmxMoNMe7o2oRiqG0b7qPJ1dqJHKJjcSa4VshkK4Y7cW4hON1tx12k
+ LCjQ==
+X-Gm-Message-State: AKGB3mJ443QmV0rYbfPkXo2FSQYHGDMCzyjBWBu1n1prIFIqiRmSEnY8
+ XzfFidHC9vodLQ74MjJ/xomAwnK50/rUC+Lq63HhhA==
+X-Google-Smtp-Source: ACJfBoujj+mg2iRPDNcZWyJfKfRMlwwXnNcB//U+x5XHchh7kr97wokDwvHjctGjvAddX8I2JRjXL3ElpRvn1Xd4HTA=
+X-Received: by 10.159.61.196 with SMTP id e4mr1397361uaj.156.1513634287271;
+ Mon, 18 Dec 2017 13:58:07 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.31.164.82 with HTTP; Mon, 18 Dec 2017 13:57:46 -0800 (PST)
+In-Reply-To: <CAO=notx1xgFuMqFbxgf2_6zyQrHrbq_HwCM565gUTS9V0-zEvg@mail.gmail.com>
+References: <CAO=notzLZR-jiYTf8NdebLL9kUyLuxCPoJS2OqG5MsvGZRUKhQ@mail.gmail.com>
+ <CACPK8XdQT1ViGGK0dUuwBUe+RmcR6KC9Hjnq3ywY3vCK72XOBg@mail.gmail.com>
+ <CACPK8XdZt90BxUGZWioe8XQ7hpWO8yP9qXxKw-dFNMgKaF-twg@mail.gmail.com>
+ <CAO=notx1xgFuMqFbxgf2_6zyQrHrbq_HwCM565gUTS9V0-zEvg@mail.gmail.com>
+From: Patrick Venture <venture@google.com>
+Date: Mon, 18 Dec 2017 13:57:46 -0800
+Message-ID: <CAO=notwowQs4pNvGeH0erQnuAKve0RPVF1KiAHGX_0hGEN_8sA@mail.gmail.com>
+Subject: Re: linux 4.10 on ast2400
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Nancy Yuen <yuenn@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -73,92 +64,113 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Dec 2017 20:58:52 -0000
+X-List-Received-Date: Mon, 18 Dec 2017 21:58:11 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
+I loaded 4.10 with some debug memory stuff, but I noticed that each
+reboot could have wildly different free memory.  So, here's the
+results from just dumping the file immediately after boot and then
+rebooting.
 
-Power values were overflowing INT_MAX when being converted to
-microwatts, even though the storage was sufficiently large (unsigned 64
-bit). Change literals to unsigned long long.
+root@quanta-q71l:~# cat /proc/meminfo
+MemTotal:         115076 kB
+MemFree:           42228 kB
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
----
- drivers/hwmon/occ/common.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+root@quanta-q71l:~# cat /proc/meminfo
+MemTotal:         115076 kB
+MemFree:            1668 kB
 
-diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
-index 7c97a4c..91fe9fb 100644
---- a/drivers/hwmon/occ/common.c
-+++ b/drivers/hwmon/occ/common.c
-@@ -393,7 +393,7 @@ static ssize_t occ_show_power_1(struct device *dev,
- 				struct device_attribute *attr, char *buf)
- {
- 	int rc;
--	u32 val = 0;
-+	u64 val = 0;
- 	struct power_sensor_1 *power;
- 	struct occ *occ = dev_get_drvdata(dev);
- 	struct occ_sensors *sensors = &occ->sensors;
-@@ -417,13 +417,13 @@ static ssize_t occ_show_power_1(struct device *dev,
- 		break;
- 	case 3:
- 		/* microwatts */
--		val = get_unaligned_be16(&power->value) * 1000000;
-+		val = get_unaligned_be16(&power->value) * 1000000ULL;
- 		break;
- 	default:
- 		return -EINVAL;
- 	}
- 
--	return snprintf(buf, PAGE_SIZE - 1, "%u\n", val);
-+	return snprintf(buf, PAGE_SIZE - 1, "%llu\n", val);
- }
- 
- static ssize_t occ_show_power_2(struct device *dev,
-@@ -454,7 +454,7 @@ static ssize_t occ_show_power_2(struct device *dev,
- 		break;
- 	case 3:
- 		/* microwatts */
--		val = get_unaligned_be16(&power->value) * 1000000;
-+		val = get_unaligned_be16(&power->value) * 1000000ULL;
- 		break;
- 	case 4:
- 		val = power->function_id;
-@@ -496,7 +496,7 @@ static ssize_t occ_show_power_a0(struct device *dev,
- 		break;
- 	case 3:
- 		/* microwatts */
--		val = get_unaligned_be16(&power->system.value) * 1000000;
-+		val = get_unaligned_be16(&power->system.value) * 1000000ULL;
- 		break;
- 	case 4:
- 		val = get_unaligned_be32(&power->system.update_tag);
-@@ -511,7 +511,7 @@ static ssize_t occ_show_power_a0(struct device *dev,
- 		break;
- 	case 8:
- 		/* microwatts */
--		val = get_unaligned_be16(&power->proc.value) * 1000000;
-+		val = get_unaligned_be16(&power->proc.value) * 1000000ULL;
- 		break;
- 	case 9:
- 		val = get_unaligned_be32(&power->proc.update_tag);
-@@ -523,7 +523,7 @@ static ssize_t occ_show_power_a0(struct device *dev,
- 		return snprintf(buf, PAGE_SIZE - 1, "vdd\n");
- 	case 12:
- 		/* microwatts */
--		val = get_unaligned_be16(&power->vdd.value) * 1000000;
-+		val = get_unaligned_be16(&power->vdd.value) * 1000000ULL;
- 		break;
- 	case 13:
- 		val = get_unaligned_be32(&power->vdd.update_tag);
-@@ -535,7 +535,7 @@ static ssize_t occ_show_power_a0(struct device *dev,
- 		return snprintf(buf, PAGE_SIZE - 1, "vdn\n");
- 	case 16:
- 		/* microwatts */
--		val = get_unaligned_be16(&power->vdn.value) * 1000000;
-+		val = get_unaligned_be16(&power->vdn.value) * 1000000ULL;
- 		break;
- 	case 17:
- 		val = get_unaligned_be32(&power->vdn.update_tag);
--- 
-1.8.3.1
+root@quanta-q71l:~# cat /proc/meminfo
+MemTotal:         115076 kB
+MemFree:            1876 kB
+
+root@quanta-q71l:~# cat /proc/meminfo
+MemTotal:         115076 kB
+MemFree:           27464 kB
+
+root@quanta-q71l:~# cat /proc/meminfo
+MemTotal:         115076 kB
+MemFree:           12140 kB
+
+root@quanta-q71l:~# cat /proc/meminfo
+MemTotal:         115076 kB
+MemFree:            2084 kB
+
+On Thu, Nov 9, 2017 at 11:47 AM, Patrick Venture <venture@google.com> wrote:
+> I added these configurations and after ~10 reboots it wasn't
+> reproducing, but I'll keep an eye out and update over the coming days.
+>
+> Thanks!
+>
+> On Tue, Nov 7, 2017 at 1:56 AM, Joel Stanley <joel@jms.id.au> wrote:
+>> On Tue, Nov 7, 2017 at 8:09 PM, Joel Stanley <joel@jms.id.au> wrote:
+>>> On Tue, Nov 7, 2017 at 11:42 AM, Patrick Venture <venture@google.com> wrote:
+>>>> I've been doing testing with linux 4.10 on the ast2400 and on some
+>>>> percentage (20% of systems) when they boot they're not able to really
+>>>> launch applications.  The one we see failing is agetty, but ipmid also
+>>>> ends up not running.  Here is the log from what we're seeing on the
+>>>> quanta-q71l:
+>>>>
+>>>> [  OK  ] Started Clear one time boot overrides.
+>>>> [  OK  ] Found device /dev/ttyS4.
+>>>> [  OK  ] Found device /dev/ttyVUART0.
+>>>> [   42.360000] 8021q: adding VLAN 0 to HW filter on device eth1
+>>>> [  OK  ] Started Network Service.
+>>>> [   42.420000] 8021q: adding VLAN 0 to HW filter on device eth0
+>>>> [  OK  ] Started Phosphor Inventory Manager.
+>>>> [  OK  ] Started Phosphor Settings Daemon.
+>>>> [  OK  ] Reached target Network.
+>>>>          Starting Permit User Sessions...
+>>>> [  OK  ] Started Lightweight SLP Server.
+>>>> [  OK  ] Started Phosphor Console Muxer listening on device /dev/ttyVUART0.
+>>>> [  OK  ] Started Phosphor Inband IPMI.
+>>>> [  OK  ] Created slice system-xyz.openbmc_project.Hwmon.slice.
+>>>> [  OK  ] Started Permit User Sessions.
+>>>> [  OK  ] Started Serial Getty on ttyS4.
+>>>> [  OK  ] Reached target Login Prompts.
+>>>> [  OK  ] Reached target Multi-User System.
+>>>> [   44.530000] ftgmac100 1e680000.ethernet eth1: NCSI interface down
+>>>> [   45.800000] ftgmac100 1e660000.ethernet eth0: NCSI interface down
+>>>> [   49.430000] Unable to handle kernel paging request at virtual
+>>>> address e1a00006
+>>>> [   49.430000] pgd = 85354000
+>>>> [   49.430000] [e1a00006] *pgd=00000000
+>>>> [   49.430000] Internal error: Oops: 1 [#1] ARM
+>>>> [   49.430000] CPU: 0 PID: 932 Comm: (agetty) Not tainted
+>>>> 4.10.17-eced538e6233c50729cc107958596a1443947ba2 #1
+>>>
+>>> This SHA isn't in the OpenBMC dev-4.10 tree. Where are you getting
+>>> your kernel sources from?
+>>>
+>>> Wherever you've grabbed it from it's out of date as the line numbers
+>>> don't quite make sense.
+>>>
+>>>> [   49.430000] Hardware name: ASpeed SoC
+>>>> [   49.430000] task: 86e1c000 task.stack: 858f6000
+>>>> [   49.430000] PC is at unlink_anon_vmas+0x98/0x1b0
+>>>
+>>> We have seen memory corruption when running under Qemu. This is the
+>>> first time I've had a report of it happening on hardware.
+>>>
+>>>  https://github.com/openbmc/qemu/issues/9
+>>>
+>>> Can you share some information with how you're booting?
+>>>
+>>> Are you netbooting?
+>>>
+>>> Which u-boot tree are you using? Does it enable networking before
+>>> jumping to the kenrel? Or trigger any other kinds of DMA?
+>>
+>> Can you reproduce with some debugging turned on? Build your kernel with:
+>>
+>>  DEBUG_LIST
+>>  PAGE_POISONING
+>>  DEBUG_PAGEALLOC
+>>  DEBUG_SLAB
+>>
+>> Or even more. Take a look through the Kernel hacking menu in
+>> menuconfig and enable things until the system slows down too much to
+>> reproduce the issue :)
+>>
+>> Does it reproduce if you disable the FTGMAC100 devices (set them to
+>> status = "disabled" in your device tree, or disable them in the kernel
+>> config)?
