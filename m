@@ -7,21 +7,23 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3z0gBv2ls1zDrnb
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3z0gBv4dpNzDrpG
  for <openbmc@lists.ozlabs.org>; Mon, 18 Dec 2017 23:21:58 +1100 (AEDT)
 Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id vBIC4C7N025798;
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id vBIC4DSu025801;
  Mon, 18 Dec 2017 14:04:13 +0200
 Received: by talu34.nuvoton.co.il (Postfix, from userid 10070)
- id 0B15C5A927; Mon, 18 Dec 2017 14:21:51 +0200 (IST)
+ id 7F95D5A927; Mon, 18 Dec 2017 14:21:51 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH linux dev-4.13 v2 0/2] clocksource: npcm: add NPCM7xx timer
- driver
-Date: Mon, 18 Dec 2017 14:21:47 +0200
-Message-Id: <1513599709-4404-1-git-send-email-tmaimon77@gmail.com>
+Subject: [PATCH linux dev-4.13 v2 1/2] dt-binding: timer: document NPCM7xx
+ timer DT bindings
+Date: Mon, 18 Dec 2017 14:21:48 +0200
+Message-Id: <1513599709-4404-2-git-send-email-tmaimon77@gmail.com>
 X-Mailer: git-send-email 1.8.3.4
+In-Reply-To: <1513599709-4404-1-git-send-email-tmaimon77@gmail.com>
+References: <1513599709-4404-1-git-send-email-tmaimon77@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -35,26 +37,44 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Mon, 18 Dec 2017 12:22:00 -0000
 
-Changes since version 1:
- - Update GPL licence message
+Added device tree binding documentation for Nuvoton NPCM7xx timer.
 
-This patch set adds clocksource support for the Nuvoton NPCM7xx Baseboard
-Management Controller (BMC).
-
-The clocksource Enable 24-bit TIMER0 and TIMER1 counters in the NPCM7xx BMC,
-while TIMER0 serves as clockevent and TIMER1 serves as clocksource.
-
-Tomer Maimon (2):
-  dt-binding: timer: document NPCM7xx timer DT bindings
-  clocksource: npcm: add NPCM7xx timer driver
-
- .../bindings/timer/nuvoton,npcm7xx-timer.txt       |  25 +++
- drivers/clocksource/Kconfig                        |   8 +
- drivers/clocksource/Makefile                       |   1 +
- drivers/clocksource/npcm7xx-timer.c                | 238 +++++++++++++++++++++
- 4 files changed, 272 insertions(+)
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ .../bindings/timer/nuvoton,npcm7xx-timer.txt       | 25 ++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt
- create mode 100644 drivers/clocksource/npcm7xx-timer.c
 
+diff --git a/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt b/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt
+new file mode 100644
+index 000000000000..c5150522e618
+--- /dev/null
++++ b/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt
+@@ -0,0 +1,25 @@
++Nuvoton NPCM7xx timer
++
++Nuvoton NPCM7xx have three timer modules, each timer module provides five 24-bit
++timer counters.
++
++Required properties:
++- compatible      : "nuvoton,npcm750-timer" for Poleg NPCM750.
++- reg             : Offset and length of the register set for the device.
++- interrupts      : Contain the timer interrupt with flags for
++                    falling edge.
++
++Required clocking property, have to be one of:
++- clocks          : phandle of timer reference clock.
++- clock-frequency : The frequency in Hz of the clock that drives the NPCM7xx
++                    timer (usually 25000000).
++
++Example:
++
++timer@f0008000 {
++    compatible = "nuvoton,npcm750-timer";
++    interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
++    reg = <0xf0008000 0x1000>;
++    clocks = <&clk NPCM7XX_CLK_TIMER>;
++};
++
 -- 
 2.14.1
