@@ -1,58 +1,38 @@
-Return-Path: <venture@google.com>
+Return-Path: <vernon.mauery@linux.intel.com>
 Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:400c:c08::234; helo=mail-ua0-x234.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="WH3kBjES"; 
- dkim-atps=neutral
-Received: from mail-ua0-x234.google.com (mail-ua0-x234.google.com
- [IPv6:2607:f8b0:400c:c08::234])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.115; helo=mga14.intel.com;
+ envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3z0vzk2XXbzDrkD
- for <openbmc@lists.ozlabs.org>; Tue, 19 Dec 2017 08:58:09 +1100 (AEDT)
-Received: by mail-ua0-x234.google.com with SMTP id p33so11695171uag.9
- for <openbmc@lists.ozlabs.org>; Mon, 18 Dec 2017 13:58:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=qaoqk2XrXAmwwxYtnCGOrUr/fLaR77YnN3sKSYpzA9g=;
- b=WH3kBjESFW5bBJBmTAe8B3VT63VEayEo+yU3eNwCNvWmUtOT2zNKbhb/dizhkSPkNY
- NGLwUxCONKVdqHlfqoE2ruQZiUkf1IHbAQyoKr01ZJtNmmgcVjRdhHxg8FnFh5DwDoH3
- l4Q5faf1Jb7VGxe3cV0GVMKjlgXO4UVnU25v/i533iENc+UyEg6Ox1rrdS+nWjtaDHZu
- 9FGGxNJrlbHPpD0FYsi5duRxsZFuU+ako+BcHrafU/26olqPrkXWUPajPntLSPIQplxM
- vMbeTCs7WdKgy/4KLeBssZKsr6Rwv6+NUTnJ2maaodW3BAJvZKqBceYzuEjxvFUE1V1X
- goSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=qaoqk2XrXAmwwxYtnCGOrUr/fLaR77YnN3sKSYpzA9g=;
- b=Xe3nSetwmyaF7l5W3r9dNPDYO+i9uI6Lap65W52LeHcJ8yRvmo01WDJ5sBRdZx9vVP
- +4VLyv13rE2i9uBPgexZhHM+5fBzK96OlD0E1GMK3W+ZkD8UxhNzF3WECUm1PyYVlFcr
- PapHA5ZbgysuhdRnhJPmhN0QTFdGOJiji1yepNOQVgyzZLY1SO6/+JtSlR2VLalto557
- gWZZUhC9nL2jaqBaqNv1m7PlYzR9r2DH33Z66Gm2SqpZtiOk2L0DMnRuEMmu81FMV3tx
- HmN5lrlb86aWuoQmxMoNMe7o2oRiqG0b7qPJ1dqJHKJjcSa4VshkK4Y7cW4hON1tx12k
- LCjQ==
-X-Gm-Message-State: AKGB3mJ443QmV0rYbfPkXo2FSQYHGDMCzyjBWBu1n1prIFIqiRmSEnY8
- XzfFidHC9vodLQ74MjJ/xomAwnK50/rUC+Lq63HhhA==
-X-Google-Smtp-Source: ACJfBoujj+mg2iRPDNcZWyJfKfRMlwwXnNcB//U+x5XHchh7kr97wokDwvHjctGjvAddX8I2JRjXL3ElpRvn1Xd4HTA=
-X-Received: by 10.159.61.196 with SMTP id e4mr1397361uaj.156.1513634287271;
- Mon, 18 Dec 2017 13:58:07 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3z0wvH6gk5zDrW0
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Dec 2017 09:39:22 +1100 (AEDT)
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 18 Dec 2017 14:39:19 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.45,423,1508828400"; d="scan'208";a="185306887"
+Received: from mauery.jf.intel.com (HELO mauery) ([10.7.150.164])
+ by orsmga005.jf.intel.com with ESMTP; 18 Dec 2017 14:39:18 -0800
+Date: Mon, 18 Dec 2017 14:39:18 -0800
+From: Vernon Mauery <vernon.mauery@linux.intel.com>
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: OpenBMC <openbmc@lists.ozlabs.org>,
+ Richard Marian Thomaiyar <richard.marian.thomaiyar@linux.intel.com>
+Subject: Re: OpenBMC community telecon - 11/27 Agenda
+Message-ID: <20171218223918.GO113334@mauery>
+References: <911ECDC1-D1F4-4B4B-8433-CE396C2EEE35@fuzziesquirrel.com>
+ <20171205010205.GH113334@mauery>
+ <1513620424.5787.47.camel@fuzziesquirrel.com>
 MIME-Version: 1.0
-Received: by 10.31.164.82 with HTTP; Mon, 18 Dec 2017 13:57:46 -0800 (PST)
-In-Reply-To: <CAO=notx1xgFuMqFbxgf2_6zyQrHrbq_HwCM565gUTS9V0-zEvg@mail.gmail.com>
-References: <CAO=notzLZR-jiYTf8NdebLL9kUyLuxCPoJS2OqG5MsvGZRUKhQ@mail.gmail.com>
- <CACPK8XdQT1ViGGK0dUuwBUe+RmcR6KC9Hjnq3ywY3vCK72XOBg@mail.gmail.com>
- <CACPK8XdZt90BxUGZWioe8XQ7hpWO8yP9qXxKw-dFNMgKaF-twg@mail.gmail.com>
- <CAO=notx1xgFuMqFbxgf2_6zyQrHrbq_HwCM565gUTS9V0-zEvg@mail.gmail.com>
-From: Patrick Venture <venture@google.com>
-Date: Mon, 18 Dec 2017 13:57:46 -0800
-Message-ID: <CAO=notwowQs4pNvGeH0erQnuAKve0RPVF1KiAHGX_0hGEN_8sA@mail.gmail.com>
-Subject: Re: linux 4.10 on ast2400
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Nancy Yuen <yuenn@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <1513620424.5787.47.camel@fuzziesquirrel.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -64,113 +44,247 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Dec 2017 21:58:11 -0000
+X-List-Received-Date: Mon, 18 Dec 2017 22:39:24 -0000
 
-I loaded 4.10 with some debug memory stuff, but I noticed that each
-reboot could have wildly different free memory.  So, here's the
-results from just dumping the file immediately after boot and then
-rebooting.
-
-root@quanta-q71l:~# cat /proc/meminfo
-MemTotal:         115076 kB
-MemFree:           42228 kB
-
-root@quanta-q71l:~# cat /proc/meminfo
-MemTotal:         115076 kB
-MemFree:            1668 kB
-
-root@quanta-q71l:~# cat /proc/meminfo
-MemTotal:         115076 kB
-MemFree:            1876 kB
-
-root@quanta-q71l:~# cat /proc/meminfo
-MemTotal:         115076 kB
-MemFree:           27464 kB
-
-root@quanta-q71l:~# cat /proc/meminfo
-MemTotal:         115076 kB
-MemFree:           12140 kB
-
-root@quanta-q71l:~# cat /proc/meminfo
-MemTotal:         115076 kB
-MemFree:            2084 kB
-
-On Thu, Nov 9, 2017 at 11:47 AM, Patrick Venture <venture@google.com> wrote:
-> I added these configurations and after ~10 reboots it wasn't
-> reproducing, but I'll keep an eye out and update over the coming days.
+On 18-Dec-2017 01:07 PM, Brad Bishop wrote:
+>On Mon, 2017-12-04 at 17:02 -0800, Vernon Mauery wrote:
 >
-> Thanks!
+>Hi Vernon
 >
-> On Tue, Nov 7, 2017 at 1:56 AM, Joel Stanley <joel@jms.id.au> wrote:
->> On Tue, Nov 7, 2017 at 8:09 PM, Joel Stanley <joel@jms.id.au> wrote:
->>> On Tue, Nov 7, 2017 at 11:42 AM, Patrick Venture <venture@google.com> wrote:
->>>> I've been doing testing with linux 4.10 on the ast2400 and on some
->>>> percentage (20% of systems) when they boot they're not able to really
->>>> launch applications.  The one we see failing is agetty, but ipmid also
->>>> ends up not running.  Here is the log from what we're seeing on the
->>>> quanta-q71l:
->>>>
->>>> [  OK  ] Started Clear one time boot overrides.
->>>> [  OK  ] Found device /dev/ttyS4.
->>>> [  OK  ] Found device /dev/ttyVUART0.
->>>> [   42.360000] 8021q: adding VLAN 0 to HW filter on device eth1
->>>> [  OK  ] Started Network Service.
->>>> [   42.420000] 8021q: adding VLAN 0 to HW filter on device eth0
->>>> [  OK  ] Started Phosphor Inventory Manager.
->>>> [  OK  ] Started Phosphor Settings Daemon.
->>>> [  OK  ] Reached target Network.
->>>>          Starting Permit User Sessions...
->>>> [  OK  ] Started Lightweight SLP Server.
->>>> [  OK  ] Started Phosphor Console Muxer listening on device /dev/ttyVUART0.
->>>> [  OK  ] Started Phosphor Inband IPMI.
->>>> [  OK  ] Created slice system-xyz.openbmc_project.Hwmon.slice.
->>>> [  OK  ] Started Permit User Sessions.
->>>> [  OK  ] Started Serial Getty on ttyS4.
->>>> [  OK  ] Reached target Login Prompts.
->>>> [  OK  ] Reached target Multi-User System.
->>>> [   44.530000] ftgmac100 1e680000.ethernet eth1: NCSI interface down
->>>> [   45.800000] ftgmac100 1e660000.ethernet eth0: NCSI interface down
->>>> [   49.430000] Unable to handle kernel paging request at virtual
->>>> address e1a00006
->>>> [   49.430000] pgd = 85354000
->>>> [   49.430000] [e1a00006] *pgd=00000000
->>>> [   49.430000] Internal error: Oops: 1 [#1] ARM
->>>> [   49.430000] CPU: 0 PID: 932 Comm: (agetty) Not tainted
->>>> 4.10.17-eced538e6233c50729cc107958596a1443947ba2 #1
->>>
->>> This SHA isn't in the OpenBMC dev-4.10 tree. Where are you getting
->>> your kernel sources from?
->>>
->>> Wherever you've grabbed it from it's out of date as the line numbers
->>> don't quite make sense.
->>>
->>>> [   49.430000] Hardware name: ASpeed SoC
->>>> [   49.430000] task: 86e1c000 task.stack: 858f6000
->>>> [   49.430000] PC is at unlink_anon_vmas+0x98/0x1b0
->>>
->>> We have seen memory corruption when running under Qemu. This is the
->>> first time I've had a report of it happening on hardware.
->>>
->>>  https://github.com/openbmc/qemu/issues/9
->>>
->>> Can you share some information with how you're booting?
->>>
->>> Are you netbooting?
->>>
->>> Which u-boot tree are you using? Does it enable networking before
->>> jumping to the kenrel? Or trigger any other kinds of DMA?
+>Really appreciate you putting this together - thanks.  I do have a
+>couple comments/questions.
+>
 >>
->> Can you reproduce with some debugging turned on? Build your kernel with:
+>> For the discussion on user management.
 >>
->>  DEBUG_LIST
->>  PAGE_POISONING
->>  DEBUG_PAGEALLOC
->>  DEBUG_SLAB
+>> Overview:
+>> 1. User management is done via PAM.
+>
+>Are there any aspects of user management that are done outside of PAM?
+
+Yes. It turns out that IPMI management with multiple LAN channels throws 
+a wrench in things, so it may be that IPMI need to do some of its user 
+management separately (like determining what privileges a user gets on a 
+particular channel). There may be other stuff like this, so it might be 
+helpful to define a 'hook' or something that says if a user is a member 
+of group X, you must notify group X when you want to change stuff.
+
+>I only ask this because your writeup feels like a good start on a
+>README somewhere.  To that end, would it make sense to frame this from
+>the perspective of different actors attempting to add function?  For
+>example:
+>
+> If you want to implement a service that authenticates a user:
+>   - do v
+>   - do w
+>
+> If you want to implement a service that adds users to a user database:
+>   - do x
+>
+> If you want to implement a service that adds users to a group:
+>   - do y
+>
+> If you want to implement a service that authorizes a user:
+>   - do z
+>
+> etc, and then the IPMI specifics would just be adhering to this
+>framework.
+>
+>I could have these bullet points all wrong.  This was just meant as a
+>straw-man for a more general document that can guide people looking to
+>add this type of function later.
+
+Yes, this sort of writeup as a README would be a good idea. Not just an 
+API, but a practical usage guide.
+
+>> 2. If IPMI is being used, PAM loads the pam_ipmi.so password module.
+>>    a. pam_ipmi.so intercepts password changes and saves the password
+>>       for IPMI-enabled users to a file that can be read at a later
+>> time
+>>       to initiate an RMCP+ session. (encrypted or obfuscated with a
+>>       per-BMC key so no passwords are written directly in flash.)
+>>    b. pam_ipmi.so implements a method to decrypt passwords and
+>> provide
+>>       them to host-ipmi (for test password command) and net-ipmi (for
+>>       session initiation)
+>> 3. If a user is not enabled for IPMI, their password will not be
+>> saved
+>>    in the ipmi database, and thus must be reset if/when that user
+>> gains
+>>    IPMI capability.
+>> 4. If a user loses IPMI capability, their password is reset to force
+>> a
+>>    password change so their password is secure again.
+>
+>I'm not understanding why this is needed.  Couldn't we simply remove
+>the password entry from the IPMI backend when the group membership
+>changes?  Is this an artifact of how PAM works or do we think we need
+>it for a more fundamental reason?
+
+If the password is ever saved in the IPMI password database, it is best 
+to assume it is no longer a secret. If you really want your password 
+secure, it should be changed.
+
+>> 5. Capabilities is done via unix groups
+>>    a. Groups like ipmi, webserver, redfish, ssh, sol can provide
+>> login
+>>       or 'channel' access.
+>
+>I wonder if a per-channel (or service in PAM speak?) pam_listfile
+>account entry can get us here.
+
+Sure, that could be a pattern we follow. I would have to dig deeper to 
+see if it buys us anything that plain-old unix groups would not provide.
+
+>>    b. Groups like user-manager, media, power, sensor, etc., can
+>> provide
+>>       fine-grained access for various capabilities. Providers of
+>>       capabilities should check to see that accessors (users) have
+>> the
+>>       required permission.
+>
+>pam_listfile might work here too, only this would global across all PAM
+>services?
+
+Once again, I am not entirely sure what this would buy over just using 
+unix groups. We need to walk through some more usage scenarios like you 
+have above.
+
+>> 6. Admin-defined 'super-groups'
+>>    a. Provide a set of pre-defined groups of capabilities that can be
+>>       assigned to users: Admin, User, Operator or similar that each
+>> have
+>>       groups associated with them.
+>
+>Do we intend to also allow the contained subgroups to be
+>changed/configured for the on the BMC dynamically?  For example could
+>you remove the 'sensor' group from the Operator group (assuming that by
+>default sensor group is included in the Operator group).
+
+Ideally, yes, a system admin could change what capabilities each group 
+allowed (like removing sensor capabilities from the Operator group), but 
+to start with, just having a way to define the defaults at built time 
+would be a good target.
+
+>>    b. Changes to groups via APIs can make sure that if a user is
+>>       assigned to a 'super-group' will stay assigned to the sub-
+>> groups
+>>    c. Changes made to users via manual commands may override API
+>> groups
+>
+>This all seemed pretty straightforward until I got to #6.  It seems
+>like it is definitely required but I'm wondering if it could be staged
+>in later somehow?
+
+Yes. Let's just start with defining a way to define defaults. This 
+should be done using a yocto mechanism that allows developers of openbmc 
+to override at build time (maybe on a platform basis?). This makes the 
+original defaults less important (so not all of the contributors need to 
+fully agree on what constitutes reasonable defaults).
+
 >>
->> Or even more. Take a look through the Kernel hacking menu in
->> menuconfig and enable things until the system slows down too much to
->> reproduce the issue :)
 >>
->> Does it reproduce if you disable the FTGMAC100 devices (set them to
->> status = "disabled" in your device tree, or disable them in the kernel
->> config)?
+>> Methods:
+>
+>Do we need similar APIs for groups?
+
+Likely. But to start with, maybe we can skip that part. To start with, 
+the list of groups (and their associated capabilities) will be fixed at 
+build time.
+
+>>     1. CREATE_USER
+>>         Privilege-required: USER-MANAGER
+>>         Args:
+>>             UserName - STRING (16 bytes only - else role change to
+>> IPMI can't be done)
+>>             Password - Byte Array (Max of 20 bytes if IPMID is
+>> chosen. For
+>>                        others can send more bytes, but change role to
+>> IPMI will
+>>                        request password again under 20 bytes)
+>>             Roles - STRING with comma separated
+>>         Return:
+>>             SUCCESS ERR_USERNAME_EXIST ERR_PASSWORD_FAILS
+>> ERR_ROLE_FAILS
+>>             ERR_PASSWORD_ROLE_FAIL ERR_NO_RESOURCE ERR_UNKNOWN
+>>             ERR_AUTHORIZATION_FAIL
+>>
+>>     2. DELETE_USER
+>>         Privilege-required: USER-MANAGER
+>>         Args:
+>>             UserName - STRING
+>>         Return:
+>>             SUCCESS ERR_USERNAME_NOT_EXIST ERR_UNKNOWN
+>> ERR_AUTHORIZATION_FAIL
+>
+>Can we use the xyz.openbmc_project.Object.Delete interface for this?
+>The thinking was that a common Delete interface might make DBus<->UI
+>implementations easier.  This is the same motivation behind asking for
+>the org.freedesktop interfaces below.
+
+I am fine with using generic interfaces as long as they fit the bill. 
+Deleting a user seems like it should be straight-forward enough that 
+this would work well.
+
+>>
+>>     3. CHANGE ROLE / CHANGE_PASSWORD (OTHERS)
+>>         Privilege-required: USER-MANAGER
+>>         Args:
+>>             UserName - STRING
+>>             New Password (if changed) - Byte Array
+>>             New Role (if changed) - Array of STRING
+>>         Return:
+>>             SUCCESS ERR_USERNAME_NOT_EXIST ERR_UNKNOWN
+>> ERR_AUTHORIZATION_FAIL
+>>             ERR_PASSWORD_FAILS ERR_PASSWORD_ROLE_FAIL ERR_NO_RESOURCE
+>>
+>
+>I thought the intent was to strictly use PAM for this.  In what
+>scenario do we need a DBus API for this?
+
+For managing groups, this will have to be done outside of PAM. PAM 
+doesn't know how to change /etc/group. So we will have to provide some 
+central mechanism (probably in the phosphor-user-manager) to host the 
+group management API.
+
+>>     4. CHANGE_PASSWORD (SELF)
+>>         Privilege-required: Any Valid user
+>>         Args:
+>>             New Password - Byte Array
+>>         Return:
+>>             SUCCESS ERR_PASSWORD_FAILS ERR_PASSWORD_ROLE_FAIL
+>> ERR_UNKNOWN
+>
+>Same question as #3.
+
+You are right. Passwords should not go over DBus. Things that change 
+passwords should use PAM directly.
+
+>>
+>>     5. LIST_USER_DETAILS
+>>         Privilege-required: USER-MANAGER
+>>         Args:
+>>             NULL
+>>         Return:
+>>             Array of:
+>>                 USER_NAME (String)
+>>                 ROLES (String)
+>
+>Could we use org.freedesktop.DBus.ObjectManager.GetManagedObjects for
+>this?
+
+Yes.
+
+>>
+>> Signals:
+>>     1. UPDATED_USER_SIGNAL
+>>         Args:
+>>             UserName of updated user
+>>             UpdateType:
+>>                 Role changed / User Deleted / User created / Password
+>
+>Could we use org.freedesktop.DBus.Properties.PropertiesChanged here?
+
+Yes.
+
+--Vernon
