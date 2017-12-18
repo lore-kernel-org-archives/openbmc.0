@@ -1,59 +1,45 @@
-Return-Path: <joel.stan@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4010:c07::230; helo=mail-lf0-x230.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="pJWqk6xL"; 
- dkim-atps=neutral
-Received: from mail-lf0-x230.google.com (mail-lf0-x230.google.com
- [IPv6:2a00:1450:4010:c07::230])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <haiyue.wang@linux.intel.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.24; helo=mga09.intel.com;
+ envelope-from=haiyue.wang@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3z0X6B35XwzDrWw
- for <openbmc@lists.ozlabs.org>; Mon, 18 Dec 2017 18:02:26 +1100 (AEDT)
-Received: by mail-lf0-x230.google.com with SMTP id r143so16539462lfe.13
- for <openbmc@lists.ozlabs.org>; Sun, 17 Dec 2017 23:02:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=NVNFiTeo/4OF2B9Jj3l4bqjNKrSP27VbgFiNUunCldw=;
- b=pJWqk6xLKf7VgsgQLVW0gbMMF3tjuSnSesC3Z8V8uZzntckKtWyPV33gSb23jrcVAi
- 3MDna1Tj9byzv4BN8mPe3jA6QeVPH3CiWkRH2SdzkFUGp0umJiZgOTfG2EcThdeXaRUj
- X5p33UEzCw2VyXd5t53X8iw+Hvha1AE/CFtlOgbPOLnA9DkzXCtRcEBSHQWG6/Thv0bU
- o+rdXqN1AfLGTLGm7C0Gt3Tr150+uej1zAAf5pAxXzpBABkczHHjNG0j8gYC5RRZs5Ec
- G2XlzvDFyslqWQL9T0Uz46ybFmi4g3XFJ0GgsI79dp//mZk+6iZvHujw44Qfi8vSfIki
- 2ujg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=NVNFiTeo/4OF2B9Jj3l4bqjNKrSP27VbgFiNUunCldw=;
- b=H/R5oK90Aj2O13p/vY6bvt400+1PT/MhxpxzJtmu6Ye1KOcpFt9xr9ovhkGzfgKzc0
- YguR5r8Q7hXO55lk8v3E5EC11aUn8nFtIL6WHG6GoxbK/jnmoqbzDwbDh6sFRze95+6x
- GCNpmn5hMMyipMOoZ95nZ7oWOw95LyG0jec795jh4AdQdCGz/2Em0IRlJK/TX0JDp7lg
- Pz0/ha2F9HdQENVwOwMXUXKLyFDZZyUPRqVKZ/rBQIIq09/A5IzFKmi4NwHaazKklK7b
- 0aFiigzieeBiNd0cSA45Ia5UBxBRMJflTFAJmLwSnfYcdKKTwUDUD8FMRMA7hCw2Ktpm
- bt/A==
-X-Gm-Message-State: AKGB3mL5He/xYwNvWeYNVH7AokVvsDUTgw5SRYwtWjYCI9bhKmgQmsW1
- EmqGneQLIX3KNH4qVGnK6ciwcxAQAmn/XnBvNJQ=
-X-Google-Smtp-Source: ACJfBoscnLMMT8mt9jttKwW+MzmXrjGaj19ogRsEnIX3rA0Ts+I/Aux7tIMA75WnAFHAt47ArYi26hpCGPU914tkhrw=
-X-Received: by 10.46.89.69 with SMTP id n66mr11358866ljb.26.1513580541594;
- Sun, 17 Dec 2017 23:02:21 -0800 (PST)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.25.155.83 with HTTP; Sun, 17 Dec 2017 23:02:01 -0800 (PST)
-In-Reply-To: <1513577542-8693-1-git-send-email-haiyue.wang@linux.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3z0Y1906D6zDqgc
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Dec 2017 18:43:08 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 17 Dec 2017 23:43:04 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.45,421,1508828400"; d="scan'208";a="159676834"
+Received: from haiyuewa-mobl1.ccr.corp.intel.com (HELO haiyuewaMOBL1)
+ ([10.239.196.25])
+ by orsmga004.jf.intel.com with ESMTP; 17 Dec 2017 23:43:03 -0800
+From: "Haiyue Wang" <haiyue.wang@linux.intel.com>
+To: "'Joel Stanley'" <joel@jms.id.au>
+Cc: "'OpenBMC Maillist'" <openbmc@lists.ozlabs.org>
 References: <1513577542-8693-1-git-send-email-haiyue.wang@linux.intel.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 18 Dec 2017 17:32:01 +1030
-X-Google-Sender-Auth: jngeOqkLFVsxm8E-Ac4PFclwDI4
-Message-ID: <CACPK8XcYEXeRCred=SBEc9KrOS6BvQ3x3yUp9Bam9ZF89PgfLg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] eSPI: add Aspeed AST2500 eSPI driver to
+ <CACPK8XcYEXeRCred=SBEc9KrOS6BvQ3x3yUp9Bam9ZF89PgfLg@mail.gmail.com>
+In-Reply-To: <CACPK8XcYEXeRCred=SBEc9KrOS6BvQ3x3yUp9Bam9ZF89PgfLg@mail.gmail.com>
+Subject: RE: [PATCH linux dev-4.10] eSPI: add Aspeed AST2500 eSPI driver to
  boot a host with PCH runs on eSPI
-To: Haiyue Wang <haiyue.wang@linux.intel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Date: Mon, 18 Dec 2017 15:43:03 +0800
+Message-ID: <000001d377d3$d67da680$8378f380$@linux.intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 15.0
+Thread-Index: AQGt+xN1sMeYSkBTxK3ns90G8YaoMQIJVQNCo4NiHvA=
+Content-Language: en-us
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiYmYzOGU3YTktODQ2My00N2JiLTg4YzItYTU3YTFjMDU5ZjYwIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX0lDIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjIuNS4xOCIsIlRydXN0ZWRMYWJlbEhhc2giOiJhaGlVTmdJVkhsSUowckJ4VW9QaXFteWZMQ3I4bk5Zc1lYdXRvc1puR1dXVThjMVAzellrb0EyXC9laUlaYUhmNyJ9
+x-ctpclassification: CTP_IC
+dlp-product: dlpe-windows
+dlp-version: 11.0.0.116
+dlp-reaction: no-action
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -65,198 +51,241 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Dec 2017 07:02:27 -0000
+X-List-Received-Date: Mon, 18 Dec 2017 07:43:09 -0000
 
-On Mon, Dec 18, 2017 at 4:42 PM, Haiyue Wang
+Thanks Joel. Sorry that I use *outlook* mail client to reply you like =
+faking '>' style. :)
+
+Please see the faked '>>' reply in mail.
+
+BR,
+Haiyue
+
+-----Original Message-----
+From: joel.stan@gmail.com [mailto:joel.stan@gmail.com] On Behalf Of Joel =
+Stanley
+Sent: Monday, December 18, 2017 15:02
+To: Haiyue Wang <haiyue.wang@linux.intel.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: [PATCH linux dev-4.10] eSPI: add Aspeed AST2500 eSPI driver =
+to boot a host with PCH runs on eSPI
+
+On Mon, Dec 18, 2017 at 4:42 PM, Haiyue Wang =
 <haiyue.wang@linux.intel.com> wrote:
-> The PCH (master) provides the eSPI to support connection of a BMC (slave)
-> to the platform.
+> The PCH (master) provides the eSPI to support connection of a BMC=20
+> (slave) to the platform.
 >
-> The LPC and eSPI interfaces are mutually exclusive. Both use the same
-> pins, but on power-up, a HW strap determines if the eSPI or the LPC bus i=
-s
-> operational. Once selected, it=E2=80=99s not possible to change to the ot=
-her
-> interface.
+> The LPC and eSPI interfaces are mutually exclusive. Both use the same=20
+> pins, but on power-up, a HW strap determines if the eSPI or the LPC=20
+> bus is operational. Once selected, it=E2=80=99s not possible to change =
+to the=20
+> other interface.
 >
 > eSPI Channels and Supported Transactions:
-> +------+---------------------+----------------------+--------------------=
+> =
++------+---------------------+----------------------+--------------------=
 +
-> | CH # | Channel             | Posted Cycles        | Non-Posted Cycles  =
-|
-> +------+---------------------+----------------------+--------------------=
+> | CH # | Channel             | Posted Cycles        | Non-Posted =
+Cycles  |
+> =
++------+---------------------+----------------------+--------------------=
 +
-> |  0   | Peripheral          | Memory Write,        | Memory Read,       =
-|
-> |      |                     | Completions          | I/O Read/Write     =
-|
-> +------+---------------------+----------------------+--------------------=
+> |  0   | Peripheral          | Memory Write,        | Memory Read,     =
+  |
+> |      |                     | Completions          | I/O Read/Write   =
+  |
+> =
++------+---------------------+----------------------+--------------------=
 +
-> |  1   | Virtual Wire        | Virtual Wire GET/PUT | N/A                =
-|
-> +------+---------------------+----------------------+--------------------=
+> |  1   | Virtual Wire        | Virtual Wire GET/PUT | N/A              =
+  |
+> =
++------+---------------------+----------------------+--------------------=
 +
-> |  2   | Out-of-Band Message | SMBus Packet GET/PUT | N/A                =
-|
-> +------+---------------------+----------------------+--------------------=
+> |  2   | Out-of-Band Message | SMBus Packet GET/PUT | N/A              =
+  |
+> =
++------+---------------------+----------------------+--------------------=
 +
-> |  3   | Flash Access        | N/A                  | Flash Read, Write, =
-|
-> |      |                     |                      | Erase              =
-|
-> +------+---------------------+----------------------+--------------------=
+> |  3   | Flash Access        | N/A                  | Flash Read, =
+Write, |
+> |      |                     |                      | Erase            =
+  |
+> =
++------+---------------------+----------------------+--------------------=
 +
-> |  N/A | General             | Register Accesses    | N/A                =
-|
-> +------+---------------------+----------------------+--------------------=
+> |  N/A | General             | Register Accesses    | N/A              =
+  |
+> =
++------+---------------------+----------------------+--------------------=
 +
 >
-> Virtual Wire Channel (Channel 1) Overview
-> The Virtual Wire channel uses a standard message format to communicate
-> several types of signals between the components on the platform.
+> Virtual Wire Channel (Channel 1) Overview The Virtual Wire channel=20
+> uses a standard message format to communicate several types of signals =
+
+> between the components on the platform.
 > - Sideband and GPIO Pins: System events and other dedicated signals
->   between the PCH and eSPI slave. These signals are tunneled between the
+>   between the PCH and eSPI slave. These signals are tunneled between =
+the
 >   two components over eSPI.
-> - Serial IRQ Interrupts: Interrupts are tunneled from the eSPI slave to
+> - Serial IRQ Interrupts: Interrupts are tunneled from the eSPI slave =
+to
 >   the PCH. Both edge and triggered interrupts are supported.
 >
-> [This patch add the basic function to boot a host whose PCH runs on eSPI]
+> [This patch add the basic function to boot a host whose PCH runs on=20
+> eSPI]
 >
-> When PCH runs on eSPI mode, from BMC side, the following VW messages are
-> done in firmware:
-> 1. SLAVE_BOOT_LOAD_DONE / SLAVE_BOOT_LOAD_STATUS
-> 2. SUS_ACK
-> 3. OOB_RESET_ACK
-> 4. HOST_RESET_ACK
+> When PCH runs on eSPI mode, from BMC side, the following VW messages=20
+> are done in firmware:
+> 1. SLAVE_BOOT_LOAD_DONE / SLAVE_BOOT_LOAD_STATUS 2. SUS_ACK 3.=20
+> OOB_RESET_ACK 4. HOST_RESET_ACK
 >
-> +----------------------+---------+---------------------------------------=
+> =
++----------------------+---------+---------------------------------------=
 +
-> |Virtual Wire          |PCH Pin  |Comments                               =
-|
-> |                      |Direction|                                       =
-|
-> +----------------------+---------+---------------------------------------=
+> |Virtual Wire          |PCH Pin  |Comments                             =
+  |
+> |                      |Direction|                                     =
+  |
+> =
++----------------------+---------+---------------------------------------=
 +
-> |SUS_WARN#             |Output   |PCH pin is a GPIO when eSPI is enabled.=
-|
-> |                      |         |eSPI controller receives as VW message.=
-|
-> +----------------------+---------+---------------------------------------=
+> |SUS_WARN#             |Output   |PCH pin is a GPIO when eSPI is =
+enabled.|
+> |                      |         |eSPI controller receives as VW =
+message.|
+> =
++----------------------+---------+---------------------------------------=
 +
-> |SUS_ACK#              |Input    |PCH pin is a GPIO when eSPI is enabled.=
-|
-> |                      |         |eSPI controller receives as VW message.=
-|
-> +----------------------+---------+---------------------------------------=
+> |SUS_ACK#              |Input    |PCH pin is a GPIO when eSPI is =
+enabled.|
+> |                      |         |eSPI controller receives as VW =
+message.|
+> =
++----------------------+---------+---------------------------------------=
 +
-> |SLAVE_BOOT_LOAD_DONE  |Input    |Sent when the BMC has completed its    =
-|
-> |                      |         |boot process as an indication to       =
-|
-> |                      |         |eSPI-MC to continue with the G3 to S0  =
-|
-> |                      |         |exit.                                  =
-|
-> |                      |         |The eSPI Master waits for the assertion=
-|
-> |                      |         |of this virtual wire before proceeding =
-|
-> |                      |         |with the SLP_S5# deassertion.          =
-|
-> |                      |         |The intent is that it is never changed =
-|
-> |                      |         |except on a G3 exit - it is reset on a =
-|
-> |                      |         |G3 entry.                              =
-|
-> +----------------------+---------+---------------------------------------=
+> |SLAVE_BOOT_LOAD_DONE  |Input    |Sent when the BMC has completed its  =
+  |
+> |                      |         |boot process as an indication to     =
+  |
+> |                      |         |eSPI-MC to continue with the G3 to =
+S0  |
+> |                      |         |exit.                                =
+  |
+> |                      |         |The eSPI Master waits for the =
+assertion|
+> |                      |         |of this virtual wire before =
+proceeding |
+> |                      |         |with the SLP_S5# deassertion.        =
+  |
+> |                      |         |The intent is that it is never =
+changed |
+> |                      |         |except on a G3 exit - it is reset on =
+a |
+> |                      |         |G3 entry.                            =
+  |
+> =
++----------------------+---------+---------------------------------------=
 +
-> |SLAVE_BOOT_LOAD_STATUS|Input    |Sent upon completion of the Slave Boot =
-|
-> |                      |         |Load from the attached flash. A stat of=
-|
-> |                      |         |1 indicates that the boot code load was=
-|
-> |                      |         |successful and that the integrity of   =
-|
-> |                      |         |the image is intact.                   =
-|
-> +----------------------+---------+---------------------------------------=
+> |SLAVE_BOOT_LOAD_STATUS|Input    |Sent upon completion of the Slave =
+Boot |
+> |                      |         |Load from the attached flash. A stat =
+of|
+> |                      |         |1 indicates that the boot code load =
+was|
+> |                      |         |successful and that the integrity of =
+  |
+> |                      |         |the image is intact.                 =
+  |
+> =
++----------------------+---------+---------------------------------------=
 +
-> |HOST_RESET_WARN       |Output   |Sent from the MC just before the Host  =
-|
-> |                      |         |is about to enter reset. Upon receiving=
-|
-> |                      |         |, the BMC must flush and quiesce its   =
-|
-> |                      |         |upstream Peripheral Channel request    =
-|
-> |                      |         |queues and assert HOST_RESET_ACK VWire.=
-|
-> |                      |         |The MC subsequently completes any      =
-|
-> |                      |         |outstanding posted transactions or     =
-|
-> |                      |         |completions and then disables the      =
-|
-> |                      |         |Peripheral Channel via a write to      =
-|
-> |                      |         |the Slave's Configuration Register.    =
-|
-> +----------------------+---------+---------------------------------------=
+> |HOST_RESET_WARN       |Output   |Sent from the MC just before the =
+Host  |
+> |                      |         |is about to enter reset. Upon =
+receiving|
+> |                      |         |, the BMC must flush and quiesce its =
+  |
+> |                      |         |upstream Peripheral Channel request  =
+  |
+> |                      |         |queues and assert HOST_RESET_ACK =
+VWire.|
+> |                      |         |The MC subsequently completes any    =
+  |
+> |                      |         |outstanding posted transactions or   =
+  |
+> |                      |         |completions and then disables the    =
+  |
+> |                      |         |Peripheral Channel via a write to    =
+  |
+> |                      |         |the Slave's Configuration Register.  =
+  |
+> =
++----------------------+---------+---------------------------------------=
 +
-> |HOST_RESET_ACK        |Input    |ACK for the HOST_RESET_WARN message    =
-|
-> +----------------------+---------+---------------------------------------=
+> |HOST_RESET_ACK        |Input    |ACK for the HOST_RESET_WARN message  =
+  |
+> =
++----------------------+---------+---------------------------------------=
 +
-> |OOB_RESET_WARN        |Output   |Sent from the MC just before the OOB   =
-|
-> |                      |         |processor is about to enter reset. Upon=
-|
-> |                      |         |receiving, the BMC must flush and      =
-|
-> |                      |         |quiesce its OOB Channel upstream       =
-|
-> |                      |         |request queues and assert OOB_RESET_ACK=
-|
-> |                      |         |VWire. The-MC subsequently completes   =
-|
-> |                      |         |any outstanding posted transactions or =
-|
-> |                      |         |completions and then disables the OOB  =
-|
-> |                      |         |Channel via a write to the Slave's     =
-|
-> |                      |         |Configuration Register.                =
-|
-> +----------------------+---------+---------------------------------------=
+> |OOB_RESET_WARN        |Output   |Sent from the MC just before the OOB =
+  |
+> |                      |         |processor is about to enter reset. =
+Upon|
+> |                      |         |receiving, the BMC must flush and    =
+  |
+> |                      |         |quiesce its OOB Channel upstream     =
+  |
+> |                      |         |request queues and assert =
+OOB_RESET_ACK|
+> |                      |         |VWire. The-MC subsequently completes =
+  |
+> |                      |         |any outstanding posted transactions =
+or |
+> |                      |         |completions and then disables the =
+OOB  |
+> |                      |         |Channel via a write to the Slave's   =
+  |
+> |                      |         |Configuration Register.              =
+  |
+> =
++----------------------+---------+---------------------------------------=
 +
-> |OOB_RESET_ACK         |Input    |ACK for OOB_RESET_WARN message         =
-|
-> +----------------------+---------+---------------------------------------=
+> |OOB_RESET_ACK         |Input    |ACK for OOB_RESET_WARN message       =
+  |
+> =
++----------------------+---------+---------------------------------------=
 +
 >
 > Signed-off-by: Haiyue Wang <haiyue.wang@linux.intel.com>
 > ---
 >  .../devicetree/bindings/misc/aspeed-espi-slave.txt |  32 +++
 
-The bindings documentation should go in it's own patch.
+>> The bindings documentation should go in it's own patch.
+If I didn't add this file with this patch, the ' =
+./scripts/checkpatch.pl' would give a warning for ' { .compatible =3D =
+"aspeed,ast2500-espi-slave" }'.
+
 
 
 >  drivers/misc/Kconfig                               |  11 +
 >  drivers/misc/Makefile                              |   1 +
->  drivers/misc/aspeed-espi-slave.c                   | 300 +++++++++++++++=
-++++++
+>  drivers/misc/aspeed-espi-slave.c                   | 300 =
++++++++++++++++++++++
 
-Is drivers/misc the only location in the tree for this?
+>> Is drivers/misc the only location in the tree for this?
+Currently I didn't find a good place, and under this location, there are =
+' aspeed-lpc-ctrl.c' and ' aspeed-lpc-snoop.c', so I put it here as =
+well.
 
 >  4 files changed, 344 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/misc/aspeed-espi-sl=
-ave.txt
+>  create mode 100644=20
+> Documentation/devicetree/bindings/misc/aspeed-espi-slave.txt
 >  create mode 100644 drivers/misc/aspeed-espi-slave.c
 >
-> diff --git a/Documentation/devicetree/bindings/misc/aspeed-espi-slave.txt=
- b/Documentation/devicetree/bindings/misc/aspeed-espi-slave.txt
+> diff --git=20
+> a/Documentation/devicetree/bindings/misc/aspeed-espi-slave.txt=20
+> b/Documentation/devicetree/bindings/misc/aspeed-espi-slave.txt
 > new file mode 100644
 > index 0000000..0db889b
 > --- /dev/null
@@ -264,16 +293,15 @@ ave.txt
 > @@ -0,0 +1,32 @@
 > +Aspeed eSPI Slave Controller
 > +
-> +Enhanced Serial Peripheral Interface (eSPI) is an interface using pins o=
-f SPI,
-> +but runs different protocol.
+> +Enhanced Serial Peripheral Interface (eSPI) is an interface using=20
+> +pins of SPI, but runs different protocol.
 > +
-> +Its interface supports peripheral, virtual wire, out-of-band, and flash =
-sharing
-> +channels.
+> +Its interface supports peripheral, virtual wire, out-of-band, and=20
+> +flash sharing channels.
 > +
-> + -- https://www.intel.com/content/dam/support/us/en/documents/software/c=
-hipset-software/327432-004_espi_base_specification_rev1.0.pdf
+> + -- =
+https://www.intel.com/content/dam/support/us/en/documents/software/chipse=
+t-software/327432-004_espi_base_specification_rev1.0.pdf
 > +    Enhanced Serial Peripheral Interface (eSPI)
 > +    Interface Base Specification (for Client and Server Platforms)
 > +    January 2016
@@ -283,8 +311,8 @@ hipset-software/327432-004_espi_base_specification_rev1.0.pdf
 > + - compatible: must be one of:
 > +       - "aspeed,ast2500-espi-slave"
 > +
-> + - reg: physical base address of the controller and length of memory map=
-ped
+> + - reg: physical base address of the controller and length of memory =
+mapped
 > +   region
 > +
 > + - interrupts: interrupt generated by the controller
@@ -298,35 +326,36 @@ ped
 > +        status =3D "disabled";
 > +};
 > +
-> diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-> index 02ffdd1..8c0d791 100644
+> diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig index=20
+> 02ffdd1..8c0d791 100644
 > --- a/drivers/misc/Kconfig
 > +++ b/drivers/misc/Kconfig
 > @@ -766,6 +766,17 @@ config PANEL_BOOT_MESSAGE
->           An empty message will only clear the display at driver init tim=
-e. Any other
->           printf()-formatted message is valid with newline and escape cod=
-es.
+>           An empty message will only clear the display at driver init =
+time. Any other
+>           printf()-formatted message is valid with newline and escape =
+codes.
 >
 > +config ASPEED_ESPI_SLAVE
 > +       depends on (ARCH_ASPEED || COMPILE_TEST) && REGMAP
 > +       tristate "Aspeed ast2500 eSPI slave device"
 > +       ---help---
-> +         This allows host to access Baseboard Management Controller (BMC=
-) over the
-> +         Enhanced Serial Peripheral Interface (eSPI) bus, which replaces=
- the Low Pin
+> +         This allows host to access Baseboard Management Controller =
+(BMC) over the
+> +         Enhanced Serial Peripheral Interface (eSPI) bus, which =
+replaces the Low Pin
 > +         Count (LPC) bus.
 > +
-> +         Its interface supports peripheral, virtual wire, out-of-band, a=
-nd flash
+> +         Its interface supports peripheral, virtual wire, =
+out-of-band, and flash
 > +         sharing channels.
 > +
 >  config ASPEED_LPC_CTRL
->         depends on (ARCH_ASPEED || COMPILE_TEST) && REGMAP && MFD_SYSCON
+>         depends on (ARCH_ASPEED || COMPILE_TEST) && REGMAP && =
+MFD_SYSCON
 >         tristate "Aspeed ast2400/2500 HOST LPC to BMC bridge control"
-> diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
-> index ab8af76..a648599 100644
+> diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile index=20
+> ab8af76..a648599 100644
 > --- a/drivers/misc/Makefile
 > +++ b/drivers/misc/Makefile
 > @@ -53,6 +53,7 @@ obj-$(CONFIG_ECHO)            +=3D echo/
@@ -337,8 +366,8 @@ nd flash
 >  obj-$(CONFIG_ASPEED_LPC_CTRL)  +=3D aspeed-lpc-ctrl.o
 >  obj-$(CONFIG_ASPEED_LPC_SNOOP) +=3D aspeed-lpc-snoop.o
 >
-> diff --git a/drivers/misc/aspeed-espi-slave.c b/drivers/misc/aspeed-espi-=
-slave.c
+> diff --git a/drivers/misc/aspeed-espi-slave.c=20
+> b/drivers/misc/aspeed-espi-slave.c
 > new file mode 100644
 > index 0000000..18e5fad
 > --- /dev/null
@@ -365,10 +394,11 @@ slave.c
 > +
 > +#define DEVICE_NAME     "aspeed-espi-slave"
 > +
-> +/***************************** eSPI Register ***************************=
-*/
+> +/***************************** eSPI Register=20
+> +****************************/
 
-I don't like ascii art in drivers :)
+>> I don't like ascii art in drivers :)
+I will remove this in next patch, yes, this art is not so good. :-)
 
 > +#define ESPI_CTRL                 0x00
 > +#define      ESPI_CTRL_SW_RESET             GENMASK(31, 24)
@@ -408,9 +438,9 @@ I don't like ascii art in drivers :)
 > +       int irq;
 > +};
 > +
-> +static void aspeed_espi_slave_sys_event(struct aspeed_espi_slave_data *p=
-riv)
-> +{
+> +static void aspeed_espi_slave_sys_event(struct aspeed_espi_slave_data =
+
+> +*priv) {
 > +       u32 sts, evt;
 > +
 > +       if (regmap_read(priv->map, ESPI_SYS_ISR, &sts) !=3D 0 ||
@@ -431,12 +461,10 @@ riv)
 > +                               ? ESPI_SYSEVT_OOB_RST_ACK : 0,
 > +                       NULL, false, true);
 > +
-> +       regmap_write(priv->map, ESPI_SYS_ISR, sts);
-> +}
+> +       regmap_write(priv->map, ESPI_SYS_ISR, sts); }
 > +
-> +static void aspeed_espi_slave_sys1_event(struct aspeed_espi_slave_data *=
-priv)
-> +{
+> +static void aspeed_espi_slave_sys1_event(struct=20
+> +aspeed_espi_slave_data *priv) {
 > +       u32 sts;
 > +
 > +       if (regmap_read(priv->map, ESPI_SYS1_ISR, &sts) !=3D 0)
@@ -447,11 +475,9 @@ priv)
 > +                       ESPI_SYSEVT1_SUS_ACK, ESPI_SYSEVT1_SUS_ACK,
 > +                       NULL, false, true);
 > +
-> +       regmap_write(priv->map, ESPI_SYS1_ISR, sts);
-> +}
+> +       regmap_write(priv->map, ESPI_SYS1_ISR, sts); }
 > +
-> +static irqreturn_t aspeed_espi_slave_irq(int irq, void *arg)
-> +{
+> +static irqreturn_t aspeed_espi_slave_irq(int irq, void *arg) {
 > +       u32 sts;
 > +       struct aspeed_espi_slave_data *priv =3D arg;
 > +
@@ -463,7 +489,8 @@ priv)
 > +                               ESPI_CTRL_SW_RESET, 0,
 > +                               NULL, false, true);
 > +               regmap_update_bits_base(priv->map, ESPI_CTRL,
-> +                               ESPI_CTRL_SW_RESET, ESPI_CTRL_SW_RESET,
+> +                               ESPI_CTRL_SW_RESET, =
+ESPI_CTRL_SW_RESET,
 > +                               NULL, false, true);
 > +
 > +               regmap_update_bits_base(priv->map, ESPI_SYS_EVENT,
@@ -485,10 +512,9 @@ priv)
 > +       return IRQ_HANDLED;
 > +}
 > +
-> +static int aspeed_espi_slave_config_irq(struct aspeed_espi_slave_data *p=
-riv,
-> +                       struct platform_device *pdev)
-> +{
+> +static int aspeed_espi_slave_config_irq(struct aspeed_espi_slave_data =
+*priv,
+> +                       struct platform_device *pdev) {
 > +       int rc;
 > +       struct device *dev =3D &pdev->dev;
 > +
@@ -499,7 +525,8 @@ riv,
 > +       rc =3D devm_request_irq(dev, priv->irq, aspeed_espi_slave_irq,
 > +                       IRQF_SHARED, DEVICE_NAME, priv);
 > +       if (rc < 0) {
-> +               dev_warn(dev, "Unable to request IRQ %d\n", priv->irq);
+> +               dev_warn(dev, "Unable to request IRQ %d\n", =
+priv->irq);
 > +               priv->irq =3D 0;
 > +               return rc;
 > +       }
@@ -520,8 +547,8 @@ riv,
 > +#define ESPI_SYS_INT_T2_SET ( \
 > +                       ESPI_SYSEVT_HOST_RST_WARN | \
 > +                       ESPI_SYSEVT_OOB_RST_WARN  | \
-> +                       ESPI_SYSEVT_PLT_RST_N)
-> +#define ESPI_SYS_INT_SET ( \
+> +                       ESPI_SYSEVT_PLT_RST_N) #define=20
+> +ESPI_SYS_INT_SET ( \
 > +                       ESPI_SYSEVT_HOST_RST_WARN | \
 > +                       ESPI_SYSEVT_OOB_RST_WARN  | \
 > +                       ESPI_SYSEVT_PLT_RST_N)
@@ -534,19 +561,20 @@ riv,
 > +        *                                 T2 T1 T0
 > +        *  1). SUS_WARN    : Rising Edge   0  0  1
 > +        */
-> +       regmap_write(priv->map, ESPI_SYS1_INT_T0, ESPI_SYSEVT1_SUS_WARN);
+> +       regmap_write(priv->map, ESPI_SYS1_INT_T0, =
+ESPI_SYSEVT1_SUS_WARN);
 > +       regmap_write(priv->map, ESPI_SYS1_INT_T1, 0x00000000);
 > +       regmap_write(priv->map, ESPI_SYS1_INT_T2, 0x00000000);
-> +       regmap_write(priv->map, ESPI_SYS1_IER,    ESPI_SYSEVT1_SUS_WARN);
+> +       regmap_write(priv->map, ESPI_SYS1_IER,    =
+ESPI_SYSEVT1_SUS_WARN);
 > +
 > +       regmap_write(priv->map, ESPI_IER, 0xFFFFFFFF);
 > +
 > +       return rc;
 > +}
 > +
-> +static void aspeed_espi_slave_boot_ack(struct aspeed_espi_slave_data *pr=
-iv)
-> +{
+> +static void aspeed_espi_slave_boot_ack(struct aspeed_espi_slave_data=20
+> +*priv) {
 > +       u32 evt;
 > +
 > +       if (regmap_read(priv->map, ESPI_SYS_EVENT, &evt) =3D=3D 0 &&
@@ -559,29 +587,29 @@ iv)
 > +       if (regmap_read(priv->map, ESPI_SYS1_EVENT, &evt) =3D=3D 0 &&
 > +           (evt & ESPI_SYSEVT1_SUS_WARN) !=3D 0)
 > +               regmap_write(priv->map, ESPI_SYS1_EVENT,
-> +                       evt | ESPI_SYSEVT1_SUS_ACK);
-> +}
+> +                       evt | ESPI_SYSEVT1_SUS_ACK); }
 > +
 > +
-> +static int regmap_espi_slave_reg_write(void *context, unsigned int reg,
-> +                                            unsigned int val)
-> +{
+> +static int regmap_espi_slave_reg_write(void *context, unsigned int =
+reg,
+> +                                            unsigned int val) {
 > +       void __iomem *regs =3D (void __iomem *)context;
 > +
 > +       writel(val, regs + reg);
 > +       return 0;
 > +}
 > +
-> +static int regmap_espi_slave_reg_read(void *context, unsigned int reg,
-> +                                           unsigned int *val)
-> +{
+> +static int regmap_espi_slave_reg_read(void *context, unsigned int =
+reg,
+> +                                           unsigned int *val) {
 > +       void __iomem *regs =3D (void __iomem *)context;
 > +
 > +       *val =3D readl(regs + reg);
 > +       return 0;
 > +}
 > +
-> +static const struct regmap_config aspeed_espi_slave_regmap_config =3D {
+> +static const struct regmap_config aspeed_espi_slave_regmap_config =3D =
+{
 > +       .reg_bits =3D 32,
 > +       .val_bits =3D 32,
 > +       .reg_stride =3D 4,
@@ -590,8 +618,7 @@ iv)
 > +       .fast_io =3D true,
 > +};
 > +
-> +static int aspeed_espi_slave_probe(struct platform_device *pdev)
-> +{
+> +static int aspeed_espi_slave_probe(struct platform_device *pdev) {
 > +       struct aspeed_espi_slave_data *priv;
 > +       struct device *dev =3D &pdev->dev;
 > +       struct resource *res;
@@ -602,8 +629,9 @@ iv)
 > +       if (!res)
 > +               return -ENOENT;
 
-This check can be omitted as the devm_ioremap_resource will do this
+>> This check can be omitted as the devm_ioremap_resource will do this =
 check for you.
+Thanks, will remove it in next patch. This makes code clean. :-)
 
 > +       regs =3D devm_ioremap_resource(dev, res);
 > +       if (IS_ERR(regs))
@@ -611,15 +639,25 @@ check for you.
 > +       priv =3D devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
 > +       if (!priv)
 > +               return -ENOMEM;
-> +       priv->map =3D devm_regmap_init(dev, NULL, (__force void *)regs,
+> +       priv->map =3D devm_regmap_init(dev, NULL, (__force void =
+*)regs,
 > +                       &aspeed_espi_slave_regmap_config);
 
-Is there a reason you used a regmap for accessing these registers?
+>> Is there a reason you used a regmap for accessing these registers?
 
-Often we use a regmap to cache access to a slow bus (like i2c), or to
-provide mutual exclusion when modifying the same memory mapped
-addresses. It looks like we have neither here, so you could avoid the
+>> Often we use a regmap to cache access to a slow bus (like i2c), or to =
+provide mutual exclusion when modifying the same memory mapped =
+addresses. It looks like we have neither here, so you could avoid the =
 overhead and use readl/writel directly?
+
+Because before, I implemented this driver under 3.18, we have more code =
+lines like ' ast_espi_write(espi_dev, ast_espi_read(espi_dev, =
+AST_ESPI_SYS1_EVENT) | ESPI_SUS_ACK,
+				AST_ESPI_SYS1_EVENT);'
+I find that regmap has a well-defined API regmap_update_bits to help the =
+code clean. And also, in the further, may be easy for adding code to =
+access these
+registers in device ioctls for mutual exclusion.
 
 > +       if (IS_ERR(priv->map))
 > +               return PTR_ERR(priv->map);
@@ -639,12 +677,12 @@ overhead and use readl/writel directly?
 > +       return 0;
 > +}
 > +
-> +static int aspeed_espi_slave_remove(struct platform_device *pdev)
-> +{
+> +static int aspeed_espi_slave_remove(struct platform_device *pdev) {
 > +       return 0;
 > +}
 
-If you're not doing anything in the remove callback you can omit it.
+>> If you're not doing anything in the remove callback you can omit it.
+Thanks, will remove it in next patch.
 
 > +
 > +static const struct of_device_id of_espi_slave_match_table[] =3D {
@@ -658,15 +696,14 @@ If you're not doing anything in the remove callback you can omit it.
 > +               .of_match_table =3D of_espi_slave_match_table,
 > +       },
 > +       .probe =3D aspeed_espi_slave_probe,
-> +       .remove =3D aspeed_espi_slave_remove,
-> +};
+> +       .remove =3D aspeed_espi_slave_remove, };
 > +
 > +module_platform_driver(aspeed_espi_slave_driver);
 > +
-> +MODULE_DEVICE_TABLE(of, of_espi_slave_match_table);
-> +MODULE_LICENSE("GPL");
-> +MODULE_AUTHOR("Haiyue Wang <haiyue.wang@linux.intel.com>");
-> +MODULE_DESCRIPTION("Linux device interface to the eSPI slave");
+> +MODULE_DEVICE_TABLE(of, of_espi_slave_match_table);=20
+> +MODULE_LICENSE("GPL"); MODULE_AUTHOR("Haiyue Wang=20
+> +<haiyue.wang@linux.intel.com>"); MODULE_DESCRIPTION("Linux device=20
+> +interface to the eSPI slave");
 > --
 > 2.7.4
 >
