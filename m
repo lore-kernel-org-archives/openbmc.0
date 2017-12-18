@@ -1,39 +1,39 @@
 Return-Path: <haiyue.wang@linux.intel.com>
 Authentication-Results: ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.24; helo=mga09.intel.com;
+ (client-ip=192.55.52.43; helo=mga05.intel.com;
  envelope-from=haiyue.wang@linux.intel.com; receiver=<UNKNOWN>)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3z0Y1906D6zDqgc
- for <openbmc@lists.ozlabs.org>; Mon, 18 Dec 2017 18:43:08 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3z0YzB3lRkzDsFl
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Dec 2017 19:26:27 +1100 (AEDT)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 17 Dec 2017 23:43:04 -0800
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 18 Dec 2017 00:26:22 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.45,421,1508828400"; d="scan'208";a="159676834"
+X-IronPort-AV: E=Sophos;i="5.45,421,1508828400"; d="scan'208";a="159684539"
 Received: from haiyuewa-mobl1.ccr.corp.intel.com (HELO haiyuewaMOBL1)
  ([10.239.196.25])
- by orsmga004.jf.intel.com with ESMTP; 17 Dec 2017 23:43:03 -0800
+ by orsmga004.jf.intel.com with ESMTP; 18 Dec 2017 00:26:21 -0800
 From: "Haiyue Wang" <haiyue.wang@linux.intel.com>
 To: "'Joel Stanley'" <joel@jms.id.au>
 Cc: "'OpenBMC Maillist'" <openbmc@lists.ozlabs.org>
 References: <1513577542-8693-1-git-send-email-haiyue.wang@linux.intel.com>
- <CACPK8XcYEXeRCred=SBEc9KrOS6BvQ3x3yUp9Bam9ZF89PgfLg@mail.gmail.com>
-In-Reply-To: <CACPK8XcYEXeRCred=SBEc9KrOS6BvQ3x3yUp9Bam9ZF89PgfLg@mail.gmail.com>
+ <CACPK8XcYEXeRCred=SBEc9KrOS6BvQ3x3yUp9Bam9ZF89PgfLg@mail.gmail.com> 
+In-Reply-To: 
 Subject: RE: [PATCH linux dev-4.10] eSPI: add Aspeed AST2500 eSPI driver to
  boot a host with PCH runs on eSPI
-Date: Mon, 18 Dec 2017 15:43:03 +0800
-Message-ID: <000001d377d3$d67da680$8378f380$@linux.intel.com>
+Date: Mon, 18 Dec 2017 16:26:21 +0800
+Message-ID: <000301d377d9$e2dcb500$a8961f00$@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain;
 	charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailer: Microsoft Outlook 15.0
-Thread-Index: AQGt+xN1sMeYSkBTxK3ns90G8YaoMQIJVQNCo4NiHvA=
+Thread-Index: AQGt+xN1sMeYSkBTxK3ns90G8YaoMQIJVQNCAW7qWcijd/r/gA==
 Content-Language: en-us
 x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiYmYzOGU3YTktODQ2My00N2JiLTg4YzItYTU3YTFjMDU5ZjYwIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX0lDIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjIuNS4xOCIsIlRydXN0ZWRMYWJlbEhhc2giOiJhaGlVTmdJVkhsSUowckJ4VW9QaXFteWZMQ3I4bk5Zc1lYdXRvc1puR1dXVThjMVAzellrb0EyXC9laUlaYUhmNyJ9
 x-ctpclassification: CTP_IC
@@ -51,7 +51,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Dec 2017 07:43:09 -0000
+X-List-Received-Date: Mon, 18 Dec 2017 08:26:31 -0000
+
+Thanks Joe, I studied the regmap again, looks like that I truly overuse =
+this kind of API. Will update new patch soon.
+Thank you very much for help writing a driver with high performance . :)
+
+BR,
+Haiyue
+
+-----Original Message-----
+From: Haiyue Wang [mailto:haiyue.wang@linux.intel.com]=20
+Sent: Monday, December 18, 2017 15:43
+To: 'Joel Stanley' <joel@jms.id.au>
+Cc: 'OpenBMC Maillist' <openbmc@lists.ozlabs.org>
+Subject: RE: [PATCH linux dev-4.10] eSPI: add Aspeed AST2500 eSPI driver =
+to boot a host with PCH runs on eSPI
 
 Thanks Joel. Sorry that I use *outlook* mail client to reply you like =
 faking '>' style. :)
@@ -72,7 +87,7 @@ to boot a host with PCH runs on eSPI
 
 On Mon, Dec 18, 2017 at 4:42 PM, Haiyue Wang =
 <haiyue.wang@linux.intel.com> wrote:
-> The PCH (master) provides the eSPI to support connection of a BMC=20
+> The PCH (master) provides the eSPI to support connection of a BMC
 > (slave) to the platform.
 >
 > The LPC and eSPI interfaces are mutually exclusive. Both use the same=20
@@ -279,12 +294,12 @@ Currently I didn't find a good place, and under this location, there are =
 well.
 
 >  4 files changed, 344 insertions(+)
->  create mode 100644=20
+>  create mode 100644
 > Documentation/devicetree/bindings/misc/aspeed-espi-slave.txt
 >  create mode 100644 drivers/misc/aspeed-espi-slave.c
 >
-> diff --git=20
-> a/Documentation/devicetree/bindings/misc/aspeed-espi-slave.txt=20
+> diff --git
+> a/Documentation/devicetree/bindings/misc/aspeed-espi-slave.txt
 > b/Documentation/devicetree/bindings/misc/aspeed-espi-slave.txt
 > new file mode 100644
 > index 0000000..0db889b
@@ -326,7 +341,7 @@ mapped
 > +        status =3D "disabled";
 > +};
 > +
-> diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig index=20
+> diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig index
 > 02ffdd1..8c0d791 100644
 > --- a/drivers/misc/Kconfig
 > +++ b/drivers/misc/Kconfig
@@ -354,7 +369,7 @@ out-of-band, and flash
 >         depends on (ARCH_ASPEED || COMPILE_TEST) && REGMAP && =
 MFD_SYSCON
 >         tristate "Aspeed ast2400/2500 HOST LPC to BMC bridge control"
-> diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile index=20
+> diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile index
 > ab8af76..a648599 100644
 > --- a/drivers/misc/Makefile
 > +++ b/drivers/misc/Makefile
@@ -366,7 +381,7 @@ MFD_SYSCON
 >  obj-$(CONFIG_ASPEED_LPC_CTRL)  +=3D aspeed-lpc-ctrl.o
 >  obj-$(CONFIG_ASPEED_LPC_SNOOP) +=3D aspeed-lpc-snoop.o
 >
-> diff --git a/drivers/misc/aspeed-espi-slave.c=20
+> diff --git a/drivers/misc/aspeed-espi-slave.c
 > b/drivers/misc/aspeed-espi-slave.c
 > new file mode 100644
 > index 0000000..18e5fad
@@ -438,8 +453,7 @@ I will remove this in next patch, yes, this art is not so good. :-)
 > +       int irq;
 > +};
 > +
-> +static void aspeed_espi_slave_sys_event(struct aspeed_espi_slave_data =
-
+> +static void aspeed_espi_slave_sys_event(struct aspeed_espi_slave_data
 > +*priv) {
 > +       u32 sts, evt;
 > +
@@ -463,7 +477,7 @@ I will remove this in next patch, yes, this art is not so good. :-)
 > +
 > +       regmap_write(priv->map, ESPI_SYS_ISR, sts); }
 > +
-> +static void aspeed_espi_slave_sys1_event(struct=20
+> +static void aspeed_espi_slave_sys1_event(struct
 > +aspeed_espi_slave_data *priv) {
 > +       u32 sts;
 > +
@@ -573,7 +587,7 @@ ESPI_SYSEVT1_SUS_WARN);
 > +       return rc;
 > +}
 > +
-> +static void aspeed_espi_slave_boot_ack(struct aspeed_espi_slave_data=20
+> +static void aspeed_espi_slave_boot_ack(struct aspeed_espi_slave_data
 > +*priv) {
 > +       u32 evt;
 > +
@@ -656,8 +670,7 @@ AST_ESPI_SYS1_EVENT) | ESPI_SUS_ACK,
 				AST_ESPI_SYS1_EVENT);'
 I find that regmap has a well-defined API regmap_update_bits to help the =
 code clean. And also, in the further, may be easy for adding code to =
-access these
-registers in device ioctls for mutual exclusion.
+access these registers in device ioctls for mutual exclusion.
 
 > +       if (IS_ERR(priv->map))
 > +               return PTR_ERR(priv->map);
