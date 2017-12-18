@@ -7,21 +7,23 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3z0hXv2mv7zDrmv
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3z0hXv5lxlzDrnB
  for <openbmc@lists.ozlabs.org>; Tue, 19 Dec 2017 00:22:36 +1100 (AEDT)
 Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id vBID4mWV026782;
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id vBID4msu026783;
  Mon, 18 Dec 2017 15:04:48 +0200
 Received: by talu34.nuvoton.co.il (Postfix, from userid 10070)
- id 894815A91D; Mon, 18 Dec 2017 15:22:26 +0200 (IST)
+ id 1F70E5A934; Mon, 18 Dec 2017 15:22:27 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH linux dev-4.13 v1 0/2] watchdog: npcm: add NPCM7xx watchdog
- driver
-Date: Mon, 18 Dec 2017 15:22:22 +0200
-Message-Id: <1513603344-5700-1-git-send-email-tmaimon77@gmail.com>
+Subject: [PATCH linux dev-4.13 v1 1/2] dt-binding: watchdog: document NPCM7xx
+ watchdog DT bindings
+Date: Mon, 18 Dec 2017 15:22:23 +0200
+Message-Id: <1513603344-5700-2-git-send-email-tmaimon77@gmail.com>
 X-Mailer: git-send-email 1.8.3.4
+In-Reply-To: <1513603344-5700-1-git-send-email-tmaimon77@gmail.com>
+References: <1513603344-5700-1-git-send-email-tmaimon77@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -35,27 +37,41 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Mon, 18 Dec 2017 13:22:41 -0000
 
-This patch set adds watchdog support for the Nuvoton NPCM7xx Baseboard
-Management Controller (BMC).
-
-Nuvoton NPCM7xx have three watchdog timer modules, each watchdog timer
-is a free-running timer with programmable timeout intervals.
-
-The NPCM7xx watchdog interrupts connected Fast Interrupt reQuest (FIQ).
-
-Tomer Maimon (2):
-  dt-binding: watchdog: document NPCM7xx watchdog DT bindings
-  watchdog: npcm: add NPCM7xx watchdog driver
-
- .../bindings/watchdog/nuvoton,npcm7xx-wdt.txt      |  23 ++
- drivers/watchdog/Kconfig                           |  11 +
- drivers/watchdog/Makefile                          |   1 +
- drivers/watchdog/npcm7xx_wdt.c                     | 369 +++++++++++++++++++++
- drivers/watchdog/npcm7xx_wdt_fiq_handler.S         |  68 ++++
- 5 files changed, 472 insertions(+)
+Added device tree binding documentation for Nuvoton NPCM7xx watchdog.
+---
+ .../bindings/watchdog/nuvoton,npcm7xx-wdt.txt      | 23 ++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/watchdog/nuvoton,npcm7xx-wdt.txt
- create mode 100644 drivers/watchdog/npcm7xx_wdt.c
- create mode 100644 drivers/watchdog/npcm7xx_wdt_fiq_handler.S
 
+diff --git a/Documentation/devicetree/bindings/watchdog/nuvoton,npcm7xx-wdt.txt b/Documentation/devicetree/bindings/watchdog/nuvoton,npcm7xx-wdt.txt
+new file mode 100644
+index 000000000000..211f93cab141
+--- /dev/null
++++ b/Documentation/devicetree/bindings/watchdog/nuvoton,npcm7xx-wdt.txt
+@@ -0,0 +1,23 @@
++Nuvoton NPCM7xx watchdog timer
++
++Nuvoton NPCM7xx have three watchdog timer modules, each watchdog timer is a free-running timer
++with programmable timeout intervals.
++
++Required properties:
++- compatible      : "nuvoton,npcm750-wdt" for Poleg NPCM750.
++- reg             : Offset and length of the register set for the device.
++- interrupts      : Contain the timer interrupt with flags for
++                    falling edge.
++
++Optional:
++- clocks          : phandle of watchdog timer reference clock.
++
++Example:
++
++watchdog0: watchdog@f0008000 {
++	compatible = "nuvoton,npcm750-wdt";
++	interrupts = <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>;
++	reg = <0xf0008000 0x1000>;
++	status = "disabled";
++	clocks = <&clk NPCM7XX_CLK_TIMER>;
++};
+\ No newline at end of file
 -- 
 2.14.1
