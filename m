@@ -1,61 +1,44 @@
-Return-Path: <mine260309@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c06::243; helo=mail-io0-x243.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="o9/NMY7r"; 
- dkim-atps=neutral
-Received: from mail-io0-x243.google.com (mail-io0-x243.google.com
- [IPv6:2607:f8b0:4001:c06::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <ed.tanous@intel.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=134.134.136.65; helo=mga03.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3z11yP5R55zDsQN
- for <openbmc@lists.ozlabs.org>; Tue, 19 Dec 2017 13:27:25 +1100 (AEDT)
-Received: by mail-io0-x243.google.com with SMTP id d16so11975553iob.4
- for <openbmc@lists.ozlabs.org>; Mon, 18 Dec 2017 18:27:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=bdu6dZilJBsRHMeaE+D8xaTG+LlZdMrro3sjCgku1fY=;
- b=o9/NMY7rzXQi0ZbGzphQZ0iw9WGhONOJ9JVHRFm7W9k8dWzQqrdLqkgtXCEV7wUI3h
- lR/9Tj/4cZ/sP1RaX1wu+Nc0AaP5k/PtLHzNLXbQ6LQXsIpHsoyuyOtA5GhWP8hPC6TO
- /m0Pq6ifuasjycy401up/cX2VrriP0RGR7VWKIiG5ZCxzQsufCZKn9/sHwjUnGnbA1Fe
- WlznqByJ+K7rnXT8vW9XF0BWeT6ofNzXGp9cVOgjm/oU3iQtxpWjOb2IAm+12RYRY29A
- yKI8NxuwI6V/Lq838hwh2kP2TfZH+68JCfCdVFYaMUINmA1jtNVMiWJc3QiEBtrqFWfe
- MfZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=bdu6dZilJBsRHMeaE+D8xaTG+LlZdMrro3sjCgku1fY=;
- b=EHow2PGBwb3iJxlXPhaoaDTnbfNAAMJ08bBrb9XVTC5uDv+hJWBAkuB1LeGtBXQ9X1
- DiN4yOLtWKec+pYkBYOyA6vIc7bAkwElLJoEbBbNnWmDYLHlTLvcsoGtdMfiQbAtR62f
- MSIkDNJOA8zVKnnfIKHDsV/5K0HeVC4xvdNFJXMqKnvvUIZoL1+oVJhCocodF3JoNgp/
- IeC4kkmaTDqWCuNNUSrCgnJT+H+/HSOuZWEG9Y25v7MCjiAiq50U39Ib+zIHYq60bdSU
- 9yPR3FSt95XYpBlg9Fo1DID8XKkferArBtYZhK3z6VMa971BPSOyZ3N6mnJwdMGH1Obt
- KZfA==
-X-Gm-Message-State: AKGB3mKzJuW9X3PF3QP6/oQek3z5BSOvckOUEpxvWaX3493X1ZLL/VfU
- XY05n+2vMez0YGHJWzFzMDxHnabZoZGAo7G6UhE=
-X-Google-Smtp-Source: ACJfBoskrsSLgSyZEY/b2iUgrjCHkeQr5itCFj5bIw5+z7f56zS5ru27sGBx1lntGtQGr/24Pb6hcG7F4DbCUmcGWJ4=
-X-Received: by 10.107.11.85 with SMTP id v82mr2128163ioi.198.1513650442841;
- Mon, 18 Dec 2017 18:27:22 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3z14B61zDKzDsRW
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Dec 2017 15:07:41 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 18 Dec 2017 20:07:39 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.45,424,1508828400"; d="scan'208,217";a="3973670"
+Received: from orsmsx106.amr.corp.intel.com ([10.22.225.133])
+ by orsmga006.jf.intel.com with ESMTP; 18 Dec 2017 20:07:39 -0800
+Received: from orsmsx162.amr.corp.intel.com (10.22.240.85) by
+ ORSMSX106.amr.corp.intel.com (10.22.225.133) with Microsoft SMTP Server (TLS)
+ id 14.3.319.2; Mon, 18 Dec 2017 20:07:39 -0800
+Received: from orsmsx114.amr.corp.intel.com ([169.254.8.57]) by
+ ORSMSX162.amr.corp.intel.com ([169.254.3.44]) with mapi id 14.03.0319.002;
+ Mon, 18 Dec 2017 20:07:39 -0800
+From: "Tanous, Ed" <ed.tanous@intel.com>
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Request for comments: C++ embedded webserver
+Thread-Topic: Request for comments: C++ embedded webserver
+Thread-Index: AdN4ftVuoDXj0cc0QHy/ckqdQwlbew==
+Date: Tue, 19 Dec 2017 04:07:38 +0000
+Message-ID: <7E9441B1E5EFFD4681F54958E82169932F4B1A4D@ORSMSX114.amr.corp.intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ctpclassification: CTP_IC
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiOTE0ZGYwYWUtNGQyYy00NWUwLWIwMTEtYjZkNTFiYTY1MGNkIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX0lDIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE1LjkuNi42IiwiVHJ1c3RlZExhYmVsSGFzaCI6IkxRUktENjBmZFFYSDFHNUlvaDVmcStpWk0xQjZEOWw2XC9waXg4WHlXRDMwPSJ9
+x-originating-ip: [10.22.254.138]
+Content-Type: multipart/alternative;
+ boundary="_000_7E9441B1E5EFFD4681F54958E82169932F4B1A4DORSMSX114amrcor_"
 MIME-Version: 1.0
-Received: by 10.79.228.137 with HTTP; Mon, 18 Dec 2017 18:27:22 -0800 (PST)
-In-Reply-To: <CACPK8XdHXTYiPYfGvE3=qD_BaGMK_=oBTLaV-VV8UsWHvXfqRQ@mail.gmail.com>
-References: <1512587959-27264-1-git-send-email-eajames@linux.vnet.ibm.com>
- <CACPK8Xd2Pcb8Z_2PP-B+aALLS9Z1Pc5tvX=2+1qZUbCeVyRUag@mail.gmail.com>
- <0d01c184-8ae0-6cbb-b222-d6c22c15ea55@linux.vnet.ibm.com>
- <CACPK8XdHXTYiPYfGvE3=qD_BaGMK_=oBTLaV-VV8UsWHvXfqRQ@mail.gmail.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Tue, 19 Dec 2017 10:27:22 +0800
-Message-ID: <CAARXrtmsMO74xB-Cb3gsxBHGJCf=QtuZzuzRFo+FU1dWSKVvvw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.10] hwmon (occ): Fix integer overflow in
- multiplication
-To: Joel Stanley <joel@jms.id.au>
-Cc: Eddie James <eajames@linux.vnet.ibm.com>,
- "Edward A. James" <eajames@us.ibm.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, qiaoling.qin@powercore.com.cn, 
- =?UTF-8?B?6Z+p56yR?= <xiao.han@powercore.com.cn>
-Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -67,65 +50,179 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Dec 2017 02:27:26 -0000
+X-List-Received-Date: Tue, 19 Dec 2017 04:07:42 -0000
 
-Hi Eddie,
+--_000_7E9441B1E5EFFD4681F54958E82169932F4B1A4DORSMSX114amrcor_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Except for the values for power, the value used for temperature is u16
-and overflows
-as well.
-Powercore reports that if the temperature goes over 65 degrees, the
-value overflows
-obviously as long as it is over 65535.
+I'm looking for comments on a code review that's been outstanding.  One of =
+the large pushes we've made is to attempt to make the web server more effic=
+ient, and add capabilities that comprehend long term needs of OpenBmc.  One=
+ key that wasn't made clear in the commit message is that it includes the b=
+asic redfish implementation that (we hope) should be extensible to the full=
+ redfish specification in the short term future.
 
-Could you fix this as well?
+https://gerrit.openbmc-project.xyz/#/c/7786/
 
-Thanks!
+We would very much appreciate comments to see if we can move this forward.
 
---
-BRs,
-Lei YU
+The following description is pulled from the readme.
 
-On Mon, Dec 18, 2017 at 10:11 PM, Joel Stanley <joel@jms.id.au> wrote:
-> On Sat, Dec 9, 2017 at 8:47 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
->>
->>
->> On 12/08/2017 12:16 AM, Joel Stanley wrote:
->>>
->>> On Thu, Dec 7, 2017 at 5:49 AM, Eddie James <eajames@linux.vnet.ibm.com>
->>> wrote:
->>>>
->>>> --- a/drivers/hwmon/occ/common.c
->>>> +++ b/drivers/hwmon/occ/common.c
->>>> @@ -468,7 +468,7 @@ static ssize_t occ_show_power_1(struct device *dev,
->>>>                                  struct device_attribute *attr, char
->>>> *buf)
->>>>   {
->>>>          int rc;
->>>> -       u32 val = 0;
->>>> +       u64 val = 0;
->>>>          struct power_sensor_1 *power;
->>>>          struct occ *occ = dev_get_drvdata(dev);
->>>>          struct occ_sensors *sensors = &occ->sensors;
->>>> @@ -491,11 +491,11 @@ static ssize_t occ_show_power_1(struct device *dev,
->>>>                  val = get_unaligned_be32(&power->accumulator);
->>>>                  break;
->>>>          case 3:
->>>> -               val = get_unaligned_be16(&power->value) * 1000000;
->>>> +               val = (u64)get_unaligned_be16(&power->value) *
->>>> 1000000ULL;
->>>
->>> I don't think these casts are required, are they?
->>
->>
->> I'm not at all sure. I didn't think adding ULL was required here, but
->> apparently it is. I don't really trust GCC...
+# OpenBMC webserver #
+
+This component attempts to be a "do everything" embedded webserver for open=
+bmc.
+
+## Capabilities ##
+At this time, the webserver implements a few interfaces:
++ Authentication middleware that supports cookie and token based authentica=
+tion, as well as CSRF prevention backed by linux PAM authentication credent=
+ials.
++ An (incomplete) attempt at replicating phosphor-dbus-rest interfaces in C=
+++.  Right now, a few of the endpoint definitions work as expected, but the=
+re is still a lot of work to be done.  The portions of the interface that a=
+re functional are designed to work correctly for phosphor-webui, but may no=
+t yet be complete.
++ Replication of the rest-dbus backend interfaces to allow bmc debug to log=
+ged in users.
++ An initial attempt at a read-only redfish interface.  Currently the redfi=
+sh interface targets ServiceRoot, SessionService, AccountService, Roles, an=
+d ManagersService.  Some functionality here has been shimmed to make develo=
+pment possible.  For example, there exists only a single user role.
++ SSL key generation at runtime.  If an RSA key and cert pair are not avail=
+able to the server at runtime, keys are generated using the openssl routine=
+s, and written to disk.
++ Static file hosting.  Currently, static files are hosted from the fixed l=
+ocation at /usr/share/www.  This is intended to allow loose coupling with y=
+octo projects, and allow overriding static files at build time.
++ Dbus-monitor over websocket.  A generic endpoint that allows UIs to open =
+a websocket and register for notification of events to avoid polling in sin=
+gle page applications.  (this interface may be modified in the future due t=
+o security concerns.)
+
+
+Thanks,
+
+-Ed
+
+
+--_000_7E9441B1E5EFFD4681F54958E82169932F4B1A4DORSMSX114amrcor_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-> Sorry, I thought you were joking here. GCC is behaving as it should.
-> Hit me up on IRC for an explanation sometime.
->
-> Can you resend without the casts?
->
-> Cheers,
->
-> Joel
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">I&#8217;m looking for comments on a code review that=
+&#8217;s been outstanding.&nbsp; One of the large pushes we&#8217;ve made i=
+s to attempt to make the web server more efficient, and add capabilities th=
+at comprehend long term needs of OpenBmc.&nbsp; One key that wasn&#8217;t
+ made clear in the commit message is that it includes the basic redfish imp=
+lementation that (we hope) should be extensible to the full redfish specifi=
+cation in the short term future.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><a href=3D"https://gerrit.openbmc-project.xyz/#/c/77=
+86/">https://gerrit.openbmc-project.xyz/#/c/7786/</a><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">We would very much appreciate comments to see if we =
+can move this forward.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">The following description is pulled from the readme.=
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"># OpenBMC webserver #<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">This component attempts to be a &quot;do everything&=
+quot; embedded webserver for openbmc.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">## Capabilities ##<o:p></o:p></p>
+<p class=3D"MsoNormal">At this time, the webserver implements a few interfa=
+ces:<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43; Authentication middleware that supports cookie=
+ and token based authentication, as well as CSRF prevention backed by linux=
+ PAM authentication credentials.<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43; An (incomplete) attempt at replicating phospho=
+r-dbus-rest interfaces in C&#43;&#43;.&nbsp; Right now, a few of the endpoi=
+nt definitions work as expected, but there is still a lot of work to be don=
+e.&nbsp; The portions of the interface that are functional
+ are designed to work correctly for phosphor-webui, but may not yet be comp=
+lete.<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43; Replication of the rest-dbus backend interface=
+s to allow bmc debug to logged in users.<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43; An initial attempt at a read-only redfish inte=
+rface.&nbsp; Currently the redfish interface targets ServiceRoot, SessionSe=
+rvice, AccountService, Roles, and ManagersService.&nbsp; Some functionality=
+ here has been shimmed to make development possible.&nbsp;
+ For example, there exists only a single user role.<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43; SSL key generation at runtime.&nbsp; If an RSA=
+ key and cert pair are not available to the server at runtime, keys are gen=
+erated using the openssl routines, and written to disk.<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43; Static file hosting.&nbsp; Currently, static f=
+iles are hosted from the fixed location at /usr/share/www.&nbsp; This is in=
+tended to allow loose coupling with yocto projects, and allow overriding st=
+atic files at build time.<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43; Dbus-monitor over websocket.&nbsp; A generic e=
+ndpoint that allows UIs to open a websocket and register for notification o=
+f events to avoid polling in single page applications.&nbsp; (this interfac=
+e may be modified in the future due to security
+ concerns.)<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">-Ed<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_7E9441B1E5EFFD4681F54958E82169932F4B1A4DORSMSX114amrcor_--
