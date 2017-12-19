@@ -7,54 +7,54 @@ Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
  [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3z1TCF29ylzF06v
- for <openbmc@lists.ozlabs.org>; Wed, 20 Dec 2017 06:55:04 +1100 (AEDT)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
- vBJJsUGP087846
- for <openbmc@lists.ozlabs.org>; Tue, 19 Dec 2017 14:55:02 -0500
-Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2ey6bc165a-1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3z1TF45PdfzF06v
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Dec 2017 06:56:40 +1100 (AEDT)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ vBJJsras105285
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Dec 2017 14:56:38 -0500
+Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2ey66c1qkw-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 19 Dec 2017 14:55:01 -0500
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Dec 2017 14:56:38 -0500
 Received: from localhost
- by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Tue, 19 Dec 2017 14:55:01 -0500
-Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
- by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
+ Tue, 19 Dec 2017 12:56:37 -0700
+Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
+ by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Tue, 19 Dec 2017 14:54:58 -0500
-Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
- [9.57.199.111])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- vBJJsw0R45744182; Tue, 19 Dec 2017 19:54:58 GMT
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 50A75AC041;
- Tue, 19 Dec 2017 14:56:02 -0500 (EST)
+ Tue, 19 Dec 2017 12:56:35 -0700
+Received: from b03ledav004.gho.boulder.ibm.com
+ (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ vBJJuYOs6553876; Tue, 19 Dec 2017 12:56:35 -0700
+Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id DFA567803F;
+ Tue, 19 Dec 2017 12:56:34 -0700 (MST)
 Received: from talon7.austin.ibm.com (unknown [9.41.241.240])
- by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id EA6A2AC040;
- Tue, 19 Dec 2017 14:56:01 -0500 (EST)
+ by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP id 96A4078038;
+ Tue, 19 Dec 2017 12:56:34 -0700 (MST)
 From: Eddie James <eajames@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, Eddie James <eajames@linux.vnet.ibm.com>,
  "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.13 v3] hwmon (occ): Fix integer overflow in
+Subject: [PATCH linux dev-4.10 v3] hwmon (occ): Fix integer overflow in
  multiplication
-Date: Tue, 19 Dec 2017 13:54:55 -0600
+Date: Tue, 19 Dec 2017 13:56:33 -0600
 X-Mailer: git-send-email 1.8.3.1
 X-TM-AS-GCONF: 00
-x-cbid: 17121919-0048-0000-0000-0000021759FB
+x-cbid: 17121919-0012-0000-0000-0000157C73CB
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00008228; HX=3.00000241; KW=3.00000007;
- PH=3.00000004; SC=3.00000244; SDB=6.00962623; UDB=6.00486920; IPR=6.00742617; 
+ PH=3.00000004; SC=3.00000244; SDB=6.00962623; UDB=6.00486921; IPR=6.00742617; 
  BA=6.00005752; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
  ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00018629; XFM=3.00000015;
- UTC=2017-12-19 19:54:59
+ UTC=2017-12-19 19:56:36
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17121919-0049-0000-0000-000043818F8F
-Message-Id: <1513713295-27120-1-git-send-email-eajames@linux.vnet.ibm.com>
+x-cbparentid: 17121919-0013-0000-0000-000050B9ED15
+Message-Id: <1513713393-10030-1-git-send-email-eajames@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-12-19_11:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -74,11 +74,11 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Dec 2017 19:55:05 -0000
+X-List-Received-Date: Tue, 19 Dec 2017 19:56:41 -0000
 
 Power values were overflowing INT_MAX when being converted to
 microwatts, even though the storage was sufficiently large (unsigned 64
-bit). Change literals to unsigned long long. Also change temp storage to u32
+bit). Change literals to unsigned long long. Also change tmep storage to u32
 to avoid overflows at 65000 millidegrees.
 
 Signed-off-by: Edward A. James <eajames@us.ibm.com>
@@ -87,10 +87,10 @@ Signed-off-by: Edward A. James <eajames@us.ibm.com>
  1 file changed, 9 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
-index 7c97a4c..d0b2a29 100644
+index 3175e7b..2e188d5 100644
 --- a/drivers/hwmon/occ/common.c
 +++ b/drivers/hwmon/occ/common.c
-@@ -256,7 +256,7 @@ static ssize_t occ_show_temp_1(struct device *dev,
+@@ -353,7 +353,7 @@ static ssize_t occ_show_temp_1(struct device *dev,
  			       struct device_attribute *attr, char *buf)
  {
  	int rc;
@@ -99,7 +99,7 @@ index 7c97a4c..d0b2a29 100644
  	struct temp_sensor_1 *temp;
  	struct occ *occ = dev_get_drvdata(dev);
  	struct occ_sensors *sensors = &occ->sensors;
-@@ -393,7 +393,7 @@ static ssize_t occ_show_power_1(struct device *dev,
+@@ -468,7 +468,7 @@ static ssize_t occ_show_power_1(struct device *dev,
  				struct device_attribute *attr, char *buf)
  {
  	int rc;
@@ -108,15 +108,13 @@ index 7c97a4c..d0b2a29 100644
  	struct power_sensor_1 *power;
  	struct occ *occ = dev_get_drvdata(dev);
  	struct occ_sensors *sensors = &occ->sensors;
-@@ -417,13 +417,13 @@ static ssize_t occ_show_power_1(struct device *dev,
+@@ -491,11 +491,11 @@ static ssize_t occ_show_power_1(struct device *dev,
+ 		val = get_unaligned_be32(&power->accumulator);
  		break;
  	case 3:
- 		/* microwatts */
 -		val = get_unaligned_be16(&power->value) * 1000000;
 +		val = get_unaligned_be16(&power->value) * 1000000ULL;
  		break;
- 	default:
- 		return -EINVAL;
  	}
  
 -	return snprintf(buf, PAGE_SIZE - 1, "%u\n", val);
@@ -124,50 +122,50 @@ index 7c97a4c..d0b2a29 100644
  }
  
  static ssize_t occ_show_power_2(struct device *dev,
-@@ -454,7 +454,7 @@ static ssize_t occ_show_power_2(struct device *dev,
+@@ -525,7 +525,7 @@ static ssize_t occ_show_power_2(struct device *dev,
+ 		val = get_unaligned_be64(&power->accumulator);
  		break;
  	case 3:
- 		/* microwatts */
 -		val = get_unaligned_be16(&power->value) * 1000000;
 +		val = get_unaligned_be16(&power->value) * 1000000ULL;
  		break;
  	case 4:
  		val = power->function_id;
-@@ -496,7 +496,7 @@ static ssize_t occ_show_power_a0(struct device *dev,
+@@ -562,7 +562,7 @@ static ssize_t occ_show_power_a0(struct device *dev,
+ 		val = get_unaligned_be16(&power->system.update_time);
  		break;
- 	case 3:
- 		/* microwatts */
+ 	case 2:
 -		val = get_unaligned_be16(&power->system.value) * 1000000;
 +		val = get_unaligned_be16(&power->system.value) * 1000000ULL;
  		break;
- 	case 4:
+ 	case 3:
  		val = get_unaligned_be32(&power->system.update_tag);
-@@ -511,7 +511,7 @@ static ssize_t occ_show_power_a0(struct device *dev,
+@@ -574,7 +574,7 @@ static ssize_t occ_show_power_a0(struct device *dev,
+ 		val = get_unaligned_be16(&power->proc.update_time);
  		break;
- 	case 8:
- 		/* microwatts */
+ 	case 6:
 -		val = get_unaligned_be16(&power->proc.value) * 1000000;
 +		val = get_unaligned_be16(&power->proc.value) * 1000000ULL;
  		break;
- 	case 9:
+ 	case 7:
  		val = get_unaligned_be32(&power->proc.update_tag);
-@@ -523,7 +523,7 @@ static ssize_t occ_show_power_a0(struct device *dev,
- 		return snprintf(buf, PAGE_SIZE - 1, "vdd\n");
- 	case 12:
- 		/* microwatts */
+@@ -583,7 +583,7 @@ static ssize_t occ_show_power_a0(struct device *dev,
+ 		val = get_unaligned_be64(&power->proc.accumulator);
+ 		break;
+ 	case 9:
 -		val = get_unaligned_be16(&power->vdd.value) * 1000000;
 +		val = get_unaligned_be16(&power->vdd.value) * 1000000ULL;
  		break;
- 	case 13:
+ 	case 10:
  		val = get_unaligned_be32(&power->vdd.update_tag);
-@@ -535,7 +535,7 @@ static ssize_t occ_show_power_a0(struct device *dev,
- 		return snprintf(buf, PAGE_SIZE - 1, "vdn\n");
- 	case 16:
- 		/* microwatts */
+@@ -592,7 +592,7 @@ static ssize_t occ_show_power_a0(struct device *dev,
+ 		val = get_unaligned_be64(&power->vdd.accumulator);
+ 		break;
+ 	case 12:
 -		val = get_unaligned_be16(&power->vdn.value) * 1000000;
 +		val = get_unaligned_be16(&power->vdn.value) * 1000000ULL;
  		break;
- 	case 17:
+ 	case 13:
  		val = get_unaligned_be32(&power->vdn.update_tag);
 -- 
 1.8.3.1
