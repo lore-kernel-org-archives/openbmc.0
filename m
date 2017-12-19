@@ -1,70 +1,34 @@
-Return-Path: <dduffey@cisco.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=cisco.com
- (client-ip=173.37.86.72; helo=rcdn-iport-1.cisco.com;
- envelope-from=dduffey@cisco.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=cisco.com header.i=@cisco.com header.b="JfA3vyQH"; 
- dkim-atps=neutral
-X-Greylist: delayed 1052 seconds by postgrey-1.36 at bilbo;
- Tue, 19 Dec 2017 11:05:43 AEDT
-Received: from rcdn-iport-1.cisco.com (rcdn-iport-1.cisco.com [173.37.86.72])
- (using TLSv1.2 with cipher DHE-RSA-SEED-SHA (128/128 bits))
+Return-Path: <bradleyb@fuzziesquirrel.com>
+Authentication-Results: ozlabs.org;
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3z0ypv13kVzDsXq
- for <openbmc@lists.ozlabs.org>; Tue, 19 Dec 2017 11:05:42 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=cisco.com; i=@cisco.com; l=6844; q=dns/txt; s=iport;
- t=1513641943; x=1514851543;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=nvYsr6juSeUG0a76rCxCJk8IWBB65P/G9iabkOXbv3w=;
- b=JfA3vyQHOJzeA4Eve8WYbvV5uvd7s2ODrut63F05LaDrEduaxDauKdy+
- iDq7F7IYZYy8v2UYOG+EFB2b6kLwaGBpkblDXG5w67JIgCIztA/jIBu/8
- ka64tfhLLDR+V5HxSme3NbCU8R/wuHq1FEiYZqSVrcYAtHGYczjdHYeRz g=;
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A0CcAACMSjha/4wNJK1dGQEBAQEBAQEBA?=
- =?us-ascii?q?QEBAQcBAQEBAYM+ZnQnB4N/iiGPCoIAfpYjgTYDXAoYC4UYAhqEbT8YAQEBAQE?=
- =?us-ascii?q?BAQEBayiFIwEBAQEDASIRRQwEAgEIEQQBAQECAhIBEAMCAgImChQBCAgCBAENB?=
- =?us-ascii?q?QiKIhCrZYInimoBAQEBAQEBAQEBAQEBAQEBAQEBAQEYBYEPgl+CDoFWgWmCdja?=
- =?us-ascii?q?DLgGBWC0xAYJMgmMFkhuRIQKHfYcbK4Vegh+RXYpNgk6JMAIRGQGBOgEfOTKBH?=
- =?us-ascii?q?W8VgmWCUxyBZgF4AYdJDRiBDYEVAQEB?=
-X-IronPort-AV: E=Sophos;i="5.45,423,1508803200"; d="scan'208";a="337542126"
-Received: from alln-core-7.cisco.com ([173.36.13.140])
- by rcdn-iport-1.cisco.com with ESMTP/TLS/DHE-RSA-AES256-SHA;
- 18 Dec 2017 23:11:03 +0000
-Received: from XCH-ALN-006.cisco.com (xch-aln-006.cisco.com [173.36.7.16])
- by alln-core-7.cisco.com (8.14.5/8.14.5) with ESMTP id vBINB311009313
- (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL);
- Mon, 18 Dec 2017 23:11:04 GMT
-Received: from xch-rcd-009.cisco.com (173.37.102.19) by XCH-ALN-006.cisco.com
- (173.36.7.16) with Microsoft SMTP Server (TLS) id 15.0.1320.4;
- Mon, 18 Dec 2017 17:11:03 -0600
-Received: from xch-rcd-009.cisco.com ([173.37.102.19]) by
- XCH-RCD-009.cisco.com ([173.37.102.19]) with mapi id 15.00.1320.000; Mon, 18
- Dec 2017 17:11:03 -0600
-From: "David Duffey (dduffey)" <dduffey@cisco.com>
-To: Patrick Venture <venture@google.com>, Joel Stanley <joel@jms.id.au>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: RE: linux 4.10 on ast2400
-Thread-Topic: linux 4.10 on ast2400
-Thread-Index: AQHTV2WvEHwnBiEdE0KfGcuZxj8toKMJDoIAgAAEwACAA8mQAIA9b3EA//+uBJA=
-Date: Mon, 18 Dec 2017 23:11:03 +0000
-Message-ID: <b8471c2a4cde443c8df4ca85b47b1862@XCH-RCD-009.cisco.com>
-References: <CAO=notzLZR-jiYTf8NdebLL9kUyLuxCPoJS2OqG5MsvGZRUKhQ@mail.gmail.com>
- <CACPK8XdQT1ViGGK0dUuwBUe+RmcR6KC9Hjnq3ywY3vCK72XOBg@mail.gmail.com>
- <CACPK8XdZt90BxUGZWioe8XQ7hpWO8yP9qXxKw-dFNMgKaF-twg@mail.gmail.com>
- <CAO=notx1xgFuMqFbxgf2_6zyQrHrbq_HwCM565gUTS9V0-zEvg@mail.gmail.com>
- <CAO=notwowQs4pNvGeH0erQnuAKve0RPVF1KiAHGX_0hGEN_8sA@mail.gmail.com>
-In-Reply-To: <CAO=notwowQs4pNvGeH0erQnuAKve0RPVF1KiAHGX_0hGEN_8sA@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.99.88.119]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3z0zP918BLzDsS6
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Dec 2017 11:31:56 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Received: from [192.168.253.30] (unknown [192.168.253.30])
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 7573E975BB;
+ Mon, 18 Dec 2017 19:31:50 -0500 (EST)
+Content-Type: text/plain; charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: Re: OpenBMC community telecon - 11/27 Agenda
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <20171218223918.GO113334@mauery>
+Date: Mon, 18 Dec 2017 19:31:50 -0500
+Cc: OpenBMC <openbmc@lists.ozlabs.org>,
+ Richard Marian Thomaiyar <richard.marian.thomaiyar@linux.intel.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <16113B02-7098-4523-A84A-E4CAFFB145A5@fuzziesquirrel.com>
+References: <911ECDC1-D1F4-4B4B-8433-CE396C2EEE35@fuzziesquirrel.com>
+ <20171205010205.GH113334@mauery>
+ <1513620424.5787.47.camel@fuzziesquirrel.com>
+ <20171218223918.GO113334@mauery>
+To: Vernon Mauery <vernon.mauery@linux.intel.com>
+X-Mailer: Apple Mail (2.3273)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -76,93 +40,287 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Dec 2017 00:05:44 -0000
+X-List-Received-Date: Tue, 19 Dec 2017 00:31:57 -0000
 
-DQovcHJvYy96b25laW5mbyBtYXkgcHJvdmlkZSBzb21lIHVzZWZ1bCBoaW50cyAoaWYgaXQgZXhp
-c3RzKQ0KDQpOb3QgZXhhY3RseSBhcHBsaWNhYmxlIGJ1dCBvbiB4ODYgaG9zdHMgSSd2ZSBzZWVu
-IGhhcmR3YXJlICh2aWEgZTgyMCkgcmVzZXJ2ZSBkaWZmZXJlbnQgYW1vdW50cyBhbmQgYWRkcmVz
-c2VzIGZyb20gYm9vdC10by1ib290LiAgQWRkaXRpb25hbGx5IHRoZXJlIGlzIHNvbWUgbG9naWMg
-aW4gdGhlIGtlcm5lbCB0byByZXNlcnZlIHRob3NlIHJhbmdlcyBhcyBjZXJ0YWluIGJvdW5kYXJp
-ZXMgc28gYSBzb21lIGFkZHJlc3NlcyB3b3VsZCBjYXVzZSBtb3JlIHJlc2VydmVkIG1lbW9yeSB0
-aGFuIG90aGVycy4gDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBvcGVuYm1j
-IFttYWlsdG86b3BlbmJtYy1ib3VuY2VzK2RkdWZmZXk9Y2lzY28uY29tQGxpc3RzLm96bGFicy5v
-cmddIE9uIEJlaGFsZiBPZiBQYXRyaWNrIFZlbnR1cmUNClNlbnQ6IE1vbmRheSwgRGVjZW1iZXIg
-MTgsIDIwMTcgMzo1OCBQTQ0KVG86IEpvZWwgU3RhbmxleSA8am9lbEBqbXMuaWQuYXU+DQpDYzog
-T3BlbkJNQyBNYWlsbGlzdCA8b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPg0KU3ViamVjdDogUmU6
-IGxpbnV4IDQuMTAgb24gYXN0MjQwMA0KDQpJIGxvYWRlZCA0LjEwIHdpdGggc29tZSBkZWJ1ZyBt
-ZW1vcnkgc3R1ZmYsIGJ1dCBJIG5vdGljZWQgdGhhdCBlYWNoIHJlYm9vdCBjb3VsZCBoYXZlIHdp
-bGRseSBkaWZmZXJlbnQgZnJlZSBtZW1vcnkuICBTbywgaGVyZSdzIHRoZSByZXN1bHRzIGZyb20g
-anVzdCBkdW1waW5nIHRoZSBmaWxlIGltbWVkaWF0ZWx5IGFmdGVyIGJvb3QgYW5kIHRoZW4gcmVi
-b290aW5nLg0KDQpyb290QHF1YW50YS1xNzFsOn4jIGNhdCAvcHJvYy9tZW1pbmZvDQpNZW1Ub3Rh
-bDogICAgICAgICAxMTUwNzYga0INCk1lbUZyZWU6ICAgICAgICAgICA0MjIyOCBrQg0KDQpyb290
-QHF1YW50YS1xNzFsOn4jIGNhdCAvcHJvYy9tZW1pbmZvDQpNZW1Ub3RhbDogICAgICAgICAxMTUw
-NzYga0INCk1lbUZyZWU6ICAgICAgICAgICAgMTY2OCBrQg0KDQpyb290QHF1YW50YS1xNzFsOn4j
-IGNhdCAvcHJvYy9tZW1pbmZvDQpNZW1Ub3RhbDogICAgICAgICAxMTUwNzYga0INCk1lbUZyZWU6
-ICAgICAgICAgICAgMTg3NiBrQg0KDQpyb290QHF1YW50YS1xNzFsOn4jIGNhdCAvcHJvYy9tZW1p
-bmZvDQpNZW1Ub3RhbDogICAgICAgICAxMTUwNzYga0INCk1lbUZyZWU6ICAgICAgICAgICAyNzQ2
-NCBrQg0KDQpyb290QHF1YW50YS1xNzFsOn4jIGNhdCAvcHJvYy9tZW1pbmZvDQpNZW1Ub3RhbDog
-ICAgICAgICAxMTUwNzYga0INCk1lbUZyZWU6ICAgICAgICAgICAxMjE0MCBrQg0KDQpyb290QHF1
-YW50YS1xNzFsOn4jIGNhdCAvcHJvYy9tZW1pbmZvDQpNZW1Ub3RhbDogICAgICAgICAxMTUwNzYg
-a0INCk1lbUZyZWU6ICAgICAgICAgICAgMjA4NCBrQg0KDQpPbiBUaHUsIE5vdiA5LCAyMDE3IGF0
-IDExOjQ3IEFNLCBQYXRyaWNrIFZlbnR1cmUgPHZlbnR1cmVAZ29vZ2xlLmNvbT4gd3JvdGU6DQo+
-IEkgYWRkZWQgdGhlc2UgY29uZmlndXJhdGlvbnMgYW5kIGFmdGVyIH4xMCByZWJvb3RzIGl0IHdh
-c24ndCANCj4gcmVwcm9kdWNpbmcsIGJ1dCBJJ2xsIGtlZXAgYW4gZXllIG91dCBhbmQgdXBkYXRl
-IG92ZXIgdGhlIGNvbWluZyBkYXlzLg0KPg0KPiBUaGFua3MhDQo+DQo+IE9uIFR1ZSwgTm92IDcs
-IDIwMTcgYXQgMTo1NiBBTSwgSm9lbCBTdGFubGV5IDxqb2VsQGptcy5pZC5hdT4gd3JvdGU6DQo+
-PiBPbiBUdWUsIE5vdiA3LCAyMDE3IGF0IDg6MDkgUE0sIEpvZWwgU3RhbmxleSA8am9lbEBqbXMu
-aWQuYXU+IHdyb3RlOg0KPj4+IE9uIFR1ZSwgTm92IDcsIDIwMTcgYXQgMTE6NDIgQU0sIFBhdHJp
-Y2sgVmVudHVyZSA8dmVudHVyZUBnb29nbGUuY29tPiB3cm90ZToNCj4+Pj4gSSd2ZSBiZWVuIGRv
-aW5nIHRlc3Rpbmcgd2l0aCBsaW51eCA0LjEwIG9uIHRoZSBhc3QyNDAwIGFuZCBvbiBzb21lIA0K
-Pj4+PiBwZXJjZW50YWdlICgyMCUgb2Ygc3lzdGVtcykgd2hlbiB0aGV5IGJvb3QgdGhleSdyZSBu
-b3QgYWJsZSB0byANCj4+Pj4gcmVhbGx5IGxhdW5jaCBhcHBsaWNhdGlvbnMuICBUaGUgb25lIHdl
-IHNlZSBmYWlsaW5nIGlzIGFnZXR0eSwgYnV0IA0KPj4+PiBpcG1pZCBhbHNvIGVuZHMgdXAgbm90
-IHJ1bm5pbmcuICBIZXJlIGlzIHRoZSBsb2cgZnJvbSB3aGF0IHdlJ3JlIA0KPj4+PiBzZWVpbmcg
-b24gdGhlDQo+Pj4+IHF1YW50YS1xNzFsOg0KPj4+Pg0KPj4+PiBbICBPSyAgXSBTdGFydGVkIENs
-ZWFyIG9uZSB0aW1lIGJvb3Qgb3ZlcnJpZGVzLg0KPj4+PiBbICBPSyAgXSBGb3VuZCBkZXZpY2Ug
-L2Rldi90dHlTNC4NCj4+Pj4gWyAgT0sgIF0gRm91bmQgZGV2aWNlIC9kZXYvdHR5VlVBUlQwLg0K
-Pj4+PiBbICAgNDIuMzYwMDAwXSA4MDIxcTogYWRkaW5nIFZMQU4gMCB0byBIVyBmaWx0ZXIgb24g
-ZGV2aWNlIGV0aDENCj4+Pj4gWyAgT0sgIF0gU3RhcnRlZCBOZXR3b3JrIFNlcnZpY2UuDQo+Pj4+
-IFsgICA0Mi40MjAwMDBdIDgwMjFxOiBhZGRpbmcgVkxBTiAwIHRvIEhXIGZpbHRlciBvbiBkZXZp
-Y2UgZXRoMA0KPj4+PiBbICBPSyAgXSBTdGFydGVkIFBob3NwaG9yIEludmVudG9yeSBNYW5hZ2Vy
-Lg0KPj4+PiBbICBPSyAgXSBTdGFydGVkIFBob3NwaG9yIFNldHRpbmdzIERhZW1vbi4NCj4+Pj4g
-WyAgT0sgIF0gUmVhY2hlZCB0YXJnZXQgTmV0d29yay4NCj4+Pj4gICAgICAgICAgU3RhcnRpbmcg
-UGVybWl0IFVzZXIgU2Vzc2lvbnMuLi4NCj4+Pj4gWyAgT0sgIF0gU3RhcnRlZCBMaWdodHdlaWdo
-dCBTTFAgU2VydmVyLg0KPj4+PiBbICBPSyAgXSBTdGFydGVkIFBob3NwaG9yIENvbnNvbGUgTXV4
-ZXIgbGlzdGVuaW5nIG9uIGRldmljZSAvZGV2L3R0eVZVQVJUMC4NCj4+Pj4gWyAgT0sgIF0gU3Rh
-cnRlZCBQaG9zcGhvciBJbmJhbmQgSVBNSS4NCj4+Pj4gWyAgT0sgIF0gQ3JlYXRlZCBzbGljZSBz
-eXN0ZW0teHl6Lm9wZW5ibWNfcHJvamVjdC5Id21vbi5zbGljZS4NCj4+Pj4gWyAgT0sgIF0gU3Rh
-cnRlZCBQZXJtaXQgVXNlciBTZXNzaW9ucy4NCj4+Pj4gWyAgT0sgIF0gU3RhcnRlZCBTZXJpYWwg
-R2V0dHkgb24gdHR5UzQuDQo+Pj4+IFsgIE9LICBdIFJlYWNoZWQgdGFyZ2V0IExvZ2luIFByb21w
-dHMuDQo+Pj4+IFsgIE9LICBdIFJlYWNoZWQgdGFyZ2V0IE11bHRpLVVzZXIgU3lzdGVtLg0KPj4+
-PiBbICAgNDQuNTMwMDAwXSBmdGdtYWMxMDAgMWU2ODAwMDAuZXRoZXJuZXQgZXRoMTogTkNTSSBp
-bnRlcmZhY2UgZG93bg0KPj4+PiBbICAgNDUuODAwMDAwXSBmdGdtYWMxMDAgMWU2NjAwMDAuZXRo
-ZXJuZXQgZXRoMDogTkNTSSBpbnRlcmZhY2UgZG93bg0KPj4+PiBbICAgNDkuNDMwMDAwXSBVbmFi
-bGUgdG8gaGFuZGxlIGtlcm5lbCBwYWdpbmcgcmVxdWVzdCBhdCB2aXJ0dWFsDQo+Pj4+IGFkZHJl
-c3MgZTFhMDAwMDYNCj4+Pj4gWyAgIDQ5LjQzMDAwMF0gcGdkID0gODUzNTQwMDANCj4+Pj4gWyAg
-IDQ5LjQzMDAwMF0gW2UxYTAwMDA2XSAqcGdkPTAwMDAwMDAwDQo+Pj4+IFsgICA0OS40MzAwMDBd
-IEludGVybmFsIGVycm9yOiBPb3BzOiAxIFsjMV0gQVJNDQo+Pj4+IFsgICA0OS40MzAwMDBdIENQ
-VTogMCBQSUQ6IDkzMiBDb21tOiAoYWdldHR5KSBOb3QgdGFpbnRlZA0KPj4+PiA0LjEwLjE3LWVj
-ZWQ1MzhlNjIzM2M1MDcyOWNjMTA3OTU4NTk2YTE0NDM5NDdiYTIgIzENCj4+Pg0KPj4+IFRoaXMg
-U0hBIGlzbid0IGluIHRoZSBPcGVuQk1DIGRldi00LjEwIHRyZWUuIFdoZXJlIGFyZSB5b3UgZ2V0
-dGluZyANCj4+PiB5b3VyIGtlcm5lbCBzb3VyY2VzIGZyb20/DQo+Pj4NCj4+PiBXaGVyZXZlciB5
-b3UndmUgZ3JhYmJlZCBpdCBmcm9tIGl0J3Mgb3V0IG9mIGRhdGUgYXMgdGhlIGxpbmUgbnVtYmVy
-cyANCj4+PiBkb24ndCBxdWl0ZSBtYWtlIHNlbnNlLg0KPj4+DQo+Pj4+IFsgICA0OS40MzAwMDBd
-IEhhcmR3YXJlIG5hbWU6IEFTcGVlZCBTb0MNCj4+Pj4gWyAgIDQ5LjQzMDAwMF0gdGFzazogODZl
-MWMwMDAgdGFzay5zdGFjazogODU4ZjYwMDANCj4+Pj4gWyAgIDQ5LjQzMDAwMF0gUEMgaXMgYXQg
-dW5saW5rX2Fub25fdm1hcysweDk4LzB4MWIwDQo+Pj4NCj4+PiBXZSBoYXZlIHNlZW4gbWVtb3J5
-IGNvcnJ1cHRpb24gd2hlbiBydW5uaW5nIHVuZGVyIFFlbXUuIFRoaXMgaXMgdGhlIA0KPj4+IGZp
-cnN0IHRpbWUgSSd2ZSBoYWQgYSByZXBvcnQgb2YgaXQgaGFwcGVuaW5nIG9uIGhhcmR3YXJlLg0K
-Pj4+DQo+Pj4gIGh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL3FlbXUvaXNzdWVzLzkNCj4+Pg0K
-Pj4+IENhbiB5b3Ugc2hhcmUgc29tZSBpbmZvcm1hdGlvbiB3aXRoIGhvdyB5b3UncmUgYm9vdGlu
-Zz8NCj4+Pg0KPj4+IEFyZSB5b3UgbmV0Ym9vdGluZz8NCj4+Pg0KPj4+IFdoaWNoIHUtYm9vdCB0
-cmVlIGFyZSB5b3UgdXNpbmc/IERvZXMgaXQgZW5hYmxlIG5ldHdvcmtpbmcgYmVmb3JlIA0KPj4+
-IGp1bXBpbmcgdG8gdGhlIGtlbnJlbD8gT3IgdHJpZ2dlciBhbnkgb3RoZXIga2luZHMgb2YgRE1B
-Pw0KPj4NCj4+IENhbiB5b3UgcmVwcm9kdWNlIHdpdGggc29tZSBkZWJ1Z2dpbmcgdHVybmVkIG9u
-PyBCdWlsZCB5b3VyIGtlcm5lbCB3aXRoOg0KPj4NCj4+ICBERUJVR19MSVNUDQo+PiAgUEFHRV9Q
-T0lTT05JTkcNCj4+ICBERUJVR19QQUdFQUxMT0MNCj4+ICBERUJVR19TTEFCDQo+Pg0KPj4gT3Ig
-ZXZlbiBtb3JlLiBUYWtlIGEgbG9vayB0aHJvdWdoIHRoZSBLZXJuZWwgaGFja2luZyBtZW51IGlu
-IA0KPj4gbWVudWNvbmZpZyBhbmQgZW5hYmxlIHRoaW5ncyB1bnRpbCB0aGUgc3lzdGVtIHNsb3dz
-IGRvd24gdG9vIG11Y2ggdG8gDQo+PiByZXByb2R1Y2UgdGhlIGlzc3VlIDopDQo+Pg0KPj4gRG9l
-cyBpdCByZXByb2R1Y2UgaWYgeW91IGRpc2FibGUgdGhlIEZUR01BQzEwMCBkZXZpY2VzIChzZXQg
-dGhlbSB0byANCj4+IHN0YXR1cyA9ICJkaXNhYmxlZCIgaW4geW91ciBkZXZpY2UgdHJlZSwgb3Ig
-ZGlzYWJsZSB0aGVtIGluIHRoZSANCj4+IGtlcm5lbCBjb25maWcpPw0K
+
+> On Dec 18, 2017, at 5:39 PM, Vernon Mauery =
+<vernon.mauery@linux.intel.com> wrote:
+>=20
+> On 18-Dec-2017 01:07 PM, Brad Bishop wrote:
+>> On Mon, 2017-12-04 at 17:02 -0800, Vernon Mauery wrote:
+>>=20
+>> Hi Vernon
+>>=20
+>> Really appreciate you putting this together - thanks.  I do have a
+>> couple comments/questions.
+>>=20
+>>>=20
+>>> For the discussion on user management.
+>>>=20
+>>> Overview:
+>>> 1. User management is done via PAM.
+>>=20
+>> Are there any aspects of user management that are done outside of =
+PAM?
+>=20
+> Yes. It turns out that IPMI management with multiple LAN channels =
+throws a wrench in things, so it may be that IPMI need to do some of its =
+user management separately (like determining what privileges a user gets =
+on a particular channel).
+
+Could creating a group per channel on the BMC at runtime make this
+simpler?
+
+> There may be other stuff like this, so it might be helpful to define a =
+'hook' or something that says if a user is a member of group X, you must =
+notify group X when you want to change stuff.
+>=20
+>> I only ask this because your writeup feels like a good start on a
+>> README somewhere.  To that end, would it make sense to frame this =
+from
+>> the perspective of different actors attempting to add function?  For
+>> example:
+>>=20
+>> If you want to implement a service that authenticates a user:
+>>  - do v
+>>  - do w
+>>=20
+>> If you want to implement a service that adds users to a user =
+database:
+>>  - do x
+>>=20
+>> If you want to implement a service that adds users to a group:
+>>  - do y
+>>=20
+>> If you want to implement a service that authorizes a user:
+>>  - do z
+>>=20
+>> etc, and then the IPMI specifics would just be adhering to this
+>> framework.
+>>=20
+>> I could have these bullet points all wrong.  This was just meant as a
+>> straw-man for a more general document that can guide people looking =
+to
+>> add this type of function later.
+>=20
+> Yes, this sort of writeup as a README would be a good idea. Not just =
+an API, but a practical usage guide.
+>=20
+>>> 2. If IPMI is being used, PAM loads the pam_ipmi.so password module.
+>>>   a. pam_ipmi.so intercepts password changes and saves the password
+>>>      for IPMI-enabled users to a file that can be read at a later
+>>> time
+>>>      to initiate an RMCP+ session. (encrypted or obfuscated with a
+>>>      per-BMC key so no passwords are written directly in flash.)
+>>>   b. pam_ipmi.so implements a method to decrypt passwords and
+>>> provide
+>>>      them to host-ipmi (for test password command) and net-ipmi (for
+>>>      session initiation)
+>>> 3. If a user is not enabled for IPMI, their password will not be
+>>> saved
+>>>   in the ipmi database, and thus must be reset if/when that user
+>>> gains
+>>>   IPMI capability.
+>>> 4. If a user loses IPMI capability, their password is reset to force
+>>> a
+>>>   password change so their password is secure again.
+>>=20
+>> I'm not understanding why this is needed.  Couldn't we simply remove
+>> the password entry from the IPMI backend when the group membership
+>> changes?  Is this an artifact of how PAM works or do we think we need
+>> it for a more fundamental reason?
+>=20
+> If the password is ever saved in the IPMI password database, it is =
+best to assume it is no longer a secret. If you really want your =
+password secure, it should be changed.
+
+ok.
+
+>=20
+>>> 5. Capabilities is done via unix groups
+>>>   a. Groups like ipmi, webserver, redfish, ssh, sol can provide
+>>> login
+>>>      or 'channel' access.
+>>=20
+>> I wonder if a per-channel (or service in PAM speak?) pam_listfile
+>> account entry can get us here.
+>=20
+> Sure, that could be a pattern we follow. I would have to dig deeper to =
+see if it buys us anything that plain-old unix groups would not provide.
+>=20
+>>>   b. Groups like user-manager, media, power, sensor, etc., can
+>>> provide
+>>>      fine-grained access for various capabilities. Providers of
+>>>      capabilities should check to see that accessors (users) have
+>>> the
+>>>      required permission.
+>>=20
+>> pam_listfile might work here too, only this would global across all =
+PAM
+>> services?
+>=20
+> Once again, I am not entirely sure what this would buy over just using =
+unix groups. We need to walk through some more usage scenarios like you =
+have above.
+>=20
+
+I wasn=E2=80=99t intending to propose something extra - this was just =
+the
+result of my brief research on how to authorize users based on group
+membership with PAM.
+
+I=E2=80=99ve never written any programs that use PAM so I could be way =
+off
+in the weeds here.  I guess my question would be what other way can
+we do it?
+
+
+>>> 6. Admin-defined 'super-groups'
+>>>   a. Provide a set of pre-defined groups of capabilities that can be
+>>>      assigned to users: Admin, User, Operator or similar that each
+>>> have
+>>>      groups associated with them.
+>>=20
+>> Do we intend to also allow the contained subgroups to be
+>> changed/configured for the on the BMC dynamically?  For example could
+>> you remove the 'sensor' group from the Operator group (assuming that =
+by
+>> default sensor group is included in the Operator group).
+>=20
+> Ideally, yes, a system admin could change what capabilities each group =
+allowed (like removing sensor capabilities from the Operator group), but =
+to start with, just having a way to define the defaults at built time =
+would be a good target.
+>=20
+>>>   b. Changes to groups via APIs can make sure that if a user is
+>>>      assigned to a 'super-group' will stay assigned to the sub-
+>>> groups
+>>>   c. Changes made to users via manual commands may override API
+>>> groups
+>>=20
+>> This all seemed pretty straightforward until I got to #6.  It seems
+>> like it is definitely required but I'm wondering if it could be =
+staged
+>> in later somehow?
+>=20
+> Yes. Let's just start with defining a way to define defaults. This =
+should be done using a yocto mechanism that allows developers of openbmc =
+to override at build time (maybe on a platform basis?). This makes the =
+original defaults less important (so not all of the contributors need to =
+fully agree on what constitutes reasonable defaults).
+
+Sounds good.  Lets say you have an operator group on platform X with
+sensors and an operator group on platform Y without sensors.  How would
+you authorize the user?
+
+>=20
+>>>=20
+>>>=20
+>>> Methods:
+>>=20
+>> Do we need similar APIs for groups?
+>=20
+> Likely. But to start with, maybe we can skip that part. To start with, =
+the list of groups (and their associated capabilities) will be fixed at =
+build time.
+
+Sounds good.
+
+>=20
+>>>    1. CREATE_USER
+>>>        Privilege-required: USER-MANAGER
+>>>        Args:
+>>>            UserName - STRING (16 bytes only - else role change to
+>>> IPMI can't be done)
+>>>            Password - Byte Array (Max of 20 bytes if IPMID is
+>>> chosen. For
+>>>                       others can send more bytes, but change role to
+>>> IPMI will
+>>>                       request password again under 20 bytes)
+>>>            Roles - STRING with comma separated
+>>>        Return:
+>>>            SUCCESS ERR_USERNAME_EXIST ERR_PASSWORD_FAILS
+>>> ERR_ROLE_FAILS
+>>>            ERR_PASSWORD_ROLE_FAIL ERR_NO_RESOURCE ERR_UNKNOWN
+>>>            ERR_AUTHORIZATION_FAIL
+>>>=20
+>>>    2. DELETE_USER
+>>>        Privilege-required: USER-MANAGER
+>>>        Args:
+>>>            UserName - STRING
+>>>        Return:
+>>>            SUCCESS ERR_USERNAME_NOT_EXIST ERR_UNKNOWN
+>>> ERR_AUTHORIZATION_FAIL
+>>=20
+>> Can we use the xyz.openbmc_project.Object.Delete interface for this?
+>> The thinking was that a common Delete interface might make DBus<->UI
+>> implementations easier.  This is the same motivation behind asking =
+for
+>> the org.freedesktop interfaces below.
+>=20
+> I am fine with using generic interfaces as long as they fit the bill. =
+Deleting a user seems like it should be straight-forward enough that =
+this would work well.
+>=20
+>>>=20
+>>>    3. CHANGE ROLE / CHANGE_PASSWORD (OTHERS)
+>>>        Privilege-required: USER-MANAGER
+>>>        Args:
+>>>            UserName - STRING
+>>>            New Password (if changed) - Byte Array
+>>>            New Role (if changed) - Array of STRING
+>>>        Return:
+>>>            SUCCESS ERR_USERNAME_NOT_EXIST ERR_UNKNOWN
+>>> ERR_AUTHORIZATION_FAIL
+>>>            ERR_PASSWORD_FAILS ERR_PASSWORD_ROLE_FAIL ERR_NO_RESOURCE
+>>>=20
+>>=20
+>> I thought the intent was to strictly use PAM for this.  In what
+>> scenario do we need a DBus API for this?
+>=20
+> For managing groups, this will have to be done outside of PAM. PAM =
+doesn't know how to change /etc/group. So we will have to provide some =
+central mechanism (probably in the phosphor-user-manager) to host the =
+group management API.
+>=20
+>>>    4. CHANGE_PASSWORD (SELF)
+>>>        Privilege-required: Any Valid user
+>>>        Args:
+>>>            New Password - Byte Array
+>>>        Return:
+>>>            SUCCESS ERR_PASSWORD_FAILS ERR_PASSWORD_ROLE_FAIL
+>>> ERR_UNKNOWN
+>>=20
+>> Same question as #3.
+>=20
+> You are right. Passwords should not go over DBus. Things that change =
+passwords should use PAM directly.
+>=20
+>>>=20
+>>>    5. LIST_USER_DETAILS
+>>>        Privilege-required: USER-MANAGER
+>>>        Args:
+>>>            NULL
+>>>        Return:
+>>>            Array of:
+>>>                USER_NAME (String)
+>>>                ROLES (String)
+>>=20
+>> Could we use org.freedesktop.DBus.ObjectManager.GetManagedObjects for
+>> this?
+>=20
+> Yes.
+>=20
+>>>=20
+>>> Signals:
+>>>    1. UPDATED_USER_SIGNAL
+>>>        Args:
+>>>            UserName of updated user
+>>>            UpdateType:
+>>>                Role changed / User Deleted / User created / Password
+>>=20
+>> Could we use org.freedesktop.DBus.Properties.PropertiesChanged here?
+>=20
+> Yes.
+>=20
+> --Vernon
