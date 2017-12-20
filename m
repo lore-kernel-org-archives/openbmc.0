@@ -1,52 +1,62 @@
-Return-Path: <sam@mendozajonas.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
- (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com;
- envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
+Return-Path: <joel.stan@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2a00:1450:4010:c07::241; helo=mail-lf0-x241.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
- header.b="rgFkIijl"; dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="d/3aQoBi"; dkim-atps=neutral
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="YgVHruDK"; 
+ dkim-atps=neutral
+Received: from mail-lf0-x241.google.com (mail-lf0-x241.google.com
+ [IPv6:2a00:1450:4010:c07::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3z1fj06nVNzF07Q
- for <openbmc@lists.ozlabs.org>; Wed, 20 Dec 2017 14:03:00 +1100 (AEDT)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id D1A6E20701
- for <openbmc@lists.ozlabs.org>; Tue, 19 Dec 2017 22:02:57 -0500 (EST)
-Received: from frontend1 ([10.202.2.160])
- by compute2.internal (MEProxy); Tue, 19 Dec 2017 22:02:57 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- mendozajonas.com; h=date:from:message-id:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=/vdFq+3Y29hV7edgllEXLZ9g4Djzq
- DE2f5c/ObAzPtI=; b=rgFkIijleaInsjg8/LwU2XrhQzXkcWyg7mVEvmw5rGyc9
- SOEZDntdLMvZ7pM9ozEcZjBVCILNaMxtr1Rx/G5OI6M7PBp77jzS7A129JdFvIU5
- GktslZBln2pRSg2We5XOZk82QZdBEnA8YwaS6MZJKXBqvTc0+yDYedmf8oMOzpdz
- twJy5w1cFJBSUwwIfKb6UtI6QR6tVayfWj6lXY0NvU3OInsqcFN6QraIaSsbNTKy
- Sz2Ve9MpYq9qapu+z0J1C/mXVHk3QoH640416p1qMf56w+dAtli2mhp/znGlmo4W
- hlsXpIQVrJL28Biihjd4B4kf9B1Je2dUMdmKT0P9A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=/vdFq+3Y29hV7edgl
- lEXLZ9g4DjzqDE2f5c/ObAzPtI=; b=d/3aQoBiQq4YFH02Z9iVVmiITQmnhZ3wk
- Zd5bq3HO5+O9IcysuiCnRxAuK2SzMNbMszqzOUKjBpUs9rwXe0052yXmW5Oic9b+
- re7CueaLfre3/EOkP7L6+XsACGuy2CSTQhfHursxfa8TsP7tyU1nn7NvJy4u92ee
- CO/8TIK3C8PIaUHTNgR7WhAO7pDD45qTc/1bxlEcclVJE1V8TTIrS8ZSPwTLBC41
- jrFjLM8lDVXmyF6qazhYZRa5+jcZ+YKW3rCfL03wTYHyywng1307tpTS9BJCwuz6
- sJlUB9wE2haftW/xWjlr9K6jDYHabNZjS79jNthsAVVpMPdexgSlg==
-X-ME-Sender: <xms:4dI5Wg0ziYYGgunjlapomd_QvbccKO6F571oyMuXx9rJ1D_p9zKOlg>
-Received: from v4.ozlabs.ibm.com (unknown [122.99.82.10])
- by mail.messagingengine.com (Postfix) with ESMTPA id E74DD7E2F4
- for <openbmc@lists.ozlabs.org>; Tue, 19 Dec 2017 22:02:56 -0500 (EST)
-From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.13] net/ncsi: Don't take any action on HNCDSC AEN
-Date: Wed, 20 Dec 2017 14:02:51 +1100
-Message-Id: <20171220030251.19337-1-sam@mendozajonas.com>
-X-Mailer: git-send-email 2.15.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3z1fnl3T5yzF07Q
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Dec 2017 14:07:07 +1100 (AEDT)
+Received: by mail-lf0-x241.google.com with SMTP id w196so4453441lff.5
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Dec 2017 19:07:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=3+uCuhhB+GQgUb3yxSmG2rKA2/VezTAPPsAJLe4chpo=;
+ b=YgVHruDKlsjQ8zpf/qdg+EwIQPH3Gca8cQsmJaRowiarp16U4/0o+6xNrElbgOvWKJ
+ rGZdI49mEfQwWcNJIcEBGUIpr7213X4Pvb75buDRPk3RreofxIHoIvPb34BwrSn3Tqz1
+ lylVQ8B/sbZUVzAYBsZDUQmEU1W4C1NqCJQs3s4VOvgyc/EUiVR4Z7qm5wAaBCOGnHzY
+ oepjFy4GjLRbjc+w0/0NrE4LHqdMBOi7Iy0Yv7H8WC6wUevcp2i+97BPTy1c59fD3uKb
+ dbqwgjlvEbHeUYvZ6NWomvDFSQ8XIcFWZFGyDdjy1/0IX6miExKkTrfwmgMBftG1dU7u
+ DooQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=3+uCuhhB+GQgUb3yxSmG2rKA2/VezTAPPsAJLe4chpo=;
+ b=TKieMsMGVYQ/3pGgpe3KL+hZOjAudZvhKN36pZozlN20iA11SE9gT5U/jS6V8RbHhB
+ fw74rGsoILNplNP/EDWMO9qBZrJAj2WX7VOSBqWLnOWzEFy3T0jCdADzTWp5vjOl6ux7
+ g/DPkiP1QKCVSCZHkIHerbYjq9WRimv33Onq4aY1ZfBRhu0Cs9Es7mUIwcdIdAkUvlF8
+ Fpe4Y58P3JJDZd04QMfQEfW5jDSRUrLKox5tZ5YwyNB5fyiRHkq0pGzMWYSuTkx/6ewT
+ KXEcf4tQmHLBk3O2yzepx8nJoK+lneAGZP8L0Xtsmdet9MNMsf4UzViNxKYoMpCAeSJ9
+ lWEg==
+X-Gm-Message-State: AKGB3mJAaasRXXQWjeufKySKrY9iaV0KR3GCtMCUkSjOLq6OWccj2JAG
+ PK9BfrRloxov8rGAoGv3waatTAeyqV1CojCR6hI=
+X-Google-Smtp-Source: ACJfBos1ucj7XnAuTMy8GJsSPaR9PDK3IX8RHc25AG8yrkP4y6Bd07Ia2z6mr+aK2i1oCv4MMQTGhdrQubeguAgF+HY=
+X-Received: by 10.46.80.76 with SMTP id v12mr3510758ljd.101.1513739223788;
+ Tue, 19 Dec 2017 19:07:03 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.25.155.83 with HTTP; Tue, 19 Dec 2017 19:06:43 -0800 (PST)
+In-Reply-To: <CACPK8XeFN63xR4BiGUM+xwVvMOf=sLUr81SJ-BQYVR_McPaASg@mail.gmail.com>
+References: <1513628014-16656-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <CACPK8XeFN63xR4BiGUM+xwVvMOf=sLUr81SJ-BQYVR_McPaASg@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 20 Dec 2017 13:36:43 +1030
+X-Google-Sender-Auth: ZfrKzV2aIAzwiw4LE4NMHgxxj2Q
+Message-ID: <CACPK8XcFMMippVPMuNvv_JnJjX4BTreNy28Ue01JSaiQSUNoQQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.10] drivers: fsi: SBEFIFO: switch to workqueue
+ instead of timer
+To: Eddie James <eajames@linux.vnet.ibm.com>, npiggin@gmail.com
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ "Edward A. James" <eajames@us.ibm.com>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>, Jeremy Kerr <jk@ozlabs.org>,
+ Andrew Jeffery <andrew@aj.id.au>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -58,79 +68,219 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Dec 2017 03:03:02 -0000
+X-List-Received-Date: Wed, 20 Dec 2017 03:07:08 -0000
 
-The current HNCDSC handler takes the status flag from the AEN packet and
-will update or change the current channel based on this flag and the
-current channel status.
+On Wed, Dec 20, 2017 at 1:27 PM, Joel Stanley <joel@jms.id.au> wrote:
+> On Tue, Dec 19, 2017 at 6:43 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+>> From: "Edward A. James" <eajames@us.ibm.com>
+>>
+>> Some systems are experiencing scheduling problems; mod_timer can take up
+>> to several seconds before the timer_function is executed, even if passed
+>> the current jiffies.
+>
+> How did you work out that the timer wasn't firing?
+>
+> Can you describe the other tests you have done?
+>
+> It's not recommended to paper over something going wrong by changing
+> over to a workqueue.
 
-However the flag from the HNCDSC packet merely represents the host link
-state. While the state of the host interface is potentially interesting
-information it should not affect the state of the NCSI link. Indeed the
-NCSI specification makes no mention of any recommended action related to
-the host network controller driver state.
+Nick pointed me to this fix, which was merged in 4.13:
 
-Update the HNCDSC handler to record the host network driver status but
-take no other action.
+ 2fe59f507a6 ("timers: Fix excessive granularity of new timers after a
+nohz idle")
 
-Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-Acked-by: Jeremy Kerr <jk@ozlabs.org>
-Signed-off-by: David S. Miller <davem@davemloft.net>
-(cherry picked from commit 75e8e15635e08f2598ecd20f4f71f4d043dd6e68)
----
- net/ncsi/ncsi-aen.c | 35 +++--------------------------------
- 1 file changed, 3 insertions(+), 32 deletions(-)
+Can you cherry pick that into your tree and report the numbers that
+you see before and after the patch?
 
-diff --git a/net/ncsi/ncsi-aen.c b/net/ncsi/ncsi-aen.c
-index 67e708e98ccf..e7b05de1e6d1 100644
---- a/net/ncsi/ncsi-aen.c
-+++ b/net/ncsi/ncsi-aen.c
-@@ -143,43 +143,14 @@ static int ncsi_aen_handler_hncdsc(struct ncsi_dev_priv *ndp,
- 	if (!nc)
- 		return -ENODEV;
- 
--	/* If the channel is active one, we need reconfigure it */
- 	spin_lock_irqsave(&nc->lock, flags);
- 	ncm = &nc->modes[NCSI_MODE_LINK];
- 	hncdsc = (struct ncsi_aen_hncdsc_pkt *)h;
- 	ncm->data[3] = ntohl(hncdsc->status);
--	netdev_info(ndp->ndev.dev, "NCSI: HNCDSC AEN - channel %u state %s\n",
--		    nc->id, ncm->data[3] & 0x3 ? "up" : "down");
--	if (!list_empty(&nc->link) ||
--	    nc->state != NCSI_CHANNEL_ACTIVE) {
--		spin_unlock_irqrestore(&nc->lock, flags);
--		return 0;
--	}
--
--	spin_unlock_irqrestore(&nc->lock, flags);
--	if (!(ndp->flags & NCSI_DEV_HWA) && !(ncm->data[3] & 0x1))
--		ndp->flags |= NCSI_DEV_RESHUFFLE;
--
--	/* If this channel is the active one and the link doesn't
--	 * work, we have to choose another channel to be active one.
--	 * The logic here is exactly similar to what we do when link
--	 * is down on the active channel.
--	 *
--	 * On the other hand, we need configure it when host driver
--	 * state on the active channel becomes ready.
--	 */
--	ncsi_stop_channel_monitor(nc);
--
--	spin_lock_irqsave(&nc->lock, flags);
--	nc->state = (ncm->data[3] & 0x1) ? NCSI_CHANNEL_INACTIVE :
--					   NCSI_CHANNEL_ACTIVE;
- 	spin_unlock_irqrestore(&nc->lock, flags);
--
--	spin_lock_irqsave(&ndp->lock, flags);
--	list_add_tail_rcu(&nc->link, &ndp->channel_queue);
--	spin_unlock_irqrestore(&ndp->lock, flags);
--
--	ncsi_process_next_channel(ndp);
-+	netdev_printk(KERN_DEBUG, ndp->ndev.dev,
-+		      "NCSI: host driver %srunning on channel %u\n",
-+		      ncm->data[3] & 0x1 ? "" : "not ", nc->id);
- 
- 	return 0;
- }
--- 
-2.15.1
+>
+>>
+>> Work around this by using sbefifo's own workqueue.
+>>
+>> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+>> ---
+>>  drivers/fsi/fsi-sbefifo.c | 54 ++++++++++++++++++++++++++++-------------------
+>>  1 file changed, 32 insertions(+), 22 deletions(-)
+>>
+>> diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
+>> index 0697a10..7b6842a 100644
+>> --- a/drivers/fsi/fsi-sbefifo.c
+>> +++ b/drivers/fsi/fsi-sbefifo.c
+>> @@ -29,9 +29,9 @@
+>>  #include <linux/sched.h>
+>>  #include <linux/slab.h>
+>>  #include <linux/spinlock.h>
+>> -#include <linux/timer.h>
+>>  #include <linux/uaccess.h>
+>>  #include <linux/wait.h>
+>> +#include <linux/workqueue.h>
+>>
+>>  /*
+>>   * The SBEFIFO is a pipe-like FSI device for communicating with
+>> @@ -57,7 +57,7 @@
+>>  #define SBEFIFO_MAX_RESCHDULE  msecs_to_jiffies(5000)
+>>
+>>  struct sbefifo {
+>> -       struct timer_list poll_timer;
+>> +       struct delayed_work work;
+>>         struct fsi_device *fsi_dev;
+>>         struct miscdevice mdev;
+>>         wait_queue_head_t wait;
+>> @@ -99,6 +99,8 @@ struct sbefifo_client {
+>>         unsigned long f_flags;
+>>  };
+>>
+>> +static struct workqueue_struct *sbefifo_wq;
+>> +
+>>  static DEFINE_IDA(sbefifo_ida);
+>>
+>>  static int sbefifo_inw(struct sbefifo *sbefifo, int reg, u32 *word)
+>> @@ -337,7 +339,7 @@ static void sbefifo_client_release(struct kref *kref)
+>>                          */
+>>                         set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
+>>                         sbefifo_get(sbefifo);
+>> -                       if (mod_timer(&client->dev->poll_timer, jiffies))
+>> +                       if (!queue_work(sbefifo_wq, &sbefifo->work.work))
+>>                                 sbefifo_put(sbefifo);
+>>                 }
+>>         }
+>> @@ -374,10 +376,11 @@ static struct sbefifo_xfr *sbefifo_next_xfr(struct sbefifo *sbefifo)
+>>         return NULL;
+>>  }
+>>
+>> -static void sbefifo_poll_timer(unsigned long data)
+>> +static void sbefifo_worker(struct work_struct *work)
+>>  {
+>>         static const unsigned long EOT_MASK = 0x000000ff;
+>> -       struct sbefifo *sbefifo = (void *)data;
+>> +       struct delayed_work *dwork = to_delayed_work(work);
+>> +       struct sbefifo *sbefifo = container_of(dwork, struct sbefifo, work);
+>>         struct sbefifo_buf *rbuf, *wbuf;
+>>         struct sbefifo_xfr *xfr, *tmp;
+>>         struct sbefifo_buf drain;
+>> @@ -393,6 +396,7 @@ static void sbefifo_poll_timer(unsigned long data)
+>>         if (!xfr)
+>>                 goto out_unlock;
+>>
+>> +again:
+>>         rbuf = xfr->rbuf;
+>>         wbuf = xfr->wbuf;
+>>
+>> @@ -414,9 +418,8 @@ static void sbefifo_poll_timer(unsigned long data)
+>>                 devn = sbefifo_dev_nwwriteable(sts);
+>>                 if (devn == 0) {
+>>                         /* No open slot for write.  Reschedule. */
+>> -                       sbefifo->poll_timer.expires = jiffies +
+>> -                               SBEFIFO_RESCHEDULE;
+>> -                       add_timer(&sbefifo->poll_timer);
+>> +                       queue_delayed_work(sbefifo_wq, &sbefifo->work,
+>> +                                          SBEFIFO_RESCHEDULE);
+>>                         goto out_unlock;
+>>                 }
+>>
+>> @@ -468,9 +471,8 @@ static void sbefifo_poll_timer(unsigned long data)
+>>                         }
+>>
+>>                         /* No data yet.  Reschedule. */
+>> -                       sbefifo->poll_timer.expires = jiffies +
+>> -                               SBEFIFO_RESCHEDULE;
+>> -                       add_timer(&sbefifo->poll_timer);
+>> +                       queue_delayed_work(sbefifo_wq, &sbefifo->work,
+>> +                                          SBEFIFO_RESCHEDULE);
+>>                         goto out_unlock;
+>>                 } else {
+>>                         xfr->wait_data_timeout = 0;
+>> @@ -516,10 +518,12 @@ static void sbefifo_poll_timer(unsigned long data)
+>>                 }
+>>                 INIT_LIST_HEAD(&sbefifo->xfrs);
+>>
+>> -       } else if (eot && sbefifo_next_xfr(sbefifo)) {
+>> -               sbefifo_get(sbefifo);
+>> -               sbefifo->poll_timer.expires = jiffies;
+>> -               add_timer(&sbefifo->poll_timer);
+>> +       } else if (eot) {
+>> +               xfr = sbefifo_next_xfr(sbefifo);
+>> +               if (xfr) {
+>> +                       wake_up_interruptible(&sbefifo->wait);
+>> +                       goto again;
+>> +               }
+>>         }
+>>
+>>         sbefifo_put(sbefifo);
+>> @@ -638,7 +642,7 @@ static ssize_t sbefifo_read_common(struct sbefifo_client *client,
+>>                          * Fill the read buffer back up.
+>>                          */
+>>                         sbefifo_get(sbefifo);
+>> -                       if (mod_timer(&client->dev->poll_timer, jiffies))
+>> +                       if (!queue_work(sbefifo_wq, &sbefifo->work.work))
+>>                                 sbefifo_put(sbefifo);
+>>                 } else {
+>>                         list_del(&xfr->client);
+>> @@ -721,7 +725,7 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
+>>                                                                  &n))) {
+>>                         set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
+>>                         sbefifo_get(sbefifo);
+>> -                       if (mod_timer(&sbefifo->poll_timer, jiffies))
+>> +                       if (!queue_work(sbefifo_wq, &sbefifo->work.work))
+>>                                 sbefifo_put(sbefifo);
+>>
+>>                         ret = -ERESTARTSYS;
+>> @@ -741,7 +745,8 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
+>>                             n)) {
+>>                                 set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
+>>                                 sbefifo_get(sbefifo);
+>> -                               if (mod_timer(&sbefifo->poll_timer, jiffies))
+>> +                               if (!queue_work(sbefifo_wq,
+>> +                                               &sbefifo->work.work))
+>>                                         sbefifo_put(sbefifo);
+>>                                 ret = -EFAULT;
+>>                                 goto out;
+>> @@ -768,7 +773,7 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
+>>                  * Drain the write buffer.
+>>                  */
+>>                 sbefifo_get(sbefifo);
+>> -               if (mod_timer(&client->dev->poll_timer, jiffies))
+>> +               if (!queue_work(sbefifo_wq, &sbefifo->work.work))
+>>                         sbefifo_put(sbefifo);
+>>         }
+>>
+>> @@ -928,8 +933,7 @@ static int sbefifo_probe(struct device *dev)
+>>                  sbefifo->idx);
+>>
+>>         /* This bit of silicon doesn't offer any interrupts... */
+>> -       setup_timer(&sbefifo->poll_timer, sbefifo_poll_timer,
+>> -                   (unsigned long)sbefifo);
+>> +       INIT_DELAYED_WORK(&sbefifo->work, sbefifo_worker);
+>>
+>>         sbefifo->mdev.minor = MISC_DYNAMIC_MINOR;
+>>         sbefifo->mdev.fops = &sbefifo_fops;
+>> @@ -982,7 +986,7 @@ static int sbefifo_remove(struct device *dev)
+>>
+>>         ida_simple_remove(&sbefifo_ida, sbefifo->idx);
+>>
+>> -       if (del_timer_sync(&sbefifo->poll_timer))
+>> +       if (cancel_delayed_work_sync(&sbefifo->work))
+>>                 sbefifo_put(sbefifo);
+>>
+>>         sbefifo_put(sbefifo);
+>> @@ -1010,11 +1014,17 @@ static int sbefifo_remove(struct device *dev)
+>>
+>>  static int sbefifo_init(void)
+>>  {
+>> +       sbefifo_wq = create_singlethread_workqueue("sbefifo");
+>> +       if (!sbefifo_wq)
+>> +               return -ENOMEM;
+>> +
+>>         return fsi_driver_register(&sbefifo_drv);
+>>  }
+>>
+>>  static void sbefifo_exit(void)
+>>  {
+>> +       destroy_workqueue(sbefifo_wq);
+>> +
+>>         fsi_driver_unregister(&sbefifo_drv);
+>>
+>>         ida_destroy(&sbefifo_ida);
+>> --
+>> 1.8.3.1
+>>
