@@ -1,36 +1,54 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
-Authentication-Results: ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <geissonator@gmail.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4001:c0b::22f; helo=mail-it0-x22f.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="pkrI1EsJ"; 
+ dkim-atps=neutral
+Received: from mail-it0-x22f.google.com (mail-it0-x22f.google.com
+ [IPv6:2607:f8b0:4001:c0b::22f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3z25wd1vCfzDqXy
- for <openbmc@lists.ozlabs.org>; Thu, 21 Dec 2017 07:29:36 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 44A81EA09D;
- Wed, 20 Dec 2017 15:29:32 -0500 (EST)
-Content-Type: text/plain; charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: Re: OpenBMC community telecon - 11/27 Agenda
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <886a66c536b44ed0928e4348022b67ca@ausx13mps334.AMER.DELL.COM>
-Date: Wed, 20 Dec 2017 15:29:32 -0500
-Cc: Vernon Mauery <vernon.mauery@linux.intel.com>, openbmc@lists.ozlabs.org,
- richard.marian.thomaiyar@linux.intel.com
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <D2105B22-1AB7-4943-A94E-2B5EDE275F7C@fuzziesquirrel.com>
-References: <911ECDC1-D1F4-4B4B-8433-CE396C2EEE35@fuzziesquirrel.com>
- <20171205010205.GH113334@mauery>
- <1513620424.5787.47.camel@fuzziesquirrel.com>
- <20171218223918.GO113334@mauery>
- <16113B02-7098-4523-A84A-E4CAFFB145A5@fuzziesquirrel.com>
- <886a66c536b44ed0928e4348022b67ca@ausx13mps334.AMER.DELL.COM>
-To: Michael.E.Brown@dell.com
-X-Mailer: Apple Mail (2.3273)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3z25z93VnRzDqgZ
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Dec 2017 07:31:49 +1100 (AEDT)
+Received: by mail-it0-x22f.google.com with SMTP id x28so8202823ita.0
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Dec 2017 12:31:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=6zm2X5lso+wEG9wmVKw0DgwYsy1PSZIcFqQyIzl20Ow=;
+ b=pkrI1EsJJtiWito3ivipByzbI678fdergeivKChPR6C3UK8QFRgf00tJZBq8Bk02qH
+ F4/DLFbYvZLVLK6W3iA/kvtH1kd1CYSZchmkpcGMLpsiLL4hkpb3wMFSZdOJh4laDqpt
+ xt+ALrfa7i6J+Q+sELxeAcWCwxNKcwLhLuYgUUpea4iyL7a3M7kRhf2Nz2WjCVkTOGkb
+ fEBjQd/8EG7imy/djBunOfqFcofWNYpgqu7lThKH7EcmH1xLcmplCShD0OAp9hRv0zRW
+ 6oWQbUQSxt0K3CR/cbvT99R5ucqw6iLPqEbNv6QepVj3myeX7H37Ff+UznNo/gENY1GO
+ gg3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=6zm2X5lso+wEG9wmVKw0DgwYsy1PSZIcFqQyIzl20Ow=;
+ b=J9ga1Z92xrama5Nn2yVMGYbFfTQycVokQ3OHBJWAbY1AcFqzoslh6crGNUzdxZXqj8
+ b6TjJGIU4y6+/ZHfbu4t8OjQuNO89Oq42XXIPePiGk1GeCeDIfnaALb0LaDA4qA9GPwL
+ xyTnWhJIeguyqQ2gnO1XkT7YT/+YNlS0xMqc93kldtw2xmw8uVU2PuVJZa487ZmMRjF+
+ EOd/PeuEbMwTWlNRAujTdSRi280jglqvO3srHE0Ygp69Ad2VW6Z38ONrz2eFnfI1wLmC
+ d8FW2vZfTHYJFxI1BpEZre5WuDlo9rK7FMPVLtIyZEwVSNeaWQEZjls/qUUvXQ79sx34
+ 8VDA==
+X-Gm-Message-State: AKGB3mKYpuc6TOhTIBTl7L0G9NufxcdA/Wlw3IvOBV/OhxD2wfDHiMSD
+ Nk4jYfWv9YHfIPUYaAM7DRwrT4/7x/P7xsfdfhyBbA==
+X-Google-Smtp-Source: ACJfBosTdwdhF+rRmxun/RfbBDqbzgb6InS6QEc0GVov59vhOybWwCvLp6bJWeCRAjHY8839t9bcCvdZIXohEWlvyXs=
+X-Received: by 10.36.147.193 with SMTP id y184mr9063320itd.64.1513801906819;
+ Wed, 20 Dec 2017 12:31:46 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.107.159.76 with HTTP; Wed, 20 Dec 2017 12:31:46 -0800 (PST)
+In-Reply-To: <20912a5f-e956-13c3-3fd4-1ba1fe9f1759@linux.intel.com>
+References: <20912a5f-e956-13c3-3fd4-1ba1fe9f1759@linux.intel.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Wed, 20 Dec 2017 14:31:46 -0600
+Message-ID: <CALLMt=oqzKzhHYGhC02t6z7p1f+d+2oeq52HhPB6Wr0KWXtFGQ@mail.gmail.com>
+Subject: Re: Gerrit alternatives
+To: Dave Cobbley <david.j.cobbley@linux.intel.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -42,367 +60,67 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Dec 2017 20:29:37 -0000
+X-List-Received-Date: Wed, 20 Dec 2017 20:31:50 -0000
 
-Hi Michael
+On Tue, Dec 19, 2017 at 7:26 PM, Dave Cobbley
+<david.j.cobbley@linux.intel.com> wrote:
+> Hey all,
+>
+> I am curious to see peoples input on using github as a code review mechanism
+> over gerrit. I see github/openbmc is already used quite well for sprint
+> planning and issue tracking, I feel like it would make a lot of sense to use
+> it for doing code reviews. As far as I understand it has a mechanism to
+> reproduce a similar paradigm to what we currently use today - as far as
+> Code-Review, Ok-To-Test, and Verified.
+>
+> I can see github has made several improvements over the last few years that
+> make it much more use-able to teams like us:
+>
+> - The ability to have approved maintainers for each specific repository with
+> https://github.com/blog/2392-introducing-code-owners
+>
+> - It has the ability to do a rebase-merge, keeping the git tree nice and
+> tidy.
+>
+> - A strong API to tie in additional tools that we may need.
+>
+>
+> Additionally, it will reduce the point of failure from also hosting gerrit.
+>
+> What are peoples thoughts on using this?
 
-Thanks for the info!
+As the guy who ended up having to maintain the current gerrit server,
+I'm all for an alternative :)
 
+But my problem is I really like gerrit.  github has def made some
+improvements to the review process though.  I see it has per-line
+comment ability now.
 
-> On Dec 20, 2017, at 3:26 PM, <Michael.E.Brown@dell.com> =
-<Michael.E.Brown@dell.com> wrote:
->=20
-> I fully support using PAM for user and password management. This is =
-the method we use in our product and it has been fairly successful.
->=20
-> However, the one thing I would like to point out is that you want to =
-keep your "Linux users" separate from your IPMI/Web/etc users, and you =
-want to keep your Linux groups separate from the IPMI/web/etc groups.
+I have a pull request out here for a non-gerrit openbmc repo if
+someone wants to look around -
+https://github.com/openbmc/openbmc-tools/pull/5
 
-Can you elaborate on why and/or call out any specific issues
-you=E2=80=99ve had with this approach?
+One thing I really like is how gerrit allows you to iterate over a
+commit.  Someone makes some comments, you respond, upload a new patch
+set.  My understanding with github is you basically just keep adding
+on new commits in a pull request to address comments.  A feature I use
+all the time in gerrit is to look at the diff between a patch set I
+last reviewed and the latest one.  Also, I don't see an obvious
+mechanism in github to provide the different score levels
+(-2,-1,+1,+2)?  The gerrit dashboard is also really nice, providing me
+a nice easy way to see what's on my review list and what the current
+size and scores of those reviews are (for all repos in openbmc).
 
-> You configure PAM specifically to have separate PAM configurations for =
-IPMI/web/etc that is different, for example pam_listfile for ipmi and =
-pam_unix for logins.
->=20
-> This works well except for the following:
-> 1) PAM api is synchronous. You have to do some lifting to ensure =
-everything works well for async event loop programs or for =
-multi-threaded programs.
-> 2) For allowing actual Linux shell logins using IPMI/web usernames.
-> 	This intersection point becomes a problem. What we do in our =
-product may or may not be a satisfactory solution. What we do in our =
-product is have a single Linux user "racuser" and an NSS library. All =
-SSH or local logins map the actual username back to this racuser user. =
-PAM is used to check the actual user password. The PAM module then sets =
-an environment variable with the user details and correct permissions =
-the user has. The reason this works is that we have a restricted shell =
-where the user is not allowed to reset environment variables. All of the =
-command line utilities check the permissions when deciding if the logged =
-in user should be able to perform an action, and log with the user =
-details given in the environment. This is unlikely to be a satisfactory =
-answer for openbmc where the user can get full shell access. However, =
-using linux containers, we may be able to use a user container to do =
-this same mapping.
->=20
-> Other notes:
-> 	Once you use PAM, you can then configure AD/LDAP and other by =
-simply changing the PAM configuration. We use a custom PAM module that =
-handles AD and LDAP, however I believe the existing open source PAM =
-modules for AD/LDAP would work well here. Once you support AD and/or =
-LDAP, you have to have a method of mapping directory groups to specific =
-permissions on the local BMC, and that can be challenging. The most =
-straightforward method is to statically configure group names, however =
-it is also the least flexible from a large organization perspective. =
-This is something that could be discussed/designed after base PAM =
-support is all enabled, though.
->=20
-> --
-> Michael
->=20
->=20
-> -----Original Message-----
-> From: openbmc =
-[mailto:openbmc-bounces+michael.e.brown=3Ddell.com@lists.ozlabs.org] On =
-Behalf Of Brad Bishop
-> Sent: Monday, December 18, 2017 6:32 PM
-> To: Vernon Mauery <vernon.mauery@linux.intel.com>
-> Cc: OpenBMC <openbmc@lists.ozlabs.org>; Richard Marian Thomaiyar =
-<richard.marian.thomaiyar@linux.intel.com>
-> Subject: Re: OpenBMC community telecon - 11/27 Agenda
->=20
->=20
->> On Dec 18, 2017, at 5:39 PM, Vernon Mauery =
-<vernon.mauery@linux.intel.com> wrote:
->>=20
->> On 18-Dec-2017 01:07 PM, Brad Bishop wrote:
->>> On Mon, 2017-12-04 at 17:02 -0800, Vernon Mauery wrote:
->>>=20
->>> Hi Vernon
->>>=20
->>> Really appreciate you putting this together - thanks.  I do have a=20=
+We also base a lot of our current CI infrastructure off of gerrit
+events.  I think most of it can be switched over to using github, but
+it's not inconsequential.
 
->>> couple comments/questions.
->>>=20
->>>>=20
->>>> For the discussion on user management.
->>>>=20
->>>> Overview:
->>>> 1. User management is done via PAM.
->>>=20
->>> Are there any aspects of user management that are done outside of =
-PAM?
->>=20
->> Yes. It turns out that IPMI management with multiple LAN channels =
-throws a wrench in things, so it may be that IPMI need to do some of its =
-user management separately (like determining what privileges a user gets =
-on a particular channel).
->=20
-> Could creating a group per channel on the BMC at runtime make this =
-simpler?
->=20
->> There may be other stuff like this, so it might be helpful to define =
-a 'hook' or something that says if a user is a member of group X, you =
-must notify group X when you want to change stuff.
->>=20
->>> I only ask this because your writeup feels like a good start on a=20
->>> README somewhere.  To that end, would it make sense to frame this=20
->>> from the perspective of different actors attempting to add function? =
-=20
->>> For
->>> example:
->>>=20
->>> If you want to implement a service that authenticates a user:
->>> - do v
->>> - do w
->>>=20
->>> If you want to implement a service that adds users to a user =
-database:
->>> - do x
->>>=20
->>> If you want to implement a service that adds users to a group:
->>> - do y
->>>=20
->>> If you want to implement a service that authorizes a user:
->>> - do z
->>>=20
->>> etc, and then the IPMI specifics would just be adhering to this=20
->>> framework.
->>>=20
->>> I could have these bullet points all wrong.  This was just meant as =
-a=20
->>> straw-man for a more general document that can guide people looking=20=
+Our current gerrit VM costs on the order of $60 a year....so you get
+what you pay for.  I've been poking around IBM trying to see if we can
+get something a bit more production worthy.
 
->>> to add this type of function later.
->>=20
->> Yes, this sort of writeup as a README would be a good idea. Not just =
-an API, but a practical usage guide.
->>=20
->>>> 2. If IPMI is being used, PAM loads the pam_ipmi.so password =
-module.
->>>>  a. pam_ipmi.so intercepts password changes and saves the password
->>>>     for IPMI-enabled users to a file that can be read at a later=20
->>>> time
->>>>     to initiate an RMCP+ session. (encrypted or obfuscated with a
->>>>     per-BMC key so no passwords are written directly in flash.)
->>>>  b. pam_ipmi.so implements a method to decrypt passwords and=20
->>>> provide
->>>>     them to host-ipmi (for test password command) and net-ipmi (for
->>>>     session initiation)
->>>> 3. If a user is not enabled for IPMI, their password will not be=20
->>>> saved
->>>>  in the ipmi database, and thus must be reset if/when that user=20
->>>> gains
->>>>  IPMI capability.
->>>> 4. If a user loses IPMI capability, their password is reset to =
-force=20
->>>> a
->>>>  password change so their password is secure again.
->>>=20
->>> I'm not understanding why this is needed.  Couldn't we simply remove=20=
+Andrew
 
->>> the password entry from the IPMI backend when the group membership=20=
-
->>> changes?  Is this an artifact of how PAM works or do we think we =
-need=20
->>> it for a more fundamental reason?
->>=20
->> If the password is ever saved in the IPMI password database, it is =
-best to assume it is no longer a secret. If you really want your =
-password secure, it should be changed.
->=20
-> ok.
->=20
->>=20
->>>> 5. Capabilities is done via unix groups
->>>>  a. Groups like ipmi, webserver, redfish, ssh, sol can provide=20
->>>> login
->>>>     or 'channel' access.
->>>=20
->>> I wonder if a per-channel (or service in PAM speak?) pam_listfile=20
->>> account entry can get us here.
->>=20
->> Sure, that could be a pattern we follow. I would have to dig deeper =
-to see if it buys us anything that plain-old unix groups would not =
-provide.
->>=20
->>>>  b. Groups like user-manager, media, power, sensor, etc., can=20
->>>> provide
->>>>     fine-grained access for various capabilities. Providers of
->>>>     capabilities should check to see that accessors (users) have=20
->>>> the
->>>>     required permission.
->>>=20
->>> pam_listfile might work here too, only this would global across all=20=
-
->>> PAM services?
->>=20
->> Once again, I am not entirely sure what this would buy over just =
-using unix groups. We need to walk through some more usage scenarios =
-like you have above.
->>=20
->=20
-> I wasn=E2=80=99t intending to propose something extra - this was just =
-the result of my brief research on how to authorize users based on group =
-membership with PAM.
->=20
-> I=E2=80=99ve never written any programs that use PAM so I could be way =
-off in the weeds here.  I guess my question would be what other way can =
-we do it?
->=20
->=20
->>>> 6. Admin-defined 'super-groups'
->>>>  a. Provide a set of pre-defined groups of capabilities that can be
->>>>     assigned to users: Admin, User, Operator or similar that each=20=
-
->>>> have
->>>>     groups associated with them.
->>>=20
->>> Do we intend to also allow the contained subgroups to be=20
->>> changed/configured for the on the BMC dynamically?  For example =
-could=20
->>> you remove the 'sensor' group from the Operator group (assuming that=20=
-
->>> by default sensor group is included in the Operator group).
->>=20
->> Ideally, yes, a system admin could change what capabilities each =
-group allowed (like removing sensor capabilities from the Operator =
-group), but to start with, just having a way to define the defaults at =
-built time would be a good target.
->>=20
->>>>  b. Changes to groups via APIs can make sure that if a user is
->>>>     assigned to a 'super-group' will stay assigned to the sub-=20
->>>> groups
->>>>  c. Changes made to users via manual commands may override API=20
->>>> groups
->>>=20
->>> This all seemed pretty straightforward until I got to #6.  It seems=20=
-
->>> like it is definitely required but I'm wondering if it could be=20
->>> staged in later somehow?
->>=20
->> Yes. Let's just start with defining a way to define defaults. This =
-should be done using a yocto mechanism that allows developers of openbmc =
-to override at build time (maybe on a platform basis?). This makes the =
-original defaults less important (so not all of the contributors need to =
-fully agree on what constitutes reasonable defaults).
->=20
-> Sounds good.  Lets say you have an operator group on platform X with =
-sensors and an operator group on platform Y without sensors.  How would =
-you authorize the user?
->=20
->>=20
->>>>=20
->>>>=20
->>>> Methods:
->>>=20
->>> Do we need similar APIs for groups?
->>=20
->> Likely. But to start with, maybe we can skip that part. To start =
-with, the list of groups (and their associated capabilities) will be =
-fixed at build time.
->=20
-> Sounds good.
->=20
->>=20
->>>>   1. CREATE_USER
->>>>       Privilege-required: USER-MANAGER
->>>>       Args:
->>>>           UserName - STRING (16 bytes only - else role change to=20
->>>> IPMI can't be done)
->>>>           Password - Byte Array (Max of 20 bytes if IPMID is=20
->>>> chosen. For
->>>>                      others can send more bytes, but change role to=20=
-
->>>> IPMI will
->>>>                      request password again under 20 bytes)
->>>>           Roles - STRING with comma separated
->>>>       Return:
->>>>           SUCCESS ERR_USERNAME_EXIST ERR_PASSWORD_FAILS=20
->>>> ERR_ROLE_FAILS
->>>>           ERR_PASSWORD_ROLE_FAIL ERR_NO_RESOURCE ERR_UNKNOWN
->>>>           ERR_AUTHORIZATION_FAIL
->>>>=20
->>>>   2. DELETE_USER
->>>>       Privilege-required: USER-MANAGER
->>>>       Args:
->>>>           UserName - STRING
->>>>       Return:
->>>>           SUCCESS ERR_USERNAME_NOT_EXIST ERR_UNKNOWN=20
->>>> ERR_AUTHORIZATION_FAIL
->>>=20
->>> Can we use the xyz.openbmc_project.Object.Delete interface for this?
->>> The thinking was that a common Delete interface might make DBus<->UI=20=
-
->>> implementations easier.  This is the same motivation behind asking=20=
-
->>> for the org.freedesktop interfaces below.
->>=20
->> I am fine with using generic interfaces as long as they fit the bill. =
-Deleting a user seems like it should be straight-forward enough that =
-this would work well.
->>=20
->>>>=20
->>>>   3. CHANGE ROLE / CHANGE_PASSWORD (OTHERS)
->>>>       Privilege-required: USER-MANAGER
->>>>       Args:
->>>>           UserName - STRING
->>>>           New Password (if changed) - Byte Array
->>>>           New Role (if changed) - Array of STRING
->>>>       Return:
->>>>           SUCCESS ERR_USERNAME_NOT_EXIST ERR_UNKNOWN=20
->>>> ERR_AUTHORIZATION_FAIL
->>>>           ERR_PASSWORD_FAILS ERR_PASSWORD_ROLE_FAIL ERR_NO_RESOURCE
->>>>=20
->>>=20
->>> I thought the intent was to strictly use PAM for this.  In what=20
->>> scenario do we need a DBus API for this?
->>=20
->> For managing groups, this will have to be done outside of PAM. PAM =
-doesn't know how to change /etc/group. So we will have to provide some =
-central mechanism (probably in the phosphor-user-manager) to host the =
-group management API.
->>=20
->>>>   4. CHANGE_PASSWORD (SELF)
->>>>       Privilege-required: Any Valid user
->>>>       Args:
->>>>           New Password - Byte Array
->>>>       Return:
->>>>           SUCCESS ERR_PASSWORD_FAILS ERR_PASSWORD_ROLE_FAIL=20
->>>> ERR_UNKNOWN
->>>=20
->>> Same question as #3.
->>=20
->> You are right. Passwords should not go over DBus. Things that change =
-passwords should use PAM directly.
->>=20
->>>>=20
->>>>   5. LIST_USER_DETAILS
->>>>       Privilege-required: USER-MANAGER
->>>>       Args:
->>>>           NULL
->>>>       Return:
->>>>           Array of:
->>>>               USER_NAME (String)
->>>>               ROLES (String)
->>>=20
->>> Could we use org.freedesktop.DBus.ObjectManager.GetManagedObjects =
-for=20
->>> this?
->>=20
->> Yes.
->>=20
->>>>=20
->>>> Signals:
->>>>   1. UPDATED_USER_SIGNAL
->>>>       Args:
->>>>           UserName of updated user
->>>>           UpdateType:
->>>>               Role changed / User Deleted / User created / Password
->>>=20
->>> Could we use org.freedesktop.DBus.Properties.PropertiesChanged here?
->>=20
->> Yes.
->>=20
->> --Vernon
+>
+> -Dave Cobbley
+>
