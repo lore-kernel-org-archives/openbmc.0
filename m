@@ -1,51 +1,41 @@
 Return-Path: <ed.tanous@intel.com>
 Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=192.55.52.93; helo=mga11.intel.com;
+ (client-ip=192.55.52.115; helo=mga14.intel.com;
  envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3z2gng6CGnzF07W
- for <openbmc@lists.ozlabs.org>; Fri, 22 Dec 2017 05:55:31 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3z2hG26qZFzF07V
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Dec 2017 06:16:35 +1100 (AEDT)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 21 Dec 2017 10:55:27 -0800
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 21 Dec 2017 11:16:31 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.45,437,1508828400"; 
-   d="scan'208";a="4742664"
-Received: from orsmsx105.amr.corp.intel.com ([10.22.225.132])
- by orsmga006.jf.intel.com with ESMTP; 21 Dec 2017 10:55:27 -0800
-Received: from orsmsx157.amr.corp.intel.com (10.22.240.23) by
- ORSMSX105.amr.corp.intel.com (10.22.225.132) with Microsoft SMTP Server (TLS)
- id 14.3.319.2; Thu, 21 Dec 2017 10:48:05 -0800
+X-IronPort-AV: E=Sophos;i="5.45,437,1508828400"; d="scan'208,217";a="14643546"
+Received: from orsmsx109.amr.corp.intel.com ([10.22.240.7])
+ by fmsmga004.fm.intel.com with ESMTP; 21 Dec 2017 11:16:31 -0800
 Received: from orsmsx114.amr.corp.intel.com ([169.254.8.57]) by
- ORSMSX157.amr.corp.intel.com ([169.254.9.76]) with mapi id 14.03.0319.002;
- Thu, 21 Dec 2017 10:47:28 -0800
+ ORSMSX109.amr.corp.intel.com ([169.254.11.160]) with mapi id 14.03.0319.002;
+ Thu, 21 Dec 2017 11:16:30 -0800
 From: "Tanous, Ed" <ed.tanous@intel.com>
-To: "Michael.E.Brown@dell.com" <Michael.E.Brown@dell.com>,
- "benh@kernel.crashing.org" <benh@kernel.crashing.org>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: RE: Request for comments: C++ embedded webserver
-Thread-Topic: Request for comments: C++ embedded webserver
-Thread-Index: AdN4ftVuoDXj0cc0QHy/ckqdQwlbewBt6XoAACNPVwAADl588A==
-Date: Thu, 21 Dec 2017 18:47:27 +0000
-Message-ID: <7E9441B1E5EFFD4681F54958E82169932F4B2526@ORSMSX114.amr.corp.intel.com>
-References: <7E9441B1E5EFFD4681F54958E82169932F4B1A4D@ORSMSX114.amr.corp.intel.com>
- <1513816454.2743.36.camel@kernel.crashing.org>
- <096309f70da94fa59fac442ddc1cef86@ausx13mps334.AMER.DELL.COM>
-In-Reply-To: <096309f70da94fa59fac442ddc1cef86@ausx13mps334.AMER.DELL.COM>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Request for a development repo
+Thread-Topic: Request for a development repo
+Thread-Index: AdN6jahyxaxrVgU0Srm5/SNsVR8pOw==
+Date: Thu, 21 Dec 2017 19:16:30 +0000
+Message-ID: <7E9441B1E5EFFD4681F54958E82169932F4B253F@ORSMSX114.amr.corp.intel.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 dlp-product: dlpe-windows
 dlp-version: 11.0.0.116
-dlp-reaction: request-justification,no-action
+dlp-reaction: no-action
 x-originating-ip: [10.22.254.139]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/alternative;
+ boundary="_000_7E9441B1E5EFFD4681F54958E82169932F4B253FORSMSX114amrcor_"
 MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
@@ -58,97 +48,222 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Dec 2017 18:55:36 -0000
+X-List-Received-Date: Thu, 21 Dec 2017 19:16:43 -0000
 
-Q2FuIHlvdSBwb3N0IHlvdXIgcHJvdG90eXBlIHNlcnZlciBzb21ld2hlcmUgdGhhdCdzIGFjY2Vz
-c2libGUgZXh0ZXJuYWxseT8gICBJJ20gZ2VudWluZWx5IGN1cmlvdXMgaG93IGl0IGNvbXBhcmVz
-Lg0KDQpJIGhhZCBsb29rZWQgYXQgZ29sYW5nLCBidXQgdGhlcmUgd2FzIG5vIHByZWNlZGVuY2Ug
-Zm9yIGl0IGluIHRoZSBwcm9qZWN0LCBub3IgZGlkIEkgaGF2ZSBhbnkgZXhwZXJpZW5jZSB3aXRo
-IGl0LCBzbyBJIHdlbnQgYW5vdGhlciBkaXJlY3Rpb24uICBJIHdvdWxkIGxvdmUgaWYgYSBsYW5n
-dWFnZSBjaGFuZ2UgbWFkZSBhbGwgdGhlIGFzeW5jIGhhbmRsaW5nIGVhc2llciB0byB3cml0ZSB0
-aGFuIHdoYXQncyB0aGVyZS4gIE15IGd1dCB0ZWxscyBtZSB0byBiZSBjb25jZXJuZWQgYWJvdXQg
-dGhlIHBlcmZvcm1hbmNlIG9mIHRoZSBnbyBnYXJiYWdlIGNvbGxlY3Rpb24gbW9kZWwgb24gdGhl
-IEFTVCB1c2luZyB0b28gbXVjaCBtZW1vcnkgZm9yIHNvbWUgb2YgdGhlIGxlc3NlciBjYXBhYmxl
-IHN5c3RlbXMgdG8gaGFuZGxlLCBidXQgSSBoYXZlIHplcm8gZGF0YSBvbiBpdCBzbyBJJ2xsIHdp
-dGhob2xkIGp1ZGdlbWVudCB1bnRpbCBJIGhhdmUgc29tZS4NCg0KLUVkDQoNCj4gLS0tLS1Pcmln
-aW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogTWljaGFlbC5FLkJyb3duQGRlbGwuY29tIFttYWls
-dG86TWljaGFlbC5FLkJyb3duQGRlbGwuY29tXQ0KPiBTZW50OiBUaHVyc2RheSwgRGVjZW1iZXIg
-MjEsIDIwMTcgOToyNSBBTQ0KPiBUbzogYmVuaEBrZXJuZWwuY3Jhc2hpbmcub3JnOyBUYW5vdXMs
-IEVkIDxlZC50YW5vdXNAaW50ZWwuY29tPjsNCj4gb3BlbmJtY0BsaXN0cy5vemxhYnMub3JnDQo+
-IFN1YmplY3Q6IFJFOiBSZXF1ZXN0IGZvciBjb21tZW50czogQysrIGVtYmVkZGVkIHdlYnNlcnZl
-cg0KPiANCj4gQmVuamFtaW4sDQo+IA0KPiBJJ20gbmV3IGFyb3VuZCBoZXJlLCBzbyBJIGRpZG4n
-dCB3YW50IHRvIGJlIHRoZSBmaXJzdCB0byBicmluZyB0aGlzIHVwIHdpdGhvdXQNCj4gZG9pbmcg
-bXkgcmVzZWFyY2ggb24gYW55IG9sZGVyIHRocmVhZHMsIHNvIHRoYW5rIHlvdSBmb3IgYnJpbmdp
-bmcgdGhpcyB1cC4NCj4gDQo+IE15IHN0cm9uZyBvcGluaW9uIGlzIHRoYXQgZ29sYW5nIGlzIGxp
-a2VseSB0aGUgYmVzdCBjYW5kaWRhdGUgZm9yIHRoaXMgc3BlY2lmaWMNCj4gdHlwZSBvZiBwcm9n
-cmFtbWluZyBlbnZpcm9ubWVudCAoaWUuIE9wZW5CTUMpLg0KPiAJLSBMb3cgcnVudGltZSBtZW1v
-cnkgdXNhZ2UNCj4gCS0gQXV0b21hdGljIE1lbW9yeSBNYW5hZ2VtZW50DQo+IAktIENsZWFuIGNy
-b3NzIGNvbXBpbGUgZm9yIEFSTXY1IGFuZCBhYm92ZQ0KPiAJLSBDb21waWxlZA0KPiAJLSBzdHJv
-bmdseSB0eXBlZA0KPiAJLSBGYXN0DQo+IAktIENsZWFubHkgaGFuZGxlcyB0aHJlYWRpbmcvYXN5
-bmMNCj4gCS0gTmljZSBzdGFuZGFyZCBsaWJyYXJ5DQo+IA0KPiBJIGhhZCBwcm90b3R5cGVkIGEg
-cmVkZmlzaCBzZXJ2ZXIgaW4gZ29sYW5nIGVub3VnaCB0byBnZXQgdG8gdGhlIHBvaW50IHdoZXJl
-DQo+IEkgYmVsaWV2ZSB0aGF0IGl0J3MgdGhlIGJlc3Qgc29sdXRpb24uIEkgaGF2ZSBncmVhdCB0
-aGluZ3MgdG8gc2F5IGludGVybmFsbHkgYWJvdXQNCj4gdGhlIGV4aXN0aW5nIG9wZW5ibWMgZGVz
-aWduOiBJIGxvdmUgdGhlIHVzZSBvZiBEQlVTLCB0aGUgbW9yZSBJIGxvb2sgYXQgaXQgdGhlDQo+
-IG1vcmUgY2xlYXJseSB0aGUgYWR2YW50YWdlcyBzZWVtIHRvIG1lLiBUaGUgbmljZSB0aGluZyBh
-Ym91dCB0aGlzIGlzIHRoYXQNCj4gZ29sYW5nIGhhcyBhIERCVVMgbGlicmFyeSBhbmQgd2Ugb3Vn
-aHQgdG8gYmUgYWJsZSB0byB3cml0ZSBkaWZmZXJlbnQNCj4gY29tcG9uZW50cyBpbiBkaWZmZXJl
-bnQgbGFuZ3VhZ2VzIGZyZWVseSwgZXNwZWNpYWxseSBpZiB3ZSBoYXZlIHRoZQ0KPiB1bmRlcmx5
-aW5nIGRidXMgYXBpcyBjb3JyZWN0Lg0KPiANCj4gLS0NCj4gTWljaGFlbA0KPiANCj4gLS0tLS1P
-cmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogb3BlbmJtYyBbbWFpbHRvOm9wZW5ibWMtDQo+
-IGJvdW5jZXMrbWljaGFlbC5lLmJyb3duPWRlbGwuY29tQGxpc3RzLm96bGFicy5vcmddIE9uIEJl
-aGFsZiBPZg0KPiBCZW5qYW1pbiBIZXJyZW5zY2htaWR0DQo+IFNlbnQ6IFdlZG5lc2RheSwgRGVj
-ZW1iZXIgMjAsIDIwMTcgNjozNCBQTQ0KPiBUbzogVGFub3VzLCBFZCA8ZWQudGFub3VzQGludGVs
-LmNvbT47IE9wZW5CTUMgTWFpbGxpc3QNCj4gPG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZz4NCj4g
-U3ViamVjdDogUmU6IFJlcXVlc3QgZm9yIGNvbW1lbnRzOiBDKysgZW1iZWRkZWQgd2Vic2VydmVy
-DQo+IA0KPiBPbiBUdWUsIDIwMTctMTItMTkgYXQgMDQ6MDcgKzAwMDAsIFRhbm91cywgRWQgd3Jv
-dGU6DQo+ID4gSeKAmW0gbG9va2luZyBmb3IgY29tbWVudHMgb24gYSBjb2RlIHJldmlldyB0aGF0
-4oCZcyBiZWVuIG91dHN0YW5kaW5nLg0KPiA+IE9uZSBvZiB0aGUgbGFyZ2UgcHVzaGVzIHdl4oCZ
-dmUgbWFkZSBpcyB0byBhdHRlbXB0IHRvIG1ha2UgdGhlIHdlYg0KPiA+IHNlcnZlciBtb3JlIGVm
-ZmljaWVudCwgYW5kIGFkZCBjYXBhYmlsaXRpZXMgdGhhdCBjb21wcmVoZW5kIGxvbmcgdGVybQ0K
-PiA+IG5lZWRzIG9mIE9wZW5CbWMuICBPbmUga2V5IHRoYXQgd2FzbuKAmXQgbWFkZSBjbGVhciBp
-biB0aGUgY29tbWl0DQo+ID4gbWVzc2FnZSBpcyB0aGF0IGl0IGluY2x1ZGVzIHRoZSBiYXNpYyBy
-ZWRmaXNoIGltcGxlbWVudGF0aW9uIHRoYXQgKHdlDQo+ID4gaG9wZSkgc2hvdWxkIGJlIGV4dGVu
-c2libGUgdG8gdGhlIGZ1bGwgcmVkZmlzaCBzcGVjaWZpY2F0aW9uIGluIHRoZQ0KPiA+IHNob3J0
-IHRlcm0gZnV0dXJlLg0KPiANCj4gVGhlcmUgYXJlIHBsZW50eSBvZiBleGlzdGluZyBIVFRQIHNl
-cnZlciBpbXBsZW1lbnRhdGlvbnMgb3V0IHRoZXJlIHRoYXQgYXJlDQo+IHdlbGwgbWFpbnRhaW5l
-ZCwgYW55IHJlYXNvbiB3aHkgd2Ugc2hvdWxkIGludmVudCBhbm90aGVyIG9uZSBoZXJlID8NCj4g
-DQo+IEFsc28sIGRvIHdlIHJlYWxseSB0aGluayBwZXJwZXR1YXRpbmcgdGhlIHVzZSBvZiB0aGF0
-IG1vbnN0cnVvc2l0eQ0KPiBtYXNxdWVyYWRpbmcgYXMgYSBwcm9ncmFtbWluZyBsYW5ndWFnZSB0
-aGF0IGlzIEMrKyBpcyBhIGdvb2QgaWRlYSA/DQo+IA0KPiA+IGh0dHBzOi8vZ2Vycml0Lm9wZW5i
-bWMtcHJvamVjdC54eXovIy9jLzc3ODYvDQo+ID4NCj4gPiBXZSB3b3VsZCB2ZXJ5IG11Y2ggYXBw
-cmVjaWF0ZSBjb21tZW50cyB0byBzZWUgaWYgd2UgY2FuIG1vdmUgdGhpcw0KPiBmb3J3YXJkLg0K
-PiA+DQo+ID4gVGhlIGZvbGxvd2luZyBkZXNjcmlwdGlvbiBpcyBwdWxsZWQgZnJvbSB0aGUgcmVh
-ZG1lLg0KPiA+DQo+ID4gIyBPcGVuQk1DIHdlYnNlcnZlciAjDQo+ID4NCj4gPiBUaGlzIGNvbXBv
-bmVudCBhdHRlbXB0cyB0byBiZSBhICJkbyBldmVyeXRoaW5nIiBlbWJlZGRlZCB3ZWJzZXJ2ZXIN
-Cj4gZm9yIG9wZW5ibWMuDQo+ID4NCj4gPiAjIyBDYXBhYmlsaXRpZXMgIyMNCj4gPiBBdCB0aGlz
-IHRpbWUsIHRoZSB3ZWJzZXJ2ZXIgaW1wbGVtZW50cyBhIGZldyBpbnRlcmZhY2VzOg0KPiA+ICsg
-QXV0aGVudGljYXRpb24gbWlkZGxld2FyZSB0aGF0IHN1cHBvcnRzIGNvb2tpZSBhbmQgdG9rZW4g
-YmFzZWQNCj4gYXV0aGVudGljYXRpb24sIGFzIHdlbGwgYXMgQ1NSRiBwcmV2ZW50aW9uIGJhY2tl
-ZCBieSBsaW51eCBQQU0NCj4gYXV0aGVudGljYXRpb24gY3JlZGVudGlhbHMuDQo+ID4gKyBBbiAo
-aW5jb21wbGV0ZSkgYXR0ZW1wdCBhdCByZXBsaWNhdGluZyBwaG9zcGhvci1kYnVzLXJlc3QgaW50
-ZXJmYWNlcyBpbg0KPiBDKysuICBSaWdodCBub3csIGEgZmV3IG9mIHRoZSBlbmRwb2ludCBkZWZp
-bml0aW9ucyB3b3JrIGFzIGV4cGVjdGVkLCBidXQNCj4gdGhlcmUgaXMgc3RpbGwgYSBsb3Qgb2Yg
-d29yayB0byBiZSBkb25lLiAgVGhlIHBvcnRpb25zIG9mIHRoZSBpbnRlcmZhY2UgdGhhdCBhcmUN
-Cj4gZnVuY3Rpb25hbCBhcmUgZGVzaWduZWQgdG8gd29yayBjb3JyZWN0bHkgZm9yIHBob3NwaG9y
-LXdlYnVpLCBidXQgbWF5IG5vdA0KPiB5ZXQgYmUgY29tcGxldGUuDQo+ID4gKyBSZXBsaWNhdGlv
-biBvZiB0aGUgcmVzdC1kYnVzIGJhY2tlbmQgaW50ZXJmYWNlcyB0byBhbGxvdyBibWMgZGVidWcg
-dG8NCj4gbG9nZ2VkIGluIHVzZXJzLg0KPiA+ICsgQW4gaW5pdGlhbCBhdHRlbXB0IGF0IGEgcmVh
-ZC1vbmx5IHJlZGZpc2ggaW50ZXJmYWNlLiAgQ3VycmVudGx5IHRoZSByZWRmaXNoDQo+IGludGVy
-ZmFjZSB0YXJnZXRzIFNlcnZpY2VSb290LCBTZXNzaW9uU2VydmljZSwgQWNjb3VudFNlcnZpY2Us
-IFJvbGVzLCBhbmQNCj4gTWFuYWdlcnNTZXJ2aWNlLiAgU29tZSBmdW5jdGlvbmFsaXR5IGhlcmUg
-aGFzIGJlZW4gc2hpbW1lZCB0byBtYWtlDQo+IGRldmVsb3BtZW50IHBvc3NpYmxlLiAgRm9yIGV4
-YW1wbGUsIHRoZXJlIGV4aXN0cyBvbmx5IGEgc2luZ2xlIHVzZXIgcm9sZS4NCj4gPiArIFNTTCBr
-ZXkgZ2VuZXJhdGlvbiBhdCBydW50aW1lLiAgSWYgYW4gUlNBIGtleSBhbmQgY2VydCBwYWlyIGFy
-ZSBub3QNCj4gYXZhaWxhYmxlIHRvIHRoZSBzZXJ2ZXIgYXQgcnVudGltZSwga2V5cyBhcmUgZ2Vu
-ZXJhdGVkIHVzaW5nIHRoZSBvcGVuc3NsDQo+IHJvdXRpbmVzLCBhbmQgd3JpdHRlbiB0byBkaXNr
-Lg0KPiA+ICsgU3RhdGljIGZpbGUgaG9zdGluZy4gIEN1cnJlbnRseSwgc3RhdGljIGZpbGVzIGFy
-ZSBob3N0ZWQgZnJvbSB0aGUgZml4ZWQgbG9jYXRpb24NCj4gYXQgL3Vzci9zaGFyZS93d3cuICBU
-aGlzIGlzIGludGVuZGVkIHRvIGFsbG93IGxvb3NlIGNvdXBsaW5nIHdpdGggeW9jdG8NCj4gcHJv
-amVjdHMsIGFuZCBhbGxvdyBvdmVycmlkaW5nIHN0YXRpYyBmaWxlcyBhdCBidWlsZCB0aW1lLg0K
-PiA+ICsgRGJ1cy1tb25pdG9yIG92ZXIgd2Vic29ja2V0LiAgQSBnZW5lcmljIGVuZHBvaW50IHRo
-YXQgYWxsb3dzIFVJcyB0bw0KPiA+ICsgb3BlbiBhIHdlYnNvY2tldCBhbmQgcmVnaXN0ZXIgZm9y
-IG5vdGlmaWNhdGlvbiBvZiBldmVudHMgdG8gYXZvaWQNCj4gPiArIHBvbGxpbmcgaW4gc2luZ2xl
-IHBhZ2UgYXBwbGljYXRpb25zLiAgKHRoaXMgaW50ZXJmYWNlIG1heSBiZQ0KPiA+ICsgbW9kaWZp
-ZWQgaW4gdGhlIGZ1dHVyZSBkdWUgdG8gc2VjdXJpdHkgY29uY2VybnMuKQ0KPiA+DQo+ID4NCj4g
-PiBUaGFua3MsDQo+ID4NCj4gPiAtRWQNCj4gPg0K
+--_000_7E9441B1E5EFFD4681F54958E82169932F4B253FORSMSX114amrcor_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+In the hope of being more open with our development process, we'd like to c=
+reate a repo for hosting work-in-progress applications, and applications th=
+at don't really fit into the other repositories.  Internally, we have such =
+a repository, informally named proving ground, where we try to build out co=
+ncepts to test new applications, modes, and put the things that are specifi=
+c to our platform that don't really fit anywhere else.  An example of a com=
+ponent that would be contained in here would be this: https://gerrit.openbm=
+c-project.xyz/#/c/8197/
+
+With the goal of being more open, we'd like to find a way to make these pro=
+totypes available to the community sooner, and have our machine targets bui=
+ld some of the components while still in development.  The options we've co=
+nsidered thusfar are:
+
+
+1.       Acquire a repository under github/openbmc, possibly called intel, =
+possibly called something more company agnostic.  Here we would put our pro=
+totypes, and things that we would like to enable on our platforms.
+
+2.       Start our own repository on 01.org (Intels open source repository)=
+ and simply make our platform recipes in openbmc point to it.
+
+3.       Create repositories for each component under openbmc, and define a=
+ faster SLA and process for requesting new repos.
+
+4.       Continue with our internal fork, and publish prototypes to reposit=
+ories once they fit some definition of "done".
+
+My personal preference would be #1, but I'm curious if anyone has any thoug=
+hts on other opinions on how this should be done, or have better options th=
+at we haven't thought of yet.
+
+Thanks,
+
+-Ed
+
+--_000_7E9441B1E5EFFD4681F54958E82169932F4B253FORSMSX114amrcor_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{mso-style-priority:34;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+/* List Definitions */
+@list l0
+	{mso-list-id:1283418812;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-852468002 67698703 67698713 67698715 67698703 67698=
+713 67698715 67698703 67698713 67698715;}
+@list l0:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+@list l0:level4
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level5
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+@list l0:level7
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level8
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">In the hope of being more open with our development =
+process, we&#8217;d like to create a repo for hosting work-in-progress appl=
+ications, and applications that don&#8217;t really fit into the other repos=
+itories.&nbsp; Internally, we have such a repository,
+ informally named proving ground, where we try to build out concepts to tes=
+t new applications, modes, and put the things that are specific to our plat=
+form that don&#8217;t really fit anywhere else.&nbsp; An example of a compo=
+nent that would be contained in here would
+ be this: <a href=3D"https://gerrit.openbmc-project.xyz/#/c/8197/">https://=
+gerrit.openbmc-project.xyz/#/c/8197/</a>
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">With the goal of being more open, we&#8217;d like to=
+ find a way to make these prototypes available to the community sooner, and=
+ have our machine targets build some of the components while still in devel=
+opment.&nbsp; The options we&#8217;ve considered thusfar
+ are:<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoListParagraph" style=3D"text-indent:-.25in;mso-list:l0 level=
+1 lfo1"><![if !supportLists]><span style=3D"mso-list:Ignore">1.<span style=
+=3D"font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;
+</span></span><![endif]>Acquire a repository under github/openbmc, possibly=
+ called intel, possibly called something more company agnostic.&nbsp; Here =
+we would put our prototypes, and things that we would like to enable on our=
+ platforms.<o:p></o:p></p>
+<p class=3D"MsoListParagraph" style=3D"text-indent:-.25in;mso-list:l0 level=
+1 lfo1"><![if !supportLists]><span style=3D"mso-list:Ignore">2.<span style=
+=3D"font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;
+</span></span><![endif]>Start our own repository on 01.org (Intels open sou=
+rce repository) and simply make our platform recipes in openbmc point to it=
+.<o:p></o:p></p>
+<p class=3D"MsoListParagraph" style=3D"text-indent:-.25in;mso-list:l0 level=
+1 lfo1"><![if !supportLists]><span style=3D"mso-list:Ignore">3.<span style=
+=3D"font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;
+</span></span><![endif]>Create repositories for each component under openbm=
+c, and define a faster SLA and process for requesting new repos.<o:p></o:p>=
+</p>
+<p class=3D"MsoListParagraph" style=3D"text-indent:-.25in;mso-list:l0 level=
+1 lfo1"><![if !supportLists]><span style=3D"mso-list:Ignore">4.<span style=
+=3D"font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;
+</span></span><![endif]>Continue with our internal fork, and publish protot=
+ypes to repositories once they fit some definition of &#8220;done&#8221;.
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">My personal preference would be #1, but I&#8217;m cu=
+rious if anyone has any thoughts on other opinions on how this should be do=
+ne, or have better options that we haven&#8217;t thought of yet.<o:p></o:p>=
+</p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">-Ed<o:p></o:p></p>
+</div>
+</body>
+</html>
+
+--_000_7E9441B1E5EFFD4681F54958E82169932F4B253FORSMSX114amrcor_--
