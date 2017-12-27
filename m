@@ -7,20 +7,23 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3z65dz5XlkzDqZw
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3z65dz5TnzzDqZg
  for <openbmc@lists.ozlabs.org>; Wed, 27 Dec 2017 19:30:44 +1100 (AEDT)
 Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id vBR8CnPp022312;
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id vBR8CnAw022313;
  Wed, 27 Dec 2017 10:12:49 +0200
 Received: by talu34.nuvoton.co.il (Postfix, from userid 10070)
- id 1D4B15A634; Wed, 27 Dec 2017 10:30:31 +0200 (IST)
+ id 758705A644; Wed, 27 Dec 2017 10:30:32 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: openbmc@lists.ozlabs.org
 Cc: Joel Stanley <joel@jms.id.au>, Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH linux dev-4.13 v1 0/2] ADC: npcm: add NPCM7xx ADC iio driver
-Date: Wed, 27 Dec 2017 10:30:24 +0200
-Message-Id: <1514363426-9079-1-git-send-email-tmaimon77@gmail.com>
+Subject: [PATCH linux dev-4.13 v1 1/2] dt-binding: iio: document NPCM7xx ADC
+ DT bindings
+Date: Wed, 27 Dec 2017 10:30:25 +0200
+Message-Id: <1514363426-9079-2-git-send-email-tmaimon77@gmail.com>
 X-Mailer: git-send-email 1.8.3.4
+In-Reply-To: <1514363426-9079-1-git-send-email-tmaimon77@gmail.com>
+References: <1514363426-9079-1-git-send-email-tmaimon77@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -34,23 +37,42 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Wed, 27 Dec 2017 08:30:48 -0000
 
-This patch set adds Analog-to-digital converter (ADC) support 
-for the Nuvoton NPCM7xx Baseboard Management Controller (BMC).
+Added device tree binding documentation for Nuvoton NPCM7xx ADC.
 
-The NPCM7xx ADC is a 10-bit converter for eight channel
-inputs, the ADC module includes an eight-to-one multiplexer.
-
-Tomer Maimon (2):
-  dt-binding: iio: document NPCM7xx ADC DT bindings
-  ADC: npcm: add NPCM7xx ADC  driver
-
- .../devicetree/bindings/iio/adc/npcm7xx-adc.txt    |  23 ++
- drivers/iio/adc/Kconfig                            |   9 +
- drivers/iio/adc/Makefile                           |   1 +
- drivers/iio/adc/npcm7xx-adc.c                      | 352 +++++++++++++++++++++
- 4 files changed, 385 insertions(+)
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ .../devicetree/bindings/iio/adc/npcm7xx-adc.txt    | 23 ++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
  create mode 100755 Documentation/devicetree/bindings/iio/adc/npcm7xx-adc.txt
- create mode 100644 drivers/iio/adc/npcm7xx-adc.c
 
+diff --git a/Documentation/devicetree/bindings/iio/adc/npcm7xx-adc.txt b/Documentation/devicetree/bindings/iio/adc/npcm7xx-adc.txt
+new file mode 100755
+index 000000000000..c4eb433563b6
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/adc/npcm7xx-adc.txt
+@@ -0,0 +1,23 @@
++Nuvoton NPCM7XX Analog to Digital Converter (ADC)
++
++The NPCM7XX ADC is a 10-bit converter for eight channel inputs,
++The ADC module includes an eight-to-one multiplexer.
++
++Required properties:
++- compatible      : "nuvoton,npcm750-adc" for Poleg NPCM750.
++- reg             : Offset and length of the register set for the device.
++
++Required clocking property, have to be one of:
++- clocks          : phandle of timer reference clock.
++- clock-names	  : Must contain "clk_adc", matching entry in the clocks property.
++- vref			  : ADC Reference voltage, defualt 2048.
++
++Example:
++
++adc: adc@f000c000 {
++	compatible = "nuvoton,npcm750-adc";
++	reg = <0xf000c000 0x1000>;
++	clocks = <&clk NPCM7XX_CLK_ADC>;
++	clock-names = "clk_adc";
++	vref = <2048>;
++};
 -- 
 2.14.1
