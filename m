@@ -1,53 +1,47 @@
-Return-Path: <mine260309@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4001:c06::229; helo=mail-io0-x229.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="RFakpHY7"; 
- dkim-atps=neutral
-Received: from mail-io0-x229.google.com (mail-io0-x229.google.com
- [IPv6:2607:f8b0:4001:c06::229])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <ed.tanous@intel.com>
+Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=134.134.136.24; helo=mga09.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3z5VwT2fhRzDqgR
- for <openbmc@lists.ozlabs.org>; Tue, 26 Dec 2017 20:26:16 +1100 (AEDT)
-Received: by mail-io0-x229.google.com with SMTP id k202so23848293ioe.10
- for <openbmc@lists.ozlabs.org>; Tue, 26 Dec 2017 01:26:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to
- :content-transfer-encoding;
- bh=dF+gcVXS5vp/5PdYGhG4sXkKdae8hQ9GTPtRoa+0ncU=;
- b=RFakpHY7akSsDF6i/mXHWYQH/zUlpjuARoKTqRALQYUet5MN8lSmpuX7WwO0SFps6E
- tKDHbJvOl47JNQieVw5ULDuUZvnxynxII5MvPYw6us5+0nMIPfZ32xzHgj+COhoOgSIc
- Vh2qUGeSVmLBXPZ4WzL7Hd1lzWBliKIfT5mi/OEW87Uf4bywMfcdAfocd21gHfV/4On4
- KKyFKRHPrjdNV7QZ5BZPNrybpsFjKmzKwUtELvivr05UPIEMoeNcXxX5+oGtwvH92HJ2
- ndBKpWkMOb8eT6OcBnUR1y0J60r6CMzZPM9lUCP1hcvTKrCqLSf2XyI6+ZxjyJMl7BDU
- g2rg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to
- :content-transfer-encoding;
- bh=dF+gcVXS5vp/5PdYGhG4sXkKdae8hQ9GTPtRoa+0ncU=;
- b=sq1cASKQ6QKu+FUx7a5VuGyzGOvLTvZQpnE7VW303FLhVUSYuUR5ln9tQ7/khV7zBV
- yCJx9P8xoywImNJY/hKlJu0fIokSHyGKctk8utZlNtbfzqjKzzMIbVIeDy150D4io60x
- 1Idsy7S7n0ZghxPchTfCrcs/ZRTYA6VIWCsIpU1cDtnPlM1OL0TTU+wHfFfmusi3SnrR
- 7Yjk6+eO37C2cfwN3HMx98b0ePbDZGiIiAPCs6KSvmSI/CKGFmu/AT68wgLxQxaHOMIn
- MqJGDx54VUN0+nYfZD2koiLm5QaMfZWlv0wSjQvi3q/km2+pSMztJvRKWgRLQZ2Q7HU/
- ug/Q==
-X-Gm-Message-State: AKGB3mKZlrwy0qwXe+9G13zBJuhWMFe53dk4Uk2k+6scmkBHiroV3e8+
- V/y+SNoUbwlyMa2EB3tB0e7JjnrovItXCyIBAfqxBfHm
-X-Google-Smtp-Source: ACJfBouv6G2FqUDEX7CCJGGm+0PAY4ZuqF6gEkgxl5kKq7P1VLDguY2d6+ys+hbqWDYDJRfFtJ7NOXWw+hZlWRKGigk=
-X-Received: by 10.107.232.13 with SMTP id f13mr18615487ioh.207.1514280373731; 
- Tue, 26 Dec 2017 01:26:13 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3z5vB81FN1zDqhL
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Dec 2017 11:39:24 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 26 Dec 2017 16:39:19 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.45,462,1508828400"; d="scan'208";a="21603625"
+Received: from orsmsx110.amr.corp.intel.com ([10.22.240.8])
+ by orsmga002.jf.intel.com with ESMTP; 26 Dec 2017 16:39:19 -0800
+Received: from orsmsx114.amr.corp.intel.com ([169.254.8.57]) by
+ ORSMSX110.amr.corp.intel.com ([169.254.10.149]) with mapi id 14.03.0319.002;
+ Tue, 26 Dec 2017 16:39:18 -0800
+From: "Tanous, Ed" <ed.tanous@intel.com>
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>, Patrick Venture
+ <venture@google.com>
+CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: RE: Request for a development repo
+Thread-Topic: Request for a development repo
+Thread-Index: AdN6jahyxaxrVgU0Srm5/SNsVR8pOwAWdLyAADSGNoAAtQUFcA==
+Date: Wed, 27 Dec 2017 00:39:17 +0000
+Message-ID: <7E9441B1E5EFFD4681F54958E82169932F4B3175@ORSMSX114.amr.corp.intel.com>
+References: <7E9441B1E5EFFD4681F54958E82169932F4B253F@ORSMSX114.amr.corp.intel.com>
+ <CAO=noty9Z6VuPtyuCgSqVeT4jRon4=YfwzHid=8zup50gA8u4w@mail.gmail.com>
+ <1513982711.5787.141.camel@fuzziesquirrel.com>
+In-Reply-To: <1513982711.5787.141.camel@fuzziesquirrel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ctpclassification: CTP_IC
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiYzk5NTNiYmYtMThlOS00MTU2LTkzMzgtZmFjYWM2NTJjY2EzIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX0lDIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE1LjkuNi42IiwiVHJ1c3RlZExhYmVsSGFzaCI6IkhFYXBCZCtQaU1nd0N0MUI5bVdSdENJUk15dDh4ZXoxSnZiaWVtTlBZWVU9In0=
+x-originating-ip: [10.22.254.139]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Received: by 10.79.1.67 with HTTP; Tue, 26 Dec 2017 01:26:13 -0800 (PST)
-From: Lei YU <mine260309@gmail.com>
-Date: Tue, 26 Dec 2017 17:26:13 +0800
-Message-ID: <CAARXrtnLa5PrjgT0eNL-y=xJFjbC-oGUaNNd49n60ncwWwo7Dw@mail.gmail.com>
-Subject: TFTP kernel + NFS boot for OpenBMC
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -59,75 +53,95 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Dec 2017 09:26:18 -0000
+X-List-Received-Date: Wed, 27 Dec 2017 00:39:28 -0000
 
-Hi,
-
-There may be intents to boot from NFS for OpenBMC, e.g. for study or
-debug purpose:
-
-It could be much faster than flashing the entire chip;
-The rw partition has limited size so sometime it is not possible to
-override a large file with overlay fs;
-It does not impact the original BMC chip at all.
-
-Here are the steps to boot OpenBMC via tftp kernel + nfs root for
-palmetto, just for reference.
-If this is well accepted, this could be added to openbmc/doc.
-
-Enable NFS related kernel configs, e.g. CONFIG_NFS_FS, CONFIG_ROOT_NFS, etc
-Prepare the below files built by OpenBMC:
-
-zImage # The kernel
-zImage-aspeed-bmc-opp-palmetto.dtb # The dt blob
-image-rofs # The ro part for root fs
-
-On tftp server, prepare uImage because the uboot does not support zImage
-
-# The entry address may be different for different systems
-mkimage -A arm -O linux -T kernel -C none -a 0x40008000 -e 0x40008000
--n "Linux kernel" -d zImage uImage
-
-And put the uImage and dtb on tftp root dir;
-On NFS server, prepare rootfs by extracting the rofs image:
-
-sudo unsquashfs -f -d <nfsroot-dir> image-rofs
-
-In rootfs, add etc/systemd/network/00-bmc-eth0.network, e.g.
-
-[Match]
-Name=3Deth0
-[Network]
-Address=3D192.168.0.60/24
-[DHCP]
-CriticalConnection=3Dtrue
-
-This is needed because when systemd-networkd starts, it will
-re-initialize the network;
-CriticalConnection=3Dtrue is needed, otherwise it will release the IP
-and cause NFS hang.
-It could be DHCP or static ip, it does not matter
-
-Now it=E2=80=99s ready, let=E2=80=99s boot from nfs, e.g.
-
-# In uboot, hit any key to stop autoboot
-# Config network
-setenv ethaddr <mac addr>
-setenv ipaddr 192.168.0.60
-setenv serverip 192.168.0.10
-# Set bootargs to specify nfs rootfs
-setenv bootargs root=3D/dev/nfs rw
-nfsroot=3D192.168.0.10:/nfsroot/obmc-rofs,nolock console=3DttyS4,115200n8
-ip=3D192.168.0.60:192.168.0.10:192.168.0.10:255.255.255.0
-# Load kernel and dtb
-tftp 0x40000000 uImage
-tftp 0x40800000 zImage-aspeed-bmc-opp-palmetto.dtb
-# Boot from kernel/dtb in ram
-bootm 0x40000000 - 0x40800000
-
-With above steps, the BMC works happily on NFS rootfs, I can replace
-kernel/services easily.
-
-=E2=80=94
-BRs,
-Lei YU
+PiA+ID4gMS4gICAgICAgQWNxdWlyZSBhIHJlcG9zaXRvcnkgdW5kZXIgZ2l0aHViL29wZW5ibWMs
+IHBvc3NpYmx5IGNhbGxlZA0KPiA+ID4gaW50ZWwsDQo+ID4gPiBwb3NzaWJseSBjYWxsZWQgc29t
+ZXRoaW5nIG1vcmUgY29tcGFueSBhZ25vc3RpYy4gIEhlcmUgd2Ugd291bGQgcHV0DQo+ID4gPiBv
+dXIgcHJvdG90eXBlcywgYW5kIHRoaW5ncyB0aGF0IHdlIHdvdWxkIGxpa2UgdG8gZW5hYmxlIG9u
+IG91cg0KPiA+ID4gcGxhdGZvcm1zLg0KPiA+DQo+ID4gSSB2b3RlIGZvciB0aGlzIG9wdGlvbiB3
+aXRoIGEgbW9yZSBnZW5lcmljIG5hbWUuICBJdCB3b3VsZCBiZSBoYW5keQ0KPiA+IHNpbmNlIGEg
+bG90IG9mIG5ldyBkYWVtb25zIG9yIHdvcmsgaGFzIG5vd2hlcmUgdG8gcmVhbGx5IGJlIHN0YWdl
+ZC4NCj4gDQo+IEhvdyB3b3VsZCB0aGlzIHdvcmsgZXhhY3RseT8gIFdvdWxkIHRoZXJlIGJlIG9u
+ZSByZXBvc2l0b3J5IGZvciB0aGUgd2hvbGUNCj4gcHJvamVjdCB3aGVyZSBhbnkgc3VibWlzc2lv
+bnMgYXJlIGFjY2VwdGVkIHVuY29uZGl0aW9uYWxseT8gIE9yIGFyZSB3ZQ0KPiBkcml2aW5nIGF0
+IHByb3ZpZGluZyBhIHJlcG8gdG8gb3JnYW5pemF0aW9ucyBhbmQvb3IgaW5kaXZpZHVhbHMgdGhh
+dCB0aGV5DQo+IG1haW50YWluPw0KDQpUaGlzIHdvdWxkIGJlIGEgcmVwb3NpdG9yeSBmb3Igb3Vy
+IFdJUC4gIE9uZSByZXBvc2l0b3J5LCB5ZXMsIHVubGVzcyBpbiB0aGUgZnV0dXJlIGl0IG1ha2Vz
+IG1vcmUgc2Vuc2UgdG8gc3BsaXQgYWxvbmcgY2VydGFpbiBhcmNoaXRlY3R1cmFsIGxpbmVzLCBi
+dXQgYXQgdGhpcyBwb2ludCBJIHRoaW5rIG9uZSB3aWxsIGRvLiAgSSdtIGhhcHB5IHRvIHdvcmsg
+d2l0aCBvdGhlcnMgaWYgdGhleSB3b3VsZCBsaWtlIHRvIHNoYXJlIHRoZSByZXBvc2l0b3J5LCBv
+ciB3b3JrIHRvZ2V0aGVyIG9uIGNvbXBvbmVudHMsIGJ1dCBhdCB0aGUgZW5kIG9mIHRoZSBkYXks
+IG15IGVuZ2luZWVycyBuZWVkIGEgc2FuZGJveCB3aGVyZSB0aGV5IGNhbiBkZXZlbG9wIGluIHRo
+ZSBvcGVuLg0KDQpObywgc3VibWlzc2lvbnMgd2lsbCBub3QgYmUgYWNjZXB0ZWQgdW5jb25kaXRp
+b25hbGx5OyAgVGhpcyBpcyBub3QgYW4gYXR0ZW1wdCB0byBza2lydCBjb2Rpbmcgc3R5bGUsIGxh
+bmd1YWdlIGNob2ljZSwgb3IgYW55IGxhcmdlIGFyY2hpdGVjdHVyYWwgcnVsZXMuICBUaGlzIGlz
+IGFuIGF0dGVtcHQgdG8gZ2V0IGEgcmVwb3NpdG9yeSB0aGF0IG15IGVuZ2luZWVycyBjYW4gY2hl
+Y2sgaW50byBhbmQgZ2V0IGNvZGUgcmV2aWV3IGFwcHJvdmFsIGZyb20gYSBtYWludGFpbmVyIGlu
+IHF1aWNrIG9yZGVyLCBmb3IgY29tcG9uZW50cyB0aGF0IG1lZXQgb3VyIG5lZWRzIHdpdGhvdXQg
+YSBoYXJkIGZvcmsgb2YgdGhlIGNvZGViYXNlLiAgT25jZSBwcm92ZW4gdG8gYmUgdmlhYmxlIGFu
+ZCB1c2VmdWwgdG8gdGhlIGNvbW11bml0eSwgdGhleSBjb3VsZCB0cmFuc2l0aW9uIHRvIGEgZnVs
+bCByZXBvc2l0b3J5LCB3aXRoIGFsbCB0aGUgZGlzY3Vzc2lvbnMgdGhhdCBlbnRhaWxzLg0KDQo+
+IA0KPiBJJ20gcHJvYmFibHkgc291bmRpbmcgY3JpdGljYWwgb2YgdGhlIGlkZWEuLi50aGF0IGlz
+bid0IHRoZSBpbnRlbnQgLSBqdXN0IHdhbnRpbmcNCj4gdG8gdW5kZXJzdGFuZCB3aGVyZSB3ZSBh
+cmUgaGVhZGVkLg0KPiANCj4gPg0KPiA+ID4NCj4gPiA+IDIuICAgICAgIFN0YXJ0IG91ciBvd24g
+cmVwb3NpdG9yeSBvbiAwMS5vcmcgKEludGVscyBvcGVuIHNvdXJjZQ0KPiA+ID4gcmVwb3NpdG9y
+eSkNCj4gPiA+IGFuZCBzaW1wbHkgbWFrZSBvdXIgcGxhdGZvcm0gcmVjaXBlcyBpbiBvcGVuYm1j
+IHBvaW50IHRvIGl0Lg0KDQpUaGUgdmliZSBJJ20gZ2V0dGluZyAoZnJvbSB0aGUgbGFjayBvZiBy
+ZXNwb25zZXMpIGlzIHRoYXQgYSAwMS5vcmcgZm9yayBpc24ndCBkZXNpcmVkLiAgSSBjb21wbGV0
+ZWx5IGFncmVlLCBJIGp1c3Qgd2FudGVkIHRvIHRocm93IGl0IG91dCB0aGVyZSBhcyBhbiBvcHRp
+b24uDQoNCj4gPiA+DQo+ID4gPiAzLiAgICAgICBDcmVhdGUgcmVwb3NpdG9yaWVzIGZvciBlYWNo
+IGNvbXBvbmVudCB1bmRlciBvcGVuYm1jLCBhbmQNCj4gPiA+IGRlZmluZSBhDQo+ID4gPiBmYXN0
+ZXIgU0xBIGFuZCBwcm9jZXNzIGZvciByZXF1ZXN0aW5nIG5ldyByZXBvcy4NCj4gDQo+IEluIHRo
+ZSBsb25nZXIgdGVybSB0aGlzIHdvdWxkIGdldCBteSB2b3RlLiAgQnV0IEkgc3RpbGwgdGhpbmsg
+d2UgbmVlZCB0byBkbw0KPiBzb21ldGhpbmcgdG8gZW5hYmxlIHlvdSBpbiB0aGUgc2hvcnQgdGVy
+bSwgdW50aWwgc29tZW9uZSBwcm9wb3NlcyBhDQo+IHByb2Nlc3MuDQoNCkxvbmcgdGVybSwgYWJz
+b2x1dGVseSwgYnV0IEkgZG9uJ3QgdGhpbmsgd2UncmUgYXQgYSBjcml0aWNhbCBtYXNzIHRvIHRo
+ZSBwb2ludCB3aGVyZSB3ZSBjYW4gcmVhbGx5IGRlZmluZSBhIHByb2Nlc3MuDQoNCj4gDQo+IFlv
+dSBtZW50aW9uIGEgZmFzdGVyIFNMQSBhbmQgSSB3YW50IHRvIHRvdWNoIG9uIHRoYXQgYmVjYXVz
+ZSBJIHRoaW5rIGl0IGlzDQo+IGltcG9ydGFudC4NCj4gDQo+IEknbSByZWFkaW5nIGJldHdlZW4g
+dGhlIGxpbmVzIGEgYml0LCBidXQgSSdkIGd1ZXNzIGlmIEknZCBjcmVhdGVkIGEgcmVwb3NpdG9y
+eQ0KPiBmb3IgdGhlIHByb2plY3QgeW91IHJlZmVyZW5jZSBhYm92ZSB3aXRoaW4gYSBjb3VwbGUg
+ZGF5cyBvZiB0aGUgc3VibWlzc2lvbg0KPiAoYWxvbmcgd2l0aCBhIGNvdXBsZSBvdGhlciBSRkNz
+KSB3ZSB3b3VsZG4ndCBiZSBoYXZpbmcgdGhpcyBjb252ZXJzYXRpb24uDQoNCldlJ2QgbGlrZWx5
+IHN0aWxsIGJlIGhhdmluZyB0aGlzIGRpc2N1c3Npb24sIGFsdGhvdWdoIGZyb20gYSBkaWZmZXJl
+bnQgdmlld3BvaW50LiAgSSBkb24ndCB0aGluayBldmVyeSBSRkMgbmVlZHMgYSByZXBvLCBub3Ig
+YW0gSSBhcmd1aW5nIHRoYXQgeW91IHNob3VsZCd2ZSBjcmVhdGVkIHJlcG9zIGZvciB0aGUgV0lQ
+IHRoYXQgd2UndmUgYmVlbiBwdXNoaW5nLiAgVGhlIGFjdCBvZiBhY3R1YWxseSBjcmVhdGluZyB0
+aGUgcmVwbyBpcyBsZXNzIGltcG9ydGFudCB0aGFuIHRoZSBmYWN0IHRoYXQgd2Ugc2VlbSB0byBi
+ZSBzdHJ1Z2dsaW5nIHRvIGZvc3RlciBkaXNjdXNzaW9ucyBhcm91bmQgYXJjaGl0ZWN0dXJhbCBk
+ZWNpc2lvbnMuICBJbiB0aGUgbGFjayBvZiBjb25zZW5zdXMsIHdlIG5lZWQgdG8gY29udGludWUg
+bW92aW5nIHRvd2FyZCB0aGUgZ29hbCBvZiBidWlsZGluZyBzb21ldGhpbmcgcHJvZHVjdCB3b3J0
+aHkuDQoNCj4gDQo+IEZvciBiZXR0ZXIgb3Igd29yc2UsIEkgYW0gdGhlIG1haW50YWluZXIgb2Yg
+dGhpcyBwcm9qZWN0IChhdCB0aGUgbW9tZW50DQo+IGFueXdheSA6LSkpLiAgTGV0IG1lIHNoYXJl
+IHdoYXQgSSB0aGluayB0aGlzIHJvbGUgbWVhbnMgYmVjYXVzZSBJIHRoaW5rIGl0cw0KPiBpbmZv
+cm1hdGl2ZSBoZXJlLg0KPiANCj4gTXkgcm9sZSBpcyB0byBlbnN1cmUgdGhhdDoNCj4gIC0gY29u
+dHJpYnV0b3JzIHRvIHRoZSBwcm9qZWN0IGhhdmUgYSB2b2ljZS4NCj4gIC0gcGFydGljaXBhdGlv
+biBhbmQgY29sbGFib3JhdGlvbiBvY2N1cnMgdHJhbnNwYXJlbnRseSAob3BlbikuDQo+ICAtIGNv
+bnRyaWJ1dGlvbnMgbWFrZSB0aGUgcHJvamVjdCBiZXR0ZXIgZm9yIHRoZSBtb3N0IG51bWJlciBv
+ZiBwZW9wbGUuDQo+IA0KPiBJZiBzb21lb25lIHN1Ym1pdHMgYW4gUkZDLCBhbmQgSSBqdXN0IGNy
+ZWF0ZSBhIHJlcG9zaXRvcnksIEkndmUgZG9uZSBub25lIG9mDQo+IHRob3NlIHRoaW5ncy4gIEkg
+aG9uZXN0bHkgaGF2ZSB2ZXJ5IGxpdHRsZSBtb3RpdmF0aW9uIHRvIGhvbGQgdXAgYW55DQo+IGNv
+bnRyaWJ1dGlvbnMgYmFzZWQgb24gdGVjaG5pY2FsIG1lcml0IGFsb25lLiAgV2hhdCBJIHdhbnQg
+dG8gc2VlIGlzIGV2aWRlbmNlDQo+IG9mIHRoZSBidWxsZXQgcG9pbnRzIGFib3ZlLg0KDQpKdXN0
+IHRvIGJlIGNsZWFyLCB5b3VyIHBvaW50ICMyIGlzIGV4YWN0bHkgd2hhdCB3ZSdyZSB0cnlpbmcg
+dG8gZG8gd2l0aCB0aGlzIHJlcXVlc3QuICBJJ2QgcmVhbGx5IGxpa2UgdG8gZGlzY291cmFnZSB0
+aGUgcHJpdmF0ZSBmb3JrcyB0aGF0IG1vc3Qgb3JnYW5pemF0aW9ucyBoYXZlIGF0IHRoZSBtb21l
+bnQsIGFuZCBkZWZpbmUgYSBwcm9jZXNzIHRoYXQgbGV0cyB1cyBnZXQgbW9yZSBjb2RlIGluIHRo
+ZSBvcGVuIHNvIHdlIGNhbiBoYXZlIHRlY2huaWNhbCBkaXNjdXNzaW9ucyBhYm91dCB0aGUgbWVy
+aXRzIGFuZCBkZW1lcml0cyBvZiBldmVyeW9uZSdzIHNvbHV0aW9ucy4NCkp1c3QgdG8gYmUgY2xl
+YXIsIEknbSBpbiBubyB3YXkgYXJndWluZyB5b3UgaGF2ZW4ndCBkb25lIHlvdXIgam9iIGhlcmUs
+IGFuZCBJIHRoaW5rIHRoYXQgdGhlIGd1aWRlbGluZXMgYWJvdmUgYXJlIGEgZ3JlYXQgc3RhcnRp
+bmcgcG9pbnQgZm9yIGRlZmluaW5nIHlvdXIgcm9sZSBpbiB0aGlzIHByb2plY3QuDQoNCj4gDQo+
+IEknbSBwZXJmZWN0bHkgaGFwcHkgdG8gcGVyc29uYWxseSB3b3JrIG15c2VsZiB0byBlbnN1cmUg
+dGhlc2UgdGhpbmdzIGFyZQ0KPiBiZWluZyBkb25lIGZvciBjb250cmlidXRpb25zIGZyb20gb3Ro
+ZXJzLCBidXQgdGhhdCBfd2lsbF8gYmUgYSBoaWdoIGxhdGVuY3kNCj4gcHJvY2Vzcy4gIFRvIG1h
+a2UgaXQgZmFzdGVyLCBjb250cmlidXRvcnMgdGhlbXNlbHZlcyBjYW4gc29saWNpdCBzdXBwb3J0
+IGZvcg0KPiB0aGVpciBpZGVhcyBmcm9tIG90aGVycyBieSBhc2tpbmcgdGhlbSB0byByZXZpZXcg
+Y29kZSwgdm9jYWxpemUgdGhlaXIgc3VwcG9ydA0KPiBvbiB0aGUgbWFpbGluZyBsaXN0LCBldGMu
+ICBQZW9wbGUgdGhhdCBoZWxwZWQgc2hhcGUgdGhlIHByb3Bvc2VkDQo+IGNvZGUvZGVzaWduL2lk
+ZWEgYmVoaW5kIGNsb3NlZCBkb29ycyBkb24ndCBjb3VudCBpbWhvIC0gdGhhdCB3b3VsZCBqdXN0
+IGJlDQo+IGEgcnViYmVyIHN0YW1wLg0KPiANCj4gRG9lcyB0aGlzIGluc2lnaHQgaGVscCBhbnkg
+d2l0aCB0aGUgcHJvYmxlbSB3ZSBhcmUgdHJ5aW5nIHRvIHNvbHZlIHdpdGggdGhlDQo+IHByb3Bv
+c2VkIHByb3ZpbmctZ3JvdW5kPw0KPiANCj4gU29ycnkgZm9yIHRoZSBib29rIC0gdGhvdWdodHMg
+d2VsY29tZS4NCj4gDQoNCg==
