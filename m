@@ -1,52 +1,29 @@
-Return-Path: <mine260309@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:400e:c05::241; helo=mail-pg0-x241.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Et2nkqo1"; 
- dkim-atps=neutral
-Received: from mail-pg0-x241.google.com (mail-pg0-x241.google.com
- [IPv6:2607:f8b0:400e:c05::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <Tomer.Maimon@nuvoton.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3z6jnR2VJjzDqMZ
- for <openbmc@lists.ozlabs.org>; Thu, 28 Dec 2017 19:39:22 +1100 (AEDT)
-Received: by mail-pg0-x241.google.com with SMTP id q67so10447240pga.9
- for <openbmc@lists.ozlabs.org>; Thu, 28 Dec 2017 00:39:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=hl3WbiMCdwlXhjcSc50zEClfuX3M5oCAKJdmuW8Ohfg=;
- b=Et2nkqo1ovHfn+dlrOXrzmXt8r0CFdbE4KOZcltawnIYCofMsp6yRb7ZjrEdie6iDw
- MRnEky0/P5DULyPFUfJQEAPoH+Dtr61aUzLHT+Jfb9L6xzn3Hn0/E6b+V5hNtXwHLDsM
- Zn5PBVBxhb0KRJY7r4tns02WtkvVH2PKuJT35gXlPrhBxvIANeMrCNSPjbdn3Xu8P8yd
- BmKzVx64nNJO2hb/5zgTjwONG5jFkzVoYMypbhBjw63oZX58mNp1zZtT2t8iTuEr3JVz
- 3HzPkZHhOqgXz5e6EodFLGdesa6WQdwoSfgcuCEF7U3JD0H/wcIj07pscccs9fdMWXej
- gdKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=hl3WbiMCdwlXhjcSc50zEClfuX3M5oCAKJdmuW8Ohfg=;
- b=McVhPX7tn6VL+p8Bhb4C3JJd21M80nKVF3us27z5HCy+ifmB+yp42k8194J6xbD9zT
- 2dHTyCNQGFBX1oSfBZNG4CXqS306WHE/JT9f5nSZ5QmmBW+Ekcb2JCMjrc3v0VbJF6r9
- kCXA6CtRzoORLyn0DvreZzoI94eZO92kqY0f9rZcdpFPSVDDe5rVl/dzeTHR6oJ9IdWc
- PoC4eCbwz/EsPDasofy568X/o04len1RHep1Eh8cT2fmSDbKZpo8YXgzBG2yXak0HtYh
- Lfm9K3Jx5ulmzSjeJce2ZjBC0dZHLbjqGg+nqR4+UqqPrBtXxy1y7ncAGtTdSQHKnccD
- HL1w==
-X-Gm-Message-State: AKGB3mIousxNIu6TOt+MnlbV7jXgA9BFNKkk3sD8Rt4gl+yqrwPGg8sQ
- rt57BP0ZP1e7TSYGkjTq2hQo1CDA
-X-Google-Smtp-Source: ACJfBouZxveHzPyRNK52o3qad83h19KQcX0KLmnrbyM3pIflB6WffbkO+1pZxAsrMU2ZvGnmSzXRnQ==
-X-Received: by 10.99.124.65 with SMTP id l1mr19869913pgn.310.1514450358720;
- Thu, 28 Dec 2017 00:39:18 -0800 (PST)
-Received: from localhost ([159.203.222.251])
- by smtp.gmail.com with ESMTPSA id f7sm64958909pfa.133.2017.12.28.00.39.17
- (version=TLS1_2 cipher=AES128-SHA bits=128/128);
- Thu, 28 Dec 2017 00:39:17 -0800 (PST)
-From: Lei YU <mine260309@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3z6l4T6Y7HzDqNM
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Dec 2017 20:37:26 +1100 (AEDT)
+Received: from talu34.nuvoton.co.il (ntil-fw [212.199.177.25])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id vBS9JURd015357;
+ Thu, 28 Dec 2017 11:19:30 +0200
+Received: by talu34.nuvoton.co.il (Postfix, from userid 10070)
+ id 989665A8F9; Thu, 28 Dec 2017 11:37:13 +0200 (IST)
+From: Tomer Maimon <tmaimon77@gmail.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.10] ARM: dts: aspeed: romulus: hog GPIOS7
-Date: Thu, 28 Dec 2017 16:38:06 +0800
-Message-Id: <1514450286-580-1-git-send-email-mine260309@gmail.com>
-X-Mailer: git-send-email 1.9.1
+Cc: Joel Stanley <joel@jms.id.au>, Tomer Maimon <tmaimon77@gmail.com>
+Subject: [PATCH linux dev-4.13 v1 1/2] dt-binding: pinctrl: document NPCM7xx
+ pin control DT bindings
+Date: Thu, 28 Dec 2017 11:37:10 +0200
+Message-Id: <1514453831-27162-2-git-send-email-tmaimon77@gmail.com>
+X-Mailer: git-send-email 1.8.3.4
+In-Reply-To: <1514453831-27162-1-git-send-email-tmaimon77@gmail.com>
+References: <1514453831-27162-1-git-send-email-tmaimon77@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -58,33 +35,92 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Dec 2017 08:39:25 -0000
+X-List-Received-Date: Thu, 28 Dec 2017 09:37:30 -0000
 
-GPIOS7 shall be pulled low for CPLD to continue the power up sequence.
-With this hogged as pull-low, the CPLD workaround can be removed in
-OpenBMC.
+Added device tree binding documentation for
+Nuvoton NPCM7xx pin controllers
 
-Signed-off-by: Lei YU <mine260309@gmail.com>
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 6 ++++++
- 1 file changed, 6 insertions(+)
+ .../bindings/pinctrl/nuvoton,npcm7xx-pinctrl.txt   | 70 ++++++++++++++++++++++
+ 1 file changed, 70 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/nuvoton,npcm7xx-pinctrl.txt
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-index d9596d9..1ca2457 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-@@ -279,6 +279,12 @@
- 		output-low;
- 		line-name = "nic_func_mode1";
-     };
-+    seq_cont {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(S, 7) GPIO_ACTIVE_HIGH>;
-+		output-low;
-+		line-name = "seq_cont";
-+    };
- };
- 
- &vuart {
+diff --git a/Documentation/devicetree/bindings/pinctrl/nuvoton,npcm7xx-pinctrl.txt b/Documentation/devicetree/bindings/pinctrl/nuvoton,npcm7xx-pinctrl.txt
+new file mode 100644
+index 000000000000..5a70bfe8c978
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pinctrl/nuvoton,npcm7xx-pinctrl.txt
+@@ -0,0 +1,70 @@
++Nuvoton NPCM7XX Pin Controllers
++
++The NPCM7XX Pin Controller multi-function routed through
++the multiplexing block, Each pin supports GPIO functionality (GPIOx)
++and multiple functions that directly connect the pin to different
++hardware blocks.
++
++Required properties:
++- compatible      : "nuvoton,npcm750-pinctrl" for Poleg NPCM750.
++
++Contents of function subnode node
++---------------------------------
++Required subnode-properties:
++- groups : An array of strings. Each string contains the name of a group.
++- function: A string containing the name of the function to mux to the
++  group.
++
++  Valid values for group and function names can be found from looking at the
++  group and function arrays in driver files:
++  drivers/pinctrl/nuvoton/pinctrl-npcmx50.c
++
++For example, pinctrl might have subnodes like the following:
++	r1err_pins: r1err_pins {
++		groups = "r1err";
++		function = "r1err";
++	};
++	r1md_pins: r1md_pins {
++		groups = "r1md";
++		function = "r1md";
++	};
++	r1_pins: r1_pins {
++		groups = "r1";
++		function = "r1";
++	};
++
++For a specific board, if it wants to use EMC (10/100 network),
++it can add the following to its board-specific .dts file.
++emc0: eth@f0825000 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&r1_pins
++				 &r1err_pins
++				 &r1md_pins>;
++	phy-mode = "rmii";
++
++if EMC hardware is not used the EMC pin can used for GPIO56
++	pinctrl-names = "default";
++	pinctrl-0 = <&gpio56_pins>
++
++Examples
++========
++
++pinctrl: pinctrl@0 {
++	compatible = "nuvoton,npcm7xx-pinctrl";
++	status = "okay";
++	iox1_pins: iox1_pins {
++		groups = "iox1";
++		function = "iox1";
++	};
++	iox2_pins: iox2_pins {
++		groups = "iox2";
++		function = "iox2";
++	};
++
++	....
++
++	clkreq_pins: clkreq_pins {
++		groups = "clkreq";
++		function = "clkreq";
++	};
++};
 -- 
-1.9.1
+2.14.1
