@@ -1,57 +1,77 @@
-Return-Path: <joel.stan@gmail.com>
-Authentication-Results: ozlabs.org; spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4010:c07::233; helo=mail-lf0-x233.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="CuOyS2lV"; 
- dkim-atps=neutral
-Received: from mail-lf0-x233.google.com (mail-lf0-x233.google.com
- [IPv6:2a00:1450:4010:c07::233])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Authentication-Results: ozlabs.org;
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3z9rl52LHhzDqws
- for <openbmc@lists.ozlabs.org>; Tue,  2 Jan 2018 22:03:12 +1100 (AEDT)
-Received: by mail-lf0-x233.google.com with SMTP id e27so20479399lfb.9
- for <openbmc@lists.ozlabs.org>; Tue, 02 Jan 2018 03:03:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=VkHG/aTFeQOTrWcWXvO1PLKzven8bHKinUyzrbfHUxY=;
- b=CuOyS2lVOBqLU+2NSTGBS19UTk7AI87h9zDlBdiqpNDDGzWF3JtgAkZWMkmU9NlFwL
- 0FCWV1DV5alkez3mw8B5TxldwqGWzXLl5ae3CE67zmFXvQCJZGp7zIE5/ftGO12QsBdP
- IbIStUHYxJSluk1riRefzhYIrocBU4eAvJVNAHrntygurxep3rn974czYoVAjFAPEGv1
- 8tVBzVQdECgfHONwr0u8K4OlD40X+h/Jb4ylOHyAWeJE2/O8iED2IkSQZ6E60O0JGyQh
- mF08H/Es6emvO6DSJscuVdE3P/sBuHNwVGiIQtMX0KZRlEcAXighZDvYmgu0IHd/ttbT
- c8Ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=VkHG/aTFeQOTrWcWXvO1PLKzven8bHKinUyzrbfHUxY=;
- b=A6D+LiZd9eNM6mUikSh1bqwDcbQS+/6SkFG6hDItH11BgQIZ5btlzMFxmAmKsFed4W
- /KVPcvmfaXozglkZnPbJgIQU55DQrm0brKOqJ6RoMuUOfOE3IIdEo1dUw/Otlqw1Wxeb
- lUs3YK54DXTJzAjNroJrk5mYd5rVCi4286dfG62GBnPGyNJ47J/qtMRNIMUEWXmR4lK0
- iZxZoQSRXAKhjoTtNhj8uLUkOaT0HUjOtzWVWlFFY63xpuy0/sAS2tBs2TTwRtwYzQ1w
- yi6DPMvRE61qtc9QM7148fEEcNxuuf12ZeacJps0PCmWyZvWP2cI5fF9sDobMYWAOWBQ
- 3oPA==
-X-Gm-Message-State: AKGB3mL1U6xh+irRV1e/kHiHzJT6RM5PCmenzPiokRuSafcodPrqWwV1
- pfVKTxeLurW0cmEndAnG9EeymKtzdyPCS374yQs=
-X-Google-Smtp-Source: ACJfBosPVvmEECGDyozu2KzyT6UQmwD+XLTuIQSDB2XFrI9f5udhF3w92tO3sNZ/V2A0OfvJrOS9XuMvbPY2SR7FmaE=
-X-Received: by 10.46.101.74 with SMTP id z71mr26528644ljb.35.1514890988630;
- Tue, 02 Jan 2018 03:03:08 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3zB1CJ2sFbzF0Wq
+ for <openbmc@lists.ozlabs.org>; Wed,  3 Jan 2018 04:24:44 +1100 (AEDT)
+Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+ w02HOC3V019417
+ for <openbmc@lists.ozlabs.org>; Tue, 2 Jan 2018 12:24:41 -0500
+Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2f88q0x67d-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 02 Jan 2018 12:24:41 -0500
+Received: from localhost
+ by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Tue, 2 Jan 2018 12:24:40 -0500
+Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
+ by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Tue, 2 Jan 2018 12:24:38 -0500
+Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
+ [9.57.199.107])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ w02HOcmO47775980; Tue, 2 Jan 2018 17:24:38 GMT
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id D76B912403D;
+ Tue,  2 Jan 2018 12:21:32 -0500 (EST)
+Received: from [9.41.241.240] (unknown [9.41.241.240])
+ by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP id 59113124037;
+ Tue,  2 Jan 2018 12:21:32 -0500 (EST)
+Subject: Re: [PATCH linux dev-4.10] drivers: fsi: SBEFIFO: switch to workqueue
+ instead of timer
+To: Joel Stanley <joel@jms.id.au>, npiggin@gmail.com
+Cc: Andrew Jeffery <andrew@aj.id.au>, "Edward A. James" <eajames@us.ibm.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <1513628014-16656-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <CACPK8XeFN63xR4BiGUM+xwVvMOf=sLUr81SJ-BQYVR_McPaASg@mail.gmail.com>
+ <CACPK8XcFMMippVPMuNvv_JnJjX4BTreNy28Ue01JSaiQSUNoQQ@mail.gmail.com>
+From: Eddie James <eajames@linux.vnet.ibm.com>
+Date: Tue, 2 Jan 2018 11:24:37 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.4.0
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.25.155.142 with HTTP; Tue, 2 Jan 2018 03:02:48 -0800 (PST)
-In-Reply-To: <000501d37dec$d18b5680$74a20380$@linux.intel.com>
-References: <000501d37dec$d18b5680$74a20380$@linux.intel.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 2 Jan 2018 21:32:48 +1030
-X-Google-Sender-Auth: Hwx_8jPOmTBmXyOpxBZ3sQzFad0
-Message-ID: <CACPK8Xeru=RsvGuJCVOfEaWVfCe9+t4MP+qZjcKSiqtEWW_bNQ@mail.gmail.com>
-Subject: Re: Kernel oops error
-To: Yong Li <yong.b.li@linux.intel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <CACPK8XcFMMippVPMuNvv_JnJjX4BTreNy28Ue01JSaiQSUNoQQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 18010217-2213-0000-0000-00000252B145
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00008306; HX=3.00000241; KW=3.00000007;
+ PH=3.00000004; SC=3.00000244; SDB=6.00969245; UDB=6.00490780; IPR=6.00749220; 
+ BA=6.00005764; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00018833; XFM=3.00000015;
+ UTC=2018-01-02 17:24:40
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18010217-2214-0000-0000-0000589CB781
+Message-Id: <1a83aebf-5cde-9d4e-db6d-b48b80ea61be@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2018-01-02_13:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1709140000
+ definitions=main-1801020251
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.24
 Precedence: list
@@ -63,188 +83,229 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 02 Jan 2018 11:03:14 -0000
+X-List-Received-Date: Tue, 02 Jan 2018 17:24:44 -0000
 
-Hello Yong,
 
-On Tue, Dec 26, 2017 at 12:26 PM, Yong Li <yong.b.li@linux.intel.com> wrote:
-> Sometimes I received the below error message when reboot the ast2500(With
-> the latest kernel version). Does anyone have the similar issue? How to
-> narrow down such problem?
 
-I haven't seen this one before. Do you have any other information
-about what was happening at the time of the crash? Is it reproducible?
+On 12/19/2017 09:06 PM, Joel Stanley wrote:
+> On Wed, Dec 20, 2017 at 1:27 PM, Joel Stanley <joel@jms.id.au> wrote:
+>> On Tue, Dec 19, 2017 at 6:43 AM, Eddie James <eajames@linux.vnet.ibm.com> wrote:
+>>> From: "Edward A. James" <eajames@us.ibm.com>
+>>>
+>>> Some systems are experiencing scheduling problems; mod_timer can take up
+>>> to several seconds before the timer_function is executed, even if passed
+>>> the current jiffies.
+>> How did you work out that the timer wasn't firing?
+>>
+>> Can you describe the other tests you have done?
+>>
+>> It's not recommended to paper over something going wrong by changing
+>> over to a workqueue.
+> Nick pointed me to this fix, which was merged in 4.13:
+>
+>   2fe59f507a6 ("timers: Fix excessive granularity of new timers after a
+> nohz idle")
+>
+> Can you cherry pick that into your tree and report the numbers that
+> you see before and after the patch?
 
-Are you applying any extra patches in your yocto tree to this kernel?
+Just tried the fix out. I didn't see any difference unfortunately. I 
+still get at least 250ms between calling mod_timer and the timer 
+function starting. Just measuring with ftrace.
 
-Cheers,
+Thanks for the suggestion. It's possible the IPMI latency improved with 
+the patch, but I don't know how to test that part.
 
-Joel
+Thanks,
+Eddie
 
 >
->
->
-> [  472.770000] Unable to handle kernel NULL pointer dereference at virtual
-> address 00000000
->
-> [  472.770000] pgd = 80004000
->
-> [  472.770000] [00000000] *pgd=00000000
->
-> [  472.770000] Internal error: Oops: 80000007 [#1] ARM
->
-> [  472.770000] CPU: 0 PID: 946 Comm: klogd Not tainted
-> 4.10.17-7422acad49264653b7895c252806a8074e1029c7 #2
->
-> [  472.770000] Hardware name: ASpeed SoC
->
-> [  472.770000] task: 9d1cb000 task.stack: 9d40a000
->
-> [  472.770000] PC is at 0x0
->
-> [  472.770000] LR is at __wake_up_common+0x60/0x9c
->
-> [  472.770000] pc : [<00000000>]    lr : [<80040e0c>]    psr: 20000093
->
-> [  472.770000] sp : 9d40bd00  ip : 9d0bfff4  fp : 9d40bd34
->
-> [  472.770000] r10: 00000001  r9 : 00000000  r8 : 00000000
->
-> [  472.770000] r7 : 9d4ab8e0  r6 : 00000000  r5 : 00000000  r4 : fffffff4
->
-> [  472.770000] r3 : 00000000  r2 : 00000000  r1 : 00000001  r0 : 9d0bfff4
->
-> [  472.770000] Flags: nzCv  IRQs off  FIQs on  Mode SVC_32  ISA ARM  Segment
-> user
->
-> [  472.770000] Control: 00c5387d  Table: 9cb28008  DAC: 00000055
->
-> [  472.770000] Process klogd (pid: 946, stack limit = 0x9d40a188)
->
-> [  472.770000] Stack: (0x9d40bd00 to 0x9d40c000)
->
-> [  472.770000] bd00: 800e01d8 00000000 9d40bd2c 20000013 9d1a8900 00000001
-> 9d1a8990 9d40bd68
->
-> [  472.770000] bd20: 9d1a8990 00000008 9d40bd54 9d40bd38 800410b8 80040db8
-> 00000000 9d40bd48
->
-> [  472.770000] bd40: 800410b8 9d1a86c0 9d40bd64 9d40bd58 80337934 80041094
-> 9d40bd94 9d40bd68
->
-> [  472.770000] bd60: 803d0394 80337904 00000000 00000000 9e37a2e0 9e37a300
-> 9e3ab048 9e41e570
->
-> [  472.770000] bd80: 00000000 9e37a300 9d40bdac 9d40bd98 803d0438 803d01d0
-> 9e37a2e0 9e37a300
->
-> [  472.770000] bda0: 9d40bdc4 9d40bdb0 80335388 803d0418 9c9facc0 9e37a300
-> 9d40bdd4 9d40bdc8
->
-> [  472.770000] bdc0: 80335418 80335368 9d40be14 9d40bdd8 800e810c 80335408
-> 00000000 00000000
->
-> [  472.770000] bde0: 9e4bb980 9c9facc8 9d12d040 9d1cb2e0 9d1cb000 00000000
-> 80659e80 9c9faa40
->
-> [  472.770000] be00: 9d12d074 00010600 9d40be24 9d40be18 800e82a4 800e8084
-> 9d40be4c 9d40be28
->
-> [  472.770000] be20: 80031f2c 800e8298 9d1cb000 00000000 ffffe000 9d12d040
-> 00000000 9d12d074
->
-> [  472.770000] be40: 9d40be6c 9d40be50 8001b398 80031ebc 0000000f 00000000
-> 9d40beac 0000000f
->
-> [  472.770000] be60: 9d40be84 9d40be70 8001ba9c 8001b124 00000000 4b24ca30
-> 9d40bec4 9d40be88
->
-> [  472.770000] be80: 800254f0 8001ba5c 9d40bec8 9d1f4ac0 9ca2f540 9d40a000
-> 9d40a000 9d40bfb0
->
-> [  472.770000] bea0: 4b24ca30 9d40bec8 00000000 4b24ca34 9d40a000 00000000
-> 9d40bf8c 9d40bec8
->
-> [  472.770000] bec0: 8000ccf0 800252e8 9d40bef4 9d40bed8 80024954 80024870
-> 9d40a000 0000000f
->
-> [  472.770000] bee0: 00000000 fffffffa 000003b2 00000000 00000000 00000000
-> 00000000 00000000
->
-> [  472.770000] bf00: 00000000 00000000 00000000 00000000 00000000 00000000
-> 00000000 00000000
->
-> [  472.770000] bf20: 00000000 00000000 00000000 00000000 00000000 00000000
-> 00000000 00000000
->
-> [  472.770000] bf40: 00000000 00000000 00000000 00000000 00000000 00000000
-> 00000000 80025a30
->
-> [  472.770000] bf60: 00000000 9d40a000 8000a6e4 9d40bfb0 000000af 8000a6e4
-> 9d40a000 00000000
->
-> [  472.770000] bf80: 9d40bfac 9d40bf90 8000d1d4 8000cc28 00000000 7ed07b90
-> 000aed68 000000af
->
-> [  472.770000] bfa0: 00000000 9d40bfb0 8000a58c 8000d134 00000000 7ed07b90
-> 00000000 00000008
->
-> [  472.770000] bfc0: 00000000 7ed07b90 000aed68 000000af 0000000a 00000000
-> 000b0d70 0000000f
->
-> [  472.770000] bfe0: 00000020 7ed07b90 ffffffff 4b24ca34 00000010 00000002
-> 00000000 00000000
->
-> [  472.770000] [<80040e0c>] (__wake_up_common) from [<800410b8>]
-> (__wake_up+0x30/0x3c)
->
-> [  472.770000] [<800410b8>] (__wake_up) from [<80337934>]
-> (sock_def_wakeup+0x3c/0x40)
->
-> [  472.770000] [<80337934>] (sock_def_wakeup) from [<803d0394>]
-> (unix_release_sock+0x1d0/0x248) // 0x803378f8+0x1d0=0x80337AC8
->
-> [  472.770000] [<803d0394>] (unix_release_sock) from [<803d0438>]
-> (unix_release+0x2c/0x3c)
->
-> [  472.770000] [<803d0438>] (unix_release) from [<80335388>]
-> (sock_release+0x2c/0xa0)
->
-> [  472.770000] [<80335388>] (sock_release) from [<80335418>]
-> (sock_close+0x1c/0x24)
->
-> [  472.770000] [<80335418>] (sock_close) from [<800e810c>]
-> (__fput+0x94/0x1c4)
->
-> [  472.770000] [<800e810c>] (__fput) from [<800e82a4>] (____fput+0x18/0x1c)
->
-> [  472.770000] [<800e82a4>] (____fput) from [<80031f2c>]
-> (task_work_run+0x7c/0xa0)
->
-> [  472.770000] [<80031f2c>] (task_work_run) from [<8001b398>]
-> (do_exit+0x280/0x8e8)
->
-> [  472.770000] [<8001b398>] (do_exit) from [<8001ba9c>]
-> (do_group_exit+0x4c/0xb4)
->
-> [  472.770000] [<8001ba9c>] (do_group_exit) from [<800254f0>]
-> (get_signal+0x214/0x580)
->
-> [  472.770000] [<800254f0>] (get_signal) from [<8000ccf0>]
-> (do_signal+0xd4/0x3dc)
->
-> [  472.770000] [<8000ccf0>] (do_signal) from [<8000d1d4>]
-> (do_work_pending+0xac/0xbc)
->
-> [  472.770000] [<8000d1d4>] (do_work_pending) from [<8000a58c>]
-> (slow_work_pending+0xc/0x20)
->
-> [  472.770000] Code: bad PC value
->
->
->
-> Thanks,
->
-> Yong
->
->
+>>> Work around this by using sbefifo's own workqueue.
+>>>
+>>> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+>>> ---
+>>>   drivers/fsi/fsi-sbefifo.c | 54 ++++++++++++++++++++++++++++-------------------
+>>>   1 file changed, 32 insertions(+), 22 deletions(-)
+>>>
+>>> diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
+>>> index 0697a10..7b6842a 100644
+>>> --- a/drivers/fsi/fsi-sbefifo.c
+>>> +++ b/drivers/fsi/fsi-sbefifo.c
+>>> @@ -29,9 +29,9 @@
+>>>   #include <linux/sched.h>
+>>>   #include <linux/slab.h>
+>>>   #include <linux/spinlock.h>
+>>> -#include <linux/timer.h>
+>>>   #include <linux/uaccess.h>
+>>>   #include <linux/wait.h>
+>>> +#include <linux/workqueue.h>
+>>>
+>>>   /*
+>>>    * The SBEFIFO is a pipe-like FSI device for communicating with
+>>> @@ -57,7 +57,7 @@
+>>>   #define SBEFIFO_MAX_RESCHDULE  msecs_to_jiffies(5000)
+>>>
+>>>   struct sbefifo {
+>>> -       struct timer_list poll_timer;
+>>> +       struct delayed_work work;
+>>>          struct fsi_device *fsi_dev;
+>>>          struct miscdevice mdev;
+>>>          wait_queue_head_t wait;
+>>> @@ -99,6 +99,8 @@ struct sbefifo_client {
+>>>          unsigned long f_flags;
+>>>   };
+>>>
+>>> +static struct workqueue_struct *sbefifo_wq;
+>>> +
+>>>   static DEFINE_IDA(sbefifo_ida);
+>>>
+>>>   static int sbefifo_inw(struct sbefifo *sbefifo, int reg, u32 *word)
+>>> @@ -337,7 +339,7 @@ static void sbefifo_client_release(struct kref *kref)
+>>>                           */
+>>>                          set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
+>>>                          sbefifo_get(sbefifo);
+>>> -                       if (mod_timer(&client->dev->poll_timer, jiffies))
+>>> +                       if (!queue_work(sbefifo_wq, &sbefifo->work.work))
+>>>                                  sbefifo_put(sbefifo);
+>>>                  }
+>>>          }
+>>> @@ -374,10 +376,11 @@ static struct sbefifo_xfr *sbefifo_next_xfr(struct sbefifo *sbefifo)
+>>>          return NULL;
+>>>   }
+>>>
+>>> -static void sbefifo_poll_timer(unsigned long data)
+>>> +static void sbefifo_worker(struct work_struct *work)
+>>>   {
+>>>          static const unsigned long EOT_MASK = 0x000000ff;
+>>> -       struct sbefifo *sbefifo = (void *)data;
+>>> +       struct delayed_work *dwork = to_delayed_work(work);
+>>> +       struct sbefifo *sbefifo = container_of(dwork, struct sbefifo, work);
+>>>          struct sbefifo_buf *rbuf, *wbuf;
+>>>          struct sbefifo_xfr *xfr, *tmp;
+>>>          struct sbefifo_buf drain;
+>>> @@ -393,6 +396,7 @@ static void sbefifo_poll_timer(unsigned long data)
+>>>          if (!xfr)
+>>>                  goto out_unlock;
+>>>
+>>> +again:
+>>>          rbuf = xfr->rbuf;
+>>>          wbuf = xfr->wbuf;
+>>>
+>>> @@ -414,9 +418,8 @@ static void sbefifo_poll_timer(unsigned long data)
+>>>                  devn = sbefifo_dev_nwwriteable(sts);
+>>>                  if (devn == 0) {
+>>>                          /* No open slot for write.  Reschedule. */
+>>> -                       sbefifo->poll_timer.expires = jiffies +
+>>> -                               SBEFIFO_RESCHEDULE;
+>>> -                       add_timer(&sbefifo->poll_timer);
+>>> +                       queue_delayed_work(sbefifo_wq, &sbefifo->work,
+>>> +                                          SBEFIFO_RESCHEDULE);
+>>>                          goto out_unlock;
+>>>                  }
+>>>
+>>> @@ -468,9 +471,8 @@ static void sbefifo_poll_timer(unsigned long data)
+>>>                          }
+>>>
+>>>                          /* No data yet.  Reschedule. */
+>>> -                       sbefifo->poll_timer.expires = jiffies +
+>>> -                               SBEFIFO_RESCHEDULE;
+>>> -                       add_timer(&sbefifo->poll_timer);
+>>> +                       queue_delayed_work(sbefifo_wq, &sbefifo->work,
+>>> +                                          SBEFIFO_RESCHEDULE);
+>>>                          goto out_unlock;
+>>>                  } else {
+>>>                          xfr->wait_data_timeout = 0;
+>>> @@ -516,10 +518,12 @@ static void sbefifo_poll_timer(unsigned long data)
+>>>                  }
+>>>                  INIT_LIST_HEAD(&sbefifo->xfrs);
+>>>
+>>> -       } else if (eot && sbefifo_next_xfr(sbefifo)) {
+>>> -               sbefifo_get(sbefifo);
+>>> -               sbefifo->poll_timer.expires = jiffies;
+>>> -               add_timer(&sbefifo->poll_timer);
+>>> +       } else if (eot) {
+>>> +               xfr = sbefifo_next_xfr(sbefifo);
+>>> +               if (xfr) {
+>>> +                       wake_up_interruptible(&sbefifo->wait);
+>>> +                       goto again;
+>>> +               }
+>>>          }
+>>>
+>>>          sbefifo_put(sbefifo);
+>>> @@ -638,7 +642,7 @@ static ssize_t sbefifo_read_common(struct sbefifo_client *client,
+>>>                           * Fill the read buffer back up.
+>>>                           */
+>>>                          sbefifo_get(sbefifo);
+>>> -                       if (mod_timer(&client->dev->poll_timer, jiffies))
+>>> +                       if (!queue_work(sbefifo_wq, &sbefifo->work.work))
+>>>                                  sbefifo_put(sbefifo);
+>>>                  } else {
+>>>                          list_del(&xfr->client);
+>>> @@ -721,7 +725,7 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
+>>>                                                                   &n))) {
+>>>                          set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
+>>>                          sbefifo_get(sbefifo);
+>>> -                       if (mod_timer(&sbefifo->poll_timer, jiffies))
+>>> +                       if (!queue_work(sbefifo_wq, &sbefifo->work.work))
+>>>                                  sbefifo_put(sbefifo);
+>>>
+>>>                          ret = -ERESTARTSYS;
+>>> @@ -741,7 +745,8 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
+>>>                              n)) {
+>>>                                  set_bit(SBEFIFO_XFR_CANCEL, &xfr->flags);
+>>>                                  sbefifo_get(sbefifo);
+>>> -                               if (mod_timer(&sbefifo->poll_timer, jiffies))
+>>> +                               if (!queue_work(sbefifo_wq,
+>>> +                                               &sbefifo->work.work))
+>>>                                          sbefifo_put(sbefifo);
+>>>                                  ret = -EFAULT;
+>>>                                  goto out;
+>>> @@ -768,7 +773,7 @@ static ssize_t sbefifo_write_common(struct sbefifo_client *client,
+>>>                   * Drain the write buffer.
+>>>                   */
+>>>                  sbefifo_get(sbefifo);
+>>> -               if (mod_timer(&client->dev->poll_timer, jiffies))
+>>> +               if (!queue_work(sbefifo_wq, &sbefifo->work.work))
+>>>                          sbefifo_put(sbefifo);
+>>>          }
+>>>
+>>> @@ -928,8 +933,7 @@ static int sbefifo_probe(struct device *dev)
+>>>                   sbefifo->idx);
+>>>
+>>>          /* This bit of silicon doesn't offer any interrupts... */
+>>> -       setup_timer(&sbefifo->poll_timer, sbefifo_poll_timer,
+>>> -                   (unsigned long)sbefifo);
+>>> +       INIT_DELAYED_WORK(&sbefifo->work, sbefifo_worker);
+>>>
+>>>          sbefifo->mdev.minor = MISC_DYNAMIC_MINOR;
+>>>          sbefifo->mdev.fops = &sbefifo_fops;
+>>> @@ -982,7 +986,7 @@ static int sbefifo_remove(struct device *dev)
+>>>
+>>>          ida_simple_remove(&sbefifo_ida, sbefifo->idx);
+>>>
+>>> -       if (del_timer_sync(&sbefifo->poll_timer))
+>>> +       if (cancel_delayed_work_sync(&sbefifo->work))
+>>>                  sbefifo_put(sbefifo);
+>>>
+>>>          sbefifo_put(sbefifo);
+>>> @@ -1010,11 +1014,17 @@ static int sbefifo_remove(struct device *dev)
+>>>
+>>>   static int sbefifo_init(void)
+>>>   {
+>>> +       sbefifo_wq = create_singlethread_workqueue("sbefifo");
+>>> +       if (!sbefifo_wq)
+>>> +               return -ENOMEM;
+>>> +
+>>>          return fsi_driver_register(&sbefifo_drv);
+>>>   }
+>>>
+>>>   static void sbefifo_exit(void)
+>>>   {
+>>> +       destroy_workqueue(sbefifo_wq);
+>>> +
+>>>          fsi_driver_unregister(&sbefifo_drv);
+>>>
+>>>          ida_destroy(&sbefifo_ida);
+>>> --
+>>> 1.8.3.1
+>>>
